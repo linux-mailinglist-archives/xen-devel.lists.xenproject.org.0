@@ -2,33 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 34F078B374D
-	for <lists+xen-devel@lfdr.de>; Fri, 26 Apr 2024 14:32:56 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.712760.1113580 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E659E8B374E
+	for <lists+xen-devel@lfdr.de>; Fri, 26 Apr 2024 14:33:05 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.712762.1113590 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s0KkU-0003hn-Kr; Fri, 26 Apr 2024 12:32:18 +0000
+	id 1s0Kl1-00048i-Tt; Fri, 26 Apr 2024 12:32:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 712760.1113580; Fri, 26 Apr 2024 12:32:18 +0000
+Received: by outflank-mailman (output) from mailman id 712762.1113590; Fri, 26 Apr 2024 12:32:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s0KkU-0003fV-Hs; Fri, 26 Apr 2024 12:32:18 +0000
-Received: by outflank-mailman (input) for mailman id 712760;
- Fri, 26 Apr 2024 12:32:17 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=1vyS=L7=linaro.org=jens.wiklander@srs-se1.protection.inumbo.net>)
- id 1s0KkT-0003fP-Kw
- for xen-devel@lists.xenproject.org; Fri, 26 Apr 2024 12:32:17 +0000
-Received: from mail-ot1-x32f.google.com (mail-ot1-x32f.google.com
- [2607:f8b0:4864:20::32f])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 03231615-03c9-11ef-b4bb-af5377834399;
- Fri, 26 Apr 2024 14:32:15 +0200 (CEST)
-Received: by mail-ot1-x32f.google.com with SMTP id
- 46e09a7af769-6ea2436de79so1089944a34.1
- for <xen-devel@lists.xenproject.org>; Fri, 26 Apr 2024 05:32:15 -0700 (PDT)
+	id 1s0Kl1-00046A-Qm; Fri, 26 Apr 2024 12:32:51 +0000
+Received: by outflank-mailman (input) for mailman id 712762;
+ Fri, 26 Apr 2024 12:32:50 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=lj3M=L7=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1s0Kl0-00045u-06
+ for xen-devel@lists.xenproject.org; Fri, 26 Apr 2024 12:32:50 +0000
+Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com
+ [2a00:1450:4864:20::52e])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 1767ca0b-03c9-11ef-909a-e314d9c70b13;
+ Fri, 26 Apr 2024 14:32:48 +0200 (CEST)
+Received: by mail-ed1-x52e.google.com with SMTP id
+ 4fb4d7f45d1cf-572229f196bso2607108a12.0
+ for <xen-devel@lists.xenproject.org>; Fri, 26 Apr 2024 05:32:48 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 16-20020a170906319000b00a5544063372sm10574896ejy.162.2024.04.26.05.32.47
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 26 Apr 2024 05:32:48 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,161 +45,157 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 03231615-03c9-11ef-b4bb-af5377834399
+X-Inumbo-ID: 1767ca0b-03c9-11ef-909a-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1714134734; x=1714739534; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=o1QetCPp9ikJfkn1ZPBghUc/DQ/UVrEXssGiZ0sqglU=;
-        b=bWhw4DWGDFGmfjJO95/anR9oLYqf6O620S0gDKSUxLzj90iYpAGnm+w/r/HLt3arUC
-         9/pIj4F/F7v3AkREl+RolpuKADVxK1HXpooKa27zMYzS0UCm1Ngx6JUEZmCGXtcGyeDB
-         7IB9xHEJiUuvB61YY1Sb38CTL2uVrKqWuquZCWMxZ3qiCn6HHtvQWneWJQAgAGTWUDot
-         Y1CIrBvTIHGeBLrI1v4Kca/5pyOtpv9AnmsbaU8fwlrG3lN6TumUF8xcL3sE8mQYjY/K
-         jk9008HVPfQOt0I6HKKZZ7TphAIj/NnCmX0YKEItVOw4d+1b2YkgPrq7y1W5luX/Jnks
-         b6iw==
+        d=suse.com; s=google; t=1714134768; x=1714739568; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=mjfQilT6ESuU80FQRco/TRep7F2BwjAaQhB4SaPyup4=;
+        b=I4ziyxvH0oOfqpoNDodLo+ci3MGrxVKN69rnGvxCWfEqvniGa8ZTdRi1y5D1Ie/a5G
+         zxU4cdSTnM5JTsMMto1HBSpmAC4ymGqgxwOFFOfW/AOx6mOC4slyEGp2ID0ikhWpGOaU
+         bt2X86S6GLZfqUGvOqLbWkGRfeRjd3EkbUAFhwg2sBSjJb5FbbsEW4aIhTPM30ASHthp
+         stpPda1b6Mk0H6fhXFxgiMMGbLP26vkwalsy8YeWgaYMtmoEusFzkoJvARwS0UblffCS
+         qGNadTW1EcK6c5UmMsbTzQAwZQISaqhxRUfHL36UMKLQOcfeDVwYH0ArgUhlwpfXSv3z
+         2vBA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1714134734; x=1714739534;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=o1QetCPp9ikJfkn1ZPBghUc/DQ/UVrEXssGiZ0sqglU=;
-        b=kVvWZIWbJuxxPDW5rBa3OCt0LspogK6O9dZjBOn6TZ1Vf9VNU0qMhb8JS52q+2Mrb/
-         SaSVmsnZsZdOb2WEBaL2+YCHWrU1KRSAAs9YGqMJNt+eS44ipqdZbHfcAiKtXJwIvfio
-         UH/hHotq2YxsBrjXy94QffsByFu0uMW8BCKw8UHJvOBPkl+PFKxjSF7SjluYw0QtI0iJ
-         j1hklEYhFLP0aYbkO4OccHDLJLwmLfvrEglPG3NXjJIegMXC/79Uo3st4WlYRWJ8knFn
-         bBvd297FXnG73Nt8KTVUuEoQOy2H9RqtmmJgd5l0LxJIQikQ2UVr/DzP+UNxtXWb/qWb
-         NODw==
-X-Gm-Message-State: AOJu0YzoSKZmAc0ak5c5NIICvRM9ZZ3uxiE7L913HdEtiLvGKUz5b0EQ
-	/nxv5cIsdurkugcsWtSOoIuPycAEr+WjMYlR8pP/0M9JjkXWS8qAPG797WpHUDJAnWE9p1K1N9G
-	9DX4d6/mZfHO2WD+ItukvSVjvzRlBPxojyFTuhw==
-X-Google-Smtp-Source: AGHT+IH7RFi/3ghPY9kMWajdXO0u9pz+Oz4GZGzS8jYK0zywJuKCV9V04OcwVbI8ZYvG+0d1s/pKjsqKzPnUmvRNq68=
-X-Received: by 2002:a05:6870:b003:b0:22e:d2b2:25fe with SMTP id
- y3-20020a056870b00300b0022ed2b225femr2386075oae.1.1714134734080; Fri, 26 Apr
- 2024 05:32:14 -0700 (PDT)
+        d=1e100.net; s=20230601; t=1714134768; x=1714739568;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=mjfQilT6ESuU80FQRco/TRep7F2BwjAaQhB4SaPyup4=;
+        b=T8OHFSG1tLKzBKAgLAR0vlFRY6At5E2NlxkZghwaPBIGc2RvcsU/BadQb/wooKQGwq
+         NoeuNvtAogOIZeG7JNlTd7d4ZDYpc/CXcOKhbkRKJsvCv4LtZju3yC0ZtMm1WawY6Le7
+         +Clu2Q/4ysQ/VCb3jFJs1/NTPJRn5rv7Vl82QBGr1n71N0DgAV/ZURyx2dnPtIEnforq
+         NkIPOAbfLcH1FSaygsYlOfJnOox8NfkVaxEmShQEm8CpFLXiUPskg53oRdgFAy/9tIdj
+         1MJYB3NIitCSPe/EtIX8nTZ/UtFM8WVsjXiV7p3XCnGkjsCNWwkkG88shO2CE65nNLsr
+         Wjow==
+X-Forwarded-Encrypted: i=1; AJvYcCVHKYsYRFF0zULzQlydEkHCzIhniQT/9Nt0kBrbfpxAg55ELP1f7Lg9zrj60NEx400y7s0B8YtkETLASJmq9nMhegeACso6SDoPysmYg+k=
+X-Gm-Message-State: AOJu0Yw7pvrkgi9e31VzXxfKADyUSsWF5r3JRo6fZ6sNdTTPiEOZ9Q9l
+	XAiMn0Y04ZXhoaAEeQ4R0neX5OZQKMaZ9twDxKtVsWp7cG0gvJSoWfsZIJDsgA==
+X-Google-Smtp-Source: AGHT+IE8FVL0rn1RafIM0LgDvX9yHWanV17Nw3bHP+SSYhPEDslnCL+LYezHYU3a/G0PSOYmh0VLIA==
+X-Received: by 2002:a17:906:3e0c:b0:a55:6407:c0c7 with SMTP id k12-20020a1709063e0c00b00a556407c0c7mr1583682eji.17.1714134768344;
+        Fri, 26 Apr 2024 05:32:48 -0700 (PDT)
+Message-ID: <045f4fa3-cd1b-441d-9246-0c1528679cac@suse.com>
+Date: Fri, 26 Apr 2024 14:32:47 +0200
 MIME-Version: 1.0
-References: <20240426084723.4149648-1-jens.wiklander@linaro.org>
- <20240426084723.4149648-6-jens.wiklander@linaro.org> <A0908DCC-6E15-406B-8E29-F241B6EA8BE1@arm.com>
- <CAHUa44ETaCY2pbUjMOW5T2NSpmRCq3sWMjLUbK0DC2jpQxHJRQ@mail.gmail.com> <3A576E95-454B-4C66-A164-A2871DB4E2B2@arm.com>
-In-Reply-To: <3A576E95-454B-4C66-A164-A2871DB4E2B2@arm.com>
-From: Jens Wiklander <jens.wiklander@linaro.org>
-Date: Fri, 26 Apr 2024 14:32:02 +0200
-Message-ID: <CAHUa44EC_H7Q_A2M63dZnEGGNanyjGM6m2MuBg4_6BNEO-XDKA@mail.gmail.com>
-Subject: Re: [XEN PATCH v3 5/5] xen/arm: ffa: support notification
-To: Bertrand Marquis <Bertrand.Marquis@arm.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>, 
-	"patches@linaro.org" <patches@linaro.org>, Stefano Stabellini <sstabellini@kernel.org>, 
-	Julien Grall <julien@xen.org>, Michal Orzel <michal.orzel@amd.com>, 
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v8 03/17] xen/bitops: implement fls{l}() in common logic
+Content-Language: en-US
+To: Oleksii <oleksii.kurochko@gmail.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+ <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>,
+ Shawn Anastasio <sanastasio@raptorengineering.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ xen-devel@lists.xenproject.org
+References: <cover.1713347222.git.oleksii.kurochko@gmail.com>
+ <60bc710b990ed1d45741888df7e97cf25d150e61.1713347222.git.oleksii.kurochko@gmail.com>
+ <a6245e9e-a156-4b17-8695-e072915fe78b@suse.com>
+ <fb1a228b1bd58d17d7836c3413d3b0a8a9602978.camel@gmail.com>
+ <d1f546dc-35bd-47f9-89be-582660d23ec1@suse.com>
+ <17f0b05b2f2da1b13e8ca3ab4e20b210aa0f8480.camel@gmail.com>
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <17f0b05b2f2da1b13e8ca3ab4e20b210aa0f8480.camel@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hi Bertrand,
+On 26.04.2024 14:09, Oleksii wrote:
+> On Fri, 2024-04-26 at 12:51 +0200, Jan Beulich wrote:
+>> On 26.04.2024 10:21, Oleksii wrote:
+>>> On Thu, 2024-04-25 at 17:44 +0200, Jan Beulich wrote:
+>>>> On 17.04.2024 12:04, Oleksii Kurochko wrote:
+>>>>> Return type was left 'int' because of the following compilation
+>>>>> error:
+>>>>>
+>>>>> ./include/xen/kernel.h:18:21: error: comparison of distinct
+>>>>> pointer
+>>>>> types lacks a cast [-Werror]
+>>>>>        18 |         (void) (&_x == &_y);            \
+>>>>>           |                     ^~
+>>>>>     common/page_alloc.c:1843:34: note: in expansion of macro
+>>>>> 'min'
+>>>>>      1843 |         unsigned int inc_order = min(MAX_ORDER,
+>>>>> flsl(e
+>>>>> - s) - 1);
+>>>>
+>>>> Apart from this I'm okay with this patch, assuming Andrew's won't
+>>>> change in
+>>>> any conflicting way. As to the above - no, I don't see us having
+>>>> ffs() / ffsl()
+>>>> returning unsigned int, fls() / flsl() returning plain int. Even
+>>>> more
+>>>> so that,
+>>>> given the LHS variable's type, an unsigned quantity is really
+>>>> meant
+>>>> in the
+>>>> quoted code.
+>>> If I understand you correctly, it's acceptable for fls() / flsl()
+>>> to
+>>> return 'int'. Therefore, I can update the commit message by
+>>> removing
+>>> the part mentioning the compilation error, as it's expected for
+>>> fls() /
+>>> flsl() to return 'int'. Is my understanding correct?
+>>
+>> No. I firmly object to ffs() and fls() being different in their
+>> return
+>> types. I'm sorry, I realize now that my earlier wording was ambiguous
+>> (at least missing "but" after the comma).
+> Thanks for clarifying.
+> 
+> I can change return type of fls() / flsl() to 'unsingned int' to be the
+> same as return type of ffs() / ffsl(), but then it will be needed to
+> add a cast in two places:
 
-On Fri, Apr 26, 2024 at 2:19=E2=80=AFPM Bertrand Marquis
-<Bertrand.Marquis@arm.com> wrote:
->
-> Hi Jens,
->
-> > On 26 Apr 2024, at 14:11, Jens Wiklander <jens.wiklander@linaro.org> wr=
-ote:
-> >
-> > Hi Bertrand,
-> >
-> > On Fri, Apr 26, 2024 at 11:20=E2=80=AFAM Bertrand Marquis
-> > <Bertrand.Marquis@arm.com> wrote:
-> >>
-> >> Hi Jens,
-> >>
-> >>> On 26 Apr 2024, at 10:47, Jens Wiklander <jens.wiklander@linaro.org> =
-wrote:
-> >>>
-[...]
-> >>> +struct notif_irq_info {
-> >>> +    unsigned int irq;
-> >>> +    int ret;
-> >>> +    struct irqaction *action;
-> >>> +};
-> >>> +
-> >>> +static void notif_irq_enable(void *info)
-> >>> +{
-> >>> +    struct notif_irq_info *irq_info =3D info;
-> >>> +
-> >>> +    irq_info->ret =3D setup_irq(irq_info->irq, 0, irq_info->action);
-> >>> +    if ( irq_info->ret )
-> >>> +        printk(XENLOG_ERR "ffa: request_irq irq %u failed: error %d\=
-n",
-> >>> +               irq_info->irq, irq_info->ret);
-> >>> +}
-> >>> +
-> >>> +void ffa_notif_init(void)
-> >>> +{
-> >>> +    const struct arm_smccc_1_2_regs arg =3D {
-> >>> +        .a0 =3D FFA_FEATURES,
-> >>> +        .a1 =3D FFA_FEATURE_SCHEDULE_RECV_INTR,
-> >>> +    };
-> >>> +    struct notif_irq_info irq_info =3D { };
-> >>> +    struct arm_smccc_1_2_regs resp;
-> >>> +    unsigned int cpu;
-> >>> +
-> >>> +    arm_smccc_1_2_smc(&arg, &resp);
-> >>> +    if ( resp.a0 !=3D FFA_SUCCESS_32 )
-> >>> +        return;
-> >>> +
-> >>> +    irq_info.irq =3D resp.a2;
-> >>> +    if ( irq_info.irq < GIC_SGI_STATIC_MAX || irq_info.irq >=3D NR_G=
-IC_SGI )
-> >>> +    {
-> >>> +        printk(XENLOG_ERR "ffa: notification initialization failed: =
-conflicting SGI %u\n",
-> >>> +               irq_info.irq);
-> >>> +        return;
-> >>> +    }
-> >>> +
-> >>> +    /*
-> >>> +     * SGIs are per-CPU so we must enable the IRQ on each CPU. We us=
-e an
-> >>> +     * IPI to call notif_irq_enable() on each CPU including the curr=
-ent
-> >>> +     * CPU. The struct irqaction is preallocated since we can't allo=
-cate
-> >>> +     * memory while in interrupt context.
-> >>> +     */
-> >>> +    for_each_online_cpu(cpu)
-> >>> +    {
-> >>> +        irq_info.action =3D xmalloc(struct irqaction);
-> >>
-> >> You allocate one action per cpu but you have only one action pointer i=
-n your structure
-> >> which means you will overload the previously allocated one and lose tr=
-ack.
-> >>
-> >> You should have a table of actions in your structure instead unless on=
-e action is
-> >> enough and can be reused on all cpus and in this case you should move =
-out of
-> >> your loop the allocation part.
-> >
-> > That shouldn't be needed because this is done in sequence only one CPU
-> > at a time.
->
-> Sorry i do not understand here.
-> You have a loop over each online cpu and on each loop you are assigning
-> irq_info.action with a newly allocated struct irqaction so you are in pra=
-ctice
-> overloading on cpu 2 the action that was allocated for cpu 1.
->
-> What do you mean by sequence here ?
->
+Except that no, it doesn't really need casts there.
 
-My understanding is that for_each_online_cpu(cpu) loops over each cpu,
-one at a time. The call
-on_selected_cpus(cpumask_of(cpu), notif_irq_enable, &irq_info, 1);
-returns after notif_irq_enable() has returned on the CPU in question
-thanks to the "1" (wait) parameter. So once it has returned &irq_info
-isn't used by the other CPU any longer and we can assign a new value
-to irq_info.action.
+>    --- a/xen/common/page_alloc.c
+>    +++ b/xen/common/page_alloc.c
+>    @@ -1842,7 +1842,7 @@ static void _init_heap_pages(const struct
+>    page_info *pg,
+>              * Note that the value of ffsl() and flsl() starts from 1
+>    so we need
+>              * to decrement it by 1.
+>              */
+>    -        unsigned int inc_order = min(MAX_ORDER, flsl(e - s) - 1);
+>    +        unsigned int inc_order = min((unsigned int)MAX_ORDER,
+>    flsl(e - s) - 1);
 
-Thanks,
-Jens
+The preferred course of action would want to be to simply make MAX_ORDER
+expand to an unsigned constant. Depending on the amount of fallout, an
+alternative would be to use _AC(MAX_ORDER, U) here. Yet another
+alternative would be to use MAX_ORDER + 0U here, as iirc we do in a few
+other places, for similar purposes.
+
+Avoiding a cast here is not only shorter, but - see statements elsewhere -
+generally preferable.
+
+Jan
 
