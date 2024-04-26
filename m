@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6ADA48B406B
-	for <lists+xen-devel@lfdr.de>; Fri, 26 Apr 2024 21:50:46 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.713109.1114119 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 36D748B4119
+	for <lists+xen-devel@lfdr.de>; Fri, 26 Apr 2024 23:29:39 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.713126.1114130 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s0Raa-000434-NJ; Fri, 26 Apr 2024 19:50:32 +0000
+	id 1s0T7L-0002DW-HB; Fri, 26 Apr 2024 21:28:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 713109.1114119; Fri, 26 Apr 2024 19:50:32 +0000
+Received: by outflank-mailman (output) from mailman id 713126.1114130; Fri, 26 Apr 2024 21:28:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s0Raa-00040z-Ki; Fri, 26 Apr 2024 19:50:32 +0000
-Received: by outflank-mailman (input) for mailman id 713109;
- Fri, 26 Apr 2024 19:50:31 +0000
+	id 1s0T7L-0002Au-E5; Fri, 26 Apr 2024 21:28:27 +0000
+Received: by outflank-mailman (input) for mailman id 713126;
+ Fri, 26 Apr 2024 21:28:26 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=eUo+=L7=aepfle.de=olaf@srs-se1.protection.inumbo.net>)
- id 1s0RaZ-00040t-PL
- for xen-devel@lists.xenproject.org; Fri, 26 Apr 2024 19:50:31 +0000
-Received: from mo4-p00-ob.smtp.rzone.de (mo4-p00-ob.smtp.rzone.de
- [81.169.146.162]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 3b9de597-0406-11ef-b4bb-af5377834399;
- Fri, 26 Apr 2024 21:50:29 +0200 (CEST)
-Received: from sender by smtp.strato.de (RZmta 50.5.0 AUTH)
- with ESMTPSA id Dce54203QJoQCHH
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
- (Client did not present a certificate);
- Fri, 26 Apr 2024 21:50:26 +0200 (CEST)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=/tzl=L7=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1s0T7K-0002Ao-07
+ for xen-devel@lists.xenproject.org; Fri, 26 Apr 2024 21:28:26 +0000
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id e53cf7e1-0413-11ef-b4bb-af5377834399;
+ Fri, 26 Apr 2024 23:28:22 +0200 (CEST)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sin.source.kernel.org (Postfix) with ESMTP id D3475CE1C9E;
+ Fri, 26 Apr 2024 21:28:13 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 25230C113CD;
+ Fri, 26 Apr 2024 21:28:12 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,99 +41,110 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3b9de597-0406-11ef-b4bb-af5377834399
-ARC-Seal: i=1; a=rsa-sha256; t=1714161026; cv=none;
-    d=strato.com; s=strato-dkim-0002;
-    b=eZY0kHQZHa0vbrESu0FwTkZadapwqs1OaG2FBaMe1uZO1M/Qts8cCEDh6A8HYtPvSH
-    SXcuaTvnxtTZBJIPeG7fLimqt6WURL63u6L2TRkE/lcEacjrQeg3JFZzh6Lys6Zmc4uv
-    o/P8wyLUQCa/kj/RNQ5xy2MTXnwHy8GIAfbF5/de9DSTANmkg8FfkK6iaVC8zcNbUDu6
-    ah4y2wANOThl4UtUw3I4JahO1umrYKx3MPmgRsWMOSAjsOy4E0sowBsc3PlWdMSLzL7S
-    3unD71IVfKGJ6/tV43FcsYSJWB8vaowqnZOESwrrcg8EgUeSEzp/CzwOvMK7UQ3DQ+jP
-    AKHQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1714161026;
-    s=strato-dkim-0002; d=strato.com;
-    h=References:In-Reply-To:Message-ID:Subject:Cc:To:From:Date:Cc:Date:
-    From:Subject:Sender;
-    bh=GipMzTNaXbexepsNXupGeKlhbYBRykgNFUxoUo7Hn9Q=;
-    b=akJU55fZ14gTh0zMRD0hRfTDx2BV1vZvsyqdxbEu5Nqg4wDuqIpCFH3BKjXYDl8xKH
-    IpYmHqbk6RtwiLfCFJXJgn1jVD7mEGf4I7mNn2nsx1DFVhl38cs8GIR5JS42kW7Dk1Ej
-    C9Clah10kf0WDrFuU9u0shRBKBoI0ZUBvkFov7k7vgi/bJ7C31+O6vq9NdLl1EAt7+3I
-    +CAadWBJdzbi4p73O7fn80r4ymkqmulBvQ2vOLz/iH6tz/yKeMc6HPIqA7vKLuxHLuj9
-    mTs125PPtEGbKUkhi+tDbc6LCl/pZNQO7Ccrbt6UaSaQmFBA5Xl+V3WCveQS3pRpSGvK
-    nrgQ==
-ARC-Authentication-Results: i=1; strato.com;
-    arc=none;
-    dkim=none
-X-RZG-CLASS-ID: mo00
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1714161026;
-    s=strato-dkim-0002; d=aepfle.de;
-    h=References:In-Reply-To:Message-ID:Subject:Cc:To:From:Date:Cc:Date:
-    From:Subject:Sender;
-    bh=GipMzTNaXbexepsNXupGeKlhbYBRykgNFUxoUo7Hn9Q=;
-    b=bU6eHXDLOJ4n3Q+H725yaJ8LrZKDK4JiQcqpEuukScdtv7GkrIz02jLSteKe05Z0FF
-    gW7/UdchadVmDbL0F9ycFwQMSfJX+ctoXrQxFQm8L4kdDzNh8pZgpIBoLgJHc/dcvw+a
-    0FvM2qkWT2K4mLhn9HJmSYd8uxeos0av9ay+GyxBNfXkaC3TRTKs1HGWWu6eKI+Qsa/F
-    Vqm7fYatqe2t0eORvEdH7vH5wOaBwqnslfpOT0GDiVi0agFyjEgjLV9o3XgxfQJmmFAK
-    uTlBHaMsacYHpHGUV/qb729VtExXqtXAjTBD87xlVxVxCygRGEREjoN9GuqARKWwC/ln
-    GOHw==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1714161026;
-    s=strato-dkim-0003; d=aepfle.de;
-    h=References:In-Reply-To:Message-ID:Subject:Cc:To:From:Date:Cc:Date:
-    From:Subject:Sender;
-    bh=GipMzTNaXbexepsNXupGeKlhbYBRykgNFUxoUo7Hn9Q=;
-    b=ykjvSggwE3bKw9O49S+FhdhtU9hD1ZaxnWRIhZbmx78i2mbI4Rm7yTjIeoXUuT2BOp
-    gakgi/Zwp+ehUcamnhCw==
-X-RZG-AUTH: ":P2EQZWCpfu+qG7CngxMFH1J+3q8wa/QLpd5ylWvMDX3y/OuD5rXVisR4BkGIaBLsSePyHTveXmQA82g1CU11ZkCzUrDvyQ=="
-Date: Fri, 26 Apr 2024 21:50:17 +0200
-From: Olaf Hering <olaf@aepfle.de>
-To: George Dunlap <george.dunlap@cloud.com>
-Cc: xen-devel@lists.xenproject.org, Andrew Cooper
- <andrew.cooper3@citrix.com>, Jan Beulich <jbeulich@suse.com>, Roger Pau
- Monne <roger.pau@cloud.com>, Anthony Perard <anthony.perard@cloud.com>
-Subject: Re: [PATCH 3/3] tools/xentrace: Remove xentrace_format
-Message-ID: <20240426215017.22b559bf.olaf@aepfle.de>
-In-Reply-To: <20240426143231.4007671-4-george.dunlap@cloud.com>
-References: <20240426143231.4007671-1-george.dunlap@cloud.com>
-	<20240426143231.4007671-4-george.dunlap@cloud.com>
-X-Mailer: Claws Mail (olh) 20240408T134401.7adfa8f7 hat ein Softwareproblem, kann man nichts machen.
+X-Inumbo-ID: e53cf7e1-0413-11ef-b4bb-af5377834399
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1714166893;
+	bh=ZW0mA8Ak4IKnvCKJ1Xi2x4ShhsV40j5L0rxBl/3sO7s=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=FvzcK2qOdfT2DbIpsfezAsqJcuIYkLD+A9LiJ/prLgfAh6YJsMpIRbR+QdCPwnpVg
+	 Jpxx30tnj+HZGzduEmMn0DRrQkwlnqkO6B9EBivQT0pLzdQiU7/gEnzfUS5kk7a96o
+	 ONSio2NM/aKs8s5SSso4M6N5EW5lLbUSL6txRqT3+kFXMWvLCQJ7PazIyJb5C9ragU
+	 n7crK9nUyT2RuXgSg7ZZEj/CCkkW/avvILllzuq34EWox/iUy324+6jvdpeeqy61kH
+	 VKX7cVPAyTWqvx269gH2MkKlRoThmLJO5eL/Kq19Ksf3RaGA5X40BEf+KslE/OM9IZ
+	 6XFFxt6J/R5Ow==
+Date: Fri, 26 Apr 2024 14:28:10 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Jan Beulich <jbeulich@suse.com>
+cc: Stefano Stabellini <sstabellini@kernel.org>, 
+    Michal Orzel <michal.orzel@amd.com>, xen-devel@lists.xenproject.org, 
+    Andrew Cooper <andrew.cooper3@citrix.com>, 
+    George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>
+Subject: Re: [PATCH] public: xen: Define missing guest handle for int32_t
+In-Reply-To: <90a25857-af9b-45ac-a6d6-e46ed1fb0609@suse.com>
+Message-ID: <alpine.DEB.2.22.394.2404261424340.3940@ubuntu-linux-20-04-desktop>
+References: <20240417121442.56178-1-michal.orzel@amd.com> <be95f6be-0404-4c43-926f-d011782a02db@xen.org> <alpine.DEB.2.22.394.2404171148060.2257106@ubuntu-linux-20-04-desktop> <29afd327-a66c-4b4e-b076-ee6ecb70807e@xen.org>
+ <alpine.DEB.2.22.394.2404251538250.3940@ubuntu-linux-20-04-desktop> <90a25857-af9b-45ac-a6d6-e46ed1fb0609@suse.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="Sig_/uhbal21UnTeIMFXT1L=9ErK";
- protocol="application/pgp-signature"; micalg=pgp-sha256
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; BOUNDARY="8323329-507727055-1714166718=:3940"
+Content-ID: <alpine.DEB.2.22.394.2404261426150.3940@ubuntu-linux-20-04-desktop>
 
---Sig_/uhbal21UnTeIMFXT1L=9ErK
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: quoted-printable
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-Fri, 26 Apr 2024 15:32:31 +0100 George Dunlap <george.dunlap@cloud.com>:
+--8323329-507727055-1714166718=:3940
+Content-Type: text/plain; CHARSET=UTF-8
+Content-Transfer-Encoding: 8BIT
+Content-ID: <alpine.DEB.2.22.394.2404261426151.3940@ubuntu-linux-20-04-desktop>
 
-> Simple remove xentrace_format, and point people to xenalyze instead.
+On Fri, 26 Apr 2024, Jan Beulich wrote:
+> On 26.04.2024 00:39, Stefano Stabellini wrote:
+> > On Mon, 22 Apr 2024, Julien Grall wrote:
+> >> Hi Stefano,
+> >>
+> >> On 17/04/2024 19:49, Stefano Stabellini wrote:
+> >>> On Wed, 17 Apr 2024, Julien Grall wrote:
+> >>>> Hi Michal,
+> >>>>
+> >>>> On 17/04/2024 13:14, Michal Orzel wrote:
+> >>>>> Commit afab29d0882f ("public: s/int/int32_t") replaced int with int32_t
+> >>>>> in XEN_GUEST_HANDLE() in memory.h but there is no guest handle defined
+> >>>>> for it. This results in a build failure. Example on Arm:
+> >>>>>
+> >>>>> ./include/public/arch-arm.h:205:41: error: unknown type name
+> >>>>> ‘__guest_handle_64_int32_t’
+> >>>>>     205 | #define __XEN_GUEST_HANDLE(name)        __guest_handle_64_ ##
+> >>>>> name
+> >>>>>         |                                         ^~~~~~~~~~~~~~~~~~
+> >>>>> ./include/public/arch-arm.h:206:41: note: in expansion of macro
+> >>>>> ‘__XEN_GUEST_HANDLE’
+> >>>>>     206 | #define XEN_GUEST_HANDLE(name)
+> >>>>> __XEN_GUEST_HANDLE(name)
+> >>>>>         |                                         ^~~~~~~~~~~~~~~~~~
+> >>>>> ./include/public/memory.h:277:5: note: in expansion of macro
+> >>>>> ‘XEN_GUEST_HANDLE’
+> >>>>>     277 |     XEN_GUEST_HANDLE(int32_t) errs;
+> >>>>>
+> >>>>> Fix it. Also, drop guest handle definition for int given no further use.
+> >>>>>
+> >>>>> Fixes: afab29d0882f ("public: s/int/int32_t")
+> >>>>> Signed-off-by: Michal Orzel <michal.orzel@amd.com>
+> >>>
+> >>> Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+> >>>
+> >>>
+> >>>> So it turned out that I committed v1 from Stefano. I was meant to commit
+> >>>> the
+> >>>> patch at all, but I think I started with a dirty staging :(. Sorry for
+> >>>> that.
+> >>>>
+> >>>> I have reverted Stefano's commit for now so we can take the correct patch.
+> >>>>
+> >>>> Now, from my understanding, Andrew suggested on Matrix that this solution
+> >>>> may
+> >>>> actually be a good way to handle GUEST_HANLDEs (they were removed in v2).
+> >>>> Maybe this can be folded in Stefano's patch?
+> >>>
+> >>> v1 together with Michal's fix is correct. Also v2 alone is correct, or
+> >>> v2 with Michal's fix is also correct.
+> >>
+> >> I am slightly confused, v2 + Michal's fix means that XEN_GUEST_HANDLE(int) is
+> >> removed and we introduce XEN_GUEST_INT(int32_t) with no user. So wouldn't this
+> > 
+> > You are right I apologize. I looked at Michal's patch too quickly and
+> > I thought it was just adding XEN_GUEST_INT(int32_t) without removing
+> > anything.
+> > 
+> > In that case, if you are OK with it, please ack and commit v2 only.
+> 
+> Just to mention it: Committing would apparently be premature, as I can't spot
+> any response to comments I gave to the patch. I'm okay with those being
+> addressed verbally only, but imo they cannot be dropped on the floor.
 
-Acked-by: Olaf Hering <olaf@aepfle.de>
-
-
-Olaf
-
---Sig_/uhbal21UnTeIMFXT1L=9ErK
-Content-Type: application/pgp-signature
-Content-Description: Digitale Signatur von OpenPGP
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCAAdFiEE97o7Um30LT3B+5b/86SN7mm1DoAFAmYsBXoACgkQ86SN7mm1
-DoAi3BAAnnpcRQY0Aa9i2+WOWf6iU9YFKu0xwJOgNuzdtAWSTj2CEpW7BbZqPwA1
-PzaAgrLYhdiNEuwnZw+HQFmn19qWQKl5VN177xNy+TIju6OATaM3IPtbtBpWqHhz
-XpetgCMGCNZHAXkGG/kXz2AKfu2vXw/iQ4/QM8aZk6UqFRuHaj4JJc8TDMAGKEsi
-7c3ZFBIRaAbkfkf/qa7+SurQono+C+3O+ozsClaxAHu9oA0sffP2ggbh5HlLwdsa
-ned4pqw0Iq2o737T0A9rmNH4xEyO6+92SAzChkqdbFIgsgoLitEpGfcHECHa4034
-yop76j+mcIKx05eV+069Xe8kl6APBf3rw4cZ5uBTCDN/afPrg2qpD60W4qjGQ4f4
-SCn3EvPGkWjMIDl5PyhIHV1dvrAnxUmiOtTMeZbwKNokjKW8q5cLdJrA49qOHKrp
-hq8Qq+7yBFBed/M/fQ19PG3Xab5rONDTwyO4rQj5AoMUVOpt5EkJTNpdAkRsBAav
-eeYoP518mj0u1BAoLGVKT0u106U5cSyqbEERoeDSc3avlArgi4Ds/pMIv9857ZGN
-iUIE/9v2jgBWrAn+NLHusyLbp/5E++hdzrtlkN+3TNrBImGad5O8L9QFZ0HzjWY3
-BgTcOr8Z9nBvZu9f/80Yn1ux0h6Q2+eICLi0Trq6FZp1ARK9co8=
-=uOIe
------END PGP SIGNATURE-----
-
---Sig_/uhbal21UnTeIMFXT1L=9ErK--
+I agree with your comments but I prefer to keep this patch smaller and
+focused on doing one thing only. I don't want to mix non-mechanical
+changes with the mechanical substitutions. For sure, there will be
+follow ups to address your comments and other outstanding issues.
+--8323329-507727055-1714166718=:3940--
 
