@@ -2,37 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 310328B3143
-	for <lists+xen-devel@lfdr.de>; Fri, 26 Apr 2024 09:22:18 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.712484.1113219 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6AECE8B321B
+	for <lists+xen-devel@lfdr.de>; Fri, 26 Apr 2024 10:15:07 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.712514.1113235 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s0Fu5-0006Ah-T2; Fri, 26 Apr 2024 07:21:53 +0000
+	id 1s0Gid-0007sn-1P; Fri, 26 Apr 2024 08:14:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 712484.1113219; Fri, 26 Apr 2024 07:21:53 +0000
+Received: by outflank-mailman (output) from mailman id 712514.1113235; Fri, 26 Apr 2024 08:14:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s0Fu5-000690-Pl; Fri, 26 Apr 2024 07:21:53 +0000
-Received: by outflank-mailman (input) for mailman id 712484;
- Fri, 26 Apr 2024 07:21:52 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1s0Gic-0007qg-Uj; Fri, 26 Apr 2024 08:14:06 +0000
+Received: by outflank-mailman (input) for mailman id 712514;
+ Fri, 26 Apr 2024 08:14:05 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Svmy=L7=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1s0Fu4-00068u-RM
- for xen-devel@lists.xenproject.org; Fri, 26 Apr 2024 07:21:52 +0000
-Received: from mail-qk1-x734.google.com (mail-qk1-x734.google.com
- [2607:f8b0:4864:20::734])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a6134c55-039d-11ef-b4bb-af5377834399;
- Fri, 26 Apr 2024 09:21:50 +0200 (CEST)
-Received: by mail-qk1-x734.google.com with SMTP id
- af79cd13be357-78f04581a66so112390285a.2
- for <xen-devel@lists.xenproject.org>; Fri, 26 Apr 2024 00:21:50 -0700 (PDT)
-Received: from localhost ([213.195.114.223]) by smtp.gmail.com with ESMTPSA id
- c16-20020a05620a201000b0078ede411c92sm7702902qka.27.2024.04.26.00.21.48
+ <SRS0=Mvt6=L7=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1s0Gib-0007qa-7s
+ for xen-devel@lists.xenproject.org; Fri, 26 Apr 2024 08:14:05 +0000
+Received: from mail-lf1-x134.google.com (mail-lf1-x134.google.com
+ [2a00:1450:4864:20::134])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id f224db2e-03a4-11ef-909a-e314d9c70b13;
+ Fri, 26 Apr 2024 10:14:04 +0200 (CEST)
+Received: by mail-lf1-x134.google.com with SMTP id
+ 2adb3069b0e04-516d2600569so2262502e87.0
+ for <xen-devel@lists.xenproject.org>; Fri, 26 Apr 2024 01:14:04 -0700 (PDT)
+Received: from [192.168.206.239] ([94.75.70.14])
+ by smtp.gmail.com with ESMTPSA id
+ g28-20020a0565123b9c00b00518be964835sm3064092lfv.53.2024.04.26.01.14.02
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 26 Apr 2024 00:21:48 -0700 (PDT)
+ Fri, 26 Apr 2024 01:14:03 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,70 +45,82 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a6134c55-039d-11ef-b4bb-af5377834399
+X-Inumbo-ID: f224db2e-03a4-11ef-909a-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1714116109; x=1714720909; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=j14dfvYZvjCdt7gs1P2gIvnQbYZ2Cot6fyVm3A+/tOU=;
-        b=wG+FlDXTBOb4M1rKpgubygxxEri3iqaMcmWEvIS48SjZad9jki3h7gRE2da6GDvjDp
-         EuE+pWacVeVe9tdkRLpnn1LEIvROiDtuRtNI2Th4PdGm0g5Oif6YmmC8AA5e3dndfOiV
-         BEVUZBPQ+fs65Lz0U9MG63UyFNGAmCUqIq2Ho=
+        d=gmail.com; s=20230601; t=1714119244; x=1714724044; darn=lists.xenproject.org;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=xvcLmv58SuTMxxeH61cyDu/Pqz4IEAUHw7A4w1DHnyk=;
+        b=cxq0a8c86QsQdKEzMyL6mkRJ4gBMEZN+2ukwxyk061PB0tiaC+spy1c9401DnMkBfL
+         3uSMBIClDeq+mRQGTgUIe/S6AtuYvgftVi/Y5B7BohncwlS2JhugXj5fZfQviPpYnHWE
+         ulvSCWTrrL7oFotUOSw4ZHek0mNiYqZvJe6fhcf1U6sgGMiHH1cHaXmiJZqQQZchVdeG
+         FI9GwjxfLCJXZrak21ubXZRnfvCadH5XHQ4fgReYQHHyUlXcIq5oFF5EzARjMi44sVtk
+         aLsQ1RDDhnAbiJrFQwgfJOXA54aE3/A+tOrOQVhznS427L3y4ccDI+bICDPmM7FEIpnI
+         z6Pw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1714116109; x=1714720909;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=j14dfvYZvjCdt7gs1P2gIvnQbYZ2Cot6fyVm3A+/tOU=;
-        b=TGh+70U4PYAaOmQ+PFeHgZTfQIQ1sD+3pg5T7fDAQ4JdezTtRhhWuFQqIaNwJajpf6
-         aA6CIdonvIkvywQVYPzV1+cYO/OaJUH8h6kRLeDSsFB5MXrtHsT6k1qYvosdEpWzpImJ
-         TpuB76jGoud2hkRAim3TFLgp6hT0a9UoXzNqNvpCcvgoe0/H70L3VDjcW6n8f9eJj8cs
-         agvMV8d6DOQMnCIajNHv3KOHKAnu0hw9nddx8adECn5AjAkfBvG5/YRV5G2cnRx+ZRtU
-         bdCOc1sH3lt4m3HDnFKh6tqgBPQTov8EijBo6fAO/ZbpxXZ14U1rQu0SLcmyazCuNOoR
-         9JlA==
-X-Gm-Message-State: AOJu0YxvX4EKogjbK6CJHsA5orJDw3nVjjNepfscSAOWijqW9yIf00Di
-	qeVCdXrtOEbR2Afbz4244Lk4fZmphC0K7MwN6e94C+kW2iPP73itfOIcv9b76Uq/EZ3Ni9f+r4P
-	w
-X-Google-Smtp-Source: AGHT+IEplsnCxLrtfOwGU2zMO6qC9tsY39Xf1LsNHp+KUi3VAS28wEFyUAG4Wxf5den2ZKX24/+zrQ==
-X-Received: by 2002:a05:620a:469e:b0:78e:dc0d:9e70 with SMTP id bq30-20020a05620a469e00b0078edc0d9e70mr2496491qkb.45.1714116108969;
-        Fri, 26 Apr 2024 00:21:48 -0700 (PDT)
-From: Roger Pau Monne <roger.pau@citrix.com>
-To: xen-devel@lists.xenproject.org
-Cc: Roger Pau Monne <roger.pau@citrix.com>,
-	Ross Lagerwall <ross.lagerwall@citrix.com>,
-	Anthony PERARD <anthony@xenproject.org>,
-	Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH] xen-livepatch: fix --force option comparison
-Date: Fri, 26 Apr 2024 09:21:44 +0200
-Message-ID: <20240426072144.48828-1-roger.pau@citrix.com>
-X-Mailer: git-send-email 2.44.0
+        d=1e100.net; s=20230601; t=1714119244; x=1714724044;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=xvcLmv58SuTMxxeH61cyDu/Pqz4IEAUHw7A4w1DHnyk=;
+        b=YBNVgkYdNYtySb22ICS3HoYiZD2T3x1NE81OHrJ0/mSGSdGcUdMq9vGiie99mgB5b9
+         5MWigKFGoKNtpdA6t5erKINPc/DnMI5D5ho93kNAX2lUauWffHRnjgfet+V4wIDscC3q
+         9V0bcQOfZ52GRBkpRwmvsvCHqFbrye/loD5INhDw2LEGbymxfRGUNo3wln6q1uvLrmxC
+         zAYMR35cQUCuZfyNVUQ4qiOwKY2FElamKzapbpQRJu6E+Clto5gJtAE8/tLFOGR8Getf
+         BCU5PZa1fuv3r2ifc2ik+oYnw26beKOddpZHw3CieZvC5uCbl+DNKTsPJF5l/q9cru3Y
+         XNtw==
+X-Forwarded-Encrypted: i=1; AJvYcCWClKPH7MMmXlfXPEBivmb202TKv8sCFa+aQxPH01DQPX5GaP6YtsB5ht7xPf4TxYziuIOi2hEiOdum+ddEsqtgJFdZlLQicyCVagPjNLQ=
+X-Gm-Message-State: AOJu0YyzC9DsaGQ434MGA5wlj5Xgc3J3wGR1mOd/7LPMuVVFzKTu/AUW
+	mrKwQIZgpc5I/RwKqFfMknYZYp2Dd1F4MXs7xL9aXvSp8w00Yq1O
+X-Google-Smtp-Source: AGHT+IExfdDNjlRHuAHO/qqDBTeHvR6sbR8oAeeRF/jm+h0QhQhhxSkh3ZejN4lWOkVvKacS8u6+vA==
+X-Received: by 2002:ac2:528c:0:b0:519:730:b399 with SMTP id q12-20020ac2528c000000b005190730b399mr1092310lfm.9.1714119243709;
+        Fri, 26 Apr 2024 01:14:03 -0700 (PDT)
+Message-ID: <367bcd4d7f501ce72a8c101dfd846e94682d4045.camel@gmail.com>
+Subject: Re: [PATCH v8 02/17] xen: introduce generic non-atomic test_*bit()
+From: Oleksii <oleksii.kurochko@gmail.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Roger Pau =?ISO-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>, Ross
+ Lagerwall <ross.lagerwall@citrix.com>, Stefano Stabellini
+ <sstabellini@kernel.org>,  Julien Grall <julien@xen.org>, Bertrand Marquis
+ <bertrand.marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>, Volodymyr
+ Babchuk <Volodymyr_Babchuk@epam.com>,  Andrew Cooper
+ <andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>,
+ Shawn Anastasio <sanastasio@raptorengineering.com>,
+ xen-devel@lists.xenproject.org
+Date: Fri, 26 Apr 2024 10:14:02 +0200
+In-Reply-To: <3827c11c-6d47-411d-a356-871def4e5b30@suse.com>
+References: <cover.1713347222.git.oleksii.kurochko@gmail.com>
+	 <1a0977e3cf5a2de9f760ca5ec89a0d096894a9e3.1713347222.git.oleksii.kurochko@gmail.com>
+	 <3827c11c-6d47-411d-a356-871def4e5b30@suse.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.50.4 (3.50.4-1.fc39) 
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
 
-The check for --force option shouldn't be against 0.
+On Thu, 2024-04-25 at 17:35 +0200, Jan Beulich wrote:
+> > =C2=A0 /* --------------------- Please tidy above here ----------------=
+-
+> > ---- */
+> > =C2=A0=20
+> > =C2=A0 #include <asm/bitops.h>
+> > =C2=A0=20
+> > +#ifndef arch_check_bitop_size
+> > +#define arch_check_bitop_size(addr)
+>=20
+> Can this really do nothing? Passing the address of an object smaller
+> than
+> bitop_uint_t will read past the object in the generic__*_bit()
+> functions.
+Agree, in generic case it would be better to add:
+#define arch_check_bitop_size(addr) (sizeof(*(addr)) <
+sizeof(bitop_uint_t))
 
-Reported-by: Jan Beulich <jbeulich@suse.com>
-Fixes: 62a72092a517 ('livepatch: introduce --force option')
-Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
----
- tools/misc/xen-livepatch.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Originally, it was defined as empty becuase majority of supported
+architectures by Xen don't do this check and I decided to use this
+definition as generic.
 
-diff --git a/tools/misc/xen-livepatch.c b/tools/misc/xen-livepatch.c
-index c16fb6862d6c..f406ea1373ae 100644
---- a/tools/misc/xen-livepatch.c
-+++ b/tools/misc/xen-livepatch.c
-@@ -576,7 +576,7 @@ int main(int argc, char *argv[])
-         return 0;
-     }
- 
--    if ( strcmp("--force", argv[1]) )
-+    if ( !strcmp("--force", argv[1]) )
-     {
-         if ( argc <= 2 )
-         {
--- 
-2.44.0
+Thanks.
 
+~ Oleksii
 
