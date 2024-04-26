@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 18E6C8B3B32
-	for <lists+xen-devel@lfdr.de>; Fri, 26 Apr 2024 17:23:46 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.712928.1113834 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 17BA68B3B5C
+	for <lists+xen-devel@lfdr.de>; Fri, 26 Apr 2024 17:27:30 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.712933.1113843 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s0NQ4-0007ri-97; Fri, 26 Apr 2024 15:23:24 +0000
+	id 1s0NTj-00015M-NR; Fri, 26 Apr 2024 15:27:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 712928.1113834; Fri, 26 Apr 2024 15:23:24 +0000
+Received: by outflank-mailman (output) from mailman id 712933.1113843; Fri, 26 Apr 2024 15:27:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s0NQ4-0007pK-5f; Fri, 26 Apr 2024 15:23:24 +0000
-Received: by outflank-mailman (input) for mailman id 712928;
- Fri, 26 Apr 2024 15:23:22 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1s0NTj-000132-Jn; Fri, 26 Apr 2024 15:27:11 +0000
+Received: by outflank-mailman (input) for mailman id 712933;
+ Fri, 26 Apr 2024 15:27:10 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Mvt6=L7=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1s0NQ2-0007ou-Au
- for xen-devel@lists.xenproject.org; Fri, 26 Apr 2024 15:23:22 +0000
-Received: from mail-lf1-x135.google.com (mail-lf1-x135.google.com
- [2a00:1450:4864:20::135])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id e9e60a2e-03e0-11ef-b4bb-af5377834399;
- Fri, 26 Apr 2024 17:23:20 +0200 (CEST)
-Received: by mail-lf1-x135.google.com with SMTP id
- 2adb3069b0e04-51b09c3a111so3188895e87.1
- for <xen-devel@lists.xenproject.org>; Fri, 26 Apr 2024 08:23:20 -0700 (PDT)
-Received: from fedora.. ([94.75.70.14]) by smtp.gmail.com with ESMTPSA id
- f17-20020a17090660d100b00a587236e646sm5119948ejk.174.2024.04.26.08.23.17
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 26 Apr 2024 08:23:18 -0700 (PDT)
+ <SRS0=/r3b=L7=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
+ id 1s0NTh-0000yt-Rs
+ for xen-devel@lists.xenproject.org; Fri, 26 Apr 2024 15:27:10 +0000
+Received: from wfout1-smtp.messagingengine.com
+ (wfout1-smtp.messagingengine.com [64.147.123.144])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 705108b8-03e1-11ef-909a-e314d9c70b13;
+ Fri, 26 Apr 2024 17:27:07 +0200 (CEST)
+Received: from compute6.internal (compute6.nyi.internal [10.202.2.47])
+ by mailfout.west.internal (Postfix) with ESMTP id 5153D1C0015E;
+ Fri, 26 Apr 2024 11:27:04 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute6.internal (MEProxy); Fri, 26 Apr 2024 11:27:04 -0400
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
+ 26 Apr 2024 11:27:02 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,102 +44,209 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e9e60a2e-03e0-11ef-b4bb-af5377834399
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1714145000; x=1714749800; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=V22gP2pvDYFnwIOuSYvkYUyVE54XbbjG3Emc8WQZkU8=;
-        b=VucHo0G57H8mBTJC5rb5N0eFN9MntiXbTHiUKatTKBR5fYJwWpYpPJquwjsVj25b2s
-         y17zoibYWRmVbWmkR/O/OQbYS95pxOkVM/u2lZ35aHB4kbfBjLZH44tPZc4C328k0bcA
-         4CxiUcVJ82urYKervSYfhqHjSld7iDnPzxrrs0QT/INcpMU7jGBwPtzN15mSQKqr8lEx
-         4nm8Mo2leXE4DrEgpq4j8OrdBz5Pujd1mUmBy0O1uMSXPU90PBH2N4I117a2dR3lNL6p
-         Vp/0PEEtK5pAInQ6rRQJGiH7cDV73goeVrbmaPXydJW3aUDnb8TbV5V4gRLwcu3EnT3p
-         9Fsw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1714145000; x=1714749800;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=V22gP2pvDYFnwIOuSYvkYUyVE54XbbjG3Emc8WQZkU8=;
-        b=J+C5XhhyqV2NAMPZK5BuGyK8SB7TcoREeKDqlGq/9ZKJLb6BbzG/UYKCEq92DeIJ2G
-         8aGZjvd45s9PDez4z+jPC7Y0DFPD3jkro4cV+q9AYvRbFWCKgD2uUTwSn47fg9EHe6+2
-         ht5tyIEGblR6EVcnDYuHaKi8TKiRASzC3yzrXyOF+8258xyke9CG02/6xX8epVVx7QM0
-         G+k6Ll61QJwFWlb5uyQwfC81V70QBymLtTRf4RkXxrsduAeIHYKGl7Sib6PeHSCaNj0R
-         AC9xpejNyWybVuI9qZp5kpYtzTftgVwrd2FJmT9wa5na5ksQD/5CaD6pQgMMnn0LOMrn
-         OH6Q==
-X-Gm-Message-State: AOJu0YxT6S91LKzw9XgyK3r+nauWeDdtuW7fDRGm1LDrfB22B9HBN9zZ
-	qaQ35N3RKGNdBfFE/QS/85WIvguW8XobbC7Ako6waVdicMWUlkXO2MqMIA==
-X-Google-Smtp-Source: AGHT+IFWZjc5RfiNVABR/yWormGTljR4ie145up6Zof5AVf4R3W/UQsr0eWEwccHs5oxNfOqAMB/Ig==
-X-Received: by 2002:ac2:4908:0:b0:518:c959:8be with SMTP id n8-20020ac24908000000b00518c95908bemr2029873lfi.58.1714144999230;
-        Fri, 26 Apr 2024 08:23:19 -0700 (PDT)
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-To: xen-devel@lists.xenproject.org
-Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
-	Alistair Francis <alistair.francis@wdc.com>,
-	Bob Eshleman <bobbyeshleman@gmail.com>,
-	Connor Davis <connojdavis@gmail.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH v1] xen/riscv: improve check-extension() macro
-Date: Fri, 26 Apr 2024 17:23:15 +0200
-Message-ID: <6f37ce6b115b682118a8332b2a81b49358c88587.1714144943.git.oleksii.kurochko@gmail.com>
-X-Mailer: git-send-email 2.44.0
+X-Inumbo-ID: 705108b8-03e1-11ef-909a-e314d9c70b13
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm3; t=1714145223;
+	 x=1714231623; bh=F93DfMBe8i7di6qR58W+TimZ8RaG79w85iZRctNxY0U=; b=
+	jz33NJVGR6l8V40unp5l4x4puNDcBtqjs2jWK4bVq6sf+uJUdBkZYeE42HigtqII
+	U+LgmYjq8KRE/cE94afWDz80gH9qemELRHFO7HubHjnUo26jQSK+kcJCk7bqSx+x
+	yrFywEMPEvy3Npij8y4o01/Un8XreMHnbpZCiAEkEfh+skClCZw3wOy+T7JfeaVv
+	XqZ7Coo9kpmCQaXgrxHfF74xlgPWP4r1iIHyGG5bWLgGgfbUfMkqdtzVF/xJLwhE
+	H2sUncAxPPM3dHDpGKlOHax74fgopNEKatQM6xg2t1k4wSZ1zYSTnbfZS+2nHc2V
+	sXy3/zip2GCf8PBnF727+Q==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+	fm3; t=1714145223; x=1714231623; bh=F93DfMBe8i7di6qR58W+TimZ8RaG
+	79w85iZRctNxY0U=; b=ARQrxv1wOIyxrHiraz/YL6R8WaxGGpNBBrZcsVdQ7W5H
+	pCaCVJA6spNwgC5j+sRy3TTw/D7V7qd8w7CEpR9Q7N59fLvshH0xAYN/OD9ITvzj
+	r7kGJs5A5Rcj2YalKGPfmBsMornF3NmDGfi2ERXEQVB0xj+Rx15mUPH9yIEDVJij
+	yYMtUKEjCLeegO7gEpNrYFfaUxJ2nhaMdXg1CiOg9VhCOxhxo+xc3wMyOkNnI10K
+	JdRhmCl8FpdJPzow/m/G+Bj08WniN3YJUDTV6j4D+U6bZAYhmDxdioqWSCjm4fL1
+	4eCFAe8FXyr6EJ9GaTqXo8yX9Y+NwM7b0ioV+XXfWw==
+X-ME-Sender: <xms:x8crZkRMyiAt3nx_raIh5PZpVokFZ27Yy5pzQRtK_k5zRjCiyiyksw>
+    <xme:x8crZhytTUW_pTIUg5T3ywoNoUchMb7m4jho2LHSFSGbw81UK93vJnanwCvaQWPju
+    6Y6BVJyQYP43Q>
+X-ME-Received: <xmr:x8crZh01yiCNmDSRYrwjiqBgIqE97UDOmrZI8s8sewlUgvy5-q8x2EiRmD-tgYCl-O0cn4rfluQEUNGrfjj_CJoHom0EgkACnA>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvledrudelledgkeelucetufdoteggodetrfdotf
+    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+    uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+    cujfgurhepfffhvfevuffkfhggtggujgesghdtreertddtjeenucfhrhhomhepofgrrhgv
+    khcuofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuceomhgrrhhmrghrvghksehinh
+    hvihhsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecuggftrfgrthhtvghrnhepgfdu
+    leetfeevhfefheeiteeliefhjefhleduveetteekveettddvgeeuteefjedunecuvehluh
+    hsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepmhgrrhhmrghrvghk
+    sehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomh
+X-ME-Proxy: <xmx:x8crZoAXcAPYNB_-YZon4HFshqYFtZuA6s3WRK1m8GUCA-XVkHkisg>
+    <xmx:x8crZtjFGhKZjjuhabmhcwZ2yqKU55mXhH07T0q8dhbryKlBuJv0Tw>
+    <xmx:x8crZkrpLPfwiTVJFzWS6XMtT_fvNcPBJ4N74B9LPfuSqsRXBmBcWw>
+    <xmx:x8crZghijUZeZrCuWB687RxTA52h3Z-TGYxjeMAo8F_50PBAucYS4w>
+    <xmx:x8crZtcpNmCb0tv970oYEUXno1SewfgYmkH--bQonTKcPJV9Ao97kE4N>
+Feedback-ID: i1568416f:Fastmail
+Date: Fri, 26 Apr 2024 17:26:49 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
+	Wei Liu <wl@xen.org>, xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v5 3/7] x86/hvm: Allow access to registers on the same
+ page as MSI-X table
+Message-ID: <ZivHw9RUUN1CV4Hi@mail-itl>
+References: <cover.afa2d89161590f5193dd6bfd340c5e9347877aae.1710342968.git-series.marmarek@invisiblethingslab.com>
+ <a040f703a884ff4516314f88b22ee0f9f17329a9.1710342968.git-series.marmarek@invisiblethingslab.com>
+ <68f99f0a-e27a-449f-8d13-fb5ca9f6069a@suse.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="CKYVC/vicUnx3hS2"
+Content-Disposition: inline
+In-Reply-To: <68f99f0a-e27a-449f-8d13-fb5ca9f6069a@suse.com>
 
-Now, the check-extension() macro has 1 argument instead of 2.
-This change helps to reduce redundancy around usage of extensions
-name (in the case of the zbb extension, the name was used 3 times).
 
-To implement this, a new variable was introduced:
-  <extension name>-insn
-which represents the instruction support that is being checked.
+--CKYVC/vicUnx3hS2
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 26 Apr 2024 17:26:49 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
+	Wei Liu <wl@xen.org>, xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v5 3/7] x86/hvm: Allow access to registers on the same
+ page as MSI-X table
 
-Additionally, zbb-insn is updated to use $(comma) instead of ",".
+On Thu, Apr 25, 2024 at 01:15:34PM +0200, Jan Beulich wrote:
+> On 13.03.2024 16:16, Marek Marczykowski-G=C3=B3recki wrote:
+> > Some devices (notably Intel Wifi 6 AX210 card) keep auxiliary registers
+> > on the same page as MSI-X table. Device model (especially one in
+> > stubdomain) cannot really handle those, as direct writes to that page is
+> > refused (page is on the mmio_ro_ranges list). Instead, extend
+> > msixtbl_mmio_ops to handle such accesses too.
+> >=20
+> > Doing this, requires correlating read/write location with guest
+> > of MSI-X table address. Since QEMU doesn't map MSI-X table to the guest,
+> > it requires msixtbl_entry->gtable, which is HVM-only. Similar feature
+> > for PV would need to be done separately.
+> >=20
+> > This will be also used to read Pending Bit Array, if it lives on the sa=
+me
+> > page, making QEMU not needing /dev/mem access at all (especially helpful
+> > with lockdown enabled in dom0). If PBA lives on another page, QEMU will
+> > map it to the guest directly.
+> > If PBA lives on the same page, discard writes and log a message.
+> > Technically, writes outside of PBA could be allowed, but at this moment
+> > the precise location of PBA isn't saved, and also no known device abuses
+> > the spec in this way (at least yet).
+> >=20
+> > To access those registers, msixtbl_mmio_ops need the relevant page
+> > mapped. MSI handling already has infrastructure for that, using fixmap,
+> > so try to map first/last page of the MSI-X table (if necessary) and save
+> > their fixmap indexes. Note that msix_get_fixmap() does reference
+> > counting and reuses existing mapping, so just call it directly, even if
+> > the page was mapped before. Also, it uses a specific range of fixmap
+> > indexes which doesn't include 0, so use 0 as default ("not mapped")
+> > value - which simplifies code a bit.
+> >=20
+> > GCC 12.2.1 gets confused about 'desc' variable:
+> >=20
+> >     arch/x86/hvm/vmsi.c: In function =E2=80=98msixtbl_range=E2=80=99:
+> >     arch/x86/hvm/vmsi.c:553:8: error: =E2=80=98desc=E2=80=99 may be use=
+d uninitialized [-Werror=3Dmaybe-uninitialized]
+> >       553 |     if ( desc )
+> >           |        ^
+> >     arch/x86/hvm/vmsi.c:537:28: note: =E2=80=98desc=E2=80=99 was declar=
+ed here
+> >       537 |     const struct msi_desc *desc;
+> >           |                            ^~~~
+> >=20
+> > It's conditional initialization is actually correct (in the case where
+> > it isn't initialized, function returns early), but to avoid
+> > build failure initialize it explicitly to NULL anyway.
+> >=20
+> > Signed-off-by: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblething=
+slab.com>
+>=20
+> Sadly there are further more or less cosmetic issues. Plus, as indicated
+> before, I'm not really happy for us to gain all of this extra code. In
+> the end I may eventually give an R-b not including the usually implied
+> A-b, to indicate the code (then) looks okay to me but I still want
+> someone else to actually ack it to allow it going in.
 
-Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Suggested-by: Jan Beulich <jbeulich@suse.com>
----
- xen/arch/riscv/arch.mk | 21 +++++++++++++++------
- 1 file changed, 15 insertions(+), 6 deletions(-)
+I understand. Given similar code is committed for vPCI already, I hope
+somebody will be comfortable with acking this one too (yes, I do realize
+the vPCI one is much less exposed, but still).
 
-diff --git a/xen/arch/riscv/arch.mk b/xen/arch/riscv/arch.mk
-index dd242c91d1..17827c302c 100644
---- a/xen/arch/riscv/arch.mk
-+++ b/xen/arch/riscv/arch.mk
-@@ -13,12 +13,21 @@ riscv-generic-flags := $(riscv-abi-y) -march=$(riscv-march-y)
- 
- # check-extension: Check whether extenstion is supported by a compiler and
- #                  an assembler.
--# Usage: $(call check-extension,extension_name,"instr")
--check-extension = $(call as-insn,$(CC) $(riscv-generic-flags)_$(1),$(2),_$(1))
--
--zbb-insn := "andn t0, t0, t0"
--zbb := $(call check-extension,zbb,$(zbb-insn))
--zihintpause := $(call check-extension,zihintpause,"pause")
-+# Usage: $(call check-extension,extension_name).
-+#        it should be defined variable with following name:
-+#          <extension name>-insn := "insn"
-+#        which represents an instruction of extension support of which is
-+#        going to be checked.
-+define check-extension =
-+$(eval $(1) := \
-+	$(call as-insn,$(CC) $(riscv-generic-flags)_$(1),$(value $(1)-insn),_$(1)))
-+endef
-+
-+zbb-insn := "andn t0$(comma)t0$(comma)t0"
-+$(call check-extension,zbb)
-+
-+zihintpause-insn := "pause"
-+$(call check-extension,zihintpause)
- 
- extensions := $(zbb) $(zihintpause)
- 
--- 
-2.44.0
+> > +static int adjacent_read(
+> > +    unsigned int fixmap_idx,
+> > +    paddr_t address, unsigned int len, uint64_t *pval)
+> > +{
+> > +    const void __iomem *hwaddr;
+> > +
+> > +    *pval =3D ~0UL;
+> > +
+> > +    ASSERT(fixmap_idx !=3D ADJACENT_DISCARD_WRITE);
+>=20
+> Why only one of the special values? And before you add the other here:
+> Why not simply ASSERT(fixmap_idx <=3D FIX_MSIX_IO_RESERV_END)? (Could of
+> course bound at the other end, too, i.e. against FIX_MSIX_IO_RESERV_BASE.)
 
+That's the most likely bug that could happen, but indeed broader assert
+would be better.
+
+> > +    hwaddr =3D fix_to_virt(fixmap_idx) + PAGE_OFFSET(address);
+> > +
+> > +    switch ( len )
+> > +    {
+> > +    case 1:
+> > +        *pval =3D readb(hwaddr);
+> > +        break;
+> > +
+> > +    case 2:
+> > +        *pval =3D readw(hwaddr);
+> > +        break;
+> > +
+> > +    case 4:
+> > +        *pval =3D readl(hwaddr);
+> > +        break;
+> > +
+> > +    case 8:
+> > +        *pval =3D readq(hwaddr);
+> > +        break;
+> > +
+> > +    default:
+> > +        ASSERT_UNREACHABLE();
+>=20
+> Misra demands "break;" to be here for release builds. In fact I wonder
+> why "*pval =3D ~0UL;" isn't put here, too. Question of course is whether
+> in such a case a true error indicator wouldn't be yet better.
+
+I don't think it possible for the msixtbl_read() (that calls
+adjacent_read()) to be called with other sizes. The default label is
+here exactly to make it obvious for the reader.
+
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
+
+--CKYVC/vicUnx3hS2
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmYrx8MACgkQ24/THMrX
+1yzTcwgAjG8h+IjL5Gce745Xo2IASDRNlb7nJ2Wh2N9vEeolQidSAgZOLlUU5MxX
+CrL7Ojkpuex+Pkqbi3OJwVWZKlPPRc0+EQhwjGvx/7DgTmTUKUanHMjk5RZt+yzI
+ruDvj6FQnXkZVRYTkxEanjKbqCk1b5WDwRliFsQt+H69pPbLHvnjBaz9h6V5gjPZ
+Dn87tgi7JR002rcowbtPQPNil8gpwoWlZEltlNDl6aD2KW8oLS3Ev08VHRRfCBCp
+znHibNL5EUGk4TU/yeP+M4IEoEb5A2XaShFs4ueXGC6aADCVbm3qH5lj74kijBYf
+8HJ2osfLdlatO8JiVZQteJYsCzKWDA==
+=5gps
+-----END PGP SIGNATURE-----
+
+--CKYVC/vicUnx3hS2--
 
