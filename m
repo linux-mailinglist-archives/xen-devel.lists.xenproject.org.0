@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 46CC18B3A86
-	for <lists+xen-devel@lfdr.de>; Fri, 26 Apr 2024 17:03:48 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.712889.1113778 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AB2D88B3A9B
+	for <lists+xen-devel@lfdr.de>; Fri, 26 Apr 2024 17:06:49 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.712894.1113790 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s0N6b-0000sd-Nx; Fri, 26 Apr 2024 15:03:17 +0000
+	id 1s0N9c-0001qt-5s; Fri, 26 Apr 2024 15:06:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 712889.1113778; Fri, 26 Apr 2024 15:03:17 +0000
+Received: by outflank-mailman (output) from mailman id 712894.1113790; Fri, 26 Apr 2024 15:06:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s0N6b-0000pt-LC; Fri, 26 Apr 2024 15:03:17 +0000
-Received: by outflank-mailman (input) for mailman id 712889;
- Fri, 26 Apr 2024 15:03:16 +0000
+	id 1s0N9c-0001pN-2w; Fri, 26 Apr 2024 15:06:24 +0000
+Received: by outflank-mailman (input) for mailman id 712894;
+ Fri, 26 Apr 2024 15:06:22 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=LIFE=L7=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1s0N6a-0000pm-7H
- for xen-devel@lists.xenproject.org; Fri, 26 Apr 2024 15:03:16 +0000
-Received: from mail-qv1-xf2d.google.com (mail-qv1-xf2d.google.com
- [2607:f8b0:4864:20::f2d])
+ id 1s0N9a-0001ow-7o
+ for xen-devel@lists.xenproject.org; Fri, 26 Apr 2024 15:06:22 +0000
+Received: from mail-qv1-xf31.google.com (mail-qv1-xf31.google.com
+ [2607:f8b0:4864:20::f31])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 1a20be6a-03de-11ef-b4bb-af5377834399;
- Fri, 26 Apr 2024 17:03:13 +0200 (CEST)
-Received: by mail-qv1-xf2d.google.com with SMTP id
- 6a1803df08f44-6a073f10e25so11576786d6.3
- for <xen-devel@lists.xenproject.org>; Fri, 26 Apr 2024 08:03:13 -0700 (PDT)
+ id 8978944f-03de-11ef-b4bb-af5377834399;
+ Fri, 26 Apr 2024 17:06:20 +0200 (CEST)
+Received: by mail-qv1-xf31.google.com with SMTP id
+ 6a1803df08f44-6a04bae512aso12457126d6.2
+ for <xen-devel@lists.xenproject.org>; Fri, 26 Apr 2024 08:06:20 -0700 (PDT)
 Received: from [10.80.67.140] (default-46-102-197-194.interdsl.co.uk.
  [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- g7-20020a0ce4c7000000b0069b7aca529esm6808184qvm.14.2024.04.26.08.03.10
+ r12-20020a0ce28c000000b0069b58b97ed2sm7917577qvl.28.2024.04.26.08.06.17
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 26 Apr 2024 08:03:11 -0700 (PDT)
+ Fri, 26 Apr 2024 08:06:18 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,45 +45,44 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1a20be6a-03de-11ef-b4bb-af5377834399
+X-Inumbo-ID: 8978944f-03de-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1714143792; x=1714748592; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1714143979; x=1714748779; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=/IV75V+XwXt920fRWV5r7vzDvPszn131o2QCc9WBaaI=;
-        b=XG2mxwxb8K8ekznTsboPV0y6CyXg5W6QYIePNY7iFDzf6Yi8KwkZDaAyTScXMyq/od
-         a8naf+8VeIKXRjIKqICdMliGRMWxVR4yEYm/jYQsfwqZuI5RWvMZP7/sEV/3L9vbdrIk
-         kts66xRcjQTV1FD14lX2wxuigHrQKTQKEaixI=
+        bh=aEx5ln2bhdD4y3LvDXLHSkOsgDQ88hhidoE5ke/RJ+c=;
+        b=q0mThBkjmAx4GiURKpxahEN7b5NODKCrOelZWYPH5i9ktKWW4fR2qpcFs7y2NRfqil
+         YsQLrLAbWSu7tIgLNIHOmX4hZWWzK4FLayh9fdWOyJdcn0+OSIHRW7YuzI3f0PlJxTd7
+         LBBlVRtTs+g65GlQaupYB9CpGMqFSZHnsCORY=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1714143792; x=1714748592;
+        d=1e100.net; s=20230601; t=1714143979; x=1714748779;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=/IV75V+XwXt920fRWV5r7vzDvPszn131o2QCc9WBaaI=;
-        b=lnJ+Ci13yWNDozNmA/iCmrfxTbnCvR3DmDgFKesqwm0fq/fYFbnO2eDdiEBpfFF6/W
-         yxP3CFVHFFUJX7poiCUkDs4plrn93ZTEWIr7PTQw6KUb9NVZpXabeGDPNhUAG4MFqruv
-         gcqS5CKdcft012N5dLeBHTFC3VbzRgVcn352AbD4Gdk5k0AQDSsKqvaU0srzbLuKRmFh
-         5ALKJciE3hXACzrJUDWEuyBJlTDhaXm/DpDj07BLUFrXJu9tf7Zx/d3uB5GpWN7OJmWm
-         94FDAd7sryAcE24dv4hnups/bpTdavTiukNeePsEXukBewzscG1jH+bPFEMLxXqbjWAD
-         0kGQ==
-X-Forwarded-Encrypted: i=1; AJvYcCWdih0VshjGMxXxyb0EtptxBOxVyqDCyc84nVweiqdXGDP3FPLdxPgkMCLM2rLZvDS0qq2ZsxJd6MZSlJ6VaVhXdO5nhzLyLQjGc4gJImc=
-X-Gm-Message-State: AOJu0YxRMnp3bIoL/LqBymWiSsTedmTNXTYIyznusoMHYrOYTd24wDsr
-	hNaGSrzmT5tSWRZA5kuCHCkUdMd6Pk//u3l3WfcDLR5bTwUhFiw9CPje6S0IP+w=
-X-Google-Smtp-Source: AGHT+IHe5KPr93/h07nyLR4Fl4n7BT9txxwjdUcsvEMRY7vziapa8prG0WNjhoN/fMOrzXHao0xsWg==
-X-Received: by 2002:ad4:48d0:0:b0:6a0:b189:2c72 with SMTP id v16-20020ad448d0000000b006a0b1892c72mr1305150qvx.29.1714143791842;
-        Fri, 26 Apr 2024 08:03:11 -0700 (PDT)
-Message-ID: <c019775c-3ebb-4abb-95ca-add6339c8a80@citrix.com>
-Date: Fri, 26 Apr 2024 16:03:09 +0100
+        bh=aEx5ln2bhdD4y3LvDXLHSkOsgDQ88hhidoE5ke/RJ+c=;
+        b=evxSlvuQXme89fhzkX4Xm0/39GwZuq3W3zdohjmnucSFlJOiH6LgEKKMIkMIRqtL1h
+         9XwOY4CB+5sDuVqXRm7jBYWM2qmOZNEpFNM74avz1qjqykTup2dlsfdTfATEBFotOV6p
+         VwtTySXue0go4iIp9guuFGcewzP5NnMuhVoU0z+rDZo+xsuUnHQ/DPaCK2p1gjcydNWv
+         G2+mShKGLcedaHM27ZImnbjZ5OeA8irvHe+z2JJmzXFfgfOl2opyJAdx2CvkZ6fJ04N7
+         AkxDQLGMrE0FRphAqLA1jtA9B+KKijQw3UlXt5zp/259SCB30o8K8j9UVLFfL2fkHwiK
+         54IQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWEdFPry/FWjRHFIIS4RhF9Wz4/ilFjC8r1hGTeneihgVWwDEZFQ09WWW/umUSE/G10wsDkHGqg/6gKtWLKbISVRpVC6meI6pvTG2o0BHs=
+X-Gm-Message-State: AOJu0YwVGssyLhLBms+o7LoEos0tiqCiuRwJQxRvff645Ga8bhbbtQU4
+	X9VuTp0yrfY1UnPgFxVXCsmg+LRjOgWdHZy8wKrCcszYDHNZhOZbsPjPgNkWgoU=
+X-Google-Smtp-Source: AGHT+IE5TbOym3CMg2CnBQ99S6tYPTE4iAOtgr53byEpvcaXJWs2xewr5u8S9nkqmcKBNUJi3OaSbw==
+X-Received: by 2002:a05:6214:21ea:b0:6a0:af44:f21 with SMTP id p10-20020a05621421ea00b006a0af440f21mr2041973qvj.36.1714143979037;
+        Fri, 26 Apr 2024 08:06:19 -0700 (PDT)
+Message-ID: <76b27178-b860-4148-8878-43afc4f042da@citrix.com>
+Date: Fri, 26 Apr 2024 16:06:17 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/3] tools/xentrace: Remove xentrace_format
+Subject: Re: [PATCH 2/3] tools/xenalyze: Ignore HVM_EMUL events harder
 To: George Dunlap <george.dunlap@cloud.com>, xen-devel@lists.xenproject.org
-Cc: Jan Beulich <jbeulich@suse.com>, Roger Pau Monne <roger.pau@cloud.com>,
- Anthony Perard <anthony.perard@cloud.com>, Olaf Hering <olaf@aepfle.de>
+Cc: Anthony Perard <anthony.perard@cloud.com>, Olaf Hering <olaf@aepfle.de>
 References: <20240426143231.4007671-1-george.dunlap@cloud.com>
- <20240426143231.4007671-4-george.dunlap@cloud.com>
+ <20240426143231.4007671-3-george.dunlap@cloud.com>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -129,26 +128,35 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <20240426143231.4007671-4-george.dunlap@cloud.com>
+In-Reply-To: <20240426143231.4007671-3-george.dunlap@cloud.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
 On 26/04/2024 3:32 pm, George Dunlap wrote:
-> xentrace_format was always of limited utility, since trace records
-> across pcpus were processed out of order; it was superseded by xenalyze
-> over a decade ago.
+> To unify certain common sanity checks, checks are done very early in
+> processing based only on the top-level type.
 >
-> But for several releases, the `formats` file it has depended on for
-> proper operation has not even been included in `make install` (which
-> generally means it doesn't get picked up by distros either); yet
-> nobody has seemed to complain.
+> Unfortunately, when TRC_HVM_EMUL was introduced, it broke some of the
+> assumptions about how the top-level types worked.  Namely, traces of
+> this type will show up outside of HVM contexts: in idle domains and in
+> PV domains.
 >
-> Simple remove xentrace_format, and point people to xenalyze instead.
+> Make an explicit exception for TRC_HVM_EMUL types in a number of places:
 >
-> NB that there is no man page for xenalyze, so the "see also" on the
-> xentrace man page is simply removed for now.
+>  - Pass the record info pointer to toplevel_assert_check, so that it
+>    can exclude TRC_HVM_EMUL records from idle and vcpu data_mode
+>    checks
+>
+>  - Don't attempt to set the vcpu data_type in hvm_process for
+>    TRC_HVM_EMUL records.
 >
 > Signed-off-by: George Dunlap <george.dunlap@cloud.com>
 
 Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+
+Although I'm tempted to say that if records of this type show up outside
+of HVM context, then it's misnamed or we've got an error in Xen.  Any
+view on which?
+
+~Andrew
 
