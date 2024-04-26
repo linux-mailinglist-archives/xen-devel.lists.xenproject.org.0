@@ -2,33 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 69B0F8B3643
-	for <lists+xen-devel@lfdr.de>; Fri, 26 Apr 2024 13:04:34 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.712656.1113501 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5CD3A8B3686
+	for <lists+xen-devel@lfdr.de>; Fri, 26 Apr 2024 13:31:04 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.712703.1113524 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s0JNC-0008VG-4p; Fri, 26 Apr 2024 11:04:10 +0000
+	id 1s0JmH-0006ex-Df; Fri, 26 Apr 2024 11:30:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 712656.1113501; Fri, 26 Apr 2024 11:04:10 +0000
+Received: by outflank-mailman (output) from mailman id 712703.1113524; Fri, 26 Apr 2024 11:30:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s0JNC-0008SW-0O; Fri, 26 Apr 2024 11:04:10 +0000
-Received: by outflank-mailman (input) for mailman id 712656;
- Fri, 26 Apr 2024 11:04:08 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=nLQV=L7=cloud.com=kelly.choi@srs-se1.protection.inumbo.net>)
- id 1s0JNA-00084D-Gv
- for xen-devel@lists.xenproject.org; Fri, 26 Apr 2024 11:04:08 +0000
-Received: from mail-ed1-x531.google.com (mail-ed1-x531.google.com
- [2a00:1450:4864:20::531])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b2e90175-03bc-11ef-b4bb-af5377834399;
- Fri, 26 Apr 2024 13:04:06 +0200 (CEST)
-Received: by mail-ed1-x531.google.com with SMTP id
- 4fb4d7f45d1cf-57255e89facso600374a12.2
- for <xen-devel@lists.xenproject.org>; Fri, 26 Apr 2024 04:04:06 -0700 (PDT)
+	id 1s0JmH-0006am-AL; Fri, 26 Apr 2024 11:30:05 +0000
+Received: by outflank-mailman (input) for mailman id 712703;
+ Fri, 26 Apr 2024 11:30:03 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1s0JmF-0006I4-MU; Fri, 26 Apr 2024 11:30:03 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1s0JmF-0005Ht-IV; Fri, 26 Apr 2024 11:30:03 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1s0JmF-0008SE-7Q; Fri, 26 Apr 2024 11:30:03 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1s0JmF-0006tp-73; Fri, 26 Apr 2024 11:30:03 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,549 +42,366 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b2e90175-03bc-11ef-b4bb-af5377834399
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1714129445; x=1714734245; darn=lists.xenproject.org;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=0Y6YcNctRX5knL74w+4wjmbrTytIBttjArAywtNz6fE=;
-        b=cthuDGIajiMNK4aSbPgcVOQtLmpq5AGonwr8sWTcQ/Q4ctEYJ7ZGs0iOHgV6SMT7nc
-         zz/I5y+uS0TzYt6TfTTHWgu7Jcbf8Y5buTd3rX2KVy7U/rFbTYWNLIeAeUBajbOx9pNo
-         bYWtVeP+UY7B7E8oicRX9JV/cOOv+SpihBZho=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1714129445; x=1714734245;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=0Y6YcNctRX5knL74w+4wjmbrTytIBttjArAywtNz6fE=;
-        b=sDRQGBWjRYUw8ybYqHhm01N+8aQaf/G7Qt/Oh//45gMbrCV4cOyCoSiHnigVsHD6Qu
-         ZtJnBlPStC3wKN8empQV2Fgmrs/EZ2l49qy/n1SmkAxOIcJiXrO4KvTUiUl/j1vrf1PK
-         6uLbNTYijLGC9CJ5q0WM4rw7WtAgsQTDC6nGxFzSR8rq11SteAS66bDUK3y2kE12UaPQ
-         eoFYfoqSFSZEQV1hbL8Dhvk9IyIP6/5erij9qNn1/bBQElfI2oWLMDrTv54AWGr6gD8T
-         npuv92F4wJrxUJANa9oYeulT+gKpDLYjlOO+W2nqHP1WeLf+wM1ti5QY1g3JeN8d4i0A
-         vtRw==
-X-Gm-Message-State: AOJu0YzXLdgPlOH+VJzYaPzFZoQdo1jdaTLStQCFsDcjuMyFIYCP8l+n
-	5m+ea36gGFTF2t6lEFaM6qWNhocHakJ1phDhKtPa3KIidgrEeVMgHsUIG08R8DLHdVxMGC0/h0X
-	Bji/+mwlTVzgVgEgJDrpBce0AuGuk8On8STUd6mM10RL0eoiN5hHSIA==
-X-Google-Smtp-Source: AGHT+IE2ITVoL8eSEaqHF7trlWM7wsd0GCiJD66VxG2iQ3bHsoGb3jynbFV1UtYh2p55AidCstvC5YwmJ69VuC8hT6s=
-X-Received: by 2002:a05:6402:40c2:b0:572:53d5:62e0 with SMTP id
- z2-20020a05640240c200b0057253d562e0mr1435600edb.4.1714129445268; Fri, 26 Apr
- 2024 04:04:05 -0700 (PDT)
-MIME-Version: 1.0
-References: <p2-q466qgwwlqfn4m-qx47948p-a01-2x6n-0011N000017qoUMQAY@cvent-planner.com>
- <LV8PR84MB3654E4FE6C656979B4A47A78A6172@LV8PR84MB3654.NAMPRD84.PROD.OUTLOOK.COM>
-In-Reply-To: <LV8PR84MB3654E4FE6C656979B4A47A78A6172@LV8PR84MB3654.NAMPRD84.PROD.OUTLOOK.COM>
-From: Kelly Choi <kelly.choi@cloud.com>
-Date: Fri, 26 Apr 2024 12:03:29 +0100
-Message-ID: <CAO-mL=wM8siytp7hQezY8mm1AyL0tJc0Y-Za8wt1ebhAjbiOyQ@mail.gmail.com>
-Subject: [ANNOUNCE] Xen Project Summit 2024 Design Sessions
-To: xen-devel <xen-devel@lists.xenproject.org>, xen-users@lists.xenproject.org, 
-	xen-announce@lists.xenproject.org
-Cc: advisory-board@lists.xenproject.org
-Content-Type: multipart/alternative; boundary="000000000000af4fca0616fddc69"
-
---000000000000af4fca0616fddc69
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=S+TklXEjTowSwAcwQvWFnStLSd00RI1HD6s5UvOsALg=; b=r6Q5iMwluzLCEJ8kIWsVyoR+Y4
+	bSuj7m8MMBoFSnJxHxlApvfMxaK0ylLbwI6PYrgULMuunsXYIkPjiUXSuXNHqY6N0nxiGwS7zXPpm
+	HvyBwaRIGBKZ1Yypxde8EwjEAyqVV1st2I7vwlwrRgYHNvGrCocN5iMBjXmPhmqJlVbM=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-185802-mainreport@xen.org>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [linux-linus test] 185802: tolerable FAIL - PUSHED
+X-Osstest-Failures:
+    linux-linus:test-armhf-armhf-examine:reboot:fail:heisenbug
+    linux-linus:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemut-debianhvm-i386-xsm:debian-hvm-install:fail:nonblocking
+    linux-linus:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-qcow2:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-raw:migrate-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-vhd:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-vhd:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-qcow2:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-qcow2:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-raw:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-raw:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-libvirt-vhd:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-libvirt-vhd:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    linux=c942a0cd3603e34dd2d7237e064d9318cb7f9654
+X-Osstest-Versions-That:
+    linux=71b1543c83d65af8215d7558d70fc2ecbee77dcf
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 26 Apr 2024 11:30:03 +0000
 
-Hello Xen Community,
+flight 185802 linux-linus real [real]
+flight 185810 linux-linus real-retest [real]
+http://logs.test-lab.xenproject.org/osstest/logs/185802/
+http://logs.test-lab.xenproject.org/osstest/logs/185810/
 
-*Our design sessions are now open for Xen Summit! *
+Failures :-/ but no regressions.
 
-If you've attended Xen Summit before, you might be familiar with the
-process.
+Tests which are failing intermittently (not blocking):
+ test-armhf-armhf-examine      8 reboot              fail pass in 185810-retest
 
-For anyone who hasn't done so before, please follow the instructions below,
-using the link to create an account
-<https://design-sessions.xenproject.org/>.
-Once you've created your account, you'll be asked to verify using the code
-below. That's it, you're in!
+Tests which did not succeed, but are not blocking:
+ test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 185768
+ test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 185768
+ test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 185768
+ test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 185768
+ test-amd64-amd64-xl-qemut-debianhvm-i386-xsm 12 debian-hvm-install fail like 185768
+ test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 185768
+ test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 185768
+ test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-qcow2 14 migrate-support-check        fail never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-multivcpu 15 migrate-support-check        fail  never pass
+ test-armhf-armhf-xl-multivcpu 16 saverestore-support-check    fail  never pass
+ test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit1  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-vhd      14 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-vhd      15 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-qcow2    14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-qcow2    15 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-raw      14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-raw      15 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-rtds     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-rtds     16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-libvirt-vhd 14 migrate-support-check        fail   never pass
+ test-armhf-armhf-libvirt-vhd 15 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-credit2  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit2  16 saverestore-support-check    fail   never pass
 
-We aim to have design sessions with a virtual element (using Jitsi/Zoom).
-This is free for the community to join in and listen, and will be hosted by
-an attendee in the session.
+version targeted for testing:
+ linux                c942a0cd3603e34dd2d7237e064d9318cb7f9654
+baseline version:
+ linux                71b1543c83d65af8215d7558d70fc2ecbee77dcf
 
-If you're going to be an *in-person attendee*, you can propose a session
-and vote on sessions you would like to see discussed.
-If you're going to be a *virtual attendee*, you can vote on sessions you
-would like to see discussed. You can still propose a session, but please
-note there will be no professional audio or visual equipment in person for
-these sessions.
+Last test of basis   185768  2024-04-23 07:46:10 Z    3 days
+Failing since        185779  2024-04-24 00:13:50 Z    2 days    5 attempts
+Testing same since   185802  2024-04-26 01:58:59 Z    0 days    1 attempts
 
-The final schedule will be allocated and arranged by the highest-voted
-sessions.
+------------------------------------------------------------
+People who touched revisions under test:
+  Abdelrahman Morsy <abdelrahmanhesham94@gmail.com>
+  Aleksandr Loktionov <aleksandr.loktionov@intel.com>
+  Alex Elder <elder@linaro.org>
+  Alexander Zubkov <green@qrator.net>
+  Andreas Taschner <andreas.taschner@suse.com>
+  Arkadiusz Kubalewski <arkadiusz.kubalewski@intel.com>
+  Arınç ÜNAL <arinc.unal@arinc9.com>
+  Avraham Stern <avraham.stern@intel.com>
+  Bartosz Golaszewski <bartosz.golaszewski@linaro.org>
+  Benjamin Tissoires <bentiss@kernel.org>
+  Chuck Lever <chuck.lever@oracle.com>
+  Chun-Yi Lee <jlee@suse.com>
+  Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com> # on RZ/G3S
+  Dan Carpenter <dan.carpenter@linaro.org>
+  Daniel Golle <daniel@makrotopia.org>
+  Daniele Palmas <dnlplm@gmail.com>
+  David Bauer <mail@david-bauer.net>
+  David Christensen <drc@linux.ibm.com>
+  David Howells <dhowells@redhat.com>
+  David S. Miller <davem@davemloft.net>
+  David Sterba <dsterba@suse.com>
+  Dmitry Antipov <dmantipov@yandex.ru>
+  Dmitry Safonov <0x7f454c46@gmail.com>
+  Duanqiang Wen <duanqiangwen@net-swift.com>
+  Duoming Zhou <duoming@zju.edu.cn>
+  Ed Trexel <ed.trexel@hp.com>
+  Eric Dumazet <edumazet@google.com>
+  Eric Van Hensbergen <ericvh@kernel.org>
+  Erwan Velu <e.velu@criteo.com>
+  Felix Fietkau <nbd@nbd.name>
+  Florian Fainelli <florian.fainelli@broadcom.com>
+  Geert Uytterhoeven <geert+renesas@glider.be>
+  Hangbin Liu <liuhangbin@gmail.com>
+  Hans de Goede <hdegoede@redhat.com>
+  Hyunwoo Kim <v4bel@theori.io>
+  Ido Schimmel <idosch@nvidia.com>
+  Igor Artemiev <Igor.A.Artemiev@mcst.ru>
+  Ismael Luceno <iluceno@suse.de>
+  Jacob Keller <jacob.e.keller@intel.com>
+  Jakub Kicinski <kuba@kernel.org>
+  Jarred White <jarredwhite@linux.microsoft.com>
+  Jason Reeder <jreeder@ti.com>
+  Jeff Johnson <quic_jjohnson@quicinc.com>
+  Jiri Kosina <jkosina@suse.com>
+  Johan Hovold <johan+linaro@kernel.org>
+  Johannes Berg <johannes.berg@intel.com>
+  Johannes Thumshirn <Johannes.thumshirn@wdc.com>
+  Julian Anastasov <ja@ssi.bg>
+  Justin Chen <justin.chen@broadcom.com>
+  Kalle Valo <kvalo@kernel.org>
+  Kalle Valo <quic_kvalo@quicinc.com>
+  Kenny Levinsen <kl@kl.wtf>
+  Kuniyuki Iwashima <kuniyu@amazon.com>
+  Kurt Kanzenbach <kurt@linutronix.de>
+  Kurt Kanzenbach <kurt@linutronix.de> # Intel i225
+  Larry Finger <Larry.Finger@lwfinger.net>
+  Linus Torvalds <torvalds@linux-foundation.org>
+  Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
+  Lukas Wunner <lukas@wunner.de>
+  Mark Pearson <mpearson-lenovo@squebb.ca>
+  Matthias Schiffer <matthias.schiffer@ew.tq-group.com>
+  MD Danish Anwar <danishanwar@ti.com>
+  Michael Chan <michael.chan@broadcom.com>
+  Michael Ellerman <mpe@ellerman.id.au> (powerpc)
+  Michael S. Tsirkin <mst@redhat.com>
+  Mineri Bhange <minerix.bhange@intel.com> (A Contingent Worker at Intel)
+  Miri Korenblit <miriam.rachel.korenblit@intel.com>
+  Naama Meir <naamax.meir@linux.intel.com>
+  Nam Cao <namcao@linutronix.de>
+  Naohiro Aota <naohiro.aota@wdc.com>
+  Nathan Chancellor <nathan@kernel.org>
+  Neal Gompa <neal@gompa.dev>
+  Nikolay Aleksandrov <razor@blackwall.org>
+  Nuno Pereira <nf.pereira@outlook.pt>
+  Pablo Neira Ayuso <pablo@netfilter.org>
+  Paolo Abeni <pabeni@redhat.com>
+  Paul Geurts <paul_geurts@live.nl>
+  Paulo Alcantara (Red Hat) <pc@manguebit.com>
+  Paulo Alcantara <pc@manguebit.com>
+  Peter Münster <pm@a16n.net>
+  Petr Machata <petrm@nvidia.com>
+  Przemek Kitszel <przemyslaw.kitszel@intel.com>
+  Qu Wenruo <wqu@suse.com>
+  Rafael J. Wysocki <rafael.j.wysocki@intel.com>
+  Rafal Romanowski <rafal.romanowski@intel.com>
+  Rahul Rameshbabu <rrameshbabu@nvidia.com>
+  Ravi Gunasekaran <r-gunasekaran@ti.com>
+  Richard Kinder <richard.kinder@gmail.com>
+  Robert Ganzynkowicz <robert.ganzynkowicz@intel.com>
+  Ronnie Sahlberg <lsahlber@redhat.com>
+  Sabrina Dubroca <sd@queasysnail.net>
+  Sean Wang <sean.wang@mediatek.com>
+  Sindhu Devale <sindhu.devale@intel.com>
+  Soheil Hassas Yeganeh <soheil@google.com>
+  Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>
+  Steve French <stfrench@microsoft.com>
+  Su Hui <suhui@nfschina.com>
+  Sudheer Mogilappagari <sudheer.mogilappagari@intel.com>
+  Sweet Tea Dorminy <sweettea-kernel@dorminy.me>
+  Takayuki Nagata <tnagata@redhat.com>
+  Tom Talpey <tom@talpey.com>
+  Tony Brelinski <tony.brelinski@intel.com>
+  Tony Nguyen <anthony.l.nguyen@intel.com>
+  Vaclav Svoboda <svoboda@neng.cz>
+  Vanshidhar Konda <vanshikonda@os.amperecomputing.com>
+  Vikas Gupta <vikas.gupta@broadcom.com>
+  WangYuli <wangyuli@uniontech.com>
+  Wren Turkal" <wt@penguintechs.org>
+  Yaraslau Furman <yaro330@gmail.com>
+  Yick Xie <yick.xie@gmail.com>
+  Zhang Lixu <lixu.zhang@intel.com>
+  Zhu Lingshan <lingshan.zhu@intel.com>
+  Zijun Hu <quic_zijuhu@quicinc.com>
 
-Virtual links for the community to join Xen Summit design sessions will be
-shared closer to the event.
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl                                          pass    
+ test-amd64-coresched-amd64-xl                                pass    
+ test-arm64-arm64-xl                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
+ test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 fail    
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 pass    
+ test-amd64-amd64-xl-xsm                                      pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-qemuu-nested-amd                            fail    
+ test-amd64-amd64-xl-pvhv2-amd                                pass    
+ test-amd64-amd64-dom0pvh-xl-amd                              pass    
+ test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
+ test-amd64-amd64-qemuu-freebsd12-amd64                       pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-amd64-xl-qemut-win7-amd64                         fail    
+ test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
+ test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
+ test-armhf-armhf-xl-arndale                                  pass    
+ test-amd64-amd64-examine-bios                                pass    
+ test-amd64-amd64-xl-credit1                                  pass    
+ test-arm64-arm64-xl-credit1                                  pass    
+ test-armhf-armhf-xl-credit1                                  pass    
+ test-amd64-amd64-xl-credit2                                  pass    
+ test-arm64-arm64-xl-credit2                                  pass    
+ test-armhf-armhf-xl-credit2                                  pass    
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
+ test-amd64-amd64-examine                                     pass    
+ test-arm64-arm64-examine                                     pass    
+ test-armhf-armhf-examine                                     fail    
+ test-amd64-amd64-qemuu-nested-intel                          pass    
+ test-amd64-amd64-xl-pvhv2-intel                              pass    
+ test-amd64-amd64-dom0pvh-xl-intel                            pass    
+ test-amd64-amd64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     pass    
+ test-amd64-amd64-xl-multivcpu                                pass    
+ test-armhf-armhf-xl-multivcpu                                pass    
+ test-amd64-amd64-pair                                        pass    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-amd64-xl-pvshim                                   pass    
+ test-amd64-amd64-pygrub                                      pass    
+ test-amd64-amd64-libvirt-qcow2                               pass    
+ test-amd64-amd64-xl-qcow2                                    pass    
+ test-armhf-armhf-xl-qcow2                                    pass    
+ test-amd64-amd64-libvirt-raw                                 pass    
+ test-arm64-arm64-libvirt-raw                                 pass    
+ test-amd64-amd64-xl-raw                                      pass    
+ test-armhf-armhf-xl-raw                                      pass    
+ test-amd64-amd64-xl-rtds                                     pass    
+ test-armhf-armhf-xl-rtds                                     pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
+ test-amd64-amd64-xl-shadow                                   pass    
+ test-arm64-arm64-xl-thunderx                                 pass    
+ test-amd64-amd64-examine-uefi                                pass    
+ test-amd64-amd64-libvirt-vhd                                 pass    
+ test-armhf-armhf-libvirt-vhd                                 pass    
+ test-amd64-amd64-xl-vhd                                      pass    
+ test-arm64-arm64-xl-vhd                                      pass    
 
-If you have any questions, please let me know.
 
-For in-person tickets, click here
-<https://events.linuxfoundation.org/xen-project-summit/register/>.
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-------------------------------
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
-
-
-We look forward to holding the Design Sessions at the upcoming Xen Project
-Summit. The design sessions will be on Wednesday, 5 June, and Thursday, 6
-June 2024.
-
-We encourage everyone to submit a Design Session, the verification code is:
-=E2=80=9C*LFXEN24*=E2=80=9D.
-
-*SUBMIT A DESIGN SESSION* <https://design-sessions.xenproject.org/>
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
 
+Pushing revision :
 
-The process involves the following steps:
-
-   - Anyone interested can propose
-   <https://design-sessions.xenproject.org/discussion/new> a topic.
-   - All participants review the list of sessions
-   <https://design-sessions.xenproject.org/list/discussion>, indicating
-   their interest in attending each one.
-   - The session scheduler optimizes the schedule
-   <https://design-sessions.xenproject.org/schedule> to accommodate as many
-   preferences as possible.
-
-Participants can also propose long-form talks by adding [TALK] to the
-session title.
-
-For suggested topics, sample Design Session submissions, and more tips
-check out the Xen Design Session page
-<https://events.linuxfoundation.org/xen-project-summit/program/design-sessi=
-ons/>
-for more information.
-
-
-Best Regards,
-Xen Project Events Team
-
-
-------------------------------
-
---000000000000af4fca0616fddc69
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div><div dir=3D"ltr" class=3D"gmail_signature" data-smart=
-mail=3D"gmail_signature"><div dir=3D"ltr"><div>Hello Xen Community,</div><d=
-iv><b><br></b></div><div><b>Our design sessions are now open for Xen Summit=
-!=C2=A0</b></div><div><br></div><div>If you&#39;ve attended Xen Summit befo=
-re, you might be familiar with the process.=C2=A0</div><div><br></div><div>=
-For anyone who hasn&#39;t done so before, please follow the instructions be=
-low, using the=C2=A0<a href=3D"https://design-sessions.xenproject.org/">lin=
-k to create an account</a>.=C2=A0</div><div>Once you&#39;ve created your ac=
-count, you&#39;ll be asked to verify using the code below. That&#39;s it, y=
-ou&#39;re in!</div><div><br></div><div>We aim to have design sessions with =
-a virtual element (using Jitsi/Zoom). This is free for the community to joi=
-n in and listen, and will be hosted by an attendee in the session.=C2=A0<br=
-></div><div><br></div><div>If you&#39;re going to be an <b><i>in-person att=
-endee</i></b>, you can propose a session and vote on sessions you would lik=
-e to see discussed.=C2=A0</div><div>If you&#39;re going to be a <b><i>virtu=
-al attendee</i></b>, you can vote on sessions you would like to see discuss=
-ed. You can still propose a session, but please note there will be no profe=
-ssional audio or visual equipment in person for these sessions.=C2=A0</div>=
-<div><br></div><div>The final schedule will be allocated and arranged by th=
-e highest-voted sessions.=C2=A0</div><div><br></div><div>Virtual links for =
-the community to join Xen Summit design sessions will be shared closer to t=
-he event.=C2=A0=C2=A0<br></div><div><br></div><div>If you=C2=A0have any que=
-stions,=C2=A0please let me know.</div><div><p class=3D"MsoNormal">For in-pe=
-rson tickets, <a href=3D"https://events.linuxfoundation.org/xen-project-sum=
-mit/register/">click here</a>.=C2=A0</p><p class=3D"MsoNormal"><u></u></p><=
-table border=3D"0" cellspacing=3D"0" cellpadding=3D"0" width=3D"100%" style=
-=3D"width:949.612px"><tbody><tr><td style=3D"padding:0.75pt"><div class=3D"=
-MsoNormal" align=3D"center" style=3D"text-align:center"><hr size=3D"1" widt=
-h=3D"100%" noshade align=3D"center" style=3D"color:rgb(160,160,160)"></div>=
-<p class=3D"MsoNormal"></p></td></tr></tbody></table></div><div><br></div><=
-/div></div></div><div class=3D"gmail_quote"><div class=3D"msg-2685003709366=
-885060"><div lang=3D"EN-US" link=3D"#0099E0" vlink=3D"#0099E0" style=3D"wor=
-d-wrap:break-word" id=3D"m_-2685003709366885060body"><div class=3D"m_-26850=
-03709366885060WordSection1"><div id=3D"m_-2685003709366885060mail-editor-re=
-ference-message-container"><div>
-<table border=3D"0" cellspacing=3D"0" cellpadding=3D"0" width=3D"100%" styl=
-e=3D"width:100.0%;float:left">
-<tbody>
-<tr>
-<td style=3D"background:#eff0f2;padding:0in 0in 0in 0in">
-<div align=3D"center">
-<table border=3D"0" cellspacing=3D"0" cellpadding=3D"0" width=3D"100%" styl=
-e=3D"width:100.0%;float:left">
-<tbody>
-<tr>
-<td style=3D"padding:0in 0in 0in 0in">
-<div align=3D"center">
-<table border=3D"0" cellspacing=3D"0" cellpadding=3D"0" width=3D"100%" styl=
-e=3D"width:100.0%;background:white">
-<tbody>
-<tr>
-<td style=3D"padding:0in 0in 0in 0in">
-<div align=3D"center">
-<table border=3D"0" cellspacing=3D"0" cellpadding=3D"0" width=3D"100%" styl=
-e=3D"width:100.0%">
-<tbody>
-<tr>
-<td valign=3D"top" style=3D"padding:0in 0in 0in 0in">
-<table border=3D"0" cellspacing=3D"0" cellpadding=3D"0" align=3D"left" widt=
-h=3D"100%" style=3D"width:100.0%">
-<tbody>
-<tr>
-<td style=3D"padding:0in 0in 0in 0in">
-<table border=3D"0" cellspacing=3D"0" cellpadding=3D"0" width=3D"100%" styl=
-e=3D"width:100.0%">
-<tbody>
-<tr>
-<td style=3D"padding:0in 0in 0in 0in">
-<div align=3D"center">
-<table border=3D"0" cellspacing=3D"0" cellpadding=3D"0" width=3D"100%" styl=
-e=3D"width:100.0%">
-<tbody>
-<tr>
-<td style=3D"padding:0in 0in 0in 0in">
-<p class=3D"MsoNormal" align=3D"center" style=3D"text-align:center"><img bo=
-rder=3D"0" width=3D"699" style=3D"width:7.2812in" id=3D"m_-2685003709366885=
-060_x0000_i1028" src=3D"https://custom.cvent.com/64779B2AC74D4D2BBFF4459DE9=
-3A5253/pix/d770244914e047019777029a32e20c53.png?d=3D699"></p>
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-<p class=3D"MsoNormal" align=3D"center" style=3D"text-align:center"><span s=
-tyle=3D"display:none"><u></u>=C2=A0<u></u></span></p>
-<div align=3D"center">
-<table border=3D"0" cellspacing=3D"0" cellpadding=3D"0" width=3D"100%" styl=
-e=3D"width:100.0%">
-<tbody>
-<tr>
-<td style=3D"padding:0in 0in 0in 0in"></td>
-</tr>
-</tbody>
-</table>
-</div>
-<p class=3D"MsoNormal" align=3D"center" style=3D"text-align:center"><span s=
-tyle=3D"font-size:10.0pt;font-family:&quot;Times New Roman&quot;,serif"><u>=
-</u><u></u></span></p>
-</td>
-</tr>
-</tbody>
-</table>
-</td>
-</tr>
-</tbody>
-</table>
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</td>
-</tr>
-<tr>
-<td style=3D"padding:0in 0in 0in 0in;word-break:break-word">
-<div align=3D"center">
-<table border=3D"0" cellspacing=3D"0" cellpadding=3D"0" width=3D"100%" styl=
-e=3D"width:100.0%;background:white;float:left">
-<tbody>
-<tr>
-<td style=3D"padding:0in 0in 0in 0in;float:left">
-<div align=3D"center">
-<table border=3D"0" cellspacing=3D"0" cellpadding=3D"0" width=3D"100%" styl=
-e=3D"width:100.0%;float:left">
-<tbody>
-<tr>
-<td valign=3D"top" style=3D"padding:0in 0in 0in 0in">
-<table border=3D"0" cellspacing=3D"0" cellpadding=3D"0" align=3D"left" widt=
-h=3D"100%" style=3D"width:100.0%;word-break:break-word">
-<tbody>
-<tr>
-<td style=3D"padding:0in 0in 0in 0in">
-<table border=3D"0" cellspacing=3D"0" cellpadding=3D"0" width=3D"100%" styl=
-e=3D"width:100.0%">
-<tbody>
-<tr>
-<td style=3D"padding:11.25pt 11.25pt 0in 11.25pt">
-<table border=3D"0" cellspacing=3D"0" cellpadding=3D"0" width=3D"100%" styl=
-e=3D"width:100.0%">
-<tbody>
-<tr>
-<td style=3D"padding:0in 0in 0in 0in">
-<table border=3D"0" cellspacing=3D"0" cellpadding=3D"0" width=3D"100%" styl=
-e=3D"width:100.0%">
-<tbody>
-<tr>
-<td style=3D"padding:3.75pt 0in 3.75pt 0in">
-<p class=3D"MsoNormal" style=3D"line-height:13.5pt"><span style=3D"font-siz=
-e:10.5pt;font-family:&quot;Arial&quot;,sans-serif;color:black">We look forw=
-ard to holding the Design Sessions at the upcoming Xen Project Summit. The =
-design sessions will be on Wednesday, 5 June, and
- Thursday, 6 June 2024.<br>
-<br>
-We encourage everyone to submit a Design Session, the </span><span style=3D=
-"font-size:10.5pt;font-family:&quot;Arial&quot;,sans-serif;color:#212121">v=
-erification code</span><span style=3D"font-size:10.5pt;font-family:&quot;Ar=
-ial&quot;,sans-serif;color:black"> is: =E2=80=9C</span><b><span style=3D"fo=
-nt-size:10.5pt;font-family:&quot;Arial&quot;,sans-serif;color:#212121">LFXE=
-N24</span></b><span style=3D"font-size:10.5pt;font-family:&quot;Arial&quot;=
-,sans-serif;color:black">=E2=80=9D.<u></u><u></u></span></p>
-</td>
-</tr>
-</tbody>
-</table>
-</td>
-</tr>
-</tbody>
-</table>
-</td>
-</tr>
-</tbody>
-</table>
-</td>
-</tr>
-</tbody>
-</table>
-</td>
-</tr>
-<tr>
-<td valign=3D"top" style=3D"padding:0in 0in 0in 0in">
-<table border=3D"0" cellspacing=3D"0" cellpadding=3D"0" align=3D"left" widt=
-h=3D"100%" style=3D"width:100.0%;float:left">
-<tbody>
-<tr>
-<td style=3D"padding:0in 0in 0in 0in">
-<table border=3D"0" cellspacing=3D"0" cellpadding=3D"0" width=3D"100%" styl=
-e=3D"width:100.0%;border-radius:15px;border-collapse:separate!important">
-<tbody>
-<tr>
-<td style=3D"padding:11.25pt 11.25pt 11.25pt 11.25pt">
-<div align=3D"center">
-<table border=3D"1" cellspacing=3D"0" cellpadding=3D"0" style=3D"background=
-:#72be44;border:solid #72be44 4.5pt">
-<tbody>
-<tr>
-<td style=3D"border:none;padding:3.75pt 15.0pt 3.75pt 15.0pt">
-<p class=3D"MsoNormal" align=3D"center" style=3D"text-align:center"><span s=
-tyle=3D"color:black"><a href=3D"https://design-sessions.xenproject.org/" ta=
-rget=3D"_blank"><b><span style=3D"font-size:13.0pt;font-family:&quot;Arial&=
-quot;,sans-serif;color:white;text-decoration:none">SUBMIT
- A DESIGN SESSION</span></b></a></span></p>
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-<p class=3D"MsoNormal" align=3D"center" style=3D"text-align:center"><span s=
-tyle=3D"font-size:1.0pt">=C2=A0</span></p>
-</td>
-</tr>
-</tbody>
-</table>
-</td>
-</tr>
-</tbody>
-</table>
-</td>
-</tr>
-<tr>
-<td valign=3D"top" style=3D"padding:0in 0in 0in 0in;word-break:break-word">
-<table border=3D"0" cellspacing=3D"0" cellpadding=3D"0" align=3D"left" widt=
-h=3D"100%" style=3D"width:100.0%;float:left">
-<tbody>
-<tr>
-<td style=3D"padding:0in 0in 0in 0in;float:left">
-<table border=3D"0" cellspacing=3D"0" cellpadding=3D"0" width=3D"100%" styl=
-e=3D"width:100.0%;word-break:break-word">
-<tbody>
-<tr>
-<td style=3D"padding:0in 11.25pt 11.25pt 11.25pt">
-<table border=3D"0" cellspacing=3D"0" cellpadding=3D"0" width=3D"100%" styl=
-e=3D"width:100.0%">
-<tbody>
-<tr>
-<td style=3D"padding:0in 0in 0in 0in">
-<table border=3D"0" cellspacing=3D"0" cellpadding=3D"0" width=3D"100%" styl=
-e=3D"width:100.0%">
-<tbody>
-<tr>
-<td style=3D"padding:3.75pt 0in 3.75pt 0in">
-<p class=3D"MsoNormal" style=3D"line-height:13.5pt"><span style=3D"font-siz=
-e:10.5pt;font-family:&quot;Arial&quot;,sans-serif;color:#212529">The proces=
-s involves the following steps:</span><span style=3D"font-size:10.5pt;font-=
-family:&quot;Arial&quot;,sans-serif;color:black"><u></u><u></u></span></p>
-</td>
-</tr>
-<tr>
-<td style=3D"padding:3.75pt 0in 3.75pt 0in;word-break:break-word">
-<ul type=3D"disc">
-<li class=3D"MsoNormal" style=3D"color:black;line-height:13.5pt">
-<span style=3D"font-size:10.5pt;font-family:&quot;Arial&quot;,sans-serif;co=
-lor:#212529">Anyone interested can=C2=A0</span><a href=3D"https://design-se=
-ssions.xenproject.org/discussion/new" target=3D"_blank"><span style=3D"font=
--size:10.5pt;font-family:&quot;Arial&quot;,sans-serif;color:#0d6efd">propos=
-e</span></a><span style=3D"font-size:10.5pt;font-family:&quot;Arial&quot;,s=
-ans-serif;color:#212529">=C2=A0a
- topic.</span><span style=3D"font-size:10.5pt;font-family:&quot;Arial&quot;=
-,sans-serif"><u></u><u></u></span></li><li class=3D"MsoNormal" style=3D"col=
-or:black;line-height:13.5pt">
-<span style=3D"font-size:10.5pt;font-family:&quot;Arial&quot;,sans-serif;co=
-lor:#212529">All participants review the=C2=A0</span><a href=3D"https://des=
-ign-sessions.xenproject.org/list/discussion" target=3D"_blank"><span style=
-=3D"font-size:10.5pt;font-family:&quot;Arial&quot;,sans-serif;color:#0d6efd=
-">list
- of sessions</span></a><span style=3D"font-size:10.5pt;font-family:&quot;Ar=
-ial&quot;,sans-serif;color:#212529">, indicating their interest in attendin=
-g each one.
-</span><span style=3D"font-size:10.5pt;font-family:&quot;Arial&quot;,sans-s=
-erif"><u></u><u></u></span></li><li class=3D"MsoNormal" style=3D"color:blac=
-k;line-height:13.5pt">
-<span style=3D"font-size:10.5pt;font-family:&quot;Arial&quot;,sans-serif;co=
-lor:#212529">The session scheduler optimizes the=C2=A0</span><a href=3D"htt=
-ps://design-sessions.xenproject.org/schedule" target=3D"_blank"><span style=
-=3D"font-size:10.5pt;font-family:&quot;Arial&quot;,sans-serif;color:#0d6efd=
-">schedule</span></a><span style=3D"font-size:10.5pt;font-family:&quot;Aria=
-l&quot;,sans-serif;color:#212529">=C2=A0to
- accommodate as many preferences as possible.</span><span style=3D"font-siz=
-e:10.5pt;font-family:&quot;Arial&quot;,sans-serif"><u></u><u></u></span></l=
-i></ul>
-</td>
-</tr>
-<tr>
-<td style=3D"padding:3.75pt 0in 3.75pt 0in;word-break:break-word">
-<p class=3D"MsoNormal" style=3D"line-height:13.5pt"><span style=3D"font-siz=
-e:10.5pt;font-family:&quot;Arial&quot;,sans-serif;color:#212529">Participan=
-ts can also propose long-form talks by adding [TALK] to the session title.<=
-/span><span style=3D"font-size:10.5pt;font-family:&quot;Arial&quot;,sans-se=
-rif;color:black"><u></u><u></u></span></p>
-</td>
-</tr>
-<tr>
-<td style=3D"padding:3.75pt 0in 3.75pt 0in;word-break:break-word">
-<p class=3D"MsoNormal" style=3D"line-height:13.5pt"><span style=3D"font-siz=
-e:10.5pt;font-family:&quot;Arial&quot;,sans-serif;color:black">For suggeste=
-d topics, sample Design Session submissions, and more tips check out the
-</span><a href=3D"https://events.linuxfoundation.org/xen-project-summit/pro=
-gram/design-sessions/" target=3D"_blank"><span style=3D"font-size:10.5pt;fo=
-nt-family:&quot;Arial&quot;,sans-serif;color:#1155cc">Xen Design Session pa=
-ge</span></a><span style=3D"font-size:10.5pt;font-family:&quot;Arial&quot;,=
-sans-serif;color:black">
- for more information.<u></u><u></u></span></p>
-</td>
-</tr>
-<tr>
-<td style=3D"padding:3.75pt 0in 3.75pt 0in;word-break:break-word">
-<p class=3D"MsoNormal" style=3D"line-height:13.5pt"><span style=3D"font-siz=
-e:10.5pt;font-family:&quot;Arial&quot;,sans-serif;color:black"><br>
-Best Regards,<br>
-Xen Project Events Team<u></u><u></u></span></p>
-</td>
-</tr>
-</tbody>
-</table>
-</td>
-</tr>
-</tbody>
-</table>
-</td>
-</tr>
-</tbody>
-</table>
-</td>
-</tr>
-</tbody>
-</table>
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</td>
-</tr>
-<tr>
-<td style=3D"padding:0in 0in 0in 0in">
-<div align=3D"center">
-<table border=3D"0" cellspacing=3D"0" cellpadding=3D"0" width=3D"100%" styl=
-e=3D"width:100.0%;background:#62ab30;float:left">
-<tbody>
-<tr>
-<td style=3D"padding:0in 0in 0in 0in">
-<div align=3D"center">
-<table border=3D"0" cellspacing=3D"0" cellpadding=3D"0" width=3D"100%" styl=
-e=3D"width:100.0%;float:left">
-<tbody>
-<tr>
-<td valign=3D"top" style=3D"padding:0in 0in 0in 0in">
-<table border=3D"0" cellspacing=3D"0" cellpadding=3D"0" align=3D"left" widt=
-h=3D"100%" style=3D"width:100.0%">
-<tbody>
-<tr>
-<td style=3D"padding:0in 0in 0in 0in">
-<table border=3D"0" cellspacing=3D"0" cellpadding=3D"0" width=3D"100%" styl=
-e=3D"width:100.0%">
-<tbody>
-<tr>
-<td style=3D"padding:11.25pt 11.25pt 11.25pt 11.25pt"></td>
-</tr>
-</tbody>
-</table>
-</td>
-</tr>
-</tbody>
-</table>
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</td>
-</tr>
-</tbody>
-</table>
-<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
-<table border=3D"0" cellspacing=3D"0" cellpadding=3D"0" width=3D"100%" styl=
-e=3D"width:100.0%">
-<tbody>
-<tr>
-<td style=3D"padding:.75pt .75pt .75pt .75pt">
-<div class=3D"MsoNormal" align=3D"center" style=3D"text-align:center">
-<hr size=3D"1" width=3D"100%" noshade style=3D"color:#a0a0a0" align=3D"cent=
-er">
-</div>
-<p class=3D"MsoNormal"><br></p>
-</td>
-</tr>
-</tbody>
-</table>
-<p class=3D"MsoNormal"><img border=3D"0" id=3D"m_-2685003709366885060_x0000=
-_i1025" src=3D"https://www.cvent.com/api/email/dispatch/v1/open/q466qgwwlqf=
-n4m/qx47948p/transparent.gif"></p>
-</div>
-</div>
-</div>
-</div>
-
-</div></div></div>
-
---000000000000af4fca0616fddc69--
+hint: The 'hooks/update' hook was ignored because it's not set as executable.
+hint: You can disable this warning with `git config advice.ignoredHook false`.
+hint: The 'hooks/post-receive' hook was ignored because it's not set as executable.
+hint: You can disable this warning with `git config advice.ignoredHook false`.
+hint: The 'hooks/post-update' hook was ignored because it's not set as executable.
+hint: You can disable this warning with `git config advice.ignoredHook false`.
+To xenbits.xen.org:/home/xen/git/linux-pvops.git
+   71b1543c83d6..c942a0cd3603  c942a0cd3603e34dd2d7237e064d9318cb7f9654 -> tested/linux-linus
 
