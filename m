@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7621B8B3005
-	for <lists+xen-devel@lfdr.de>; Fri, 26 Apr 2024 08:03:02 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.712416.1113096 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8CC6E8B300B
+	for <lists+xen-devel@lfdr.de>; Fri, 26 Apr 2024 08:07:18 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.712422.1113106 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s0EfF-0002fY-Kz; Fri, 26 Apr 2024 06:02:29 +0000
+	id 1s0Ejd-0003lM-6D; Fri, 26 Apr 2024 06:07:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 712416.1113096; Fri, 26 Apr 2024 06:02:29 +0000
+Received: by outflank-mailman (output) from mailman id 712422.1113106; Fri, 26 Apr 2024 06:07:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s0EfF-0002e2-IE; Fri, 26 Apr 2024 06:02:29 +0000
-Received: by outflank-mailman (input) for mailman id 712416;
- Fri, 26 Apr 2024 06:02:28 +0000
+	id 1s0Ejd-0003jO-37; Fri, 26 Apr 2024 06:07:01 +0000
+Received: by outflank-mailman (input) for mailman id 712422;
+ Fri, 26 Apr 2024 06:07:00 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=lj3M=L7=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1s0EfE-0002dw-22
- for xen-devel@lists.xenproject.org; Fri, 26 Apr 2024 06:02:28 +0000
-Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
- [2a00:1450:4864:20::62e])
+ id 1s0Ejc-0003jB-2h
+ for xen-devel@lists.xenproject.org; Fri, 26 Apr 2024 06:07:00 +0000
+Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com
+ [2a00:1450:4864:20::52e])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 8f00d4b8-0392-11ef-909a-e314d9c70b13;
- Fri, 26 Apr 2024 08:02:27 +0200 (CEST)
-Received: by mail-ej1-x62e.google.com with SMTP id
- a640c23a62f3a-a5200afe39eso195030566b.1
- for <xen-devel@lists.xenproject.org>; Thu, 25 Apr 2024 23:02:27 -0700 (PDT)
+ id 312c76fd-0393-11ef-909a-e314d9c70b13;
+ Fri, 26 Apr 2024 08:06:59 +0200 (CEST)
+Received: by mail-ed1-x52e.google.com with SMTP id
+ 4fb4d7f45d1cf-57258c90899so278765a12.1
+ for <xen-devel@lists.xenproject.org>; Thu, 25 Apr 2024 23:06:59 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- b25-20020a17090630d900b00a5875b34b6asm4414335ejb.14.2024.04.25.23.02.26
+ l11-20020a50cbcb000000b0057030326144sm9634351edi.47.2024.04.25.23.06.58
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 25 Apr 2024 23:02:26 -0700 (PDT)
+ Thu, 25 Apr 2024 23:06:58 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,52 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8f00d4b8-0392-11ef-909a-e314d9c70b13
+X-Inumbo-ID: 312c76fd-0393-11ef-909a-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1714111347; x=1714716147; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1714111619; x=1714716419; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=Of/jVMt3nYb+ntFEQX3n98EQvA1ntwarPjHdelmljcw=;
-        b=MEaGzeC2jyV3cUqWk3zRf01MeP+OmMFqzhAdZzvY3l1bCM5Bm47WSMPJ+3sB9p6LvN
-         TKlGKQz8E79vcUebsyUSd+tcezDaO7H/wlb8SotOUtOBkCgVj0FrChpo7qNzrki9Qb5F
-         QYv+WglYJcKtnTT2KU8Ljj5LKSPpBqHs8LazspQnxO2OUIhtin5Sm+R5thce84eaFEAK
-         t59CQtb+dmUcBH3SqPp1cBVLZ+13uDwBn8j/PWG3ijkaMl8TC1s/Rv+H/+Q7/uVa3Fvg
-         4jZGZ+IHuKiGohU0M789DSF2kdGNmNdlhHG/TcuMY3NAPqCbiQ3x/lOTc2K8uEvRns1R
-         xOQg==
+        bh=7F2OdtE36+46uTns3HXGqQsuhYm80veJ2ZB4254cG7o=;
+        b=V0s7JoJ6inGZyH4SBMEVI89u16PkFKPatM4oGdsmAwFi5sTnx7IuslBz5KcLzygxlF
+         ZrSxWXXVYvJyIVOZq8RHzV4jkuja0h3owdRQCeWYUGQpI57C5faeTB5hXbLTG3qNwNkg
+         p5In/p/1r4DKnnnYwiguFe0IeriDRDnM7lD7OcPEiBoVjM+e+TzXHktQVq0B7Gyzgfug
+         YMREm1fH7KQ1i6lt4F24thwWT5uvyhvUD4TOAnVLtzxCCNS9Od5GHr2QE9Dofn5P6vpx
+         Dw+FiQECF8mz0s3trI/8HVgqKk91z1sBvE5/FU9/mkqc9gAgK3j9Bx93uv0okCRnsv45
+         /OKQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1714111347; x=1714716147;
+        d=1e100.net; s=20230601; t=1714111619; x=1714716419;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=Of/jVMt3nYb+ntFEQX3n98EQvA1ntwarPjHdelmljcw=;
-        b=XItugUqXhH+O2GVKx0E3lKsX6a38TjX4tQkic0VBBSYQvstARmcLjavdlWINnl7N7F
-         wyaMte/cykI8EwnxGgYUHKzBofDmbujx7BDHL+E24GmtYJEUvuuHMRWIx3M1M+gcp76G
-         HKuTqyerVGxJV80CywKm7o0C69hxLCg0QElPymfL5rdtI1lb3R/RGvrZ3KOHW03GIaNF
-         2CMus9+oR/bS9w2H7ZJZVYYRkrO3H/nC1IZLGPjevHxu8w1mqrLifTITxK4Q/EnCuISb
-         yH52nmGT+PzW32qWFkjT7mB4C9CtQtd65mOo0L/GrOgQRdzfE4g+WvmMk3WQ0Hh3jsdx
-         ZznA==
-X-Gm-Message-State: AOJu0YzDj2K6MlWSsh6P3+axsnR/heIlRZhuM1kReJdGfjGtYH06rrl0
-	xGnxBlY2kTyAV/XqoH2o4S3wtXtqP1sxLDGTcrKmL2OtLzSBYUV/qhTxjL45ew==
-X-Google-Smtp-Source: AGHT+IGCqDutoTekvzEDS7Re2J/JaW/Ee5YM2RKrfArAhXiyeTTgKuy7OqVh3IgeNlQMb9sDYTmURg==
-X-Received: by 2002:a17:907:76c2:b0:a55:b2da:3e92 with SMTP id kf2-20020a17090776c200b00a55b2da3e92mr1525948ejc.68.1714111346718;
-        Thu, 25 Apr 2024 23:02:26 -0700 (PDT)
-Message-ID: <012320e9-c63a-450f-8e91-ebe13352e6d7@suse.com>
-Date: Fri, 26 Apr 2024 08:02:25 +0200
+        bh=7F2OdtE36+46uTns3HXGqQsuhYm80veJ2ZB4254cG7o=;
+        b=pC8KxQyLt2GcFDxmltwq1MhgK3tf4aMLCfxUOOke5uaAs6jG8Yowik0K/wDfYqY1jG
+         kQxVaHwwxcaqC1bqyx5RKfbyjO0zr1vtUMSW5IB6jv15NJEEVmJh7Pjz9RTZwO9/Rbsx
+         BRZJ0QdhZ1vj/vLoT3M9/0vyZKOSTtsZZw0K/S/Gf4G4Tgr2yVpTYKNjse7vd3h0rSDO
+         Hf4vwkXVXk4S0qW1CjiyE2ugD26Z4CUo7G8y7eJnhVhr2bVD8NxEOu6zqTtXPEqpZ4ou
+         L/bfnyJdnkat6tuwl0eFNyBmvhmfSzXnzfNKax0hlXcOvVx6/oEispAVecwWuSGnn4tV
+         KKXA==
+X-Forwarded-Encrypted: i=1; AJvYcCVyBjKxmx7LmeiHuNZY7IHHm2kg0QqezAntbbgWTgyT8DR2yH6OaxbgdwMq7/gxUddBG5HF64UlROPugzPrnx3pL9Om4DiqnidnDEK79x4=
+X-Gm-Message-State: AOJu0YwJP2sUt2aZKNLEHq0csvEf4cnZyemTOL7AI3Xdqr5uc2cpbguS
+	4ScwkkdpCNjfi4jEhm7nWc53pnm4JPIsEazVGjC/qn9R8cSUB3mHFDDmuI7fVA==
+X-Google-Smtp-Source: AGHT+IGtRslbmFnwr5Z5HmB+6JzNExhY5rYZHn+qLHJLV9kzldbXd6RvzbzU81NxSZ4+S8JTbFhUSQ==
+X-Received: by 2002:a05:6402:358a:b0:571:ba0f:fb8a with SMTP id y10-20020a056402358a00b00571ba0ffb8amr5362732edc.1.1714111618813;
+        Thu, 25 Apr 2024 23:06:58 -0700 (PDT)
+Message-ID: <90a25857-af9b-45ac-a6d6-e46ed1fb0609@suse.com>
+Date: Fri, 26 Apr 2024 08:06:57 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/1] xen/arm64: entry: Add missing code symbol
- annotations
+Subject: Re: [PATCH] public: xen: Define missing guest handle for int32_t
 Content-Language: en-US
 To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: xen-devel@lists.xenproject.org, julien@xen.org, bertrand.marquis@arm.com,
- michal.orzel@amd.com, Volodymyr_Babchuk@epam.com, andrew.cooper3@citrix.com,
- edgar.iglesias@amd.com, "Edgar E. Iglesias" <edgar.iglesias@gmail.com>
-References: <20240415231541.4140052-1-edgar.iglesias@gmail.com>
- <20240415231541.4140052-2-edgar.iglesias@gmail.com>
- <alpine.DEB.2.22.394.2404251608320.3940@ubuntu-linux-20-04-desktop>
+Cc: Michal Orzel <michal.orzel@amd.com>, xen-devel@lists.xenproject.org,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>
+References: <20240417121442.56178-1-michal.orzel@amd.com>
+ <be95f6be-0404-4c43-926f-d011782a02db@xen.org>
+ <alpine.DEB.2.22.394.2404171148060.2257106@ubuntu-linux-20-04-desktop>
+ <29afd327-a66c-4b4e-b076-ee6ecb70807e@xen.org>
+ <alpine.DEB.2.22.394.2404251538250.3940@ubuntu-linux-20-04-desktop>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -113,31 +115,72 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <alpine.DEB.2.22.394.2404251608320.3940@ubuntu-linux-20-04-desktop>
+In-Reply-To: <alpine.DEB.2.22.394.2404251538250.3940@ubuntu-linux-20-04-desktop>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 26.04.2024 01:13, Stefano Stabellini wrote:
-> On Tue, 16 Apr 2024, Edgar E. Iglesias wrote:
->> From: "Edgar E. Iglesias" <edgar.iglesias@amd.com>
+On 26.04.2024 00:39, Stefano Stabellini wrote:
+> On Mon, 22 Apr 2024, Julien Grall wrote:
+>> Hi Stefano,
 >>
->> Use the generic xen/linkage.h macros when and add missing
->                                         ^ when what?
-> 
->> code symbol annotations.
+>> On 17/04/2024 19:49, Stefano Stabellini wrote:
+>>> On Wed, 17 Apr 2024, Julien Grall wrote:
+>>>> Hi Michal,
+>>>>
+>>>> On 17/04/2024 13:14, Michal Orzel wrote:
+>>>>> Commit afab29d0882f ("public: s/int/int32_t") replaced int with int32_t
+>>>>> in XEN_GUEST_HANDLE() in memory.h but there is no guest handle defined
+>>>>> for it. This results in a build failure. Example on Arm:
+>>>>>
+>>>>> ./include/public/arch-arm.h:205:41: error: unknown type name
+>>>>> ‘__guest_handle_64_int32_t’
+>>>>>     205 | #define __XEN_GUEST_HANDLE(name)        __guest_handle_64_ ##
+>>>>> name
+>>>>>         |                                         ^~~~~~~~~~~~~~~~~~
+>>>>> ./include/public/arch-arm.h:206:41: note: in expansion of macro
+>>>>> ‘__XEN_GUEST_HANDLE’
+>>>>>     206 | #define XEN_GUEST_HANDLE(name)
+>>>>> __XEN_GUEST_HANDLE(name)
+>>>>>         |                                         ^~~~~~~~~~~~~~~~~~
+>>>>> ./include/public/memory.h:277:5: note: in expansion of macro
+>>>>> ‘XEN_GUEST_HANDLE’
+>>>>>     277 |     XEN_GUEST_HANDLE(int32_t) errs;
+>>>>>
+>>>>> Fix it. Also, drop guest handle definition for int given no further use.
+>>>>>
+>>>>> Fixes: afab29d0882f ("public: s/int/int32_t")
+>>>>> Signed-off-by: Michal Orzel <michal.orzel@amd.com>
+>>>
+>>> Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+>>>
+>>>
+>>>> So it turned out that I committed v1 from Stefano. I was meant to commit
+>>>> the
+>>>> patch at all, but I think I started with a dirty staging :(. Sorry for
+>>>> that.
+>>>>
+>>>> I have reverted Stefano's commit for now so we can take the correct patch.
+>>>>
+>>>> Now, from my understanding, Andrew suggested on Matrix that this solution
+>>>> may
+>>>> actually be a good way to handle GUEST_HANLDEs (they were removed in v2).
+>>>> Maybe this can be folded in Stefano's patch?
+>>>
+>>> v1 together with Michal's fix is correct. Also v2 alone is correct, or
+>>> v2 with Michal's fix is also correct.
 >>
->> Signed-off-by: Edgar E. Iglesias <edgar.iglesias@amd.com>
+>> I am slightly confused, v2 + Michal's fix means that XEN_GUEST_HANDLE(int) is
+>> removed and we introduce XEN_GUEST_INT(int32_t) with no user. So wouldn't this
 > 
-> I am looking at the implementation of FUNC and as far as I can tell
-> there is no change compared to ENTRY. So from that point of view we are
-> good. I wonder if we should keep using "ENTRY" because it is nice to
-> mark explicitely the entry points as such but at the same time I am also
-> OK with this. I'll let the other ARM maintainers decide.
+> You are right I apologize. I looked at Michal's patch too quickly and
+> I thought it was just adding XEN_GUEST_INT(int32_t) without removing
+> anything.
+> 
+> In that case, if you are OK with it, please ack and commit v2 only.
 
-Just to mention it: ENTRY should go away (and hence why PPC and RISC-V had
-it dropped already, while x86 has patches pending to reduce its scope
-enough), not the least to finally allow the oddity near the top of xen.lds.S
-to go away.
+Just to mention it: Committing would apparently be premature, as I can't spot
+any response to comments I gave to the patch. I'm okay with those being
+addressed verbally only, but imo they cannot be dropped on the floor.
 
 Jan
 
