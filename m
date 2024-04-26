@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 489558B3042
-	for <lists+xen-devel@lfdr.de>; Fri, 26 Apr 2024 08:22:14 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.712427.1113115 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7C5658B3064
+	for <lists+xen-devel@lfdr.de>; Fri, 26 Apr 2024 08:27:37 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.712431.1113125 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s0Exr-0006kv-Ca; Fri, 26 Apr 2024 06:21:43 +0000
+	id 1s0F3D-00080F-0p; Fri, 26 Apr 2024 06:27:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 712427.1113115; Fri, 26 Apr 2024 06:21:43 +0000
+Received: by outflank-mailman (output) from mailman id 712431.1113125; Fri, 26 Apr 2024 06:27:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s0Exr-0006iW-9w; Fri, 26 Apr 2024 06:21:43 +0000
-Received: by outflank-mailman (input) for mailman id 712427;
- Fri, 26 Apr 2024 06:21:42 +0000
+	id 1s0F3C-0007xQ-Tg; Fri, 26 Apr 2024 06:27:14 +0000
+Received: by outflank-mailman (input) for mailman id 712431;
+ Fri, 26 Apr 2024 06:27:13 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=lj3M=L7=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1s0Exq-0006iQ-EL
- for xen-devel@lists.xenproject.org; Fri, 26 Apr 2024 06:21:42 +0000
-Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
- [2a00:1450:4864:20::631])
+ id 1s0F3B-0007xK-EC
+ for xen-devel@lists.xenproject.org; Fri, 26 Apr 2024 06:27:13 +0000
+Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
+ [2a00:1450:4864:20::635])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 3e1013d5-0395-11ef-b4bb-af5377834399;
- Fri, 26 Apr 2024 08:21:39 +0200 (CEST)
-Received: by mail-ej1-x631.google.com with SMTP id
- a640c23a62f3a-a5200202c1bso227239866b.0
- for <xen-devel@lists.xenproject.org>; Thu, 25 Apr 2024 23:21:39 -0700 (PDT)
+ id 037d5e31-0396-11ef-b4bb-af5377834399;
+ Fri, 26 Apr 2024 08:27:11 +0200 (CEST)
+Received: by mail-ej1-x635.google.com with SMTP id
+ a640c23a62f3a-a51addddbd4so208628466b.0
+ for <xen-devel@lists.xenproject.org>; Thu, 25 Apr 2024 23:27:11 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- r18-20020a17090638d200b00a589ce6803asm2390184ejd.110.2024.04.25.23.21.38
+ mm7-20020a170906cc4700b00a5872f75cfdsm4518652ejb.49.2024.04.25.23.27.09
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 25 Apr 2024 23:21:39 -0700 (PDT)
+ Thu, 25 Apr 2024 23:27:10 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,55 +45,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3e1013d5-0395-11ef-b4bb-af5377834399
+X-Inumbo-ID: 037d5e31-0396-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1714112499; x=1714717299; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1714112830; x=1714717630; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=bo945Wr2gNWf2DfoA1ZrSWqPXlV9nyZIWtCd2IcaRmE=;
-        b=X4gOhGLwvaovJuqy/S/4mb272LHUIbrGaYVNjjgmFZKegFAqcw18a8Li0DO/zWWKnA
-         Ndb0RuBsgWWo2whfrN7zlofQ80vyCplaTBde2WPL0JWqXKrMhu94nQqrHxZMyF8bAzw/
-         gTeRSZjScoELVQfrDnZLkT4kUluuE5TY1rVMvJ8MU9tGu3wsdGwKJ7CG7FxSgF6FFGFB
-         efhHGTZHA4YsdTZXTtyw7TLrplcADoQ1unixbrCYgiISZ32rL69yVxoLnNKN+9Ed6OpI
-         jptsajOpCHH7vKTrDlqEZC//bMdBk506pNbruaImPAwHYMreLyqgrO0Ya2XVVvjBHiSQ
-         9mLw==
+        bh=8ywi8MELPEGIX51lNr+jTDS4kvTLaXs+s8ii9pR9MfE=;
+        b=KE8tEFmWUwsAKQhE7i6Bdn+UeOHb9M9lyI0h9cnHxcrQ8rEVc0wvDK+vj4Yvq+ModC
+         dVTgi1rwimSfRwF8x8KbYRGPKsCaMOL7InUiT+rmpvEFYI5S16pWkmJslizrDs4RM9y8
+         L1WaEIdmmTm8bNIAnoQT3OZ91+9c13KL0xDXzpNXU9XBXTwL7fGpb9S4VXImMXmD6aiB
+         CkElcWudK4efo6UROlwrof0l2nuNWxlMiKMSIoLbfZM4xfmKIw1d9VojGTPj/h47E6Nu
+         TNlMdyQ13luncf/Y8Je111qNT6dvshq4i4q6mtH8LEesnPQbgJgymuXIPcNdaU6cfn7F
+         2BbQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1714112499; x=1714717299;
+        d=1e100.net; s=20230601; t=1714112830; x=1714717630;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=bo945Wr2gNWf2DfoA1ZrSWqPXlV9nyZIWtCd2IcaRmE=;
-        b=e0gApiaRb5oeKKZzD4CtFARbbNTa9zNdlyT3HgAdQxxfvPV7Yl3pJu/2zM3Rh6hM/e
-         y5GivHlbslLZkPhI0WPReMwYDKoV80PwD71qgw3GaxnnxmmdGWuDIaLVxz7ZqhoCWKkO
-         ZqkuXWvLZsTorDexGTKUFVZnRsvR6x2X0oXClR9VyTBZrg5S35N1gC1Qf8e0CbtSXrCa
-         nkTkSeHcMBD19FWcjv/w7Nm2lUPuxjD7ZXZsyjZOMg8xX17dRnw9Wk1vtH0x8ZPHUC97
-         48mqqbM5JRy7HiKOO9zIsGwG7EdqmhjNOV+jLL1aWeu9Q3QSnpywp7YyBmAmRLrIyApQ
-         zTNA==
-X-Forwarded-Encrypted: i=1; AJvYcCUCNuDJRCllGPu+NbvNlOWyYbg/0cSYnJzVM+KQwJ/YT8hYS8cTHhjxYkSs5621XKlS/2kkKCjvBtl264wNtj6dtw0GOQuzANNXsSmIP9A=
-X-Gm-Message-State: AOJu0YwP0yrEqkKO/0m/uzN05SV3eH8JGCgJDAw0KYt/k02FK+M819I5
-	DPB4B8c1KpZM55rXnbiCKKXkW9ZtPhXTfAJ3EZpLVUlk8b384X2TOcGUWg2ZtA==
-X-Google-Smtp-Source: AGHT+IFACrloN1Qq+3GQc2oY6ksw+9+7a74lUcf5JNiu1wAhf+TOxf/TWrDxnwuuK9tJrKx9kbRYog==
-X-Received: by 2002:a17:906:e87:b0:a58:8786:5ab9 with SMTP id p7-20020a1709060e8700b00a5887865ab9mr1939679ejf.26.1714112499286;
-        Thu, 25 Apr 2024 23:21:39 -0700 (PDT)
-Message-ID: <3af4f1c7-9059-436b-9449-94bd7aad9eed@suse.com>
-Date: Fri, 26 Apr 2024 08:21:37 +0200
+        bh=8ywi8MELPEGIX51lNr+jTDS4kvTLaXs+s8ii9pR9MfE=;
+        b=uCXug8kTITLLQ2Rj7Qs4R/gxqxJ/SrlA1inOleyYU3eR8HZf254dZXq5GJeSLn+5pS
+         ycT6OTbfsvBTkQ6APJSCpLEfU3fJTsfm6kJORjBkL7igt3j9IZ54M66VIyuDzuUkihmo
+         vZEqZhWvNThroTmCLEdupGyH4uwkr0PgnobwtZ4t0ZHG3rNSu7bRjLNTzKbZO1lBGiQ3
+         v3YXOWNWESvDf/pHduMFuX/DOayCfoGBXJjPB2ZFmhLlSz9Llk5HlRaV690kPaZR1cig
+         YVbEpIzrmkVDgPYd6E7hzIYjYlLU0Gxbx3u5v6c7kUNfgK6dt/c/WeID5PyaT2W8RujT
+         fZYw==
+X-Forwarded-Encrypted: i=1; AJvYcCVq7zf8dYJ8nYZI0yKZwG3NxSIchEIVMUshmtQe7LQeJw/dHY0uZ+fbzkI9wm66WwD4v1GDJgzPnMte2dqbd5JQKp49Ryfw324GxrNzmLY=
+X-Gm-Message-State: AOJu0YwWyx0wQ+Y0sQuUEd5fZu2OYCsjM6uLfPVrbeu9hflp03z/Y8Gm
+	hbBEdMlWbNTw6N4zgnfgVLhUaYZ1ZfRiO3kC1HR1wBQeSuvRA85nGVh/63Ei2w==
+X-Google-Smtp-Source: AGHT+IHuOQBzQufM8IVK2sIi1Qd5/50wLdxZ3yTNK80GqbmSmQezxw1XN9G9ybrsdDlQmsF9TdAiMw==
+X-Received: by 2002:a17:906:c04f:b0:a55:6b76:eedc with SMTP id bm15-20020a170906c04f00b00a556b76eedcmr1215903ejb.14.1714112830569;
+        Thu, 25 Apr 2024 23:27:10 -0700 (PDT)
+Message-ID: <d620ef7a-661a-4706-8a05-1724e28e2d4f@suse.com>
+Date: Fri, 26 Apr 2024 08:27:09 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/3] xen/arm, tools: Add a new HVM_PARAM_MAGIC_BASE_PFN
- key in HVMOP
+Subject: Re: [PATCH v2] docs/misra: add R21.6 R21.9 R21.10 R21.14 R21.15
+ R21.16
 Content-Language: en-US
-To: Henry Wang <xin.wang2@amd.com>
-Cc: Anthony PERARD <anthony.perard@citrix.com>,
- Juergen Gross <jgross@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
  Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Alec Kwapis <alec.kwapis@medtronic.com>, xen-devel@lists.xenproject.org
-References: <20240426031455.579637-1-xin.wang2@amd.com>
- <20240426031455.579637-3-xin.wang2@amd.com>
+ Michal Orzel <michal.orzel@amd.com>, xen-devel@lists.xenproject.org
+References: <alpine.DEB.2.22.394.2404251629570.3940@ubuntu-linux-20-04-desktop>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -118,28 +113,91 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240426031455.579637-3-xin.wang2@amd.com>
+In-Reply-To: <alpine.DEB.2.22.394.2404251629570.3940@ubuntu-linux-20-04-desktop>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 26.04.2024 05:14, Henry Wang wrote:
-> --- a/xen/include/public/hvm/params.h
-> +++ b/xen/include/public/hvm/params.h
-> @@ -76,6 +76,7 @@
->   */
->  #define HVM_PARAM_STORE_PFN    1
->  #define HVM_PARAM_STORE_EVTCHN 2
-> +#define HVM_PARAM_MAGIC_BASE_PFN    3
+On 26.04.2024 01:31, Stefano Stabellini wrote:
+> --- a/docs/misra/rules.rst
+> +++ b/docs/misra/rules.rst
+> @@ -652,12 +652,72 @@ maintainers if you want to suggest a change.
+>         declared
+>       - See comment for Rule 21.1
 >  
->  #define HVM_PARAM_IOREQ_PFN    5
+> +   * - `Rule 21.6 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_21_06.c>`_
+> +     - Required
+> +     - The Standard Library input/output routines shall not be used
+> +     - Xen doesn't provide, use, or link against any Standard Library.
+> +       Xen implements itself a few functions with names that match the
+> +       corresponding function names of the Standard Library for
+> +       developers' convenience. These functions are part of the Xen code
+> +       and subject to analysis.
+> +
+> +   * - `Rule 21.9 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_21_09.c>`_
+> +     - Required
+> +     - The library functions bsearch and qsort of <stdlib.h> shall not be used
+> +     - Xen doesn't provide, use, or link against any Standard Library.
+> +       Xen implements itself a few functions with names that match the
+> +       corresponding function names of the Standard Library for
+> +       developers' convenience. These functions are part of the Xen code
+> +       and subject to analysis.
+> +
+> +   * - `Rule 21.10 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_21_10.c>`_
+> +     - Required
+> +     - The Standard Library time and date routines shall not be used
+> +     - Xen doesn't provide, use, or link against any Standard Library.
+> +       Xen implements itself a few functions with names that match the
+> +       corresponding function names of the Standard Library for
+> +       developers' convenience. These functions are part of the Xen code
+> +       and subject to analysis.
+> +
+>     * - `Rule 21.13 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_21_13.c>`_
+>       - Mandatory
+>       - Any value passed to a function in <ctype.h> shall be representable as an
+>         unsigned char or be the value EOF
+>       -
 
-Considering all adjacent values are used, it is overwhelmingly likely that
-3 was once used, too. Such re-use needs to be done carefully. Since you
-need this for Arm only, that's likely okay, but doesn't go without (a)
-saying and (b) considering the possible future case of dom0less becoming
-arch-agnostic, or hyperlaunch wanting to extend the scope. Plus (c) imo
-this also needs at least a comment, maybe even an #ifdef, seeing how x86-
-focused most of the rest of this header is.
+Up to here, did you consider adding a short reference to some common blob
+(footnote or alike), rather than repeating the same text verbatim several
+times?
+
+> +   * - `Rule 21.14 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_21_14.c>`_
+> +     - Required
+> +     - The Standard Library function memcmp shall not be used to compare
+> +       null terminated strings
+> +     - Xen doesn't provide, use, or link against any Standard Library.
+> +       Xen implements itself a few functions with names that match the
+> +       corresponding function names of the Standard Library for
+> +       developers' convenience. These functions are part of the Xen code
+> +       and subject to analysis.
+> +
+> +   * - `Rule 21.15 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_21_15.c>`_
+> +     - Required
+> +     - The pointer arguments to the Standard Library functions memcpy,
+> +       memmove and memcmp shall be pointers to qualified or unqualified
+> +       versions of compatible types
+> +     - Xen doesn't provide, use, or link against any Standard Library.
+> +       Xen implements itself a few functions with names that match the
+> +       corresponding function names of the Standard Library for
+> +       developers' convenience. These functions are part of the Xen code
+> +       and subject to analysis.
+> +
+> +   * - `Rule 21.16 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_21_16.c>`_
+> +     - Required
+> +     - The pointer arguments to the Standard Library function memcmp
+> +       shall point to either a pointer type, an essentially signed type,
+> +       an essentially unsigned type, an essentially Boolean type or an
+> +       essentially enum type
+> +     - void* arguments are allowed. Xen doesn't provide, use, or link
+> +       against any Standard Library.  Xen implements itself a few
+> +       functions with names that match the corresponding function names
+> +       of the Standard Library for developers' convenience. These
+> +       functions are part of the Xen code and subject to analysis.
+
+For all three of these I'm not convinced the remark is appropriate. These
+talk about specific properties of the functions, which aren't related to
+risks associated with particular (and hence potentially varying) library
+implementations.
 
 Jan
 
