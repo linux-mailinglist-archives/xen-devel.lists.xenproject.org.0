@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A46158B3603
-	for <lists+xen-devel@lfdr.de>; Fri, 26 Apr 2024 12:51:46 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.712638.1113460 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9D7778B3615
+	for <lists+xen-devel@lfdr.de>; Fri, 26 Apr 2024 12:54:38 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.712645.1113469 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s0JB3-0005Bm-An; Fri, 26 Apr 2024 10:51:37 +0000
+	id 1s0JDo-0006HS-O5; Fri, 26 Apr 2024 10:54:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 712638.1113460; Fri, 26 Apr 2024 10:51:37 +0000
+Received: by outflank-mailman (output) from mailman id 712645.1113469; Fri, 26 Apr 2024 10:54:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s0JB3-00059A-7g; Fri, 26 Apr 2024 10:51:37 +0000
-Received: by outflank-mailman (input) for mailman id 712638;
- Fri, 26 Apr 2024 10:51:35 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1s0JDo-0006Et-Kt; Fri, 26 Apr 2024 10:54:28 +0000
+Received: by outflank-mailman (input) for mailman id 712645;
+ Fri, 26 Apr 2024 10:54:27 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=lj3M=L7=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1s0JB1-000592-Tz
- for xen-devel@lists.xenproject.org; Fri, 26 Apr 2024 10:51:35 +0000
-Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com
- [2a00:1450:4864:20::132])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f2b27ee2-03ba-11ef-909a-e314d9c70b13;
- Fri, 26 Apr 2024 12:51:34 +0200 (CEST)
-Received: by mail-lf1-x132.google.com with SMTP id
- 2adb3069b0e04-51b09c3a111so2762527e87.1
- for <xen-devel@lists.xenproject.org>; Fri, 26 Apr 2024 03:51:34 -0700 (PDT)
+ id 1s0JDn-0006En-1d
+ for xen-devel@lists.xenproject.org; Fri, 26 Apr 2024 10:54:27 +0000
+Received: from mail-lj1-x231.google.com (mail-lj1-x231.google.com
+ [2a00:1450:4864:20::231])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 586b95b6-03bb-11ef-b4bb-af5377834399;
+ Fri, 26 Apr 2024 12:54:25 +0200 (CEST)
+Received: by mail-lj1-x231.google.com with SMTP id
+ 38308e7fff4ca-2db101c11beso21365271fa.0
+ for <xen-devel@lists.xenproject.org>; Fri, 26 Apr 2024 03:54:24 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- el5-20020a056402360500b005725e1100b9sm192543edb.54.2024.04.26.03.51.33
+ x16-20020a1709060a5000b00a5575c9d5b4sm10268501ejf.63.2024.04.26.03.54.23
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 26 Apr 2024 03:51:33 -0700 (PDT)
+ Fri, 26 Apr 2024 03:54:24 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,57 +45,54 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f2b27ee2-03ba-11ef-909a-e314d9c70b13
+X-Inumbo-ID: 586b95b6-03bb-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1714128694; x=1714733494; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1714128864; x=1714733664; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=GqMPJs6GSXdJLBvDgz4ntcAfwPDuACaaty5tFMN/xQE=;
-        b=RxuqBPTvZ5x8Y8iOYyPBgqvqxr7CUwO4IYZIDhJyKYfbLbCv4w9EQVl8TXCtAnjZGq
-         vqWZpjYUnNyfg/6hkT4Xvv9HH5PGd0PicebZbgVfSpAOw2vhxTykdWXnpFviPDYEvuiK
-         SMhdpFO/IrKCz30GaR9QB9BrObeKPkV6byjG6v+o26eaDfLHixXy5V+N4+ZZlO6aYZfC
-         unNq0wlZl8bTlSiHAnHxfEfc9u/B6o/POiAFYYaxvGDQdcd6hmUpiPcZlrKx3lMqxx7O
-         YaEBYy4boYiPXIStwlC+LMWJCVRu0ZEtecaGkmM+f6/u1cio+ZJ9//E5JmU2VZK+iIsJ
-         46kw==
+        bh=LvVGniZk0l+qBd9SNb8+3MoUeNuCKMe4CmEnjUlNdmY=;
+        b=OZ6fC5aRz7jez6DdA3hXo8Fg+H3azIvJK5Vl3r4jH1FO3vnnx5cFgZgVis9VdnU/bP
+         hn5TItEiY65iZ+aGhppCWQPO/Sg+sVhorx3CqVmVaeBe5UAktER5HLhOsZeBpl0C55SW
+         XCX0aeln1YrOU/f7cwO8gAZcGZ1bl6IyYhC0dFd5tZuMQsKYNBerbpDvyIrLv4q7R11t
+         JrH9dlBAjasQYdlx+zw7HqCdaqbqx8jTSSQEI2TkwSkXLnS1pGKpKOT8MrV/jsKhEKwf
+         9jODoaBumqx1pq8HGp6Gs53rivLgsrIxvwrP8Rq/yCsU6bp51pCc9QBoZXy4JQJcADJ0
+         2dog==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1714128694; x=1714733494;
+        d=1e100.net; s=20230601; t=1714128864; x=1714733664;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=GqMPJs6GSXdJLBvDgz4ntcAfwPDuACaaty5tFMN/xQE=;
-        b=gic0l6rfSOxgwHBaEA5eoQ8x/QA36U3vN85DFZT3A5RBzZFZt8hnRYYzLDi4JhPkUB
-         EVBgplqaDRbWdqXB/C0shomt5frusFD483q7e6kLIFdjQ2mIpbdBydNmLvDiRZdRv3Hj
-         KqMRagho5lbSvD+s0+QS1pofO2jJC29uig+JMF3G2kFDqoVk3gD+qeUwfvTAUXu/Iooi
-         THZD2f34Hna3yDbjljVH/QeQxl/9psuV0GYwCPLQPL9clAIS0MxKJvbNTn9pdw1jjS0V
-         ialh0J15gdPsk3FIg+AD09xnor7b0dxXH8x1IqOrPC1eBlTaXCBLjiO/i3TXBW1Wm+DK
-         Kbng==
-X-Forwarded-Encrypted: i=1; AJvYcCUwtcElwnavmt2oh4ahDc4WlfNZ2GrVh06nMK7pMu81LJyNSN/V8Q4U/JJoSlIi5WIiztnFKIo0DvkJ4w1uKdoVQT5ZoBylDyU6vRnaOqk=
-X-Gm-Message-State: AOJu0Yy3Rwo3WHuuFmrMeKSviT7LcQG9EAiZHOHx7CzUUreJehqett4Z
-	E1gzyaPSfHOPcjrAS1hni4fkTaiTdD8WHOcB65UnycvoQx3wBSN+QKulK45qYQ==
-X-Google-Smtp-Source: AGHT+IF8V1T4XSwiCIS1kjA9StsHcYkxoDb9oOFxMeAq6pRyGBsy0wBIHdK6pOutiz5YzdL2PxpvXQ==
-X-Received: by 2002:a05:6512:529:b0:51b:14f9:3f1d with SMTP id o9-20020a056512052900b0051b14f93f1dmr1395664lfc.30.1714128693812;
-        Fri, 26 Apr 2024 03:51:33 -0700 (PDT)
-Message-ID: <d1f546dc-35bd-47f9-89be-582660d23ec1@suse.com>
-Date: Fri, 26 Apr 2024 12:51:32 +0200
+        bh=LvVGniZk0l+qBd9SNb8+3MoUeNuCKMe4CmEnjUlNdmY=;
+        b=ahrL3TOq0vCIsoeacL7XuPt694BntUHc92DHYsX81iCOD7TPWGR1bKUy2n4kmYodzp
+         24WqzMEKDW3ieaPHUhXR53AKY4PzT3L7w7xhGdWet5BXKcAWl0kj0Q9Z44tnhcNTZwjL
+         /UAWUYAOM0cSZ3xmG3FMkcgaDd5rugDT72T9cOsj1hc6dMCgy1SFB2KgmXGBEz4qsZer
+         VLsxHMjky3817E/q+7WG4YYtEN3S3AfNnBbtRH7uAIoOrzBrDlcqCPHc9MYdHWmNi6DD
+         6ZS+gl2vrbsbc5mQe1bAyrhh9ZOzweEqJINxrPVwjVQV5pLzUflmiGQ0QshwpjOOwLWI
+         cfwg==
+X-Forwarded-Encrypted: i=1; AJvYcCXlhkIRasgiAxrNYfgmMd4QqephM3nJLb216A1U+wqj2kYGo8Zmx5yWxeFmkChEN+ue4Y0AW/YgPueaZSoxY+lmQZJMVIudHJuoUSnMTPY=
+X-Gm-Message-State: AOJu0YzlVah/RZXLEEwrPTu5muI0p7iyE5uKBCbAEvCDj0Ix/N1CjZE6
+	QoI7x4RMJiCx8V26ny61RtJWFNzsiHJ/3breDWxUyLreZ0EBoVszPjOlMbSUBQ==
+X-Google-Smtp-Source: AGHT+IGN2kmz4W+i7Hm1V44uxis0DUbrhKzRH3eSwBYCDGziktnlZkJQYhbOKC9hdZ4lGHUGYnETZQ==
+X-Received: by 2002:a19:8c42:0:b0:51c:5fab:c23d with SMTP id i2-20020a198c42000000b0051c5fabc23dmr1149516lfj.17.1714128864311;
+        Fri, 26 Apr 2024 03:54:24 -0700 (PDT)
+Message-ID: <52d3e3bc-e57f-4656-8e1d-7a3f6e871a83@suse.com>
+Date: Fri, 26 Apr 2024 12:54:22 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 03/17] xen/bitops: implement fls{l}() in common logic
+Subject: Re: [PATCH v3] xen/riscv: check whether the assembler has Zbb
+ extension support
 Content-Language: en-US
 To: Oleksii <oleksii.kurochko@gmail.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
- <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>,
- Shawn Anastasio <sanastasio@raptorengineering.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org
-References: <cover.1713347222.git.oleksii.kurochko@gmail.com>
- <60bc710b990ed1d45741888df7e97cf25d150e61.1713347222.git.oleksii.kurochko@gmail.com>
- <a6245e9e-a156-4b17-8695-e072915fe78b@suse.com>
- <fb1a228b1bd58d17d7836c3413d3b0a8a9602978.camel@gmail.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <95441782d1920f219d63dee1c82c7df68424d374.1713523124.git.oleksii.kurochko@gmail.com>
+ <956388de-ef6d-4d7a-8b5f-2a292af8db53@suse.com>
+ <f410f3a619079b5089ea13018c26117e7e3f6e62.camel@gmail.com>
+ <f06c079116c194965491dfc669a32b9c60a90b3d.camel@gmail.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -120,41 +117,130 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <fb1a228b1bd58d17d7836c3413d3b0a8a9602978.camel@gmail.com>
+In-Reply-To: <f06c079116c194965491dfc669a32b9c60a90b3d.camel@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 26.04.2024 10:21, Oleksii wrote:
-> On Thu, 2024-04-25 at 17:44 +0200, Jan Beulich wrote:
->> On 17.04.2024 12:04, Oleksii Kurochko wrote:
->>> Return type was left 'int' because of the following compilation
->>> error:
+On 26.04.2024 10:26, Oleksii wrote:
+> On Mon, 2024-04-22 at 17:41 +0200, Oleksii wrote:
+>> On Mon, 2024-04-22 at 11:43 +0200, Jan Beulich wrote:
+>>> On 19.04.2024 16:23, Oleksii Kurochko wrote:
+>>>> Update the argument of the as-insn for the Zbb case to verify
+>>>> that
+>>>> Zbb is supported not only by a compiler, but also by an
+>>>> assembler.
+>>>>
+>>>> Also, check-extenstion(ext_name, "insn") helper macro is
+>>>> introduced
+>>>> to check whether extension is supported by a compiler and an
+>>>> assembler.
+>>>>
+>>>> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 >>>
->>> ./include/xen/kernel.h:18:21: error: comparison of distinct pointer
->>> types lacks a cast [-Werror]
->>>        18 |         (void) (&_x == &_y);            \
->>>           |                     ^~
->>>     common/page_alloc.c:1843:34: note: in expansion of macro 'min'
->>>      1843 |         unsigned int inc_order = min(MAX_ORDER, flsl(e
->>> - s) - 1);
->>
->> Apart from this I'm okay with this patch, assuming Andrew's won't
->> change in
->> any conflicting way. As to the above - no, I don't see us having
->> ffs() / ffsl()
->> returning unsigned int, fls() / flsl() returning plain int. Even more
->> so that,
->> given the LHS variable's type, an unsigned quantity is really meant
->> in the
->> quoted code.
-> If I understand you correctly, it's acceptable for fls() / flsl() to
-> return 'int'. Therefore, I can update the commit message by removing
-> the part mentioning the compilation error, as it's expected for fls() /
-> flsl() to return 'int'. Is my understanding correct?
+>>> Acked-by: Jan Beulich <jbeulich@suse.com>
+>>> despite ...
+>>>
+>>>> --- a/xen/arch/riscv/arch.mk
+>>>> +++ b/xen/arch/riscv/arch.mk
+>>>> @@ -11,9 +11,14 @@ riscv-march-$(CONFIG_RISCV_ISA_C)       :=
+>>>> $(riscv-march-y)c
+>>>>  
+>>>>  riscv-generic-flags := $(riscv-abi-y) -march=$(riscv-march-y)
+>>>>  
+>>>> -zbb := $(call as-insn,$(CC) $(riscv-generic-flags)_zbb,"",_zbb)
+>>>> -zihintpause := $(call as-insn, \
+>>>> -                      $(CC) $(riscv-generic-
+>>>> flags)_zihintpause,"pause",_zihintpause)
+>>>> +# check-extension: Check whether extenstion is supported by a
+>>>> compiler and
+>>>> +#                  an assembler.
+>>>> +# Usage: $(call check-extension,extension_name,"instr")
+>>>> +check-extension = $(call as-insn,$(CC) $(riscv-generic-
+>>>> flags)_$(1),$(2),_$(1))
+>>>> +
+>>>> +zbb-insn := "andn t0, t0, t0"
+>>>> +zbb := $(call check-extension,zbb,$(zbb-insn))
+>>>> +zihintpause := $(call check-extension,zihintpause,"pause")
+>>>
+>>> ... still not really being happy with this: Either, as said before,
+>>> zbb-insn
+>>> would better be avoided (by using $(comma) as necessary), or you
+>>> should have
+>>> gone yet a step further to fully address my "redundancy" concern.
+>>> Note how
+>>> the two ultimate lines still have 3 (zbb) and 2 (zihintpause)
+>>> references
+>>> respectively, when the goal ought to be to have exactly one. E.g.
+>>> along the
+>>> lines of
+>>>
+>>> $(call check-extension,zbb)
+>>> $(call check-extension,zihintpause)
+>>>
+>>> suitably using $(eval ...) (to effect the variable definitions) and
+>>> defining
+>>> both zbb-insn and zihintpause-insn.
+>>>
+>>> But I'll nevertheless put this in as is, unless you tell me you're
+>>> up
+>>> to
+>>> going the extra step.
 
-No. I firmly object to ffs() and fls() being different in their return
-types. I'm sorry, I realize now that my earlier wording was ambiguous
-(at least missing "but" after the comma).
+Well, as per this v3 went in already. Hence ...
+
+>> I am okay with all your suggestions. So the final version will look
+>> like ( if I understood you correctly ):
+> Jan,
+> 
+> Could you please review the changes below? I just want to ensure that
+> you are okay with them. If you are, I'll add your Acked-by that you
+> gave to this patch in previous answers.
+
+... if you now want to further update the logic, it'll be a new patch
+anyway. The adjustments below look okay to me, but I'm not going to
+insist at this point that this be further fiddled with.
 
 Jan
+
+>> --- a/xen/arch/riscv/arch.mk
+>> +++ b/xen/arch/riscv/arch.mk
+>> @@ -13,12 +13,19 @@ riscv-generic-flags := $(riscv-abi-y) -
+>> march=$(riscv-march-y)
+>>  
+>>  # check-extension: Check whether extenstion is supported by a
+>> compiler
+>> and
+>>  #                  an assembler.
+>> -# Usage: $(call check-extension,extension_name,"instr")
+>> -check-extension = $(call as-insn,$(CC) $(riscv-generic-
+>> flags)_$(1),$(2),_$(1))
+>> +# Usage: $(call check-extension,extension_name).
+>> +#        it should be defined variable with name: extension-name :=
+>> "insn"
+>>  
+>> -zbb-insn := "andn t0, t0, t0"
+>> -zbb := $(call check-extension,zbb,$(zbb-insn))
+>> -zihintpause := $(call check-extension,zihintpause,"pause")
+>> +define check-extension =
+>> +$(eval $(1) := \
+>> +       $(call as-insn,$(CC) $(riscv-generic-flags)_$(1),$(value
+>> $(1)-
+>> insn),_$(1)))
+>> +endef
+>> +
+>> +zbb-insn := "andn t0$(comma)t0$(comma)t0"
+>> +$(call check-extension,zbb)
+>> +
+>> +zihintpause-insn := "pause"
+>> +$(call check-extension,zihintpause)
+>>  
+>>  extensions := $(zbb) $(zihintpause)
+>>
+>> If the diff above looks good, I'll sent a new patch version.
+>>
+>> Thanks.
+>>
+>> ~ Oleksii
+> 
+
 
