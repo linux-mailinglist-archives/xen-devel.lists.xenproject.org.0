@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2FF7C8B2FFB
-	for <lists+xen-devel@lfdr.de>; Fri, 26 Apr 2024 07:58:22 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.712410.1113086 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7621B8B3005
+	for <lists+xen-devel@lfdr.de>; Fri, 26 Apr 2024 08:03:02 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.712416.1113096 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s0Eac-00014n-0R; Fri, 26 Apr 2024 05:57:42 +0000
+	id 1s0EfF-0002fY-Kz; Fri, 26 Apr 2024 06:02:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 712410.1113086; Fri, 26 Apr 2024 05:57:41 +0000
+Received: by outflank-mailman (output) from mailman id 712416.1113096; Fri, 26 Apr 2024 06:02:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s0Eab-00012h-Sx; Fri, 26 Apr 2024 05:57:41 +0000
-Received: by outflank-mailman (input) for mailman id 712410;
- Fri, 26 Apr 2024 05:57:40 +0000
+	id 1s0EfF-0002e2-IE; Fri, 26 Apr 2024 06:02:29 +0000
+Received: by outflank-mailman (input) for mailman id 712416;
+ Fri, 26 Apr 2024 06:02:28 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=lj3M=L7=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1s0Eaa-00012b-F3
- for xen-devel@lists.xenproject.org; Fri, 26 Apr 2024 05:57:40 +0000
-Received: from mail-lf1-x12b.google.com (mail-lf1-x12b.google.com
- [2a00:1450:4864:20::12b])
+ id 1s0EfE-0002dw-22
+ for xen-devel@lists.xenproject.org; Fri, 26 Apr 2024 06:02:28 +0000
+Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
+ [2a00:1450:4864:20::62e])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e3900aa3-0391-11ef-909a-e314d9c70b13;
- Fri, 26 Apr 2024 07:57:39 +0200 (CEST)
-Received: by mail-lf1-x12b.google.com with SMTP id
- 2adb3069b0e04-51ca95db667so514155e87.0
- for <xen-devel@lists.xenproject.org>; Thu, 25 Apr 2024 22:57:39 -0700 (PDT)
+ id 8f00d4b8-0392-11ef-909a-e314d9c70b13;
+ Fri, 26 Apr 2024 08:02:27 +0200 (CEST)
+Received: by mail-ej1-x62e.google.com with SMTP id
+ a640c23a62f3a-a5200afe39eso195030566b.1
+ for <xen-devel@lists.xenproject.org>; Thu, 25 Apr 2024 23:02:27 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- s16-20020a1709060c1000b00a560ee2db26sm5028674ejf.124.2024.04.25.22.57.38
+ b25-20020a17090630d900b00a5875b34b6asm4414335ejb.14.2024.04.25.23.02.26
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 25 Apr 2024 22:57:38 -0700 (PDT)
+ Thu, 25 Apr 2024 23:02:26 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,55 +45,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e3900aa3-0391-11ef-909a-e314d9c70b13
+X-Inumbo-ID: 8f00d4b8-0392-11ef-909a-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1714111059; x=1714715859; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
-         :from:content-language:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=kpvzPvt/cvEVfafBw9a77e4DszJmZIpLs4Jzf1taytU=;
-        b=cMMLuO5nWw5o2dKgsx76ERYOmctGomkKnBm4KKNeoV1Nw7LPXpq0LWHPqGSdRPzhep
-         4YIWUyQQdNxNMha4lmWz2FBUjZExuUlSuTuS+V2Vh/RqvMmknWx15ESFPPsn8Q/g0lTx
-         D+/Mb9sCFoIQZn4dRZIAd5hbLWafC5+sR96LXNMAmSJhZ4LuJH6mBsQJfZ9+Qb3soxJ2
-         psDlJEhJQioQdGhvtCLpXUPT0f46a8pW+/xn5nBs0Vxl2pPpZRBMb7uU0bK74afhrX7r
-         yiUkNra00e+M7aK0NtzLNx2RYFH/I0VC1CL3V1+jNyC3Oaka4EBCaGf4IeG/XbZp9SAS
-         9RSw==
+        d=suse.com; s=google; t=1714111347; x=1714716147; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=Of/jVMt3nYb+ntFEQX3n98EQvA1ntwarPjHdelmljcw=;
+        b=MEaGzeC2jyV3cUqWk3zRf01MeP+OmMFqzhAdZzvY3l1bCM5Bm47WSMPJ+3sB9p6LvN
+         TKlGKQz8E79vcUebsyUSd+tcezDaO7H/wlb8SotOUtOBkCgVj0FrChpo7qNzrki9Qb5F
+         QYv+WglYJcKtnTT2KU8Ljj5LKSPpBqHs8LazspQnxO2OUIhtin5Sm+R5thce84eaFEAK
+         t59CQtb+dmUcBH3SqPp1cBVLZ+13uDwBn8j/PWG3ijkaMl8TC1s/Rv+H/+Q7/uVa3Fvg
+         4jZGZ+IHuKiGohU0M789DSF2kdGNmNdlhHG/TcuMY3NAPqCbiQ3x/lOTc2K8uEvRns1R
+         xOQg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1714111059; x=1714715859;
-        h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
-         :from:content-language:subject:user-agent:mime-version:date
-         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=kpvzPvt/cvEVfafBw9a77e4DszJmZIpLs4Jzf1taytU=;
-        b=TdhavBfyfDlz4uZDAKAv4Hozt0Z3ynmFxqcF3oJQD4jj1GKaipqgEGW2zrQGjFTbYI
-         GmWnfeod0Np3nXfmUxCqmJ+WUATUFwh2Fy6YwER6ITAPTRHssdBTxp6rLEH/3lgURx60
-         RYiiFDUmJPUMDoF/6g98UFgifOR3WuCInY3nbuy2cbixl2/67cBHDL1ptlhyRdUnHCs1
-         Xc26LYhFjMoibp2OwJv9BAJfP3zy84V1TRzRFweZf6kVm0v4HmWWZO6Jn/d9hs7QBa71
-         L9mEgL8kUpbB8oRPqGW91xceGXuTT77m4wioVdcb9Mk6QtA42eXwTvkai3v5KsJulOPB
-         hRfw==
-X-Forwarded-Encrypted: i=1; AJvYcCU4El3/fJ+bKvv16jZSxzS4n3g4VFa2YGDIS87banTzPknWe/MmkF0k0jTHCdfcaBdi1AkIGo2Dsayvfqb1Nv2RMraTbZp970Y//Ob8Mu0=
-X-Gm-Message-State: AOJu0Yy1f78/8VI7fSssNTrTHBvz2cLaQ09MNel+u8+HzOxvOqHNryES
-	7ovtgyNaJQ/i5v1umDesxuBMg73dB0XLFUpVHj3UsVsNUYG7VTfRkoBjc7GveHL2Bl6rw8W/SXo
-	=
-X-Google-Smtp-Source: AGHT+IGLU2/BJIZtXLtqt0MjhEVTZyeFCx5XWOrttMGGQGGVzIhA/nQzZtcLiAwngYzuQfkNOE8eYg==
-X-Received: by 2002:a05:6512:ac1:b0:51c:cc1b:a8f6 with SMTP id n1-20020a0565120ac100b0051ccc1ba8f6mr274638lfu.20.1714111059008;
-        Thu, 25 Apr 2024 22:57:39 -0700 (PDT)
-Message-ID: <a0404716-7611-4b2f-9fd1-c16b109067b5@suse.com>
-Date: Fri, 26 Apr 2024 07:57:37 +0200
+        d=1e100.net; s=20230601; t=1714111347; x=1714716147;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=Of/jVMt3nYb+ntFEQX3n98EQvA1ntwarPjHdelmljcw=;
+        b=XItugUqXhH+O2GVKx0E3lKsX6a38TjX4tQkic0VBBSYQvstARmcLjavdlWINnl7N7F
+         wyaMte/cykI8EwnxGgYUHKzBofDmbujx7BDHL+E24GmtYJEUvuuHMRWIx3M1M+gcp76G
+         HKuTqyerVGxJV80CywKm7o0C69hxLCg0QElPymfL5rdtI1lb3R/RGvrZ3KOHW03GIaNF
+         2CMus9+oR/bS9w2H7ZJZVYYRkrO3H/nC1IZLGPjevHxu8w1mqrLifTITxK4Q/EnCuISb
+         yH52nmGT+PzW32qWFkjT7mB4C9CtQtd65mOo0L/GrOgQRdzfE4g+WvmMk3WQ0Hh3jsdx
+         ZznA==
+X-Gm-Message-State: AOJu0YzDj2K6MlWSsh6P3+axsnR/heIlRZhuM1kReJdGfjGtYH06rrl0
+	xGnxBlY2kTyAV/XqoH2o4S3wtXtqP1sxLDGTcrKmL2OtLzSBYUV/qhTxjL45ew==
+X-Google-Smtp-Source: AGHT+IGCqDutoTekvzEDS7Re2J/JaW/Ee5YM2RKrfArAhXiyeTTgKuy7OqVh3IgeNlQMb9sDYTmURg==
+X-Received: by 2002:a17:907:76c2:b0:a55:b2da:3e92 with SMTP id kf2-20020a17090776c200b00a55b2da3e92mr1525948ejc.68.1714111346718;
+        Thu, 25 Apr 2024 23:02:26 -0700 (PDT)
+Message-ID: <012320e9-c63a-450f-8e91-ebe13352e6d7@suse.com>
+Date: Fri, 26 Apr 2024 08:02:25 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 7/8] gzip: move bitbuffer into gunzip state
+Subject: Re: [PATCH v2 1/1] xen/arm64: entry: Add missing code symbol
+ annotations
 Content-Language: en-US
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: xen-devel@lists.xenproject.org, julien@xen.org, bertrand.marquis@arm.com,
+ michal.orzel@amd.com, Volodymyr_Babchuk@epam.com, andrew.cooper3@citrix.com,
+ edgar.iglesias@amd.com, "Edgar E. Iglesias" <edgar.iglesias@gmail.com>
+References: <20240415231541.4140052-1-edgar.iglesias@gmail.com>
+ <20240415231541.4140052-2-edgar.iglesias@gmail.com>
+ <alpine.DEB.2.22.394.2404251608320.3940@ubuntu-linux-20-04-desktop>
 From: Jan Beulich <jbeulich@suse.com>
-To: "Daniel P. Smith" <dpsmith@apertussolutions.com>
-Cc: Jason Andryuk <jason.andryuk@amd.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org,
- Andrew Cooper <andrew.cooper3@citrix.com>
-References: <20240424163422.23276-1-dpsmith@apertussolutions.com>
- <20240424163422.23276-8-dpsmith@apertussolutions.com>
- <06b325c3-04a4-4294-85e1-a6d05019e3f0@citrix.com>
- <42614bdf-0aaa-4bbe-aa0f-f9d54c1e10d1@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -117,38 +113,31 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <42614bdf-0aaa-4bbe-aa0f-f9d54c1e10d1@suse.com>
+In-Reply-To: <alpine.DEB.2.22.394.2404251608320.3940@ubuntu-linux-20-04-desktop>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 26.04.2024 07:55, Jan Beulich wrote:
-> On 25.04.2024 21:23, Andrew Cooper wrote:
->> On 24/04/2024 5:34 pm, Daniel P. Smith wrote:
->>> --- a/xen/common/gzip/inflate.c
->>> +++ b/xen/common/gzip/inflate.c
->>> @@ -1017,8 +1014,8 @@ static int __init inflate(struct gunzip_state *s)
->>>      /* Undo too much lookahead. The next read will be byte aligned so we
->>>       * can discard unused bits in the last meaningful byte.
->>>       */
->>> -    while (bk >= 8) {
->>> -        bk -= 8;
->>> +    while (s->bk >= 8) {
->>> +        s->bk -= 8;
->>>          s->inptr--;
->>>      }
+On 26.04.2024 01:13, Stefano Stabellini wrote:
+> On Tue, 16 Apr 2024, Edgar E. Iglesias wrote:
+>> From: "Edgar E. Iglesias" <edgar.iglesias@amd.com>
 >>
->> Isn't it just me, but isn't this just:
->>
->>     s->inptr -= (s->bk >> 3);
->>     s->bk &= 7;
->>
->> ?
+>> Use the generic xen/linkage.h macros when and add missing
+>                                         ^ when what?
 > 
-> I'd say yes, if only there wasn't the comment talking of just a single byte,
-> and even there supposedly some of the bits.
+>> code symbol annotations.
+>>
+>> Signed-off-by: Edgar E. Iglesias <edgar.iglesias@amd.com>
+> 
+> I am looking at the implementation of FUNC and as far as I can tell
+> there is no change compared to ENTRY. So from that point of view we are
+> good. I wonder if we should keep using "ENTRY" because it is nice to
+> mark explicitely the entry points as such but at the same time I am also
+> OK with this. I'll let the other ARM maintainers decide.
 
-Talking of the comment: Considering what patch 1 supposedly does, how come
-that isn't Xen-style (yet)?
+Just to mention it: ENTRY should go away (and hence why PPC and RISC-V had
+it dropped already, while x86 has patches pending to reduce its scope
+enough), not the least to finally allow the oddity near the top of xen.lds.S
+to go away.
 
 Jan
 
