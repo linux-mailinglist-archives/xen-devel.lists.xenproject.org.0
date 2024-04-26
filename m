@@ -2,37 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CE5918B3EB1
-	for <lists+xen-devel@lfdr.de>; Fri, 26 Apr 2024 19:56:15 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.713000.1113987 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A8C838B3EC4
+	for <lists+xen-devel@lfdr.de>; Fri, 26 Apr 2024 19:58:33 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.713020.1113998 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s0PnL-0006jR-6V; Fri, 26 Apr 2024 17:55:35 +0000
+	id 1s0Pq0-0000TI-Ho; Fri, 26 Apr 2024 17:58:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 713000.1113987; Fri, 26 Apr 2024 17:55:35 +0000
+Received: by outflank-mailman (output) from mailman id 713020.1113998; Fri, 26 Apr 2024 17:58:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s0PnL-0006h0-1v; Fri, 26 Apr 2024 17:55:35 +0000
-Received: by outflank-mailman (input) for mailman id 713000;
- Fri, 26 Apr 2024 17:55:33 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=/r3b=L7=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
- id 1s0PnJ-0005IL-1C
- for xen-devel@lists.xenproject.org; Fri, 26 Apr 2024 17:55:33 +0000
-Received: from wfout3-smtp.messagingengine.com
- (wfout3-smtp.messagingengine.com [64.147.123.146])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 2b343baf-03f6-11ef-b4bb-af5377834399;
- Fri, 26 Apr 2024 19:55:31 +0200 (CEST)
-Received: from compute2.internal (compute2.nyi.internal [10.202.2.46])
- by mailfout.west.internal (Postfix) with ESMTP id 3E7111C0019D;
- Fri, 26 Apr 2024 13:55:28 -0400 (EDT)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute2.internal (MEProxy); Fri, 26 Apr 2024 13:55:28 -0400
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 26 Apr 2024 13:55:26 -0400 (EDT)
+	id 1s0Pq0-0000Q8-Ee; Fri, 26 Apr 2024 17:58:20 +0000
+Received: by outflank-mailman (input) for mailman id 713020;
+ Fri, 26 Apr 2024 17:58:18 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1s0Ppy-0000Ps-BW
+ for xen-devel@lists.xenproject.org; Fri, 26 Apr 2024 17:58:18 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1s0Ppx-0004nH-U0; Fri, 26 Apr 2024 17:58:17 +0000
+Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.0.211])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1s0Ppx-0008OM-O4; Fri, 26 Apr 2024 17:58:17 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,93 +39,84 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2b343baf-03f6-11ef-b4bb-af5377834399
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:cc:content-transfer-encoding
-	:content-type:date:date:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to; s=fm3; t=1714154127; x=1714240527; bh=kqv3XxPnwBq6tyJeE7l4A
-	gxpNVKGtZJ7FW7pxlbH88o=; b=wKCwcpVAZvyu4pg/zrW3j5/5MjojIED1bThbZ
-	7YlEM0+JSrEe3qV7dFe81VQVNUwb8ZKbKQ4s10DfGz/uq7NUSFrC0Q2+2AWdzztw
-	PBVjQXfAEYq0q268DARHej5DmxBJTl9/sP02hFog2YIp6C88iYAXErLX4WvLTKW5
-	ufGgsx4nwPujWqS6xPm4HV5tXMyNCwZyPRJE1/NvwQuBGk8v2ktzPGyWAcp2M4FG
-	EydCiMI/7VoYLuiHjNdIiFs0bWGIF4C2duTjoijvEajrfV/5UurCcPXx1ugC2Fw+
-	GGHKAEvP6rCoNwlZXNktV/cTEa8xnjAwr+VKXIHXaX4AccAcw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:date:date:feedback-id:feedback-id:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to:x-me-proxy:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1714154127; x=
-	1714240527; bh=kqv3XxPnwBq6tyJeE7l4AgxpNVKGtZJ7FW7pxlbH88o=; b=P
-	ve7k2xM9Qj1ZrR6uUb2WyfVSY5KpAEnsKA8cAsLsrYgOmB9svO+dULd4/YyJSDXo
-	QTQhaRR725DJaNs8wyAOxwT6d5ENpVeScTx41lt3ksNT6ROijyG1YF7/XfRqcgBq
-	hUWBwzsEpfBwaskAS2xbxSefNVHyRgu5pVZ/wWdW29YkqHTlRR08aVX7pIEybWJf
-	D+3EXXfGUP1OAlejfNE1Lf62zBe9xqnhihtbIUNhR9Ka81PceyInIVBNMCliEb4/
-	lbbZpfZu2W7MQUGDscsUgWE1f0DZewL6JBDTTzIpYPrf9Hyg5Pq9bIN4NP9gzKgN
-	abL6H6fA8ss/Q8m1nNaLw==
-X-ME-Sender: <xms:j-orZmfIbjO1sujNcl8iCQTDKaMR6AjM2BMYVyy_tnAR9vtlBwWpsg>
-    <xme:j-orZgP6Ice9x-_2NEodSHtyWRX8LsearozX5H0OLNiSvtpfsgIxbhgYVbi3Chxxc
-    aWDj2h-XBaXkA>
-X-ME-Received: <xmr:j-orZnh9OlwPsdAXWhr6X9zB0D0fSq-RTjKjUhD6iZRTuOCm6LABOsE6qcBpBZ8acu-C0Y2RfABSXV8x8VyEWz_A8nYmfRedVSKX5vZi2RnLRvYpT7A>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvledrudelledguddulecutefuodetggdotefrod
-    ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
-    necuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
-    enucfjughrpefhvfevufffkffojghfggfgsedtkeertdertdejnecuhfhrohhmpeforghr
-    vghkucforghrtgiihihkohifshhkihdqifpkrhgvtghkihcuoehmrghrmhgrrhgvkhesih
-    hnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpeeu
-    teehgfeiheehfedtueeludfhgfeileeujefhgffgieeiveethfeffffffedtheenucffoh
-    hmrghinhepghhithhlrggsrdgtohhmnecuvehluhhsthgvrhfuihiivgeptdenucfrrghr
-    rghmpehmrghilhhfrhhomhepmhgrrhhmrghrvghksehinhhvihhsihgslhgvthhhihhngh
-    hslhgrsgdrtghomh
-X-ME-Proxy: <xmx:j-orZj-oJNEXsBY9GsNo1_2zqGLOXa7L8i_yCJBpahMwWelDgnNjmA>
-    <xmx:j-orZisBHPRvd2hZPBhhBuZEp0Qa1g02-7Ly9t1c7ZSwSQwL1L3KSQ>
-    <xmx:j-orZqG9g_cCQHo7pEjNrVGv5irgONQ2skceRDtsEWv3_3lZxl38_g>
-    <xmx:j-orZhP1f6CVGspMaM9f1Tf_DFkJ9x48-EVOsx8v_6I-SxwhgHQ73w>
-    <xmx:j-orZmLWrwfJ3qml84zuSaty43HNXnOODFaiUVPT6h7RnsxVASx8kFiz>
-Feedback-ID: i1568416f:Fastmail
-From: =?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: xen-devel@lists.xenproject.org
-Cc: =?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
-	Doug Goldstein <cardoe@cardoe.com>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH v6 7/7] [DO NOT APPLY] switch to alternative artifact repo
-Date: Fri, 26 Apr 2024 19:54:04 +0200
-Message-ID: <4634c2b7d08997b38521f0fa82e37a4fca0d6e2c.1714154036.git-series.marmarek@invisiblethingslab.com>
-X-Mailer: git-send-email 2.44.0
-In-Reply-To: <cover.3491f479d5b6238106af8ddc56ec6834090b330f.1714154036.git-series.marmarek@invisiblethingslab.com>
-References: <cover.3491f479d5b6238106af8ddc56ec6834090b330f.1714154036.git-series.marmarek@invisiblethingslab.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=XDvqkA2kuA3yOzBcUmidxFcrtmWLYC3CyoGuh6qMJKA=; b=eReeut56uZvnKUmM2j4l4mVHhi
+	7GPN+5SKRVgs/YRVd80/xw+onX+RWrMu3UPrp3Kk+VxMTSPmcgY67J9ssc4ZDmgn6hbdIWwBE3gXT
+	t1ZuQQNReijE7nIttMO7SJsxc3Kjrq2VF/rc2UJw41Y+zO35z91PcOlgL4oL+UUkHQcI=;
+Message-ID: <807e4e70-f3b2-4b40-9004-d55bd9407bbf@xen.org>
+Date: Fri, 26 Apr 2024 18:58:16 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [XEN PATCH v3 5/5] xen/arm: ffa: support notification
+Content-Language: en-GB
+To: Jens Wiklander <jens.wiklander@linaro.org>, xen-devel@lists.xenproject.org
+Cc: patches@linaro.org, Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <20240426084723.4149648-1-jens.wiklander@linaro.org>
+ <20240426084723.4149648-6-jens.wiklander@linaro.org>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <20240426084723.4149648-6-jens.wiklander@linaro.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-For testing, switch to my containers registry that includes containers
-rebuilt with changes in this series.
----
- automation/gitlab-ci/build.yaml | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+Hi Jens,
 
-diff --git a/automation/gitlab-ci/build.yaml b/automation/gitlab-ci/build.yaml
-index aac29ee13ab6..6957f06016b7 100644
---- a/automation/gitlab-ci/build.yaml
-+++ b/automation/gitlab-ci/build.yaml
-@@ -320,7 +320,7 @@ qemu-system-ppc64-8.1.0-ppc64-export:
- 
- alpine-3.18-rootfs-export:
-   extends: .test-jobs-artifact-common
--  image: registry.gitlab.com/xen-project/xen/tests-artifacts/alpine:3.18
-+  image: registry.gitlab.com/xen-project/people/marmarek/xen/tests-artifacts/alpine:3.18
-   script:
-     - mkdir binaries && cp /initrd.tar.gz binaries/initrd.tar.gz
-   artifacts:
-@@ -331,7 +331,7 @@ alpine-3.18-rootfs-export:
- 
- kernel-6.1.19-export:
-   extends: .test-jobs-artifact-common
--  image: registry.gitlab.com/xen-project/xen/tests-artifacts/kernel:6.1.19
-+  image: registry.gitlab.com/xen-project/people/marmarek/xen/tests-artifacts/kernel:6.1.19
-   script:
-     - mkdir binaries && cp /bzImage binaries/bzImage
-   artifacts:
+On 26/04/2024 09:47, Jens Wiklander wrote:
+> +static void notif_irq_enable(void *info)
+> +{
+> +    struct notif_irq_info *irq_info = info;
+> +
+> +    irq_info->ret = setup_irq(irq_info->irq, 0, irq_info->action);
+In v2, you were using request_irq(). But now you seem to be open-coding 
+it. Can you explain why?
+
+> +    if ( irq_info->ret )
+> +        printk(XENLOG_ERR "ffa: request_irq irq %u failed: error %d\n",
+> +               irq_info->irq, irq_info->ret);
+> +}
+> +
+> +void ffa_notif_init(void)
+> +{
+> +    const struct arm_smccc_1_2_regs arg = {
+> +        .a0 = FFA_FEATURES,
+> +        .a1 = FFA_FEATURE_SCHEDULE_RECV_INTR,
+> +    };
+> +    struct notif_irq_info irq_info = { };
+> +    struct arm_smccc_1_2_regs resp;
+> +    unsigned int cpu;
+> +
+> +    arm_smccc_1_2_smc(&arg, &resp);
+> +    if ( resp.a0 != FFA_SUCCESS_32 )
+> +        return;
+> +
+> +    irq_info.irq = resp.a2;
+> +    if ( irq_info.irq < GIC_SGI_STATIC_MAX || irq_info.irq >= NR_GIC_SGI )
+> +    {
+> +        printk(XENLOG_ERR "ffa: notification initialization failed: conflicting SGI %u\n",
+> +               irq_info.irq);
+> +        return;
+> +    }
+> +
+> +    /*
+> +     * SGIs are per-CPU so we must enable the IRQ on each CPU. We use an
+> +     * IPI to call notif_irq_enable() on each CPU including the current
+> +     * CPU. The struct irqaction is preallocated since we can't allocate
+> +     * memory while in interrupt context.
+> +     */
+> +    for_each_online_cpu(cpu)
+Even though we currently don't support CPU hotplug, you want to add a 
+CPU Notifier to also register the IRQ when a CPU is onlined 
+ffa_notif_init().
+
+For an example, see time.c. We may also want to consider to enable TEE 
+in presmp_initcalls() so we don't need to have a for_each_online_cpu().
+
+Cheers,
+
 -- 
-git-series 0.9.1
+Julien Grall
 
