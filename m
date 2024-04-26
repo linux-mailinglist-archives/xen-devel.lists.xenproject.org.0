@@ -2,35 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 10E298B401F
-	for <lists+xen-devel@lfdr.de>; Fri, 26 Apr 2024 21:27:11 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.713095.1114100 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B8FEE8B4036
+	for <lists+xen-devel@lfdr.de>; Fri, 26 Apr 2024 21:42:49 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.713104.1114110 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s0RDg-0006hI-Kw; Fri, 26 Apr 2024 19:26:52 +0000
+	id 1s0RSX-0001e4-VB; Fri, 26 Apr 2024 19:42:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 713095.1114100; Fri, 26 Apr 2024 19:26:52 +0000
+Received: by outflank-mailman (output) from mailman id 713104.1114110; Fri, 26 Apr 2024 19:42:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s0RDg-0006fS-GS; Fri, 26 Apr 2024 19:26:52 +0000
-Received: by outflank-mailman (input) for mailman id 713095;
- Fri, 26 Apr 2024 19:26:51 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1s0RSX-0001cY-SE; Fri, 26 Apr 2024 19:42:13 +0000
+Received: by outflank-mailman (input) for mailman id 713104;
+ Fri, 26 Apr 2024 19:42:12 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1s0RDf-0006fI-H5; Fri, 26 Apr 2024 19:26:51 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1s0RDf-0006fR-BS; Fri, 26 Apr 2024 19:26:51 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1s0RDf-0002vl-3K; Fri, 26 Apr 2024 19:26:51 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1s0RDf-0008MU-2q; Fri, 26 Apr 2024 19:26:51 +0000
+ (envelope-from <SRS0=XFjt=L7=linaro.org=philmd@srs-se1.protection.inumbo.net>)
+ id 1s0RSW-0001cS-JJ
+ for xen-devel@lists.xenproject.org; Fri, 26 Apr 2024 19:42:12 +0000
+Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com
+ [2a00:1450:4864:20::132])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 12f36c5b-0405-11ef-909a-e314d9c70b13;
+ Fri, 26 Apr 2024 21:42:11 +0200 (CEST)
+Received: by mail-lf1-x132.google.com with SMTP id
+ 2adb3069b0e04-51bae805c56so2913404e87.0
+ for <xen-devel@lists.xenproject.org>; Fri, 26 Apr 2024 12:42:11 -0700 (PDT)
+Received: from m1x-phil.lan (aul93-h02-176-184-11-147.dsl.sta.abo.bbox.fr.
+ [176.184.11.147]) by smtp.gmail.com with ESMTPSA id
+ e24-20020a170906081800b00a5891d81009sm3390140ejd.36.2024.04.26.12.42.07
+ (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+ Fri, 26 Apr 2024 12:42:09 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,220 +45,444 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Message-Id:Subject:To;
-	bh=AOwiWhVxDGR4PrAjciEEZiT0iIodm6J+DJYkzhJcJKA=; b=3g8ksDY4e3BSCYzBvKpDyWajRQ
-	1YHp/mQt6Azcdh7bTbEFLLumvU641yLqId9nQlUMa6YrlNrn7JKLVhhA29M67KIO4jjW4H+6FZ9WG
-	nFDPgTis78xSQ2Jrvd399CKmiN1/Q9Al6FHTPMOneykGdwGPwrRMxUUekPWeSEn2EyVE=;
-To: xen-devel@lists.xenproject.org
-Subject: [xen-unstable bisection] complete test-amd64-amd64-livepatch
-Message-Id: <E1s0RDf-0008MU-2q@osstest.test-lab.xenproject.org>
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 26 Apr 2024 19:26:51 +0000
+X-Inumbo-ID: 12f36c5b-0405-11ef-909a-e314d9c70b13
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1714160531; x=1714765331; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=ye55WMDRK5S6l5M0zWgNVrTpOE29KI1trvIKq0uwte4=;
+        b=MS7g3mdfeulqYGk+gJnulMMcZLC196FbK+H8L+dD9FfV/sMibr8mL+FY2mwCeQ5wgd
+         qDfL+/QRTtD0TiqUGti/Z08ypI/l8PWlj464S4H5oJFE8dXasBThpniqi4jK/CVkLruD
+         m5Y/A6H1tHnVS+PZ/Dzs0NASJ/6dDQ1dVvhxwm+RqhkMPx/3fLD7OYyr0Zbyk1PNrNWw
+         1EkgBs5geB4AiMzWPN5YhRh8pywah5/sM4MClcCFdCpPwIGDttg35J904FcHJuWtTuUS
+         1IZddwD4H41YQCvOuPbchIgoCRNHgaFBB1x/Hi71cc7DhJS3dP5zu9iLmB4wo3nUWm5k
+         n90Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1714160531; x=1714765331;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=ye55WMDRK5S6l5M0zWgNVrTpOE29KI1trvIKq0uwte4=;
+        b=Flfp8zsEiT7ZEhRM23CjIbUhglCebh2il5CknYpjqpQmvF9AtV98mJWpHI2CsQB5JL
+         hQcVRlko1NnNaPZ6h3Obq3P8DnytGsCmkRiR3gSGoAgVVKc3wcElMYsQBQYXJsFK+fN/
+         cqswX7asZ0ETSKThHtswac8EwIqs5cmA6eF57dNRa7UKzp1kx7Lp2kZv0Vragul1YGRS
+         UqpkigKWbAwHkKfDUBliXPF4YgtdZkSfdbe7tAlwOuKTzz2CREBpaxGluWGgUZ0mXpHI
+         1wRIMYsYkrIFqpxhB6aZjrxUvDJo00i6SiAkn/AXwFKUENoJS/0wOWLk2SKJojNUlgqM
+         kRKQ==
+X-Forwarded-Encrypted: i=1; AJvYcCV+Y6j0WtNShxi8wlSXcp4AZZJ10tkqEiCZ5gosmpiepGJMZQjuSz9O3TFolLRw+W5JhSf5Sxb25l/TVa8dXIZ7cJr3dlb+L/P56JQyaew=
+X-Gm-Message-State: AOJu0YxaTpKsEC1I1VEe8VaGsHZITuA/v1vxu7Xfv6N0j85ZzgJOxKBY
+	ZivaDraPXII76ASu2EZtS14fep3aOoFU0CxWp2PcZbz+01yvIpBTsa34SuElDKE=
+X-Google-Smtp-Source: AGHT+IFL14ms+GZPBLVOB0MB3rNqmeNW55qsxaKuP7JYpVZQYPUqzQLjW5flfi2FoO61Lw3+u8GCQQ==
+X-Received: by 2002:a19:f80b:0:b0:518:bc7c:413a with SMTP id a11-20020a19f80b000000b00518bc7c413amr2135720lff.69.1714160530417;
+        Fri, 26 Apr 2024 12:42:10 -0700 (PDT)
+From: =?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@linaro.org>
+To: qemu-devel@nongnu.org
+Cc: qemu-arm@nongnu.org,
+	qemu-riscv@nongnu.org,
+	qemu-s390x@nongnu.org,
+	qemu-ppc@nongnu.org,
+	=?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@linaro.org>,
+	Peter Maydell <peter.maydell@linaro.org>,
+	Richard Henderson <richard.henderson@linaro.org>,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	Peter Xu <peterx@redhat.com>,
+	David Hildenbrand <david@redhat.com>,
+	=?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>,
+	Eduardo Habkost <eduardo@habkost.net>,
+	Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
+	Yanan Wang <wangyanan55@huawei.com>,
+	Cameron Esfahani <dirty@apple.com>,
+	Roman Bolshakov <rbolshakov@ddn.com>,
+	Reinoud Zandijk <reinoud@netbsd.org>,
+	Sunil Muthuswamy <sunilmut@microsoft.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Anthony Perard <anthony.perard@citrix.com>,
+	Paul Durrant <paul@xen.org>,
+	=?UTF-8?q?Marc-Andr=C3=A9=20Lureau?= <marcandre.lureau@redhat.com>,
+	=?UTF-8?q?Daniel=20P=2E=20Berrang=C3=A9?= <berrange@redhat.com>,
+	Thomas Huth <thuth@redhat.com>,
+	kvm@vger.kernel.org,
+	xen-devel@lists.xenproject.org
+Subject: [PULL 01/38] exec: Rename NEED_CPU_H -> COMPILING_PER_TARGET
+Date: Fri, 26 Apr 2024 21:41:21 +0200
+Message-ID: <20240426194200.43723-2-philmd@linaro.org>
+X-Mailer: git-send-email 2.41.0
+In-Reply-To: <20240426194200.43723-1-philmd@linaro.org>
+References: <20240426194200.43723-1-philmd@linaro.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-branch xen-unstable
-xenbranch xen-unstable
-job test-amd64-amd64-livepatch
-testid livepatch-run
+'NEED_CPU_H' guard target-specific code; it is defined by meson
+altogether with the 'CONFIG_TARGET' definition. Rename NEED_CPU_H
+as COMPILING_PER_TARGET to clarify its meaning.
 
-Tree: linux git://xenbits.xen.org/linux-pvops.git
-Tree: linuxfirmware git://xenbits.xen.org/osstest/linux-firmware.git
-Tree: qemu git://xenbits.xen.org/qemu-xen-traditional.git
-Tree: qemuu git://xenbits.xen.org/qemu-xen.git
-Tree: xen git://xenbits.xen.org/xen.git
+Mechanical change running:
 
-*** Found and reproduced problem changeset ***
+ $ sed -i s/NEED_CPU_H/COMPILING_PER_TARGET/g $(git grep -l NEED_CPU_H)
 
-  Bug is in tree:  xen git://xenbits.xen.org/xen.git
-  Bug introduced:  62a72092a51792ab74d64ad7454c11e0c22629a2
-  Bug not present: fb2716a19190201ffb8d1b20cd9002f166000478
-  Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/185825/
+then manually add a /* COMPILING_PER_TARGET */ comment
+after the '#endif' when the block is large.
 
+Inspired-by: Peter Maydell <peter.maydell@linaro.org>
+Signed-off-by: Philippe Mathieu-Daudé <philmd@linaro.org>
+Reviewed-by: Richard Henderson <richard.henderson@linaro.org>
+Message-Id: <20240322161439.6448-4-philmd@linaro.org>
+---
+ meson.build                | 4 ++--
+ include/exec/cpu-defs.h    | 2 +-
+ include/exec/helper-head.h | 4 ++--
+ include/exec/memop.h       | 4 ++--
+ include/exec/memory.h      | 4 ++--
+ include/exec/tswap.h       | 4 ++--
+ include/gdbstub/helpers.h  | 2 +-
+ include/hw/core/cpu.h      | 4 ++--
+ include/qemu/osdep.h       | 2 +-
+ include/sysemu/hvf.h       | 8 ++++----
+ include/sysemu/kvm.h       | 6 +++---
+ include/sysemu/nvmm.h      | 4 ++--
+ include/sysemu/whpx.h      | 4 ++--
+ include/sysemu/xen.h       | 4 ++--
+ target/arm/kvm-consts.h    | 4 ++--
+ scripts/analyze-inclusions | 6 +++---
+ 16 files changed, 33 insertions(+), 33 deletions(-)
 
-  commit 62a72092a51792ab74d64ad7454c11e0c22629a2
-  Author: Roger Pau Monné <roger.pau@citrix.com>
-  Date:   Thu Apr 25 09:52:16 2024 +0200
-  
-      livepatch: introduce --force option
-      
-      Introduce a xen-livepatch tool --force option, that's propagated into the
-      hyerpvisor for livepatch operations.  The intention is for the option to be
-      used to bypass some checks that would otherwise prevent the patch from being
-      loaded.
-      
-      Re purpose the pad field in xen_sysctl_livepatch_op to be a flags field that
-      applies to all livepatch operations.  The flag is currently only set by the
-      hypercall wrappers for the XEN_SYSCTL_LIVEPATCH_UPLOAD operation, as that's so
-      far the only one where it will be used initially.  Other uses can be added as
-      required.
-      
-      Note that helpers would set the .pad field to 0, that's been removed since the
-      structure is already zero initialized at definition.
-      
-      No functional usages of the new flag introduced in this patch.
-      
-      Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
-      Acked-by: Jan Beulich <jbeulich@suse.com>
-      Acked-by: Anthony PERARD <anthony.perard@citrix.com>
-
-
-For bisection revision-tuple graph see:
-   http://logs.test-lab.xenproject.org/osstest/results/bisect/xen-unstable/test-amd64-amd64-livepatch.livepatch-run.html
-Revision IDs in each graph node refer, respectively, to the Trees above.
-
-----------------------------------------
-Running cs-bisection-step --graph-out=/home/logs/results/bisect/xen-unstable/test-amd64-amd64-livepatch.livepatch-run --summary-out=tmp/185825.bisection-summary --basis-template=185794 --blessings=real,real-bisect,real-retry xen-unstable test-amd64-amd64-livepatch livepatch-run
-Searching for failure / basis pass:
- 185806 fail [host=fiano1] / 185794 [host=debina1] 185786 [host=italia1] 185780 [host=rimava0] 185767 [host=albana0] 185762 [host=nobling1] 185754 [host=sabro1] 185748 [host=septiner1] 185744 [host=rimava1] 185742 [host=nobling0] 185741 [host=godello0] 185737 [host=huxelrebe1] 185731 [host=albana1] 185712 [host=italia0] 185674 [host=godello1] 185635 [host=fiano0] 185622 [host=septiner0] 185457 [host=debina0] 185386 [host=himrod0] 185310 [host=huxelrebe0] 185294 [host=sabro0] 185281 [host=italia1\
- ] 185277 [host=debina1] 185274 [host=albana0] 185271 [host=pinot1] 185268 ok.
-Failure / basis pass flights: 185806 / 185268
-(tree with no url: minios)
-(tree with no url: ovmf)
-(tree with no url: seabios)
-Tree: linux git://xenbits.xen.org/linux-pvops.git
-Tree: linuxfirmware git://xenbits.xen.org/osstest/linux-firmware.git
-Tree: qemu git://xenbits.xen.org/qemu-xen-traditional.git
-Tree: qemuu git://xenbits.xen.org/qemu-xen.git
-Tree: xen git://xenbits.xen.org/xen.git
-Latest 6741e066ec7633450d3186946035c1f80c4226b8 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 0df9387c8983e1b1e72d8c574356f572342c03e6 232ee07c23b23fbbafbbf27e475dbbc5b27e4bbb
-Basis pass 347385861c50adc8d4801d4b899eded38a2f04cd c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 0df9387c8983e1b1e72d8c574356f572342c03e6 402c2d3e66a6bc9481dcabfc8697750dc4beabed
-Generating revisions with ./adhoc-revtuple-generator  git://xenbits.xen.org/linux-pvops.git#347385861c50adc8d4801d4b899eded38a2f04cd-6741e066ec7633450d3186946035c1f80c4226b8 git://xenbits.xen.org/osstest/linux-firmware.git#c530a75c1e6a472b0eb9558310b518f0dfcd8860-c530a75c1e6a472b0eb9558310b518f0dfcd8860 git://xenbits.xen.org/qemu-xen-traditional.git#3d273dd05e51e5a1ffba3d98c7437ee84e8f8764-3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 git://xenbits.xen.org/qemu-xen.git#0df9387c8983e1b1e72d8c574356f57\
- 2342c03e6-0df9387c8983e1b1e72d8c574356f572342c03e6 git://xenbits.xen.org/xen.git#402c2d3e66a6bc9481dcabfc8697750dc4beabed-232ee07c23b23fbbafbbf27e475dbbc5b27e4bbb
-Loaded 10001 nodes in revision graph
-Searching for test results:
- 185253 [host=rimava1]
- 185262 [host=italia0]
- 185268 pass 347385861c50adc8d4801d4b899eded38a2f04cd c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 0df9387c8983e1b1e72d8c574356f572342c03e6 402c2d3e66a6bc9481dcabfc8697750dc4beabed
- 185271 [host=pinot1]
- 185274 [host=albana0]
- 185277 [host=debina1]
- 185281 [host=italia1]
- 185294 [host=sabro0]
- 185310 [host=huxelrebe0]
- 185386 [host=himrod0]
- 185457 [host=debina0]
- 185508 []
- 185528 []
- 185564 []
- 185597 []
- 185622 [host=septiner0]
- 185635 [host=fiano0]
- 185674 [host=godello1]
- 185712 [host=italia0]
- 185729 []
- 185731 [host=albana1]
- 185737 [host=huxelrebe1]
- 185741 [host=godello0]
- 185742 [host=nobling0]
- 185744 [host=rimava1]
- 185748 [host=septiner1]
- 185754 [host=sabro1]
- 185762 [host=nobling1]
- 185767 [host=albana0]
- 185780 [host=rimava0]
- 185786 [host=italia1]
- 185794 [host=debina1]
- 185800 fail 6741e066ec7633450d3186946035c1f80c4226b8 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 0df9387c8983e1b1e72d8c574356f572342c03e6 6d5111b10e084d841284a56e962c61ad274f589e
- 185807 pass 347385861c50adc8d4801d4b899eded38a2f04cd c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 0df9387c8983e1b1e72d8c574356f572342c03e6 402c2d3e66a6bc9481dcabfc8697750dc4beabed
- 185808 fail 6741e066ec7633450d3186946035c1f80c4226b8 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 0df9387c8983e1b1e72d8c574356f572342c03e6 6d5111b10e084d841284a56e962c61ad274f589e
- 185809 pass b510fbe3a7bf26a6b8fcaa23d0275bb383f95dfd c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 0df9387c8983e1b1e72d8c574356f572342c03e6 c0f890cd9d5fd2c17a1e3110cb26f98c90ce8429
- 185811 pass 2e8dc5cffc844dacfa79f056dea88002312f253f c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 0df9387c8983e1b1e72d8c574356f572342c03e6 ad363fb17d720f1ad047775e1d7b70158f546c46
- 185813 pass 6741e066ec7633450d3186946035c1f80c4226b8 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 0df9387c8983e1b1e72d8c574356f572342c03e6 58798e3f1f0609c773325274b654a8a946413d83
- 185814 pass 6741e066ec7633450d3186946035c1f80c4226b8 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 0df9387c8983e1b1e72d8c574356f572342c03e6 b3e66aa1c23db7e70fd67ba110a7c802e2297393
- 185815 pass 6741e066ec7633450d3186946035c1f80c4226b8 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 0df9387c8983e1b1e72d8c574356f572342c03e6 0d02b75d7cd3a24989d7982f6a0b0c8da580074e
- 185816 pass 6741e066ec7633450d3186946035c1f80c4226b8 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 0df9387c8983e1b1e72d8c574356f572342c03e6 fb2716a19190201ffb8d1b20cd9002f166000478
- 185817 fail 6741e066ec7633450d3186946035c1f80c4226b8 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 0df9387c8983e1b1e72d8c574356f572342c03e6 8c01d0e3361d827b552a8f5323c18a4d4f07e06a
- 185818 fail 6741e066ec7633450d3186946035c1f80c4226b8 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 0df9387c8983e1b1e72d8c574356f572342c03e6 62a72092a51792ab74d64ad7454c11e0c22629a2
- 185819 pass 6741e066ec7633450d3186946035c1f80c4226b8 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 0df9387c8983e1b1e72d8c574356f572342c03e6 fb2716a19190201ffb8d1b20cd9002f166000478
- 185806 fail 6741e066ec7633450d3186946035c1f80c4226b8 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 0df9387c8983e1b1e72d8c574356f572342c03e6 232ee07c23b23fbbafbbf27e475dbbc5b27e4bbb
- 185820 fail 6741e066ec7633450d3186946035c1f80c4226b8 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 0df9387c8983e1b1e72d8c574356f572342c03e6 62a72092a51792ab74d64ad7454c11e0c22629a2
- 185822 fail 6741e066ec7633450d3186946035c1f80c4226b8 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 0df9387c8983e1b1e72d8c574356f572342c03e6 232ee07c23b23fbbafbbf27e475dbbc5b27e4bbb
- 185823 pass 6741e066ec7633450d3186946035c1f80c4226b8 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 0df9387c8983e1b1e72d8c574356f572342c03e6 fb2716a19190201ffb8d1b20cd9002f166000478
- 185825 fail 6741e066ec7633450d3186946035c1f80c4226b8 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 0df9387c8983e1b1e72d8c574356f572342c03e6 62a72092a51792ab74d64ad7454c11e0c22629a2
-Searching for interesting versions
- Result found: flight 185268 (pass), for basis pass
- For basis failure, parent search stopping at 6741e066ec7633450d3186946035c1f80c4226b8 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 0df9387c8983e1b1e72d8c574356f572342c03e6 fb2716a19190201ffb8d1b20cd9002f166000478, results HASH(0x559600269900) HASH(0x559600254d50) HASH(0x55960026b908) For basis failure, parent search stopping at 6741e066ec7633450d3186946035c1f80c4226b8 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 0df9387c8\
- 983e1b1e72d8c574356f572342c03e6 0d02b75d7cd3a24989d7982f6a0b0c8da580074e, results HASH(0x559600226f90) For basis failure, parent search stopping at 6741e066ec7633450d3186946035c1f80c4226b8 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 0df9387c8983e1b1e72d8c574356f572342c03e6 b3e66aa1c23db7e70fd67ba110a7c802e2297393, results HASH(0x55960022edf8) For basis failure, parent search stopping at 6741e066ec7633450d3186946035c1f80c4226b8 c530a75c1e6a472b0eb9558310b518f\
- 0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 0df9387c8983e1b1e72d8c574356f572342c03e6 58798e3f1f0609c773325274b654a8a946413d83, results HASH(0x5596002497d8) For basis failure, parent search stopping at 2e8dc5cffc844dacfa79f056dea88002312f253f c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 0df9387c8983e1b1e72d8c574356f572342c03e6 ad363fb17d720f1ad047775e1d7b70158f546c46, results HASH(0x55960025ef88) For basis failure, parent search stopping at b510fbe3a7bf\
- 26a6b8fcaa23d0275bb383f95dfd c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 0df9387c8983e1b1e72d8c574356f572342c03e6 c0f890cd9d5fd2c17a1e3110cb26f98c90ce8429, results HASH(0x559600255350) For basis failure, parent search stopping at 347385861c50adc8d4801d4b899eded38a2f04cd c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 0df9387c8983e1b1e72d8c574356f572342c03e6 402c2d3e66a6bc9481dcabfc8697750dc4beabed, results HASH(0x55960023dd8\
- 0) HASH(0x55960025cc80) Result found: flight 185800 (fail), for basis failure (at ancestor ~3467)
- Repro found: flight 185807 (pass), for basis pass
- Repro found: flight 185822 (fail), for basis failure
- 0 revisions at 6741e066ec7633450d3186946035c1f80c4226b8 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 0df9387c8983e1b1e72d8c574356f572342c03e6 fb2716a19190201ffb8d1b20cd9002f166000478
-No revisions left to test, checking graph state.
- Result found: flight 185816 (pass), for last pass
- Result found: flight 185818 (fail), for first failure
- Repro found: flight 185819 (pass), for last pass
- Repro found: flight 185820 (fail), for first failure
- Repro found: flight 185823 (pass), for last pass
- Repro found: flight 185825 (fail), for first failure
-
-*** Found and reproduced problem changeset ***
-
-  Bug is in tree:  xen git://xenbits.xen.org/xen.git
-  Bug introduced:  62a72092a51792ab74d64ad7454c11e0c22629a2
-  Bug not present: fb2716a19190201ffb8d1b20cd9002f166000478
-  Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/185825/
-
-
-  commit 62a72092a51792ab74d64ad7454c11e0c22629a2
-  Author: Roger Pau Monné <roger.pau@citrix.com>
-  Date:   Thu Apr 25 09:52:16 2024 +0200
-  
-      livepatch: introduce --force option
-      
-      Introduce a xen-livepatch tool --force option, that's propagated into the
-      hyerpvisor for livepatch operations.  The intention is for the option to be
-      used to bypass some checks that would otherwise prevent the patch from being
-      loaded.
-      
-      Re purpose the pad field in xen_sysctl_livepatch_op to be a flags field that
-      applies to all livepatch operations.  The flag is currently only set by the
-      hypercall wrappers for the XEN_SYSCTL_LIVEPATCH_UPLOAD operation, as that's so
-      far the only one where it will be used initially.  Other uses can be added as
-      required.
-      
-      Note that helpers would set the .pad field to 0, that's been removed since the
-      structure is already zero initialized at definition.
-      
-      No functional usages of the new flag introduced in this patch.
-      
-      Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
-      Acked-by: Jan Beulich <jbeulich@suse.com>
-      Acked-by: Anthony PERARD <anthony.perard@citrix.com>
-
-pnmtopng: 103 colors found
-Revision graph left in /home/logs/results/bisect/xen-unstable/test-amd64-amd64-livepatch.livepatch-run.{dot,ps,png,html,svg}.
-----------------------------------------
-185825: tolerable ALL FAIL
-
-flight 185825 xen-unstable real-bisect [real]
-http://logs.test-lab.xenproject.org/osstest/logs/185825/
-
-Failures :-/ but no regressions.
-
-Tests which did not succeed,
-including tests which could not be run:
- test-amd64-amd64-livepatch   13 livepatch-run           fail baseline untested
-
-
-jobs:
- test-amd64-amd64-livepatch                                   fail    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+diff --git a/meson.build b/meson.build
+index 553b940999..96fdc6dfd2 100644
+--- a/meson.build
++++ b/meson.build
+@@ -3610,7 +3610,7 @@ foreach d, list : target_modules
+         if target.endswith('-softmmu')
+           config_target = config_target_mak[target]
+           target_inc = [include_directories('target' / config_target['TARGET_BASE_ARCH'])]
+-          c_args = ['-DNEED_CPU_H',
++          c_args = ['-DCOMPILING_PER_TARGET',
+                     '-DCONFIG_TARGET="@0@-config-target.h"'.format(target),
+                     '-DCONFIG_DEVICES="@0@-config-devices.h"'.format(target)]
+           target_module_ss = module_ss.apply(config_target, strict: false)
+@@ -3793,7 +3793,7 @@ foreach target : target_dirs
+   target_base_arch = config_target['TARGET_BASE_ARCH']
+   arch_srcs = [config_target_h[target]]
+   arch_deps = []
+-  c_args = ['-DNEED_CPU_H',
++  c_args = ['-DCOMPILING_PER_TARGET',
+             '-DCONFIG_TARGET="@0@-config-target.h"'.format(target),
+             '-DCONFIG_DEVICES="@0@-config-devices.h"'.format(target)]
+   link_args = emulator_link_args
+diff --git a/include/exec/cpu-defs.h b/include/exec/cpu-defs.h
+index 3915438b83..0dbef3010c 100644
+--- a/include/exec/cpu-defs.h
++++ b/include/exec/cpu-defs.h
+@@ -19,7 +19,7 @@
+ #ifndef CPU_DEFS_H
+ #define CPU_DEFS_H
+ 
+-#ifndef NEED_CPU_H
++#ifndef COMPILING_PER_TARGET
+ #error cpu.h included from common code
+ #endif
+ 
+diff --git a/include/exec/helper-head.h b/include/exec/helper-head.h
+index 28ceab0a46..5ef467a79d 100644
+--- a/include/exec/helper-head.h
++++ b/include/exec/helper-head.h
+@@ -43,7 +43,7 @@
+ #define dh_ctype_noreturn G_NORETURN void
+ #define dh_ctype(t) dh_ctype_##t
+ 
+-#ifdef NEED_CPU_H
++#ifdef COMPILING_PER_TARGET
+ # ifdef TARGET_LONG_BITS
+ #  if TARGET_LONG_BITS == 32
+ #   define dh_alias_tl i32
+@@ -54,7 +54,7 @@
+ #  endif
+ # endif
+ # define dh_ctype_tl target_ulong
+-#endif
++#endif /* COMPILING_PER_TARGET */
+ 
+ /* We can't use glue() here because it falls foul of C preprocessor
+    recursive expansion rules.  */
+diff --git a/include/exec/memop.h b/include/exec/memop.h
+index a86dc6743a..06417ff361 100644
+--- a/include/exec/memop.h
++++ b/include/exec/memop.h
+@@ -35,7 +35,7 @@ typedef enum MemOp {
+     MO_LE    = 0,
+     MO_BE    = MO_BSWAP,
+ #endif
+-#ifdef NEED_CPU_H
++#ifdef COMPILING_PER_TARGET
+ #if TARGET_BIG_ENDIAN
+     MO_TE    = MO_BE,
+ #else
+@@ -135,7 +135,7 @@ typedef enum MemOp {
+     MO_BESL  = MO_BE | MO_SL,
+     MO_BESQ  = MO_BE | MO_SQ,
+ 
+-#ifdef NEED_CPU_H
++#ifdef COMPILING_PER_TARGET
+     MO_TEUW  = MO_TE | MO_UW,
+     MO_TEUL  = MO_TE | MO_UL,
+     MO_TEUQ  = MO_TE | MO_UQ,
+diff --git a/include/exec/memory.h b/include/exec/memory.h
+index dbb1bad72f..dadb5cd65a 100644
+--- a/include/exec/memory.h
++++ b/include/exec/memory.h
+@@ -3107,7 +3107,7 @@ address_space_write_cached(MemoryRegionCache *cache, hwaddr addr,
+ MemTxResult address_space_set(AddressSpace *as, hwaddr addr,
+                               uint8_t c, hwaddr len, MemTxAttrs attrs);
+ 
+-#ifdef NEED_CPU_H
++#ifdef COMPILING_PER_TARGET
+ /* enum device_endian to MemOp.  */
+ static inline MemOp devend_memop(enum device_endian end)
+ {
+@@ -3125,7 +3125,7 @@ static inline MemOp devend_memop(enum device_endian end)
+     return (end == non_host_endianness) ? MO_BSWAP : 0;
+ #endif
+ }
+-#endif
++#endif /* COMPILING_PER_TARGET */
+ 
+ /*
+  * Inhibit technologies that require discarding of pages in RAM blocks, e.g.,
+diff --git a/include/exec/tswap.h b/include/exec/tswap.h
+index 68944a880b..5089cd6a4c 100644
+--- a/include/exec/tswap.h
++++ b/include/exec/tswap.h
+@@ -15,11 +15,11 @@
+  * If we're in target-specific code, we can hard-code the swapping
+  * condition, otherwise we have to do (slower) run-time checks.
+  */
+-#ifdef NEED_CPU_H
++#ifdef COMPILING_PER_TARGET
+ #define target_needs_bswap()  (HOST_BIG_ENDIAN != TARGET_BIG_ENDIAN)
+ #else
+ #define target_needs_bswap()  (target_words_bigendian() != HOST_BIG_ENDIAN)
+-#endif
++#endif /* COMPILING_PER_TARGET */
+ 
+ static inline uint16_t tswap16(uint16_t s)
+ {
+diff --git a/include/gdbstub/helpers.h b/include/gdbstub/helpers.h
+index c573aef2dc..6b97610f48 100644
+--- a/include/gdbstub/helpers.h
++++ b/include/gdbstub/helpers.h
+@@ -12,7 +12,7 @@
+ #ifndef _GDBSTUB_HELPERS_H_
+ #define _GDBSTUB_HELPERS_H_
+ 
+-#ifdef NEED_CPU_H
++#ifdef COMPILING_PER_TARGET
+ #include "cpu.h"
+ 
+ /*
+diff --git a/include/hw/core/cpu.h b/include/hw/core/cpu.h
+index ec14f74ce5..7f037b158e 100644
+--- a/include/hw/core/cpu.h
++++ b/include/hw/core/cpu.h
+@@ -1182,7 +1182,7 @@ bool target_words_bigendian(void);
+ 
+ const char *target_name(void);
+ 
+-#ifdef NEED_CPU_H
++#ifdef COMPILING_PER_TARGET
+ 
+ #ifndef CONFIG_USER_ONLY
+ 
+@@ -1197,7 +1197,7 @@ extern const VMStateDescription vmstate_cpu_common;
+ }
+ #endif /* !CONFIG_USER_ONLY */
+ 
+-#endif /* NEED_CPU_H */
++#endif /* COMPILING_PER_TARGET */
+ 
+ #define UNASSIGNED_CPU_INDEX -1
+ #define UNASSIGNED_CLUSTER_INDEX -1
+diff --git a/include/qemu/osdep.h b/include/qemu/osdep.h
+index c7053cdc2b..f61edcfdc2 100644
+--- a/include/qemu/osdep.h
++++ b/include/qemu/osdep.h
+@@ -32,7 +32,7 @@
+ #endif
+ 
+ #include "config-host.h"
+-#ifdef NEED_CPU_H
++#ifdef COMPILING_PER_TARGET
+ #include CONFIG_TARGET
+ #else
+ #include "exec/poison.h"
+diff --git a/include/sysemu/hvf.h b/include/sysemu/hvf.h
+index 4a7c6af3a5..730f927f03 100644
+--- a/include/sysemu/hvf.h
++++ b/include/sysemu/hvf.h
+@@ -16,7 +16,7 @@
+ #include "qemu/accel.h"
+ #include "qom/object.h"
+ 
+-#ifdef NEED_CPU_H
++#ifdef COMPILING_PER_TARGET
+ #include "cpu.h"
+ 
+ #ifdef CONFIG_HVF
+@@ -26,7 +26,7 @@ extern bool hvf_allowed;
+ #define hvf_enabled() 0
+ #endif /* !CONFIG_HVF */
+ 
+-#endif /* NEED_CPU_H */
++#endif /* COMPILING_PER_TARGET */
+ 
+ #define TYPE_HVF_ACCEL ACCEL_CLASS_NAME("hvf")
+ 
+@@ -34,7 +34,7 @@ typedef struct HVFState HVFState;
+ DECLARE_INSTANCE_CHECKER(HVFState, HVF_STATE,
+                          TYPE_HVF_ACCEL)
+ 
+-#ifdef NEED_CPU_H
++#ifdef COMPILING_PER_TARGET
+ struct hvf_sw_breakpoint {
+     vaddr pc;
+     vaddr saved_insn;
+@@ -66,6 +66,6 @@ void hvf_arch_update_guest_debug(CPUState *cpu);
+  * Return whether the guest supports debugging.
+  */
+ bool hvf_arch_supports_guest_debug(void);
+-#endif /* NEED_CPU_H */
++#endif /* COMPILING_PER_TARGET */
+ 
+ #endif
+diff --git a/include/sysemu/kvm.h b/include/sysemu/kvm.h
+index 47f9e8be1b..eaf801bc93 100644
+--- a/include/sysemu/kvm.h
++++ b/include/sysemu/kvm.h
+@@ -20,7 +20,7 @@
+ #include "qemu/accel.h"
+ #include "qom/object.h"
+ 
+-#ifdef NEED_CPU_H
++#ifdef COMPILING_PER_TARGET
+ # ifdef CONFIG_KVM
+ #  include <linux/kvm.h>
+ #  define CONFIG_KVM_IS_POSSIBLE
+@@ -210,7 +210,7 @@ bool kvm_arm_supports_user_irq(void);
+ int kvm_on_sigbus_vcpu(CPUState *cpu, int code, void *addr);
+ int kvm_on_sigbus(int code, void *addr);
+ 
+-#ifdef NEED_CPU_H
++#ifdef COMPILING_PER_TARGET
+ #include "cpu.h"
+ 
+ void kvm_flush_coalesced_mmio_buffer(void);
+@@ -435,7 +435,7 @@ void kvm_set_sigmask_len(KVMState *s, unsigned int sigmask_len);
+ int kvm_physical_memory_addr_from_host(KVMState *s, void *ram_addr,
+                                        hwaddr *phys_addr);
+ 
+-#endif /* NEED_CPU_H */
++#endif /* COMPILING_PER_TARGET */
+ 
+ void kvm_cpu_synchronize_state(CPUState *cpu);
+ 
+diff --git a/include/sysemu/nvmm.h b/include/sysemu/nvmm.h
+index be7bc9a62d..6971ddb3a5 100644
+--- a/include/sysemu/nvmm.h
++++ b/include/sysemu/nvmm.h
+@@ -12,7 +12,7 @@
+ #ifndef QEMU_NVMM_H
+ #define QEMU_NVMM_H
+ 
+-#ifdef NEED_CPU_H
++#ifdef COMPILING_PER_TARGET
+ 
+ #ifdef CONFIG_NVMM
+ 
+@@ -24,6 +24,6 @@ int nvmm_enabled(void);
+ 
+ #endif /* CONFIG_NVMM */
+ 
+-#endif /* NEED_CPU_H */
++#endif /* COMPILING_PER_TARGET */
+ 
+ #endif /* QEMU_NVMM_H */
+diff --git a/include/sysemu/whpx.h b/include/sysemu/whpx.h
+index 781ca5b2b6..00ff409b68 100644
+--- a/include/sysemu/whpx.h
++++ b/include/sysemu/whpx.h
+@@ -15,7 +15,7 @@
+ #ifndef QEMU_WHPX_H
+ #define QEMU_WHPX_H
+ 
+-#ifdef NEED_CPU_H
++#ifdef COMPILING_PER_TARGET
+ 
+ #ifdef CONFIG_WHPX
+ 
+@@ -29,6 +29,6 @@ bool whpx_apic_in_platform(void);
+ 
+ #endif /* CONFIG_WHPX */
+ 
+-#endif /* NEED_CPU_H */
++#endif /* COMPILING_PER_TARGET */
+ 
+ #endif /* QEMU_WHPX_H */
+diff --git a/include/sysemu/xen.h b/include/sysemu/xen.h
+index a9f591f26d..754ec2e6cb 100644
+--- a/include/sysemu/xen.h
++++ b/include/sysemu/xen.h
+@@ -16,13 +16,13 @@
+ 
+ #include "exec/cpu-common.h"
+ 
+-#ifdef NEED_CPU_H
++#ifdef COMPILING_PER_TARGET
+ # ifdef CONFIG_XEN
+ #  define CONFIG_XEN_IS_POSSIBLE
+ # endif
+ #else
+ # define CONFIG_XEN_IS_POSSIBLE
+-#endif
++#endif /* COMPILING_PER_TARGET */
+ 
+ #ifdef CONFIG_XEN_IS_POSSIBLE
+ 
+diff --git a/target/arm/kvm-consts.h b/target/arm/kvm-consts.h
+index 7c6adc14f6..c44d23dbe7 100644
+--- a/target/arm/kvm-consts.h
++++ b/target/arm/kvm-consts.h
+@@ -14,13 +14,13 @@
+ #ifndef ARM_KVM_CONSTS_H
+ #define ARM_KVM_CONSTS_H
+ 
+-#ifdef NEED_CPU_H
++#ifdef COMPILING_PER_TARGET
+ #ifdef CONFIG_KVM
+ #include <linux/kvm.h>
+ #include <linux/psci.h>
+ #define MISMATCH_CHECK(X, Y) QEMU_BUILD_BUG_ON(X != Y)
+ #endif
+-#endif
++#endif /* COMPILING_PER_TARGET */
+ 
+ #ifndef MISMATCH_CHECK
+ #define MISMATCH_CHECK(X, Y) QEMU_BUILD_BUG_ON(0)
+diff --git a/scripts/analyze-inclusions b/scripts/analyze-inclusions
+index 45c821de32..b6280f25c8 100644
+--- a/scripts/analyze-inclusions
++++ b/scripts/analyze-inclusions
+@@ -92,7 +92,7 @@ echo trace/generated-tracers.h:
+ analyze -include ../include/qemu/osdep.h trace/generated-tracers.h
+ 
+ echo target/i386/cpu.h:
+-analyze -DNEED_CPU_H -I../target/i386 -Ii386-softmmu -include ../include/qemu/osdep.h ../target/i386/cpu.h
++analyze -DCOMPILING_PER_TARGET -I../target/i386 -Ii386-softmmu -include ../include/qemu/osdep.h ../target/i386/cpu.h
+ 
+-echo hw/hw.h + NEED_CPU_H:
+-analyze -DNEED_CPU_H -I../target/i386 -Ii386-softmmu -include ../include/qemu/osdep.h ../include/hw/hw.h
++echo hw/hw.h + COMPILING_PER_TARGET:
++analyze -DCOMPILING_PER_TARGET -I../target/i386 -Ii386-softmmu -include ../include/qemu/osdep.h ../include/hw/hw.h
+-- 
+2.41.0
 
 
