@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7B3988B33E7
-	for <lists+xen-devel@lfdr.de>; Fri, 26 Apr 2024 11:26:15 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.712598.1113390 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A10428B33EB
+	for <lists+xen-devel@lfdr.de>; Fri, 26 Apr 2024 11:26:27 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.712599.1113401 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s0Hq9-0003lD-3t; Fri, 26 Apr 2024 09:25:57 +0000
+	id 1s0HqR-0004Fh-Ci; Fri, 26 Apr 2024 09:26:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 712598.1113390; Fri, 26 Apr 2024 09:25:57 +0000
+Received: by outflank-mailman (output) from mailman id 712599.1113401; Fri, 26 Apr 2024 09:26:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s0Hq9-0003j9-1A; Fri, 26 Apr 2024 09:25:57 +0000
-Received: by outflank-mailman (input) for mailman id 712598;
- Fri, 26 Apr 2024 09:25:56 +0000
+	id 1s0HqR-0004E1-9T; Fri, 26 Apr 2024 09:26:15 +0000
+Received: by outflank-mailman (input) for mailman id 712599;
+ Fri, 26 Apr 2024 09:26:14 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=J3OG=L7=cloud.com=anthony.perard@srs-se1.protection.inumbo.net>)
- id 1s0Hq8-0003j3-28
- for xen-devel@lists.xenproject.org; Fri, 26 Apr 2024 09:25:56 +0000
-Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
- [2a00:1450:4864:20::42e])
+ <SRS0=LIFE=L7=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1s0HqP-0003j3-Vm
+ for xen-devel@lists.xenproject.org; Fri, 26 Apr 2024 09:26:13 +0000
+Received: from mail-qt1-x82d.google.com (mail-qt1-x82d.google.com
+ [2607:f8b0:4864:20::82d])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id fb286e02-03ae-11ef-909a-e314d9c70b13;
- Fri, 26 Apr 2024 11:25:55 +0200 (CEST)
-Received: by mail-wr1-x42e.google.com with SMTP id
- ffacd0b85a97d-34be34b3296so1541067f8f.1
- for <xen-devel@lists.xenproject.org>; Fri, 26 Apr 2024 02:25:54 -0700 (PDT)
-Received: from perard.uk.xensource.com (default-46-102-197-194.interdsl.co.uk.
+ id 060b334b-03af-11ef-909a-e314d9c70b13;
+ Fri, 26 Apr 2024 11:26:13 +0200 (CEST)
+Received: by mail-qt1-x82d.google.com with SMTP id
+ d75a77b69052e-43969307359so12023771cf.2
+ for <xen-devel@lists.xenproject.org>; Fri, 26 Apr 2024 02:26:13 -0700 (PDT)
+Received: from [10.80.67.140] (default-46-102-197-194.interdsl.co.uk.
  [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- x5-20020a5d6b45000000b003472489d26fsm21974894wrw.19.2024.04.26.02.25.50
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 26 Apr 2024 02:25:50 -0700 (PDT)
+ kf22-20020a05622a2a9600b00434a041d310sm7726594qtb.16.2024.04.26.02.26.10
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 26 Apr 2024 02:26:11 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,109 +45,146 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fb286e02-03ae-11ef-909a-e314d9c70b13
+X-Inumbo-ID: 060b334b-03af-11ef-909a-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1714123554; x=1714728354; darn=lists.xenproject.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=UpuDc7zcag0/D6dYvuRGi4pgWz0ebzRcf9NiHHIglAc=;
-        b=NoglMQOnxJ3MXyAJkiA+JOUHemjUzov8vmkSXzE0rlVPYLZcuWU+zfThybc9IM6ohL
-         cx5WGP04D1qQk/zjsl6/UItH6Qpdtg6An7eonmMHUDIKV1u0K5iaK6lR3nr416bQh8gm
-         sAxUdwTO8WpB69i8d1Iq2h/SmAsKdsMsVHwr8=
+        d=citrix.com; s=google; t=1714123572; x=1714728372; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=HqG6gnKHSAGTiM2IURHK+HU8sY5bT7kNa/o07cI4jFI=;
+        b=rdxpV/VNyvanrcsV/efp9rodQMUn/kqwWO5A+1UcpOqXfXfvPms8cyV9ZjuaK7jWqL
+         L2Dmr8S+r8fStpTnd6VRawqCGGmD+a4vJaQn4kEoyZsvjvqkF+AuFuGJxKNbKw2KMSYB
+         kUarYVn6RGk2jHe0BBn0MtmiVq/UwCsePVxXg=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1714123554; x=1714728354;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20230601; t=1714123572; x=1714728372;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=UpuDc7zcag0/D6dYvuRGi4pgWz0ebzRcf9NiHHIglAc=;
-        b=ikszbJkTPRwVviT1DR64EODBCfsmAKPy5su+YxDucAwMyERA2FRX/sw5o5XEpV3KM2
-         8BeTjYrvHKhZwfIxWRyKi3rgFSI6dY5EfmhdSLjcqP8pEy2cbMWJU0SZw+BzTY7OJ48l
-         uBYl2uqVKmnj4tcEMC7KJPIY0Y4IpIBQyFMWaKFsjMxaXWF1CUv4gQW5w8TcURiZ9Q+s
-         i+boBzDh81+Zr44fRWi8xlWALU2UhtVQ0fBtL08acTOXZ2SHiahPBO8W99ccNUIN1lVU
-         A67Z8bf4A3XSmklT+y2tYmBaBNknx92qmGImHu15e2xf5yyw7Tt6r8wgfr+8s5uQnBVE
-         FxwA==
-X-Gm-Message-State: AOJu0Yx00Abtybpk//ry1C1u09O9YbUXPKBAXEhslRrWe59mEz4prnpR
-	w9Dsugpq4idIxTpsLXH96M+XdSjTOVNNk1a2VAMrW6CI8QTAv7WNVpzX7pfgb6A=
-X-Google-Smtp-Source: AGHT+IEfBZVsjntNTd5oyOOqw1EHYyXilNHuNt5lLrXfLYyTR4jPX3I5hEtXibLyPen8GY2uNRIoBg==
-X-Received: by 2002:a5d:68c3:0:b0:34c:5448:7074 with SMTP id p3-20020a5d68c3000000b0034c54487074mr1314173wrw.53.1714123554013;
-        Fri, 26 Apr 2024 02:25:54 -0700 (PDT)
-Date: Fri, 26 Apr 2024 10:25:50 +0100
-From: Anthony PERARD <anthony.perard@cloud.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>,
-	Juergen Gross <jgross@suse.com>,
-	Christian Lindig <christian.lindig@citrix.com>,
-	Edwin =?iso-8859-1?B?VPZy9ms=?= <edwin.torok@cloud.com>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: Re: [PATCH 2/2] tools: Drop libsystemd as a dependency
-Message-ID: <6047d346-a4e6-4bab-a0fe-b9f76b9ea143@perard>
-References: <20240425173216.410940-1-andrew.cooper3@citrix.com>
- <20240425173216.410940-3-andrew.cooper3@citrix.com>
+        bh=HqG6gnKHSAGTiM2IURHK+HU8sY5bT7kNa/o07cI4jFI=;
+        b=lWs7Klrv3AJR+7ddfBsAhcULCIFISHoGT/PksLiyNOMsXjEsTYl5mCJDUbOKt6IEbk
+         rALxoqahAes6Rb1mEertV7+kgSFJ3C+KD7raJosqE41l7h/M7c+KWZdDjkM4ov2XbMiS
+         lUOJ29d93QhjMOHmUc7qlqhN0m6WVjbNuYqaacNHT/g1kpStb0aV9G6O6+CISfI98K8d
+         CevNWrjhtgByhF6a74DOhBvvnhL2F/SftPa5jLsWQBksycdtG1dwpPWz2NGuDJZ57nNp
+         XwMQM8zRLWiuw4/opl2eiMQse3EGaa63h30eTR047RxM9GQP58hix9xfVZyMAg0U2cIj
+         MOLw==
+X-Gm-Message-State: AOJu0Yxx4wXe0aJtLh35Y4dUZiR5Vi6ZPMVM8GXsk0go4lkOvJNCiyqW
+	AIs1OBlB6o1mB4J8wqOtFrN0IQDgRV0CTWWmcDykTb/vJKM3ZPRjpYsN1Idz9/U=
+X-Google-Smtp-Source: AGHT+IFJrKAxABRo+f61oTcjzeX3ejiFbMPq4z7KuPMOQpV33Zl/VIa/jyXeD2fSHDb2OykEP1rKmg==
+X-Received: by 2002:ac8:5a0d:0:b0:439:b55f:db06 with SMTP id n13-20020ac85a0d000000b00439b55fdb06mr2631368qta.54.1714123572065;
+        Fri, 26 Apr 2024 02:26:12 -0700 (PDT)
+Message-ID: <74b57e28-c006-44fa-87f0-da37f0539dbc@citrix.com>
+Date: Fri, 26 Apr 2024 10:26:09 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20240425173216.410940-3-andrew.cooper3@citrix.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] tools/{c,o}xenstored: Don't link against libsystemd
+To: Anthony PERARD <anthony.perard@cloud.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>,
+ Juergen Gross <jgross@suse.com>,
+ Christian Lindig <christian.lindig@citrix.com>,
+ =?UTF-8?B?RWR3aW4gVMO2csO2aw==?= <edwin.torok@cloud.com>,
+ Stefano Stabellini <sstabellini@kernel.org>
+References: <20240425173216.410940-1-andrew.cooper3@citrix.com>
+ <20240425173216.410940-2-andrew.cooper3@citrix.com>
+ <b5e242fa-daf1-43a2-afd2-cc1ad1bd4dc1@perard>
+ <341c5901-254e-4ad2-b935-6b586cd25f2e@citrix.com>
+ <413a63de-07ec-43a9-ae60-6b0cfdd61312@perard>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <413a63de-07ec-43a9-ae60-6b0cfdd61312@perard>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Thu, Apr 25, 2024 at 06:32:16PM +0100, Andrew Cooper wrote:
-> diff --git a/m4/systemd.m4 b/m4/systemd.m4
-> index 112dc11b5e05..aa1ebe94f56c 100644
-> --- a/m4/systemd.m4
-> +++ b/m4/systemd.m4
-> @@ -41,15 +41,6 @@ AC_DEFUN([AX_ALLOW_SYSTEMD_OPTS], [
->  ])
->  
->  AC_DEFUN([AX_CHECK_SYSTEMD_LIBS], [
-> -	PKG_CHECK_MODULES([SYSTEMD], [libsystemd-daemon],,
-> -		[PKG_CHECK_MODULES([SYSTEMD], [libsystemd >= 209])]
-> -        )
-> -	dnl pkg-config older than 0.24 does not set these for
-> -	dnl PKG_CHECK_MODULES() worth also noting is that as of version 208
-> -	dnl of systemd pkg-config --cflags currently yields no extra flags yet.
-> -	AC_SUBST([SYSTEMD_CFLAGS])
-> -	AC_SUBST([SYSTEMD_LIBS])
-> -
->  	AS_IF([test "x$SYSTEMD_DIR" = x], [
->  	    dnl In order to use the line below we need to fix upstream systemd
->  	    dnl to properly ${prefix} for child variables in
-> @@ -83,23 +74,11 @@ AC_DEFUN([AX_CHECK_SYSTEMD_LIBS], [
->  AC_DEFUN([AX_CHECK_SYSTEMD], [
->  	dnl Respect user override to disable
->  	AS_IF([test "x$enable_systemd" != "xno"], [
-> -	     AS_IF([test "x$systemd" = "xy" ], [
-> -		AC_DEFINE([HAVE_SYSTEMD], [1], [Systemd available and enabled])
-> -			systemd=y
-> -			AX_CHECK_SYSTEMD_LIBS()
+On 26/04/2024 9:51 am, Anthony PERARD wrote:
+> On Thu, Apr 25, 2024 at 07:16:23PM +0100, Andrew Cooper wrote:
+>> On 25/04/2024 7:06 pm, Anthony PERARD wrote:
+>>> On Thu, Apr 25, 2024 at 06:32:15PM +0100, Andrew Cooper wrote:
+>>>> libsystemd is a giant dependency for one single function, but in the wake of
+>>>> the xz backdoor, it turns out that even systemd leadership recommend against
+>>>> linking against libsystemd for sd_notify().
+>>>>
+>>>> Since commit 7b61011e1450 ("tools: make xenstore domain easy configurable") in
+>>>> Xen 4.8, the launch-xenstore script invokes systemd-notify directly, so its
+>>> That's not enough, it's needs to be `systemd-notify --ready` to be a
+>>> replacement for sd_notify(READY=1).
+>>>
+>>>> not even necessary for the xenstored's to call sd_notify() themselves.
+>>> So, sd_notify() or equivalent is still necessary.
+>>>
+>>>> Therefore, just drop the calls to sd_notify() and stop linking against
+>>>> libsystemd.
+>>> Sounds good, be we need to replace the call by something like:
+>>>     echo READY=1 > $NOTIFY_SOCKET
+>>> implemented in C and ocaml. Detail to be checked.
+>>>
+>>> Otherwise, things won't work.
+>> Hmm.  It worked in XenRT when stripping this all out, but that is
+> I don't know how XenServer is setup, maybe it doesn't matter?
 
-I think you need to keep calling AX_CHECK_SYSTEMD_LIBS() here,
-otherwise, nothing sets $SYSTEMD_DIR or $SYSTEMD_MODULES_LOAD.
+In theory it's straight systemd, but I could also believe that Xapi
+checks for the pidfile too.
 
-> -	    ],[
-> -		AS_IF([test "x$enable_systemd" = "xyes"],
-> -			[AC_MSG_ERROR([Unable to find systemd development library])],
-> -			[systemd=n])
-> -	    ])
-> +	systemd=y
->  	],[systemd=n])
->  ])
->  
->  AC_DEFUN([AX_CHECK_SYSTEMD_ENABLE_AVAILABLE], [
-> -	PKG_CHECK_MODULES([SYSTEMD], [libsystemd-daemon], [systemd="y"],[
-> -		PKG_CHECK_MODULES([SYSTEMD], [libsystemd >= 209],
-> -				  [systemd="y"],[systemd="n"])
-> -	])
+>  Anyway...
+>
+>> extremely unintuitive behaviour for `systemd-notify --booted`, seeing as
+>> it's entirely different to --ready.
+> Yes, this --booted option should probably not exist, and there's
+> `systemctl is-system-running` that does something similar.
+>
+>> I've got no interest in keeping the C around, but if:
+>>
+>> [ -n "$NOTIFY_SOCKET" ] && echo READY=1 > $NOTIFY_SOCKET
+>>
+>> works, then can't we just use that after waiting for the the pidfile ?
+> Run `systemd-notify --ready` instead. Hopefully, that will be enough.
+> ($NOTIFY_SOCKET is a socket, and a bit more complicated that I though,
+> it can start with "@" for example)
 
-Instead, or in addition, you could AX_AVAILABLE_SYSTEMD() in
-configure.ac by AX_ENABLE_SYSTEMD(). (Or AX_ALLOW_SYSTEMD()).
+I'll do a prep patch to adjust launch-xenstore after which this patch
+should be fine in this form (modulo a tweak in the commit message).
 
-With the current patch, AX_CHECK_SYSTEMD() will enable systemd
-"support", even if it supposed to be disabled by default. So it's better
-to use AX_ENABLE_SYSTEMD() as this will set the correct help message.
-
-And can you add an entry in CHANGELOG? As systemd support isn't
-automatically enabled with the presence of the libs anymore.
-
-Thanks,
-
--- 
-Anthony PERARD
+~Andrew
 
