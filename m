@@ -2,35 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4C89C8B4BDB
-	for <lists+xen-devel@lfdr.de>; Sun, 28 Apr 2024 14:55:03 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.713664.1114577 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5711D8B4CE8
+	for <lists+xen-devel@lfdr.de>; Sun, 28 Apr 2024 18:53:42 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.713702.1114587 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s142u-0003NX-Uq; Sun, 28 Apr 2024 12:54:20 +0000
+	id 1s17ll-0006Fn-AH; Sun, 28 Apr 2024 16:52:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 713664.1114577; Sun, 28 Apr 2024 12:54:20 +0000
+Received: by outflank-mailman (output) from mailman id 713702.1114587; Sun, 28 Apr 2024 16:52:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s142u-0003Lz-Ru; Sun, 28 Apr 2024 12:54:20 +0000
-Received: by outflank-mailman (input) for mailman id 713664;
- Sun, 28 Apr 2024 12:54:19 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1s17ll-0006DL-73; Sun, 28 Apr 2024 16:52:53 +0000
+Received: by outflank-mailman (input) for mailman id 713702;
+ Sun, 28 Apr 2024 16:52:51 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1s142t-0003Lp-Li; Sun, 28 Apr 2024 12:54:19 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1s142t-0007bB-J5; Sun, 28 Apr 2024 12:54:19 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1s142t-0008RK-Ch; Sun, 28 Apr 2024 12:54:19 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1s142t-0001JT-C8; Sun, 28 Apr 2024 12:54:19 +0000
+ (envelope-from <SRS0=a4SJ=MB=gmail.com=w1benny@srs-se1.protection.inumbo.net>)
+ id 1s17lj-0006D5-Qs
+ for xen-devel@lists.xenproject.org; Sun, 28 Apr 2024 16:52:51 +0000
+Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
+ [2a00:1450:4864:20::435])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id bf10db85-057f-11ef-b4bb-af5377834399;
+ Sun, 28 Apr 2024 18:52:49 +0200 (CEST)
+Received: by mail-wr1-x435.google.com with SMTP id
+ ffacd0b85a97d-34c90082dd7so1292237f8f.1
+ for <xen-devel@lists.xenproject.org>; Sun, 28 Apr 2024 09:52:49 -0700 (PDT)
+Received: from lab.home
+ (dynamic-2a00-1028-83a4-4bca-c0bb-96ff-feed-9d50.ipv6.o2.cz.
+ [2a00:1028:83a4:4bca:c0bb:96ff:feed:9d50])
+ by smtp.gmail.com with ESMTPSA id
+ a12-20020a056000188c00b00347eb354b30sm27850921wri.84.2024.04.28.09.52.47
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 28 Apr 2024 09:52:48 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,169 +47,122 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Message-Id:Subject:To;
-	bh=hkTcLAiSns4iIfTQe3oSEc8wxFdU2fILvSOYVDjJT20=; b=ZJGlJIBzcYaPNPBWneAbrV03f4
-	2T4EDJAGC3B2k4gE9CpyW8EerIaelVglwYcjhTW2J5vjP6N/vM72Ox3AlSiPg2EG1tlzJl90iTcjc
-	Z6rzMyuB+ZklSFWuCd3IhCKwam8K5cmXkwD6fXfqAZb6Ai1QTNzlNiY9XKdq41b1Xdmk=;
+X-Inumbo-ID: bf10db85-057f-11ef-b4bb-af5377834399
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1714323169; x=1714927969; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=kYwJB0yrm+W+I8r+YVdNlWkFaWEs2QHJMIircPe7ELI=;
+        b=UG3kkV0NY/JMcbJlrk1ZaLI6dZlM8K02yAK3Cn2XypwJ5WHqcKqFwgmdSjYa2eee09
+         5cyukfrRZf+e5wpKZLaMsOqdTGUJk4M9NoWLRb/PggryE2Ti3GcwjNFhWPuaKNmc/LNx
+         py4WVY2/hhHiW/e+Uo13yYYAezdqVI7GpMDVrHsqbFzl0bTQ86+uKt4sKKMNlmHUZYZT
+         Xyiv0HRqcODiwqT7PDb549/37b3fObOPd4MmcTaaXE/r5MgjcGgHY0c6uj6xDcQfUPWa
+         w8+MoNXbfNaWpQVltxbjtx9PCH6AzJN//6BqaS16Vf0cARYQb+jjXTjMwSXr0hZ/4Tfp
+         GKBw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1714323169; x=1714927969;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=kYwJB0yrm+W+I8r+YVdNlWkFaWEs2QHJMIircPe7ELI=;
+        b=FWwoMYyDpozYt+uEQk4dHMmjsev2MLn0O2hZr6OxGOEzBZwyUzrSD5rjxqlk4Wr9B0
+         jTIxXhfLuOjMj7udIcGk1uLfg/HP03vYlcoWziy8WI9qnE2lKi1XY8tN3RDlN/idmdbi
+         374G8+oyaCVKNvsv/toBD0baVyt3XMH9E9jq37hNrBWg9DlLbHftZnPxNf8Z3NKdFVpj
+         ex0KRRd3XaFslVzEDkZVtA4tPUK+jTHp/tGiMQjjsNUXdJiCQ1HzYFzQx9ijL2WwUVZ7
+         U5QzsHoeZPBQmm+RKyxG526RA8W7b3sQJv4Klv7Mjlv1/uEZ5c1NiLvw8/tst8YgJiCe
+         OQSw==
+X-Gm-Message-State: AOJu0YxBO3NAQ2stWuCa4ZahCgiNIRQhhBpdQpsYWPObcfzQ8Rlx0CJ5
+	xFMZT8z9GT9NiLS1stl8GT4nX8Qfo53WsvdOmfd1afRp1jadqH3Uh6j4p0MW
+X-Google-Smtp-Source: AGHT+IHhtb0ygyL8xaH1mejUAmdcBo10zqBpIowJUkbUpi67rSu4Uio8sH6jzBSA1//QwmcQn7hTxg==
+X-Received: by 2002:a5d:54c6:0:b0:346:ad3d:e4bd with SMTP id x6-20020a5d54c6000000b00346ad3de4bdmr4861290wrv.17.1714323168742;
+        Sun, 28 Apr 2024 09:52:48 -0700 (PDT)
+From: "=?UTF-8?q?Petr=20Bene=C5=A1?=" <w1benny@gmail.com>
+X-Google-Original-From: =?UTF-8?q?Petr=20Bene=C5=A1?= <petr.benes@gendigital.com>
 To: xen-devel@lists.xenproject.org
-Subject: [linux-6.1 bisection] complete build-armhf-pvops
-Message-Id: <E1s142t-0001JT-C8@osstest.test-lab.xenproject.org>
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Sun, 28 Apr 2024 12:54:19 +0000
+Cc: =?UTF-8?q?Petr=20Bene=C5=A1?= <w1benny@gmail.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Nick Rosbrook <rosbrookn@gmail.com>,
+	Anthony PERARD <anthony@xenproject.org>,
+	Juergen Gross <jgross@suse.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Tamas K Lengyel <tamas@tklengyel.com>,
+	Alexandru Isaila <aisaila@bitdefender.com>,
+	Petre Pircalabu <ppircalabu@bitdefender.com>,
+	Christian Lindig <christian.lindig@citrix.com>,
+	David Scott <dave@recoil.org>
+Subject: [PATCH v2 0/7] x86: Make MAX_ALTP2M configurable
+Date: Sun, 28 Apr 2024 16:52:35 +0000
+Message-Id: <cover.1714322424.git.w1benny@gmail.com>
+X-Mailer: git-send-email 2.34.1
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-branch xen-unstable
-xenbranch xen-unstable
-job build-armhf-pvops
-testid kernel-build
+From: Petr Beneš <w1benny@gmail.com>
 
-Tree: linux git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git
-Tree: linuxfirmware git://xenbits.xen.org/osstest/linux-firmware.git
+This series introduces the ability to configure the maximum number of altp2m
+tables during domain creation. Previously, the limits were hardcoded to a
+maximum of 10. This change allows for greater flexibility in environments that
+require more or fewer altp2m views.
 
-*** Found and reproduced problem changeset ***
+Adjustments include:
+- "Prepare" commits with style changes.
+- Adding a new `max_altp2m` parameter to xl.
+- Adding a new `max_altp2m` parameter to the OCaml bindings.
+- Adding a new `max_altp2m` parameter to the xl.cfg manual.
+- Adding a new `max_altp2m` field into the `xen_domctl_createdomain`, which,
+  after sanity checks, is stored in newly introduced `max_altp2m` field of
+  `struct domain` - leaving room for other architectures to implement the
+  altp2m feature.
+- Replacing MAX_ALTP2M macro occurrences with `domain->max_altp2m`.
+- Finally, adjusting the initial allocation of pages in `hap_enable` from 256
+  to 1024 pages to accommodate potentially larger `max_altp2m` values (i.e.,
+  maximum of 512).
 
-  Bug is in tree:  linux git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git
-  Bug introduced:  0f4048e1a0c6e9d3d31ce5b684600fd137cebfca
-  Bug not present: e2b8480b709d48ca1723eed7258f26a0df9a1965
-  Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/185856/
+This enhancement is particularly relevant for users leveraging Xen's features
+for virtual machine introspection.
 
+Petr Beneš (7):
+  x86/p2m: Add braces for better code clarity
+  tools/xl: Add max_altp2m parameter
+  docs/man: Add max_altp2m parameter to the xl.cfg manual
+  x86: Make the maximum number of altp2m views configurable
+  tools/libxl: Activate the max_altp2m feature
+  tools/ocaml: Add max_altp2m parameter
+  x86/hap: Increase the number of initial mempool_size to 1024 pages
 
-  commit 0f4048e1a0c6e9d3d31ce5b684600fd137cebfca
-  Author: Linus Walleij <linus.walleij@linaro.org>
-  Date:   Tue Sep 26 15:25:32 2023 +0200
-  
-      ASoC: ti: Convert Pandora ASoC to GPIO descriptors
-      
-      [ Upstream commit 319e6ac143b9e9048e527ab9dd2aabb8fdf3d60f ]
-      
-      The Pandora uses GPIO descriptors pretty much exclusively, but not
-      for ASoC, so let's fix it. Register the pins in a descriptor table
-      in the machine since the ASoC device is not using device tree.
-      
-      Use static locals for the GPIO descriptors because I'm not able
-      to experient with better state storage on any real hardware. Others
-      using the Pandora can come afterwards and improve this.
-      
-      Signed-off-by: Linus Walleij <linus.walleij@linaro.org>
-      Acked-by: Jarkko Nikula <jarkko.nikula@bitmer.com>
-      Link: https://lore.kernel.org/r/20230926-descriptors-asoc-ti-v1-4-60cf4f8adbc5@linaro.org
-      Signed-off-by: Mark Brown <broonie@kernel.org>
-      Signed-off-by: Sasha Levin <sashal@kernel.org>
+ docs/man/xl.cfg.5.pod.in                      | 14 +++++
+ tools/golang/xenlight/helpers.gen.go          |  2 +
+ tools/golang/xenlight/types.gen.go            |  1 +
+ tools/include/libxl.h                         |  8 +++
+ tools/libs/light/libxl_create.c               |  9 ++++
+ tools/libs/light/libxl_types.idl              |  1 +
+ tools/ocaml/libs/xc/xenctrl.ml                |  1 +
+ tools/ocaml/libs/xc/xenctrl.mli               |  1 +
+ tools/ocaml/libs/xc/xenctrl_stubs.c           | 17 +++---
+ .../paging-mempool/test-paging-mempool.c      |  2 +-
+ tools/xl/xl_parse.c                           |  4 ++
+ xen/arch/x86/domain.c                         |  6 +++
+ xen/arch/x86/hvm/hvm.c                        |  8 ++-
+ xen/arch/x86/hvm/vmx/vmx.c                    |  2 +-
+ xen/arch/x86/include/asm/domain.h             |  7 ++-
+ xen/arch/x86/include/asm/p2m.h                |  4 +-
+ xen/arch/x86/mm/altp2m.c                      | 27 +++++++++-
+ xen/arch/x86/mm/hap/hap.c                     |  8 +--
+ xen/arch/x86/mm/mem_access.c                  | 14 ++---
+ xen/arch/x86/mm/mem_sharing.c                 |  2 +-
+ xen/arch/x86/mm/p2m-ept.c                     |  6 +--
+ xen/arch/x86/mm/p2m.c                         | 54 ++++++++++---------
+ xen/common/domain.c                           |  7 +++
+ xen/include/public/domctl.h                   |  3 +-
+ xen/include/xen/sched.h                       |  2 +
+ 25 files changed, 151 insertions(+), 59 deletions(-)
 
-
-For bisection revision-tuple graph see:
-   http://logs.test-lab.xenproject.org/osstest/results/bisect/linux-6.1/build-armhf-pvops.kernel-build.html
-Revision IDs in each graph node refer, respectively, to the Trees above.
-
-----------------------------------------
-Running cs-bisection-step --graph-out=/home/logs/results/bisect/linux-6.1/build-armhf-pvops.kernel-build --summary-out=tmp/185856.bisection-summary --basis-template=185746 --blessings=real,real-bisect,real-retry linux-6.1 build-armhf-pvops kernel-build
-Searching for failure / basis pass:
- 185835 fail [host=debina1] / 185746 [host=himrod2] 185434 [host=godello1] 185299 [host=himrod2] 185231 [host=himrod2] 185227 [host=himrod0] 185167 [host=elbling0] 185053 [host=himrod2] 184922 [host=himrod0] 184841 [host=himrod2] 184831 [host=himrod2] 184734 [host=albana0] 184687 [host=himrod2] 184595 [host=himrod2] 184570 [host=himrod0] 184563 [host=himrod0] 184549 [host=godello0] template as basis? using template as basis.
-Failure / basis pass flights: 185835 / 185746
-Tree: linux git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git
-Tree: linuxfirmware git://xenbits.xen.org/osstest/linux-firmware.git
-Latest f2295faba5e8249ae4082791bfc1664c88fff83a c530a75c1e6a472b0eb9558310b518f0dfcd8860
-Basis pass 6741e066ec7633450d3186946035c1f80c4226b8 c530a75c1e6a472b0eb9558310b518f0dfcd8860
-Generating revisions with ./adhoc-revtuple-generator  git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git#6741e066ec7633450d3186946035c1f80c4226b8-f2295faba5e8249ae4082791bfc1664c88fff83a git://xenbits.xen.org/osstest/linux-firmware.git#c530a75c1e6a472b0eb9558310b518f0dfcd8860-c530a75c1e6a472b0eb9558310b518f0dfcd8860
-Loaded 5001 nodes in revision graph
-Searching for test results:
- 185746 [host=himrod2]
- 185837 pass 6741e066ec7633450d3186946035c1f80c4226b8 c530a75c1e6a472b0eb9558310b518f0dfcd8860
- 185832 fail f2295faba5e8249ae4082791bfc1664c88fff83a c530a75c1e6a472b0eb9558310b518f0dfcd8860
- 185838 fail f2295faba5e8249ae4082791bfc1664c88fff83a c530a75c1e6a472b0eb9558310b518f0dfcd8860
- 185856 fail 0f4048e1a0c6e9d3d31ce5b684600fd137cebfca c530a75c1e6a472b0eb9558310b518f0dfcd8860
- 185840 pass 6741e066ec7633450d3186946035c1f80c4226b8 c530a75c1e6a472b0eb9558310b518f0dfcd8860
- 185842 fail f2295faba5e8249ae4082791bfc1664c88fff83a c530a75c1e6a472b0eb9558310b518f0dfcd8860
- 185843 fail b928cde9c07cf031a9a5bffbfb94048f340d34ee c530a75c1e6a472b0eb9558310b518f0dfcd8860
- 185844 pass 8d56bad42ac4c43c6c72ddd6a654a2628bf839c5 c530a75c1e6a472b0eb9558310b518f0dfcd8860
- 185846 pass beb3ff19a55d78d3c70f9284458c9d155818ae27 c530a75c1e6a472b0eb9558310b518f0dfcd8860
- 185847 pass 4b7ed2400e0d895a9920c80d63646728bb389baa c530a75c1e6a472b0eb9558310b518f0dfcd8860
- 185835 fail f2295faba5e8249ae4082791bfc1664c88fff83a c530a75c1e6a472b0eb9558310b518f0dfcd8860
- 185848 pass 87709f7ecdb884ab75e3de6f951dffe500ee95b2 c530a75c1e6a472b0eb9558310b518f0dfcd8860
- 185850 pass 4d74cb9cdfd51e6d854f8da54113e716335cb2ca c530a75c1e6a472b0eb9558310b518f0dfcd8860
- 185851 pass e2b8480b709d48ca1723eed7258f26a0df9a1965 c530a75c1e6a472b0eb9558310b518f0dfcd8860
- 185852 fail 0f4048e1a0c6e9d3d31ce5b684600fd137cebfca c530a75c1e6a472b0eb9558310b518f0dfcd8860
- 185853 pass e2b8480b709d48ca1723eed7258f26a0df9a1965 c530a75c1e6a472b0eb9558310b518f0dfcd8860
- 185854 fail 0f4048e1a0c6e9d3d31ce5b684600fd137cebfca c530a75c1e6a472b0eb9558310b518f0dfcd8860
- 185855 pass e2b8480b709d48ca1723eed7258f26a0df9a1965 c530a75c1e6a472b0eb9558310b518f0dfcd8860
-Searching for interesting versions
- Result found: flight 185837 (pass), for basis pass
- For basis failure, parent search stopping at e2b8480b709d48ca1723eed7258f26a0df9a1965 c530a75c1e6a472b0eb9558310b518f0dfcd8860, results HASH(0x55fc1ccc1ae8) HASH(0x55fc1ccbb8b0) HASH(0x55fc1cc1eb68) For basis failure, parent search stopping at 4d74cb9cdfd51e6d854f8da54113e716335cb2ca c530a75c1e6a472b0eb9558310b518f0dfcd8860, results HASH(0x55fc1ccc0be8) For basis failure, parent search stopping at 87709f7ecdb884ab75e3de6f951dffe500ee95b2 c530a75c1e6a472b0eb9558310b518f0dfcd8860, results HASH(0x\
- 55fc1cc31c80) For basis failure, parent search stopping at 4b7ed2400e0d895a9920c80d63646728bb389baa c530a75c1e6a472b0eb9558310b518f0dfcd8860, results HASH(0x55fc1ccb43b0) For basis failure, parent search stopping at beb3ff19a55d78d3c70f9284458c9d155818ae27 c530a75c1e6a472b0eb9558310b518f0dfcd8860, results HASH(0x55fc1ccbbeb0) For basis failure, parent search stopping at 8d56bad42ac4c43c6c72ddd6a654a2628bf839c5 c530a75c1e6a472b0eb9558310b518f0dfcd8860, results HASH(0x55fc1cc15bf8) For basis failu\
- re, parent search stopping at 6741e066ec7633450d3186946035c1f80c4226b8 c530a75c1e6a472b0eb9558310b518f0dfcd8860, results HASH(0x55fc1cc18828) HASH(0x55fc1ccb4fb0) Result found: flight 185838 (fail), for basis failure (at ancestor ~5000)
- Repro found: flight 185840 (pass), for basis pass
- Repro found: flight 185842 (fail), for basis failure
- 0 revisions at e2b8480b709d48ca1723eed7258f26a0df9a1965 c530a75c1e6a472b0eb9558310b518f0dfcd8860
-No revisions left to test, checking graph state.
- Result found: flight 185851 (pass), for last pass
- Result found: flight 185852 (fail), for first failure
- Repro found: flight 185853 (pass), for last pass
- Repro found: flight 185854 (fail), for first failure
- Repro found: flight 185855 (pass), for last pass
- Repro found: flight 185856 (fail), for first failure
-
-*** Found and reproduced problem changeset ***
-
-  Bug is in tree:  linux git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git
-  Bug introduced:  0f4048e1a0c6e9d3d31ce5b684600fd137cebfca
-  Bug not present: e2b8480b709d48ca1723eed7258f26a0df9a1965
-  Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/185856/
-
-
-  commit 0f4048e1a0c6e9d3d31ce5b684600fd137cebfca
-  Author: Linus Walleij <linus.walleij@linaro.org>
-  Date:   Tue Sep 26 15:25:32 2023 +0200
-  
-      ASoC: ti: Convert Pandora ASoC to GPIO descriptors
-      
-      [ Upstream commit 319e6ac143b9e9048e527ab9dd2aabb8fdf3d60f ]
-      
-      The Pandora uses GPIO descriptors pretty much exclusively, but not
-      for ASoC, so let's fix it. Register the pins in a descriptor table
-      in the machine since the ASoC device is not using device tree.
-      
-      Use static locals for the GPIO descriptors because I'm not able
-      to experient with better state storage on any real hardware. Others
-      using the Pandora can come afterwards and improve this.
-      
-      Signed-off-by: Linus Walleij <linus.walleij@linaro.org>
-      Acked-by: Jarkko Nikula <jarkko.nikula@bitmer.com>
-      Link: https://lore.kernel.org/r/20230926-descriptors-asoc-ti-v1-4-60cf4f8adbc5@linaro.org
-      Signed-off-by: Mark Brown <broonie@kernel.org>
-      Signed-off-by: Sasha Levin <sashal@kernel.org>
-
-pnmtopng: 229 colors found
-Revision graph left in /home/logs/results/bisect/linux-6.1/build-armhf-pvops.kernel-build.{dot,ps,png,html,svg}.
-----------------------------------------
-185856: tolerable ALL FAIL
-
-flight 185856 linux-6.1 real-bisect [real]
-http://logs.test-lab.xenproject.org/osstest/logs/185856/
-
-Failures :-/ but no regressions.
-
-Tests which did not succeed,
-including tests which could not be run:
- build-armhf-pvops             6 kernel-build            fail baseline untested
-
-
-jobs:
- build-armhf-pvops                                            fail    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+--
+2.34.1
 
 
