@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 305C68B518C
-	for <lists+xen-devel@lfdr.de>; Mon, 29 Apr 2024 08:37:28 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.713843.1114716 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7C5D38B518D
+	for <lists+xen-devel@lfdr.de>; Mon, 29 Apr 2024 08:38:13 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.713846.1114726 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s1KcU-0005Zj-Kv; Mon, 29 Apr 2024 06:36:10 +0000
+	id 1s1KeD-000666-Vz; Mon, 29 Apr 2024 06:37:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 713843.1114716; Mon, 29 Apr 2024 06:36:10 +0000
+Received: by outflank-mailman (output) from mailman id 713846.1114726; Mon, 29 Apr 2024 06:37:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s1KcU-0005Y4-IJ; Mon, 29 Apr 2024 06:36:10 +0000
-Received: by outflank-mailman (input) for mailman id 713843;
- Mon, 29 Apr 2024 06:36:09 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1s1KeD-00063I-TB; Mon, 29 Apr 2024 06:37:57 +0000
+Received: by outflank-mailman (input) for mailman id 713846;
+ Mon, 29 Apr 2024 06:37:56 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=GJEf=MC=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1s1KcS-0005Xy-V5
- for xen-devel@lists.xenproject.org; Mon, 29 Apr 2024 06:36:09 +0000
-Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
- [2a00:1450:4864:20::32d])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c1654687-05f2-11ef-b4bb-af5377834399;
- Mon, 29 Apr 2024 08:36:05 +0200 (CEST)
-Received: by mail-wm1-x32d.google.com with SMTP id
- 5b1f17b1804b1-41ba1ba55ebso17288475e9.1
- for <xen-devel@lists.xenproject.org>; Sun, 28 Apr 2024 23:36:05 -0700 (PDT)
+ id 1s1KeC-000638-JO
+ for xen-devel@lists.xenproject.org; Mon, 29 Apr 2024 06:37:56 +0000
+Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
+ [2a00:1450:4864:20::32f])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 02cb9a9e-05f3-11ef-909b-e314d9c70b13;
+ Mon, 29 Apr 2024 08:37:55 +0200 (CEST)
+Received: by mail-wm1-x32f.google.com with SMTP id
+ 5b1f17b1804b1-41bca450fa3so13231275e9.2
+ for <xen-devel@lists.xenproject.org>; Sun, 28 Apr 2024 23:37:55 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- v18-20020a5d43d2000000b0034a25339e47sm27712183wrr.69.2024.04.28.23.36.04
+ a12-20020a056000188c00b00347eb354b30sm28947611wri.84.2024.04.28.23.37.54
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sun, 28 Apr 2024 23:36:04 -0700 (PDT)
+ Sun, 28 Apr 2024 23:37:54 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,52 +45,53 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c1654687-05f2-11ef-b4bb-af5377834399
+X-Inumbo-ID: 02cb9a9e-05f3-11ef-909b-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1714372565; x=1714977365; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=XiKox6psWFP4voir+vi13occAzVsW0lTkqE+j9P3CKg=;
-        b=eOufIZNCPtBWK/9WHGC2xQF+kY/YhWjl3KSfQ+mnwljsmsLtJqJDp0lE1YVi+FG0EJ
-         kI65jYfLHJQ1CyHrio7FVNHxf7FB7v5bbooWz06hcEpLDLCKCowHTyqBz10RyL080qDU
-         kT+bOCOxgU+tVuHpcgYT3pKCQXpAREcHqQN8mdXsCp1rgWiD4Ygo0yvf4P1cQjui+JZF
-         A7YUuNKQ/pIJko7e4OEZ/m5hgrggok+bmoTXLswkjZ4D1q8akiPCr/kd/STOPmA0FsCX
-         CrEemRf/sgGJvlTXlceCUeJXqqTHjV3D4ysZsD3XyqZmkl2u96Y+9mGRonzdpWNE5ala
-         nNZA==
+        d=suse.com; s=google; t=1714372675; x=1714977475; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=zh6cdYX/huOKuFWrusrKq0ktzt/2mAkgjKO4CpEgiBs=;
+        b=hB6hC/YhHVmVxZO2lc/aj+FVYNHKVf1P9yBos5LLr8yXWyphq9e9iVogIMpRuppgdX
+         sSso9Bz0EZpsIMVX3pLALbWBGqiUQwvhSqs8Wzr5zRF+ub/wSftoKMy1wI5HLoKaTuN8
+         r3V1Xyy9RtnRifSL4jG2jL8CuXhdATo0xS8t4bQfogzU3Pw42kGnZIYXSWwK8D0xsM3r
+         mKayJO1RJvTHC0X1viMBsT2lwyLGsJ/fCeS339ksvoSuYeToXhwvRM92AY/uOV8++Le0
+         jb9mcouluooZiRNdW+0Mmp7H7AnSYfExmhaX5mPmafutxF0QsWvXGnxDM7S4Ts3FRGip
+         Zm6Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1714372565; x=1714977365;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=XiKox6psWFP4voir+vi13occAzVsW0lTkqE+j9P3CKg=;
-        b=xEbtL4eksbFfYjIm5DI/OxYGXNbklT/K9sLHTLFLu0sutDrhC219u2hQt0TNYeiIdS
-         IupWWBDPsgG/2kbc180hpPM/hQlRh92BjZMUMF8q4rgVVAeLtS1BPMeVqkY4oatbmjdr
-         hFf6m467r3jiy7CoaZzni/KQwPJFIQqlHB/rw9Z4jLlRQUpvwreJ4qImpTnv0rK7C+4Q
-         2NOqftskVe3OT6jSVxvxhq7FbvQUzLofsNnEKpKkaE/HpcTyS1sIg6gxqQTI/hGqdLsq
-         50sCkE5MNBFbJy58V+AphyurUfCoKaTQUriel+1nkN+boZYzCF0Uh25tM6jAtLzKTR7g
-         Ih9w==
-X-Forwarded-Encrypted: i=1; AJvYcCUd5UsUapnwgOGhWax5N8WdLBi34JQ+NMkwkRXqDQGAzCkAQuKRcYXbhq0gn8nIv9Kmx2YtHmEq/xVkiWMi0J8F0Veh4lzOLWcnDGykU0I=
-X-Gm-Message-State: AOJu0YxY4onuCtzmzxfhFEbhAQ1DgCFP8AVGMuka/1azk0DVOj3T6oMQ
-	F44mfEavm1cmMWRccBfPIXnaq6mf3odDA5vI9eI5+ZEpnPzR6uVkD1mb8unpmg==
-X-Google-Smtp-Source: AGHT+IHbpsbXTcbMPJOblm6CXkfgIHG17fRxzwbLZ+L3c2/m3rBvifbgsEkjNifkJuH8SLab8QtyLw==
-X-Received: by 2002:a05:600c:4ecb:b0:418:b9fa:43e9 with SMTP id g11-20020a05600c4ecb00b00418b9fa43e9mr8514432wmq.29.1714372565211;
-        Sun, 28 Apr 2024 23:36:05 -0700 (PDT)
-Message-ID: <7a28d950-e3de-465d-9f0d-044598e356db@suse.com>
-Date: Mon, 29 Apr 2024 08:36:06 +0200
+        d=1e100.net; s=20230601; t=1714372675; x=1714977475;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=zh6cdYX/huOKuFWrusrKq0ktzt/2mAkgjKO4CpEgiBs=;
+        b=ke62ZwKNleY8Ny1VLdLZl9R/2AySEf99uJo8uhxdFrRkVvstfUhnQhlqgwdsli7ld0
+         E8Eyrmh7nM5v7Vm6HaUSL5OAcbBadqo0VEcPn/88WCJmJTvfxFfgyTKKjokWJJ3lY8dI
+         g/PlgoVQ5Phn+1M/bNqTTWC/e7CSOMM6XQR+HSbnN9fAkgzEgw7PflffLQyvsenEiLcJ
+         LNCWnZtvANkirD79IDo9xYS5F6b4J4ups6CI4Qa1kro8K/JTmfZCZjrFl8NuKo6fWlE3
+         zQlpEzLf8kC8Pvo4BxSMy61IaIkzLQwksA7T6DT6av8yZjXIK86xyyYEKLfgGl0NHNwi
+         ZtIw==
+X-Forwarded-Encrypted: i=1; AJvYcCVpWKYmXsSZNh329dhd4rJOVrYNpWXbvifSIz8gVRS+Ki946voUokK20uX0OSIjTZTwR8o0N8fK6E9/xGokk9RcSMsuzHfw/1/2Y4PDXtw=
+X-Gm-Message-State: AOJu0YyUGY8XSkahSE9xGmeoOiDCEP0i7puT7IWjDUnpgpA+KqJtf9v+
+	UKpn+DNKAA/HVHnzVm1JbXX373479KzynwWmMgugXg/1k24XJZ1tJEse620euLAefSKZyzpHZ2c
+	=
+X-Google-Smtp-Source: AGHT+IHxJHfRdfsv1QT82cvbq29vstFXBRThmWbQ+wARhKOkBAReMnjSuooDF19JG2J32BgHweoaOw==
+X-Received: by 2002:a05:6000:1544:b0:34d:3d05:cf3a with SMTP id 4-20020a056000154400b0034d3d05cf3amr406209wry.22.1714372675059;
+        Sun, 28 Apr 2024 23:37:55 -0700 (PDT)
+Message-ID: <59a59477-f343-454a-9f83-e9df28286065@suse.com>
+Date: Mon, 29 Apr 2024 08:37:56 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] xen/spinlock: use correct pointer
-To: Stewart Hildebrand <stewart.hildebrand@amd.com>
-Cc: Juergen Gross <jgross@suse.com>, Andrew Cooper
- <andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- xen-devel@lists.xenproject.org
-References: <20240425204547.658536-1-stewart.hildebrand@amd.com>
- <08165a0d-d8ee-4405-ba04-e1cfb51489b4@suse.com>
- <261fce46-56e9-4a7e-8f2f-b741bf5b8251@amd.com>
+Subject: Re: [PATCH v5 3/7] x86/hvm: Allow access to registers on the same
+ page as MSI-X table
 Content-Language: en-US
+To: =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu
+ <wl@xen.org>, xen-devel@lists.xenproject.org
+References: <cover.afa2d89161590f5193dd6bfd340c5e9347877aae.1710342968.git-series.marmarek@invisiblethingslab.com>
+ <a040f703a884ff4516314f88b22ee0f9f17329a9.1710342968.git-series.marmarek@invisiblethingslab.com>
+ <68f99f0a-e27a-449f-8d13-fb5ca9f6069a@suse.com> <ZivHw9RUUN1CV4Hi@mail-itl>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -115,94 +116,48 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <261fce46-56e9-4a7e-8f2f-b741bf5b8251@amd.com>
+In-Reply-To: <ZivHw9RUUN1CV4Hi@mail-itl>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 26.04.2024 16:33, Stewart Hildebrand wrote:
-> On 4/26/24 02:31, Jan Beulich wrote:
->> On 25.04.2024 22:45, Stewart Hildebrand wrote:
->>> The ->profile member is at different offsets in struct rspinlock and
->>> struct spinlock. When initializing the profiling bits of an rspinlock,
->>> an unrelated member in struct rspinlock was being overwritten, leading
->>> to mild havoc. Use the correct pointer.
->>>
->>> Fixes: b053075d1a7b ("xen/spinlock: make struct lock_profile rspinlock_t aware")
->>> Signed-off-by: Stewart Hildebrand <stewart.hildebrand@amd.com>
->>
->> Reviewed-by: Jan Beulich <jbeulich@suse.com>
-> 
-> Thanks!
-> 
->>
->>> --- a/xen/common/spinlock.c
->>> +++ b/xen/common/spinlock.c
->>> @@ -789,7 +789,11 @@ static int __init cf_check lock_prof_init(void)
->>>      {
->>>          (*q)->next = lock_profile_glb_q.elem_q;
->>>          lock_profile_glb_q.elem_q = *q;
->>> -        (*q)->ptr.lock->profile = *q;
+On 26.04.2024 17:26, Marek Marczykowski-Górecki wrote:
+> On Thu, Apr 25, 2024 at 01:15:34PM +0200, Jan Beulich wrote:
+>> On 13.03.2024 16:16, Marek Marczykowski-Górecki wrote:
+>>> +    hwaddr = fix_to_virt(fixmap_idx) + PAGE_OFFSET(address);
 >>> +
->>> +        if ( (*q)->is_rlock )
->>> +            (*q)->ptr.rlock->profile = *q;
->>> +        else
->>> +            (*q)->ptr.lock->profile = *q;
->>>      }
->>>  
->>>      _lock_profile_register_struct(LOCKPROF_TYPE_GLOBAL,
+>>> +    switch ( len )
+>>> +    {
+>>> +    case 1:
+>>> +        *pval = readb(hwaddr);
+>>> +        break;
+>>> +
+>>> +    case 2:
+>>> +        *pval = readw(hwaddr);
+>>> +        break;
+>>> +
+>>> +    case 4:
+>>> +        *pval = readl(hwaddr);
+>>> +        break;
+>>> +
+>>> +    case 8:
+>>> +        *pval = readq(hwaddr);
+>>> +        break;
+>>> +
+>>> +    default:
+>>> +        ASSERT_UNREACHABLE();
 >>
->> Just to mention it: Strictly speaking spinlock_profile_print_elem()'s
->>
->>     printk("%s: addr=%p, lockval=%08x, ", data->name, data->ptr.lock, lockval);
->>
->> isn't quite right either (and I would be surprised if Misra didn't have
->> to say something about it).
+>> Misra demands "break;" to be here for release builds. In fact I wonder
+>> why "*pval = ~0UL;" isn't put here, too. Question of course is whether
+>> in such a case a true error indicator wouldn't be yet better.
 > 
-> I'd be happy to send a patch for that instance, too. Would you like a
-> Reported-by: tag?
+> I don't think it possible for the msixtbl_read() (that calls
+> adjacent_read()) to be called with other sizes.
 
-I'm inclined to say no, not worth it, but it's really up to you. In fact
-I'm not sure we need to change that; it all depends on whether ...
-
-> That patch would look something like:
-> 
-> --- a/xen/common/spinlock.c
-> +++ b/xen/common/spinlock.c
-> @@ -637,22 +637,25 @@ static void cf_check spinlock_profile_print_elem(struct lock_profile *data,
->  {
->      unsigned int cpu;
->      unsigned int lockval;
-> +    void *lockaddr;
->  
->      if ( data->is_rlock )
->      {
->          cpu = data->ptr.rlock->debug.cpu;
->          lockval = data->ptr.rlock->tickets.head_tail;
-> +        lockaddr = data->ptr.rlock;
->      }
->      else
->      {
->          cpu = data->ptr.lock->debug.cpu;
->          lockval = data->ptr.lock->tickets.head_tail;
-> +        lockaddr = data->ptr.lock;
->      }
->  
->      printk("%s ", lock_profile_ancs[type].name);
->      if ( type != LOCKPROF_TYPE_GLOBAL )
->          printk("%d ", idx);
-> -    printk("%s: addr=%p, lockval=%08x, ", data->name, data->ptr.lock, lockval);
-> +    printk("%s: addr=%p, lockval=%08x, ", data->name, lockaddr, lockval);
->      if ( cpu == SPINLOCK_NO_CPU )
->          printk("not locked\n");
->      else
-> 
-> 
-> That case is benign since the pointer is not dereferenced. So the
-> rationale would primarily be for consistency (and possibly satisfying
-> Misra).
-
-... Misra takes issue with the "wrong" member of a union being used,
-which iirc is UB, but which I'm afraid elsewhere we do all the time.
+I agree, but scanners won't know.
 
 Jan
+
+> The default label is here exactly to make it obvious for the reader.
+> 
+
 
