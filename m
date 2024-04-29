@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3FD888B5A04
-	for <lists+xen-devel@lfdr.de>; Mon, 29 Apr 2024 15:31:23 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.714066.1115050 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 69D468B5A3A
+	for <lists+xen-devel@lfdr.de>; Mon, 29 Apr 2024 15:38:35 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.714075.1115060 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s1R5j-0003yr-E6; Mon, 29 Apr 2024 13:30:47 +0000
+	id 1s1RD0-000557-7J; Mon, 29 Apr 2024 13:38:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 714066.1115050; Mon, 29 Apr 2024 13:30:47 +0000
+Received: by outflank-mailman (output) from mailman id 714075.1115060; Mon, 29 Apr 2024 13:38:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s1R5j-0003wp-A6; Mon, 29 Apr 2024 13:30:47 +0000
-Received: by outflank-mailman (input) for mailman id 714066;
- Mon, 29 Apr 2024 13:30:45 +0000
+	id 1s1RD0-00052P-4a; Mon, 29 Apr 2024 13:38:18 +0000
+Received: by outflank-mailman (input) for mailman id 714075;
+ Mon, 29 Apr 2024 13:38:17 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=GJEf=MC=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1s1R5h-0003wj-DZ
- for xen-devel@lists.xenproject.org; Mon, 29 Apr 2024 13:30:45 +0000
-Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
- [2a00:1450:4864:20::432])
+ id 1s1RCz-00052H-9k
+ for xen-devel@lists.xenproject.org; Mon, 29 Apr 2024 13:38:17 +0000
+Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
+ [2a00:1450:4864:20::433])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id adcea4de-062c-11ef-909b-e314d9c70b13;
- Mon, 29 Apr 2024 15:30:43 +0200 (CEST)
-Received: by mail-wr1-x432.google.com with SMTP id
- ffacd0b85a97d-34b3374ae22so4795188f8f.0
- for <xen-devel@lists.xenproject.org>; Mon, 29 Apr 2024 06:30:43 -0700 (PDT)
+ id bb6ae1cb-062d-11ef-909b-e314d9c70b13;
+ Mon, 29 Apr 2024 15:38:16 +0200 (CEST)
+Received: by mail-wr1-x433.google.com with SMTP id
+ ffacd0b85a97d-346b96f1483so2399092f8f.1
+ for <xen-devel@lists.xenproject.org>; Mon, 29 Apr 2024 06:38:16 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- cg3-20020a5d5cc3000000b00349bd105089sm29377409wrb.47.2024.04.29.06.30.42
+ je4-20020a05600c1f8400b0041c7ac6b0ffsm1124181wmb.37.2024.04.29.06.38.14
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 29 Apr 2024 06:30:43 -0700 (PDT)
+ Mon, 29 Apr 2024 06:38:15 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,42 +45,42 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: adcea4de-062c-11ef-909b-e314d9c70b13
+X-Inumbo-ID: bb6ae1cb-062d-11ef-909b-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1714397443; x=1715002243; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1714397895; x=1715002695; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=ZEl5SX90lT6ATuQBWsSuBAraCZE6UPsz8QOfZAzW5YE=;
-        b=OZF2qzSgngtrHeJ3PIo/oznnuqE+W3XXH8DzGa2u1FAONxX7IY5+q4UcJBwav/aS3e
-         T7mVBxXDzmRmPf9Cgglll9C1KlU0axU9Ilp1ooS6n9vGSRF1q9tHcAw70Ie95P1Ez/bo
-         D+c9w+uDy56aohlC7UTfx//iBvasomc4oko+JasC8xh7qnFUEHHuzcA/6J5hkKNhHlPl
-         6SjLPUkj/Pq0v70Jrtg/WZKunpadyHoH0JEafEoGnWmX7WIOZH3/4l7b7psORFQVfK4X
-         RCfVWn86k7g8WYEDd3aXPivzTWksN5xKgEaAWt11Qg+6v4pcEXqYyURYKunDC6wzELMu
-         pdMA==
+        bh=qnaB0ScdITi7wiStqPk3K/EL5SZNLMoz01hmUmnGLlY=;
+        b=SajM7PZOzUx2FJOQE4/lIzZFb+Hs6pCdFekfY/VpbtvFS7OLYStK3G4izg0LvTgwRB
+         tMs7qLbzFbSncZEl1LtT0VUgQlKUDofYyhi1m7eKnWtBUvZjArQwLbq/0zesqvBVOGzb
+         /bmQe+EmY4OpsZkUy30+oLc+Cq3Zv4hAdouOfGvnFUceAS+tfn1rYe0qRI2Fsb0H5+pk
+         PifJlYgJ5YENjzF+xUWfoy2Hx3fVO7CUJGuMOJLc5o/ns1AywlXQcy5JKEqbNiSSoJWg
+         VjI4WOc+huh79dO4PdKMGNlfWFbu3uVJ7M/QxeiEMeNhEKYR1+6R46H7slqrLF7xBm6c
+         SsVg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1714397443; x=1715002243;
+        d=1e100.net; s=20230601; t=1714397895; x=1715002695;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=ZEl5SX90lT6ATuQBWsSuBAraCZE6UPsz8QOfZAzW5YE=;
-        b=YXHEGJcvsoh3wCGmyjJOc09O4Av/v68TIMoTGWoAP6knONnbAhLpnqkSZpBu0i24KM
-         Fcefk4ekfshzuiWE6tZufY1YRtXxWm98d/EM2uMn9SNWm/zuaqRi34TGc5buZ6yrATZu
-         ZbGUGM4Knb9bJ19F11uJJwuibawHrFpAXRU797IlQFL4khKuHYKn7rQAAjjlf7DKDft3
-         4C+1ZlaHyvxPy5YccpPGypF12VikfBQDBlcPDq4yoicwhKJRF0Wl99NSE6T2qOZAORiI
-         G/LAhJOkmdwNXtE3Bf9bSc6qCiqcyJ3SjeTXIfqix08UXbD+1/5QtQ17FuZHaH4sbk5s
-         5CEg==
-X-Forwarded-Encrypted: i=1; AJvYcCVO/Ga+Vy+xvUcTnZDihK1IVELK0zdQ6pW2dJ6M4nqFDvk13B9fdxjPQU/Drl7/1tsny7H5noMnvNJOSxXl3CwYuKA0LOJDsPi0FzaD5qk=
-X-Gm-Message-State: AOJu0YyQlRB5/ZJlqU0HDMe8/8ekqRrma65rh5y+k3CV05y9aVrAdGeh
-	H9lJllVhksDft9QF0oeJCni68/DJPnE9rTd+1+aTTSk4sE4clZgqpEkF5TqhXw==
-X-Google-Smtp-Source: AGHT+IFdv607PeM41nHnZFh1o7wMVv8fdiUq8cmPumRQGsE0B7SdRBszsijm8iC0WeEvTR6tlCG+wA==
-X-Received: by 2002:a5d:6d83:0:b0:34c:d9f5:c5e0 with SMTP id l3-20020a5d6d83000000b0034cd9f5c5e0mr4786167wrs.53.1714397443233;
-        Mon, 29 Apr 2024 06:30:43 -0700 (PDT)
-Message-ID: <7ffd4293-e0fb-4ba1-b538-7ad44a2897ce@suse.com>
-Date: Mon, 29 Apr 2024 15:30:44 +0200
+        bh=qnaB0ScdITi7wiStqPk3K/EL5SZNLMoz01hmUmnGLlY=;
+        b=djk3gSVQ3ovi8GJXFvhyPqCXjK4qlVON/QuMLJ6zCVvpjtVnjOpdHNnVICAL/SvIel
+         wmYzTV8bA8MCFJAtJh1FK2JvxUNVK7v2p0dymcBuIEuImXK+rqg4B7jnuTBAnMwzkKfL
+         4sKe/pw7ewOHuTUZzORvDht7mpmxH/K69BQRnI4jLYgqdIeLqNtlZpP1E7IrIQ4GPByd
+         UqpbZHreCNLi64Nela5a8GMp1D1nFPpIqL+36ApUnY4c3CzkEe3bnW3+OkPquij22XSg
+         BI/myfR8gpk8ya88lCzOcZPl8VrGGwL3MrGpL7QSnSnBjdKeqvTY00nb5koQikZKw4m1
+         LMaQ==
+X-Forwarded-Encrypted: i=1; AJvYcCUzBZlEERfecl29LlU/X3UdBVElQbYlPSVa5s9V69OZrzv0ZctfgYi7neRTcBNFwES0J3o1SGSqxeSnsMBKgrrGyO0SIEHkGWkgHua6JAE=
+X-Gm-Message-State: AOJu0YzgcRYheUAMf6V23g1GHl+zxLtCvYx/dC8Mup0Xc5szzJfF9swR
+	5+w6n/vtj5SGlKGFs9IMPpw1tZiYEhqU8CrmjKD7GLwbRfEBfouN7U00nHINpA==
+X-Google-Smtp-Source: AGHT+IEINkQqDGS6GjgZvVjKKgOmCJLUrXaGFogUcLrWsu+yVpe/xWxRHGX8rj/TzrIjVka5zZJHQw==
+X-Received: by 2002:a05:6000:70e:b0:34c:b7e7:cac0 with SMTP id bs14-20020a056000070e00b0034cb7e7cac0mr6896004wrb.20.1714397895490;
+        Mon, 29 Apr 2024 06:38:15 -0700 (PDT)
+Message-ID: <31f2dd75-4217-4110-8577-78fb77082299@suse.com>
+Date: Mon, 29 Apr 2024 15:38:16 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1] xen/riscv: improve check-extension() macro
+Subject: Re: [PATCH v8 06/17] xen/riscv: introduce cmpxchg.h
 Content-Language: en-US
 To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 Cc: Alistair Francis <alistair.francis@wdc.com>,
@@ -88,7 +88,8 @@ Cc: Alistair Francis <alistair.francis@wdc.com>,
  <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
  George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
  Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <6f37ce6b115b682118a8332b2a81b49358c88587.1714144943.git.oleksii.kurochko@gmail.com>
+References: <cover.1713347222.git.oleksii.kurochko@gmail.com>
+ <6e068a2531f3ecbb7858739ecb5249d22ee01fff.1713347222.git.oleksii.kurochko@gmail.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -113,30 +114,87 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <6f37ce6b115b682118a8332b2a81b49358c88587.1714144943.git.oleksii.kurochko@gmail.com>
+In-Reply-To: <6e068a2531f3ecbb7858739ecb5249d22ee01fff.1713347222.git.oleksii.kurochko@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 26.04.2024 17:23, Oleksii Kurochko wrote:
-> Now, the check-extension() macro has 1 argument instead of 2.
-> This change helps to reduce redundancy around usage of extensions
-> name (in the case of the zbb extension, the name was used 3 times).
-> 
-> To implement this, a new variable was introduced:
->   <extension name>-insn
-> which represents the instruction support that is being checked.
-> 
-> Additionally, zbb-insn is updated to use $(comma) instead of ",".
+On 17.04.2024 12:04, Oleksii Kurochko wrote:
+> +/*
+> + * This function doesn't exist, so you'll get a linker error
+> + * if something tries to do an invalid xchg().
+> + */
+> +extern void __bad_xchg(volatile void *ptr, int size);
+> +
+> +static always_inline unsigned long __xchg(volatile void *ptr, unsigned long new, int size)
+> +{
+> +    unsigned long ret;
+> +
+> +    switch ( size )
+> +    {
+> +    case 1:
+> +        ret = emulate_xchg_1_2((volatile uint8_t *)ptr, new, ".aq", ".aqrl");
+> +        break;
+> +    case 2:
+> +        ret = emulate_xchg_1_2((volatile uint16_t *)ptr, new, ".aq", ".aqrl");
+> +        break;
+> +    case 4:
+> +        _amoswap_generic((volatile uint32_t *)ptr, new, ret, ".w.aqrl");
+> +        break;
+> +#ifndef CONFIG_RISCV_32
+> +    case 8:
+> +        _amoswap_generic((volatile uint64_t *)ptr, new, ret, ".d.aqrl");
+> +        break;
+> +#endif
+> +    default:
+> +        __bad_xchg(ptr, size), ret = 0;
+> +    }
 
-Which is merely just-in-case, I suppose, but not strictly necessary
-anymore?
+I see no real reason to use a comma expression here, the more that "break"
+needs adding anyway. I wonder why here you don't use ...
 
-> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-> Suggested-by: Jan Beulich <jbeulich@suse.com>
+> +/* This function doesn't exist, so you'll get a linker error
+> +   if something tries to do an invalid cmpxchg().  */
+> +extern unsigned long __bad_cmpxchg(volatile void *ptr, int size);
+> +
+> +/*
+> + * Atomic compare and exchange.  Compare OLD with MEM, if identical,
+> + * store NEW in MEM.  Return the initial value in MEM.  Success is
+> + * indicated by comparing RETURN with OLD.
+> + */
+> +static always_inline unsigned long __cmpxchg(volatile void *ptr,
+> +                                             unsigned long old,
+> +                                             unsigned long new,
+> +                                             int size)
+> +{
+> +    unsigned long ret;
+> +
+> +    switch ( size )
+> +    {
+> +    case 1:
+> +        ret = emulate_cmpxchg_1_2((volatile uint8_t *)ptr, old, new,
+> +                                  ".aq", ".aqrl");
+> +        break;
+> +    case 2:
+> +        ret = emulate_cmpxchg_1_2((volatile uint16_t *)ptr, old, new,
+> +                                   ".aq", ".aqrl");
+> +        break;
+> +    case 4:
+> +        ret = _generic_cmpxchg((volatile uint32_t *)ptr, old, new,
+> +                          ".w.aq", ".w.aqrl");
+> +        break;
+> +#ifndef CONFIG_32BIT
+> +    case 8:
+> +        ret = _generic_cmpxchg((volatile uint64_t *)ptr, old, new,
+> +                           ".d.aq", ".d.aqrl");
+> +        break;
+> +#endif
+> +    default:
+> +        return __bad_cmpxchg(ptr, size);
 
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
+... the approach used here.
 
-Just as a remark: Tags want to be put in chronological order.
+Also (style nit) the comment on __bad_cmpxchg() is malformed, unlike that
+ahead of __bad_xchg().
 
 Jan
 
