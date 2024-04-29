@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5DF538B5D25
-	for <lists+xen-devel@lfdr.de>; Mon, 29 Apr 2024 17:16:50 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.714186.1115274 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 70B688B5D28
+	for <lists+xen-devel@lfdr.de>; Mon, 29 Apr 2024 17:16:51 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.714188.1115294 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s1Sk3-0006pE-J3; Mon, 29 Apr 2024 15:16:31 +0000
+	id 1s1Sk6-0007Jf-7Y; Mon, 29 Apr 2024 15:16:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 714186.1115274; Mon, 29 Apr 2024 15:16:31 +0000
+Received: by outflank-mailman (output) from mailman id 714188.1115294; Mon, 29 Apr 2024 15:16:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s1Sk3-0006n5-GO; Mon, 29 Apr 2024 15:16:31 +0000
-Received: by outflank-mailman (input) for mailman id 714186;
- Mon, 29 Apr 2024 15:16:30 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1s1Sk6-0007H0-1R; Mon, 29 Apr 2024 15:16:34 +0000
+Received: by outflank-mailman (input) for mailman id 714188;
+ Mon, 29 Apr 2024 15:16:32 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=yZQG=MC=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1s1Sk2-0006Yb-Bl
- for xen-devel@lists.xenproject.org; Mon, 29 Apr 2024 15:16:30 +0000
-Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
- [2a00:1450:4864:20::62b])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 74580315-063b-11ef-909b-e314d9c70b13;
- Mon, 29 Apr 2024 17:16:29 +0200 (CEST)
-Received: by mail-ej1-x62b.google.com with SMTP id
- a640c23a62f3a-a55ab922260so615803366b.3
- for <xen-devel@lists.xenproject.org>; Mon, 29 Apr 2024 08:16:29 -0700 (PDT)
+ id 1s1Sk4-0006fc-Bd
+ for xen-devel@lists.xenproject.org; Mon, 29 Apr 2024 15:16:32 +0000
+Received: from mail-lf1-x136.google.com (mail-lf1-x136.google.com
+ [2a00:1450:4864:20::136])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 74fb9fe8-063b-11ef-b4bb-af5377834399;
+ Mon, 29 Apr 2024 17:16:30 +0200 (CEST)
+Received: by mail-lf1-x136.google.com with SMTP id
+ 2adb3069b0e04-516ef30b16eso5113272e87.3
+ for <xen-devel@lists.xenproject.org>; Mon, 29 Apr 2024 08:16:30 -0700 (PDT)
 Received: from andrewcoop.citrite.net (default-46-102-197-194.interdsl.co.uk.
  [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- ah2-20020a1709069ac200b00a4e393b6349sm13898875ejc.5.2024.04.29.08.16.27
+ ah2-20020a1709069ac200b00a4e393b6349sm13898875ejc.5.2024.04.29.08.16.29
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 29 Apr 2024 08:16:28 -0700 (PDT)
+ Mon, 29 Apr 2024 08:16:29 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,34 +45,34 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 74580315-063b-11ef-909b-e314d9c70b13
+X-Inumbo-ID: 74fb9fe8-063b-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1714403789; x=1715008589; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1714403790; x=1715008590; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=MI5h6UOov1WEGp6E29SV+XICdrE3ID4Y2ipNaivTcho=;
-        b=e97P9c3+ERozSEXHyAfX0iRNeGuySjd/XoORSMxHzvr++GxKQe1wY9+bB4Ouqgbpii
-         t4fua/QntdT/DyGm4QipFf5K1WkG4WaJiZGKflYMKdyxE2wOALS9KsFbsOTwZZdrfqo0
-         kRuEKJyJmXZtgkcWzLVkumK8sznBq1fbzRwFg=
+        bh=q95oo9lBt9umv6UIN2GoLMgj9CrXSSoAkZ3vrRjbn0Q=;
+        b=ZrbR+r8322d6a/9AcS7erXXS7v9++Ah67eWrtTtPXg88GW9krJFD60gi63DDXRQySc
+         zXZGfaidRN7IUWVzo54TI3z44TAPOS4/RR5qM6+NmNsIHOaNnT0XFodlw/xvoN2+ufOn
+         1sQps2UTikfau77fUBHzqxKIP2IjftR7mx+iM=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1714403789; x=1715008589;
+        d=1e100.net; s=20230601; t=1714403790; x=1715008590;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=MI5h6UOov1WEGp6E29SV+XICdrE3ID4Y2ipNaivTcho=;
-        b=CwO38OhZDME+QawE2KGBIpd9UVIfjRD1ZoeJBBRE4UNLBXKE361ONtVCVotXCxnku/
-         VBcJB42SbUXuQ8p910+s++7b7rcvALNQmDXFgmKDUXh3M4UsDWTldebtaHVjwkVjWHS6
-         X+6HlEMM0mJSunsP35mLkxsYjBedirjhR2zR69r3GmCqZtNlw2/MpGjQfbBM6HxzKoej
-         iZeEDPJYxVDGnCEkgaabjaNnnwzIHi9XJxzz61qluA5oIivwK11EpdNLi659DvMmOZvR
-         4CtDZ02VMTLKCYunQw5Fp/GxSg1X9f5aIqDwtCh8TrcUcutwFay5ldbAgLapVmW6ZsS9
-         T4RA==
-X-Gm-Message-State: AOJu0YxYsOAxk0FUqeDi506FpuPMFuMAifJpV/aG2yq1fDw0KMXHz/qW
-	r6c/euJqx25duKgvfr6T/uX/FrTFuqqK+l770atbQr0E3AgAPmGlxljzsftGHCmJQvloxru0eiG
-	w
-X-Google-Smtp-Source: AGHT+IFp15N7bJoy1uj9VZVhqv262xx2DTCIl7aPyU0ozLfOJ9XP7as5n7JB5MZI1zMvOypBKRxu1A==
-X-Received: by 2002:a17:906:480f:b0:a52:3ff7:744d with SMTP id w15-20020a170906480f00b00a523ff7744dmr7425863ejq.4.1714403789013;
-        Mon, 29 Apr 2024 08:16:29 -0700 (PDT)
+        bh=q95oo9lBt9umv6UIN2GoLMgj9CrXSSoAkZ3vrRjbn0Q=;
+        b=J0PvOeh/7hVsu/GRtc+t2rUS8Pa9HudNDStokMkhegCaOWoft7FnyaCt352Pt4LcM6
+         37U6u4XYLxWcyzb26h0DlOjRb5j+RXpdbWo6PLC8bVHWgwuQu3II0iXkwTCq24QpK1Wz
+         95O9MsHNwQgBvn50DGQE5SBiH0HGC9owkdPGXltzVAukQU1NqNNPg16CZTkfxkI4S97G
+         KYkPi2YoE19hAG6UmlLK7oAaYGlfXicDGPHWv6HsObJCoZLwVILECVckvm9x7jxQRbFO
+         uQ0VNhxi4X/3EszUF73IoeHSzYkCpr3SsH8X+EGJovVZ3MjtZ3OtrxOxg9wjDWG19bHW
+         JDcg==
+X-Gm-Message-State: AOJu0Yy3GukEZfjxeVRGQbPIFHlxVsGzcYbn4dpwbnhb0NkZT4X/Shn0
+	JJ1QxbqiUcgLW1SDXfuoluZXsWS4hYsMY95mmGli0XYlHoDmo2eMLFCYXwkoa10yFUZpHHz28IW
+	m
+X-Google-Smtp-Source: AGHT+IE8bbG1hHbsIx2V67uagxcMqS9yaZeds9wNUKKmIUDWYfrx93281JtK4elkGLWgJ5M+fZKO1g==
+X-Received: by 2002:a05:6512:3102:b0:51d:2c37:6c15 with SMTP id n2-20020a056512310200b0051d2c376c15mr4241227lfb.8.1714403790030;
+        Mon, 29 Apr 2024 08:16:30 -0700 (PDT)
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
@@ -84,9 +84,9 @@ Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
 	George Dunlap <george.dunlap@citrix.com>,
 	Andrei Semenov <andrei.semenov@vates.fr>,
 	Vaishali Thakkar <vaishali.thakkar@vates.tech>
-Subject: [PATCH 2/5] x86/cpu-policy: Add SVM features already used by Xen
-Date: Mon, 29 Apr 2024 16:16:22 +0100
-Message-Id: <20240429151625.977884-3-andrew.cooper3@citrix.com>
+Subject: [PATCH 3/5] x86/spec-ctrl: Remove open-coded check of SVM_FEATURE_SPEC_CTRL
+Date: Mon, 29 Apr 2024 16:16:23 +0100
+Message-Id: <20240429151625.977884-4-andrew.cooper3@citrix.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20240429151625.977884-1-andrew.cooper3@citrix.com>
 References: <20240429151625.977884-1-andrew.cooper3@citrix.com>
@@ -94,15 +94,10 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-These will replace svm_feature_flags and the SVM_FEATURE_* constants over the
-next few changes.  Take the opportunity to rationalise some names.
+Now that the SVM feature leaf has been included in normal feature handling, it
+is available early enough for init_speculation_mitigations() to use.
 
-Drop the opencoded "inherit from host" logic in calculate_hvm_max_policy() and
-use 'h'/'!' annotations.  The logic needs to operate on fs, not the policy
-object, given its position within the function.
-
-Drop some trailing whitespace introduced when this block of code was last
-moved.
+No functional change.
 
 Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 ---
@@ -115,113 +110,50 @@ CC: George Dunlap <george.dunlap@citrix.com>
 CC: Andrei Semenov <andrei.semenov@vates.fr>
 CC: Vaishali Thakkar <vaishali.thakkar@vates.tech>
 ---
- tools/misc/xen-cpuid.c                      | 11 +++++++++++
- xen/arch/x86/cpu-policy.c                   | 17 +++++------------
- xen/include/public/arch-x86/cpufeatureset.h | 14 ++++++++++++++
- xen/tools/gen-cpuid.py                      |  3 +++
- 4 files changed, 33 insertions(+), 12 deletions(-)
+ xen/arch/x86/include/asm/cpufeature.h | 3 +++
+ xen/arch/x86/spec_ctrl.c              | 7 +------
+ 2 files changed, 4 insertions(+), 6 deletions(-)
 
-diff --git a/tools/misc/xen-cpuid.c b/tools/misc/xen-cpuid.c
-index ab09410a05d6..0d01b0e797f1 100644
---- a/tools/misc/xen-cpuid.c
-+++ b/tools/misc/xen-cpuid.c
-@@ -266,6 +266,17 @@ static const char *const str_m10Ah[32] =
+diff --git a/xen/arch/x86/include/asm/cpufeature.h b/xen/arch/x86/include/asm/cpufeature.h
+index 9bc553681f4a..77cfd900cb56 100644
+--- a/xen/arch/x86/include/asm/cpufeature.h
++++ b/xen/arch/x86/include/asm/cpufeature.h
+@@ -217,6 +217,9 @@ static inline bool boot_cpu_has(unsigned int feat)
+ #define cpu_has_rfds_no         boot_cpu_has(X86_FEATURE_RFDS_NO)
+ #define cpu_has_rfds_clear      boot_cpu_has(X86_FEATURE_RFDS_CLEAR)
  
- static const char *const str_eAd[32] =
- {
-+    [ 0] = "npt",                 [ 1] = "v-lbr",
-+    [ 2] = "svm-lock",            [ 3] = "nrips",
-+    [ 4] = "v-tsc-rate",          [ 5] = "vmcb-cleanbits",
-+    [ 6] = "flush-by-asid",       [ 7] = "decode-assist",
++/* CPUID level 0x8000000a.edx */
++#define cpu_has_v_spec_ctrl     boot_cpu_has(X86_FEATURE_V_SPEC_CTRL)
 +
-+    [10] = "pause-filter",
-+    [12] = "pause-thresh",
-+    /* 14 */                      [15] = "v-loadsave",
-+    [16] = "v-gif",
-+    /* 18 */                      [19] = "npt-sss",
-+    [20] = "v-spec-ctrl",
- };
+ /* Synthesized. */
+ #define cpu_has_arch_perfmon    boot_cpu_has(X86_FEATURE_ARCH_PERFMON)
+ #define cpu_has_cpuid_faulting  boot_cpu_has(X86_FEATURE_CPUID_FAULTING)
+diff --git a/xen/arch/x86/spec_ctrl.c b/xen/arch/x86/spec_ctrl.c
+index 40f6ae017010..0bda9d01def5 100644
+--- a/xen/arch/x86/spec_ctrl.c
++++ b/xen/arch/x86/spec_ctrl.c
+@@ -11,7 +11,6 @@
+ #include <xen/warning.h>
  
- static const char *const str_e1Fa[32] =
-diff --git a/xen/arch/x86/cpu-policy.c b/xen/arch/x86/cpu-policy.c
-index 4b6d96276399..da4401047e89 100644
---- a/xen/arch/x86/cpu-policy.c
-+++ b/xen/arch/x86/cpu-policy.c
-@@ -9,7 +9,6 @@
  #include <asm/amd.h>
- #include <asm/cpu-policy.h>
- #include <asm/hvm/nestedhvm.h>
 -#include <asm/hvm/svm/svm.h>
  #include <asm/intel-family.h>
- #include <asm/msr-index.h>
- #include <asm/paging.h>
-@@ -748,22 +747,16 @@ static void __init calculate_hvm_max_policy(void)
-     if ( !cpu_has_vmx )
-         __clear_bit(X86_FEATURE_PKS, fs);
- 
--    /* 
-+    /*
-      * Make adjustments to possible (nested) virtualization features exposed
-      * to the guest
-      */
--    if ( p->extd.svm )
-+    if ( test_bit(X86_FEATURE_SVM, fs) )
-     {
--        /* Clamp to implemented features which require hardware support. */
--        p->extd.raw[0xa].d &= ((1u << SVM_FEATURE_NPT) |
--                               (1u << SVM_FEATURE_LBRV) |
--                               (1u << SVM_FEATURE_NRIPS) |
--                               (1u << SVM_FEATURE_PAUSEFILTER) |
--                               (1u << SVM_FEATURE_DECODEASSISTS));
--        /* Enable features which are always emulated. */
--        p->extd.raw[0xa].d |= (1u << SVM_FEATURE_VMCBCLEAN);
-+        /* Xen always emulates cleanbits. */
-+        __set_bit(X86_FEATURE_VMCB_CLEANBITS, fs);
+ #include <asm/microcode.h>
+ #include <asm/msr.h>
+@@ -1896,12 +1895,8 @@ void __init init_speculation_mitigations(void)
+          *
+          * No need for SCF_ist_sc_msr because Xen's value is restored
+          * atomically WRT NMIs in the VMExit path.
+-         *
+-         * TODO: Adjust cpu_has_svm_spec_ctrl to be usable earlier on boot.
+          */
+-        if ( opt_msr_sc_hvm &&
+-             (boot_cpu_data.extended_cpuid_level >= 0x8000000aU) &&
+-             (cpuid_edx(0x8000000aU) & (1u << SVM_FEATURE_SPEC_CTRL)) )
++        if ( opt_msr_sc_hvm && cpu_has_v_spec_ctrl )
+             setup_force_cpu_cap(X86_FEATURE_SC_MSR_HVM);
      }
--    
-+
-     guest_common_max_feature_adjustments(fs);
-     guest_common_feature_adjustments(fs);
  
-diff --git a/xen/include/public/arch-x86/cpufeatureset.h b/xen/include/public/arch-x86/cpufeatureset.h
-index 0f869214811e..80d252a38c2d 100644
---- a/xen/include/public/arch-x86/cpufeatureset.h
-+++ b/xen/include/public/arch-x86/cpufeatureset.h
-@@ -358,6 +358,20 @@ XEN_CPUFEATURE(RFDS_CLEAR,         16*32+28) /*!A Register File(s) cleared by VE
- /* Intel-defined CPU features, MSR_ARCH_CAPS 0x10a.edx, word 17 */
- 
- /* AMD-defined CPU features, CPUID level 0x8000000a.edx, word 18 */
-+XEN_CPUFEATURE(NPT,                18*32+ 0) /*h  Nested PageTables */
-+XEN_CPUFEATURE(V_LBR,              18*32+ 1) /*h  Virtualised LBR */
-+XEN_CPUFEATURE(SVM_LOCK,           18*32+ 2) /*   SVM locking MSR */
-+XEN_CPUFEATURE(NRIPS,              18*32+ 3) /*h  Next-RIP saved on VMExit */
-+XEN_CPUFEATURE(V_TSC_RATE,         18*32+ 4) /*   Virtualised TSC Ratio */
-+XEN_CPUFEATURE(VMCB_CLEANBITS,     18*32+ 5) /*!  VMCB Clean-bits */
-+XEN_CPUFEATURE(FLUSH_BY_ASID,      18*32+ 6) /*   TLB Flush by ASID */
-+XEN_CPUFEATURE(DECODE_ASSIST,      18*32+ 7) /*h  Decode assists */
-+XEN_CPUFEATURE(PAUSE_FILTER,       18*32+10) /*h  Pause filter */
-+XEN_CPUFEATURE(PAUSE_THRESH,       18*32+12) /*   Pause filter threshold */
-+XEN_CPUFEATURE(V_LOADSAVE,         18*32+15) /*   Virtualised VMLOAD/SAVE */
-+XEN_CPUFEATURE(V_GIF,              18*32+16) /*   Virtualised GIF */
-+XEN_CPUFEATURE(NPT_SSS,            18*32+19) /*   NPT Supervisor Shadow Stacks */
-+XEN_CPUFEATURE(V_SPEC_CTRL,        18*32+20) /*   Virtualised MSR_SPEC_CTRL */
- 
- /* AMD-defined CPU features, CPUID level 0x8000001f.eax, word 19 */
- 
-diff --git a/xen/tools/gen-cpuid.py b/xen/tools/gen-cpuid.py
-index bf3f9ec01e6e..f07b1f4cf905 100755
---- a/xen/tools/gen-cpuid.py
-+++ b/xen/tools/gen-cpuid.py
-@@ -280,6 +280,9 @@ def crunch_numbers(state):
-         # standard 3DNow in the earlier K6 processors.
-         _3DNOW: [_3DNOWEXT],
- 
-+        # The SVM bit enumerates the whole SVM leave.
-+        SVM: list(range(NPT, NPT + 32)),
-+
-         # This is just the dependency between AVX512 and AVX2 of XSTATE
-         # feature flags.  If want to use AVX512, AVX2 must be supported and
-         # enabled.  Certain later extensions, acting on 256-bit vectors of
 -- 
 2.30.2
 
