@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 14C5E8B5AEE
-	for <lists+xen-devel@lfdr.de>; Mon, 29 Apr 2024 16:08:28 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.714103.1115110 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 323868B5AFB
+	for <lists+xen-devel@lfdr.de>; Mon, 29 Apr 2024 16:09:05 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.714106.1115120 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s1Rf5-0004Cz-Gq; Mon, 29 Apr 2024 14:07:19 +0000
+	id 1s1RgZ-0004kL-Q8; Mon, 29 Apr 2024 14:08:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 714103.1115110; Mon, 29 Apr 2024 14:07:19 +0000
+Received: by outflank-mailman (output) from mailman id 714106.1115120; Mon, 29 Apr 2024 14:08:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s1Rf5-0004Af-Cz; Mon, 29 Apr 2024 14:07:19 +0000
-Received: by outflank-mailman (input) for mailman id 714103;
- Mon, 29 Apr 2024 14:07:17 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1s1RgZ-0004i5-NH; Mon, 29 Apr 2024 14:08:51 +0000
+Received: by outflank-mailman (input) for mailman id 714106;
+ Mon, 29 Apr 2024 14:08:50 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=GJEf=MC=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1s1Rf3-0004AZ-TL
- for xen-devel@lists.xenproject.org; Mon, 29 Apr 2024 14:07:17 +0000
-Received: from mail-lj1-x22b.google.com (mail-lj1-x22b.google.com
- [2a00:1450:4864:20::22b])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c83fad58-0631-11ef-b4bb-af5377834399;
- Mon, 29 Apr 2024 16:07:15 +0200 (CEST)
-Received: by mail-lj1-x22b.google.com with SMTP id
- 38308e7fff4ca-2df83058d48so30641231fa.1
- for <xen-devel@lists.xenproject.org>; Mon, 29 Apr 2024 07:07:15 -0700 (PDT)
+ id 1s1RgY-0004hx-8l
+ for xen-devel@lists.xenproject.org; Mon, 29 Apr 2024 14:08:50 +0000
+Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
+ [2a00:1450:4864:20::331])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id ffe2459e-0631-11ef-909b-e314d9c70b13;
+ Mon, 29 Apr 2024 16:08:48 +0200 (CEST)
+Received: by mail-wm1-x331.google.com with SMTP id
+ 5b1f17b1804b1-41c1b75ca31so9162015e9.2
+ for <xen-devel@lists.xenproject.org>; Mon, 29 Apr 2024 07:08:48 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- e8-20020a05600c4e4800b0041bf7da4200sm7719713wmq.33.2024.04.29.07.07.14
+ e8-20020a05600c4e4800b0041bf7da4200sm7719713wmq.33.2024.04.29.07.08.47
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 29 Apr 2024 07:07:14 -0700 (PDT)
+ Mon, 29 Apr 2024 07:08:48 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,51 +45,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c83fad58-0631-11ef-b4bb-af5377834399
+X-Inumbo-ID: ffe2459e-0631-11ef-909b-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1714399635; x=1715004435; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=wHrMCtjkgYJaxETiqT5C6GJzomsBeRYSTnV6O3Lel+E=;
-        b=QQB2IyJzvjnpTrZVUyT+3XrXXFdcYcG23SLEqB3eY9e2PqeighvoDBdBgXORzIOmp2
-         mgmYJwUknyIljEuG9ERaSCgnNMG0VTPoQW6ZZNwnoeZsrEP2y1ZYlgpi521YPFswNRu+
-         4DJ/k7dSPgcjo607h0EfXOoDVSMf8RgNtb8SlIQ1DsdYQSRVZXS+F/eIeKompo4JtpeG
-         yiDikdu1lX4boiax1L8RxUshLV1c0CzMBOnbANJj1RnRVKfz+HXHOK57pfAC7rutzviV
-         42/HOQj1/TLlCEJ8oUfWWMm2wU1Fizrqe1QLTm/wi6t0S3eduxo379n/ak8gxqtuxpuH
-         GejA==
+        d=suse.com; s=google; t=1714399728; x=1715004528; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=qTTHoR6ZU9fHGDnULkOGFnNISjG4X83LTEHmIo5eNLs=;
+        b=WDH5s3EyRpH0Pijob/93K+jEQPhOE6SS+zZK1Yac1s0bsxAj4ZDxQW3HOjyH9D057s
+         EHKE3/xmO3KPZSpZTruDVrtU4DJND/dtXe/K02DmK673CSwCjlJxjx70iSfqX8QOTwix
+         zBrUrgx+2ISibxVajIABwmfc2JQFsJq0BaaDh2zVLEQLTMvvUGjfpwaNZOQg5aT031O9
+         enxnbB61YE/t/iTllr+YX3gtm5ocKG+EqIgOSSwr7Ld9MmkutdE3Nc7W0sNOr9/WKek5
+         9dXNs3JtqmT+rX0/6SmZkhno39RNXAQrJy/eCvxzZejebgJ8FnjY/3aG38TwPInV6Syg
+         qf4A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1714399635; x=1715004435;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=wHrMCtjkgYJaxETiqT5C6GJzomsBeRYSTnV6O3Lel+E=;
-        b=LDebLVYhRm/WhSfwkB/BcJBAsjFkVZTv/rX/IMx4ybPw0/IwT53vLuZ+9zee+MKJca
-         sHgbCrLkyB99eYUPcy8v8+HmDyQwkcf98DshjhA1TBeXfStYWZOqTI9Xsacrwg6XZhgj
-         jfjT8gxqkW1chmGGDeOY8nnDnVeIdp7SvzBxrszw3pr3tfXBjvn0H2bSt2gg4Xpy3HTm
-         pniRvtoccKvn8oWKx5qyjlBJxbEwJVSrYmgZxgIRkDsihdVaWF3OheC/w4GeY8r1Kd3D
-         0/HfndLGJz3ADr1IAYDPuw+5RW3oSFlL1Noco14epRrH+3djhgj2yP8JRlFr/PeHzcQb
-         gKpQ==
-X-Forwarded-Encrypted: i=1; AJvYcCXO4nenAWFGC9B7Qb2go1fWGOEGLdrxsa4eTaTf1lZDkirbjzbQfFXNEeyT+FG9v0mdUQBHjRphojqPKeAlEvltG4OW06Q9CkGhM57z2J0=
-X-Gm-Message-State: AOJu0YwcBvnKSmW3q6OkGM4yZVS0XccVdsX5wRou9emMkSkNr/FlkczU
-	DVDXfazGRnbqzX3v/SmRfL2jNypgebMVN225MX+HO9VUF6Zv2hSEScJheo6Low==
-X-Google-Smtp-Source: AGHT+IGaDl7737BQKYigAVMi3feamdn7ZQa7u3mUAbtwxqiyNsqewEAV/CkOUNRsnZuZxmAxkMJF0w==
-X-Received: by 2002:a2e:8605:0:b0:2d8:4158:fa64 with SMTP id a5-20020a2e8605000000b002d84158fa64mr7129941lji.35.1714399634620;
-        Mon, 29 Apr 2024 07:07:14 -0700 (PDT)
-Message-ID: <6fc4097d-102e-4cee-bf19-b36d8cb9de2c@suse.com>
-Date: Mon, 29 Apr 2024 16:07:15 +0200
+        d=1e100.net; s=20230601; t=1714399728; x=1715004528;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=qTTHoR6ZU9fHGDnULkOGFnNISjG4X83LTEHmIo5eNLs=;
+        b=dqAk1bYpbSt/g65TTV8g+4p70B8OHN4C4lkPjtF3MaZbNf1OgBuhxiJq/0mPm0001b
+         S50jIQhicITrj/uDWQmAt5g3HMu08yPR1Cs+lThgHWRNwYnz1M1ARdTBsb2g5BsykwWK
+         6eux+8PAuSGV+sKOMLMYn7CRUrz37XYHHP2+zCGDiT7GOHmZnk0hhcP+bhvLlGXjRrZh
+         LxwJEXBhgBlHRy1nnj7nVeS7CprPSk4dCHM+5zswmZsyeK4mvQjZJu7D9gPNUy4BTDYu
+         n6BknzAYe+Ti3zdexb7etYFPXkIbLzVwxiEEXe6goSd2OQ1NQK25P+dFAYgI6wR4u1CK
+         bqDw==
+X-Forwarded-Encrypted: i=1; AJvYcCXLfb6eOW3b+6GSFQ+O8JvA1srJQ1OjzmopGsUoZE7w4K+/Qd/57qv/gsV1cBZ1VdlBxqsCh1quVvPGovmOgQo+nMXsfju/HFjXp7aKfdo=
+X-Gm-Message-State: AOJu0YxWO+nY4fV9iUh/Flrqn2kKJm3W7fd77bXTk5Ea/l4MX1Lr1Xl8
+	ofovjbQFdgfXMoVyFwJjr1fimrS6H9ehtRA7YIXpgfuAkb10gc6xqctfxnKPYA==
+X-Google-Smtp-Source: AGHT+IH24wvQTXXocBQPg0b/JI8wTk3vMhMQSST/gVlrQiyDkspZPZ/hVj8R27gU5tlm9DMTcrre5A==
+X-Received: by 2002:a05:600c:4f11:b0:419:87ab:f6db with SMTP id l17-20020a05600c4f1100b0041987abf6dbmr8277621wmq.23.1714399728362;
+        Mon, 29 Apr 2024 07:08:48 -0700 (PDT)
+Message-ID: <0e0bbe62-41e2-49c9-a850-1c80db641a8d@suse.com>
+Date: Mon, 29 Apr 2024 16:08:50 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/8] gzip: refactor and expand macros
+Subject: Re: [PATCH v3 4/8] gzip: move window pointer into gunzip state
+Content-Language: en-US
 To: "Daniel P. Smith" <dpsmith@apertussolutions.com>
 Cc: Jason Andryuk <jason.andryuk@amd.com>,
  Andrew Cooper <andrew.cooper3@citrix.com>,
  George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
  Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
 References: <20240424163422.23276-1-dpsmith@apertussolutions.com>
- <20240424163422.23276-3-dpsmith@apertussolutions.com>
-Content-Language: en-US
+ <20240424163422.23276-5-dpsmith@apertussolutions.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -114,111 +113,18 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240424163422.23276-3-dpsmith@apertussolutions.com>
+In-Reply-To: <20240424163422.23276-5-dpsmith@apertussolutions.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 24.04.2024 18:34, Daniel P. Smith wrote:
-> This commit refactors macros into proper static functions. It in-place expands
-> the `flush_output` macro, allowing the clear removal of the dead code
-> underneath the `underrun` label.
+> Move the window pointer, outcnt/wp, into struct gunzip_data. It was erroneously
+> labeled as outcnt and then define aliased to wp, this eliminates the aliasing
+> and only refers to as wp, the window pointer.
+> 
+> Signed-off-by: Daniel P. Smith <dpsmith@apertussolutions.com>
 
-But it's NEXTBYTE() which uses the label, not flush_output(). I'm actually
-unconvinced of its expanding / removal.
+Acked-by: Jan Beulich <jbeulich@suse.com>
 
-> --- a/xen/common/gzip/gunzip.c
-> +++ b/xen/common/gzip/gunzip.c
-> @@ -25,8 +25,6 @@ typedef unsigned char   uch;
->  typedef unsigned short  ush;
->  typedef unsigned long   ulg;
->  
-> -#define get_byte()      (inptr < insize ? inbuf[inptr++] : fill_inbuf())
-> -
->  /* Diagnostic functions */
->  #ifdef DEBUG
->  #  define Assert(cond, msg) do { if (!(cond)) error(msg); } while (0)
-> @@ -52,10 +50,14 @@ static __init void error(const char *x)
->      panic("%s\n", x);
->  }
->  
-> -static __init int fill_inbuf(void)
-> -{
-> -    error("ran out of input data");
-> -    return 0;
 
-I'm not convinced of the removal of this as a separate function. It only
-calling error() right now could change going forward, so I'd at least
-expect a little bit of a justification.
-
-> +static __init uch get_byte(void) {
-
-Nit: Brace goes on its own line. Also for (effectively) new code it would
-be nice if __init (and alike) would be placed "canonically", i.e. between
-type and identifier.
-
-> --- a/xen/common/gzip/inflate.c
-> +++ b/xen/common/gzip/inflate.c
-> @@ -119,6 +119,18 @@ static char rcsid[] = "#Id: inflate.c,v 0.14 1993/06/10 13:27:04 jloup Exp #";
->  
->  #endif /* !__XEN__ */
->  
-> +/*
-> + * The inflate algorithm uses a sliding 32 K byte window on the uncompressed
-> + * stream to find repeated byte strings.  This is implemented here as a
-> + * circular buffer.  The index is updated simply by incrementing and then
-> + * ANDing with 0x7fff (32K-1).
-> + *
-> + * It is left to other modules to supply the 32 K area.  It is assumed
-> + * to be usable as if it were declared "uch slide[32768];" or as just
-> + * "uch *slide;" and then malloc'ed in the latter case.  The definition
-> + * must be in unzip.h, included above.
-
-Nit: s/definition/declaration/ ?
-
-> + */
-> +#define wp outcnt
->  #define slide window
->  
->  /*
-> @@ -150,21 +162,6 @@ static int inflate_dynamic(void);
->  static int inflate_block(int *);
->  static int inflate(void);
->  
-> -/*
-> - * The inflate algorithm uses a sliding 32 K byte window on the uncompressed
-> - * stream to find repeated byte strings.  This is implemented here as a
-> - * circular buffer.  The index is updated simply by incrementing and then
-> - * ANDing with 0x7fff (32K-1).
-> - *
-> - * It is left to other modules to supply the 32 K area.  It is assumed
-> - * to be usable as if it were declared "uch slide[32768];" or as just
-> - * "uch *slide;" and then malloc'ed in the latter case.  The definition
-> - * must be in unzip.h, included above.
-
-Oh, an earlier comment just moves up. Is there really a need for this
-extra churn?
-
-> @@ -224,7 +221,7 @@ static const ush mask_bits[] = {
->      0x01ff, 0x03ff, 0x07ff, 0x0fff, 0x1fff, 0x3fff, 0x7fff, 0xffff
->  };
->  
-> -#define NEXTBYTE()  ({ int v = get_byte(); if (v < 0) goto underrun; (uch)v; })
-> +#define NEXTBYTE()  (get_byte()) /* get_byte will panic on failure */
-
-Nit: No need for the outer parentheses.
-
-> @@ -1148,8 +1135,8 @@ static int __init gunzip(void)
->      NEXTBYTE();
->      NEXTBYTE();
->  
-> -    (void)NEXTBYTE();  /* Ignore extra flags for the moment */
-> -    (void)NEXTBYTE();  /* Ignore OS type for the moment */
-> +    NEXTBYTE();  /* Ignore extra flags for the moment */
-> +    NEXTBYTE();  /* Ignore OS type for the moment */
-
-In Misra discussions there were indications that such casts may need (re-)
-introducing. Perhaps better leave this alone, the more when it's not
-really fitting the patch's purpose?
-
-Jan
 
