@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E602E8B5DF0
-	for <lists+xen-devel@lfdr.de>; Mon, 29 Apr 2024 17:42:54 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.714263.1115415 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 42C628B5DFA
+	for <lists+xen-devel@lfdr.de>; Mon, 29 Apr 2024 17:45:43 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.714269.1115425 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s1T9O-00033z-B4; Mon, 29 Apr 2024 15:42:42 +0000
+	id 1s1TC4-0004EF-MP; Mon, 29 Apr 2024 15:45:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 714263.1115415; Mon, 29 Apr 2024 15:42:42 +0000
+Received: by outflank-mailman (output) from mailman id 714269.1115425; Mon, 29 Apr 2024 15:45:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s1T9O-00031u-6g; Mon, 29 Apr 2024 15:42:42 +0000
-Received: by outflank-mailman (input) for mailman id 714263;
- Mon, 29 Apr 2024 15:42:40 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1s1TC4-0004Bu-Iu; Mon, 29 Apr 2024 15:45:28 +0000
+Received: by outflank-mailman (input) for mailman id 714269;
+ Mon, 29 Apr 2024 15:45:27 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=GJEf=MC=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1s1T9M-0002X3-Bv
- for xen-devel@lists.xenproject.org; Mon, 29 Apr 2024 15:42:40 +0000
+ id 1s1TC3-0004Bo-A1
+ for xen-devel@lists.xenproject.org; Mon, 29 Apr 2024 15:45:27 +0000
 Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
  [2a00:1450:4864:20::32e])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 1beeb114-063f-11ef-909b-e314d9c70b13;
- Mon, 29 Apr 2024 17:42:39 +0200 (CEST)
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 7ebf8a4b-063f-11ef-b4bb-af5377834399;
+ Mon, 29 Apr 2024 17:45:25 +0200 (CEST)
 Received: by mail-wm1-x32e.google.com with SMTP id
- 5b1f17b1804b1-41a72f3a20dso32974215e9.0
- for <xen-devel@lists.xenproject.org>; Mon, 29 Apr 2024 08:42:39 -0700 (PDT)
+ 5b1f17b1804b1-4196c62bb4eso35508875e9.2
+ for <xen-devel@lists.xenproject.org>; Mon, 29 Apr 2024 08:45:25 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- g9-20020a05600c310900b0041a9fc2a6b5sm25341286wmo.20.2024.04.29.08.42.38
+ n18-20020a05600c4f9200b004169836bf9asm45669019wmq.23.2024.04.29.08.45.24
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 29 Apr 2024 08:42:38 -0700 (PDT)
+ Mon, 29 Apr 2024 08:45:24 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,49 +45,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1beeb114-063f-11ef-909b-e314d9c70b13
+X-Inumbo-ID: 7ebf8a4b-063f-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1714405359; x=1715010159; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1714405525; x=1715010325; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=PavaluY3655TtVb7X3QA40FkqjcFVs0fgbfp5bv+XlI=;
-        b=AGPVzE2+YMyR8MK4lBbHkCIEb5/072ymJXeLsWDu3d4YrLQPTHCPlw0gSkZts5qfwg
-         kFG/1XfN4PLuUJwMdqS7oLD+dbjVHaOFLDmDxWbja5Kd1w5438Lpib5ssZv7YRahmjnb
-         4/oItOCdFkoULjl6/uVzYtX1bqF34GzzP+xSFog2z8jj7i4+HjCqPPa4RRSzD95+eu01
-         D0is8NA81fFKyZ6Nx9P1USXvx0V3eCyrX5UfcJ+vvtVWzWMoBuzHzeK87cW9KFyHkJim
-         /8oTAZR4atPCOeVsYdP1qOjuODhHhfvPOvfRX011ddbbd0pT+SgLJEMb0yV5XxuALM15
-         tH6Q==
+        bh=9yE8/ejgd04g2DivR7ffT5b7HXSpg6jS8PgMe+disww=;
+        b=GvGoI/nNlDpTCc1TU5w1bl5T13UlulPgFMZRiENR+KCr91uGlVXey/vIp5K6G4E3x6
+         +0wHNOBWnfBIINzr3iqpJxfJaxa0W1AAr3k0J4cckjNgH1d/Sb8gLW4Xu1wDo2EEiLhg
+         VxpOAawKJ69YCzB4le+iA8MBEb8tv4WeB/cl1mL5YMal6R/jUsqB254nJKeGCJ8boCPu
+         GoXhijlqBxTRaU9Kjf+9L9+67XT+gxJgnDsHOgVQvn2n/IFIrYFCS0tr3CyOAhVtJCAB
+         6s53/yjLXdVR6OpPrMmX5iMq3IO9c/+HGCLdbax8vl4tJ75QA+soN2gcRZ06q8/mybIR
+         LRAQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1714405359; x=1715010159;
+        d=1e100.net; s=20230601; t=1714405525; x=1715010325;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=PavaluY3655TtVb7X3QA40FkqjcFVs0fgbfp5bv+XlI=;
-        b=bWKD86feI3LeuDCFJoFdDLXZfXc5fjuaZIXofw0CnU0khClbObin0CHPQBEKYxbDEt
-         JNcFlxOe+d5nzGkkSSFnhpv+S5l0qVMhTGd1IG22uQEqBJAjDPnhjToyVj+yiHPIrCbx
-         dcm7EyR3UU/Y8s+YrEcY1gMQX3X16fH6g7RKIgkAMcEazaEkncL22mlqdrwnMJF3MyB7
-         pi/dFhWHGNQDlb/kgV80TJU8ipcQWcgCdakg0ONPal66NTDqXUNMUTbAgbwcwBqH7LFT
-         m/5rbR3wHLVJ/G7/YgD5Mv8vMHjqBAYe5lsfVEPJQlPB4seZrUWtcj8SRnaJpyodJIGw
-         Zjqw==
-X-Forwarded-Encrypted: i=1; AJvYcCWnVPvX82AMfay0oZFUvb0B1AaODOPmgYM051otdXRrT9RyUdE8tgXhuQSkYjyZvvF9m4FDyMhmCsETNd8djMuDxPKbXHdNdtox4xUs7tg=
-X-Gm-Message-State: AOJu0Yz/85exGFRGGq/LgM6pH1ItMNV+6u0S1ATV1L7oJpMjZwkzAtpZ
-	vKJ4sBIqSPVFgd5Xb+w9TStVzd0DvEYecU+1KleJqDkTngcivDfzLBTeYRjHow==
-X-Google-Smtp-Source: AGHT+IHWzoxxAawcV0X4Got3obQTd+5my0P0ZpKP+GEQwYT+HEsy0Vi7f4BJ5LhbQCjnSNctl0jrPQ==
-X-Received: by 2002:a05:600c:1387:b0:41b:d8ef:8dcd with SMTP id u7-20020a05600c138700b0041bd8ef8dcdmr4543139wmf.28.1714405359006;
-        Mon, 29 Apr 2024 08:42:39 -0700 (PDT)
-Message-ID: <79834875-d26e-42c7-9ffa-868a84a07dfb@suse.com>
-Date: Mon, 29 Apr 2024 17:42:38 +0200
+        bh=9yE8/ejgd04g2DivR7ffT5b7HXSpg6jS8PgMe+disww=;
+        b=dDzLhwtYo6Qwv/qL3tamam7iBWlVY2qlIEvEl17gneIsN1ukQ3YuyewKITorFx5F7G
+         m0EwLkwyS5nLZiYxfOSCF6LCm1GpiH/hZ3EeZg+3ZxnTYxhF9WJHFyvUpQDzsRs07pn3
+         FGAvhqTNn+xrUrDHaZnh8u81cwkxhF+HTxsq9Ju2bXoVwSMuf1ifSoa+asadHRTgBwb/
+         6vB5KSSckZqpZAVcP6c2+ywH5NMTEillYXwOl1hT3OH1phO4UTeaexW5dMzsZLngHFwe
+         ELr9wkQdKwktB1lYlKnRfrAmecFVaPhEEs5mWwEzZWAf3h5Md0a/EtnaCO52AdNB3l4S
+         pqWw==
+X-Forwarded-Encrypted: i=1; AJvYcCXDaMcV7OnQ887FZwVHXU/sVqNGjMUYD6kqDtLvTHYnySZPPh3/ya+ZcG/rYYsE29v2zkbWIKp+jK8ds6WnRItdPq/0sLrNE/GbQLDHdQA=
+X-Gm-Message-State: AOJu0Yw5FA7l9TGSpyWgrF+Y+OFF0r0+08U+qEiaPSJp54jeUGa5dwWr
+	HvH0l5ULK+23FK0zOVHxnC7cYdhadPX+2SNaaRixqyQTHxqNu27TnMV1m8afjvWn8keWmRYa6TE
+	=
+X-Google-Smtp-Source: AGHT+IHaiUbZRuHHx1+rlnQBXl6dJxpNEn5n/K+hTzYd1mMnkGgSXHJHimJ+Hh1fgNuENm8DhCF2Ww==
+X-Received: by 2002:a05:600c:c0c:b0:41b:ef52:1677 with SMTP id fm12-20020a05600c0c0c00b0041bef521677mr4312415wmb.27.1714405524682;
+        Mon, 29 Apr 2024 08:45:24 -0700 (PDT)
+Message-ID: <bbf9204c-6556-48e3-b7bb-f7097b2dc316@suse.com>
+Date: Mon, 29 Apr 2024 17:45:23 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH v1 4/7] x86/MCE: guard lmce_support/cmci_support
+Subject: Re: [XEN PATCH v1 5/7] x86/MCE: guard {intel/amd}_mcheck_init() calls
 Content-Language: en-US
 To: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
 References: <cover.1713860310.git.Sergiy_Kibrik@epam.com>
- <d5fa50b3056b96f3046be39ed682a8b347f1b425.1713860310.git.Sergiy_Kibrik@epam.com>
+ <0c7d28740db4d6581ebc81a158c970258e547959.1713860310.git.Sergiy_Kibrik@epam.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -112,19 +113,37 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <d5fa50b3056b96f3046be39ed682a8b347f1b425.1713860310.git.Sergiy_Kibrik@epam.com>
+In-Reply-To: <0c7d28740db4d6581ebc81a158c970258e547959.1713860310.git.Sergiy_Kibrik@epam.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 23.04.2024 10:54, Sergiy Kibrik wrote:
-> Guard access to Intel-specific lmce_support & cmci_support variables in
-> common MCE/VMCE code. These are set in Intel-specific parts of mcheck code
-> and can potentially be skipped if building for non-intel platform by
-> disabling CONFIG_INTEL option.
-> 
-> Signed-off-by: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
+On 23.04.2024 10:56, Sergiy Kibrik wrote:
+> --- a/xen/arch/x86/cpu/mcheck/mce.c
+> +++ b/xen/arch/x86/cpu/mcheck/mce.c
+> @@ -761,7 +761,8 @@ void mcheck_init(struct cpuinfo_x86 *c, bool bsp)
+>      {
+>      case X86_VENDOR_AMD:
+>      case X86_VENDOR_HYGON:
+> -        inited = amd_mcheck_init(c, bsp);
+> +        inited = IS_ENABLED(CONFIG_AMD) ? amd_mcheck_init(c, bsp) :
+> +                                          mcheck_unset;
+>          break;
+>  
+>      case X86_VENDOR_INTEL:
+> @@ -769,7 +770,8 @@ void mcheck_init(struct cpuinfo_x86 *c, bool bsp)
+>          {
+>          case 6:
+>          case 15:
+> -            inited = intel_mcheck_init(c, bsp);
+> +            inited = IS_ENABLED(CONFIG_INTEL) ? intel_mcheck_init(c, bsp) :
+> +                                                mcheck_unset;
+>              break;
+>          }
+>          break;
 
-See comments given for patch 2.
+Same question as on an earlier patch: Why set a value different from
+what "default:" below here does (really: keeps)? And why not arrange to
+have that "default:" take care of what's build-disabled?
 
 Jan
 
