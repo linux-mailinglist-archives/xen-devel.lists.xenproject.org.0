@@ -2,39 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 052F38B5A58
+	by mail.lfdr.de (Postfix) with ESMTPS id 5A25F8B5A59
 	for <lists+xen-devel@lfdr.de>; Mon, 29 Apr 2024 15:43:08 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.714080.1115070 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.714081.1115080 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s1RHP-0006Wa-O0; Mon, 29 Apr 2024 13:42:51 +0000
+	id 1s1RHQ-0006lJ-WC; Mon, 29 Apr 2024 13:42:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 714080.1115070; Mon, 29 Apr 2024 13:42:51 +0000
+Received: by outflank-mailman (output) from mailman id 714081.1115080; Mon, 29 Apr 2024 13:42:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s1RHP-0006Ur-LI; Mon, 29 Apr 2024 13:42:51 +0000
-Received: by outflank-mailman (input) for mailman id 714080;
- Mon, 29 Apr 2024 13:42:50 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1s1RHQ-0006jC-SY; Mon, 29 Apr 2024 13:42:52 +0000
+Received: by outflank-mailman (input) for mailman id 714081;
+ Mon, 29 Apr 2024 13:42:51 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=UNw/=MC=cloud.com=matthew.barnes@srs-se1.protection.inumbo.net>)
- id 1s1RHO-0006Uf-LD
- for xen-devel@lists.xenproject.org; Mon, 29 Apr 2024 13:42:50 +0000
-Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
- [2a00:1450:4864:20::42f])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 5df28b75-062e-11ef-b4bb-af5377834399;
- Mon, 29 Apr 2024 15:42:48 +0200 (CEST)
-Received: by mail-wr1-x42f.google.com with SMTP id
- ffacd0b85a97d-34d1adeffbfso663918f8f.0
- for <xen-devel@lists.xenproject.org>; Mon, 29 Apr 2024 06:42:48 -0700 (PDT)
+ id 1s1RHP-0006Ul-6a
+ for xen-devel@lists.xenproject.org; Mon, 29 Apr 2024 13:42:51 +0000
+Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
+ [2a00:1450:4864:20::431])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 5e21342a-062e-11ef-909b-e314d9c70b13;
+ Mon, 29 Apr 2024 15:42:49 +0200 (CEST)
+Received: by mail-wr1-x431.google.com with SMTP id
+ ffacd0b85a97d-343e46ec237so3808001f8f.2
+ for <xen-devel@lists.xenproject.org>; Mon, 29 Apr 2024 06:42:49 -0700 (PDT)
 Received: from EMEAENGAAD91498.citrite.net
  (default-46-102-197-201.interdsl.co.uk. [46.102.197.201])
  by smtp.gmail.com with ESMTPSA id
  f2-20020a5d50c2000000b0034c5b28c264sm8530404wrt.16.2024.04.29.06.42.47
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 29 Apr 2024 06:42:47 -0700 (PDT)
+ Mon, 29 Apr 2024 06:42:48 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,33 +46,34 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5df28b75-062e-11ef-b4bb-af5377834399
+X-Inumbo-ID: 5e21342a-062e-11ef-909b-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=cloud.com; s=cloud; t=1714398168; x=1715002968; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=N3TxYXr1x3lYaHF0ahI/SsLJ8fWwnHYXKuaNTpb18X8=;
-        b=JJbkrIBMTE/UFrTA5tbhyk8sMPWWzsTSjp/lwGwbMCt48I0jhPqmpJ6gMlUG+u8B1f
-         KmbnvDHWp6iKAfw02mV9e7o/yo4E8FbAh2SWpWgztwxXcr2AxsBLuK+gb3DbnPTJcwpF
-         gbmjXIyNmMfNTNuXe3Alm4TVJBvyD12wr+mh0=
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=GPqHn0dROWWlXbauIG0GZlybXJNpXzvYnmQkiXmKdag=;
+        b=Y7mzQaickKA/96c18jM72TBpHtdS4VD/64OubHzTkEbYF5t9a9R9Lk0vd76U0UmvM4
+         wNkoGdxaIPatndRBH0M6paWjcrtrodsJNEAqidrO1oB39TfyC0s8jL5Yy+PCTE+2QnvR
+         0WmDRuQjZAXEh19CXUxj8hm7WjftqtasB95UI=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20230601; t=1714398168; x=1715002968;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=N3TxYXr1x3lYaHF0ahI/SsLJ8fWwnHYXKuaNTpb18X8=;
-        b=clfWWyCi0bloX39Jy0iB3AMoG/zJtfjYvDjQQUDbCaqxR40sDPd7NqLm7rGLS4UM35
-         PT4azvMj/zRC+VNvy3VuBKL56jKZm+fJ2UtNra5ZscGrLqMyENnQbzw7zofnS4onbGle
-         Wl/C1Et++qnGlcqEr6KXQGcMzZh7NHWU7pBfnNlAMscNQ8n7//5h02GpUNZvuAAzD/uW
-         7e4p0tKx4Pp97xjOg7XDGm7XVJY9q/peDQtiHu49GDV83qlr8KxmhRlhiUO5L6KOEDNY
-         egS+qqdQQrdqYt9V/ToE5de+y5E0hqa0t4Q7eHzi/4BkQ4XUSFN6rfvWGN2rxUtASPhA
-         6uOA==
-X-Gm-Message-State: AOJu0YwigNPpZSWaDY25ShbUoj7QTO9UBuOjkuT6paWdjtsIBcby2xyJ
-	4SjStEKZverh9Lhi/i+tjemTkEvL+T40M8HgQEBGGiXc3FRotgJfFeHU73jzl8iq6sqYFNEr3HY
-	k
-X-Google-Smtp-Source: AGHT+IFdumLxgtxqGQQzgSMf/EEKHcD+pLmBjI+56fwS4+Ce6LabRtiqHaOr7A6Ne2YYbFhNjOKYPQ==
-X-Received: by 2002:a5d:68c8:0:b0:34c:98dc:e6d0 with SMTP id p8-20020a5d68c8000000b0034c98dce6d0mr4306850wrw.20.1714398167874;
-        Mon, 29 Apr 2024 06:42:47 -0700 (PDT)
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=GPqHn0dROWWlXbauIG0GZlybXJNpXzvYnmQkiXmKdag=;
+        b=IUCaqMVPx0TtQqo7IulJfm6qQN/PqJHIlBgvT4DavWhP9g1u9gR4QtpL6JPndVR0p1
+         K4ACSMWLwQNHFwqRlJ9SdzWvW8KgwWJYT1GbnmEKNeGOJ7+QvgT6BL1zkiDiAVNhNRDa
+         5Ghld7OsB5XjDZzf/QzBiR379orjTPXMAmKQWPWKn5ZxD2tGFwWaxVewZCOBADJeRAFK
+         5qm98gBOKz2uWyKDGamUR1C9VLlLX19ZcfnuUWFGDo78m+u4eXf9RsoxNlbzU8mxdLdG
+         fmXAZ8rUGjxCgOOP6mAFogJWyt1Yx1QyXqZy2cYJWyBNMeBS+UrmRJLkJAKwZIXh5AUk
+         KcQA==
+X-Gm-Message-State: AOJu0YxryRG6Nbz2CRyMXfB/8uTM9FtzntHSYkQ/1+ENz/20hi3KUbvK
+	+FRpmfM2/d6R1NNo5DxykJ3mCJbuNiDvxbuVDP8TUervPLVONgwuACJB8sDEdcRnPMyNt0tAalv
+	+
+X-Google-Smtp-Source: AGHT+IHahA4exGqGIr2Dz6YoO3IIAkAZOLXXSZT7eEQyuZVqKpnA7eN6sAKil+iHoNkGOMPdYbuqEA==
+X-Received: by 2002:a5d:64a4:0:b0:34d:1a30:1e48 with SMTP id m4-20020a5d64a4000000b0034d1a301e48mr2308587wrp.21.1714398168394;
+        Mon, 29 Apr 2024 06:42:48 -0700 (PDT)
 From: Matthew Barnes <matthew.barnes@cloud.com>
 To: xen-devel@lists.xenproject.org
 Cc: Matthew Barnes <matthew.barnes@cloud.com>,
@@ -80,38 +81,69 @@ Cc: Matthew Barnes <matthew.barnes@cloud.com>,
 	George Dunlap <george.dunlap@citrix.com>,
 	Jan Beulich <jbeulich@suse.com>,
 	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Anthony PERARD <anthony.perard@citrix.com>
-Subject: [XEN PATCH v2 0/2] Enumerate all allocated evtchns in lsevtchn
-Date: Mon, 29 Apr 2024 14:42:40 +0100
-Message-Id: <cover.1714148012.git.matthew.barnes@cloud.com>
+	Stefano Stabellini <sstabellini@kernel.org>
+Subject: [XEN PATCH v2 1/2] evtchn: Add error status indicators for evtchn_status hypercall
+Date: Mon, 29 Apr 2024 14:42:41 +0100
+Message-Id: <2f9544433fd9bb5c4b7ccccbacc27bc928f57dfb.1714148012.git.matthew.barnes@cloud.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <cover.1714148012.git.matthew.barnes@cloud.com>
+References: <cover.1714148012.git.matthew.barnes@cloud.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Currently, lsevtchn aborts its event channel enumeration when it hits
-its first hypercall error, namely:
-* When an event channel doesn't exist at the specified port
-* When the event channel is owned by Xen
+When the evtchn_status hypercall fails, it is not possible to determine
+the cause of the error, since the library call returns -1 to the tool
+and not the errno.
 
-This results in lsevtchn missing potential relevant event channels with
-higher port numbers, since lsevtchn cannot determine the cause of
-hypercall errors.
+Because of this, lsevtchn is unable to determine whether to continue
+event channel enumeration upon an evtchn_status hypercall error.
 
-This patch adds error status indicators for the evtchn_status hypercall
-for when no further event channels will be yielded for higher port
-numbers, allowing lsevtchn to terminate when all event channels have
-been enumerated over.
+Add error status indicators for the eventchn_status hypercall for
+lsevtchn to terminate its loop on, and keep other errors as failed
+hypercalls.
 
-Matthew Barnes (2):
-  evtchn: Add error status indicators for evtchn_status hypercall
-  tools/lsevtchn: Use new status identifiers in loop
-
- tools/xcutils/lsevtchn.c           | 11 ++++++++++-
+Signed-off-by: Matthew Barnes <matthew.barnes@cloud.com>
+---
  xen/common/event_channel.c         | 12 +++++++++++-
  xen/include/public/event_channel.h |  2 ++
- 3 files changed, 23 insertions(+), 2 deletions(-)
+ 2 files changed, 13 insertions(+), 1 deletion(-)
 
+diff --git a/xen/common/event_channel.c b/xen/common/event_channel.c
+index aceee0695f9f..0f11e71c3e6f 100644
+--- a/xen/common/event_channel.c
++++ b/xen/common/event_channel.c
+@@ -1030,7 +1030,17 @@ int evtchn_status(evtchn_status_t *status)
+ 
+     d = rcu_lock_domain_by_any_id(dom);
+     if ( d == NULL )
+-        return -ESRCH;
++    {
++        status->status = EVTCHNSTAT_dom_invalid;
++        return 0;
++    }
++
++    if ( !port_is_valid(d, port) )
++    {
++        status->status = EVTCHNSTAT_port_invalid;
++        rcu_unlock_domain(d);
++        return 0;
++    }
+ 
+     chn = _evtchn_from_port(d, port);
+     if ( !chn )
+diff --git a/xen/include/public/event_channel.h b/xen/include/public/event_channel.h
+index 0d91a1c4afab..29cbf43945b3 100644
+--- a/xen/include/public/event_channel.h
++++ b/xen/include/public/event_channel.h
+@@ -200,6 +200,8 @@ struct evtchn_status {
+ #define EVTCHNSTAT_pirq         3  /* Channel is bound to a phys IRQ line.   */
+ #define EVTCHNSTAT_virq         4  /* Channel is bound to a virtual IRQ line */
+ #define EVTCHNSTAT_ipi          5  /* Channel is bound to a virtual IPI line */
++#define EVTCHNSTAT_dom_invalid  6  /* Given domain ID is not a valid domain  */
++#define EVTCHNSTAT_port_invalid 7  /* Given port is not within valid range   */
+     uint32_t status;
+     uint32_t vcpu;                 /* VCPU to which this channel is bound.   */
+     union {
 -- 
 2.34.1
 
