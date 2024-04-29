@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 323868B5AFB
-	for <lists+xen-devel@lfdr.de>; Mon, 29 Apr 2024 16:09:05 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.714106.1115120 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E7B0E8B5BEC
+	for <lists+xen-devel@lfdr.de>; Mon, 29 Apr 2024 16:50:46 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.714120.1115134 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s1RgZ-0004kL-Q8; Mon, 29 Apr 2024 14:08:51 +0000
+	id 1s1SKF-0003HZ-UG; Mon, 29 Apr 2024 14:49:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 714106.1115120; Mon, 29 Apr 2024 14:08:51 +0000
+Received: by outflank-mailman (output) from mailman id 714120.1115134; Mon, 29 Apr 2024 14:49:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s1RgZ-0004i5-NH; Mon, 29 Apr 2024 14:08:51 +0000
-Received: by outflank-mailman (input) for mailman id 714106;
- Mon, 29 Apr 2024 14:08:50 +0000
+	id 1s1SKF-0003F0-RQ; Mon, 29 Apr 2024 14:49:51 +0000
+Received: by outflank-mailman (input) for mailman id 714120;
+ Mon, 29 Apr 2024 14:49:50 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=GJEf=MC=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1s1RgY-0004hx-8l
- for xen-devel@lists.xenproject.org; Mon, 29 Apr 2024 14:08:50 +0000
-Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
- [2a00:1450:4864:20::331])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=hXAa=MC=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1s1SKE-0003Eu-CF
+ for xen-devel@lists.xenproject.org; Mon, 29 Apr 2024 14:49:50 +0000
+Received: from mail-qt1-x82d.google.com (mail-qt1-x82d.google.com
+ [2607:f8b0:4864:20::82d])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id ffe2459e-0631-11ef-909b-e314d9c70b13;
- Mon, 29 Apr 2024 16:08:48 +0200 (CEST)
-Received: by mail-wm1-x331.google.com with SMTP id
- 5b1f17b1804b1-41c1b75ca31so9162015e9.2
- for <xen-devel@lists.xenproject.org>; Mon, 29 Apr 2024 07:08:48 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- e8-20020a05600c4e4800b0041bf7da4200sm7719713wmq.33.2024.04.29.07.08.47
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 29 Apr 2024 07:08:48 -0700 (PDT)
+ id ba13d23c-0637-11ef-909b-e314d9c70b13;
+ Mon, 29 Apr 2024 16:49:49 +0200 (CEST)
+Received: by mail-qt1-x82d.google.com with SMTP id
+ d75a77b69052e-439dfa27003so26288431cf.2
+ for <xen-devel@lists.xenproject.org>; Mon, 29 Apr 2024 07:49:49 -0700 (PDT)
+Received: from localhost ([213.195.114.223]) by smtp.gmail.com with ESMTPSA id
+ m3-20020ac86883000000b004365bc5b9a2sm10418902qtq.33.2024.04.29.07.49.47
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 29 Apr 2024 07:49:47 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,86 +44,71 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ffe2459e-0631-11ef-909b-e314d9c70b13
+X-Inumbo-ID: ba13d23c-0637-11ef-909b-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1714399728; x=1715004528; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=qTTHoR6ZU9fHGDnULkOGFnNISjG4X83LTEHmIo5eNLs=;
-        b=WDH5s3EyRpH0Pijob/93K+jEQPhOE6SS+zZK1Yac1s0bsxAj4ZDxQW3HOjyH9D057s
-         EHKE3/xmO3KPZSpZTruDVrtU4DJND/dtXe/K02DmK673CSwCjlJxjx70iSfqX8QOTwix
-         zBrUrgx+2ISibxVajIABwmfc2JQFsJq0BaaDh2zVLEQLTMvvUGjfpwaNZOQg5aT031O9
-         enxnbB61YE/t/iTllr+YX3gtm5ocKG+EqIgOSSwr7Ld9MmkutdE3Nc7W0sNOr9/WKek5
-         9dXNs3JtqmT+rX0/6SmZkhno39RNXAQrJy/eCvxzZejebgJ8FnjY/3aG38TwPInV6Syg
-         qf4A==
+        d=citrix.com; s=google; t=1714402188; x=1715006988; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=rQVwmGnw4AtV/5ML7zk73UyIDJQUeLuqoYN0ypngkvk=;
+        b=tCkcgqSOD1De91iGnNDu/QGTvluJknu4x+4PqEeVE+5+PP/Tr7lv8hGCze0FawdIjH
+         ER7crBFSC6N9JsVwPwj2QFbN4pr5TNYF/mqCsgxVNULfJ8tY+svh1QmUTgVgjTnPUHgn
+         M/uxfH7Zmr4otvGOxrdIRAZGd1VAUUVThw7sU=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1714399728; x=1715004528;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
+        d=1e100.net; s=20230601; t=1714402188; x=1715006988;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=qTTHoR6ZU9fHGDnULkOGFnNISjG4X83LTEHmIo5eNLs=;
-        b=dqAk1bYpbSt/g65TTV8g+4p70B8OHN4C4lkPjtF3MaZbNf1OgBuhxiJq/0mPm0001b
-         S50jIQhicITrj/uDWQmAt5g3HMu08yPR1Cs+lThgHWRNwYnz1M1ARdTBsb2g5BsykwWK
-         6eux+8PAuSGV+sKOMLMYn7CRUrz37XYHHP2+zCGDiT7GOHmZnk0hhcP+bhvLlGXjRrZh
-         LxwJEXBhgBlHRy1nnj7nVeS7CprPSk4dCHM+5zswmZsyeK4mvQjZJu7D9gPNUy4BTDYu
-         n6BknzAYe+Ti3zdexb7etYFPXkIbLzVwxiEEXe6goSd2OQ1NQK25P+dFAYgI6wR4u1CK
-         bqDw==
-X-Forwarded-Encrypted: i=1; AJvYcCXLfb6eOW3b+6GSFQ+O8JvA1srJQ1OjzmopGsUoZE7w4K+/Qd/57qv/gsV1cBZ1VdlBxqsCh1quVvPGovmOgQo+nMXsfju/HFjXp7aKfdo=
-X-Gm-Message-State: AOJu0YxWO+nY4fV9iUh/Flrqn2kKJm3W7fd77bXTk5Ea/l4MX1Lr1Xl8
-	ofovjbQFdgfXMoVyFwJjr1fimrS6H9ehtRA7YIXpgfuAkb10gc6xqctfxnKPYA==
-X-Google-Smtp-Source: AGHT+IH24wvQTXXocBQPg0b/JI8wTk3vMhMQSST/gVlrQiyDkspZPZ/hVj8R27gU5tlm9DMTcrre5A==
-X-Received: by 2002:a05:600c:4f11:b0:419:87ab:f6db with SMTP id l17-20020a05600c4f1100b0041987abf6dbmr8277621wmq.23.1714399728362;
-        Mon, 29 Apr 2024 07:08:48 -0700 (PDT)
-Message-ID: <0e0bbe62-41e2-49c9-a850-1c80db641a8d@suse.com>
-Date: Mon, 29 Apr 2024 16:08:50 +0200
+        bh=rQVwmGnw4AtV/5ML7zk73UyIDJQUeLuqoYN0ypngkvk=;
+        b=rPIiAE6EsxBkTnVYct2pRZfq/LZxx7+Cf5lcDzaKGG2FJmK8A1iXnFKuZ9kfSblJ9m
+         +4aSkbPc8ujZZt9d+ktlAdi7XdcKqDLcv5lwdyFJtoGHdOc30fMcaL7+1kiqmDkDkoe2
+         igyqlZknSk2hP0ba7/2EdlU4fkPfAdrSPLFlHCvcqaoTbtbt0oo7SoZ49ODHTVIVferY
+         dwX2o/B7fgmkPHaFR/RwY3X+GMjjOvFr1jN9gMxg+6Wd35fCgZaLO2oF2T/vTxrszHmH
+         NUvHmYJmEF7UYRyMqLjZykjZnSp1XihG+e65orwno+ZmFIWiyVsxojPsubHYEW1OoQuc
+         WqJA==
+X-Gm-Message-State: AOJu0YwEbMv19pIBwC5xPEONQrOHAGf3WRXjHjZ6O5RawBh+mijSTUlT
+	aOshLO0UQRidtuUY41eJ+4mwQ+7SdiFd8lrZG2XUvMUscULgPUpqpfgDB/P7dds=
+X-Google-Smtp-Source: AGHT+IG8MjdwnaQGJ1Sp4lZVMFzY9Z3ixMbiTVrFlWwL7A6BkY+WVrO6QCDX+3FW7EmIO0SbHxvxug==
+X-Received: by 2002:a05:622a:344:b0:43a:7660:2114 with SMTP id r4-20020a05622a034400b0043a76602114mr8575280qtw.6.1714402188021;
+        Mon, 29 Apr 2024 07:49:48 -0700 (PDT)
+Date: Mon, 29 Apr 2024 16:49:45 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@cloud.com>
+Subject: Re: [PATCH] revert "x86/mm: re-implement get_page_light() using an
+ atomic increment"
+Message-ID: <Zi-zidVJKYAMKjzG@macbook>
+References: <f54c05d4-b61d-4e26-8e93-6e1bdc22a1d4@suse.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 4/8] gzip: move window pointer into gunzip state
-Content-Language: en-US
-To: "Daniel P. Smith" <dpsmith@apertussolutions.com>
-Cc: Jason Andryuk <jason.andryuk@amd.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <20240424163422.23276-1-dpsmith@apertussolutions.com>
- <20240424163422.23276-5-dpsmith@apertussolutions.com>
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240424163422.23276-5-dpsmith@apertussolutions.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <f54c05d4-b61d-4e26-8e93-6e1bdc22a1d4@suse.com>
 
-On 24.04.2024 18:34, Daniel P. Smith wrote:
-> Move the window pointer, outcnt/wp, into struct gunzip_data. It was erroneously
-> labeled as outcnt and then define aliased to wp, this eliminates the aliasing
-> and only refers to as wp, the window pointer.
+On Mon, Apr 29, 2024 at 03:01:00PM +0200, Jan Beulich wrote:
+> revert "x86/mm: re-implement get_page_light() using an atomic increment"
 > 
-> Signed-off-by: Daniel P. Smith <dpsmith@apertussolutions.com>
+> This reverts commit c40bc0576dcc5acd4d7e22ef628eb4642f568533.
+> 
+> That change aimed at eliminating an open-coded lock-like construct,
+> which really isn't all that similar to, in particular, get_page(). The
+> function always succeeds. Any remaining concern would want taking care
+> of by placing block_lock_speculation() at the end of the function.
+> Since the function is called only during page (de)validation, any
+> possible performance concerns over such extra serialization could
+> likely be addressed by pre-validating (e.g. via pinning) page tables.
+> 
+> The fundamental issue with the change being reverted is that it detects
+> bad state only after already having caused possible corruption. While
+> the system is going to be halted in such an event, there is a time
+> window during which the resulting incorrect state could be leveraged by
+> a clever (in particular: fast enough) attacker.
+> 
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
-Acked-by: Jan Beulich <jbeulich@suse.com>
+Acked-by: Roger Pau Monné <roger.pau@citrix.com>
 
-
+Thanks.
 
