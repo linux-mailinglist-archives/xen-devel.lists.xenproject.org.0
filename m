@@ -2,33 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 084338B535C
-	for <lists+xen-devel@lfdr.de>; Mon, 29 Apr 2024 10:43:48 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.713924.1114850 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6324F8B546F
+	for <lists+xen-devel@lfdr.de>; Mon, 29 Apr 2024 11:45:00 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.713947.1114861 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s1Mbo-00039T-Ag; Mon, 29 Apr 2024 08:43:36 +0000
+	id 1s1NY8-000367-RH; Mon, 29 Apr 2024 09:43:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 713924.1114850; Mon, 29 Apr 2024 08:43:36 +0000
+Received: by outflank-mailman (output) from mailman id 713947.1114861; Mon, 29 Apr 2024 09:43:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s1Mbo-00037f-7R; Mon, 29 Apr 2024 08:43:36 +0000
-Received: by outflank-mailman (input) for mailman id 713924;
- Mon, 29 Apr 2024 08:43:35 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1s1NY8-00033V-Md; Mon, 29 Apr 2024 09:43:52 +0000
+Received: by outflank-mailman (input) for mailman id 713947;
+ Mon, 29 Apr 2024 09:43:51 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=a10X=MC=linaro.org=jens.wiklander@srs-se1.protection.inumbo.net>)
- id 1s1Mbn-00037Z-H6
- for xen-devel@lists.xenproject.org; Mon, 29 Apr 2024 08:43:35 +0000
-Received: from mail-ed1-x535.google.com (mail-ed1-x535.google.com
- [2a00:1450:4864:20::535])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 90167396-0604-11ef-909b-e314d9c70b13;
- Mon, 29 Apr 2024 10:43:34 +0200 (CEST)
-Received: by mail-ed1-x535.google.com with SMTP id
- 4fb4d7f45d1cf-5723edf0ae5so4300835a12.0
- for <xen-devel@lists.xenproject.org>; Mon, 29 Apr 2024 01:43:34 -0700 (PDT)
+ <SRS0=yZQG=MC=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1s1NY7-000334-Da
+ for xen-devel@lists.xenproject.org; Mon, 29 Apr 2024 09:43:51 +0000
+Received: from mail-qv1-xf2d.google.com (mail-qv1-xf2d.google.com
+ [2607:f8b0:4864:20::f2d])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id fa8bd098-060c-11ef-b4bb-af5377834399;
+ Mon, 29 Apr 2024 11:43:49 +0200 (CEST)
+Received: by mail-qv1-xf2d.google.com with SMTP id
+ 6a1803df08f44-69b6d36b71cso21526756d6.3
+ for <xen-devel@lists.xenproject.org>; Mon, 29 Apr 2024 02:43:49 -0700 (PDT)
+Received: from [10.80.67.140] (default-46-102-197-194.interdsl.co.uk.
+ [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
+ o5-20020ad443c5000000b0069b61f8c0a1sm1955965qvs.42.2024.04.29.02.43.46
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 29 Apr 2024 02:43:47 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,546 +45,137 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 90167396-0604-11ef-909b-e314d9c70b13
+X-Inumbo-ID: fa8bd098-060c-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1714380213; x=1714985013; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=u+Lcn3ygE4fd1XL0w96JKQcPeziM10vZruW2+hat68o=;
-        b=FbYTUx7k88ze3H+8Q0ivIadbbo+OAWwhLBAQi8e51DbUYbICYYbwltKECEUWoOA86H
-         mDp4vl7gPso4tMPV+A1GsTNghx9MICZq3qn1JJNsHxg7GhiOiTNB/rYAKTvgp74U5aJV
-         ZNt8MPYhkARY3jb762HRzDu0WidmWLRL/El3z6kTAL83flW3L62x7o1c5QDfdZ5MiSuv
-         bEp60H17+g311cIRO5yM0qf2vWx6MMmITipQuXSiVL2tF4LyJTycK2FRKrH5fBhIwiUI
-         eTVtl5h3e9DLIhgCS/dEPr6xku3y6bWwFeqGRrkT2AvCbjkHzSrD7UQalVrJMr6h55Mz
-         Rn9g==
+        d=citrix.com; s=google; t=1714383828; x=1714988628; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:subject:from:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=i0btClj9AhSw+QYLxonv0rYymIZDyFD0Gqw3b1+H33s=;
+        b=YpvbD2q/0TLyFGf8KL2rCku3le892gcPffY+vLAnB5DHN1QotNIlRpEUXDG+Hw4Zx2
+         z6NV3g1v8AGXMr/MnAL8Crvh7HWR5z2aVht3pbfV8bmEcUILfmXiWITITdczqUl5ZgeR
+         dF8pp91yqbc7h0QDMbkKj8SiXs/kF1NavFE7g=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1714380213; x=1714985013;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=u+Lcn3ygE4fd1XL0w96JKQcPeziM10vZruW2+hat68o=;
-        b=M5VAfI+aKjXPRumeDR3jdsaADbIbw49KFisgXLDuQqxUQn0FfInFDHmEm/SP1YBuCx
-         kEwpE5S0R+2PUhSh7k53LfOlDwvanp3CgSjf6+zQgf5AE6rbbJqSXMPXj8FuAU5/j0Q8
-         Lf2wHRGcAZw8gRl7DU5wTyUPwwHOVbViINycF7Y7TdzWm8V9NPF2S9PEX35cKSPcsMk8
-         Om3E4G+0KMK3JjxuIL7ylCAr3b7Fy/AI4oxu9c1QooQvymWSQM/+mfZ/CAJLc6Gukv51
-         0Eb55tlDlnC/fQxQ27EvW42gISJ9ZZ+fZg4rKMzy3u5e2gaUxQDR8IApYPvL8pZCWIGo
-         FIig==
-X-Gm-Message-State: AOJu0YxdzXnN99QSYquKxdFjZ8VLGEkswujxJRqpITGrw+K5PFrABqMA
-	TjehMmt+oVTg6Ez57hTlX6Tpgcwt6Tr9/gpR0U2xW+FqngLvzcP+XGcW78rMoECwn1PEXSe5PiA
-	+VmLWGgrF5zF9JNNy5IP2DmDcua4QAOW9jG9j/w==
-X-Google-Smtp-Source: AGHT+IFu/GiSGbJQslgIh576QRPvZVNxUDt0OqQ7V/SKW/gLb5SgjQTl7vd2eoElIb+bSINOBvQdQkAv2KYZ59T60oo=
-X-Received: by 2002:a50:d488:0:b0:572:58b6:3b70 with SMTP id
- s8-20020a50d488000000b0057258b63b70mr4306795edi.12.1714380213291; Mon, 29 Apr
- 2024 01:43:33 -0700 (PDT)
+        d=1e100.net; s=20230601; t=1714383828; x=1714988628;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:subject:from:user-agent:mime-version:date
+         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=i0btClj9AhSw+QYLxonv0rYymIZDyFD0Gqw3b1+H33s=;
+        b=gyBWmVK/DLli4fRALSBwSyk1A8VWp1QNvkbmxVj8zWTHwGyZ5pxMGdTu+EZp/J+KGz
+         2tC0sW5sFp2JvG0TVOJgDbzWZk5JHaYKQU4u68PZV3TH+F62wGuGE5YtA5Bw6B3+MqRi
+         F2gKX++Ih1WCcdaiuhZOzL7JKdpWrXfpxfe9o5EihALmXudN31+Y63KJHl9Eg6QLpYf9
+         J992cokHF5TH2PMVFfwCv1flJaiibffPYBAmZBtfsAWaNHj0+RbgJcuvoUzyQwJ3fMg3
+         R5y5ARHc89ctv43gUrTkEC4F2E5WYqLHFmV2BWUnbsLmswIAeC1pdbvWSARXU6Ab8zd2
+         GPkw==
+X-Forwarded-Encrypted: i=1; AJvYcCWEWtRNuIbMnxS4tp9bf85Z/3mt/As/0FlQxGIBfSipqh/cm4Y4AYcr07i2eEuCq0mBjiAp6GkJcQbAMZ1EEx9c+3XEinosFYMoNVjlTGo=
+X-Gm-Message-State: AOJu0YwLci3sn7NdcY7TVeOb6uifKyL1kbN1+SWhnImf7CHr1gl+jWBo
+	mMrD3SRfRkE+z8YK4ylo7ie7JBBG2wiMTntZLG1TyGvshQxE5PAhWEskRqFQflM=
+X-Google-Smtp-Source: AGHT+IFwktSf3cZBIDwb8GyCMtMBCMxMoTls/TpPdXAbMiu2pYSXUXQ0EiB4Jf58S3wHrNUJrjPsBQ==
+X-Received: by 2002:a05:6214:19e2:b0:6a0:9360:1e7a with SMTP id q2-20020a05621419e200b006a093601e7amr14520262qvc.42.1714383827863;
+        Mon, 29 Apr 2024 02:43:47 -0700 (PDT)
+Message-ID: <9ead9ea1-8661-4532-82d7-4bef1e592975@citrix.com>
+Date: Mon, 29 Apr 2024 10:43:45 +0100
 MIME-Version: 1.0
-References: <20240426084723.4149648-1-jens.wiklander@linaro.org>
- <20240426084723.4149648-6-jens.wiklander@linaro.org> <c7a672a7-02f8-4d24-b87e-1b8439d7eb4c@xen.org>
-In-Reply-To: <c7a672a7-02f8-4d24-b87e-1b8439d7eb4c@xen.org>
-From: Jens Wiklander <jens.wiklander@linaro.org>
-Date: Mon, 29 Apr 2024 10:43:20 +0200
-Message-ID: <CAHUa44GnzwhbfLV9G6NQpY5820mTCsBYPGpGsnx5Nvt+v5Ceuw@mail.gmail.com>
-Subject: Re: [XEN PATCH v3 5/5] xen/arm: ffa: support notification
-To: Julien Grall <julien@xen.org>
-Cc: xen-devel@lists.xenproject.org, patches@linaro.org, 
-	Stefano Stabellini <sstabellini@kernel.org>, Bertrand Marquis <bertrand.marquis@arm.com>, 
-	Michal Orzel <michal.orzel@amd.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Subject: Re: [PATCH] x86/cpu-policy: Annotate the accumulated features
+To: Jan Beulich <jbeulich@suse.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20240426160859.565438-1-andrew.cooper3@citrix.com>
+ <e7810e1a-f688-48ea-bfdf-dfc22582f06e@suse.com>
+Content-Language: en-GB
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <e7810e1a-f688-48ea-bfdf-dfc22582f06e@suse.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi Julien,
+On 29/04/2024 8:49 am, Jan Beulich wrote:
+> On 26.04.2024 18:08, Andrew Cooper wrote:
+>> Some features need accumulating rather than intersecting to make migration
+>> safe.  Introduce the new '|' attribute for this purpose.
+>>
+>> Right now, it's only used by the Xapi toolstack, but it will be used by
+>> xl/libxl when the full policy-object work is complete, and until then it's
+>> still a useful hint for hand-crafted cpuid= lines in vm.cfg files.
+>>
+>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
-On Fri, Apr 26, 2024 at 9:07=E2=80=AFPM Julien Grall <julien@xen.org> wrote=
-:
->
-> Hi Jens,
->
-> On 26/04/2024 09:47, Jens Wiklander wrote:
-> > diff --git a/xen/arch/arm/irq.c b/xen/arch/arm/irq.c
-> > index d7306aa64d50..5224898265a5 100644
-> > --- a/xen/arch/arm/irq.c
-> > +++ b/xen/arch/arm/irq.c
-> > @@ -155,7 +155,7 @@ void __init init_IRQ(void)
-> >       {
-> >           /* SGIs are always edge-triggered */
-> >           if ( irq < NR_GIC_SGI )
-> > -            local_irqs_type[irq] =3D DT_IRQ_TYPE_EDGE_RISING;
-> > +            local_irqs_type[irq] =3D IRQ_TYPE_EDGE_RISING;
->
-> This changes seems unrelated to this patch. This wants to be separate
-> (if you actually intended to change it).
+Thanks.
 
-I'm sorry, my bad. I meant for this to go into "xen/arm: allow
-dynamically assigned SGI handlers".
+> The one feature you don't annotate such that I'm not entirely sure about is
+> NO_FPU_SEL: On one hand it tells code not to rely on / use the selector
+> fields in FPU state.
 
->
-> >           else
-> >               local_irqs_type[irq] =3D IRQ_TYPE_INVALID;
-> >       }
-> > diff --git a/xen/arch/arm/tee/Makefile b/xen/arch/arm/tee/Makefile
-> > index f0112a2f922d..7c0f46f7f446 100644
-> > --- a/xen/arch/arm/tee/Makefile
-> > +++ b/xen/arch/arm/tee/Makefile
-> > @@ -2,5 +2,6 @@ obj-$(CONFIG_FFA) +=3D ffa.o
-> >   obj-$(CONFIG_FFA) +=3D ffa_shm.o
-> >   obj-$(CONFIG_FFA) +=3D ffa_partinfo.o
-> >   obj-$(CONFIG_FFA) +=3D ffa_rxtx.o
-> > +obj-$(CONFIG_FFA) +=3D ffa_notif.o
-> >   obj-y +=3D tee.o
-> >   obj-$(CONFIG_OPTEE) +=3D optee.o
-> > diff --git a/xen/arch/arm/tee/ffa.c b/xen/arch/arm/tee/ffa.c
-> > index 5209612963e1..912e905a27bd 100644
-> > --- a/xen/arch/arm/tee/ffa.c
-> > +++ b/xen/arch/arm/tee/ffa.c
-> > @@ -39,6 +39,9 @@
-> >    *   - at most 32 shared memory regions per guest
-> >    * o FFA_MSG_SEND_DIRECT_REQ:
-> >    *   - only supported from a VM to an SP
-> > + * o FFA_NOTIFICATION_*:
-> > + *   - only supports global notifications, that is, per vCPU notificat=
-ions
-> > + *     are not supported
-> >    *
-> >    * There are some large locked sections with ffa_tx_buffer_lock and
-> >    * ffa_rx_buffer_lock. Especially the ffa_tx_buffer_lock spinlock use=
-d
-> > @@ -194,6 +197,8 @@ out:
-> >
-> >   static void handle_features(struct cpu_user_regs *regs)
-> >   {
-> > +    struct domain *d =3D current->domain;
-> > +    struct ffa_ctx *ctx =3D d->arch.tee;
-> >       uint32_t a1 =3D get_user_reg(regs, 1);
-> >       unsigned int n;
-> >
-> > @@ -240,6 +245,30 @@ static void handle_features(struct cpu_user_regs *=
-regs)
-> >           BUILD_BUG_ON(PAGE_SIZE !=3D FFA_PAGE_SIZE);
-> >           ffa_set_regs_success(regs, 0, 0);
-> >           break;
-> > +    case FFA_FEATURE_NOTIF_PEND_INTR:
-> > +        if ( ctx->notif.enabled )
-> > +            ffa_set_regs_success(regs, GUEST_FFA_NOTIF_PEND_INTR_ID, 0=
-);
-> > +        else
-> > +            ffa_set_regs_error(regs, FFA_RET_NOT_SUPPORTED);
-> > +        break;
-> > +    case FFA_FEATURE_SCHEDULE_RECV_INTR:
-> > +        if ( ctx->notif.enabled )
-> > +            ffa_set_regs_success(regs, GUEST_FFA_SCHEDULE_RECV_INTR_ID=
-, 0);
-> > +        else
-> > +            ffa_set_regs_error(regs, FFA_RET_NOT_SUPPORTED);
-> > +        break;
-> > +
-> > +    case FFA_NOTIFICATION_BIND:
-> > +    case FFA_NOTIFICATION_UNBIND:
-> > +    case FFA_NOTIFICATION_GET:
-> > +    case FFA_NOTIFICATION_SET:
-> > +    case FFA_NOTIFICATION_INFO_GET_32:
-> > +    case FFA_NOTIFICATION_INFO_GET_64:
-> > +        if ( ctx->notif.enabled )
-> > +            ffa_set_regs_success(regs, 0, 0);
-> > +        else
-> > +            ffa_set_regs_error(regs, FFA_RET_NOT_SUPPORTED);
-> > +        break;
-> >       default:
-> >           ffa_set_regs_error(regs, FFA_RET_NOT_SUPPORTED);
-> >           break;
-> > @@ -305,6 +334,22 @@ static bool ffa_handle_call(struct cpu_user_regs *=
-regs)
-> >                                                        get_user_reg(reg=
-s, 1)),
-> >                                      get_user_reg(regs, 3));
-> >           break;
-> > +    case FFA_NOTIFICATION_BIND:
-> > +        e =3D ffa_handle_notification_bind(regs);
-> > +        break;
-> > +    case FFA_NOTIFICATION_UNBIND:
-> > +        e =3D ffa_handle_notification_unbind(regs);
-> > +        break;
-> > +    case FFA_NOTIFICATION_INFO_GET_32:
-> > +    case FFA_NOTIFICATION_INFO_GET_64:
-> > +        ffa_handle_notification_info_get(regs);
-> > +        return true;
-> > +    case FFA_NOTIFICATION_GET:
-> > +        ffa_handle_notification_get(regs);
-> > +        return true;
-> > +    case FFA_NOTIFICATION_SET:
-> > +        e =3D ffa_handle_notification_set(regs);
-> > +        break;
-> >
-> >       default:
-> >           gprintk(XENLOG_ERR, "ffa: unhandled fid 0x%x\n", fid);
-> > @@ -322,6 +367,7 @@ static bool ffa_handle_call(struct cpu_user_regs *r=
-egs)
-> >   static int ffa_domain_init(struct domain *d)
-> >   {
-> >       struct ffa_ctx *ctx;
-> > +    int ret;
-> >
-> >       if ( !ffa_version )
-> >           return -ENODEV;
-> > @@ -345,10 +391,11 @@ static int ffa_domain_init(struct domain *d)
-> >        * error, so no need for cleanup in this function.
-> >        */
-> >
-> > -    if ( !ffa_partinfo_domain_init(d) )
-> > -        return -EIO;
-> > +    ret =3D ffa_partinfo_domain_init(d);
-> > +    if ( ret )
-> > +        return ret;
-> >
-> > -    return 0;
-> > +    return ffa_notif_domain_init(d);
-> >   }
-> >
-> >   static void ffa_domain_teardown_continue(struct ffa_ctx *ctx, bool fi=
-rst_time)
-> > @@ -423,6 +470,7 @@ static int ffa_domain_teardown(struct domain *d)
-> >           return 0;
-> >
-> >       ffa_rxtx_domain_destroy(d);
-> > +    ffa_notif_domain_destroy(d);
-> >
-> >       ffa_domain_teardown_continue(ctx, true /* first_time */);
-> >
-> > @@ -502,6 +550,7 @@ static bool ffa_probe(void)
-> >       if ( !ffa_partinfo_init() )
-> >           goto err_rxtx_destroy;
-> >
-> > +    ffa_notif_init();
-> >       INIT_LIST_HEAD(&ffa_teardown_head);
-> >       init_timer(&ffa_teardown_timer, ffa_teardown_timer_callback, NULL=
-, 0);
-> >
-> > diff --git a/xen/arch/arm/tee/ffa_notif.c b/xen/arch/arm/tee/ffa_notif.=
-c
-> > new file mode 100644
-> > index 000000000000..6bb0804ee2f8
-> > --- /dev/null
-> > +++ b/xen/arch/arm/tee/ffa_notif.c
-> > @@ -0,0 +1,378 @@
-> > +/* SPDX-License-Identifier: GPL-2.0-only */
-> > +/*
-> > + * Copyright (C) 2024  Linaro Limited
-> > + */
-> > +
-> > +#include <xen/const.h>
-> > +#include <xen/list.h>
-> > +#include <xen/spinlock.h>
-> > +#include <xen/types.h>
-> > +
-> > +#include <asm/smccc.h>
-> > +#include <asm/regs.h>
-> > +
-> > +#include "ffa_private.h"
-> > +
-> > +static bool __ro_after_init notif_enabled;
-> > +
-> > +int ffa_handle_notification_bind(struct cpu_user_regs *regs)
-> > +{
-> > +    struct domain *d =3D current->domain;
-> > +    uint32_t src_dst =3D get_user_reg(regs, 1);
-> > +    uint32_t flags =3D get_user_reg(regs, 2);
-> > +    uint32_t bitmap_lo =3D get_user_reg(regs, 3);
-> > +    uint32_t bitmap_hi =3D get_user_reg(regs, 4);
-> > +
-> > +    if ( !notif_enabled )
-> > +        return FFA_RET_NOT_SUPPORTED;
-> > +
-> > +    if ( (src_dst & 0xFFFFU) !=3D ffa_get_vm_id(d) )
-> > +        return FFA_RET_INVALID_PARAMETERS;
-> > +
-> > +    if ( flags )    /* Only global notifications are supported */
-> > +        return FFA_RET_DENIED;
-> > +
-> > +    /*
-> > +     * We only support notifications from SP so no need to check the s=
-ender
-> > +     * endpoint ID, the SPMC will take care of that for us.
-> > +     */
-> > +    return ffa_simple_call(FFA_NOTIFICATION_BIND, src_dst, flags, bitm=
-ap_hi,
-> > +                           bitmap_lo);
-> > +}
-> > +
-> > +int ffa_handle_notification_unbind(struct cpu_user_regs *regs)
-> > +{
-> > +    struct domain *d =3D current->domain;
-> > +    uint32_t src_dst =3D get_user_reg(regs, 1);
-> > +    uint32_t bitmap_lo =3D get_user_reg(regs, 3);
-> > +    uint32_t bitmap_hi =3D get_user_reg(regs, 4);
-> > +
-> > +    if ( !notif_enabled )
-> > +        return FFA_RET_NOT_SUPPORTED;
-> > +
-> > +    if ( (src_dst & 0xFFFFU) !=3D ffa_get_vm_id(d) )
-> > +        return FFA_RET_INVALID_PARAMETERS;
-> > +
-> > +    /*
-> > +     * We only support notifications from SP so no need to check the
-> > +     * destination endpoint ID, the SPMC will take care of that for us=
-.
-> > +     */
-> > +    return  ffa_simple_call(FFA_NOTIFICATION_UNBIND, src_dst, 0, bitma=
-p_hi,
-> > +                            bitmap_lo);
-> > +}
-> > +
-> > +void ffa_handle_notification_info_get(struct cpu_user_regs *regs)
-> > +{
-> > +    struct domain *d =3D current->domain;
-> > +    struct ffa_ctx *ctx =3D d->arch.tee;
-> > +    bool pending_global;
-> > +
-> > +    if ( !notif_enabled )
-> > +    {
-> > +        ffa_set_regs_error(regs, FFA_RET_NOT_SUPPORTED);
-> > +        return;
-> > +    }
-> > +
-> > +    spin_lock(&ctx->notif.lock);
-> > +    pending_global =3D ctx->notif.secure_pending;
-> > +    ctx->notif.secure_pending =3D false;
-> > +    spin_unlock(&ctx->notif.lock);
-> > +
-> > +    if ( pending_global )
-> > +    {
-> > +        /* A pending global notification for the guest */
-> > +        ffa_set_regs(regs, FFA_SUCCESS_64, 0,
-> > +                     1U << FFA_NOTIF_INFO_GET_ID_COUNT_SHIFT, ffa_get_=
-vm_id(d),
-> > +                     0, 0, 0, 0);
-> > +    }
-> > +    else
-> > +    {
-> > +        /* Report an error if there where no pending global notificati=
-on */
-> > +        ffa_set_regs_error(regs, FFA_RET_NO_DATA);
-> > +    }
-> > +}
-> > +static void notif_irq_handler(int irq, void *data)
-> > +{
-> > +    const struct arm_smccc_1_2_regs arg =3D {
-> > +        .a0 =3D FFA_NOTIFICATION_INFO_GET_64,
-> > +    };
-> > +    struct arm_smccc_1_2_regs resp;
-> > +    unsigned int id_pos;
-> > +    unsigned int list_count;
-> > +    uint64_t ids_count;
-> > +    unsigned int n;
-> > +    int32_t res;
-> > +
-> > +    do {
-> > +        arm_smccc_1_2_smc(&arg, &resp);
-> > +        res =3D ffa_get_ret_code(&resp);
-> > +        if ( res )
-> > +        {
-> > +            if ( res !=3D FFA_RET_NO_DATA )
-> > +                printk(XENLOG_ERR "ffa: notification info get failed: =
-error %d\n",
-> > +                       res);
-> > +            return;
-> > +        }
-> > +
-> > +        ids_count =3D resp.a2 >> FFA_NOTIF_INFO_GET_ID_LIST_SHIFT;
-> > +        list_count =3D ( resp.a2 >> FFA_NOTIF_INFO_GET_ID_COUNT_SHIFT =
-) &
-> > +                     FFA_NOTIF_INFO_GET_ID_COUNT_MASK;
-> > +
-> > +        id_pos =3D 0;
-> > +        for ( n =3D 0; n < list_count; n++ )
-> > +        {
-> > +            unsigned int count =3D ((ids_count >> 2 * n) & 0x3) + 1;
-> > +            struct domain *d;
-> > +
-> > +            d =3D ffa_get_domain_by_vm_id(get_id_from_resp(&resp, id_p=
-os));
->
-> Thinking a bit more about the question from Bertrand about
-> get_domain_id() vs rcu_lock_domain_by_id(). I am actually not sure
-> whether either are ok here.
->
-> If I am not mistaken, d->arch.tee will be freed as part of the domain
-> teardown process. This means you can have the following scenario:
->
-> CPU0: ffa_get_domain_by_vm_id() (return the domain as it is alive)
->
-> CPU1: call domain_kill()
-> CPU1: teardown is called, free d->arch.tee (the pointer is not set to NUL=
-L)
->
-> d->arch.tee is now a dangling pointer
->
-> CPU0: access d->arch.tee
->
-> This implies you may need to gain a global lock (I don't have a better
-> idea so far) to protect the IRQ handler against domains teardown.
->
-> Did I miss anything?
+It's sadly far more complicated than this.
 
-Thanks for the explanation. I'll reply to Bertrands answer.
+This feature, and it's AMD partner RSTR_FP_ERR_PTRS, where introduced to
+stop windows BSOD-ing under virt, and came with an accidental breakage
+of x86emul/DoSBox/etc which Intel and AMD have declined to fix.
 
->
-> > +
-> > +            if ( d )
-> > +            {
-> > +                struct ffa_ctx *ctx =3D d->arch.tee;
-> > +
-> > +                spin_lock(&ctx->notif.lock);
-> > +                ctx->notif.secure_pending =3D true;
-> > +                spin_unlock(&ctx->notif.lock);
->
->
-> AFAICT, the spinlock is used with IRQ enabled (see
-> ffa_handle_notification_info_get()) but also in an IRQ handler. So to
-> prevent deadlock, you will want to use spin_lock_irq* helpers.
->
-> That said, I don't think you need a spin_lock(). You could use atomic
-> operations instead. For the first hunk, you could use
-> test_and_clear_bool(). E.g.:
->
-> if ( test_and_clear_bool(ctx.notif.secure_pending) )
->
-> For the second part, it might be fine to use ACCESS_ONCE().
+If you recall, prior to these features, the hypervisor needs to divine
+the operand size of Window's {F,}X{SAVE,RESTORE} instructions, as it
+blindly does a memcmp() across the region to confirm that the interrupt
+handler didn't corrupt any state.
 
-Thanks, I'll update the code accordingly.
 
->
-> > +
-> > +                /*
-> > +                 * Since we're only delivering global notification, al=
-ways
-> > +                 * deliver to the first vCPU. It doesn't matter which =
-we
-> > +                 * chose, as long as it's available.
->
-> What if vCPU0 is offlined?
+Both features are discontinuities across which is is not safe to migrate.
 
-Good question, would the following work?
+Advertising "reliably store as 0" on older systems will still cause
+windows to BSOD on occasion, whereas not advertising it on newer systems
+will suggest that legacy emulators will work, when they don't.
 
-for_each_vcpu(d, vcpu)
-{
-    if ( is_vcpu_online(vcpu)
-    {
-        vgic_inject_irq(d, vcpu, GUEST_FFA_NOTIF_PEND_INTR_ID, true);
-        break;
-    }
-}
-if ( !vcpu )
-    printk(XENLOG_ERR "ffa: can't inject NPI, all vCPUs offline\");
 
->
-> > +                 */
-> > +                vgic_inject_irq(d, d->vcpu[0], GUEST_FFA_NOTIF_PEND_IN=
-TR_ID,
-> > +                                true);
-> > +
-> > +                put_domain(d);
-> > +            }
-> > +
-> > +            id_pos +=3D count;
-> > +        }
-> > +
-> > +    } while (resp.a2 & FFA_NOTIF_INFO_GET_MORE_FLAG);
-> > +}
->
-> [..]
->
-> > +struct ffa_ctx_notif {
-> > +    bool enabled;
-> > +
-> > +    /* Used to serialize access to the rest of this struct */
-> > +    spinlock_t lock;
->
-> Regardless what I wrote above, I can't seem to find a call to
-> spin_lock_init(). You will want it to initialize.
->
-> Also, it would be best if we keep the two booleans close to each other
-> so we limit the amount of padding in the structure.
+I don't have any good idea of how to make this work nicely, other than
+having some admin booleans in the xl.cfg file saying "I certify I'm not
+using a legacy emulator in my VM" to override the safety check.
 
-Good point, I'll remove the spinlock and update the code accordingly.
+Other discontinuities I'm aware of are the introduction of DAZ (changing
+MXCSR_MASK), and any migration which changes LBR_FORMAT.
 
->
-> > +
-> > +    /*
-> > +     * True if domain is reported by FFA_NOTIFICATION_INFO_GET to have
-> > +     * pending global notifications.
-> > +     */
-> > +    bool secure_pending;
-> > +};
-> >
-> >   struct ffa_ctx {
-> >       void *rx;
-> > @@ -228,6 +265,7 @@ struct ffa_ctx {
-> >       struct list_head shm_list;
-> >       /* Number of allocated shared memory object */
-> >       unsigned int shm_count;
-> > +    struct ffa_ctx_notif notif;
-> >       /*
-> >        * tx_lock is used to serialize access to tx
-> >        * rx_lock is used to serialize access to rx
-> > @@ -257,7 +295,7 @@ void ffa_handle_mem_share(struct cpu_user_regs *reg=
-s);
-> >   int ffa_handle_mem_reclaim(uint64_t handle, uint32_t flags);
-> >
-> >   bool ffa_partinfo_init(void);
-> > -bool ffa_partinfo_domain_init(struct domain *d);
-> > +int ffa_partinfo_domain_init(struct domain *d);
-> >   bool ffa_partinfo_domain_destroy(struct domain *d);
-> >   int32_t ffa_handle_partition_info_get(uint32_t w1, uint32_t w2, uint3=
-2_t w3,
-> >                                         uint32_t w4, uint32_t w5, uint3=
-2_t *count,
-> > @@ -271,12 +309,28 @@ uint32_t ffa_handle_rxtx_map(uint32_t fid, regist=
-er_t tx_addr,
-> >   uint32_t ffa_handle_rxtx_unmap(void);
-> >   int32_t ffa_handle_rx_release(void);
-> >
-> > +void ffa_notif_init(void);
-> > +int ffa_notif_domain_init(struct domain *d);
-> > +void ffa_notif_domain_destroy(struct domain *d);
-> > +
-> > +int ffa_handle_notification_bind(struct cpu_user_regs *regs);
-> > +int ffa_handle_notification_unbind(struct cpu_user_regs *regs);
-> > +void ffa_handle_notification_info_get(struct cpu_user_regs *regs);
-> > +void ffa_handle_notification_get(struct cpu_user_regs *regs);
-> > +int ffa_handle_notification_set(struct cpu_user_regs *regs);
-> > +
-> >   static inline uint16_t ffa_get_vm_id(const struct domain *d)
-> >   {
-> >       /* +1 since 0 is reserved for the hypervisor in FF-A */
-> >       return d->domain_id + 1;
-> >   }
-> >
-> > +static inline struct domain *ffa_get_domain_by_vm_id(uint16_t vm_id)
-> > +{
->
-> Is this expected to be called with vm_id =3D=3D 0? If not, then I would
-> consider to add an ASSERT(vm_id !=3D 0). If yes, then I please add a
-> runtime check and return NULL.
-
-vm_id should not be 0, I'll add an ASSERT() and a check in
-notif_irq_handler() that vm_id isn't 0.
-
-Thanks,
-Jens
-
->
-> > +    /* -1 to match ffa_get_vm_id() */
-> > +    return get_domain_by_id(vm_id - 1);
-> > +}
-> > +
-> >   static inline void ffa_set_regs(struct cpu_user_regs *regs, register_=
-t v0,
-> >                                   register_t v1, register_t v2, registe=
-r_t v3,
-> >                                   register_t v4, register_t v5, registe=
-r_t v6,
->
-> Cheers,
->
-> --
-> Julien Grall
+~Andrew
 
