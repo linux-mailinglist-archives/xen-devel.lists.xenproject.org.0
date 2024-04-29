@@ -2,32 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6BD988B6033
-	for <lists+xen-devel@lfdr.de>; Mon, 29 Apr 2024 19:35:20 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.714330.1115514 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 249448B6115
+	for <lists+xen-devel@lfdr.de>; Mon, 29 Apr 2024 20:29:15 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.714343.1115524 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s1Uta-0004Ow-9P; Mon, 29 Apr 2024 17:34:30 +0000
+	id 1s1Vjr-0002oH-4m; Mon, 29 Apr 2024 18:28:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 714330.1115514; Mon, 29 Apr 2024 17:34:30 +0000
+Received: by outflank-mailman (output) from mailman id 714343.1115524; Mon, 29 Apr 2024 18:28:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s1Uta-0004NT-6j; Mon, 29 Apr 2024 17:34:30 +0000
-Received: by outflank-mailman (input) for mailman id 714330;
- Mon, 29 Apr 2024 17:34:28 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1s1UtY-0004NK-5D
- for xen-devel@lists.xenproject.org; Mon, 29 Apr 2024 17:34:28 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1s1UtT-00024v-4I; Mon, 29 Apr 2024 17:34:23 +0000
-Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.0.211])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1s1UtS-0006KR-Sh; Mon, 29 Apr 2024 17:34:22 +0000
+	id 1s1Vjr-0002l3-1f; Mon, 29 Apr 2024 18:28:31 +0000
+Received: by outflank-mailman (input) for mailman id 714343;
+ Mon, 29 Apr 2024 18:28:28 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=yZQG=MC=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1s1Vjo-0002kh-Sg
+ for xen-devel@lists.xenproject.org; Mon, 29 Apr 2024 18:28:28 +0000
+Received: from mail-ed1-x52b.google.com (mail-ed1-x52b.google.com
+ [2a00:1450:4864:20::52b])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 45108856-0656-11ef-b4bb-af5377834399;
+ Mon, 29 Apr 2024 20:28:26 +0200 (CEST)
+Received: by mail-ed1-x52b.google.com with SMTP id
+ 4fb4d7f45d1cf-57288691c07so1278725a12.3
+ for <xen-devel@lists.xenproject.org>; Mon, 29 Apr 2024 11:28:26 -0700 (PDT)
+Received: from andrewcoop.citrite.net (default-46-102-197-194.interdsl.co.uk.
+ [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
+ h25-20020a0564020e9900b0056bc0c44f02sm13241293eda.96.2024.04.29.11.28.25
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 29 Apr 2024 11:28:25 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,101 +45,69 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=FZnKU9pGoeGhraonjfM2LcdnYelNpwgKrhMOlKXPQaE=; b=Ye0ANIj0V3bT6GlGmt1NjUQ38l
-	mvZB5775akplZ15rg8PMo4tOkxWGo22zmcZ0mGicpjgnaK95xVK+IqcGYMio4hEpE46PDLMK6Yu6U
-	GgDgy/3U/PmYdcXPaalNP5pjzK/s2Wtkl+dLBWHqt+BaKwu2eRElBYyzYWgGz7TIwRzk=;
-Message-ID: <128c7e68-0431-44e9-b4fc-96cc46e158ad@xen.org>
-Date: Mon, 29 Apr 2024 18:34:20 +0100
+X-Inumbo-ID: 45108856-0656-11ef-b4bb-af5377834399
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1714415306; x=1715020106; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=qmraiI3B/VV+MWnmGuT6JxT2sWrleEhUYuV/0VlaKdQ=;
+        b=OeR2sCfKUYFVWQ0uwve2s76TtesNk5L/7g1kgQyqBBOFgtgojQrgaH35VS2kasOiSO
+         lYTCHnYvBHln74F9cngnASKQe6SHJ6m2ZZ5CAMJvcT2ZbPOGl/oYJ8es0E8ZLj8KPIPy
+         K/zDWAcDxxS+6Ium9Fhy0P9GeM5fIxrvr8cqw=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1714415306; x=1715020106;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=qmraiI3B/VV+MWnmGuT6JxT2sWrleEhUYuV/0VlaKdQ=;
+        b=NSs7OryfWaK2C7yh0Kb0XYbHmWnZuQqtTwY8qW91Lj643HA0T6/NSREvBFLZeNr7Fl
+         Q1oNqD0Ru9lXoUsziZKiGziwKuMRANwbgG1NZ9I6e+e57t9BLZhfC9BtveYMj4k7paiA
+         /G0z17rBRuvt6zBn6YPR6lCbax1zFsmg51PYyvnliFTFwBIZqrn4FQhJvasKOSCVPJR8
+         q8dy7AfS8m8Wt0DlXOcG/1H1AOJI8xlvMbDu5gB8xFaflCKBH0XShZPGeNOIajO8jDj3
+         ScglouKrW/9JUG7LphY9i2z787ED+Nj32jWJA56HKEyGv6FoM1gTan2sDfXkAtgFnLgv
+         4Dcg==
+X-Gm-Message-State: AOJu0YxXEuDIVjUE82AIlLhbxwmTVqnS7HuwtC5QOKYZGzm40NhaEytT
+	APgNNkM69zDzVV8BIyYMSZ5OYlWQQHUjPLJub6VlOisvPM4L+NGig4cMEWV9/EYFakv3c0ZP74y
+	d
+X-Google-Smtp-Source: AGHT+IF+Tfv1DaxC3n/ANdbdUGP1i45XbV5HN21tjNPzcZMr9TuD5T9QO7mVsY6mlLkInv5GixAYqQ==
+X-Received: by 2002:a50:a45c:0:b0:56c:5a12:ac53 with SMTP id v28-20020a50a45c000000b0056c5a12ac53mr6642438edb.24.1714415306035;
+        Mon, 29 Apr 2024 11:28:26 -0700 (PDT)
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+	Jan Beulich <JBeulich@suse.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
+Subject: [PATCH v2 0/4] x86/xstate: Fixes to size calculations
+Date: Mon, 29 Apr 2024 19:28:19 +0100
+Message-Id: <20240429182823.1130436-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 07/15] xen/overlay: Enable device tree overlay assignment
- to running domains
-Content-Language: en-GB
-To: Henry Wang <xin.wang2@amd.com>, Jan Beulich <jbeulich@suse.com>,
- Stefano Stabellini <sstabellini@kernel.org>
-Cc: Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, xen-devel@lists.xenproject.org
-References: <20240424033449.168398-1-xin.wang2@amd.com>
- <20240424033449.168398-8-xin.wang2@amd.com>
- <da67f90f-6807-4fdc-b65b-f7a4ba9f78ad@suse.com>
- <97a401ff-4b5c-4e6a-8d9c-e36305ec64f5@amd.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <97a401ff-4b5c-4e6a-8d9c-e36305ec64f5@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 29/04/2024 04:36, Henry Wang wrote:
-> Hi Jan, Julien, Stefano,
+Various fixes and improvements to xsave image size calculations.
 
-Hi Henry,
+Since v1:
+ * Rebase over exposing XSAVEC.  This has highlighted several latent bugs.
+ * Rework the uncompressed size handling.  LWP / APX_F make for much sadness.
 
-> On 4/24/2024 2:05 PM, Jan Beulich wrote:
->> On 24.04.2024 05:34, Henry Wang wrote:
->>> --- a/xen/include/public/sysctl.h
->>> +++ b/xen/include/public/sysctl.h
->>> @@ -1197,7 +1197,9 @@ struct xen_sysctl_dt_overlay {
->>>   #define XEN_SYSCTL_DT_OVERLAY_ADD                   1
->>>   #define XEN_SYSCTL_DT_OVERLAY_REMOVE                2
->>>       uint8_t overlay_op;                     /* IN: Add or remove. */
->>> -    uint8_t pad[3];                         /* IN: Must be zero. */
->>> +    bool domain_mapping;                    /* IN: True of False. */
->>> +    uint8_t pad[2];                         /* IN: Must be zero. */
->>> +    uint32_t domain_id;
->>>   };
->> If you merely re-purposed padding fields, all would be fine without
->> bumping the interface version. Yet you don't, albeit for an unclear
->> reason: Why uint32_t rather than domid_t? And on top of that - why a
->> separate boolean when you could use e.g. DOMID_INVALID to indicate
->> "no domain mapping"?
-> 
-> I think both of your suggestion make great sense. I will follow the 
-> suggestion in v2.
-> 
->> That said - anything taking a domain ID is certainly suspicious in a
->> sysctl. Judging from the description you really mean this to be a
->> domctl. Anything else will require extra justification.
-> 
-> I also think a domctl is better. I had a look at the history of the 
-> already merged series, it looks like in the first version of merged part 
-> 1 [1], the hypercall was implemented as the domctl in the beginning but 
-> later in v2 changed to sysctl. I think this makes sense as the scope of 
-> that time is just to make Xen aware of the device tree node via Xen 
-> device tree.
-> 
-> However this is now a problem for the current part where the scope (and 
-> the end goal) is extended to assign the added device to Linux Dom0/DomU 
-> via device tree overlays. I am not sure which way is better, should we 
-> repurposing the sysctl to domctl or maybe add another domctl (I am 
-> worrying about the duplication because basically we need the same sysctl 
-> functionality but now with a domid in it)? What do you think?
+Be aware that Intel and AMD have different ABIs for the xstate layout.
 
-I am not entirely sure this is a good idea to try to add the device in 
-Xen and attach it to the guests at the same time. Imagine the following 
-situation:
+Andrew Cooper (4):
+  x86/hvm: Defer the size calculation in hvm_save_cpu_xsave_states()
+  x86/xstate: Rework xstate_ctxt_size() as xstate_uncompressed_size()
+  x86/cpu-policy: Simplify recalculate_xstate()
+  x86/cpuid: Fix handling of xsave dynamic leaves
 
-1) Add and attach devices
-2) The domain is rebooted
-3) Detach and remove devices
-
-After step 2, you technically have a new domain. You could have also a 
-case where this is a completely different guest. So the flow would look 
-a little bit weird (you create the DT overlay with domain A but remove 
-with domain B).
-
-So, at the moment, it feels like the add/attach (resp detech/remove) 
-operations should happen separately.
-
-Can you clarify why you want to add devices to Xen and attach to a guest 
-within a single hypercall?
-
-Cheers,
+ xen/arch/x86/cpu-policy.c         |  55 ++++++---------
+ xen/arch/x86/cpuid.c              |  24 +++----
+ xen/arch/x86/domctl.c             |   2 +-
+ xen/arch/x86/hvm/hvm.c            |  12 +++-
+ xen/arch/x86/include/asm/xstate.h |   4 +-
+ xen/arch/x86/xstate.c             | 111 ++++++++++++++++++++++++++++--
+ 6 files changed, 145 insertions(+), 63 deletions(-)
 
 -- 
-Julien Grall
+2.30.2
+
 
