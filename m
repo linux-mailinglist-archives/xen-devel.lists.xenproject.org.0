@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 234EA8B5CAB
-	for <lists+xen-devel@lfdr.de>; Mon, 29 Apr 2024 17:08:35 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.714173.1115255 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8AF8C8B5D26
+	for <lists+xen-devel@lfdr.de>; Mon, 29 Apr 2024 17:16:50 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.714185.1115265 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s1Sbd-0004Fo-GJ; Mon, 29 Apr 2024 15:07:49 +0000
+	id 1s1Sk2-0006aI-Cj; Mon, 29 Apr 2024 15:16:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 714173.1115255; Mon, 29 Apr 2024 15:07:49 +0000
+Received: by outflank-mailman (output) from mailman id 714185.1115265; Mon, 29 Apr 2024 15:16:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s1Sbd-0004DU-Ci; Mon, 29 Apr 2024 15:07:49 +0000
-Received: by outflank-mailman (input) for mailman id 714173;
- Mon, 29 Apr 2024 15:07:47 +0000
+	id 1s1Sk2-0006Yh-9c; Mon, 29 Apr 2024 15:16:30 +0000
+Received: by outflank-mailman (input) for mailman id 714185;
+ Mon, 29 Apr 2024 15:16:29 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=GJEf=MC=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1s1Sbb-0004DO-Nh
- for xen-devel@lists.xenproject.org; Mon, 29 Apr 2024 15:07:47 +0000
-Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
- [2a00:1450:4864:20::336])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=yZQG=MC=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1s1Sk1-0006Yb-59
+ for xen-devel@lists.xenproject.org; Mon, 29 Apr 2024 15:16:29 +0000
+Received: from mail-lf1-x131.google.com (mail-lf1-x131.google.com
+ [2a00:1450:4864:20::131])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 3cba1147-063a-11ef-909b-e314d9c70b13;
- Mon, 29 Apr 2024 17:07:47 +0200 (CEST)
-Received: by mail-wm1-x336.google.com with SMTP id
- 5b1f17b1804b1-41c011bb920so8703335e9.1
- for <xen-devel@lists.xenproject.org>; Mon, 29 Apr 2024 08:07:47 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- f17-20020a05600c155100b00418db9e4228sm42113471wmg.29.2024.04.29.08.07.45
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 29 Apr 2024 08:07:46 -0700 (PDT)
+ id 73671c86-063b-11ef-909b-e314d9c70b13;
+ Mon, 29 Apr 2024 17:16:28 +0200 (CEST)
+Received: by mail-lf1-x131.google.com with SMTP id
+ 2adb3069b0e04-516d4d80d00so5811883e87.0
+ for <xen-devel@lists.xenproject.org>; Mon, 29 Apr 2024 08:16:28 -0700 (PDT)
+Received: from andrewcoop.citrite.net (default-46-102-197-194.interdsl.co.uk.
+ [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
+ ah2-20020a1709069ac200b00a4e393b6349sm13898875ejc.5.2024.04.29.08.16.26
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 29 Apr 2024 08:16:26 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,101 +45,102 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3cba1147-063a-11ef-909b-e314d9c70b13
+X-Inumbo-ID: 73671c86-063b-11ef-909b-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1714403266; x=1715008066; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=jp1wjCZsoGW2i8AskWs1lRsZ+I+xsoDVAKn5OjIpaD0=;
-        b=bGeYZ19+9f+rqyU4VVHZQc1gkkjfadXu653oaMAPetNl9t4bquQVCgOxYDn3cu37fj
-         La99rI9hIl5lpWAFuam9wr7XfqbkaipjPV74FGBEuq2oVl2UuctVguY2V/RFvL5Kae1P
-         XCTFpD9/MIgiewzCf7xadvaQrkaTU8aofQxjfrK9ZJLQVCFYV10/wnlK/CGpwZA22wnI
-         imPaftAvW7OXvE4vTG8VAqfYafyGKkkr/nJ9u6uFZz4wG/zFHerr7cJx1aLUGQUeXHgR
-         oqk/vxyN0NU/49eeadzGkYhZtVdmq87HsYxqHoEg4OG0ghXiFI1JY7YnwoUUtrM0LiRz
-         E1YQ==
+        d=citrix.com; s=google; t=1714403787; x=1715008587; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=ARwKD8NnQuoF1+xb6uNuvZwD8zOCHWahqmHkc59mx5M=;
+        b=Zwx4+arhHs3l7N2HKM08ybLCg+2Q4zbNZO5x8gu4A94Wa/gESW3CnPJhq02ebg31jK
+         qMiD+XtS2ilB9ni1bO+Rqxl97Vj/W+PxO0iR1N9/4ycMMLYw9Kn1bARMvCJODcNMYejd
+         Ce+94cedbO0Qbkdiou32cFMxf+gTdC9jMidn0=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1714403266; x=1715008066;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=jp1wjCZsoGW2i8AskWs1lRsZ+I+xsoDVAKn5OjIpaD0=;
-        b=KmZCqZGBi49Tli/1wFCIwfBndCsxglzBulklzr/NYIzdd4dbfsYDsv7exoSe6L+uxX
-         C58WQiY1qBiOp+0TMSGw6zd7QyMxGTRTj4caJhJANTJ6j+JbSmCptKVYRcOWMT/aPJPH
-         lQgobxVnKhhOZFiL81zmJFhYFhyQG9813nZsr+YN09HqtuK7hRpmkT5tP6deRN2+DGTz
-         oBqiWn0oNsYijemkBScaknc4w8EOs67jlDK6l5kekyF/KUwsX3aJeEcTcesm3U/XoOM1
-         pZyfmt7+vA/bxoR6PnFHXgj0BogYcUEOZM4/2eC5eLNAWpS4aFbS2lShpXL+mUOeW1W6
-         g0tA==
-X-Forwarded-Encrypted: i=1; AJvYcCVvSTKlx3WjURtzoOXdWBsMEG2C06LFpkKqxOpufTH6SDadDwLMQE6meZwJdIv9J3O3T2Z5H6N1GsHSN2tSv13XvedQOs1VxYp7DOrho5Q=
-X-Gm-Message-State: AOJu0Yz256xddm6q1ItXvjfML7RYQsBvC9izmf9Yqm4kUbnVh76bVpsu
-	kk0/fB3Mxy8raxKiPJH4N1WRoJ49zIqY1jAMbQI4vxFUJNMCMnwp4mtqyPPmjMl/OIqZn/TW2w8
-	=
-X-Google-Smtp-Source: AGHT+IGk2YAudYVlFywViJc1Fa0PKeDCDleUIp1dsAVp2XjeXsEseyH34pupjPWsNEiUkL5BKx8bsw==
-X-Received: by 2002:a05:600c:1395:b0:41b:d6ca:eefa with SMTP id u21-20020a05600c139500b0041bd6caeefamr5439259wmf.16.1714403266455;
-        Mon, 29 Apr 2024 08:07:46 -0700 (PDT)
-Message-ID: <49e4079e-e878-42d3-a1ec-033e7c0e2c6f@suse.com>
-Date: Mon, 29 Apr 2024 17:07:45 +0200
+        d=1e100.net; s=20230601; t=1714403787; x=1715008587;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=ARwKD8NnQuoF1+xb6uNuvZwD8zOCHWahqmHkc59mx5M=;
+        b=BcDNNhk1VLZr1v7+n7FxuI35COVkdFPl4bqaico1Glt4QgzJLQNVWEalPBoUOpEP2y
+         CdqDJVxRrzyR5F9as0V9a52NMFXHz1bJEjsVMC5417GnBhMbHpZj2KxSEo6dsLhGXLNa
+         V4j8kg8T/6Gq7VVlteAXUSjnRyxcIfvKAu0dr7Eh+f90MbFYY5E3FXMoQSF+r0laweJ/
+         FhzGabwe+vee9sCXpRkwbIE8QartfCdrlesKQHGy9y8b5i/Ht28kswlcHS8mI5lIiPR5
+         MELu5EApUWPScb96kzh5+Jx/xVCuONNhWRAovXffR5jlgOVbL9AxTZe3XrCUYbmVQUb/
+         pU8w==
+X-Gm-Message-State: AOJu0YzbNKnxuzZHtdd7swI0InqQSF9m5cvYNrDeVrNWjjlkPgvIRUy8
+	36XxX6w8Hsjj3poAqeQO1mfghyaCuY+QnmuwuC0jSIe57G4BwJ4nnVl2fSxqhbiO8eNClkV+Ufr
+	1
+X-Google-Smtp-Source: AGHT+IEvYEtaBMx7bCM5l4trc8XOAFmTPKX77fx9dRw1sG88R7jpLDOmioDheLZPpRc7wBQ8GLFtEQ==
+X-Received: by 2002:a05:6512:1328:b0:51c:8b45:c9fb with SMTP id x40-20020a056512132800b0051c8b45c9fbmr8032701lfu.69.1714403787098;
+        Mon, 29 Apr 2024 08:16:27 -0700 (PDT)
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+	Jan Beulich <JBeulich@suse.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Xenia Ragiadakou <xenia.ragiadakou@amd.com>,
+	Sergiy Kibrik <Sergiy_Kibrik@epam.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Andrei Semenov <andrei.semenov@vates.fr>,
+	Vaishali Thakkar <vaishali.thakkar@vates.tech>
+Subject: [PATCH 0/5] x86: AMD CPUID handling improvements
+Date: Mon, 29 Apr 2024 16:16:20 +0100
+Message-Id: <20240429151625.977884-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 6/8] gzip: move output buffer into gunzip state
-Content-Language: en-US
-To: "Daniel P. Smith" <dpsmith@apertussolutions.com>
-Cc: Jason Andryuk <jason.andryuk@amd.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <20240424163422.23276-1-dpsmith@apertussolutions.com>
- <20240424163422.23276-7-dpsmith@apertussolutions.com>
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240424163422.23276-7-dpsmith@apertussolutions.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 24.04.2024 18:34, Daniel P. Smith wrote:
-> --- a/xen/common/gzip/gunzip.c
-> +++ b/xen/common/gzip/gunzip.c
-> @@ -15,6 +15,8 @@ struct gunzip_state {
->      size_t insize;
->      /* Index of next byte to be processed in inbuf: */
->      unsigned int inptr;
-> +
-> +    unsigned long bytes_out;
->  };
+This is (half) the series I've promised various people, to untangle some AMD
+CPUID handling.  It moves the SVM feature leaf into the standard
+x86_capabilities[] infrastructure.
 
-The conversion to unsigned long from ...
+On a random Milan system, with this in place, xen-cpuid reports:
 
-> @@ -42,7 +44,6 @@ typedef unsigned long   ulg;
->  #  define Tracecv(c, x)
->  #endif
->  
-> -static long __initdata bytes_out;
+Dynamic sets:
+Raw                             178bfbff:7eda320b:2fd3fbff:75c237ff:0000000f:219c95a9:0040069c:00006799:91bef75f:00000000:00000000:0000204d:00000000:00000000:00000000:00000000:00000000:00000000:119b9cff:0101fd3f
+  [18] CPUID 0x8000000a.edx     npt v-lbr svm-lock nrips v-tsc-rate vmcb-cleanbits flush-by-asid decode-assist pause-filter <11> pause-thresh v-loadsave v-gif <17> npt-sss v-spec-ctrl <23> <24> <28>
+  [19] CPUID 0x8000001f.eax     sme sev <2> sev-es sev-snp <5> <8> <10> <11> <12> <13> <14> <15> <16> <24>
 
-... this originally wants justifying in the (then no longer empty) description.
-It's not a lot that needs saying, but such a type change cannot go entirely
-silently.
+Host                            178bf3ff:76da320b:2fd3fbff:644037ff:0000000f:219c95a9:0040068c:00000780:319ed205:00000000:00000000:18000045:00000000:00000000:00000000:00000000:00000000:00000000:001994ff:00000000
+  [18] CPUID 0x8000000a.edx     npt v-lbr svm-lock nrips v-tsc-rate vmcb-cleanbits flush-by-asid decode-assist pause-filter pause-thresh v-loadsave v-gif npt-sss v-spec-ctrl
+  [19] CPUID 0x8000001f.eax
 
-Jan
+HVM Max                         178bfbff:f6fa3203:2e500800:440001f7:0000000f:219c05a9:0040060c:00000100:331ed005:00000000:00000000:18000045:00000000:00000000:00000000:00000000:00000000:00000000:000004ab:00000000
+  [18] CPUID 0x8000000a.edx     npt v-lbr nrips vmcb-cleanbits decode-assist pause-filter
+  [19] CPUID 0x8000001f.eax
+
+
+Unforunately, I haven't managed to do the second half to make the host_policy
+usable earlier on boot.  Untanling __setup_xen() is proving stuborn due to
+(ab)uses of the MB1 module list.
+
+Andrew Cooper (5):
+  x86/cpu-policy: Infrastructure for the AMD SVM and SEV leaves
+  x86/cpu-policy: Add SVM features already used by Xen
+  x86/spec-ctrl: Remove open-coded check of SVM_FEATURE_SPEC_CTRL
+  x86/svm: Switch SVM features over normal cpu_has_*
+  x86/cpu-policy: Introduce some SEV features
+
+ tools/libs/light/libxl_cpuid.c              |  2 +
+ tools/misc/xen-cpuid.c                      | 24 ++++++++++
+ xen/arch/x86/cpu-policy.c                   | 17 +++----
+ xen/arch/x86/cpu/common.c                   |  4 ++
+ xen/arch/x86/hvm/svm/asid.c                 |  5 +--
+ xen/arch/x86/hvm/svm/emulate.c              |  3 +-
+ xen/arch/x86/hvm/svm/intr.c                 |  1 -
+ xen/arch/x86/hvm/svm/nestedsvm.c            | 14 +++---
+ xen/arch/x86/hvm/svm/svm.c                  | 50 +++++----------------
+ xen/arch/x86/hvm/svm/vmcb.c                 |  1 -
+ xen/arch/x86/include/asm/cpufeature.h       | 16 +++++++
+ xen/arch/x86/include/asm/hvm/svm/svm.h      | 36 ---------------
+ xen/arch/x86/spec_ctrl.c                    |  7 +--
+ xen/include/public/arch-x86/cpufeatureset.h | 22 +++++++++
+ xen/include/xen/lib/x86/cpu-policy.h        | 24 +++++++++-
+ xen/lib/x86/cpuid.c                         |  4 ++
+ xen/tools/gen-cpuid.py                      |  7 +++
+ 17 files changed, 128 insertions(+), 109 deletions(-)
+
+--
+2.30.2
 
