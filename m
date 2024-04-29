@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id ADF088B51AD
-	for <lists+xen-devel@lfdr.de>; Mon, 29 Apr 2024 08:44:13 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.713855.1114737 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C18B28B51FA
+	for <lists+xen-devel@lfdr.de>; Mon, 29 Apr 2024 09:07:54 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.713867.1114747 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s1Kjz-0007sA-JY; Mon, 29 Apr 2024 06:43:55 +0000
+	id 1s1L6R-0002jy-FJ; Mon, 29 Apr 2024 07:07:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 713855.1114737; Mon, 29 Apr 2024 06:43:55 +0000
+Received: by outflank-mailman (output) from mailman id 713867.1114747; Mon, 29 Apr 2024 07:07:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s1Kjz-0007qe-GO; Mon, 29 Apr 2024 06:43:55 +0000
-Received: by outflank-mailman (input) for mailman id 713855;
- Mon, 29 Apr 2024 06:43:54 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1s1L6R-0002iK-AT; Mon, 29 Apr 2024 07:07:07 +0000
+Received: by outflank-mailman (input) for mailman id 713867;
+ Mon, 29 Apr 2024 07:07:05 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=GJEf=MC=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1s1Kjy-0007qY-0j
- for xen-devel@lists.xenproject.org; Mon, 29 Apr 2024 06:43:54 +0000
-Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
- [2a00:1450:4864:20::42a])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d7c8b7e2-05f3-11ef-909b-e314d9c70b13;
- Mon, 29 Apr 2024 08:43:52 +0200 (CEST)
-Received: by mail-wr1-x42a.google.com with SMTP id
- ffacd0b85a97d-34b3374ae22so4454580f8f.0
- for <xen-devel@lists.xenproject.org>; Sun, 28 Apr 2024 23:43:53 -0700 (PDT)
+ id 1s1L6P-0002hv-Lo
+ for xen-devel@lists.xenproject.org; Mon, 29 Apr 2024 07:07:05 +0000
+Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
+ [2a00:1450:4864:20::32b])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 14a28408-05f7-11ef-b4bb-af5377834399;
+ Mon, 29 Apr 2024 09:07:03 +0200 (CEST)
+Received: by mail-wm1-x32b.google.com with SMTP id
+ 5b1f17b1804b1-41b21ed19f5so28736535e9.2
+ for <xen-devel@lists.xenproject.org>; Mon, 29 Apr 2024 00:07:03 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- m2-20020a05600c4f4200b004186eb69a55sm40172765wmq.25.2024.04.28.23.43.51
+ j10-20020a05600c190a00b00418a9961c47sm40357620wmq.47.2024.04.29.00.07.02
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sun, 28 Apr 2024 23:43:52 -0700 (PDT)
+ Mon, 29 Apr 2024 00:07:02 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,55 +45,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d7c8b7e2-05f3-11ef-909b-e314d9c70b13
+X-Inumbo-ID: 14a28408-05f7-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1714373032; x=1714977832; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1714374423; x=1714979223; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=AmyoU+Q2sgIfz5uRo5wk7eBHOwAmZcwPO886Ck//vYs=;
-        b=PY5PWzBZLnce8Ig+FFdm/BAPWd9qI8lOLAvlkX4ZgPd5BOvcwHWaPmtEE8giZn5dgP
-         Jycbd7WWeM7VUaGmFF2vK6h0MLnwUD9x0Zeb+1YWMia5F2LO6+o2xH3F1qVPwN8ZgdGx
-         gH1ivrsK+u5swz/O5H5lAZHvAFVZX9Ddvpkb8qPC8nHxOLE+O4Yiux8LTcgUkRXCdHOM
-         QJTOwuKeypDj20Q7Bxprr05Da8o3bBulxFVi9albiRctY+MdLNQpdERgYsdi1WSw9Euw
-         e4sFFbU3XRvjKqR5hUXYSVKqn7Bjiw5kALVakLE/uZoObWdMB+u4jjhYes3PuSjH+0kP
-         cAIQ==
+        bh=dOHubGpgYAyYAkcXWF/rMyS0mFgSXKAO+i8xOwjQPpc=;
+        b=fLhUXbE+UIsR+u9CEHcJvNV7C6vSJI9jII9xJxI3YxCeq9vVoTFQtI35KHVTh32six
+         U1ju5y+qiyzX2Ov0P0QLVQ3/+O7UjXja+Lc+KAJqdczBwt5jpvBxxqxJB/ErAbZ7kzAJ
+         qNWfIO77U3oHxF67Lt1epLGBKCuwZFXeZFGCFWWDqWd9yBJ8xpyoBYinYZvsOmmxeMHO
+         AWnhiVo0PBTQ5jtwbRRXE33wi/vCIIWqa+gSvOxYA5+b1L1ts6YXJ2uwo1MkMYzlOG/5
+         TvpjrGypjK4R64Egq+12MdB9BQ0QLWmlogbESuN/I3FcqqnwIGfM5k5K1h5cZm7c/VI6
+         DfrA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1714373032; x=1714977832;
+        d=1e100.net; s=20230601; t=1714374423; x=1714979223;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=AmyoU+Q2sgIfz5uRo5wk7eBHOwAmZcwPO886Ck//vYs=;
-        b=aSMGP94iBhQYsn/jgzKN5DhGgIf+7C3W0BM9p5PHFNWe7SrezSznJvwLBMV8LN5xCx
-         Z7I5ar+j95RGUtcRHNi049fQOFuQbOeAKPdjWmxctRVxlUaXJ3Jzlp9vIm4FReLacouf
-         JiaCgA4lHkCEpcWikjn2VTN28FECDZUKRJQZrkV26MtknYWHEQ3pYruqXSZQPEvnkNrA
-         ibFNdXE1JwsBbyKBEAGVqOPVzHcPUgQxPfw50D1G+s6NSrmEMt0sICAVjDD7YZ5uepDg
-         HN06PH3WcKKcSre5jm/Cl8WavqGvRw52LRs9Ihmndm/gHP8QycO6e8UHa0pdgZRxFyZE
-         C/YQ==
-X-Forwarded-Encrypted: i=1; AJvYcCWrrCglLH8e4Kl0E4rqMtR2fegc50ivaw2LcVVuDd0GTbqNJ4OL6WlGmDlWmJpabJrFMl5oKcQWcLyfOp6e3hTKopwUOFybs1LGTVazOOE=
-X-Gm-Message-State: AOJu0Yy1q2wEUEhsU4bgvW3T7dzAuDZZ1RiQnaWbGLe8hzYyPBRCmK5q
-	jicftpDqqFiBnaE3F/rvP9xskOTgAVzX8uu73JqD+SjUww+MO+FNiOnwxzpeaw==
-X-Google-Smtp-Source: AGHT+IGV9QhE8Uh08XACdt8Pecj+SP4U2ho0NPzOA100X3MpoLfDpu0l38/eE10sSw6TI7lHPL05DA==
-X-Received: by 2002:a5d:64cc:0:b0:34c:def3:2f82 with SMTP id f12-20020a5d64cc000000b0034cdef32f82mr3853473wri.27.1714373032372;
-        Sun, 28 Apr 2024 23:43:52 -0700 (PDT)
-Message-ID: <36ab7bce-2f72-4ad8-8315-2bfc1268d032@suse.com>
-Date: Mon, 29 Apr 2024 08:43:53 +0200
+        bh=dOHubGpgYAyYAkcXWF/rMyS0mFgSXKAO+i8xOwjQPpc=;
+        b=l7ov6sWgQZBMPzszmQCIS5gaooBw6kqSinqP8f+ez9daeUStnpC9xRcaC+XKMk+Ju4
+         6xcjbIYyRaqZmKUDR4Ww0qmS5ibviuR8Z9XAEF1lv3RxHnQEXV64vsDXNncTnUVfMVJH
+         5uk/Y64zHaiUHXIG1kpF5xTrO+znGYyd2l0AEaANnQiIu62JA+EKdRW672Y+epgI/ZXm
+         +wSy55vPnbjYIMlOaovYWE2omWTkJT0VoR7tnAQpzRsalVPsCfTXsC5HTdtj9ot2iCvu
+         kl8CgJOI4WkbKgibnqZ0nvTTpTwx/Wyci4GiVurt9fTwmeEWhTLzuzTPki7a0h0+AyNo
+         JBbQ==
+X-Forwarded-Encrypted: i=1; AJvYcCU2DxQ25xDXg3EW0DFBneABXeHavdTIq9s41Z2BSSYQzq/RMozi9saR1KO0ZAg2Rcc9i5KpWTZBQ2+hmIMlXRecXuySKw45qjVY4qdVbvk=
+X-Gm-Message-State: AOJu0YxaYv0S9/Xc/8iNHkX+l74QbFTNgOzbC9ZtpKD3N+IybgqUQ/Hh
+	acsD2Ma2bncgdn8VlNFeAaAI9bjzqgd7h1SEBDdCBNQl2sjY4QRNVirRk7LY4g==
+X-Google-Smtp-Source: AGHT+IF33YBjnFT2I06Tghr1/q34iaZZo/O+iUfMmbY/DSSk7Qt4ZU2awTjudUiHFgZ/t2DF7GLkOw==
+X-Received: by 2002:a05:600c:450b:b0:41b:f30a:41f1 with SMTP id t11-20020a05600c450b00b0041bf30a41f1mr3789437wmo.7.1714374422870;
+        Mon, 29 Apr 2024 00:07:02 -0700 (PDT)
+Message-ID: <fd3efb33-6611-4c6e-a2b6-fe47f655c0fe@suse.com>
+Date: Mon, 29 Apr 2024 09:07:04 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 07/15] xen/overlay: Enable device tree overlay assignment
- to running domains
+Subject: Re: [PATCH v2 1/7] x86/p2m: Add braces for better code clarity
 Content-Language: en-US
-To: Henry Wang <xin.wang2@amd.com>
-Cc: Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, xen-devel@lists.xenproject.org,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>
-References: <20240424033449.168398-1-xin.wang2@amd.com>
- <20240424033449.168398-8-xin.wang2@amd.com>
- <da67f90f-6807-4fdc-b65b-f7a4ba9f78ad@suse.com>
- <97a401ff-4b5c-4e6a-8d9c-e36305ec64f5@amd.com>
+To: =?UTF-8?Q?Petr_Bene=C5=A1?= <w1benny@gmail.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ xen-devel@lists.xenproject.org
+References: <cover.1714322424.git.w1benny@gmail.com>
+ <90082c0aa2047edf5764840f1903d1797ca4b902.1714322424.git.w1benny@gmail.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -118,73 +113,18 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <97a401ff-4b5c-4e6a-8d9c-e36305ec64f5@amd.com>
+In-Reply-To: <90082c0aa2047edf5764840f1903d1797ca4b902.1714322424.git.w1benny@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 29.04.2024 05:36, Henry Wang wrote:
-> Hi Jan, Julien, Stefano,
+On 28.04.2024 18:52, Petr Beneš wrote:
+> From: Petr Beneš <w1benny@gmail.com>
 > 
-> On 4/24/2024 2:05 PM, Jan Beulich wrote:
->> On 24.04.2024 05:34, Henry Wang wrote:
->>> --- a/xen/include/public/sysctl.h
->>> +++ b/xen/include/public/sysctl.h
->>> @@ -1197,7 +1197,9 @@ struct xen_sysctl_dt_overlay {
->>>   #define XEN_SYSCTL_DT_OVERLAY_ADD                   1
->>>   #define XEN_SYSCTL_DT_OVERLAY_REMOVE                2
->>>       uint8_t overlay_op;                     /* IN: Add or remove. */
->>> -    uint8_t pad[3];                         /* IN: Must be zero. */
->>> +    bool domain_mapping;                    /* IN: True of False. */
->>> +    uint8_t pad[2];                         /* IN: Must be zero. */
->>> +    uint32_t domain_id;
->>>   };
->> If you merely re-purposed padding fields, all would be fine without
->> bumping the interface version. Yet you don't, albeit for an unclear
->> reason: Why uint32_t rather than domid_t? And on top of that - why a
->> separate boolean when you could use e.g. DOMID_INVALID to indicate
->> "no domain mapping"?
+> No functional change.
 > 
-> I think both of your suggestion make great sense. I will follow the 
-> suggestion in v2.
-> 
->> That said - anything taking a domain ID is certainly suspicious in a
->> sysctl. Judging from the description you really mean this to be a
->> domctl. Anything else will require extra justification.
-> 
-> I also think a domctl is better. I had a look at the history of the 
-> already merged series, it looks like in the first version of merged part 
-> 1 [1], the hypercall was implemented as the domctl in the beginning but 
-> later in v2 changed to sysctl. I think this makes sense as the scope of 
-> that time is just to make Xen aware of the device tree node via Xen 
-> device tree.
-> 
-> However this is now a problem for the current part where the scope (and 
-> the end goal) is extended to assign the added device to Linux Dom0/DomU 
-> via device tree overlays. I am not sure which way is better, should we 
-> repurposing the sysctl to domctl or maybe add another domctl (I am 
-> worrying about the duplication because basically we need the same sysctl 
-> functionality but now with a domid in it)? What do you think?
+> Signed-off-by: Petr Beneš <w1benny@gmail.com>
 
-I'm taking it that what is a sysctl right now legitimately is. Therefore
-folding both into domctl would at least be bending the rules of what
-should be sysctl and what domctl. It would need clarifying what (fake)
-domain such a (folded) domctl ought to operate on for the case that's
-currently a sysctl. That then may (or may not) be justification for such
-folding.
+Where did Stefano's R-b go?
 
 Jan
-
-> @Stefano: Since I am not 100% if I understand the whole story behind 
-> this feature, would you mind checking if I am providing correct 
-> information above and sharing your opinions on this? Thank you very much!
-> 
-> [1] 
-> https://lore.kernel.org/xen-devel/13240b69-f7bb-6a64-b89c-b7c2cbb7e465@xen.org/
-> 
-> Kind regards,
-> Henry
-> 
->> Jan
-> 
-
 
