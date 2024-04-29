@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C18B28B51FA
-	for <lists+xen-devel@lfdr.de>; Mon, 29 Apr 2024 09:07:54 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.713867.1114747 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EA9718B522B
+	for <lists+xen-devel@lfdr.de>; Mon, 29 Apr 2024 09:20:14 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.713881.1114762 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s1L6R-0002jy-FJ; Mon, 29 Apr 2024 07:07:07 +0000
+	id 1s1LIl-0004uH-ML; Mon, 29 Apr 2024 07:19:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 713867.1114747; Mon, 29 Apr 2024 07:07:07 +0000
+Received: by outflank-mailman (output) from mailman id 713881.1114762; Mon, 29 Apr 2024 07:19:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s1L6R-0002iK-AT; Mon, 29 Apr 2024 07:07:07 +0000
-Received: by outflank-mailman (input) for mailman id 713867;
- Mon, 29 Apr 2024 07:07:05 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1s1LIl-0004sM-Hq; Mon, 29 Apr 2024 07:19:51 +0000
+Received: by outflank-mailman (input) for mailman id 713881;
+ Mon, 29 Apr 2024 07:19:50 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=GJEf=MC=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1s1L6P-0002hv-Lo
- for xen-devel@lists.xenproject.org; Mon, 29 Apr 2024 07:07:05 +0000
-Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
- [2a00:1450:4864:20::32b])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 14a28408-05f7-11ef-b4bb-af5377834399;
- Mon, 29 Apr 2024 09:07:03 +0200 (CEST)
-Received: by mail-wm1-x32b.google.com with SMTP id
- 5b1f17b1804b1-41b21ed19f5so28736535e9.2
- for <xen-devel@lists.xenproject.org>; Mon, 29 Apr 2024 00:07:03 -0700 (PDT)
+ id 1s1LIk-0004sG-LE
+ for xen-devel@lists.xenproject.org; Mon, 29 Apr 2024 07:19:50 +0000
+Received: from mail-lf1-x12b.google.com (mail-lf1-x12b.google.com
+ [2a00:1450:4864:20::12b])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id dd4282ee-05f8-11ef-909b-e314d9c70b13;
+ Mon, 29 Apr 2024 09:19:49 +0200 (CEST)
+Received: by mail-lf1-x12b.google.com with SMTP id
+ 2adb3069b0e04-51abf1a9332so5596722e87.3
+ for <xen-devel@lists.xenproject.org>; Mon, 29 Apr 2024 00:19:49 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- j10-20020a05600c190a00b00418a9961c47sm40357620wmq.47.2024.04.29.00.07.02
+ n3-20020a05600c4f8300b0041be58cdf83sm7435435wmq.4.2024.04.29.00.19.48
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 29 Apr 2024 00:07:02 -0700 (PDT)
+ Mon, 29 Apr 2024 00:19:48 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 14a28408-05f7-11ef-b4bb-af5377834399
+X-Inumbo-ID: dd4282ee-05f8-11ef-909b-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1714374423; x=1714979223; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1714375189; x=1714979989; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=dOHubGpgYAyYAkcXWF/rMyS0mFgSXKAO+i8xOwjQPpc=;
-        b=fLhUXbE+UIsR+u9CEHcJvNV7C6vSJI9jII9xJxI3YxCeq9vVoTFQtI35KHVTh32six
-         U1ju5y+qiyzX2Ov0P0QLVQ3/+O7UjXja+Lc+KAJqdczBwt5jpvBxxqxJB/ErAbZ7kzAJ
-         qNWfIO77U3oHxF67Lt1epLGBKCuwZFXeZFGCFWWDqWd9yBJ8xpyoBYinYZvsOmmxeMHO
-         AWnhiVo0PBTQ5jtwbRRXE33wi/vCIIWqa+gSvOxYA5+b1L1ts6YXJ2uwo1MkMYzlOG/5
-         TvpjrGypjK4R64Egq+12MdB9BQ0QLWmlogbESuN/I3FcqqnwIGfM5k5K1h5cZm7c/VI6
-         DfrA==
+        bh=q0oSIncWfRdUdmaIGvx5u0B7hRxtNRvDMgL4G/hlfXE=;
+        b=VG9/3kxu7cicE4o57/QfWPTA+F3B46lUgn1xQ412vcXL6rDwbkQ8kSXEumWodqwFUC
+         Fncsc/tsYB02FAtuQb2lGsXVra5gJ0yDVyF9n3n1nFTb1PnN5jk/iNcKtyzRqzRNe9vg
+         l4uh4WPEcbBKScVdPBXXt8y5qA0jSxZDHZI57IqAC5XU+/4s7U8u7NCZx3eU+VTrs3qC
+         pfXyFcCN/zl+2DKWwG5Shdme104C7cqUIWvDL6/2UQWHf0LYwML9C8ypgbexZ31xEom/
+         HGBp9YE+NPCJZnC3C6uc1kTYkp5rjfz4DlCdXFZje2Nz1gtpSUmU007cTkC02lfPVze4
+         WLdQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1714374423; x=1714979223;
+        d=1e100.net; s=20230601; t=1714375189; x=1714979989;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=dOHubGpgYAyYAkcXWF/rMyS0mFgSXKAO+i8xOwjQPpc=;
-        b=l7ov6sWgQZBMPzszmQCIS5gaooBw6kqSinqP8f+ez9daeUStnpC9xRcaC+XKMk+Ju4
-         6xcjbIYyRaqZmKUDR4Ww0qmS5ibviuR8Z9XAEF1lv3RxHnQEXV64vsDXNncTnUVfMVJH
-         5uk/Y64zHaiUHXIG1kpF5xTrO+znGYyd2l0AEaANnQiIu62JA+EKdRW672Y+epgI/ZXm
-         +wSy55vPnbjYIMlOaovYWE2omWTkJT0VoR7tnAQpzRsalVPsCfTXsC5HTdtj9ot2iCvu
-         kl8CgJOI4WkbKgibnqZ0nvTTpTwx/Wyci4GiVurt9fTwmeEWhTLzuzTPki7a0h0+AyNo
-         JBbQ==
-X-Forwarded-Encrypted: i=1; AJvYcCU2DxQ25xDXg3EW0DFBneABXeHavdTIq9s41Z2BSSYQzq/RMozi9saR1KO0ZAg2Rcc9i5KpWTZBQ2+hmIMlXRecXuySKw45qjVY4qdVbvk=
-X-Gm-Message-State: AOJu0YxaYv0S9/Xc/8iNHkX+l74QbFTNgOzbC9ZtpKD3N+IybgqUQ/Hh
-	acsD2Ma2bncgdn8VlNFeAaAI9bjzqgd7h1SEBDdCBNQl2sjY4QRNVirRk7LY4g==
-X-Google-Smtp-Source: AGHT+IF33YBjnFT2I06Tghr1/q34iaZZo/O+iUfMmbY/DSSk7Qt4ZU2awTjudUiHFgZ/t2DF7GLkOw==
-X-Received: by 2002:a05:600c:450b:b0:41b:f30a:41f1 with SMTP id t11-20020a05600c450b00b0041bf30a41f1mr3789437wmo.7.1714374422870;
-        Mon, 29 Apr 2024 00:07:02 -0700 (PDT)
-Message-ID: <fd3efb33-6611-4c6e-a2b6-fe47f655c0fe@suse.com>
-Date: Mon, 29 Apr 2024 09:07:04 +0200
+        bh=q0oSIncWfRdUdmaIGvx5u0B7hRxtNRvDMgL4G/hlfXE=;
+        b=YUq0TWI4ibf8exPZLtnxokQl+ajCf3aius6xa+UjbeY0yVQhN+tjScSSBTCyhi+sxc
+         lDd/R7AnggjYq0GRKSAH9dS6bPxLDulz1rCxjluCDuWbuENxrxnpLl4p/X6Pz5kzIWba
+         lha5dkEvP4TXHzMk0Rv+nTElfwUXffFGjor0VP0ftw5VE0LXYu14zZ1Q4YaTW35bPO3s
+         yKSxkFb6IhDIfNVCcY+C63HYgqcAiJZUfm0aGUeCoEnNmHfpktCA114C3Ni3+B145Oaf
+         MpljQ8mZOdk0C/ZYyeuFJK4eGGQ+/T3Sz44zoAXo+d++v2LKhDde0ewJ5BwG6TtIAuhE
+         t1nA==
+X-Forwarded-Encrypted: i=1; AJvYcCUOLr9N/N/DhG61F8KsS4buZR6yBjpTGELLo17QrmqFUqr+U9AV45sprVQlYOyp4++WhjtHL5Y0cNzayUqXXDPRuIjYXHZYLllzU//gvTc=
+X-Gm-Message-State: AOJu0YyG+99jdQt6nnq6m34ssxIpYl7zdmTYgWM+BZHhGSoTkAyOijcO
+	sk7Sjd35EJeLgwnPGf13ZG+mwDXX50TyjN7dq/x3SpP220AmlhDOc3Q6zeYutg==
+X-Google-Smtp-Source: AGHT+IFslbAe7sCaUDcXJdoLn0Ibvrnyq2U62k2ZaoTHYU45dvyDPsy2zHE5zfFRkiX83bUBYieCOA==
+X-Received: by 2002:a19:9157:0:b0:516:d33a:7571 with SMTP id y23-20020a199157000000b00516d33a7571mr6316012lfj.8.1714375188896;
+        Mon, 29 Apr 2024 00:19:48 -0700 (PDT)
+Message-ID: <9d9decb2-ee5b-4e0c-9f27-b65e7c274e5b@suse.com>
+Date: Mon, 29 Apr 2024 09:19:50 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/7] x86/p2m: Add braces for better code clarity
+Subject: Re: MISRA and -Wextra-semi
 Content-Language: en-US
-To: =?UTF-8?Q?Petr_Bene=C5=A1?= <w1benny@gmail.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org
-References: <cover.1714322424.git.w1benny@gmail.com>
- <90082c0aa2047edf5764840f1903d1797ca4b902.1714322424.git.w1benny@gmail.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Roberto Bagnara <roberto.bagnara@bugseng.com>,
+ "consulting@bugseng.com" <consulting@bugseng.com>,
+ xen-devel <xen-devel@lists.xenproject.org>
+References: <5ef9fef8-e5ee-4ce3-a78f-ee7c35e5a1a4@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -113,18 +113,33 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <90082c0aa2047edf5764840f1903d1797ca4b902.1714322424.git.w1benny@gmail.com>
+In-Reply-To: <5ef9fef8-e5ee-4ce3-a78f-ee7c35e5a1a4@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 28.04.2024 18:52, Petr Beneš wrote:
-> From: Petr Beneš <w1benny@gmail.com>
+On 26.04.2024 13:33, Andrew Cooper wrote:
+> Hi,
 > 
-> No functional change.
+> Based on a call a long while back, I experimented with -Wextra-semi. 
+> This is what lead to 8e36c668ca107 "xen: Drop superfluous semi-colons".
 > 
-> Signed-off-by: Petr Beneš <w1benny@gmail.com>
+> However, there are a number of problems with getting this working
+> fully.  First, we need workarounds like this:
+> 
+> diff --git a/xen/include/xen/config.h b/xen/include/xen/config.h
+> index d888b2314daf..12e99c6dded4 100644
+> --- a/xen/include/xen/config.h
+> +++ b/xen/include/xen/config.h
+> @@ -26,7 +26,7 @@
+>  
+>  #include <asm/config.h>
+>  
+> -#define EXPORT_SYMBOL(var)
+> +#define EXPORT_SYMBOL(var) typedef int var##_ignore_t
 
-Where did Stefano's R-b go?
+For this specifically, could we perhaps finally get rid of most (all?)
+EXPORT_SYMBOL()? If not all, then at least as far as permitting the
+stub #define to be moved to linux-compat.h?
 
 Jan
 
