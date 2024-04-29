@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 33FC08B5DCC
-	for <lists+xen-devel@lfdr.de>; Mon, 29 Apr 2024 17:34:31 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.714252.1115395 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B7C298B5DEE
+	for <lists+xen-devel@lfdr.de>; Mon, 29 Apr 2024 17:42:10 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.714260.1115405 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s1T1C-0008NO-8P; Mon, 29 Apr 2024 15:34:14 +0000
+	id 1s1T8S-0002ZT-1u; Mon, 29 Apr 2024 15:41:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 714252.1115395; Mon, 29 Apr 2024 15:34:14 +0000
+Received: by outflank-mailman (output) from mailman id 714260.1115405; Mon, 29 Apr 2024 15:41:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s1T1C-0008Ke-5K; Mon, 29 Apr 2024 15:34:14 +0000
-Received: by outflank-mailman (input) for mailman id 714252;
- Mon, 29 Apr 2024 15:34:12 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1s1T8R-0002X9-Ur; Mon, 29 Apr 2024 15:41:43 +0000
+Received: by outflank-mailman (input) for mailman id 714260;
+ Mon, 29 Apr 2024 15:41:42 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=GJEf=MC=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1s1T1A-0008KY-TC
- for xen-devel@lists.xenproject.org; Mon, 29 Apr 2024 15:34:12 +0000
-Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
- [2a00:1450:4864:20::333])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ecbedfd1-063d-11ef-b4bb-af5377834399;
- Mon, 29 Apr 2024 17:34:10 +0200 (CEST)
-Received: by mail-wm1-x333.google.com with SMTP id
- 5b1f17b1804b1-41b869326daso21954205e9.0
- for <xen-devel@lists.xenproject.org>; Mon, 29 Apr 2024 08:34:10 -0700 (PDT)
+ id 1s1T8Q-0002X3-Lb
+ for xen-devel@lists.xenproject.org; Mon, 29 Apr 2024 15:41:42 +0000
+Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
+ [2a00:1450:4864:20::32c])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id f973fe88-063e-11ef-909b-e314d9c70b13;
+ Mon, 29 Apr 2024 17:41:41 +0200 (CEST)
+Received: by mail-wm1-x32c.google.com with SMTP id
+ 5b1f17b1804b1-41b782405bbso25520895e9.1
+ for <xen-devel@lists.xenproject.org>; Mon, 29 Apr 2024 08:41:41 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- jx12-20020a05600c578c00b0041674bf7d4csm44997668wmb.48.2024.04.29.08.34.09
+ g9-20020a05600c310900b0041a9fc2a6b5sm25341286wmo.20.2024.04.29.08.41.40
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 29 Apr 2024 08:34:10 -0700 (PDT)
+ Mon, 29 Apr 2024 08:41:40 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ecbedfd1-063d-11ef-b4bb-af5377834399
+X-Inumbo-ID: f973fe88-063e-11ef-909b-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1714404850; x=1715009650; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1714405301; x=1715010101; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=k8MsNoBgk+0o2iJjXPPiiY2xEx2R0zWeVOvCyicE3wY=;
-        b=LIeLehENc98/E6bGdxzlBvGjgmzqOcsX6RjDWvN7sv4Hb/5nklowPUqtI3MjxNklia
-         szWceIpRA6kRU2Ttk7chg+MfnV9qADZ0sRYwqjL/FPmiL9kahhpbh44BCjkJCnMHI2ZR
-         4LfqgBYXtDnsEWInVBlfapIil9wWKgQGEcwoBSk07ZYlq+ZUBe0oKIpnS5JM5C74VKGm
-         7+rDKVmWK8WkTqepJppLQ7QMISKNd1I7FLMW1bU+E8NDqhO3w5CrKQyIfXGq4iYgBb8M
-         KgGGj4H3/bMrZPwrw58bm//MdufdlRS9bVA0X1p5SniDyMf5aUXVZ0pIowotX+tewrp3
-         buwA==
+        bh=s223/epmC7X+WUARh03qJUAlKInDt1i8v0adBZzYBRQ=;
+        b=BBk+jEXNGtHXlI2VQYsP3Ybjq83ug2/oES6oY9kpII2zFv7yJt2oVLlZE9E2lkHEe/
+         TMad3B1rmcE4UKLCzi5+yzAK3dF1/OEyvf9t7BANJMr89DZ+kR2poeXUbsPZiaI6cP38
+         usbKVN0ZpxG7iTeZR2WVzFFaprPmSqTq3RE45Q2qKU8yGAHNwQLMK1UbN84tj5pMsQdP
+         FZxxCMJDcglgslE8JRaNSkWBzTA97dU/08QQdlTdU7JTjfTCQv2Kqv7uHrI3gz0Q5bkz
+         dXLxAC/GXVkYixZMhkWAP0CWOTq11zXodpZFgHkuMmLx7Z0arBhOq/JjEWXS+UBwpjzG
+         hvQw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1714404850; x=1715009650;
+        d=1e100.net; s=20230601; t=1714405301; x=1715010101;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=k8MsNoBgk+0o2iJjXPPiiY2xEx2R0zWeVOvCyicE3wY=;
-        b=R+NMSOdRp3eVr1xPNzPxHbQg9OUzVcaDa8CVQXwPfiEUkVQ3VCd8uGgiCDx7YJih/T
-         oZ0itiywMz0VU+0YJlP8zl9WmZjswlYDfIOJM6r0ogK0q6VthXppR6ePv7iHHjel1DSJ
-         pRBayutQH+KNuDzPhrEuFxZVYTQAbC5HEBZLvelk8kGd8dJBebOSk5Keyz86YcF+o2wB
-         wVQLZSg7NcixFTOdu/qjihORf40Dpy/4pkukWpR81wPoxsh+wOv2ywwLI8D5XKEVBfgS
-         OD+o3Ukpl6PxccWzsBWnATWK7QjUKqQkoakDa1k94MxcxYpbAki9dqw6lVJY5KHaupUJ
-         T0dg==
-X-Forwarded-Encrypted: i=1; AJvYcCWno9Nu16VhYCjZ4U/ncxffxTnj9bER5Ch/T5IplbZdJ4St8RVso2cBwANGupH5bkXysS/vLsOFRithfMAEqEa3zG5RO90RSmypwA2J8Fk=
-X-Gm-Message-State: AOJu0YyegR4LqagEhtE5Hh2fqCGdT+EI+NGVJSr3StLG07artMgApUvs
-	vqmReYpFFqHg1AGowdIczYE6JlKmcNrrWvvYQLrpUQ/UXd5vgScJ6aWy1g3JWQ==
-X-Google-Smtp-Source: AGHT+IH/lFgBhy907B2+wTMLmP2ZH7L/nu5TUMgS2xCrnlJg6qnqR3zJHkkVboexcTRNVcmqpni1lw==
-X-Received: by 2002:a05:600c:3d8f:b0:41c:2992:a3be with SMTP id bi15-20020a05600c3d8f00b0041c2992a3bemr3908960wmb.29.1714404850210;
-        Mon, 29 Apr 2024 08:34:10 -0700 (PDT)
-Message-ID: <fd6bc6df-1b95-45fb-81ed-b0ccac1a0ad0@suse.com>
-Date: Mon, 29 Apr 2024 17:34:09 +0200
+        bh=s223/epmC7X+WUARh03qJUAlKInDt1i8v0adBZzYBRQ=;
+        b=GBobWcfacL8bbM2f/J93BlOn8uQ9v8wzW6k4f0FFB65xUFTAEHdAreRheBaCcD953P
+         N3tMhrw1lucxzG1M/ukQ6t3J4UHmbbjWybA3GQda9zhbdRaFggRFQFiuYNuMfoifLIAE
+         ghm+HUkXVT69zcUaDPje2J8A2Sm8/FtQIC0ZXBPrk2ShLR/XQFg1Ng1KvWuLQLoGaSGM
+         rjQsDWReo1W06g3QPau7Bv9DN3nVJUkpHw4qNz4GnQ+UuGhVLMGkMiOU7yNs/FP1GfBI
+         fZzSLpsWEyWSBD8T5bZ8DeriUl0fQY3RJqKUz8CN/MB374LSEoFO5+INC0nsullFqj8Z
+         M/CA==
+X-Forwarded-Encrypted: i=1; AJvYcCWs5OqxgGfpzn5exp1eadlRXB9eNjc461DcUIV/+M5IUHqW6WRFbDmFwm48PeLutVcIGy0QQQ/F63/c7wRIF37K29+mUB94IlY113Zyj5U=
+X-Gm-Message-State: AOJu0Yx59SCgiUIl1iDIdGCimkz8zKoMP9PThyRMVJJJTuiOQiVKbbVR
+	6gVKHv6EQcOKvRVXf1dI1XsFrl7iuAkDlbch85GcqsLc3jvkpMTudjM8+TjmuA==
+X-Google-Smtp-Source: AGHT+IH1ao93BMXI4lhWiPZDA50BNZOUa3QuWm5sPTw2U1teFqf8+jeKHCX429phFRbllmTuKqQk4w==
+X-Received: by 2002:a05:600c:468c:b0:41b:7d6f:1f24 with SMTP id p12-20020a05600c468c00b0041b7d6f1f24mr8937539wmo.21.1714405300957;
+        Mon, 29 Apr 2024 08:41:40 -0700 (PDT)
+Message-ID: <4811f73b-e8d0-46d9-a7a9-02277dbb7913@suse.com>
+Date: Mon, 29 Apr 2024 17:41:40 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH v1 2/7] x86/intel: guard vmce_has_lmce() with INTEL
- option
+Subject: Re: [XEN PATCH v1 3/7] x86/MCE: guard access to Intel/AMD-specific
+ MCA MSRs
 Content-Language: en-US
 To: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
 References: <cover.1713860310.git.Sergiy_Kibrik@epam.com>
- <5e26895d84f8b7750799740ac2324b2cb92fa97e.1713860310.git.Sergiy_Kibrik@epam.com>
+ <d187db984b9b5413d73849594985e10c2c2fdc03.1713860310.git.Sergiy_Kibrik@epam.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -113,61 +113,35 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <5e26895d84f8b7750799740ac2324b2cb92fa97e.1713860310.git.Sergiy_Kibrik@epam.com>
+In-Reply-To: <d187db984b9b5413d73849594985e10c2c2fdc03.1713860310.git.Sergiy_Kibrik@epam.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 23.04.2024 10:50, Sergiy Kibrik wrote:
-> Since MCG_LMCE_P bit is specific to Intel CPUs
-
-That's the case now. It could change going forward, and an underlying hypervisor
-might also have (obscure?) reasons to surface it elsewhere.
-
-> the code to check it can
-> possibly be excluded from build if !CONFIG_INTEL. With these guards
-> calls to vmce_has_lmce() are eliminated and mce_intel.c can end up
-> not being built.
-> 
-> Also replace boilerplate code that checks for MCG_LMCE_P flag with
-> vmce_has_lmce(), which might contribute to readability a bit.
-
-Alternatively, have you considered making that function an inline one in a
-suitable header? Besides addressing your build issue (I think), ...
-
+On 23.04.2024 10:52, Sergiy Kibrik wrote:
 > --- a/xen/arch/x86/cpu/mcheck/vmce.c
 > +++ b/xen/arch/x86/cpu/mcheck/vmce.c
-> @@ -199,7 +199,7 @@ int vmce_rdmsr(uint32_t msr, uint64_t *val)
->           * bits are always set in guest MSR_IA32_FEATURE_CONTROL by Xen, so it
->           * does not need to check them here.
->           */
-> -        if ( cur->arch.vmce.mcg_cap & MCG_LMCE_P )
-> +        if ( IS_ENABLED(CONFIG_INTEL) && vmce_has_lmce(cur) )
-
-... doing so would alternatively also permit integrating the IS_ENABLED()
-into the function, rather than repeating the same ...
-
-> @@ -324,7 +324,7 @@ int vmce_wrmsr(uint32_t msr, uint64_t val)
->          break;
+> @@ -141,12 +141,14 @@ static int bank_mce_rdmsr(const struct vcpu *v, uint32_t msr, uint64_t *val)
+>          case X86_VENDOR_CENTAUR:
+>          case X86_VENDOR_SHANGHAI:
+>          case X86_VENDOR_INTEL:
+> -            ret = vmce_intel_rdmsr(v, msr, val);
+> +            ret = IS_ENABLED(CONFIG_INTEL) ?
+> +                  vmce_intel_rdmsr(v, msr, val) : -ENODEV;
+>              break;
 >  
->      case MSR_IA32_MCG_EXT_CTL:
-> -        if ( (cur->arch.vmce.mcg_cap & MCG_LMCE_P) &&
-> +        if ( IS_ENABLED(CONFIG_INTEL) && vmce_has_lmce(cur) &&
->               !(val & ~MCG_EXT_CTL_LMCE_EN) )
->              cur->arch.vmce.mcg_ext_ctl = val;
->          else
-> --- a/xen/arch/x86/msr.c
-> +++ b/xen/arch/x86/msr.c
-> @@ -86,7 +86,7 @@ int guest_rdmsr(struct vcpu *v, uint32_t msr, uint64_t *val)
->              goto gp_fault;
->  
->          *val = IA32_FEATURE_CONTROL_LOCK;
-> -        if ( vmce_has_lmce(v) )
-> +        if ( IS_ENABLED(CONFIG_INTEL) && vmce_has_lmce(v) )
->              *val |= IA32_FEATURE_CONTROL_LMCE_ON;
->          if ( cp->basic.vmx )
->              *val |= IA32_FEATURE_CONTROL_ENABLE_VMXON_OUTSIDE_SMX;
+>          case X86_VENDOR_AMD:
+>          case X86_VENDOR_HYGON:
+> -            ret = vmce_amd_rdmsr(v, msr, val);
+> +            ret = IS_ENABLED(CONFIG_AMD) ?
+> +                  vmce_amd_rdmsr(v, msr, val) : -ENODEV;
+>              break;
 
-... three times.
+Why -ENODEV when ...
+
+>          default:
+
+... below here 0 is put into "ret"? And why not have the default case take
+care of unsupported/unrecognized vendors uniformly?
 
 Jan
 
