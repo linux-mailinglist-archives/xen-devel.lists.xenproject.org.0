@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B7C298B5DEE
-	for <lists+xen-devel@lfdr.de>; Mon, 29 Apr 2024 17:42:10 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.714260.1115405 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E602E8B5DF0
+	for <lists+xen-devel@lfdr.de>; Mon, 29 Apr 2024 17:42:54 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.714263.1115415 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s1T8S-0002ZT-1u; Mon, 29 Apr 2024 15:41:44 +0000
+	id 1s1T9O-00033z-B4; Mon, 29 Apr 2024 15:42:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 714260.1115405; Mon, 29 Apr 2024 15:41:44 +0000
+Received: by outflank-mailman (output) from mailman id 714263.1115415; Mon, 29 Apr 2024 15:42:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s1T8R-0002X9-Ur; Mon, 29 Apr 2024 15:41:43 +0000
-Received: by outflank-mailman (input) for mailman id 714260;
- Mon, 29 Apr 2024 15:41:42 +0000
+	id 1s1T9O-00031u-6g; Mon, 29 Apr 2024 15:42:42 +0000
+Received: by outflank-mailman (input) for mailman id 714263;
+ Mon, 29 Apr 2024 15:42:40 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=GJEf=MC=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1s1T8Q-0002X3-Lb
- for xen-devel@lists.xenproject.org; Mon, 29 Apr 2024 15:41:42 +0000
-Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
- [2a00:1450:4864:20::32c])
+ id 1s1T9M-0002X3-Bv
+ for xen-devel@lists.xenproject.org; Mon, 29 Apr 2024 15:42:40 +0000
+Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
+ [2a00:1450:4864:20::32e])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f973fe88-063e-11ef-909b-e314d9c70b13;
- Mon, 29 Apr 2024 17:41:41 +0200 (CEST)
-Received: by mail-wm1-x32c.google.com with SMTP id
- 5b1f17b1804b1-41b782405bbso25520895e9.1
- for <xen-devel@lists.xenproject.org>; Mon, 29 Apr 2024 08:41:41 -0700 (PDT)
+ id 1beeb114-063f-11ef-909b-e314d9c70b13;
+ Mon, 29 Apr 2024 17:42:39 +0200 (CEST)
+Received: by mail-wm1-x32e.google.com with SMTP id
+ 5b1f17b1804b1-41a72f3a20dso32974215e9.0
+ for <xen-devel@lists.xenproject.org>; Mon, 29 Apr 2024 08:42:39 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- g9-20020a05600c310900b0041a9fc2a6b5sm25341286wmo.20.2024.04.29.08.41.40
+ g9-20020a05600c310900b0041a9fc2a6b5sm25341286wmo.20.2024.04.29.08.42.38
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 29 Apr 2024 08:41:40 -0700 (PDT)
+ Mon, 29 Apr 2024 08:42:38 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f973fe88-063e-11ef-909b-e314d9c70b13
+X-Inumbo-ID: 1beeb114-063f-11ef-909b-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1714405301; x=1715010101; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1714405359; x=1715010159; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=s223/epmC7X+WUARh03qJUAlKInDt1i8v0adBZzYBRQ=;
-        b=BBk+jEXNGtHXlI2VQYsP3Ybjq83ug2/oES6oY9kpII2zFv7yJt2oVLlZE9E2lkHEe/
-         TMad3B1rmcE4UKLCzi5+yzAK3dF1/OEyvf9t7BANJMr89DZ+kR2poeXUbsPZiaI6cP38
-         usbKVN0ZpxG7iTeZR2WVzFFaprPmSqTq3RE45Q2qKU8yGAHNwQLMK1UbN84tj5pMsQdP
-         FZxxCMJDcglgslE8JRaNSkWBzTA97dU/08QQdlTdU7JTjfTCQv2Kqv7uHrI3gz0Q5bkz
-         dXLxAC/GXVkYixZMhkWAP0CWOTq11zXodpZFgHkuMmLx7Z0arBhOq/JjEWXS+UBwpjzG
-         hvQw==
+        bh=PavaluY3655TtVb7X3QA40FkqjcFVs0fgbfp5bv+XlI=;
+        b=AGPVzE2+YMyR8MK4lBbHkCIEb5/072ymJXeLsWDu3d4YrLQPTHCPlw0gSkZts5qfwg
+         kFG/1XfN4PLuUJwMdqS7oLD+dbjVHaOFLDmDxWbja5Kd1w5438Lpib5ssZv7YRahmjnb
+         4/oItOCdFkoULjl6/uVzYtX1bqF34GzzP+xSFog2z8jj7i4+HjCqPPa4RRSzD95+eu01
+         D0is8NA81fFKyZ6Nx9P1USXvx0V3eCyrX5UfcJ+vvtVWzWMoBuzHzeK87cW9KFyHkJim
+         /8oTAZR4atPCOeVsYdP1qOjuODhHhfvPOvfRX011ddbbd0pT+SgLJEMb0yV5XxuALM15
+         tH6Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1714405301; x=1715010101;
+        d=1e100.net; s=20230601; t=1714405359; x=1715010159;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=s223/epmC7X+WUARh03qJUAlKInDt1i8v0adBZzYBRQ=;
-        b=GBobWcfacL8bbM2f/J93BlOn8uQ9v8wzW6k4f0FFB65xUFTAEHdAreRheBaCcD953P
-         N3tMhrw1lucxzG1M/ukQ6t3J4UHmbbjWybA3GQda9zhbdRaFggRFQFiuYNuMfoifLIAE
-         ghm+HUkXVT69zcUaDPje2J8A2Sm8/FtQIC0ZXBPrk2ShLR/XQFg1Ng1KvWuLQLoGaSGM
-         rjQsDWReo1W06g3QPau7Bv9DN3nVJUkpHw4qNz4GnQ+UuGhVLMGkMiOU7yNs/FP1GfBI
-         fZzSLpsWEyWSBD8T5bZ8DeriUl0fQY3RJqKUz8CN/MB374LSEoFO5+INC0nsullFqj8Z
-         M/CA==
-X-Forwarded-Encrypted: i=1; AJvYcCWs5OqxgGfpzn5exp1eadlRXB9eNjc461DcUIV/+M5IUHqW6WRFbDmFwm48PeLutVcIGy0QQQ/F63/c7wRIF37K29+mUB94IlY113Zyj5U=
-X-Gm-Message-State: AOJu0Yx59SCgiUIl1iDIdGCimkz8zKoMP9PThyRMVJJJTuiOQiVKbbVR
-	6gVKHv6EQcOKvRVXf1dI1XsFrl7iuAkDlbch85GcqsLc3jvkpMTudjM8+TjmuA==
-X-Google-Smtp-Source: AGHT+IH1ao93BMXI4lhWiPZDA50BNZOUa3QuWm5sPTw2U1teFqf8+jeKHCX429phFRbllmTuKqQk4w==
-X-Received: by 2002:a05:600c:468c:b0:41b:7d6f:1f24 with SMTP id p12-20020a05600c468c00b0041b7d6f1f24mr8937539wmo.21.1714405300957;
-        Mon, 29 Apr 2024 08:41:40 -0700 (PDT)
-Message-ID: <4811f73b-e8d0-46d9-a7a9-02277dbb7913@suse.com>
-Date: Mon, 29 Apr 2024 17:41:40 +0200
+        bh=PavaluY3655TtVb7X3QA40FkqjcFVs0fgbfp5bv+XlI=;
+        b=bWKD86feI3LeuDCFJoFdDLXZfXc5fjuaZIXofw0CnU0khClbObin0CHPQBEKYxbDEt
+         JNcFlxOe+d5nzGkkSSFnhpv+S5l0qVMhTGd1IG22uQEqBJAjDPnhjToyVj+yiHPIrCbx
+         dcm7EyR3UU/Y8s+YrEcY1gMQX3X16fH6g7RKIgkAMcEazaEkncL22mlqdrwnMJF3MyB7
+         pi/dFhWHGNQDlb/kgV80TJU8ipcQWcgCdakg0ONPal66NTDqXUNMUTbAgbwcwBqH7LFT
+         m/5rbR3wHLVJ/G7/YgD5Mv8vMHjqBAYe5lsfVEPJQlPB4seZrUWtcj8SRnaJpyodJIGw
+         Zjqw==
+X-Forwarded-Encrypted: i=1; AJvYcCWnVPvX82AMfay0oZFUvb0B1AaODOPmgYM051otdXRrT9RyUdE8tgXhuQSkYjyZvvF9m4FDyMhmCsETNd8djMuDxPKbXHdNdtox4xUs7tg=
+X-Gm-Message-State: AOJu0Yz/85exGFRGGq/LgM6pH1ItMNV+6u0S1ATV1L7oJpMjZwkzAtpZ
+	vKJ4sBIqSPVFgd5Xb+w9TStVzd0DvEYecU+1KleJqDkTngcivDfzLBTeYRjHow==
+X-Google-Smtp-Source: AGHT+IHWzoxxAawcV0X4Got3obQTd+5my0P0ZpKP+GEQwYT+HEsy0Vi7f4BJ5LhbQCjnSNctl0jrPQ==
+X-Received: by 2002:a05:600c:1387:b0:41b:d8ef:8dcd with SMTP id u7-20020a05600c138700b0041bd8ef8dcdmr4543139wmf.28.1714405359006;
+        Mon, 29 Apr 2024 08:42:39 -0700 (PDT)
+Message-ID: <79834875-d26e-42c7-9ffa-868a84a07dfb@suse.com>
+Date: Mon, 29 Apr 2024 17:42:38 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH v1 3/7] x86/MCE: guard access to Intel/AMD-specific
- MCA MSRs
+Subject: Re: [XEN PATCH v1 4/7] x86/MCE: guard lmce_support/cmci_support
 Content-Language: en-US
 To: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
 References: <cover.1713860310.git.Sergiy_Kibrik@epam.com>
- <d187db984b9b5413d73849594985e10c2c2fdc03.1713860310.git.Sergiy_Kibrik@epam.com>
+ <d5fa50b3056b96f3046be39ed682a8b347f1b425.1713860310.git.Sergiy_Kibrik@epam.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -113,35 +112,19 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <d187db984b9b5413d73849594985e10c2c2fdc03.1713860310.git.Sergiy_Kibrik@epam.com>
+In-Reply-To: <d5fa50b3056b96f3046be39ed682a8b347f1b425.1713860310.git.Sergiy_Kibrik@epam.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 23.04.2024 10:52, Sergiy Kibrik wrote:
-> --- a/xen/arch/x86/cpu/mcheck/vmce.c
-> +++ b/xen/arch/x86/cpu/mcheck/vmce.c
-> @@ -141,12 +141,14 @@ static int bank_mce_rdmsr(const struct vcpu *v, uint32_t msr, uint64_t *val)
->          case X86_VENDOR_CENTAUR:
->          case X86_VENDOR_SHANGHAI:
->          case X86_VENDOR_INTEL:
-> -            ret = vmce_intel_rdmsr(v, msr, val);
-> +            ret = IS_ENABLED(CONFIG_INTEL) ?
-> +                  vmce_intel_rdmsr(v, msr, val) : -ENODEV;
->              break;
->  
->          case X86_VENDOR_AMD:
->          case X86_VENDOR_HYGON:
-> -            ret = vmce_amd_rdmsr(v, msr, val);
-> +            ret = IS_ENABLED(CONFIG_AMD) ?
-> +                  vmce_amd_rdmsr(v, msr, val) : -ENODEV;
->              break;
+On 23.04.2024 10:54, Sergiy Kibrik wrote:
+> Guard access to Intel-specific lmce_support & cmci_support variables in
+> common MCE/VMCE code. These are set in Intel-specific parts of mcheck code
+> and can potentially be skipped if building for non-intel platform by
+> disabling CONFIG_INTEL option.
+> 
+> Signed-off-by: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
 
-Why -ENODEV when ...
-
->          default:
-
-... below here 0 is put into "ret"? And why not have the default case take
-care of unsupported/unrecognized vendors uniformly?
+See comments given for patch 2.
 
 Jan
 
