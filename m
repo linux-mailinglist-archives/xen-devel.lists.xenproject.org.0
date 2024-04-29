@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2B52F8B56FA
-	for <lists+xen-devel@lfdr.de>; Mon, 29 Apr 2024 13:42:25 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.714013.1114970 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3122C8B5704
+	for <lists+xen-devel@lfdr.de>; Mon, 29 Apr 2024 13:45:57 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.714018.1114979 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s1POQ-0000Ig-AY; Mon, 29 Apr 2024 11:41:58 +0000
+	id 1s1PRO-0001RN-QI; Mon, 29 Apr 2024 11:45:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 714013.1114970; Mon, 29 Apr 2024 11:41:58 +0000
+Received: by outflank-mailman (output) from mailman id 714018.1114979; Mon, 29 Apr 2024 11:45:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s1POQ-0000H3-7Q; Mon, 29 Apr 2024 11:41:58 +0000
-Received: by outflank-mailman (input) for mailman id 714013;
- Mon, 29 Apr 2024 11:41:57 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1s1PRO-0001Pf-Nc; Mon, 29 Apr 2024 11:45:02 +0000
+Received: by outflank-mailman (input) for mailman id 714018;
+ Mon, 29 Apr 2024 11:45:01 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=GJEf=MC=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1s1POP-0000Gx-BQ
- for xen-devel@lists.xenproject.org; Mon, 29 Apr 2024 11:41:57 +0000
-Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
- [2a00:1450:4864:20::429])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 7ae2b9db-061d-11ef-909b-e314d9c70b13;
- Mon, 29 Apr 2024 13:41:56 +0200 (CEST)
-Received: by mail-wr1-x429.google.com with SMTP id
- ffacd0b85a97d-34b64b7728cso3533346f8f.0
- for <xen-devel@lists.xenproject.org>; Mon, 29 Apr 2024 04:41:55 -0700 (PDT)
+ id 1s1PRN-0001PZ-Lj
+ for xen-devel@lists.xenproject.org; Mon, 29 Apr 2024 11:45:01 +0000
+Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
+ [2a00:1450:4864:20::436])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id e8533ef3-061d-11ef-b4bb-af5377834399;
+ Mon, 29 Apr 2024 13:44:59 +0200 (CEST)
+Received: by mail-wr1-x436.google.com with SMTP id
+ ffacd0b85a97d-34b029296f5so4385238f8f.2
+ for <xen-devel@lists.xenproject.org>; Mon, 29 Apr 2024 04:44:59 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- c5-20020a056000184500b0034d1fe44278sm1112954wri.39.2024.04.29.04.41.54
+ t13-20020a05600001cd00b0034c66bddea3sm8045627wrx.37.2024.04.29.04.44.58
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 29 Apr 2024 04:41:55 -0700 (PDT)
+ Mon, 29 Apr 2024 04:44:58 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,43 +45,43 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7ae2b9db-061d-11ef-909b-e314d9c70b13
+X-Inumbo-ID: e8533ef3-061d-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1714390915; x=1714995715; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1714391099; x=1714995899; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=xRjQTJrtle5ImXBSw2C5JQ/FcUffmZJty/3CQAwYEQk=;
-        b=ZEXAJF6eQHiihbWc1mlqYqIlNoBx/tDEFKWHnlAYPiZfTdlOln8F9zkVIWj61alMMH
-         4KOOJlfy8ZxTkHWCRk/+aNZ6tr/6ixAoe+tRPrBAxjaRhvgQrjQhKpQ7nMRTISw+0n0B
-         wpSNM4furUxlGVOCkagSIwHtrbJcg6Rd1gk9U97EHua30kJhZrOmzPpwtL3E02VaeREZ
-         zrZ9W1xA63h/L+iDkbYAAYNJCux/u03KoQzkqrA3L1WrayeZ+zxvk3wbxRmwc7gEAnPQ
-         4AZ+N3VbpIkCH2meq8WE4daBhR6Q/F1M99n3g/kYWlWRavvImJ88T5fiOGOdJQvfu8hu
-         poag==
+        bh=lcKb1hsA8BC5Tyn3xNa0Pv+fwnyK1HojJWwmPM01kDY=;
+        b=Q96HcAravZ1yMMrwaqfHHeinIHeUvkjSwxacPADUFjOLRQbTFbK5Z33qK6ypPIku5y
+         aJqcGbkXRd7bak9iugHzsdTG5A9SmCfE7uDIme5sb4ffzLFClusgAu3k2u1A6SEVB3Mt
+         3krRErIOLRGurhcToWbt1ga3OCc3CUBwV0Swq3HRtb2oWNIt5A3Cghd8pisDunGNQs3u
+         aBQKE5t1oJYRGpwW+gS67V+joqsJYtHr71/wgbChHMcX7UElJ3d8WVliwC/h0Q4dX4al
+         DRa8PtSS9zz0lKEPVYSVHX2uTAPoapoYzBwRi6oRPnFSanzpbxRdnFa5nXh61Oy2ices
+         JToA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1714390915; x=1714995715;
+        d=1e100.net; s=20230601; t=1714391099; x=1714995899;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=xRjQTJrtle5ImXBSw2C5JQ/FcUffmZJty/3CQAwYEQk=;
-        b=XAVbCGc3eaiH7++WUxE7SW35QFgcgeoMFc2budHT/qrln5mwWZmBZrDauTg8T0uVGz
-         wBb0UvktrKAVKIpXMCijZhnHr3/GAh4Bd+dVEIqYeGEuWSd5r2oaklHGcJknIxHWFxqS
-         8EacScbPpCkuGJRTaR0qLaMLZWK+ksVFjzpY2H0gHWYF/DUclMfToVahPA9Yty18p2Xy
-         EB/XKbEud7vMrXKlRfC9nznZrTsXuo+9MdgKfk2yQCh8gy9b2iVs5SShNrufoOionP9T
-         kr6jbZ30s7XWmUFeBAbsNV+8DlOFKXlo77WmgzEzoExrMeZilU0Nux4XzkCSAUJ127ZN
-         EEyA==
-X-Forwarded-Encrypted: i=1; AJvYcCX3tkvSKR4b+KriZ1qhfdIz3IfZL6rvv5kXGSz3NGuAu0199ZKRy7cw4DKhcxMyvhobXazxifP98sMY7G2LDrvVwHsr1llJRgGxiibppL8=
-X-Gm-Message-State: AOJu0YwSULQRvBzU8VB5htoYyjQzWu5ynds6FjcW/OtYAXlQAmVZe9Bi
-	nzRHNUtEvrCunHMQLTLDV5xuOlElqpH/6SZSZ+Y1jy7FxkhagM0a8aWsWZUN1A==
-X-Google-Smtp-Source: AGHT+IHiVZULqPxM1T7IO/BHdcG9X4O6QHu3o8qQ8EZCF0vsM73RSKobKIiZEf1C+xjB6xSVMYLFZw==
-X-Received: by 2002:adf:ee4c:0:b0:34c:8adf:8fc9 with SMTP id w12-20020adfee4c000000b0034c8adf8fc9mr4971957wro.51.1714390915293;
-        Mon, 29 Apr 2024 04:41:55 -0700 (PDT)
-Message-ID: <9e67e0e5-8953-4903-b2a5-024bdbd842b9@suse.com>
-Date: Mon, 29 Apr 2024 13:41:56 +0200
+        bh=lcKb1hsA8BC5Tyn3xNa0Pv+fwnyK1HojJWwmPM01kDY=;
+        b=YcwZxJmKTza3t4Lkt2o1H/Ne10Tl4gFknoFsnyhNfEhTn3Jy1cnb71iITEM+rsNvz8
+         A9nxTeP8tHEBOJBCZdgnY4JAIH/q3njo3yPQyn3nE0+gHg2gsecsFq+njtkBmtx+HQPa
+         Hq1oFqXL6epU0+2r2CTITRNHtsSxbrkroDPeEoxGSEx/ZXJEs5D6QiFXqcoG4XqbuOTy
+         Fe0B1hq7MFdu/xeVBn2L8yLs+8KqgtCcbacU5LdYNTPAu60fdKgSBP+Z1CHu2O4XMWe0
+         PgkYsOe96QoKFMWIfdynkH8hc2eCb5JADmprtaljv+gh7fRDStTiR29rNFMg7To1NzM/
+         Txlg==
+X-Forwarded-Encrypted: i=1; AJvYcCWf96AHX7hhrL+9RHNWhsllHjTVcDHyeoPS5Xde73Jwnd2kpV6QSUi+rPrFIVo7TGVekdeWKVSCO0jmOQUgvJWIM3543XH3dMwMu99XDWU=
+X-Gm-Message-State: AOJu0YxOi3YsQhEGhp4U8h3ekXrZ7SS1elMYjwUA8t9tsqEsZ1dhZTU3
+	MC04CUZ/SwEd4maN0Onyjc1nwaSdgD1H+ajiKLXPD6HmnDzLM4kv/xgwct5IZg==
+X-Google-Smtp-Source: AGHT+IGYMUEG9y68OcQneSLaeUhQhcJZI8GLEOmnEqT7TzkUyryL2wf93zRKhBkanAgGcRBrZgtMEQ==
+X-Received: by 2002:adf:ed4a:0:b0:34a:3e3a:a23c with SMTP id u10-20020adfed4a000000b0034a3e3aa23cmr8680527wro.64.1714391099004;
+        Mon, 29 Apr 2024 04:44:59 -0700 (PDT)
+Message-ID: <1587a623-7cb4-4095-8023-6cc36ad1ff0f@suse.com>
+Date: Mon, 29 Apr 2024 13:45:00 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/3] x86/boot: Explain discard_initial_images() and
- untangle PV initrd handling
+Subject: Re: [PATCH 3/3] x86/boot: Refactor pvh_load_kernel() to have an
+ initrd_len local
 Content-Language: en-US
 To: Andrew Cooper <andrew.cooper3@citrix.com>
 Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
@@ -90,7 +90,7 @@ Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Christopher Clark <christopher.w.clark@gmail.com>,
  Xen-devel <xen-devel@lists.xenproject.org>
 References: <20240426140140.465506-1-andrew.cooper3@citrix.com>
- <20240426140140.465506-3-andrew.cooper3@citrix.com>
+ <20240426140140.465506-4-andrew.cooper3@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -115,152 +115,19 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240426140140.465506-3-andrew.cooper3@citrix.com>
+In-Reply-To: <20240426140140.465506-4-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
 On 26.04.2024 16:01, Andrew Cooper wrote:
-> discard_initial_images() frees the memory backing the boot modules.  It is
-> called by dom0_construct_pv{,h}(), but obtains the module list by global
-> pointer which is why there is no apparent link with the initrd pointer.
+> The expression get more complicated when ->mod_end isn't being abused as a
+> size field.  Introduce and use a initrd_len local variable.
 > 
-> Generally, module contents are copied into dom0 as it's being built, but the
-> initrd for PV dom0 might be directly mapped instead of copied.
-> 
-> dom0_construct_pv() does it's own ad-hoc freeing of the module in the copy
-> case, and points the global reference at the new copy, then sets the size to
-> 0.  This only functions because init_domheap_pages(x, x) happens to be a nop.
-> 
-> Delete the ad-hoc freeing, and leave it to discard_initial_images().  This
-> requires (not) adjusting initd->mod_start in the copy case, and only setting
-> the size to 0 in the mapping case.
-> 
-> Alter discard_initial_images() to explicitly check for an ignored module, and
-> explain what's going on.  This is more robust and will allow for fixing other
-> problems with module handling.
-> 
-> The later logic in dom0_construct_pv() now cannot use initrd->mod_start, but
-> that's fine because initrd_mfn is already a duplicate of the information
-> wanted, and is more consistent with initrd_{pfn,len} used elsewhere.
-> 
-> Invalidate the initrd pointer with LIST_POISON1 to make it clearer that it
-> shouldn't be used.
-> 
-> No practical change in behaviour, but a substantial reduction in the
-> complexity of how this works.
+> No functional change.
 > 
 > Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> ---
-> CC: Jan Beulich <JBeulich@suse.com>
-> CC: Roger Pau Monné <roger.pau@citrix.com>
-> CC: Stefano Stabellini <sstabellini@kernel.org>
-> CC: Daniel Smith <dpsmith@apertussolutions.com>
-> CC: Christopher Clark <christopher.w.clark@gmail.com>
-> 
-> In other akward questions, why does initial_images_nrpages() account for all
-> modules when only 1 or 2 are relevant for how we construct dom0 ?
-> ---
->  xen/arch/x86/pv/dom0_build.c | 22 +++++++++++-----------
->  xen/arch/x86/setup.c         |  9 ++++++++-
->  2 files changed, 19 insertions(+), 12 deletions(-)
-> 
-> diff --git a/xen/arch/x86/pv/dom0_build.c b/xen/arch/x86/pv/dom0_build.c
-> index d8043fa58a27..64d9984b8308 100644
-> --- a/xen/arch/x86/pv/dom0_build.c
-> +++ b/xen/arch/x86/pv/dom0_build.c
-> @@ -630,18 +630,20 @@ int __init dom0_construct_pv(struct domain *d,
->                  }
->              memcpy(page_to_virt(page), mfn_to_virt(initrd->mod_start),
->                     initrd_len);
-> -            mpt_alloc = (paddr_t)initrd->mod_start << PAGE_SHIFT;
-> -            init_domheap_pages(mpt_alloc,
-> -                               mpt_alloc + PAGE_ALIGN(initrd_len));
-> -            initrd->mod_start = initrd_mfn = mfn_x(page_to_mfn(page));
-> +            initrd_mfn = mfn_x(page_to_mfn(page));
->          }
->          else
->          {
->              while ( count-- )
->                  if ( assign_pages(mfn_to_page(_mfn(mfn++)), 1, d, 0) )
->                      BUG();
-> +            /*
-> +             * Mapped rather than copied.  Tell discard_initial_images() to
-> +             * ignore it.
-> +             */
-> +            initrd->mod_end = 0;
->          }
-> -        initrd->mod_end = 0;
-> +        initrd = LIST_POISON1; /* No longer valid to use. */
->  
->          iommu_memory_setup(d, "initrd", mfn_to_page(_mfn(initrd_mfn)),
->                             PFN_UP(initrd_len), &flush_flags);
-> @@ -653,12 +655,10 @@ int __init dom0_construct_pv(struct domain *d,
->      if ( domain_tot_pages(d) < nr_pages )
->          printk(" (%lu pages to be allocated)",
->                 nr_pages - domain_tot_pages(d));
-> -    if ( initrd )
-> -    {
-> -        mpt_alloc = (paddr_t)initrd->mod_start << PAGE_SHIFT;
-> +    if ( initrd_len )
->          printk("\n Init. ramdisk: %"PRIpaddr"->%"PRIpaddr,
-> -               mpt_alloc, mpt_alloc + initrd_len);
-> -    }
-> +               pfn_to_paddr(initrd_mfn),
-> +               pfn_to_paddr(initrd_mfn) + initrd_len);
->  
->      printk("\nVIRTUAL MEMORY ARRANGEMENT:\n");
->      printk(" Loaded kernel: %p->%p\n", _p(vkern_start), _p(vkern_end));
 
-Between what this and the following hunk touch there is
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
-        if ( count < initrd_pfn || count >= initrd_pfn + PFN_UP(initrd_len) )
-            mfn = pfn++;
-        else
-            mfn = initrd_mfn++;
 
-I can't help thinking that this invalidates ...
-
-> @@ -881,7 +881,7 @@ int __init dom0_construct_pv(struct domain *d,
->          if ( pfn >= initrd_pfn )
->          {
->              if ( pfn < initrd_pfn + PFN_UP(initrd_len) )
-> -                mfn = initrd->mod_start + (pfn - initrd_pfn);
-> +                mfn = initrd_mfn + (pfn - initrd_pfn);
->              else
->                  mfn -= PFN_UP(initrd_len);
->          }
-
-... the use of the variable here.
-
-> --- a/xen/arch/x86/setup.c
-> +++ b/xen/arch/x86/setup.c
-> @@ -294,7 +294,7 @@ unsigned long __init initial_images_nrpages(nodeid_t node)
->      return nr;
->  }
->  
-> -void __init discard_initial_images(void)
-> +void __init discard_initial_images(void) /* a.k.a. free multiboot modules */
->  {
->      unsigned int i;
->  
-> @@ -302,6 +302,13 @@ void __init discard_initial_images(void)
->      {
->          uint64_t start = (uint64_t)initial_images[i].mod_start << PAGE_SHIFT;
->  
-> +        /*
-> +         * Sometimes the initrd is mapped, rather than copied, into dom0.
-> +         * end=0 signifies that we should leave it alone.
-> +         */
-> +        if ( initial_images[i].mod_end == 0 )
-> +            continue;
-> +
->          init_domheap_pages(start,
->                             start + PAGE_ALIGN(initial_images[i].mod_end));
->      }
-
-While I don't strictly mind the addition, it isn't really needed, as calling
-init_domheap_pages() with twice the same address is simply a no-op (and
-.mod_end being 0 had to work correctly already before anyway).
-
-Jan
 
