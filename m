@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 96B5F8B7598
-	for <lists+xen-devel@lfdr.de>; Tue, 30 Apr 2024 14:20:37 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.714792.1116109 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E0C8F8B760F
+	for <lists+xen-devel@lfdr.de>; Tue, 30 Apr 2024 14:46:32 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.714804.1116120 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s1mSU-00008F-DS; Tue, 30 Apr 2024 12:19:42 +0000
+	id 1s1mrq-0004iE-B8; Tue, 30 Apr 2024 12:45:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 714792.1116109; Tue, 30 Apr 2024 12:19:42 +0000
+Received: by outflank-mailman (output) from mailman id 714804.1116120; Tue, 30 Apr 2024 12:45:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s1mSU-00006I-Ao; Tue, 30 Apr 2024 12:19:42 +0000
-Received: by outflank-mailman (input) for mailman id 714792;
- Tue, 30 Apr 2024 12:19:41 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1s1mrq-0004fj-7w; Tue, 30 Apr 2024 12:45:54 +0000
+Received: by outflank-mailman (input) for mailman id 714804;
+ Tue, 30 Apr 2024 12:45:52 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Q3to=MD=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1s1mSS-00006C-W3
- for xen-devel@lists.xenproject.org; Tue, 30 Apr 2024 12:19:40 +0000
-Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
- [2a00:1450:4864:20::331])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id eac904c5-06eb-11ef-909b-e314d9c70b13;
- Tue, 30 Apr 2024 14:19:39 +0200 (CEST)
-Received: by mail-wm1-x331.google.com with SMTP id
- 5b1f17b1804b1-41bca450fa3so24516275e9.2
- for <xen-devel@lists.xenproject.org>; Tue, 30 Apr 2024 05:19:39 -0700 (PDT)
+ id 1s1mro-0004fd-DT
+ for xen-devel@lists.xenproject.org; Tue, 30 Apr 2024 12:45:52 +0000
+Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
+ [2a00:1450:4864:20::332])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 927002fa-06ef-11ef-b4bb-af5377834399;
+ Tue, 30 Apr 2024 14:45:50 +0200 (CEST)
+Received: by mail-wm1-x332.google.com with SMTP id
+ 5b1f17b1804b1-41bca450fa3so24733555e9.2
+ for <xen-devel@lists.xenproject.org>; Tue, 30 Apr 2024 05:45:49 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ay24-20020a05600c1e1800b0041bf29ab003sm11347260wmb.30.2024.04.30.05.19.38
+ c7-20020a05600c0a4700b0041b434e5869sm19907252wmq.43.2024.04.30.05.45.48
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 30 Apr 2024 05:19:39 -0700 (PDT)
+ Tue, 30 Apr 2024 05:45:48 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,55 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: eac904c5-06eb-11ef-909b-e314d9c70b13
+X-Inumbo-ID: 927002fa-06ef-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1714479579; x=1715084379; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1714481149; x=1715085949; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=0ZcUjqyzVTdpHgn1iZtxhz6bg4bk+ZqghakK4jIbI3U=;
-        b=HSbHQPaa4nsB3VzCoeaLgNb5e/ZftRieQ7BkDBSqVv0B/zRxBJzIM1o9W4dZRdPJ5U
-         mjIhgTA56o9oXbRdXnQiVSfU4Uob/1LRi4QibLIDRbFfpAj4pZnTjfWBDJYInt2OWU1S
-         zc6QQWhwSi4gaxxuZbUDR5Twu/MIszKocCYT/a/0gwjix+4GgYCd6GgmMKG5PDrqhe5O
-         Rm4Vc8cnrhGweaAqHObXdx/7D4uA4iT4Mvamn4xuDnYjdddf7ZnbeqNTrzrWOXfRPX3Q
-         c+BxYCK+zzHzbUMyPXiwuCUwrK6NsNliXx1+wcNoEEA+bmpU6kpFwQK061hu1pKSWI6S
-         KXCw==
+        bh=fn8AdUIIW+67qtzypSNmCQ57THGG9csKI8vw90VjI/k=;
+        b=LZVZXLGgYs9nSVL+O0SBUefsOLtx0zzdVYFhSpouNTq9FQeZOeBbarGZ9z7PzNnYDB
+         N6UJoCezHG6HWE3fLw393G3kdRd6ER5S7qPmCGiPiDuhFHTk3ESDjetb1oa3Fs9RO4Kp
+         +YuXcF1DsCrXUl3Hl61yfwck/BJAEicKucXyWgb2HPidjlTw9Iu2+IfyPlNrotTTq0Lg
+         hYIVeld/fwtQ+3kEyRJb2hk8jwHWk1r81hv9LtxZ76t23XdXDvGaM2QSi1Gj1DrvwCN3
+         pAR9c90cDBCOBD6h8Yu4GHMaKVfx4YhGUfy7E9iB4mEp8+i4OV7UZbvgV+BiUeo5J+jl
+         RqqA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1714479579; x=1715084379;
+        d=1e100.net; s=20230601; t=1714481149; x=1715085949;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=0ZcUjqyzVTdpHgn1iZtxhz6bg4bk+ZqghakK4jIbI3U=;
-        b=C//cHz7opj+jukD5PZ8aVv8ZkwJM5Jq6LRGXoW/JjQntoJBY0FQYVMlUz0/ZBLgYHt
-         JSALVyX7eEUIe5FmsBANpZqEKiT4H21qoagtdBur7ZwezrTA1c8Rqy8uN8vLM5hl7uly
-         loRSOsjWdT/wzHLh1Ua10Jiuon5WzcoTSRktRgYvgZjOdo+uVxoZEarTBC0GCtsMrJ+F
-         wy0AdtUZT+KABTsGWaYfLQmuRlAZeWbvby3QDCmEjljut8WToN1rSwx7PfvdHISZiKuU
-         3BjmjHWTtW6gtENp0le+XaR/HKZTNEsnBbR4uAFwderMAn7oJ34jBdQTisKklcGba2cZ
-         GRag==
-X-Forwarded-Encrypted: i=1; AJvYcCU+ohgvamgVFX9X7eosQImtuh0NSC53qkhKRkG2V3yrgYOXzEBAlBzvUBGQmgKcNDCykYuxcEdOzNhpZYxHZKNomxjz9HyMk7mQ6ZyaiB0=
-X-Gm-Message-State: AOJu0YwBQufxB2B5MOkiaKKS3x3Gd2sQfAyCn49I44V2h55HkS2yOC3t
-	OEoo8uyeJiVPZN8IId8VDPyavbZxDr1SLWV/3J0ssWosRlcE0Dmyge7eXzlB7A==
-X-Google-Smtp-Source: AGHT+IGpKrBFV867hg0YDA93yqRIRqMa2Ji1EqYvK6/gijYaWKwCg8haPzx6BMn9KRbpsdVgwq6nmg==
-X-Received: by 2002:a05:600c:468d:b0:418:427e:21f0 with SMTP id p13-20020a05600c468d00b00418427e21f0mr2045825wmo.8.1714479579333;
-        Tue, 30 Apr 2024 05:19:39 -0700 (PDT)
-Message-ID: <249214ee-9c2d-4f12-8af5-0779493323b1@suse.com>
-Date: Tue, 30 Apr 2024 14:19:38 +0200
+        bh=fn8AdUIIW+67qtzypSNmCQ57THGG9csKI8vw90VjI/k=;
+        b=xIrLjWJFf4vybvGwinArae15x8rlFU5pWAeVfwpB9uzqobq7mTdr9LoYLpOS2HkLbz
+         WQlOEeoyTYVZLC+2pFAIxtEJNsbvFMfP5sxV3M1ULj/LV3l+BQPv8C3hp+En3/LvSxCJ
+         wsTOcTlzVaFjj9fhwzlp/nwAChp0bBqlgNT/KRv/M1h5LYO6/MrZjZbh42o4Ob0UCJ1S
+         Gazx/D9PCMgQHvzJqntmF7NXtdOnfisaTY3qk1uOOuKrSB6FDPrfYMPMlheb8YiAgpK1
+         Jv6Z751Yhagu4vUztXgke1qQPI/7ozwAorW5UbQ+IoGS5thTgvkaCqB6bdVu5epZP8B1
+         74tQ==
+X-Forwarded-Encrypted: i=1; AJvYcCXbiVIutUoZr4Yc5yxE/EKS4MAbMRgxQ6f24dsm5xonwGA8LeCzwO6E2veaDjOj0GnBHu1DrgARLKBGpfchaKVZM8rYId+srSVHPVvgsIw=
+X-Gm-Message-State: AOJu0YyuIJUFfDZuDb7I1ix1kF1AnO4Ox1mHzO6/s/LpI6sBBaiIQxvc
+	ch+yx/8kerTjz0X/ZuHXxwF1jgqTRdnyqaDOKY0Et59lJQOQn6zFh306BHamtA==
+X-Google-Smtp-Source: AGHT+IGCjS2vXVMycPlAz/ruD2zhYG9nhbbWw55kjLXYVeVWFSER/hqR/diVBZz8dmPmT/au+0+Yow==
+X-Received: by 2002:a05:600c:501f:b0:41b:b884:f151 with SMTP id n31-20020a05600c501f00b0041bb884f151mr2070405wmr.34.1714481149058;
+        Tue, 30 Apr 2024 05:45:49 -0700 (PDT)
+Message-ID: <766b178a-5e32-437f-ac02-4cb9ad8cb248@suse.com>
+Date: Tue, 30 Apr 2024 14:45:47 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH v2 1/2] evtchn: Add error status indicators for
- evtchn_status hypercall
+Subject: Re: [PATCH 1/5] x86/cpu-policy: Infrastructure for the AMD SVM and
+ SEV leaves
 Content-Language: en-US
-To: Matthew Barnes <matthew.barnes@cloud.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <cover.1714148012.git.matthew.barnes@cloud.com>
- <2f9544433fd9bb5c4b7ccccbacc27bc928f57dfb.1714148012.git.matthew.barnes@cloud.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Xenia Ragiadakou <xenia.ragiadakou@amd.com>,
+ Sergiy Kibrik <Sergiy_Kibrik@epam.com>,
+ George Dunlap <george.dunlap@citrix.com>,
+ Andrei Semenov <andrei.semenov@vates.fr>,
+ Vaishali Thakkar <vaishali.thakkar@vates.tech>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20240429151625.977884-1-andrew.cooper3@citrix.com>
+ <20240429151625.977884-2-andrew.cooper3@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -113,65 +118,38 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <2f9544433fd9bb5c4b7ccccbacc27bc928f57dfb.1714148012.git.matthew.barnes@cloud.com>
+In-Reply-To: <20240429151625.977884-2-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 29.04.2024 15:42, Matthew Barnes wrote:
-> When the evtchn_status hypercall fails, it is not possible to determine
-> the cause of the error, since the library call returns -1 to the tool
-> and not the errno.
+On 29.04.2024 17:16, Andrew Cooper wrote:
+> Allocate two new feature leaves, and extend cpu_policy with the non-feature
+> fields too.
+> 
+> The CPUID dependency between the SVM bit on the whole SVM leaf is
+> intentionally deferred, to avoid transiently breaking nested virt.
 
-That's normal behavior for such library functions. If you want to know the
-specific error number, you ought to look at the errno variable. Or are
-you saying that errno isn't set correctly in this case (I can't spot such
-an issue when looking at do_evtchn_op(), backing xc_evtchn_status())?
+In reply to this I meant to ask that you at least add those dependencies in
+commented-out form, such that from looking at gen-cpuid.py it becomes clear
+they're intentionally omitted. But you don't add feature identifiers either,
+making dependencies impossible to express. Maybe this sentence was really
+meant for another of the patches? (Then my request would actually apply
+there.)
 
-> --- a/xen/common/event_channel.c
-> +++ b/xen/common/event_channel.c
-> @@ -1030,7 +1030,17 @@ int evtchn_status(evtchn_status_t *status)
+> @@ -296,7 +298,16 @@ struct cpu_policy
+>              uint32_t /* d */:32;
 >  
->      d = rcu_lock_domain_by_any_id(dom);
->      if ( d == NULL )
-> -        return -ESRCH;
-> +    {
-> +        status->status = EVTCHNSTAT_dom_invalid;
-> +        return 0;
-
-This surely ought to remain -ESRCH. You may not break existing callers.
-
-> +    }
+>              uint64_t :64, :64; /* Leaf 0x80000009. */
+> -            uint64_t :64, :64; /* Leaf 0x8000000a - SVM rev and features. */
 > +
-> +    if ( !port_is_valid(d, port) )
-> +    {
-> +        status->status = EVTCHNSTAT_port_invalid;
-> +        rcu_unlock_domain(d);
-> +        return 0;
-> +    }
+> +            /* Leaf 0x8000000a - SVM rev and features. */
+> +            uint8_t svm_rev, :8, :8, :8;
+> +            uint32_t /* b */ :32;
+> +            uint32_t nr_asids;
 
-I can see that for the purpose of patch 2 this wants distinguishing from
-
->      chn = _evtchn_from_port(d, port);
->      if ( !chn )
-
-... the -EINVAL returned here. Yet "success" doesn't look correct there
-either. -ENOENT, -EBADF, -ENFILE, or -EDOM maybe?
-
-> --- a/xen/include/public/event_channel.h
-> +++ b/xen/include/public/event_channel.h
-> @@ -200,6 +200,8 @@ struct evtchn_status {
->  #define EVTCHNSTAT_pirq         3  /* Channel is bound to a phys IRQ line.   */
->  #define EVTCHNSTAT_virq         4  /* Channel is bound to a virtual IRQ line */
->  #define EVTCHNSTAT_ipi          5  /* Channel is bound to a virtual IPI line */
-> +#define EVTCHNSTAT_dom_invalid  6  /* Given domain ID is not a valid domain  */
-> +#define EVTCHNSTAT_port_invalid 7  /* Given port is not within valid range   */
->      uint32_t status;
->      uint32_t vcpu;                 /* VCPU to which this channel is bound.   */
->      union {
-
-If such indicators are to be added, I'm pretty sure they want to be discontiguous
-from the presently used range. Sadly, with status having unsigned type, using
-negative values wouldn't feel quite right.
+According to the doc I'm looking at it is %ebx which holds the number of
+ASIDs and %ecx is reserved. With that adjusted
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
 Jan
 
