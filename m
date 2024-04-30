@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DDE038B7735
-	for <lists+xen-devel@lfdr.de>; Tue, 30 Apr 2024 15:34:07 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.714901.1116278 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7A6588B77A5
+	for <lists+xen-devel@lfdr.de>; Tue, 30 Apr 2024 15:55:05 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.714909.1116291 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s1nbz-0004Bq-Qu; Tue, 30 Apr 2024 13:33:35 +0000
+	id 1s1nw8-000087-H0; Tue, 30 Apr 2024 13:54:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 714901.1116278; Tue, 30 Apr 2024 13:33:35 +0000
+Received: by outflank-mailman (output) from mailman id 714909.1116291; Tue, 30 Apr 2024 13:54:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s1nbz-00049Y-Ny; Tue, 30 Apr 2024 13:33:35 +0000
-Received: by outflank-mailman (input) for mailman id 714901;
- Tue, 30 Apr 2024 13:33:34 +0000
+	id 1s1nw8-00005T-Dt; Tue, 30 Apr 2024 13:54:24 +0000
+Received: by outflank-mailman (input) for mailman id 714909;
+ Tue, 30 Apr 2024 13:54:23 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Q3to=MD=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1s1nby-00049S-Ki
- for xen-devel@lists.xenproject.org; Tue, 30 Apr 2024 13:33:34 +0000
-Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
- [2a00:1450:4864:20::32b])
+ id 1s1nw7-0008Vp-93
+ for xen-devel@lists.xenproject.org; Tue, 30 Apr 2024 13:54:23 +0000
+Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
+ [2a00:1450:4864:20::333])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 3cc79983-06f6-11ef-b4bb-af5377834399;
- Tue, 30 Apr 2024 15:33:32 +0200 (CEST)
-Received: by mail-wm1-x32b.google.com with SMTP id
- 5b1f17b1804b1-41a72f3a20dso40421895e9.0
- for <xen-devel@lists.xenproject.org>; Tue, 30 Apr 2024 06:33:32 -0700 (PDT)
+ id 24f0c6af-06f9-11ef-b4bb-af5377834399;
+ Tue, 30 Apr 2024 15:54:21 +0200 (CEST)
+Received: by mail-wm1-x333.google.com with SMTP id
+ 5b1f17b1804b1-41ba1ba55e8so30992845e9.1
+ for <xen-devel@lists.xenproject.org>; Tue, 30 Apr 2024 06:54:21 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- r30-20020adfb1de000000b00343e392829dsm32398573wra.97.2024.04.30.06.33.31
+ e18-20020a056000195200b003462fec9f5asm32068174wry.62.2024.04.30.06.54.19
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 30 Apr 2024 06:33:31 -0700 (PDT)
+ Tue, 30 Apr 2024 06:54:20 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,43 +45,42 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3cc79983-06f6-11ef-b4bb-af5377834399
+X-Inumbo-ID: 24f0c6af-06f9-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1714484012; x=1715088812; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1714485260; x=1715090060; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=OQrnnXQB967fj199FxOw7AlYAM/qAVNkCAWCU06m+8I=;
-        b=OLqM6Ba4toqUxNO9cVzoV7ttORgeT0nNioW798o0INir3kEqvVSgQ4rpCZPXt0AKom
-         R3U+IXGioiSyZ969mn+58Pr+8iPauFToeT8ThsYaZnAHqhK4/glBHv6rt1HyR2ZP8wpE
-         o7NvPyqR/d7ZWDaqoo4Oq7nunPQKaTcgV/bQczksuIULVQX8JUo06GQy6UVbkRyKluWJ
-         lx3DMc97A2vyI7KobI3KY4YXUf4B+MRSrvU6Gb+lTcZbv8kxyQwKREdIi0nO5I5grKqq
-         giaSED05xjMO6S/MXrdUtayivCxIUAUkaXiRYmHhD4I9XiWfBCibIjcETHrLsbUz5rP9
-         U8hw==
+        bh=B+oIKPF1tBnNElDmMmPyFpEjepR7UeWDnNkStDjzV7E=;
+        b=B/Hdkgt3/mBepKNWY2M4mX4uxpTFjnmSMZoFool5uuLvArAg8+g86kP4Qmb1SWTERo
+         kTAtCBWqfu9jjmon517SpFoYfOdWgp/2wOec+eCOi5SO9tp82fjmp1vlA5aW9l/fX7X1
+         lOqeFIg/QIeN8sECJYVtD4Oz9e7Twd7Y/QoMCuqTkTy1n0UEJep9p5yJLB8mn+bg6guO
+         i/JwDT9VSOMyFRZLy+rnRCaMnCUMbkmiMo46/KX19u8fCGY9mQGmB11ad/OxsLcUcIy3
+         vabAo8g/0AzXFNR+Oo63Om19bLS8o3nw7mpRuOUax+S4HOmwdesg75CSJtCiYqCsODAY
+         HTrg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1714484012; x=1715088812;
+        d=1e100.net; s=20230601; t=1714485260; x=1715090060;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=OQrnnXQB967fj199FxOw7AlYAM/qAVNkCAWCU06m+8I=;
-        b=Msyq9EtkhmTVifrB8BjHA6g8U0a81e4oFjpPEmxpqt8qbPpsN81Otf928AjzghyD1F
-         oDVTLtcIU10mK8pykcEW74/dEAur4WsDENHj9AEDgK7/ldPdzYJcu0XofcbsRSZbPH3/
-         eGzSDh39HYHrl9+GoG9WKsZTRZQh2W2KUwsTE2iZj0voWGRXzJNJp6+EJ8eM0IQr7Uuv
-         2fyoP80gv+OHSPbtixrQsyBvnbl8Zb3UmgSOFp1Wu3e2a+I2GJCoj7Ic0TbgjhqTet0C
-         3/GSPqp91WNFK1nRuZ4xZurAm1U/FS7q/I6E+7zLJYe1KLXVoIiSYQYt44iNxbfkJcjM
-         gqQg==
-X-Forwarded-Encrypted: i=1; AJvYcCUf1znmD8pK0OgdThCwRodiAMEsOXUocnKVLhJ82ODB2opyIKhRasL2uxO7u9NARaAMSb6st8RIPkofLJmDqL3P6irLcszJxN+CYjQIyX4=
-X-Gm-Message-State: AOJu0YwKf3+/vmBn116QcHxBgPdbTW6dc8ZooztAFxHUuRoOfsFtynCx
-	a0+buUZWlCyjK6jmiX1z023Dv/pq91SjaJUYdbhbkwuTFYnvvluXNCK0Vo3hKg==
-X-Google-Smtp-Source: AGHT+IFDLWhUVyXPVIfaYbHYFpOrVMyQL/TnGgYXcpcJlVJWkYan3cXNHCDPBuob7z9uBF/nkWjk1Q==
-X-Received: by 2002:a05:600c:45ca:b0:418:e6fc:3708 with SMTP id s10-20020a05600c45ca00b00418e6fc3708mr10357368wmo.24.1714484011880;
-        Tue, 30 Apr 2024 06:33:31 -0700 (PDT)
-Message-ID: <c410b8de-284a-4a17-94fe-38e03670af6a@suse.com>
-Date: Tue, 30 Apr 2024 15:33:30 +0200
+        bh=B+oIKPF1tBnNElDmMmPyFpEjepR7UeWDnNkStDjzV7E=;
+        b=OJ0kB/TJWYBO67rUp1vVdKC7zWVLra3rs4ZNVt28Jwk7ZJIq/ugrIS7gpIiW8nIxuJ
+         58flfgLKx0KlQQuP3FnkOVB+v8a45TUHMqJ8h/77e/zO/4de63gb6FvIOXIDxPuvFw2K
+         WM3J2DX4TyiydR3al+yAbFe+c2/1X2hxiITKDhW06KXzRvvQ/p5Mmdu3b5tiDzsff8p4
+         Ie2A9X4+z2aM3NDrjTdaHOxTSHvwEoTFjOs0tMijcE8W7y9R6ORgVlovR1gMlho3puA3
+         4Dr8Uv5/sJdSaSxsaGxwbtdC6qRLMj63J2llo8h9m7Kd87WLkgFmghnjVMaEUjnVORDe
+         JPiw==
+X-Forwarded-Encrypted: i=1; AJvYcCUzXwlkRGoQo2mLvFnQbn0LDi38wCHjZMa2CLLwFYgV5yuUsTjCNsM9Ism+JkhvLjzGpw58mY0UZlcKVZ2qEsdKY2xuUN2mcpBkFCHGDdE=
+X-Gm-Message-State: AOJu0YwwOrN7NSxu9m1GgrLJI8sdOEmg8kKXBKcVXoPUKV1ojGkxe+eY
+	OwZUoHstrk+mrk1Jg+TlGuAj34tjGKIuuga84ECywAP6G2RU6cVZb73zfFPEow==
+X-Google-Smtp-Source: AGHT+IGvgZiWDLHq1ORiZf/3b+KVEa9fvm9+pYpwnloAt5ysgpGiXleZ9aEXyU93u/7wzTLot3ln5g==
+X-Received: by 2002:a5d:4f10:0:b0:34d:9227:c1fb with SMTP id c16-20020a5d4f10000000b0034d9227c1fbmr1121295wru.26.1714485260385;
+        Tue, 30 Apr 2024 06:54:20 -0700 (PDT)
+Message-ID: <320c6f71-66a2-4893-9f85-247411eeff23@suse.com>
+Date: Tue, 30 Apr 2024 15:54:19 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/5] x86/cpu-policy: Infrastructure for the AMD SVM and
- SEV leaves
+Subject: Re: [PATCH 5/5] x86/cpu-policy: Introduce some SEV features
 Content-Language: en-US
 To: Andrew Cooper <andrew.cooper3@citrix.com>
 Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
@@ -93,9 +92,7 @@ Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Vaishali Thakkar <vaishali.thakkar@vates.tech>,
  Xen-devel <xen-devel@lists.xenproject.org>
 References: <20240429151625.977884-1-andrew.cooper3@citrix.com>
- <20240429151625.977884-2-andrew.cooper3@citrix.com>
- <766b178a-5e32-437f-ac02-4cb9ad8cb248@suse.com>
- <1749cd23-ba17-450d-b5e0-29fc9ce9489e@citrix.com>
+ <20240429151625.977884-6-andrew.cooper3@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -120,41 +117,18 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <1749cd23-ba17-450d-b5e0-29fc9ce9489e@citrix.com>
+In-Reply-To: <20240429151625.977884-6-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 30.04.2024 15:25, Andrew Cooper wrote:
-> On 30/04/2024 1:45 pm, Jan Beulich wrote:
->> On 29.04.2024 17:16, Andrew Cooper wrote:
->>> Allocate two new feature leaves, and extend cpu_policy with the non-feature
->>> fields too.
->>>
->>> The CPUID dependency between the SVM bit on the whole SVM leaf is
->>> intentionally deferred, to avoid transiently breaking nested virt.
->> In reply to this I meant to ask that you at least add those dependencies in
->> commented-out form, such that from looking at gen-cpuid.py it becomes clear
->> they're intentionally omitted. But you don't add feature identifiers either,
->> making dependencies impossible to express. Maybe this sentence was really
->> meant for another of the patches? (Then my request would actually apply
->> there.)
-> 
-> This is necessary because c/s 4f8b0e94d7ca is buggy.  Notice how it puts
-> an edit to the policy object in the middle of a block of logic editing
-> the featureset, which ends with writing the featureset back over the
-> policy object.
+On 29.04.2024 17:16, Andrew Cooper wrote:
+> For display purposes only right now.
 
-When seeing the description of that next patch replacing that code, I first
-thought you're right about that being buggy (i.e. not achieving the intended
-effect). But imo it isn't really buggy, as x86_cpu_featureset_to_policy()
-doesn't overwrite that leaf in the policy prior to the adjustment made there
-by this very patch. Nevertheless it also wasn't intended to be that way, I
-agree (and I should have noticed while reviewing the earlier change).
+And limited to a narrow subset, presumably intentionally.
 
-This means, however, that there _is_ breakage now between this and the next
-patch, as now said leaf is indeed overwritten after its custom setting in
-calculate_hvm_max_policy(). So maybe you want to defer the
-x86_cpu_featureset_to_policy() adjustment until patch 2.
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
 Jan
 
