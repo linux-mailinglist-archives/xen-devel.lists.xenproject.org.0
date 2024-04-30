@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 987998B7DF2
-	for <lists+xen-devel@lfdr.de>; Tue, 30 Apr 2024 18:59:15 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.715129.1116667 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2E6CA8B7EB4
+	for <lists+xen-devel@lfdr.de>; Tue, 30 Apr 2024 19:35:06 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.715154.1116691 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s1qoq-000697-5f; Tue, 30 Apr 2024 16:59:04 +0000
+	id 1s1rMz-00072j-5l; Tue, 30 Apr 2024 17:34:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 715129.1116667; Tue, 30 Apr 2024 16:59:04 +0000
+Received: by outflank-mailman (output) from mailman id 715154.1116691; Tue, 30 Apr 2024 17:34:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s1qoq-000667-2a; Tue, 30 Apr 2024 16:59:04 +0000
-Received: by outflank-mailman (input) for mailman id 715129;
- Tue, 30 Apr 2024 16:59:02 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1s1rMz-0006vK-1G; Tue, 30 Apr 2024 17:34:21 +0000
+Received: by outflank-mailman (input) for mailman id 715154;
+ Tue, 30 Apr 2024 17:34:19 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Ve62=MD=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1s1qoo-0005Xj-Mf
- for xen-devel@lists.xenproject.org; Tue, 30 Apr 2024 16:59:02 +0000
-Received: from mail-qv1-xf2f.google.com (mail-qv1-xf2f.google.com
- [2607:f8b0:4864:20::f2f])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f0d61980-0712-11ef-b4bb-af5377834399;
- Tue, 30 Apr 2024 18:59:01 +0200 (CEST)
-Received: by mail-qv1-xf2f.google.com with SMTP id
- 6a1803df08f44-6a0c8fb3540so108646d6.1
- for <xen-devel@lists.xenproject.org>; Tue, 30 Apr 2024 09:59:01 -0700 (PDT)
-Received: from localhost ([213.195.114.223]) by smtp.gmail.com with ESMTPSA id
- t7-20020a056214154700b006a0d2a52017sm507692qvw.146.2024.04.30.09.58.58
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 30 Apr 2024 09:58:59 -0700 (PDT)
+ <SRS0=DdMh=MD=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
+ id 1s1rMx-0006rz-58
+ for xen-devel@lists.xenproject.org; Tue, 30 Apr 2024 17:34:19 +0000
+Received: from wfhigh8-smtp.messagingengine.com
+ (wfhigh8-smtp.messagingengine.com [64.147.123.159])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id dc1952e8-0717-11ef-909b-e314d9c70b13;
+ Tue, 30 Apr 2024 19:34:16 +0200 (CEST)
+Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
+ by mailfhigh.west.internal (Postfix) with ESMTP id 2A6BA1800131;
+ Tue, 30 Apr 2024 13:34:11 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute1.internal (MEProxy); Tue, 30 Apr 2024 13:34:11 -0400
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 30 Apr 2024 13:34:09 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,235 +44,144 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f0d61980-0712-11ef-b4bb-af5377834399
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1714496339; x=1715101139; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=nlkGJPlOCvm5A8j9uk3pxOJP2pbiQ5Ni0MtAwWQpoKg=;
-        b=vQtC+lh78nZXSoKxoYu7t4brPeVaK7cOeUEZvMi6SlDrIX5CX7Z0hvTSJBpKUq9ClK
-         QeyJSHRwmkegRH4FQAQdAh34ZerasCu9JWJQ85BtQyqNUrJTnG/Bk3oHmOOFShC/MDWL
-         2Up5i+trtSc+vzdz18yu9/LOH1JyhjEq1U57U=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1714496339; x=1715101139;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=nlkGJPlOCvm5A8j9uk3pxOJP2pbiQ5Ni0MtAwWQpoKg=;
-        b=GRXoTC+8sMrpl6gn6pfhFMkUx/r9A1k3jMrgvJ0KEsOawwkZwgANFaMFFerh4Y5mr4
-         UP+vdKezo0ZzJYJ852WAWc5YlQzhFRWwbmcSaagDN0Zu3Mp0tKqMf/YjcCMCURPXmVFU
-         1VfXN65/gqbSwefRrRXd6hwMsE075/5fZUNv9ME1YzB1CU9QTXtun0QGmQapXSFYtr0g
-         lDSyiooTOOJOg999NR77Nc+NzEOT7PYcdvNbQiqnK8Qfx1anSijEz1scxTWpRdVnGfeo
-         iybwa11d/+VtSeN7x8fuMzVFTcCRZJ8z2uGMKgajw35y102YHY1Yrxm2Wg8ncGUCPeCl
-         rnPw==
-X-Gm-Message-State: AOJu0YyhXekXEumzqiMzcMq7zFyPeKR/fggsQ/KIpvS+Y5FzJBkvJofQ
-	alWqEgG2bwLkc7qOTYESt4w7YqzvOceH6+R4QLct9H4yZ7FeN7QZsyeWDh4IskZJVJrwZ2+wyKL
-	L
-X-Google-Smtp-Source: AGHT+IE7KqGFBYUX9ZPYWYnzz4myXyFu+S8SzOCPr4mHPh92LYx3apQjDVu3vBuW8d7AByh6AJLKsA==
-X-Received: by 2002:a05:6214:202c:b0:6a0:a8f2:5f8e with SMTP id 12-20020a056214202c00b006a0a8f25f8emr706140qvf.1.1714496339437;
-        Tue, 30 Apr 2024 09:58:59 -0700 (PDT)
-From: Roger Pau Monne <roger.pau@citrix.com>
-To: xen-devel@lists.xenproject.org
-Cc: Roger Pau Monne <roger.pau@citrix.com>,
-	Oleksii Kurochko <oleksii.kurochko@gmail.com>,
-	Community Manager <community.manager@xenproject.org>,
-	Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>
-Subject: [PATCH for-4.19? 2/2] xen/x86: remove foreign mappings from the p2m on teardown
-Date: Tue, 30 Apr 2024 18:58:45 +0200
-Message-ID: <20240430165845.81696-3-roger.pau@citrix.com>
+X-Inumbo-ID: dc1952e8-0717-11ef-909b-e314d9c70b13
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:from:from:in-reply-to
+	:in-reply-to:message-id:mime-version:references:reply-to:subject
+	:subject:to:to; s=fm3; t=1714498450; x=1714584850; bh=nuTget59Mx
+	Wc4IfoutnOU8Z20vpZN60QWE54LVhF6ms=; b=t4Ug7DTH9FfnRfuc/DODFmSS+l
+	mD3jFWNfTrDtk7In2zJy+/OPeCt3KXtdl2nJV4pPZ2pvRXZrzLRMaQ4HSJh2nmh0
+	V5gEtjUJIw9ZR7MvqvJgq4O+gGn7AcMRtE/Z1CXm3dUdod15IuAk59wpsntnewXt
+	WTuR8l8zcOqHlNITJrI2WGfCL9LTNvJrfdZIXIotk+26lkHQJ1fwnUhSgllKhIQY
+	WzAMxX0WVQx6yRos3yZfcn29od3bqXl2hh+aIr8v7tigAEI/8wfIAaXcwpQukTOK
+	aR9Z3QgUv9XdkNhO7eVOd5bKqcf9rjUNAM35ioRx88Gnk345JrHRpZ2aXUpQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1714498450; x=
+	1714584850; bh=nuTget59MxWc4IfoutnOU8Z20vpZN60QWE54LVhF6ms=; b=M
+	a5VxVonW0Qm9fs0XA8C4EYYeA8DQOTjBKfXaGV/IyykiUtCZvtyM/uTomp4mv1fn
+	dRdED+lgGT4CKODfGELmTYvp7vP6OTKsISeGWLdzSTEZO7wY3tUS3wsdAojn4SO2
+	rbFknN3N+VsLGoW4xZ+csJs64Hm21a33zH94MPXbzfU7vahcAVrRjSE1iBEzTPiT
+	CZ9/tvnSkkAJsp6ZU7j2SwY3/xC2nzylX1sEZdGPGGhVU/Qxf8UAXZXdgMDG+7VT
+	eLeS0QMaUQbrJLxdg7fhC7q6D8fG0sWT0AX1lAy8PhmERJ+colLa7cCICJUEvNhO
+	OS6YCyB70T/AkM8N25Qkw==
+X-ME-Sender: <xms:kisxZh0Fo4lMf2nSVZu4SyOZzK5kxzdH4kL7NUyeoyW_z_QEKVRf3w>
+    <xme:kisxZoFXszW32A-TTvRXzlkKiPhNl1JIWJlD_SAXzAF3l93G0wzyAnVx7IboPNH1Q
+    SaacV4Rs8Fu6Q>
+X-ME-Received: <xmr:kisxZh6ARn4DD695f7h_6_8F0pjACmIStS_M2ww1QwIZYOwK-Awkhu7Qvy0CoZGokGlr3zIG>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvledrvddufedgudduvdcutefuodetggdotefrod
+    ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
+    necuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
+    enucfjughrpefhvfevufffkffojghfgggtgfesthekredtredtjeenucfhrhhomhepofgr
+    rhgvkhcuofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuceomhgrrhhmrghrvghkse
+    hinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecuggftrfgrthhtvghrnhep
+    gfeuudehgfdvfeehhedujeehfeduveeugefhkefhheelgeevudetueeiudfggfffnecuve
+    hluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepmhgrrhhmrghr
+    vghksehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomh
+X-ME-Proxy: <xmx:kisxZu3sqn_kCe8IxidhA89Idnv0ff0ssnKP-hyd_Tf7SHZfsV_R2w>
+    <xmx:kisxZkGTYxkpPG3HIUpIsg4xKpQrvThJLiq8_IfLB-VEPeFSYyHTSA>
+    <xmx:kisxZv-0hOQmKdJXx-FMJwXnhHoWnVA5ASLPzuKTBB7f7KGfdqEm0w>
+    <xmx:kisxZhm8z_a6Ti25Z7Dr_DceznWeqzME7RGli6flyZ_b-qySe4Wh0Q>
+    <xmx:kisxZpNap_XR-F0uWa0HzYv_wpAK3Kh1uxNyGxxn6LOlhSlJkfvFeHtC>
+Feedback-ID: i1568416f:Fastmail
+From: =?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: qemu-devel@nongnu.org
+Cc: =?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Anthony Perard <anthony.perard@citrix.com>,
+	Paul Durrant <paul@xen.org>,
+	xen-devel@lists.xenproject.org (open list:X86 Xen CPUs)
+Subject: [PATCH v2 1/3] hw/xen/xen_pt: Save back data only for declared registers
+Date: Tue, 30 Apr 2024 19:33:09 +0200
+Message-ID: <3cc5a7d2e0338112fb87806c813627bdf5dbd2a5.1714498385.git-series.marmarek@invisiblethingslab.com>
 X-Mailer: git-send-email 2.44.0
-In-Reply-To: <20240430165845.81696-1-roger.pau@citrix.com>
-References: <20240430165845.81696-1-roger.pau@citrix.com>
+In-Reply-To: <cover.ea761e8c87cc41550b01d6fbc1cd1116af55e288.1714498385.git-series.marmarek@invisiblethingslab.com>
+References: <cover.ea761e8c87cc41550b01d6fbc1cd1116af55e288.1714498385.git-series.marmarek@invisiblethingslab.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Iterate over the p2m based on the maximum recorded gfn and remove any foreign
-mappings, in order to drop the underlying page references and thus don't keep
-extra page references if a domain is destroyed while still having foreign
-mappings on it's p2m.
+Call pci_default_write_config() in xen_pt_pci_write_config() only for
+registers that have matching XenPTRegInfo structure, and do that only after
+resolving any custom handlers. This is important for two reasons:
+1. XenPTRegInfo has ro_mask which needs to be enforced - Xen-specific
+   hooks do that on their own (especially xen_pt_*_reg_write()).
+2. Not setting value early allows hooks to see the old value too.
 
-The logic is similar to the one used on Arm.
+If it would be only about the first point, setting PCIDevice.wmask would
+probably be sufficient, but given the second point, restructure those
+writes.
 
-Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+Signed-off-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
 ---
-I still have to test with destroying a guest that does have foreign mappings on
-it's p2m.
+v2:
+ - rewrite commit message, previous one was very misleading
+ - fix loop saving register values
+ - fix int overflow when calculating write mask
 ---
- CHANGELOG.md                   |  1 +
- xen/arch/x86/domain.c          |  6 +++
- xen/arch/x86/include/asm/p2m.h | 17 +++++----
- xen/arch/x86/mm/p2m.c          | 68 ++++++++++++++++++++++++++++++++--
- 4 files changed, 81 insertions(+), 11 deletions(-)
+ hw/xen/xen_pt.c | 24 +++++++++++++++++++++++-
+ 1 file changed, 23 insertions(+), 1 deletion(-)
 
-diff --git a/CHANGELOG.md b/CHANGELOG.md
-index 8041cfb7d243..09bdb9b97578 100644
---- a/CHANGELOG.md
-+++ b/CHANGELOG.md
-@@ -14,6 +14,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
-    - HVM PIRQs are disabled by default.
-    - Reduce IOMMU setup time for hardware domain.
-  - xl/libxl configures vkb=[] for HVM domains with priority over vkb_device.
-+ - Allow HVM/PVH domains to map foreign pages.
+diff --git a/hw/xen/xen_pt.c b/hw/xen/xen_pt.c
+index 3635d1b..cea2e18 100644
+--- a/hw/xen/xen_pt.c
++++ b/hw/xen/xen_pt.c
+@@ -256,6 +256,7 @@ static void xen_pt_pci_write_config(PCIDevice *d, uint32_t addr,
+     uint32_t find_addr = addr;
+     XenPTRegInfo *reg = NULL;
+     bool wp_flag = false;
++    uint32_t emul_mask = 0, write_val;
  
- ### Added
-  - On x86:
-diff --git a/xen/arch/x86/domain.c b/xen/arch/x86/domain.c
-index 20e83cf38bbd..5aa2d3744e6b 100644
---- a/xen/arch/x86/domain.c
-+++ b/xen/arch/x86/domain.c
-@@ -2364,6 +2364,7 @@ int domain_relinquish_resources(struct domain *d)
-         enum {
-             PROG_iommu_pagetables = 1,
-             PROG_shared,
-+            PROG_mappings,
-             PROG_paging,
-             PROG_vcpu_pagetables,
-             PROG_xen,
-@@ -2412,6 +2413,11 @@ int domain_relinquish_resources(struct domain *d)
-         }
- #endif
+     if (xen_pt_pci_config_access_check(d, addr, len)) {
+         return;
+@@ -311,7 +312,6 @@ static void xen_pt_pci_write_config(PCIDevice *d, uint32_t addr,
+     }
  
-+    PROGRESS(mappings):
-+        ret = relinquish_p2m_mapping(d);
-+        if ( ret )
-+            return ret;
+     memory_region_transaction_begin();
+-    pci_default_write_config(d, addr, val, len);
+ 
+     /* adjust the read and write value to appropriate CFC-CFF window */
+     read_val <<= (addr & 3) << 3;
+@@ -371,6 +371,9 @@ static void xen_pt_pci_write_config(PCIDevice *d, uint32_t addr,
+                 return;
+             }
+ 
++            emul_mask |= ((1L << (reg->size * 8)) - 1)
++                         << ((find_addr & 3) * 8);
 +
-     PROGRESS(paging):
+             /* calculate next address to find */
+             emul_len -= reg->size;
+             if (emul_len > 0) {
+@@ -397,6 +400,25 @@ static void xen_pt_pci_write_config(PCIDevice *d, uint32_t addr,
+     /* need to shift back before passing them to xen_host_pci_set_block. */
+     val >>= (addr & 3) << 3;
  
-         /* Tear down paging-assistance stuff. */
-diff --git a/xen/arch/x86/include/asm/p2m.h b/xen/arch/x86/include/asm/p2m.h
-index d95341ef4242..8b3e6a473a0c 100644
---- a/xen/arch/x86/include/asm/p2m.h
-+++ b/xen/arch/x86/include/asm/p2m.h
-@@ -402,13 +402,7 @@ struct p2m_domain {
- 
- static inline bool arch_acquire_resource_check(struct domain *d)
- {
--    /*
--     * FIXME: Until foreign pages inserted into the P2M are properly
--     * reference counted, it is unsafe to allow mapping of
--     * resource pages unless the caller is the hardware domain
--     * (see set_foreign_p2m_entry()).
--     */
--    return !paging_mode_translate(d) || is_hardware_domain(d);
-+    return true;
- }
- 
- /*
-@@ -725,6 +719,10 @@ p2m_pod_offline_or_broken_hit(struct page_info *p);
- void
- p2m_pod_offline_or_broken_replace(struct page_info *p);
- 
-+/* Perform cleanup of p2m mappings ahead of teardown. */
-+int
-+relinquish_p2m_mapping(struct domain *d);
-+
- #else
- 
- static inline bool
-@@ -753,6 +751,11 @@ static inline void p2m_pod_offline_or_broken_replace(struct page_info *p)
-     ASSERT_UNREACHABLE();
- }
- 
-+static inline int relinquish_p2m_mapping(struct domain *d)
-+{
-+    return 0;
-+}
-+
- #endif
- 
- 
-diff --git a/xen/arch/x86/mm/p2m.c b/xen/arch/x86/mm/p2m.c
-index 05d8536adcd7..fac41e5ec808 100644
---- a/xen/arch/x86/mm/p2m.c
-+++ b/xen/arch/x86/mm/p2m.c
-@@ -2335,10 +2335,6 @@ static int p2m_add_foreign(struct domain *tdom, unsigned long fgfn,
-     int rc;
-     struct domain *fdom;
- 
--    /*
--     * hvm fixme: until support is added to p2m teardown code to cleanup any
--     * foreign entries, limit this to hardware domain only.
--     */
-     if ( !arch_acquire_resource_check(tdom) )
-         return -EPERM;
- 
-@@ -2695,6 +2691,70 @@ int p2m_set_altp2m_view_visibility(struct domain *d, unsigned int altp2m_idx,
-     return rc;
- }
- 
-+/*
-+ * Remove foreign mappings from the p2m, as that drops the page reference taken
-+ * when mapped.
-+ */
-+int relinquish_p2m_mapping(struct domain *d)
-+{
-+    struct p2m_domain *p2m = p2m_get_hostp2m(d);
-+    unsigned long gfn = gfn_x(p2m->max_gfn);
-+    int rc = 0;
-+
-+    if ( !paging_mode_translate(d) )
-+        return 0;
-+
-+    BUG_ON(!d->is_dying);
-+
-+    p2m_lock(p2m);
-+
-+    /* Iterate over the whole p2m on debug builds to ensure correctness. */
-+    while ( gfn && (IS_ENABLED(CONFIG_DEBUG) || p2m->nr_foreign) )
-+    {
-+        unsigned int order;
-+        p2m_type_t t;
-+        p2m_access_t a;
-+
-+        _get_gfn_type_access(p2m, _gfn(gfn - 1), &t, &a, 0, &order, 0);
-+        ASSERT(IS_ALIGNED(gfn, 1u << order));
-+        gfn -= 1 << order;
-+
-+        if ( t == p2m_map_foreign )
-+        {
-+            ASSERT(p2m->nr_foreign);
-+            ASSERT(order == 0);
-+            /*
-+             * Foreign mappings can only be of order 0, hence there's no need
-+             * to align the gfn to the entry order.  Otherwise we would need to
-+             * adjust gfn to point to the start of the page if order > 0.
-+             */
-+            rc = p2m_set_entry(p2m, _gfn(gfn), INVALID_MFN, order, p2m_invalid,
-+                               p2m->default_access);
-+            if ( rc )
-+            {
-+                printk(XENLOG_ERR
-+                       "%pd: failed to unmap foreign page %" PRI_gfn " order %u error %d\n",
-+                       d, gfn, order, rc);
-+                ASSERT_UNREACHABLE();
-+                break;
-+            }
++    /* store emulated registers after calling their handlers */
++    write_val = val;
++    for (index = 0; index < len; index += emul_len) {
++        emul_len = 0;
++        while (emul_mask & 0xff) {
++            emul_len++;
++            emul_mask >>= 8;
 +        }
-+
-+        if ( !(gfn & 0xfff) && hypercall_preempt_check() )
-+        {
-+            rc = -ERESTART;
-+            break;
++        if (emul_len) {
++            uint32_t mask = ((1L << (emul_len * 8)) - 1);
++            pci_default_write_config(d, addr + index, write_val & mask,
++                                     emul_len);
++        } else {
++            emul_mask >>= 8;
++            emul_len = 1;
 +        }
++        write_val >>= emul_len * 8;
 +    }
 +
-+    ASSERT(gfn || !p2m->nr_foreign);
-+    p2m->max_gfn = _gfn(gfn);
-+
-+    p2m_unlock(p2m);
-+
-+    return rc;
-+}
-+
- /*
-  * Local variables:
-  * mode: C
+     memory_region_transaction_commit();
+ 
+ out:
 -- 
-2.44.0
-
+git-series 0.9.1
 
