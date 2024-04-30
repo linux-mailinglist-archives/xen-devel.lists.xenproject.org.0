@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 621098B814A
-	for <lists+xen-devel@lfdr.de>; Tue, 30 Apr 2024 22:15:27 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.715189.1116714 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 16ABF8B8164
+	for <lists+xen-devel@lfdr.de>; Tue, 30 Apr 2024 22:28:59 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.715194.1116724 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s1trL-0006sm-H1; Tue, 30 Apr 2024 20:13:51 +0000
+	id 1s1u5c-0000mc-NY; Tue, 30 Apr 2024 20:28:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 715189.1116714; Tue, 30 Apr 2024 20:13:51 +0000
+Received: by outflank-mailman (output) from mailman id 715194.1116724; Tue, 30 Apr 2024 20:28:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s1trL-0006py-Ds; Tue, 30 Apr 2024 20:13:51 +0000
-Received: by outflank-mailman (input) for mailman id 715189;
- Tue, 30 Apr 2024 20:13:49 +0000
+	id 1s1u5c-0000l1-K5; Tue, 30 Apr 2024 20:28:36 +0000
+Received: by outflank-mailman (input) for mailman id 715194;
+ Tue, 30 Apr 2024 20:28:34 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1s1trJ-0006ps-P9
- for xen-devel@lists.xenproject.org; Tue, 30 Apr 2024 20:13:49 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1s1u5a-0000kr-BY; Tue, 30 Apr 2024 20:28:34 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1s1trJ-0000WY-BB; Tue, 30 Apr 2024 20:13:49 +0000
-Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.1.244])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1s1trJ-0000JT-3G; Tue, 30 Apr 2024 20:13:49 +0000
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1s1u5a-0000nI-8t; Tue, 30 Apr 2024 20:28:34 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1s1u5Z-0004CH-Rx; Tue, 30 Apr 2024 20:28:33 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1s1u5Z-0000PN-RV; Tue, 30 Apr 2024 20:28:33 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,121 +42,253 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=fOdTq18o0huWLXMl01Cb11wf/M2YiR/pEmEWLs+25H0=; b=eB1LA7Ukx6hH9+pax8XtJ0m6Fv
-	G44L/SJKwj6pjSi48VV3DnxMLCQvlJiL31Kx2Ix7c4xIx9DUb3U7pKR3E4M2zB2GpcRj53m5i8+UO
-	ZQdj+HAUTQV5N6fdGgX4u9qp/zlIMLPFZUtsuwyJMfraah6eiFo7qyW3fT5tPZ8gOpSs=;
-Message-ID: <365e1b12-6b20-40ed-8ca9-beb643c907ab@xen.org>
-Date: Tue, 30 Apr 2024 21:13:46 +0100
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=p4W6fmC4Wn1SW4O4w4QKGOsq1SjvTPs5Dg8ZSJTbnX0=; b=1u7/+F5USPNziiqBjUQyl2OWtv
+	v1eOz2J6VADTZ1STIqvn91xqPTfLUZoM1jmMGT+HzXjWGNuw+bZ15HQ7enQh/1pr1LmkCBW0dDJZv
+	fH5AVeklBIdguqjNMumrcYVe8yc5zVNOkOMfQdfXmqWmmBOFgblkIlq6n26l6VRrAgSc=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-185870-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 02/15] xen/arm/gic: Enable interrupt assignment to running
- VM
-To: Henry Wang <xin.wang2@amd.com>, xen-devel@lists.xenproject.org
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Stefano Stabellini <stefano.stabellini@xilinx.com>
-References: <20240424033449.168398-1-xin.wang2@amd.com>
- <20240424033449.168398-3-xin.wang2@amd.com>
- <670d1033-2443-4245-8ff1-cb7099a7c793@xen.org>
- <70c5a593-9ac5-485b-be81-b789562249d8@amd.com>
- <5ba38b7b-16b1-489b-ad55-083504690bbd@xen.org>
- <1a29ae76-a902-4a24-8fd1-ac26ef228971@amd.com>
-Content-Language: en-GB
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <1a29ae76-a902-4a24-8fd1-ac26ef228971@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Subject: [linux-linus test] 185870: tolerable FAIL - PUSHED
+X-Osstest-Failures:
+    linux-linus:test-armhf-armhf-xl-qcow2:xen-boot:fail:heisenbug
+    linux-linus:test-armhf-armhf-xl-qcow2:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-qcow2:saverestore-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-armhf-armhf-libvirt:xen-boot:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-arndale:xen-boot:fail:nonblocking
+    linux-linus:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-qcow2:migrate-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-raw:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-vhd:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-vhd:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-libvirt-vhd:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-libvirt-vhd:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-raw:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-raw:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    linux=b947cc5bf6d793101135265352e205aeb30b54f0
+X-Osstest-Versions-That:
+    linux=e67572cd2204894179d89bd7b984072f19313b03
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Tue, 30 Apr 2024 20:28:33 +0000
 
-Hi Henry,
+flight 185870 linux-linus real [real]
+flight 185887 linux-linus real-retest [real]
+http://logs.test-lab.xenproject.org/osstest/logs/185870/
+http://logs.test-lab.xenproject.org/osstest/logs/185887/
 
-On 30/04/2024 04:50, Henry Wang wrote:
-> On 4/25/2024 10:28 PM, Julien Grall wrote:
->>> Thanks for your feeedback. After checking the b8577547236f commit 
->>> message I think I now understand your point. Do you have any 
->>> suggestion about how can I properly add the support to route/remove 
->>> the IRQ to running domains? Thanks.
-> 
-> I spent some time going through the GIC/vGIC code and had some 
-> discussions with Stefano and Stewart during the last couple of days, let 
-> me see if I can describe the use case properly now to continue the 
-> discussion:
-> 
-> We have some use cases that requires assigning devices to domains after 
-> domain boot time. For example, suppose there is an FPGA on the board 
-> which can simulate a device, and the bitstream for the FPGA is provided 
-> and programmed after domain boot. So we need a way to assign the device 
-> to the running domain. This series tries to implement this use case by 
-> using device tree overlay - users can firstly add the overlay to Xen 
-> dtb, assign the device in the overlay to a domain by the xl command, 
-> then apply the overlay to Linux.
+Failures :-/ but no regressions.
 
-Thanks for the description! This helps to understand your goal :).
+Tests which are failing intermittently (not blocking):
+ test-armhf-armhf-xl-qcow2     8 xen-boot            fail pass in 185887-retest
 
-> 
->> I haven't really look at that code in quite a while. I think we need 
->> to make sure that the virtual and physical IRQ state matches at the 
->> time we do the routing.
->>
->> I am undecided on whether we want to simply prevent the action to 
->> happen or try to reset the state.
->>
->> There is also the question of what to do if the guest is enabling the 
->> vIRQ before it is routed.
-> 
-> Sorry for bothering, would you mind elaborating a bit more about the two 
-> cases that you mentioned above? Commit b8577547236f ("xen/arm: Restrict 
-> when a physical IRQ can be routed/removed from/to a domain") only said 
-> there will be undesirable effects, so I am not sure if I understand the 
-> concerns raised above and the consequences of these two use cases.
+Tests which did not succeed, but are not blocking:
+ test-armhf-armhf-xl-qcow2   14 migrate-support-check fail in 185887 never pass
+ test-armhf-armhf-xl-qcow2 15 saverestore-support-check fail in 185887 never pass
+ test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 185862
+ test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 185862
+ test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 185862
+ test-armhf-armhf-libvirt      8 xen-boot                     fail  like 185862
+ test-armhf-armhf-xl-arndale   8 xen-boot                     fail  like 185862
+ test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 185862
+ test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 185862
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-qcow2 14 migrate-support-check        fail never pass
+ test-amd64-amd64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-multivcpu 15 migrate-support-check        fail  never pass
+ test-armhf-armhf-xl-multivcpu 16 saverestore-support-check    fail  never pass
+ test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit1  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-vhd      14 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-vhd      15 saverestore-support-check    fail   never pass
+ test-armhf-armhf-libvirt-vhd 14 migrate-support-check        fail   never pass
+ test-armhf-armhf-libvirt-vhd 15 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-raw      14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-raw      15 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-rtds     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-rtds     16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-credit2  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit2  16 saverestore-support-check    fail   never pass
 
-I will try to explain them below after I answer the rest.
+version targeted for testing:
+ linux                b947cc5bf6d793101135265352e205aeb30b54f0
+baseline version:
+ linux                e67572cd2204894179d89bd7b984072f19313b03
 
-> I am 
-> probably wrong, I think when we add the overlay, we are probably fine as 
-> the interrupt is not being used before. 
+Last test of basis   185862  2024-04-29 05:18:20 Z    1 days
+Testing same since   185870  2024-04-29 17:43:51 Z    1 days    1 attempts
 
-What if the DT overlay is unloaded and then reloaded? Wouldn't the same 
-interrupt be re-used? As a more generic case, this could also be a new 
-bitstream for the FPGA.
+------------------------------------------------------------
+People who touched revisions under test:
+  Baokun Li <libaokun1@huawei.com>
+  Christian Brauner <brauner@kernel.org>
+  Gao Xiang <hsiangkao@linux.alibaba.com>
+  Hongbo Li <lihongbo22@huawei.com>
+  Linus Torvalds <torvalds@linux-foundation.org>
+  Matthew Wilcox (Oracle) <willy@infradead.org>
+  Ильфат Гаптрахманов <i.gaptrakhmanov@rosalinux.ru>
 
-But even if the interrupt is brand new every time for the DT overlay, 
-you are effectively relaxing the check for every user (such as 
-XEN_DOMCTL_bind_pt_irq). So the interrupt re-use case needs to be taken 
-into account.
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl                                          pass    
+ test-amd64-coresched-amd64-xl                                pass    
+ test-arm64-arm64-xl                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
+ test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 pass    
+ test-amd64-amd64-xl-xsm                                      pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-qemuu-nested-amd                            fail    
+ test-amd64-amd64-xl-pvhv2-amd                                pass    
+ test-amd64-amd64-dom0pvh-xl-amd                              pass    
+ test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
+ test-amd64-amd64-qemuu-freebsd12-amd64                       pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-amd64-xl-qemut-win7-amd64                         fail    
+ test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
+ test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
+ test-armhf-armhf-xl-arndale                                  fail    
+ test-amd64-amd64-examine-bios                                pass    
+ test-amd64-amd64-xl-credit1                                  pass    
+ test-arm64-arm64-xl-credit1                                  pass    
+ test-armhf-armhf-xl-credit1                                  pass    
+ test-amd64-amd64-xl-credit2                                  pass    
+ test-arm64-arm64-xl-credit2                                  pass    
+ test-armhf-armhf-xl-credit2                                  pass    
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
+ test-amd64-amd64-examine                                     pass    
+ test-arm64-arm64-examine                                     pass    
+ test-armhf-armhf-examine                                     pass    
+ test-amd64-amd64-qemuu-nested-intel                          pass    
+ test-amd64-amd64-xl-pvhv2-intel                              pass    
+ test-amd64-amd64-dom0pvh-xl-intel                            pass    
+ test-amd64-amd64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     fail    
+ test-amd64-amd64-xl-multivcpu                                pass    
+ test-armhf-armhf-xl-multivcpu                                pass    
+ test-amd64-amd64-pair                                        pass    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-amd64-xl-pvshim                                   pass    
+ test-amd64-amd64-pygrub                                      pass    
+ test-amd64-amd64-libvirt-qcow2                               pass    
+ test-amd64-amd64-xl-qcow2                                    pass    
+ test-armhf-armhf-xl-qcow2                                    fail    
+ test-amd64-amd64-libvirt-raw                                 pass    
+ test-arm64-arm64-libvirt-raw                                 pass    
+ test-amd64-amd64-xl-raw                                      pass    
+ test-armhf-armhf-xl-raw                                      pass    
+ test-amd64-amd64-xl-rtds                                     pass    
+ test-armhf-armhf-xl-rtds                                     pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
+ test-amd64-amd64-xl-shadow                                   pass    
+ test-arm64-arm64-xl-thunderx                                 pass    
+ test-amd64-amd64-examine-uefi                                pass    
+ test-amd64-amd64-libvirt-vhd                                 pass    
+ test-armhf-armhf-libvirt-vhd                                 pass    
+ test-amd64-amd64-xl-vhd                                      pass    
+ test-arm64-arm64-xl-vhd                                      pass    
 
-> Also since we only load the 
-> device driver after the IRQ is routed to the guest, 
 
-This is what a well-behave guest will do. However, we need to think what 
-will happen if a guest misbehaves. I am not concerned about a guest only 
-impacting itself, I am more concerned about the case where the rest of 
-the system is impacted.
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-> I am not sure the 
-> guest can enable the vIRQ before it is routed.
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
-Xen allows the guest to enable a vIRQ even if there is no pIRQ assigned. 
-Thanksfully, it looks like the vgic_connect_hw_irq(), in both the 
-current and new vGIC, will return an error if we are trying to route a 
-pIRQ to an already enabled vIRQ.
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
-But we need to investigate all the possible scenarios to make sure that 
-any inconsistencies between the physical state and virtual state 
-(including the LRs) will not result to bigger problem.
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
-The one that comes to my mind is: The physical interrupt is de-assigned 
-from the guest before it was EOIed. In this case, the interrupt will 
-still be in the LR with the HW bit set. This would allow the guest to 
-EOI the interrupt even if it is routed to someone else. It is unclear 
-what would be the impact on the other guest.
 
-Cheers,
+Pushing revision :
 
--- 
-Julien Grall
+hint: The 'hooks/update' hook was ignored because it's not set as executable.
+hint: You can disable this warning with `git config advice.ignoredHook false`.
+hint: The 'hooks/post-receive' hook was ignored because it's not set as executable.
+hint: You can disable this warning with `git config advice.ignoredHook false`.
+hint: The 'hooks/post-update' hook was ignored because it's not set as executable.
+hint: You can disable this warning with `git config advice.ignoredHook false`.
+To xenbits.xen.org:/home/xen/git/linux-pvops.git
+   e67572cd2204..b947cc5bf6d7  b947cc5bf6d793101135265352e205aeb30b54f0 -> tested/linux-linus
 
