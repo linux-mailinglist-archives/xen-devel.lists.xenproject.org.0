@@ -2,33 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D7C818B7961
+	by mail.lfdr.de (Postfix) with ESMTPS id D9F1C8B7962
 	for <lists+xen-devel@lfdr.de>; Tue, 30 Apr 2024 16:28:41 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.714937.1116352 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.714938.1116362 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s1oT8-0007f6-7p; Tue, 30 Apr 2024 14:28:30 +0000
+	id 1s1oT9-0007uv-Ek; Tue, 30 Apr 2024 14:28:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 714937.1116352; Tue, 30 Apr 2024 14:28:30 +0000
+Received: by outflank-mailman (output) from mailman id 714938.1116362; Tue, 30 Apr 2024 14:28:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s1oT8-0007dN-40; Tue, 30 Apr 2024 14:28:30 +0000
-Received: by outflank-mailman (input) for mailman id 714937;
- Tue, 30 Apr 2024 14:28:28 +0000
+	id 1s1oT9-0007tA-Ab; Tue, 30 Apr 2024 14:28:31 +0000
+Received: by outflank-mailman (input) for mailman id 714938;
+ Tue, 30 Apr 2024 14:28:29 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=BF+G=MD=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
- id 1s1oT6-00077h-8X
- for xen-devel@lists.xenproject.org; Tue, 30 Apr 2024 14:28:28 +0000
+ id 1s1oT7-00077h-8t
+ for xen-devel@lists.xenproject.org; Tue, 30 Apr 2024 14:28:29 +0000
 Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e8efd52b-06fd-11ef-909b-e314d9c70b13;
- Tue, 30 Apr 2024 16:28:27 +0200 (CEST)
+ id e94d9a5e-06fd-11ef-909b-e314d9c70b13;
+ Tue, 30 Apr 2024 16:28:28 +0200 (CEST)
 Received: from nico.bugseng.com.homenet.telecomitalia.it
  (host-79-60-221-62.business.telecomitalia.it [79.60.221.62])
- by support.bugseng.com (Postfix) with ESMTPSA id BB4C04EE0754;
- Tue, 30 Apr 2024 16:28:25 +0200 (CEST)
+ by support.bugseng.com (Postfix) with ESMTPSA id 9FE784EE0755;
+ Tue, 30 Apr 2024 16:28:27 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,7 +40,7 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e8efd52b-06fd-11ef-909b-e314d9c70b13
+X-Inumbo-ID: e94d9a5e-06fd-11ef-909b-e314d9c70b13
 From: Nicola Vetrini <nicola.vetrini@bugseng.com>
 To: xen-devel@lists.xenproject.org,
 	nicola.vetrini@bugseng.com
@@ -51,13 +51,13 @@ Cc: sstabellini@kernel.org,
 	consulting@bugseng.com,
 	bertrand.marquis@arm.com,
 	julien@xen.org,
-	Anthony PERARD <anthony@xenproject.org>,
 	Andrew Cooper <andrew.cooper3@citrix.com>,
 	George Dunlap <george.dunlap@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>
-Subject: [XEN PATCH v2 2/3] xen/unaligned: address violation of MISRA C Rule 20.7
-Date: Tue, 30 Apr 2024 16:28:15 +0200
-Message-Id: <ec56516020d15cf20419b8bdf6f01fc365c52126.1714487169.git.nicola.vetrini@bugseng.com>
+	Jan Beulich <jbeulich@suse.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
+Subject: [XEN PATCH v2 3/3] xen/pci: address violations of MISRA C Rule 20.7
+Date: Tue, 30 Apr 2024 16:28:16 +0200
+Message-Id: <df48ce446cf6409eda04460109f3082b39c4f618.1714487169.git.nicola.vetrini@bugseng.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <cover.1714487169.git.nicola.vetrini@bugseng.com>
 References: <cover.1714487169.git.nicola.vetrini@bugseng.com>
@@ -74,44 +74,40 @@ No functional change.
 
 Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
 ---
-Somewhat surprisingly, the change in the tools directory is also needed, otherwise
-some CI build jobs fail (see e.g. [1]). This is not undefined behaviour
-as long as the two definitions are kept in sync, following section
-6.10.3p2 of the C99 standard, but having the definition in common-macros.h
-is still a potential problem.
+ xen/include/xen/pci_regs.h | 6 +++---
+ xen/include/xen/vpci.h     | 2 +-
+ 2 files changed, 4 insertions(+), 4 deletions(-)
 
-[1] https://gitlab.com/xen-project/people/bugseng/xen/-/jobs/6742878558
----
- tools/include/xen-tools/common-macros.h | 2 +-
- xen/include/xen/unaligned.h             | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/tools/include/xen-tools/common-macros.h b/tools/include/xen-tools/common-macros.h
-index 07aed92684b5..60912225cb7a 100644
---- a/tools/include/xen-tools/common-macros.h
-+++ b/tools/include/xen-tools/common-macros.h
-@@ -102,7 +102,7 @@
+diff --git a/xen/include/xen/pci_regs.h b/xen/include/xen/pci_regs.h
+index 9909b27425a5..0bc18efabb74 100644
+--- a/xen/include/xen/pci_regs.h
++++ b/xen/include/xen/pci_regs.h
+@@ -445,9 +445,9 @@
+ #define PCI_EXP_RTSTA		32	/* Root Status */
  
- #define put_unaligned_t(type, val, ptr) do {                        \
-     struct { type x; } __packed *ptr_ = (typeof(ptr_))(ptr);        \
--    ptr_->x = val;                                                  \
-+    ptr_->x = (val);                                                \
- } while (0)
+ /* Extended Capabilities (PCI-X 2.0 and Express) */
+-#define PCI_EXT_CAP_ID(header)		(header & 0x0000ffff)
+-#define PCI_EXT_CAP_VER(header)		((header >> 16) & 0xf)
+-#define PCI_EXT_CAP_NEXT(header)	((header >> 20) & 0xffc)
++#define PCI_EXT_CAP_ID(header)		((header) & 0x0000ffff)
++#define PCI_EXT_CAP_VER(header)		(((header) >> 16) & 0xf)
++#define PCI_EXT_CAP_NEXT(header)	(((header) >> 20) & 0xffc)
  
- #define get_unaligned(ptr)      get_unaligned_t(typeof(*(ptr)), ptr)
-diff --git a/xen/include/xen/unaligned.h b/xen/include/xen/unaligned.h
-index 3eda0ece1199..2e8238d45c54 100644
---- a/xen/include/xen/unaligned.h
-+++ b/xen/include/xen/unaligned.h
-@@ -19,7 +19,7 @@
+ #define PCI_EXT_CAP_ID_ERR	1
+ #define PCI_EXT_CAP_ID_VC	2
+diff --git a/xen/include/xen/vpci.h b/xen/include/xen/vpci.h
+index e89c571890b2..6e4c972f35ed 100644
+--- a/xen/include/xen/vpci.h
++++ b/xen/include/xen/vpci.h
+@@ -23,7 +23,7 @@ typedef int vpci_register_init_t(struct pci_dev *dev);
  
- #define put_unaligned_t(type, val, ptr) do {				\
- 	struct { type x; } __packed *ptr_ = (typeof(ptr_))(ptr);	\
--	ptr_->x = val;							\
-+	ptr_->x = (val);							\
- } while (0)
+ #define REGISTER_VPCI_INIT(x, p)                \
+   static vpci_register_init_t *const x##_entry  \
+-               __used_section(".data.vpci." p) = x
++               __used_section(".data.vpci." p) = (x)
  
- #define get_unaligned(ptr)	get_unaligned_t(typeof(*(ptr)), ptr)
+ /* Assign vPCI to device by adding handlers. */
+ int __must_check vpci_assign_device(struct pci_dev *pdev);
 -- 
 2.34.1
 
