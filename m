@@ -2,31 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0C5338B6769
-	for <lists+xen-devel@lfdr.de>; Tue, 30 Apr 2024 03:26:22 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.714450.1115694 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A9D698B680F
+	for <lists+xen-devel@lfdr.de>; Tue, 30 Apr 2024 04:52:36 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.714460.1115705 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s1cFD-0003pI-Bm; Tue, 30 Apr 2024 01:25:19 +0000
+	id 1s1dac-0006uy-Ds; Tue, 30 Apr 2024 02:51:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 714450.1115694; Tue, 30 Apr 2024 01:25:19 +0000
+Received: by outflank-mailman (output) from mailman id 714460.1115705; Tue, 30 Apr 2024 02:51:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s1cFD-0003ne-8u; Tue, 30 Apr 2024 01:25:19 +0000
-Received: by outflank-mailman (input) for mailman id 714450;
- Tue, 30 Apr 2024 01:25:18 +0000
+	id 1s1dac-0006sO-9y; Tue, 30 Apr 2024 02:51:30 +0000
+Received: by outflank-mailman (input) for mailman id 714460;
+ Tue, 30 Apr 2024 02:51:28 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=BVXM=MD=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
- id 1s1cFC-0003nF-7r
- for xen-devel@lists.xenproject.org; Tue, 30 Apr 2024 01:25:18 +0000
-Received: from sender4-of-o51.zoho.com (sender4-of-o51.zoho.com
- [136.143.188.51]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 7f048f68-0690-11ef-909b-e314d9c70b13;
- Tue, 30 Apr 2024 03:25:16 +0200 (CEST)
-Received: by mx.zohomail.com with SMTPS id 1714440310054999.7205994577544;
- Mon, 29 Apr 2024 18:25:10 -0700 (PDT)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=H2uD=MD=amd.com=Xin.Wang2@srs-se1.protection.inumbo.net>)
+ id 1s1daa-0006sI-RH
+ for xen-devel@lists.xenproject.org; Tue, 30 Apr 2024 02:51:28 +0000
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on20600.outbound.protection.outlook.com
+ [2a01:111:f403:2418::600])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 8905ecfd-069c-11ef-909b-e314d9c70b13;
+ Tue, 30 Apr 2024 04:51:26 +0200 (CEST)
+Received: from DM6PR11CA0049.namprd11.prod.outlook.com (2603:10b6:5:14c::26)
+ by PH0PR12MB7906.namprd12.prod.outlook.com (2603:10b6:510:26c::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7519.34; Tue, 30 Apr
+ 2024 02:51:23 +0000
+Received: from DS3PEPF0000C37F.namprd04.prod.outlook.com
+ (2603:10b6:5:14c:cafe::ac) by DM6PR11CA0049.outlook.office365.com
+ (2603:10b6:5:14c::26) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7519.34 via Frontend
+ Transport; Tue, 30 Apr 2024 02:51:22 +0000
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DS3PEPF0000C37F.mail.protection.outlook.com (10.167.23.9) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7544.18 via Frontend Transport; Tue, 30 Apr 2024 02:51:22 +0000
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Mon, 29 Apr
+ 2024 21:51:19 -0500
+Received: from [172.31.124.47] (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.35 via Frontend
+ Transport; Mon, 29 Apr 2024 21:51:16 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,159 +59,152 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7f048f68-0690-11ef-909b-e314d9c70b13
-ARC-Seal: i=1; a=rsa-sha256; t=1714440311; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=lzhqFU1sA7sNGPd1eZjXh94ZRmy4pQxYtNGNrExUMeBSg1YV62NBR+DS/4lLP76t/IL4/pArQS3Z7+7a8fW31athO+iPTkpbpCZ5eX6lTpvPVrlECl2mfwF47/fRPvwPK3AGjjSiOTrK2DvWRIj1migLq8Yau8DHQRFh2sR1sL4=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1714440311; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=mzp6rH/sPd8q3NGhZnmC3LEWgf8cId+jZm5+/AZdFgo=; 
-	b=oKR08WSa09f9SuA+LNWmSofgzRccIIDP1Ebna26gELZkJWupKtTzcICOa53yWEx/N8blPMxmJlwGRs+qKHRdH/kv0dsUBUmPUSNOp5CyOcnG+tBQLRu2uDssJY8Q5cUXEXlUvxiBSvUBaWeEk1BHnMP1wEeg7YA/tUxHfv+qfFY=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=apertussolutions.com;
-	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
-	dmarc=pass header.from=<dpsmith@apertussolutions.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1714440311;
-	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
-	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:From:From:To:To:Cc:Cc:References:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=mzp6rH/sPd8q3NGhZnmC3LEWgf8cId+jZm5+/AZdFgo=;
-	b=tZ5t6svkaC+CzsOy5hGTRdk55VxOGVVdu+OV9+rFm+4L4XcAmcUHOrM9hwwCdE+K
-	yzeZNTJQHDZgfBXjRRqk0M7CC13+z0lnx+1s6RqST50bL1xh022tWpWvaP/8RyEZIWU
-	Mh1FFnd+LA4ewi52mhlXqj+IHEkzf/QMkVtr8d9Q=
-Message-ID: <9fcbeba1-ba94-487b-94fc-3bcb4be80158@apertussolutions.com>
-Date: Mon, 29 Apr 2024 21:25:06 -0400
+X-Inumbo-ID: 8905ecfd-069c-11ef-909b-e314d9c70b13
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=ken0uOiQKhrHy8zpsrY7FvOVMFm+AeQ4N/9xtEf9qcOxJhtRl2jzHxSN5f+yuSuptAJAs5gBPyiBk+uyN8+Vn7CgZkEKASUtqLNVxkhQBy+qFGGGA8NBR7si2yHOBaTzuB2+9ICjMmK9fizTcyjo+h/Of4XfOMiq7oY8xBpVA8BWY3HBzIJMf0WWxdc4j2ljD9qbuFW0VjTn1q2gmW9aFLNQIKwi7rgAu1dtzDtd0wi2SUuGYxuPjnvCu51Khp9Pc8X+ykrdPdV4zgz3yzhZgKbLzrBnr5RBH7fAXjeOsrBew+r86v53iUUczTgqWu1gwXhtsufX55UB60yLmmcRiA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=WnM9zowzY3hYxOZoruqgKyItj7CRlYGLq7jTRlTOv/g=;
+ b=B84DYJ1eSMeu3gFug6IHG4Wqyq5xYjToS4iUsTzX/tWH2jrlNuJPHr9HarLJDkFi2YiaMpjP4nlyPTLoKBuDF9kNlQkSRVghA4G3FVpd+c88w8hr0JKZQ80eytXKIw55UgkBTP7uPGrJ1ahm+mfWCsS6iNChzoFpvmeqvqLFxU46NImhlyVOD6J4lsCQsa9bydvrEuFKU4BvbbfY0I/ZuUfrSnLlfRqC2stR1gPH/gsBBG3rLXSWS+2Y2UY0mJbjkgpsyBWtnEZAt9IgqOvvsU2nIFZPHwx9TtkBtLHSdFwcxKmIrRs0HiGMOj5xz7QmICOkUcFDw7QeEvqydh52dA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=apertussolutions.com smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=WnM9zowzY3hYxOZoruqgKyItj7CRlYGLq7jTRlTOv/g=;
+ b=4azxxFhgFNrk3jA45j3gvOx4rvaKACpCLAKcVXC4I7iYS16fRpQQKv9QbZLGRuh2uneXFpGGkoKFL+H16L+fR7F3VF78ytaHBPSxbMf6lttN2A2V0m/RWPO/IsW9lN8luyN3kp+CVKb3Rg1YkG//g5I3JsEtWqjHxMgYSf0JszE=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Message-ID: <8f543eac-a686-4298-a677-c984fe5230bd@amd.com>
+Date: Tue, 30 Apr 2024 10:51:15 +0800
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH 2/3] xen/arm, tools: Add a new HVM_PARAM_MAGIC_BASE_PFN
  key in HVMOP
-Content-Language: en-US
-From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
-To: Henry Wang <xin.wang2@amd.com>, xen-devel@lists.xenproject.org
-Cc: Anthony PERARD <anthony.perard@citrix.com>,
- Juergen Gross <jgross@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Alec Kwapis <alec.kwapis@medtronic.com>
+To: "Daniel P. Smith" <dpsmith@apertussolutions.com>, Jan Beulich
+	<jbeulich@suse.com>
+CC: Anthony PERARD <anthony.perard@citrix.com>, Juergen Gross
+	<jgross@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap
+	<george.dunlap@citrix.com>, Julien Grall <julien@xen.org>, Stefano Stabellini
+	<sstabellini@kernel.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
+	"Michal Orzel" <michal.orzel@amd.com>, Volodymyr Babchuk
+	<Volodymyr_Babchuk@epam.com>, Alec Kwapis <alec.kwapis@medtronic.com>,
+	<xen-devel@lists.xenproject.org>
 References: <20240426031455.579637-1-xin.wang2@amd.com>
  <20240426031455.579637-3-xin.wang2@amd.com>
- <5ff31bae-5a70-498e-ba4e-5bf69e08d80a@apertussolutions.com>
-Autocrypt: addr=dpsmith@apertussolutions.com; keydata=
- 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
-In-Reply-To: <5ff31bae-5a70-498e-ba4e-5bf69e08d80a@apertussolutions.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+ <3af4f1c7-9059-436b-9449-94bd7aad9eed@suse.com>
+ <ce942d72-f214-4043-bf61-9d124c0bca64@apertussolutions.com>
+Content-Language: en-US
+From: Henry Wang <xin.wang2@amd.com>
+In-Reply-To: <ce942d72-f214-4043-bf61-9d124c0bca64@apertussolutions.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 8bit
-X-ZohoMailClient: External
+Received-SPF: None (SATLEXMB04.amd.com: xin.wang2@amd.com does not designate
+ permitted sender hosts)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS3PEPF0000C37F:EE_|PH0PR12MB7906:EE_
+X-MS-Office365-Filtering-Correlation-Id: 61f44ede-e7f1-44ab-f7fc-08dc68c06b90
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230031|36860700004|82310400014|1800799015|7416005|376005;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?YXI1OHRvZldUTW5GOVJob0p4QXBWTk9MdE83TUl6M1ZHenVOOEc3dVFOTFdQ?=
+ =?utf-8?B?dnVFcUMzOGUzWGdJSDE0RDBZazZ0WlZmb2ZtUmRJNVFkZWU1SnNFMXBRK0Qw?=
+ =?utf-8?B?TVJueHpnVGo3M1Urd2NLdmpDa1hDWWFWRHd5a0RpU3F5SlZCZEZBRWZOZ3Bi?=
+ =?utf-8?B?U2puSVh1aldJWUdQRFQ2d0RDb0FFMlBjYUFxWnFNMGlMdkRCUEpKcXpQNUNK?=
+ =?utf-8?B?Wkh0TFlXYytQTUdnNUg2SHhjZHN5R0pUSUJ1VGhqeHRSZGJDS05IeHVxdTFW?=
+ =?utf-8?B?V3RmblhrQS9uZUlRSG1KMHFQcXI2TjA1ZjRVc2srR0ZzSHBXM1p0elFlVldN?=
+ =?utf-8?B?SnFmbzdwNFVPN1VleWI1T29GQWdaZXYzVUFOQnNmMGV6OG5sU2JmKzVZZ2Ja?=
+ =?utf-8?B?bVFNNHR5Tk55YXFJZnRkM0h6aFFKNjgwT2I0bCtlaTBUOEVGZGcyNkNTb0d2?=
+ =?utf-8?B?Q0Erek56Sm44ay9UYUlnN21LWTJ4NU1NMlZBc0tBUEZKVlJRaHV5MDV3MlJY?=
+ =?utf-8?B?Wkw4dGNZcWtwMi9vajFWSGF4dW4zMWQrT2IwdDVBU0hFOUNDN2hsbFFIWlJ4?=
+ =?utf-8?B?NXJUK25oZDBhd2lwTTRYMjhQdkpPOFBGVDZSUmY3c1VIOW9PdWM5WlErbVR1?=
+ =?utf-8?B?VVVxZ1dER3FmN01FZ0l6MUhiMzZFWUNrRlZvNDJHWnZUaEFlSW1aOGMwM1Q3?=
+ =?utf-8?B?dXBYNlVkY1liVHh1VGE4dm9OWVF2Qml4ZjJrVnBUT25SWHl4TE1sVm1Qa0Y3?=
+ =?utf-8?B?eW14eVFkMUU0WWN1OFhHb25qMDJrYmdkYnlRWGF0Ti9nQm96MlpKZFJqeDZ4?=
+ =?utf-8?B?ODRWQW1JVDczWS96VGFQc2dVbVhOaG5vQmlSNndJUHZvMGpBWnBDckd4aCs4?=
+ =?utf-8?B?ckI0S3BhWkQ2MUszc2xRSHZNcUQ2UHFMd3h6ekw4d0N2bzdVVVc3cnlyajZC?=
+ =?utf-8?B?dkhIZldmUFVUL3hmQ3ppNjN2cFE4U3NEdG1WZWNoWDJGc01KR1VCYUttY3Rl?=
+ =?utf-8?B?MWtrMjB4dE93SHFkMVovSVhNMUorajRjZnpCV0FaSkJpbWdqRmo4NDRGdVFR?=
+ =?utf-8?B?dXRMTUdFbTE1TEFxb1pPRHI2VXBMWmljeGd3TndsaDBJM2Z3VnBLd082R2xo?=
+ =?utf-8?B?UjZUanVNdVdJUWxySWRRMUJrNVYvV2JRYzF1bnJyTXJoMmRHOVZ1ZHc3aUdB?=
+ =?utf-8?B?RGRUZjZjblk1MnRKWXhpMGNORVBYRTh6Ry9yZUFhWWVOdkJXSkJ3cXAxVU4y?=
+ =?utf-8?B?dUJxU1NkSDV0MlVqa0JuOVRZSmF3UHpkemM5RHJwWDcvMHZPcmZWTW5Deitz?=
+ =?utf-8?B?V1k4ZTNwaUV2MFVmTE1kMXllOGptY3NBMUhrd1NJTFlTY25kZXl1SEFtdkk5?=
+ =?utf-8?B?b1BPSmgycFFBemZyTDlSbURiNWhYRHg5UTgxNTlabFdXN3o0WGJ3dUh5eXVF?=
+ =?utf-8?B?d0ltVHQ3Tlo5VllSd3ptcHd2NHo4dDlYS2ZRQ0dWTTJ6azFSWGcwU1pVQ0g0?=
+ =?utf-8?B?dzBGSS9qMkdjL01WQXRWZlBjc0NndzZlYSt1ZkY1by9JL3V4OTg4SE9hYkx5?=
+ =?utf-8?B?aXZkL29nbG50L1pMMlNhdjBNcWpnamtDNml1R0MvYXI2dkdKSjRncEcrMTlh?=
+ =?utf-8?B?UmYyTEcrbnNLV1hXTzRDOWpOV2wrUWZiYWV3UFBqOC9tK2pSeDVnZjltL1I0?=
+ =?utf-8?B?Q0svU0tqVTZ0THhUeGRtbjUraFgwMXMyTWV2Y0tGUXpVMXdMUU1jTUZPd1ky?=
+ =?utf-8?B?NlM0dVhBK2swa0p3MGI3TlVUMXdEUVIxYTZsdlRiSWc2N0tHUEU3bitPcEhU?=
+ =?utf-8?Q?Qu4WLiZq0bumE8E19MOIm0gCCNvdLzRUVOjyc=3D?=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(36860700004)(82310400014)(1800799015)(7416005)(376005);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Apr 2024 02:51:22.6502
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 61f44ede-e7f1-44ab-f7fc-08dc68c06b90
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DS3PEPF0000C37F.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB7906
 
-On 4/29/24 20:35, Daniel P. Smith wrote:
-> On 4/25/24 23:14, Henry Wang wrote:
->> For use cases such as Dom0less PV drivers, a mechanism to communicate
->> Dom0less DomU's static data with the runtime control plane (Dom0) is
->> needed. Since on Arm HVMOP is already the existing approach to address
->> such use cases (for example the allocation of HVM_PARAM_CALLBACK_IRQ),
->> add a new HVMOP key HVM_PARAM_MAGIC_BASE_PFN for storing the magic
->> page region base PFN. The value will be set at Dom0less DomU
->> construction time after Dom0less DomU's magic page region has been
->> allocated.
->>
->> To keep consistent, also set the value for HVM_PARAM_MAGIC_BASE_PFN
->> for libxl guests in alloc_magic_pages().
->>
->> Reported-by: Alec Kwapis <alec.kwapis@medtronic.com>
->> Signed-off-by: Henry Wang <xin.wang2@amd.com>
->> ---
->>   tools/libs/guest/xg_dom_arm.c   | 2 ++
->>   xen/arch/arm/dom0less-build.c   | 2 ++
->>   xen/arch/arm/hvm.c              | 1 +
->>   xen/include/public/hvm/params.h | 1 +
->>   4 files changed, 6 insertions(+)
->>
->> diff --git a/tools/libs/guest/xg_dom_arm.c 
->> b/tools/libs/guest/xg_dom_arm.c
->> index 8cc7f27dbb..3c08782d1d 100644
->> --- a/tools/libs/guest/xg_dom_arm.c
->> +++ b/tools/libs/guest/xg_dom_arm.c
->> @@ -74,6 +74,8 @@ static int alloc_magic_pages(struct xc_dom_image *dom)
->>       xc_clear_domain_page(dom->xch, dom->guest_domid, base + 
->> MEMACCESS_PFN_OFFSET);
->>       xc_clear_domain_page(dom->xch, dom->guest_domid, dom->vuart_gfn);
->> +    xc_hvm_param_set(dom->xch, dom->guest_domid, 
->> HVM_PARAM_MAGIC_BASE_PFN,
->> +            base);
->>       xc_hvm_param_set(dom->xch, dom->guest_domid, HVM_PARAM_CONSOLE_PFN,
->>               dom->console_pfn);
->>       xc_hvm_param_set(dom->xch, dom->guest_domid, HVM_PARAM_STORE_PFN,
->> diff --git a/xen/arch/arm/dom0less-build.c 
->> b/xen/arch/arm/dom0less-build.c
->> index 40dc85c759..72187c167d 100644
->> --- a/xen/arch/arm/dom0less-build.c
->> +++ b/xen/arch/arm/dom0less-build.c
->> @@ -861,6 +861,8 @@ static int __init construct_domU(struct domain *d,
->>               free_domheap_pages(magic_pg, 
->> get_order_from_pages(NR_MAGIC_PAGES));
->>               return rc;
->>           }
->> +
->> +        d->arch.hvm.params[HVM_PARAM_MAGIC_BASE_PFN] = gfn_x(gfn);
->>       }
->>       return rc;
->> diff --git a/xen/arch/arm/hvm.c b/xen/arch/arm/hvm.c
->> index 0989309fea..fa6141e30c 100644
->> --- a/xen/arch/arm/hvm.c
->> +++ b/xen/arch/arm/hvm.c
->> @@ -55,6 +55,7 @@ static int hvm_allow_get_param(const struct domain 
->> *d, unsigned int param)
->>       case HVM_PARAM_STORE_EVTCHN:
->>       case HVM_PARAM_CONSOLE_PFN:
->>       case HVM_PARAM_CONSOLE_EVTCHN:
->> +    case HVM_PARAM_MAGIC_BASE_PFN:
->>           return 0;
-> 
-> I know you are just adding, so more of a question for the Arm maintainers:
-> 
-> Why does Arm have a pair of private access control functions subverting 
-> XSM?
+Hi Daniel,
 
-On closer look, I see x86 has done the same. While the way this is set 
-up bothers me, reviewing the history it was clearly decided that only 
-controlling use of the op by a src domain against a target domain was 
-sufficient. Ultimately, it is seeing a mini access control policy being 
-codified in the access code is what is bothering me here. Fixing this 
-would require a complete rework of xsm_hvm_param, and while it would 
-correct the access control from a purist perspective, the security 
-benefit would be very low.
+On 4/30/2024 8:31 AM, Daniel P. Smith wrote:
+>
+> On 4/26/24 02:21, Jan Beulich wrote:
+>> On 26.04.2024 05:14, Henry Wang wrote:
+>>> --- a/xen/include/public/hvm/params.h
+>>> +++ b/xen/include/public/hvm/params.h
+>>> @@ -76,6 +76,7 @@
+>>>    */
+>>>   #define HVM_PARAM_STORE_PFN    1
+>>>   #define HVM_PARAM_STORE_EVTCHN 2
+>>> +#define HVM_PARAM_MAGIC_BASE_PFN    3
+>>>     #define HVM_PARAM_IOREQ_PFN    5
+>>
+>> Considering all adjacent values are used, it is overwhelmingly likely 
+>> that
+>> 3 was once used, too. Such re-use needs to be done carefully. Since you
+>> need this for Arm only, that's likely okay, but doesn't go without (a)
+>> saying and (b) considering the possible future case of dom0less becoming
+>> arch-agnostic, or hyperlaunch wanting to extend the scope. Plus (c) imo
+>> this also needs at least a comment, maybe even an #ifdef, seeing how 
+>> x86-
+>> focused most of the rest of this header is.
+>
+> I would recommend having two new params,
 
-v/r,
-dps
+Sounds good. I can do the suggestion in v2.
+
+>
+> #define HVM_PARAM_HV_RSRV_BASE_PVH 3
+> #define HVM_PARAM_HV_RSRV_SIZE 4
+
+I think 4 is currently in use, so I think I will find another couple of 
+numbers in the end for both of them. Instead of reusing 3 and 4.
+
+Kind regards,
+Henry
+
+>
+> This will communicate how many pages have been reserved and where 
+> those pages are located.
+>
+> v/r,
+> dps
+
 
