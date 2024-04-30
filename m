@@ -2,52 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A650A8B693B
-	for <lists+xen-devel@lfdr.de>; Tue, 30 Apr 2024 05:51:24 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.714480.1115735 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C0FA18B6948
+	for <lists+xen-devel@lfdr.de>; Tue, 30 Apr 2024 06:01:13 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.714486.1115744 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s1eVv-0007c3-4U; Tue, 30 Apr 2024 03:50:43 +0000
+	id 1s1efL-00017H-1g; Tue, 30 Apr 2024 04:00:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 714480.1115735; Tue, 30 Apr 2024 03:50:43 +0000
+Received: by outflank-mailman (output) from mailman id 714486.1115744; Tue, 30 Apr 2024 04:00:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s1eVv-0007aE-0W; Tue, 30 Apr 2024 03:50:43 +0000
-Received: by outflank-mailman (input) for mailman id 714480;
- Tue, 30 Apr 2024 03:50:41 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1s1efK-000156-VF; Tue, 30 Apr 2024 04:00:26 +0000
+Received: by outflank-mailman (input) for mailman id 714486;
+ Tue, 30 Apr 2024 04:00:26 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=H2uD=MD=amd.com=Xin.Wang2@srs-se1.protection.inumbo.net>)
- id 1s1eVt-0007a8-G8
- for xen-devel@lists.xenproject.org; Tue, 30 Apr 2024 03:50:41 +0000
-Received: from NAM02-DM3-obe.outbound.protection.outlook.com
- (mail-dm3nam02on20601.outbound.protection.outlook.com
- [2a01:111:f403:2405::601])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id cf1e6bb3-06a4-11ef-909b-e314d9c70b13;
- Tue, 30 Apr 2024 05:50:39 +0200 (CEST)
-Received: from BL1P222CA0027.NAMP222.PROD.OUTLOOK.COM (2603:10b6:208:2c7::32)
- by SN7PR12MB7912.namprd12.prod.outlook.com (2603:10b6:806:341::9)
+ id 1s1efK-00014y-2j
+ for xen-devel@lists.xenproject.org; Tue, 30 Apr 2024 04:00:26 +0000
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on20600.outbound.protection.outlook.com
+ [2a01:111:f403:2417::600])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 28b110a6-06a6-11ef-b4bb-af5377834399;
+ Tue, 30 Apr 2024 06:00:20 +0200 (CEST)
+Received: from CH0PR13CA0020.namprd13.prod.outlook.com (2603:10b6:610:b1::25)
+ by PH7PR12MB5928.namprd12.prod.outlook.com (2603:10b6:510:1db::13)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7519.34; Tue, 30 Apr
- 2024 03:50:33 +0000
-Received: from MN1PEPF0000ECDB.namprd02.prod.outlook.com
- (2603:10b6:208:2c7:cafe::84) by BL1P222CA0027.outlook.office365.com
- (2603:10b6:208:2c7::32) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7519.35 via Frontend
- Transport; Tue, 30 Apr 2024 03:50:33 +0000
+ 2024 04:00:16 +0000
+Received: from CH1PEPF0000A348.namprd04.prod.outlook.com
+ (2603:10b6:610:b1:cafe::1b) by CH0PR13CA0020.outlook.office365.com
+ (2603:10b6:610:b1::25) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7544.21 via Frontend
+ Transport; Tue, 30 Apr 2024 04:00:16 +0000
 Received: from SATLEXMB03.amd.com (165.204.84.17) by
- MN1PEPF0000ECDB.mail.protection.outlook.com (10.167.242.139) with Microsoft
+ CH1PEPF0000A348.mail.protection.outlook.com (10.167.244.4) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7544.18 via Frontend Transport; Tue, 30 Apr 2024 03:50:32 +0000
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB03.amd.com
+ 15.20.7544.18 via Frontend Transport; Tue, 30 Apr 2024 04:00:15 +0000
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB03.amd.com
  (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Mon, 29 Apr
- 2024 22:50:32 -0500
-Received: from [172.31.124.47] (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.35 via Frontend
- Transport; Mon, 29 Apr 2024 22:50:30 -0500
+ 2024 23:00:10 -0500
+Received: from [172.31.124.47] (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.35 via Frontend
+ Transport; Mon, 29 Apr 2024 23:00:07 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -59,226 +59,192 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: cf1e6bb3-06a4-11ef-909b-e314d9c70b13
+X-Inumbo-ID: 28b110a6-06a6-11ef-b4bb-af5377834399
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=SWmFWPGcEw14qjmiwg2pG0SPVhRenN6tg93oIDVyJHw4CLf9KCJMN0zTezeEdAHs2kSFn+ah/gm6HK4ioh814z5tMXjgtnmTBl+yFurdc7CD4LvGtyCpzxcT9pb5C8Njm6eGRnYyHjr+mC9xZTFV0MNKD+P6mpbW1BtppA47qaBefskuktK83Fpe42j1/Va3+SOqX5PC/rxdYvbQrYxCEfyuCYGudUvHTAu37dCcAw4xvn7NZYLhBuKVGdjYUWtELb5W/EpjpGnhvaHoqQLPeyWPW5S6AHd3Zd1fDi6Wni4+SEUCuSFifB783mj8gp0I+skzZiyUowQPL9qBrOHfGQ==
+ b=luhMye8SjY+mLEuCKKsG0ZDd6uc2GUY/Z+GWnCqEPKLdwuDgoQDCYhbqNqQkEzUeyAXFexDqZqaFhi+0q7z+WEygu1Epa2jflSJ40RX3IwTjs+qUpyPpLh0hTs5FyuqjN9mgIpmX+DBJPaiC44H4A9VHvK0xTM66PfPc5ABVQ1MfxWtvTxJeR4MBMkBl4b2A431/7eTWS+mxAbXfj5IJuL3q4oSKoVUPZCS3E59tqFNlnuYvzMITcI8P19A/r4HaSH1uKl4kYygYQaHB9ghIeKAmucgJKg1vyP/fgu9TSq4iereYab6CyZu4fuumjivT+0EFWlxjmV5bE9l35Zj8EQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=5NKdNeaLKDz7p17nJHZ4u5oxkSxXzae8uOP+VsjtOiw=;
- b=c4xuxQhp2+IvRbFGiN3j5bVw8/heHB53zND+0UztUy86RAGgyrB82DO2mzKuzMUckNvsFetEPyway3UJErG7tHy7FsPseXu3pBnMYCMKYrLJVc+ZzRzNDRDIM97hOkgLg1zRlZObZzchnFdvJqTBu+jZSjQQdXe613nBLa3YLJjU1JKnxeyXfbM8ZtR54/6D8cs4SnM1ciJYTN2+utZ/7kjSLhEAqslUrEo+151mixbE/Xl9BkJEk/Od2z7a5/wcpn1qmNGin/4ZrUDwDjYFbrQRP3WQKQZhWSiOiWjqX4/ny8kFasC2vqP+Mfq2n7o8ioU9j7Bnjm0P0EiwhvDjrg==
+ bh=ufgL6oise1HBbBXXAe7ujK+6sBYWFqHS5NFn1jHb/ys=;
+ b=VxvQrsbjr8UqYi42Fs5Y3bePdGc5vMUmCNOmkpZHXtzG2y/462BT4s5K7cUrToBwBlkYCS+5laX81OO8g1vpb+CKUShI87M0dDjIkmJAqG7+n+q6clWpltjInxGVuPTZeesH7erjwB6u8i3WsNVgv8GV97Earb8u3c7qCTjcJ6POypvVKUJVoXWRsoNh6KVEXc8djmbQuz06JEsn6w4P+CYQn6PIvkLpWbhybd/tjW0p+lIXI66VCnp8iK9IQKlIB/o+EJ8tp2m+3niN22gM0zoqTQQ5nryjRtTyuQsgP+zWMSpMxX3s/rmcYlyPNO7kNmx8YQ4ABFowSiro7cSUyQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=xen.org smtp.mailfrom=amd.com; dmarc=pass
  (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
  dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=5NKdNeaLKDz7p17nJHZ4u5oxkSxXzae8uOP+VsjtOiw=;
- b=Y3hZLHPWK3+nZUtSq3QZbY1l7S9Jd261soHZ1KwOKEAdPFus95jeUrKCyDVLQQbF0yfmnlmyZ55mSSMT3gNT/UKzYWQqxcue2b67nUL5Ly5ZSdoGAiM5sMS6oZyCXghOEImgoHxwzMrDupJozVQJbSG6j62C/r0ngIMopj5dAXg=
+ bh=ufgL6oise1HBbBXXAe7ujK+6sBYWFqHS5NFn1jHb/ys=;
+ b=Vvl9Gxv1GHnLVS4UOIGFchOV2Tnfe9FE5lCdInLiQqQIPbE97OxKW7TBT7PpOYxm1DV2kTMFYmpj+Q7xd19fPHvZASJtHXiTCIQiyIUy/ivmmo4xWR6iEGeHeAY/+XGXTaojLVCtaTc//IDBAtl8sBz9zY25khA0pLS+yVIS+fc=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-Message-ID: <1a29ae76-a902-4a24-8fd1-ac26ef228971@amd.com>
-Date: Tue, 30 Apr 2024 11:50:29 +0800
+Message-ID: <e3c7098b-a876-48f3-8ccb-18a2ced8521c@amd.com>
+Date: Tue, 30 Apr 2024 12:00:07 +0800
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 02/15] xen/arm/gic: Enable interrupt assignment to running
- VM
-To: Julien Grall <julien@xen.org>, <xen-devel@lists.xenproject.org>
-CC: Stefano Stabellini <sstabellini@kernel.org>, Bertrand Marquis
-	<bertrand.marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>, "Volodymyr
- Babchuk" <Volodymyr_Babchuk@epam.com>, Stefano Stabellini
-	<stefano.stabellini@xilinx.com>
+Subject: Re: [PATCH 07/15] xen/overlay: Enable device tree overlay assignment
+ to running domains
+To: Julien Grall <julien@xen.org>, Jan Beulich <jbeulich@suse.com>, "Stefano
+ Stabellini" <sstabellini@kernel.org>
+CC: Bertrand Marquis <bertrand.marquis@arm.com>, Michal Orzel
+	<michal.orzel@amd.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap
+	<george.dunlap@citrix.com>, <xen-devel@lists.xenproject.org>
 References: <20240424033449.168398-1-xin.wang2@amd.com>
- <20240424033449.168398-3-xin.wang2@amd.com>
- <670d1033-2443-4245-8ff1-cb7099a7c793@xen.org>
- <70c5a593-9ac5-485b-be81-b789562249d8@amd.com>
- <5ba38b7b-16b1-489b-ad55-083504690bbd@xen.org>
+ <20240424033449.168398-8-xin.wang2@amd.com>
+ <da67f90f-6807-4fdc-b65b-f7a4ba9f78ad@suse.com>
+ <97a401ff-4b5c-4e6a-8d9c-e36305ec64f5@amd.com>
+ <128c7e68-0431-44e9-b4fc-96cc46e158ad@xen.org>
 Content-Language: en-US
 From: Henry Wang <xin.wang2@amd.com>
-In-Reply-To: <5ba38b7b-16b1-489b-ad55-083504690bbd@xen.org>
+In-Reply-To: <128c7e68-0431-44e9-b4fc-96cc46e158ad@xen.org>
 Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 8bit
 Received-SPF: None (SATLEXMB03.amd.com: xin.wang2@amd.com does not designate
  permitted sender hosts)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN1PEPF0000ECDB:EE_|SN7PR12MB7912:EE_
-X-MS-Office365-Filtering-Correlation-Id: 018f95c3-e28c-4b85-d8a1-08dc68c8afb1
+X-MS-TrafficTypeDiagnostic: CH1PEPF0000A348:EE_|PH7PR12MB5928:EE_
+X-MS-Office365-Filtering-Correlation-Id: f34f07d6-7f19-4900-a255-08dc68ca0b1e
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230031|82310400014|36860700004|1800799015|376005;
+	BCL:0;ARA:13230031|1800799015|36860700004|82310400014|376005;
 X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?SzZycGdLK1ZrQytCZndIY2F0b0pSKzdCZHVVZGNlU01LUzA3RjFGQkdpMnhu?=
- =?utf-8?B?aWN1WElWSDZDMVVGRkxYbHBlek5aNXVIemhmMVRUSVhXcU5rekdmdk9KellQ?=
- =?utf-8?B?cmNNdmUyZGk3ckdHTFNFaFpYVnhHKy9DeXVYWHdHYTZSbGYvSDFlUVhjNlY4?=
- =?utf-8?B?M2tnODRaS2l4dHA3dDdJdVBoZk5zZWFib2ZTNE9iNncvaUFFZkxrYWFFR1dS?=
- =?utf-8?B?aW8wTFcxUEJid3p2NjRKeXlZSCtSb3ozeGlDV0VmNXNSNThwS09TaWRtKzJ0?=
- =?utf-8?B?V3MvZVFoblBZd2ttWHFsVUZzbEVRR3pVU0tHUm1OcGxzVE5XUERqdXFJRGRK?=
- =?utf-8?B?RjJJK3FMeWpXRGlPTjE5SjYvZUhkYlc0Q3VtUitJa2NURFp5SndjVDZRNXpI?=
- =?utf-8?B?alM5SGJxdndiUC9WTjNoUVpJNGxrRjlteTdYN0RWNEZCbFl4emcvTGNTeUth?=
- =?utf-8?B?ZlJWdzl6c1NzWDgyZTRpaitmVDBhSStlblYyZzJvQ3dIT2FjVkhHbENHbE9U?=
- =?utf-8?B?ZlZZbmhtTmg4emVhbXR6bnpHUVgrb1lrTFVLZmRIMkNRRTNqOFNBQmZRWjRz?=
- =?utf-8?B?MjhWME12OUh0akE3a3pOWVNRbGNUTzNnUEp1TG9zK0lveXVyZk9UcWpmcDU3?=
- =?utf-8?B?cUI5OWpPNmp1T0Z5cFFlZnZOdWtzWU1SRzRLdm12ZHBjWThZdVM1QWNuRldF?=
- =?utf-8?B?eHVqalhWdkhmcDdqMC9qYnozbzFadmt4L2lNR0Q4N0R4eWlhc3FMNmV4MktR?=
- =?utf-8?B?aXdFTDFoM2RRTzczYzdvdkwvcXEyZWZtL0M1V2xLMzFyRERaeXgwcGVzTkUw?=
- =?utf-8?B?bFJsdHJva1RDNjNMbWh6RW4xd1k4azZYVnBKZ2tkdTlEUmh5TTlFeVAxaGZp?=
- =?utf-8?B?NGttLzQ0WjhpWkV4YUFCMnVWc0M2V3NjTlcwVFZHTG83V3JOZ09vRTY3WlNp?=
- =?utf-8?B?emc0SmcrTmZySVlsaEtKK0tnQytlVFBGdExHY1JVZlRodHIycy9kU25jTFFi?=
- =?utf-8?B?dUw0YzZCSnBMaTRrc2RkV3kyQWdiZXoyckZ3b1gwMHRmamdmQVltR2Mybmd5?=
- =?utf-8?B?OTJhWTgxV3JRRTJSNGoxNDF1WEpkZjV0Vlc5M2FsZm1iMUwvd251aUZFQk81?=
- =?utf-8?B?UXF3QW1mbnlMSmF3Y1krdlFMVm5JUytlUEtqM1FiMk5JL0VkODJ5T2h2M2lm?=
- =?utf-8?B?MUQvRWk1cWpiVjlMYXBaU1N0NTU4MnFIN01aS0U3Rk9LSmt4UXpqSlNvRTFK?=
- =?utf-8?B?elFKc3JlZ1dnL0tQOEdEbEJWaXZrR1NEWW12bG83bFZTVFRxODhPZVc1bmNK?=
- =?utf-8?B?NmxUck80YzcyUEtDTlNBdDBQQldRa25nWVAwYkJlclFZK0tDMitucHZrZVFV?=
- =?utf-8?B?V1Vubm1BUWw1UDIvSmozMEJUbituUXEvMzVPVGVjVVFtZ2ErNDNDL01rNm1i?=
- =?utf-8?B?a2hBazZGSzY4c0xSK1ZJSTliSDR2bnRtOU9leUMvei9oMUlRYzJ0TW1CVXg1?=
- =?utf-8?B?RFVVajQzSElSN0ZvaUR5WlJ2RGI5VFYvalUwQ2pyYnlsQ29rYXl4a1l5UmZP?=
- =?utf-8?B?L2xSa2ZxQStQbEZmRURoTVBqa0hncGxEN0tycHQya24vUkFqWXlXdjdjQUJu?=
- =?utf-8?B?bVFjWHBKa3Q0aGI2MktzVysxSmdFWlcvTGwwSlpOb05tZGsrMzZkZ2NNODht?=
- =?utf-8?B?UGJzRUJhcDBUQVFvajZhVVBmYndtS01RRHA0NHhzMWpYQTZFYVp5cWdmeENa?=
- =?utf-8?B?S2Rxc1dPZlVEODVCUmlKbzZlcEpzTW5EaWUxYnJ1a3BCQjhSQ3NYWFN3SC9N?=
- =?utf-8?B?YzhTeGVXQi9NWkVnQkNjbUdIR29uRk50RkV3T3F2QWExK0JNa2FHd1c5NXpU?=
- =?utf-8?Q?x3F1XkQS7geJl?=
+	=?utf-8?B?MmJ2djVkSkUwaU1NZW5hdXlab283RllvV2Uxc0YvUzVDd3dOakZuc21aY3Ft?=
+ =?utf-8?B?RVlUZXczL1VRWlhhdXVPYUM0UVZTK2YyQ0crUTZ3VzFPK3NKUDE3dEttMGhu?=
+ =?utf-8?B?cjhtczhTK0tqYVhxRlVRTVo1dGpqQzdCSm9STVRIejNKYXJhZkp3bklHWlhp?=
+ =?utf-8?B?YnZyNEQ5bml3YTJGb2t0R2pteTgvajExcUdnTlNXS043dGkxV0Mrb21CV2Np?=
+ =?utf-8?B?WndyVS9TWTIxdHJOa0loSnpMc3ArZEdEUEVadHR0enQzcWdzbEdVdWVyYWI1?=
+ =?utf-8?B?TFA5Sk9XZDE1L1BXWnVxOFRuM3JxQnNGT1ZjQS9YQVZYbmRscEp0OFBNa3pr?=
+ =?utf-8?B?MzUxRytsRUlUUjduSEkvcUEwL3lNNWtHeldwdVhtRldHVzlhWWFYVjhsc1F4?=
+ =?utf-8?B?WnRYQk96SUIwa0hLMkpsb0Z1Zm92a3k2dEs5bkJJNDFTZ0JReUtua04vY3B3?=
+ =?utf-8?B?UHJGeEZWd2RLQzJvTDhNakI3c2ppdHVmYzdQa2JkU1RjdDBBT25HTjVKR3Zm?=
+ =?utf-8?B?UnpGckhmS0pxN2U1MmErci95M3VETDIrNTRTeG9oNVpnVGkxVGlxTThTeFFn?=
+ =?utf-8?B?a1VMeG1RT1RodDM0M3o4ajg1ZVA5Tm1ydGh0bFZ5cTl5Njk2VEZZUE82UkdO?=
+ =?utf-8?B?Z1hJM0NDR3lyb1YxUWgwcDJVTW5OZDVzaGJRLzR5NWxVWFRFQUE3cEM0bm9B?=
+ =?utf-8?B?MnFVNXdJK215cFZ2ZWFLQ1ZWUTl0MjRnTngrNTRoQTFGSnRCZkdWeERBOTkv?=
+ =?utf-8?B?RzkrcGd2VTMwRUx1SytJVnhQK0ZSQlhJQnhlZXZBMnZXbXZObmwydldmTHd4?=
+ =?utf-8?B?eGNnb0hPWkpHdUVaeTlROVJrdFZYa3VzeHphZU5idm9vT0FpRmM4WmlrNzEz?=
+ =?utf-8?B?M2RkdFRJaW9BWEdLaEE0ZitlaU50SjNiaTZVOG1YU2FtWmJrNG56VVRZRlFB?=
+ =?utf-8?B?Z2swdG9iYmNPRHVjTHRiMDVoVlZ0eWNIVzhHYTJkSCtUcTBCK0c5Skk4bGNy?=
+ =?utf-8?B?Wkd3akV5MTduTzhra0cvdzk4ZWIwMDZyVW9kQ1F4Q3lKQlZjSVkyMEtFWi9o?=
+ =?utf-8?B?ZENBL1VzcWVsL2FwQTlqSUt6Z3o2VlEvZWY4MjBVRlZ4OTd5aW9Ha1VpQ0ly?=
+ =?utf-8?B?aDlFR1JwSHh5R2dDTU9lelhQUzRCVWZvc1RrNFpXcXZMRnd5b016dnFvUGM3?=
+ =?utf-8?B?SXFUYmxBRlhPZ1BDdlErdEtrZGNLQkdiM1E0UlVtZ3hqem10SVUvVFdkak1m?=
+ =?utf-8?B?eU5MUFVWM2pxSm04OEFabXZSUkw3dytHMTRxNkRObUV1dWJJWlVOZUN5VkRI?=
+ =?utf-8?B?TVJvdmZGak9pa2RlMExSQzRxanZFVkx1RklVMEJFZHFoMUZ4RVBIRXJUZHpa?=
+ =?utf-8?B?S1Z4NTcxVmpNNmFpK09CS1pxejA5TW5od3FKekV3azZJY0w4a2twMXhLbWhm?=
+ =?utf-8?B?QUVHVzk3R1RKc3ZVNVc1RllxazhpMTFrOW5vN25XVmdYbGU2TklPTmlTeis1?=
+ =?utf-8?B?Zzh1Z3h1UUljNDJRQmJBTWl6dkZWT3RIY3grbHNKaElHQklZYlJvOVVtVVRZ?=
+ =?utf-8?B?K2NKZHNNbUh2eThBWm05cGdVMVJ3TnhqdkM3YTJBcnlQSkZ2T1huZnM5M21M?=
+ =?utf-8?B?V0RtTlRJZmE2ZlpoRWxiT2hEOFNDRFRnbWMyRFluVXRMUklycmZNVmk5bVZO?=
+ =?utf-8?B?a2JsaGVxMWxaeEk4N0pqbDYwc3pPblVVSnE2THVDSC9Ua1p3UVVwTzNXNFJF?=
+ =?utf-8?B?alJHR05vYU1MSTRYWkdROVRWSzdzWmZYREIvb3JtV2VGUFNrWG56M24yNjFs?=
+ =?utf-8?B?SkthdDlMd3hZSXlvSFlBclhKZjljYy9ZWlpBVVdLeUk0dkk1bUwrcmtyTHpC?=
+ =?utf-8?Q?1WX7+m969ayaZ?=
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(82310400014)(36860700004)(1800799015)(376005);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(1800799015)(36860700004)(82310400014)(376005);DIR:OUT;SFP:1101;
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Apr 2024 03:50:32.9715
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Apr 2024 04:00:15.8382
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 018f95c3-e28c-4b85-d8a1-08dc68c8afb1
+X-MS-Exchange-CrossTenant-Network-Message-Id: f34f07d6-7f19-4900-a255-08dc68ca0b1e
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	MN1PEPF0000ECDB.namprd02.prod.outlook.com
+	CH1PEPF0000A348.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7912
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB5928
 
 Hi Julien,
 
-Sorry for the late reply,
-
-On 4/25/2024 10:28 PM, Julien Grall wrote:
-> Hi,
+On 4/30/2024 1:34 AM, Julien Grall wrote:
+> On 29/04/2024 04:36, Henry Wang wrote:
+>> Hi Jan, Julien, Stefano,
 >
-> On 25/04/2024 08:06, Henry Wang wrote:
->> Hi Julien,
+> Hi Henry,
+>
+>> On 4/24/2024 2:05 PM, Jan Beulich wrote:
+>>> On 24.04.2024 05:34, Henry Wang wrote:
+>>>> --- a/xen/include/public/sysctl.h
+>>>> +++ b/xen/include/public/sysctl.h
+>>>> @@ -1197,7 +1197,9 @@ struct xen_sysctl_dt_overlay {
+>>>>   #define XEN_SYSCTL_DT_OVERLAY_ADD                   1
+>>>>   #define XEN_SYSCTL_DT_OVERLAY_REMOVE                2
+>>>>       uint8_t overlay_op;                     /* IN: Add or remove. */
+>>>> -    uint8_t pad[3];                         /* IN: Must be zero. */
+>>>> +    bool domain_mapping;                    /* IN: True of False. */
+>>>> +    uint8_t pad[2];                         /* IN: Must be zero. */
+>>>> +    uint32_t domain_id;
+>>>>   };
+>>> If you merely re-purposed padding fields, all would be fine without
+>>> bumping the interface version. Yet you don't, albeit for an unclear
+>>> reason: Why uint32_t rather than domid_t? And on top of that - why a
+>>> separate boolean when you could use e.g. DOMID_INVALID to indicate
+>>> "no domain mapping"?
 >>
->> On 4/24/2024 8:58 PM, Julien Grall wrote:
->>> Hi Henry,
->>>
->>> On 24/04/2024 04:34, Henry Wang wrote:
->>>> From: Vikram Garhwal <fnu.vikram@xilinx.com>
->>>>
->>>> Enable interrupt assign/remove for running VMs in CONFIG_OVERLAY_DTB.
->>>>
->>>> Currently, irq_route and mapping is only allowed at the domain 
->>>> creation. Adding
->>>> exception for CONFIG_OVERLAY_DTB.
->>>
->>> AFAICT, this is mostly reverting b8577547236f ("xen/arm: Restrict 
->>> when a physical IRQ can be routed/removed from/to a domain").
->>>
->>>>
->>>> Signed-off-by: Vikram Garhwal <fnu.vikram@xilinx.com>
->>>> Signed-off-by: Stefano Stabellini <stefano.stabellini@xilinx.com>
->>>> Signed-off-by: Henry Wang <xin.wang2@amd.com>
->>>> ---
->>>>   xen/arch/arm/gic.c | 4 ++++
->>>>   1 file changed, 4 insertions(+)
->>>>
->>>> diff --git a/xen/arch/arm/gic.c b/xen/arch/arm/gic.c
->>>> index 44c40e86de..a775f886ed 100644
->>>> --- a/xen/arch/arm/gic.c
->>>> +++ b/xen/arch/arm/gic.c
->>>> @@ -140,8 +140,10 @@ int gic_route_irq_to_guest(struct domain *d, 
->>>> unsigned int virq,
->>>>        * back to the physical IRQ. To prevent get unsync, restrict the
->>>>        * routing to when the Domain is been created.
->>>>        */
->>>
->>> The above comment explains why the check was added. But the commit 
->>> message doesn't explain why this can be disregarded for your use-case.
->>>
->>> Looking at the history, I don't think you can simply remove the checks.
->>>
->>> Regardless that...
->>>
->>>> +#ifndef CONFIG_OVERLAY_DTB
->>>
->>> ... I am against such #ifdef. A distros may want to have OVERLAY_DTB 
->>> enabled, yet the user will not use it.
->>>
->>> Instead, you want to remove the check once the code can properly 
->>> handle routing an IRQ the domain is created or ...
->>>
->>>>       if ( d->creation_finished )
->>>>           return -EBUSY;
->>>> +#endif
->>>>         ret = vgic_connect_hw_irq(d, NULL, virq, desc, true);
->>>>       if ( ret )
->>>> @@ -171,8 +173,10 @@ int gic_remove_irq_from_guest(struct domain 
->>>> *d, unsigned int virq,
->>>>        * Removing an interrupt while the domain is running may have
->>>>        * undesirable effect on the vGIC emulation.
->>>>        */
->>>> +#ifndef CONFIG_OVERLAY_DTB
->>>>       if ( !d->is_dying )
->>>>           return -EBUSY;
->>>> +#endif
->>>
->>> ... removed before they domain is destroyed.
+>> I think both of your suggestion make great sense. I will follow the 
+>> suggestion in v2.
 >>
->> Thanks for your feeedback. After checking the b8577547236f commit 
->> message I think I now understand your point. Do you have any 
->> suggestion about how can I properly add the support to route/remove 
->> the IRQ to running domains? Thanks.
-
-I spent some time going through the GIC/vGIC code and had some 
-discussions with Stefano and Stewart during the last couple of days, let 
-me see if I can describe the use case properly now to continue the 
-discussion:
-
-We have some use cases that requires assigning devices to domains after 
-domain boot time. For example, suppose there is an FPGA on the board 
-which can simulate a device, and the bitstream for the FPGA is provided 
-and programmed after domain boot. So we need a way to assign the device 
-to the running domain. This series tries to implement this use case by 
-using device tree overlay - users can firstly add the overlay to Xen 
-dtb, assign the device in the overlay to a domain by the xl command, 
-then apply the overlay to Linux.
-
-> I haven't really look at that code in quite a while. I think we need 
-> to make sure that the virtual and physical IRQ state matches at the 
-> time we do the routing.
+>>> That said - anything taking a domain ID is certainly suspicious in a
+>>> sysctl. Judging from the description you really mean this to be a
+>>> domctl. Anything else will require extra justification.
+>>
+>> I also think a domctl is better. I had a look at the history of the 
+>> already merged series, it looks like in the first version of merged 
+>> part 1 [1], the hypercall was implemented as the domctl in the 
+>> beginning but later in v2 changed to sysctl. I think this makes sense 
+>> as the scope of that time is just to make Xen aware of the device 
+>> tree node via Xen device tree.
+>>
+>> However this is now a problem for the current part where the 
+>> scope (and the end goal) is extended to assign the added device to 
+>> Linux Dom0/DomU via device tree overlays. I am not sure which way is 
+>> better, should we repurposing the sysctl to domctl or maybe add 
+>> another domctl (I am worrying about the duplication because basically 
+>> we need the same sysctl functionality but now with a domid in it)? 
+>> What do you think?
 >
-> I am undecided on whether we want to simply prevent the action to 
-> happen or try to reset the state.
+> I am not entirely sure this is a good idea to try to add the device in 
+> Xen and attach it to the guests at the same time. 
+> Imagine the following situation:
 >
-> There is also the question of what to do if the guest is enabling the 
-> vIRQ before it is routed.
+> 1) Add and attach devices
+> 2) The domain is rebooted
+> 3) Detach and remove devices
+>
+> After step 2, you technically have a new domain. You could have also a 
+> case where this is a completely different guest. So the flow would 
+> look a little bit weird (you create the DT overlay with domain A but 
+> remove with domain B).
+>
+> So, at the moment, it feels like the add/attach (resp detech/remove) 
+> operations should happen separately.
+>
+> Can you clarify why you want to add devices to Xen and attach to a 
+> guest within a single hypercall?
 
-Sorry for bothering, would you mind elaborating a bit more about the two 
-cases that you mentioned above? Commit b8577547236f ("xen/arm: Restrict 
-when a physical IRQ can be routed/removed from/to a domain") only said 
-there will be undesirable effects, so I am not sure if I understand the 
-concerns raised above and the consequences of these two use cases. I am 
-probably wrong, I think when we add the overlay, we are probably fine as 
-the interrupt is not being used before. Also since we only load the 
-device driver after the IRQ is routed to the guest, I am not sure the 
-guest can enable the vIRQ before it is routed.
+Sorry I don't know if there is any specific thoughts on the design of 
+using a single hypercall to do both add devices to Xen device tree and 
+assign the device to the guest. In fact seeing your above comments, I 
+think separating these two functionality to two xl commands using 
+separated hypercalls would indeed be a better idea. Thank you for the 
+suggestion!
+
+To make sure I understand correctly, would you mind confirming if below 
+actions for v2 make sense to you? Thanks!
+- Only use the XEN_SYSCTL_DT_OVERLAY_{ADD, REMOVE} sysctls to add/remove 
+overlay to Xen device tree
+- Introduce the xl dt-overlay attach <domid> command and respective 
+domctls to do the device assignment for the overlay to domain.
 
 Kind regards,
 Henry
 
-> Overall, someone needs to spend some time reading the code and then 
-> make a proposal (this could be just documentation if we believe it is 
-> safe to do). Both the current vGIC and the new one may need an update.
 >
 > Cheers,
 >
