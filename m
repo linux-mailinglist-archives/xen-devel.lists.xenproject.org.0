@@ -2,37 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DE1FC8B7BB8
-	for <lists+xen-devel@lfdr.de>; Tue, 30 Apr 2024 17:35:13 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.715017.1116447 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2FF008B7BF2
+	for <lists+xen-devel@lfdr.de>; Tue, 30 Apr 2024 17:41:00 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.715023.1116457 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s1pV2-0006fb-MO; Tue, 30 Apr 2024 15:34:32 +0000
+	id 1s1paq-0008C4-8m; Tue, 30 Apr 2024 15:40:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 715017.1116447; Tue, 30 Apr 2024 15:34:32 +0000
+Received: by outflank-mailman (output) from mailman id 715023.1116457; Tue, 30 Apr 2024 15:40:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s1pV2-0006dQ-JA; Tue, 30 Apr 2024 15:34:32 +0000
-Received: by outflank-mailman (input) for mailman id 715017;
- Tue, 30 Apr 2024 15:34:31 +0000
+	id 1s1paq-0008AX-68; Tue, 30 Apr 2024 15:40:32 +0000
+Received: by outflank-mailman (input) for mailman id 715023;
+ Tue, 30 Apr 2024 15:40:31 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Ve62=MD=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1s1pV0-0006dK-W5
- for xen-devel@lists.xenproject.org; Tue, 30 Apr 2024 15:34:31 +0000
-Received: from mail-qt1-x829.google.com (mail-qt1-x829.google.com
- [2607:f8b0:4864:20::829])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=zuuf=MD=gmail.com=w1benny@srs-se1.protection.inumbo.net>)
+ id 1s1pap-0008AP-4C
+ for xen-devel@lists.xenproject.org; Tue, 30 Apr 2024 15:40:31 +0000
+Received: from mail-oi1-x22b.google.com (mail-oi1-x22b.google.com
+ [2607:f8b0:4864:20::22b])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 2226ac60-0707-11ef-909b-e314d9c70b13;
- Tue, 30 Apr 2024 17:34:29 +0200 (CEST)
-Received: by mail-qt1-x829.google.com with SMTP id
- d75a77b69052e-43716ff5494so61248561cf.0
- for <xen-devel@lists.xenproject.org>; Tue, 30 Apr 2024 08:34:29 -0700 (PDT)
-Received: from localhost ([213.195.114.223]) by smtp.gmail.com with ESMTPSA id
- n8-20020a0cfbc8000000b006a0d1b1ecc3sm1758025qvp.59.2024.04.30.08.34.27
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 30 Apr 2024 08:34:27 -0700 (PDT)
+ id f8dfccc2-0707-11ef-909b-e314d9c70b13;
+ Tue, 30 Apr 2024 17:40:30 +0200 (CEST)
+Received: by mail-oi1-x22b.google.com with SMTP id
+ 5614622812f47-3c75075ad30so3751201b6e.3
+ for <xen-devel@lists.xenproject.org>; Tue, 30 Apr 2024 08:40:30 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,104 +40,165 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2226ac60-0707-11ef-909b-e314d9c70b13
+X-Inumbo-ID: f8dfccc2-0707-11ef-909b-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1714491268; x=1715096068; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=34PMgtoaf8o3Vg7/Sgvqf/mYgVt7JD3V1DRhLWohI0Y=;
-        b=e9INaAhwhSc6ydiMma0yqoi38tkrkvDVc7IHoFFSgxqHraZSRFpp/PgCSpQYi07E7b
-         pn9qRQlEemipyNgXx7eynaspmmpNuQBuiYnDDxr9G+QfF9qEO9iZgtyGe3hUhrTCYAs6
-         m2WvfwWLWgAi4gaiC7AaIqmYCp79C5yfHS/ek=
+        d=gmail.com; s=20230601; t=1714491629; x=1715096429; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=mrxrbfoyLWJ60uVnMeCrMi9y/QkqAsK61nC/3ja4Zms=;
+        b=WyktO/ZT+ieO+C3PuiOVkFFxedGh7ua4VIGSieEpQJ4aJD9E7LLK4lVwQHrrVuzDaL
+         sElBl0KWb06SApMol1Q+gj9o39vL0Ri38B4K1nvfbn4wmDz/X1K3NIaeClxutfuoTCaQ
+         tqLntKPuf76dQjeIAJl7XTQSVtJqfyVFj2ZmxlrYABOGTHMnpvleZxu9pyXnkYyq4Z9H
+         vHnrznJDegXpprFTI27zANvf3c3f62aeFhDTHZxBFwbRmCILwV3N8DBFfLzS4GpoU2kf
+         ffkTP2bhKi6GtlvQiFAlWdW/L5P8QYCcPypOxKLEfpU//V0895bXeK6ey4lt1JicdaKE
+         GE7Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1714491268; x=1715096068;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=34PMgtoaf8o3Vg7/Sgvqf/mYgVt7JD3V1DRhLWohI0Y=;
-        b=Zc3FqzlF6y1CCVw6Kn+5h0ZBUpVPty68dgtEEM95KqCkTL6JywCoKDfOKu89Vvp1z6
-         2hGK9oNnDITjefls/XRwO+BDKmgYndK6DSiS04r0qtcv2aoTFbVMCp6LiVMxaGNfzdC/
-         Wo/6cN1+JW24rfz5iQ9CaoIHBjQ5R8hIoZTSERvDttMvl5M/Rr1C/mJ+ASDYrWIfpQ7d
-         wRsGgAnCZLlY6tWOUfxeJzpa7i3/SRiytKrJjfQz/6TQTaXUpVuFEeDzMo8fU3dm3rR1
-         cJCpUUyrfCNvWY7QoKuasEZ5dolBlj1WT1HQdEAM2ZXkWlPNzZ6yHCpCRJS4sXmSWVYF
-         3dLQ==
-X-Gm-Message-State: AOJu0YxbCeykUBRiPxv+YJtdiyvLECIeBEUz9qwQLtRijZV5j4n92hTF
-	/iKHxq/NYRn2BBjv3U+8PjRyNHUWY8LHIxifzntHxH1wG9csoWLQEC4qh0gnkmg6/k+IYPIpoHJ
-	/
-X-Google-Smtp-Source: AGHT+IFCQgQeI14XB2JTLFzZ/Mj4dGcOcUJFDR3ZFMOm1EOXkXqITukM0jnHBxXTc93G0N9BLylUSg==
-X-Received: by 2002:ad4:4ee4:0:b0:69b:6b28:f941 with SMTP id dv4-20020ad44ee4000000b0069b6b28f941mr5952674qvb.20.1714491268248;
-        Tue, 30 Apr 2024 08:34:28 -0700 (PDT)
-From: Roger Pau Monne <roger.pau@citrix.com>
-To: xen-devel@lists.xenproject.org
-Cc: Roger Pau Monne <roger.pau@citrix.com>,
-	Shawn Anastasio <sanastasio@raptorengineering.com>,
-	Alistair Francis <alistair.francis@wdc.com>,
-	Bob Eshleman <bobbyeshleman@gmail.com>,
-	Connor Davis <connojdavis@gmail.com>,
-	Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Subject: [PATCH for-4.19] ppc/riscv: fix arch_acquire_resource_check()
-Date: Tue, 30 Apr 2024 17:34:23 +0200
-Message-ID: <20240430153423.80875-1-roger.pau@citrix.com>
-X-Mailer: git-send-email 2.44.0
+        d=1e100.net; s=20230601; t=1714491629; x=1715096429;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=mrxrbfoyLWJ60uVnMeCrMi9y/QkqAsK61nC/3ja4Zms=;
+        b=I3R8oiIQTdXQIU6Qyu8KuN43UbkzT4tUm8Q3PxW6QfOffqdxL+18qWN4AJrGlTo77l
+         l2/Wcia8q2tDBNZDgvy/jb/Og7K9L9GaRLST+9Lt4zs7bNuSz1f4HgwEnuuexSBow/L/
+         JvWFtV1DyHU1M+npBFe7TIBRhN02xdSjQPzOe2fMyhStBqRKol8izelG2jFmxshXoMCw
+         t6C1P4uWG52bCpvL4TAednnOJ0r7LuPMSUHxvopvfWbXQOzWGDo7RSC9Uzw77GQQ0Mqq
+         dszaMi11LuIVXe450YXK3sUwQV1GiRtv+thJ1A8qeWV+/6dmAxIKKMm8dSNAE6bhTfej
+         x1GA==
+X-Forwarded-Encrypted: i=1; AJvYcCUkNg4z55Mevdny3X2z6N/irlBpShJ/iJxgidSZ+fz3Cj2UokpViaPOlLXvdwARK56AU4jCBVCECf14SmgKCqOVxTbxAI0yeIOUAr0e+Cc=
+X-Gm-Message-State: AOJu0YzF0M1oiyKOZaWVwZSEkIZrzdSrKpN6rBd53kqdHA22Cc5IY2Zp
+	+QA9hT0RlX5x08WhEDYhkI9fhUW+mq7mq9ywhBHkLE3fUCN4k9j0gCeK47snOFM6UKG/zV6BgI1
+	yn8qYf6XH1q9g6L2sHxNYoIG0uILT8SOd
+X-Google-Smtp-Source: AGHT+IG/mFzDY9+ytW6v6oFkiVEnfagLXUu2uZMkpB4ph26vuy31Oe3a2028Qkh3TASD/m+8TbKj71swFXFk1q14ucI=
+X-Received: by 2002:a05:6870:639e:b0:23d:417c:675 with SMTP id
+ t30-20020a056870639e00b0023d417c0675mr1207560oap.41.1714491628689; Tue, 30
+ Apr 2024 08:40:28 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <cover.1714322424.git.w1benny@gmail.com> <a26bc4aeba89f7895c79df7e320adfc695b16d50.1714322424.git.w1benny@gmail.com>
+ <4d9930d4-4379-4440-83b2-14ebffc7c03d@suse.com>
+In-Reply-To: <4d9930d4-4379-4440-83b2-14ebffc7c03d@suse.com>
+From: =?UTF-8?Q?Petr_Bene=C5=A1?= <w1benny@gmail.com>
+Date: Tue, 30 Apr 2024 17:40:17 +0200
+Message-ID: <CAKBKdXgAgb=+Spr_nobWy_zuN-yXTUfAL+Q3MdLDCDVgshOS7Q@mail.gmail.com>
+Subject: Re: [PATCH v2 7/7] x86/hap: Increase the number of initial
+ mempool_size to 1024 pages
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Anthony PERARD <anthony@xenproject.org>, Andrew Cooper <andrew.cooper3@citrix.com>, 
+	George Dunlap <george.dunlap@citrix.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+	xen-devel@lists.xenproject.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-None of the implementations support set_foreign_p2m_entry() yet, neither they
-have a p2m walk in domain_relinquish_resources() in order to remove the foreign
-mappings from the p2m and thus drop the extra refcounts.
+On Tue, Apr 30, 2024 at 4:47=E2=80=AFPM Jan Beulich <jbeulich@suse.com> wro=
+te:
+>
+> On 28.04.2024 18:52, Petr Bene=C5=A1 wrote:
+> > From: Petr Bene=C5=A1 <w1benny@gmail.com>
+> >
+> > This change anticipates scenarios where `max_altp2m` is set to its maxi=
+mum
+> > supported value (i.e., 512), ensuring sufficient memory is allocated up=
+front
+> > to accommodate all altp2m tables without initialization failure.
+>
+> And guests with fewer or even no altp2m-s still need the same bump? You
+> know the number of altp2m-s upon domain creation, so why bump by any more
+> than what's strictly needed for that?
 
-Adjust the arch helpers to return false and introduce a comment that clearly
-states it is not only taking extra refcounts that's needed, but also dropping
-them on domain teardown.
+I have to admit I've considered computing the value which goes to
+hap_set_allocation
+by simply adding 256 + max_altp2m, but that felt so arbitrary - the
+256 value itself
+feels arbitrary, as I haven't found any reasoning for it anywhere.
 
-Fixes: 4988704e00d8 ('xen/riscv: introduce p2m.h')
-Fixes: 4a2f68f90930 ('xen/ppc: Define minimal stub headers required for full build')
-Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
----
- xen/arch/ppc/include/asm/p2m.h   | 7 ++++---
- xen/arch/riscv/include/asm/p2m.h | 7 ++++---
- 2 files changed, 8 insertions(+), 6 deletions(-)
+I have also tried to make code changes to make the initial allocation
+size configurable
+via libxl (possibly reusing the shadow_memkb) - which seemed to me
+like the "correct"
+solution, but those changes were more complicated than I had
+anticipated and I would
+definitely not make it till the 4.19 deadline.
 
-diff --git a/xen/arch/ppc/include/asm/p2m.h b/xen/arch/ppc/include/asm/p2m.h
-index 25ba05466853..f144ef8e1a54 100644
---- a/xen/arch/ppc/include/asm/p2m.h
-+++ b/xen/arch/ppc/include/asm/p2m.h
-@@ -81,10 +81,11 @@ static inline mfn_t gfn_to_mfn(struct domain *d, gfn_t gfn)
- static inline bool arch_acquire_resource_check(struct domain *d)
- {
-     /*
--     * The reference counting of foreign entries in set_foreign_p2m_entry()
--     * is supported on PPC.
-+     * Requires refcounting the foreign mappings and walking the p2m on
-+     * teardown in order to remove foreign pages from the p2m and drop the
-+     * extra reference counts.
-      */
--    return true;
-+    return false;
- }
- 
- static inline void p2m_altp2m_check(struct vcpu *v, uint16_t idx)
-diff --git a/xen/arch/riscv/include/asm/p2m.h b/xen/arch/riscv/include/asm/p2m.h
-index 87b13f897926..387f372b5d26 100644
---- a/xen/arch/riscv/include/asm/p2m.h
-+++ b/xen/arch/riscv/include/asm/p2m.h
-@@ -79,10 +79,11 @@ static inline mfn_t gfn_to_mfn(struct domain *d, gfn_t gfn)
- static inline bool arch_acquire_resource_check(struct domain *d)
- {
-     /*
--     * The reference counting of foreign entries in set_foreign_p2m_entry()
--     * is supported on RISCV.
-+     * Requires refcounting the foreign mappings and walking the p2m on
-+     * teardown in order to remove foreign pages from the p2m and drop the
-+     * extra reference counts.
-      */
--    return true;
-+    return false;
- }
- 
- static inline void p2m_altp2m_check(struct vcpu *v, uint16_t idx)
--- 
-2.44.0
+Question is, what to do now? Should I change it to 256 + max_altp2m?
 
+> > The necessity for this increase arises from the current mechanism where=
+ altp2m
+> > tables are allocated at initialization, requiring one page from the mem=
+pool
+> > for each altp2m view.
+>
+> So that's the p2m_alloc_table() out of hap_enable()? If you're permitting
+> up to 512 altp2m-s, I think it needs considering to not waste up to 2Mb
+> without knowing how many of the altp2m-s are actually going to be used.
+
+Yes and I ultimately agree.
+
+> How complicate on-demand allocation would be I can't tell though, I have
+> to admit.
+
+That's also a fix I've been trying to work on - to make whole altp2m alloca=
+tions
+on-demand. Unfortunately, I didn't make it in time.
+
+> > --- a/tools/tests/paging-mempool/test-paging-mempool.c
+> > +++ b/tools/tests/paging-mempool/test-paging-mempool.c
+> > @@ -35,7 +35,7 @@ static struct xen_domctl_createdomain create =3D {
+> >
+> >  static uint64_t default_mempool_size_bytes =3D
+> >  #if defined(__x86_64__) || defined(__i386__)
+> > -    256 << 12; /* Only x86 HAP for now.  x86 Shadow needs more work. *=
+/
+> > +    1024 << 12; /* Only x86 HAP for now.  x86 Shadow needs more work. =
+*/
+>
+> I also can't derive from the description why we'd need to go from 256 to
+> 1024 here and ...
+
+It's explained in the code few lines below:
+
+    /*
+     * Check that the domain has the expected default allocation size.  Thi=
+s
+     * will fail if the logic in Xen is altered without an equivalent
+     * adjustment here.
+     */
+
+I have verified that the default_mempool_size_bytes must reflect the number
+of pages in the initial hap_set_allocation() call.
+
+Is it something I should include in the commit message, too?
+
+> > --- a/xen/arch/x86/mm/hap/hap.c
+> > +++ b/xen/arch/x86/mm/hap/hap.c
+> > @@ -468,7 +468,7 @@ int hap_enable(struct domain *d, u32 mode)
+> >      if ( old_pages =3D=3D 0 )
+> >      {
+> >          paging_lock(d);
+> > -        rv =3D hap_set_allocation(d, 256, NULL);
+> > +        rv =3D hap_set_allocation(d, 1024, NULL);
+>
+> ... here. You talk of (up to) 512 pages there only.
+>
+> Also isn't there at least one more place where the tool stack (libxl I
+> think) would need changing, where Dom0 ballooning needs are calculated?
+> And/or doesn't the pool size have a default calculation in the tool
+> stack, too?
+
+I have found places in libxl where the mempool_size is calculated, but
+that mempool
+size is then set AFTER the domain is created via xc_set_paging_mempool_size=
+.
+
+In my opinion it doesn't necessarily require change, since it's
+expected by the user
+to manually set it via shadow_memkb. The only current problem is (which thi=
+s
+commit is trying to fix) that setting shadow_memkb doesn't help when
+max_altp2m > (256 - 1 + vcpus + MAX_NESTEDP2M), since the initial mempool
+size is hardcoded.
+
+I didn't find any other places that would require reflecting the
+current "256" value.
+
+P.
 
