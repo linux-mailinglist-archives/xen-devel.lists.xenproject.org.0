@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2E6CA8B7EB4
-	for <lists+xen-devel@lfdr.de>; Tue, 30 Apr 2024 19:35:06 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.715154.1116691 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A29448B7EB3
+	for <lists+xen-devel@lfdr.de>; Tue, 30 Apr 2024 19:35:04 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.715153.1116683 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s1rMz-00072j-5l; Tue, 30 Apr 2024 17:34:21 +0000
+	id 1s1rMy-0006up-R5; Tue, 30 Apr 2024 17:34:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 715154.1116691; Tue, 30 Apr 2024 17:34:21 +0000
+Received: by outflank-mailman (output) from mailman id 715153.1116683; Tue, 30 Apr 2024 17:34:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s1rMz-0006vK-1G; Tue, 30 Apr 2024 17:34:21 +0000
-Received: by outflank-mailman (input) for mailman id 715154;
- Tue, 30 Apr 2024 17:34:19 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1s1rMy-0006sF-Na; Tue, 30 Apr 2024 17:34:20 +0000
+Received: by outflank-mailman (input) for mailman id 715153;
+ Tue, 30 Apr 2024 17:34:18 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=DdMh=MD=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
- id 1s1rMx-0006rz-58
- for xen-devel@lists.xenproject.org; Tue, 30 Apr 2024 17:34:19 +0000
-Received: from wfhigh8-smtp.messagingengine.com
- (wfhigh8-smtp.messagingengine.com [64.147.123.159])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id dc1952e8-0717-11ef-909b-e314d9c70b13;
+ id 1s1rMw-0006ry-Ih
+ for xen-devel@lists.xenproject.org; Tue, 30 Apr 2024 17:34:18 +0000
+Received: from wfout6-smtp.messagingengine.com
+ (wfout6-smtp.messagingengine.com [64.147.123.149])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id dd215911-0717-11ef-b4bb-af5377834399;
  Tue, 30 Apr 2024 19:34:16 +0200 (CEST)
-Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
- by mailfhigh.west.internal (Postfix) with ESMTP id 2A6BA1800131;
- Tue, 30 Apr 2024 13:34:11 -0400 (EDT)
+Received: from compute6.internal (compute6.nyi.internal [10.202.2.47])
+ by mailfout.west.internal (Postfix) with ESMTP id CD6471C0014B;
+ Tue, 30 Apr 2024 13:34:13 -0400 (EDT)
 Received: from mailfrontend1 ([10.202.2.162])
- by compute1.internal (MEProxy); Tue, 30 Apr 2024 13:34:11 -0400
+ by compute6.internal (MEProxy); Tue, 30 Apr 2024 13:34:14 -0400
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 30 Apr 2024 13:34:09 -0400 (EDT)
+ 30 Apr 2024 13:34:12 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,35 +44,35 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: dc1952e8-0717-11ef-909b-e314d9c70b13
+X-Inumbo-ID: dd215911-0717-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	invisiblethingslab.com; h=cc:cc:content-transfer-encoding
 	:content-type:content-type:date:date:from:from:in-reply-to
 	:in-reply-to:message-id:mime-version:references:reply-to:subject
-	:subject:to:to; s=fm3; t=1714498450; x=1714584850; bh=nuTget59Mx
-	Wc4IfoutnOU8Z20vpZN60QWE54LVhF6ms=; b=t4Ug7DTH9FfnRfuc/DODFmSS+l
-	mD3jFWNfTrDtk7In2zJy+/OPeCt3KXtdl2nJV4pPZ2pvRXZrzLRMaQ4HSJh2nmh0
-	V5gEtjUJIw9ZR7MvqvJgq4O+gGn7AcMRtE/Z1CXm3dUdod15IuAk59wpsntnewXt
-	WTuR8l8zcOqHlNITJrI2WGfCL9LTNvJrfdZIXIotk+26lkHQJ1fwnUhSgllKhIQY
-	WzAMxX0WVQx6yRos3yZfcn29od3bqXl2hh+aIr8v7tigAEI/8wfIAaXcwpQukTOK
-	aR9Z3QgUv9XdkNhO7eVOd5bKqcf9rjUNAM35ioRx88Gnk345JrHRpZ2aXUpQ==
+	:subject:to:to; s=fm3; t=1714498453; x=1714584853; bh=Qs8kJgBcfw
+	yVOBoQxWcf1KBTRIcqfqizvEFlALXjf5I=; b=Tx91T/7M5pyjm1ZLOqRo/WBhz/
+	WOyep28ohOqlogY8JT1Ju2Eax1bEUT/OUDTV6leXE8D2rVb4z36q8LnTCR5wyth3
+	sj/6mfL7doX8+ddMC5JbSz29m8mWTtRQEpD3DGxSMnEgDkC3u6yPcOz32Kw2FWrx
+	cnlZ9oCEGVDtlUJ2qEifigdNjmeO8vsVJ9t1wTAXJ3ZkLN7TOP6RRIAAkQrJWUWB
+	fyDWl8X8+/AJj9USHZffUktTQ1YyIG0+/inCRn+pJEyACivmMIIP0kebtYjXBN+x
+	re6AYGRgzQvNJUr+NmBQa4sTolMJzlj5tCGkfhdQsS9ogHckGvis/75NGxCw==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	messagingengine.com; h=cc:cc:content-transfer-encoding
 	:content-type:content-type:date:date:feedback-id:feedback-id
 	:from:from:in-reply-to:in-reply-to:message-id:mime-version
 	:references:reply-to:subject:subject:to:to:x-me-proxy:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1714498450; x=
-	1714584850; bh=nuTget59MxWc4IfoutnOU8Z20vpZN60QWE54LVhF6ms=; b=M
-	a5VxVonW0Qm9fs0XA8C4EYYeA8DQOTjBKfXaGV/IyykiUtCZvtyM/uTomp4mv1fn
-	dRdED+lgGT4CKODfGELmTYvp7vP6OTKsISeGWLdzSTEZO7wY3tUS3wsdAojn4SO2
-	rbFknN3N+VsLGoW4xZ+csJs64Hm21a33zH94MPXbzfU7vahcAVrRjSE1iBEzTPiT
-	CZ9/tvnSkkAJsp6ZU7j2SwY3/xC2nzylX1sEZdGPGGhVU/Qxf8UAXZXdgMDG+7VT
-	eLeS0QMaUQbrJLxdg7fhC7q6D8fG0sWT0AX1lAy8PhmERJ+colLa7cCICJUEvNhO
-	OS6YCyB70T/AkM8N25Qkw==
-X-ME-Sender: <xms:kisxZh0Fo4lMf2nSVZu4SyOZzK5kxzdH4kL7NUyeoyW_z_QEKVRf3w>
-    <xme:kisxZoFXszW32A-TTvRXzlkKiPhNl1JIWJlD_SAXzAF3l93G0wzyAnVx7IboPNH1Q
-    SaacV4Rs8Fu6Q>
-X-ME-Received: <xmr:kisxZh6ARn4DD695f7h_6_8F0pjACmIStS_M2ww1QwIZYOwK-Awkhu7Qvy0CoZGokGlr3zIG>
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1714498453; x=
+	1714584853; bh=Qs8kJgBcfwyVOBoQxWcf1KBTRIcqfqizvEFlALXjf5I=; b=Q
+	kZMVqAMSDBz6UWOLheED3emtMNTFXIcBCufzKgTVtnb1gIKSkGkpKsMLsluVLgAK
+	WKG+WMJ5vKGXiyXz21R8h4U04j7tf3HsnZkhtHOnK7OpMLFm/xtlJ86UuCXAn9Dm
+	FAx68BR50OadJm3OPuBYujXyhNSpV/FTDhGOWQG+Tz2eROM62Ov3t6e6HZpIjkO3
+	z47vgJ6q0Rk2XrGr4xpfqWFlU92nLcLc3zm3ydBy9myOAlm2fePZTY4tPd8sTzl9
+	ggC8iahXP6rp4Ehc/tXZaBzczY/C1Nge2XyyUc7Ap9a8GX/cH4PI2EaBx/txi5JA
+	fMiKS0TbFffkMQzVi+gbg==
+X-ME-Sender: <xms:lSsxZufwQd_xOIe0hJNfrDtyljz7dOugVUqnXApB1Z5kwB0Oo3zJvQ>
+    <xme:lSsxZoM4bfwY8HF4j3dKEUDUXdAzgp2nRB3_RJqPMN7r0hrKqnlUkbaEQSPWHwAbs
+    DOdKtYhsW04_Q>
+X-ME-Received: <xmr:lSsxZvgZa0U0DVGMmOobydQJCjltkJDXxcjeyp4ikUlArtKWGXizc4Oamm3Bewit-hRHCLle>
 X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvledrvddufedgudduvdcutefuodetggdotefrod
     ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
     necuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
@@ -82,11 +82,11 @@ X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvledrvddufedgudduvdcutefuodetgg
     gfeuudehgfdvfeehhedujeehfeduveeugefhkefhheelgeevudetueeiudfggfffnecuve
     hluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepmhgrrhhmrghr
     vghksehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomh
-X-ME-Proxy: <xmx:kisxZu3sqn_kCe8IxidhA89Idnv0ff0ssnKP-hyd_Tf7SHZfsV_R2w>
-    <xmx:kisxZkGTYxkpPG3HIUpIsg4xKpQrvThJLiq8_IfLB-VEPeFSYyHTSA>
-    <xmx:kisxZv-0hOQmKdJXx-FMJwXnhHoWnVA5ASLPzuKTBB7f7KGfdqEm0w>
-    <xmx:kisxZhm8z_a6Ti25Z7Dr_DceznWeqzME7RGli6flyZ_b-qySe4Wh0Q>
-    <xmx:kisxZpNap_XR-F0uWa0HzYv_wpAK3Kh1uxNyGxxn6LOlhSlJkfvFeHtC>
+X-ME-Proxy: <xmx:lSsxZr9Kcg1hK15kbmicl32mi5K7a4azjLfIXuRhy6hvw3_UhfVq2A>
+    <xmx:lSsxZqsxKS8onaQQg2I2TYRa7H6CBW9YxYnbxyBJMayU_p_fJk1ELg>
+    <xmx:lSsxZiFktKsH7EX66ruzKThMjKGyRUAUgmsAwFmSCeWDbJia07QMDg>
+    <xmx:lSsxZpPZzYyX-zvGbEsR-hymJNprUfLHvD90U2Gzqe4E6z9aXnHUqg>
+    <xmx:lSsxZsXv-oqlURToAHcUq0XMFoYcpNgY5UBVsfOImIjkDti4ICEEXi2o>
 Feedback-ID: i1568416f:Fastmail
 From: =?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
 To: qemu-devel@nongnu.org
@@ -95,9 +95,9 @@ Cc: =?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.c
 	Anthony Perard <anthony.perard@citrix.com>,
 	Paul Durrant <paul@xen.org>,
 	xen-devel@lists.xenproject.org (open list:X86 Xen CPUs)
-Subject: [PATCH v2 1/3] hw/xen/xen_pt: Save back data only for declared registers
-Date: Tue, 30 Apr 2024 19:33:09 +0200
-Message-ID: <3cc5a7d2e0338112fb87806c813627bdf5dbd2a5.1714498385.git-series.marmarek@invisiblethingslab.com>
+Subject: [PATCH v2 2/3] Update Xen's features.h header
+Date: Tue, 30 Apr 2024 19:33:10 +0200
+Message-ID: <bd499d1c412502afad60bff73a088b94a4ba43da.1714498385.git-series.marmarek@invisiblethingslab.com>
 X-Mailer: git-send-email 2.44.0
 In-Reply-To: <cover.ea761e8c87cc41550b01d6fbc1cd1116af55e288.1714498385.git-series.marmarek@invisiblethingslab.com>
 References: <cover.ea761e8c87cc41550b01d6fbc1cd1116af55e288.1714498385.git-series.marmarek@invisiblethingslab.com>
@@ -105,83 +105,41 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Call pci_default_write_config() in xen_pt_pci_write_config() only for
-registers that have matching XenPTRegInfo structure, and do that only after
-resolving any custom handlers. This is important for two reasons:
-1. XenPTRegInfo has ro_mask which needs to be enforced - Xen-specific
-   hooks do that on their own (especially xen_pt_*_reg_write()).
-2. Not setting value early allows hooks to see the old value too.
-
-If it would be only about the first point, setting PCIDevice.wmask would
-probably be sufficient, but given the second point, restructure those
-writes.
+Update it to get XENFEAT_dm_msix_all_writes for the next patch.
 
 Signed-off-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
 ---
-v2:
- - rewrite commit message, previous one was very misleading
- - fix loop saving register values
- - fix int overflow when calculating write mask
----
- hw/xen/xen_pt.c | 24 +++++++++++++++++++++++-
- 1 file changed, 23 insertions(+), 1 deletion(-)
+ include/hw/xen/interface/features.h | 17 +++++++++++++++++
+ 1 file changed, 17 insertions(+)
 
-diff --git a/hw/xen/xen_pt.c b/hw/xen/xen_pt.c
-index 3635d1b..cea2e18 100644
---- a/hw/xen/xen_pt.c
-+++ b/hw/xen/xen_pt.c
-@@ -256,6 +256,7 @@ static void xen_pt_pci_write_config(PCIDevice *d, uint32_t addr,
-     uint32_t find_addr = addr;
-     XenPTRegInfo *reg = NULL;
-     bool wp_flag = false;
-+    uint32_t emul_mask = 0, write_val;
+diff --git a/include/hw/xen/interface/features.h b/include/hw/xen/interface/features.h
+index d2a9175..8801930 100644
+--- a/include/hw/xen/interface/features.h
++++ b/include/hw/xen/interface/features.h
+@@ -111,6 +111,23 @@
+ #define XENFEAT_not_direct_mapped         16
+ #define XENFEAT_direct_mapped             17
  
-     if (xen_pt_pci_config_access_check(d, addr, len)) {
-         return;
-@@ -311,7 +312,6 @@ static void xen_pt_pci_write_config(PCIDevice *d, uint32_t addr,
-     }
- 
-     memory_region_transaction_begin();
--    pci_default_write_config(d, addr, val, len);
- 
-     /* adjust the read and write value to appropriate CFC-CFF window */
-     read_val <<= (addr & 3) << 3;
-@@ -371,6 +371,9 @@ static void xen_pt_pci_write_config(PCIDevice *d, uint32_t addr,
-                 return;
-             }
- 
-+            emul_mask |= ((1L << (reg->size * 8)) - 1)
-+                         << ((find_addr & 3) * 8);
++/*
++ * Signal whether the domain is able to use the following hypercalls:
++ *
++ * VCPUOP_register_runstate_phys_area
++ * VCPUOP_register_vcpu_time_phys_area
++ */
++#define XENFEAT_runstate_phys_area        18
++#define XENFEAT_vcpu_time_phys_area       19
 +
-             /* calculate next address to find */
-             emul_len -= reg->size;
-             if (emul_len > 0) {
-@@ -397,6 +400,25 @@ static void xen_pt_pci_write_config(PCIDevice *d, uint32_t addr,
-     /* need to shift back before passing them to xen_host_pci_set_block. */
-     val >>= (addr & 3) << 3;
- 
-+    /* store emulated registers after calling their handlers */
-+    write_val = val;
-+    for (index = 0; index < len; index += emul_len) {
-+        emul_len = 0;
-+        while (emul_mask & 0xff) {
-+            emul_len++;
-+            emul_mask >>= 8;
-+        }
-+        if (emul_len) {
-+            uint32_t mask = ((1L << (emul_len * 8)) - 1);
-+            pci_default_write_config(d, addr + index, write_val & mask,
-+                                     emul_len);
-+        } else {
-+            emul_mask >>= 8;
-+            emul_len = 1;
-+        }
-+        write_val >>= emul_len * 8;
-+    }
++/*
++ * If set, Xen will passthrough all MSI-X vector ctrl writes to device model,
++ * not only those unmasking an entry. This allows device model to properly keep
++ * track of the MSI-X table without having to read it from the device behind
++ * Xen's backs. This information is relevant only for device models.
++ */
++#define XENFEAT_dm_msix_all_writes        20
 +
-     memory_region_transaction_commit();
+ #define XENFEAT_NR_SUBMAPS 1
  
- out:
+ #endif /* __XEN_PUBLIC_FEATURES_H__ */
 -- 
 git-series 0.9.1
 
