@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7A6588B77A5
-	for <lists+xen-devel@lfdr.de>; Tue, 30 Apr 2024 15:55:05 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.714909.1116291 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 360608B78B6
+	for <lists+xen-devel@lfdr.de>; Tue, 30 Apr 2024 16:14:04 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.714923.1116302 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s1nw8-000087-H0; Tue, 30 Apr 2024 13:54:24 +0000
+	id 1s1oEb-0003ZR-3Z; Tue, 30 Apr 2024 14:13:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 714909.1116291; Tue, 30 Apr 2024 13:54:24 +0000
+Received: by outflank-mailman (output) from mailman id 714923.1116302; Tue, 30 Apr 2024 14:13:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s1nw8-00005T-Dt; Tue, 30 Apr 2024 13:54:24 +0000
-Received: by outflank-mailman (input) for mailman id 714909;
- Tue, 30 Apr 2024 13:54:23 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Q3to=MD=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1s1nw7-0008Vp-93
- for xen-devel@lists.xenproject.org; Tue, 30 Apr 2024 13:54:23 +0000
-Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
- [2a00:1450:4864:20::333])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 24f0c6af-06f9-11ef-b4bb-af5377834399;
- Tue, 30 Apr 2024 15:54:21 +0200 (CEST)
-Received: by mail-wm1-x333.google.com with SMTP id
- 5b1f17b1804b1-41ba1ba55e8so30992845e9.1
- for <xen-devel@lists.xenproject.org>; Tue, 30 Apr 2024 06:54:21 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- e18-20020a056000195200b003462fec9f5asm32068174wry.62.2024.04.30.06.54.19
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 30 Apr 2024 06:54:20 -0700 (PDT)
+	id 1s1oEb-0003XU-0E; Tue, 30 Apr 2024 14:13:29 +0000
+Received: by outflank-mailman (input) for mailman id 714923;
+ Tue, 30 Apr 2024 14:13:27 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=Iw5h=MD=cloud.com=anthony.perard@srs-se1.protection.inumbo.net>)
+ id 1s1oEZ-0003XO-9W
+ for xen-devel@lists.xenproject.org; Tue, 30 Apr 2024 14:13:27 +0000
+Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
+ [2a00:1450:4864:20::430])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id cfa78218-06fb-11ef-909b-e314d9c70b13;
+ Tue, 30 Apr 2024 16:13:26 +0200 (CEST)
+Received: by mail-wr1-x430.google.com with SMTP id
+ ffacd0b85a97d-34782453ffdso5197308f8f.1
+ for <xen-devel@lists.xenproject.org>; Tue, 30 Apr 2024 07:13:26 -0700 (PDT)
+Received: from perard.uk.xensource.com (default-46-102-197-194.interdsl.co.uk.
+ [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
+ d18-20020adffbd2000000b0034ca136f0e9sm8855478wrs.88.2024.04.30.07.13.24
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 30 Apr 2024 07:13:25 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,90 +45,81 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 24f0c6af-06f9-11ef-b4bb-af5377834399
+X-Inumbo-ID: cfa78218-06fb-11ef-909b-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1714485260; x=1715090060; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=B+oIKPF1tBnNElDmMmPyFpEjepR7UeWDnNkStDjzV7E=;
-        b=B/Hdkgt3/mBepKNWY2M4mX4uxpTFjnmSMZoFool5uuLvArAg8+g86kP4Qmb1SWTERo
-         kTAtCBWqfu9jjmon517SpFoYfOdWgp/2wOec+eCOi5SO9tp82fjmp1vlA5aW9l/fX7X1
-         lOqeFIg/QIeN8sECJYVtD4Oz9e7Twd7Y/QoMCuqTkTy1n0UEJep9p5yJLB8mn+bg6guO
-         i/JwDT9VSOMyFRZLy+rnRCaMnCUMbkmiMo46/KX19u8fCGY9mQGmB11ad/OxsLcUcIy3
-         vabAo8g/0AzXFNR+Oo63Om19bLS8o3nw7mpRuOUax+S4HOmwdesg75CSJtCiYqCsODAY
-         HTrg==
+        d=cloud.com; s=cloud; t=1714486406; x=1715091206; darn=lists.xenproject.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=2KLF6DiwoGHMGRFdLIHyP/Ey6iRLeXoi5ASvkunY/Eo=;
+        b=ZZuML2KwJF9pcM8H0lyBBAy+Aa8UccJyPdGBD5+EYuTyp3ER94M5DK9x2jlV/OBzzA
+         eHkZ+c4/CtZl4EH2nl6URIOf/iU+cL0vUoCC4CBxagK+93/bqo3/QwM1qQWt/h5PrH0k
+         V0G9tmNiZF0zCTpvyEldWXKEm5Dlgw6OKD4ME=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1714485260; x=1715090060;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=B+oIKPF1tBnNElDmMmPyFpEjepR7UeWDnNkStDjzV7E=;
-        b=OJ0kB/TJWYBO67rUp1vVdKC7zWVLra3rs4ZNVt28Jwk7ZJIq/ugrIS7gpIiW8nIxuJ
-         58flfgLKx0KlQQuP3FnkOVB+v8a45TUHMqJ8h/77e/zO/4de63gb6FvIOXIDxPuvFw2K
-         WM3J2DX4TyiydR3al+yAbFe+c2/1X2hxiITKDhW06KXzRvvQ/p5Mmdu3b5tiDzsff8p4
-         Ie2A9X4+z2aM3NDrjTdaHOxTSHvwEoTFjOs0tMijcE8W7y9R6ORgVlovR1gMlho3puA3
-         4Dr8Uv5/sJdSaSxsaGxwbtdC6qRLMj63J2llo8h9m7Kd87WLkgFmghnjVMaEUjnVORDe
-         JPiw==
-X-Forwarded-Encrypted: i=1; AJvYcCUzXwlkRGoQo2mLvFnQbn0LDi38wCHjZMa2CLLwFYgV5yuUsTjCNsM9Ism+JkhvLjzGpw58mY0UZlcKVZ2qEsdKY2xuUN2mcpBkFCHGDdE=
-X-Gm-Message-State: AOJu0YwwOrN7NSxu9m1GgrLJI8sdOEmg8kKXBKcVXoPUKV1ojGkxe+eY
-	OwZUoHstrk+mrk1Jg+TlGuAj34tjGKIuuga84ECywAP6G2RU6cVZb73zfFPEow==
-X-Google-Smtp-Source: AGHT+IGvgZiWDLHq1ORiZf/3b+KVEa9fvm9+pYpwnloAt5ysgpGiXleZ9aEXyU93u/7wzTLot3ln5g==
-X-Received: by 2002:a5d:4f10:0:b0:34d:9227:c1fb with SMTP id c16-20020a5d4f10000000b0034d9227c1fbmr1121295wru.26.1714485260385;
-        Tue, 30 Apr 2024 06:54:20 -0700 (PDT)
-Message-ID: <320c6f71-66a2-4893-9f85-247411eeff23@suse.com>
-Date: Tue, 30 Apr 2024 15:54:19 +0200
+        d=1e100.net; s=20230601; t=1714486406; x=1715091206;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=2KLF6DiwoGHMGRFdLIHyP/Ey6iRLeXoi5ASvkunY/Eo=;
+        b=qdpDY+rX+qqgyKYIwvyeG7ESDKUNGZmQuFTNtcrtqgA11KJxVOtHmojE6C2C22rymf
+         +1vUHhapMZJZI0jR9pV80IoReKQMozqCmnOoeazYQHG2s8Nme3g2VfIr2REcgPGpsNcq
+         yLSw1pRrJnVqDyRUErtjFEnWl1IxVgTpxG1Nj0p3c6BC1XBcvUc9YZ54yCOcBdkybJQj
+         HAk96RensLf26GpNfou9fGaXq+IcujXq/K/FCXX4I5QVM0eMVAL4Al68e9zZyDLuuMqD
+         KpKEW8qDAYDOK+OEDiKHI4qIRmksxsa6k8clhvk2cEU9jrByMFKH3SKSPE8fOzwGXZNh
+         zW1A==
+X-Gm-Message-State: AOJu0YzFIJ+ReUuOSdClyA8ViGRVDqrW7g8k1ck1gC+KUrfmemsz4CSs
+	GQ4R3szX7rBO7/zzQBGQTkQ9r1jLNkmcruGpP5bPswh/pbuXGuFXHOyqddIw69c=
+X-Google-Smtp-Source: AGHT+IF0vhS3VxC+kn4htq15hAFNS1ijKoQCrPpLdHWftIfhEJ+tMU65OXleRnJAQw5vYcNgQcXQ0A==
+X-Received: by 2002:a05:6000:147:b0:34c:71d0:1151 with SMTP id r7-20020a056000014700b0034c71d01151mr10389421wrx.10.1714486405810;
+        Tue, 30 Apr 2024 07:13:25 -0700 (PDT)
+Date: Tue, 30 Apr 2024 15:13:24 +0100
+From: Anthony PERARD <anthony.perard@cloud.com>
+To: Alejandro Vallejo <alejandro.vallejo@cloud.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>, Wei Liu <wl@xen.org>,
+	Juergen Gross <jgross@suse.com>, Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>
+Subject: Re: [PATCH 1/3] tools/xg: Move xc_cpu_policy_t to xenguest.h
+Message-ID: <33f7fbc5-6bbf-4f84-9d83-96cbb106d7de@perard>
+References: <20240207173957.19811-1-alejandro.vallejo@cloud.com>
+ <20240207173957.19811-2-alejandro.vallejo@cloud.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 5/5] x86/cpu-policy: Introduce some SEV features
-Content-Language: en-US
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Xenia Ragiadakou <xenia.ragiadakou@amd.com>,
- Sergiy Kibrik <Sergiy_Kibrik@epam.com>,
- George Dunlap <george.dunlap@citrix.com>,
- Andrei Semenov <andrei.semenov@vates.fr>,
- Vaishali Thakkar <vaishali.thakkar@vates.tech>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20240429151625.977884-1-andrew.cooper3@citrix.com>
- <20240429151625.977884-6-andrew.cooper3@citrix.com>
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240429151625.977884-6-andrew.cooper3@citrix.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20240207173957.19811-2-alejandro.vallejo@cloud.com>
 
-On 29.04.2024 17:16, Andrew Cooper wrote:
-> For display purposes only right now.
+On Wed, Feb 07, 2024 at 05:39:55PM +0000, Alejandro Vallejo wrote:
+> diff --git a/tools/include/xenguest.h b/tools/include/xenguest.h
+> index e01f494b772a..4e9078fdee4d 100644
+> --- a/tools/include/xenguest.h
+> +++ b/tools/include/xenguest.h
+> @@ -784,7 +784,13 @@ xen_pfn_t *xc_map_m2p(xc_interface *xch,
+>                        unsigned long *mfn0);
+>  
+>  #if defined(__i386__) || defined(__x86_64__)
+> -typedef struct xc_cpu_policy xc_cpu_policy_t;
+> +#include <xen/lib/x86/cpu-policy.h>
 
-And limited to a narrow subset, presumably intentionally.
+I don't think it's a good idea to expose "cpu-policy.h" to "xenguest.h",
+and it's going to break the build of every tools outside of xen
+repository that are using xenguest.h. xenguest.h is installed on a
+system, but cpu-policy.h isn't.
 
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> +typedef struct xc_cpu_policy {
+> +    struct cpu_policy policy;
+> +    xen_cpuid_leaf_t leaves[CPUID_MAX_SERIALISED_LEAVES];
+> +    xen_msr_entry_t msrs[MSR_MAX_SERIALISED_ENTRIES];
+> +} xc_cpu_policy_t;
 
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
+Would using an accessor be an option to access `leaves` and `msrs` for
+"xen-cpuid" tool? That would avoid the need to expose the "cpu-policy.h"
+headers.
 
-Jan
+With accessors, we might not need to expose xc_cpu_policy_serialise() to
+the world anymore, and it could be internal to libxenguest, probably, I
+haven't check.
+
+Thanks,
+
+-- 
+Anthony PERARD
 
