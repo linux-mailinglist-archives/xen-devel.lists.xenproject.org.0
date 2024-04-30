@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0105F8B6EBD
-	for <lists+xen-devel@lfdr.de>; Tue, 30 Apr 2024 11:48:28 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.714688.1115967 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0408C8B6EE5
+	for <lists+xen-devel@lfdr.de>; Tue, 30 Apr 2024 11:58:17 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.714693.1115977 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s1k5o-0005Ib-RM; Tue, 30 Apr 2024 09:48:08 +0000
+	id 1s1kF8-0007Km-MB; Tue, 30 Apr 2024 09:57:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 714688.1115967; Tue, 30 Apr 2024 09:48:08 +0000
+Received: by outflank-mailman (output) from mailman id 714693.1115977; Tue, 30 Apr 2024 09:57:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s1k5o-0005Gw-OY; Tue, 30 Apr 2024 09:48:08 +0000
-Received: by outflank-mailman (input) for mailman id 714688;
- Tue, 30 Apr 2024 09:48:07 +0000
+	id 1s1kF8-0007Ir-IZ; Tue, 30 Apr 2024 09:57:46 +0000
+Received: by outflank-mailman (input) for mailman id 714693;
+ Tue, 30 Apr 2024 09:57:44 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1s1k5n-0005Gq-5M
- for xen-devel@lists.xenproject.org; Tue, 30 Apr 2024 09:48:07 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1s1kF6-0007If-RW; Tue, 30 Apr 2024 09:57:44 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1s1k5i-0004i4-Aw; Tue, 30 Apr 2024 09:48:02 +0000
-Received: from [15.248.3.91] (helo=[10.24.67.27])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1s1k5i-0004pU-35; Tue, 30 Apr 2024 09:48:02 +0000
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1s1kF6-0004uU-MR; Tue, 30 Apr 2024 09:57:44 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1s1kF6-0001yb-Bg; Tue, 30 Apr 2024 09:57:44 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1s1kF6-0007MG-BL; Tue, 30 Apr 2024 09:57:44 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,148 +42,296 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=mkwFFQlrdfjuiOItEG4DOmgv9gVonIUEyjqAXEriw/w=; b=kIj6UQsapG4Fd77ENwIyDXQLq3
-	O8Iry7LVVp0fAvpEmAPFR3ALUpk/nlOouGpHTiNYufmhTHNqH6DuzoK25Uytc6/1zUcQx9hrrvpc4
-	wlJqgQuvUMZQD4Tfr8dsA+Y64YzJJk5vGx8tUwKaCuQBvIuPytiqGJragM+OyN/JnsK8=;
-Message-ID: <63ad5cf3-5275-4fcd-a1d1-fbf5f3f167f4@xen.org>
-Date: Tue, 30 Apr 2024 10:47:59 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 07/15] xen/overlay: Enable device tree overlay assignment
- to running domains
-Content-Language: en-GB
-To: Henry Wang <xin.wang2@amd.com>, Jan Beulich <jbeulich@suse.com>,
- Stefano Stabellini <sstabellini@kernel.org>
-Cc: Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, xen-devel@lists.xenproject.org
-References: <20240424033449.168398-1-xin.wang2@amd.com>
- <20240424033449.168398-8-xin.wang2@amd.com>
- <da67f90f-6807-4fdc-b65b-f7a4ba9f78ad@suse.com>
- <97a401ff-4b5c-4e6a-8d9c-e36305ec64f5@amd.com>
- <128c7e68-0431-44e9-b4fc-96cc46e158ad@xen.org>
- <e3c7098b-a876-48f3-8ccb-18a2ced8521c@amd.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <e3c7098b-a876-48f3-8ccb-18a2ced8521c@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=ZgDX6g/TT3/7ZqLdeSwfxS8S/LOFOonajCP2JxEY7nQ=; b=5sXdUUPeNRK2/ufFCCgvStuwxw
+	PVSwCXH5THgZznRDAHm816PTrzJgyb8VAZMOe/RATmvvgl4quqFSKMImLlKtfvSrklxyCkuvIoWYm
+	AxWp0q/Eiwd4+irYzwJEuzMnlpSqbU72DA9RZH2i5hrpBZq8hlgRU+LJff4J6Ciwz/LU=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-185866-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [xen-4.15-testing test] 185866: regressions - FAIL
+X-Osstest-Failures:
+    xen-4.15-testing:test-armhf-armhf-xl:xen-boot:fail:regression
+    xen-4.15-testing:build-amd64-xsm:xen-build:fail:regression
+    xen-4.15-testing:test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm:build-check(1):blocked:nonblocking
+    xen-4.15-testing:test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
+    xen-4.15-testing:test-amd64-amd64-xl-qemut-debianhvm-i386-xsm:build-check(1):blocked:nonblocking
+    xen-4.15-testing:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
+    xen-4.15-testing:test-amd64-amd64-libvirt-xsm:build-check(1):blocked:nonblocking
+    xen-4.15-testing:test-amd64-amd64-xl-xsm:build-check(1):blocked:nonblocking
+    xen-4.15-testing:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
+    xen-4.15-testing:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    xen-4.15-testing:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
+    xen-4.15-testing:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
+    xen-4.15-testing:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    xen-4.15-testing:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
+    xen-4.15-testing:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
+    xen-4.15-testing:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
+    xen-4.15-testing:test-amd64-amd64-libvirt-qcow2:migrate-support-check:fail:nonblocking
+    xen-4.15-testing:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    xen-4.15-testing:test-amd64-amd64-libvirt-raw:migrate-support-check:fail:nonblocking
+    xen-4.15-testing:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
+    xen-4.15-testing:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-4.15-testing:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
+    xen-4.15-testing:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    xen-4.15-testing:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
+    xen-4.15-testing:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
+    xen-4.15-testing:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
+    xen-4.15-testing:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
+    xen-4.15-testing:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
+    xen-4.15-testing:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
+    xen-4.15-testing:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    xen-4.15-testing:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
+    xen-4.15-testing:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
+    xen-4.15-testing:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
+    xen-4.15-testing:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
+    xen-4.15-testing:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
+    xen-4.15-testing:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
+    xen-4.15-testing:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
+    xen-4.15-testing:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
+    xen-4.15-testing:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
+    xen-4.15-testing:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
+    xen-4.15-testing:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
+    xen-4.15-testing:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
+    xen-4.15-testing:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
+    xen-4.15-testing:test-arm64-arm64-xl-vhd:migrate-support-check:fail:nonblocking
+    xen-4.15-testing:test-arm64-arm64-xl-vhd:saverestore-support-check:fail:nonblocking
+    xen-4.15-testing:test-armhf-armhf-xl-qcow2:migrate-support-check:fail:nonblocking
+    xen-4.15-testing:test-armhf-armhf-xl-qcow2:saverestore-support-check:fail:nonblocking
+    xen-4.15-testing:test-armhf-armhf-libvirt-vhd:migrate-support-check:fail:nonblocking
+    xen-4.15-testing:test-armhf-armhf-libvirt-vhd:saverestore-support-check:fail:nonblocking
+    xen-4.15-testing:test-armhf-armhf-xl-raw:migrate-support-check:fail:nonblocking
+    xen-4.15-testing:test-armhf-armhf-xl-raw:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=056500003eb44314cb90f2e3e7b2d405e86b5657
+X-Osstest-Versions-That:
+    xen=0a1c1a01a8028a929d460a966c8f8e7384f5b3a6
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Tue, 30 Apr 2024 09:57:44 +0000
+
+flight 185866 xen-4.15-testing real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/185866/
+
+Regressions :-(
+
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ test-armhf-armhf-xl           8 xen-boot                 fail REGR. vs. 185709
+ build-amd64-xsm               6 xen-build                fail REGR. vs. 185709
+
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm  1 build-check(1)     blocked n/a
+ test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
+ test-amd64-amd64-xl-qemut-debianhvm-i386-xsm  1 build-check(1)     blocked n/a
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
+ test-amd64-amd64-libvirt-xsm  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-xsm       1 build-check(1)               blocked  n/a
+ test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 185709
+ test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 185709
+ test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 185709
+ test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 185709
+ test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 185709
+ test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 185709
+ test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-qcow2 14 migrate-support-check        fail never pass
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-multivcpu 15 migrate-support-check        fail  never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-multivcpu 16 saverestore-support-check    fail  never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-credit2  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-rtds     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-rtds     16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-credit1  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
+ test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-vhd      14 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-vhd      15 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-qcow2    14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-qcow2    15 saverestore-support-check    fail   never pass
+ test-armhf-armhf-libvirt-vhd 14 migrate-support-check        fail   never pass
+ test-armhf-armhf-libvirt-vhd 15 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-raw      14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-raw      15 saverestore-support-check    fail   never pass
+
+version targeted for testing:
+ xen                  056500003eb44314cb90f2e3e7b2d405e86b5657
+baseline version:
+ xen                  0a1c1a01a8028a929d460a966c8f8e7384f5b3a6
+
+Last test of basis   185709  2024-04-17 07:07:02 Z   13 days
+Testing same since   185866  2024-04-29 08:38:32 Z    1 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Roger Pau Monné <roger.pau@citrix.com>
+
+jobs:
+ build-amd64-xsm                                              fail    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64-xtf                                              pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-prev                                             pass    
+ build-i386-prev                                              pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-xtf-amd64-amd64-1                                       pass    
+ test-xtf-amd64-amd64-2                                       pass    
+ test-xtf-amd64-amd64-3                                       pass    
+ test-xtf-amd64-amd64-4                                       pass    
+ test-xtf-amd64-amd64-5                                       pass    
+ test-amd64-amd64-xl                                          pass    
+ test-amd64-coresched-amd64-xl                                pass    
+ test-arm64-arm64-xl                                          pass    
+ test-armhf-armhf-xl                                          fail    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           blocked 
+ test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        blocked 
+ test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 blocked 
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 blocked 
+ test-amd64-amd64-libvirt-xsm                                 blocked 
+ test-arm64-arm64-libvirt-xsm                                 pass    
+ test-amd64-amd64-xl-xsm                                      blocked 
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-qemuu-nested-amd                            fail    
+ test-amd64-amd64-xl-pvhv2-amd                                pass    
+ test-amd64-amd64-dom0pvh-xl-amd                              pass    
+ test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
+ test-amd64-amd64-qemuu-freebsd12-amd64                       pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-amd64-xl-qemut-win7-amd64                         fail    
+ test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
+ test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
+ test-armhf-armhf-xl-arndale                                  pass    
+ test-amd64-amd64-xl-credit1                                  pass    
+ test-arm64-arm64-xl-credit1                                  pass    
+ test-armhf-armhf-xl-credit1                                  pass    
+ test-amd64-amd64-xl-credit2                                  pass    
+ test-arm64-arm64-xl-credit2                                  pass    
+ test-armhf-armhf-xl-credit2                                  pass    
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
+ test-amd64-amd64-qemuu-nested-intel                          pass    
+ test-amd64-amd64-xl-pvhv2-intel                              pass    
+ test-amd64-amd64-dom0pvh-xl-intel                            pass    
+ test-amd64-amd64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     pass    
+ test-amd64-amd64-livepatch                                   pass    
+ test-amd64-amd64-migrupgrade                                 pass    
+ test-amd64-amd64-xl-multivcpu                                pass    
+ test-armhf-armhf-xl-multivcpu                                pass    
+ test-amd64-amd64-pair                                        pass    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-amd64-xl-pvshim                                   pass    
+ test-amd64-amd64-pygrub                                      pass    
+ test-amd64-amd64-libvirt-qcow2                               pass    
+ test-amd64-amd64-xl-qcow2                                    pass    
+ test-armhf-armhf-xl-qcow2                                    pass    
+ test-amd64-amd64-libvirt-raw                                 pass    
+ test-arm64-arm64-libvirt-raw                                 pass    
+ test-amd64-amd64-xl-raw                                      pass    
+ test-armhf-armhf-xl-raw                                      pass    
+ test-amd64-amd64-xl-rtds                                     pass    
+ test-armhf-armhf-xl-rtds                                     pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
+ test-amd64-amd64-xl-shadow                                   pass    
+ test-arm64-arm64-xl-thunderx                                 pass    
+ test-amd64-amd64-libvirt-vhd                                 pass    
+ test-armhf-armhf-libvirt-vhd                                 pass    
+ test-amd64-amd64-xl-vhd                                      pass    
+ test-arm64-arm64-xl-vhd                                      pass    
 
 
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-On 30/04/2024 05:00, Henry Wang wrote:
-> Hi Julien,
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
-Hi Henry,
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
-> On 4/30/2024 1:34 AM, Julien Grall wrote:
->> On 29/04/2024 04:36, Henry Wang wrote:
->>> Hi Jan, Julien, Stefano,
->>
->> Hi Henry,
->>
->>> On 4/24/2024 2:05 PM, Jan Beulich wrote:
->>>> On 24.04.2024 05:34, Henry Wang wrote:
->>>>> --- a/xen/include/public/sysctl.h
->>>>> +++ b/xen/include/public/sysctl.h
->>>>> @@ -1197,7 +1197,9 @@ struct xen_sysctl_dt_overlay {
->>>>>   #define XEN_SYSCTL_DT_OVERLAY_ADD                   1
->>>>>   #define XEN_SYSCTL_DT_OVERLAY_REMOVE                2
->>>>>       uint8_t overlay_op;                     /* IN: Add or remove. */
->>>>> -    uint8_t pad[3];                         /* IN: Must be zero. */
->>>>> +    bool domain_mapping;                    /* IN: True of False. */
->>>>> +    uint8_t pad[2];                         /* IN: Must be zero. */
->>>>> +    uint32_t domain_id;
->>>>>   };
->>>> If you merely re-purposed padding fields, all would be fine without
->>>> bumping the interface version. Yet you don't, albeit for an unclear
->>>> reason: Why uint32_t rather than domid_t? And on top of that - why a
->>>> separate boolean when you could use e.g. DOMID_INVALID to indicate
->>>> "no domain mapping"?
->>>
->>> I think both of your suggestion make great sense. I will follow the 
->>> suggestion in v2.
->>>
->>>> That said - anything taking a domain ID is certainly suspicious in a
->>>> sysctl. Judging from the description you really mean this to be a
->>>> domctl. Anything else will require extra justification.
->>>
->>> I also think a domctl is better. I had a look at the history of the 
->>> already merged series, it looks like in the first version of merged 
->>> part 1 [1], the hypercall was implemented as the domctl in the 
->>> beginning but later in v2 changed to sysctl. I think this makes sense 
->>> as the scope of that time is just to make Xen aware of the device 
->>> tree node via Xen device tree.
->>>
->>> However this is now a problem for the current part where the 
->>> scope (and the end goal) is extended to assign the added device to 
->>> Linux Dom0/DomU via device tree overlays. I am not sure which way is 
->>> better, should we repurposing the sysctl to domctl or maybe add 
->>> another domctl (I am worrying about the duplication because basically 
->>> we need the same sysctl functionality but now with a domid in it)? 
->>> What do you think?
->>
->> I am not entirely sure this is a good idea to try to add the device in 
->> Xen and attach it to the guests at the same time. Imagine the 
->> following situation:
->>
->> 1) Add and attach devices
->> 2) The domain is rebooted
->> 3) Detach and remove devices
->>
->> After step 2, you technically have a new domain. You could have also a 
->> case where this is a completely different guest. So the flow would 
->> look a little bit weird (you create the DT overlay with domain A but 
->> remove with domain B).
->>
->> So, at the moment, it feels like the add/attach (resp detech/remove) 
->> operations should happen separately.
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
-Thinking a bit more about it, there is another problem with the single 
-hypercall appproach. The MMIOs will be mapped 1:1 to the guest. These 
-region may clash with other part of the layout for domain created by the 
-toolstack
-and dom0less (if the 1:1 option has not been enabled).
 
-I guess for that add, it would be possible to specify the mapping in the 
-Device-Tree. But that would not work for the removal (this may be a 
-different domain).
+Not pushing.
 
-On a somewhat similar topic, the number of IRQs supported by the vGIC is 
-fixed at boot. How would that work with this patch?
+------------------------------------------------------------
+commit 056500003eb44314cb90f2e3e7b2d405e86b5657
+Author: Roger Pau Monné <roger.pau@citrix.com>
+Date:   Mon Apr 29 10:23:03 2024 +0200
 
->>
->> Can you clarify why you want to add devices to Xen and attach to a 
->> guest within a single hypercall?
-> 
-> Sorry I don't know if there is any specific thoughts on the design of 
-> using a single hypercall to do both add devices to Xen device tree and 
-> assign the device to the guest. In fact seeing your above comments, I 
-> think separating these two functionality to two xl commands using 
-> separated hypercalls would indeed be a better idea. Thank you for the 
-> suggestion!
-> 
-> To make sure I understand correctly, would you mind confirming if below 
-> actions for v2 make sense to you? Thanks!
-> - Only use the XEN_SYSCTL_DT_OVERLAY_{ADD, REMOVE} sysctls to add/remove 
-> overlay to Xen device tree
+    x86/spec: adjust logic that elides lfence
+    
+    It's currently too restrictive by just checking whether there's a BHB clearing
+    sequence selected.  It should instead check whether BHB clearing is used on
+    entry from PV or HVM specifically.
+    
+    Switch to use opt_bhb_entry_{pv,hvm} instead, and then remove cpu_has_bhb_seq
+    since it no longer has any users.
+    
+    Reported-by: Jan Beulich <jbeulich@suse.com>
+    Fixes: 954c983abcee ('x86/spec-ctrl: Software BHB-clearing sequences')
+    Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+    Reviewed-by: Jan Beulich <jbeulich@suse.com>
+    Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
+    master commit: 656ae8f1091bcefec9c46ec3ea3ac2118742d4f6
+    master date: 2024-04-25 16:37:01 +0200
 
-Note that this would attach the devices to dom0 first. Maybe this is why 
-it was decided to merge the two operations? An option would be to allow 
-the devices to be attached to no-one.
+commit 7f73536e2644722ec87dc491511cc0f9f762d1eb
+Author: Roger Pau Monné <roger.pau@citrix.com>
+Date:   Mon Apr 29 10:20:58 2024 +0200
 
-> - Introduce the xl dt-overlay attach <domid> command and respective 
-> domctls to do the device assignment for the overlay to domain.
-
-We already have domctls to route IRQs and map MMIOs. So do we actually 
-need new domctls?
-
-Cheers,
-
--- 
-Julien Grall
+    x86/spec: fix reporting of BHB clearing usage from guest entry points
+    
+    Reporting whether the BHB clearing on entry is done for the different domains
+    types based on cpu_has_bhb_seq is unhelpful, as that variable signals whether
+    there's a BHB clearing sequence selected, but that alone doesn't imply that
+    such sequence is used from the PV and/or HVM entry points.
+    
+    Instead use opt_bhb_entry_{pv,hvm} which do signal whether BHB clearing is
+    performed on entry from PV/HVM.
+    
+    Fixes: 689ad48ce9cf ('x86/spec-ctrl: Wire up the Native-BHI software sequences')
+    Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+    Reviewed-by: Jan Beulich <jbeulich@suse.com>
+    Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
+    master commit: 049ab0b2c9f1f5edb54b505fef0bc575787dafe9
+    master date: 2024-04-25 16:35:56 +0200
+(qemu changes not included)
 
