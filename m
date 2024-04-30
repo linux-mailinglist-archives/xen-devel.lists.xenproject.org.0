@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 853798B7A86
-	for <lists+xen-devel@lfdr.de>; Tue, 30 Apr 2024 16:48:08 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.714970.1116388 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 63EA38B7AB9
+	for <lists+xen-devel@lfdr.de>; Tue, 30 Apr 2024 16:59:01 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.714976.1116398 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s1oli-0004TG-61; Tue, 30 Apr 2024 14:47:42 +0000
+	id 1s1ow6-0006Tu-5B; Tue, 30 Apr 2024 14:58:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 714970.1116388; Tue, 30 Apr 2024 14:47:42 +0000
+Received: by outflank-mailman (output) from mailman id 714976.1116398; Tue, 30 Apr 2024 14:58:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s1oli-0004Rk-2v; Tue, 30 Apr 2024 14:47:42 +0000
-Received: by outflank-mailman (input) for mailman id 714970;
- Tue, 30 Apr 2024 14:47:40 +0000
+	id 1s1ow6-0006Qk-1F; Tue, 30 Apr 2024 14:58:26 +0000
+Received: by outflank-mailman (input) for mailman id 714976;
+ Tue, 30 Apr 2024 14:58:25 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Q3to=MD=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1s1olg-0004Re-HZ
- for xen-devel@lists.xenproject.org; Tue, 30 Apr 2024 14:47:40 +0000
-Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
- [2a00:1450:4864:20::332])
+ id 1s1ow5-0006Qe-3z
+ for xen-devel@lists.xenproject.org; Tue, 30 Apr 2024 14:58:25 +0000
+Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
+ [2a00:1450:4864:20::335])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 9694b580-0700-11ef-b4bb-af5377834399;
- Tue, 30 Apr 2024 16:47:38 +0200 (CEST)
-Received: by mail-wm1-x332.google.com with SMTP id
- 5b1f17b1804b1-41ba1ba55e9so32014095e9.3
- for <xen-devel@lists.xenproject.org>; Tue, 30 Apr 2024 07:47:38 -0700 (PDT)
+ id 16abc0b5-0702-11ef-b4bb-af5377834399;
+ Tue, 30 Apr 2024 16:58:22 +0200 (CEST)
+Received: by mail-wm1-x335.google.com with SMTP id
+ 5b1f17b1804b1-41b79450f8cso36845595e9.3
+ for <xen-devel@lists.xenproject.org>; Tue, 30 Apr 2024 07:58:22 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- n18-20020a05600c4f9200b004169836bf9asm49080558wmq.23.2024.04.30.07.47.37
+ m16-20020a05600c3b1000b0041496734318sm49461958wms.24.2024.04.30.07.58.21
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 30 Apr 2024 07:47:37 -0700 (PDT)
+ Tue, 30 Apr 2024 07:58:21 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,52 +45,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9694b580-0700-11ef-b4bb-af5377834399
+X-Inumbo-ID: 16abc0b5-0702-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1714488457; x=1715093257; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1714489102; x=1715093902; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=46tskrF92hLUMV+B1R/GuJlMBvlIuA3gaMSqcfZbiSc=;
-        b=dHFWR8R6YWoe8WVFqB0LRW+f2JWdL/KODt4U0mdbcljVLACayVUOuBGmh3OKAYJKhO
-         q3HMQkhSFym+NgKMQddGvN0xA/wCaHHwCihruiZdev5fOUQ6djx3qiurlUkSDwgBTx5O
-         x3rT+Iecm/YFTbYWB6tRcBr1gonh859YLrmLvTQxOgQ2XCaSQOspfll2cu0w5Zqv2Fa0
-         4gQ+4/3wHbZuHqumrZTODPgGQ3nIP45Cw5pxrqZ/T0cxxeJv7D6IR58bHWRKoKpZDuDu
-         DylWirQsqqYCDyXXTWR4hSXDTbkKEhm4ZrXmMN8uoL5osQEC7Cx/pnebBzholBEPY8i7
-         SRYA==
+        bh=B2ovsyWUN93Z5+yL8ZbHU/AwvELtSzmSnTH1TL2bdi8=;
+        b=FwUhWJdvJRs/AwCUTajMUq4KJWElF5YPTPgQQdtvmN0fvVRUiWbYipRLGto43ZYrSl
+         cg6XthV2+bY24+fymhcvKOWygdNFtBVXuWcNUYZCJzAuJFjj2BN1PqgdS0aUzvmArsbI
+         2y1fIqXtzH3Il4pL9yk5m8g2JZNKoa2JLvA+jxzq4rS8cqXEOihhG2QSn+Wz2u4krGxu
+         HOAYzOufsi6u3Uqk+ii2oJqj8e71WGZpmFWNNUcknwOiM8o7ehwMkU9Vvw5MvMfkiP9z
+         ST9rzFQTFRkTTxIZmjXT01NYFRHJj0Ty+nbf51NdJgUBjtYWaf37+k3mgHlX+/yur+YG
+         XGBQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1714488457; x=1715093257;
+        d=1e100.net; s=20230601; t=1714489102; x=1715093902;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=46tskrF92hLUMV+B1R/GuJlMBvlIuA3gaMSqcfZbiSc=;
-        b=caZg1JG+/ZRx8c9Dh4NLU6jyJpeJFqPYEzrLo17YDMjgYrYrnKfQQGSUnuZRDKTw7i
-         UYyJ0ea2EXUlDEk+u2gjHCRPyZ/hJwJ6sbNFjI9EzKtKOeQtsEsLr+gOOv2mNuVi2XYA
-         /3v/Vxt+TSWBtxSHHB9XYBgGtM0teZNY9HiUVx/UG4VXnMAzPfsDlcNxiW1TXwPO1m0z
-         y1rwczYZkMZtUl79OLR4v4M2oPa6suWJKzm8ZaYkBzh7iPOeqCiW3jl1lLAVXRJ05g9b
-         27oXelvzofe84BLjTlS81OiewL+pDECffaMXyiN4gcqe4L46aQ/6FrXpqYVAHuun3aXo
-         qVZQ==
-X-Forwarded-Encrypted: i=1; AJvYcCXLoo68mM7vWeE0dhXWrXiz5E17EZkoUWOA1Nwe7AazEGR+5VkktWhJGLwASVt3Bk6lTCwGIf+Xj/B4txVulJraFYbhEy+GRjDYlXu4D2g=
-X-Gm-Message-State: AOJu0Yy68ctCFQx7AHyhffak27HclEnQY1dJo1SAHuddXJPoWltaMTvN
-	2VcKAPG3ej4H6EJEUeLNucp6qQ1+/HtyvN6HybD6mCMXMXmnyMiaRo5hzzT5hQ==
-X-Google-Smtp-Source: AGHT+IFGfYOKD1Ew6vAwLQwXYErXklb+XrKRE4ydayaDumhsA9MRBoz14X1djwOZyHQB/LMwhwTP8g==
-X-Received: by 2002:a05:600c:1d9f:b0:41c:97e:20b9 with SMTP id p31-20020a05600c1d9f00b0041c097e20b9mr2566449wms.14.1714488457539;
-        Tue, 30 Apr 2024 07:47:37 -0700 (PDT)
-Message-ID: <4d9930d4-4379-4440-83b2-14ebffc7c03d@suse.com>
-Date: Tue, 30 Apr 2024 16:47:36 +0200
+        bh=B2ovsyWUN93Z5+yL8ZbHU/AwvELtSzmSnTH1TL2bdi8=;
+        b=olMieskF+Qxq7cofw5uB+x5Sgk40cu+r80vKWbDiEuOlg2o6N6mXm2dKRQ4nr7t9o9
+         vGlxj/FpGWelrAErc2Zkp0RlCFmgdAFe6NvdlWGttEyofWP0QpZNocsr9JTLBMHZQ4ko
+         ohOVuqXxjm6QW5eZb7t270NvUKhtnGA8YPpRARAs4CtzF4voZ/te5dWNzoHOh3iQzrzY
+         r0GEOCL9l5I8uyrpDbtAewXfcmYkoLv5WsltjylyUuITOURi0wC1qOl95T+JNK+wHS3v
+         oR5JC6/pYDbl2a85Gd6F++iEPaPWOE3z6t7JcUdzzCy/p7ect7P1n48/HUgclyAdEUlz
+         CFBQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWtcgN8iHGN/cuzwedZeedrUeA18mAo7+J1YN7go4BSRGlq5Y4+wDQA9LCgJ7EfpCRL2eFu6PQW+8wDdWfyYJlCXRnVSdbxBfqje8yxiek=
+X-Gm-Message-State: AOJu0YzIPZqU2jzk/OgQreet8E/yzDy9sqbvBaqoZ/kQg83oP1zwZCJR
+	/R25P/7YjIY+Db7aaVLGj09hycwGyJXWbPk9eutIVNuUoYZ+gPwiiDSJncVbdw==
+X-Google-Smtp-Source: AGHT+IFMsr1WRD8xulwo4O9R0arW/g5tGlsZJHd+5WV92dz1HzBPnSVfaU6nGUKU8lhYUX2lZBfk+g==
+X-Received: by 2002:a05:600c:cc6:b0:41a:446b:10df with SMTP id fk6-20020a05600c0cc600b0041a446b10dfmr2827689wmb.12.1714489101953;
+        Tue, 30 Apr 2024 07:58:21 -0700 (PDT)
+Message-ID: <6633a35b-37a8-4439-8722-448b2e85cb7f@suse.com>
+Date: Tue, 30 Apr 2024 16:58:20 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 7/7] x86/hap: Increase the number of initial
- mempool_size to 1024 pages
+Subject: Re: [PATCH v6 2/7] x86/msi: Extend per-domain/device warning
+ mechanism
 Content-Language: en-US
-To: =?UTF-8?Q?Petr_Bene=C5=A1?= <w1benny@gmail.com>
-Cc: Anthony PERARD <anthony@xenproject.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>,
+To: =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  xen-devel@lists.xenproject.org
-References: <cover.1714322424.git.w1benny@gmail.com>
- <a26bc4aeba89f7895c79df7e320adfc695b16d50.1714322424.git.w1benny@gmail.com>
+References: <cover.3491f479d5b6238106af8ddc56ec6834090b330f.1714154036.git-series.marmarek@invisiblethingslab.com>
+ <46f33e8ae1aa7d310e7a99e9da29d29096b0935b.1714154036.git-series.marmarek@invisiblethingslab.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -115,58 +114,23 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <a26bc4aeba89f7895c79df7e320adfc695b16d50.1714322424.git.w1benny@gmail.com>
+In-Reply-To: <46f33e8ae1aa7d310e7a99e9da29d29096b0935b.1714154036.git-series.marmarek@invisiblethingslab.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 28.04.2024 18:52, Petr Beneš wrote:
-> From: Petr Beneš <w1benny@gmail.com>
+On 26.04.2024 19:53, Marek Marczykowski-Górecki wrote:
+> The arch_msix struct had a single "warned" field with a domid for which
+> warning was issued. Upcoming patch will need similar mechanism for few
+> more warnings, so change it to save a bit field of issued warnings.
 > 
-> This change anticipates scenarios where `max_altp2m` is set to its maximum
-> supported value (i.e., 512), ensuring sufficient memory is allocated upfront
-> to accommodate all altp2m tables without initialization failure.
+> Signed-off-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
 
-And guests with fewer or even no altp2m-s still need the same bump? You
-know the number of altp2m-s upon domain creation, so why bump by any more
-than what's strictly needed for that?
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
+(if that makes sense at all, considering that one fundamental part of it,
+the macro, was suggested by me)
 
-> The necessity for this increase arises from the current mechanism where altp2m
-> tables are allocated at initialization, requiring one page from the mempool
-> for each altp2m view.
-
-So that's the p2m_alloc_table() out of hap_enable()? If you're permitting
-up to 512 altp2m-s, I think it needs considering to not waste up to 2Mb
-without knowing how many of the altp2m-s are actually going to be used.
-How complicate on-demand allocation would be I can't tell though, I have
-to admit.
-
-> --- a/tools/tests/paging-mempool/test-paging-mempool.c
-> +++ b/tools/tests/paging-mempool/test-paging-mempool.c
-> @@ -35,7 +35,7 @@ static struct xen_domctl_createdomain create = {
->  
->  static uint64_t default_mempool_size_bytes =
->  #if defined(__x86_64__) || defined(__i386__)
-> -    256 << 12; /* Only x86 HAP for now.  x86 Shadow needs more work. */
-> +    1024 << 12; /* Only x86 HAP for now.  x86 Shadow needs more work. */
-
-I also can't derive from the description why we'd need to go from 256 to
-1024 here and ...
-
-> --- a/xen/arch/x86/mm/hap/hap.c
-> +++ b/xen/arch/x86/mm/hap/hap.c
-> @@ -468,7 +468,7 @@ int hap_enable(struct domain *d, u32 mode)
->      if ( old_pages == 0 )
->      {
->          paging_lock(d);
-> -        rv = hap_set_allocation(d, 256, NULL);
-> +        rv = hap_set_allocation(d, 1024, NULL);
-
-... here. You talk of (up to) 512 pages there only.
-
-Also isn't there at least one more place where the tool stack (libxl I
-think) would need changing, where Dom0 ballooning needs are calculated?
-And/or doesn't the pool size have a default calculation in the tool
-stack, too?
+However, unlike at other times I'd like this to go in only together with
+the following patch (or whatever other 2nd user of the new machinery).
 
 Jan
 
