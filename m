@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5EFE98B74BA
-	for <lists+xen-devel@lfdr.de>; Tue, 30 Apr 2024 13:43:44 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.714765.1116090 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D9E868B7567
+	for <lists+xen-devel@lfdr.de>; Tue, 30 Apr 2024 14:07:19 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.714783.1116100 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s1lt3-0002nU-Ap; Tue, 30 Apr 2024 11:43:05 +0000
+	id 1s1mFu-0006eo-IO; Tue, 30 Apr 2024 12:06:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 714765.1116090; Tue, 30 Apr 2024 11:43:05 +0000
+Received: by outflank-mailman (output) from mailman id 714783.1116100; Tue, 30 Apr 2024 12:06:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s1lt3-0002kK-82; Tue, 30 Apr 2024 11:43:05 +0000
-Received: by outflank-mailman (input) for mailman id 714765;
- Tue, 30 Apr 2024 11:43:02 +0000
+	id 1s1mFu-0006bc-FD; Tue, 30 Apr 2024 12:06:42 +0000
+Received: by outflank-mailman (input) for mailman id 714783;
+ Tue, 30 Apr 2024 12:06:41 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Q3to=MD=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1s1lt0-0002kE-Uf
- for xen-devel@lists.xenproject.org; Tue, 30 Apr 2024 11:43:02 +0000
-Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
- [2a00:1450:4864:20::329])
+ id 1s1mFt-0006bW-A7
+ for xen-devel@lists.xenproject.org; Tue, 30 Apr 2024 12:06:41 +0000
+Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
+ [2a00:1450:4864:20::430])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id cca3be27-06e6-11ef-909b-e314d9c70b13;
- Tue, 30 Apr 2024 13:43:02 +0200 (CEST)
-Received: by mail-wm1-x329.google.com with SMTP id
- 5b1f17b1804b1-41a1d2a7b81so37697675e9.0
- for <xen-devel@lists.xenproject.org>; Tue, 30 Apr 2024 04:43:01 -0700 (PDT)
+ id 1a0346c1-06ea-11ef-909b-e314d9c70b13;
+ Tue, 30 Apr 2024 14:06:40 +0200 (CEST)
+Received: by mail-wr1-x430.google.com with SMTP id
+ ffacd0b85a97d-34a32ba1962so4493389f8f.2
+ for <xen-devel@lists.xenproject.org>; Tue, 30 Apr 2024 05:06:40 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- n3-20020a05600c4f8300b0041be58cdf83sm12008766wmq.4.2024.04.30.04.43.00
+ g2-20020a5d5542000000b0034720354152sm31838270wrw.117.2024.04.30.05.06.39
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 30 Apr 2024 04:43:01 -0700 (PDT)
+ Tue, 30 Apr 2024 05:06:39 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: cca3be27-06e6-11ef-909b-e314d9c70b13
+X-Inumbo-ID: 1a0346c1-06ea-11ef-909b-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1714477381; x=1715082181; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1714478799; x=1715083599; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=hlfRLkXu/zsik/9FKrNtbckUsn14hT6U140XTAc6xWE=;
-        b=Qo3VKFM4KiIwC7sUT7Ue4ZXJ15oWXlt6UJ3GdxByYjsWsi/Bctdia8DQHrYDRyKk98
-         nV6Bu97b4ro/QQbb3nf5oLYzJ24XnSlglPQH1DLSSCd9Qhjj/DgNdt9SXrKCfn1GGr4G
-         OLjGO+IMicsJ5BTLWr84N9j5CkbN1Q/r+g15KN8TtXmJAFTlPITslgIISC9mJG0JDNON
-         a4FP6uF8n+QTfHLL4Nnh/npg+Okn6qWP2CC+DgEQbHiJ3X+lZ9tCtfgeNyJenGLjeExt
-         IJLblzcQsRhL6keI4BPffA1SWDDbC+cPfC233BIOa1qEe+ddf4rDyR7hAg+vRh9AmtOh
-         k2jw==
+        bh=uBYB0KU75nEFt9ffW9ZeKwEeAIsRsojIbfhPCN2LxDk=;
+        b=QNQ8YGtLp+sL44O7aBdRR3DO9hoaYHeWHlWCdpb/JIAUmmeh9c1TofGQR1kcDibFfR
+         AGgikWk3IIDY97bYoIm+Q8C98AZ2bwixcvgLVsyeN0NftnUfgopiOpplNy7Yt+in0RV/
+         GskHiV7s470HlYADqz9QHeP+QUpK/DHgboLkv+XRhcFAVi4eaZ1k36JhOwnWiE6Yo1c/
+         KSgCf4NBqoJ/qz6Fyw+erar5Ei7Y636RR3bGsQLFqF1ab4L3OJptKBS20C1FJ3+QEocg
+         3Rsp1KzvCdAqCKlMEgnhsLRHNBa1mgnnXwLYcdgWhaul3vkk7mGcMPDp6S2F7REoZiLj
+         c//w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1714477381; x=1715082181;
+        d=1e100.net; s=20230601; t=1714478799; x=1715083599;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=hlfRLkXu/zsik/9FKrNtbckUsn14hT6U140XTAc6xWE=;
-        b=sg0bmXAl64fXCNtuye8uRwJImmLybCqf8WzXrrxbor5gKjwJaWaF18SE33kA2LcAvM
-         JPlOcHBIRqAJSOxPQi6yvyH5CWXEtKmHjrr2XcOyMrBzbdeGSINUYLDrxp+A0dTjMCw3
-         i2XLddi7VgF2Ufs9VwbSNmQRNIyWI+496ty3EjrnnfKWfaMvp2ULCmUh/UOAgO4fASIo
-         izkt5Dum0Qlhxd1dRvABPzW48CZNDDBioBpO2xfgyile6Cy2QS4b6QeQf50asD9VT6QH
-         BKuqvVH+9AH+XQBXZIXaWuqmiei0lRkV5ltX2zsiQ/B8xcC13HhkDGhMv6q6TvgWv4QH
-         rMkw==
-X-Forwarded-Encrypted: i=1; AJvYcCUIecztdFi2EYmbfPD/FPiW9sqYW7DnAAOeekVZtIj6jHTGY+gS6WJUHV3vSHiMbKnWgZUfid6MMOh4bTtzsPS/DEHbenTtKZD3xFWX6TQ=
-X-Gm-Message-State: AOJu0Ywds8rM2joGinZRJG1fIn8cVgfo3RzfREF7nQNqbhKTbUlcGQ1E
-	bsmgQg626NE0QQyAWD5c+ZloRHTfDxldbg3avmAa5tbr7NFmG4T9IMxroACWEw==
-X-Google-Smtp-Source: AGHT+IE4XdFFNFONub6IPJ0Fh1kdVVcTKIV6OGhSp0pY71kl+blW4B4RRmuS3JgUNPTnqtN4/p/wjA==
-X-Received: by 2002:a05:600c:5110:b0:418:c6a:1765 with SMTP id o16-20020a05600c511000b004180c6a1765mr2095186wms.16.1714477381292;
-        Tue, 30 Apr 2024 04:43:01 -0700 (PDT)
-Message-ID: <cd2352aa-e94b-43ef-b3fc-359cc1f43fb0@suse.com>
-Date: Tue, 30 Apr 2024 13:43:00 +0200
+        bh=uBYB0KU75nEFt9ffW9ZeKwEeAIsRsojIbfhPCN2LxDk=;
+        b=ix8bjZCaCTY27gDtcYE3QA8Sgf8zNLLUOgjr7d8f8wHZDCCQ3lqB5C/HJwNU4R4D6e
+         IawwULcP1o8qNeYI3oFOrqfl2TRNG3/e2wecXlDu2AFb3BEu86++uyGf+Zs17nvWfPox
+         xOVMoLkQ0LhqXw00wuxE2rBOydGcyqgSBrlCBXGrnxc/zMXtXIaMinCAFHvB+iE28m+9
+         4M5dIaYOUR5TnsPBesFFEleXSDOC2SxqITtonY7eBqvgk/mz4biOeqYE/ZxCzQmt7zLP
+         or4qB9m5JTk/BfmJE6Wz/L/8umI+6n5gLEPvhpkAvnmPLr2SL1TvaZN0YBLb/AeioF0/
+         kP9A==
+X-Forwarded-Encrypted: i=1; AJvYcCU0IF1P+g9DxtG7X7dZnyISu7yeiBtmLaMERJZDdpspsZyN2dgrv9KLUoSlw6pyvn8cNjE1uNQ72Cz9ar0AQJ6CoVJv1HG/qb3Vy3Ylch0=
+X-Gm-Message-State: AOJu0YxcANe0IiKe+TMk9S8tWZDmPPO2So1Zyt71usn7EOPNZ1cMn3hP
+	2perlIWu1NcwYAEtjDf9mtMMc7NbQBCKK9tZvYdQfvByBH4glqkAhVwaaWRmgg==
+X-Google-Smtp-Source: AGHT+IGtM5G4E4B/DFSbOquO+pJd1NoZNXo+ArSWHVN1v1d1SDk/tMgutoTRY2O4kyIuCkxYmrI6kQ==
+X-Received: by 2002:a5d:6d06:0:b0:349:8a92:7eda with SMTP id e6-20020a5d6d06000000b003498a927edamr9729805wrq.12.1714478799613;
+        Tue, 30 Apr 2024 05:06:39 -0700 (PDT)
+Message-ID: <f1e594f7-2bf2-4898-824f-abd407690644@suse.com>
+Date: Tue, 30 Apr 2024 14:06:38 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] xen/kernel.h: Import __struct_group from Linux
+Subject: Re: [PATCH for-4.19] tools/xen-cpuid: switch to use cpu-policy
+ defined names
 Content-Language: en-US
-To: Luca Fancellu <luca.fancellu@arm.com>
-Cc: consulting@bugseng.com, nicola.vetrini@bugseng.com,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <20240430110922.15052-1-luca.fancellu@arm.com>
- <20240430110922.15052-2-luca.fancellu@arm.com>
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony@xenproject.org>, xen-devel@lists.xenproject.org,
+ Oleksii Kurochko <oleksii.kurochko@gmail.com>
+References: <20240430082901.77662-1-roger.pau@citrix.com>
+ <78d009f4-6610-4fcf-9cdc-ee1081e6c763@suse.com> <ZjDVN6kexFD0vcT2@macbook>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -113,40 +113,97 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240430110922.15052-2-luca.fancellu@arm.com>
+In-Reply-To: <ZjDVN6kexFD0vcT2@macbook>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 30.04.2024 13:09, Luca Fancellu wrote:
-> --- a/xen/include/xen/kernel.h
-> +++ b/xen/include/xen/kernel.h
-> @@ -54,6 +54,27 @@
->          typeof_field(type, member) *__mptr = (ptr);             \
->          (type *)( (char *)__mptr - offsetof(type,member) );})
->  
-> +/**
-> + * __struct_group() - Create a mirrored named and anonyomous struct
-> + *
-> + * @TAG: The tag name for the named sub-struct (usually empty)
-> + * @NAME: The identifier name of the mirrored sub-struct
-> + * @ATTRS: Any struct attributes (usually empty)
-> + * @MEMBERS: The member declarations for the mirrored structs
-> + *
-> + * Used to create an anonymous union of two structs with identical layout
-> + * and size: one anonymous and one named. The former's members can be used
-> + * normally without sub-struct naming, and the latter can be used to
-> + * reason about the start, end, and size of the group of struct members.
-> + * The named struct can also be explicitly tagged for layer reuse, as well
-> + * as both having struct attributes appended.
-> + */
-> +#define __struct_group(TAG, NAME, ATTRS, MEMBERS...) \
-> +    union { \
-> +        struct { MEMBERS } ATTRS; \
-> +        struct TAG { MEMBERS } ATTRS NAME; \
-> +    } ATTRS
+On 30.04.2024 13:25, Roger Pau Monné wrote:
+> On Tue, Apr 30, 2024 at 12:37:44PM +0200, Jan Beulich wrote:
+>> On 30.04.2024 10:29, Roger Pau Monne wrote:
+>>>  static const struct {
+>>>      const char *name;
+>>>      const char *abbr;
+>>> -    const char *const *strs;
+>>
+>> While how you're doing it looks all technically correct (so even without
+>> changes I may later ack this as is), I'm still a little puzzled. I was
+>> kind of expecting xen-cpuid.py to be extended to supply another (set
+>> of) #define(s) more suitable for use here. In particular, while
+>> performance surely isn't of much concern in this tool, ...
+>>
+>>> @@ -301,21 +52,32 @@ static const char *const fs_names[] = {
+>>>      [XEN_SYSCTL_cpu_featureset_hvm_max] = "HVM Max",
+>>>  };
+>>>  
+>>> -static void dump_leaf(uint32_t leaf, const char *const *strs)
+>>> +static const char *find_name(unsigned int index)
+>>>  {
+>>> -    unsigned i;
+>>> +    static const struct feature_name {
+>>> +        const char *name;
+>>> +        unsigned int bit;
+>>> +    } feature_names[] = INIT_FEATURE_NAMES;
+>>> +    unsigned int i;
+>>>  
+>>> -    if ( !strs )
+>>> -    {
+>>> -        printf(" ???");
+>>> -        return;
+>>> -    }
+>>> +    for ( i = 0; i < ARRAY_SIZE(feature_names); i++ )
+>>> +        if ( feature_names[i].bit == index )
+>>> +            return feature_names[i].name;
+>>
+>> ... a linear search, repeated perhaps hundreds of times, looks still a
+>> little odd to me.
+> 
+> I didn't benchmark what kind of performance impact this change would
+> have on the tool, but I didn't think it was that relevant, as this is
+> a diagnostic/debug tool, and hence performance (unless it took seconds
+> to execute) shouldn't be that important.
 
-Besides my hesitance towards having this construct, can you explain why
-ATTR needs using 3 times, i.e. also on the wrapping union?
+As indicated, performance itself isn't much of a concern here. My earlier
+question wants reading in relation to the other question raised, regarding
+the script maybe wanting to produce macro(s) more suitable for the purpose
+here.
+
+> I could switch to a non-const array and sort it at the start in order
+> to do a binary search, but that might be over engineering it.
+
+Switching to non-const would in particular not seem overly desirable to
+me.
+
+>>> @@ -326,6 +88,7 @@ static void decode_featureset(const uint32_t *features,
+>>>                                const char *name,
+>>>                                bool detail)
+>>>  {
+>>> +    static const uint32_t known_features[] = INIT_KNOWN_FEATURES;
+>>>      unsigned int i;
+>>
+>> So this variable exists solely to ...
+>>
+>>> @@ -336,11 +99,14 @@ static void decode_featureset(const uint32_t *features,
+>>>      if ( !detail )
+>>>          return;
+>>>  
+>>> -    for ( i = 0; i < length && i < ARRAY_SIZE(decodes); ++i )
+>>> +    /* Ensure leaf names stay in sync with the policy leaf count. */
+>>> +    BUILD_BUG_ON(ARRAY_SIZE(known_features) != ARRAY_SIZE(leaf_names));
+>>
+>> ... calculate its size here. Thus relying on the compiler to not flag
+>> such effectively unused static const variables.
+> 
+> I wondered whether to add the unused attribute, but seeing as gitlab
+> didn't complain I've forgot to add it.  I could add it.
+
+Actually I was rather trying to hint at omitting the variable altogether,
+like this:
+
+   BUILD_BUG_ON(ARRAY_SIZE((unsigned[])INIT_KNOWN_FEATURES) != ARRAY_SIZE(leaf_names));
+
+Yet I realize the look of it may not be liked, so adding the unused
+attribute (if a suitable abstraction exists in the tool stack) would
+probably be fine, too.
 
 Jan
 
