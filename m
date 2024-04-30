@@ -2,33 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 71C4C8B7C6D
-	for <lists+xen-devel@lfdr.de>; Tue, 30 Apr 2024 18:01:22 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.715037.1116468 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AED088B7C80
+	for <lists+xen-devel@lfdr.de>; Tue, 30 Apr 2024 18:09:14 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.715044.1116478 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s1puA-0003wD-Sf; Tue, 30 Apr 2024 16:00:30 +0000
+	id 1s1q2J-00058m-QW; Tue, 30 Apr 2024 16:08:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 715037.1116468; Tue, 30 Apr 2024 16:00:30 +0000
+Received: by outflank-mailman (output) from mailman id 715044.1116478; Tue, 30 Apr 2024 16:08:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s1puA-0003ug-P9; Tue, 30 Apr 2024 16:00:30 +0000
-Received: by outflank-mailman (input) for mailman id 715037;
- Tue, 30 Apr 2024 16:00:28 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=zuuf=MD=gmail.com=w1benny@srs-se1.protection.inumbo.net>)
- id 1s1pu8-0003ua-PB
- for xen-devel@lists.xenproject.org; Tue, 30 Apr 2024 16:00:28 +0000
-Received: from mail-oo1-xc2b.google.com (mail-oo1-xc2b.google.com
- [2607:f8b0:4864:20::c2b])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c1d4624b-070a-11ef-b4bb-af5377834399;
- Tue, 30 Apr 2024 18:00:26 +0200 (CEST)
-Received: by mail-oo1-xc2b.google.com with SMTP id
- 006d021491bc7-5acb737b508so2630706eaf.0
- for <xen-devel@lists.xenproject.org>; Tue, 30 Apr 2024 09:00:26 -0700 (PDT)
+	id 1s1q2J-00056O-NJ; Tue, 30 Apr 2024 16:08:55 +0000
+Received: by outflank-mailman (input) for mailman id 715044;
+ Tue, 30 Apr 2024 16:08:55 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=L/US=MD=amazon.co.uk=prvs=84335f14b=eliasely@srs-se1.protection.inumbo.net>)
+ id 1s1q2J-00056I-53
+ for xen-devel@lists.xenproject.org; Tue, 30 Apr 2024 16:08:55 +0000
+Received: from smtp-fw-80009.amazon.com (smtp-fw-80009.amazon.com
+ [99.78.197.220]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id ef9ea85a-070b-11ef-909b-e314d9c70b13;
+ Tue, 30 Apr 2024 18:08:53 +0200 (CEST)
+Received: from pdx4-co-svc-p1-lb2-vlan2.amazon.com (HELO
+ smtpout.prod.us-west-2.prod.farcaster.email.amazon.dev) ([10.25.36.210])
+ by smtp-border-fw-80009.pdx80.corp.amazon.com with
+ ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Apr 2024 16:08:48 +0000
+Received: from EX19MTAEUC002.ant.amazon.com [10.0.10.100:56250]
+ by smtpin.naws.eu-west-1.prod.farcaster.email.amazon.dev [10.0.5.85:2525] with
+ esmtp (Farcaster)
+ id 186665e8-eb70-4e8e-aff0-c9983345233e; Tue, 30 Apr 2024 16:08:46 +0000 (UTC)
+Received: from EX19D018EUA002.ant.amazon.com (10.252.50.146) by
+ EX19MTAEUC002.ant.amazon.com (10.252.51.245) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1258.28; Tue, 30 Apr 2024 16:08:42 +0000
+Received: from [192.168.29.156] (10.106.83.21) by
+ EX19D018EUA002.ant.amazon.com (10.252.50.146) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1258.28; Tue, 30 Apr 2024 16:08:39 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,154 +52,202 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c1d4624b-070a-11ef-b4bb-af5377834399
+X-Inumbo-ID: ef9ea85a-070b-11ef-909b-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1714492825; x=1715097625; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=r9K93l+qQHBw3k4VI9XKbaOJGuSi7wrpLnKLw5EPuXQ=;
-        b=gDadQ9Gvr4nc9aDiGZLwB2WlYX0LPWilcCcUYmfMfDajQmkgi86VXV/Bxljvej/L6v
-         OxJlZYKY2qFzY3Mb1btEW2AUof0ywB1hK0asKqdfdeLFWBRc3gYRMuGYy+3bgTfma+sS
-         uJm83kFHRka0DLT7GpVlNn9ZulMdTZVWX23HGPOFiLWuIFQAEIAWVlOgXfwmJYrdbWH+
-         Ukbr88SlDj7at+EFravS1Rh51xMkHsaCFC3owbGZvUr8MnRKvq/YD6tF8pCR1dxZBRCO
-         OLn7Usl/Mu1589YoAghOeMiQ3/uw2VgBftpsrwl0yTkSKY3tLTnwmbXuupNk5KIfEfUv
-         dRDA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1714492825; x=1715097625;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=r9K93l+qQHBw3k4VI9XKbaOJGuSi7wrpLnKLw5EPuXQ=;
-        b=BabW9jbsPV+lNqrxF+rYRot2R7r3fPKqYJdI4DgFb96R/S7CPYa9Ih+B4T6dFIHoFY
-         WQ1Vr1Pv59Ks2HN+AUeticNt51b7LuPoPp1jDoL2SVKWmiGw4BTY/diWEX1Vcg2JQapx
-         f1Nzk/+lc5Anh3ysJC+TEhhE+T+Nsjl7hF2I0ERhLiggw8O4+eQjUSiaNrNQYFGBg4ej
-         CP062X6iZqyI2UT9fd4eLGzOVXuZgW3I+UmwT/phCF846yLlHgPq6coRKJQpJz3l0xIR
-         FWaCpQebrD3bwmPzOs7pxadfc/M1pK3K6CJoEHq6Q7B1PSPjSCow8I4S7rFkIp2dKD85
-         G2Ng==
-X-Forwarded-Encrypted: i=1; AJvYcCXm31F40WO9qNRKFMs3J9CQ8/ARlAYCvYFZP9KevHKnECPWe4Y8PnIypYP/pO+ne4ZpOY378LKLFZBaI3I3WFYO0JG05ItLC2I+v67D3A8=
-X-Gm-Message-State: AOJu0Yz0Mh7jo3uA3wOEEA3bsq1oQqnDKQbKHtUmPxXfys/eRHtpe7pL
-	iyoWCnM58ALi1EWkgKu464JpIqT8tvD5Ec/rvMvibk+45HVjeyZEQtP0JDgfcVIs1pYtZU4K5xI
-	fNUYmilgvtPxmwqdPpVliT5RC6KvwNg==
-X-Google-Smtp-Source: AGHT+IE8VPOj/AdPNyYEJxTn3ubftemBUv4rvAMFcZW0HD2NqAs1enfseRYO2vblV4UPC1KGx/KWZPBk7eyX9F87HUc=
-X-Received: by 2002:a05:6871:794:b0:23c:b686:913 with SMTP id
- o20-20020a056871079400b0023cb6860913mr6013177oap.50.1714492824816; Tue, 30
- Apr 2024 09:00:24 -0700 (PDT)
+  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazon201209;
+  t=1714493333; x=1746029333;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=EfJUfzR8bzd9lzOt6I9Dh6oyaNcLen2Te1FxnodN7Do=;
+  b=YABzOZ7MpYzPBLWCcNVcvj7dBHc2pT+k7wcIQEvrDtCAcYceu5iTyVci
+   R+2gNFAQN7Ejfhq+G7822Pfui8JavRsRjWn3zSnZUateGhZXAsHBXzA2U
+   SKdxW87dFoP7GRPVpjVW+VeCeESuF12iat2Z5zyb7qUr9bIQUznC1Gddy
+   o=;
+X-IronPort-AV: E=Sophos;i="6.07,242,1708387200"; 
+   d="scan'208";a="85752971"
+X-Farcaster-Flow-ID: 186665e8-eb70-4e8e-aff0-c9983345233e
+Message-ID: <a5ba2399-30a6-4ca4-bb8c-cf8773f862b9@amazon.com>
+Date: Tue, 30 Apr 2024 17:08:35 +0100
 MIME-Version: 1.0
-References: <cover.1714322424.git.w1benny@gmail.com> <0041438ff7a5d5b2fad59b676f4ece80470bf3b3.1714322424.git.w1benny@gmail.com>
- <5600e97e-5d44-4901-a867-b48192e9525f@suse.com>
-In-Reply-To: <5600e97e-5d44-4901-a867-b48192e9525f@suse.com>
-From: =?UTF-8?Q?Petr_Bene=C5=A1?= <w1benny@gmail.com>
-Date: Tue, 30 Apr 2024 18:00:13 +0200
-Message-ID: <CAKBKdXjsz_By_nZHDBpzTASSwMQUw61-7UA0YYrSTN+YDivqWQ@mail.gmail.com>
-Subject: Re: [PATCH v2 4/7] x86: Make the maximum number of altp2m views configurable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 (resend) 07/27] x86: Map/unmap pages in
+ restore_all_guests
 To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-	George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>, 
-	Stefano Stabellini <sstabellini@kernel.org>, Tamas K Lengyel <tamas@tklengyel.com>, 
-	Alexandru Isaila <aisaila@bitdefender.com>, Petre Pircalabu <ppircalabu@bitdefender.com>, 
-	xen-devel@lists.xenproject.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+CC: <julien@xen.org>, <pdurrant@amazon.com>, <dwmw@amazon.com>, Hongyan Xia
+	<hongyxia@amazon.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu
+	<wl@xen.org>, Julien Grall <jgrall@amazon.com>,
+	<xen-devel@lists.xenproject.org>
+References: <20240116192611.41112-1-eliasely@amazon.com>
+ <20240116192611.41112-8-eliasely@amazon.com>
+ <a2ce9820-c57a-4690-9dc6-c15d8a1489f4@suse.com>
+Content-Language: en-US
+From: Elias El Yandouzi <eliasely@amazon.com>
+In-Reply-To: <a2ce9820-c57a-4690-9dc6-c15d8a1489f4@suse.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.106.83.21]
+X-ClientProxiedBy: EX19D032UWB003.ant.amazon.com (10.13.139.165) To
+ EX19D018EUA002.ant.amazon.com (10.252.50.146)
 
-On Tue, Apr 30, 2024 at 4:27=E2=80=AFPM Jan Beulich <jbeulich@suse.com> wro=
-te:
->
-> > --- a/xen/arch/x86/domain.c
-> > +++ b/xen/arch/x86/domain.c
-> > @@ -685,6 +685,12 @@ int arch_sanitise_domain_config(struct xen_domctl_=
-createdomain *config)
-> >          return -EINVAL;
-> >      }
-> >
-> > +    if ( config->max_altp2m > MAX_EPTP )
-> > +    {
-> > +        dprintk(XENLOG_INFO, "max_altp2m must be <=3D %u\n", MAX_EPTP)=
-;
-> > +        return -EINVAL;
-> > +    }
->
-> ... using MAX_EPTP here feels like a layering violation to me. Imo there =
-want
-> to be separate constants, tied together with a suitably placed BUILD_BUG_=
-ON().
->
-> Furthermore comparisons like this (there are further ones elsewhere) sugg=
-est
-> there is a (continued) naming issue: A max_ or MAX_ prefix ought to name =
-a
-> "maximum valid value", not "number of permitted values". This is not a
-> request to alter MAX_EPTP, but one to make sure the new struct fields rea=
-lly
-> have matching names and purposes.
+Hi Jan,
 
-Do you have any proposals? I was considering nr_altp2m. Another
-question is what it should be named in xl.cfg - also nr_altp2m? I was
-too hesitant to name it like that, since there aren't any nr_* fields
-currently.
 
-> > --- a/xen/arch/x86/include/asm/domain.h
-> > +++ b/xen/arch/x86/include/asm/domain.h
-> > @@ -258,11 +258,10 @@ struct paging_vcpu {
-> >      struct shadow_vcpu shadow;
-> >  };
-> >
-> > +#define INVALID_ALTP2M  0xffff
-> > +#define MAX_EPTP        ((unsigned int)(PAGE_SIZE / sizeof(uint64_t)))
->
-> Aiui you add this cast because of the various min() uses. However, beside=
-s
-> wanting to avoid such casts (or in fact any, whenever possible), I don't
-> see why you need to retain all those min(): You bound d->max_altp2m again=
-st
-> MAX_EPTP during domain creation anyway.
+>> From: Hongyan Xia <hongyxia@amazon.com>
+>>
+>> Before, it assumed the pv cr3 could be accessed via a direct map. This
+>> is no longer true.
+> 
+> There are a number of terminology issues here, starting with the title:
+> Unlike (iirc) in an earlier version, no mapping/unmapping occurs in
+> restore_all_guests itself anymore. When reading just the title I
+> thought "What? Didn't I say no there?" Then for the sentence above: If
+> what it stated was true, a bug would have been introduced in one of
+> the earlier patches. What I think is meant, though, is that this is
+> going to be no longer true.
 
-Fair. I considered removing the min()s altogether. I left them in
-place because I was too paranoid.
+Indeed, I updated the code without renaming the commit nor reflecting 
+the changes in the commit message. I'll fix that in the next revision.
+> Finally the use of "shadow" in identifiers in the code changes
+> themselves is somewhat problematic imo, seeing the shadow paging mode
+> we support for both HVM and PV. The nature here is different (it's
+> merely a secondary mapping aiui), so I think it would be better to
+> avoid the term "shadow". Maybe ...
 
->
-> > @@ -28,8 +34,13 @@ altp2m_vcpu_initialise(struct vcpu *v)
-> >  void
-> >  altp2m_vcpu_destroy(struct vcpu *v)
-> >  {
-> > +    struct domain *d =3D v->domain;
-> >      struct p2m_domain *p2m;
-> >
-> > +    /* Skip destruction if no altp2m was used. */
-> > +    if ( d->max_altp2m =3D=3D 0 )
-> > +        return;
->
-> ... this one doesn't look quite right: Even if altp2m-s were initialized,
-> none may have been used (yet).
+I agree, let's clear the confusion, I'll go with PV_ROOT_PT_MAPPING_* 
+prefix.
 
-Fair. Bad choice of words.
+>> --- a/xen/arch/x86/include/asm/config.h
+>> +++ b/xen/arch/x86/include/asm/config.h
+>> @@ -202,7 +202,7 @@ extern unsigned char boot_edid_info[128];
+>>   /* Slot 260: per-domain mappings (including map cache). */
+>>   #define PERDOMAIN_VIRT_START    (PML4_ADDR(260))
+>>   #define PERDOMAIN_SLOT_MBYTES   (PML4_ENTRY_BYTES >> (20 + PAGETABLE_ORDER))
+>> -#define PERDOMAIN_SLOTS         3
+>> +#define PERDOMAIN_SLOTS         4
+>>   #define PERDOMAIN_VIRT_SLOT(s)  (PERDOMAIN_VIRT_START + (s) * \
+>>                                    (PERDOMAIN_SLOT_MBYTES << 20))
+>>   /* Slot 4: mirror of per-domain mappings (for compat xlat area accesses). */
+>> @@ -316,6 +316,16 @@ extern unsigned long xen_phys_start;
+>>   #define ARG_XLAT_START(v)        \
+>>       (ARG_XLAT_VIRT_START + ((v)->vcpu_id << ARG_XLAT_VA_SHIFT))
+>>   
+>> +/* root_pt shadow mapping area. The fourth per-domain-mapping sub-area */
+>> +#define SHADOW_ROOT_PT_VIRT_START   PERDOMAIN_VIRT_SLOT(3)
+>> +#define SHADOW_ROOT_PT_ENTRIES      MAX_VIRT_CPUS
+>> +#define SHADOW_ROOT_PT_VIRT_END     (SHADOW_ROOT_PT_VIRT_START +    \
+>> +                                     (SHADOW_ROOT_PT_ENTRIES * PAGE_SIZE))
+>> +
+>> +/* The address of a particular VCPU's ROOT_PT */
+>> +#define SHADOW_ROOT_PT_VCPU_VIRT_START(v) \
+>> +    (SHADOW_ROOT_PT_VIRT_START + ((v)->vcpu_id * PAGE_SIZE))
+> 
+> ... ROOT_PT_MAPPING_* throughout, or PV_ROOT_PT_MAPPING_*?
+> 
+> As to SHADOW_ROOT_PT_VIRT_END - when trying to check where it's used
+> and hence whether it really needs to use MAX_VIRT_CPUS I couldn't
+> spot any use. I don't think the constant should be defined when it's
+> not needed.
 
->
-> > --- a/xen/include/xen/sched.h
-> > +++ b/xen/include/xen/sched.h
-> > @@ -602,6 +602,8 @@ struct domain
-> >          unsigned int guest_request_sync          : 1;
-> >      } monitor;
-> >
-> > +    unsigned int max_altp2m; /* Maximum number of altp2m tables */
-> > +
-> >      unsigned int vmtrace_size; /* Buffer size in bytes, or 0 to disabl=
-e. */
->
-> ... this suggest you're confident other architectures will also want
-> to support altp2m. Yet nothing like that is said in the description.
-> In the absence of that common code should not require touching (much).
+Correct, let me remove it.
 
-Depends on the definition of "want". altp2m patches for arm/aarch64
-were sent to Xen some 6 years ago but were unfortunately rejected. I
-would very much welcome them.
+>> --- a/xen/arch/x86/mm.c
+>> +++ b/xen/arch/x86/mm.c
+>> @@ -505,6 +505,13 @@ void share_xen_page_with_guest(struct page_info *page, struct domain *d,
+>>       spin_unlock(&d->page_alloc_lock);
+>>   }
+>>   
+>> +#define shadow_root_pt_idx(v) \
+>> +    ((v)->vcpu_id >> PAGETABLE_ORDER)
+>> +
+>> +#define pv_shadow_root_pt_pte(v) \
+>> +    ((v)->domain->arch.pv.shadow_root_pt_l1tab[shadow_root_pt_idx(v)] + \
+>> +     ((v)->vcpu_id & (L1_PAGETABLE_ENTRIES - 1)))
+> 
+> I think uniformly named constant want using in both macros, i.e. either
+> some L1_* in the first macro (preferred) or an expression derived from
+> PAGETABLE_ORDER in the 2nd.
+> 
+>> @@ -524,6 +531,13 @@ void write_ptbase(struct vcpu *v)
+>>   
+>>       if ( is_pv_vcpu(v) && v->domain->arch.pv.xpti )
+>>       {
+>> +        mfn_t guest_root_pt = _mfn(v->arch.cr3 >> PAGE_SHIFT);
+> 
+> While we do so in several other places, I think we'd be better off not
+> continuing to assume the top bits to all be zero. IOW MASK_EXTR() may
+> be better to use here.
 
-I have added the field to domain instead of arch_domain simply because
-it is not an arch-bound feature - similarly to vmtrace below, which
-also doesn't have an equivalent implementation on other archs than x86
-(yet).
+Sure, let's be on the safe side
 
-As far as other comments/nits go - understood.
+>> +        l1_pgentry_t *pte = pv_shadow_root_pt_pte(v);
+>> +
+>> +        ASSERT(v == current);
+>> +
+>> +        l1e_write(pte, l1e_from_mfn(guest_root_pt, __PAGE_HYPERVISOR_RW));
+> 
+> The mapping is the copy source in restore_all_guests, isn't it? In
+> which case couldn't this be a r/o mapping?
 
-P.
+I believe you're right, let me change it to R/O.
+
+>> --- a/xen/arch/x86/pv/domain.c
+>> +++ b/xen/arch/x86/pv/domain.c
+>> @@ -288,6 +288,19 @@ static void pv_destroy_gdt_ldt_l1tab(struct vcpu *v)
+>>                                 1U << GDT_LDT_VCPU_SHIFT);
+>>   }
+>>   
+>> +static int pv_create_shadow_root_pt_l1tab(struct vcpu *v)
+>> +{
+>> +    return create_perdomain_mapping(v->domain, SHADOW_ROOT_PT_VCPU_VIRT_START(v),
+> 
+> This line looks to be too long. But ...
+> 
+>> +                                    1, v->domain->arch.pv.shadow_root_pt_l1tab,
+>> +                                    NULL);
+>> +}
+>> +
+>> +static void pv_destroy_shadow_root_pt_l1tab(struct vcpu *v)
+>> +
+>> +{
+>> +    destroy_perdomain_mapping(v->domain, SHADOW_ROOT_PT_VCPU_VIRT_START(v), 1);
+>> +}
+> 
+> ... I'm not convinced of the usefulness of these wrapper functions
+> anyway, even more so that each is used exactly once.
+
+The wrappers have been introduced to remain consistent with what has 
+been done with GDT/LDT table. I would like to keep them if you don't mind.
+
+>>       XFREE(d->arch.pv.cpuidmasks);
+>>   
+>>       FREE_XENHEAP_PAGE(d->arch.pv.gdt_ldt_l1tab);
+>> +    FREE_XENHEAP_PAGE(d->arch.pv.shadow_root_pt_l1tab);
+>>   }
+>>   
+>>   void noreturn cf_check continue_pv_domain(void);
+>> @@ -371,6 +394,12 @@ int pv_domain_initialise(struct domain *d)
+>>           goto fail;
+>>       clear_page(d->arch.pv.gdt_ldt_l1tab);
+>>   
+>> +    d->arch.pv.shadow_root_pt_l1tab =
+>> +        alloc_xenheap_pages(0, MEMF_node(domain_to_node(d)));
+>> +    if ( !d->arch.pv.shadow_root_pt_l1tab )
+>> +        goto fail;
+>> +    clear_page(d->arch.pv.shadow_root_pt_l1tab);
+> 
+> Looks like you simply cloned the GDT/LDT code. That's covering 128k
+> of VA space per vCPU, though, while here you'd using only 4k. Hence
+> using a full page looks like a factor 32 over-allocation. And once
+> using xzalloc() here instead a further question would be whether to
+> limit to the domain's actual needs - most domains will have far less
+> than 8k vCPU-s. In the common case (up to 512 vCPU-s) a single slot
+> will suffice, at which point a yet further question would be whether
+> to embed the "array" in struct pv_domain instead in that common case
+> (e.g. by using a union).
+
+I have to admit I don't really understand your suggestion. Could you 
+elaborate a bit more?
+
+Elias
 
