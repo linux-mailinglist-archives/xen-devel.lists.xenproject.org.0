@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 63EA38B7AB9
-	for <lists+xen-devel@lfdr.de>; Tue, 30 Apr 2024 16:59:01 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.714976.1116398 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4E58E8B7AE7
+	for <lists+xen-devel@lfdr.de>; Tue, 30 Apr 2024 17:03:57 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.714986.1116408 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s1ow6-0006Tu-5B; Tue, 30 Apr 2024 14:58:26 +0000
+	id 1s1p18-0007xU-Ls; Tue, 30 Apr 2024 15:03:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 714976.1116398; Tue, 30 Apr 2024 14:58:26 +0000
+Received: by outflank-mailman (output) from mailman id 714986.1116408; Tue, 30 Apr 2024 15:03:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s1ow6-0006Qk-1F; Tue, 30 Apr 2024 14:58:26 +0000
-Received: by outflank-mailman (input) for mailman id 714976;
- Tue, 30 Apr 2024 14:58:25 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1s1p18-0007vy-J7; Tue, 30 Apr 2024 15:03:38 +0000
+Received: by outflank-mailman (input) for mailman id 714986;
+ Tue, 30 Apr 2024 15:03:37 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Q3to=MD=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1s1ow5-0006Qe-3z
- for xen-devel@lists.xenproject.org; Tue, 30 Apr 2024 14:58:25 +0000
-Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
- [2a00:1450:4864:20::335])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 16abc0b5-0702-11ef-b4bb-af5377834399;
- Tue, 30 Apr 2024 16:58:22 +0200 (CEST)
-Received: by mail-wm1-x335.google.com with SMTP id
- 5b1f17b1804b1-41b79450f8cso36845595e9.3
- for <xen-devel@lists.xenproject.org>; Tue, 30 Apr 2024 07:58:22 -0700 (PDT)
+ id 1s1p17-0007vs-CY
+ for xen-devel@lists.xenproject.org; Tue, 30 Apr 2024 15:03:37 +0000
+Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
+ [2a00:1450:4864:20::42f])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id d1ad9ab5-0702-11ef-909b-e314d9c70b13;
+ Tue, 30 Apr 2024 17:03:36 +0200 (CEST)
+Received: by mail-wr1-x42f.google.com with SMTP id
+ ffacd0b85a97d-34db6a299b2so76127f8f.3
+ for <xen-devel@lists.xenproject.org>; Tue, 30 Apr 2024 08:03:36 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- m16-20020a05600c3b1000b0041496734318sm49461958wms.24.2024.04.30.07.58.21
+ df7-20020a5d5b87000000b0034bc5934bf8sm16511296wrb.31.2024.04.30.08.03.35
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 30 Apr 2024 07:58:21 -0700 (PDT)
+ Tue, 30 Apr 2024 08:03:35 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,43 +45,43 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 16abc0b5-0702-11ef-b4bb-af5377834399
+X-Inumbo-ID: d1ad9ab5-0702-11ef-909b-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1714489102; x=1715093902; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1714489415; x=1715094215; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=B2ovsyWUN93Z5+yL8ZbHU/AwvELtSzmSnTH1TL2bdi8=;
-        b=FwUhWJdvJRs/AwCUTajMUq4KJWElF5YPTPgQQdtvmN0fvVRUiWbYipRLGto43ZYrSl
-         cg6XthV2+bY24+fymhcvKOWygdNFtBVXuWcNUYZCJzAuJFjj2BN1PqgdS0aUzvmArsbI
-         2y1fIqXtzH3Il4pL9yk5m8g2JZNKoa2JLvA+jxzq4rS8cqXEOihhG2QSn+Wz2u4krGxu
-         HOAYzOufsi6u3Uqk+ii2oJqj8e71WGZpmFWNNUcknwOiM8o7ehwMkU9Vvw5MvMfkiP9z
-         ST9rzFQTFRkTTxIZmjXT01NYFRHJj0Ty+nbf51NdJgUBjtYWaf37+k3mgHlX+/yur+YG
-         XGBQ==
+        bh=ajhYvzYnGmwiL8O5tkWysDPW+BIJuZkEi6+oN5fluT8=;
+        b=CIllk+/KJtrlz4p8Lmeb05K4oQTJ+vXr4bgXCUQicm37ydMcrZYXjDXIJ9/5k54AkT
+         akcd0ef/4qCdv9jGBnKVdWM4zv2B0RsHu6pPJQrvUTTVf4lVAi5VGSFY5v511/O864zT
+         Ze085DuqPDvfQ2VASfUcllAgA1zuwFO7xENbiWZikvX643yCA+FKW1hTktLH82KIBlMP
+         tQKCjTU94wu75bR2jBoggx0C+/MVV3I3fcS16vULsWDTnldPTSCstV70tOeHPPTLBSO/
+         o0NNlm6lelY2nQxWDxQ2tNOVsR1Vorqd6v+S7pQJDUHJ/2eZXEuNeBLDH8vClNb0NgeB
+         JPXA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1714489102; x=1715093902;
+        d=1e100.net; s=20230601; t=1714489415; x=1715094215;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=B2ovsyWUN93Z5+yL8ZbHU/AwvELtSzmSnTH1TL2bdi8=;
-        b=olMieskF+Qxq7cofw5uB+x5Sgk40cu+r80vKWbDiEuOlg2o6N6mXm2dKRQ4nr7t9o9
-         vGlxj/FpGWelrAErc2Zkp0RlCFmgdAFe6NvdlWGttEyofWP0QpZNocsr9JTLBMHZQ4ko
-         ohOVuqXxjm6QW5eZb7t270NvUKhtnGA8YPpRARAs4CtzF4voZ/te5dWNzoHOh3iQzrzY
-         r0GEOCL9l5I8uyrpDbtAewXfcmYkoLv5WsltjylyUuITOURi0wC1qOl95T+JNK+wHS3v
-         oR5JC6/pYDbl2a85Gd6F++iEPaPWOE3z6t7JcUdzzCy/p7ect7P1n48/HUgclyAdEUlz
-         CFBQ==
-X-Forwarded-Encrypted: i=1; AJvYcCWtcgN8iHGN/cuzwedZeedrUeA18mAo7+J1YN7go4BSRGlq5Y4+wDQA9LCgJ7EfpCRL2eFu6PQW+8wDdWfyYJlCXRnVSdbxBfqje8yxiek=
-X-Gm-Message-State: AOJu0YzIPZqU2jzk/OgQreet8E/yzDy9sqbvBaqoZ/kQg83oP1zwZCJR
-	/R25P/7YjIY+Db7aaVLGj09hycwGyJXWbPk9eutIVNuUoYZ+gPwiiDSJncVbdw==
-X-Google-Smtp-Source: AGHT+IFMsr1WRD8xulwo4O9R0arW/g5tGlsZJHd+5WV92dz1HzBPnSVfaU6nGUKU8lhYUX2lZBfk+g==
-X-Received: by 2002:a05:600c:cc6:b0:41a:446b:10df with SMTP id fk6-20020a05600c0cc600b0041a446b10dfmr2827689wmb.12.1714489101953;
-        Tue, 30 Apr 2024 07:58:21 -0700 (PDT)
-Message-ID: <6633a35b-37a8-4439-8722-448b2e85cb7f@suse.com>
-Date: Tue, 30 Apr 2024 16:58:20 +0200
+        bh=ajhYvzYnGmwiL8O5tkWysDPW+BIJuZkEi6+oN5fluT8=;
+        b=VBbVyZAmPXx1JLrm5y9ICutzdR+RK7JCzR30IOv36t0I7TimB44Gm7egpDoXQDOcLB
+         izqE+3r9NfztoXwawcNMrA4TU0YHrGhQdA7+MXegLfD1SpTIPmj7HjVhiK41/IDIiozg
+         qi7OlUbYoF7mYK/2WnMhVcArqODiQPLljRa8F+9Y8UfGl+8zHJZIJDvE9V9IVwBcpZzY
+         vR4zCLbFDvNkHsxgOEfqRHuJO0HgSw/I361Lpy3mfbTsETcflcLAvDe770AW0u1r12pu
+         uDh0wa5a9IttEJBUvPr0mDFUfjGyQHiubtE+OA5TRf/li46N79ZFvwncYW6eX06Z/1zg
+         6Osg==
+X-Forwarded-Encrypted: i=1; AJvYcCXXRbcy5fR00UOGPhZevil8dHMqsRugoSrwQTt0KtDyyKJobB3k9/vKuJq8tokmLitsJPsKKqx7vthsIz4VDSyA5jzeqzzFvVJ1dohGnj4=
+X-Gm-Message-State: AOJu0YxDrwgCiU9zrT8+6aBDWYZcjKiE+OJ4CIaU69qz86t42s645Tjd
+	BbdDN/AbyFQTq+gqDFq67DwYqidO1CKS7rF87MewurHjEYWT4H/opXFWqLPh+g==
+X-Google-Smtp-Source: AGHT+IEb2TkrW4q+Vbx+qWLXHdOyw/UZ6fmLjivoIjs1fU2KD+UdghtAIDHpMl2OMaY9klwyA6Gb6g==
+X-Received: by 2002:a5d:6dc7:0:b0:343:efb7:8748 with SMTP id d7-20020a5d6dc7000000b00343efb78748mr2070385wrz.66.1714489415545;
+        Tue, 30 Apr 2024 08:03:35 -0700 (PDT)
+Message-ID: <79914c80-677f-4f5e-afab-370a5cc82437@suse.com>
+Date: Tue, 30 Apr 2024 17:03:34 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 2/7] x86/msi: Extend per-domain/device warning
- mechanism
+Subject: Re: [PATCH v6 3/7] x86/hvm: Allow access to registers on the same
+ page as MSI-X table
 Content-Language: en-US
 To: =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
  <marmarek@invisiblethingslab.com>
@@ -89,7 +89,7 @@ Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  xen-devel@lists.xenproject.org
 References: <cover.3491f479d5b6238106af8ddc56ec6834090b330f.1714154036.git-series.marmarek@invisiblethingslab.com>
- <46f33e8ae1aa7d310e7a99e9da29d29096b0935b.1714154036.git-series.marmarek@invisiblethingslab.com>
+ <a9b04e2224e97a27a127a003e8ccf5edfd4922c7.1714154036.git-series.marmarek@invisiblethingslab.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -114,23 +114,136 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <46f33e8ae1aa7d310e7a99e9da29d29096b0935b.1714154036.git-series.marmarek@invisiblethingslab.com>
+In-Reply-To: <a9b04e2224e97a27a127a003e8ccf5edfd4922c7.1714154036.git-series.marmarek@invisiblethingslab.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 26.04.2024 19:53, Marek Marczykowski-Górecki wrote:
-> The arch_msix struct had a single "warned" field with a domid for which
-> warning was issued. Upcoming patch will need similar mechanism for few
-> more warnings, so change it to save a bit field of issued warnings.
+On 26.04.2024 19:54, Marek Marczykowski-Górecki wrote:
+> Some devices (notably Intel Wifi 6 AX210 card) keep auxiliary registers
+> on the same page as MSI-X table. Device model (especially one in
+> stubdomain) cannot really handle those, as direct writes to that page is
+> refused (page is on the mmio_ro_ranges list). Instead, extend
+> msixtbl_mmio_ops to handle such accesses too.
+> 
+> Doing this, requires correlating read/write location with guest
+> of MSI-X table address. Since QEMU doesn't map MSI-X table to the guest,
+> it requires msixtbl_entry->gtable, which is HVM-only. Similar feature
+> for PV would need to be done separately.
+> 
+> This will be also used to read Pending Bit Array, if it lives on the same
+> page, making QEMU not needing /dev/mem access at all (especially helpful
+> with lockdown enabled in dom0). If PBA lives on another page, QEMU will
+> map it to the guest directly.
+> If PBA lives on the same page, discard writes and log a message.
+> Technically, writes outside of PBA could be allowed, but at this moment
+> the precise location of PBA isn't saved, and also no known device abuses
+> the spec in this way (at least yet).
+> 
+> To access those registers, msixtbl_mmio_ops need the relevant page
+> mapped. MSI handling already has infrastructure for that, using fixmap,
+> so try to map first/last page of the MSI-X table (if necessary) and save
+> their fixmap indexes. Note that msix_get_fixmap() does reference
+> counting and reuses existing mapping, so just call it directly, even if
+> the page was mapped before. Also, it uses a specific range of fixmap
+> indexes which doesn't include 0, so use 0 as default ("not mapped")
+> value - which simplifies code a bit.
+> 
+> GCC 12.2.1 gets confused about 'desc' variable:
+> 
+>     arch/x86/hvm/vmsi.c: In function ‘msixtbl_range’:
+>     arch/x86/hvm/vmsi.c:553:8: error: ‘desc’ may be used uninitialized [-Werror=maybe-uninitialized]
+>       553 |     if ( desc )
+>           |        ^
+>     arch/x86/hvm/vmsi.c:537:28: note: ‘desc’ was declared here
+>       537 |     const struct msi_desc *desc;
+>           |                            ^~~~
+> 
+> It's conditional initialization is actually correct (in the case where
+> it isn't initialized, function returns early), but to avoid
+> build failure initialize it explicitly to NULL anyway.
 > 
 > Signed-off-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
 
+_Without_ the usually implied ack (as indicated before) and with two
+small tweaks (which can likely be taken care of while committing):
 Reviewed-by: Jan Beulich <jbeulich@suse.com>
-(if that makes sense at all, considering that one fundamental part of it,
-the macro, was suggested by me)
 
-However, unlike at other times I'd like this to go in only together with
-the following patch (or whatever other 2nd user of the new machinery).
+> +static int adjacent_read(
+> +    unsigned int fixmap_idx,
+> +    paddr_t address, unsigned int len, uint64_t *pval)
+> +{
+> +    const void __iomem *hwaddr;
+> +
+> +    ASSERT(fixmap_idx <= FIX_MSIX_IO_RESERV_END);
+> +
+> +    hwaddr = fix_to_virt(fixmap_idx) + PAGE_OFFSET(address);
+> +
+> +    switch ( len )
+> +    {
+> +    case 1:
+> +        *pval = readb(hwaddr);
+> +        break;
+> +
+> +    case 2:
+> +        *pval = readw(hwaddr);
+> +        break;
+> +
+> +    case 4:
+> +        *pval = readl(hwaddr);
+> +        break;
+> +
+> +    case 8:
+> +        *pval = readq(hwaddr);
+> +        break;
+> +
+> +    default:
+> +        ASSERT_UNREACHABLE();
+> +        *pval = ~0UL;
+
+Nit: Better ~0ULL here (short of there being UINT64_C()).
+
+> +        break;
+> +    }
+> +
+> +    return X86EMUL_OKAY;
+> +}
+> +
+> +static int adjacent_write(
+> +    unsigned int fixmap_idx,
+> +    paddr_t address, unsigned int len, uint64_t val)
+> +{
+> +    void __iomem *hwaddr;
+> +
+> +    if ( fixmap_idx == ADJACENT_DISCARD_WRITE )
+> +        return X86EMUL_OKAY;
+> +
+> +    ASSERT(fixmap_idx <= FIX_MSIX_IO_RESERV_END);
+> +
+> +    hwaddr = fix_to_virt(fixmap_idx) + PAGE_OFFSET(address);
+> +
+> +    switch ( len )
+> +    {
+> +    case 1:
+> +        writeb(val, hwaddr);
+> +        break;
+> +
+> +    case 2:
+> +        writew(val, hwaddr);
+> +        break;
+> +
+> +    case 4:
+> +        writel(val, hwaddr);
+> +        break;
+> +
+> +    case 8:
+> +        writeq(val, hwaddr);
+> +        break;
+> +
+> +    default:
+> +        ASSERT_UNREACHABLE();
+> +    }
+
+There's still a "break;" missing here.
 
 Jan
 
