@@ -2,38 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DFB1F8B8E47
-	for <lists+xen-devel@lfdr.de>; Wed,  1 May 2024 18:36:30 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.715353.1116913 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5A74F8B8E79
+	for <lists+xen-devel@lfdr.de>; Wed,  1 May 2024 18:49:16 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.715358.1116922 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s2Cw4-0003Nv-9D; Wed, 01 May 2024 16:36:00 +0000
+	id 1s2D8O-0005Bm-C5; Wed, 01 May 2024 16:48:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 715353.1116913; Wed, 01 May 2024 16:36:00 +0000
+Received: by outflank-mailman (output) from mailman id 715358.1116922; Wed, 01 May 2024 16:48:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s2Cw4-0003L9-5I; Wed, 01 May 2024 16:36:00 +0000
-Received: by outflank-mailman (input) for mailman id 715353;
- Wed, 01 May 2024 16:35:58 +0000
+	id 1s2D8O-00058Z-8s; Wed, 01 May 2024 16:48:44 +0000
+Received: by outflank-mailman (input) for mailman id 715358;
+ Wed, 01 May 2024 16:48:43 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=PNhw=ME=cloud.com=alejandro.vallejo@srs-se1.protection.inumbo.net>)
- id 1s2Cw2-0003L0-Fy
- for xen-devel@lists.xenproject.org; Wed, 01 May 2024 16:35:58 +0000
-Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
- [2a00:1450:4864:20::635])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=93GK=ME=redhat.com=peterx@srs-se1.protection.inumbo.net>)
+ id 1s2D8N-00058D-P9
+ for xen-devel@lists.xenproject.org; Wed, 01 May 2024 16:48:43 +0000
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id e1f1e913-07d8-11ef-b4bb-af5377834399;
- Wed, 01 May 2024 18:35:56 +0200 (CEST)
-Received: by mail-ej1-x635.google.com with SMTP id
- a640c23a62f3a-a58fc650f8fso424601166b.1
- for <xen-devel@lists.xenproject.org>; Wed, 01 May 2024 09:35:56 -0700 (PDT)
-Received: from [10.80.5.21] (default-46-102-197-194.interdsl.co.uk.
- [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- r20-20020a170906705400b00a555ef55ab5sm16480723ejj.218.2024.05.01.09.35.54
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 01 May 2024 09:35:54 -0700 (PDT)
+ id a9d02b9d-07da-11ef-b4bb-af5377834399;
+ Wed, 01 May 2024 18:48:41 +0200 (CEST)
+Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com
+ [209.85.160.197]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-310-mmJZd0p4NIaR1-oHJiddWQ-1; Wed, 01 May 2024 12:48:38 -0400
+Received: by mail-qt1-f197.google.com with SMTP id
+ d75a77b69052e-43a3632d56aso28221481cf.1
+ for <xen-devel@lists.xenproject.org>; Wed, 01 May 2024 09:48:38 -0700 (PDT)
+Received: from x1n (pool-99-254-121-117.cpe.net.cable.rogers.com.
+ [99.254.121.117]) by smtp.gmail.com with ESMTPSA id
+ h2-20020ac85142000000b00439a1bdb6e5sm9468549qtn.17.2024.05.01.09.48.36
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 01 May 2024 09:48:37 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,93 +49,73 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e1f1e913-07d8-11ef-b4bb-af5377834399
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1714581355; x=1715186155; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=j0cOQGeawFsj/qDO2oxPiX5pTKzMxIMJ9PgXl4/JbDc=;
-        b=cUNgFlzTYFkxNg71AgFEGuylJWbjg5fuwt9Gg0DJmk38zH0JbTXF8ENuqG4RbJl+sh
-         5vYgt6GzuaHbMDKyxzFMhjkXDM6r6juAf9Twh6aZgxty6nESbjy2XWb96zL8ZyCfXVuQ
-         RoJVEZSuLtI4s5dC06/SyGKG5ei2XUHIwBQWY=
+X-Inumbo-ID: a9d02b9d-07da-11ef-b4bb-af5377834399
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1714582120;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=W0rqb1II+fEQyts8xj8PiGw705f1XoyimiMNElU/2to=;
+	b=HpvsD0Sn4IBb18Chv6mlys3QLv3az7QhlQg6grvlcG/hXKt9eSHT2ZR+LPtBnzhq+KxHsW
+	+PcnlVuj6Z24N4APt1vmkUMksEUBY04jrA1VVLMY+zIjcqYNqbhtnaSUTckyNZqBrgMsZi
+	GYBmC6THB3YbuATJOlJ6bVXR6+9yaa8=
+X-MC-Unique: mmJZd0p4NIaR1-oHJiddWQ-1
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1714581355; x=1715186155;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=j0cOQGeawFsj/qDO2oxPiX5pTKzMxIMJ9PgXl4/JbDc=;
-        b=iDyBnbfiajO/koB55C3uGj5lrWVMaOA6RADsRqgAOgm64NnN9w7W0OQnqy6DPyicDf
-         92nsXdWSYeSS8McUncSrXNpn2Q5EC6ZfeLRbtPhNGAu01zzPLvRVBjKDD/IZeylY0P+T
-         JSie/oVsULZRcCOuiRFzH1oQaQVx2YC4KNCDUlTConyJpvKO67mmEr9HAI5+FWbheEaT
-         gXWRfTH7ololQycoN7NOA8Ip+pGXxwrJzRYwU+B+RnRP3TrNj1rwYsOCBhlZUBFGR108
-         kls3ovaiVzM1FYO1PHNvS2V5fsU2MI6n+pS3Qt9PlsDSUwZXIbhLNRWIY3cgIWBaQ3lE
-         Rbmg==
-X-Forwarded-Encrypted: i=1; AJvYcCUaOlrYqC7zuRUz4fb7nxP8c6v65cnNCHIvB2wSN1kQE6uKaq/H6iv/qNhgwJILe0ZUo+CHwgXEE+f1c+QERQZT5cHGHkavMNhWDqs9UGw=
-X-Gm-Message-State: AOJu0YyRDe+iG0LiQvDo3adHfQQmQJ4JdSI7dJ5G3gmpSn5QJ6PLuICi
-	jDq56aAJiIJsZRqN5zUiYMS1mfmmVsQWialLD3CxA60krnERmGT2OV1O46DJDUo=
-X-Google-Smtp-Source: AGHT+IFRqeHjZmL01dM2T7B8D53tVViIXN/SqzUr/06Z8uK0aGxJky7964qbn84g8OyJb4/K4KHuMg==
-X-Received: by 2002:a17:906:da04:b0:a52:62a2:d727 with SMTP id fi4-20020a170906da0400b00a5262a2d727mr2345857ejb.52.1714581355277;
-        Wed, 01 May 2024 09:35:55 -0700 (PDT)
-Message-ID: <e0963ddd-c3b7-44dd-a3b7-67811f3e9d7a@cloud.com>
-Date: Wed, 1 May 2024 17:35:53 +0100
+        d=1e100.net; s=20230601; t=1714582118; x=1715186918;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=W0rqb1II+fEQyts8xj8PiGw705f1XoyimiMNElU/2to=;
+        b=ARKZ815GC3OvDFfTgCV0sbn3PX2bTvYh3OO1weIgdyRb92hTA9ZfnQD7ObWgST5mz5
+         NNyw/nBZV8RjJ3YC5UKRghxD7TBHIhnUQJip3iTqb9zGRF3AYrDeDTLz0jtJ8KwTsdOr
+         mEcv0Uyd+EfG2dQt2Kxi49YAk6cI3grzhJy5QLx6QeMgdt9WGkPrj59dYNwAfdnn+OpQ
+         xI8bs4i7LZ1hJUqSPuOotBlPUXcYxGK4OhLj+/LZ53XZLbN2wL5hWUH8kL7X3zfHGmy8
+         X0SUpnso9iONH2sa6IOGTo4GP9IZK/H3ydjdjlTAQ+YLD6JdTklHQnC2+buQZbGESISM
+         Ztyg==
+X-Forwarded-Encrypted: i=1; AJvYcCUtSR4I3yZvbNIk3T6K1bruIUFhVw96QwhMAI+7nsOSe7UnCCSeh3LMJ7O6lPyuUJhH7bclsJfOUUYAK9ZtAg93mCFsvoDEZkDHPdCgnaY=
+X-Gm-Message-State: AOJu0YwqN18675Lym3XFR80Mm8Viuf+t3dnc2SaypMJQFo3L6C2jm1eC
+	vJhjb0pJV8r3RL7V7LGLONPNSZSTOzDRBNo3FKsu0fQGg967W4kOpDe7z2LP0DKrch0/RdBpWvf
+	K667Rj+Stw9kG1tvX+pchOMal0kql1I59tW4u+D5BtZAOxuhpPknr1jQd/Iqcy8Mr
+X-Received: by 2002:a05:622a:454:b0:43b:e8:3858 with SMTP id o20-20020a05622a045400b0043b00e83858mr3335557qtx.5.1714582118200;
+        Wed, 01 May 2024 09:48:38 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IGlczwLQ1ydCbZMNGW1G2sQPdaOKLA7HRYhsgku2nl0OuzRoK0kJ+YcZfu1hxBiGpLYl+M3KQ==
+X-Received: by 2002:a05:622a:454:b0:43b:e8:3858 with SMTP id o20-20020a05622a045400b0043b00e83858mr3335525qtx.5.1714582117703;
+        Wed, 01 May 2024 09:48:37 -0700 (PDT)
+Date: Wed, 1 May 2024 12:48:35 -0400
+From: Peter Xu <peterx@redhat.com>
+To: "Edgar E. Iglesias" <edgar.iglesias@gmail.com>
+Cc: qemu-devel@nongnu.org, sstabellini@kernel.org, jgross@suse.com,
+	"Edgar E. Iglesias" <edgar.iglesias@amd.com>,
+	Anthony Perard <anthony.perard@citrix.com>,
+	Paul Durrant <paul@xen.org>, Paolo Bonzini <pbonzini@redhat.com>,
+	David Hildenbrand <david@redhat.com>,
+	Philippe =?utf-8?Q?Mathieu-Daud=C3=A9?= <philmd@linaro.org>,
+	xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v4 13/17] softmmu: Pass RAM MemoryRegion and is_write
+ xen_map_cache()
+Message-ID: <ZjJyYzr-Qq9Y71BM@x1n>
+References: <20240430164939.925307-1-edgar.iglesias@gmail.com>
+ <20240430164939.925307-14-edgar.iglesias@gmail.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 5/6] xen/x86: Derive topologically correct x2APIC IDs from
- the policy
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu
- <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20240109153834.4192-1-alejandro.vallejo@cloud.com>
- <20240109153834.4192-6-alejandro.vallejo@cloud.com>
- <14891d02-e9e9-4650-b572-e6f071f1506c@suse.com>
-Content-Language: en-GB
-From: Alejandro Vallejo <alejandro.vallejo@cloud.com>
-In-Reply-To: <14891d02-e9e9-4650-b572-e6f071f1506c@suse.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+In-Reply-To: <20240430164939.925307-14-edgar.iglesias@gmail.com>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 
-Hi,
-
-On 26/03/2024 16:41, Jan Beulich wrote:
-> On 09.01.2024 16:38, Alejandro Vallejo wrote:
->> --- a/xen/lib/x86/policy.c
->> +++ b/xen/lib/x86/policy.c
->> @@ -2,15 +2,78 @@
->>  
->>  #include <xen/lib/x86/cpu-policy.h>
->>  
->> -uint32_t x86_x2apic_id_from_vcpu_id(const struct cpu_policy *p, uint32_t vcpu_id)
->> +static uint32_t parts_per_higher_scoped_level(const struct cpu_policy *p, size_t lvl)
->>  {
->>      /*
->> -     * TODO: Derive x2APIC ID from the topology information inside `p`
->> -     *       rather than from vCPU ID. This bodge is a temporary measure
->> -     *       until all infra is in place to retrieve or derive the initial
->> -     *       x2APIC ID from migrated domains.
->> +     * `nr_logical` reported by Intel is the number of THREADS contained in
->> +     * the next topological scope. For example, assuming a system with 2
->> +     * threads/core and 3 cores/module in a fully symmetric topology,
->> +     * `nr_logical` at the core level will report 6. Because it's reporting
->> +     * the number of threads in a module.
->> +     *
->> +     * On AMD/Hygon, nr_logical is already normalized by the higher scoped
->> +     * level (cores/complex, etc) so we can return it as-is.
->>       */
->> -    return vcpu_id * 2;
->> +    if ( p->x86_vendor != X86_VENDOR_INTEL || !lvl )
->> +        return p->topo.subleaf[lvl].nr_logical;
+On Tue, Apr 30, 2024 at 06:49:35PM +0200, Edgar E. Iglesias wrote:
+> From: "Edgar E. Iglesias" <edgar.iglesias@amd.com>
 > 
-> Is "!= Intel" really appropriate here? I'd rather see this being "AMD || Hygon".
+> Propagate MR and is_write to xen_map_cache().
+> This is in preparation for adding support for grant mappings.
+> 
+> No functional change.
+> 
+> Signed-off-by: Edgar E. Iglesias <edgar.iglesias@amd.com>
 
-Sure, I don't particularly mind, but why? As far as we know only Intel
-has this interpretation for the part counts. I definitely haven't seen
-any non-Intel CPUID dump in which the part count is the total number of
-threads (Centaur/Zhaoxin are not multithreaded, and don't expose leaves
-1f or e26, as far as I could see).
+Acked-by: Peter Xu <peterx@redhat.com>
 
-Cheers,
-Alejandro
+-- 
+Peter Xu
+
 
