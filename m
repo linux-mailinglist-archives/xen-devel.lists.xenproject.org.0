@@ -2,34 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 21D128B910E
-	for <lists+xen-devel@lfdr.de>; Wed,  1 May 2024 23:25:02 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.715496.1117170 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5433E8B9206
+	for <lists+xen-devel@lfdr.de>; Thu,  2 May 2024 01:08:36 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.715505.1117193 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s2HRI-0004Yu-EG; Wed, 01 May 2024 21:24:32 +0000
+	id 1s2J2o-0006rp-Nl; Wed, 01 May 2024 23:07:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 715496.1117170; Wed, 01 May 2024 21:24:32 +0000
+Received: by outflank-mailman (output) from mailman id 715505.1117193; Wed, 01 May 2024 23:07:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s2HRI-0004XH-AR; Wed, 01 May 2024 21:24:32 +0000
-Received: by outflank-mailman (input) for mailman id 715496;
- Wed, 01 May 2024 21:24:31 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Aa2W=ME=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1s2HRH-0004XB-GL
- for xen-devel@lists.xenproject.org; Wed, 01 May 2024 21:24:31 +0000
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 2f931596-0801-11ef-b4bb-af5377834399;
- Wed, 01 May 2024 23:24:28 +0200 (CEST)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id 7A152CE12A3;
- Wed,  1 May 2024 21:24:24 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 59437C072AA;
- Wed,  1 May 2024 21:24:20 +0000 (UTC)
+	id 1s2J2o-0006od-KK; Wed, 01 May 2024 23:07:22 +0000
+Received: by outflank-mailman (input) for mailman id 715505;
+ Wed, 01 May 2024 23:07:21 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1s2J2n-0006oT-CS; Wed, 01 May 2024 23:07:21 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1s2J2n-00025S-7H; Wed, 01 May 2024 23:07:21 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1s2J2m-0002ix-Qv; Wed, 01 May 2024 23:07:20 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1s2J2m-0001N6-QQ; Wed, 01 May 2024 23:07:20 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,220 +42,283 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2f931596-0801-11ef-b4bb-af5377834399
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1714598663;
-	bh=FLVZmdHfgEb1TFuY1+2IjEROy5nvohlsD6fcTAlsMjI=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=qkhr28GvYs0ZF1LSITNc9av5nYO9vOAQjhmuYVa/vhQcGcUm7WsiYKnDM/5T4E48q
-	 8tAynT3npaYSeVi3iwz3I3WVyoe0koA/lFOv3t9zy5OZI6VLnzMzWX5B/K4W7jaEUF
-	 JQzrSU+MSroUlYr/ke+Q2SkS0Iu1aTlg8tni+fgqRMUGs4u9eEsQkDLwwhICIBe4qf
-	 O3c5l8zMPnAr/f1RSSnr3lwSee1xPbH2rkLKtVZo/D3MWtpKn+UX4K3x/KUrl/sDOh
-	 60BSPPwoUcfXpBvGVhc+m8FJvaezCvzF/2fC5cu9m4RMEoJuXOISr9k9hS9kfj0Kxy
-	 4WYJZd6HoHNIg==
-Date: Wed, 1 May 2024 14:24:19 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: "Edgar E. Iglesias" <edgar.iglesias@gmail.com>
-cc: qemu-devel@nongnu.org, sstabellini@kernel.org, jgross@suse.com, 
-    "Edgar E. Iglesias" <edgar.iglesias@amd.com>, 
-    Anthony Perard <anthony.perard@citrix.com>, Paul Durrant <paul@xen.org>, 
-    Paolo Bonzini <pbonzini@redhat.com>, Peter Xu <peterx@redhat.com>, 
-    David Hildenbrand <david@redhat.com>, 
-    =?UTF-8?Q?Philippe_Mathieu-Daud=C3=A9?= <philmd@linaro.org>, 
-    xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v4 15/17] xen: mapcache: Remove assumption of RAMBlock
- with 0 offset
-In-Reply-To: <20240430164939.925307-16-edgar.iglesias@gmail.com>
-Message-ID: <alpine.DEB.2.22.394.2405011414320.497719@ubuntu-linux-20-04-desktop>
-References: <20240430164939.925307-1-edgar.iglesias@gmail.com> <20240430164939.925307-16-edgar.iglesias@gmail.com>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=PVcooQNYoYHTZ0oN5GFuXyLlAFZbjxJMtBLtsYidu4c=; b=GkSN3hTF5FTVNUqQh3EatvIe84
+	BKZkp8GeusRhhiWn73ZXOSFSXqUxZLb81mXkyF51iZpzBo4c1f/jOKMFANL3exDIrwHgX7wFtQYyU
+	4n0NFzO/T4B9PIaSEq7UPlqUIka8Gm7Ifz9pP6jfHFhWFq9c7qGyEdoOXMwu1/CsgUMw=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-185893-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Subject: [linux-linus test] 185893: regressions - FAIL
+X-Osstest-Failures:
+    linux-linus:test-armhf-armhf-examine:reboot:fail:regression
+    linux-linus:test-armhf-armhf-xl-rtds:xen-boot:fail:heisenbug
+    linux-linus:test-armhf-armhf-xl-credit2:xen-boot:fail:heisenbug
+    linux-linus:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-armhf-armhf-libvirt:xen-boot:fail:nonblocking
+    linux-linus:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-qcow2:migrate-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-raw:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-vhd:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-vhd:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-qcow2:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-qcow2:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-libvirt-vhd:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-libvirt-vhd:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-raw:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-raw:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    linux=18daea77cca626f590fb140fc11e3a43c5d41354
+X-Osstest-Versions-That:
+    linux=b947cc5bf6d793101135265352e205aeb30b54f0
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Wed, 01 May 2024 23:07:20 +0000
 
-On Tue, 30 Apr 2024, Edgar E. Iglesias wrote:
-> From: "Edgar E. Iglesias" <edgar.iglesias@amd.com>
-> 
-> The current mapcache assumes that all memory is mapped
-> in a single RAM MR (the first one with offset 0). Remove
-> this assumption and propagate the offset to the mapcache
-> so it can do reverse mappings (from hostptr -> ram_addr).
-> 
-> This is in preparation for adding grant mappings.
-> 
-> Signed-off-by: Edgar E. Iglesias <edgar.iglesias@amd.com>
+flight 185893 linux-linus real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/185893/
+
+Regressions :-(
+
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ test-armhf-armhf-examine      8 reboot                   fail REGR. vs. 185870
+
+Tests which are failing intermittently (not blocking):
+ test-armhf-armhf-xl-rtds      8 xen-boot         fail in 185888 pass in 185893
+ test-armhf-armhf-xl-credit2   8 xen-boot                   fail pass in 185888
+
+Tests which did not succeed, but are not blocking:
+ test-armhf-armhf-libvirt 16 saverestore-support-check fail in 185888 blocked in 185870
+ test-armhf-armhf-xl-credit2 15 migrate-support-check fail in 185888 never pass
+ test-armhf-armhf-xl-credit2 16 saverestore-support-check fail in 185888 never pass
+ test-armhf-armhf-libvirt    15 migrate-support-check fail in 185888 never pass
+ test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 185870
+ test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 185870
+ test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 185870
+ test-armhf-armhf-libvirt      8 xen-boot                     fail  like 185870
+ test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 185870
+ test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 185870
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-qcow2 14 migrate-support-check        fail never pass
+ test-amd64-amd64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-multivcpu 15 migrate-support-check        fail  never pass
+ test-armhf-armhf-xl-multivcpu 16 saverestore-support-check    fail  never pass
+ test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit1  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-vhd      14 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-vhd      15 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-qcow2    14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-qcow2    15 saverestore-support-check    fail   never pass
+ test-armhf-armhf-libvirt-vhd 14 migrate-support-check        fail   never pass
+ test-armhf-armhf-libvirt-vhd 15 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-raw      14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-raw      15 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-rtds     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-rtds     16 saverestore-support-check    fail   never pass
+
+version targeted for testing:
+ linux                18daea77cca626f590fb140fc11e3a43c5d41354
+baseline version:
+ linux                b947cc5bf6d793101135265352e205aeb30b54f0
+
+Last test of basis   185870  2024-04-29 17:43:51 Z    2 days
+Testing same since   185888  2024-04-30 20:31:50 Z    1 days    2 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Alexander Potapenko <glider@google.com>
+  Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+  AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+  Arnd Bergmann <arnd@arndb.de>
+  Audra Mitchell <audra@redhat.com>
+  Billy Tsai <billy_tsai@aspeedtech.com>
+  Chen-Yu Tsai <wenst@chromium.org>
+  Chuck Lever <chuck.lever@oracle.com>
+  Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
+  Dan Carpenter <dan.carpenter@linaro.org>
+  Geert Uytterhoeven <geert+renesas@glider.be>
+  Hans de Goede <hdegoede@redhat.com>
+  Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
+  Jan Dakinevich <jan.dakinevich@salutedevices.com>
+  John Garry <john.g.garry@oracle.com>
+  Kent Overstreet <kent.overstreet@linux.dev>
+  Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+  Kuniyuki Iwashima <kuniyu@amazon.com>
+  Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+  Lai Jiangshan <jiangshan.ljs@antgroup.com>
+  Linus Torvalds <torvalds@linux-foundation.org>
+  Linus Walleij <linus.walleij@linaro.org>
+  Martin K. Petersen <martin.petersen@oracle.com>
+  Olga Kornievskaia <kolga@netapp.com>
+  Oliver Upton <oliver.upton@linux.dev>
+  Paolo Bonzini <pbonzini@redhat.com>
+  Sebastian Reichel <sebastian.reichel@collabora.com>
+  Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>
+  Sven Schnelle <svens@linux.ibm.com>
+  Tejun Heo <tj@kernel.org>
+  Trond Myklebust <trond.myklebust@hammerspace.com>
+  Xingyou Chen <rockrush@rockwork.org>
+  Zeng Heng <zengheng4@huawei.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl                                          pass    
+ test-amd64-coresched-amd64-xl                                pass    
+ test-arm64-arm64-xl                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
+ test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 pass    
+ test-amd64-amd64-xl-xsm                                      pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-qemuu-nested-amd                            fail    
+ test-amd64-amd64-xl-pvhv2-amd                                pass    
+ test-amd64-amd64-dom0pvh-xl-amd                              pass    
+ test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
+ test-amd64-amd64-qemuu-freebsd12-amd64                       pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-amd64-xl-qemut-win7-amd64                         fail    
+ test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
+ test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
+ test-armhf-armhf-xl-arndale                                  pass    
+ test-amd64-amd64-examine-bios                                pass    
+ test-amd64-amd64-xl-credit1                                  pass    
+ test-arm64-arm64-xl-credit1                                  pass    
+ test-armhf-armhf-xl-credit1                                  pass    
+ test-amd64-amd64-xl-credit2                                  pass    
+ test-arm64-arm64-xl-credit2                                  pass    
+ test-armhf-armhf-xl-credit2                                  fail    
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
+ test-amd64-amd64-examine                                     pass    
+ test-arm64-arm64-examine                                     pass    
+ test-armhf-armhf-examine                                     fail    
+ test-amd64-amd64-qemuu-nested-intel                          pass    
+ test-amd64-amd64-xl-pvhv2-intel                              pass    
+ test-amd64-amd64-dom0pvh-xl-intel                            pass    
+ test-amd64-amd64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     fail    
+ test-amd64-amd64-xl-multivcpu                                pass    
+ test-armhf-armhf-xl-multivcpu                                pass    
+ test-amd64-amd64-pair                                        pass    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-amd64-xl-pvshim                                   pass    
+ test-amd64-amd64-pygrub                                      pass    
+ test-amd64-amd64-libvirt-qcow2                               pass    
+ test-amd64-amd64-xl-qcow2                                    pass    
+ test-armhf-armhf-xl-qcow2                                    pass    
+ test-amd64-amd64-libvirt-raw                                 pass    
+ test-arm64-arm64-libvirt-raw                                 pass    
+ test-amd64-amd64-xl-raw                                      pass    
+ test-armhf-armhf-xl-raw                                      pass    
+ test-amd64-amd64-xl-rtds                                     pass    
+ test-armhf-armhf-xl-rtds                                     pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
+ test-amd64-amd64-xl-shadow                                   pass    
+ test-arm64-arm64-xl-thunderx                                 pass    
+ test-amd64-amd64-examine-uefi                                pass    
+ test-amd64-amd64-libvirt-vhd                                 pass    
+ test-armhf-armhf-libvirt-vhd                                 pass    
+ test-amd64-amd64-xl-vhd                                      pass    
+ test-arm64-arm64-xl-vhd                                      pass    
 
 
-Looking at xen_remap_bucket, it is only using address_index (without
-adding ram_offset) to map foreign memory. From xen_remap_bucket, I would
-understand that address_index already includes the ram_offset.
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-Meaning that if we want to map foreign mapping at address 0x5000, then
-address_index would be 0x5000, even if ram_offset is 0x1000.
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
-But then looking xen_ram_addr_from_mapcache_single ram_offset is added
-to paddr_index to calculate the physical address. So in that case we
-would want address_index to be 0x4000 and ram_offset to be 0x1000. But
-xen_remap_bucket would have to sum address_index and ram_offset to map
-foreign memory.
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
-So I am a bit confused, did I get it wrong? One more comment below.
-
-
-> ---
->  hw/xen/xen-mapcache.c         | 25 ++++++++++++++++++-------
->  include/sysemu/xen-mapcache.h |  2 ++
->  system/physmem.c              |  8 ++++----
->  3 files changed, 24 insertions(+), 11 deletions(-)
-> 
-> diff --git a/hw/xen/xen-mapcache.c b/hw/xen/xen-mapcache.c
-> index 09b5f36d9c..1b32d0c003 100644
-> --- a/hw/xen/xen-mapcache.c
-> +++ b/hw/xen/xen-mapcache.c
-> @@ -43,6 +43,9 @@ typedef struct MapCacheEntry {
->  #define XEN_MAPCACHE_ENTRY_DUMMY (1 << 0)
->      uint8_t flags;
->      hwaddr size;
-> +
-> +    /* Keep ram_addr offset for reverse mappings (hostptr -> ram_addr).  */
-> +    ram_addr_t ram_offset;
->      struct MapCacheEntry *next;
->  } MapCacheEntry;
->  
-> @@ -165,7 +168,8 @@ static void xen_remap_bucket(MapCache *mc,
->                               void *vaddr,
->                               hwaddr size,
->                               hwaddr address_index,
-> -                             bool dummy)
-> +                             bool dummy,
-> +                             ram_addr_t ram_offset)
->  {
->      uint8_t *vaddr_base;
->      xen_pfn_t *pfns;
-> @@ -244,6 +248,7 @@ static void xen_remap_bucket(MapCache *mc,
->      entry->size = size;
->      entry->valid_mapping = g_new0(unsigned long,
->                                    BITS_TO_LONGS(size >> XC_PAGE_SHIFT));
-> +    entry->ram_offset = ram_offset;
->  
->      if (dummy) {
->          entry->flags |= XEN_MAPCACHE_ENTRY_DUMMY;
-> @@ -264,6 +269,7 @@ static void xen_remap_bucket(MapCache *mc,
->  
->  static uint8_t *xen_map_cache_unlocked(MapCache *mc,
->                                         hwaddr phys_addr, hwaddr size,
-> +                                       ram_addr_t ram_offset,
->                                         uint8_t lock, bool dma, bool is_write)
->  {
->      MapCacheEntry *entry, *pentry = NULL,
-> @@ -335,14 +341,16 @@ tryagain:
->      if (!entry) {
->          entry = g_new0(MapCacheEntry, 1);
->          pentry->next = entry;
-> -        xen_remap_bucket(mc, entry, NULL, cache_size, address_index, dummy);
-> +        xen_remap_bucket(mc, entry, NULL, cache_size, address_index, dummy,
-> +                         ram_offset);
->      } else if (!entry->lock) {
->          if (!entry->vaddr_base || entry->paddr_index != address_index ||
->                  entry->size != cache_size ||
->                  !test_bits(address_offset >> XC_PAGE_SHIFT,
->                      test_bit_size >> XC_PAGE_SHIFT,
->                      entry->valid_mapping)) {
-> -            xen_remap_bucket(mc, entry, NULL, cache_size, address_index, dummy);
-> +            xen_remap_bucket(mc, entry, NULL, cache_size, address_index, dummy,
-> +                             ram_offset);
->          }
->      }
->  
-> @@ -389,13 +397,15 @@ tryagain:
->  
->  uint8_t *xen_map_cache(MemoryRegion *mr,
->                         hwaddr phys_addr, hwaddr size,
-> +                       ram_addr_t ram_addr_offset,
->                         uint8_t lock, bool dma,
->                         bool is_write)
->  {
->      uint8_t *p;
->  
->      mapcache_lock(mapcache);
-> -    p = xen_map_cache_unlocked(mapcache, phys_addr, size, lock, dma, is_write);
-> +    p = xen_map_cache_unlocked(mapcache, phys_addr, size, ram_addr_offset,
-> +                               lock, dma, is_write);
->      mapcache_unlock(mapcache);
->      return p;
->  }
-> @@ -432,7 +442,8 @@ static ram_addr_t xen_ram_addr_from_mapcache_single(MapCache *mc, void *ptr)
->          raddr = RAM_ADDR_INVALID;
->      } else {
->          raddr = (reventry->paddr_index << mc->bucket_shift) +
-> -             ((unsigned long) ptr - (unsigned long) entry->vaddr_base);
-> +             ((unsigned long) ptr - (unsigned long) entry->vaddr_base) +
-> +             entry->ram_offset;
->      }
->      mapcache_unlock(mc);
->      return raddr;
-> @@ -627,8 +638,8 @@ static uint8_t *xen_replace_cache_entry_unlocked(MapCache *mc,
->  
->      trace_xen_replace_cache_entry_dummy(old_phys_addr, new_phys_addr);
->  
-> -    xen_remap_bucket(mapcache, entry, entry->vaddr_base,
-> -                     cache_size, address_index, false);
-> +    xen_remap_bucket(mc, entry, entry->vaddr_base,
-> +                     cache_size, address_index, false, entry->ram_offset);
->      if (!test_bits(address_offset >> XC_PAGE_SHIFT,
->                  test_bit_size >> XC_PAGE_SHIFT,
->                  entry->valid_mapping)) {
-> diff --git a/include/sysemu/xen-mapcache.h b/include/sysemu/xen-mapcache.h
-> index 1ec9e66752..b5e3ea1bc0 100644
-> --- a/include/sysemu/xen-mapcache.h
-> +++ b/include/sysemu/xen-mapcache.h
-> @@ -19,6 +19,7 @@ typedef hwaddr (*phys_offset_to_gaddr_t)(hwaddr phys_offset,
->  void xen_map_cache_init(phys_offset_to_gaddr_t f,
->                          void *opaque);
->  uint8_t *xen_map_cache(MemoryRegion *mr, hwaddr phys_addr, hwaddr size,
-> +                       ram_addr_t ram_addr_offset,
->                         uint8_t lock, bool dma,
->                         bool is_write);
->  ram_addr_t xen_ram_addr_from_mapcache(void *ptr);
-> @@ -37,6 +38,7 @@ static inline void xen_map_cache_init(phys_offset_to_gaddr_t f,
->  static inline uint8_t *xen_map_cache(MemoryRegion *mr,
->                                       hwaddr phys_addr,
->                                       hwaddr size,
-> +                                     ram_addr_t ram_addr_offset,
->                                       uint8_t lock,
->                                       bool dma,
->                                       bool is_write)
-> diff --git a/system/physmem.c b/system/physmem.c
-> index 1a5ffcba2a..5b16eeccca 100644
-> --- a/system/physmem.c
-> +++ b/system/physmem.c
-> @@ -2228,13 +2228,13 @@ static void *qemu_ram_ptr_length(RAMBlock *block, ram_addr_t addr,
->           * In that case just map the requested area.
->           */
->          if (xen_mr_is_memory(block->mr)) {
-> -            return xen_map_cache(block->mr, addr, len, lock, lock,
-> -                                 is_write);
-> +            return xen_map_cache(block->mr, addr, len, block->offset,
-> +                                 lock, lock, is_write);
-
-Have you considered not tracking offset and address separately and
-simply do this?
-
-            return xen_map_cache(block->mr, addr + block->offset, len, 
-                                 lock, lock, is_write);
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
 
->          }
->  
->          block->host = xen_map_cache(block->mr, block->offset,
-> -                                    block->max_length, 1,
-> -                                    lock, is_write);
-> +                                    block->max_length, 0,
-> +                                    1, lock, is_write);
->      }
->  
->      return ramblock_ptr(block, addr);
-> -- 
-> 2.40.1
-> 
+Not pushing.
+
+(No revision log; it would be 1064 lines long.)
 
