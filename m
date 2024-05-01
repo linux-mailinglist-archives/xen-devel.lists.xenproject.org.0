@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6C3958B8BA5
-	for <lists+xen-devel@lfdr.de>; Wed,  1 May 2024 16:04:41 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.715326.1116872 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 94DF48B8C22
+	for <lists+xen-devel@lfdr.de>; Wed,  1 May 2024 16:47:42 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.715333.1116881 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s2AZ4-0006Cg-Rt; Wed, 01 May 2024 14:04:06 +0000
+	id 1s2BE7-0003qx-VA; Wed, 01 May 2024 14:46:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 715326.1116872; Wed, 01 May 2024 14:04:06 +0000
+Received: by outflank-mailman (output) from mailman id 715333.1116881; Wed, 01 May 2024 14:46:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s2AZ4-00069f-Od; Wed, 01 May 2024 14:04:06 +0000
-Received: by outflank-mailman (input) for mailman id 715326;
- Wed, 01 May 2024 14:04:05 +0000
+	id 1s2BE7-0003oj-SU; Wed, 01 May 2024 14:46:31 +0000
+Received: by outflank-mailman (input) for mailman id 715333;
+ Wed, 01 May 2024 14:46:30 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=f0p4=ME=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1s2AZ3-00069Z-RY
- for xen-devel@lists.xenproject.org; Wed, 01 May 2024 14:04:05 +0000
-Received: from mail-qk1-x730.google.com (mail-qk1-x730.google.com
- [2607:f8b0:4864:20::730])
+ <SRS0=RAI4=ME=cloud.com=anthony.perard@srs-se1.protection.inumbo.net>)
+ id 1s2BE6-0003od-Qf
+ for xen-devel@lists.xenproject.org; Wed, 01 May 2024 14:46:30 +0000
+Received: from mail-lj1-x22a.google.com (mail-lj1-x22a.google.com
+ [2a00:1450:4864:20::22a])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id aa7a9de2-07c3-11ef-b4bb-af5377834399;
- Wed, 01 May 2024 16:04:03 +0200 (CEST)
-Received: by mail-qk1-x730.google.com with SMTP id
- af79cd13be357-78f05341128so473794185a.0
- for <xen-devel@lists.xenproject.org>; Wed, 01 May 2024 07:04:03 -0700 (PDT)
-Received: from [10.80.67.140] (default-46-102-197-194.interdsl.co.uk.
+ id 9769909e-07c9-11ef-b4bb-af5377834399;
+ Wed, 01 May 2024 16:46:28 +0200 (CEST)
+Received: by mail-lj1-x22a.google.com with SMTP id
+ 38308e7fff4ca-2e0a2870bceso41471691fa.2
+ for <xen-devel@lists.xenproject.org>; Wed, 01 May 2024 07:46:28 -0700 (PDT)
+Received: from perard.uk.xensource.com (default-46-102-197-194.interdsl.co.uk.
  [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- k4-20020a0cc784000000b006a0cb461f89sm3150190qvj.6.2024.05.01.07.04.01
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 01 May 2024 07:04:02 -0700 (PDT)
+ l2-20020a05600c4f0200b0041bf87e702asm2416912wmq.10.2024.05.01.07.46.24
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 01 May 2024 07:46:25 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,122 +45,206 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: aa7a9de2-07c3-11ef-b4bb-af5377834399
+X-Inumbo-ID: 9769909e-07c9-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1714572243; x=1715177043; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=iMxejeIzjvoaJbOylrVM2d+rDBZmPm9tSSUkJk06FUA=;
-        b=lx8kdjr50KpsNbHpRO78vnh1hPTMpo+26JF7V+RgQEz9fPf/Dm8ljgO+zKPybNzIap
-         L3VXWIe21tO4cAk8lUdPfDct3aCkzZvFOqRg/rSjDxONhcCOdxi/FD32l6o4w7u4DBm8
-         ZlUJu7HfA4qqnEAZwayCW//7Xjh7OR+We9THc=
+        d=cloud.com; s=cloud; t=1714574788; x=1715179588; darn=lists.xenproject.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=I4ojWbgGKeLlz2RX8smFFr1xJq/YLUKQi3LRjZQ4IgY=;
+        b=fF9BX+Euvyz6LiVndbFB+DQmblGHCRTb4OFdZSKYBwzOYGrWOy2qKq0Re1noimF+5P
+         PVJ3pNXvV4IFGXLTBip7SqGcPzUTlsM7TuXoz42L//m2LavfIx3WX1hY55onviabIMkp
+         9syAopf5gBOIVhyDGdV+/aJhf2rozgheH9KaE=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1714572243; x=1715177043;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20230601; t=1714574788; x=1715179588;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=iMxejeIzjvoaJbOylrVM2d+rDBZmPm9tSSUkJk06FUA=;
-        b=fGMIytXHHBEwsVyX92lduZaSeARAQa04IhkidiOsaTqM0irkCVBwlDOW7EQ1yyxqMA
-         9ualO5B5IjG0adYeTUSJy3KKyhXq6SvNbgW/aZ5XByWibNH6VjFw7Y/N2RtVKkOtCmTp
-         q4z5bDYHZAS85iI+BIg2bSbtS82N0alfFRv/k2hmTw3sY8NDDoOA4I4F68OG+a43hFnH
-         JiTLjVl0bcP6nHQGc1+7YzN/aK591GyAg/4mF1TjFtqHJsBpSufFQWRbSNyMN10+GB8D
-         FIu9seG6qqEGo5pE9P047wGytc3U2vF5ESnh4l7XjRtdWdvf33L835rh5bunWpoIsmD0
-         9MgA==
-X-Gm-Message-State: AOJu0Yw19vzOmIuXqrt2VRnUZ9hvUMhkpCB6LlC/pHZxaDKD+y5K3n+F
-	9elB2GMXzKCKtM0CBuy20rfOyYWmg8arAVq+5VJ8m/JxTNGuVzg4Yi6F/R9+LaArS6iV9adlXDm
-	p
-X-Google-Smtp-Source: AGHT+IFswrEyF7UFjObQ/mTFSeZCz1PMV7DTg3l8LmAjjldKRt39C8khdkwldLKMZBsKsxvoWTXH9g==
-X-Received: by 2002:ad4:5c8d:0:b0:6a0:8225:d89e with SMTP id o13-20020ad45c8d000000b006a08225d89emr3108746qvh.25.1714572242690;
-        Wed, 01 May 2024 07:04:02 -0700 (PDT)
-Message-ID: <dcb9a57f-b002-46bd-a7dc-1cd580a9ab69@citrix.com>
-Date: Wed, 1 May 2024 15:04:00 +0100
+        bh=I4ojWbgGKeLlz2RX8smFFr1xJq/YLUKQi3LRjZQ4IgY=;
+        b=WPQ0dAaQ8eMbtAajMIIg96tltnj29Ba/qmUc+0RLmQJa7SnZoTjYoM6d4noIjQVhSY
+         2j1A1gCIy1PSEkodJfPtQU5Tols8PSyyYfEgdpkzyG3MJSHOMwikuDLn0tr5LRXT3R6M
+         A9cvkdONvjoIZ978vAA2rfPxRG8flHAFL4X0CZinAtZJt5iJ/mogWd5jpiA4e9lWpzey
+         Xqo/PG9Ueok8tMC8mMaBtFk8RV3A6o4lKUa7ck5tDY5Qg9O+WYhh/Sx2yjzF9A6XeUEZ
+         4W+5MeGWp9NpdiDMoml5aaJb1zXMgaUHb9rAvzT68CmqeuiPsQMgWx5398TyDJv+U6XW
+         bRvg==
+X-Gm-Message-State: AOJu0YwaoScV7MeLbGtxUC/7Pekb7AG1XyxV8EL6Oc+P/l73euVOTvUl
+	+Vb3nvxuwVjkb6N7L+EFUyzh3Bsdf46Ewg1mq58v+8FGsebYbB9ldq2VGO27FAsFFboOfUBLagS
+	k
+X-Google-Smtp-Source: AGHT+IHcq4PJMeZBL+hUyz++eAPEuutXJJmWdYVboovCrPtK61FURQnmMKjxVwuK7+8IqZvb5onRyA==
+X-Received: by 2002:a2e:a26a:0:b0:2df:ee50:3c35 with SMTP id k10-20020a2ea26a000000b002dfee503c35mr1860601ljm.0.1714574785728;
+        Wed, 01 May 2024 07:46:25 -0700 (PDT)
+Date: Wed, 1 May 2024 15:46:24 +0100
+From: Anthony PERARD <anthony.perard@cloud.com>
+To: Henry Wang <xin.wang2@amd.com>
+Cc: xen-devel@lists.xenproject.org, Vikram Garhwal <fnu.vikram@xilinx.com>,
+	Juergen Gross <jgross@suse.com>,
+	Stefano Stabellini <stefano.stabellini@xilinx.com>
+Subject: Re: [PATCH 08/15] tools: Add domain_id and expert mode for overlay
+ operations
+Message-ID: <eaea1986-a27e-4d6c-932f-1d0a9918861f@perard>
+References: <20240424033449.168398-1-xin.wang2@amd.com>
+ <20240424033449.168398-9-xin.wang2@amd.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] tools/{c,o}xenstored: Don't link against libsystemd
-To: Anthony PERARD <anthony.perard@citrix.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>,
- Juergen Gross <jgross@suse.com>,
- Christian Lindig <christian.lindig@citrix.com>,
- =?UTF-8?B?RWR3aW4gVMO2csO2aw==?= <edwin.torok@cloud.com>,
- Stefano Stabellini <sstabellini@kernel.org>
-References: <20240425173216.410940-1-andrew.cooper3@citrix.com>
- <20240425173216.410940-2-andrew.cooper3@citrix.com>
- <b5e242fa-daf1-43a2-afd2-cc1ad1bd4dc1@perard>
- <341c5901-254e-4ad2-b935-6b586cd25f2e@citrix.com>
- <413a63de-07ec-43a9-ae60-6b0cfdd61312@perard>
- <83160ad7-19b1-496f-a560-c11db67b1caf@perard>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <83160ad7-19b1-496f-a560-c11db67b1caf@perard>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20240424033449.168398-9-xin.wang2@amd.com>
 
-On 01/05/2024 2:29 pm, Anthony PERARD wrote:
-> On Fri, Apr 26, 2024 at 09:51:47AM +0100, Anthony PERARD wrote:
->> Run `systemd-notify --ready` instead. Hopefully, that will be enough.
->> ($NOTIFY_SOCKET is a socket, and a bit more complicated that I though,
->> it can start with "@" for example)
-> FTR: If it turns out that calling systemd-notify binary isn't working
-> well enough, we could have an implementation of sd_notify() in our tree,
-> openssh are doing there own here:
-> https://bugzilla.mindrot.org/show_bug.cgi?id=2641
-> and there's an example implementation on systemd's documentation:
-> https://www.freedesktop.org/software/systemd/man/devel/sd_notify.html#Notes
-> (Nothing for ocaml)
->
-> But let's go with `systemd-notify --ready` as it is just easier to
-> write a bit of shell script.
+On Wed, Apr 24, 2024 at 11:34:42AM +0800, Henry Wang wrote:
+> From: Vikram Garhwal <fnu.vikram@xilinx.com>
+> 
+> Add domain_id and expert mode for overlay assignment. This enables dynamic
+> programming of nodes during runtime.
+> 
+> Take the opportunity to fix the name mismatch in the xl command, the
+> command name should be "dt-overlay" instead of "dt_overlay".
 
-I was already thinking of going down the small-library-function route.
+I don't like much these unrelated / opportunistic changes in a patch,
+I'd rather have a separate patch. And in this case, if it was on a
+separate patch, that separated patch could gain: Fixes: 61765a07e3d8
+("tools/xl: Add new xl command overlay for device tree overlay support")
+and potentially backported.
 
-Given that I miss-analysed the launch-xenstore, script, I'm not overly
-enthused with just falling back to waiting on the pidfile, because
-that's adding technical debt rather than removing it.
+> Signed-off-by: Vikram Garhwal <fnu.vikram@xilinx.com>
+> Signed-off-by: Stefano Stabellini <stefano.stabellini@xilinx.com>
+> Signed-off-by: Henry Wang <xin.wang2@amd.com>
+> ---
+>  tools/include/libxl.h               |  8 +++++--
+>  tools/include/xenctrl.h             |  5 +++--
+>  tools/libs/ctrl/xc_dt_overlay.c     |  7 ++++--
+>  tools/libs/light/libxl_dt_overlay.c | 17 +++++++++++----
+>  tools/xl/xl_vmcontrol.c             | 34 ++++++++++++++++++++++++++---
+>  5 files changed, 58 insertions(+), 13 deletions(-)
+> 
+> diff --git a/tools/include/libxl.h b/tools/include/libxl.h
+> index 62cb07dea6..59a3e1b37c 100644
+> --- a/tools/include/libxl.h
+> +++ b/tools/include/libxl.h
+> @@ -2549,8 +2549,12 @@ libxl_device_pci *libxl_device_pci_list(libxl_ctx *ctx, uint32_t domid,
+>  void libxl_device_pci_list_free(libxl_device_pci* list, int num);
+>  
+>  #if defined(__arm__) || defined(__aarch64__)
+> -int libxl_dt_overlay(libxl_ctx *ctx, void *overlay,
+> -                     uint32_t overlay_size, uint8_t overlay_op);
+> +#define LIBXL_DT_OVERLAY_ADD                   1
+> +#define LIBXL_DT_OVERLAY_REMOVE                2
+> +
+> +int libxl_dt_overlay(libxl_ctx *ctx, uint32_t domain_id, void *overlay,
+> +                     uint32_t overlay_size, uint8_t overlay_op, bool auto_mode,
+> +                     bool domain_mapping);
 
-~Andrew
+Sorry, you cannot change the API of an existing libxl function without
+providing something backward compatible. We have already a few example
+of this changes in libxl.h, e.g.: fded24ea8315 ("libxl: Make libxl_set_vcpuonline async")
+So, providing a wrapper called libxl_dt_overlay_0x041800() which call
+the new function.
+
+>  #endif
+>  
+>  /*
+> diff --git a/tools/libs/light/libxl_dt_overlay.c b/tools/libs/light/libxl_dt_overlay.c
+> index a6c709a6dc..cdb62b28cf 100644
+> --- a/tools/libs/light/libxl_dt_overlay.c
+> +++ b/tools/libs/light/libxl_dt_overlay.c
+> @@ -57,10 +58,18 @@ int libxl_dt_overlay(libxl_ctx *ctx, void *overlay_dt, uint32_t overlay_dt_size,
+>          rc = 0;
+>      }
+>  
+> -    r = xc_dt_overlay(ctx->xch, overlay_dt, overlay_dt_size, overlay_op);
+> +    /* Check if user entered a valid domain id. */
+> +    rc = libxl_domain_info(CTX, NULL, domid);
+> +    if (rc == ERROR_DOMAIN_NOTFOUND) {
+
+Why do you check specifically for "domain not found", what about other
+error?
+
+> +        LOGD(ERROR, domid, "Non-existant domain.");
+> +        return ERROR_FAIL;
+
+Use `goto out`, and you can let the function return
+ERROR_DOMAIN_NOTFOUND if that the error, we can just propagate the `rc`
+from libxl_domain_info().
+
+> +    }
+> +
+> +    r = xc_dt_overlay(ctx->xch, domid, overlay_dt, overlay_dt_size, overlay_op,
+> +                      domain_mapping);
+>  
+>      if (r) {
+> -        LOG(ERROR, "%s: Adding/Removing overlay dtb failed.", __func__);
+> +        LOG(ERROR, "domain%d: Adding/Removing overlay dtb failed.", domid);
+
+You could replace the macro by LOGD, instead of handwriting "domain%d".
+
+>          rc = ERROR_FAIL;
+>      }
+>  
+> diff --git a/tools/xl/xl_vmcontrol.c b/tools/xl/xl_vmcontrol.c
+> index 98f6bd2e76..9674383ec3 100644
+> --- a/tools/xl/xl_vmcontrol.c
+> +++ b/tools/xl/xl_vmcontrol.c
+> @@ -1270,21 +1270,48 @@ int main_dt_overlay(int argc, char **argv)
+>  {
+>      const char *overlay_ops = NULL;
+>      const char *overlay_config_file = NULL;
+> +    uint32_t domain_id = 0;
+>      void *overlay_dtb = NULL;
+>      int rc;
+> +    bool auto_mode = true;
+> +    bool domain_mapping = false;
+>      uint8_t op;
+>      int overlay_dtb_size = 0;
+>      const int overlay_add_op = 1;
+>      const int overlay_remove_op = 2;
+>  
+> -    if (argc < 2) {
+> -        help("dt_overlay");
+> +    if (argc < 3) {
+> +        help("dt-overlay");
+>          return EXIT_FAILURE;
+>      }
+>  
+> +    if (argc > 5) {
+> +        fprintf(stderr, "Too many arguments\n");
+> +        return ERROR_FAIL;
+> +    }
+> +
+>      overlay_ops = argv[1];
+>      overlay_config_file = argv[2];
+>  
+> +    if (!strcmp(argv[argc - 1], "-e"))
+> +        auto_mode = false;
+> +
+> +    if (argc == 4 || !auto_mode) {
+> +        domain_id = find_domain(argv[argc-1]);
+> +        domain_mapping = true;
+> +    }
+> +
+> +    if (argc == 5 || !auto_mode) {
+> +        domain_id = find_domain(argv[argc-2]);
+> +        domain_mapping = true;
+> +    }
+
+Sorry, I can't review that changes, this needs a change in the help
+message of dt-overlay, and something in the man page. (and that argument
+parsing looks convoluted).
+
+> +
+> +    /* User didn't prove any overlay operation. */
+
+I guess you meant "provide" instead of prove. But the comment can be
+discarded, it doesn't explain anything useful that the error message
+doesn't already explain.
+
+> +    if (overlay_ops == NULL) {
+> +        fprintf(stderr, "No overlay operation mode provided\n");
+> +        return ERROR_FAIL;
+
+That should be EXIT_FAILURE instead. (and I realise that the function
+already return ERROR_FAIL by mistake in several places. (ERROR_FAIL is a
+libxl error return value of -3, which isn't really a good exit value for
+CLI programmes.))
+
+Thanks,
+
+-- 
+Anthony PERARD
 
