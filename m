@@ -2,33 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D43658B9EBD
-	for <lists+xen-devel@lfdr.de>; Thu,  2 May 2024 18:39:13 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.715930.1117913 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 735038B9F04
+	for <lists+xen-devel@lfdr.de>; Thu,  2 May 2024 18:56:08 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.715945.1117925 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s2ZS5-0003Ct-Iu; Thu, 02 May 2024 16:38:33 +0000
+	id 1s2Zif-0006Oy-3Y; Thu, 02 May 2024 16:55:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 715930.1117913; Thu, 02 May 2024 16:38:33 +0000
+Received: by outflank-mailman (output) from mailman id 715945.1117925; Thu, 02 May 2024 16:55:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s2ZS5-0003Ad-GI; Thu, 02 May 2024 16:38:33 +0000
-Received: by outflank-mailman (input) for mailman id 715930;
- Thu, 02 May 2024 16:38:31 +0000
+	id 1s2Zif-0006Ll-0U; Thu, 02 May 2024 16:55:41 +0000
+Received: by outflank-mailman (input) for mailman id 715945;
+ Thu, 02 May 2024 16:55:39 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=1TOG=MF=gmail.com=edgar.iglesias@srs-se1.protection.inumbo.net>)
- id 1s2ZS3-0003AX-3T
- for xen-devel@lists.xenproject.org; Thu, 02 May 2024 16:38:31 +0000
-Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
- [2a00:1450:4864:20::635])
+ <SRS0=8/Nh=MF=minervasys.tech=carlo.nonato@srs-se1.protection.inumbo.net>)
+ id 1s2Zid-0006Lf-Pk
+ for xen-devel@lists.xenproject.org; Thu, 02 May 2024 16:55:39 +0000
+Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
+ [2a00:1450:4864:20::629])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 67725715-08a2-11ef-909b-e314d9c70b13;
- Thu, 02 May 2024 18:38:28 +0200 (CEST)
-Received: by mail-ej1-x635.google.com with SMTP id
- a640c23a62f3a-a58fbbcd77aso661045966b.2
- for <xen-devel@lists.xenproject.org>; Thu, 02 May 2024 09:38:28 -0700 (PDT)
+ id cd13bc1d-08a4-11ef-909b-e314d9c70b13;
+ Thu, 02 May 2024 18:55:38 +0200 (CEST)
+Received: by mail-ej1-x629.google.com with SMTP id
+ a640c23a62f3a-a55bf737cecso1010509166b.0
+ for <xen-devel@lists.xenproject.org>; Thu, 02 May 2024 09:55:38 -0700 (PDT)
+Received: from carlo-ubuntu.mo54.unimo.it (nonato.mo54.unimo.it.
+ [155.185.85.8]) by smtp.gmail.com with ESMTPSA id
+ mq30-20020a170907831e00b00a5987fbfb83sm29103ejc.152.2024.05.02.09.55.36
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 02 May 2024 09:55:37 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,328 +45,139 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 67725715-08a2-11ef-909b-e314d9c70b13
+X-Inumbo-ID: cd13bc1d-08a4-11ef-909b-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1714667908; x=1715272708; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=Tdq2b0nhg5nyul35h5bkMt4asw7wNg6ha8u+AmWjAGc=;
-        b=h4/712AiA/3B8ZcDl7nhljMtOcIxywN/YD6+E2GMJQoFXwIbrt3Y+okDc9+mj1/jpX
-         yGurqgCC78t3ll42ULg6Q5ztrbbrRvIFJDwbl8dkEkR2BRf7JmiE6dmvyW3Skklv5umf
-         QxZqg2tSUjSyTZKwZuk+iO1WhLhVA1e99v8vWyo3LWFcMR9NPOeBjgQon/9Eb8XAwMCN
-         vcgZJHTEjRh+4xiYCvb8o39DpXYIEPZ9mrkB/MA2waqqjmcYPWgub5ULwKNvk+njauM0
-         f/FLGKWrud+kDKjG84ESHCpfG0+lvDgK4ZdWlSeSlk7yU9C8PEM+manoI9ZKEjytIdDn
-         Uxmg==
+        d=minervasys-tech.20230601.gappssmtp.com; s=20230601; t=1714668937; x=1715273737; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=0gkpKCmCscYcHI5K9J1ZWC0k2m8hrdGMWQYAyGZgqIU=;
+        b=2HtycorCH4hcj0oLKQAjM7A8n7dJc1XvB2iszUDXTbpyCSAK9UndkQfKTU/uyJ5ug5
+         mSrB1IcR4pau5BUT9OANta0dWtjx4K9GRsOaw5sM53clB0p32IkWlt5JIMUnR1HMNFQ1
+         5k98fwq2rHSdcCsi9wF2kTxT24d+VVzAJUylX+8oczucOeDGj0zpZCDzIhC3EOBeEFyd
+         ftk19A/WP4gni3k5teZhJE+oxqTQRoICWCPp/MtNI2mQ96lZPKJXEhKfCfQBoHLIDzQ3
+         6mSHYvIPHjxpray8goWKgI+9EafgXJl1NCdo/Kfzurv3vpe3r/P4RXx6/oWiXT3qxWeg
+         8FVw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1714667908; x=1715272708;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=Tdq2b0nhg5nyul35h5bkMt4asw7wNg6ha8u+AmWjAGc=;
-        b=pl9aDnhouetGbzsxj48k8jRyuY9KcYvgqHojbJNDpZAP9Dd60xTo0Mr1seWChSMEj2
-         5140Hx+osRRWX5IM/Com3jVJfpZYhvkrp4WQHP7zaCIEckxJpW3ZjdPEgus+hmDGoB/T
-         HoDqcU6afWRthDVnW1no79Q1Y4soAcn8cCAG6H+HjRRnNJ4HHgzDuVxP2JUlRF7GyR9M
-         w5esaRZYrefvtYFDBhKaa1iioA8MWBSe+DkYQoIDlzJL2ls9HcN7q+R7I3Z1T6gsi5H5
-         4J9+DrrnIozLn0ruMv+UgRhHD+Pwb5qbRvaIBuskpFaBQSeh2Fmk5vm/1qRCwG0yVT6h
-         Rd6Q==
-X-Gm-Message-State: AOJu0YzxWpHeGymGoMflk7G3xSVaVMvhf+uEDdcshPWlU2/PIeTbZ6KJ
-	MuwwGnZFvmToKuIZvH7/htN8We1S3+2ZppdDu2ZlpAmHth9K+NW/QA3+7mAQLYRhqs4s+rH6q14
-	pAAqSkzzQvuDeVCsR+HCxB3HOH1w=
-X-Google-Smtp-Source: AGHT+IFVcTsj3sgUTVuf4RSliWYI8UVluVED1hKF9MWgodAcHSq6Usexhfi2jq/y16/YXoYU/oMdHCGBhNsUpjXhbR4=
-X-Received: by 2002:a50:8e4f:0:b0:570:5214:f62 with SMTP id
- 15-20020a508e4f000000b0057052140f62mr22737edx.0.1714667907978; Thu, 02 May
- 2024 09:38:27 -0700 (PDT)
+        d=1e100.net; s=20230601; t=1714668937; x=1715273737;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=0gkpKCmCscYcHI5K9J1ZWC0k2m8hrdGMWQYAyGZgqIU=;
+        b=a0EsJxtbixR+2B6f5OIUl5CwjHJAmQSSlRn3fc/ryMOLWxmGKUZfiKpxzMO4/vqYAa
+         hbcnd83JDWN5nAv4cj3jY0Kf7AThYOQS9ewADvRBQlNynA5LIza/5+kt8gyHBj0cH9Ba
+         va6OXokFGYgj04oUjkOzBGXc+5fY0SmYOnheXqpxU3VrZlDMbRzY3skAbgUkPxMZwJGo
+         0s2smHoauf6Qtt7GBUeMyzCRdhUbsDJ+PPK6SHbyVbEala1xBIejKqNSj8nQH8RzZqUj
+         M115/3LEN7FhfG77CNA09ezgS0BRT0mA9ohVWPedF6jeZo3nExDSjhtWvnlNutcgt3u4
+         HYNA==
+X-Gm-Message-State: AOJu0YySOlX5z9SZFFC87DUrwTzlsNEHEuDlVTGg+xyt4xhEpNNiQ9m1
+	DSOcWgDDyqReFSYG9OKVIInHwD9FqMoKhVbqiqg+dw6xFvFbbX56L0LWoqi7UreDHZewsN+ODzQ
+	r
+X-Google-Smtp-Source: AGHT+IF2ygDwkCaFzAIPf+pJIDcPHgiTFNxHs9rVsRZhxQkDr56yF0mglY0KehVMayvtxae9mTD2hg==
+X-Received: by 2002:a17:906:f1c8:b0:a58:9c9b:61ad with SMTP id gx8-20020a170906f1c800b00a589c9b61admr68340ejb.43.1714668937383;
+        Thu, 02 May 2024 09:55:37 -0700 (PDT)
+From: Carlo Nonato <carlo.nonato@minervasys.tech>
+To: xen-devel@lists.xenproject.org
+Cc: andrea.bastoni@minervasys.tech,
+	Carlo Nonato <carlo.nonato@minervasys.tech>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	Anthony PERARD <anthony@xenproject.org>,
+	Juergen Gross <jgross@suse.com>
+Subject: [PATCH v8 00/13] Arm cache coloring
+Date: Thu,  2 May 2024 18:55:20 +0200
+Message-Id: <20240502165533.319988-1-carlo.nonato@minervasys.tech>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-References: <20240415231541.4140052-1-edgar.iglesias@gmail.com>
- <20240415231541.4140052-2-edgar.iglesias@gmail.com> <alpine.DEB.2.22.394.2404251608320.3940@ubuntu-linux-20-04-desktop>
-In-Reply-To: <alpine.DEB.2.22.394.2404251608320.3940@ubuntu-linux-20-04-desktop>
-From: "Edgar E. Iglesias" <edgar.iglesias@gmail.com>
-Date: Thu, 2 May 2024 18:38:16 +0200
-Message-ID: <CAJy5ezoyCarP28SdXwArMM4d7AALPAURERM-c2fDTxu1Am3tNQ@mail.gmail.com>
-Subject: Re: [PATCH v2 1/1] xen/arm64: entry: Add missing code symbol annotations
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: xen-devel@lists.xenproject.org, julien@xen.org, bertrand.marquis@arm.com, 
-	michal.orzel@amd.com, Volodymyr_Babchuk@epam.com, jbeulich@suse.com, 
-	andrew.cooper3@citrix.com, edgar.iglesias@amd.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Fri, Apr 26, 2024 at 1:14=E2=80=AFAM Stefano Stabellini
-<sstabellini@kernel.org> wrote:
->
-> On Tue, 16 Apr 2024, Edgar E. Iglesias wrote:
-> > From: "Edgar E. Iglesias" <edgar.iglesias@amd.com>
-> >
-> > Use the generic xen/linkage.h macros when and add missing
->                                         ^ when what?
->
-> > code symbol annotations.
-> >
-> > Signed-off-by: Edgar E. Iglesias <edgar.iglesias@amd.com>
->
-> I am looking at the implementation of FUNC and as far as I can tell
-> there is no change compared to ENTRY. So from that point of view we are
-> good. I wonder if we should keep using "ENTRY" because it is nice to
-> mark explicitely the entry points as such but at the same time I am also
-> OK with this. I'll let the other ARM maintainers decide.
->
-> On the other hand, FUNC_LOCAL does introduce a change: it adds a .align
-> everywhere. Should not be harmful?
->
-> With the commit message fixed:
+Shared caches in multi-core CPU architectures represent a problem for
+predictability of memory access latency. This jeopardizes applicability
+of many Arm platform in real-time critical and mixed-criticality
+scenarios. We introduce support for cache partitioning with page
+coloring, a transparent software technique that enables isolation
+between domains and Xen, and thus avoids cache interference.
 
-Thanks Stefano, will fix the commit message in v3:
+When creating a domain, a simple syntax (e.g. `0-3` or `4-11`) allows
+the user to define assignments of cache partitions ids, called colors,
+where assigning different colors guarantees no mutual eviction on cache
+will ever happen. This instructs the Xen memory allocator to provide
+the i-th color assignee only with pages that maps to color i, i.e. that
+are indexed in the i-th cache partition.
 
- "Use the generic xen/linkage.h macros to annotate code symbols
- and add missing annotations."
+The proposed implementation supports the dom0less feature.
+The proposed implementation doesn't support the static-mem feature.
+The solution has been tested in several scenarios, including Xilinx Zynq
+MPSoCs.
 
-Cheers,
-Edgar
+Carlo Nonato (12):
+  xen/common: add cache coloring common code
+  xen/arm: add initial support for LLC coloring on arm64
+  xen/arm: permit non direct-mapped Dom0 construction
+  xen/arm: add Dom0 cache coloring support
+  xen: extend domctl interface for cache coloring
+  tools: add support for cache coloring configuration
+  xen/arm: add support for cache coloring configuration via device-tree
+  xen/page_alloc: introduce preserved page flags macro
+  xen: add cache coloring allocator for domains
+  xen/arm: use domain memory to allocate p2m page tables
+  xen/arm: make consider_modules() available for xen relocation
+  xen/arm: add cache coloring support for Xen
 
+Luca Miccio (1):
+  xen/arm: add Xen cache colors command line parameter
 
+ SUPPORT.md                              |   7 +
+ docs/man/xl.cfg.5.pod.in                |  10 +
+ docs/misc/arm/device-tree/booting.txt   |   4 +
+ docs/misc/cache-coloring.rst            | 246 +++++++++++++++
+ docs/misc/xen-command-line.pandoc       |  70 +++++
+ tools/include/libxl.h                   |   5 +
+ tools/include/xenctrl.h                 |   9 +
+ tools/libs/ctrl/xc_domain.c             |  35 +++
+ tools/libs/light/libxl_create.c         |  13 +
+ tools/libs/light/libxl_types.idl        |   1 +
+ tools/xl/xl_parse.c                     |  38 ++-
+ xen/arch/arm/Kconfig                    |   1 +
+ xen/arch/arm/Makefile                   |   1 +
+ xen/arch/arm/alternative.c              |  30 +-
+ xen/arch/arm/arm32/mmu/mm.c             | 115 +------
+ xen/arch/arm/arm64/mmu/head.S           |  58 +++-
+ xen/arch/arm/arm64/mmu/mm.c             |  28 +-
+ xen/arch/arm/dom0less-build.c           |  60 +---
+ xen/arch/arm/domain_build.c             | 107 ++++++-
+ xen/arch/arm/include/asm/domain_build.h |   1 +
+ xen/arch/arm/include/asm/mm.h           |   5 +
+ xen/arch/arm/include/asm/mmu/layout.h   |   3 +
+ xen/arch/arm/include/asm/processor.h    |  16 +
+ xen/arch/arm/include/asm/setup.h        |   3 +
+ xen/arch/arm/llc-coloring.c             | 140 +++++++++
+ xen/arch/arm/mmu/p2m.c                  |   4 +-
+ xen/arch/arm/mmu/setup.c                | 221 +++++++++++++-
+ xen/arch/arm/setup.c                    |  13 +-
+ xen/common/Kconfig                      |  30 ++
+ xen/common/Makefile                     |   1 +
+ xen/common/domain.c                     |   3 +
+ xen/common/domctl.c                     |  10 +
+ xen/common/keyhandler.c                 |   3 +
+ xen/common/llc-coloring.c               | 379 ++++++++++++++++++++++++
+ xen/common/page_alloc.c                 | 204 ++++++++++++-
+ xen/include/public/domctl.h             |   9 +
+ xen/include/xen/llc-coloring.h          |  63 ++++
+ xen/include/xen/sched.h                 |   5 +
+ xen/include/xen/xmalloc.h               |  12 +
+ 39 files changed, 1768 insertions(+), 195 deletions(-)
+ create mode 100644 docs/misc/cache-coloring.rst
+ create mode 100644 xen/arch/arm/llc-coloring.c
+ create mode 100644 xen/common/llc-coloring.c
+ create mode 100644 xen/include/xen/llc-coloring.h
 
->
-> Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
->
->
-> > ---
-> >  xen/arch/arm/arm64/entry.S | 72 +++++++++++++++++++++++++-------------
-> >  1 file changed, 48 insertions(+), 24 deletions(-)
-> >
-> > diff --git a/xen/arch/arm/arm64/entry.S b/xen/arch/arm/arm64/entry.S
-> > index f963c923bb..af9a592cae 100644
-> > --- a/xen/arch/arm/arm64/entry.S
-> > +++ b/xen/arch/arm/arm64/entry.S
-> > @@ -289,21 +289,25 @@
-> >          b       do_bad_mode
-> >          .endm
-> >
-> > -hyp_sync_invalid:
-> > +FUNC_LOCAL(hyp_sync_invalid)
-> >          entry   hyp=3D1
-> >          invalid BAD_SYNC
-> > +END(hyp_sync_invalid)
-> >
-> > -hyp_irq_invalid:
-> > +FUNC_LOCAL(hyp_irq_invalid)
-> >          entry   hyp=3D1
-> >          invalid BAD_IRQ
-> > +END(hyp_irq_invalid)
-> >
-> > -hyp_fiq_invalid:
-> > +FUNC_LOCAL(hyp_fiq_invalid)
-> >          entry   hyp=3D1
-> >          invalid BAD_FIQ
-> > +END(hyp_fiq_invalid)
-> >
-> > -hyp_error_invalid:
-> > +FUNC_LOCAL(hyp_error_invalid)
-> >          entry   hyp=3D1
-> >          invalid BAD_ERROR
-> > +END(hyp_error_invalid)
-> >
-> >  /*
-> >   * SError received while running in the hypervisor mode.
-> > @@ -313,11 +317,12 @@ hyp_error_invalid:
-> >   * simplicity, as SError should be rare and potentially fatal,
-> >   * all interrupts are kept masked.
-> >   */
-> > -hyp_error:
-> > +FUNC_LOCAL(hyp_error)
-> >          entry   hyp=3D1
-> >          mov     x0, sp
-> >          bl      do_trap_hyp_serror
-> >          exit    hyp=3D1
-> > +END(hyp_error)
-> >
-> >  /*
-> >   * Synchronous exception received while running in the hypervisor mode=
-.
-> > @@ -327,7 +332,7 @@ hyp_error:
-> >   * some of them. So we want to inherit the state from the interrupted
-> >   * context.
-> >   */
-> > -hyp_sync:
-> > +FUNC_LOCAL(hyp_sync)
-> >          entry   hyp=3D1
-> >
-> >          /* Inherit interrupts */
-> > @@ -338,6 +343,7 @@ hyp_sync:
-> >          mov     x0, sp
-> >          bl      do_trap_hyp_sync
-> >          exit    hyp=3D1
-> > +END(hyp_sync)
-> >
-> >  /*
-> >   * IRQ received while running in the hypervisor mode.
-> > @@ -352,7 +358,7 @@ hyp_sync:
-> >   * would require some rework in some paths (e.g. panic, livepatch) to
-> >   * ensure the ordering is enforced everywhere.
-> >   */
-> > -hyp_irq:
-> > +FUNC_LOCAL(hyp_irq)
-> >          entry   hyp=3D1
-> >
-> >          /* Inherit D, A, F interrupts and keep I masked */
-> > @@ -365,8 +371,9 @@ hyp_irq:
-> >          mov     x0, sp
-> >          bl      do_trap_irq
-> >          exit    hyp=3D1
-> > +END(hyp_irq)
-> >
-> > -guest_sync:
-> > +FUNC_LOCAL(guest_sync)
-> >          /*
-> >           * Save x0, x1 in advance
-> >           */
-> > @@ -413,8 +420,9 @@ fastpath_out_workaround:
-> >          mov     x1, xzr
-> >          eret
-> >          sb
-> > +END(guest_sync)
-> >
-> > -wa2_ssbd:
-> > +FUNC_LOCAL(wa2_ssbd)
-> >  #ifdef CONFIG_ARM_SSBD
-> >  alternative_cb arm_enable_wa2_handling
-> >          b       wa2_end
-> > @@ -450,42 +458,55 @@ wa2_end:
-> >          mov     x0, xzr
-> >          eret
-> >          sb
-> > -guest_sync_slowpath:
-> > +END(wa2_ssbd)
-> > +
-> > +FUNC_LOCAL(guest_sync_slowpath)
-> >          /*
-> >           * x0/x1 may have been scratch by the fast path above, so avoi=
-d
-> >           * to save them.
-> >           */
-> >          guest_vector compat=3D0, iflags=3DIFLAGS__AI_, trap=3Dguest_sy=
-nc, save_x0_x1=3D0
-> > +END(guest_sync_slowpath)
-> >
-> > -guest_irq:
-> > +FUNC_LOCAL(guest_irq)
-> >          guest_vector compat=3D0, iflags=3DIFLAGS__A__, trap=3Dirq
-> > +END(guest_irq)
-> >
-> > -guest_fiq_invalid:
-> > +FUNC_LOCAL(guest_fiq_invalid)
-> >          entry   hyp=3D0, compat=3D0
-> >          invalid BAD_FIQ
-> > +END(guest_fiq_invalid)
-> >
-> > -guest_error:
-> > +FUNC_LOCAL(guest_error)
-> >          guest_vector compat=3D0, iflags=3DIFLAGS__AI_, trap=3Dguest_se=
-rror
-> > +END(guest_error)
-> >
-> > -guest_sync_compat:
-> > +FUNC_LOCAL(guest_sync_compat)
-> >          guest_vector compat=3D1, iflags=3DIFLAGS__AI_, trap=3Dguest_sy=
-nc
-> > +END(guest_sync_compat)
-> >
-> > -guest_irq_compat:
-> > +FUNC_LOCAL(guest_irq_compat)
-> >          guest_vector compat=3D1, iflags=3DIFLAGS__A__, trap=3Dirq
-> > +END(guest_irq_compat)
-> >
-> > -guest_fiq_invalid_compat:
-> > +FUNC_LOCAL(guest_fiq_invalid_compat)
-> >          entry   hyp=3D0, compat=3D1
-> >          invalid BAD_FIQ
-> > +END(guest_fiq_invalid_compat)
-> >
-> > -guest_error_compat:
-> > +FUNC_LOCAL(guest_error_compat)
-> >          guest_vector compat=3D1, iflags=3DIFLAGS__AI_, trap=3Dguest_se=
-rror
-> > +END(guest_error_compat)
-> >
-> > -ENTRY(return_to_new_vcpu32)
-> > +FUNC(return_to_new_vcpu32)
-> >          exit    hyp=3D0, compat=3D1
-> > -ENTRY(return_to_new_vcpu64)
-> > +END(return_to_new_vcpu32)
-> > +
-> > +FUNC(return_to_new_vcpu64)
-> >          exit    hyp=3D0, compat=3D0
-> > +END(return_to_new_vcpu64)
-> >
-> > -return_from_trap:
-> > +FUNC_LOCAL(return_from_trap)
-> >          msr     daifset, #IFLAGS___I_ /* Mask interrupts */
-> >
-> >          ldr     x21, [sp, #UREGS_PC]            /* load ELR */
-> > @@ -524,6 +545,7 @@ return_from_trap:
-> >
-> >          eret
-> >          sb
-> > +END(return_from_trap)
-> >
-> >  /*
-> >   * Consume pending SError generated by the guest if any.
-> > @@ -536,7 +558,7 @@ return_from_trap:
-> >   * it. So the function will unmask SError exception for a small window=
- and
-> >   * then mask it again.
-> >   */
-> > -check_pending_guest_serror:
-> > +FUNC_LOCAL(check_pending_guest_serror)
-> >          /*
-> >           * Save elr_el2 to check whether the pending SError exception =
-takes
-> >           * place while we are doing this sync exception.
-> > @@ -586,7 +608,7 @@ abort_guest_exit_end:
-> >          cset    x19, ne
-> >
-> >          ret
-> > -ENDPROC(check_pending_guest_serror)
-> > +END(check_pending_guest_serror)
-> >
-> >  /*
-> >   * Exception vectors.
-> > @@ -597,7 +619,7 @@ ENDPROC(check_pending_guest_serror)
-> >          .endm
-> >
-> >          .align  11
-> > -ENTRY(hyp_traps_vector)
-> > +FUNC(hyp_traps_vector)
-> >          ventry  hyp_sync_invalid            /* Synchronous EL2t */
-> >          ventry  hyp_irq_invalid             /* IRQ EL2t */
-> >          ventry  hyp_fiq_invalid             /* FIQ EL2t */
-> > @@ -617,6 +639,7 @@ ENTRY(hyp_traps_vector)
-> >          ventry  guest_irq_compat            /* IRQ 32-bit EL0/EL1 */
-> >          ventry  guest_fiq_invalid_compat    /* FIQ 32-bit EL0/EL1 */
-> >          ventry  guest_error_compat          /* Error 32-bit EL0/EL1 */
-> > +END(hyp_traps_vector)
-> >
-> >  /*
-> >   * struct vcpu *__context_switch(struct vcpu *prev, struct vcpu *next)
-> > @@ -626,7 +649,7 @@ ENTRY(hyp_traps_vector)
-> >   *
-> >   * Returns prev in x0
-> >   */
-> > -ENTRY(__context_switch)
-> > +FUNC(__context_switch)
-> >          add     x8, x0, #VCPU_arch_saved_context
-> >          mov     x9, sp
-> >          stp     x19, x20, [x8], #16         /* store callee-saved regi=
-sters */
-> > @@ -647,6 +670,7 @@ ENTRY(__context_switch)
-> >          ldr     lr, [x8]
-> >          mov     sp, x9
-> >          ret
-> > +END(__context_switch)
-> >
-> >  /*
-> >   * Local variables:
-> > --
-> > 2.40.1
-> >
+-- 
+2.34.1
+
 
