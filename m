@@ -2,38 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0B2088B9F01
-	for <lists+xen-devel@lfdr.de>; Thu,  2 May 2024 18:56:07 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.715958.1118039 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 711058B9FFA
+	for <lists+xen-devel@lfdr.de>; Thu,  2 May 2024 20:03:08 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.716097.1118164 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s2Zir-0000p5-3O; Thu, 02 May 2024 16:55:53 +0000
+	id 1s2alT-000383-6W; Thu, 02 May 2024 18:02:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 715958.1118039; Thu, 02 May 2024 16:55:52 +0000
+Received: by outflank-mailman (output) from mailman id 716097.1118164; Thu, 02 May 2024 18:02:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s2Ziq-0000f9-Go; Thu, 02 May 2024 16:55:52 +0000
-Received: by outflank-mailman (input) for mailman id 715958;
- Thu, 02 May 2024 16:55:50 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1s2alT-00036A-3U; Thu, 02 May 2024 18:02:39 +0000
+Received: by outflank-mailman (input) for mailman id 716097;
+ Thu, 02 May 2024 18:02:37 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=8/Nh=MF=minervasys.tech=carlo.nonato@srs-se1.protection.inumbo.net>)
- id 1s2Zin-0006Lf-UO
- for xen-devel@lists.xenproject.org; Thu, 02 May 2024 16:55:50 +0000
-Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
- [2a00:1450:4864:20::631])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d35bf878-08a4-11ef-909b-e314d9c70b13;
- Thu, 02 May 2024 18:55:48 +0200 (CEST)
-Received: by mail-ej1-x631.google.com with SMTP id
- a640c23a62f3a-a587831809eso1015932966b.1
- for <xen-devel@lists.xenproject.org>; Thu, 02 May 2024 09:55:48 -0700 (PDT)
-Received: from carlo-ubuntu.mo54.unimo.it (nonato.mo54.unimo.it.
- [155.185.85.8]) by smtp.gmail.com with ESMTPSA id
- mq30-20020a170907831e00b00a5987fbfb83sm29103ejc.152.2024.05.02.09.55.47
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 02 May 2024 09:55:47 -0700 (PDT)
+ <SRS0=3Qsp=MF=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1s2alR-000364-Rd
+ for xen-devel@lists.xenproject.org; Thu, 02 May 2024 18:02:37 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [2604:1380:4641:c500::1])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 26f126d0-08ae-11ef-b4bb-af5377834399;
+ Thu, 02 May 2024 20:02:35 +0200 (CEST)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id D50AD61A1D;
+ Thu,  2 May 2024 18:02:33 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 89341C113CC;
+ Thu,  2 May 2024 18:02:31 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,667 +42,128 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d35bf878-08a4-11ef-909b-e314d9c70b13
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=minervasys-tech.20230601.gappssmtp.com; s=20230601; t=1714668948; x=1715273748; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=WECgJiEg23J0x5KrTcZN6y0EvfDCy6GafmGxq0QIyEk=;
-        b=lKJSluUBuvLwkgOk1Qq3XHcz7etstDbGtFKlkYZ0y/7mz47mk6V9M09vgOc+63JFSh
-         zGafN/fwLNfnmXz9ZhiJwNzK03NbIjWSfuID6V8jjUILwaWyd0mmXR65EQOK1pR6dEvo
-         SU6qNhs6koDQHvlQw27lLtRO5u3rXQPVqOWVOaPgnmH9np3lOu901EQhc5C57Gc0QtSI
-         yHnzmvkQF9cEAU9kuOsokkJC76sjykTwxZE6TJvUaiAojHLTw3y/zSbMX0x6IADnq3oW
-         wnXauT4lgMMqR/EPDPov9sFIaa013ufKQ+TH5iCzTcu65An76Srn+x7o+dbboo9FJq+u
-         E8Iw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1714668948; x=1715273748;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=WECgJiEg23J0x5KrTcZN6y0EvfDCy6GafmGxq0QIyEk=;
-        b=UpuV5KR0nZFJOQ/h0bOyUv/9soOGoLV39HPaj1Ipb9Fa/FaVsnmzHq2F2w7+DmGm3t
-         YB9MMl7HlGaTmE3w8yMxldc6AP4Nnwc1MrVbDmxQHAB9XW12qV4ELjPVj4pVN/x4neKR
-         2J+JoYDRxmtkU7A5lXGSU7YEogiQM/Muo45XCFbG6ZYrneizhKBe9HHtfTBtkiTZ7vXw
-         nzUhcXs/642F84yz8xyJw3IHVsQpyclMI2f1Yk+o+0SNx19jo79ZxObmbUatXKDglM7S
-         JAeYroFVu83w32kfAf1+TKZJ10Gni1L0XsTEuIOxA14ozCvta3NoQJdUc2lhUjeIzFfY
-         gJ+w==
-X-Gm-Message-State: AOJu0YyQD/u1IZI9P0rHdpoW/j0xs9N697JnBAgfin0ayJoHSoEQnfkS
-	Ga6Art1xvrnK+fLiishaH+zlJO66R4xVJu661w4ig69VaBFxH5aDUyKXEnHBMSvRX+rmpTkwLFu
-	v
-X-Google-Smtp-Source: AGHT+IFxhylZqKSSf0raeqaYai/+rXwGChzuHGphLorcC4+60j+kdNQeosjYOMCjdKBfd3yfWGD+5g==
-X-Received: by 2002:a17:906:6c1:b0:a58:fabc:4a02 with SMTP id v1-20020a17090606c100b00a58fabc4a02mr48827ejb.39.1714668947881;
-        Thu, 02 May 2024 09:55:47 -0700 (PDT)
-From: Carlo Nonato <carlo.nonato@minervasys.tech>
-To: xen-devel@lists.xenproject.org
-Cc: andrea.bastoni@minervasys.tech,
-	Carlo Nonato <carlo.nonato@minervasys.tech>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>,
-	Bertrand Marquis <bertrand.marquis@arm.com>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Marco Solieri <marco.solieri@minervasys.tech>
-Subject: [PATCH v8 13/13] xen/arm: add cache coloring support for Xen
-Date: Thu,  2 May 2024 18:55:33 +0200
-Message-Id: <20240502165533.319988-14-carlo.nonato@minervasys.tech>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20240502165533.319988-1-carlo.nonato@minervasys.tech>
-References: <20240502165533.319988-1-carlo.nonato@minervasys.tech>
+X-Inumbo-ID: 26f126d0-08ae-11ef-b4bb-af5377834399
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1714672953;
+	bh=/ZteNs6x9OubUJqG1B50uqZmMsB3ugNtVG566Vfz8sY=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=SVu7/9084mtuCkBHG7NyEZnlldSwDsUHWHJxe4sKxla7k1M4lKwB0EPZiJMOURKtd
+	 iFeHG0+mb2q6U2ZMW2qp1JxqckPBzcX6h0l+iyp1uCf1foMqfNOmPuj+gvkeexoq5t
+	 /V5+Tox5R+9v5oSqQ8sPH/HtdrGoVoC4zNNDVfZAH7uYq1+Nkq0mu6LEj1QXPHUaWQ
+	 DY6ij8f5hgdnO0nEyR3I0z6SnkbPhdBjGQ/yuhyFOQbxhtSRT/ReEHmPHZUrQmTXOb
+	 VtGbJ1PN6uSp+qGg15/IBBKSQincxMlVB+O+Eu9yjk+gd/WxX7AHOM4HOMihxMQbaT
+	 eT9ai3vYLUVuQ==
+Date: Thu, 2 May 2024 11:02:29 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Henry Wang <xin.wang2@amd.com>
+cc: Julien Grall <julien@xen.org>, Jan Beulich <jbeulich@suse.com>, 
+    Stefano Stabellini <sstabellini@kernel.org>, 
+    Bertrand Marquis <bertrand.marquis@arm.com>, 
+    Michal Orzel <michal.orzel@amd.com>, 
+    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
+    Andrew Cooper <andrew.cooper3@citrix.com>, 
+    George Dunlap <george.dunlap@citrix.com>, xen-devel@lists.xenproject.org
+Subject: Re: [PATCH 07/15] xen/overlay: Enable device tree overlay assignment
+ to running domains
+In-Reply-To: <e3c7098b-a876-48f3-8ccb-18a2ced8521c@amd.com>
+Message-ID: <alpine.DEB.2.22.394.2405021101200.624854@ubuntu-linux-20-04-desktop>
+References: <20240424033449.168398-1-xin.wang2@amd.com> <20240424033449.168398-8-xin.wang2@amd.com> <da67f90f-6807-4fdc-b65b-f7a4ba9f78ad@suse.com> <97a401ff-4b5c-4e6a-8d9c-e36305ec64f5@amd.com> <128c7e68-0431-44e9-b4fc-96cc46e158ad@xen.org>
+ <e3c7098b-a876-48f3-8ccb-18a2ced8521c@amd.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/mixed; boundary="8323329-878510409-1714672954=:624854"
 
-Add the cache coloring support for Xen physical space.
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-Since Xen must be relocated to a new physical space, some relocation
-functionalities must be brought back:
-- the virtual address of the new space is taken from 0c18fb76323b
-  ("xen/arm: Remove unused BOOT_RELOC_VIRT_START").
-- relocate_xen() and get_xen_paddr() are taken from f60658c6ae47
-  ("xen/arm: Stop relocating Xen").
+--8323329-878510409-1714672954=:624854
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8BIT
 
-setup_pagetables() must be adapted for coloring and for relocation. Runtime
-page tables are used to map the colored space, but they are also linked in
-boot tables so that the new space is temporarily available for relocation.
-This implies that Xen protection must happen after the copy.
+On Tue, 30 Apr 2024, Henry Wang wrote:
+> Hi Julien,
+> 
+> On 4/30/2024 1:34 AM, Julien Grall wrote:
+> > On 29/04/2024 04:36, Henry Wang wrote:
+> > > Hi Jan, Julien, Stefano,
+> > 
+> > Hi Henry,
+> > 
+> > > On 4/24/2024 2:05 PM, Jan Beulich wrote:
+> > > > On 24.04.2024 05:34, Henry Wang wrote:
+> > > > > --- a/xen/include/public/sysctl.h
+> > > > > +++ b/xen/include/public/sysctl.h
+> > > > > @@ -1197,7 +1197,9 @@ struct xen_sysctl_dt_overlay {
+> > > > >   #define XEN_SYSCTL_DT_OVERLAY_ADD                   1
+> > > > >   #define XEN_SYSCTL_DT_OVERLAY_REMOVE                2
+> > > > >       uint8_t overlay_op;                     /* IN: Add or remove. */
+> > > > > -    uint8_t pad[3];                         /* IN: Must be zero. */
+> > > > > +    bool domain_mapping;                    /* IN: True of False. */
+> > > > > +    uint8_t pad[2];                         /* IN: Must be zero. */
+> > > > > +    uint32_t domain_id;
+> > > > >   };
+> > > > If you merely re-purposed padding fields, all would be fine without
+> > > > bumping the interface version. Yet you don't, albeit for an unclear
+> > > > reason: Why uint32_t rather than domid_t? And on top of that - why a
+> > > > separate boolean when you could use e.g. DOMID_INVALID to indicate
+> > > > "no domain mapping"?
+> > > 
+> > > I think both of your suggestion make great sense. I will follow the
+> > > suggestion in v2.
+> > > 
+> > > > That said - anything taking a domain ID is certainly suspicious in a
+> > > > sysctl. Judging from the description you really mean this to be a
+> > > > domctl. Anything else will require extra justification.
+> > > 
+> > > I also think a domctl is better. I had a look at the history of the
+> > > already merged series, it looks like in the first version of merged part 1
+> > > [1], the hypercall was implemented as the domctl in the beginning but
+> > > later in v2 changed to sysctl. I think this makes sense as the scope of
+> > > that time is just to make Xen aware of the device tree node via Xen device
+> > > tree.
+> > > 
+> > > However this is now a problem for the current part where the scope (and
+> > > the end goal) is extended to assign the added device to Linux Dom0/DomU
+> > > via device tree overlays. I am not sure which way is better, should we
+> > > repurposing the sysctl to domctl or maybe add another domctl (I am
+> > > worrying about the duplication because basically we need the same sysctl
+> > > functionality but now with a domid in it)? What do you think?
+> > 
+> > I am not entirely sure this is a good idea to try to add the device in Xen
+> > and attach it to the guests at the same time. Imagine the following
+> > situation:
+> > 
+> > 1) Add and attach devices
+> > 2) The domain is rebooted
+> > 3) Detach and remove devices
+> > 
+> > After step 2, you technically have a new domain. You could have also a case
+> > where this is a completely different guest. So the flow would look a little
+> > bit weird (you create the DT overlay with domain A but remove with domain
+> > B).
+> > 
+> > So, at the moment, it feels like the add/attach (resp detech/remove)
+> > operations should happen separately.
+> > 
+> > Can you clarify why you want to add devices to Xen and attach to a guest
+> > within a single hypercall?
+> 
+> Sorry I don't know if there is any specific thoughts on the design of using a
+> single hypercall to do both add devices to Xen device tree and assign the
+> device to the guest. In fact seeing your above comments, I think separating
+> these two functionality to two xl commands using separated hypercalls would
+> indeed be a better idea. Thank you for the suggestion!
+> 
+> To make sure I understand correctly, would you mind confirming if below
+> actions for v2 make sense to you? Thanks!
+> - Only use the XEN_SYSCTL_DT_OVERLAY_{ADD, REMOVE} sysctls to add/remove
+> overlay to Xen device tree
+> - Introduce the xl dt-overlay attach <domid> command and respective domctls to
+> do the device assignment for the overlay to domain.
 
-Finally, since the alternative framework needs to remap the Xen text and
-inittext sections, this operation must be done in a coloring-aware way.
-The function xen_remap_colored() is introduced for that.
-
-Signed-off-by: Carlo Nonato <carlo.nonato@minervasys.tech>
-Signed-off-by: Marco Solieri <marco.solieri@minervasys.tech>
----
-v8:
-- moved xen_colored_map_size() to arm/llc-coloring.c
-v7:
-- added BUG_ON() checks to arch_llc_coloring_init() and
-  create_llc_coloring_mappings()
-v6:
-- squashed with BOOT_RELOC_VIRT_START patch
-- consider_modules() moved in another patch
-- removed psci and smpboot code because of new idmap work already handles that
-- moved xen_remap_colored() in alternative.c since it's only used there
-- removed xen_colored_temp[] in favor of xen_xenmap[] usage for mapping
-- use of boot_module_find_by_kind() to remove the need of extra parameter in
-  setup_pagetables()
-- moved get_xen_paddr() in arm/llc-coloring.c since it's only used there
-v5:
-- FIXME: consider_modules copy pasted since it got moved
-v4:
-- removed set_value_for_secondary() because it was wrongly cleaning cache
-- relocate_xen() now calls switch_ttbr_id()
----
- xen/arch/arm/alternative.c            |  30 +++++++-
- xen/arch/arm/arm64/mmu/head.S         |  58 +++++++++++++-
- xen/arch/arm/arm64/mmu/mm.c           |  28 ++++++-
- xen/arch/arm/include/asm/mmu/layout.h |   3 +
- xen/arch/arm/llc-coloring.c           |  63 ++++++++++++++++
- xen/arch/arm/mmu/setup.c              | 104 ++++++++++++++++++++++----
- xen/arch/arm/setup.c                  |  10 ++-
- xen/common/llc-coloring.c             |  18 +++++
- xen/include/xen/llc-coloring.h        |  13 ++++
- 9 files changed, 305 insertions(+), 22 deletions(-)
-
-diff --git a/xen/arch/arm/alternative.c b/xen/arch/arm/alternative.c
-index 016e66978b..8ca649b55e 100644
---- a/xen/arch/arm/alternative.c
-+++ b/xen/arch/arm/alternative.c
-@@ -9,6 +9,7 @@
- #include <xen/init.h>
- #include <xen/types.h>
- #include <xen/kernel.h>
-+#include <xen/llc-coloring.h>
- #include <xen/mm.h>
- #include <xen/vmap.h>
- #include <xen/smp.h>
-@@ -191,6 +192,27 @@ static int __apply_alternatives_multi_stop(void *xenmap)
-     return 0;
- }
- 
-+static void __init *xen_remap_colored(mfn_t xen_mfn, paddr_t xen_size)
-+{
-+    unsigned int i;
-+    void *xenmap;
-+    mfn_t *xen_colored_mfns, mfn;
-+
-+    xen_colored_mfns = xmalloc_array(mfn_t, xen_size >> PAGE_SHIFT);
-+    if ( !xen_colored_mfns )
-+        panic("Can't allocate LLC colored MFNs\n");
-+
-+    for_each_xen_colored_mfn ( xen_mfn, mfn, i )
-+    {
-+        xen_colored_mfns[i] = mfn;
-+    }
-+
-+    xenmap = vmap(xen_colored_mfns, xen_size >> PAGE_SHIFT);
-+    xfree(xen_colored_mfns);
-+
-+    return xenmap;
-+}
-+
- /*
-  * This function should only be called during boot and before CPU0 jump
-  * into the idle_loop.
-@@ -209,8 +231,12 @@ void __init apply_alternatives_all(void)
-      * The text and inittext section are read-only. So re-map Xen to
-      * be able to patch the code.
-      */
--    xenmap = __vmap(&xen_mfn, 1U << xen_order, 1, 1, PAGE_HYPERVISOR,
--                    VMAP_DEFAULT);
-+    if ( llc_coloring_enabled )
-+        xenmap = xen_remap_colored(xen_mfn, xen_size);
-+    else
-+        xenmap = __vmap(&xen_mfn, 1U << xen_order, 1, 1, PAGE_HYPERVISOR,
-+                        VMAP_DEFAULT);
-+
-     /* Re-mapping Xen is not expected to fail during boot. */
-     BUG_ON(!xenmap);
- 
-diff --git a/xen/arch/arm/arm64/mmu/head.S b/xen/arch/arm/arm64/mmu/head.S
-index fa40b696dd..7ad2c00fd5 100644
---- a/xen/arch/arm/arm64/mmu/head.S
-+++ b/xen/arch/arm/arm64/mmu/head.S
-@@ -427,6 +427,61 @@ fail:   PRINT("- Boot failed -\r\n")
-         b     1b
- ENDPROC(fail)
- 
-+/*
-+ * Copy Xen to new location and switch TTBR
-+ * x0    ttbr
-+ * x1    source address
-+ * x2    destination address
-+ * x3    length
-+ *
-+ * Source and destination must be word aligned, length is rounded up
-+ * to a 16 byte boundary.
-+ *
-+ * MUST BE VERY CAREFUL when saving things to RAM over the copy
-+ */
-+ENTRY(relocate_xen)
-+        /*
-+         * Copy 16 bytes at a time using:
-+         *   x9: counter
-+         *   x10: data
-+         *   x11: data
-+         *   x12: source
-+         *   x13: destination
-+         */
-+        mov     x9, x3
-+        mov     x12, x1
-+        mov     x13, x2
-+
-+1:      ldp     x10, x11, [x12], #16
-+        stp     x10, x11, [x13], #16
-+
-+        subs    x9, x9, #16
-+        bgt     1b
-+
-+        /*
-+         * Flush destination from dcache using:
-+         *   x9: counter
-+         *   x10: step
-+         *   x11: vaddr
-+         *
-+         * This is to ensure data is visible to the instruction cache
-+         */
-+        dsb   sy
-+
-+        mov   x9, x3
-+        ldr   x10, =dcache_line_bytes /* x10 := step */
-+        ldr   x10, [x10]
-+        mov   x11, x2
-+
-+1:      dc    cvac, x11
-+
-+        add   x11, x11, x10
-+        subs  x9, x9, x10
-+        bgt   1b
-+
-+        /* No need for dsb/isb because they are alredy done in switch_ttbr_id */
-+        b switch_ttbr_id
-+
- /*
-  * Switch TTBR
-  *
-@@ -452,7 +507,8 @@ ENTRY(switch_ttbr_id)
- 
-         /*
-          * 5) Flush I-cache
--         * This should not be necessary but it is kept for safety.
-+         * This should not be necessary in the general case, but it's needed
-+         * for cache coloring because code is relocated in that case.
-          */
-         ic     iallu
-         isb
-diff --git a/xen/arch/arm/arm64/mmu/mm.c b/xen/arch/arm/arm64/mmu/mm.c
-index 293acb67e0..076264b541 100644
---- a/xen/arch/arm/arm64/mmu/mm.c
-+++ b/xen/arch/arm/arm64/mmu/mm.c
-@@ -1,6 +1,7 @@
- /* SPDX-License-Identifier: GPL-2.0 */
- 
- #include <xen/init.h>
-+#include <xen/llc-coloring.h>
- #include <xen/mm.h>
- #include <xen/pfn.h>
- 
-@@ -126,27 +127,46 @@ void update_identity_mapping(bool enable)
- }
- 
- extern void switch_ttbr_id(uint64_t ttbr);
-+extern void relocate_xen(uint64_t ttbr, void *src, void *dst, size_t len);
- 
- typedef void (switch_ttbr_fn)(uint64_t ttbr);
-+typedef void (relocate_xen_fn)(uint64_t ttbr, void *src, void *dst, size_t len);
- 
- void __init switch_ttbr(uint64_t ttbr)
- {
--    vaddr_t id_addr = virt_to_maddr(switch_ttbr_id);
--    switch_ttbr_fn *fn = (switch_ttbr_fn *)id_addr;
-+    vaddr_t vaddr, id_addr;
-     lpae_t pte;
- 
-+    if ( llc_coloring_enabled )
-+        vaddr = (vaddr_t)relocate_xen;
-+    else
-+        vaddr = (vaddr_t)switch_ttbr_id;
-+
-+    id_addr = virt_to_maddr(vaddr);
-+
-     /* Enable the identity mapping in the boot page tables */
-     update_identity_mapping(true);
- 
-     /* Enable the identity mapping in the runtime page tables */
--    pte = pte_of_xenaddr((vaddr_t)switch_ttbr_id);
-+    pte = pte_of_xenaddr(vaddr);
-     pte.pt.table = 1;
-     pte.pt.xn = 0;
-     pte.pt.ro = 1;
-     write_pte(&xen_third_id[third_table_offset(id_addr)], pte);
- 
-     /* Switch TTBR */
--    fn(ttbr);
-+    if ( llc_coloring_enabled )
-+    {
-+        relocate_xen_fn *fn = (relocate_xen_fn *)id_addr;
-+
-+        fn(ttbr, _start, (void *)BOOT_RELOC_VIRT_START, _end - _start);
-+    }
-+    else
-+    {
-+        switch_ttbr_fn *fn = (switch_ttbr_fn *)id_addr;
-+
-+        fn(ttbr);
-+    }
- 
-     /*
-      * Disable the identity mapping in the runtime page tables.
-diff --git a/xen/arch/arm/include/asm/mmu/layout.h b/xen/arch/arm/include/asm/mmu/layout.h
-index a3b546465b..19c0ec63a5 100644
---- a/xen/arch/arm/include/asm/mmu/layout.h
-+++ b/xen/arch/arm/include/asm/mmu/layout.h
-@@ -30,6 +30,7 @@
-  *  10M -  12M   Fixmap: special-purpose 4K mapping slots
-  *  12M -  16M   Early boot mapping of FDT
-  *  16M -  18M   Livepatch vmap (if compiled in)
-+ *  16M -  24M   Cache-colored Xen text, data, bss (temporary, if compiled in)
-  *
-  *   1G -   2G   VMAP: ioremap and early_ioremap
-  *
-@@ -74,6 +75,8 @@
- #define BOOT_FDT_VIRT_START     (FIXMAP_VIRT_START + FIXMAP_VIRT_SIZE)
- #define BOOT_FDT_VIRT_SIZE      _AT(vaddr_t, MB(4))
- 
-+#define BOOT_RELOC_VIRT_START   (BOOT_FDT_VIRT_START + BOOT_FDT_VIRT_SIZE)
-+
- #ifdef CONFIG_LIVEPATCH
- #define LIVEPATCH_VMAP_START    (BOOT_FDT_VIRT_START + BOOT_FDT_VIRT_SIZE)
- #define LIVEPATCH_VMAP_SIZE    _AT(vaddr_t, MB(2))
-diff --git a/xen/arch/arm/llc-coloring.c b/xen/arch/arm/llc-coloring.c
-index 66c8db2baf..c8b183da84 100644
---- a/xen/arch/arm/llc-coloring.c
-+++ b/xen/arch/arm/llc-coloring.c
-@@ -9,6 +9,7 @@
- 
- #include <asm/processor.h>
- #include <asm/sysregs.h>
-+#include <asm/setup.h>
- 
- /* Return the LLC way size by probing the hardware */
- unsigned int __init get_llc_way_size(void)
-@@ -62,8 +63,70 @@ unsigned int __init get_llc_way_size(void)
-     return line_size * num_sets;
- }
- 
-+/**
-+ * get_xen_paddr - get physical address to relocate Xen to
-+ *
-+ * Xen is relocated to as near to the top of RAM as possible and
-+ * aligned to a XEN_PADDR_ALIGN boundary.
-+ */
-+static paddr_t __init get_xen_paddr(paddr_t xen_size)
-+{
-+    const struct membanks *mem = bootinfo_get_mem();
-+    paddr_t min_size, paddr = 0;
-+    unsigned int i;
-+
-+    min_size = (xen_size + (XEN_PADDR_ALIGN-1)) & ~(XEN_PADDR_ALIGN-1);
-+
-+    /* Find the highest bank with enough space. */
-+    for ( i = 0; i < mem->nr_banks; i++ )
-+    {
-+        const struct membank *bank = &mem->bank[i];
-+        paddr_t s, e;
-+
-+        if ( bank->size >= min_size )
-+        {
-+            e = consider_modules(bank->start, bank->start + bank->size,
-+                                 min_size, XEN_PADDR_ALIGN, 0);
-+            if ( !e )
-+                continue;
-+
-+#ifdef CONFIG_ARM_32
-+            /* Xen must be under 4GB */
-+            if ( e > GB(4) )
-+                e = GB(4);
-+            if ( e < bank->start )
-+                continue;
-+#endif
-+
-+            s = e - min_size;
-+
-+            if ( s > paddr )
-+                paddr = s;
-+        }
-+    }
-+
-+    if ( !paddr )
-+        panic("Not enough memory to relocate Xen\n");
-+
-+    printk("Placing Xen at 0x%"PRIpaddr"-0x%"PRIpaddr"\n",
-+           paddr, paddr + min_size);
-+
-+    return paddr;
-+}
-+
-+static paddr_t __init xen_colored_map_size(void)
-+{
-+    return ROUNDUP((_end - _start) * get_max_nr_llc_colors(), XEN_PADDR_ALIGN);
-+}
-+
- void __init arch_llc_coloring_init(void)
- {
-+    struct bootmodule *xen_bootmodule = boot_module_find_by_kind(BOOTMOD_XEN);
-+
-+    BUG_ON(!xen_bootmodule);
-+
-+    xen_bootmodule->size = xen_colored_map_size();
-+    xen_bootmodule->start = get_xen_paddr(xen_bootmodule->size);
- }
- 
- /*
-diff --git a/xen/arch/arm/mmu/setup.c b/xen/arch/arm/mmu/setup.c
-index a8f93d4f82..1a1b7f58a6 100644
---- a/xen/arch/arm/mmu/setup.c
-+++ b/xen/arch/arm/mmu/setup.c
-@@ -20,6 +20,11 @@
- /* Override macros from asm/page.h to make them work with mfn_t */
- #undef mfn_to_virt
- #define mfn_to_virt(mfn) __mfn_to_virt(mfn_x(mfn))
-+#undef virt_to_mfn
-+#define virt_to_mfn(va) _mfn(__virt_to_mfn(va))
-+
-+#define virt_to_reloc_virt(virt) \
-+    (((vaddr_t)virt) - XEN_VIRT_START + BOOT_RELOC_VIRT_START)
- 
- /* Main runtime page tables */
- 
-@@ -72,6 +77,7 @@ static void __init __maybe_unused build_assertions(void)
-     /* 2MB aligned regions */
-     BUILD_BUG_ON(XEN_VIRT_START & ~SECOND_MASK);
-     BUILD_BUG_ON(FIXMAP_ADDR(0) & ~SECOND_MASK);
-+    BUILD_BUG_ON(BOOT_RELOC_VIRT_START & ~SECOND_MASK);
-     /* 1GB aligned regions */
- #ifdef CONFIG_ARM_32
-     BUILD_BUG_ON(XENHEAP_VIRT_START & ~FIRST_MASK);
-@@ -135,7 +141,12 @@ static void __init __maybe_unused build_assertions(void)
- 
- lpae_t __init pte_of_xenaddr(vaddr_t va)
- {
--    paddr_t ma = va + phys_offset;
-+    paddr_t ma;
-+
-+    if ( llc_coloring_enabled )
-+        ma = virt_to_maddr(virt_to_reloc_virt(va));
-+    else
-+        ma = va + phys_offset;
- 
-     return mfn_to_xen_entry(maddr_to_mfn(ma), MT_NORMAL);
- }
-@@ -335,9 +346,44 @@ paddr_t __init consider_modules(paddr_t s, paddr_t e,
-     return e;
- }
- 
-+static void __init create_llc_coloring_mappings(void)
-+{
-+    lpae_t pte;
-+    unsigned int i;
-+    struct bootmodule *xen_bootmodule = boot_module_find_by_kind(BOOTMOD_XEN);
-+    mfn_t start_mfn = maddr_to_mfn(xen_bootmodule->start), mfn;
-+
-+    for_each_xen_colored_mfn ( start_mfn, mfn, i )
-+    {
-+        pte = mfn_to_xen_entry(mfn, MT_NORMAL);
-+        pte.pt.table = 1; /* level 3 mappings always have this bit set */
-+        xen_xenmap[i] = pte;
-+    }
-+
-+    for ( i = 0; i < XEN_NR_ENTRIES(2); i++ )
-+    {
-+        vaddr_t va = BOOT_RELOC_VIRT_START + (i << XEN_PT_LEVEL_SHIFT(2));
-+
-+        pte = mfn_to_xen_entry(virt_to_mfn(xen_xenmap +
-+                                           i * XEN_PT_LPAE_ENTRIES),
-+                               MT_NORMAL);
-+        pte.pt.table = 1;
-+        write_pte(&boot_second[second_table_offset(va)], pte);
-+    }
-+}
-+
- /*
-- * Boot-time pagetable setup.
-+ * Boot-time pagetable setup with coloring support
-  * Changes here may need matching changes in head.S
-+ *
-+ * The cache coloring support consists of:
-+ * - Create colored mapping that conforms to Xen color selection in xen_xenmap[]
-+ * - Link the mapping in boot page tables using BOOT_RELOC_VIRT_START as vaddr
-+ * - pte_of_xenaddr() takes care of translating addresses to the new space
-+ *   during runtime page tables creation
-+ * - Relocate xen and update TTBR with the new address in the colored space
-+ *   (see switch_ttbr())
-+ * - Protect the new space
-  */
- void __init setup_pagetables(unsigned long boot_phys_offset)
- {
-@@ -347,6 +393,9 @@ void __init setup_pagetables(unsigned long boot_phys_offset)
- 
-     phys_offset = boot_phys_offset;
- 
-+    if ( llc_coloring_enabled )
-+        create_llc_coloring_mappings();
-+
-     arch_setup_page_tables();
- 
- #ifdef CONFIG_ARM_64
-@@ -374,13 +423,7 @@ void __init setup_pagetables(unsigned long boot_phys_offset)
-             break;
-         pte = pte_of_xenaddr(va);
-         pte.pt.table = 1; /* third level mappings always have this bit set */
--        if ( is_kernel_text(va) || is_kernel_inittext(va) )
--        {
--            pte.pt.xn = 0;
--            pte.pt.ro = 1;
--        }
--        if ( is_kernel_rodata(va) )
--            pte.pt.ro = 1;
-+        pte.pt.xn = 0; /* Permissions will be enforced later. Allow execution */
-         xen_xenmap[i] = pte;
-     }
- 
-@@ -406,13 +449,48 @@ void __init setup_pagetables(unsigned long boot_phys_offset)
-     ttbr = (uintptr_t) cpu0_pgtable + phys_offset;
- #endif
- 
--    switch_ttbr(ttbr);
--
--    xen_pt_enforce_wnx();
--
- #ifdef CONFIG_ARM_32
-     per_cpu(xen_pgtable, 0) = cpu0_pgtable;
- #endif
-+
-+    if ( llc_coloring_enabled )
-+        ttbr = virt_to_maddr(virt_to_reloc_virt(THIS_CPU_PGTABLE));
-+
-+    switch_ttbr(ttbr);
-+
-+    /* Protect Xen */
-+    for ( i = 0; i < XEN_NR_ENTRIES(3); i++ )
-+    {
-+        vaddr_t va = XEN_VIRT_START + (i << PAGE_SHIFT);
-+        lpae_t *entry = xen_xenmap + i;
-+
-+        if ( !is_kernel(va) )
-+            break;
-+
-+        pte = read_atomic(entry);
-+
-+        if ( is_kernel_text(va) || is_kernel_inittext(va) )
-+        {
-+            pte.pt.xn = 0;
-+            pte.pt.ro = 1;
-+        } else if ( is_kernel_rodata(va) ) {
-+            pte.pt.ro = 1;
-+            pte.pt.xn = 1;
-+        } else {
-+            pte.pt.xn = 1;
-+            pte.pt.ro = 0;
-+        }
-+
-+        write_pte(entry, pte);
-+    }
-+
-+    /*
-+     * We modified live page-tables. Ensure the TLBs are invalidated
-+     * before setting enforcing the WnX permissions.
-+     */
-+    flush_xen_tlb_local();
-+
-+    xen_pt_enforce_wnx();
- }
- 
- void *__init arch_vmap_virt_end(void)
-diff --git a/xen/arch/arm/setup.c b/xen/arch/arm/setup.c
-index bbb3e1eea5..810dde3a49 100644
---- a/xen/arch/arm/setup.c
-+++ b/xen/arch/arm/setup.c
-@@ -754,8 +754,6 @@ void asmlinkage __init start_xen(unsigned long boot_phys_offset,
-     /* Initialize traps early allow us to get backtrace when an error occurred */
-     init_traps();
- 
--    setup_pagetables(boot_phys_offset);
--
-     smp_clear_cpu_maps();
- 
-     device_tree_flattened = early_fdt_map(fdt_paddr);
-@@ -779,6 +777,14 @@ void asmlinkage __init start_xen(unsigned long boot_phys_offset,
- 
-     llc_coloring_init();
- 
-+    /*
-+     * Page tables must be setup after LLC coloring initialization because
-+     * coloring info are required in order to create colored mappings
-+     */
-+    setup_pagetables(boot_phys_offset);
-+    /* Device-tree was mapped in boot page tables, remap it in the new tables */
-+    device_tree_flattened = early_fdt_map(fdt_paddr);
-+
-     setup_mm();
- 
-     vm_init();
-diff --git a/xen/common/llc-coloring.c b/xen/common/llc-coloring.c
-index 0ddd6946f1..323c125c48 100644
---- a/xen/common/llc-coloring.c
-+++ b/xen/common/llc-coloring.c
-@@ -33,6 +33,8 @@ static unsigned int __ro_after_init xen_num_colors;
- 
- #define mfn_color_mask              (max_nr_colors - 1)
- #define mfn_to_color(mfn)           (mfn_x(mfn) & mfn_color_mask)
-+#define get_mfn_with_color(mfn, color) \
-+    (_mfn((mfn_x(mfn) & ~mfn_color_mask) | (color)))
- 
- /*
-  * Parse the coloring configuration given in the buf string, following the
-@@ -350,6 +352,22 @@ unsigned int get_max_nr_llc_colors(void)
-     return max_nr_colors;
- }
- 
-+mfn_t __init xen_colored_mfn(mfn_t mfn)
-+{
-+    unsigned int i, color = mfn_to_color(mfn);
-+
-+    for ( i = 0; i < xen_num_colors; i++ )
-+    {
-+        if ( color == xen_colors[i] )
-+            return mfn;
-+        else if ( color < xen_colors[i] )
-+            return get_mfn_with_color(mfn, xen_colors[i]);
-+    }
-+
-+    /* Jump to next color space (max_nr_colors mfns) and use the first color */
-+    return get_mfn_with_color(mfn_add(mfn, max_nr_colors), xen_colors[0]);
-+}
-+
- /*
-  * Local variables:
-  * mode: C
-diff --git a/xen/include/xen/llc-coloring.h b/xen/include/xen/llc-coloring.h
-index 7f8218bfb2..859ed2da4e 100644
---- a/xen/include/xen/llc-coloring.h
-+++ b/xen/include/xen/llc-coloring.h
-@@ -26,6 +26,17 @@ static inline void domain_dump_llc_colors(const struct domain *d) {}
- static inline void domain_llc_coloring_free(struct domain *d) {}
- #endif
- 
-+/**
-+ * Iterate over each Xen mfn in the colored space.
-+ * @start_mfn:  the first mfn that needs to be colored.
-+ * @mfn:        the current mfn.
-+ * @i:          loop index.
-+ */
-+#define for_each_xen_colored_mfn(start_mfn, mfn, i) \
-+    for ( i = 0, mfn = xen_colored_mfn(start_mfn);  \
-+          i < (_end - _start) >> PAGE_SHIFT;        \
-+          i++, mfn = xen_colored_mfn(mfn_add(mfn, 1)) )
-+
- unsigned int get_llc_way_size(void);
- void arch_llc_coloring_init(void);
- int dom0_set_llc_colors(struct domain *d);
-@@ -37,6 +48,8 @@ struct page_info;
- unsigned int page_to_llc_color(const struct page_info *pg);
- unsigned int get_max_nr_llc_colors(void);
- 
-+mfn_t xen_colored_mfn(mfn_t mfn);
-+
- #endif /* __COLORING_H__ */
- 
- /*
--- 
-2.34.1
-
+I think two hypercalls is OK. The original idea was to have a single xl
+command to do the operation for user convenience (even that is not a
+hard requirement) but that can result easily in two hypercalls.
+--8323329-878510409-1714672954=:624854--
 
