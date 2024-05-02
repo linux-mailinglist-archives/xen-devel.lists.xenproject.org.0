@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 304638B953A
-	for <lists+xen-devel@lfdr.de>; Thu,  2 May 2024 09:25:23 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.715602.1117362 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 25A168B953E
+	for <lists+xen-devel@lfdr.de>; Thu,  2 May 2024 09:26:51 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.715608.1117372 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s2QoR-0005BY-TW; Thu, 02 May 2024 07:25:03 +0000
+	id 1s2Qpu-00064s-8k; Thu, 02 May 2024 07:26:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 715602.1117362; Thu, 02 May 2024 07:25:03 +0000
+Received: by outflank-mailman (output) from mailman id 715608.1117372; Thu, 02 May 2024 07:26:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s2QoR-00059T-Qk; Thu, 02 May 2024 07:25:03 +0000
-Received: by outflank-mailman (input) for mailman id 715602;
- Thu, 02 May 2024 07:25:02 +0000
+	id 1s2Qpu-000620-5p; Thu, 02 May 2024 07:26:34 +0000
+Received: by outflank-mailman (input) for mailman id 715608;
+ Thu, 02 May 2024 07:26:33 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=bu2w=MF=redhat.com=david@srs-se1.protection.inumbo.net>)
- id 1s2QoQ-00059J-K7
- for xen-devel@lists.xenproject.org; Thu, 02 May 2024 07:25:02 +0000
+ id 1s2Qpt-0005vQ-0X
+ for xen-devel@lists.xenproject.org; Thu, 02 May 2024 07:26:33 +0000
 Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 154b599d-0855-11ef-b4bb-af5377834399;
- Thu, 02 May 2024 09:25:00 +0200 (CEST)
-Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
- [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ id 4b802b9a-0855-11ef-b4bb-af5377834399;
+ Thu, 02 May 2024 09:26:31 +0200 (CEST)
+Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
+ [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-175-_dQ6MOkJMKu0f5nOAR6SMA-1; Thu, 02 May 2024 03:24:57 -0400
-Received: by mail-wm1-f70.google.com with SMTP id
- 5b1f17b1804b1-418f18458a0so38863165e9.0
- for <xen-devel@lists.xenproject.org>; Thu, 02 May 2024 00:24:57 -0700 (PDT)
+ us-mta-594-nWDx02wtN0uF5tcpReHdTA-1; Thu, 02 May 2024 03:26:29 -0400
+Received: by mail-wm1-f72.google.com with SMTP id
+ 5b1f17b1804b1-416ac21981dso7716765e9.1
+ for <xen-devel@lists.xenproject.org>; Thu, 02 May 2024 00:26:28 -0700 (PDT)
 Received: from ?IPV6:2003:cb:c71e:bf00:eba1:3ab9:ab0f:d676?
  (p200300cbc71ebf00eba13ab9ab0fd676.dip0.t-ipconnect.de.
  [2003:cb:c71e:bf00:eba1:3ab9:ab0f:d676])
  by smtp.gmail.com with ESMTPSA id
- z5-20020a05600c0a0500b0041bd85cd3f2sm917097wmp.19.2024.05.02.00.24.55
+ i16-20020a05600c355000b0041b61504565sm933209wmq.28.2024.05.02.00.26.26
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 02 May 2024 00:24:55 -0700 (PDT)
+ Thu, 02 May 2024 00:26:26 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,46 +51,45 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 154b599d-0855-11ef-b4bb-af5377834399
+X-Inumbo-ID: 4b802b9a-0855-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1714634699;
+	s=mimecast20190719; t=1714634790;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=cVr6/WyBfNaOaFW1NnhNL8WBGrtCboTC6NZ9VaDLEH0=;
-	b=MGwBKlspzKNPa+WThiShe+0pRxnDeU6m/g0MGfyvy7//ZEuIkSyqUZxFEdRzeRe3X+sDWd
-	vmGOByY64h/4p7JYfEsfNpX3tZKPjLvhCPykA4YHX5uQdm/GCe2WCzlAuG3ZRddK/ayQPN
-	A4hz+aMp+vVL9YDQq5av32dgNvI7iAE=
-X-MC-Unique: _dQ6MOkJMKu0f5nOAR6SMA-1
+	bh=3FnHssCUF+JogpfMvQcIC1XSfS0ftTV0t9WTQ+Vga4k=;
+	b=QpZfy/dxqPqt6alTqZ7cRcBgSKOa/wIVp4zgxBLsdobf1TtFWCtERispbujh8Jw23mrLVM
+	278bIiY27QGvbB2stVmYpIBq63fs/Y6V9S3DV8ajfznva5kMdcYwe/8XbpY5CiZCkr+ykV
+	aCj2S7PomJt5e7FNJRfmJTPFO4LkWgg=
+X-MC-Unique: nWDx02wtN0uF5tcpReHdTA-1
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1714634696; x=1715239496;
-        h=content-transfer-encoding:in-reply-to:organization:autocrypt
-         :content-language:from:references:cc:to:subject:user-agent
-         :mime-version:date:message-id:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=cVr6/WyBfNaOaFW1NnhNL8WBGrtCboTC6NZ9VaDLEH0=;
-        b=u+T4SoIeBNm3OwBt1E3JUUeyAljP5v5uZVfV+KCF1paeQBnml6WMAD2Y8ZZ2hqYKUN
-         +RycuI7SUiqEwTYQuajXpzcO+kAGjzAY6f0fs0h573pppSaNWkg7kh7gzBOm8LJPpdV9
-         9MEal65kK/X3vaw8OCxzzB/b7u+WRQLEjgOEtctKisbqw90CjEpibmUTKsgNo0JONTJq
-         acgVvliqXXhgXfHQDafZ4N52f8R6HBR3zsoX2zqmF751CpJRIWDtSGlzwi+0NsVImOR4
-         2rPCFD7q8y7wRLzxmfN0i2CaFovyCYib87UKyIANo0EaITqjEZdQxEAmExpjohhYPrET
-         x3Tg==
-X-Forwarded-Encrypted: i=1; AJvYcCUhJFaL52CBauLbvbrk3A2MREqFdh4F3lkfEZ2FXjmsMRcxvJrlNw4HM5a3/UuwKznIBPIsy17e5+EdOWrfDuPk/YSRet7+45QLjrk6Qus=
-X-Gm-Message-State: AOJu0Yz6ElnLgT3b1yh4DztqoFGyYNQ1INXpyO3oBSKSqdIvuWa3CDs7
-	+y5UdHHCwb+PrEZac9XA3kSOpS91oU9/AA33Vf/h3VtZ+dJoSrhTZk4RKJ/MLUBgMQbE5Dn49hl
-	mIhA24LS5ZnpRoxw4l9GQMSU42P/ZA3Hogrv7xnhPOGQVC4+hv6CVz6KUvPOl8287
-X-Received: by 2002:a05:600c:46cc:b0:41b:eaf2:f7da with SMTP id q12-20020a05600c46cc00b0041beaf2f7damr1051581wmo.6.1714634696493;
-        Thu, 02 May 2024 00:24:56 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IHAqD4icNunxfUpJGhVol0TOZfVPB7oj7bLkW3rBwu0G9HXbzU4JQedlaQW2eoh7DwWWRwQKA==
-X-Received: by 2002:a05:600c:46cc:b0:41b:eaf2:f7da with SMTP id q12-20020a05600c46cc00b0041beaf2f7damr1051563wmo.6.1714634696110;
-        Thu, 02 May 2024 00:24:56 -0700 (PDT)
-Message-ID: <7172c93c-8c25-4934-b1d8-de0658c6f50f@redhat.com>
-Date: Thu, 2 May 2024 09:24:54 +0200
+        d=1e100.net; s=20230601; t=1714634788; x=1715239588;
+        h=content-transfer-encoding:in-reply-to:organization:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=3FnHssCUF+JogpfMvQcIC1XSfS0ftTV0t9WTQ+Vga4k=;
+        b=NMA5r0qdn/KNVLz8Mw2Gib+6Lj9HwAVSMV5N9Q23a4QKgLa1Y8UhL/e9ioU4ElHtPu
+         A9iiLP0laePUFde3zLlYgMwyocYzQUz5BmooxO6RzWyit0C6Dhx5etucaIumoN6pqAxd
+         HIB7iFjLdw5Wx0A/w5Wo+qN321oL/JC2atxPNPFG9lyOUT9RJacWKr/vu6K6LoMscfnu
+         wR9f2lHgL9bZ4MuYmL3bt10K/2lBcSWjPVWIkRN97dwzfu0p9K3BDW/njwyZhwFk9+ht
+         9dTdJLdoCxJI8DOH9GTxoIYWizuXqyw9cYNKrFRXOz0/LZ8Xq3DyjX9lUQ2egJod4eft
+         +LLA==
+X-Forwarded-Encrypted: i=1; AJvYcCVhDhGgYRi0XUzwA3HtpL3yk/EsFtvHYKPSMKVku9RUmP/+dy3L3GGPGqOw4vvXtprZcsV09H4kBBQVbseAOK1+MIJmOXA3e6luPUYc8zQ=
+X-Gm-Message-State: AOJu0YzQ2kUkjfkJzUf52S6KBikvnafcJ0zSl61c2GVzsw8BnzP5bRnq
+	RGOnA6S4378DZyjUpNB+HImE5XIm/IjnUO1LQdvDU7A59Gu+axDJeuY70uKM4uiPI4Ol0xNjjjj
+	FWqpWsPdPkF/7XaiPKoAi6cCv2vqi5x7EoZvmsh0ycmJE7C58mzmdOmAm6D4I2aP/
+X-Received: by 2002:a05:600c:474b:b0:419:f533:ef88 with SMTP id w11-20020a05600c474b00b00419f533ef88mr1517961wmo.11.1714634787591;
+        Thu, 02 May 2024 00:26:27 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IGCDfTji+hFLp33zSZml2ea3sk683NpvOdxSS6BPcqoE+MBESg6R44Zwy0plsW/UyhT56xFcg==
+X-Received: by 2002:a05:600c:474b:b0:419:f533:ef88 with SMTP id w11-20020a05600c474b00b00419f533ef88mr1517933wmo.11.1714634787077;
+        Thu, 02 May 2024 00:26:27 -0700 (PDT)
+Message-ID: <0263b7e8-5800-4f5a-9dc5-bc2b4fbbbbfe@redhat.com>
+Date: Thu, 2 May 2024 09:26:25 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 13/17] softmmu: Pass RAM MemoryRegion and is_write
- xen_map_cache()
+Subject: Re: [PATCH v4 14/17] xen: Add xen_mr_is_memory()
 To: "Edgar E. Iglesias" <edgar.iglesias@gmail.com>, qemu-devel@nongnu.org
 Cc: sstabellini@kernel.org, jgross@suse.com,
  "Edgar E. Iglesias" <edgar.iglesias@amd.com>,
@@ -99,7 +98,7 @@ Cc: sstabellini@kernel.org, jgross@suse.com,
  =?UTF-8?Q?Philippe_Mathieu-Daud=C3=A9?= <philmd@linaro.org>,
  xen-devel@lists.xenproject.org
 References: <20240430164939.925307-1-edgar.iglesias@gmail.com>
- <20240430164939.925307-14-edgar.iglesias@gmail.com>
+ <20240430164939.925307-15-edgar.iglesias@gmail.com>
 From: David Hildenbrand <david@redhat.com>
 Autocrypt: addr=david@redhat.com; keydata=
  xsFNBFXLn5EBEAC+zYvAFJxCBY9Tr1xZgcESmxVNI/0ffzE/ZQOiHJl6mGkmA1R7/uUpiCjJ
@@ -146,7 +145,7 @@ Autocrypt: addr=david@redhat.com; keydata=
  jPrnvUsUUsjRoRNJjKKA/REq+sAnhkNPPZ/NNMjaZ5b8Tovi8C0tmxiCHaQYqj7G2rgnT0kt
  WNyWQQ==
 Organization: Red Hat
-In-Reply-To: <20240430164939.925307-14-edgar.iglesias@gmail.com>
+In-Reply-To: <20240430164939.925307-15-edgar.iglesias@gmail.com>
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Language: en-US
@@ -156,16 +155,34 @@ Content-Transfer-Encoding: 7bit
 On 30.04.24 18:49, Edgar E. Iglesias wrote:
 > From: "Edgar E. Iglesias" <edgar.iglesias@amd.com>
 > 
-> Propagate MR and is_write to xen_map_cache().
-
-I'm pretty sure the patch subject is missing a "to" :)
-
-> This is in preparation for adding support for grant mappings.
+> Add xen_mr_is_memory() to abstract away tests for the
+> xen_memory MR.
 > 
-> No functional change.
-> 
+> Signed-off-by: Edgar E. Iglesias <edgar.iglesias@amd.com>
+> ---
 
-Reviewed-by: David Hildenbrand <david@redhat.com>
+[...]
+
+>   #endif
+> diff --git a/system/physmem.c b/system/physmem.c
+> index ad7a8c7d95..1a5ffcba2a 100644
+> --- a/system/physmem.c
+> +++ b/system/physmem.c
+> @@ -2227,7 +2227,7 @@ static void *qemu_ram_ptr_length(RAMBlock *block, ram_addr_t addr,
+>            * because we don't want to map the entire memory in QEMU.
+>            * In that case just map the requested area.
+>            */
+> -        if (block->offset == 0) {
+> +        if (xen_mr_is_memory(block->mr)) {
+>               return xen_map_cache(block->mr, addr, len, lock, lock,
+>                                    is_write);
+>           }
+
+I'd have moved that into a separate patch, because this is not a simple 
+abstraction here.
+
+Acked-by: David Hildenbrand <david@redhat.com>
+
 -- 
 Cheers,
 
