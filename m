@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2F6B18B94D4
-	for <lists+xen-devel@lfdr.de>; Thu,  2 May 2024 08:48:43 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.715571.1117301 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9F8E98B94EA
+	for <lists+xen-devel@lfdr.de>; Thu,  2 May 2024 08:55:49 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.715577.1117313 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s2QEq-0003n6-TF; Thu, 02 May 2024 06:48:16 +0000
+	id 1s2QLl-0005ze-K2; Thu, 02 May 2024 06:55:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 715571.1117301; Thu, 02 May 2024 06:48:16 +0000
+Received: by outflank-mailman (output) from mailman id 715577.1117313; Thu, 02 May 2024 06:55:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s2QEq-0003ku-Qa; Thu, 02 May 2024 06:48:16 +0000
-Received: by outflank-mailman (input) for mailman id 715571;
- Thu, 02 May 2024 06:48:15 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1s2QLl-0005wu-GD; Thu, 02 May 2024 06:55:25 +0000
+Received: by outflank-mailman (input) for mailman id 715577;
+ Thu, 02 May 2024 06:55:24 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=G3ja=MF=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1s2QEp-0003iD-0k
- for xen-devel@lists.xenproject.org; Thu, 02 May 2024 06:48:15 +0000
-Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
- [2a00:1450:4864:20::331])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f279ba6c-084f-11ef-909b-e314d9c70b13;
- Thu, 02 May 2024 08:48:13 +0200 (CEST)
-Received: by mail-wm1-x331.google.com with SMTP id
- 5b1f17b1804b1-41b5e74fa2fso48503405e9.1
- for <xen-devel@lists.xenproject.org>; Wed, 01 May 2024 23:48:13 -0700 (PDT)
+ id 1s2QLk-0005wo-EA
+ for xen-devel@lists.xenproject.org; Thu, 02 May 2024 06:55:24 +0000
+Received: from mail-lj1-x232.google.com (mail-lj1-x232.google.com
+ [2a00:1450:4864:20::232])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id f1f05bed-0850-11ef-b4bb-af5377834399;
+ Thu, 02 May 2024 08:55:22 +0200 (CEST)
+Received: by mail-lj1-x232.google.com with SMTP id
+ 38308e7fff4ca-2e01d666c88so48273551fa.2
+ for <xen-devel@lists.xenproject.org>; Wed, 01 May 2024 23:55:22 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- p17-20020a05600c359100b0041adf358058sm813451wmq.27.2024.05.01.23.48.12
+ f12-20020a05600c154c00b0041be609b1c7sm4556592wmg.47.2024.05.01.23.55.21
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 01 May 2024 23:48:13 -0700 (PDT)
+ Wed, 01 May 2024 23:55:21 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,54 +45,53 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f279ba6c-084f-11ef-909b-e314d9c70b13
+X-Inumbo-ID: f1f05bed-0850-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1714632493; x=1715237293; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1714632922; x=1715237722; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=gx1POZzfK9lHz+kf5dqZtJ/lY88gBcic1RTUVhENGYs=;
-        b=W04zCkq3oRdKvqtVFFgMqY+bxhpfntnWnHQypAr9BoKJLyOgLObn9dijHXKE/q1AQk
-         X7BiaQGfMOEjgqcxKQAwy7gBpegj7M36C7a3crIlI6jUng2suWqGrdoG7OczIQsRN9KV
-         1rTeSIDkll/8FszGEXvH9E5TWwKkcWYe1W1ynQAYNU1tKJOutyU4iNstFVfMGQFrFqJM
-         MIct0q5v7vc3vtqHIVxbNtgIJH1JZONBbOETpApZR3frpohaSZxuSzXGm9FA7c8fdUqU
-         fQVK2uoVtOmZHyqiFePd79Vg6Zp/mcFZdTQ/tDTrX94N53Djndr/mWhHZI5s8GKeqlAd
-         eH9g==
+        bh=RLW3A3W679+djf8LQqd0VGX3LYFdhxBCP7IKuy2SWvg=;
+        b=YGTTSuQKK/KnPrycOojQfsF6TnXL1/bDCrMjo6vzGzeRhI8v8/H4I62KHhwVCO/LCX
+         JFcqBmbIAg7BVGpqhMOnedIbNV/GMEif20JUYIGzaaNiTuhaeoS6GAFosOyRS0j/Bk9V
+         Uu/qWjuuv4by1lH+NLR4SxbJiQ6ICHWTviSI581oRc7JKTc3186eEYbegIw+zVsQEn/X
+         F76fqeCgtsLZBagUxRRDnO4AyTMxdx3fDxnw1zycTfuyLYtJrYlBBx7xQCAdjMsferLn
+         9PbFofHoxX5uJBDG7r/qun6vokz+08WlJlnO/MRKosdsaO1RdULTzsJc7CpgxfJfZRGV
+         8hQQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1714632493; x=1715237293;
+        d=1e100.net; s=20230601; t=1714632922; x=1715237722;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=gx1POZzfK9lHz+kf5dqZtJ/lY88gBcic1RTUVhENGYs=;
-        b=qeXnLWE9az8EUQMinGv4osI2GSC8a4urDuxSQyawhDYvvr3T54DU6f1GjV90v304oP
-         vvxfusst0xLv1szfz6v4a0jD4FeexI+12APX1KFTvnN2tus6jndAxPo/Y7fM9JSDt9lj
-         bNpaiooAA0MEqMzLS/mg1z1af2UFh5VZg4hrD+6rcPBH91WECLoQJugVZy3+XMr6mz7B
-         gV5HWQ0grAokLBJgZIqPCxXjY/X6nh1nnf35hDf3vYMvRlUArNwwiIwM1jTVejCk0IEG
-         usRU1CYH4Ac3ISreTgSgxjgnrqhkuSU1380y4I7304iOY/VECTqpaCgyaBcSMUx3x6aC
-         57qg==
-X-Forwarded-Encrypted: i=1; AJvYcCXbQHOxIFFg0nCk6HsD0J/kFrRgZhLM9yGUbCl0kjgk2sqiwo7ts8U5+u2HZSGIHiToNHOQ4At1XU+ASm8+Z5M4eL0LPtgU1Uf39YErxeI=
-X-Gm-Message-State: AOJu0Ywsi+I/TbTDEGkwXO3S5ZMcTDJOf4jZBZsjcA++S2dESs2nGlv3
-	Tl043k9OPNkCnKDE6h1jUWOwjQjcc5GSjmUwSxCypXYPP2cNykyUSg53DDTGtw==
-X-Google-Smtp-Source: AGHT+IHxlwGKSsqYyp/KeOt2naWfx4KxvgB7Be3qsTChPDPAtJcz7sNxLF49gWJt+aW6Ag9lSMzTdQ==
-X-Received: by 2002:a05:600c:3b06:b0:41c:190:2b94 with SMTP id m6-20020a05600c3b0600b0041c01902b94mr3291909wms.6.1714632493326;
-        Wed, 01 May 2024 23:48:13 -0700 (PDT)
-Message-ID: <4cd997f9-a517-41f7-862e-37ca5984d48c@suse.com>
-Date: Thu, 2 May 2024 08:48:11 +0200
+        bh=RLW3A3W679+djf8LQqd0VGX3LYFdhxBCP7IKuy2SWvg=;
+        b=qDpuW4ygtZutFKr3+hMDESqS5fs/0CV6sSJ/75ttpR08G/KMJnHRikqpVHr8FPy2iD
+         8Cn6qgQle4QPPog/X/M12tNRFu38SIQ0usXnNF+DVd8V48xCpyk2wdZMEqSdAfFT7Xu+
+         +ZWVvLKm1lPY2kPn353mKRclwtZ8kzttgzCedv1MUmfZnCtkL1i1UWmXAw8hmCVMrdIJ
+         wHmTN0xIwYtXcDY4PLfc6l9VQswqBGcD/g3Qc37OoYiXmkPWsZkMAo2rzTHD47czSsLr
+         eMFt1eZOPhFHwKM/xIXeV+7NKSXdJ8fZoWLjFASs8kbh3EV54dzH8PXzrlaf4zARQl/C
+         n6Rg==
+X-Forwarded-Encrypted: i=1; AJvYcCXkEiaWEw1q3kMOsKY4/wAsCJZRWERJY6otzhScYygP9gCxFx4TL4c2zuOqSNuEYBWcDwbl9nEkKpOcQ2bO+0DJq8QSBY/dRaUlrgnjw9Y=
+X-Gm-Message-State: AOJu0Yy603jRDobSv31KFaIJW6Q5bGuR9DwBI5w6RWfDi+Vxb3j0AqXX
+	59N7OM1ljNAUs8SQv22UzBHxxRyrTofLVpVtKcgd8GxmuP0qfp4MH7OOM9Uu/Q==
+X-Google-Smtp-Source: AGHT+IGVOyu6L11lfIuoIjTVmrfoxWNT36SdASpjj+MglQQnCkoeTOWrP664Kg7flhGmDPLfNg/LNA==
+X-Received: by 2002:a05:651c:a10:b0:2df:c0b8:2dd6 with SMTP id k16-20020a05651c0a1000b002dfc0b82dd6mr3465809ljq.21.1714632921584;
+        Wed, 01 May 2024 23:55:21 -0700 (PDT)
+Message-ID: <52741b69-8bcb-492f-a8bc-f035b2747fe8@suse.com>
+Date: Thu, 2 May 2024 08:55:20 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 (resend) 07/27] x86: Map/unmap pages in
- restore_all_guests
+Subject: Re: [PATCH 5/6] xen/x86: Derive topologically correct x2APIC IDs from
+ the policy
 Content-Language: en-US
-To: Elias El Yandouzi <eliasely@amazon.com>
-Cc: julien@xen.org, pdurrant@amazon.com, dwmw@amazon.com,
- Hongyan Xia <hongyxia@amazon.com>, Andrew Cooper
- <andrew.cooper3@citrix.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Wei Liu <wl@xen.org>,
- Julien Grall <jgrall@amazon.com>, xen-devel@lists.xenproject.org
-References: <20240116192611.41112-1-eliasely@amazon.com>
- <20240116192611.41112-8-eliasely@amazon.com>
- <a2ce9820-c57a-4690-9dc6-c15d8a1489f4@suse.com>
- <a5ba2399-30a6-4ca4-bb8c-cf8773f862b9@amazon.com>
+To: Alejandro Vallejo <alejandro.vallejo@cloud.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu
+ <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20240109153834.4192-1-alejandro.vallejo@cloud.com>
+ <20240109153834.4192-6-alejandro.vallejo@cloud.com>
+ <14891d02-e9e9-4650-b572-e6f071f1506c@suse.com>
+ <e0963ddd-c3b7-44dd-a3b7-67811f3e9d7a@cloud.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -117,67 +116,53 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <a5ba2399-30a6-4ca4-bb8c-cf8773f862b9@amazon.com>
+In-Reply-To: <e0963ddd-c3b7-44dd-a3b7-67811f3e9d7a@cloud.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 30.04.2024 18:08, Elias El Yandouzi wrote:
->>> --- a/xen/arch/x86/pv/domain.c
->>> +++ b/xen/arch/x86/pv/domain.c
->>> @@ -288,6 +288,19 @@ static void pv_destroy_gdt_ldt_l1tab(struct vcpu *v)
->>>                                 1U << GDT_LDT_VCPU_SHIFT);
->>>   }
->>>   
->>> +static int pv_create_shadow_root_pt_l1tab(struct vcpu *v)
->>> +{
->>> +    return create_perdomain_mapping(v->domain, SHADOW_ROOT_PT_VCPU_VIRT_START(v),
->>
->> This line looks to be too long. But ...
->>
->>> +                                    1, v->domain->arch.pv.shadow_root_pt_l1tab,
->>> +                                    NULL);
->>> +}
->>> +
->>> +static void pv_destroy_shadow_root_pt_l1tab(struct vcpu *v)
->>> +
->>> +{
->>> +    destroy_perdomain_mapping(v->domain, SHADOW_ROOT_PT_VCPU_VIRT_START(v), 1);
->>> +}
->>
->> ... I'm not convinced of the usefulness of these wrapper functions
->> anyway, even more so that each is used exactly once.
+On 01.05.2024 18:35, Alejandro Vallejo wrote:
+> Hi,
 > 
-> The wrappers have been introduced to remain consistent with what has 
-> been done with GDT/LDT table. I would like to keep them if you don't mind.
-
-Hmm, yes, I can see your point.
-
->>> @@ -371,6 +394,12 @@ int pv_domain_initialise(struct domain *d)
->>>           goto fail;
->>>       clear_page(d->arch.pv.gdt_ldt_l1tab);
->>>   
->>> +    d->arch.pv.shadow_root_pt_l1tab =
->>> +        alloc_xenheap_pages(0, MEMF_node(domain_to_node(d)));
->>> +    if ( !d->arch.pv.shadow_root_pt_l1tab )
->>> +        goto fail;
->>> +    clear_page(d->arch.pv.shadow_root_pt_l1tab);
+> On 26/03/2024 16:41, Jan Beulich wrote:
+>> On 09.01.2024 16:38, Alejandro Vallejo wrote:
+>>> --- a/xen/lib/x86/policy.c
+>>> +++ b/xen/lib/x86/policy.c
+>>> @@ -2,15 +2,78 @@
+>>>  
+>>>  #include <xen/lib/x86/cpu-policy.h>
+>>>  
+>>> -uint32_t x86_x2apic_id_from_vcpu_id(const struct cpu_policy *p, uint32_t vcpu_id)
+>>> +static uint32_t parts_per_higher_scoped_level(const struct cpu_policy *p, size_t lvl)
+>>>  {
+>>>      /*
+>>> -     * TODO: Derive x2APIC ID from the topology information inside `p`
+>>> -     *       rather than from vCPU ID. This bodge is a temporary measure
+>>> -     *       until all infra is in place to retrieve or derive the initial
+>>> -     *       x2APIC ID from migrated domains.
+>>> +     * `nr_logical` reported by Intel is the number of THREADS contained in
+>>> +     * the next topological scope. For example, assuming a system with 2
+>>> +     * threads/core and 3 cores/module in a fully symmetric topology,
+>>> +     * `nr_logical` at the core level will report 6. Because it's reporting
+>>> +     * the number of threads in a module.
+>>> +     *
+>>> +     * On AMD/Hygon, nr_logical is already normalized by the higher scoped
+>>> +     * level (cores/complex, etc) so we can return it as-is.
+>>>       */
+>>> -    return vcpu_id * 2;
+>>> +    if ( p->x86_vendor != X86_VENDOR_INTEL || !lvl )
+>>> +        return p->topo.subleaf[lvl].nr_logical;
 >>
->> Looks like you simply cloned the GDT/LDT code. That's covering 128k
->> of VA space per vCPU, though, while here you'd using only 4k. Hence
->> using a full page looks like a factor 32 over-allocation. And once
->> using xzalloc() here instead a further question would be whether to
->> limit to the domain's actual needs - most domains will have far less
->> than 8k vCPU-s. In the common case (up to 512 vCPU-s) a single slot
->> will suffice, at which point a yet further question would be whether
->> to embed the "array" in struct pv_domain instead in that common case
->> (e.g. by using a union).
+>> Is "!= Intel" really appropriate here? I'd rather see this being "AMD || Hygon".
 > 
-> I have to admit I don't really understand your suggestion. Could you 
-> elaborate a bit more?
+> Sure, I don't particularly mind, but why? As far as we know only Intel
+> has this interpretation for the part counts. I definitely haven't seen
+> any non-Intel CPUID dump in which the part count is the total number of
+> threads (Centaur/Zhaoxin are not multithreaded, and don't expose leaves
+> 1f or e26, as far as I could see).
 
-The (per vCPU) GDT and LDT are together taking up 128k of VA space.
-Whereas you need only 4k. Therefore I was asking why you're over-
-allocating by so much.
+Because of x86'es origin and perhaps other historical aspects, cloning
+Intel behavior is far more likely. The fact that Hygon matches AMD is
+simply because they took AMD's design wholesale.
 
 Jan
 
