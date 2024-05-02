@@ -2,38 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 94E408BA014
-	for <lists+xen-devel@lfdr.de>; Thu,  2 May 2024 20:11:13 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.716106.1118183 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B427E8BA017
+	for <lists+xen-devel@lfdr.de>; Thu,  2 May 2024 20:11:33 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.716109.1118193 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s2atU-0006PB-6J; Thu, 02 May 2024 18:10:56 +0000
+	id 1s2atu-00071w-Hl; Thu, 02 May 2024 18:11:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 716106.1118183; Thu, 02 May 2024 18:10:56 +0000
+Received: by outflank-mailman (output) from mailman id 716109.1118193; Thu, 02 May 2024 18:11:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s2atU-0006Nx-2v; Thu, 02 May 2024 18:10:56 +0000
-Received: by outflank-mailman (input) for mailman id 716106;
- Thu, 02 May 2024 18:10:54 +0000
+	id 1s2atu-00070R-Et; Thu, 02 May 2024 18:11:22 +0000
+Received: by outflank-mailman (input) for mailman id 716109;
+ Thu, 02 May 2024 18:11:21 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=J/qc=MF=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1s2atS-0006Np-MJ
- for xen-devel@lists.xenproject.org; Thu, 02 May 2024 18:10:54 +0000
-Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
- [2a00:1450:4864:20::631])
+ <SRS0=3Qsp=MF=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1s2ats-0006Np-Vt
+ for xen-devel@lists.xenproject.org; Thu, 02 May 2024 18:11:20 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 4fd92eb0-08af-11ef-909b-e314d9c70b13;
- Thu, 02 May 2024 20:10:52 +0200 (CEST)
-Received: by mail-ej1-x631.google.com with SMTP id
- a640c23a62f3a-a597c192246so53273366b.0
- for <xen-devel@lists.xenproject.org>; Thu, 02 May 2024 11:10:52 -0700 (PDT)
-Received: from andrewcoop.citrite.net (default-46-102-197-194.interdsl.co.uk.
- [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- el4-20020a056402360400b005725ffd7305sm750255edb.75.2024.05.02.11.10.50
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 02 May 2024 11:10:51 -0700 (PDT)
+ id 5fbbf117-08af-11ef-909b-e314d9c70b13;
+ Thu, 02 May 2024 20:11:20 +0200 (CEST)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id 6267F61BFB;
+ Thu,  2 May 2024 18:11:18 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7333BC113CC;
+ Thu,  2 May 2024 18:11:16 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,797 +41,101 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4fd92eb0-08af-11ef-909b-e314d9c70b13
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1714673451; x=1715278251; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=vsQHNid/N6RXFYLsFWeAhF7QhEAHIkMrktwhE6dS5a4=;
-        b=GdbxStwPIVinYKPjVVaby2HlEGgcQqfV/wFXnMu7953kizK8clAG/QDtOvjmB13V6m
-         9/gY4wz+dxtHgsh7OfXlJvHfzj0yqoZ8O2QRuBtGpf6fNr1FuPeEd5Ilh5nM72gCYBa4
-         Nd/JYPWzG2vcx+XFkXiBtN4JdIaKurHXSm+Q0=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1714673451; x=1715278251;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=vsQHNid/N6RXFYLsFWeAhF7QhEAHIkMrktwhE6dS5a4=;
-        b=YyA8BEBMESwEc2u4woXV1NOQW7oijn39DFCFHhZHEqXjGOxJSCtLi01536EVpnD0Ft
-         cDUrfY/iN5Y33W19zEOuoDB3ZFUx+oJZioF1AzOD3EqcBWcDf2bJMz4ci0caYrkKRS1Z
-         FM8jdT9niP5ULfOZd18vCECmtkNCsNfqpngNnLMqIYBy4aQHwg6QjDdEDm6zuTqNw7HI
-         PJ/CI4WbjKxF7UHS1RE2bO5ylcph0H1hFD4hZVkdLjCUUWSGUaUP+RcoXEa303ksqiXg
-         WtVwkOrnQWlPxdAjfBoS41bUqAJOcCwlCE0m7GLItYkUuX0q6wLYnWES4HhVgypZ1EIJ
-         Rqzw==
-X-Gm-Message-State: AOJu0Yw9l8qYLhsLDQdjWu6eCmIvH946rDEJTN4xpwP/1L+rw+Ssi9jV
-	ZKaI5r0ZTLqRX1uYnhN8nnaslWlmRW2y8y5jiFCXBS4qdg+90ytLX81LYNYsq/1i44WSd8SFY13
-	a
-X-Google-Smtp-Source: AGHT+IEayK8m84wT3uQX6fk9BhEtM+x6MA6TGfiapeoV5erhx30/LRiCTbi6zw417BHBiwDP4/hjxQ==
-X-Received: by 2002:a50:aad5:0:b0:572:a089:75cc with SMTP id r21-20020a50aad5000000b00572a08975ccmr216378edc.5.1714673451517;
-        Thu, 02 May 2024 11:10:51 -0700 (PDT)
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <George.Dunlap@citrix.com>,
-	Jan Beulich <JBeulich@suse.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>,
-	Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Subject: [PATCH] xen/Kconfig: Drop the final remnants of ---help---
-Date: Thu,  2 May 2024 19:10:49 +0100
-Message-Id: <20240502181049.1361384-1-andrew.cooper3@citrix.com>
-X-Mailer: git-send-email 2.30.2
+X-Inumbo-ID: 5fbbf117-08af-11ef-909b-e314d9c70b13
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1714673478;
+	bh=XhYOxmZWkP66YztGtxmVj1HWIYgzpvO5VBxe2rJtMBc=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=s4y7zGWDzJenlan5uDQq3mzmQ+ocer6Fpxr84npjHlzsY2E9VWt9aRWRYF+KdfHlF
+	 yIMJehZ8Ge2C3mFrusdiLt0ioFlqWGGJD3k8rgPE+ua7cEUkGmEvxXJcyVSFglErF/
+	 rpmE7poR0aT+A/08w8gQgqTOu1Y1vYy31xUDXUnESd0ea6Ns9/DxsIqz6laVurDNCK
+	 4XJYfeF6P8UPolOAH94ULAkiCjrYNTJIPgv/p7+oIHOnNx/B1ui7Esf6DRYsDARKtm
+	 Lr/hdVeGXISk4ADZhKawCdl6AlRWiuCsuxHKa6VWvcx609bL0R9Sk8nRzjMIQ6HtDv
+	 dLyTsgHd8hktw==
+Date: Thu, 2 May 2024 11:11:15 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Henry Wang <xin.wang2@amd.com>
+cc: xen-devel@lists.xenproject.org, 
+    Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
+    Jan Beulich <jbeulich@suse.com>
+Subject: Re: [PATCH v1.1] xen/commom/dt-overlay: Fix missing lock when remove
+ the device
+In-Reply-To: <20240426015550.577986-1-xin.wang2@amd.com>
+Message-ID: <alpine.DEB.2.22.394.2405021111070.624854@ubuntu-linux-20-04-desktop>
+References: <20240426015550.577986-1-xin.wang2@amd.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/mixed; boundary="8323329-1925617102-1714673478=:624854"
 
-We deprecated the use of ---help--- a while ago, but a lot of new content
-copy&pastes bad examples.  Convert the remaining instances, and update
-Kconfig's parser to no longer recongise it.
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-This now causes builds to fail with:
+--8323329-1925617102-1714673478=:624854
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8BIT
 
-  Kconfig.debug:8: syntax error
-  Kconfig.debug:7: unknown statement "---help---"
+On Fri, 26 Apr 2024, Henry Wang wrote:
+> If CONFIG_DEBUG=y, below assertion will be triggered:
+> (XEN) Assertion 'rw_is_locked(&dt_host_lock)' failed at drivers/passthrough/device_tree.c:146
+> (XEN) ----[ Xen-4.19-unstable  arm64  debug=y  Not tainted ]----
+> (XEN) CPU:    0
+> (XEN) PC:     00000a0000257418 iommu_remove_dt_device+0x8c/0xd4
+> (XEN) LR:     00000a00002573a0
+> (XEN) SP:     00008000fff7fb30
+> (XEN) CPSR:   0000000000000249 MODE:64-bit EL2h (Hypervisor, handler)
+> [...]
+> 
+> (XEN) Xen call trace:
+> (XEN)    [<00000a0000257418>] iommu_remove_dt_device+0x8c/0xd4 (PC)
+> (XEN)    [<00000a00002573a0>] iommu_remove_dt_device+0x14/0xd4 (LR)
+> (XEN)    [<00000a000020797c>] dt-overlay.c#remove_node_resources+0x8c/0x90
+> (XEN)    [<00000a0000207f14>] dt-overlay.c#remove_nodes+0x524/0x648
+> (XEN)    [<00000a0000208460>] dt_overlay_sysctl+0x428/0xc68
+> (XEN)    [<00000a00002707f8>] arch_do_sysctl+0x1c/0x2c
+> (XEN)    [<00000a0000230b40>] do_sysctl+0x96c/0x9ec
+> (XEN)    [<00000a0000271e08>] traps.c#do_trap_hypercall+0x1e8/0x288
+> (XEN)    [<00000a0000273490>] do_trap_guest_sync+0x448/0x63c
+> (XEN)    [<00000a000025c480>] entry.o#guest_sync_slowpath+0xa8/0xd8
+> (XEN)
+> (XEN)
+> (XEN) ****************************************
+> (XEN) Panic on CPU 0:
+> (XEN) Assertion 'rw_is_locked(&dt_host_lock)' failed at drivers/passthrough/device_tree.c:146
+> (XEN) ****************************************
+> 
+> This is because iommu_remove_dt_device() is called without taking the
+> dt_host_lock. Fix the issue by taking and releasing the lock properly.
+> 
+> Fixes: 7e5c4a8b86f1 ("xen/arm: Implement device tree node removal functionalities")
+> Signed-off-by: Henry Wang <xin.wang2@amd.com>
 
-which short circuits one common piece of churn in new content.
+Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 
-No functional change.
 
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
----
-CC: George Dunlap <George.Dunlap@citrix.com>
-CC: Jan Beulich <JBeulich@suse.com>
-CC: Stefano Stabellini <sstabellini@kernel.org>
-CC: Julien Grall <julien@xen.org>
-CC: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-
-For 4.19.  This cleans up a legacy we've been wanting to get rid of for a
-while, and will be least disruptive on people if it gets in ahead of most
-people starting work for 4.20.
----
- xen/Kconfig                     |  2 +-
- xen/Kconfig.debug               | 28 +++++++++----------
- xen/arch/arm/Kconfig            |  8 +++---
- xen/arch/arm/platforms/Kconfig  | 12 ++++-----
- xen/arch/x86/Kconfig            | 32 +++++++++++-----------
- xen/common/Kconfig              | 48 ++++++++++++++++-----------------
- xen/common/sched/Kconfig        | 10 +++----
- xen/drivers/passthrough/Kconfig |  8 +++---
- xen/drivers/video/Kconfig       |  2 +-
- xen/tools/kconfig/lexer.l       |  2 +-
- 10 files changed, 76 insertions(+), 76 deletions(-)
-
-diff --git a/xen/Kconfig b/xen/Kconfig
-index 1e1b041fd52f..e459cdac0cd7 100644
---- a/xen/Kconfig
-+++ b/xen/Kconfig
-@@ -84,7 +84,7 @@ config UNSUPPORTED
- config LTO
- 	bool "Link Time Optimisation"
- 	depends on BROKEN
--	---help---
-+	help
- 	  Enable Link Time Optimisation.
- 
- 	  If unsure, say N.
-diff --git a/xen/Kconfig.debug b/xen/Kconfig.debug
-index fa81853e9385..61b24ac552cd 100644
---- a/xen/Kconfig.debug
-+++ b/xen/Kconfig.debug
-@@ -4,7 +4,7 @@ menu "Debugging Options"
- config DEBUG
- 	bool "Developer Checks"
- 	default y
--	---help---
-+	help
- 	  If you say Y here this will enable developer checks such as asserts
- 	  and extra printks. This option is intended for development purposes
- 	  only, and not for production use.
-@@ -17,14 +17,14 @@ config GDBSX
- 	bool "Guest debugging with gdbsx"
- 	depends on X86
- 	default y
--	---help---
-+	help
- 	  If you want to enable support for debugging guests from dom0 via
- 	  gdbsx then say Y.
- 
- config FRAME_POINTER
- 	bool "Compile Xen with frame pointers"
- 	default DEBUG
--	---help---
-+	help
- 	  If you say Y here the resulting Xen will be slightly larger and
- 	  maybe slower, but it gives very useful debugging information
- 	  in case of any Xen bugs.
-@@ -33,7 +33,7 @@ config COVERAGE
- 	bool "Code coverage support"
- 	depends on !LIVEPATCH
- 	select SUPPRESS_DUPLICATE_SYMBOL_WARNINGS if !ENFORCE_UNIQUE_SYMBOLS
--	---help---
-+	help
- 	  Enable code coverage support.
- 
- 	  If unsure, say N here.
-@@ -41,7 +41,7 @@ config COVERAGE
- config DEBUG_LOCK_PROFILE
- 	bool "Lock Profiling"
- 	select DEBUG_LOCKS
--	---help---
-+	help
- 	  Lock profiling allows you to see how often locks are taken and blocked.
- 	  You can use serial console to print (and reset) using 'l' and 'L'
- 	  respectively, or the 'xenlockprof' tool.
-@@ -49,13 +49,13 @@ config DEBUG_LOCK_PROFILE
- config DEBUG_LOCKS
- 	bool "Lock debugging"
- 	default DEBUG
--	---help---
-+	help
- 	  Enable debugging features of lock handling.  Some additional
- 	  checks will be performed when acquiring and releasing locks.
- 
- config PERF_COUNTERS
- 	bool "Performance Counters"
--	---help---
-+	help
- 	  Enables software performance counters that allows you to analyze
- 	  bottlenecks in the system.  To access this data you can use serial
- 	  console to print (and reset) using 'p' and 'P' respectively, or
-@@ -64,21 +64,21 @@ config PERF_COUNTERS
- config PERF_ARRAYS
- 	bool "Performance Counter Array Histograms"
- 	depends on PERF_COUNTERS
--	---help---
-+	help
- 	  Enables software performance counter array histograms.
- 
- 
- config VERBOSE_DEBUG
- 	bool "Verbose debug messages"
- 	default DEBUG
--	---help---
-+	help
- 	  Guest output from HYPERVISOR_console_io and hypervisor parsing
- 	  ELF images (dom0) will be logged in the Xen ring buffer.
- 
- config DEVICE_TREE_DEBUG
- 	bool "Device tree debug messages"
- 	depends on HAS_DEVICE_TREE
--	---help---
-+	help
- 	  Device tree parsing and DOM0 device tree building messages are
- 	  logged in the Xen ring buffer.
- 	  If unsure, say N here.
-@@ -86,14 +86,14 @@ config DEVICE_TREE_DEBUG
- config SCRUB_DEBUG
- 	bool "Page scrubbing test"
- 	default DEBUG
--	---help---
-+	help
- 	  Verify that pages that need to be scrubbed before being allocated to
- 	  a guest are indeed scrubbed.
- 
- config UBSAN
- 	bool "Undefined behaviour sanitizer"
- 	depends on HAS_UBSAN
--	---help---
-+	help
- 	  Enable undefined behaviour sanitizer. It uses compiler to insert code
- 	  snippets so that undefined behaviours in C are detected during runtime.
- 	  This requires a UBSAN capable compiler and it is a debug only feature.
-@@ -109,7 +109,7 @@ config UBSAN_FATAL
- 
- config DEBUG_TRACE
- 	bool "Debug trace support"
--	---help---
-+	help
- 	  Debug trace enables to record debug trace messages which are printed
- 	  either directly to the console or are printed to console in case of
- 	  a system crash.
-@@ -117,7 +117,7 @@ config DEBUG_TRACE
- config XMEM_POOL_POISON
- 	bool "Poison free xenpool blocks"
- 	default DEBUG
--	---help---
-+	help
- 	  Poison free blocks with 0xAA bytes and verify them when a block is
- 	  allocated in order to spot use-after-free issues.
- 
-diff --git a/xen/arch/arm/Kconfig b/xen/arch/arm/Kconfig
-index f8139a773a43..21d03d9f4424 100644
---- a/xen/arch/arm/Kconfig
-+++ b/xen/arch/arm/Kconfig
-@@ -67,7 +67,7 @@ source "arch/Kconfig"
- config ACPI
- 	bool "ACPI (Advanced Configuration and Power Interface) Support (UNSUPPORTED)" if UNSUPPORTED
- 	depends on ARM_64 && ARM_EFI
--	---help---
-+	help
- 
- 	  Advanced Configuration and Power Interface (ACPI) support for Xen is
- 	  an alternative to device tree on ARM64. This requires UEFI.
-@@ -102,7 +102,7 @@ config GICV3
- 	depends on !NEW_VGIC
- 	default n if ARM_32
- 	default y if ARM_64
--	---help---
-+	help
- 
- 	  Driver for the ARM Generic Interrupt Controller v3.
- 	  If unsure, use the default setting.
-@@ -132,7 +132,7 @@ config HVM
- config NEW_VGIC
- 	bool "Use new VGIC implementation"
- 	select GICV2
--	---help---
-+	help
- 
- 	This is an alternative implementation of the ARM GIC interrupt
- 	controller emulation, based on the Linux/KVM VGIC. It has a better
-@@ -147,7 +147,7 @@ config NEW_VGIC
- config SBSA_VUART_CONSOLE
- 	bool "Emulated SBSA UART console support"
- 	default y
--	---help---
-+	help
- 	  Allows a guest to use SBSA Generic UART as a console. The
- 	  SBSA Generic UART implements a subset of ARM PL011 UART.
- 
-diff --git a/xen/arch/arm/platforms/Kconfig b/xen/arch/arm/platforms/Kconfig
-index c93a6b275620..76f7e76b1bf4 100644
---- a/xen/arch/arm/platforms/Kconfig
-+++ b/xen/arch/arm/platforms/Kconfig
-@@ -1,14 +1,14 @@
- choice
- 	prompt "Platform Support"
- 	default ALL_PLAT
--	---help---
-+	help
- 	Choose which hardware platform to enable in Xen.
- 
- 	If unsure, choose ALL_PLAT.
- 
- config ALL_PLAT
- 	bool "All Platforms"
--	---help---
-+	help
- 	Enable support for all available hardware platforms. It doesn't
- 	automatically select any of the related drivers.
- 
-@@ -17,7 +17,7 @@ config QEMU
- 	depends on ARM_64
- 	select GICV3
- 	select HAS_PL011
--	---help---
-+	help
- 	Enable all the required drivers for QEMU aarch64 virt emulated
- 	machine.
- 
-@@ -26,7 +26,7 @@ config RCAR3
- 	depends on ARM_64
- 	select HAS_SCIF
- 	select IPMMU_VMSA
--	---help---
-+	help
- 	Enable all the required drivers for Renesas RCar3
- 
- config MPSOC
-@@ -34,12 +34,12 @@ config MPSOC
- 	depends on ARM_64
- 	select HAS_CADENCE_UART
- 	select ARM_SMMU
--	---help---
-+	help
- 	Enable all the required drivers for Xilinx Ultrascale+ MPSoC
- 
- config NO_PLAT
- 	bool "No Platforms"
--	---help---
-+	help
- 	Do not enable specific support for any platform.
- 
- endchoice
-diff --git a/xen/arch/x86/Kconfig b/xen/arch/x86/Kconfig
-index 2b6248774d8f..7e03e4bc5546 100644
---- a/xen/arch/x86/Kconfig
-+++ b/xen/arch/x86/Kconfig
-@@ -58,7 +58,7 @@ source "arch/Kconfig"
- config PV
- 	def_bool y
- 	prompt "PV support"
--	---help---
-+	help
- 	  Interfaces to support PV domains. These require guest kernel support
- 	  to run as a PV guest, but don't require any specific hardware support.
- 
-@@ -71,7 +71,7 @@ config PV32
- 	depends on PV
- 	default PV_SHIM
- 	select COMPAT
--	---help---
-+	help
- 	  The 32bit PV ABI uses Ring1, an area of the x86 architecture which
- 	  was deprecated and mostly removed in the AMD64 spec.  As a result,
- 	  it occasionally conflicts with newer x86 hardware features, causing
-@@ -90,7 +90,7 @@ config PV_LINEAR_PT
-        bool "Support for PV linear pagetables"
-        depends on PV
-        default y
--       ---help---
-+       help
-          Linear pagetables (also called "recursive pagetables") refers
-          to the practice of a guest operating system having pagetable
-          entries pointing to other pagetables of the same level (i.e.,
-@@ -113,7 +113,7 @@ config HVM
- 	select COMPAT
- 	select IOREQ_SERVER
- 	select MEM_ACCESS_ALWAYS_ON
--	---help---
-+	help
- 	  Interfaces to support HVM domains.  HVM domains require hardware
- 	  virtualisation extensions (e.g. Intel VT-x, AMD SVM), but can boot
- 	  guests which have no specific Xen knowledge.
-@@ -126,7 +126,7 @@ config XEN_SHSTK
- 	bool "Supervisor Shadow Stacks"
- 	depends on HAS_AS_CET_SS
- 	default y
--	---help---
-+	help
- 	  Control-flow Enforcement Technology (CET) is a set of features in
- 	  hardware designed to combat Return-oriented Programming (ROP, also
- 	  call/jump COP/JOP) attacks.  Shadow Stacks are one CET feature
-@@ -152,7 +152,7 @@ config SHADOW_PAGING
- 	bool "Shadow Paging"
- 	default !PV_SHIM_EXCLUSIVE
- 	depends on PV || HVM
--	---help---
-+	help
- 
-           Shadow paging is a software alternative to hardware paging support
-           (Intel EPT, AMD NPT).
-@@ -171,7 +171,7 @@ config SHADOW_PAGING
- config BIGMEM
- 	bool "big memory support"
- 	default n
--	---help---
-+	help
- 	  Allows Xen to support up to 123Tb of memory.
- 
- 	  This requires enlarging struct page_info as well as shrinking
-@@ -183,7 +183,7 @@ config HVM_FEP
- 	bool "HVM Forced Emulation Prefix support (UNSUPPORTED)" if UNSUPPORTED
- 	default DEBUG
- 	depends on HVM
--	---help---
-+	help
- 
- 	  Compiles in a feature that allows HVM guest to arbitrarily
- 	  exercise the instruction emulator.
-@@ -203,7 +203,7 @@ config TBOOT
- 	depends on UNSUPPORTED
- 	default !PV_SHIM_EXCLUSIVE
- 	select CRYPTO
--	---help---
-+	help
- 	  Allows support for Trusted Boot using the Intel(R) Trusted Execution
- 	  Technology (TXT)
- 
-@@ -213,14 +213,14 @@ choice
- 	prompt "Alignment of Xen image"
- 	default XEN_ALIGN_2M if PV_SHIM_EXCLUSIVE
- 	default XEN_ALIGN_DEFAULT
--	---help---
-+	help
- 	  Specify alignment for Xen image.
- 
- 	  If unsure, choose "default".
- 
- config XEN_ALIGN_DEFAULT
- 	bool "Default alignment"
--	---help---
-+	help
- 	  Pick alignment according to build variants.
- 
- 	  For EFI build the default alignment is 2M. For ELF build
-@@ -281,7 +281,7 @@ config GUEST
- config XEN_GUEST
- 	bool "Xen Guest"
- 	select GUEST
--	---help---
-+	help
- 	  Support for Xen detecting when it is running under Xen.
- 
- 	  If unsure, say N.
-@@ -290,7 +290,7 @@ config PVH_GUEST
- 	def_bool y
- 	prompt "PVH Guest"
- 	depends on XEN_GUEST
--	---help---
-+	help
- 	  Support booting using the PVH ABI.
- 
- 	  If unsure, say Y.
-@@ -299,7 +299,7 @@ config PV_SHIM
- 	def_bool y
- 	prompt "PV Shim"
- 	depends on PV && XEN_GUEST
--	---help---
-+	help
- 	  Build Xen with a mode which acts as a shim to allow PV guest to run
- 	  in an HVM/PVH container. This mode can only be enabled with command
- 	  line option.
-@@ -309,7 +309,7 @@ config PV_SHIM
- config PV_SHIM_EXCLUSIVE
- 	bool "PV Shim Exclusive"
- 	depends on PV_SHIM
--	---help---
-+	help
- 	  Build Xen in a way which unconditionally assumes PV_SHIM mode.  This
- 	  option is only intended for use when building a dedicated PV Shim
- 	  firmware, and will not function correctly in other scenarios.
-@@ -321,7 +321,7 @@ if !PV_SHIM_EXCLUSIVE
- config HYPERV_GUEST
- 	bool "Hyper-V Guest"
- 	select GUEST
--	---help---
-+	help
- 	  Support for Xen detecting when it is running under Hyper-V.
- 
- 	  If unsure, say N.
-diff --git a/xen/common/Kconfig b/xen/common/Kconfig
-index cff3166ff923..565ceda741b9 100644
---- a/xen/common/Kconfig
-+++ b/xen/common/Kconfig
-@@ -15,7 +15,7 @@ config CORE_PARKING
- config GRANT_TABLE
- 	bool "Grant table support" if EXPERT
- 	default y
--	---help---
-+	help
- 	  Grant table provides a generic mechanism to memory sharing
- 	  between domains. This shared memory interface underpins the
- 	  split device drivers for block and network IO in a classic
-@@ -90,7 +90,7 @@ config MEM_ACCESS
- 	def_bool MEM_ACCESS_ALWAYS_ON
- 	prompt "Memory Access and VM events" if !MEM_ACCESS_ALWAYS_ON
- 	depends on HVM
--	---help---
-+	help
- 
- 	  Framework to configure memory access types for guests and receive
- 	  related events in userspace.
-@@ -133,7 +133,7 @@ config INDIRECT_THUNK
- config SPECULATIVE_HARDEN_ARRAY
- 	bool "Speculative Array Hardening"
- 	default y
--	---help---
-+	help
- 	  Contemporary processors may use speculative execution as a
- 	  performance optimisation, but this can potentially be abused by an
- 	  attacker to leak data via speculative sidechannels.
-@@ -154,7 +154,7 @@ config SPECULATIVE_HARDEN_BRANCH
- 	bool "Speculative Branch Hardening"
- 	default y
- 	depends on X86
--        ---help---
-+        help
- 	  Contemporary processors may use speculative execution as a
- 	  performance optimisation, but this can potentially be abused by an
- 	  attacker to leak data via speculative sidechannels.
-@@ -228,7 +228,7 @@ config DIT_DEFAULT
- config HYPFS
- 	bool "Hypervisor file system support"
- 	default y
--	---help---
-+	help
- 	  Support Xen hypervisor file system. This file system is used to
- 	  present various hypervisor internal data to dom0 and in some
- 	  cases to allow modifying settings. Disabling the support will
-@@ -241,7 +241,7 @@ config HYPFS_CONFIG
- 	bool "Provide hypervisor .config via hypfs entry"
- 	default y
- 	depends on HYPFS
--	---help---
-+	help
- 	  When enabled the contents of the .config file used to build the
- 	  hypervisor are provided via the hypfs entry /buildinfo/config.
- 
-@@ -252,7 +252,7 @@ config IOREQ_SERVER
- 	bool "IOREQ support (EXPERT)" if EXPERT && !X86
- 	default X86
- 	depends on HVM
--	---help---
-+	help
- 	  Enables generic mechanism for providing emulated devices to the guests.
- 
- 	  If unsure, say N.
-@@ -261,7 +261,7 @@ config KEXEC
- 	bool "kexec support"
- 	default y
- 	depends on HAS_KEXEC
--	---help---
-+	help
- 	  Allows a running Xen hypervisor to be replaced with another OS
- 	  without rebooting. This is primarily used to execute a crash
- 	  environment to collect information on a Xen hypervisor or dom0 crash.
-@@ -270,7 +270,7 @@ config KEXEC
- 
- config EFI_SET_VIRTUAL_ADDRESS_MAP
-     bool "EFI: call SetVirtualAddressMap()" if EXPERT
--    ---help---
-+    help
-       Call EFI SetVirtualAddressMap() runtime service to setup memory map for
-       further runtime services. According to UEFI spec, it isn't strictly
-       necessary, but many UEFI implementations misbehave when this call is
-@@ -292,7 +292,7 @@ config XENOPROF
- config XSM
- 	bool "Xen Security Modules support"
- 	default ARM
--	---help---
-+	help
- 	  Enables the security framework known as Xen Security Modules which
- 	  allows administrators fine-grained control over a Xen domain and
- 	  its capabilities by defining permissible interactions between domains,
-@@ -305,7 +305,7 @@ config XSM_FLASK
- 	def_bool y
- 	prompt "FLux Advanced Security Kernel support"
- 	depends on XSM
--	---help---
-+	help
- 	  Enables FLASK (FLux Advanced Security Kernel) as the access control
- 	  mechanism used by the XSM framework.  This provides a mandatory access
- 	  control framework by which security enforcement, isolation, and
-@@ -318,7 +318,7 @@ config XSM_FLASK_AVC_STATS
- 	def_bool y
- 	prompt "Maintain statistics on the FLASK access vector cache" if EXPERT
- 	depends on XSM_FLASK
--	---help---
-+	help
- 	  Maintain counters on the access vector cache that can be viewed using
- 	  the FLASK_AVC_CACHESTATS sub-op of the xsm_op hypercall.  Disabling
- 	  this will save a tiny amount of memory and time to update the stats.
-@@ -329,7 +329,7 @@ config XSM_FLASK_POLICY
- 	bool "Compile Xen with a built-in FLASK security policy"
- 	default y if "$(XEN_HAS_CHECKPOLICY)" = "y"
- 	depends on XSM_FLASK
--	---help---
-+	help
- 	  This includes a default XSM policy in the hypervisor so that the
- 	  bootloader does not need to load a policy to get sane behavior from an
- 	  XSM-enabled hypervisor.  If this is disabled, a policy must be
-@@ -345,7 +345,7 @@ config XSM_SILO
- 	def_bool y
- 	prompt "SILO support"
- 	depends on XSM
--	---help---
-+	help
- 	  Enables SILO as the access control mechanism used by the XSM framework.
- 	  This is not the default module, add boot parameter xsm=silo to choose
- 	  it. This will deny any unmediated communication channels (grant tables
-@@ -372,7 +372,7 @@ config LATE_HWDOM
- 	bool "Dedicated hardware domain"
- 	default n
- 	depends on XSM && X86
--	---help---
-+	help
- 	  Allows the creation of a dedicated hardware domain distinct from
- 	  domain 0 that manages devices without needing access to other
- 	  privileged functionality such as the ability to manage domains.
-@@ -390,7 +390,7 @@ config LATE_HWDOM
- 
- config ARGO
- 	bool "Argo: hypervisor-mediated interdomain communication (UNSUPPORTED)" if UNSUPPORTED
--	---help---
-+	help
- 	  Enables a hypercall for domains to ask the hypervisor to perform
- 	  data transfer of messages between domains.
- 
-@@ -417,7 +417,7 @@ config LIVEPATCH
- 	default X86
- 	depends on "$(XEN_HAS_BUILD_ID)" = "y"
- 	select CC_SPLIT_SECTIONS
--	---help---
-+	help
- 	  Allows a running Xen hypervisor to be dynamically patched using
- 	  binary patches without rebooting. This is primarily used to binarily
- 	  patch in the field an hypervisor with XSA fixes.
-@@ -428,7 +428,7 @@ config FAST_SYMBOL_LOOKUP
- 	bool "Fast symbol lookup (bigger binary)"
- 	default y
- 	depends on LIVEPATCH
--	---help---
-+	help
- 	  When searching for symbol addresses we can use the built-in system
- 	  that is optimized for searching symbols using addresses as the key.
- 	  However using it for the inverse (find address using the symbol name)
-@@ -440,7 +440,7 @@ config FAST_SYMBOL_LOOKUP
- config ENFORCE_UNIQUE_SYMBOLS
- 	bool "Enforce unique symbols"
- 	default LIVEPATCH
--	---help---
-+	help
- 	  Multiple symbols with the same name aren't generally a problem
- 	  unless livepatching is to be used.
- 
-@@ -454,7 +454,7 @@ config ENFORCE_UNIQUE_SYMBOLS
- config SUPPRESS_DUPLICATE_SYMBOL_WARNINGS
- 	bool "Suppress duplicate symbol warnings"
- 	depends on !ENFORCE_UNIQUE_SYMBOLS
--	---help---
-+	help
- 	  Multiple symbols with the same name aren't generally a problem
- 	  unless Live patching is to be used, so these warnings can be
- 	  suppressed by enabling this option.  Certain other options (known
-@@ -464,7 +464,7 @@ config SUPPRESS_DUPLICATE_SYMBOL_WARNINGS
- config CMDLINE
- 	string "Built-in hypervisor command string" if EXPERT
- 	default ""
--	---help---
-+	help
- 	  Enter arguments here that should be compiled into the hypervisor
- 	  image and used at boot time. When the system boots, this string
- 	  will be parsed prior to the bootloader command line. So if a
-@@ -475,7 +475,7 @@ config CMDLINE_OVERRIDE
- 	bool "Built-in command line overrides bootloader arguments"
- 	default n
- 	depends on CMDLINE != ""
--	---help---
-+	help
- 	  Set this option to 'Y' to have the hypervisor ignore the bootloader
- 	  command line, and use ONLY the built-in command line.
- 
-@@ -485,7 +485,7 @@ config CMDLINE_OVERRIDE
- config DOM0_MEM
- 	string "Default value for dom0_mem boot parameter"
- 	default ""
--	---help---
-+	help
- 	  Sets a default value for dom0_mem, e.g. "512M".
- 	  The specified string will be used for the dom0_mem parameter in
- 	  case it was not specified on the command line.
-@@ -507,7 +507,7 @@ config DTB_FILE
- config TRACEBUFFER
- 	bool "Enable tracing infrastructure" if EXPERT
- 	default y
--	---help---
-+	help
- 	  Enable tracing infrastructure and pre-defined tracepoints within Xen.
- 	  This will allow live information about Xen's execution and performance
- 	  to be collected at run time for debugging or performance analysis.
-diff --git a/xen/common/sched/Kconfig b/xen/common/sched/Kconfig
-index b2ef0c99a3f8..18ca1ce7ab9f 100644
---- a/xen/common/sched/Kconfig
-+++ b/xen/common/sched/Kconfig
-@@ -4,20 +4,20 @@ menu "Schedulers"
- config SCHED_CREDIT
- 	bool "Credit scheduler support"
- 	default y
--	---help---
-+	help
- 	  The traditional credit scheduler is a general purpose scheduler.
- 
- config SCHED_CREDIT2
- 	bool "Credit2 scheduler support"
- 	default y
--	---help---
-+	help
- 	  The credit2 scheduler is a general purpose scheduler that is
- 	  optimized for lower latency and higher VM density.
- 
- config SCHED_RTDS
- 	bool "RTDS scheduler support (UNSUPPORTED)" if UNSUPPORTED
- 	default DEBUG
--	---help---
-+	help
- 	  The RTDS scheduler is a soft and firm real-time scheduler for
- 	  multicore, targeted for embedded, automotive, graphics and gaming
- 	  in the cloud, and general low-latency workloads.
-@@ -25,14 +25,14 @@ config SCHED_RTDS
- config SCHED_ARINC653
- 	bool "ARINC653 scheduler support (UNSUPPORTED)" if UNSUPPORTED
- 	default DEBUG
--	---help---
-+	help
- 	  The ARINC653 scheduler is a hard real-time scheduler for single
- 	  cores, targeted for avionics, drones, and medical devices.
- 
- config SCHED_NULL
- 	bool "Null scheduler support (UNSUPPORTED)" if UNSUPPORTED
- 	default PV_SHIM || DEBUG
--	---help---
-+	help
- 	  The null scheduler is a static, zero overhead scheduler,
- 	  for when there always are less vCPUs than pCPUs, typically
- 	  in embedded or HPC scenarios.
-diff --git a/xen/drivers/passthrough/Kconfig b/xen/drivers/passthrough/Kconfig
-index 864fcf3b0cef..78edd805365e 100644
---- a/xen/drivers/passthrough/Kconfig
-+++ b/xen/drivers/passthrough/Kconfig
-@@ -6,7 +6,7 @@ if ARM
- config ARM_SMMU
- 	bool "ARM SMMUv1 and v2 driver"
- 	default y
--	---help---
-+	help
- 	  Support for implementations of the ARM System MMU architecture
- 	  versions 1 and 2.
- 
-@@ -16,7 +16,7 @@ config ARM_SMMU
- config ARM_SMMU_V3
- 	bool "ARM Ltd. System MMU Version 3 (SMMUv3) Support" if EXPERT
- 	depends on ARM_64 && (!ACPI || BROKEN)
--	---help---
-+	help
- 	 Support for implementations of the ARM System MMU architecture
- 	 version 3. Driver is in experimental stage and should not be used in
- 	 production.
-@@ -27,7 +27,7 @@ config ARM_SMMU_V3
- config IPMMU_VMSA
- 	bool "Renesas IPMMU-VMSA found in R-Car Gen3/Gen4 SoCs"
- 	depends on ARM_64
--	---help---
-+	help
- 	  Support for implementations of the Renesas IPMMU-VMSA found
- 	  in R-Car Gen3/Gen4 SoCs.
- 
-@@ -68,7 +68,7 @@ choice
- 	prompt "IOMMU device quarantining default behavior"
- 	depends on HAS_PCI
- 	default IOMMU_QUARANTINE_BASIC
--	---help---
-+	help
- 	  When a PCI device is assigned to an untrusted domain, it is possible
- 	  for that domain to program the device to DMA to an arbitrary address.
- 	  The IOMMU is used to protect the host from malicious DMA by making
-diff --git a/xen/drivers/video/Kconfig b/xen/drivers/video/Kconfig
-index 41ca503cc961..245030beeaa2 100644
---- a/xen/drivers/video/Kconfig
-+++ b/xen/drivers/video/Kconfig
-@@ -7,7 +7,7 @@ config VGA
- 	select VIDEO
- 	depends on X86
- 	default y if !PV_SHIM_EXCLUSIVE
--	---help---
-+	help
- 	  Enable VGA output for the Xen hypervisor.
- 
- 	  If unsure, say Y.
-diff --git a/xen/tools/kconfig/lexer.l b/xen/tools/kconfig/lexer.l
-index 6354c905b006..4b7339ff4c8b 100644
---- a/xen/tools/kconfig/lexer.l
-+++ b/xen/tools/kconfig/lexer.l
-@@ -105,7 +105,7 @@ n	[A-Za-z0-9_-]
- "endchoice"		return T_ENDCHOICE;
- "endif"			return T_ENDIF;
- "endmenu"		return T_ENDMENU;
--"help"|"---help---"	return T_HELP;
-+"help"			return T_HELP;
- "hex"			return T_HEX;
- "if"			return T_IF;
- "imply"			return T_IMPLY;
-
-base-commit: feb9158a620040846d76981acbe8ea9e2255a07b
--- 
-2.30.2
-
+> ---
+> v1.1:
+> - Move the unlock position before the check of rc.
+> ---
+>  xen/common/dt-overlay.c | 2 ++
+>  1 file changed, 2 insertions(+)
+> 
+> diff --git a/xen/common/dt-overlay.c b/xen/common/dt-overlay.c
+> index 1b197381f6..ab8f43aea2 100644
+> --- a/xen/common/dt-overlay.c
+> +++ b/xen/common/dt-overlay.c
+> @@ -381,7 +381,9 @@ static int remove_node_resources(struct dt_device_node *device_node)
+>      {
+>          if ( dt_device_is_protected(device_node) )
+>          {
+> +            write_lock(&dt_host_lock);
+>              rc = iommu_remove_dt_device(device_node);
+> +            write_unlock(&dt_host_lock);
+>              if ( rc < 0 )
+>                  return rc;
+>          }
+> -- 
+> 2.34.1
+> 
+--8323329-1925617102-1714673478=:624854--
 
