@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 705268B9F03
+	by mail.lfdr.de (Postfix) with ESMTPS id 8D8538B9F05
 	for <lists+xen-devel@lfdr.de>; Thu,  2 May 2024 18:56:08 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.715956.1118025 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.715957.1118034 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s2Zip-0000S2-B5; Thu, 02 May 2024 16:55:51 +0000
+	id 1s2Ziq-0000fl-C4; Thu, 02 May 2024 16:55:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 715956.1118025; Thu, 02 May 2024 16:55:51 +0000
+Received: by outflank-mailman (output) from mailman id 715957.1118034; Thu, 02 May 2024 16:55:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s2Zio-0000NP-VC; Thu, 02 May 2024 16:55:50 +0000
-Received: by outflank-mailman (input) for mailman id 715956;
- Thu, 02 May 2024 16:55:48 +0000
+	id 1s2Zip-0000ZI-Ur; Thu, 02 May 2024 16:55:51 +0000
+Received: by outflank-mailman (input) for mailman id 715957;
+ Thu, 02 May 2024 16:55:49 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=8/Nh=MF=minervasys.tech=carlo.nonato@srs-se1.protection.inumbo.net>)
- id 1s2Zim-0006N3-Ow
- for xen-devel@lists.xenproject.org; Thu, 02 May 2024 16:55:48 +0000
-Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
- [2a00:1450:4864:20::62f])
+ id 1s2Zin-0006N3-Oz
+ for xen-devel@lists.xenproject.org; Thu, 02 May 2024 16:55:49 +0000
+Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
+ [2a00:1450:4864:20::629])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id d254c69c-08a4-11ef-b4bb-af5377834399;
- Thu, 02 May 2024 18:55:46 +0200 (CEST)
-Received: by mail-ej1-x62f.google.com with SMTP id
- a640c23a62f3a-a58a36008ceso1024928566b.0
- for <xen-devel@lists.xenproject.org>; Thu, 02 May 2024 09:55:46 -0700 (PDT)
+ id d2f792ba-08a4-11ef-b4bb-af5377834399;
+ Thu, 02 May 2024 18:55:48 +0200 (CEST)
+Received: by mail-ej1-x629.google.com with SMTP id
+ a640c23a62f3a-a595c61553cso245322166b.1
+ for <xen-devel@lists.xenproject.org>; Thu, 02 May 2024 09:55:48 -0700 (PDT)
 Received: from carlo-ubuntu.mo54.unimo.it (nonato.mo54.unimo.it.
  [155.185.85.8]) by smtp.gmail.com with ESMTPSA id
- mq30-20020a170907831e00b00a5987fbfb83sm29103ejc.152.2024.05.02.09.55.45
+ mq30-20020a170907831e00b00a5987fbfb83sm29103ejc.152.2024.05.02.09.55.46
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
  Thu, 02 May 2024 09:55:46 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
@@ -45,196 +45,360 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d254c69c-08a4-11ef-b4bb-af5377834399
+X-Inumbo-ID: d2f792ba-08a4-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=minervasys-tech.20230601.gappssmtp.com; s=20230601; t=1714668946; x=1715273746; darn=lists.xenproject.org;
+        d=minervasys-tech.20230601.gappssmtp.com; s=20230601; t=1714668947; x=1715273747; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=N2LM23qNbULSHEplCwn2ygOn0A5pB1f/lEILoWDwehY=;
-        b=EdhfhOOl01LJETvsGwmmXcWY/iJqkxkb1SF6GlwzkCVjor1eauEh/lWdehSJx7a0x9
-         OY1l/w3PrF+/WnydKz7nyyloQw3UN5j4bvbVTASYnUHcbKMO8mVMHX+eiINN1gtVTRTS
-         CQZGsggcUbEurwfTOt21+pDImh56p6k9bHy6wotISDRX5voS3yKhlxsy5zRpDA5Sa7H+
-         DcQaa15gmFdPQSfdSwYPvfgw9l2Jx/zN7M64jUmoA1VazzIe/iwvgVzApT6VAhLvyN8M
-         hsVpw862VfuqMq3J9HYVySbVAKtI9cE1ati9KbH2I0LU9bmNqJnsKlDskPZSW85w/krR
-         YYNQ==
+        bh=js2dKSvePAqOWBjeqArRJcnowTogkyqLrYPgrRYmXag=;
+        b=RRXcZgWPMNtOTswwIbUkP7F+MWzCBWMztxI3r820+EGbYvBRm2BOB945+xFe3uMGJd
+         RuQ+1ba75qFq+90sqIv/VU3LijYiEKPfikMRiExZ0P+ySe5C3oR4ykYSnVT6FnTmhA3i
+         VmrGVC3SAwhBRgkPP62xIYv/W7Uu+umMIxo3DzrjPH6ck+0ZF6BRlRwSEoz48yULKmm6
+         tqj2dtNz5fM2nHKpyvgr8OkUlntuHQXEUmkmQX3IoJ3Eyn60nXIWkzj3DeqIzxjl+OiF
+         1VE+A0gdixMuVkYoqr0bZfd3ZGmUh933f6Xduv0fB8cd/Zc9J7KS+/0eL0aIIMdJMPra
+         n4Fg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1714668946; x=1715273746;
+        d=1e100.net; s=20230601; t=1714668947; x=1715273747;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=N2LM23qNbULSHEplCwn2ygOn0A5pB1f/lEILoWDwehY=;
-        b=A8063wtrAGAol44CPP3ppYahdjkwdtyx86X3hdce3TOdPWuUUEtGClCedLvvr3IZhC
-         BiU5KEftGYQFtAR89lrAdeamVRyA+JHCC0CPsu8fdCkp7mca52CQjteQPPfQxXfhSRBr
-         3GcABCzCtSmAL4YLRO+emOo+TwXU+76o2sA/byjoC0kCl05zwUXUftC5MftHpAfBmG7W
-         O0p3z1GtyzgIylJivrIaJ+unp/wSo0Z/UBQe/1iXdedC5aKM3UnVw8/BgDKhZMIuWf0k
-         KEh5Z2X3BGNUfwBDECu28CFPZyy1M/iiSf33kLlasU9vAU3yAfpLbIIHFzuo/7YuS4ur
-         Oe2Q==
-X-Gm-Message-State: AOJu0Yxv8Or+oNWTg9ptj3naAvhMHjLxyH9uJNw/tmu5eGDuEV5ybqj3
-	Yg/xAIK+51MJVI7HStiXyNeIHQHu3E06lMvLi/wT1t4MHZ+QpFEqaytnkZcGHjTHXH1eaRL/n+n
-	Q
-X-Google-Smtp-Source: AGHT+IF4jfiVFArle54ykP0fTOLLkWR9rD9jCanhWbQyFsRvUeSfTo1P5MXi9h0x0Akki+DHOaZYOA==
-X-Received: by 2002:a17:906:a159:b0:a58:e71d:d74 with SMTP id bu25-20020a170906a15900b00a58e71d0d74mr73203ejb.13.1714668946329;
-        Thu, 02 May 2024 09:55:46 -0700 (PDT)
+        bh=js2dKSvePAqOWBjeqArRJcnowTogkyqLrYPgrRYmXag=;
+        b=TlOPt6rjg5t72vDLtsL7o+Faro/eQF0x2mhXdIZuBy3AE5ky8oF7RtqZCbBrKrB3GY
+         F12r5GSZ1ClN3CipXsJuKcuNdxyAdBmv0HQJKxDCQeidd0A3O+Dvb4RK4u1uwmrMxeFS
+         LVPm0JshHa0iv8k5c6IaeDTXVoVD1lAp8aJAscip3rqfxc7stIGE+gqjkGc0clipEcLl
+         Y6WEv6TsY3iW1PTIDnWEUegEnQ1BTSfhUOLnwSqnUfKDwW6f5OrEYdQR1P16L7FlQgpk
+         LTaxY3dWowC9KNk9OJLrFXcAA7POTdAtVVKZp9Pvn7fTcROCj2NcLedaSQwJUHOg+vpn
+         Suuw==
+X-Gm-Message-State: AOJu0YyXLAwjEkBhtFCn6pvQwmdG0NM/VmTqbi+M8wY4sH4csOiA09mp
+	uPM9hp+A1/WiDfojJkKGIWJ2C2K5RKJsSJm2GJVYvOYoc18x/x1LsXRF1rNKLaFK/VgObsZexlQ
+	W
+X-Google-Smtp-Source: AGHT+IHgyNFFlUmdIrnd/ng6aOPddiEn0HB2PTkDujnG/vTVRVBCqMLVj1yOyJ1Lyw3K+l8ARC4uGg==
+X-Received: by 2002:a17:906:fcc3:b0:a59:7766:e4ed with SMTP id qx3-20020a170906fcc300b00a597766e4edmr70061ejb.32.1714668947016;
+        Thu, 02 May 2024 09:55:47 -0700 (PDT)
 From: Carlo Nonato <carlo.nonato@minervasys.tech>
 To: xen-devel@lists.xenproject.org
 Cc: andrea.bastoni@minervasys.tech,
-	Luca Miccio <lucmiccio@gmail.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>,
+	Carlo Nonato <carlo.nonato@minervasys.tech>,
 	Stefano Stabellini <sstabellini@kernel.org>,
-	Marco Solieri <marco.solieri@minervasys.tech>,
-	Carlo Nonato <carlo.nonato@minervasys.tech>
-Subject: [PATCH v8 11/13] xen/arm: add Xen cache colors command line parameter
-Date: Thu,  2 May 2024 18:55:31 +0200
-Message-Id: <20240502165533.319988-12-carlo.nonato@minervasys.tech>
+	Julien Grall <julien@xen.org>,
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: [PATCH v8 12/13] xen/arm: make consider_modules() available for xen relocation
+Date: Thu,  2 May 2024 18:55:32 +0200
+Message-Id: <20240502165533.319988-13-carlo.nonato@minervasys.tech>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20240502165533.319988-1-carlo.nonato@minervasys.tech>
 References: <20240502165533.319988-1-carlo.nonato@minervasys.tech>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Luca Miccio <lucmiccio@gmail.com>
+Cache coloring must physically relocate Xen in order to color the hypervisor
+and consider_modules() is a key function that is needed to find a new
+available physical address.
 
-Add a new command line parameter to configure Xen cache colors.
-These colors are dumped together with other coloring info.
+672d67f339c0 ("xen/arm: Split MMU-specific setup_mm() and related code out")
+moved consider_modules() under arm32. Move it to mmu/setup.c and make it
+non-static so that it can be used outside.
 
-Benchmarking the VM interrupt response time provides an estimation of
-LLC usage by Xen's most latency-critical runtime task. Results on Arm
-Cortex-A53 on Xilinx Zynq UltraScale+ XCZU9EG show that one color, which
-reserves 64 KiB of L2, is enough to attain best responsiveness:
-- Xen 1 color latency:  3.1 us
-- Xen 2 color latency:  3.1 us
-
-Since this is the most common target for Arm cache coloring, the default
-amount of Xen colors is set to one.
-
-More colors are instead very likely to be needed on processors whose L1
-cache is physically-indexed and physically-tagged, such as Cortex-A57.
-In such cases, coloring applies to L1 also, and there typically are two
-distinct L1-colors. Therefore, reserving only one color for Xen would
-senselessly partitions a cache memory that is already private, i.e.
-underutilize it.
-
-Signed-off-by: Luca Miccio <lucmiccio@gmail.com>
-Signed-off-by: Marco Solieri <marco.solieri@minervasys.tech>
 Signed-off-by: Carlo Nonato <carlo.nonato@minervasys.tech>
 ---
 v8:
-- added bound check on xen_colors in llc_coloring_init()
+- patch adapted to new changes to consider_modules()
 v7:
-- removed XEN_DEFAULT_COLOR
-- XEN_DEFAULT_NUM_COLORS is now used in a for loop to set xen default colors
+- moved consider_modules() to arm/mmu/setup.c
+v6:
+- new patch
 ---
- docs/misc/cache-coloring.rst      |  2 ++
- docs/misc/xen-command-line.pandoc | 10 ++++++++++
- xen/common/llc-coloring.c         | 29 +++++++++++++++++++++++++++++
- 3 files changed, 41 insertions(+)
+ xen/arch/arm/arm32/mmu/mm.c      | 115 +-----------------------------
+ xen/arch/arm/include/asm/setup.h |   3 +
+ xen/arch/arm/mmu/setup.c         | 117 +++++++++++++++++++++++++++++++
+ 3 files changed, 121 insertions(+), 114 deletions(-)
 
-diff --git a/docs/misc/cache-coloring.rst b/docs/misc/cache-coloring.rst
-index f996627d0d..ad42d6b811 100644
---- a/docs/misc/cache-coloring.rst
-+++ b/docs/misc/cache-coloring.rst
-@@ -113,6 +113,8 @@ Specific documentation is available at `docs/misc/xen-command-line.pandoc`.
- +----------------------+-------------------------------+
- | ``buddy-alloc-size`` | Buddy allocator reserved size |
- +----------------------+-------------------------------+
-+| ``xen-llc-colors``   | Xen color configuration       |
-++----------------------+-------------------------------+
+diff --git a/xen/arch/arm/arm32/mmu/mm.c b/xen/arch/arm/arm32/mmu/mm.c
+index 23150122f7..5d50db32eb 100644
+--- a/xen/arch/arm/arm32/mmu/mm.c
++++ b/xen/arch/arm/arm32/mmu/mm.c
+@@ -9,6 +9,7 @@
+ #include <asm/fixmap.h>
+ #include <asm/static-memory.h>
+ #include <asm/static-shmem.h>
++#include <asm/setup.h>
  
- Colors selection format
- ***********************
-diff --git a/docs/misc/xen-command-line.pandoc b/docs/misc/xen-command-line.pandoc
-index d4d1e37272..2427f865c5 100644
---- a/docs/misc/xen-command-line.pandoc
-+++ b/docs/misc/xen-command-line.pandoc
-@@ -2915,6 +2915,16 @@ mode.
- **WARNING: `x2apic_phys` is deprecated and superseded by `x2apic-mode`.
- The latter takes precedence if both are set.**
- 
-+### xen-llc-colors (arm64)
-+> `= List of [ <integer> | <integer>-<integer> ]`
-+
-+> Default: `0: the lowermost color`
-+
-+Specify Xen LLC color configuration. This options is available only when
-+`CONFIG_LLC_COLORING` is enabled.
-+Two colors are most likely needed on platforms where private caches are
-+physically indexed, e.g. the L1 instruction cache of the Arm Cortex-A57.
-+
- ### xenheap_megabytes (arm32)
- > `= <size>`
- 
-diff --git a/xen/common/llc-coloring.c b/xen/common/llc-coloring.c
-index c598eb4bf7..0ddd6946f1 100644
---- a/xen/common/llc-coloring.c
-+++ b/xen/common/llc-coloring.c
-@@ -11,6 +11,7 @@
- #include <xen/param.h>
- 
- #define NR_LLC_COLORS          (1 << CONFIG_MAX_LLC_COLORS_ORDER)
-+#define XEN_DEFAULT_NUM_COLORS 1
- 
- bool __ro_after_init llc_coloring_enabled;
- boolean_param("llc-coloring", llc_coloring_enabled);
-@@ -27,6 +28,9 @@ static unsigned int __ro_after_init default_colors[NR_LLC_COLORS];
- static unsigned int __initdata dom0_colors[NR_LLC_COLORS];
- static unsigned int __initdata dom0_num_colors;
- 
-+static unsigned int __ro_after_init xen_colors[NR_LLC_COLORS];
-+static unsigned int __ro_after_init xen_num_colors;
-+
- #define mfn_color_mask              (max_nr_colors - 1)
- #define mfn_to_color(mfn)           (mfn_x(mfn) & mfn_color_mask)
- 
-@@ -85,6 +89,13 @@ static int __init parse_dom0_colors(const char *s)
+ static unsigned long opt_xenheap_megabytes __initdata;
+ integer_param("xenheap_megabytes", opt_xenheap_megabytes);
+@@ -31,120 +32,6 @@ static void __init setup_directmap_mappings(unsigned long base_mfn,
+     directmap_virt_end = XENHEAP_VIRT_START + nr_mfns * PAGE_SIZE;
  }
- custom_param("dom0-llc-colors", parse_dom0_colors);
  
-+static int __init parse_xen_colors(const char *s)
+-/*
+- * Returns the end address of the highest region in the range s..e
+- * with required size and alignment that does not conflict with the
+- * modules from first_mod to nr_modules.
+- *
+- * For non-recursive callers first_mod should normally be 0 (all
+- * modules and Xen itself) or 1 (all modules but not Xen).
+- */
+-static paddr_t __init consider_modules(paddr_t s, paddr_t e,
+-                                       uint32_t size, paddr_t align,
+-                                       int first_mod)
+-{
+-    const struct membanks *reserved_mem = bootinfo_get_reserved_mem();
+-#ifdef CONFIG_STATIC_SHM
+-    const struct membanks *shmem = bootinfo_get_shmem();
+-#endif
+-    const struct bootmodules *mi = &bootinfo.modules;
+-    int i;
+-    int nr;
+-
+-    s = (s+align-1) & ~(align-1);
+-    e = e & ~(align-1);
+-
+-    if ( s > e ||  e - s < size )
+-        return 0;
+-
+-    /* First check the boot modules */
+-    for ( i = first_mod; i < mi->nr_mods; i++ )
+-    {
+-        paddr_t mod_s = mi->module[i].start;
+-        paddr_t mod_e = mod_s + mi->module[i].size;
+-
+-        if ( s < mod_e && mod_s < e )
+-        {
+-            mod_e = consider_modules(mod_e, e, size, align, i+1);
+-            if ( mod_e )
+-                return mod_e;
+-
+-            return consider_modules(s, mod_s, size, align, i+1);
+-        }
+-    }
+-
+-    /* Now check any fdt reserved areas. */
+-
+-    nr = fdt_num_mem_rsv(device_tree_flattened);
+-
+-    for ( ; i < mi->nr_mods + nr; i++ )
+-    {
+-        paddr_t mod_s, mod_e;
+-
+-        if ( fdt_get_mem_rsv_paddr(device_tree_flattened,
+-                                   i - mi->nr_mods,
+-                                   &mod_s, &mod_e ) < 0 )
+-            /* If we can't read it, pretend it doesn't exist... */
+-            continue;
+-
+-        /* fdt_get_mem_rsv_paddr returns length */
+-        mod_e += mod_s;
+-
+-        if ( s < mod_e && mod_s < e )
+-        {
+-            mod_e = consider_modules(mod_e, e, size, align, i+1);
+-            if ( mod_e )
+-                return mod_e;
+-
+-            return consider_modules(s, mod_s, size, align, i+1);
+-        }
+-    }
+-
+-    /*
+-     * i is the current bootmodule we are evaluating, across all
+-     * possible kinds of bootmodules.
+-     *
+-     * When retrieving the corresponding reserved-memory addresses, we
+-     * need to index the reserved_mem bank starting from 0, and only counting
+-     * the reserved-memory modules. Hence, we need to use i - nr.
+-     */
+-    nr += mi->nr_mods;
+-    for ( ; i - nr < reserved_mem->nr_banks; i++ )
+-    {
+-        paddr_t r_s = reserved_mem->bank[i - nr].start;
+-        paddr_t r_e = r_s + reserved_mem->bank[i - nr].size;
+-
+-        if ( s < r_e && r_s < e )
+-        {
+-            r_e = consider_modules(r_e, e, size, align, i + 1);
+-            if ( r_e )
+-                return r_e;
+-
+-            return consider_modules(s, r_s, size, align, i + 1);
+-        }
+-    }
+-
+-#ifdef CONFIG_STATIC_SHM
+-    nr += reserved_mem->nr_banks;
+-    for ( ; i - nr < shmem->nr_banks; i++ )
+-    {
+-        paddr_t r_s = shmem->bank[i - nr].start;
+-        paddr_t r_e = r_s + shmem->bank[i - nr].size;
+-
+-        if ( s < r_e && r_s < e )
+-        {
+-            r_e = consider_modules(r_e, e, size, align, i + 1);
+-            if ( r_e )
+-                return r_e;
+-
+-            return consider_modules(s, r_s, size, align, i + 1);
+-        }
+-    }
+-#endif
+-
+-    return e;
+-}
+-
+ /*
+  * Find a contiguous region that fits in the static heap region with
+  * required size and alignment, and return the end address of the region
+diff --git a/xen/arch/arm/include/asm/setup.h b/xen/arch/arm/include/asm/setup.h
+index 28fb659fe9..a72b6d5c63 100644
+--- a/xen/arch/arm/include/asm/setup.h
++++ b/xen/arch/arm/include/asm/setup.h
+@@ -278,6 +278,9 @@ struct init_info
+     unsigned int cpuid;
+ };
+ 
++paddr_t consider_modules(paddr_t s, paddr_t e, uint32_t size, paddr_t align,
++                         int first_mod);
++
+ #endif
+ /*
+  * Local variables:
+diff --git a/xen/arch/arm/mmu/setup.c b/xen/arch/arm/mmu/setup.c
+index f4bb424c3c..a8f93d4f82 100644
+--- a/xen/arch/arm/mmu/setup.c
++++ b/xen/arch/arm/mmu/setup.c
+@@ -6,7 +6,10 @@
+  */
+ 
+ #include <xen/init.h>
++#include <xen/lib.h>
+ #include <xen/libfdt/libfdt.h>
++#include <xen/libfdt/libfdt-xen.h>
++#include <xen/llc-coloring.h>
+ #include <xen/sections.h>
+ #include <xen/sizes.h>
+ #include <xen/vmap.h>
+@@ -218,6 +221,120 @@ static void xen_pt_enforce_wnx(void)
+     flush_xen_tlb_local();
+ }
+ 
++/*
++ * Returns the end address of the highest region in the range s..e
++ * with required size and alignment that does not conflict with the
++ * modules from first_mod to nr_modules.
++ *
++ * For non-recursive callers first_mod should normally be 0 (all
++ * modules and Xen itself) or 1 (all modules but not Xen).
++ */
++paddr_t __init consider_modules(paddr_t s, paddr_t e,
++                                uint32_t size, paddr_t align,
++                                int first_mod)
 +{
-+    return parse_color_config(s, xen_colors, ARRAY_SIZE(xen_colors),
-+                              &xen_num_colors);
-+}
-+custom_param("xen-llc-colors", parse_xen_colors);
++    const struct membanks *reserved_mem = bootinfo_get_reserved_mem();
++#ifdef CONFIG_STATIC_SHM
++    const struct membanks *shmem = bootinfo_get_shmem();
++#endif
++    const struct bootmodules *mi = &bootinfo.modules;
++    int i;
++    int nr;
 +
- static void print_colors(const unsigned int *colors, unsigned int num_colors)
- {
-     unsigned int i;
-@@ -163,6 +174,22 @@ void __init llc_coloring_init(void)
-     for ( i = 0; i < max_nr_colors; i++ )
-         default_colors[i] = i;
- 
-+    if ( !xen_num_colors )
++    s = (s+align-1) & ~(align-1);
++    e = e & ~(align-1);
++
++    if ( s > e ||  e - s < size )
++        return 0;
++
++    /* First check the boot modules */
++    for ( i = first_mod; i < mi->nr_mods; i++ )
 +    {
-+        unsigned int i;
++        paddr_t mod_s = mi->module[i].start;
++        paddr_t mod_e = mod_s + mi->module[i].size;
 +
-+        xen_num_colors = MIN(XEN_DEFAULT_NUM_COLORS, max_nr_colors);
++        if ( s < mod_e && mod_s < e )
++        {
++            mod_e = consider_modules(mod_e, e, size, align, i+1);
++            if ( mod_e )
++                return mod_e;
 +
-+        printk(XENLOG_WARNING
-+               "Xen LLC color config not found. Using first %u colors\n",
-+               xen_num_colors);
-+        for ( i = 0; i < xen_num_colors; i++ )
-+            xen_colors[i] = i;
++            return consider_modules(s, mod_s, size, align, i+1);
++        }
 +    }
-+    else if ( xen_num_colors > max_nr_colors ||
-+              !check_colors(xen_colors, xen_num_colors) )
-+        panic("Bad LLC color config for Xen\n");
 +
-     arch_llc_coloring_init();
- }
- 
-@@ -173,6 +200,8 @@ void dump_llc_coloring_info(void)
- 
-     printk("LLC coloring info:\n");
-     printk("    Number of LLC colors supported: %u\n", max_nr_colors);
-+    printk("    Xen LLC colors (%u): ", xen_num_colors);
-+    print_colors(xen_colors, xen_num_colors);
- }
- 
- void domain_dump_llc_colors(const struct domain *d)
++    /* Now check any fdt reserved areas. */
++
++    nr = fdt_num_mem_rsv(device_tree_flattened);
++
++    for ( ; i < mi->nr_mods + nr; i++ )
++    {
++        paddr_t mod_s, mod_e;
++
++        if ( fdt_get_mem_rsv_paddr(device_tree_flattened,
++                                   i - mi->nr_mods,
++                                   &mod_s, &mod_e ) < 0 )
++            /* If we can't read it, pretend it doesn't exist... */
++            continue;
++
++        /* fdt_get_mem_rsv_paddr returns length */
++        mod_e += mod_s;
++
++        if ( s < mod_e && mod_s < e )
++        {
++            mod_e = consider_modules(mod_e, e, size, align, i+1);
++            if ( mod_e )
++                return mod_e;
++
++            return consider_modules(s, mod_s, size, align, i+1);
++        }
++    }
++
++    /*
++     * i is the current bootmodule we are evaluating, across all
++     * possible kinds of bootmodules.
++     *
++     * When retrieving the corresponding reserved-memory addresses, we
++     * need to index the reserved_mem bank starting from 0, and only counting
++     * the reserved-memory modules. Hence, we need to use i - nr.
++     */
++    nr += mi->nr_mods;
++    for ( ; i - nr < reserved_mem->nr_banks; i++ )
++    {
++        paddr_t r_s = reserved_mem->bank[i - nr].start;
++        paddr_t r_e = r_s + reserved_mem->bank[i - nr].size;
++
++        if ( s < r_e && r_s < e )
++        {
++            r_e = consider_modules(r_e, e, size, align, i + 1);
++            if ( r_e )
++                return r_e;
++
++            return consider_modules(s, r_s, size, align, i + 1);
++        }
++    }
++
++#ifdef CONFIG_STATIC_SHM
++    nr += reserved_mem->nr_banks;
++    for ( ; i - nr < shmem->nr_banks; i++ )
++    {
++        paddr_t r_s = shmem->bank[i - nr].start;
++        paddr_t r_e = r_s + shmem->bank[i - nr].size;
++
++        if ( s < r_e && r_s < e )
++        {
++            r_e = consider_modules(r_e, e, size, align, i + 1);
++            if ( r_e )
++                return r_e;
++
++            return consider_modules(s, r_s, size, align, i + 1);
++        }
++    }
++#endif
++
++    return e;
++}
++
+ /*
+  * Boot-time pagetable setup.
+  * Changes here may need matching changes in head.S
 -- 
 2.34.1
 
