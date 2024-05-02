@@ -2,34 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B427E8BA017
-	for <lists+xen-devel@lfdr.de>; Thu,  2 May 2024 20:11:33 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.716109.1118193 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9EA938BA01C
+	for <lists+xen-devel@lfdr.de>; Thu,  2 May 2024 20:13:38 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.716118.1118203 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s2atu-00071w-Hl; Thu, 02 May 2024 18:11:22 +0000
+	id 1s2avo-0007tv-T1; Thu, 02 May 2024 18:13:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 716109.1118193; Thu, 02 May 2024 18:11:22 +0000
+Received: by outflank-mailman (output) from mailman id 716118.1118203; Thu, 02 May 2024 18:13:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s2atu-00070R-Et; Thu, 02 May 2024 18:11:22 +0000
-Received: by outflank-mailman (input) for mailman id 716109;
- Thu, 02 May 2024 18:11:21 +0000
+	id 1s2avo-0007ri-QJ; Thu, 02 May 2024 18:13:20 +0000
+Received: by outflank-mailman (input) for mailman id 716118;
+ Thu, 02 May 2024 18:13:19 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=3Qsp=MF=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1s2ats-0006Np-Vt
- for xen-devel@lists.xenproject.org; Thu, 02 May 2024 18:11:20 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ id 1s2avn-0007ra-AY
+ for xen-devel@lists.xenproject.org; Thu, 02 May 2024 18:13:19 +0000
+Received: from sin.source.kernel.org (sin.source.kernel.org
+ [2604:1380:40e1:4800::1])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 5fbbf117-08af-11ef-909b-e314d9c70b13;
- Thu, 02 May 2024 20:11:20 +0200 (CEST)
+ id a50c34f3-08af-11ef-909b-e314d9c70b13;
+ Thu, 02 May 2024 20:13:17 +0200 (CEST)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 6267F61BFB;
- Thu,  2 May 2024 18:11:18 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7333BC113CC;
- Thu,  2 May 2024 18:11:16 +0000 (UTC)
+ by sin.source.kernel.org (Postfix) with ESMTP id 541C7CE16DB;
+ Thu,  2 May 2024 18:13:14 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 039A8C113CC;
+ Thu,  2 May 2024 18:13:10 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,101 +42,97 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5fbbf117-08af-11ef-909b-e314d9c70b13
+X-Inumbo-ID: a50c34f3-08af-11ef-909b-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1714673478;
-	bh=XhYOxmZWkP66YztGtxmVj1HWIYgzpvO5VBxe2rJtMBc=;
+	s=k20201202; t=1714673593;
+	bh=fiyeFheWqFGsN3qj2iTlgwJMs98wz0J8HkiJWqRbeWA=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=s4y7zGWDzJenlan5uDQq3mzmQ+ocer6Fpxr84npjHlzsY2E9VWt9aRWRYF+KdfHlF
-	 yIMJehZ8Ge2C3mFrusdiLt0ioFlqWGGJD3k8rgPE+ua7cEUkGmEvxXJcyVSFglErF/
-	 rpmE7poR0aT+A/08w8gQgqTOu1Y1vYy31xUDXUnESd0ea6Ns9/DxsIqz6laVurDNCK
-	 4XJYfeF6P8UPolOAH94ULAkiCjrYNTJIPgv/p7+oIHOnNx/B1ui7Esf6DRYsDARKtm
-	 Lr/hdVeGXISk4ADZhKawCdl6AlRWiuCsuxHKa6VWvcx609bL0R9Sk8nRzjMIQ6HtDv
-	 dLyTsgHd8hktw==
-Date: Thu, 2 May 2024 11:11:15 -0700 (PDT)
+	b=GPPSIyx810EdZRJytMCosF0vzRwA+P7eUuYaqjLuW/fJ85AJjD2lFb1trzoyW5osb
+	 8Z+qhMC8wxTkqwn6HrZOmAfaZZ+5oobyfbXwEF4LcWZeOvU5/c2UuVn4PoU2BtyXp9
+	 WcL8untZ2UUzmhXgDwXqHHrW2VXwCBhcau2oNTOUxmZbMzqEkVxi8OTuKMg1J8Y7aG
+	 hX2jGeSWSij2QJMcOHwl5r08/ffvWKNVszcelwN7W2JFC4smgjr9Ulz6nCydBsKzWi
+	 AeT2C+LIwYpf92gO8lmBofNhkIQeD0IhPZu9MiNQ16Cgr+SKutEOOktTp26VN4gOCP
+	 d68sH/fh3m1rg==
+Date: Thu, 2 May 2024 11:13:09 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Henry Wang <xin.wang2@amd.com>
-cc: xen-devel@lists.xenproject.org, 
-    Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
-    Jan Beulich <jbeulich@suse.com>
-Subject: Re: [PATCH v1.1] xen/commom/dt-overlay: Fix missing lock when remove
- the device
-In-Reply-To: <20240426015550.577986-1-xin.wang2@amd.com>
-Message-ID: <alpine.DEB.2.22.394.2405021111070.624854@ubuntu-linux-20-04-desktop>
-References: <20240426015550.577986-1-xin.wang2@amd.com>
+To: Julien Grall <julien@xen.org>
+cc: =?UTF-8?Q?J=C3=BCrgen_Gro=C3=9F?= <jgross@suse.com>, 
+    Jan Beulich <jbeulich@suse.com>, 
+    Bertrand Marquis <bertrand.marquis@arm.com>, 
+    Michal Orzel <michal.orzel@amd.com>, 
+    Andrew Cooper <andrew.cooper3@citrix.com>, 
+    George Dunlap <george.dunlap@citrix.com>, 
+    Stefano Stabellini <sstabellini@kernel.org>, 
+    xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v6 8/8] xen: allow up to 16383 cpus
+In-Reply-To: <146fbd43-d8b8-4d73-8650-c60024498324@xen.org>
+Message-ID: <alpine.DEB.2.22.394.2405021111540.624854@ubuntu-linux-20-04-desktop>
+References: <20240327152229.25847-1-jgross@suse.com> <20240327152229.25847-9-jgross@suse.com> <da1662ac-70f1-4ae4-9737-e10e617c8036@suse.com> <637c755a-9f24-4b86-af12-7c7d50bf40c8@suse.com> <d0714064-c544-47d3-84c0-a19391ccf496@xen.org>
+ <29296e11-8d21-4867-9d31-fc94af828214@suse.com> <146fbd43-d8b8-4d73-8650-c60024498324@xen.org>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323329-1925617102-1714673478=:624854"
+Content-Type: multipart/mixed; boundary="8323329-2084856487-1714673594=:624854"
 
   This message is in MIME format.  The first part should be readable text,
   while the remaining parts are likely unreadable without MIME-aware tools.
 
---8323329-1925617102-1714673478=:624854
+--8323329-2084856487-1714673594=:624854
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8BIT
 
-On Fri, 26 Apr 2024, Henry Wang wrote:
-> If CONFIG_DEBUG=y, below assertion will be triggered:
-> (XEN) Assertion 'rw_is_locked(&dt_host_lock)' failed at drivers/passthrough/device_tree.c:146
-> (XEN) ----[ Xen-4.19-unstable  arm64  debug=y  Not tainted ]----
-> (XEN) CPU:    0
-> (XEN) PC:     00000a0000257418 iommu_remove_dt_device+0x8c/0xd4
-> (XEN) LR:     00000a00002573a0
-> (XEN) SP:     00008000fff7fb30
-> (XEN) CPSR:   0000000000000249 MODE:64-bit EL2h (Hypervisor, handler)
-> [...]
+On Mon, 29 Apr 2024, Julien Grall wrote:
+> Hi Juergen,
 > 
-> (XEN) Xen call trace:
-> (XEN)    [<00000a0000257418>] iommu_remove_dt_device+0x8c/0xd4 (PC)
-> (XEN)    [<00000a00002573a0>] iommu_remove_dt_device+0x14/0xd4 (LR)
-> (XEN)    [<00000a000020797c>] dt-overlay.c#remove_node_resources+0x8c/0x90
-> (XEN)    [<00000a0000207f14>] dt-overlay.c#remove_nodes+0x524/0x648
-> (XEN)    [<00000a0000208460>] dt_overlay_sysctl+0x428/0xc68
-> (XEN)    [<00000a00002707f8>] arch_do_sysctl+0x1c/0x2c
-> (XEN)    [<00000a0000230b40>] do_sysctl+0x96c/0x9ec
-> (XEN)    [<00000a0000271e08>] traps.c#do_trap_hypercall+0x1e8/0x288
-> (XEN)    [<00000a0000273490>] do_trap_guest_sync+0x448/0x63c
-> (XEN)    [<00000a000025c480>] entry.o#guest_sync_slowpath+0xa8/0xd8
-> (XEN)
-> (XEN)
-> (XEN) ****************************************
-> (XEN) Panic on CPU 0:
-> (XEN) Assertion 'rw_is_locked(&dt_host_lock)' failed at drivers/passthrough/device_tree.c:146
-> (XEN) ****************************************
+> On 29/04/2024 12:28, Jürgen Groß wrote:
+> > On 29.04.24 13:04, Julien Grall wrote:
+> > > Hi Juergen,
+> > > 
+> > > Sorry for the late reply.
+> > > 
+> > > On 29/04/2024 11:33, Juergen Gross wrote:
+> > > > On 08.04.24 09:10, Jan Beulich wrote:
+> > > > > On 27.03.2024 16:22, Juergen Gross wrote:
+> > > > > > With lock handling now allowing up to 16384 cpus (spinlocks can
+> > > > > > handle
+> > > > > > 65535 cpus, rwlocks can handle 16384 cpus), raise the allowed limit
+> > > > > > for
+> > > > > > the number of cpus to be configured to 16383.
+> > > > > > 
+> > > > > > The new limit is imposed by IOMMU_CMD_BUFFER_MAX_ENTRIES and
+> > > > > > QINVAL_MAX_ENTRY_NR required to be larger than 2 * CONFIG_NR_CPUS.
+> > > > > > 
+> > > > > > Signed-off-by: Juergen Gross <jgross@suse.com>
+> > > > > 
+> > > > > Acked-by: Jan Beulich <jbeulich@suse.com>
+> > > > > 
+> > > > > I'd prefer this to also gain an Arm ack, though.
+> > > > 
+> > > > Any comment from Arm side?
+> > > 
+> > > Can you clarify what the new limits mean in term of (security) support?
+> > > Are we now claiming that Xen will work perfectly fine on platforms with up
+> > > to 16383?
+> > > 
+> > > If so, I can't comment for x86, but for Arm, I am doubtful that it would
+> > > work without any (at least performance) issues. AFAIK, this is also an
+> > > untested configuration. In fact I would be surprised if Xen on Arm was
+> > > tested with more than a couple of hundreds cores (AFAICT the Ampere CPUs
+> > > has 192 CPUs).
+> > 
+> > I think we should add a security support limit for the number of physical
+> > cpus similar to the memory support limit we already have in place.
+> > 
+> > For x86 I'd suggest 4096 cpus for security support (basically the limit we
+> > have with this patch), but I'm open for other suggestions, too.
+> > 
+> > I have no idea about any sensible limits for Arm32/Arm64.
 > 
-> This is because iommu_remove_dt_device() is called without taking the
-> dt_host_lock. Fix the issue by taking and releasing the lock properly.
-> 
-> Fixes: 7e5c4a8b86f1 ("xen/arm: Implement device tree node removal functionalities")
-> Signed-off-by: Henry Wang <xin.wang2@amd.com>
+> I am not entirely. Bertrand, Michal, Stefano, should we use 192 (the number of
+> CPUs from Ampere)?
 
-Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
-
-
-> ---
-> v1.1:
-> - Move the unlock position before the check of rc.
-> ---
->  xen/common/dt-overlay.c | 2 ++
->  1 file changed, 2 insertions(+)
-> 
-> diff --git a/xen/common/dt-overlay.c b/xen/common/dt-overlay.c
-> index 1b197381f6..ab8f43aea2 100644
-> --- a/xen/common/dt-overlay.c
-> +++ b/xen/common/dt-overlay.c
-> @@ -381,7 +381,9 @@ static int remove_node_resources(struct dt_device_node *device_node)
->      {
->          if ( dt_device_is_protected(device_node) )
->          {
-> +            write_lock(&dt_host_lock);
->              rc = iommu_remove_dt_device(device_node);
-> +            write_unlock(&dt_host_lock);
->              if ( rc < 0 )
->                  return rc;
->          }
-> -- 
-> 2.34.1
-> 
---8323329-1925617102-1714673478=:624854--
+I am OK with that. If we want to be a bit more future proof we could say
+256 or 512. I leave this to you, as all the boards I have have a much
+smaller CPU count.
+--8323329-2084856487-1714673594=:624854--
 
