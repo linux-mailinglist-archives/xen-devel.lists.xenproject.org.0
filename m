@@ -2,33 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AD48E8B955B
-	for <lists+xen-devel@lfdr.de>; Thu,  2 May 2024 09:35:23 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.715619.1117392 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2A61B8B955C
+	for <lists+xen-devel@lfdr.de>; Thu,  2 May 2024 09:35:50 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.715622.1117403 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s2Qy9-0000tJ-Da; Thu, 02 May 2024 07:35:05 +0000
+	id 1s2Qyf-0001N6-O4; Thu, 02 May 2024 07:35:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 715619.1117392; Thu, 02 May 2024 07:35:05 +0000
+Received: by outflank-mailman (output) from mailman id 715622.1117403; Thu, 02 May 2024 07:35:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s2Qy9-0000rc-AS; Thu, 02 May 2024 07:35:05 +0000
-Received: by outflank-mailman (input) for mailman id 715619;
- Thu, 02 May 2024 07:35:03 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1s2Qyf-0001Ju-JG; Thu, 02 May 2024 07:35:37 +0000
+Received: by outflank-mailman (input) for mailman id 715622;
+ Thu, 02 May 2024 07:35:36 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=1TOG=MF=gmail.com=edgar.iglesias@srs-se1.protection.inumbo.net>)
- id 1s2Qy7-0000rW-J5
- for xen-devel@lists.xenproject.org; Thu, 02 May 2024 07:35:03 +0000
-Received: from mail-ed1-x534.google.com (mail-ed1-x534.google.com
- [2a00:1450:4864:20::534])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 7b84a9ee-0856-11ef-b4bb-af5377834399;
- Thu, 02 May 2024 09:35:00 +0200 (CEST)
-Received: by mail-ed1-x534.google.com with SMTP id
- 4fb4d7f45d1cf-572adaa172cso2103138a12.1
- for <xen-devel@lists.xenproject.org>; Thu, 02 May 2024 00:35:00 -0700 (PDT)
+ <SRS0=BPCJ=MF=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1s2Qye-0001Jd-AT
+ for xen-devel@lists.xenproject.org; Thu, 02 May 2024 07:35:36 +0000
+Received: from mail-yb1-xb36.google.com (mail-yb1-xb36.google.com
+ [2607:f8b0:4864:20::b36])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 901d0bcd-0856-11ef-909b-e314d9c70b13;
+ Thu, 02 May 2024 09:35:35 +0200 (CEST)
+Received: by mail-yb1-xb36.google.com with SMTP id
+ 3f1490d57ef6-de61424f478so2820799276.0
+ for <xen-devel@lists.xenproject.org>; Thu, 02 May 2024 00:35:35 -0700 (PDT)
+Received: from localhost ([213.195.114.223]) by smtp.gmail.com with ESMTPSA id
+ g22-20020ac842d6000000b0043c97f30fa7sm225305qtm.77.2024.05.02.00.35.31
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 02 May 2024 00:35:32 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,111 +44,82 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7b84a9ee-0856-11ef-b4bb-af5377834399
+X-Inumbo-ID: 901d0bcd-0856-11ef-909b-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1714635300; x=1715240100; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=AlUMOnUMKElu43V8N8NXHih/16FRYsa+DT2aHHqwJNE=;
-        b=fxtLdDno0cNzUZmJ9P2LIj3H61O5CM5oACEUZLdkft/cOH3ZBVTTqwykGdX8GbRku/
-         Eu7n6Wl8xCNIlksgCJHy1l9Fvd0HegENm1RnnIt+4LxdP3RDQXb0QBNgIOnicn97M3pd
-         38Yr3QpiGDdnb36tBdO0GxvS0y6j2YD7J/3ke+yaYzvhZPfiN0+F4PgFs9oSMabveaaW
-         pXpUBqTm/ubQVac41TjS5Rati1heyU8uCFC9iLCBwedKlzsT44k+edbCk+WMvYt1Ij1Y
-         CGPsE5CfC0uejkPJz3i+TG+IALoPPase0HYBTQptVHEMJdqbeYfQBAMXPkx3vER5SMLI
-         wV4w==
+        d=citrix.com; s=google; t=1714635334; x=1715240134; darn=lists.xenproject.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=7NTaJf/kheUfuUyMCZYF3yIWqHiMxkIdVbpzQ+sC7Hg=;
+        b=mTXyct08Jnkzy21vZOShJSUVLlXg2a3v+A4E+h1fvArOLmM8iPjqDCf4fRRhBw4pGN
+         G6X0qvzsQm19mAC3Rt0Oav2gwMi+D8KsgxaEZKf6hjq8iwRGwBZyq2sbA0L+9V2TWVhT
+         ssuBQEt9dytjXrbNUwhKCxRG6UEA19FoIjrfI=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1714635300; x=1715240100;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=AlUMOnUMKElu43V8N8NXHih/16FRYsa+DT2aHHqwJNE=;
-        b=p2ZBclRMeVRFZkiWxFWYM2ZG02hnLYEae8KytW/SBb9+Fm6c+o9WCyf90W3V0uvYz/
-         8shM1feKljturQB6TZaTzSuBe3S4T9j5sKX88sNoOMPXnV4bzPIj+1D5gDfnBOB+J295
-         sKgJSBRfC71e4z/G818rlN+6Rf7SQRI/luKjon51wUqKwZmwpZIq5k8J/NZN3oLAIIhz
-         x9Dd7njyAYGuN8GS44rmtybwa/0rUAlsKfHHE7RIe3glrFywitwzhI0VRaNKzK7XZZcS
-         Xjzkk79xoAd5PMAIPu/4svCgNpKBuMt86SVfeZgMGd6/uOzo5xDXIuKgXeo73Ldh9coy
-         E0lw==
-X-Forwarded-Encrypted: i=1; AJvYcCV0/+wCaOutlikvH9wat9OPkqr0mihHD2Ms3F9Lqlly/PCqasUcA03TOI0e6Ks5Oz90JTQF0Gt/W7GyaCS10VVZhPs1vLU4KYdxxzuiG/k=
-X-Gm-Message-State: AOJu0Yz4FFLXi0tWotea2NjSZyFbAgPa8FN+UsSSSi747bQ0yb7pLaXq
-	qSgHH41+LAkO6zN4pVVrVCl4+rFtWwUXygmHNEFaxmP+LVl0BNnU+v5cZGlI9H0KOG0DjSZnTAd
-	ZO2TBS/frD8fQ9BghsUsv111dEZw=
-X-Google-Smtp-Source: AGHT+IFeFt+Pbra3NifN8rs1UXcD8UP6ZmjUZHfOEsk+O2tSlQVe5lCGAJsT/L6+37rrO+XVhxWqsOTvvoJ6Jvn3MsI=
-X-Received: by 2002:a50:cd53:0:b0:570:4aea:4e1e with SMTP id
- d19-20020a50cd53000000b005704aea4e1emr1859829edj.15.1714635299936; Thu, 02
- May 2024 00:34:59 -0700 (PDT)
+        d=1e100.net; s=20230601; t=1714635334; x=1715240134;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=7NTaJf/kheUfuUyMCZYF3yIWqHiMxkIdVbpzQ+sC7Hg=;
+        b=TDZW2wPx3jMYdQcCFIk2rNJABqaZd+c/ZTZKL+CUh5xbAJmTvtmQkKp+52uobeA2wN
+         3tBV/MHlS5vLDAEOcrGbAtUXiXvnrhCqUVnG1/HGXHeGkY38enTZRqOSM9scK8BCYYZ9
+         ujGidHJ48okWlhK8sn03fBpS200Q1gFiWK6ILz5svSqKcVcnM6/3RYoKfd3oghDxfd8x
+         avzloS9EX5O36N8lw9X71fXv7atsU7074LTw4KcRuvFE+jv7wJVN8mcGyzfA4ys8DtuH
+         fPb+nrEZMufoEg2MymTHiFWydJDZHGdG6kc87/pJwmR5+IS0pd1oufI142NrkLACsZ24
+         XspA==
+X-Forwarded-Encrypted: i=1; AJvYcCV8hovtxqPRhQ4xYCw4dJkB2w5xreMljulUr23gPVQMToh/9c7vrpYNqGSvI7uv7MG/+qtK/74f/EAkz9u4twYiwb7nnMGFwVhi8I1t5kU=
+X-Gm-Message-State: AOJu0YzjvvshZBzDfR+Sal/+bzm+2BuG7hVNHtuJfkdlgoAAOyGCxcVe
+	xwaLvsEzP3wdHNMVg1xeSjAKBdCUX005rGOrCvXT8I1m4LDfD5H11mIZu9Cgzys=
+X-Google-Smtp-Source: AGHT+IEUqaHnHOBWiYzK60R9TTvVOL06sVbW91eIoJi9LU/GZkBpRs44D+hAYXeEcadIwOPCC1vN/g==
+X-Received: by 2002:a05:6902:4e4:b0:dd1:40cf:942b with SMTP id w4-20020a05690204e400b00dd140cf942bmr4517732ybs.48.1714635332477;
+        Thu, 02 May 2024 00:35:32 -0700 (PDT)
+Date: Thu, 2 May 2024 09:35:30 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Shawn Anastasio <sanastasio@raptorengineering.com>,
+	Alistair Francis <alistair.francis@wdc.com>,
+	Bob Eshleman <bobbyeshleman@gmail.com>,
+	Connor Davis <connojdavis@gmail.com>,
+	Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+	xen-devel@lists.xenproject.org
+Subject: Re: [PATCH for-4.19] ppc/riscv: fix arch_acquire_resource_check()
+Message-ID: <ZjNCQiR2uUR5Iz8Q@macbook>
+References: <20240430153423.80875-1-roger.pau@citrix.com>
+ <0f39a067-70d2-4652-910a-5d05db6a3ebc@suse.com>
 MIME-Version: 1.0
-References: <20240430164939.925307-1-edgar.iglesias@gmail.com> <20240430164939.925307-13-edgar.iglesias@gmail.com>
-In-Reply-To: <20240430164939.925307-13-edgar.iglesias@gmail.com>
-From: "Edgar E. Iglesias" <edgar.iglesias@gmail.com>
-Date: Thu, 2 May 2024 09:34:47 +0200
-Message-ID: <CAJy5ezrJ2YYgAXFhcyAVosnKL3a5E96oJCfkuS4y2OGSxdU0Fw@mail.gmail.com>
-Subject: Re: [PATCH v4 12/17] xen: mapcache: Unmap first entries in buckets
-To: qemu-devel@nongnu.org
-Cc: sstabellini@kernel.org, jgross@suse.com, 
-	"Edgar E. Iglesias" <edgar.iglesias@amd.com>, Anthony Perard <anthony.perard@citrix.com>, 
-	Paul Durrant <paul@xen.org>, xen-devel@lists.xenproject.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <0f39a067-70d2-4652-910a-5d05db6a3ebc@suse.com>
 
-On Tue, Apr 30, 2024 at 6:50=E2=80=AFPM Edgar E. Iglesias
-<edgar.iglesias@gmail.com> wrote:
->
-> From: "Edgar E. Iglesias" <edgar.iglesias@amd.com>
->
-> When invalidating memory ranges, if we happen to hit the first
-> entry in a bucket we were never unmapping it. This was harmless
-> for foreign mappings but now that we're looking to reuse the
-> mapcache for transient grant mappings, we must unmap entries
-> when invalidated.
->
-> Signed-off-by: Edgar E. Iglesias <edgar.iglesias@amd.com>
-> ---
->  hw/xen/xen-mapcache.c | 12 ++++++++----
->  1 file changed, 8 insertions(+), 4 deletions(-)
->
-> diff --git a/hw/xen/xen-mapcache.c b/hw/xen/xen-mapcache.c
-> index 4f98d284dd..0365311788 100644
-> --- a/hw/xen/xen-mapcache.c
-> +++ b/hw/xen/xen-mapcache.c
-> @@ -486,18 +486,22 @@ static void xen_invalidate_map_cache_entry_unlocked=
-(MapCache *mc,
->          return;
->      }
->      entry->lock--;
-> -    if (entry->lock > 0 || pentry =3D=3D NULL) {
-> +    if (entry->lock > 0) {
->          return;
->      }
->
-> -    pentry->next =3D entry->next;
->      ram_block_notify_remove(entry->vaddr_base, entry->size, entry->size)=
-;
->      if (munmap(entry->vaddr_base, entry->size) !=3D 0) {
->          perror("unmap fails");
->          exit(-1);
->      }
-> -    g_free(entry->valid_mapping);
-> -    g_free(entry);
-> +    if (pentry) {
-> +        pentry->next =3D entry->next;
-> +        g_free(entry->valid_mapping);
-> +        g_free(entry);
-> +    } else {
-> +        memset(entry, 0, sizeof *entry);
+On Thu, May 02, 2024 at 09:23:30AM +0200, Jan Beulich wrote:
+> On 30.04.2024 17:34, Roger Pau Monne wrote:
+> > None of the implementations support set_foreign_p2m_entry() yet, neither they
+> > have a p2m walk in domain_relinquish_resources() in order to remove the foreign
+> > mappings from the p2m and thus drop the extra refcounts.
+> 
+> While I don't mind the cod adjustment into the more safe direction, I find
+> this justification odd: RISC-V has no domain_relinquish_resources() at all
+> right now, and PPC has it properly as a stub only. Judgement on what there
+> is (or not) can only be made one non-stub implementations exist.
 
-I noticed that we're leaking entry->valid_mapping here. I'll fix this for v=
-5.
+Right, hence stating that foreign mappings are properly handled
+(arch_acquire_resource_check() returning true) is bogus to me because
+there's no code yet.
 
-Cheers,
-Edgar
+> IOW provided PPC and RISC-V people agree, I'm fine putting this in, but
+> preferably with an adjusted description. To be honest with how you put it,
+> it's not even really clear to me what (practical) problem, if any, you're
+> trying to address.
 
+The current statement is at best misleading, because there's no
+implementation of set_foreign_p2m_entry() or
+domain_relinquish_resources(), and hence making claims that future
+implementation of them will properly handle foreign mappings could
+lead to the special requirements of those mappings not being taken
+into account when implementing those functions just because
+arch_acquire_resource_check() already returns true.
 
-> +    }
->  }
->
->  typedef struct XenMapCacheData {
-> --
-> 2.40.1
->
+IMO arch_acquire_resource_check() can only return true once the code
+is in place, and mappings are properly handled.  Making claims about
+yet to be implemented code is wrong.
+
+Thanks, Roger.
 
