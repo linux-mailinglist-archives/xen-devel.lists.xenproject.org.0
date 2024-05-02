@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1345A8B9B74
+	by mail.lfdr.de (Postfix) with ESMTPS id 10F498B9B73
 	for <lists+xen-devel@lfdr.de>; Thu,  2 May 2024 15:17:21 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.715819.1117744 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.715821.1117753 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s2WJ1-00047o-Dl; Thu, 02 May 2024 13:16:59 +0000
+	id 1s2WJB-0004QJ-Nq; Thu, 02 May 2024 13:17:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 715819.1117744; Thu, 02 May 2024 13:16:59 +0000
+Received: by outflank-mailman (output) from mailman id 715821.1117753; Thu, 02 May 2024 13:17:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s2WJ1-00046H-9j; Thu, 02 May 2024 13:16:59 +0000
-Received: by outflank-mailman (input) for mailman id 715819;
- Thu, 02 May 2024 13:16:58 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=G3ja=MF=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1s2WJ0-00046B-2W
- for xen-devel@lists.xenproject.org; Thu, 02 May 2024 13:16:58 +0000
-Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
- [2a00:1450:4864:20::32a])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 3fb011f0-0886-11ef-b4bb-af5377834399;
- Thu, 02 May 2024 15:16:56 +0200 (CEST)
-Received: by mail-wm1-x32a.google.com with SMTP id
- 5b1f17b1804b1-41b782405d5so67780295e9.2
- for <xen-devel@lists.xenproject.org>; Thu, 02 May 2024 06:16:56 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- p20-20020a05600c469400b0041bc41287cesm1955755wmo.16.2024.05.02.06.16.54
+	id 1s2WJB-0004OC-Kh; Thu, 02 May 2024 13:17:09 +0000
+Received: by outflank-mailman (input) for mailman id 715821;
+ Thu, 02 May 2024 13:17:08 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=J/qc=MF=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1s2WJA-00046N-KI
+ for xen-devel@lists.xenproject.org; Thu, 02 May 2024 13:17:08 +0000
+Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
+ [2a00:1450:4864:20::32d])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 46bee23d-0886-11ef-909b-e314d9c70b13;
+ Thu, 02 May 2024 15:17:07 +0200 (CEST)
+Received: by mail-wm1-x32d.google.com with SMTP id
+ 5b1f17b1804b1-4196c62bb4eso58101565e9.2
+ for <xen-devel@lists.xenproject.org>; Thu, 02 May 2024 06:17:07 -0700 (PDT)
+Received: from [10.80.67.140] (default-46-102-197-194.interdsl.co.uk.
+ [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
+ k7-20020a7bc407000000b0041674bf7d4csm5646744wmi.48.2024.05.02.06.17.06
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 02 May 2024 06:16:55 -0700 (PDT)
+ Thu, 02 May 2024 06:17:07 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,116 +45,158 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3fb011f0-0886-11ef-b4bb-af5377834399
+X-Inumbo-ID: 46bee23d-0886-11ef-909b-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1714655815; x=1715260615; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=bqFPop1z8PxPmfrFqSXPCSC5YolOrRav4f99mOoojAw=;
-        b=c5IqEtOWvrh10lo+E6vdI22DpXEcEY/aW9zPH2mT8+eK+SCJmrI7VGx2ja3l1TnpbH
-         NjebAmFm1ZOv61lFbfUUL0Ppc+0YXDjhfQcpHLRo0GCDYRgcE2HWxoaks86j1gGzK0pq
-         HPTAv291x75ENEwG3GL731DsX642C/qzTENIMbz5GMUXi8eITjJYvt24I9EfjPjWp+eJ
-         7FtzrWPPBY55b76TBOU8IWIOOA+XQUI0gIkGWD8SpI9SiKhtg6YjNCxpQcQ1+YULNv/m
-         c4wChkmhCj0zGnTiwmHz3JsF9INJKJpL/Y/ci+4H7+YZUPwwiwM/nmVbNZrylBRP++/r
-         pi/g==
+        d=citrix.com; s=google; t=1714655827; x=1715260627; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=K+P0Gj5m26NK8WSz79zHfWPdpUEHx50wuUj1P9z801s=;
+        b=Z2VMzwN7r+h6KDNbaOy4+n4lmSu3JTc8kbE0PVeHQsCyH27J7f8PCRQOCMLcVtyuqm
+         XtfrvxsF0awMu90SligR3ROQsAkzMH6+V47sMS/tnDpA/1Zst77ewEeXwYusZDLppdwm
+         WKMBDFnHHqKcn5hceEPCXLcTKORTLNieYK4C0=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1714655815; x=1715260615;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=bqFPop1z8PxPmfrFqSXPCSC5YolOrRav4f99mOoojAw=;
-        b=bKan9ljsOU9XaAxsPcLZAEQtjQ4atYwHLuve9V++ZiaJ+bU+4BxM6j5NEuxdtb2ZSG
-         gmXM9USzyer24TnkHWHZjcIgYToRKNknVeJxBaO2CPJuWcUuf1EE1iMWEENeGoFUwtkr
-         wBd0TdJZCba15UTwE35eA9H5aOXZ5msvyZbjK0WhnSNFh8SlWTrv0znFnIOkq0gMDZwF
-         pwzS03FS2oQjVbA+KttXJUmDa7jU/UfPOd7vriDXUouZ7+swHWCVgSvOv1MTGsrAM7/M
-         F2UbKAvF1oLoxK+10Yvc9JKYijyigPx2qUuvawzekdH2F4wC6L2LHtUYO2HQHuUngPXe
-         7GtA==
-X-Forwarded-Encrypted: i=1; AJvYcCUYaSl5lPGZH1jm/VMb9i8k9CRaxBGNZ+/dYy9EYgcmYGSUXJkufMmIOculTeRrK4LhTgQIMhauPYpxXhAURWLLRRmwiFcf7EGbVQx54aM=
-X-Gm-Message-State: AOJu0YzwMQCSt4N6lB/1kwOvRWGVQTbFvmirzL7Yw3rPdJeIpVeBVp5W
-	qxbBH8rpqeHGFX8VWc5OqfRVUtIPzwfHQcX4QR8OEZp8c2K0D9hAyzLGmhrL+DR08lAChUJCgpo
-	=
-X-Google-Smtp-Source: AGHT+IEddnz0SBQ2g0qRwYCQa8V0am179NRP5IVIF5yGrgmAC8xSyhnzCAnXzZmFe4frEFx/rhAsEQ==
-X-Received: by 2002:a05:600c:4748:b0:41a:47db:290c with SMTP id w8-20020a05600c474800b0041a47db290cmr4941137wmo.5.1714655815459;
-        Thu, 02 May 2024 06:16:55 -0700 (PDT)
-Message-ID: <2ddc6307-c9a6-4ee8-9689-c9c2c5a37142@suse.com>
-Date: Thu, 2 May 2024 15:16:54 +0200
+        d=1e100.net; s=20230601; t=1714655827; x=1715260627;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=K+P0Gj5m26NK8WSz79zHfWPdpUEHx50wuUj1P9z801s=;
+        b=TldJ+09nPCEbWLbSZ/fnsG3D4j16zBUUWLJ8T6xbmbgI3/j3ylarxNPWV3Si3XwKJ5
+         Dkcc8Frz8iGv9059k5YJU/dNQNflN8RVxSzv9GFsqMLMdCCAg9ZmI2/gXZCY0BNbcR9C
+         4u3CunNMNmVcHSEm69JLKNHrk4gKYmIVvDPHMVy8HzBBI32075hM3KImaXNaYKVkgsOO
+         Ut5RUSdPlevzeVL15GxiOxXmK2CLkR3hhgzIXJmBPmu1jsdw7BJkVax4KDav1p+hMn3w
+         mlxRQqYllLCExJw83GQX0iKARQHlT6ygLUkz9yv9rUKppmO6mdY7aF5QC/e5/meTZFF6
+         Zf3g==
+X-Forwarded-Encrypted: i=1; AJvYcCXiXzhEpMQ7dOffWJ+Bioj5+YpzllpWyajTbZUK/KQcEMiLceF412IqRJfBwGVDqz4QIzo+qDTjYkdxxMXuugV9wYhoOfWcC70aZxErpW0=
+X-Gm-Message-State: AOJu0YzzkCV7jt3Q8DSU2rFFcPexT8D4P7Obxn8a5ho4YqvTfgHNoEYp
+	ogjmyczM5h2fFe99tXJzXyrqXSg3mWj4fIF4VGacpJGvzLlfR2ch5yiSDY25WS0=
+X-Google-Smtp-Source: AGHT+IFNbpj6ZFIEsQRJQk3DrlVyfZehQ6N+xpND6IDc4S5NKywFsmUWQ+OH+zY+vPKjqQrv84+y+A==
+X-Received: by 2002:a05:600c:3b26:b0:41d:9d8c:5a34 with SMTP id m38-20020a05600c3b2600b0041d9d8c5a34mr3412092wms.9.1714655827254;
+        Thu, 02 May 2024 06:17:07 -0700 (PDT)
+Message-ID: <1628a593-c028-401d-bdff-b21a8b21b324@citrix.com>
+Date: Thu, 2 May 2024 14:17:06 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH for-4.19 v2] tools/xen-cpuid: switch to use cpu-policy
- defined names
-Content-Language: en-US
-To: Roger Pau Monne <roger.pau@citrix.com>
-Cc: Anthony PERARD <anthony@xenproject.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Oleksii Kurochko <oleksii.kurochko@gmail.com>, xen-devel@lists.xenproject.org
-References: <20240502114922.94288-1-roger.pau@citrix.com>
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240502114922.94288-1-roger.pau@citrix.com>
+Subject: Re: [PATCH v2 2/4] x86/xstate: Rework xstate_ctxt_size() as
+ xstate_uncompressed_size()
+To: Jan Beulich <jbeulich@suse.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20240429182823.1130436-1-andrew.cooper3@citrix.com>
+ <20240429182823.1130436-3-andrew.cooper3@citrix.com>
+ <741d4bef-8711-4802-91ad-8a6b4459da61@suse.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <741d4bef-8711-4802-91ad-8a6b4459da61@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 02.05.2024 13:49, Roger Pau Monne wrote:
-> Like it was done recently for libxl, switch to using the auto-generated feature
-> names by the processing of cpufeatureset.h, this allows removing the open-coded
-> feature names, and unifies the feature naming with libxl and the hypervisor.
-> 
-> Introduce a newly auto-generated array that contains the feature names indexed
-> at featureset bit position, otherwise using the existing INIT_FEATURE_NAMES
-> would require iterating over the array elements until a match with the expected
-> bit position is found.
-> 
-> Note that leaf names need to be kept, as the current auto-generated data
-> doesn't contain the leaf names.
-> 
-> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+On 02/05/2024 1:19 pm, Jan Beulich wrote:
+> On 29.04.2024 20:28, Andrew Cooper wrote:
+>> @@ -567,16 +567,51 @@ static unsigned int hw_uncompressed_size(uint64_t xcr0)
+>>      return size;
+>>  }
+>>  
+>> -/* Fastpath for common xstate size requests, avoiding reloads of xcr0. */
+>> -unsigned int xstate_ctxt_size(u64 xcr0)
+>> +unsigned int xstate_uncompressed_size(uint64_t xcr0)
+>>  {
+>> +    unsigned int size = XSTATE_AREA_MIN_SIZE, i;
+>> +
+>>      if ( xcr0 == xfeature_mask )
+>>          return xsave_cntxt_size;
+>>  
+>>      if ( xcr0 == 0 ) /* TODO: clean up paths passing 0 in here. */
+>>          return 0;
+>>  
+>> -    return hw_uncompressed_size(xcr0);
+>> +    if ( xcr0 <= (X86_XCR0_SSE | X86_XCR0_FP) )
+> This is open-coded XSTATE_FP_SSE, which I wouldn't mind if ...
+>
+>> +        return size;
+>> +
+>> +    /*
+>> +     * For the non-legacy states, search all activate states and find the
+>> +     * maximum offset+size.  Some states (e.g. LWP, APX_F) are out-of-order
+>> +     * with respect their index.
+>> +     */
+>> +    xcr0 &= ~XSTATE_FP_SSE;
+> ... you didn't use that macro here (and once further down). IOW please
+> be consistent, no matter which way round.
 
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
-except that ...
+Oh yes - that's a consequence of these hunks having between written 3
+years apart.
 
-> --- a/xen/tools/gen-cpuid.py
-> +++ b/xen/tools/gen-cpuid.py
-> @@ -475,6 +475,32 @@ def write_results(state):
->      state.output.write(
->  """}
->  
-> +""")
-> +
-> +    state.output.write(
-> +"""
-> +#define INIT_FEATURE_NAME_ARRAY { \\
-> +""")
-> +
-> +    try:
-> +        _tmp = state.names.iteritems()
-> +    except AttributeError:
-> +        _tmp = state.names.items()
+It's important for the first one (logical comparison against a bitmap)
+that it's split apart.
 
-... can't figure what this try/except is needed for. Hopefully someone with
-better Python foo than mine can take a look.
+>
+>> +    for_each_set_bit ( i, &xcr0, 63 )
+>> +    {
+>> +        unsigned int s;
+>> +
+>> +        ASSERT(xstate_offsets[i] && xstate_sizes[i]);
+>> +
+>> +        s = xstate_offsets[i] && xstate_sizes[i];
+> You mean + here, don't you?
 
-Jan
+Yes I do...  That was a victim of a last minute refactor.
+
+It also shows that even the cross-check with hardware isn't terribly
+effective.  More on that in the other thread.
+
+>  Then:
+> Reviewed-by: Jan Beulich <jbeulich@suse.com>
+>
+> I'm also inclined to suggest making this the initializer of s.
+
+Hmm, good point.  Will change.
+
+Thanks,
+
+~Andrew
 
