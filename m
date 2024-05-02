@@ -2,34 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1B6AF8BA099
-	for <lists+xen-devel@lfdr.de>; Thu,  2 May 2024 20:35:58 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.716149.1118244 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3CBAE8BA0C8
+	for <lists+xen-devel@lfdr.de>; Thu,  2 May 2024 20:54:37 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.716156.1118253 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s2bHE-0001Lv-AE; Thu, 02 May 2024 18:35:28 +0000
+	id 1s2bYa-0007TP-Mu; Thu, 02 May 2024 18:53:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 716149.1118244; Thu, 02 May 2024 18:35:28 +0000
+Received: by outflank-mailman (output) from mailman id 716156.1118253; Thu, 02 May 2024 18:53:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s2bHE-0001Ji-74; Thu, 02 May 2024 18:35:28 +0000
-Received: by outflank-mailman (input) for mailman id 716149;
- Thu, 02 May 2024 18:35:26 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1s2bYa-0007RR-Jx; Thu, 02 May 2024 18:53:24 +0000
+Received: by outflank-mailman (input) for mailman id 716156;
+ Thu, 02 May 2024 18:53:22 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=3Qsp=MF=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1s2bHC-0001Jc-Nb
- for xen-devel@lists.xenproject.org; Thu, 02 May 2024 18:35:26 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id bcfe59ee-08b2-11ef-909b-e314d9c70b13;
- Thu, 02 May 2024 20:35:24 +0200 (CEST)
+ id 1s2bYY-0007RK-SX
+ for xen-devel@lists.xenproject.org; Thu, 02 May 2024 18:53:22 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [2604:1380:4641:c500::1])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 3d5000a6-08b5-11ef-b4bb-af5377834399;
+ Thu, 02 May 2024 20:53:19 +0200 (CEST)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 5D5F761A32;
- Thu,  2 May 2024 18:35:23 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 159C7C113CC;
- Thu,  2 May 2024 18:35:20 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id BF60361C06;
+ Thu,  2 May 2024 18:53:17 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 99659C4AF1A;
+ Thu,  2 May 2024 18:53:13 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,306 +42,295 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bcfe59ee-08b2-11ef-909b-e314d9c70b13
+X-Inumbo-ID: 3d5000a6-08b5-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1714674923;
-	bh=0yDd7DiaX/tc3dq2DQMO4BYmIbyavMLPVq7RLiQanFs=;
+	s=k20201202; t=1714675997;
+	bh=AfimSmHkaoZU3iA7iLwFL/fwp3B+C3d33xlz1Ppucto=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=mtEL4HcIdsRFFRbpxki+sFk97j7xLKYlZiw4mneGu0MLEHyfxnJvJ0XYjoU2Q2r10
-	 /DaE81p4pMMzXAscBouSyD19qZr8maRJCkQ4/p0dj88ve7qE6VGtwx7EyzXKv78teV
-	 i3CJa3Uf6aP/IMHscPA/gaRxXFZGmEw8iqMkaeCTqicus8y2lkzyX4zR3uH0QLeJhB
-	 Oxo8QIsESFc8AXJGNV8Og2NlcOK7CMMfJ12QhwJiBdsz0vpuVQXmoymwcRTU5x3l+E
-	 2C9+DPjKKLXVxsse6ki2SSdUD3m0sV5G2BnseL5zAkefDXfmrxVkO8W7YPAZhydUiO
-	 /6RzEF9IQXTFQ==
-Date: Thu, 2 May 2024 11:35:19 -0700 (PDT)
+	b=p8PjtnAXAKKL1MIaab9KmHIPBa48bjyhx+vGrYdcMJ393cdQ73/riZ1Q9DzyoqBzJ
+	 C7WmIO2KAYVW7sejgzXEtdORiVww0mKnA48OekoGSjwM9vGu1DCTxpyKwalRJNO88C
+	 9To05A0iBu4DL51lJt5noboy6Y+nckcv96K0ev0BP13dV0mwylNWugw5s/Ps91M7qg
+	 iOQOgqw1DcVUzYJkMYXIc1kZAZYsxWJ7ZZJKe2w8umTaLy5dCZ/6dr5gGt9+Qaip7a
+	 eD6v2I7hGqcyRaMNuiBjXTbMKxj4qjW/33eoVt5fudGZ5XuSTpptZY6Wm3+tRFVb7+
+	 SJt5Y0cVxmsAg==
+Date: Thu, 2 May 2024 11:53:11 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Luca Fancellu <luca.fancellu@arm.com>
-cc: xen-devel@lists.xenproject.org, consulting@bugseng.com, 
-    nicola.vetrini@bugseng.com, Stefano Stabellini <sstabellini@kernel.org>, 
-    Julien Grall <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>, 
-    Michal Orzel <michal.orzel@amd.com>, 
-    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: Re: [PATCH 2/2] xen/arm: Fix MISRA regression on R1.1, flexible
- array member not at the end
-In-Reply-To: <20240430110922.15052-3-luca.fancellu@arm.com>
-Message-ID: <alpine.DEB.2.22.394.2405021135060.624854@ubuntu-linux-20-04-desktop>
-References: <20240430110922.15052-1-luca.fancellu@arm.com> <20240430110922.15052-3-luca.fancellu@arm.com>
+To: "Edgar E. Iglesias" <edgar.iglesias@gmail.com>
+cc: Stefano Stabellini <sstabellini@kernel.org>, qemu-devel@nongnu.org, 
+    jgross@suse.com, "Edgar E. Iglesias" <edgar.iglesias@amd.com>, 
+    Anthony Perard <anthony.perard@citrix.com>, Paul Durrant <paul@xen.org>, 
+    Paolo Bonzini <pbonzini@redhat.com>, Peter Xu <peterx@redhat.com>, 
+    David Hildenbrand <david@redhat.com>, 
+    =?UTF-8?Q?Philippe_Mathieu-Daud=C3=A9?= <philmd@linaro.org>, 
+    xen-devel@lists.xenproject.org, Xenia.Ragiadakou@amd.com
+Subject: Re: [PATCH v4 15/17] xen: mapcache: Remove assumption of RAMBlock
+ with 0 offset
+In-Reply-To: <CAJy5ezoQ4Q6kc9T8_P3nEU6N20e6Pvr3K_zuM0j95RcG-hDgfw@mail.gmail.com>
+Message-ID: <alpine.DEB.2.22.394.2405021144270.624854@ubuntu-linux-20-04-desktop>
+References: <20240430164939.925307-1-edgar.iglesias@gmail.com> <20240430164939.925307-16-edgar.iglesias@gmail.com> <alpine.DEB.2.22.394.2405011414320.497719@ubuntu-linux-20-04-desktop> <CAJy5ezoQ4Q6kc9T8_P3nEU6N20e6Pvr3K_zuM0j95RcG-hDgfw@mail.gmail.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: multipart/mixed; BOUNDARY="8323329-1125765863-1714675481=:624854"
+Content-ID: <alpine.DEB.2.22.394.2405021144490.624854@ubuntu-linux-20-04-desktop>
 
-On Tue, 30 Apr 2024, Luca Fancellu wrote:
-> Commit 2209c1e35b47 ("xen/arm: Introduce a generic way to access memory
-> bank structures") introduced a MISRA regression for Rule 1.1 because a
-> flexible array member is introduced in the middle of a struct, furthermore
-> this is using a GCC extension that is going to be deprecated in GCC 14 and
-> a warning to identify such cases will be present
-> (-Wflex-array-member-not-at-end) to identify such cases.
-> 
-> In order to fix this issue, use the macro __struct_group to create a
-> structure 'struct membanks_hdr' which will hold the common data among
-> structures using the 'struct membanks' interface.
-> 
-> Modify the 'struct shared_meminfo' and 'struct meminfo' to use this new
-> structure, effectively removing the flexible array member from the middle
-> of the structure and modify the code accessing the .common field to use
-> the macro container_of to maintain the functionality of the interface.
-> 
-> Given this change, container_of needs to be supplied with a type and so
-> the macro 'kernel_info_get_mem' inside arm/include/asm/kernel.h can't be
-> an option since it uses const and non-const types for struct membanks, so
-> introduce two static inline, one of which will keep the const qualifier.
-> 
-> Given the complexity of the interface, which carries a lot of benefit but
-> on the other hand could be prone to developer confusion if the access is
-> open-coded, introduce two static inline helper for the
-> 'struct kernel_info' .shm_mem member and get rid the open-coding
-> shm_mem.common access.
-> 
-> Fixes: 2209c1e35b47 ("xen/arm: Introduce a generic way to access memory bank structures")
-> Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+--8323329-1125765863-1714675481=:624854
+Content-Type: text/plain; CHARSET=UTF-8
+Content-Transfer-Encoding: 8BIT
+Content-ID: <alpine.DEB.2.22.394.2405021144491.624854@ubuntu-linux-20-04-desktop>
+
++Xenia
+
+On Thu, 2 May 2024, Edgar E. Iglesias wrote:
+> On Wed, May 1, 2024 at 11:24 PM Stefano Stabellini
+> <sstabellini@kernel.org> wrote:
+> >
+> > On Tue, 30 Apr 2024, Edgar E. Iglesias wrote:
+> > > From: "Edgar E. Iglesias" <edgar.iglesias@amd.com>
+> > >
+> > > The current mapcache assumes that all memory is mapped
+> > > in a single RAM MR (the first one with offset 0). Remove
+> > > this assumption and propagate the offset to the mapcache
+> > > so it can do reverse mappings (from hostptr -> ram_addr).
+> > >
+> > > This is in preparation for adding grant mappings.
+> > >
+> > > Signed-off-by: Edgar E. Iglesias <edgar.iglesias@amd.com>
+> >
+> >
+> > Looking at xen_remap_bucket, it is only using address_index (without
+> > adding ram_offset) to map foreign memory. From xen_remap_bucket, I would
+> > understand that address_index already includes the ram_offset.
+> >
+> > Meaning that if we want to map foreign mapping at address 0x5000, then
+> > address_index would be 0x5000, even if ram_offset is 0x1000.
+> >
+> > But then looking xen_ram_addr_from_mapcache_single ram_offset is added
+> > to paddr_index to calculate the physical address. So in that case we
+> > would want address_index to be 0x4000 and ram_offset to be 0x1000. But
+> > xen_remap_bucket would have to sum address_index and ram_offset to map
+> > foreign memory.
+> >
+> > So I am a bit confused, did I get it wrong? One more comment below.
+> >
+> 
+> Thanks Stefano,
+> 
+> I think the confusion is that this ram_addr_offset is not related to
+> guest address-space.
+> It's a QEMU internal thing and it shouldn't be included in the address
+> used to map foreign memory.
+> The mapcache can treat this ram_addr offset like a cookie that we keep
+> around to be able to do
+> reverse mappings from host pointers into ram_addr space
+> (xen_ram_addr_from_mapcache).
+> 
+> The current mapcache implementation works because we've really only
+> been using foreign mappings
+> on RAMBlocks with offset 0. We're also creating RAM's such that the
+> offset into the RAM is also
+> the guest physical address, for x86 this is natural since RAM starts
+> at zero (for lowmem) but for
+> ARM we're creating larger than needed RAM's (GUEST_RAM0_BASE + ram-size) to
+> make this assumption true. Anyway, In this series I'm not addressing
+> this second assumption.
+
+Let's see if I understand correctly.
+
+The ram_addr space is an internal QEMU address space which is different
+from the guest physical address space and thus cannot and should not be
+used to do foreign mappings (foreign mapping hypercalls take a guest
+physical or a real physical address to map). Is that correct?
+
+If so, then I understand.
 
 
-> ---
->  xen/arch/arm/acpi/domain_build.c        |  2 +-
->  xen/arch/arm/domain_build.c             |  6 +++---
->  xen/arch/arm/include/asm/kernel.h       | 11 ++++++++++-
->  xen/arch/arm/include/asm/setup.h        | 18 ++++++++++--------
->  xen/arch/arm/include/asm/static-shmem.h | 12 ++++++++++++
->  xen/arch/arm/static-shmem.c             | 19 +++++++++----------
->  6 files changed, 45 insertions(+), 23 deletions(-)
+
+> There's a second call in physmem.c to xen_map_cache using the
+> block->offset as an address.
+> I was considering removing that second call since I can't see how it can work
+> (except perhaps in some specific use-case by luck?). Anyway, for now
+> I've left it unmodified.
+
+Yes, that code was written with the assumption that block->offset is an
+offset in the guest physical address space and could be used as a guest
+physical address. Actually, you might have spotted a real bug.
+ 
+The intent was for smaller regions (not the bit RAM region, things like
+a ROM region for instance) we could map them in full. So here we were
+trying to map the whole thing from start to finish using block->offset
+as start.
+
+
+> > > ---
+> > >  hw/xen/xen-mapcache.c         | 25 ++++++++++++++++++-------
+> > >  include/sysemu/xen-mapcache.h |  2 ++
+> > >  system/physmem.c              |  8 ++++----
+> > >  3 files changed, 24 insertions(+), 11 deletions(-)
+> > >
+> > > diff --git a/hw/xen/xen-mapcache.c b/hw/xen/xen-mapcache.c
+> > > index 09b5f36d9c..1b32d0c003 100644
+> > > --- a/hw/xen/xen-mapcache.c
+> > > +++ b/hw/xen/xen-mapcache.c
+> > > @@ -43,6 +43,9 @@ typedef struct MapCacheEntry {
+> > >  #define XEN_MAPCACHE_ENTRY_DUMMY (1 << 0)
+> > >      uint8_t flags;
+> > >      hwaddr size;
+> > > +
+> > > +    /* Keep ram_addr offset for reverse mappings (hostptr -> ram_addr).  */
+> > > +    ram_addr_t ram_offset;
+> > >      struct MapCacheEntry *next;
+> > >  } MapCacheEntry;
+> > >
+> > > @@ -165,7 +168,8 @@ static void xen_remap_bucket(MapCache *mc,
+> > >                               void *vaddr,
+> > >                               hwaddr size,
+> > >                               hwaddr address_index,
+> > > -                             bool dummy)
+> > > +                             bool dummy,
+> > > +                             ram_addr_t ram_offset)
+> > >  {
+> > >      uint8_t *vaddr_base;
+> > >      xen_pfn_t *pfns;
+> > > @@ -244,6 +248,7 @@ static void xen_remap_bucket(MapCache *mc,
+> > >      entry->size = size;
+> > >      entry->valid_mapping = g_new0(unsigned long,
+> > >                                    BITS_TO_LONGS(size >> XC_PAGE_SHIFT));
+> > > +    entry->ram_offset = ram_offset;
+> > >
+> > >      if (dummy) {
+> > >          entry->flags |= XEN_MAPCACHE_ENTRY_DUMMY;
+> > > @@ -264,6 +269,7 @@ static void xen_remap_bucket(MapCache *mc,
+> > >
+> > >  static uint8_t *xen_map_cache_unlocked(MapCache *mc,
+> > >                                         hwaddr phys_addr, hwaddr size,
+> > > +                                       ram_addr_t ram_offset,
+> > >                                         uint8_t lock, bool dma, bool is_write)
+> > >  {
+> > >      MapCacheEntry *entry, *pentry = NULL,
+> > > @@ -335,14 +341,16 @@ tryagain:
+> > >      if (!entry) {
+> > >          entry = g_new0(MapCacheEntry, 1);
+> > >          pentry->next = entry;
+> > > -        xen_remap_bucket(mc, entry, NULL, cache_size, address_index, dummy);
+> > > +        xen_remap_bucket(mc, entry, NULL, cache_size, address_index, dummy,
+> > > +                         ram_offset);
+> > >      } else if (!entry->lock) {
+> > >          if (!entry->vaddr_base || entry->paddr_index != address_index ||
+> > >                  entry->size != cache_size ||
+> > >                  !test_bits(address_offset >> XC_PAGE_SHIFT,
+> > >                      test_bit_size >> XC_PAGE_SHIFT,
+> > >                      entry->valid_mapping)) {
+> > > -            xen_remap_bucket(mc, entry, NULL, cache_size, address_index, dummy);
+> > > +            xen_remap_bucket(mc, entry, NULL, cache_size, address_index, dummy,
+> > > +                             ram_offset);
+> > >          }
+> > >      }
+> > >
+> > > @@ -389,13 +397,15 @@ tryagain:
+> > >
+> > >  uint8_t *xen_map_cache(MemoryRegion *mr,
+> > >                         hwaddr phys_addr, hwaddr size,
+> > > +                       ram_addr_t ram_addr_offset,
+> > >                         uint8_t lock, bool dma,
+> > >                         bool is_write)
+> > >  {
+> > >      uint8_t *p;
+> > >
+> > >      mapcache_lock(mapcache);
+> > > -    p = xen_map_cache_unlocked(mapcache, phys_addr, size, lock, dma, is_write);
+> > > +    p = xen_map_cache_unlocked(mapcache, phys_addr, size, ram_addr_offset,
+> > > +                               lock, dma, is_write);
+> > >      mapcache_unlock(mapcache);
+> > >      return p;
+> > >  }
+> > > @@ -432,7 +442,8 @@ static ram_addr_t xen_ram_addr_from_mapcache_single(MapCache *mc, void *ptr)
+> > >          raddr = RAM_ADDR_INVALID;
+> > >      } else {
+> > >          raddr = (reventry->paddr_index << mc->bucket_shift) +
+> > > -             ((unsigned long) ptr - (unsigned long) entry->vaddr_base);
+> > > +             ((unsigned long) ptr - (unsigned long) entry->vaddr_base) +
+> > > +             entry->ram_offset;
+> > >      }
+> > >      mapcache_unlock(mc);
+> > >      return raddr;
+> > > @@ -627,8 +638,8 @@ static uint8_t *xen_replace_cache_entry_unlocked(MapCache *mc,
+> > >
+> > >      trace_xen_replace_cache_entry_dummy(old_phys_addr, new_phys_addr);
+> > >
+> > > -    xen_remap_bucket(mapcache, entry, entry->vaddr_base,
+> > > -                     cache_size, address_index, false);
+> > > +    xen_remap_bucket(mc, entry, entry->vaddr_base,
+> > > +                     cache_size, address_index, false, entry->ram_offset);
+> > >      if (!test_bits(address_offset >> XC_PAGE_SHIFT,
+> > >                  test_bit_size >> XC_PAGE_SHIFT,
+> > >                  entry->valid_mapping)) {
+> > > diff --git a/include/sysemu/xen-mapcache.h b/include/sysemu/xen-mapcache.h
+> > > index 1ec9e66752..b5e3ea1bc0 100644
+> > > --- a/include/sysemu/xen-mapcache.h
+> > > +++ b/include/sysemu/xen-mapcache.h
+> > > @@ -19,6 +19,7 @@ typedef hwaddr (*phys_offset_to_gaddr_t)(hwaddr phys_offset,
+> > >  void xen_map_cache_init(phys_offset_to_gaddr_t f,
+> > >                          void *opaque);
+> > >  uint8_t *xen_map_cache(MemoryRegion *mr, hwaddr phys_addr, hwaddr size,
+> > > +                       ram_addr_t ram_addr_offset,
+> > >                         uint8_t lock, bool dma,
+> > >                         bool is_write);
+> > >  ram_addr_t xen_ram_addr_from_mapcache(void *ptr);
+> > > @@ -37,6 +38,7 @@ static inline void xen_map_cache_init(phys_offset_to_gaddr_t f,
+> > >  static inline uint8_t *xen_map_cache(MemoryRegion *mr,
+> > >                                       hwaddr phys_addr,
+> > >                                       hwaddr size,
+> > > +                                     ram_addr_t ram_addr_offset,
+> > >                                       uint8_t lock,
+> > >                                       bool dma,
+> > >                                       bool is_write)
+> > > diff --git a/system/physmem.c b/system/physmem.c
+> > > index 1a5ffcba2a..5b16eeccca 100644
+> > > --- a/system/physmem.c
+> > > +++ b/system/physmem.c
+> > > @@ -2228,13 +2228,13 @@ static void *qemu_ram_ptr_length(RAMBlock *block, ram_addr_t addr,
+> > >           * In that case just map the requested area.
+> > >           */
+> > >          if (xen_mr_is_memory(block->mr)) {
+> > > -            return xen_map_cache(block->mr, addr, len, lock, lock,
+> > > -                                 is_write);
+> > > +            return xen_map_cache(block->mr, addr, len, block->offset,
+> > > +                                 lock, lock, is_write);
+> >
+> > Have you considered not tracking offset and address separately and
+> > simply do this?
+> >
+> >             return xen_map_cache(block->mr, addr + block->offset, len,
+> >                                  lock, lock, is_write);
+> >
 > 
-> diff --git a/xen/arch/arm/acpi/domain_build.c b/xen/arch/arm/acpi/domain_build.c
-> index ed895dd8f926..2ce75543d004 100644
-> --- a/xen/arch/arm/acpi/domain_build.c
-> +++ b/xen/arch/arm/acpi/domain_build.c
-> @@ -451,7 +451,7 @@ static int __init estimate_acpi_efi_size(struct domain *d,
->      struct acpi_table_rsdp *rsdp_tbl;
->      struct acpi_table_header *table;
->  
-> -    efi_size = estimate_efi_size(kernel_info_get_mem(kinfo)->nr_banks);
-> +    efi_size = estimate_efi_size(kernel_info_get_mem_const(kinfo)->nr_banks);
->  
->      acpi_size = ROUNDUP(sizeof(struct acpi_table_fadt), 8);
->      acpi_size += ROUNDUP(sizeof(struct acpi_table_stao), 8);
-> diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
-> index 0784e4c5e315..f6550809cfdf 100644
-> --- a/xen/arch/arm/domain_build.c
-> +++ b/xen/arch/arm/domain_build.c
-> @@ -805,7 +805,7 @@ int __init make_memory_node(const struct kernel_info *kinfo, int addrcells,
->       * static shared memory banks need to be listed as /memory node, so when
->       * this function is handling the normal memory, add the banks.
->       */
-> -    if ( mem == kernel_info_get_mem(kinfo) )
-> +    if ( mem == kernel_info_get_mem_const(kinfo) )
->          shm_mem_node_fill_reg_range(kinfo, reg, &nr_cells, addrcells,
->                                      sizecells);
->  
-> @@ -884,7 +884,7 @@ static int __init find_unallocated_memory(const struct kernel_info *kinfo,
->  {
->      const struct membanks *mem = bootinfo_get_mem();
->      const struct membanks *mem_banks[] = {
-> -        kernel_info_get_mem(kinfo),
-> +        kernel_info_get_mem_const(kinfo),
->          bootinfo_get_reserved_mem(),
->  #ifdef CONFIG_STATIC_SHM
->          bootinfo_get_shmem(),
-> @@ -1108,7 +1108,7 @@ static int __init find_domU_holes(const struct kernel_info *kinfo,
->      uint64_t bankend;
->      const uint64_t bankbase[] = GUEST_RAM_BANK_BASES;
->      const uint64_t banksize[] = GUEST_RAM_BANK_SIZES;
-> -    const struct membanks *kinfo_mem = kernel_info_get_mem(kinfo);
-> +    const struct membanks *kinfo_mem = kernel_info_get_mem_const(kinfo);
->      int res = -ENOENT;
->  
->      for ( i = 0; i < GUEST_RAM_BANKS; i++ )
-> diff --git a/xen/arch/arm/include/asm/kernel.h b/xen/arch/arm/include/asm/kernel.h
-> index 16a2bfc01e27..7e6e3c82a477 100644
-> --- a/xen/arch/arm/include/asm/kernel.h
-> +++ b/xen/arch/arm/include/asm/kernel.h
-> @@ -80,7 +80,16 @@ struct kernel_info {
->      };
->  };
->  
-> -#define kernel_info_get_mem(kinfo) (&(kinfo)->mem.common)
-> +static inline struct membanks *kernel_info_get_mem(struct kernel_info *kinfo)
-> +{
-> +    return container_of(&kinfo->mem.common, struct membanks, common);
-> +}
-> +
-> +static inline const struct membanks *
-> +kernel_info_get_mem_const(const struct kernel_info *kinfo)
-> +{
-> +    return container_of(&kinfo->mem.common, const struct membanks, common);
-> +}
->  
->  #ifdef CONFIG_STATIC_SHM
->  #define KERNEL_INFO_SHM_MEM_INIT .shm_mem.common.max_banks = NR_SHMEM_BANKS,
-> diff --git a/xen/arch/arm/include/asm/setup.h b/xen/arch/arm/include/asm/setup.h
-> index 28fb659fe946..61c15806a7c4 100644
-> --- a/xen/arch/arm/include/asm/setup.h
-> +++ b/xen/arch/arm/include/asm/setup.h
-> @@ -64,18 +64,20 @@ struct membank {
->  };
->  
->  struct membanks {
-> -    unsigned int nr_banks;
-> -    unsigned int max_banks;
-> +    __struct_group(membanks_hdr, common, ,
-> +        unsigned int nr_banks;
-> +        unsigned int max_banks;
-> +    );
->      struct membank bank[];
->  };
->  
->  struct meminfo {
-> -    struct membanks common;
-> +    struct membanks_hdr common;
->      struct membank bank[NR_MEM_BANKS];
->  };
->  
->  struct shared_meminfo {
-> -    struct membanks common;
-> +    struct membanks_hdr common;
->      struct membank bank[NR_SHMEM_BANKS];
->      struct shmem_membank_extra extra[NR_SHMEM_BANKS];
->  };
-> @@ -166,25 +168,25 @@ extern domid_t max_init_domid;
->  
->  static inline struct membanks *bootinfo_get_mem(void)
->  {
-> -    return &bootinfo.mem.common;
-> +    return container_of(&bootinfo.mem.common, struct membanks, common);
->  }
->  
->  static inline struct membanks *bootinfo_get_reserved_mem(void)
->  {
-> -    return &bootinfo.reserved_mem.common;
-> +    return container_of(&bootinfo.reserved_mem.common, struct membanks, common);
->  }
->  
->  #ifdef CONFIG_ACPI
->  static inline struct membanks *bootinfo_get_acpi(void)
->  {
-> -    return &bootinfo.acpi.common;
-> +    return container_of(&bootinfo.acpi.common, struct membanks, common);
->  }
->  #endif
->  
->  #ifdef CONFIG_STATIC_SHM
->  static inline struct membanks *bootinfo_get_shmem(void)
->  {
-> -    return &bootinfo.shmem.common;
-> +    return container_of(&bootinfo.shmem.common, struct membanks, common);
->  }
->  
->  static inline struct shmem_membank_extra *bootinfo_get_shmem_extra(void)
-> diff --git a/xen/arch/arm/include/asm/static-shmem.h b/xen/arch/arm/include/asm/static-shmem.h
-> index 3b6569e5703f..806ee41cfc37 100644
-> --- a/xen/arch/arm/include/asm/static-shmem.h
-> +++ b/xen/arch/arm/include/asm/static-shmem.h
-> @@ -45,6 +45,18 @@ int make_shm_resv_memory_node(const struct kernel_info *kinfo, int addrcells,
->  void shm_mem_node_fill_reg_range(const struct kernel_info *kinfo, __be32 *reg,
->                                   int *nr_cells, int addrcells, int sizecells);
->  
-> +static inline struct membanks *
-> +kernel_info_get_shm_mem(struct kernel_info *kinfo)
-> +{
-> +    return container_of(&kinfo->shm_mem.common, struct membanks, common);
-> +}
-> +
-> +static inline const struct membanks *
-> +kernel_info_get_shm_mem_const(const struct kernel_info *kinfo)
-> +{
-> +    return container_of(&kinfo->shm_mem.common, const struct membanks, common);
-> +}
-> +
->  #else /* !CONFIG_STATIC_SHM */
->  
->  /* Worst case /memory node reg element: (addrcells + sizecells) */
-> diff --git a/xen/arch/arm/static-shmem.c b/xen/arch/arm/static-shmem.c
-> index 09f474ec6050..78881dd1d3f7 100644
-> --- a/xen/arch/arm/static-shmem.c
-> +++ b/xen/arch/arm/static-shmem.c
-> @@ -172,16 +172,16 @@ static int __init assign_shared_memory(struct domain *d,
->  }
->  
->  static int __init
-> -append_shm_bank_to_domain(struct shared_meminfo *kinfo_shm_mem, paddr_t start,
-> +append_shm_bank_to_domain(struct kernel_info *kinfo, paddr_t start,
->                            paddr_t size, const char *shm_id)
->  {
-> -    struct membanks *shm_mem = &kinfo_shm_mem->common;
-> +    struct membanks *shm_mem = kernel_info_get_shm_mem(kinfo);
->      struct shmem_membank_extra *shm_mem_extra;
->  
->      if ( shm_mem->nr_banks >= shm_mem->max_banks )
->          return -ENOMEM;
->  
-> -    shm_mem_extra = &kinfo_shm_mem->extra[shm_mem->nr_banks];
-> +    shm_mem_extra = &kinfo->shm_mem.extra[shm_mem->nr_banks];
->  
->      shm_mem->bank[shm_mem->nr_banks].start = start;
->      shm_mem->bank[shm_mem->nr_banks].size = size;
-> @@ -289,8 +289,7 @@ int __init process_shm(struct domain *d, struct kernel_info *kinfo,
->           * Record static shared memory region info for later setting
->           * up shm-node in guest device tree.
->           */
-> -        ret = append_shm_bank_to_domain(&kinfo->shm_mem, gbase, psize,
-> -                                        shm_id);
-> +        ret = append_shm_bank_to_domain(kinfo, gbase, psize, shm_id);
->          if ( ret )
->              return ret;
->      }
-> @@ -301,7 +300,7 @@ int __init process_shm(struct domain *d, struct kernel_info *kinfo,
->  int __init make_shm_resv_memory_node(const struct kernel_info *kinfo,
->                                       int addrcells, int sizecells)
->  {
-> -    const struct membanks *mem = &kinfo->shm_mem.common;
-> +    const struct membanks *mem = kernel_info_get_shm_mem_const(kinfo);
->      void *fdt = kinfo->fdt;
->      unsigned int i = 0;
->      int res = 0;
-> @@ -517,7 +516,7 @@ int __init process_shm_node(const void *fdt, int node, uint32_t address_cells,
->  int __init make_resv_memory_node(const struct kernel_info *kinfo, int addrcells,
->                                   int sizecells)
->  {
-> -    const struct membanks *mem = &kinfo->shm_mem.common;
-> +    const struct membanks *mem = kernel_info_get_shm_mem_const(kinfo);
->      void *fdt = kinfo->fdt;
->      int res = 0;
->      /* Placeholder for reserved-memory\0 */
-> @@ -579,7 +578,7 @@ void __init init_sharedmem_pages(void)
->  int __init remove_shm_from_rangeset(const struct kernel_info *kinfo,
->                                      struct rangeset *rangeset)
->  {
-> -    const struct membanks *shm_mem = &kinfo->shm_mem.common;
-> +    const struct membanks *shm_mem = kernel_info_get_shm_mem_const(kinfo);
->      unsigned int i;
->  
->      /* Remove static shared memory regions */
-> @@ -607,7 +606,7 @@ int __init remove_shm_from_rangeset(const struct kernel_info *kinfo,
->  int __init remove_shm_holes_for_domU(const struct kernel_info *kinfo,
->                                       struct membanks *ext_regions)
->  {
-> -    const struct membanks *shm_mem = &kinfo->shm_mem.common;
-> +    const struct membanks *shm_mem = kernel_info_get_shm_mem_const(kinfo);
->      struct rangeset *guest_holes;
->      unsigned int i;
->      paddr_t start;
-> @@ -673,7 +672,7 @@ void __init shm_mem_node_fill_reg_range(const struct kernel_info *kinfo,
->                                          __be32 *reg, int *nr_cells,
->                                          int addrcells, int sizecells)
->  {
-> -    const struct membanks *mem = &kinfo->shm_mem.common;
-> +    const struct membanks *mem = kernel_info_get_shm_mem_const(kinfo);
->      unsigned int i;
->      __be32 *cells;
->  
-> -- 
-> 2.34.1
+> Unfortunately this won't work since block->offset is not related to where this
+> ram is mapped in guest address-space. In the case of grant's, we'd get the
+> wrong grant ref. See my previous comment.
+
+OK, this code below (the second xen_map_cache call passing block->offset
+as start address) was wrong before this patch. Can we fix it before
+changing it further with this patch? I worry about making things even
+worse.
+
+
+> > >          }
+> > >
+> > >          block->host = xen_map_cache(block->mr, block->offset,
+> > > -                                    block->max_length, 1,
+> > > -                                    lock, is_write);
+> > > +                                    block->max_length, 0,
+> > > +                                    1, lock, is_write);
+> > >      }
+> > >
+> > >      return ramblock_ptr(block, addr);
+> > > --
+> > > 2.40.1
+> > >
 > 
+--8323329-1125765863-1714675481=:624854--
 
