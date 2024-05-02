@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AC0468B9686
-	for <lists+xen-devel@lfdr.de>; Thu,  2 May 2024 10:33:33 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.715647.1117422 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 90E628B96B0
+	for <lists+xen-devel@lfdr.de>; Thu,  2 May 2024 10:46:57 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.715654.1117432 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s2RsI-0005EG-Kl; Thu, 02 May 2024 08:33:06 +0000
+	id 1s2S53-0008Oh-Nv; Thu, 02 May 2024 08:46:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 715647.1117422; Thu, 02 May 2024 08:33:06 +0000
+Received: by outflank-mailman (output) from mailman id 715654.1117432; Thu, 02 May 2024 08:46:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s2RsI-0005Bb-Hd; Thu, 02 May 2024 08:33:06 +0000
-Received: by outflank-mailman (input) for mailman id 715647;
- Thu, 02 May 2024 08:33:05 +0000
+	id 1s2S53-0008M9-Kk; Thu, 02 May 2024 08:46:17 +0000
+Received: by outflank-mailman (input) for mailman id 715654;
+ Thu, 02 May 2024 08:46:16 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Ua+q=MF=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1s2RsH-0005BV-KK
- for xen-devel@lists.xenproject.org; Thu, 02 May 2024 08:33:05 +0000
-Received: from mail-lf1-x130.google.com (mail-lf1-x130.google.com
- [2a00:1450:4864:20::130])
+ id 1s2S52-0008M3-FL
+ for xen-devel@lists.xenproject.org; Thu, 02 May 2024 08:46:16 +0000
+Received: from mail-lf1-x129.google.com (mail-lf1-x129.google.com
+ [2a00:1450:4864:20::129])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 9750a8f5-085e-11ef-b4bb-af5377834399;
- Thu, 02 May 2024 10:33:03 +0200 (CEST)
-Received: by mail-lf1-x130.google.com with SMTP id
- 2adb3069b0e04-51ab4ee9df8so9570441e87.1
- for <xen-devel@lists.xenproject.org>; Thu, 02 May 2024 01:33:03 -0700 (PDT)
+ id 6e859080-0860-11ef-b4bb-af5377834399;
+ Thu, 02 May 2024 10:46:13 +0200 (CEST)
+Received: by mail-lf1-x129.google.com with SMTP id
+ 2adb3069b0e04-51c077cfc09so9118872e87.2
+ for <xen-devel@lists.xenproject.org>; Thu, 02 May 2024 01:46:13 -0700 (PDT)
 Received: from [192.168.206.239] ([94.75.70.14])
  by smtp.gmail.com with ESMTPSA id
- o3-20020ac24943000000b0051e12a2c07bsm95803lfi.20.2024.05.02.01.33.01
+ g10-20020a19ac0a000000b0051f2bc124b8sm98064lfc.282.2024.05.02.01.46.12
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 02 May 2024 01:33:01 -0700 (PDT)
+ Thu, 02 May 2024 01:46:12 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,131 +45,132 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9750a8f5-085e-11ef-b4bb-af5377834399
+X-Inumbo-ID: 6e859080-0860-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1714638782; x=1715243582; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1714639573; x=1715244373; darn=lists.xenproject.org;
         h=mime-version:user-agent:content-transfer-encoding:references
          :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
          :date:message-id:reply-to;
-        bh=6uVKy1VOU+bFcQfhFvZNp5OKrzQp5GFDpm3cDxnm8rI=;
-        b=kA2mSkN7BbLeRo1d9ra46jG19EAGkvaEcZlcC0g8nI/DXh4Z+QbFIT8nJImqeOC6/2
-         gQfQnMiqQuSr7VNFDnPUFBqvuiHiDWG1Q5wL3UdPomAZ17Zhxgm26NWcusmeIMwUPE4w
-         sBG3cSm5c9pveSApSLuT+rymajSNzFSyu8legV13z9+edPW3Fg20ObscWQF4YTxIpj6w
-         hpOojHwFjUhzbOjz0f6wk/qUI0yrMas6Ocg+4lbyE3Ion/gQqzgEGmocmPQVf2WBOkcx
-         QwRiT8QTfSKsIezgDMvHHB1Mh2Mrmtskq2rmaiN61qQH+ugQ8nePYD9SkDc06MYK5AvZ
-         M6vQ==
+        bh=119SfVGplz4DEiOku4pP5MJJYMC0Kn1JeItPRGIgL6I=;
+        b=U85BpGolPpegSz+AZZd83xu4+ctSA1Ay4GaxRKwPGumu7LXlJP2eM5r/MfT5g7vjtQ
+         aLHHhfTsV2SMpRXwJqK4IvrOrNHW9snO7yHEyBUtscjHcBCEk1oNYXWUZqC9vBJM+Kbp
+         FgvZeF1W2sdDzw/VhI7/l4PWZjWF88rS5/ROlnDVFjVh8edEsD5sCNjSoe9juOYWXdy4
+         CoyLOTcvpkxphUqhlbPDUMntvazPwBTiFwtXyirhy9ZptqSCLbuFqxpqULCBIzAThkgT
+         dC3gGU4a4FzrPeRBQyfXn4t5FnLoXHYOtQAjL9QqGDKbdFgCC0+kVHinyGGFgwKP03uR
+         Rz4Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1714638782; x=1715243582;
+        d=1e100.net; s=20230601; t=1714639573; x=1715244373;
         h=mime-version:user-agent:content-transfer-encoding:references
          :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=6uVKy1VOU+bFcQfhFvZNp5OKrzQp5GFDpm3cDxnm8rI=;
-        b=Hso+4rlANTFH/TB1ddnATb2u8smnZTPQOisyKb9qrvFfMkrltSXF8a9s4VG0ngToq1
-         NpHjsFaZKqKpFYFmQbUwRTP8hUpTv8TuRCDYWb8TrYKX+PU2WQrzQ86V/br1ghxCALuf
-         0KVv9ZAzyPzCN3U33vrsGn3ISoyVXIhjZbpGu/LX8zNimJIt+Sgyxsnx76wFW9poAd3U
-         HTF3fB58R/IcYnXcmb3pu5qK0G0icalJ6nuYA6oGaTcmiNDavmRIhqtVitC9Uet6OYhu
-         X9M2x/YFYQAtSlLq6fc4x6ED3r176ZVwXx2mwZGaSDgV9TeHi4ld8rTGpS1qzW3pnAjV
-         T2yA==
-X-Forwarded-Encrypted: i=1; AJvYcCWi2rl3bVFBfSZJzDjBWgX/iBjLtdomJf9FzGRdnPl/Cx8rvs6zsnVq9OKbSSfa+m0g45xKQvdrTrsdTKml8sHG1YKwAZ+lh3VeeMR3MxA=
-X-Gm-Message-State: AOJu0YwgrwoWGflvlrzqW61FrhRtV6iCl2gaan85FWbZvz1pyyBEzRTG
-	E3cVYmicCE4U9YON40IoQeP0A/bpvKO93/+WDv0hJL+fhe04+NWL
-X-Google-Smtp-Source: AGHT+IHhut/JYAmyK42SUVj9T+RxnUBAni7Z/MI2KEJKojOsjd5tkUEi06agrSY228IWRN8H16FZGw==
-X-Received: by 2002:ac2:58e5:0:b0:51e:eac7:d69b with SMTP id v5-20020ac258e5000000b0051eeac7d69bmr1496378lfo.27.1714638782174;
-        Thu, 02 May 2024 01:33:02 -0700 (PDT)
-Message-ID: <845de338f4c77f31b91f03028235997b2d0386c8.camel@gmail.com>
-Subject: Re: [PATCH v8 08/17] xen/riscv: introduce atomic.h
+        bh=119SfVGplz4DEiOku4pP5MJJYMC0Kn1JeItPRGIgL6I=;
+        b=TSAB49lGtVvkr5Uk0S90rJyVaSWEtkmUL8c4DuQpCHCsdPYeMDNCHjCj77/aFlUGu1
+         Sy81YbNNDkL2LPcFfMi5UPxK11j6CoNbQdHeKyTcMxti5EHqAL6C06KCw1xgck2fy4Vt
+         grrya13nwMKo1j7F+lB1TsrI1Dtz+CQABBqZ6gLEIBpaDPHqbee7HTQo2O5vY1kEE+mr
+         xRphWttIF0237eCoqt4hzfQSMGEmYQmClnYtqi21b7s9TyQIBf2JxnrOt0CfyRuSoy2O
+         flouznoU9XmgjrfMskCvuslSahxawz1bh1iNEOYdSZG8lfRd37JV1gq3Zxu/QyuHxK3v
+         r5NA==
+X-Forwarded-Encrypted: i=1; AJvYcCXwxsvrE9nUyipDqLz4rzGgAFFXIeb7bolkiFu7tVQRkwYqeTLCByYbEPmjdxFZxNIA0vaP9jHGENgEwwFlk/94UPNLATfWNfrPeyMlFV0=
+X-Gm-Message-State: AOJu0Yw/YWu7jR1awspSAJn0cO6RCae74ebsHUqBE46jMwzdRfXoUc0r
+	uCzVzOjs6yQ0b5jP2ihUoBPi1x3NtSaX86KQTGmqZ+uao2iPidohxS8JIQ==
+X-Google-Smtp-Source: AGHT+IG59POMHBugH1TPVjU1L/yXCgOYEUuzRowyg8acD+st/dsd3VewFQerZYTtAMYt7kTu9LbFlw==
+X-Received: by 2002:a19:550e:0:b0:51d:348b:80bb with SMTP id n14-20020a19550e000000b0051d348b80bbmr2610874lfe.55.1714639572959;
+        Thu, 02 May 2024 01:46:12 -0700 (PDT)
+Message-ID: <2cabc6a1448c6f18cab963bc463347f088d643dd.camel@gmail.com>
+Subject: Re: [PATCH for-4.19] ppc/riscv: fix arch_acquire_resource_check()
 From: Oleksii <oleksii.kurochko@gmail.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>, Bob Eshleman
- <bobbyeshleman@gmail.com>, Connor Davis <connojdavis@gmail.com>, Andrew
- Cooper <andrew.cooper3@citrix.com>, George Dunlap
- <george.dunlap@citrix.com>,  Julien Grall <julien@xen.org>, Stefano
- Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-Date: Thu, 02 May 2024 10:33:00 +0200
-In-Reply-To: <d40ec2a0-fb14-48f1-804b-9ef18f35b7d5@suse.com>
-References: <cover.1713347222.git.oleksii.kurochko@gmail.com>
-	 <4967a5fcbef0901ef34d8954a48ded369b1ea2b1.1713347222.git.oleksii.kurochko@gmail.com>
-	 <d40ec2a0-fb14-48f1-804b-9ef18f35b7d5@suse.com>
+To: Roger Pau Monne <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
+Cc: Shawn Anastasio <sanastasio@raptorengineering.com>, Alistair Francis
+	 <alistair.francis@wdc.com>, Bob Eshleman <bobbyeshleman@gmail.com>, Connor
+	Davis <connojdavis@gmail.com>
+Date: Thu, 02 May 2024 10:46:12 +0200
+In-Reply-To: <20240430153423.80875-1-roger.pau@citrix.com>
+References: <20240430153423.80875-1-roger.pau@citrix.com>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: base64
+Content-Transfer-Encoding: quoted-printable
 User-Agent: Evolution 3.50.4 (3.50.4-1.fc39) 
 MIME-Version: 1.0
 
-T24gTW9uLCAyMDI0LTA0LTI5IGF0IDE1OjQ1ICswMjAwLCBKYW4gQmV1bGljaCB3cm90ZToKPiBP
-biAxNy4wNC4yMDI0IDEyOjA0LCBPbGVrc2lpIEt1cm9jaGtvIHdyb3RlOgo+ID4gLS0tIC9kZXYv
-bnVsbAo+ID4gKysrIGIveGVuL2FyY2gvcmlzY3YvaW5jbHVkZS9hc20vYXRvbWljLmgKPiA+IEBA
-IC0wLDAgKzEsMjgxIEBACj4gPiArLyogU1BEWC1MaWNlbnNlLUlkZW50aWZpZXI6IEdQTC0yLjAt
-b25seSAqLwo+ID4gKy8qCj4gPiArICogVGFrZW4gYW5kIG1vZGlmaWVkIGZyb20gTGludXguCj4g
-PiArICoKPiA+ICsgKiBUaGUgZm9sbG93aW5nIGNoYW5nZXMgd2VyZSBkb25lOgo+ID4gKyAqIC0g
-KiBhdG9taWMjI3ByZWZpeCMjXyp4Y2hnXyooYXRvbWljIyNwcmVmaXgjI190ICp2LCBjX3Qgbikg
-d2VyZQo+ID4gdXBkYXRlZAo+ID4gKyAqwqDCoMKgwqAgdG8gdXNlX18qeGNoZ19nZW5lcmljKCkK
-PiA+ICsgKiAtIGRyb3AgY2FzdHMgaW4gd3JpdGVfYXRvbWljKCkgYXMgdGhleSBhcmUgdW5uZWNl
-c3NhcnkKPiA+ICsgKiAtIGRyb3AgaW50cm9kdWN0aW9uIG9mIFdSSVRFX09OQ0UoKSBhbmQgUkVB
-RF9PTkNFKCkuCj4gPiArICrCoMKgIFhlbiBwcm92aWRlcyBBQ0NFU1NfT05DRSgpCj4gPiArICog
-LSByZW1vdmUgemVyby1sZW5ndGggYXJyYXkgYWNjZXNzIGluIHJlYWRfYXRvbWljKCkKPiA+ICsg
-KiAtIGRyb3AgZGVmaW5lcyBzaW1pbGFyIHRvIHBhdHRlcm4KPiA+ICsgKsKgwqAgI2RlZmluZSBh
-dG9taWNfYWRkX3JldHVybl9yZWxheGVkwqDCoCBhdG9taWNfYWRkX3JldHVybl9yZWxheGVkCj4g
-PiArICogLSBtb3ZlIG5vdCBSSVNDLVYgc3BlY2lmaWMgZnVuY3Rpb25zIHRvIGFzbS1nZW5lcmlj
-L2F0b21pY3MtCj4gPiBvcHMuaAo+ID4gKyAqIAo+ID4gKyAqIENvcHlyaWdodCAoQykgMjAwNyBS
-ZWQgSGF0LCBJbmMuIEFsbCBSaWdodHMgUmVzZXJ2ZWQuCj4gPiArICogQ29weXJpZ2h0IChDKSAy
-MDEyIFJlZ2VudHMgb2YgdGhlIFVuaXZlcnNpdHkgb2YgQ2FsaWZvcm5pYQo+ID4gKyAqIENvcHly
-aWdodCAoQykgMjAxNyBTaUZpdmUKPiA+ICsgKiBDb3B5cmlnaHQgKEMpIDIwMjQgVmF0ZXMgU0FT
-Cj4gPiArICovCj4gPiArCj4gPiArI2lmbmRlZiBfQVNNX1JJU0NWX0FUT01JQ19ICj4gPiArI2Rl
-ZmluZSBfQVNNX1JJU0NWX0FUT01JQ19ICj4gPiArCj4gPiArI2luY2x1ZGUgPHhlbi9hdG9taWMu
-aD4KPiA+ICsKPiA+ICsjaW5jbHVkZSA8YXNtL2NtcHhjaGcuaD4KPiA+ICsjaW5jbHVkZSA8YXNt
-L2ZlbmNlLmg+Cj4gPiArI2luY2x1ZGUgPGFzbS9pby5oPgo+ID4gKyNpbmNsdWRlIDxhc20vc3lz
-dGVtLmg+Cj4gPiArCj4gPiArdm9pZCBfX2JhZF9hdG9taWNfc2l6ZSh2b2lkKTsKPiA+ICsKPiA+
-ICsvKgo+ID4gKyAqIExlZ2FjeSBmcm9tIExpbnV4IGtlcm5lbC4gRm9yIHNvbWUgcmVhc29uIHRo
-ZXkgd2FudGVkIHRvIGhhdmUKPiA+IG9yZGVyZWQKPiA+ICsgKiByZWFkL3dyaXRlIGFjY2Vzcy4g
-VGhlcmVieSByZWFkKiBpcyB1c2VkIGluc3RlYWQgb2YgcmVhZCpfY3B1KCkKPiA+ICsgKi8KPiA+
-ICtzdGF0aWMgYWx3YXlzX2lubGluZSB2b2lkIHJlYWRfYXRvbWljX3NpemUoY29uc3Qgdm9sYXRp
-bGUgdm9pZCAqcCwKPiA+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgdm9pZCAqcmVzLAo+
-ID4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB1bnNpZ25lZCBpbnQgc2l6ZSkKPiA+ICt7
-Cj4gPiArwqDCoMKgIHN3aXRjaCAoIHNpemUgKQo+ID4gK8KgwqDCoCB7Cj4gPiArwqDCoMKgIGNh
-c2UgMTogKih1aW50OF90ICopcmVzID0gcmVhZGIocCk7IGJyZWFrOwo+ID4gK8KgwqDCoCBjYXNl
-IDI6ICoodWludDE2X3QgKilyZXMgPSByZWFkdyhwKTsgYnJlYWs7Cj4gPiArwqDCoMKgIGNhc2Ug
-NDogKih1aW50MzJfdCAqKXJlcyA9IHJlYWRsKHApOyBicmVhazsKPiA+ICsjaWZuZGVmIENPTkZJ
-R19SSVNDVl8zMgo+ID4gK8KgwqDCoCBjYXNlIDg6ICoodWludDMyX3QgKilyZXMgPSByZWFkcShw
-KTsgYnJlYWs7Cj4gPiArI2VuZGlmCj4gPiArwqDCoMKgIGRlZmF1bHQ6IF9fYmFkX2F0b21pY19z
-aXplKCk7IGJyZWFrOwo+ID4gK8KgwqDCoCB9Cj4gPiArfQo+ID4gKwo+ID4gKyNkZWZpbmUgcmVh
-ZF9hdG9taWMocCkgKHvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBcCj4gPiArwqDCoMKgIHVuaW9uIHsgdHlwZW9mKCoo
-cCkpIHZhbDsgY2hhciBjW3NpemVvZigqKHApKV07IH0geF87wqDCoCBcCj4gPiArwqDCoMKgIHJl
-YWRfYXRvbWljX3NpemUocCwgeF8uYywgc2l6ZW9mKCoocCkpKTvCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqAgXAo+ID4gK8KgwqDCoCB4Xy52YWw7wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgIFwKPiA+ICt9KQo+ID4gKwo+ID4gK3N0YXRpYyBhbHdheXNfaW5saW5l
-IHZvaWQgX3dyaXRlX2F0b21pYyh2b2xhdGlsZSB2b2lkICpwLAo+ID4gK8KgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqAgdW5zaWduZWQgbG9uZyB4LCB1bnNpZ25lZAo+ID4gaW50IHNpemUpCj4gPiArewo+ID4g
-K8KgwqDCoCBzd2l0Y2ggKCBzaXplICkKPiA+ICvCoMKgwqAgewo+ID4gK8KgwqDCoCBjYXNlIDE6
-IHdyaXRlYih4LCBwKTsgYnJlYWs7Cj4gPiArwqDCoMKgIGNhc2UgMjogd3JpdGV3KHgsIHApOyBi
-cmVhazsKPiA+ICvCoMKgwqAgY2FzZSA0OiB3cml0ZWwoeCwgcCk7IGJyZWFrOwo+ID4gKyNpZm5k
-ZWYgQ09ORklHX1JJU0NWXzMyCj4gPiArwqDCoMKgIGNhc2UgODogd3JpdGVxKHgsIHApOyBicmVh
-azsKPiA+ICsjZW5kaWYKPiA+ICvCoMKgwqAgZGVmYXVsdDogX19iYWRfYXRvbWljX3NpemUoKTsg
-YnJlYWs7Cj4gPiArwqDCoMKgIH0KPiA+ICt9Cj4gPiArCj4gPiArI2RlZmluZSB3cml0ZV9hdG9t
-aWMocCwgeCnCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgIFwKPiA+ICsoe8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqAgXAo+ID4gK8KgwqDCoCB0eXBlb2YoKihwKSkgeF8gPSAoeCk7wqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBcCj4gPiAr
-wqDCoMKgIF93cml0ZV9hdG9taWMoKHApLCB4Xywgc2l6ZW9mKCoocCkpKTvCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgIFwKPiAKPiBOaXQ6IFRoZXJlIGFyZSBzdGlsbCBleGNlc3MgcGFyZW50
-aGVzZXMgaGVyZS4KPiAKPiA+ICvCoMKgwqAgeF87wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgIFwKPiAKPiBXaHkgaXMgdGhpcz8gVGhlIG1hY3JvIGlzbid0IHN1cHBvc2Vk
-IHRvICJyZXR1cm4iIGEgdmFsdWUsIGlzIGl0PwpZb3UgYXJlIHJpZ2h0LiB3cml0ZV9hdG9taWMo
-KSBpc24ndCBzdXBwb3NlZCB0byByZXR1cm4gYSB2YWx1ZSwgc28KInhfOyIgY2FuIGJlIGRyb3Bw
-ZWQuCgo+IAo+ID4gK30pCj4gPiArCj4gPiArc3RhdGljIGFsd2F5c19pbmxpbmUgdm9pZCBfYWRk
-X3NpemVkKHZvbGF0aWxlIHZvaWQgKnAsCj4gPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHVuc2lnbmVkIGxv
-bmcgeCwgdW5zaWduZWQgaW50Cj4gPiBzaXplKQo+ID4gK3sKPiA+ICvCoMKgwqAgc3dpdGNoICgg
-c2l6ZSApCj4gPiArwqDCoMKgIHsKPiA+ICvCoMKgwqAgY2FzZSAxOgo+ID4gK8KgwqDCoCB7Cj4g
-PiArwqDCoMKgwqDCoMKgwqAgdm9sYXRpbGUgdWludDhfdCAqcHRyID0gKHZvbGF0aWxlIHVpbnQ4
-X3QgKilwOwo+IAo+IEhlcmUgYW5kIGJlbG93OiBXaHkgdGhlIGNhc3RzPwpZZXMsIHRoZXkgYXJl
-IG5vdCBuZWVkZWQuIEluaXRpYWxseSBJIGRlY2lkZWQgdGhhdCBpdCBjb3VsZCBiZSBhCmNvbXBp
-bGF0aW9uIGlzc3VlLgoKfiBPbGVrc2lpCg==
+On Tue, 2024-04-30 at 17:34 +0200, Roger Pau Monne wrote:
+> None of the implementations support set_foreign_p2m_entry() yet,
+> neither they
+> have a p2m walk in domain_relinquish_resources() in order to remove
+> the foreign
+> mappings from the p2m and thus drop the extra refcounts.
+>=20
+> Adjust the arch helpers to return false and introduce a comment that
+> clearly
+> states it is not only taking extra refcounts that's needed, but also
+> dropping
+> them on domain teardown.
+I am okay with such adjustment for now as it is more safe and nothing
+will be missed during implementation of p2m, but I am curious how then
+Arm handles that, their implementation is also just returns true. ( I
+planned to have p2m implementation similar to Arm )
+
+Anyway, based on that it safer for RISC-V:
+Reviewed-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+>=20
+> Fixes: 4988704e00d8 ('xen/riscv: introduce p2m.h')
+> Fixes: 4a2f68f90930 ('xen/ppc: Define minimal stub headers required
+> for full build')
+> Signed-off-by: Roger Pau Monn=C3=A9 <roger.pau@citrix.com>
+> ---
+> =C2=A0xen/arch/ppc/include/asm/p2m.h=C2=A0=C2=A0 | 7 ++++---
+> =C2=A0xen/arch/riscv/include/asm/p2m.h | 7 ++++---
+> =C2=A02 files changed, 8 insertions(+), 6 deletions(-)
+>=20
+> diff --git a/xen/arch/ppc/include/asm/p2m.h
+> b/xen/arch/ppc/include/asm/p2m.h
+> index 25ba05466853..f144ef8e1a54 100644
+> --- a/xen/arch/ppc/include/asm/p2m.h
+> +++ b/xen/arch/ppc/include/asm/p2m.h
+> @@ -81,10 +81,11 @@ static inline mfn_t gfn_to_mfn(struct domain *d,
+> gfn_t gfn)
+> =C2=A0static inline bool arch_acquire_resource_check(struct domain *d)
+> =C2=A0{
+> =C2=A0=C2=A0=C2=A0=C2=A0 /*
+> -=C2=A0=C2=A0=C2=A0=C2=A0 * The reference counting of foreign entries in
+> set_foreign_p2m_entry()
+> -=C2=A0=C2=A0=C2=A0=C2=A0 * is supported on PPC.
+> +=C2=A0=C2=A0=C2=A0=C2=A0 * Requires refcounting the foreign mappings and=
+ walking the p2m
+> on
+> +=C2=A0=C2=A0=C2=A0=C2=A0 * teardown in order to remove foreign pages fro=
+m the p2m and
+> drop the
+> +=C2=A0=C2=A0=C2=A0=C2=A0 * extra reference counts.
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 */
+> -=C2=A0=C2=A0=C2=A0 return true;
+> +=C2=A0=C2=A0=C2=A0 return false;
+> =C2=A0}
+> =C2=A0
+> =C2=A0static inline void p2m_altp2m_check(struct vcpu *v, uint16_t idx)
+> diff --git a/xen/arch/riscv/include/asm/p2m.h
+> b/xen/arch/riscv/include/asm/p2m.h
+> index 87b13f897926..387f372b5d26 100644
+> --- a/xen/arch/riscv/include/asm/p2m.h
+> +++ b/xen/arch/riscv/include/asm/p2m.h
+> @@ -79,10 +79,11 @@ static inline mfn_t gfn_to_mfn(struct domain *d,
+> gfn_t gfn)
+> =C2=A0static inline bool arch_acquire_resource_check(struct domain *d)
+> =C2=A0{
+> =C2=A0=C2=A0=C2=A0=C2=A0 /*
+> -=C2=A0=C2=A0=C2=A0=C2=A0 * The reference counting of foreign entries in
+> set_foreign_p2m_entry()
+> -=C2=A0=C2=A0=C2=A0=C2=A0 * is supported on RISCV.
+> +=C2=A0=C2=A0=C2=A0=C2=A0 * Requires refcounting the foreign mappings and=
+ walking the p2m
+> on
+> +=C2=A0=C2=A0=C2=A0=C2=A0 * teardown in order to remove foreign pages fro=
+m the p2m and
+> drop the
+> +=C2=A0=C2=A0=C2=A0=C2=A0 * extra reference counts.
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 */
+> -=C2=A0=C2=A0=C2=A0 return true;
+> +=C2=A0=C2=A0=C2=A0 return false;
+> =C2=A0}
+> =C2=A0
+> =C2=A0static inline void p2m_altp2m_check(struct vcpu *v, uint16_t idx)
 
 
