@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5EE218B9B95
-	for <lists+xen-devel@lfdr.de>; Thu,  2 May 2024 15:25:39 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.715837.1117784 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F0BEC8B9C59
+	for <lists+xen-devel@lfdr.de>; Thu,  2 May 2024 16:33:57 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.715849.1117793 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s2WRB-0007Iw-UW; Thu, 02 May 2024 13:25:25 +0000
+	id 1s2XU9-0001ov-T4; Thu, 02 May 2024 14:32:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 715837.1117784; Thu, 02 May 2024 13:25:25 +0000
+Received: by outflank-mailman (output) from mailman id 715849.1117793; Thu, 02 May 2024 14:32:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s2WRB-0007H5-R9; Thu, 02 May 2024 13:25:25 +0000
-Received: by outflank-mailman (input) for mailman id 715837;
- Thu, 02 May 2024 13:25:24 +0000
+	id 1s2XU9-0001ml-QP; Thu, 02 May 2024 14:32:33 +0000
+Received: by outflank-mailman (input) for mailman id 715849;
+ Thu, 02 May 2024 14:32:32 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=J/qc=MF=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1s2WRA-0007CS-8X
- for xen-devel@lists.xenproject.org; Thu, 02 May 2024 13:25:24 +0000
-Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
- [2a00:1450:4864:20::32d])
+ id 1s2XU8-0001mf-Bg
+ for xen-devel@lists.xenproject.org; Thu, 02 May 2024 14:32:32 +0000
+Received: from mail-qv1-xf36.google.com (mail-qv1-xf36.google.com
+ [2607:f8b0:4864:20::f36])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 6dbb6353-0887-11ef-b4bb-af5377834399;
- Thu, 02 May 2024 15:25:22 +0200 (CEST)
-Received: by mail-wm1-x32d.google.com with SMTP id
- 5b1f17b1804b1-41adf155cffso54752715e9.2
- for <xen-devel@lists.xenproject.org>; Thu, 02 May 2024 06:25:22 -0700 (PDT)
+ id cd496ba0-0890-11ef-b4bb-af5377834399;
+ Thu, 02 May 2024 16:32:29 +0200 (CEST)
+Received: by mail-qv1-xf36.google.com with SMTP id
+ 6a1803df08f44-6a071595d22so41288096d6.3
+ for <xen-devel@lists.xenproject.org>; Thu, 02 May 2024 07:32:29 -0700 (PDT)
 Received: from [10.80.67.140] (default-46-102-197-194.interdsl.co.uk.
  [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- j3-20020a05600c1c0300b004186f979543sm5785088wms.33.2024.05.02.06.25.21
+ z7-20020a0cfec7000000b006a0d2a52017sm382796qvs.146.2024.05.02.07.32.26
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 02 May 2024 06:25:21 -0700 (PDT)
+ Thu, 02 May 2024 07:32:27 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,44 +45,46 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6dbb6353-0887-11ef-b4bb-af5377834399
+X-Inumbo-ID: cd496ba0-0890-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1714656322; x=1715261122; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1714660348; x=1715265148; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=L20Y43NAiZ2l0D/I+x7e0KD3rY8AxANBIZEupH6VNk4=;
-        b=IMxW9XqUGlmorNDY7rvWeyqLqf6olVtn3yG6XT+5n6c8H+uKTtvUhxYccJ494hZ5fJ
-         gs+3nxyoh5w9Ayi7CtKVk9SxOB96OQtqG6F3bs42A+41b7noGYXUGInHyMj/M5LgXL/A
-         ofZb+nxGj94/bcbZ8LE6DIUpN6UTSjscXuUdY=
+        bh=nWmuVZtzqrHtgUIOTc0CdZVJQG5k8cyxHYUZVt6RUXI=;
+        b=qYzimQwf/KI7dD612OBSbe87u1xAjqIyhnmfyJFGWA0L62E0tn/+wTaJiyK+YbRHci
+         tAy5rxIv67nWMVys08Vm3/mzhysjs7Z7mcp3PEuBPBfRllG7OuwHMKyQ8CU54kTohe3E
+         WEBNvs+VT/D7/FeShqyKWFREi+5aLftMN5okw=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1714656322; x=1715261122;
+        d=1e100.net; s=20230601; t=1714660348; x=1715265148;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=L20Y43NAiZ2l0D/I+x7e0KD3rY8AxANBIZEupH6VNk4=;
-        b=geLuWMcLKDWPC8+qsVM/RkLXxMIv/XAEl60Hh7Up8jhm4thhmePpSWX8e/GsZ93C7E
-         7yeF2+LpiTBvaBi0etCThDoNCBkQAL2IRrdqQIqg4Pq33iTGNJg7tDgKHykpU0djvWYR
-         af0nE8NAN4bkC42vkINalMCrG56pvVQVBr3Sdoj3wB0E81kg267W6M1OAraP70YYPdaJ
-         HxHyXUMdCu5P96MV56aTczrA9GseB3LOPlmho8mgdOzadjEukWe0nwU3mXOQsOqyK7cy
-         gQDeIZnoHGSdWCyG9OX3mJsgy5r5n057H/pv7Hu6HNMXqTkryEw/E0ERoAaqlEP9PzZL
-         bp/A==
-X-Forwarded-Encrypted: i=1; AJvYcCXczSTyNY1+cw7JDcTJ1RtoNl3V9+yGFLYiWPJfYLrlAh/eP16ZqG1XNZPE2uFwxkvIBBvOzb/ens8wtjwUBxiLRrzdN0D7Z0GzJbCwIAo=
-X-Gm-Message-State: AOJu0Yw8rZd7iUS047/bg/BuPW4tPrfOt9eRuSEPz237E6AXj7FF/GV5
-	HZIIRMVSqKDbDVqIExSo+XtXcsAtwqLXsI7aAEkz5YCvINqTOnM/qud6Y9Cv5h8=
-X-Google-Smtp-Source: AGHT+IFat97fJEqwDrjZf2OF7QHtResJXHXIMqZa3mdJUsy6zL7KXEmdHpLIXU26ojrvTtdXQbv0SA==
-X-Received: by 2002:a05:600c:1392:b0:41b:f116:87e0 with SMTP id u18-20020a05600c139200b0041bf11687e0mr4077394wmf.29.1714656322163;
-        Thu, 02 May 2024 06:25:22 -0700 (PDT)
-Message-ID: <3c5ea8e3-87ce-4048-a3f1-7a963706f5b2@citrix.com>
-Date: Thu, 2 May 2024 14:25:21 +0100
+        bh=nWmuVZtzqrHtgUIOTc0CdZVJQG5k8cyxHYUZVt6RUXI=;
+        b=gbDTjfs3gaJB3gUUwWCdZAhdrVlnSqKUSiMP4xfTI7kzEGPN1g4d+oLF/0CNPlS1LI
+         UZxmDsk3sE+VIdyBAbOumxo62sPbnFpPWFbaFkS5ipk7tnJatCoZXuugXWtZvfbdr3wW
+         B4tx/JzG5qoMLAdy5BkWP1w31G4RgU0WXrZuM7hWRp/Sf4fTz/YXFt4hGh5a+zB0MCnT
+         PcSj3GaxlPCAGuaV+kZsbxIPf5tmSj5NuI/1gxQLsrBGEk6P211/Nb7Xf6CfxeO88C8w
+         /XNJ34mScPv31Mvb6wvH3bVuhGtTnvY69Rq6941rZRsTRfb6KBjNJG+S7M9GMidTXHiS
+         6zrA==
+X-Forwarded-Encrypted: i=1; AJvYcCWVPmedYZNQ81bgWuP2VKYRzyCEWulwFBZxriXPEHNZyw/R2otq8nbgL9YoahlKRoGsbmqgwY8VB3Ug6AxLX7OmjmzPts0LH77dorw7Wis=
+X-Gm-Message-State: AOJu0YxOnTB32saXdDd4aUENwT1BYXclCBrzLGwLjipbP2geRn5hzc8N
+	2lIIDMNxZsYJuSLJgR7/xA9sUz7K0W2M/OlODvbf/3MUcs0fRl7Bp6LTYLI8ryA=
+X-Google-Smtp-Source: AGHT+IHzYCmkq8hIAY2wDFDqxCGaEQMH+U6Z+/+KAzJ24/D552bXtXY8jx6SbO9qv00KGtuiVkwmRA==
+X-Received: by 2002:a05:6214:27c5:b0:69b:5ecd:7c9a with SMTP id ge5-20020a05621427c500b0069b5ecd7c9amr5797751qvb.51.1714660347700;
+        Thu, 02 May 2024 07:32:27 -0700 (PDT)
+Message-ID: <f20dae24-02eb-4091-9ab5-816587eca43b@citrix.com>
+Date: Thu, 2 May 2024 15:32:25 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] tools/tests: don't let test-xenstore write nodes
- exceeding default size
-To: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org
-Cc: Anthony PERARD <anthony@xenproject.org>
-References: <20240502132136.532-1-jgross@suse.com>
+Subject: Re: [PATCH v2 4/4] x86/cpuid: Fix handling of xsave dynamic leaves
+To: Jan Beulich <jbeulich@suse.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20240429182823.1130436-1-andrew.cooper3@citrix.com>
+ <20240429182823.1130436-5-andrew.cooper3@citrix.com>
+ <d87b31be-6c52-4271-a61f-bf31043f507d@suse.com>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -128,23 +130,124 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <20240502132136.532-1-jgross@suse.com>
+In-Reply-To: <d87b31be-6c52-4271-a61f-bf31043f507d@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 02/05/2024 2:21 pm, Juergen Gross wrote:
-> Today test-xenstore will write nodes with 3000 bytes node data. This
-> size is exceeding the default quota for the allowed node size. While
-> working in dom0 with C-xenstored, OCAML-xenstored does not like that.
->
-> Use a size of 2000 instead, which is lower than the allowed default
-> node size of 2048.
->
-> Fixes: 3afc5e4a5b75 ("tools/tests: add xenstore testing framework")
-> Signed-off-by: Juergen Gross <jgross@suse.com>
+On 02/05/2024 2:04 pm, Jan Beulich wrote:
+> On 29.04.2024 20:28, Andrew Cooper wrote:
+>> If max leaf is greater than 0xd but xsave not available to the guest, then the
+>> current XSAVE size should not be filled in.  This is a latent bug for now as
+>> the guest max leaf is 0xd, but will become problematic in the future.
+> Why would this not be an issue when .max_leaf == 0xd, but .xsave == 0?
 
-Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+Hmm, true.  I'll adjust the description.
 
-Thanks for figuring this out.  I'll give this and the return code fix a
-spin through XenRT and check there's nothing else unexpected hiding.
+>
+>> The comment concerning XSS state is wrong.  VT-x doesn't manage host/guest
+>> state automatically, but there is provision for "host only" bits to be set, so
+>> the implications are still accurate.
+>>
+>> Introduce {xstate,hw}_compressed_size() helpers to mirror the uncompressed
+>> ones.
+>>
+>> This in turn higlights a bug in xstate_init().  Defaulting this_cpu(xss) to ~0
+>> requires a forced write to clear it back out.  This in turn highlights that
+>> it's only a safe default on systems with XSAVES.
+> Well, yes, such an explicit write was expected to appear when some xsaves-
+> based component would actually be enabled. Much like the set_xcr0() there.
+
+I stumbled over this because the debug logic ended up trying to restore
+0xffffffff (the thing it read out as the "last" value) back into XSS. 
+This works about as well as you'd expect.
+>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+>> ---
+>> CC: Jan Beulich <JBeulich@suse.com>
+>> CC: Roger Pau Monné <roger.pau@citrix.com>
+>>
+>> The more I think about it, the more I think that cross-checking with hardware
+>> is a bad move.  It's horribly expensive, and for supervisor states in
+>> particular, liable to interfere with functionality.
+> I agree, but I'd also like to see the cross checking not dropped entirely.
+> Can't we arrange for such to happen during boot, before we enable any such
+> functionality? After all even in debug builds it's not overly useful to do
+> the same cross-checking (i.e. for identical inputs) over and over again.
+> Of course doing in an exhaustive manner may be okay for the uncompressed
+> values, but might be a little too much for all possible combinations in
+> order to check compressed values, too.
+
+Given the observation of patch 2 being buggy and my final sanity test
+before posting didn't notice, I think doing this all at boot would be a
+much better idea.
+
+I think I'm going to do a new patch early in the series as an adjustment
+to xstate_init().
+
+We can't feasibly test every combination, but what ought to do is
+linearly accumulate the xstates Xen knows about and checking that in
+each case the size(s) increase as appropriate.
+
+This will have a substantial impact on the remainder of the series, but
+I think the end result will be all the better for it.
+>> --- a/xen/arch/x86/xstate.c
+>> +++ b/xen/arch/x86/xstate.c
+>> @@ -614,6 +614,65 @@ unsigned int xstate_uncompressed_size(uint64_t xcr0)
+>>      return size;
+>>  }
+>>  
+>> +static unsigned int hw_compressed_size(uint64_t xstates)
+>> +{
+>> +    uint64_t curr_xcr0 = get_xcr0(), curr_xss = get_msr_xss();
+>> +    unsigned int size;
+>> +    bool ok;
+>> +
+>> +    ok = set_xcr0(xstates & ~XSTATE_XSAVES_ONLY);
+>> +    ASSERT(ok);
+>> +    set_msr_xss(xstates & XSTATE_XSAVES_ONLY);
+>> +
+>> +    size = cpuid_count_ebx(XSTATE_CPUID, 1);
+>> +
+>> +    ok = set_xcr0(curr_xcr0);
+>> +    ASSERT(ok);
+>> +    set_msr_xss(curr_xss);
+>> +
+>> +    return size;
+>> +}
+>> +
+>> +unsigned int xstate_compressed_size(uint64_t xstates)
+>> +{
+>> +    unsigned int i, size = XSTATE_AREA_MIN_SIZE;
+>> +
+>> +    if ( xstates == 0 ) /* TODO: clean up paths passing 0 in here. */
+>> +        return 0;
+>> +
+>> +    if ( xstates <= (X86_XCR0_SSE | X86_XCR0_FP) )
+> Same comment as on the earlier change regarding the (lack of) use of ....
+>
+>> +        return size;
+>> +
+>> +    /*
+>> +     * For the compressed size, every component matters.  Some are
+>> +     * automatically rounded up to 64 first.
+>> +     */
+>> +    xstates &= ~XSTATE_FP_SSE;
+> ... this constant up there.
+>
+>> +    for_each_set_bit ( i, &xstates, 63 )
+>> +    {
+>> +        if ( test_bit(i, &xstate_align) )
+>> +            size = ROUNDUP(size, 64);
+>> +
+>> +        size += xstate_sizes[i];
+>> +    }
+> The comment is a little misleading: As you have it in code, it is not the
+> component's size that is rounded up, but its position. Maybe "Some have
+> their start automatically rounded up to 64 first"?
+
+Size in that sentence referees to the compressed size of everything, not
+the size of the component.
+
+But I'll try to make it clearer.
+
+~Andrew
 
