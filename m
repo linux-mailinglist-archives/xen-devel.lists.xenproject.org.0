@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7E5658B9AA0
-	for <lists+xen-devel@lfdr.de>; Thu,  2 May 2024 14:20:48 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.715795.1117703 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 101548B9B01
+	for <lists+xen-devel@lfdr.de>; Thu,  2 May 2024 14:39:57 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.715803.1117714 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s2VQO-0001tw-Kz; Thu, 02 May 2024 12:20:32 +0000
+	id 1s2ViY-0004hm-7F; Thu, 02 May 2024 12:39:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 715795.1117703; Thu, 02 May 2024 12:20:32 +0000
+Received: by outflank-mailman (output) from mailman id 715803.1117714; Thu, 02 May 2024 12:39:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s2VQO-0001rh-I6; Thu, 02 May 2024 12:20:32 +0000
-Received: by outflank-mailman (input) for mailman id 715795;
- Thu, 02 May 2024 12:20:32 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1s2ViY-0004fR-46; Thu, 02 May 2024 12:39:18 +0000
+Received: by outflank-mailman (input) for mailman id 715803;
+ Thu, 02 May 2024 12:39:17 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=G3ja=MF=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1s2VQN-0000VG-Vd
- for xen-devel@lists.xenproject.org; Thu, 02 May 2024 12:20:31 +0000
-Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
- [2a00:1450:4864:20::329])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 5da8e27a-087e-11ef-b4bb-af5377834399;
- Thu, 02 May 2024 14:20:30 +0200 (CEST)
-Received: by mail-wm1-x329.google.com with SMTP id
- 5b1f17b1804b1-41b4ff362a8so73283365e9.0
- for <xen-devel@lists.xenproject.org>; Thu, 02 May 2024 05:20:30 -0700 (PDT)
+ id 1s2ViX-0004fL-2b
+ for xen-devel@lists.xenproject.org; Thu, 02 May 2024 12:39:17 +0000
+Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
+ [2a00:1450:4864:20::335])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id fc73f02e-0880-11ef-909b-e314d9c70b13;
+ Thu, 02 May 2024 14:39:15 +0200 (CEST)
+Received: by mail-wm1-x335.google.com with SMTP id
+ 5b1f17b1804b1-41dc9f98e8dso4857215e9.1
+ for <xen-devel@lists.xenproject.org>; Thu, 02 May 2024 05:39:15 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- l3-20020a05600c4f0300b0041b43d2d745sm1784794wmq.7.2024.05.02.05.20.29
+ o27-20020a05600c511b00b00418a386c17bsm5568772wms.12.2024.05.02.05.39.14
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 02 May 2024 05:20:29 -0700 (PDT)
+ Thu, 02 May 2024 05:39:14 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,52 +45,48 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5da8e27a-087e-11ef-b4bb-af5377834399
+X-Inumbo-ID: fc73f02e-0880-11ef-909b-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1714652430; x=1715257230; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1714653555; x=1715258355; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=3TQCesLjOF/25eiD8fMMvT518zpci2PUnWHdF5a0guQ=;
-        b=N8WKL00ZepChYoE16lUA83OAFoAUJsMQDfijOJQQK29XLM6jW4FHHGRx4ijuKnuew0
-         Wl3iL+Mb0xHfjLEcoPBkPvblSpAvUrb+z7O3ZiluYAj1YBFWRs8vvc2rTwbxlfDHKvbs
-         JCx3LVd/BwXjEnQvXbMW9th1KFvzEH8eO8SiYhkdyWyGodF4kTi4Fw4YS6N5jKdl9Kst
-         fn6tAVsHLs/CdwMMUhTMHAcz9hA8FVTad4u4EGY14jkBBd07LzXUVn0XEzJ/91vuSEWy
-         u4I85Cod88jojdGUMu+ZHK7h19wkadGIFNMk5nPkH7ssoOaOnu1vVxq1RG2N29AjAJwb
-         Ymjw==
+        bh=/awNH/fDe7E4Ox9uD3aF+dalF3thUNmdxzqGEtHvNrc=;
+        b=EpDSjJQcPbzIPLuhsikygILj7BC/wrKwLiBUM1pHDE+PlvfTX2azVWUjZbMoBZmzdn
+         a2KDWq2wLYkf1RVdw+Usy1PXIdsht96qGtoiYD9l2PE4I1DY4vJ9SYkZiUOqXmDtZzhj
+         kSGLd/4XDIaREz5cKrEFj8MHMkf3rmFQ4xSURz7RV+v/XkrmMI21QFVfrH9oPvsETa5D
+         PtfhyioAw434aIr+O4ykM1tDlgsQ7QVUj9wQ+yahpG0kItV/y9eIUZXPMeqpDg9wYMtg
+         4eFNjgwMWPUPBRhv5cQsa6yWJ38cPVg9c48jYT/daQuXOauKNU5Eqz225WaGPyPgwGkx
+         6yCA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1714652430; x=1715257230;
+        d=1e100.net; s=20230601; t=1714653555; x=1715258355;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=3TQCesLjOF/25eiD8fMMvT518zpci2PUnWHdF5a0guQ=;
-        b=DkC5P88NPXigrmfqrmqI0n6uI5wB5s4g24RSv3HPvzwlCmPwOyfT5tCFkR8ApoIsXG
-         IkPDls3tlkxqtHP2WlTKRevfTbkK180MX8TrzWLO/xFvSvSk1e6CHe/BWNdfgqNB39+a
-         OXHsylOKwYCQJusP5kBjylxjU+2e+EtIUEVz2j2gMPkPTu8yTUBLJHqDJ4Z3QaZPVi+E
-         OKFntQvpUIhQ663xdLKilnLKvhv8jk1WFcpEyyDT6oe9zWQGjxHeA54XBGeAGMjFWmsQ
-         flfvIvPoE6R3wrAGvtbzToNwKuh9c/cPKL4q8x1AOaYN9cwOFYN3kOYvgDfhakbv2rHq
-         TkzA==
-X-Forwarded-Encrypted: i=1; AJvYcCVKLyLBF7ayNYriIrxxH+C2ismDAXyg0f3pixL56Wju/1/Ksgd2eOaDkZMx49hIZBJGjBgiySu544EmobLMR7zglBggPTwQY3Wn/LUI8lo=
-X-Gm-Message-State: AOJu0YzGTuSc9fykXjtoVh+aFb48qlctxBZ6atbp9cMjTJGvFTZFUx31
-	9GmZ+dQTFFmQ59tSKx606jwJgvpG4YEOZfAZjagkeiNiHxy9VxMpQeyYpjmgCg==
-X-Google-Smtp-Source: AGHT+IGA9qvl10RoUcA+Ygs/mtcTcvRzaaaq+XX9uBwvkHrAOZhxsurHvxSeiuM1ZDXts4HbuvlUHg==
-X-Received: by 2002:a05:600c:4587:b0:41b:d85c:d3e2 with SMTP id r7-20020a05600c458700b0041bd85cd3e2mr5188670wmo.38.1714652429809;
-        Thu, 02 May 2024 05:20:29 -0700 (PDT)
-Message-ID: <76089076-e041-4bcd-921d-c7a8f0c417e3@suse.com>
-Date: Thu, 2 May 2024 14:20:28 +0200
+        bh=/awNH/fDe7E4Ox9uD3aF+dalF3thUNmdxzqGEtHvNrc=;
+        b=tzf4ruZEYMa2mfCxehaQAJ4LyXHBmoEoj8zpujyA230wKmetyArv2t1f3EFWhB5nUG
+         r/sRBKpIbv4/xCeeuHSSj71uWXEr/qTwpFSj/K03SI2MvjX4yQ1hwXl1C50lgZ/znz8J
+         uDZBzqHYNJEQSlF/Y5QKSLXeIyY+CivdtpccUqjdb64GV9FeKr7cm9WgmRsARYDCCC1W
+         jt0KEyaCXpULoeg00A28B3/Fy33O70sUrLl2U1RxlqYOZUPEFCx7oFO/0RqZBB6Lhcxg
+         AXTxZgvDMgRvNkB96ly5HFVDaTba7hYLbfhZjJ2V1VmOiYnQxrT0GqmKK27uUAuJvu4j
+         vZqw==
+X-Forwarded-Encrypted: i=1; AJvYcCW9+qqxNgLWdWwEnabPqiASVuwW4jM5WXUPCeEwq9q9CdU/MUMMbimeJwDnC41exBltq7yqMpLjWRH0FGngMo8BaJDg6AJEcP92C83fFdg=
+X-Gm-Message-State: AOJu0YwY9hnoqTaTV1ik4OpPnXVTwgLbScZK6kVT68w4bPE89WTKmx8R
+	OXaV4ly5ItPDUG88PbbcBeGmdSMf/1i7qf8qu5052o2OONZj92LlsaySbs+OxQ==
+X-Google-Smtp-Source: AGHT+IGzYpgj+judUzZT+0x1OBwP2DKqGboOgTzGkFWPqLln42VByZYO8YpS+c5Z+hDKqEZlsSSclw==
+X-Received: by 2002:a05:6000:188:b0:34d:c4c7:7ca with SMTP id p8-20020a056000018800b0034dc4c707camr2283014wrx.20.1714653555139;
+        Thu, 02 May 2024 05:39:15 -0700 (PDT)
+Message-ID: <ecd6e142-7a08-46e8-83c0-7d9b0bc6f66f@suse.com>
+Date: Thu, 2 May 2024 14:39:13 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH for-4.19] tools/xen-cpuid: switch to use cpu-policy
- defined names
+Subject: Re: [PATCH v2 3/4] x86/cpu-policy: Simplify recalculate_xstate()
 Content-Language: en-US
 To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Anthony PERARD <anthony@xenproject.org>, xen-devel@lists.xenproject.org,
- Oleksii Kurochko <oleksii.kurochko@gmail.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-References: <20240430082901.77662-1-roger.pau@citrix.com>
- <78d009f4-6610-4fcf-9cdc-ee1081e6c763@suse.com> <ZjDVN6kexFD0vcT2@macbook>
- <f1e594f7-2bf2-4898-824f-abd407690644@suse.com> <ZjDqHfdjUE1CTk1W@macbook>
- <ee407b03-a1aa-4fa0-a700-71278f643489@citrix.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20240429182823.1130436-1-andrew.cooper3@citrix.com>
+ <20240429182823.1130436-4-andrew.cooper3@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -115,57 +111,113 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <ee407b03-a1aa-4fa0-a700-71278f643489@citrix.com>
+In-Reply-To: <20240429182823.1130436-4-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 02.05.2024 14:14, Andrew Cooper wrote:
-> On 30/04/2024 1:54 pm, Roger Pau Monné wrote:
->> On Tue, Apr 30, 2024 at 02:06:38PM +0200, Jan Beulich wrote:
->>> On 30.04.2024 13:25, Roger Pau Monné wrote:
->>>> On Tue, Apr 30, 2024 at 12:37:44PM +0200, Jan Beulich wrote:
->>>>> On 30.04.2024 10:29, Roger Pau Monne wrote:
->>>>>> @@ -301,21 +52,32 @@ static const char *const fs_names[] = {
->>>>>>      [XEN_SYSCTL_cpu_featureset_hvm_max] = "HVM Max",
->>>>>>  };
->>>>>>  
->>>>>> -static void dump_leaf(uint32_t leaf, const char *const *strs)
->>>>>> +static const char *find_name(unsigned int index)
->>>>>>  {
->>>>>> -    unsigned i;
->>>>>> +    static const struct feature_name {
->>>>>> +        const char *name;
->>>>>> +        unsigned int bit;
->>>>>> +    } feature_names[] = INIT_FEATURE_NAMES;
->>>>>> +    unsigned int i;
->>>>>>  
->>>>>> -    if ( !strs )
->>>>>> -    {
->>>>>> -        printf(" ???");
->>>>>> -        return;
->>>>>> -    }
->>>>>> +    for ( i = 0; i < ARRAY_SIZE(feature_names); i++ )
->>>>>> +        if ( feature_names[i].bit == index )
->>>>>> +            return feature_names[i].name;
->>>>> ... a linear search, repeated perhaps hundreds of times, looks still a
->>>>> little odd to me.
->>>> I didn't benchmark what kind of performance impact this change would
->>>> have on the tool, but I didn't think it was that relevant, as this is
->>>> a diagnostic/debug tool, and hence performance (unless it took seconds
->>>> to execute) shouldn't be that important.
->>> As indicated, performance itself isn't much of a concern here. My earlier
->>> question wants reading in relation to the other question raised, regarding
->>> the script maybe wanting to produce macro(s) more suitable for the purpose
->>> here.
->> Hm, we could maybe produce an array of strings, one per feature bit
->> (features without names would get NULL).
->>
->> I will see, albeit my python skills are very limited.
+On 29.04.2024 20:28, Andrew Cooper wrote:
+> Make use of the new xstate_uncompressed_size() helper rather than maintaining
+> the running calculation while accumulating feature components.
+
+xstate_uncompressed_size() isn't really a new function, but the re-work of
+an earlier one. That, aiui, could have been used here, too, just that it
+would have been inefficient to do so. IOW perhaps drop "the new"?
+
+> The rest of the CPUID data can come direct from the raw cpu policy.  All
+> per-component data form an ABI through the behaviour of the X{SAVE,RSTOR}*
+> instructions.
 > 
-> See how Xen's cmdline parsing uses feature_names; they're intentionally
-> sorted already.
+> Use for_each_set_bit() rather than opencoding a slightly awkward version of
+> it.  Mask the attributes in ecx down based on the visible features.  This
+> isn't actually necessary for any components or attributes defined at the time
+> of writing (up to AMX), but is added out of an abundance of caution.
 
-Sorted by name, when here we'd like to have it sorted by feature index.
+As to this, ...
+
+> @@ -206,61 +205,47 @@ static void recalculate_xstate(struct cpu_policy *p)
+>          return;
+>  
+>      if ( p->basic.avx )
+> -    {
+>          xstates |= X86_XCR0_YMM;
+> -        xstate_size = max(xstate_size,
+> -                          xstate_offsets[X86_XCR0_YMM_POS] +
+> -                          xstate_sizes[X86_XCR0_YMM_POS]);
+> -    }
+>  
+>      if ( p->feat.mpx )
+> -    {
+>          xstates |= X86_XCR0_BNDREGS | X86_XCR0_BNDCSR;
+> -        xstate_size = max(xstate_size,
+> -                          xstate_offsets[X86_XCR0_BNDCSR_POS] +
+> -                          xstate_sizes[X86_XCR0_BNDCSR_POS]);
+> -    }
+>  
+>      if ( p->feat.avx512f )
+> -    {
+>          xstates |= X86_XCR0_OPMASK | X86_XCR0_ZMM | X86_XCR0_HI_ZMM;
+> -        xstate_size = max(xstate_size,
+> -                          xstate_offsets[X86_XCR0_HI_ZMM_POS] +
+> -                          xstate_sizes[X86_XCR0_HI_ZMM_POS]);
+> -    }
+>  
+>      if ( p->feat.pku )
+> -    {
+>          xstates |= X86_XCR0_PKRU;
+> -        xstate_size = max(xstate_size,
+> -                          xstate_offsets[X86_XCR0_PKRU_POS] +
+> -                          xstate_sizes[X86_XCR0_PKRU_POS]);
+> -    }
+>  
+> -    p->xstate.max_size  =  xstate_size;
+> +    /* Subleaf 0 */
+> +    p->xstate.max_size =
+> +        xstate_uncompressed_size(xstates & ~XSTATE_XSAVES_ONLY);
+>      p->xstate.xcr0_low  =  xstates & ~XSTATE_XSAVES_ONLY;
+>      p->xstate.xcr0_high = (xstates & ~XSTATE_XSAVES_ONLY) >> 32;
+>  
+> +    /* Subleaf 1 */
+>      p->xstate.Da1 = Da1;
+> +    if ( p->xstate.xsavec )
+> +        ecx_mask |= XSTATE_ALIGN64;
+> +
+>      if ( p->xstate.xsaves )
+>      {
+> +        ecx_mask |= XSTATE_XSS;
+>          p->xstate.xss_low   =  xstates & XSTATE_XSAVES_ONLY;
+>          p->xstate.xss_high  = (xstates & XSTATE_XSAVES_ONLY) >> 32;
+>      }
+> -    else
+> -        xstates &= ~XSTATE_XSAVES_ONLY;
+>  
+> -    for ( i = 2; i < min(63UL, ARRAY_SIZE(p->xstate.comp)); ++i )
+> +    /* Subleafs 2+ */
+> +    xstates &= ~XSTATE_FP_SSE;
+> +    BUILD_BUG_ON(ARRAY_SIZE(p->xstate.comp) < 63);
+> +    for_each_set_bit ( i, &xstates, 63 )
+>      {
+> -        uint64_t curr_xstate = 1UL << i;
+> -
+> -        if ( !(xstates & curr_xstate) )
+> -            continue;
+> -
+> -        p->xstate.comp[i].size   = xstate_sizes[i];
+> -        p->xstate.comp[i].offset = xstate_offsets[i];
+> -        p->xstate.comp[i].xss    = curr_xstate & XSTATE_XSAVES_ONLY;
+> -        p->xstate.comp[i].align  = curr_xstate & xstate_align;
+
+... for this bit, isn't the move from this ...
+
+> +        /*
+> +         * Pass through size (eax) and offset (ebx) directly.  Visbility of
+> +         * attributes in ecx limited by visible features in Da1.
+> +         */
+> +        p->xstate.raw[i].a = raw_cpu_policy.xstate.raw[i].a;
+> +        p->xstate.raw[i].b = raw_cpu_policy.xstate.raw[i].b;
+> +        p->xstate.raw[i].c = raw_cpu_policy.xstate.raw[i].c & ecx_mask;
+
+... to this changing what guests get to see, i.e. (mildly?) incompatible?
+(For .xss there's no issue because XSTATE_XSAVES_ONLY is still 0.)
 
 Jan
 
