@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0E3DA8B94C1
-	for <lists+xen-devel@lfdr.de>; Thu,  2 May 2024 08:38:23 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.715558.1117282 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A62E08B94C6
+	for <lists+xen-devel@lfdr.de>; Thu,  2 May 2024 08:43:31 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.715565.1117292 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s2Q50-0000zt-PE; Thu, 02 May 2024 06:38:06 +0000
+	id 1s2Q9s-0002TI-Bs; Thu, 02 May 2024 06:43:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 715558.1117282; Thu, 02 May 2024 06:38:06 +0000
+Received: by outflank-mailman (output) from mailman id 715565.1117292; Thu, 02 May 2024 06:43:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s2Q50-0000y0-MP; Thu, 02 May 2024 06:38:06 +0000
-Received: by outflank-mailman (input) for mailman id 715558;
- Thu, 02 May 2024 06:38:05 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1s2Q9s-0002QM-90; Thu, 02 May 2024 06:43:08 +0000
+Received: by outflank-mailman (input) for mailman id 715565;
+ Thu, 02 May 2024 06:43:06 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=G3ja=MF=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1s2Q4z-0000xu-2h
- for xen-devel@lists.xenproject.org; Thu, 02 May 2024 06:38:05 +0000
-Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
- [2a00:1450:4864:20::330])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 8729118e-084e-11ef-909b-e314d9c70b13;
- Thu, 02 May 2024 08:38:04 +0200 (CEST)
-Received: by mail-wm1-x330.google.com with SMTP id
- 5b1f17b1804b1-41bca450fa3so37820505e9.2
- for <xen-devel@lists.xenproject.org>; Wed, 01 May 2024 23:38:04 -0700 (PDT)
+ id 1s2Q9q-0002QG-D7
+ for xen-devel@lists.xenproject.org; Thu, 02 May 2024 06:43:06 +0000
+Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
+ [2a00:1450:4864:20::32d])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 398fedc4-084f-11ef-b4bb-af5377834399;
+ Thu, 02 May 2024 08:43:03 +0200 (CEST)
+Received: by mail-wm1-x32d.google.com with SMTP id
+ 5b1f17b1804b1-41b4ff362a8so70651795e9.0
+ for <xen-devel@lists.xenproject.org>; Wed, 01 May 2024 23:43:03 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- n12-20020adfe34c000000b00343d6c7240fsm431229wrj.35.2024.05.01.23.38.03
+ p12-20020a05600c1d8c00b0041bcb898984sm791184wms.31.2024.05.01.23.43.02
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 01 May 2024 23:38:03 -0700 (PDT)
+ Wed, 01 May 2024 23:43:02 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,56 +45,58 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8729118e-084e-11ef-909b-e314d9c70b13
+X-Inumbo-ID: 398fedc4-084f-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1714631883; x=1715236683; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1714632183; x=1715236983; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=IgNSONZvYMrYXUmiqnhAKX2GzQFE5R07z74If2PXkfM=;
-        b=cbH3wfqY/TZi5k7gydIiDSmpmqkbRe7MVCw9rFoPENFbwevLfPM1LkhPopylw11J3W
-         s+2zBLYUJPLdZhF2gqsjeA9wohGXlB5HI7oBZN6xKt3lWqteH7GfY7g45N8lHvzV84BW
-         kQF5ND7Vt+MbgpmRixGiTMojK5KXPsf+4c4AzXmdPH+6UoLJ5ELLD/dr/JLI1rYmyLfn
-         s7JzgS2yVKi0o+Zjq69V4vPXPd7jkayRxv8QdNpjjkZsBb45qISQTe+1BBuhAcIZYwps
-         qV+GPNbJmrvEIQJ67YGz/s4x6mSOzTtjNwtmUMob0gSRP9c9TDYLgPZ92uLVu4uzs4SW
-         qUDA==
+        bh=MvxunB0V+uViE8WQxSg4C7zZwRt/Mn7AaDi3tcb3hEU=;
+        b=TCFvErmgyyJzJCfGwKyepdpEBKsEuh59Vj1WXxISly/1PtLKOh0ZDj11lIqi4TH68o
+         7FXbNlrtJlKjARdoKFliAQPS/QnR+osxa+Vt2hOCHMEVhheEgUzI64IWuyYZL6u+6w+i
+         SaNDgrOtZRwhZ8wtQgG/DEUnOQl2tKrC7M9QKIxxQrIcXAI5ZUc++doAWTaloqTEGHiJ
+         jTprYgHRadnNCbcbbKTxr+NQKBb6XwuP8w2Bd/OA+cwfyH5238fT5EyBCAK2wv3ST4JQ
+         YuTQE3xVsv2Ql9bQt4Ep0vfTp7B5jU9996ulk+Se7/TfqcKJRvk41OhFchf/+qGg/8lD
+         GHbg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1714631883; x=1715236683;
+        d=1e100.net; s=20230601; t=1714632183; x=1715236983;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=IgNSONZvYMrYXUmiqnhAKX2GzQFE5R07z74If2PXkfM=;
-        b=BV3OIGL0Y8UPYeQZqHYcydzqwATz0QjupCliNd0ElPCTJ/ajcPhiyUbncURtEqmuNS
-         lIZSqf9YVl6S3o3bvH/W6ENscTW5cX0MwFVk8xur378piDRKxpd/xnFr1HgjZc+ko8mb
-         9cRSmVzHhP+er/Xlm2MhwcqsHcppzzdVy5Giw5ZjaWO8mKXWjOjiv7s76r9sSNM2YiBZ
-         aRWMfMJMsX6fVYKu9F4cLfM+mZ8i8YmeMv8SAa2WEFhTzlcPyYeN+MLgSQ54z33ehGq3
-         6J0q+yFDDb543qIewlUwlaDVYphoGioCnGGpbMVnPWSDgbA4opfgiiv/KkDk05My/2Q+
-         N1lQ==
-X-Forwarded-Encrypted: i=1; AJvYcCWOyCa3ZpiovAbCJh0fJXlmIBkBdwuo/KP2F9awNfUzGdidNLfToDCRd4NB1cLjcU74Owdn9olOrWaKRO+MChNnRHWRFY2Qw9ZkfgemnTM=
-X-Gm-Message-State: AOJu0YzaVPjCPxENS3ypvGrDvmL+4rcX7dHb27BjVZnFyzBfcRFKqXeZ
-	bC5QaXyVYe2dNEKEssi1Qb+UkXJ5Y48c28o/IQ0RZTLuPEfOekzBPTCKNlZGhw==
-X-Google-Smtp-Source: AGHT+IE3u5DmjeLLM+wW/7k4BjXiZZGTxrUm+IOyXWWfZyBnK1EaG9KUyOrQ6S/jkv7k7vVZxbJyvQ==
-X-Received: by 2002:a05:600c:1ca6:b0:41b:f979:e359 with SMTP id k38-20020a05600c1ca600b0041bf979e359mr3280074wms.38.1714631883548;
-        Wed, 01 May 2024 23:38:03 -0700 (PDT)
-Message-ID: <26d11f73-8359-4ab7-9ac2-71b632fe3ef9@suse.com>
-Date: Thu, 2 May 2024 08:38:02 +0200
+        bh=MvxunB0V+uViE8WQxSg4C7zZwRt/Mn7AaDi3tcb3hEU=;
+        b=MpuTkhES2rO4Vn1yAX4PSfO0uwhSKH26mCbSN8roi1zb8O2lcx8cAa9RDBjoIBYOow
+         rR6WfuhyD49rR0i9ZRTHqVCAqUsW0qMFtYQe1QeCEsrxAroapPIViSqaNeai8atNi+SJ
+         ljUjR4DU4VWSECf6Qvz2RLexIz8lGlP3sOV3wWE7TBH+/hGewOo4rf14GGrtWMuIT1SS
+         rGlHBqeui2j5wPfSx2IiZQC68d1bbI0O1DBRAPluPrPVMCieZq/j2e3tQzodnUKq9Jyp
+         N4S7DGqDjUmtEdG+p1eEnsHsN0Eam2IPvRe84WF3lwTZscQ4TK17xb45NaN43ZVc0CdX
+         ho6Q==
+X-Forwarded-Encrypted: i=1; AJvYcCW4/6lpKNjBEMz2FOJ1fxMYoUBTBwhH4Vss08uduTYx727iapiWRgd2rG+Bb3pbN/Hh2QBsAshQrZNigdbFhEt6/wLWkYAf7ADT1LqGJkQ=
+X-Gm-Message-State: AOJu0YzqypoR5ttp1rZRaDrXrOmOBAvKpRcfgcSoYKy3Vlw3+kVA6D9L
+	ieRb+izGREYHoUsBa7WaSw89a/FqKEcrbnUjIAKGROj//7kiHHFpLYgNL51t6w==
+X-Google-Smtp-Source: AGHT+IEsAPHrsVZoklCsm2+0z+E5Q2OOycBmiWrl109MnjaYFJL5k2Cu4QR9B4K0je9XpquHusPvzg==
+X-Received: by 2002:a05:600c:3516:b0:41b:eaf2:f7e6 with SMTP id h22-20020a05600c351600b0041beaf2f7e6mr4386004wmq.2.1714632182858;
+        Wed, 01 May 2024 23:43:02 -0700 (PDT)
+Message-ID: <af1116ad-6401-403b-a3b8-abe421e2e3da@suse.com>
+Date: Thu, 2 May 2024 08:43:01 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] xen/kernel.h: Import __struct_group from Linux
+Subject: Re: [PATCH 2/2] xen/arm: Fix MISRA regression on R1.1, flexible array
+ member not at the end
 Content-Language: en-US
 To: Luca Fancellu <Luca.Fancellu@arm.com>
 Cc: "consulting @ bugseng . com" <consulting@bugseng.com>,
  Nicola Vetrini <nicola.vetrini@bugseng.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Bertrand Marquis <Bertrand.Marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
  "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 References: <20240430110922.15052-1-luca.fancellu@arm.com>
- <20240430110922.15052-2-luca.fancellu@arm.com>
- <cd2352aa-e94b-43ef-b3fc-359cc1f43fb0@suse.com>
- <2AB02E85-2746-4DD6-A821-B858E52A6954@arm.com>
- <16815d66-ffe7-45e9-8311-5d4ed8754d2f@suse.com>
- <C6F3416D-785A-4C1F-96B9-1C7A53B927EA@arm.com>
+ <20240430110922.15052-3-luca.fancellu@arm.com>
+ <327c7e42-9b59-4925-b746-0b59dbb5a3fb@suse.com>
+ <91B23E5F-7515-4C4E-9FBD-57654980905F@arm.com>
+ <de09e134-0150-49ca-8338-a0f4759c218b@suse.com>
+ <29573F6B-BE27-4A65-A310-35883A39F989@arm.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -119,69 +121,80 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <C6F3416D-785A-4C1F-96B9-1C7A53B927EA@arm.com>
+In-Reply-To: <29573F6B-BE27-4A65-A310-35883A39F989@arm.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 02.05.2024 08:23, Luca Fancellu wrote:
+On 02.05.2024 08:33, Luca Fancellu wrote:
 > 
 > 
->> On 2 May 2024, at 07:09, Jan Beulich <jbeulich@suse.com> wrote:
+>> On 2 May 2024, at 07:14, Jan Beulich <jbeulich@suse.com> wrote:
 >>
->> On 01.05.2024 08:54, Luca Fancellu wrote:
->>>> On 30 Apr 2024, at 12:43, Jan Beulich <jbeulich@suse.com> wrote:
->>>> On 30.04.2024 13:09, Luca Fancellu wrote:
->>>>> --- a/xen/include/xen/kernel.h
->>>>> +++ b/xen/include/xen/kernel.h
->>>>> @@ -54,6 +54,27 @@
->>>>>        typeof_field(type, member) *__mptr = (ptr);             \
->>>>>        (type *)( (char *)__mptr - offsetof(type,member) );})
->>>>>
->>>>> +/**
->>>>> + * __struct_group() - Create a mirrored named and anonyomous struct
->>>>> + *
->>>>> + * @TAG: The tag name for the named sub-struct (usually empty)
->>>>> + * @NAME: The identifier name of the mirrored sub-struct
->>>>> + * @ATTRS: Any struct attributes (usually empty)
->>>>> + * @MEMBERS: The member declarations for the mirrored structs
->>>>> + *
->>>>> + * Used to create an anonymous union of two structs with identical layout
->>>>> + * and size: one anonymous and one named. The former's members can be used
->>>>> + * normally without sub-struct naming, and the latter can be used to
->>>>> + * reason about the start, end, and size of the group of struct members.
->>>>> + * The named struct can also be explicitly tagged for layer reuse, as well
->>>>> + * as both having struct attributes appended.
->>>>> + */
->>>>> +#define __struct_group(TAG, NAME, ATTRS, MEMBERS...) \
->>>>> +    union { \
->>>>> +        struct { MEMBERS } ATTRS; \
->>>>> +        struct TAG { MEMBERS } ATTRS NAME; \
->>>>> +    } ATTRS
+>> On 01.05.2024 08:57, Luca Fancellu wrote:
+>>> Hi Jan,
+>>>
+>>>> On 30 Apr 2024, at 12:37, Jan Beulich <jbeulich@suse.com> wrote:
 >>>>
->>>> Besides my hesitance towards having this construct, can you explain why
->>>> ATTR needs using 3 times, i.e. also on the wrapping union?
+>>>> On 30.04.2024 13:09, Luca Fancellu wrote:
+>>>>> --- a/xen/arch/arm/include/asm/setup.h
+>>>>> +++ b/xen/arch/arm/include/asm/setup.h
+>>>>> @@ -64,18 +64,20 @@ struct membank {
+>>>>> };
+>>>>>
+>>>>> struct membanks {
+>>>>> -    unsigned int nr_banks;
+>>>>> -    unsigned int max_banks;
+>>>>> +    __struct_group(membanks_hdr, common, ,
+>>>>> +        unsigned int nr_banks;
+>>>>> +        unsigned int max_banks;
+>>>>> +    );
+>>>>>    struct membank bank[];
+>>>>> };
+>>>>
+>>>> I'm afraid I can't spot why __struct_group() is needed here. Why would just
+>>>> one of the two more straightforward
+>>>>
+>>>> struct membanks {
+>>>>   struct membanks_hdr {
+>>>>       unsigned int nr_banks;
+>>>>       unsigned int max_banks;
+>>>>   );
+>>>>   struct membank bank[];
+>>>> };
+>>>>
 >>>
->>> The original commit didn’t have the third ATTRS, but afterwards it was introduced due to
->>> this:
+>>> At the first sight I thought this solution could have worked, however GCC brought me back down to earth
+>>> remembering me that flexible array members can’t be left alone in an empty structure:
 >>>
->>> https://patchwork.kernel.org/project/linux-wireless/patch/20231120110607.98956-1-dmantipov@yandex.ru/#25610045
+>>> /data_sdc/lucfan01/gitlab_mickledore_xen/xen/xen/arch/arm/include/asm/setup.h:70:6: error: declaration does not declare anything [-Werror]
+>>> 70 | };
+>>> | ^
+>>> /data_sdc/lucfan01/gitlab_mickledore_xen/xen/xen/arch/arm/include/asm/setup.h:71:20: error: flexible array member in a struct with no named members
+>>> 71 | struct membank bank[];
+>>> | ^~~~
+>>> [...]
 >>
->> Hmm. Since generally packing propagates to containing compound types, I'd
->> say this cannot go without a code comment, or at the very least a mention
->> in the description. But: Do we use this old ABI in Xen at all? IOW can we
->> get away without this 3rd instance?
+>> Since for patch 1 you looked at Linux'es uapi/linux/stddef.h, the solution
+>> to this lies there, in __DECLARE_FLEX_ARRAY(). Alongside or instead of
+>> borrowing __struct_group(), we could consider borrowing this as well. Or
+>> open-code it just here, for the time being (perhaps my preference). Yet
+>> it's not clear to me that doing so will actually be enough to make things
+>> work for you.
 > 
-> Yes, I think it won’t be a problem for Xen, is it something that can be done on commit?
+> I looked also into __DECLARE_FLEX_ARRAY(), but then decided __struct_group()
+> was enough for my purpose, can I ask the technical reasons why it would be your
+> preference? Is there something in that construct that is a concern for you?
 
-Don't know, maybe. First you need an ack, and I remain unconvinced that we
-actually need this construct.
+I don't like either construct very much, but of the two __DECLARE_FLEX_ARRAY()
+looks slightly more "natural" for what is wanted and how it's done.
+__struct_group() introducing twice the (effectively) same structure feels
+pretty odd, for now at least. It's not even entirely clear to me whether there
+aren't pitfalls, seeing that the C spec differentiates named and unnamed
+struct fields in a few cases. For __DECLARE_FLEX_ARRAY(), otoh, I can't
+presently see any reason to suspect possible corner cases.
+
+Yet as said before - I'm not sure __DECLARE_FLEX_ARRAY() alone would be enough
+for what you want to achieve.
 
 Jan
-
-> Anyway in case of comments on the second patch, I’ll push the change also for this one.
-> 
-> Cheers,
-> Luca
-> 
-
 
