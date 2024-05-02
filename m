@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 090878B9B92
-	for <lists+xen-devel@lfdr.de>; Thu,  2 May 2024 15:24:41 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.715833.1117773 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5EE218B9B95
+	for <lists+xen-devel@lfdr.de>; Thu,  2 May 2024 15:25:39 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.715837.1117784 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s2WQC-0006pT-Kx; Thu, 02 May 2024 13:24:24 +0000
+	id 1s2WRB-0007Iw-UW; Thu, 02 May 2024 13:25:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 715833.1117773; Thu, 02 May 2024 13:24:24 +0000
+Received: by outflank-mailman (output) from mailman id 715837.1117784; Thu, 02 May 2024 13:25:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s2WQC-0006mN-I7; Thu, 02 May 2024 13:24:24 +0000
-Received: by outflank-mailman (input) for mailman id 715833;
- Thu, 02 May 2024 13:24:23 +0000
+	id 1s2WRB-0007H5-R9; Thu, 02 May 2024 13:25:25 +0000
+Received: by outflank-mailman (input) for mailman id 715837;
+ Thu, 02 May 2024 13:25:24 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=J/qc=MF=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1s2WQB-0006mF-CE
- for xen-devel@lists.xenproject.org; Thu, 02 May 2024 13:24:23 +0000
-Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
- [2a00:1450:4864:20::430])
+ id 1s2WRA-0007CS-8X
+ for xen-devel@lists.xenproject.org; Thu, 02 May 2024 13:25:24 +0000
+Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
+ [2a00:1450:4864:20::32d])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 49257624-0887-11ef-b4bb-af5377834399;
- Thu, 02 May 2024 15:24:21 +0200 (CEST)
-Received: by mail-wr1-x430.google.com with SMTP id
- ffacd0b85a97d-34d0aa589a4so2868219f8f.1
- for <xen-devel@lists.xenproject.org>; Thu, 02 May 2024 06:24:21 -0700 (PDT)
+ id 6dbb6353-0887-11ef-b4bb-af5377834399;
+ Thu, 02 May 2024 15:25:22 +0200 (CEST)
+Received: by mail-wm1-x32d.google.com with SMTP id
+ 5b1f17b1804b1-41adf155cffso54752715e9.2
+ for <xen-devel@lists.xenproject.org>; Thu, 02 May 2024 06:25:22 -0700 (PDT)
 Received: from [10.80.67.140] (default-46-102-197-194.interdsl.co.uk.
  [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- dd3-20020a0560001e8300b0034c9f060a14sm1266076wrb.11.2024.05.02.06.24.20
+ j3-20020a05600c1c0300b004186f979543sm5785088wms.33.2024.05.02.06.25.21
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 02 May 2024 06:24:20 -0700 (PDT)
+ Thu, 02 May 2024 06:25:21 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,46 +45,44 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 49257624-0887-11ef-b4bb-af5377834399
+X-Inumbo-ID: 6dbb6353-0887-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1714656261; x=1715261061; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1714656322; x=1715261122; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=XJggx4Oe2H3ZRxBPQOTa7S2IqKQJawSMummjLXb+uhk=;
-        b=Pz39zQLVmYQnp24NpH661GXZq6oHHOn4n0W1fzUbIbFibOSljRNZlcWnCjDuLvXeKT
-         5DgtAqCDIeEP3j61dNHM8uHHS5e7rKqrSkxT6ASSDCnEFCWOodLS1/bKx+2QNAmO8HID
-         foCSdStx0q9438sf4P/t3ZH/4+Md5qTorkUrw=
+        bh=L20Y43NAiZ2l0D/I+x7e0KD3rY8AxANBIZEupH6VNk4=;
+        b=IMxW9XqUGlmorNDY7rvWeyqLqf6olVtn3yG6XT+5n6c8H+uKTtvUhxYccJ494hZ5fJ
+         gs+3nxyoh5w9Ayi7CtKVk9SxOB96OQtqG6F3bs42A+41b7noGYXUGInHyMj/M5LgXL/A
+         ofZb+nxGj94/bcbZ8LE6DIUpN6UTSjscXuUdY=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1714656261; x=1715261061;
+        d=1e100.net; s=20230601; t=1714656322; x=1715261122;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=XJggx4Oe2H3ZRxBPQOTa7S2IqKQJawSMummjLXb+uhk=;
-        b=ZUDFSndftFGRHAqfSlY/YnqlhdsqNa0/pUkmJ2Gr4sr9SvQKwQtOSStEGHo3/6HKpF
-         Q4DiiqrqwtYCu6m3d0XsrcKKRvsldr+CtVHNmJtL+SCEnkCQP1EhG1lLJa2F/Zbh2JHD
-         SR5wxGJetoI0bgltmGJoA5E/I7mxEzLKpDe1f5C461XQyLFgAAzsyeaogqiVc4d5yGem
-         GsvW8qvAnZAXlgtx6iaimBB5n4L1IHR6X+zkmBV+/hOcGzuTFoQ2yva/J2pl1/XZV5cq
-         6JTiu17P4k+/ybQLXtbwQJBetLb6d4Wa7/FEO/6LwFawAUWYtMmD2c8zg47bW9y9vl6C
-         QbhQ==
-X-Forwarded-Encrypted: i=1; AJvYcCXUjpGTzulTfRceu7g+vMwsMO0DK9S5xSpe5CebS38jcdVwhedo7OUyvXHhfdxlLGHBB3+w7IUX7KfRkTMOeSq3ByKzDoJtO/ZxpECb768=
-X-Gm-Message-State: AOJu0YxkdoxGgENKynrQPT5PlWGwweV2eMB6my78PKP9MTwA47h1clAS
-	/c6zavItsyazJVY+BRAHTVBwehSPS/YPNzYxuQj/pL7wv+hwABNaUn3i1+z0EnA=
-X-Google-Smtp-Source: AGHT+IHBCMzuoOZu8ZzsCiTgicmu+FsTYZfOaABcCNpwrd7AaLXDFq2zr4ExxfwaRaiqedtKbGw7IQ==
-X-Received: by 2002:adf:fa4a:0:b0:34d:9fb2:5148 with SMTP id y10-20020adffa4a000000b0034d9fb25148mr1581433wrr.31.1714656260758;
-        Thu, 02 May 2024 06:24:20 -0700 (PDT)
-Message-ID: <b5560120-96c5-4b97-a4cc-36fbcfdd223c@citrix.com>
-Date: Thu, 2 May 2024 14:24:20 +0100
+        bh=L20Y43NAiZ2l0D/I+x7e0KD3rY8AxANBIZEupH6VNk4=;
+        b=geLuWMcLKDWPC8+qsVM/RkLXxMIv/XAEl60Hh7Up8jhm4thhmePpSWX8e/GsZ93C7E
+         7yeF2+LpiTBvaBi0etCThDoNCBkQAL2IRrdqQIqg4Pq33iTGNJg7tDgKHykpU0djvWYR
+         af0nE8NAN4bkC42vkINalMCrG56pvVQVBr3Sdoj3wB0E81kg267W6M1OAraP70YYPdaJ
+         HxHyXUMdCu5P96MV56aTczrA9GseB3LOPlmho8mgdOzadjEukWe0nwU3mXOQsOqyK7cy
+         gQDeIZnoHGSdWCyG9OX3mJsgy5r5n057H/pv7Hu6HNMXqTkryEw/E0ERoAaqlEP9PzZL
+         bp/A==
+X-Forwarded-Encrypted: i=1; AJvYcCXczSTyNY1+cw7JDcTJ1RtoNl3V9+yGFLYiWPJfYLrlAh/eP16ZqG1XNZPE2uFwxkvIBBvOzb/ens8wtjwUBxiLRrzdN0D7Z0GzJbCwIAo=
+X-Gm-Message-State: AOJu0Yw8rZd7iUS047/bg/BuPW4tPrfOt9eRuSEPz237E6AXj7FF/GV5
+	HZIIRMVSqKDbDVqIExSo+XtXcsAtwqLXsI7aAEkz5YCvINqTOnM/qud6Y9Cv5h8=
+X-Google-Smtp-Source: AGHT+IFat97fJEqwDrjZf2OF7QHtResJXHXIMqZa3mdJUsy6zL7KXEmdHpLIXU26ojrvTtdXQbv0SA==
+X-Received: by 2002:a05:600c:1392:b0:41b:f116:87e0 with SMTP id u18-20020a05600c139200b0041bf11687e0mr4077394wmf.29.1714656322163;
+        Thu, 02 May 2024 06:25:22 -0700 (PDT)
+Message-ID: <3c5ea8e3-87ce-4048-a3f1-7a963706f5b2@citrix.com>
+Date: Thu, 2 May 2024 14:25:21 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/4] x86/cpu-policy: Simplify recalculate_xstate()
-To: Jan Beulich <jbeulich@suse.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20240429182823.1130436-1-andrew.cooper3@citrix.com>
- <20240429182823.1130436-4-andrew.cooper3@citrix.com>
- <ecd6e142-7a08-46e8-83c0-7d9b0bc6f66f@suse.com>
+Subject: Re: [PATCH] tools/tests: don't let test-xenstore write nodes
+ exceeding default size
+To: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org
+Cc: Anthony PERARD <anthony@xenproject.org>
+References: <20240502132136.532-1-jgross@suse.com>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -130,121 +128,23 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <ecd6e142-7a08-46e8-83c0-7d9b0bc6f66f@suse.com>
+In-Reply-To: <20240502132136.532-1-jgross@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 02/05/2024 1:39 pm, Jan Beulich wrote:
-> On 29.04.2024 20:28, Andrew Cooper wrote:
->> Make use of the new xstate_uncompressed_size() helper rather than maintaining
->> the running calculation while accumulating feature components.
-> xstate_uncompressed_size() isn't really a new function, but the re-work of
-> an earlier one. That, aiui, could have been used here, too, just that it
-> would have been inefficient to do so. IOW perhaps drop "the new"?
-
-Ok.
-
+On 02/05/2024 2:21 pm, Juergen Gross wrote:
+> Today test-xenstore will write nodes with 3000 bytes node data. This
+> size is exceeding the default quota for the allowed node size. While
+> working in dom0 with C-xenstored, OCAML-xenstored does not like that.
 >
->> The rest of the CPUID data can come direct from the raw cpu policy.  All
->> per-component data form an ABI through the behaviour of the X{SAVE,RSTOR}*
->> instructions.
->>
->> Use for_each_set_bit() rather than opencoding a slightly awkward version of
->> it.  Mask the attributes in ecx down based on the visible features.  This
->> isn't actually necessary for any components or attributes defined at the time
->> of writing (up to AMX), but is added out of an abundance of caution.
-> As to this, ...
+> Use a size of 2000 instead, which is lower than the allowed default
+> node size of 2048.
 >
->> @@ -206,61 +205,47 @@ static void recalculate_xstate(struct cpu_policy *p)
->>          return;
->>  
->>      if ( p->basic.avx )
->> -    {
->>          xstates |= X86_XCR0_YMM;
->> -        xstate_size = max(xstate_size,
->> -                          xstate_offsets[X86_XCR0_YMM_POS] +
->> -                          xstate_sizes[X86_XCR0_YMM_POS]);
->> -    }
->>  
->>      if ( p->feat.mpx )
->> -    {
->>          xstates |= X86_XCR0_BNDREGS | X86_XCR0_BNDCSR;
->> -        xstate_size = max(xstate_size,
->> -                          xstate_offsets[X86_XCR0_BNDCSR_POS] +
->> -                          xstate_sizes[X86_XCR0_BNDCSR_POS]);
->> -    }
->>  
->>      if ( p->feat.avx512f )
->> -    {
->>          xstates |= X86_XCR0_OPMASK | X86_XCR0_ZMM | X86_XCR0_HI_ZMM;
->> -        xstate_size = max(xstate_size,
->> -                          xstate_offsets[X86_XCR0_HI_ZMM_POS] +
->> -                          xstate_sizes[X86_XCR0_HI_ZMM_POS]);
->> -    }
->>  
->>      if ( p->feat.pku )
->> -    {
->>          xstates |= X86_XCR0_PKRU;
->> -        xstate_size = max(xstate_size,
->> -                          xstate_offsets[X86_XCR0_PKRU_POS] +
->> -                          xstate_sizes[X86_XCR0_PKRU_POS]);
->> -    }
->>  
->> -    p->xstate.max_size  =  xstate_size;
->> +    /* Subleaf 0 */
->> +    p->xstate.max_size =
->> +        xstate_uncompressed_size(xstates & ~XSTATE_XSAVES_ONLY);
->>      p->xstate.xcr0_low  =  xstates & ~XSTATE_XSAVES_ONLY;
->>      p->xstate.xcr0_high = (xstates & ~XSTATE_XSAVES_ONLY) >> 32;
->>  
->> +    /* Subleaf 1 */
->>      p->xstate.Da1 = Da1;
->> +    if ( p->xstate.xsavec )
->> +        ecx_mask |= XSTATE_ALIGN64;
->> +
->>      if ( p->xstate.xsaves )
->>      {
->> +        ecx_mask |= XSTATE_XSS;
->>          p->xstate.xss_low   =  xstates & XSTATE_XSAVES_ONLY;
->>          p->xstate.xss_high  = (xstates & XSTATE_XSAVES_ONLY) >> 32;
->>      }
->> -    else
->> -        xstates &= ~XSTATE_XSAVES_ONLY;
->>  
->> -    for ( i = 2; i < min(63UL, ARRAY_SIZE(p->xstate.comp)); ++i )
->> +    /* Subleafs 2+ */
->> +    xstates &= ~XSTATE_FP_SSE;
->> +    BUILD_BUG_ON(ARRAY_SIZE(p->xstate.comp) < 63);
->> +    for_each_set_bit ( i, &xstates, 63 )
->>      {
->> -        uint64_t curr_xstate = 1UL << i;
->> -
->> -        if ( !(xstates & curr_xstate) )
->> -            continue;
->> -
->> -        p->xstate.comp[i].size   = xstate_sizes[i];
->> -        p->xstate.comp[i].offset = xstate_offsets[i];
->> -        p->xstate.comp[i].xss    = curr_xstate & XSTATE_XSAVES_ONLY;
->> -        p->xstate.comp[i].align  = curr_xstate & xstate_align;
-> ... for this bit, isn't the move from this ...
->
->> +        /*
->> +         * Pass through size (eax) and offset (ebx) directly.  Visbility of
->> +         * attributes in ecx limited by visible features in Da1.
->> +         */
->> +        p->xstate.raw[i].a = raw_cpu_policy.xstate.raw[i].a;
->> +        p->xstate.raw[i].b = raw_cpu_policy.xstate.raw[i].b;
->> +        p->xstate.raw[i].c = raw_cpu_policy.xstate.raw[i].c & ecx_mask;
-> ... to this changing what guests get to see, i.e. (mildly?) incompatible?
+> Fixes: 3afc5e4a5b75 ("tools/tests: add xenstore testing framework")
+> Signed-off-by: Juergen Gross <jgross@suse.com>
 
-No.
+Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-The only "rows" in leaf 0xd we expose to guests are AVX, MPX, AVX512 and
-PKU  (higher up in this hunk, selecting valid bits in xstates).  None of
-these have a non-zero value in ecx.
-
-This is a latent bug until we offer AMX or CET, hence why I wanted to
-complete this series before your AMX series goes in.
-
-~Andrew
+Thanks for figuring this out.  I'll give this and the return code fix a
+spin through XenRT and check there's nothing else unexpected hiding.
 
