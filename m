@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B9C028BA9EF
-	for <lists+xen-devel@lfdr.de>; Fri,  3 May 2024 11:33:43 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.716303.1118398 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6D6AA8BA9FE
+	for <lists+xen-devel@lfdr.de>; Fri,  3 May 2024 11:40:25 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.716307.1118408 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s2pHq-0006Q1-9I; Fri, 03 May 2024 09:33:02 +0000
+	id 1s2pOF-0007JW-Uy; Fri, 03 May 2024 09:39:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 716303.1118398; Fri, 03 May 2024 09:33:02 +0000
+Received: by outflank-mailman (output) from mailman id 716307.1118408; Fri, 03 May 2024 09:39:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s2pHq-0006Nx-6Q; Fri, 03 May 2024 09:33:02 +0000
-Received: by outflank-mailman (input) for mailman id 716303;
- Fri, 03 May 2024 09:33:00 +0000
+	id 1s2pOF-0007HH-Ri; Fri, 03 May 2024 09:39:39 +0000
+Received: by outflank-mailman (input) for mailman id 716307;
+ Fri, 03 May 2024 09:39:38 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1s2pHo-0006Nr-SF
- for xen-devel@lists.xenproject.org; Fri, 03 May 2024 09:33:00 +0000
+ (envelope-from <julien@xen.org>) id 1s2pOD-0007HB-Um
+ for xen-devel@lists.xenproject.org; Fri, 03 May 2024 09:39:38 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1s2pHm-00011D-1X; Fri, 03 May 2024 09:32:58 +0000
+ id 1s2pO9-00018K-TT; Fri, 03 May 2024 09:39:33 +0000
 Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.0.211])
  by xenbits.xenproject.org with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1s2pHl-0003my-NU; Fri, 03 May 2024 09:32:57 +0000
+ id 1s2pO9-0004KX-Lt; Fri, 03 May 2024 09:39:33 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,85 +42,98 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
 	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
 	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=geCwVCE6Vmcs1nQ3ULn3lQtitAxH+3tQFuZxraC/tgs=; b=t0PHbhsqNRxHHgfQX9+8B/ZRC2
-	bGmX7NM2v2IeLt4Ok55ER16fUsnHB/Yc5cKvZ3NLIe4eo1QIk0NpH681DLP1IfMvrkOeIqaG1YGxB
-	rzD5KpJ1nK4LWSU3z8f91v58MWM9jCPMaptZ+DJhhg8wMiuZrUkt8QCgyJQGwsg+vUQk=;
-Message-ID: <47033435-c621-40f6-b5a9-a385f323f382@xen.org>
-Date: Fri, 3 May 2024 10:32:55 +0100
+	bh=zA9LaweF8nQdsYtFBtByudj/2+oq7tg35tHYk5ib3dI=; b=PnG7FLtCpBt+yKNjjYmyartmfl
+	IkBEF8+6z75z4eEED/w5M67kiDhMeAp5l/nb7Wr7BxeQe9QCyxFScvKn570FSJOiqMz3CdqJuOCQj
+	WpmFMZtcYaT79qRL5qeMwVy9jgs+7Zx8tJObzcajfVI/QfUnlm3Wz6HoL2Zctfzq27ZY=;
+Message-ID: <b3299df2-e726-49eb-a893-cbc547b2419c@xen.org>
+Date: Fri, 3 May 2024 10:39:31 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH] xen/mem_access: address violations of MISRA C: 2012
- Rule 8.4
+Subject: Re: [PATCH v6 8/8] xen: allow up to 16383 cpus
 Content-Language: en-GB
-To: alessandro.zucchelli@bugseng.com, Jan Beulich <jbeulich@suse.com>
-Cc: consulting@bugseng.com, Tamas K Lengyel <tamas@tklengyel.com>,
- Alexandru Isaila <aisaila@bitdefender.com>,
- Petre Pircalabu <ppircalabu@bitdefender.com>,
- xen-devel@lists.xenproject.org, sstabellini@kernel.org,
- bertrand.marquis@arm.com, michal.orzel@amd.com, volodymyr_babchuk@epam.com
-References: <a3d4e07433932624266ac9b675daf0b70734696d.1714405386.git.alessandro.zucchelli@bugseng.com>
- <08eb5444-2bf0-48c0-9fcb-d8e4b801e8fa@suse.com>
- <834460aca34e6167a3c4620616c145b8@bugseng.com>
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>,
+ Jan Beulich <jbeulich@suse.com>, Bertrand Marquis
+ <bertrand.marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, xen-devel@lists.xenproject.org
+References: <20240327152229.25847-1-jgross@suse.com>
+ <20240327152229.25847-9-jgross@suse.com>
+ <da1662ac-70f1-4ae4-9737-e10e617c8036@suse.com>
+ <637c755a-9f24-4b86-af12-7c7d50bf40c8@suse.com>
+ <d0714064-c544-47d3-84c0-a19391ccf496@xen.org>
+ <29296e11-8d21-4867-9d31-fc94af828214@suse.com>
+ <146fbd43-d8b8-4d73-8650-c60024498324@xen.org>
+ <alpine.DEB.2.22.394.2405021111540.624854@ubuntu-linux-20-04-desktop>
 From: Julien Grall <julien@xen.org>
-In-Reply-To: <834460aca34e6167a3c4620616c145b8@bugseng.com>
+In-Reply-To: <alpine.DEB.2.22.394.2405021111540.624854@ubuntu-linux-20-04-desktop>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-Hi,
+Hi Stefano,
 
-On 03/05/2024 08:09, Alessandro Zucchelli wrote:
-> On 2024-04-29 17:58, Jan Beulich wrote:
->> On 29.04.2024 17:45, Alessandro Zucchelli wrote:
->>> Change #ifdef CONFIG_MEM_ACCESS by OR-ing defined(CONFIG_ARM),
->>> allowing asm/mem_access.h to be included in all ARM build 
->>> configurations.
->>> This is to address the violation of MISRA C: 2012 Rule 8.4 which states:
->>> "A compatible declaration shall be visible when an object or function
->>> with external linkage is defined". Functions p2m_mem_access_check
->>> and p2m_mem_access_check_and_get_page when CONFIG_MEM_ACCESS is not
->>> defined in ARM builds don't have visible declarations in the file
->>> containing their definitions.
->>>
->>> Signed-off-by: Alessandro Zucchelli <alessandro.zucchelli@bugseng.com>
->>> ---
->>>  xen/include/xen/mem_access.h | 2 +-
->>>  1 file changed, 1 insertion(+), 1 deletion(-)
->>>
->>> diff --git a/xen/include/xen/mem_access.h b/xen/include/xen/mem_access.h
->>> index 87d93b31f6..ec0630677d 100644
->>> --- a/xen/include/xen/mem_access.h
->>> +++ b/xen/include/xen/mem_access.h
->>> @@ -33,7 +33,7 @@
->>>   */
->>>  struct vm_event_st;
->>>
->>> -#ifdef CONFIG_MEM_ACCESS
->>> +#if defined(CONFIG_MEM_ACCESS) || defined(CONFIG_ARM)
->>>  #include <asm/mem_access.h>
->>>  #endif
+On 02/05/2024 19:13, Stefano Stabellini wrote:
+> On Mon, 29 Apr 2024, Julien Grall wrote:
+>> Hi Juergen,
 >>
->> This doesn't look quite right. If Arm supports mem-access, why would it
->> not set MEM_ACCESS=y? Whereas if it's only stubs that Arm supplies, then
->> those would better move here, thus eliminating the need for a per-arch
->> stub header (see what was e.g. done for numa.h). This way RISC-V and PPC
->> (and whatever is to come) would then be taken care of as well.
+>> On 29/04/2024 12:28, Jürgen Groß wrote:
+>>> On 29.04.24 13:04, Julien Grall wrote:
+>>>> Hi Juergen,
+>>>>
+>>>> Sorry for the late reply.
+>>>>
+>>>> On 29/04/2024 11:33, Juergen Gross wrote:
+>>>>> On 08.04.24 09:10, Jan Beulich wrote:
+>>>>>> On 27.03.2024 16:22, Juergen Gross wrote:
+>>>>>>> With lock handling now allowing up to 16384 cpus (spinlocks can
+>>>>>>> handle
+>>>>>>> 65535 cpus, rwlocks can handle 16384 cpus), raise the allowed limit
+>>>>>>> for
+>>>>>>> the number of cpus to be configured to 16383.
+>>>>>>>
+>>>>>>> The new limit is imposed by IOMMU_CMD_BUFFER_MAX_ENTRIES and
+>>>>>>> QINVAL_MAX_ENTRY_NR required to be larger than 2 * CONFIG_NR_CPUS.
+>>>>>>>
+>>>>>>> Signed-off-by: Juergen Gross <jgross@suse.com>
+>>>>>>
+>>>>>> Acked-by: Jan Beulich <jbeulich@suse.com>
+>>>>>>
+>>>>>> I'd prefer this to also gain an Arm ack, though.
+>>>>>
+>>>>> Any comment from Arm side?
+>>>>
+>>>> Can you clarify what the new limits mean in term of (security) support?
+>>>> Are we now claiming that Xen will work perfectly fine on platforms with up
+>>>> to 16383?
+>>>>
+>>>> If so, I can't comment for x86, but for Arm, I am doubtful that it would
+>>>> work without any (at least performance) issues. AFAIK, this is also an
+>>>> untested configuration. In fact I would be surprised if Xen on Arm was
+>>>> tested with more than a couple of hundreds cores (AFAICT the Ampere CPUs
+>>>> has 192 CPUs).
+>>>
+>>> I think we should add a security support limit for the number of physical
+>>> cpus similar to the memory support limit we already have in place.
+>>>
+>>> For x86 I'd suggest 4096 cpus for security support (basically the limit we
+>>> have with this patch), but I'm open for other suggestions, too.
+>>>
+>>> I have no idea about any sensible limits for Arm32/Arm64.
 >>
-> ARM does support mem-access, so I don't think this is akin to the 
-> changes done to handle numa.h.
-> ARM also allows users to set MEM_ACCESS=n (e.g. 
-> xen/arch/arm/configs/tiny64_defconfig) and builds just fine; however, 
-> the implementation file mem_access.c is compiled unconditionally in 
-> ARM's makefile, hence why the violation was spotted.
-> This is a bit unusual, so I was also hoping to get some feedback from 
-> mem-access maintainers as to why this discrepancy from x86 exists. I 
-> probably should have also included some ARM maintainers as well, so I'm 
-> going to loop them in now.
+>> I am not entirely. Bertrand, Michal, Stefano, should we use 192 (the number of
+>> CPUs from Ampere)?
 > 
-> An alternative option I think is to make the compilation of arm's 
-> mem_access.c conditional on CONFIG_MEM_ACCESS (as for x86/mm and common).
+> I am OK with that. If we want to be a bit more future proof we could say
+> 256 or 512.
 
-I can't think of a reason to have mem_access.c unconditional compiled 
-in. So I think it should be conditional like on x86.
+Sorry, I don't follow your argument. A limit can be raised at time point 
+in the future. The question is more whether we are confident that Xen on 
+Arm will run well if a user has a platform with 256/512 pCPUs.
+
+So are you saying that from Xen point of view, you are expecting no 
+difference between 256 and 512. And therefore you would be happy if to 
+backport patches if someone find differences (or even security issues) 
+when using > 256 pCPUs?
 
 Cheers,
 
