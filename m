@@ -2,34 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B61298BB3B5
-	for <lists+xen-devel@lfdr.de>; Fri,  3 May 2024 21:08:55 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.716642.1118768 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6AD438BB3C5
+	for <lists+xen-devel@lfdr.de>; Fri,  3 May 2024 21:15:22 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.716646.1118777 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s2yFw-0002vI-Ac; Fri, 03 May 2024 19:07:40 +0000
+	id 1s2yN7-0004fi-0Q; Fri, 03 May 2024 19:15:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 716642.1118768; Fri, 03 May 2024 19:07:40 +0000
+Received: by outflank-mailman (output) from mailman id 716646.1118777; Fri, 03 May 2024 19:15:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s2yFw-0002tJ-6r; Fri, 03 May 2024 19:07:40 +0000
-Received: by outflank-mailman (input) for mailman id 716642;
- Fri, 03 May 2024 19:07:39 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1s2yN6-0004cu-Te; Fri, 03 May 2024 19:15:04 +0000
+Received: by outflank-mailman (input) for mailman id 716646;
+ Fri, 03 May 2024 19:15:03 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=tvfX=MG=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1s2yFv-0002tD-DK
- for xen-devel@lists.xenproject.org; Fri, 03 May 2024 19:07:39 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 66b52c7a-0980-11ef-b4bb-af5377834399;
- Fri, 03 May 2024 21:07:36 +0200 (CEST)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id D350361E0C;
- Fri,  3 May 2024 19:07:34 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C7838C116B1;
- Fri,  3 May 2024 19:07:32 +0000 (UTC)
+ <SRS0=yvxW=MG=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1s2yN5-0004co-OP
+ for xen-devel@lists.xenproject.org; Fri, 03 May 2024 19:15:03 +0000
+Received: from mail-qt1-x82d.google.com (mail-qt1-x82d.google.com
+ [2607:f8b0:4864:20::82d])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 706117e0-0981-11ef-909c-e314d9c70b13;
+ Fri, 03 May 2024 21:15:01 +0200 (CEST)
+Received: by mail-qt1-x82d.google.com with SMTP id
+ d75a77b69052e-436ee76c3b8so71516191cf.1
+ for <xen-devel@lists.xenproject.org>; Fri, 03 May 2024 12:15:01 -0700 (PDT)
+Received: from [192.168.1.10] (host-92-26-98-202.as13285.net. [92.26.98.202])
+ by smtp.gmail.com with ESMTPSA id
+ bz6-20020a05622a1e8600b00439c1419553sm1866666qtb.44.2024.05.03.12.14.59
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 03 May 2024 12:15:00 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,139 +45,112 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 66b52c7a-0980-11ef-b4bb-af5377834399
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1714763254;
-	bh=iiNH2csW/wExCYmnJzB9cYm+1os13nvklaTb7La4veo=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=YGEPZRcqoHmlvqub8K5sX0+3i4n/J4Ib59/yDCnFQC9LPHdAosIOUxDvNcPbqVyF/
-	 YsnrqDvADqAi+deuyDlJYIW0V2VLQh18GD7dRYFZESfp4ZB/vpzrHsnso4enfSY/BR
-	 NgAZE814gcFPm0KxF+kpFx1N0Wyxy2mtU78X9R+tBkktis2UEFGLFKkm6G7N2Pm7mh
-	 VV5BSJ7+5Kdvw2OY1P+TrgKQtIlw0LbLwXxZHY0wB7TOJb8wEIe7szrqiKIrEadAb2
-	 VAQuggZrV+SsjAv1jf/VD8idWjdqSCkOODqXA4SjuU6ni+Bb/YiSkGYgBBDHbupEz/
-	 8dx9i/OAHCNQQ==
-Date: Fri, 3 May 2024 12:07:31 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Julien Grall <julien@xen.org>
-cc: Stefano Stabellini <sstabellini@kernel.org>, 
-    =?UTF-8?Q?J=C3=BCrgen_Gro=C3=9F?= <jgross@suse.com>, 
-    Jan Beulich <jbeulich@suse.com>, 
-    Bertrand Marquis <bertrand.marquis@arm.com>, 
-    Michal Orzel <michal.orzel@amd.com>, 
-    Andrew Cooper <andrew.cooper3@citrix.com>, 
-    George Dunlap <george.dunlap@citrix.com>, xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v6 8/8] xen: allow up to 16383 cpus
-In-Reply-To: <b3299df2-e726-49eb-a893-cbc547b2419c@xen.org>
-Message-ID: <alpine.DEB.2.22.394.2405031159240.1151289@ubuntu-linux-20-04-desktop>
-References: <20240327152229.25847-1-jgross@suse.com> <20240327152229.25847-9-jgross@suse.com> <da1662ac-70f1-4ae4-9737-e10e617c8036@suse.com> <637c755a-9f24-4b86-af12-7c7d50bf40c8@suse.com> <d0714064-c544-47d3-84c0-a19391ccf496@xen.org>
- <29296e11-8d21-4867-9d31-fc94af828214@suse.com> <146fbd43-d8b8-4d73-8650-c60024498324@xen.org> <alpine.DEB.2.22.394.2405021111540.624854@ubuntu-linux-20-04-desktop> <b3299df2-e726-49eb-a893-cbc547b2419c@xen.org>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+X-Inumbo-ID: 706117e0-0981-11ef-909c-e314d9c70b13
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1714763701; x=1715368501; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=Ic5ZcpGxZalHaogiQ0LRYBQHMovcd2GjwOkEN80fwKA=;
+        b=feoKyDJ611WhmQZgPPJRjZqoB352LMp/s73qDIxSeo17cFvVJqCx1z3iv/Loobp9Ui
+         LN2DknHiHKAKTLrfS4lS1i+rnzMhjWSiFo5uduJTooRJQ9upXSwdQHAMWocnuwGx+v1p
+         6R0ppRB7JLpSj8gibY7eV/BTOu6ez43suNGDo=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1714763701; x=1715368501;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=Ic5ZcpGxZalHaogiQ0LRYBQHMovcd2GjwOkEN80fwKA=;
+        b=ItqfScp2Cu/OCcACPUF5ldlGOEbHRkx4fTm/MVHePhZqbgLe4JBNEr/+6MJ9YhQWmN
+         GCRx/XxJksY5yplxFaozHejdn89yL4RMKwdm4ogsTLE8SnpdKb9s9yy5ciejJOlndmRS
+         6iuNnyIMZrs7DeOh0ZiMjzl+qrOMMLvfVc453czMGLTQGi+QAUXlS+S1L+3tsXBhwGy2
+         TgKQJYJux4t9cd4hdt7vY76c/CP0dnE94rpBAjzOdZIJ7gBJohGDQ+4dIkbGPbv0xY8Z
+         18Y5/ykeV2RWCETFegW5gU4RcLdIIaSUqYyoA2dIpUSQic3lGgBRpzKR0o1/+pPPeNSy
+         uRSA==
+X-Forwarded-Encrypted: i=1; AJvYcCWpBQttckPEgNjgV3GG0ZHowiZwzFJBXoEAaDDCH3WQfvWTeQSGl4oULtnG6s92ATNQHp6GDNHW5+esM9WxKcUv+XXtt6fUTorJ68Y7b1Q=
+X-Gm-Message-State: AOJu0Ywln+kQ2V4qKDCdfKWqHkU5XAbf3yB0QJJ2dk9+ukCdMZfJcERO
+	IRO5HX8rZp22K7z7bZ8ILEG9sKAdsOk+6rxWrFWjsZjEwcKSE/CB/x4Otf4AGOE=
+X-Google-Smtp-Source: AGHT+IEyElJeLt9WgWFSq1uv6Mv0MWu+jbBBRuyjd9jqcPrvXW3Ebk7xO4OYgawjwyM1G5F6ZRDWtA==
+X-Received: by 2002:a05:622a:308:b0:439:d05b:764c with SMTP id q8-20020a05622a030800b00439d05b764cmr3572211qtw.46.1714763700543;
+        Fri, 03 May 2024 12:15:00 -0700 (PDT)
+Message-ID: <d24c9ef6-a7c8-4ee0-baff-b1585c788db1@citrix.com>
+Date: Fri, 3 May 2024 20:14:58 +0100
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323329-1617437709-1714763254=:1151289"
-
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
-
---8323329-1617437709-1714763254=:1151289
+User-Agent: Mozilla Thunderbird
+Subject: [REGRESSION] Re: [XEN PATCH 0/3] automation/eclair: do not allow
+ failure for triggered analyses
+To: Federico Serafini <federico.serafini@bugseng.com>,
+ xen-devel@lists.xenproject.org
+Cc: consulting@bugseng.com, Simone Ballarin <simone.ballarin@bugseng.com>,
+ Doug Goldstein <cardoe@cardoe.com>,
+ Stefano Stabellini <sstabellini@kernel.org>
+References: <cover.1714401209.git.federico.serafini@bugseng.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <cover.1714401209.git.federico.serafini@bugseng.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8BIT
+Content-Transfer-Encoding: 7bit
 
-On Fri, 3 May 2024, Julien Grall wrote:
-> Hi Stefano,
-> 
-> On 02/05/2024 19:13, Stefano Stabellini wrote:
-> > On Mon, 29 Apr 2024, Julien Grall wrote:
-> > > Hi Juergen,
-> > > 
-> > > On 29/04/2024 12:28, Jürgen Groß wrote:
-> > > > On 29.04.24 13:04, Julien Grall wrote:
-> > > > > Hi Juergen,
-> > > > > 
-> > > > > Sorry for the late reply.
-> > > > > 
-> > > > > On 29/04/2024 11:33, Juergen Gross wrote:
-> > > > > > On 08.04.24 09:10, Jan Beulich wrote:
-> > > > > > > On 27.03.2024 16:22, Juergen Gross wrote:
-> > > > > > > > With lock handling now allowing up to 16384 cpus (spinlocks can
-> > > > > > > > handle
-> > > > > > > > 65535 cpus, rwlocks can handle 16384 cpus), raise the allowed
-> > > > > > > > limit
-> > > > > > > > for
-> > > > > > > > the number of cpus to be configured to 16383.
-> > > > > > > > 
-> > > > > > > > The new limit is imposed by IOMMU_CMD_BUFFER_MAX_ENTRIES and
-> > > > > > > > QINVAL_MAX_ENTRY_NR required to be larger than 2 *
-> > > > > > > > CONFIG_NR_CPUS.
-> > > > > > > > 
-> > > > > > > > Signed-off-by: Juergen Gross <jgross@suse.com>
-> > > > > > > 
-> > > > > > > Acked-by: Jan Beulich <jbeulich@suse.com>
-> > > > > > > 
-> > > > > > > I'd prefer this to also gain an Arm ack, though.
-> > > > > > 
-> > > > > > Any comment from Arm side?
-> > > > > 
-> > > > > Can you clarify what the new limits mean in term of (security)
-> > > > > support?
-> > > > > Are we now claiming that Xen will work perfectly fine on platforms
-> > > > > with up
-> > > > > to 16383?
-> > > > > 
-> > > > > If so, I can't comment for x86, but for Arm, I am doubtful that it
-> > > > > would
-> > > > > work without any (at least performance) issues. AFAIK, this is also an
-> > > > > untested configuration. In fact I would be surprised if Xen on Arm was
-> > > > > tested with more than a couple of hundreds cores (AFAICT the Ampere
-> > > > > CPUs
-> > > > > has 192 CPUs).
-> > > > 
-> > > > I think we should add a security support limit for the number of
-> > > > physical
-> > > > cpus similar to the memory support limit we already have in place.
-> > > > 
-> > > > For x86 I'd suggest 4096 cpus for security support (basically the limit
-> > > > we
-> > > > have with this patch), but I'm open for other suggestions, too.
-> > > > 
-> > > > I have no idea about any sensible limits for Arm32/Arm64.
-> > > 
-> > > I am not entirely. Bertrand, Michal, Stefano, should we use 192 (the
-> > > number of
-> > > CPUs from Ampere)?
-> > 
-> > I am OK with that. If we want to be a bit more future proof we could say
-> > 256 or 512.
-> 
-> Sorry, I don't follow your argument. A limit can be raised at time point in
-> the future. The question is more whether we are confident that Xen on Arm will
-> run well if a user has a platform with 256/512 pCPUs.
-> 
-> So are you saying that from Xen point of view, you are expecting no difference
-> between 256 and 512. And therefore you would be happy if to backport patches
-> if someone find differences (or even security issues) when using > 256 pCPUs?
+On 29/04/2024 4:21 pm, Federico Serafini wrote:
+> Patch 1/3 does some preparation work.
+>
+> Patch 2/3, as the title says, removes allow_failure = true for triggered
+> analyses.
+>
+> Patch 3/3 makes explicit that initally no files are tagged as adopted, this
+> is needed by the scheduled analysis.
 
-It is difficult to be sure about anything that it is not regularly
-tested. I am pretty sure someone in the community got Xen running on an
-Ampere, so like you said 192 is a good number. However, that is not
-regularly tested, so we don't have any regression checks in gitlab-ci or
-OSSTest for it.
+I'm afraid that something in this series is broken.
 
-One approach would be to only support things regularly tested either by
-OSSTest, Gitlab-ci, or also Xen community members. I am not sure what
-would be the highest number with this way of thinking but likely no
-more than 192, probably less. I don't know the CPU core count of the
-biggest ARM machine in OSSTest.
+Since these patches went in, all pipelines are now getting a status of
+blocked rather than passed.
 
-Another approach is to support a "sensible" number: not something tested
-but something we believe it should work. No regular testing. (In safety,
-they only believe in things that are actually tested, so this would not
-be OK. But this is security, not safety, just FYI.) With this approach,
-we could round up the number to a limit we think it won't break. If 192
-works, 256/512 should work? I don't know but couldn't think of something
-that would break going from 192 to 256.
+If I manually start the Eclair jobs, then eventually the pipeline gets
+to Passed.
 
-It depends on how strict we want to be on testing requirements. I am not
-sure what approach was taken by x86 so far. I am OK either way.
---8323329-1617437709-1714763254=:1151289--
+~Andrew
 
