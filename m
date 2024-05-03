@@ -2,38 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 73AC38BB192
-	for <lists+xen-devel@lfdr.de>; Fri,  3 May 2024 19:15:50 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.716621.1118757 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B61298BB3B5
+	for <lists+xen-devel@lfdr.de>; Fri,  3 May 2024 21:08:55 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.716642.1118768 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s2wVI-0004bP-Gi; Fri, 03 May 2024 17:15:24 +0000
+	id 1s2yFw-0002vI-Ac; Fri, 03 May 2024 19:07:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 716621.1118757; Fri, 03 May 2024 17:15:24 +0000
+Received: by outflank-mailman (output) from mailman id 716642.1118768; Fri, 03 May 2024 19:07:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s2wVI-0004ZE-EC; Fri, 03 May 2024 17:15:24 +0000
-Received: by outflank-mailman (input) for mailman id 716621;
- Fri, 03 May 2024 17:15:22 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1s2yFw-0002tJ-6r; Fri, 03 May 2024 19:07:40 +0000
+Received: by outflank-mailman (input) for mailman id 716642;
+ Fri, 03 May 2024 19:07:39 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=rrlW=MG=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1s2wVG-0004Z8-S1
- for xen-devel@lists.xenproject.org; Fri, 03 May 2024 17:15:22 +0000
-Received: from mail-qk1-x72d.google.com (mail-qk1-x72d.google.com
- [2607:f8b0:4864:20::72d])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b8bfa968-0970-11ef-909c-e314d9c70b13;
- Fri, 03 May 2024 19:15:22 +0200 (CEST)
-Received: by mail-qk1-x72d.google.com with SMTP id
- af79cd13be357-792639cf4faso271558085a.1
- for <xen-devel@lists.xenproject.org>; Fri, 03 May 2024 10:15:21 -0700 (PDT)
-Received: from [192.168.206.239] ([94.75.70.14])
- by smtp.gmail.com with ESMTPSA id
- bp10-20020a05620a458a00b00790f7c28019sm1392913qkb.83.2024.05.03.10.15.18
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 03 May 2024 10:15:20 -0700 (PDT)
+ <SRS0=tvfX=MG=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1s2yFv-0002tD-DK
+ for xen-devel@lists.xenproject.org; Fri, 03 May 2024 19:07:39 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 66b52c7a-0980-11ef-b4bb-af5377834399;
+ Fri, 03 May 2024 21:07:36 +0200 (CEST)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id D350361E0C;
+ Fri,  3 May 2024 19:07:34 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C7838C116B1;
+ Fri,  3 May 2024 19:07:32 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,110 +41,139 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b8bfa968-0970-11ef-909c-e314d9c70b13
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1714756520; x=1715361320; darn=lists.xenproject.org;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=nHhDPQFODDTSRPzwFDqZrnLgjpslzU8jT3iE1YAlVrg=;
-        b=A/0qTA8ged8P3qVzYxwpKF8S7e8jj4xyUBX3NVpaeIfe5uzqTEyHWobTCDRaCSe6tN
-         jtCrPJcibth6OM/e9/Gzrb2RgS+WWt8aqAs+ffoTwnbVXJ8ypbpQSl+2vHnqUprSMhNc
-         Y0eCgHyPfsondVYDZWkvu649rV6mL5C/7AZlqhGsG4jLUzBZsZnnCZU4jbhDgEOPcFE5
-         qU3r8Opn0o4dKeVDKVH0PVEZ+inbXYScGdby2wNSvJZmCPuj3OJ+PvuI1++lShOPkUC6
-         m+nvgWsTaF+eIjGBmn+lF1l7FcPm95fOJ/+psd27UQPSci8aPt26nhY9pM4lypmBsKet
-         s+7A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1714756520; x=1715361320;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=nHhDPQFODDTSRPzwFDqZrnLgjpslzU8jT3iE1YAlVrg=;
-        b=aXs6aMDRFIWcQWilZsxV/fQEHTPs+ECMyy+djzhLqR05+5Ef7eYWsM8XGgW95bh7rW
-         1TfOUZGSAz5Edy462mInDdBQoTyTwyf2PmW3Tk0eNf4syUSLcXWq5iLZkpAMTKj3kRUV
-         oH5Q0BfEB4EFJTtpMRp9S76aot7mewNWYM4ATDShtF2lAIM+rxTeho3YNTRmn3nT7lWR
-         tpt1foZBUhxn2s/iiDqK0Uu23ZutmZePxPJQXehH4wT3lSekmdbn4hjUU6/2buXQC+WO
-         J5V3RC4mOoWxgg3ARhB7eGxBxzYshu3u/W32Wh2o2OCqBE00uY/WpkM03LCjCCs5R+NS
-         BUWg==
-X-Forwarded-Encrypted: i=1; AJvYcCVpjlOiGQn0nrT3Sk1JnbKhJeqEjgGMf7WhD5ot2pfSMhr6ugD6377WvB/aq0vCjfd4Cx9TuyvKR9wV80UhpxDu3JRmnMEyZ0THWWY+5D4=
-X-Gm-Message-State: AOJu0Ywf9s5ulDUAug0is09nXIueal1fLy7Yk6RKFOfSPOTl8qbsyQxu
-	+KmMmDl/dZDiZOFHoSrRoE9/d26DI8K/K+VcaNxahR8Lo8sxGIoF
-X-Google-Smtp-Source: AGHT+IHgB1ff01//xX1SHLUX6dnh+sR6UhOUAYbvSHppPFKINWQXkW2DrdL8DfuFC1M5nIGHpMC1hA==
-X-Received: by 2002:a05:620a:40c3:b0:790:9688:4450 with SMTP id g3-20020a05620a40c300b0079096884450mr3736814qko.53.1714756520585;
-        Fri, 03 May 2024 10:15:20 -0700 (PDT)
-Message-ID: <940f11ee23b43ada1dba50bc0236c4764eb13d71.camel@gmail.com>
-Subject: Re: [PATCH v8 02/17] xen: introduce generic non-atomic test_*bit()
-From: Oleksii <oleksii.kurochko@gmail.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Roger Pau =?ISO-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>, Ross
- Lagerwall <ross.lagerwall@citrix.com>, Stefano Stabellini
- <sstabellini@kernel.org>,  Julien Grall <julien@xen.org>, Bertrand Marquis
- <bertrand.marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>, Volodymyr
- Babchuk <Volodymyr_Babchuk@epam.com>,  Andrew Cooper
- <andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>,
- Shawn Anastasio <sanastasio@raptorengineering.com>,
- xen-devel@lists.xenproject.org
-Date: Fri, 03 May 2024 19:15:16 +0200
-In-Reply-To: <3827c11c-6d47-411d-a356-871def4e5b30@suse.com>
-References: <cover.1713347222.git.oleksii.kurochko@gmail.com>
-	 <1a0977e3cf5a2de9f760ca5ec89a0d096894a9e3.1713347222.git.oleksii.kurochko@gmail.com>
-	 <3827c11c-6d47-411d-a356-871def4e5b30@suse.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.50.4 (3.50.4-1.fc39) 
+X-Inumbo-ID: 66b52c7a-0980-11ef-b4bb-af5377834399
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1714763254;
+	bh=iiNH2csW/wExCYmnJzB9cYm+1os13nvklaTb7La4veo=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=YGEPZRcqoHmlvqub8K5sX0+3i4n/J4Ib59/yDCnFQC9LPHdAosIOUxDvNcPbqVyF/
+	 YsnrqDvADqAi+deuyDlJYIW0V2VLQh18GD7dRYFZESfp4ZB/vpzrHsnso4enfSY/BR
+	 NgAZE814gcFPm0KxF+kpFx1N0Wyxy2mtU78X9R+tBkktis2UEFGLFKkm6G7N2Pm7mh
+	 VV5BSJ7+5Kdvw2OY1P+TrgKQtIlw0LbLwXxZHY0wB7TOJb8wEIe7szrqiKIrEadAb2
+	 VAQuggZrV+SsjAv1jf/VD8idWjdqSCkOODqXA4SjuU6ni+Bb/YiSkGYgBBDHbupEz/
+	 8dx9i/OAHCNQQ==
+Date: Fri, 3 May 2024 12:07:31 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Julien Grall <julien@xen.org>
+cc: Stefano Stabellini <sstabellini@kernel.org>, 
+    =?UTF-8?Q?J=C3=BCrgen_Gro=C3=9F?= <jgross@suse.com>, 
+    Jan Beulich <jbeulich@suse.com>, 
+    Bertrand Marquis <bertrand.marquis@arm.com>, 
+    Michal Orzel <michal.orzel@amd.com>, 
+    Andrew Cooper <andrew.cooper3@citrix.com>, 
+    George Dunlap <george.dunlap@citrix.com>, xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v6 8/8] xen: allow up to 16383 cpus
+In-Reply-To: <b3299df2-e726-49eb-a893-cbc547b2419c@xen.org>
+Message-ID: <alpine.DEB.2.22.394.2405031159240.1151289@ubuntu-linux-20-04-desktop>
+References: <20240327152229.25847-1-jgross@suse.com> <20240327152229.25847-9-jgross@suse.com> <da1662ac-70f1-4ae4-9737-e10e617c8036@suse.com> <637c755a-9f24-4b86-af12-7c7d50bf40c8@suse.com> <d0714064-c544-47d3-84c0-a19391ccf496@xen.org>
+ <29296e11-8d21-4867-9d31-fc94af828214@suse.com> <146fbd43-d8b8-4d73-8650-c60024498324@xen.org> <alpine.DEB.2.22.394.2405021111540.624854@ubuntu-linux-20-04-desktop> <b3299df2-e726-49eb-a893-cbc547b2419c@xen.org>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
+Content-Type: multipart/mixed; boundary="8323329-1617437709-1714763254=:1151289"
 
-On Thu, 2024-04-25 at 17:35 +0200, Jan Beulich wrote:
-> > =C2=A0 #include <asm/bitops.h>
-> > =C2=A0=20
-> > +#ifndef arch_check_bitop_size
-> > +#define arch_check_bitop_size(addr)
->=20
-> Can this really do nothing? Passing the address of an object smaller
-> than
-> bitop_uint_t will read past the object in the generic__*_bit()
-> functions.
-It seems RISC-V isn' happy with the following generic definition:
-   extern void __bitop_bad_size(void);
-  =20
-   /* --------------------- Please tidy above here --------------------
-   - */
-  =20
-   #include <asm/bitops.h>
-  =20
-   #ifndef arch_check_bitop_size
-  =20
-   #define bitop_bad_size(addr) sizeof(*(addr)) < sizeof(bitop_uint_t)
-  =20
-   #define arch_check_bitop_size(addr) \
-       if ( bitop_bad_size(addr) ) __bitop_bad_size();
-  =20
-   #endif /* arch_check_bitop_size */
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-The following errors occurs. bitop_uint_t for RISC-V is defined as
-unsigned long for now:
-    ./common/symbols-dummy.o -o ./.xen-syms.0
-riscv64-linux-gnu-ld: prelink.o: in function `atomic_sub':
-/build/xen/./arch/riscv/include/asm/atomic.h:152: undefined reference
-to `__bitop_bad_size'
-riscv64-linux-gnu-ld: prelink.o: in function `evtchn_check_pollers':
-/build/xen/common/event_channel.c:1531: undefined reference to
-`__bitop_bad_size'
-riscv64-linux-gnu-ld: /build/xen/common/event_channel.c:1521: undefined
-reference to `__bitop_bad_size'
-riscv64-linux-gnu-ld: prelink.o: in function `evtchn_init':
-/build/xen/common/event_channel.c:1541: undefined reference to
-`__bitop_bad_size'
-riscv64-linux-gnu-ld: prelink.o: in function `_read_lock':
-/build/xen/./include/xen/rwlock.h:94: undefined reference to
-`__bitop_bad_size'
-riscv64-linux-gnu-ld:
-prelink.o:/build/xen/./arch/riscv/include/asm/atomic.h:195: more
-undefined references to `__bitop_bad_size' follow
-riscv64-linux-gnu-ld: ./.xen-syms.0: hidden symbol `__bitop_bad_size'
-isn't defined
-riscv64-linux-gnu-ld: final link failed: bad value
-make[2]: *** [arch/riscv/Makefile:15: xen-syms] Error 1
+--8323329-1617437709-1714763254=:1151289
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8BIT
 
-~ Oleksii
+On Fri, 3 May 2024, Julien Grall wrote:
+> Hi Stefano,
+> 
+> On 02/05/2024 19:13, Stefano Stabellini wrote:
+> > On Mon, 29 Apr 2024, Julien Grall wrote:
+> > > Hi Juergen,
+> > > 
+> > > On 29/04/2024 12:28, Jürgen Groß wrote:
+> > > > On 29.04.24 13:04, Julien Grall wrote:
+> > > > > Hi Juergen,
+> > > > > 
+> > > > > Sorry for the late reply.
+> > > > > 
+> > > > > On 29/04/2024 11:33, Juergen Gross wrote:
+> > > > > > On 08.04.24 09:10, Jan Beulich wrote:
+> > > > > > > On 27.03.2024 16:22, Juergen Gross wrote:
+> > > > > > > > With lock handling now allowing up to 16384 cpus (spinlocks can
+> > > > > > > > handle
+> > > > > > > > 65535 cpus, rwlocks can handle 16384 cpus), raise the allowed
+> > > > > > > > limit
+> > > > > > > > for
+> > > > > > > > the number of cpus to be configured to 16383.
+> > > > > > > > 
+> > > > > > > > The new limit is imposed by IOMMU_CMD_BUFFER_MAX_ENTRIES and
+> > > > > > > > QINVAL_MAX_ENTRY_NR required to be larger than 2 *
+> > > > > > > > CONFIG_NR_CPUS.
+> > > > > > > > 
+> > > > > > > > Signed-off-by: Juergen Gross <jgross@suse.com>
+> > > > > > > 
+> > > > > > > Acked-by: Jan Beulich <jbeulich@suse.com>
+> > > > > > > 
+> > > > > > > I'd prefer this to also gain an Arm ack, though.
+> > > > > > 
+> > > > > > Any comment from Arm side?
+> > > > > 
+> > > > > Can you clarify what the new limits mean in term of (security)
+> > > > > support?
+> > > > > Are we now claiming that Xen will work perfectly fine on platforms
+> > > > > with up
+> > > > > to 16383?
+> > > > > 
+> > > > > If so, I can't comment for x86, but for Arm, I am doubtful that it
+> > > > > would
+> > > > > work without any (at least performance) issues. AFAIK, this is also an
+> > > > > untested configuration. In fact I would be surprised if Xen on Arm was
+> > > > > tested with more than a couple of hundreds cores (AFAICT the Ampere
+> > > > > CPUs
+> > > > > has 192 CPUs).
+> > > > 
+> > > > I think we should add a security support limit for the number of
+> > > > physical
+> > > > cpus similar to the memory support limit we already have in place.
+> > > > 
+> > > > For x86 I'd suggest 4096 cpus for security support (basically the limit
+> > > > we
+> > > > have with this patch), but I'm open for other suggestions, too.
+> > > > 
+> > > > I have no idea about any sensible limits for Arm32/Arm64.
+> > > 
+> > > I am not entirely. Bertrand, Michal, Stefano, should we use 192 (the
+> > > number of
+> > > CPUs from Ampere)?
+> > 
+> > I am OK with that. If we want to be a bit more future proof we could say
+> > 256 or 512.
+> 
+> Sorry, I don't follow your argument. A limit can be raised at time point in
+> the future. The question is more whether we are confident that Xen on Arm will
+> run well if a user has a platform with 256/512 pCPUs.
+> 
+> So are you saying that from Xen point of view, you are expecting no difference
+> between 256 and 512. And therefore you would be happy if to backport patches
+> if someone find differences (or even security issues) when using > 256 pCPUs?
+
+It is difficult to be sure about anything that it is not regularly
+tested. I am pretty sure someone in the community got Xen running on an
+Ampere, so like you said 192 is a good number. However, that is not
+regularly tested, so we don't have any regression checks in gitlab-ci or
+OSSTest for it.
+
+One approach would be to only support things regularly tested either by
+OSSTest, Gitlab-ci, or also Xen community members. I am not sure what
+would be the highest number with this way of thinking but likely no
+more than 192, probably less. I don't know the CPU core count of the
+biggest ARM machine in OSSTest.
+
+Another approach is to support a "sensible" number: not something tested
+but something we believe it should work. No regular testing. (In safety,
+they only believe in things that are actually tested, so this would not
+be OK. But this is security, not safety, just FYI.) With this approach,
+we could round up the number to a limit we think it won't break. If 192
+works, 256/512 should work? I don't know but couldn't think of something
+that would break going from 192 to 256.
+
+It depends on how strict we want to be on testing requirements. I am not
+sure what approach was taken by x86 so far. I am OK either way.
+--8323329-1617437709-1714763254=:1151289--
 
