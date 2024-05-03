@@ -2,37 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 94AB18BAE57
-	for <lists+xen-devel@lfdr.de>; Fri,  3 May 2024 16:01:44 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.716486.1118636 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0DF278BAE63
+	for <lists+xen-devel@lfdr.de>; Fri,  3 May 2024 16:03:42 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.716493.1118646 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s2tTf-0007mu-Ht; Fri, 03 May 2024 14:01:31 +0000
+	id 1s2tVY-0008RL-0F; Fri, 03 May 2024 14:03:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 716486.1118636; Fri, 03 May 2024 14:01:31 +0000
+Received: by outflank-mailman (output) from mailman id 716493.1118646; Fri, 03 May 2024 14:03:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s2tTf-0007kz-DS; Fri, 03 May 2024 14:01:31 +0000
-Received: by outflank-mailman (input) for mailman id 716486;
- Fri, 03 May 2024 14:01:30 +0000
+	id 1s2tVX-0008PF-Sp; Fri, 03 May 2024 14:03:27 +0000
+Received: by outflank-mailman (input) for mailman id 716493;
+ Fri, 03 May 2024 14:03:26 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ZLhg=MG=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1s2tTd-0007kg-VP
- for xen-devel@lists.xenproject.org; Fri, 03 May 2024 14:01:29 +0000
-Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
- [2a00:1450:4864:20::42f])
+ <SRS0=MkFU=MG=flex--seanjc.bounces.google.com=3q-40ZgYKCZQG2yB704CC492.0CAL2B-12J2996GHG.L2BDFC720H.CF4@srs-se1.protection.inumbo.net>)
+ id 1s2tVW-0008P5-HI
+ for xen-devel@lists.xenproject.org; Fri, 03 May 2024 14:03:26 +0000
+Received: from mail-yb1-xb4a.google.com (mail-yb1-xb4a.google.com
+ [2607:f8b0:4864:20::b4a])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a38481c2-0955-11ef-909c-e314d9c70b13;
- Fri, 03 May 2024 16:01:29 +0200 (CEST)
-Received: by mail-wr1-x42f.google.com with SMTP id
- ffacd0b85a97d-34d8d11a523so2207482f8f.2
- for <xen-devel@lists.xenproject.org>; Fri, 03 May 2024 07:01:29 -0700 (PDT)
-Received: from localhost ([213.195.114.223]) by smtp.gmail.com with ESMTPSA id
- cx14-20020a056000092e00b0034a2d0b9a4fsm3864981wrb.17.2024.05.03.07.01.28
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 03 May 2024 07:01:28 -0700 (PDT)
+ id e87e86d9-0955-11ef-909c-e314d9c70b13;
+ Fri, 03 May 2024 16:03:25 +0200 (CEST)
+Received: by mail-yb1-xb4a.google.com with SMTP id
+ 3f1490d57ef6-de59ff8af0bso13577809276.2
+ for <xen-devel@lists.xenproject.org>; Fri, 03 May 2024 07:03:25 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,100 +40,151 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a38481c2-0955-11ef-909c-e314d9c70b13
+X-Inumbo-ID: e87e86d9-0955-11ef-909c-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1714744889; x=1715349689; darn=lists.xenproject.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=A9cDuwhBHs1gnvDfwUBcGu+H7/TOZIK+IHm/APTdY5U=;
-        b=ObuA4q4S0hgxw8NQ/S/mo/Wz5eOHmEGmAbNb2raodQO3kiT83efn+TOobDdZ9QEgzp
-         5a86Z+CqhTEjc3tnfLhi6exXd1KmESwAMuKMFpURzq9sDZN24PCWAhdq7x8SMk+CwQ2m
-         nQmGWTC4EhWz+Q/qNz+8bbrJv63FXzp9e3mxY=
+        d=google.com; s=20230601; t=1714745004; x=1715349804; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:from:subject:message-id:references
+         :mime-version:in-reply-to:date:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=a136SOKV90n/XcmvCvD6zgQKrJ5kR/Q+OhiUt3FbOiE=;
+        b=zvhRf2DDgMqroQU5HA7kOmbkw7yxHrj/yEbbtbWLAXQ7fyOyIVPpJvos59L39N/fuY
+         cYLFeaWEGjIpunhb+m+I2h18VW00dK8vnoQbbkXzHutSG0O9CbUE2/dmdz32vIahuAVU
+         1AIzyoRzvxFm4vic8c7ZbuMW7LiCGe6inUoTkLeC7ziJosDCcvOBCZBdRB8WqAgvuJ1t
+         dnl5FjAzOM45sk39VO1pKAt2yBbipr2Fq2HGW/vZa8Jd+TRX6lKi31U82E7kvE+cAmzx
+         RMIEOe9oFDuwtZ1KM1267QbhWeP34duM1gXGlwNW24lK1ZvlonXpedOCuHMZW1dSDfZL
+         m04w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1714744889; x=1715349689;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=A9cDuwhBHs1gnvDfwUBcGu+H7/TOZIK+IHm/APTdY5U=;
-        b=aLTkid7XeVv1wA43dp7/3CHrld0ovA65c5qjG/vX5Kt8TZu58XDhtE/brKlwjfJhmn
-         UJBbFjsvwH7PAYhkKrLNizfqa1NeBEPgvHgYgTO3D9JTvNMrQ0Sh/mcnceBYMWRvtg36
-         MkfwrH2/5zsKB9hWGqT4C8NPZqf+03yqmVbWSIN7/4Ava79NbUJTMMFbuLanAsQDSbGC
-         70+DxcbfKehmbWx/Uw6xFeAwbGdJIdQy07+iQ4K+rQDb49HnzcpPpLNNDywkUbKdrW00
-         QGQLKjFuSvl6yjrHJcFFKtQh6NZh5zJvawtvsqc1vYmRo/hq3vUJDWSSvrFx8QiTy3LV
-         NZsQ==
-X-Gm-Message-State: AOJu0YwYe5TutgzzsqRBAU9TPyHhF76RXWQLQ3++2dHaQvvWIq3HxG8X
-	5ESNr9bHwdNaUP+81fL1LtXM8CD8oohx3gGKxdav8WKK0EyGD9gWUoCyGNqj190=
-X-Google-Smtp-Source: AGHT+IF/ileQ8zUAa2ZSVXa2HqDO9W+DmPGx0vnvkkUXGIOlD6ppabL47IYCGrvgHyno0BxDv/3VMg==
-X-Received: by 2002:a5d:4690:0:b0:34d:91d:8f93 with SMTP id u16-20020a5d4690000000b0034d091d8f93mr2051359wrq.47.1714744888738;
-        Fri, 03 May 2024 07:01:28 -0700 (PDT)
-Date: Fri, 3 May 2024 16:01:27 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
-	Kevin Tian <kevin.tian@intel.com>, Paul Durrant <paul@xen.org>
-Subject: Re: [PATCH v2 01/12] VT-d: correct ATS checking for root complex
- integrated devices
-Message-ID: <ZjTuN8Ydh0pVCoNZ@macbook>
-References: <64b028be-2197-4951-ae5b-32f9eabfa84a@suse.com>
- <3686dae7-e005-47b5-9235-14208a68eec5@suse.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <3686dae7-e005-47b5-9235-14208a68eec5@suse.com>
+        d=1e100.net; s=20230601; t=1714745004; x=1715349804;
+        h=content-transfer-encoding:cc:to:from:subject:message-id:references
+         :mime-version:in-reply-to:date:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=a136SOKV90n/XcmvCvD6zgQKrJ5kR/Q+OhiUt3FbOiE=;
+        b=bZYa6PRCjlLsIz3SmWS7suD8Uo0DSRhQJtf8lnIaJ7eigcu0B69CPx1qkhiH/0XIOY
+         tFvt8ylqETGjVsuQI+egyApF3JJhW8bBm947+v2KUchjFkHT1z5PFbyKytQzff2kHH3x
+         vPTyBimUcDwtPl7Vs1cjo+hdnRoVpFMVC18SVi+JJQeyPLjqHH8mCuw6Gfm8R8KjMeKY
+         Eg3dr1PTGKwoZSeA0RFA8JkshNKzLIdThUgZ/N93jhHEQJSF6EbMmkAbO2yI702e6jGV
+         ydEEo7oUYEHhkU8+3+8H7HSBr8n+ocyZ2BsqCqzkWZE/i2B76FtpViCgvpryqEtYtPKk
+         xKXA==
+X-Forwarded-Encrypted: i=1; AJvYcCUDC9mU0loYUtI0+bIvg9hJz8IaJXxNDq0y5wpYipOtKAT74jVJMeD4B9YkfpOB/A6900MguGSCUAY9FP4VGimtbdC5xhN/rvr2+MDMsqc=
+X-Gm-Message-State: AOJu0YzidlMtp+HA2SHj+dZ1kr28+HnwDlL9MqX6Lw3jH8wHAmdyCfVd
+	0f/sN5B5woYWTwDtGelvh7Gh+sXVuaRhG28ZBfqttF8fjrFUoB6Ou4lNt17Ksf9pDFvojyEKaGm
+	IsA==
+X-Google-Smtp-Source: AGHT+IG8Se+FDx3icVQiBS8y3Ql+XygTIGhFwTldpFeLgMxDQJNLd2QsRcCHI+DmhaCm9MeTHgIbmJIbKcw=
+X-Received: from zagreus.c.googlers.com ([fda3:e722:ac3:cc00:7f:e700:c0a8:5c37])
+ (user=seanjc job=sendgmr) by 2002:a05:6902:1201:b0:de6:141a:b0de with SMTP id
+ s1-20020a056902120100b00de6141ab0demr337561ybu.10.1714745003300; Fri, 03 May
+ 2024 07:03:23 -0700 (PDT)
+Date: Fri, 3 May 2024 07:03:21 -0700
+In-Reply-To: <20240503131910.307630-4-mic@digikod.net>
+Mime-Version: 1.0
+References: <20240503131910.307630-1-mic@digikod.net> <20240503131910.307630-4-mic@digikod.net>
+Message-ID: <ZjTuqV-AxQQRWwUW@google.com>
+Subject: Re: [RFC PATCH v3 3/5] KVM: x86: Add notifications for Heki policy
+ configuration and violation
+From: Sean Christopherson <seanjc@google.com>
+To: "=?utf-8?Q?Micka=C3=ABl_Sala=C3=BCn?=" <mic@digikod.net>
+Cc: Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, 
+	"H . Peter Anvin" <hpa@zytor.com>, Ingo Molnar <mingo@redhat.com>, Kees Cook <keescook@chromium.org>, 
+	Paolo Bonzini <pbonzini@redhat.com>, Thomas Gleixner <tglx@linutronix.de>, 
+	Vitaly Kuznetsov <vkuznets@redhat.com>, Wanpeng Li <wanpengli@tencent.com>, 
+	Rick P Edgecombe <rick.p.edgecombe@intel.com>, Alexander Graf <graf@amazon.com>, 
+	Angelina Vu <angelinavu@linux.microsoft.com>, 
+	Anna Trikalinou <atrikalinou@microsoft.com>, Chao Peng <chao.p.peng@linux.intel.com>, 
+	Forrest Yuan Yu <yuanyu@google.com>, James Gowans <jgowans@amazon.com>, 
+	James Morris <jamorris@linux.microsoft.com>, John Andersen <john.s.andersen@intel.com>, 
+	"Madhavan T . Venkataraman" <madvenka@linux.microsoft.com>, Marian Rotariu <marian.c.rotariu@gmail.com>, 
+	"Mihai =?utf-8?B?RG9uyJt1?=" <mdontu@bitdefender.com>, 
+	"=?utf-8?B?TmljdciZb3IgQ8OuyJt1?=" <nicu.citu@icloud.com>, Thara Gopinath <tgopinath@microsoft.com>, 
+	Trilok Soni <quic_tsoni@quicinc.com>, Wei Liu <wei.liu@kernel.org>, 
+	Will Deacon <will@kernel.org>, Yu Zhang <yu.c.zhang@linux.intel.com>, 
+	"=?utf-8?Q?=C8=98tefan_=C8=98icleru?=" <ssicleru@bitdefender.com>, dev@lists.cloudhypervisor.org, 
+	kvm@vger.kernel.org, linux-hardening@vger.kernel.org, 
+	linux-hyperv@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-security-module@vger.kernel.org, qemu-devel@nongnu.org, 
+	virtualization@lists.linux-foundation.org, x86@kernel.org, 
+	xen-devel@lists.xenproject.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, Feb 15, 2024 at 11:13:24AM +0100, Jan Beulich wrote:
-> Spec version 4.1 says
-> 
-> "The ATSR structures identifies PCI Express Root-Ports supporting
->  Address Translation Services (ATS) transactions. Software must enable
->  ATS on endpoint devices behind a Root Port only if the Root Port is
->  reported as supporting ATS transactions."
-> 
-> Clearly root complex integrated devices aren't "behind root ports",
-> matching my observation on a SapphireRapids system having an ATS-
-> capable root complex integrated device. Hence for such devices we
-> shouldn't try to locate a corresponding ATSR.
-> 
-> Since both pci_find_ext_capability() and pci_find_cap_offset() return
-> "unsigned int", change "pos" to that type at the same time.
-> 
-> Fixes: 903b93211f56 ("[VTD] laying the ground work for ATS")
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
-
-Acked-by: Roger Pau Monné <roger.pau@citrix.com>
-
+On Fri, May 03, 2024, Micka=C3=ABl Sala=C3=BCn wrote:
+> Add an interface for user space to be notified about guests' Heki policy
+> and related violations.
+>=20
+> Extend the KVM_ENABLE_CAP IOCTL with KVM_CAP_HEKI_CONFIGURE and
+> KVM_CAP_HEKI_DENIAL. Each one takes a bitmask as first argument that can
+> contains KVM_HEKI_EXIT_REASON_CR0 and KVM_HEKI_EXIT_REASON_CR4. The
+> returned value is the bitmask of known Heki exit reasons, for now:
+> KVM_HEKI_EXIT_REASON_CR0 and KVM_HEKI_EXIT_REASON_CR4.
+>=20
+> If KVM_CAP_HEKI_CONFIGURE is set, a VM exit will be triggered for each
+> KVM_HC_LOCK_CR_UPDATE hypercalls according to the requested control
+> register. This enables to enlighten the VMM with the guest
+> auto-restrictions.
+>=20
+> If KVM_CAP_HEKI_DENIAL is set, a VM exit will be triggered for each
+> pinned CR violation. This enables the VMM to react to a policy
+> violation.
+>=20
+> Cc: Borislav Petkov <bp@alien8.de>
+> Cc: Dave Hansen <dave.hansen@linux.intel.com>
+> Cc: H. Peter Anvin <hpa@zytor.com>
+> Cc: Ingo Molnar <mingo@redhat.com>
+> Cc: Kees Cook <keescook@chromium.org>
+> Cc: Madhavan T. Venkataraman <madvenka@linux.microsoft.com>
+> Cc: Paolo Bonzini <pbonzini@redhat.com>
+> Cc: Sean Christopherson <seanjc@google.com>
+> Cc: Thomas Gleixner <tglx@linutronix.de>
+> Cc: Vitaly Kuznetsov <vkuznets@redhat.com>
+> Cc: Wanpeng Li <wanpengli@tencent.com>
+> Signed-off-by: Micka=C3=ABl Sala=C3=BCn <mic@digikod.net>
+> Link: https://lore.kernel.org/r/20240503131910.307630-4-mic@digikod.net
 > ---
-> v2: New.
-> 
-> --- a/xen/drivers/passthrough/vtd/x86/ats.c
-> +++ b/xen/drivers/passthrough/vtd/x86/ats.c
-> @@ -44,7 +44,7 @@ struct acpi_drhd_unit *find_ats_dev_drhd
->  int ats_device(const struct pci_dev *pdev, const struct acpi_drhd_unit *drhd)
->  {
->      struct acpi_drhd_unit *ats_drhd;
-> -    int pos;
-> +    unsigned int pos, expfl = 0;
->  
->      if ( !ats_enabled || !iommu_qinval )
->          return 0;
-> @@ -53,7 +53,12 @@ int ats_device(const struct pci_dev *pde
->           !ecap_dev_iotlb(drhd->iommu->ecap) )
->          return 0;
->  
-> -    if ( !acpi_find_matched_atsr_unit(pdev) )
-> +    pos = pci_find_cap_offset(pdev->sbdf, PCI_CAP_ID_EXP);
-> +    if ( pos )
-> +        expfl = pci_conf_read16(pdev->sbdf, pos + PCI_EXP_FLAGS);
-> +
-> +    if ( MASK_EXTR(expfl, PCI_EXP_FLAGS_TYPE) != PCI_EXP_TYPE_RC_END &&
-> +         !acpi_find_matched_atsr_unit(pdev) )
+>=20
+> Changes since v1:
+> * New patch. Making user space aware of Heki properties was requested by
+>   Sean Christopherson.
 
-Given the spec quote above, it might also be helpful to check that the
-type is PCI_EXP_TYPE_ENDPOINT before attempting the ATSR check?
+No, I suggested having userspace _control_ the pinning[*], not merely be no=
+tified
+of pinning.
 
-I would assume a well formed ATSR won't list non-endpoint devices.
+ : IMO, manipulation of protections, both for memory (this patch) and CPU s=
+tate
+ : (control registers in the next patch) should come from userspace.  I hav=
+e no
+ : objection to KVM providing plumbing if necessary, but I think userspace =
+needs to
+ : to have full control over the actual state.
+ :=20
+ : One of the things that caused Intel's control register pinning series to=
+ stall
+ : out was how to handle edge cases like kexec() and reboot.  Deferring to =
+userspace
+ : means the kernel doesn't need to define policy, e.g. when to unprotect m=
+emory,
+ : and avoids questions like "should userspace be able to overwrite pinned =
+control
+ : registers".
+ :=20
+ : And like the confidential VM use case, keeping userspace in the loop is =
+a big
+ : beneifit, e.g. the guest can't circumvent protections by coercing usersp=
+ace into
+ : writing to protected memory.
 
-Thanks, Roger.
+I stand by that suggestion, because I don't see a sane way to handle things=
+ like
+kexec() and reboot without having a _much_ more sophisticated policy than w=
+ould
+ever be acceptable in KVM.
+
+I think that can be done without KVM having any awareness of CR pinning wha=
+tsoever.
+E.g. userspace just needs to ability to intercept CR writes and inject #GPs=
+.  Off
+the cuff, I suspect the uAPI could look very similar to MSR filtering.  E.g=
+. I bet
+userspace could enforce MSR pinning without any new KVM uAPI at all.
+
+[*] https://lore.kernel.org/all/ZFUyhPuhtMbYdJ76@google.com
 
