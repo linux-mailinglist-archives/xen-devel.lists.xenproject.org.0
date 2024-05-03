@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 34F668BA76E
-	for <lists+xen-devel@lfdr.de>; Fri,  3 May 2024 09:11:06 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.716246.1118344 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9E75F8BA7C6
+	for <lists+xen-devel@lfdr.de>; Fri,  3 May 2024 09:29:51 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.716258.1118354 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s2n3C-0001PP-TT; Fri, 03 May 2024 07:09:46 +0000
+	id 1s2nM9-0004JE-Dj; Fri, 03 May 2024 07:29:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 716246.1118344; Fri, 03 May 2024 07:09:46 +0000
+Received: by outflank-mailman (output) from mailman id 716258.1118354; Fri, 03 May 2024 07:29:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s2n3C-0001N5-PV; Fri, 03 May 2024 07:09:46 +0000
-Received: by outflank-mailman (input) for mailman id 716246;
- Fri, 03 May 2024 07:09:45 +0000
+	id 1s2nM9-0004Gv-Ap; Fri, 03 May 2024 07:29:21 +0000
+Received: by outflank-mailman (input) for mailman id 716258;
+ Fri, 03 May 2024 07:29:19 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=o9xE=MG=bugseng.com=alessandro.zucchelli@srs-se1.protection.inumbo.net>)
- id 1s2n3B-0001Mz-Tc
- for xen-devel@lists.xenproject.org; Fri, 03 May 2024 07:09:45 +0000
+ <SRS0=GLdc=MG=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
+ id 1s2nM7-0004Gp-M1
+ for xen-devel@lists.xenproject.org; Fri, 03 May 2024 07:29:19 +0000
 Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 1d90164f-091c-11ef-b4bb-af5377834399;
- Fri, 03 May 2024 09:09:43 +0200 (CEST)
+ id d98a99f8-091e-11ef-b4bb-af5377834399;
+ Fri, 03 May 2024 09:29:17 +0200 (CEST)
 Received: from support.bugseng.com (support.bugseng.com [162.55.131.47])
- by support.bugseng.com (Postfix) with ESMTPA id B8A774EE0738;
- Fri,  3 May 2024 09:09:42 +0200 (CEST)
+ by support.bugseng.com (Postfix) with ESMTPA id 125B44EE0738;
+ Fri,  3 May 2024 09:29:17 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,87 +39,79 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1d90164f-091c-11ef-b4bb-af5377834399
+X-Inumbo-ID: d98a99f8-091e-11ef-b4bb-af5377834399
 MIME-Version: 1.0
-Date: Fri, 03 May 2024 09:09:42 +0200
-From: Alessandro Zucchelli <alessandro.zucchelli@bugseng.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: consulting@bugseng.com, Tamas K Lengyel <tamas@tklengyel.com>, Alexandru
- Isaila <aisaila@bitdefender.com>, Petre Pircalabu
- <ppircalabu@bitdefender.com>, xen-devel@lists.xenproject.org,
- sstabellini@kernel.org, julien@xen.org, bertrand.marquis@arm.com,
- michal.orzel@amd.com, volodymyr_babchuk@epam.com
-Subject: Re: [XEN PATCH] xen/mem_access: address violations of MISRA C: 2012
- Rule 8.4
-Reply-To: alessandro.zucchelli@bugseng.com
-Mail-Reply-To: alessandro.zucchelli@bugseng.com
-In-Reply-To: <08eb5444-2bf0-48c0-9fcb-d8e4b801e8fa@suse.com>
-References: <a3d4e07433932624266ac9b675daf0b70734696d.1714405386.git.alessandro.zucchelli@bugseng.com>
- <08eb5444-2bf0-48c0-9fcb-d8e4b801e8fa@suse.com>
-Message-ID: <834460aca34e6167a3c4620616c145b8@bugseng.com>
-X-Sender: alessandro.zucchelli@bugseng.com
-Organization: BUGSENG Srl
+Date: Fri, 03 May 2024 09:29:17 +0200
+From: Nicola Vetrini <nicola.vetrini@bugseng.com>
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: xen-devel@lists.xenproject.org, michal.orzel@amd.com,
+ xenia.ragiadakou@amd.com, ayan.kumar.halder@amd.com, consulting@bugseng.com,
+ bertrand.marquis@arm.com, julien@xen.org, Volodymyr Babchuk
+ <Volodymyr_Babchuk@epam.com>
+Subject: Re: [XEN PATCH v2 1/3] drivers: char: address violation of MISRA C
+ Rule 20.7
+In-Reply-To: <alpine.DEB.2.22.394.2405011257290.497719@ubuntu-linux-20-04-desktop>
+References: <cover.1714487169.git.nicola.vetrini@bugseng.com>
+ <3ae8aa13a5562440cf60e4b30f713e5b2f73c577.1714487169.git.nicola.vetrini@bugseng.com>
+ <alpine.DEB.2.22.394.2405011257290.497719@ubuntu-linux-20-04-desktop>
+Message-ID: <25f8aec2da7e963f80c12e23fc5f725a@bugseng.com>
+X-Sender: nicola.vetrini@bugseng.com
+Organization: BUGSENG s.r.l.
 Content-Type: text/plain; charset=US-ASCII;
  format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 2024-04-29 17:58, Jan Beulich wrote:
-> On 29.04.2024 17:45, Alessandro Zucchelli wrote:
->> Change #ifdef CONFIG_MEM_ACCESS by OR-ing defined(CONFIG_ARM),
->> allowing asm/mem_access.h to be included in all ARM build 
->> configurations.
->> This is to address the violation of MISRA C: 2012 Rule 8.4 which 
->> states:
->> "A compatible declaration shall be visible when an object or function
->> with external linkage is defined". Functions p2m_mem_access_check
->> and p2m_mem_access_check_and_get_page when CONFIG_MEM_ACCESS is not
->> defined in ARM builds don't have visible declarations in the file
->> containing their definitions.
+On 2024-05-01 21:57, Stefano Stabellini wrote:
+> On Tue, 30 Apr 2024, Nicola Vetrini wrote:
+>> MISRA C Rule 20.7 states: "Expressions resulting from the expansion
+>> of macro parameters shall be enclosed in parentheses". Therefore, some
+>> macro definitions should gain additional parentheses to ensure that 
+>> all
+>> current and future users will be safe with respect to expansions that
+>> can possibly alter the semantics of the passed-in macro parameter.
 >> 
->> Signed-off-by: Alessandro Zucchelli <alessandro.zucchelli@bugseng.com>
+>> No functional chage.
+>> 
+>> Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
+> 
+> Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+> 
+> 
 >> ---
->>  xen/include/xen/mem_access.h | 2 +-
->>  1 file changed, 1 insertion(+), 1 deletion(-)
+>> Changes in v2:
+>> - drop excess parentheses from val parameter.
+>> ---
+>>  xen/drivers/char/omap-uart.c | 5 +++--
+>>  1 file changed, 3 insertions(+), 2 deletions(-)
 >> 
->> diff --git a/xen/include/xen/mem_access.h 
->> b/xen/include/xen/mem_access.h
->> index 87d93b31f6..ec0630677d 100644
->> --- a/xen/include/xen/mem_access.h
->> +++ b/xen/include/xen/mem_access.h
->> @@ -33,7 +33,7 @@
->>   */
->>  struct vm_event_st;
+>> diff --git a/xen/drivers/char/omap-uart.c 
+>> b/xen/drivers/char/omap-uart.c
+>> index 03b5b66e7acb..e0128225f927 100644
+>> --- a/xen/drivers/char/omap-uart.c
+>> +++ b/xen/drivers/char/omap-uart.c
+>> @@ -48,8 +48,9 @@
+>>  /* System configuration register */
+>>  #define UART_OMAP_SYSC_DEF_CONF   0x0d   /* autoidle mode, wakeup is 
+>> enabled */
 >> 
->> -#ifdef CONFIG_MEM_ACCESS
->> +#if defined(CONFIG_MEM_ACCESS) || defined(CONFIG_ARM)
->>  #include <asm/mem_access.h>
->>  #endif
+>> -#define omap_read(uart, off)       readl((uart)->regs + 
+>> (off<<REG_SHIFT))
+>> -#define omap_write(uart, off, val) writel((val), (uart)->regs + 
+>> (off<<REG_SHIFT))
+>> +#define omap_read(uart, off)       readl((uart)->regs + ((off) << 
+>> REG_SHIFT))
+>> +#define omap_write(uart, off, val) writel(val, (uart)->regs + \
+>> +                                               ((off) << REG_SHIFT))
 > 
-> This doesn't look quite right. If Arm supports mem-access, why would it
-> not set MEM_ACCESS=y? Whereas if it's only stubs that Arm supplies, 
-> then
-> those would better move here, thus eliminating the need for a per-arch
-> stub header (see what was e.g. done for numa.h). This way RISC-V and 
-> PPC
-> (and whatever is to come) would then be taken care of as well.
+> the alignment looks off but could be fixed on commit
 > 
-ARM does support mem-access, so I don't think this is akin to the 
-changes done to handle numa.h.
-ARM also allows users to set MEM_ACCESS=n (e.g. 
-xen/arch/arm/configs/tiny64_defconfig) and builds just fine; however, 
-the implementation file mem_access.c is compiled unconditionally in 
-ARM's makefile, hence why the violation was spotted.
-This is a bit unusual, so I was also hoping to get some feedback from 
-mem-access maintainers as to why this discrepancy from x86 exists. I 
-probably should have also included some ARM maintainers as well, so I'm 
-going to loop them in now.
 
-An alternative option I think is to make the compilation of arm's 
-mem_access.c conditional on CONFIG_MEM_ACCESS (as for x86/mm and 
-common).
+Can you clarify what you mean here? I aligned readl and writeln and the 
+operands in writel to avoid the line being too long.
+
+Thanks,
 
 -- 
-Alessandro Zucchelli, B.Sc.
-
-Software Engineer, BUGSENG (https://bugseng.com)
+Nicola Vetrini, BSc
+Software Engineer, BUGSENG srl (https://bugseng.com)
 
