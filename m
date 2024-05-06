@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DF7AE8BC93B
-	for <lists+xen-devel@lfdr.de>; Mon,  6 May 2024 10:14:01 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.717289.1119333 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7B4428BC94F
+	for <lists+xen-devel@lfdr.de>; Mon,  6 May 2024 10:17:20 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.717293.1119344 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s3tTl-0004uG-BH; Mon, 06 May 2024 08:13:45 +0000
+	id 1s3tWo-0005j8-OD; Mon, 06 May 2024 08:16:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 717289.1119333; Mon, 06 May 2024 08:13:45 +0000
+Received: by outflank-mailman (output) from mailman id 717293.1119344; Mon, 06 May 2024 08:16:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s3tTl-0004s7-6z; Mon, 06 May 2024 08:13:45 +0000
-Received: by outflank-mailman (input) for mailman id 717289;
- Mon, 06 May 2024 08:13:43 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=gbjR=MJ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1s3tTj-0004qb-TJ
- for xen-devel@lists.xenproject.org; Mon, 06 May 2024 08:13:43 +0000
-Received: from mail-lj1-x22a.google.com (mail-lj1-x22a.google.com
- [2a00:1450:4864:20::22a])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 8d4f4492-0b80-11ef-909c-e314d9c70b13;
- Mon, 06 May 2024 10:13:42 +0200 (CEST)
-Received: by mail-lj1-x22a.google.com with SMTP id
- 38308e7fff4ca-2e2a4c20870so21164591fa.3
- for <xen-devel@lists.xenproject.org>; Mon, 06 May 2024 01:13:42 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- je8-20020a05600c1f8800b0041bf28aa11dsm15132210wmb.42.2024.05.06.01.13.41
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 06 May 2024 01:13:41 -0700 (PDT)
+	id 1s3tWo-0005gq-L3; Mon, 06 May 2024 08:16:54 +0000
+Received: by outflank-mailman (input) for mailman id 717293;
+ Mon, 06 May 2024 08:16:53 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=loHM=MJ=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1s3tWn-0005gk-A3
+ for xen-devel@lists.xenproject.org; Mon, 06 May 2024 08:16:53 +0000
+Received: from mail-lf1-x12d.google.com (mail-lf1-x12d.google.com
+ [2a00:1450:4864:20::12d])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id fd979ec8-0b80-11ef-b4bb-af5377834399;
+ Mon, 06 May 2024 10:16:51 +0200 (CEST)
+Received: by mail-lf1-x12d.google.com with SMTP id
+ 2adb3069b0e04-51f1bf83f06so1905567e87.1
+ for <xen-devel@lists.xenproject.org>; Mon, 06 May 2024 01:16:51 -0700 (PDT)
+Received: from [192.168.226.248] ([94.75.70.14])
+ by smtp.gmail.com with ESMTPSA id
+ b16-20020a0565120b9000b0051c4e9ebc71sm1551840lfv.210.2024.05.06.01.16.49
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 06 May 2024 01:16:50 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,97 +45,164 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8d4f4492-0b80-11ef-909c-e314d9c70b13
+X-Inumbo-ID: fd979ec8-0b80-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1714983222; x=1715588022; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:cc
-         :content-language:references:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=Oa41dDjxU7rF/t2uSqi3aUDKSelv+d9yen6SWI3wiag=;
-        b=ZhMA+/ScXGIZl1SGSlTPn6kwyV1nHkQuq2gW217fxvhc/QU7DNAf5/UXKjunfHdXmJ
-         MYgxqgEFa0zv9Z7OKBs72N1Uotj6tPHT598m9PkVrUmWu6Fsyq1+Db7i5XNTxlYhNx1I
-         6sNArM1gKScU5xFdurNaQ67ueMpWSU3K1/gxm8SQEKY2O/vMNYGIXK9FdtVMPUTJW0ZP
-         myS3cu7Y1HZrVOPZMVrHHG9cc2gw5juneFXZBg/uH5a090qjWjny7ga9BINtL5bjLrhi
-         am1EnbJvke3DdGEtN8i5OQes6YOSDD+3csv5Q34QE2LCRgyZ2RWbehk7OVVkHdWj2qcG
-         +0Pw==
+        d=gmail.com; s=20230601; t=1714983411; x=1715588211; darn=lists.xenproject.org;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=6ltznsBNEm1qvEPIFxf6ALehqFUyCcgDjD4oZEHMjg8=;
+        b=LALemgNe2DkFaYjgzob0rlmpJsEVPvDavq2kZqxaheZw7lsnz5FeEmYz9gCN8IxoIj
+         t5wp6fm/jabZnMUT/jSDkzp1/Ue0WTLJ/ootfYbPqWZGhHYd/3zMrvr1zHiv8WO8tDcB
+         /gQmG5FCciZ14RcdOR55uP4X8BTwPDLxJo2gjLAe8efS1lQ/aW0YPIpBo1u7VPmXndxV
+         cEsxST1zzm20+GYU0cWFEwUN4kzferDJByj/vZWY26KBx2KZW1ZS+YAwdnv+dbjff+fU
+         UQCwyum4cxbj8Yhqd2vbXgNltpEKLhq6YyyDFMDGI7JdRB8XMHQEOlv87hKwz68X0c1p
+         F0iw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1714983222; x=1715588022;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:cc
-         :content-language:references:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=Oa41dDjxU7rF/t2uSqi3aUDKSelv+d9yen6SWI3wiag=;
-        b=P6n5qLLvhnWlfAqqj15mIhHg79hNnFDJthSP8L+BNrh2au5hWSTN4+7chM+AueO9dz
-         oMXLc6FuSO8If07KnO8K5C5teFk1KOVEoYOn7gfMdyY4HxHRS8RHchxmSX8RyfCFC2N9
-         47XEbeCDwYUMRpd4TaN0ktYHVGUCwihAXbXIllh9SWES+XCRn/IZumN12oEBmHXHcsOr
-         ltYuyVcw8oLrR0FpclHh19m3KGobPlkxoXKejYoIs3FxP5e99nZEDtqlP2cVtM5t+XX9
-         k/Cx21GZV3a1cOcPmj3MIu1LLMs28P9yfFTS2i63f7jH4dn9HMNn+8Ne5Bhuy8pECyDv
-         oEUQ==
-X-Gm-Message-State: AOJu0Yxtv7PVOCyMOfZVM7/+tzxMkzWm06u+wOzC7s8BwrQ4QU81qdFz
-	slbuTr6utzsTGRLl6DXJ0kJmjZJut2XKY4EISdivmfaUoC7h1ELd3KbOJc2dbg==
-X-Google-Smtp-Source: AGHT+IG89GaC2yK1oIXI1RdsdeHVODJUmOs4OwfJDpDJwMBwGlUEDdWyOHLuOQRuSi2t2VwgXvH7JQ==
-X-Received: by 2002:a2e:3619:0:b0:2e2:891d:5f62 with SMTP id d25-20020a2e3619000000b002e2891d5f62mr4306487lja.29.1714983222093;
-        Mon, 06 May 2024 01:13:42 -0700 (PDT)
-Message-ID: <7fbe2757-99dd-486b-940f-4d30379f5c23@suse.com>
-Date: Mon, 6 May 2024 10:13:42 +0200
+        d=1e100.net; s=20230601; t=1714983411; x=1715588211;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=6ltznsBNEm1qvEPIFxf6ALehqFUyCcgDjD4oZEHMjg8=;
+        b=Am4BQKoU0iMc21VaP0OLfc/CH8e7RNzkLtwK7iGOK3r4ZJ3XuJT60L/1lzeYH0/h4z
+         H8GsSiQqNbXagE/B11J2ziFyGLQWU9iZKWfrF+fUCqk8veWsaSkryIWH4ueY6Tspk/RE
+         CHRvEBLRN9NJnp+V7RUBDNXmaKISseo/JsrpGiuqTA34xRmsWsYcZrrg352HssXPHbpD
+         O/B52j1vSKvSqQbcJBVqF6E1jVE2yLltV3IosxTMzrEbeLSmIbUQvJaGKLCAnawmbUaT
+         B2ojqkdiab+CQrgBozLjDZIV40Av6umajhwaMSPtcJmEfyyqup8mMl/pq6vQehFm0AhN
+         tmJQ==
+X-Forwarded-Encrypted: i=1; AJvYcCUaMEOhOwDdP7JSYAAPsK6Fl1JtQb/Utg4elk90Z8J/5AJafnTCWLgceuxCD/0wakz0/OmaCQpmHe0wSy+Lg/viXzFeU+28uPJgRBAGmQo=
+X-Gm-Message-State: AOJu0Yz+ivS3L/QZY9SopHAZCHlzzqqmQrwSCTg0ou2lw/pTpgckH0TE
+	lJneHl8PBuCKYdgcJWIZjk8hQiBnr8sHxlqr5O9zPVQCjeeQXlpf
+X-Google-Smtp-Source: AGHT+IFDVyYtHfiZu1KbCQvjbacSqSyptEw8QaSVmLR7h/n247yQeXey5mnAhx3IjY2mwz6XdmSq3Q==
+X-Received: by 2002:a05:6512:3f09:b0:51e:ff32:16a8 with SMTP id y9-20020a0565123f0900b0051eff3216a8mr8830963lfa.62.1714983410531;
+        Mon, 06 May 2024 01:16:50 -0700 (PDT)
+Message-ID: <2d81e4700075b55f1885a4b1c7ee44ad046b35f2.camel@gmail.com>
+Subject: Re: [PATCH v8 02/17] xen: introduce generic non-atomic test_*bit()
+From: Oleksii <oleksii.kurochko@gmail.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Roger Pau =?ISO-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>, Ross
+ Lagerwall <ross.lagerwall@citrix.com>, Stefano Stabellini
+ <sstabellini@kernel.org>,  Julien Grall <julien@xen.org>, Bertrand Marquis
+ <bertrand.marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>, Volodymyr
+ Babchuk <Volodymyr_Babchuk@epam.com>,  Andrew Cooper
+ <andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>,
+ Shawn Anastasio <sanastasio@raptorengineering.com>,
+ xen-devel@lists.xenproject.org
+Date: Mon, 06 May 2024 10:16:49 +0200
+In-Reply-To: <93eeb1d8-d41f-40e8-8ca2-e6828877b53d@suse.com>
+References: <cover.1713347222.git.oleksii.kurochko@gmail.com>
+	 <1a0977e3cf5a2de9f760ca5ec89a0d096894a9e3.1713347222.git.oleksii.kurochko@gmail.com>
+	 <3827c11c-6d47-411d-a356-871def4e5b30@suse.com>
+	 <940f11ee23b43ada1dba50bc0236c4764eb13d71.camel@gmail.com>
+	 <93eeb1d8-d41f-40e8-8ca2-e6828877b53d@suse.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.52.1 (3.52.1-1.fc40) 
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: file xen/include/xen/lib/x86/cpu-policy.h: Meaning of CPUID
- constants
-To: Fonyuy-Asheri Caleb <fonyuy-asheri.caleb@inria.fr>
-References: <2066842119.4829764.1714981618946.JavaMail.zimbra@inria.fr>
-Content-Language: en-US
-Cc: xen-devel@lists.xenproject.org
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <2066842119.4829764.1714981618946.JavaMail.zimbra@inria.fr>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
-On 06.05.2024 09:46, Fonyuy-Asheri Caleb wrote:
-> I came across these constants in the code (xen/include/xen/lib/x86/cpu-policy.h file) but no explanation of why they have been set that way. 
-> 
-> #define CPUID_GUEST_NR_BASIC (0xdu + 1) 
-> #define CPUID_GUEST_NR_CACHE (5u + 1) 
-> #define CPUID_GUEST_NR_FEAT (2u + 1) 
-> #define CPUID_GUEST_NR_TOPO (1u + 1) 
-> #define CPUID_GUEST_NR_XSTATE (62u + 1) 
-> #define CPUID_GUEST_NR_EXTD_INTEL (0x8u + 1) 
-> #define CPUID_GUEST_NR_EXTD_AMD (0x21u + 1) 
-> 
-> Please can someone explain to me why we have these constants or point to a documentation which explains it? 
+On Mon, 2024-05-06 at 08:33 +0200, Jan Beulich wrote:
+> On 03.05.2024 19:15, Oleksii wrote:
+> > On Thu, 2024-04-25 at 17:35 +0200, Jan Beulich wrote:
+> > > > =C2=A0 #include <asm/bitops.h>
+> > > > =C2=A0=20
+> > > > +#ifndef arch_check_bitop_size
+> > > > +#define arch_check_bitop_size(addr)
+> > >=20
+> > > Can this really do nothing? Passing the address of an object
+> > > smaller
+> > > than
+> > > bitop_uint_t will read past the object in the generic__*_bit()
+> > > functions.
+> > It seems RISC-V isn' happy with the following generic definition:
+> > =C2=A0=C2=A0 extern void __bitop_bad_size(void);
+> > =C2=A0=C2=A0=20
+> > =C2=A0=C2=A0 /* --------------------- Please tidy above here ----------=
+------
+> > ----
+> > =C2=A0=C2=A0 - */
+> > =C2=A0=C2=A0=20
+> > =C2=A0=C2=A0 #include <asm/bitops.h>
+> > =C2=A0=C2=A0=20
+> > =C2=A0=C2=A0 #ifndef arch_check_bitop_size
+> > =C2=A0=C2=A0=20
+> > =C2=A0=C2=A0 #define bitop_bad_size(addr) sizeof(*(addr)) <
+> > sizeof(bitop_uint_t)
+> > =C2=A0=C2=A0=20
+> > =C2=A0=C2=A0 #define arch_check_bitop_size(addr) \
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if ( bitop_bad_size(addr) ) __bito=
+p_bad_size();
+> > =C2=A0=C2=A0=20
+> > =C2=A0=C2=A0 #endif /* arch_check_bitop_size */
+>=20
+> I'm afraid you've re-discovered something that was also found during
+> the
+> original Arm porting effort. As nice and logical as it would (seem
+> to) be
+> to have bitop_uint_t match machine word size, there are places ...
+>=20
+> > The following errors occurs. bitop_uint_t for RISC-V is defined as
+> > unsigned long for now:
+>=20
+> ... where we assume such operations can be done on 32-bit quantities.
+Based on RISC-V spec machine word is 32-bit, so then I can just drop
+re-definition of bitop_uint_t in riscv/asm/types.h and use the
+definition of bitop_uint_t in xen/types.h.
+Also it will be needed to update __AMO() macros in <riscv>/asm/bitops.h
+in the following way:
+   #if BITOP_BITS_PER_WORD =3D=3D 64
+   #define __AMO(op)   "amo" #op ".d"
+   #elif BITOP_BITS_PER_WORD =3D=3D 32
+   #define __AMO(op)   "amo" #op ".w"
+   #else
+   #error "Unexpected BITS_PER_LONG"
+   #endif
+Note: BITS_PER_LONG was changed to BITOP_BITS_PER_WORD !
 
-These specify the number of (sub)leaves Xen supports, first and foremost to
-dimension internal arrays accordingly. I.e. the "why" lies in the way they're
-used.
+Only one question remains for me. Given that there are some operations whic=
+hcan be performed on 32-bit quantities, it seems to me that bitop_uint_t
+can only be uint32_t.
+Am I correct? If yes, do we need to have ability to redefine
+bitop_uint_t and=C2=A0BITOP_BITS_PER_WORD in xen/types.h:
+   #ifndef BITOP_TYPE
+   #define BITOP_BITS_PER_WORD 32
+  =20
+   typedef uint32_t bitop_uint_t;
+   #endif
 
-> I am particularly interested in the CPUID_GUEST_NR_BASIC given that for intel processors for example, we have 
-> basic leaves running up to 0x21u already for recent processors. This value sort of forces a particular max leaf value. 
+~ Oleksii
 
-Right, but support (for guests) for these needs properly enabling. Hence why
-that limit is the way it is, for the time being.
+>=20
+> Jan
+>=20
+> > =C2=A0=C2=A0=C2=A0 ./common/symbols-dummy.o -o ./.xen-syms.0
+> > riscv64-linux-gnu-ld: prelink.o: in function `atomic_sub':
+> > /build/xen/./arch/riscv/include/asm/atomic.h:152: undefined
+> > reference
+> > to `__bitop_bad_size'
+> > riscv64-linux-gnu-ld: prelink.o: in function
+> > `evtchn_check_pollers':
+> > /build/xen/common/event_channel.c:1531: undefined reference to
+> > `__bitop_bad_size'
+> > riscv64-linux-gnu-ld: /build/xen/common/event_channel.c:1521:
+> > undefined
+> > reference to `__bitop_bad_size'
+> > riscv64-linux-gnu-ld: prelink.o: in function `evtchn_init':
+> > /build/xen/common/event_channel.c:1541: undefined reference to
+> > `__bitop_bad_size'
+> > riscv64-linux-gnu-ld: prelink.o: in function `_read_lock':
+> > /build/xen/./include/xen/rwlock.h:94: undefined reference to
+> > `__bitop_bad_size'
+> > riscv64-linux-gnu-ld:
+> > prelink.o:/build/xen/./arch/riscv/include/asm/atomic.h:195: more
+> > undefined references to `__bitop_bad_size' follow
+> > riscv64-linux-gnu-ld: ./.xen-syms.0: hidden symbol
+> > `__bitop_bad_size'
+> > isn't defined
+> > riscv64-linux-gnu-ld: final link failed: bad value
+> > make[2]: *** [arch/riscv/Makefile:15: xen-syms] Error 1
+> >=20
+> > ~ Oleksii
+>=20
 
-Jan
+
 
