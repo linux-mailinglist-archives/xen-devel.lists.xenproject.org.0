@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 997FC8BCC29
-	for <lists+xen-devel@lfdr.de>; Mon,  6 May 2024 12:42:14 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.717539.1119844 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3EA978BCC8C
+	for <lists+xen-devel@lfdr.de>; Mon,  6 May 2024 13:03:00 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.717544.1119854 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s3vn8-0003w5-CK; Mon, 06 May 2024 10:41:54 +0000
+	id 1s3w6R-0001qf-U6; Mon, 06 May 2024 11:01:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 717539.1119844; Mon, 06 May 2024 10:41:54 +0000
+Received: by outflank-mailman (output) from mailman id 717544.1119854; Mon, 06 May 2024 11:01:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s3vn8-0003t2-9d; Mon, 06 May 2024 10:41:54 +0000
-Received: by outflank-mailman (input) for mailman id 717539;
- Mon, 06 May 2024 10:41:52 +0000
+	id 1s3w6R-0001oH-Qs; Mon, 06 May 2024 11:01:51 +0000
+Received: by outflank-mailman (input) for mailman id 717544;
+ Mon, 06 May 2024 11:01:51 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=gbjR=MJ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1s3vn6-0003sw-Pp
- for xen-devel@lists.xenproject.org; Mon, 06 May 2024 10:41:52 +0000
-Received: from mail-lf1-x12e.google.com (mail-lf1-x12e.google.com
- [2a00:1450:4864:20::12e])
+ id 1s3w6R-0001oB-CR
+ for xen-devel@lists.xenproject.org; Mon, 06 May 2024 11:01:51 +0000
+Received: from mail-lj1-x234.google.com (mail-lj1-x234.google.com
+ [2a00:1450:4864:20::234])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 3f3a8b0e-0b95-11ef-909c-e314d9c70b13;
- Mon, 06 May 2024 12:41:51 +0200 (CEST)
-Received: by mail-lf1-x12e.google.com with SMTP id
- 2adb3069b0e04-51f71e4970bso1983753e87.2
- for <xen-devel@lists.xenproject.org>; Mon, 06 May 2024 03:41:51 -0700 (PDT)
+ id 099cfb21-0b98-11ef-909c-e314d9c70b13;
+ Mon, 06 May 2024 13:01:49 +0200 (CEST)
+Received: by mail-lj1-x234.google.com with SMTP id
+ 38308e7fff4ca-2d8b2389e73so21787671fa.3
+ for <xen-devel@lists.xenproject.org>; Mon, 06 May 2024 04:01:49 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- hc17-20020a05622a2a1100b00437b4048972sm4984776qtb.18.2024.05.06.03.41.49
+ z11-20020a05600c0a0b00b0041c097e20f9sm19322123wmp.25.2024.05.06.04.01.48
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 06 May 2024 03:41:50 -0700 (PDT)
+ Mon, 06 May 2024 04:01:48 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,51 +45,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3f3a8b0e-0b95-11ef-909c-e314d9c70b13
+X-Inumbo-ID: 099cfb21-0b98-11ef-909c-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1714992111; x=1715596911; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1714993309; x=1715598109; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=WI60SXQx2PFmM3yU66qoV6vyK5R/kzpLS52lw1aCV3s=;
-        b=glbtTpcqB+wN6nnENwgo+EgAjWpJNitu8fP4MLSuIsI6AKBcbFWkgxOS0YL9kwkkbv
-         IgzIWJQ9ffOCu+OVBzNSCsNeTGkaKQ8HGFqtzRyVGTrtoOCjIgfgLHD8yiA6G4MmuYuz
-         FjP1uzjnjvBzAOJBdDfVRKHl9LOxoYgwuUY7IjM1k0VPiyFGWDDMOJV9UZuvIEjmXz9F
-         PS5XOM9zKo8wwOAYFv1RAm+N4T0d+uQrzYYsDYn4TWw0rLf5oiQiWlp6l1LfF2/APcYH
-         INfEjk6akGOvMyLQT9w8xYEC75qvr1tjaXjsIFFbmnqBM9xKqsvpe3/vULIt5pBjemWA
-         Sg+Q==
+        bh=vPisyKAC+kDGazaUgedMDr6re5zca91pODfF7/dPcps=;
+        b=W0MGuR+0Oj4hdJSiJ45FckPaJRg2/qtwdpxtzoMAQ18rU6lFRmoGHJUL0d0iu+67YV
+         PwQxuokomwzPa6XE4vVxVnkCuYx0qdiM8lLGsIJ444HxdhSOFCqRCRlhOiUnLz1CDPxk
+         gtrcUbUYNpxNAIKSMaVLXdLDQ1lbCx9pbv5f41sGUn+1fLi1LsPvV+t1UOE0B9iUTG/i
+         EKToVlSzrE/2KU5qcw8zrI206MOasx5aojDyD6eKQemIVaPg2MLqe/TfOfsCWXA6DCCH
+         LfL6i1m1GibqLllccJf+jznQyXPIEjsByu+evMIHZ+5jWZiY/h5eJjhGIdYt/IvIGo9p
+         3+vA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1714992111; x=1715596911;
+        d=1e100.net; s=20230601; t=1714993309; x=1715598109;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=WI60SXQx2PFmM3yU66qoV6vyK5R/kzpLS52lw1aCV3s=;
-        b=dX4ETdBkAxF8NTX6baeIXshtaOdYZbpYHd8a7ptYw90GvJpzDg3FTDxBRUkEuS4Nkq
-         8FF9NkD/QYjYNrgalcEoOi/e3SJgKMNlzY5ydrWdpIjfgjVjPvhMg2XcythYUh0HxHIU
-         ZgoPSOQX6LWkER1sO2iDa0A6KPAzn7VfyM2w/8eXnf99tu8Chmkv8wUOoBmWmyTgsndw
-         +cBP/uRJDfvBZZrIPOsh818yRxYzJg6Cc7nlgwy2HqcO6JctAGkEtZNbZ0impD2eBr8X
-         Yi1QwyosVQwwrn+PTHnEaJ1TvG3koxyJbPnScT+hhj4+CH7Z2vu3RGqaWHaGT70YgccP
-         KjmQ==
-X-Forwarded-Encrypted: i=1; AJvYcCVZ8vwPNJDhAw9F7A1imyID5E4jvROm7eFrWq1dlvntFBF0WVNQ/45YQBfypYXH3cWZMzxzS6t/bAkDbZSJ8n7aG7Y8undA+j8KLEpu55g=
-X-Gm-Message-State: AOJu0YzGq7jpz91A0rImkn88mPxPtFwgvshuwZFze2rFDtiOcYe7Eiri
-	JRn4ltChr+R0QTvq9MuI58XcSfRrAUvL3yTvh8emizxBfZdmtZY05pPDiCzc6Q==
-X-Google-Smtp-Source: AGHT+IEcve25x17bLq2o01bUwZioghN2LiADhk7vN13wnfyoFJVy/ven90nKGG+aR2ROUi1T2tEm3w==
-X-Received: by 2002:a19:4311:0:b0:51c:d8f6:4e6f with SMTP id q17-20020a194311000000b0051cd8f64e6fmr7521827lfa.40.1714992110572;
-        Mon, 06 May 2024 03:41:50 -0700 (PDT)
-Message-ID: <54a52cc8-4c36-4086-a10e-114e9a733f45@suse.com>
-Date: Mon, 6 May 2024 12:41:49 +0200
+        bh=vPisyKAC+kDGazaUgedMDr6re5zca91pODfF7/dPcps=;
+        b=SnHRtjm/hPDG16//ZPBU26npq+Im8uFWsag11SF9D85OU3o1rm5JvNGr1quZDs8bI/
+         6IiWEMaV/H5tyDPEPO/nNAqDsbDSMeDX1Ol0ORfubw32CWL31vNTj5YWz9vEM0Oq5Y2t
+         9pj4K+Rr9qPi2iX4wn4i1OoFZZe11CKD3HxpTiwRjM/dSFj32GsRCS50SckF8Hm2Hqql
+         OQKN8ktcOjkEjKTrplOi2MMPsBjzBUnWyYI6WbYRleKdXJthNJyN2P1ETgNRM1Sau2FL
+         JpMVPQqrvMVJP7H3629PVZcH+zDV2tuzjROT4vDBCklz4Rr9Y4vZ+0KrYkkSf8Jak4Cx
+         2wfw==
+X-Gm-Message-State: AOJu0YzSM1Y0jzoKjv8YpVvnMsGVsR1N55aeEWF+1PArGAZojgygeeZ3
+	6jtTCi9FowvIYw0WKWfnc64dXpa9N1B/HadYB0k/I37/gNpAbsE74w+6MRsbc2bS7HB+q+QgCEw
+	=
+X-Google-Smtp-Source: AGHT+IH94xAQRz012cal+dtTIW78sAGXd6hKfHgDijGJnPM5PXBWmIrYOpBIfTC2T3+iyjIC+3M3Sg==
+X-Received: by 2002:a2e:b8d2:0:b0:2e1:e8fa:4f4b with SMTP id s18-20020a2eb8d2000000b002e1e8fa4f4bmr7740843ljp.32.1714993309049;
+        Mon, 06 May 2024 04:01:49 -0700 (PDT)
+Message-ID: <fb687016-6979-4294-8426-a70d579dfb50@suse.com>
+Date: Mon, 6 May 2024 13:01:48 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH for-4.19? 2/2] xen/x86: remove foreign mappings from the
- p2m on teardown
+Subject: Re: [PATCH v2 03/12] VT-d: parse ACPI "SoC Integrated Address
+ Translation Cache Reporting Structure"s
 Content-Language: en-US
-To: Roger Pau Monne <roger.pau@citrix.com>
-Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
- Community Manager <community.manager@xenproject.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, xen-devel@lists.xenproject.org
-References: <20240430165845.81696-1-roger.pau@citrix.com>
- <20240430165845.81696-3-roger.pau@citrix.com>
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Paul Durrant <paul@xen.org>
+References: <64b028be-2197-4951-ae5b-32f9eabfa84a@suse.com>
+ <c70b250d-2ec4-4254-89cf-d3241dac0d35@suse.com> <Zjiw89WKvy6vJAPn@macbook>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -114,91 +112,134 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240430165845.81696-3-roger.pau@citrix.com>
+In-Reply-To: <Zjiw89WKvy6vJAPn@macbook>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 30.04.2024 18:58, Roger Pau Monne wrote:
-> @@ -2695,6 +2691,70 @@ int p2m_set_altp2m_view_visibility(struct domain *d, unsigned int altp2m_idx,
->      return rc;
->  }
->  
-> +/*
-> + * Remove foreign mappings from the p2m, as that drops the page reference taken
-> + * when mapped.
-> + */
-> +int relinquish_p2m_mapping(struct domain *d)
-> +{
-> +    struct p2m_domain *p2m = p2m_get_hostp2m(d);
+On 06.05.2024 12:29, Roger Pau Monné wrote:
+> On Thu, Feb 15, 2024 at 11:14:31AM +0100, Jan Beulich wrote:
+>> This is a prereq to us, in particular, respecting the "ATC required"
+>> flag.
+>>
+>> Note that ACPI_SATC_ATC_REQUIRED has its #define put in dmar.h, as we
+>> try to keep actbl*.h in sync what Linux (who in turn inherit from ACPI
+>> CA) has.
+>>
+>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+>> ---
+>> Lovely: On the SPR system with the SATC I tried passing "ats" (the
+>> "required" flag is clear there), just to then hit "IOMMU#4: QI dev wait
+>> descriptor taking too long" while setting up Dom0. The 2nd message there
+>> doesn't ever appear, so the request never completes. Not sure whether
+>> that's us doing something wrong or the hardware acting up. In the former
+>> case I'd generally expect an IOMMU fault to be raised, though. FTR same
+>> on 4.18 with just "VT-d: correct ATS checking for root complex
+>> integrated devices" backported there.
+> 
+> Great, so we likely have a bug in our ATS implementation?
 
-Are there any guarantees made anywhere that altp2m-s and nested P2Ms can't
-hold foreign mappings? p2m_entry_modify() certainly treats them all the same.
+Or there's a hardware / firmware issue. As said in the remark, while I'm
+not really sure which one it is, I'd kind of expect some form of error
+indication rather than just a hang if we did something wrong.
 
-> +    unsigned long gfn = gfn_x(p2m->max_gfn);
-> +    int rc = 0;
-> +
-> +    if ( !paging_mode_translate(d) )
-> +        return 0;
-> +
-> +    BUG_ON(!d->is_dying);
-> +
-> +    p2m_lock(p2m);
-> +
-> +    /* Iterate over the whole p2m on debug builds to ensure correctness. */
-> +    while ( gfn && (IS_ENABLED(CONFIG_DEBUG) || p2m->nr_foreign) )
-> +    {
-> +        unsigned int order;
-> +        p2m_type_t t;
-> +        p2m_access_t a;
-> +
-> +        _get_gfn_type_access(p2m, _gfn(gfn - 1), &t, &a, 0, &order, 0);
-> +        ASSERT(IS_ALIGNED(gfn, 1u << order));
+>> --- a/xen/drivers/passthrough/vtd/dmar.c
+>> +++ b/xen/drivers/passthrough/vtd/dmar.c
+>> @@ -47,6 +47,7 @@ LIST_HEAD_READ_MOSTLY(acpi_drhd_units);
+>>  LIST_HEAD_READ_MOSTLY(acpi_rmrr_units);
+>>  static LIST_HEAD_READ_MOSTLY(acpi_atsr_units);
+>>  static LIST_HEAD_READ_MOSTLY(acpi_rhsa_units);
+>> +static LIST_HEAD_READ_MOSTLY(acpi_satc_units);
+> 
+> We could even make this one RO after init.
 
-This heavily relies on the sole place where max_gfn is updated being indeed
-sufficient.
+Maybe, after first introducing LIST_HEAD_RO_AFTER_INIT() and then
+perhaps switching the others up front. IOW I'd prefer to keep those
+consistent and then (if so desired) update them all in one go.
 
-> +        gfn -= 1 << order;
+>> @@ -750,6 +751,93 @@ acpi_parse_one_rhsa(struct acpi_dmar_hea
+>>      return ret;
+>>  }
+>>  
+>> +static int __init register_one_satc(struct acpi_satc_unit *satcu)
+>> +{
+>> +    bool ignore = false;
+>> +    unsigned int i = 0;
+>> +    int ret = 0;
+>> +
+>> +    /* Skip checking if segment is not accessible yet. */
+>> +    if ( !pci_known_segment(satcu->segment) )
+>> +        i = UINT_MAX;
+>> +
+>> +    for ( ; i < satcu->scope.devices_cnt; i++ )
+>> +    {
+>> +        uint8_t b = PCI_BUS(satcu->scope.devices[i]);
+>> +        uint8_t d = PCI_SLOT(satcu->scope.devices[i]);
+>> +        uint8_t f = PCI_FUNC(satcu->scope.devices[i]);
+>> +
+>> +        if ( !pci_device_detect(satcu->segment, b, d, f) )
+>> +        {
+>> +            dprintk(XENLOG_WARNING VTDPREFIX,
+>> +                    " Non-existent device (%pp) is reported in SATC scope!\n",
+>> +                    &PCI_SBDF(satcu->segment, b, d, f));
+>> +            ignore = true;
+>> +        }
+>> +        else
+>> +        {
+>> +            ignore = false;
+>> +            break;
+>> +        }
+>> +    }
+>> +
+>> +    if ( ignore )
+>> +    {
+>> +        dprintk(XENLOG_WARNING VTDPREFIX,
+>> +                " Ignore SATC for seg %04x as no device under its scope is PCI discoverable\n",
+>> +                satcu->segment);
+> 
+> Re the error messages: won't it be better to print them using plain
+> printk and gate on iommu_verbose being enabled if anything?
+> 
+> It does seem a bit odd that such messages won't be printed when
+> iommu={debug,verbose} is enabled on the command line.
 
-Please be consistent with the kind of 1 you shift left. Perhaps anyway both
-better as 1UL.
+Well, perhaps yes. Yet I'm trying here to stay (largely) in sync with how
+in particular register_one_rmrr() behaves. Do you strictly think I should
+diverge here?
 
-> +        if ( t == p2m_map_foreign )
-> +        {
-> +            ASSERT(p2m->nr_foreign);
-> +            ASSERT(order == 0);
-> +            /*
-> +             * Foreign mappings can only be of order 0, hence there's no need
-> +             * to align the gfn to the entry order.  Otherwise we would need to
-> +             * adjust gfn to point to the start of the page if order > 0.
-> +             */
+>> +static int __init
+>> +acpi_parse_one_satc(const struct acpi_dmar_header *header)
+>> +{
+>> +    const struct acpi_dmar_satc *satc =
+>> +        container_of(header, const struct acpi_dmar_satc, header);
+>> +    struct acpi_satc_unit *satcu;
+>> +    const void *dev_scope_start, *dev_scope_end;
+>> +    int ret = acpi_dmar_check_length(header, sizeof(*satc));
+>> +
+>> +    if ( ret )
+>> +        return ret;
+>> +
+>> +    satcu = xzalloc(struct acpi_satc_unit);
+>> +    if ( !satcu )
+>> +        return -ENOMEM;
+>> +
+>> +    satcu->segment = satc->segment;
+>> +    satcu->atc_required = satc->flags & ACPI_SATC_ATC_REQUIRED;
+>> +
+>> +    dev_scope_start = (const void *)(satc + 1);
+>> +    dev_scope_end   = (const void *)satc + header->length;
+> 
+> Isn't it enough to just cast to void * and inherit the const from the
+> left side variable declaration?
 
-I'm a little irritated by this comment. Ahead of the enclosing if() you
-already rely on (and assert) GFN being suitably aligned.
+Misra won't like the (transient) removal of const, afaict. Personally I
+also consider it bad practice to omit such const.
 
-> +            rc = p2m_set_entry(p2m, _gfn(gfn), INVALID_MFN, order, p2m_invalid,
-> +                               p2m->default_access);
-> +            if ( rc )
-> +            {
-> +                printk(XENLOG_ERR
-> +                       "%pd: failed to unmap foreign page %" PRI_gfn " order %u error %d\n",
-> +                       d, gfn, order, rc);
-> +                ASSERT_UNREACHABLE();
-> +                break;
-> +            }
+> You could even initialize dev_scope_{start,end} at definition.
 
-Together with the updating of ->max_gfn further down, for a release build
-this means: A single attempt to clean up the domain would fail when such a
-set-entry fails. However, another attempt to clean up despite the earlier
-error would then not retry for the failed GFN, but continue one below.
-That's unexpected: I'd either see such a domain remain as a zombie forever,
-or a best effort continuation of all cleanup right away.
-
-> +        }
-> +
-> +        if ( !(gfn & 0xfff) && hypercall_preempt_check() )
-
-By going from gfn's low bits you may check way more often than necessary
-when encountering large pages.
+Right. This is again the way it is to be in sync with other
+acpi_parse_one_...() functions. It's always hard to judge where to diverge
+and where consistency is weighed higher. Whichever way you do it, you may
+get comment asking for the opposite ...
 
 Jan
 
