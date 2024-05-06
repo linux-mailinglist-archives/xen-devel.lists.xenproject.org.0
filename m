@@ -2,37 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7B2E88BCF35
-	for <lists+xen-devel@lfdr.de>; Mon,  6 May 2024 15:39:20 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.717664.1120090 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 90AD68BCF3A
+	for <lists+xen-devel@lfdr.de>; Mon,  6 May 2024 15:39:58 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.717667.1120100 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s3yYN-0003Yt-IH; Mon, 06 May 2024 13:38:51 +0000
+	id 1s3yZH-000449-Sb; Mon, 06 May 2024 13:39:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 717664.1120090; Mon, 06 May 2024 13:38:51 +0000
+Received: by outflank-mailman (output) from mailman id 717667.1120100; Mon, 06 May 2024 13:39:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s3yYN-0003Wv-FD; Mon, 06 May 2024 13:38:51 +0000
-Received: by outflank-mailman (input) for mailman id 717664;
- Mon, 06 May 2024 13:38:50 +0000
+	id 1s3yZH-00042B-Ob; Mon, 06 May 2024 13:39:47 +0000
+Received: by outflank-mailman (input) for mailman id 717667;
+ Mon, 06 May 2024 13:39:46 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=VpOg=MJ=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1s3yYM-0003Wp-51
- for xen-devel@lists.xenproject.org; Mon, 06 May 2024 13:38:50 +0000
-Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
- [2a00:1450:4864:20::32b])
+ <SRS0=Lkt3=MJ=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
+ id 1s3yZG-00040r-4a
+ for xen-devel@lists.xenproject.org; Mon, 06 May 2024 13:39:46 +0000
+Received: from NAM02-SN1-obe.outbound.protection.outlook.com
+ (mail-sn1nam02on20631.outbound.protection.outlook.com
+ [2a01:111:f400:7ea9::631])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f74b8557-0bad-11ef-b4bb-af5377834399;
- Mon, 06 May 2024 15:38:47 +0200 (CEST)
-Received: by mail-wm1-x32b.google.com with SMTP id
- 5b1f17b1804b1-41e82b78387so12843775e9.0
- for <xen-devel@lists.xenproject.org>; Mon, 06 May 2024 06:38:48 -0700 (PDT)
-Received: from localhost ([213.195.114.223]) by smtp.gmail.com with ESMTPSA id
- u9-20020adfa189000000b0034bc5934bf8sm10759564wru.31.2024.05.06.06.38.46
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 06 May 2024 06:38:47 -0700 (PDT)
+ id 183db192-0bae-11ef-b4bb-af5377834399;
+ Mon, 06 May 2024 15:39:44 +0200 (CEST)
+Received: from CH2PR12CA0011.namprd12.prod.outlook.com (2603:10b6:610:57::21)
+ by PH7PR12MB5854.namprd12.prod.outlook.com (2603:10b6:510:1d5::20)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7544.42; Mon, 6 May
+ 2024 13:39:40 +0000
+Received: from CH1PEPF0000A347.namprd04.prod.outlook.com
+ (2603:10b6:610:57:cafe::3c) by CH2PR12CA0011.outlook.office365.com
+ (2603:10b6:610:57::21) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7544.42 via Frontend
+ Transport; Mon, 6 May 2024 13:39:40 +0000
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ CH1PEPF0000A347.mail.protection.outlook.com (10.167.244.7) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7544.18 via Frontend Transport; Mon, 6 May 2024 13:39:40 +0000
+Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Mon, 6 May
+ 2024 08:39:39 -0500
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB05.amd.com
+ (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Mon, 6 May
+ 2024 08:39:39 -0500
+Received: from [10.252.147.188] (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.35 via Frontend
+ Transport; Mon, 6 May 2024 08:39:38 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,212 +63,177 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f74b8557-0bad-11ef-b4bb-af5377834399
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1715002727; x=1715607527; darn=lists.xenproject.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=WA3PJewGWcJ0vSMf1oiWHFOn6W9zm43WZOEYmSc5W+k=;
-        b=tt1VfIEtxULEd+5P2mzS4rDGezvFC3On1FU8e4eJISmSR0U/xoJgTbph1J7IAo+8qt
-         wDKB7lysewwy6r+maml88vhe58Qo7QsdYeglUiP/m/EkW8hzAS/cAKA8w7exr7jHnrDp
-         qXTvKdgZZqQVMM2un7E+M8ny+X0QLaOVy4HVQ=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1715002727; x=1715607527;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=WA3PJewGWcJ0vSMf1oiWHFOn6W9zm43WZOEYmSc5W+k=;
-        b=d5xo+Y4aiGuJ6t/koi97OQDpbsNqGyJgecA3M88Sarig6lmYgOiATPrBfhST3I/Sga
-         fL9cdYLSQkfjPIKHyqgzp18Heq3s5wA9mPOXCcdD6uIWoBpVVvC5iJGa7XJuFAR4j8xS
-         q9UsRVC4AN2+GeU/j8XAeIgbgAqlVlfP3d60yqZbHHmJokZqJn8rj1qWWl+3JyzHQ2F3
-         OJxsikDzHVjg9iy1PtLowFqBoDEJ30v09GBScyIZ4Cz0pLOUIAuGrOdbfAYshri/Dj7R
-         miPknesheeWA0bKvEsmP9T3wtECu1tELGQnQvSrEopESl05Gn9IyjqnGqbDTEbNZe4Ff
-         F5Ow==
-X-Gm-Message-State: AOJu0YxOWdtDqQhJgR87dZOmfTKFaLIib/z+BPRpx8jUw7bRFcuUhfKj
-	nmoQY4o8ZLhL5DZnQhyTNH5IFq5yIPbf6QuAqcsf/UPE8tg15KJg6fb+/sQLK3lJiK3UbyiOe4R
-	B
-X-Google-Smtp-Source: AGHT+IEo/chnw6rYpHAYwTydwUAMg61gZeznYY3GDrNYu59TykV32hwiqFrNrKpksXj9V7I/PI1bLA==
-X-Received: by 2002:a05:6000:49:b0:34a:3f3d:bb22 with SMTP id k9-20020a056000004900b0034a3f3dbb22mr8007514wrx.26.1715002727272;
-        Mon, 06 May 2024 06:38:47 -0700 (PDT)
-Date: Mon, 6 May 2024 15:38:45 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
-	Kevin Tian <kevin.tian@intel.com>, Paul Durrant <paul@xen.org>
-Subject: Re: [PATCH v2 06/12] VT-d: respect ACPI SATC's ATC_REQUIRED flag
-Message-ID: <ZjjdZRPluS0YIazc@macbook>
-References: <64b028be-2197-4951-ae5b-32f9eabfa84a@suse.com>
- <e98daa41-c6b6-4f4e-b41d-84006011068d@suse.com>
+X-Inumbo-ID: 183db192-0bae-11ef-b4bb-af5377834399
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Eg6Hfu5OFqGX7zrph32luwwCrT8EyX9QlgWhU325e44az7w7JCvxLnXMZbhb2D4fdSnB8ToNmawpHUPZgN0LGN2kBe3BqUp/qJ4/60u4Zpbs6t4+LQJ/rvts6WLaTVWs05A9ey7NXrD+YrAn71J/pp7ArjvYR8cue+N3JNWkGz7XpNGutcKGZ5ahka2m7wRqVLwzRf8/WR/CBISI6Dnmb8b+ITFPPYMYmDJe1U5aCow1aFh04AfATRDn0V2fRaWnYIANXylfp2eSPy03V3+ggw78w2YOTsuoTrb8jgV2FX95gxVHEnAxvB6YzLggYKNYC+4fOWswu5KpsENlmCNhlA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=MPCkmmAp+IGVKzc9GL8irMKVoCZzCPhBnUM5yusPrno=;
+ b=AmZUISqzX2I4tBekxW071qfFlZZVrwiPIKII2By/RmaJyEQGUirciE7EC+sxmYHyY9sn5GkJAKsFw0QveZsfW+5fIwusi4Ah4KZqrZ4C6P0sZhb9WRC3MJn+xd/3bQlZHzr5+kellUl2w0iei0gvQpizSGuafaxR9Mr6WAY+p8yBp4shJwsGFZFyhimzDAVLy3lds5ZK2LXImehg2ngo5+j7/EpS+pL8a7Q97dDrjafPmIujYKq804+Wyh+zvZdCUYONoMgEe5m7fmqhIws1oRMj8xHbXPc800YA/DabLMldPj7HdMRwykd6XoEw2uylZiJy5nsOHIQN+6qFBMuOUg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=arm.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=MPCkmmAp+IGVKzc9GL8irMKVoCZzCPhBnUM5yusPrno=;
+ b=HvsSahIalLb4ew6aTMp4IjdT1N/+yUPpgMXRGCtPfUqAbkM/WVep73w7lSiUK9Z2pSqP/vxXFdy0udmda3DaOC1n7Iy/uA4wseJl26D6oKtxSigXP9yEVE1ncDDUB9vmljtiJOcop4t1n4smt7dp/IlnM9noMOpE2BPzEiawI6I=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Message-ID: <ef9b0a4d-134c-4eea-927d-5cce0b330aff@amd.com>
+Date: Mon, 6 May 2024 15:39:37 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <e98daa41-c6b6-4f4e-b41d-84006011068d@suse.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/7] xen/arm: Wrap shared memory mapping code in one
+ function
+To: Luca Fancellu <luca.fancellu@arm.com>, <xen-devel@lists.xenproject.org>
+CC: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+	<julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>, "Volodymyr
+ Babchuk" <Volodymyr_Babchuk@epam.com>
+References: <20240423082532.776623-1-luca.fancellu@arm.com>
+ <20240423082532.776623-3-luca.fancellu@arm.com>
+Content-Language: en-US
+From: Michal Orzel <michal.orzel@amd.com>
+In-Reply-To: <20240423082532.776623-3-luca.fancellu@arm.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+Received-SPF: None (SATLEXMB05.amd.com: michal.orzel@amd.com does not
+ designate permitted sender hosts)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH1PEPF0000A347:EE_|PH7PR12MB5854:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5cc2a445-0d63-4d5c-6000-08dc6dd1fabd
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230031|36860700004|82310400017|1800799015|376005;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?VDZjYVNpbmhwZ1dYcXRCZm1JV3pjQUZXNmlLOHMvRFZyZFRkK3hLcHZDTUtE?=
+ =?utf-8?B?UkQzbXhCTHk2dytYMEgwek5yM3Q1Ni9aWHF5VWRoQ2FjanEyMlljR2gzNU1U?=
+ =?utf-8?B?ZVdNeFhVd1JNWjZaT1piOEJ4eHVWZTNoSlFLVlk3Nm15VG90SWN0S2FsTVVW?=
+ =?utf-8?B?Y2dTenFiSDZOY1JFSW1CcjdFSFp3RUhJN1JTTEhWZzdMZkxKZzFnbG9yNXhj?=
+ =?utf-8?B?UW1wVldwbCtheEdJT3FxeDVnSm9kZXdsd2hXdDNJTVZWRmxyVTdQOVJqdm5j?=
+ =?utf-8?B?cHk3SXlBTkdSQkMrT2ZWRG1pdk9jQWFiL1pReVVkT1hqLzhLQVZ3a2YwRE1V?=
+ =?utf-8?B?enF6ek9mUTd0T3BDRkNma3lMSURoeCsybGE0OXNHVXVyU0ZyUTAzWU9BZEJC?=
+ =?utf-8?B?LzdwSDhpeGZiREYzNkVxMHczbWVSWGMxRkdTSjJpMERlS3N1aWtWQXFlMTNF?=
+ =?utf-8?B?TjlkVmRXRE1uVmpyemdOSzRoSlgwZ0MwT2N6WmoraEhiUzA5STA4VklUaEdK?=
+ =?utf-8?B?UldkTTVaSFNRS3dkUkxPRU1XSnJidjk2MEZuam9jMGkrQWowT0hraXhvZEtQ?=
+ =?utf-8?B?UFN2KzM1TUkwazVEU0RQa2FJcHpjcEZFeHp4S3BrMUlQZEZFQnRReVA3aVVX?=
+ =?utf-8?B?ZGxHb2NOUEhhWjZwL05tNlllWnJ3YWkyRnpyQ3RBSEVOcHNPc0FYRmFXZ3A3?=
+ =?utf-8?B?Y2dnUFZFRkNaNUREY1hHOVpNYU50ejFSdEJER3JjM2cvaGFrdy92dTFMUGxG?=
+ =?utf-8?B?dTloVUhRZklhbURNY1IrSUU5dXU3T21PMzJmc2cxSGRCa2owbU5HM1QvOW9w?=
+ =?utf-8?B?YXNFY0tBZWduVEx2VVhHZTk4c0Rlbitxd2FrODNoWFd1eXBkMyt4Wk8yK3I1?=
+ =?utf-8?B?V0MvcTltTXNpcVNSVkhiM1l2Q0VBS2NIRGtZeXdKVXdNK09zVVZlVVIwc0dZ?=
+ =?utf-8?B?Q1pxM1p2c1NtR1k1ck1qVHZtRk9RRjRCQU1NTjBJem9aYXBidnorMmg0cDFP?=
+ =?utf-8?B?OXlmTWtzNjVYWml6ODhOWGN0c0syd3hNb3dzVGJQU1NLSlplSUVYZkRDVk1D?=
+ =?utf-8?B?SHRKV1M3eE9QMWVFM3o4SjNjVnlPQkU3ZmdOZzhidkdmUXNpOS93VHFjVG1w?=
+ =?utf-8?B?bUk4LzJoaWFKOGQrR2tnUU4zNnVtYWVCOEFMNW9WaHp1YS9tZXBvRlh5MkZ4?=
+ =?utf-8?B?OGxUQzVQS1NWa2laMWl5elpKZ2JoaW03WkxuMG5ZQjhUUFhTdk5tSUcybnBj?=
+ =?utf-8?B?MkRUVWRFK1ZPQ0YvT3FWRFhjYVlpSTBMSWJsc2N0WVcrZ1NydVpKS2x2QWxM?=
+ =?utf-8?B?NXYwVkxEaGM0cnltak5DdVM5eUpqdkFrR3dPR096ZllxUUZkMlRJdmdUV0FT?=
+ =?utf-8?B?bjVsaDc1dHdDcHFGZ1Jabk9VTTFrazFCNFhiL3JHcGs0NWZGL2VNODhLVUNW?=
+ =?utf-8?B?R2xHbHVhVW5QSnhkakRoQXVBQ284elUzSDVZeXk4VTNwRlhiblpPYkFSODM0?=
+ =?utf-8?B?VHRQQlhjbEJpT29PY0wxak4yNFM5VlBFTW5vVWtrbTZXSWVzcVhWaUp2dllS?=
+ =?utf-8?B?amZUd3MwbGtybFU4Vm1sNnFFNHRuSTRnMDBRMitjZnBtME42VFpCa1huU2hl?=
+ =?utf-8?B?azFIK09qKzNrSFVSZHBUVS94amFhMnUrVmhlaUZsMVdKb0krQk5nSmYxa3NP?=
+ =?utf-8?B?WjVqdW83NDJoQTZmZUttMFdRR2htUVR2bzJZd2l3YXJ4VUNrZG1od1B6S1VX?=
+ =?utf-8?B?eWNteXpGQjN4TjRqT0lucTRWSmFKYWxtdkNtcGxZaDBtYVBLTGJIUzIwZ0x6?=
+ =?utf-8?B?UE1yb3lzRmEvTFMxSnFDYmtueFVrTVpqN3ZNSlNzY05RcStZcHk4VjEzY2ZK?=
+ =?utf-8?Q?my8TH13qm4ZPd?=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(36860700004)(82310400017)(1800799015)(376005);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 May 2024 13:39:40.1450
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5cc2a445-0d63-4d5c-6000-08dc6dd1fabd
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CH1PEPF0000A347.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB5854
 
-On Thu, Feb 15, 2024 at 11:16:11AM +0100, Jan Beulich wrote:
-> When the flag is set, permit Dom0 to control the device (no worse than
-> what we had before and in line with other "best effort" behavior we use
-> when it comes to Dom0),
+Hi Luca,
 
-I think we should somehow be able to signal dom0 that this device
-might not operate as expected, otherwise dom0 might use it and the
-device could silently malfunction due to ATS not being enabled.
-
-Otherwise we should just hide the device from dom0.
-
-I assume setting the IOMMU context entry to passthrough mode would
-also be fine for such devices that require ATS?
-
-> but suppress passing through to DomU-s unless
-> ATS can actually be enabled for such devices (and was explicitly enabled
-> on the command line).
+On 23/04/2024 10:25, Luca Fancellu wrote:
 > 
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+> 
+> Wrap the code and logic that is calling assign_shared_memory
+> and map_regions_p2mt into a new function 'handle_shared_mem_bank',
+> it will become useful later when the code will allow the user to
+> don't pass the host physical address.
+> 
+> Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
 > ---
-> v2: Re-base over new earlier patches.
+>  xen/arch/arm/static-shmem.c | 71 +++++++++++++++++++++++--------------
+>  1 file changed, 45 insertions(+), 26 deletions(-)
 > 
-> --- a/docs/misc/xen-command-line.pandoc
-> +++ b/docs/misc/xen-command-line.pandoc
-> @@ -225,7 +225,11 @@ exceptions (watchdog NMIs and unexpected
->  > Default: `false`
->  
->  Permits Xen to set up and use PCI Address Translation Services.  This is a
-> -performance optimisation for PCI Passthrough.
-> +performance optimisation for PCI Passthrough.  Note that firmware may indicate
-> +that certain devices need to have ATS enabled for proper operation. For such
-> +devices ATS will be enabled by default, unless the option is used in its
-> +negative form.  Such devices will still not be eligible for passing through to
-> +guests, unless the option is used in its positive form.
->  
->  **WARNING: Xen cannot currently safely use ATS because of its synchronous wait
->  loops for Queued Invalidation completions.**
-> --- a/xen/drivers/passthrough/vtd/dmar.c
-> +++ b/xen/drivers/passthrough/vtd/dmar.c
-> @@ -253,6 +253,24 @@ struct acpi_atsr_unit *acpi_find_matched
->      return all_ports;
+> diff --git a/xen/arch/arm/static-shmem.c b/xen/arch/arm/static-shmem.c
+> index f6cf74e58a83..24e40495a481 100644
+> --- a/xen/arch/arm/static-shmem.c
+> +++ b/xen/arch/arm/static-shmem.c
+> @@ -185,6 +185,47 @@ append_shm_bank_to_domain(struct shared_meminfo *kinfo_shm_mem, paddr_t start,
+>      return 0;
 >  }
->  
-> +const struct acpi_satc_unit *acpi_find_matched_satc_unit(
-> +    const struct pci_dev *pdev)
+> 
+> +static int __init handle_shared_mem_bank(struct domain *d, paddr_t gbase,
+> +                                         bool owner_dom_io,
+> +                                         const char *role_str,
+> +                                         const struct membank *shm_bank)
 > +{
-> +    const struct acpi_satc_unit *satc;
+> +    paddr_t pbase, psize;
+> +    int ret;
 > +
-> +    list_for_each_entry ( satc, &acpi_satc_units, list )
+> +    BUG_ON(!shm_bank);
+not needed
+
+> +
+> +    pbase = shm_bank->start;
+> +    psize = shm_bank->size;
+please add empty line here
+
+> +    /*
+> +     * DOMID_IO is a fake domain and is not described in the Device-Tree.
+> +     * Therefore when the owner of the shared region is DOMID_IO, we will
+> +     * only find the borrowers.
+> +     */
+> +    if ( (owner_dom_io && !is_shm_allocated_to_domio(pbase)) ||
+> +         (!owner_dom_io && strcmp(role_str, "owner") == 0) )
 > +    {
-> +        if ( satc->segment != pdev->seg )
-> +            continue;
-> +
-> +        for ( unsigned int i = 0; i < satc->scope.devices_cnt; ++i )
-> +            if ( satc->scope.devices[i] == pdev->sbdf.bdf )
-> +                return satc;
+> +        /*
+> +         * We found the first borrower of the region, the owner was not
+> +         * specified, so they should be assigned to dom_io.
+> +         */
+> +        ret = assign_shared_memory(owner_dom_io ? dom_io : d, gbase, shm_bank);
+> +        if ( ret )
+> +            return ret;
 > +    }
 > +
-> +    return NULL;
+> +    if ( owner_dom_io || (strcmp(role_str, "borrower") == 0) )
+> +    {
+> +        /* Set up P2M foreign mapping for borrower domain. */
+> +        ret = map_regions_p2mt(d, _gfn(PFN_UP(gbase)), PFN_DOWN(psize),
+> +                               _mfn(PFN_UP(pbase)), p2m_map_foreign_rw);
+> +        if ( ret )
+> +            return ret;
+> +    }
+> +
+> +    return 0;
 > +}
 > +
->  struct acpi_rhsa_unit *drhd_to_rhsa(const struct acpi_drhd_unit *drhd)
+>  int __init process_shm(struct domain *d, struct kernel_info *kinfo,
+>                         const struct dt_device_node *node)
 >  {
->      struct acpi_rhsa_unit *rhsa;
-> --- a/xen/drivers/passthrough/vtd/dmar.h
-> +++ b/xen/drivers/passthrough/vtd/dmar.h
-> @@ -112,6 +112,8 @@ struct acpi_satc_unit {
->  
->  struct acpi_drhd_unit *acpi_find_matched_drhd_unit(const struct pci_dev *);
->  struct acpi_atsr_unit *acpi_find_matched_atsr_unit(const struct pci_dev *);
-> +const struct acpi_satc_unit *acpi_find_matched_satc_unit(
-> +    const struct pci_dev *pdev);
->  
->  #define DMAR_TYPE 1
->  #define RMRR_TYPE 2
-> --- a/xen/drivers/passthrough/vtd/iommu.c
-> +++ b/xen/drivers/passthrough/vtd/iommu.c
-> @@ -2364,6 +2364,26 @@ static int cf_check intel_iommu_add_devi
->      if ( ret )
->          dprintk(XENLOG_ERR VTDPREFIX, "%pd: context mapping failed\n",
->                  pdev->domain);
-> +    else if ( !pdev->broken )
-> +    {
-> +        const struct acpi_drhd_unit *drhd = acpi_find_matched_drhd_unit(pdev);
-> +        const struct acpi_satc_unit *satc = acpi_find_matched_satc_unit(pdev);
-> +
-> +        /*
-> +         * Prevent the device from getting assigned to an unprivileged domain
-> +         * when firmware indicates ATS is required, but ATS could not be enabled
-> +         * or was not explicitly enabled via command line option.
-> +         */
-> +        if ( satc && satc->atc_required &&
-> +             (!drhd || ats_device(pdev, drhd) <= 0 ||
-> +              !pci_ats_enabled(pdev->seg, pdev->bus, pdev->devfn) ||
-> +              opt_ats < 0) )
+> @@ -249,32 +290,10 @@ int __init process_shm(struct domain *d, struct kernel_info *kinfo,
+>          if ( dt_property_read_string(shm_node, "role", &role_str) == 0 )
+>              owner_dom_io = false;
+Looking at owner_dom_io, why don't you move parsing role and setting owner_dom_io accordingly to handle_shared_mem_bank()?
 
-Do you need the opt_ats check here?
-
-I don't think it's possible for pci_ats_enabled() to return true if
-opt_ats is <= 0, and hence the opt_ats < 0 check can be dropped from
-the conditional?
-
-> +        {
-> +            printk(XENLOG_WARNING "ATS: %pp is not eligible for pass-through\n",
-> +                   &pdev->sbdf);
-> +            pdev->broken = true;
-> +        }
-> +    }
->  
->      return ret;
->  }
-> @@ -2375,12 +2395,26 @@ static int cf_check intel_iommu_enable_d
->  
->      pci_vtd_quirk(pdev);
->  
-> -    if ( ret <= 0 )
-> -        return ret;
-> +    if ( ret <= 0 ||
-> +         (ret = enable_ats_device(pdev, &drhd->iommu->ats_devices)) < 0 ||
-> +         opt_ats < 0 )
-
-Shouldn't this be opt_ats <= 0?
-
-> +    {
-> +        const struct acpi_satc_unit *satc = acpi_find_matched_satc_unit(pdev);
-> +
-> +        /*
-> +         * Besides in error cases also prevent the device from getting assigned
-> +         * to an unprivileged domain when firmware indicates ATS is required,
-> +         * but ATS use was not explicitly enabled via command line option.
-> +         */
-> +        if ( satc && satc->atc_required && !pdev->broken )
-> +        {
-> +            printk(XENLOG_WARNING "ATS: %pp is not eligible for pass-through\n",
-> +                   &pdev->sbdf);
-> +            pdev->broken = true;
-> +        }
-
-I think the code here could be easier to read if this was put in an
-label at the end, and the early return above that you remove becomes a
-goto.  But that's a question of taste.
-
-> +    }
->  
-> -    ret = enable_ats_device(pdev, &drhd->iommu->ats_devices);
-> -
-> -    return ret >= 0 ? 0 : ret;
-> +    return ret <= 0 ? ret : 0;
->  }
->  
->  static int cf_check intel_iommu_remove_device(u8 devfn, struct pci_dev *pdev)
-> --- a/xen/drivers/passthrough/vtd/x86/ats.c
-> +++ b/xen/drivers/passthrough/vtd/x86/ats.c
-> @@ -45,8 +45,9 @@ int ats_device(const struct pci_dev *pde
->  {
->      struct acpi_drhd_unit *ats_drhd;
->      unsigned int pos, expfl = 0;
-> +    const struct acpi_satc_unit *satc;
->  
-> -    if ( opt_ats <= 0 || !iommu_qinval )
-> +    if ( !opt_ats || !iommu_qinval )
->          return 0;
-
-FWIW, I find this change confusing, hence my request earlier that
-opt_ats must be set to 0 or 1 by the point it gets used.
-
-Thanks, Roger.
+~Michal
 
