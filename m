@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 585938BCBBC
-	for <lists+xen-devel@lfdr.de>; Mon,  6 May 2024 12:15:53 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.717438.1119709 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7743C8BCBB7
+	for <lists+xen-devel@lfdr.de>; Mon,  6 May 2024 12:15:52 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.717439.1119715 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s3vNk-0003cq-5A; Mon, 06 May 2024 10:15:40 +0000
+	id 1s3vNk-0003lx-R1; Mon, 06 May 2024 10:15:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 717438.1119709; Mon, 06 May 2024 10:15:40 +0000
+Received: by outflank-mailman (output) from mailman id 717439.1119715; Mon, 06 May 2024 10:15:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s3vNj-0003XA-VO; Mon, 06 May 2024 10:15:39 +0000
-Received: by outflank-mailman (input) for mailman id 717438;
- Mon, 06 May 2024 10:15:37 +0000
+	id 1s3vNk-0003ch-Hh; Mon, 06 May 2024 10:15:40 +0000
+Received: by outflank-mailman (input) for mailman id 717439;
+ Mon, 06 May 2024 10:15:39 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=loHM=MJ=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1s3vNh-0001cU-Mx
- for xen-devel@lists.xenproject.org; Mon, 06 May 2024 10:15:37 +0000
-Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
- [2a00:1450:4864:20::62b])
+ id 1s3vNj-0001cU-0i
+ for xen-devel@lists.xenproject.org; Mon, 06 May 2024 10:15:39 +0000
+Received: from mail-lj1-x233.google.com (mail-lj1-x233.google.com
+ [2a00:1450:4864:20::233])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 94dcaa4f-0b91-11ef-909c-e314d9c70b13;
- Mon, 06 May 2024 12:15:36 +0200 (CEST)
-Received: by mail-ej1-x62b.google.com with SMTP id
- a640c23a62f3a-a59a64db066so393437066b.3
- for <xen-devel@lists.xenproject.org>; Mon, 06 May 2024 03:15:36 -0700 (PDT)
+ id 95e7b675-0b91-11ef-909c-e314d9c70b13;
+ Mon, 06 May 2024 12:15:38 +0200 (CEST)
+Received: by mail-lj1-x233.google.com with SMTP id
+ 38308e7fff4ca-2e1fa1f1d9bso33038681fa.0
+ for <xen-devel@lists.xenproject.org>; Mon, 06 May 2024 03:15:38 -0700 (PDT)
 Received: from fedora.. ([94.75.70.14]) by smtp.gmail.com with ESMTPSA id
- h8-20020a17090634c800b00a59b8e16ac7sm2160242ejb.36.2024.05.06.03.15.35
+ h8-20020a17090634c800b00a59b8e16ac7sm2160242ejb.36.2024.05.06.03.15.36
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 06 May 2024 03:15:35 -0700 (PDT)
+ Mon, 06 May 2024 03:15:36 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,98 +44,100 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 94dcaa4f-0b91-11ef-909c-e314d9c70b13
+X-Inumbo-ID: 95e7b675-0b91-11ef-909c-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1714990536; x=1715595336; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1714990538; x=1715595338; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=Jf9UofV0vIWQlCtbQGQy8Ck6PFeBmxijL+bZKvWBsVk=;
-        b=ghCWMiuN2+grDHY8T2rXY6Sdzykafex+KcV1GwX5FneyOhP2ApULZUe6KJ/RzcUwZ1
-         5530FGkYHvy2e/kxEq+Rez/h+numDfNSnRUa8beCQC9vDWtIWakD4ok2J8rzx9qFTyoG
-         LSgiXiQWV11eJHPb5cAnHcQQ7k0ZZr+FpykTSYPQadNQhXTT5LIUN9PKYTevK+B3VzPB
-         N9JmDQ3JywbiAZFby2dMmGe7JYoXa9k4Q23AFKqLtSF60L3teRxUAPUWULKoBUvwdhsv
-         odaT/Sj1a8fRkifN8IkbUrvCXbP9JlYEobgLWERja3Xk8zcDo3kpPHPfK5YcmVYKwv2I
-         5b0w==
+        bh=OJvBUFAikfpz7OucuBwBiLsAEZFo3YhoCLIIuuKYp90=;
+        b=V+UxY4opuLh2ap/XGQl1qSvNMNhWvIt7RiErQDbTjmCUkNSgKpZ+GQA+HOj94YIrJU
+         IgcxpTNVTD5IJhjtY1WYReNiSHpMipMOaE3q5rou2l+vVDBkS7qSsqnJX1usuytZRSXt
+         iky2Qh0mvZrknkmvxBey52Hb1SL+/HOmWJldUDS9n3KQIpJZQGm6OcP2uVZ/SLlQiRsk
+         82GXjcTNr6LyVRRI/e6JQjj0GiVtt42lfTSuv5ldUtg0aun7ugUJczMTyz3AegfE50jy
+         3w7VHcqBWRZFpKJ95UzMUTiljSW6IL2B8BUD2Z3Qpwax8xi2bEg8ggGZHyLyLI0WBEb5
+         RWrg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1714990536; x=1715595336;
+        d=1e100.net; s=20230601; t=1714990538; x=1715595338;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=Jf9UofV0vIWQlCtbQGQy8Ck6PFeBmxijL+bZKvWBsVk=;
-        b=n8+iT2q9tiZJbOTu7Hr/80GmT+N7lE6ZObPW0xUb3sbDiTb1tzDBXVlSwWAE8sKLec
-         No1Gj/kqkIDKJXxm3XZTAuvrnJNka+vCuXxwcQDr+v6dtbhFzgqILutOo0eZHqX2yRpD
-         /MoXpOdayG+85sNUTzboIdtkEniLSv251/mTrm5KO7ZWA8qtFkxJDS3U76IbVYv5qsd0
-         MQDyiRuBnS/bRXQKeg6sgjhUX3/jJyFqrWMUqZp8FvNCsHnAWtwIY15RcGuJ9n566clr
-         uH0yp+TOdwUHM5uBugkosmQrzBKGRMSXAYdjpw9olXAeLToARW/Q42vdk0XedrTwPFbi
-         61CQ==
-X-Gm-Message-State: AOJu0YwO94albt9tLbUg0+BXDAw8bHsW0cDcIHBav9wgX2PFh/WGjxsd
-	6JzXzEMil3U6vmKwKI9etna2mMZ2AeyR5JHIgK+VRB677BAbIi6vVbD/zg==
-X-Google-Smtp-Source: AGHT+IHxi8paI+7rmQfjcJQcWkUjlIL7zhwGgI71wFUh0EOdA+5cg0YJ6HlMYOOi1/TJrC6dxQ+91g==
-X-Received: by 2002:a17:906:b08b:b0:a59:a3ef:21f9 with SMTP id x11-20020a170906b08b00b00a59a3ef21f9mr3956496ejy.52.1714990536058;
-        Mon, 06 May 2024 03:15:36 -0700 (PDT)
+        bh=OJvBUFAikfpz7OucuBwBiLsAEZFo3YhoCLIIuuKYp90=;
+        b=pogXoWFaZnY2uIp7cnV3axoewwcHx3pioCu1NqDULh3N5ciuYj3K4ZpNLygwARCAn9
+         kiLF208VqHIFr/4OslY3fqz9/6jc3fbkhg95fGGOFUaMmm1anM18gYCObD2JFfDbIomE
+         jV3uxf1BpcS2tnYfoG9GNs4W/JkHkQoSeGv2avUUe83AN60D2Y9gqNgN3C3FCL8sLDaV
+         ewbbqIJL11rGtTgIJ6G2dm9cvx1q48VVC2WMEZrqgt+g+KDQhL7L38Nzy2EjGJgH0Yck
+         YZ7cy6zectXdKPnpFPbGClZZKyE3xv+OvyQTCyMYMifut3NhN3jWQii5dvFjk/ip9Syu
+         Exeg==
+X-Gm-Message-State: AOJu0YxUCWGDtdA5KecLp1HRZLHJSunGLSAYofSwkkeM3JSzmCT4NdRa
+	YP/SpooXQIK7PlGgCAkMhb+NwurVH1C5M9ObkwkzUg6cPzJ7g+A1u5sppg==
+X-Google-Smtp-Source: AGHT+IFeV2fdGTFPUqK1aGKrd8GUTySyeD0VJX0V4TFsFPrwd6qKIcK4SgxWip01sNT5PTe+gUQbWA==
+X-Received: by 2002:a2e:9482:0:b0:2e1:d48e:d5b3 with SMTP id c2-20020a2e9482000000b002e1d48ed5b3mr7502821ljh.20.1714990537078;
+        Mon, 06 May 2024 03:15:37 -0700 (PDT)
 From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 To: xen-devel@lists.xenproject.org
 Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
-	Tamas K Lengyel <tamas@tklengyel.com>,
-	Alexandru Isaila <aisaila@bitdefender.com>,
-	Petre Pircalabu <ppircalabu@bitdefender.com>,
 	Alistair Francis <alistair.francis@wdc.com>,
 	Bob Eshleman <bobbyeshleman@gmail.com>,
-	Connor Davis <connojdavis@gmail.com>
-Subject: [PATCH v9 08/15] xen/riscv: introduce monitor.h
-Date: Mon,  6 May 2024 12:15:17 +0200
-Message-ID: <e5fbacd0a8ef222087dbe969a912dec0e2bc3af9.1714988096.git.oleksii.kurochko@gmail.com>
+	Connor Davis <connojdavis@gmail.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>
+Subject: [PATCH v9 09/15] xen/riscv: add definition of __read_mostly
+Date: Mon,  6 May 2024 12:15:18 +0200
+Message-ID: <7fa7b60b4b66f2801de28195de8872050643a741.1714988096.git.oleksii.kurochko@gmail.com>
 X-Mailer: git-send-email 2.45.0
 In-Reply-To: <cover.1714988096.git.oleksii.kurochko@gmail.com>
 References: <cover.1714988096.git.oleksii.kurochko@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
+The definition of __read_mostly should be removed in:
+https://lore.kernel.org/xen-devel/f25eb5c9-7c14-6e23-8535-2c66772b333e@suse.com/
+
+The patch introduces it in arch-specific header to not
+block enabling of full Xen build for RISC-V.
+
 Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 ---
-Changes in V4-V9:
+- [PATCH] move __read_mostly to xen/cache.h  [2]
+
+Right now, the patch series doesn't have a direct dependency on [2] and it
+provides __read_mostly in the patch:
+    [PATCH v3 26/34] xen/riscv: add definition of __read_mostly
+However, it will be dropped as soon as [2] is merged or at least when the
+final version of the patch [2] is provided.
+
+Considering that there is still no still final decision regarding patch [2] my suggestion
+is to merge RISC-V specific patch and just drop the changes in patch [2].
+
+[2] https://lore.kernel.org/xen-devel/f25eb5c9-7c14-6e23-8535-2c66772b333e@suse.com/
+---
+Changes in V9:
+ - Only rebase was done.
+---
+Change in V8:
+ - update the footer after Signed-off.
+---
+Changes in V4-V7:
  - Nothing changed. Only rebase.
 ---
-Changes in V3:
- - new patch.
----
- xen/arch/riscv/include/asm/monitor.h | 26 ++++++++++++++++++++++++++
- 1 file changed, 26 insertions(+)
- create mode 100644 xen/arch/riscv/include/asm/monitor.h
+ xen/arch/riscv/include/asm/cache.h | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/xen/arch/riscv/include/asm/monitor.h b/xen/arch/riscv/include/asm/monitor.h
-new file mode 100644
-index 0000000000..f4fe2c0690
---- /dev/null
-+++ b/xen/arch/riscv/include/asm/monitor.h
-@@ -0,0 +1,26 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
-+#ifndef __ASM_RISCV_MONITOR_H__
-+#define __ASM_RISCV_MONITOR_H__
+diff --git a/xen/arch/riscv/include/asm/cache.h b/xen/arch/riscv/include/asm/cache.h
+index 69573eb051..94bd94db53 100644
+--- a/xen/arch/riscv/include/asm/cache.h
++++ b/xen/arch/riscv/include/asm/cache.h
+@@ -3,4 +3,6 @@
+ #ifndef _ASM_RISCV_CACHE_H
+ #define _ASM_RISCV_CACHE_H
+ 
++#define __read_mostly __section(".data.read_mostly")
 +
-+#include <xen/bug.h>
-+
-+#include <asm-generic/monitor.h>
-+
-+struct domain;
-+
-+static inline uint32_t arch_monitor_get_capabilities(struct domain *d)
-+{
-+    BUG_ON("unimplemented");
-+    return 0;
-+}
-+
-+#endif /* __ASM_RISCV_MONITOR_H__ */
-+
-+/*
-+ * Local variables:
-+ * mode: C
-+ * c-file-style: "BSD"
-+ * c-basic-offset: 4
-+ * indent-tabs-mode: nil
-+ * End:
-+ */
+ #endif /* _ASM_RISCV_CACHE_H */
 -- 
 2.45.0
 
