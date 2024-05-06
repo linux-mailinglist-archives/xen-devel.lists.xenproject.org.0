@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 004238BC983
-	for <lists+xen-devel@lfdr.de>; Mon,  6 May 2024 10:24:36 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.717305.1119374 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2A4F18BC984
+	for <lists+xen-devel@lfdr.de>; Mon,  6 May 2024 10:26:00 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.717308.1119383 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s3tdu-0000DA-UU; Mon, 06 May 2024 08:24:14 +0000
+	id 1s3tfM-00015a-7B; Mon, 06 May 2024 08:25:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 717305.1119374; Mon, 06 May 2024 08:24:14 +0000
+Received: by outflank-mailman (output) from mailman id 717308.1119383; Mon, 06 May 2024 08:25:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s3tdu-0000Aj-RD; Mon, 06 May 2024 08:24:14 +0000
-Received: by outflank-mailman (input) for mailman id 717305;
- Mon, 06 May 2024 08:24:13 +0000
+	id 1s3tfM-00013n-4M; Mon, 06 May 2024 08:25:44 +0000
+Received: by outflank-mailman (input) for mailman id 717308;
+ Mon, 06 May 2024 08:25:43 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=gbjR=MJ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1s3tdt-0000Ad-CP
- for xen-devel@lists.xenproject.org; Mon, 06 May 2024 08:24:13 +0000
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=loHM=MJ=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1s3tfL-00013h-9E
+ for xen-devel@lists.xenproject.org; Mon, 06 May 2024 08:25:43 +0000
 Received: from mail-lf1-x134.google.com (mail-lf1-x134.google.com
  [2a00:1450:4864:20::134])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 04990f20-0b82-11ef-909c-e314d9c70b13;
- Mon, 06 May 2024 10:24:12 +0200 (CEST)
+ id 3a5115fb-0b82-11ef-909c-e314d9c70b13;
+ Mon, 06 May 2024 10:25:42 +0200 (CEST)
 Received: by mail-lf1-x134.google.com with SMTP id
- 2adb3069b0e04-51ae2e37a87so2159826e87.2
- for <xen-devel@lists.xenproject.org>; Mon, 06 May 2024 01:24:12 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- g4-20020a5d5404000000b0034ca136f0e9sm10078398wrv.88.2024.05.06.01.24.11
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 06 May 2024 01:24:11 -0700 (PDT)
+ 2adb3069b0e04-518931f8d23so1546444e87.3
+ for <xen-devel@lists.xenproject.org>; Mon, 06 May 2024 01:25:42 -0700 (PDT)
+Received: from [192.168.226.248] ([94.75.70.14])
+ by smtp.gmail.com with ESMTPSA id
+ c3-20020a056512238300b0051cd6c9e9a2sm1532357lfv.152.2024.05.06.01.25.41
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 06 May 2024 01:25:41 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,157 +45,144 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 04990f20-0b82-11ef-909c-e314d9c70b13
+X-Inumbo-ID: 3a5115fb-0b82-11ef-909c-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1714983852; x=1715588652; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=3RnKgDBuRQFq9ioB+Ph2oGOdUSZAJ31Q/yo5SWdrVVQ=;
-        b=UwJbX/adTFzsKrCxZ+D3tyabCZv6ZM/NdjfMsSvrmsPcZ+NwGG1fSEDX11aThrWIVI
-         bXg2eKkkMyMcnl75NtVaTMfAEt4q53HasUlwpqKgC7n1OUFPLkL+TkShDPqFU89GENOb
-         i0E6ee2zUfYHSH55OujK1E+No8/8KXaL6sSA0K9jdK9r8aUBUIJA0FvtMsHRbyt07YTR
-         MKXrAPzCReA9+K82C8dyvVl3VzAyqK31d2KuJArGuZVudSiOJ8MVinCo3E818MR9NouG
-         V242wlVkD5SaazKTjapZDMfY/bKcqyN0sVEAA/XYKrJtkTJss3QHv1pA8M/Ht7MhbI/k
-         2NUQ==
+        d=gmail.com; s=20230601; t=1714983942; x=1715588742; darn=lists.xenproject.org;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=puH2uGZgKYQUwSAx1rYEmvYiiuS0k81HyWFgtxzTHHY=;
+        b=lPYKOR2btVCCowD5ELq90w25j8eiztKhD/jSLPzLjYrJHGAQKLx/+9y0CHNiihfGf2
+         hVVhkmCpZBl1FCYDr5rSlgwDfSqNdkx9RAT0hI/wkiC4ZBdbzMsqsDaXGArv5BK6/faM
+         2ulLjC6PS6Z9Zy1C/BipOyMC3Xu2W/WtLbvn8v5i3AxP4Qn7zgz/N43pj+sXooItTEif
+         XE3rN/p5Se0L9ChwfONGYnW6ZbqbmKMwNk1nCQ/fvZpp3ZosO3jpsDSdsEbixtf9BuGg
+         BJwiQT4Gp7NduU5541773v3dbzs8dI/s6w5UoOwkQAkLd3ZXtD7LUFzUpeMPf8TrSp45
+         IDCw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1714983852; x=1715588652;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=3RnKgDBuRQFq9ioB+Ph2oGOdUSZAJ31Q/yo5SWdrVVQ=;
-        b=SFFJAaGU9nNYSOZnC6DiFqFwEbelYjiKgsVqPHjUrz7b/6Lh/h/XJKadYXhbA8OrIp
-         9kNPDG2Frl0J4jaUcc4fKpFLGF8FADE7d0oFHZZUsIaKWbkYYzFGvBSmAOZUQymBKJSA
-         bmqohLIrcdPGxqNfUdfoW+EixCOe3PurGIIu0nwOWk7NkmW8t2mc/kmhMIkzLGM5P/wj
-         zjqvD9zhIIBGaVjoCxGxfu5XHGzhXRL3/S62CNlsA5cw0ugYmAS8DMisAn4hjE2oK1V0
-         6CMGgn2k+8URaEyiUHC4B0yugpop6R3lBOJajOlpHJb7Sz5C5teaMaw1FzP70H1pZQoj
-         Brhg==
-X-Forwarded-Encrypted: i=1; AJvYcCU6hQylR4ENPbI6ENWGRvRnrSCRWTT1Tq/k0nMUlOErtvjlHYfyG2HdydM6sV3lEXYz635M33+h8VffOwcn8Pr4v3F53t8wzKkQp8CwGts=
-X-Gm-Message-State: AOJu0YxyS4yY6IqiFitZD5EGHOiJaEqL9SODkZYPaXSFM6fP8YXg+Nc3
-	V7DxCOPzcBzsQjcYGqEWSqiIpZIXDC2zj8b4UcXrSe+AVpR8byHgNMIrTu/1DA==
-X-Google-Smtp-Source: AGHT+IFRaAv70T/zkgmRKpffOfiooMo4XeSxJdaVqlPvZkjHzcghW0dd5LQf3AGCdz9tE/OgbDbEZw==
-X-Received: by 2002:ac2:46d4:0:b0:51e:f8ae:db35 with SMTP id p20-20020ac246d4000000b0051ef8aedb35mr5782212lfo.43.1714983851870;
-        Mon, 06 May 2024 01:24:11 -0700 (PDT)
-Message-ID: <7f2eb0fb-3ed1-4248-90bd-2bc3551a97f1@suse.com>
-Date: Mon, 6 May 2024 10:24:12 +0200
+        d=1e100.net; s=20230601; t=1714983942; x=1715588742;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=puH2uGZgKYQUwSAx1rYEmvYiiuS0k81HyWFgtxzTHHY=;
+        b=cheNyl+QFqvuvVoIrNwFlch9M7WrJjkIlCY1pAiXec0GiVJU3Fmte48LAZLOKwtgg5
+         AxqjaX072+V6SxoqxEV/SUETI3ZzeJU8w4dE4xXzjzL4c2fIbx/pLIR/hl6MStCkj7dE
+         e6lQekwOj40BpE34puZ5JhVvmQqJyRUVaVyPW1blqDdSjIwrKCUC6ig3NO8wLy6l9oit
+         ESWNvFldrXOR0Fp8a5fEDawh+Af38qBcUZvZTs7nAu8VQXkaGzhefW0QRumBdZz8NTu+
+         Cn75DRBb4lmSxmK7IWNPAJEO08FfcW2qbAbTLnWnK20YPx6Td/znqV8nlMhR0ULsna2f
+         nvfw==
+X-Forwarded-Encrypted: i=1; AJvYcCVfl0KFjcO+NGsMwu1fGjuPnktzscVya6yVe0blxQPNy/k5cJ34D3jMSkd+8I6Pncz5WEzWnJ9tV7ZgE1c5c1tO+U91paSGGiCXqJHaHN0=
+X-Gm-Message-State: AOJu0YwjUaK+cXYjGxMajNLruGr7zaOwOmBkyaS/Hs9K8OoE7CKRAlg7
+	l8eZCS6T6Xg0loy3YWOaAGOT59z0b59UFaIqSVxbs2HfmzffLHoz
+X-Google-Smtp-Source: AGHT+IE8K8rwmBVSUmxgfm3wxQpwyx/B1T8lvnAmjmG7fbLYIU9sEDnKKptpJ0FDqsJ8pqLPhTCplQ==
+X-Received: by 2002:ac2:43a7:0:b0:51c:348:3ba9 with SMTP id t7-20020ac243a7000000b0051c03483ba9mr5670038lfl.22.1714983941693;
+        Mon, 06 May 2024 01:25:41 -0700 (PDT)
+Message-ID: <609d3d5da1c95b14281233860f7619e6d15de195.camel@gmail.com>
+Subject: Re: Xen 4.19 release status tracking list [ May ]
+From: Oleksii <oleksii.kurochko@gmail.com>
+To: Jan Beulich <jbeulich@suse.com>, Roger Pau =?ISO-8859-1?Q?Monn=E9?=
+	 <roger.pau@citrix.com>
+Cc: committers@xenproject.org, community.manager@xenproject.org, Kelly Choi
+	 <kelly.choi@cloud.com>, xen-devel@lists.xenproject.org
+Date: Mon, 06 May 2024 10:25:40 +0200
+In-Reply-To: <8c0bc745-05f5-4839-b920-7830e2c55688@suse.com>
+References: <32e2d9dddfaa80e8edfaa5a7207c4e7fb7862a45.camel@gmail.com>
+	 <8c0bc745-05f5-4839-b920-7830e2c55688@suse.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.52.1 (3.52.1-1.fc40) 
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 02/17] xen: introduce generic non-atomic test_*bit()
-Content-Language: en-US
-To: Oleksii <oleksii.kurochko@gmail.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Ross Lagerwall <ross.lagerwall@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>,
- Shawn Anastasio <sanastasio@raptorengineering.com>,
- xen-devel@lists.xenproject.org
-References: <cover.1713347222.git.oleksii.kurochko@gmail.com>
- <1a0977e3cf5a2de9f760ca5ec89a0d096894a9e3.1713347222.git.oleksii.kurochko@gmail.com>
- <3827c11c-6d47-411d-a356-871def4e5b30@suse.com>
- <940f11ee23b43ada1dba50bc0236c4764eb13d71.camel@gmail.com>
- <93eeb1d8-d41f-40e8-8ca2-e6828877b53d@suse.com>
- <2d81e4700075b55f1885a4b1c7ee44ad046b35f2.camel@gmail.com>
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <2d81e4700075b55f1885a4b1c7ee44ad046b35f2.camel@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
 
-On 06.05.2024 10:16, Oleksii wrote:
-> On Mon, 2024-05-06 at 08:33 +0200, Jan Beulich wrote:
->> On 03.05.2024 19:15, Oleksii wrote:
->>> On Thu, 2024-04-25 at 17:35 +0200, Jan Beulich wrote:
->>>>>   #include <asm/bitops.h>
->>>>>   
->>>>> +#ifndef arch_check_bitop_size
->>>>> +#define arch_check_bitop_size(addr)
->>>>
->>>> Can this really do nothing? Passing the address of an object
->>>> smaller
->>>> than
->>>> bitop_uint_t will read past the object in the generic__*_bit()
->>>> functions.
->>> It seems RISC-V isn' happy with the following generic definition:
->>>    extern void __bitop_bad_size(void);
->>>    
->>>    /* --------------------- Please tidy above here ----------------
->>> ----
->>>    - */
->>>    
->>>    #include <asm/bitops.h>
->>>    
->>>    #ifndef arch_check_bitop_size
->>>    
->>>    #define bitop_bad_size(addr) sizeof(*(addr)) <
->>> sizeof(bitop_uint_t)
->>>    
->>>    #define arch_check_bitop_size(addr) \
->>>        if ( bitop_bad_size(addr) ) __bitop_bad_size();
->>>    
->>>    #endif /* arch_check_bitop_size */
->>
->> I'm afraid you've re-discovered something that was also found during
->> the
->> original Arm porting effort. As nice and logical as it would (seem
->> to) be
->> to have bitop_uint_t match machine word size, there are places ...
->>
->>> The following errors occurs. bitop_uint_t for RISC-V is defined as
->>> unsigned long for now:
->>
->> ... where we assume such operations can be done on 32-bit quantities.
-> Based on RISC-V spec machine word is 32-bit, so then I can just drop
-> re-definition of bitop_uint_t in riscv/asm/types.h and use the
-> definition of bitop_uint_t in xen/types.h.
-> Also it will be needed to update __AMO() macros in <riscv>/asm/bitops.h
-> in the following way:
->    #if BITOP_BITS_PER_WORD == 64
->    #define __AMO(op)   "amo" #op ".d"
->    #elif BITOP_BITS_PER_WORD == 32
->    #define __AMO(op)   "amo" #op ".w"
->    #else
->    #error "Unexpected BITS_PER_LONG"
->    #endif
-> Note: BITS_PER_LONG was changed to BITOP_BITS_PER_WORD !
-> 
-> Only one question remains for me. Given that there are some operations whichcan be performed on 32-bit quantities, it seems to me that bitop_uint_t
-> can only be uint32_t.
-> Am I correct? If yes, do we need to have ability to redefine
-> bitop_uint_t and BITOP_BITS_PER_WORD in xen/types.h:
->    #ifndef BITOP_TYPE
->    #define BITOP_BITS_PER_WORD 32
->    
->    typedef uint32_t bitop_uint_t;
->    #endif
+On Mon, 2024-05-06 at 09:11 +0200, Jan Beulich wrote:
+> On 03.05.2024 18:54, Oleksii wrote:
+> > *** x86 ***:
+> > =C2=A0 * [PATCH 0/4] iommu/x86: fixes/improvements for unity range
+> > checks [
+> > https://lore.kernel.org/xen-devel/20240201170159.66330-1-roger.pau@citr=
+ix.com/
+> > ]:
+> > =C2=A0=C2=A0=C2=A0 - almost patch series have been merged already excep=
+t the
+> > patch:
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 [PATCH 4/4] iommu/x86: make =
+unity range checking more
+> > strict
+> >=20
+> > =C2=A0 * [PATCH 0/8] x86: support AVX10.1 [
+> > https://lore.kernel.org/xen-devel/298db76f-d0ee-4d47-931f-1baa1a7546cf@=
+suse.com/
+> > ]:
+> > =C2=A0=C2=A0=C2=A0 - two patches of patch series are waitng to merged/r=
+eviewed:
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 [PATCH 1/4] amd-vi: fix IVMD memory type=
+ checks
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 [PATCH 4/4] iommu/x86: make unity range =
+checking more strict=20
+>=20
+> This sub-item doesn't really fit the topic, and seems to rather
+> belong
+> to the earlier one?=C2=A0
+Thanks for correction, it is belonged to previous topic.
 
-Probably not, right now. Hence me having said "As nice and logical as it
-would (seem to) be" in the earlier reply.
+> Where (correctly) 1/4 isn't listed anymore, for
+> having gone in. As to 4/4 - Roger, I'm not sure I can conclude what
+> the
+> plan here was: Are you meaning to submit an updated version, or did
+> we
+> rather settle on not further pursuing this?
+>=20
+> > =C2=A0 * APX support?
+>=20
+> I think you should drop this now. I'm throttling further work on the
+> insn
+> emulator, as long as I have so many other patches there pending
+> review.
+>=20
+> > =C2=A0 * [PATCH v6 0/4] x86/pvh: Support relocating dom0 kernel [
+> > https://patchew.org/Xen/20240327215102.136001-1-jason.andryuk@amd.com/
+> > ]
+>=20
+> There had been a v7, and all of that plus a follow-on adjustment have
+> gone
+> in.
+>=20
+> > *** common ***:
+> > =C2=A0 * annotate entry points with type and size" series:
+> > =C2=A0=C2=A0=C2=A0 The bulk of this has gone in, but there'll want to b=
+e follow-
+> > ups.
+>=20
+> I think these follow-ups now want tracking on a per-arch basis (x86
+> and
+> Arm, with PPC and RISC-V filly done).
+>=20
+> > =C2=A0 * [PATCH v2 (resend) 00/27] Remove the directmap [
+> > https://lore.kernel.org/xen-devel/20240116192611.41112-1-eliasely@amazo=
+n.com/
+> > ]
+> > =C2=A0=C2=A0=C2=A0 - 7/27 were merged.
+>=20
+> Hmm, no, I don't think that one was. Other were, yes.
+>=20
+> > =C2=A0 * [PATCH v6 0/7] MSI-X support with qemu in stubdomain, and othe=
+r
+> > related changes:
+> > =C2=A0=C2=A0=C2=A0 - new patch version was sent
+>=20
+> 1/7 was committed.
+>=20
+> > =C2=A0 * [PATCH v3 0/4] xenwatchdogd bugfixes and enhancements [
+> > https://lore.kernel.org/xen-devel/20240411182023.56309-1-leigh@solinno.=
+co.uk/
+> > ]:
+> > =C2=A0=C2=A0=C2=A0 new patch series were sent.
+>=20
+> Was there anything left from that series?
+I double-checked and everything has been merged. Thanks for correction.
 
-Jan
+I'm considering writing a script to automate the process of checking
+whether the patches in a patch series have been merged or not.
+Currently, I'm doing it manually, so there's a chance I might miss
+something. It would be helpful if such a script already exists.
+
+~ Oleksii
 
