@@ -2,37 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A64DC8BC879
-	for <lists+xen-devel@lfdr.de>; Mon,  6 May 2024 09:39:37 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.717265.1119293 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BC84E8BC88A
+	for <lists+xen-devel@lfdr.de>; Mon,  6 May 2024 09:47:03 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.717271.1119304 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s3svc-00059R-M4; Mon, 06 May 2024 07:38:28 +0000
+	id 1s3t3S-00074D-DT; Mon, 06 May 2024 07:46:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 717265.1119293; Mon, 06 May 2024 07:38:28 +0000
+Received: by outflank-mailman (output) from mailman id 717271.1119304; Mon, 06 May 2024 07:46:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s3svc-00057o-J3; Mon, 06 May 2024 07:38:28 +0000
-Received: by outflank-mailman (input) for mailman id 717265;
- Mon, 06 May 2024 07:38:27 +0000
+	id 1s3t3S-00071h-AM; Mon, 06 May 2024 07:46:34 +0000
+Received: by outflank-mailman (input) for mailman id 717271;
+ Mon, 06 May 2024 07:46:33 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=VpOg=MJ=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1s3svb-00057i-Cs
- for xen-devel@lists.xenproject.org; Mon, 06 May 2024 07:38:27 +0000
-Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
- [2a00:1450:4864:20::32a])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=gbjR=MJ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1s3t3R-00071b-Bk
+ for xen-devel@lists.xenproject.org; Mon, 06 May 2024 07:46:33 +0000
+Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
+ [2a00:1450:4864:20::334])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 9e02e2ae-0b7b-11ef-b4bb-af5377834399;
- Mon, 06 May 2024 09:38:23 +0200 (CEST)
-Received: by mail-wm1-x32a.google.com with SMTP id
- 5b1f17b1804b1-41bab13ca81so17215005e9.1
- for <xen-devel@lists.xenproject.org>; Mon, 06 May 2024 00:38:23 -0700 (PDT)
-Received: from localhost ([213.195.114.223]) by smtp.gmail.com with ESMTPSA id
- m9-20020a05600c4f4900b0041bf7da4200sm15141161wmq.33.2024.05.06.00.38.22
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 06 May 2024 00:38:22 -0700 (PDT)
+ id c08477ed-0b7c-11ef-b4bb-af5377834399;
+ Mon, 06 May 2024 09:46:30 +0200 (CEST)
+Received: by mail-wm1-x334.google.com with SMTP id
+ 5b1f17b1804b1-41b21ed19f5so10596195e9.2
+ for <xen-devel@lists.xenproject.org>; Mon, 06 May 2024 00:46:30 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ f19-20020a05600c4e9300b0041bab13cd60sm18892475wmq.3.2024.05.06.00.46.29
+ for <xen-devel@lists.xenproject.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 06 May 2024 00:46:30 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,361 +46,146 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9e02e2ae-0b7b-11ef-b4bb-af5377834399
+X-Inumbo-ID: c08477ed-0b7c-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1714981103; x=1715585903; darn=lists.xenproject.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=tjYCOSdMFmFeFYv00bvqUGHB4qSVO8Xv+3DtlFur9B0=;
-        b=k0jEjrbK1U+2hKHOhoyoG4zqakLalryJqSIlr1QFei57lhBQQyunQFPfdvPyXYbq8f
-         BMlyUtVH2mweuvxrHfZECYKRHmMMPXE1XDjjqrybw32E+0xxyVwtIrPDcnfkdxrjg17G
-         A28fBdAKZc2cSoHFGtZPvniyD5zrAicVvxRUY=
+        d=suse.com; s=google; t=1714981590; x=1715586390; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=Ivowa02Zz09uluRnS4pkLodP0hzWYK2w++sjkL+XuTY=;
+        b=OJKiHGyv1zpMUuJ8H+gfhAwioShKB6UHycXem+aObNRhnBHbPcBTftGLQM6LRhTEa1
+         29d1y2z5OBd2HAmVC/I+udZhnVJB8n82nfueKm20lvpgNASZjUB0cvwEX/Po0//snctn
+         9Tyl9nRy3PS4QTI3Up40lpUbIperyHfGTQOIi9qeHnmsO4wVVayLbjF20PozHx/uTnW9
+         CO1EDAjC3hwZDOk99jw8Yx3/BeVcQwfypmyDuONAELrbn+JkZ1jjzGxvU8dNW/AIux+V
+         99iMDp3H7nIJSke3WnGOvdQE20/yhzDWC0E47JmVaKN8SZNEecBL5WBWIG5idvwB8NKV
+         2VWA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1714981103; x=1715585903;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
+        d=1e100.net; s=20230601; t=1714981590; x=1715586390;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:to
+         :content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=tjYCOSdMFmFeFYv00bvqUGHB4qSVO8Xv+3DtlFur9B0=;
-        b=cj4cIM+UrW6kfVb6msqGB2VHnL0w8rzy0DEGP2Y3UzKl8DPZxABjpZFnUvyLIRsRh1
-         nAAsn4oRhWkGIp9upTov0+32npUT2HpHYBV2By6bEGx0Alk0GuNqQBlri4P544aTCe8O
-         SeVuNE07qgjuu9iTwacfvraBlx8k+04fO6uDDSoaIpoxd7im2Ir0rOcEjohB+4XrzKQF
-         D/L80nDDc89+YcqTtS0ow1AQPhSjDulc0dSKXm0X/c/tqaeVlFF9PlRFb7dsNKUdaDmc
-         O9Iz52x3Zd/QKIabaXPCpLXkhPtUHf8vT2/0kIOHRiEEINCwFAWgC/yhhYleM4NBVdGP
-         qakA==
-X-Gm-Message-State: AOJu0YzxNBUPCwjePeZlYqkurhu/aGCrktGiqH0hC/66p3uf+CN4KBRm
-	xr2ufsm5kC3pVI/34ridG0PJQbqC9CjeQsdcf1IELBdp9vuL9a1nM5NGESQH/1Y=
-X-Google-Smtp-Source: AGHT+IGYx3Dd8wZbnJ3Oizz+3OPNRKZZjqh9SO2K+wrAoSLUgKPZHikdK3L0k/dpjUbsnVCAUIG55g==
-X-Received: by 2002:a05:600c:450e:b0:41b:edf4:4071 with SMTP id t14-20020a05600c450e00b0041bedf44071mr9417881wmo.35.1714981102682;
-        Mon, 06 May 2024 00:38:22 -0700 (PDT)
-Date: Mon, 6 May 2024 09:38:21 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>
-Subject: Re: [PATCH v6 3/7] x86/hvm: Allow access to registers on the same
- page as MSI-X table
-Message-ID: <ZjiI7cLtiJTzc1El@macbook>
-References: <cover.3491f479d5b6238106af8ddc56ec6834090b330f.1714154036.git-series.marmarek@invisiblethingslab.com>
- <a9b04e2224e97a27a127a003e8ccf5edfd4922c7.1714154036.git-series.marmarek@invisiblethingslab.com>
- <ZjShYhUvx694rPEp@macbook>
- <ZjWFzEdJ9wiz2GMI@mail-itl>
+        bh=Ivowa02Zz09uluRnS4pkLodP0hzWYK2w++sjkL+XuTY=;
+        b=QpGsbErujzvVm7/T6PyI15vQjaTClSJM3aFn+A42aDiBam1j0Nte3rkfzJNLeXeubB
+         NHxZooTeGtLj2B6IIOPfU9oWlt0jOWRt+U6a/Jo6q3ux84NiR1AV6fD+m/zQjrCXB6gF
+         Wt72Zz2SRv3BTfMg7DlBBGzmfzM9CXs2zTVzYhnkOeLy88hJH2LeJ4bQz0SQlUFe45Fk
+         xjw6MvqsaFxIQYCz9s+CVpfq87ZqF1wzTjf607CFGw/CeCHX4pmHv01NFWSNUV5twK1k
+         2MR5CnXxW2OhnfRYO/F9whsTa6y2jJIi3OmhCqnLp/gg+ywaMcMukFjA+stuz3WjC+XE
+         OZ5Q==
+X-Gm-Message-State: AOJu0Yw1NV/ZCDAbgta89Ol7tpKnUK4RQJvIjZleyVTczwp0+NK+MZXD
+	IvsCfR5Kcv4eDy5pqPNY6nQMlaswK5za5V2onNwofzY9pOauOBHt+7QPDcRgZ4vNdAJ+/OK1faE
+	=
+X-Google-Smtp-Source: AGHT+IEO759mocuHoAgJC6kS/uBBM+NLYTt7MgkriaBqHke8h+jP3A8itTi5JBtoQUYXMVO2+mORZQ==
+X-Received: by 2002:a05:600c:4fc3:b0:418:969a:b316 with SMTP id o3-20020a05600c4fc300b00418969ab316mr6666492wmq.1.1714981590250;
+        Mon, 06 May 2024 00:46:30 -0700 (PDT)
+Message-ID: <0794e145-aeb0-4b33-a53b-5a940958cbad@suse.com>
+Date: Mon, 6 May 2024 09:46:30 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <ZjWFzEdJ9wiz2GMI@mail-itl>
+User-Agent: Mozilla Thunderbird
+Subject: Re: New Defects reported by Coverity Scan for XenProject
+Content-Language: en-US
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <6637576caf98c_10d9e42c57d37559ac60499@prd-scan-dashboard-0.mail>
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <6637576caf98c_10d9e42c57d37559ac60499@prd-scan-dashboard-0.mail>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Sat, May 04, 2024 at 02:48:12AM +0200, Marek Marczykowski-Górecki wrote:
-> On Fri, May 03, 2024 at 10:33:38AM +0200, Roger Pau Monné wrote:
-> > On Fri, Apr 26, 2024 at 07:54:00PM +0200, Marek Marczykowski-Górecki wrote:
-> > > Some devices (notably Intel Wifi 6 AX210 card) keep auxiliary registers
-> > > on the same page as MSI-X table. Device model (especially one in
-> > > stubdomain) cannot really handle those, as direct writes to that page is
-> > > refused (page is on the mmio_ro_ranges list). Instead, extend
-> > > msixtbl_mmio_ops to handle such accesses too.
-> > > 
-> > > Doing this, requires correlating read/write location with guest
-> > > of MSI-X table address. Since QEMU doesn't map MSI-X table to the guest,
-> >   ^ extra 'of'?
-> > > it requires msixtbl_entry->gtable, which is HVM-only. Similar feature
-> > > for PV would need to be done separately.
-> > > 
-> > > This will be also used to read Pending Bit Array, if it lives on the same
-> > > page, making QEMU not needing /dev/mem access at all (especially helpful
-> > > with lockdown enabled in dom0). If PBA lives on another page, QEMU will
-> > > map it to the guest directly.
-> > > If PBA lives on the same page, discard writes and log a message.
-> > > Technically, writes outside of PBA could be allowed, but at this moment
-> > > the precise location of PBA isn't saved, and also no known device abuses
-> > > the spec in this way (at least yet).
-> > > 
-> > > To access those registers, msixtbl_mmio_ops need the relevant page
-> > > mapped. MSI handling already has infrastructure for that, using fixmap,
-> > > so try to map first/last page of the MSI-X table (if necessary) and save
-> > > their fixmap indexes. Note that msix_get_fixmap() does reference
-> > > counting and reuses existing mapping, so just call it directly, even if
-> > > the page was mapped before. Also, it uses a specific range of fixmap
-> > > indexes which doesn't include 0, so use 0 as default ("not mapped")
-> > > value - which simplifies code a bit.
-> > > 
-> > > GCC 12.2.1 gets confused about 'desc' variable:
-> > > 
-> > >     arch/x86/hvm/vmsi.c: In function ‘msixtbl_range’:
-> > >     arch/x86/hvm/vmsi.c:553:8: error: ‘desc’ may be used uninitialized [-Werror=maybe-uninitialized]
-> > >       553 |     if ( desc )
-> > >           |        ^
-> > >     arch/x86/hvm/vmsi.c:537:28: note: ‘desc’ was declared here
-> > >       537 |     const struct msi_desc *desc;
-> > >           |                            ^~~~
-> > > 
-> > > It's conditional initialization is actually correct (in the case where
-> > > it isn't initialized, function returns early), but to avoid
-> > > build failure initialize it explicitly to NULL anyway.
-> > > 
-> > > Signed-off-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
-> > > ---
-> > > Changes in v6:
-> > > - use MSIX_CHECK_WARN macro
-> > > - extend assert on fixmap_idx
-> > > - add break in default label, after ASSERT_UNREACHABLE(), and move
-> > >   setting default there
-> > > - style fixes
-> > > Changes in v5:
-> > > - style fixes
-> > > - include GCC version in the commit message
-> > > - warn only once (per domain, per device) about failed adjacent access
-> > > Changes in v4:
-> > > - drop same_page parameter of msixtbl_find_entry(), distinguish two
-> > >   cases in relevant callers
-> > > - rename adj_access_table_idx to adj_access_idx
-> > > - code style fixes
-> > > - drop alignment check in adjacent_{read,write}() - all callers already
-> > >   have it earlier
-> > > - delay mapping first/last MSI-X pages until preparing device for a
-> > >   passthrough
-> > > v3:
-> > >  - merge handling into msixtbl_mmio_ops
-> > >  - extend commit message
-> > > v2:
-> > >  - adjust commit message
-> > >  - pass struct domain to msixtbl_page_handler_get_hwaddr()
-> > >  - reduce local variables used only once
-> > >  - log a warning if write is forbidden if MSI-X and PBA lives on the same
-> > >    page
-> > >  - do not passthrough unaligned accesses
-> > >  - handle accesses both before and after MSI-X table
-> > > ---
-> > >  xen/arch/x86/hvm/vmsi.c        | 200 ++++++++++++++++++++++++++++++++--
-> > >  xen/arch/x86/include/asm/msi.h |   5 +-
-> > >  xen/arch/x86/msi.c             |  41 +++++++-
-> > >  3 files changed, 236 insertions(+), 10 deletions(-)
-> > > 
-> > > diff --git a/xen/arch/x86/hvm/vmsi.c b/xen/arch/x86/hvm/vmsi.c
-> > > index 999917983789..230e3a5dee3f 100644
-> > > --- a/xen/arch/x86/hvm/vmsi.c
-> > > +++ b/xen/arch/x86/hvm/vmsi.c
-> > > @@ -180,6 +180,10 @@ static bool msixtbl_initialised(const struct domain *d)
-> > >      return d->arch.hvm.msixtbl_list.next;
-> > >  }
-> > >  
-> > > +/*
-> > > + * Lookup an msixtbl_entry on the same page as given addr. It's up to the
-> > > + * caller to check if address is strictly part of the table - if relevant.
-> > > + */
-> > >  static struct msixtbl_entry *msixtbl_find_entry(
-> > >      struct vcpu *v, unsigned long addr)
-> > >  {
-> > > @@ -187,8 +191,8 @@ static struct msixtbl_entry *msixtbl_find_entry(
-> > >      struct domain *d = v->domain;
-> > >  
-> > >      list_for_each_entry( entry, &d->arch.hvm.msixtbl_list, list )
-> > > -        if ( addr >= entry->gtable &&
-> > > -             addr < entry->gtable + entry->table_len )
-> > > +        if ( PFN_DOWN(addr) >= PFN_DOWN(entry->gtable) &&
-> > > +             PFN_DOWN(addr) <= PFN_DOWN(entry->gtable + entry->table_len - 1) )
-> > >              return entry;
-> > >  
-> > >      return NULL;
-> > > @@ -213,6 +217,138 @@ static struct msi_desc *msixtbl_addr_to_desc(
-> > >      return NULL;
-> > >  }
-> > >  
-> > > +/*
-> > > + * Returns:
-> > > + *  - ADJACENT_DONT_HANDLE if no handling should be done
-> > > + *  - ADJACENT_DISCARD_WRITE if write should be discarded
-> > > + *  - a fixmap idx to use for handling
-> > > + */
-> > > +#define ADJACENT_DONT_HANDLE UINT_MAX
-> > > +#define ADJACENT_DISCARD_WRITE (UINT_MAX - 1)
-> > 
-> > I think this could be simpler, there's no need to signal with so fine
-> > grained detail about the action to be performed.
-> > 
-> > Any adjacent access to the MSI-X table should be handled by the logic
-> > you are adding, so anything that falls in those ranges should
-> > terminate here.
-> > 
-> > adjacent_handle() should IMO just return whether the access is
-> > replayed against the hardware, or if it's just dropped.
+On 05.05.2024 11:54, scan-admin@coverity.com wrote:
+> Hi,
 > 
-> The distinction here is to return X86EMUL_OKAY in case of adjacent write
-> that is ignored because PBA is somewhere near, but X86EMUL_UNHANDLABLE
-> for other/error cases (like fixmap indices not initialized).
-> But maybe this distinction doesn't make sense and X86EMUL_UNHANDLABLE is
-> okay in either case? 
-
-That's my suggestion, yes.  I don't think it's expected for ioreqs to
-handle those adjacent accesses, the more with the limitation that some
-of them might not even have access to such region in the first place.
-
-> > > @@ -220,9 +356,10 @@ static int cf_check msixtbl_read(
-> > >      unsigned long offset;
-> > >      struct msixtbl_entry *entry;
-> > >      unsigned int nr_entry, index;
-> > > +    unsigned int adjacent_fixmap;
-> > >      int r = X86EMUL_UNHANDLEABLE;
-> > >  
-> > > -    if ( (len != 4 && len != 8) || (address & (len - 1)) )
-> > > +    if ( !IS_ALIGNED(address, len) )
-> > >          return r;
-> > >  
-> > >      rcu_read_lock(&msixtbl_rcu_lock);
-> > > @@ -230,6 +367,21 @@ static int cf_check msixtbl_read(
-> > >      entry = msixtbl_find_entry(current, address);
-> > >      if ( !entry )
-> > >          goto out;
-> > > +
-> > > +    adjacent_fixmap = adjacent_handle(entry, address, false);
-> > 
-> > This seems overly complicated, but is possible I'm missing some logic.
-> > 
-> > IMO it would seem way less convoluted to simply do:
-> > 
-> > entry = msixtbl_find_entry(current, address);
-> > if ( !entry )
-> >     goto out;
-> > 
-> > if ( address < entry->gtable ||
-> >      address >= entry->gtable + entry->table_len )
-> > {
-> >     adjacent_read(...);
-> >     goto out;
-> > }
-> > 
-> > And put all the logic in adjacent_{read,write}() directly rather than
-> > having both adjacent_{read,write}() plus adjacent_handle() calls here?
-> > 
-> > If the access doesn't fall between the boundaries of the MSI-X table
-> > it's either going to be a handled adjacent access, or it's going to be
-> > discarded.
+> Please find the latest report on new defect(s) introduced to XenProject found with Coverity Scan.
 > 
-> Discarded - should it return X86EMUL_OKAY in that case? Currently it
-> returns X86EMUL_UNHANDLABLE in case adjacent access isn't handled (for
-> any reason) either.
-
-Yes, I think we want to terminate all adjacent accesses here - there's
-so far no need to forward them to any other handler, and that would
-simplify the logic.  I don't see an use case for handling those
-elsewhere, but if that ever arises we can always add the support them.
-There's no need to cater for a non-existent use-case that just makes
-the code more complicated.
-
-> > > +    if ( adjacent_fixmap != ADJACENT_DONT_HANDLE )
-> > > +    {
-> > > +        r = adjacent_read(adjacent_fixmap, address, len, pval);
-> > > +        goto out;
-> > > +    }
-> > > +
-> > > +    if ( address < entry->gtable ||
-> > > +         address >= entry->gtable + entry->table_len )
-> > > +        goto out;
-> > > +
-> > > +    if ( len != 4 && len != 8 )
-> > > +        goto out;
-> > > +
-> > >      offset = address & (PCI_MSIX_ENTRY_SIZE - 1);
-> > >  
-> > >      if ( offset != PCI_MSIX_ENTRY_VECTOR_CTRL_OFFSET )
-> > > @@ -282,6 +434,7 @@ static int msixtbl_write(struct vcpu *v, unsigned long address,
-> > >      int r = X86EMUL_UNHANDLEABLE;
-> > >      unsigned long flags;
-> > >      struct irq_desc *desc;
-> > > +    unsigned int adjacent_fixmap;
-> > >  
-> > >      if ( !IS_ALIGNED(address, len) )
-> > >          return X86EMUL_OKAY;
-> > > @@ -291,6 +444,21 @@ static int msixtbl_write(struct vcpu *v, unsigned long address,
-> > >      entry = msixtbl_find_entry(v, address);
-> > >      if ( !entry )
-> > >          goto out;
-> > > +
-> > > +    adjacent_fixmap = adjacent_handle(entry, address, true);
-> > > +    if ( adjacent_fixmap != ADJACENT_DONT_HANDLE )
-> > > +    {
-> > > +        r = adjacent_write(adjacent_fixmap, address, len, val);
-> > > +        goto out;
-> > > +    }
-> > > +
-> > > +    if ( address < entry->gtable ||
-> > > +         address >= entry->gtable + entry->table_len )
-> > > +        goto out;
-> > > +
-> > > +    if ( len != 4 && len != 8 )
-> > > +        goto out;
-> > > +
-> > >      nr_entry = array_index_nospec(((address - entry->gtable) /
-> > >                                     PCI_MSIX_ENTRY_SIZE),
-> > >                                    MAX_MSIX_TABLE_ENTRIES);
-> > > @@ -356,8 +524,8 @@ static int cf_check _msixtbl_write(
-> > >      const struct hvm_io_handler *handler, uint64_t address, uint32_t len,
-> > >      uint64_t val)
-> > >  {
-> > > -    /* Ignore invalid length or unaligned writes. */
-> > > -    if ( (len != 4 && len != 8) || !IS_ALIGNED(address, len) )
-> > > +    /* Ignore unaligned writes. */
-> > > +    if ( !IS_ALIGNED(address, len) )
-> > >          return X86EMUL_OKAY;
-> > >  
-> > >      /*
-> > > @@ -374,14 +542,22 @@ static bool cf_check msixtbl_range(
-> > >  {
-> > >      struct vcpu *curr = current;
-> > >      unsigned long addr = r->addr;
-> > > -    const struct msi_desc *desc;
-> > > +    const struct msixtbl_entry *entry;
-> > > +    const struct msi_desc *desc = NULL;
-> > > +    unsigned int adjacent_fixmap;
-> > >  
-> > >      ASSERT(r->type == IOREQ_TYPE_COPY);
-> > >  
-> > >      rcu_read_lock(&msixtbl_rcu_lock);
-> > > -    desc = msixtbl_addr_to_desc(msixtbl_find_entry(curr, addr), addr);
-> > > +    entry = msixtbl_find_entry(curr, addr);
-> > > +    adjacent_fixmap = adjacent_handle(entry, addr, false);
-> > > +    if ( adjacent_fixmap == ADJACENT_DONT_HANDLE )
-> > > +        desc = msixtbl_addr_to_desc(entry, addr);
-> > 
-> > I'm not sure you need adjacent_handle() here, I would think that any
-> > address adjacent to the MSI-X table Xen would want to handle
-> > unconditionally, and hence msixtbl_range() should return true:
+> 2 new defect(s) introduced to XenProject found with Coverity Scan.
+> 1 defect(s), reported by Coverity Scan earlier, were marked fixed in the recent build analyzed by Coverity Scan.
 > 
-> I put it here to not duplicate a set of checks for adjacent access. It
-> isn't only about the range, but also few other case (like if fixmap
-> indices are set).
-
-Right, but as discussed above, we likely want to terminate those
-accesses here anyway, since there's no other handler that cares about
-MSI-X table adjacent regions.
-
-> > entry = msixtbl_find_entry(curr, addr);
-> > if ( !entry )
-> >     return 0;
-> > 
-> > if ( addr < entry->gtable || addr >= entry->gtable + entry->table_len )
-> >     /* Possibly handle adjacent access. */
-> >     return 1;
-> > 
-> > desc = msixtbl_find_entry(curr, addr);
-> > ...
-> > 
-> > (Missing the _unlock calls in the chunk above)
-> > 
-> > There's no other processing that can happen for an adjacent access
-> > unless it's are handled here.  Otherwise such accesses will be
-> > discarded anyway?  Hence better short-circuit the MMIO handler search
-> > earlier.
+> New defect(s) Reported-by: Coverity Scan
+> Showing 2 of 2 defect(s)
 > 
-> Can't there be some ioreq server that could theoretically handle them?
+> 
+> ** CID 1596837:    (USE_AFTER_FREE)
+> /tools/firmware/xen-dir/xen-root/xen/common/gzip/inflate.c: 943 in inflate_dynamic()
+> /xen/common/gzip/inflate.c: 935 in inflate_dynamic()
+> /tools/firmware/xen-dir/xen-root/xen/common/gzip/inflate.c: 935 in inflate_dynamic()
+> /xen/common/gzip/inflate.c: 935 in inflate_dynamic()
+> /xen/common/gzip/inflate.c: 935 in inflate_dynamic()
+> /xen/common/gzip/inflate.c: 943 in inflate_dynamic()
+> /xen/common/gzip/inflate.c: 943 in inflate_dynamic()
+> /tools/firmware/xen-dir/xen-root/xen/common/gzip/inflate.c: 935 in inflate_dynamic()
+> /tools/firmware/xen-dir/xen-root/xen/common/gzip/inflate.c: 943 in inflate_dynamic()
+> /xen/common/gzip/inflate.c: 943 in inflate_dynamic()
+> 
+> 
+> ________________________________________________________________________________________________________
+> *** CID 1596837:    (USE_AFTER_FREE)
+> /tools/firmware/xen-dir/xen-root/xen/common/gzip/inflate.c: 943 in inflate_dynamic()
+> 937             goto out;
+> 938         }
+> 939     
+> 940         DEBG("dyn6 ");
+> 941     
+> 942         /* decompress until an end-of-block code */
+>>>>     CID 1596837:    (USE_AFTER_FREE)
+>>>>     Calling "inflate_codes" dereferences freed pointer "tl".
+> 943         if (inflate_codes(tl, td, bl, bd)) {
+> 944             ret = 1;
+> 945             goto out;
+> 946         }
 
-I don't think any of the current ioreq implementations care about
-those ATM, and with your work to make QEMU not depend on /dev/mem
-it's even more unlikely that we might gain such in the future.
+While first I thought the tool may be confused by the earlier huft_free()
+(matching an earlier huft_build()), ...
 
-As said above, I wouldn't mind allowing such forwarding if it made the
-code easier, but seeing how it makes the logic more complicated I
-think it's best to terminate all MSI-X table adjacent accesses here.
+> ** CID 1596836:    (USE_AFTER_FREE)
+> /xen/common/gzip/inflate.c: 943 in inflate_dynamic()
+> /xen/common/gzip/inflate.c: 943 in inflate_dynamic()
+> /tools/firmware/xen-dir/xen-root/xen/common/gzip/inflate.c: 943 in inflate_dynamic()
+> /xen/common/gzip/inflate.c: 943 in inflate_dynamic()
+> /tools/firmware/xen-dir/xen-root/xen/common/gzip/inflate.c: 943 in inflate_dynamic()
+> /tools/firmware/xen-dir/xen-root/xen/common/gzip/inflate.c: 943 in inflate_dynamic()
+> 
+> 
+> ________________________________________________________________________________________________________
+> *** CID 1596836:    (USE_AFTER_FREE)
+> /xen/common/gzip/inflate.c: 943 in inflate_dynamic()
+> 937             goto out;
+> 938         }
+> 939     
+> 940         DEBG("dyn6 ");
+> 941     
+> 942         /* decompress until an end-of-block code */
+>>>>     CID 1596836:    (USE_AFTER_FREE)
+>>>>     Calling "inflate_codes" dereferences freed pointer "td".
+> 943         if (inflate_codes(tl, td, bl, bd)) {
+> 944             ret = 1;
+> 945             goto out;
+> 946         }
 
-Thanks, Roger.
+... no dual usage exists for td. Hence I'm utterly confused as to what the
+tool is "thinking". In fact it looks like there is an opposite issue in
+both inflate_fixed() and inflate_dynamic(): tl and td are leaked when
+inflate_codes() fails. I guess I'll make a patch ...
+
+Jan
 
