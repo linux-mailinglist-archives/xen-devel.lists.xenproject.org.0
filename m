@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 37BCF8BCD84
-	for <lists+xen-devel@lfdr.de>; Mon,  6 May 2024 14:12:01 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.717601.1119974 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 85D438BCDB9
+	for <lists+xen-devel@lfdr.de>; Mon,  6 May 2024 14:22:32 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.717606.1119985 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s3xBw-0008VG-G9; Mon, 06 May 2024 12:11:36 +0000
+	id 1s3xM8-0002eu-ET; Mon, 06 May 2024 12:22:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 717601.1119974; Mon, 06 May 2024 12:11:36 +0000
+Received: by outflank-mailman (output) from mailman id 717606.1119985; Mon, 06 May 2024 12:22:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s3xBw-0008SX-Cn; Mon, 06 May 2024 12:11:36 +0000
-Received: by outflank-mailman (input) for mailman id 717601;
- Mon, 06 May 2024 12:11:34 +0000
+	id 1s3xM8-0002bu-9n; Mon, 06 May 2024 12:22:08 +0000
+Received: by outflank-mailman (input) for mailman id 717606;
+ Mon, 06 May 2024 12:22:07 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=gbjR=MJ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1s3xBu-0008SR-UR
- for xen-devel@lists.xenproject.org; Mon, 06 May 2024 12:11:34 +0000
-Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
- [2a00:1450:4864:20::435])
+ id 1s3xM7-0002bo-H3
+ for xen-devel@lists.xenproject.org; Mon, 06 May 2024 12:22:07 +0000
+Received: from mail-lj1-x229.google.com (mail-lj1-x229.google.com
+ [2a00:1450:4864:20::229])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c78c8f98-0ba1-11ef-909c-e314d9c70b13;
- Mon, 06 May 2024 14:11:33 +0200 (CEST)
-Received: by mail-wr1-x435.google.com with SMTP id
- ffacd0b85a97d-34d9c9f2cf0so1386113f8f.3
- for <xen-devel@lists.xenproject.org>; Mon, 06 May 2024 05:11:33 -0700 (PDT)
+ id 409c3f33-0ba3-11ef-909c-e314d9c70b13;
+ Mon, 06 May 2024 14:22:06 +0200 (CEST)
+Received: by mail-lj1-x229.google.com with SMTP id
+ 38308e7fff4ca-2db17e8767cso23237951fa.3
+ for <xen-devel@lists.xenproject.org>; Mon, 06 May 2024 05:22:06 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- n13-20020a5d420d000000b00346f9071405sm10577419wrq.21.2024.05.06.05.11.32
+ h11-20020a05600c314b00b00418f72d9027sm19623521wmo.18.2024.05.06.05.22.05
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 06 May 2024 05:11:33 -0700 (PDT)
+ Mon, 06 May 2024 05:22:05 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,55 +45,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c78c8f98-0ba1-11ef-909c-e314d9c70b13
+X-Inumbo-ID: 409c3f33-0ba3-11ef-909c-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1714997493; x=1715602293; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1714998126; x=1715602926; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=B5rhoF8q7VZIX3oI/NbOVreFCdgRgYaV1D6l9CEVgVM=;
-        b=E4nn0BPUTlZNh2nFXNpiX6zYjIB2zVNJeAqfJtCi26S3z51SBZjFExPfK2SfxNfJMh
-         pt32GzXuW+sIHr9ePlN9O+14GRXjMrWzkv5GLmtMNujIWuZRrwYH+FPoySMfxnL9RCx0
-         4gNmER7g/qBwOj00rwa2YHcPw3erb3grSIZl3VCxvfh/fvKBfsmaE0vTIMS+MndXgdmk
-         Qy77kFAnXBMDFm5vyVV8iwz4kA2GNyfEp0GAqPiVxxUHqIkBxsC8NBsE64/+JSmFTZjP
-         4V3W13B+Bf5E+Tr6H66F+V7gJAr4YtEJXWDP0zsYiFeAs3b5O8X7olT2fcy+Qxosu4kv
-         wcRw==
+        bh=Bxo0c2JnSEh32fqZxBsLZSfN57DBcB8XaU4pEtQxhYI=;
+        b=HfojG50/Rkw9T3NEU1wbd8jN8HRH3QcWwjVC33pDWP/jdu/tkIzt117Wd/v7ZEdhDL
+         V0O7bPJ8mhot0/YH/1cMYGO9C7i2UZwiZIOO8yIsA5CTlLF4vu2ppgQNQAESaHWEDN/Z
+         HTk2jmtlbnxOSo260MiFwUNhKyLjUoc6NqzJaLHwIItGLc40hVqzZ2FtItrOoo5wMBCs
+         y7pHWOc+CW9XNZVL+W3ap/fNXPXHDeC0u9h7Yt6tEDlmbik4AK4A9fYB+z1Sr+VMO+8S
+         9uIAs+LeoxjMWrafZ7Quh2pI3fogcxTiv6EHNotJx01EUEcbUopPWO3Lg9BTq4YrDuDF
+         J98g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1714997493; x=1715602293;
+        d=1e100.net; s=20230601; t=1714998126; x=1715602926;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=B5rhoF8q7VZIX3oI/NbOVreFCdgRgYaV1D6l9CEVgVM=;
-        b=leqMlvFqM47jIfq1G56r1fJmyyt6Bkw7LjS1pchtwC+66fH4e4631o5mE8XYeRJly3
-         53SI1G3Wjh702wl5YBPwE399/Go4Vo9xES1r8l1GMNkgf/gS2Q05EA3wklPTFbPgpKtZ
-         RHh8zfHsFdS+ydNOCZqImhyLVHG9Aatjv+HhmP/+PH2l/43GEtQ4YaRZQPQvQQRJlsWK
-         dyxbj6/cK67bDLn0d4CW7gJtgfg3htY7gJF+/nr16SYmrgffIDkyly9FZyHgGPWJ2duW
-         +3/qvoCCqhBrNFVNvev2ZXwntJTHc4uacctFRtQws1lCg3m40IEFj2oNjTo5wAlmavn6
-         1dtA==
-X-Forwarded-Encrypted: i=1; AJvYcCUADPk3fAdhATiW+aqJUGMiD5I9cBs2R2pv1M73BpwGEzbkZNifwVk2kbYRPBKgI7L5Fz65ojAM80gXE2992iwlt8asSh8G2Of0YnpyTk8=
-X-Gm-Message-State: AOJu0YxQh2FHMb2Ej3al/4ywG4c4tDeL1oEbldtzWYu4mUOrrPWogjr/
-	zXhHJPV1uOkRiouA5+KqwpwQcdxohsfMHPZ9dvB4LuwtOs8R3A6oHHtcSv36JA==
-X-Google-Smtp-Source: AGHT+IGELMoGWj7XS02yT090pj1Pgn/rogR7hLMWYYhdwdpxYWLGQAocEfBILhm0HrAgl3v3QgvNhg==
-X-Received: by 2002:a05:6000:c0c:b0:345:663f:cd79 with SMTP id dn12-20020a0560000c0c00b00345663fcd79mr8542837wrb.14.1714997493318;
-        Mon, 06 May 2024 05:11:33 -0700 (PDT)
-Message-ID: <99f6db77-23b8-4a18-b0b1-be4b9cd7f522@suse.com>
-Date: Mon, 6 May 2024 14:11:33 +0200
+        bh=Bxo0c2JnSEh32fqZxBsLZSfN57DBcB8XaU4pEtQxhYI=;
+        b=srynDeYytfGiv95XhPCnIZh3zT+3jX27wU3K43r8TI/YM3LXuvdmTyKpCAVzatRIh3
+         BG+Xjr8bvqZKQjIOcVrOBiJFaluOxmnU9n3jw0bKY0oV5UBWsPYdm+EXG1Rbk4nUXIju
+         nuGSzszhIrifcJuwcjPD+lcK/CwJJAlDKgkYdLLHqW5aitHCwn78CBs2p8pwZVW2tz4f
+         NcDYFNLhMLi2v0EzdxwjoJ+LAZfsC/Vxds19B7aB/6sic42UTutmjEoRZbJWkRAgVw4M
+         1TITfHu85uKQ+Bf21lZjY2bVs8B81XkKChkJZ2H/21u+JrtCzsjVblih9tcFO8rmbZJ1
+         sq6Q==
+X-Forwarded-Encrypted: i=1; AJvYcCUfwt45lhS0xY16ZyRdJCCB9V60VTIBcEcXakXkNaSaemUNe1iVJp47fHpugW9fY8rBfOXCFvacLijUFk++ui0yuV9nWvbllW5d+fZQh9Y=
+X-Gm-Message-State: AOJu0YwcbrSvUaFz5JwDSOKC7MAefOfWg93V6oheQjtydWY7hp7l/nsI
+	ySdYL9W2BZDP89dLg8NPzL+OCAUXZ3Sas/R0zKB9L8J/nF5TbRHmMo0hP9DCZg==
+X-Google-Smtp-Source: AGHT+IHWCFIwLkDwGzs54+64v6fwBdW6o42d7rP4gg8wPh4kgwmzYg12fCeRwZcZkLqs5cp3zFVjIw==
+X-Received: by 2002:a2e:bc02:0:b0:2d8:6054:a1bd with SMTP id b2-20020a2ebc02000000b002d86054a1bdmr8093495ljf.40.1714998125902;
+        Mon, 06 May 2024 05:22:05 -0700 (PDT)
+Message-ID: <674578c8-8243-40f6-ad90-28f9b76a42fd@suse.com>
+Date: Mon, 6 May 2024 14:22:06 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 07/13] xen/arm: add support for cache coloring
- configuration via device-tree
+Subject: Re: [PATCH v8 08/13] xen/page_alloc: introduce preserved page flags
+ macro
 Content-Language: en-US
 To: Carlo Nonato <carlo.nonato@minervasys.tech>
-Cc: andrea.bastoni@minervasys.tech,
- Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>,
- Marco Solieri <marco.solieri@minervasys.tech>, xen-devel@lists.xenproject.org
+Cc: andrea.bastoni@minervasys.tech, Andrew Cooper
+ <andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ xen-devel@lists.xenproject.org
 References: <20240502165533.319988-1-carlo.nonato@minervasys.tech>
- <20240502165533.319988-8-carlo.nonato@minervasys.tech>
+ <20240502165533.319988-9-carlo.nonato@minervasys.tech>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -118,57 +114,50 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240502165533.319988-8-carlo.nonato@minervasys.tech>
+In-Reply-To: <20240502165533.319988-9-carlo.nonato@minervasys.tech>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 02.05.2024 18:55, Carlo Nonato wrote:
-> @@ -266,6 +267,47 @@ int domain_set_llc_colors(struct domain *d,
->      return 0;
->  }
+> --- a/xen/common/page_alloc.c
+> +++ b/xen/common/page_alloc.c
+> @@ -159,6 +159,7 @@
+>  #endif
 >  
-> +int __init domain_set_llc_colors_from_str(struct domain *d, const char *str)
-> +{
-> +    int err;
-> +    unsigned int *colors, num_colors;
-> +
-> +    if ( !str )
-> +    {
-> +        domain_set_default_colors(d);
-> +        return 0;
-> +    }
-> +
-> +    colors = xmalloc_array(unsigned int, max_nr_colors);
-> +    if ( !colors )
-> +        return -ENOMEM;
-> +
-> +    err = parse_color_config(str, colors, max_nr_colors, &num_colors);
-> +    if ( err )
-> +    {
-> +        printk(XENLOG_ERR "Error parsing LLC color configuration");
-> +        xfree(colors);
-> +        return err;
-> +    }
-> +
-> +    if ( !check_colors(colors, num_colors) )
-> +    {
-> +        printk(XENLOG_ERR "Bad LLC color config for %pd\n", d);
-> +        xfree(colors);
-> +        return -EINVAL;
-> +    }
-> +
-> +    /* Adjust the size cause it was initially set to max_nr_colors */
-> +    colors = xrealloc_array(colors, num_colors);
-> +    if ( !colors )
-> +        return -ENOMEM;
+>  #define PGC_no_buddy_merge PGC_static
+> +#define PGC_preserved (PGC_extra | PGC_static)
 
-In the error case you're leaking the (too large) array. IMO you want this to
-be best effort anyway - try to shrink, but if shrinking fails use what you
-already have:
+Seeing this again and its use ...
 
-    d->llc_colors = xrealloc_array(colors, num_colors);
-    if ( !d->llc_colors )
-        d->llc_colors = colors;
+> @@ -1426,11 +1427,11 @@ static bool mark_page_free(struct page_info *pg, mfn_t mfn)
+>      {
+>      case PGC_state_inuse:
+>          BUG_ON(pg->count_info & PGC_broken);
+> -        pg->count_info = PGC_state_free;
+> +        pg->count_info = PGC_state_free | (pg->count_info & PGC_preserved);
+>          break;
+>  
+>      case PGC_state_offlining:
+> -        pg->count_info = (pg->count_info & PGC_broken) |
+> +        pg->count_info = (pg->count_info & (PGC_broken | PGC_preserved)) |
+>                           PGC_state_offlined;
+>          pg_offlined = true;
+>          break;
+
+... here: Shouldn't PGC_broken also be included in PGC_preserved?
+
+> @@ -2484,6 +2485,11 @@ struct page_info *alloc_domheap_pages(
+>          }
+>          if ( assign_page(pg, order, d, memflags) )
+>          {
+> +            unsigned long i;
+> +
+> +            for ( i = 0; i < (1UL << order); i++ )
+> +                pg[i].count_info &= ~PGC_extra;
+
+For larger order this loop is non-trivial and may have a fair effect on
+caches. Looking at the code just outside of upper patch context, is this
+loop needed at all when MEMF_no_refcount is clear in memflags?
 
 Jan
 
