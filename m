@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 65DFB8BC96D
-	for <lists+xen-devel@lfdr.de>; Mon,  6 May 2024 10:20:42 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.717297.1119353 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3BCAD8BC975
+	for <lists+xen-devel@lfdr.de>; Mon,  6 May 2024 10:21:49 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.717301.1119364 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s3ta7-00079m-5v; Mon, 06 May 2024 08:20:19 +0000
+	id 1s3tbM-0007jc-Ha; Mon, 06 May 2024 08:21:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 717297.1119353; Mon, 06 May 2024 08:20:19 +0000
+Received: by outflank-mailman (output) from mailman id 717301.1119364; Mon, 06 May 2024 08:21:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s3ta7-00077n-2k; Mon, 06 May 2024 08:20:19 +0000
-Received: by outflank-mailman (input) for mailman id 717297;
- Mon, 06 May 2024 08:20:18 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1s3tbM-0007hH-EY; Mon, 06 May 2024 08:21:36 +0000
+Received: by outflank-mailman (input) for mailman id 717301;
+ Mon, 06 May 2024 08:21:35 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=gbjR=MJ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1s3ta5-00077h-Vh
- for xen-devel@lists.xenproject.org; Mon, 06 May 2024 08:20:17 +0000
-Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
- [2a00:1450:4864:20::434])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 782abf08-0b81-11ef-909c-e314d9c70b13;
- Mon, 06 May 2024 10:20:16 +0200 (CEST)
-Received: by mail-wr1-x434.google.com with SMTP id
- ffacd0b85a97d-34e0d47bd98so2204210f8f.0
- for <xen-devel@lists.xenproject.org>; Mon, 06 May 2024 01:20:16 -0700 (PDT)
+ id 1s3tbK-0007h9-Us
+ for xen-devel@lists.xenproject.org; Mon, 06 May 2024 08:21:34 +0000
+Received: from mail-lj1-x22a.google.com (mail-lj1-x22a.google.com
+ [2a00:1450:4864:20::22a])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id a5830ae7-0b81-11ef-b4bb-af5377834399;
+ Mon, 06 May 2024 10:21:32 +0200 (CEST)
+Received: by mail-lj1-x22a.google.com with SMTP id
+ 38308e7fff4ca-2dd6a7ae2dcso27067431fa.1
+ for <xen-devel@lists.xenproject.org>; Mon, 06 May 2024 01:21:33 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- i15-20020adfb64f000000b0034af40b2efdsm10059143wre.108.2024.05.06.01.20.15
+ i15-20020adfb64f000000b0034af40b2efdsm10059143wre.108.2024.05.06.01.21.32
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 06 May 2024 01:20:16 -0700 (PDT)
+ Mon, 06 May 2024 01:21:32 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,48 +45,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 782abf08-0b81-11ef-909c-e314d9c70b13
+X-Inumbo-ID: a5830ae7-0b81-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1714983616; x=1715588416; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1714983692; x=1715588492; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=s2rPXEsoE9bbs26kSdurMoDF4s8RZXdUIvKwrhiHXQs=;
-        b=SJhjf+gWleW0Q8Po+oQO/wyR0LGLFgYXFXZ7I6p7reHG4P+0VM3XD9U54BNd80Tg+h
-         IEtZ+ogPZ4ZUBuLaaecBVq4pRIMw3UJfnw9CcSdW9pIokXtmQGXNGmObEGrt6dT3w78X
-         /+Md/yrjjLms7FXb1BVuRRVYgpHHUYkvlVxj6W+/FhsQ+s517iefi5jFLKyyloqjWZv2
-         ug/HoSY2lXwj26KtET2rTiYyVeY//oIWRB/8YquYYRZoV6S+L5RuHlgcqBkdYBhKsCxA
-         gQtZIXwXju+3nf15doLMxa8QbsJZOeKq9vlm1HBOsXj+eqlmHi+u64s8wOdawZjbnUWx
-         VXbQ==
+        bh=DTGGRFlH0AZmaLfikDiNRxLL7Y55HnvFSN6jh6IGiwk=;
+        b=UwSE30QGHozCUSZX4sCOPVTzpITmh+SB+MWSf/WmKrI3Hwk+QHTWahPCPS/QRm36hf
+         ygN7rY6NEkuPs605zNHn89HXhDXIqjQIoC7LQ4zdnl/0OviHSNFWkmsoJw0iXsnoviXD
+         m8YwZQF5daChe3Y3v+pC+kw0xB60BgTefDWwRWUy/z2GE5Jv1SbN1R6LbZrKv/3/e8ti
+         vlNMHsqqsHxaXuv7fF8utB27Kv0Qvu4NqcMzB9szgvyU1v6Hwybs4rw2bueYqgTPnVbO
+         4p2OglYgY7VOnmSurjJYjIlEyOdeK79fZw7CNDKi7UXSmY4O6LpoFDCynW56g6UgdlpC
+         ot0g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1714983616; x=1715588416;
+        d=1e100.net; s=20230601; t=1714983692; x=1715588492;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=s2rPXEsoE9bbs26kSdurMoDF4s8RZXdUIvKwrhiHXQs=;
-        b=u5LoEQj49sEbdvPIIYytUeROqsPUJ4cR6wzoX14Q8APzpxLTd3u8Cewqk9Y+hNYETX
-         TAH13mn0aDo8E+aSgZhb2vJfZbHJCFyj7Z8T2zRbT/1J+qnq18FT2TTsW3RjIIe7g8Ud
-         QX5H9UpzRsl4D590wbNjWmOjwtF73Q9AL5MUzPGcQn573Yt7WTbUrDRRwbcmSZSU6Eqa
-         mVbuwgeOjXUB+ZMONCxXloC5a5iQsO9cOQeFjEB0I5eiM2ruDQEIglYaoz4O0bcHOj2A
-         cq8E3kCjK5rboIWEJEfqhnVZshNfNoaeBikpQNjEE1JsmTh68THcTltUTsPRZNgrAjnE
-         5ZRg==
-X-Forwarded-Encrypted: i=1; AJvYcCWVf4hpb7nddVdatBGzwm5BD3LsBfJh62h/9EeCdbKSVP5ARnTiZNMuJzIuBUNxGKOsLphB74xkZtck/8KN0B/mtJQ72QmC71s0ziN+1As=
-X-Gm-Message-State: AOJu0Yw8pOlX6LWAHgXHQFApsMSpKKkFxloCyOnFvu89eCrJ5Qcarbi/
-	VMBr/h+WnDCx8L8O46/LPv5SRxOqYuf9lm9S9w4/eg8rd8q8h2yKtqt0tbfGaA==
-X-Google-Smtp-Source: AGHT+IGImdOw5vmpKIpDmL62hzspCxmOJQS2Eof0CXMuQUtVvywxBvsiif33w5bhse7bZSi82gPu7Q==
-X-Received: by 2002:a05:6000:c0a:b0:34e:de3b:3ccb with SMTP id dn10-20020a0560000c0a00b0034ede3b3ccbmr3835159wrb.14.1714983616250;
-        Mon, 06 May 2024 01:20:16 -0700 (PDT)
-Message-ID: <cc1f42bf-7629-41fa-99b5-f77f15a371be@suse.com>
-Date: Mon, 6 May 2024 10:20:17 +0200
+        bh=DTGGRFlH0AZmaLfikDiNRxLL7Y55HnvFSN6jh6IGiwk=;
+        b=eBeiBvLLxaViYnpZvQTF4ASuy+pMHAkFCsly12XVzoQ9pdPuCCCJvlHsebOB2EKfiN
+         IMWaJCTHFvoK6F45iFqMtTfzYR71OsBbJwjixKlez9eeAyJ7rLYEJ/Iey/nf0lkkkYfV
+         nnFferdTbgj0F3Hqu095WBeq5pZZy+RelRX/bhEhGvIPwKLL5qG+NDd9bLoebkHwUqfI
+         dFL60m9S+iX6PMJtaCBUPZ0FJwOZOqSXc7oGOdLxYmK+mGZf65vdVB0tWWWr17NdADaV
+         iRsKgAWgA8UMiIiXch9yqhVPb6TmzD5InDIBAl6/nI1I5MWUbsffQz8oV85suMVRAKiQ
+         q9nA==
+X-Forwarded-Encrypted: i=1; AJvYcCUjocIiKtbw5H3AXERN6UdGNdzdbswk5xmFG43vpan9iM3+jsNNVgo9JqnJzA2NsdQvtMhCs+OEF+lbGEyosa5XqfD4EPd33o/jyij6te8=
+X-Gm-Message-State: AOJu0YyMvDDVh8AeSXdJX1Np6Z2002idpUrLKIxLUiuYSoQwWugAOJuq
+	z1aKDG+Hn6UWephE0gDIAYHfQn5E5TYfXZ6Rin87u22P2cyeZLeXLy9zgwXxg53pBer5k3wwR3E
+	=
+X-Google-Smtp-Source: AGHT+IE9k99HxbRquyraMmYVMixXRU4J+AVLJ+zF+y+Wjem1E4i6e+g82tl0CO6qCBjO5Gji+PaWAw==
+X-Received: by 2002:a2e:f02:0:b0:2e2:9842:a9d3 with SMTP id 2-20020a2e0f02000000b002e29842a9d3mr5644533ljp.46.1714983692468;
+        Mon, 06 May 2024 01:21:32 -0700 (PDT)
+Message-ID: <fc0c86f5-837a-45e8-807e-6861063be85f@suse.com>
+Date: Mon, 6 May 2024 10:21:33 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 3/5] x86: Add usage() to print out usage message
+Subject: Re: [PATCH v3 4/5] x86: Use getopt to handle command line args
 Content-Language: en-US
 To: Fouad Hilly <fouad.hilly@cloud.com>
 Cc: Anthony PERARD <anthony@xenproject.org>,
  Xen-devel <xen-devel@lists.xenproject.org>
 References: <20240430124709.865183-1-fouad.hilly@cloud.com>
- <20240430124709.865183-4-fouad.hilly@cloud.com>
+ <20240430124709.865183-5-fouad.hilly@cloud.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -111,67 +112,22 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240430124709.865183-4-fouad.hilly@cloud.com>
+In-Reply-To: <20240430124709.865183-5-fouad.hilly@cloud.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 30.04.2024 14:47, Fouad Hilly wrote:
-> Refactor xen-ucode tool by adding usage() to handle usage\help messages.
-> As we add more command options this will keep help\usage messages in a common block.
-> Only generic error message is printed to stderr. usage and show_curr_cpu are printed to stdout.
+> Use getopt_long() to handle command line arguments.
+> Introduce ext_err for common exit with errors.
 > 
 > Signed-off-by: Fouad Hilly <fouad.hilly@cloud.com>
-> ---
-> [v3]
-> 1- Reverted usage message.
-> 2- Utilized usage().
-> 
-> [v2]
-> 1- Improved message description.
-> 2- Fixed formatting and indentation.
-> 3- Error message to print to stderr.
 
-Already on v2 I pointed out that this change wasn't really done. And now,
-in v3, ...
+Nit: Neither subject nor description make clear ...
 
->  tools/misc/xen-ucode.c | 12 +++++++++---
->  1 file changed, 9 insertions(+), 3 deletions(-)
-> 
-> diff --git a/tools/misc/xen-ucode.c b/tools/misc/xen-ucode.c
-> index c6ae6498d659..005bf85b6551 100644
-> --- a/tools/misc/xen-ucode.c
-> +++ b/tools/misc/xen-ucode.c
-> @@ -17,6 +17,13 @@ static xc_interface *xch;
->  static const char intel_id[] = "GenuineIntel";
->  static const char   amd_id[] = "AuthenticAMD";
->  
-> +static void usage(const char *name)
-> +{
-> +    printf("%s: Xen microcode updating tool\n"
-> +           "Usage: %s [<microcode file> | show-cpu-info]\n",
-> +           name, name);
-> +}
+>  tools/misc/xen-ucode.c | 45 +++++++++++++++++++++++++++++++-----------
+>  1 file changed, 33 insertions(+), 12 deletions(-)
 
-... you're still unconditionally printing to stdout, when ...
-
->  static void show_curr_cpu(FILE *f)
->  {
->      int ret;
-> @@ -89,9 +96,8 @@ int main(int argc, char *argv[])
->      if ( argc < 2 )
->      {
->          fprintf(stderr,
-> -                "xen-ucode: Xen microcode updating tool\n"
-> -                "Usage: %s [<microcode file> | show-cpu-info]\n", argv[0]);
-> -        show_curr_cpu(stderr);
-> +                "%s: unable to process command line arguments\n", argv[0]);
-> +        usage(argv[0]);
->          exit(2);
->      }
-
-... originally the usage message (correctly) went to stderr in this case.
-It ought to go to stdout only in response to something like a --help
-command line option.
+... what tool is actually being touched.
 
 Jan
 
