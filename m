@@ -2,32 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8AE7A8BC88B
-	for <lists+xen-devel@lfdr.de>; Mon,  6 May 2024 09:47:15 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.717273.1119314 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E40688BC925
+	for <lists+xen-devel@lfdr.de>; Mon,  6 May 2024 10:09:13 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.717285.1119324 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s3t3v-0007Z0-OO; Mon, 06 May 2024 07:47:03 +0000
+	id 1s3tOu-0003Ea-OW; Mon, 06 May 2024 08:08:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 717273.1119314; Mon, 06 May 2024 07:47:03 +0000
+Received: by outflank-mailman (output) from mailman id 717285.1119324; Mon, 06 May 2024 08:08:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s3t3v-0007XR-LJ; Mon, 06 May 2024 07:47:03 +0000
-Received: by outflank-mailman (input) for mailman id 717273;
- Mon, 06 May 2024 07:47:02 +0000
+	id 1s3tOu-0003BU-Lr; Mon, 06 May 2024 08:08:44 +0000
+Received: by outflank-mailman (input) for mailman id 717285;
+ Mon, 06 May 2024 08:08:42 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=8Q7K=MJ=inria.fr=fonyuy-asheri.caleb@srs-se1.protection.inumbo.net>)
- id 1s3t3u-00071b-0d
- for xen-devel@lists.xenproject.org; Mon, 06 May 2024 07:47:02 +0000
-Received: from mail2-relais-roc.national.inria.fr
- (mail2-relais-roc.national.inria.fr [192.134.164.83])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=gbjR=MJ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1s3tOs-0003BO-JG
+ for xen-devel@lists.xenproject.org; Mon, 06 May 2024 08:08:42 +0000
+Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
+ [2a00:1450:4864:20::32d])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id d1a303e0-0b7c-11ef-b4bb-af5377834399;
- Mon, 06 May 2024 09:46:59 +0200 (CEST)
-Received: from zcs2-store8.inria.fr ([128.93.142.6])
- by mail2-relais-roc.national.inria.fr with ESMTP; 06 May 2024 09:46:59 +0200
+ id d8f33e79-0b7f-11ef-b4bb-af5377834399;
+ Mon, 06 May 2024 10:08:40 +0200 (CEST)
+Received: by mail-wm1-x32d.google.com with SMTP id
+ 5b1f17b1804b1-41ecffed96cso5626805e9.1
+ for <xen-devel@lists.xenproject.org>; Mon, 06 May 2024 01:08:40 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ t3-20020a05600001c300b0034df7313bf1sm10150992wrx.0.2024.05.06.01.08.39
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 06 May 2024 01:08:39 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,103 +45,130 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d1a303e0-0b7c-11ef-b4bb-af5377834399
+X-Inumbo-ID: d8f33e79-0b7f-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=inria.fr; s=dc;
-  h=date:from:to:message-id:subject:mime-version;
-  bh=Odxatie3Hdqs5x7nve4Krl7bVieqJ8Cx2jixE3fO7pg=;
-  b=bt+PDPkn2gBNxqy1v1R33U7rNofFjAYhWNpyKhcPpc2EThZ3UbAXa6bE
-   V58Pdw8Edoh8f1ax1ZyrkvtP+dA2lP8mS4EC4xqWtb57WOvSmRte79sFG
-   81tX3zpS5Gm1d4dRwQkYjKSoUmr2oS/SXkfY+N5KWnCJCQaCs5Y0/peq4
-   w=;
-Authentication-Results: mail2-relais-roc.national.inria.fr; dkim=none (message not signed) header.i=none; spf=Pass smtp.mailfrom=fonyuy-asheri.caleb@inria.fr; spf=None smtp.helo=postmaster@zcs2-store8.inria.fr
-Received-SPF: Pass (mail2-relais-roc.national.inria.fr: domain of
-  fonyuy-asheri.caleb@inria.fr designates 128.93.142.6 as
-  permitted sender) identity=mailfrom; client-ip=128.93.142.6;
-  receiver=mail2-relais-roc.national.inria.fr;
-  envelope-from="fonyuy-asheri.caleb@inria.fr";
-  x-sender="fonyuy-asheri.caleb@inria.fr";
-  x-conformance=spf_only; x-record-type="v=spf1";
-  x-record-text="v=spf1 include:mailout.safebrands.com
-  a:basic-mail.safebrands.com a:basic-mail01.safebrands.com
-  a:basic-mail02.safebrands.com ip4:128.93.142.0/24
-  ip4:192.134.164.0/24 ip4:128.93.162.160 ip4:89.107.174.7 mx
-  ~all"
-Received-SPF: None (mail2-relais-roc.national.inria.fr: no sender
-  authenticity information available from domain of
-  postmaster@zcs2-store8.inria.fr) identity=helo;
-  client-ip=128.93.142.6;
-  receiver=mail2-relais-roc.national.inria.fr;
-  envelope-from="fonyuy-asheri.caleb@inria.fr";
-  x-sender="postmaster@zcs2-store8.inria.fr";
-  x-conformance=spf_only
-X-IronPort-AV: E=Sophos;i="6.07,257,1708383600"; 
-   d="scan'208,217";a="164611360"
-X-MGA-submission: =?us-ascii?q?MDE54H6sFu4LecgeLOfnLcNkdwMj+lYbAHQ4O1?=
- =?us-ascii?q?l6X0G6tlqFtEOrhZNSumeiwB0yvzRZ31vlHIg0HNXiRmZ4RU4c3SCCRr?=
- =?us-ascii?q?7I6pnPSVwio6yFbUgLjSmHnI+7MmHfMOZDbCaYv17x/OBsV2jHLvCOMj?=
- =?us-ascii?q?1ywXKXrrihGH0KVV98v6rcpw=3D=3D?=
-Date: Mon, 6 May 2024 09:46:58 +0200 (CEST)
-From: Fonyuy-Asheri Caleb <fonyuy-asheri.caleb@inria.fr>
-To: xen-devel@lists.xenproject.org
-Message-ID: <2066842119.4829764.1714981618946.JavaMail.zimbra@inria.fr>
-Subject: file xen/include/xen/lib/x86/cpu-policy.h: Meaning of CPUID
- constants
+        d=suse.com; s=google; t=1714982920; x=1715587720; darn=lists.xenproject.org;
+        h=content-transfer-encoding:autocrypt:subject:from:cc:to
+         :content-language:user-agent:mime-version:date:message-id:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=SJoKfjr9VcDjkUuiasQBoBbYQ10TDbtiRDBcCFiZOno=;
+        b=aKcm4dluLWXlUPjZdfutp550xxJk86kxxdB17SKB3Qh80KbRCWCnA81bLhE+Vzmwh1
+         D8BoY1AKZ7Yu/kCbsscNU7fFT6fdet7imGZ/wp2C9inKePAPxC0bw3iBzHVgu/wl5FcK
+         LlRtXChSLO2EEhmVJIWp98K7PIhgoI3YuAumlfMLUwCpt3A3ff3ykkYyhN0W72g69LmZ
+         kXK7SIwUAOk+KKpwrwbFe8PrS5A2RLEaRG6TNwtFksb6Lr9raEQG5jyx+048AunLzKqi
+         DcLxZ5qpqbUWXZORoBJatOSnL6TEBCwzNLepFwpmu76yEYZZCvMhtrBFJ/dmOAq33gQ1
+         GKkQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1714982920; x=1715587720;
+        h=content-transfer-encoding:autocrypt:subject:from:cc:to
+         :content-language:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=SJoKfjr9VcDjkUuiasQBoBbYQ10TDbtiRDBcCFiZOno=;
+        b=aVBS6NPMeAezX7neP2qcztRCLu8nAxEmltedtDhf77GD2YdwVTVu7U3SqQz+aglhDp
+         ver6hvgQJ2BlJly/TuDFDKQOHYgBoGXpxOvsPj5WbV/x1fOst8o3EVTOSzP4CgZHDWOZ
+         p1C+Ioc3osphZLqwRUi1Pnn+GTbI2xS2tIkZpB6I/emvHYIY03vUOM8uJ2f9xH41v4WY
+         ZFgNR5T2HSvrG5uWKqkSn8vyIBjs1skhwqRzybmcv+Wrswj7bf+o03x/dQQV3iUcG7kv
+         vKeTBg08tioEv55Jwc7dLqP4p74GtaN8bbilaraskwx6OgsBDH5jmzBOGF9tGy9H1JXC
+         UkXw==
+X-Gm-Message-State: AOJu0YyXISXybAqQ+OL0Gsj/kKom0Rp6uGSigjSPFSoEl1+UDVqCAp3n
+	f4FrXN/g9AgCF3j2evAZPmux+i1IB7cmb1rd2lvz6wbdAn72HgZl3cXeskbiiHsFrjl6PCpWNw4
+	=
+X-Google-Smtp-Source: AGHT+IHzqrb5PuWE3VdQ8R8NnA2MV8PFiXfJtnIFGE1rHi/Bg1HEDxQxA8YwNop4JjmA3VxSeEchzA==
+X-Received: by 2002:adf:e947:0:b0:34d:b75c:c7ec with SMTP id m7-20020adfe947000000b0034db75cc7ecmr6933615wrn.8.1714982919612;
+        Mon, 06 May 2024 01:08:39 -0700 (PDT)
+Message-ID: <33b93fdf-bf16-49b8-aec2-0b2c19f5c471@suse.com>
+Date: Mon, 6 May 2024 10:08:40 +0200
 MIME-Version: 1.0
-Content-Type: multipart/alternative; 
-	boundary="=_5971adc4-77e8-49f7-ba82-ae59d490cabd"
-X-Originating-IP: [131.254.23.3]
-X-Mailer: Zimbra 10.0.8_GA_4611 (ZimbraWebClient - GC124 (Linux)/10.0.8_GA_4611)
-Thread-Index: 9o3XUyoiP5VQRv5KMMDzNA7BwO9FFw==
-Thread-Topic: file xen/include/xen/lib/x86/cpu-policy.h: Meaning of CPUID constants
-
---=_5971adc4-77e8-49f7-ba82-ae59d490cabd
-Content-Type: text/plain; charset=ISO-8859-1
+User-Agent: Mozilla Thunderbird
+Content-Language: en-US
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>
+From: Jan Beulich <jbeulich@suse.com>
+Subject: [PATCH] gunzip: don't leak memory on error paths
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-Hi, 
-I am currently doing a study on the way xen handles CPUID information. 
+While decompression errors are likely going to be fatal to Xen's boot
+process anyway, the latest with the goal of doing multiple decompressor
+runs it is likely better to avoid leaks even on error paths. All the
+more when this way code size actually shrinks a tiny bit.
 
-I came across these constants in the code (xen/include/xen/lib/x86/cpu-policy.h file) but no explanation of why they have been set that way. 
+Signed-off-by: Jan Beulich <jbeulich@suse.com>
+---
+This is quite the opposite of Coverity reporting use-after-free-s and
+free-after-free-s in inflate_dynamic() for tl and td, for an unclear to
+me reason.
 
-#define CPUID_GUEST_NR_BASIC (0xdu + 1) 
-#define CPUID_GUEST_NR_CACHE (5u + 1) 
-#define CPUID_GUEST_NR_FEAT (2u + 1) 
-#define CPUID_GUEST_NR_TOPO (1u + 1) 
-#define CPUID_GUEST_NR_XSTATE (62u + 1) 
-#define CPUID_GUEST_NR_EXTD_INTEL (0x8u + 1) 
-#define CPUID_GUEST_NR_EXTD_AMD (0x21u + 1) 
-
-Please can someone explain to me why we have these constants or point to a documentation which explains it? 
-I am particularly interested in the CPUID_GUEST_NR_BASIC given that for intel processors for example, we have 
-basic leaves running up to 0x21u already for recent processors. This value sort of forces a particular max leaf value. 
-
-
-Caleb 
-
---=_5971adc4-77e8-49f7-ba82-ae59d490cabd
-Content-Type: text/html; charset=ISO-8859-1
-Content-Transfer-Encoding: quoted-printable
-
-<html><body><div style=3D"font-family: arial, helvetica, sans-serif; font-s=
-ize: 12pt; color: #000000"><div>Hi,</div><div>I am currently doing a study =
-on the way xen handles CPUID information. </div><div><br data-mce-bogus=3D"=
-1"></div><div>I came across these constants in the code (xen/include/xen/li=
-b/x86/cpu-policy.h file) but no explanation of why they have been set that =
-way.</div><div><br data-mce-bogus=3D"1"></div><div><div>#define CPUID_GUEST=
-_NR_BASIC&nbsp; &nbsp; &nbsp; (0xdu + 1)</div><div>#define CPUID_GUEST_NR_C=
-ACHE&nbsp; &nbsp; &nbsp; (5u + 1)</div><div>#define CPUID_GUEST_NR_FEAT&nbs=
-p; &nbsp; &nbsp; &nbsp;(2u + 1)</div><div>#define CPUID_GUEST_NR_TOPO&nbsp;=
- &nbsp; &nbsp; &nbsp;(1u + 1)</div><div>#define CPUID_GUEST_NR_XSTATE&nbsp;=
- &nbsp; &nbsp;(62u + 1)</div><div>#define CPUID_GUEST_NR_EXTD_INTEL (0x8u +=
- 1)</div><div>#define CPUID_GUEST_NR_EXTD_AMD&nbsp; &nbsp;(0x21u + 1)</div>=
-<div><br data-mce-bogus=3D"1"></div><div>Please can someone explain to me w=
-hy we have these constants or point to a documentation which explains it?&n=
-bsp;</div><div>I am particularly interested in the CPUID_GUEST_NR_BASIC giv=
-en that for intel processors for example, we have</div><div>basic leaves ru=
-nning up to 0x21u already for recent processors. This value sort of forces =
-a particular max leaf value.&nbsp;</div><div><br data-mce-bogus=3D"1"></div=
-><div><br data-mce-bogus=3D"1"></div><div>Caleb</div></div></div></body></h=
-tml>
---=_5971adc4-77e8-49f7-ba82-ae59d490cabd--
+--- a/xen/common/gzip/inflate.c
++++ b/xen/common/gzip/inflate.c
+@@ -757,16 +757,14 @@ static int noinline __init inflate_fixed
+     }
+ 
+     /* decompress until an end-of-block code */
+-    if (inflate_codes(tl, td, bl, bd)) {
+-        free(l);
+-        return 1;
+-    }
++    i = inflate_codes(tl, td, bl, bd);
+ 
+     /* free the decoding tables, return */
+     free(l);
+     huft_free(tl);
+     huft_free(td);
+-    return 0;
++
++    return !!i;
+ }
+ 
+ /*
+@@ -940,19 +938,17 @@ static int noinline __init inflate_dynam
+     DEBG("dyn6 ");
+ 
+     /* decompress until an end-of-block code */
+-    if (inflate_codes(tl, td, bl, bd)) {
+-        ret = 1;
+-        goto out;
+-    }
++    ret = !!inflate_codes(tl, td, bl, bd);
+ 
+-    DEBG("dyn7 ");
++    if (!ret)
++       DEBG("dyn7 ");
+ 
+     /* free the decoding tables, return */
+     huft_free(tl);
+     huft_free(td);
+ 
+-    DEBG(">");
+-    ret = 0;
++    if (!ret)
++       DEBG(">");
+  out:
+     free(ll);
+     return ret;
 
