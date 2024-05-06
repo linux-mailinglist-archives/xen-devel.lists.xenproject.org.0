@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E40688BC925
-	for <lists+xen-devel@lfdr.de>; Mon,  6 May 2024 10:09:13 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.717285.1119324 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DF7AE8BC93B
+	for <lists+xen-devel@lfdr.de>; Mon,  6 May 2024 10:14:01 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.717289.1119333 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s3tOu-0003Ea-OW; Mon, 06 May 2024 08:08:44 +0000
+	id 1s3tTl-0004uG-BH; Mon, 06 May 2024 08:13:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 717285.1119324; Mon, 06 May 2024 08:08:44 +0000
+Received: by outflank-mailman (output) from mailman id 717289.1119333; Mon, 06 May 2024 08:13:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s3tOu-0003BU-Lr; Mon, 06 May 2024 08:08:44 +0000
-Received: by outflank-mailman (input) for mailman id 717285;
- Mon, 06 May 2024 08:08:42 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1s3tTl-0004s7-6z; Mon, 06 May 2024 08:13:45 +0000
+Received: by outflank-mailman (input) for mailman id 717289;
+ Mon, 06 May 2024 08:13:43 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=gbjR=MJ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1s3tOs-0003BO-JG
- for xen-devel@lists.xenproject.org; Mon, 06 May 2024 08:08:42 +0000
-Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
- [2a00:1450:4864:20::32d])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id d8f33e79-0b7f-11ef-b4bb-af5377834399;
- Mon, 06 May 2024 10:08:40 +0200 (CEST)
-Received: by mail-wm1-x32d.google.com with SMTP id
- 5b1f17b1804b1-41ecffed96cso5626805e9.1
- for <xen-devel@lists.xenproject.org>; Mon, 06 May 2024 01:08:40 -0700 (PDT)
+ id 1s3tTj-0004qb-TJ
+ for xen-devel@lists.xenproject.org; Mon, 06 May 2024 08:13:43 +0000
+Received: from mail-lj1-x22a.google.com (mail-lj1-x22a.google.com
+ [2a00:1450:4864:20::22a])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 8d4f4492-0b80-11ef-909c-e314d9c70b13;
+ Mon, 06 May 2024 10:13:42 +0200 (CEST)
+Received: by mail-lj1-x22a.google.com with SMTP id
+ 38308e7fff4ca-2e2a4c20870so21164591fa.3
+ for <xen-devel@lists.xenproject.org>; Mon, 06 May 2024 01:13:42 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- t3-20020a05600001c300b0034df7313bf1sm10150992wrx.0.2024.05.06.01.08.39
+ je8-20020a05600c1f8800b0041bf28aa11dsm15132210wmb.42.2024.05.06.01.13.41
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 06 May 2024 01:08:39 -0700 (PDT)
+ Mon, 06 May 2024 01:13:41 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,48 +45,48 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d8f33e79-0b7f-11ef-b4bb-af5377834399
+X-Inumbo-ID: 8d4f4492-0b80-11ef-909c-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1714982920; x=1715587720; darn=lists.xenproject.org;
-        h=content-transfer-encoding:autocrypt:subject:from:cc:to
-         :content-language:user-agent:mime-version:date:message-id:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=SJoKfjr9VcDjkUuiasQBoBbYQ10TDbtiRDBcCFiZOno=;
-        b=aKcm4dluLWXlUPjZdfutp550xxJk86kxxdB17SKB3Qh80KbRCWCnA81bLhE+Vzmwh1
-         D8BoY1AKZ7Yu/kCbsscNU7fFT6fdet7imGZ/wp2C9inKePAPxC0bw3iBzHVgu/wl5FcK
-         LlRtXChSLO2EEhmVJIWp98K7PIhgoI3YuAumlfMLUwCpt3A3ff3ykkYyhN0W72g69LmZ
-         kXK7SIwUAOk+KKpwrwbFe8PrS5A2RLEaRG6TNwtFksb6Lr9raEQG5jyx+048AunLzKqi
-         DcLxZ5qpqbUWXZORoBJatOSnL6TEBCwzNLepFwpmu76yEYZZCvMhtrBFJ/dmOAq33gQ1
-         GKkQ==
+        d=suse.com; s=google; t=1714983222; x=1715588022; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:cc
+         :content-language:references:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=Oa41dDjxU7rF/t2uSqi3aUDKSelv+d9yen6SWI3wiag=;
+        b=ZhMA+/ScXGIZl1SGSlTPn6kwyV1nHkQuq2gW217fxvhc/QU7DNAf5/UXKjunfHdXmJ
+         MYgxqgEFa0zv9Z7OKBs72N1Uotj6tPHT598m9PkVrUmWu6Fsyq1+Db7i5XNTxlYhNx1I
+         6sNArM1gKScU5xFdurNaQ67ueMpWSU3K1/gxm8SQEKY2O/vMNYGIXK9FdtVMPUTJW0ZP
+         myS3cu7Y1HZrVOPZMVrHHG9cc2gw5juneFXZBg/uH5a090qjWjny7ga9BINtL5bjLrhi
+         am1EnbJvke3DdGEtN8i5OQes6YOSDD+3csv5Q34QE2LCRgyZ2RWbehk7OVVkHdWj2qcG
+         +0Pw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1714982920; x=1715587720;
-        h=content-transfer-encoding:autocrypt:subject:from:cc:to
-         :content-language:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=SJoKfjr9VcDjkUuiasQBoBbYQ10TDbtiRDBcCFiZOno=;
-        b=aVBS6NPMeAezX7neP2qcztRCLu8nAxEmltedtDhf77GD2YdwVTVu7U3SqQz+aglhDp
-         ver6hvgQJ2BlJly/TuDFDKQOHYgBoGXpxOvsPj5WbV/x1fOst8o3EVTOSzP4CgZHDWOZ
-         p1C+Ioc3osphZLqwRUi1Pnn+GTbI2xS2tIkZpB6I/emvHYIY03vUOM8uJ2f9xH41v4WY
-         ZFgNR5T2HSvrG5uWKqkSn8vyIBjs1skhwqRzybmcv+Wrswj7bf+o03x/dQQV3iUcG7kv
-         vKeTBg08tioEv55Jwc7dLqP4p74GtaN8bbilaraskwx6OgsBDH5jmzBOGF9tGy9H1JXC
-         UkXw==
-X-Gm-Message-State: AOJu0YyXISXybAqQ+OL0Gsj/kKom0Rp6uGSigjSPFSoEl1+UDVqCAp3n
-	f4FrXN/g9AgCF3j2evAZPmux+i1IB7cmb1rd2lvz6wbdAn72HgZl3cXeskbiiHsFrjl6PCpWNw4
-	=
-X-Google-Smtp-Source: AGHT+IHzqrb5PuWE3VdQ8R8NnA2MV8PFiXfJtnIFGE1rHi/Bg1HEDxQxA8YwNop4JjmA3VxSeEchzA==
-X-Received: by 2002:adf:e947:0:b0:34d:b75c:c7ec with SMTP id m7-20020adfe947000000b0034db75cc7ecmr6933615wrn.8.1714982919612;
-        Mon, 06 May 2024 01:08:39 -0700 (PDT)
-Message-ID: <33b93fdf-bf16-49b8-aec2-0b2c19f5c471@suse.com>
-Date: Mon, 6 May 2024 10:08:40 +0200
+        d=1e100.net; s=20230601; t=1714983222; x=1715588022;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:cc
+         :content-language:references:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=Oa41dDjxU7rF/t2uSqi3aUDKSelv+d9yen6SWI3wiag=;
+        b=P6n5qLLvhnWlfAqqj15mIhHg79hNnFDJthSP8L+BNrh2au5hWSTN4+7chM+AueO9dz
+         oMXLc6FuSO8If07KnO8K5C5teFk1KOVEoYOn7gfMdyY4HxHRS8RHchxmSX8RyfCFC2N9
+         47XEbeCDwYUMRpd4TaN0ktYHVGUCwihAXbXIllh9SWES+XCRn/IZumN12oEBmHXHcsOr
+         ltYuyVcw8oLrR0FpclHh19m3KGobPlkxoXKejYoIs3FxP5e99nZEDtqlP2cVtM5t+XX9
+         k/Cx21GZV3a1cOcPmj3MIu1LLMs28P9yfFTS2i63f7jH4dn9HMNn+8Ne5Bhuy8pECyDv
+         oEUQ==
+X-Gm-Message-State: AOJu0Yxtv7PVOCyMOfZVM7/+tzxMkzWm06u+wOzC7s8BwrQ4QU81qdFz
+	slbuTr6utzsTGRLl6DXJ0kJmjZJut2XKY4EISdivmfaUoC7h1ELd3KbOJc2dbg==
+X-Google-Smtp-Source: AGHT+IG89GaC2yK1oIXI1RdsdeHVODJUmOs4OwfJDpDJwMBwGlUEDdWyOHLuOQRuSi2t2VwgXvH7JQ==
+X-Received: by 2002:a2e:3619:0:b0:2e2:891d:5f62 with SMTP id d25-20020a2e3619000000b002e2891d5f62mr4306487lja.29.1714983222093;
+        Mon, 06 May 2024 01:13:42 -0700 (PDT)
+Message-ID: <7fbe2757-99dd-486b-940f-4d30379f5c23@suse.com>
+Date: Mon, 6 May 2024 10:13:42 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
+Subject: Re: file xen/include/xen/lib/x86/cpu-policy.h: Meaning of CPUID
+ constants
+To: Fonyuy-Asheri Caleb <fonyuy-asheri.caleb@inria.fr>
+References: <2066842119.4829764.1714981618946.JavaMail.zimbra@inria.fr>
 Content-Language: en-US
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>
+Cc: xen-devel@lists.xenproject.org
 From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH] gunzip: don't leak memory on error paths
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -110,65 +110,32 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <2066842119.4829764.1714981618946.JavaMail.zimbra@inria.fr>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-While decompression errors are likely going to be fatal to Xen's boot
-process anyway, the latest with the goal of doing multiple decompressor
-runs it is likely better to avoid leaks even on error paths. All the
-more when this way code size actually shrinks a tiny bit.
+On 06.05.2024 09:46, Fonyuy-Asheri Caleb wrote:
+> I came across these constants in the code (xen/include/xen/lib/x86/cpu-policy.h file) but no explanation of why they have been set that way. 
+> 
+> #define CPUID_GUEST_NR_BASIC (0xdu + 1) 
+> #define CPUID_GUEST_NR_CACHE (5u + 1) 
+> #define CPUID_GUEST_NR_FEAT (2u + 1) 
+> #define CPUID_GUEST_NR_TOPO (1u + 1) 
+> #define CPUID_GUEST_NR_XSTATE (62u + 1) 
+> #define CPUID_GUEST_NR_EXTD_INTEL (0x8u + 1) 
+> #define CPUID_GUEST_NR_EXTD_AMD (0x21u + 1) 
+> 
+> Please can someone explain to me why we have these constants or point to a documentation which explains it? 
 
-Signed-off-by: Jan Beulich <jbeulich@suse.com>
----
-This is quite the opposite of Coverity reporting use-after-free-s and
-free-after-free-s in inflate_dynamic() for tl and td, for an unclear to
-me reason.
+These specify the number of (sub)leaves Xen supports, first and foremost to
+dimension internal arrays accordingly. I.e. the "why" lies in the way they're
+used.
 
---- a/xen/common/gzip/inflate.c
-+++ b/xen/common/gzip/inflate.c
-@@ -757,16 +757,14 @@ static int noinline __init inflate_fixed
-     }
- 
-     /* decompress until an end-of-block code */
--    if (inflate_codes(tl, td, bl, bd)) {
--        free(l);
--        return 1;
--    }
-+    i = inflate_codes(tl, td, bl, bd);
- 
-     /* free the decoding tables, return */
-     free(l);
-     huft_free(tl);
-     huft_free(td);
--    return 0;
-+
-+    return !!i;
- }
- 
- /*
-@@ -940,19 +938,17 @@ static int noinline __init inflate_dynam
-     DEBG("dyn6 ");
- 
-     /* decompress until an end-of-block code */
--    if (inflate_codes(tl, td, bl, bd)) {
--        ret = 1;
--        goto out;
--    }
-+    ret = !!inflate_codes(tl, td, bl, bd);
- 
--    DEBG("dyn7 ");
-+    if (!ret)
-+       DEBG("dyn7 ");
- 
-     /* free the decoding tables, return */
-     huft_free(tl);
-     huft_free(td);
- 
--    DEBG(">");
--    ret = 0;
-+    if (!ret)
-+       DEBG(">");
-  out:
-     free(ll);
-     return ret;
+> I am particularly interested in the CPUID_GUEST_NR_BASIC given that for intel processors for example, we have 
+> basic leaves running up to 0x21u already for recent processors. This value sort of forces a particular max leaf value. 
+
+Right, but support (for guests) for these needs properly enabling. Hence why
+that limit is the way it is, for the time being.
+
+Jan
 
