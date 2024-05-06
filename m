@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6704E8BCD48
-	for <lists+xen-devel@lfdr.de>; Mon,  6 May 2024 14:02:03 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.717593.1119954 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2F0AF8BCD6D
+	for <lists+xen-devel@lfdr.de>; Mon,  6 May 2024 14:06:05 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.717595.1119963 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s3x2Q-0005GC-Ic; Mon, 06 May 2024 12:01:46 +0000
+	id 1s3x5m-0006Ak-W6; Mon, 06 May 2024 12:05:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 717593.1119954; Mon, 06 May 2024 12:01:46 +0000
+Received: by outflank-mailman (output) from mailman id 717595.1119963; Mon, 06 May 2024 12:05:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s3x2Q-0005Dp-FK; Mon, 06 May 2024 12:01:46 +0000
-Received: by outflank-mailman (input) for mailman id 717593;
- Mon, 06 May 2024 12:01:44 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1s3x5m-00068n-TD; Mon, 06 May 2024 12:05:14 +0000
+Received: by outflank-mailman (input) for mailman id 717595;
+ Mon, 06 May 2024 12:05:13 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=gbjR=MJ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1s3x2O-0005Dj-UD
- for xen-devel@lists.xenproject.org; Mon, 06 May 2024 12:01:44 +0000
-Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
- [2a00:1450:4864:20::329])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 67506f42-0ba0-11ef-b4bb-af5377834399;
- Mon, 06 May 2024 14:01:42 +0200 (CEST)
-Received: by mail-wm1-x329.google.com with SMTP id
- 5b1f17b1804b1-41ba1ba55e8so11004215e9.1
- for <xen-devel@lists.xenproject.org>; Mon, 06 May 2024 05:01:43 -0700 (PDT)
+ id 1s3x5l-00068h-HD
+ for xen-devel@lists.xenproject.org; Mon, 06 May 2024 12:05:13 +0000
+Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
+ [2a00:1450:4864:20::32c])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id e3ca27ac-0ba0-11ef-909c-e314d9c70b13;
+ Mon, 06 May 2024 14:05:12 +0200 (CEST)
+Received: by mail-wm1-x32c.google.com with SMTP id
+ 5b1f17b1804b1-41ba1ba55e8so11026035e9.1
+ for <xen-devel@lists.xenproject.org>; Mon, 06 May 2024 05:05:12 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- e14-20020adfe38e000000b0034eba48cd17sm5804009wrm.117.2024.05.06.05.01.41
+ l8-20020a05600c4f0800b0041bfa349cadsm19496151wmq.16.2024.05.06.05.05.10
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 06 May 2024 05:01:42 -0700 (PDT)
+ Mon, 06 May 2024 05:05:10 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,53 +45,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 67506f42-0ba0-11ef-b4bb-af5377834399
+X-Inumbo-ID: e3ca27ac-0ba0-11ef-909c-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1714996902; x=1715601702; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1714997111; x=1715601911; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=wn9f2TTvLG3kyrz8hnqjPXnNRo322gO541SYHGNn/VU=;
-        b=OuyQ+16KWlo0qX/z+RMJkfqE5EfW6hXJWr7ZOon929dM0Cgv++5Md9Hq9ABT1sFs7T
-         jZ4rkA080+0G4dyVVPL+7Fg+IEqTgNLmO4dfy3M0m0JFhKrCL9fuO+S7sfErb3pnvY8T
-         jwUYkFfOQjdzHZX4iINNHgkrtWhf1ZGciwAaJjhb2u1nO4F49gIx9rBcydxmsBCrXPyv
-         I+ACQ1XGbBCj3Si9KIu7S50xNBDDraRu6ppfQR3UtaL8dzRlyZJv84NS+vOQfO19NS2N
-         LNCKOf0aYoa9ZBPGF9lmnHhZCmZg2gi6ScqUmHkN1J+jdgbiBhG6nV9cbaqvquaK8hYr
-         tooQ==
+        bh=+P+kuDOoW/O68w1duUHJDOYwUCEcePMI8GDNDSdlUQc=;
+        b=UgFQhSJxwywsQwaBIE0qcAush4GR6El/t0DUDjcP2oLGAnNg7rXqVbV2n4Cbr6APZF
+         sQJVgn7Q+ht0VrpKnc37EZ7/qh+D8/EyYWflJzSU2Lt6s0lFV1tRCc9af8G+JWTBCwla
+         TL4zZ9vgzY4b8AewyOQeDKTxcN05jl9L7ExvKnUEgBKUPTWFea4bZgS/PUpNxJ8OxsiF
+         ABHPKw/+y/TYPq5ZAnJHK0V41i7mEAbOqqESNPObpvr3v8r1ZVxEm+I0Je6X9vD8G/82
+         jeUuNz7ayuE3OgnETXk6bQrnPJ47I4tKMksAF24C0mNiI1N0RSXFYdJANcajBNIf8ax8
+         snFg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1714996902; x=1715601702;
+        d=1e100.net; s=20230601; t=1714997111; x=1715601911;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=wn9f2TTvLG3kyrz8hnqjPXnNRo322gO541SYHGNn/VU=;
-        b=XfYW4FNIgCDS9P+jue1OTn8QYJG1geSkMcR+7tmf7nozcVAnSg1raLW6Hv6zSwr5i/
-         2Jt9+iLKHFCHZ2jGHIP4AbeGeX9RE6sKtzV8avTiUuIv0UOwnPAZKQThxdXQA+YLjK7J
-         VWTLvCPiAW+OA6DPTYjuqiuc4d8GN9gfSTsc6GvvmYsaHGSM+/L/QMNU6Z4l6RQOtgVe
-         k14eM41cCtm9SbFquFk1gCJGTWT9ra6catckP0DqjVXYjcJgL+43zu50YtBZ2nPAppoi
-         l2ff7MXvm3mnsneITlebIIArmzVp1FTOK7OE2lnrz8jorT5gmdGyPsrFGKN3ovpn3c3N
-         H9wg==
-X-Forwarded-Encrypted: i=1; AJvYcCUaxvB8G+jxBSdoMOFkUqztCPzq10acvAdZlk1SgV8fQLyvzUP8jOmgUgQ0XGUqmX/UBSAGwFvfJ7F9AcNuX0I/uv7f1Ik4utp7qYyGpfc=
-X-Gm-Message-State: AOJu0Yy3zgYO+uG6rEiS5Xc3s+V5MzURPQd7WV+4hbV4tw5w+x+W/79I
-	CwxTdPCRC8mChxgFTbZR/1D0e5YWb7T+Qx/Npdk8jT2mY1XgMv8Q1/IxpJ3kGw==
-X-Google-Smtp-Source: AGHT+IHbcN2efsltGEzBrytA6ECwgsHScr6/ca0HcKPzaGq9thQFa7/O+xzlLQEFc8o5DTWGOaUNxw==
-X-Received: by 2002:a5d:4f09:0:b0:34d:8c1f:3194 with SMTP id c9-20020a5d4f09000000b0034d8c1f3194mr6694080wru.35.1714996902417;
-        Mon, 06 May 2024 05:01:42 -0700 (PDT)
-Message-ID: <8fbd50df-6c9a-4177-8001-39c0f15e715e@suse.com>
-Date: Mon, 6 May 2024 14:01:42 +0200
+        bh=+P+kuDOoW/O68w1duUHJDOYwUCEcePMI8GDNDSdlUQc=;
+        b=UqmWUtyzLRGWiw835cvMEuOr6wxC3KK4+3H6LXRnVX19H9h+h83eNqCgP+uDsdR8H+
+         YsCGm/BAOhnYqV3X4P87iCcxvTA9gdHicNQIfyxqyNggWhLaHQW17B6m8RctC0FVYTUL
+         FmvTpKQKW+VSetJ+2vdtMKwcQ9WkM3+nRuTvm4MEcT9kBhjEUsUb6FZ8l6Pe8aPV2jAx
+         Eh32cZGD7l2Kct30KIUyXOyKovTaxz1310Ukt3kHHfmRm/4N5J6usizp0ZNb2jpVjMHb
+         9PJsVD9/ejlNMKH31B1FIvQrEqocSG9KAMytW138zXgZna8eJVlPSVrWcLkDVSdupha8
+         1MFQ==
+X-Forwarded-Encrypted: i=1; AJvYcCXommGgEZJeP6rbieHJ4fRGh2E44JtT0qJd/H6qoaMOPCLXYyv8vZJDkEE3+dX7vjvdCsL8ky58alBro4nH1tVfIRl4lVCVEdgJkMies6g=
+X-Gm-Message-State: AOJu0Yy+F5oiccPJjAqe6957u/svhACNCXTNobCG9oHSFysIU2EB/Wxb
+	u0SNtWk1MVuHZnausc0dUxt94cCBxXFLXkXdorGk81wZ2YEE3y82mH8c/6gs6vCYpdN8yLoy2Ho
+	=
+X-Google-Smtp-Source: AGHT+IGtEp9O52Q5V4v4MTeXqoQtciGtDqHEhNmWCT1ioSfMzg37Dhy/Xi/WfxpLOBFVZmc5yW8cHw==
+X-Received: by 2002:a05:600c:310e:b0:41b:f979:e359 with SMTP id g14-20020a05600c310e00b0041bf979e359mr6958693wmo.38.1714997111248;
+        Mon, 06 May 2024 05:05:11 -0700 (PDT)
+Message-ID: <6c37e82b-5116-4856-9a83-8ed20c2d1d0d@suse.com>
+Date: Mon, 6 May 2024 14:05:12 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 04/13] xen/arm: add Dom0 cache coloring support
+Subject: Re: [PATCH v8 05/13] xen: extend domctl interface for cache coloring
 Content-Language: en-US
 To: Carlo Nonato <carlo.nonato@minervasys.tech>
 Cc: andrea.bastoni@minervasys.tech, Andrew Cooper
  <andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>,
  Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
  Marco Solieri <marco.solieri@minervasys.tech>, xen-devel@lists.xenproject.org
 References: <20240502165533.319988-1-carlo.nonato@minervasys.tech>
- <20240502165533.319988-5-carlo.nonato@minervasys.tech>
+ <20240502165533.319988-6-carlo.nonato@minervasys.tech>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -116,21 +114,14 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240502165533.319988-5-carlo.nonato@minervasys.tech>
+In-Reply-To: <20240502165533.319988-6-carlo.nonato@minervasys.tech>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 02.05.2024 18:55, Carlo Nonato wrote:
-> Add a command line parameter to allow the user to set the coloring
-> configuration for Dom0.
-> A common configuration syntax for cache colors is introduced and
-> documented.
-> Take the opportunity to also add:
->  - default configuration notion.
->  - function to check well-formed configurations.
-> 
-> Direct mapping Dom0 isn't possible when coloring is enabled, so
-> CDF_directmap flag is removed when creating it.
+> Add a new domctl hypercall to allow the user to set LLC coloring
+> configurations. Colors can be set only once, just after domain creation,
+> since recoloring isn't supported.
 > 
 > Based on original work from: Luca Miccio <lucmiccio@gmail.com>
 > 
@@ -138,19 +129,46 @@ On 02.05.2024 18:55, Carlo Nonato wrote:
 > Signed-off-by: Marco Solieri <marco.solieri@minervasys.tech>
 
 Reviewed-by: Jan Beulich <jbeulich@suse.com>
-albeit ...
+with one remark:
 
-> v8:
-> - added bound check on dom0_num_colors
-> - default colors array set just once
-> v7:
-> - parse_color_config() doesn't accept leading/trailing commas anymore
-> - removed alloc_colors() helper
-> v6:
-> - moved domain_llc_coloring_free() in this patch
+> @@ -226,6 +226,46 @@ void domain_llc_coloring_free(struct domain *d)
+>      xfree(__va(__pa(d->llc_colors)));
+>  }
+>  
+> +int domain_set_llc_colors(struct domain *d,
+> +                          const struct xen_domctl_set_llc_colors *config)
+> +{
+> +    unsigned int *colors;
+> +
+> +    if ( d->num_llc_colors )
+> +        return -EEXIST;
+> +
+> +    if ( !config->num_llc_colors )
+> +    {
+> +        domain_set_default_colors(d);
+> +        return 0;
+> +    }
+> +
+> +    if ( config->num_llc_colors > max_nr_colors )
+> +        return -EINVAL;
+> +
+> +    colors = xmalloc_array(unsigned int, config->num_llc_colors);
+> +    if ( !colors )
+> +        return -ENOMEM;
+> +
+> +    if ( copy_from_guest(colors, config->llc_colors, config->num_llc_colors) )
+> +    {
+> +        xfree(colors);
+> +        return -EFAULT;
+> +    }
+> +
+> +    if ( !check_colors(colors, config->num_llc_colors) )
+> +    {
+> +        printk(XENLOG_ERR "Bad LLC color config for %pd\n", d);
 
-... I'm having trouble seeing why this was done: Dom0 isn't ever cleaned up
-after, is it?
+Slightly shorter (and more in line with what we have elsewhere) as
+
+       printk(XENLOG_ERR "%pd: bad LLC color config\n", d);
 
 Jan
 
