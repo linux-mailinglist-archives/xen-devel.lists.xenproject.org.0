@@ -2,38 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2A4F18BC984
-	for <lists+xen-devel@lfdr.de>; Mon,  6 May 2024 10:26:00 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.717308.1119383 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EABB98BC995
+	for <lists+xen-devel@lfdr.de>; Mon,  6 May 2024 10:33:02 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.717316.1119394 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s3tfM-00015a-7B; Mon, 06 May 2024 08:25:44 +0000
+	id 1s3tlt-0002ai-Um; Mon, 06 May 2024 08:32:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 717308.1119383; Mon, 06 May 2024 08:25:44 +0000
+Received: by outflank-mailman (output) from mailman id 717316.1119394; Mon, 06 May 2024 08:32:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s3tfM-00013n-4M; Mon, 06 May 2024 08:25:44 +0000
-Received: by outflank-mailman (input) for mailman id 717308;
- Mon, 06 May 2024 08:25:43 +0000
+	id 1s3tlt-0002Xt-Ru; Mon, 06 May 2024 08:32:29 +0000
+Received: by outflank-mailman (input) for mailman id 717316;
+ Mon, 06 May 2024 08:32:28 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=loHM=MJ=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1s3tfL-00013h-9E
- for xen-devel@lists.xenproject.org; Mon, 06 May 2024 08:25:43 +0000
-Received: from mail-lf1-x134.google.com (mail-lf1-x134.google.com
- [2a00:1450:4864:20::134])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=pn4q=MJ=amd.com=Xin.Wang2@srs-se1.protection.inumbo.net>)
+ id 1s3tls-0002Xn-K5
+ for xen-devel@lists.xenproject.org; Mon, 06 May 2024 08:32:28 +0000
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on20600.outbound.protection.outlook.com
+ [2a01:111:f403:200a::600])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 3a5115fb-0b82-11ef-909c-e314d9c70b13;
- Mon, 06 May 2024 10:25:42 +0200 (CEST)
-Received: by mail-lf1-x134.google.com with SMTP id
- 2adb3069b0e04-518931f8d23so1546444e87.3
- for <xen-devel@lists.xenproject.org>; Mon, 06 May 2024 01:25:42 -0700 (PDT)
-Received: from [192.168.226.248] ([94.75.70.14])
- by smtp.gmail.com with ESMTPSA id
- c3-20020a056512238300b0051cd6c9e9a2sm1532357lfv.152.2024.05.06.01.25.41
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 06 May 2024 01:25:41 -0700 (PDT)
+ id 29f28838-0b83-11ef-909c-e314d9c70b13;
+ Mon, 06 May 2024 10:32:25 +0200 (CEST)
+Received: from PH8PR02CA0020.namprd02.prod.outlook.com (2603:10b6:510:2d0::9)
+ by PH7PR12MB8124.namprd12.prod.outlook.com (2603:10b6:510:2ba::14)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7544.41; Mon, 6 May
+ 2024 08:32:20 +0000
+Received: from CY4PEPF0000EE3A.namprd03.prod.outlook.com
+ (2603:10b6:510:2d0:cafe::ce) by PH8PR02CA0020.outlook.office365.com
+ (2603:10b6:510:2d0::9) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7544.41 via Frontend
+ Transport; Mon, 6 May 2024 08:32:19 +0000
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CY4PEPF0000EE3A.mail.protection.outlook.com (10.167.242.14) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7544.18 via Frontend Transport; Mon, 6 May 2024 08:32:19 +0000
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Mon, 6 May
+ 2024 03:32:19 -0500
+Received: from [10.69.48.49] (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.35 via Frontend
+ Transport; Mon, 6 May 2024 03:32:17 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,144 +59,219 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3a5115fb-0b82-11ef-909c-e314d9c70b13
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1714983942; x=1715588742; darn=lists.xenproject.org;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=puH2uGZgKYQUwSAx1rYEmvYiiuS0k81HyWFgtxzTHHY=;
-        b=lPYKOR2btVCCowD5ELq90w25j8eiztKhD/jSLPzLjYrJHGAQKLx/+9y0CHNiihfGf2
-         hVVhkmCpZBl1FCYDr5rSlgwDfSqNdkx9RAT0hI/wkiC4ZBdbzMsqsDaXGArv5BK6/faM
-         2ulLjC6PS6Z9Zy1C/BipOyMC3Xu2W/WtLbvn8v5i3AxP4Qn7zgz/N43pj+sXooItTEif
-         XE3rN/p5Se0L9ChwfONGYnW6ZbqbmKMwNk1nCQ/fvZpp3ZosO3jpsDSdsEbixtf9BuGg
-         BJwiQT4Gp7NduU5541773v3dbzs8dI/s6w5UoOwkQAkLd3ZXtD7LUFzUpeMPf8TrSp45
-         IDCw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1714983942; x=1715588742;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=puH2uGZgKYQUwSAx1rYEmvYiiuS0k81HyWFgtxzTHHY=;
-        b=cheNyl+QFqvuvVoIrNwFlch9M7WrJjkIlCY1pAiXec0GiVJU3Fmte48LAZLOKwtgg5
-         AxqjaX072+V6SxoqxEV/SUETI3ZzeJU8w4dE4xXzjzL4c2fIbx/pLIR/hl6MStCkj7dE
-         e6lQekwOj40BpE34puZ5JhVvmQqJyRUVaVyPW1blqDdSjIwrKCUC6ig3NO8wLy6l9oit
-         ESWNvFldrXOR0Fp8a5fEDawh+Af38qBcUZvZTs7nAu8VQXkaGzhefW0QRumBdZz8NTu+
-         Cn75DRBb4lmSxmK7IWNPAJEO08FfcW2qbAbTLnWnK20YPx6Td/znqV8nlMhR0ULsna2f
-         nvfw==
-X-Forwarded-Encrypted: i=1; AJvYcCVfl0KFjcO+NGsMwu1fGjuPnktzscVya6yVe0blxQPNy/k5cJ34D3jMSkd+8I6Pncz5WEzWnJ9tV7ZgE1c5c1tO+U91paSGGiCXqJHaHN0=
-X-Gm-Message-State: AOJu0YwjUaK+cXYjGxMajNLruGr7zaOwOmBkyaS/Hs9K8OoE7CKRAlg7
-	l8eZCS6T6Xg0loy3YWOaAGOT59z0b59UFaIqSVxbs2HfmzffLHoz
-X-Google-Smtp-Source: AGHT+IE8K8rwmBVSUmxgfm3wxQpwyx/B1T8lvnAmjmG7fbLYIU9sEDnKKptpJ0FDqsJ8pqLPhTCplQ==
-X-Received: by 2002:ac2:43a7:0:b0:51c:348:3ba9 with SMTP id t7-20020ac243a7000000b0051c03483ba9mr5670038lfl.22.1714983941693;
-        Mon, 06 May 2024 01:25:41 -0700 (PDT)
-Message-ID: <609d3d5da1c95b14281233860f7619e6d15de195.camel@gmail.com>
-Subject: Re: Xen 4.19 release status tracking list [ May ]
-From: Oleksii <oleksii.kurochko@gmail.com>
-To: Jan Beulich <jbeulich@suse.com>, Roger Pau =?ISO-8859-1?Q?Monn=E9?=
-	 <roger.pau@citrix.com>
-Cc: committers@xenproject.org, community.manager@xenproject.org, Kelly Choi
-	 <kelly.choi@cloud.com>, xen-devel@lists.xenproject.org
-Date: Mon, 06 May 2024 10:25:40 +0200
-In-Reply-To: <8c0bc745-05f5-4839-b920-7830e2c55688@suse.com>
-References: <32e2d9dddfaa80e8edfaa5a7207c4e7fb7862a45.camel@gmail.com>
-	 <8c0bc745-05f5-4839-b920-7830e2c55688@suse.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.52.1 (3.52.1-1.fc40) 
+X-Inumbo-ID: 29f28838-0b83-11ef-909c-e314d9c70b13
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=STlMwvOnX1xW94KeO/qXF82bVT4wwlTkUpJtzx04PgDRmC755zr6stKnXTHylTd2OSeIW3izOJtYeTcpnTKWH1zzUGRr8so4xjBsrVkfex6gzLFepFbY0I1XkKn9Hm4Hi5XCDLt+Xtc6lgO61MIP3Jp4kAezzvNIzi1PZwX0n8rkO4wvEX0uF0Q4jHtb6LCPGYD7/H9z5jk9JFh4zMUuu+4GRap1dfk+RtbD8adkcGC52kW43fLbPzmxOIDGlitm9nX7TuijxXdzRsVQ8BPdUMDLUDfdsMaPox5+qLuQCmeDSaIaQ2gcL9u0zIQUIyuDJka2CfUq9V1SEcREHQnkmA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=f9xnphQ9L0vnxCKKlR624TQkPTFXuE84/afIalgczIs=;
+ b=i0Id4On33VUrxYLtWtH39htpKkvAgDhsDZQrGeJ2c5Ja2TUEEcR0NdTjMCSVvzGF4iDdJVGEYokOS/1u8H50uvkwZb0uWTbx7pB8wf1vwmd1Zyaz0VpOLNb2a2zsElqkkESUFtFgCvZyZCQLGV90nf4lztdkX53lGMEudV0INF4S6lQpOflixlDdg9xcwVMz+FIQfhMVaVKzFT1fnJqnnnPdiy0a1ITbCKtmt5wxjZVtoKi76n2GEBPwlhWcKlUaHz9kB9ekI+X+LAKs/VZ4GJsvqnOyY5dMLMumfW8TF6PG30ie8vqkj41QyyqVhqC5LSuQCL+DPIFx2Iq2T5hUrA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=xen.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=f9xnphQ9L0vnxCKKlR624TQkPTFXuE84/afIalgczIs=;
+ b=qbcynnFbET0LlWsSzkESzx/FkO9ycNxNgy6NsuaeD5zTrY/FPoLAKiTsTyFlxXmRXujYOLHOP0UzKUUiY/KnbXZcJjJELmYxl8bER1pONsBpKvrm00RBTXGpfJJO+xnldHGepoTfvvb/Ejalb2/xi57MVrfi8aT4fwMCeIa4ArA=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Message-ID: <145e4192-3113-415f-876c-e67145d1d5c9@amd.com>
+Date: Mon, 6 May 2024 16:32:16 +0800
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 02/15] xen/arm/gic: Enable interrupt assignment to running
+ VM
+To: Julien Grall <julien@xen.org>, <xen-devel@lists.xenproject.org>
+CC: Stefano Stabellini <sstabellini@kernel.org>, Bertrand Marquis
+	<bertrand.marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>, "Volodymyr
+ Babchuk" <Volodymyr_Babchuk@epam.com>, Stefano Stabellini
+	<stefano.stabellini@xilinx.com>
+References: <20240424033449.168398-1-xin.wang2@amd.com>
+ <20240424033449.168398-3-xin.wang2@amd.com>
+ <670d1033-2443-4245-8ff1-cb7099a7c793@xen.org>
+ <70c5a593-9ac5-485b-be81-b789562249d8@amd.com>
+ <5ba38b7b-16b1-489b-ad55-083504690bbd@xen.org>
+ <1a29ae76-a902-4a24-8fd1-ac26ef228971@amd.com>
+ <365e1b12-6b20-40ed-8ca9-beb643c907ab@xen.org>
+Content-Language: en-US
+From: Henry Wang <xin.wang2@amd.com>
+In-Reply-To: <365e1b12-6b20-40ed-8ca9-beb643c907ab@xen.org>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+Received-SPF: None (SATLEXMB04.amd.com: xin.wang2@amd.com does not designate
+ permitted sender hosts)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000EE3A:EE_|PH7PR12MB8124:EE_
+X-MS-Office365-Filtering-Correlation-Id: 771196be-39ee-4eb8-10e4-08dc6da70b40
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230031|1800799015|376005|36860700004|82310400017;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?NVBzSVJ4RE4ySnU2MGlmNzVnWm9rR09UQzM5ZWpMd1laS0FaaEorcUVGby9Q?=
+ =?utf-8?B?aG9jTytwaWc2MktIWWhkSUtUYlZpNHJ6YkZWTXZDNGQxOTQ1QzVIWjZnU3NK?=
+ =?utf-8?B?ZGVMZ2lYalpYVDhsdkNNY2pjd3kxM3pwNzJpQUE1YzRuVE1lQTlUSlZ5Qkkx?=
+ =?utf-8?B?UXZxSFlyaDFxSHVaeHdiYlN5bG9xMGdUZkwxOVQ4N3JVRjhpSHFub29KM0dh?=
+ =?utf-8?B?SFM4SjRXcVIzeU5HUm1FemN5Ni85anMrdXN6bW5ZalNUZXd1RGhIY3puSFJy?=
+ =?utf-8?B?SWljVUk3a0VaRng4QmZjUmR1TVdrNVN5V05JSG9OdHdUVEwvR1duVXNxaE9m?=
+ =?utf-8?B?VnJJRTcyRWpQMnRvKzhndDlwQnNHQ0U1QnVSaW9VOUtMMlRQWHgvU2dWbHdB?=
+ =?utf-8?B?UWROQTZVZDNjdTkrSE83bHh3bUd5OE90d0JNcEpEVS96NEdUdkpPckcxNjdP?=
+ =?utf-8?B?QUFuY2xuRHVsKzBjZDViMGs1QlNaU003cEE5VndRS01hTFM4bzR1MGo3bldm?=
+ =?utf-8?B?aVRKUnZXMGpuSzVDRW9WZjFBakVDRjdBOVBYVVFZWlFsektWM2Q5dkxvWm1L?=
+ =?utf-8?B?cEVqRUlMajZkeG5YQ3JhcnRaMXVQWTVDUHI2UndSOTRuRElkOHpHZ2pETkFt?=
+ =?utf-8?B?MmtMcUpiZ3FjeVZGOTBMTHU3ZXFPL1lwM3U0aWhRUDBvUldzTS9kUCtBNU1X?=
+ =?utf-8?B?N01qR3JzSlVwZXZHYWlqSGNFNmxVa3VxbjR2UjVzVmxnL0NXRG9qNUZDM1FG?=
+ =?utf-8?B?SHI1L0xJQVJMdVkyVVRSOXNjd0hCY1N5QjN6YTYrUnJKNXllNlEzYXMvSllM?=
+ =?utf-8?B?bE0rZjdnRGhaVzVTWERoUnVEbUl1QU5mVG8zZXZCRG5EbkFOa09aRjlUVEhS?=
+ =?utf-8?B?RHgzcEdKZURicFBOQ2FHeEVBMGtMUFhJY05Cc2ViRnRBcHIxUTE3Q0UrMXl6?=
+ =?utf-8?B?bUJHWHg0YXY4eXM3Y3dqOXBwbzBkMzM2S3IrK0J5NmVqU2VnejF3ekVuZ2pM?=
+ =?utf-8?B?aFBmczVHSzZtN1JpRkl0eENJc3VEcGV1T2MrUG1tdFExbUI1blQwVWEzK3ZY?=
+ =?utf-8?B?TUV1Wk9WSjJSM05mUzFWUys5M1RaMFNYV0NiVjlEdk4yOTFsVVd6WUl4T3kw?=
+ =?utf-8?B?d3Y4b0Fub1UvNzRlRUdSblp6cGN3dnVxWS9Jbi9EZDVYVkhtWHNPYzZhREw3?=
+ =?utf-8?B?NFBuSmM1dmh2MGlkY1JjYmIraTUrRS9ZNjNvRVpXdmxOTUo1aHcyTkZTTVlL?=
+ =?utf-8?B?RHFER3BpZU44U2E2SGhpTS8yWUpRRTBEWWhTS29RZUFWbmxPUlF4UG1wNUJM?=
+ =?utf-8?B?MlRVYzFQdmE0WmpvbkFuSmpTZHFBZjVzRGNLSmlVQ2dnR2pYMDRSSnhFWHpq?=
+ =?utf-8?B?eURzNkxQcDc1c2xOSzZxWnVIY2RDeFF3dkQzQWU3NVFkMlJvRm5XQnlwRlNh?=
+ =?utf-8?B?ODRmdDZnYWxWZjFBYTk3NEpVVEJsc0ZQKzBvdWtudkNJVHQwYVpVcDJGZ3VL?=
+ =?utf-8?B?T201NmRvNWNkdTQ0dFFuM21vTUVKRGM4QldvVkhQdGhmWkZ3SHRZeW5RcVhM?=
+ =?utf-8?B?cGxUa1E2NXpzbmU1WlhhZ2tnMnYrdDFPT3N1c0xyaXZ4ekhFa213MGF0NXRP?=
+ =?utf-8?B?RDhzeGZIczVJRW11V3hrOUlzc3NIQ3kwU1dSaUtmODRqZjE3bm1RVXA3VVVB?=
+ =?utf-8?B?NGtZS1BnT0dKS0FvbVVIcUVqeS82bzEvQWxMaXZTclQzU2tPWDAwaG9rTDNO?=
+ =?utf-8?B?Q3labDluUFUvRW84dlZXY3V4bkRHaFNmUDd4UVluUzBud2hNNU13RmlDRG9X?=
+ =?utf-8?Q?ReEpEoWO3j2oKwGURUr15dKjqTVvoSesIv4rM=3D?=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(1800799015)(376005)(36860700004)(82310400017);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 May 2024 08:32:19.4388
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 771196be-39ee-4eb8-10e4-08dc6da70b40
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CY4PEPF0000EE3A.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB8124
 
-On Mon, 2024-05-06 at 09:11 +0200, Jan Beulich wrote:
-> On 03.05.2024 18:54, Oleksii wrote:
-> > *** x86 ***:
-> > =C2=A0 * [PATCH 0/4] iommu/x86: fixes/improvements for unity range
-> > checks [
-> > https://lore.kernel.org/xen-devel/20240201170159.66330-1-roger.pau@citr=
-ix.com/
-> > ]:
-> > =C2=A0=C2=A0=C2=A0 - almost patch series have been merged already excep=
-t the
-> > patch:
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 [PATCH 4/4] iommu/x86: make =
-unity range checking more
-> > strict
-> >=20
-> > =C2=A0 * [PATCH 0/8] x86: support AVX10.1 [
-> > https://lore.kernel.org/xen-devel/298db76f-d0ee-4d47-931f-1baa1a7546cf@=
-suse.com/
-> > ]:
-> > =C2=A0=C2=A0=C2=A0 - two patches of patch series are waitng to merged/r=
-eviewed:
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 [PATCH 1/4] amd-vi: fix IVMD memory type=
- checks
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 [PATCH 4/4] iommu/x86: make unity range =
-checking more strict=20
->=20
-> This sub-item doesn't really fit the topic, and seems to rather
-> belong
-> to the earlier one?=C2=A0
-Thanks for correction, it is belonged to previous topic.
+Hi Julien,
 
-> Where (correctly) 1/4 isn't listed anymore, for
-> having gone in. As to 4/4 - Roger, I'm not sure I can conclude what
-> the
-> plan here was: Are you meaning to submit an updated version, or did
-> we
-> rather settle on not further pursuing this?
->=20
-> > =C2=A0 * APX support?
->=20
-> I think you should drop this now. I'm throttling further work on the
-> insn
-> emulator, as long as I have so many other patches there pending
-> review.
->=20
-> > =C2=A0 * [PATCH v6 0/4] x86/pvh: Support relocating dom0 kernel [
-> > https://patchew.org/Xen/20240327215102.136001-1-jason.andryuk@amd.com/
-> > ]
->=20
-> There had been a v7, and all of that plus a follow-on adjustment have
-> gone
-> in.
->=20
-> > *** common ***:
-> > =C2=A0 * annotate entry points with type and size" series:
-> > =C2=A0=C2=A0=C2=A0 The bulk of this has gone in, but there'll want to b=
-e follow-
-> > ups.
->=20
-> I think these follow-ups now want tracking on a per-arch basis (x86
-> and
-> Arm, with PPC and RISC-V filly done).
->=20
-> > =C2=A0 * [PATCH v2 (resend) 00/27] Remove the directmap [
-> > https://lore.kernel.org/xen-devel/20240116192611.41112-1-eliasely@amazo=
-n.com/
-> > ]
-> > =C2=A0=C2=A0=C2=A0 - 7/27 were merged.
->=20
-> Hmm, no, I don't think that one was. Other were, yes.
->=20
-> > =C2=A0 * [PATCH v6 0/7] MSI-X support with qemu in stubdomain, and othe=
-r
-> > related changes:
-> > =C2=A0=C2=A0=C2=A0 - new patch version was sent
->=20
-> 1/7 was committed.
->=20
-> > =C2=A0 * [PATCH v3 0/4] xenwatchdogd bugfixes and enhancements [
-> > https://lore.kernel.org/xen-devel/20240411182023.56309-1-leigh@solinno.=
-co.uk/
-> > ]:
-> > =C2=A0=C2=A0=C2=A0 new patch series were sent.
->=20
-> Was there anything left from that series?
-I double-checked and everything has been merged. Thanks for correction.
+On 5/1/2024 4:13 AM, Julien Grall wrote:
+> Hi Henry,
+>
+> On 30/04/2024 04:50, Henry Wang wrote:
+>> On 4/25/2024 10:28 PM, Julien Grall wrote:
+>>>> Thanks for your feeedback. After checking the b8577547236f commit 
+>>>> message I think I now understand your point. Do you have any 
+>>>> suggestion about how can I properly add the support to route/remove 
+>>>> the IRQ to running domains? Thanks.
+>>
+>> I spent some time going through the GIC/vGIC code and had some 
+>> discussions with Stefano and Stewart during the last couple of days, 
+>> let me see if I can describe the use case properly now to continue 
+>> the discussion:
+>>
+>> We have some use cases that requires assigning devices to domains 
+>> after domain boot time. For example, suppose there is an FPGA on the 
+>> board which can simulate a device, and the bitstream for the FPGA is 
+>> provided and programmed after domain boot. So we need a way to assign 
+>> the device to the running domain. This series tries to implement this 
+>> use case by using device tree overlay - users can firstly add the 
+>> overlay to Xen dtb, assign the device in the overlay to a domain by 
+>> the xl command, then apply the overlay to Linux.
+>
+> Thanks for the description! This helps to understand your goal :).
 
-I'm considering writing a script to automate the process of checking
-whether the patches in a patch series have been merged or not.
-Currently, I'm doing it manually, so there's a chance I might miss
-something. It would be helpful if such a script already exists.
+Thank you very much for spending your time on discussing this and 
+provide these valuable comments!
 
-~ Oleksii
+>>
+>>> I haven't really look at that code in quite a while. I think we need 
+>>> to make sure that the virtual and physical IRQ state matches at the 
+>>> time we do the routing.
+>>>
+>>> I am undecided on whether we want to simply prevent the action to 
+>>> happen or try to reset the state.
+>>>
+>>> There is also the question of what to do if the guest is enabling 
+>>> the vIRQ before it is routed.
+>>
+>> Sorry for bothering, would you mind elaborating a bit more about the 
+>> two cases that you mentioned above? Commit b8577547236f ("xen/arm: 
+>> Restrict when a physical IRQ can be routed/removed from/to a domain") 
+>> only said there will be undesirable effects, so I am not sure if I 
+>> understand the concerns raised above and the consequences of these 
+>> two use cases.
+>
+> I will try to explain them below after I answer the rest.
+>
+>> I am probably wrong, I think when we add the overlay, we are probably 
+>> fine as the interrupt is not being used before. 
+>
+> What if the DT overlay is unloaded and then reloaded? Wouldn't the 
+> same interrupt be re-used? As a more generic case, this could also be 
+> a new bitstream for the FPGA.
+>
+> But even if the interrupt is brand new every time for the DT overlay, 
+> you are effectively relaxing the check for every user (such as 
+> XEN_DOMCTL_bind_pt_irq). So the interrupt re-use case needs to be 
+> taken into account.
+
+I agree. I think IIUC, with your explanation here and below, could we 
+simplify the problem to how to properly handle the removal of the IRQ 
+from a running guest, if we always properly remove and clean up the 
+information when remove the IRQ from the guest? In this way, the IRQ can 
+always be viewed as a brand new one when we add it back. Then the only 
+corner case that we need to take care of would be...
+
+>> Also since we only load the device driver after the IRQ is routed to 
+>> the guest, 
+>
+> This is what a well-behave guest will do. However, we need to think 
+> what will happen if a guest misbehaves. I am not concerned about a 
+> guest only impacting itself, I am more concerned about the case where 
+> the rest of the system is impacted.
+>
+>> I am not sure the guest can enable the vIRQ before it is routed.
+>
+> Xen allows the guest to enable a vIRQ even if there is no pIRQ 
+> assigned. Thanksfully, it looks like the vgic_connect_hw_irq(), in 
+> both the current and new vGIC, will return an error if we are trying 
+> to route a pIRQ to an already enabled vIRQ.
+>
+> But we need to investigate all the possible scenarios to make sure 
+> that any inconsistencies between the physical state and virtual state 
+> (including the LRs) will not result to bigger problem.
+>
+> The one that comes to my mind is: The physical interrupt is 
+> de-assigned from the guest before it was EOIed. In this case, the 
+> interrupt will still be in the LR with the HW bit set. This would 
+> allow the guest to EOI the interrupt even if it is routed to someone 
+> else. It is unclear what would be the impact on the other guest.
+
+...same as this case, i.e.
+test_bit(_IRQ_INPROGRESS, &desc->status) || !test_bit(_IRQ_DISABLED, 
+&desc->status)) when we try to remove the IRQ from a running domain.
+
+we have 3 possible states which can be read from LR for this case : 
+active, pending, pending and active.
+- I don't think we can do anything about the active state, so we should 
+return -EBUSY and reject the whole operation of removing the IRQ from 
+running guest, and user can always retry this operation.
+- For the pending (and active) case, can we clear the LR and point the 
+LR for the pending_irq to invalid?
+
+Kind regards,
+Henry
+
+>
+> Cheers,
+>
+
 
