@@ -2,56 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 15E6F8BDD15
-	for <lists+xen-devel@lfdr.de>; Tue,  7 May 2024 10:24:59 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.717919.1120435 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EA66F8BDE4A
+	for <lists+xen-devel@lfdr.de>; Tue,  7 May 2024 11:31:50 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.717942.1120445 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s4G7Z-0004Hr-II; Tue, 07 May 2024 08:24:21 +0000
+	id 1s4H9c-0005Zr-Ff; Tue, 07 May 2024 09:30:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 717919.1120435; Tue, 07 May 2024 08:24:21 +0000
+Received: by outflank-mailman (output) from mailman id 717942.1120445; Tue, 07 May 2024 09:30:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s4G7Z-0004G2-FO; Tue, 07 May 2024 08:24:21 +0000
-Received: by outflank-mailman (input) for mailman id 717919;
- Tue, 07 May 2024 08:24:19 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1s4H9c-0005XN-Cz; Tue, 07 May 2024 09:30:32 +0000
+Received: by outflank-mailman (input) for mailman id 717942;
+ Tue, 07 May 2024 09:30:31 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=dSAm=MK=amd.com=Xin.Wang2@srs-se1.protection.inumbo.net>)
- id 1s4G7X-0003kv-A7
- for xen-devel@lists.xenproject.org; Tue, 07 May 2024 08:24:19 +0000
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on20601.outbound.protection.outlook.com
- [2a01:111:f403:2416::601])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 316d029e-0c4b-11ef-b4bb-af5377834399;
- Tue, 07 May 2024 10:24:17 +0200 (CEST)
-Received: from BY5PR17CA0010.namprd17.prod.outlook.com (2603:10b6:a03:1b8::23)
- by SA3PR12MB7877.namprd12.prod.outlook.com (2603:10b6:806:31b::12)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7544.41; Tue, 7 May
- 2024 08:24:12 +0000
-Received: from CO1PEPF000066EB.namprd05.prod.outlook.com
- (2603:10b6:a03:1b8:cafe::dc) by BY5PR17CA0010.outlook.office365.com
- (2603:10b6:a03:1b8::23) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7544.39 via Frontend
- Transport; Tue, 7 May 2024 08:24:12 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1PEPF000066EB.mail.protection.outlook.com (10.167.249.7) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7544.18 via Frontend Transport; Tue, 7 May 2024 08:24:11 +0000
-Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Tue, 7 May
- 2024 03:24:10 -0500
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB05.amd.com
- (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Tue, 7 May
- 2024 03:24:10 -0500
-Received: from henry-MS-7D54.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.35 via Frontend
- Transport; Tue, 7 May 2024 03:24:08 -0500
+ (envelope-from <SRS0=SDgQ=MK=digikod.net=mic@srs-se1.protection.inumbo.net>)
+ id 1s4H9b-0005XH-AI
+ for xen-devel@lists.xenproject.org; Tue, 07 May 2024 09:30:31 +0000
+Received: from smtp-190e.mail.infomaniak.ch (smtp-190e.mail.infomaniak.ch
+ [185.125.25.14]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 71aeadee-0c54-11ef-909c-e314d9c70b13;
+ Tue, 07 May 2024 11:30:29 +0200 (CEST)
+Received: from smtp-4-0000.mail.infomaniak.ch (smtp-4-0000.mail.infomaniak.ch
+ [10.7.10.107])
+ by smtp-3-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4VYY0h64rLzhcB;
+ Tue,  7 May 2024 11:30:28 +0200 (CEST)
+Received: from unknown by smtp-4-0000.mail.infomaniak.ch (Postfix) with ESMTPA
+ id 4VYY0d4NWlzhxd; Tue,  7 May 2024 11:30:25 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,134 +42,169 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 316d029e-0c4b-11ef-b4bb-af5377834399
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=cir1bWtVTDDZiusjo6Y2irTyEaA96THmEn15TBtAcvuTY5AfHv3ZGPbf57uoqAQLfYlMmFNty8QLU3WKyHDiiR+JLk1ElMELPnigFFx62AWMfbgBKO8pL0mUdZujAekwLMDz7PFKN8JaHE3igiPsOEKSQD8j3+pVbx2To8j9MAtZkJgzEqmc8a+WadKj1DoiZCJrSWFZXLrGPC0MMov4GbJdTLi81pQj7BbtSnR9OpDwfXl9Ka4DRiT3rrZJXBO7x5mH0icVXmnkwnuzoRtE0Mrnli5aeEbuNU6Oh4J3Ib5bG5UV8NrpheRPJcOzluAyvaPSrENtgH+2m+onDSsZbA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=UCoREhGdiGdJh4nqENuQ2tKLWDW2JKQq7+BvW87Gh/k=;
- b=fP0JsAyw9MdF+mZ3W/l+XokiHx7jTAavRMKbmi3KZSfcaoOhTp4+Gbr1T+XTSSEv1g94XIkndLag7PKwuibueaUERgL6SMgealrD2ptsdU+/uvUfrU4y2+NB9coIScQ7VeCW/IZkUpxqGmOa/8014q2ilC6aktMF2cgAd/d6NhibUdwRSNgkPdn5YPz2XuTQn3b6vSYbsi+IgwguIuYsV2gAJYYj0gZRtGFOpHm9fd4U6lXApK7beE2KWFV0BRbsGRZjcbxCp3iOT/x1qZt8zOwdpA9MZE107+nHkRdas3cGWk1A8FWgxXSFLbpRsFRSn/TgrXgZG2yR1/63JeaR/Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=UCoREhGdiGdJh4nqENuQ2tKLWDW2JKQq7+BvW87Gh/k=;
- b=lBmaY/qh33tdt1A44CaQYAPcL5ZpldxmpbgxVLzChrlM322DIA3OlZUI3SS9mPUX84B02i07J0wAVDzwUypaOxdgK3N4X4RrPukpRHQF+jSQSEglwPT51VKIC7MiHBxTfEbBTqt4a/hTxjfyWl0BF0E8JMKrZ+gJcnf9kaNozuM=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-From: Henry Wang <xin.wang2@amd.com>
-To: <xen-devel@lists.xenproject.org>
-CC: Henry Wang <xin.wang2@amd.com>, Anthony PERARD <anthony@xenproject.org>,
-	Anthony PERARD <anthony.perard@cloud.com>
-Subject: [PATCH v2 2/2] tools/xl: Correct the help information and exit code of the dt-overlay command
-Date: Tue, 7 May 2024 16:24:00 +0800
-Message-ID: <20240507082400.25146-3-xin.wang2@amd.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20240507082400.25146-1-xin.wang2@amd.com>
-References: <20240507082400.25146-1-xin.wang2@amd.com>
+X-Inumbo-ID: 71aeadee-0c54-11ef-909c-e314d9c70b13
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=digikod.net;
+	s=20191114; t=1715074228;
+	bh=N7C083XW9HErJ1+R52TKnyEZNzil5v9FCazYyr/JQx0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=g4cR8t/iRRSN5giqF0Iwy3XXWNCfhqE/qqqfoxy0lSmFuyqhdQ4FyOhVfsBJ5BFWv
+	 xFaM80SdAPMBtmnCReKLZkFRcwvBisebzGQz+PahxsjXN1dm1r13uXB5fKC058GUn5
+	 E40tFjEfU9DKYpAc1PGGy+RZ3L2pJN9bZLXwuqBg=
+Date: Tue, 7 May 2024 11:30:24 +0200
+From: =?utf-8?Q?Micka=C3=ABl_Sala=C3=BCn?= <mic@digikod.net>
+To: Sean Christopherson <seanjc@google.com>
+Cc: Borislav Petkov <bp@alien8.de>, 
+	Dave Hansen <dave.hansen@linux.intel.com>, "H . Peter Anvin" <hpa@zytor.com>, 
+	Ingo Molnar <mingo@redhat.com>, Kees Cook <keescook@chromium.org>, 
+	Paolo Bonzini <pbonzini@redhat.com>, Thomas Gleixner <tglx@linutronix.de>, 
+	Vitaly Kuznetsov <vkuznets@redhat.com>, Wanpeng Li <wanpengli@tencent.com>, 
+	Rick P Edgecombe <rick.p.edgecombe@intel.com>, Alexander Graf <graf@amazon.com>, 
+	Angelina Vu <angelinavu@linux.microsoft.com>, Anna Trikalinou <atrikalinou@microsoft.com>, 
+	Chao Peng <chao.p.peng@linux.intel.com>, Forrest Yuan Yu <yuanyu@google.com>, 
+	James Gowans <jgowans@amazon.com>, James Morris <jamorris@linux.microsoft.com>, 
+	John Andersen <john.s.andersen@intel.com>, "Madhavan T . Venkataraman" <madvenka@linux.microsoft.com>, 
+	Marian Rotariu <marian.c.rotariu@gmail.com>, Mihai =?utf-8?B?RG9uyJt1?= <mdontu@bitdefender.com>, 
+	=?utf-8?B?TmljdciZb3IgQ8OuyJt1?= <nicu.citu@icloud.com>, Thara Gopinath <tgopinath@microsoft.com>, 
+	Trilok Soni <quic_tsoni@quicinc.com>, Wei Liu <wei.liu@kernel.org>, Will Deacon <will@kernel.org>, 
+	Yu Zhang <yu.c.zhang@linux.intel.com>, =?utf-8?Q?=C8=98tefan_=C8=98icleru?= <ssicleru@bitdefender.com>, 
+	dev@lists.cloudhypervisor.org, kvm@vger.kernel.org, linux-hardening@vger.kernel.org, 
+	linux-hyperv@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-security-module@vger.kernel.org, qemu-devel@nongnu.org, virtualization@lists.linux-foundation.org, 
+	x86@kernel.org, xen-devel@lists.xenproject.org
+Subject: Re: [RFC PATCH v3 3/5] KVM: x86: Add notifications for Heki policy
+ configuration and violation
+Message-ID: <20240507.ieghomae0UoC@digikod.net>
+References: <20240503131910.307630-1-mic@digikod.net>
+ <20240503131910.307630-4-mic@digikod.net>
+ <ZjTuqV-AxQQRWwUW@google.com>
+ <20240506.ohwe7eewu0oB@digikod.net>
+ <ZjmFPZd5q_hEBdBz@google.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-Received-SPF: None (SATLEXMB05.amd.com: xin.wang2@amd.com does not designate
- permitted sender hosts)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PEPF000066EB:EE_|SA3PR12MB7877:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1814a71d-a3d2-44dc-f6f5-08dc6e6f12b3
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230031|82310400017|1800799015|376005|36860700004;
-X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?ir3m0+WSeaR40l1L9cgqXPwAMqnGeCluPMNwBDXUx1E6V4qHocQAdjFzquYn?=
- =?us-ascii?Q?rQmjIKKGA1gt3eDZudDOqdElOIIVSqSalcKL8I5cLMJxeNes0mdm4w7ZkTFk?=
- =?us-ascii?Q?CZgen6rxde14AbC1lMYIT+uE3oCu13Q2KwsfwUU3rWBgELJH37olUoCcENT+?=
- =?us-ascii?Q?NxyVO3YqV+sX0ane9qFp4G55yo+8WOup9A4Olxi9vquZLAqPHpZOx3IG38JW?=
- =?us-ascii?Q?FtaeESnzUvjVvajOHIXCBZaaEEQGKswFfFh0/Xstkzr723kT1X3DnPb+Q6eo?=
- =?us-ascii?Q?ugC0e8SRMLwFJ5qt2d9KxSpJpkRGSQqKSTH4+mdyTRrUBnGkRc9ypI1fkdHQ?=
- =?us-ascii?Q?fXmz1nmApLStVJnGS8rLnAkxxswkjuDJUelWCSwKlk/N2tQIb15gUJLiNPXv?=
- =?us-ascii?Q?51iAl5BF8zm808KzF+IVV1xpv9R6dHwPQOWxh3hi6uYTVfIhxLu9jUOeQy7m?=
- =?us-ascii?Q?Atrl0/nlEAFAAtWNaY/4yC9GitFLzhOf2eAglGbUHIC/uaPhXahfAYCONYxP?=
- =?us-ascii?Q?b2fwU+BeBbv2BaGeuk5zr5AirtBpO1dkgwpp9LQE6lsyZrhQr5m585PagGru?=
- =?us-ascii?Q?m8vDDswuIryfK+uyEVI3hSpGu9Cyyg8KzgmDaKVAMmTPnpumFKcZ2y9mXcDR?=
- =?us-ascii?Q?1kvbYKqslbHEqAA7p8wIJ3itXnR8F/wpi2c+Th193eCG+3Jfgn1fIuRZUYon?=
- =?us-ascii?Q?7Tr51Q1EaKtiIQfkm7ZP1qvlxqGZ9CcDPphcqFhWxAhzoslbiCFx9vRMMQxk?=
- =?us-ascii?Q?mG7AbQvADZ1bEF4hC/C33EaJ93o3ZhdiQLts5UC5gR7ZH9NnIELHX14ydPeK?=
- =?us-ascii?Q?rihqApX6vU80EIQm8IPvpZay+6iIXt8MWFLK0WXy8ZytEwe+9XCAImcBeQH8?=
- =?us-ascii?Q?qmi6KEcbR2ud9+ZUKh/hi7BblFqe9lYz7H5Av/1YrSYXwX3SFIA1y+UhyCWx?=
- =?us-ascii?Q?QhMI2ZQZH5L1Fx0orKeXsQ8hEVvvZXVWreJpgtR23vUkBMVq6b/6HskLD8Se?=
- =?us-ascii?Q?SZAgduGbmBpPbVUKg/3Op1Lp+oPNEFPXKv4RP4GMDHVQf8HnYnqc7GXSzsdT?=
- =?us-ascii?Q?i3xrY5DU8JkTp7JbLNAVAabEKjOZ9H1RF+QwT1QdRKzVvU5BUqOUpREmob0O?=
- =?us-ascii?Q?NEEQg1Xzy3IjEB/8ptvivE0Y+2mRHyqQZF0Drw6keAHiIAJoWOYrTqNpExRa?=
- =?us-ascii?Q?Dfgkc3rGKRrb+WWggzyotFtoeugwtaejTOBrpuSoE7EonlwrRRS9lY7sHC+N?=
- =?us-ascii?Q?JmuyW+eAXTVZckXdfaxXo1hI3puiKW/Qi4ORQRg1g7JIASmke9Kzxhnihpnj?=
- =?us-ascii?Q?C0/M4brDdXTWPH6/bzHCOcMJ1MBUKooih+OBM0TLPPaVvZXWm6MPbLPwtzvd?=
- =?us-ascii?Q?IewL1dM=3D?=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(82310400017)(1800799015)(376005)(36860700004);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 May 2024 08:24:11.2414
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1814a71d-a3d2-44dc-f6f5-08dc6e6f12b3
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CO1PEPF000066EB.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB7877
+In-Reply-To: <ZjmFPZd5q_hEBdBz@google.com>
+X-Infomaniak-Routing: alpha
 
-Fix the name mismatch in the xl dt-overlay command, the
-command name should be "dt-overlay" instead of "dt_overlay".
+On Mon, May 06, 2024 at 06:34:53PM GMT, Sean Christopherson wrote:
+> On Mon, May 06, 2024, Mickaël Salaün wrote:
+> > On Fri, May 03, 2024 at 07:03:21AM GMT, Sean Christopherson wrote:
+> > > > ---
+> > > > 
+> > > > Changes since v1:
+> > > > * New patch. Making user space aware of Heki properties was requested by
+> > > >   Sean Christopherson.
+> > > 
+> > > No, I suggested having userspace _control_ the pinning[*], not merely be notified
+> > > of pinning.
+> > > 
+> > >  : IMO, manipulation of protections, both for memory (this patch) and CPU state
+> > >  : (control registers in the next patch) should come from userspace.  I have no
+> > >  : objection to KVM providing plumbing if necessary, but I think userspace needs to
+> > >  : to have full control over the actual state.
+> > >  : 
+> > >  : One of the things that caused Intel's control register pinning series to stall
+> > >  : out was how to handle edge cases like kexec() and reboot.  Deferring to userspace
+> > >  : means the kernel doesn't need to define policy, e.g. when to unprotect memory,
+> > >  : and avoids questions like "should userspace be able to overwrite pinned control
+> > >  : registers".
+> > >  : 
+> > >  : And like the confidential VM use case, keeping userspace in the loop is a big
+> > >  : beneifit, e.g. the guest can't circumvent protections by coercing userspace into
+> > >  : writing to protected memory.
+> > > 
+> > > I stand by that suggestion, because I don't see a sane way to handle things like
+> > > kexec() and reboot without having a _much_ more sophisticated policy than would
+> > > ever be acceptable in KVM.
+> > > 
+> > > I think that can be done without KVM having any awareness of CR pinning whatsoever.
+> > > E.g. userspace just needs to ability to intercept CR writes and inject #GPs.  Off
+> > > the cuff, I suspect the uAPI could look very similar to MSR filtering.  E.g. I bet
+> > > userspace could enforce MSR pinning without any new KVM uAPI at all.
+> > > 
+> > > [*] https://lore.kernel.org/all/ZFUyhPuhtMbYdJ76@google.com
+> > 
+> > OK, I had concern about the control not directly coming from the guest,
+> > especially in the case of pKVM and confidential computing, but I get you
+> 
+> Hardware-based CoCo is completely out of scope, because KVM has zero visibility
+> into the guest (well, SNP technically allows trapping CR0/CR4, but KVM really
+> shouldn't intercept CR0/CR4 for SNP guests).
+> 
+> And more importantly, _KVM_ doesn't define any policies for CoCo VMs.  KVM might
+> help enforce policies that are defined by hardware/firmware, but KVM doesn't
+> define any of its own.
+> 
+> If pKVM on x86 comes along, then KVM will likely get in the business of defining
+> policy, but until that happens, KVM needs to stay firmly out of the picture.
+> 
+> > point.  It should indeed be quite similar to the MSR filtering on the
+> > userspace side, except that we need another interface for the guest to
+> > request such change (i.e. self-protection).
+> > 
+> > Would it be OK to keep this new KVM_HC_LOCK_CR_UPDATE hypercall but
+> > forward the request to userspace with a VM exit instead?  That would
+> > also enable userspace to get the request and directly configure the CR
+> > pinning with the same VM exit.
+> 
+> No?  Maybe?  I strongly suspect that full support will need a richer set of APIs
+> than a single hypercall.  E.g. to handle kexec(), suspend+resume, emulated SMM,
+> and so on and so forth.  And that's just for CR pinning.
+> 
+> And hypercalls are hampered by the fact that VMCALL/VMMCALL don't allow for
+> delegation or restriction, i.e. there's no way for the guest to communicate to
+> the hypervisor that a less privileged component is allowed to perform some action,
+> nor is there a way for the guest to say some chunk of CPL0 code *isn't* allowed
+> to request transition.  Delegation and restriction all has to be done out-of-band.
+> 
+> It'd probably be more annoying to setup initially, but I think a synthetic device
+> with an MMIO-based interface would be more powerful and flexible in the long run.
+> Then userspace can evolve without needing to wait for KVM to catch up.
+> 
+> Actually, potential bad/crazy idea.  Why does the _host_ need to define policy?
+> Linux already knows what assets it wants to (un)protect and when.  What's missing
+> is a way for the guest kernel to effectively deprivilege and re-authenticate
+> itself as needed.  We've been tossing around the idea of paired VMs+vCPUs to
+> support VTLs and SEV's VMPLs, what if we usurped/piggybacked those ideas, with a
+> bit of pKVM mixed in?
+> 
+> Borrowing VTL terminology, where VTL0 is the least privileged, userspace launches
+> the VM at VTL0.  At some point, the guest triggers the deprivileging sequence and
+> userspace creates VTL1.  Userpace also provides a way for VTL0 restrict access to
+> its memory, e.g. to effectively make the page tables for the kernel's direct map
+> writable only from VTL1, to make kernel text RO (or XO), etc.  And VTL0 could then
+> also completely remove its access to code that changes CR0/CR4.
+> 
+> It would obviously require a _lot_ more upfront work, e.g. to isolate the kernel
+> text that modifies CR0/CR4 so that it can be removed from VTL0, but that should
+> be doable with annotations, e.g. tag relevant functions with __magic or whatever,
+> throw them in a dedicated section, and then free/protect the section(s) at the
+> appropriate time.
+> 
+> KVM would likely need to provide the ability to switch VTLs (or whatever they get
+> called), and host userspace would need to provide a decent amount of the backend
+> mechanisms and "core" policies, e.g. to manage VTL0 memory, teardown (turn off?)
+> VTL1 on kexec(), etc.  But everything else could live in the guest kernel itself.
+> E.g. to have CR pinning play nice with kexec(), toss the relevant kexec() code into
+> VTL1.  That way VTL1 can verify the kexec() target and tear itself down before
+> jumping into the new kernel. 
+> 
+> This is very off the cuff and have-wavy, e.g. I don't have much of an idea what
+> it would take to harden kernel text patching, but keeping the policy in the guest
+> seems like it'd make everything more tractable than trying to define an ABI
+> between Linux and a VMM that is rich and flexible enough to support all the
+> fancy things Linux does (and will do in the future).
 
-Fix the exit code of the dt-overlay command, use EXIT_FAILURE
-instead of ERROR_FAIL.
+Yes, we agree that the guest needs to manage its own policy.  That's why
+we implemented Heki for KVM this way, but without VTLs because KVM
+doesn't support them.
 
-Fixes: 61765a07e3d8 ("tools/xl: Add new xl command overlay for device tree overlay support")
-Suggested-by: Anthony PERARD <anthony.perard@cloud.com>
-Signed-off-by: Henry Wang <xin.wang2@amd.com>
----
-v2:
-- New patch
----
- tools/xl/xl_vmcontrol.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+To sum up, is the VTL approach the only one that would be acceptable for
+KVM?  If yes, that would indeed require a *lot* of work for something
+we're not sure will be accepted later on.
 
-diff --git a/tools/xl/xl_vmcontrol.c b/tools/xl/xl_vmcontrol.c
-index 98f6bd2e76..02575d5d36 100644
---- a/tools/xl/xl_vmcontrol.c
-+++ b/tools/xl/xl_vmcontrol.c
-@@ -1278,7 +1278,7 @@ int main_dt_overlay(int argc, char **argv)
-     const int overlay_remove_op = 2;
- 
-     if (argc < 2) {
--        help("dt_overlay");
-+        help("dt-overlay");
-         return EXIT_FAILURE;
-     }
- 
-@@ -1302,11 +1302,11 @@ int main_dt_overlay(int argc, char **argv)
-             fprintf(stderr, "failed to read the overlay device tree file %s\n",
-                     overlay_config_file);
-             free(overlay_dtb);
--            return ERROR_FAIL;
-+            return EXIT_FAILURE;
-         }
-     } else {
-         fprintf(stderr, "overlay dtbo file not provided\n");
--        return ERROR_FAIL;
-+        return EXIT_FAILURE;
-     }
- 
-     rc = libxl_dt_overlay(ctx, overlay_dtb, overlay_dtb_size, op);
--- 
-2.34.1
-
+> 
+> Am I crazy?  Or maybe reinventing whatever that McAfee thing was that led to
+> Intel implementing EPTP switching?
+> 
 
