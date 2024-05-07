@@ -2,33 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C86EA8BE0D0
-	for <lists+xen-devel@lfdr.de>; Tue,  7 May 2024 13:17:52 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.718014.1120507 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BCC518BE104
+	for <lists+xen-devel@lfdr.de>; Tue,  7 May 2024 13:30:31 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.718019.1120516 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s4IpB-0004t5-7f; Tue, 07 May 2024 11:17:33 +0000
+	id 1s4J1G-0006uN-8w; Tue, 07 May 2024 11:30:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 718014.1120507; Tue, 07 May 2024 11:17:33 +0000
+Received: by outflank-mailman (output) from mailman id 718019.1120516; Tue, 07 May 2024 11:30:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s4IpB-0004qA-3y; Tue, 07 May 2024 11:17:33 +0000
-Received: by outflank-mailman (input) for mailman id 718014;
- Tue, 07 May 2024 11:17:31 +0000
+	id 1s4J1G-0006qt-64; Tue, 07 May 2024 11:30:02 +0000
+Received: by outflank-mailman (input) for mailman id 718019;
+ Tue, 07 May 2024 11:30:01 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=7h5X=MK=linaro.org=jens.wiklander@srs-se1.protection.inumbo.net>)
- id 1s4Ip9-0004q4-3I
- for xen-devel@lists.xenproject.org; Tue, 07 May 2024 11:17:31 +0000
-Received: from mail-oo1-xc36.google.com (mail-oo1-xc36.google.com
- [2607:f8b0:4864:20::c36])
+ <SRS0=9mcW=MK=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1s4J1F-0006i8-O5
+ for xen-devel@lists.xenproject.org; Tue, 07 May 2024 11:30:01 +0000
+Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
+ [2a00:1450:4864:20::62a])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 63d531db-0c63-11ef-909c-e314d9c70b13;
- Tue, 07 May 2024 13:17:29 +0200 (CEST)
-Received: by mail-oo1-xc36.google.com with SMTP id
- 006d021491bc7-5b2058b16d3so1050982eaf.1
- for <xen-devel@lists.xenproject.org>; Tue, 07 May 2024 04:17:29 -0700 (PDT)
+ id 2380978a-0c65-11ef-909c-e314d9c70b13;
+ Tue, 07 May 2024 13:30:00 +0200 (CEST)
+Received: by mail-ej1-x62a.google.com with SMTP id
+ a640c23a62f3a-a59b49162aeso611372566b.3
+ for <xen-devel@lists.xenproject.org>; Tue, 07 May 2024 04:30:00 -0700 (PDT)
+Received: from andrewcoop.citrite.net (default-46-102-197-194.interdsl.co.uk.
+ [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
+ bf14-20020a170907098e00b00a59c3e28917sm2963527ejc.70.2024.05.07.04.29.58
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 07 May 2024 04:29:58 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,104 +45,96 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 63d531db-0c63-11ef-909c-e314d9c70b13
+X-Inumbo-ID: 2380978a-0c65-11ef-909c-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1715080648; x=1715685448; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=EnxMVQLxN6lfLXdxL4OeHbWXPiJqXf0eZqdPM9jpIPY=;
-        b=oXiQRlPdl5ZYuc7oocACoGEV0R1S0PKxfNhM1ppNaNUrodbVTv6DqChRcunn+Y0wBP
-         oK0ihX6xqvZHrmZAPj0u2i8xtVGi1MsyMJ4GhxjrM4MpO/83uK9EC9dCqU5N2ssB6woH
-         A2sAN6yo7n0fCSz3piYrfugPLZUlEZ68NpCaBRhNBcEsEBjfYf9vZ0aWyUiJtbjvfFFo
-         rX11HSghdyOFktWvbokNoIvUmUmUtYaq2fQj1Cx1t7reuCL28QsLDVYAljOVVGEHmgjx
-         oe1X/woDyRaqkikl2TWZuEmNmR6PAWQgu4BNqUNUk0JQXUaQoJTxGvjjZkwN3luMi1eO
-         b3/w==
+        d=citrix.com; s=google; t=1715081399; x=1715686199; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=rUxoYmJy59sYBP/lL0GePoG6vQYveONH9tj5bH4Vfzc=;
+        b=BC4CJtqXejJUGCAgslmeFMg0wTxJksdjPtpOl+N6UC3S51uoHv4NvesOGY3fkTkAjO
+         1i3LujELi9zRMqXzP1V/S9lfSFLTdLE71mx+ERMAIYJc/LMbRczbqEA1KWDnx+D5W3KL
+         VjBeO1vt2PdsN+iFKsQugtm08Oefm4F80pHmI=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1715080648; x=1715685448;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=EnxMVQLxN6lfLXdxL4OeHbWXPiJqXf0eZqdPM9jpIPY=;
-        b=axvmwZ9mVez9IyuC3gSOfx66u4wSYP/mjuEW1IVR9JjGhmtjBD5Df57bnFnom/+R5J
-         NZnq58UyPBf3FrBHuy5yTKNcDgqFEuRKQcmI0OyTAOedQ0b8ipt+AdugiTeodAfj6l0o
-         16lUjxPyFXTEyw0gTo6KQlDAWb8O60QA44EkbGmwSpdxH+9zsUrArz1fnTLSBofHYTUn
-         Gh9a9T6Ltc1HB2Q5lbeVn8F0V7C9FfvS8ifnxzXrxqlumU4QGKJwIujdrHNig8Q23u9s
-         hr8jpM4z6c9F7Uo2gt2IWXe6iUmX/feDz7b7tt9aZfQg8E3+54p8zHiS2PnWKK6KDbmz
-         L2Qw==
-X-Gm-Message-State: AOJu0YyROBhMKjtlkXE+952z9zu/Kv2Q4WFecLO2FEUcXia81AkdviA6
-	Mh/C0EVpkCsO4KsxUjaxdVyvnAfRNIRB2krJDqMVBImZd+ZHiC5ur8z14nj1rnptJAJT4jjbtoQ
-	Z1y3+EzXsq33pH9vpQR/OQ66Zjsc7M8vGNGaP9g==
-X-Google-Smtp-Source: AGHT+IFPb40kBdSq6e2UlwPFFb2+PpFqpZdbqA6mfmmn7A46+dNh903vNpriL6FBENJs88KoAeW1eleHY+B2kxa4fTE=
-X-Received: by 2002:a4a:5441:0:b0:5aa:6404:936a with SMTP id
- t62-20020a4a5441000000b005aa6404936amr12790871ooa.5.1715080648523; Tue, 07
- May 2024 04:17:28 -0700 (PDT)
+        d=1e100.net; s=20230601; t=1715081399; x=1715686199;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=rUxoYmJy59sYBP/lL0GePoG6vQYveONH9tj5bH4Vfzc=;
+        b=JLDuk9hLv9MblirSI+YTKTj7Wt7mOb0UUhRMhwUV/CLJvLnAeEZYLi7TKYIYl4iERh
+         Qne16Ik3rI3u63Min0WJkaq9iITPUv7MVugk3/hMXF+m85V2kA1TeEU60beoJdAtdRsK
+         aqadg5gj2Em3RGsyWPj+HuMUfj3k2X0DsVlbyzNAiO/ju9i6suxW8w7qGkoTFg+fT7hK
+         vLxK23Lhi8u4vZ177/WZhl/t1IvunnZ3k9ixOONkLOpvc60LIELVM+v1dyvtJGPhJwCy
+         Uadhf1Vw0lRfSLBEE1xmruICXCVuW7N9M3qYKpIyAjYTFJW1n/7ubz5kR7Kh0Qfs7TLt
+         He2w==
+X-Gm-Message-State: AOJu0YyF4BMt/8DfI/imzky+Yazq18MtGFeRCG9TQ8NqYEKCqvlAuzY/
+	7MwRKcf2UeZv7fMcVRL3bQ+Na92Icd+xMUo7JPPtk9EZ+A+y6rCBvct85IW91DVn/xDgHTmDEhR
+	V
+X-Google-Smtp-Source: AGHT+IEbS1utK86wR8VYYWGam4Ib5kTVH82qOPukxrTfu+ou1gmt1UdnSSShFNEnjMrzLC3EukyocA==
+X-Received: by 2002:a17:907:938a:b0:a59:9b52:cfc4 with SMTP id cm10-20020a170907938a00b00a599b52cfc4mr6520827ejc.44.1715081399207;
+        Tue, 07 May 2024 04:29:59 -0700 (PDT)
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+	Jan Beulich <JBeulich@suse.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
+Subject: [PATCH] x86/cpu-policy: Fix migration from Ice Lake to Cascade Lake
+Date: Tue,  7 May 2024 12:29:57 +0100
+Message-Id: <20240507112957.1701824-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
-References: <20240502145645.1201613-1-jens.wiklander@linaro.org>
- <20240502145645.1201613-6-jens.wiklander@linaro.org> <935e3947-53ee-48c5-a10c-5fa7f572ae65@xen.org>
- <CAHUa44HdA_cdZcjbVL+xYXnLVkdK1hK5hfU_k+fZkS8=VAOy1A@mail.gmail.com> <447340c3-d57a-411b-8d4d-29e8683b27d9@xen.org>
-In-Reply-To: <447340c3-d57a-411b-8d4d-29e8683b27d9@xen.org>
-From: Jens Wiklander <jens.wiklander@linaro.org>
-Date: Tue, 7 May 2024 13:17:16 +0200
-Message-ID: <CAHUa44Fc6pRDjUr1HiW7r=QB4kxCEdRz_G9ATLqEg2KqNp+gFA@mail.gmail.com>
-Subject: Re: [XEN PATCH v4 5/5] xen/arm: ffa: support notification
-To: Julien Grall <julien@xen.org>
-Cc: xen-devel@lists.xenproject.org, patches@linaro.org, 
-	Volodymyr Babchuk <volodymyr_babchuk@epam.com>, Stefano Stabellini <sstabellini@kernel.org>, 
-	Bertrand Marquis <bertrand.marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hi Julien,
+Ever since Xen 4.14, there has been a latent bug with migration.
 
-On Fri, May 3, 2024 at 4:25=E2=80=AFPM Julien Grall <julien@xen.org> wrote:
->
-> Hi Jens,
->
-> On 03/05/2024 14:54, Jens Wiklander wrote:
-> >>> +static int ffa_setup_irq_callback(struct notifier_block *nfb,
-> >>> +                                  unsigned long action, void *hcpu)
-> >>> +{
-> >>> +    unsigned int cpu =3D (unsigned long)hcpu;
-> >>> +    struct notif_irq_info irq_info =3D { };
-> >>> +
-> >>> +    switch ( action )
-> >>> +    {
-> >>> +    case CPU_ONLINE:
-> >>
-> >> Can't you execute the notifier in CPU_STARTING? This will be called on
-> >> the CPU directly, so you should be able to use request_irq(...).
-> >
-> > I tried that first but it failed with the ASSERT_ALLOC_CONTEXT() in _xm=
-alloc().
-> >
-> > I've also tested a three-step solution with CPU_UP_PREPARE,
-> > CPU_STARTING, and CPU_UP_CANCELED.
-> > My approach here is more direct, but it still suffers from a weakness
-> > in error handling even if it seems quite unlikely to run out of heap
-> > or for setup_irq() to fail at this stage.
->
-> Ah I didn't notice that notify_cpu_starting() is called with IRQ
-> disabled. I assumed they would be enabled.
->
-> Then I would consider to do:
->
-> diff --git a/xen/arch/arm/smpboot.c b/xen/arch/arm/smpboot.c
-> index 6efed876782e..db322672e508 100644
-> --- a/xen/arch/arm/smpboot.c
-> +++ b/xen/arch/arm/smpboot.c
-> @@ -389,6 +389,7 @@ void asmlinkage start_secondary(void)
->        */
->       init_maintenance_interrupt();
->       init_timer_interrupt();
-> +    init_tee_interrupt();
->
->       local_abort_enable();
->
-> And plumb through the TEE subsystem.
+While some toolstacks can level the features properly, they don't shink
+feat.max_subleaf when all features have been dropped.  This is because
+we *still* have not completed the toolstack side work for full CPU Policy
+objects.
 
-I'll use that in the next version, it should remove a lot of complex code.
+As a consequence, even when properly feature levelled, VMs can't migrate
+"backwards" across hardware which reduces feat.max_subleaf.  One such example
+is Ice Lake (max_subleaf=2 for INTEL_PSFD) to Cascade Lake (max_subleaf=0).
 
-Thanks,
-Jens
+Extend the host policy's feat.max_subleaf to the hightest number Xen knows
+about, similarly to how we extend extd.max_leaf for LFENCE_DISPATCH.  This
+will allow VMs with a higher feat.max_subleaf than strictly necessary to
+migrate in.
+
+Eventually we'll manage to teach the toolstack how to avoid creating such VMs
+in the first place, but there's still more work to do there.
+
+Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+---
+CC: Jan Beulich <JBeulich@suse.com>
+CC: Roger Pau Monné <roger.pau@citrix.com>
+---
+ xen/arch/x86/cpu-policy.c | 9 +++++++--
+ 1 file changed, 7 insertions(+), 2 deletions(-)
+
+diff --git a/xen/arch/x86/cpu-policy.c b/xen/arch/x86/cpu-policy.c
+index 4b6d96276399..a216fc8b886f 100644
+--- a/xen/arch/x86/cpu-policy.c
++++ b/xen/arch/x86/cpu-policy.c
+@@ -373,8 +373,13 @@ static void __init calculate_host_policy(void)
+ 
+     p->basic.max_leaf =
+         min_t(uint32_t, p->basic.max_leaf,   ARRAY_SIZE(p->basic.raw) - 1);
+-    p->feat.max_subleaf =
+-        min_t(uint32_t, p->feat.max_subleaf, ARRAY_SIZE(p->feat.raw) - 1);
++
++    /*
++     * p->feat is "just" featureset information.  We know about more than may
++     * be present in this hardware.  Also, VMs may have a higher max_subleaf
++     * than strictly necessary, and we can accept those too.
++     */
++    p->feat.max_subleaf = ARRAY_SIZE(p->feat.raw) - 1;
+ 
+     max_extd_leaf = p->extd.max_leaf;
+ 
+
+base-commit: ebab808eb1bb8f24c7d0dd41b956e48cb1824b81
+-- 
+2.30.2
+
 
