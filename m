@@ -2,38 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E3BBC8BE5F5
-	for <lists+xen-devel@lfdr.de>; Tue,  7 May 2024 16:31:48 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.718227.1120806 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1D1A88BE615
+	for <lists+xen-devel@lfdr.de>; Tue,  7 May 2024 16:35:29 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.718230.1120815 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s4Lqn-00018o-UC; Tue, 07 May 2024 14:31:25 +0000
+	id 1s4LuP-00028p-D7; Tue, 07 May 2024 14:35:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 718227.1120806; Tue, 07 May 2024 14:31:25 +0000
+Received: by outflank-mailman (output) from mailman id 718230.1120815; Tue, 07 May 2024 14:35:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s4Lqn-00017H-RT; Tue, 07 May 2024 14:31:25 +0000
-Received: by outflank-mailman (input) for mailman id 718227;
- Tue, 07 May 2024 14:31:24 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=9mcW=MK=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1s4Lqm-00017B-LQ
- for xen-devel@lists.xenproject.org; Tue, 07 May 2024 14:31:24 +0000
-Received: from mail-oa1-x2f.google.com (mail-oa1-x2f.google.com
- [2001:4860:4864:20::2f])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 79ace0fc-0c7e-11ef-b4bb-af5377834399;
- Tue, 07 May 2024 16:31:22 +0200 (CEST)
-Received: by mail-oa1-x2f.google.com with SMTP id
- 586e51a60fabf-23f55e2e908so1342863fac.3
- for <xen-devel@lists.xenproject.org>; Tue, 07 May 2024 07:31:22 -0700 (PDT)
-Received: from [10.80.67.140] (default-46-102-197-194.interdsl.co.uk.
- [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- ez7-20020a05622a4c8700b0043496744c5dsm6510755qtb.52.2024.05.07.07.31.20
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 07 May 2024 07:31:21 -0700 (PDT)
+	id 1s4LuP-00026u-9o; Tue, 07 May 2024 14:35:09 +0000
+Received: by outflank-mailman (input) for mailman id 718230;
+ Tue, 07 May 2024 14:35:08 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1s4LuO-00025M-0P
+ for xen-devel@lists.xenproject.org; Tue, 07 May 2024 14:35:08 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1s4LuL-0008MV-Fl; Tue, 07 May 2024 14:35:05 +0000
+Received: from [15.248.2.31] (helo=[10.24.67.35])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1s4LuL-0005cF-8R; Tue, 07 May 2024 14:35:05 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,127 +39,100 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 79ace0fc-0c7e-11ef-b4bb-af5377834399
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1715092281; x=1715697081; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=j0BTVGvHEKyiBbxz3RZmU5S9st2y1z9qXUwG+d5JHcE=;
-        b=tPK52cHsNEudlPHtFREIqfgq1mNyWQYZBvSpkyfgbrTFq59hRi6yKmY3jqsQ/a6idZ
-         l5umflP0LO2kCvlwZdtsfQOejyhWWBSsHI9vMPNpGEiA0pt/gSYuYYTpV87VVYKWxOsd
-         K/ha3W6bv9pYy+2ECNEbbsysPciE80XyaXbfg=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1715092281; x=1715697081;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=j0BTVGvHEKyiBbxz3RZmU5S9st2y1z9qXUwG+d5JHcE=;
-        b=WMKnc+izrpfiH9TCk3jGAqRxIvRyThUo2e09VN1PA07Xaq0OQBGyPosMlrktGxc/8Y
-         L5YuRBR6Nd90CGcaXKex9JHzNKHhUzdp09bzpoEA9ypngeu6CxgzrM6gwaeW+MQp9SN4
-         6aypG2JR6M9rxhYBfOvUM8isEDzvOA8hpRt7CW7jCaYIPzbJFqknvY+S/udSFsgVIRin
-         BFWE66CIaWt0+q9nvDQS8evlG6brT5m8J7yyp0LDKq4dQQXueY21lwi1g2e5ftn8nvZM
-         yM3KTPvO0ffPTS2acdmxReR+brAtMm3FpjbATXWXyj0zczT0ScSg2vHpphHl+gzrwxzg
-         JQvg==
-X-Gm-Message-State: AOJu0Yws9axnc2pPKlu7hkR4N6li3T6MpLjUdATSK4NL+imhlNyiZqcG
-	I8vev6G55ZEDMIVUv8YGlHfN3OpBlOw5w6B8S10ARUf6FnGHLEpDvnSDxLuITSE=
-X-Google-Smtp-Source: AGHT+IHkP42kZ17vHRLPYZ1ANwuxu48Jg7HK/BVc4n6dZ2+mqkyEUiMxMtAWcmhCUh4l06m+Iw6xfg==
-X-Received: by 2002:a05:6870:2b0a:b0:229:e6c6:1f13 with SMTP id ld10-20020a0568702b0a00b00229e6c61f13mr15348545oab.14.1715092281354;
-        Tue, 07 May 2024 07:31:21 -0700 (PDT)
-Message-ID: <f0272d79-7c59-42b2-b185-2aaf84f1b196@citrix.com>
-Date: Tue, 7 May 2024 15:31:19 +0100
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=EoKL+Z0kQgMFXQExJ9CRpDqJzIJUhs2/XE5rGxXj090=; b=GyYOJNT8QrlEuUqPnHygH4YZun
+	Fn1MoLoDxVtkVjtcPjJJ3HDonRSpSiaOG1eW/Z0qxvu1uA/H+Zaa/r481RE9ObViASV3BxcRFN9PC
+	sEFs5s9oSA/dqn1aCRIXjGqVIQtVY3heqVnxSgheL9mXJH42Dmp7FGPVcC1l2bXAw3Vg=;
+Message-ID: <bca3098b-4f0b-48e1-8e21-51c66c63e4f3@xen.org>
+Date: Tue, 7 May 2024 15:35:03 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] x86/cpu-policy: Fix migration from Ice Lake to Cascade
- Lake
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>,
- Jan Beulich <JBeulich@suse.com>
-References: <20240507112957.1701824-1-andrew.cooper3@citrix.com>
- <20240507134540.1714274-1-andrew.cooper3@citrix.com>
- <Zjo5iwmEvD3RWtsx@macbook>
+Subject: Re: [PATCH 05/15] tools/libs/light: Increase nr_spi to 160
 Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- xsFNBFLhNn8BEADVhE+Hb8i0GV6mihnnr/uiQQdPF8kUoFzCOPXkf7jQ5sLYeJa0cQi6Penp
- VtiFYznTairnVsN5J+ujSTIb+OlMSJUWV4opS7WVNnxHbFTPYZVQ3erv7NKc2iVizCRZ2Kxn
- srM1oPXWRic8BIAdYOKOloF2300SL/bIpeD+x7h3w9B/qez7nOin5NzkxgFoaUeIal12pXSR
- Q354FKFoy6Vh96gc4VRqte3jw8mPuJQpfws+Pb+swvSf/i1q1+1I4jsRQQh2m6OTADHIqg2E
- ofTYAEh7R5HfPx0EXoEDMdRjOeKn8+vvkAwhviWXTHlG3R1QkbE5M/oywnZ83udJmi+lxjJ5
- YhQ5IzomvJ16H0Bq+TLyVLO/VRksp1VR9HxCzItLNCS8PdpYYz5TC204ViycobYU65WMpzWe
- LFAGn8jSS25XIpqv0Y9k87dLbctKKA14Ifw2kq5OIVu2FuX+3i446JOa2vpCI9GcjCzi3oHV
- e00bzYiHMIl0FICrNJU0Kjho8pdo0m2uxkn6SYEpogAy9pnatUlO+erL4LqFUO7GXSdBRbw5
- gNt25XTLdSFuZtMxkY3tq8MFss5QnjhehCVPEpE6y9ZjI4XB8ad1G4oBHVGK5LMsvg22PfMJ
- ISWFSHoF/B5+lHkCKWkFxZ0gZn33ju5n6/FOdEx4B8cMJt+cWwARAQABzSlBbmRyZXcgQ29v
- cGVyIDxhbmRyZXcuY29vcGVyM0BjaXRyaXguY29tPsLBegQTAQgAJAIbAwULCQgHAwUVCgkI
- CwUWAgMBAAIeAQIXgAUCWKD95wIZAQAKCRBlw/kGpdefoHbdD/9AIoR3k6fKl+RFiFpyAhvO
- 59ttDFI7nIAnlYngev2XUR3acFElJATHSDO0ju+hqWqAb8kVijXLops0gOfqt3VPZq9cuHlh
- IMDquatGLzAadfFx2eQYIYT+FYuMoPZy/aTUazmJIDVxP7L383grjIkn+7tAv+qeDfE+txL4
- SAm1UHNvmdfgL2/lcmL3xRh7sub3nJilM93RWX1Pe5LBSDXO45uzCGEdst6uSlzYR/MEr+5Z
- JQQ32JV64zwvf/aKaagSQSQMYNX9JFgfZ3TKWC1KJQbX5ssoX/5hNLqxMcZV3TN7kU8I3kjK
- mPec9+1nECOjjJSO/h4P0sBZyIUGfguwzhEeGf4sMCuSEM4xjCnwiBwftR17sr0spYcOpqET
- ZGcAmyYcNjy6CYadNCnfR40vhhWuCfNCBzWnUW0lFoo12wb0YnzoOLjvfD6OL3JjIUJNOmJy
- RCsJ5IA/Iz33RhSVRmROu+TztwuThClw63g7+hoyewv7BemKyuU6FTVhjjW+XUWmS/FzknSi
- dAG+insr0746cTPpSkGl3KAXeWDGJzve7/SBBfyznWCMGaf8E2P1oOdIZRxHgWj0zNr1+ooF
- /PzgLPiCI4OMUttTlEKChgbUTQ+5o0P080JojqfXwbPAyumbaYcQNiH1/xYbJdOFSiBv9rpt
- TQTBLzDKXok86M7BTQRS4TZ/ARAAkgqudHsp+hd82UVkvgnlqZjzz2vyrYfz7bkPtXaGb9H4
- Rfo7mQsEQavEBdWWjbga6eMnDqtu+FC+qeTGYebToxEyp2lKDSoAsvt8w82tIlP/EbmRbDVn
- 7bhjBlfRcFjVYw8uVDPptT0TV47vpoCVkTwcyb6OltJrvg/QzV9f07DJswuda1JH3/qvYu0p
- vjPnYvCq4NsqY2XSdAJ02HrdYPFtNyPEntu1n1KK+gJrstjtw7KsZ4ygXYrsm/oCBiVW/OgU
- g/XIlGErkrxe4vQvJyVwg6YH653YTX5hLLUEL1NS4TCo47RP+wi6y+TnuAL36UtK/uFyEuPy
- wwrDVcC4cIFhYSfsO0BumEI65yu7a8aHbGfq2lW251UcoU48Z27ZUUZd2Dr6O/n8poQHbaTd
- 6bJJSjzGGHZVbRP9UQ3lkmkmc0+XCHmj5WhwNNYjgbbmML7y0fsJT5RgvefAIFfHBg7fTY/i
- kBEimoUsTEQz+N4hbKwo1hULfVxDJStE4sbPhjbsPCrlXf6W9CxSyQ0qmZ2bXsLQYRj2xqd1
- bpA+1o1j2N4/au1R/uSiUFjewJdT/LX1EklKDcQwpk06Af/N7VZtSfEJeRV04unbsKVXWZAk
- uAJyDDKN99ziC0Wz5kcPyVD1HNf8bgaqGDzrv3TfYjwqayRFcMf7xJaL9xXedMcAEQEAAcLB
- XwQYAQgACQUCUuE2fwIbDAAKCRBlw/kGpdefoG4XEACD1Qf/er8EA7g23HMxYWd3FXHThrVQ
- HgiGdk5Yh632vjOm9L4sd/GCEACVQKjsu98e8o3ysitFlznEns5EAAXEbITrgKWXDDUWGYxd
- pnjj2u+GkVdsOAGk0kxczX6s+VRBhpbBI2PWnOsRJgU2n10PZ3mZD4Xu9kU2IXYmuW+e5KCA
- vTArRUdCrAtIa1k01sPipPPw6dfxx2e5asy21YOytzxuWFfJTGnVxZZSCyLUO83sh6OZhJkk
- b9rxL9wPmpN/t2IPaEKoAc0FTQZS36wAMOXkBh24PQ9gaLJvfPKpNzGD8XWR5HHF0NLIJhgg
- 4ZlEXQ2fVp3XrtocHqhu4UZR4koCijgB8sB7Tb0GCpwK+C4UePdFLfhKyRdSXuvY3AHJd4CP
- 4JzW0Bzq/WXY3XMOzUTYApGQpnUpdOmuQSfpV9MQO+/jo7r6yPbxT7CwRS5dcQPzUiuHLK9i
- nvjREdh84qycnx0/6dDroYhp0DFv4udxuAvt1h4wGwTPRQZerSm4xaYegEFusyhbZrI0U9tJ
- B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
- d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
- 6+ahAA==
-In-Reply-To: <Zjo5iwmEvD3RWtsx@macbook>
-Content-Type: text/plain; charset=UTF-8
+To: Henry Wang <xin.wang2@amd.com>, Anthony PERARD
+ <anthony.perard@cloud.com>, Stefano Stabellini <sstabellini@kernel.org>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Bertrand Marquis <bertrand.marquis@arm.com>
+Cc: xen-devel@lists.xenproject.org, Vikram Garhwal <fnu.vikram@xilinx.com>,
+ Juergen Gross <jgross@suse.com>,
+ Stefano Stabellini <stefano.stabellini@xilinx.com>
+References: <20240424033449.168398-1-xin.wang2@amd.com>
+ <20240424033449.168398-6-xin.wang2@amd.com>
+ <334eb040-234f-4492-9006-9faadfe28c59@perard>
+ <71fc7673-e968-487d-8478-1c7aabef708b@amd.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <71fc7673-e968-487d-8478-1c7aabef708b@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-On 07/05/2024 3:24 pm, Roger Pau Monné wrote:
-> On Tue, May 07, 2024 at 02:45:40PM +0100, Andrew Cooper wrote:
->> Ever since Xen 4.14, there has been a latent bug with migration.
->>
->> While some toolstacks can level the features properly, they don't shink
->> feat.max_subleaf when all features have been dropped.  This is because
->> we *still* have not completed the toolstack side work for full CPU Policy
->> objects.
->>
->> As a consequence, even when properly feature levelled, VMs can't migrate
->> "backwards" across hardware which reduces feat.max_subleaf.  One such example
->> is Ice Lake (max_subleaf=2 for INTEL_PSFD) to Cascade Lake (max_subleaf=0).
->>
->> Extend the max policies feat.max_subleaf to the hightest number Xen knows
->> about, but leave the default policies matching the host.  This will allow VMs
->> with a higher feat.max_subleaf than strictly necessary to migrate in.
->>
->> Eventually we'll manage to teach the toolstack how to avoid creating such VMs
->> in the first place, but there's still more work to do there.
->>
->> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> Acked-by: Roger Pau Monné <roger.pau@citrix.com>
+Hi,
 
-Thanks.
+On 06/05/2024 06:17, Henry Wang wrote:
+> On 5/1/2024 9:58 PM, Anthony PERARD wrote:
+>> On Wed, Apr 24, 2024 at 11:34:39AM +0800, Henry Wang wrote:
+>>> Increase number of spi to 160 i.e. gic_number_lines() for Xilinx 
+>>> ZynqMP - 32.
+>>> This was done to allocate and assign IRQs to a running domain.
+>>>
+>>> Signed-off-by: Vikram Garhwal <fnu.vikram@xilinx.com>
+>>> Signed-off-by: Stefano Stabellini <stefano.stabellini@xilinx.com>
+>>> Signed-off-by: Henry Wang <xin.wang2@amd.com>
+>>> ---
+>>>   tools/libs/light/libxl_arm.c | 3 ++-
+>>>   1 file changed, 2 insertions(+), 1 deletion(-)
+>>>
+>>> diff --git a/tools/libs/light/libxl_arm.c b/tools/libs/light/libxl_arm.c
+>>> index dd5c9f4917..50dbd0f2a9 100644
+>>> --- a/tools/libs/light/libxl_arm.c
+>>> +++ b/tools/libs/light/libxl_arm.c
+>>> @@ -181,7 +181,8 @@ int libxl__arch_domain_prepare_config(libxl__gc *gc,
+>>>       LOG(DEBUG, "Configure the domain");
+>>> -    config->arch.nr_spis = nr_spis;
+>>> +    /* gic_number_lines() is 192 for Xilinx ZynqMP. min nr_spis = 
+>>> 192 - 32. */
+>>> +    config->arch.nr_spis = MAX(nr_spis, 160);
+>> Is there a way that that Xen or libxl could find out what the minimum
+>> number of SPI needs to be?
+> 
+> I am afraid currently there is none.
+> 
+>> Are we going to have to increase that minimum
+>> number every time a new platform comes along?
+>>
+>> It doesn't appear that libxl is using that `nr_spis` value and it is
+>> probably just given to Xen. So my guess is that Xen could simply take
+>> care of the minimum value, gic_number_lines() seems to be a Xen
+>> function.
+> 
+> Xen will take care of the value of nr_spis for dom0 in create_dom0()
+> dom0_cfg.arch.nr_spis = min(gic_number_lines(), (unsigned int) 992) - 32;
+> and also for dom0less domUs in create_domUs().
+> 
+> However, it looks like Xen will not take care of the mininum value for 
+> libxl guests, the value from config->arch.nr_spis in guest config file 
+> will be directly passed to the domain_vgic_init() function from 
+> arch_domain_create().
+> 
+> I agree with you that we shouldn't just bump the number everytime when 
+> we have a new platform. Therefore, would it be a good idea to move the 
+> logic in this patch to arch_sanitise_domain_config()?
 
->
-> Even if we have just found one glitch with PSFD and Ice Lake vs
-> Cascade Lack, wouldn't it be safer to always extend the max policies
-> max leafs and subleafs to match the known array sizes?
+Xen domains are supposed to be platform agnostics and therefore the 
+numbers of SPIs should not be based on the HW.
 
-This is the final max leaf (containing feature information) to gain
-custom handling, I think?
+Furthermore, with your proposal we would end up to allocate data 
+structure for N SPIs when a domain may never needs any SPIs (such as if 
+passthrough is not in-use). This is more likely for domain created by 
+the toolstack than from Xen directly.
 
-~Andrew
+Instead, we should introduce a new XL configuration to let the user 
+decide the number of SPIs. I would suggest to name "nr_spis" to match 
+the DT bindings.
+
+Cheers,
+
+-- 
+Julien Grall
 
