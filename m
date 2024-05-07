@@ -2,35 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D07A28BDC2F
-	for <lists+xen-devel@lfdr.de>; Tue,  7 May 2024 09:14:35 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.717894.1120406 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BA01D8BDD14
+	for <lists+xen-devel@lfdr.de>; Tue,  7 May 2024 10:24:58 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.717917.1120417 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s4F0r-0003Hs-Nk; Tue, 07 May 2024 07:13:21 +0000
+	id 1s4G7T-0003oI-3A; Tue, 07 May 2024 08:24:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 717894.1120406; Tue, 07 May 2024 07:13:21 +0000
+Received: by outflank-mailman (output) from mailman id 717917.1120417; Tue, 07 May 2024 08:24:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s4F0r-0003G7-Jw; Tue, 07 May 2024 07:13:21 +0000
-Received: by outflank-mailman (input) for mailman id 717894;
- Tue, 07 May 2024 07:13:20 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1s4G7T-0003l5-03; Tue, 07 May 2024 08:24:15 +0000
+Received: by outflank-mailman (input) for mailman id 717917;
+ Tue, 07 May 2024 08:24:13 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1s4F0q-0003Fx-9u; Tue, 07 May 2024 07:13:20 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1s4F0q-0007xA-1k; Tue, 07 May 2024 07:13:20 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1s4F0p-0007wQ-Oh; Tue, 07 May 2024 07:13:19 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1s4F0p-0001no-O5; Tue, 07 May 2024 07:13:19 +0000
+ (envelope-from <SRS0=dSAm=MK=amd.com=Xin.Wang2@srs-se1.protection.inumbo.net>)
+ id 1s4G7R-0003kv-NO
+ for xen-devel@lists.xenproject.org; Tue, 07 May 2024 08:24:13 +0000
+Received: from NAM02-DM3-obe.outbound.protection.outlook.com
+ (mail-dm3nam02on20601.outbound.protection.outlook.com
+ [2a01:111:f403:2405::601])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 2deb08e5-0c4b-11ef-b4bb-af5377834399;
+ Tue, 07 May 2024 10:24:11 +0200 (CEST)
+Received: from PH7PR17CA0059.namprd17.prod.outlook.com (2603:10b6:510:325::25)
+ by DS7PR12MB6335.namprd12.prod.outlook.com (2603:10b6:8:94::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7544.39; Tue, 7 May
+ 2024 08:24:07 +0000
+Received: from CY4PEPF0000E9D9.namprd05.prod.outlook.com
+ (2603:10b6:510:325:cafe::93) by PH7PR17CA0059.outlook.office365.com
+ (2603:10b6:510:325::25) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7544.43 via Frontend
+ Transport; Tue, 7 May 2024 08:24:07 +0000
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ CY4PEPF0000E9D9.mail.protection.outlook.com (10.167.241.72) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7544.18 via Frontend Transport; Tue, 7 May 2024 08:24:06 +0000
+Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Tue, 7 May
+ 2024 03:24:05 -0500
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB05.amd.com
+ (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Tue, 7 May
+ 2024 03:24:05 -0500
+Received: from henry-MS-7D54.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.35 via Frontend
+ Transport; Tue, 7 May 2024 03:24:04 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,72 +63,109 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=pws/QV6/jXb7Tidv4Qd7WLwrkMDXpmylBNpOmbLdusQ=; b=I0UlHcAH1PbfOTNqhHpR6kVyAB
-	hWgUa10BOTLaP35hdMVL/5Okkh9Bka3P9tQHnYT79BSH3hum5S3sWkm7qTbOjI4z1Kd5385bYKlpO
-	1AbGOQHnkSyLlubCzEFUp08uOkH5ceFXhMUVuZlgIRHBBCrlRAt06GyyMexaC6F7vFCI=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-185935-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 2deb08e5-0c4b-11ef-b4bb-af5377834399
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Ywr12NUKpueLDd9M8AaVDQEopdNkALRQY+SDvCn1FEcL3zCoGOT+9VYQiPdyTPXRNdqn+XEmUBZZiUJjou4sOHYWImiYjZ4wUHi2HbxpWFyKDzwsK24cA1ehwATDyNkDMcHwZlRA3NSJVf4Ztr3EPQqbDNls+5281Sb9KyTqif7xh2+f/AZ1kVodEY+g55WV6eiFvUxrnfKXaRA45PNELaRiYFAMlAUJZsz0g8t5CjE/squPn+tFZzcQUnpFr7AU1/BLw+QvS4dAWuMs5FZoKWEWS4vhqXA3XWhk0NZo6v74zuhlDWFOWWOQGVglCnT63sA7etbGOg7tGO6YeSE1Qg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=wxmswW5MKaVNrwibgvBTKnW3hc/vi2J/QjjoxBoYTLU=;
+ b=jhSiq2Qkfjvbq+dTKU62fOXaUVGf4bhYocr4TH/+WMxecSRolWPS9bMT4F/nvWWtLI0seZ4ztiHGY79fujK+hCZK9dJq+sexGrRB+TKSfsgLhVeG0SIdFCvNBmE6ntGOexBK7Pgb31NopMqq+61wWN2qPhkW2BGM91O6oJ9F10KBzzPIY0GtZmMRJmrc44z1BsytcFzkBd3hvj99UcNun6ol7onm6j/7OjbmFIpFBNrS2PkLqFa+O+R7OsHZSgSHT+gGY9jZRAcEpqaRfUX+CSopbvxhsFLzaC2tAX5Y7hsY/nPIQOQgka9R5p85heyBTnhXYqvEjvUhdq5sKq/usQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=wxmswW5MKaVNrwibgvBTKnW3hc/vi2J/QjjoxBoYTLU=;
+ b=PqQOrdgHRBGZ7jBB3XOwL8aGDBY5iedEdCl+C74NlQRk59ZnOloPjHq/rabH5roENwhQduj3b+HdRS5u147Mv84U2YmRsaViJW8H/IoYU+7JHqF28XSKA2GcUUdLIWdIsCbSNKs0WKPPiwqq1DsVGx04PMDav2s5iPQm8sqp1ow=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+From: Henry Wang <xin.wang2@amd.com>
+To: <xen-devel@lists.xenproject.org>
+CC: Henry Wang <xin.wang2@amd.com>, Stefano Stabellini
+	<sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Anthony PERARD
+	<anthony@xenproject.org>
+Subject: [PATCH v2 0/2] Some fixes for the existing dynamic dtbo code
+Date: Tue, 7 May 2024 16:23:58 +0800
+Message-ID: <20240507082400.25146-1-xin.wang2@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Subject: [ovmf test] 185935: all pass - PUSHED
-X-Osstest-Versions-This:
-    ovmf=1c0d4ae2c0fd24164873947c2e262c499ecf13b5
-X-Osstest-Versions-That:
-    ovmf=c12bbc14900aa5c70eec8c0576757c2182db3d01
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Tue, 07 May 2024 07:13:19 +0000
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+Received-SPF: None (SATLEXMB05.amd.com: xin.wang2@amd.com does not designate
+ permitted sender hosts)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000E9D9:EE_|DS7PR12MB6335:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9ecc9d5b-5c1f-4d64-8793-08dc6e6f0fd5
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230031|376005|36860700004|82310400017|1800799015;
+X-Microsoft-Antispam-Message-Info:
+	=?us-ascii?Q?OR+ZMjCg85PvQuLNuq6Kbgi1/LtA5c15E85bgHpOM2oTzTAKhUdtVW0HWQcz?=
+ =?us-ascii?Q?DdRp2VwsLE6u29KCOZj16m0EwYY+GomYfTaWEUt831CGfUyzHewPXRP78SPm?=
+ =?us-ascii?Q?wa2PcLhKC6fGi9hlxcxWu7klAipGEUbmCIBaZGpfaZhpndGsUQqE6Z0X7NSj?=
+ =?us-ascii?Q?dAECqBpGQlWUS08+RjeyJn1Wsyy7Z7gvbgShEIvxzYc5+vopRIgLBkQXu2qw?=
+ =?us-ascii?Q?UpBZdS9SFQzVNRkrpPT683lswg2SkEe73rWvtD6YgBUqM8/yjo8E/wN+2Tuq?=
+ =?us-ascii?Q?MdXUA/yDC3ZetgA350kjLbP0IePZkfLVP8wBWyOg7G1m/BcQfRYQp82VQVS4?=
+ =?us-ascii?Q?4IT4LSR2hzlUPvkPrD9CQpzwRTe8z0r12jehgoYz6ns0VI4Fg0rN+4dMrog0?=
+ =?us-ascii?Q?ngpv/2HLjSi3OOB5OeNGSPnKXNkhcJ9Fte85Ge75lwj0sePJLA8oM2p3rjtU?=
+ =?us-ascii?Q?bqzCzDev95NdAk8uLNYBMJPmy1YJxGQ1bXvOsq31s3PCmjKKTw4tl6T5x8Nb?=
+ =?us-ascii?Q?DRU3s55YXFJHB3B99wHhrvfQk+2FjjDFsy708MhO7Vrieuvi3mFVXmdKz93O?=
+ =?us-ascii?Q?IuIvrLvWdr6l6gnW8vCQCWZaaS5uqhNFz1uMNJVr351bCSHZ1mPYHJ31Lk9k?=
+ =?us-ascii?Q?cR2NTsOrsAtqoxLzLLb8n6zdbRMpotMjpqJQYDir+X+Eeg5Gx0/nyTTg1eNt?=
+ =?us-ascii?Q?vRX7YqMc1mrRJkXD2Ju29NcZblVVeG8iSAbJl6A5s7hSnw1nqNOpqBJTHIAF?=
+ =?us-ascii?Q?WW9TkAu+nzoHH6ffjE2MBKSK8CIYY7fpXTjhFxQMiNZmowUQAP3Q1E2FxbTV?=
+ =?us-ascii?Q?LIA8GVfAaacd4r2h/AmrzZf0T+xl1SpyFNAcyCPD1Q182FAleXfVb3OlVXw5?=
+ =?us-ascii?Q?rvH90zlXFXxpjOrqE7nMGMx2skxs4QXBBJ+40Q0vekeuBycpSF3FgCOeimUU?=
+ =?us-ascii?Q?EdWVCzgByV7USsGsxidq08QvhuDCvUN0EoO+rRhshdQL2GwdrE2IOhP1NgR7?=
+ =?us-ascii?Q?dJlIdzdjQsDuf+N6x4N0796OAooupPE9+FfODoSAFJR2Zqcd4flCEOGW+4d0?=
+ =?us-ascii?Q?L5dvKm/gWZI3vY+x4d3Fdh6YCQacTirPZuwz9yK+0cKEiVOJMIiKk065AEL3?=
+ =?us-ascii?Q?DXCrMXAu8I23+fpFHufk6+xGbbu7FE0L4SYgH8cb6h3td3LkTYbuGrawd3x0?=
+ =?us-ascii?Q?1Eby7u3Gj0TX61Dok8nOseeg0lysoTpsWY9VQWyrCziPjRFaUpE6V1/zY7eY?=
+ =?us-ascii?Q?vQSiA6nEqXe3yuGKYtZaiRbOn9Frb/e57GJ08UpmqlNH+meWm8AND/hevyO2?=
+ =?us-ascii?Q?ekXQen450AmDrch+Z1mXEkyEiHHVGHu7CfwHwqgBSAXjpPA+ERgc0HWCrQEI?=
+ =?us-ascii?Q?IOWvGjX+Zaal7W+0G8vgoM0q8y5y?=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(376005)(36860700004)(82310400017)(1800799015);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 May 2024 08:24:06.4595
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9ecc9d5b-5c1f-4d64-8793-08dc6e6f0fd5
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CY4PEPF0000E9D9.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB6335
 
-flight 185935 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/185935/
+During the review process for the v1 of the dynamic dtbo series, some
+issues of the existing code were identified. Discussions of them can
+be found in [1] (for the first patch) and [2] (for the second patch).
 
-Perfect :-)
-All tests in this flight passed as required
-version targeted for testing:
- ovmf                 1c0d4ae2c0fd24164873947c2e262c499ecf13b5
-baseline version:
- ovmf                 c12bbc14900aa5c70eec8c0576757c2182db3d01
+Since the main part of the remaining dynamic dtbo series requires more
+rework, just send these fixes for now.
 
-Last test of basis   185932  2024-05-07 02:44:06 Z    0 days
-Testing same since   185935  2024-05-07 05:12:56 Z    0 days    1 attempts
+[1] https://lore.kernel.org/xen-devel/835099c8-6cf0-4f6d-899b-07388df89319@xen.org/
+[2] https://lore.kernel.org/xen-devel/eaea1986-a27e-4d6c-932f-1d0a9918861f@perard/
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Xianglei Cai <xianglei.cai@intel.com>
+Henry Wang (2):
+  xen/common/dt-overlay: Fix missing lock when remove the device
+  tools/xl: Correct the help information and exit code of the dt-overlay
+    command
 
-jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ tools/xl/xl_vmcontrol.c | 6 +++---
+ xen/common/dt-overlay.c | 4 ++--
+ 2 files changed, 5 insertions(+), 5 deletions(-)
 
+-- 
+2.34.1
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
-   c12bbc1490..1c0d4ae2c0  1c0d4ae2c0fd24164873947c2e262c499ecf13b5 -> xen-tested-master
 
