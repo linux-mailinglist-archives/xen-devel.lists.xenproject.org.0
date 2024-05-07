@@ -2,56 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5FEFF8BE513
-	for <lists+xen-devel@lfdr.de>; Tue,  7 May 2024 16:03:27 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.718144.1120716 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5753E8BE542
+	for <lists+xen-devel@lfdr.de>; Tue,  7 May 2024 16:09:05 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.718153.1120726 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s4LPO-0007l7-QE; Tue, 07 May 2024 14:03:06 +0000
+	id 1s4LUn-0000R8-G7; Tue, 07 May 2024 14:08:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 718144.1120716; Tue, 07 May 2024 14:03:06 +0000
+Received: by outflank-mailman (output) from mailman id 718153.1120726; Tue, 07 May 2024 14:08:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s4LPO-0007j1-ME; Tue, 07 May 2024 14:03:06 +0000
-Received: by outflank-mailman (input) for mailman id 718144;
- Tue, 07 May 2024 14:03:06 +0000
+	id 1s4LUn-0000Oc-DN; Tue, 07 May 2024 14:08:41 +0000
+Received: by outflank-mailman (input) for mailman id 718153;
+ Tue, 07 May 2024 14:08:39 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=r/6G=MK=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
- id 1s4LPN-0007iv-Qo
- for xen-devel@lists.xenproject.org; Tue, 07 May 2024 14:03:05 +0000
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on20601.outbound.protection.outlook.com
- [2a01:111:f403:2009::601])
+ id 1s4LUl-0000OW-Ij
+ for xen-devel@lists.xenproject.org; Tue, 07 May 2024 14:08:39 +0000
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on20600.outbound.protection.outlook.com
+ [2a01:111:f403:2418::600])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 85abfdc8-0c7a-11ef-909c-e314d9c70b13;
- Tue, 07 May 2024 16:03:04 +0200 (CEST)
-Received: from BY3PR04CA0022.namprd04.prod.outlook.com (2603:10b6:a03:217::27)
- by DS0PR12MB8564.namprd12.prod.outlook.com (2603:10b6:8:167::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7544.42; Tue, 7 May
- 2024 14:01:58 +0000
-Received: from SJ5PEPF000001CE.namprd05.prod.outlook.com
- (2603:10b6:a03:217:cafe::3e) by BY3PR04CA0022.outlook.office365.com
- (2603:10b6:a03:217::27) with Microsoft SMTP Server (version=TLS1_2,
+ id 4caafadb-0c7b-11ef-909c-e314d9c70b13;
+ Tue, 07 May 2024 16:08:38 +0200 (CEST)
+Received: from BL0PR05CA0018.namprd05.prod.outlook.com (2603:10b6:208:91::28)
+ by CY8PR12MB7219.namprd12.prod.outlook.com (2603:10b6:930:59::15)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7544.29; Tue, 7 May
+ 2024 14:08:29 +0000
+Received: from BL6PEPF00020E62.namprd04.prod.outlook.com
+ (2603:10b6:208:91:cafe::54) by BL0PR05CA0018.outlook.office365.com
+ (2603:10b6:208:91::28) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7544.43 via Frontend
- Transport; Tue, 7 May 2024 14:01:54 +0000
+ Transport; Tue, 7 May 2024 14:08:28 +0000
 Received: from SATLEXMB03.amd.com (165.204.84.17) by
- SJ5PEPF000001CE.mail.protection.outlook.com (10.167.242.38) with Microsoft
+ BL6PEPF00020E62.mail.protection.outlook.com (10.167.249.23) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7544.18 via Frontend Transport; Tue, 7 May 2024 14:01:54 +0000
+ 15.20.7544.18 via Frontend Transport; Tue, 7 May 2024 14:08:28 +0000
 Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB03.amd.com
  (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Tue, 7 May
- 2024 09:01:53 -0500
+ 2024 09:08:17 -0500
 Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB06.amd.com
  (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Tue, 7 May
- 2024 09:01:53 -0500
+ 2024 09:08:16 -0500
 Received: from [10.252.147.188] (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.35 via Frontend
- Transport; Tue, 7 May 2024 09:01:52 -0500
+ Transport; Tue, 7 May 2024 09:08:15 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,265 +63,153 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 85abfdc8-0c7a-11ef-909c-e314d9c70b13
+X-Inumbo-ID: 4caafadb-0c7b-11ef-909c-e314d9c70b13
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=N9XS40Nziemi3exM6yV8MzXHJ4iyXhq5E6+selPat4WlKxvB+B77Rw8+Id3voaLBcTGDavxV+CSH/JQExMdULPVFCkx3GR2llLXW0giqoaH07mFBXqLgDr4Sw04uZVPI+7cm0FNQ7IMEpeLf+NcXkuCATErZ9rW+9uuEjZSoXCB4EeNz12rqxQxFW+2W64tEjxFrnO+PZ9Y3aYekFQnJECzrogl3uAR0Dzm1OBD37+KdXK5tjcov0XGtZ1ZmukSlLVk4MZypyFvaouN7MSiQz4VBhhyDhC51KCt1szUfeRi//K/RnkGKp28A9zEEv2FSYbR0gRuNKR9wq2IDgRzhnw==
+ b=CDrCSjtDeQHKuhOOGU5mmOyPMNgADY2Tf75XodKp58x4DepGGIuAuVsJSuAxYH/wX69H53NA8idjDUnFj2AzF7a/6RJRv3ZExsttsvPQg0JvKPKIS/K4G5LqV6bED+BsoQGxqzTVWrAydf+8UtnlsnGhAm3CQ64t2CE5ePXc3sZKs3tUXiPBP5XL99HpEDVNgR9L40LJofKlHcG7xG6b5BzP0e2GoT/LAlFjpFukyNA0qaQggd9OLq0aI4rROchP8iRMIsnUx6y8e5ip74To9wSyetDBUBlTOtypLQa6MoZ7lgnqp5OTOYP65n0barw8XzkT2HkdF84CT0VhCDg4CA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=6kNXQpdsUYcRt+L3wFhEZg3RZIrnIi2H4upecjFXPRw=;
- b=afLBeSPjNsV11Kd2WogOUqDXam2Mt/UBD/+vGBeZaN1tgdXckFxYI7CVFKfjcjLZVxHHnOXO7Jc8CbmdEEfpDlXrjVNH7ZJOlWkKzti7OFaKKw88MnIdqR4GgoiPuC22Zc6L5ifrkVIzrNGvb8XfUZTDd4VMJPGpS/6BVc7fYqfmM6Wh4A+Dm6NZyXIMIJgnSxQR5l+9oQgDmIyD+pRmIUIGezAOtMFwi/rcD6t07UcaZN85qgxdZ3cDblkily5HNOWAp/1GSMF8kTBOYIUAyE8m/f1y1M7mEjcj5balPAOXOL3dj+8+n9p4K0L9GP/+6vdNdoUHTZdEQJEeiBzCqw==
+ bh=W5NEyJuvreuOJv1SiUQGdPNtvBALU/HTlg5HwYrgl8k=;
+ b=Kj6fKt+zszLRz81J/64ZDl4V20NJO5Pl3VJQp/raFM9twvE3KmVOx+rS+eMspNOCn16SAozA7zIpZYuDxCAwknok2+IEhjHpBvin/vmIYIHS02nymnw/+kL31YMtQYtAYMZX/2/IPuR2G0FzOxdy2/75pxqAOiPDEAsZyr1IQt6+JfiMRMToBHL5krtraiZ4GG906dhUOQTZu7c/j51aJiYXqS92E3npg/5iZdLwm5oKCN6mDR7+eYoVyBgumW3oBIh4mR0zsZciHjfcXY5ThOAUt2s5xtauqH9H72cL7FxSFvu/7I4i2fUEJn3b2cfbYnIkaOK77uakDmoPcNIzDQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=arm.com smtp.mailfrom=amd.com; dmarc=pass
  (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
  dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=6kNXQpdsUYcRt+L3wFhEZg3RZIrnIi2H4upecjFXPRw=;
- b=cWzj3y3igJ4h/bLNc+dZlSzKrghWC+w6Kjt/5p7pc/k+Pp6CHKzdQgljAsI27YdtRaCr2IsDO7Svnd3sGfiDgaYL7KGTOATgfTj9aIrg6nsj4zxLLOzpU++4oGtOZHb4DhX2Z31S2+ZDgXkIw8UyK9Ojzg0zJIMItoUf4/JKtbA=
+ bh=W5NEyJuvreuOJv1SiUQGdPNtvBALU/HTlg5HwYrgl8k=;
+ b=qN11mdBFCNU/mNmIAghx4y6jLFXfMAzyLJ8v81tFenB0hXDxbi9mCwcI+jsF8N0J5Hr9KTVkBRI+S19n81py4AaR65rMfFwevfXBRl475F1ahrOnfYQFfMwWToP7RV0UyAlq8RVHXBl1MeZcH+ZZMQBFFlDIFSB3I4omLbnLrNI=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-Message-ID: <2a33e7b2-c958-4a63-a9ea-40e9940b4253@amd.com>
-Date: Tue, 7 May 2024 16:01:51 +0200
+Message-ID: <86e0857b-32f3-4e53-b869-604f7c6c82c6@amd.com>
+Date: Tue, 7 May 2024 16:08:15 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/7] xen/arm: Lookup bootinfo shm bank during the mapping
+Subject: Re: [PATCH 2/7] xen/arm: Wrap shared memory mapping code in one
+ function
 To: Luca Fancellu <Luca.Fancellu@arm.com>
 CC: Xen-devel <xen-devel@lists.xenproject.org>, Stefano Stabellini
 	<sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Bertrand Marquis
 	<Bertrand.Marquis@arm.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
 References: <20240423082532.776623-1-luca.fancellu@arm.com>
- <20240423082532.776623-2-luca.fancellu@arm.com>
- <28322f07-99fc-4428-bcf2-b8c2af04d38b@amd.com>
- <882A5390-64AC-4FB6-AA53-4CE466CF9062@arm.com>
+ <20240423082532.776623-3-luca.fancellu@arm.com>
+ <ef9b0a4d-134c-4eea-927d-5cce0b330aff@amd.com>
+ <E429579D-8698-4A92-BD9A-CCD686D1720B@arm.com>
 Content-Language: en-US
 From: Michal Orzel <michal.orzel@amd.com>
-In-Reply-To: <882A5390-64AC-4FB6-AA53-4CE466CF9062@arm.com>
+In-Reply-To: <E429579D-8698-4A92-BD9A-CCD686D1720B@arm.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ5PEPF000001CE:EE_|DS0PR12MB8564:EE_
-X-MS-Office365-Filtering-Correlation-Id: d80d82e4-05a5-4f7d-0aef-08dc6e9e409d
+X-MS-TrafficTypeDiagnostic: BL6PEPF00020E62:EE_|CY8PR12MB7219:EE_
+X-MS-Office365-Filtering-Correlation-Id: 89a331fc-4531-4274-e670-08dc6e9f2b42
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230031|36860700004|1800799015|376005|82310400017;
+	BCL:0;ARA:13230031|1800799015|36860700004|82310400017|376005;
 X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?TjAwcklWbStjeWRUaHd2SWpGZGc3Q2ZyZHpubWxQQmdMU3FTT0xVMFBKUVBl?=
- =?utf-8?B?aE5hdDFyb1JPR2l1S2hIT3BnSlZlcnNhN0Zlb1l1K2p5OFhmTWQ4NE9oV3Vx?=
- =?utf-8?B?NUtIRC81dmtxbTdNM1FYRDBqbWJMOXFjSlZIbHJVM3YvQktLenFXRDREYmFL?=
- =?utf-8?B?RWJNMENpc3hIbTRHVk94VzlCYnpabHpzalJjbzBDNXJTUlFIcitOK251S2V1?=
- =?utf-8?B?Ymc2blpWYnFiK0FlT244UzBVWkV0dXkxVjhSNklHTC9KVTBIc0RZRGJlbVdW?=
- =?utf-8?B?TG5CTnZ2c0dmR01XSUxkYVo1bkdiSHlkS3lZMlZHZDZMTlhtWUVIdjI3bURR?=
- =?utf-8?B?YVgvRWNCcDBqb2lCN2FqRnNaMVUxOUpyNnFuOFZoaFNLd2JEYVlrVFlQVC9G?=
- =?utf-8?B?ZXFaQXE4eGdvZFA5SWhaeWRXdlFWWHZ1RnRTM1JjUHVaWFJNTHRHby9DNm8z?=
- =?utf-8?B?Q29VbTYreEVIU3VTK0duZzZjR1M0Q2lOejcvNmpDWkRSb1UyaUJMRXRkN0FJ?=
- =?utf-8?B?RnZiUFRWOEpVVVFYcmZwbE1iWmVXSlJXOFE0eUhydG5PTGpkaHNCaWRsWlI5?=
- =?utf-8?B?S1Uyb1NWV2tHZkVHQ0p3R1Btb3RVbDFsdDRHOFMydXd0eExXc0RuMHVPdTFa?=
- =?utf-8?B?Yk01emJTbENxOU5ORjZtaXpIbVdFcithY3d1UE1iYk1XWWozbGtrSGtKUUdD?=
- =?utf-8?B?TTFScHdJY1Q2c01pMzNpMTV6WGpycW1vSzZ5NGhaZFlwOEx4K2RXY2VGeDFj?=
- =?utf-8?B?dWZyMnNtbGtoQ2RLNWt3eHB4Vi9mVlhNUXloV0M0cjYydng5STBvNHBsQkR0?=
- =?utf-8?B?WUhCOFRnemN3QmtTSWV1Yk9aZ2pLUGd1Z3dSOUp5eVZLeDdXZkt6SVlBN3hC?=
- =?utf-8?B?VUtsTzRDc3RGTFAwZE8vUjdmamd1ek96bmJpVzZsTGUzOS8yYjA2aWdFbVdU?=
- =?utf-8?B?cDdwRzJORzNXQjFiRWxGM3IyWVgrdHBUaWRCbE5HaUpLaGpEbEk3OEFCV2hp?=
- =?utf-8?B?Rm9WUDltUUxoYmMrQnc1NGxhTTJNaEg1MS9heC90SGJMajZhRVEzQTV0SHZU?=
- =?utf-8?B?b2pVZFZtSjYxZkI1QmRBTC9vc2lvUlZCaG8wMXZMNk1ORmRHNStocXRudWpO?=
- =?utf-8?B?ejRZSGtZVmNkSmh3Uzhqd3Z5MHA0WXpwR01FN3QyUThaS2wwR0FtY1ZPWGhv?=
- =?utf-8?B?TWpiOEFlekg4eHFlakRqNStMQlBpSkxldzZlOVRpdEJHUHR4Ymc5SDRjSkJN?=
- =?utf-8?B?WG8yUmg3azFyZnlXMGJBM01SWDdnR2tzOGNtc2lUZDVZQ2pFRkgzOFVKeEI0?=
- =?utf-8?B?OUJqVmR3WSs1UURoWUt2dEtqTW93VnR3aTJFWElxcmhXMzZPQXlIS2FCQUw5?=
- =?utf-8?B?ZEtFSHhITnl0QUs3QVdYWmhzdWhRQ3Y5b3MxQ0hEZG8vYWN4WVpvVm9iZzNG?=
- =?utf-8?B?VXIrS09jdlFLYm9nMFE3WVg3eTZpc2g0Q0ZmUWZtRURDRUtmZTFreHR4ZDMv?=
- =?utf-8?B?c2RReURudzBuUW5RZFlQQ29LSlBtdTlJdzZDN2Y4VnhlTCtranZDclRHVkYr?=
- =?utf-8?B?NXlyeEpqeVkyWnV5bkZ2R0w1bGhvNkFIcllvSmhzaXBzQ09nbXYwVmJwd0F0?=
- =?utf-8?B?ZHQvRTBBOWpQNEpmMmxtMjBBLytDYmNoN3k4VGFZWEJESFY4SDBGRllQWVVY?=
- =?utf-8?B?Vm15akZSVHcrdVhxYytMTE1DdFUwY2N3MGlpcWdWa09lOHpyckExakROMjl0?=
- =?utf-8?B?K09qRXV6cE9ES09xUm54aGdqZDdFV0p5K29QczRtRFBvNHdLcEFQU3lyMWND?=
- =?utf-8?Q?xHOwmu2iam6ziCaiJPgkDkvCgOneDGmpEfxTk=3D?=
+	=?utf-8?B?UEJNNXpoS0RkMWpXWHJmTE1XQ1VwMHA2eEZzd0ViaXQ5TGJJdlpGNW1scFg3?=
+ =?utf-8?B?aGF1NjZmWnZRZUtrV2NEdFdRcU5wZkJkZVU4ZE5DclZKY3NGSCtMWHRGQnFn?=
+ =?utf-8?B?czZ5ajN1d0t2eW5LcEN0NzJTNStiMEw4dEpTTjkwRUJnbUVuQjVmNWFSQnB3?=
+ =?utf-8?B?STJyZjNQTDhyamN1STB5N25ObmlPMStQOGkrQnZzenBycVdhcDJZQ21xRXJa?=
+ =?utf-8?B?TFkvVmRqVmFMZjJpeXdCQXJ2ZFVUeEhjU0phem9mZklxMDJtUklQamVpeVNX?=
+ =?utf-8?B?VThncmZBZnpiaFNhYUljN3Y3c0lQOXh6WGpSUUtxWi9yZGhya2ZBYlNpUmt2?=
+ =?utf-8?B?a0ZWc0FacEoyei9tVDhsMURMQ0ZRalpNZDhRZ1RWZXpMdUxUR1RKZjlUTDVE?=
+ =?utf-8?B?YzJWMEgyVkh6RjBKbGhqdDhmK1drbTJrODhFM0djUmd2aWl0Y3hFbG83L0RV?=
+ =?utf-8?B?dzkxNXFaWG9QcWd2Snk1NzNVaUpRNUJ1TzdDeXFzdy9lRk5BR3pzS2paS1l6?=
+ =?utf-8?B?dkNNazFJR081VjlrWG9ESHhyT21YbFhnK2VyRXh1TW04RVJaT2tmWEFTcWFs?=
+ =?utf-8?B?MjdyMTNJYWtzL2pmWmVOL0xXQ1FUY0pIVWcvUkhRUWxuNXh6NkJoY3JReE9P?=
+ =?utf-8?B?N1NvV2hNa3k0U0UzK0xSNW1CWjBTTS9ZTUNMSWkycWVmalcyOGN3eVB0a25v?=
+ =?utf-8?B?ZlNsc3dKTUtNT3BaOThIdW5QdVZwd1lQN1ZaU3ZVSTEySVNvblRrOExLZmVB?=
+ =?utf-8?B?QlhKdEczQUZ1MjRXYVN5Y1U2VTBjN0hEYXY5ZHAwK0Q3akZpT1cyRUxhS0wy?=
+ =?utf-8?B?Q3BLTFh1d1dtY1lOaldseGVBb0FaclBCWHNlaG9lSmxDeWpOQlRRVEtsYXRG?=
+ =?utf-8?B?bWtmYkJxYzcxYjhydWdwRjdmc0lNbFBadzcxUzNUNUh0aVJ5VnNNS3h5ZFht?=
+ =?utf-8?B?ekhncFFmRGhUZTN2NjhWNzlBUkpkRGVoRUZOd0t1aDRHcmVDVHJlbG1ZWHFx?=
+ =?utf-8?B?dlIxRUNFWlJoRmdUb2dUbS9LcVRTdkVkYnBuSjlxWFZ6VFdaMzJOaGxsK2da?=
+ =?utf-8?B?MHJPSlk5YUVhVDZCSEJyOUhVMUxZTXE1blRSR05KSjZXY0h6WmdEMnBCcFZt?=
+ =?utf-8?B?cFpKNUhCMElqRENBZTNFa2crbUQ5RTNrM3EyeGhTNS9STVhTU0UvTVZodStw?=
+ =?utf-8?B?cVU0QisyWnJmSUMyL0pjakRQUlJpeTlwY0VoS3VrdmNjWWFxMGd1aVdwaG1F?=
+ =?utf-8?B?TUJqQ3FKcU4xUjZteVBQZCs3bzRKOHNXWXlWUHY3WW9aZjY1VWkxR0lLTUtz?=
+ =?utf-8?B?TVU3NHdIaHp4cXJ2Tm44RGtoSUdacVYxSUk0TTVRb1AxYTVESE0wT084aXI4?=
+ =?utf-8?B?WDJSTFVYZ2ZRZFdJSkhDWmZUV2JyQitUemJtc0V6ZXdHMjd1Z2lYUXZjYit4?=
+ =?utf-8?B?aFoxVE5acnovTGNTOURtaHF3amJBbXE1aE1xTWErMFVqdTBmUDVoZC9NTXhQ?=
+ =?utf-8?B?ZHgwTDIrcGJYRFdxeVZPZGZOQnV6UG5RVy96TU5zQW5BcjFpY2ZsTGlUaVV0?=
+ =?utf-8?B?T01pUUJnT2VmbGZoQmg1c2k2cFVXa3JxbC9Qc01vU3J6SmI4eXVvc28wU1p0?=
+ =?utf-8?B?VEk2eENITnpBSmo5VVhpSmg3Z2ZmamNJYUpqU3FMQWtMR3oybmdYMGRlNXpn?=
+ =?utf-8?B?YXF2TC9LOHdRWDZDd2gxS2VYOTN2bUlucFRyczU1OGFOeFZrZ1NBWnNWaGpm?=
+ =?utf-8?B?QVZ6cE1yUkxyVVpvN1lZd082L3QrcEFJWlliVy8zZUl3ak1scVdMNXI4Q3Bz?=
+ =?utf-8?B?dXNuL3oxUWFTZ2xvaHJiT3JJY1NvWmdlUmZaUHk4a2pva0ZTMnp1S01ubDlS?=
+ =?utf-8?Q?aqtUUznhUSLTe?=
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(36860700004)(1800799015)(376005)(82310400017);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(1800799015)(36860700004)(82310400017)(376005);DIR:OUT;SFP:1101;
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 May 2024 14:01:54.6439
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 May 2024 14:08:28.3951
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d80d82e4-05a5-4f7d-0aef-08dc6e9e409d
+X-MS-Exchange-CrossTenant-Network-Message-Id: 89a331fc-4531-4274-e670-08dc6e9f2b42
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	SJ5PEPF000001CE.namprd05.prod.outlook.com
+	BL6PEPF00020E62.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8564
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7219
 
 
 
-On 07/05/2024 15:44, Luca Fancellu wrote:
+On 07/05/2024 15:57, Luca Fancellu wrote:
 > 
 > 
 > Hi Michal,
 > 
-> Thanks for your review.
-> 
->> On 6 May 2024, at 14:24, Michal Orzel <michal.orzel@amd.com> wrote:
->>
->> Hi Luca,
->>
->> On 23/04/2024 10:25, Luca Fancellu wrote:
 >>>
->>>
->>> The current static shared memory code is using bootinfo banks when it
->>> needs to find the number of borrower, so every time assign_shared_memory
->> s/borrower/borrowers
-> 
-> Will fix
-> 
->>
->>> is called, the bank is searched in the bootinfo.shmem structure.
->>>
->>> There is nothing wrong with it, however the bank can be used also to
->>> retrieve the start address and size and also to pass less argument to
->>> assign_shared_memory. When retrieving the information from the bootinfo
->>> bank, it's also possible to move the checks on alignment to
->>> process_shm_node in the early stages.
->> Is this change really required for what you want to achieve? At the moment the alignment checks
->> are done before first use, which requires these values to be aligned. FDT processing part does not need it.
-> 
-> That’s true, but it would separate better the parsing part, in the end what is the point of failing later if, for example,
-> some value are passed but not aligned?
-> 
->>
->>>
->>> So create a new function find_shm() which takes a 'struct shared_meminfo'
->> Can we name it find_shm_bank() or find_shm_bank_by_id()?
->> I agree that it's better to use a unique ID rather than matching by address/size
-> 
-> Yes either names are good for me, I would use find_shm_bank_by_id
-> 
->>
->>> structure and the shared memory ID, to look for a bank with a matching ID,
->>> take the physical host address and size from the bank, pass the bank to
->>> assign_shared_memory() removing the now unnecessary arguments and finally
->>> remove the acquire_nr_borrower_domain() function since now the information
->>> can be extracted from the passed bank.
->>> Move the "xen,shm-id" parsing early in process_shm to bail out quickly in
->>> case of errors (unlikely), as said above, move the checks on alignment
->>> to process_shm_node.
->>>
->>> Drawback of this change is that now the bootinfo are used also when the
->>> bank doesn't need to be allocated, however it will be convinient later
->>> to use it as an argument for assign_shared_memory when dealing with
->>> the use case where the Host physical address is not supplied by the user.
->>>
->>> Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
->>> ---
->>> xen/arch/arm/static-shmem.c | 105 ++++++++++++++++++++----------------
->>> 1 file changed, 58 insertions(+), 47 deletions(-)
->>>
->>> diff --git a/xen/arch/arm/static-shmem.c b/xen/arch/arm/static-shmem.c
->>> index 09f474ec6050..f6cf74e58a83 100644
->>> --- a/xen/arch/arm/static-shmem.c
->>> +++ b/xen/arch/arm/static-shmem.c
->>> @@ -19,29 +19,24 @@ static void __init __maybe_unused build_assertions(void)
->>>                  offsetof(struct shared_meminfo, bank)));
->>> }
->>>
->>> -static int __init acquire_nr_borrower_domain(struct domain *d,
->>> -                                             paddr_t pbase, paddr_t psize,
->>> -                                             unsigned long *nr_borrowers)
->>> +static const struct membank __init *find_shm(const struct membanks *shmem,
->>> +                                             const char *shm_id)
->>> {
->>> -    const struct membanks *shmem = bootinfo_get_shmem();
->>>     unsigned int bank;
->>>
->>> -    /* Iterate reserved memory to find requested shm bank. */
->>> +    BUG_ON(!shmem || !shm_id);
->> Is it really necessary? For example, before calling find_shm(), strlen is used on shm_id
-> 
-> So, I guess I did that to have more robust code, in case someone changes the code in the
-> future and perhaps removes something we rely on. If you object to them I will remove though,
-> here and the other related points below.
-> 
->>
->>> +
->>>     for ( bank = 0 ; bank < shmem->nr_banks; bank++ )
->>>     {
->>> -        paddr_t bank_start = shmem->bank[bank].start;
->>> -        paddr_t bank_size = shmem->bank[bank].size;
->>> -
->>> -        if ( (pbase == bank_start) && (psize == bank_size) )
->>> +        if ( strncmp(shm_id, shmem->bank[bank].shmem_extra->shm_id,
->>> +                     MAX_SHM_ID_LENGTH) == 0 )
->> Why not strcmp? AFAICS it's been validated many times already
->>
->>>             break;
->>>     }
->>>
->>>     if ( bank == shmem->nr_banks )
->>> -        return -ENOENT;
->>> -
->>> -    *nr_borrowers = shmem->bank[bank].shmem_extra->nr_shm_borrowers;
->>> +        return NULL;
->>>
->>> -    return 0;
->>> +    return &shmem->bank[bank];
->>> }
->>>
->>> /*
->>> @@ -103,14 +98,20 @@ static mfn_t __init acquire_shared_memory_bank(struct domain *d,
->>>     return smfn;
->>> }
->>>
->>> -static int __init assign_shared_memory(struct domain *d,
->>> -                                       paddr_t pbase, paddr_t psize,
->>> -                                       paddr_t gbase)
->>> +static int __init assign_shared_memory(struct domain *d, paddr_t gbase,
->>> +                                       const struct membank *shm_bank)
->>> {
->>>     mfn_t smfn;
->>>     int ret = 0;
->>>     unsigned long nr_pages, nr_borrowers, i;
->>>     struct page_info *page;
+>>> +static int __init handle_shared_mem_bank(struct domain *d, paddr_t gbase,
+>>> +                                         bool owner_dom_io,
+>>> +                                         const char *role_str,
+>>> +                                         const struct membank *shm_bank)
+>>> +{
 >>> +    paddr_t pbase, psize;
+>>> +    int ret;
 >>> +
->>> +    BUG_ON(!shm_bank || !shm_bank->shmem_extra);
->> Is it really necessary? Isn't shm_bank already validated? It's not very common to have NULL checks in internal functions.
+>>> +    BUG_ON(!shm_bank);
+>> not needed
 >>
-> 
-> [...]
-> 
->>>
->>> @@ -440,6 +431,26 @@ int __init process_shm_node(const void *fdt, int node, uint32_t address_cells,
->>>     device_tree_get_reg(&cell, address_cells, address_cells, &paddr, &gaddr);
->>>     size = dt_next_cell(size_cells, &cell);
->>>
->>> +    if ( !IS_ALIGNED(paddr, PAGE_SIZE) )
->>> +    {
->>> +        printk("fdt: physical address 0x%"PRIpaddr" is not suitably aligned.\n",
->>> +               paddr);
->>> +        return -EINVAL;
->>> +    }
 >>> +
->>> +    if ( !IS_ALIGNED(gaddr, PAGE_SIZE) )
->>> +    {
->>> +        printk("fdt: guest address 0x%"PRIpaddr" is not suitably aligned.\n",
->>> +               gaddr);
->>> +        return -EINVAL;
->>> +    }
->>> +
->>> +    if ( !IS_ALIGNED(size, PAGE_SIZE) )
->> What sense does it make to check for size being aligned before checking for size being 0? It would pass this check.
+>>> +    pbase = shm_bank->start;
+>>> +    psize = shm_bank->size;
+>> please add empty line here
 > 
-> Yes, but in the end we are doing that to print a different error message, so it would pass
-> for 0 and it’s totally fine, but in the end it will fail afterwards. I don’t see functional disruptions
-> having this one before the other, what is the concern here?
-It does not cause the functional disruption. It is more about code readability and writing cleaner code.
-It makes more sense to first check for size being 0 rather than whether it's page aligned, since the latter can
-pass if former is true and thus not making much sense.
+> Will do
+>>>
+>>> int __init process_shm(struct domain *d, struct kernel_info *kinfo,
+>>>                        const struct dt_device_node *node)
+>>> {
+>>> @@ -249,32 +290,10 @@ int __init process_shm(struct domain *d, struct kernel_info *kinfo,
+>>>         if ( dt_property_read_string(shm_node, "role", &role_str) == 0 )
+>>>             owner_dom_io = false;
+>> Looking at owner_dom_io, why don't you move parsing role and setting owner_dom_io accordingly to handle_shared_mem_bank()?
+> 
+> I think I wanted to keep all dt_* functions on the same level inside process_shm, otherwise yes, I could
+> pass down shm_node and do the reading of role_str in handle_shared_mem_bank, or I could derive
+> owner_dom_io from role_str being passed or not, something like:
+> 
+> role_str = NULL;
+> dt_property_read_string(shm_node, "role", &role_str)
+> 
+> [inside handle_shared_mem_bank]:
+> If ( role_str )
+>     owner_dom_io = false;
+> 
+> And pass only role_str to handle_shared_mem_bank.
+> 
+> Is this comment to reduce the number of parameters passed? I guess it’s not for where we call
+In this series as well as the previous one you limit the number of arguments passed to quite a few functions.
+So naturally I would expect it to be done here as well. owner_dom_io is used only by handle_shared_mem_bank, so it makes more sense to move parsing to this
+function so that it is self-contained.
 
 ~Michal
 
