@@ -2,38 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A369C8BE0AE
-	for <lists+xen-devel@lfdr.de>; Tue,  7 May 2024 13:08:54 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.718009.1120496 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C86EA8BE0D0
+	for <lists+xen-devel@lfdr.de>; Tue,  7 May 2024 13:17:52 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.718014.1120507 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s4Ig9-00035g-Bg; Tue, 07 May 2024 11:08:13 +0000
+	id 1s4IpB-0004t5-7f; Tue, 07 May 2024 11:17:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 718009.1120496; Tue, 07 May 2024 11:08:13 +0000
+Received: by outflank-mailman (output) from mailman id 718014.1120507; Tue, 07 May 2024 11:17:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s4Ig9-000343-8i; Tue, 07 May 2024 11:08:13 +0000
-Received: by outflank-mailman (input) for mailman id 718009;
- Tue, 07 May 2024 11:08:11 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1s4IpB-0004qA-3y; Tue, 07 May 2024 11:17:33 +0000
+Received: by outflank-mailman (input) for mailman id 718014;
+ Tue, 07 May 2024 11:17:31 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=9mcW=MK=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1s4Ig7-00033x-EY
- for xen-devel@lists.xenproject.org; Tue, 07 May 2024 11:08:11 +0000
-Received: from mail-ed1-x52a.google.com (mail-ed1-x52a.google.com
- [2a00:1450:4864:20::52a])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 164a0621-0c62-11ef-b4bb-af5377834399;
- Tue, 07 May 2024 13:08:09 +0200 (CEST)
-Received: by mail-ed1-x52a.google.com with SMTP id
- 4fb4d7f45d1cf-572669fd9f9so182499a12.0
- for <xen-devel@lists.xenproject.org>; Tue, 07 May 2024 04:08:09 -0700 (PDT)
-Received: from andrewcoop.citrite.net (default-46-102-197-194.interdsl.co.uk.
- [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- ig13-20020a056402458d00b0056bc0c44f02sm5710900edb.96.2024.05.07.04.08.07
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 07 May 2024 04:08:08 -0700 (PDT)
+ <SRS0=7h5X=MK=linaro.org=jens.wiklander@srs-se1.protection.inumbo.net>)
+ id 1s4Ip9-0004q4-3I
+ for xen-devel@lists.xenproject.org; Tue, 07 May 2024 11:17:31 +0000
+Received: from mail-oo1-xc36.google.com (mail-oo1-xc36.google.com
+ [2607:f8b0:4864:20::c36])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 63d531db-0c63-11ef-909c-e314d9c70b13;
+ Tue, 07 May 2024 13:17:29 +0200 (CEST)
+Received: by mail-oo1-xc36.google.com with SMTP id
+ 006d021491bc7-5b2058b16d3so1050982eaf.1
+ for <xen-devel@lists.xenproject.org>; Tue, 07 May 2024 04:17:29 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,81 +40,104 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 164a0621-0c62-11ef-b4bb-af5377834399
+X-Inumbo-ID: 63d531db-0c63-11ef-909c-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1715080088; x=1715684888; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=vAJJDFqhGr764DmADsx5a1oN1JBCRdtQwgQVTLAGJcQ=;
-        b=pUsuV21O4GtmwYn9xRkkZA/HQEwao6095lbE0zOiJ445AgX/wZfu/w43/eYtwPPgxy
-         W2TK1zuRY+ix5J+dPd8bWqKSvRFOwR+B0nTTcyuCn1nyTy/EgIQsarNAdx/xcuPFCxb2
-         OE5ZgWKb0raZAlGdtEv+Ob2UUkfnE8wfvC84M=
+        d=linaro.org; s=google; t=1715080648; x=1715685448; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=EnxMVQLxN6lfLXdxL4OeHbWXPiJqXf0eZqdPM9jpIPY=;
+        b=oXiQRlPdl5ZYuc7oocACoGEV0R1S0PKxfNhM1ppNaNUrodbVTv6DqChRcunn+Y0wBP
+         oK0ihX6xqvZHrmZAPj0u2i8xtVGi1MsyMJ4GhxjrM4MpO/83uK9EC9dCqU5N2ssB6woH
+         A2sAN6yo7n0fCSz3piYrfugPLZUlEZ68NpCaBRhNBcEsEBjfYf9vZ0aWyUiJtbjvfFFo
+         rX11HSghdyOFktWvbokNoIvUmUmUtYaq2fQj1Cx1t7reuCL28QsLDVYAljOVVGEHmgjx
+         oe1X/woDyRaqkikl2TWZuEmNmR6PAWQgu4BNqUNUk0JQXUaQoJTxGvjjZkwN3luMi1eO
+         b3/w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1715080088; x=1715684888;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=vAJJDFqhGr764DmADsx5a1oN1JBCRdtQwgQVTLAGJcQ=;
-        b=fIJZ6P49PefyjBHGi0X7Ru+r2b0A/8Da6iWGbEp3Ys1fhW71xyWmJ+wv9ZT4OXtYND
-         cFIOL/BqpC3RzbhOCMY6F2KVuoHcDVxCjuV7eNuta0AIzgxHyz6xfvzwyVswvySMrBAM
-         lBq/6iFhH6keu1FA7dCDWblY74P617dvtmrWPvY4oMSPOtGsqoa/IwYjJVQV1UBkmLtE
-         foxWRXlbvMHjNMtCE5vVtubY4bfnBNKanhoCRk1wK9pBMC9YtfgjOraYyrBm2ToWAvMI
-         FZlgG2mSXOwhWuNKzLtx331P0C0q0ID7Hc6ArKiSMKsx450lYl9YolaGWtSeYkyofvdL
-         Sc+g==
-X-Gm-Message-State: AOJu0YxFYrRmmUsGCuCp53Z7tyBtlkJeKH66kIr6aRSwwO9LnJCUjKzy
-	WteeUKMjcwKztn8QBpp48bzSicIflzF2+b5AEEUeiYQ2apaa7/pfppCxWSXyVWtpsJt8c2Fqbkp
-	y
-X-Google-Smtp-Source: AGHT+IHPINCMaGIC5WIiPHeKp+Mfb7tXVN1pbWnI2M4wLw3sBt8Uh2jIu226664I6aaGxji56nsMbw==
-X-Received: by 2002:a50:cd15:0:b0:570:2198:b3ca with SMTP id z21-20020a50cd15000000b005702198b3camr9284848edi.14.1715080088452;
-        Tue, 07 May 2024 04:08:08 -0700 (PDT)
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	Demi Marie Obenour <demi@invisiblethingslab.com>,
-	Anthony PERARD <anthony@xenproject.org>,
-	Juergen Gross <jgross@suse.com>,
-	=?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-Subject: [PATCH] tools/xl: Open xldevd.log with O_CLOEXEC
-Date: Tue,  7 May 2024 12:08:06 +0100
-Message-Id: <20240507110806.1692135-1-andrew.cooper3@citrix.com>
-X-Mailer: git-send-email 2.30.2
+        d=1e100.net; s=20230601; t=1715080648; x=1715685448;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=EnxMVQLxN6lfLXdxL4OeHbWXPiJqXf0eZqdPM9jpIPY=;
+        b=axvmwZ9mVez9IyuC3gSOfx66u4wSYP/mjuEW1IVR9JjGhmtjBD5Df57bnFnom/+R5J
+         NZnq58UyPBf3FrBHuy5yTKNcDgqFEuRKQcmI0OyTAOedQ0b8ipt+AdugiTeodAfj6l0o
+         16lUjxPyFXTEyw0gTo6KQlDAWb8O60QA44EkbGmwSpdxH+9zsUrArz1fnTLSBofHYTUn
+         Gh9a9T6Ltc1HB2Q5lbeVn8F0V7C9FfvS8ifnxzXrxqlumU4QGKJwIujdrHNig8Q23u9s
+         hr8jpM4z6c9F7Uo2gt2IWXe6iUmX/feDz7b7tt9aZfQg8E3+54p8zHiS2PnWKK6KDbmz
+         L2Qw==
+X-Gm-Message-State: AOJu0YyROBhMKjtlkXE+952z9zu/Kv2Q4WFecLO2FEUcXia81AkdviA6
+	Mh/C0EVpkCsO4KsxUjaxdVyvnAfRNIRB2krJDqMVBImZd+ZHiC5ur8z14nj1rnptJAJT4jjbtoQ
+	Z1y3+EzXsq33pH9vpQR/OQ66Zjsc7M8vGNGaP9g==
+X-Google-Smtp-Source: AGHT+IFPb40kBdSq6e2UlwPFFb2+PpFqpZdbqA6mfmmn7A46+dNh903vNpriL6FBENJs88KoAeW1eleHY+B2kxa4fTE=
+X-Received: by 2002:a4a:5441:0:b0:5aa:6404:936a with SMTP id
+ t62-20020a4a5441000000b005aa6404936amr12790871ooa.5.1715080648523; Tue, 07
+ May 2024 04:17:28 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <20240502145645.1201613-1-jens.wiklander@linaro.org>
+ <20240502145645.1201613-6-jens.wiklander@linaro.org> <935e3947-53ee-48c5-a10c-5fa7f572ae65@xen.org>
+ <CAHUa44HdA_cdZcjbVL+xYXnLVkdK1hK5hfU_k+fZkS8=VAOy1A@mail.gmail.com> <447340c3-d57a-411b-8d4d-29e8683b27d9@xen.org>
+In-Reply-To: <447340c3-d57a-411b-8d4d-29e8683b27d9@xen.org>
+From: Jens Wiklander <jens.wiklander@linaro.org>
+Date: Tue, 7 May 2024 13:17:16 +0200
+Message-ID: <CAHUa44Fc6pRDjUr1HiW7r=QB4kxCEdRz_G9ATLqEg2KqNp+gFA@mail.gmail.com>
+Subject: Re: [XEN PATCH v4 5/5] xen/arm: ffa: support notification
+To: Julien Grall <julien@xen.org>
+Cc: xen-devel@lists.xenproject.org, patches@linaro.org, 
+	Volodymyr Babchuk <volodymyr_babchuk@epam.com>, Stefano Stabellini <sstabellini@kernel.org>, 
+	Bertrand Marquis <bertrand.marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-`xl devd` has been observed leaking /var/log/xldevd.log into children.
+Hi Julien,
 
-Link: https://github.com/QubesOS/qubes-issues/issues/8292
-Reported-by: Demi Marie Obenour <demi@invisiblethingslab.com>
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
----
-CC: Anthony PERARD <anthony@xenproject.org>
-CC: Juergen Gross <jgross@suse.com>
-CC: Demi Marie Obenour <demi@invisiblethingslab.com>
-CC: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+On Fri, May 3, 2024 at 4:25=E2=80=AFPM Julien Grall <julien@xen.org> wrote:
+>
+> Hi Jens,
+>
+> On 03/05/2024 14:54, Jens Wiklander wrote:
+> >>> +static int ffa_setup_irq_callback(struct notifier_block *nfb,
+> >>> +                                  unsigned long action, void *hcpu)
+> >>> +{
+> >>> +    unsigned int cpu =3D (unsigned long)hcpu;
+> >>> +    struct notif_irq_info irq_info =3D { };
+> >>> +
+> >>> +    switch ( action )
+> >>> +    {
+> >>> +    case CPU_ONLINE:
+> >>
+> >> Can't you execute the notifier in CPU_STARTING? This will be called on
+> >> the CPU directly, so you should be able to use request_irq(...).
+> >
+> > I tried that first but it failed with the ASSERT_ALLOC_CONTEXT() in _xm=
+alloc().
+> >
+> > I've also tested a three-step solution with CPU_UP_PREPARE,
+> > CPU_STARTING, and CPU_UP_CANCELED.
+> > My approach here is more direct, but it still suffers from a weakness
+> > in error handling even if it seems quite unlikely to run out of heap
+> > or for setup_irq() to fail at this stage.
+>
+> Ah I didn't notice that notify_cpu_starting() is called with IRQ
+> disabled. I assumed they would be enabled.
+>
+> Then I would consider to do:
+>
+> diff --git a/xen/arch/arm/smpboot.c b/xen/arch/arm/smpboot.c
+> index 6efed876782e..db322672e508 100644
+> --- a/xen/arch/arm/smpboot.c
+> +++ b/xen/arch/arm/smpboot.c
+> @@ -389,6 +389,7 @@ void asmlinkage start_secondary(void)
+>        */
+>       init_maintenance_interrupt();
+>       init_timer_interrupt();
+> +    init_tee_interrupt();
+>
+>       local_abort_enable();
+>
+> And plumb through the TEE subsystem.
 
-Also entirely speculative based on the QubesOS ticket.
----
- tools/xl/xl_utils.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+I'll use that in the next version, it should remove a lot of complex code.
 
-diff --git a/tools/xl/xl_utils.c b/tools/xl/xl_utils.c
-index 17489d182954..060186db3a59 100644
---- a/tools/xl/xl_utils.c
-+++ b/tools/xl/xl_utils.c
-@@ -270,7 +270,7 @@ int do_daemonize(const char *name, const char *pidfile)
-         exit(-1);
-     }
- 
--    CHK_SYSCALL(logfile = open(fullname, O_WRONLY|O_CREAT|O_APPEND, 0644));
-+    CHK_SYSCALL(logfile = open(fullname, O_WRONLY | O_CREAT | O_APPEND | O_CLOEXEC, 0644));
-     free(fullname);
-     assert(logfile >= 3);
- 
-
-base-commit: ebab808eb1bb8f24c7d0dd41b956e48cb1824b81
-prerequisite-patch-id: 212e50457e9b6bdfd06a97da545a5aa7155bb919
--- 
-2.30.2
-
+Thanks,
+Jens
 
