@@ -2,32 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1D1A88BE615
-	for <lists+xen-devel@lfdr.de>; Tue,  7 May 2024 16:35:29 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.718230.1120815 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4D4628BE65B
+	for <lists+xen-devel@lfdr.de>; Tue,  7 May 2024 16:47:04 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.718251.1120826 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s4LuP-00028p-D7; Tue, 07 May 2024 14:35:09 +0000
+	id 1s4M4y-00052c-Cy; Tue, 07 May 2024 14:46:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 718230.1120815; Tue, 07 May 2024 14:35:09 +0000
+Received: by outflank-mailman (output) from mailman id 718251.1120826; Tue, 07 May 2024 14:46:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s4LuP-00026u-9o; Tue, 07 May 2024 14:35:09 +0000
-Received: by outflank-mailman (input) for mailman id 718230;
- Tue, 07 May 2024 14:35:08 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1s4LuO-00025M-0P
- for xen-devel@lists.xenproject.org; Tue, 07 May 2024 14:35:08 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1s4LuL-0008MV-Fl; Tue, 07 May 2024 14:35:05 +0000
-Received: from [15.248.2.31] (helo=[10.24.67.35])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1s4LuL-0005cF-8R; Tue, 07 May 2024 14:35:05 +0000
+	id 1s4M4y-0004zf-9R; Tue, 07 May 2024 14:46:04 +0000
+Received: by outflank-mailman (input) for mailman id 718251;
+ Tue, 07 May 2024 14:46:02 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=J4VX=MK=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1s4M4w-0004yM-HD
+ for xen-devel@lists.xenproject.org; Tue, 07 May 2024 14:46:02 +0000
+Received: from mail-qk1-x72b.google.com (mail-qk1-x72b.google.com
+ [2607:f8b0:4864:20::72b])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 855de1ab-0c80-11ef-909c-e314d9c70b13;
+ Tue, 07 May 2024 16:46:01 +0200 (CEST)
+Received: by mail-qk1-x72b.google.com with SMTP id
+ af79cd13be357-78f04924a96so280884285a.0
+ for <xen-devel@lists.xenproject.org>; Tue, 07 May 2024 07:46:01 -0700 (PDT)
+Received: from localhost ([213.195.114.223]) by smtp.gmail.com with ESMTPSA id
+ j10-20020a0cf9ca000000b006a105b217b5sm4713072qvo.112.2024.05.07.07.45.59
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 07 May 2024 07:45:59 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,100 +44,88 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=EoKL+Z0kQgMFXQExJ9CRpDqJzIJUhs2/XE5rGxXj090=; b=GyYOJNT8QrlEuUqPnHygH4YZun
-	Fn1MoLoDxVtkVjtcPjJJ3HDonRSpSiaOG1eW/Z0qxvu1uA/H+Zaa/r481RE9ObViASV3BxcRFN9PC
-	sEFs5s9oSA/dqn1aCRIXjGqVIQtVY3heqVnxSgheL9mXJH42Dmp7FGPVcC1l2bXAw3Vg=;
-Message-ID: <bca3098b-4f0b-48e1-8e21-51c66c63e4f3@xen.org>
-Date: Tue, 7 May 2024 15:35:03 +0100
+X-Inumbo-ID: 855de1ab-0c80-11ef-909c-e314d9c70b13
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1715093160; x=1715697960; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=Gc4LwRfvx8MFYxJkMuKFV+WreREFsbPeRoETwV9Pld8=;
+        b=tLvr3C10pqONFhlPtDnGXMDShWPiqyEyzgzhuALOwzjkklF5wZMgApcL/ovrnHGvwe
+         azZTW9HaM9tllE6aN8vAld95CxwKAIJ/6pN706TPzA3t25ivhe5rnMq+PUsyjo+BZeIK
+         up97xwNg0Fw8r3pOWShqAt8OAutccho7PeMYE=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1715093160; x=1715697960;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=Gc4LwRfvx8MFYxJkMuKFV+WreREFsbPeRoETwV9Pld8=;
+        b=N7pthbMa2+zFRYwTnGjAWqxSoaX2lRkGboFJjqB3QlA4paaJIhTnOltR7j6VCjuCwd
+         Iy5wwvhkx+MvOyUjGHiX4hhBWGDCDocHS21SCJwGdco70nQaucjTKwsKSzaxdauMvRt2
+         9bgDppmjFI8s6ndddZYmpFn9e0WrT+TdikIu6WHOcWgz1iS5sHG09UU7umzuMhcEYKU+
+         +CJbTFPAGGegd/XccEDdNbmIE+u1WbPqttqZPQ1jB0f1MuAc7jEe2jf8pLc6m4YWTEf1
+         t0cVXm26HJca0+JFfP4/5zUngP6BnNa41HJ+AKnKwBKQjxvHreL/EFN4ZUeMCvhkKexF
+         MMeg==
+X-Gm-Message-State: AOJu0YyezYHCrwYoq2q0QPd/VtBS221LjhLoItTpDmaJB3nQENCxseVK
+	bb3kIYcwkXwtBhXyGEicZw3FAaIwEU4vp3ERAFDlpQ5K8CO2npJw0QaMreZwtYk=
+X-Google-Smtp-Source: AGHT+IEHSJmsIeqE4A9Ovx26s4fzTti3J56PWp6L7ISnazuu6Be0YFvO68bdbFHjr36dC3fs6D0lGg==
+X-Received: by 2002:a05:6214:1c84:b0:6a0:b594:1744 with SMTP id 6a1803df08f44-6a1514e8bb7mr123666d6.62.1715093160064;
+        Tue, 07 May 2024 07:46:00 -0700 (PDT)
+Date: Tue, 7 May 2024 16:45:57 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>,
+	Jan Beulich <JBeulich@suse.com>
+Subject: Re: [PATCH v2] x86/cpu-policy: Fix migration from Ice Lake to
+ Cascade Lake
+Message-ID: <Zjo-pWunEGru6Z_K@macbook>
+References: <20240507112957.1701824-1-andrew.cooper3@citrix.com>
+ <20240507134540.1714274-1-andrew.cooper3@citrix.com>
+ <Zjo5iwmEvD3RWtsx@macbook>
+ <f0272d79-7c59-42b2-b185-2aaf84f1b196@citrix.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 05/15] tools/libs/light: Increase nr_spi to 160
-Content-Language: en-GB
-To: Henry Wang <xin.wang2@amd.com>, Anthony PERARD
- <anthony.perard@cloud.com>, Stefano Stabellini <sstabellini@kernel.org>,
- Michal Orzel <michal.orzel@amd.com>,
- Bertrand Marquis <bertrand.marquis@arm.com>
-Cc: xen-devel@lists.xenproject.org, Vikram Garhwal <fnu.vikram@xilinx.com>,
- Juergen Gross <jgross@suse.com>,
- Stefano Stabellini <stefano.stabellini@xilinx.com>
-References: <20240424033449.168398-1-xin.wang2@amd.com>
- <20240424033449.168398-6-xin.wang2@amd.com>
- <334eb040-234f-4492-9006-9faadfe28c59@perard>
- <71fc7673-e968-487d-8478-1c7aabef708b@amd.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <71fc7673-e968-487d-8478-1c7aabef708b@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <f0272d79-7c59-42b2-b185-2aaf84f1b196@citrix.com>
 
-Hi,
-
-On 06/05/2024 06:17, Henry Wang wrote:
-> On 5/1/2024 9:58 PM, Anthony PERARD wrote:
->> On Wed, Apr 24, 2024 at 11:34:39AM +0800, Henry Wang wrote:
->>> Increase number of spi to 160 i.e. gic_number_lines() for Xilinx 
->>> ZynqMP - 32.
->>> This was done to allocate and assign IRQs to a running domain.
->>>
->>> Signed-off-by: Vikram Garhwal <fnu.vikram@xilinx.com>
->>> Signed-off-by: Stefano Stabellini <stefano.stabellini@xilinx.com>
->>> Signed-off-by: Henry Wang <xin.wang2@amd.com>
->>> ---
->>>   tools/libs/light/libxl_arm.c | 3 ++-
->>>   1 file changed, 2 insertions(+), 1 deletion(-)
->>>
->>> diff --git a/tools/libs/light/libxl_arm.c b/tools/libs/light/libxl_arm.c
->>> index dd5c9f4917..50dbd0f2a9 100644
->>> --- a/tools/libs/light/libxl_arm.c
->>> +++ b/tools/libs/light/libxl_arm.c
->>> @@ -181,7 +181,8 @@ int libxl__arch_domain_prepare_config(libxl__gc *gc,
->>>       LOG(DEBUG, "Configure the domain");
->>> -    config->arch.nr_spis = nr_spis;
->>> +    /* gic_number_lines() is 192 for Xilinx ZynqMP. min nr_spis = 
->>> 192 - 32. */
->>> +    config->arch.nr_spis = MAX(nr_spis, 160);
->> Is there a way that that Xen or libxl could find out what the minimum
->> number of SPI needs to be?
+On Tue, May 07, 2024 at 03:31:19PM +0100, Andrew Cooper wrote:
+> On 07/05/2024 3:24 pm, Roger Pau Monné wrote:
+> > On Tue, May 07, 2024 at 02:45:40PM +0100, Andrew Cooper wrote:
+> >> Ever since Xen 4.14, there has been a latent bug with migration.
+> >>
+> >> While some toolstacks can level the features properly, they don't shink
+> >> feat.max_subleaf when all features have been dropped.  This is because
+> >> we *still* have not completed the toolstack side work for full CPU Policy
+> >> objects.
+> >>
+> >> As a consequence, even when properly feature levelled, VMs can't migrate
+> >> "backwards" across hardware which reduces feat.max_subleaf.  One such example
+> >> is Ice Lake (max_subleaf=2 for INTEL_PSFD) to Cascade Lake (max_subleaf=0).
+> >>
+> >> Extend the max policies feat.max_subleaf to the hightest number Xen knows
+> >> about, but leave the default policies matching the host.  This will allow VMs
+> >> with a higher feat.max_subleaf than strictly necessary to migrate in.
+> >>
+> >> Eventually we'll manage to teach the toolstack how to avoid creating such VMs
+> >> in the first place, but there's still more work to do there.
+> >>
+> >> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> > Acked-by: Roger Pau Monné <roger.pau@citrix.com>
 > 
-> I am afraid currently there is none.
+> Thanks.
 > 
->> Are we going to have to increase that minimum
->> number every time a new platform comes along?
->>
->> It doesn't appear that libxl is using that `nr_spis` value and it is
->> probably just given to Xen. So my guess is that Xen could simply take
->> care of the minimum value, gic_number_lines() seems to be a Xen
->> function.
+> >
+> > Even if we have just found one glitch with PSFD and Ice Lake vs
+> > Cascade Lack, wouldn't it be safer to always extend the max policies
+> > max leafs and subleafs to match the known array sizes?
 > 
-> Xen will take care of the value of nr_spis for dom0 in create_dom0()
-> dom0_cfg.arch.nr_spis = min(gic_number_lines(), (unsigned int) 992) - 32;
-> and also for dom0less domUs in create_domUs().
-> 
-> However, it looks like Xen will not take care of the mininum value for 
-> libxl guests, the value from config->arch.nr_spis in guest config file 
-> will be directly passed to the domain_vgic_init() function from 
-> arch_domain_create().
-> 
-> I agree with you that we shouldn't just bump the number everytime when 
-> we have a new platform. Therefore, would it be a good idea to move the 
-> logic in this patch to arch_sanitise_domain_config()?
+> This is the final max leaf (containing feature information) to gain
+> custom handling, I think?
 
-Xen domains are supposed to be platform agnostics and therefore the 
-numbers of SPIs should not be based on the HW.
+Couldn't the same happen with extended leaves?  Some of the extended
+leaves contain features, and hence for policy leveling toolstack might
+decide to zero them, yet extd.max_leaf won't be adjusted.
 
-Furthermore, with your proposal we would end up to allocate data 
-structure for N SPIs when a domain may never needs any SPIs (such as if 
-passthrough is not in-use). This is more likely for domain created by 
-the toolstack than from Xen directly.
-
-Instead, we should introduce a new XL configuration to let the user 
-decide the number of SPIs. I would suggest to name "nr_spis" to match 
-the DT bindings.
-
-Cheers,
-
--- 
-Julien Grall
+Thanks, Roger.
 
