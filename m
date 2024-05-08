@@ -2,39 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 13B898BFD5A
-	for <lists+xen-devel@lfdr.de>; Wed,  8 May 2024 14:40:06 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.718777.1121277 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A51778BFD54
+	for <lists+xen-devel@lfdr.de>; Wed,  8 May 2024 14:40:03 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.718779.1121301 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s4gaA-0002oG-3V; Wed, 08 May 2024 12:39:38 +0000
+	id 1s4gaB-0003R7-S4; Wed, 08 May 2024 12:39:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 718777.1121277; Wed, 08 May 2024 12:39:38 +0000
+Received: by outflank-mailman (output) from mailman id 718779.1121301; Wed, 08 May 2024 12:39:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s4ga9-0002ha-Sc; Wed, 08 May 2024 12:39:37 +0000
-Received: by outflank-mailman (input) for mailman id 718777;
- Wed, 08 May 2024 12:39:36 +0000
+	id 1s4gaB-0003LY-L6; Wed, 08 May 2024 12:39:39 +0000
+Received: by outflank-mailman (input) for mailman id 718779;
+ Wed, 08 May 2024 12:39:37 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=6nIi=ML=cloud.com=alejandro.vallejo@srs-se1.protection.inumbo.net>)
- id 1s4ga8-0002b0-Io
- for xen-devel@lists.xenproject.org; Wed, 08 May 2024 12:39:36 +0000
-Received: from mail-lj1-x22f.google.com (mail-lj1-x22f.google.com
- [2a00:1450:4864:20::22f])
+ id 1s4ga9-0002b0-J3
+ for xen-devel@lists.xenproject.org; Wed, 08 May 2024 12:39:37 +0000
+Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
+ [2a00:1450:4864:20::62a])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 06a4974f-0d38-11ef-909c-e314d9c70b13;
+ id 06dbf4e2-0d38-11ef-909c-e314d9c70b13;
  Wed, 08 May 2024 14:39:35 +0200 (CEST)
-Received: by mail-lj1-x22f.google.com with SMTP id
- 38308e7fff4ca-2e1fa1f1d9bso82820181fa.0
+Received: by mail-ej1-x62a.google.com with SMTP id
+ a640c23a62f3a-a59b49162aeso949718866b.3
  for <xen-devel@lists.xenproject.org>; Wed, 08 May 2024 05:39:35 -0700 (PDT)
 Received: from EMEAENGAAD19049.citrite.net
  (default-46-102-197-194.interdsl.co.uk. [46.102.197.194])
  by smtp.gmail.com with ESMTPSA id
- uj4-20020a170907c98400b00a599f876c28sm5984439ejc.38.2024.05.08.05.39.33
+ uj4-20020a170907c98400b00a599f876c28sm5984439ejc.38.2024.05.08.05.39.34
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 08 May 2024 05:39:33 -0700 (PDT)
+ Wed, 08 May 2024 05:39:34 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,137 +46,216 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 06a4974f-0d38-11ef-909c-e314d9c70b13
+X-Inumbo-ID: 06dbf4e2-0d38-11ef-909c-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1715171974; x=1715776774; darn=lists.xenproject.org;
+        d=cloud.com; s=cloud; t=1715171975; x=1715776775; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=H1Ga1HBZRTHKI6NaCRCof9WPNhoGPFDq14GP1TJIEi4=;
-        b=BHV9QNW2x0qZztkc5PVqx/fyWqk4cKREUIPyFLbTbO3/mqjEmTsbsvbdxUoYLqg3Xr
-         YgkY7xf6sE1PaLSkm+QRKI6F/2mCVsBOvSICXZx5sW2SAx9p0sYDA0Nzy12AdzIvEipt
-         mTkPGwcLccNm/jMcKX+DxzfgOPFyXcLVSlkGw=
+        bh=SqD0+veAXWzP3pl5EqEMwlTj/kQBDP8F+ZMM9Cf6nOI=;
+        b=b4Tqc86tE+8yM+fJ41o291lmU20XK9g5RjMWM9NIzFrYzQDr0Eb08XOHEaDvwKTwLA
+         Y1Lm55N4yU+5VGsmyYtzz0l+1IF92TRxbFZcmCIRerHNO9IXlrDiGhyKmBKPIPPrUzxo
+         mW2+ij4ZNIGGPMj8E4oABS4EaN2c+TKdWfFfs=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1715171974; x=1715776774;
+        d=1e100.net; s=20230601; t=1715171975; x=1715776775;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=H1Ga1HBZRTHKI6NaCRCof9WPNhoGPFDq14GP1TJIEi4=;
-        b=iPbKKupU/JH/J/P3CC4e1rQ/+oIzgggFy8afZ+D7o+38fjA/0ElxyLNZlkVG6SBqHM
-         8WSaHEVjgtDv+LuOYq9tOwI4KV+LV6xwKBiZH9BXn1B/DoR2Vr+oTvmrq3guZA0QMSZf
-         piFWjeYii/Z1iEaA7j8V9s+sVnbSnR9uZspvdIEdWuW5VHZwVNAdgOnxXGcXSrCGoI42
-         XKbi6ubW2FrmTijPRBMc7BC5V1FcLjbJfkjRfdjpI20UtHK0jXz1mNfzgPsX9rz5KbiP
-         m/3sYfAvxmQzclPqXHPsd2pMLGyM3xGCeSkN93MB2IMt6lercpWDXdKpbikI7FUMMcmq
-         Tsvw==
-X-Gm-Message-State: AOJu0YzI6kozmeRt4lCcqMhJul6Kg5YhLkkY6VxP2VnvF1lPjnvxdKuw
-	tYe85I10SCBm/haulTFpnayUcO2Ox4Cz5IYDj2B5yIHMxLTGGcA6dtfsxmck1ZPtD7No7uSCa5p
-	k
-X-Google-Smtp-Source: AGHT+IEsG9Cq9YdVt5/5FaGqvZELl/kornKj55RPE+pogIXnucFJ/moPPpMWOe3cSMbfkfmVqhtlVQ==
-X-Received: by 2002:a2e:a6a1:0:b0:2d8:8fb6:a53d with SMTP id 38308e7fff4ca-2e4476995aamr17025641fa.42.1715171974299;
-        Wed, 08 May 2024 05:39:34 -0700 (PDT)
+        bh=SqD0+veAXWzP3pl5EqEMwlTj/kQBDP8F+ZMM9Cf6nOI=;
+        b=ueCeDGnBB8Jyp5OzakJ9K7xqlXBHYjySlY0d1vdrrVUJnR44T4HQIZao4kaReKCe8z
+         +Hc3HvEbIsKrB6goNmXxXycgLU5zpi2p6Q3juAMe9it6LkkeJrEFqM5BRxIe3fZEw/gj
+         SBbp4+s/YRGURgsf9Ej+yk66cf6NcfuGaQaf+XvUMN/ELlbywE15SN7cKhpOcfC6UvYC
+         3AeBKW7ZVzt+j89bV0wvc0lgW812CB6n7KxJLu8FEn0vMn9fhViUVFKys68qlwwsrw+u
+         Ty+6EvzLoa7Yx/MSVwOW6s9wjAxwl/fHKgdsYKBHgF+VhKWFdQ2f1jVggvXvVTLtO3R5
+         04UA==
+X-Gm-Message-State: AOJu0Ywswu5fsUUmsjUCivSaom1fxUgueOQShkO9yFVlnbDHb9zMohby
+	hkt42Tp6bC9IfPLzF6xaS2b4Fpk66Ukbe1paT38Pgxz/MZcut9+gtFuBPY8lHifBMj15CeRJywO
+	Y
+X-Google-Smtp-Source: AGHT+IGg/M+0iKytNyTfXIK6S1aJWBIHRH7JNnNwznMpl2CuP/vkB2TIZRLcAfCZph/OLryXk56CSw==
+X-Received: by 2002:a17:907:990b:b0:a59:c3d0:550c with SMTP id a640c23a62f3a-a59fb95a533mr160323066b.43.1715171975070;
+        Wed, 08 May 2024 05:39:35 -0700 (PDT)
 From: Alejandro Vallejo <alejandro.vallejo@cloud.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
 Cc: Alejandro Vallejo <alejandro.vallejo@cloud.com>,
 	Jan Beulich <jbeulich@suse.com>,
 	Andrew Cooper <andrew.cooper3@citrix.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [PATCH v2 3/8] x86/vlapic: Move lapic_load_hidden migration checks to the check hook
-Date: Wed,  8 May 2024 13:39:22 +0100
-Message-Id: <499e029a7d2fce4fb9118b1e508313f369b37c79.1715102098.git.alejandro.vallejo@cloud.com>
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Anthony PERARD <anthony@xenproject.org>
+Subject: [PATCH v2 4/8] tools/hvmloader: Wake APs with hypercalls and not with INIT+SIPI+SIPI
+Date: Wed,  8 May 2024 13:39:23 +0100
+Message-Id: <bd23a05ea25b2f431bb0655ca6402073f9cf49b8.1715102098.git.alejandro.vallejo@cloud.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <cover.1715102098.git.alejandro.vallejo@cloud.com>
 References: <cover.1715102098.git.alejandro.vallejo@cloud.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-While at it, add a check for the reserved field in the hidden save area.
+Removes a needless assembly entry point and simplifies the codebase by allowing
+hvmloader to wake APs it doesn't know the APIC ID of.
 
 Signed-off-by: Alejandro Vallejo <alejandro.vallejo@cloud.com>
 ---
 v2:
-  * New patch. Addresses the missing check for rsvd_zero in v1.
+  * New patch. Replaces adding cpu policy to hvmloader in v1.
 ---
- xen/arch/x86/hvm/vlapic.c | 41 ++++++++++++++++++++++++++++-----------
- 1 file changed, 30 insertions(+), 11 deletions(-)
+ tools/firmware/hvmloader/smp.c | 111 +++++++++++++--------------------
+ 1 file changed, 44 insertions(+), 67 deletions(-)
 
-diff --git a/xen/arch/x86/hvm/vlapic.c b/xen/arch/x86/hvm/vlapic.c
-index 8a244100009c..2f06bff1b2cc 100644
---- a/xen/arch/x86/hvm/vlapic.c
-+++ b/xen/arch/x86/hvm/vlapic.c
-@@ -1573,35 +1573,54 @@ static void lapic_load_fixup(struct vlapic *vlapic)
-                v, vlapic->loaded.id, vlapic->loaded.ldr, good_ldr);
- }
+diff --git a/tools/firmware/hvmloader/smp.c b/tools/firmware/hvmloader/smp.c
+index 082b17f13818..a668f15d7e1f 100644
+--- a/tools/firmware/hvmloader/smp.c
++++ b/tools/firmware/hvmloader/smp.c
+@@ -22,88 +22,68 @@
+ #include "util.h"
+ #include "config.h"
+ #include "apic_regs.h"
++#include "hypercall.h"
  
--static int cf_check lapic_load_hidden(struct domain *d, hvm_domain_context_t *h)
-+static int cf_check lapic_check_hidden(const struct domain *d,
-+                                       hvm_domain_context_t *h)
- {
-     unsigned int vcpuid = hvm_load_instance(h);
--    struct vcpu *v;
--    struct vlapic *s;
-+    struct hvm_hw_lapic s;
- 
-     if ( !has_vlapic(d) )
-         return -ENODEV;
- 
-     /* Which vlapic to load? */
--    if ( vcpuid >= d->max_vcpus || (v = d->vcpu[vcpuid]) == NULL )
-+    if ( vcpuid >= d->max_vcpus || d->vcpu[vcpuid] == NULL )
-     {
-         dprintk(XENLOG_G_ERR, "HVM restore: dom%d has no apic%u\n",
-                 d->domain_id, vcpuid);
-         return -EINVAL;
-     }
--    s = vcpu_vlapic(v);
- 
--    if ( hvm_load_entry_zeroextend(LAPIC, h, &s->hw) != 0 )
-+    if ( hvm_load_entry_zeroextend(LAPIC, h, &s) )
-+        return -ENODATA;
+-#define AP_BOOT_EIP 0x1000
+-extern char ap_boot_start[], ap_boot_end[];
++#include <xen/asm/x86-defns.h>
++#include <xen/hvm/hvm_vcpu.h>
 +
-+    /* EN=0 with EXTD=1 is illegal */
-+    if ( (s.apic_base_msr & (APIC_BASE_ENABLE | APIC_BASE_EXTD)) ==
-+         APIC_BASE_EXTD )
-+        return -EINVAL;
-+
-+    /*
-+     * Fail migrations from newer versions of Xen where
-+     * rsvd_zero is interpreted as something else.
-+     */
-+    if ( s.rsvd_zero )
-         return -EINVAL;
++#include <xen/vcpu.h>
  
-+    return 0;
-+}
-+
-+static int cf_check lapic_load_hidden(struct domain *d, hvm_domain_context_t *h)
-+{
-+    unsigned int vcpuid = hvm_load_instance(h);
-+    struct vcpu *v = d->vcpu[vcpuid];
-+    struct vlapic *s = vcpu_vlapic(v);
-+
-+    if ( hvm_load_entry_zeroextend(LAPIC, h, &s->hw) != 0 )
-+        BUG();
-+
-     s->loaded.hw = 1;
-     if ( s->loaded.regs )
-         lapic_load_fixup(s);
+ static int ap_callin, ap_cpuid;
  
--    if ( !(s->hw.apic_base_msr & APIC_BASE_ENABLE) &&
--         unlikely(vlapic_x2apic_mode(s)) )
--        return -EINVAL;
+-asm (
+-    "    .text                       \n"
+-    "    .code16                     \n"
+-    "ap_boot_start: .code16          \n"
+-    "    mov   %cs,%ax               \n"
+-    "    mov   %ax,%ds               \n"
+-    "    lgdt  gdt_desr-ap_boot_start\n"
+-    "    xor   %ax, %ax              \n"
+-    "    inc   %ax                   \n"
+-    "    lmsw  %ax                   \n"
+-    "    ljmpl $0x08,$1f             \n"
+-    "gdt_desr:                       \n"
+-    "    .word gdt_end - gdt - 1     \n"
+-    "    .long gdt                   \n"
+-    "ap_boot_end: .code32            \n"
+-    "1:  mov   $0x10,%eax            \n"
+-    "    mov   %eax,%ds              \n"
+-    "    mov   %eax,%es              \n"
+-    "    mov   %eax,%ss              \n"
+-    "    movl  $stack_top,%esp       \n"
+-    "    movl  %esp,%ebp             \n"
+-    "    call  ap_start              \n"
+-    "1:  hlt                         \n"
+-    "    jmp  1b                     \n"
+-    "                                \n"
+-    "    .align 8                    \n"
+-    "gdt:                            \n"
+-    "    .quad 0x0000000000000000    \n"
+-    "    .quad 0x00cf9a000000ffff    \n" /* 0x08: Flat code segment */
+-    "    .quad 0x00cf92000000ffff    \n" /* 0x10: Flat data segment */
+-    "gdt_end:                        \n"
+-    "                                \n"
+-    "    .bss                        \n"
+-    "    .align    8                 \n"
+-    "stack:                          \n"
+-    "    .skip    0x4000             \n"
+-    "stack_top:                      \n"
+-    "    .text                       \n"
+-    );
 -
-     hvm_update_vlapic_mode(v);
+-void ap_start(void); /* non-static avoids unused-function compiler warning */
+-/*static*/ void ap_start(void)
++static void ap_start(void)
+ {
+     printf(" - CPU%d ... ", ap_cpuid);
+     cacheattr_init();
+     printf("done.\n");
++
++    if ( !ap_cpuid )
++        return;
++
+     wmb();
+     ap_callin = 1;
+-}
  
-     return 0;
-@@ -1643,7 +1662,7 @@ static int cf_check lapic_load_regs(struct domain *d, hvm_domain_context_t *h)
-     return 0;
+-static void lapic_wait_ready(void)
+-{
+-    while ( lapic_read(APIC_ICR) & APIC_ICR_BUSY )
+-        cpu_relax();
++    while ( 1 )
++        asm volatile ( "hlt" );
  }
  
--HVM_REGISTER_SAVE_RESTORE(LAPIC, lapic_save_hidden, NULL,
-+HVM_REGISTER_SAVE_RESTORE(LAPIC, lapic_save_hidden, lapic_check_hidden,
-                           lapic_load_hidden, 1, HVMSR_PER_VCPU);
- HVM_REGISTER_SAVE_RESTORE(LAPIC_REGS, lapic_save_regs, NULL,
-                           lapic_load_regs, 1, HVMSR_PER_VCPU);
+ static void boot_cpu(unsigned int cpu)
+ {
+-    unsigned int icr2 = SET_APIC_DEST_FIELD(LAPIC_ID(cpu));
++    static uint8_t ap_stack[4 * PAGE_SIZE] __attribute__ ((aligned (16)));
++    static struct vcpu_hvm_context ap;
+ 
+     /* Initialise shared variables. */
+     ap_cpuid = cpu;
+-    ap_callin = 0;
+     wmb();
+ 
+-    /* Wake up the secondary processor: INIT-SIPI-SIPI... */
+-    lapic_wait_ready();
+-    lapic_write(APIC_ICR2, icr2);
+-    lapic_write(APIC_ICR, APIC_DM_INIT);
+-    lapic_wait_ready();
+-    lapic_write(APIC_ICR2, icr2);
+-    lapic_write(APIC_ICR, APIC_DM_STARTUP | (AP_BOOT_EIP >> 12));
+-    lapic_wait_ready();
+-    lapic_write(APIC_ICR2, icr2);
+-    lapic_write(APIC_ICR, APIC_DM_STARTUP | (AP_BOOT_EIP >> 12));
+-    lapic_wait_ready();
++    /* Wake up the secondary processor */
++    ap = (struct vcpu_hvm_context) {
++        .mode = VCPU_HVM_MODE_32B,
++        .cpu_regs.x86_32 = {
++            .eip = (uint32_t)ap_start,
++            .esp = (uint32_t)ap_stack + ARRAY_SIZE(ap_stack),
++
++            /* Protected mode with MMU off */
++            .cr0 = X86_CR0_PE,
++
++            /* Prepopulate the GDT */
++            .cs_limit = -1U,
++            .ds_limit = -1U,
++            .ss_limit = -1U,
++            .es_limit = -1U,
++            .tr_limit = 0x67,
++            .cs_ar = 0xc9b,
++            .ds_ar = 0xc93,
++            .es_ar = 0xc93,
++            .ss_ar = 0xc93,
++            .tr_ar = 0x8b,
++        },
++    };
++
++    if ( hypercall_vcpu_op(VCPUOP_initialise, cpu, &ap) )
++        BUG();
++    if ( hypercall_vcpu_op(VCPUOP_up, cpu, NULL) )
++        BUG();
+ 
+     /*
+      * Wait for the secondary processor to complete initialisation.
+@@ -113,17 +93,14 @@ static void boot_cpu(unsigned int cpu)
+         cpu_relax();
+ 
+     /* Take the secondary processor offline. */
+-    lapic_write(APIC_ICR2, icr2);
+-    lapic_write(APIC_ICR, APIC_DM_INIT);
+-    lapic_wait_ready();    
++    if ( hypercall_vcpu_op(VCPUOP_down, cpu, NULL) )
++        BUG();
+ }
+ 
+ void smp_initialise(void)
+ {
+     unsigned int i, nr_cpus = hvm_info->nr_vcpus;
+ 
+-    memcpy((void *)AP_BOOT_EIP, ap_boot_start, ap_boot_end - ap_boot_start);
+-
+     printf("Multiprocessor initialisation:\n");
+     ap_start();
+     for ( i = 1; i < nr_cpus; i++ )
 -- 
 2.34.1
 
