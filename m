@@ -2,33 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1FE7E8C10BB
-	for <lists+xen-devel@lfdr.de>; Thu,  9 May 2024 16:00:29 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.719260.1121900 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 38BAD8C10BD
+	for <lists+xen-devel@lfdr.de>; Thu,  9 May 2024 16:00:30 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.719261.1121909 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s54Jh-0007nS-Q5; Thu, 09 May 2024 14:00:13 +0000
+	id 1s54Jj-00082H-0p; Thu, 09 May 2024 14:00:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 719260.1121900; Thu, 09 May 2024 14:00:13 +0000
+Received: by outflank-mailman (output) from mailman id 719261.1121909; Thu, 09 May 2024 14:00:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s54Jh-0007ku-Mi; Thu, 09 May 2024 14:00:13 +0000
-Received: by outflank-mailman (input) for mailman id 719260;
+	id 1s54Ji-000807-Tr; Thu, 09 May 2024 14:00:14 +0000
+Received: by outflank-mailman (input) for mailman id 719261;
  Thu, 09 May 2024 14:00:12 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=XcCC=MM=cloud.com=fouad.hilly@srs-se1.protection.inumbo.net>)
- id 1s54Jg-0007ka-6a
+ <SRS0=VSaB=MM=bugseng.com=alessandro.zucchelli@srs-se1.protection.inumbo.net>)
+ id 1s54Jg-0007kd-NR
  for xen-devel@lists.xenproject.org; Thu, 09 May 2024 14:00:12 +0000
-Received: from mail-lj1-x229.google.com (mail-lj1-x229.google.com
- [2a00:1450:4864:20::229])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 739a1ff7-0e0c-11ef-909c-e314d9c70b13;
- Thu, 09 May 2024 16:00:11 +0200 (CEST)
-Received: by mail-lj1-x229.google.com with SMTP id
- 38308e7fff4ca-2df848f9325so10328371fa.1
- for <xen-devel@lists.xenproject.org>; Thu, 09 May 2024 07:00:11 -0700 (PDT)
+Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 728e4f6c-0e0c-11ef-b4bb-af5377834399;
+ Thu, 09 May 2024 16:00:09 +0200 (CEST)
+Received: from support.bugseng.com (support.bugseng.com [162.55.131.47])
+ by support.bugseng.com (Postfix) with ESMTPA id 320A14EE0737;
+ Thu,  9 May 2024 16:00:09 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,66 +39,129 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 739a1ff7-0e0c-11ef-909c-e314d9c70b13
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1715263211; x=1715868011; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=Bd3FuNnGsiYvjztUaoUz5XSWfmfGI0oEndzpmDo13hE=;
-        b=IwFs7r2e2bj/2YbzNzp2NUYcnrBp7KjYYHHzOzZi8QTk6K3O1mU7X0aSo8gCwJ2a9O
-         vJRXInNuJ9xSxB2jFzBuksPRfxLobu/tgiM3vDsRJze6OMuX31jNmvPvie0yfaVS4Hw9
-         uJ3N/CQI+5oo6pHQ6e9Gf3fwOA3fz9G44E1I8=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1715263211; x=1715868011;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=Bd3FuNnGsiYvjztUaoUz5XSWfmfGI0oEndzpmDo13hE=;
-        b=T5V6Tkyij5nuUsNKSetwpJEStoXiwaaq/DAcuBwZmz5TArFmoQQ+1TvLWPNsCNBTz9
-         RAht8FPAuSWQzavxtoeH9cFAjpeN5B7IVEJydYXS0dFOU8D8gEId59yTt+vcxGuq8B/N
-         EGSmFTj0EtibaJTAKPlYt4PqmognopaR6+ifvw3arwENcJsl/zujmV1C/E9o50Hn7BuP
-         Zwi016E/nQGalusHOPY38eGIz4VEa5f1GVQ9fF01OKx1d+1lyvVAAvTmgH2vC9MSLQar
-         ZS8MbpPfpHKquy3uRoAoSIRf1vVQxBBwYIbyWMoNptgTsFCbdKVX5SXqzNchzTMKYr4L
-         v6SQ==
-X-Forwarded-Encrypted: i=1; AJvYcCU7XQ0GiC5GSvWaM0F/gX4dcNGrEMYRZuvORaPmCwX3JX+V06RgAb4Ozk0N8Nr7hcCqA8KpmrXVrw8ODk/+85ZmIEn15fJva743+ab07Rg=
-X-Gm-Message-State: AOJu0YxssCxqPyazo9Ag1JoF7mzHrq2SD7Wud3OTvfVd2271iA7K+IWp
-	wvzXagtZndIEel4r4vXsnVJd1671qernsJ6MMyRLDt6C+TkveXLmInwzSe7ed9sT0KCVjqe0XHv
-	G0EmTUVo7i2s4tcxGeQqrVYC0eus40hi9XRC2GJ+jPZbYkaTO
-X-Google-Smtp-Source: AGHT+IFWqgqLCLWK2w7REBEM7Opbk4mCjoW+OJ2iFy3xZ/0i3PtOOGiLMHrhtQroC2KfzqjgBkRW2cic9+n220IiL8U=
-X-Received: by 2002:a2e:97d7:0:b0:2e1:afa6:9291 with SMTP id
- 38308e7fff4ca-2e446d7a622mr46734161fa.8.1715263210998; Thu, 09 May 2024
- 07:00:10 -0700 (PDT)
+X-Inumbo-ID: 728e4f6c-0e0c-11ef-b4bb-af5377834399
 MIME-Version: 1.0
-References: <20240430124709.865183-1-fouad.hilly@cloud.com>
- <20240430124709.865183-5-fouad.hilly@cloud.com> <fc0c86f5-837a-45e8-807e-6861063be85f@suse.com>
-In-Reply-To: <fc0c86f5-837a-45e8-807e-6861063be85f@suse.com>
-From: Fouad Hilly <fouad.hilly@cloud.com>
-Date: Thu, 9 May 2024 14:59:58 +0100
-Message-ID: <CAJKAvHYcnmzEXptMOUTBny09jczbWnxk9QJEMhScYEi-z+Nhsw@mail.gmail.com>
-Subject: Re: [PATCH v3 4/5] x86: Use getopt to handle command line args
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Anthony PERARD <anthony@xenproject.org>, Xen-devel <xen-devel@lists.xenproject.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Date: Thu, 09 May 2024 16:00:09 +0200
+From: Alessandro Zucchelli <alessandro.zucchelli@bugseng.com>
+To: Julien Grall <julien@xen.org>
+Cc: xen-devel@lists.xenproject.org, consulting@bugseng.com, Stefano
+ Stabellini <sstabellini@kernel.org>, Bertrand Marquis
+ <bertrand.marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>, Volodymyr
+ Babchuk <Volodymyr_Babchuk@epam.com>, Tamas K Lengyel <tamas@tklengyel.com>,
+ Alexandru Isaila <aisaila@bitdefender.com>, Petre Pircalabu
+ <ppircalabu@bitdefender.com>
+Subject: Re: [XEN PATCH v2] arm/mem_access: add conditional build of
+ mem_access.c
+Reply-To: alessandro.zucchelli@bugseng.com
+Mail-Reply-To: alessandro.zucchelli@bugseng.com
+In-Reply-To: <4c63493b-3743-4d20-a5e2-5f1b3038a9c8@xen.org>
+References: <ad49a2006a6f19c2db1ff5eabb9ffd666693c4c5.1715250761.git.alessandro.zucchelli@bugseng.com>
+ <4c63493b-3743-4d20-a5e2-5f1b3038a9c8@xen.org>
+Message-ID: <10ae9ea84866cc9678ac056c829c30ea@bugseng.com>
+X-Sender: alessandro.zucchelli@bugseng.com
+Organization: BUGSENG Srl
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Mon, May 6, 2024 at 9:21=E2=80=AFAM Jan Beulich <jbeulich@suse.com> wrot=
-e:
->
-> On 30.04.2024 14:47, Fouad Hilly wrote:
-> > Use getopt_long() to handle command line arguments.
-> > Introduce ext_err for common exit with errors.
-> >
-> > Signed-off-by: Fouad Hilly <fouad.hilly@cloud.com>
->
-> Nit: Neither subject nor description make clear ...
->
-> >  tools/misc/xen-ucode.c | 45 +++++++++++++++++++++++++++++++-----------
-> >  1 file changed, 33 insertions(+), 12 deletions(-)
->
-> ... what tool is actually being touched.
+On 2024-05-09 12:52, Julien Grall wrote:
+> Hi,
+> 
+> On 09/05/2024 11:39, Alessandro Zucchelli wrote:
+>> In order to comply to MISRA C:2012 Rule 8.4 for ARM asm/mem_access.h 
+>> in
+>> the case where MEM_ACCESS=n stubs are needed to allow the conditional
+>> compilation of the users of this header.
+> 
+> I think you need to update the commit message given ...
+> 
+>> 
+>> Signed-off-by: Alessandro Zucchelli <alessandro.zucchelli@bugseng.com>
+>> ---
+>> Changes from v1:
+>> Reverted preprocessor conditional changes to xen/mem_access.h;
+>> added conditional build for xen/mem_access.c;
+>> provided stubs for asm/mem_access.h functions.
+>> ---
+>>   xen/arch/arm/Makefile                 | 2 +-
+>>   xen/arch/arm/include/asm/mem_access.h | 9 +++++++++
+>>   2 files changed, 10 insertions(+), 1 deletion(-)
+>> 
+>> diff --git a/xen/arch/arm/Makefile b/xen/arch/arm/Makefile
+>> index 7b1350e2ef..45dc29ea53 100644
+>> --- a/xen/arch/arm/Makefile
+>> +++ b/xen/arch/arm/Makefile
+>> @@ -37,7 +37,7 @@ obj-$(CONFIG_IOREQ_SERVER) += ioreq.o
+>>   obj-y += irq.o
+>>   obj-y += kernel.init.o
+>>   obj-$(CONFIG_LIVEPATCH) += livepatch.o
+>> -obj-y += mem_access.o
+>> +obj-$(CONFIG_MEM_ACCESS) += mem_access.o
+> 
+> ... this not only adding stub.
+> 
+>>   obj-y += mm.o
+>>   obj-y += monitor.o
+>>   obj-y += p2m.o
+>> diff --git a/xen/arch/arm/include/asm/mem_access.h 
+>> b/xen/arch/arm/include/asm/mem_access.h
+>> index 35ed0ad154..2f73172e39 100644
+>> --- a/xen/arch/arm/include/asm/mem_access.h
+>> +++ b/xen/arch/arm/include/asm/mem_access.h
+>> @@ -17,6 +17,7 @@
+>>   #ifndef _ASM_ARM_MEM_ACCESS_H
+>>   #define _ASM_ARM_MEM_ACCESS_H
+>>   +#include <xen/types.h>
+> 
+> Can you explain why this is needed?
 
-Noted and will be fixed in V4
->
-> Jan
+Without the inclusion of xen/types header NULL would be undefined.
+
+> Style: Newline here please.
+> 
+>>   static inline
+>>   bool p2m_mem_access_emulate_check(struct vcpu *v,
+>>                                     const struct vm_event_st *rsp)
+>> @@ -35,12 +36,20 @@ static inline bool 
+>> p2m_mem_access_sanity_check(struct domain *d)
+>>    * Send mem event based on the access. Boolean return value 
+>> indicates if trap
+>>    * needs to be injected into guest.
+>>    */
+>> +#ifdef CONFIG_MEM_ACCESS
+>>   bool p2m_mem_access_check(paddr_t gpa, vaddr_t gla, const struct 
+>> npfec npfec);
+>>     struct page_info*
+>>   p2m_mem_access_check_and_get_page(vaddr_t gva, unsigned long flag,
+>>                                     const struct vcpu *v);
+>> +#else
+>>   +static inline bool p2m_mem_access_check(paddr_t gpa, vaddr_t gla, 
+>> const struct npfec npfec) {return false;}
+> 
+> Coding style: The line is well over the 80 characters limit. Also we 
+> don't tend to provide the implementation of the stub in the single line 
+> if it is more than {}. So "{return false;}" should look like:
+> 
+> {
+>    return false;
+> }
+> 
+>> +
+>> +static inline struct page_info*
+>> +p2m_mem_access_check_and_get_page(vaddr_t gva, unsigned long flag,
+>> +                                  const struct vcpu *v) {return 
+>> NULL;}
+> 
+> Ditto.
+> 
+>> +#endif /*CONFIG_MEM_ACCESS*/
+>>   #endif /* _ASM_ARM_MEM_ACCESS_H */
+>>     /*
+
+Thanks for the feedback, I will soon provide the new version of the 
+patch with the requested stylistic changes and a clearer description.
+-- 
+Alessandro Zucchelli, B.Sc.
+
+Software Engineer, BUGSENG (https://bugseng.com)
 
