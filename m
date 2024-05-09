@@ -2,35 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1C4A28C11C6
-	for <lists+xen-devel@lfdr.de>; Thu,  9 May 2024 17:14:37 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.719285.1121949 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 778538C1208
+	for <lists+xen-devel@lfdr.de>; Thu,  9 May 2024 17:32:44 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.719296.1121963 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s55Sh-0002xh-P1; Thu, 09 May 2024 15:13:35 +0000
+	id 1s55kb-0005yU-Cs; Thu, 09 May 2024 15:32:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 719285.1121949; Thu, 09 May 2024 15:13:35 +0000
+Received: by outflank-mailman (output) from mailman id 719296.1121963; Thu, 09 May 2024 15:32:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s55Sh-0002ud-Lg; Thu, 09 May 2024 15:13:35 +0000
-Received: by outflank-mailman (input) for mailman id 719285;
- Thu, 09 May 2024 15:13:33 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1s55kb-0005wy-AF; Thu, 09 May 2024 15:32:05 +0000
+Received: by outflank-mailman (input) for mailman id 719296;
+ Thu, 09 May 2024 15:32:03 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1s55Sf-0002tc-MZ; Thu, 09 May 2024 15:13:33 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1s55Sf-0004Dw-Is; Thu, 09 May 2024 15:13:33 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1s55Sf-0007yf-6p; Thu, 09 May 2024 15:13:33 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1s55Sf-0001MR-6J; Thu, 09 May 2024 15:13:33 +0000
+ (envelope-from <SRS0=fDZs=MM=amd.com=Xin.Wang2@srs-se1.protection.inumbo.net>)
+ id 1s55kZ-0005ws-2h
+ for xen-devel@lists.xenproject.org; Thu, 09 May 2024 15:32:03 +0000
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2060b.outbound.protection.outlook.com
+ [2a01:111:f400:7e88::60b])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 465fe7db-0e19-11ef-b4bb-af5377834399;
+ Thu, 09 May 2024 17:32:00 +0200 (CEST)
+Received: from MN2PR18CA0017.namprd18.prod.outlook.com (2603:10b6:208:23c::22)
+ by CYXPR12MB9317.namprd12.prod.outlook.com (2603:10b6:930:e2::22)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7544.42; Thu, 9 May
+ 2024 15:31:55 +0000
+Received: from MN1PEPF0000ECD5.namprd02.prod.outlook.com
+ (2603:10b6:208:23c:cafe::94) by MN2PR18CA0017.outlook.office365.com
+ (2603:10b6:208:23c::22) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7544.42 via Frontend
+ Transport; Thu, 9 May 2024 15:31:55 +0000
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ MN1PEPF0000ECD5.mail.protection.outlook.com (10.167.242.133) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7544.18 via Frontend Transport; Thu, 9 May 2024 15:31:55 +0000
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Thu, 9 May
+ 2024 10:31:54 -0500
+Received: from [172.31.100.92] (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.35 via Frontend
+ Transport; Thu, 9 May 2024 10:31:52 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,353 +59,240 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=S2kKGMgc1RfK4BWbf6Q1Xamm3ks7eZ0I+/diHy+NRBk=; b=IZR1FE9kjrt9L3W9utRi9ccd6l
-	wWKG8LuDVDuBDtK6yjyIg+xzQsz++6UqoD9dcUG1rN5clKpYZFh0bXkvoBRpwwz9WnU2Pp2fLmFic
-	4sWe4u4A6mNUB/+x//T6CLYZ+XrgcIPOhQMqdfxpxFpiRC7Gp353k482QHWAOS9WIgks=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-185951-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 465fe7db-0e19-11ef-b4bb-af5377834399
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=kqSlTqQJhWSTeBw7QJsoO6jJH8hKkMiRYkwT0Xg2ExS6iqGYNvMq1BD2JPMsC1t2vE/c4QFTRDbjPnZirTeC/po+h4mdjO1QCy2etNJmCQH/Bq23wcdkQ0UNKpigmQrx/9lWk7xETOcfJLc4b1bdQGdzmIftRg6RLThS6ANDuV+Y8gjXiDUbFBLYfFPjF327u5nttn28oCoht/uoBnyPhth0XOLBMN10XjorLMn0D+2SOi7kDavCOuXDDFQzVDcnWWginjpUIhFuI7hJN0XVuKTZ5vu95JQgvbQ6IYaSckeUa1O0q8lxyVA+zshivTMIxL5p5MZl3bIZTs/lM3lRMA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=YcU+yZxf3EXhz/qPnftjxilBRj0xGQiRpjMhQXqU3TI=;
+ b=HDrA7w7HWysUdHBlN+z2c4Sbf4a7wGn/5AG4OyQN6i17dD0rlzDPj/uZuC6GTYwriIfuO40IJZ7Wa+R04ayeT4qX3RQJA5A2UBaMQOCvQxHRIPO9Iv0UDd+GrSpKXjw/BgheWFy8DdRj+JvhbyYPe+8QFWqg7jALQcyvJs9lCWF7HGnbBgpClPxSn6MQ3bmGB2K4ORazrzVKnN8c+wwb2zpU/zE/vtVfcYIKJ6DYcj3rHezw49eC0qEfBilNfsMI0+6dm+dUODrAwdCdCSHh5IW/UJkfn9BAkN4sv5b1nXRZfk8/k8hRFmZytpeepqIQRZLq32tFYOj9k1bpnUU9IQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=xen.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=YcU+yZxf3EXhz/qPnftjxilBRj0xGQiRpjMhQXqU3TI=;
+ b=1J79elJrvgl6DqgxtaEi431ii8FmkX34ohm+9iREOyivnTDUjd4WLnBcn/Hy1N0HCTG7ZRzMg4aP/BMa0Rr4iuAeuWhlwwYh+n2BxbS+gV0WB5iZ3Wix2JA1Y03iuHPKrWfgKrmmWbf4t9cSV3mV0LJLgqRKzjP9L1DH+vOx5H8=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Message-ID: <ff5e2477-ed5a-40cd-a592-5ceb3bc8f1f1@amd.com>
+Date: Thu, 9 May 2024 23:31:51 +0800
 MIME-Version: 1.0
-Subject: [libvirt test] 185951: regressions - FAIL
-X-Osstest-Failures:
-    libvirt:build-arm64-pvops:kernel-build:fail:regression
-    libvirt:test-arm64-arm64-libvirt:build-check(1):blocked:nonblocking
-    libvirt:test-arm64-arm64-libvirt-qcow2:build-check(1):blocked:nonblocking
-    libvirt:test-arm64-arm64-libvirt-raw:build-check(1):blocked:nonblocking
-    libvirt:test-arm64-arm64-libvirt-xsm:build-check(1):blocked:nonblocking
-    libvirt:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
-    libvirt:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    libvirt:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    libvirt:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    libvirt:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
-    libvirt:test-amd64-amd64-libvirt-qcow2:migrate-support-check:fail:nonblocking
-    libvirt:test-amd64-amd64-libvirt-raw:migrate-support-check:fail:nonblocking
-    libvirt:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
-    libvirt:test-armhf-armhf-libvirt-vhd:migrate-support-check:fail:nonblocking
-    libvirt:test-armhf-armhf-libvirt-vhd:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    libvirt=a47e73d6e76c85b0897e3cccaf0a58ed3c367664
-X-Osstest-Versions-That:
-    libvirt=df9ffb025646d649f981ca25600225bc8cf794d1
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Thu, 09 May 2024 15:13:33 +0000
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 02/15] xen/arm/gic: Enable interrupt assignment to running
+ VM
+To: Julien Grall <julien@xen.org>, <xen-devel@lists.xenproject.org>
+CC: Stefano Stabellini <sstabellini@kernel.org>, Bertrand Marquis
+	<bertrand.marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>, "Volodymyr
+ Babchuk" <Volodymyr_Babchuk@epam.com>, Stefano Stabellini
+	<stefano.stabellini@xilinx.com>
+References: <20240424033449.168398-1-xin.wang2@amd.com>
+ <20240424033449.168398-3-xin.wang2@amd.com>
+ <670d1033-2443-4245-8ff1-cb7099a7c793@xen.org>
+ <70c5a593-9ac5-485b-be81-b789562249d8@amd.com>
+ <5ba38b7b-16b1-489b-ad55-083504690bbd@xen.org>
+ <1a29ae76-a902-4a24-8fd1-ac26ef228971@amd.com>
+ <365e1b12-6b20-40ed-8ca9-beb643c907ab@xen.org>
+ <145e4192-3113-415f-876c-e67145d1d5c9@amd.com>
+ <f30f7599-6bcd-4b8d-bd1f-6afde18c14c8@xen.org>
+ <8957ab21-796f-4e15-a89e-d040e6f7b5ca@amd.com>
+ <995ce39d-6a04-4bdc-bfe8-bcef3da24cc2@xen.org>
+Content-Language: en-US
+From: Henry Wang <xin.wang2@amd.com>
+In-Reply-To: <995ce39d-6a04-4bdc-bfe8-bcef3da24cc2@xen.org>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+Received-SPF: None (SATLEXMB04.amd.com: xin.wang2@amd.com does not designate
+ permitted sender hosts)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MN1PEPF0000ECD5:EE_|CYXPR12MB9317:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2bbe64f3-168a-48eb-42b1-08dc703d2863
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230031|376005|1800799015|82310400017|36860700004;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?aXI1TGZrSC85VklyOU9tbVc2cGZxaEo5TkMzMk5ybVh4SmVPVEJjYUVuYmIy?=
+ =?utf-8?B?cmRHUnplaG1RcXpMbXNHcEs3c1o2Qi9KZjhCZ2xSNEF6VW1mRmhmT0ZGUUt3?=
+ =?utf-8?B?Smt1ZUlacXJ2Y2ttQVA2ZTJGclE3Y1Zsd01ZMHNFUzAzSUg2VnJpWkhIV3Vy?=
+ =?utf-8?B?QTJIY0gvaTliTTNJdGZaUHh3Q2RucGJTQVhVUnpMZVkzZ2VaK2FmQkpnL0tR?=
+ =?utf-8?B?ZStQVlAzMHIvT3lHbjRTOExFOW5RWjJUNEQ4VnhQMWhWSEVnRC9qUDFWTTBT?=
+ =?utf-8?B?RlU5WnIvVnAwUU5ITjZrbVpkUW55T2dLamttdUhET3UxWlE4czJ6WkRpOGFr?=
+ =?utf-8?B?dmVTVHJ0R04zMWhHczBrRHlzVGM2Q1duVFI4VktQbFRnaVV5T0NCU2VCSmlG?=
+ =?utf-8?B?MzFuNDhwK0JuTG9qS2owbVBuWXB1a2FrVHJTK3duRDNDaVQ5OVFPL0laWWpH?=
+ =?utf-8?B?ZTc3dkN1ZEpwaGRKeXpYYm5BSkh4SHJqalNNZm1VMWxtaEZHSUdFUHpoQTBj?=
+ =?utf-8?B?U1NaMVhER1M5VEZMQmF2Z0M5OVhBRTJaVXJuVEJOdis2SURtcU1yd2hoZFJi?=
+ =?utf-8?B?YndpTzBoanZZZFBHV3ZsaDFsemdvTmdRNjQzSXplaHNpdmFMT0tlbCtCRVQx?=
+ =?utf-8?B?SUgzYnIybDMwTUJSY1hUaUNwQXQxMG9CZG9RYnpxQWFDbzRadDNiWUdlL2V2?=
+ =?utf-8?B?NmhaRk9ENXROTkhqWjZiYnVLVVV6TldZUGpWbnkzWjUxWHpNakxscFBYWU8v?=
+ =?utf-8?B?Y041Rjg3NUR1ZktCZ3ppTU1pYmd4MVE0ZmduVC9CRmtJNEs1djQ1ZEZGVVh3?=
+ =?utf-8?B?NG5KSWJ0emJrQXk2dTA0ZGFoRjBmVEVEYlFwa1hvMWVWWE5BNUpLRDBHWG0v?=
+ =?utf-8?B?VVFEZGNnRnA1cmNoMkc5dkppK09RYnZxTS9qSUhqQ05oZGV6TUNOZG1vZWZP?=
+ =?utf-8?B?c2tBNkNqQWRycmpDYmEwdFRBaVNVNGpyNVVQTE52SXNaNlNFWlBIRitKeTd1?=
+ =?utf-8?B?STM3VEJ3Q2poUlpZaS9DV1drd3MvRWNSQ3N0UlBDSDZoVjVtNys1NDJuYnFO?=
+ =?utf-8?B?RWVWbWFDdlNVUVJZZ1ovUU5wcXhjUm9jdm1IY1h0Z1ZyMEw5LzRZYVlRUGRv?=
+ =?utf-8?B?WitVeDU4QUEvQ1M4d0tHRGNxQmxZN1huVmM5VHJlK1lHRFdzWk0wMDVMamJn?=
+ =?utf-8?B?N2w5WGtKL2hPWjNvQ2YrT0VhNWZ1aWJZRXFWUU83aXJyclJ2ZUJWdW5CNlNn?=
+ =?utf-8?B?eklhREFod1RReDVoblQ3dEdSNnpCWkhTTU45eFQ0WVlScG53elBobTF3M1ZE?=
+ =?utf-8?B?amxXY1VuZ1VKSzcyVm84SXlEdmpuc1ZQR0tuTEVWM0MzckV0cmViOE9CN2RM?=
+ =?utf-8?B?d0hKY2NyS2xHNmJGM1BZSlhsNmd5K0l4NDg2TWNFRDE2M2VNelFHOVM0clcy?=
+ =?utf-8?B?WS9TU0ZPNHRsTVRsWmlBZUtzWmlIbDR0dFNkZjQrcUY2OEoyeUNvUWhJVzFV?=
+ =?utf-8?B?UTVsckNNNm5NY2xrR1BKVUZvVUdTeXRGeU1kcVoyZ3lDRnBmVzhuUFpzeDJZ?=
+ =?utf-8?B?a3RzNWFwSWIwOUk5VndlalJOb1lYeE5oS005RHBxVHRlbEZETHFlRXpPWHJk?=
+ =?utf-8?B?YmRROHlRSlBZMC9jMTV2TTliR1RHVjBqVXVrblkxeXBwUFpYNlF1Ym8wemcr?=
+ =?utf-8?B?TktQMzB4cHZVQU9EU3dqTDJYdHM3K2lZSTdYVlBmZ3FrU2JDandPMExlMDZo?=
+ =?utf-8?B?UXUvbGZpUzB6ZEtlNTJabUl3aTVJRDYvN0lxM2kzYVJ6SC90a2VleHRVYnNY?=
+ =?utf-8?B?VzA4TlVtNDlQWkxOMjJ4WFBSL0JpeHhwenZEQWwvSWRWTm5NUWNDM1VJZEpt?=
+ =?utf-8?Q?M8dzwU6Krfb3u?=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(376005)(1800799015)(82310400017)(36860700004);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 May 2024 15:31:55.2208
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2bbe64f3-168a-48eb-42b1-08dc703d2863
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	MN1PEPF0000ECD5.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CYXPR12MB9317
 
-flight 185951 libvirt real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/185951/
+Hi Julien,
 
-Regressions :-(
+On 5/9/2024 4:46 AM, Julien Grall wrote:
+> Hi Henry,
+> [...]
+>
+>>>> we have 3 possible states which can be read from LR for this case : 
+>>>> active, pending, pending and active.
+>>>> - I don't think we can do anything about the active state, so we 
+>>>> should return -EBUSY and reject the whole operation of removing the 
+>>>> IRQ from running guest, and user can always retry this operation.
+>>>
+>>> This would mean a malicious/buggy guest would be able to prevent a 
+>>> device to be de-assigned. This is not a good idea in particular when 
+>>> the domain is dying.
+>>>
+>>> That said, I think you can handle this case. The LR has a bit to 
+>>> indicate whether the pIRQ needs to be EOIed. You can clear it and 
+>>> this would prevent the guest to touch the pIRQ. There might be other 
+>>> clean-up to do in the vGIC datastructure.
+>>
+>> I probably misunderstood this sentence, do you mean the EOI bit in 
+>> the pINTID field? I think this bit is only available when the HW bit 
+>> of LR is 0, but in our case the HW is supposed to be 1 (as indicated 
+>> as your previous comment). Would you mind clarifying a bit more? Thanks!
+>
+> You are right, ICH_LR.HW will be 1 for physical IRQ routed to a guest. 
+> What I was trying to explain is this bit could be cleared (with 
+> ICH_LR.pINTD adjusted).
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-arm64-pvops             6 kernel-build             fail REGR. vs. 185943
+Thank you for all the discussions. Based on that, would below diff make 
+sense to you? I did a test of the dynamic dtbo adding/removing with a 
+ethernet device with this patch applied. Test steps are:
+(1) Use xl dt-overlay to add the ethernet device to Xen device tree and 
+assign it to dom0.
+(2) Create a domU.
+(3) Use xl dt-overlay to de-assign the device from dom0 and assign it to 
+domU.
+(4) Destroy the domU.
 
-Tests which did not succeed, but are not blocking:
- test-arm64-arm64-libvirt      1 build-check(1)               blocked  n/a
- test-arm64-arm64-libvirt-qcow2  1 build-check(1)               blocked  n/a
- test-arm64-arm64-libvirt-raw  1 build-check(1)               blocked  n/a
- test-arm64-arm64-libvirt-xsm  1 build-check(1)               blocked  n/a
- test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 185943
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt-qcow2 14 migrate-support-check        fail never pass
- test-amd64-amd64-libvirt-raw 14 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
- test-armhf-armhf-libvirt-vhd 14 migrate-support-check        fail   never pass
- test-armhf-armhf-libvirt-vhd 15 saverestore-support-check    fail   never pass
+The ethernet device is functional in the domain respectively when it is 
+attached to a domain and I don't see errors when I destroy domU. But 
+honestly I think the case we talked about is a quite unusual case so I 
+am not sure if it was hit during my test.
 
-version targeted for testing:
- libvirt              a47e73d6e76c85b0897e3cccaf0a58ed3c367664
-baseline version:
- libvirt              df9ffb025646d649f981ca25600225bc8cf794d1
+```
+diff --git a/xen/arch/arm/gic.c b/xen/arch/arm/gic.c
+index a775f886ed..d3f9cd2299 100644
+--- a/xen/arch/arm/gic.c
++++ b/xen/arch/arm/gic.c
+@@ -135,16 +135,6 @@ int gic_route_irq_to_guest(struct domain *d, 
+unsigned int virq,
+      ASSERT(virq < vgic_num_irqs(d));
+      ASSERT(!is_lpi(virq));
 
-Last test of basis   185943  2024-05-08 04:22:17 Z    1 days
-Testing same since   185951  2024-05-09 04:20:39 Z    0 days    1 attempts
+-    /*
+-     * When routing an IRQ to guest, the virtual state is not synced
+-     * back to the physical IRQ. To prevent get unsync, restrict the
+-     * routing to when the Domain is been created.
+-     */
+-#ifndef CONFIG_OVERLAY_DTB
+-    if ( d->creation_finished )
+-        return -EBUSY;
+-#endif
+-
+      ret = vgic_connect_hw_irq(d, NULL, virq, desc, true);
+      if ( ret )
+          return ret;
+@@ -169,20 +159,40 @@ int gic_remove_irq_from_guest(struct domain *d, 
+unsigned int virq,
+      ASSERT(test_bit(_IRQ_GUEST, &desc->status));
+      ASSERT(!is_lpi(virq));
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Daniel P. Berrangé <berrange@redhat.com>
+-    /*
+-     * Removing an interrupt while the domain is running may have
+-     * undesirable effect on the vGIC emulation.
+-     */
+-#ifndef CONFIG_OVERLAY_DTB
+-    if ( !d->is_dying )
+-        return -EBUSY;
+-#endif
+-
+      desc->handler->shutdown(desc);
 
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-arm64-libvirt                                          pass    
- build-armhf-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            fail    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
- test-amd64-amd64-libvirt-xsm                                 pass    
- test-arm64-arm64-libvirt-xsm                                 blocked 
- test-amd64-amd64-libvirt                                     pass    
- test-arm64-arm64-libvirt                                     blocked 
- test-armhf-armhf-libvirt                                     pass    
- test-amd64-amd64-libvirt-pair                                pass    
- test-amd64-amd64-libvirt-qcow2                               pass    
- test-arm64-arm64-libvirt-qcow2                               blocked 
- test-amd64-amd64-libvirt-raw                                 pass    
- test-arm64-arm64-libvirt-raw                                 blocked 
- test-amd64-amd64-libvirt-vhd                                 pass    
- test-armhf-armhf-libvirt-vhd                                 pass    
+      /* EOI the IRQ if it has not been done by the guest */
+      if ( test_bit(_IRQ_INPROGRESS, &desc->status) )
++    {
++        /*
++         * Handle the LR where the physical interrupt is de-assigned 
+from the
++         * guest before it was EOIed
++         */
++        struct vcpu *v_target = vgic_get_target_vcpu(d->vcpu[0], virq);
++        struct vgic_irq_rank *rank = vgic_rank_irq(v_target, virq);
++        struct pending_irq *p = irq_to_pending(v_target, virq);
++        unsigned long flags;
++
++        spin_lock_irqsave(&v_target->arch.vgic.lock, flags);
++        /* LR allocated for the IRQ */
++        if ( test_bit(GIC_IRQ_GUEST_ACTIVE, &p->status) &&
++             test_bit(GIC_IRQ_GUEST_VISIBLE, &p->status) )
++        {
++            gic_hw_ops->clear_lr(p->lr);
++            clear_bit(p->lr, &v_target->arch.lr_mask);
++
++            clear_bit(GIC_IRQ_GUEST_VISIBLE, &p->status);
++            clear_bit(GIC_IRQ_GUEST_ACTIVE, &p->status);
++            p->lr = GIC_INVALID_LR;
++        }
++        spin_unlock_irqrestore(&v_target->arch.vgic.lock, flags);
++
++        vgic_lock_rank(v_target, rank, flags);
++        vgic_disable_irqs(v_target, (~rank->ienable) & rank->ienable, 
+rank->index);
++        vgic_unlock_rank(v_target, rank, flags);
++
+          gic_hw_ops->deactivate_irq(desc);
++    }
+      clear_bit(_IRQ_INPROGRESS, &desc->status);
 
+      ret = vgic_connect_hw_irq(d, NULL, virq, desc, false);
+```
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+Kind regards,
+Henry
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+>
+> Cheers,
+>
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-------------------------------------------------------------
-commit a47e73d6e76c85b0897e3cccaf0a58ed3c367664
-Author: Daniel P. Berrangé <berrange@redhat.com>
-Date:   Tue May 7 14:35:39 2024 +0100
-
-    src/node_device: don't overwrite error messages
-    
-    The nodedev code unhelpfully reports
-    
-      couldn't convert node device def to mdevctl JSON
-    
-    which hides the actual error message
-    
-      No JSON parser implementation is available
-    
-    Reviewed-by: Peter Krempa <pkrempa@redhat.com>
-    Signed-off-by: Daniel P. Berrangé <berrange@redhat.com>
-
-commit 479333af2c9d234ec1639a0a976e27afb1e26604
-Author: Daniel P. Berrangé <berrange@redhat.com>
-Date:   Tue May 7 14:35:04 2024 +0100
-
-    tests: don't run mdevctl test if lacking YAJL
-    
-    The mdev code requires YAJL in order to convert from node dev XML to
-    mdev's config format.
-    
-    Reviewed-by: Peter Krempa <pkrempa@redhat.com>
-    Signed-off-by: Daniel P. Berrangé <berrange@redhat.com>
-
-commit 7817c3f89cc9f887bea269ebd3f34641cd0a052a
-Author: Daniel P. Berrangé <berrange@redhat.com>
-Date:   Tue May 7 14:26:55 2024 +0100
-
-    test: drop bogus check for YAJL from libxl test/mock
-    
-    The libxlmock.c conditionalizes on WITH_YAJL, but this mock is
-    used from other tests which only conditionalize on WITH_LIBXL.
-    The libxl code does not have any dependancy on YAJL, so the
-    bogus condition can be removed from the mock and also from
-    libxlxml2domconfigtest.c
-    
-    Reviewed-by: Peter Krempa <pkrempa@redhat.com>
-    Signed-off-by: Daniel P. Berrangé <berrange@redhat.com>
-
-commit 971305e86f26269d3211ff41f4931e66c6f0b716
-Author: Daniel P. Berrangé <berrange@redhat.com>
-Date:   Tue May 7 14:17:36 2024 +0100
-
-    tests: always build securityselinuxhelper if libselinux is present
-    
-    The securityselinuxhelper build is conditionalized on the SELinux
-    security driver feature. It is also needed, however, by viridentitytest
-    whenever libselinux is present.
-    
-    Reviewed-by: Peter Krempa <pkrempa@redhat.com>
-    Signed-off-by: Daniel P. Berrangé <berrange@redhat.com>
-
-commit c8c5170b74ae9af6f2ade66be310e58c90170f0f
-Author: Daniel P. Berrangé <berrange@redhat.com>
-Date:   Tue May 7 14:05:12 2024 +0100
-
-    test: conditionalize 'virsh-auth' on test driver
-    
-    The 'virsh-auth' test is mistakenly conditionalized on the libvirtd
-    daemon build, however, it just uses the 'test:///default' driver
-    URI, so does not require a daemon.
-    
-    Reviewed-by: Peter Krempa <pkrempa@redhat.com>
-    Signed-off-by: Daniel P. Berrangé <berrange@redhat.com>
-
-commit 08bfb18736a0dc50068090e1a7a024b7a920f789
-Author: Daniel P. Berrangé <berrange@redhat.com>
-Date:   Tue May 7 13:23:39 2024 +0100
-
-    tests: build driver modules before virdrivermoduletest
-    
-    The virdrivermoduletest will attempt to dlopen() each driver module,
-    so they must be build before the test can run.
-    
-    Reviewed-by: Peter Krempa <pkrempa@redhat.com>
-    Signed-off-by: Daniel P. Berrangé <berrange@redhat.com>
-
-commit a76ffee3657a449b7be06b9e89b33bd2246cc8e8
-Author: Daniel P. Berrangé <berrange@redhat.com>
-Date:   Tue May 7 13:16:26 2024 +0100
-
-    tests: build 'virsh' before running virsh-auth test
-    
-    The 'virsh-auth' test needs to be able to invoke the 'virsh' binary
-    
-    Reviewed-by: Peter Krempa <pkrempa@redhat.com>
-    Signed-off-by: Daniel P. Berrangé <berrange@redhat.com>
-
-commit 0dc278dd020680d1a490d7d88ccf2c7be82b5c05
-Author: Daniel P. Berrangé <berrange@redhat.com>
-Date:   Tue May 7 13:10:59 2024 +0100
-
-    src: ensure augeas test file is generated before running test
-    
-    We fail to express an ordering between the custom target that
-    generates the combined augeas test input file, and the meson
-    test command.
-    
-    Reviewed-by: Peter Krempa <pkrempa@redhat.com>
-    Signed-off-by: Daniel P. Berrangé <berrange@redhat.com>
-
-commit bdfe46ed6e7c11790f7234be46a4136e06e482ff
-Author: Daniel P. Berrangé <berrange@redhat.com>
-Date:   Tue May 7 11:38:07 2024 +0100
-
-    meson: record which other options are a pre-requisite
-    
-    Several meson options cannot be enabled, without first enabling another
-    option. This adds a small comment prior to an option to record its
-    mandatory dependencies.
-    
-    Reviewed-by: Peter Krempa <pkrempa@redhat.com>
-    Signed-off-by: Daniel P. Berrangé <berrange@redhat.com>
-
-commit 67ac2cd5908a686ab8f83703d5167caf5310a9f3
-Author: Daniel P. Berrangé <berrange@redhat.com>
-Date:   Tue May 7 10:40:15 2024 +0100
-
-    tests: fix tests when test driver is disabled
-    
-    Various tests try to open a connection to 'test:///default' and
-    must be skipped when the test driver is disabled.
-    
-    Reviewed-by: Peter Krempa <pkrempa@redhat.com>
-    Signed-off-by: Daniel P. Berrangé <berrange@redhat.com>
-
-commit 20acd5b1beddaa77c9d0da1917940eeceb98e470
-Author: Daniel P. Berrangé <berrange@redhat.com>
-Date:   Tue May 7 10:38:59 2024 +0100
-
-    scripts/rpcgen: skip tests if tirpc is not present
-    
-    This skips building tests which rely on tirpc when it is not
-    present.
-    
-    Reviewed-by: Peter Krempa <pkrempa@redhat.com>
-    Signed-off-by: Daniel P. Berrangé <berrange@redhat.com>
-
-commit ae6a89884aeea9f6e334b8b6951d1aa6c362bdad
-Author: Daniel P. Berrangé <berrange@redhat.com>
-Date:   Wed May 8 13:03:20 2024 +0100
-
-    tests: fix two off-by-1 errors in read-big-pipe test
-    
-    When testPipeFeeder copies the XML document into the padded buffer, it
-    tells virStrcpy that 'xmlsize' bytes are available. This is under
-    reporting size by 1 byte, and as a result it fails to copy the trailing
-    '\n' replacing it with '\0'. The return value of virStrcpy wasn't
-    checked, but was reporting this truncation.
-    
-    When testPipeFeeder then sends the padded buffer down the pipe, it asks
-    to send 'emptyspace + xmlsize + 1' bytes, which means it sends the data,
-    as well as the trailing '\0' terminator.
-    
-    Both bugs combined mean it is sending '\0\0' as the last bytes, instead
-    of '\n' which was intended. When virFileReadAll reads data from the
-    pipe, it ends up adding another '\0' resulting in a very NUL terminated
-    string ('\0\0\0'). This is all harmless, but should be fixed regardless.
-    
-    Reviewed-by: Andrea Bolognani <abologna@redhat.com>
-    Signed-off-by: Daniel P. Berrangé <berrange@redhat.com>
-
-commit e1c32120ce6eddb72272b4717dd8384075b32c2f
-Author: Daniel P. Berrangé <berrange@redhat.com>
-Date:   Wed May 8 11:50:09 2024 +0100
-
-    tests: fix hang in virshtest 'read-big-pipe' case
-    
-    The virshtest program testPipeFeeder method is doing this:
-    
-      mkfifo("test.fifo", 0600) ;
-    
-      int fd = open("test.fifo", O_RDWR);
-    
-      char buf[...];
-      memset(buf, 'a', sizeof(buf));
-      write(fd, buf, sizeof(buf)) == sizeof(buf));
-      close(fd);
-    
-    while the the 'virsh' child process then ends up doing:
-    
-      fd = open("test.fifo", O_RDONLY);
-      read(fd, buf, sizeof(buf)) == sizeof(buf));
-      close(fd);
-    
-    The 'virsh' code hangs on open() on at least ppc64 and some other
-    arches. It can be provoked to hang even on x86 by reducing the size of
-    the buffer. It can be prevented from hanging on ppc64 by increasing the
-    size of the buffer.
-    
-    What is happening is a result of differing page sizes, altering the
-    overall pipe capacity size, since pipes on linux default to 16 pages
-    in size and thus have architecture specific capacity when measured
-    in bytes.
-    
-     * On x86, testPipeFeeder opens R+W, tries to write 140kb and
-       write() blocks because the pipe is full. This gives time for
-       virsh to start up, and it can open the pipe for O_RDONLY
-       since testPipeFeeder still has it open for write. Everything
-       works as intended.
-    
-     * On ppc64,  testPipeFeeder opens R+W, tries to write 140kb
-       and write() succeeds because the larger 64kb page size
-       resulted in greater buffer capacity for the pipe. It thus
-       quickly closes the pipe, removing the writer, and triggering
-       discard of all the unread data. Now virsh starts up, tries
-       to open the pipe for O_RDONLY and blocks waiting for a new
-       writer to open it, which will never happen. Meson kills
-       the test after 30 seconds.
-    
-       NB, every now & then, it will not block because virsh starts
-       up quickly enough that testPipeFeeder has not yet closed the
-       write end of the pipe, giving the illusion of correctness.
-    
-    The key flaw here is that it should not have been using O_RDWR
-    in testPipeFeeder. Synchronization is required such that both
-    virsh and testPipeFeeder have their respective ends of the pipe
-    open before any data is sent. This is trivially arranged by
-    using O_WRONLY in testPipeFeeder.
-    
-    Reviewed-by: Andrea Bolognani <abologna@redhat.com>
-    Signed-off-by: Daniel P. Berrangé <berrange@redhat.com>
 
