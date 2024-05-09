@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8CB1D8C0C53
-	for <lists+xen-devel@lfdr.de>; Thu,  9 May 2024 10:14:32 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.719117.1121706 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 85F578C0C7F
+	for <lists+xen-devel@lfdr.de>; Thu,  9 May 2024 10:23:29 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.719124.1121720 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s4yui-0000h4-B8; Thu, 09 May 2024 08:14:04 +0000
+	id 1s4z3X-0002Di-6C; Thu, 09 May 2024 08:23:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 719117.1121706; Thu, 09 May 2024 08:14:04 +0000
+Received: by outflank-mailman (output) from mailman id 719124.1121720; Thu, 09 May 2024 08:23:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s4yui-0000f7-7F; Thu, 09 May 2024 08:14:04 +0000
-Received: by outflank-mailman (input) for mailman id 719117;
- Thu, 09 May 2024 08:14:02 +0000
+	id 1s4z3X-0002BB-2L; Thu, 09 May 2024 08:23:11 +0000
+Received: by outflank-mailman (input) for mailman id 719124;
+ Thu, 09 May 2024 08:23:09 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=0Rdn=MM=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1s4yug-0000f1-Mu
- for xen-devel@lists.xenproject.org; Thu, 09 May 2024 08:14:02 +0000
-Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
- [2a00:1450:4864:20::434])
+ id 1s4z3V-0002B5-F5
+ for xen-devel@lists.xenproject.org; Thu, 09 May 2024 08:23:09 +0000
+Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
+ [2a00:1450:4864:20::42e])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 172fc42b-0ddc-11ef-b4bb-af5377834399;
- Thu, 09 May 2024 10:14:00 +0200 (CEST)
-Received: by mail-wr1-x434.google.com with SMTP id
- ffacd0b85a97d-34e7a35d5d4so429858f8f.2
- for <xen-devel@lists.xenproject.org>; Thu, 09 May 2024 01:14:00 -0700 (PDT)
+ id 5cebbd77-0ddd-11ef-b4bb-af5377834399;
+ Thu, 09 May 2024 10:23:07 +0200 (CEST)
+Received: by mail-wr1-x42e.google.com with SMTP id
+ ffacd0b85a97d-34da04e44a2so397075f8f.1
+ for <xen-devel@lists.xenproject.org>; Thu, 09 May 2024 01:23:07 -0700 (PDT)
 Received: from localhost ([213.195.114.223]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3502b79bc8esm1019480f8f.15.2024.05.09.01.13.59
+ ffacd0b85a97d-3502baacff4sm1037126f8f.79.2024.05.09.01.23.06
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 09 May 2024 01:13:59 -0700 (PDT)
+ Thu, 09 May 2024 01:23:06 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,127 +44,162 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 172fc42b-0ddc-11ef-b4bb-af5377834399
+X-Inumbo-ID: 5cebbd77-0ddd-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1715242440; x=1715847240; darn=lists.xenproject.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=r4QhY4syQdA3dcGAQvCztiEB0K7cQzMPfGby1P/xNkU=;
-        b=OsaDBFqvccmBQm0BGon2p7BbgRFDW2f4qtVr6znVNa7mHOu8csSdurqYlFughayFFb
-         17IRc2tljSw05rNAvHaKHQEqQgqEv4EGKeUhnlj7PDB0vXpCkbvsOGTumR1XcfyNCrO1
-         7nWgIckY84DwXL1A8gQSokhnyN2JvTa5hznEc=
+        d=citrix.com; s=google; t=1715242986; x=1715847786; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=Rp9uqeEeeTpVuGLE1TK2mKhExUqdNcRzK4GLCWB/SbA=;
+        b=d1MRtwtzKcDjdcC5FGUX1FUdgCyGkD2HI3eBnlsws2ZAHyz5kyCwS65ZcSE+SSGlr6
+         K/Ygs0DB6YehC3Qz5r7OnxZ8Gxv/F9neLO2QLp5IJ6syriGZWJ7u3EcxBX4eYhEZabAT
+         L6GH25lFdidMICsVVsjfKN3ndGeKvXiMHHj2I=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1715242440; x=1715847240;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=r4QhY4syQdA3dcGAQvCztiEB0K7cQzMPfGby1P/xNkU=;
-        b=SYjv+suXEnnqc/iQPDLY+8kve7fmqgFpcbqPVd3dN1Cz5E5EwSkI1Ct3kIRj3/WG+w
-         3At72FmwRedv8NSGUSFgSTMFxiiqtc7jTrwhthTenAKrU6ZFWiOhohz4/WqIiJd8qNh5
-         9xlVPz3zhxOrY7q86YkctV/wFcmj3B9FYueLmxD2Zv9agXURzooNHD4L5eMr1AZ4QSTO
-         9FUVUTTHgCxkvioC0Wg1NY6xo2eZ3oVhEFDfnPhJRvFp1Urbfj9G32AYk7zQjRwyH2J4
-         IW8vMGyxpcHwfCojuZ7cTwZPc0cYGXJTFogUXhQn7MKuvhbJVDjce2UQD/56+vDf/aaC
-         NZ/Q==
-X-Forwarded-Encrypted: i=1; AJvYcCUpl1QKjCWcn35QX9g5EbyWSLpIQYG2TcNPhq7vgJH4GyuIcUp5EZV9Osqfd4ZpwZf5b7a5iN95JJ7fpHxtMtRFzM6tz5Z4IuqpcsHRba4=
-X-Gm-Message-State: AOJu0YzUDzDFGz/N/Y6hwMLwvWlX/HGh8TaROF+XIeIb6/13dYmv/Ck9
-	raGO3XDwERWFz+O8zdtouZr7uS8Rav+Spvks4paJZxQi0D6LvmIsZYGlhYmTh4o=
-X-Google-Smtp-Source: AGHT+IH9NgWVp/YFWIQh9Wm7+y8a6hgfrygCsKrSZzRjOAsN9z809Lccl5RlrdnEQEVGoBLj1TMT1w==
-X-Received: by 2002:a05:6000:1741:b0:34a:3f3d:bb22 with SMTP id ffacd0b85a97d-34fca2439dcmr3363188f8f.26.1715242439940;
-        Thu, 09 May 2024 01:13:59 -0700 (PDT)
-Date: Thu, 9 May 2024 10:13:58 +0200
+        d=1e100.net; s=20230601; t=1715242986; x=1715847786;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=Rp9uqeEeeTpVuGLE1TK2mKhExUqdNcRzK4GLCWB/SbA=;
+        b=J9jlCw41QAJCZkNSdlTyxA1UgdXcp64s9Ay/6CdVRV30v5wOb1clCfWudeYfJxg/C5
+         dmPCra9Ho/F+zYeaTcII3EJC0tZoImF/0WF87GOGNMEi3RlCIuxOt7Xtw7eZbqI4lH7o
+         urG8QZGJOsiNbLL/SWYNJ7EBRTiONtY6hvAf7TutWcuzXoMa8dSb3195wfWffNlXZP18
+         W/CcFGAyuiLB1cfDDdO1Q+kHLGrmowHcsZjG0TfciQN1swxbWZq7AiSUlg3ZAvLE7nSr
+         DsHjwwRXH+c1fnF5CT61QoSH++/nPW+M3/dbOPcv+XnoSdkmct2seSFYoTvWRMlsimgw
+         uMbg==
+X-Gm-Message-State: AOJu0YwYg/oCbvu4WAryUgSZoxfhrJqlQh0UsQh0R7zzcBHgi9i0VeV/
+	6v8UNi0J23C0PhDkRXZBjPMVOLGHBQBaXZ15hqGd5LZK+hEJ6IQo/OMJv55VoK4=
+X-Google-Smtp-Source: AGHT+IHy4GzO3XZd4HD9UcdrSM0dak1uGWem4KVfsBnprBVTeTpNjY5oiBcLtmKhLn5kTTgKev+C2w==
+X-Received: by 2002:adf:e68e:0:b0:34d:95e2:c5cb with SMTP id ffacd0b85a97d-34fca14b375mr3287726f8f.3.1715242986453;
+        Thu, 09 May 2024 01:23:06 -0700 (PDT)
+Date: Thu, 9 May 2024 10:23:05 +0200
 From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Julien Grall <julien@xen.org>
-Cc: Luca Fancellu <Luca.Fancellu@arm.com>,
-	Xen-devel <xen-devel@lists.xenproject.org>,
-	Penny Zheng <Penny.Zheng@arm.com>,
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: xen-devel@lists.xenproject.org, Anthony PERARD <anthony@xenproject.org>,
+	Juergen Gross <jgross@suse.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
 	Stefano Stabellini <sstabellini@kernel.org>,
-	Bertrand Marquis <Bertrand.Marquis@arm.com>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: Re: [PATCH 3/7] xen/p2m: put reference for superpage
-Message-ID: <ZjyFxrvHJ04ZlBGg@macbook>
-References: <20240423082532.776623-1-luca.fancellu@arm.com>
- <20240423082532.776623-4-luca.fancellu@arm.com>
- <b7d1d40b-c634-4830-aa4b-b0475bdff8fc@xen.org>
- <9F196831-D294-4227-B86F-E8EEACB5B076@arm.com>
- <0857d348-1305-40d2-9596-e0e5f4490c4a@xen.org>
- <64648f8c-3eea-47c5-bdc5-6d4fc6531c60@xen.org>
+	"Daniel P. Smith" <dpsmith@apertussolutions.com>,
+	Tamas K Lengyel <tamas@tklengyel.com>,
+	Petr =?utf-8?B?QmVuZcWh?= <w1benny@gmail.com>
+Subject: Re: [PATCH for-4.19 v2 2/3] xen/x86: enable altp2m at create domain
+ domctl
+Message-ID: <ZjyH6f-diiqLO-0D@macbook>
+References: <20240508112323.38946-1-roger.pau@citrix.com>
+ <20240508112323.38946-3-roger.pau@citrix.com>
+ <d43a704a-fd2a-4778-9250-a69b483016b4@citrix.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <64648f8c-3eea-47c5-bdc5-6d4fc6531c60@xen.org>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <d43a704a-fd2a-4778-9250-a69b483016b4@citrix.com>
 
-On Wed, May 08, 2024 at 11:11:04PM +0100, Julien Grall wrote:
-> Hi,
+On Wed, May 08, 2024 at 08:38:07PM +0100, Andrew Cooper wrote:
+> On 08/05/2024 12:23 pm, Roger Pau Monne wrote:
+> > Enabling it using an HVM param is fragile, and complicates the logic when
+> > deciding whether options that interact with altp2m can also be enabled.
+> >
+> > Leave the HVM param value for consumption by the guest, but prevent it from
+> > being set.  Enabling is now done using the misc_flags field in
+> > xen_arch_domainconfig.
+> >
+> > Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+> > ---
+> > Changes since v1:
+> >  - New in this version.
 > 
-> CC-ing Roger as he is working on adding support for the foreign mapping on
-> x86. Although, I am not expecting any implication as only 4KB mapping should
-> be supported.
-
-I don't think we have plans on x86 to support foreign mappings with
-order != 0 ATM.
-
-We would need a new interface to allow creating such mappings, and
-it's also not clear to me how the domain that creates such mappings
-can identify super-pages on the remote domain.  IOW: the mapping
-domain could request a super-page in the foreign domain gfn space,
-but that could end up being a range of lower order mappings.
-
-Also the interactions with the remote domain would need to be audited,
-as the remote domain shattering the superpage would need to be
-replicated in the mapping side in order to account for the changes.
-
-> On 08/05/2024 22:05, Julien Grall wrote:
-> > On 07/05/2024 14:30, Luca Fancellu wrote:
-> > > > On 7 May 2024, at 14:20, Julien Grall <julien@xen.org> wrote:
-> > > > 
-> > > > Hi Luca,
-> > > > 
-> > > > On 23/04/2024 09:25, Luca Fancellu wrote:
-> > > > > From: Penny Zheng <Penny.Zheng@arm.com>
-> > > > > But today, p2m_put_l3_page could not handle superpages.
-> > > > 
-> > > > This was done on purpose. Xen is not preemptible and therefore
-> > > > we need to be cautious how much work is done within the p2m
-> > > > code.
-> > > > 
-> > > > With the below proposal, for 1GB mapping, we may end up to call
-> > > > put_page() up to 512 * 512 = 262144 times. put_page() can free
-> > > > memory. This could be a very long operation.
-> > > > 
-> > > > Have you benchmark how long it would take?
-> > > 
-> > > I did not, since its purpose was unclear to me and was not commented
-> > > in the last serie from Penny.
-> > 
-> > Honestly, I can't remember why it wasn't commented.
+> Ha.  So this is actually work that Petr has been wanting to do.
 > 
-> I skimmed through the code to check what we currently do for preemption.
+> Petr has a series hoping to make it into 4.19 (x86: Make MAX_ALTP2M
+> configurable), which just missed out on this side of things.
 > 
-> {decrease, increase}_reservation() will allow to handle max_order() mapping
-> at the time. On a default configuration, the max would be 4MB.
+> altp2m is not architecture specific at all, and there's even support for
+> ARM out on the mailing list.  Therefore, the altp2m mode wants to be
+> common, just like the new MAX_ALTP2M setting already is.
+
+Initially I had it as a set of XEN_DOMCTL_CDF_* flags, but it wasn't
+clear to me whether the modes could be shared between arches.
+
+> Both fields can reasonably share uint32_t, but could you work with Petr
+> to make both halfs of this land cleanly.
+
+I'm happy for Petr to pick this patch as part of the series if he
+feels like.
+
+I assume the plan would be to add an XEN_DOMCTL_CDF_altp2m flag, and
+then a new field to signal the mode.
+
 > 
-> relinquish_p2m_mapping() is preempting every 512 iterations. One iteration
-> is either a 4KB/2MB/1GB mapping.
+> As to the HVMPARAM, I'd really quite like to delete it.  It was always a
+> bodge, and there's a full set of HVMOP_altp2m_* for a guest to use.
+
+I've assumed we must keep HVM_PARAM_ALTP2M for backwards
+compatibility.
+
+> > diff --git a/xen/arch/x86/domain.c b/xen/arch/x86/domain.c
+> > index 20e83cf38bbd..dff790060605 100644
+> > --- a/xen/arch/x86/domain.c
+> > +++ b/xen/arch/x86/domain.c
+> > @@ -708,13 +711,33 @@ int arch_sanitise_domain_config(struct xen_domctl_createdomain *config)
+> >          }
+> >      }
+> >  
+> > -    if ( config->arch.misc_flags & ~XEN_X86_MSR_RELAXED )
+> > +    if ( config->arch.misc_flags & ~XEN_X86_MISC_FLAGS_ALL )
+> >      {
+> >          dprintk(XENLOG_INFO, "Invalid arch misc flags %#x\n",
+> >                  config->arch.misc_flags);
+> >          return -EINVAL;
+> >      }
+> >  
+> > +    if ( altp2m && (altp2m & (altp2m - 1)) )
+> > +    {
+> > +        dprintk(XENLOG_INFO, "Multiple altp2m options selected in flags: %#x\n",
+> > +                config->flags);
+> > +        return -EINVAL;
 > 
-> relinquish_memory() is checking for preemption after every page.
+> I think this would be clearer to follow by having a 2 bit field called
+> altp2m_mode and check for <= 2.
+
+Don't we need 3 bits, for mixed, external and limited modes?
+
+We could do with 2 bits if we signal altp2m enabled in a different
+field, and then introduce a field to just contain the mode.
+
+FWIW, the check should be `if ( altp2m & (altp2m - 1) )`.  I had
+updated this, but seems like I missed to re-generate the patches.
+
+> > +    }
+> > +
+> > +    if ( altp2m && nested_virt )
+> > +    {
+> > +        dprintk(XENLOG_INFO,
+> > +                "Nested virt and altp2m are mutually incompatible\n");
 > 
-> So I think, it would be ok to allow 2MB mapping for static shared memory but
-> not 1GB. relinquish_p2m_mapping() would also needs to be updated to take
-> into account the larger foreign mapping.
+> There's nothing inherently incompatible.  I think it's more that noone
+> had any interest in trying to make it work in combination with nested p2ms.
+> 
+> I'd phrase it as "not supported", rather than incompatible.
 
-FWIW, relinquish_p2m_mapping() likely does more than what's strictly
-needed, as you could just remove foreign mappings while leaving other
-entries as-is?  The drain of the p2m pool and release of domain pages
-should take care of dropping references to the RAM domain memory?
+"Nested virt and altp2m are not supported together\n"
 
-> I would consider to check for preemption if 't' is p2m_map_foreign and the
-> order is above 9 (i.e. 2MB).
+> > +        return -EINVAL;
+> > +    }
+> > +
+> > +    if ( altp2m && !hap )
+> > +    {
+> > +        dprintk(XENLOG_INFO, "altp2m requires HAP\n");
+> > +        return -EINVAL;
+> > +    }
+> 
+> altp2m ought to work fine with shadow.  It's only if you want VMFUNC/#VE
+> acceleration that you depend on EPT.
+> 
+> Again, I'd phrase this as "not supported".
 
-How can those mappings be removed?  Is it possible for the guest to
-modify such foreign super-pages?  Not sure all paths will be easy to
-audit for preemption if it's more than relinquish_p2m_mapping() that
-you need to adjust.
+"altp2m is only supported with HAP\n"
 
-Regards, Roger.
+To avoid the double negation of "not supported without HAP" wording.
+
+Thanks, Roger.
 
