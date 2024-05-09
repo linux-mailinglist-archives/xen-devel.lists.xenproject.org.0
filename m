@@ -2,35 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 872168C0F0A
-	for <lists+xen-devel@lfdr.de>; Thu,  9 May 2024 13:56:10 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.719203.1121820 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5F6968C0F28
+	for <lists+xen-devel@lfdr.de>; Thu,  9 May 2024 14:04:43 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.719222.1121830 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s52Me-0002vO-M6; Thu, 09 May 2024 11:55:08 +0000
+	id 1s52VV-0004tI-Sf; Thu, 09 May 2024 12:04:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 719203.1121820; Thu, 09 May 2024 11:55:08 +0000
+Received: by outflank-mailman (output) from mailman id 719222.1121830; Thu, 09 May 2024 12:04:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s52Me-0002ta-IA; Thu, 09 May 2024 11:55:08 +0000
-Received: by outflank-mailman (input) for mailman id 719203;
- Thu, 09 May 2024 11:55:06 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1s52Mc-0002tQ-M5; Thu, 09 May 2024 11:55:06 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1s52Mc-0000gM-GN; Thu, 09 May 2024 11:55:06 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1s52Mc-0003Mc-3D; Thu, 09 May 2024 11:55:06 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1s52Mc-0006G8-2l; Thu, 09 May 2024 11:55:06 +0000
+	id 1s52VV-0004rd-Pq; Thu, 09 May 2024 12:04:17 +0000
+Received: by outflank-mailman (input) for mailman id 719222;
+ Thu, 09 May 2024 12:04:17 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=Y+Ct=MM=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
+ id 1s52VV-0004rW-1t
+ for xen-devel@lists.xenproject.org; Thu, 09 May 2024 12:04:17 +0000
+Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 4122a765-0dfc-11ef-b4bb-af5377834399;
+ Thu, 09 May 2024 14:04:14 +0200 (CEST)
+Received: from nico.bugseng.com.homenet.telecomitalia.it
+ (host-79-60-221-62.business.telecomitalia.it [79.60.221.62])
+ by support.bugseng.com (Postfix) with ESMTPSA id C863E4EE0737;
+ Thu,  9 May 2024 14:04:11 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,86 +40,46 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=Uxv+GBF4m+k4HOeRiV8H2in+o9E6Vna+EEyKizIGiX8=; b=6MJ8YXmNS00tQ7E8M5OpjqAW7J
-	ASocXYst7nRzqL+vdrLxPHEFLvFbRUtSqYagCoglYJW1pOCiBmWjtD6xH24VgBYOYjJbYq4/VN908
-	VM3+enC9Yk+Q+lG5JTh5eNmjHZEeM/uA2Q9vo05s1l0pnLsnLfVBzOoAJH+JnnmjFRdM=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-185954-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 4122a765-0dfc-11ef-b4bb-af5377834399
+From: Nicola Vetrini <nicola.vetrini@bugseng.com>
+To: xen-devel@lists.xenproject.org,
+	nicola.vetrini@bugseng.com
+Cc: sstabellini@kernel.org,
+	michal.orzel@amd.com,
+	xenia.ragiadakou@amd.com,
+	ayan.kumar.halder@amd.com,
+	consulting@bugseng.com,
+	Simone Ballarin <simone.ballarin@bugseng.com>,
+	Doug Goldstein <cardoe@cardoe.com>
+Subject: [XEN PATCH] automation/eclair_analysis: tag MISRA C Rule 8.2 as clean.
+Date: Thu,  9 May 2024 14:04:07 +0200
+Message-Id: <8d29601a2aa1a371daadc024752b7a24f200fab4.1715256189.git.nicola.vetrini@bugseng.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 185954: tolerable all pass - PUSHED
-X-Osstest-Failures:
-    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=e8e8afee990ae74a4d2797ddae1b58a4e03912b5
-X-Osstest-Versions-That:
-    xen=a2330b51df267e20e66bbba6c5bf08f0570ed58b
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Thu, 09 May 2024 11:55:06 +0000
+Content-Transfer-Encoding: 8bit
 
-flight 185954 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/185954/
+Tag the rule as clean, as there are no more violations in the codebase
+since e8e8afee990a ("svm: Fix MISRA 8.2 violation").
 
-Failures :-/ but no regressions.
+Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
+---
+ automation/eclair_analysis/ECLAIR/tagging.ecl | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+diff --git a/automation/eclair_analysis/ECLAIR/tagging.ecl b/automation/eclair_analysis/ECLAIR/tagging.ecl
+index bdf94ed99676..a014500a4118 100644
+--- a/automation/eclair_analysis/ECLAIR/tagging.ecl
++++ b/automation/eclair_analysis/ECLAIR/tagging.ecl
+@@ -19,7 +19,7 @@
+ 
+ -doc_begin="Clean guidelines: new violations for these guidelines are not accepted."
+ 
+--service_selector={clean_guidelines_common,"MC3R1.D1.1||MC3R1.D2.1||MC3R1.D4.1||MC3R1.D4.11||MC3R1.D4.14||MC3R1.R11.7||MC3R1.R11.9||MC3R1.R12.5||MC3R1.R1.3||MC3R1.R1.4||MC3R1.R14.1||MC3R1.R16.7||MC3R1.R17.1||MC3R1.R17.3||MC3R1.R17.4||MC3R1.R17.5||MC3R1.R17.6||MC3R1.R20.13||MC3R1.R20.14||MC3R1.R20.4||MC3R1.R20.9||MC3R1.R21.13||MC3R1.R21.19||MC3R1.R21.21||MC3R1.R2.2||MC3R1.R22.2||MC3R1.R22.4||MC3R1.R22.5||MC3R1.R22.6||MC3R1.R2.6||MC3R1.R3.1||MC3R1.R3.2||MC3R1.R4.1||MC3R1.R4.2||MC3R1.R5.1||MC3R1.R5.2||MC3R1.R5.4||MC3R1.R5.6||MC3R1.R6.1||MC3R1.R6.2||MC3R1.R7.1||MC3R1.R7.2||MC3R1.R7.4||MC3R1.R8.1||MC3R1.R8.10||MC3R1.R8.12||MC3R1.R8.14||MC3R1.R8.5||MC3R1.R8.6||MC3R1.R8.8||MC3R1.R9.2||MC3R1.R9.3||MC3R1.R9.4||MC3R1.R9.5"
++-service_selector={clean_guidelines_common,"MC3R1.D1.1||MC3R1.D2.1||MC3R1.D4.1||MC3R1.D4.11||MC3R1.D4.14||MC3R1.R11.7||MC3R1.R11.9||MC3R1.R12.5||MC3R1.R1.3||MC3R1.R1.4||MC3R1.R14.1||MC3R1.R16.7||MC3R1.R17.1||MC3R1.R17.3||MC3R1.R17.4||MC3R1.R17.5||MC3R1.R17.6||MC3R1.R20.13||MC3R1.R20.14||MC3R1.R20.4||MC3R1.R20.9||MC3R1.R21.13||MC3R1.R21.19||MC3R1.R21.21||MC3R1.R2.2||MC3R1.R22.2||MC3R1.R22.4||MC3R1.R22.5||MC3R1.R22.6||MC3R1.R2.6||MC3R1.R3.1||MC3R1.R3.2||MC3R1.R4.1||MC3R1.R4.2||MC3R1.R5.1||MC3R1.R5.2||MC3R1.R5.4||MC3R1.R5.6||MC3R1.R6.1||MC3R1.R6.2||MC3R1.R7.1||MC3R1.R7.2||MC3R1.R7.4||MC3R1.R8.1||MC3R1.R8.10||MC3R1.R8.12||MC3R1.R8.14||MC3R1.R8.2||MC3R1.R8.5||MC3R1.R8.6||MC3R1.R8.8||MC3R1.R9.2||MC3R1.R9.3||MC3R1.R9.4||MC3R1.R9.5"
+ }
+ 
+ -setq=target,getenv("XEN_TARGET_ARCH")
+-- 
+2.34.1
 
-version targeted for testing:
- xen                  e8e8afee990ae74a4d2797ddae1b58a4e03912b5
-baseline version:
- xen                  a2330b51df267e20e66bbba6c5bf08f0570ed58b
-
-Last test of basis   185939  2024-05-07 17:03:58 Z    1 days
-Testing same since   185954  2024-05-09 09:04:07 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Andrew Cooper <andrew.cooper3@citrix.com>
-  George Dunlap <george.dunlap@cloud.com>
-  Jan Beulich <jbeulich@suse.com>
-
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/xen.git
-   a2330b51df..e8e8afee99  e8e8afee990ae74a4d2797ddae1b58a4e03912b5 -> smoke
 
