@@ -2,52 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 778538C1208
-	for <lists+xen-devel@lfdr.de>; Thu,  9 May 2024 17:32:44 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.719296.1121963 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 275618C120F
+	for <lists+xen-devel@lfdr.de>; Thu,  9 May 2024 17:36:42 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.719300.1121972 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s55kb-0005yU-Cs; Thu, 09 May 2024 15:32:05 +0000
+	id 1s55op-0006qr-TY; Thu, 09 May 2024 15:36:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 719296.1121963; Thu, 09 May 2024 15:32:05 +0000
+Received: by outflank-mailman (output) from mailman id 719300.1121972; Thu, 09 May 2024 15:36:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s55kb-0005wy-AF; Thu, 09 May 2024 15:32:05 +0000
-Received: by outflank-mailman (input) for mailman id 719296;
- Thu, 09 May 2024 15:32:03 +0000
+	id 1s55op-0006oJ-Qj; Thu, 09 May 2024 15:36:27 +0000
+Received: by outflank-mailman (input) for mailman id 719300;
+ Thu, 09 May 2024 15:36:26 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=fDZs=MM=amd.com=Xin.Wang2@srs-se1.protection.inumbo.net>)
- id 1s55kZ-0005ws-2h
- for xen-devel@lists.xenproject.org; Thu, 09 May 2024 15:32:03 +0000
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2060b.outbound.protection.outlook.com
- [2a01:111:f400:7e88::60b])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=1XlW=MM=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1s55oo-0006oD-L8
+ for xen-devel@lists.xenproject.org; Thu, 09 May 2024 15:36:26 +0000
+Received: from mail-qt1-x82e.google.com (mail-qt1-x82e.google.com
+ [2607:f8b0:4864:20::82e])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 465fe7db-0e19-11ef-b4bb-af5377834399;
- Thu, 09 May 2024 17:32:00 +0200 (CEST)
-Received: from MN2PR18CA0017.namprd18.prod.outlook.com (2603:10b6:208:23c::22)
- by CYXPR12MB9317.namprd12.prod.outlook.com (2603:10b6:930:e2::22)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7544.42; Thu, 9 May
- 2024 15:31:55 +0000
-Received: from MN1PEPF0000ECD5.namprd02.prod.outlook.com
- (2603:10b6:208:23c:cafe::94) by MN2PR18CA0017.outlook.office365.com
- (2603:10b6:208:23c::22) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7544.42 via Frontend
- Transport; Thu, 9 May 2024 15:31:55 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- MN1PEPF0000ECD5.mail.protection.outlook.com (10.167.242.133) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7544.18 via Frontend Transport; Thu, 9 May 2024 15:31:55 +0000
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Thu, 9 May
- 2024 10:31:54 -0500
-Received: from [172.31.100.92] (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.35 via Frontend
- Transport; Thu, 9 May 2024 10:31:52 -0500
+ id e45141c8-0e19-11ef-b4bb-af5377834399;
+ Thu, 09 May 2024 17:36:24 +0200 (CEST)
+Received: by mail-qt1-x82e.google.com with SMTP id
+ d75a77b69052e-434d0e3f213so5241671cf.3
+ for <xen-devel@lists.xenproject.org>; Thu, 09 May 2024 08:36:24 -0700 (PDT)
+Received: from [10.80.67.140] (default-46-102-197-194.interdsl.co.uk.
+ [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
+ d75a77b69052e-43df54f5e05sm9406931cf.32.2024.05.09.08.36.22
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 09 May 2024 08:36:23 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -59,240 +45,151 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 465fe7db-0e19-11ef-b4bb-af5377834399
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=kqSlTqQJhWSTeBw7QJsoO6jJH8hKkMiRYkwT0Xg2ExS6iqGYNvMq1BD2JPMsC1t2vE/c4QFTRDbjPnZirTeC/po+h4mdjO1QCy2etNJmCQH/Bq23wcdkQ0UNKpigmQrx/9lWk7xETOcfJLc4b1bdQGdzmIftRg6RLThS6ANDuV+Y8gjXiDUbFBLYfFPjF327u5nttn28oCoht/uoBnyPhth0XOLBMN10XjorLMn0D+2SOi7kDavCOuXDDFQzVDcnWWginjpUIhFuI7hJN0XVuKTZ5vu95JQgvbQ6IYaSckeUa1O0q8lxyVA+zshivTMIxL5p5MZl3bIZTs/lM3lRMA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=YcU+yZxf3EXhz/qPnftjxilBRj0xGQiRpjMhQXqU3TI=;
- b=HDrA7w7HWysUdHBlN+z2c4Sbf4a7wGn/5AG4OyQN6i17dD0rlzDPj/uZuC6GTYwriIfuO40IJZ7Wa+R04ayeT4qX3RQJA5A2UBaMQOCvQxHRIPO9Iv0UDd+GrSpKXjw/BgheWFy8DdRj+JvhbyYPe+8QFWqg7jALQcyvJs9lCWF7HGnbBgpClPxSn6MQ3bmGB2K4ORazrzVKnN8c+wwb2zpU/zE/vtVfcYIKJ6DYcj3rHezw49eC0qEfBilNfsMI0+6dm+dUODrAwdCdCSHh5IW/UJkfn9BAkN4sv5b1nXRZfk8/k8hRFmZytpeepqIQRZLq32tFYOj9k1bpnUU9IQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=xen.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=YcU+yZxf3EXhz/qPnftjxilBRj0xGQiRpjMhQXqU3TI=;
- b=1J79elJrvgl6DqgxtaEi431ii8FmkX34ohm+9iREOyivnTDUjd4WLnBcn/Hy1N0HCTG7ZRzMg4aP/BMa0Rr4iuAeuWhlwwYh+n2BxbS+gV0WB5iZ3Wix2JA1Y03iuHPKrWfgKrmmWbf4t9cSV3mV0LJLgqRKzjP9L1DH+vOx5H8=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Message-ID: <ff5e2477-ed5a-40cd-a592-5ceb3bc8f1f1@amd.com>
-Date: Thu, 9 May 2024 23:31:51 +0800
+X-Inumbo-ID: e45141c8-0e19-11ef-b4bb-af5377834399
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1715268983; x=1715873783; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=2rLhyY7+jFslnqo1KWFK3KBVrrUmsZ2Qd4R799lPfSc=;
+        b=NfC4ZJ9heSHMnlwRb/LIBb5dqtBmhiceGrJV8ICS3MMRyqQ8ILDGyfPj1siENCy52O
+         rPKTg8StJ5mLsifqYTGe3VZOPJooM4b0AF83PG2Ti8doBbCBpqUScFrc7mgaMkdxUvsz
+         22IZRIWHUPHoN+EEK2oF2WYZDNmLpDvDrzgsI=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1715268983; x=1715873783;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=2rLhyY7+jFslnqo1KWFK3KBVrrUmsZ2Qd4R799lPfSc=;
+        b=F6RExw2vMvPrZMLaosPT98zXGVjgfhGIe9G+yIKOhVfRb/Mkx8SFMxQrW9o1oDAkkk
+         ElJDNlveAfjbvnRLu590kMQJZjGOvikyvrfIg5/VIoM/e/eBqDvxJ1mTmVWsrNrsct2a
+         CYHNdIOhGHuh32xz2XipxkHzKLTcHleD1fS00dEEAEJDSMDZ6L85qNFZR22rC27xAQ20
+         R4Lxwp/q+aR5WXmzqdh0syHhufcf2uHpPE9hO5Ufse+E237A1xbcOwW2O0Ggc+dhkRdT
+         3IiyFFCTRIUJ/oClOdo3e8omNT5nEkeZQ0EE8LXnyl8xMs0+E9RwrKkD/Lk72E+PJKjq
+         kpAw==
+X-Forwarded-Encrypted: i=1; AJvYcCXT7dqgXBTbIB6VlO2uxWZgYB8KvMKzwLr27ZTNrhgkOKrIWeMVtTX1JbRNBNf4J9UYYBOiP88ooSVAWspMvjkvXvTSRuB/eVTBpNAaytg=
+X-Gm-Message-State: AOJu0YzN8tRRUcIBRFnfFB4qIilKXZ6qcoRUUTC6sPzLZqd0vQiXyNVH
+	GB9fdJ6jw53GFwfxkKLaF9BWUg0retvmun7CSBelbIlkw9pcQ1IyGGJOBdB6leg=
+X-Google-Smtp-Source: AGHT+IHgHOG4xtfch0vyDazppqDtgJeZdoSuZImSsyYfeQercExIaT1iKeCHt1AmD3iS0Klbc7vMZA==
+X-Received: by 2002:ac8:5d8f:0:b0:43a:ffa5:3f24 with SMTP id d75a77b69052e-43dbf74d77amr60079061cf.58.1715268983385;
+        Thu, 09 May 2024 08:36:23 -0700 (PDT)
+Message-ID: <5bf22886-08a1-459d-939e-008f2c1836ea@citrix.com>
+Date: Thu, 9 May 2024 16:36:21 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 02/15] xen/arm/gic: Enable interrupt assignment to running
- VM
-To: Julien Grall <julien@xen.org>, <xen-devel@lists.xenproject.org>
-CC: Stefano Stabellini <sstabellini@kernel.org>, Bertrand Marquis
-	<bertrand.marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>, "Volodymyr
- Babchuk" <Volodymyr_Babchuk@epam.com>, Stefano Stabellini
-	<stefano.stabellini@xilinx.com>
-References: <20240424033449.168398-1-xin.wang2@amd.com>
- <20240424033449.168398-3-xin.wang2@amd.com>
- <670d1033-2443-4245-8ff1-cb7099a7c793@xen.org>
- <70c5a593-9ac5-485b-be81-b789562249d8@amd.com>
- <5ba38b7b-16b1-489b-ad55-083504690bbd@xen.org>
- <1a29ae76-a902-4a24-8fd1-ac26ef228971@amd.com>
- <365e1b12-6b20-40ed-8ca9-beb643c907ab@xen.org>
- <145e4192-3113-415f-876c-e67145d1d5c9@amd.com>
- <f30f7599-6bcd-4b8d-bd1f-6afde18c14c8@xen.org>
- <8957ab21-796f-4e15-a89e-d040e6f7b5ca@amd.com>
- <995ce39d-6a04-4bdc-bfe8-bcef3da24cc2@xen.org>
-Content-Language: en-US
-From: Henry Wang <xin.wang2@amd.com>
-In-Reply-To: <995ce39d-6a04-4bdc-bfe8-bcef3da24cc2@xen.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
+Subject: Re: [PATCH v3 0/8] Clean up of gzip decompressor
+To: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+ xen-devel@lists.xenproject.org
+Cc: Jason Andryuk <jason.andryuk@amd.com>,
+ George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>
+References: <20240424163422.23276-1-dpsmith@apertussolutions.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <20240424163422.23276-1-dpsmith@apertussolutions.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Received-SPF: None (SATLEXMB04.amd.com: xin.wang2@amd.com does not designate
- permitted sender hosts)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN1PEPF0000ECD5:EE_|CYXPR12MB9317:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2bbe64f3-168a-48eb-42b1-08dc703d2863
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230031|376005|1800799015|82310400017|36860700004;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?aXI1TGZrSC85VklyOU9tbVc2cGZxaEo5TkMzMk5ybVh4SmVPVEJjYUVuYmIy?=
- =?utf-8?B?cmRHUnplaG1RcXpMbXNHcEs3c1o2Qi9KZjhCZ2xSNEF6VW1mRmhmT0ZGUUt3?=
- =?utf-8?B?Smt1ZUlacXJ2Y2ttQVA2ZTJGclE3Y1Zsd01ZMHNFUzAzSUg2VnJpWkhIV3Vy?=
- =?utf-8?B?QTJIY0gvaTliTTNJdGZaUHh3Q2RucGJTQVhVUnpMZVkzZ2VaK2FmQkpnL0tR?=
- =?utf-8?B?ZStQVlAzMHIvT3lHbjRTOExFOW5RWjJUNEQ4VnhQMWhWSEVnRC9qUDFWTTBT?=
- =?utf-8?B?RlU5WnIvVnAwUU5ITjZrbVpkUW55T2dLamttdUhET3UxWlE4czJ6WkRpOGFr?=
- =?utf-8?B?dmVTVHJ0R04zMWhHczBrRHlzVGM2Q1duVFI4VktQbFRnaVV5T0NCU2VCSmlG?=
- =?utf-8?B?MzFuNDhwK0JuTG9qS2owbVBuWXB1a2FrVHJTK3duRDNDaVQ5OVFPL0laWWpH?=
- =?utf-8?B?ZTc3dkN1ZEpwaGRKeXpYYm5BSkh4SHJqalNNZm1VMWxtaEZHSUdFUHpoQTBj?=
- =?utf-8?B?U1NaMVhER1M5VEZMQmF2Z0M5OVhBRTJaVXJuVEJOdis2SURtcU1yd2hoZFJi?=
- =?utf-8?B?YndpTzBoanZZZFBHV3ZsaDFsemdvTmdRNjQzSXplaHNpdmFMT0tlbCtCRVQx?=
- =?utf-8?B?SUgzYnIybDMwTUJSY1hUaUNwQXQxMG9CZG9RYnpxQWFDbzRadDNiWUdlL2V2?=
- =?utf-8?B?NmhaRk9ENXROTkhqWjZiYnVLVVV6TldZUGpWbnkzWjUxWHpNakxscFBYWU8v?=
- =?utf-8?B?Y041Rjg3NUR1ZktCZ3ppTU1pYmd4MVE0ZmduVC9CRmtJNEs1djQ1ZEZGVVh3?=
- =?utf-8?B?NG5KSWJ0emJrQXk2dTA0ZGFoRjBmVEVEYlFwa1hvMWVWWE5BNUpLRDBHWG0v?=
- =?utf-8?B?VVFEZGNnRnA1cmNoMkc5dkppK09RYnZxTS9qSUhqQ05oZGV6TUNOZG1vZWZP?=
- =?utf-8?B?c2tBNkNqQWRycmpDYmEwdFRBaVNVNGpyNVVQTE52SXNaNlNFWlBIRitKeTd1?=
- =?utf-8?B?STM3VEJ3Q2poUlpZaS9DV1drd3MvRWNSQ3N0UlBDSDZoVjVtNys1NDJuYnFO?=
- =?utf-8?B?RWVWbWFDdlNVUVJZZ1ovUU5wcXhjUm9jdm1IY1h0Z1ZyMEw5LzRZYVlRUGRv?=
- =?utf-8?B?WitVeDU4QUEvQ1M4d0tHRGNxQmxZN1huVmM5VHJlK1lHRFdzWk0wMDVMamJn?=
- =?utf-8?B?N2w5WGtKL2hPWjNvQ2YrT0VhNWZ1aWJZRXFWUU83aXJyclJ2ZUJWdW5CNlNn?=
- =?utf-8?B?eklhREFod1RReDVoblQ3dEdSNnpCWkhTTU45eFQ0WVlScG53elBobTF3M1ZE?=
- =?utf-8?B?amxXY1VuZ1VKSzcyVm84SXlEdmpuc1ZQR0tuTEVWM0MzckV0cmViOE9CN2RM?=
- =?utf-8?B?d0hKY2NyS2xHNmJGM1BZSlhsNmd5K0l4NDg2TWNFRDE2M2VNelFHOVM0clcy?=
- =?utf-8?B?WS9TU0ZPNHRsTVRsWmlBZUtzWmlIbDR0dFNkZjQrcUY2OEoyeUNvUWhJVzFV?=
- =?utf-8?B?UTVsckNNNm5NY2xrR1BKVUZvVUdTeXRGeU1kcVoyZ3lDRnBmVzhuUFpzeDJZ?=
- =?utf-8?B?a3RzNWFwSWIwOUk5VndlalJOb1lYeE5oS005RHBxVHRlbEZETHFlRXpPWHJk?=
- =?utf-8?B?YmRROHlRSlBZMC9jMTV2TTliR1RHVjBqVXVrblkxeXBwUFpYNlF1Ym8wemcr?=
- =?utf-8?B?TktQMzB4cHZVQU9EU3dqTDJYdHM3K2lZSTdYVlBmZ3FrU2JDandPMExlMDZo?=
- =?utf-8?B?UXUvbGZpUzB6ZEtlNTJabUl3aTVJRDYvN0lxM2kzYVJ6SC90a2VleHRVYnNY?=
- =?utf-8?B?VzA4TlVtNDlQWkxOMjJ4WFBSL0JpeHhwenZEQWwvSWRWTm5NUWNDM1VJZEpt?=
- =?utf-8?Q?M8dzwU6Krfb3u?=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(376005)(1800799015)(82310400017)(36860700004);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 May 2024 15:31:55.2208
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2bbe64f3-168a-48eb-42b1-08dc703d2863
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	MN1PEPF0000ECD5.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CYXPR12MB9317
 
-Hi Julien,
-
-On 5/9/2024 4:46 AM, Julien Grall wrote:
-> Hi Henry,
-> [...]
+On 24/04/2024 5:34 pm, Daniel P. Smith wrote:
+> An issue ran into by hyperlaunch was the need to use the gzip decompressor
+> multiple times. The current implementation fails when reused due to tainting of
+> decompressor state from a previous usage. This series seeks to colocate the
+> gzip unit files under a single directory similar to the other decompression
+> algorithms.  To enable the refactoring of the state tracking, the code is then
+> cleaned up in line with Xen coding style.
 >
->>>> we have 3 possible states which can be read from LR for this case : 
->>>> active, pending, pending and active.
->>>> - I don't think we can do anything about the active state, so we 
->>>> should return -EBUSY and reject the whole operation of removing the 
->>>> IRQ from running guest, and user can always retry this operation.
->>>
->>> This would mean a malicious/buggy guest would be able to prevent a 
->>> device to be de-assigned. This is not a good idea in particular when 
->>> the domain is dying.
->>>
->>> That said, I think you can handle this case. The LR has a bit to 
->>> indicate whether the pIRQ needs to be EOIed. You can clear it and 
->>> this would prevent the guest to touch the pIRQ. There might be other 
->>> clean-up to do in the vGIC datastructure.
->>
->> I probably misunderstood this sentence, do you mean the EOI bit in 
->> the pINTID field? I think this bit is only available when the HW bit 
->> of LR is 0, but in our case the HW is supposed to be 1 (as indicated 
->> as your previous comment). Would you mind clarifying a bit more? Thanks!
+> Changes in v3:
+> - patch "xen/gzip: Drop huffman code table tracking" was merged
+> - patch "xen/gzip: Remove custom memory allocator" was merged
+> - patch "xen/gzip: Drop unused define checks" was merged
+> - move of the decompressor state into struct was broken up to ease review
+> - expanded macros that were either only used once or obsfucated the logic
+> - adjusted variable types as needed to be more appropriate for their usage
 >
-> You are right, ICH_LR.HW will be 1 for physical IRQ routed to a guest. 
-> What I was trying to explain is this bit could be cleared (with 
-> ICH_LR.pINTD adjusted).
-
-Thank you for all the discussions. Based on that, would below diff make 
-sense to you? I did a test of the dynamic dtbo adding/removing with a 
-ethernet device with this patch applied. Test steps are:
-(1) Use xl dt-overlay to add the ethernet device to Xen device tree and 
-assign it to dom0.
-(2) Create a domU.
-(3) Use xl dt-overlay to de-assign the device from dom0 and assign it to 
-domU.
-(4) Destroy the domU.
-
-The ethernet device is functional in the domain respectively when it is 
-attached to a domain and I don't see errors when I destroy domU. But 
-honestly I think the case we talked about is a quite unusual case so I 
-am not sure if it was hit during my test.
-
-```
-diff --git a/xen/arch/arm/gic.c b/xen/arch/arm/gic.c
-index a775f886ed..d3f9cd2299 100644
---- a/xen/arch/arm/gic.c
-+++ b/xen/arch/arm/gic.c
-@@ -135,16 +135,6 @@ int gic_route_irq_to_guest(struct domain *d, 
-unsigned int virq,
-      ASSERT(virq < vgic_num_irqs(d));
-      ASSERT(!is_lpi(virq));
-
--    /*
--     * When routing an IRQ to guest, the virtual state is not synced
--     * back to the physical IRQ. To prevent get unsync, restrict the
--     * routing to when the Domain is been created.
--     */
--#ifndef CONFIG_OVERLAY_DTB
--    if ( d->creation_finished )
--        return -EBUSY;
--#endif
--
-      ret = vgic_connect_hw_irq(d, NULL, virq, desc, true);
-      if ( ret )
-          return ret;
-@@ -169,20 +159,40 @@ int gic_remove_irq_from_guest(struct domain *d, 
-unsigned int virq,
-      ASSERT(test_bit(_IRQ_GUEST, &desc->status));
-      ASSERT(!is_lpi(virq));
-
--    /*
--     * Removing an interrupt while the domain is running may have
--     * undesirable effect on the vGIC emulation.
--     */
--#ifndef CONFIG_OVERLAY_DTB
--    if ( !d->is_dying )
--        return -EBUSY;
--#endif
--
-      desc->handler->shutdown(desc);
-
-      /* EOI the IRQ if it has not been done by the guest */
-      if ( test_bit(_IRQ_INPROGRESS, &desc->status) )
-+    {
-+        /*
-+         * Handle the LR where the physical interrupt is de-assigned 
-from the
-+         * guest before it was EOIed
-+         */
-+        struct vcpu *v_target = vgic_get_target_vcpu(d->vcpu[0], virq);
-+        struct vgic_irq_rank *rank = vgic_rank_irq(v_target, virq);
-+        struct pending_irq *p = irq_to_pending(v_target, virq);
-+        unsigned long flags;
-+
-+        spin_lock_irqsave(&v_target->arch.vgic.lock, flags);
-+        /* LR allocated for the IRQ */
-+        if ( test_bit(GIC_IRQ_GUEST_ACTIVE, &p->status) &&
-+             test_bit(GIC_IRQ_GUEST_VISIBLE, &p->status) )
-+        {
-+            gic_hw_ops->clear_lr(p->lr);
-+            clear_bit(p->lr, &v_target->arch.lr_mask);
-+
-+            clear_bit(GIC_IRQ_GUEST_VISIBLE, &p->status);
-+            clear_bit(GIC_IRQ_GUEST_ACTIVE, &p->status);
-+            p->lr = GIC_INVALID_LR;
-+        }
-+        spin_unlock_irqrestore(&v_target->arch.vgic.lock, flags);
-+
-+        vgic_lock_rank(v_target, rank, flags);
-+        vgic_disable_irqs(v_target, (~rank->ienable) & rank->ienable, 
-rank->index);
-+        vgic_unlock_rank(v_target, rank, flags);
-+
-          gic_hw_ops->deactivate_irq(desc);
-+    }
-      clear_bit(_IRQ_INPROGRESS, &desc->status);
-
-      ret = vgic_connect_hw_irq(d, NULL, virq, desc, false);
-```
-
-Kind regards,
-Henry
-
+> Changes in v2:
+> - patch "xen/gzip: Colocate gunzip code files" was merged
+> - dropped ifdef chunks that are never enabled
+> - addressed formatting changes missed in v1
+> - replaced custom memory allocator with xalloc_bytes()
+> - renamed gzip_data to gzip_state
+> - moved gzip_state to being dynamically allocated
+> - changed crc table to the explicit size of uint32_t 
+> - instead of moving huffman tracking into state, dropped altogether
 >
-> Cheers,
 >
+> Daniel P. Smith (8):
+>   gzip: clean up comments and fix code alignment
+>   gzip: refactor and expand macros
+>   gzip: refactor the gunzip window into common state
+>   gzip: move window pointer into gunzip state
+>   gzip: move input buffer handling into gunzip state
+>   gzip: move output buffer into gunzip state
+>   gzip: move bitbuffer into gunzip state
+>   gzip: move crc state into gunzip state
 
+In hindsight my suggestion that lead to "refactor and expand macros"
+wasn't great.
+
+We want to keep the underrun labels for a future when the error handling
+isn't panic().  After that, expanding flush_window() is better folded
+into "refactor the gunzip window into common state" to reduce the churn.
+
+As that was my fault, and unpicking it is reasonably hard, and we're on
+a tight deadline for 4.19 now, I've gone ahead and unpicked this.
+
+Also I've rebased over Jan's patch addressing the memory leaks reported
+by Coverity, as the two sets of fixes collide, along with various other
+minor notes.
+
+I've conferred with Daniel who is happy with the aformentioned changes.
+
+This area of code still has a lot of work needing doing on it, but
+removing the use of global state is a concrete improvement in the status
+quo.
+
+~Andrew
 
