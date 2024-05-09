@@ -2,32 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 38BAD8C10BD
-	for <lists+xen-devel@lfdr.de>; Thu,  9 May 2024 16:00:30 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.719261.1121909 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0AF888C1111
+	for <lists+xen-devel@lfdr.de>; Thu,  9 May 2024 16:15:58 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.719271.1121920 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s54Jj-00082H-0p; Thu, 09 May 2024 14:00:15 +0000
+	id 1s54YX-0002JG-Dy; Thu, 09 May 2024 14:15:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 719261.1121909; Thu, 09 May 2024 14:00:14 +0000
+Received: by outflank-mailman (output) from mailman id 719271.1121920; Thu, 09 May 2024 14:15:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s54Ji-000807-Tr; Thu, 09 May 2024 14:00:14 +0000
-Received: by outflank-mailman (input) for mailman id 719261;
- Thu, 09 May 2024 14:00:12 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1s54YX-0002GW-Ar; Thu, 09 May 2024 14:15:33 +0000
+Received: by outflank-mailman (input) for mailman id 719271;
+ Thu, 09 May 2024 14:15:32 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=VSaB=MM=bugseng.com=alessandro.zucchelli@srs-se1.protection.inumbo.net>)
- id 1s54Jg-0007kd-NR
- for xen-devel@lists.xenproject.org; Thu, 09 May 2024 14:00:12 +0000
-Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 728e4f6c-0e0c-11ef-b4bb-af5377834399;
- Thu, 09 May 2024 16:00:09 +0200 (CEST)
-Received: from support.bugseng.com (support.bugseng.com [162.55.131.47])
- by support.bugseng.com (Postfix) with ESMTPA id 320A14EE0737;
- Thu,  9 May 2024 16:00:09 +0200 (CEST)
+ <SRS0=XcCC=MM=cloud.com=fouad.hilly@srs-se1.protection.inumbo.net>)
+ id 1s54YW-0002GQ-18
+ for xen-devel@lists.xenproject.org; Thu, 09 May 2024 14:15:32 +0000
+Received: from mail-lf1-x12c.google.com (mail-lf1-x12c.google.com
+ [2a00:1450:4864:20::12c])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 97d0bd2f-0e0e-11ef-909c-e314d9c70b13;
+ Thu, 09 May 2024 16:15:31 +0200 (CEST)
+Received: by mail-lf1-x12c.google.com with SMTP id
+ 2adb3069b0e04-51fea3031c3so1235561e87.0
+ for <xen-devel@lists.xenproject.org>; Thu, 09 May 2024 07:15:31 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,129 +40,141 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 728e4f6c-0e0c-11ef-b4bb-af5377834399
+X-Inumbo-ID: 97d0bd2f-0e0e-11ef-909c-e314d9c70b13
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cloud.com; s=cloud; t=1715264130; x=1715868930; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=VUygLG8Ses1pT2iZk/dTdvQs7OObxOc8EGqow86X2rY=;
+        b=VP1yNcSK4LMF8Wf2fbhjQCTON7rnLSy2Vb4c2hEMCNcqVHF4vOLAUVliEblz8HiEW8
+         3sUw88Fb2AOoPCc8Tw9i8ddXlLXFpjjUT5eFzaqpcYvNl0VaasT6tV/Q+GGGYImCDWYR
+         NlMb14hIoVlv6tc7hp1WQ+Gn2rd+neSJSOZto=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1715264130; x=1715868930;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=VUygLG8Ses1pT2iZk/dTdvQs7OObxOc8EGqow86X2rY=;
+        b=goeof3RmIL6kmWZ5MQcUzoASx3yaHTB6D66kOPqhFpOxKLAbM74z5MdHnSAS6NN9qK
+         bLAYDRtStI5Yw5WCu5raR+ITQwe9luKLSKkADHiw+OBqxrRglOCg271McvgKXGl8TvMk
+         Z6fRimWBSjUbJFtMmzoWPQBJu7U0O8pvUVpV+upe1/7AijDDpKzBwlYYIVWuxvTPeU8q
+         CTWioMD0yOejHL8sy0Uqh5HQyZv665FZal71ESLNaiHyjq+vPyRktEfUOE0SbBbdtqcJ
+         dNm/OkwoQoc2CcYJ7REBcdwizXjYQiKPiVR5vvyqcYjHK7XmiRoqlFyYgL2xQXFX0Szg
+         gi2w==
+X-Forwarded-Encrypted: i=1; AJvYcCVB38tEqIAvxuX36QEUjoiHwHDpjjBgiddsaJODK2zLQtDtP5Wdhyn9DZUXZtqq09mW3vO0fo59skjRsK48vQKDAigRAKsgU/bvmY8GqGI=
+X-Gm-Message-State: AOJu0Yz3AgnOZdvA/UWF74MswgTH0ICbShmqZRNhQU7p0rTA/hWHrTwm
+	0I7RhHASOe1sowU3zyw4cNSE0PH/crdrIuL0c9TbiHWyIdq7KiZW575dqgHu0Uq2Rp3G7Y8pEX5
+	ok5gFYdS4CwGqW7vHJRTdxNEWYrDmBPShl1/U/Q==
+X-Google-Smtp-Source: AGHT+IG6frklNvQith32cz7dXyVi0Wv1QJMUyFzHocct1cqIqBr1sJtZGXIwaQg+/Mq5eQejckewhWuldyAt1Fss0BM=
+X-Received: by 2002:a19:5f03:0:b0:521:e065:c6c6 with SMTP id
+ 2adb3069b0e04-521e065c97dmr2446474e87.53.1715264130570; Thu, 09 May 2024
+ 07:15:30 -0700 (PDT)
 MIME-Version: 1.0
-Date: Thu, 09 May 2024 16:00:09 +0200
-From: Alessandro Zucchelli <alessandro.zucchelli@bugseng.com>
-To: Julien Grall <julien@xen.org>
-Cc: xen-devel@lists.xenproject.org, consulting@bugseng.com, Stefano
- Stabellini <sstabellini@kernel.org>, Bertrand Marquis
- <bertrand.marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>, Volodymyr
- Babchuk <Volodymyr_Babchuk@epam.com>, Tamas K Lengyel <tamas@tklengyel.com>,
- Alexandru Isaila <aisaila@bitdefender.com>, Petre Pircalabu
- <ppircalabu@bitdefender.com>
-Subject: Re: [XEN PATCH v2] arm/mem_access: add conditional build of
- mem_access.c
-Reply-To: alessandro.zucchelli@bugseng.com
-Mail-Reply-To: alessandro.zucchelli@bugseng.com
-In-Reply-To: <4c63493b-3743-4d20-a5e2-5f1b3038a9c8@xen.org>
-References: <ad49a2006a6f19c2db1ff5eabb9ffd666693c4c5.1715250761.git.alessandro.zucchelli@bugseng.com>
- <4c63493b-3743-4d20-a5e2-5f1b3038a9c8@xen.org>
-Message-ID: <10ae9ea84866cc9678ac056c829c30ea@bugseng.com>
-X-Sender: alessandro.zucchelli@bugseng.com
-Organization: BUGSENG Srl
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20240430124709.865183-1-fouad.hilly@cloud.com>
+ <20240430124709.865183-3-fouad.hilly@cloud.com> <ec48e32a-30e5-45ab-8f11-7d3d6ce6122e@suse.com>
+In-Reply-To: <ec48e32a-30e5-45ab-8f11-7d3d6ce6122e@suse.com>
+From: Fouad Hilly <fouad.hilly@cloud.com>
+Date: Thu, 9 May 2024 15:15:17 +0100
+Message-ID: <CAJKAvHajhOy2SpYZk1G6MtiK1weL6cuD+bp8puY=o9XGkt0TAw@mail.gmail.com>
+Subject: Re: [PATCH v3 2/5] x86: Refactor microcode_update() hypercall with flags
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+	George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>, 
+	Stefano Stabellini <sstabellini@kernel.org>, Xen-devel <xen-devel@lists.xenproject.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 2024-05-09 12:52, Julien Grall wrote:
-> Hi,
-> 
-> On 09/05/2024 11:39, Alessandro Zucchelli wrote:
->> In order to comply to MISRA C:2012 Rule 8.4 for ARM asm/mem_access.h 
->> in
->> the case where MEM_ACCESS=n stubs are needed to allow the conditional
->> compilation of the users of this header.
-> 
-> I think you need to update the commit message given ...
-> 
->> 
->> Signed-off-by: Alessandro Zucchelli <alessandro.zucchelli@bugseng.com>
->> ---
->> Changes from v1:
->> Reverted preprocessor conditional changes to xen/mem_access.h;
->> added conditional build for xen/mem_access.c;
->> provided stubs for asm/mem_access.h functions.
->> ---
->>   xen/arch/arm/Makefile                 | 2 +-
->>   xen/arch/arm/include/asm/mem_access.h | 9 +++++++++
->>   2 files changed, 10 insertions(+), 1 deletion(-)
->> 
->> diff --git a/xen/arch/arm/Makefile b/xen/arch/arm/Makefile
->> index 7b1350e2ef..45dc29ea53 100644
->> --- a/xen/arch/arm/Makefile
->> +++ b/xen/arch/arm/Makefile
->> @@ -37,7 +37,7 @@ obj-$(CONFIG_IOREQ_SERVER) += ioreq.o
->>   obj-y += irq.o
->>   obj-y += kernel.init.o
->>   obj-$(CONFIG_LIVEPATCH) += livepatch.o
->> -obj-y += mem_access.o
->> +obj-$(CONFIG_MEM_ACCESS) += mem_access.o
-> 
-> ... this not only adding stub.
-> 
->>   obj-y += mm.o
->>   obj-y += monitor.o
->>   obj-y += p2m.o
->> diff --git a/xen/arch/arm/include/asm/mem_access.h 
->> b/xen/arch/arm/include/asm/mem_access.h
->> index 35ed0ad154..2f73172e39 100644
->> --- a/xen/arch/arm/include/asm/mem_access.h
->> +++ b/xen/arch/arm/include/asm/mem_access.h
->> @@ -17,6 +17,7 @@
->>   #ifndef _ASM_ARM_MEM_ACCESS_H
->>   #define _ASM_ARM_MEM_ACCESS_H
->>   +#include <xen/types.h>
-> 
-> Can you explain why this is needed?
+On Mon, May 6, 2024 at 10:14=E2=80=AFAM Jan Beulich <jbeulich@suse.com> wro=
+te:
+>
+> On 30.04.2024 14:47, Fouad Hilly wrote:
+> > @@ -633,12 +637,12 @@ static long cf_check microcode_update_helper(void=
+ *data)
+> >                                    microcode_cache);
+> >
+> >          if ( result !=3D NEW_UCODE &&
+> > -             !(opt_ucode_allow_same && result =3D=3D SAME_UCODE) )
+> > +             !((opt_ucode_allow_same || ucode_force_flag) && result =
+=3D=3D SAME_UCODE) )
+>
+> Why would "force" not also allow a downgrade?
 
-Without the inclusion of xen/types header NULL would be undefined.
+It should be allowed. Will be fixed in v4
 
-> Style: Newline here please.
-> 
->>   static inline
->>   bool p2m_mem_access_emulate_check(struct vcpu *v,
->>                                     const struct vm_event_st *rsp)
->> @@ -35,12 +36,20 @@ static inline bool 
->> p2m_mem_access_sanity_check(struct domain *d)
->>    * Send mem event based on the access. Boolean return value 
->> indicates if trap
->>    * needs to be injected into guest.
->>    */
->> +#ifdef CONFIG_MEM_ACCESS
->>   bool p2m_mem_access_check(paddr_t gpa, vaddr_t gla, const struct 
->> npfec npfec);
->>     struct page_info*
->>   p2m_mem_access_check_and_get_page(vaddr_t gva, unsigned long flag,
->>                                     const struct vcpu *v);
->> +#else
->>   +static inline bool p2m_mem_access_check(paddr_t gpa, vaddr_t gla, 
->> const struct npfec npfec) {return false;}
-> 
-> Coding style: The line is well over the 80 characters limit. Also we 
-> don't tend to provide the implementation of the stub in the single line 
-> if it is more than {}. So "{return false;}" should look like:
-> 
-> {
->    return false;
-> }
-> 
->> +
->> +static inline struct page_info*
->> +p2m_mem_access_check_and_get_page(vaddr_t gva, unsigned long flag,
->> +                                  const struct vcpu *v) {return 
->> NULL;}
-> 
-> Ditto.
-> 
->> +#endif /*CONFIG_MEM_ACCESS*/
->>   #endif /* _ASM_ARM_MEM_ACCESS_H */
->>     /*
+>
+> > @@ -708,11 +712,15 @@ static long cf_check microcode_update_helper(void=
+ *data)
+> >      return ret;
+> >  }
+> >
+> > -int microcode_update(XEN_GUEST_HANDLE(const_void) buf, unsigned long l=
+en)
+> > +int microcode_update(XEN_GUEST_HANDLE(const_void) buf,
+> > +                     unsigned long len, unsigned int flags)
+> >  {
+> >      int ret;
+> >      struct ucode_buf *buffer;
+> >
+> > +    if ( flags > 1 )
+>
+> How is one to connect this literal 1 with what is really meant here? Also
+> would be nice if this check fit with other similar checks we do, i.e.
+>
+>     if ( flags & ~XENPF_UCODE_FLAG_FORCE_SET )
+Will be done in v4
 
-Thanks for the feedback, I will soon provide the new version of the 
-patch with the requested stylistic changes and a clearer description.
--- 
-Alessandro Zucchelli, B.Sc.
+>
+> > +        return -EINVAL;
+> > +
+> >      if ( len !=3D (uint32_t)len )
+> >          return -E2BIG;
+>
+> As an aside: Isn't this dead code, with the respective hypercall interfac=
+e
+> struct fields (now) both being uint32_t?
 
-Software Engineer, BUGSENG (https://bugseng.com)
+Will be cleaned up in v4.
+>
+> > --- a/xen/arch/x86/platform_hypercall.c
+> > +++ b/xen/arch/x86/platform_hypercall.c
+> > @@ -311,7 +311,17 @@ ret_t do_platform_op(
+> >
+> >          guest_from_compat_handle(data, op->u.microcode.data);
+> >
+> > -        ret =3D microcode_update(data, op->u.microcode.length);
+> > +        ret =3D microcode_update(data, op->u.microcode.length, 0);
+> > +        break;
+> > +    }
+> > +
+> > +    case XENPF_microcode_update2:
+> > +    {
+> > +        XEN_GUEST_HANDLE(const_void) data;
+> > +
+> > +        guest_from_compat_handle(data, op->u.microcode2.data);
+> > +
+> > +        ret =3D microcode_update(data, op->u.microcode2.length, op->u.=
+microcode2.flags);
+>
+> Nit (style): Overlong line.
+>
+> > --- a/xen/include/public/platform.h
+> > +++ b/xen/include/public/platform.h
+> > @@ -624,6 +624,19 @@ struct xenpf_ucode_revision {
+> >  typedef struct xenpf_ucode_revision xenpf_ucode_revision_t;
+> >  DEFINE_XEN_GUEST_HANDLE(xenpf_ucode_revision_t);
+> >
+> > +/* Hypercall to microcode_update with flags */
+> > +#define XENPF_microcode_update2    66
+> > +struct xenpf_microcode_update2 {
+> > +    /* IN variables. */
+> > +    uint32_t flags;                   /* Flags to be passed with ucode=
+. */
+> > +/* Force to skip microcode version check when set */
+> > +#define XENPF_UCODE_FLAG_FORCE_SET     1
+>
+> Nit: What is "SET" in the identifier intended to mean?
+"SET" to be removed in v4.
+>
+> Jan
 
