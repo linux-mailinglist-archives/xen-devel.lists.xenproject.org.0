@@ -2,38 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 598868C0F2B
-	for <lists+xen-devel@lfdr.de>; Thu,  9 May 2024 14:07:18 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.719228.1121840 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DB18F8C0F64
+	for <lists+xen-devel@lfdr.de>; Thu,  9 May 2024 14:12:28 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.719232.1121850 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s52Y6-0005h9-9c; Thu, 09 May 2024 12:06:58 +0000
+	id 1s52d2-00079H-RR; Thu, 09 May 2024 12:12:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 719228.1121840; Thu, 09 May 2024 12:06:58 +0000
+Received: by outflank-mailman (output) from mailman id 719232.1121850; Thu, 09 May 2024 12:12:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s52Y6-0005eU-6V; Thu, 09 May 2024 12:06:58 +0000
-Received: by outflank-mailman (input) for mailman id 719228;
- Thu, 09 May 2024 12:06:57 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=1XlW=MM=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1s52Y5-0005eM-IH
- for xen-devel@lists.xenproject.org; Thu, 09 May 2024 12:06:57 +0000
-Received: from mail-qv1-xf2b.google.com (mail-qv1-xf2b.google.com
- [2607:f8b0:4864:20::f2b])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a12b58ca-0dfc-11ef-909c-e314d9c70b13;
- Thu, 09 May 2024 14:06:56 +0200 (CEST)
-Received: by mail-qv1-xf2b.google.com with SMTP id
- 6a1803df08f44-69b59c10720so3498266d6.3
- for <xen-devel@lists.xenproject.org>; Thu, 09 May 2024 05:06:56 -0700 (PDT)
-Received: from [10.80.67.140] (default-46-102-197-194.interdsl.co.uk.
- [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- 6a1803df08f44-6a15f194bf9sm6275516d6.58.2024.05.09.05.06.53
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 09 May 2024 05:06:54 -0700 (PDT)
+	id 1s52d2-00076Z-Ny; Thu, 09 May 2024 12:12:04 +0000
+Received: by outflank-mailman (input) for mailman id 719232;
+ Thu, 09 May 2024 12:12:03 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1s52d0-00076T-W5
+ for xen-devel@lists.xenproject.org; Thu, 09 May 2024 12:12:03 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1s52d0-0000zu-Mw; Thu, 09 May 2024 12:12:02 +0000
+Received: from [15.248.2.239] (helo=[10.24.67.31])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1s52d0-0005lf-B8; Thu, 09 May 2024 12:12:02 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,104 +39,101 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a12b58ca-0dfc-11ef-909c-e314d9c70b13
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1715256415; x=1715861215; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=95kgWf4VLs7wrXV+tckodQzFphNwJklB7/vg9y61p/o=;
-        b=fsfCiOl4KvsngiAYQY41IA/wjfWa0vJa+wxz4/8Yhjoi64w7IoaLdQn3THQc09qAD2
-         zxEqy3n2qFSECTt8ZRkArIurntNu0D9r1OPOCljg7Dya0BWd4z4yKZKGiMKliD1sUNro
-         7EguiCc5sZTk6s73zQNOPRDu5UnSLYndjnmfY=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1715256415; x=1715861215;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=95kgWf4VLs7wrXV+tckodQzFphNwJklB7/vg9y61p/o=;
-        b=jG5i+WnF9BO6mDVIEtNXouuQCDlmzA3M6Bs0yTn3jaHtJcWB6Ir9qpmbZU8foFq787
-         p1i1dBKUWg4JGYbj/fa5lTcTlNio/cO6tCAlcGk/xxgNRKC7uWixqiECmB83bXtVPG8R
-         9rtXfr/7vjXO/wJngECKT6ECUgfzVuKzJs+tNL5/5lp1/sfkGOEBpzA86gifeKPzf7Ft
-         WLNmVo6H6/NAULp5P52b0N2q+jZwj2LHyjf2IJppH/DfG4YFscIlF5O8RTkmk9tbPn84
-         C3oe+MKuP4ef23wqMxEe+vpFYj91Ms09gmwTd3MuE9LvWLStA000+sx+aVsnEedC+s4L
-         jOzw==
-X-Forwarded-Encrypted: i=1; AJvYcCV9oCnP+ChLcV5HcCo+BVTs3R7v8CpIQhcIi/QqeyZFDcEM4HDbe/8dIZbOiKqRbSPV8Nkz7+ot7IiR8EgN42upkxqK7Zow2S70u3Eb5dE=
-X-Gm-Message-State: AOJu0Yy3Z+4wVJQg1bUCXklyo4x4jdEmxwhk3zgbs0aFq1Dl8Lcqq/H7
-	XFSAX6XKUHTJmKjhi+kxowiGbxAA01GMFkid0g5fI1fLuwDDXEkKpBDyU3xB12Q=
-X-Google-Smtp-Source: AGHT+IGvV8YgQbPefaLWLHQDt/RnPz7je16Rw9Lc66leVr0Su0cm2wRAk5lDUfVi+JsgCZ2bLwaG8Q==
-X-Received: by 2002:ad4:5d4c:0:b0:696:a982:92a8 with SMTP id 6a1803df08f44-6a15143c76cmr69637136d6.3.1715256415353;
-        Thu, 09 May 2024 05:06:55 -0700 (PDT)
-Message-ID: <faea922f-05c9-4c5c-9503-ace9ad960a77@citrix.com>
-Date: Thu, 9 May 2024 13:06:52 +0100
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=rkPAf+otm3SjNAG5343agvv9UQeGDPXADvf0hs0GFd4=; b=DZzWHSLAi9fENydgKe3YbzY4us
+	NpgY/vE9Lc1InQanWHOOC6cJ/E1AU+cAWNeKQSDGgxhK7WH07rucuUVdo6nQm96CJqNGbVnM1ZEAJ
+	wDMYx01CLEa0X8hahkSsttRr+WWM3sIimFRUiCv5OyOztKVL0vaXiPGytw75wKve7mkc=;
+Message-ID: <37b842c7-c46e-4948-8139-a07bfc2a6f37@xen.org>
+Date: Thu, 9 May 2024 13:12:00 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH] automation/eclair_analysis: tag MISRA C Rule 8.2 as
- clean.
-To: Nicola Vetrini <nicola.vetrini@bugseng.com>,
- xen-devel@lists.xenproject.org
-Cc: sstabellini@kernel.org, michal.orzel@amd.com, xenia.ragiadakou@amd.com,
- ayan.kumar.halder@amd.com, consulting@bugseng.com,
- Simone Ballarin <simone.ballarin@bugseng.com>,
- Doug Goldstein <cardoe@cardoe.com>
-References: <8d29601a2aa1a371daadc024752b7a24f200fab4.1715256189.git.nicola.vetrini@bugseng.com>
+Subject: Re: [PATCH 3/7] xen/p2m: put reference for superpage
 Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <8d29601a2aa1a371daadc024752b7a24f200fab4.1715256189.git.nicola.vetrini@bugseng.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: Luca Fancellu <Luca.Fancellu@arm.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>, Penny Zheng
+ <Penny.Zheng@arm.com>, Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <Bertrand.Marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <20240423082532.776623-1-luca.fancellu@arm.com>
+ <20240423082532.776623-4-luca.fancellu@arm.com>
+ <b7d1d40b-c634-4830-aa4b-b0475bdff8fc@xen.org>
+ <9F196831-D294-4227-B86F-E8EEACB5B076@arm.com>
+ <0857d348-1305-40d2-9596-e0e5f4490c4a@xen.org>
+ <64648f8c-3eea-47c5-bdc5-6d4fc6531c60@xen.org> <ZjyFxrvHJ04ZlBGg@macbook>
+ <bd463f7a-eadf-441f-96e3-3a39f647f160@xen.org> <ZjyzTCOSeNvPq2Np@macbook>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <ZjyzTCOSeNvPq2Np@macbook>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On 09/05/2024 1:04 pm, Nicola Vetrini wrote:
-> Tag the rule as clean, as there are no more violations in the codebase
-> since e8e8afee990a ("svm: Fix MISRA 8.2 violation").
->
-> Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
+Hi,
 
-Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+On 09/05/2024 12:28, Roger Pau Monné wrote:
+> On Thu, May 09, 2024 at 10:50:56AM +0100, Julien Grall wrote:
+>>
+>>
+>> On 09/05/2024 09:13, Roger Pau Monné wrote:
+>>> On Wed, May 08, 2024 at 11:11:04PM +0100, Julien Grall wrote:
+>>> Also the interactions with the remote domain would need to be audited,
+>>> as the remote domain shattering the superpage would need to be
+>>> replicated in the mapping side in order to account for the changes.
+>>
+>> ... I don't understand this one. How is this different from today's where a
+>> domain can foreign map a 2MB which may be using a superpage in the remote
+>> domain?
+> 
+> Hm, right, I was wrong with that I think, as long as proper references
+> as taken for the superpage entries it should be fine.
+> 
+>>>   Not sure all paths will be easy to
+>>> audit for preemption if it's more than relinquish_p2m_mapping() that
+>>> you need to adjust.
+>>
+>> I thought about it yesterday. But I came to the conclusion that if we have
+>> any concern about removing 1GB foreign superpage then we would already have
+>> the problem today as a domain can map contiguously 1GB worth of foreign
+>> mapping using small pages.
+> 
+> Yeah, but in that case addition or removal is done in 4K chunks, and
+> hence we can preempt during the operation.
 
-I'll include this shortly.
+I am not entirely sure how that would work. From my understand, today, 
+most of the users of the P2M code expects the operation to complete in 
+one go and if preemption is needed then the caller is responsible to 
+handle it by breaking up the happy.
+
+With your suggestion, it sounds like you want to rework how the 
+preemption today and push it to the P2M code. This would mean we would 
+need to modify all the callers to check for -EERESTART (or similar) and 
+also tell them how many pages were handled so the call can be restarted 
+where it stopped. Is it what you had in mind?
+
+I don't expect the work to be trivial, so I wonder if this is really 
+worth it to try to change the way we preempt.
+
+> 
+> OTOH for 1GB given the code here the page could be freed in one go,
+> without a chance of preempting the operation.
+> 
+> Maybe you have to shatter superpages into 4K entries and then remove
+> them individually, as to allow for preemption to be possible by
+> calling put_page() for each 4K chunk?
+This would require to allocate some pages from the P2M pool for the 
+tables. As the pool may be exhausted, it could be problematic when 
+relinquishing the resources.
+
+It may be possible to find a way to have memory available by removing 
+other mappings first. But it feels a bit hackish and I would rather 
+prefer if we avoid allocating any memory when relinquishing.
+
+So I think we want to allow at most 2MB superpages for foreign mapping.
+
+Cheers,
+
+-- 
+Julien Grall
 
