@@ -2,33 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 364708C261E
-	for <lists+xen-devel@lfdr.de>; Fri, 10 May 2024 15:55:08 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.719884.1122739 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3ED818C268C
+	for <lists+xen-devel@lfdr.de>; Fri, 10 May 2024 16:17:12 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.719896.1122750 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s5QhE-0004Q1-Kz; Fri, 10 May 2024 13:54:00 +0000
+	id 1s5R3D-0008LN-ED; Fri, 10 May 2024 14:16:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 719884.1122739; Fri, 10 May 2024 13:54:00 +0000
+Received: by outflank-mailman (output) from mailman id 719896.1122750; Fri, 10 May 2024 14:16:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s5QhE-0004NW-I0; Fri, 10 May 2024 13:54:00 +0000
-Received: by outflank-mailman (input) for mailman id 719884;
- Fri, 10 May 2024 13:53:59 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=tag6=MN=gmail.com=jandryuk@srs-se1.protection.inumbo.net>)
- id 1s5QhD-0004NA-PQ
- for xen-devel@lists.xenproject.org; Fri, 10 May 2024 13:53:59 +0000
-Received: from mail-ed1-x531.google.com (mail-ed1-x531.google.com
- [2a00:1450:4864:20::531])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id becd9878-0ed4-11ef-b4bb-af5377834399;
- Fri, 10 May 2024 15:53:57 +0200 (CEST)
-Received: by mail-ed1-x531.google.com with SMTP id
- 4fb4d7f45d1cf-573137ba8d7so5677960a12.0
- for <xen-devel@lists.xenproject.org>; Fri, 10 May 2024 06:53:57 -0700 (PDT)
+	id 1s5R3D-0008Ig-Ar; Fri, 10 May 2024 14:16:43 +0000
+Received: by outflank-mailman (input) for mailman id 719896;
+ Fri, 10 May 2024 14:16:41 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=YvKo=MN=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1s5R3B-0008IT-SM
+ for xen-devel@lists.xenproject.org; Fri, 10 May 2024 14:16:41 +0000
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id ebc649d1-0ed7-11ef-909d-e314d9c70b13;
+ Fri, 10 May 2024 16:16:41 +0200 (CEST)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id C01136723C;
+ Fri, 10 May 2024 14:16:39 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 7AC0A1386E;
+ Fri, 10 May 2024 14:16:39 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id blCCHEcsPmZXFQAAD6G6ig
+ (envelope-from <jgross@suse.com>); Fri, 10 May 2024 14:16:39 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,74 +52,143 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: becd9878-0ed4-11ef-b4bb-af5377834399
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1715349236; x=1715954036; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=2k5X2b8fVQEMzVfPhF0Bw+AAwKodrKYcFlsJMkzPLzQ=;
-        b=baFJFWf172MlBnFqhUncqOsXXQ3r6pVOVgbjZC2JPFpvCriT1B4mTkAKFhUFMvZcML
-         Exg0O3T90G6SWCSHYWhAtLMDIZ5omu1LYV0HF4iKDUNNKqvt+On27ZIPmlkKji24YQmx
-         7axXNYLU5M0pee1/P0l5uaBKROiGRTA5uKCqEXziqOT8vUvUy385dAvYuWAhEx1U29oJ
-         SmTlCrMj4amLy1EIekI0XAWfL0s+WlF/6tuhC8gxXHAeXQnYhcMBuOXT/Uo9MHULJ1hY
-         52gYASKnDAk6fyhHlgHjkp661W7HyZT58Xul9byGhjkZK+f/aME2+yY7ade9TFO0CgFi
-         cTRQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1715349236; x=1715954036;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=2k5X2b8fVQEMzVfPhF0Bw+AAwKodrKYcFlsJMkzPLzQ=;
-        b=L6pW157RTuBow0OQNlPGrgn2Hs8smw47cozV7erZXsEUtOIQdzuA1M1pDt/7P0B6mv
-         CU7+0F/t0oJTLTlRjgpvL6K035a8MeeBYbieSRXMnDKy4mvrKP/QJEcVc+ViGxhF5CoM
-         MYO9yOnEXEQjm627svtSmtwoMtU+OgBwJrCU/2ZKgUNUqVIjrX0UO94ZsHQVDJAkZIVN
-         gLRfQm4pwKbWLwwt+d54n1weZH7GTMaHhS3oVDi51xwfUTvnLqzBYDh+yPjBqs9kUlqU
-         EHH4QC7VRh1LU7xG9HPM8qjPRLKzrh95IPPfTAynpGWOGwKo+Xf9Z7fPQBIRmgy4fmMR
-         jJWg==
-X-Forwarded-Encrypted: i=1; AJvYcCXkyO+0vVInh7hFbJNA41HMFsL7G4nh1VuuYUpcyain1efVAUEn0cAsQBJNskkf0o8Nc98eSzE2fm7IvSiA6ByB7o2EZ/a9t8UoS+av1s4=
-X-Gm-Message-State: AOJu0YwS5xpTD5BycX/zQX773GsDT/NMJWJSSTbgtxfj8cyATmp6xZrb
-	6hKeDW4F3yvTKIXENV+gHf9ENXlN+cLc7kwFFvu4h3oEAww+MrkyemJxEpQ46kw2HiIHrqy9/HC
-	BJOMH91v2sWElM4HtBgC0PeJsEU4=
-X-Google-Smtp-Source: AGHT+IECqtPzKLt+Qs2LGB+mYMQbUATaTPIssKDGvU8AIjnQg1zjSG41jBZnLiN3PKaIy8n1hpzRoXWF7VFT3jat9vM=
-X-Received: by 2002:a05:6402:2071:b0:572:aaaf:c349 with SMTP id
- 4fb4d7f45d1cf-573327883b9mr4778566a12.11.1715349236261; Fri, 10 May 2024
- 06:53:56 -0700 (PDT)
+X-Inumbo-ID: ebc649d1-0ed7-11ef-909d-e314d9c70b13
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1715350599; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=prPdvlgPTP2uaA20U/fjxR/6B0ZmtRktXaxuzxFsYp8=;
+	b=CKsjsZVJUZ/SAcbYDZ/1BP7B+D5P2qzcOFzQKNRjwLCynmDtHeoCVkiY7m8NPupa+Fb5n8
+	UtydbJe6Uedmsj/f8SC24FXeGILWKOU/cHJ0yyKc5AlrjbA8LAjVIJ0MUlYoseoWai4wg+
+	UZF5B8GjnAeN5vqOmvH0JWMD/4OoVA0=
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.com header.s=susede1 header.b=CKsjsZVJ
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1715350599; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=prPdvlgPTP2uaA20U/fjxR/6B0ZmtRktXaxuzxFsYp8=;
+	b=CKsjsZVJUZ/SAcbYDZ/1BP7B+D5P2qzcOFzQKNRjwLCynmDtHeoCVkiY7m8NPupa+Fb5n8
+	UtydbJe6Uedmsj/f8SC24FXeGILWKOU/cHJ0yyKc5AlrjbA8LAjVIJ0MUlYoseoWai4wg+
+	UZF5B8GjnAeN5vqOmvH0JWMD/4OoVA0=
+From: Juergen Gross <jgross@suse.com>
+To: xen-devel@lists.xenproject.org
+Cc: Juergen Gross <jgross@suse.com>,
+	Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+	Community Manager <community.manager@xenproject.org>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>
+Subject: [PATCH v7] xen: allow up to 16383 cpus
+Date: Fri, 10 May 2024 16:16:36 +0200
+Message-Id: <20240510141636.20543-1-jgross@suse.com>
+X-Mailer: git-send-email 2.35.3
 MIME-Version: 1.0
-References: <20240508213824.55824-1-leigh@solinno.co.uk> <f5300cd1-4200-4957-9e4b-9ba0c1f40fa2@citrix.com>
- <2d89f70c625c3abd24bd57f2ee0d2f94@solinno.co.uk>
-In-Reply-To: <2d89f70c625c3abd24bd57f2ee0d2f94@solinno.co.uk>
-From: Jason Andryuk <jandryuk@gmail.com>
-Date: Fri, 10 May 2024 09:53:44 -0400
-Message-ID: <CAKf6xpvJupdPatge_FLApUeKHMFCUOpzrENX8kpHd-BSpSU3=Q@mail.gmail.com>
-Subject: Re: [RFC PATCH v2 0/5] Add bridge VLAN support
-To: Leigh Brown <leigh@solinno.co.uk>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org, 
-	Oleksii Kurochko <oleksii.kurochko@gmail.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-	Juergen Gross <jgross@suse.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-Rspamd-Action: no action
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Spam-Level: **
+X-Spamd-Result: default: False [2.29 / 50.00];
+	SEM_URIBL(3.50)[changelog.md:url];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_CONTAINS_FROM(1.00)[];
+	R_MISSING_CHARSET(0.50)[];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	BAD_REP_POLICIES(0.10)[];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	R_DKIM_ALLOW(0.00)[suse.com:s=susede1];
+	MIME_TRACE(0.00)[0:+];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	ARC_NA(0.00)[];
+	DKIM_SIGNED(0.00)[suse.com:s=susede1];
+	FUZZY_BLOCKED(0.00)[rspamd.com];
+	FREEMAIL_CC(0.00)[suse.com,gmail.com,xenproject.org,citrix.com,xen.org,kernel.org];
+	DKIM_TRACE(0.00)[suse.com:+];
+	TO_DN_SOME(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.com:dkim,suse.com:email];
+	RCPT_COUNT_SEVEN(0.00)[9];
+	DWL_DNSWL_BLOCKED(0.00)[suse.com:dkim];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TAGGED_RCPT(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com]
+X-Spam-Score: 2.29
+X-Spam-Flag: NO
+X-Rspamd-Queue-Id: C01136723C
+X-Spamd-Bar: ++
 
-On Thu, May 9, 2024 at 12:10=E2=80=AFPM Leigh Brown <leigh@solinno.co.uk> w=
-rote:
->
-> Hi Andrew,
->
-> On 2024-05-09 16:53, Andrew Cooper wrote:
-> > On 08/05/2024 10:38 pm, Leigh Brown wrote:
-> > This is past the last-post date, so Oleksii will need to decide whether
-> > he's happy to make an exception for it.
->
->  From my own perspective, I know this is an enhancement and am more than
-> happy to maintain it locally for the time being, so no problem if it has
-> to wait.  Still happy for any feedback though :-)
->
-> > Anthony is OoO for a month now, so if this is to get in for 4.19, then
-> > it will need reviewing by others.  I've CC'd a few plausible
-> > candidates...
+With lock handling now allowing up to 16384 cpus (spinlocks can handle
+65535 cpus, rwlocks can handle 16384 cpus), raise the allowed limit for
+the number of cpus to be configured to 16383.
 
-I'll try to review them in the next few days.
+The new limit is imposed by IOMMU_CMD_BUFFER_MAX_ENTRIES and
+QINVAL_MAX_ENTRY_NR required to be larger than 2 * CONFIG_NR_CPUS.
 
-Regards,
-Jason
+Add a support limit of physical CPUs to SUPPORT.md (4096 on x86, 128
+on ARM).
+
+Signed-off-by: Juergen Gross <jgross@suse.com>
+Acked-by: Jan Beulich <jbeulich@suse.com>
+---
+V5:
+- new patch (Jan Beulich)
+V7:
+- add SUPPORT.md and CHANGELOG.md entries
+---
+ CHANGELOG.md     | 2 ++
+ SUPPORT.md       | 5 +++++
+ xen/arch/Kconfig | 2 +-
+ 3 files changed, 8 insertions(+), 1 deletion(-)
+
+diff --git a/CHANGELOG.md b/CHANGELOG.md
+index 8041cfb7d2..c43c45d8d4 100644
+--- a/CHANGELOG.md
++++ b/CHANGELOG.md
+@@ -14,6 +14,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
+    - HVM PIRQs are disabled by default.
+    - Reduce IOMMU setup time for hardware domain.
+  - xl/libxl configures vkb=[] for HVM domains with priority over vkb_device.
++ - Increase the maximum number of CPUs Xen can be built for from 4095 to
++   16383.
+ 
+ ### Added
+  - On x86:
+diff --git a/SUPPORT.md b/SUPPORT.md
+index e10d46d924..d5d60c62ec 100644
+--- a/SUPPORT.md
++++ b/SUPPORT.md
+@@ -61,6 +61,11 @@ For the Cortex A77 r0p0 - r1p0, see Errata 1508412.
+ 
+     Status, x86: Supported
+ 
++### Physical CPUs
++
++    Status, x86: Supported up to 4096
++    Status, ARM: Supported up to 128
++
+ ### Host ACPI (via Domain 0)
+ 
+     Status, x86 PV: Supported
+diff --git a/xen/arch/Kconfig b/xen/arch/Kconfig
+index 67ba38f32f..308ce129a8 100644
+--- a/xen/arch/Kconfig
++++ b/xen/arch/Kconfig
+@@ -6,7 +6,7 @@ config PHYS_ADDR_T_32
+ 
+ config NR_CPUS
+ 	int "Maximum number of CPUs"
+-	range 1 4095
++	range 1 16383
+ 	default "256" if X86
+ 	default "8" if ARM && RCAR3
+ 	default "4" if ARM && QEMU
+-- 
+2.35.3
+
 
