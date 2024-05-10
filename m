@@ -2,33 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4D3138C24F0
-	for <lists+xen-devel@lfdr.de>; Fri, 10 May 2024 14:32:56 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.719856.1122710 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 90E208C251A
+	for <lists+xen-devel@lfdr.de>; Fri, 10 May 2024 14:51:23 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.719864.1122720 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s5PQS-0005gs-Ib; Fri, 10 May 2024 12:32:36 +0000
+	id 1s5Pi5-0001dy-0R; Fri, 10 May 2024 12:50:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 719856.1122710; Fri, 10 May 2024 12:32:36 +0000
+Received: by outflank-mailman (output) from mailman id 719864.1122720; Fri, 10 May 2024 12:50:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s5PQS-0005e9-Fh; Fri, 10 May 2024 12:32:36 +0000
-Received: by outflank-mailman (input) for mailman id 719856;
- Fri, 10 May 2024 12:32:34 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1s5Pi4-0001ao-Tt; Fri, 10 May 2024 12:50:48 +0000
+Received: by outflank-mailman (input) for mailman id 719864;
+ Fri, 10 May 2024 12:50:47 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=oMhx=MN=bugseng.com=alessandro.zucchelli@srs-se1.protection.inumbo.net>)
- id 1s5PQQ-0005e3-RC
- for xen-devel@lists.xenproject.org; Fri, 10 May 2024 12:32:34 +0000
-Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 5f767244-0ec9-11ef-b4bb-af5377834399;
- Fri, 10 May 2024 14:32:32 +0200 (CEST)
-Received: from LAPTOP-EFA9O91E.localdomain
- (host-87-7-28-64.retail.telecomitalia.it [87.7.28.64])
- by support.bugseng.com (Postfix) with ESMTPSA id AFE114EE073C;
- Fri, 10 May 2024 14:32:31 +0200 (CEST)
+ <SRS0=+D8H=MN=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1s5Pi3-0001ad-SA
+ for xen-devel@lists.xenproject.org; Fri, 10 May 2024 12:50:47 +0000
+Received: from mail-qv1-xf31.google.com (mail-qv1-xf31.google.com
+ [2607:f8b0:4864:20::f31])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id eb6c1511-0ecb-11ef-909d-e314d9c70b13;
+ Fri, 10 May 2024 14:50:46 +0200 (CEST)
+Received: by mail-qv1-xf31.google.com with SMTP id
+ 6a1803df08f44-6a073f10e8eso8098416d6.2
+ for <xen-devel@lists.xenproject.org>; Fri, 10 May 2024 05:50:46 -0700 (PDT)
+Received: from localhost ([213.195.114.223]) by smtp.gmail.com with ESMTPSA id
+ 6a1803df08f44-6a15f195018sm17144226d6.74.2024.05.10.05.50.44
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 10 May 2024 05:50:44 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,103 +44,106 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5f767244-0ec9-11ef-b4bb-af5377834399
-From: Alessandro Zucchelli <alessandro.zucchelli@bugseng.com>
+X-Inumbo-ID: eb6c1511-0ecb-11ef-909d-e314d9c70b13
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1715345445; x=1715950245; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=mdAQL6LWUhcHd+2TKy01L2FyMVtjyGGs4TMnOgqrMqU=;
+        b=IcRehdOAu2vk84PoQP+HmqLn5Yoao4CQBH1GB6Yu49QvM/OKvros10XRrZr9r1HRGO
+         WzIEJO/RQxD7kX4fVm3zjADXznOnGFfFbyUjwgS+7kHAwe8kUDZgWoEg8MWwR0ELrjqt
+         W2NH6nMctJ/KiaABQUEYaSMbRxnVKECNC+XgM=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1715345445; x=1715950245;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=mdAQL6LWUhcHd+2TKy01L2FyMVtjyGGs4TMnOgqrMqU=;
+        b=i2FOaTyAG7EQ7t76MCKC5VUycCBDORccWQVTGr+x3nw9iofhv9n/b24E9m3xiDJoLa
+         0mwePhYHFbafp9CtZn27qELu1s3zL1ZB9RWQqDVxWeEWtSeMc3XEevkAjqQn6+TFWHOl
+         9SATQwQXCVQW80IWxrWpSN05yesutgcbLTjb18RlWNOAuHoHUKtIpQ92uZ/EIGBqUzFm
+         0bo48RrYHGWHtziDrEpV/k1IxeJC7PZwzsI8zxLi8b0q9POjFGkYMNlwflOE4PxgmFE8
+         bmwyvMopuISyIPNILc8prx2OHOTL9j8ajgGHVVNfRc9K58SCEH7o79AC+s0sRJBZZsY1
+         GxDg==
+X-Gm-Message-State: AOJu0YxkwZtdq9uZuBoyimmFyQaOU3uo4lJmMkcsjQcVfC1/AqGrdMQk
+	CsDjWBmjI1IyfqDQE/c9gzwOwlT0mMPPHHoplSvYmN6e2SmNhtlGeiZNOR27a+TMkbln0Sk4ni7
+	q
+X-Google-Smtp-Source: AGHT+IEYrRMn6RljjSD/DkKmMC+boUrUg/gIAaIUrqGnt1xLnLi86R/xTvCv6GEu4L6bi+EBeV+EuA==
+X-Received: by 2002:a05:6214:3906:b0:6a0:ab13:e058 with SMTP id 6a1803df08f44-6a168160125mr25512216d6.16.1715345444981;
+        Fri, 10 May 2024 05:50:44 -0700 (PDT)
+From: Roger Pau Monne <roger.pau@citrix.com>
 To: xen-devel@lists.xenproject.org
-Cc: consulting@bugseng.com,
-	Alessandro Zucchelli <alessandro.zucchelli@bugseng.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>,
-	Bertrand Marquis <bertrand.marquis@arm.com>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	Tamas K Lengyel <tamas@tklengyel.com>,
-	Alexandru Isaila <aisaila@bitdefender.com>,
-	Petre Pircalabu <ppircalabu@bitdefender.com>
-Subject: [XEN PATCH v3] arm/mem_access: add conditional build of mem_access.c
-Date: Fri, 10 May 2024 14:32:11 +0200
-Message-Id: <b3f03c4f5a78b86b01750f10bb0cebcdb2fd35cc.1715265720.git.alessandro.zucchelli@bugseng.com>
-X-Mailer: git-send-email 2.25.1
+Cc: Roger Pau Monne <roger.pau@citrix.com>,
+	Anthony PERARD <anthony@xenproject.org>,
+	Juergen Gross <jgross@suse.com>,
+	"Oleksii K ." <oleksii.kurochko@gmail.com>,
+	Arthur Borsboom <arthurborsboom@gmail.com>,
+	Leigh Brown <leigh@solinno.co.uk>
+Subject: [PATCH for-4.19] libxl: fix population of the online vCPU bitmap for PVH
+Date: Fri, 10 May 2024 14:49:13 +0200
+Message-ID: <20240510124913.49945-1-roger.pau@citrix.com>
+X-Mailer: git-send-email 2.44.0
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-In order to comply to MISRA C:2012 Rule 8.4 for ARM the following
-changes are done:
-revert preprocessor conditional changes to xen/mem_access.h which
-had it build unconditionally, add conditional build for xen/mem_access.c
-as well and provide stubs in asm/mem_access.h for the users of this
-header.
+libxl passes some information to libacpi to create the ACPI table for a PVH
+guest, and among that information it's a bitmap of which vCPUs are online
+which can be less than the maximum number of vCPUs assigned to the domain.
 
-Signed-off-by: Alessandro Zucchelli <alessandro.zucchelli@bugseng.com>
----
-Changes from v2:
-Stylistic changes to code aimed to respect xen's coding guidelines.
----
-Changes from v1:
-Reverted preprocessor conditional changes to xen/mem_access.h;
-added conditional build for xen/mem_access.c;
-provided stubs for asm/mem_access.h functions
----
- xen/arch/arm/Makefile                 |  2 +-
- xen/arch/arm/include/asm/mem_access.h | 18 ++++++++++++++++++
- 2 files changed, 19 insertions(+), 1 deletion(-)
+While the population of the bitmap is done correctly for HVM based on the
+number of online vCPUs, for PVH the population of the bitmap is done based on
+the number of maximum vCPUs allowed.  This leads to all local APIC entries in
+the MADT being set as enabled, which contradicts the data in xenstore if vCPUs
+is different than maximum vCPUs.
 
-diff --git a/xen/arch/arm/Makefile b/xen/arch/arm/Makefile
-index 7b1350e2ef..45dc29ea53 100644
---- a/xen/arch/arm/Makefile
-+++ b/xen/arch/arm/Makefile
-@@ -37,7 +37,7 @@ obj-$(CONFIG_IOREQ_SERVER) += ioreq.o
- obj-y += irq.o
- obj-y += kernel.init.o
- obj-$(CONFIG_LIVEPATCH) += livepatch.o
--obj-y += mem_access.o
-+obj-$(CONFIG_MEM_ACCESS) += mem_access.o
- obj-y += mm.o
- obj-y += monitor.o
- obj-y += p2m.o
-diff --git a/xen/arch/arm/include/asm/mem_access.h b/xen/arch/arm/include/asm/mem_access.h
-index 35ed0ad154..abac8032fc 100644
---- a/xen/arch/arm/include/asm/mem_access.h
-+++ b/xen/arch/arm/include/asm/mem_access.h
-@@ -17,6 +17,8 @@
- #ifndef _ASM_ARM_MEM_ACCESS_H
- #define _ASM_ARM_MEM_ACCESS_H
+Fix by copying the internal libxl bitmap that's populated based on the vCPUs
+parameter.
+
+Reported-by: Arthur Borsboom <arthurborsboom@gmail.com>
+Link: https://gitlab.com/libvirt/libvirt/-/issues/399
+Reported-by: Leigh Brown <leigh@solinno.co.uk>
+Fixes: 14c0d328da2b ('libxl/acpi: Build ACPI tables for HVMlite guests')
+Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+---
+Note that the setup of hvm_info_table could be shared between PVH and HVM, as
+the fields are very limited, see hvm_build_set_params() for the HVM side.
+However this late in the release it's safer to just adjust the PVH path.
+
+Also note the checksum is not provided when hvm_info_table is built for PVH.
+This is fine so far because such checksum is only consumed by hvmloader and not
+libacpi itself.
+
+It's a bugfix, so should be considered for 4.19.
+---
+ tools/libs/light/libxl_x86_acpi.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/tools/libs/light/libxl_x86_acpi.c b/tools/libs/light/libxl_x86_acpi.c
+index 620f3c700c3e..5cf261bd6794 100644
+--- a/tools/libs/light/libxl_x86_acpi.c
++++ b/tools/libs/light/libxl_x86_acpi.c
+@@ -89,7 +89,7 @@ static int init_acpi_config(libxl__gc *gc,
+     uint32_t domid = dom->guest_domid;
+     xc_domaininfo_t info;
+     struct hvm_info_table *hvminfo;
+-    int i, r, rc;
++    int r, rc;
  
-+#include <xen/types.h>
-+
- static inline
- bool p2m_mem_access_emulate_check(struct vcpu *v,
-                                   const struct vm_event_st *rsp)
-@@ -35,12 +37,28 @@ static inline bool p2m_mem_access_sanity_check(struct domain *d)
-  * Send mem event based on the access. Boolean return value indicates if trap
-  * needs to be injected into guest.
-  */
-+#ifdef CONFIG_MEM_ACCESS
- bool p2m_mem_access_check(paddr_t gpa, vaddr_t gla, const struct npfec npfec);
+     config->dsdt_anycpu = config->dsdt_15cpu = dsdt_pvh;
+     config->dsdt_anycpu_len = config->dsdt_15cpu_len = dsdt_pvh_len;
+@@ -138,8 +138,8 @@ static int init_acpi_config(libxl__gc *gc,
+         hvminfo->nr_vcpus = info.max_vcpu_id + 1;
+     }
  
- struct page_info*
- p2m_mem_access_check_and_get_page(vaddr_t gva, unsigned long flag,
-                                   const struct vcpu *v);
-+#else
-+
-+static inline bool
-+p2m_mem_access_check(paddr_t gpa, vaddr_t gla, const struct npfec npfec)
-+{
-+    return false;
-+}
-+
-+static inline struct page_info*
-+p2m_mem_access_check_and_get_page(vaddr_t gva, unsigned long flag,
-+                                  const struct vcpu *v)
-+{
-+    return NULL;
-+}
+-    for (i = 0; i < hvminfo->nr_vcpus; i++)
+-        hvminfo->vcpu_online[i / 8] |= 1 << (i & 7);
++    memcpy(hvminfo->vcpu_online, b_info->avail_vcpus.map,
++           b_info->avail_vcpus.size);
  
-+#endif /*CONFIG_MEM_ACCESS*/
- #endif /* _ASM_ARM_MEM_ACCESS_H */
+     config->hvminfo = hvminfo;
  
- /*
 -- 
-2.25.1
+2.44.0
 
 
