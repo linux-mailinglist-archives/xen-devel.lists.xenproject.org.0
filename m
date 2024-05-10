@@ -2,35 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 288A68C26B8
-	for <lists+xen-devel@lfdr.de>; Fri, 10 May 2024 16:23:32 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.719911.1122789 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EF9BE8C2727
+	for <lists+xen-devel@lfdr.de>; Fri, 10 May 2024 16:51:19 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.719933.1122850 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s5R9V-0001oR-GM; Fri, 10 May 2024 14:23:13 +0000
+	id 1s5Ra0-0007qs-62; Fri, 10 May 2024 14:50:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 719911.1122789; Fri, 10 May 2024 14:23:13 +0000
+Received: by outflank-mailman (output) from mailman id 719933.1122850; Fri, 10 May 2024 14:50:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s5R9V-0001lT-CK; Fri, 10 May 2024 14:23:13 +0000
-Received: by outflank-mailman (input) for mailman id 719911;
- Fri, 10 May 2024 14:23:12 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1s5R9U-0001lB-RQ; Fri, 10 May 2024 14:23:12 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1s5R9U-00071I-Pr; Fri, 10 May 2024 14:23:12 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1s5R9U-0006E7-Cs; Fri, 10 May 2024 14:23:12 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1s5R9U-0005Ia-CK; Fri, 10 May 2024 14:23:12 +0000
+	id 1s5Ra0-0007oj-2P; Fri, 10 May 2024 14:50:36 +0000
+Received: by outflank-mailman (input) for mailman id 719933;
+ Fri, 10 May 2024 14:50:35 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=+D8H=MN=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1s5RZy-0007oZ-Vz
+ for xen-devel@lists.xenproject.org; Fri, 10 May 2024 14:50:35 +0000
+Received: from mail-qk1-x72c.google.com (mail-qk1-x72c.google.com
+ [2607:f8b0:4864:20::72c])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id a701a6e4-0edc-11ef-909d-e314d9c70b13;
+ Fri, 10 May 2024 16:50:33 +0200 (CEST)
+Received: by mail-qk1-x72c.google.com with SMTP id
+ af79cd13be357-792b934de39so165529585a.3
+ for <xen-devel@lists.xenproject.org>; Fri, 10 May 2024 07:50:33 -0700 (PDT)
+Received: from localhost ([213.195.114.223]) by smtp.gmail.com with ESMTPSA id
+ af79cd13be357-792bf27519esm187109685a.1.2024.05.10.07.50.31
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 10 May 2024 07:50:31 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,265 +44,343 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=G4Sc+dxXv9GdycVd6uYaiJ6ZspTVRCYDceSupl33qPk=; b=4iU/BAV7BDx4qrb3R7nmhO17cM
-	wDbWXe3v4QZE8hq1Sc1XTiZfwfrP5d//6Cqh3qZ+NEZcQ6G8I+764kJDhIeIplRmYvZ/ptUkhlkAK
-	y+yZ8IqH71oZd+8Gr54xnmuHP/akWNbho/NsGmI1CVI0aie81rBXoiarIhPKLzvTClqc=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-185961-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: a701a6e4-0edc-11ef-909d-e314d9c70b13
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1715352632; x=1715957432; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=rcf9dyx3znNaO7fh0N6bAZdnABe5MNxooRIJMetNFKg=;
+        b=TAHqfM6m7YO/pf9v9kKAnb4Tm6zfjkpyoucjb4w34nmbk/eSdmQtUre/db1oxgZCkx
+         4S6B3yP/VFEez45+bKBga1iXFbA2W78DHYxrCZSx6OfLSH81w1g/VA/aHpxmY/1olpbb
+         8pizSaJ1OeKTN4XoTdwaNGu4ipNNjBaXRqN44=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1715352632; x=1715957432;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=rcf9dyx3znNaO7fh0N6bAZdnABe5MNxooRIJMetNFKg=;
+        b=rF4qautRH6sqkkqzBQIS35PgP4L22vVbgtLh3LDZcFX01h0WcGmTvL7Nul4bY8OaBN
+         Z/YArmECCvXSLlxPAGmcD99pmTlU5XGnBDSvcnx+sIijBMm+fC/8okAq370g7A8N0sBs
+         D80nENSa5dVOXfPBDHbf1JCACW+x7C66fW1tw3AnWtdI1oq9jjIkLIj7BDQqOYQVWRji
+         lulwl6MdjTyts9YEhEOuyhBOdxb9PcGuUL2mqTXlq9YPdFZOI95oMQZqi62AVFxwH62F
+         Qe9vWPqVyuCdSrl+4lrWnOsg1AGyTXlUUQomvjA9DguR+ooCgtY3QhB5QxntJyTan797
+         96hQ==
+X-Gm-Message-State: AOJu0Yyfnjt9PtLrE6A7s1/aoW/N1RPQZm9NEBrJQlf07uLoTw3d07HU
+	VAKZeCEHqo1pNgv/KfIShzV0mCUz50SstZR7wVgEonXZRcjJzWv8qJPgOzZKgdZAERM7q+J2lla
+	4
+X-Google-Smtp-Source: AGHT+IE9xdJTA0JhX1yaBpXCpcH+cOXsY5DXrU7ZmmhvxrZTsP5FSAbdwRTwJjbGRrHPSCNKZaWUlQ==
+X-Received: by 2002:a05:620a:4958:b0:792:bada:c0a5 with SMTP id af79cd13be357-792c7574a97mr293716885a.16.1715352632197;
+        Fri, 10 May 2024 07:50:32 -0700 (PDT)
+Date: Fri, 10 May 2024 16:50:30 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>
+Subject: Re: [PATCH v8 2/6] x86/hvm: Allow access to registers on the same
+ page as MSI-X table
+Message-ID: <Zj40NvNqlJWFjcCb@macbook>
+References: <cover.33fb4385b7dd6c53bda4acf0a9e91748b3d7b1f7.1715313192.git-series.marmarek@invisiblethingslab.com>
+ <fbe01c945d75409406ac0b02bc17d44f57a39ccf.1715313192.git-series.marmarek@invisiblethingslab.com>
 MIME-Version: 1.0
-Subject: [xen-unstable test] 185961: tolerable FAIL - PUSHED
-X-Osstest-Failures:
-    xen-unstable:test-armhf-armhf-xl:xen-boot:fail:heisenbug
-    xen-unstable:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
-    xen-unstable:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
-    xen-unstable:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
-    xen-unstable:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
-    xen-unstable:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
-    xen-unstable:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-amd64-amd64-libvirt-qcow2:migrate-support-check:fail:nonblocking
-    xen-unstable:test-amd64-amd64-libvirt-raw:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-vhd:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-vhd:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-qcow2:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-qcow2:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-raw:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-raw:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-libvirt-vhd:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-libvirt-vhd:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=53959cb8309919fc2f157a1c99e0af2ce280cb84
-X-Osstest-Versions-That:
-    xen=a2330b51df267e20e66bbba6c5bf08f0570ed58b
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 10 May 2024 14:23:12 +0000
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <fbe01c945d75409406ac0b02bc17d44f57a39ccf.1715313192.git-series.marmarek@invisiblethingslab.com>
 
-flight 185961 xen-unstable real [real]
-flight 185969 xen-unstable real-retest [real]
-http://logs.test-lab.xenproject.org/osstest/logs/185961/
-http://logs.test-lab.xenproject.org/osstest/logs/185969/
+On Fri, May 10, 2024 at 05:53:22AM +0200, Marek Marczykowski-Górecki wrote:
+> Some devices (notably Intel Wifi 6 AX210 card) keep auxiliary registers
+> on the same page as MSI-X table. Device model (especially one in
+> stubdomain) cannot really handle those, as direct writes to that page is
+> refused (page is on the mmio_ro_ranges list). Instead, extend
+> msixtbl_mmio_ops to handle such accesses too.
+> 
+> Doing this, requires correlating read/write location with guest
+> MSI-X table address. Since QEMU doesn't map MSI-X table to the guest,
+> it requires msixtbl_entry->gtable, which is HVM-only. Similar feature
+> for PV would need to be done separately.
+> 
+> This will be also used to read Pending Bit Array, if it lives on the same
+> page, making QEMU not needing /dev/mem access at all (especially helpful
+> with lockdown enabled in dom0). If PBA lives on another page, QEMU will
+> map it to the guest directly.
+> If PBA lives on the same page, discard writes and log a message.
+> Technically, writes outside of PBA could be allowed, but at this moment
+> the precise location of PBA isn't saved, and also no known device abuses
+> the spec in this way (at least yet).
+> 
+> To access those registers, msixtbl_mmio_ops need the relevant page
+> mapped. MSI handling already has infrastructure for that, using fixmap,
+> so try to map first/last page of the MSI-X table (if necessary) and save
+> their fixmap indexes. Note that msix_get_fixmap() does reference
+> counting and reuses existing mapping, so just call it directly, even if
+> the page was mapped before. Also, it uses a specific range of fixmap
+> indexes which doesn't include 0, so use 0 as default ("not mapped")
+> value - which simplifies code a bit.
+> 
+> Based on assumption that all MSI-X page accesses are handled by Xen, do
+> not forward adjacent accesses to other hypothetical ioreq servers, even
+> if the access wasn't handled for some reason (failure to map pages etc).
+> Relevant places log a message about that already.
+> 
+> Signed-off-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
 
-Failures :-/ but no regressions.
+Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
 
-Tests which are failing intermittently (not blocking):
- test-armhf-armhf-xl           8 xen-boot            fail pass in 185969-retest
+Just one typo in a logged message, and one comment re the return type
+of  adjacent_{read,write}().
 
-Tests which did not succeed, but are not blocking:
- test-armhf-armhf-xl         15 migrate-support-check fail in 185969 never pass
- test-armhf-armhf-xl     16 saverestore-support-check fail in 185969 never pass
- test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 185950
- test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 185950
- test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 185950
- test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 185950
- test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 185950
- test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 185950
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
- test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt-qcow2 14 migrate-support-check        fail never pass
- test-amd64-amd64-libvirt-raw 14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-rtds     15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-rtds     16 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-vhd      14 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-vhd      15 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-qcow2    14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-qcow2    15 saverestore-support-check    fail   never pass
- test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-raw      14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-raw      15 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-multivcpu 15 migrate-support-check        fail  never pass
- test-armhf-armhf-xl-multivcpu 16 saverestore-support-check    fail  never pass
- test-armhf-armhf-xl-credit2  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit2  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-credit1  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit1  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-libvirt-vhd 14 migrate-support-check        fail   never pass
- test-armhf-armhf-libvirt-vhd 15 saverestore-support-check    fail   never pass
+> ---
+> Changes in v8:
+> - rename adjacent_handle to get_adjacent_idx
+> - put SBDF at the start of error messages
+> - use 0 for ADJACENT_DONT_HANDLE (it's FIX_RESERVED)
+> - merge conditions in msixtbl_range into one "if"
+> - add assert for address alignment
+> - change back to setting pval to ~0UL at the start of adjacent_read
+> Changes in v7:
+> - simplify logic based on assumption that all access to MSI-X pages are
+>   handled by Xen (Roger)
+> - move calling adjacent_handle() into adjacent_{read,write}() (Roger)
+> - move range check into msixtbl_addr_to_desc() (Roger)
+> - fix off-by-one when initializing adj_access_idx[ADJ_IDX_LAST] (Roger)
+> - no longer distinguish between unhandled write due to PBA nearby and
+>   other reasons
+> - add missing break after ASSERT_UNREACHABLE (Jan)
+> Changes in v6:
+> - use MSIX_CHECK_WARN macro
+> - extend assert on fixmap_idx
+> - add break in default label, after ASSERT_UNREACHABLE(), and move
+>   setting default there
+> - style fixes
+> Changes in v5:
+> - style fixes
+> - include GCC version in the commit message
+> - warn only once (per domain, per device) about failed adjacent access
+> Changes in v4:
+> - drop same_page parameter of msixtbl_find_entry(), distinguish two
+>   cases in relevant callers
+> - rename adj_access_table_idx to adj_access_idx
+> - code style fixes
+> - drop alignment check in adjacent_{read,write}() - all callers already
+>   have it earlier
+> - delay mapping first/last MSI-X pages until preparing device for a
+>   passthrough
+> v3:
+>  - merge handling into msixtbl_mmio_ops
+>  - extend commit message
+> v2:
+>  - adjust commit message
+>  - pass struct domain to msixtbl_page_handler_get_hwaddr()
+>  - reduce local variables used only once
+>  - log a warning if write is forbidden if MSI-X and PBA lives on the same
+>    page
+>  - do not passthrough unaligned accesses
+>  - handle accesses both before and after MSI-X table
+> ---
+>  xen/arch/x86/hvm/vmsi.c        | 208 ++++++++++++++++++++++++++++++++--
+>  xen/arch/x86/include/asm/msi.h |   5 +-
+>  xen/arch/x86/msi.c             |  42 +++++++-
+>  3 files changed, 245 insertions(+), 10 deletions(-)
+> 
+> diff --git a/xen/arch/x86/hvm/vmsi.c b/xen/arch/x86/hvm/vmsi.c
+> index 999917983789..d506d6adaaf6 100644
+> --- a/xen/arch/x86/hvm/vmsi.c
+> +++ b/xen/arch/x86/hvm/vmsi.c
+> @@ -180,6 +180,10 @@ static bool msixtbl_initialised(const struct domain *d)
+>      return d->arch.hvm.msixtbl_list.next;
+>  }
+>  
+> +/*
+> + * Lookup an msixtbl_entry on the same page as given addr. It's up to the
+> + * caller to check if address is strictly part of the table - if relevant.
+> + */
+>  static struct msixtbl_entry *msixtbl_find_entry(
+>      struct vcpu *v, unsigned long addr)
+>  {
+> @@ -187,8 +191,8 @@ static struct msixtbl_entry *msixtbl_find_entry(
+>      struct domain *d = v->domain;
+>  
+>      list_for_each_entry( entry, &d->arch.hvm.msixtbl_list, list )
+> -        if ( addr >= entry->gtable &&
+> -             addr < entry->gtable + entry->table_len )
+> +        if ( PFN_DOWN(addr) >= PFN_DOWN(entry->gtable) &&
+> +             PFN_DOWN(addr) <= PFN_DOWN(entry->gtable + entry->table_len - 1) )
+>              return entry;
+>  
+>      return NULL;
+> @@ -203,6 +207,10 @@ static struct msi_desc *msixtbl_addr_to_desc(
+>      if ( !entry || !entry->pdev )
+>          return NULL;
+>  
+> +    if ( addr < entry->gtable ||
+> +         addr >= entry->gtable + entry->table_len )
+> +        return NULL;
+> +
+>      nr_entry = (addr - entry->gtable) / PCI_MSIX_ENTRY_SIZE;
+>  
+>      list_for_each_entry( desc, &entry->pdev->msi_list, list )
+> @@ -213,6 +221,157 @@ static struct msi_desc *msixtbl_addr_to_desc(
+>      return NULL;
+>  }
+>  
+> +/*
+> + * Returns:
+> + *  - 0 (FIX_RESERVED) if no handling should be done
+> + *  - a fixmap idx to use for handling
+> + */
+> +static unsigned int get_adjacent_idx(
+> +    const struct msixtbl_entry *entry, unsigned long addr, bool write)
+> +{
+> +    unsigned int adj_type;
+> +    struct arch_msix *msix;
+> +
+> +    if ( !entry || !entry->pdev )
+> +    {
+> +        ASSERT_UNREACHABLE();
+> +        return 0;
+> +    }
+> +
+> +    if ( PFN_DOWN(addr) == PFN_DOWN(entry->gtable) && addr < entry->gtable )
+> +        adj_type = ADJ_IDX_FIRST;
+> +    else if ( PFN_DOWN(addr) == PFN_DOWN(entry->gtable + entry->table_len - 1) &&
+> +              addr >= entry->gtable + entry->table_len )
+> +        adj_type = ADJ_IDX_LAST;
+> +    else
+> +    {
+> +        /* All callers should already do equivalent range checking. */
+> +        ASSERT_UNREACHABLE();
+> +        return 0;
+> +    }
+> +
+> +    msix = entry->pdev->msix;
+> +    if ( !msix )
+> +    {
+> +        ASSERT_UNREACHABLE();
+> +        return 0;
+> +    }
+> +
+> +    if ( !msix->adj_access_idx[adj_type] )
+> +    {
+> +        if ( MSIX_CHECK_WARN(msix, entry->pdev->domain->domain_id,
+> +                             adjacent_not_initialized) )
+> +            gprintk(XENLOG_WARNING,
+> +                    "%pp: Page for adjacent(%d) MSI-X table access not initialized (addr %#lx, gtable %#lx))\n",
+                                                                                                             ^ extra )
+> +                    &entry->pdev->sbdf, adj_type, addr, entry->gtable);
+> +        return 0;
+> +    }
+> +
+> +    /* If PBA lives on the same page too, discard writes. */
+> +    if ( write &&
+> +         ((adj_type == ADJ_IDX_LAST &&
+> +           msix->table.last == msix->pba.first) ||
+> +          (adj_type == ADJ_IDX_FIRST &&
+> +           msix->table.first == msix->pba.last)) )
+> +    {
+> +        if ( MSIX_CHECK_WARN(msix, entry->pdev->domain->domain_id,
+> +                             adjacent_pba) )
+> +            gprintk(XENLOG_WARNING,
+> +                    "%pp: MSI-X table and PBA share a page, "
+> +                    "discard write to adjacent memory (%#lx)\n",
+> +                    &entry->pdev->sbdf, addr);
+> +        return 0;
+> +    }
+> +
+> +    return msix->adj_access_idx[adj_type];
+> +}
+> +
+> +static int adjacent_read(
+> +    const struct msixtbl_entry *entry,
+> +    paddr_t address, unsigned int len, uint64_t *pval)
+> +{
+> +    const void __iomem *hwaddr;
+> +    unsigned int fixmap_idx;
+> +
+> +    ASSERT(IS_ALIGNED(address, len));
+> +
+> +    *pval = ~0UL;
+> +
+> +    fixmap_idx = get_adjacent_idx(entry, address, false);
+> +
+> +    if ( !fixmap_idx )
+> +        return X86EMUL_OKAY;
+> +
+> +    hwaddr = fix_to_virt(fixmap_idx) + PAGE_OFFSET(address);
+> +
+> +    switch ( len )
+> +    {
+> +    case 1:
+> +        *pval = readb(hwaddr);
+> +        break;
+> +
+> +    case 2:
+> +        *pval = readw(hwaddr);
+> +        break;
+> +
+> +    case 4:
+> +        *pval = readl(hwaddr);
+> +        break;
+> +
+> +    case 8:
+> +        *pval = readq(hwaddr);
+> +        break;
+> +
+> +    default:
+> +        ASSERT_UNREACHABLE();
+> +        break;
+> +    }
+> +
+> +    return X86EMUL_OKAY;
+> +}
+> +
+> +static int adjacent_write(
+> +    const struct msixtbl_entry *entry,
+> +    paddr_t address, unsigned int len, uint64_t val)
+> +{
+> +    void __iomem *hwaddr;
+> +    unsigned int fixmap_idx;
+> +
+> +    ASSERT(IS_ALIGNED(address, len));
+> +
+> +    fixmap_idx = get_adjacent_idx(entry, address, true);
+> +
+> +    if ( !fixmap_idx )
+> +        return X86EMUL_OKAY;
+> +
+> +    hwaddr = fix_to_virt(fixmap_idx) + PAGE_OFFSET(address);
+> +
+> +    switch ( len )
+> +    {
+> +    case 1:
+> +        writeb(val, hwaddr);
+> +        break;
+> +
+> +    case 2:
+> +        writew(val, hwaddr);
+> +        break;
+> +
+> +    case 4:
+> +        writel(val, hwaddr);
+> +        break;
+> +
+> +    case 8:
+> +        writeq(val, hwaddr);
+> +        break;
+> +
+> +    default:
+> +        ASSERT_UNREACHABLE();
+> +        break;
+> +    }
+> +
+> +    return X86EMUL_OKAY;
 
-version targeted for testing:
- xen                  53959cb8309919fc2f157a1c99e0af2ce280cb84
-baseline version:
- xen                  a2330b51df267e20e66bbba6c5bf08f0570ed58b
+Since adjacent_{read,write}() unconditionally return X86EMUL_OKAY now
+they could as well just return void.
 
-Last test of basis   185950  2024-05-09 01:51:55 Z    1 days
-Failing since        185955  2024-05-09 14:10:38 Z    1 days    2 attempts
-Testing same since   185961  2024-05-09 22:36:58 Z    0 days    1 attempts
+I'm fine with leaving it like this, unless the committer doesn't mind
+adjusting on commit.  I should have requested earlier to make the
+function return void.
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Alejandro Vallejo <alejandro.vallejo@cloud.com>
-  Andrew Cooper <andrew.cooper3@citrix.com>
-  Daniel P. Smith <dpsmith@apertussolutions.com>
-  Federico Serafini <federico.serafini@bugseng.com>
-  George Dunlap <george.dunlap@cloud.com>
-  Jan Beulich <jbeulich@suse.com>
-  Maria Celeste Cesario <maria.celeste.cesario@bugseng.com>
-  Nicola Vetrini <nicola.vetrini@bugseng.com>
-  Roger Pau Monné <roger.pau@citrix.com>
-  Simone Ballarin <simone.ballarin@bugseng.com>
-
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64-xtf                                              pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-arm64-libvirt                                          pass    
- build-armhf-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-prev                                             pass    
- build-i386-prev                                              pass    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-xtf-amd64-amd64-1                                       pass    
- test-xtf-amd64-amd64-2                                       pass    
- test-xtf-amd64-amd64-3                                       pass    
- test-xtf-amd64-amd64-4                                       pass    
- test-xtf-amd64-amd64-5                                       pass    
- test-amd64-amd64-xl                                          pass    
- test-amd64-coresched-amd64-xl                                pass    
- test-arm64-arm64-xl                                          pass    
- test-armhf-armhf-xl                                          fail    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
- test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
- test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
- test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
- test-amd64-amd64-libvirt-xsm                                 pass    
- test-arm64-arm64-libvirt-xsm                                 pass    
- test-amd64-amd64-xl-xsm                                      pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-qemuu-nested-amd                            fail    
- test-amd64-amd64-xl-pvhv2-amd                                pass    
- test-amd64-amd64-dom0pvh-xl-amd                              pass    
- test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
- test-amd64-amd64-qemuu-freebsd12-amd64                       pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-amd64-xl-qemut-win7-amd64                         fail    
- test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
- test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
- test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
- test-armhf-armhf-xl-arndale                                  pass    
- test-amd64-amd64-examine-bios                                pass    
- test-amd64-amd64-xl-credit1                                  pass    
- test-arm64-arm64-xl-credit1                                  pass    
- test-armhf-armhf-xl-credit1                                  pass    
- test-amd64-amd64-xl-credit2                                  pass    
- test-arm64-arm64-xl-credit2                                  pass    
- test-armhf-armhf-xl-credit2                                  pass    
- test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
- test-amd64-amd64-examine                                     pass    
- test-arm64-arm64-examine                                     pass    
- test-armhf-armhf-examine                                     pass    
- test-amd64-amd64-qemuu-nested-intel                          pass    
- test-amd64-amd64-xl-pvhv2-intel                              pass    
- test-amd64-amd64-dom0pvh-xl-intel                            pass    
- test-amd64-amd64-libvirt                                     pass    
- test-armhf-armhf-libvirt                                     pass    
- test-amd64-amd64-livepatch                                   pass    
- test-amd64-amd64-migrupgrade                                 pass    
- test-amd64-amd64-xl-multivcpu                                pass    
- test-armhf-armhf-xl-multivcpu                                pass    
- test-amd64-amd64-pair                                        pass    
- test-amd64-amd64-libvirt-pair                                pass    
- test-amd64-amd64-xl-pvshim                                   pass    
- test-amd64-amd64-pygrub                                      pass    
- test-amd64-amd64-libvirt-qcow2                               pass    
- test-amd64-amd64-xl-qcow2                                    pass    
- test-armhf-armhf-xl-qcow2                                    pass    
- test-amd64-amd64-libvirt-raw                                 pass    
- test-arm64-arm64-libvirt-raw                                 pass    
- test-amd64-amd64-xl-raw                                      pass    
- test-armhf-armhf-xl-raw                                      pass    
- test-amd64-amd64-xl-rtds                                     pass    
- test-armhf-armhf-xl-rtds                                     pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
- test-amd64-amd64-xl-shadow                                   pass    
- test-arm64-arm64-xl-thunderx                                 pass    
- test-amd64-amd64-examine-uefi                                pass    
- test-amd64-amd64-libvirt-vhd                                 pass    
- test-armhf-armhf-libvirt-vhd                                 pass    
- test-amd64-amd64-xl-vhd                                      pass    
- test-arm64-arm64-xl-vhd                                      pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/xen.git
-   a2330b51df..53959cb830  53959cb8309919fc2f157a1c99e0af2ce280cb84 -> master
+Thanks, Roger.
 
