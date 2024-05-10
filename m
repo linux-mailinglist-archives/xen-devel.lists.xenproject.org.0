@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 01A208C29B7
-	for <lists+xen-devel@lfdr.de>; Fri, 10 May 2024 20:09:15 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.720013.1122929 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 39D1E8C2A00
+	for <lists+xen-devel@lfdr.de>; Fri, 10 May 2024 20:39:36 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.720022.1122941 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s5Ufr-0004kS-Jn; Fri, 10 May 2024 18:08:51 +0000
+	id 1s5V90-0000bX-Ro; Fri, 10 May 2024 18:38:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 720013.1122929; Fri, 10 May 2024 18:08:51 +0000
+Received: by outflank-mailman (output) from mailman id 720022.1122941; Fri, 10 May 2024 18:38:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s5Ufr-0004hz-H1; Fri, 10 May 2024 18:08:51 +0000
-Received: by outflank-mailman (input) for mailman id 720013;
- Fri, 10 May 2024 18:08:50 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1s5V90-0000YL-OP; Fri, 10 May 2024 18:38:58 +0000
+Received: by outflank-mailman (input) for mailman id 720022;
+ Fri, 10 May 2024 18:38:57 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=4i6G=MN=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1s5Ufq-0004ht-0j
- for xen-devel@lists.xenproject.org; Fri, 10 May 2024 18:08:50 +0000
-Received: from mail-qt1-x835.google.com (mail-qt1-x835.google.com
- [2607:f8b0:4864:20::835])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 5933aa6a-0ef8-11ef-909d-e314d9c70b13;
- Fri, 10 May 2024 20:08:49 +0200 (CEST)
-Received: by mail-qt1-x835.google.com with SMTP id
- d75a77b69052e-43dfc9b9519so5518601cf.1
- for <xen-devel@lists.xenproject.org>; Fri, 10 May 2024 11:08:49 -0700 (PDT)
+ id 1s5V8z-0000YE-1A
+ for xen-devel@lists.xenproject.org; Fri, 10 May 2024 18:38:57 +0000
+Received: from mail-qv1-xf30.google.com (mail-qv1-xf30.google.com
+ [2607:f8b0:4864:20::f30])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 8d25d419-0efc-11ef-b4bb-af5377834399;
+ Fri, 10 May 2024 20:38:54 +0200 (CEST)
+Received: by mail-qv1-xf30.google.com with SMTP id
+ 6a1803df08f44-6a0ffaa079dso29548776d6.1
+ for <xen-devel@lists.xenproject.org>; Fri, 10 May 2024 11:38:54 -0700 (PDT)
 Received: from [10.80.67.140] (default-46-102-197-194.interdsl.co.uk.
  [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- d75a77b69052e-43df54ef4c9sm23779851cf.30.2024.05.10.11.08.46
+ 6a1803df08f44-6a15f179685sm19594636d6.14.2024.05.10.11.38.51
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 10 May 2024 11:08:47 -0700 (PDT)
+ Fri, 10 May 2024 11:38:52 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,45 +45,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5933aa6a-0ef8-11ef-909d-e314d9c70b13
+X-Inumbo-ID: 8d25d419-0efc-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1715364528; x=1715969328; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1715366333; x=1715971133; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=l+I+R/j4eBA09bagd+hxXCmFCakGyqWsUzW4oMAalz4=;
-        b=duWUnLTHGgXvVJFCpRxYnh0dEeXRbGTG42Dq2m43pMeLo39sWiDXAJfSRmecnLK7Sn
-         Uba38V+HYYfoSmjP9/l6IYex87vFzGmgN87fNF5JuBBWpIMbrLiG/YeQe/4drQ822gTb
-         ZulK+IGDLagdFXQtzHw0IOEMqMrX5FpwL3//0=
+        bh=+uCd3k4S2h4kpULClLQ4KsyX2o+rNejT1whJjLp1Eiw=;
+        b=DBnEvClUgOaFdAkVHtfH46M9JOF961ovhYHn9HG0cKJ4Z8B832x+mHCJrPWvlpDaqW
+         DFsOKjPTRMcCTtQ1Qb8krkr0MCrk/zs6uWw4IqADIp40phS7F9pOME2oWl5xGySqnG+r
+         GlhOK0E2GOmTStnObUcBRc1wVacOOjMOURKBs=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1715364528; x=1715969328;
+        d=1e100.net; s=20230601; t=1715366333; x=1715971133;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=l+I+R/j4eBA09bagd+hxXCmFCakGyqWsUzW4oMAalz4=;
-        b=pZFONkzYHsa6yAmYoWdmHol2AYaT/G9ZuXszpt4b3pPiYMCUXrBUxrBJfDx4ExRoRg
-         hROzj8H38d3wHvYBDyHpu3dxF237iO2o+Fl2RM9ofOG/gn77MFARad67LiPj4Rq2gABt
-         nnV889gOGZc9PBOFiqDiGNSoZ31sNwbOyGkfC9pq4SUJQyU8Vbw9t0WLl1DM+cWNauEl
-         JlmM27xTNqIbKq4sBaCemC82+V8xuz/M1qk0WoNiotokPz6hUvbgUAhfWCtXbcgPpbJ1
-         In24K/JJEnewnE8WsVVEjg7akAaHZSv1fHwq/aLf4L1NxokiaNux6xKtaBRuJ8S/Fccs
-         Y/0w==
-X-Forwarded-Encrypted: i=1; AJvYcCX74q0QtVTZKKpcI+fT+nchjPqpiKTOT3z/2fEOpbkHNrc/asgFnUHBcn97VVUQvYFxpjwoDZzwF3Z8awYx8TsvJ9nQHg/t7Hpf8Nmq7vs=
-X-Gm-Message-State: AOJu0Yy50glscuFyeI/UYoiuxsCZvcE5Mr/1iV46OFNhCMRCXLAMFzeZ
-	9LMmuRufOosCjoMRyj6Au47elqHB1YeH6EH3RAhWxHnxxsHB+5qSYAZAiGU1ALg=
-X-Google-Smtp-Source: AGHT+IGj5eETBxJMZWh2mgld18FPj1J0+3x8QQaE8gYja8305UO+fgOjMWdpIxHbDYgqJ7YvnNxhjw==
-X-Received: by 2002:ac8:5a49:0:b0:43b:b5e:cb3f with SMTP id d75a77b69052e-43dfdb482abmr37570661cf.47.1715364527818;
-        Fri, 10 May 2024 11:08:47 -0700 (PDT)
-Message-ID: <82599ec2-ac3a-41b7-84a0-9eb7c41b59fa@citrix.com>
-Date: Fri, 10 May 2024 19:08:45 +0100
+        bh=+uCd3k4S2h4kpULClLQ4KsyX2o+rNejT1whJjLp1Eiw=;
+        b=XONt1chxW1tXsfPSuVpasafFiGgDi0RsuVVwYz0VKSq5LbZoUCPd29lLayI44j06fR
+         fSDrYIP8VWUi42Ddm/9jjiqoW/1phBcWCPQvsrfHG8h3TDXAicsK7fkUCysTmDitiiWy
+         6cOKSokmyiy5lOn6xU1a9z7b1vgOx/SRAyGMu7GmRwubQ94Y/+kfSdpZtdVlzyswKJNf
+         p4gs1doUTc0aAHoO6eO1ffiMdwPsFGxfjoS5dyGgYwHMzDGsbaqDDFeC6mDuasubMOmk
+         9sHOIukLG2W8tO9/Lz+9dFssm+As3j+kHNPL0Uw3kMfrc4fZQcb/HOP3b5raitYCqTtx
+         USRQ==
+X-Forwarded-Encrypted: i=1; AJvYcCVklzvBDFOqdJukZQvTgnH3A/q+JZrW9O3+pc13JJwoE7E+pYW6Gjvs+GhukGVwwbDagfj4wCORvhTMr60a6E50m8SIJj1AsQvd5st60s0=
+X-Gm-Message-State: AOJu0YxON5vtdQL0nWycAGlUTSW6mfCuYICFvB7nYgvZnMvSNLKYvBOe
+	o9jCeXDsiwX11JW5wl3yOMnP7wmbB3oISEMKlFXzBd1I9pfF0NLdvHwi/NriuAVNRU9oFrFXPf6
+	f
+X-Google-Smtp-Source: AGHT+IHvtYCYaHND0Sb2jL0BiO4LZ56Fc9N75yLNdjwfGZJLm2q/954mLway+/Lw02tQVW2k7ATT0A==
+X-Received: by 2002:a05:6214:4412:b0:696:4086:5e1 with SMTP id 6a1803df08f44-6a16790406fmr53215156d6.2.1715366332964;
+        Fri, 10 May 2024 11:38:52 -0700 (PDT)
+Message-ID: <fc278245-4666-4820-80cf-a0d39ff965fe@citrix.com>
+Date: Fri, 10 May 2024 19:38:50 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH for-4.19 v2] tools/xen-cpuid: switch to use cpu-policy
- defined names
-To: Roger Pau Monne <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
-Cc: Anthony PERARD <anthony@xenproject.org>, Jan Beulich <jbeulich@suse.com>,
- Oleksii Kurochko <oleksii.kurochko@gmail.com>
-References: <20240502114922.94288-1-roger.pau@citrix.com>
+Subject: Re: [XEN PATCH] automation/eclair_analysis: tag MISRA C Rule 1.1 as
+ clean
+To: Nicola Vetrini <nicola.vetrini@bugseng.com>,
+ xen-devel@lists.xenproject.org
+Cc: sstabellini@kernel.org, michal.orzel@amd.com, xenia.ragiadakou@amd.com,
+ ayan.kumar.halder@amd.com, consulting@bugseng.com,
+ Simone Ballarin <simone.ballarin@bugseng.com>,
+ Doug Goldstein <cardoe@cardoe.com>
+References: <c19bc75727d18399f73a19dae991660c608a4a84.1715352180.git.nicola.vetrini@bugseng.com>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -129,42 +133,17 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <20240502114922.94288-1-roger.pau@citrix.com>
+In-Reply-To: <c19bc75727d18399f73a19dae991660c608a4a84.1715352180.git.nicola.vetrini@bugseng.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 02/05/2024 12:49 pm, Roger Pau Monne wrote:
-> diff --git a/tools/include/xen-tools/common-macros.h b/tools/include/xen-tools/common-macros.h
-> index 07aed92684b5..3e6a66080a4f 100644
-> --- a/tools/include/xen-tools/common-macros.h
-> +++ b/tools/include/xen-tools/common-macros.h
-> @@ -83,6 +83,10 @@
->  #define __packed __attribute__((__packed__))
->  #endif
->  
-> +#ifndef __maybe_unused
-> +# define __maybe_unused __attribute__((__unused__))
-> +#endif
-> +
->  #define container_of(ptr, type, member) ({              \
->      typeof(((type *)0)->member) *mptr__ = (ptr);        \
->      (type *)((char *)mptr__ - offsetof(type, member));  \
+On 10/05/2024 7:03 pm, Nicola Vetrini wrote:
+> Tag the rule as clean, as there are no more violations in the codebase since
+> 93c27d54dd23 ("xen/arm: Fix MISRA regression on R1.1,
+> flexible array member not at the end").
+>
+> Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
 
-This hunk needs a matching:
+Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-diff --git a/tools/tests/x86_emulator/x86-emulate.h
-b/tools/tests/x86_emulator/x86-emulate.h
-index 8f8accfe3e70..a702c9faf207 100644
---- a/tools/tests/x86_emulator/x86-emulate.h
-+++ b/tools/tests/x86_emulator/x86-emulate.h
-@@ -50,7 +50,6 @@
- #define this_cpu(var) per_cpu_##var
- 
- #define __init
--#define __maybe_unused __attribute__((__unused__))
- 
- #define likely(x)   __builtin_expect(!!(x), true)
- #define unlikely(x) __builtin_expect(!!(x), false)
-
-~Andrew
 
