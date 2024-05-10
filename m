@@ -2,33 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 725008C2372
-	for <lists+xen-devel@lfdr.de>; Fri, 10 May 2024 13:31:41 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.719812.1122690 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 86CD28C24E2
+	for <lists+xen-devel@lfdr.de>; Fri, 10 May 2024 14:30:05 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.719852.1122701 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s5OTB-0007XY-Ks; Fri, 10 May 2024 11:31:21 +0000
+	id 1s5PN2-0004HI-4S; Fri, 10 May 2024 12:29:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 719812.1122690; Fri, 10 May 2024 11:31:21 +0000
+Received: by outflank-mailman (output) from mailman id 719852.1122701; Fri, 10 May 2024 12:29:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s5OTB-0007VA-I2; Fri, 10 May 2024 11:31:21 +0000
-Received: by outflank-mailman (input) for mailman id 719812;
- Fri, 10 May 2024 11:31:21 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1s5PN2-0004E9-0l; Fri, 10 May 2024 12:29:04 +0000
+Received: by outflank-mailman (input) for mailman id 719852;
+ Fri, 10 May 2024 12:29:03 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=/KIo=MN=gmail.com=rob.townley@srs-se1.protection.inumbo.net>)
- id 1s5OTB-0007V4-4R
- for xen-devel@lists.xenproject.org; Fri, 10 May 2024 11:31:21 +0000
-Received: from mail-yw1-x112a.google.com (mail-yw1-x112a.google.com
- [2607:f8b0:4864:20::112a])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d23bc2b9-0ec0-11ef-909d-e314d9c70b13;
- Fri, 10 May 2024 13:31:20 +0200 (CEST)
-Received: by mail-yw1-x112a.google.com with SMTP id
- 00721157ae682-61b4cbb8834so18273337b3.0
- for <xen-devel@lists.xenproject.org>; Fri, 10 May 2024 04:31:20 -0700 (PDT)
+ <SRS0=+D8H=MN=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1s5PN0-0004E3-VM
+ for xen-devel@lists.xenproject.org; Fri, 10 May 2024 12:29:03 +0000
+Received: from mail-vs1-xe32.google.com (mail-vs1-xe32.google.com
+ [2607:f8b0:4864:20::e32])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id e0d64e2b-0ec8-11ef-b4bb-af5377834399;
+ Fri, 10 May 2024 14:29:00 +0200 (CEST)
+Received: by mail-vs1-xe32.google.com with SMTP id
+ ada2fe7eead31-47ef11b1a31so824057137.0
+ for <xen-devel@lists.xenproject.org>; Fri, 10 May 2024 05:29:00 -0700 (PDT)
+Received: from localhost ([213.195.114.223]) by smtp.gmail.com with ESMTPSA id
+ d75a77b69052e-43df5513017sm20748731cf.46.2024.05.10.05.28.56
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 10 May 2024 05:28:57 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,96 +44,161 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d23bc2b9-0ec0-11ef-909d-e314d9c70b13
+X-Inumbo-ID: e0d64e2b-0ec8-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1715340679; x=1715945479; darn=lists.xenproject.org;
-        h=cc:to:subject:message-id:date:from:reply-to:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=COlgQ18n1H1PLCXLn6irjwUuzTBnZ5prI1L/oP0ZVF0=;
-        b=T4zPQQCTBY/n4qddlzMNBWKuPb+lC1qPrlBgOMJuUW35LmY1uD554cYEDtw7uZAMC7
-         qiW5N3dwMpQqKnA4OrMJPdcpPqUTrMDFgtju0BBPJGdGy9w14fKFE8rMsuB2J/ue48cP
-         OvJI8R+iuiC8o6hIH57MalLi84LrfsgO8gf5LkgbTIOYOhMmBnerH8f87iG0BoRr3jqM
-         dgrr2/PrgyrEMa0z3ibKKsRD0jc7p/wsML2eeP9yqpZO5TxLONW6+JvQFxWmeYssjzDb
-         oM5X88h7nlQoFdqlGAzOb65I6HDj4dez/9bnueuHjL+wKzuo9no+6PnFKxtty7D5EuBX
-         ozdA==
+        d=citrix.com; s=google; t=1715344139; x=1715948939; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=zVZagDSfufW5sKWfE9/POvo7VWOMtlKaVnyuvAnZeFo=;
+        b=kenX9gKtQR7SMshhzldQhqU86xLBIVMtz+OzeUtVDqWZlw3MVLdAth2JW4RDO4KCym
+         AqgYxKuTmYyKOQJcVMRlK7wrOB9N24pW1VprSWQ2cZSI4nuuaHyNZI5hA3HctgmpeXWG
+         c/xjfNtIhvuoUBqFyY9p9OrqHCcgggztkbVug=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1715340679; x=1715945479;
-        h=cc:to:subject:message-id:date:from:reply-to:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=COlgQ18n1H1PLCXLn6irjwUuzTBnZ5prI1L/oP0ZVF0=;
-        b=AvNW555FPp6YtlfsQpBeN5MOvpsQevACjrQ25ZZo3BUdHwv+zgK12GInCbYOIMf+Sw
-         49x7SEaDuP1qbE82Vak6aLeWTT27gWhqsZbkb8725F8YnuSxCaCHGuUk0uqQts3yeuG/
-         l8sqIA+8VexVkF5fmxmQnIb5+OgeJSvLfbS8mhd+zteE6ufX/LOJqwQuKL1Illt0J4tS
-         CDU92nCMj/PPA/Rw8rgLthb8TDXdipUC5uRwsJegV1EcOycLE4qyzhXzn700RBwABSBY
-         E0VXbQ+Ol4UwO2DGPLdW+eAlO0HNuCQjGCe4gGTXMLAHxPezlD1QqrNngE4N0HDrquA1
-         aYMQ==
-X-Gm-Message-State: AOJu0Yy8h9KGm2VsNAmpffyTlgbau8P+Ihl3J/gGlR7SWvmpAPxzcv5q
-	ZTSH8w5Na/GE2KxkpX8xnbIiblDUN9s4ioic2bJWP1OuCqx6W/o+TWKR23Ly1krM/L01CQZdVQF
-	GhwdP0sfFY2wYb/mnFM0RfYp6gvBTzA==
-X-Google-Smtp-Source: AGHT+IGSwq5uGfBHUD9Y4mLh4ft6n74c/JL5173FK9cj0MifOk2Xwk3V/d5ASh938nUbqp1MC3Hg4eTWBsXSn5mzhxM=
-X-Received: by 2002:a81:49ca:0:b0:61a:e4f3:555c with SMTP id
- 00721157ae682-622aff9027fmr25243147b3.8.1715340679030; Fri, 10 May 2024
- 04:31:19 -0700 (PDT)
+        d=1e100.net; s=20230601; t=1715344139; x=1715948939;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=zVZagDSfufW5sKWfE9/POvo7VWOMtlKaVnyuvAnZeFo=;
+        b=eu+t2xuaAQYuxQjlFLASDNTAkDjCkb3ulm1hA8QqxMBzbFnSOgx/Bv408+DJCn/GgJ
+         uKSJpIs9Hknel6BON5Jm5FJMvhRd7Jrp7JPq5WZWGktyGpMuWgUykdpesAgr2dqdXSsh
+         6eHbbgwfhNdRwyf0edaBJNsOAmYWg6TkmKNTjZVQq5EflGTYFn71bgchw26h5BkFkiM2
+         8dIp/2YjIEe7hQRCoxu+zsnv4LJkuIQa3E368COfiQskOFym8HZ3Oko0AnT8wOhxnZB4
+         Qx2UG1QydpVlp19/EAqrgEeFBRngbr8rhOfHZXtXMwfZuzXJQGM5OWa+GreaaOwzbt3Z
+         nozA==
+X-Gm-Message-State: AOJu0YxIg2Nf5WQZGfPzlrhrYJK2F7ZXLHIH1mOidscTuA9AumL3EyG1
+	hL8eJYuAVA9XWnlzxslpUlhwo8elKsSEirHodG0ZDgFpN6v8c07J4aMU3XLy0iwocPDGgmGIuOH
+	7
+X-Google-Smtp-Source: AGHT+IEGu544bcBvZtqjfCZMb4mtH8Ju2ZiAI5Zv/cCa6ulyaanyEFIeYF1ckbJvq8OXer+Rx5xXZQ==
+X-Received: by 2002:a05:6102:41a8:b0:47b:6fb1:5299 with SMTP id ada2fe7eead31-48077e03423mr2609268137.14.1715344137600;
+        Fri, 10 May 2024 05:28:57 -0700 (PDT)
+Date: Fri, 10 May 2024 14:28:55 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: xen-devel@lists.xenproject.org
+Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+	Community Manager <community.manager@xenproject.org>,
+	Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>
+Subject: Re: [PATCH for-4.19 v2 3/3] xen/x86: remove foreign mappings from
+ the p2m on teardown
+Message-ID: <Zj4TB9iXpwFkQoLE@macbook>
+References: <20240508112323.38946-1-roger.pau@citrix.com>
+ <20240508112323.38946-4-roger.pau@citrix.com>
 MIME-Version: 1.0
-References: <Zj3kXlHJzlqaFpMw@dingwall.me.uk>
-In-Reply-To: <Zj3kXlHJzlqaFpMw@dingwall.me.uk>
-Reply-To: Rob.Townley@gmail.com
-From: Rob Townley <rob.townley@gmail.com>
-Date: Fri, 10 May 2024 06:31:08 -0500
-Message-ID: <CA+VdTb9CCBOfq3orob5XxD6VXuy7CXAKizgry+MMm=FkJs1wJw@mail.gmail.com>
-Subject: Re: Domain Birth Time
-To: James Dingwall <james-xen@dingwall.me.uk>
-Cc: xen-devel@lists.xenproject.org
-Content-Type: multipart/alternative; boundary="000000000000d7b319061817df65"
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20240508112323.38946-4-roger.pau@citrix.com>
 
---000000000000d7b319061817df65
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+On Wed, May 08, 2024 at 01:23:23PM +0200, Roger Pau Monne wrote:
+> Iterate over the p2m up to the maximum recorded gfn and remove any foreign
+> mappings, in order to drop the underlying page references and thus don't keep
+> extra page references if a domain is destroyed while still having foreign
+> mappings on it's p2m.
+> 
+> The logic is similar to the one used on Arm.
+> 
+> Note that foreign mappings cannot be created by guests that have altp2m or
+> nested HVM enabled, as p2ms different than the host one are not currently
+> scrubbed when destroyed in order to drop references to any foreign maps.
+> 
+> It's unclear whether the right solution is to take an extra reference when
+> foreign maps are added to p2ms different than the host one, or just rely on the
+> host p2m already having a reference.  The mapping being removed from the host
+> p2m should cause it to be dropped on all domain p2ms.
+> 
+> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+> ---
+> Changes since v1:
+>  - Use existing p2m max_mapped_pfn field.
+>  - Prevent creating foreign mappings by guests that have altp2m or nestedhvm
+>    enabled.
+> ---
+>  CHANGELOG.md                   |  1 +
+>  xen/arch/x86/domain.c          |  8 +++-
+>  xen/arch/x86/include/asm/p2m.h | 26 +++++++------
+>  xen/arch/x86/mm/p2m-basic.c    | 17 +++++++++
+>  xen/arch/x86/mm/p2m.c          | 68 ++++++++++++++++++++++++++++++++--
+>  5 files changed, 103 insertions(+), 17 deletions(-)
+> 
+> diff --git a/CHANGELOG.md b/CHANGELOG.md
+> index 8041cfb7d243..09bdb9b97578 100644
+> --- a/CHANGELOG.md
+> +++ b/CHANGELOG.md
+> @@ -14,6 +14,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
+>     - HVM PIRQs are disabled by default.
+>     - Reduce IOMMU setup time for hardware domain.
+>   - xl/libxl configures vkb=[] for HVM domains with priority over vkb_device.
+> + - Allow HVM/PVH domains to map foreign pages.
+>  
+>  ### Added
+>   - On x86:
+> diff --git a/xen/arch/x86/domain.c b/xen/arch/x86/domain.c
+> index dff790060605..1cb3ccddab00 100644
+> --- a/xen/arch/x86/domain.c
+> +++ b/xen/arch/x86/domain.c
+> @@ -718,7 +718,7 @@ int arch_sanitise_domain_config(struct xen_domctl_createdomain *config)
+>          return -EINVAL;
+>      }
+>  
+> -    if ( altp2m && (altp2m & (altp2m - 1)) )
+> +    if ( altp2m & (altp2m - 1) )
+>      {
+>          dprintk(XENLOG_INFO, "Multiple altp2m options selected in flags: %#x\n",
+>                  config->flags);
+> @@ -2387,6 +2387,7 @@ int domain_relinquish_resources(struct domain *d)
+>          enum {
+>              PROG_iommu_pagetables = 1,
+>              PROG_shared,
+> +            PROG_mappings,
+>              PROG_paging,
+>              PROG_vcpu_pagetables,
+>              PROG_xen,
+> @@ -2435,6 +2436,11 @@ int domain_relinquish_resources(struct domain *d)
+>          }
+>  #endif
+>  
+> +    PROGRESS(mappings):
+> +        ret = relinquish_p2m_mapping(d);
+> +        if ( ret )
+> +            return ret;
+> +
+>      PROGRESS(paging):
+>  
+>          /* Tear down paging-assistance stuff. */
+> diff --git a/xen/arch/x86/include/asm/p2m.h b/xen/arch/x86/include/asm/p2m.h
+> index 107b9f260848..c1478ffc3647 100644
+> --- a/xen/arch/x86/include/asm/p2m.h
+> +++ b/xen/arch/x86/include/asm/p2m.h
+> @@ -383,6 +383,8 @@ struct p2m_domain {
+>  
+>      /* Number of foreign mappings. */
+>      unsigned long      nr_foreign;
+> +    /* Cursor for iterating over the p2m on teardown. */
+> +    unsigned long      teardown_gfn;
+>  #endif /* CONFIG_HVM */
+>  };
+>  
+> @@ -395,16 +397,7 @@ struct p2m_domain {
+>  #endif
+>  #include <xen/p2m-common.h>
+>  
+> -static inline bool arch_acquire_resource_check(struct domain *d)
+> -{
+> -    /*
+> -     * FIXME: Until foreign pages inserted into the P2M are properly
+> -     * reference counted, it is unsafe to allow mapping of
+> -     * resource pages unless the caller is the hardware domain
+> -     * (see set_foreign_p2m_entry()).
+> -     */
+> -    return !paging_mode_translate(d) || is_hardware_domain(d);
 
-On Fri, May 10, 2024 at 4:10=E2=80=AFAM James Dingwall <james-xen@dingwall.=
-me.uk>
-wrote:
+This must be:
 
-> Hi,
->
-> We've added a feature to Xen 4.15 such that `xl uptime -b` reports the
-> birth
-> time of the domain (i.e. a value preserved across migrations).  If this
-> would
-> be of wider interest I can try porting this to a more recent release and
-> submitting it for review.
->
-> Regards,
-> James
->
-> Awesome!  birth date time and last modification are fundamental to about
-all data usefulness.
+    return is_pv_domain(d) ||
+           (d->arch.hvm.params[HVM_PARAM_ALTP2M] == XEN_ALTP2M_disabled &&
+            !nestedhvm_enabled(d));
 
---000000000000d7b319061817df65
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div>On Fri, May 10, 2024 at 4:10=E2=80=AFAM James Dingwall &lt;<a href=3D"=
-mailto:james-xen@dingwall.me.uk">james-xen@dingwall.me.uk</a>&gt; wrote:<br=
-></div><div><div class=3D"gmail_quote"><blockquote class=3D"gmail_quote" st=
-yle=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">Hi,<b=
-r>
-<br>
-We&#39;ve added a feature to Xen 4.15 such that `xl uptime -b` reports the =
-birth<br>
-time of the domain (i.e. a value preserved across migrations).=C2=A0 If thi=
-s would<br>
-be of wider interest I can try porting this to a more recent release and<br=
->
-submitting it for review.<br>
-<br>
-Regards,<br>
-James<br>
-<br>
-</blockquote></div></div>Awesome! =C2=A0birth date time and last modificati=
-on are fundamental to about all data usefulness.=C2=A0<div dir=3D"auto"><br=
-></div>
-
---000000000000d7b319061817df65--
+Sorry.
 
