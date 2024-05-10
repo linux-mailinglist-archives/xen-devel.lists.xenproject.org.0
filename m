@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1781A8C2CBC
-	for <lists+xen-devel@lfdr.de>; Sat, 11 May 2024 00:40:32 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.720097.1123129 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9E7E48C2CBD
+	for <lists+xen-devel@lfdr.de>; Sat, 11 May 2024 00:45:50 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.720112.1123140 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s5YuT-0000il-0y; Fri, 10 May 2024 22:40:13 +0000
+	id 1s5YzV-0003BO-NK; Fri, 10 May 2024 22:45:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 720097.1123129; Fri, 10 May 2024 22:40:12 +0000
+Received: by outflank-mailman (output) from mailman id 720112.1123140; Fri, 10 May 2024 22:45:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s5YuS-0000fY-SU; Fri, 10 May 2024 22:40:12 +0000
-Received: by outflank-mailman (input) for mailman id 720097;
- Fri, 10 May 2024 22:40:11 +0000
+	id 1s5YzV-00039A-KK; Fri, 10 May 2024 22:45:25 +0000
+Received: by outflank-mailman (input) for mailman id 720112;
+ Fri, 10 May 2024 22:45:24 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=4i6G=MN=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1s5YuQ-0000RL-UH
- for xen-devel@lists.xenproject.org; Fri, 10 May 2024 22:40:10 +0000
-Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
- [2a00:1450:4864:20::62b])
+ id 1s5YzU-000392-A7
+ for xen-devel@lists.xenproject.org; Fri, 10 May 2024 22:45:24 +0000
+Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
+ [2a00:1450:4864:20::32d])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 40e7ea54-0f1e-11ef-b4bb-af5377834399;
- Sat, 11 May 2024 00:40:08 +0200 (CEST)
-Received: by mail-ej1-x62b.google.com with SMTP id
- a640c23a62f3a-a59a64db066so661797066b.3
- for <xen-devel@lists.xenproject.org>; Fri, 10 May 2024 15:40:08 -0700 (PDT)
-Received: from andrewcoop.citrite.net (default-46-102-197-194.interdsl.co.uk.
- [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a5a1781cf60sm233915866b.14.2024.05.10.15.40.06
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 10 May 2024 15:40:06 -0700 (PDT)
+ id fbc5d350-0f1e-11ef-b4bb-af5377834399;
+ Sat, 11 May 2024 00:45:22 +0200 (CEST)
+Received: by mail-wm1-x32d.google.com with SMTP id
+ 5b1f17b1804b1-41a72f3a20dso17708135e9.0
+ for <xen-devel@lists.xenproject.org>; Fri, 10 May 2024 15:45:22 -0700 (PDT)
+Received: from [192.168.1.10] (host-92-26-98-202.as13285.net. [92.26.98.202])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-41fccce24efsm78524385e9.19.2024.05.10.15.45.20
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 10 May 2024 15:45:21 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,368 +45,182 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 40e7ea54-0f1e-11ef-b4bb-af5377834399
+X-Inumbo-ID: fbc5d350-0f1e-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1715380807; x=1715985607; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=NZZNtujjN9pYr6HT0e0A2/j3Mym7RChiLwN22jfYFXQ=;
-        b=dMcczuGdoQatw4rz5HetC7jd1Ll80NHUcG8fkCjdn2wstbs3XH4089I61pI+j1yc+x
-         9byQh0qXw3hHgrwZaJq9ChMZ7nkNmYZD/FIits5YxxClNmWb+dfmewkP3Ar8Ts3q6FBW
-         CmVJ/pAyDNoLlipGv4auyRxSRz5svuz9779Tg=
+        d=citrix.com; s=google; t=1715381121; x=1715985921; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=Sn6WsIBQzi2paWx2AV+3jgJbQsaBnBIozeWKELO4BZU=;
+        b=BFn+FueisxjxAw4xnWWTs+rHKR1eo/lTAl+lpsxSAi7zyM0BTbD286Q/YtPL+mDAKx
+         p+JUU+9zaJp8lvajZ6X2l4HXqnE+cdSPjCwKt71ayorLkk2CaxzkDFmGD2E3y2tURkjP
+         HbyZCXOykr3qzYfx+lhZLw0rcqtxMZoTnVeEs=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1715380807; x=1715985607;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=NZZNtujjN9pYr6HT0e0A2/j3Mym7RChiLwN22jfYFXQ=;
-        b=q/rBjAmNnQf+6nmPw0mH8EBedFvannOaxG9OwL68IJXTQCuxoDXpV4eunR4q4bIcvh
-         CAE9fz4K9Knb4w1adgbaJxXFOZRpNZYE3VhhPQhUkpE32C6zAcaCkrc74SWM9+vyWxpA
-         v/WYMKWrNrW9kuUCuG5oIwnOx+QYcti1+Uvu8WetWiYR+LPPcbfW5NRN1Ugl+oLSheRd
-         cyGpXFaWCkd/tq3PCNfJUSWXmqSsx/7AoHa/6Wnt30dp9Maba6uOHAOHOP4fVoGPpmcT
-         MJ3oqnSyx9gBoAT0xinOiLGO+HXVudOqVVNe6M6dqyZOVjVWy4EJlzyAy4YXRaqzqv6t
-         +xgA==
-X-Gm-Message-State: AOJu0YywnCw8MX1NLb0HfgZAyMXE4TAb9gyFbKA6zw0FgHUOveAbw7+k
-	kZWQBDRFhl9eSGD+DYURm7TYtD+L8tS4PkbtrlxsZal6hvGNbu1jRHABwXaDrm1xBa9rom+F5+Q
-	M
-X-Google-Smtp-Source: AGHT+IFXXDmaCK9fx4msP1oV+MH9H9mEiBmmVYHwccM8SXOciaaLj3tBQWdnSEKuMH8C/e8C2XT1iw==
-X-Received: by 2002:a17:906:1d16:b0:a59:dd91:3417 with SMTP id a640c23a62f3a-a5a2d53b132mr250376266b.5.1715380807400;
-        Fri, 10 May 2024 15:40:07 -0700 (PDT)
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-Cc: =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Jan Beulich <JBeulich@suse.com>
-Subject: [PATCH 4/4] tools/xen-cpuid: Drop old names
-Date: Fri, 10 May 2024 23:40:02 +0100
-Message-Id: <20240510224002.2324578-5-andrew.cooper3@citrix.com>
-X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20240510224002.2324578-1-andrew.cooper3@citrix.com>
-References: <20240510224002.2324578-1-andrew.cooper3@citrix.com>
+        d=1e100.net; s=20230601; t=1715381121; x=1715985921;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=Sn6WsIBQzi2paWx2AV+3jgJbQsaBnBIozeWKELO4BZU=;
+        b=PaQaw+h3465u/OMRpvDTCKwLc9Zr2m2tKN8/sYbxnQyYj6Ls80E/aulbDVdGs9eeJg
+         f6tMFNv+9ZqrF3vnixsdNJ2yvyaIzOEWySbxGVPmjWToeZu84ywFYBPxaPcLnxFGzD1x
+         202YQ1OT+dEgvSArGxo10lW+sG2t5/LMEG/9ciCOtVk27+rLkpicxbh1lI8MY1qZLD4Y
+         PXIBig4t9DkWXFeac5gMq5qALQl0d6EAfCufj7eJeg90/2K+fv9CsGhSWyDvhrIQ4h7B
+         9IX9VYSRjzCQF6kFzNWMLtJzSbmynn5YxAcoggErISIf7LoE39AyEYjh4zWORwc8Trg9
+         2ZgA==
+X-Forwarded-Encrypted: i=1; AJvYcCXhi6zWTODcXNdvwNY1PxHlZ7/4sD6ktntuDZ+cr9dUCi0JhoHF0okt2WOPTRTllu+CqzHUZnEEbBfgJUxFfdxo9jP2//qM8UrKgv9/g+I=
+X-Gm-Message-State: AOJu0Yxpz0sCmHbkjcMspFxYQbX4yqX1DNPtGYOf6v7X/4oO/ZpOXR3X
+	o6btXu9dKPNTx1v9AZsXN8gvq+eI7BOx19GNzGlU8pdrxR8KBNHPeP0vayt9X+c=
+X-Google-Smtp-Source: AGHT+IHLax7T17bbvizcPdXomnhVe6GKAZmA6+qk9CH8eom9zoZKay3NOCDtz1jUPjv8wq4BkaIyRw==
+X-Received: by 2002:a05:600c:1f93:b0:417:d4f5:6501 with SMTP id 5b1f17b1804b1-41feac5a3b8mr29511265e9.27.1715381121468;
+        Fri, 10 May 2024 15:45:21 -0700 (PDT)
+Message-ID: <be534982-5b4f-4f90-8484-faf09e44a618@citrix.com>
+Date: Fri, 10 May 2024 23:45:20 +0100
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] docs/misra: add R21.6 R21.9 R21.10 R21.14 R21.15
+ R21.16
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: Stefano Stabellini <sstabellini@kernel.org>,
+ xen-devel@lists.xenproject.org
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>
+References: <alpine.DEB.2.22.394.2404261435010.3940@ubuntu-linux-20-04-desktop>
+ <cf0cd2ef-58df-476f-89c5-c843a85f71f7@citrix.com>
+Content-Language: en-GB
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <cf0cd2ef-58df-476f-89c5-c843a85f71f7@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Roger Pau Monné <roger.pau@citrix.com>
+On 10/05/2024 10:48 pm, Andrew Cooper wrote:
+> On 26/04/2024 10:36 pm, Stefano Stabellini wrote:
+>> Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
+>> ---
+>>
+>> Changes in v3:
+>> - add explanation in footnote
+>> - remove comment from 21.14, 21.15, 21.16
+>>
+>>  docs/misra/rules.rst | 42 ++++++++++++++++++++++++++++++++++++++++++
+>>  1 file changed, 42 insertions(+)
+>>
+>> diff --git a/docs/misra/rules.rst b/docs/misra/rules.rst
+>> index b7b447e152..5ba7394f05 100644
+>> --- a/docs/misra/rules.rst
+>> +++ b/docs/misra/rules.rst
+>> @@ -652,12 +652,48 @@ maintainers if you want to suggest a change.
+>>         declared
+>>       - See comment for Rule 21.1
+>>  
+>> +   * - `Rule 21.6 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_21_06.c>`_
+>> +     - Required
+>> +     - The Standard Library input/output routines shall not be used
+>> +     - Xen doesn't provide, use, or link against a Standard Library [1]_
+>> +
+>> +   * - `Rule 21.9 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_21_09.c>`_
+>> +     - Required
+>> +     - The library functions bsearch and qsort of <stdlib.h> shall not be used
+>> +     - Xen doesn't provide, use, or link against a Standard Library [1]_
+>> +
+>> +   * - `Rule 21.10 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_21_10.c>`_
+>> +     - Required
+>> +     - The Standard Library time and date routines shall not be used
+>> +     - Xen doesn't provide, use, or link against a Standard Library [1]_
+>> +
+>>     * - `Rule 21.13 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_21_13.c>`_
+>>       - Mandatory
+>>       - Any value passed to a function in <ctype.h> shall be representable as an
+>>         unsigned char or be the value EOF
+>>       -
+>>  
+>> +   * - `Rule 21.14 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_21_14.c>`_
+>> +     - Required
+>> +     - The Standard Library function memcmp shall not be used to compare
+>> +       null terminated strings
+>> +     -
+>> +
+>> +   * - `Rule 21.15 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_21_15.c>`_
+>> +     - Required
+>> +     - The pointer arguments to the Standard Library functions memcpy,
+>> +       memmove and memcmp shall be pointers to qualified or unqualified
+>> +       versions of compatible types
+>> +     -
+>> +
+>> +   * - `Rule 21.16 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_21_16.c>`_
+>> +     - Required
+>> +     - The pointer arguments to the Standard Library function memcmp
+>> +       shall point to either a pointer type, an essentially signed type,
+>> +       an essentially unsigned type, an essentially Boolean type or an
+>> +       essentially enum type
+>> +     - void* arguments are allowed
+>> +
+>>     * - `Rule 21.17 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_21_17.c>`_
+>>       - Mandatory
+>>       - Use of the string handling functions from <string.h> shall not result in
+>> @@ -712,3 +748,9 @@ maintainers if you want to suggest a change.
+>>       - The value of a pointer to a FILE shall not be used after the associated
+>>         stream has been closed
+>>       -
+>> +
+>> +
+>> +.. [1] Xen implements itself a few functions with names that match the
+>> +       corresponding function names of the Standard Library for developers'
+>> +       convenience. These functions are part of the Xen code and subject to
+>> +       analysis.
+> I discovered the hard way (c/s 1357f1fa588f1) that numbered footnotes
+> are an issue when the document gets more complicated.
+>
+> I'd suggest using #xen-stdlib as a named footnote instead of [1].
+>
+> Can fix on commit.
 
-Not used any more.  Split out of previous patch to aid legibility.
+And a ".. rubric:: Footnotes" is wanted too.  Fixed on commit, after
+conferring with Stefano.
 
-Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
----
-CC: Jan Beulich <JBeulich@suse.com>
-CC: Roger Pau Monné <roger.pau@citrix.com>
-
-v3:
- * New (split out)
----
- tools/misc/xen-cpuid.c | 287 +++--------------------------------------
- 1 file changed, 18 insertions(+), 269 deletions(-)
-
-diff --git a/tools/misc/xen-cpuid.c b/tools/misc/xen-cpuid.c
-index 2f34694e9c57..2cb5322ed9aa 100644
---- a/tools/misc/xen-cpuid.c
-+++ b/tools/misc/xen-cpuid.c
-@@ -15,279 +15,28 @@
- 
- static uint32_t nr_features;
- 
--static const char *const str_1d[32] =
--{
--    [ 0] = "fpu",  [ 1] = "vme",
--    [ 2] = "de",   [ 3] = "pse",
--    [ 4] = "tsc",  [ 5] = "msr",
--    [ 6] = "pae",  [ 7] = "mce",
--    [ 8] = "cx8",  [ 9] = "apic",
--    /* [10] */     [11] = "sysenter",
--    [12] = "mtrr", [13] = "pge",
--    [14] = "mca",  [15] = "cmov",
--    [16] = "pat",  [17] = "pse36",
--    [18] = "psn",  [19] = "clflush",
--    /* [20] */     [21] = "ds",
--    [22] = "acpi", [23] = "mmx",
--    [24] = "fxsr", [25] = "sse",
--    [26] = "sse2", [27] = "ss",
--    [28] = "htt",  [29] = "tm",
--    [30] = "ia64", [31] = "pbe",
--};
--
--static const char *const str_1c[32] =
--{
--    [ 0] = "sse3",    [ 1] = "pclmulqdq",
--    [ 2] = "dtes64",  [ 3] = "monitor",
--    [ 4] = "ds-cpl",  [ 5] = "vmx",
--    [ 6] = "smx",     [ 7] = "est",
--    [ 8] = "tm2",     [ 9] = "ssse3",
--    [10] = "cntx-id", [11] = "sdgb",
--    [12] = "fma",     [13] = "cx16",
--    [14] = "xtpr",    [15] = "pdcm",
--    /* [16] */        [17] = "pcid",
--    [18] = "dca",     [19] = "sse41",
--    [20] = "sse42",   [21] = "x2apic",
--    [22] = "movebe",  [23] = "popcnt",
--    [24] = "tsc-dl",  [25] = "aesni",
--    [26] = "xsave",   [27] = "osxsave",
--    [28] = "avx",     [29] = "f16c",
--    [30] = "rdrnd",   [31] = "hyper",
--};
--
--static const char *const str_e1d[32] =
--{
--    [ 0] = "fpu",    [ 1] = "vme",
--    [ 2] = "de",     [ 3] = "pse",
--    [ 4] = "tsc",    [ 5] = "msr",
--    [ 6] = "pae",    [ 7] = "mce",
--    [ 8] = "cx8",    [ 9] = "apic",
--    /* [10] */       [11] = "syscall",
--    [12] = "mtrr",   [13] = "pge",
--    [14] = "mca",    [15] = "cmov",
--    [16] = "fcmov",  [17] = "pse36",
--    /* [18] */       [19] = "mp",
--    [20] = "nx",     /* [21] */
--    [22] = "mmx+",   [23] = "mmx",
--    [24] = "fxsr",   [25] = "fxsr+",
--    [26] = "pg1g",   [27] = "rdtscp",
--    /* [28] */       [29] = "lm",
--    [30] = "3dnow+", [31] = "3dnow",
--};
--
--static const char *const str_e1c[32] =
--{
--    [ 0] = "lahf-lm",    [ 1] = "cmp",
--    [ 2] = "svm",        [ 3] = "extapic",
--    [ 4] = "cr8d",       [ 5] = "lzcnt",
--    [ 6] = "sse4a",      [ 7] = "msse",
--    [ 8] = "3dnowpf",    [ 9] = "osvw",
--    [10] = "ibs",        [11] = "xop",
--    [12] = "skinit",     [13] = "wdt",
--    /* [14] */           [15] = "lwp",
--    [16] = "fma4",       [17] = "tce",
--    /* [18] */           [19] = "nodeid",
--    /* [20] */           [21] = "tbm",
--    [22] = "topoext",    [23] = "perfctr-core",
--    [24] = "perfctr-nb", /* [25] */
--    [26] = "dbx",        [27] = "perftsc",
--    [28] = "pcx-l2i",    [29] = "monitorx",
--    [30] = "addr-msk-ext",
--};
--
--static const char *const str_7b0[32] =
--{
--    [ 0] = "fsgsbase", [ 1] = "tsc-adj",
--    [ 2] = "sgx",      [ 3] = "bmi1",
--    [ 4] = "hle",      [ 5] = "avx2",
--    [ 6] = "fdp-exn",  [ 7] = "smep",
--    [ 8] = "bmi2",     [ 9] = "erms",
--    [10] = "invpcid",  [11] = "rtm",
--    [12] = "pqm",      [13] = "depfpp",
--    [14] = "mpx",      [15] = "pqe",
--    [16] = "avx512f",  [17] = "avx512dq",
--    [18] = "rdseed",   [19] = "adx",
--    [20] = "smap",     [21] = "avx512-ifma",
--    [22] = "pcommit",  [23] = "clflushopt",
--    [24] = "clwb",     [25] = "proc-trace",
--    [26] = "avx512pf", [27] = "avx512er",
--    [28] = "avx512cd", [29] = "sha",
--    [30] = "avx512bw", [31] = "avx512vl",
--};
--
--static const char *const str_Da1[32] =
--{
--    [ 0] = "xsaveopt", [ 1] = "xsavec",
--    [ 2] = "xgetbv1",  [ 3] = "xsaves",
--};
--
--static const char *const str_7c0[32] =
--{
--    [ 0] = "prefetchwt1",      [ 1] = "avx512-vbmi",
--    [ 2] = "umip",             [ 3] = "pku",
--    [ 4] = "ospke",            [ 5] = "waitpkg",
--    [ 6] = "avx512-vbmi2",     [ 7] = "cet-ss",
--    [ 8] = "gfni",             [ 9] = "vaes",
--    [10] = "vpclmulqdq",       [11] = "avx512-vnni",
--    [12] = "avx512-bitalg",
--    [14] = "avx512-vpopcntdq",
--
--    [22] = "rdpid",
--    /* 24 */                   [25] = "cldemote",
--    /* 26 */                   [27] = "movdiri",
--    [28] = "movdir64b",        [29] = "enqcmd",
--    [30] = "sgx-lc",           [31] = "pks",
--};
--
--static const char *const str_e7d[32] =
--{
--    /* 6 */                    [ 7] = "hw-pstate",
--    [ 8] = "itsc",             [ 9] = "cpb",
--    [10] = "efro",
--};
--
--static const char *const str_e8b[32] =
--{
--    [ 0] = "clzero",
--    [ 2] = "rstr-fp-err-ptrs",
--
--    /* [ 8] */                 [ 9] = "wbnoinvd",
--
--    [12] = "ibpb",
--    [14] = "ibrs",             [15] = "amd-stibp",
--    [16] = "ibrs-always",      [17] = "stibp-always",
--    [18] = "ibrs-fast",        [19] = "ibrs-same-mode",
--
--    [20] = "no-lmsl",
--    /* [22] */                 [23] = "ppin",
--    [24] = "amd-ssbd",         [25] = "virt-ssbd",
--    [26] = "ssb-no",
--    [28] = "psfd",             [29] = "btc-no",
--    [30] = "ibpb-ret",
--};
--
--static const char *const str_7d0[32] =
--{
--    [ 2] = "avx512-4vnniw", [ 3] = "avx512-4fmaps",
--    [ 4] = "fsrm",
--
--    [ 8] = "avx512-vp2intersect", [ 9] = "srbds-ctrl",
--    [10] = "md-clear",            [11] = "rtm-always-abort",
--    /* 12 */                [13] = "tsx-force-abort",
--    [14] = "serialize",     [15] = "hybrid",
--    [16] = "tsxldtrk",
--    [18] = "pconfig",
--    [20] = "cet-ibt",
--    /* 22 */                [23] = "avx512-fp16",
--
--    [26] = "ibrsb",         [27] = "stibp",
--    [28] = "l1d-flush",     [29] = "arch-caps",
--    [30] = "core-caps",     [31] = "ssbd",
--};
--
--static const char *const str_7a1[32] =
--{
--    [ 0] = "sha512",        [ 1] = "sm3",
--    [ 2] = "sm4",
--    [ 4] = "avx-vnni",      [ 5] = "avx512-bf16",
--
--    [10] = "fzrm",          [11] = "fsrs",
--    [12] = "fsrcs",
--
--    /* 18 */                [19] = "wrmsrns",
--
--    /* 22 */                [23] = "avx-ifma",
--};
--
--static const char *const str_e21a[32] =
--{
--    [ 0] = "no-nest-bp",    [ 1] = "fs-gs-ns",
--    [ 2] = "lfence+",
--    [ 6] = "nscb",
--    [ 8] = "auto-ibrs",
--    [10] = "amd-fsrs",      [11] = "amd-fsrc",
--
--    /* 16 */                [17] = "cpuid-user-dis",
--    [18] = "epsf",          [19] = "fsrsc",
--    [20] = "amd-prefetchi",
--
--    /* 26 */                [27] = "sbpb",
--    [28] = "ibpb-brtype",   [29] = "srso-no",
--};
--
--static const char *const str_7b1[32] =
--{
--    [ 0] = "ppin",
--};
--
--static const char *const str_7c1[32] =
--{
--};
--
--static const char *const str_7d1[32] =
--{
--    [ 4] = "avx-vnni-int8",       [ 5] = "avx-ne-convert",
--
--    [10] = "avx-vnni-int16",
--
--    [14] = "prefetchi",
--
--    [18] = "cet-sss",
--};
--
--static const char *const str_7d2[32] =
--{
--    [ 0] = "intel-psfd",    [ 1] = "ipred-ctrl",
--    [ 2] = "rrsba-ctrl",    [ 3] = "ddp-ctrl",
--    [ 4] = "bhi-ctrl",      [ 5] = "mcdt-no",
--};
--
--static const char *const str_m10Al[32] =
--{
--    [ 0] = "rdcl-no",             [ 1] = "eibrs",
--    [ 2] = "rsba",                [ 3] = "skip-l1dfl",
--    [ 4] = "intel-ssb-no",        [ 5] = "mds-no",
--    [ 6] = "if-pschange-mc-no",   [ 7] = "tsx-ctrl",
--    [ 8] = "taa-no",              [ 9] = "mcu-ctrl",
--    [10] = "misc-pkg-ctrl",       [11] = "energy-ctrl",
--    [12] = "doitm",               [13] = "sbdr-ssdp-no",
--    [14] = "fbsdp-no",            [15] = "psdp-no",
--    /* 16 */                      [17] = "fb-clear",
--    [18] = "fb-clear-ctrl",       [19] = "rrsba",
--    [20] = "bhi-no",              [21] = "xapic-status",
--    /* 22 */                      [23] = "ovrclk-status",
--    [24] = "pbrsb-no",            [25] = "gds-ctrl",
--    [26] = "gds-no",              [27] = "rfds-no",
--    [28] = "rfds-clear",
--};
--
--static const char *const str_m10Ah[32] =
--{
--};
--
- static const struct {
-     const char *name;
-     const char *abbr;
--    const char *const *strs;
- } leaf_info[FEATURESET_NR_ENTRIES] = {
--    { "CPUID 0x00000001.edx",        "1d", str_1d },
--    { "CPUID 0x00000001.ecx",        "1c", str_1c },
--    { "CPUID 0x80000001.edx",       "e1d", str_e1d },
--    { "CPUID 0x80000001.ecx",       "e1c", str_e1c },
--    { "CPUID 0x0000000d:1.eax",     "Da1", str_Da1 },
--    { "CPUID 0x00000007:0.ebx",     "7b0", str_7b0 },
--    { "CPUID 0x00000007:0.ecx",     "7c0", str_7c0 },
--    { "CPUID 0x80000007.edx",       "e7d", str_e7d },
--    { "CPUID 0x80000008.ebx",       "e8b", str_e8b },
--    { "CPUID 0x00000007:0.edx",     "7d0", str_7d0 },
--    { "CPUID 0x00000007:1.eax",     "7a1", str_7a1 },
--    { "CPUID 0x80000021.eax",      "e21a", str_e21a },
--    { "CPUID 0x00000007:1.ebx",     "7b1", str_7b1 },
--    { "CPUID 0x00000007:2.edx",     "7d2", str_7d2 },
--    { "CPUID 0x00000007:1.ecx",     "7c1", str_7c1 },
--    { "CPUID 0x00000007:1.edx",     "7d1", str_7d1 },
--    { "MSR_ARCH_CAPS.lo",         "m10Al", str_m10Al },
--    { "MSR_ARCH_CAPS.hi",         "m10Ah", str_m10Ah },
-+    { "CPUID 0x00000001.edx",        "1d" },
-+    { "CPUID 0x00000001.ecx",        "1c" },
-+    { "CPUID 0x80000001.edx",       "e1d" },
-+    { "CPUID 0x80000001.ecx",       "e1c" },
-+    { "CPUID 0x0000000d:1.eax",     "Da1" },
-+    { "CPUID 0x00000007:0.ebx",     "7b0" },
-+    { "CPUID 0x00000007:0.ecx",     "7c0" },
-+    { "CPUID 0x80000007.edx",       "e7d" },
-+    { "CPUID 0x80000008.ebx",       "e8b" },
-+    { "CPUID 0x00000007:0.edx",     "7d0" },
-+    { "CPUID 0x00000007:1.eax",     "7a1" },
-+    { "CPUID 0x80000021.eax",      "e21a" },
-+    { "CPUID 0x00000007:1.ebx",     "7b1" },
-+    { "CPUID 0x00000007:2.edx",     "7d2" },
-+    { "CPUID 0x00000007:1.ecx",     "7c1" },
-+    { "CPUID 0x00000007:1.edx",     "7d1" },
-+    { "MSR_ARCH_CAPS.lo",         "m10Al" },
-+    { "MSR_ARCH_CAPS.hi",         "m10Ah" },
- };
- 
- #define COL_ALIGN "24"
--- 
-2.30.2
-
+~Andrew
 
