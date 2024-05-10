@@ -2,40 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A83668C2350
-	for <lists+xen-devel@lfdr.de>; Fri, 10 May 2024 13:28:36 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.719805.1122679 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 725008C2372
+	for <lists+xen-devel@lfdr.de>; Fri, 10 May 2024 13:31:41 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.719812.1122690 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s5OPf-0005Ty-6i; Fri, 10 May 2024 11:27:43 +0000
+	id 1s5OTB-0007XY-Ks; Fri, 10 May 2024 11:31:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 719805.1122679; Fri, 10 May 2024 11:27:43 +0000
+Received: by outflank-mailman (output) from mailman id 719812.1122690; Fri, 10 May 2024 11:31:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s5OPf-0005Rf-3r; Fri, 10 May 2024 11:27:43 +0000
-Received: by outflank-mailman (input) for mailman id 719805;
- Fri, 10 May 2024 11:27:41 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=YvKo=MN=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1s5OPd-0005QZ-6c
- for xen-devel@lists.xenproject.org; Fri, 10 May 2024 11:27:41 +0000
-Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
- [2a00:1450:4864:20::62f])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 4e966a06-0ec0-11ef-b4bb-af5377834399;
- Fri, 10 May 2024 13:27:38 +0200 (CEST)
-Received: by mail-ej1-x62f.google.com with SMTP id
- a640c23a62f3a-a59ab4f60a6so425129366b.0
- for <xen-devel@lists.xenproject.org>; Fri, 10 May 2024 04:27:38 -0700 (PDT)
-Received: from ?IPV6:2003:e5:873c:a500:6aaf:b7a7:7c29:ae5c?
- (p200300e5873ca5006aafb7a77c29ae5c.dip0.t-ipconnect.de.
- [2003:e5:873c:a500:6aaf:b7a7:7c29:ae5c])
- by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5733bea651asm1706341a12.11.2024.05.10.04.27.37
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 10 May 2024 04:27:38 -0700 (PDT)
+	id 1s5OTB-0007VA-I2; Fri, 10 May 2024 11:31:21 +0000
+Received: by outflank-mailman (input) for mailman id 719812;
+ Fri, 10 May 2024 11:31:21 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=/KIo=MN=gmail.com=rob.townley@srs-se1.protection.inumbo.net>)
+ id 1s5OTB-0007V4-4R
+ for xen-devel@lists.xenproject.org; Fri, 10 May 2024 11:31:21 +0000
+Received: from mail-yw1-x112a.google.com (mail-yw1-x112a.google.com
+ [2607:f8b0:4864:20::112a])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id d23bc2b9-0ec0-11ef-909d-e314d9c70b13;
+ Fri, 10 May 2024 13:31:20 +0200 (CEST)
+Received: by mail-yw1-x112a.google.com with SMTP id
+ 00721157ae682-61b4cbb8834so18273337b3.0
+ for <xen-devel@lists.xenproject.org>; Fri, 10 May 2024 04:31:20 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,94 +40,96 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4e966a06-0ec0-11ef-b4bb-af5377834399
+X-Inumbo-ID: d23bc2b9-0ec0-11ef-909d-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1715340458; x=1715945258; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=zNXwSOWeBMueOtABnUo69wqjco2rwqNtJ/nGjlKDC3g=;
-        b=LYsY7xMpdOo5RJNnFRf67hMbFY8du/3v+bJKMGXsNT4OxZBRDdH1M14g5mDLizG6+3
-         39bcWn4NUsoTBmUxBEy21XiZLiYownv6fh0SlL16+sbpJwWG97mtrZBTaI53nvlwxwMn
-         m6oyuanbxq3q9K8D6NxrSviKF/k1JpP3sUa2Wy2SzvHbyNyR2H7Vcg0enofpxBneSejw
-         paVeCU1rINFaJ+9RkNTRLBcRKjiS6cpXbKIhGvGaSkEI2O3K7PGnNO/2Ih1Wkm0UNzDg
-         cQOhsn8A+K8dyVwn0tyn6ZpdgMVlc7xzRHfMym94/5EaN2XpIQuOLuiljo8ydmvLl/CR
-         VPuA==
+        d=gmail.com; s=20230601; t=1715340679; x=1715945479; darn=lists.xenproject.org;
+        h=cc:to:subject:message-id:date:from:reply-to:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=COlgQ18n1H1PLCXLn6irjwUuzTBnZ5prI1L/oP0ZVF0=;
+        b=T4zPQQCTBY/n4qddlzMNBWKuPb+lC1qPrlBgOMJuUW35LmY1uD554cYEDtw7uZAMC7
+         qiW5N3dwMpQqKnA4OrMJPdcpPqUTrMDFgtju0BBPJGdGy9w14fKFE8rMsuB2J/ue48cP
+         OvJI8R+iuiC8o6hIH57MalLi84LrfsgO8gf5LkgbTIOYOhMmBnerH8f87iG0BoRr3jqM
+         dgrr2/PrgyrEMa0z3ibKKsRD0jc7p/wsML2eeP9yqpZO5TxLONW6+JvQFxWmeYssjzDb
+         oM5X88h7nlQoFdqlGAzOb65I6HDj4dez/9bnueuHjL+wKzuo9no+6PnFKxtty7D5EuBX
+         ozdA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1715340458; x=1715945258;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=zNXwSOWeBMueOtABnUo69wqjco2rwqNtJ/nGjlKDC3g=;
-        b=nO1gpvTxEZXErCZroIAhcMMQgKt+SWJgfROpMXekP4hW5b9EHK0paa2vveMvka36LD
-         SlMH8QIB+V6z1WAvllLSGkOE8sWIukFhPNDJvw9yMGSQJl7ZuQy2Vy2HlMRu6zXl3GfV
-         G8lIrXqwnXTh6n40jsSNFouvmY1UgxgnraoSmOwKeEb4BV7APX9WH5fut+D6JrfoClh5
-         +UA5cm1A0zomuhUjLt9iCh+nI750kxkxMAQeSvLaiPoos/vNrHy5oecKu+Uia8zYHzpm
-         nx1dII+Me0954KvOzR11wp2YshJKRzX81SIY/y9YEfWLquIoUB0WK+D3Tz1RzH2mdLX2
-         0LeA==
-X-Forwarded-Encrypted: i=1; AJvYcCUMXGYvbHsC1zXLL3QCCGIDu+3nYmcaH3RI6u9oVxLDaMoF0ekAyDYGczHDkw5MoNcdad3nRgN8An8cBQ1Yr03mZElseJzWBZ1sTdOwLEQ=
-X-Gm-Message-State: AOJu0YzgUEGMHZbUQUdkGasw7KnkE1OX27lCCNsVKJ1BB2QODkegec+j
-	VtWSSEL/GmwdNV/JtxjtIoy07m2VAXJtEyRFhTBiCBKaCo5qJuSqEtmjsVDvnZ8=
-X-Google-Smtp-Source: AGHT+IGWH9NtKldOHxG5Jn85QZLrAtp/ZGMY4ac6yPg5kx3Hs4lPh9R3ZW28bnofErwGNFhMNfHAYA==
-X-Received: by 2002:a50:d583:0:b0:572:637b:c7e1 with SMTP id 4fb4d7f45d1cf-5734d5f48b1mr2421443a12.21.1715340458312;
-        Fri, 10 May 2024 04:27:38 -0700 (PDT)
-Message-ID: <0aac68ac-cf40-4c3d-ac02-95b9a37aaa11@suse.com>
-Date: Fri, 10 May 2024 13:27:37 +0200
+        d=1e100.net; s=20230601; t=1715340679; x=1715945479;
+        h=cc:to:subject:message-id:date:from:reply-to:in-reply-to:references
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=COlgQ18n1H1PLCXLn6irjwUuzTBnZ5prI1L/oP0ZVF0=;
+        b=AvNW555FPp6YtlfsQpBeN5MOvpsQevACjrQ25ZZo3BUdHwv+zgK12GInCbYOIMf+Sw
+         49x7SEaDuP1qbE82Vak6aLeWTT27gWhqsZbkb8725F8YnuSxCaCHGuUk0uqQts3yeuG/
+         l8sqIA+8VexVkF5fmxmQnIb5+OgeJSvLfbS8mhd+zteE6ufX/LOJqwQuKL1Illt0J4tS
+         CDU92nCMj/PPA/Rw8rgLthb8TDXdipUC5uRwsJegV1EcOycLE4qyzhXzn700RBwABSBY
+         E0VXbQ+Ol4UwO2DGPLdW+eAlO0HNuCQjGCe4gGTXMLAHxPezlD1QqrNngE4N0HDrquA1
+         aYMQ==
+X-Gm-Message-State: AOJu0Yy8h9KGm2VsNAmpffyTlgbau8P+Ihl3J/gGlR7SWvmpAPxzcv5q
+	ZTSH8w5Na/GE2KxkpX8xnbIiblDUN9s4ioic2bJWP1OuCqx6W/o+TWKR23Ly1krM/L01CQZdVQF
+	GhwdP0sfFY2wYb/mnFM0RfYp6gvBTzA==
+X-Google-Smtp-Source: AGHT+IGSwq5uGfBHUD9Y4mLh4ft6n74c/JL5173FK9cj0MifOk2Xwk3V/d5ASh938nUbqp1MC3Hg4eTWBsXSn5mzhxM=
+X-Received: by 2002:a81:49ca:0:b0:61a:e4f3:555c with SMTP id
+ 00721157ae682-622aff9027fmr25243147b3.8.1715340679030; Fri, 10 May 2024
+ 04:31:19 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC KERNEL PATCH v6 3/3] xen/privcmd: Add new syscall to get gsi
- from irq
-To: "Chen, Jiqian" <Jiqian.Chen@amd.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- Bjorn Helgaas <bhelgaas@google.com>, "Rafael J . Wysocki"
- <rafael@kernel.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- "linux-pci@vger.kernel.org" <linux-pci@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "linux-acpi@vger.kernel.org" <linux-acpi@vger.kernel.org>,
- "Huang, Ray" <Ray.Huang@amd.com>
-References: <20240419033616.607889-1-Jiqian.Chen@amd.com>
- <20240419033616.607889-4-Jiqian.Chen@amd.com>
- <79666084-fc2f-4637-8f0b-3846285601b8@suse.com>
- <BL1PR12MB58493D17E23751A06FC931DDE7E72@BL1PR12MB5849.namprd12.prod.outlook.com>
- <c30ebad2-1ad3-4b58-afaf-e6dc32c091fc@suse.com>
- <BL1PR12MB58491D2210091DF9607A354AE7E72@BL1PR12MB5849.namprd12.prod.outlook.com>
- <d0b5e7d5-3503-49be-9fa3-4b79c62059ca@suse.com>
- <BL1PR12MB5849F1DE8B4A3538C79CE5D3E7E72@BL1PR12MB5849.namprd12.prod.outlook.com>
-Content-Language: en-US
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-In-Reply-To: <BL1PR12MB5849F1DE8B4A3538C79CE5D3E7E72@BL1PR12MB5849.namprd12.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+References: <Zj3kXlHJzlqaFpMw@dingwall.me.uk>
+In-Reply-To: <Zj3kXlHJzlqaFpMw@dingwall.me.uk>
+Reply-To: Rob.Townley@gmail.com
+From: Rob Townley <rob.townley@gmail.com>
+Date: Fri, 10 May 2024 06:31:08 -0500
+Message-ID: <CA+VdTb9CCBOfq3orob5XxD6VXuy7CXAKizgry+MMm=FkJs1wJw@mail.gmail.com>
+Subject: Re: Domain Birth Time
+To: James Dingwall <james-xen@dingwall.me.uk>
+Cc: xen-devel@lists.xenproject.org
+Content-Type: multipart/alternative; boundary="000000000000d7b319061817df65"
 
-On 10.05.24 12:32, Chen, Jiqian wrote:
-> On 2024/5/10 18:21, Jürgen Groß wrote:
->> On 10.05.24 12:13, Chen, Jiqian wrote:
->>> On 2024/5/10 17:53, Jürgen Groß wrote:
->>>> On 10.05.24 11:06, Chen, Jiqian wrote:
->>>>> Hi,
->>>>>
->>>>> On 2024/5/10 14:46, Jürgen Groß wrote:
->>>>>> On 19.04.24 05:36, Jiqian Chen wrote:
->>>>>>> +
->>>>>>> +    info->type = IRQT_PIRQ;
->>>>> I am considering whether I need to use a new type(like IRQT_GSI) here to distinguish with IRQT_PIRQ, because function restore_pirqs will process all IRQT_PIRQ.
->>>>
->>>> restore_pirqs() already considers gsi == 0 to be not GSI related. Isn't this
->>>> enough?
->>> No, it is not enough.
->>> xen_pvh_add_gsi_irq_map adds the mapping of gsi and irq, but the value of gsi is not 0,
->>> once restore_pirqs is called, it will do PHYSDEVOP_map_pirq for that gsi, but in pvh dom0, we shouldn't do PHYSDEVOP_map_pirq.
->>
->> Okay, then add a new flag to info->u.pirq.flags for that purpose?
-> I feel like adding "new flag to info->u.pirq.flags" is not as good as adding " new type to info->type".
-> Because in restore_pirqs, it considers " info->type != IRQT_PIRQ", if adding " new flag to info->u.pirq.flags", we need to add a new condition in restore_pirqs.
-> And actually this mapping(gsi and irq of pvh) doesn't have pirq, so it is not suitable to add to u.pirq.flags.
+--000000000000d7b319061817df65
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Does this mean there is no other IRQT_PIRQ related activity relevant for those
-GSIs/IRQs? In that case I agree to add IRQT_GSI.
+On Fri, May 10, 2024 at 4:10=E2=80=AFAM James Dingwall <james-xen@dingwall.=
+me.uk>
+wrote:
 
+> Hi,
+>
+> We've added a feature to Xen 4.15 such that `xl uptime -b` reports the
+> birth
+> time of the domain (i.e. a value preserved across migrations).  If this
+> would
+> be of wider interest I can try porting this to a more recent release and
+> submitting it for review.
+>
+> Regards,
+> James
+>
+> Awesome!  birth date time and last modification are fundamental to about
+all data usefulness.
 
-Juergen
+--000000000000d7b319061817df65
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div>On Fri, May 10, 2024 at 4:10=E2=80=AFAM James Dingwall &lt;<a href=3D"=
+mailto:james-xen@dingwall.me.uk">james-xen@dingwall.me.uk</a>&gt; wrote:<br=
+></div><div><div class=3D"gmail_quote"><blockquote class=3D"gmail_quote" st=
+yle=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">Hi,<b=
+r>
+<br>
+We&#39;ve added a feature to Xen 4.15 such that `xl uptime -b` reports the =
+birth<br>
+time of the domain (i.e. a value preserved across migrations).=C2=A0 If thi=
+s would<br>
+be of wider interest I can try porting this to a more recent release and<br=
+>
+submitting it for review.<br>
+<br>
+Regards,<br>
+James<br>
+<br>
+</blockquote></div></div>Awesome! =C2=A0birth date time and last modificati=
+on are fundamental to about all data usefulness.=C2=A0<div dir=3D"auto"><br=
+></div>
+
+--000000000000d7b319061817df65--
 
