@@ -2,37 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EF9BE8C2727
-	for <lists+xen-devel@lfdr.de>; Fri, 10 May 2024 16:51:19 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.719933.1122850 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 954C68C2788
+	for <lists+xen-devel@lfdr.de>; Fri, 10 May 2024 17:22:01 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.719947.1122860 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s5Ra0-0007qs-62; Fri, 10 May 2024 14:50:36 +0000
+	id 1s5S3I-0004Th-In; Fri, 10 May 2024 15:20:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 719933.1122850; Fri, 10 May 2024 14:50:36 +0000
+Received: by outflank-mailman (output) from mailman id 719947.1122860; Fri, 10 May 2024 15:20:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s5Ra0-0007oj-2P; Fri, 10 May 2024 14:50:36 +0000
-Received: by outflank-mailman (input) for mailman id 719933;
- Fri, 10 May 2024 14:50:35 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1s5S3I-0004SA-Eh; Fri, 10 May 2024 15:20:52 +0000
+Received: by outflank-mailman (input) for mailman id 719947;
+ Fri, 10 May 2024 15:20:50 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=+D8H=MN=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1s5RZy-0007oZ-Vz
- for xen-devel@lists.xenproject.org; Fri, 10 May 2024 14:50:35 +0000
-Received: from mail-qk1-x72c.google.com (mail-qk1-x72c.google.com
- [2607:f8b0:4864:20::72c])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a701a6e4-0edc-11ef-909d-e314d9c70b13;
- Fri, 10 May 2024 16:50:33 +0200 (CEST)
-Received: by mail-qk1-x72c.google.com with SMTP id
- af79cd13be357-792b934de39so165529585a.3
- for <xen-devel@lists.xenproject.org>; Fri, 10 May 2024 07:50:33 -0700 (PDT)
-Received: from localhost ([213.195.114.223]) by smtp.gmail.com with ESMTPSA id
- af79cd13be357-792bf27519esm187109685a.1.2024.05.10.07.50.31
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 10 May 2024 07:50:31 -0700 (PDT)
+ <SRS0=4i6G=MN=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1s5S3G-0004S4-Bz
+ for xen-devel@lists.xenproject.org; Fri, 10 May 2024 15:20:50 +0000
+Received: from mail-oi1-x233.google.com (mail-oi1-x233.google.com
+ [2607:f8b0:4864:20::233])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id e08bab29-0ee0-11ef-b4bb-af5377834399;
+ Fri, 10 May 2024 17:20:48 +0200 (CEST)
+Received: by mail-oi1-x233.google.com with SMTP id
+ 5614622812f47-3c98b66c5f9so1260214b6e.0
+ for <xen-devel@lists.xenproject.org>; Fri, 10 May 2024 08:20:48 -0700 (PDT)
+Received: from [10.80.67.140] (default-46-102-197-194.interdsl.co.uk.
+ [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
+ 6a1803df08f44-6a15f1cccf3sm18098816d6.86.2024.05.10.08.20.45
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 10 May 2024 08:20:46 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,343 +45,126 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a701a6e4-0edc-11ef-909d-e314d9c70b13
+X-Inumbo-ID: e08bab29-0ee0-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1715352632; x=1715957432; darn=lists.xenproject.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=rcf9dyx3znNaO7fh0N6bAZdnABe5MNxooRIJMetNFKg=;
-        b=TAHqfM6m7YO/pf9v9kKAnb4Tm6zfjkpyoucjb4w34nmbk/eSdmQtUre/db1oxgZCkx
-         4S6B3yP/VFEez45+bKBga1iXFbA2W78DHYxrCZSx6OfLSH81w1g/VA/aHpxmY/1olpbb
-         8pizSaJ1OeKTN4XoTdwaNGu4ipNNjBaXRqN44=
+        d=citrix.com; s=google; t=1715354447; x=1715959247; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=2HZxSem/Mq8C06oiBy6tz2P6HbSGkkWucCT4/70iKno=;
+        b=rUcyGXKgnbnEcF/w3wFzMlrcPU6CxJragL5RA82Z4oo5BUpzF8y0gsu+IZa77KMsrD
+         gZeWyumtQg+dNeyWKf1BYMW0Pk7HQs6y6PzcS/N8CrKTXbTPJtrAsUYHgMG6Lff0InYS
+         GQic9w1D9Oy9M8sAzKaW5pFDsaixDi+9aH3Qc=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1715352632; x=1715957432;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=rcf9dyx3znNaO7fh0N6bAZdnABe5MNxooRIJMetNFKg=;
-        b=rF4qautRH6sqkkqzBQIS35PgP4L22vVbgtLh3LDZcFX01h0WcGmTvL7Nul4bY8OaBN
-         Z/YArmECCvXSLlxPAGmcD99pmTlU5XGnBDSvcnx+sIijBMm+fC/8okAq370g7A8N0sBs
-         D80nENSa5dVOXfPBDHbf1JCACW+x7C66fW1tw3AnWtdI1oq9jjIkLIj7BDQqOYQVWRji
-         lulwl6MdjTyts9YEhEOuyhBOdxb9PcGuUL2mqTXlq9YPdFZOI95oMQZqi62AVFxwH62F
-         Qe9vWPqVyuCdSrl+4lrWnOsg1AGyTXlUUQomvjA9DguR+ooCgtY3QhB5QxntJyTan797
-         96hQ==
-X-Gm-Message-State: AOJu0Yyfnjt9PtLrE6A7s1/aoW/N1RPQZm9NEBrJQlf07uLoTw3d07HU
-	VAKZeCEHqo1pNgv/KfIShzV0mCUz50SstZR7wVgEonXZRcjJzWv8qJPgOzZKgdZAERM7q+J2lla
-	4
-X-Google-Smtp-Source: AGHT+IE9xdJTA0JhX1yaBpXCpcH+cOXsY5DXrU7ZmmhvxrZTsP5FSAbdwRTwJjbGRrHPSCNKZaWUlQ==
-X-Received: by 2002:a05:620a:4958:b0:792:bada:c0a5 with SMTP id af79cd13be357-792c7574a97mr293716885a.16.1715352632197;
-        Fri, 10 May 2024 07:50:32 -0700 (PDT)
-Date: Fri, 10 May 2024 16:50:30 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>
-Subject: Re: [PATCH v8 2/6] x86/hvm: Allow access to registers on the same
- page as MSI-X table
-Message-ID: <Zj40NvNqlJWFjcCb@macbook>
-References: <cover.33fb4385b7dd6c53bda4acf0a9e91748b3d7b1f7.1715313192.git-series.marmarek@invisiblethingslab.com>
- <fbe01c945d75409406ac0b02bc17d44f57a39ccf.1715313192.git-series.marmarek@invisiblethingslab.com>
+        d=1e100.net; s=20230601; t=1715354447; x=1715959247;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=2HZxSem/Mq8C06oiBy6tz2P6HbSGkkWucCT4/70iKno=;
+        b=I79QuIdmJDANeo6FrRwvZ2+lNVx9msGa151fCAEIahST06ASFBFqyyzJxaCMjY206o
+         UZna/97XeRnDDZGqzHvBmiXSVvuTncTWouWkDJCQx08RdOaDHSrNqACyK2NG0n3QLqP/
+         oxzHU0XI4xmcDi/ZjNIUTHM7S5O22HZ+wasRWi7hH4k0qH5SEkoPQfebxpb0mM3A3330
+         mwqvWAo1sDB9z9d3r0EAuJIhY4ynreBC9gd0LP2G5pTr5RUJb8EqECeo70T9UT+FpML9
+         4igNn56kRkLcM09HkODPljvSkbqREneAhUpuVcZTEuu5UszeAeg4mmOw2TJDJUEVjJUS
+         o1kQ==
+X-Forwarded-Encrypted: i=1; AJvYcCV9F2vCeT6/28nvgV4kGpbJoQLyI6gyu1n0C7bDK7mAgXmppdHw/eK8lkJq7vWgw+W4/6cqKn54NeqKMuaDuZu0qrUtoVO8zp5lJY8Yp+Q=
+X-Gm-Message-State: AOJu0YxU57vGFnQPsNbD6Y5nUZs9kr6OIbLqpDemzGdI+qbyHzKxRXPz
+	zr73E/xzGOjQAQo8dWEcKJ6VIHH5V/n1qm2VXjQSq5C2MmSymu9nru8mzy7oFhQ=
+X-Google-Smtp-Source: AGHT+IGztjJm6j3+zuVyHiPtl7OVt1FKtDVfdX+zCJuHrN+GPKlsAPa8r+pNKroFQwicOWH9nCsIXw==
+X-Received: by 2002:a05:6808:2208:b0:3c7:4976:7953 with SMTP id 5614622812f47-3c99702a800mr3613347b6e.3.1715354446880;
+        Fri, 10 May 2024 08:20:46 -0700 (PDT)
+Message-ID: <df58677c-d9a3-43a7-b5b4-85565ad73b12@citrix.com>
+Date: Fri, 10 May 2024 16:20:44 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH for-4.19] libxl: fix population of the online vCPU bitmap
+ for PVH
+To: Roger Pau Monne <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
+Cc: Anthony PERARD <anthony@xenproject.org>, Juergen Gross <jgross@suse.com>,
+ "Oleksii K ." <oleksii.kurochko@gmail.com>,
+ Arthur Borsboom <arthurborsboom@gmail.com>, Leigh Brown <leigh@solinno.co.uk>
+References: <20240510124913.49945-1-roger.pau@citrix.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <20240510124913.49945-1-roger.pau@citrix.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <fbe01c945d75409406ac0b02bc17d44f57a39ccf.1715313192.git-series.marmarek@invisiblethingslab.com>
 
-On Fri, May 10, 2024 at 05:53:22AM +0200, Marek Marczykowski-Górecki wrote:
-> Some devices (notably Intel Wifi 6 AX210 card) keep auxiliary registers
-> on the same page as MSI-X table. Device model (especially one in
-> stubdomain) cannot really handle those, as direct writes to that page is
-> refused (page is on the mmio_ro_ranges list). Instead, extend
-> msixtbl_mmio_ops to handle such accesses too.
-> 
-> Doing this, requires correlating read/write location with guest
-> MSI-X table address. Since QEMU doesn't map MSI-X table to the guest,
-> it requires msixtbl_entry->gtable, which is HVM-only. Similar feature
-> for PV would need to be done separately.
-> 
-> This will be also used to read Pending Bit Array, if it lives on the same
-> page, making QEMU not needing /dev/mem access at all (especially helpful
-> with lockdown enabled in dom0). If PBA lives on another page, QEMU will
-> map it to the guest directly.
-> If PBA lives on the same page, discard writes and log a message.
-> Technically, writes outside of PBA could be allowed, but at this moment
-> the precise location of PBA isn't saved, and also no known device abuses
-> the spec in this way (at least yet).
-> 
-> To access those registers, msixtbl_mmio_ops need the relevant page
-> mapped. MSI handling already has infrastructure for that, using fixmap,
-> so try to map first/last page of the MSI-X table (if necessary) and save
-> their fixmap indexes. Note that msix_get_fixmap() does reference
-> counting and reuses existing mapping, so just call it directly, even if
-> the page was mapped before. Also, it uses a specific range of fixmap
-> indexes which doesn't include 0, so use 0 as default ("not mapped")
-> value - which simplifies code a bit.
-> 
-> Based on assumption that all MSI-X page accesses are handled by Xen, do
-> not forward adjacent accesses to other hypothetical ioreq servers, even
-> if the access wasn't handled for some reason (failure to map pages etc).
-> Relevant places log a message about that already.
-> 
-> Signed-off-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
-
-Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
-
-Just one typo in a logged message, and one comment re the return type
-of  adjacent_{read,write}().
-
+On 10/05/2024 1:49 pm, Roger Pau Monne wrote:
+> libxl passes some information to libacpi to create the ACPI table for a PVH
+> guest, and among that information it's a bitmap of which vCPUs are online
+> which can be less than the maximum number of vCPUs assigned to the domain.
+>
+> While the population of the bitmap is done correctly for HVM based on the
+> number of online vCPUs, for PVH the population of the bitmap is done based on
+> the number of maximum vCPUs allowed.  This leads to all local APIC entries in
+> the MADT being set as enabled, which contradicts the data in xenstore if vCPUs
+> is different than maximum vCPUs.
+>
+> Fix by copying the internal libxl bitmap that's populated based on the vCPUs
+> parameter.
+>
+> Reported-by: Arthur Borsboom <arthurborsboom@gmail.com>
+> Link: https://gitlab.com/libvirt/libvirt/-/issues/399
+> Reported-by: Leigh Brown <leigh@solinno.co.uk>
+> Fixes: 14c0d328da2b ('libxl/acpi: Build ACPI tables for HVMlite guests')
+> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
 > ---
-> Changes in v8:
-> - rename adjacent_handle to get_adjacent_idx
-> - put SBDF at the start of error messages
-> - use 0 for ADJACENT_DONT_HANDLE (it's FIX_RESERVED)
-> - merge conditions in msixtbl_range into one "if"
-> - add assert for address alignment
-> - change back to setting pval to ~0UL at the start of adjacent_read
-> Changes in v7:
-> - simplify logic based on assumption that all access to MSI-X pages are
->   handled by Xen (Roger)
-> - move calling adjacent_handle() into adjacent_{read,write}() (Roger)
-> - move range check into msixtbl_addr_to_desc() (Roger)
-> - fix off-by-one when initializing adj_access_idx[ADJ_IDX_LAST] (Roger)
-> - no longer distinguish between unhandled write due to PBA nearby and
->   other reasons
-> - add missing break after ASSERT_UNREACHABLE (Jan)
-> Changes in v6:
-> - use MSIX_CHECK_WARN macro
-> - extend assert on fixmap_idx
-> - add break in default label, after ASSERT_UNREACHABLE(), and move
->   setting default there
-> - style fixes
-> Changes in v5:
-> - style fixes
-> - include GCC version in the commit message
-> - warn only once (per domain, per device) about failed adjacent access
-> Changes in v4:
-> - drop same_page parameter of msixtbl_find_entry(), distinguish two
->   cases in relevant callers
-> - rename adj_access_table_idx to adj_access_idx
-> - code style fixes
-> - drop alignment check in adjacent_{read,write}() - all callers already
->   have it earlier
-> - delay mapping first/last MSI-X pages until preparing device for a
->   passthrough
-> v3:
->  - merge handling into msixtbl_mmio_ops
->  - extend commit message
-> v2:
->  - adjust commit message
->  - pass struct domain to msixtbl_page_handler_get_hwaddr()
->  - reduce local variables used only once
->  - log a warning if write is forbidden if MSI-X and PBA lives on the same
->    page
->  - do not passthrough unaligned accesses
->  - handle accesses both before and after MSI-X table
-> ---
->  xen/arch/x86/hvm/vmsi.c        | 208 ++++++++++++++++++++++++++++++++--
->  xen/arch/x86/include/asm/msi.h |   5 +-
->  xen/arch/x86/msi.c             |  42 +++++++-
->  3 files changed, 245 insertions(+), 10 deletions(-)
-> 
-> diff --git a/xen/arch/x86/hvm/vmsi.c b/xen/arch/x86/hvm/vmsi.c
-> index 999917983789..d506d6adaaf6 100644
-> --- a/xen/arch/x86/hvm/vmsi.c
-> +++ b/xen/arch/x86/hvm/vmsi.c
-> @@ -180,6 +180,10 @@ static bool msixtbl_initialised(const struct domain *d)
->      return d->arch.hvm.msixtbl_list.next;
->  }
->  
-> +/*
-> + * Lookup an msixtbl_entry on the same page as given addr. It's up to the
-> + * caller to check if address is strictly part of the table - if relevant.
-> + */
->  static struct msixtbl_entry *msixtbl_find_entry(
->      struct vcpu *v, unsigned long addr)
->  {
-> @@ -187,8 +191,8 @@ static struct msixtbl_entry *msixtbl_find_entry(
->      struct domain *d = v->domain;
->  
->      list_for_each_entry( entry, &d->arch.hvm.msixtbl_list, list )
-> -        if ( addr >= entry->gtable &&
-> -             addr < entry->gtable + entry->table_len )
-> +        if ( PFN_DOWN(addr) >= PFN_DOWN(entry->gtable) &&
-> +             PFN_DOWN(addr) <= PFN_DOWN(entry->gtable + entry->table_len - 1) )
->              return entry;
->  
->      return NULL;
-> @@ -203,6 +207,10 @@ static struct msi_desc *msixtbl_addr_to_desc(
->      if ( !entry || !entry->pdev )
->          return NULL;
->  
-> +    if ( addr < entry->gtable ||
-> +         addr >= entry->gtable + entry->table_len )
-> +        return NULL;
-> +
->      nr_entry = (addr - entry->gtable) / PCI_MSIX_ENTRY_SIZE;
->  
->      list_for_each_entry( desc, &entry->pdev->msi_list, list )
-> @@ -213,6 +221,157 @@ static struct msi_desc *msixtbl_addr_to_desc(
->      return NULL;
->  }
->  
-> +/*
-> + * Returns:
-> + *  - 0 (FIX_RESERVED) if no handling should be done
-> + *  - a fixmap idx to use for handling
-> + */
-> +static unsigned int get_adjacent_idx(
-> +    const struct msixtbl_entry *entry, unsigned long addr, bool write)
-> +{
-> +    unsigned int adj_type;
-> +    struct arch_msix *msix;
-> +
-> +    if ( !entry || !entry->pdev )
-> +    {
-> +        ASSERT_UNREACHABLE();
-> +        return 0;
-> +    }
-> +
-> +    if ( PFN_DOWN(addr) == PFN_DOWN(entry->gtable) && addr < entry->gtable )
-> +        adj_type = ADJ_IDX_FIRST;
-> +    else if ( PFN_DOWN(addr) == PFN_DOWN(entry->gtable + entry->table_len - 1) &&
-> +              addr >= entry->gtable + entry->table_len )
-> +        adj_type = ADJ_IDX_LAST;
-> +    else
-> +    {
-> +        /* All callers should already do equivalent range checking. */
-> +        ASSERT_UNREACHABLE();
-> +        return 0;
-> +    }
-> +
-> +    msix = entry->pdev->msix;
-> +    if ( !msix )
-> +    {
-> +        ASSERT_UNREACHABLE();
-> +        return 0;
-> +    }
-> +
-> +    if ( !msix->adj_access_idx[adj_type] )
-> +    {
-> +        if ( MSIX_CHECK_WARN(msix, entry->pdev->domain->domain_id,
-> +                             adjacent_not_initialized) )
-> +            gprintk(XENLOG_WARNING,
-> +                    "%pp: Page for adjacent(%d) MSI-X table access not initialized (addr %#lx, gtable %#lx))\n",
-                                                                                                             ^ extra )
-> +                    &entry->pdev->sbdf, adj_type, addr, entry->gtable);
-> +        return 0;
-> +    }
-> +
-> +    /* If PBA lives on the same page too, discard writes. */
-> +    if ( write &&
-> +         ((adj_type == ADJ_IDX_LAST &&
-> +           msix->table.last == msix->pba.first) ||
-> +          (adj_type == ADJ_IDX_FIRST &&
-> +           msix->table.first == msix->pba.last)) )
-> +    {
-> +        if ( MSIX_CHECK_WARN(msix, entry->pdev->domain->domain_id,
-> +                             adjacent_pba) )
-> +            gprintk(XENLOG_WARNING,
-> +                    "%pp: MSI-X table and PBA share a page, "
-> +                    "discard write to adjacent memory (%#lx)\n",
-> +                    &entry->pdev->sbdf, addr);
-> +        return 0;
-> +    }
-> +
-> +    return msix->adj_access_idx[adj_type];
-> +}
-> +
-> +static int adjacent_read(
-> +    const struct msixtbl_entry *entry,
-> +    paddr_t address, unsigned int len, uint64_t *pval)
-> +{
-> +    const void __iomem *hwaddr;
-> +    unsigned int fixmap_idx;
-> +
-> +    ASSERT(IS_ALIGNED(address, len));
-> +
-> +    *pval = ~0UL;
-> +
-> +    fixmap_idx = get_adjacent_idx(entry, address, false);
-> +
-> +    if ( !fixmap_idx )
-> +        return X86EMUL_OKAY;
-> +
-> +    hwaddr = fix_to_virt(fixmap_idx) + PAGE_OFFSET(address);
-> +
-> +    switch ( len )
-> +    {
-> +    case 1:
-> +        *pval = readb(hwaddr);
-> +        break;
-> +
-> +    case 2:
-> +        *pval = readw(hwaddr);
-> +        break;
-> +
-> +    case 4:
-> +        *pval = readl(hwaddr);
-> +        break;
-> +
-> +    case 8:
-> +        *pval = readq(hwaddr);
-> +        break;
-> +
-> +    default:
-> +        ASSERT_UNREACHABLE();
-> +        break;
-> +    }
-> +
-> +    return X86EMUL_OKAY;
-> +}
-> +
-> +static int adjacent_write(
-> +    const struct msixtbl_entry *entry,
-> +    paddr_t address, unsigned int len, uint64_t val)
-> +{
-> +    void __iomem *hwaddr;
-> +    unsigned int fixmap_idx;
-> +
-> +    ASSERT(IS_ALIGNED(address, len));
-> +
-> +    fixmap_idx = get_adjacent_idx(entry, address, true);
-> +
-> +    if ( !fixmap_idx )
-> +        return X86EMUL_OKAY;
-> +
-> +    hwaddr = fix_to_virt(fixmap_idx) + PAGE_OFFSET(address);
-> +
-> +    switch ( len )
-> +    {
-> +    case 1:
-> +        writeb(val, hwaddr);
-> +        break;
-> +
-> +    case 2:
-> +        writew(val, hwaddr);
-> +        break;
-> +
-> +    case 4:
-> +        writel(val, hwaddr);
-> +        break;
-> +
-> +    case 8:
-> +        writeq(val, hwaddr);
-> +        break;
-> +
-> +    default:
-> +        ASSERT_UNREACHABLE();
-> +        break;
-> +    }
-> +
-> +    return X86EMUL_OKAY;
+> Note that the setup of hvm_info_table could be shared between PVH and HVM, as
+> the fields are very limited, see hvm_build_set_params() for the HVM side.
+> However this late in the release it's safer to just adjust the PVH path.
+>
+> Also note the checksum is not provided when hvm_info_table is built for PVH.
+> This is fine so far because such checksum is only consumed by hvmloader and not
+> libacpi itself.
+>
+> It's a bugfix, so should be considered for 4.19.
 
-Since adjacent_{read,write}() unconditionally return X86EMUL_OKAY now
-they could as well just return void.
+Bugfixes are still completely fair game at this point.
 
-I'm fine with leaving it like this, unless the committer doesn't mind
-adjusting on commit.  I should have requested earlier to make the
-function return void.
-
-Thanks, Roger.
+Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
