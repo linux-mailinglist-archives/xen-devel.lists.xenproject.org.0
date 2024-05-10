@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 698F98C1E2D
-	for <lists+xen-devel@lfdr.de>; Fri, 10 May 2024 08:36:23 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.719524.1122309 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B79218C1E57
+	for <lists+xen-devel@lfdr.de>; Fri, 10 May 2024 08:46:43 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.719530.1122318 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s5JrK-00021z-3x; Fri, 10 May 2024 06:35:58 +0000
+	id 1s5K1M-0003pV-3G; Fri, 10 May 2024 06:46:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 719524.1122309; Fri, 10 May 2024 06:35:58 +0000
+Received: by outflank-mailman (output) from mailman id 719530.1122318; Fri, 10 May 2024 06:46:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s5JrK-0001zR-0y; Fri, 10 May 2024 06:35:58 +0000
-Received: by outflank-mailman (input) for mailman id 719524;
- Fri, 10 May 2024 06:35:55 +0000
+	id 1s5K1M-0003n9-0O; Fri, 10 May 2024 06:46:20 +0000
+Received: by outflank-mailman (input) for mailman id 719530;
+ Fri, 10 May 2024 06:46:19 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=YvKo=MN=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1s5JrH-0001zL-PT
- for xen-devel@lists.xenproject.org; Fri, 10 May 2024 06:35:55 +0000
-Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
- [2a00:1450:4864:20::62d])
+ id 1s5K1L-0003n3-5M
+ for xen-devel@lists.xenproject.org; Fri, 10 May 2024 06:46:19 +0000
+Received: from mail-lf1-x12e.google.com (mail-lf1-x12e.google.com
+ [2a00:1450:4864:20::12e])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 8d4195a5-0e97-11ef-909c-e314d9c70b13;
- Fri, 10 May 2024 08:35:54 +0200 (CEST)
-Received: by mail-ej1-x62d.google.com with SMTP id
- a640c23a62f3a-a5a157a1cd1so398883266b.0
- for <xen-devel@lists.xenproject.org>; Thu, 09 May 2024 23:35:54 -0700 (PDT)
+ id 00c71e91-0e99-11ef-909c-e314d9c70b13;
+ Fri, 10 May 2024 08:46:17 +0200 (CEST)
+Received: by mail-lf1-x12e.google.com with SMTP id
+ 2adb3069b0e04-51ab4ee9df8so1799590e87.1
+ for <xen-devel@lists.xenproject.org>; Thu, 09 May 2024 23:46:17 -0700 (PDT)
 Received: from ?IPV6:2003:e5:873c:a500:6aaf:b7a7:7c29:ae5c?
  (p200300e5873ca5006aafb7a77c29ae5c.dip0.t-ipconnect.de.
  [2003:e5:873c:a500:6aaf:b7a7:7c29:ae5c])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a5a17b17fb4sm150003366b.222.2024.05.09.23.35.53
+ 4fb4d7f45d1cf-5733bebb660sm1526751a12.36.2024.05.09.23.46.16
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 09 May 2024 23:35:53 -0700 (PDT)
+ Thu, 09 May 2024 23:46:16 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,84 +47,281 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8d4195a5-0e97-11ef-909c-e314d9c70b13
+X-Inumbo-ID: 00c71e91-0e99-11ef-909c-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1715322954; x=1715927754; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1715323577; x=1715928377; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:from:content-language
          :references:cc:to:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=lxCNtcupovxNdLpa4liNmJ+Aj9ToML7xaMOdcpDzR+Y=;
-        b=SF7zVFeIM3i73fgLW6lkyCCl9lxuD99rZsqcGpmQs5NuoDtScuZ1DsaB5NyvM/817L
-         liDGX/BoUnaoLy9FmgKaKXi3v5TcYwYVb5sBl4xABsuUphZbIgheN0gtkzEFfPVbMYyS
-         x3zfMvkB7GuOHh/18/PHEK0p6JOQvy1BYVxoY6Qzuh4gC24I5GGNesJ6QXeZV5hjNywM
-         WH3+VLHCBXXGmnENiUbruoasocZYQU3QMOjO9fBFqQvAp0BOAxdS3aG+kmFxrOWt4IbZ
-         NKHxYK5T5RsieX/EQkr9Wwwc6IfS2WIgzUtvwnQ21woK74BGxstq7IEjP+KToeygLqMF
-         SAww==
+        bh=SXiDu9fHyqu4n99SnTsmyeycGZXOyLvOeHSQ/rJF36g=;
+        b=emQlZ/CQwZxSDNXqe0MI/11X+BjQak2a+PAdDfs/5wXFAXG5zUmn1rGKB6ULHcLGni
+         rRM7XYS04E74bgBnCnxoKDXAtJ8bkceUDC5U8IU0zMSAZ/b1ws9pIEkqo1Z0O7ckwibD
+         B2TTsd+6MrRcQPnv0JHSdFVbNpkZnMbd3DM2h7Ib3V4fjaCwD9B0RKBVCqNjhJelliaL
+         +CXjTjXGi52fzjRp8g0FGoqTHAdwHBYWA1xcPNuOw2mMtnh5chcsqx6vtVn22s6H4SZo
+         ttwgZjnNRsHBXFaFl9G2QZmvVTPtWk2GvulC/4BiOybB+qgdIfxvYT9kyRGk4TEI3Ivf
+         +vig==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1715322954; x=1715927754;
+        d=1e100.net; s=20230601; t=1715323577; x=1715928377;
         h=content-transfer-encoding:in-reply-to:from:content-language
          :references:cc:to:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=lxCNtcupovxNdLpa4liNmJ+Aj9ToML7xaMOdcpDzR+Y=;
-        b=pj+9ARsH0a4zGKok4ePKmxdel2A725+WyXYq6ZWUzrYwAW6eNmH5ZMYkD6N33r7Mds
-         j+mByR6RIfQeAM8428WSNavK4Qpr3UOrOpYjn+SEE4/36zwEVhhI7wVGflg03SjSk9/9
-         RDOdSjmZH5rRA0rmy5VAq9T5GymXUW2HO3/h4QxGykvwbubSCabWWjh1laIdHWGwkr7I
-         HgJgzv8r63V4SgSpLvck9XWkCDhbJXkHkRCAVN2pp7TmhEoLTsIvljNWRTHZf3sm4oZx
-         BPmBiXpnGs5HzRA+uO4IBC9Ln15BCZmm7AiSJPnqhWKNaogg/U9V4cP/7hvhiEg1Aiuu
-         yWsQ==
-X-Forwarded-Encrypted: i=1; AJvYcCWZNfDE1DSVkI3BeTrQoeLynL0A/uD8g3UhMbxead8a+tOissvLYxz52JnTMWBz3C8krZDPfeHvlKSVtOdT9xeZLT52vodtsAigvXCXbu4=
-X-Gm-Message-State: AOJu0YyYMFJnogqopOh+PCsJMwn86dlMwWGeAFchtAuytchr0eROnQ/G
-	8UR2uxatsQMdEtB/9G7UQBOQxSVV89ylmdgHqUtnUvoB9XgBOrXm5d2AyxtgSMA=
-X-Google-Smtp-Source: AGHT+IEsYqtRcknYkEI9dadmuP1mmqjZ/X8PJ/ypoow+HFuD3UV69F9PwuJeDUZtGN2n3mzgj3MI8A==
-X-Received: by 2002:a17:906:e297:b0:a59:afdd:590d with SMTP id a640c23a62f3a-a5a2d66a335mr85754966b.51.1715322953917;
-        Thu, 09 May 2024 23:35:53 -0700 (PDT)
-Message-ID: <7bc9a67e-a73a-4c12-9e35-01cb8db27fe1@suse.com>
-Date: Fri, 10 May 2024 08:35:52 +0200
+        bh=SXiDu9fHyqu4n99SnTsmyeycGZXOyLvOeHSQ/rJF36g=;
+        b=sOn77v/uQoE4Aj5ZjrlU+UMJJkOC5iqSMvyWzgR+CLjBEFt+afswGLcDwM+LdlhJci
+         hlSx0TppH7VsLTGmfd9z3iPxtdZvQriL3gMPWL1o+Q6lW+unAG5v2QdYpLg2aNIyV+kl
+         Bh4U5a7wjjtELeRreUT4aGdgVeRkpt3NEg2dLUj1seSCgfmA7SQ5BQEvtApOrRhmGMat
+         UrCEqHL1XIRbqHB6i8CGnAzodjfbhbBauxbAQn2tiqrrkf2TRmgMQgpu/6PhOIRbPwqr
+         gtQysADZbedydKqIPpUonn/pCshF2EbUJmwrFdDr9vOgD6mh33LRUv8TSYjg6xQpwWH5
+         IUFA==
+X-Gm-Message-State: AOJu0YyA84EjC38fmxra9tPtKSDAu4x8DPx400fcVXIOUpolA5hbSJlQ
+	OVr/0rJfEnrBtqLK9541JhStJo7qwQVH9YBEBYh/XUJnYSBPrItyAB8tbuzq7zU=
+X-Google-Smtp-Source: AGHT+IFqK/cSOVqRKoyq3BVFcNHdx6Uad4d+cjVO+0R0aeAeSJBQPqsxX5qu4tubXu8bA2FhNXUVRg==
+X-Received: by 2002:ac2:4437:0:b0:519:2d60:d71b with SMTP id 2adb3069b0e04-5220fb748e2mr967415e87.22.1715323577232;
+        Thu, 09 May 2024 23:46:17 -0700 (PDT)
+Message-ID: <79666084-fc2f-4637-8f0b-3846285601b8@suse.com>
+Date: Fri, 10 May 2024 08:46:15 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] xen/x86: add extra pages to unpopulated-alloc if
- available
-To: Roger Pau Monne <roger.pau@citrix.com>, xen-devel@lists.xenproject.org,
- linux-kernel@vger.kernel.org
-Cc: Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
- x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>
-References: <20240429155053.72509-1-roger.pau@citrix.com>
+Subject: Re: [RFC KERNEL PATCH v6 3/3] xen/privcmd: Add new syscall to get gsi
+ from irq
+To: Jiqian Chen <Jiqian.Chen@amd.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Bjorn Helgaas <bhelgaas@google.com>, "Rafael J . Wysocki"
+ <rafael@kernel.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: xen-devel@lists.xenproject.org, linux-pci@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-acpi@vger.kernel.org,
+ Huang Rui <Ray.Huang@amd.com>
+References: <20240419033616.607889-1-Jiqian.Chen@amd.com>
+ <20240419033616.607889-4-Jiqian.Chen@amd.com>
 Content-Language: en-US
 From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-In-Reply-To: <20240429155053.72509-1-roger.pau@citrix.com>
+In-Reply-To: <20240419033616.607889-4-Jiqian.Chen@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 29.04.24 17:50, Roger Pau Monne wrote:
-> Commit 262fc47ac174 ('xen/balloon: don't use PV mode extra memory for zone
-> device allocations') removed the addition of the extra memory ranges to the
-> unpopulated range allocator, using those only for the balloon driver.
+On 19.04.24 05:36, Jiqian Chen wrote:
+> In PVH dom0, it uses the linux local interrupt mechanism,
+> when it allocs irq for a gsi, it is dynamic, and follow
+> the principle of applying first, distributing first. And
+> the irq number is alloced from small to large, but the
+> applying gsi number is not, may gsi 38 comes before gsi 28,
+> it causes the irq number is not equal with the gsi number.
+> And when passthrough a device, QEMU will use device's gsi
+> number to do pirq mapping, but the gsi number is got from
+> file /sys/bus/pci/devices/<sbdf>/irq, irq!= gsi, so it will
+> fail when mapping.
+> And in current linux codes, there is no method to translate
+> irq to gsi for userspace.
 > 
-> This forces the unpopulated allocator to attach hotplug ranges even when spare
-> memory (as part of the extra memory ranges) is available.  Furthermore, on PVH
-> domains it defeats the purpose of commit 38620fc4e893 ('x86/xen: attempt to
-> inflate the memory balloon on PVH'), as extra memory ranges would only be
-> used to map foreign memory if the kernel is built without XEN_UNPOPULATED_ALLOC
-> support.
+> For above purpose, record the relationship of gsi and irq
+> when PVH dom0 do acpi_register_gsi_ioapic for devices and
+> adds a new syscall into privcmd to let userspace can get
+> that translation when they have a need.
 > 
-> Fix this by adding a helpers that adds the extra memory ranges to the list of
-> unpopulated pages, and zeroes the ranges so they are not also consumed by the
-> balloon driver.
+> Co-developed-by: Huang Rui <ray.huang@amd.com>
+> Signed-off-by: Jiqian Chen <Jiqian.Chen@amd.com>
+> ---
+>   arch/x86/include/asm/apic.h      |  8 +++++++
+>   arch/x86/include/asm/xen/pci.h   |  5 ++++
+>   arch/x86/kernel/acpi/boot.c      |  2 +-
+>   arch/x86/pci/xen.c               | 21 +++++++++++++++++
+>   drivers/xen/events/events_base.c | 39 ++++++++++++++++++++++++++++++++
+>   drivers/xen/privcmd.c            | 19 ++++++++++++++++
+>   include/uapi/xen/privcmd.h       |  7 ++++++
+>   include/xen/events.h             |  5 ++++
+>   8 files changed, 105 insertions(+), 1 deletion(-)
 > 
-> This should have been part of 38620fc4e893, hence the fixes tag.
-> 
-> Note the current logic relies on unpopulated_init() (and hence
-> arch_xen_unpopulated_init()) always being called ahead of balloon_init(), so
-> that the extra memory regions are consumed by arch_xen_unpopulated_init().
-> 
-> Fixes: 38620fc4e893 ('x86/xen: attempt to inflate the memory balloon on PVH')
-> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+> diff --git a/arch/x86/include/asm/apic.h b/arch/x86/include/asm/apic.h
+> index 9d159b771dc8..dd4139250895 100644
+> --- a/arch/x86/include/asm/apic.h
+> +++ b/arch/x86/include/asm/apic.h
+> @@ -169,6 +169,9 @@ extern bool apic_needs_pit(void);
+>   
+>   extern void apic_send_IPI_allbutself(unsigned int vector);
+>   
+> +extern int acpi_register_gsi_ioapic(struct device *dev, u32 gsi,
+> +				    int trigger, int polarity);
+> +
+>   #else /* !CONFIG_X86_LOCAL_APIC */
+>   static inline void lapic_shutdown(void) { }
+>   #define local_apic_timer_c2_ok		1
+> @@ -183,6 +186,11 @@ static inline void apic_intr_mode_init(void) { }
+>   static inline void lapic_assign_system_vectors(void) { }
+>   static inline void lapic_assign_legacy_vector(unsigned int i, bool r) { }
+>   static inline bool apic_needs_pit(void) { return true; }
+> +static inline int acpi_register_gsi_ioapic(struct device *dev, u32 gsi,
+> +				    int trigger, int polarity)
+> +{
+> +	return (int)gsi;
+> +}
+>   #endif /* !CONFIG_X86_LOCAL_APIC */
+>   
+>   #ifdef CONFIG_X86_X2APIC
+> diff --git a/arch/x86/include/asm/xen/pci.h b/arch/x86/include/asm/xen/pci.h
+> index 9015b888edd6..aa8ded61fc2d 100644
+> --- a/arch/x86/include/asm/xen/pci.h
+> +++ b/arch/x86/include/asm/xen/pci.h
+> @@ -5,6 +5,7 @@
+>   #if defined(CONFIG_PCI_XEN)
+>   extern int __init pci_xen_init(void);
+>   extern int __init pci_xen_hvm_init(void);
+> +extern int __init pci_xen_pvh_init(void);
+>   #define pci_xen 1
+>   #else
+>   #define pci_xen 0
+> @@ -13,6 +14,10 @@ static inline int pci_xen_hvm_init(void)
+>   {
+>   	return -1;
+>   }
+> +static inline int pci_xen_pvh_init(void)
+> +{
+> +	return -1;
+> +}
+>   #endif
+>   #ifdef CONFIG_XEN_PV_DOM0
+>   int __init pci_xen_initial_domain(void);
+> diff --git a/arch/x86/kernel/acpi/boot.c b/arch/x86/kernel/acpi/boot.c
+> index 85a3ce2a3666..72c73458c083 100644
+> --- a/arch/x86/kernel/acpi/boot.c
+> +++ b/arch/x86/kernel/acpi/boot.c
+> @@ -749,7 +749,7 @@ static int acpi_register_gsi_pic(struct device *dev, u32 gsi,
+>   }
+>   
+>   #ifdef CONFIG_X86_LOCAL_APIC
+> -static int acpi_register_gsi_ioapic(struct device *dev, u32 gsi,
+> +int acpi_register_gsi_ioapic(struct device *dev, u32 gsi,
+>   				    int trigger, int polarity)
+>   {
+>   	int irq = gsi;
+> diff --git a/arch/x86/pci/xen.c b/arch/x86/pci/xen.c
+> index 652cd53e77f6..f056ab5c0a06 100644
+> --- a/arch/x86/pci/xen.c
+> +++ b/arch/x86/pci/xen.c
+> @@ -114,6 +114,21 @@ static int acpi_register_gsi_xen_hvm(struct device *dev, u32 gsi,
+>   				 false /* no mapping of GSI to PIRQ */);
+>   }
+>   
+> +static int acpi_register_gsi_xen_pvh(struct device *dev, u32 gsi,
+> +				    int trigger, int polarity)
+> +{
+> +	int irq;
+> +
+> +	irq = acpi_register_gsi_ioapic(dev, gsi, trigger, polarity);
+> +	if (irq < 0)
+> +		return irq;
+> +
+> +	if (xen_pvh_add_gsi_irq_map(gsi, irq) == -EEXIST)
+> +		printk(KERN_INFO "Already map the GSI :%u and IRQ: %d\n", gsi, irq);
+> +
+> +	return irq;
+> +}
+> +
+>   #ifdef CONFIG_XEN_PV_DOM0
+>   static int xen_register_gsi(u32 gsi, int triggering, int polarity)
+>   {
+> @@ -558,6 +573,12 @@ int __init pci_xen_hvm_init(void)
+>   	return 0;
+>   }
+>   
+> +int __init pci_xen_pvh_init(void)
+> +{
+> +	__acpi_register_gsi = acpi_register_gsi_xen_pvh;
 
-Reviewed-by: Juergen Gross <jgross@suse.com>
+No support for unregistering the gsi again?
+
+> +	return 0;
+> +}
+> +
+>   #ifdef CONFIG_XEN_PV_DOM0
+>   int __init pci_xen_initial_domain(void)
+>   {
+> diff --git a/drivers/xen/events/events_base.c b/drivers/xen/events/events_base.c
+> index 27553673e46b..80d4f7faac64 100644
+> --- a/drivers/xen/events/events_base.c
+> +++ b/drivers/xen/events/events_base.c
+> @@ -953,6 +953,43 @@ int xen_irq_from_gsi(unsigned gsi)
+>   }
+>   EXPORT_SYMBOL_GPL(xen_irq_from_gsi);
+>   
+> +int xen_gsi_from_irq(unsigned irq)
+> +{
+> +	struct irq_info *info;
+> +
+> +	list_for_each_entry(info, &xen_irq_list_head, list) {
+> +		if (info->type != IRQT_PIRQ)
+> +			continue;
+> +
+> +		if (info->irq == irq)
+> +			return info->u.pirq.gsi;
+> +	}
+> +
+> +	return -1;
+> +}
+> +EXPORT_SYMBOL_GPL(xen_gsi_from_irq);
+> +
+> +int xen_pvh_add_gsi_irq_map(unsigned gsi, unsigned irq)
+> +{
+> +	int tmp_irq;
+> +	struct irq_info *info;
+> +
+> +	tmp_irq = xen_irq_from_gsi(gsi);
+> +	if (tmp_irq != -1)
+> +		return -EEXIST;
+> +
+> +	info = kzalloc(sizeof(*info), GFP_KERNEL);
+> +	if (info == NULL)
+> +		panic("Unable to allocate metadata for GSI%d\n", gsi);
+
+Please don't kill the system here, just return -ENOMEM.
+
+> +
+> +	info->type = IRQT_PIRQ;
+> +	info->irq = irq;
+> +	info->u.pirq.gsi = gsi;
+> +	list_add_tail(&info->list, &xen_irq_list_head);
+
+I think you need some kind of locking to protect changing of the list against
+concurrent accesses.
+
+> +
+> +	return 0;
+> +}
+> +
+>   static void __unbind_from_irq(struct irq_info *info, unsigned int irq)
+>   {
+>   	evtchn_port_t evtchn;
+> @@ -2295,6 +2332,8 @@ void __init xen_init_IRQ(void)
+>   	xen_init_setup_upcall_vector();
+>   	xen_alloc_callback_vector();
+>   
+> +	if (xen_pvh_domain())
+> +		pci_xen_pvh_init();
+>   
+>   	if (xen_hvm_domain()) {
+>   		native_init_IRQ();
+> diff --git a/drivers/xen/privcmd.c b/drivers/xen/privcmd.c
+> index 67dfa4778864..11feed529e1d 100644
+> --- a/drivers/xen/privcmd.c
+> +++ b/drivers/xen/privcmd.c
+> @@ -842,6 +842,21 @@ static long privcmd_ioctl_mmap_resource(struct file *file,
+>   	return rc;
+>   }
+>   
+> +static long privcmd_ioctl_gsi_from_irq(struct file *file, void __user *udata)
+> +{
+> +	struct privcmd_gsi_from_irq kdata;
+> +
+> +	if (copy_from_user(&kdata, udata, sizeof(kdata)))
+> +		return -EFAULT;
+> +
+> +	kdata.gsi = xen_gsi_from_irq(kdata.irq);
+> +
+> +	if (copy_to_user(udata, &kdata, sizeof(kdata)))
+> +		return -EFAULT;
+> +
+> +	return 0;
+
+Shouldn't you return an error if xen_gsi_from_irq() returned -1?
 
 
 Juergen
-
 
