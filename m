@@ -2,40 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C1D038C2154
-	for <lists+xen-devel@lfdr.de>; Fri, 10 May 2024 11:54:56 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.719648.1122492 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DFED48C21BB
+	for <lists+xen-devel@lfdr.de>; Fri, 10 May 2024 12:10:25 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.719657.1122501 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s5Mwn-00007A-GC; Fri, 10 May 2024 09:53:49 +0000
+	id 1s5NCL-0002tk-Ru; Fri, 10 May 2024 10:09:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 719648.1122492; Fri, 10 May 2024 09:53:49 +0000
+Received: by outflank-mailman (output) from mailman id 719657.1122501; Fri, 10 May 2024 10:09:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s5Mwn-0008Ur-DV; Fri, 10 May 2024 09:53:49 +0000
-Received: by outflank-mailman (input) for mailman id 719648;
- Fri, 10 May 2024 09:53:47 +0000
+	id 1s5NCL-0002rL-PF; Fri, 10 May 2024 10:09:53 +0000
+Received: by outflank-mailman (input) for mailman id 719657;
+ Fri, 10 May 2024 10:07:24 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=YvKo=MN=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1s5Mwl-0008TE-Rb
- for xen-devel@lists.xenproject.org; Fri, 10 May 2024 09:53:47 +0000
-Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
- [2a00:1450:4864:20::631])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 31a79322-0eb3-11ef-909d-e314d9c70b13;
- Fri, 10 May 2024 11:53:46 +0200 (CEST)
-Received: by mail-ej1-x631.google.com with SMTP id
- a640c23a62f3a-a5a157a1cd1so445915066b.0
- for <xen-devel@lists.xenproject.org>; Fri, 10 May 2024 02:53:46 -0700 (PDT)
-Received: from ?IPV6:2003:e5:873c:a500:6aaf:b7a7:7c29:ae5c?
- (p200300e5873ca5006aafb7a77c29ae5c.dip0.t-ipconnect.de.
- [2003:e5:873c:a500:6aaf:b7a7:7c29:ae5c])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a5a17b01968sm164814366b.166.2024.05.10.02.53.45
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 10 May 2024 02:53:46 -0700 (PDT)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=hQS+=MN=amazon.es=prvs=8538b48ee=nsaenz@srs-se1.protection.inumbo.net>)
+ id 1s5N9w-0002mv-LX
+ for xen-devel@lists.xenproject.org; Fri, 10 May 2024 10:07:24 +0000
+Received: from smtp-fw-80009.amazon.com (smtp-fw-80009.amazon.com
+ [99.78.197.220]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 167ba843-0eb5-11ef-909d-e314d9c70b13;
+ Fri, 10 May 2024 12:07:21 +0200 (CEST)
+Received: from pdx4-co-svc-p1-lb2-vlan2.amazon.com (HELO
+ smtpout.prod.us-east-1.prod.farcaster.email.amazon.dev) ([10.25.36.210])
+ by smtp-border-fw-80009.pdx80.corp.amazon.com with
+ ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 May 2024 10:07:15 +0000
+Received: from EX19MTAEUC002.ant.amazon.com [10.0.10.100:54770]
+ by smtpin.naws.eu-west-1.prod.farcaster.email.amazon.dev [10.0.14.131:2525]
+ with esmtp (Farcaster)
+ id 0c298036-b7a6-49e7-b4ba-4e0b449ad4e5; Fri, 10 May 2024 10:07:14 +0000 (UTC)
+Received: from EX19D004EUC001.ant.amazon.com (10.252.51.190) by
+ EX19MTAEUC002.ant.amazon.com (10.252.51.245) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1258.28; Fri, 10 May 2024 10:07:13 +0000
+Received: from localhost (10.13.235.138) by EX19D004EUC001.ant.amazon.com
+ (10.252.51.190) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1258.28; Fri, 10 May
+ 2024 10:07:03 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,75 +52,94 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 31a79322-0eb3-11ef-909d-e314d9c70b13
+X-Inumbo-ID: 167ba843-0eb5-11ef-909d-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1715334826; x=1715939626; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=IgDr/j3I45aVQZVCtriHh098OsnX9VLTCcgYdnyh5r0=;
-        b=G1oOVFy0LWVpm7QSBPsjlwoIHh/vZMdmF7oy4kPcfSniWTs30q8mRraGW4ZfigEmTZ
-         XQFsGNmof1tp1NngQu+T1p27SuBm7k4dcbMogotIheAvOoDgYcr5Z1GZr6pUZNEuxiD0
-         mL2AH8Dg0Eue6tbMvayYK6Egk2xuLgD/j8dnWiWaDQ3xxHsdfjiqqzvxkvu0DUlA5lg/
-         xkFqR0AbpOaYcJidiErgHPMjZLv63BAVUWOfrXaJk1yTCLoOWF8e2cuBTWtla93tp73o
-         8LEAKDz0adnMlDhY6a9VpnMP9LTl9HXjlfRofYejYnv2tiN2xjFsQ9vjItBNqlInJlbC
-         KUAg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1715334826; x=1715939626;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=IgDr/j3I45aVQZVCtriHh098OsnX9VLTCcgYdnyh5r0=;
-        b=ZXbY/hEoY/zANWyFOnfMu8+MbdEjacf6vmJ46kPSnYdDfcU55Jvg5Stc7MUSakZs9x
-         E3NBs6PD4CpvlDoGCb/Appi47SR1+IybSKq+Vp5COkDb/RQmEP6KpLkfX2U+PqLOmWNs
-         3ffzke03+Q9PnVDu2TQbAVkrCnLPTHGNL6TGVEwcRTOAjuO54e2xgKnFg1IQOJnGX+3h
-         jXYlvfoBPG0YDBk+feKfGXyyins+CscKy37nfsfK766dIbzoZMjK4usZnhRWXQAmaQX2
-         CS7oEQo2L9C+t0aiwZhFqhetProGV7ATkrjrTJ8+wXobITDRrLKJWceXSFq0mrK9GFby
-         CD5A==
-X-Forwarded-Encrypted: i=1; AJvYcCW5zK7Qld1EbqpSamQgCkEH7AAUDcJhFi/IdiPAnSPdqCXfHygFFSGPnptDPYTrsCxXoJzF8lNE6iD/QBDYiCbJj/l/EahsmipJ9jTQoIg=
-X-Gm-Message-State: AOJu0Yw5hhrAnH6LFjARDOPVP3CFg6g7NE24Vz30ktycLsagxGXdgLz5
-	OopnJY0qgcoXtBqgNTW/Ww+ApHO7rpM8qhKc76b5+rv8GCayGH7pA4k40Bldh0k=
-X-Google-Smtp-Source: AGHT+IEKz31JvWqjAEmRomlfNgaF8EqP2HQK8r73XnIs3tomW69Tn3zJ4arHD6nbkZkJnphFIwRQPg==
-X-Received: by 2002:a17:906:134d:b0:a59:9eab:162b with SMTP id a640c23a62f3a-a5a2d5d01abmr136503366b.35.1715334826351;
-        Fri, 10 May 2024 02:53:46 -0700 (PDT)
-Message-ID: <c30ebad2-1ad3-4b58-afaf-e6dc32c091fc@suse.com>
-Date: Fri, 10 May 2024 11:53:45 +0200
+  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazon201209;
+  t=1715335641; x=1746871641;
+  h=mime-version:content-transfer-encoding:date:message-id:
+   subject:from:to:cc:references:in-reply-to;
+  bh=ODj1UcfgLsilkOJ93AaBzpY+nLn2txKitmtJHEr2EDY=;
+  b=uG+dDPkwkAFq226GFq4iDLlUiLv6H1U46ZqcdZ+yh4ACgeE8BgHoHHiZ
+   UjXwZV7FpLhhGn9wWNjkR2NsgYyUz2ekzRhobbSdavUiLpP2MNV5qrSk7
+   zYUiNi5hHzYJX9gTly4lQsCmQnZV9yvn6maEL+fdU4Q56AiR0LBX00vNc
+   U=;
+X-IronPort-AV: E=Sophos;i="6.08,150,1712620800"; 
+   d="scan'208";a="88359429"
+X-Farcaster-Flow-ID: 0c298036-b7a6-49e7-b4ba-4e0b449ad4e5
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC KERNEL PATCH v6 3/3] xen/privcmd: Add new syscall to get gsi
- from irq
-To: "Chen, Jiqian" <Jiqian.Chen@amd.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- Bjorn Helgaas <bhelgaas@google.com>, "Rafael J . Wysocki"
- <rafael@kernel.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- "linux-pci@vger.kernel.org" <linux-pci@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "linux-acpi@vger.kernel.org" <linux-acpi@vger.kernel.org>,
- "Huang, Ray" <Ray.Huang@amd.com>
-References: <20240419033616.607889-1-Jiqian.Chen@amd.com>
- <20240419033616.607889-4-Jiqian.Chen@amd.com>
- <79666084-fc2f-4637-8f0b-3846285601b8@suse.com>
- <BL1PR12MB58493D17E23751A06FC931DDE7E72@BL1PR12MB5849.namprd12.prod.outlook.com>
-Content-Language: en-US
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-In-Reply-To: <BL1PR12MB58493D17E23751A06FC931DDE7E72@BL1PR12MB5849.namprd12.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="UTF-8"
+Date: Fri, 10 May 2024 10:07:00 +0000
+Message-ID: <D15VQ97L5M8J.1TDNQE6KLW6JO@amazon.com>
+Subject: Re: [RFC PATCH v3 3/5] KVM: x86: Add notifications for Heki policy
+ configuration and violation
+From: Nicolas Saenz Julienne <nsaenz@amazon.com>
+To: Sean Christopherson <seanjc@google.com>,
+	=?utf-8?q?Micka=C3=ABl_Sala=C3=BCn?= <mic@digikod.net>
+CC: Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
+	"H . Peter Anvin" <hpa@zytor.com>, Ingo Molnar <mingo@redhat.com>, "Kees
+ Cook" <keescook@chromium.org>, Paolo Bonzini <pbonzini@redhat.com>, "Thomas
+ Gleixner" <tglx@linutronix.de>, Vitaly Kuznetsov <vkuznets@redhat.com>,
+	Wanpeng Li <wanpengli@tencent.com>, Rick P Edgecombe
+	<rick.p.edgecombe@intel.com>, Alexander Graf <graf@amazon.com>, Angelina Vu
+	<angelinavu@linux.microsoft.com>, Anna Trikalinou
+	<atrikalinou@microsoft.com>, Chao Peng <chao.p.peng@linux.intel.com>,
+	"Forrest Yuan Yu" <yuanyu@google.com>, James Gowans <jgowans@amazon.com>,
+	James Morris <jamorris@linux.microsoft.com>, John Andersen
+	<john.s.andersen@intel.com>, "Madhavan T . Venkataraman"
+	<madvenka@linux.microsoft.com>, Marian Rotariu <marian.c.rotariu@gmail.com>,
+	=?utf-8?q?Mihai_Don=C8=9Bu?= <mdontu@bitdefender.com>,
+	=?utf-8?q?Nicu=C8=99or_C=C3=AE=C8=9Bu?= <nicu.citu@icloud.com>, Thara
+ Gopinath <tgopinath@microsoft.com>, "Trilok Soni" <quic_tsoni@quicinc.com>,
+	Wei Liu <wei.liu@kernel.org>, Will Deacon <will@kernel.org>, Yu Zhang
+	<yu.c.zhang@linux.intel.com>, =?utf-8?q?=C8=98tefan_=C8=98icleru?=
+	<ssicleru@bitdefender.com>, <dev@lists.cloudhypervisor.org>,
+	<kvm@vger.kernel.org>, <linux-hardening@vger.kernel.org>,
+	<linux-hyperv@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<linux-security-module@vger.kernel.org>, <qemu-devel@nongnu.org>,
+	<virtualization@lists.linux-foundation.org>, <x86@kernel.org>,
+	<xen-devel@lists.xenproject.org>
+X-Mailer: aerc 0.16.0-127-gec0f4a50cf77
+References: <20240503131910.307630-1-mic@digikod.net>
+ <20240503131910.307630-4-mic@digikod.net> <ZjTuqV-AxQQRWwUW@google.com>
+ <20240506.ohwe7eewu0oB@digikod.net> <ZjmFPZd5q_hEBdBz@google.com>
+ <20240507.ieghomae0UoC@digikod.net> <ZjpTxt-Bxia3bRwB@google.com>
+In-Reply-To: <ZjpTxt-Bxia3bRwB@google.com>
+X-Originating-IP: [10.13.235.138]
+X-ClientProxiedBy: EX19D036UWC002.ant.amazon.com (10.13.139.242) To
+ EX19D004EUC001.ant.amazon.com (10.252.51.190)
 
-On 10.05.24 11:06, Chen, Jiqian wrote:
-> Hi,
-> 
-> On 2024/5/10 14:46, Jürgen Groß wrote:
->> On 19.04.24 05:36, Jiqian Chen wrote:
->>> +
->>> +    info->type = IRQT_PIRQ;
-> I am considering whether I need to use a new type(like IRQT_GSI) here to distinguish with IRQT_PIRQ, because function restore_pirqs will process all IRQT_PIRQ.
+On Tue May 7, 2024 at 4:16 PM UTC, Sean Christopherson wrote:
+> > If yes, that would indeed require a *lot* of work for something we're n=
+ot
+> > sure will be accepted later on.
+>
+> Yes and no.  The AWS folks are pursuing VSM support in KVM+QEMU, and SVSM=
+ support
+> is trending toward the paired VM+vCPU model.  IMO, it's entirely feasible=
+ to
+> design KVM support such that much of the development load can be shared b=
+etween
+> the projects.  And having 2+ use cases for a feature (set) makes it _much=
+_ more
+> likely that the feature(s) will be accepted.
 
-restore_pirqs() already considers gsi == 0 to be not GSI related. Isn't this
-enough?
+Since Sean mentioned our VSM efforts, a small update. We were able to
+validate the concept of one KVM VM per VTL as discussed in LPC. Right
+now only for single CPU guests, but are in the late stages of bringing
+up MP support. The resulting KVM code is small, and most will be
+uncontroversial (I hope). If other obligations allow it, we plan on
+having something suitable for review in the coming months.
 
+Our implementation aims to implement all the VSM spec necessary to run
+with Microsoft Credential Guard. But note that some aspects necessary
+for HVCI are not covered, especially the ones that depend on MBEC
+support, or some categories of secure intercepts.
 
-Juergen
+Development happens
+https://github.com/vianpl/{linux,qemu,kvm-unit-tests} and the vsm-next
+branch, but I'd advice against looking into it until we add some order
+to the rework. Regardless, feel free to get in touch.
+
+Nicolas
 
