@@ -2,56 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2B3868C2E49
+	by mail.lfdr.de (Postfix) with ESMTPS id 32E918C2E4B
 	for <lists+xen-devel@lfdr.de>; Sat, 11 May 2024 02:57:15 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.720145.1123229 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.720144.1123219 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s5b2P-00086y-89; Sat, 11 May 2024 00:56:33 +0000
+	id 1s5b2N-0007rs-RU; Sat, 11 May 2024 00:56:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 720145.1123229; Sat, 11 May 2024 00:56:33 +0000
+Received: by outflank-mailman (output) from mailman id 720144.1123219; Sat, 11 May 2024 00:56:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s5b2P-00084N-3p; Sat, 11 May 2024 00:56:33 +0000
-Received: by outflank-mailman (input) for mailman id 720145;
- Sat, 11 May 2024 00:56:31 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1s5b2N-0007pP-Ni; Sat, 11 May 2024 00:56:31 +0000
+Received: by outflank-mailman (input) for mailman id 720144;
+ Sat, 11 May 2024 00:56:30 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=0W/u=MO=amd.com=Xin.Wang2@srs-se1.protection.inumbo.net>)
- id 1s5b2N-0007p5-3Y
- for xen-devel@lists.xenproject.org; Sat, 11 May 2024 00:56:31 +0000
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on20600.outbound.protection.outlook.com
- [2a01:111:f403:2416::600])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 4c44d00c-0f31-11ef-909d-e314d9c70b13;
- Sat, 11 May 2024 02:56:29 +0200 (CEST)
-Received: from SJ0PR05CA0136.namprd05.prod.outlook.com (2603:10b6:a03:33d::21)
- by BL3PR12MB6452.namprd12.prod.outlook.com (2603:10b6:208:3bb::17)
- with Microsoft SMTP Server (version=TLS1_2,
+ id 1s5b2M-0007ah-BE
+ for xen-devel@lists.xenproject.org; Sat, 11 May 2024 00:56:30 +0000
+Received: from NAM02-DM3-obe.outbound.protection.outlook.com
+ (mail-dm3nam02on20601.outbound.protection.outlook.com
+ [2a01:111:f403:2405::601])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 4c0c8333-0f31-11ef-b4bb-af5377834399;
+ Sat, 11 May 2024 02:56:28 +0200 (CEST)
+Received: from PH8P222CA0004.NAMP222.PROD.OUTLOOK.COM (2603:10b6:510:2d7::34)
+ by DM4PR12MB5772.namprd12.prod.outlook.com (2603:10b6:8:63::10) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7544.49; Sat, 11 May
- 2024 00:56:24 +0000
-Received: from SJ5PEPF000001C8.namprd05.prod.outlook.com
- (2603:10b6:a03:33d:cafe::e7) by SJ0PR05CA0136.outlook.office365.com
- (2603:10b6:a03:33d::21) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7587.18 via Frontend
- Transport; Sat, 11 May 2024 00:56:23 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- SJ5PEPF000001C8.mail.protection.outlook.com (10.167.242.36) with Microsoft
+ 2024 00:56:25 +0000
+Received: from CY4PEPF0000E9D5.namprd05.prod.outlook.com
+ (2603:10b6:510:2d7:cafe::2f) by PH8P222CA0004.outlook.office365.com
+ (2603:10b6:510:2d7::34) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7544.54 via Frontend
+ Transport; Sat, 11 May 2024 00:56:24 +0000
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ CY4PEPF0000E9D5.mail.protection.outlook.com (10.167.241.68) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7544.18 via Frontend Transport; Sat, 11 May 2024 00:56:23 +0000
-Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ 15.20.7544.18 via Frontend Transport; Sat, 11 May 2024 00:56:24 +0000
+Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Fri, 10 May
- 2024 19:56:22 -0500
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB05.amd.com
- (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
+ 2024 19:56:24 -0500
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB06.amd.com
+ (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Fri, 10 May
- 2024 19:56:22 -0500
+ 2024 19:56:23 -0500
 Received: from henry-MS-7D54.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.35 via Frontend
- Transport; Fri, 10 May 2024 19:56:19 -0500
+ Transport; Fri, 10 May 2024 19:56:22 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,168 +63,196 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4c44d00c-0f31-11ef-909d-e314d9c70b13
+X-Inumbo-ID: 4c0c8333-0f31-11ef-b4bb-af5377834399
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=M/GTqvrUh3lG7vVOODAiuRg5gsaArpYy5zp/D0mu5yZ1/RudkWsk9y5k/zKjMRuiVxcZmSdgpXQy1CP4vWIFnVGUAWMMDEbPxzeEJU9R9xk8XvG5R7zMxY96NOMJeI3BZzVECwJ90oQhCLJIWPFlvoKMt+EW5/QQCGQqhO1OsrKISo2mmoq2V1DfMcA+0WneXI6603qySECDsXZdR2lUTd+c3VbXgKRktzWrQc8SX/FVPE8brgVhvVThSxh6u5U3hVhS0NZX1G8H54k4WvBF5PHdqwvczry/eionr/HapQOTA1zJZ0SVndvbT0deQ/14iiXGi/t3hktVwywb+agAXQ==
+ b=OpPUu7rbvrb9YeD0Nu9zccpeG6gNCszERa4y0u9Gum8d+cSe8vR1tqI5L8Fo/aQE+EnlwQv1KKLfsmVArumYWjUJKeuC4/nRj03+JHFhCGihAY3xQn7UJX4Y6+y+l4Cv4RoBZopmYo1lZ3vKNIMpvS/x5IxZsTIMd2URAmR1IRk4l204//HLwJO3ktOHr5nOqBozmKSCjDeZ3tBH9Ng4SlI4ChBzy0Obuk8puIw1hGeT8qru5MStyFh9J5cZYpe3IBeDeZjQPviuEYT9+VggxaeAHdvM3cUE470QEUPIXB5958e004BY+fz5PI1Om+SXZI8oZObGOXIZp6d765KeYg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=8pDtPG/gwtKzswtOqvdxKDHnF7RDE7VlIypy2jSq22o=;
- b=B5lhSGdWmNKbjWDV7srQNFt4QaBPG/CT6c0Jweo5eJrSV/TJoeetYN9TzBDserlSrme+IfrdElCy72UPml+8iHA8Ox0sHBLtX1bvIfjmfuStkuty5daS4daEoJGRsYITSydE/T7zX5gUE/FylwSiskfgj9UH1fiR/3Va+S+Bmx/ih7HSLpOOg5OvJfHiy2wfutNY9/MgEM2vlIf3yEofoSoKVsE6bnHoO8mZ5NgNGH0d2ES1w2hKXXYk0nuctveeXpVBwYn1GZPPf1Mk+A8CFGM4r55FoVCPYB+Jh/VJ2S1e5yeYWTDg/HOi0Dr0CfgIQFlkEmVv9s4VGHOE3YGl6A==
+ bh=L0sVjO8e/hTL6PfGKicWPBSowcKLwyxV2IFDm4hHQWE=;
+ b=X27UtIozaBMJ0TTME8eUva2ZwMW1Fs1Ywm2Ar4GkqbxIY3vR29fo0tnZNH7AVX3eHqy7ZWxHSqjNk6UrboIWxQxvzIHvXLHnmInKIU3uWZY+3n5K7yBlZND12Fjf2BDhIxNxy5ztW7Wnlah5/JON46or+n7+tc6agbkCqhHvC4tJOhD3ddlQNMw+PwIhlpa96N9dx0M10ZDAXbAiFGxexmrV8JjVuTAfYi66h/61FLqrJDZjgpx2t+EYuot2w64+tZPvi2J7r/hfPXPrERI9ECb2rS98IhgDenw/3U0V36MTogI17u/srJP5JyHmRQ7puEt7nnFjFj16hynddfBzaA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8pDtPG/gwtKzswtOqvdxKDHnF7RDE7VlIypy2jSq22o=;
- b=Wfc0LLInNkZZiaLcaMQ4zg6Dh+CViHAkWJo87ZadO0j0kYBfrHMTGuPCqjm33V8nGegM4rhnyp+lVRTnVtmdIYiQbS5Uv0wcyObCYJi8qciSffhj+CC6hTHvsbkjYn5Irat/1IBmcir36FfQlggVH+aZ7294FaQx8QW0EN7uOGE=
+ bh=L0sVjO8e/hTL6PfGKicWPBSowcKLwyxV2IFDm4hHQWE=;
+ b=WAvsK2mtMhjRbraEDoH6ipsMdT12LguyMwV0mRGl3WB4ritF6TX5VMapc5OvBZVoG6/40+AM2vZ4yqRy15NBk0MKjd3j/CYLJ7CdEF4JrQfkS7KBogzGaOWpKsWxBHMqcXdTbfpSmbpp1H/bnti/oKmDcEnmrc6dR1oYRiCA0aU=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
 From: Henry Wang <xin.wang2@amd.com>
 To: <xen-devel@lists.xenproject.org>
-CC: Henry Wang <xin.wang2@amd.com>, Stefano Stabellini
-	<sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Bertrand Marquis
-	<bertrand.marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>, "Volodymyr
- Babchuk" <Volodymyr_Babchuk@epam.com>, Andrew Cooper
-	<andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>, "Jan
- Beulich" <jbeulich@suse.com>, Alec Kwapis <alec.kwapis@medtronic.com>
-Subject: [PATCH v2 2/4] xen/arm: Add new HVM_PARAM_HV_RSRV_{BASE_PFN,SIZE} keys in HVMOP
-Date: Sat, 11 May 2024 08:56:09 +0800
-Message-ID: <20240511005611.83125-3-xin.wang2@amd.com>
+CC: Henry Wang <xin.wang2@amd.com>, Anthony PERARD <anthony@xenproject.org>,
+	Alec Kwapis <alec.kwapis@medtronic.com>
+Subject: [PATCH v2 3/4] tools/init-dom0less: Avoid hardcoding GUEST_MAGIC_BASE
+Date: Sat, 11 May 2024 08:56:10 +0800
+Message-ID: <20240511005611.83125-4-xin.wang2@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20240511005611.83125-1-xin.wang2@amd.com>
 References: <20240511005611.83125-1-xin.wang2@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-Received-SPF: None (SATLEXMB05.amd.com: xin.wang2@amd.com does not designate
- permitted sender hosts)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ5PEPF000001C8:EE_|BL3PR12MB6452:EE_
-X-MS-Office365-Filtering-Correlation-Id: 74eccd9c-6c6b-419a-0958-08dc71552dcd
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000E9D5:EE_|DM4PR12MB5772:EE_
+X-MS-Office365-Filtering-Correlation-Id: eb9aa798-a039-41f7-ba48-08dc71552e9d
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230031|82310400017|376005|1800799015|36860700004;
+	BCL:0;ARA:13230031|82310400017|36860700004|1800799015|376005;
 X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?kg+ZdbpbSZavsTg+6Plfd2hHqc2S9v5hb4o/i4O/w9JNQtZEAEUipThT+/Ll?=
- =?us-ascii?Q?XFqH04Z3YJaQhY4aNs1da2EsVH2VIh/ESpYRrRgGLt9rQPW65/NZ5Juq/G7O?=
- =?us-ascii?Q?Xx/qfej/cmRnLXL2H8696v+RSAQV7J5b/CJanexpwb+s+N2XXf+vVbwmV1/S?=
- =?us-ascii?Q?B8j2fsArazyY5INhq2KA+XX9kkDK34dHkGEo7Tq269ljoOTOIzgBt2y1KFza?=
- =?us-ascii?Q?zoeCpcMkJkJaqKq27fASF3t51jlJzHi03UhgN0zseN1pWtzrMwwFqP2TL2NB?=
- =?us-ascii?Q?493tS7dRKvhdB54sSR6mP+Yt8cgHujg7IliDWFR0zY3tVYAQ6QXHhk1WUXmx?=
- =?us-ascii?Q?fw+CYe4yD8Z/uvNgiieD/cJ9vnLZ6pIkTeJleeDK5E/MVkLAKpm0GpffMDGq?=
- =?us-ascii?Q?00tRoIjaE4wahjsRET/75Ywvs5VfchY9MrJ8pu3zxfHQU/gF0prUQqrCmHYi?=
- =?us-ascii?Q?ZI9oUohf9d1WR94hZjfANJPbqt2vHz/pfUYKzwGRFP+bNNyV4nyHPdv+YiNn?=
- =?us-ascii?Q?omXXoHkZnu5cInLXjv7T1n7L619+uOGcYUClMlRRtSHJfNayO2AWFoXMI+EB?=
- =?us-ascii?Q?x2U7WuYANssyAqwDH03TAwBdSTbhP8IcJtVXujkzbpcMWqeTEgxnCzA7ZRGf?=
- =?us-ascii?Q?+ubVUM/yffbkZBU8XFthtzvmMguY/GL6I+G8eXj79sJQyCvDN8NVF8Fwci4G?=
- =?us-ascii?Q?EZy5Af4lEsPF/S0nj25k5JlPYTLBkkM/pnWhUjLwiv331WetljMC43SPTZJ6?=
- =?us-ascii?Q?ZnFMclvda41bA1OCuNy41NPRN8/CQUHTuxNsiOWXLJPOZxY5rS+KT9aQizWI?=
- =?us-ascii?Q?gJuKUDq62u8qzYVWlbgqaQZr5v3UUn3ZfSNErCUpTrqPFER2xDsUOxyyhLLq?=
- =?us-ascii?Q?SXZ2cJzgmwkcte7f2QTr4Xxpo5YdoNSoAx1P1w2+o/fUs7ITzP/nbjq51e9z?=
- =?us-ascii?Q?KsSqFG6DTwyt7qq2X8QhZHdJ2nhAnYv8Js/pldAyVEKzPbtQPBHG0txU8eMt?=
- =?us-ascii?Q?SiBjIJS4ZxVFVQBOg3ojNkDzCWXsMfhpGzutD4OA1GsejvEo/GAxMzJVirkR?=
- =?us-ascii?Q?vQa0Qt0NpeQpEHWX58wOmny3qZvrhFSjKpjwt3wKMjKJvg6nP0O+40/K4E8A?=
- =?us-ascii?Q?RsUhZaFnvG4lVZNaDqPxa0sSm1EM6UA/pArbP46Vma+g+FD87N6L1AWlkXi1?=
- =?us-ascii?Q?fLPUrEQgYXH+ouiJ5+4lVowGxoMkebemM+k+Bc+EYUHNB5pMz1k8IMCTWwst?=
- =?us-ascii?Q?KRRBXUt5e9GAz1tozlv1WGyHmzsKr/MDMlCYEodmfGjuqf+D8nPOQ7hrXgWj?=
- =?us-ascii?Q?IuLeYTwb6Iue24FTpHmQXBzCex6HyVtrjvANn8AEuMRWvv7jBWUdPEXj12l8?=
- =?us-ascii?Q?q+UMv4w=3D?=
+	=?us-ascii?Q?W/Odr8W15mADA2aUJJx+XWOBlnokmdylAOH5p0E6ZsywRUpM1QTf/cVXQZ35?=
+ =?us-ascii?Q?ZGMeaZC524E9GbCHRxFl7ENRxuY2mqLZvnaEhCN9C54L6DJUJxPLUCdCboWH?=
+ =?us-ascii?Q?PA/oCEZ9JIJBJ6Qzo2CKFihbzAXGaRAJErGcUf7Qj2w2j3vO4mbmWr2Jh1Eu?=
+ =?us-ascii?Q?tQzssdkqqToYRpETOmdISd4j0YwRIlOxENjdsGU/J5j3Y7imt7I5aaNDxqOh?=
+ =?us-ascii?Q?LVCSvoFYh0Rq3rdcLgpvqNpxVWUSAMx93oI8b9tbdCEoVXmdz1EXElei/fN9?=
+ =?us-ascii?Q?Fqq/Tywz+t1q/l0AshZqVezndZxXiNlDOlBxa6mbswQEr3iPngivFDU4lej9?=
+ =?us-ascii?Q?24ML8832HS/URwIl1REeB57EINi8tkuKpt5yfhVwquEvqrKNb+euOABocC36?=
+ =?us-ascii?Q?ws6Pix2fAsJmM20j2/ntG6o1YC4MAwprT2hSYEbbusZTE3AhS8ssPWyMwENp?=
+ =?us-ascii?Q?AIm2cUnXjsrlXtgsEFl7bAa9IAb+B+DpTs+1eHKN0tq2fEINoHkYzXwudwtb?=
+ =?us-ascii?Q?Nk/8pzqYBogv0TLmFE1AYKrpVlSPQ6dUwF173NKPli3Ghi2CvEetzsSf2PPQ?=
+ =?us-ascii?Q?GXNksdI0wWyo8YvRC55VTv5hSBoBZ1cyCsaJyAi4N3zDYSnX2O6FPFqv48Rt?=
+ =?us-ascii?Q?6W3agX1oP9Hlja3UfvYy0uaS7vu1jrVLjwQy6sLSDecYz/PC1oCBZdN88FXM?=
+ =?us-ascii?Q?ysFBAnuMLa/F9TTSrVkbpKaukINN48cOQByhfAGZs7GZae6hu+JyhuDGEZRl?=
+ =?us-ascii?Q?FKc8NtWgoX3DvpqP4XeiyvUABju6Hs/akVZbjCV+TT1LsS3vZAwo+anoFWa7?=
+ =?us-ascii?Q?dM/vpf5IL0SBlUEHJZu5IWiMeruhRUjRw854vYryGW8nAXN7nYTToSgxZZhY?=
+ =?us-ascii?Q?X3zQeA/+BPu8JGeXmaRd8/MaJ0TcdMiQ6K2wBOMCabAVAxOt2LU2QMwbGirc?=
+ =?us-ascii?Q?GYiaregbRulLLqGpmVOV1LEfOZLxu5DWpW0lLn299n1InfcJgfAg3jZFl6jz?=
+ =?us-ascii?Q?mzKL6NlGPVqLqh9AUeV4sOh6lTcXwZXc0Vi3gFtg6JzuzHOVLbqUTcl6mdJA?=
+ =?us-ascii?Q?9Sf296JVVZpmY/dsCtSBF0IPnXPTR+VlTaCdi7lko1i9QaeZeapwRcAxaZSi?=
+ =?us-ascii?Q?iXR3dOMbkG7x3ah6qY0lNB6gPfZIW31GIOhKkxUNjcPzH8P2ZnwPi0wqtr3/?=
+ =?us-ascii?Q?EF4aBnpxPS9qcaL12yxMvlSy0dTSZNjOTASqenbj3y+iIUIdjmddIxq/cDwz?=
+ =?us-ascii?Q?cPviSGUhnIdIgpobIJNgMGSjK0reYWWUVTP56ZgAHg20awFi3Ld74ZT5LLD0?=
+ =?us-ascii?Q?/jjAyMHrzoHCboyhWrJy3uB6pXt8v14QG+RqeTG7yCdxb5G1H8yMoqdPwyqJ?=
+ =?us-ascii?Q?xCq12X+/JG5YjsNXZMcFW9lIZAaP?=
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(82310400017)(376005)(1800799015)(36860700004);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(82310400017)(36860700004)(1800799015)(376005);DIR:OUT;SFP:1101;
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 May 2024 00:56:23.2932
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 May 2024 00:56:24.6921
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 74eccd9c-6c6b-419a-0958-08dc71552dcd
+X-MS-Exchange-CrossTenant-Network-Message-Id: eb9aa798-a039-41f7-ba48-08dc71552e9d
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	SJ5PEPF000001C8.namprd05.prod.outlook.com
+	CY4PEPF0000E9D5.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL3PR12MB6452
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5772
 
-For use cases such as Dom0less PV drivers, a mechanism to communicate
-Dom0less DomU's static data with the runtime control plane (Dom0) is
-needed. Since on Arm HVMOP is already the existing approach to address
-such use cases (for example the allocation of HVM_PARAM_CALLBACK_IRQ),
-add new HVMOP keys HVM_PARAM_HV_RSRV_{BASE_PFN,SIZE} for storing the
-hypervisor reserved pages region base PFN and size.
+Currently the GUEST_MAGIC_BASE in the init-dom0less application is
+hardcoded, which will lead to failures for 1:1 direct-mapped Dom0less
+DomUs.
 
-Currently, the hypervisor reserved pages region is used as the Arm
-Dom0less DomU guest magic pages region. Therefore protect the HVMOP
-keys with "#if defined(__arm__) || defined(__aarch64__)". The values
-will be set at Dom0less DomU construction time after Dom0less DomU's
-magic pages region has been allocated.
+Since the guest magic region is now allocated from the hypervisor,
+instead of hardcoding the guest magic pages region, use
+xc_hvm_param_get() to get the guest magic region PFN, and based on
+that the XenStore PFN can be calculated. Also, we don't need to set
+the max mem anymore, so drop the call to xc_domain_setmaxmem(). Rename
+the alloc_xs_page() to get_xs_page() to reflect the changes.
+
+Take the opportunity to do some coding style improvements when possible.
 
 Reported-by: Alec Kwapis <alec.kwapis@medtronic.com>
 Signed-off-by: Henry Wang <xin.wang2@amd.com>
 ---
 v2:
-- Rename the HVMOP keys to HVM_PARAM_HV_RSRV_{BASE_PFN,SIZE}. (Daniel)
-- Add comment on top of HVM_PARAM_HV_RSRV_{BASE_PFN,SIZE} to describe
-  its usage. Protect them with #ifdef. (Daniel, Jan)
+- Update HVMOP keys name.
 ---
- xen/arch/arm/dom0less-build.c   |  3 +++
- xen/arch/arm/hvm.c              |  2 ++
- xen/include/public/hvm/params.h | 11 ++++++++++-
- 3 files changed, 15 insertions(+), 1 deletion(-)
+ tools/helpers/init-dom0less.c | 40 +++++++++++++++--------------------
+ 1 file changed, 17 insertions(+), 23 deletions(-)
 
-diff --git a/xen/arch/arm/dom0less-build.c b/xen/arch/arm/dom0less-build.c
-index 4b96ddd9ce..5bb53ebb47 100644
---- a/xen/arch/arm/dom0less-build.c
-+++ b/xen/arch/arm/dom0less-build.c
-@@ -764,6 +764,9 @@ static int __init alloc_magic_pages(struct domain *d)
+diff --git a/tools/helpers/init-dom0less.c b/tools/helpers/init-dom0less.c
+index fee93459c4..04039a2a66 100644
+--- a/tools/helpers/init-dom0less.c
++++ b/tools/helpers/init-dom0less.c
+@@ -19,24 +19,20 @@
+ #define XENSTORE_PFN_OFFSET 1
+ #define STR_MAX_LENGTH 128
+ 
+-static int alloc_xs_page(struct xc_interface_core *xch,
+-                         libxl_dominfo *info,
+-                         uint64_t *xenstore_pfn)
++static int get_xs_page(struct xc_interface_core *xch, libxl_dominfo *info,
++                       uint64_t *xenstore_pfn)
+ {
+     int rc;
+-    const xen_pfn_t base = GUEST_MAGIC_BASE >> XC_PAGE_SHIFT;
+-    xen_pfn_t p2m = (GUEST_MAGIC_BASE >> XC_PAGE_SHIFT) + XENSTORE_PFN_OFFSET;
++    xen_pfn_t magic_base_pfn;
+ 
+-    rc = xc_domain_setmaxmem(xch, info->domid,
+-                             info->max_memkb + (XC_PAGE_SIZE/1024));
+-    if (rc < 0)
+-        return rc;
+-
+-    rc = xc_domain_populate_physmap_exact(xch, info->domid, 1, 0, 0, &p2m);
+-    if (rc < 0)
+-        return rc;
++    rc = xc_hvm_param_get(xch, info->domid, HVM_PARAM_HV_RSRV_BASE_PFN,
++                          &magic_base_pfn);
++    if (rc < 0) {
++        printf("Failed to get HVM_PARAM_HV_RSRV_BASE_PFN\n");
++        return 1;
++    }
+ 
+-    *xenstore_pfn = base + XENSTORE_PFN_OFFSET;
++    *xenstore_pfn = magic_base_pfn + XENSTORE_PFN_OFFSET;
+     rc = xc_clear_domain_page(xch, info->domid, *xenstore_pfn);
+     if (rc < 0)
          return rc;
-     }
- 
-+    d->arch.hvm.params[HVM_PARAM_HV_RSRV_BASE_PFN] = gfn_x(gfn);
-+    d->arch.hvm.params[HVM_PARAM_HV_RSRV_SIZE] = NR_MAGIC_PAGES;
-+
-     return 0;
- }
- 
-diff --git a/xen/arch/arm/hvm.c b/xen/arch/arm/hvm.c
-index 0989309fea..949d804f8b 100644
---- a/xen/arch/arm/hvm.c
-+++ b/xen/arch/arm/hvm.c
-@@ -55,6 +55,8 @@ static int hvm_allow_get_param(const struct domain *d, unsigned int param)
-     case HVM_PARAM_STORE_EVTCHN:
-     case HVM_PARAM_CONSOLE_PFN:
-     case HVM_PARAM_CONSOLE_EVTCHN:
-+    case HVM_PARAM_HV_RSRV_BASE_PFN:
-+    case HVM_PARAM_HV_RSRV_SIZE:
+@@ -100,6 +96,7 @@ static bool do_xs_write_vm(struct xs_handle *xsh, xs_transaction_t t,
+  */
+ static int create_xenstore(struct xs_handle *xsh,
+                            libxl_dominfo *info, libxl_uuid uuid,
++                           xen_pfn_t xenstore_pfn,
+                            evtchn_port_t xenstore_port)
+ {
+     domid_t domid;
+@@ -145,8 +142,7 @@ static int create_xenstore(struct xs_handle *xsh,
+     rc = snprintf(target_memkb_str, STR_MAX_LENGTH, "%"PRIu64, info->current_memkb);
+     if (rc < 0 || rc >= STR_MAX_LENGTH)
+         return rc;
+-    rc = snprintf(ring_ref_str, STR_MAX_LENGTH, "%lld",
+-                  (GUEST_MAGIC_BASE >> XC_PAGE_SHIFT) + XENSTORE_PFN_OFFSET);
++    rc = snprintf(ring_ref_str, STR_MAX_LENGTH, "%"PRIu_xen_pfn, xenstore_pfn);
+     if (rc < 0 || rc >= STR_MAX_LENGTH)
+         return rc;
+     rc = snprintf(xenstore_port_str, STR_MAX_LENGTH, "%u", xenstore_port);
+@@ -245,9 +241,9 @@ static int init_domain(struct xs_handle *xsh,
+     if (!xenstore_evtchn)
          return 0;
  
-         /*
-diff --git a/xen/include/public/hvm/params.h b/xen/include/public/hvm/params.h
-index a22b4ed45d..337f5b0bf8 100644
---- a/xen/include/public/hvm/params.h
-+++ b/xen/include/public/hvm/params.h
-@@ -296,6 +296,15 @@
- #define XEN_HVM_MCA_CAP_LMCE   (xen_mk_ullong(1) << 0)
- #define XEN_HVM_MCA_CAP_MASK   XEN_HVM_MCA_CAP_LMCE
+-    /* Alloc xenstore page */
+-    if (alloc_xs_page(xch, info, &xenstore_pfn) != 0) {
+-        printf("Error on alloc magic pages\n");
++    /* Get xenstore page */
++    if (get_xs_page(xch, info, &xenstore_pfn) != 0) {
++        printf("Error on getting xenstore page\n");
+         return 1;
+     }
  
--#define HVM_NR_PARAMS 39
-+/*
-+ * Base PFN and number of pages of the hypervisor reserved pages region.
-+ * Currently only used on Arm for Dom0less DomUs as guest magic pages region.
-+ */
-+#if defined(__arm__) || defined(__aarch64__)
-+#define HVM_PARAM_HV_RSRV_BASE_PFN 39
-+#define HVM_PARAM_HV_RSRV_SIZE 40
-+#endif
-+
-+#define HVM_NR_PARAMS 41
+@@ -278,13 +274,11 @@ static int init_domain(struct xs_handle *xsh,
+     if (rc < 0)
+         return rc;
  
- #endif /* __XEN_PUBLIC_HVM_PARAMS_H__ */
+-    rc = create_xenstore(xsh, info, uuid, xenstore_evtchn);
++    rc = create_xenstore(xsh, info, uuid, xenstore_pfn, xenstore_evtchn);
+     if (rc)
+         err(1, "writing to xenstore");
+ 
+-    rc = xs_introduce_domain(xsh, info->domid,
+-            (GUEST_MAGIC_BASE >> XC_PAGE_SHIFT) + XENSTORE_PFN_OFFSET,
+-            xenstore_evtchn);
++    rc = xs_introduce_domain(xsh, info->domid, xenstore_pfn, xenstore_evtchn);
+     if (!rc)
+         err(1, "xs_introduce_domain");
+     return 0;
 -- 
 2.34.1
 
