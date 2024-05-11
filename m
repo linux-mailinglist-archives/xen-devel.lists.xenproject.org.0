@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9EA768C30C4
-	for <lists+xen-devel@lfdr.de>; Sat, 11 May 2024 13:04:35 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.720294.1123404 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1F9548C31B4
+	for <lists+xen-devel@lfdr.de>; Sat, 11 May 2024 15:53:41 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.720322.1123414 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s5kVV-0003k2-KL; Sat, 11 May 2024 11:03:13 +0000
+	id 1s5n9C-0008Ot-KP; Sat, 11 May 2024 13:52:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 720294.1123404; Sat, 11 May 2024 11:03:13 +0000
+Received: by outflank-mailman (output) from mailman id 720322.1123414; Sat, 11 May 2024 13:52:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s5kVV-0003iV-Fb; Sat, 11 May 2024 11:03:13 +0000
-Received: by outflank-mailman (input) for mailman id 720294;
- Sat, 11 May 2024 11:03:12 +0000
+	id 1s5n9C-0008Lj-H0; Sat, 11 May 2024 13:52:22 +0000
+Received: by outflank-mailman (input) for mailman id 720322;
+ Sat, 11 May 2024 13:52:21 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1s5kVU-0003iP-M2
- for xen-devel@lists.xenproject.org; Sat, 11 May 2024 11:03:12 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1s5n9B-0008LZ-8n; Sat, 11 May 2024 13:52:21 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1s5kVU-0006lh-5y; Sat, 11 May 2024 11:03:12 +0000
-Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.1.244])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1s5kVT-0005G7-SP; Sat, 11 May 2024 11:03:11 +0000
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1s5n9B-0001La-6c; Sat, 11 May 2024 13:52:21 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1s5n9A-0008B4-Ua; Sat, 11 May 2024 13:52:21 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1s5n9A-0004hU-U3; Sat, 11 May 2024 13:52:20 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,144 +42,130 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=IfBIzTlB8gbtJsjuqohges46El9qHcXdYkkiuX1+SAQ=; b=rPYELTDoM39nOWQP+IeMdB12Mh
-	Z7/uaGKjwVY2brh8JJTh/BbYalWV1htbJwvyqF0srGBBs9ycE4/ZKrz6XbdnF/9r/54QM4+Rbv7c5
-	eSI5eCBLJ5awYREegm8WX1VXUueBLiB+QlM/iqQ63ABZAEYs4tyf8ZLXUWR14yzaGijE=;
-Message-ID: <686ba256-f8bf-47e7-872f-d277bf7df0aa@xen.org>
-Date: Sat, 11 May 2024 12:03:09 +0100
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=cj33h/br3WZImBMrWYmYaoSP/L8W52HWOVVztleTWXs=; b=pvOSCKtistG+fGcwpIqgBfbhEc
+	BV10QMlvuQz94seKAcm9OIy9aceCELzCQMB/l5lNii2s+RzxpO9BlZIW43aI4Hev/iSG7avn/Qz/B
+	8noUzDXeoPFV4rf3sBiKwmbfdDegAXbRQKIzspnxvdDQjDqbrgd5cY5YVLkbAMBp/+94=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-185978-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/4] xen/arm: Alloc hypervisor reserved pages as magic
- pages for Dom0less DomUs
-Content-Language: en-GB
-To: Henry Wang <xin.wang2@amd.com>, xen-devel@lists.xenproject.org
-Cc: Anthony PERARD <anthony@xenproject.org>, Juergen Gross <jgross@suse.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Alec Kwapis <alec.kwapis@medtronic.com>,
- "Daniel P . Smith" <dpsmith@apertussolutions.com>
-References: <20240511005611.83125-1-xin.wang2@amd.com>
- <20240511005611.83125-2-xin.wang2@amd.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <20240511005611.83125-2-xin.wang2@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Subject: [libvirt test] 185978: tolerable all pass - PUSHED
+X-Osstest-Failures:
+    libvirt:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt:saverestore-support-check:fail:nonblocking
+    libvirt:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt-qcow2:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt-raw:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-qcow2:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-qcow2:saverestore-support-check:fail:nonblocking
+    libvirt:test-armhf-armhf-libvirt-vhd:migrate-support-check:fail:nonblocking
+    libvirt:test-armhf-armhf-libvirt-vhd:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    libvirt=d4528bb9dbf21464e68beb9175a38aaf6484536e
+X-Osstest-Versions-That:
+    libvirt=dda10ac8acd0b5ffa03f9659c5678c2bddd9eed4
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Sat, 11 May 2024 13:52:20 +0000
 
-Hi Henry,
+flight 185978 libvirt real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/185978/
 
-On 11/05/2024 01:56, Henry Wang wrote:
-> There are use cases (for example using the PV driver) in Dom0less
-> setup that require Dom0less DomUs start immediately with Dom0, but
-> initialize XenStore later after Dom0's successful boot and call to
-> the init-dom0less application.
-> 
-> An error message can seen from the init-dom0less application on
-> 1:1 direct-mapped domains:
-> ```
-> Allocating magic pages
-> memory.c:238:d0v0 mfn 0x39000 doesn't belong to d1
-> Error on alloc magic pages
-> ```
-> 
-> The "magic page" is a terminology used in the toolstack as reserved
-> pages for the VM to have access to virtual platform capabilities.
-> Currently the magic pages for Dom0less DomUs are populated by the
-> init-dom0less app through populate_physmap(), and populate_physmap()
-> automatically assumes gfn == mfn for 1:1 direct mapped domains. This
-> cannot be true for the magic pages that are allocated later from the
-> init-dom0less application executed in Dom0. For domain using statically
-> allocated memory but not 1:1 direct-mapped, similar error "failed to
-> retrieve a reserved page" can be seen as the reserved memory list is
-> empty at that time.
-> 
-> To solve above issue, this commit allocates hypervisor reserved pages
-> (currently used as the magic pages) for Arm Dom0less DomUs at the
-> domain construction time. The base address/PFN of the region will be
-> noted and communicated to the init-dom0less application in Dom0.
-> 
-> Reported-by: Alec Kwapis <alec.kwapis@medtronic.com>
-> Suggested-by: Daniel P. Smith <dpsmith@apertussolutions.com>
-> Signed-off-by: Henry Wang <xin.wang2@amd.com>
-> ---
-> v2:
-> - Reword the commit msg to explain what is "magic page" and use generic
->    terminology "hypervisor reserved pages" in commit msg. (Daniel)
-> - Also move the offset definition of magic pages. (Michal)
-> - Extract the magic page allocation logic to a function. (Michal)
-> ---
->   tools/libs/guest/xg_dom_arm.c |  6 ------
->   xen/arch/arm/dom0less-build.c | 32 ++++++++++++++++++++++++++++++++
->   xen/include/public/arch-arm.h |  6 ++++++
->   3 files changed, 38 insertions(+), 6 deletions(-)
-> 
-> diff --git a/tools/libs/guest/xg_dom_arm.c b/tools/libs/guest/xg_dom_arm.c
-> index 2fd8ee7ad4..8c579d7576 100644
-> --- a/tools/libs/guest/xg_dom_arm.c
-> +++ b/tools/libs/guest/xg_dom_arm.c
-> @@ -25,12 +25,6 @@
->   
->   #include "xg_private.h"
->   
-> -#define NR_MAGIC_PAGES 4
-> -#define CONSOLE_PFN_OFFSET 0
-> -#define XENSTORE_PFN_OFFSET 1
-> -#define MEMACCESS_PFN_OFFSET 2
-> -#define VUART_PFN_OFFSET 3
-> -
->   #define LPAE_SHIFT 9
->   
->   #define PFN_4K_SHIFT  (0)
-> diff --git a/xen/arch/arm/dom0less-build.c b/xen/arch/arm/dom0less-build.c
-> index 74f053c242..4b96ddd9ce 100644
-> --- a/xen/arch/arm/dom0less-build.c
-> +++ b/xen/arch/arm/dom0less-build.c
-> @@ -739,6 +739,34 @@ static int __init alloc_xenstore_evtchn(struct domain *d)
->       return 0;
->   }
->   
-> +static int __init alloc_magic_pages(struct domain *d)
-> +{
-> +    struct page_info *magic_pg;
-> +    mfn_t mfn;
-> +    gfn_t gfn;
-> +    int rc;
-> +
-> +    d->max_pages += NR_MAGIC_PAGES;
-> +    magic_pg = alloc_domheap_pages(d, get_order_from_pages(NR_MAGIC_PAGES), 0);
-> +    if ( magic_pg == NULL )
-> +        return -ENOMEM;
-> +
-> +    mfn = page_to_mfn(magic_pg);
-> +    if ( !is_domain_direct_mapped(d) )
-> +        gfn = gaddr_to_gfn(GUEST_MAGIC_BASE);
-> +    else
-> +        gfn = gaddr_to_gfn(mfn_to_maddr(mfn));
+Failures :-/ but no regressions.
 
-Summarizing the discussion we had on Matrix. Regions like the extend 
-area and shared memory may not be direct mapped. So unfortunately, I 
-think it is possible that the GFN could clash with one of those.
+Tests which did not succeed, but are not blocking:
+ test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 185968
+ test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-libvirt     16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-qcow2 14 migrate-support-check        fail never pass
+ test-amd64-amd64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
+ test-arm64-arm64-libvirt-qcow2 14 migrate-support-check        fail never pass
+ test-arm64-arm64-libvirt-qcow2 15 saverestore-support-check    fail never pass
+ test-armhf-armhf-libvirt-vhd 14 migrate-support-check        fail   never pass
+ test-armhf-armhf-libvirt-vhd 15 saverestore-support-check    fail   never pass
 
-At least in the shared memory case, the user can provide the address. 
-But as you use the domheap allocator, the address returned could easily 
-change if you tweak your setup.
+version targeted for testing:
+ libvirt              d4528bb9dbf21464e68beb9175a38aaf6484536e
+baseline version:
+ libvirt              dda10ac8acd0b5ffa03f9659c5678c2bddd9eed4
 
-I am not entirely sure what's the best solution. We could ask the user 
-to provide the information for reserved region. But it feels like we are 
-exposing a bit too much to the user.
+Last test of basis   185968  2024-05-10 04:18:49 Z    1 days
+Testing same since   185978  2024-05-11 04:20:38 Z    0 days    1 attempts
 
-So possibly we would want to use the same approach as extended regions. 
-Once we processed all the mappings, find some space for the hypervisor 
-regions.
+------------------------------------------------------------
+People who touched revisions under test:
+  Andi Chandler <andi@gowling.com>
 
-Any other suggestions?
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 pass    
+ test-amd64-amd64-libvirt                                     pass    
+ test-arm64-arm64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     pass    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-amd64-libvirt-qcow2                               pass    
+ test-arm64-arm64-libvirt-qcow2                               pass    
+ test-amd64-amd64-libvirt-raw                                 pass    
+ test-arm64-arm64-libvirt-raw                                 pass    
+ test-amd64-amd64-libvirt-vhd                                 pass    
+ test-armhf-armhf-libvirt-vhd                                 pass    
 
-Cheers,
 
--- 
-Julien Grall
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/libvirt.git
+   dda10ac8ac..d4528bb9db  d4528bb9dbf21464e68beb9175a38aaf6484536e -> xen-tested-master
 
