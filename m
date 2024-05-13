@@ -2,56 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 344098C3A85
-	for <lists+xen-devel@lfdr.de>; Mon, 13 May 2024 05:43:34 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.720672.1123584 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BCE9F8C3C1B
+	for <lists+xen-devel@lfdr.de>; Mon, 13 May 2024 09:33:00 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.720690.1123594 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s6MZv-0007Kh-Tp; Mon, 13 May 2024 03:42:19 +0000
+	id 1s6Q9s-0000jj-IE; Mon, 13 May 2024 07:31:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 720672.1123584; Mon, 13 May 2024 03:42:19 +0000
+Received: by outflank-mailman (output) from mailman id 720690.1123594; Mon, 13 May 2024 07:31:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s6MZv-0007Hw-QI; Mon, 13 May 2024 03:42:19 +0000
-Received: by outflank-mailman (input) for mailman id 720672;
- Mon, 13 May 2024 03:42:18 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=A6re=MQ=amd.com=Xin.Wang2@srs-se1.protection.inumbo.net>)
- id 1s6MZu-0007Hq-Do
- for xen-devel@lists.xenproject.org; Mon, 13 May 2024 03:42:18 +0000
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on20600.outbound.protection.outlook.com
- [2a01:111:f403:2415::600])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id ca150923-10da-11ef-909d-e314d9c70b13;
- Mon, 13 May 2024 05:42:16 +0200 (CEST)
-Received: from CH0PR03CA0211.namprd03.prod.outlook.com (2603:10b6:610:e7::6)
- by SA3PR12MB8023.namprd12.prod.outlook.com (2603:10b6:806:320::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7544.55; Mon, 13 May
- 2024 03:42:13 +0000
-Received: from DS2PEPF00003448.namprd04.prod.outlook.com
- (2603:10b6:610:e7:cafe::29) by CH0PR03CA0211.outlook.office365.com
- (2603:10b6:610:e7::6) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7544.55 via Frontend
- Transport; Mon, 13 May 2024 03:42:13 +0000
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- DS2PEPF00003448.mail.protection.outlook.com (10.167.17.75) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7587.21 via Frontend Transport; Mon, 13 May 2024 03:42:12 +0000
-Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Sun, 12 May
- 2024 22:42:05 -0500
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB06.amd.com
- (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Sun, 12 May
- 2024 22:42:05 -0500
-Received: from [172.31.124.47] (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.35 via Frontend
- Transport; Sun, 12 May 2024 22:42:02 -0500
+	id 1s6Q9s-0000gs-FK; Mon, 13 May 2024 07:31:40 +0000
+Received: by outflank-mailman (input) for mailman id 720690;
+ Mon, 13 May 2024 07:31:39 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=YK/2=MQ=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1s6Q9q-0000gk-Rb
+ for xen-devel@lists.xenproject.org; Mon, 13 May 2024 07:31:38 +0000
+Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
+ [2a00:1450:4864:20::629])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id d3ff7a35-10fa-11ef-b4bb-af5377834399;
+ Mon, 13 May 2024 09:31:35 +0200 (CEST)
+Received: by mail-ej1-x629.google.com with SMTP id
+ a640c23a62f3a-a59e4136010so1011377466b.3
+ for <xen-devel@lists.xenproject.org>; Mon, 13 May 2024 00:31:35 -0700 (PDT)
+Received: from localhost ([213.195.114.223]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a5a17b01652sm556288066b.167.2024.05.13.00.31.33
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 13 May 2024 00:31:33 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,173 +44,507 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ca150923-10da-11ef-909d-e314d9c70b13
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=CMySr3I2YBydBi7ozd2MjjHNtOfQm4n81gJYRRfWHZF6KKacl+UvjrZVk+xY1X11e1DbHCOVxO4we+Vs/lg5mlnuv5/UzK+8bciInx7X+IZxzDLfHKkogdvwOEbIbra94/HcbnzHKpMRzUFsv8YswdzSLo9tsF1mPn/bwEu1Gz/VpWWjaDPiKLzhtP6vVadYzM5dcF2560dpHk86RnVKnj31pNgIJYIoKI19LUs76InpaO5Hgz08+FyzikO5Pz0bWimcFyi4vudEuFqro4ZijH3FLzHTyFZEcq8dYfybmw6ec6YaMph7QTslTysbQGPNscqqL/ZfOgUnWQN3jk5NZg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=gpVhZr3pJ/2KnxJu5+W/8YpRxSFTY/qNwTc7kC3HGOs=;
- b=V68Ml4Rgdg99TL+hEgzoH5DjxbvYJ5bFSdw+VSiJfaL7x+Bm60Z1ijaMyeivU2SG+D0w+UK+3x2tc25WBmqu4KIsB5VtrS5Xjv0ggeME4EJg/jJZqLn8MjpS1ONURhnd0MXX8TW2Ao/+CXUFy5b92WoEn6+X/UPS20qAqHo4LbOrMvF/hw3e8oC8vN+9u9NJ2yvvZu59/OXto/Ns5HRbZCORtD8NAPgIXxSBHV4dAgqKtE9sHzt9GEJj8QulYw+z6ledn8cfSKxGgbF6sVjnmmi4fHST/mRLUlJldVU1VXtGd3cAApyqP6wM/0qPBhY6CtM7LIZ5E0pLHsFkFj7JYw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=xen.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=gpVhZr3pJ/2KnxJu5+W/8YpRxSFTY/qNwTc7kC3HGOs=;
- b=fRE/IA9cVNzuU/vfhBs4PQc2Rzf67hxx76RyUXTxuC5FA8JxFmQYozvPl1EDwAVQivLjuukdK47s/mGgNKgaVUXmAcaq+C2em+bY9LMHbyNEezV1OW/CeF4OO2FzYEqXvcamra8Kcg8QCpbaY0i2RyMiRU0ScFjjAKqV21owZ4s=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-Message-ID: <fad20165-ad8a-4bc4-be5f-e95061a57a2d@amd.com>
-Date: Mon, 13 May 2024 11:42:01 +0800
+X-Inumbo-ID: d3ff7a35-10fa-11ef-b4bb-af5377834399
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1715585495; x=1716190295; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=5FyUfslIyVZYh3axe0IevBunTjWFWu02v2aKCjG/MwU=;
+        b=dAeWKWfB8ipRGbZbyogvYhPKfcIhH7MAog0GAliXVFKh+qoIpZy1TbcT5LZk+9+nPV
+         3WyLETXlONfI7VR6OEwnFYQdhCNQ7EdmmZ2Z120MCr9vYZuPYjAznDijn3HXvcRHqPO5
+         GDpe/phNyjQj3dK1KKCdlkxTAgE7D0kLzEiRE=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1715585495; x=1716190295;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=5FyUfslIyVZYh3axe0IevBunTjWFWu02v2aKCjG/MwU=;
+        b=w//juKejhiVnhWiLoY2MMClJi1SxpnWm6+qisJyjfsaix43lLKiDrKgE5tHDUPoLfM
+         XFMx1D6usRwBQhMCfu8CNiNWcHqfTy5Vo2Chu2aoZ17Bc1zO9d6UR3BHyq/ZXO4Dg4MM
+         WJGOHKS4Viiizi+YIjJx0mh4xD4FFyuqrttjZBx1KbWDgKjc0jNo6y4eSGUcuMifjgPz
+         yirhr4pPR7p2qk6a2LUcHdHuI+zw/C1l4/91MHDyxHg4a3od2vaa60S7++40yDP6rhXS
+         lxjMv1cmeDQ8E/2xU8eYH21ZWUb3JqAmHaB/Sz7iJlvbbA5X6wJ+/V2eJfGn9ocQR8E1
+         YR2A==
+X-Gm-Message-State: AOJu0YwD2ejxmE/ttIotrfgcVwG3qCwhY368KA1DLZbzMcCWOjxB+229
+	3E4RFVRarTx1zM3yho4E6e/hw7RrjqQZk6+HD80dJFHwxSowxTlB+tTci199ddFkZ3CaARcC5aZ
+	C
+X-Google-Smtp-Source: AGHT+IHXzUCG2m9XGa+75xFOgk22cGczkjqwtB5niAVmdOsCIPoC3etJh6sRI3KLWRmfkRADSZpV8w==
+X-Received: by 2002:a17:906:15cd:b0:a59:c9ce:3386 with SMTP id a640c23a62f3a-a5a2d5cb0c1mr526162066b.33.1715585494324;
+        Mon, 13 May 2024 00:31:34 -0700 (PDT)
+From: Roger Pau Monne <roger.pau@citrix.com>
+To: xen-devel@lists.xenproject.org
+Cc: Roger Pau Monne <roger.pau@citrix.com>,
+	Anthony PERARD <anthony@xenproject.org>,
+	Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Subject: [PATCH for-4.19 v3] tools/xen-cpuid: switch to use cpu-policy defined names
+Date: Mon, 13 May 2024 09:31:02 +0200
+Message-ID: <20240513073102.56233-1-roger.pau@citrix.com>
+X-Mailer: git-send-email 2.44.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/4] xen/arm: Alloc hypervisor reserved pages as magic
- pages for Dom0less DomUs
-To: Julien Grall <julien@xen.org>, <xen-devel@lists.xenproject.org>
-CC: Anthony PERARD <anthony@xenproject.org>, Juergen Gross <jgross@suse.com>,
-	Stefano Stabellini <sstabellini@kernel.org>, Bertrand Marquis
-	<bertrand.marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>, "Volodymyr
- Babchuk" <Volodymyr_Babchuk@epam.com>, Alec Kwapis
-	<alec.kwapis@medtronic.com>, "Daniel P . Smith"
-	<dpsmith@apertussolutions.com>
-References: <20240511005611.83125-1-xin.wang2@amd.com>
- <20240511005611.83125-2-xin.wang2@amd.com>
- <686ba256-f8bf-47e7-872f-d277bf7df0aa@xen.org>
-Content-Language: en-US
-From: Henry Wang <xin.wang2@amd.com>
-In-Reply-To: <686ba256-f8bf-47e7-872f-d277bf7df0aa@xen.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS2PEPF00003448:EE_|SA3PR12MB8023:EE_
-X-MS-Office365-Filtering-Correlation-Id: ccc9c830-ffa8-4b42-517f-08dc72feaccf
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230031|82310400017|36860700004|1800799015|376005;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?VlU3S1FCRDdoY0E1Vlp0RldtT0ZQOGxHaE9lNFpJNHJBTXp1ZFVTa1FZbjhZ?=
- =?utf-8?B?L3hrOHZTYXdyT1hoQWRJQk5NZGhoSXBtR21QelhOVEx6ZHhaakpDb3dlcG01?=
- =?utf-8?B?OHBFbHA5RzRJUGlsZjU4OUJUVXNQeWFISVM1aE9hYzk5N1htRWI5Q01YeVBn?=
- =?utf-8?B?ZWFOMkhJTm80OENPb3BkSHZkSC9ZTVpSSjlRUGxTYWRabmc0bWMwM21MbXBQ?=
- =?utf-8?B?VUJCL3Uyckl5WkpNeUpsSzc3ckNId3B3d3RCMXVuSTNWbEZmMmVrK0ZrVzZT?=
- =?utf-8?B?YXFzSU5RSStwZXhyb0N0a2djWVZSVGN1d0xSV29IMzNzeWR6SENXTGZOdnpP?=
- =?utf-8?B?emxzNGJTRElhUk9JMmNOQnp2Qm5IWXZEMHd4RWNWVjFGREJ3TWZXMjRleTFp?=
- =?utf-8?B?NHNkaUdFM3QzQmFraXk1Qk5KdkZQM09vdVJKRG5qMCtWV1BYYWhML1R5a21U?=
- =?utf-8?B?c0RPVlBIbE12bENuL3NXb3N3QVN2OWFRejNTems5SnZTVnI4M1VnSHpQTTMr?=
- =?utf-8?B?bjR3QTNHc3hhNWwwYlFRT09WMEFua3V4aE56amVEV0w1ZExWVW5Nb201Q1Fs?=
- =?utf-8?B?VVM4QXdRRHlDSW5FOGdXcnZTTVBPRWFKVUllTUVvazlPT3B3czkyZTV2RERF?=
- =?utf-8?B?ZlByUXMrWWF2d0N1dDZzWW5TenhNNDRmM0NaVGpiSVc3cFJvdnlpd0Y0Qk1Q?=
- =?utf-8?B?WlVzbGhYOEJrSzB6SVhwWklhamg2UU50dU9Gc0VJUGZZZExYS1Y4M0NhR3lt?=
- =?utf-8?B?RHo5MzBaMG1rWGFmQ2UwRG9IeXUvcGF1dTVsZklURjdkdzhGNk5GeVdkOEtz?=
- =?utf-8?B?bFFhR09mV1RvYWNENUxzd08wWFVxSExtb1h1Rm1GK3BPeUR4a2VObkpjRWkw?=
- =?utf-8?B?R0VYa1dzS0gxTGFJcThCT2MyQ1d4TkxJL0kzY3AzZkRiRGc0Rkt5bjVTN0R3?=
- =?utf-8?B?bnN6dnA4L25QUEMyLzBYeHFobm1aMWh0dHRqM2d0bXRTeWE0N3IxcjVsbThK?=
- =?utf-8?B?VzZ0RllVQ05aUlpxR004dDRNMXdLWkk2Y3ZETGFENmVkVjhEbUl5OEJ3Y0FH?=
- =?utf-8?B?S2hDc1pSUFVrMXZ5SW9RQWZRVWlwdFFVOUt5VVZYVG04Q0lySzlTRnA0cDlu?=
- =?utf-8?B?YnloU1ZPZElBSEVNaldCNUpUU1ljd1VMeGRGR1poc0tuLzYyY1lORU8xQlVF?=
- =?utf-8?B?c0VPdE40YlR5UEtjTWxrSi9iL1BwT2JOVXpjZ0tjNDBGUFBGVTA4SFV1Zmhx?=
- =?utf-8?B?cHhURm42alpwVGRGUFNtNlphZHpFUWhjZDk5ckMrMVVMVVpUQ2NwaW41Zjkw?=
- =?utf-8?B?Z2Q1ZDhvNE43VllHcWhUdDlzdFFiTkh5cDNLM2NyaER5T0pzL1E4d3BROGZX?=
- =?utf-8?B?Uk5XWmNpR2JFdW13QTk1MVdrYWg1QVZ4Z0xjRW5UMjJiM1VMUngrN1VUSVJs?=
- =?utf-8?B?WVRTeEFBd2p3cGZVdHIwVkdZdTN4am1YY1Q3Q2VFakVMUjdIWFlxMWZSdktK?=
- =?utf-8?B?OWtQQnNiSUlobnRYaEpRcFdWclVqbTJpT2F3M2l2TFIwcXQ2VTVEWjBPRFhG?=
- =?utf-8?B?V2JSWnVQNWNzOWpUT2w5QXF6VythZG9YM1ZZcmRCSGxYTkdqblNoS3pnMDNK?=
- =?utf-8?B?MG0rY1VQRW1ERjR3U1pLS1VVQ0xzQ3J4NWNUU21YVVpCNk5aNXZCS3dXa1NS?=
- =?utf-8?B?NlErLzdJTEl2eDVqcjV0OU0zc3NDcGhHMnQ4UXZZSW0xUmE0QkozclZtTDlq?=
- =?utf-8?B?NXRUdG9HRTRYTjNFaFhkb09XTmQrSzVPZUl3SklDQ1RzV3hqejdQMUFXTzV5?=
- =?utf-8?B?dCt5SWRkK2h1VUNlSnRZeGUvNHFkZ004bnppSXliQ3NXN2JBcnQ3TmwyTnB6?=
- =?utf-8?Q?K0s2J7Ien6ZaO?=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(82310400017)(36860700004)(1800799015)(376005);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 May 2024 03:42:12.5514
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: ccc9c830-ffa8-4b42-517f-08dc72feaccf
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DS2PEPF00003448.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB8023
 
-Hi Julien,
+Like it was done recently for libxl, switch to using the auto-generated feature
+names by the processing of cpufeatureset.h, this allows removing the open-coded
+feature names, and unifies the feature naming with libxl and the hypervisor.
 
-On 5/11/2024 7:03 PM, Julien Grall wrote:
-> Hi Henry,
->
-> On 11/05/2024 01:56, Henry Wang wrote:
->>   +static int __init alloc_magic_pages(struct domain *d)
->> +{
->> +    struct page_info *magic_pg;
->> +    mfn_t mfn;
->> +    gfn_t gfn;
->> +    int rc;
->> +
->> +    d->max_pages += NR_MAGIC_PAGES;
->> +    magic_pg = alloc_domheap_pages(d, 
->> get_order_from_pages(NR_MAGIC_PAGES), 0);
->> +    if ( magic_pg == NULL )
->> +        return -ENOMEM;
->> +
->> +    mfn = page_to_mfn(magic_pg);
->> +    if ( !is_domain_direct_mapped(d) )
->> +        gfn = gaddr_to_gfn(GUEST_MAGIC_BASE);
->> +    else
->> +        gfn = gaddr_to_gfn(mfn_to_maddr(mfn));
->
-> Summarizing the discussion we had on Matrix. Regions like the extend 
-> area and shared memory may not be direct mapped. So unfortunately, I 
-> think it is possible that the GFN could clash with one of those.
->
-> At least in the shared memory case, the user can provide the address. 
-> But as you use the domheap allocator, the address returned could 
-> easily change if you tweak your setup.
->
-> I am not entirely sure what's the best solution. We could ask the user 
-> to provide the information for reserved region. But it feels like we 
-> are exposing a bit too much to the user.
->
-> So possibly we would want to use the same approach as extended 
-> regions. Once we processed all the mappings, find some space for the 
-> hypervisor regions.
+Introduce a newly auto-generated array that contains the feature names indexed
+at featureset bit position, otherwise using the existing INIT_FEATURE_NAMES
+would require iterating over the array elements until a match with the expected
+bit position is found.
 
-One thing that I noticed when I re-visit the extended region finding 
-code from the hypervisor side is:
-When the domain is direct-mapped, when we find extended region for the 
-domain, we either use find_unallocated_memory() or find_memory_holes(). 
-It looks like the removal of shared memory regions in both functions 
-uses the paddr parsed from the device tree to remove the regions, which 
-indicates there is an assumption that when a domain is direct-mapped, 
-the shared memory should also be direct-mapped. I might be wrong, but 
-otherwise I don't think the extended region finding logic will carve out 
-the correct shared memory region gpaddr range for guests.
+Note that leaf names need to be kept, as the current auto-generated data
+doesn't contain the leaf names.
 
-So I think we are missing the documentation (and the corresponding 
-checking when we parse the device tree) for above assumption for the 
-static shared memory, i.e., when the domain is direct-mapped, the static 
-shared memory should also be direct-mapped, and user should make sure 
-this is satisfied in the device tree otherwise Xen should complain.
+Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
+---
+Changes since v2:
+ - Remove __maybe_unused definition from the emulator harness.
 
-If we add this assumption and related checking code, I think your 
-concern of clashing with static shared memory can be addressed. Do you 
-agree?
+Changes since v1:
+ - Modify gen-cpuid.py to generate an array of strings with the feature names.
+ - Introduce and use __maybe_unused.
+---
+ tools/include/xen-tools/common-macros.h |   4 +
+ tools/misc/xen-cpuid.c                  | 320 +++---------------------
+ tools/tests/x86_emulator/x86-emulate.h  |   1 -
+ xen/tools/gen-cpuid.py                  |  26 ++
+ 4 files changed, 68 insertions(+), 283 deletions(-)
 
-Kind regards,
-Henry
-
->
-> Any other suggestions?
->
-> Cheers,
->
+diff --git a/tools/include/xen-tools/common-macros.h b/tools/include/xen-tools/common-macros.h
+index 60912225cb7a..560528dbc638 100644
+--- a/tools/include/xen-tools/common-macros.h
++++ b/tools/include/xen-tools/common-macros.h
+@@ -83,6 +83,10 @@
+ #define __packed __attribute__((__packed__))
+ #endif
+ 
++#ifndef __maybe_unused
++# define __maybe_unused __attribute__((__unused__))
++#endif
++
+ #define container_of(ptr, type, member) ({              \
+     typeof(((type *)0)->member) *mptr__ = (ptr);        \
+     (type *)((char *)mptr__ - offsetof(type, member));  \
+diff --git a/tools/misc/xen-cpuid.c b/tools/misc/xen-cpuid.c
+index 8893547bebce..2a1ac0ee8326 100644
+--- a/tools/misc/xen-cpuid.c
++++ b/tools/misc/xen-cpuid.c
+@@ -12,282 +12,33 @@
+ 
+ #include <xen-tools/common-macros.h>
+ 
+-static uint32_t nr_features;
+-
+-static const char *const str_1d[32] =
+-{
+-    [ 0] = "fpu",  [ 1] = "vme",
+-    [ 2] = "de",   [ 3] = "pse",
+-    [ 4] = "tsc",  [ 5] = "msr",
+-    [ 6] = "pae",  [ 7] = "mce",
+-    [ 8] = "cx8",  [ 9] = "apic",
+-    /* [10] */     [11] = "sysenter",
+-    [12] = "mtrr", [13] = "pge",
+-    [14] = "mca",  [15] = "cmov",
+-    [16] = "pat",  [17] = "pse36",
+-    [18] = "psn",  [19] = "clflush",
+-    /* [20] */     [21] = "ds",
+-    [22] = "acpi", [23] = "mmx",
+-    [24] = "fxsr", [25] = "sse",
+-    [26] = "sse2", [27] = "ss",
+-    [28] = "htt",  [29] = "tm",
+-    [30] = "ia64", [31] = "pbe",
+-};
+-
+-static const char *const str_1c[32] =
+-{
+-    [ 0] = "sse3",    [ 1] = "pclmulqdq",
+-    [ 2] = "dtes64",  [ 3] = "monitor",
+-    [ 4] = "ds-cpl",  [ 5] = "vmx",
+-    [ 6] = "smx",     [ 7] = "est",
+-    [ 8] = "tm2",     [ 9] = "ssse3",
+-    [10] = "cntx-id", [11] = "sdgb",
+-    [12] = "fma",     [13] = "cx16",
+-    [14] = "xtpr",    [15] = "pdcm",
+-    /* [16] */        [17] = "pcid",
+-    [18] = "dca",     [19] = "sse41",
+-    [20] = "sse42",   [21] = "x2apic",
+-    [22] = "movebe",  [23] = "popcnt",
+-    [24] = "tsc-dl",  [25] = "aesni",
+-    [26] = "xsave",   [27] = "osxsave",
+-    [28] = "avx",     [29] = "f16c",
+-    [30] = "rdrnd",   [31] = "hyper",
+-};
+-
+-static const char *const str_e1d[32] =
+-{
+-    [ 0] = "fpu",    [ 1] = "vme",
+-    [ 2] = "de",     [ 3] = "pse",
+-    [ 4] = "tsc",    [ 5] = "msr",
+-    [ 6] = "pae",    [ 7] = "mce",
+-    [ 8] = "cx8",    [ 9] = "apic",
+-    /* [10] */       [11] = "syscall",
+-    [12] = "mtrr",   [13] = "pge",
+-    [14] = "mca",    [15] = "cmov",
+-    [16] = "fcmov",  [17] = "pse36",
+-    /* [18] */       [19] = "mp",
+-    [20] = "nx",     /* [21] */
+-    [22] = "mmx+",   [23] = "mmx",
+-    [24] = "fxsr",   [25] = "fxsr+",
+-    [26] = "pg1g",   [27] = "rdtscp",
+-    /* [28] */       [29] = "lm",
+-    [30] = "3dnow+", [31] = "3dnow",
+-};
+-
+-static const char *const str_e1c[32] =
+-{
+-    [ 0] = "lahf-lm",    [ 1] = "cmp",
+-    [ 2] = "svm",        [ 3] = "extapic",
+-    [ 4] = "cr8d",       [ 5] = "lzcnt",
+-    [ 6] = "sse4a",      [ 7] = "msse",
+-    [ 8] = "3dnowpf",    [ 9] = "osvw",
+-    [10] = "ibs",        [11] = "xop",
+-    [12] = "skinit",     [13] = "wdt",
+-    /* [14] */           [15] = "lwp",
+-    [16] = "fma4",       [17] = "tce",
+-    /* [18] */           [19] = "nodeid",
+-    /* [20] */           [21] = "tbm",
+-    [22] = "topoext",    [23] = "perfctr-core",
+-    [24] = "perfctr-nb", /* [25] */
+-    [26] = "dbx",        [27] = "perftsc",
+-    [28] = "pcx-l2i",    [29] = "monitorx",
+-    [30] = "addr-msk-ext",
+-};
+-
+-static const char *const str_7b0[32] =
+-{
+-    [ 0] = "fsgsbase", [ 1] = "tsc-adj",
+-    [ 2] = "sgx",      [ 3] = "bmi1",
+-    [ 4] = "hle",      [ 5] = "avx2",
+-    [ 6] = "fdp-exn",  [ 7] = "smep",
+-    [ 8] = "bmi2",     [ 9] = "erms",
+-    [10] = "invpcid",  [11] = "rtm",
+-    [12] = "pqm",      [13] = "depfpp",
+-    [14] = "mpx",      [15] = "pqe",
+-    [16] = "avx512f",  [17] = "avx512dq",
+-    [18] = "rdseed",   [19] = "adx",
+-    [20] = "smap",     [21] = "avx512-ifma",
+-    [22] = "pcommit",  [23] = "clflushopt",
+-    [24] = "clwb",     [25] = "proc-trace",
+-    [26] = "avx512pf", [27] = "avx512er",
+-    [28] = "avx512cd", [29] = "sha",
+-    [30] = "avx512bw", [31] = "avx512vl",
+-};
+-
+-static const char *const str_Da1[32] =
+-{
+-    [ 0] = "xsaveopt", [ 1] = "xsavec",
+-    [ 2] = "xgetbv1",  [ 3] = "xsaves",
+-};
+-
+-static const char *const str_7c0[32] =
+-{
+-    [ 0] = "prefetchwt1",      [ 1] = "avx512-vbmi",
+-    [ 2] = "umip",             [ 3] = "pku",
+-    [ 4] = "ospke",            [ 5] = "waitpkg",
+-    [ 6] = "avx512-vbmi2",     [ 7] = "cet-ss",
+-    [ 8] = "gfni",             [ 9] = "vaes",
+-    [10] = "vpclmulqdq",       [11] = "avx512-vnni",
+-    [12] = "avx512-bitalg",
+-    [14] = "avx512-vpopcntdq",
+-
+-    [22] = "rdpid",
+-    /* 24 */                   [25] = "cldemote",
+-    /* 26 */                   [27] = "movdiri",
+-    [28] = "movdir64b",        [29] = "enqcmd",
+-    [30] = "sgx-lc",           [31] = "pks",
+-};
+-
+-static const char *const str_e7d[32] =
+-{
+-    /* 6 */                    [ 7] = "hw-pstate",
+-    [ 8] = "itsc",             [ 9] = "cpb",
+-    [10] = "efro",
+-};
+-
+-static const char *const str_e8b[32] =
+-{
+-    [ 0] = "clzero",
+-    [ 2] = "rstr-fp-err-ptrs",
+-
+-    /* [ 8] */                 [ 9] = "wbnoinvd",
+-
+-    [12] = "ibpb",
+-    [14] = "ibrs",             [15] = "amd-stibp",
+-    [16] = "ibrs-always",      [17] = "stibp-always",
+-    [18] = "ibrs-fast",        [19] = "ibrs-same-mode",
+-
+-    [20] = "no-lmsl",
+-    /* [22] */                 [23] = "ppin",
+-    [24] = "amd-ssbd",         [25] = "virt-ssbd",
+-    [26] = "ssb-no",
+-    [28] = "psfd",             [29] = "btc-no",
+-    [30] = "ibpb-ret",
+-};
+-
+-static const char *const str_7d0[32] =
+-{
+-    [ 2] = "avx512-4vnniw", [ 3] = "avx512-4fmaps",
+-    [ 4] = "fsrm",
+-
+-    [ 8] = "avx512-vp2intersect", [ 9] = "srbds-ctrl",
+-    [10] = "md-clear",            [11] = "rtm-always-abort",
+-    /* 12 */                [13] = "tsx-force-abort",
+-    [14] = "serialize",     [15] = "hybrid",
+-    [16] = "tsxldtrk",
+-    [18] = "pconfig",
+-    [20] = "cet-ibt",
+-    /* 22 */                [23] = "avx512-fp16",
+-
+-    [26] = "ibrsb",         [27] = "stibp",
+-    [28] = "l1d-flush",     [29] = "arch-caps",
+-    [30] = "core-caps",     [31] = "ssbd",
+-};
+-
+-static const char *const str_7a1[32] =
+-{
+-    [ 0] = "sha512",        [ 1] = "sm3",
+-    [ 2] = "sm4",
+-    [ 4] = "avx-vnni",      [ 5] = "avx512-bf16",
+-
+-    [10] = "fzrm",          [11] = "fsrs",
+-    [12] = "fsrcs",
+-
+-    /* 18 */                [19] = "wrmsrns",
++#include <xen/lib/x86/cpu-policy.h>
+ 
+-    /* 22 */                [23] = "avx-ifma",
+-};
+-
+-static const char *const str_e21a[32] =
+-{
+-    [ 0] = "no-nest-bp",    [ 1] = "fs-gs-ns",
+-    [ 2] = "lfence+",
+-    [ 6] = "nscb",
+-    [ 8] = "auto-ibrs",
+-    [10] = "amd-fsrs",      [11] = "amd-fsrc",
+-
+-    /* 16 */                [17] = "cpuid-user-dis",
+-    [18] = "epsf",          [19] = "fsrsc",
+-    [20] = "amd-prefetchi",
+-
+-    /* 26 */                [27] = "sbpb",
+-    [28] = "ibpb-brtype",   [29] = "srso-no",
+-};
+-
+-static const char *const str_7b1[32] =
+-{
+-    [ 0] = "ppin",
+-};
+-
+-static const char *const str_7c1[32] =
+-{
+-};
+-
+-static const char *const str_7d1[32] =
+-{
+-    [ 4] = "avx-vnni-int8",       [ 5] = "avx-ne-convert",
+-
+-    [10] = "avx-vnni-int16",
+-
+-    [14] = "prefetchi",
+-
+-    [18] = "cet-sss",
+-};
+-
+-static const char *const str_7d2[32] =
+-{
+-    [ 0] = "intel-psfd",    [ 1] = "ipred-ctrl",
+-    [ 2] = "rrsba-ctrl",    [ 3] = "ddp-ctrl",
+-    [ 4] = "bhi-ctrl",      [ 5] = "mcdt-no",
+-};
+-
+-static const char *const str_m10Al[32] =
+-{
+-    [ 0] = "rdcl-no",             [ 1] = "eibrs",
+-    [ 2] = "rsba",                [ 3] = "skip-l1dfl",
+-    [ 4] = "intel-ssb-no",        [ 5] = "mds-no",
+-    [ 6] = "if-pschange-mc-no",   [ 7] = "tsx-ctrl",
+-    [ 8] = "taa-no",              [ 9] = "mcu-ctrl",
+-    [10] = "misc-pkg-ctrl",       [11] = "energy-ctrl",
+-    [12] = "doitm",               [13] = "sbdr-ssdp-no",
+-    [14] = "fbsdp-no",            [15] = "psdp-no",
+-    /* 16 */                      [17] = "fb-clear",
+-    [18] = "fb-clear-ctrl",       [19] = "rrsba",
+-    [20] = "bhi-no",              [21] = "xapic-status",
+-    /* 22 */                      [23] = "ovrclk-status",
+-    [24] = "pbrsb-no",            [25] = "gds-ctrl",
+-    [26] = "gds-no",              [27] = "rfds-no",
+-    [28] = "rfds-clear",
+-};
+-
+-static const char *const str_m10Ah[32] =
+-{
+-};
++static uint32_t nr_features;
+ 
+ static const struct {
+     const char *name;
+     const char *abbr;
+-    const char *const *strs;
+-} decodes[] =
++} leaf_names[] =
+ {
+-    { "CPUID 0x00000001.edx",        "1d", str_1d },
+-    { "CPUID 0x00000001.ecx",        "1c", str_1c },
+-    { "CPUID 0x80000001.edx",       "e1d", str_e1d },
+-    { "CPUID 0x80000001.ecx",       "e1c", str_e1c },
+-    { "CPUID 0x0000000d:1.eax",     "Da1", str_Da1 },
+-    { "CPUID 0x00000007:0.ebx",     "7b0", str_7b0 },
+-    { "CPUID 0x00000007:0.ecx",     "7c0", str_7c0 },
+-    { "CPUID 0x80000007.edx",       "e7d", str_e7d },
+-    { "CPUID 0x80000008.ebx",       "e8b", str_e8b },
+-    { "CPUID 0x00000007:0.edx",     "7d0", str_7d0 },
+-    { "CPUID 0x00000007:1.eax",     "7a1", str_7a1 },
+-    { "CPUID 0x80000021.eax",      "e21a", str_e21a },
+-    { "CPUID 0x00000007:1.ebx",     "7b1", str_7b1 },
+-    { "CPUID 0x00000007:2.edx",     "7d2", str_7d2 },
+-    { "CPUID 0x00000007:1.ecx",     "7c1", str_7c1 },
+-    { "CPUID 0x00000007:1.edx",     "7d1", str_7d1 },
+-    { "MSR_ARCH_CAPS.lo",         "m10Al", str_m10Al },
+-    { "MSR_ARCH_CAPS.hi",         "m10Ah", str_m10Ah },
++    { "CPUID 0x00000001.edx",        "1d" },
++    { "CPUID 0x00000001.ecx",        "1c" },
++    { "CPUID 0x80000001.edx",       "e1d" },
++    { "CPUID 0x80000001.ecx",       "e1c" },
++    { "CPUID 0x0000000d:1.eax",     "Da1" },
++    { "CPUID 0x00000007:0.ebx",     "7b0" },
++    { "CPUID 0x00000007:0.ecx",     "7c0" },
++    { "CPUID 0x80000007.edx",       "e7d" },
++    { "CPUID 0x80000008.ebx",       "e8b" },
++    { "CPUID 0x00000007:0.edx",     "7d0" },
++    { "CPUID 0x00000007:1.eax",     "7a1" },
++    { "CPUID 0x80000021.eax",      "e21a" },
++    { "CPUID 0x00000007:1.ebx",     "7b1" },
++    { "CPUID 0x00000007:2.edx",     "7d2" },
++    { "CPUID 0x00000007:1.ecx",     "7c1" },
++    { "CPUID 0x00000007:1.edx",     "7d1" },
++    { "MSR_ARCH_CAPS.lo",         "m10Al" },
++    { "MSR_ARCH_CAPS.hi",         "m10Ah" },
+ };
+ 
+ #define COL_ALIGN "24"
+@@ -305,12 +56,6 @@ static void dump_leaf(uint32_t leaf, const char *const *strs)
+ {
+     unsigned i;
+ 
+-    if ( !strs )
+-    {
+-        printf(" ???");
+-        return;
+-    }
+-
+     for ( i = 0; i < 32; ++i )
+         if ( leaf & (1u << i) )
+         {
+@@ -326,6 +71,7 @@ static void decode_featureset(const uint32_t *features,
+                               const char *name,
+                               bool detail)
+ {
++    static const uint32_t __maybe_unused known_features[] = INIT_KNOWN_FEATURES;
+     unsigned int i;
+ 
+     printf("%-"COL_ALIGN"s        ", name);
+@@ -336,11 +82,21 @@ static void decode_featureset(const uint32_t *features,
+     if ( !detail )
+         return;
+ 
+-    for ( i = 0; i < length && i < ARRAY_SIZE(decodes); ++i )
++    /* Ensure leaf names stay in sync with the policy leaf count. */
++    BUILD_BUG_ON(ARRAY_SIZE(known_features) != ARRAY_SIZE(leaf_names));
++
++    for ( i = 0; i < length && i < ARRAY_SIZE(leaf_names); ++i )
+     {
+-        printf("  [%02u] %-"COL_ALIGN"s", i, decodes[i].name ?: "<UNKNOWN>");
+-        if ( decodes[i].name )
+-            dump_leaf(features[i], decodes[i].strs);
++        static const char *const feature_names[] = INIT_FEATURE_NAME_ARRAY;
++
++        /* Ensure feature names stays in sync with number of feature words. */
++        BUILD_BUG_ON(ARRAY_SIZE(feature_names) !=
++                     ARRAY_SIZE(leaf_names) * sizeof(*features) * 8);
++
++        printf("  [%02u] %-"COL_ALIGN"s", i, leaf_names[i].name ?: "<UNKNOWN>");
++
++        /* Attempt to print features anyway even if the leaf name is unknown. */
++        dump_leaf(features[i], &feature_names[i * 32]);
+         printf("\n");
+     }
+ }
+@@ -355,8 +111,8 @@ static void dump_info(xc_interface *xch, bool detail)
+     if ( !detail )
+     {
+         printf("       %"COL_ALIGN"s ", "KEY");
+-        for ( i = 0; i < ARRAY_SIZE(decodes); ++i )
+-            printf("%-8s ", decodes[i].abbr ?: "???");
++        for ( i = 0; i < ARRAY_SIZE(leaf_names); ++i )
++            printf("%-8s ", leaf_names[i].abbr ?: "???");
+         printf("\n");
+     }
+ 
+diff --git a/tools/tests/x86_emulator/x86-emulate.h b/tools/tests/x86_emulator/x86-emulate.h
+index 8f8accfe3e70..a702c9faf207 100644
+--- a/tools/tests/x86_emulator/x86-emulate.h
++++ b/tools/tests/x86_emulator/x86-emulate.h
+@@ -50,7 +50,6 @@
+ #define this_cpu(var) per_cpu_##var
+ 
+ #define __init
+-#define __maybe_unused __attribute__((__unused__))
+ 
+ #define likely(x)   __builtin_expect(!!(x), true)
+ #define unlikely(x) __builtin_expect(!!(x), false)
+diff --git a/xen/tools/gen-cpuid.py b/xen/tools/gen-cpuid.py
+index 380b9d973a67..c0caa3bdebef 100755
+--- a/xen/tools/gen-cpuid.py
++++ b/xen/tools/gen-cpuid.py
+@@ -475,6 +475,32 @@ def write_results(state):
+     state.output.write(
+ """}
+ 
++""")
++
++    state.output.write(
++"""
++#define INIT_FEATURE_NAME_ARRAY { \\
++""")
++
++    try:
++        _tmp = state.names.iteritems()
++    except AttributeError:
++        _tmp = state.names.items()
++
++    for bit, name in sorted(_tmp):
++        state.output.write(
++            '    [%s] = "%s",\\\n' % (bit, name.lower().replace("_", "-"))
++            )
++
++    # Ensure array size matches featureset size.
++    if not state.names.get(state.nr_entries * 32 - 1, ""):
++        state.output.write(
++            '    [%s] = NULL,\\\n' % (state.nr_entries * 32 - 1)
++            )
++
++    state.output.write(
++"""}
++
+ """)
+ 
+     for idx, text in enumerate(state.bitfields):
+-- 
+2.44.0
 
 
