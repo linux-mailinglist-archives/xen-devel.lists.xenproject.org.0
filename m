@@ -2,49 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2709F8C3F8B
-	for <lists+xen-devel@lfdr.de>; Mon, 13 May 2024 13:12:21 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.720820.1123849 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 47EE88C3F7C
+	for <lists+xen-devel@lfdr.de>; Mon, 13 May 2024 13:12:01 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.720807.1123755 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s6TbC-0006yq-0K; Mon, 13 May 2024 11:12:06 +0000
+	id 1s6Tau-0003xE-Fj; Mon, 13 May 2024 11:11:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 720820.1123849; Mon, 13 May 2024 11:12:05 +0000
+Received: by outflank-mailman (output) from mailman id 720807.1123755; Mon, 13 May 2024 11:11:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s6TbB-0006iF-I9; Mon, 13 May 2024 11:12:05 +0000
-Received: by outflank-mailman (input) for mailman id 720820;
- Mon, 13 May 2024 11:12:03 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1s6Tau-0003up-CQ; Mon, 13 May 2024 11:11:48 +0000
+Received: by outflank-mailman (input) for mailman id 720807;
+ Mon, 13 May 2024 11:11:46 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=w2Lj=MQ=amazon.co.uk=prvs=8568adbc3=eliasely@srs-se1.protection.inumbo.net>)
- id 1s6Tb8-00036L-TQ
- for xen-devel@lists.xenproject.org; Mon, 13 May 2024 11:12:02 +0000
-Received: from smtp-fw-9105.amazon.com (smtp-fw-9105.amazon.com
- [207.171.188.204]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 9dea8290-1119-11ef-b4bb-af5377834399;
- Mon, 13 May 2024 13:12:00 +0200 (CEST)
-Received: from pdx4-co-svc-p1-lb2-vlan2.amazon.com (HELO
- smtpout.prod.us-east-1.prod.farcaster.email.amazon.dev) ([10.25.36.210])
- by smtp-border-fw-9105.sea19.amazon.com with
- ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 May 2024 11:11:51 +0000
-Received: from EX19MTAUEA002.ant.amazon.com [10.0.29.78:3493]
- by smtpin.naws.us-east-1.prod.farcaster.email.amazon.dev [10.0.32.236:2525]
+ id 1s6Tas-0003MC-8y
+ for xen-devel@lists.xenproject.org; Mon, 13 May 2024 11:11:46 +0000
+Received: from smtp-fw-52003.amazon.com (smtp-fw-52003.amazon.com
+ [52.119.213.152]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 950fd354-1119-11ef-909d-e314d9c70b13;
+ Mon, 13 May 2024 13:11:45 +0200 (CEST)
+Received: from iad12-co-svc-p1-lb1-vlan3.amazon.com (HELO
+ smtpout.prod.us-east-1.prod.farcaster.email.amazon.dev) ([10.43.8.6])
+ by smtp-border-fw-52003.iad7.amazon.com with
+ ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 May 2024 11:11:43 +0000
+Received: from EX19MTAUEB002.ant.amazon.com [10.0.29.78:45873]
+ by smtpin.naws.us-east-1.prod.farcaster.email.amazon.dev [10.0.83.223:2525]
  with esmtp (Farcaster)
- id 0b46e58a-ee0e-4f27-b49c-9b2581b1cd16; Mon, 13 May 2024 11:11:39 +0000 (UTC)
+ id 736196f1-3ae1-401f-9856-bbbafdb52cd2; Mon, 13 May 2024 11:11:42 +0000 (UTC)
 Received: from EX19D008UEA001.ant.amazon.com (10.252.134.62) by
- EX19MTAUEA002.ant.amazon.com (10.252.134.9) with Microsoft SMTP Server
+ EX19MTAUEB002.ant.amazon.com (10.252.135.47) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1258.28; Mon, 13 May 2024 11:11:35 +0000
+ 15.2.1258.28; Mon, 13 May 2024 11:11:36 +0000
 Received: from EX19MTAUWB001.ant.amazon.com (10.250.64.248) by
  EX19D008UEA001.ant.amazon.com (10.252.134.62) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1258.28; Mon, 13 May 2024 11:11:34 +0000
+ 15.2.1258.28; Mon, 13 May 2024 11:11:36 +0000
 Received: from dev-dsk-eliasely-1a-fd74790f.eu-west-1.amazon.com
  (10.253.91.118) by mail-relay.amazon.com (10.250.64.254) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1258.28 via Frontend Transport; Mon, 13 May 2024 11:11:33 +0000
+ 15.2.1258.28 via Frontend Transport; Mon, 13 May 2024 11:11:35 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -56,28 +56,28 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9dea8290-1119-11ef-b4bb-af5377834399
+X-Inumbo-ID: 950fd354-1119-11ef-909d-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
   d=amazon.com; i=@amazon.com; q=dns/txt; s=amazon201209;
-  t=1715598721; x=1747134721;
+  t=1715598706; x=1747134706;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=awTpJTVuZnpLM2XGjDjoGafH08PnS/u8+TgC4HSOyp8=;
-  b=QkR2tgYY3YLURtMFK+Xsy7vsrYjj8MQvOBX5Hvdvsf3y9lRTE0W0Qpcg
-   aG0c+W7swVn1sPLAjZ8EC10LOimjrJU/C5KDHajyglVXngSjXM9P3eqPZ
-   DIzQcLk2EsHG6ivyaFG8gZlUBhAVNB5Up1NDy9bzuY6xwJDrhYXoObjxg
-   s=;
+  bh=asW3riQLlEfjH7OhZSjftd0GSOA/iaeDlEAWCyKlviw=;
+  b=peW9GTg2yc7m5eRRxKAxWXd9GLGmCCT0K5GBFZHirpAeagQTRgYIjww6
+   9AWZQ74UHVXv8QMqfBu38tt4eWf5+KSCHLXDLfrwsv5avDJFpezcykZC9
+   zdOjr6Kavncv+CARdTWWOVfTg7VF5eCcXw87y87WUNDRAFZeD2iPhZ1xx
+   Y=;
 X-IronPort-AV: E=Sophos;i="6.08,158,1712620800"; 
-   d="scan'208";a="726023919"
-X-Farcaster-Flow-ID: 0b46e58a-ee0e-4f27-b49c-9b2581b1cd16
+   d="scan'208";a="658281373"
+X-Farcaster-Flow-ID: 736196f1-3ae1-401f-9856-bbbafdb52cd2
 From: Elias El Yandouzi <eliasely@amazon.com>
 To: <xen-devel@lists.xenproject.org>
-CC: <julien@xen.org>, <pdurrant@amazon.com>, <dwmw@amazon.com>, Hongyan Xia
-	<hongyxia@amazon.com>, Julien Grall <jgrall@amazon.com>, Elias El Yandouzi
-	<eliasely@amazon.com>
-Subject: [PATCH V3 03/19] x86/pv: Rewrite how building PV dom0 handles domheap mappings
-Date: Mon, 13 May 2024 11:11:01 +0000
-Message-ID: <20240513111117.68828-4-eliasely@amazon.com>
+CC: <julien@xen.org>, <pdurrant@amazon.com>, <dwmw@amazon.com>, Wei Liu
+	<wei.liu2@citrix.com>, Wei Wang <wawei@amazon.de>, Hongyan Xia
+	<hongyxia@amazon.com>, Julien Grall <jgrall@amazon.com>
+Subject: [PATCH V3 04/19] x86: Lift mapcache variable to the arch level
+Date: Mon, 13 May 2024 11:11:02 +0000
+Message-ID: <20240513111117.68828-5-eliasely@amazon.com>
 X-Mailer: git-send-email 2.40.1
 In-Reply-To: <20240513111117.68828-1-eliasely@amazon.com>
 References: <20240513111117.68828-1-eliasely@amazon.com>
@@ -85,172 +85,159 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 
-From: Hongyan Xia <hongyxia@amazon.com>
+From: Wei Liu <wei.liu2@citrix.com>
 
-Building a PV dom0 is allocating from the domheap but uses it like the
-xenheap. Use the pages as they should be.
+It is going to be needed by HVM and idle domain as well, because without
+the direct map, both need a mapcache to map pages.
 
+This commit lifts the mapcache variable up and initialise it a bit earlier
+for PV and HVM domains.
+
+Signed-off-by: Wei Liu <wei.liu2@citrix.com>
+Signed-off-by: Wei Wang <wawei@amazon.de>
 Signed-off-by: Hongyan Xia <hongyxia@amazon.com>
 Signed-off-by: Julien Grall <jgrall@amazon.com>
-Signed-off-by: Elias El Yandouzi <eliasely@amazon.com>
 
-----
-    Changes in V3:
-        * Fold following patch 'x86/pv: Map L4 page table for shim domain'
-
-    Changes in V2:
-        * Clarify the commit message
-        * Break the patch in two parts
-
-    Changes since Hongyan's version:
-        * Rebase
-        * Remove spurious newline
-
-diff --git a/xen/arch/x86/pv/dom0_build.c b/xen/arch/x86/pv/dom0_build.c
-index 807296c280..ac910b438a 100644
---- a/xen/arch/x86/pv/dom0_build.c
-+++ b/xen/arch/x86/pv/dom0_build.c
-@@ -382,6 +382,10 @@ int __init dom0_construct_pv(struct domain *d,
-     l3_pgentry_t *l3tab = NULL, *l3start = NULL;
-     l2_pgentry_t *l2tab = NULL, *l2start = NULL;
-     l1_pgentry_t *l1tab = NULL, *l1start = NULL;
-+    mfn_t l4start_mfn = INVALID_MFN;
-+    mfn_t l3start_mfn = INVALID_MFN;
-+    mfn_t l2start_mfn = INVALID_MFN;
-+    mfn_t l1start_mfn = INVALID_MFN;
+diff --git a/xen/arch/x86/domain.c b/xen/arch/x86/domain.c
+index 20e83cf38b..507d704f16 100644
+--- a/xen/arch/x86/domain.c
++++ b/xen/arch/x86/domain.c
+@@ -851,6 +851,8 @@ int arch_domain_create(struct domain *d,
  
-     /*
-      * This fully describes the memory layout of the initial domain. All
-@@ -710,22 +714,32 @@ int __init dom0_construct_pv(struct domain *d,
-         v->arch.pv.event_callback_cs    = FLAT_COMPAT_KERNEL_CS;
-     }
+     psr_domain_init(d);
  
-+#define UNMAP_MAP_AND_ADVANCE(mfn_var, virt_var, maddr) \
-+do {                                                    \
-+    unmap_domain_page(virt_var);                        \
-+    mfn_var = maddr_to_mfn(maddr);                      \
-+    maddr += PAGE_SIZE;                                 \
-+    virt_var = map_domain_page(mfn_var);                \
-+} while ( false )
++    mapcache_domain_init(d);
 +
-     if ( !compat )
+     if ( is_hvm_domain(d) )
      {
-         maddr_to_page(mpt_alloc)->u.inuse.type_info = PGT_l4_page_table;
--        l4start = l4tab = __va(mpt_alloc); mpt_alloc += PAGE_SIZE;
-+        UNMAP_MAP_AND_ADVANCE(l4start_mfn, l4start, mpt_alloc);
-+        l4tab = l4start;
-         clear_page(l4tab);
--        init_xen_l4_slots(l4tab, _mfn(virt_to_mfn(l4start)),
--                          d, INVALID_MFN, true);
--        v->arch.guest_table = pagetable_from_paddr(__pa(l4start));
-+        init_xen_l4_slots(l4tab, l4start_mfn, d, INVALID_MFN, true);
-+        v->arch.guest_table = pagetable_from_mfn(l4start_mfn);
+         if ( (rc = hvm_domain_initialise(d, config)) != 0 )
+@@ -858,8 +860,6 @@ int arch_domain_create(struct domain *d,
      }
-     else
+     else if ( is_pv_domain(d) )
      {
-         /* Monitor table already created by switch_compat(). */
--        l4start = l4tab = __va(pagetable_get_paddr(v->arch.guest_table));
-+        l4start_mfn = pagetable_get_mfn(v->arch.guest_table);
-+        l4start = l4tab = map_domain_page(l4start_mfn);
-         /* See public/xen.h on why the following is needed. */
-         maddr_to_page(mpt_alloc)->u.inuse.type_info = PGT_l3_page_table;
-         l3start = __va(mpt_alloc); mpt_alloc += PAGE_SIZE;
-+        UNMAP_MAP_AND_ADVANCE(l3start_mfn, l3start, mpt_alloc);
-     }
- 
-     l4tab += l4_table_offset(v_start);
-@@ -735,14 +749,16 @@ int __init dom0_construct_pv(struct domain *d,
-         if ( !((unsigned long)l1tab & (PAGE_SIZE-1)) )
-         {
-             maddr_to_page(mpt_alloc)->u.inuse.type_info = PGT_l1_page_table;
--            l1start = l1tab = __va(mpt_alloc); mpt_alloc += PAGE_SIZE;
-+            UNMAP_MAP_AND_ADVANCE(l1start_mfn, l1start, mpt_alloc);
-+            l1tab = l1start;
-             clear_page(l1tab);
-             if ( count == 0 )
-                 l1tab += l1_table_offset(v_start);
-             if ( !((unsigned long)l2tab & (PAGE_SIZE-1)) )
-             {
-                 maddr_to_page(mpt_alloc)->u.inuse.type_info = PGT_l2_page_table;
--                l2start = l2tab = __va(mpt_alloc); mpt_alloc += PAGE_SIZE;
-+                UNMAP_MAP_AND_ADVANCE(l2start_mfn, l2start, mpt_alloc);
-+                l2tab = l2start;
-                 clear_page(l2tab);
-                 if ( count == 0 )
-                     l2tab += l2_table_offset(v_start);
-@@ -752,19 +768,19 @@ int __init dom0_construct_pv(struct domain *d,
-                     {
-                         maddr_to_page(mpt_alloc)->u.inuse.type_info =
-                             PGT_l3_page_table;
--                        l3start = __va(mpt_alloc); mpt_alloc += PAGE_SIZE;
-+                        UNMAP_MAP_AND_ADVANCE(l3start_mfn, l3start, mpt_alloc);
-                     }
-                     l3tab = l3start;
-                     clear_page(l3tab);
-                     if ( count == 0 )
-                         l3tab += l3_table_offset(v_start);
--                    *l4tab = l4e_from_paddr(__pa(l3start), L4_PROT);
-+                    *l4tab = l4e_from_mfn(l3start_mfn, L4_PROT);
-                     l4tab++;
-                 }
--                *l3tab = l3e_from_paddr(__pa(l2start), L3_PROT);
-+                *l3tab = l3e_from_mfn(l2start_mfn, L3_PROT);
-                 l3tab++;
-             }
--            *l2tab = l2e_from_paddr(__pa(l1start), L2_PROT);
-+            *l2tab = l2e_from_mfn(l1start_mfn, L2_PROT);
-             l2tab++;
-         }
-         if ( count < initrd_pfn || count >= initrd_pfn + PFN_UP(initrd_len) )
-@@ -783,27 +799,31 @@ int __init dom0_construct_pv(struct domain *d,
- 
-     if ( compat )
-     {
--        l2_pgentry_t *l2t;
+-        mapcache_domain_init(d);
 -
-         /* Ensure the first four L3 entries are all populated. */
-         for ( i = 0, l3tab = l3start; i < 4; ++i, ++l3tab )
-         {
-             if ( !l3e_get_intpte(*l3tab) )
-             {
-                 maddr_to_page(mpt_alloc)->u.inuse.type_info = PGT_l2_page_table;
--                l2tab = __va(mpt_alloc); mpt_alloc += PAGE_SIZE;
--                clear_page(l2tab);
--                *l3tab = l3e_from_paddr(__pa(l2tab), L3_PROT);
-+                UNMAP_MAP_AND_ADVANCE(l2start_mfn, l2start, mpt_alloc);
-+                clear_page(l2start);
-+                *l3tab = l3e_from_mfn(l2start_mfn, L3_PROT);
-             }
-             if ( i == 3 )
-                 l3e_get_page(*l3tab)->u.inuse.type_info |= PGT_pae_xen_l2;
-         }
- 
--        l2t = map_l2t_from_l3e(l3start[3]);
--        init_xen_pae_l2_slots(l2t, d);
--        unmap_domain_page(l2t);
-+        UNMAP_DOMAIN_PAGE(l2start);
-+        l2start = map_l2t_from_l3e(l3start[3]);
-+        init_xen_pae_l2_slots(l2start, d);
+         if ( (rc = pv_domain_initialise(d)) != 0 )
+             goto fail;
      }
+diff --git a/xen/arch/x86/domain_page.c b/xen/arch/x86/domain_page.c
+index eac5e3304f..55e337aaf7 100644
+--- a/xen/arch/x86/domain_page.c
++++ b/xen/arch/x86/domain_page.c
+@@ -82,11 +82,11 @@ void *map_domain_page(mfn_t mfn)
+ #endif
  
-+#undef UNMAP_MAP_AND_ADVANCE
-+
-+    UNMAP_DOMAIN_PAGE(l1start);
-+    UNMAP_DOMAIN_PAGE(l2start);
-+    UNMAP_DOMAIN_PAGE(l3start);
-+
-     /* Pages that are part of page tables must be read only. */
-     mark_pv_pt_pages_rdonly(d, l4start, vpt_start, nr_pt_pages, &flush_flags);
+     v = mapcache_current_vcpu();
+-    if ( !v || !is_pv_vcpu(v) )
++    if ( !v )
+         return mfn_to_virt(mfn_x(mfn));
  
-@@ -976,6 +996,8 @@ int __init dom0_construct_pv(struct domain *d,
-         pv_shim_setup_dom(d, l4start, v_start, vxenstore_start, vconsole_start,
-                           vphysmap_start, si);
+-    dcache = &v->domain->arch.pv.mapcache;
+-    vcache = &v->arch.pv.mapcache;
++    dcache = &v->domain->arch.mapcache;
++    vcache = &v->arch.mapcache;
+     if ( !dcache->inuse )
+         return mfn_to_virt(mfn_x(mfn));
  
-+    UNMAP_DOMAIN_PAGE(l4start);
+@@ -187,14 +187,14 @@ void unmap_domain_page(const void *ptr)
+     ASSERT(va >= MAPCACHE_VIRT_START && va < MAPCACHE_VIRT_END);
+ 
+     v = mapcache_current_vcpu();
+-    ASSERT(v && is_pv_vcpu(v));
++    ASSERT(v);
+ 
+-    dcache = &v->domain->arch.pv.mapcache;
++    dcache = &v->domain->arch.mapcache;
+     ASSERT(dcache->inuse);
+ 
+     idx = PFN_DOWN(va - MAPCACHE_VIRT_START);
+     mfn = l1e_get_pfn(MAPCACHE_L1ENT(idx));
+-    hashent = &v->arch.pv.mapcache.hash[MAPHASH_HASHFN(mfn)];
++    hashent = &v->arch.mapcache.hash[MAPHASH_HASHFN(mfn)];
+ 
+     local_irq_save(flags);
+ 
+@@ -233,11 +233,9 @@ void unmap_domain_page(const void *ptr)
+ 
+ int mapcache_domain_init(struct domain *d)
+ {
+-    struct mapcache_domain *dcache = &d->arch.pv.mapcache;
++    struct mapcache_domain *dcache = &d->arch.mapcache;
+     unsigned int bitmap_pages;
+ 
+-    ASSERT(is_pv_domain(d));
+-
+ #ifdef NDEBUG
+     if ( !mem_hotplug && max_page <= PFN_DOWN(__pa(HYPERVISOR_VIRT_END - 1)) )
+         return 0;
+@@ -261,12 +259,12 @@ int mapcache_domain_init(struct domain *d)
+ int mapcache_vcpu_init(struct vcpu *v)
+ {
+     struct domain *d = v->domain;
+-    struct mapcache_domain *dcache = &d->arch.pv.mapcache;
++    struct mapcache_domain *dcache = &d->arch.mapcache;
+     unsigned long i;
+     unsigned int ents = d->max_vcpus * MAPCACHE_VCPU_ENTRIES;
+     unsigned int nr = PFN_UP(BITS_TO_LONGS(ents) * sizeof(long));
+ 
+-    if ( !is_pv_vcpu(v) || !dcache->inuse )
++    if ( !dcache->inuse )
+         return 0;
+ 
+     if ( ents > dcache->entries )
+@@ -293,7 +291,7 @@ int mapcache_vcpu_init(struct vcpu *v)
+     BUILD_BUG_ON(MAPHASHENT_NOTINUSE < MAPCACHE_ENTRIES);
+     for ( i = 0; i < MAPHASH_ENTRIES; i++ )
+     {
+-        struct vcpu_maphash_entry *hashent = &v->arch.pv.mapcache.hash[i];
++        struct vcpu_maphash_entry *hashent = &v->arch.mapcache.hash[i];
+ 
+         hashent->mfn = ~0UL; /* never valid to map */
+         hashent->idx = MAPHASHENT_NOTINUSE;
+diff --git a/xen/arch/x86/include/asm/domain.h b/xen/arch/x86/include/asm/domain.h
+index 8a97530607..7f0480d7a7 100644
+--- a/xen/arch/x86/include/asm/domain.h
++++ b/xen/arch/x86/include/asm/domain.h
+@@ -285,9 +285,6 @@ struct pv_domain
+     /* Mitigate L1TF with shadow/crashing? */
+     bool check_l1tf;
+ 
+-    /* map_domain_page() mapping cache. */
+-    struct mapcache_domain mapcache;
+-
+     struct cpuidmasks *cpuidmasks;
+ };
+ 
+@@ -326,6 +323,9 @@ struct arch_domain
+ 
+     uint8_t scf; /* See SCF_DOM_MASK */
+ 
++    /* map_domain_page() mapping cache. */
++    struct mapcache_domain mapcache;
 +
- #ifdef CONFIG_COMPAT
-     if ( compat )
-         xlat_start_info(si, pv_shim ? XLAT_start_info_console_domU
+     union {
+         struct pv_domain pv;
+         struct hvm_domain hvm;
+@@ -516,9 +516,6 @@ struct arch_domain
+ 
+ struct pv_vcpu
+ {
+-    /* map_domain_page() mapping cache. */
+-    struct mapcache_vcpu mapcache;
+-
+     unsigned int vgc_flags;
+ 
+     struct trap_info *trap_ctxt;
+@@ -618,6 +615,9 @@ struct arch_vcpu
+ #define async_exception_state(t) async_exception_state[(t)-1]
+     uint8_t async_exception_mask;
+ 
++    /* map_domain_page() mapping cache. */
++    struct mapcache_vcpu mapcache;
++
+     /* Virtual Machine Extensions */
+     union {
+         struct pv_vcpu pv;
 -- 
 2.40.1
 
