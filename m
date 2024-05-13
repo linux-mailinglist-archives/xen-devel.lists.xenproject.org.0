@@ -2,40 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 553BA8C3CCF
-	for <lists+xen-devel@lfdr.de>; Mon, 13 May 2024 10:00:04 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.720700.1123613 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AC3028C3CD7
+	for <lists+xen-devel@lfdr.de>; Mon, 13 May 2024 10:04:36 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.720709.1123624 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s6Qaw-0004Sa-0H; Mon, 13 May 2024 07:59:38 +0000
+	id 1s6QfN-0006YX-4A; Mon, 13 May 2024 08:04:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 720700.1123613; Mon, 13 May 2024 07:59:37 +0000
+Received: by outflank-mailman (output) from mailman id 720709.1123624; Mon, 13 May 2024 08:04:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s6Qav-0004R4-Tn; Mon, 13 May 2024 07:59:37 +0000
-Received: by outflank-mailman (input) for mailman id 720700;
- Mon, 13 May 2024 07:59:37 +0000
+	id 1s6QfN-0006X3-1E; Mon, 13 May 2024 08:04:13 +0000
+Received: by outflank-mailman (input) for mailman id 720709;
+ Mon, 13 May 2024 08:04:11 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Vyab=MQ=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1s6Qav-0004Qy-A3
- for xen-devel@lists.xenproject.org; Mon, 13 May 2024 07:59:37 +0000
-Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
- [2a00:1450:4864:20::62c])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=YK/2=MQ=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1s6QfL-0006Wu-B0
+ for xen-devel@lists.xenproject.org; Mon, 13 May 2024 08:04:11 +0000
+Received: from mail-qt1-x830.google.com (mail-qt1-x830.google.com
+ [2607:f8b0:4864:20::830])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id bd652c75-10fe-11ef-909d-e314d9c70b13;
- Mon, 13 May 2024 09:59:35 +0200 (CEST)
-Received: by mail-ej1-x62c.google.com with SMTP id
- a640c23a62f3a-a59cf8140d0so919831066b.3
- for <xen-devel@lists.xenproject.org>; Mon, 13 May 2024 00:59:35 -0700 (PDT)
-Received: from ?IPV6:2003:e5:873c:a500:6aaf:b7a7:7c29:ae5c?
- (p200300e5873ca5006aafb7a77c29ae5c.dip0.t-ipconnect.de.
- [2003:e5:873c:a500:6aaf:b7a7:7c29:ae5c])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a5a17b18110sm561472766b.225.2024.05.13.00.59.34
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 13 May 2024 00:59:34 -0700 (PDT)
+ id 6095d4f5-10ff-11ef-909d-e314d9c70b13;
+ Mon, 13 May 2024 10:04:10 +0200 (CEST)
+Received: by mail-qt1-x830.google.com with SMTP id
+ d75a77b69052e-43df751b5b8so26694781cf.0
+ for <xen-devel@lists.xenproject.org>; Mon, 13 May 2024 01:04:10 -0700 (PDT)
+Received: from localhost ([213.195.114.223]) by smtp.gmail.com with ESMTPSA id
+ d75a77b69052e-43df56ddd77sm52324351cf.92.2024.05.13.01.04.08
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 13 May 2024 01:04:08 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,206 +44,112 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bd652c75-10fe-11ef-909d-e314d9c70b13
+X-Inumbo-ID: 6095d4f5-10ff-11ef-909d-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1715587175; x=1716191975; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=O5smVEjR/VVS0e2yObdThJN4tCbUbbAC8XLh8Tbaot0=;
-        b=AzFdcbKB9nDw6Yeg9OkcOoF8Bm9w1PkkPiwNFeUsjnfcecyidgdwSYfgCDRIIo+dhc
-         FkIbRiN3U7pC7hGplebff/bOvTlfNB6zubwsbYvvBiXoBHXPvMQhAkAn5QJ0+8KwZqSd
-         tVLO40kE+BTD8FGH17G+Bzjc2xzeVVntw/yYeBA9V3KYtrakb5rdztyZ2LZSzAKR7+VS
-         DE6wZ3Fh4kD7PTQWOTtQRgtj3m8TdjNHMCVves5cP//emsxLO70usNh95vCR2yxLi79z
-         wYGxhcVwD+zXasgzpO/mY3zK+S2a7LXuN3jfYEFEheBgRfgYee92dneFWmwtU+x4VFoB
-         05nw==
+        d=citrix.com; s=google; t=1715587449; x=1716192249; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=rjFDyNE0Bma0WbeZjIZz33kb6FYOzh5eHByKzczNbH4=;
+        b=C+8zTSD79rYfcYq0Nbh9NGjlyzYY374gdf28eY34kNjBgDdVrv2l4gQl6NHHqvjBNI
+         zLH1UYosCGhtDVgJQTx9JWtV7wuCi2x92Ytlkx/P78m/6v1hoRlUc4j/uk9CCP/7j1dy
+         E5Xu6NM8jy37zi0DC2DZWxMbDDrnbxWGSXuE8=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1715587175; x=1716191975;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
+        d=1e100.net; s=20230601; t=1715587449; x=1716192249;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=O5smVEjR/VVS0e2yObdThJN4tCbUbbAC8XLh8Tbaot0=;
-        b=hM52k1pZmvBU/YhqoFw+Xg3OFUT7nSc9GzDmdgpBV9J3AJ7FzPNcix5C+03vZ3c6nv
-         RR7UN5vIsrfumcURNTXzfl4VRfjuYlUwEgNHteDU0Bk6bBDesjXG+nQodMWl4YngWmgB
-         7apL2Dq1cF1f5g0tJDwbt1lwB9Zl8EkbrJv5UtNLI2NJR7fUrxQIe43U9oWnD/mT4x8r
-         AFjpKmr2BjBcdNBYALfe6d4TNAe6cr11ne78rVDo/LXBm9pGeBoBs2wqxdSmbxnutRfY
-         DWmWcHsO+T+URpeVex4oOQcR9xS2xvRs88DU3Iwg/F0zX2qrX8X9jZ1l3ezsYqO4vLGK
-         xxZA==
-X-Forwarded-Encrypted: i=1; AJvYcCUbcXod3IaTGc2Qk5Gi5VckdKYmyz9mfBjzeOZLEV7pCY2PEBwRc1HnfRpY6/nReSicLT1HsScecsp9jXBv4HJt7hasEKzO+iTx3lJkiZo=
-X-Gm-Message-State: AOJu0YzImLYbHqk0xBPHAtWp78QMOAi/nhAC/0IwzC1599+BuvqftJW4
-	yRoi9QiiIe3Jp4k6xF/k82A6Cok3ZxDtaVsXXmhrrqLpTjhqckCUMHTuC7kUhzk=
-X-Google-Smtp-Source: AGHT+IFPTr9tpemxyIWdG1g9bjPz3FBmkzUXW4eLPPKVth/o3VbHpxOnuWWpwypLDHy5PoSAIltx2A==
-X-Received: by 2002:a17:906:f111:b0:a5a:28cc:ff85 with SMTP id a640c23a62f3a-a5a2d58545amr563789566b.28.1715587175252;
-        Mon, 13 May 2024 00:59:35 -0700 (PDT)
-Message-ID: <55bbd23b-d851-4274-9511-c5a7af938a07@suse.com>
-Date: Mon, 13 May 2024 09:59:34 +0200
+        bh=rjFDyNE0Bma0WbeZjIZz33kb6FYOzh5eHByKzczNbH4=;
+        b=IaYSSt4Bm51VSDdhjuN/clam/JQ6AFfmAZZWFpgQOmbQjlpLbFnE7fDjbZC0IEHYFf
+         1mu8mRIymuV2rZ1EPze4ea6kFSV+JHU34wOQk/xj2UUHeQmBwkF+1DZfMapjEIJt+CFW
+         LRBZk7hAi/OgLEBAnMpUQC8q/OxTGJWFadD6k03EKLhRHMshS29w0U7ccLgyJl+GxrpC
+         H0tnMK0WSXsnU4EcTNR+z87OQJ1eFuJny+LAdryeJIR1GNZP6V0N+WjLXtyy9NTtBG1s
+         2PmmTeqNo7oUfWBrzbKeuaagfCqpLikqpxjcbzva5SvrZ966hBvN/ppvDAXrjWxbYvx8
+         vBlg==
+X-Forwarded-Encrypted: i=1; AJvYcCWVFbZJDWKSD6RpbRrCKR972awVgjFWWQ6vrJ8jO5vYsixIe6tPitamF8vmMffMRanoBirhIg7QSXNP15M51ehJ/ct5MPBKt0dkT9AswRM=
+X-Gm-Message-State: AOJu0YyNY6EvCUIqpQ2PmZwGXWja76UTbnLBfvjko21vfMQZVNwtTG/S
+	Mtw5uSngm+7HpwvlSDvvLDKmQovv6QHev0FvqDJQ/nQlY7ejDsHQVqTp7u9AKBM=
+X-Google-Smtp-Source: AGHT+IHAHc9UBuFgcuXON2WzD3TXDJHqmOdVKpY4SAixdRSr0AxZCL07fL8VxqdyyDWm28HOU+4ByA==
+X-Received: by 2002:ac8:7f10:0:b0:43b:9f:5ac8 with SMTP id d75a77b69052e-43dfce579ddmr140191811cf.31.1715587448887;
+        Mon, 13 May 2024 01:04:08 -0700 (PDT)
+Date: Mon, 13 May 2024 10:04:06 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Julien Grall <julien@xen.org>
+Cc: Luca Fancellu <Luca.Fancellu@arm.com>,
+	Xen-devel <xen-devel@lists.xenproject.org>,
+	Penny Zheng <Penny.Zheng@arm.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Bertrand Marquis <Bertrand.Marquis@arm.com>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: Re: [PATCH 3/7] xen/p2m: put reference for superpage
+Message-ID: <ZkHJdk8b35CgcjJC@macbook>
+References: <b7d1d40b-c634-4830-aa4b-b0475bdff8fc@xen.org>
+ <9F196831-D294-4227-B86F-E8EEACB5B076@arm.com>
+ <0857d348-1305-40d2-9596-e0e5f4490c4a@xen.org>
+ <64648f8c-3eea-47c5-bdc5-6d4fc6531c60@xen.org>
+ <ZjyFxrvHJ04ZlBGg@macbook>
+ <bd463f7a-eadf-441f-96e3-3a39f647f160@xen.org>
+ <ZjyzTCOSeNvPq2Np@macbook>
+ <37b842c7-c46e-4948-8139-a07bfc2a6f37@xen.org>
+ <ZjzIWsoRmgmWkgGh@macbook>
+ <e1cf9c7c-581d-4bec-acaf-654d40b7ac07@xen.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC KERNEL PATCH v6 3/3] xen/privcmd: Add new syscall to get gsi
- from irq
-To: "Chen, Jiqian" <Jiqian.Chen@amd.com>,
- Stefano Stabellini <sstabellini@kernel.org>
-Cc: Bjorn Helgaas <bhelgaas@google.com>,
- "Rafael J . Wysocki" <rafael@kernel.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- "linux-pci@vger.kernel.org" <linux-pci@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "linux-acpi@vger.kernel.org" <linux-acpi@vger.kernel.org>,
- "Huang, Ray" <Ray.Huang@amd.com>
-References: <20240419033616.607889-1-Jiqian.Chen@amd.com>
- <20240419033616.607889-4-Jiqian.Chen@amd.com>
- <79666084-fc2f-4637-8f0b-3846285601b8@suse.com>
- <BL1PR12MB58493D17E23751A06FC931DDE7E72@BL1PR12MB5849.namprd12.prod.outlook.com>
- <BL1PR12MB5849496A5B3148D162787961E7E22@BL1PR12MB5849.namprd12.prod.outlook.com>
-Content-Language: en-US
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-In-Reply-To: <BL1PR12MB5849496A5B3148D162787961E7E22@BL1PR12MB5849.namprd12.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <e1cf9c7c-581d-4bec-acaf-654d40b7ac07@xen.org>
 
-On 13.05.24 09:47, Chen, Jiqian wrote:
-> Hi,
-> On 2024/5/10 17:06, Chen, Jiqian wrote:
->> Hi,
->>
->> On 2024/5/10 14:46, Jürgen Groß wrote:
->>> On 19.04.24 05:36, Jiqian Chen wrote:
->>>> In PVH dom0, it uses the linux local interrupt mechanism,
->>>> when it allocs irq for a gsi, it is dynamic, and follow
->>>> the principle of applying first, distributing first. And
->>>> the irq number is alloced from small to large, but the
->>>> applying gsi number is not, may gsi 38 comes before gsi 28,
->>>> it causes the irq number is not equal with the gsi number.
->>>> And when passthrough a device, QEMU will use device's gsi
->>>> number to do pirq mapping, but the gsi number is got from
->>>> file /sys/bus/pci/devices/<sbdf>/irq, irq!= gsi, so it will
->>>> fail when mapping.
->>>> And in current linux codes, there is no method to translate
->>>> irq to gsi for userspace.
->>>>
->>>> For above purpose, record the relationship of gsi and irq
->>>> when PVH dom0 do acpi_register_gsi_ioapic for devices and
->>>> adds a new syscall into privcmd to let userspace can get
->>>> that translation when they have a need.
->>>>
->>>> Co-developed-by: Huang Rui <ray.huang@amd.com>
->>>> Signed-off-by: Jiqian Chen <Jiqian.Chen@amd.com>
->>>> ---
->>>>    arch/x86/include/asm/apic.h      |  8 +++++++
->>>>    arch/x86/include/asm/xen/pci.h   |  5 ++++
->>>>    arch/x86/kernel/acpi/boot.c      |  2 +-
->>>>    arch/x86/pci/xen.c               | 21 +++++++++++++++++
->>>>    drivers/xen/events/events_base.c | 39 ++++++++++++++++++++++++++++++++
->>>>    drivers/xen/privcmd.c            | 19 ++++++++++++++++
->>>>    include/uapi/xen/privcmd.h       |  7 ++++++
->>>>    include/xen/events.h             |  5 ++++
->>>>    8 files changed, 105 insertions(+), 1 deletion(-)
->>>>
->>>> diff --git a/arch/x86/include/asm/apic.h b/arch/x86/include/asm/apic.h
->>>> index 9d159b771dc8..dd4139250895 100644
->>>> --- a/arch/x86/include/asm/apic.h
->>>> +++ b/arch/x86/include/asm/apic.h
->>>> @@ -169,6 +169,9 @@ extern bool apic_needs_pit(void);
->>>>      extern void apic_send_IPI_allbutself(unsigned int vector);
->>>>    +extern int acpi_register_gsi_ioapic(struct device *dev, u32 gsi,
->>>> +                    int trigger, int polarity);
->>>> +
->>>>    #else /* !CONFIG_X86_LOCAL_APIC */
->>>>    static inline void lapic_shutdown(void) { }
->>>>    #define local_apic_timer_c2_ok        1
->>>> @@ -183,6 +186,11 @@ static inline void apic_intr_mode_init(void) { }
->>>>    static inline void lapic_assign_system_vectors(void) { }
->>>>    static inline void lapic_assign_legacy_vector(unsigned int i, bool r) { }
->>>>    static inline bool apic_needs_pit(void) { return true; }
->>>> +static inline int acpi_register_gsi_ioapic(struct device *dev, u32 gsi,
->>>> +                    int trigger, int polarity)
->>>> +{
->>>> +    return (int)gsi;
->>>> +}
->>>>    #endif /* !CONFIG_X86_LOCAL_APIC */
->>>>      #ifdef CONFIG_X86_X2APIC
->>>> diff --git a/arch/x86/include/asm/xen/pci.h b/arch/x86/include/asm/xen/pci.h
->>>> index 9015b888edd6..aa8ded61fc2d 100644
->>>> --- a/arch/x86/include/asm/xen/pci.h
->>>> +++ b/arch/x86/include/asm/xen/pci.h
->>>> @@ -5,6 +5,7 @@
->>>>    #if defined(CONFIG_PCI_XEN)
->>>>    extern int __init pci_xen_init(void);
->>>>    extern int __init pci_xen_hvm_init(void);
->>>> +extern int __init pci_xen_pvh_init(void);
->>>>    #define pci_xen 1
->>>>    #else
->>>>    #define pci_xen 0
->>>> @@ -13,6 +14,10 @@ static inline int pci_xen_hvm_init(void)
->>>>    {
->>>>        return -1;
->>>>    }
->>>> +static inline int pci_xen_pvh_init(void)
->>>> +{
->>>> +    return -1;
->>>> +}
->>>>    #endif
->>>>    #ifdef CONFIG_XEN_PV_DOM0
->>>>    int __init pci_xen_initial_domain(void);
->>>> diff --git a/arch/x86/kernel/acpi/boot.c b/arch/x86/kernel/acpi/boot.c
->>>> index 85a3ce2a3666..72c73458c083 100644
->>>> --- a/arch/x86/kernel/acpi/boot.c
->>>> +++ b/arch/x86/kernel/acpi/boot.c
->>>> @@ -749,7 +749,7 @@ static int acpi_register_gsi_pic(struct device *dev, u32 gsi,
->>>>    }
->>>>      #ifdef CONFIG_X86_LOCAL_APIC
->>>> -static int acpi_register_gsi_ioapic(struct device *dev, u32 gsi,
->>>> +int acpi_register_gsi_ioapic(struct device *dev, u32 gsi,
->>>>                        int trigger, int polarity)
->>>>    {
->>>>        int irq = gsi;
->>>> diff --git a/arch/x86/pci/xen.c b/arch/x86/pci/xen.c
->>>> index 652cd53e77f6..f056ab5c0a06 100644
->>>> --- a/arch/x86/pci/xen.c
->>>> +++ b/arch/x86/pci/xen.c
->>>> @@ -114,6 +114,21 @@ static int acpi_register_gsi_xen_hvm(struct device *dev, u32 gsi,
->>>>                     false /* no mapping of GSI to PIRQ */);
->>>>    }
->>>>    +static int acpi_register_gsi_xen_pvh(struct device *dev, u32 gsi,
->>>> +                    int trigger, int polarity)
->>>> +{
->>>> +    int irq;
->>>> +
->>>> +    irq = acpi_register_gsi_ioapic(dev, gsi, trigger, polarity);
->>>> +    if (irq < 0)
->>>> +        return irq;
->>>> +
->>>> +    if (xen_pvh_add_gsi_irq_map(gsi, irq) == -EEXIST)
->>>> +        printk(KERN_INFO "Already map the GSI :%u and IRQ: %d\n", gsi, irq);
->>>> +
->>>> +    return irq;
->>>> +}
->>>> +
->>>>    #ifdef CONFIG_XEN_PV_DOM0
->>>>    static int xen_register_gsi(u32 gsi, int triggering, int polarity)
->>>>    {
->>>> @@ -558,6 +573,12 @@ int __init pci_xen_hvm_init(void)
->>>>        return 0;
->>>>    }
->>>>    +int __init pci_xen_pvh_init(void)
->>>> +{
->>>> +    __acpi_register_gsi = acpi_register_gsi_xen_pvh;
->>>
->>> No support for unregistering the gsi again?
->> __acpi_unregister_gsi is set in function acpi_set_irq_model_ioapic.
->> Maybe I need to use a new function to call acpi_unregister_gsi_ioapic and remove the mapping of irq and gsi from xen_irq_list_head ?
-> When I tried to support unregistering the gsi and removing the mapping during disable device,
-> I encountered that after running "xl pci-assignable-add 03:00.0", callstack pcistub_init_device->xen_pcibk_reset_device->pci_disable_device->pcibios_disable_device->acpi_pci_irq_disable->__acpi_unregister_gsi
-> removed the mapping, after that when user space called xen_gsi_from_irq to get gsi, it failed.
+On Fri, May 10, 2024 at 10:37:53PM +0100, Julien Grall wrote:
+> Hi Roger,
 > 
-> To cover above case, I want to change the implementation of xen_gsi_from_irq to pass sbdf to get the gsi instead of passing irq,
-> Because the sbdf and gsi of a device is unique and wiil not be changed even device is disabled or re-enabled.
+> On 09/05/2024 13:58, Roger Pau Monné wrote:
+> > On Thu, May 09, 2024 at 01:12:00PM +0100, Julien Grall wrote:
+> > > Hi,
+> > > 
+> > > On 09/05/2024 12:28, Roger Pau Monné wrote:
+> > > > OTOH for 1GB given the code here the page could be freed in one go,
+> > > > without a chance of preempting the operation.
+> > > > 
+> > > > Maybe you have to shatter superpages into 4K entries and then remove
+> > > > them individually, as to allow for preemption to be possible by
+> > > > calling put_page() for each 4K chunk?
+> > > This would require to allocate some pages from the P2M pool for the tables.
+> > > As the pool may be exhausted, it could be problematic when relinquishing the
+> > > resources.
+> > 
+> > Indeed, it's not ideal.
+> > 
+> > > It may be possible to find a way to have memory available by removing other
+> > > mappings first. But it feels a bit hackish and I would rather prefer if we
+> > > avoid allocating any memory when relinquishing.
+> > 
+> > Maybe it could be helpful to provide a function to put a superpage,
+> > that internally calls free_domheap_pages() with the appropriate order
+> > so that freeing a superpage only takes a single free_domheap_pages()
+> > call.
 > 
-> Do you think this kind of change is acceptable?
+> Today, free_domheap_page() is only called when the last reference is
+> removed. I don't thinkt here is any guarantee that all the references will
+> dropped at the same time.
 
-Yes, I think so.
+I see, yes, we have no guarantee that removing the superpage entry in
+the mapping domain will lead to either the whole superpage freed at
+once, or not freed.  The source domain may have shattered the
+super-page and hence freeing might need to be done at a smaller
+granularity.
 
+> >  That could reduce some of the contention around the heap_lock
+> > and d->page_alloc_lock locks.
+> 
+> From previous experience (when Hongyan and I worked on optimizing
+> init_heap_pages() for Live-Update), the lock is actually not the biggest
+> problem. The issue is adding the pages back to the heap (which may requiring
+> merging). So as long as the pages are not freed contiguously, we may not
+> gain anything.
 
-Juergen
+Would it help to defer the merging to the idle context, kind of
+similar to what we do with scrubbing?
+
+Thanks, Roger.
 
