@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3BA838C3D7E
-	for <lists+xen-devel@lfdr.de>; Mon, 13 May 2024 10:46:02 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.720757.1123666 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5B0BA8C3DB0
+	for <lists+xen-devel@lfdr.de>; Mon, 13 May 2024 11:00:07 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.720762.1123675 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s6RIw-0006M5-96; Mon, 13 May 2024 08:45:06 +0000
+	id 1s6RX4-00016n-Df; Mon, 13 May 2024 08:59:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 720757.1123666; Mon, 13 May 2024 08:45:06 +0000
+Received: by outflank-mailman (output) from mailman id 720762.1123675; Mon, 13 May 2024 08:59:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s6RIw-0006JB-5A; Mon, 13 May 2024 08:45:06 +0000
-Received: by outflank-mailman (input) for mailman id 720757;
- Mon, 13 May 2024 08:45:04 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1s6RX4-00014n-B4; Mon, 13 May 2024 08:59:42 +0000
+Received: by outflank-mailman (input) for mailman id 720762;
+ Mon, 13 May 2024 08:59:41 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=YK/2=MQ=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1s6RIu-0006J5-Sq
- for xen-devel@lists.xenproject.org; Mon, 13 May 2024 08:45:04 +0000
-Received: from mail-qk1-x730.google.com (mail-qk1-x730.google.com
- [2607:f8b0:4864:20::730])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 16aefc01-1105-11ef-909d-e314d9c70b13;
- Mon, 13 May 2024 10:45:03 +0200 (CEST)
-Received: by mail-qk1-x730.google.com with SMTP id
- af79cd13be357-792b8bf806fso367419385a.0
- for <xen-devel@lists.xenproject.org>; Mon, 13 May 2024 01:45:03 -0700 (PDT)
+ id 1s6RX3-00014h-77
+ for xen-devel@lists.xenproject.org; Mon, 13 May 2024 08:59:41 +0000
+Received: from mail-qk1-x72f.google.com (mail-qk1-x72f.google.com
+ [2607:f8b0:4864:20::72f])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 1e387fd0-1107-11ef-b4bb-af5377834399;
+ Mon, 13 May 2024 10:59:35 +0200 (CEST)
+Received: by mail-qk1-x72f.google.com with SMTP id
+ af79cd13be357-792b8d31702so276464885a.3
+ for <xen-devel@lists.xenproject.org>; Mon, 13 May 2024 01:59:38 -0700 (PDT)
 Received: from localhost ([213.195.114.223]) by smtp.gmail.com with ESMTPSA id
- 6a1803df08f44-6a15f17960csm41294326d6.25.2024.05.13.01.45.00
+ af79cd13be357-792bf27f90asm436657885a.39.2024.05.13.01.59.35
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 13 May 2024 01:45:01 -0700 (PDT)
+ Mon, 13 May 2024 01:59:36 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,111 +44,100 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 16aefc01-1105-11ef-909d-e314d9c70b13
+X-Inumbo-ID: 1e387fd0-1107-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1715589902; x=1716194702; darn=lists.xenproject.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=b0s0EUv5cog85v5AgtMuY3qUfBWjAdPaBPvTqMQMicw=;
-        b=cSxHxxX68/0l3nocPI1YXpSjEWKdUd5N4MBHxYj9CPvq+jYsqjPOdclWxiyqlUoIzP
-         0+WcicYWBirw+/+2xTstnyF56Se1cfoufzfjvuIH15gLi1o/JJIw9EHoCpHCOeGxd9WG
-         PRRcEhtLPGx9lV4FhA4EKJcM+gai1Shkn4cyU=
+        d=citrix.com; s=google; t=1715590776; x=1716195576; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=W/+OcyPkAtT0pCVAr3+POiO/21XGiS+ysCNprHlUJrs=;
+        b=lVWZNrnsP32ayrG5wksMAReJHDBQqxH/reDHTe44xkIFZTWiAAH88/PiuOymTZmt2c
+         +DQNmVqh6yCMpYoXIzh3r0mWwXM9nt3Q1dOX4UUYsXoOZi3kuYNE5aerCDGDgCK7tV16
+         usSPgycvNLUq7PMpmS/0qY++3SATfqEW3KX/A=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1715589902; x=1716194702;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=b0s0EUv5cog85v5AgtMuY3qUfBWjAdPaBPvTqMQMicw=;
-        b=V7Mwxif2KREm8GYwc5B2tppAk8nQ3OX1jeBYFgGJSlnXnmKGfJ99vXeo7Qg3PMUEC4
-         dio12msyalt4DFPayLz4N/pohk0oGZCjcadjDDqpa2InK6PECJfcwEUmNNBdsozCi6v1
-         Tt3RRK1mpozlPuQvV0pws8IcfkmBEW62mF4/7xkSOyAheC8enlcRHWXe1TCBHFVgT43n
-         YbK5S0FkrjztEesMtYAdXVGNk5AY94zQmNRIn5AMLE553+X0z1bA1H/qApXG61gZYpI5
-         kPluPCL2cYsAR8YvkvVWGiI2KLtSM185IV87PAekENNoiwh6Bx+SInLsE4DeNF2z2/o8
-         91vw==
-X-Forwarded-Encrypted: i=1; AJvYcCXaRuBb40ijZujyYlxNNSc2bmKjpyr9upnQz1QeD1+OLPedsNO89y1hTxQoejkccpho+dKQOqM96dlLhhl7Gg5aWcTLawqcuMlCCefbH8Q=
-X-Gm-Message-State: AOJu0Yxeu0yHcJvjqNGY3IiDiIthhzliQX2cbv8/uOTAv16fPDnBMjbP
-	G+fszl0Fiq7ZMv/MqWZxCNobae4LVFiNNRX4/kYrN4dqFCmrBk4bsxqazPWoAnQ=
-X-Google-Smtp-Source: AGHT+IHqJuVytQ/+x1PNmWqL4v4BXle3O3RBSKqX4kVJRaxl9Tpmg+MluGlU+42vBK3g10nFo8jpgg==
-X-Received: by 2002:a05:6214:4a8e:b0:6a0:d9fa:9a95 with SMTP id 6a1803df08f44-6a16822df5bmr133301956d6.44.1715589901913;
-        Mon, 13 May 2024 01:45:01 -0700 (PDT)
-Date: Mon, 13 May 2024 10:44:59 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Elliott Mitchell <ehem+xen@m5p.com>
-Cc: Jan Beulich <jbeulich@suse.com>, xen-devel@lists.xenproject.org,
-	Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
-	Kelly Choi <kelly.choi@cloud.com>
-Subject: Re: Serious AMD-Vi(?) issue
-Message-ID: <ZkHTC4RpUSpKj4wf@macbook>
-References: <e9b1c9c4-523b-481b-946e-37c7c18ea1d2@suse.com>
- <ZgHwEGCsCLHiYU5J@mattapan.m5p.com>
- <ZgRXHQpamLIdu7dk@mattapan.m5p.com>
- <c2ce4002-58d5-48a3-949c-3c361c78c0ac@suse.com>
- <ZhdNxWNpM0KCzz8E@mattapan.m5p.com>
- <2aa4d1f4-ff37-4f12-bfbb-3ef5ad3f6fdd@suse.com>
- <ZiDBc3ye2wqmBAfq@mattapan.m5p.com>
- <f0bdb386-0870-4468-846c-6c8a91eaf806@suse.com>
- <ZiH0G5kN6m+wlNjn@mattapan.m5p.com>
- <Zj7vkp4r0EY9rxT4@mattapan.m5p.com>
+        d=1e100.net; s=20230601; t=1715590776; x=1716195576;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=W/+OcyPkAtT0pCVAr3+POiO/21XGiS+ysCNprHlUJrs=;
+        b=t6D6OcOEkoTmJjMCxitO6YWz5DhAFtMx/pHbRrIVfo3at8IMiO/X7jUi5tEdhQUOkp
+         x5QCron4yCF0Qx8VRl42NY6y1FpHzmGGOpErtbYw/QGk/7oJJkEre/apcjkURxqYQPeT
+         Jxtj4O4souvgj8XfAx6EUSC+BwPq5t6MhDc0pxJ8b2lUZfDvaVmUDfg05ViRj8A6XpSs
+         GWckLNMhDkPO2pBcuVBvt1f3JGTUQlaXpkl/wBbSj0r+lhzMQ61PPw1K469XBiVP7uoH
+         A5e91YK2X7Hj42SdtbGf3lbG6NLdbwcMMTLz5qC//aCQcScM/nuJvg52Q6nroI/9zqxF
+         LiRw==
+X-Gm-Message-State: AOJu0YxcXL7X9+FH5u7uceiSLydKZuxUdU3XD4pgpHUBE6auirq1WWpD
+	wdkm74fPJafAvKTos05ccTHxCP/EJ93UXkBbxYnwUgxnQr8s+kLY5em0pLRT3n6dMFAlBJq94aa
+	h
+X-Google-Smtp-Source: AGHT+IExYVTD2wi9mnSJckW9cM+0MIQtI6P1ojDxQ0lXkV9q56dtHiqj1d99dMo5temt9ww+2LZFyQ==
+X-Received: by 2002:a05:620a:820f:b0:792:daab:b209 with SMTP id af79cd13be357-792daabb44fmr358087485a.6.1715590776386;
+        Mon, 13 May 2024 01:59:36 -0700 (PDT)
+From: Roger Pau Monne <roger.pau@citrix.com>
+To: xen-devel@lists.xenproject.org
+Cc: Roger Pau Monne <roger.pau@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Subject: [PATCH for-4.19] x86/mtrr: avoid system wide rendezvous when setting AP MTRRs
+Date: Mon, 13 May 2024 10:59:25 +0200
+Message-ID: <20240513085925.59324-1-roger.pau@citrix.com>
+X-Mailer: git-send-email 2.44.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <Zj7vkp4r0EY9rxT4@mattapan.m5p.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Fri, May 10, 2024 at 09:09:54PM -0700, Elliott Mitchell wrote:
-> On Thu, Apr 18, 2024 at 09:33:31PM -0700, Elliott Mitchell wrote:
-> > 
-> > I suspect this is a case of there is some step which is missing from
-> > Xen's IOMMU handling.  Perhaps something which Linux does during an early
-> > DMA setup stage, but the current Xen implementation does lazily?
-> > Alternatively some flag setting or missing step?
-> > 
-> > I should be able to do another test approach in a few weeks, but I would
-> > love if something could be found sooner.
-> 
-> Turned out to be disturbingly easy to get the first entry when it
-> happened.  Didn't even need `dbench`, it simply showed once the OS was
-> fully loaded.  I did get some additional data points.
-> 
-> Appears this requires an AMD IOMMUv2.  A test system with known
-> functioning AMD IOMMUv1 didn't display the issue at all.
-> 
-> (XEN) AMD-Vi: IO_PAGE_FAULT: DDDD:bb:dd.f d0 addr fffffffdf8000000 flags 0x8 I
+There's no point in forcing a system wide update of the MTRRs on all processors
+when there are no changes to be propagated.  On AP startup it's only the AP
+that needs to write the system wide MTRR values in order to match the rest of
+the already online CPUs.
 
-I would expect the address field to contain more information about the
-fault, but I'm not finding any information on the AMD-Vi specification
-apart from that it contains the DVA, which makes no sense when the
-fault is caused by an interrupt.
+We have occasionally seen the watchdog trigger during `xen-hptool cpu-online`
+in one Intel Cascade Lake box with 448 CPUs due to the re-setting of the MTRRs
+on all the CPUs in the system.
 
-> (XEN) DDDD:bb:dd.f root @ 83b5f5 (3 levels) dfn=fffffffdf8000
-> (XEN)   L3[1f7] = 0 np
+While there adjust the comment to clarify why the system-wide resetting of the
+MTRR registers is not needed for the purposes of mtrr_ap_init().
 
-Attempting to print the page table walk for an Interrupt remapping
-fault is useless, we should likely avoid that when the I flag is set.
+Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+---
+For consideration for 4.19: it's a bugfix of a rare instance of the watchdog
+triggering, but it's also a good performance improvement when performing
+cpu-online.
 
-> 
-> I find it surprising this required "iommu=debug" to get this level of
-> detail.  This amount of output seems more appropriate for "verbose".
+Hopefully runtime changes to MTRR will affect a single MSR at a time, lowering
+the chance of the watchdog triggering due to the system-wide resetting of the
+range.
+---
+ xen/arch/x86/cpu/mtrr/main.c | 15 ++++++++-------
+ 1 file changed, 8 insertions(+), 7 deletions(-)
 
-"verbose" should also print this information.
+diff --git a/xen/arch/x86/cpu/mtrr/main.c b/xen/arch/x86/cpu/mtrr/main.c
+index 90b235f57e68..0a44ebbcb04f 100644
+--- a/xen/arch/x86/cpu/mtrr/main.c
++++ b/xen/arch/x86/cpu/mtrr/main.c
+@@ -573,14 +573,15 @@ void mtrr_ap_init(void)
+ 	if (!mtrr_if || hold_mtrr_updates_on_aps)
+ 		return;
+ 	/*
+-	 * Ideally we should hold mtrr_mutex here to avoid mtrr entries changed,
+-	 * but this routine will be called in cpu boot time, holding the lock
+-	 * breaks it. This routine is called in two cases: 1.very earily time
+-	 * of software resume, when there absolutely isn't mtrr entry changes;
+-	 * 2.cpu hotadd time. We let mtrr_add/del_page hold cpuhotplug lock to
+-	 * prevent mtrr entry changes
++	 * hold_mtrr_updates_on_aps takes care of preventing unnecessary MTRR
++	 * updates when batch starting the CPUs (see
++	 * mtrr_aps_sync_{begin,end}()).
++	 *
++	 * Otherwise just apply the current system wide MTRR values to this AP.
++	 * Note this doesn't require synchronization with the other CPUs, as
++	 * there are strictly no modifications of the current MTRR values.
+ 	 */
+-	set_mtrr(~0U, 0, 0, 0);
++	mtrr_set_all();
+ }
+ 
+ /**
+-- 
+2.44.0
 
-> 
-> I strongly prefer to provide snippets.  There is a fair bit of output,
-> I'm unsure which portion is most pertinent.
-
-I've already voiced my concern that I think what yo uare doing is not
-fair.  We are debugging this out of interest, and hence you refusing
-to provide all information just hampers our ability to debug, and
-makes us spend more time than required just thinking what snippets we
-need to ask for.
-
-I will ask again, what's there in the Xen or the Linux dmesgs that you
-are so worried about leaking? Please provide an specific example.
-
-Why do you mask the device SBDF in the above snippet?  I would really
-like to understand what's so privacy relevant in a PCI SBDF number.
-
-Does booting with `iommu=no-intremap` lead to any issues being
-reported?
-
-Regards, Roger.
 
