@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F09028C446F
-	for <lists+xen-devel@lfdr.de>; Mon, 13 May 2024 17:40:50 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.721036.1124164 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 577708C4551
+	for <lists+xen-devel@lfdr.de>; Mon, 13 May 2024 18:50:26 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.721047.1124174 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s6Xms-0001pR-8z; Mon, 13 May 2024 15:40:26 +0000
+	id 1s6YrV-00048Q-1R; Mon, 13 May 2024 16:49:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 721036.1124164; Mon, 13 May 2024 15:40:26 +0000
+Received: by outflank-mailman (output) from mailman id 721047.1124174; Mon, 13 May 2024 16:49:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s6Xms-0001n8-6Q; Mon, 13 May 2024 15:40:26 +0000
-Received: by outflank-mailman (input) for mailman id 721036;
- Mon, 13 May 2024 15:40:24 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1s6YrU-00045w-V3; Mon, 13 May 2024 16:49:16 +0000
+Received: by outflank-mailman (input) for mailman id 721047;
+ Mon, 13 May 2024 16:49:15 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=YK/2=MQ=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1s6Xmq-0001n2-Or
- for xen-devel@lists.xenproject.org; Mon, 13 May 2024 15:40:24 +0000
-Received: from mail-lj1-x229.google.com (mail-lj1-x229.google.com
- [2a00:1450:4864:20::229])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 1c2ebad9-113f-11ef-b4bb-af5377834399;
- Mon, 13 May 2024 17:40:22 +0200 (CEST)
-Received: by mail-lj1-x229.google.com with SMTP id
- 38308e7fff4ca-2e4b90b03a9so50924221fa.1
- for <xen-devel@lists.xenproject.org>; Mon, 13 May 2024 08:40:22 -0700 (PDT)
+ id 1s6YrT-00045q-PN
+ for xen-devel@lists.xenproject.org; Mon, 13 May 2024 16:49:15 +0000
+Received: from mail-qk1-x72b.google.com (mail-qk1-x72b.google.com
+ [2607:f8b0:4864:20::72b])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id b9d19e32-1148-11ef-909d-e314d9c70b13;
+ Mon, 13 May 2024 18:49:13 +0200 (CEST)
+Received: by mail-qk1-x72b.google.com with SMTP id
+ af79cd13be357-792b8efed93so457469685a.3
+ for <xen-devel@lists.xenproject.org>; Mon, 13 May 2024 09:49:13 -0700 (PDT)
 Received: from localhost ([213.195.114.223]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3502b79bc83sm11388594f8f.16.2024.05.13.08.40.21
+ 6a1803df08f44-6a15f194c3asm44370126d6.69.2024.05.13.09.49.10
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 13 May 2024 08:40:21 -0700 (PDT)
+ Mon, 13 May 2024 09:49:11 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,104 +44,117 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1c2ebad9-113f-11ef-b4bb-af5377834399
+X-Inumbo-ID: b9d19e32-1148-11ef-909d-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1715614822; x=1716219622; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1715618952; x=1716223752; darn=lists.xenproject.org;
         h=in-reply-to:content-disposition:mime-version:references:message-id
          :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=P8xZGMjf01HbyNWji+ISVHSj5gl4UxwZFFpPnC9HGAc=;
-        b=MQ3bRmZ7FMm6oEOLBQS7TmOWT4VnPa2ECcYTU/79oscvCsz+A+jh953KdQj/L+GCtK
-         nJQz0K/we5W5rVZrSu+vWUA7oDQfwWDc1ERGid335sCX52256JXnIdTenjMhpXgNmvCI
-         JKF/MRm+xkGPO0M9/p554LXRYXlcEyGj9diDA=
+        bh=p7hokb4SEQ/ArDzEoy7A4TmgTIwDsfbPYMk1ioH9o8Q=;
+        b=JlTaP7o0HgL6jnNAIZgeXAthJubL2rdh/eYgPoqakfRUkHL7IyGrkhHNkPCtTFNOT7
+         Ir7iB425prpZxyoSPAmYKZiE5fhqwFYPSS2gC8GqRsFhyp2n0HKWuxvzOLLM1NmmZcOT
+         5rV5TKI8hj0m0XCJMAY77vCzlutMURPObCcBQ=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1715614822; x=1716219622;
+        d=1e100.net; s=20230601; t=1715618952; x=1716223752;
         h=in-reply-to:content-disposition:mime-version:references:message-id
          :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=P8xZGMjf01HbyNWji+ISVHSj5gl4UxwZFFpPnC9HGAc=;
-        b=ZtOyIE9NsYRLJxB/+VvNHryR79dDPRdpoVRPurp6JuAfAwniSvuMMkAwovlBXLER06
-         Vh6bOESWRfn/P3vtFnRu3930X1Nf/xL+kyylhiD3tYtezSk7ypuW9ugH+k3vvrvojEcc
-         wCJgD4g4Jb/ikN6dGIe3BTGVlMn/8iL7AmtMmcruCbHd9AuuKUComIFEzFFdfEFcNhAS
-         /X5d91IxK0CqvBeqv/o8UDMgNm/+iC2rYYqxDYKgaZBBy9Hh89KFNOyfesEtHw+HY2m1
-         3jd4DTzHxrP/hh0CiWgUjs9e5sKV8ZzMcPtj4CEz+YOrGh0bsQ5m0doUkZpzxGMFNJKn
-         lMkg==
-X-Gm-Message-State: AOJu0YweDdVBCiBuWK+m4fDXdMAh/UFkHk8148G+MW79rLbgnePUEo80
-	iFgcmoR3eiJCYHED99xTbtRAYU9gEDE+Z6Sw3H7B2ePlnk60df0hsNrWI51my3g=
-X-Google-Smtp-Source: AGHT+IGaIxURuvDuIXdP/6zCWBbxx91s/O3PlQJB2bvNkLYtXxQPBFYrlggYrnusZ74cC3yKrdQptQ==
-X-Received: by 2002:a2e:9b8b:0:b0:2e5:59a:591d with SMTP id 38308e7fff4ca-2e51fd3fe2emr71209121fa.4.1715614821996;
-        Mon, 13 May 2024 08:40:21 -0700 (PDT)
-Date: Mon, 13 May 2024 17:40:20 +0200
+        bh=p7hokb4SEQ/ArDzEoy7A4TmgTIwDsfbPYMk1ioH9o8Q=;
+        b=AHEY5xRdWNYi3XUEklm8dIGUAvsNwOTs7Gifi5p5ugtj5u7s5kH3ft5T8ZcswR71xR
+         GH1FZ1KCKl3kV6Kx+L1zZQSglDnPUp087Py4PknMjJ6Ea7ZQX2AhMFuvLkM37Sh90ERC
+         er1Sex1KmECD7SFMjGr7ojDGmmGQd9PZB4drq3oWL1X4ZJnpc51ZZieqA9di2/8PHglE
+         VyaK6ILQN4Jvys+H3qmQdSbgb3EaDnBhnJ4u2nwZTzArmhqBzZ4dkdoh6Ynh2WLUUAkn
+         UqF4kikj2sqUdnyx70YcUIRSX0cI9742+Ole6FhNQBeufFoXfyMBljasqXwkvubejE+k
+         mv3A==
+X-Gm-Message-State: AOJu0YzVIpByRjRdr24ngIM0bd/BhMMdPwNZ4HESpPWOkJzdkg1U8SG3
+	UNlYe7W7/7/5ssR9AnrARt45d14ucIiyF5d/VObgadkqb7SRRGvQz64rk5noZBM=
+X-Google-Smtp-Source: AGHT+IG7EA/L9JDanw6dYkwgUlDsZEk4K4ZNrm1S2vRyJiw8sGWJyCWj928qEaU93W4jhK6NowDFWg==
+X-Received: by 2002:a05:6214:4302:b0:6a0:b3cc:ee06 with SMTP id 6a1803df08f44-6a16821eb2fmr127764936d6.37.1715618951695;
+        Mon, 13 May 2024 09:49:11 -0700 (PDT)
+Date: Mon, 13 May 2024 18:49:09 +0200
 From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
 To: Elias El Yandouzi <eliasely@amazon.com>
 Cc: xen-devel@lists.xenproject.org, julien@xen.org, pdurrant@amazon.com,
-	dwmw@amazon.com, Wei Liu <wei.liu2@citrix.com>,
+	dwmw@amazon.com, Hongyan Xia <hongyxia@amazon.com>,
 	Jan Beulich <jbeulich@suse.com>,
 	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Wei Wang <wawei@amazon.de>, Julien Grall <jgrall@amazon.com>
-Subject: Re: [PATCH V3 (resend) 02/19] x86/pv: Domheap pages should be mapped
- while relocating initrd
-Message-ID: <ZkI0ZJKq9HT465VC@macbook>
+	Julien Grall <jgrall@amazon.com>
+Subject: Re: [PATCH V3 (resend) 03/19] x86/pv: Rewrite how building PV dom0
+ handles domheap mappings
+Message-ID: <ZkJEhZCRNnxGb_lc@macbook>
 References: <20240513134046.82605-1-eliasely@amazon.com>
- <20240513134046.82605-3-eliasely@amazon.com>
+ <20240513134046.82605-4-eliasely@amazon.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20240513134046.82605-3-eliasely@amazon.com>
+In-Reply-To: <20240513134046.82605-4-eliasely@amazon.com>
 
-On Mon, May 13, 2024 at 01:40:29PM +0000, Elias El Yandouzi wrote:
-> From: Wei Liu <wei.liu2@citrix.com>
+On Mon, May 13, 2024 at 01:40:30PM +0000, Elias El Yandouzi wrote:
+> From: Hongyan Xia <hongyxia@amazon.com>
 > 
-> Xen shouldn't use domheap page as if they were xenheap pages. Map and
-> unmap pages accordingly.
+> Building a PV dom0 is allocating from the domheap but uses it like the
+> xenheap. Use the pages as they should be.
 > 
-> Signed-off-by: Wei Liu <wei.liu2@citrix.com>
-> Signed-off-by: Wei Wang <wawei@amazon.de>
+> Signed-off-by: Hongyan Xia <hongyxia@amazon.com>
 > Signed-off-by: Julien Grall <jgrall@amazon.com>
 > Signed-off-by: Elias El Yandouzi <eliasely@amazon.com>
 > 
 > ----
 >     Changes in V3:
->         * Rename commit title
->         * Rework the for loop copying the pages
+>         * Fold following patch 'x86/pv: Map L4 page table for shim domain'
 > 
 >     Changes in V2:
->         * Get rid of mfn_to_virt
->         * Don't open code copy_domain_page()
+>         * Clarify the commit message
+>         * Break the patch in two parts
 > 
 >     Changes since Hongyan's version:
->         * Add missing newline after the variable declaration
+>         * Rebase
+>         * Remove spurious newline
 > 
 > diff --git a/xen/arch/x86/pv/dom0_build.c b/xen/arch/x86/pv/dom0_build.c
-> index d8043fa58a..807296c280 100644
+> index 807296c280..ac910b438a 100644
 > --- a/xen/arch/x86/pv/dom0_build.c
 > +++ b/xen/arch/x86/pv/dom0_build.c
-> @@ -618,18 +618,24 @@ int __init dom0_construct_pv(struct domain *d,
->          if ( d->arch.physaddr_bitsize &&
->               ((mfn + count - 1) >> (d->arch.physaddr_bitsize - PAGE_SHIFT)) )
->          {
-> +            unsigned int nr_pages = 1UL << order;
+> @@ -382,6 +382,10 @@ int __init dom0_construct_pv(struct domain *d,
+>      l3_pgentry_t *l3tab = NULL, *l3start = NULL;
+>      l2_pgentry_t *l2tab = NULL, *l2start = NULL;
+>      l1_pgentry_t *l1tab = NULL, *l1start = NULL;
+> +    mfn_t l4start_mfn = INVALID_MFN;
+> +    mfn_t l3start_mfn = INVALID_MFN;
+> +    mfn_t l2start_mfn = INVALID_MFN;
+> +    mfn_t l1start_mfn = INVALID_MFN;
+>  
+>      /*
+>       * This fully describes the memory layout of the initial domain. All
+> @@ -710,22 +714,32 @@ int __init dom0_construct_pv(struct domain *d,
+>          v->arch.pv.event_callback_cs    = FLAT_COMPAT_KERNEL_CS;
+>      }
+>  
+> +#define UNMAP_MAP_AND_ADVANCE(mfn_var, virt_var, maddr) \
+> +do {                                                    \
+> +    unmap_domain_page(virt_var);                        \
+> +    mfn_var = maddr_to_mfn(maddr);                      \
+> +    maddr += PAGE_SIZE;                                 \
+> +    virt_var = map_domain_page(mfn_var);                \
 
-Shouldn't you better initialize nr_pages to 'count' instead of 'order'
-here?
+FWIW, I would do the advance after the map, so that the order matches
+the name of the function.
 
-Also note how 'order' at this point is not yet initialized to the
-'count' based value, so I'm not sure from where that 'order' is coming
-from.
+> +} while ( false )
+> +
+>      if ( !compat )
+>      {
+>          maddr_to_page(mpt_alloc)->u.inuse.type_info = PGT_l4_page_table;
+> -        l4start = l4tab = __va(mpt_alloc); mpt_alloc += PAGE_SIZE;
+> +        UNMAP_MAP_AND_ADVANCE(l4start_mfn, l4start, mpt_alloc);
+> +        l4tab = l4start;
 
-In v2 you had:
+You could even make the macro return virt_var, and so use it like:
 
-+            unsigned long nr_pages;
-+
-             order = get_order_from_pages(count);
-             page = alloc_domheap_pages(d, order, MEMF_no_scrub);
-             if ( !page )
-                 panic("Not enough RAM for domain 0 initrd\n");
-+
-+            nr_pages = 1UL << order;
+l4tab = l4start = UNMAP_MAP_AND_ADVANCE(l4start_mfn, mpt_alloc);
 
-nr_pages was derived from the 'order' value based on 'count'.  As said
-above, I think you want to use just 'count' here, which is the rounded
-up value of pages needed by initrd_len.
+?
+
+Anyway, no strong opinion.
 
 Thanks, Roger.
 
