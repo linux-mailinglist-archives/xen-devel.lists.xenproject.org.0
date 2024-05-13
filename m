@@ -2,49 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 21ACA8C42D9
-	for <lists+xen-devel@lfdr.de>; Mon, 13 May 2024 16:08:25 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.721005.1124144 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C5BF08C4424
+	for <lists+xen-devel@lfdr.de>; Mon, 13 May 2024 17:29:02 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.721030.1124154 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s6WLQ-0004YQ-II; Mon, 13 May 2024 14:08:00 +0000
+	id 1s6Xan-0003NY-7J; Mon, 13 May 2024 15:27:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 721005.1124144; Mon, 13 May 2024 14:08:00 +0000
+Received: by outflank-mailman (output) from mailman id 721030.1124154; Mon, 13 May 2024 15:27:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s6WLQ-0004WW-Fa; Mon, 13 May 2024 14:08:00 +0000
-Received: by outflank-mailman (input) for mailman id 721005;
- Mon, 13 May 2024 14:07:59 +0000
+	id 1s6Xan-0003LI-4j; Mon, 13 May 2024 15:27:57 +0000
+Received: by outflank-mailman (input) for mailman id 721030;
+ Mon, 13 May 2024 15:27:56 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=w2Lj=MQ=amazon.co.uk=prvs=8568adbc3=eliasely@srs-se1.protection.inumbo.net>)
- id 1s6Vvr-0002lY-Os
- for xen-devel@lists.xenproject.org; Mon, 13 May 2024 13:41:35 +0000
-Received: from smtp-fw-80006.amazon.com (smtp-fw-80006.amazon.com
- [99.78.197.217]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 8031db8c-112e-11ef-b4bb-af5377834399;
- Mon, 13 May 2024 15:41:30 +0200 (CEST)
-Received: from pdx4-co-svc-p1-lb2-vlan3.amazon.com (HELO
- smtpout.prod.us-east-1.prod.farcaster.email.amazon.dev) ([10.25.36.214])
- by smtp-border-fw-80006.pdx80.corp.amazon.com with
- ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 May 2024 13:41:28 +0000
-Received: from EX19MTAUEA002.ant.amazon.com [10.0.0.204:18499]
- by smtpin.naws.us-east-1.prod.farcaster.email.amazon.dev [10.0.32.236:2525]
- with esmtp (Farcaster)
- id a8122ecf-7fd9-4f59-993e-fba829406aa3; Mon, 13 May 2024 13:41:27 +0000 (UTC)
-Received: from EX19D008UEA001.ant.amazon.com (10.252.134.62) by
- EX19MTAUEA002.ant.amazon.com (10.252.134.9) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1258.28; Mon, 13 May 2024 13:41:27 +0000
-Received: from EX19MTAUWB001.ant.amazon.com (10.250.64.248) by
- EX19D008UEA001.ant.amazon.com (10.252.134.62) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1258.28; Mon, 13 May 2024 13:41:26 +0000
-Received: from dev-dsk-eliasely-1a-fd74790f.eu-west-1.amazon.com
- (10.253.91.118) by mail-relay.amazon.com (10.250.64.254) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1258.28 via Frontend Transport; Mon, 13 May 2024 13:41:25 +0000
+ <SRS0=YK/2=MQ=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1s6Xam-0003LC-Hk
+ for xen-devel@lists.xenproject.org; Mon, 13 May 2024 15:27:56 +0000
+Received: from mail-qv1-xf33.google.com (mail-qv1-xf33.google.com
+ [2607:f8b0:4864:20::f33])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 5d591795-113d-11ef-b4bb-af5377834399;
+ Mon, 13 May 2024 17:27:53 +0200 (CEST)
+Received: by mail-qv1-xf33.google.com with SMTP id
+ 6a1803df08f44-6a04c581ee3so13956916d6.0
+ for <xen-devel@lists.xenproject.org>; Mon, 13 May 2024 08:27:53 -0700 (PDT)
+Received: from localhost ([213.195.114.223]) by smtp.gmail.com with ESMTPSA id
+ 6a1803df08f44-6a15f1d7040sm43574426d6.107.2024.05.13.08.27.51
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 13 May 2024 08:27:51 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -56,319 +44,292 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8031db8c-112e-11ef-b4bb-af5377834399
+X-Inumbo-ID: 5d591795-113d-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazon201209;
-  t=1715607690; x=1747143690;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=SVsOmDKOmFhMFa0LMfYH4rjGO+/XR9rqN+YrORlcGU8=;
-  b=FmV0JThiGHomkIF1ZwyUKyGi+HV8jmCwydiLpEgrZ7lfcIvU6SSGkSvK
-   gIwP86Va6QZmCa2H7Qtgjn2/Rlh+p4IqTiEExvu4NZxiU/uTnnqOI6VtA
-   gccA902/jW1qEMULSH/OI5YljpEufZtKBvovWQTYYrBB67SCRDFolXefW
-   k=;
-X-IronPort-AV: E=Sophos;i="6.08,158,1712620800"; 
-   d="scan'208";a="294692592"
-X-Farcaster-Flow-ID: a8122ecf-7fd9-4f59-993e-fba829406aa3
-From: Elias El Yandouzi <eliasely@amazon.com>
-To: <xen-devel@lists.xenproject.org>
-CC: <julien@xen.org>, <pdurrant@amazon.com>, <dwmw@amazon.com>, Julien Grall
-	<jgrall@amazon.com>, Stefano Stabellini <sstabellini@kernel.org>, "Bertrand
- Marquis" <bertrand.marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, Elias El Yandouzi
-	<eliasely@amazon.com>
-Subject: [PATCH V3 (resend) 17/19] xen/arm64: mm: Use per-pCPU page-tables
-Date: Mon, 13 May 2024 13:40:44 +0000
-Message-ID: <20240513134046.82605-18-eliasely@amazon.com>
-X-Mailer: git-send-email 2.40.1
-In-Reply-To: <20240513134046.82605-1-eliasely@amazon.com>
-References: <20240513134046.82605-1-eliasely@amazon.com>
+        d=citrix.com; s=google; t=1715614072; x=1716218872; darn=lists.xenproject.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=2r6U6XboQG2fdQVTVP/Ayy2jjx9leLzejn1rzqrKj98=;
+        b=iofPF3uGNwNy7Zz5bszqoxlw6G0gCq8vxGLfFZ6t4sLjkyt0wJSMCQF5CEFvzHrSQ0
+         Ol7oMG2UtIO0gnHYMrGyDHatJIdX9tmiReWLActwhBCB0HUQz0YnLcl5PDimq+Hn+nYM
+         uwOulvg/qOhfU1W6S3BmgnvnxM5hEWXuUwIek=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1715614072; x=1716218872;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=2r6U6XboQG2fdQVTVP/Ayy2jjx9leLzejn1rzqrKj98=;
+        b=epzzUIgsYm0VT3cekwy63N2Wc8+RTBCR7rbH5cocpTTVOmHK9WenkFySKwjfJZyIY/
+         vfjX6JF0NkBVazUQ47be76PvMD8RH/xXhnXjcEMhuEaU0hpvLte03DhPRQc8wjHoIo6+
+         x0Dy0DasUd0rgmb2AqhtQOpPTvXGSQLnNf6xwazKD3/2XGCx/AO/1xSToDXPPp34Q7vg
+         Gcf7ydZhKroSTTCOYyi04UvOmiHO5slHl5FRoo+CNEAU0ssZmBcorJEaJhkOZfgaHSUb
+         vPDUtA8bC9wnXPLctaZJ/YDuROJjrGTdyvawLQkq3sEBmPvWRMJ23BUR/VyZiS/HPjMx
+         7lfQ==
+X-Gm-Message-State: AOJu0YyiR0njppj33jVSTJCYqSWEz/oks9JS9REur0wef6JMBC5nlSyL
+	a8fmba22JobVGB2s4AecU75Ec0y6hXnvzpztKl8PA9sztbkNc1Y1kFWbTiBdZ48=
+X-Google-Smtp-Source: AGHT+IE8zhRpyTqM2dh3KZZmcJ+LjIx6vUP0uimEfK8L2aEnm7FLHZ3OtmdgASQg/B/azGV+TXbRUw==
+X-Received: by 2002:a0c:9a9a:0:b0:6a3:2ab7:ecab with SMTP id 6a1803df08f44-6a32ab7edc9mr64221276d6.65.1715614072209;
+        Mon, 13 May 2024 08:27:52 -0700 (PDT)
+Date: Mon, 13 May 2024 17:27:50 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Elias El Yandouzi <eliasely@amazon.com>
+Cc: xen-devel@lists.xenproject.org, julien@xen.org, pdurrant@amazon.com,
+	dwmw@amazon.com, Hongyan Xia <hongyxia@amazon.com>,
+	Julien Grall <jgrall@amazon.com>
+Subject: Re: [PATCH V3 01/19] x86: Create per-domain mapping of guest_root_pt
+Message-ID: <ZkIxdtiDc_pnPWdx@macbook>
+References: <20240513111117.68828-1-eliasely@amazon.com>
+ <20240513111117.68828-2-eliasely@amazon.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20240513111117.68828-2-eliasely@amazon.com>
 
-From: Julien Grall <jgrall@amazon.com>
+On Mon, May 13, 2024 at 11:10:59AM +0000, Elias El Yandouzi wrote:
+> From: Hongyan Xia <hongyxia@amazon.com>
+> 
+> Create a per-domain mapping of PV guest_root_pt as direct map is being
+> removed.
+> 
+> Note that we do not map and unmap root_pgt for now since it is still a
+> xenheap page.
 
-At the moment, on Arm64, every pCPU is sharing the same page-tables.
+I'm afraid this needs more context, at least for me to properly
+understand.
 
-In a follow-up patch, we will allow the possibility to remove the
-direct map and therefore it will be necessary to have a mapcache.
+I think I've figured out what create_perdomain_mapping() is supposed
+to do, and I have to admit the interface is very awkward.
 
-While we have plenty of spare virtual address space to reserve part
-for each pCPU, it means that temporary mappings (e.g. guest memory)
-could be accessible by every pCPU.
+Anyway, attempted to provide some feedback.
 
-In order to increase our security posture, it would be better if
-those mappings are only accessible by the pCPU doing the temporary
-mapping.
+> 
+> Signed-off-by: Hongyan Xia <hongyxia@amazon.com>
+> Signed-off-by: Julien Grall <jgrall@amazon.com>
+> Signed-off-by: Elias El Yandouzi <eliasely@amazon.com>
+> 
+> ----
+>     Changes in V3:
+>         * Rename SHADOW_ROOT
+>         * Haven't addressed the potentially over-allocation issue as I don't get it
+> 
+>     Changes in V2:
+>         * Rework the shadow perdomain mapping solution in the follow-up patches
+> 
+>     Changes since Hongyan's version:
+>         * Remove the final dot in the commit title
+> 
+> diff --git a/xen/arch/x86/include/asm/config.h b/xen/arch/x86/include/asm/config.h
+> index ab7288cb36..5d710384df 100644
+> --- a/xen/arch/x86/include/asm/config.h
+> +++ b/xen/arch/x86/include/asm/config.h
+> @@ -203,7 +203,7 @@ extern unsigned char boot_edid_info[128];
+>  /* Slot 260: per-domain mappings (including map cache). */
+>  #define PERDOMAIN_VIRT_START    (PML4_ADDR(260))
+>  #define PERDOMAIN_SLOT_MBYTES   (PML4_ENTRY_BYTES >> (20 + PAGETABLE_ORDER))
+> -#define PERDOMAIN_SLOTS         3
+> +#define PERDOMAIN_SLOTS         4
+>  #define PERDOMAIN_VIRT_SLOT(s)  (PERDOMAIN_VIRT_START + (s) * \
+>                                   (PERDOMAIN_SLOT_MBYTES << 20))
+>  /* Slot 4: mirror of per-domain mappings (for compat xlat area accesses). */
+> @@ -317,6 +317,14 @@ extern unsigned long xen_phys_start;
+>  #define ARG_XLAT_START(v)        \
+>      (ARG_XLAT_VIRT_START + ((v)->vcpu_id << ARG_XLAT_VA_SHIFT))
+>  
+> +/* pv_root_pt mapping area. The fourth per-domain-mapping sub-area */
+> +#define PV_ROOT_PT_MAPPING_VIRT_START   PERDOMAIN_VIRT_SLOT(3)
+> +#define PV_ROOT_PT_MAPPING_ENTRIES      MAX_VIRT_CPUS
+> +
+> +/* The address of a particular VCPU's PV_ROOT_PT */
+> +#define PV_ROOT_PT_MAPPING_VCPU_VIRT_START(v) \
+> +    (PV_ROOT_PT_MAPPING_VIRT_START + ((v)->vcpu_id * PAGE_SIZE))
 
-In addition to that, a per-pCPU page-tables opens the way to have
-per-domain mapping area.
+I know we are not there yet, but I wonder if we need to start having
+some non-shared per-cpu mapping area in the page-tables.  Right now
+this is shared between all the vCPUs, as it's per-domain space
+(instead of per-vCPU).
 
-Arm32 is already using per-pCPU page-tables so most of the code
-can be re-used. Arm64 doesn't yet have support for the mapcache,
-so a stub is provided (moved to its own header asm/domain_page.h).
+> +
+>  #define ELFSIZE 64
+>  
+>  #define ARCH_CRASH_SAVE_VMCOREINFO
+> diff --git a/xen/arch/x86/include/asm/domain.h b/xen/arch/x86/include/asm/domain.h
+> index f5daeb182b..8a97530607 100644
+> --- a/xen/arch/x86/include/asm/domain.h
+> +++ b/xen/arch/x86/include/asm/domain.h
+> @@ -272,6 +272,7 @@ struct time_scale {
+>  struct pv_domain
+>  {
+>      l1_pgentry_t **gdt_ldt_l1tab;
+> +    l1_pgentry_t **root_pt_l1tab;
+>  
+>      atomic_t nr_l4_pages;
+>  
+> diff --git a/xen/arch/x86/mm.c b/xen/arch/x86/mm.c
+> index d968bbbc73..efdf20f775 100644
+> --- a/xen/arch/x86/mm.c
+> +++ b/xen/arch/x86/mm.c
+> @@ -505,6 +505,13 @@ void share_xen_page_with_guest(struct page_info *page, struct domain *d,
+>      nrspin_unlock(&d->page_alloc_lock);
+>  }
+>  
+> +#define pv_root_pt_idx(v) \
+> +    ((v)->vcpu_id >> PAGETABLE_ORDER)
+> +
+> +#define pv_root_pt_pte(v) \
+> +    ((v)->domain->arch.pv.root_pt_l1tab[pv_root_pt_idx(v)] + \
+> +     ((v)->vcpu_id & (L1_PAGETABLE_ENTRIES - 1)))
+> +
+>  void make_cr3(struct vcpu *v, mfn_t mfn)
+>  {
+>      struct domain *d = v->domain;
+> @@ -524,6 +531,13 @@ void write_ptbase(struct vcpu *v)
+>  
+>      if ( is_pv_vcpu(v) && v->domain->arch.pv.xpti )
+>      {
+> +        mfn_t guest_root_pt = _mfn(MASK_EXTR(v->arch.cr3, PAGE_MASK));
+> +        l1_pgentry_t *pte = pv_root_pt_pte(v);
+> +
+> +        ASSERT(v == current);
+> +
+> +        l1e_write(pte, l1e_from_mfn(guest_root_pt, __PAGE_HYPERVISOR_RO));
+> +
+>          cpu_info->root_pgt_changed = true;
+>          cpu_info->pv_cr3 = __pa(this_cpu(root_pgt));
+>          if ( new_cr4 & X86_CR4_PCIDE )
+> diff --git a/xen/arch/x86/pv/domain.c b/xen/arch/x86/pv/domain.c
+> index 2a445bb17b..1b025986f7 100644
+> --- a/xen/arch/x86/pv/domain.c
+> +++ b/xen/arch/x86/pv/domain.c
+> @@ -288,6 +288,21 @@ static void pv_destroy_gdt_ldt_l1tab(struct vcpu *v)
+>                                1U << GDT_LDT_VCPU_SHIFT);
+>  }
+>  
+> +static int pv_create_root_pt_l1tab(struct vcpu *v)
+> +{
+> +    return create_perdomain_mapping(v->domain,
+> +                                    PV_ROOT_PT_MAPPING_VCPU_VIRT_START(v),
+> +                                    1, v->domain->arch.pv.root_pt_l1tab,
+> +                                    NULL);
+> +}
+> +
+> +static void pv_destroy_root_pt_l1tab(struct vcpu *v)
 
-Take the opportunity to fix a typo in a comment that is modified.
+The two 'v' parameters could be const here.
 
-Signed-off-by: Julien Grall <jgrall@amazon.com>
-Signed-off-by: Elias El Yandouzi <eliasely@amazon.com>
+> +
+> +{
+> +    destroy_perdomain_mapping(v->domain,
+> +                              PV_ROOT_PT_MAPPING_VCPU_VIRT_START(v), 1);
+> +}
+> +
+>  void pv_vcpu_destroy(struct vcpu *v)
+>  {
+>      if ( is_pv_32bit_vcpu(v) )
+> @@ -297,6 +312,7 @@ void pv_vcpu_destroy(struct vcpu *v)
+>      }
+>  
+>      pv_destroy_gdt_ldt_l1tab(v);
+> +    pv_destroy_root_pt_l1tab(v);
+>      XFREE(v->arch.pv.trap_ctxt);
+>  }
+>  
+> @@ -311,6 +327,13 @@ int pv_vcpu_initialise(struct vcpu *v)
+>      if ( rc )
+>          return rc;
+>  
+> +    if ( v->domain->arch.pv.xpti )
+> +    {
+> +        rc = pv_create_root_pt_l1tab(v);
+> +        if ( rc )
+> +            goto done;
+> +    }
+> +
+>      BUILD_BUG_ON(X86_NR_VECTORS * sizeof(*v->arch.pv.trap_ctxt) >
+>                   PAGE_SIZE);
+>      v->arch.pv.trap_ctxt = xzalloc_array(struct trap_info, X86_NR_VECTORS);
+> @@ -346,10 +369,12 @@ void pv_domain_destroy(struct domain *d)
+>  
+>      destroy_perdomain_mapping(d, GDT_LDT_VIRT_START,
+>                                GDT_LDT_MBYTES << (20 - PAGE_SHIFT));
+> +    destroy_perdomain_mapping(d, PV_ROOT_PT_MAPPING_VIRT_START, PV_ROOT_PT_MAPPING_ENTRIES);
 
-----
+Line too long.  Also see comment below about using d->max_vcpus
+instead of MAX_VIRT_CPUS.
 
-    Changelog since v1:
-        * Rebase
-        * Fix typoes
+>  
+>      XFREE(d->arch.pv.cpuidmasks);
+>  
+>      FREE_XENHEAP_PAGE(d->arch.pv.gdt_ldt_l1tab);
+> +    FREE_XENHEAP_PAGE(d->arch.pv.root_pt_l1tab);
+>  }
+>  
+>  void noreturn cf_check continue_pv_domain(void);
+> @@ -371,6 +396,12 @@ int pv_domain_initialise(struct domain *d)
+>          goto fail;
+>      clear_page(d->arch.pv.gdt_ldt_l1tab);
+>  
+> +    d->arch.pv.root_pt_l1tab =
+> +        alloc_xenheap_pages(0, MEMF_node(domain_to_node(d)));
+> +    if ( !d->arch.pv.root_pt_l1tab )
+> +        goto fail;
+> +    clear_page(d->arch.pv.root_pt_l1tab);
+> +
+>      if ( levelling_caps & ~LCAP_faulting &&
+>           (d->arch.pv.cpuidmasks = xmemdup(&cpuidmask_defaults)) == NULL )
+>          goto fail;
+> @@ -381,6 +412,11 @@ int pv_domain_initialise(struct domain *d)
+>      if ( rc )
+>          goto fail;
+>  
+> +    rc = create_perdomain_mapping(d, PV_ROOT_PT_MAPPING_VIRT_START,
+> +                                  PV_ROOT_PT_MAPPING_ENTRIES, NULL, NULL);
 
-diff --git a/xen/arch/arm/arm64/mmu/mm.c b/xen/arch/arm/arm64/mmu/mm.c
-index 293acb67e0..2ec1ffe1dc 100644
---- a/xen/arch/arm/arm64/mmu/mm.c
-+++ b/xen/arch/arm/arm64/mmu/mm.c
-@@ -76,6 +76,7 @@ static void __init prepare_runtime_identity_mapping(void)
-     paddr_t id_addr = virt_to_maddr(_start);
-     lpae_t pte;
-     DECLARE_OFFSETS(id_offsets, id_addr);
-+    lpae_t *root = this_cpu(xen_pgtable);
- 
-     if ( id_offsets[0] >= IDENTITY_MAPPING_AREA_NR_L0 )
-         panic("Cannot handle ID mapping above %uTB\n",
-@@ -86,7 +87,7 @@ static void __init prepare_runtime_identity_mapping(void)
-     pte.pt.table = 1;
-     pte.pt.xn = 0;
- 
--    write_pte(&xen_pgtable[id_offsets[0]], pte);
-+    write_pte(&root[id_offsets[0]], pte);
- 
-     /* Link second ID table */
-     pte = pte_of_xenaddr((vaddr_t)xen_second_id);
-diff --git a/xen/arch/arm/domain_page.c b/xen/arch/arm/domain_page.c
-index 3a43601623..ac2a6d0332 100644
---- a/xen/arch/arm/domain_page.c
-+++ b/xen/arch/arm/domain_page.c
-@@ -3,6 +3,8 @@
- #include <xen/pmap.h>
- #include <xen/vmap.h>
- 
-+#include <asm/domain_page.h>
-+
- /* Override macros from asm/page.h to make them work with mfn_t */
- #undef virt_to_mfn
- #define virt_to_mfn(va) _mfn(__virt_to_mfn(va))
-diff --git a/xen/arch/arm/include/asm/arm32/mm.h b/xen/arch/arm/include/asm/arm32/mm.h
-index 856f2dbec4..87a315db01 100644
---- a/xen/arch/arm/include/asm/arm32/mm.h
-+++ b/xen/arch/arm/include/asm/arm32/mm.h
-@@ -1,12 +1,6 @@
- #ifndef __ARM_ARM32_MM_H__
- #define __ARM_ARM32_MM_H__
- 
--#include <xen/percpu.h>
--
--#include <asm/lpae.h>
--
--DECLARE_PER_CPU(lpae_t *, xen_pgtable);
--
- /*
-  * Only a limited amount of RAM, called xenheap, is always mapped on ARM32.
-  * For convenience always return false.
-@@ -16,8 +10,6 @@ static inline bool arch_mfns_in_directmap(unsigned long mfn, unsigned long nr)
-     return false;
- }
- 
--bool init_domheap_mappings(unsigned int cpu);
--
- static inline void arch_setup_page_tables(void)
- {
- }
-diff --git a/xen/arch/arm/include/asm/domain_page.h b/xen/arch/arm/include/asm/domain_page.h
-new file mode 100644
-index 0000000000..e9f52685e2
---- /dev/null
-+++ b/xen/arch/arm/include/asm/domain_page.h
-@@ -0,0 +1,13 @@
-+#ifndef __ASM_ARM_DOMAIN_PAGE_H__
-+#define __ASM_ARM_DOMAIN_PAGE_H__
-+
-+#ifdef CONFIG_ARCH_MAP_DOMAIN_PAGE
-+bool init_domheap_mappings(unsigned int cpu);
-+#else
-+static inline bool init_domheap_mappings(unsigned int cpu)
-+{
-+    return true;
-+}
-+#endif
-+
-+#endif /* __ASM_ARM_DOMAIN_PAGE_H__ */
-diff --git a/xen/arch/arm/include/asm/mm.h b/xen/arch/arm/include/asm/mm.h
-index 2bca3f9e87..60e0122cba 100644
---- a/xen/arch/arm/include/asm/mm.h
-+++ b/xen/arch/arm/include/asm/mm.h
-@@ -2,6 +2,9 @@
- #define __ARCH_ARM_MM__
- 
- #include <xen/kernel.h>
-+#include <xen/percpu.h>
-+
-+#include <asm/lpae.h>
- #include <asm/page.h>
- #include <public/xen.h>
- #include <xen/pdx.h>
-diff --git a/xen/arch/arm/include/asm/mmu/mm.h b/xen/arch/arm/include/asm/mmu/mm.h
-index c5e03a66bf..c03c3a51e4 100644
---- a/xen/arch/arm/include/asm/mmu/mm.h
-+++ b/xen/arch/arm/include/asm/mmu/mm.h
-@@ -2,6 +2,8 @@
- #ifndef __ARM_MMU_MM_H__
- #define __ARM_MMU_MM_H__
- 
-+DECLARE_PER_CPU(lpae_t *, xen_pgtable);
-+
- /* Non-boot CPUs use this to find the correct pagetables. */
- extern uint64_t init_ttbr;
- 
-diff --git a/xen/arch/arm/mmu/pt.c b/xen/arch/arm/mmu/pt.c
-index da28d669e7..1ed1a53ab1 100644
---- a/xen/arch/arm/mmu/pt.c
-+++ b/xen/arch/arm/mmu/pt.c
-@@ -607,9 +607,9 @@ static int xen_pt_update(unsigned long virt,
-     unsigned long left = nr_mfns;
- 
-     /*
--     * For arm32, page-tables are different on each CPUs. Yet, they share
--     * some common mappings. It is assumed that only common mappings
--     * will be modified with this function.
-+     * Page-tables are different on each CPU. Yet, they share some common
-+     * mappings. It is assumed that only common mappings will be modified
-+     * with this function.
-      *
-      * XXX: Add a check.
-      */
-diff --git a/xen/arch/arm/mmu/setup.c b/xen/arch/arm/mmu/setup.c
-index f4bb424c3c..7b981456e6 100644
---- a/xen/arch/arm/mmu/setup.c
-+++ b/xen/arch/arm/mmu/setup.c
-@@ -28,17 +28,15 @@
-  * PCPUs.
-  */
- 
--#ifdef CONFIG_ARM_64
--DEFINE_PAGE_TABLE(xen_pgtable);
--static DEFINE_PAGE_TABLE(xen_first);
--#define THIS_CPU_PGTABLE xen_pgtable
--#else
- /* Per-CPU pagetable pages */
- /* xen_pgtable == root of the trie (zeroeth level on 64-bit, first on 32-bit) */
- DEFINE_PER_CPU(lpae_t *, xen_pgtable);
- #define THIS_CPU_PGTABLE this_cpu(xen_pgtable)
- /* Root of the trie for cpu0, other CPU's PTs are dynamically allocated */
- static DEFINE_PAGE_TABLE(cpu0_pgtable);
-+
-+#ifdef CONFIG_ARM_64
-+static DEFINE_PAGE_TABLE(xen_first);
- #endif
- 
- /* Common pagetable leaves */
-@@ -228,19 +226,22 @@ void __init setup_pagetables(unsigned long boot_phys_offset)
-     lpae_t pte, *p;
-     int i;
- 
-+    p = cpu0_pgtable;
-+
-     phys_offset = boot_phys_offset;
- 
-+    /* arch_setup_page_tables() may need to access the root page-tables. */
-+    per_cpu(xen_pgtable, 0) = cpu0_pgtable;
-+
-     arch_setup_page_tables();
- 
- #ifdef CONFIG_ARM_64
-     pte = pte_of_xenaddr((uintptr_t)xen_first);
-     pte.pt.table = 1;
-     pte.pt.xn = 0;
--    xen_pgtable[zeroeth_table_offset(XEN_VIRT_START)] = pte;
-+    p[zeroeth_table_offset(XEN_VIRT_START)] = pte;
- 
--    p = (void *) xen_first;
--#else
--    p = (void *) cpu0_pgtable;
-+    p = xen_first;
- #endif
- 
-     /* Map xen second level page-table */
-@@ -283,19 +284,11 @@ void __init setup_pagetables(unsigned long boot_phys_offset)
-     pte.pt.table = 1;
-     xen_second[second_table_offset(FIXMAP_ADDR(0))] = pte;
- 
--#ifdef CONFIG_ARM_64
--    ttbr = (uintptr_t) xen_pgtable + phys_offset;
--#else
-     ttbr = (uintptr_t) cpu0_pgtable + phys_offset;
--#endif
- 
-     switch_ttbr(ttbr);
- 
-     xen_pt_enforce_wnx();
--
--#ifdef CONFIG_ARM_32
--    per_cpu(xen_pgtable, 0) = cpu0_pgtable;
--#endif
- }
- 
- void *__init arch_vmap_virt_end(void)
-diff --git a/xen/arch/arm/mmu/smpboot.c b/xen/arch/arm/mmu/smpboot.c
-index e29b6f34f2..eb51d6aae9 100644
---- a/xen/arch/arm/mmu/smpboot.c
-+++ b/xen/arch/arm/mmu/smpboot.c
-@@ -7,6 +7,7 @@
- 
- #include <xen/domain_page.h>
- 
-+#include <asm/domain_page.h>
- #include <asm/setup.h>
- 
- /* Override macros from asm/page.h to make them work with mfn_t */
-@@ -93,20 +94,6 @@ static void set_init_ttbr(lpae_t *root)
-     unmap_domain_page(ptr);
- }
- 
--#ifdef CONFIG_ARM_64
--int prepare_secondary_mm(int cpu)
--{
--    clear_boot_pagetables();
--
--    /*
--     * Set init_ttbr for this CPU coming up. All CPUs share a single setof
--     * pagetables, but rewrite it each time for consistency with 32 bit.
--     */
--    set_init_ttbr(xen_pgtable);
--
--    return 0;
--}
--#else
- int prepare_secondary_mm(int cpu)
- {
-     lpae_t *root = alloc_xenheap_page();
-@@ -138,7 +125,6 @@ int prepare_secondary_mm(int cpu)
- 
-     return 0;
- }
--#endif
- 
- /*
-  * Local variables:
-diff --git a/xen/arch/arm/setup.c b/xen/arch/arm/setup.c
-index d242674381..d15987d6ea 100644
---- a/xen/arch/arm/setup.c
-+++ b/xen/arch/arm/setup.c
-@@ -42,6 +42,7 @@
- #include <asm/gic.h>
- #include <asm/cpuerrata.h>
- #include <asm/cpufeature.h>
-+#include <asm/domain_page.h>
- #include <asm/platform.h>
- #include <asm/procinfo.h>
- #include <asm/setup.h>
--- 
-2.40.1
+Why not use d->max_vcpus here, instead of forcing up to MAX_VIRT_CPUS?
 
+By the time pv_domain_initialise() is called max_vcpus should already
+be initialized.  AFAICT it doesn't make a difference, because for the
+call here only the L3 table is created, as last two parameters are
+NULL, but still is more accurate to use max_vcpus.
+
+> +    if ( rc )
+> +        goto fail;
+> +
+>      d->arch.ctxt_switch = &pv_csw;
+>  
+>      d->arch.pv.xpti = is_hardware_domain(d) ? opt_xpti_hwdom : opt_xpti_domu;
+> diff --git a/xen/arch/x86/x86_64/asm-offsets.c b/xen/arch/x86/x86_64/asm-offsets.c
+> index 630bdc3945..c1ae5013af 100644
+> --- a/xen/arch/x86/x86_64/asm-offsets.c
+> +++ b/xen/arch/x86/x86_64/asm-offsets.c
+> @@ -80,6 +80,7 @@ void __dummy__(void)
+>  
+>  #undef OFFSET_EF
+>  
+> +    OFFSET(VCPU_id, struct vcpu, vcpu_id);
+>      OFFSET(VCPU_processor, struct vcpu, processor);
+>      OFFSET(VCPU_domain, struct vcpu, domain);
+>      OFFSET(VCPU_vcpu_info, struct vcpu, vcpu_info_area.map);
+> diff --git a/xen/arch/x86/x86_64/entry.S b/xen/arch/x86/x86_64/entry.S
+> index df015589ce..c1377da7a5 100644
+> --- a/xen/arch/x86/x86_64/entry.S
+> +++ b/xen/arch/x86/x86_64/entry.S
+> @@ -162,7 +162,15 @@ FUNC_LOCAL(restore_all_guest)
+>          and   %rsi, %rdi
+>          and   %r9, %rsi
+>          add   %rcx, %rdi
+> +
+> +        /*
+> +         * The address in the vCPU cr3 is always mapped in the per-domain
+> +         * pv_root_pt virt area.
+> +         */
+> +        imul  $PAGE_SIZE, VCPU_id(%rbx), %esi
+
+Aren't some of the previous operations against %rsi now useless since
+it gets unconditionally overwritten here?
+
+and   %r9, %rsi
+[...]
+add   %rcx, %rsi
+
+Thanks, Roger.
 
