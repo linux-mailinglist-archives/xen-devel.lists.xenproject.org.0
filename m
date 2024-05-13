@@ -2,37 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 577708C4551
-	for <lists+xen-devel@lfdr.de>; Mon, 13 May 2024 18:50:26 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.721047.1124174 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CBA0D8C45E3
+	for <lists+xen-devel@lfdr.de>; Mon, 13 May 2024 19:20:33 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.721051.1124185 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s6YrV-00048Q-1R; Mon, 13 May 2024 16:49:17 +0000
+	id 1s6ZLJ-00062u-Cw; Mon, 13 May 2024 17:20:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 721047.1124174; Mon, 13 May 2024 16:49:17 +0000
+Received: by outflank-mailman (output) from mailman id 721051.1124185; Mon, 13 May 2024 17:20:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s6YrU-00045w-V3; Mon, 13 May 2024 16:49:16 +0000
-Received: by outflank-mailman (input) for mailman id 721047;
- Mon, 13 May 2024 16:49:15 +0000
+	id 1s6ZLJ-0005x9-98; Mon, 13 May 2024 17:20:05 +0000
+Received: by outflank-mailman (input) for mailman id 721051;
+ Mon, 13 May 2024 17:20:03 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=YK/2=MQ=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1s6YrT-00045q-PN
- for xen-devel@lists.xenproject.org; Mon, 13 May 2024 16:49:15 +0000
-Received: from mail-qk1-x72b.google.com (mail-qk1-x72b.google.com
- [2607:f8b0:4864:20::72b])
+ <SRS0=RTuJ=MQ=cloud.com=alejandro.vallejo@srs-se1.protection.inumbo.net>)
+ id 1s6ZLH-0005cG-LI
+ for xen-devel@lists.xenproject.org; Mon, 13 May 2024 17:20:03 +0000
+Received: from mail-lf1-x129.google.com (mail-lf1-x129.google.com
+ [2a00:1450:4864:20::129])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b9d19e32-1148-11ef-909d-e314d9c70b13;
- Mon, 13 May 2024 18:49:13 +0200 (CEST)
-Received: by mail-qk1-x72b.google.com with SMTP id
- af79cd13be357-792b8efed93so457469685a.3
- for <xen-devel@lists.xenproject.org>; Mon, 13 May 2024 09:49:13 -0700 (PDT)
-Received: from localhost ([213.195.114.223]) by smtp.gmail.com with ESMTPSA id
- 6a1803df08f44-6a15f194c3asm44370126d6.69.2024.05.13.09.49.10
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 13 May 2024 09:49:11 -0700 (PDT)
+ id 0863e290-114d-11ef-909d-e314d9c70b13;
+ Mon, 13 May 2024 19:20:02 +0200 (CEST)
+Received: by mail-lf1-x129.google.com with SMTP id
+ 2adb3069b0e04-51f57713684so5815423e87.1
+ for <xen-devel@lists.xenproject.org>; Mon, 13 May 2024 10:20:02 -0700 (PDT)
+Received: from [10.80.5.21] (default-46-102-197-194.interdsl.co.uk.
+ [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a5a179c7f27sm620457866b.127.2024.05.13.10.20.01
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 13 May 2024 10:20:01 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,117 +45,142 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b9d19e32-1148-11ef-909d-e314d9c70b13
+X-Inumbo-ID: 0863e290-114d-11ef-909d-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1715618952; x=1716223752; darn=lists.xenproject.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=p7hokb4SEQ/ArDzEoy7A4TmgTIwDsfbPYMk1ioH9o8Q=;
-        b=JlTaP7o0HgL6jnNAIZgeXAthJubL2rdh/eYgPoqakfRUkHL7IyGrkhHNkPCtTFNOT7
-         Ir7iB425prpZxyoSPAmYKZiE5fhqwFYPSS2gC8GqRsFhyp2n0HKWuxvzOLLM1NmmZcOT
-         5rV5TKI8hj0m0XCJMAY77vCzlutMURPObCcBQ=
+        d=cloud.com; s=cloud; t=1715620802; x=1716225602; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=KZmfNVMPS0IBwYbYtAS1z3FtJotOQqYjhI7vFe6l/TU=;
+        b=cgx9jmrOXnw/I5uRBrg8wbAfup2WHSHAq/7gBmIrSDBu7dU+rAM8ofLb7rtmk0hODO
+         HUC52SAPwIhr0iRvHTPJnWTQMyDLtiYboXlxcsDODn4DfoaPOK39PhQ7r9eJULxutNwE
+         uQhQw1p75lesRchFAbFVCs4MlKHOXL8fQhVjg=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1715618952; x=1716223752;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=p7hokb4SEQ/ArDzEoy7A4TmgTIwDsfbPYMk1ioH9o8Q=;
-        b=AHEY5xRdWNYi3XUEklm8dIGUAvsNwOTs7Gifi5p5ugtj5u7s5kH3ft5T8ZcswR71xR
-         GH1FZ1KCKl3kV6Kx+L1zZQSglDnPUp087Py4PknMjJ6Ea7ZQX2AhMFuvLkM37Sh90ERC
-         er1Sex1KmECD7SFMjGr7ojDGmmGQd9PZB4drq3oWL1X4ZJnpc51ZZieqA9di2/8PHglE
-         VyaK6ILQN4Jvys+H3qmQdSbgb3EaDnBhnJ4u2nwZTzArmhqBzZ4dkdoh6Ynh2WLUUAkn
-         UqF4kikj2sqUdnyx70YcUIRSX0cI9742+Ole6FhNQBeufFoXfyMBljasqXwkvubejE+k
-         mv3A==
-X-Gm-Message-State: AOJu0YzVIpByRjRdr24ngIM0bd/BhMMdPwNZ4HESpPWOkJzdkg1U8SG3
-	UNlYe7W7/7/5ssR9AnrARt45d14ucIiyF5d/VObgadkqb7SRRGvQz64rk5noZBM=
-X-Google-Smtp-Source: AGHT+IG7EA/L9JDanw6dYkwgUlDsZEk4K4ZNrm1S2vRyJiw8sGWJyCWj928qEaU93W4jhK6NowDFWg==
-X-Received: by 2002:a05:6214:4302:b0:6a0:b3cc:ee06 with SMTP id 6a1803df08f44-6a16821eb2fmr127764936d6.37.1715618951695;
-        Mon, 13 May 2024 09:49:11 -0700 (PDT)
-Date: Mon, 13 May 2024 18:49:09 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Elias El Yandouzi <eliasely@amazon.com>
-Cc: xen-devel@lists.xenproject.org, julien@xen.org, pdurrant@amazon.com,
-	dwmw@amazon.com, Hongyan Xia <hongyxia@amazon.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Julien Grall <jgrall@amazon.com>
-Subject: Re: [PATCH V3 (resend) 03/19] x86/pv: Rewrite how building PV dom0
- handles domheap mappings
-Message-ID: <ZkJEhZCRNnxGb_lc@macbook>
-References: <20240513134046.82605-1-eliasely@amazon.com>
- <20240513134046.82605-4-eliasely@amazon.com>
+        d=1e100.net; s=20230601; t=1715620802; x=1716225602;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=KZmfNVMPS0IBwYbYtAS1z3FtJotOQqYjhI7vFe6l/TU=;
+        b=C2fsXRMblBPHoebumjsvKCjXIr0uANUBihWzs5LSvZ9tn7+tEuEN7H7jbJAzzNqGu5
+         oMXHCo2AsRwfV5IH9cmJtRD0UuEF7uUTwDFNA//zv2EVl8nH1xga5pm+UoMM0oi4Xbrk
+         biKNe94kRFJq14bvZW7Gv01UHrCHxzYEKHiZfLXIzEGCpaXb7a4g70DjBS8rbrCTvy75
+         c9d3vxtGswcn2l3+EzuS/jEwzdxNPx6pM1A9BxT0ZCQgdh64mIs/+83/8k5soqUJfPVh
+         9EfE2Zkg9joICt1NtpmjWL3GMIeB5w20qogLT2dwfVvD7u+nLNG+0ikV+doZaikpwLqi
+         hSjw==
+X-Forwarded-Encrypted: i=1; AJvYcCXFHk5Dt6UZEsjJjwdExMV1656jdQr5tFMQpfhck0PpF9ds6nTBG5kPhhQEx/DSpoXzS19+l0MbgR9FK7FwmHYakaE9FU8D7T8ubj1VQJo=
+X-Gm-Message-State: AOJu0Yyn+bKZE3TIYQhF3Sm1cQKOanLjvk9yLCWChyGsCzFGJJBw7JWc
+	B2AgxwcmdqtDsuHwj/Ue7bo1OuzpeHHDEq4lxYsHYf+ipU0HNzEixo2SYNfcrnk=
+X-Google-Smtp-Source: AGHT+IHJKN0CS2sNekYc0Aw632qYyOpPcehU52iStFXZV8FQtruHfAZ1/Yd1F4qxJ/vdHcWsQQ0XkA==
+X-Received: by 2002:a19:770b:0:b0:51e:f8ae:db35 with SMTP id 2adb3069b0e04-5220fe798b9mr6411995e87.43.1715620801714;
+        Mon, 13 May 2024 10:20:01 -0700 (PDT)
+Message-ID: <0890e0b6-ddd4-4e3a-b100-2bda5e880283@cloud.com>
+Date: Mon, 13 May 2024 18:19:48 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20240513134046.82605-4-eliasely@amazon.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 4.5/8] tools/hvmloader: Further simplify SMP setup
+To: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Jan Beulich <JBeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>
+References: <bd23a05ea25b2f431bb0655ca6402073f9cf49b8.1715102098.git.alejandro.vallejo@cloud.com>
+ <20240509175057.1921538-1-andrew.cooper3@citrix.com>
+Content-Language: en-GB
+From: Alejandro Vallejo <alejandro.vallejo@cloud.com>
+In-Reply-To: <20240509175057.1921538-1-andrew.cooper3@citrix.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Mon, May 13, 2024 at 01:40:30PM +0000, Elias El Yandouzi wrote:
-> From: Hongyan Xia <hongyxia@amazon.com>
+On 09/05/2024 18:50, Andrew Cooper wrote:
+> Now that we're using hypercalls to start APs, we can replace the 'ap_cpuid'
+> global with a regular function parameter.  This requires telling the compiler
+> that we'd like the parameter in a register rather than on the stack.
 > 
-> Building a PV dom0 is allocating from the domheap but uses it like the
-> xenheap. Use the pages as they should be.
+> While adjusting, rename to cpu_setup().  It's always been used on the BSP,
+> making the name ap_start() specifically misleading.
 > 
-> Signed-off-by: Hongyan Xia <hongyxia@amazon.com>
-> Signed-off-by: Julien Grall <jgrall@amazon.com>
-> Signed-off-by: Elias El Yandouzi <eliasely@amazon.com>
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> ---
+> CC: Jan Beulich <JBeulich@suse.com>
+> CC: Roger Pau Monné <roger.pau@citrix.com>
+> CC: Alejandro Vallejo <alejandro.vallejo@cloud.com>
 > 
-> ----
->     Changes in V3:
->         * Fold following patch 'x86/pv: Map L4 page table for shim domain'
+> This is a trick I found for XTF, not that I've completed the SMP support yet.
 > 
->     Changes in V2:
->         * Clarify the commit message
->         * Break the patch in two parts
+> I realise it's cheating slightly WRT 4.19, but it came out of the middle of a
+> series targetted for 4.19.
+> ---
+>  tools/firmware/hvmloader/smp.c | 15 ++++++++-------
+>  1 file changed, 8 insertions(+), 7 deletions(-)
 > 
->     Changes since Hongyan's version:
->         * Rebase
->         * Remove spurious newline
-> 
-> diff --git a/xen/arch/x86/pv/dom0_build.c b/xen/arch/x86/pv/dom0_build.c
-> index 807296c280..ac910b438a 100644
-> --- a/xen/arch/x86/pv/dom0_build.c
-> +++ b/xen/arch/x86/pv/dom0_build.c
-> @@ -382,6 +382,10 @@ int __init dom0_construct_pv(struct domain *d,
->      l3_pgentry_t *l3tab = NULL, *l3start = NULL;
->      l2_pgentry_t *l2tab = NULL, *l2start = NULL;
->      l1_pgentry_t *l1tab = NULL, *l1start = NULL;
-> +    mfn_t l4start_mfn = INVALID_MFN;
-> +    mfn_t l3start_mfn = INVALID_MFN;
-> +    mfn_t l2start_mfn = INVALID_MFN;
-> +    mfn_t l1start_mfn = INVALID_MFN;
+> diff --git a/tools/firmware/hvmloader/smp.c b/tools/firmware/hvmloader/smp.c
+> index 6ebf0b60faab..5d46eee1c5f4 100644
+> --- a/tools/firmware/hvmloader/smp.c
+> +++ b/tools/firmware/hvmloader/smp.c
+> @@ -29,15 +29,15 @@
 >  
->      /*
->       * This fully describes the memory layout of the initial domain. All
-> @@ -710,22 +714,32 @@ int __init dom0_construct_pv(struct domain *d,
->          v->arch.pv.event_callback_cs    = FLAT_COMPAT_KERNEL_CS;
->      }
+>  #include <xen/vcpu.h>
 >  
-> +#define UNMAP_MAP_AND_ADVANCE(mfn_var, virt_var, maddr) \
-> +do {                                                    \
-> +    unmap_domain_page(virt_var);                        \
-> +    mfn_var = maddr_to_mfn(maddr);                      \
-> +    maddr += PAGE_SIZE;                                 \
-> +    virt_var = map_domain_page(mfn_var);                \
+> -static int ap_callin, ap_cpuid;
+> +static int ap_callin;
+>  
+> -static void ap_start(void)
+> +static void __attribute__((regparm(1))) cpu_setup(unsigned int cpu)
 
-FWIW, I would do the advance after the map, so that the order matches
-the name of the function.
+I like it, but I'm not a fan of compiler attributes when there's sane
+alternatives. We could pre-push the argument onto ap_stack to achieve
+the same thing. As in, add a -4 offset to esp, and write "cpu" there.
 
-> +} while ( false )
+  *(uint32_t*)ap.cpu_regs.x86_32.esp) = cpu;
+
+That said, this is a solution as good as any other and it's definitely
+better than a global, so take it or leave it.
+
+With or without the proposed alternative...
+
+Reviewed-by: Alejandro Vallejo <alejandro.vallejo@cloud.com>
+
+>  {
+> -    printf(" - CPU%d ... ", ap_cpuid);
+> +    printf(" - CPU%d ... ", cpu);
+>      cacheattr_init();
+>      printf("done.\n");
+>  
+> -    if ( !ap_cpuid ) /* Used on the BSP too */
+> +    if ( !cpu ) /* Used on the BSP too */
+>          return;
+>  
+>      wmb();
+> @@ -55,7 +55,6 @@ static void boot_cpu(unsigned int cpu)
+>      static struct vcpu_hvm_context ap;
+>  
+>      /* Initialise shared variables. */
+> -    ap_cpuid = cpu;
+>      ap_callin = 0;
+>      wmb();
+>  
+> @@ -63,9 +62,11 @@ static void boot_cpu(unsigned int cpu)
+>      ap = (struct vcpu_hvm_context) {
+>          .mode = VCPU_HVM_MODE_32B,
+>          .cpu_regs.x86_32 = {
+> -            .eip = (unsigned long)ap_start,
+> +            .eip = (unsigned long)cpu_setup,
+>              .esp = (unsigned long)ap_stack + ARRAY_SIZE(ap_stack),
+>  
+> +            .eax = cpu,
 > +
->      if ( !compat )
->      {
->          maddr_to_page(mpt_alloc)->u.inuse.type_info = PGT_l4_page_table;
-> -        l4start = l4tab = __va(mpt_alloc); mpt_alloc += PAGE_SIZE;
-> +        UNMAP_MAP_AND_ADVANCE(l4start_mfn, l4start, mpt_alloc);
-> +        l4tab = l4start;
+>              /* Protected Mode, no paging. */
+>              .cr0 = X86_CR0_PE,
+>  
+> @@ -105,7 +106,7 @@ void smp_initialise(void)
+>      unsigned int i, nr_cpus = hvm_info->nr_vcpus;
+>  
+>      printf("Multiprocessor initialisation:\n");
+> -    ap_start();
+> +    cpu_setup(0);
+>      for ( i = 1; i < nr_cpus; i++ )
+>          boot_cpu(i);
+>  }
+> 
+> base-commit: 53959cb8309919fc2f157a1c99e0af2ce280cb84
 
-You could even make the macro return virt_var, and so use it like:
-
-l4tab = l4start = UNMAP_MAP_AND_ADVANCE(l4start_mfn, mpt_alloc);
-
-?
-
-Anyway, no strong opinion.
-
-Thanks, Roger.
 
