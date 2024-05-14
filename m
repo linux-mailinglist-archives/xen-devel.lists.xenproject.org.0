@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 17FBA8C581D
-	for <lists+xen-devel@lfdr.de>; Tue, 14 May 2024 16:37:51 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.721607.1125174 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3B17E8C5839
+	for <lists+xen-devel@lfdr.de>; Tue, 14 May 2024 16:44:39 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.721614.1125185 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s6tHV-0008VL-Rm; Tue, 14 May 2024 14:37:29 +0000
+	id 1s6tNt-0002wS-Jc; Tue, 14 May 2024 14:44:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 721607.1125174; Tue, 14 May 2024 14:37:29 +0000
+Received: by outflank-mailman (output) from mailman id 721614.1125185; Tue, 14 May 2024 14:44:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s6tHV-0008TY-OX; Tue, 14 May 2024 14:37:29 +0000
-Received: by outflank-mailman (input) for mailman id 721607;
- Tue, 14 May 2024 14:37:28 +0000
+	id 1s6tNt-0002u8-Go; Tue, 14 May 2024 14:44:05 +0000
+Received: by outflank-mailman (input) for mailman id 721614;
+ Tue, 14 May 2024 14:44:04 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=VieR=MR=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1s6tHU-0008TO-Et
- for xen-devel@lists.xenproject.org; Tue, 14 May 2024 14:37:28 +0000
-Received: from mail-lj1-x230.google.com (mail-lj1-x230.google.com
- [2a00:1450:4864:20::230])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=PE3g=MR=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1s6tNs-0002u2-Eh
+ for xen-devel@lists.xenproject.org; Tue, 14 May 2024 14:44:04 +0000
+Received: from mail-qk1-x72c.google.com (mail-qk1-x72c.google.com
+ [2607:f8b0:4864:20::72c])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 7c73acbc-11ff-11ef-909d-e314d9c70b13;
- Tue, 14 May 2024 16:37:27 +0200 (CEST)
-Received: by mail-lj1-x230.google.com with SMTP id
- 38308e7fff4ca-2e6792ea67dso59884421fa.3
- for <xen-devel@lists.xenproject.org>; Tue, 14 May 2024 07:37:27 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a5a17b015f7sm742302166b.146.2024.05.14.07.37.24
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 14 May 2024 07:37:24 -0700 (PDT)
+ id 67a96310-1200-11ef-909d-e314d9c70b13;
+ Tue, 14 May 2024 16:44:03 +0200 (CEST)
+Received: by mail-qk1-x72c.google.com with SMTP id
+ af79cd13be357-792ce7a1fa8so346945485a.1
+ for <xen-devel@lists.xenproject.org>; Tue, 14 May 2024 07:44:03 -0700 (PDT)
+Received: from localhost ([213.195.114.223]) by smtp.gmail.com with ESMTPSA id
+ af79cd13be357-792bf3106c2sm569422385a.106.2024.05.14.07.44.00
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 14 May 2024 07:44:01 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,86 +44,108 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7c73acbc-11ff-11ef-909d-e314d9c70b13
+X-Inumbo-ID: 67a96310-1200-11ef-909d-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1715697447; x=1716302247; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=NvP4yLvMnC1cVmbWzh4ZmXRmEhCmleFWN5rjcW+9gLk=;
-        b=cy6KICB7SOYiTfsVdqYgDDqMCFbdohsH1Eftvw71duBozVZg+mKzpr66l2FO7soMr3
-         tCynWqF2rRPSHsra1wOnPeuY3LpSdZoUNykRRqA0XpHSbM+T2GNq1glVc1wKI5yqmcuI
-         XRb3fqeLZeCLJoVKQY07UU4hYvGKMCMa1Y/N2TUjPHwr+MgOGP2084MWb78oR8GtvmpY
-         csTKOgEAS7A2ZvBsXfiUitZwhi6Vmunqrhk+jCtann2sjqmNk0caw5M8w8eexI3dI9US
-         UYgDcVSZRva0zFw/i54fitzYInNKZlk4SiVhEXnHlMcbsrEY8md1V2p4epM5X9+b0CpV
-         DGEQ==
+        d=citrix.com; s=google; t=1715697841; x=1716302641; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=yU54ZWAH083rLTWsflh2hCSJ7w8yWqPrKomATStyodM=;
+        b=bfQ84rRcnI/7sE8zII/OOWR7e710PDNsqHJ2ZL51wj7Pt6J1yK76eBpFWfrSwf/Gct
+         mJA2M4tcBHYxpdbL8aazrkyjhhWxOs2C8DjYI0KVyebOE5ZPrYpXJM9f3V/ZbhVZ74GS
+         ao8XrLFc1wWJ7LW4yGrxFCgoetsVh6Wl3RPYM=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1715697447; x=1716302247;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
+        d=1e100.net; s=20230601; t=1715697841; x=1716302641;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=NvP4yLvMnC1cVmbWzh4ZmXRmEhCmleFWN5rjcW+9gLk=;
-        b=VBmc0Up6X6/3yjId0q3yYeoBrEqOfMGiL/R01AimLC6BO+Ugwxxph13WHnoxnrGt+1
-         hKhlT8P8xMMR2S8Ty+W0zGn6LFiEikoSgazuCLRcMWBWpnV3Q809NYv99fpOwuTwTX7K
-         PEwo7VEH7jny4dz7kJH1BPqN4EB3v+GFd4MB03w7sjd6EVGyFPpuKcuwu8m3q0wRzQm8
-         r+XzhBITzuLqryJP0lcpnwR3zw7mswiuLwYjFCGy/zLmlGHQdweao1FjZMiNBRmPOs+K
-         pqare7uirsgtcbXzeaj+AVt4huauBjKOkKI8CzFKghTGzLugP68AInQoVX0s+e3jV+y4
-         VdaQ==
-X-Forwarded-Encrypted: i=1; AJvYcCUoOXNXLT/pNe/z1ledbJF24xDkxGfmKkrXE6ktXm+sIt+61sTrwQhQHVQsPsJ3yJFdj+16sl+S4v/7qzQDMT/m/fknFcIfOPYducnc7cc=
-X-Gm-Message-State: AOJu0YzEG2r/xa/3aXChHL/PEavuUsYQQ9BE3aWRfSOqYqV5nZBS513t
-	M/WU6kQCS5w7u1QZTdI+voMfTTFif8iw+SNPHhvzEg7ussXdzuYSNm+7nWuA+w==
-X-Google-Smtp-Source: AGHT+IEpGbgpVtl1MrlgrhkFmH7Ws7TmA7NO09ezKniJIOZaPhS6KFYni+aCG8FO0L3axAHki4m3rw==
-X-Received: by 2002:a05:651c:2114:b0:2e1:cb0f:4e1e with SMTP id 38308e7fff4ca-2e51fc34061mr120325021fa.2.1715697445009;
-        Tue, 14 May 2024 07:37:25 -0700 (PDT)
-Message-ID: <74be423c-1210-452e-9450-f8006282144e@suse.com>
-Date: Tue, 14 May 2024 16:37:32 +0200
+        bh=yU54ZWAH083rLTWsflh2hCSJ7w8yWqPrKomATStyodM=;
+        b=mKTpNFiADsjdDJOHjlLDCp9Tyspd6dYAHWw6HpRgPCO15XXUCfhhWwnAl518SiP0rp
+         5ho51PUIO2r74z3/1WYtl7qhBwfABRieSZtCdVQBeAbUwoCiULw3SqVhbrdJZYw0MpAD
+         hxRaV2zuNV9bEKPjcfO2zW2IPEfGRCq3HbZAg7GMkxR7BW45MwP1XbSmY5kbaRIBTq7E
+         2W89UjHj6T4lKejx8IG80w3wg/TRHFZMrH0sB01jn/9I0DfBvaAbVm4Lh8qXYAnFqzsT
+         T5qh19/hjXOjbY+Tz8VYdP2JorRMm4tYL75/zwilQ7JGKBZQg0ex9TviJC/aJ6WKFzyb
+         VIMA==
+X-Gm-Message-State: AOJu0YwOr+X2jnyYPM7RA8q058Sq9aMs5syPchFZaKGEz/HTzKVa8NQm
+	TL+Ax2ZYMFF0bF5zvbTrG039UjSfSoJfzedj2tr3hXWYvP2LTsbhiu3vILwYbPk=
+X-Google-Smtp-Source: AGHT+IHh99zfJ7zdzINhue8fHdXkNa7E4LKWeQms9Bv2K1OjP4wgYyFQww2wuaEldVKbYYLxWSbR/A==
+X-Received: by 2002:a05:620a:9372:b0:792:e0b5:c029 with SMTP id af79cd13be357-792e0b5cc3bmr549214385a.21.1715697841444;
+        Tue, 14 May 2024 07:44:01 -0700 (PDT)
+Date: Tue, 14 May 2024 16:43:55 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>,
+	Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Subject: Re: [PATCH for-4.19] x86/mtrr: avoid system wide rendezvous when
+ setting AP MTRRs
+Message-ID: <ZkN4q6H591SeT6wH@macbook>
+References: <20240513085925.59324-1-roger.pau@citrix.com>
+ <2d245c04-3bf9-4b9d-ad02-e754dcbefa28@citrix.com>
+ <dd689012-0554-43ae-b22b-035415ce3392@citrix.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH for-4.19 v2 1/3] xen/x86: account number of foreign
- mappings in the p2m
-Content-Language: en-US
-To: Roger Pau Monne <roger.pau@citrix.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
-References: <20240508112323.38946-1-roger.pau@citrix.com>
- <20240508112323.38946-2-roger.pau@citrix.com>
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240508112323.38946-2-roger.pau@citrix.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <dd689012-0554-43ae-b22b-035415ce3392@citrix.com>
 
-On 08.05.2024 13:23, Roger Pau Monne wrote:
-> Such information will be needed in order to remove foreign mappings during
-> teardown for HVM guests.
+On Tue, May 14, 2024 at 02:50:18PM +0100, Andrew Cooper wrote:
+> On 14/05/2024 12:09 pm, Andrew Cooper wrote:
+> > On 13/05/2024 9:59 am, Roger Pau Monne wrote:
+> >> There's no point in forcing a system wide update of the MTRRs on all processors
+> >> when there are no changes to be propagated.  On AP startup it's only the AP
+> >> that needs to write the system wide MTRR values in order to match the rest of
+> >> the already online CPUs.
+> >>
+> >> We have occasionally seen the watchdog trigger during `xen-hptool cpu-online`
+> >> in one Intel Cascade Lake box with 448 CPUs due to the re-setting of the MTRRs
+> >> on all the CPUs in the system.
+> >>
+> >> While there adjust the comment to clarify why the system-wide resetting of the
+> >> MTRR registers is not needed for the purposes of mtrr_ap_init().
+> >>
+> >> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+> >> ---
+> >> For consideration for 4.19: it's a bugfix of a rare instance of the watchdog
+> >> triggering, but it's also a good performance improvement when performing
+> >> cpu-online.
+> >>
+> >> Hopefully runtime changes to MTRR will affect a single MSR at a time, lowering
+> >> the chance of the watchdog triggering due to the system-wide resetting of the
+> >> range.
+> > "Runtime" changes will only be during dom0 boot, if at all, but yes - it
+> > is restricted to a single MTRR at a time.
+> >
+> > It's XENPF_{add,del,read}_memtype, but it's only used by Classic Linux. 
+> > PVOps only issues read_memtype.
+> >
+> > Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
 > 
-> Right now the introduced counter is not consumed.
+> Actually no - this isn't safe in all cases.
 > 
-> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+> There are BIOSes which get MTRRs wrong, and with the APs having UC
+> covering a wider region than the BSP.
+> 
+> In this case, creating consistency will alter the MTRRs on all CPUs
+> currently up, and we do need to perform the rendezvous in that case.
 
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
-Yet I think it shouldn't be committed (much) ahead of patch 3.
+I'm confused, the state that gets applied in mtrr_set_all() is not
+modified to match what's in the started AP registers.
 
-Jan
+An AP starting with a different set of MTRR registers than the saved
+state will result in the MTRR state on the AP being changed, but not
+the Xen state stored in mtrr_state, and hence there will be no changes
+to synchronize.
+
+> There are 3 cases:
+> 
+> 1) Nothing to do.  This is the overwhemlingly common case.
+> 2) Local changes only.  No broadcast, but we do need to enter CD mode.
+> 3) Remote changes needed.  Needs full broadcast.
+
+Please bear with me, but I don't think 3) is possible during AP
+bringup.  It's possible I'm missing a path where the differences in
+the started AP MTRR state are somehow reconciled with the cached MTRR
+state?
+
+Thanks, Roger.
 
