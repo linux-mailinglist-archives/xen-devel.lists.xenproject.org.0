@@ -2,34 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7B4618C4D8D
-	for <lists+xen-devel@lfdr.de>; Tue, 14 May 2024 10:14:44 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.721209.1124425 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BFD898C4D94
+	for <lists+xen-devel@lfdr.de>; Tue, 14 May 2024 10:16:46 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.721213.1124434 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s6nIh-000346-Jb; Tue, 14 May 2024 08:14:19 +0000
+	id 1s6nKo-0003aq-UV; Tue, 14 May 2024 08:16:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 721209.1124425; Tue, 14 May 2024 08:14:19 +0000
+Received: by outflank-mailman (output) from mailman id 721213.1124434; Tue, 14 May 2024 08:16:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s6nIh-00031r-GR; Tue, 14 May 2024 08:14:19 +0000
-Received: by outflank-mailman (input) for mailman id 721209;
- Tue, 14 May 2024 08:14:18 +0000
+	id 1s6nKo-0003ZN-Rg; Tue, 14 May 2024 08:16:30 +0000
+Received: by outflank-mailman (input) for mailman id 721213;
+ Tue, 14 May 2024 08:16:29 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=p490=MR=solinno.co.uk=leigh@srs-se1.protection.inumbo.net>)
- id 1s6nIf-00031l-Kz
- for xen-devel@lists.xenproject.org; Tue, 14 May 2024 08:14:18 +0000
-Received: from doppler.solinno.uk (doppler.solinno.uk [81.2.106.178])
+ <SRS0=XrDB=MR=darkstar.site=sakib@srs-se1.protection.inumbo.net>)
+ id 1s6nKn-0003Z8-G8
+ for xen-devel@lists.xenproject.org; Tue, 14 May 2024 08:16:29 +0000
+Received: from pb-smtp1.pobox.com (pb-smtp1.pobox.com [64.147.108.70])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f4826853-11c9-11ef-909d-e314d9c70b13;
- Tue, 14 May 2024 10:14:16 +0200 (CEST)
-Received: from folly.solinno.co.uk (folly.vpn.solinno.co.uk [172.19.84.10])
- by doppler.solinno.uk (Postfix) with ESMTPSA id 9BE738006E;
- Tue, 14 May 2024 09:14:15 +0100 (BST)
-Received: by folly.solinno.co.uk (Postfix, from userid 1000)
- id A839A20189; Tue, 14 May 2024 09:14:14 +0100 (BST)
+ id 41cb8f15-11ca-11ef-909d-e314d9c70b13;
+ Tue, 14 May 2024 10:16:27 +0200 (CEST)
+Received: from pb-smtp1.pobox.com (unknown [127.0.0.1])
+ by pb-smtp1.pobox.com (Postfix) with ESMTP id 1FB383A4C0;
+ Tue, 14 May 2024 04:16:25 -0400 (EDT)
+ (envelope-from sakib@darkstar.site)
+Received: from pb-smtp1.nyi.icgroup.com (unknown [127.0.0.1])
+ by pb-smtp1.pobox.com (Postfix) with ESMTP id 181113A4BF;
+ Tue, 14 May 2024 04:16:25 -0400 (EDT)
+ (envelope-from sakib@darkstar.site)
+Received: from localhost (unknown [185.130.54.126])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by pb-smtp1.pobox.com (Postfix) with ESMTPSA id 127BC3A4BE;
+ Tue, 14 May 2024 04:16:24 -0400 (EDT)
+ (envelope-from sakib@darkstar.site)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,76 +50,74 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f4826853-11c9-11ef-909d-e314d9c70b13
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=solinno.co.uk;
-	s=mail; t=1715674455;
-	bh=w1u90DsNaHSjyLaNrDcHOwtXTjvNeyUuUYKrG7Ev38M=;
-	h=From:To:Cc:Subject:Date:From;
-	b=BMkDFvsMH4xBk09gyB7SCtCwXsJ7ONM3Rn3sFhQ3Yak9AkHN6/+yR17Tt6zKaVD/A
-	 /kBOj/KuGJ6HHA+62y1H/pRoVO4/12QZ5Pk7RSrUx0JgNLYXEz6PTxTNWeiXzz9u9l
-	 n16u/APhAEFAauZvhbZv6+ghdSqWIqhdxljhA7sI=
-From: Leigh Brown <leigh@solinno.co.uk>
+X-Inumbo-ID: 41cb8f15-11ca-11ef-909d-e314d9c70b13
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed; d=pobox.com; h=from:to:cc
+	:subject:date:message-id:mime-version:content-transfer-encoding;
+	 s=sasl; bh=5h1V3cl8XHOKSgcuBJuKqihrCoEZnPy9xnGmQ9Ui9F8=; b=UGSz
+	D04qMWlIn9AqJv2/CHP9Xf/mjskq5BtxDULt9CzLDowapaeQdWk14iqkOveFVbPO
+	HmyCVku6FzYYBki/XNiVsRtBQdCAmN/6/VRiTZJcOXUtluogcdG8xIelusto2T+a
+	TYP0Dij4GhWPbniudksGcfBwTCZ7fthYECeXYa8=
+From: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
 To: xen-devel@lists.xenproject.org
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	Leigh Brown <leigh@solinno.co.uk>
-Subject: [PATCH] tools/xentop: fix cpu% sort order
-Date: Tue, 14 May 2024 09:13:44 +0100
-Message-Id: <20240514081344.4499-1-leigh@solinno.co.uk>
-X-Mailer: git-send-email 2.39.2
+Cc: Sergiy Kibrik <Sergiy_Kibrik@epam.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Stefano Stabellini <sstabellini@kernel.org>
+Subject: [XEN PATCH v3 0/6] x86: make Intel/AMD vPMU & MCE support configurable
+Date: Tue, 14 May 2024 11:16:21 +0300
+Message-Id: <cover.1715673586.git.Sergiy_Kibrik@epam.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-Pobox-Relay-ID:
+ 40DAC67E-11CA-11EF-9C88-78DCEB2EC81B-90055647!pb-smtp1.pobox.com
+Content-Transfer-Encoding: quoted-printable
 
-Although using integer comparison to compare doubles kind of
-works, it's annoying to see domains slightly out of order when
-sorting by cpu%.
+This series aims to separate support of Intel & AMD CPUs in Xen build.
+The code to drive both platforms used to be built unconditionally, until =
+recent
+introduction of CONFIG_{AMD,INTEL} Kconfig options.
 
-Add a compare_dbl() function and update compare_cpu_pct() to
-call it.
+This series extends coverage of these options on vpmu and mcheck subsyste=
+ms,
+which allows not to build Intel or AMD vpmu/mcheck support if CPU vendor'=
+s support
+was explicitly disabled.
 
-Signed-off-by: Leigh Brown <leigh@solinno.co.uk>
----
- tools/xentop/xentop.c | 13 ++++++++++++-
- 1 file changed, 12 insertions(+), 1 deletion(-)
+Since v2 series one patch had been split into two patches for more clarit=
+y,
+hence series became one piece longer, and last patch changed significantl=
+y.
+Other changes are mostly cosmetic and tags addition.
+Specific changes since v2 are provided per-patch.
 
-diff --git a/tools/xentop/xentop.c b/tools/xentop/xentop.c
-index 545bd5e96d..99199caec9 100644
---- a/tools/xentop/xentop.c
-+++ b/tools/xentop/xentop.c
-@@ -85,6 +85,7 @@ static void set_delay(const char *value);
- static void set_prompt(const char *new_prompt, void (*func)(const char *));
- static int handle_key(int);
- static int compare(unsigned long long, unsigned long long);
-+static int compare_dbl(double, double);
- static int compare_domains(xenstat_domain **, xenstat_domain **);
- static unsigned long long tot_net_bytes( xenstat_domain *, int);
- static bool tot_vbd_reqs(xenstat_domain *, int, unsigned long long *);
-@@ -422,6 +423,16 @@ static int compare(unsigned long long i1, unsigned long long i2)
- 	return 0;
- }
- 
-+/* Compares two double precision numbers, returning -1,0,1 for <,=,> */
-+static int compare_dbl(double d1, double d2)
-+{
-+	if(d1 < d2)
-+		return -1;
-+	if(d1 > d2)
-+		return 1;
-+	return 0;
-+}
-+
- /* Comparison function for use with qsort.  Compares two domains using the
-  * current sort field. */
- static int compare_domains(xenstat_domain **domain1, xenstat_domain **domain2)
-@@ -523,7 +534,7 @@ static double get_cpu_pct(xenstat_domain *domain)
- 
- static int compare_cpu_pct(xenstat_domain *domain1, xenstat_domain *domain2)
- {
--	return -compare(get_cpu_pct(domain1), get_cpu_pct(domain2));
-+	return -compare_dbl(get_cpu_pct(domain1), get_cpu_pct(domain2));
- }
- 
- /* Prints cpu percentage statistic */
--- 
-2.39.2
+v2 series here:
+https://lore.kernel.org/xen-devel/cover.1714640459.git.Sergiy_Kibrik@epam=
+.com/
+
+  -Sergiy
+
+Sergiy Kibrik (6):
+  x86/vpmu: separate amd/intel vPMU code
+  x86/intel: move vmce_has_lmce() routine to header
+  x86/MCE: guard access to Intel/AMD-specific MCA MSRs
+  x86/MCE: guard {intel/amd}_mcheck_init() calls
+  x86/MCE: add default switch case in init_nonfatal_mce_checker()
+  x86/MCE: optional build of AMD/Intel MCE code
+
+ xen/arch/x86/cpu/Makefile           |  4 +++-
+ xen/arch/x86/cpu/mcheck/Makefile    |  8 ++++----
+ xen/arch/x86/cpu/mcheck/mce.c       |  8 ++++++++
+ xen/arch/x86/cpu/mcheck/mce.h       |  5 +++++
+ xen/arch/x86/cpu/mcheck/mce_intel.c |  8 --------
+ xen/arch/x86/cpu/mcheck/non-fatal.c |  8 ++++++++
+ xen/arch/x86/cpu/mcheck/vmce.c      | 13 ++++++++++---
+ xen/arch/x86/cpu/vpmu.c             |  4 ++++
+ xen/arch/x86/include/asm/mce.h      |  1 -
+ xen/arch/x86/msr.c                  |  2 ++
+ 10 files changed, 44 insertions(+), 17 deletions(-)
+
+--=20
+2.25.1
 
 
