@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 82DB08C576F
-	for <lists+xen-devel@lfdr.de>; Tue, 14 May 2024 15:54:51 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.721545.1125035 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 239398C57BD
+	for <lists+xen-devel@lfdr.de>; Tue, 14 May 2024 16:11:54 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.721554.1125045 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s6sc2-0002CT-9y; Tue, 14 May 2024 13:54:38 +0000
+	id 1s6ss7-0005uR-Lg; Tue, 14 May 2024 14:11:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 721545.1125035; Tue, 14 May 2024 13:54:38 +0000
+Received: by outflank-mailman (output) from mailman id 721554.1125045; Tue, 14 May 2024 14:11:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s6sc2-0002AB-7K; Tue, 14 May 2024 13:54:38 +0000
-Received: by outflank-mailman (input) for mailman id 721545;
- Tue, 14 May 2024 13:54:37 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=VieR=MR=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1s6sc1-0002A3-B3
- for xen-devel@lists.xenproject.org; Tue, 14 May 2024 13:54:37 +0000
-Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
- [2a00:1450:4864:20::632])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 7fe7adea-11f9-11ef-909d-e314d9c70b13;
- Tue, 14 May 2024 15:54:36 +0200 (CEST)
-Received: by mail-ej1-x632.google.com with SMTP id
- a640c23a62f3a-a59ad344f7dso13772866b.0
- for <xen-devel@lists.xenproject.org>; Tue, 14 May 2024 06:54:36 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a5a8b634cdcsm37029066b.93.2024.05.14.06.54.35
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 14 May 2024 06:54:35 -0700 (PDT)
+	id 1s6ss7-0005rz-Ht; Tue, 14 May 2024 14:11:15 +0000
+Received: by outflank-mailman (input) for mailman id 721554;
+ Tue, 14 May 2024 14:11:14 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=PE3g=MR=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1s6ss6-0005qF-K5
+ for xen-devel@lists.xenproject.org; Tue, 14 May 2024 14:11:14 +0000
+Received: from mail-oo1-xc35.google.com (mail-oo1-xc35.google.com
+ [2607:f8b0:4864:20::c35])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id d0e4ff07-11fb-11ef-b4bb-af5377834399;
+ Tue, 14 May 2024 16:11:12 +0200 (CEST)
+Received: by mail-oo1-xc35.google.com with SMTP id
+ 006d021491bc7-5b27c5603ddso2647521eaf.1
+ for <xen-devel@lists.xenproject.org>; Tue, 14 May 2024 07:11:11 -0700 (PDT)
+Received: from localhost ([213.195.114.223]) by smtp.gmail.com with ESMTPSA id
+ 6a1803df08f44-6a15f185520sm53864086d6.37.2024.05.14.07.11.09
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 14 May 2024 07:11:09 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,105 +44,98 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7fe7adea-11f9-11ef-909d-e314d9c70b13
+X-Inumbo-ID: d0e4ff07-11fb-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1715694876; x=1716299676; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
-         :from:content-language:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=IEl4cS4JlSGyp+2J/90G08D4D8e8CcqOq2eZS6Go0QA=;
-        b=KVWfXvmk1CpKEDgbDmMOgtgIpFpqg15TPHyliG07iXVT3iVKXXuzBasrNcfnPAMNUt
-         thS4h8KtMbxPfTXedNi57913qx/MH2XZTbIdhdP+mU3ismNKV8c75AfBF8DXnGQqOufv
-         DgDbazCwvo2SEOISaXKNwBOiBbEDWiJG6Gy6XpAapZoSkRJzLLQmDr51JZtEVDbHD4Vv
-         kRNycGRVuFsZA4qU5ZI05qewG+CYU3k4FyoD2nNwN/gDt2JfRXZtQQZx2bPpscXFH5AJ
-         uDC1kW95ry6u+GYYAmkGSEw9TsQLIcuuLTMgs2vpFN0Nn5ouyW3edMbyHbB5upwKzCDc
-         QwMg==
+        d=citrix.com; s=google; t=1715695870; x=1716300670; darn=lists.xenproject.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=kTbCmzldkSuVzK/l9M/kWx9NnmGiRIbnkodtilfb1LE=;
+        b=ipLdMt5Y2OGYwCnbaQvzAkKOKv6IO6zyh3fiKPTymDlxrVr+5VK//vLES+VPthjwYz
+         3GCNCyAwLYRUVUVF/t1TRtl2C0nUmECfRez0T4Nf23POpMb9U5k77HDmi+Cw448uJ3+y
+         kON1/Odf6jtPb/yYvyn3wAUkiWHcQE1rBgyEo=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1715694876; x=1716299676;
-        h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
-         :from:content-language:subject:user-agent:mime-version:date
-         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=IEl4cS4JlSGyp+2J/90G08D4D8e8CcqOq2eZS6Go0QA=;
-        b=lxqtPkxzkb61lI+BhKdDf6zxyDhxCoddch6fSlcFg4hbYIe1HpuR1Ax+Abh9eMXAev
-         ifkCBjDRrzIL+cYqMuVJvaabUdZipz+JjnUhUGGS3WvJJuj9LYRLIJr9h9XI1+8MfbG1
-         S5Q0Bi2/R0E24QzgBfoA5CVVcay5ldUez0tpsGbDqmI5JopXoqhPjevP4pdqqDkmC0TB
-         u6QsYP4QpOsrE7elgGMqlIfClEV5GfIcqNdL2t8JUgir9yNGt6ea1KgodLW9OFcKMHjF
-         w6BdibA0E3r306UoNnxwlq5twYhg0zy6E8JeDgX59gVWPTHpjnXjNF7ouZQZTDcfl7Aa
-         VzDw==
-X-Forwarded-Encrypted: i=1; AJvYcCVlywG/sEecWQpNkDS81gNCh/vBVG5gK1G2hOM0OpiQRkEJo38TH+WssP7GTTpedBaeSReuCezFJTvHca+Ts4zFnu6oQxVD7ZUUtCG/aiI=
-X-Gm-Message-State: AOJu0YwAJqmHT6gclo5YIiBBscxdrA+Z4tDQka5XPluIz0kDaV/LIihX
-	2XN+wQIhFwKdagzlN6nwylJ+NWCj4nRDsW5/H9Xba0x7S7PhZ+86qMHFrghLrQ==
-X-Google-Smtp-Source: AGHT+IEZCKfW5rdR+MQ2JYOOxzYmlIXgLz6dbQTdwxTVVu02Aksvov9kxsJKcFv5V0rWCdeiCmq/XQ==
-X-Received: by 2002:a17:906:7f81:b0:a5a:86e8:4218 with SMTP id a640c23a62f3a-a5a86e84346mr94710766b.61.1715694875588;
-        Tue, 14 May 2024 06:54:35 -0700 (PDT)
-Message-ID: <8f183016-4117-45f8-ad75-6fb8363a0b60@suse.com>
-Date: Tue, 14 May 2024 15:54:42 +0200
+        d=1e100.net; s=20230601; t=1715695870; x=1716300670;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=kTbCmzldkSuVzK/l9M/kWx9NnmGiRIbnkodtilfb1LE=;
+        b=OJa42Rdm2t5ubPUQWSeWxCRRnjHi3+fUcMXTp8IGzoJR5fZABRUHfS+knlk4ER5v4I
+         mq06B2r88taVnfJr7hjeduARnJ6gKqUynqvY7BMWEvBL7ohggaCGppDCtiFyb+lrkz+6
+         Y4IcVyNPrRFJr82kYaUPgi/cvWHUQPZj6dfg1dfeQrpzB7o1Z14VtDeTxOUFmPZi4cNw
+         f6rOopTA6ukviB4zCg0J0lDT64oRmlKNbr0jv4X+5kxgTpCBVSah0Jheq17EToDTdgzo
+         FPPPuLODNQMtasvQYeDRTNnsAGkYlBAZxoGp4C46zhWoYZDTTLwvhLdhGuWFJ8aTdTWV
+         Lqow==
+X-Gm-Message-State: AOJu0YwncczUXd+HeJmAiF5KYA0uCh9VwW+nwRSUxLUwdtz97gBsOTUg
+	4z4x4AuEURFgE+EMXUpj6mYC3sPcEHIn13lqMLd6rWEhlTLF+UEoS70cik12dfM=
+X-Google-Smtp-Source: AGHT+IF1Jzn2YwLw4PBVy0Wb4XrnA83eHVGfMyo4h7joC0rfxnmJNbb6HPtEvI9wNw/buSmPOpKHtw==
+X-Received: by 2002:a05:6358:b38c:b0:186:ea4:b1a3 with SMTP id e5c5f4694b2df-193bd00b481mr1187437755d.32.1715695870358;
+        Tue, 14 May 2024 07:11:10 -0700 (PDT)
+Date: Tue, 14 May 2024 16:11:07 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Elias El Yandouzi <eliasely@amazon.com>
+Cc: xen-devel@lists.xenproject.org, julien@xen.org, pdurrant@amazon.com,
+	dwmw@amazon.com, Hongyan Xia <hongyxia@amazon.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Julien Grall <jgrall@amazon.com>
+Subject: Re: [PATCH V3 (resend) 11/19] x86/setup: Leave early boot slightly
+ earlier
+Message-ID: <ZkNw--0ilcMh5YeB@macbook>
+References: <20240513134046.82605-1-eliasely@amazon.com>
+ <20240513134046.82605-12-eliasely@amazon.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] docs/misra: replace R13.1 with R13.2
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: andrew.cooper3@citrix.com, george.dunlap@citrix.com, julien@xen.org,
- michal.orzel@amd.com, bertrand.marquis@arm.com, roger.pau@citrix.com,
- xen-devel@lists.xenproject.org
-References: <alpine.DEB.2.22.394.2405101625470.2544314@ubuntu-linux-20-04-desktop>
- <369a3c75-2e71-4fb8-8373-aae737099e3b@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <369a3c75-2e71-4fb8-8373-aae737099e3b@suse.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20240513134046.82605-12-eliasely@amazon.com>
 
-On 14.05.2024 15:47, Jan Beulich wrote:
-> On 11.05.2024 01:32, Stefano Stabellini wrote:
->> After looking closely at the R13.1 violations and potential fixes or
->> deviations, upon further reflection and discussions, we realized that it
->> is R13.2, limited to initializers list, that we want to comply with.
->>
->> Link: https://marc.info/?l=xen-devel&m=170751643325805
+On Mon, May 13, 2024 at 01:40:38PM +0000, Elias El Yandouzi wrote:
+> From: Hongyan Xia <hongyxia@amazon.com>
 > 
-> The mail you point at is a reply to one where I raised an aspect that was
-> never really addressed: 'I'm afraid I don't understand the "eventually
-> limiting" part.' Therefore I also don't follow why we'd want to limit
-> applicability of this rule to just initializer lists. I'm pretty sure we
-> do not want expressions the result of which or any side effects of which
-> are unpredictable, no matter where such an expression is used.
+> When we do not have a direct map, memory for metadata of heap nodes in
+> init_node_heap() is allocated from xenheap, which needs to be mapped and
+> unmapped on demand. However, we cannot just take memory from the boot
+> allocator to create the PTEs while we are passing memory to the heap
+> allocator.
+> 
+> To solve this race, we leave early boot slightly sooner so that Xen PTE
+> pages are allocated from the heap instead of the boot allocator. We can
+> do this because the metadata for the 1st node is statically allocated,
+> and by the time we need memory to create mappings for the 2nd node, we
+> already have enough memory in the heap allocator in the 1st node.
+> 
+> Signed-off-by: Hongyan Xia <hongyxia@amazon.com>
+> Signed-off-by: Julien Grall <jgrall@amazon.com>
+> Signed-off-by: Elias El Yandouzi <eliasely@amazon.com>
+> 
+> diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
+> index bd6b1184f5..f26c9799e4 100644
+> --- a/xen/arch/x86/setup.c
+> +++ b/xen/arch/x86/setup.c
+> @@ -1751,6 +1751,22 @@ void asmlinkage __init noreturn __start_xen(unsigned long mbi_p)
+>  
+>      numa_initmem_init(0, raw_max_page);
+>  
+> +    /*
+> +     * When we do not have a direct map, memory for metadata of heap nodes in
+> +     * init_node_heap() is allocated from xenheap, which needs to be mapped and
+> +     * unmapped on demand.
 
-Oh, and a formal aspect: I don't think an initializer list counts as
-expression. Instead it's a construct involving multiple expressions,
-evaluation order of which is unspecified. Specifically
+Hm, maybe I'm confused, but isn't xenheap memory supposed to be always
+mapped when in use?  In one of the previous patches xenheap memory is
+unconditionally mapped in alloc_xenheap_pages().
 
-unsigned arr[2] = { i++, i++ };
+IMO, this would better be worded as:  "... is allocated from xenheap,
+which needs to be mapped at allocation and unmapped when freed."
 
-would violate 13.1 but satisfy 13.2, because 13.2 is concerned of
-only each individual expression (and this isn't a comma expression
-but a list, somewhat similar to argument lists in function calls).
+>                             However, we cannot just take memory from the boot
+> +     * allocator to create the PTEs while we are passing memory to the heap
+> +     * allocator during end_boot_allocator().
 
-Surely the compiler would already choke on this, but I wanted to use
-a simple example.
+Could you elaborate here, I don't obviously see why we can't consume
+memory from the boot allocator.  Is it because under certain
+conditions we might try to allocate memory from the boot allocator in
+order to fulfill a call to map_pages_to_xen() and find the boot
+allocator empty?
 
-Jan
+Thanks, Roger.
 
