@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A54058C4E71
-	for <lists+xen-devel@lfdr.de>; Tue, 14 May 2024 11:12:11 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.721288.1124595 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9C6808C4E83
+	for <lists+xen-devel@lfdr.de>; Tue, 14 May 2024 11:14:47 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.721290.1124604 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s6oCJ-0008Td-DO; Tue, 14 May 2024 09:11:47 +0000
+	id 1s6oEm-0000m9-PS; Tue, 14 May 2024 09:14:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 721288.1124595; Tue, 14 May 2024 09:11:47 +0000
+Received: by outflank-mailman (output) from mailman id 721290.1124604; Tue, 14 May 2024 09:14:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s6oCJ-0008Qn-AU; Tue, 14 May 2024 09:11:47 +0000
-Received: by outflank-mailman (input) for mailman id 721288;
- Tue, 14 May 2024 09:11:45 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=VieR=MR=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1s6oCH-0008Qh-Lg
- for xen-devel@lists.xenproject.org; Tue, 14 May 2024 09:11:45 +0000
-Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com
- [2a00:1450:4864:20::636])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id fb377b21-11d1-11ef-b4bb-af5377834399;
- Tue, 14 May 2024 11:11:43 +0200 (CEST)
-Received: by mail-ej1-x636.google.com with SMTP id
- a640c23a62f3a-a5a88339780so80252666b.0
- for <xen-devel@lists.xenproject.org>; Tue, 14 May 2024 02:11:43 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a5a3c65d06fsm533626966b.52.2024.05.14.02.11.41
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 14 May 2024 02:11:42 -0700 (PDT)
+	id 1s6oEm-0000jh-Mv; Tue, 14 May 2024 09:14:20 +0000
+Received: by outflank-mailman (input) for mailman id 721290;
+ Tue, 14 May 2024 09:14:19 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=Y506=MR=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1s6oEl-0000jZ-DB
+ for xen-devel@lists.xenproject.org; Tue, 14 May 2024 09:14:19 +0000
+Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
+ [2a00:1450:4864:20::630])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 57beca1b-11d2-11ef-909d-e314d9c70b13;
+ Tue, 14 May 2024 11:14:18 +0200 (CEST)
+Received: by mail-ej1-x630.google.com with SMTP id
+ a640c23a62f3a-a59e4136010so1373134166b.3
+ for <xen-devel@lists.xenproject.org>; Tue, 14 May 2024 02:14:18 -0700 (PDT)
+Received: from [192.168.226.248] ([94.75.70.14])
+ by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-5733bed0a99sm7297420a12.52.2024.05.14.02.14.17
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 14 May 2024 02:14:17 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,99 +45,129 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fb377b21-11d1-11ef-b4bb-af5377834399
+X-Inumbo-ID: 57beca1b-11d2-11ef-909d-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1715677903; x=1716282703; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=r+ElSVHZIfIVtmDPII7svjzGxPG6aSl1kCr1cOt4mfA=;
-        b=Ka8JEI/wJpbxumujOsJEfXOmWbYEFtAqmDGe42gMhYebG74pmlJbR0yL091sRazuPa
-         malXeS4eq/vXUEpvqYaW5m9gXHIggAF8iyIEllDy7FeQVozgTLbvCy0mMMD5dVOvyPNZ
-         8KECm49DsgH40B+U2fIeFVpR2gcWMQS75QoFXXOA4eMlaVlRukNZGyhGmp/Hn9/oTcxq
-         pro9Oee9Ry5cxWVk9IzX0zLqkUHzq6u9ozO2d49rChurrLDCESdjjhD+llthyeVIGzbb
-         fZycaSXnjlE3aoIBWkYECKMW8MOg1YPQJjRVCRCQMIpiTV6gq0pjx0IVeYMnQSTa8+Q4
-         3d/A==
+        d=gmail.com; s=20230601; t=1715678058; x=1716282858; darn=lists.xenproject.org;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=jCq1jEEBXsJms2qDxK6Vlb8MjfuVjmFZ2iS1y6IJjSo=;
+        b=SoetO/Vwiv/8BAy0U0KdbkrOBT5VHxGx4xsYUUmlwEiUWiia8Pa6Nq8ZisOem8KN/Y
+         bSR/e+VjDyMtkkCfYKvRGJj1Zgvl4oSPEffx66VMUSgjUy+t/hB0lOBAd1D96/HFHfkY
+         d7AxJTQBSvvNWvlo47f9vxcIdKFEmPThkzPBDY86PGpn7S//KdanQ1zVE1jV0CW6qqn3
+         ajTqCCm2Fspd6urgXAW0UUI2uz9SagMyttHQfNHsCdbE6DrpMZSexjuP0sRx+BjKk3+Q
+         pRnK8/DGqF0lzdn4Zvd4r3k+cfDy7f2EkxehL6D7HFP5sdgTGI5zLGwEki0zBqiwKuve
+         NTEw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1715677903; x=1716282703;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=r+ElSVHZIfIVtmDPII7svjzGxPG6aSl1kCr1cOt4mfA=;
-        b=i5j9xl2frAyqZIjM82lqxsKoiXm6veAPN65GfFitfIlM13WLZdddwAEtpT0TkpADBf
-         CAWMx7fi0gJc0/k1W7PFdW2lOpJ3m0Z2ij4y1n9SWoOI01vnhY5GZYlcqldcCbRS/1HT
-         K3M8S68OgmdAOKfX/LdeQuWC6xohfhWVKQhmyJquRbm9heZbD/xKJ5C3crNvwkU8yshf
-         6MIx4g26hBKoCibojXBTb+C8/ujaUPSI73KSkhjrOzBTySx5Xfx4mMv3CYSmVjrWYmZo
-         R4j3zvZy0RxnsyU7PxsXnMybRr/koOMQadmE0Xwwa7RxVQiRHo6fK3lIf+NbdBmCtmhA
-         mt4Q==
-X-Forwarded-Encrypted: i=1; AJvYcCX35ov3kYSaiAbluEMENdJdPpQiv7Xz4+FKNlq7lxxZdmcmbNONR3TBEAhfXWcZ5C41LW0KC+cel5Y2uP1VlmK31cH5rCfxOQTA+HFtMR8=
-X-Gm-Message-State: AOJu0YyTVwy45N5TLgBG8xeh7QrATAKyVIVqn13DcMErWwf3tZl/kuFt
-	SlRVIyUOr+U9erHA1OFPmdqa0BCt0b1EnoG7X4knX3vaP79eYUheJlrejvk74w==
-X-Google-Smtp-Source: AGHT+IG0YZeFYzvWvWTlxsCW4oPs/lXcvs9ze2sLiQDo6e7UyvsEoR2u7Vf942DADP5l2optU5Y/TA==
-X-Received: by 2002:a17:907:9710:b0:a5a:2d30:b8c1 with SMTP id a640c23a62f3a-a5a2d54c038mr1011278266b.14.1715677902809;
-        Tue, 14 May 2024 02:11:42 -0700 (PDT)
-Message-ID: <39badfc4-df85-46d4-8cfa-740592c60174@suse.com>
-Date: Tue, 14 May 2024 11:11:49 +0200
+        d=1e100.net; s=20230601; t=1715678058; x=1716282858;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=jCq1jEEBXsJms2qDxK6Vlb8MjfuVjmFZ2iS1y6IJjSo=;
+        b=mIAfvNNeDo/TyothpXRjv/TCmRWvAxXsZcVzmWgtKPjW3kMGdNp3riqA3nlQek5zyL
+         tmE3+ULM0QhYXnrKLWCFzmxwewZup2T/d6hg1IA3Ctyjjwm/7PA83VKQTLc1MWbWdsBA
+         tDjij0KRBqOpTUd4Tms504XIEP8+NVt1WGgnJBdHOwlPBhkGXFNk2zhVO181ktI1FKMV
+         VAKFEghoHXmKxf3fal68hlhVlNhk4YmlSyhpAwbSfRKJosyrsbROz2iLBAN3Np3bCBFm
+         CcPH0zsDbxNrAPzsVeTq49H5waNlOyjD6DwKsN9LsFlfjw9o+AcjTFgU98D/B3xb4UI7
+         vR/A==
+X-Forwarded-Encrypted: i=1; AJvYcCXQCEcvH093hFWyUldZC7yMnNX3qT6uaagMol7mFnr4BDc0bHYhwUFw+GMUm1vGTggGQr1sz0v2JsUXym/UVZ08zFn5ihaBpbuvkgMinRk=
+X-Gm-Message-State: AOJu0Yw+q28GZIW5johLhe47rCIdwpsvKRrZLITeZYv5uP028troHbko
+	9S1BlBfjM/T6uUevnVMD+jYAAf9AnGmG76n/CNFdo36Ihn9SGOH2/HJSM5JH
+X-Google-Smtp-Source: AGHT+IFAKVkPkjztU1ZccSXidEVHF9vGC/KrT7buxO0OeqNZLP2HHMwjn8vHTnDJjo0xRnVrqMIvQQ==
+X-Received: by 2002:a50:9505:0:b0:572:6846:b899 with SMTP id 4fb4d7f45d1cf-5734d6b407dmr7680089a12.41.1715678057968;
+        Tue, 14 May 2024 02:14:17 -0700 (PDT)
+Message-ID: <7c651429b17c2e65f99d72d0595c07cbb3ef2861.camel@gmail.com>
+Subject: Re: [PATCH for-4.19] x86/mtrr: avoid system wide rendezvous when
+ setting AP MTRRs
+From: "Oleksii K." <oleksii.kurochko@gmail.com>
+To: Roger Pau Monne <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
+Cc: Jan Beulich <jbeulich@suse.com>, Andrew Cooper
+ <andrew.cooper3@citrix.com>
+Date: Tue, 14 May 2024 11:14:17 +0200
+In-Reply-To: <20240513085925.59324-1-roger.pau@citrix.com>
+References: <20240513085925.59324-1-roger.pau@citrix.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.52.1 (3.52.1-1.fc40) 
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH v2 3/3] xen/pci: address violations of MISRA C Rule
- 20.7
-To: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: sstabellini@kernel.org, michal.orzel@amd.com, xenia.ragiadakou@amd.com,
- ayan.kumar.halder@amd.com, consulting@bugseng.com, bertrand.marquis@arm.com,
- julien@xen.org, George Dunlap <george.dunlap@citrix.com>,
- xen-devel@lists.xenproject.org, Nicola Vetrini <nicola.vetrini@bugseng.com>
-References: <cover.1714487169.git.nicola.vetrini@bugseng.com>
- <df48ce446cf6409eda04460109f3082b39c4f618.1714487169.git.nicola.vetrini@bugseng.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <df48ce446cf6409eda04460109f3082b39c4f618.1714487169.git.nicola.vetrini@bugseng.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
-On 30.04.2024 16:28, Nicola Vetrini wrote:
-> MISRA C Rule 20.7 states: "Expressions resulting from the expansion
-> of macro parameters shall be enclosed in parentheses". Therefore, some
-> macro definitions should gain additional parentheses to ensure that all
-> current and future users will be safe with respect to expansions that
-> can possibly alter the semantics of the passed-in macro parameter.
-> 
-> No functional change.
-> 
-> Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
+On Mon, 2024-05-13 at 10:59 +0200, Roger Pau Monne wrote:
+> There's no point in forcing a system wide update of the MTRRs on all
+> processors
+> when there are no changes to be propagated.=C2=A0 On AP startup it's only
+> the AP
+> that needs to write the system wide MTRR values in order to match the
+> rest of
+> the already online CPUs.
+>=20
+> We have occasionally seen the watchdog trigger during `xen-hptool
+> cpu-online`
+> in one Intel Cascade Lake box with 448 CPUs due to the re-setting of
+> the MTRRs
+> on all the CPUs in the system.
+>=20
+> While there adjust the comment to clarify why the system-wide
+> resetting of the
+> MTRR registers is not needed for the purposes of mtrr_ap_init().
+>=20
+> Signed-off-by: Roger Pau Monn=C3=A9 <roger.pau@citrix.com>
 > ---
->  xen/include/xen/pci_regs.h | 6 +++---
->  xen/include/xen/vpci.h     | 2 +-
->  2 files changed, 4 insertions(+), 4 deletions(-)
+> For consideration for 4.19: it's a bugfix of a rare instance of the
+> watchdog
+> triggering, but it's also a good performance improvement when
+> performing
+> cpu-online.
+>=20
+> Hopefully runtime changes to MTRR will affect a single MSR at a time,
+> lowering
+> the chance of the watchdog triggering due to the system-wide
+> resetting of the
+> range.
+Considering it as a bugfix it will be good to have it in 4.19 release:
+ Release-acked-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 
-I notice you committed this with just my ack. I'm pretty sure Roger doesn't
-mind, but formally his ack would have been required (hence why I didn't
-commit it already before my vacation).
+~ Oleksii
 
-Jan
+> ---
+> =C2=A0xen/arch/x86/cpu/mtrr/main.c | 15 ++++++++-------
+> =C2=A01 file changed, 8 insertions(+), 7 deletions(-)
+>=20
+> diff --git a/xen/arch/x86/cpu/mtrr/main.c
+> b/xen/arch/x86/cpu/mtrr/main.c
+> index 90b235f57e68..0a44ebbcb04f 100644
+> --- a/xen/arch/x86/cpu/mtrr/main.c
+> +++ b/xen/arch/x86/cpu/mtrr/main.c
+> @@ -573,14 +573,15 @@ void mtrr_ap_init(void)
+> =C2=A0	if (!mtrr_if || hold_mtrr_updates_on_aps)
+> =C2=A0		return;
+> =C2=A0	/*
+> -	 * Ideally we should hold mtrr_mutex here to avoid mtrr
+> entries changed,
+> -	 * but this routine will be called in cpu boot time, holding
+> the lock
+> -	 * breaks it. This routine is called in two cases: 1.very
+> earily time
+> -	 * of software resume, when there absolutely isn't mtrr
+> entry changes;
+> -	 * 2.cpu hotadd time. We let mtrr_add/del_page hold
+> cpuhotplug lock to
+> -	 * prevent mtrr entry changes
+> +	 * hold_mtrr_updates_on_aps takes care of preventing
+> unnecessary MTRR
+> +	 * updates when batch starting the CPUs (see
+> +	 * mtrr_aps_sync_{begin,end}()).
+> +	 *
+> +	 * Otherwise just apply the current system wide MTRR values
+> to this AP.
+> +	 * Note this doesn't require synchronization with the other
+> CPUs, as
+> +	 * there are strictly no modifications of the current MTRR
+> values.
+> =C2=A0	 */
+> -	set_mtrr(~0U, 0, 0, 0);
+> +	mtrr_set_all();
+> =C2=A0}
+> =C2=A0
+> =C2=A0/**
+
 
