@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 008128C4DE4
-	for <lists+xen-devel@lfdr.de>; Tue, 14 May 2024 10:46:24 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.721265.1124555 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DE07F8C4E24
+	for <lists+xen-devel@lfdr.de>; Tue, 14 May 2024 10:53:00 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.721273.1124564 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s6nnO-00086J-O3; Tue, 14 May 2024 08:46:02 +0000
+	id 1s6ntm-0002S6-9t; Tue, 14 May 2024 08:52:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 721265.1124555; Tue, 14 May 2024 08:46:02 +0000
+Received: by outflank-mailman (output) from mailman id 721273.1124564; Tue, 14 May 2024 08:52:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s6nnO-00084m-Jg; Tue, 14 May 2024 08:46:02 +0000
-Received: by outflank-mailman (input) for mailman id 721265;
- Tue, 14 May 2024 08:46:01 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1s6ntm-0002PZ-7H; Tue, 14 May 2024 08:52:38 +0000
+Received: by outflank-mailman (input) for mailman id 721273;
+ Tue, 14 May 2024 08:52:36 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=VieR=MR=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1s6nnN-00084g-8U
- for xen-devel@lists.xenproject.org; Tue, 14 May 2024 08:46:01 +0000
-Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
- [2a00:1450:4864:20::62d])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 63545bd7-11ce-11ef-909d-e314d9c70b13;
- Tue, 14 May 2024 10:46:00 +0200 (CEST)
-Received: by mail-ej1-x62d.google.com with SMTP id
- a640c23a62f3a-a59ad12efe3so592668666b.3
- for <xen-devel@lists.xenproject.org>; Tue, 14 May 2024 01:46:00 -0700 (PDT)
+ id 1s6ntk-0002PT-Rq
+ for xen-devel@lists.xenproject.org; Tue, 14 May 2024 08:52:36 +0000
+Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com
+ [2a00:1450:4864:20::634])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 4e839b2d-11cf-11ef-b4bb-af5377834399;
+ Tue, 14 May 2024 10:52:34 +0200 (CEST)
+Received: by mail-ej1-x634.google.com with SMTP id
+ a640c23a62f3a-a59ad344f7dso1081327566b.0
+ for <xen-devel@lists.xenproject.org>; Tue, 14 May 2024 01:52:34 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5733c2c7d79sm7241850a12.59.2024.05.14.01.45.58
+ a640c23a62f3a-a5a1781d532sm707783866b.18.2024.05.14.01.52.33
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 14 May 2024 01:45:59 -0700 (PDT)
+ Tue, 14 May 2024 01:52:33 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 63545bd7-11ce-11ef-909d-e314d9c70b13
+X-Inumbo-ID: 4e839b2d-11cf-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1715676359; x=1716281159; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1715676754; x=1716281554; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=1XAdd1MYGx0CrayOzgBjMlQADEkkAwdXEBr5JB4DeYY=;
-        b=AeEBc2RNVLUxfiNRfkKKzTNJWf6zqnBOL9R0HoBNrSyehjV8RGFQA8KjPEePnQhFD2
-         5wXsOOhJEvZhChFXs2bbyt6EqIqcQr1Fta4dMnyRozLmivQj1+LpyOguesFw0z3T0Hvj
-         DhUMUD8fEtNlfo4WwW5EF7C4A5zICUWo9xf1gSY1fhhxGlguVaqqPXg2M9gkxETeIojK
-         piMvuER7lJytEPD3pzBF29Mx2YT0IsMgNyESp35xupOfR04qsQ0d45aObEGMQ5U/zjw0
-         DuQgg3pQKWxKBJ165GEyuascsgBRW2YWn0LOQb5vA0N/SHooBSapgec+WYfzIa2lYDxJ
-         ZTPA==
+        bh=bpUeof2BRKXt8gLYUv3Oxcsa+wXdHkEgyAzBUX4ATaw=;
+        b=NzNOJo/3h455CL6yto4Y548ACeINqn6hTqXCxoV9u9Bd9HlBBdx/etUxI/zHEowOx+
+         GIqgx2jw8McnaqGdKUiy+SXpp4oMhUJckA1V+wPx6lLXLeXDeKuEMkKfeO80/h4Fu4AX
+         JOPBAhwlTzzk0/9TTr4pExs/B1dALiVnrfLPaKtSp4XPa0sJRScaD+Fxw3Ksxjebm2Gc
+         Qg1qaYHutzXL6mlkEz4mOb511w+HkF+hesvlpnLnTlkmo1ZhN4hXvoHElxbFTyf/j+2I
+         /63ydqLOW65d0cqRoae5UCcj3y73DvyLsIMJJFk3q5E1hkKpITDToB67Nd7LfR60DGch
+         T/Ew==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1715676359; x=1716281159;
+        d=1e100.net; s=20230601; t=1715676754; x=1716281554;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=1XAdd1MYGx0CrayOzgBjMlQADEkkAwdXEBr5JB4DeYY=;
-        b=Ja9yEFjG61/wjTr3+K085SU7WRVG4Ds44O6Xzfzczr57zmM64ZSU8MwInC4GlkZKJv
-         iqmKDuF9/G8Iu15znife4pfEdmWZ97VwkrvZFJa4CtG9WPLFIpnwaF7lYFMzPczKXpib
-         7yVXU9z4/FA9FcRw5B/1R+Qh/h9fGOBpdHRNvlYjRGrqoAkSeO6opDIQgiVZz9+a3Lna
-         5VbmBaog1JEsQ00lW7h/No1KmB/P6GteyRAmN/cyni3ZM9mM51IZpQ7yKKeobZx0Cyhr
-         dJnR2r/p6jlZSMsYourmO9GSeFJe7N1afSgIoLvjKWblFWDWjlhSG7F2mO4/j0jx5SMh
-         TAFA==
-X-Forwarded-Encrypted: i=1; AJvYcCUuKze5M7jN2BvJv5BcyaNKIknjXsFKQGhFXTdE85QEFUWZHT6o6DwS7u5d4ZQ1O5r+U1xxIyAGUfDEMd0eAynPFZfQ02T1H0qghKuL+Es=
-X-Gm-Message-State: AOJu0YwsZaiZvVfYkNZ/ixM5DIA1gQZpXHLYXjC+Ab3aEYt9cTNOKRxu
-	S9s6jBXSSX4kzvuD4czSZrgc09oLpFlUI2vsTt5tr42FPEmwYHP/ULG9eAJT9g==
-X-Google-Smtp-Source: AGHT+IEofKuRVyAilE/2E/qhxyXB1uW0PdcCJ4yIirxWw369HYdKDL19hk2XuaugodTuSroYp2tnTQ==
-X-Received: by 2002:a50:ab12:0:b0:572:3f41:25aa with SMTP id 4fb4d7f45d1cf-5734d5c0eb9mr11269796a12.11.1715676359623;
-        Tue, 14 May 2024 01:45:59 -0700 (PDT)
-Message-ID: <16990192-aceb-408f-9247-45f3b1f58e0a@suse.com>
-Date: Tue, 14 May 2024 10:46:06 +0200
+        bh=bpUeof2BRKXt8gLYUv3Oxcsa+wXdHkEgyAzBUX4ATaw=;
+        b=UwdKMD+oBlTih2T9TGMhWp4mvKfg4GP8APKzgw3gtjWEXffsuT+M98IwvwzQ2MX9X4
+         ISU+g6R4RGFiB6vemF3g7U58EP0fWxDeshDzS04fN/mU3u7d44Nxrty3Tb1kiBOiRLqQ
+         viP1GI34A1QHd8I8iWwVNJFEw0TINoQokehSNF0kQLGBNbs0bCO67ksmn48Bk3tUZPTY
+         Ycyvk/PHhgjrEhdWd6SxC9F/833ZvvNgamhAHU9JDqkFH1ummx6G+em+m5oUjVJKCacr
+         xNmZ+MNCGQxV5mrAocilSQR+oB4thilLo2BDMEQoXChLs8pqd6bv08oSNERTFRzAkmsQ
+         wTbA==
+X-Gm-Message-State: AOJu0YyUWG5zL+bWxu2dqi4tOtjKH+KB6Cdp23xDKoLOPfti5Mdgv0Po
+	+DkocosyaTtQn0T1Wwc9FprrE8gvFTSWmigpYNMIMVUZ5EuQAHA+sfa3aOn54g==
+X-Google-Smtp-Source: AGHT+IEYzzHTkwKzQ1lzgT9lxMOTn10kiZoTkq81ixW+4Gbakk1w09juw68/5tTJNDW0kLnu5big9g==
+X-Received: by 2002:a17:906:4ecb:b0:a59:cdf4:f939 with SMTP id a640c23a62f3a-a5a2d54c60cmr835308066b.3.1715676754106;
+        Tue, 14 May 2024 01:52:34 -0700 (PDT)
+Message-ID: <36b89590-9bd9-4a64-9150-f2819bcd4a0e@suse.com>
+Date: Tue, 14 May 2024 10:52:41 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] lib/strtoul: fix MISRA R10.2 violation
+Subject: Re: [PATCH] x86/cpufreq: Rename cpuid variable/parameters to cpu
 Content-Language: en-US
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- xen-devel@lists.xenproject.org
-References: <alpine.DEB.2.22.394.2405131729180.2544314@ubuntu-linux-20-04-desktop>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Nicola Vetrini <nicola.vetrini@bugseng.com>,
+ "consulting @ bugseng . com" <consulting@bugseng.com>,
+ Stefano Stabellini <sstabellini@kernel.org>
+References: <20240511194237.2596271-1-andrew.cooper3@citrix.com>
+ <alpine.DEB.2.22.394.2405131723240.2544314@ubuntu-linux-20-04-desktop>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -113,44 +113,44 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <alpine.DEB.2.22.394.2405131729180.2544314@ubuntu-linux-20-04-desktop>
+In-Reply-To: <alpine.DEB.2.22.394.2405131723240.2544314@ubuntu-linux-20-04-desktop>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 14.05.2024 02:32, Stefano Stabellini wrote:
-> Fix last violation of R10.2 by casting the result of toupper to plain
-> char. Note that we don't want to change toupper itself as it is a legacy
-> interface and it would cause more issues.
+On 14.05.2024 02:24, Stefano Stabellini wrote:
+> On Sat, 11 May 2024, Andrew Cooper wrote:
+>> --- a/xen/drivers/cpufreq/cpufreq.c
+>> +++ b/xen/drivers/cpufreq/cpufreq.c
+>> @@ -459,21 +459,21 @@ static void print_PPC(unsigned int platform_limit)
+>>  
+>>  int set_px_pminfo(uint32_t acpi_id, struct xen_processor_performance *perf)
+>>  {
+>> -    int ret=0, cpuid;
+>> +    int ret=0, cpu;
 
-Can you point me at a single example where a new issue would arise? All
-places I've spotted (including tolower() uses) would appear to benefit
-from changing toupper() / tolower() themselves. Further, since they are
-both wrapper macros only anyway, if any concern remained, fiddling with
-the wrapper macros while leaving alone the underlying inline functions
-would allow any such use site to simply be switched to using the inline
-functions directly. As said, from looking at it I don't expect that
-would be necessary, so instead I'd rather hope that eventually we can
-do away with the wrapper macros, renaming the inline functions
-accordingly.
+Would be nice if the missing blanks were added here as well, while touching
+the line.
+
+>>      struct processor_pminfo *pmpt;
+>>      struct processor_performance *pxpt;
+>>  
+>> -    cpuid = get_cpu_id(acpi_id);
+>> -    if ( cpuid < 0 || !perf )
+>> +    cpu = get_cpu_id(acpi_id);
+>> +    if ( cpu < 0 || !perf )
+>>      {
+>>          ret = -EINVAL;
+>>          goto out;
+>>      }
+>>      if ( cpufreq_verbose )
+>> -        printk("Set CPU acpi_id(%d) cpuid(%d) Px State info:\n",
+>> +        printk("Set CPU acpi_id(%d) cpu(%d) Px State info:\n",
+>>                 acpi_id, cpuid);
+> 
+> This cpuid should be changed as well?
+
+And with that adjustment
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
 Jan
-
-> Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
-> ---
-> I believe this is the last R10.2 violation
-> 
-> diff --git a/xen/lib/strtoul.c b/xen/lib/strtoul.c
-> index a378fe735e..345dcf9d8c 100644
-> --- a/xen/lib/strtoul.c
-> +++ b/xen/lib/strtoul.c
-> @@ -38,7 +38,7 @@ unsigned long simple_strtoul(
->  
->      while ( isxdigit(*cp) &&
->              (value = isdigit(*cp) ? *cp - '0'
-> -                                  : toupper(*cp) - 'A' + 10) < base )
-> +                                  : (char)toupper(*cp) - 'A' + 10) < base )
->      {
->          result = result * base + value;
->          cp++;
-
 
