@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C51CA8C5681
+	by mail.lfdr.de (Postfix) with ESMTPS id A406C8C5680
 	for <lists+xen-devel@lfdr.de>; Tue, 14 May 2024 15:05:34 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.721489.1124936 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.721490.1124945 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s6rpx-0003wD-AO; Tue, 14 May 2024 13:04:57 +0000
+	id 1s6rqG-0004Dk-Kd; Tue, 14 May 2024 13:05:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 721489.1124936; Tue, 14 May 2024 13:04:57 +0000
+Received: by outflank-mailman (output) from mailman id 721490.1124945; Tue, 14 May 2024 13:05:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s6rpx-0003tA-6P; Tue, 14 May 2024 13:04:57 +0000
-Received: by outflank-mailman (input) for mailman id 721489;
- Tue, 14 May 2024 13:04:55 +0000
+	id 1s6rqG-0004CA-Hj; Tue, 14 May 2024 13:05:16 +0000
+Received: by outflank-mailman (input) for mailman id 721490;
+ Tue, 14 May 2024 13:05:15 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=VieR=MR=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1s6rpv-0003t4-HC
- for xen-devel@lists.xenproject.org; Tue, 14 May 2024 13:04:55 +0000
-Received: from mail-ed1-x52b.google.com (mail-ed1-x52b.google.com
- [2a00:1450:4864:20::52b])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=0FJY=MR=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1s6rqF-0003t4-1a
+ for xen-devel@lists.xenproject.org; Tue, 14 May 2024 13:05:15 +0000
+Received: from mail-qk1-x72e.google.com (mail-qk1-x72e.google.com
+ [2607:f8b0:4864:20::72e])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 8e72418d-11f2-11ef-909d-e314d9c70b13;
- Tue, 14 May 2024 15:04:54 +0200 (CEST)
-Received: by mail-ed1-x52b.google.com with SMTP id
- 4fb4d7f45d1cf-572b37afd73so93241a12.2
- for <xen-devel@lists.xenproject.org>; Tue, 14 May 2024 06:04:54 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a5a55275e80sm438942666b.8.2024.05.14.06.04.53
+ id 9a024633-11f2-11ef-909d-e314d9c70b13;
+ Tue, 14 May 2024 15:05:14 +0200 (CEST)
+Received: by mail-qk1-x72e.google.com with SMTP id
+ af79cd13be357-78ef9ce897bso441213985a.0
+ for <xen-devel@lists.xenproject.org>; Tue, 14 May 2024 06:05:14 -0700 (PDT)
+Received: from [10.80.67.140] (default-46-102-197-194.interdsl.co.uk.
+ [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
+ af79cd13be357-792bf31171esm560024885a.116.2024.05.14.06.05.11
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 14 May 2024 06:04:53 -0700 (PDT)
+ Tue, 14 May 2024 06:05:11 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,126 +45,99 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8e72418d-11f2-11ef-909d-e314d9c70b13
+X-Inumbo-ID: 9a024633-11f2-11ef-909d-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1715691894; x=1716296694; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=owwrnOYg/hRDFZK+JFkSVjuytfCfeFkLX9e2EIhvdoE=;
-        b=Lg3lLkLJCUDOnISrBH2tod8fscQGk44e3j8JEq/pIFpUPySuCFjw8ngw9+rzoO9FUB
-         1qehOv/Q0AiluKw1BBP6EYQdqBx6nZN3+AHdCq+z/elUQjoIXrxeK8+DBatPtJzQ02UI
-         bGstxmjcNNkFAwArFiyQ/pk9DiWWgLyxTHdN0mmnmpCORqZY3fW2gK+w3abjW9epe1TN
-         7A8PNzC006VP7YrdenrVsIwHle1EYXAHzpqRSun5tkb7rWtt+zEZ7ya+lNjh2SgGJIZ6
-         v7pARxz0dy3HVviTG9zCEi2Wtp7/Z0wSpok9XeRzFnJWG1BxVygTE/Aj3CzpDq+fPM/u
-         za5A==
+        d=citrix.com; s=google; t=1715691913; x=1716296713; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=VZlzMx15mGmoqywlKLUPpZ7ZCTX2G3tkZqOGbbqWMAc=;
+        b=A+wSwPwziKfPwZ23uiViNNiwRzK7Eg2EYl6N5pEadN12/j5Po2xYAAU31PvH06FBah
+         F2gu8x6xqurYghQEh+t6789FEo9N9R6/INzp8Rn3ZXXEfnZeQisAwkTkUD4TqUMULswh
+         B0uYtnrus8P93N/rDSgl47r5fxKAHNXSroh1c=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1715691894; x=1716296694;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=owwrnOYg/hRDFZK+JFkSVjuytfCfeFkLX9e2EIhvdoE=;
-        b=GlUScnWvdr8UwTxTiQ+WSRnFNAWj9IU8iyYf2C36fBDxm9aZEogL1tEOOXRihCkvwa
-         EwwPdigjl5AyjXnmOoQdIPlHPt8bohM0qaaQ/7Rw16bSv7k4ZAAu8yY8iPcmKaGXJ4D/
-         eaKXu9rI7UlkIEXUfeNdRuCgZOP2/qtjMVtz69p3Aq/2HwKcpgXj8T6r6/YKIN2nK66P
-         ma+ed49frAvkTU7ogkm3VzhetdyiR9xwttbOuWgCzRn+GLii/aRI5OSBjrBl/iBuOaUH
-         tUPROtD8bXG8wvhAzprelEndYznwrLt/33X712cIPPGtCCsuq825OcxoHj30MIdQtt3L
-         9aFg==
-X-Gm-Message-State: AOJu0YzqdVIULL0yI7d3beQLFgbfpiqUM3dftamVGbQvJIazjR4XmZzP
-	QdMmt1wVAXWrWt3+gQ/GeVuctBoI1KiwDQVtkZchB1ucx0LvBf8zqqFgm+4swKerth+2COOj+ew
-	=
-X-Google-Smtp-Source: AGHT+IHBR29rK0DZF7QT9dOOsKkppf0MKSNEF1GxleHS/Ed2Sde3UTAPQsHDarV7j3kxvswGnMqGRw==
-X-Received: by 2002:a17:907:7daa:b0:a59:ddec:b339 with SMTP id a640c23a62f3a-a5a2d66b530mr1011658966b.50.1715691893640;
-        Tue, 14 May 2024 06:04:53 -0700 (PDT)
-Message-ID: <bed75dc2-1cd4-462f-9ab7-f06a2e596d15@suse.com>
-Date: Tue, 14 May 2024 15:05:00 +0200
+        d=1e100.net; s=20230601; t=1715691913; x=1716296713;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=VZlzMx15mGmoqywlKLUPpZ7ZCTX2G3tkZqOGbbqWMAc=;
+        b=s9jl1O6hpRXBtX69mijzHEs39VxZnZpV/9VCfUwy+GoBigI7OeAXlYJz0t4RhulMTP
+         dkJSTawKOD43aqLhwC2qDg58WbfzfB+C6G5govJ3/i8zwvaPTgFEjVVRb/lFtmK1Uxjz
+         50E1HyvKCAveC5+3U3EdfbjDNkjF9qUQtNYLyT4o72rgyiTqATh/jdyjfy+mzTzzeRDx
+         B0dKLdGIQii0pYCiXHbUIShfHgotNbHv4u1mPEG6gOs64TANbN/FlyTfjw65YvrxvpQS
+         vvhZ/nMVj0MMg5gmKtyoF0fK/bBcB6sMIJaezNH+xcgOmiN80Q+/sO1qzQu78VzgehnK
+         MyqQ==
+X-Gm-Message-State: AOJu0YwZcQdkoj83ASpkremn9aC0veg9AaBtXxc1ICbS7dAAvSsHwX/v
+	jC+hL2z1jAjMKXs6O34eEwxOzfzJrcS0Cc/9XxDAgAv55HQRTg9jyga98Vwe2gQ=
+X-Google-Smtp-Source: AGHT+IFIrovBvZy989qWX0hkNMjIMDALIASpmB3kYTBnDq+FwonlN1GJ2ZHEWGOD8W6HIVET9eI3/w==
+X-Received: by 2002:a05:620a:254d:b0:792:7f5d:46a8 with SMTP id af79cd13be357-792c75f44ccmr1749144985a.56.1715691912729;
+        Tue, 14 May 2024 06:05:12 -0700 (PDT)
+Message-ID: <58577656-d1c9-4f54-9526-83bdbcaa37a6@citrix.com>
+Date: Tue, 14 May 2024 14:05:10 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH 3/4] tools/xen-cpuid: Use automatically generated feature
  names
-Content-Language: en-US
-To: Andrew Cooper <andrew.cooper3@citrix.com>
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
 Cc: Xen-devel <xen-devel@lists.xenproject.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+ Jan Beulich <JBeulich@suse.com>
 References: <20240510224002.2324578-1-andrew.cooper3@citrix.com>
  <20240510224002.2324578-4-andrew.cooper3@citrix.com>
  <ZkMYXSf9abR3J3FE@macbook>
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
 In-Reply-To: <ZkMYXSf9abR3J3FE@macbook>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 14.05.2024 09:53, Roger Pau Monné wrote:
+On 14/05/2024 8:53 am, Roger Pau Monné wrote:
 > On Fri, May 10, 2024 at 11:40:01PM +0100, Andrew Cooper wrote:
->> Differences in names are:
->>
->>  sysenter    -> sep
->>  tm          -> tm1
->>  ds-cpl      -> dscpl
->>  est         -> eist
->>  sse41       -> sse4-1
->>  sse42       -> sse4-2
->>  movebe      -> movbe
->>  tsc-dl      -> tsc-deadline
->>  rdrnd       -> rdrand
->>  hyper       -> hypervisor
->>  mmx+        -> mmext
->>  fxsr+       -> ffxsr
->>  pg1g        -> page1gb
->>  3dnow+      -> 3dnowext
->>  cmp         -> cmp-legacy
->>  cr8d        -> cr8-legacy
->>  lzcnt       -> abm
->>  msse        -> misalignsse
->>  3dnowpf     -> 3dnowprefetch
->>  nodeid      -> nodeid-msr
->>  dbx         -> dbext
->>  tsc-adj     -> tsc-adjust
->>  fdp-exn     -> fdp-excp-only
->>  deffp       -> no-fpu-sel
->>  <24>        -> bld
->>  ppin        -> amd-ppin
->>  lfence+     -> lfence-dispatch
->>  ppin        -> intel-ppin
->>  energy-ctrl -> energy-filtering
->>
->> Apparently BLD missed the update to xen-cpuid.c.  It appears to be the only
->> one.  Several of the + names would be nice to keep as were, but doing so isn't
->> nice in gen-cpuid.  Any changes would alter the {dom0-}cpuid= cmdline options,
->> but we intentionally don't list them, so I'm not worried.
->>
->> Thoughts?
-> 
-> I'm fine with this, we are now coherent between libxl, the Xen command
-> line cpuid= option and the output of xen-cpuid.
-
-Hmm, consistency across the components is of course a fair goal. Otherwise I
-would have suggested to consider putting in place overrides in feature_names[]
-for those cases where e.g. the trailing + might indeed be neater (and shorter).
-
+>> diff --git a/tools/misc/xen-cpuid.c b/tools/misc/xen-cpuid.c
+>> index 6ee835b22949..2f34694e9c57 100644
 >> --- a/tools/misc/xen-cpuid.c
 >> +++ b/tools/misc/xen-cpuid.c
 >> @@ -11,6 +11,7 @@
@@ -181,21 +154,25 @@ for those cases where e.g. the trailing + might indeed be neater (and shorter).
 >>      const char *const *strs;
 >> -} leaf_info[] = {
 >> +} leaf_info[FEATURESET_NR_ENTRIES] = {
-> 
 > Won't it be best to not specify the number of array elements here, as
 > we could then use a BUILD_BUG_ON() to detect when new leafs are added
 > to the featureset and thus adjust xen-cpuid.c?  Otherwise new
 > additions to the featureset will go unnoticed.
 
-I, too, would be in favor of that.
+Hmm.  I suppose we have the same in libxl_cpuid.c so we should do so here.
 
+I'll do an adjustment.
+
+>
+>>      { "CPUID 0x00000001.edx",        "1d", str_1d },
+>>      { "CPUID 0x00000001.ecx",        "1c", str_1c },
+>>      { "CPUID 0x80000001.edx",       "e1d", str_e1d },
 >> @@ -291,6 +292,9 @@ static const struct {
 >>  
 >>  #define COL_ALIGN "24"
 >>  
 >> +static const char *const feature_names[(FEATURESET_NR_ENTRIES + 1) << 5] =
 >> +    INIT_FEATURE_VAL_TO_NAME;
-> 
 > I've also considered this when doing the original patch, but it seemed
 > worse to force each user of INIT_FEATURE_VAL_TO_NAME to have to
 > correctly size the array.  I would also use '* 32', as it's IMO
@@ -203,8 +180,17 @@ I, too, would be in favor of that.
 > if we want to go this way, but the extra Python code to add a last
 > array entry if required didn't seem that much TBH.
 
-Same here.
+I was looking to avoid the other BUILD_BUG_ON()'s, and in particular
+bringing in known_features just for a build time check.
 
+Given that there's only one instance right now, and no obvious other
+usecase, I'd say this is better.  In terms of just xen-cpuid.c, it's
+clearly correct whereas leaving it implicitly to
+INIT_FEATURE_VAL_TO_NAME is not.
+
+>
+>> diff --git a/xen/tools/gen-cpuid.py b/xen/tools/gen-cpuid.py
+>> index 79d7f5c8e1c9..d0bb2e4a229f 100755
 >> --- a/xen/tools/gen-cpuid.py
 >> +++ b/xen/tools/gen-cpuid.py
 >> @@ -470,6 +470,27 @@ def write_results(state):
@@ -227,10 +213,11 @@ Same here.
 >> +        if bit in state.common_1d:
 >> +            state.output.write(
 >> +                '    [%s] = "%s",\\\n' % (64 + bit, name)
+>> +            )
+> Had no idea we had this aliases.
 
-I realize right here this 64 can't very well be expanded to a useful
-expression ((FEATURESET_e1d - FEATURESET_1d) * 32); could I talk you
-into at least adding a comment to this effect?
+Without this, you get a bunch of numbers when rendering e1d for known
+features (all hardware), and all dynamic policies on AMD/Hygon hardware.
 
-Jan
+~Andrew
 
