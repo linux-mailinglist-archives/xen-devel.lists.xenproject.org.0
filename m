@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 245D98C555F
-	for <lists+xen-devel@lfdr.de>; Tue, 14 May 2024 13:57:28 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.721445.1124854 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 08FF28C55C5
+	for <lists+xen-devel@lfdr.de>; Tue, 14 May 2024 14:07:57 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.721451.1124866 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s6qmM-0004dI-Ll; Tue, 14 May 2024 11:57:10 +0000
+	id 1s6qwN-000719-Nc; Tue, 14 May 2024 12:07:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 721445.1124854; Tue, 14 May 2024 11:57:10 +0000
+Received: by outflank-mailman (output) from mailman id 721451.1124866; Tue, 14 May 2024 12:07:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s6qmM-0004bW-It; Tue, 14 May 2024 11:57:10 +0000
-Received: by outflank-mailman (input) for mailman id 721445;
- Tue, 14 May 2024 11:57:08 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=VieR=MR=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1s6qmK-0004bQ-UC
- for xen-devel@lists.xenproject.org; Tue, 14 May 2024 11:57:08 +0000
-Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
- [2a00:1450:4864:20::62d])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 1606b68c-11e9-11ef-b4bb-af5377834399;
- Tue, 14 May 2024 13:57:06 +0200 (CEST)
-Received: by mail-ej1-x62d.google.com with SMTP id
- a640c23a62f3a-a59ae3efbb3so8664066b.1
- for <xen-devel@lists.xenproject.org>; Tue, 14 May 2024 04:57:06 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5733bea65edsm7490971a12.7.2024.05.14.04.57.05
+	id 1s6qwN-0006xx-KS; Tue, 14 May 2024 12:07:31 +0000
+Received: by outflank-mailman (input) for mailman id 721451;
+ Tue, 14 May 2024 12:07:29 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=0FJY=MR=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1s6qwL-0006xr-J4
+ for xen-devel@lists.xenproject.org; Tue, 14 May 2024 12:07:29 +0000
+Received: from mail-qv1-xf35.google.com (mail-qv1-xf35.google.com
+ [2607:f8b0:4864:20::f35])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 88616362-11ea-11ef-909d-e314d9c70b13;
+ Tue, 14 May 2024 14:07:28 +0200 (CEST)
+Received: by mail-qv1-xf35.google.com with SMTP id
+ 6a1803df08f44-6a0f889877cso18240326d6.1
+ for <xen-devel@lists.xenproject.org>; Tue, 14 May 2024 05:07:28 -0700 (PDT)
+Received: from [10.80.67.140] (default-46-102-197-194.interdsl.co.uk.
+ [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
+ 6a1803df08f44-6a15f1872f8sm52727256d6.55.2024.05.14.05.07.26
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 14 May 2024 04:57:06 -0700 (PDT)
+ Tue, 14 May 2024 05:07:26 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,110 +45,152 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1606b68c-11e9-11ef-b4bb-af5377834399
+X-Inumbo-ID: 88616362-11ea-11ef-909d-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1715687826; x=1716292626; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=P5t9oaiq0kcWuDwcVYP4BqAuLPAYeAqcFt76hLCI4xk=;
-        b=O11loO6mwHj5obczyqrYCor9PmfiOEOYRfLRyZ1bo8UMQBOsFQ1Gx6STTpK/4DWpWP
-         LNlCE+j+ItQj6SpD6ev4um3HQBKKOgTTqekY7wWydvkZC9kGxzLtQCr3UxsaaIngoecR
-         4uLvbUn+PgzP1tOl61PO7WO6KTM1/PcpWJaCEIAO+2uPGDoFA76TA6S7gfVR/bHeYx+4
-         K8s7QeeMAbAJnKoQnlcG7s1uDeDWljDeiRiinh/DTdcWaZC2vfmTF5gz4k2pOOrpV2zr
-         i/rqbGwMw3TdxCp+gD6uZFLh9OQU0hERa6fHeptDvktdlmPgchBG9dCzoh5fNsm/wYb6
-         4Z6Q==
+        d=citrix.com; s=google; t=1715688447; x=1716293247; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=oZjFV9qxtpZP1OtUKJ3si0WwVe7CzAFYin7mIAjiyKc=;
+        b=kI8iRuSskHPiSmjfBvCHE6OEH1Qeft4KwqsXyGQGxobNZI+HL4xpM+WUlMB0e/gBaH
+         /8JldORuBYaSVqwfBh1ly79+O9p3Mu0BXRuxT24OpG/U8em+56XsZWPnNyHTYIkMf8h4
+         3GR0JawtY60zBV/JV99jB+Rgcw9WJ6QEn5sSY=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1715687826; x=1716292626;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=P5t9oaiq0kcWuDwcVYP4BqAuLPAYeAqcFt76hLCI4xk=;
-        b=MNGQJzslrERbw2iCXP4niiVBBp4ovEekSBGQRys7y3y3KB6Me03lfdwcSecxSey4Gy
-         I5G/7G5Q/w1iskrKn2TxYtuvvITnTzC944b+Tq9q6d4rdP3jGAjgt1qf1sRzmUDcGiZY
-         jt5uwCmQUitObJgyO+XxEDV23qKxwKQ5IhwOMXCdxPvTKg11zPW+0leSlACYkirxBuaD
-         hoxmkbXN+gF6i2tAPf0/Mo2POEf/EcAqLDzqNaKtPv4968I5mM5iL/dLxzs3hMPd0jnh
-         9GvGurst+kuMlDvNSQJSMHBOGQlQqzHOo89U2VFB9lEFBE8dGZoLoihbSPBdvjzsWmPy
-         cxHA==
-X-Forwarded-Encrypted: i=1; AJvYcCWEiGyQO9LvuNjhHFlYeRgq8Aq6UPvrL3LKfwH+UT9k8nyHMmIIS43dF6fsXKbdKk5C8pNVZDUnVANztXOtDDeLbpChWeV+t846b5LWB2A=
-X-Gm-Message-State: AOJu0YxHXZ4XUknuKR6bNz9bG8FKaKhL65HiOd+yrBaauK48u+V+TXXR
-	73b6GcCMRT2yR3QTsikOPqZhQBKEVk/qdqvaTcC0StlhrW02zum4NJzmCEzWgQ==
-X-Google-Smtp-Source: AGHT+IFkuva0e2NmdrS9VMZl0F6D938sa4MPV3j8Nk5XFoxtVhDK/RLGuKssZo0k4x+7Bq0uX2qFnQ==
-X-Received: by 2002:a50:ccc8:0:b0:572:795a:b913 with SMTP id 4fb4d7f45d1cf-5734d67fd75mr10041045a12.34.1715687826216;
-        Tue, 14 May 2024 04:57:06 -0700 (PDT)
-Message-ID: <435ccfc3-d4e3-4da4-838f-4fb0e8987eab@suse.com>
-Date: Tue, 14 May 2024 13:57:13 +0200
+        d=1e100.net; s=20230601; t=1715688447; x=1716293247;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=oZjFV9qxtpZP1OtUKJ3si0WwVe7CzAFYin7mIAjiyKc=;
+        b=nmmk7zQDQujuAhKoZjQ8Y7y0jc+Mw2zmWhlxfyrKPSUWi+hCgJlrP0ktSSTC4tpTEq
+         Pu0MBDx2MlGK3hmX7sqqXv/Q/gagDDQT6ttCkybjccDJ/C6TO5C4d7M7XaMxjgsRcE24
+         9j0tqJ2+RgR3Fgsmm57uhjV5jlaN0TaTZhdpVU0iBQKIGdNTt62xf/GlZXOAWpZdWpp/
+         96XXfW8jKTOw2aY8syXR94rBnenKxRyzKJb66tsiYZgTb0Wd7RdMol2VEWLrbZHDNeG0
+         Ew9+sBJiOimWuvnhwfxPOvy5B8wzPQxmaP/kMsvXLThZ7Fhq7JLFj4rxGLzndL2LyNCU
+         8I+g==
+X-Forwarded-Encrypted: i=1; AJvYcCUCssnFCsFye9Q0J6WBY4RqS+zrpU13rW76NckwMzAwokvbQ21Uiz0c5kR2Icz3r53la2r1fJyJfRVLLaqEyyHlsLj/W9iB/2oNnMCqkUE=
+X-Gm-Message-State: AOJu0YxBGKU+xklKe6qoM1YA+6hKKifMRqXnV/5JaxqZGtSLJAe5ShU6
+	6Mno9ewNgfokCTc8DNO2D2hYkgDNTKLodBb4ybVqzmR6WR5J7vR3Si/x2XsIujtE13KD5BOcYg0
+	N
+X-Google-Smtp-Source: AGHT+IHOG4xrsXj7pUxVrWs7S4Hm9PsBNYXXrFMcQ6hJ9EiH8DRWQFEEZ/kntmaJZzo/ciE+NIw7Hg==
+X-Received: by 2002:a05:6214:568c:b0:6a0:585d:a4c6 with SMTP id 6a1803df08f44-6a168138c3dmr142118446d6.6.1715688447529;
+        Tue, 14 May 2024 05:07:27 -0700 (PDT)
+Message-ID: <195184dd-46e3-4bd0-b82b-cf41000e4db1@citrix.com>
+Date: Tue, 14 May 2024 13:07:25 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH for-4.19] x86/mtrr: avoid system wide rendezvous when
- setting AP MTRRs
-Content-Language: en-US
-To: Roger Pau Monne <roger.pau@citrix.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- Oleksii Kurochko <oleksii.kurochko@gmail.com>, xen-devel@lists.xenproject.org
-References: <20240513085925.59324-1-roger.pau@citrix.com>
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240513085925.59324-1-roger.pau@citrix.com>
+Subject: Re: [PATCH for-4.19] tools/xentop: fix cpu% sort order
+To: Leigh Brown <leigh@solinno.co.uk>, xen-devel@lists.xenproject.org,
+ Oleksii Kurochko <oleksii.kurochko@gmail.com>
+References: <20240514081344.4499-1-leigh@solinno.co.uk>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ xsFNBFLhNn8BEADVhE+Hb8i0GV6mihnnr/uiQQdPF8kUoFzCOPXkf7jQ5sLYeJa0cQi6Penp
+ VtiFYznTairnVsN5J+ujSTIb+OlMSJUWV4opS7WVNnxHbFTPYZVQ3erv7NKc2iVizCRZ2Kxn
+ srM1oPXWRic8BIAdYOKOloF2300SL/bIpeD+x7h3w9B/qez7nOin5NzkxgFoaUeIal12pXSR
+ Q354FKFoy6Vh96gc4VRqte3jw8mPuJQpfws+Pb+swvSf/i1q1+1I4jsRQQh2m6OTADHIqg2E
+ ofTYAEh7R5HfPx0EXoEDMdRjOeKn8+vvkAwhviWXTHlG3R1QkbE5M/oywnZ83udJmi+lxjJ5
+ YhQ5IzomvJ16H0Bq+TLyVLO/VRksp1VR9HxCzItLNCS8PdpYYz5TC204ViycobYU65WMpzWe
+ LFAGn8jSS25XIpqv0Y9k87dLbctKKA14Ifw2kq5OIVu2FuX+3i446JOa2vpCI9GcjCzi3oHV
+ e00bzYiHMIl0FICrNJU0Kjho8pdo0m2uxkn6SYEpogAy9pnatUlO+erL4LqFUO7GXSdBRbw5
+ gNt25XTLdSFuZtMxkY3tq8MFss5QnjhehCVPEpE6y9ZjI4XB8ad1G4oBHVGK5LMsvg22PfMJ
+ ISWFSHoF/B5+lHkCKWkFxZ0gZn33ju5n6/FOdEx4B8cMJt+cWwARAQABzSlBbmRyZXcgQ29v
+ cGVyIDxhbmRyZXcuY29vcGVyM0BjaXRyaXguY29tPsLBegQTAQgAJAIbAwULCQgHAwUVCgkI
+ CwUWAgMBAAIeAQIXgAUCWKD95wIZAQAKCRBlw/kGpdefoHbdD/9AIoR3k6fKl+RFiFpyAhvO
+ 59ttDFI7nIAnlYngev2XUR3acFElJATHSDO0ju+hqWqAb8kVijXLops0gOfqt3VPZq9cuHlh
+ IMDquatGLzAadfFx2eQYIYT+FYuMoPZy/aTUazmJIDVxP7L383grjIkn+7tAv+qeDfE+txL4
+ SAm1UHNvmdfgL2/lcmL3xRh7sub3nJilM93RWX1Pe5LBSDXO45uzCGEdst6uSlzYR/MEr+5Z
+ JQQ32JV64zwvf/aKaagSQSQMYNX9JFgfZ3TKWC1KJQbX5ssoX/5hNLqxMcZV3TN7kU8I3kjK
+ mPec9+1nECOjjJSO/h4P0sBZyIUGfguwzhEeGf4sMCuSEM4xjCnwiBwftR17sr0spYcOpqET
+ ZGcAmyYcNjy6CYadNCnfR40vhhWuCfNCBzWnUW0lFoo12wb0YnzoOLjvfD6OL3JjIUJNOmJy
+ RCsJ5IA/Iz33RhSVRmROu+TztwuThClw63g7+hoyewv7BemKyuU6FTVhjjW+XUWmS/FzknSi
+ dAG+insr0746cTPpSkGl3KAXeWDGJzve7/SBBfyznWCMGaf8E2P1oOdIZRxHgWj0zNr1+ooF
+ /PzgLPiCI4OMUttTlEKChgbUTQ+5o0P080JojqfXwbPAyumbaYcQNiH1/xYbJdOFSiBv9rpt
+ TQTBLzDKXok86M7BTQRS4TZ/ARAAkgqudHsp+hd82UVkvgnlqZjzz2vyrYfz7bkPtXaGb9H4
+ Rfo7mQsEQavEBdWWjbga6eMnDqtu+FC+qeTGYebToxEyp2lKDSoAsvt8w82tIlP/EbmRbDVn
+ 7bhjBlfRcFjVYw8uVDPptT0TV47vpoCVkTwcyb6OltJrvg/QzV9f07DJswuda1JH3/qvYu0p
+ vjPnYvCq4NsqY2XSdAJ02HrdYPFtNyPEntu1n1KK+gJrstjtw7KsZ4ygXYrsm/oCBiVW/OgU
+ g/XIlGErkrxe4vQvJyVwg6YH653YTX5hLLUEL1NS4TCo47RP+wi6y+TnuAL36UtK/uFyEuPy
+ wwrDVcC4cIFhYSfsO0BumEI65yu7a8aHbGfq2lW251UcoU48Z27ZUUZd2Dr6O/n8poQHbaTd
+ 6bJJSjzGGHZVbRP9UQ3lkmkmc0+XCHmj5WhwNNYjgbbmML7y0fsJT5RgvefAIFfHBg7fTY/i
+ kBEimoUsTEQz+N4hbKwo1hULfVxDJStE4sbPhjbsPCrlXf6W9CxSyQ0qmZ2bXsLQYRj2xqd1
+ bpA+1o1j2N4/au1R/uSiUFjewJdT/LX1EklKDcQwpk06Af/N7VZtSfEJeRV04unbsKVXWZAk
+ uAJyDDKN99ziC0Wz5kcPyVD1HNf8bgaqGDzrv3TfYjwqayRFcMf7xJaL9xXedMcAEQEAAcLB
+ XwQYAQgACQUCUuE2fwIbDAAKCRBlw/kGpdefoG4XEACD1Qf/er8EA7g23HMxYWd3FXHThrVQ
+ HgiGdk5Yh632vjOm9L4sd/GCEACVQKjsu98e8o3ysitFlznEns5EAAXEbITrgKWXDDUWGYxd
+ pnjj2u+GkVdsOAGk0kxczX6s+VRBhpbBI2PWnOsRJgU2n10PZ3mZD4Xu9kU2IXYmuW+e5KCA
+ vTArRUdCrAtIa1k01sPipPPw6dfxx2e5asy21YOytzxuWFfJTGnVxZZSCyLUO83sh6OZhJkk
+ b9rxL9wPmpN/t2IPaEKoAc0FTQZS36wAMOXkBh24PQ9gaLJvfPKpNzGD8XWR5HHF0NLIJhgg
+ 4ZlEXQ2fVp3XrtocHqhu4UZR4koCijgB8sB7Tb0GCpwK+C4UePdFLfhKyRdSXuvY3AHJd4CP
+ 4JzW0Bzq/WXY3XMOzUTYApGQpnUpdOmuQSfpV9MQO+/jo7r6yPbxT7CwRS5dcQPzUiuHLK9i
+ nvjREdh84qycnx0/6dDroYhp0DFv4udxuAvt1h4wGwTPRQZerSm4xaYegEFusyhbZrI0U9tJ
+ B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
+ d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
+ 6+ahAA==
+In-Reply-To: <20240514081344.4499-1-leigh@solinno.co.uk>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 13.05.2024 10:59, Roger Pau Monne wrote:
-> --- a/xen/arch/x86/cpu/mtrr/main.c
-> +++ b/xen/arch/x86/cpu/mtrr/main.c
-> @@ -573,14 +573,15 @@ void mtrr_ap_init(void)
->  	if (!mtrr_if || hold_mtrr_updates_on_aps)
->  		return;
->  	/*
-> -	 * Ideally we should hold mtrr_mutex here to avoid mtrr entries changed,
-> -	 * but this routine will be called in cpu boot time, holding the lock
-> -	 * breaks it. This routine is called in two cases: 1.very earily time
-> -	 * of software resume, when there absolutely isn't mtrr entry changes;
-> -	 * 2.cpu hotadd time. We let mtrr_add/del_page hold cpuhotplug lock to
-> -	 * prevent mtrr entry changes
-> +	 * hold_mtrr_updates_on_aps takes care of preventing unnecessary MTRR
-> +	 * updates when batch starting the CPUs (see
-> +	 * mtrr_aps_sync_{begin,end}()).
-> +	 *
-> +	 * Otherwise just apply the current system wide MTRR values to this AP.
-> +	 * Note this doesn't require synchronization with the other CPUs, as
-> +	 * there are strictly no modifications of the current MTRR values.
->  	 */
-> -	set_mtrr(~0U, 0, 0, 0);
-> +	mtrr_set_all();
+On 14/05/2024 9:13 am, Leigh Brown wrote:
+> Although using integer comparison to compare doubles kind of
+> works, it's annoying to see domains slightly out of order when
+> sorting by cpu%.
+>
+> Add a compare_dbl() function and update compare_cpu_pct() to
+> call it.
+>
+> Signed-off-by: Leigh Brown <leigh@solinno.co.uk>
+> ---
+>  tools/xentop/xentop.c | 13 ++++++++++++-
+>  1 file changed, 12 insertions(+), 1 deletion(-)
+>
+> diff --git a/tools/xentop/xentop.c b/tools/xentop/xentop.c
+> index 545bd5e96d..99199caec9 100644
+> --- a/tools/xentop/xentop.c
+> +++ b/tools/xentop/xentop.c
+> @@ -85,6 +85,7 @@ static void set_delay(const char *value);
+>  static void set_prompt(const char *new_prompt, void (*func)(const char *));
+>  static int handle_key(int);
+>  static int compare(unsigned long long, unsigned long long);
+> +static int compare_dbl(double, double);
+>  static int compare_domains(xenstat_domain **, xenstat_domain **);
+>  static unsigned long long tot_net_bytes( xenstat_domain *, int);
+>  static bool tot_vbd_reqs(xenstat_domain *, int, unsigned long long *);
+> @@ -422,6 +423,16 @@ static int compare(unsigned long long i1, unsigned long long i2)
+>  	return 0;
 >  }
+>  
+> +/* Compares two double precision numbers, returning -1,0,1 for <,=,> */
+> +static int compare_dbl(double d1, double d2)
+> +{
+> +	if(d1 < d2)
+> +		return -1;
+> +	if(d1 > d2)
+> +		return 1;
+> +	return 0;
+> +}
+> +
+>  /* Comparison function for use with qsort.  Compares two domains using the
+>   * current sort field. */
+>  static int compare_domains(xenstat_domain **domain1, xenstat_domain **domain2)
+> @@ -523,7 +534,7 @@ static double get_cpu_pct(xenstat_domain *domain)
+>  
+>  static int compare_cpu_pct(xenstat_domain *domain1, xenstat_domain *domain2)
+>  {
+> -	return -compare(get_cpu_pct(domain1), get_cpu_pct(domain2));
+> +	return -compare_dbl(get_cpu_pct(domain1), get_cpu_pct(domain2));
 
-While I agree with the change here, it doesn't go quite far enough. Originally
-I meant to ask that, with this (supposedly) sole use of ~0U gone, you please
-also drop the handling of that special case from set_mtrr(). But another
-similar call exist in mtrr_aps_sync_end(). Yet while that's "fine" for the
-boot case (watchdog being started only slightly later), it doesn't look to be
-for the S3 resume one: The watchdog is re-enabled quite a bit earlier there.
-I actually wonder whether mtrr_aps_sync_{begin,end}() wouldn't better
-themselves invoke watchdog_{dis,en}able(), thus also making the boot case
-explicitly safe, not just safe because of ordering.
+Oh, we were doing an implicit double->unsigned long long conversion. 
+Over the range 0.0 to 100.0, that ought to work as expected.  What kind
+of out-of-order are you seeing?
 
-Jan
+Nevertheless, this should comparison should clearly be done using
+doubles.  AFACT, get_cpu_pct() shouldn't ever return a NaN, so I think
+this simple form is fine.
+
+Oleksii: This is another bugfix to xentop, and should be considered for
+4.19 at this point.
+
+~Andrew
 
