@@ -2,56 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7E6E98C5810
-	for <lists+xen-devel@lfdr.de>; Tue, 14 May 2024 16:34:41 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.721579.1125105 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6F8918C5811
+	for <lists+xen-devel@lfdr.de>; Tue, 14 May 2024 16:34:45 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.721580.1125114 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s6tET-0004iY-Ko; Tue, 14 May 2024 14:34:21 +0000
+	id 1s6tEe-00050v-Tt; Tue, 14 May 2024 14:34:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 721579.1125105; Tue, 14 May 2024 14:34:21 +0000
+Received: by outflank-mailman (output) from mailman id 721580.1125114; Tue, 14 May 2024 14:34:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s6tET-0004gc-Hd; Tue, 14 May 2024 14:34:21 +0000
-Received: by outflank-mailman (input) for mailman id 721579;
- Tue, 14 May 2024 14:34:19 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1s6tEe-0004xv-QJ; Tue, 14 May 2024 14:34:32 +0000
+Received: by outflank-mailman (input) for mailman id 721580;
+ Tue, 14 May 2024 14:34:31 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=loUn=MR=amd.com=Stewart.Hildebrand@srs-se1.protection.inumbo.net>)
- id 1s6tER-0004gW-QX
- for xen-devel@lists.xenproject.org; Tue, 14 May 2024 14:34:19 +0000
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on20600.outbound.protection.outlook.com
- [2a01:111:f403:2416::600])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 0afddf13-11ff-11ef-b4bb-af5377834399;
- Tue, 14 May 2024 16:34:17 +0200 (CEST)
-Received: from DS7PR05CA0021.namprd05.prod.outlook.com (2603:10b6:5:3b9::26)
- by PH8PR12MB7110.namprd12.prod.outlook.com (2603:10b6:510:22e::11) with
+ id 1s6tEd-0004xK-7p
+ for xen-devel@lists.xenproject.org; Tue, 14 May 2024 14:34:31 +0000
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on20600.outbound.protection.outlook.com
+ [2a01:111:f403:2418::600])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 11bd1953-11ff-11ef-909d-e314d9c70b13;
+ Tue, 14 May 2024 16:34:29 +0200 (CEST)
+Received: from BY5PR16CA0033.namprd16.prod.outlook.com (2603:10b6:a03:1a0::46)
+ by DM6PR12MB4057.namprd12.prod.outlook.com (2603:10b6:5:213::9) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7544.55; Tue, 14 May
- 2024 14:34:12 +0000
-Received: from DS3PEPF000099DF.namprd04.prod.outlook.com
- (2603:10b6:5:3b9:cafe::17) by DS7PR05CA0021.outlook.office365.com
- (2603:10b6:5:3b9::26) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7587.25 via Frontend
- Transport; Tue, 14 May 2024 14:34:12 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DS3PEPF000099DF.mail.protection.outlook.com (10.167.17.202) with Microsoft
+ 2024 14:34:25 +0000
+Received: from CO1PEPF000066EB.namprd05.prod.outlook.com
+ (2603:10b6:a03:1a0:cafe::42) by BY5PR16CA0033.outlook.office365.com
+ (2603:10b6:a03:1a0::46) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7544.55 via Frontend
+ Transport; Tue, 14 May 2024 14:34:25 +0000
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ CO1PEPF000066EB.mail.protection.outlook.com (10.167.249.7) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7587.21 via Frontend Transport; Tue, 14 May 2024 14:34:11 +0000
-Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ 15.20.7587.21 via Frontend Transport; Tue, 14 May 2024 14:34:24 +0000
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Tue, 14 May
- 2024 09:34:10 -0500
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB05.amd.com
- (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Tue, 14 May
- 2024 09:34:09 -0500
+ 2024 09:34:23 -0500
 Received: from ubuntu.mshome.net (10.180.168.240) by SATLEXMB03.amd.com
  (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.35 via Frontend
- Transport; Tue, 14 May 2024 09:34:07 -0500
+ Transport; Tue, 14 May 2024 09:34:21 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,189 +59,437 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0afddf13-11ff-11ef-b4bb-af5377834399
+X-Inumbo-ID: 11bd1953-11ff-11ef-909d-e314d9c70b13
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=bmthUKqMQFr48Wknm4hAQ0XQHwpk26eIfMCvjJSN53pzGqpMgCqm4au++4appPZkAsZKpdDLu5khOeiWiFLrNWl8Xj005GJatDXg5PDhDK9gkB/b1tn0EHO3PH5Zjyd0Cryhk0PDOM0yvY2SW8XqNsnuWyy6ijP9kyk94Cn7gCPS0QxeijEOeoMko8onEji/a4eZM/x5dyJfkT6L5T0IASDLNzGaiycozEI5pXVm5S7icdRhMi7lmQEYyDE1G2IrkH/yJ/d5paEvCM6IoNiAzVM7oxQGjYSKYk5nh0vtBH1fplHBOcUSP7w+tFvED/NKerSX4UdX06oUdQU2m68AoA==
+ b=T9xWYeEt/y4M2g1Rse67Wb5ca6ptMjIns5y2zTje/+qy5Spkml49G3GuqYnRSrIyx2OR86fKLTW1XqjMeoANHt4rSJqoVUrktFbfoxwop0ZtTZKrp+WJX34nEU/mQqxPS3viCqLdrVz5YjnfK7k5niWdV08SZEjtXfcw6/r0JcpyPFBmOulboPSkmufmiU1y5KNvO89slSvo7RJrtLQG4kGN2nZAaQbjGmErPTxQBAwnMg/YgwIqqonNUjh0q3bJ4ZkuAwT97MWOqC4eTFcxkU5IxYGhQP+anlDt4a1IDR88rE6yS3lhrB4znwyjH7/Bxt6cPe+S5CAoC68T62OyVQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=zoZFrLAdEXJwSYNJ8SgMjskivwX10Bp1KtaRk01l4qk=;
- b=AYO+yUPfjEIffC2D6jF/4gwS/ORsyXlb6QmuG1l10q6D3ZDmqrPqhV8N/3aZ0THsRLg+jluL8RWo8bZEDnhndG6vN85md0RnXHAQXFiE2bc6bbDhNecObia9Ilqvn/E2ItS9iVYi+5iBp3lSTbbA9jt/7pzCC6n1ssA6tvB/cvwiKpYIifmX6WYOgdEA6ctLN2dJ/nXGCMN7CkFn01yrlcVhA31AXSUzoqhxrn6E3fCC+s8o54fQqrJR3gbYDaOSTfAPe3WTURhD+aOBWBe3noePHKGFhLKtM1iw06NtB546SkBKp81zUU+EDRa2mxzvrPfxxbEW+yUsroe9yZw8wQ==
+ bh=zUwBnsMoww8f8q0OFnkTt7/zeC8tzJGFYO6woXqxVXg=;
+ b=VWgoFIpP8ruzJEm2eTp2Vo315U4r7BOWxnZmw+xOCyNB/gexT0Pdg1ft+yRnlhzR1LY8DXWUrEL2kkiThUrhoAkZEDDE5ZIKgGSRTTuvojYI0297veqo4uG0iJFtHGig8I704jQHv3gDYqPCodYonBXSq3c1jAZsQwgRULlYzajAfYfBSQcgYMfNtK69DF3URVHUWjqNgiQT/ej+Kj24dM1EOa+DksFbIbFAgm2QAgvwfEa/VXjiKc1lqhfX9ZS6Zcl7T1jTYXX8jD+8xY6HFibyDqjw1i0uy79Ubj03JKPMmf2TEBbaXp0ykksIaeIvzR53m8nLJs16Y5yyfw+sAA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zoZFrLAdEXJwSYNJ8SgMjskivwX10Bp1KtaRk01l4qk=;
- b=Z7hzp4jiK0Jxw8tQhcEB88a+1PgJbXqW3aZATfFGVd1UVwQuTQc+lpMmwslthst9HUJmYSHrDKFBI+J8qkRyuw9NY+FpXvgLNIu/ClixqbtPkj8YVjqqoup7GiPvQKnhEWM+fv9nofsOpl+gqrTbQl3enZVmvFKKUpjqScgoQ2E=
+ bh=zUwBnsMoww8f8q0OFnkTt7/zeC8tzJGFYO6woXqxVXg=;
+ b=UwfE0G3R4vCNPgoz90RetIJrgQ/ceeqNn0fW2CU9UYs8//3Mwek02W9q8fLK5qfePXp+yHrmsX5Bzvd/cFtL2C5ccHpwC1Y3GGLXL+9dOTaCCbL3zyd69y8DF2pZrT9OHDHhCwMLhtQn7VNzcbcQZ+/y1IrhdoUtD1Ycrk98kxM=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
 From: Stewart Hildebrand <stewart.hildebrand@amd.com>
 To: <xen-devel@lists.xenproject.org>
-CC: Stewart Hildebrand <stewart.hildebrand@amd.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>, Andrew Cooper
+CC: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>, "Stewart
+ Hildebrand" <stewart.hildebrand@amd.com>, Andrew Cooper
 	<andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>, "Jan
  Beulich" <jbeulich@suse.com>, Julien Grall <julien@xen.org>, "Stefano
- Stabellini" <sstabellini@kernel.org>, Bertrand Marquis
-	<bertrand.marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>, "Volodymyr
- Babchuk" <Volodymyr_Babchuk@epam.com>
-Subject: [PATCH v14 0/5] PCI devices passthrough on Arm, part 3
-Date: Tue, 14 May 2024 10:33:52 -0400
-Message-ID: <20240514143400.152280-1-stewart.hildebrand@amd.com>
+ Stabellini" <sstabellini@kernel.org>, Volodymyr Babchuk
+	<volodymyr_babchuk@epam.com>
+Subject: [PATCH v14 1/5] vpci/header: emulate PCI_COMMAND register for guests
+Date: Tue, 14 May 2024 10:33:53 -0400
+Message-ID: <20240514143400.152280-2-stewart.hildebrand@amd.com>
 X-Mailer: git-send-email 2.43.2
+In-Reply-To: <20240514143400.152280-1-stewart.hildebrand@amd.com>
+References: <20240514143400.152280-1-stewart.hildebrand@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-Received-SPF: None (SATLEXMB05.amd.com: stewart.hildebrand@amd.com does not
+Received-SPF: None (SATLEXMB03.amd.com: stewart.hildebrand@amd.com does not
  designate permitted sender hosts)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS3PEPF000099DF:EE_|PH8PR12MB7110:EE_
-X-MS-Office365-Filtering-Correlation-Id: dea21605-5bf5-46ef-46e7-08dc7422ec15
+X-MS-TrafficTypeDiagnostic: CO1PEPF000066EB:EE_|DM6PR12MB4057:EE_
+X-MS-Office365-Filtering-Correlation-Id: 364e5c62-d5e9-4e98-1028-08dc7422f3bb
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230031|82310400017|376005|1800799015|36860700004;
+	BCL:0;ARA:13230031|36860700004|376005|1800799015|82310400017;
 X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?iIupmQriX3tfPajaHjlgKwFqTMvtw4anvV3tbF5vNLvZaAluITx5q/ItxAQb?=
- =?us-ascii?Q?ZpKRJIuO8Hnx1v2HRKCECHYtxAw/lkpP2R+dSzv6nLEg9E5sh401qziNxoA1?=
- =?us-ascii?Q?jnKjp/RyT2fsX2yD9vFFGfGEAeE0g3atAfY45v+znjFlSr8hp9O7HyTq/hry?=
- =?us-ascii?Q?pG2uihtLUgPuMWjYzBzIegULv8YODuX0/NxvCR6Pd7dRD+Z5rsPFpQdDsbrl?=
- =?us-ascii?Q?cK5i5EjOGcI/4Jyhf4cSlLmZACBzVjxRxToqufiBPa58JN0C7WcXT7WPTr02?=
- =?us-ascii?Q?DRHhjoj+ubkoMhb4XDM42zn1cy1kHyParBbg3geqSlvfl2vroa+woM/e8d8r?=
- =?us-ascii?Q?vJ9bDScNl9orXJm8DVnjdfjGl/Fz0HgvyJxCHbouRAafDN07KU4AISrsV3cp?=
- =?us-ascii?Q?iokeetGVfsnV5h60HUUeUKluRSr6LEJNFNEnsdT+986yjM0sMB3yDExqwPU0?=
- =?us-ascii?Q?FtNV05MMhqrka07SdFkdWw+jg9SD44JyE5VLONOAfA6BmrKml8kIkLmqR3eh?=
- =?us-ascii?Q?0BxxQ7NaCy7E1p5YC9iHDNLYlcQ/J8UOsYhXL8zP7naq2iMjs7PF6xyuu/2E?=
- =?us-ascii?Q?fJal8132tBpe+tnQmIlB2Zum8p7t3Tq2QUgfApQXFkwdEx/pR2zlIK5C8tVK?=
- =?us-ascii?Q?XhhWkWJ4UObAS4ze4DgcujUc4qP6FYC8xtSlQhoIksqmeH6kkL4G1dieeUDH?=
- =?us-ascii?Q?3BegtLw4fVcfgxwOfmwoVRnWOmCnZk2MNB4i2Jh4iRyVNakmdENNkqJT3iSB?=
- =?us-ascii?Q?yn9yE3oYkq4AW5bXwTUrNdSBlKWSab3Vpx+fS7CC14NRXKYfbf5h6d/pCDNj?=
- =?us-ascii?Q?0Cs9GP7Lrtq7N5jRvVTxnrVbL+6Vqo7pvPe1/r9ZYtlUejfMBFxjfZa+Y97c?=
- =?us-ascii?Q?47TMmtRakJ9fMSnjU5REkDEwJH1hcNjJ8MlThfo773pFnz1jgPhnDTZuaK9K?=
- =?us-ascii?Q?0lDc5ZxEnNQqHLybq06o0k1OZ+se0KXiXgxHUfr50Kf9uj/GXuefkfIhT4GY?=
- =?us-ascii?Q?fpPMACDLAvtFwPX1njDVFSgxz7vjI9Luyr+wOYsUUysrQ2Cd6bqwEBM2o15A?=
- =?us-ascii?Q?RR2kVXsMOSklwkEGXcVDowRfEGwl13D5sKO22bc5+uiPffq/vUsM4yW0EL3V?=
- =?us-ascii?Q?fp9nbsJkpJMaJTHSrgzqvOMKAaBx1pxBDP6/sxPs52LGepUx5GY9yIlUQe01?=
- =?us-ascii?Q?/3U1HHjyot23oZSl8kjlDi6Ow6qX+u9hJTA45nbkR7SHe132CRi1IEyBlaue?=
- =?us-ascii?Q?DJ3mGiQiB2sJ+HZ/AaZOzJKaI1wI2w3j2GhZZNPnJcGyYeV9IU1xCn6+n2Lr?=
- =?us-ascii?Q?UDJU1+zq80ZPIHv88PG2mOkV5f+y0JeMVXdTRklkE29yajWGrG0Nkbgloywb?=
- =?us-ascii?Q?SeQ1C0NoYvuXuYxhnjMuK04BUl0s?=
+	=?us-ascii?Q?GtlWqU/re/zNBjVbhxZxiAoBPlVmZCANJkh6QxhvBUeEiljp51+ct6ltLQQS?=
+ =?us-ascii?Q?Y/I3wKJmgjyeArBM1eUrJey6uMkMw9pnqhLewfpGhvvCmWKev+6D0/QiwWZ/?=
+ =?us-ascii?Q?o7xKXsURKAH8Kfi8+ZIHdl2eZ7cyPh3BIO+gzh+C81qk3253a6Ru1veL9jPQ?=
+ =?us-ascii?Q?E8RzSmH4XmIcDrkmJ5RYRmuIFaSh4tyuDIIjwfiyj//QpHFiut2fi80GLf8s?=
+ =?us-ascii?Q?YBIQ0DM06cwiFPGpdBhH9L1C17SBJjNdFqgo1wYieYbntMLo6lwsybFf+8Fk?=
+ =?us-ascii?Q?XdizuwkQkWeShl43Mgodr0lf6cXbFNd1NgzYp/P5xeGlq4xJBxb1VyWGry+E?=
+ =?us-ascii?Q?JVa6HSAVsBgmE6xaPgCnBoc10iFexgoLmM8ThWWW7WgG+pRvT3fxW7+r+5K4?=
+ =?us-ascii?Q?IqG1iacaeUhjZLJ8x2qvNyECViHMJHPv/TcGrm9kFErkTE2soZlJ7i2tOrLS?=
+ =?us-ascii?Q?RjKOfHBsx3K0v4blxX7lPNpve92zyGVe5NgNvexsgNR4x7hNWzbilfEn4IJS?=
+ =?us-ascii?Q?WAz1xq2CxvkvPikdhg35mdryg+0IquP63HcYk70/F60pucrkxQc3OykOfw1v?=
+ =?us-ascii?Q?VTDbV8Ph1EknQ/Pvp5RwHZAymoOSCapTjmAFRuKkK/XgBPCdTZKFfEFmzuGK?=
+ =?us-ascii?Q?ByMjHJdLRxy4EVAYqFFG1+ZeM+Aht6FGnFAcwO8lgKglHrWDs+acyUf7yABn?=
+ =?us-ascii?Q?bfcNHcZlb9ntPr5hobgmhYQjLOIMDzPW8xntdYhGcA/s5UvQ83AWf+EMnGZt?=
+ =?us-ascii?Q?mHS3c/++XJcYfh5QpwL6vSxdpDgZrFYWFFHTGnpp6MJHr0pcX+LNkVcj6wP3?=
+ =?us-ascii?Q?2v2aE11hMiCCaeTvcJpHHqISmSt+jmqpWhtt4uB/ccDyVzvBjRmUHOW0G2YT?=
+ =?us-ascii?Q?GoRXEGBLu+nPkuExaF+R23mL5Lw+1a0i6vIDaVc31UbB+wona8tMN01TBIKT?=
+ =?us-ascii?Q?+YUbQGRoULMsCqdt2G3ojZ38eE5hlSk3tkARPPgmMtnB8L8g2NmDU1OtGQxu?=
+ =?us-ascii?Q?bkbn5OSYJs9HIiH9pjLhCf18588/dxmaZiyS7/wKdC7lTa240C5h0nFLnqlH?=
+ =?us-ascii?Q?IDDsO7za63NdwgxIefiHM3ma5f2GpTnyZJsDyZluoWB2cXlLGgdeeERWslMn?=
+ =?us-ascii?Q?6ZR3ovikf0YWVFHceuXL9PrSvTXuiOKI3cTRP8SYQ9fXjD/mCMXYUuYuyfMM?=
+ =?us-ascii?Q?wrZ0s0oyJGrvSgQ3x0vHZrRxVlADcZZyjtnQv3B3/FDKc9Ur59DDC810zw8y?=
+ =?us-ascii?Q?UOrEeKQ7x9W1KqR7T8+j/bFI6e8lFouplEE8kVhyRfVD/0RhkTQgS/xOKx+9?=
+ =?us-ascii?Q?yrFqgwowzTKvHIFahUHGVDnW?=
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(82310400017)(376005)(1800799015)(36860700004);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(36860700004)(376005)(1800799015)(82310400017);DIR:OUT;SFP:1101;
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 May 2024 14:34:11.7201
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 May 2024 14:34:24.5194
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: dea21605-5bf5-46ef-46e7-08dc7422ec15
+X-MS-Exchange-CrossTenant-Network-Message-Id: 364e5c62-d5e9-4e98-1028-08dc7422f3bb
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	DS3PEPF000099DF.namprd04.prod.outlook.com
+	CO1PEPF000066EB.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB7110
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4057
 
-This is next version of vPCI rework. Aim of this series is to prepare
-ground for introducing PCI support on ARM platform.
+From: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
 
-in v14:
- - drop first 9 patches as they were committed
- - updated ("vpci/header: emulate PCI_COMMAND register for guests")
+Xen and/or Dom0 may have put values in PCI_COMMAND which they expect
+to remain unaltered. PCI_COMMAND_SERR bit is a good example: while the
+guest's (domU) view of this will want to be zero (for now), the host
+having set it to 1 should be preserved, or else we'd effectively be
+giving the domU control of the bit. Thus, PCI_COMMAND register needs
+proper emulation in order to honor host's settings.
 
-in v13:
- - drop ("xen/arm: vpci: permit access to guest vpci space") as it was
-   unnecessary
+According to "PCI LOCAL BUS SPECIFICATION, REV. 3.0", section "6.2.2
+Device Control" the reset state of the command register is typically 0,
+so when assigning a PCI device use 0 as the initial state for the
+guest's (domU) view of the command register.
 
-in v12:
- - I (Stewart) coordinated with Volodomyr to send this whole series. So,
-   add my (Stewart) Signed-off-by to all patches.
- - The biggest change is to re-work the PCI_COMMAND register patch.
-   Additional feedback has also been addressed - see individual patches.
- - Drop ("pci: msi: pass pdev to pci_enable_msi() function") and
-   ("pci: introduce per-domain PCI rwlock") as they were committed
- - Rename ("rangeset: add rangeset_empty() function")
-       to ("rangeset: add rangeset_purge() function")
- - Rename ("vpci/header: rework exit path in init_bars")
-       to ("vpci/header: rework exit path in init_header()")
+Here is the full list of command register bits with notes about
+PCI/PCIe specification, and how Xen handles the bit. QEMU's behavior is
+also documented here since that is our current reference implementation
+for PCI passthrough.
 
-in v11:
- - Added my (Volodymyr) Signed-off-by tag to all patches
- - Patch "vpci/header: emulate PCI_COMMAND register for guests" is in
-   intermediate state, because it was agreed to rework it once Stewart's
-   series on register handling are in.
- - Addressed comments, please see patch descriptions for details.
+PCI_COMMAND_IO (bit 0)
+  PCIe 6.1: RW
+  PCI LB 3.0: RW
+  QEMU: (emu_mask) QEMU provides an emulated view of this bit. Guest
+    writes do not propagate to hardware. QEMU sets this bit to 1 in
+    hardware if an I/O BAR is exposed to the guest.
+  Xen domU: (rsvdp_mask) We treat this bit as RsvdP for now since we
+    don't yet support I/O BARs for domUs.
+  Xen dom0: We allow dom0 to control this bit freely.
 
-in v10:
+PCI_COMMAND_MEMORY (bit 1)
+  PCIe 6.1: RW
+  PCI LB 3.0: RW
+  QEMU: (emu_mask) QEMU provides an emulated view of this bit. Guest
+    writes do not propagate to hardware. QEMU sets this bit to 1 in
+    hardware if a Memory BAR is exposed to the guest.
+  Xen domU/dom0: We handle writes to this bit by mapping/unmapping BAR
+    regions.
+  Xen domU: For devices assigned to DomUs, memory decoding will be
+    disabled at the time of initialization.
 
- - Removed patch ("xen/arm: vpci: check guest range"), proper fix
-   for the issue is part of ("vpci/header: emulate PCI_COMMAND
-   register for guests")
- - Removed patch ("pci/header: reset the command register when adding
-   devices")
- - Added patch ("rangeset: add rangeset_empty() function") because
-   this function is needed in ("vpci/header: handle p2m range sets
-   per BAR")
- - Added ("vpci/header: handle p2m range sets per BAR") which addressed
-   an issue discovered by Andrii Chepurnyi during virtio integration
- - Added ("pci: msi: pass pdev to pci_enable_msi() function"), which is
-   prereq for ("pci: introduce per-domain PCI rwlock")
- - Fixed "Since v9/v8/... " comments in changelogs to reduce confusion.
-   I left "Since" entries for older versions, because they were added
-   by original author of the patches.
+PCI_COMMAND_MASTER (bit 2)
+  PCIe 6.1: RW
+  PCI LB 3.0: RW
+  QEMU: Pass through writes to hardware.
+  Xen domU/dom0: Pass through writes to hardware.
 
-in v9:
+PCI_COMMAND_SPECIAL (bit 3)
+  PCIe 6.1: RO, hardwire to 0
+  PCI LB 3.0: RW
+  QEMU: Pass through writes to hardware.
+  Xen domU/dom0: Pass through writes to hardware.
 
-v9 includes addressed commentes from a previous one. Also it
-introduces a couple patches from Stewart. This patches are related to
-vPCI use on ARM. Patch "vpci/header: rework exit path in init_bars"
-was factored-out from "vpci/header: handle p2m range sets per BAR".
+PCI_COMMAND_INVALIDATE (bit 4)
+  PCIe 6.1: RO, hardwire to 0
+  PCI LB 3.0: RW
+  QEMU: Pass through writes to hardware.
+  Xen domU/dom0: Pass through writes to hardware.
 
-in v8:
+PCI_COMMAND_VGA_PALETTE (bit 5)
+  PCIe 6.1: RO, hardwire to 0
+  PCI LB 3.0: RW
+  QEMU: Pass through writes to hardware.
+  Xen domU/dom0: Pass through writes to hardware.
 
-The biggest change from previous, mistakenly named, v7 series is how
-locking is implemented. Instead of d->vpci_rwlock we introduce
-d->pci_lock which has broader scope, as it protects not only domain's
-vpci state, but domain's list of PCI devices as well.
+PCI_COMMAND_PARITY (bit 6)
+  PCIe 6.1: RW
+  PCI LB 3.0: RW
+  QEMU: (emu_mask) QEMU provides an emulated view of this bit. Guest
+    writes do not propagate to hardware.
+  Xen domU: (rsvdp_mask) We treat this bit as RsvdP.
+  Xen dom0: We allow dom0 to control this bit freely.
 
-As we discussed in IRC with Roger, it is not feasible to rework all
-the existing code to use the new lock right away. It was agreed that
-any write access to d->pdev_list will be protected by **both**
-d->pci_lock in write mode and pcidevs_lock(). Read access on other
-hand should be protected by either d->pci_lock in read mode or
-pcidevs_lock(). It is expected that existing code will use
-pcidevs_lock() and new users will use new rw lock. Of course, this
-does not mean that new users shall not use pcidevs_lock() when it is
-appropriate.
+PCI_COMMAND_WAIT (bit 7)
+  PCIe 6.1: RO, hardwire to 0
+  PCI LB 3.0: hardwire to 0
+  QEMU: res_mask
+  Xen domU: (rsvdp_mask) We treat this bit as RsvdP.
+  Xen dom0: We allow dom0 to control this bit freely.
 
-Changes from previous versions are described in each separate patch.
+PCI_COMMAND_SERR (bit 8)
+  PCIe 6.1: RW
+  PCI LB 3.0: RW
+  QEMU: (emu_mask) QEMU provides an emulated view of this bit. Guest
+    writes do not propagate to hardware.
+  Xen domU: (rsvdp_mask) We treat this bit as RsvdP.
+  Xen dom0: We allow dom0 to control this bit freely.
 
-Oleksandr Andrushchenko (4):
-  vpci/header: emulate PCI_COMMAND register for guests
-  vpci: add initial support for virtual PCI bus topology
-  xen/arm: translate virtual PCI bus topology for guests
-  xen/arm: account IO handlers for emulated PCI MSI-X
+PCI_COMMAND_FAST_BACK (bit 9)
+  PCIe 6.1: RO, hardwire to 0
+  PCI LB 3.0: RW
+  QEMU: (emu_mask) QEMU provides an emulated view of this bit. Guest
+    writes do not propagate to hardware.
+  Xen domU: (rsvdp_mask) We treat this bit as RsvdP.
+  Xen dom0: We allow dom0 to control this bit freely.
 
-Volodymyr Babchuk (1):
-  arm/vpci: honor access size when returning an error
+PCI_COMMAND_INTX_DISABLE (bit 10)
+  PCIe 6.1: RW
+  PCI LB 3.0: RW
+  QEMU: (emu_mask) QEMU provides an emulated view of this bit. Guest
+    writes do not propagate to hardware. QEMU checks if INTx was mapped
+    for a device. If it is not, then guest can't control
+    PCI_COMMAND_INTX_DISABLE bit.
+  Xen domU: We prohibit a guest from enabling INTx if MSI(X) is enabled.
+  Xen dom0: We allow dom0 to control this bit freely.
 
- xen/arch/arm/vpci.c        | 63 +++++++++++++++++++++++------
- xen/drivers/Kconfig        |  4 ++
- xen/drivers/vpci/header.c  | 60 +++++++++++++++++++++++++---
- xen/drivers/vpci/msi.c     |  8 ++++
- xen/drivers/vpci/msix.c    |  7 ++++
- xen/drivers/vpci/vpci.c    | 81 ++++++++++++++++++++++++++++++++++++++
+Bits 11-15
+  PCIe 6.1: RsvdP
+  PCI LB 3.0: Reserved
+  QEMU: res_mask
+  Xen domU/dom0: rsvdp_mask
+
+Signed-off-by: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
+Signed-off-by: Volodymyr Babchuk <volodymyr_babchuk@epam.com>
+Signed-off-by: Stewart Hildebrand <stewart.hildebrand@amd.com>
+---
+RFC: There is an unaddressed question for Roger: should we update the
+     guest view of the PCI_COMMAND_INTX_DISABLE bit in
+     msi.c/msix.c:control_write()? See prior discussion at [1].
+     In my opinion, I think we should make sure that hardware state and
+     the guest view are consistent (i.e. don't lie to the guest).
+
+[1] https://lore.kernel.org/xen-devel/86b25777-788c-4b9a-8166-a6f8174bedc9@suse.com/
+
+In v14:
+- check for 0->1 transition in INTX_DISABLE-setting logic in
+  msi.c:control_write() to match msix.c:control_write()
+- clear domU-controllable bits in header.c:init_header()
+
+In v13:
+- Update right away (don't defer) PCI_COMMAND_MEMORY bit in guest_cmd
+  variable in cmd_write()
+- Make comment single line in xen/drivers/vpci/msi.c:control_write()
+- Rearrange memory decoding disabling snippet in init_header()
+
+In v12:
+- Rework patch using vpci_add_register_mask()
+- Add bitmask #define in pci_regs.h according to PCIe 6.1 spec, except
+  don't add the RO bits because they were RW in PCI LB 3.0 spec.
+- Move and expand TODO comment about properly emulating bits
+- Update guest_cmd in msi.c/msix.c:control_write()
+- Simplify cmd_write(), thanks to rsvdp_mask
+- Update commit description
+
+In v11:
+- Fix copy-paste mistake: vpci->msi should be vpci->msix
+- Handle PCI_COMMAND_IO
+- Fix condition for disabling INTx in the MSI-X code
+- Show domU changes to only allowed bits
+- Show PCI_COMMAND_MEMORY write only after P2M was altered
+- Update comments in the code
+In v10:
+- Added cf_check attribute to guest_cmd_read
+- Removed warning about non-zero cmd
+- Updated comment MSI code regarding disabling INTX
+- Used ternary operator in vpci_add_register() call
+- Disable memory decoding for DomUs in init_bars()
+In v9:
+- Reworked guest_cmd_read
+- Added handling for more bits
+Since v6:
+- fold guest's logic into cmd_write
+- implement cmd_read, so we can report emulated INTx state to guests
+- introduce header->guest_cmd to hold the emulated state of the
+  PCI_COMMAND register for guests
+Since v5:
+- add additional check for MSI-X enabled while altering INTX bit
+- make sure INTx disabled while guests enable MSI/MSI-X
+Since v3:
+- gate more code on CONFIG_HAS_MSI
+- removed logic for the case when MSI/MSI-X not enabled
+---
+ xen/drivers/vpci/header.c  | 60 ++++++++++++++++++++++++++++++++++----
+ xen/drivers/vpci/msi.c     |  8 +++++
+ xen/drivers/vpci/msix.c    |  7 +++++
  xen/include/xen/pci_regs.h |  1 +
- xen/include/xen/sched.h    | 10 ++++-
- xen/include/xen/vpci.h     | 27 +++++++++++++
- 9 files changed, 242 insertions(+), 19 deletions(-)
+ xen/include/xen/vpci.h     |  3 ++
+ 5 files changed, 73 insertions(+), 6 deletions(-)
 
-
-base-commit: 46aa3031ae89ac1771f4159972edab65710e7349
+diff --git a/xen/drivers/vpci/header.c b/xen/drivers/vpci/header.c
+index 47648c395132..2491dbae8901 100644
+--- a/xen/drivers/vpci/header.c
++++ b/xen/drivers/vpci/header.c
+@@ -524,9 +524,21 @@ static void cf_check cmd_write(
+ {
+     struct vpci_header *header = data;
+ 
++    if ( !is_hardware_domain(pdev->domain) )
++    {
++        const struct vpci *vpci = pdev->vpci;
++
++        if ( (vpci->msi && vpci->msi->enabled) ||
++             (vpci->msix && vpci->msix->enabled) )
++            cmd |= PCI_COMMAND_INTX_DISABLE;
++
++        header->guest_cmd = cmd;
++    }
++
+     /*
+      * Let Dom0 play with all the bits directly except for the memory
+-     * decoding one.
++     * decoding one. Bits that are not allowed for DomU are already
++     * handled above and by the rsvdp_mask.
+      */
+     if ( header->bars_mapped != !!(cmd & PCI_COMMAND_MEMORY) )
+         /*
+@@ -540,6 +552,14 @@ static void cf_check cmd_write(
+         pci_conf_write16(pdev->sbdf, reg, cmd);
+ }
+ 
++static uint32_t cf_check guest_cmd_read(
++    const struct pci_dev *pdev, unsigned int reg, void *data)
++{
++    const struct vpci_header *header = data;
++
++    return header->guest_cmd;
++}
++
+ static void cf_check bar_write(
+     const struct pci_dev *pdev, unsigned int reg, uint32_t val, void *data)
+ {
+@@ -754,9 +774,23 @@ static int cf_check init_header(struct pci_dev *pdev)
+         return -EOPNOTSUPP;
+     }
+ 
+-    /* Setup a handler for the command register. */
+-    rc = vpci_add_register(pdev->vpci, vpci_hw_read16, cmd_write, PCI_COMMAND,
+-                           2, header);
++    /*
++     * Setup a handler for the command register.
++     *
++     * TODO: If support for emulated bits is added, re-visit how to handle
++     * PCI_COMMAND_PARITY, PCI_COMMAND_SERR, and PCI_COMMAND_FAST_BACK.
++     */
++    rc = vpci_add_register_mask(pdev->vpci,
++                                is_hwdom ? vpci_hw_read16 : guest_cmd_read,
++                                cmd_write, PCI_COMMAND, 2, header, 0, 0,
++                                PCI_COMMAND_RSVDP_MASK |
++                                    (is_hwdom ? 0
++                                              : PCI_COMMAND_IO |
++                                                PCI_COMMAND_PARITY |
++                                                PCI_COMMAND_WAIT |
++                                                PCI_COMMAND_SERR |
++                                                PCI_COMMAND_FAST_BACK),
++                                0);
+     if ( rc )
+         return rc;
+ 
+@@ -836,9 +870,23 @@ static int cf_check init_header(struct pci_dev *pdev)
+     if ( pdev->ignore_bars )
+         return 0;
+ 
+-    /* Disable memory decoding before sizing. */
+     cmd = pci_conf_read16(pdev->sbdf, PCI_COMMAND);
+-    if ( cmd & PCI_COMMAND_MEMORY )
++
++    /*
++     * For DomUs, clear PCI_COMMAND_{MASTER,MEMORY,IO} and other
++     * DomU-controllable bits in PCI_COMMAND. Devices assigned to DomUs will
++     * start with memory decoding disabled, and modify_bars() will not be called
++     * at the end of this function.
++     */
++    if ( !is_hwdom )
++        cmd &= ~(PCI_COMMAND_VGA_PALETTE | PCI_COMMAND_INVALIDATE |
++                 PCI_COMMAND_SPECIAL | PCI_COMMAND_MASTER | PCI_COMMAND_MEMORY |
++                 PCI_COMMAND_IO);
++
++    header->guest_cmd = cmd;
++
++    /* Disable memory decoding before sizing. */
++    if ( !is_hwdom || (cmd & PCI_COMMAND_MEMORY) )
+         pci_conf_write16(pdev->sbdf, PCI_COMMAND, cmd & ~PCI_COMMAND_MEMORY);
+ 
+     for ( i = 0; i < num_bars; i++ )
+diff --git a/xen/drivers/vpci/msi.c b/xen/drivers/vpci/msi.c
+index 30adcf7df05d..3e414e69a432 100644
+--- a/xen/drivers/vpci/msi.c
++++ b/xen/drivers/vpci/msi.c
+@@ -57,6 +57,7 @@ static void cf_check control_write(
+ 
+     if ( new_enabled )
+     {
++        bool old_enabled = msi->enabled;
+         /*
+          * If the device is already enabled it means the number of
+          * enabled messages has changed. Disable and re-enable the
+@@ -70,6 +71,13 @@ static void cf_check control_write(
+ 
+         if ( vpci_msi_arch_enable(msi, pdev, vectors) )
+             return;
++
++        /* Make sure domU doesn't enable INTx while enabling MSI. */
++        if ( !old_enabled && !is_hardware_domain(pdev->domain) )
++        {
++            pci_intx(pdev, false);
++            pdev->vpci->header.guest_cmd |= PCI_COMMAND_INTX_DISABLE;
++        }
+     }
+     else
+         vpci_msi_arch_disable(msi, pdev);
+diff --git a/xen/drivers/vpci/msix.c b/xen/drivers/vpci/msix.c
+index 58c16ebdf283..fbe710ab92ef 100644
+--- a/xen/drivers/vpci/msix.c
++++ b/xen/drivers/vpci/msix.c
+@@ -135,6 +135,13 @@ static void cf_check control_write(
+         }
+     }
+ 
++    /* Make sure domU doesn't enable INTx while enabling MSI-X. */
++    if ( new_enabled && !msix->enabled && !is_hardware_domain(pdev->domain) )
++    {
++        pci_intx(pdev, false);
++        pdev->vpci->header.guest_cmd |= PCI_COMMAND_INTX_DISABLE;
++    }
++
+     msix->masked = new_masked;
+     msix->enabled = new_enabled;
+ 
+diff --git a/xen/include/xen/pci_regs.h b/xen/include/xen/pci_regs.h
+index 0bc18efabb74..250ba106dbd3 100644
+--- a/xen/include/xen/pci_regs.h
++++ b/xen/include/xen/pci_regs.h
+@@ -48,6 +48,7 @@
+ #define  PCI_COMMAND_SERR	0x100	/* Enable SERR */
+ #define  PCI_COMMAND_FAST_BACK	0x200	/* Enable back-to-back writes */
+ #define  PCI_COMMAND_INTX_DISABLE 0x400 /* INTx Emulation Disable */
++#define  PCI_COMMAND_RSVDP_MASK	0xf800
+ 
+ #define PCI_STATUS		0x06	/* 16 bits */
+ #define  PCI_STATUS_IMM_READY	0x01	/* Immediate Readiness */
+diff --git a/xen/include/xen/vpci.h b/xen/include/xen/vpci.h
+index 6e4c972f35ed..2064d9354f5b 100644
+--- a/xen/include/xen/vpci.h
++++ b/xen/include/xen/vpci.h
+@@ -107,6 +107,9 @@ struct vpci {
+         } bars[PCI_HEADER_NORMAL_NR_BARS + 1];
+         /* At most 6 BARS + 1 expansion ROM BAR. */
+ 
++        /* Guest (domU only) view of the PCI_COMMAND register. */
++        uint16_t guest_cmd;
++
+         /*
+          * Store whether the ROM enable bit is set (doesn't imply ROM BAR
+          * is mapped into guest p2m) if there's a ROM BAR on the device.
 -- 
 2.43.2
 
