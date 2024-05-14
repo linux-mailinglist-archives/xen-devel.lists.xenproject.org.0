@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 97EC08C4DBF
-	for <lists+xen-devel@lfdr.de>; Tue, 14 May 2024 10:39:18 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.721256.1124534 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B6ED98C4DD6
+	for <lists+xen-devel@lfdr.de>; Tue, 14 May 2024 10:43:06 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.721262.1124544 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s6ngP-0004nL-MX; Tue, 14 May 2024 08:38:49 +0000
+	id 1s6nkK-0007UN-9S; Tue, 14 May 2024 08:42:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 721256.1124534; Tue, 14 May 2024 08:38:49 +0000
+Received: by outflank-mailman (output) from mailman id 721262.1124544; Tue, 14 May 2024 08:42:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s6ngP-0004ku-J5; Tue, 14 May 2024 08:38:49 +0000
-Received: by outflank-mailman (input) for mailman id 721256;
- Tue, 14 May 2024 08:38:47 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=VieR=MR=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1s6ngN-0004ko-QB
- for xen-devel@lists.xenproject.org; Tue, 14 May 2024 08:38:47 +0000
-Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
- [2a00:1450:4864:20::635])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 60eaf483-11cd-11ef-909d-e314d9c70b13;
- Tue, 14 May 2024 10:38:46 +0200 (CEST)
-Received: by mail-ej1-x635.google.com with SMTP id
- a640c23a62f3a-a5a5cb0e6b7so549410766b.1
- for <xen-devel@lists.xenproject.org>; Tue, 14 May 2024 01:38:46 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5733bed72bbsm7243366a12.57.2024.05.14.01.38.45
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 14 May 2024 01:38:45 -0700 (PDT)
+	id 1s6nkK-0007Ri-6x; Tue, 14 May 2024 08:42:52 +0000
+Received: by outflank-mailman (input) for mailman id 721262;
+ Tue, 14 May 2024 08:42:50 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=PE3g=MR=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1s6nkI-0007Rc-GY
+ for xen-devel@lists.xenproject.org; Tue, 14 May 2024 08:42:50 +0000
+Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
+ [2a00:1450:4864:20::32a])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id f11e5182-11cd-11ef-b4bb-af5377834399;
+ Tue, 14 May 2024 10:42:48 +0200 (CEST)
+Received: by mail-wm1-x32a.google.com with SMTP id
+ 5b1f17b1804b1-420104e5336so16158395e9.1
+ for <xen-devel@lists.xenproject.org>; Tue, 14 May 2024 01:42:48 -0700 (PDT)
+Received: from localhost ([213.195.114.223]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4200e518984sm118855725e9.23.2024.05.14.01.42.47
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 14 May 2024 01:42:47 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,117 +44,130 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 60eaf483-11cd-11ef-909d-e314d9c70b13
+X-Inumbo-ID: f11e5182-11cd-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1715675926; x=1716280726; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=s0zy3Vgr26FzbIVrWDxEElw5PwRCEREU9VQ5sdqIaFg=;
-        b=Y2FGxuG0DayNUglqgVGvPNqq+hy2sKCK5nwYaC4c7/irmEY/RKrFl+BeOpJ7AGGp7Q
-         rmbezcLFkOFBV/hUDwJKaURl9V0PR7y/Uo7LqNiQThosZUBe2ikgMtLOCrmkWsItOQsJ
-         e6/XokQZehYeX8FJRgLIV4wvpEXi4JeNOyCnneRoDPxLRjD8p+p5947uGErctPt39su3
-         6Jxf2+d+Sr4zgeuDV/IFLGkfJgC/+trQoiV+bUGJWQH3yEszs5aa/+jpIaFEUP17IU6n
-         XvekGzU29Lfm07NDYpnmr4sFIkIp2TGfOuvTRS/EW/JKcNjwPOR7blSqUVcWKw8i4+lc
-         s/vw==
+        d=citrix.com; s=google; t=1715676168; x=1716280968; darn=lists.xenproject.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=MhqhIL0gBwwdJARQnLt/zpiJ59NDlGpFbNldB6nMz6E=;
+        b=aOIl+lKsmeh1l92Ti0yaTyKMc/ZD3fQp+hZQTPS4by30NCS9vyPYqqx7+3gshhPUYi
+         yufmgz9jAC55FOal7+VG58JVuANqlKstmkHAM1ymLOdfzaa7vdElJN/riVzcCWSySei6
+         RErpwyNSPgZPjB3fEBLbp0vv7d8A84G9TtSBo=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1715675926; x=1716280726;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=s0zy3Vgr26FzbIVrWDxEElw5PwRCEREU9VQ5sdqIaFg=;
-        b=oAGgzCDjcJ4BUkZHU2YWryG2pPYahL/Ye84TWYTxg4arcANQAeLqyOhk+WRI95xX95
-         lrQFtUl0oV7pgtSWmUA8c/+uGQDfg0XyxSdtGXLByliglz6KKXfqh+Fvyj0x7bjLOcXS
-         Shx7Px9pJT4xFXkQyEqc+e+wsWJK6GOrNvueIfT+b/MXritJk/FSYHTwCH4vywkntv8N
-         52s79RnYP9T4yLxY+w8SX+AullnnoHReJgZ0OGJIS1Bx3xKJHF8d63Gy7pm1rE48WLGz
-         15ICYZQH4pAUCl9H4CJcFt09OLR27zkGEGuribTC7KDzg5yVtQjaWLIoYUakh40wb/c4
-         1HQg==
-X-Gm-Message-State: AOJu0YzVygqzKBYq+93p1XL3MsXkRo6sCG9R8T9AuxZN6aRs1xvjyg6B
-	PAZdZS77Kzxx+BJyJQdM0jD9U59y2jEWCLSHMeKHN2Y8Y5VRD3wUpcKD+U9FTw==
-X-Google-Smtp-Source: AGHT+IF3zNqyloY34FyQc7U5Va/1blGyVAfedKwdvwAQ8WlL4ucKPB9NZ3WmaBCdPOfAzeRUxFsY8w==
-X-Received: by 2002:aa7:c884:0:b0:573:5c18:c2d5 with SMTP id 4fb4d7f45d1cf-5735c18c2dcmr7146085a12.3.1715675926194;
-        Tue, 14 May 2024 01:38:46 -0700 (PDT)
-Message-ID: <1250a87c-e6c4-4c57-a7d0-f1fbdf7bb136@suse.com>
-Date: Tue, 14 May 2024 10:38:53 +0200
+        d=1e100.net; s=20230601; t=1715676168; x=1716280968;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=MhqhIL0gBwwdJARQnLt/zpiJ59NDlGpFbNldB6nMz6E=;
+        b=A6jaF3RLJEgMiGZh1SDL0r/UK7oarT5jy1kEGUD0PoBLrTvBg3ZuqXdiIgPsZ+fIho
+         sqHZNOxvsqBtuFZekTy7YYuYvSswE4vZ0kW2d1owIGf14S+xHHACCzDg5XWuggR8C8J5
+         ouvbGyK8TW/b//x27/DmDqFbbSpy2Fzvu79XLI0J/ADlFUCnbqjRi9cufooIKDKFLRLc
+         pQFsQcQrKe9EwAp8ROYFWTMpHtaTjQzaYu4ci6ep1i5vsv0a/slFyfDRBp+HhMZkAVad
+         5hBbtepbZ144UkYLrbcLtDFSHwPML9oFA0Wn3yV81STtNNiStQxnBoMTZoVmmkxWZPti
+         qBpA==
+X-Gm-Message-State: AOJu0Yy4F3mscyByaeHWOowCv2o6urfnyZocOA16n8/M16fILmC7symv
+	lNn2SwyrYVkjGQ18a6n+qouGAbVbwfNS1mKV0gln2QHTJW3xhjkjFaL4fxr6CZo=
+X-Google-Smtp-Source: AGHT+IG0/SRvK8+UJM05wdjtjgfPTjZsG9KL+zPOb6MitkzsuqYaRk+1cx4yRturpjn/mkPAZhwKXg==
+X-Received: by 2002:a05:600c:35cd:b0:420:1a72:69dd with SMTP id 5b1f17b1804b1-4201a726bfamr32640725e9.10.1715676167799;
+        Tue, 14 May 2024 01:42:47 -0700 (PDT)
+Date: Tue, 14 May 2024 10:42:46 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Elias El Yandouzi <eliasely@amazon.com>
+Cc: xen-devel@lists.xenproject.org, julien@xen.org, pdurrant@amazon.com,
+	dwmw@amazon.com, Hongyan Xia <hongyxia@amazon.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Wei Wang <wawei@amazon.de>, Julien Grall <jgrall@amazon.com>
+Subject: Re: [PATCH V3 (resend) 05/19] x86/mapcache: Initialise the mapcache
+ for the idle domain
+Message-ID: <ZkMkBrf2G5dQllHc@macbook>
+References: <20240513134046.82605-1-eliasely@amazon.com>
+ <20240513134046.82605-6-eliasely@amazon.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] fix Rule 10.2 violation
-Content-Language: en-US
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: xen-devel@lists.xenproject.org, andrew.cooper3@citrix.com,
- george.dunlap@citrix.com, roger.pau@citrix.com, bertrand.marquis@arm.com,
- michal.orzel@amd.com, Julien Grall <julien@xen.org>
-References: <alpine.DEB.2.22.394.2405101634500.2544314@ubuntu-linux-20-04-desktop>
- <0625f4f2-daaa-4867-8c39-f8e9ce939ca0@xen.org>
- <alpine.DEB.2.22.394.2405131706450.2544314@ubuntu-linux-20-04-desktop>
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <alpine.DEB.2.22.394.2405131706450.2544314@ubuntu-linux-20-04-desktop>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20240513134046.82605-6-eliasely@amazon.com>
 
-On 14.05.2024 02:09, Stefano Stabellini wrote:
-> On Mon, 13 May 2024, Julien Grall wrote:
->> Hi Stefano,
->>
->> title: Is this the only violation we have in Xen? If so, then please add the
->> subsystem in the title.
+On Mon, May 13, 2024 at 01:40:32PM +0000, Elias El Yandouzi wrote:
+> From: Hongyan Xia <hongyxia@amazon.com>
 > 
-> The only remaining violations are about the use of the "toupper" macro.
-> Bugseng is recommending to add a cast to fix those or deviate toupper.
-> 
-> 
->> On 11/05/2024 00:37, Stefano Stabellini wrote:
->>> Change opt_conswitch to char to fix a violation of Rule 10.2.
->>>
->>> Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
->>>
->>> diff --git a/xen/drivers/char/console.c b/xen/drivers/char/console.c
->>> index 2c363d9c1d..3a3a97bcbe 100644
->>> --- a/xen/drivers/char/console.c
->>> +++ b/xen/drivers/char/console.c
->>> @@ -49,7 +49,7 @@ string_param("console", opt_console);
->>>   /* Char 1: CTRL+<char1> is used to switch console input between Xen and
->>> DOM0 */
->>>   /* Char 2: If this character is 'x', then do not auto-switch to DOM0 when
->>> it */
->>>   /*         boots. Any other value, or omitting the char, enables
->>> auto-switch */
->>> -static unsigned char __read_mostly opt_conswitch[3] = "a";
->>> +static char __read_mostly opt_conswitch[3] = "a";
->>
->> Looking at the rest of the code, we have:
->>
->> #define switch_code (opt_conswitch[0] - 'a' + 1)
->>
->> Can you confirm whether this is not somehow adding a new violation?
-> 
-> No, this patch is to fix a violation exactly there.
+> In order to use the mapcache in the idle domain, we also have to
+> populate its page tables in the PERDOMAIN region, and we need to move
+> mapcache_domain_init() earlier in arch_domain_create().
 
-Right. With a suitable subject prefix added:
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
+Oh, so this is the reason for the remark on the previous commit
+message: idle domain init gets short-circuited earlier in
+arch_domain_create() and never gets to the mapcache_domain_init()
+call.
 
-Jan
+> Note, commit 'x86: lift mapcache variable to the arch level' has
+> initialised the mapcache for HVM domains. With this patch, PV, HVM,
+> idle domains now all initialise the mapcache.
+> 
+> Signed-off-by: Wei Wang <wawei@amazon.de>
+> Signed-off-by: Hongyan Xia <hongyxia@amazon.com>
+> Signed-off-by: Julien Grall <jgrall@amazon.com>
+> Signed-off-by: Elias El Yandouzi <eliasely@amazon.com>
+> 
+> ----
+> 
+> 	Changes in V2:
+>           * Free resources if mapcache initialisation fails
+>           * Remove `is_idle_domain()` check from `create_perdomain_mappings()`
+
+I'm not seeing any is_idle_domain() in create_perdomain_mapping(), and
+neither anything removed by this patch.
+
+> 
+> diff --git a/xen/arch/x86/domain.c b/xen/arch/x86/domain.c
+> index 507d704f16..3303bdb53e 100644
+> --- a/xen/arch/x86/domain.c
+> +++ b/xen/arch/x86/domain.c
+> @@ -758,9 +758,16 @@ int arch_domain_create(struct domain *d,
+>  
+>      spin_lock_init(&d->arch.e820_lock);
+>  
+> +    if ( (rc = mapcache_domain_init(d)) != 0)
+> +    {
+> +        free_perdomain_mappings(d);
+> +        return rc;
+
+
+What about all the error paths below here that don't use the fail
+label, don't you need to also call free_perdomain_mappings() on them?
+
+Or alternatively arrange the fail label to be suitable to be used this
+early if it's not already the case.
+
+> +    }
+> +
+>      /* Minimal initialisation for the idle domain. */
+>      if ( unlikely(is_idle_domain(d)) )
+>      {
+> +        struct page_info *pg = d->arch.perdomain_l3_pg;
+
+const?
+
+>          static const struct arch_csw idle_csw = {
+>              .from = paravirt_ctxt_switch_from,
+>              .to   = paravirt_ctxt_switch_to,
+> @@ -771,6 +778,9 @@ int arch_domain_create(struct domain *d,
+>  
+>          d->arch.cpu_policy = ZERO_BLOCK_PTR; /* Catch stray misuses. */
+>  
+> +        idle_pg_table[l4_table_offset(PERDOMAIN_VIRT_START)] =
+> +            l4e_from_page(pg, __PAGE_HYPERVISOR_RW);
+
+Albeit I think you could just use d->arch.perdomain_l3_pg directly
+here and avoid the local pg variable?
+
+Would you mind adding:
+
+/* Slot 260: Per-domain mappings. */
+
+I wonder if it won't be better to just use init_xen_l4_slots() and
+special case the idle domain in there, instead of open-coding the L4
+population for the idle domain like this.
+
+Thanks, Roger.
 
