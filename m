@@ -2,43 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 859E18C4D9D
+	by mail.lfdr.de (Postfix) with ESMTPS id 7F3F98C4D9C
 	for <lists+xen-devel@lfdr.de>; Tue, 14 May 2024 10:20:48 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.721221.1124465 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.721220.1124454 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s6nOj-0006C5-RX; Tue, 14 May 2024 08:20:33 +0000
+	id 1s6nOd-0005tq-IV; Tue, 14 May 2024 08:20:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 721221.1124465; Tue, 14 May 2024 08:20:33 +0000
+Received: by outflank-mailman (output) from mailman id 721220.1124454; Tue, 14 May 2024 08:20:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s6nOj-00069K-Nw; Tue, 14 May 2024 08:20:33 +0000
-Received: by outflank-mailman (input) for mailman id 721221;
- Tue, 14 May 2024 08:20:32 +0000
+	id 1s6nOd-0005ra-Fw; Tue, 14 May 2024 08:20:27 +0000
+Received: by outflank-mailman (input) for mailman id 721220;
+ Tue, 14 May 2024 08:20:25 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=XrDB=MR=darkstar.site=sakib@srs-se1.protection.inumbo.net>)
- id 1s6nOi-0005rU-SE
- for xen-devel@lists.xenproject.org; Tue, 14 May 2024 08:20:32 +0000
-Received: from pb-smtp2.pobox.com (pb-smtp2.pobox.com [64.147.108.71])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=VieR=MR=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1s6nOb-0005rU-Ml
+ for xen-devel@lists.xenproject.org; Tue, 14 May 2024 08:20:25 +0000
+Received: from mail-lf1-x12e.google.com (mail-lf1-x12e.google.com
+ [2a00:1450:4864:20::12e])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d3fac39d-11ca-11ef-909d-e314d9c70b13;
- Tue, 14 May 2024 10:20:31 +0200 (CEST)
-Received: from pb-smtp2.pobox.com (unknown [127.0.0.1])
- by pb-smtp2.pobox.com (Postfix) with ESMTP id BBFB52C412;
- Tue, 14 May 2024 04:20:30 -0400 (EDT)
- (envelope-from sakib@darkstar.site)
-Received: from pb-smtp2.nyi.icgroup.com (unknown [127.0.0.1])
- by pb-smtp2.pobox.com (Postfix) with ESMTP id B2F2A2C411;
- Tue, 14 May 2024 04:20:30 -0400 (EDT)
- (envelope-from sakib@darkstar.site)
-Received: from localhost (unknown [185.130.54.126])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by pb-smtp2.pobox.com (Postfix) with ESMTPSA id CD3482C410;
- Tue, 14 May 2024 04:20:29 -0400 (EDT)
- (envelope-from sakib@darkstar.site)
+ id d007297b-11ca-11ef-909d-e314d9c70b13;
+ Tue, 14 May 2024 10:20:24 +0200 (CEST)
+Received: by mail-lf1-x12e.google.com with SMTP id
+ 2adb3069b0e04-5231efd80f2so2620452e87.2
+ for <xen-devel@lists.xenproject.org>; Tue, 14 May 2024 01:20:24 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a5a17b0172fsm693066766b.183.2024.05.14.01.20.23
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 14 May 2024 01:20:23 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,144 +45,111 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d3fac39d-11ca-11ef-909d-e314d9c70b13
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed; d=pobox.com; h=from:to:cc
-	:subject:date:message-id:in-reply-to:references:mime-version
-	:content-transfer-encoding; s=sasl; bh=KEoZJ3ChXpAiFd7BWBK3KL6eW
-	PK5BEYxIe+pdjJWFys=; b=gzaZXJpLENUGgDM0xBcRY9iqBUCnu/W/4g3hKSbYC
-	e044cikyROYigZv3icqup4fQFXZUT1I5au323iBQE7BIK99lE5FGoJzPiiicO1/N
-	czWi5Oezuy39R8iFByjujTCi8RxtHobuFdzLw2fLGLYOkc7PlAELeBDzBKcJR4Ex
-	aA=
-From: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
-To: xen-devel@lists.xenproject.org
-Cc: Sergiy Kibrik <Sergiy_Kibrik@epam.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [XEN PATCH v3 2/6] x86/intel: move vmce_has_lmce() routine to header
-Date: Tue, 14 May 2024 11:20:27 +0300
-Message-Id: <77bc29d74cdc43539a060bca26495a4115171f6e.1715673586.git.Sergiy_Kibrik@epam.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <cover.1715673586.git.Sergiy_Kibrik@epam.com>
-References: <cover.1715673586.git.Sergiy_Kibrik@epam.com>
+X-Inumbo-ID: d007297b-11ca-11ef-909d-e314d9c70b13
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1715674824; x=1716279624; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=9Zgh8G1aqBfIdEFiPl2LajYHgmz7y437ztgTEUef/IM=;
+        b=daquiFQaPGlx+VN8xoiSUI8Sz7yjl43ZVCh3XqCIzU9nHEBPQn4QG4dP1r0md9yQpm
+         sQUHZKliCNipt8pUAxU0/dCL3hhxk+x9+c1P0UP5KnSiAKuIvbiSXOyLOvsxbNv/9OSE
+         tQDhplck/hqPLh8H7afyu94JLdiY3Qfz/9Wfq8bo0OGo3xwJOkq9BGbPpJ8qUPYy9mwb
+         Bx3U71SRzYRsBXsjbEnqn/qw1TVBD+PU0NfBAfiMMI2vRrLXp8/A18QpzVuJEB78ho5d
+         ivYGyJqezYlu6IBvRl0j6BuoruhVqDWkxZu8cDwOzApqLWpIsBfuLGl960tlpzyrdk1T
+         ZGmA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1715674824; x=1716279624;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=9Zgh8G1aqBfIdEFiPl2LajYHgmz7y437ztgTEUef/IM=;
+        b=GGDbddsK+v10MPnqeqtvUJPzGI+s9/dAYVCnMvajxRt/AR7rLeh8rGpwdRbrcxuk3o
+         /+4VygNj6pCmF1z90Lu/3m0bzNXWT2deMJ3UpYXfP5onzygZUCqsH4dmBP88JvvsW+ZY
+         wFzDTklwMczH5NVTgNSoPn1PAUuQwFM1embKR41ZZNTpAiA+46iLuY/GYmDUQxm/TKRN
+         GCpUhSnR3Rs7MTX/7yBquEEug9Zrss7oj1mGysEk1nvpRLm1UViylUHFr+5IcDdzM0jv
+         9JDPXOzwAXio2ZsdMDCECpz4oQtNo2DzVrW9iahIMq4h5mv/A6c0lU6qzZBaQxJnRQIf
+         faVQ==
+X-Gm-Message-State: AOJu0YxMaS1fJMzXGkWrlm96AYiRwF6u+8S49l5LpGapf5e6j43CxmSB
+	WGvZ/Q5p03Ns5hclD3LkDO25I4JwtEl4uR0iiXlB0TqGgwlzqOKyfL945G1DdA==
+X-Google-Smtp-Source: AGHT+IGEHAN1vsFQid7mIRKMTBlXUy5mOBAdf4XSnOrKUDI4Jj4zpPMB0W3XhUGZjzGjbDwQb2a8jA==
+X-Received: by 2002:a05:6512:33c5:b0:522:2a2c:759e with SMTP id 2adb3069b0e04-5222a2c76c2mr8441709e87.6.1715674823897;
+        Tue, 14 May 2024 01:20:23 -0700 (PDT)
+Message-ID: <0b95b04d-22c1-4ec9-8d3e-a4974e7610bc@suse.com>
+Date: Tue, 14 May 2024 10:20:30 +0200
 MIME-Version: 1.0
-X-Pobox-Relay-ID:
- D3578E1A-11CA-11EF-BD28-25B3960A682E-90055647!pb-smtp2.pobox.com
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: Serious AMD-Vi(?) issue
+Content-Language: en-US
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: xen-devel@lists.xenproject.org, Andrew Cooper
+ <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+ Kelly Choi <kelly.choi@cloud.com>, Elliott Mitchell <ehem+xen@m5p.com>
+References: <e9b1c9c4-523b-481b-946e-37c7c18ea1d2@suse.com>
+ <ZgHwEGCsCLHiYU5J@mattapan.m5p.com> <ZgRXHQpamLIdu7dk@mattapan.m5p.com>
+ <c2ce4002-58d5-48a3-949c-3c361c78c0ac@suse.com>
+ <ZhdNxWNpM0KCzz8E@mattapan.m5p.com>
+ <2aa4d1f4-ff37-4f12-bfbb-3ef5ad3f6fdd@suse.com>
+ <ZiDBc3ye2wqmBAfq@mattapan.m5p.com>
+ <f0bdb386-0870-4468-846c-6c8a91eaf806@suse.com>
+ <ZiH0G5kN6m+wlNjn@mattapan.m5p.com> <Zj7vkp4r0EY9rxT4@mattapan.m5p.com>
+ <ZkHTC4RpUSpKj4wf@macbook>
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <ZkHTC4RpUSpKj4wf@macbook>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Moving this function out of mce_intel.c would make it possible to disable
-build of Intel MCE code later on, because the function gets called from
-common x86 code.
+On 13.05.2024 10:44, Roger Pau Monné wrote:
+> On Fri, May 10, 2024 at 09:09:54PM -0700, Elliott Mitchell wrote:
+>> On Thu, Apr 18, 2024 at 09:33:31PM -0700, Elliott Mitchell wrote:
+>>>
+>>> I suspect this is a case of there is some step which is missing from
+>>> Xen's IOMMU handling.  Perhaps something which Linux does during an early
+>>> DMA setup stage, but the current Xen implementation does lazily?
+>>> Alternatively some flag setting or missing step?
+>>>
+>>> I should be able to do another test approach in a few weeks, but I would
+>>> love if something could be found sooner.
+>>
+>> Turned out to be disturbingly easy to get the first entry when it
+>> happened.  Didn't even need `dbench`, it simply showed once the OS was
+>> fully loaded.  I did get some additional data points.
+>>
+>> Appears this requires an AMD IOMMUv2.  A test system with known
+>> functioning AMD IOMMUv1 didn't display the issue at all.
+>>
+>> (XEN) AMD-Vi: IO_PAGE_FAULT: DDDD:bb:dd.f d0 addr fffffffdf8000000 flags 0x8 I
+> 
+> I would expect the address field to contain more information about the
+> fault, but I'm not finding any information on the AMD-Vi specification
+> apart from that it contains the DVA, which makes no sense when the
+> fault is caused by an interrupt.
 
-Also replace boilerplate code that checks for MCG_LMCE_P flag with
-vmce_has_lmce(), which might contribute to readability a bit.
+Isn't the address above in the "magic" HT range (and hence still meaningful
+as an address)?
 
-Signed-off-by: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
-Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
-CC: Jan Beulich <jbeulich@suse.com>
----
-changes in v3:
- - do not check for CONFIG_INTEL
- - remove CONFIG_INTEL from patch description
-changes in v2:
- - move vmce_has_lmce() to cpu/mcheck/mce.h
- - move IS_ENABLED(CONFIG_INTEL) check inside vmce_has_lmce()
- - changed description
----
- xen/arch/x86/cpu/mcheck/mce.h       | 5 +++++
- xen/arch/x86/cpu/mcheck/mce_intel.c | 4 ----
- xen/arch/x86/cpu/mcheck/vmce.c      | 5 ++---
- xen/arch/x86/include/asm/mce.h      | 1 -
- xen/arch/x86/msr.c                  | 2 ++
- 5 files changed, 9 insertions(+), 8 deletions(-)
-
-diff --git a/xen/arch/x86/cpu/mcheck/mce.h b/xen/arch/x86/cpu/mcheck/mce.=
-h
-index 4806405f96..eba4b536c7 100644
---- a/xen/arch/x86/cpu/mcheck/mce.h
-+++ b/xen/arch/x86/cpu/mcheck/mce.h
-@@ -170,6 +170,11 @@ static inline int mce_bank_msr(const struct vcpu *v,=
- uint32_t msr)
-     return 0;
- }
-=20
-+static inline bool vmce_has_lmce(const struct vcpu *v)
-+{
-+    return v->arch.vmce.mcg_cap & MCG_LMCE_P;
-+}
-+
- struct mce_callbacks {
-     void (*handler)(const struct cpu_user_regs *regs);
-     bool (*check_addr)(uint64_t status, uint64_t misc, int addr_type);
-diff --git a/xen/arch/x86/cpu/mcheck/mce_intel.c b/xen/arch/x86/cpu/mchec=
-k/mce_intel.c
-index 3f5199b531..af43281cc6 100644
---- a/xen/arch/x86/cpu/mcheck/mce_intel.c
-+++ b/xen/arch/x86/cpu/mcheck/mce_intel.c
-@@ -1050,7 +1050,3 @@ int vmce_intel_rdmsr(const struct vcpu *v, uint32_t=
- msr, uint64_t *val)
-     return 1;
- }
-=20
--bool vmce_has_lmce(const struct vcpu *v)
--{
--    return v->arch.vmce.mcg_cap & MCG_LMCE_P;
--}
-diff --git a/xen/arch/x86/cpu/mcheck/vmce.c b/xen/arch/x86/cpu/mcheck/vmc=
-e.c
-index 353d4f19b2..94d1f021e1 100644
---- a/xen/arch/x86/cpu/mcheck/vmce.c
-+++ b/xen/arch/x86/cpu/mcheck/vmce.c
-@@ -199,7 +199,7 @@ int vmce_rdmsr(uint32_t msr, uint64_t *val)
-          * bits are always set in guest MSR_IA32_FEATURE_CONTROL by Xen,=
- so it
-          * does not need to check them here.
-          */
--        if ( cur->arch.vmce.mcg_cap & MCG_LMCE_P )
-+        if ( vmce_has_lmce(cur) )
-         {
-             *val =3D cur->arch.vmce.mcg_ext_ctl;
-             mce_printk(MCE_VERBOSE, "MCE: %pv: rd MCG_EXT_CTL %#"PRIx64"=
-\n",
-@@ -324,8 +324,7 @@ int vmce_wrmsr(uint32_t msr, uint64_t val)
-         break;
-=20
-     case MSR_IA32_MCG_EXT_CTL:
--        if ( (cur->arch.vmce.mcg_cap & MCG_LMCE_P) &&
--             !(val & ~MCG_EXT_CTL_LMCE_EN) )
-+        if ( vmce_has_lmce(cur) && !(val & ~MCG_EXT_CTL_LMCE_EN) )
-             cur->arch.vmce.mcg_ext_ctl =3D val;
-         else
-             ret =3D -1;
-diff --git a/xen/arch/x86/include/asm/mce.h b/xen/arch/x86/include/asm/mc=
-e.h
-index 6ce56b5b85..2ec47a71ae 100644
---- a/xen/arch/x86/include/asm/mce.h
-+++ b/xen/arch/x86/include/asm/mce.h
-@@ -41,7 +41,6 @@ extern void vmce_init_vcpu(struct vcpu *v);
- extern int vmce_restore_vcpu(struct vcpu *v, const struct hvm_vmce_vcpu =
-*ctxt);
- extern int vmce_wrmsr(uint32_t msr, uint64_t val);
- extern int vmce_rdmsr(uint32_t msr, uint64_t *val);
--extern bool vmce_has_lmce(const struct vcpu *v);
- extern int vmce_enable_mca_cap(struct domain *d, uint64_t cap);
-=20
- DECLARE_PER_CPU(unsigned int, nr_mce_banks);
-diff --git a/xen/arch/x86/msr.c b/xen/arch/x86/msr.c
-index 9babd441f9..b0ec96f021 100644
---- a/xen/arch/x86/msr.c
-+++ b/xen/arch/x86/msr.c
-@@ -24,6 +24,8 @@
-=20
- #include <public/hvm/params.h>
-=20
-+#include "cpu/mcheck/mce.h"
-+
- DEFINE_PER_CPU(uint32_t, tsc_aux);
-=20
- int init_vcpu_msr_policy(struct vcpu *v)
---=20
-2.25.1
-
+Jan
 
