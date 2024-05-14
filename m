@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1797A8C4ED5
-	for <lists+xen-devel@lfdr.de>; Tue, 14 May 2024 12:20:25 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.721370.1124764 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2E0F98C4EDE
+	for <lists+xen-devel@lfdr.de>; Tue, 14 May 2024 12:22:24 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.721373.1124775 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s6pGa-000756-2M; Tue, 14 May 2024 10:20:16 +0000
+	id 1s6pIL-0007f3-DF; Tue, 14 May 2024 10:22:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 721370.1124764; Tue, 14 May 2024 10:20:16 +0000
+Received: by outflank-mailman (output) from mailman id 721373.1124775; Tue, 14 May 2024 10:22:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s6pGZ-000733-W1; Tue, 14 May 2024 10:20:15 +0000
-Received: by outflank-mailman (input) for mailman id 721370;
- Tue, 14 May 2024 10:20:14 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1s6pIL-0007dX-9Y; Tue, 14 May 2024 10:22:05 +0000
+Received: by outflank-mailman (input) for mailman id 721373;
+ Tue, 14 May 2024 10:22:04 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=PE3g=MR=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1s6pGY-00072t-NQ
- for xen-devel@lists.xenproject.org; Tue, 14 May 2024 10:20:14 +0000
-Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
- [2a00:1450:4864:20::436])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 8d41cdeb-11db-11ef-909d-e314d9c70b13;
- Tue, 14 May 2024 12:20:13 +0200 (CEST)
-Received: by mail-wr1-x436.google.com with SMTP id
- ffacd0b85a97d-34d7a32bdd3so3131395f8f.0
- for <xen-devel@lists.xenproject.org>; Tue, 14 May 2024 03:20:13 -0700 (PDT)
+ id 1s6pIK-0007cf-0z
+ for xen-devel@lists.xenproject.org; Tue, 14 May 2024 10:22:04 +0000
+Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
+ [2a00:1450:4864:20::42b])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id cdc00472-11db-11ef-b4bb-af5377834399;
+ Tue, 14 May 2024 12:22:02 +0200 (CEST)
+Received: by mail-wr1-x42b.google.com with SMTP id
+ ffacd0b85a97d-34f7d8bfaa0so3825610f8f.0
+ for <xen-devel@lists.xenproject.org>; Tue, 14 May 2024 03:22:02 -0700 (PDT)
 Received: from localhost ([213.195.114.223]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3502baad07fsm13330820f8f.88.2024.05.14.03.20.12
+ ffacd0b85a97d-3502b8a7907sm13238777f8f.63.2024.05.14.03.22.00
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 14 May 2024 03:20:12 -0700 (PDT)
+ Tue, 14 May 2024 03:22:01 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,79 +44,75 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8d41cdeb-11db-11ef-909d-e314d9c70b13
+X-Inumbo-ID: cdc00472-11db-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1715682013; x=1716286813; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1715682121; x=1716286921; darn=lists.xenproject.org;
         h=in-reply-to:content-transfer-encoding:content-disposition
          :mime-version:references:message-id:subject:cc:to:from:date:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=/NKhc87XdzYB48q5cDIUD8gUxz3tFXu5pueGeLBUV/Y=;
-        b=jx63S3kA63ULNMfu/JcLyRNsXTr+Qb0Uz4G0JViHqcj45XFDevHXEeTo/lYjAJF2Bc
-         8v8fuLLXyxc9xPfs66GOCSIY9THRocruJfrBmIHJxQ7RzRkY2/ezGhNGGxkM1vLeQMwx
-         /HURYRmspk/n5zqnzpfez+pdoN/w8CA4cNzzc=
+        bh=9aEqg3pai1C+QnmBjJjdlQhpYcDZfyz4ua4D3W/WOTU=;
+        b=O7sUvMNIoQkGHVwor8aHmQF279nl0r6sKY1I9n+ekpbZoO8VD2AUQNRLa2p4Pqw0Uz
+         5wsFFde7DxrFEHXRFjask9wMm9UK+8CU1l8AFmPhmMwcZe8T+uOdTDLFwG+4i7m58hRa
+         C506vbFR8bpVqbz/ICEj5DwAgxZj2VQ1ZhfNs=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1715682013; x=1716286813;
+        d=1e100.net; s=20230601; t=1715682121; x=1716286921;
         h=in-reply-to:content-transfer-encoding:content-disposition
          :mime-version:references:message-id:subject:cc:to:from:date
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=/NKhc87XdzYB48q5cDIUD8gUxz3tFXu5pueGeLBUV/Y=;
-        b=VoDz3QAwAn1x6KW13w5yMNq02S+uktTvEx2Foiltf8nKg7JQJqdmOh0pHJ9m/B3xDR
-         DLgmrSSoHsryTbFZS1STpYKKUOv2djfAXatdLXVFPJRNtgv3a3IJYFCZdcKrNse/hIxh
-         b02RRoJ38jd0TAAbRxWYkV2AkQxxvyeSr8/uOLQ6S1Z+CxktvKBiW62JKGM0BT+y2pG3
-         3Ym9OPzSwjNZKorQbfm6pGz44Yr6aoMqJamzNQ+rjTa7lYU64zWVoozGj2C/e6Y9vk3B
-         5Kjc6FcrPXk03A95SoEUVl2oAX+soHyLKud6m9LGhp01LAqKjIgRQo9OPHg139R6d4H+
-         43GA==
-X-Gm-Message-State: AOJu0YxyKTFrb6emkmcGMQUKHycq5K5C5yW66jembyL4UC0TEiLycm0C
-	12B0swSLqR+YV6MimC/bOi3escMk00QykVLlfw9kZmIbdBDbacvPXbhjpi3rzHE=
-X-Google-Smtp-Source: AGHT+IHtXb1Tx4pH/ctR3HLfMqrbHv/s/y7XKVKkMajmtWe1i2O9xjKJfDpnu0ezfz35tNljcKRJ+Q==
-X-Received: by 2002:adf:c58a:0:b0:34a:56e7:5cc4 with SMTP id ffacd0b85a97d-351bfd2aa96mr4199767f8f.2.1715682013286;
-        Tue, 14 May 2024 03:20:13 -0700 (PDT)
-Date: Tue, 14 May 2024 12:20:11 +0200
+        bh=9aEqg3pai1C+QnmBjJjdlQhpYcDZfyz4ua4D3W/WOTU=;
+        b=PV8ki54QXiNNWm7yoB/g3OmuxYiEQetMmjKyPinW5Zmx4hXkUMsJBZnrCZq52CJ7Me
+         cCWYpcWzxPUnUfR4vZJACVOeGx+pWQWWGkP0tPtf57Ipw0fMxfLDhIjg74O3Li6BkWrx
+         xpERIldD+jXJ6mjyoVhDIIm7TFvTAbCcG9vmQcNSXoqf9LLUK1abNl0P0ttlYpfhp+dT
+         bSKho2g37E/uqfCYE8pD4AEwR7XiKUsNIwiRBX8vggFHlER2FBbqtmfJwT2DyveRwnoI
+         ZstEr2GWNtKgvwnCKbCU2D+IGtfTmYnlP5eWmb1j/heaWPHNHjcEZ/0IW+O73Dg46wFT
+         QZQg==
+X-Gm-Message-State: AOJu0Yw8MWLg4VhNbIQLv3OMF6hhXtnU0kFeOpaGNoWNdoT7Wis93n9T
+	qBwpsCQLRG4Q2NY4XgEMYelIvZAO/JxMxVkIhxdhQGRl0ob7UdCE7NMrbGGUfgM=
+X-Google-Smtp-Source: AGHT+IFnCiHBLTKR5f4oq97PkKZYHF/SRzm/zZi1Wq8WEO1cgwZjJoaSBOxz8DBdNbtJo9d98hggKw==
+X-Received: by 2002:a5d:550b:0:b0:34c:67d6:8dec with SMTP id ffacd0b85a97d-3504a62fec5mr9690654f8f.6.1715682121494;
+        Tue, 14 May 2024 03:22:01 -0700 (PDT)
+Date: Tue, 14 May 2024 12:22:00 +0200
 From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Elias El Yandouzi <eliasely@amazon.com>
+To: Jan Beulich <jbeulich@suse.com>
 Cc: xen-devel@lists.xenproject.org, julien@xen.org, pdurrant@amazon.com,
-	dwmw@amazon.com, Hongyan Xia <hongyxia@amazon.com>,
+	dwmw@amazon.com, Julien Grall <jgrall@amazon.com>,
 	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <jgrall@amazon.com>
-Subject: Re: [PATCH V3 (resend) 06/19] x86: Add a boot option to enable and
- disable the direct map
-Message-ID: <ZkM625feJ8mMaM_p@macbook>
+	Elias El Yandouzi <eliasely@amazon.com>
+Subject: Re: [PATCH V3 (resend) 07/19] xen/x86: Add support for the PMAP
+Message-ID: <ZkM7SK8U1Qsk7E3x@macbook>
 References: <20240513134046.82605-1-eliasely@amazon.com>
- <20240513134046.82605-7-eliasely@amazon.com>
- <ZkMs1cknBFBWZoJG@macbook>
+ <20240513134046.82605-8-eliasely@amazon.com>
+ <ZkMxgDPYgaKnmRRE@macbook>
+ <87950da7-f765-4656-808f-6c63a29ced3d@suse.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <ZkMs1cknBFBWZoJG@macbook>
+In-Reply-To: <87950da7-f765-4656-808f-6c63a29ced3d@suse.com>
 
-On Tue, May 14, 2024 at 11:20:21AM +0200, Roger Pau Monné wrote:
-> On Mon, May 13, 2024 at 01:40:33PM +0000, Elias El Yandouzi wrote:
-> > From: Hongyan Xia <hongyxia@amazon.com>
-> > diff --git a/xen/include/xen/mm.h b/xen/include/xen/mm.h
-> > index 7561297a75..9d4f1f2d0d 100644
-> > --- a/xen/include/xen/mm.h
-> > +++ b/xen/include/xen/mm.h
-> > @@ -167,6 +167,13 @@ extern unsigned long max_page;
-> >  extern unsigned long total_pages;
-> >  extern paddr_t mem_hotplug;
-> >  
-> > +extern bool opt_directmap;
-> > +
-> > +static inline bool has_directmap(void)
-> > +{
-> > +    return opt_directmap;
+On Tue, May 14, 2024 at 11:43:14AM +0200, Jan Beulich wrote:
+> On 14.05.2024 11:40, Roger Pau Monné wrote:
+> > On Mon, May 13, 2024 at 01:40:34PM +0000, Elias El Yandouzi wrote:
+> >> @@ -53,6 +55,8 @@ enum fixed_addresses {
+> >>      FIX_PV_CONSOLE,
+> >>      FIX_XEN_SHARED_INFO,
+> >>  #endif /* CONFIG_XEN_GUEST */
+> >> +    FIX_PMAP_BEGIN,
+> >> +    FIX_PMAP_END = FIX_PMAP_BEGIN + NUM_FIX_PMAP,
+> > 
+> > This would better have
+> > 
+> > #ifdef CONFIG_HAS_PMAP
+> > 
+> > guards?
 > 
-> This likely wants:
-> 
-> return IS_ENABLED(CONFIG_HAS_SECRET_HIDING) && opt_directmap;
+> That's useful only when the option can actually be off in certain
+> configurations, isn't it?
 
-Er, sorry, this is wrong, should be:
+My comment earlier on this patch suggested to make CONFIG_HAS_PMAP be
+selected by HAS_SECRET_HIDING, rather than being unconditionally
+arch-selected (if that's possible, I certainly don't know the usage in
+further patches).
 
-return !IS_ENABLED(CONFIG_HAS_SECRET_HIDING) || opt_directmap;
-
-Roger.
+Regards, Roger.
 
