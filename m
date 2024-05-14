@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E7B3F8C4CC0
-	for <lists+xen-devel@lfdr.de>; Tue, 14 May 2024 09:22:53 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.721164.1124344 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D71A88C4D3E
+	for <lists+xen-devel@lfdr.de>; Tue, 14 May 2024 09:43:51 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.721172.1124355 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s6mUc-0005Vm-I3; Tue, 14 May 2024 07:22:34 +0000
+	id 1s6mof-000179-9m; Tue, 14 May 2024 07:43:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 721164.1124344; Tue, 14 May 2024 07:22:34 +0000
+Received: by outflank-mailman (output) from mailman id 721172.1124355; Tue, 14 May 2024 07:43:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s6mUc-0005UF-F3; Tue, 14 May 2024 07:22:34 +0000
-Received: by outflank-mailman (input) for mailman id 721164;
- Tue, 14 May 2024 07:22:33 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1s6mof-00014e-6e; Tue, 14 May 2024 07:43:17 +0000
+Received: by outflank-mailman (input) for mailman id 721172;
+ Tue, 14 May 2024 07:43:15 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=VieR=MR=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1s6mUb-0005Tt-2T
- for xen-devel@lists.xenproject.org; Tue, 14 May 2024 07:22:33 +0000
-Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com
- [2a00:1450:4864:20::634])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id ba507622-11c2-11ef-909d-e314d9c70b13;
- Tue, 14 May 2024 09:22:32 +0200 (CEST)
-Received: by mail-ej1-x634.google.com with SMTP id
- a640c23a62f3a-a59a8f0d941so1275418766b.2
- for <xen-devel@lists.xenproject.org>; Tue, 14 May 2024 00:22:32 -0700 (PDT)
+ id 1s6mod-00014Y-HZ
+ for xen-devel@lists.xenproject.org; Tue, 14 May 2024 07:43:15 +0000
+Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
+ [2a00:1450:4864:20::62b])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 9d0806c2-11c5-11ef-b4bb-af5377834399;
+ Tue, 14 May 2024 09:43:11 +0200 (CEST)
+Received: by mail-ej1-x62b.google.com with SMTP id
+ a640c23a62f3a-a59a5f81af4so1329662966b.3
+ for <xen-devel@lists.xenproject.org>; Tue, 14 May 2024 00:43:13 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5733becfb83sm7135734a12.46.2024.05.14.00.22.31
+ a640c23a62f3a-a5a17b0195dsm686296066b.184.2024.05.14.00.43.12
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 14 May 2024 00:22:31 -0700 (PDT)
+ Tue, 14 May 2024 00:43:12 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,47 +45,52 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ba507622-11c2-11ef-909d-e314d9c70b13
+X-Inumbo-ID: 9d0806c2-11c5-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1715671351; x=1716276151; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1715672593; x=1716277393; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=5OZM3jQfMRafwON+6Rr3i3c0ZrExWZEi7j42uNkEdFw=;
-        b=Zbee86eXqJGZ7g2R1YZNOoS3g0lFt0KNqPWU1wMcwySv8K4zyhlFI3+qS0x+Y41hR9
-         xqP2wiDq0lgYuKp4hFcTmogDieXqewpfopQkbDV/G0OOmbGz4FDQTTL8Kmqx3JnAWQJI
-         4ac9RJyi71sRmEh4Tzd7O8QMVbwHTeS9yQdgqEWYwKmVsAUvbscj1AsJKNhMqYEbI0Lc
-         7gmPvvnRwooejG8qPayZDtyqaNhcxRqdakmGB5NdUIbZzQrwZXztYcHw/EIjoBUnE3g7
-         FP1Lb99eXu8pfBXdf3ENI5fWeamcXZEGK9z+OMjtIvCSQZXGRp5nm6DZzO+of19ZHlbl
-         ksJw==
+        bh=O3T3F3wBgY2lowM3PHCpwiguoxntaMhIgnhnyvWn1vg=;
+        b=W/AvKMm1UkURwdY99sPz/2MyIWkvZCREmyVMNziX/1KxGETxd1A+6s9AsUtLBJwQPD
+         LkuIkA8MM39iQPw/DLFDR/B6LjNwA3alwMgkqCduFZubZrn57LOsOmZU9sqwMtl6YW5h
+         QPJwV2iN20CTGVvXUE2ciYarzoNeP66nJZgLQ4Ku/b76yHcROVN2qaurHAQt49iAy/aQ
+         LaLCHklJlNdAU3Md6lmtD+/65i4seVKyBhKzDsC2z4r94T+L9MtWucIWK3GY/qEszF49
+         gC2Hfz/HW7y2WIirCRllWO+9VtqCQsMkw7TX2H00kwK/7EClw3e4fHV8iWokvbTJ9YAf
+         NUHw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1715671351; x=1716276151;
+        d=1e100.net; s=20230601; t=1715672593; x=1716277393;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=5OZM3jQfMRafwON+6Rr3i3c0ZrExWZEi7j42uNkEdFw=;
-        b=lbtipPHCTO58aZ61/SFGZF3XFAtrry9mtdI4G2Tisbk4INRwZ00mlHAxgxap8rsD0r
-         SbJnlnU5ktYHz64UFqhnBMKkFYGkM7oY8l0gWsQ0MBpBlDg9fytDfNTPtrgLgfTKBsT1
-         s8cYOy/1Cg1ql8w0BMRoy8K6y8viHBnPMLKn9nKifIPvQ0cRg+eerCMRaLovkaCab/Sk
-         qGsANY0Pe3VAxv4tEMhlVOcN3QH3l0SkMXaRdVfzrlTHcaSI7ZK6pzM4YLMpKKcgRhGL
-         DnDioOVThblHKEFhMCMBiyq7v+jgzNNL1GR045jg3pTGLPwt85LPaizCKYuLrjOcnJsQ
-         i8Cw==
-X-Gm-Message-State: AOJu0YzZOwVbNmEhSled9k6Q4WFRagoHm4D6z55NF2xUMTDaa8wMPxpC
-	7d6mlHUc1wp6/N2zgZEBPuEiHnYbK/yfMxB1zrE4H+y91K6fOM+g3WNa6TUlZQ==
-X-Google-Smtp-Source: AGHT+IEX5x1WMdarNoWxfxkRtnwGqNzD2Mb3HMORyyF/9CMckXA9BluP696PNNYMmNixtmp5wtE4GQ==
-X-Received: by 2002:a50:9353:0:b0:568:1248:9f49 with SMTP id 4fb4d7f45d1cf-5734d5bfbf9mr7364271a12.18.1715671351536;
-        Tue, 14 May 2024 00:22:31 -0700 (PDT)
-Message-ID: <8caac099-094d-4f16-b66b-8c8308684af7@suse.com>
-Date: Tue, 14 May 2024 09:22:38 +0200
+        bh=O3T3F3wBgY2lowM3PHCpwiguoxntaMhIgnhnyvWn1vg=;
+        b=an/0xkXk8xC+D3gU1l38mq5Hkp3aADs6xm78jMXSKZKC1oSpEAvlRupULqkRLPAlhO
+         q4gJBNOpgmpQuO53iFoatS3daD7WOwKfJ3xPJPysPOmfXuG1LDlz1IOu4963brWFYcs1
+         OsPH2iGOQCsJ4AffJjToCsWowUBlgLjQbkavsDOCxFPOxcoLjCZZ33uA9y4LJVKQ2Y8w
+         wzfDN11Kr/Y0OYre1Hs+Mt01+8sfLQeRYnCwMF0BxKfbQWyTureBcJQHGjjxL+GI1JTf
+         DpRrHpWbGo1fljAvf4oEfPFyURaG/KMyxDU1+2Y80/qhf8YgKU58SCQoMxfl9BkkzKo+
+         bVuA==
+X-Forwarded-Encrypted: i=1; AJvYcCUsN1oaHSY7xCiaKVQXkCcapOaEthPvVvxRc9KqZp1WMry8Ya7yeiW9za1Qcvzk/03ga4T7li6tKfC5JsZwtLlgec6tKaDnNSQkJEm71G8=
+X-Gm-Message-State: AOJu0Yzg/li6tsrUlGLzSKQCiBHeihpY8cRt0NqntXK6o3l7VV6kL09F
+	pWiD6jQbXzIUcGM8yA5lQQ/9R8KZ/AzVKfczlv00EsKeeV+ZAimtqSOFy+CFe5zfKwpkKWVgp0o
+	=
+X-Google-Smtp-Source: AGHT+IGpzwXBf5dU5/rVk7zum2B2XClZ/K0f5UDayZ+j23o7xsQISy8R10sV2tSpxh3lXEB0mNhhiQ==
+X-Received: by 2002:a17:907:d25:b0:a5a:2aed:ca2b with SMTP id a640c23a62f3a-a5a2d5c9fdcmr1041574366b.28.1715672592759;
+        Tue, 14 May 2024 00:43:12 -0700 (PDT)
+Message-ID: <ecb8814f-f9bf-4eb7-86ce-48bdd34f8bf9@suse.com>
+Date: Tue, 14 May 2024 09:43:18 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/pv: Sanity check bytes_per_rep in rep_outs()
+Subject: Re: [PATCH v2 3/3] x86: detect PIT aliasing on ports other than
+ 0x4[0-3]
 Content-Language: en-US
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>
-References: <20240511151642.2476555-1-andrew.cooper3@citrix.com>
- <ZkMNSbcB9S4YYcfy@macbook>
+To: Jason Andryuk <jason.andryuk@amd.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <0c45155a-2beb-4e69-bca3-cdf42ba22f2b@suse.com>
+ <039b9ceb-4862-4e26-a344-e47fc04bd979@suse.com>
+ <0cfaeb1f-947a-4e45-9f69-a0e3f8143e2a@amd.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -110,50 +115,97 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <ZkMNSbcB9S4YYcfy@macbook>
+In-Reply-To: <0cfaeb1f-947a-4e45-9f69-a0e3f8143e2a@amd.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 14.05.2024 09:05, Roger Pau Monné wrote:
-> On Sat, May 11, 2024 at 04:16:42PM +0100, Andrew Cooper wrote:
->> Architecturally, there's no 64-bit variant of OUTS in x86.
-
-This is the reason why personally ...
-
->>  Leaving an
->> assertion to this effect is enough to satisfy the analyser.
-
-... I view adding such, in particular ...
-
->> --- a/xen/arch/x86/pv/emul-priv-op.c
->> +++ b/xen/arch/x86/pv/emul-priv-op.c
->> @@ -685,6 +685,8 @@ static int cf_check rep_outs(
->>  
->>      *reps = 0;
->>  
->> +    ASSERT(bytes_per_rep <= 4); /* i.e. 'data' being 4 bytes is fine. */
+On 10.05.2024 19:40, Jason Andryuk wrote:
+> On 2023-12-18 09:48, Jan Beulich wrote:
+>> --- a/xen/arch/x86/time.c
+>> +++ b/xen/arch/x86/time.c
+>> @@ -425,6 +425,72 @@ static struct platform_timesource __init
+>>       .resume = resume_pit,
+>>   };
+>>   
+>> +unsigned int __initdata pit_alias_mask;
+>> +
+>> +static void __init probe_pit_alias(void)
+>> +{
+>> +    unsigned int mask = 0x1c;
+>> +    uint8_t val = 0;
+>> +
+>> +    if ( !opt_probe_port_aliases )
+>> +        return;
+>> +
+>> +    /*
+>> +     * Use channel 2 in mode 0 for probing.  In this mode even a non-initial
+>> +     * count is loaded independent of counting being / becoming enabled.  Thus
+>> +     * we have a 16-bit value fully under our control, to write and then check
+>> +     * whether we can also read it back unaltered.
+>> +     */
+>> +
+>> +    /* Turn off speaker output and disable channel 2 counting. */
+>> +    outb(inb(0x61) & 0x0c, 0x61);
+>> +
+>> +    outb((2 << 6) | (3 << 4) | (0 << 1), PIT_MODE); /* Mode 0, LSB/MSB. */
 > 
-> Don't we need this to be a BUG_ON() to satisfy the compiler also on
-> non-debug builds?
+> Channel 2, Lobyte/Hibyte, 0b000 Mode 0, (Binary)
 > 
-> Or maybe:
+> #define PIT_MODE_CH2 (2 << 6)
+> #define PIT_MODE0_16BIT ((3 << 4) | (0 << 1))
 > 
-> if ( bytes_per_rep > 4 )
-> {
->     ASSERT_UNREACHABLE();
->     return X86EMUL_UNHANDLEABLE;
-> }
+> outb(PIT_MODE_CH2 | PIT_MODE0_16BIT, PIT_MODE);
 
-... such a non-debug-build-covering form as dead code. With suitable
-information to hand, I guess Eclair / Misra might even say so, too.
+Hmm. I can certainly see the value of introducing such #define-s, but then
+while doing so one ought to also adjust other code using constants as done
+here (for consistency).
 
-Instead I view the analyzer report here as a weakness of how analysis
-is (and has to be) done.
+>> +
+>> +    do {
+>> +        uint8_t val2;
+>> +        unsigned int offs;
+>> +
+>> +        outb(val, PIT_CH2);
+>> +        outb(val ^ 0xff, PIT_CH2);
+>> +
+>> +        /* Wait for the Null Count bit to clear. */
+>> +        do {
+>> +            /* Latch status. */
+>> +            outb((3 << 6) | (1 << 5) | (1 << 3), PIT_MODE);
+> 
+> Read-back, Latch status,  read back timer channel 2
+
+Was this meant as a request to extend the comment? If so, not quite,
+as the line doesn't include any read-back. If not, I'm in trouble seeing
+what you mean to tell me here (somewhat similar also for the first line
+of your earlier comment still visible in context above).
+
+>> +
+>> +            /* Try to make sure we're actually having a PIT here. */
+>> +            val2 = inb(PIT_CH2);
+>> +            if ( (val2 & ~(3 << 6)) != ((3 << 4) | (0 << 1)) )
+> 
+> if ( (val2 & PIT_RB_MASK) != PIT_MODE0_16BIT )
+> 
+> I think particularly a define for PIT_MODE0_16BIT would be helpful to 
+> show what is expected to be the same.
+> 
+>> +                return;
+>> +        } while ( val2 & (1 << 6) );
+> 
+> I think Roger might have mentioned on an earlier version - would it make 
+> sense to have a counter to prevent looping forever?
+
+Well, as before: The issue with bounding such loops is that the bound is
+going to be entirely arbitrary (and hence easily too large / too small).
+
+> Also, FYI, I tested the series.  My test machine didn't show any aliasing.
+
+That likely was an AMD one then? It's only Intel chipsets I've seen aliasing
+on so far, but there it's (almost) all of them (with newer data sheets even
+stating that behavior). We could, beyond shim, make the option default in
+patch 1 be "false" for systems with AMD CPUs (on the assumption that those
+wouldn't have Intel chipsets).
 
 Jan
-
-> Would it be possible to add the check to guest_io_okay() itself?
-> 
-> Thanks, Roger.
-
 
