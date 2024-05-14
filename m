@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 130C18C581A
-	for <lists+xen-devel@lfdr.de>; Tue, 14 May 2024 16:37:03 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.721600.1125165 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 17FBA8C581D
+	for <lists+xen-devel@lfdr.de>; Tue, 14 May 2024 16:37:51 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.721607.1125174 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s6tGY-0007uD-Je; Tue, 14 May 2024 14:36:30 +0000
+	id 1s6tHV-0008VL-Rm; Tue, 14 May 2024 14:37:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 721600.1125165; Tue, 14 May 2024 14:36:30 +0000
+Received: by outflank-mailman (output) from mailman id 721607.1125174; Tue, 14 May 2024 14:37:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s6tGY-0007sU-Ft; Tue, 14 May 2024 14:36:30 +0000
-Received: by outflank-mailman (input) for mailman id 721600;
- Tue, 14 May 2024 14:36:30 +0000
+	id 1s6tHV-0008TY-OX; Tue, 14 May 2024 14:37:29 +0000
+Received: by outflank-mailman (input) for mailman id 721607;
+ Tue, 14 May 2024 14:37:28 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=VieR=MR=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1s6tGX-0007sO-Va
- for xen-devel@lists.xenproject.org; Tue, 14 May 2024 14:36:29 +0000
-Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
- [2a00:1450:4864:20::630])
+ id 1s6tHU-0008TO-Et
+ for xen-devel@lists.xenproject.org; Tue, 14 May 2024 14:37:28 +0000
+Received: from mail-lj1-x230.google.com (mail-lj1-x230.google.com
+ [2a00:1450:4864:20::230])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 5959c2d7-11ff-11ef-909d-e314d9c70b13;
- Tue, 14 May 2024 16:36:28 +0200 (CEST)
-Received: by mail-ej1-x630.google.com with SMTP id
- a640c23a62f3a-a5a88339780so27992066b.0
- for <xen-devel@lists.xenproject.org>; Tue, 14 May 2024 07:36:28 -0700 (PDT)
+ id 7c73acbc-11ff-11ef-909d-e314d9c70b13;
+ Tue, 14 May 2024 16:37:27 +0200 (CEST)
+Received: by mail-lj1-x230.google.com with SMTP id
+ 38308e7fff4ca-2e6792ea67dso59884421fa.3
+ for <xen-devel@lists.xenproject.org>; Tue, 14 May 2024 07:37:27 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a5a17b015f7sm742302166b.146.2024.05.14.07.36.27
+ a640c23a62f3a-a5a17b015f7sm742302166b.146.2024.05.14.07.37.24
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 14 May 2024 07:36:27 -0700 (PDT)
+ Tue, 14 May 2024 07:37:24 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,51 +45,48 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5959c2d7-11ff-11ef-909d-e314d9c70b13
+X-Inumbo-ID: 7c73acbc-11ff-11ef-909d-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1715697388; x=1716302188; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1715697447; x=1716302247; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=R74w2d5dyci9/kJ/yEsGNOwynJklK0T+h9hxLHHyfc4=;
-        b=OauMrxLf1Zc+sU9HLoRQCKyD70zNokQHoPVVVUJHd4+IXjGjvGyMhVsR6zwD1hoDxF
-         gDPesSTkY0Plc9s7yUe8kjOdUoJyOYkkk8IQltJ/YqiAlor3MFX5xJD5d5X8DjFhGAyF
-         qwz1/JXKi/cpIU1t0B1KaIOn1+myHwtiKqRLzbv0w37fM7pXRKzBJ7DIGdAA3J/2xucr
-         vi06Y9A2p80xdssVGAw3gHVQW7WA3st68A84Weky758es2Rbg3NDvIHIzD+rmzi3QFNX
-         L0c8f+/NTueIhypUNkOWHji50LuRBZNtgdXm0hKXJjF3+MZdWoGMESwIR7PcOZMoGsHy
-         8USw==
+        bh=NvP4yLvMnC1cVmbWzh4ZmXRmEhCmleFWN5rjcW+9gLk=;
+        b=cy6KICB7SOYiTfsVdqYgDDqMCFbdohsH1Eftvw71duBozVZg+mKzpr66l2FO7soMr3
+         tCynWqF2rRPSHsra1wOnPeuY3LpSdZoUNykRRqA0XpHSbM+T2GNq1glVc1wKI5yqmcuI
+         XRb3fqeLZeCLJoVKQY07UU4hYvGKMCMa1Y/N2TUjPHwr+MgOGP2084MWb78oR8GtvmpY
+         csTKOgEAS7A2ZvBsXfiUitZwhi6Vmunqrhk+jCtann2sjqmNk0caw5M8w8eexI3dI9US
+         UYgDcVSZRva0zFw/i54fitzYInNKZlk4SiVhEXnHlMcbsrEY8md1V2p4epM5X9+b0CpV
+         DGEQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1715697388; x=1716302188;
+        d=1e100.net; s=20230601; t=1715697447; x=1716302247;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=R74w2d5dyci9/kJ/yEsGNOwynJklK0T+h9hxLHHyfc4=;
-        b=nddVNhsYJCiggO/f7auQYoxcRry7o2C0VQBpg+9L4lA68n4EvSdg2jhfvy5g7vndOL
-         ddzG1nzo0zHeK9VMu/exil8o2SYfoP/z4tu6N//vQKGhdN4gRGwA+YRkAAU9ZujmpWwD
-         /YpG91hj+ts6CEPsJGZ5b0nYtC2U1/mDPq26Mmmoh0iiyep8wc4JUjY/QJD/omhYgXAp
-         MQopQsP/AAZ9l36rx3kySbdB32xouClw0F83QSnqKPjbPwdjIMqeR9UzkoFOXdX1EV6e
-         kz7AJ3StLQiyVdQcJBnW49EpJ35tIPrDRlT3FBvSRd8oC6WBTdFIZh3irP719uSACM02
-         im3w==
-X-Forwarded-Encrypted: i=1; AJvYcCWuLBopGNQYi5qDgSGmBJhwkKaSYtRznce6Myxv1brmsb/Bx301eMIXxbvo5yngTTTwbJgtVfW4Gvv/dAgCvbfmvHNpyGg4mNk+Ce+DdfU=
-X-Gm-Message-State: AOJu0Yz8K9oGuFwtMYb/JIOVaEXMemojo6FgLW5Bplka4P8EVy6kWk2n
-	2P+zKGJY5hHEW5+8xdxpb2+WT6AYpwsNqGMBqQxnZ6HLtbH/T1XBzuNFbzLzrQ==
-X-Google-Smtp-Source: AGHT+IECD/gMxXe/ZZrDJC1Iapv1M6ue7FFistrCUcnDIGGRHXpvKSW6qNoIZB9hbH2DcZf0NxdZbw==
-X-Received: by 2002:a17:906:7f8a:b0:a59:b6a8:4d7a with SMTP id a640c23a62f3a-a5a2d5d3d22mr854441066b.43.1715697388166;
-        Tue, 14 May 2024 07:36:28 -0700 (PDT)
-Message-ID: <05093548-7cd4-4969-825f-c40fee6d7879@suse.com>
-Date: Tue, 14 May 2024 16:36:35 +0200
+        bh=NvP4yLvMnC1cVmbWzh4ZmXRmEhCmleFWN5rjcW+9gLk=;
+        b=VBmc0Up6X6/3yjId0q3yYeoBrEqOfMGiL/R01AimLC6BO+Ugwxxph13WHnoxnrGt+1
+         hKhlT8P8xMMR2S8Ty+W0zGn6LFiEikoSgazuCLRcMWBWpnV3Q809NYv99fpOwuTwTX7K
+         PEwo7VEH7jny4dz7kJH1BPqN4EB3v+GFd4MB03w7sjd6EVGyFPpuKcuwu8m3q0wRzQm8
+         r+XzhBITzuLqryJP0lcpnwR3zw7mswiuLwYjFCGy/zLmlGHQdweao1FjZMiNBRmPOs+K
+         pqare7uirsgtcbXzeaj+AVt4huauBjKOkKI8CzFKghTGzLugP68AInQoVX0s+e3jV+y4
+         VdaQ==
+X-Forwarded-Encrypted: i=1; AJvYcCUoOXNXLT/pNe/z1ledbJF24xDkxGfmKkrXE6ktXm+sIt+61sTrwQhQHVQsPsJ3yJFdj+16sl+S4v/7qzQDMT/m/fknFcIfOPYducnc7cc=
+X-Gm-Message-State: AOJu0YzEG2r/xa/3aXChHL/PEavuUsYQQ9BE3aWRfSOqYqV5nZBS513t
+	M/WU6kQCS5w7u1QZTdI+voMfTTFif8iw+SNPHhvzEg7ussXdzuYSNm+7nWuA+w==
+X-Google-Smtp-Source: AGHT+IEpGbgpVtl1MrlgrhkFmH7Ws7TmA7NO09ezKniJIOZaPhS6KFYni+aCG8FO0L3axAHki4m3rw==
+X-Received: by 2002:a05:651c:2114:b0:2e1:cb0f:4e1e with SMTP id 38308e7fff4ca-2e51fc34061mr120325021fa.2.1715697445009;
+        Tue, 14 May 2024 07:37:25 -0700 (PDT)
+Message-ID: <74be423c-1210-452e-9450-f8006282144e@suse.com>
+Date: Tue, 14 May 2024 16:37:32 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH for-4.19 v2 3/3] xen/x86: remove foreign mappings from the
- p2m on teardown
+Subject: Re: [PATCH for-4.19 v2 1/3] xen/x86: account number of foreign
+ mappings in the p2m
 Content-Language: en-US
 To: Roger Pau Monne <roger.pau@citrix.com>
-Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
- Community Manager <community.manager@xenproject.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, xen-devel@lists.xenproject.org
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
 References: <20240508112323.38946-1-roger.pau@citrix.com>
- <20240508112323.38946-4-roger.pau@citrix.com>
+ <20240508112323.38946-2-roger.pau@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -114,35 +111,20 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240508112323.38946-4-roger.pau@citrix.com>
+In-Reply-To: <20240508112323.38946-2-roger.pau@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
 On 08.05.2024 13:23, Roger Pau Monne wrote:
-> @@ -1043,7 +1045,7 @@ static inline int p2m_entry_modify(struct p2m_domain *p2m, p2m_type_t nt,
->          break;
->  
->      case p2m_map_foreign:
-> -        if ( !mfn_valid(nfn) )
-> +        if ( !mfn_valid(nfn) || p2m != p2m_get_hostp2m(p2m->domain) )
->          {
->              ASSERT_UNREACHABLE();
->              return -EINVAL;
-> @@ -1068,7 +1070,7 @@ static inline int p2m_entry_modify(struct p2m_domain *p2m, p2m_type_t nt,
->          break;
->  
->      case p2m_map_foreign:
-> -        if ( !mfn_valid(ofn) )
-> +        if ( !mfn_valid(ofn) || p2m != p2m_get_hostp2m(p2m->domain) )
->          {
->              ASSERT_UNREACHABLE();
->              return -EINVAL;
+> Such information will be needed in order to remove foreign mappings during
+> teardown for HVM guests.
+> 
+> Right now the introduced counter is not consumed.
+> 
+> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
 
-I wonder whether these two hunks wouldn't more logically be part of patch 1
-or 2 (probably not 1, as at that point the assertion isn't quite correct
-yet). Then again it may be as (seemingly) unrelated there as it is here.
-Thus
 Reviewed-by: Jan Beulich <jbeulich@suse.com>
+Yet I think it shouldn't be committed (much) ahead of patch 3.
 
 Jan
 
