@@ -2,45 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 558BE8C5A2A
-	for <lists+xen-devel@lfdr.de>; Tue, 14 May 2024 19:17:22 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.721687.1125295 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E8D3F8C5A8C
+	for <lists+xen-devel@lfdr.de>; Tue, 14 May 2024 19:49:36 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.721692.1125305 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s6vlB-0002GX-IE; Tue, 14 May 2024 17:16:17 +0000
+	id 1s6wGk-0006QA-0f; Tue, 14 May 2024 17:48:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 721687.1125295; Tue, 14 May 2024 17:16:17 +0000
+Received: by outflank-mailman (output) from mailman id 721692.1125305; Tue, 14 May 2024 17:48:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s6vlB-0002Dq-FZ; Tue, 14 May 2024 17:16:17 +0000
-Received: by outflank-mailman (input) for mailman id 721687;
- Tue, 14 May 2024 17:16:15 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=0ttm=MR=amazon.co.uk=prvs=857b575ae=eliasely@srs-se1.protection.inumbo.net>)
- id 1s6vl9-0002Dh-Ma
- for xen-devel@lists.xenproject.org; Tue, 14 May 2024 17:16:15 +0000
-Received: from smtp-fw-9106.amazon.com (smtp-fw-9106.amazon.com
- [207.171.188.206]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a8f028a5-1215-11ef-909d-e314d9c70b13;
- Tue, 14 May 2024 19:16:13 +0200 (CEST)
-Received: from pdx4-co-svc-p1-lb2-vlan2.amazon.com (HELO
- smtpout.prod.us-west-2.prod.farcaster.email.amazon.dev) ([10.25.36.210])
- by smtp-border-fw-9106.sea19.amazon.com with
- ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 May 2024 17:16:05 +0000
-Received: from EX19MTAEUA001.ant.amazon.com [10.0.17.79:22193]
- by smtpin.naws.eu-west-1.prod.farcaster.email.amazon.dev [10.0.14.167:2525]
- with esmtp (Farcaster)
- id e42f7b7e-387e-4fbc-bce0-ee8dc1ea35ec; Tue, 14 May 2024 17:16:03 +0000 (UTC)
-Received: from EX19D018EUA002.ant.amazon.com (10.252.50.146) by
- EX19MTAEUA001.ant.amazon.com (10.252.50.223) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1258.28; Tue, 14 May 2024 17:16:03 +0000
-Received: from [10.95.97.194] (10.95.97.194) by EX19D018EUA002.ant.amazon.com
- (10.252.50.146) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1258.28; Tue, 14 May
- 2024 17:16:01 +0000
+	id 1s6wGj-0006OE-U2; Tue, 14 May 2024 17:48:53 +0000
+Received: by outflank-mailman (input) for mailman id 721692;
+ Tue, 14 May 2024 17:48:53 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1s6wGj-0006O8-DH
+ for xen-devel@lists.xenproject.org; Tue, 14 May 2024 17:48:53 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1s6wGj-0003lQ-29; Tue, 14 May 2024 17:48:53 +0000
+Received: from [15.248.3.89] (helo=[10.24.67.25])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1s6wGi-00074A-Qz; Tue, 14 May 2024 17:48:52 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -52,111 +39,86 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a8f028a5-1215-11ef-909d-e314d9c70b13
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazon201209;
-  t=1715706974; x=1747242974;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=7WMWzzWfADKU6GG+LTImiZZ3v3HOBZvXkyxAIdszVRA=;
-  b=K4lHS4UEAEaeOeFW4a0bRg22vLazQAybOF3iylOdbKv+IhLemKMYRmvp
-   nCgLqqaMMWH2Sgybj30WC66VzIHzSIIStBAOBM56E/rIEGA1kfsv5tGzt
-   UeB9e/rbAGc21mVYPuyozMYBKF1hZBSwOVDwoZJtq+Kle+/LoigkMk5Qj
-   g=;
-X-IronPort-AV: E=Sophos;i="6.08,159,1712620800"; 
-   d="scan'208";a="725759101"
-X-Farcaster-Flow-ID: e42f7b7e-387e-4fbc-bce0-ee8dc1ea35ec
-Message-ID: <699c6487-58c9-456f-8415-e3c525fa905e@amazon.com>
-Date: Tue, 14 May 2024 18:15:57 +0100
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=XTMxr9qgFNEbabVWtjxqC8Gu8FdyBZ6yMETWB/9DvL0=; b=LRoAQ79pkTJ4VNQuK/XcKDOvVs
+	y1TEiSHFE7MciszkS59EExTbDlr1SAy26k62ylwJ+tD0b459pueTEi6HI9XXu22xRcXPF+2S1+Ec4
+	PpdnRsNtEZYROnMz/eU1oIVu0Ip7NtSQYlW+FFOyDxfwRNz8vM+Oh19IAssCyTgljY2c=;
+Message-ID: <cf646df7-0e92-4138-8b54-471c72f44cb8@xen.org>
+Date: Tue, 14 May 2024 18:48:51 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH V3 01/19] x86: Create per-domain mapping of guest_root_pt
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-CC: <xen-devel@lists.xenproject.org>, <julien@xen.org>, <pdurrant@amazon.com>,
-	<dwmw@amazon.com>, Julien Grall <jgrall@amazon.com>
-References: <20240513111117.68828-1-eliasely@amazon.com>
- <20240513111117.68828-2-eliasely@amazon.com> <ZkIxdtiDc_pnPWdx@macbook>
-Content-Language: en-US
-From: Elias El Yandouzi <eliasely@amazon.com>
-In-Reply-To: <ZkIxdtiDc_pnPWdx@macbook>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.95.97.194]
-X-ClientProxiedBy: EX19D040UWB004.ant.amazon.com (10.13.138.91) To
- EX19D018EUA002.ant.amazon.com (10.252.50.146)
+Subject: Re: [PATCH v14 5/5] arm/vpci: honor access size when returning an
+ error
+Content-Language: en-GB
+To: Stewart Hildebrand <stewart.hildebrand@amd.com>,
+ xen-devel@lists.xenproject.org
+Cc: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>
+References: <20240514143400.152280-1-stewart.hildebrand@amd.com>
+ <20240514143400.152280-6-stewart.hildebrand@amd.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <20240514143400.152280-6-stewart.hildebrand@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hi Roger,
+Hi Stewart,
 
-On 13/05/2024 16:27, Roger Pau Monné wrote:
->> diff --git a/xen/arch/x86/pv/domain.c b/xen/arch/x86/pv/domain.c
->> index 2a445bb17b..1b025986f7 100644
->> --- a/xen/arch/x86/pv/domain.c
->> +++ b/xen/arch/x86/pv/domain.c
->> @@ -288,6 +288,21 @@ static void pv_destroy_gdt_ldt_l1tab(struct vcpu *v)
->>                                 1U << GDT_LDT_VCPU_SHIFT);
->>   }
->>   
->> +static int pv_create_root_pt_l1tab(struct vcpu *v)
->> +{
->> +    return create_perdomain_mapping(v->domain,
->> +                                    PV_ROOT_PT_MAPPING_VCPU_VIRT_START(v),
->> +                                    1, v->domain->arch.pv.root_pt_l1tab,
->> +                                    NULL);
->> +}
->> +
->> +static void pv_destroy_root_pt_l1tab(struct vcpu *v)
+On 14/05/2024 15:33, Stewart Hildebrand wrote:
+> From: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
 > 
-> The two 'v' parameters could be const here.
-
-I could constify the parameters but the functions wouldn't be consistent 
-with the two above for gdt/ldt.
-
->> @@ -381,6 +412,11 @@ int pv_domain_initialise(struct domain *d)
->>       if ( rc )
->>           goto fail;
->>   
->> +    rc = create_perdomain_mapping(d, PV_ROOT_PT_MAPPING_VIRT_START,
->> +                                  PV_ROOT_PT_MAPPING_ENTRIES, NULL, NULL);
+> Guest can try to read config space using different access sizes: 8,
+> 16, 32, 64 bits. We need to take this into account when we are
+> returning an error back to MMIO handler, otherwise it is possible to
+> provide more data than requested: i.e. guest issues LDRB instruction
+> to read one byte, but we are writing 0xFFFFFFFFFFFFFFFF in the target
+> register.
 > 
-> Why not use d->max_vcpus here, instead of forcing up to MAX_VIRT_CPUS?
+> Signed-off-by: Volodymyr Babchuk <volodymyr_babchuk@epam.com>
+> Signed-off-by: Stewart Hildebrand <stewart.hildebrand@amd.com>
+
+With one remark below:
+
+Acked-by: Julien Grall <jgrall@amazon.com>
+
+> ---
+> v9->10:
+> * New patch in v10.
+> ---
+>   xen/arch/arm/vpci.c | 6 ++++--
+>   1 file changed, 4 insertions(+), 2 deletions(-)
 > 
-> By the time pv_domain_initialise() is called max_vcpus should already
-> be initialized.  AFAICT it doesn't make a difference, because for the
-> call here only the L3 table is created, as last two parameters are
-> NULL, but still is more accurate to use max_vcpus.
+> diff --git a/xen/arch/arm/vpci.c b/xen/arch/arm/vpci.c
+> index 348ba0fbc860..aaf9d9120c3d 100644
+> --- a/xen/arch/arm/vpci.c
+> +++ b/xen/arch/arm/vpci.c
+> @@ -41,6 +41,8 @@ static int vpci_mmio_read(struct vcpu *v, mmio_info_t *info,
+>   {
+>       struct pci_host_bridge *bridge = p;
+>       pci_sbdf_t sbdf;
+> +    const uint8_t access_size = (1 << info->dabt.size) * 8;
+> +    const uint64_t access_mask = GENMASK_ULL(access_size - 1, 0);
+>       /* data is needed to prevent a pointer cast on 32bit */
+>       unsigned long data;
+>   
+> @@ -48,7 +50,7 @@ static int vpci_mmio_read(struct vcpu *v, mmio_info_t *info,
+>   
+>       if ( !vpci_sbdf_from_gpa(v->domain, bridge, info->gpa, &sbdf) )
+>       {
+> -        *r = ~0UL;
+> +        *r = access_mask;
 
+The name 'access_mask' is a bit confusing. I would not expect such value 
+for be returned to the guest. What about 'invalid'?
 
-There is no particular reason. I think we can safely use d->max_vcpus.
->> diff --git a/xen/arch/x86/x86_64/entry.S b/xen/arch/x86/x86_64/entry.S
->> index df015589ce..c1377da7a5 100644
->> --- a/xen/arch/x86/x86_64/entry.S
->> +++ b/xen/arch/x86/x86_64/entry.S
->> @@ -162,7 +162,15 @@ FUNC_LOCAL(restore_all_guest)
->>           and   %rsi, %rdi
->>           and   %r9, %rsi
->>           add   %rcx, %rdi
->> +
->> +        /*
->> +         * The address in the vCPU cr3 is always mapped in the per-domain
->> +         * pv_root_pt virt area.
->> +         */
->> +        imul  $PAGE_SIZE, VCPU_id(%rbx), %esi
-> 
-> Aren't some of the previous operations against %rsi now useless since
-> it gets unconditionally overwritten here?
-
-I think I can just get rid off of:
-
-     and   %r9, %rsi
-
-> and   %r9, %rsi
-> [...]
-> add   %rcx, %rsi
-
-The second operation you suggested is actually used to retrieve the VA 
-of the PV_ROOT_PT.
+Also can you confirm whether patches #4 and #5 be committed without the 
+rest of the series?
 
 Cheers,
-Elias
 
+-- 
+Julien Grall
 
