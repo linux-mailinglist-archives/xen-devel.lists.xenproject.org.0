@@ -2,37 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 17B488C4E9A
-	for <lists+xen-devel@lfdr.de>; Tue, 14 May 2024 11:20:59 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.721307.1124635 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5040D8C4E9D
+	for <lists+xen-devel@lfdr.de>; Tue, 14 May 2024 11:25:30 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.721313.1124645 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s6oKi-0003pI-W1; Tue, 14 May 2024 09:20:28 +0000
+	id 1s6oPG-0005HD-HZ; Tue, 14 May 2024 09:25:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 721307.1124635; Tue, 14 May 2024 09:20:28 +0000
+Received: by outflank-mailman (output) from mailman id 721313.1124645; Tue, 14 May 2024 09:25:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s6oKi-0003mP-TH; Tue, 14 May 2024 09:20:28 +0000
-Received: by outflank-mailman (input) for mailman id 721307;
- Tue, 14 May 2024 09:20:27 +0000
+	id 1s6oPG-0005Fd-Da; Tue, 14 May 2024 09:25:10 +0000
+Received: by outflank-mailman (input) for mailman id 721313;
+ Tue, 14 May 2024 09:25:09 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=PE3g=MR=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1s6oKh-0003mI-GR
- for xen-devel@lists.xenproject.org; Tue, 14 May 2024 09:20:27 +0000
-Received: from mail-yw1-x112b.google.com (mail-yw1-x112b.google.com
- [2607:f8b0:4864:20::112b])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=VieR=MR=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1s6oPF-0005FX-Fo
+ for xen-devel@lists.xenproject.org; Tue, 14 May 2024 09:25:09 +0000
+Received: from mail-lf1-x129.google.com (mail-lf1-x129.google.com
+ [2a00:1450:4864:20::129])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 320a25e0-11d3-11ef-b4bb-af5377834399;
- Tue, 14 May 2024 11:20:25 +0200 (CEST)
-Received: by mail-yw1-x112b.google.com with SMTP id
- 00721157ae682-61bed5ce32fso57407657b3.2
- for <xen-devel@lists.xenproject.org>; Tue, 14 May 2024 02:20:25 -0700 (PDT)
-Received: from localhost ([213.195.114.223]) by smtp.gmail.com with ESMTPSA id
- d75a77b69052e-43df54d6afasm66365541cf.24.2024.05.14.02.20.22
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 14 May 2024 02:20:23 -0700 (PDT)
+ id da5b4ce0-11d3-11ef-b4bb-af5377834399;
+ Tue, 14 May 2024 11:25:07 +0200 (CEST)
+Received: by mail-lf1-x129.google.com with SMTP id
+ 2adb3069b0e04-51fea3031c3so7071493e87.0
+ for <xen-devel@lists.xenproject.org>; Tue, 14 May 2024 02:25:07 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a5a1787c6d7sm700934666b.59.2024.05.14.02.25.05
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 14 May 2024 02:25:06 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,242 +45,115 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 320a25e0-11d3-11ef-b4bb-af5377834399
+X-Inumbo-ID: da5b4ce0-11d3-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1715678424; x=1716283224; darn=lists.xenproject.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=vzF0v9ZrsRWn8EzKCq+LtNfaFlXPhw3/JvfSXyguUS8=;
-        b=sL2dOOcLEE8Fq40yfQpb+Zp7D66unNpluSXpcjMxin1utUrptTB0HcdJBcaWm1RW/o
-         KCAM2vuuC6+gQAX/48n2TpuTz0bgERNnYzOSP8fCOk/bwKSiyiPs7YpBQstBloMJ+YNZ
-         vlCymnnvGkcUH9WVXrZd3654lCNRaudHvG2XI=
+        d=suse.com; s=google; t=1715678706; x=1716283506; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
+         :from:content-language:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=mX3TB+de2A03snoFMDWj2SlfJr+ktFoulnQl/oak/pU=;
+        b=RRH3O6J+fr0KJ+sCKahpz/65U4z7ybyqgHe5B9dkZZAGLXQr00/Yckyptxtl1/GHQN
+         mfwGq5gPlr9A9tMhyLnWR5XmJVZhT9gvSnfxB5HpDBl1tO5noJwq0KMrroRC530qszfw
+         8MxNNACNfFeURWkHuR0SesGtU1irMjolqyOYKsDwNqI8FtMstoSeoBZbqle1X5ajgytO
+         Pn6oSh6ThaYmLdBtDgleAmLYeIK+4iZGNN3ydCW8bTJiK5AGeq91fcCG7T5PHGVTVhPK
+         /P5jiGJEh+hDfSDGywzLIhsatS/XDHXHgRibuvpA83dIXFarRacT0MdgazAovNDV1s/u
+         ZbaQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1715678424; x=1716283224;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=vzF0v9ZrsRWn8EzKCq+LtNfaFlXPhw3/JvfSXyguUS8=;
-        b=XqCGf/W3Awk1zi3k7f1c5RUPlUsE29qdBycaZ9GCX0zUXB/c+z4Xjo/9Z+/lzde9ID
-         J3s6c3KNq0qdx4x0T0i4z9qSDaEb1E7DF95A7QBixO8Avsz4nORyBI93KHzZDs5+mQ72
-         bZqjzg5OEWW95pYwhQqzOz926Da9zaKHiLOmY+Pe7cQVrhu+eElBdbvB3yoWz9JZIFUN
-         NM/IEEAaFrNos7gEZFT9AyxIRLHpQ/WenOdKlDNlyVlb+bHMdTzjNzn6gF5l8L8Aggbd
-         N5A61ngyaEyWSaU5non8/zp87MwwIKDxKQkNkqNs7mEh3OiKegdGtfE2CLdDHlEcDnpf
-         RtiA==
-X-Gm-Message-State: AOJu0YybnhrM5N237fDKDpd8VNauFHkyVSHBJ5h3oGsK+kkDiWusmy+x
-	95bp5a8tHhROWXQm69G+H9h1j4hYgbe6v1b10wQ4jEFzW5Ku+2n6LCjz6HMO0dY=
-X-Google-Smtp-Source: AGHT+IHg6YYOkkD6bd6AcpKdnJjLtOfz/i55XfXIHfBdLkoAJ4MpkIXZLFva4SVVZ3KDuYbZDuj8eQ==
-X-Received: by 2002:a81:a0cd:0:b0:61b:33f6:9bbb with SMTP id 00721157ae682-622affdf582mr117239747b3.28.1715678423737;
-        Tue, 14 May 2024 02:20:23 -0700 (PDT)
-Date: Tue, 14 May 2024 11:20:21 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Elias El Yandouzi <eliasely@amazon.com>
-Cc: xen-devel@lists.xenproject.org, julien@xen.org, pdurrant@amazon.com,
-	dwmw@amazon.com, Hongyan Xia <hongyxia@amazon.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <jgrall@amazon.com>
-Subject: Re: [PATCH V3 (resend) 06/19] x86: Add a boot option to enable and
- disable the direct map
-Message-ID: <ZkMs1cknBFBWZoJG@macbook>
-References: <20240513134046.82605-1-eliasely@amazon.com>
- <20240513134046.82605-7-eliasely@amazon.com>
+        d=1e100.net; s=20230601; t=1715678706; x=1716283506;
+        h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
+         :from:content-language:subject:user-agent:mime-version:date
+         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=mX3TB+de2A03snoFMDWj2SlfJr+ktFoulnQl/oak/pU=;
+        b=GoU9q1NYZvqrb0+ZDFb6c22fVybz8+Xo015Jz/ElF9EZxuoZPyM3jfl7mgK8AWj+EN
+         QF1UmO69sMLHrqb2dC7ZWiT51p05wxEyCXvbo4V1ssaXmbuSq+1ENuTJlMU+A8zn7vjN
+         8NOzrKgHCh7nUm0isJl3vfFZKlMi8pXiuQ4XnDZ/2N7/4emL/dVEJ8wL8PCknI77a4PH
+         T+umLjIpBfT7eWd7Vcs/Untji2WbwJrJ5nMGkY4eBCwUJbq/rc+MuWYoogMAu5ynOQtW
+         AZgHkGo0Fb3FGPu+HCkS+jQ0zQj6jA6J7y4MVZcU3rxrnlDIBdloQtxmEyOvy9xBw5+I
+         8PWg==
+X-Forwarded-Encrypted: i=1; AJvYcCV+Nz4WNCiAYqEhYGJ8/8dHwmKcSQTt63EEMISKWrn7e72aosBBdfNtvoYwBARyyxz8nl52TZyubq0G0N3YwJ7Gx2/JgJAaLqn6Z3kgfE4=
+X-Gm-Message-State: AOJu0Yx6JeyabCyhfcMC4TZkdRzyvQ5vEIhBcUx/SbKThT0EetvR6TBR
+	JnpPpDe557K8rDUxHz2RwDbUCLYPScufS1CrssAnn9X8WT2DxTsAzIZ4qjHnOjFG5NAA1A3ybL4
+	=
+X-Google-Smtp-Source: AGHT+IHtTza15ZNLlFIOwB9SeocQPby51iuDtQ775c/csh/M8Tu3U9lu5oES5ymGeo1fl6luoHTITw==
+X-Received: by 2002:a05:6512:1281:b0:522:3356:3b8 with SMTP id 2adb3069b0e04-5223356040bmr10026735e87.27.1715678706596;
+        Tue, 14 May 2024 02:25:06 -0700 (PDT)
+Message-ID: <b14acc58-5d3c-46ed-a300-61f422501d4c@suse.com>
+Date: Tue, 14 May 2024 11:25:13 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20240513134046.82605-7-eliasely@amazon.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] Revert "evtchn: refuse EVTCHNOP_status for Xen-bound
+ event channels"
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: George Dunlap <George.Dunlap@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Daniel Smith <dpsmith@apertussolutions.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>,
+ "committers@xenproject.org" <committers@xenproject.org>
+References: <20240402170612.2477791-1-andrew.cooper3@citrix.com>
+ <11957460-0b2b-432d-ad92-38350306c9ff@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <11957460-0b2b-432d-ad92-38350306c9ff@suse.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Mon, May 13, 2024 at 01:40:33PM +0000, Elias El Yandouzi wrote:
-> From: Hongyan Xia <hongyxia@amazon.com>
+On 03.04.2024 08:16, Jan Beulich wrote:
+> On 02.04.2024 19:06, Andrew Cooper wrote:
+>> The commit makes a claim without any kind of justification.
 > 
-> Also add a helper function to retrieve it. Change arch_mfns_in_direct_map
-> to check this option before returning.
+> Well, what does "have no business" leave open?
 > 
-> This is added as a Kconfig option as well as a boot command line option.
-> While being generic, the Kconfig option is only usable for x86 at the moment.
+>> The claim is false, and the commit broke lsevtchn in dom0.
 > 
-> Note that there remains some users of the directmap at this point. The option
-> is introduced now as it will be needed in follow-up patches.
-
-It's hard for me to evaluate whether the option name and the help text
-is correct, because the implementation is not yet complete.  It would
-be best if this was introduced after the implementation has gone in,
-so that the reviewer can evaluate that the text matches the
-implementation.  Now it's mostly a promise of what's yet to be
-implemented.
-
-> Signed-off-by: Hongyan Xia <hongyxia@amazon.com>
-> Signed-off-by: Julien Grall <jgrall@amazon.com>
-> Signed-off-by: Elias El Yandouzi <eliasely@amazon.com>
+> Or alternatively lsevtchn was doing something that was never meant to work
+> (from Xen's perspective).
 > 
-> ----
+>>  It is also quite
+>> obvious from XSM_TARGET that it has broken device model stubdoms too.
 > 
->     Changes in V2:
->         * Introduce a Kconfig option
->         * Reword the commit message
->         * Make opt_directmap and helper generic
+> Why would that be "obvious"? What business would a stubdom have to look at
+> Xen's side of an evtchn?
 > 
->     Changes since Hongyan's version:
->         * Reword the commit message
->         * opt_directmap is only modified during boot so mark it as
->           __ro_after_init
+>> Whether to return information about a xen-owned evtchn is a matter of policy,
+>> and it's not acceptable to short circuit the XSM on the matter.
 > 
-> diff --git a/docs/misc/xen-command-line.pandoc b/docs/misc/xen-command-line.pandoc
-> index e760f3266e..743d343ffa 100644
-> --- a/docs/misc/xen-command-line.pandoc
-> +++ b/docs/misc/xen-command-line.pandoc
-> @@ -799,6 +799,18 @@ that enabling this option cannot guarantee anything beyond what underlying
->  hardware guarantees (with, where available and known to Xen, respective
->  tweaks applied).
->  
-> +### directmap (x86)
-> +> `= <boolean>`
-> +
-> +> Default: `true`
-> +
-> +Enable or disable the directmap region in Xen.
+> I can certainly accept this as one possible view point. As in so many cases
+> I'm afraid I dislike you putting it as if it was the only possible one.
+> 
+> In summary: The supposed justification you claim is missing in the original
+> change is imo also missing here then: What business would any entity in the
+> system have to look at Xen's side of an event channel? Back at the time, 3
+> people agreed that it's "none".
 
-Enable or disable fully populating the directmap region in Xen.
+You've never responded to this reply of mine, or its follow-up. You also
+didn't chime in on the discussion Daniel and I were having. I consider my
+objections unaddressed, and in fact I continue to consider the change to
+be wrong. Therefore it was inappropriate for you to commit it; it needs
+reverting asap. If you're not going to do so, I will.
 
-> +
-> +By default, Xen creates the directmap region which maps physical memory
-                                                          ^ all?
-> +in that region. Setting this to no will sparsely populate the directmap,
-
-"Setting this to no" => "Disabling this option will sparsely..."
-
-> +blocking exploits that leak secrets via speculative memory access in the
-> +directmap.
-> +
->  ### dma_bits
->  > `= <integer>`
->  
-> diff --git a/xen/arch/x86/Kconfig b/xen/arch/x86/Kconfig
-> index 7e03e4bc55..b4ec0e582e 100644
-> --- a/xen/arch/x86/Kconfig
-> +++ b/xen/arch/x86/Kconfig
-> @@ -28,6 +28,7 @@ config X86
->  	select HAS_PCI_MSI
->  	select HAS_PIRQ
->  	select HAS_SCHED_GRANULARITY
-> +	select HAS_SECRET_HIDING
->  	select HAS_UBSAN
->  	select HAS_VPCI if HVM
->  	select NEEDS_LIBELF
-> diff --git a/xen/arch/x86/include/asm/mm.h b/xen/arch/x86/include/asm/mm.h
-> index 98b66edaca..54d835f156 100644
-> --- a/xen/arch/x86/include/asm/mm.h
-> +++ b/xen/arch/x86/include/asm/mm.h
-> @@ -622,11 +622,17 @@ void write_32bit_pse_identmap(uint32_t *l2);
->  /*
->   * x86 maps part of physical memory via the directmap region.
->   * Return whether the range of MFN falls in the directmap region.
-> + *
-> + * When boot command line sets directmap=no, the directmap will mostly be empty
-> + * so this will always return false.
->   */
->  static inline bool arch_mfns_in_directmap(unsigned long mfn, unsigned long nr)
->  {
->      unsigned long eva = min(DIRECTMAP_VIRT_END, HYPERVISOR_VIRT_END);
->  
-> +    if ( !has_directmap() )
-> +        return false;
-> +
->      return (mfn + nr) <= (virt_to_mfn(eva - 1) + 1);
->  }
->  
-> diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
-> index f84e1cd79c..bd6b1184f5 100644
-> --- a/xen/arch/x86/setup.c
-> +++ b/xen/arch/x86/setup.c
-> @@ -1517,6 +1517,8 @@ void asmlinkage __init noreturn __start_xen(unsigned long mbi_p)
->      if ( highmem_start )
->          xenheap_max_mfn(PFN_DOWN(highmem_start - 1));
->  
-> +    printk("Booting with directmap %s\n", has_directmap() ? "on" : "off");
-
-IMO this wants to be printed as part of the speculation mitigations, see
-print_details() in spec_ctrl.c
-
-> +
->      /*
->       * Walk every RAM region and map it in its entirety (on x86/64, at least)
->       * and notify it to the boot allocator.
-> diff --git a/xen/common/Kconfig b/xen/common/Kconfig
-> index 565ceda741..856604068c 100644
-> --- a/xen/common/Kconfig
-> +++ b/xen/common/Kconfig
-> @@ -80,12 +80,29 @@ config HAS_PMAP
->  config HAS_SCHED_GRANULARITY
->  	bool
->  
-> +config HAS_SECRET_HIDING
-> +	bool
-> +
->  config HAS_UBSAN
->  	bool
->  
->  config MEM_ACCESS_ALWAYS_ON
->  	bool
->  
-> +config SECRET_HIDING
-> +    bool "Secret hiding"
-> +    depends on HAS_SECRET_HIDING
-
-IMO 'SECRET_HIDING' is too generic, this wants a more specific name.
-Maybe SPARCE_DIRECTMAP or some such.
-
-> +    help
-> +		The directmap contains mapping for most of the RAM which makes domain
-> +		memory easily accessible. While making the performance better, it also makes
-> +		the hypervisor more vulnerable to speculation attacks.
-> +
-> +		Enabling this feature will allow the user to decide whether the memory
-> +		is always mapped at boot or mapped only on demand (see the command line
-> +		option "directmap").
-> +
-> +		If unsure, say N.
-> +
->  config MEM_ACCESS
->  	def_bool MEM_ACCESS_ALWAYS_ON
->  	prompt "Memory Access and VM events" if !MEM_ACCESS_ALWAYS_ON
-> diff --git a/xen/common/page_alloc.c b/xen/common/page_alloc.c
-> index 7c1bdfc046..9b7e4721cd 100644
-> --- a/xen/common/page_alloc.c
-> +++ b/xen/common/page_alloc.c
-> @@ -174,6 +174,11 @@ paddr_t __ro_after_init mem_hotplug;
->  static char __initdata opt_badpage[100] = "";
->  string_param("badpage", opt_badpage);
->  
-> +bool __ro_after_init opt_directmap = true;
-> +#ifdef CONFIG_HAS_SECRET_HIDING
-> +boolean_param("directmap", opt_directmap);
-> +#endif
-> +
->  /*
->   * no-bootscrub -> Free pages are not zeroed during boot.
->   */
-> diff --git a/xen/include/xen/mm.h b/xen/include/xen/mm.h
-> index 7561297a75..9d4f1f2d0d 100644
-> --- a/xen/include/xen/mm.h
-> +++ b/xen/include/xen/mm.h
-> @@ -167,6 +167,13 @@ extern unsigned long max_page;
->  extern unsigned long total_pages;
->  extern paddr_t mem_hotplug;
->  
-> +extern bool opt_directmap;
-> +
-> +static inline bool has_directmap(void)
-> +{
-> +    return opt_directmap;
-
-This likely wants:
-
-return IS_ENABLED(CONFIG_HAS_SECRET_HIDING) && opt_directmap;
-
-So that when HAS_SECRET_HIDING is build time disabled the compiler can
-likely eliminate the code.
-
-Thanks, Roger.
+Jan
 
