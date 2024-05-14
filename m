@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D71A88C4D3E
-	for <lists+xen-devel@lfdr.de>; Tue, 14 May 2024 09:43:51 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.721172.1124355 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C5BC48C4D52
+	for <lists+xen-devel@lfdr.de>; Tue, 14 May 2024 09:53:21 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.721179.1124364 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s6mof-000179-9m; Tue, 14 May 2024 07:43:17 +0000
+	id 1s6my9-00043Z-4o; Tue, 14 May 2024 07:53:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 721172.1124355; Tue, 14 May 2024 07:43:17 +0000
+Received: by outflank-mailman (output) from mailman id 721179.1124364; Tue, 14 May 2024 07:53:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s6mof-00014e-6e; Tue, 14 May 2024 07:43:17 +0000
-Received: by outflank-mailman (input) for mailman id 721172;
- Tue, 14 May 2024 07:43:15 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=VieR=MR=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1s6mod-00014Y-HZ
- for xen-devel@lists.xenproject.org; Tue, 14 May 2024 07:43:15 +0000
-Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
- [2a00:1450:4864:20::62b])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 9d0806c2-11c5-11ef-b4bb-af5377834399;
- Tue, 14 May 2024 09:43:11 +0200 (CEST)
-Received: by mail-ej1-x62b.google.com with SMTP id
- a640c23a62f3a-a59a5f81af4so1329662966b.3
- for <xen-devel@lists.xenproject.org>; Tue, 14 May 2024 00:43:13 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a5a17b0195dsm686296066b.184.2024.05.14.00.43.12
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 14 May 2024 00:43:12 -0700 (PDT)
+	id 1s6my9-000415-27; Tue, 14 May 2024 07:53:05 +0000
+Received: by outflank-mailman (input) for mailman id 721179;
+ Tue, 14 May 2024 07:53:03 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=PE3g=MR=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1s6my7-00040z-OQ
+ for xen-devel@lists.xenproject.org; Tue, 14 May 2024 07:53:03 +0000
+Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
+ [2a00:1450:4864:20::330])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id fd77d97a-11c6-11ef-909d-e314d9c70b13;
+ Tue, 14 May 2024 09:53:02 +0200 (CEST)
+Received: by mail-wm1-x330.google.com with SMTP id
+ 5b1f17b1804b1-420104e5336so15811415e9.1
+ for <xen-devel@lists.xenproject.org>; Tue, 14 May 2024 00:53:02 -0700 (PDT)
+Received: from localhost ([213.195.114.223]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-41fccee934csm184556455e9.38.2024.05.14.00.53.01
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 14 May 2024 00:53:01 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,167 +44,215 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9d0806c2-11c5-11ef-b4bb-af5377834399
+X-Inumbo-ID: fd77d97a-11c6-11ef-909d-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1715672593; x=1716277393; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=O3T3F3wBgY2lowM3PHCpwiguoxntaMhIgnhnyvWn1vg=;
-        b=W/AvKMm1UkURwdY99sPz/2MyIWkvZCREmyVMNziX/1KxGETxd1A+6s9AsUtLBJwQPD
-         LkuIkA8MM39iQPw/DLFDR/B6LjNwA3alwMgkqCduFZubZrn57LOsOmZU9sqwMtl6YW5h
-         QPJwV2iN20CTGVvXUE2ciYarzoNeP66nJZgLQ4Ku/b76yHcROVN2qaurHAQt49iAy/aQ
-         LaLCHklJlNdAU3Md6lmtD+/65i4seVKyBhKzDsC2z4r94T+L9MtWucIWK3GY/qEszF49
-         gC2Hfz/HW7y2WIirCRllWO+9VtqCQsMkw7TX2H00kwK/7EClw3e4fHV8iWokvbTJ9YAf
-         NUHw==
+        d=citrix.com; s=google; t=1715673182; x=1716277982; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=tNqsSLUtvip3LDymvbn34Szd6re8FWDuq8rbRTdB1sA=;
+        b=Vw28hktAy8GTxotGbxA0VN+/mLsPIFKs+Xyg9IunNtxscuWIUXCZWY0IuWwW5nIVlR
+         XE+KNesByOo3DGNyvXiRfauWhQ9LPykeSw3qACW0tZFLRabj/NI6QD/490n2sFjdnXnS
+         nD0SVYmO8ciYUL23SDxa7fD4j/+4VHqC/kWkA=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1715672593; x=1716277393;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
+        d=1e100.net; s=20230601; t=1715673182; x=1716277982;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=O3T3F3wBgY2lowM3PHCpwiguoxntaMhIgnhnyvWn1vg=;
-        b=an/0xkXk8xC+D3gU1l38mq5Hkp3aADs6xm78jMXSKZKC1oSpEAvlRupULqkRLPAlhO
-         q4gJBNOpgmpQuO53iFoatS3daD7WOwKfJ3xPJPysPOmfXuG1LDlz1IOu4963brWFYcs1
-         OsPH2iGOQCsJ4AffJjToCsWowUBlgLjQbkavsDOCxFPOxcoLjCZZ33uA9y4LJVKQ2Y8w
-         wzfDN11Kr/Y0OYre1Hs+Mt01+8sfLQeRYnCwMF0BxKfbQWyTureBcJQHGjjxL+GI1JTf
-         DpRrHpWbGo1fljAvf4oEfPFyURaG/KMyxDU1+2Y80/qhf8YgKU58SCQoMxfl9BkkzKo+
-         bVuA==
-X-Forwarded-Encrypted: i=1; AJvYcCUsN1oaHSY7xCiaKVQXkCcapOaEthPvVvxRc9KqZp1WMry8Ya7yeiW9za1Qcvzk/03ga4T7li6tKfC5JsZwtLlgec6tKaDnNSQkJEm71G8=
-X-Gm-Message-State: AOJu0Yzg/li6tsrUlGLzSKQCiBHeihpY8cRt0NqntXK6o3l7VV6kL09F
-	pWiD6jQbXzIUcGM8yA5lQQ/9R8KZ/AzVKfczlv00EsKeeV+ZAimtqSOFy+CFe5zfKwpkKWVgp0o
-	=
-X-Google-Smtp-Source: AGHT+IGpzwXBf5dU5/rVk7zum2B2XClZ/K0f5UDayZ+j23o7xsQISy8R10sV2tSpxh3lXEB0mNhhiQ==
-X-Received: by 2002:a17:907:d25:b0:a5a:2aed:ca2b with SMTP id a640c23a62f3a-a5a2d5c9fdcmr1041574366b.28.1715672592759;
-        Tue, 14 May 2024 00:43:12 -0700 (PDT)
-Message-ID: <ecb8814f-f9bf-4eb7-86ce-48bdd34f8bf9@suse.com>
-Date: Tue, 14 May 2024 09:43:18 +0200
+        bh=tNqsSLUtvip3LDymvbn34Szd6re8FWDuq8rbRTdB1sA=;
+        b=NaZm+OKvIrat2exzSu3Eiep3nTU5iQb5s88c/JlmYnnCHiKYhbnV/YbJEyBFvWD8+u
+         0F5kR06ZNuuccZV1iMOnNcWg7XdmzYbpv/sJu8tUQeYLDDAzW1yVseVm+cOYAXp/8u86
+         KbjEu1Ub1LW2tIdYw8K4Lu+ahMpb2WDTTsp5gAKIA+EY0fMOQUVcmSZWxd5pWqN/+Zhs
+         i7fBnVpf+bxm1oS6Admlq0axw50KUnYhIzY8k9Gax+UDbvW5dl63Ccb30ufLAfTE1iMF
+         WFRm9vYtpv4HUfWxwPLbi4ePgMo1aqTYt+HXAYUM14ZLNBWMRUtA9zyy6BKEwL3ptV1T
+         BU8A==
+X-Gm-Message-State: AOJu0Yz7V/3cUoDU03mBF9TELrSU7V0LHPfZs39y6EGeyfZ+BnsPWtos
+	+dxehLPNwtiq3ijLe1gmoYKNudO0wYYiRxrtuHPhtYqwrE/+yY8TgevxvugdKBg=
+X-Google-Smtp-Source: AGHT+IFuHJ9M4iMVdyKC1GjZhRRpCulrqslXw0w/ud/jqo+mlQ6Hn0OoFy+qOr/BHO+9Gpuukka8tA==
+X-Received: by 2002:a05:600c:6548:b0:419:f533:ef88 with SMTP id 5b1f17b1804b1-41feaa42589mr107092315e9.11.1715673182020;
+        Tue, 14 May 2024 00:53:02 -0700 (PDT)
+Date: Tue, 14 May 2024 09:53:01 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>,
+	Jan Beulich <JBeulich@suse.com>
+Subject: Re: [PATCH 3/4] tools/xen-cpuid: Use automatically generated feature
+ names
+Message-ID: <ZkMYXSf9abR3J3FE@macbook>
+References: <20240510224002.2324578-1-andrew.cooper3@citrix.com>
+ <20240510224002.2324578-4-andrew.cooper3@citrix.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/3] x86: detect PIT aliasing on ports other than
- 0x4[0-3]
-Content-Language: en-US
-To: Jason Andryuk <jason.andryuk@amd.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <0c45155a-2beb-4e69-bca3-cdf42ba22f2b@suse.com>
- <039b9ceb-4862-4e26-a344-e47fc04bd979@suse.com>
- <0cfaeb1f-947a-4e45-9f69-a0e3f8143e2a@amd.com>
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <0cfaeb1f-947a-4e45-9f69-a0e3f8143e2a@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20240510224002.2324578-4-andrew.cooper3@citrix.com>
 
-On 10.05.2024 19:40, Jason Andryuk wrote:
-> On 2023-12-18 09:48, Jan Beulich wrote:
->> --- a/xen/arch/x86/time.c
->> +++ b/xen/arch/x86/time.c
->> @@ -425,6 +425,72 @@ static struct platform_timesource __init
->>       .resume = resume_pit,
->>   };
->>   
->> +unsigned int __initdata pit_alias_mask;
->> +
->> +static void __init probe_pit_alias(void)
->> +{
->> +    unsigned int mask = 0x1c;
->> +    uint8_t val = 0;
->> +
->> +    if ( !opt_probe_port_aliases )
->> +        return;
->> +
->> +    /*
->> +     * Use channel 2 in mode 0 for probing.  In this mode even a non-initial
->> +     * count is loaded independent of counting being / becoming enabled.  Thus
->> +     * we have a 16-bit value fully under our control, to write and then check
->> +     * whether we can also read it back unaltered.
->> +     */
->> +
->> +    /* Turn off speaker output and disable channel 2 counting. */
->> +    outb(inb(0x61) & 0x0c, 0x61);
->> +
->> +    outb((2 << 6) | (3 << 4) | (0 << 1), PIT_MODE); /* Mode 0, LSB/MSB. */
+On Fri, May 10, 2024 at 11:40:01PM +0100, Andrew Cooper wrote:
+> From: Roger Pau Monné <roger.pau@citrix.com>
 > 
-> Channel 2, Lobyte/Hibyte, 0b000 Mode 0, (Binary)
+> Have gen-cpuid.py write out INIT_FEATURE_VAL_TO_NAME, derived from the same
+> data source as INIT_FEATURE_NAME_TO_VAL, although both aliases of common_1d
+> are needed.
 > 
-> #define PIT_MODE_CH2 (2 << 6)
-> #define PIT_MODE0_16BIT ((3 << 4) | (0 << 1))
+> In xen-cpuid.c, have the compiler pad both leaf_info[] and feature_names[] if
+> necessary.  This avoids needing complicated cross-checks.
 > 
-> outb(PIT_MODE_CH2 | PIT_MODE0_16BIT, PIT_MODE);
-
-Hmm. I can certainly see the value of introducing such #define-s, but then
-while doing so one ought to also adjust other code using constants as done
-here (for consistency).
-
->> +
->> +    do {
->> +        uint8_t val2;
->> +        unsigned int offs;
->> +
->> +        outb(val, PIT_CH2);
->> +        outb(val ^ 0xff, PIT_CH2);
->> +
->> +        /* Wait for the Null Count bit to clear. */
->> +        do {
->> +            /* Latch status. */
->> +            outb((3 << 6) | (1 << 5) | (1 << 3), PIT_MODE);
+> As dump_leaf() rendered missing names as numbers, always dump leaves even if
+> we don't have the leaf name.  This conversion was argumably missed in commit
+> 59afdb8a81d6 ("tools/misc: Tweak reserved bit handling for xen-cpuid").
 > 
-> Read-back, Latch status,  read back timer channel 2
-
-Was this meant as a request to extend the comment? If so, not quite,
-as the line doesn't include any read-back. If not, I'm in trouble seeing
-what you mean to tell me here (somewhat similar also for the first line
-of your earlier comment still visible in context above).
-
->> +
->> +            /* Try to make sure we're actually having a PIT here. */
->> +            val2 = inb(PIT_CH2);
->> +            if ( (val2 & ~(3 << 6)) != ((3 << 4) | (0 << 1)) )
+> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> ---
+> CC: Jan Beulich <JBeulich@suse.com>
+> CC: Roger Pau Monné <roger.pau@citrix.com>
 > 
-> if ( (val2 & PIT_RB_MASK) != PIT_MODE0_16BIT )
+> Differences in names are:
 > 
-> I think particularly a define for PIT_MODE0_16BIT would be helpful to 
-> show what is expected to be the same.
+>  sysenter    -> sep
+>  tm          -> tm1
+>  ds-cpl      -> dscpl
+>  est         -> eist
+>  sse41       -> sse4-1
+>  sse42       -> sse4-2
+>  movebe      -> movbe
+>  tsc-dl      -> tsc-deadline
+>  rdrnd       -> rdrand
+>  hyper       -> hypervisor
+>  mmx+        -> mmext
+>  fxsr+       -> ffxsr
+>  pg1g        -> page1gb
+>  3dnow+      -> 3dnowext
+>  cmp         -> cmp-legacy
+>  cr8d        -> cr8-legacy
+>  lzcnt       -> abm
+>  msse        -> misalignsse
+>  3dnowpf     -> 3dnowprefetch
+>  nodeid      -> nodeid-msr
+>  dbx         -> dbext
+>  tsc-adj     -> tsc-adjust
+>  fdp-exn     -> fdp-excp-only
+>  deffp       -> no-fpu-sel
+>  <24>        -> bld
+>  ppin        -> amd-ppin
+>  lfence+     -> lfence-dispatch
+>  ppin        -> intel-ppin
+>  energy-ctrl -> energy-filtering
 > 
->> +                return;
->> +        } while ( val2 & (1 << 6) );
+> Apparently BLD missed the update to xen-cpuid.c.  It appears to be the only
+> one.  Several of the + names would be nice to keep as were, but doing so isn't
+> nice in gen-cpuid.  Any changes would alter the {dom0-}cpuid= cmdline options,
+> but we intentionally don't list them, so I'm not worried.
 > 
-> I think Roger might have mentioned on an earlier version - would it make 
-> sense to have a counter to prevent looping forever?
+> Thoughts?
 
-Well, as before: The issue with bounding such loops is that the bound is
-going to be entirely arbitrary (and hence easily too large / too small).
+I'm fine with this, we are now coherent between libxl, the Xen command
+line cpuid= option and the output of xen-cpuid.
 
-> Also, FYI, I tested the series.  My test machine didn't show any aliasing.
+> 
+> v3:
+>  * Rework somewhat.
+>  * Insert aliases of common_1d.
+> ---
+>  tools/misc/xen-cpuid.c | 15 ++++++---------
+>  xen/tools/gen-cpuid.py | 21 +++++++++++++++++++++
+>  2 files changed, 27 insertions(+), 9 deletions(-)
+> 
+> diff --git a/tools/misc/xen-cpuid.c b/tools/misc/xen-cpuid.c
+> index 6ee835b22949..2f34694e9c57 100644
+> --- a/tools/misc/xen-cpuid.c
+> +++ b/tools/misc/xen-cpuid.c
+> @@ -11,6 +11,7 @@
+>  #include <xenguest.h>
+>  
+>  #include <xen-tools/common-macros.h>
+> +#include <xen/lib/x86/cpuid-autogen.h>
+>  
+>  static uint32_t nr_features;
+>  
+> @@ -268,7 +269,7 @@ static const struct {
+>      const char *name;
+>      const char *abbr;
+>      const char *const *strs;
+> -} leaf_info[] = {
+> +} leaf_info[FEATURESET_NR_ENTRIES] = {
 
-That likely was an AMD one then? It's only Intel chipsets I've seen aliasing
-on so far, but there it's (almost) all of them (with newer data sheets even
-stating that behavior). We could, beyond shim, make the option default in
-patch 1 be "false" for systems with AMD CPUs (on the assumption that those
-wouldn't have Intel chipsets).
+Won't it be best to not specify the number of array elements here, as
+we could then use a BUILD_BUG_ON() to detect when new leafs are added
+to the featureset and thus adjust xen-cpuid.c?  Otherwise new
+additions to the featureset will go unnoticed.
 
-Jan
+>      { "CPUID 0x00000001.edx",        "1d", str_1d },
+>      { "CPUID 0x00000001.ecx",        "1c", str_1c },
+>      { "CPUID 0x80000001.edx",       "e1d", str_e1d },
+> @@ -291,6 +292,9 @@ static const struct {
+>  
+>  #define COL_ALIGN "24"
+>  
+> +static const char *const feature_names[(FEATURESET_NR_ENTRIES + 1) << 5] =
+> +    INIT_FEATURE_VAL_TO_NAME;
+
+I've also considered this when doing the original patch, but it seemed
+worse to force each user of INIT_FEATURE_VAL_TO_NAME to have to
+correctly size the array.  I would also use '* 32', as it's IMO
+clearer and already used below when accessing the array.  I'm fine
+if we want to go this way, but the extra Python code to add a last
+array entry if required didn't seem that much TBH.
+
+> +
+>  static const char *const fs_names[] = {
+>      [XEN_SYSCTL_cpu_featureset_raw]     = "Raw",
+>      [XEN_SYSCTL_cpu_featureset_host]    = "Host",
+> @@ -304,12 +308,6 @@ static void dump_leaf(uint32_t leaf, const char *const *strs)
+>  {
+>      unsigned i;
+>  
+> -    if ( !strs )
+> -    {
+> -        printf(" ???");
+> -        return;
+> -    }
+> -
+>      for ( i = 0; i < 32; ++i )
+>          if ( leaf & (1u << i) )
+>          {
+> @@ -338,8 +336,7 @@ static void decode_featureset(const uint32_t *features,
+>      for ( i = 0; i < length && i < ARRAY_SIZE(leaf_info); ++i )
+>      {
+>          printf("  [%02u] %-"COL_ALIGN"s", i, leaf_info[i].name ?: "<UNKNOWN>");
+> -        if ( leaf_info[i].name )
+> -            dump_leaf(features[i], leaf_info[i].strs);
+> +        dump_leaf(features[i], &feature_names[i * 32]);
+>          printf("\n");
+>      }
+>  }
+> diff --git a/xen/tools/gen-cpuid.py b/xen/tools/gen-cpuid.py
+> index 79d7f5c8e1c9..d0bb2e4a229f 100755
+> --- a/xen/tools/gen-cpuid.py
+> +++ b/xen/tools/gen-cpuid.py
+> @@ -470,6 +470,27 @@ def write_results(state):
+>      state.output.write(
+>  """}
+>  
+> +""")
+> +
+> +    state.output.write(
+> +"""
+> +#define INIT_FEATURE_VAL_TO_NAME { \\
+> +""")
+> +
+> +    for name, bit in sorted(state.values.items()):
+> +        state.output.write(
+> +            '    [%s] = "%s",\\\n' % (bit, name)
+> +            )
+> +
+> +        # Add the other alias for 1d/e1d common bits
+> +        if bit in state.common_1d:
+> +            state.output.write(
+> +                '    [%s] = "%s",\\\n' % (64 + bit, name)
+> +            )
+
+Had no idea we had this aliases.
+
+Thanks, Roger.
 
