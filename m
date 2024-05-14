@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A85558C5906
-	for <lists+xen-devel@lfdr.de>; Tue, 14 May 2024 17:46:33 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.721663.1125274 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 69EF18C59AE
+	for <lists+xen-devel@lfdr.de>; Tue, 14 May 2024 18:23:43 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.721674.1125284 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s6uMB-0003YH-0V; Tue, 14 May 2024 15:46:23 +0000
+	id 1s6uvf-0003Jr-Nz; Tue, 14 May 2024 16:23:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 721663.1125274; Tue, 14 May 2024 15:46:22 +0000
+Received: by outflank-mailman (output) from mailman id 721674.1125284; Tue, 14 May 2024 16:23:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s6uMA-0003VK-To; Tue, 14 May 2024 15:46:22 +0000
-Received: by outflank-mailman (input) for mailman id 721663;
- Tue, 14 May 2024 15:46:21 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=gsOr=MR=cloud.com=alejandro.vallejo@srs-se1.protection.inumbo.net>)
- id 1s6uM9-0003TG-Nv
- for xen-devel@lists.xenproject.org; Tue, 14 May 2024 15:46:21 +0000
-Received: from mail-ed1-x52d.google.com (mail-ed1-x52d.google.com
- [2a00:1450:4864:20::52d])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 1ba3ac1b-1209-11ef-b4bb-af5377834399;
- Tue, 14 May 2024 17:46:20 +0200 (CEST)
-Received: by mail-ed1-x52d.google.com with SMTP id
- 4fb4d7f45d1cf-572e8028e0cso324142a12.3
- for <xen-devel@lists.xenproject.org>; Tue, 14 May 2024 08:46:20 -0700 (PDT)
-Received: from [10.80.5.21] (default-46-102-197-194.interdsl.co.uk.
- [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a5a17b014besm733507666b.161.2024.05.14.08.46.18
+	id 1s6uvf-0003HY-LN; Tue, 14 May 2024 16:23:03 +0000
+Received: by outflank-mailman (input) for mailman id 721674;
+ Tue, 14 May 2024 16:23:02 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=VieR=MR=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1s6uve-0003HS-OS
+ for xen-devel@lists.xenproject.org; Tue, 14 May 2024 16:23:02 +0000
+Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
+ [2a00:1450:4864:20::62f])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 3babf022-120e-11ef-909d-e314d9c70b13;
+ Tue, 14 May 2024 18:23:01 +0200 (CEST)
+Received: by mail-ej1-x62f.google.com with SMTP id
+ a640c23a62f3a-a5a88339780so49246466b.0
+ for <xen-devel@lists.xenproject.org>; Tue, 14 May 2024 09:23:01 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a5a179c7d7csm747656166b.140.2024.05.14.09.22.59
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 14 May 2024 08:46:19 -0700 (PDT)
+ Tue, 14 May 2024 09:23:00 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,83 +45,110 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1ba3ac1b-1209-11ef-b4bb-af5377834399
+X-Inumbo-ID: 3babf022-120e-11ef-909d-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1715701579; x=1716306379; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
+        d=suse.com; s=google; t=1715703781; x=1716308581; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=UNs0PEvIyVMnqw5/1MDhjLmg7EgRSbvMronrwsuzX7g=;
-        b=K7VbsCQu0j5Rhv81xGhBvfb0T1woMhftNmjtYTxn5v+iLKNJoqLSqClCzeQ2SHZh7J
-         Y4iomtnLoxa5A5cfAa8Io5HDduXN+VmNmibT4+iB//Di30uGchaB2AZEMZRxO7yOmlhF
-         KGoqCKf2C+BbG6w2lWGElwzW0uM/ZgZazXt5E=
+        bh=oRpWNAdQnTo0N4docaodQ5ZeZukKlehSHQL6Z/WP0yk=;
+        b=TDVANDcfV7VzAIznUVDPU2NRRJ8IJwsJHpaNWFIhvvovzdZqeKubGtW9ycxel4cP8/
+         G6F+cjn2Mdb0JcDFLG1OMoTy+2Tq/FhsKzsSCH/BniDD5uVcAafQJqdRHWUAwu7mQwjk
+         fcxyU+KdsOErRCYz8689LshNKSJ5VCt9qUaIQzCXGS6F0TU+0xkezulZ7e/TNrxHxu7p
+         WcPflgqhGGDmaCWBs2qM8lW1oivs18MEeRPzK1XoM/9faPA1IADiYnrTGcnG17FWtcfM
+         WJCNilk8/wzmOHuOn7zOyGaGSREk6Och3bdBzOJ0ILGkaW8SqbXWeV0yiasM8fR/4pAX
+         PUng==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1715701579; x=1716306379;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
+        d=1e100.net; s=20230601; t=1715703781; x=1716308581;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=UNs0PEvIyVMnqw5/1MDhjLmg7EgRSbvMronrwsuzX7g=;
-        b=N7lELOhLdgmG5xUY6oce+2MW3twGN5zijmv3KfzV9Hqq8SbapYqzAjcJ4brVW3F1XZ
-         t6eFZ4Qw/6HDKSK3JfMH9HLHFVNHgJxgontcsDE22aywaRPR2LDKccnGc21j0emNhmaB
-         tqKao3fJJFX4+TGsCADY85AqFbjYaqFds+lu3ksoptm4u0EHIyaatUZ2iZssoPVMsFon
-         AO4PJvIypm/pzvWEXTIzYcrLgfapkM91L42SCCgppI7aIGzYN/NUH05ESAN7vGJ7kA8D
-         LywE5iYWct6+op/CVS/Z4dhOAz6DrGz+8iInuJpZ0TUhSlI5Gygjbr38iEYZ40NYltzg
-         jAZQ==
-X-Gm-Message-State: AOJu0Yw8Ah/UPF6BbeoeNc+xaaEJywu6cmQmOWNLMe+h7jTXVWterDuY
-	Kiv9kJ9y3Vp0DetFtYKOjmCKOrMWyZAsOqhm4sb9lPspL/Lq1Ofbht0lF2wYA3I=
-X-Google-Smtp-Source: AGHT+IEBQ335cMZkyzoGqgaTiQq3j4uraHfDi/mnZSdqw33iKaFbSh2GRgTsy0OTrTHlHrK9OMZm/w==
-X-Received: by 2002:a17:906:a203:b0:a59:a8a4:a59f with SMTP id a640c23a62f3a-a5a2d5d55e8mr666386266b.45.1715701579533;
-        Tue, 14 May 2024 08:46:19 -0700 (PDT)
-Message-ID: <ebdf9834-20f4-4779-8c33-4fb27d5f6d7f@cloud.com>
-Date: Tue, 14 May 2024 16:46:17 +0100
+        bh=oRpWNAdQnTo0N4docaodQ5ZeZukKlehSHQL6Z/WP0yk=;
+        b=N0N0KOYEh9MCvbOjUn66ihofOK1jA3Q27FuJMVN4WadYY5ssDDChCqPL/CVeDgLhE2
+         eGfSXfUOerNmtAg1J30PeyjuOQoq7JhkXTEJNt/EBpQ7P2BjEr786Df29fj0dhAmJEmM
+         4+t84aXy+4j3ofazJk8hxBd3aaPbs3g/3xPsq6F7duIkMGwHagYDuzFOVoYXdYtRZPWr
+         4m2AusLWKxgIVQleQuD/6BEUVnnQfRpnrA3zZZXmcEHqgyD0LyL3P3MX7kLceC3SCMGu
+         2EjXYU5l/hRpAw/NHIFj1HHfQOYn9s5oGmxpnYOTf6PsanvkKDnAy2MZun8NwHqPCj7l
+         7DKA==
+X-Gm-Message-State: AOJu0YyTdPWPNP3ROEV4G3YHQSG7q3OETn5yDhqf5K0DwAzuNceSmzCm
+	u1870BqLKjSgvr5bEgDshcKbuVYWVVUAoBcscL2u/PuBpRQj4AQhd+9L0ZM+Nw==
+X-Google-Smtp-Source: AGHT+IFRMQjxQ73KMM3725entLj5SIT2+iszFANr7+FRawFJniLXz66SGb/jsIgXE9GoBylDXPfRGA==
+X-Received: by 2002:a17:906:48cc:b0:a59:cdc9:6fdf with SMTP id a640c23a62f3a-a5a2d54c0c9mr821509366b.4.1715703780751;
+        Tue, 14 May 2024 09:23:00 -0700 (PDT)
+Message-ID: <df8cc51d-60ea-452b-809e-c75aab957929@suse.com>
+Date: Tue, 14 May 2024 18:22:59 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH V3 01/19] x86: Create per-domain mapping of guest_root_pt
-To: Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>
+Subject: Re: [PATCH V3 (resend) 14/19] Rename mfn_to_virt() calls
+Content-Language: en-US
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
 Cc: xen-devel@lists.xenproject.org, julien@xen.org, pdurrant@amazon.com,
- dwmw@amazon.com, Hongyan Xia <hongyxia@amazon.com>,
- Julien Grall <jgrall@amazon.com>, Elias El Yandouzi <eliasely@amazon.com>
-References: <20240513111117.68828-1-eliasely@amazon.com>
- <20240513111117.68828-2-eliasely@amazon.com> <ZkIxdtiDc_pnPWdx@macbook>
- <7998ecee-659d-4180-8b14-110c2907021f@suse.com>
-Content-Language: en-GB
-From: Alejandro Vallejo <alejandro.vallejo@cloud.com>
-In-Reply-To: <7998ecee-659d-4180-8b14-110c2907021f@suse.com>
+ dwmw@amazon.com, Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>,
+ Lukasz Hawrylko <lukasz@hawrylko.pl>,
+ "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+ =?UTF-8?Q?Mateusz_M=C3=B3wka?= <mateusz.mowka@intel.com>,
+ Elias El Yandouzi <eliasely@amazon.com>
+References: <20240513134046.82605-1-eliasely@amazon.com>
+ <20240513134046.82605-15-eliasely@amazon.com> <ZkOHHtRPTqC4Zvnp@macbook>
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <ZkOHHtRPTqC4Zvnp@macbook>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 14/05/2024 09:03, Jan Beulich wrote:
-> On 13.05.2024 17:27, Roger Pau Monné wrote:
->> On Mon, May 13, 2024 at 11:10:59AM +0000, Elias El Yandouzi wrote:
->>> @@ -317,6 +317,14 @@ extern unsigned long xen_phys_start;
->>>  #define ARG_XLAT_START(v)        \
->>>      (ARG_XLAT_VIRT_START + ((v)->vcpu_id << ARG_XLAT_VA_SHIFT))
->>>  
->>> +/* pv_root_pt mapping area. The fourth per-domain-mapping sub-area */
->>> +#define PV_ROOT_PT_MAPPING_VIRT_START   PERDOMAIN_VIRT_SLOT(3)
->>> +#define PV_ROOT_PT_MAPPING_ENTRIES      MAX_VIRT_CPUS
->>> +
->>> +/* The address of a particular VCPU's PV_ROOT_PT */
->>> +#define PV_ROOT_PT_MAPPING_VCPU_VIRT_START(v) \
->>> +    (PV_ROOT_PT_MAPPING_VIRT_START + ((v)->vcpu_id * PAGE_SIZE))
+On 14.05.2024 17:45, Roger Pau Monné wrote:
+> On Mon, May 13, 2024 at 01:40:41PM +0000, Elias El Yandouzi wrote:
+>> Until directmap gets completely removed, we'd still need to
+>> keep some calls to mfn_to_virt() for xenheap pages or when the
+>> directmap is enabled.
 >>
->> I know we are not there yet, but I wonder if we need to start having
->> some non-shared per-cpu mapping area in the page-tables.  Right now
->> this is shared between all the vCPUs, as it's per-domain space
->> (instead of per-vCPU).
+>> Rename the macro to mfn_to_directmap_virt() to flag them and
+>> prevent further use of mfn_to_virt().
 > 
-> In turn requiring per-vCPU page tables, posing a problem when a guest
-> uses the same page tables for multiple vCPU-s.
-> 
-> Jan
-> 
+> Both here and in the following patch, I'm afraid I'm unsure of it's
+> usefulness.  I'm leaning towards this being code churn for very little
+> benefit.
 
-True. Having separate page tables per CPU is an unavoidable end goal for
-a hypervisor claiming to hold no secrets, however. Otherwise any CPU can
-still speculatively read the stacks of other CPUs and take well-timed
-glances over mappings set transiently by any other CPU.
+I expect this patch is a response to an earlier comment of mine. I'm
+rather worried that at the time this series actually goes in, un-audited
+mfn_to_virt() uses remain (perhaps because of introduction between patch
+submission and its committing). Such uses would all very likely end in
+crashes or worse, but they may not be found by testing.
 
-Cheers,
-Alejandro
+> Also, I'm not sure I see how the patch prevents further usage of
+> mfn_to_virt(), as (for Arm) the existing macro is not removed.  If
+> anything I would prefer a comment clearly stating that the macro
+> operates on directmap space, and avoid the name change.
+
+But Arm isn't switched to this sparse direct map mode, I think? At which
+point uses in Arm-specific code continue to be okay.
+
+Jan
 
