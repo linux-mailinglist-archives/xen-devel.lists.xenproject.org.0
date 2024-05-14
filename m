@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 734EE8C4EAE
-	for <lists+xen-devel@lfdr.de>; Tue, 14 May 2024 11:53:48 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.721350.1124725 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B7FEC8C4EB6
+	for <lists+xen-devel@lfdr.de>; Tue, 14 May 2024 12:04:31 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.721357.1124735 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s6oqk-0006pI-A3; Tue, 14 May 2024 09:53:34 +0000
+	id 1s6p0f-0002Du-6e; Tue, 14 May 2024 10:03:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 721350.1124725; Tue, 14 May 2024 09:53:34 +0000
+Received: by outflank-mailman (output) from mailman id 721357.1124735; Tue, 14 May 2024 10:03:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s6oqk-0006m9-7I; Tue, 14 May 2024 09:53:34 +0000
-Received: by outflank-mailman (input) for mailman id 721350;
- Tue, 14 May 2024 09:53:32 +0000
+	id 1s6p0f-0002CI-3r; Tue, 14 May 2024 10:03:49 +0000
+Received: by outflank-mailman (input) for mailman id 721357;
+ Tue, 14 May 2024 10:03:48 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=VieR=MR=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1s6oqi-0006lv-D1
- for xen-devel@lists.xenproject.org; Tue, 14 May 2024 09:53:32 +0000
-Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
- [2a00:1450:4864:20::62f])
+ id 1s6p0e-0002CC-6o
+ for xen-devel@lists.xenproject.org; Tue, 14 May 2024 10:03:48 +0000
+Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
+ [2a00:1450:4864:20::632])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d217edb4-11d7-11ef-909d-e314d9c70b13;
- Tue, 14 May 2024 11:53:31 +0200 (CEST)
-Received: by mail-ej1-x62f.google.com with SMTP id
- a640c23a62f3a-a59c5c9c6aeso1325748166b.2
- for <xen-devel@lists.xenproject.org>; Tue, 14 May 2024 02:53:31 -0700 (PDT)
+ id 40fc30d8-11d9-11ef-909d-e314d9c70b13;
+ Tue, 14 May 2024 12:03:46 +0200 (CEST)
+Received: by mail-ej1-x632.google.com with SMTP id
+ a640c23a62f3a-a5a5c930cf6so535506766b.0
+ for <xen-devel@lists.xenproject.org>; Tue, 14 May 2024 03:03:46 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a5a17894d92sm697859066b.85.2024.05.14.02.53.30
+ a640c23a62f3a-a5a179c7da8sm707505366b.99.2024.05.14.03.03.45
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 14 May 2024 02:53:30 -0700 (PDT)
+ Tue, 14 May 2024 03:03:46 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,54 +45,54 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d217edb4-11d7-11ef-909d-e314d9c70b13
+X-Inumbo-ID: 40fc30d8-11d9-11ef-909d-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1715680411; x=1716285211; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1715681026; x=1716285826; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=WcSjuuUmwI/uTFm3SLnWKhOwvy97ImVZk9TT5SOLH2E=;
-        b=BJBr9uegqn+PFMu4OBHB12grV/4RkHmyqPaK7M9akJxEJQd3KxmhO78kUZXcPLwHEf
-         lM7cuP8XblcU6tk9YCn6c4Z1yM6HglhMQAilvXon29wRb/lxcTHFH+CxlW3O9Qfsbcfi
-         5Z+smRQ7L/CG9fhibzG7iehIXo2nmTCAh95w8FYoPyHOJYvCbJswGm+B0j76rMBTBOBw
-         8FMncNIGPmEZM3+OXJLHXN1KVE8b/9ZAvH09iLC7WzUaz5W+Mhs5l+ut08R8YxUZ+PGU
-         vmGTWvNJSFJf8+siJJ8Iop2hjRvfZh3IwaR+J8HPHoEg8pQIfZY02Idc933jiMxr7K4A
-         4Ddw==
+        bh=rdSZthp74TLUjLS/d377/SBlO1xL1eefpvnkDZAQNnQ=;
+        b=X0IvX7GLpuTMJAa21Jnut6R0+rabPfLquGDvfvlZmH/cWNky5KsLTC58NU2GgcLo79
+         Sb4qGjwbOe+4JNYg3vWIt7MzHuyNmv+xbdvhvJB4ZAK9HL0hEp0Tkf2y5BC6KZdev4cC
+         T4upeB5un/bmHpyqCJ9Gg1CuGGmwN9Zl8W8PCE0wQjiKeo7J+HUcZFSvEGiYTLWHSEV/
+         vOp2+npXfzZo5yKuOMHq1YV8N1INUsr1GWIW0QMuxbxF/hVeyQkgKpX0iznFHEAeS7Ba
+         5qOKvzny4JQ2PawxwRkEuaUChmGwo7sJhtIKN8UgoaBylDPqAxlaObIqT9L90QdwRWGg
+         3N6Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1715680411; x=1716285211;
+        d=1e100.net; s=20230601; t=1715681026; x=1716285826;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=WcSjuuUmwI/uTFm3SLnWKhOwvy97ImVZk9TT5SOLH2E=;
-        b=fWMaF3V1aS4jBkUGeX9jxDyNBBP7DKEjtCoC7/dydYA5hy3yvknM0eskPRRhiiVKhu
-         ZQsUDgVmpuKK1uBBKEL1i1TvBZkvOP2L8gEP9K5lymEcM6ZlUqYZop6tjzpq3R9Cocv3
-         xVSjLGehRj4yMlAicpL1mvFPoT2v/WLOoIZeLbjzeDArRo8zaj70qumpafCwtJiYS/YC
-         vpH0o5GgWw68nIl9x+gHU2CrZttLC2eaptdNllIdjUXamsQFIfywN4nPZFW4ZnJi1gmo
-         eQAaTTnT3aCyCrko3Zd9EQ5a2uH+wg4ts6AKHHxeyYuGTbyMlxsrV/jLixbnYXXqaz3X
-         cAGw==
-X-Forwarded-Encrypted: i=1; AJvYcCWubdCjqI8LG9nmk5GZSvSkpdEMHApTkVwJ7Z/4HEsPs+Tv6iT4iI+YiHciLJVFHTZEopl/sAEfSzY8k8t5jr5siQEg5e6KUuFX6XB4bXI=
-X-Gm-Message-State: AOJu0Yxu7nKlaigYSHcHb5JAuTLH1wAuJS4N+peTEMkUwSUXSMxcSkjY
-	iGgmYu8GWB1u9Na80dLbKm7dbv2lNbrOu0FgsytgbKu0YiQqobq9B3J96v9Ivw==
-X-Google-Smtp-Source: AGHT+IHzEzFaT9851PgGPMxhJgxyFOzpd3SeGYOtjsx9PratNWuoD5LN44iXXHwoaF+PYCr7X1u6Zg==
-X-Received: by 2002:a17:907:1b17:b0:a59:aa69:9791 with SMTP id a640c23a62f3a-a5a2d5eeb92mr1208196066b.34.1715680410801;
-        Tue, 14 May 2024 02:53:30 -0700 (PDT)
-Message-ID: <054dfde5-cfaa-470b-9d40-c0453bc4dbbb@suse.com>
-Date: Tue, 14 May 2024 11:53:38 +0200
+        bh=rdSZthp74TLUjLS/d377/SBlO1xL1eefpvnkDZAQNnQ=;
+        b=ORz8s1VVzNzPo8ZU5zuaw//qIslxmeIzScyoXTQOp3xhcyZhuG2qcViKCNqB9wkuBg
+         H8YjEZGbcgr2no9h1AHYKtbArBSIaJoXd4yd9WKxqscwjK9h6pmUjHrKakvfDR27fAXQ
+         lWXcCvZYPZzCKZ17l4w1XhquXQvgwrXnBkRTOdid5yG42ghT/2cUq87N3F/QY/Yr/Odx
+         9imGgeCkJJKo+d4+zQWkflOJvs7widiECPOQ9y9mueWGWBqHeCUYutPu/w26FwQXO89K
+         tCjQGR4mjO8VQNLOgfAjaQm6n3BARJOehIH0i3QPtn4SzidL+sUhro7W4cK35hfvxKzu
+         P8kQ==
+X-Forwarded-Encrypted: i=1; AJvYcCXqxuWwZhh2+KqfiW1IEFy29j2fgse4YuuzI5jQTknIKK2Ewd6KDySiN2weU/I9DgVjCMrEIt3W6anPAoSLyv//fzVIUJTScxofoQCCtOc=
+X-Gm-Message-State: AOJu0Yy2ync8ecVyjLVM0WXp0aYwpoeubCciQCzEQpKSuIEibYVhox8d
+	CS15cB9AyT+Qhj22f9oHm+ck+O/OJK6xaSFl1Mw7+zchupP7zs12aEVmefsuRQ==
+X-Google-Smtp-Source: AGHT+IHhkPKcGHa7zpr+tjD5ufu50ISrCwlos9ftoIwiPdoh6zt/3CRtBbAC12aF8u6/mm1AISaNhA==
+X-Received: by 2002:a17:906:194a:b0:a59:9b75:b90 with SMTP id a640c23a62f3a-a5a2d53ad53mr828755366b.2.1715681026293;
+        Tue, 14 May 2024 03:03:46 -0700 (PDT)
+Message-ID: <ccd70c8f-1381-43f7-8be8-edc1dd505ce2@suse.com>
+Date: Tue, 14 May 2024 12:03:53 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 (resend) 11/27] x86: Lift mapcache variable to the arch
- level
+Subject: Re: [PATCH] Revert "evtchn: refuse EVTCHNOP_status for Xen-bound
+ event channels"
 Content-Language: en-US
-To: Elias El Yandouzi <eliasely@amazon.com>
-Cc: julien@xen.org, pdurrant@amazon.com, dwmw@amazon.com,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Wei Wang <wawei@amazon.de>, Hongyan Xia <hongyxia@amazon.com>,
- Julien Grall <jgrall@amazon.com>, xen-devel@lists.xenproject.org
-References: <20240116192611.41112-1-eliasely@amazon.com>
- <20240116192611.41112-12-eliasely@amazon.com>
- <1ff19cb2-851d-40cf-bb12-5b7074eee0b8@suse.com>
- <06e162de-55d6-4612-aa45-b1a350571d2b@amazon.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: George Dunlap <George.Dunlap@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Daniel Smith <dpsmith@apertussolutions.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>,
+ "committers@xenproject.org" <committers@xenproject.org>
+References: <20240402170612.2477791-1-andrew.cooper3@citrix.com>
+ <11957460-0b2b-432d-ad92-38350306c9ff@suse.com>
+ <b14acc58-5d3c-46ed-a300-61f422501d4c@suse.com>
+ <1ba4d87f-48e2-4332-bcd8-ac891cee8917@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -117,61 +117,77 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <06e162de-55d6-4612-aa45-b1a350571d2b@amazon.com>
+In-Reply-To: <1ba4d87f-48e2-4332-bcd8-ac891cee8917@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 07.05.2024 17:22, Elias El Yandouzi wrote:
->>> This only lifts the mapcache variable up. Whether we populate the
->>> mapcache for a domain is unchanged in this patch.
->>
->> Is it? I wonder because of ...
->>
+On 14.05.2024 11:51, Andrew Cooper wrote:
+> On 14/05/2024 10:25 am, Jan Beulich wrote:
+>> On 03.04.2024 08:16, Jan Beulich wrote:
+>>> On 02.04.2024 19:06, Andrew Cooper wrote:
+>>>> The commit makes a claim without any kind of justification.
+>>> Well, what does "have no business" leave open?
+>>>
+>>>> The claim is false, and the commit broke lsevtchn in dom0.
+>>> Or alternatively lsevtchn was doing something that was never meant to work
+>>> (from Xen's perspective).
+>>>
+>>>>  It is also quite
+>>>> obvious from XSM_TARGET that it has broken device model stubdoms too.
+>>> Why would that be "obvious"? What business would a stubdom have to look at
+>>> Xen's side of an evtchn?
+>>>
+>>>> Whether to return information about a xen-owned evtchn is a matter of policy,
+>>>> and it's not acceptable to short circuit the XSM on the matter.
+>>> I can certainly accept this as one possible view point. As in so many cases
+>>> I'm afraid I dislike you putting it as if it was the only possible one.
+>>>
+>>> In summary: The supposed justification you claim is missing in the original
+>>> change is imo also missing here then: What business would any entity in the
+>>> system have to look at Xen's side of an event channel? Back at the time, 3
+>>> people agreed that it's "none".
+>> You've never responded to this reply of mine, or its follow-up. You also
+>> didn't chime in on the discussion Daniel and I were having. I consider my
+>> objections unaddressed, and in fact I continue to consider the change to
+>> be wrong. Therefore it was inappropriate for you to commit it; it needs
+>> reverting asap. If you're not going to do so, I will.
 > 
-> I agree, the commit message doesn't completely reflect the changes below.
+> You tried defending breaking a utility with "well it shouldn't exist then".
 > 
->>> --- a/xen/arch/x86/domain.c
->>> +++ b/xen/arch/x86/domain.c
->>> @@ -843,6 +843,8 @@ int arch_domain_create(struct domain *d,
->>>   
->>>       psr_domain_init(d);
->>>   
->>> +    mapcache_domain_init(d);
->>> +
->>>       if ( is_hvm_domain(d) )
->>>       {
->>>           if ( (rc = hvm_domain_initialise(d, config)) != 0 )
->>> @@ -850,8 +852,6 @@ int arch_domain_create(struct domain *d,
->>>       }
->>>       else if ( is_pv_domain(d) )
->>>       {
->>> -        mapcache_domain_init(d);
->>> -
->>>           if ( (rc = pv_domain_initialise(d)) != 0 )
->>>               goto fail;
->>>       }
->>
->> ... this and ...
->>
->>> --- a/xen/arch/x86/domain_page.c
->>> +++ b/xen/arch/x86/domain_page.c
->>> @@ -82,11 +82,11 @@ void *map_domain_page(mfn_t mfn)
->>>   #endif
->>>   
->>>       v = mapcache_current_vcpu();
->>> -    if ( !v || !is_pv_vcpu(v) )
->>> +    if ( !v )
->>>           return mfn_to_virt(mfn_x(mfn));
->>
->> ... this and yet more changes indicating otherwise.
->>
->> Yet if which domains have a mapcache set up is already changed here, I
->> wonder whether the idle domain shouldn't be taken care of here as well.
-> 
-> Do you suggest to fold here the following patch where the mapcache gets 
-> initialized for idle domains?
+> You don't have a leg to stand on, and two maintainers of relevant
+> subsystems here just got tired of bullshit being presented in place of
+> any credible argument for having done the change in the way you did.
 
-Or the respective part(s) thereof.
+Please can you finally get into the habit of not sending rude replies?
+
+> The correct response was "Sorry I broke things.  Lets revert this for
+> now to unbreak, and I'll see about reworking it to not intentionally
+> subvert Xen's security mechanism".
+
+I'm sorry, but I didn't break things. I made things more consistent with
+the earlier change, as pointed out before: With your revert,
+evtchn_status() is now (again) inconsistent with e.g. evtchn_send(). If
+you were serious about this being something that needs leaving to XSM,
+you'd have adjusted such further uses of consumer_is_xen() as well. But
+you aren't. You're merely insisting on lsevtchn needing to continue to
+work in a way it should never have worked, with a patch to improve the
+situation already pending.
+
+Just to state a very basic principle here again: Xen-internal event
+channels ought to either be fully under XSM control when it comes to
+domains attempting to access them (in whichever way), or they should
+truly be Xen-internal, with access uniformly prevented. To me the
+former option simply makes very little sense.
+
+> As it stands, you're 2-1 outvoted, and wasted any sympathy I may have
+> had for the principle of the change based on the absurdity of your
+> arguments.
+
+No, pending objections are pending objections. Daniel's responses didn't
+eliminate them.
+
+As a separate aspect: I can't assume anymore that it is just coincidence
+that you taking such a controversial action is at a time when I'm away.
 
 Jan
 
