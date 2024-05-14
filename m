@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4593C8C4CB8
-	for <lists+xen-devel@lfdr.de>; Tue, 14 May 2024 09:18:04 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.721161.1124335 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E7B3F8C4CC0
+	for <lists+xen-devel@lfdr.de>; Tue, 14 May 2024 09:22:53 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.721164.1124344 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s6mPy-0003RA-1w; Tue, 14 May 2024 07:17:46 +0000
+	id 1s6mUc-0005Vm-I3; Tue, 14 May 2024 07:22:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 721161.1124335; Tue, 14 May 2024 07:17:46 +0000
+Received: by outflank-mailman (output) from mailman id 721164.1124344; Tue, 14 May 2024 07:22:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s6mPx-0003PA-Uq; Tue, 14 May 2024 07:17:45 +0000
-Received: by outflank-mailman (input) for mailman id 721161;
- Tue, 14 May 2024 07:17:44 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1s6mUc-0005UF-F3; Tue, 14 May 2024 07:22:34 +0000
+Received: by outflank-mailman (input) for mailman id 721164;
+ Tue, 14 May 2024 07:22:33 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=VieR=MR=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1s6mPw-0003P4-Pz
- for xen-devel@lists.xenproject.org; Tue, 14 May 2024 07:17:44 +0000
-Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
- [2a00:1450:4864:20::62a])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 0cba3848-11c2-11ef-b4bb-af5377834399;
- Tue, 14 May 2024 09:17:40 +0200 (CEST)
-Received: by mail-ej1-x62a.google.com with SMTP id
- a640c23a62f3a-a59ab4f60a6so1075249966b.0
- for <xen-devel@lists.xenproject.org>; Tue, 14 May 2024 00:17:42 -0700 (PDT)
+ id 1s6mUb-0005Tt-2T
+ for xen-devel@lists.xenproject.org; Tue, 14 May 2024 07:22:33 +0000
+Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com
+ [2a00:1450:4864:20::634])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id ba507622-11c2-11ef-909d-e314d9c70b13;
+ Tue, 14 May 2024 09:22:32 +0200 (CEST)
+Received: by mail-ej1-x634.google.com with SMTP id
+ a640c23a62f3a-a59a8f0d941so1275418766b.2
+ for <xen-devel@lists.xenproject.org>; Tue, 14 May 2024 00:22:32 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a5a17b17814sm684420766b.206.2024.05.14.00.17.41
+ 4fb4d7f45d1cf-5733becfb83sm7135734a12.46.2024.05.14.00.22.31
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 14 May 2024 00:17:41 -0700 (PDT)
+ Tue, 14 May 2024 00:22:31 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,57 +45,47 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0cba3848-11c2-11ef-b4bb-af5377834399
+X-Inumbo-ID: ba507622-11c2-11ef-909d-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1715671062; x=1716275862; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1715671351; x=1716276151; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=nOIhA9WGutZG1eFFZwMGqwKB0Jm2CMic0qQnHRgCzU8=;
-        b=BfHbGSTcw76Mr+JR5tfUT9ZWifYsSQMsdtBYEyC7Sj7/ZvpGoSjhhWAv9wc8ph2tjx
-         jrzeSSeF0v55MbF+YkYBaU68ni90FKCeGu8K7pGK378hIwzkDLeRlYAGAq+Tzssv7HgP
-         VExA2fxhp8oC+bPnyUZ7KFq4QCWlsAYssSl0vZHTdyAzZep4wlZmJ83DOFlFc9mnJyQe
-         M0wNyIDRkiBckHhpzDGmrQwmpzKXOAEkzW4JGDLyBugUFz2bKeHxg4iYpvQmg3Y0ZVuL
-         X/IOAxJwqg+fO6Ul0VYgEgIKIVYxw+FXm2pPzXwsCbZUJC42pA/hNMI5yosyo8cxHJWc
-         OZqw==
+        bh=5OZM3jQfMRafwON+6Rr3i3c0ZrExWZEi7j42uNkEdFw=;
+        b=Zbee86eXqJGZ7g2R1YZNOoS3g0lFt0KNqPWU1wMcwySv8K4zyhlFI3+qS0x+Y41hR9
+         xqP2wiDq0lgYuKp4hFcTmogDieXqewpfopQkbDV/G0OOmbGz4FDQTTL8Kmqx3JnAWQJI
+         4ac9RJyi71sRmEh4Tzd7O8QMVbwHTeS9yQdgqEWYwKmVsAUvbscj1AsJKNhMqYEbI0Lc
+         7gmPvvnRwooejG8qPayZDtyqaNhcxRqdakmGB5NdUIbZzQrwZXztYcHw/EIjoBUnE3g7
+         FP1Lb99eXu8pfBXdf3ENI5fWeamcXZEGK9z+OMjtIvCSQZXGRp5nm6DZzO+of19ZHlbl
+         ksJw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1715671062; x=1716275862;
+        d=1e100.net; s=20230601; t=1715671351; x=1716276151;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=nOIhA9WGutZG1eFFZwMGqwKB0Jm2CMic0qQnHRgCzU8=;
-        b=Vt3m7dtXH4JEJedqhyA3PAXa8ltNQMcN8QWVpjT0qo28K3455GD1orQZSyI1ZktmHo
-         EQ56sv/AurUCFjNiVeBp5XlSOilOv9pzn4LHJtEHu1+muBmlO5FXL+zqy5nxu5LzIwyJ
-         9nZ+9XWJHn7xaR9yMsvYzpH91GCxFnxuYSWXFYHYl4GfC3TweU3zkJzG+c6gosT+nDDu
-         v6HvJFFgmHZb93dRNxW+KIzmpeMYmCoPsQkov9QWOxOydb8bAaZISGAsuOTiI5/4Hle7
-         KVC6UcB8CyMyC5fkcw3Nctd8CZbLGRR1UuwJcxCjbURZBY8U5fitsTWwl23XAPwC81OD
-         3Pig==
-X-Forwarded-Encrypted: i=1; AJvYcCUcJxi4STzmT2t4K64PYR3RxVKNE9oxo0h9C6ej0NEFB0GgjRRpaismjFMp64TqUczwKc8xvdbRFM35OcvgG43NdaQnvxHJRH2wlYtic6Y=
-X-Gm-Message-State: AOJu0YyaA9n0Jr2sBEfSk6Rgq/B8Ix9UxDc1jphe88j4yeE17gzWPX9D
-	WPXOY/pV1Oxgj8u142BgXDlAHbfes8ky5NGHUuaLzZt8OA2cQnUldj/ZAm9Qbw==
-X-Google-Smtp-Source: AGHT+IFl8pOZCFWPsiUEvgSZDJeu1QnF/6e1bh8rRdTq96Wc3qtI3ISvYot+4kD+hWjpVbys3Jo7Fg==
-X-Received: by 2002:a17:907:2d13:b0:a59:c577:c5c3 with SMTP id a640c23a62f3a-a5a2d57a48emr1320356366b.29.1715671062189;
-        Tue, 14 May 2024 00:17:42 -0700 (PDT)
-Message-ID: <5c456b29-f458-4cd2-b92d-edb530de6959@suse.com>
-Date: Tue, 14 May 2024 09:17:49 +0200
+        bh=5OZM3jQfMRafwON+6Rr3i3c0ZrExWZEi7j42uNkEdFw=;
+        b=lbtipPHCTO58aZ61/SFGZF3XFAtrry9mtdI4G2Tisbk4INRwZ00mlHAxgxap8rsD0r
+         SbJnlnU5ktYHz64UFqhnBMKkFYGkM7oY8l0gWsQ0MBpBlDg9fytDfNTPtrgLgfTKBsT1
+         s8cYOy/1Cg1ql8w0BMRoy8K6y8viHBnPMLKn9nKifIPvQ0cRg+eerCMRaLovkaCab/Sk
+         qGsANY0Pe3VAxv4tEMhlVOcN3QH3l0SkMXaRdVfzrlTHcaSI7ZK6pzM4YLMpKKcgRhGL
+         DnDioOVThblHKEFhMCMBiyq7v+jgzNNL1GR045jg3pTGLPwt85LPaizCKYuLrjOcnJsQ
+         i8Cw==
+X-Gm-Message-State: AOJu0YzZOwVbNmEhSled9k6Q4WFRagoHm4D6z55NF2xUMTDaa8wMPxpC
+	7d6mlHUc1wp6/N2zgZEBPuEiHnYbK/yfMxB1zrE4H+y91K6fOM+g3WNa6TUlZQ==
+X-Google-Smtp-Source: AGHT+IEX5x1WMdarNoWxfxkRtnwGqNzD2Mb3HMORyyF/9CMckXA9BluP696PNNYMmNixtmp5wtE4GQ==
+X-Received: by 2002:a50:9353:0:b0:568:1248:9f49 with SMTP id 4fb4d7f45d1cf-5734d5bfbf9mr7364271a12.18.1715671351536;
+        Tue, 14 May 2024 00:22:31 -0700 (PDT)
+Message-ID: <8caac099-094d-4f16-b66b-8c8308684af7@suse.com>
+Date: Tue, 14 May 2024 09:22:38 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 6/9] xen/arm64: bpi: Add missing code symbol
- annotations
+Subject: Re: [PATCH] x86/pv: Sanity check bytes_per_rep in rep_outs()
 Content-Language: en-US
-To: Julien Grall <julien@xen.org>,
- "Edgar E. Iglesias" <edgar.iglesias@gmail.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- xen-devel@lists.xenproject.org, bertrand.marquis@arm.com,
- michal.orzel@amd.com, Volodymyr_Babchuk@epam.com, andrew.cooper3@citrix.com,
- edgar.iglesias@amd.com
-References: <20240501035448.964625-1-edgar.iglesias@gmail.com>
- <20240501035448.964625-7-edgar.iglesias@gmail.com>
- <alpine.DEB.2.22.394.2405031656490.1151289@ubuntu-linux-20-04-desktop>
- <CAJy5ezpgXVp838aA_E8vJDARoO5iQOh07D+Gpn0kMCLj_iXyLw@mail.gmail.com>
- <398afdf1-8a11-4584-bb07-cf6fc2373d21@xen.org>
- <CAJy5ezpNQP5q0NVaGdXtt5BbJSzCMfTfFt-0RRgVq3+DqMbKgA@mail.gmail.com>
- <35c8fbfb-8b09-4aae-8c98-402dcd65ca2e@xen.org>
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>
+References: <20240511151642.2476555-1-andrew.cooper3@citrix.com>
+ <ZkMNSbcB9S4YYcfy@macbook>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -120,57 +110,50 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <35c8fbfb-8b09-4aae-8c98-402dcd65ca2e@xen.org>
+In-Reply-To: <ZkMNSbcB9S4YYcfy@macbook>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 07.05.2024 19:37, Julien Grall wrote:
-> 
-> 
-> On 07/05/2024 17:55, Edgar E. Iglesias wrote:
->> On Tue, May 7, 2024 at 11:57 AM Julien Grall <julien@xen.org> wrote:
->> Hi Julien,
-> 
-> Hi Edgar,
-> 
->>
->> The reason I choose FUNC for the start of the symbol is because these
->> symbols contain
->> executable code (not only a table of pointers to code somewhere else)
->> and the ELF spec
->> says that STT_FUNC means the symbol contains functions or other executable
->> code (not only callable functions IIUC):
->>
->> "STT_FUNC The symbol is associated with a function or other executable code."
->> https://refspecs.linuxbase.org/elf/elf.pdf
->> (Symbol Table 1-20).
-> 
-> Thanks for the pointer. I originally did intend to suggest the change, 
-> but then I saw the use of LABEL in x86 (such as svm_stgi_label). There 
-> are a few others example with LABEL_LOCAL.
-> 
-> AFAICT, this is also executable code which the only difference that it 
-> is not meant to be called by someone else. Furthermore, LABEL is using 
-> DO_CODE_ALIGN(...) for the alignment which imply that it is intended to 
-> be used by executable code. So I thought the only difference was whether 
-> the label was intended to be used as a function.
+On 14.05.2024 09:05, Roger Pau Monné wrote:
+> On Sat, May 11, 2024 at 04:16:42PM +0100, Andrew Cooper wrote:
+>> Architecturally, there's no 64-bit variant of OUTS in x86.
 
-No. See below.
+This is the reason why personally ...
 
->> I think using LABEL instead of GLOBAL for the _end labels of these
->> code sequences makes sense.
->> I'm happy to change the _start labels to LABEL too if you guys feel
->> that's better.
+>>  Leaving an
+>> assertion to this effect is enough to satisfy the analyser.
+
+... I view adding such, in particular ...
+
+>> --- a/xen/arch/x86/pv/emul-priv-op.c
+>> +++ b/xen/arch/x86/pv/emul-priv-op.c
+>> @@ -685,6 +685,8 @@ static int cf_check rep_outs(
+>>  
+>>      *reps = 0;
+>>  
+>> +    ASSERT(bytes_per_rep <= 4); /* i.e. 'data' being 4 bytes is fine. */
 > 
-> I have to admit I am little confused with the difference between LABEL 
-> vs FUNC. I think I will need some guidance from Jan (he introduced 
-> linkage.h).
+> Don't we need this to be a BUG_ON() to satisfy the compiler also on
+> non-debug builds?
+> 
+> Or maybe:
+> 
+> if ( bytes_per_rep > 4 )
+> {
+>     ASSERT_UNREACHABLE();
+>     return X86EMUL_UNHANDLEABLE;
+> }
 
-For annotations the question is what is a "unit" of code. That wants to
-be enclosed in FUNC() / END(). Any "inner" entry points or markers would
-use LABEL(). On x86 I think it's mainly markers (i.e. addresses pointing
-into code which we need e.g. for comparison operations on what Arm would
-call PC) where we use LABEL().
+... such a non-debug-build-covering form as dead code. With suitable
+information to hand, I guess Eclair / Misra might even say so, too.
+
+Instead I view the analyzer report here as a weakness of how analysis
+is (and has to be) done.
 
 Jan
+
+> Would it be possible to add the check to guest_io_okay() itself?
+> 
+> Thanks, Roger.
+
 
