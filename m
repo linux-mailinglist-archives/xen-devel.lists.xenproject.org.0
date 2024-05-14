@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CA98D8C4EBB
-	for <lists+xen-devel@lfdr.de>; Tue, 14 May 2024 12:08:39 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.721361.1124744 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CC4468C4ECF
+	for <lists+xen-devel@lfdr.de>; Tue, 14 May 2024 12:19:23 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.721367.1124754 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s6p4d-0002oX-M8; Tue, 14 May 2024 10:07:55 +0000
+	id 1s6pFI-0005f9-O2; Tue, 14 May 2024 10:18:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 721361.1124744; Tue, 14 May 2024 10:07:55 +0000
+Received: by outflank-mailman (output) from mailman id 721367.1124754; Tue, 14 May 2024 10:18:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s6p4d-0002mv-JS; Tue, 14 May 2024 10:07:55 +0000
-Received: by outflank-mailman (input) for mailman id 721361;
- Tue, 14 May 2024 10:07:54 +0000
+	id 1s6pFI-0005cb-LS; Tue, 14 May 2024 10:18:56 +0000
+Received: by outflank-mailman (input) for mailman id 721367;
+ Tue, 14 May 2024 10:18:55 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=VieR=MR=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1s6p4c-0002mp-L0
- for xen-devel@lists.xenproject.org; Tue, 14 May 2024 10:07:54 +0000
-Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com
- [2a00:1450:4864:20::636])
+ id 1s6pFH-0005cV-Ni
+ for xen-devel@lists.xenproject.org; Tue, 14 May 2024 10:18:55 +0000
+Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
+ [2a00:1450:4864:20::62f])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d4159e9c-11d9-11ef-909d-e314d9c70b13;
- Tue, 14 May 2024 12:07:53 +0200 (CEST)
-Received: by mail-ej1-x636.google.com with SMTP id
- a640c23a62f3a-a5a5cb0e6b7so571168666b.1
- for <xen-devel@lists.xenproject.org>; Tue, 14 May 2024 03:07:53 -0700 (PDT)
+ id 5de6c6b2-11db-11ef-909d-e314d9c70b13;
+ Tue, 14 May 2024 12:18:54 +0200 (CEST)
+Received: by mail-ej1-x62f.google.com with SMTP id
+ a640c23a62f3a-a5a5c930cf6so538896666b.0
+ for <xen-devel@lists.xenproject.org>; Tue, 14 May 2024 03:18:54 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5733bea65c0sm7214879a12.10.2024.05.14.03.07.52
+ 4fb4d7f45d1cf-5733bea65aasm7315199a12.5.2024.05.14.03.18.53
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 14 May 2024 03:07:52 -0700 (PDT)
+ Tue, 14 May 2024 03:18:53 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,54 +45,55 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d4159e9c-11d9-11ef-909d-e314d9c70b13
+X-Inumbo-ID: 5de6c6b2-11db-11ef-909d-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1715681273; x=1716286073; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1715681934; x=1716286734; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=ko3+Cad/ujOuVIZA7Ewbl9fV2GOO1z2XD5xu5aGCeXQ=;
-        b=Yx1sBizinAZuU1QROeFO/S09iCOMy8l1bWytDrRhmDi7sOq+6Y2+oZio0BhtZn1GaT
-         9MEC5Pn8w72qI6gUeUztVoSKOMdO3Uz0WT2xJiaTGmPfUy+tMaYc5TWWt9xo1Y/mBg/N
-         iKLG/9Tfl3nzAMhlnVOTwgy+dVtWscXrFHpEvN3rEYUd6krXcHp+mTZv44K/VM17nlNc
-         lSTWSNjwXu46NBQA4x7xln9F8TpF7j/P9J6oX5rm4v3B8k8UhCGgZMrKnaHj2Lq2j1QO
-         niTBch0rJnBQRF1HwCy6mywx+R4nUycfKyyeZU11+787134rfL9BVdqEuE/s4WqD78OR
-         CSCA==
+        bh=Pt8j63seJHbsi0uIXJsUqTLZo+0aMi4S6sWK+XPqS28=;
+        b=NQQhQ5LDEMLpMu9Xcq0qDOL6QEwxR3yhfJKCL9qgIl5RS2diBUQexMRE1UDhv848/8
+         ZJOcurm3fQlZ3Cvnt+8qvg5S5Ni1lm5WmdTGiNt+2veR7hU79TCwvJjO7Q/gVQeTGBq6
+         SY+5M26zexawBfRmztQoumVx0//qAUf+MmYKVvls74ZINvYEG14qCu1Z/+w3oGnN06RJ
+         UzGyiY/afp5vMi8aUMTVcAihvZUfShpv6Ag0rFxAzO83+xge+pCnSGF7dHS9Ttij5kzE
+         y7nm/G56eOCztJV7OGlIheP3NVkipQWdvIQEOw1wCDJrU+eRkSUUH25TczQ9/1L+yLnj
+         VHXg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1715681273; x=1716286073;
+        d=1e100.net; s=20230601; t=1715681934; x=1716286734;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=ko3+Cad/ujOuVIZA7Ewbl9fV2GOO1z2XD5xu5aGCeXQ=;
-        b=CpJIDWxGKbtGuqXtfz5BcGSUKTBEQSy5QH9XGiGzdgwMmkOWBTl/WGCFD5sA579H2p
-         7SMVqGaer2Bu9ThevUdcsu3x6ygTo+8TYQaJkVtcREJxTaJgzxRxRNSIOMGOQ+folWfA
-         UXtfo6RCrrnKbrCMRk7xWvP0flJkrVPjZbz957vv/rMLKBE8yTywVVajYD411r7OCOuv
-         aNcC9iJdElK87Zb0JH0iYNmjRE7EjxRCtvQGEd4GPhQX8J0iN100HEPkbz5zKJ8DUonS
-         dIW7NlHzdBlsVIUxLUtK2Y9QjILN1ji9ULhq2ZNwqI5DpILloVSdF9iIrYhCbwuXlSTq
-         VafQ==
-X-Forwarded-Encrypted: i=1; AJvYcCUPAAd3HonzvVJhD364OZr3fXI57kAygbCmwp7MWFXBfzFWRcyL4vV121s2T3AFZTPqw5oXTjSW//NePqgMPCJNdqrFcOUnRXM56JuoNgg=
-X-Gm-Message-State: AOJu0YyZu2WdeBf8LvIzgTn9KosepXooGWI4Z/iiML5pDIyMveRCkinT
-	DWnRs+IABLZiMybfn1e6XjrW6CGwu4fhhvcW7gAYSZ/i4rCJ6d64WSmPCwy5FA==
-X-Google-Smtp-Source: AGHT+IEOOFZEoLHbriJz1HUEhj59g4q54KQ7u9ejgIDYv2ogwPLvq30o/IG7xH80RzX4FN9RDHD7/Q==
-X-Received: by 2002:a50:8711:0:b0:572:7015:f303 with SMTP id 4fb4d7f45d1cf-5734d6f00d7mr10489266a12.35.1715681273176;
-        Tue, 14 May 2024 03:07:53 -0700 (PDT)
-Message-ID: <d84642c4-d578-4629-ac66-7461f5d143f1@suse.com>
-Date: Tue, 14 May 2024 12:08:00 +0200
+        bh=Pt8j63seJHbsi0uIXJsUqTLZo+0aMi4S6sWK+XPqS28=;
+        b=dyPK+wDFXmR7Q5YvOBZCuxpBoxRMS5/qAXhmaH8uq0h7Ab9ghCu6NycymzM5VJVQIn
+         +CVi6IGERcwfqmPoelFVP8gcir9YPd6B25j7IIugvOYTtAHD0+xZ6vxIRIeS2SoQnBRC
+         V6NZcRT4Rx3nFo2pmAw7DGMoBwv9BE8CIxRpjmg+1YuLdkgspoX/UIQJMBo/fcOx/RLd
+         Lro1Ao9IaQ+987CZRHvMNtvoq4GDOQx9XPGhCKovpTS1vTIhY9vm5KhnX+HFhCj2U9I6
+         FuIyxCIV3cSm6IviFxL0iGm4FVSJZZe7eg54rTE8Vo3Ab1aIdKHcaErgjOB3FcmyyDWi
+         dicw==
+X-Forwarded-Encrypted: i=1; AJvYcCWCkSmN3L2eQArY7vflu4caqIU5edheUMObR9dT64cc4Hl4rVLLIb2bGjHOisch5QxBKF0IpzfIrDlRogFh5rzcrgD2LKv22wTQ2/0jgGs=
+X-Gm-Message-State: AOJu0Yyn0YMF7IVAQmNLSgDaBm7Aty9ib89zsq1SpbI95cZhXN4eHtU8
+	Q67B6linIlgfVYGpRqGUSeOMRWJI9b54cJo24IZzIHK3fkkQCVt4m1KvUOaSkw==
+X-Google-Smtp-Source: AGHT+IF44GkgoviWpQzA6w6+/Hf9pOtNXwBcFiyDX/h45zG3J6RjYjz4Y5nKaOe7vH2toMN5bBPBBQ==
+X-Received: by 2002:a50:8e5d:0:b0:572:6ab0:6afc with SMTP id 4fb4d7f45d1cf-5734d6b1c30mr8276372a12.33.1715681933797;
+        Tue, 14 May 2024 03:18:53 -0700 (PDT)
+Message-ID: <71c96690-cd9a-4e1e-b2a0-7783dc13c35e@suse.com>
+Date: Tue, 14 May 2024 12:19:00 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 (resend) 12/27] x86/mapcache: Initialise the mapcache
- for the idle domain
+Subject: Re: [PATCH v2 (resend) 13/27] x86: Add a boot option to enable and
+ disable the direct map
 Content-Language: en-US
 To: Elias El Yandouzi <eliasely@amazon.com>
 Cc: julien@xen.org, pdurrant@amazon.com, dwmw@amazon.com,
  Hongyan Xia <hongyxia@amazon.com>, Andrew Cooper
- <andrew.cooper3@citrix.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Wei Liu <wl@xen.org>, Wei Wang <wawei@amazon.de>,
+ <andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Julien Grall <jgrall@amazon.com>, xen-devel@lists.xenproject.org
 References: <20240116192611.41112-1-eliasely@amazon.com>
- <20240116192611.41112-13-eliasely@amazon.com>
- <d6f3993e-5e96-4e3d-9334-9b44152f9f81@suse.com>
- <a74001e4-7ae1-48f7-854d-2a8aeb2ff8da@amazon.com>
+ <20240116192611.41112-14-eliasely@amazon.com>
+ <18795bde-bfd5-41ab-bef5-f74819bae956@suse.com>
+ <20fb9bf9-b24a-4119-807b-c0a4fd6b7439@amazon.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -117,55 +118,119 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <a74001e4-7ae1-48f7-854d-2a8aeb2ff8da@amazon.com>
+In-Reply-To: <20fb9bf9-b24a-4119-807b-c0a4fd6b7439@amazon.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 13.05.2024 11:35, Elias El Yandouzi wrote:
-> On 20/02/2024 10:51, Jan Beulich wrote:
+On 13.05.2024 12:50, Elias El Yandouzi wrote:
+> On 20/02/2024 11:14, Jan Beulich wrote:
 >> On 16.01.2024 20:25, Elias El Yandouzi wrote:
->>> --- a/xen/arch/x86/domain.c
->>> +++ b/xen/arch/x86/domain.c
->>> @@ -750,9 +750,16 @@ int arch_domain_create(struct domain *d,
->>>   
->>>       spin_lock_init(&d->arch.e820_lock);
->>>   
->>> +    if ( (rc = mapcache_domain_init(d)) != 0)
->>> +    {
->>> +        free_perdomain_mappings(d);
->>> +        return rc;
->>> +    }
->>> +
->>>       /* Minimal initialisation for the idle domain. */
->>>       if ( unlikely(is_idle_domain(d)) )
->>>       {
->>> +        struct page_info *pg = d->arch.perdomain_l3_pg;
->>>           static const struct arch_csw idle_csw = {
->>>               .from = paravirt_ctxt_switch_from,
->>>               .to   = paravirt_ctxt_switch_to,
->>> @@ -763,6 +770,9 @@ int arch_domain_create(struct domain *d,
->>>   
->>>           d->arch.cpu_policy = ZERO_BLOCK_PTR; /* Catch stray misuses. */
->>>   
->>> +        idle_pg_table[l4_table_offset(PERDOMAIN_VIRT_START)] =
->>> +            l4e_from_page(pg, __PAGE_HYPERVISOR_RW);
->>> +
->>>           return 0;
->>>       }
+>>> --- a/xen/arch/x86/Kconfig
+>>> +++ b/xen/arch/x86/Kconfig
+>>> @@ -29,6 +29,7 @@ config X86
+>>>   	select HAS_UBSAN
+>>>   	select HAS_VPCI if HVM
+>>>   	select NEEDS_LIBELF
+>>> +	select HAS_SECRET_HIDING
 >>
->> Why not add another call to mapcache_domain_init() right here, allowing
->> a more specific panic() to be invoked in case of failure (compared to
->> the BUG_ON() upon failure of creation of the idle domain as a whole)?
->> Then the other mapcache_domain_init() call doesn't need moving a 2nd
->> time in close succession.
+>> Please respect alphabetic sorting. As to "secret hiding" - personally I
+>> consider this too generic a term. This is about limiting the direct map. Why
+>> not name the option then accordingly?
 > 
-> To be honest, I don't really like the idea of having twice the same call 
-> just for the benefit of having a panic() call in case of failure for the 
-> idle domain.
+> I think it is a fairly decent name, would you have any suggestion? 
+> Otherwise I will just stick to it.
 
-Resulting in the problem Roger has now validly pointed out in reply to v3.
-IOW the (more specific) panic() isn't the only reason; it would merely be
-an imo desirable side effect.
+See how Roger, on v3, has now responded along the same lines? His naming
+suggestion (with spelling adjusted) would be fine with me.
+
+>>> +    eva = min(DIRECTMAP_VIRT_END, HYPERVISOR_VIRT_END);
+>>
+>> Irrespective I don't see a need to replace the initializer by an assignment.
+> 
+> I guess it was to avoid the useless min() computation in case directmap 
+> is disabled. I can put it back to what it was.
+
+The compiler ought to be able to re-arrange code accordingly, if it thinks
+the overall result will then be better.
+
+>>> +config SECRET_HIDING
+>>> +    bool "Secret hiding"
+>>> +    depends on HAS_SECRET_HIDING
+>>> +    ---help---
+>>> +    The directmap contains mapping for most of the RAM which makes domain
+>>> +    memory easily accessible. While making the performance better, it also makes
+>>> +    the hypervisor more vulnerable to speculation attacks.
+>>> +
+>>> +    Enabling this feature will allow the user to decide whether the memory
+>>> +    is always mapped at boot or mapped only on demand (see the command line
+>>> +    option "directmap").
+>>> +
+>>> +    If unsure, say N.
+>>
+>> Also as an alternative did you consider making this new setting merely
+>> control the default of opt_directmap? Otherwise the variable shouldn't exist
+>> at all when the Kconfig option is off, but rather be #define-d to "true" in
+>> that case.
+> 
+> I am not sure to understand why the option shouldn't exist at all when 
+> Kconfig option is off.
+
+I didn't say "option", but "variable", and ...
+
+> If SECRET_HIDING option is off, then opt_directmap must be 
+> unconditionally set to true. If SECRET_HIDING option is on, then 
+> opt_directmap value depends on the commandline option.
+
+... I did clearly say what I think you want to do, bringing things in line
+with other opt_* that reduce to a constant when a certain CONFIG_* is not
+defined.
+
+> The corresponding wrapper, has_directmap(), will be used in multiple 
+> location in follow-up patch. I don't really see how you want to do.
+
+The wrapper is fine to have if, as per the earlier reply still visible in
+context below, the variable itself can then be suitably static (and the
+fallback #define local to that same C file). Otherwise I simply don't see
+the value of the wrapper function.
+
+>>> --- a/xen/include/xen/mm.h
+>>> +++ b/xen/include/xen/mm.h
+>>> @@ -165,6 +165,13 @@ extern unsigned long max_page;
+>>>   extern unsigned long total_pages;
+>>>   extern paddr_t mem_hotplug;
+>>>   
+>>> +extern bool opt_directmap;
+>>> +
+>>> +static inline bool has_directmap(void)
+>>> +{
+>>> +    return opt_directmap;
+>>> +}
+>>
+>> If opt_directmap isn't static, I see little point in having such a wrapper.
+>> If there are reasons, I think they want stating in the description.
+> 
+> I don't think there is a specific reason to be mentioned, if you really 
+> wish to, I can remove it.
+> 
+>> On the whole: Is the placement of this patch in the series an indication
+>> that as of here all directmap uses have gone away? If so, what's the rest of
+>> the series about? Alternatively isn't use of this option still problematic
+>> at this point of the series? Whichever way it is - this wants clarifying in
+>> the description.
+> 
+> This patch is not an indication that all directmap uses have been 
+> removed. We need to know in follow-up patch whether or not the option is 
+> enabled and so we have to introduce this patch here.
+
+There's a pretty clear indication: "directmap=off" means "no directmap".
+It does not mean "a little less of direct mapping". Aiui that won't even
+change by the end of the series. It's only the ratio which is going to
+change.
+
+> At this point in the series, the feature is not yet complete.
+
+Right, and again - see how Roger, on v3, has now replied along the same
+line.
 
 Jan
 
