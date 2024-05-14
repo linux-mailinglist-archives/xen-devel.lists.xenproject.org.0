@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DE07F8C4E24
-	for <lists+xen-devel@lfdr.de>; Tue, 14 May 2024 10:53:00 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.721273.1124564 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8FCCD8C4E54
+	for <lists+xen-devel@lfdr.de>; Tue, 14 May 2024 11:06:45 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.721279.1124574 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s6ntm-0002S6-9t; Tue, 14 May 2024 08:52:38 +0000
+	id 1s6o6T-0005JN-Dc; Tue, 14 May 2024 09:05:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 721273.1124564; Tue, 14 May 2024 08:52:38 +0000
+Received: by outflank-mailman (output) from mailman id 721279.1124574; Tue, 14 May 2024 09:05:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s6ntm-0002PZ-7H; Tue, 14 May 2024 08:52:38 +0000
-Received: by outflank-mailman (input) for mailman id 721273;
- Tue, 14 May 2024 08:52:36 +0000
+	id 1s6o6T-0005Gi-Ay; Tue, 14 May 2024 09:05:45 +0000
+Received: by outflank-mailman (input) for mailman id 721279;
+ Tue, 14 May 2024 09:05:44 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=VieR=MR=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1s6ntk-0002PT-Rq
- for xen-devel@lists.xenproject.org; Tue, 14 May 2024 08:52:36 +0000
-Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com
- [2a00:1450:4864:20::634])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=Y506=MR=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1s6o6S-0005Gc-Ky
+ for xen-devel@lists.xenproject.org; Tue, 14 May 2024 09:05:44 +0000
+Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
+ [2a00:1450:4864:20::62d])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 4e839b2d-11cf-11ef-b4bb-af5377834399;
- Tue, 14 May 2024 10:52:34 +0200 (CEST)
-Received: by mail-ej1-x634.google.com with SMTP id
- a640c23a62f3a-a59ad344f7dso1081327566b.0
- for <xen-devel@lists.xenproject.org>; Tue, 14 May 2024 01:52:34 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a5a1781d532sm707783866b.18.2024.05.14.01.52.33
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 14 May 2024 01:52:33 -0700 (PDT)
+ id 233dddc5-11d1-11ef-b4bb-af5377834399;
+ Tue, 14 May 2024 11:05:42 +0200 (CEST)
+Received: by mail-ej1-x62d.google.com with SMTP id
+ a640c23a62f3a-a59cf8140d0so1213876766b.3
+ for <xen-devel@lists.xenproject.org>; Tue, 14 May 2024 02:05:41 -0700 (PDT)
+Received: from [192.168.226.248] ([94.75.70.14])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a5a179c7f3dsm691814566b.123.2024.05.14.02.05.39
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 14 May 2024 02:05:39 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,112 +45,222 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4e839b2d-11cf-11ef-b4bb-af5377834399
+X-Inumbo-ID: 233dddc5-11d1-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1715676754; x=1716281554; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=bpUeof2BRKXt8gLYUv3Oxcsa+wXdHkEgyAzBUX4ATaw=;
-        b=NzNOJo/3h455CL6yto4Y548ACeINqn6hTqXCxoV9u9Bd9HlBBdx/etUxI/zHEowOx+
-         GIqgx2jw8McnaqGdKUiy+SXpp4oMhUJckA1V+wPx6lLXLeXDeKuEMkKfeO80/h4Fu4AX
-         JOPBAhwlTzzk0/9TTr4pExs/B1dALiVnrfLPaKtSp4XPa0sJRScaD+Fxw3Ksxjebm2Gc
-         Qg1qaYHutzXL6mlkEz4mOb511w+HkF+hesvlpnLnTlkmo1ZhN4hXvoHElxbFTyf/j+2I
-         /63ydqLOW65d0cqRoae5UCcj3y73DvyLsIMJJFk3q5E1hkKpITDToB67Nd7LfR60DGch
-         T/Ew==
+        d=gmail.com; s=20230601; t=1715677540; x=1716282340; darn=lists.xenproject.org;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=S32SOD8xQbnu1UbjDRIfbFTfLCH36Ju2ZdHupMbk0kY=;
+        b=X96mPUizArhrLPa2yhmH6H+pK9NPjVRZV3pOHU70U8bbh1ACfCylapIYHpFwb2+lZ2
+         D2L5yZpxx8+hlKH9aamAB1XBnKQ/iEMbu6d3Ue3Dqhk6kgLnbKFyGWuddTcY7O8vZQWc
+         FYbUr1e72IbUxyi71J260sTIA9Jph8Znox52/MKv2Kq7Hinjcx3VbBhR8O7yyIa+cmVF
+         iT+lFBL6oid4rLNDcCfTqJpr8Oc9sFdHe58ai4rS4p0AGlIRmbftSTObBT9GvK0gMe2m
+         LAGUajzX6Q/cS/YhJH99sVnPYrIQeSkehlNxd+CCrmOOllAIydcxRRiLJZCvDXpELzgD
+         Z2qQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1715676754; x=1716281554;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=bpUeof2BRKXt8gLYUv3Oxcsa+wXdHkEgyAzBUX4ATaw=;
-        b=UwdKMD+oBlTih2T9TGMhWp4mvKfg4GP8APKzgw3gtjWEXffsuT+M98IwvwzQ2MX9X4
-         ISU+g6R4RGFiB6vemF3g7U58EP0fWxDeshDzS04fN/mU3u7d44Nxrty3Tb1kiBOiRLqQ
-         viP1GI34A1QHd8I8iWwVNJFEw0TINoQokehSNF0kQLGBNbs0bCO67ksmn48Bk3tUZPTY
-         Ycyvk/PHhgjrEhdWd6SxC9F/833ZvvNgamhAHU9JDqkFH1ummx6G+em+m5oUjVJKCacr
-         xNmZ+MNCGQxV5mrAocilSQR+oB4thilLo2BDMEQoXChLs8pqd6bv08oSNERTFRzAkmsQ
-         wTbA==
-X-Gm-Message-State: AOJu0YyUWG5zL+bWxu2dqi4tOtjKH+KB6Cdp23xDKoLOPfti5Mdgv0Po
-	+DkocosyaTtQn0T1Wwc9FprrE8gvFTSWmigpYNMIMVUZ5EuQAHA+sfa3aOn54g==
-X-Google-Smtp-Source: AGHT+IEYzzHTkwKzQ1lzgT9lxMOTn10kiZoTkq81ixW+4Gbakk1w09juw68/5tTJNDW0kLnu5big9g==
-X-Received: by 2002:a17:906:4ecb:b0:a59:cdf4:f939 with SMTP id a640c23a62f3a-a5a2d54c60cmr835308066b.3.1715676754106;
-        Tue, 14 May 2024 01:52:34 -0700 (PDT)
-Message-ID: <36b89590-9bd9-4a64-9150-f2819bcd4a0e@suse.com>
-Date: Tue, 14 May 2024 10:52:41 +0200
+        d=1e100.net; s=20230601; t=1715677540; x=1716282340;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=S32SOD8xQbnu1UbjDRIfbFTfLCH36Ju2ZdHupMbk0kY=;
+        b=B81F3eWa0+WwLKWQP+OjoR6vo3NMW4Wq23oNc0z8s1u3+gpa3RJqemc/Pd81HyUXtp
+         lENB9UsLnoFFo8c6xDOYpWGT+65+j0nDi2xqEvEwYP+5iz+bqI9dVgTg7w5CzdJMP2Kg
+         xVXlPhxhlk2jCnZgD8wAPtytwe/a4th8284aGRTMN2trVxWSMOQ/dCCYJAJhVIgSkmKd
+         6s1zPSOwhHFD56jj8wV0YiWty4mslR0nPR9wBJkjitivjK5yxIp9eowVHOIXz6FGKFqi
+         Mp33BnYfUt/UpFkg1KyqmCsc3CDawJVWglhBlV0vqFDjNuIsKzeyJlSiqYMEDZ6Ejzw6
+         5Wrw==
+X-Forwarded-Encrypted: i=1; AJvYcCUzf609SezP4Nlnq1nquSDW5CmKDxohOPgtDi+tLYHZ3s7rx7woMZ20PjhebWdvOp2q7F0yF4Ur2PLHCeOZD0hdxJoq/iha2zJyX+sit8w=
+X-Gm-Message-State: AOJu0YzZQ2PKE8p5DmQM8M3yxQgN0CMwiL+EvFtsoWuOmv1Knd2k08Fh
+	x3SCnzWgfcDXcyanZQkn8hSE9jcQJKH76WnwKqxn/V9uFblgOuL+
+X-Google-Smtp-Source: AGHT+IGGrLCLUalZh5FXkxk5v8rCa/dsNJpHGzP01hX5hyvYdY14iP46Xrzr7GSxpHaLyODrTQzICA==
+X-Received: by 2002:a17:906:7110:b0:a59:a18e:3fd9 with SMTP id a640c23a62f3a-a5a2d54c365mr720666766b.5.1715677539982;
+        Tue, 14 May 2024 02:05:39 -0700 (PDT)
+Message-ID: <7084e5635fc52be7add2f67cdbdd335cad618f7d.camel@gmail.com>
+Subject: Re: [RFC PATCH v2 0/5] Add bridge VLAN support
+From: "Oleksii K." <oleksii.kurochko@gmail.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>, Leigh Brown
+ <leigh@solinno.co.uk>,  xen-devel@lists.xenproject.org
+Cc: Roger Pau =?ISO-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>, Juergen Gross
+	 <jgross@suse.com>, Jason Andryuk <jandryuk@gmail.com>
+Date: Tue, 14 May 2024 11:05:39 +0200
+In-Reply-To: <f5300cd1-4200-4957-9e4b-9ba0c1f40fa2@citrix.com>
+References: <20240508213824.55824-1-leigh@solinno.co.uk>
+	 <f5300cd1-4200-4957-9e4b-9ba0c1f40fa2@citrix.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.52.1 (3.52.1-1.fc40) 
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/cpufreq: Rename cpuid variable/parameters to cpu
-Content-Language: en-US
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Nicola Vetrini <nicola.vetrini@bugseng.com>,
- "consulting @ bugseng . com" <consulting@bugseng.com>,
- Stefano Stabellini <sstabellini@kernel.org>
-References: <20240511194237.2596271-1-andrew.cooper3@citrix.com>
- <alpine.DEB.2.22.394.2405131723240.2544314@ubuntu-linux-20-04-desktop>
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <alpine.DEB.2.22.394.2405131723240.2544314@ubuntu-linux-20-04-desktop>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
-On 14.05.2024 02:24, Stefano Stabellini wrote:
-> On Sat, 11 May 2024, Andrew Cooper wrote:
->> --- a/xen/drivers/cpufreq/cpufreq.c
->> +++ b/xen/drivers/cpufreq/cpufreq.c
->> @@ -459,21 +459,21 @@ static void print_PPC(unsigned int platform_limit)
->>  
->>  int set_px_pminfo(uint32_t acpi_id, struct xen_processor_performance *perf)
->>  {
->> -    int ret=0, cpuid;
->> +    int ret=0, cpu;
+On Thu, 2024-05-09 at 16:53 +0100, Andrew Cooper wrote:
+> On 08/05/2024 10:38 pm, Leigh Brown wrote:
+> > Hello all,
+> >=20
+> > I realised over the weekend that there is a valid use case for
+> > providing
+> > a VIF to a domain that has access to multiple VLANs, e.g. a router.
+> > Yes,
+> > you can create a VIF per VLAN, but if you start having several
+> > VLANs (as
+> > I do), it would be nicer to create a single interface that has
+> > access to
+> > all the relevant VLANs (e.g. enX0.10, enX0.20, etc.).
+> >=20
+> > So, version 2 changes the name and type of the parameter from an
+> > integer
+> > called `vid' to a string called `vlan'. The vlan parameter is then
+> > parsed by the vif-bridge script (actually, the functions called by
+> > it in
+> > xen-network-common.sh).
+> >=20
+> > As it quite a common practice to allocate VLANs in round numbers, I
+> > also
+> > implemented the ability to specify contiguous or non-contiguous
+> > ranges.
+> > You can specify whether a VLAN is tagged or untagged, and which
+> > VLAN is
+> > the PVID (only one PVID is allowed).=C2=A0 For example,
+> >=20
+> > vif =3D [ 'mac=3Dxx:xx:xx:xx:xx:xx, bridge=3Dbr0, vlan=3D10p/20-29' ]
+> >=20
+> > will setup the VIF so that 10 is the PVID and VLAN IDs 20 through
+> > 29
+> > are permitted with tags. Another example:
+> >=20
+> > vif =3D [ 'mac=3Dxx:xx:xx:xx:xx:xx, bridge=3Dbr0, vlan=3D1p/10+10x9' ]
+> >=20
+> > will setup the bridge to set 1 as the PVID and permit access with
+> > tags for VLAN IDs 10, 20, 30, 40, 50, 60, 70, 80 and 90.
+> >=20
+> > This patch set enables this capability as follows:
+> >=20
+> > 1. Adds `vlan' as a new member of the libxl_device_nic structure;
+> > 2. Adds support to read and write the vlan parameter from the
+> > xenstore;
+> > 3. Adds `vlan' as a new keyword for the vif configuration option;
+> > 4. Adds support to assign the bridge VLANs in the Linux hotplug
+> > scripts;
+> > 5. Updated xl-network-configuration(5) manpage and example configs.
+> >=20
+> > Original blurb below:
+> >=20
+> > For many years I have been configuring VLANs on my Linux Dom0 by
+> > creating VLAN interfaces for each VLAN I wanted to connect a domain
+> > to and then a corresponding bridge. So I would tend to have things
+> > like:
+> >=20
+> > enp0s0=C2=A0=C2=A0=C2=A0 -> br0=C2=A0=C2=A0=C2=A0=C2=A0 -> vif1, vif2
+> > enp0s0.10 -> br0vl10 -> vif3, vif4
+> > enp0s0.20 -> br0vl20 -> vif5
+> > dummy0=C2=A0=C2=A0=C2=A0 -> br1=C2=A0=C2=A0=C2=A0=C2=A0 -> vif6
+> >=20
+> > I recently discovered that iproute2 supports creating bridge VLANs
+> > that
+> > allows you to assign a VLAN to each of the interfaces associated to
+> > a
+> > bridge. This allows a greatly simplified configuration where a
+> > single
+> > bridge can support all the domains, and the iproute2 bridge command
+> > can
+> > assign each VIF to the required VLAN.=C2=A0 This looks like this:
+> >=20
+> > # bridge vlan
+> > port=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0 vlan-id=C2=A0=20
+> > enp0s0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0 1 PVID Egress Untagged
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 10
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 20
+> > br0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0 1 PVID Egress Untagged
+> > vif1.0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0 1 PVID Egress Untagged
+> > vif2.0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0 1 PVID Egress Untagged
+> > vif3.0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0 10 PVID Egress Untagged
+> > vif4.0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0 10 PVID Egress Untagged
+> > vif5.0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0 20 PVID Egress Untagged
+> > vif6.0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0 30 PVID Egress Untagged
+> >=20
+> > This patch set enables this capability as follows:
+> >=20
+> > 1. Adds `vid' as a new member of the libxl_device_nic structure;
+> > 2. Adds support to read and write vid from the xenstore;
+> > 3. Adds `vid' as a new keyword for the vif configuration option;
+> > 4. Adds support for assign the bridge VLAN in the Linux hotplug
+> > scripts.
+> >=20
+> > I don't believe NetBSD or FreeBSD support this capability, but if
+> > they
+> > do please point me in the direction of some documentation and/or
+> > examples.
+> >=20
+> > NB: I'm not very familiar with Xen code base so may have missed
+> > something important, although I have tested it and it is working
+> > well
+> > for me.
+> >=20
+> > Cheers,
+> >=20
+> > Leigh.
+> >=20
+> >=20
+> > Leigh Brown (5):
+> > =C2=A0 tools/libs/light: Add vlan field to libxl_device_nic
+> > =C2=A0 tools/xl: add vlan keyword to vif option
+> > =C2=A0 tools/hotplug/Linux: Add bridge VLAN support
+> > =C2=A0 docs/man: document VIF vlan keyword
+> > =C2=A0 tools/examples: Example Linux bridge VLAN config
+> >=20
+> > =C2=A0docs/man/xl-network-configuration.5.pod.in=C2=A0=C2=A0=C2=A0 |=C2=
+=A0 38 ++++++
+> > =C2=A0tools/examples/linux-bridge-vlan/README=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0 |=C2=A0 68 +++++++++++
+> > =C2=A0tools/examples/linux-bridge-vlan/br0.netdev=C2=A0=C2=A0 |=C2=A0=
+=C2=A0 7 ++
+> > =C2=A0tools/examples/linux-bridge-vlan/br0.network=C2=A0 |=C2=A0=C2=A0 =
+8 ++
+> > =C2=A0.../examples/linux-bridge-vlan/enp0s0.network |=C2=A0 16 +++
+> > =C2=A0tools/hotplug/Linux/xen-network-common.sh=C2=A0=C2=A0=C2=A0=C2=A0=
+ | 111
+> > ++++++++++++++++++
+> > =C2=A0tools/libs/light/libxl_nic.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 =
+10 ++
+> > =C2=A0tools/libs/light/libxl_types.idl=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 1 +
+> > =C2=A0tools/xl/xl_parse.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 2 +
+> > =C2=A09 files changed, 261 insertions(+)
+> > =C2=A0create mode 100644 tools/examples/linux-bridge-vlan/README
+> > =C2=A0create mode 100644 tools/examples/linux-bridge-vlan/br0.netdev
+> > =C2=A0create mode 100644 tools/examples/linux-bridge-vlan/br0.network
+> > =C2=A0create mode 100644 tools/examples/linux-bridge-vlan/enp0s0.networ=
+k
+> >=20
+>=20
+> This is past the last-post date, so Oleksii will need to decide
+> whether
+> he's happy to make an exception for it.
+We also have Feature Freeze this week. But if maintainers think they
+have additional/enough time for reviewing this patch series then we can
+consider to have in Xen 4.19.
 
-Would be nice if the missing blanks were added here as well, while touching
-the line.
+~ Oleksii
 
->>      struct processor_pminfo *pmpt;
->>      struct processor_performance *pxpt;
->>  
->> -    cpuid = get_cpu_id(acpi_id);
->> -    if ( cpuid < 0 || !perf )
->> +    cpu = get_cpu_id(acpi_id);
->> +    if ( cpu < 0 || !perf )
->>      {
->>          ret = -EINVAL;
->>          goto out;
->>      }
->>      if ( cpufreq_verbose )
->> -        printk("Set CPU acpi_id(%d) cpuid(%d) Px State info:\n",
->> +        printk("Set CPU acpi_id(%d) cpu(%d) Px State info:\n",
->>                 acpi_id, cpuid);
-> 
-> This cpuid should be changed as well?
+>=20
+> Anthony is OoO for a month now, so if this is to get in for 4.19,
+> then
+> it will need reviewing by others.=C2=A0 I've CC'd a few plausible
+> candidates...
+>=20
+> ~Andrew
 
-And with that adjustment
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
-
-Jan
 
