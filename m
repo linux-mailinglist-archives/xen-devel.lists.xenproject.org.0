@@ -2,36 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 65F848C5C81
-	for <lists+xen-devel@lfdr.de>; Tue, 14 May 2024 22:52:25 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.721775.1125444 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6D2B98C5C99
+	for <lists+xen-devel@lfdr.de>; Tue, 14 May 2024 23:04:11 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.721784.1125454 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s6z7k-0008Ca-KN; Tue, 14 May 2024 20:51:48 +0000
+	id 1s6zJO-0002HO-KI; Tue, 14 May 2024 21:03:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 721775.1125444; Tue, 14 May 2024 20:51:48 +0000
+Received: by outflank-mailman (output) from mailman id 721784.1125454; Tue, 14 May 2024 21:03:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s6z7k-0008AJ-H5; Tue, 14 May 2024 20:51:48 +0000
-Received: by outflank-mailman (input) for mailman id 721775;
- Tue, 14 May 2024 20:51:47 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1s6zJO-0002ER-HU; Tue, 14 May 2024 21:03:50 +0000
+Received: by outflank-mailman (input) for mailman id 721784;
+ Tue, 14 May 2024 21:03:48 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=0OWz=MR=m5p.com=ehem@srs-se1.protection.inumbo.net>)
- id 1s6z7j-00089q-86
- for xen-devel@lists.xenproject.org; Tue, 14 May 2024 20:51:47 +0000
-Received: from mailhost.m5p.com (mailhost.m5p.com [74.104.188.4])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c50038e2-1233-11ef-b4bb-af5377834399;
- Tue, 14 May 2024 22:51:44 +0200 (CEST)
-Received: from m5p.com (mailhost.m5p.com [IPv6:2001:470:8ac4:0:0:0:0:f7])
- by mailhost.m5p.com (8.17.1/8.17.1) with ESMTPS id 44EKpS3x036440
- (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NO);
- Tue, 14 May 2024 16:51:34 -0400 (EDT) (envelope-from ehem@m5p.com)
-Received: (from ehem@localhost)
- by m5p.com (8.17.1/8.15.2/Submit) id 44EKpSDN036439;
- Tue, 14 May 2024 13:51:28 -0700 (PDT) (envelope-from ehem)
+ (envelope-from <julien@xen.org>) id 1s6zJM-0002EJ-PB
+ for xen-devel@lists.xenproject.org; Tue, 14 May 2024 21:03:48 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1s6zJG-00078u-1o; Tue, 14 May 2024 21:03:42 +0000
+Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.1.244])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1s6zJF-000174-Nm; Tue, 14 May 2024 21:03:41 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,62 +39,86 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c50038e2-1233-11ef-b4bb-af5377834399
-Date: Tue, 14 May 2024 13:51:28 -0700
-From: Elliott Mitchell <ehem+xen@m5p.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: xen-devel@lists.xenproject.org, Andrew Cooper <andrew.cooper3@citrix.com>,
-        Wei Liu <wl@xen.org>, Kelly Choi <kelly.choi@cloud.com>,
-        Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>
-Subject: Re: Serious AMD-Vi(?) issue
-Message-ID: <ZkPO0D0/Jx4ZnRBO@mattapan.m5p.com>
-References: <c2ce4002-58d5-48a3-949c-3c361c78c0ac@suse.com>
- <ZhdNxWNpM0KCzz8E@mattapan.m5p.com>
- <2aa4d1f4-ff37-4f12-bfbb-3ef5ad3f6fdd@suse.com>
- <ZiDBc3ye2wqmBAfq@mattapan.m5p.com>
- <f0bdb386-0870-4468-846c-6c8a91eaf806@suse.com>
- <ZiH0G5kN6m+wlNjn@mattapan.m5p.com>
- <Zj7vkp4r0EY9rxT4@mattapan.m5p.com>
- <ZkHTC4RpUSpKj4wf@macbook>
- <ZkJz9U2A/mVKnkjA@mattapan.m5p.com>
- <08503965-4ba9-4fe3-a176-895623f4ad92@suse.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=bUtFDoucwgIQQ3W4NIzb5d8M24BnL6CN0ZmCDbDFVow=; b=zG+N2du3bHKcpAWTow+WfFnvzU
+	ljE4ABJa2/NPu0OBUfKBrIScUlj/0/XGHe+f/XyPWEhQRlen5BtIYUREHarDrtUfyoDSMDc3hbf13
+	ZD+Fum9GP/ytZaUJvnl/iaG+J2W4widiCb5dQVZ2g8I5fSeRZ6x4S3G9ge/gAu60pv5Y=;
+Message-ID: <6ba241d8-77b7-4b1c-81f7-6558d4b38449@xen.org>
+Date: Tue, 14 May 2024 22:03:39 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <08503965-4ba9-4fe3-a176-895623f4ad92@suse.com>
-X-Spam-Status: No, score=0.0 required=10.0 tests=KHOP_HELO_FCRDNS
-	autolearn=unavailable autolearn_force=no version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-14) on mattapan.m5p.com
+User-Agent: Mozilla Thunderbird
+Subject: Re: [XEN PATCH v3] arm/mem_access: add conditional build of
+ mem_access.c
+Content-Language: en-GB
+To: Jan Beulich <jbeulich@suse.com>,
+ Alessandro Zucchelli <alessandro.zucchelli@bugseng.com>
+Cc: consulting@bugseng.com, Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Tamas K Lengyel <tamas@tklengyel.com>,
+ Alexandru Isaila <aisaila@bitdefender.com>,
+ Petre Pircalabu <ppircalabu@bitdefender.com>, xen-devel@lists.xenproject.org
+References: <b3f03c4f5a78b86b01750f10bb0cebcdb2fd35cc.1715265720.git.alessandro.zucchelli@bugseng.com>
+ <e6b525cb-a1f1-494b-8dfe-c9d86cfc8f9e@suse.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <e6b525cb-a1f1-494b-8dfe-c9d86cfc8f9e@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Tue, May 14, 2024 at 10:22:51AM +0200, Jan Beulich wrote:
-> On 13.05.2024 22:11, Elliott Mitchell wrote:
-> > On Mon, May 13, 2024 at 10:44:59AM +0200, Roger Pau Monné wrote:
-> >> Why do you mask the device SBDF in the above snippet?  I would really
-> >> like to understand what's so privacy relevant in a PCI SBDF number.
-> > 
-> > I doubt it reveals much.  Simply seems unlikely to help debugging and
-> > therefore I prefer to mask it.
+Hi Jan,
+
+On 14/05/2024 09:10, Jan Beulich wrote:
+> On 10.05.2024 14:32, Alessandro Zucchelli wrote:
+>> --- a/xen/arch/arm/include/asm/mem_access.h
+>> +++ b/xen/arch/arm/include/asm/mem_access.h
+>> @@ -17,6 +17,8 @@
+>>   #ifndef _ASM_ARM_MEM_ACCESS_H
+>>   #define _ASM_ARM_MEM_ACCESS_H
+>>   
+>> +#include <xen/types.h>
+>> +
+>>   static inline
+>>   bool p2m_mem_access_emulate_check(struct vcpu *v,
+>>                                     const struct vm_event_st *rsp)
+>> @@ -35,12 +37,28 @@ static inline bool p2m_mem_access_sanity_check(struct domain *d)
+>>    * Send mem event based on the access. Boolean return value indicates if trap
+>>    * needs to be injected into guest.
+>>    */
+>> +#ifdef CONFIG_MEM_ACCESS
+>>   bool p2m_mem_access_check(paddr_t gpa, vaddr_t gla, const struct npfec npfec);
+>>   
+>>   struct page_info*
+>>   p2m_mem_access_check_and_get_page(vaddr_t gva, unsigned long flag,
+>>                                     const struct vcpu *v);
+>> +#else
+>> +
+>> +static inline bool
+>> +p2m_mem_access_check(paddr_t gpa, vaddr_t gla, const struct npfec npfec)
+>> +{
+>> +    return false;
+>> +}
+>> +
+>> +static inline struct page_info*
+>> +p2m_mem_access_check_and_get_page(vaddr_t gva, unsigned long flag,
+>> +                                  const struct vcpu *v)
+>> +{
+>> +    return NULL;
+>> +}
+>>   
+>> +#endif /*CONFIG_MEM_ACCESS*/
 > 
-> SBDF in one place may be matchable against a memory address in another
-> place. _Any_ hiding of information is hindering analysis. Please can
-> you finally accept that it needs to be the person doing the analysis
-> to judge what is or is not relevant to them?
+> Why would each arch need to repeat these stubs? IOW why would they not
+> live in xen/mem_access.h?
 
-Not going to happen as I'd accepted this long ago.  The usual approach
-is all developers have PGP keys (needed for security issues anyway) and
-you don't require all logs to be public.
+Because they are not used by nor defined in common code. It is pure 
+coincidence they are named the same. If at some point, some code can be 
+shared, then yes I would agree it could be common.
 
-I've noticed the core of the Xen project appears centered in the EU.  Yet
-you're not catering to data privacy at all?  Or is this a service
-exclusively provided to people who prove they're EU citizens?
-
+Cheers,
 
 -- 
-(\___(\___(\______          --=> 8-) EHM <=--          ______/)___/)___/)
- \BS (    |         ehem+sigmsg@m5p.com  PGP 87145445         |    )   /
-  \_CS\   |  _____  -O #include <stddisclaimer.h> O-   _____  |   /  _/
-8A19\___\_|_/58D2 7E3D DDF4 7BA6 <-PGP-> 41D1 B375 37D0 8714\_|_/___/5445
-
-
+Julien Grall
 
