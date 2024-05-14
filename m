@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 94AAA8C575C
-	for <lists+xen-devel@lfdr.de>; Tue, 14 May 2024 15:50:54 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.721537.1125014 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B6ABF8C5764
+	for <lists+xen-devel@lfdr.de>; Tue, 14 May 2024 15:53:01 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.721542.1125024 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s6sY6-000839-WB; Tue, 14 May 2024 13:50:35 +0000
+	id 1s6sa9-0001fF-V5; Tue, 14 May 2024 13:52:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 721537.1125014; Tue, 14 May 2024 13:50:34 +0000
+Received: by outflank-mailman (output) from mailman id 721542.1125024; Tue, 14 May 2024 13:52:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s6sY4-0007zp-Fn; Tue, 14 May 2024 13:50:32 +0000
-Received: by outflank-mailman (input) for mailman id 721537;
- Tue, 14 May 2024 13:50:24 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1s6sa9-0001d7-SW; Tue, 14 May 2024 13:52:41 +0000
+Received: by outflank-mailman (input) for mailman id 721542;
+ Tue, 14 May 2024 13:52:39 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=0FJY=MR=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1s6sXv-0007tI-Aa
- for xen-devel@lists.xenproject.org; Tue, 14 May 2024 13:50:23 +0000
-Received: from mail-lj1-x22e.google.com (mail-lj1-x22e.google.com
- [2a00:1450:4864:20::22e])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e888dc05-11f8-11ef-909d-e314d9c70b13;
- Tue, 14 May 2024 15:50:22 +0200 (CEST)
-Received: by mail-lj1-x22e.google.com with SMTP id
- 38308e7fff4ca-2e2c70f0c97so68385441fa.0
- for <xen-devel@lists.xenproject.org>; Tue, 14 May 2024 06:50:22 -0700 (PDT)
+ id 1s6sa7-0001ch-SK
+ for xen-devel@lists.xenproject.org; Tue, 14 May 2024 13:52:39 +0000
+Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
+ [2a00:1450:4864:20::32b])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 39412531-11f9-11ef-b4bb-af5377834399;
+ Tue, 14 May 2024 15:52:37 +0200 (CEST)
+Received: by mail-wm1-x32b.google.com with SMTP id
+ 5b1f17b1804b1-420160f8f52so14658395e9.0
+ for <xen-devel@lists.xenproject.org>; Tue, 14 May 2024 06:52:37 -0700 (PDT)
 Received: from [10.80.67.140] (default-46-102-197-194.interdsl.co.uk.
  [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-41fccbe8e2fsm195316105e9.3.2024.05.14.06.50.18
+ 5b1f17b1804b1-41fccee9326sm196681255e9.35.2024.05.14.06.52.35
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 14 May 2024 06:50:18 -0700 (PDT)
+ Tue, 14 May 2024 06:52:36 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,48 +45,47 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e888dc05-11f8-11ef-909d-e314d9c70b13
+X-Inumbo-ID: 39412531-11f9-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1715694622; x=1716299422; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=2AOQGq9+skWEV6tKei9ANLmo3y1qxkBttfUvGHeRp28=;
-        b=REKGe50FeLuClHZ/mo9PofLkJp4wpdhTIbr6tfAhksHSL7/aDVZ0lk0hwNgr15c8i0
-         qHy3+CJgyiQqct6taEwx5PgOauFAE+eMDFpu26SFQV8CgX10W7u5XcHM/26V2rAOWoR5
-         qTSf1Rk6b67Ilh4EB/yz6KNA3+sdlAmKuJ25Q=
+        d=citrix.com; s=google; t=1715694757; x=1716299557; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=NPYcK4moord7NEYjb+taKzz99LnDLvwtdm22uiCo+5U=;
+        b=ZA+pJhsuk4hYWZ1F/1q1vEDWsyNbsAknwB8J+cOtdhdrGQuZ4GdcAC/VQPrpEc4+4d
+         eNuY4maXTN7uikw7Ntkp7fD0f4CyXZvrLH6DBN9TE7UxIiemmPblTSPsLCbsgz/p46Jl
+         WoXhZhYLS1WShDwMmttm4LwLITIyCLUtNE9lc=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1715694622; x=1716299422;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=2AOQGq9+skWEV6tKei9ANLmo3y1qxkBttfUvGHeRp28=;
-        b=Mii6L4ZBb4RXDgXNHAozUYQYRj82wqPCnRlmXXl+COnnTe4dmB9/yYqTIgRHFkqfe0
-         lVtTPS4YM4zSSqVgaQST2GsvGoZZSh4LhjGnYDA6umCE61wvsegWfxg2CDZgCf4DkvB6
-         Q0wMPw3ADDLaLRL2497lkIlddbLwd5ysPveJrJ9XwEUNOM6elBS7/Q6nrRjVfHPqsvnu
-         8a/J3ymcqOoAkZ4bjyJmCfSaCcNXT8+lDM2z6JImAjapO1TkyeGgx/N0+a/GGPbV2bc/
-         HW3I0uj8rEbiWRytgRqyVF+qeD6pb4rBQOUZOhBMcGX4kfM/ggA4ZIrTBwO3HVJUrP0b
-         e62w==
-X-Forwarded-Encrypted: i=1; AJvYcCW5+gCxzVoLRTIOB8aHDK9DurwuX3dAHIX3r/wTVp2sPpzq4eF7Be1J2/9ibYQYZUnJ/A0w23t+pIT3VxfJXydnYhvY+R0HOKOnMtdXGbQ=
-X-Gm-Message-State: AOJu0YzOlbVY/e1AUlRg2l7gM6J0aZhrZqltjHtjbn6/T4nHUD5SUGck
-	SNULZhhmrRTbgiH6MNWgL8LLI/l6V7BkdTbjq/5RQCBvZ1KlG0uCLmVXizYTk30=
-X-Google-Smtp-Source: AGHT+IH4bZZoyFcDhZTeTRVN4PISwUKN2hEV1GssB4HTQ1//pKd8njil8PbWTSrXzWU/hYUAoki64w==
-X-Received: by 2002:a2e:96ca:0:b0:2e3:603e:469b with SMTP id 38308e7fff4ca-2e5204ccf5cmr80919331fa.40.1715694619788;
-        Tue, 14 May 2024 06:50:19 -0700 (PDT)
-Message-ID: <dd689012-0554-43ae-b22b-035415ce3392@citrix.com>
-Date: Tue, 14 May 2024 14:50:18 +0100
+        d=1e100.net; s=20230601; t=1715694757; x=1716299557;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=NPYcK4moord7NEYjb+taKzz99LnDLvwtdm22uiCo+5U=;
+        b=sTwZdm98OhsBkoCgUV3I+j/vL1xPytLhKCcuNTaN9+efszJ2gALVG5khe65/JfZNqd
+         Z+Fu5tPhKEbrndfmWwxhpkzFpTWZbkst2zQKg6PzSEg3h87KNwbO+6vLJlj4AzamBinx
+         XN+WOVzQDPOMHYE0+eKyaUnszzhA7LKMTRRAoCxpgysxAGdMv/Q8+qrL2qnWWeAnCVfe
+         j0frjmpiuiuxaxSW0kJN401hOrneZlwiQlZWkFVTwDQeLG65dH14FM+IcUrZ3VGmuc7v
+         ELbdBfnQ7oSWGc1dbDQBZKKnuh90vlYvG2KxiPzGjhTYKoGqk83lrEz2QRr1m4+34fPp
+         disQ==
+X-Gm-Message-State: AOJu0YzkrqEwnWrLUm7OvygY5DNtAqOMtejUEvSC7vycEN8U3mAMhLd8
+	/c6iDYrDpRuLfuTcWWsjMmvKAFJlgNLGBhLRrYLMJ8j7yp0hdO9l83r0LxG2BH0=
+X-Google-Smtp-Source: AGHT+IEFoMLmsJ3yTH2DzeoTGKa0+dJQuappipNH3Out5EdoFUvbDeGQ4uncemPAzd9cJGDEJGL4iw==
+X-Received: by 2002:a05:600c:3d06:b0:420:11c1:b240 with SMTP id 5b1f17b1804b1-42011c1b30amr58425125e9.24.1715694757193;
+        Tue, 14 May 2024 06:52:37 -0700 (PDT)
+Message-ID: <2f83c912-c6bf-4f02-9c64-abe539d25a61@citrix.com>
+Date: Tue, 14 May 2024 14:52:35 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH for-4.19] x86/mtrr: avoid system wide rendezvous when
- setting AP MTRRs
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: Roger Pau Monne <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
-Cc: Jan Beulich <jbeulich@suse.com>,
+Subject: Re: [PATCH for-4.19] tools/xentop: fix cpu% sort order
+To: Leigh Brown <leigh@solinno.co.uk>
+Cc: xen-devel@lists.xenproject.org,
  Oleksii Kurochko <oleksii.kurochko@gmail.com>
-References: <20240513085925.59324-1-roger.pau@citrix.com>
- <2d245c04-3bf9-4b9d-ad02-e754dcbefa28@citrix.com>
+References: <20240514081344.4499-1-leigh@solinno.co.uk>
+ <195184dd-46e3-4bd0-b82b-cf41000e4db1@citrix.com>
+ <d1fbc48ee89da3f4fe45a96161f9502e@solinno.co.uk>
 Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  xsFNBFLhNn8BEADVhE+Hb8i0GV6mihnnr/uiQQdPF8kUoFzCOPXkf7jQ5sLYeJa0cQi6Penp
  VtiFYznTairnVsN5J+ujSTIb+OlMSJUWV4opS7WVNnxHbFTPYZVQ3erv7NKc2iVizCRZ2Kxn
@@ -130,54 +129,117 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <2d245c04-3bf9-4b9d-ad02-e754dcbefa28@citrix.com>
+In-Reply-To: <d1fbc48ee89da3f4fe45a96161f9502e@solinno.co.uk>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 14/05/2024 12:09 pm, Andrew Cooper wrote:
-> On 13/05/2024 9:59 am, Roger Pau Monne wrote:
->> There's no point in forcing a system wide update of the MTRRs on all processors
->> when there are no changes to be propagated.  On AP startup it's only the AP
->> that needs to write the system wide MTRR values in order to match the rest of
->> the already online CPUs.
+On 14/05/2024 1:36 pm, Leigh Brown wrote:
+> Hello,
+> 
+> On 2024-05-14 13:07, Andrew Cooper wrote:
+>> On 14/05/2024 9:13 am, Leigh Brown wrote:
+>>> Although using integer comparison to compare doubles kind of
+>>> works, it's annoying to see domains slightly out of order when
+>>> sorting by cpu%.
+>>>
+>>> Add a compare_dbl() function and update compare_cpu_pct() to
+>>> call it.
+>>>
+>>> Signed-off-by: Leigh Brown <leigh@solinno.co.uk>
+>>> ---
+>>>  tools/xentop/xentop.c | 13 ++++++++++++-
+>>>  1 file changed, 12 insertions(+), 1 deletion(-)
+>>>
+>>> diff --git a/tools/xentop/xentop.c b/tools/xentop/xentop.c
+>>> index 545bd5e96d..99199caec9 100644
+>>> --- a/tools/xentop/xentop.c
+>>> +++ b/tools/xentop/xentop.c
+>>> @@ -85,6 +85,7 @@ static void set_delay(const char *value);
+>>>  static void set_prompt(const char *new_prompt, void (*func)(const
+>>> char *));
+>>>  static int handle_key(int);
+>>>  static int compare(unsigned long long, unsigned long long);
+>>> +static int compare_dbl(double, double);
+>>>  static int compare_domains(xenstat_domain **, xenstat_domain **);
+>>>  static unsigned long long tot_net_bytes( xenstat_domain *, int);
+>>>  static bool tot_vbd_reqs(xenstat_domain *, int, unsigned long long *);
+>>> @@ -422,6 +423,16 @@ static int compare(unsigned long long i1,
+>>> unsigned long long i2)
+>>>      return 0;
+>>>  }
+>>>
+>>> +/* Compares two double precision numbers, returning -1,0,1 for <,=,> */
+>>> +static int compare_dbl(double d1, double d2)
+>>> +{
+>>> +    if(d1 < d2)
+>>> +        return -1;
+>>> +    if(d1 > d2)
+>>> +        return 1;
+>>> +    return 0;
+>>> +}
+>>> +
+>>>  /* Comparison function for use with qsort.  Compares two domains
+>>> using the
+>>>   * current sort field. */
+>>>  static int compare_domains(xenstat_domain **domain1, xenstat_domain
+>>> **domain2)
+>>> @@ -523,7 +534,7 @@ static double get_cpu_pct(xenstat_domain *domain)
+>>>
+>>>  static int compare_cpu_pct(xenstat_domain *domain1, xenstat_domain
+>>> *domain2)
+>>>  {
+>>> -    return -compare(get_cpu_pct(domain1), get_cpu_pct(domain2));
+>>> +    return -compare_dbl(get_cpu_pct(domain1), get_cpu_pct(domain2));
 >>
->> We have occasionally seen the watchdog trigger during `xen-hptool cpu-online`
->> in one Intel Cascade Lake box with 448 CPUs due to the re-setting of the MTRRs
->> on all the CPUs in the system.
->>
->> While there adjust the comment to clarify why the system-wide resetting of the
->> MTRR registers is not needed for the purposes of mtrr_ap_init().
->>
->> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
->> ---
->> For consideration for 4.19: it's a bugfix of a rare instance of the watchdog
->> triggering, but it's also a good performance improvement when performing
->> cpu-online.
->>
->> Hopefully runtime changes to MTRR will affect a single MSR at a time, lowering
->> the chance of the watchdog triggering due to the system-wide resetting of the
->> range.
-> "Runtime" changes will only be during dom0 boot, if at all, but yes - it
-> is restricted to a single MTRR at a time.
->
-> It's XENPF_{add,del,read}_memtype, but it's only used by Classic Linux. 
-> PVOps only issues read_memtype.
->
-> Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+>> Oh, we were doing an implicit double->unsigned long long conversion. 
+>> Over the range 0.0 to 100.0, that ought to work as expected.  What kind
+>> of out-of-order are you seeing?
+> 
+> Without patch:
+> 
+> xentop - 13:29:01   Xen 4.18.2
+> 13 domains: 1 running, 12 blocked, 0 paused, 0 crashed, 0 dying, 0 shutdown
+> Mem: 67030640k total, 33097800k used, 33932840k free    CPUs: 24 @ 3693MHz
+>       NAME  STATE   CPU(sec) CPU(%)     MEM(k) MEM(%)  MAXMEM(k) MAXMEM(%)
+>   icecream --b---       2597    6.6    4194368    6.3    4195328       6.3
+>      xendd --b---       4016    5.4     524268    0.8     525312       0.8
+>   Domain-0 -----r       1059    1.7    1048576    1.6    1048576       1.6
+>       neon --b---        826    1.1    2097216    3.1    2098176       3.1
+>    blender --b---        121    0.2    1048640    1.6    1049600       1.6
+>      bread --b---         69    0.1     524352    0.8     525312       0.8
+>        bob --b---        502    0.3   16777284   25.0   16778240      25.0
+>     cheese --b---        225    0.5    1048384    1.6    1049600       1.6
+>    cassini --b---        489    0.4    3145792    4.7    3146752       4.7
+>   chickpea --b---         67    0.1     524352    0.8     525312       0.8
+>     lentil --b---         67    0.1     262208    0.4     263168       0.4
+>    fusilli --b---        159    0.2     524352    0.8     525312       0.8
+>      pizza --b---        359    0.5     524352    0.8     525312       0.8
+> 
+> With patch:
+> 
+> xentop - 13:30:17   Xen 4.18.2
+> 13 domains: 1 running, 12 blocked, 0 paused, 0 crashed, 0 dying, 0 shutdown
+> Mem: 67030640k total, 33097788k used, 33932852k free    CPUs: 24 @ 3693MHz
+>       NAME  STATE   CPU(sec) CPU(%)     MEM(k) MEM(%)  MAXMEM(k) MAXMEM(%)
+>      xendd --b---       4020    5.7     524268    0.8     525312       0.8
+>   icecream --b---       2600    3.8    4194368    6.3    4195328       6.3
+>   Domain-0 -----r       1060    1.5    1048576    1.6    1048576       1.6
+>       neon --b---        827    1.1    2097216    3.1    2098176       3.1
+>     cheese --b---        225    0.7    1048384    1.6    1049600       1.6
+>      pizza --b---        359    0.5     524352    0.8     525312       0.8
+>    cassini --b---        490    0.4    3145792    4.7    3146752       4.7
+>    fusilli --b---        159    0.2     524352    0.8     525312       0.8
+>        bob --b---        502    0.2   16777284   25.0   16778240      25.0
+>    blender --b---        121    0.2    1048640    1.6    1049600       1.6
+>      bread --b---         69    0.1     524352    0.8     525312       0.8
+>   chickpea --b---         67    0.1     524352    0.8     525312       0.8
+>     lentil --b---         67    0.1     262208    0.4     263168       0.4
 
-Actually no - this isn't safe in all cases.
 
-There are BIOSes which get MTRRs wrong, and with the APs having UC
-covering a wider region than the BSP.
+Ah, so it's the rounding, and a straight cast discards the fractional part.
 
-In this case, creating consistency will alter the MTRRs on all CPUs
-currently up, and we do need to perform the rendezvous in that case.
-
-There are 3 cases:
-
-1) Nothing to do.  This is the overwhemlingly common case.
-2) Local changes only.  No broadcast, but we do need to enter CD mode.
-3) Remote changes needed.  Needs full broadcast.
+I think your patch is fine, although it could do with a mention of why
+this goes wrong in the commit message.  I'm happy to adjust on commit.
 
 ~Andrew
 
