@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F0B858C5848
-	for <lists+xen-devel@lfdr.de>; Tue, 14 May 2024 16:51:24 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.721626.1125195 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 317248C585F
+	for <lists+xen-devel@lfdr.de>; Tue, 14 May 2024 16:58:27 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.721634.1125205 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s6tUe-0004xh-9j; Tue, 14 May 2024 14:51:04 +0000
+	id 1s6tbX-0006VP-2P; Tue, 14 May 2024 14:58:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 721626.1125195; Tue, 14 May 2024 14:51:04 +0000
+Received: by outflank-mailman (output) from mailman id 721634.1125205; Tue, 14 May 2024 14:58:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s6tUe-0004vX-6x; Tue, 14 May 2024 14:51:04 +0000
-Received: by outflank-mailman (input) for mailman id 721626;
- Tue, 14 May 2024 14:51:02 +0000
+	id 1s6tbW-0006Tt-Vn; Tue, 14 May 2024 14:58:10 +0000
+Received: by outflank-mailman (input) for mailman id 721634;
+ Tue, 14 May 2024 14:58:09 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=VieR=MR=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1s6tUc-0004k5-Nv
- for xen-devel@lists.xenproject.org; Tue, 14 May 2024 14:51:02 +0000
-Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com
- [2a00:1450:4864:20::52c])
+ id 1s6tbV-0006Tn-6c
+ for xen-devel@lists.xenproject.org; Tue, 14 May 2024 14:58:09 +0000
+Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
+ [2a00:1450:4864:20::635])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 61f0396e-1201-11ef-909d-e314d9c70b13;
- Tue, 14 May 2024 16:51:02 +0200 (CEST)
-Received: by mail-ed1-x52c.google.com with SMTP id
- 4fb4d7f45d1cf-56e48d0a632so340999a12.2
- for <xen-devel@lists.xenproject.org>; Tue, 14 May 2024 07:51:02 -0700 (PDT)
+ id 60059651-1202-11ef-909d-e314d9c70b13;
+ Tue, 14 May 2024 16:58:08 +0200 (CEST)
+Received: by mail-ej1-x635.google.com with SMTP id
+ a640c23a62f3a-a5a5c930cf6so24343766b.0
+ for <xen-devel@lists.xenproject.org>; Tue, 14 May 2024 07:58:08 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a5a17b17a06sm721622766b.219.2024.05.14.07.51.00
+ a640c23a62f3a-a5a179c823dsm729289166b.100.2024.05.14.07.58.07
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 14 May 2024 07:51:01 -0700 (PDT)
+ Tue, 14 May 2024 07:58:07 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,53 +45,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 61f0396e-1201-11ef-909d-e314d9c70b13
+X-Inumbo-ID: 60059651-1202-11ef-909d-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1715698261; x=1716303061; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=tUfldpWvaaTSiHO6/aigbPFj+us19e8xKvzDgSUsTcs=;
-        b=dbft37rI8jixh1eYZuBfrP4/BXF4vhrJLjj990cdZCIXQkCTas8tkvOLphibhwiN+2
-         aik7Nqe+SO1Ho9218FCHdEjpDaoKVs6NzML/Hv2Gwn2NwTUTAF9oArhg6fwXCG2VBu0I
-         qaKEBEw2+G9Tqh4zZcHxBeoX1pvz8NhynRIo0P58viEsNPHdcmGclX9rltuQJSjUUlxo
-         HjtHeUBiauGnI9EGdzwDlWnWfcvqrK8VNb1gyh31jFhT2uPfQGMt5sY5wJUFVHK4/9v1
-         DqmTGsIb4OmoKYQdNexhomHoFIVcAuUxJRF7bKe1tI1hEJ8pDY1dS+M0FA/aOUx6cCtr
-         8zBg==
+        d=suse.com; s=google; t=1715698688; x=1716303488; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=wofELa6xhGTDOJO2X7cSH5wYetnwYKwX6A5ydQs9olQ=;
+        b=HNYbCcROiZshAlHG0OyY8wY0cJmXTZGAjiKBmpUOFhyMXCzaWbj2D5dj+x1WFzm5dn
+         63UCnRTQ8lIRRtZp2oGTiyAcIt348y94u50muyBQuyuue84Tz85NXKgJhehAnyA57gSb
+         O2jFwBD4TMownz8BSBQCrPHrMuWJpnOZpl2xi2eSxMxIJdZByzyFrePtpFgfckxRxhVw
+         qxb0oYGYihxwB0EFlgGT8FZWFvGhPHeMqRzVkSEaqQf2WE1LUu43XeC0KhwugljUwLUm
+         gvd6LvVpJlAckR1ZA42+gliEp59UMQEJmgcalfn1fkRP1CcAfXA2pF+nRiJ4I4iR0ug9
+         6hTA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1715698261; x=1716303061;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=tUfldpWvaaTSiHO6/aigbPFj+us19e8xKvzDgSUsTcs=;
-        b=Rfg60OaHeap0ONnJxb7uadhyTuOieRNbe4eJKc6zEWCMbYkkdr7Dfdn0OU7KT8BlvV
-         QUEL/vhDwYPaGnbI/qeshh8AKQscJF8uMTjtTs8BOkCaFv/3WAn39mPFrw6KeK/u4qsh
-         zvQmy+V47ks6FLgRzbcuvDtCq04J8cgIxX+VUABIj3YX6Rc2FCXz9mTvkbDaoY7xtKHx
-         lUCrTZIjf2mYwNxPtNGa9mqJaeyGvUMEs+zbf1xszUzf1T+srm8/A4iQJN0vKyQbVIOA
-         v98tr7WVHbk8DOvJfg7V0L1mCNkWkjPjk7FjiCa0e0FFr/9IfBHJimkhBtsBlwVdtDpP
-         DNDA==
-X-Forwarded-Encrypted: i=1; AJvYcCWvjOW9rBD4M8S4XBd0rGDP4yVhq4z39BOm1+b9sDC+Rm1pVcp4wy2F5R8Nv74Jg4S0QQLKnPeGAwYnE5IF2vKJbXf97TeMJMPmPmR+g44=
-X-Gm-Message-State: AOJu0Yx/53ZngpKn9Ml7aPzXU04iBNTJKkoweiqTA8ZXS+ayJxJveEpT
-	nNYkVQFhLL3tis5//AbuRG/S/7TgTHf32C6K7lC2xf+2s040CCYhrI0EcN0DwA==
-X-Google-Smtp-Source: AGHT+IHL9uIUI+8AgWp2RsFS0lsnJ1bdfHIWHfRQDn8oQBO5HIQcIYpKC1gqMmKJcdbNVbVAkKHuRA==
-X-Received: by 2002:a17:906:3e0d:b0:a5a:1077:334 with SMTP id a640c23a62f3a-a5a2d57a39amr1284122766b.26.1715698261448;
-        Tue, 14 May 2024 07:51:01 -0700 (PDT)
-Message-ID: <dd145c67-8e3e-4b15-94f7-c7cd1f127d45@suse.com>
-Date: Tue, 14 May 2024 16:51:08 +0200
+        d=1e100.net; s=20230601; t=1715698688; x=1716303488;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=wofELa6xhGTDOJO2X7cSH5wYetnwYKwX6A5ydQs9olQ=;
+        b=sk0aXmbuhT0F11RqlehoEYwtAqp67NpPJAaIdrtsz4SOVXyELu33Rfhn2epeBmJtR6
+         ZW9AwV9WTpVm/hKO+hbtsl6ot7Jtp0TXyn1Nxxtv44mziWQsY1Ws3CKIMMa7N0xXzQui
+         S5j1JIO1kd37MLthKatNIa2vLjtpwUUHnO6pDKfwGxK206OyPzBdBUIuxlwF4EW9P4Yk
+         09Kys7Rz8e7C+XztL9/iwnDx7P2sWzlD1Fg44/7yY3c9XQxiPZjEzHehB0I9W3zv3CyE
+         +ZvXgZpe88VOuztGD/ko3QZuSLGqtnkq32T2w4VvRu/tNeOlodUGsXyrihLM01C50hND
+         U6iA==
+X-Gm-Message-State: AOJu0YzvLaVdd7uC2G/Mfjgtj/w+ENhJ2aBANcB1fhlts0gKnm/WQVVE
+	4SQfaIaew2XWjJ7L96luhqw1XAcs52VMpUBevx4v3gvI9ngUr5vd/O/pqP9dhA==
+X-Google-Smtp-Source: AGHT+IHCTnYWAhCHBR5nm5fKjQmGckyZVlWCRJ9ouOaO2/8miaM8G2xf5P0/ieRLYTSkJk6J94pzdQ==
+X-Received: by 2002:a17:906:ae51:b0:a59:cdc5:d6e8 with SMTP id a640c23a62f3a-a5a2d6668d5mr775356866b.50.1715698687755;
+        Tue, 14 May 2024 07:58:07 -0700 (PDT)
+Message-ID: <79afece5-a4c7-4426-b40f-b3db49fbdfc2@suse.com>
+Date: Tue, 14 May 2024 16:58:14 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH V3 (resend) 01/19] x86: Create per-domain mapping of
- guest_root_pt
-To: Elias El Yandouzi <eliasely@amazon.com>
-Cc: julien@xen.org, pdurrant@amazon.com, dwmw@amazon.com,
- Hongyan Xia <hongyxia@amazon.com>, Andrew Cooper
- <andrew.cooper3@citrix.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Julien Grall <jgrall@amazon.com>,
- xen-devel@lists.xenproject.org
-References: <20240513134046.82605-1-eliasely@amazon.com>
- <20240513134046.82605-2-eliasely@amazon.com>
+Subject: Re: [PATCH V3 (resend) 03/19] x86/pv: Rewrite how building PV dom0
+ handles domheap mappings
 Content-Language: en-US
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Elias El Yandouzi <eliasely@amazon.com>
+Cc: xen-devel@lists.xenproject.org, julien@xen.org, pdurrant@amazon.com,
+ dwmw@amazon.com, Hongyan Xia <hongyxia@amazon.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <jgrall@amazon.com>
+References: <20240513134046.82605-1-eliasely@amazon.com>
+ <20240513134046.82605-4-eliasely@amazon.com> <ZkJEhZCRNnxGb_lc@macbook>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -116,35 +113,55 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240513134046.82605-2-eliasely@amazon.com>
+In-Reply-To: <ZkJEhZCRNnxGb_lc@macbook>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 13.05.2024 15:40, Elias El Yandouzi wrote:
-> From: Hongyan Xia <hongyxia@amazon.com>
+On 13.05.2024 18:49, Roger Pau Monné wrote:
+> On Mon, May 13, 2024 at 01:40:30PM +0000, Elias El Yandouzi wrote:
+>> @@ -710,22 +714,32 @@ int __init dom0_construct_pv(struct domain *d,
+>>          v->arch.pv.event_callback_cs    = FLAT_COMPAT_KERNEL_CS;
+>>      }
+>>  
+>> +#define UNMAP_MAP_AND_ADVANCE(mfn_var, virt_var, maddr) \
+>> +do {                                                    \
+>> +    unmap_domain_page(virt_var);                        \
+>> +    mfn_var = maddr_to_mfn(maddr);                      \
+>> +    maddr += PAGE_SIZE;                                 \
+>> +    virt_var = map_domain_page(mfn_var);                \
 > 
-> Create a per-domain mapping of PV guest_root_pt as direct map is being
-> removed.
-> 
-> Note that we do not map and unmap root_pgt for now since it is still a
-> xenheap page.
-> 
-> Signed-off-by: Hongyan Xia <hongyxia@amazon.com>
-> Signed-off-by: Julien Grall <jgrall@amazon.com>
-> Signed-off-by: Elias El Yandouzi <eliasely@amazon.com>
-> 
-> ----
->     Changes in V3:
->         * Rename SHADOW_ROOT
->         * Haven't addressed the potentially over-allocation issue as I don't get it
+> FWIW, I would do the advance after the map, so that the order matches
+> the name of the function.
 
-I thought I had explained in enough detail that the GDT/LDT area needs
-quite a bit more space (2 times 64k per vCPU) than the root PT one (4k
-per vCPU). Thus while d->arch.pv.gdt_ldt_l1tab really needs to point at
-a full page (as long as not taking into account dynamic domain
-properties), d->arch.pv.root_pt_l1tab doesn't need to (and hence might
-better be allocated using xzalloc() / xzalloc_array(), even when also
-not taking into account dynamic domain properties, i.e. vCPU count).
+Actually I was thinking kind of the same when looking at v3, even if I
+may not have commented to that effect. Then again that goes somewhat
+against the further suggestion below.
+
+>> +} while ( false )
+>> +
+>>      if ( !compat )
+>>      {
+>>          maddr_to_page(mpt_alloc)->u.inuse.type_info = PGT_l4_page_table;
+>> -        l4start = l4tab = __va(mpt_alloc); mpt_alloc += PAGE_SIZE;
+>> +        UNMAP_MAP_AND_ADVANCE(l4start_mfn, l4start, mpt_alloc);
+>> +        l4tab = l4start;
+> 
+> You could even make the macro return virt_var, and so use it like:
+> 
+> l4tab = l4start = UNMAP_MAP_AND_ADVANCE(l4start_mfn, mpt_alloc);
+> 
+> ?
+
+Not quite, l4start also need to be an input to the macro:
+
+    l4tab = l4start = UNMAP_MAP_AND_ADVANCE(l4start_mfn, l4start, mpt_alloc);
+
+Else unmap_domain_page() has nothing to act upon. If anything that would
+then (imo) likely better be
+
+    l4tab = UNMAP_MAP_AND_ADVANCE(l4start_mfn, l4start, mpt_alloc);
+
+with l4start still updated inside the macro.
 
 Jan
 
