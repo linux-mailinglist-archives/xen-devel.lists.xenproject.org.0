@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C0F478C61C6
-	for <lists+xen-devel@lfdr.de>; Wed, 15 May 2024 09:36:09 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.721970.1125739 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F0AF18C6214
+	for <lists+xen-devel@lfdr.de>; Wed, 15 May 2024 09:49:11 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.721980.1125749 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s79B4-0007V4-Fk; Wed, 15 May 2024 07:35:54 +0000
+	id 1s79NR-0001Pi-HK; Wed, 15 May 2024 07:48:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 721970.1125739; Wed, 15 May 2024 07:35:54 +0000
+Received: by outflank-mailman (output) from mailman id 721980.1125749; Wed, 15 May 2024 07:48:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s79B4-0007SN-BV; Wed, 15 May 2024 07:35:54 +0000
-Received: by outflank-mailman (input) for mailman id 721970;
- Wed, 15 May 2024 07:35:53 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1s79NR-0001NS-Dx; Wed, 15 May 2024 07:48:41 +0000
+Received: by outflank-mailman (input) for mailman id 721980;
+ Wed, 15 May 2024 07:48:40 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=EWeN=MS=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1s79B3-0007SA-GJ
- for xen-devel@lists.xenproject.org; Wed, 15 May 2024 07:35:53 +0000
-Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
- [2a00:1450:4864:20::62f])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c1e66429-128d-11ef-909d-e314d9c70b13;
- Wed, 15 May 2024 09:35:52 +0200 (CEST)
-Received: by mail-ej1-x62f.google.com with SMTP id
- a640c23a62f3a-a59c448b44aso145094066b.2
- for <xen-devel@lists.xenproject.org>; Wed, 15 May 2024 00:35:52 -0700 (PDT)
+ id 1s79NQ-0001NM-28
+ for xen-devel@lists.xenproject.org; Wed, 15 May 2024 07:48:40 +0000
+Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
+ [2a00:1450:4864:20::62c])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 8a1bdf34-128f-11ef-b4bb-af5377834399;
+ Wed, 15 May 2024 09:48:38 +0200 (CEST)
+Received: by mail-ej1-x62c.google.com with SMTP id
+ a640c23a62f3a-a59b097b202so98903666b.0
+ for <xen-devel@lists.xenproject.org>; Wed, 15 May 2024 00:48:37 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a5a1781d2dcsm820694166b.44.2024.05.15.00.35.51
+ a640c23a62f3a-a5a179c7f78sm816140166b.133.2024.05.15.00.48.36
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 15 May 2024 00:35:51 -0700 (PDT)
+ Wed, 15 May 2024 00:48:37 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c1e66429-128d-11ef-909d-e314d9c70b13
+X-Inumbo-ID: 8a1bdf34-128f-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1715758552; x=1716363352; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=lWSzj71CoUYpciKV+ThBycq38u3zBqG1EESkCslYEhE=;
-        b=UzLFFvYaHeEnI2eIn5Us7koW4LFic+qCcGlDtkkYucCgGXwCU3O7nKRURZP+WxmQ/B
-         ooK7Jg3NeBM25kHNILfSRuJtaogWyKftegc28ZSlHm8ieP48kFN8P44AnNSpsPn+AtLW
-         j23BDE+/WjxmPy7SD+0oAKaT77LondFDvIU8jHBdB4uju80Nl92MQoFh+VRAiXbhBmHf
-         IB5Os5DP+sRa66zdmEH6yRCGbsZQxGIAognMcCqLwYQvfwm7kNFsjdmnJcMPqn5CV2Jm
-         zNSo5BDJ/WPNWzKc824i7ooCY9MEIZQePn9tFYginfqzLXY4bQrg3xknPVmIT73XV/iA
-         GJvQ==
+        d=suse.com; s=google; t=1715759317; x=1716364117; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=XAeOWAQ85i6Y/taxO0T1QDkrC2eLuexqW6xx/aGJLQ8=;
+        b=Ldqju7mvR/GYuUilw9wIbVKlUaT7zvOU/DWJTnql945gEfDXHTC9uBt8imNxBFL+Mu
+         jbSjJjzszCYG0flFPq+yYH44kibPXKRewDAW2OcAyOtmgFZFa90YhzuhPo+2nrh/Yn0o
+         tbqcLi2qdf/jYelRbGPUrvSISwzmVY0ai0bl817uCdqn5+mkOFI5GbG+N1zgkETmoKJh
+         OEJuKIXHWj6DMlXFNkjXF9mp9iQ3YXJ2YOLZFovFMoJSigoY3S4FFrA0d4JwYOeLelS8
+         Fx3AWcPg4i6AUnbiaGKSepK92m/Ep4sCPFZTjV4Ebx9JEa6RqwZxn6wPNycjPlfN0pqY
+         9wRw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1715758552; x=1716363352;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=lWSzj71CoUYpciKV+ThBycq38u3zBqG1EESkCslYEhE=;
-        b=tWDdRRRkIjKyCiL09QCV3Pg38hLDtqOsQutdNFx3muOWw7zkHMTdWbwl5s5oSBfSnN
-         bUELy+UwfcUbXk0wehbdumEhb1t1Wp4Go2XCUqwbF8uMVUd+AruUO9DaJ28hcCCI67zU
-         HguduC8DPkkc1PA8YPw0majla/Zdv1YDpjWVwT72mlQaXbkO1Od7JWCDzA7A3VsEIvTc
-         VVwikh8E27sWewEfvfy10vDHe9XVufla+aJ9mjzqVVGk9GTiL12WOb44ID/krHnYkVh7
-         qaM2GQvdcqFncxvfw80tIvC3dcTqFMAjb5uJJeKabogCFv+RKW6p68CCXt5Og0NFf4sa
-         cqLA==
-X-Forwarded-Encrypted: i=1; AJvYcCViZSSXnniir5/BJelzz8J4ffHwExWE841yvOkEjR4/Tf5eHlZ6cjRKQvYBYgxWhkC1GMlambKTHdpK9GQluNxDIc9OVFyRNEp51Swn3t4=
-X-Gm-Message-State: AOJu0Yw+ORoDcgx1aNExJcfrt5Pxy1fa5AS0RIjj3PbKvzWkbilriaMc
-	GVIbMVV80ntoq9ZUPQbv75pSvLIXWa+HHphVEOJMFtID7tQsTGWuYwE7AnX8Rg==
-X-Google-Smtp-Source: AGHT+IF1OrqJ5l2SNwEbkVug/7e2pgUHNcvJWTks/0smXfwL0q5G2lCN70yH/bigXODJfNswmNGjkg==
-X-Received: by 2002:a17:906:d935:b0:a59:d243:945 with SMTP id a640c23a62f3a-a5a2d66a888mr955341666b.57.1715758552072;
-        Wed, 15 May 2024 00:35:52 -0700 (PDT)
-Message-ID: <bd1072c5-1533-46b7-b6c8-fab1c0f80ab3@suse.com>
-Date: Wed, 15 May 2024 09:35:51 +0200
+        d=1e100.net; s=20230601; t=1715759317; x=1716364117;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=XAeOWAQ85i6Y/taxO0T1QDkrC2eLuexqW6xx/aGJLQ8=;
+        b=a5ajB8vqxwUMYHNkcg0mYU7pGClRUNFbgtriQZhqGzDP4oyxyAE7MDWCi4JYhZjI5h
+         QydjynWIqj4brv24k29FYRbBHHeHYEX3xVpyZ13h0QCC1UuuVz+xAHNgWnfspnkVzhV2
+         sBFFwOWQXq/hdaE+U99gQ3LBP/kuqzPCkHXQ3SxicIhJlOUAIsyB2QbdZKh4/zlbBtqJ
+         YCS4BVH5C1xPFnZRY/GrMo4sKehUkBg5paE7H4bQ5rKX3d/3v4CrUAzILV9SbMYnFdbh
+         X3JO7JYx6PQIpme/GATp094ZiAbI2Puu++T83XT6KfLchThSDz+LmiVGGRnF+R2H5UL9
+         fm3w==
+X-Forwarded-Encrypted: i=1; AJvYcCXK/I7PA8qiFJf6Ws0EjtwYn9z6VGOuG7LsTeqywXRfbRQFBC3L92o2rQPyWmO2i3REH8APfb+KacZ6LtAEkKvPNV1yVUij2ceaS6rc2PU=
+X-Gm-Message-State: AOJu0YwSKj7Qu/toMzi3fF6DnHWO3DmvUdIRTxQPjEsyKOQ5Vg4Ar78L
+	ZDRidPvNnrOHn5JU3eKNJPvReskYNuowYyvd2c9d/zqqV8/L/Z7FXiQc67hKEw==
+X-Google-Smtp-Source: AGHT+IGdDTmlkSZQCynwqbh9Q7+7UpEDgBPpiV+ImH46ZJfFNCwAqvE6BbKImryx/ZIVTEGQWljRRw==
+X-Received: by 2002:a17:906:da8d:b0:a59:a112:add2 with SMTP id a640c23a62f3a-a5a2d673908mr1294427666b.69.1715759317414;
+        Wed, 15 May 2024 00:48:37 -0700 (PDT)
+Message-ID: <c67c1b8b-e14b-4c30-a381-1b89aedcddb9@suse.com>
+Date: Wed, 15 May 2024 09:48:36 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] docs/misra: add D4.12
-Content-Language: en-US
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+Subject: Re: [XEN PATCH 0/4] address violations of MISRA C Rule 20.7
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Cc: sstabellini@kernel.org, michal.orzel@amd.com, xenia.ragiadakou@amd.com,
+ ayan.kumar.halder@amd.com, consulting@bugseng.com,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Bertrand Marquis <bertrand.marquis@arm.com>, Julien Grall <julien@xen.org>,
- Michal Orzel <michal.orzel@amd.com>, roberto.bagnara@bugseng.com,
- consulting@bugseng.com, xen-devel@lists.xenproject.org
-References: <alpine.DEB.2.22.394.2405141611170.2544314@ubuntu-linux-20-04-desktop>
+ Nicola Vetrini <nicola.vetrini@bugseng.com>, xen-devel@lists.xenproject.org
+References: <cover.1715757982.git.nicola.vetrini@bugseng.com>
+Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -113,35 +114,40 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <alpine.DEB.2.22.394.2405141611170.2544314@ubuntu-linux-20-04-desktop>
+In-Reply-To: <cover.1715757982.git.nicola.vetrini@bugseng.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 15.05.2024 01:15, Stefano Stabellini wrote:
-> Add D4.12 with the same explanation as the rules of the R21 series.
-> D4.12 refers to the standard library memory allocation functions and
-> similar third party libraries with memory allocation functions. It
-> doesn't refer to the in-tree implementation we have in Xen which is
-> subject to MISRA C rules and MISRA C scanning.
-> 
-> Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
-> 
-> diff --git a/docs/misra/rules.rst b/docs/misra/rules.rst
-> index 80e5e972ad..bc8506add4 100644
-> --- a/docs/misra/rules.rst
-> +++ b/docs/misra/rules.rst
-> @@ -76,6 +76,11 @@ maintainers if you want to suggest a change.
->         considered libraries from MISRA C point of view as they are
->         imported in source form)
->  
-> +   * - `Dir 4.12 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/D_04_12.c>`_
-> +     - Required
-> +     - Dynamic memory allocation shall not be used
-> +     - Xen doesn't provide, use, or link against a Standard Library [#xen-stdlib]_
+Oleksii,
 
-I'm having trouble connecting this remark with the directive. We do have
-dynamic memory allocation routines, and we use them. It doesn't really
-matter that they don't come from an external library, does it?
+On 15.05.2024 09:34, Nicola Vetrini wrote:
+> Hi all,
+> 
+> this series aims to refactor some macros that cause violations of MISRA C Rule
+> 20.7 ("Expressions resulting from the expansion of macro parameters shall be
+> enclosed in parentheses"). All the macros touched by these patches are in some
+> way involved in violations, and the strategy adopted to bring them into
+> compliance is to add parentheses around macro arguments where needed.
+> 
+> Nicola Vetrini (4):
+>   x86/vpmu: address violations of MISRA C Rule 20.7
+>   x86/hvm: address violations of MISRA C Rule 20.7
+>   x86_64/uaccess: address violations of MISRA C Rule 20.7
+>   x86_64/cpu_idle: address violations of MISRA C Rule 20.7
+
+for 4.18 we took a relaxed approach towards (simple) changes for Misra purposes.
+I wonder whether you mean to permit the same for 4.19, or whether series like
+this one rather want/need delaying until after branching.
 
 Jan
+
+>  xen/arch/x86/cpu/vpmu_amd.c               | 4 ++--
+>  xen/arch/x86/hvm/mtrr.c                   | 2 +-
+>  xen/arch/x86/hvm/rtc.c                    | 2 +-
+>  xen/arch/x86/include/asm/hvm/save.h       | 2 +-
+>  xen/arch/x86/include/asm/x86_64/uaccess.h | 7 ++++---
+>  xen/arch/x86/x86_64/cpu_idle.c            | 2 +-
+>  6 files changed, 10 insertions(+), 9 deletions(-)
+> 
+
 
