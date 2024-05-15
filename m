@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3022E8C6EBB
-	for <lists+xen-devel@lfdr.de>; Thu, 16 May 2024 00:43:44 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.722636.1126777 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F19A68C6ECA
+	for <lists+xen-devel@lfdr.de>; Thu, 16 May 2024 00:48:33 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.722642.1126787 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s7NL8-0008TV-N1; Wed, 15 May 2024 22:43:14 +0000
+	id 1s7NPs-0000dU-8i; Wed, 15 May 2024 22:48:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 722636.1126777; Wed, 15 May 2024 22:43:14 +0000
+Received: by outflank-mailman (output) from mailman id 722642.1126787; Wed, 15 May 2024 22:48:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s7NL8-0008R2-K8; Wed, 15 May 2024 22:43:14 +0000
-Received: by outflank-mailman (input) for mailman id 722636;
- Wed, 15 May 2024 22:43:13 +0000
+	id 1s7NPs-0000ag-69; Wed, 15 May 2024 22:48:08 +0000
+Received: by outflank-mailman (input) for mailman id 722642;
+ Wed, 15 May 2024 22:48:06 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=kF2M=MS=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1s7NL7-0008Qs-4l
- for xen-devel@lists.xenproject.org; Wed, 15 May 2024 22:43:13 +0000
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ id 1s7NPq-0000aa-Ow
+ for xen-devel@lists.xenproject.org; Wed, 15 May 2024 22:48:06 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 7f6c4a01-130c-11ef-b4bb-af5377834399;
- Thu, 16 May 2024 00:43:09 +0200 (CEST)
+ id 302a992b-130d-11ef-b4bb-af5377834399;
+ Thu, 16 May 2024 00:48:04 +0200 (CEST)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id 0860CCE17E3;
- Wed, 15 May 2024 22:43:04 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 69AB4C116B1;
- Wed, 15 May 2024 22:43:01 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id DEE536149C;
+ Wed, 15 May 2024 22:48:02 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 333A2C116B1;
+ Wed, 15 May 2024 22:48:00 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,262 +41,109 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7f6c4a01-130c-11ef-b4bb-af5377834399
+X-Inumbo-ID: 302a992b-130d-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1715812983;
-	bh=3B2QPX/ga/0AMCH1IWm6CBpgkx7uEqSubo5omjdhkDk=;
+	s=k20201202; t=1715813282;
+	bh=Z3h8GZPro4Gg/YXBHF3gVOMMrtbcUlssNlWYhZennmI=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=u24GfXM+55qXQfRDSHTj7tOt/UBYWn8d03ITH9yqoUOUz0DE9ym3wps5ouvjLqkD8
-	 a1Yo1fBSyHCnYd7/XXMFHpIEPBIlWziMzzM617W3iH/CCwKUbob/SfKDQQFBCqO+I5
-	 cSJWq9JMkxCPG2hywt13urQRLcmrXjnr3+trK26+x7qCWykCHZ7DonYu1hNcxrGY5N
-	 LeewcLRKzPkQ2dRgR1wnQn16N4UnhjQowcp7q9e7ariyXbSrCx8sXBgnvGYt5vdlzW
-	 qGUA4tymb2FEjFyBe28qFtit/JYt+Ib2P9ldeKMU/6Tj02VYyi33wFsIzhcqI7c4wD
-	 sgEZAyaSOmU4A==
-Date: Wed, 15 May 2024 15:42:59 -0700 (PDT)
+	b=MmXEba/9yr1+M4up9V6EyZPnVRZe62ibYuQwgwYqO08vY99OvVOZxylZdOfVV2Uau
+	 VgpauAeuaeKgKkTL6ly8CHStwzwRvw8SOM2i1Lm6/av9OLsyviU9r0oeriCUDHPafq
+	 8qMRZe600w+JoO7XmAMcd1zkoGRtkcDGBmo03sTAtAMXhddoihjKgf8o+pDljR47VE
+	 MfmBOn5Vz4HnS6zXEq9Ss+CNDJxjBB5YM31EMZvCa5hm2Y/ij6HO4eAwmPtTw18rvb
+	 jXHzidch/tM+abrFlPfPQXls08seWrfVPP1cLs6irt4dGju/a2/uzk4aLV/EDWE6Xa
+	 atMG5MEkxKFqw==
+Date: Wed, 15 May 2024 15:47:58 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Jiqian Chen <Jiqian.Chen@amd.com>
-cc: Juergen Gross <jgross@suse.com>, 
-    Stefano Stabellini <sstabellini@kernel.org>, 
-    Bjorn Helgaas <bhelgaas@google.com>, 
-    "Rafael J . Wysocki" <rafael@kernel.org>, 
+To: Jan Beulich <jbeulich@suse.com>
+cc: Stefano Stabellini <sstabellini@kernel.org>, 
     =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-    xen-devel@lists.xenproject.org, linux-pci@vger.kernel.org, 
-    linux-kernel@vger.kernel.org, linux-acpi@vger.kernel.org, 
-    Huang Rui <Ray.Huang@amd.com>, Huang Rui <ray.huang@amd.com>
-Subject: Re: [RFC KERNEL PATCH v7 2/2] xen/privcmd: Add new syscall to get
- gsi from dev
-In-Reply-To: <20240515065011.13797-3-Jiqian.Chen@amd.com>
-Message-ID: <alpine.DEB.2.22.394.2405151537430.2544314@ubuntu-linux-20-04-desktop>
-References: <20240515065011.13797-1-Jiqian.Chen@amd.com> <20240515065011.13797-3-Jiqian.Chen@amd.com>
+    Andrew Cooper <andrew.cooper3@citrix.com>, 
+    Bertrand Marquis <bertrand.marquis@arm.com>, 
+    Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>, 
+    xen-devel@lists.xenproject.org, nicola.vetrini@bugseng.com, 
+    consulting@bugseng.com
+Subject: Re: [PATCH] lib/strtoul: fix MISRA R10.2 violation
+In-Reply-To: <a3fa7be4-48ce-4b68-a8f7-f94df58d97de@suse.com>
+Message-ID: <alpine.DEB.2.22.394.2405151547260.2544314@ubuntu-linux-20-04-desktop>
+References: <alpine.DEB.2.22.394.2405131729180.2544314@ubuntu-linux-20-04-desktop> <16990192-aceb-408f-9247-45f3b1f58e0a@suse.com> <alpine.DEB.2.22.394.2405141540140.2544314@ubuntu-linux-20-04-desktop> <a3fa7be4-48ce-4b68-a8f7-f94df58d97de@suse.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
-On Wed, 15 May 2024, Jiqian Chen wrote:
-> In PVH dom0, it uses the linux local interrupt mechanism,
-> when it allocs irq for a gsi, it is dynamic, and follow
-> the principle of applying first, distributing first. And
-> the irq number is alloced from small to large, but the
-> applying gsi number is not, may gsi 38 comes before gsi 28,
-> it causes the irq number is not equal with the gsi number.
-> And when passthrough a device, QEMU will use device's gsi
-> number to do pirq mapping, but the gsi number is got from
-> file /sys/bus/pci/devices/<sbdf>/irq, irq!= gsi, so it will
-> fail when mapping.
-> And in current linux codes, there is no method to get gsi
-> for userspace.
+On Wed, 15 May 2024, Jan Beulich wrote:
+> On 15.05.2024 00:52, Stefano Stabellini wrote:
+> > On Tue, 14 May 2024, Jan Beulich wrote:
+> >> On 14.05.2024 02:32, Stefano Stabellini wrote:
+> >>> Fix last violation of R10.2 by casting the result of toupper to plain
+> >>> char. Note that we don't want to change toupper itself as it is a legacy
+> >>> interface and it would cause more issues.
+> >>
+> >> Can you point me at a single example where a new issue would arise? All
+> >> places I've spotted (including tolower() uses) would appear to benefit
+> >> from changing toupper() / tolower() themselves. Further, since they are
+> >> both wrapper macros only anyway, if any concern remained, fiddling with
+> >> the wrapper macros while leaving alone the underlying inline functions
+> >> would allow any such use site to simply be switched to using the inline
+> >> functions directly. As said, from looking at it I don't expect that
+> >> would be necessary, so instead I'd rather hope that eventually we can
+> >> do away with the wrapper macros, renaming the inline functions
+> >> accordingly.
+> > 
+> > If we change __toupper to return a plain char, then there are a few
+> > other things we need to change for consistency, see below. To be honest
+> > I thought it would cause more problems. I am OK to go with that if you
+> > all agree. (Nicola please have a look in case this introduces more
+> > issues elsewhere.)
+> > 
+> > 
+> > diff --git a/xen/include/xen/ctype.h b/xen/include/xen/ctype.h
+> > index 6dec944a37..6a6854e01c 100644
+> > --- a/xen/include/xen/ctype.h
+> > +++ b/xen/include/xen/ctype.h
+> > @@ -15,9 +15,9 @@
+> >  #define _X	0x40	/* hex digit */
+> >  #define _SP	0x80	/* hard space (0x20) */
+> >  
+> > -extern const unsigned char _ctype[];
+> > +extern const char _ctype[];
 > 
-> For above purpose, record gsi of pcistub devices when init
-> pcistub and add a new syscall into privcmd to let userspace
-> can get gsi when they have a need.
+> Why would this be needed? I can't see a connection to toupper() / tolower().
 > 
-> Co-developed-by: Huang Rui <ray.huang@amd.com>
-> Signed-off-by: Jiqian Chen <Jiqian.Chen@amd.com>
-> ---
->  drivers/xen/privcmd.c              | 28 ++++++++++++++++++++++
->  drivers/xen/xen-pciback/pci_stub.c | 38 +++++++++++++++++++++++++++---
->  include/uapi/xen/privcmd.h         |  7 ++++++
->  include/xen/acpi.h                 |  2 ++
->  4 files changed, 72 insertions(+), 3 deletions(-)
+> > -#define __ismask(x) (_ctype[(int)(unsigned char)(x)])
+> > +#define __ismask(x) (_ctype[(int)(char)(x)])
 > 
-> diff --git a/drivers/xen/privcmd.c b/drivers/xen/privcmd.c
-> index 67dfa4778864..5953a03b5cb0 100644
-> --- a/drivers/xen/privcmd.c
-> +++ b/drivers/xen/privcmd.c
-> @@ -45,6 +45,9 @@
->  #include <xen/page.h>
->  #include <xen/xen-ops.h>
->  #include <xen/balloon.h>
-> +#ifdef CONFIG_ACPI
-> +#include <xen/acpi.h>
-> +#endif
->  
->  #include "privcmd.h"
->  
-> @@ -842,6 +845,27 @@ static long privcmd_ioctl_mmap_resource(struct file *file,
->  	return rc;
->  }
->  
-> +static long privcmd_ioctl_gsi_from_dev(struct file *file, void __user *udata)
-> +{
-> +	struct privcmd_gsi_from_dev kdata;
-> +
-> +	if (copy_from_user(&kdata, udata, sizeof(kdata)))
-> +		return -EFAULT;
-> +
-> +#ifdef CONFIG_ACPI
-> +	kdata.gsi = pcistub_get_gsi_from_sbdf(kdata.sbdf);
-> +	if (kdata.gsi == -1)
-> +		return -EINVAL;
-> +#else
-> +	kdata.gsi = -1;
-
-Should we return an error instead, like -EINVAL, to make the behavior
-more similar to the CONFIG_ACPI case?
-
-
-> +#endif
-> +
-> +	if (copy_to_user(udata, &kdata, sizeof(kdata)))
-> +		return -EFAULT;
-> +
-> +	return 0;
-> +}
-> +
->  #ifdef CONFIG_XEN_PRIVCMD_EVENTFD
->  /* Irqfd support */
->  static struct workqueue_struct *irqfd_cleanup_wq;
-> @@ -1529,6 +1553,10 @@ static long privcmd_ioctl(struct file *file,
->  		ret = privcmd_ioctl_ioeventfd(file, udata);
->  		break;
->  
-> +	case IOCTL_PRIVCMD_GSI_FROM_DEV:
-> +		ret = privcmd_ioctl_gsi_from_dev(file, udata);
-> +		break;
-> +
->  	default:
->  		break;
->  	}
-> diff --git a/drivers/xen/xen-pciback/pci_stub.c b/drivers/xen/xen-pciback/pci_stub.c
-> index 2b90d832d0a7..4b62b4d377a9 100644
-> --- a/drivers/xen/xen-pciback/pci_stub.c
-> +++ b/drivers/xen/xen-pciback/pci_stub.c
-> @@ -56,6 +56,9 @@ struct pcistub_device {
->  
->  	struct pci_dev *dev;
->  	struct xen_pcibk_device *pdev;/* non-NULL if struct pci_dev is in use */
-> +#ifdef CONFIG_ACPI
-> +	int gsi;
-> +#endif
->  };
->  
->  /* Access to pcistub_devices & seized_devices lists and the initialize_devices
-> @@ -88,6 +91,9 @@ static struct pcistub_device *pcistub_device_alloc(struct pci_dev *dev)
->  
->  	kref_init(&psdev->kref);
->  	spin_lock_init(&psdev->lock);
-> +#ifdef CONFIG_ACPI
-> +	psdev->gsi = -1;
-> +#endif
->  
->  	return psdev;
->  }
-> @@ -220,6 +226,25 @@ static struct pci_dev *pcistub_device_get_pci_dev(struct xen_pcibk_device *pdev,
->  	return pci_dev;
->  }
->  
-> +#ifdef CONFIG_ACPI
-> +int pcistub_get_gsi_from_sbdf(unsigned int sbdf)
-> +{
-> +	struct pcistub_device *psdev;
-> +	int domain = sbdf >> 16;
-> +	int bus = (sbdf >> 8) & 0xff;
-> +	int slot = (sbdf >> 3) & 0x1f;
-> +	int func = sbdf & 0x7;
-
-you can use PCI_DEVFN PCI_SLOT PCI_FUNC pci_domain_nr instead of open
-coding.
-
-
-> +
-> +	psdev = pcistub_device_find(domain, bus, slot, func);
-> +
-> +	if (!psdev)
-> +		return -1;
-> +
-> +	return psdev->gsi;
-> +}
-> +EXPORT_SYMBOL_GPL(pcistub_get_gsi_from_sbdf);
-> +#endif
-> +
->  struct pci_dev *pcistub_get_pci_dev_by_slot(struct xen_pcibk_device *pdev,
->  					    int domain, int bus,
->  					    int slot, int func)
-> @@ -367,14 +392,20 @@ static int pcistub_match(struct pci_dev *dev)
->  	return found;
->  }
->  
-> -static int pcistub_init_device(struct pci_dev *dev)
-> +static int pcistub_init_device(struct pcistub_device *psdev)
->  {
->  	struct xen_pcibk_dev_data *dev_data;
-> +	struct pci_dev *dev;
->  #ifdef CONFIG_ACPI
->  	int gsi, trigger, polarity;
->  #endif
->  	int err = 0;
->  
-> +	if (!psdev)
-> +		return -EINVAL;
-> +
-> +	dev = psdev->dev;
-> +
->  	dev_dbg(&dev->dev, "initializing...\n");
->  
->  	/* The PCI backend is not intended to be a module (or to work with
-> @@ -448,6 +479,7 @@ static int pcistub_init_device(struct pci_dev *dev)
->  		dev_err(&dev->dev, "Fail to get gsi info!\n");
->  		goto config_release;
->  	}
-> +	psdev->gsi = gsi;
->  
->  	if (xen_initial_domain() && xen_pvh_domain()) {
->  		err = xen_pvh_setup_gsi(gsi, trigger, polarity);
-> @@ -495,7 +527,7 @@ static int __init pcistub_init_devices_late(void)
->  
->  		spin_unlock_irqrestore(&pcistub_devices_lock, flags);
->  
-> -		err = pcistub_init_device(psdev->dev);
-> +		err = pcistub_init_device(psdev);
->  		if (err) {
->  			dev_err(&psdev->dev->dev,
->  				"error %d initializing device\n", err);
-> @@ -565,7 +597,7 @@ static int pcistub_seize(struct pci_dev *dev,
->  		spin_unlock_irqrestore(&pcistub_devices_lock, flags);
->  
->  		/* don't want irqs disabled when calling pcistub_init_device */
-> -		err = pcistub_init_device(psdev->dev);
-> +		err = pcistub_init_device(psdev);
->  
->  		spin_lock_irqsave(&pcistub_devices_lock, flags);
->  
-> diff --git a/include/uapi/xen/privcmd.h b/include/uapi/xen/privcmd.h
-> index 8b8c5d1420fe..220e7670a113 100644
-> --- a/include/uapi/xen/privcmd.h
-> +++ b/include/uapi/xen/privcmd.h
-> @@ -126,6 +126,11 @@ struct privcmd_ioeventfd {
->  	__u8 pad[2];
->  };
->  
-> +struct privcmd_gsi_from_dev {
-> +	__u32 sbdf;
-> +	int gsi;
-> +};
-> +
->  /*
->   * @cmd: IOCTL_PRIVCMD_HYPERCALL
->   * @arg: &privcmd_hypercall_t
-> @@ -157,5 +162,7 @@ struct privcmd_ioeventfd {
->  	_IOW('P', 8, struct privcmd_irqfd)
->  #define IOCTL_PRIVCMD_IOEVENTFD					\
->  	_IOW('P', 9, struct privcmd_ioeventfd)
-> +#define IOCTL_PRIVCMD_GSI_FROM_DEV				\
-> +	_IOC(_IOC_NONE, 'P', 10, sizeof(struct privcmd_gsi_from_dev))
->  
->  #endif /* __LINUX_PUBLIC_PRIVCMD_H__ */
-> diff --git a/include/xen/acpi.h b/include/xen/acpi.h
-> index 9b50027113f3..0bf5f4884456 100644
-> --- a/include/xen/acpi.h
-> +++ b/include/xen/acpi.h
-> @@ -83,4 +83,6 @@ int xen_acpi_get_gsi_info(struct pci_dev *dev,
->  						  int *gsi_out,
->  						  int *trigger_out,
->  						  int *polarity_out);
-> +
-> +int pcistub_get_gsi_from_sbdf(unsigned int sbdf);
->  #endif	/* _XEN_ACPI_H */
-> -- 
-> 2.34.1
+> This almost certainly is wrong. Whether plain char is signed or unsigned is
+> left to the compiler, and it being signed would result in possibly negative
+> array indexes. Again I can't see a connection to the issue at hand.
 > 
+> > @@ -34,14 +34,14 @@ extern const unsigned char _ctype[];
+> >  #define isascii(c) (((unsigned char)(c))<=0x7f)
+> >  #define toascii(c) (((unsigned char)(c))&0x7f)
+> >  
+> > -static inline unsigned char __tolower(unsigned char c)
+> > +static inline char __tolower(char c)
+> >  {
+> >  	if (isupper(c))
+> >  		c -= 'A'-'a';
+> >  	return c;
+> >  }
+> >  
+> > -static inline unsigned char __toupper(unsigned char c)
+> > +static inline char __toupper(char c)
+> >  {
+> >  	if (islower(c))
+> >  		c -= 'a'-'A';
+> 
+> This isn't what I had suggested. First I said to leave alone the double-
+> underscore prefixed functions, and only touch the wrapper macros (as a
+> precaution in case any use site exists which relies on present behavior).
+> And then I didn't suggest to alter parameter types; only the return type
+> would need adjustment, I think, for what you're aiming at:
+> 
+> #define tolower(c) ((char)__tolower(c))
+> #define toupper(c) ((char)__toupper(c))
+
+Oh I see. This is much more similar to the original suggestion from
+Bugseng. Let me send a v2.
 
