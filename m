@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EFBB78C613F
-	for <lists+xen-devel@lfdr.de>; Wed, 15 May 2024 09:15:46 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.721945.1125669 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CE81E8C61BF
+	for <lists+xen-devel@lfdr.de>; Wed, 15 May 2024 09:34:43 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.721952.1125678 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s78rJ-0000rp-Rw; Wed, 15 May 2024 07:15:29 +0000
+	id 1s799F-0004OU-8l; Wed, 15 May 2024 07:34:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 721945.1125669; Wed, 15 May 2024 07:15:29 +0000
+Received: by outflank-mailman (output) from mailman id 721952.1125678; Wed, 15 May 2024 07:34:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s78rJ-0000pj-OJ; Wed, 15 May 2024 07:15:29 +0000
-Received: by outflank-mailman (input) for mailman id 721945;
- Wed, 15 May 2024 07:15:28 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1s799F-0004MR-5x; Wed, 15 May 2024 07:34:01 +0000
+Received: by outflank-mailman (input) for mailman id 721952;
+ Wed, 15 May 2024 07:34:00 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=EWeN=MS=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1s78rI-0000pU-5N
- for xen-devel@lists.xenproject.org; Wed, 15 May 2024 07:15:28 +0000
-Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
- [2a00:1450:4864:20::62a])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id e70f3dfd-128a-11ef-b4bb-af5377834399;
- Wed, 15 May 2024 09:15:26 +0200 (CEST)
-Received: by mail-ej1-x62a.google.com with SMTP id
- a640c23a62f3a-a5a4bc9578cso109833366b.2
- for <xen-devel@lists.xenproject.org>; Wed, 15 May 2024 00:15:26 -0700 (PDT)
+ id 1s799E-0004ML-0E
+ for xen-devel@lists.xenproject.org; Wed, 15 May 2024 07:34:00 +0000
+Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
+ [2a00:1450:4864:20::629])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 7dfdebfe-128d-11ef-909d-e314d9c70b13;
+ Wed, 15 May 2024 09:33:58 +0200 (CEST)
+Received: by mail-ej1-x629.google.com with SMTP id
+ a640c23a62f3a-a59a934ad50so135340766b.1
+ for <xen-devel@lists.xenproject.org>; Wed, 15 May 2024 00:33:58 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a5a17b17808sm818515166b.217.2024.05.15.00.15.25
+ a640c23a62f3a-a5a17b178b1sm820131066b.191.2024.05.15.00.33.57
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 15 May 2024 00:15:25 -0700 (PDT)
+ Wed, 15 May 2024 00:33:57 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,57 +45,58 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e70f3dfd-128a-11ef-b4bb-af5377834399
+X-Inumbo-ID: 7dfdebfe-128d-11ef-909d-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1715757326; x=1716362126; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1715758438; x=1716363238; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=AqjT/Vw8JQwJFf9t9q08Z/+6wDrjcT15ZWT0eOsy1mo=;
-        b=G4i4KkFqiWblnLXVi02IM3KAdpxITAVz7Y+3RupL3+OMqtDSeYz63brdfJhRyKUC7C
-         zN3MdiqNwpMF8jdnsvYSUwEsk9cIphjDFQ6svU+o0BQqSFMPrUV91MpcOkSlQyFlYt/M
-         UDl++t/qPuncto7osgnzUdNpNH4ajXcsh2jQndmyKRk4KLW82LClTvbtyIfsoXAb/5YM
-         VtaAkO8nsYopsnqe6iNjWYF1hZdbv2V8PjihqVuHMDStxv8KX68YGnQJtcaG0qyXbZ7/
-         LOmJF1xfY4JqBYEwBpOCZYwDk46ORssYQFt5vciS2TWg1/FVy5amLf8eNUq3bjyX5PSX
-         CF+g==
+        bh=Z6PonMRQvEhASBmXrBQYuUr+6RexroA7OI1t5pueh6U=;
+        b=BP9uPE3LcnL5OsAW8SKa2gWmASp62vISAfGuHt5uPyH9yPpvjidytd6lMNPDkvaTa8
+         89XD9u+LJuZLmiHdjP4edFPVE1tCPscMM+Ix1ekNnwLEFUUKk7kUrP29kfrz8Y+TaAd2
+         uisoZJVfiiSh9BlhLWt1kNlgIqw7En7wod7Y9qXTkvuXj0zzx44sH0/tkJvIQireOnw5
+         Dkljz9HWLsthdEa5aBhciVtsgvvE6/I3pKndnZquP1hZRNu9I3ZHEnwHBT51I8QGq+nx
+         UuRnlPUchepLys87ymXe7Vfvx8e7hu5YGtSCw86sQCoF15njXjRmUWm5UWJ/vH/MNx+t
+         /T+Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1715757326; x=1716362126;
+        d=1e100.net; s=20230601; t=1715758438; x=1716363238;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=AqjT/Vw8JQwJFf9t9q08Z/+6wDrjcT15ZWT0eOsy1mo=;
-        b=WDmM5GocyViDt9bDsqxu+c63VgRZrfQ/5CUGNxH0cv/Qxf3jAwZJ61oJ3A00RiTsn4
-         7Yzfn7FVW0BR118+M4nBfxAi30zrikCstJ+iEPPDZkZhfd291jh4qSTMi1PVo8pAtwU3
-         EgXcY22dEBFSFqA4q2rVxe3TdySQVb6LVsQg5uQV3dvaVHCRlAQy6nWgmwXqbl+ziK41
-         YUk/vB9mfpGhfh4Y2rFgj1Tso6/UgIM3KY75O8xW/BunCzo0CYgqAYRSozzuTARfPtbx
-         T2/AjaDSPrLV2qeBlifOQpHG+xVxpHlhkH5Pdr8aPgFBZ3LHQlsNM7K9kDattCvb5tM9
-         ypPQ==
-X-Gm-Message-State: AOJu0YyE0b1h9EBKNqNp0mXaRd6+vQtZM/U2x0aaSDCejCe+APBOjmYN
-	hh4ct8pn5TlgHVpa9OPV8io4a2v7yPonmKP3VqALUTVrD8DkduR921cHCRD4Dw==
-X-Google-Smtp-Source: AGHT+IEyyzYPWsBBdsqni4ZFE6NQulhlTyQ+K1YyQOV6qel+KJkKT4WcqGxPntiFKZgXI61UeVP+og==
-X-Received: by 2002:a17:906:b346:b0:a5a:2d0d:2aef with SMTP id a640c23a62f3a-a5a2d55ef25mr1473080466b.21.1715757325782;
-        Wed, 15 May 2024 00:15:25 -0700 (PDT)
-Message-ID: <93b11c7f-a422-473e-ae0e-3f0a53ea0190@suse.com>
-Date: Wed, 15 May 2024 09:15:24 +0200
+        bh=Z6PonMRQvEhASBmXrBQYuUr+6RexroA7OI1t5pueh6U=;
+        b=g4B/mzTRScYa9CwDUiQjc3yVTPrBm2bgmEZgUS4t1PPiHZH85UlM72/v+6rMjbWBrf
+         mS5o3+yFqREdS8QQ+zglGwW1llYSSBAxUBtvOJ0VyLtEQIRzn3fOg0hm1Qc6RQut0fqE
+         9fe1Ac6q5wvqDonXKsthorBgpgTcjZr92ww3/TwJF3jRtuYQvli9WzNoSJNasGgSFgrK
+         MMLV/EOvLrKhr5cNaurR9CVxg4y5LNSLk5HQq6Nmjj0GJaOGeRJHi3qwozRpnaIWDD1K
+         Qu81R0pXPK3IeCVv6ZuXuwPzpkRbsD+6sJFDQpv2QCua0rz4jCTvV5ZpHRtPc40BdB6u
+         Cg9g==
+X-Forwarded-Encrypted: i=1; AJvYcCWmeKCcSAMF8YHzFmmXk91nle62h0vRXcRZbNfSbLFuKO4U9ztqtg/d1iWwj22us5IeV40PRDb8+mjzbkJwO+usR8czrIBTVHxkdIb5I2I=
+X-Gm-Message-State: AOJu0Yz9O3XCuLziWa788uzswSnvPuIP6auzE+mNc7KDDjCuPbRSPKXa
+	zxwmqjDpa0gacUMxoH8PXMpWxX2oKt3eIdfQDSSqNomJBmMT/uObRcZpDJMAqA==
+X-Google-Smtp-Source: AGHT+IE/83SHFOdlL9UQghm8SQqKA1YYYHDsZ4Wl22oQF96QFMrT7y8EeRZqmQmU5oECakmouF8/rg==
+X-Received: by 2002:a17:906:2b85:b0:a59:9f4e:4e3b with SMTP id a640c23a62f3a-a5a2d53ae89mr1026769066b.2.1715758438068;
+        Wed, 15 May 2024 00:33:58 -0700 (PDT)
+Message-ID: <a00b26e0-cf65-44fb-8d74-630bfdb20dfe@suse.com>
+Date: Wed, 15 May 2024 09:33:56 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH 03/10] automation/eclair_analysis: deviate macro
- count_args_ for MISRA Rule 20.7
+Subject: Re: [PATCH] Revert "evtchn: refuse EVTCHNOP_status for Xen-bound
+ event channels"
 Content-Language: en-US
-To: Nicola Vetrini <nicola.vetrini@bugseng.com>,
- Stefano Stabellini <sstabellini@kernel.org>
-Cc: xen-devel@lists.xenproject.org, michal.orzel@amd.com,
- xenia.ragiadakou@amd.com, ayan.kumar.halder@amd.com, consulting@bugseng.com,
- bertrand.marquis@arm.com, julien@xen.org,
- Simone Ballarin <simone.ballarin@bugseng.com>,
- Doug Goldstein <cardoe@cardoe.com>, Andrew Cooper
- <andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>
-References: <cover.1713885065.git.nicola.vetrini@bugseng.com>
- <7de407c218f0911e28b7c3f609a55636165166a8.1713885065.git.nicola.vetrini@bugseng.com>
- <alpine.DEB.2.22.394.2404241727520.3940@ubuntu-linux-20-04-desktop>
- <5b675fcdf688723bc6d4ea260d10004e@bugseng.com>
- <alpine.DEB.2.22.394.2405011254290.497719@ubuntu-linux-20-04-desktop>
- <006e9d571de6383679ab7fdb84dfcdd7@bugseng.com>
+To: Stefano Stabellini <sstabellini@kernel.org>,
+ Daniel Smith <dpsmith@apertussolutions.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <George.Dunlap@citrix.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>,
+ "committers@xenproject.org" <committers@xenproject.org>,
+ Oleksii Kurochko <oleksii.kurochko@gmail.com>, Julien Grall <julien@xen.org>
+References: <20240402170612.2477791-1-andrew.cooper3@citrix.com>
+ <11957460-0b2b-432d-ad92-38350306c9ff@suse.com>
+ <b14acc58-5d3c-46ed-a300-61f422501d4c@suse.com>
+ <1ba4d87f-48e2-4332-bcd8-ac891cee8917@citrix.com>
+ <ccd70c8f-1381-43f7-8be8-edc1dd505ce2@suse.com>
+ <9249bc7e-7ca9-4f6e-8f3e-f2962c14e306@xen.org>
+ <alpine.DEB.2.22.394.2405141411210.2544314@ubuntu-linux-20-04-desktop>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -120,38 +121,113 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <006e9d571de6383679ab7fdb84dfcdd7@bugseng.com>
+In-Reply-To: <alpine.DEB.2.22.394.2405141411210.2544314@ubuntu-linux-20-04-desktop>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 15.05.2024 09:09, Nicola Vetrini wrote:
-> On 2024-05-01 21:54, Stefano Stabellini wrote:
->> On Mon, 29 Apr 2024, Nicola Vetrini wrote:
->>> On 2024-04-25 02:28, Stefano Stabellini wrote:
->>>> On Tue, 23 Apr 2024, Nicola Vetrini wrote:
->>>>> The count_args_ macro violates Rule 20.7, but it can't be made
->>>>> compliant with Rule 20.7 without breaking its functionality. Since
->>>>> it's very unlikely for this macro to be misused, it is deviated.
+On 14.05.2024 23:35, Stefano Stabellini wrote:
+> On Tue, 14 May 2024, Julien Grall wrote:
+>> On 14/05/2024 11:03, Jan Beulich wrote:
+>>> On 14.05.2024 11:51, Andrew Cooper wrote:
+>>>> You tried defending breaking a utility with "well it shouldn't exist
+>>>> then".
 >>>>
->>>> That is OK but can't we use the SAF- framework to do it, given that it
->>>> is just one macro?
->>>>
->>>> If not, this is also OK.
->>>>
->>>>
+>>>> You don't have a leg to stand on, and two maintainers of relevant
+>>>> subsystems here just got tired of bullshit being presented in place of
+>>>> any credible argument for having done the change in the way you did.
 >>>
->>> It would be more fragile, for no substantial gain
+>>> Please can you finally get into the habit of not sending rude replies?
+>>>
+>>>> The correct response was "Sorry I broke things.  Lets revert this for
+>>>> now to unbreak, and I'll see about reworking it to not intentionally
+>>>> subvert Xen's security mechanism".
+>>>
+>>> I'm sorry, but I didn't break things. I made things more consistent with
+>>> the earlier change, as pointed out before: With your revert,
+>>> evtchn_status() is now (again) inconsistent with e.g. evtchn_send(). If
+>>> you were serious about this being something that needs leaving to XSM,
+>>> you'd have adjusted such further uses of consumer_is_xen() as well. But
+>>> you aren't. You're merely insisting on lsevtchn needing to continue to
+>>> work in a way it should never have worked, with a patch to improve the
+>>> situation already pending.
+>>>
+>>> Just to state a very basic principle here again: Xen-internal event
+>>> channels ought to either be fully under XSM control when it comes to
+>>> domains attempting to access them (in whichever way), or they should
+>>> truly be Xen-internal, with access uniformly prevented. To me the
+>>> former option simply makes very little sense.
 >>
->> OK
->>
->> Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+>> I agree we need consistency on how we handle security policy event channel.
+>> Although, I don't have a strong opinion on which way to go.
 > 
-> I think this patch slipped through the cracks. I see it only has 
-> Stefano's R-by, so perhaps it needs a further ack?
+> Same here
+> 
+> 
+>> For the commit message, it is not entirely clear what "broke lseventch in
+>> dom0" really mean. Is it lsevtchn would not stop or it will just not display
+>> the event channel?
+>>
+>> If the former, isn't a sign that the tool needs to be harden a bit more? If
+>> the latter, then I would argue that consistency for the XSM policy is more
+>> important than displaying the event channel for now (the patch was also
+>> committed 3 years ago...).
+> 
+> I realize 3 years have passed and it is a long time, but many
+> downstreams (including some which are widely used) don't rebase
+> regularly and we are still missing lots of tests from gitlab-ci. The
+> unfortunate result is that it can take years to realize there is a
+> breakage. We need more gitlab-ci (or OSSTest) tests.
+> 
+> 
+>> So I would vote for a revert and, if desired, replacing with a patch that
+>> would change the XSM policy consistently. Alternatively, the consistency
+>> should be a blocker for Xen 4.19.
+> 
+> I am convinced by Daniel's argument here:
+> 
+> https://marc.info/?l=xen-devel&m=171215093102694
 
-I don't think it does. All it needs is putting in. I guess I assumed
-Stefano would be taking care of that, with your discussion (quickly)
-settled.
+I particularly disagree with the "since it is access control and falls under
+the purview of XSM" in there, without addressing my point regarding Xen-
+internal resources. It is a fundamental hypervisor decision whether to leave
+access to Xen-internal resources to XSM control. If that decision ended up
+being "yes", then I agree XSM maintainers may ack a respective change. If
+that decision as "no", though, acking would purely fall to REST for code
+like what is being touched here.
+
+Just to further clarify: If it was "yes" above, other Xen-internal resources
+then also ought to be domain accessible based on XSM policy. I don't think
+that's the case e.g. for Xen-private memory.
+
+IOW I can't help the impression that both the patch and the ack were
+provided looking at just the one special case, driven by the (perceived)
+tool breakage (see below).
+
+> https://marc.info/?l=xen-devel&m=171215073502479
+
+In there he said in particular: "And it is incorrect because as again you
+have not articulated why the lsevtchn behavior is wrong and thus whether
+this is the valid corrective action." Daniel, did you even look at the code
+when saying so? With the revert in place, lsevtchn is still going to fall
+on the nose when XSM denies access to a particular channel. I didn't think
+this needed calling out explicitly; the tool needs fixing.
+
+> I would ack Andrew's revert. If we decide to revert Andrew's revert, I
+> also think that we should make the alternative solution, whatever that
+> might be, a blocker for Xen 4.19.
+> 
+> My favorite alternative solition is Daniel's suggestion of adding a
+> check to the dummy XSM policy. I am not sure if this is the same thing
+> you mean with "change the XSM policy consistently".
+
+I don't think it would be, but I also don't know what exact check was
+thought about. I think I was quite clear about evtchn_send()'s similar
+code (there may be more). All of these want to behave the same: All
+involving XSM, or all not doing so. This is the kind of thing where I
+don't think any "majority" can trump technical aspects. If the verdict was
+"XSM", then yes, my original patch would have moved us in the wrong
+direction. But then a plain revert is insufficient, and the blaming in
+there also should have been done at least differently, if at all.
 
 Jan
 
