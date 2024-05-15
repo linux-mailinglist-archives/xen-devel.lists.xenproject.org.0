@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0F1FD8C60BC
-	for <lists+xen-devel@lfdr.de>; Wed, 15 May 2024 08:24:41 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.721918.1125609 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 98CFC8C60D2
+	for <lists+xen-devel@lfdr.de>; Wed, 15 May 2024 08:32:52 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.721923.1125619 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s783v-0007JS-Sk; Wed, 15 May 2024 06:24:27 +0000
+	id 1s78Bk-0000fi-Jc; Wed, 15 May 2024 06:32:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 721918.1125609; Wed, 15 May 2024 06:24:27 +0000
+Received: by outflank-mailman (output) from mailman id 721923.1125619; Wed, 15 May 2024 06:32:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s783v-0007Hb-Pk; Wed, 15 May 2024 06:24:27 +0000
-Received: by outflank-mailman (input) for mailman id 721918;
- Wed, 15 May 2024 06:24:26 +0000
+	id 1s78Bk-0000dE-GP; Wed, 15 May 2024 06:32:32 +0000
+Received: by outflank-mailman (input) for mailman id 721923;
+ Wed, 15 May 2024 06:32:30 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=EWeN=MS=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1s783u-0007HT-3i
- for xen-devel@lists.xenproject.org; Wed, 15 May 2024 06:24:26 +0000
+ id 1s78Bi-0000d8-PX
+ for xen-devel@lists.xenproject.org; Wed, 15 May 2024 06:32:30 +0000
 Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
  [2a00:1450:4864:20::633])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c53ee473-1283-11ef-b4bb-af5377834399;
- Wed, 15 May 2024 08:24:23 +0200 (CEST)
+ id e66cd86f-1284-11ef-b4bb-af5377834399;
+ Wed, 15 May 2024 08:32:28 +0200 (CEST)
 Received: by mail-ej1-x633.google.com with SMTP id
- a640c23a62f3a-a5a5cce2ce6so100670366b.3
- for <xen-devel@lists.xenproject.org>; Tue, 14 May 2024 23:24:23 -0700 (PDT)
+ a640c23a62f3a-a59e4136010so121259366b.3
+ for <xen-devel@lists.xenproject.org>; Tue, 14 May 2024 23:32:28 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a5a1781d1fcsm806891466b.35.2024.05.14.23.24.22
+ a640c23a62f3a-a5a17b17865sm805246766b.204.2024.05.14.23.32.27
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 14 May 2024 23:24:22 -0700 (PDT)
+ Tue, 14 May 2024 23:32:27 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,53 +45,54 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c53ee473-1283-11ef-b4bb-af5377834399
+X-Inumbo-ID: e66cd86f-1284-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1715754263; x=1716359063; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1715754748; x=1716359548; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=aPkD0J+zCGO8fA4AkyUm6JIhM5BJ112JzDVD+5OrljA=;
-        b=FTZBusEcqOLQAyoBnQnGPS7E2KQxYnP9k8EQJkI0kmidYgACnLQxbWEamg6lTA581o
-         q/AnY+7nlQqQxw9H7yu/vmqD/7nJEGV5Y+/oGynLJRUp+xiCuTKCanwKs0tGE6yXmnnT
-         6XZdkYxnYQT0FgD4h6cXl3GC16gymjZir4ctXrUPmWdlv05/mc7+VubXHkpmnGK/ZMK5
-         wxAUShgvJ2qLLcafxqjNU0rRCIuDJE/OXm/2dXhAOdOaKkGKh2G2P2DcmrWHmk6/RG3W
-         RDlBclKUU0b/IzlEPgy7e5EJqEj2ZK8CG6K7m9y14SYt0tr92Auu5HhfW+/RR5+67IcP
-         8m3w==
+        bh=dm16VyhRJj1s03ND3XgAo+uplnecyiMpJe/fxvBOSL8=;
+        b=H8lMU3FwaGFTBzMEtQ1dYdS/WSENsVvKpoKmmjhSjtSRAW/qIQPeQpr/cNczQK6JcU
+         zqlcHomS3YeAPvqBlTcJCl5ri1UpwiFEYito2iSx3beHTXGppy2Dd8cTiArO6rzuzcxe
+         omkLyCwKoZ3wj6vAUm1qPn63L4/mE1wkeuGTP6huYPbKito4km0Q38VsgHTiTikYhK59
+         +6x9EKTxlRS8nowZLU5UD44pXoc+noUQ6b9I4UcMoot75ml+TPLIxjW+VhyEOK44CBnM
+         6dZvc3f3RQoRXxokaAE56OxvvE6aYMYYqsRVxoFNrrKR9DftVh9R9uAqCmTpWWsP6m9q
+         mAuA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1715754263; x=1716359063;
+        d=1e100.net; s=20230601; t=1715754748; x=1716359548;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=aPkD0J+zCGO8fA4AkyUm6JIhM5BJ112JzDVD+5OrljA=;
-        b=P5KWhYkD0Ok9IzK3qMNzB/w56JB0lWWOTTWgddaVzXEqr3FSiZh5zK5QZiKT64A6Nf
-         rS2gTfNSaRbv9EepPzJujjAE/wj+OgBpGSYpvuu3FcLZlDhMeHj6bv2/TrcZzDiZm0LV
-         lH3gwAFrGAGsqBOdNi7lyFULECKmfmMQO8L20KR+ndgwaSGRbKFm8On+YiKwonE9DHRc
-         s5hk2p2YD235DI1StN81sUCn6vETex1XSQshFr5hC4ai5SWeFrw+QGnIqPDy8r4PugVK
-         Wk79fqgOShwsqAJ7Hm1fccd7gQ0S6khid1iKy5uyOC1H0+BLj1fYBB1J9w144MOGv9V+
-         xXWg==
-X-Forwarded-Encrypted: i=1; AJvYcCWdV+iBkN4ezICJWsNm1oPXVbqjQiNe4laojErA5VZehoKDnYAZWhfbzJzfmMI40o/+NmYERHHQNjZM4V7cZibRxXrvBD2AapriALl4f1c=
-X-Gm-Message-State: AOJu0YyyxIBOmZIDveLcEwhNTx47zHIy+qM6T3lm8SG1IDbpMSsh6kAf
-	G0wCsapcSXvovStUg9B1OJNimHjR/BgSlhRZWNB+aPcsS3uy2Q9XHlVyGqUFuw==
-X-Google-Smtp-Source: AGHT+IG0NqCFvafMi9ru/mwYoYrUvvFeEPP2+gEKS8HlPdFsqS7tZ9t5q/yNuc+X/o/9qZ9lTtIsag==
-X-Received: by 2002:a17:906:ad97:b0:a59:c833:d275 with SMTP id a640c23a62f3a-a5a2d58a4e7mr937037366b.30.1715754262952;
-        Tue, 14 May 2024 23:24:22 -0700 (PDT)
-Message-ID: <a3fa7be4-48ce-4b68-a8f7-f94df58d97de@suse.com>
-Date: Wed, 15 May 2024 08:24:21 +0200
+        bh=dm16VyhRJj1s03ND3XgAo+uplnecyiMpJe/fxvBOSL8=;
+        b=GQJ4cMhl3wzdDbPsua0me/n05I0walCmNr53R095bMmzdaydgPlnXwzVBPhf6VVF7W
+         RQHNEF1UcLEmFFZwfpDnqIQ/CqvzX4s7JvkCi708EipUyCfnXKhVObAyxvz/3uJ70eey
+         pXSMaoRYqcKoJ+puVj0W7E+0RkPMpfcp8xvjmcdpZPgJULSL24vTIB7r11CjDeeBdhwh
+         foaezfcMQadZWGlJaK3kAsjT3qMu+XUIhQKOZewTuUJFps9mSBLeFsW8L3daDYibKW/v
+         fjCpgjvcHsHskFBQMGGZ3k66oieN0iiERuskiN358idlDtC725Ay+wENjp5N2HAFhlwi
+         EPSg==
+X-Forwarded-Encrypted: i=1; AJvYcCVNakQHrf1b8UGSJk+O1YXAD1HAKz7vhKGlgCDfZJye0OWLQBogi6cPXq6PB+FkArDrwEPscTNKQxUTZHgYZ/5calVf0bjS802P0U6SeAo=
+X-Gm-Message-State: AOJu0YxIzD9zRid9l9Dv21d6CfQP/pFYgcNH/7vbFfQDPJ45kWqvLt3r
+	ko4OmxCXmktsEHplzU35h9uQ9DPkjM/ipKXu2zPKd06GpkC25Y0MDuh6UNciaw==
+X-Google-Smtp-Source: AGHT+IHyoFDPCAbCNQM3NAjz/KUu2pFU8s7bTi1wyAatHP2L1dLOukNqDMHl0ha76IuUStLHDCaSiQ==
+X-Received: by 2002:a17:906:e2c2:b0:a59:c3dd:db2a with SMTP id a640c23a62f3a-a5a2d53b04cmr973655466b.11.1715754748175;
+        Tue, 14 May 2024 23:32:28 -0700 (PDT)
+Message-ID: <20335f55-4b16-45e5-a8aa-868006b57ca5@suse.com>
+Date: Wed, 15 May 2024 08:32:27 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] lib/strtoul: fix MISRA R10.2 violation
+Subject: Re: [PATCH v14 5/5] arm/vpci: honor access size when returning an
+ error
 Content-Language: en-US
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
+To: Stewart Hildebrand <stewart.hildebrand@amd.com>
+Cc: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
  Bertrand Marquis <bertrand.marquis@arm.com>,
  Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- xen-devel@lists.xenproject.org, nicola.vetrini@bugseng.com,
- consulting@bugseng.com
-References: <alpine.DEB.2.22.394.2405131729180.2544314@ubuntu-linux-20-04-desktop>
- <16990192-aceb-408f-9247-45f3b1f58e0a@suse.com>
- <alpine.DEB.2.22.394.2405141540140.2544314@ubuntu-linux-20-04-desktop>
+ xen-devel@lists.xenproject.org
+References: <20240514143400.152280-1-stewart.hildebrand@amd.com>
+ <20240514143400.152280-6-stewart.hildebrand@amd.com>
+ <cf646df7-0e92-4138-8b54-471c72f44cb8@xen.org>
+ <735c3e3c-d70a-40f5-aca7-f134bc5b98b1@amd.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -116,81 +117,41 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <alpine.DEB.2.22.394.2405141540140.2544314@ubuntu-linux-20-04-desktop>
+In-Reply-To: <735c3e3c-d70a-40f5-aca7-f134bc5b98b1@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 15.05.2024 00:52, Stefano Stabellini wrote:
-> On Tue, 14 May 2024, Jan Beulich wrote:
->> On 14.05.2024 02:32, Stefano Stabellini wrote:
->>> Fix last violation of R10.2 by casting the result of toupper to plain
->>> char. Note that we don't want to change toupper itself as it is a legacy
->>> interface and it would cause more issues.
->>
->> Can you point me at a single example where a new issue would arise? All
->> places I've spotted (including tolower() uses) would appear to benefit
->> from changing toupper() / tolower() themselves. Further, since they are
->> both wrapper macros only anyway, if any concern remained, fiddling with
->> the wrapper macros while leaving alone the underlying inline functions
->> would allow any such use site to simply be switched to using the inline
->> functions directly. As said, from looking at it I don't expect that
->> would be necessary, so instead I'd rather hope that eventually we can
->> do away with the wrapper macros, renaming the inline functions
->> accordingly.
+On 14.05.2024 22:31, Stewart Hildebrand wrote:
+> Here's what the patch ("arm/vpci: honor access size when returning an
+> error") now looks like based on staging:
 > 
-> If we change __toupper to return a plain char, then there are a few
-> other things we need to change for consistency, see below. To be honest
-> I thought it would cause more problems. I am OK to go with that if you
-> all agree. (Nicola please have a look in case this introduces more
-> issues elsewhere.)
-> 
-> 
-> diff --git a/xen/include/xen/ctype.h b/xen/include/xen/ctype.h
-> index 6dec944a37..6a6854e01c 100644
-> --- a/xen/include/xen/ctype.h
-> +++ b/xen/include/xen/ctype.h
-> @@ -15,9 +15,9 @@
->  #define _X	0x40	/* hex digit */
->  #define _SP	0x80	/* hard space (0x20) */
->  
-> -extern const unsigned char _ctype[];
-> +extern const char _ctype[];
-
-Why would this be needed? I can't see a connection to toupper() / tolower().
-
-> -#define __ismask(x) (_ctype[(int)(unsigned char)(x)])
-> +#define __ismask(x) (_ctype[(int)(char)(x)])
-
-This almost certainly is wrong. Whether plain char is signed or unsigned is
-left to the compiler, and it being signed would result in possibly negative
-array indexes. Again I can't see a connection to the issue at hand.
-
-> @@ -34,14 +34,14 @@ extern const unsigned char _ctype[];
->  #define isascii(c) (((unsigned char)(c))<=0x7f)
->  #define toascii(c) (((unsigned char)(c))&0x7f)
->  
-> -static inline unsigned char __tolower(unsigned char c)
-> +static inline char __tolower(char c)
+> diff --git a/xen/arch/arm/vpci.c b/xen/arch/arm/vpci.c
+> index 3bc4bb55082a..31e9e1d20751 100644
+> --- a/xen/arch/arm/vpci.c
+> +++ b/xen/arch/arm/vpci.c
+> @@ -29,6 +29,8 @@ static int vpci_mmio_read(struct vcpu *v, mmio_info_t *info,
 >  {
->  	if (isupper(c))
->  		c -= 'A'-'a';
->  	return c;
->  }
+>      struct pci_host_bridge *bridge = p;
+>      pci_sbdf_t sbdf = vpci_sbdf_from_gpa(bridge, info->gpa);
+> +    const uint8_t access_size = (1U << info->dabt.size) * 8;
+
+And why exactly uint8_t here, rather than unsigned int? See ./CODING_STYLE.
+
+> +    const uint64_t invalid = GENMASK_ULL(access_size - 1, 0);
+
+I'm not entirely convinced of uint64_t here either, but I'd view this as
+more borderline than the uint8_t above. As per ...
+
+> @@ -39,7 +41,7 @@ static int vpci_mmio_read(struct vcpu *v, mmio_info_t *info,
+>          return 1;
+>      }
 >  
-> -static inline unsigned char __toupper(unsigned char c)
-> +static inline char __toupper(char c)
->  {
->  	if (islower(c))
->  		c -= 'a'-'A';
+> -    *r = ~0ul;
+> +    *r = invalid;
 
-This isn't what I had suggested. First I said to leave alone the double-
-underscore prefixed functions, and only touch the wrapper macros (as a
-precaution in case any use site exists which relies on present behavior).
-And then I didn't suggest to alter parameter types; only the return type
-would need adjustment, I think, for what you're aiming at:
-
-#define tolower(c) ((char)__tolower(c))
-#define toupper(c) ((char)__toupper(c))
+... the original rhs here, unsigned long (or perhaps register_t) would seem
+more appropriate, but I have no idea whether on Arm32 info->dabt.size can
+end up being 3.
 
 Jan
 
