@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 47A168C66E9
-	for <lists+xen-devel@lfdr.de>; Wed, 15 May 2024 15:11:54 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.722344.1126179 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C9D048C6740
+	for <lists+xen-devel@lfdr.de>; Wed, 15 May 2024 15:22:48 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.722348.1126188 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s7EPk-0004iA-TR; Wed, 15 May 2024 13:11:24 +0000
+	id 1s7EaK-0007Et-Ln; Wed, 15 May 2024 13:22:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 722344.1126179; Wed, 15 May 2024 13:11:24 +0000
+Received: by outflank-mailman (output) from mailman id 722348.1126188; Wed, 15 May 2024 13:22:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s7EPk-0004fj-Pe; Wed, 15 May 2024 13:11:24 +0000
-Received: by outflank-mailman (input) for mailman id 722344;
- Wed, 15 May 2024 13:11:23 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=EWeN=MS=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1s7EPj-0004fd-Ii
- for xen-devel@lists.xenproject.org; Wed, 15 May 2024 13:11:23 +0000
-Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
- [2a00:1450:4864:20::631])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a0125ebe-12bc-11ef-909d-e314d9c70b13;
- Wed, 15 May 2024 15:11:22 +0200 (CEST)
-Received: by mail-ej1-x631.google.com with SMTP id
- a640c23a62f3a-a59a934ad50so176359166b.1
- for <xen-devel@lists.xenproject.org>; Wed, 15 May 2024 06:11:22 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a5a178a9f0fsm855140866b.69.2024.05.15.06.11.20
+	id 1s7EaK-0007CW-JH; Wed, 15 May 2024 13:22:20 +0000
+Received: by outflank-mailman (input) for mailman id 722348;
+ Wed, 15 May 2024 13:22:18 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=RHxB=MS=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1s7EaI-0007CQ-I6
+ for xen-devel@lists.xenproject.org; Wed, 15 May 2024 13:22:18 +0000
+Received: from mail-qk1-x736.google.com (mail-qk1-x736.google.com
+ [2607:f8b0:4864:20::736])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 25b22d65-12be-11ef-b4bb-af5377834399;
+ Wed, 15 May 2024 15:22:16 +0200 (CEST)
+Received: by mail-qk1-x736.google.com with SMTP id
+ af79cd13be357-78f05341128so523799685a.0
+ for <xen-devel@lists.xenproject.org>; Wed, 15 May 2024 06:22:16 -0700 (PDT)
+Received: from [10.80.67.140] (default-46-102-197-194.interdsl.co.uk.
+ [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
+ af79cd13be357-792bf2fca82sm677730685a.89.2024.05.15.06.22.14
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 15 May 2024 06:11:21 -0700 (PDT)
+ Wed, 15 May 2024 06:22:14 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,117 +45,168 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a0125ebe-12bc-11ef-909d-e314d9c70b13
+X-Inumbo-ID: 25b22d65-12be-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1715778681; x=1716383481; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=w9/MpnHlK4WnFuZfgJjdmI8kmoLoZoI3C3K5nxMI4YU=;
-        b=D8DMLGu/2hiqXqb8V7B+PYmk+IZXP8iipZT82AugJ5WYgjIQfF7d60OycQJHCIlJ0/
-         69kiPggFWV4SM6NZ8eVnWI8od2ubORv8l9x2Pj0ORenKfdUhgJMNydKtNhIq/RNRmITN
-         d+BxemhfLNUYMsH4zPXm2+RUZtPEYnv42yfh3Gmi7vKypZocOTwedWawGX2LxG8EYQEu
-         O/5Hz9htiUTJu/NwVnC1NurJlPLtv1uCS1Dip2p0v/DG0MFQQWUCCWaL59KrtH/E5mH/
-         UsMEhCmDE9QK5tgFFZZC7zlrCIAQxYSoxRx/zdVYS2EXfDxuyOxi5Gcsu/f+YdDNMyA1
-         E9iQ==
+        d=citrix.com; s=google; t=1715779335; x=1716384135; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=gkwRZyhZIsCkGM+O4ci548+VvxsRNca7Pek4Id5P3uE=;
+        b=nC3jBt5b3wgqrPpK251wM+nzLqv2PAFIrKPREzlsZk9xlnHzAf+/rhRUHF5yXlvuSf
+         Y1CjkwHS+NpI3dnGC1bnRIPbjurzBISHoARhoIKe/QjTXq9KDQFaqkPajjHu46PcGumv
+         BUmEdk/dbXYS0NOrMejFLtsOqYGB7ZZ1rPLYQ=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1715778681; x=1716383481;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=w9/MpnHlK4WnFuZfgJjdmI8kmoLoZoI3C3K5nxMI4YU=;
-        b=eS4epKFXExTrkQdvf++noaHahgzjiZIPDAbQd+avoKTD7PdEGAkMeEcZOQC45GrnJE
-         wYCEVsKA7gE5X74unHssZmZnIHrE3U924HImLxWT5TcrCDUiB0VZTeUanLku88o2zCHB
-         10M/lug0H1Z8gKKD4+jmhQlOVqhZljVFacHyCf8apDGc2DgY75c8e4obnLxjLMYqyu5w
-         2WeEC+c0gNOpFW3PkUwUCvotUSYM385ALRrsZUAUmWD4nxMYuM7U9LQ2UCqa0XTjlu2F
-         hklUJmg2OmuG6fFAnK1xdVlzL0z7FRMTci71e/yJn5Rn2xFQVPRAThoeDoCgH8oy9jMy
-         hVxw==
-X-Forwarded-Encrypted: i=1; AJvYcCWoObqCrtRgW+fVxm8Okpzen/3LTRDtnEaNqmwiQ/KIXVkL1JtL8vqgRO2T83OAyjWdnyYIRe61Q6IdUSKEStGMgxV23EbzTPesAC6CAig=
-X-Gm-Message-State: AOJu0Yx4rQN40t6XtkjXd8ph4xCB4cxnVXX90xOr/VcePZGB8ED6UbT3
-	g5kDdY4vd2ky3Ys60f7CehISL26ki95+8XjKYZHZYIpmKMWM8x6YdWh09tjjPw==
-X-Google-Smtp-Source: AGHT+IGAK53JKe8uY1mJvAlgbOf9Fq7VNlvkTNDoR57VN4Sw25olMDFhsAntNvufZiJF+E2XM/gIIA==
-X-Received: by 2002:a17:907:3609:b0:a5a:8849:2205 with SMTP id a640c23a62f3a-a5a884925ffmr321408866b.42.1715778681643;
-        Wed, 15 May 2024 06:11:21 -0700 (PDT)
-Message-ID: <b693b6ba-4ff9-44e8-bf35-590143a077cf@suse.com>
-Date: Wed, 15 May 2024 15:11:20 +0200
+        d=1e100.net; s=20230601; t=1715779335; x=1716384135;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=gkwRZyhZIsCkGM+O4ci548+VvxsRNca7Pek4Id5P3uE=;
+        b=R8htyluwLXHFnZ8gYDQfoJtaZ4WHV3Dp5XzZFpPyDuZ/WsITy8AkmHOX4uMr2nHYSB
+         Jki3yVUbkYbub1a4tvEsYHVX2DkFe5jFYMhbh+RZe+z4FXjg4JY8UQzg6HXYvP+VTnlK
+         LwBjRauxqtWRiqLv4MjRwIvWWD3pfsjhsoR65XVHwpBfkk9lR65vWxgKgbfLY+xblDrY
+         w0HpNiZ4S5c0awdPgHasA43nvHvPebjv+Sl3fIxwGB22FvggHcX2Rq/yxOPQ3+z4bDLj
+         n8+FTd3iewRCb7IS2bLgDMr0PAXusgXjF1HUOGJNIdGYIRW5aZ78UKsZSECMQ62UaF7w
+         7IAA==
+X-Gm-Message-State: AOJu0YylBYgqaucVgQ9KmTn44SUuZG6oa6u8rPL9/VEwt0hNP/mqAJk8
+	pFEmlnvH3oDA1uPLdfpTV7fjvO417GnTpmQ+pMVFxEH9XRJ6VYASvQrxM3yD71A=
+X-Google-Smtp-Source: AGHT+IEFFyFDs9z7a2aga/FFMV0LyyHsktk1U3Gv14xPxSYqFQwgAmyIw2e4ld7icrUK1ZV4wNizfQ==
+X-Received: by 2002:ae9:f212:0:b0:790:c7f3:abce with SMTP id af79cd13be357-792c75b0916mr1720212385a.37.1715779335192;
+        Wed, 15 May 2024 06:22:15 -0700 (PDT)
+Message-ID: <9fdbf8a1-56a6-4be3-96a0-fcded0382cf0@citrix.com>
+Date: Wed, 15 May 2024 14:22:12 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH V3 (resend) 04/19] x86: Lift mapcache variable to the arch
- level
-Content-Language: en-US
-To: Elias El Yandouzi <eliasely@amazon.com>
-Cc: julien@xen.org, pdurrant@amazon.com, dwmw@amazon.com,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Wei Wang <wawei@amazon.de>, Hongyan Xia <hongyxia@amazon.com>,
- Julien Grall <jgrall@amazon.com>, xen-devel@lists.xenproject.org
-References: <20240513134046.82605-1-eliasely@amazon.com>
- <20240513134046.82605-5-eliasely@amazon.com>
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240513134046.82605-5-eliasely@amazon.com>
+Subject: Re: Xen crash in scheduler during cpu hotplug
+To: Jan Beulich <jbeulich@suse.com>
+Cc: xen-devel <xen-devel@lists.xenproject.org>,
+ Juergen Gross <jgross@suse.com>
+References: <41ae17df-fb06-40b3-a98a-02f6f495f169@citrix.com>
+ <7553291c-f88d-49c7-a1bd-5f8dbd21fd2b@suse.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <7553291c-f88d-49c7-a1bd-5f8dbd21fd2b@suse.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 13.05.2024 15:40, Elias El Yandouzi wrote:
-> --- a/xen/arch/x86/domain.c
-> +++ b/xen/arch/x86/domain.c
-> @@ -851,6 +851,8 @@ int arch_domain_create(struct domain *d,
->  
->      psr_domain_init(d);
->  
-> +    mapcache_domain_init(d);
+On 15/05/2024 1:39 pm, Jan Beulich wrote:
+> On 15.05.2024 13:58, Andrew Cooper wrote:
+>> Just so it doesn't get lost.  In XenRT, we've found:
+>>
+>>> (XEN) ----[ Xen-4.19.0-1-d  x86_64  debug=y  Tainted:     H  ]----
+>>> (XEN) CPU:    45
+>>> (XEN) RIP:    e008:[<ffff82d040244cbf>]
+>>> common/sched/credit.c#csched_load_balance+0x41/0x877
+>>> (XEN) RFLAGS: 0000000000010092   CONTEXT: hypervisor
+>>> (XEN) rax: ffff82d040981618   rbx: ffff82d040981618   rcx:
+>>> 0000000000000000
+>>> (XEN) rdx: 0000003ff68cd000   rsi: 000000000000002d   rdi:
+>>> ffff83103723d450
+>>> (XEN) rbp: ffff83207caa7d48   rsp: ffff83207caa7b98   r8: 
+>>> 0000000000000000
+>>> (XEN) r9:  ffff831037253cf0   r10: ffff83103767c3f0   r11:
+>>> 0000000000000009
+>>> (XEN) r12: ffff831037237990   r13: ffff831037237990   r14:
+>>> ffff831037253720
+>>> (XEN) r15: 0000000000000000   cr0: 000000008005003b   cr4:
+>>> 0000000000f526e0
+>>> (XEN) cr3: 000000005bc2f000   cr2: 0000000000000010
+>>> (XEN) fsb: 0000000000000000   gsb: 0000000000000000   gss:
+>>> 0000000000000000
+>>> (XEN) ds: 0000   es: 0000   fs: 0000   gs: 0000   ss: 0000   cs: e008
+>>> (XEN) Xen code around <ffff82d040244cbf>
+>>> (common/sched/credit.c#csched_load_balance+0x41/0x877):
+>>> (XEN)  48 8b 0c 10 48 8b 49 08 <48> 8b 79 10 48 89 bd b8 fe ff ff 49
+>>> 8b 4e 28 48
+>>> <snip>
+>>> (XEN) Xen call trace:
+>>> (XEN)    [<ffff82d040244cbf>] R
+>>> common/sched/credit.c#csched_load_balance+0x41/0x877
+> While this is of course pretty little information, I've still tried to
+> decipher it, first noticing it's credit1 that's being used here. Once
+> forcing csched_load_balance() non-inline (no idea why it is a separate
+> function in your build), I can see a sufficiently matching pattern at
+> approximately the same offset into the function. That's
+>
+>     const struct cpupool *c = get_sched_res(cpu)->cpupool;
+>     ...
+>     const cpumask_t *online = c->res_valid;
+>     ...
+>     BUG_ON(get_sched_res(cpu) != snext->unit->res);
+>
+> overlapping, with the crash being on the middle of the quoted lines.
+> IOW the CPU pool is still NULL for this sched resource. Cc-ing
+> Jürgen for possible clues ...
 
-This new placement is re-done right away in the next patch. To me this is
-another hint at it wanting considering to deal with the idle domain here
-as well, right away.
+We've seen it in 4.13, 4.17 and upstream, after Roger extended the
+existing CPU hotplug testing to try and reproduce the MTRR watchdog
+failure.  We've found yet another "no irq for handler" from this too.
 
-> --- a/xen/arch/x86/domain_page.c
-> +++ b/xen/arch/x86/domain_page.c
-> @@ -82,11 +82,11 @@ void *map_domain_page(mfn_t mfn)
->  #endif
->  
->      v = mapcache_current_vcpu();
-> -    if ( !v || !is_pv_vcpu(v) )
-> +    if ( !v )
->          return mfn_to_virt(mfn_x(mfn));
+It's always a deference at NULL+0x10, somewhere within csched_schedule().
 
-While I don't mind this and ...
+---8<---
+#!/bin/bash
 
-> @@ -187,14 +187,14 @@ void unmap_domain_page(const void *ptr)
->      ASSERT(va >= MAPCACHE_VIRT_START && va < MAPCACHE_VIRT_END);
->  
->      v = mapcache_current_vcpu();
-> -    ASSERT(v && is_pv_vcpu(v));
-> +    ASSERT(v);
+set -e
 
-... this change being done already here, I don't think that's necessary.
-Nor is it really related to what the subject and (so far at least)
-description say is being done here. In which case the description wants
-to at least mention why the adjustments are pulled ahead earlier than
-where they're strictly needed.
+CPUS=$(xl info nr_cpus)
 
-Jan
+while :
+do
+    for C in $(seq 1 $(($CPUS-1)))
+    do
+        echo "Offline $C"
+        xen-hptool cpu-offline $C
+        echo "Online $C"
+        xen-hptool cpu-online $C
+    done
+done
+---8<---
+
+does rather well at reproducing the crash.
+
+~Andrew
 
