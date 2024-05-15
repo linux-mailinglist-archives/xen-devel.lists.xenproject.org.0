@@ -2,43 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B62198C635D
-	for <lists+xen-devel@lfdr.de>; Wed, 15 May 2024 11:04:24 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.722028.1125820 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 046F78C635E
+	for <lists+xen-devel@lfdr.de>; Wed, 15 May 2024 11:05:37 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.722031.1125829 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s7AYP-0000EP-R3; Wed, 15 May 2024 09:04:05 +0000
+	id 1s7AZf-0000ir-3V; Wed, 15 May 2024 09:05:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 722028.1125820; Wed, 15 May 2024 09:04:05 +0000
+Received: by outflank-mailman (output) from mailman id 722031.1125829; Wed, 15 May 2024 09:05:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s7AYP-0000BA-O1; Wed, 15 May 2024 09:04:05 +0000
-Received: by outflank-mailman (input) for mailman id 722028;
- Wed, 15 May 2024 09:04:03 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1s7AZf-0000gw-0t; Wed, 15 May 2024 09:05:23 +0000
+Received: by outflank-mailman (input) for mailman id 722031;
+ Wed, 15 May 2024 09:05:21 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=LJut=MS=darkstar.site=sakib@srs-se1.protection.inumbo.net>)
- id 1s7AYN-0000AC-St
- for xen-devel@lists.xenproject.org; Wed, 15 May 2024 09:04:03 +0000
-Received: from pb-smtp1.pobox.com (pb-smtp1.pobox.com [64.147.108.70])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 131bb5d6-129a-11ef-909d-e314d9c70b13;
- Wed, 15 May 2024 11:04:03 +0200 (CEST)
-Received: from pb-smtp1.pobox.com (unknown [127.0.0.1])
- by pb-smtp1.pobox.com (Postfix) with ESMTP id 665621AEBA;
- Wed, 15 May 2024 05:04:02 -0400 (EDT)
- (envelope-from sakib@darkstar.site)
-Received: from pb-smtp1.nyi.icgroup.com (unknown [127.0.0.1])
- by pb-smtp1.pobox.com (Postfix) with ESMTP id 5F0061AEB9;
- Wed, 15 May 2024 05:04:02 -0400 (EDT)
- (envelope-from sakib@darkstar.site)
-Received: from localhost (unknown [185.130.54.126])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by pb-smtp1.pobox.com (Postfix) with ESMTPSA id 3AA061AEB5;
- Wed, 15 May 2024 05:04:01 -0400 (EDT)
- (envelope-from sakib@darkstar.site)
+ <SRS0=cqhY=MS=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1s7AZd-0000gm-Hg
+ for xen-devel@lists.xenproject.org; Wed, 15 May 2024 09:05:21 +0000
+Received: from mail-yw1-x112a.google.com (mail-yw1-x112a.google.com
+ [2607:f8b0:4864:20::112a])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 40422978-129a-11ef-b4bb-af5377834399;
+ Wed, 15 May 2024 11:05:19 +0200 (CEST)
+Received: by mail-yw1-x112a.google.com with SMTP id
+ 00721157ae682-6114c9b4d83so58847617b3.3
+ for <xen-devel@lists.xenproject.org>; Wed, 15 May 2024 02:05:19 -0700 (PDT)
+Received: from localhost ([213.195.114.223]) by smtp.gmail.com with ESMTPSA id
+ d75a77b69052e-43df54b579csm80678431cf.5.2024.05.15.02.05.16
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 15 May 2024 02:05:17 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,106 +44,111 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 131bb5d6-129a-11ef-909d-e314d9c70b13
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed; d=pobox.com; h=from:to:cc
-	:subject:date:message-id:in-reply-to:references:mime-version
-	:content-transfer-encoding; s=sasl; bh=8cHhszYK7gh07npz053WlMjUF
-	pjZMrbumLTp0bEkDA8=; b=gGb2MAXvbOitMXo/4x42RkhX1u793PsoDq7gFhhlb
-	ULcmUOnDUObjxDPLQKtEQuz6HM05+yM7rjDCEUP/zAPFDVEeXJt/OFCXVIMl0vLk
-	N+Jw6PNtJmS/oPWmvgzaTBjyjTzntAuS163wlN8pOcxAhizyOB5tUjE+uG5A0V8e
-	ro=
-From: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
-To: xen-devel@lists.xenproject.org
-Cc: Sergiy Kibrik <Sergiy_Kibrik@epam.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Xenia Ragiadakou <xenia.ragiadakou@amd.com>,
-	Tamas K Lengyel <tamas@tklengyel.com>
-Subject: [XEN PATCH v2 03/15] x86/p2m: guard altp2m routines
-Date: Wed, 15 May 2024 12:03:59 +0300
-Message-Id: <d4c537b1bcac4b301b16336ea3407834fc3076b1.1715761386.git.Sergiy_Kibrik@epam.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <cover.1715761386.git.Sergiy_Kibrik@epam.com>
-References: <cover.1715761386.git.Sergiy_Kibrik@epam.com>
+X-Inumbo-ID: 40422978-129a-11ef-b4bb-af5377834399
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1715763918; x=1716368718; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=93qIpFPUbjkLMI3HgTtDzyyJ14Dx2k56D1NQkwSoxGA=;
+        b=K0ToZ4UdpydnONylM2O6YytfzeErlgxkPPs+tXxdykuzYjkpprH2WqDnPmzFWPZi67
+         XV3PkjzwFFOyDCZIsjV0sh46Rrwt7Iplzv31r0fo1WL5GZsKCYzUIDHvhdQniHxWtaeU
+         H+nG4VV9ixkezCK3SqQ9PjDEmGNYzGj+OIUHA=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1715763918; x=1716368718;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=93qIpFPUbjkLMI3HgTtDzyyJ14Dx2k56D1NQkwSoxGA=;
+        b=GhhfVHdS9+BFd8IxWu4OkhcrkbmZVR9Ve5R2SSwyaSmOj/ooO3/s0t6Mg9+KjUs+Dt
+         0r48Db9lvFLCGQHANZFSCyWOONxWxXfhX7OvBg5VaVHR11ixG0aRsWaU8S/f6yaewy69
+         MqLWqnREO6VGg28gViVmyUQHLRGSQRsv4oEpd4sJ0z04hckT8eRAUIodblhG59ZT4CCc
+         psvMP81z8XngGzUMrBW/NrVn8jytCh+PkqFd5eFFv/9x2vkiOCrJuozEo9aCEgdtwe7w
+         eBZ6eg/AFZfgwZdh05XkbrGBf52x00YC8fQgYHOT8n26MjCarvMZ5Tx45DqK9cUJxdfP
+         d5lA==
+X-Gm-Message-State: AOJu0YxG96G0JItc8USotsvPlkEvac7XlDmuPJCF7/5le+l9OaYziDG+
+	vCXmQaZE3UaPEARqLMQSzCpF5Cx9AIFAaDy3VvnABV/6oDgE2odRY8WEvB5pHSY=
+X-Google-Smtp-Source: AGHT+IE6Pq6gQv3c0ltrNwytdcxQuSZygVg2GohsEkcsl/w21paUbLSg0wQK4xxeSoA3+Tqxy0uWhA==
+X-Received: by 2002:a05:690c:fc1:b0:61b:91e3:f954 with SMTP id 00721157ae682-622affc6413mr174115057b3.8.1715763917540;
+        Wed, 15 May 2024 02:05:17 -0700 (PDT)
+Date: Wed, 15 May 2024 11:05:15 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Elias El Yandouzi <eliasely@amazon.com>
+Cc: xen-devel@lists.xenproject.org, julien@xen.org, pdurrant@amazon.com,
+	dwmw@amazon.com, Julien Grall <jgrall@amazon.com>
+Subject: Re: [PATCH V3 01/19] x86: Create per-domain mapping of guest_root_pt
+Message-ID: <ZkR6y3kuvKySKwRm@macbook>
+References: <20240513111117.68828-1-eliasely@amazon.com>
+ <20240513111117.68828-2-eliasely@amazon.com>
+ <ZkIxdtiDc_pnPWdx@macbook>
+ <699c6487-58c9-456f-8415-e3c525fa905e@amazon.com>
 MIME-Version: 1.0
-X-Pobox-Relay-ID:
- 12469D44-129A-11EF-9194-78DCEB2EC81B-90055647!pb-smtp1.pobox.com
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <699c6487-58c9-456f-8415-e3c525fa905e@amazon.com>
 
-Initialize and bring down altp2m only when it is supported by the platfor=
-m,
-e.g. VMX. Also guard p2m_altp2m_propagate_change().
-The puspose of that is the possiblity to disable altp2m support and exclu=
-de its
-code from the build completely, when it's not supported by the target pla=
-tform.
+On Tue, May 14, 2024 at 06:15:57PM +0100, Elias El Yandouzi wrote:
+> Hi Roger,
+> 
+> On 13/05/2024 16:27, Roger Pau Monné wrote:
+> > > diff --git a/xen/arch/x86/pv/domain.c b/xen/arch/x86/pv/domain.c
+> > > index 2a445bb17b..1b025986f7 100644
+> > > --- a/xen/arch/x86/pv/domain.c
+> > > +++ b/xen/arch/x86/pv/domain.c
+> > > @@ -288,6 +288,21 @@ static void pv_destroy_gdt_ldt_l1tab(struct vcpu *v)
+> > >                                 1U << GDT_LDT_VCPU_SHIFT);
+> > >   }
+> > > +static int pv_create_root_pt_l1tab(struct vcpu *v)
+> > > +{
+> > > +    return create_perdomain_mapping(v->domain,
+> > > +                                    PV_ROOT_PT_MAPPING_VCPU_VIRT_START(v),
+> > > +                                    1, v->domain->arch.pv.root_pt_l1tab,
+> > > +                                    NULL);
+> > > +}
+> > > +
+> > > +static void pv_destroy_root_pt_l1tab(struct vcpu *v)
+> > 
+> > The two 'v' parameters could be const here.
+> 
+> I could constify the parameters but the functions wouldn't be consistent
+> with the two above for gdt/ldt.
 
-Signed-off-by: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
-CC: Tamas K Lengyel <tamas@tklengyel.com>
----
- xen/arch/x86/mm/p2m-basic.c | 19 +++++++++++--------
- xen/arch/x86/mm/p2m-ept.c   |  2 +-
- 2 files changed, 12 insertions(+), 9 deletions(-)
+The fact they are not const for the other helpers would also need
+fixing at some point IMO, it's best if those are already using the
+correct type.
 
-diff --git a/xen/arch/x86/mm/p2m-basic.c b/xen/arch/x86/mm/p2m-basic.c
-index 8599bd15c6..90106997d7 100644
---- a/xen/arch/x86/mm/p2m-basic.c
-+++ b/xen/arch/x86/mm/p2m-basic.c
-@@ -126,13 +126,15 @@ int p2m_init(struct domain *d)
-         return rc;
-     }
-=20
--    rc =3D p2m_init_altp2m(d);
--    if ( rc )
-+    if ( hvm_altp2m_supported() )
-     {
--        p2m_teardown_hostp2m(d);
--        p2m_teardown_nestedp2m(d);
-+        rc =3D p2m_init_altp2m(d);
-+        if ( rc )
-+        {
-+            p2m_teardown_hostp2m(d);
-+            p2m_teardown_nestedp2m(d);
-+        }
-     }
--
-     return rc;
- }
-=20
-@@ -195,11 +197,12 @@ void p2m_final_teardown(struct domain *d)
- {
-     if ( is_hvm_domain(d) )
-     {
-+        if ( hvm_altp2m_supported() )
-+            p2m_teardown_altp2m(d);
-         /*
--         * We must tear down both of them unconditionally because
--         * we initialise them unconditionally.
-+         * We must tear down nestedp2m unconditionally because
-+         * we initialise it unconditionally.
-          */
--        p2m_teardown_altp2m(d);
-         p2m_teardown_nestedp2m(d);
-     }
-=20
-diff --git a/xen/arch/x86/mm/p2m-ept.c b/xen/arch/x86/mm/p2m-ept.c
-index f83610cb8c..d264df5b14 100644
---- a/xen/arch/x86/mm/p2m-ept.c
-+++ b/xen/arch/x86/mm/p2m-ept.c
-@@ -986,7 +986,7 @@ out:
-     if ( is_epte_present(&old_entry) )
-         ept_free_entry(p2m, &old_entry, target);
-=20
--    if ( entry_written && p2m_is_hostp2m(p2m) )
-+    if ( entry_written && p2m_is_hostp2m(p2m) && hvm_altp2m_supported())
-     {
-         ret =3D p2m_altp2m_propagate_change(d, _gfn(gfn), mfn, order, p2=
-mt, p2ma);
-         if ( !rc )
---=20
-2.25.1
+> > > diff --git a/xen/arch/x86/x86_64/entry.S b/xen/arch/x86/x86_64/entry.S
+> > > index df015589ce..c1377da7a5 100644
+> > > --- a/xen/arch/x86/x86_64/entry.S
+> > > +++ b/xen/arch/x86/x86_64/entry.S
+> > > @@ -162,7 +162,15 @@ FUNC_LOCAL(restore_all_guest)
+> > >           and   %rsi, %rdi
+> > >           and   %r9, %rsi
+> > >           add   %rcx, %rdi
+> > > +
+> > > +        /*
+> > > +         * The address in the vCPU cr3 is always mapped in the per-domain
+> > > +         * pv_root_pt virt area.
+> > > +         */
+> > > +        imul  $PAGE_SIZE, VCPU_id(%rbx), %esi
+> > 
+> > Aren't some of the previous operations against %rsi now useless since
+> > it gets unconditionally overwritten here?
+> 
+> I think I can just get rid off of:
+> 
+>     and   %r9, %rsi
+> 
+> > and   %r9, %rsi
+> > [...]
+> > add   %rcx, %rsi
+> 
+> The second operation you suggested is actually used to retrieve the VA of
+> the PV_ROOT_PT.
 
+Oh, yes, sorry, got confused when looking at the source file together
+with the diff, it's only the `and` that can be removed.
+
+Thanks, Roger.
 
