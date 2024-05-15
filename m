@@ -2,56 +2,46 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CE7798C6998
-	for <lists+xen-devel@lfdr.de>; Wed, 15 May 2024 17:24:07 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.722488.1126491 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 45A198C699F
+	for <lists+xen-devel@lfdr.de>; Wed, 15 May 2024 17:26:03 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.722491.1126500 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s7GTz-00034L-Mm; Wed, 15 May 2024 15:23:55 +0000
+	id 1s7GVm-0003ch-2A; Wed, 15 May 2024 15:25:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 722488.1126491; Wed, 15 May 2024 15:23:55 +0000
+Received: by outflank-mailman (output) from mailman id 722491.1126500; Wed, 15 May 2024 15:25:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s7GTz-00032P-JS; Wed, 15 May 2024 15:23:55 +0000
-Received: by outflank-mailman (input) for mailman id 722488;
- Wed, 15 May 2024 15:23:54 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=6wQf=MS=amd.com=Stewart.Hildebrand@srs-se1.protection.inumbo.net>)
- id 1s7GTy-00032F-R8
- for xen-devel@lists.xenproject.org; Wed, 15 May 2024 15:23:54 +0000
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on20600.outbound.protection.outlook.com
- [2a01:111:f403:2009::600])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 226ed3c2-12cf-11ef-b4bb-af5377834399;
- Wed, 15 May 2024 17:23:52 +0200 (CEST)
-Received: from BN8PR03CA0035.namprd03.prod.outlook.com (2603:10b6:408:94::48)
- by IA0PR12MB8350.namprd12.prod.outlook.com (2603:10b6:208:40d::14)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7587.26; Wed, 15 May
- 2024 15:23:49 +0000
-Received: from BN1PEPF00004684.namprd03.prod.outlook.com
- (2603:10b6:408:94:cafe::86) by BN8PR03CA0035.outlook.office365.com
- (2603:10b6:408:94::48) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7587.27 via Frontend
- Transport; Wed, 15 May 2024 15:23:49 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN1PEPF00004684.mail.protection.outlook.com (10.167.243.90) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7587.21 via Frontend Transport; Wed, 15 May 2024 15:23:49 +0000
-Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Wed, 15 May
- 2024 10:23:48 -0500
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB06.amd.com
- (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Wed, 15 May
- 2024 10:23:48 -0500
-Received: from [172.18.62.51] (10.180.168.240) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.35 via Frontend
- Transport; Wed, 15 May 2024 10:23:47 -0500
+	id 1s7GVl-0003aV-VG; Wed, 15 May 2024 15:25:45 +0000
+Received: by outflank-mailman (input) for mailman id 722491;
+ Wed, 15 May 2024 15:25:45 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=8u5V=MS=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1s7GVk-0003aP-VP
+ for xen-devel@lists.xenproject.org; Wed, 15 May 2024 15:25:44 +0000
+Received: from smtp-out1.suse.de (smtp-out1.suse.de
+ [2a07:de40:b251:101:10:150:64:1])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 65336009-12cf-11ef-909d-e314d9c70b13;
+ Wed, 15 May 2024 17:25:44 +0200 (CEST)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 2384333CBF;
+ Wed, 15 May 2024 15:25:43 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id E8227136A8;
+ Wed, 15 May 2024 15:25:42 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id /eAeN/bTRGaQZgAAD6G6ig
+ (envelope-from <jgross@suse.com>); Wed, 15 May 2024 15:25:42 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,144 +53,136 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 226ed3c2-12cf-11ef-b4bb-af5377834399
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=oJ9AAeVPJuQpISXGpV31MYInpFq4wjJPCjyadebfdJjk76uSrbdUmIMMJlIXHKsJsb8TZ1ym0csngMwljG/Lc+/bizMg6whtduY1PkcHNxH6Vxx7sp8f+oW6+P70dBSa7QhBEzid1PUUNJV3xaiJv/g+rhxv+uWt5l8Kc74rR948xM37JU3xDG0J3LuLRLnA5t5xx15IqE7cqvgCalE+RO1i9vWSXSr5NlepnHk5GsiR7fWv5z2pGRfteDKEezTXRTU3/+rwPOu5G1P7KQjl7E8Mlt8Q4PJVdjc5CeW/vVnIiW60MUjI66B4dWZakgWYNoGbQ3L33TICiwcz8g8RdA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=UzRJOqZMNHQhajyVvCP+iCeSVE5aHh1KCTZRWHK+bPI=;
- b=S3DG30MLhZeauuuMi7lbvpVaYDZCwVuGJODU3VGfF/iQM95m+9CfQhFQSAXHLIijDZF/pJh83B9xWxvfoQIm1+A2l2SVCQ3awL6s2SCxLiRip+iZmbFJrg4fVY7wbpU6bjbmnIknrCKr4mBzJnTRAyHnwRVCSiva+Wl8Mh0R4SB6ejAjae7r8wl4+Rd5FQvNP/5/wrfplxFW34welByTpwKZFD1qob+iWxTI8BsGI8PIKiStlzew6g0CejuCssiZqHXg+fORo6DnD684Ty0fCkKp6nvFEpAAdowGKYSuLPTFeXnunP8OGRWPWYYG9byuUaNL2jdE5HJaKP9nRvxoBQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=suse.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=UzRJOqZMNHQhajyVvCP+iCeSVE5aHh1KCTZRWHK+bPI=;
- b=IPn/IjlsNejTVu2IWYmeTHwV5fhEWOVeE3XvudrZPffI+GX8DNyrs1sN74GK555a+zXRC0TzCUgilNLNv7SkVMOFhjCn7vvjssRsJThCh2oUwHXhfvoAb+2IyMVzA9wUCcc6wf7L0v2LWNw4rOM5ZnMv7MHZpOnhYZ9ifbueH50=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Message-ID: <21878244-b04d-4dfa-a8e2-347e9d40832e@amd.com>
-Date: Wed, 15 May 2024 11:23:47 -0400
+X-Inumbo-ID: 65336009-12cf-11ef-909d-e314d9c70b13
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1715786743; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=j3CjhN97k6PpzDWO9RwH5pVj4WdhyqdEUtnghfTzbUA=;
+	b=QZZ0E2eYd1pEz8IYgr65VMi7Io/yWe3pNagFN9Pr2b7x+n9MFPN2YQMceiqDtWpEfqYu38
+	NdT8WqBdmBovXp2uGE5ZZ+MpnbBE9AfNwJJQduXPsPkMVJw3FClYGUwN1ukPo0zWrTVguI
+	bPuJSXOXi6v9LOl/MmnHBmh3ZIPHUXY=
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.com header.s=susede1 header.b=QZZ0E2eY
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1715786743; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=j3CjhN97k6PpzDWO9RwH5pVj4WdhyqdEUtnghfTzbUA=;
+	b=QZZ0E2eYd1pEz8IYgr65VMi7Io/yWe3pNagFN9Pr2b7x+n9MFPN2YQMceiqDtWpEfqYu38
+	NdT8WqBdmBovXp2uGE5ZZ+MpnbBE9AfNwJJQduXPsPkMVJw3FClYGUwN1ukPo0zWrTVguI
+	bPuJSXOXi6v9LOl/MmnHBmh3ZIPHUXY=
+From: Juergen Gross <jgross@suse.com>
+To: xen-devel@lists.xenproject.org
+Cc: Juergen Gross <jgross@suse.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Dario Faggioli <dfaggioli@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>
+Subject: [PATCH] xen/sched: set all sched_resource data inside locked region for new cpu
+Date: Wed, 15 May 2024 17:25:39 +0200
+Message-Id: <20240515152539.18714-1-jgross@suse.com>
+X-Mailer: git-send-email 2.35.3
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v14 5/5] arm/vpci: honor access size when returning an
- error
-To: Jan Beulich <jbeulich@suse.com>
-CC: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, Stefano Stabellini
-	<sstabellini@kernel.org>, Bertrand Marquis <bertrand.marquis@arm.com>, Michal
- Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
-	<xen-devel@lists.xenproject.org>
-References: <20240514143400.152280-1-stewart.hildebrand@amd.com>
- <20240514143400.152280-6-stewart.hildebrand@amd.com>
- <cf646df7-0e92-4138-8b54-471c72f44cb8@xen.org>
- <735c3e3c-d70a-40f5-aca7-f134bc5b98b1@amd.com>
- <20335f55-4b16-45e5-a8aa-868006b57ca5@suse.com>
-Content-Language: en-US
-From: Stewart Hildebrand <stewart.hildebrand@amd.com>
-In-Reply-To: <20335f55-4b16-45e5-a8aa-868006b57ca5@suse.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN1PEPF00004684:EE_|IA0PR12MB8350:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6842ecd3-4543-4cd3-7cab-08dc74f30534
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230031|82310400017|376005|1800799015|36860700004;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?d3Q3UUNYbmxMVy9EUkVaaUJEVTlSanFyZ0hZM2tPTG1FU1VndzFwSGhOeUNy?=
- =?utf-8?B?Y3pIS2ZFdC9TcmViM2IybFlDaDBnUTY5SXFNV0xyYWlyZnBlcWhuVmxpcUNY?=
- =?utf-8?B?ZXAwU2d5b0w0Vy9OdXhObm56SzJzV1VCOFZqMWVGYVNjUk50QmZyRDBkSUZX?=
- =?utf-8?B?cXlrUzF5bjJ2Q2U1Ulliem85L3FJVzhkODlPTDE0WStLN1c1WmpLVWVDTVdX?=
- =?utf-8?B?NjVGclJIM043ZXQ4Rzc3ditWc0hUVlFwd3hXNUtCRmJ4ZGJyb3A1YmZpb3Zv?=
- =?utf-8?B?aUZCOFNsdldPOVExV3Y5ZVErRU9WQ0FoS2tNbHZoSXp6bEZSTWdjNHVLRzgz?=
- =?utf-8?B?UTRpQWhZdUtFb245Q2N0M2U5OEtwUzBjZUhFYTh5aiswcmoyaUVKNk5BTEFo?=
- =?utf-8?B?bzlwUWE4K0RrWlJsdWtLenBBaVZqb1pYY1JjVTNGZEdid0VOVU9OM3ZuK0p6?=
- =?utf-8?B?RVRyK0wwcFFEUkhTeGNBOEttZG1oN3FWYW9JQmN1U0pOOGhLa21ZY3BzYjJP?=
- =?utf-8?B?c2tiSDBoZFpaQUxyTTQycnR0U0ZoZXpvcU8yM01vYjhtTmF2Ky9rL0JYbWZw?=
- =?utf-8?B?SUc4dDR0WGlDekdIS3ltYjNwNVY4Rk1zaFFNQk16VHNpeCtWd1VoUWtGNlp6?=
- =?utf-8?B?S2pINy9mUW8xTjV6TU9TOE5XdWNjb3loaTNYU044b1d4ZHhQRENMVUVqZkFI?=
- =?utf-8?B?Qmp1Z2FUVDBjNDR4MlZYTkNYTDVFY3BXc3FPQnFzckxvZHVVa3RTRG16UVJG?=
- =?utf-8?B?V2IySnJxR21BVGRHc3piaURTdFd2M0lsQzZYUU5WRC8yaXJRVDdVK3E2R0lC?=
- =?utf-8?B?RHVrNVlhSVBwM01IcU1wUGxoK1BKeUZLdVFPNXo0dWtNMGNsK1RDVzNQSU9V?=
- =?utf-8?B?alJ3cTVWQ1Y5QjlxQUxqRWZyckNKb0NjSkY1eGxGNFZUNS8zckdyVUYwQ3ls?=
- =?utf-8?B?VkJCZ0hBdUV6MHUvYXpGbm1TRGxLdGtvLy9CaUp0TUxkV082RUtzTmhDclUy?=
- =?utf-8?B?eEdlRi9RQWVEbzhPR1EvN08rSkRHcnludk1uZXhRdmkzeTZ2azVUSnhocWxO?=
- =?utf-8?B?YVp6U3RieXBTZm52OXRjcU54dmZZek9kWVp2bFptRjdmbzBWaEcxTFRScFhF?=
- =?utf-8?B?dDcwanAxMWc4cHlPeHVCZHBDSytqaWl0bXlTbElOMmt3UnpXNE1SVDd3TW44?=
- =?utf-8?B?YVNNTUR6WktRV0Urc2VWaUhKdCtwbDluZDBUd05xcFAxdnhja3hOeGh4M0VI?=
- =?utf-8?B?NVFiVCt1Vmk0SUVSVkJGRnBrK2prWlRKUC9GRFh4MHZlUlYzdEpESytlZlVU?=
- =?utf-8?B?UC93d1QvTnpYZ3RkRHFmWDh0K25SMXlEZUxmZ3FEUWVSQWxGSnk1M2JrUUxv?=
- =?utf-8?B?MHlmaXQvekhFWlE3eWlNYklFaXNYMjU5b3VnblZIUHZYa01Xa28vU25jdHVK?=
- =?utf-8?B?MDdlek01emRicEpIV0VZZEhvT0h3ZjY2MXBqMHVHN0dVTXA4aVdTUXVWcTQz?=
- =?utf-8?B?UXBmWmowbytMaDNMNDNjOG9UY2hjZkR0U1Fka2wvK1lyTXplNnd0bWpHOWJC?=
- =?utf-8?B?dnhjcmxXS0Q1aldLaFl3dUFyRnd3RFdoZ3dkUm9oOXZLY0lCMHhQaTJUck9W?=
- =?utf-8?B?QUYzZDg1SE5DOUQ2MkFpL3VUVkkzMm5xN3FvRUdVa0kyYXdyakpaT0RxUnNY?=
- =?utf-8?B?QnIxNThpbW1FMERYMExSUERTMGpVUU4zcXljRjEwa0xVSlJXWnRNTCtJR3Bs?=
- =?utf-8?B?ZlJLc3U4bS9POWxhbG4rYjVLdThoNU5YRjI0Rk9vY2psbjEwTzI1c0taU2xs?=
- =?utf-8?B?NnRtRUhzOU44N2EvbHBKRXM4cWkrZkFXYzhGV1hxcFloS2Z6Ri9uMlNHVlNL?=
- =?utf-8?Q?NaVzvz9XC3Xpz?=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(82310400017)(376005)(1800799015)(36860700004);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 May 2024 15:23:49.2656
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6842ecd3-4543-4cd3-7cab-08dc74f30534
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN1PEPF00004684.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8350
+Content-Transfer-Encoding: 8bit
+X-Spam-Level: 
+X-Spamd-Result: default: False [-2.01 / 50.00];
+	DWL_DNSWL_MED(-2.00)[suse.com:dkim];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_CONTAINS_FROM(1.00)[];
+	R_MISSING_CHARSET(0.50)[];
+	R_DKIM_ALLOW(-0.20)[suse.com:s=susede1];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.com:dkim,suse.com:email];
+	FROM_EQ_ENVFROM(0.00)[];
+	ARC_NA(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	FUZZY_BLOCKED(0.00)[rspamd.com];
+	DKIM_SIGNED(0.00)[suse.com:s=susede1];
+	RCPT_COUNT_FIVE(0.00)[5];
+	DKIM_TRACE(0.00)[suse.com:+]
+X-Rspamd-Action: no action
+X-Rspamd-Queue-Id: 2384333CBF
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Spam-Flag: NO
+X-Spam-Score: -2.01
 
-On 5/15/24 02:32, Jan Beulich wrote:
-> On 14.05.2024 22:31, Stewart Hildebrand wrote:
->> Here's what the patch ("arm/vpci: honor access size when returning an
->> error") now looks like based on staging:
->>
->> diff --git a/xen/arch/arm/vpci.c b/xen/arch/arm/vpci.c
->> index 3bc4bb55082a..31e9e1d20751 100644
->> --- a/xen/arch/arm/vpci.c
->> +++ b/xen/arch/arm/vpci.c
->> @@ -29,6 +29,8 @@ static int vpci_mmio_read(struct vcpu *v, mmio_info_t *info,
->>  {
->>      struct pci_host_bridge *bridge = p;
->>      pci_sbdf_t sbdf = vpci_sbdf_from_gpa(bridge, info->gpa);
->> +    const uint8_t access_size = (1U << info->dabt.size) * 8;
-> 
-> And why exactly uint8_t here, rather than unsigned int? See ./CODING_STYLE.
+When adding a cpu to a scheduler, set all data items of struct
+sched_resource inside the locked region, as otherwise a race might
+happen (e.g. when trying to access the cpupool of the cpu):
 
-I'll change to unsigned int.
+(XEN) ----[ Xen-4.19.0-1-d  x86_64  debug=y  Tainted:     H  ]----
+(XEN) CPU:    45
+(XEN) RIP:    e008:[<ffff82d040244cbf>]
+common/sched/credit.c#csched_load_balance+0x41/0x877
+(XEN) RFLAGS: 0000000000010092   CONTEXT: hypervisor
+(XEN) rax: ffff82d040981618   rbx: ffff82d040981618   rcx:
+0000000000000000
+(XEN) rdx: 0000003ff68cd000   rsi: 000000000000002d   rdi:
+ffff83103723d450
+(XEN) rbp: ffff83207caa7d48   rsp: ffff83207caa7b98   r8:
+0000000000000000
+(XEN) r9:  ffff831037253cf0   r10: ffff83103767c3f0   r11:
+0000000000000009
+(XEN) r12: ffff831037237990   r13: ffff831037237990   r14:
+ffff831037253720
+(XEN) r15: 0000000000000000   cr0: 000000008005003b   cr4:
+0000000000f526e0
+(XEN) cr3: 000000005bc2f000   cr2: 0000000000000010
+(XEN) fsb: 0000000000000000   gsb: 0000000000000000   gss:
+0000000000000000
+(XEN) ds: 0000   es: 0000   fs: 0000   gs: 0000   ss: 0000   cs: e008
+(XEN) Xen code around <ffff82d040244cbf>
+(common/sched/credit.c#csched_load_balance+0x41/0x877):
+(XEN)  48 8b 0c 10 48 8b 49 08 <48> 8b 79 10 48 89 bd b8 fe ff ff 49
+8b 4e 28 48
+<snip>
+(XEN) Xen call trace:
+(XEN)    [<ffff82d040244cbf>] R
+common/sched/credit.c#csched_load_balance+0x41/0x877
+(XEN)    [<ffff82d040245a18>] F
+common/sched/credit.c#csched_schedule+0x36a/0x69f
+(XEN)    [<ffff82d040252644>] F common/sched/core.c#do_schedule+0xe8/0x433
+(XEN)    [<ffff82d0402572dd>] F common/sched/core.c#schedule+0x2e5/0x2f9
+(XEN)    [<ffff82d040232f35>] F common/softirq.c#__do_softirq+0x94/0xbe
+(XEN)    [<ffff82d040232fc8>] F do_softirq+0x13/0x15
+(XEN)    [<ffff82d0403075ef>] F arch/x86/domain.c#idle_loop+0x92/0xe6
 
-> 
->> +    const uint64_t invalid = GENMASK_ULL(access_size - 1, 0);
-> 
-> I'm not entirely convinced of uint64_t here either, but I'd view this as
-> more borderline than the uint8_t above. As per ...
-> 
->> @@ -39,7 +41,7 @@ static int vpci_mmio_read(struct vcpu *v, mmio_info_t *info,
->>          return 1;
->>      }
->>  
->> -    *r = ~0ul;
->> +    *r = invalid;
-> 
-> ... the original rhs here, unsigned long (or perhaps register_t) would seem
-> more appropriate, but I have no idea whether on Arm32 info->dabt.size can
-> end up being 3.
+Reported-by: Andrew Cooper <andrew.cooper3@citrix.com>
+Fixes: a8c6c623192e ("sched: clarify use cases of schedule_cpu_switch()")
+Signed-off-by: Juergen Gross <jgross@suse.com>
+---
+ xen/common/sched/core.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-Well, it depends which spec we look at. In the ARMv7 ARM, 3 is reserved.
-But in the ARMv8 ARM, in the aarch32 section, 3 appears to be valid...
+diff --git a/xen/common/sched/core.c b/xen/common/sched/core.c
+index 0cb33831d2..babac7aad6 100644
+--- a/xen/common/sched/core.c
++++ b/xen/common/sched/core.c
+@@ -3176,6 +3176,8 @@ int schedule_cpu_add(unsigned int cpu, struct cpupool *c)
+ 
+     sr->scheduler = new_ops;
+     sr->sched_priv = ppriv;
++    sr->granularity = cpupool_get_granularity(c);
++    sr->cpupool = c;
+ 
+     /*
+      * Reroute the lock to the per pCPU lock as /last/ thing. In fact,
+@@ -3188,8 +3190,6 @@ int schedule_cpu_add(unsigned int cpu, struct cpupool *c)
+     /* _Not_ pcpu_schedule_unlock(): schedule_lock has changed! */
+     spin_unlock_irqrestore(old_lock, flags);
+ 
+-    sr->granularity = cpupool_get_granularity(c);
+-    sr->cpupool = c;
+     /* The  cpu is added to a pool, trigger it to go pick up some work */
+     cpu_raise_softirq(cpu, SCHEDULE_SOFTIRQ);
+ 
+-- 
+2.35.3
 
-Anyway, since the value returned in r can only be as wide as register_t
-due to the way our mmio handlers are implemented, I'll change to
-register_t for now to match the lhs.
 
