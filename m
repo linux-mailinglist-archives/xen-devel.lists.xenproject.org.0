@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2F33D8C67DA
-	for <lists+xen-devel@lfdr.de>; Wed, 15 May 2024 15:55:17 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.722387.1126281 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 236BF8C6818
+	for <lists+xen-devel@lfdr.de>; Wed, 15 May 2024 15:59:57 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.722393.1126292 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s7F61-0000q2-Vv; Wed, 15 May 2024 13:55:05 +0000
+	id 1s7FAJ-0001kd-Fw; Wed, 15 May 2024 13:59:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 722387.1126281; Wed, 15 May 2024 13:55:05 +0000
+Received: by outflank-mailman (output) from mailman id 722393.1126292; Wed, 15 May 2024 13:59:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s7F61-0000n3-Sf; Wed, 15 May 2024 13:55:05 +0000
-Received: by outflank-mailman (input) for mailman id 722387;
- Wed, 15 May 2024 13:55:04 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ly6O=MS=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1s7F60-0000mQ-Ka
- for xen-devel@lists.xenproject.org; Wed, 15 May 2024 13:55:04 +0000
-Received: from mail-lj1-x231.google.com (mail-lj1-x231.google.com
- [2a00:1450:4864:20::231])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id baa4d409-12c2-11ef-909d-e314d9c70b13;
- Wed, 15 May 2024 15:55:03 +0200 (CEST)
-Received: by mail-lj1-x231.google.com with SMTP id
- 38308e7fff4ca-2e538a264f7so72617041fa.0
- for <xen-devel@lists.xenproject.org>; Wed, 15 May 2024 06:55:03 -0700 (PDT)
-Received: from [192.168.226.248] ([94.75.70.14])
- by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-2e4d0bbcc5fsm20471331fa.20.2024.05.15.06.55.01
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 15 May 2024 06:55:02 -0700 (PDT)
+	id 1s7FAJ-0001iU-Cy; Wed, 15 May 2024 13:59:31 +0000
+Received: by outflank-mailman (input) for mailman id 722393;
+ Wed, 15 May 2024 13:59:30 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=EWeN=MS=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1s7FAI-0001gO-Kj
+ for xen-devel@lists.xenproject.org; Wed, 15 May 2024 13:59:30 +0000
+Received: from mail-ed1-x534.google.com (mail-ed1-x534.google.com
+ [2a00:1450:4864:20::534])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 589b0c98-12c3-11ef-b4bb-af5377834399;
+ Wed, 15 May 2024 15:59:28 +0200 (CEST)
+Received: by mail-ed1-x534.google.com with SMTP id
+ 4fb4d7f45d1cf-572e48f91e9so1946478a12.0
+ for <xen-devel@lists.xenproject.org>; Wed, 15 May 2024 06:59:28 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a5a179263d9sm867656566b.95.2024.05.15.06.59.27
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 15 May 2024 06:59:28 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,123 +45,138 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: baa4d409-12c2-11ef-909d-e314d9c70b13
+X-Inumbo-ID: 589b0c98-12c3-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1715781303; x=1716386103; darn=lists.xenproject.org;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=OhqwbTjcYPKqjA3fcdjahtltKIvrjVq+INTIIqzGjtI=;
-        b=FSmOWBf3iT5U0NQltLJUcRWz8OAkH1psFjCRtyUcRn1itkBub02bJjnKA/gyzBErDb
-         f4PKnvKzyAPECdcjc+czCUILuemetxVRa6fYC2OXWrQ2Sbrbo9FNZ7KdI+PdtoOVwRhK
-         za566tcRBnfsJCHJYM1IvQuBUiqZEbyZ26OT3BxC5qT4o4+fs7xXy8+bI/Mi1OtH/kSp
-         Z0HOfoOqV1TioeejXA3uwgf0k2vaAVEEmYrfKW1iQmBggPUKanF3BoszEh4RcA/1YgVw
-         OF3IwxHCNDgc3hJeFFXB0F+Xymy3kWmXTWfz0xu85Yntr7i74rkTiX3crj5iVANaZHmI
-         W/LQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1715781303; x=1716386103;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
+        d=suse.com; s=google; t=1715781568; x=1716386368; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=OhqwbTjcYPKqjA3fcdjahtltKIvrjVq+INTIIqzGjtI=;
-        b=C3ElbWDUc10vFX8zRBt19onQPsMnaF+Jwd+AoQaLHXx10NX4FVg/yJNyBg68ZXXetF
-         EfaJPGQ1oWQ/ISHA8YzuTlu8rcEL0RwdRjQGy8tAxlDZlDrji9xd6VXpQai1l6M6dByF
-         jmOH+G3NqaaWNY35j/1P62kVuYjH7sXw5n9NMlDUGZjRpGIqMbDXUY9HlDExYv7XEjky
-         VNVqo/5z9KjefyNXkgrhTo0+5czHbobl947h/Qcpu7p4B28W7zLGmVe0wyQXrcZsez0i
-         y3OZz8PcrJklIpiS1uq7DEBPh/o45Yi48TJm5JlQZ2gnd1TYAITppdcawx28qcIj+UES
-         ZpEA==
-X-Forwarded-Encrypted: i=1; AJvYcCUVGHpp+KkAMrtq5Zgo9vkIWoYgDagQJ0HHHTBXIxOtR2Hk/kmF8rA3bulCrERK0n6khTi80GS5uUNaXNaJ7+ek4eW4mJ6ubBWhVZMMWY8=
-X-Gm-Message-State: AOJu0YzkAIFE+mX6Qcg7VHA0kY7nNNi/ctwBo9x9iZLfP7/dm4eSf2El
-	jRTrzneZqNWhExcrIdAFa+58OVWThZrxkwNs4qeIBJ1c3PSWEqXD
-X-Google-Smtp-Source: AGHT+IGybDgSo05OkMM/MRG6inWht+8PNtPdDwzHGj+MKiMbwreRKFd4h5wtPObIQYQVC7TLYuHL+Q==
-X-Received: by 2002:a2e:848f:0:b0:2de:48ef:c3e1 with SMTP id 38308e7fff4ca-2e51fd5949emr127218011fa.21.1715781302885;
-        Wed, 15 May 2024 06:55:02 -0700 (PDT)
-Message-ID: <46fd5c698fc13ffa3e8e82ed507bcfa67a9ef819.camel@gmail.com>
-Subject: Re: [PATCH v9 03/15] xen/bitops: implement fls{l}() in common logic
-From: "Oleksii K." <oleksii.kurochko@gmail.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
- <julien@xen.org>,  Bertrand Marquis <bertrand.marquis@arm.com>, Michal
- Orzel <michal.orzel@amd.com>, Volodymyr Babchuk
- <Volodymyr_Babchuk@epam.com>, Andrew Cooper <andrew.cooper3@citrix.com>, 
- George Dunlap <george.dunlap@citrix.com>, Shawn Anastasio
- <sanastasio@raptorengineering.com>, Roger Pau =?ISO-8859-1?Q?Monn=E9?=
- <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
-Date: Wed, 15 May 2024 15:55:01 +0200
-In-Reply-To: <c16c0554-c376-41f4-bfe8-04c977702a04@suse.com>
-References: <cover.1714988096.git.oleksii.kurochko@gmail.com>
-	 <fe183f7e8ada7c3fb00ebf9b38f1fffffcc9c2d7.1714988096.git.oleksii.kurochko@gmail.com>
-	 <c16c0554-c376-41f4-bfe8-04c977702a04@suse.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.52.1 (3.52.1-1.fc40) 
+        bh=OFQIoriKADdLf2q2ccnXgAC/FxAXTbJKGfE/7oPxiDI=;
+        b=YPpPS9EaEUEX6hnghacYp40zPqL6SaneKuD9qIisXwT2/5r0nL6sg3vP3s+TGmyphq
+         pSY/upWUrEGzFbh0AjUR0sSXrL24U+DNT2BILg09J9I0NKCc9bsntIVwM4TXUFyg9FYe
+         odWo1ayPP65zZSkPs2P/sSyclBR8EClQQnFAXu/zzAzaaM5f3/es8xt8QIwRBg4O2moA
+         lGgbKl6tjfZW6vLl2K+Ec/5mUYhi+VOK6qf+2apEIC7BKgFGp2z5+cNeXHdCoYkocQCH
+         akRVB8CGTbvwtJ/08uYYozNAY5NM1Z1sQSB1aZKodU4tKelOFfviLjl/Eqq3lnJy+DJy
+         D4Wg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1715781568; x=1716386368;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=OFQIoriKADdLf2q2ccnXgAC/FxAXTbJKGfE/7oPxiDI=;
+        b=g+/jstCQNKmzkPZfR96Y7RWgInEzy0JRvKlLPKPTKwtueN/P0TuqRk8u93vQpNK70w
+         4yrRK+L55G79ZHoo980SPU89xJfEzseBZNOjmh/zMQpiEDNjWDhDJHvLhOWhCPZdhzug
+         N0Z7cdejIBXnCfZEFlclviiRTGqLzmZTy2Rl+TukNnFK/QctVwic4kIfOBPu64tvjG0k
+         cjjvEYLFKKH4t7MKL4806OoEPF2YHD3TA7F9WWKD3GFdEmqAWfXOaGLt/jPafzT8eBWw
+         eegvG/7GVsEW5SBz6Sjs5/ihtSIfK+j8u2+U3wpQd2d2wheFhVbechZouQQxRt1Y58AH
+         x3Cg==
+X-Forwarded-Encrypted: i=1; AJvYcCUPyII6wXqh+u6sSav6Looz7pAA7v84NevVmwKeUvADDWxR/+bupPQG+Jg14QdcT9VjzPPMdtO/o1hnkoaXwQV4t2D1CnlhJRiw/PpC/EU=
+X-Gm-Message-State: AOJu0YwD6S+V5E/uzRe/5baTSD3Hh6Ok7NZK+eaeWmiJZcSpfj5pbxu1
+	xGqi3FO+VbllOkCwb6vkxxOB8QNTr92DJKM6OFmE7eDjUUWGLsdgvgTWtmfn5A==
+X-Google-Smtp-Source: AGHT+IFGtIs9iUISP5QhtW8k7pZuc5sctlyQjyTv+C90iyu5OGJ4e6aqq2HggArriRAEqsfQ1q2XZw==
+X-Received: by 2002:a17:907:31c2:b0:a58:eba0:6716 with SMTP id a640c23a62f3a-a5a2d66a40bmr1400994366b.60.1715781568238;
+        Wed, 15 May 2024 06:59:28 -0700 (PDT)
+Message-ID: <34e1d27b-efc9-495e-b88a-2720997ed9da@suse.com>
+Date: Wed, 15 May 2024 15:59:27 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH V3 (resend) 06/19] x86: Add a boot option to enable and
+ disable the direct map
+Content-Language: en-US
+To: Elias El Yandouzi <eliasely@amazon.com>
+Cc: julien@xen.org, pdurrant@amazon.com, dwmw@amazon.com,
+ Hongyan Xia <hongyxia@amazon.com>, Andrew Cooper
+ <andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Julien Grall <jgrall@amazon.com>, xen-devel@lists.xenproject.org
+References: <20240513134046.82605-1-eliasely@amazon.com>
+ <20240513134046.82605-7-eliasely@amazon.com>
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20240513134046.82605-7-eliasely@amazon.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Wed, 2024-05-15 at 11:09 +0200, Jan Beulich wrote:
-> On 06.05.2024 12:15, Oleksii Kurochko wrote:
-> > Changes in V9:
-> > =C2=A0- update return type of fls and flsl() to unsigned int to be
-> > aligned with other
-> > =C2=A0=C2=A0 bit ops.
->=20
-> But this then needs carrying through to ...
->=20
-> > --- a/xen/arch/arm/include/asm/arm64/bitops.h
-> > +++ b/xen/arch/arm/include/asm/arm64/bitops.h
-> > @@ -22,17 +22,15 @@ static /*__*/always_inline unsigned long
-> > __ffs(unsigned long word)
-> > =C2=A0 */
-> > =C2=A0#define ffz(x)=C2=A0 __ffs(~(x))
-> > =C2=A0
-> > -static inline int flsl(unsigned long x)
-> > +static inline int arch_flsl(unsigned long x)
->=20
-> ... e.g. here. You don't want to introduce signed/unsigned
-> mismatches.
-Do you mean that generic flsl() uses 'unsigned int' as a return type,
-but arch_flsl continue to use 'int'?
+On 13.05.2024 15:40, Elias El Yandouzi wrote:
+> --- a/xen/common/Kconfig
+> +++ b/xen/common/Kconfig
+> @@ -80,12 +80,29 @@ config HAS_PMAP
+>  config HAS_SCHED_GRANULARITY
+>  	bool
+>  
+> +config HAS_SECRET_HIDING
+> +	bool
+> +
+>  config HAS_UBSAN
+>  	bool
+>  
+>  config MEM_ACCESS_ALWAYS_ON
+>  	bool
+>  
+> +config SECRET_HIDING
+> +    bool "Secret hiding"
+> +    depends on HAS_SECRET_HIDING
+> +    help
+> +		The directmap contains mapping for most of the RAM which makes domain
+> +		memory easily accessible. While making the performance better, it also makes
+> +		the hypervisor more vulnerable to speculation attacks.
+> +
+> +		Enabling this feature will allow the user to decide whether the memory
+> +		is always mapped at boot or mapped only on demand (see the command line
+> +		option "directmap").
+> +
+> +		If unsure, say N.
+> +
+>  config MEM_ACCESS
+>  	def_bool MEM_ACCESS_ALWAYS_ON
+>  	prompt "Memory Access and VM events" if !MEM_ACCESS_ALWAYS_ON
 
->=20
-> Also why do you keep "inline" here, while ...
->=20
-> > --- a/xen/arch/x86/include/asm/bitops.h
-> > +++ b/xen/arch/x86/include/asm/bitops.h
-> > @@ -425,7 +425,7 @@ static always_inline unsigned int
-> > arch_ffsl(unsigned long x)
-> > =C2=A0 *
-> > =C2=A0 * This is defined the same way as ffs.
-> > =C2=A0 */
-> > -static inline int flsl(unsigned long x)
-> > +static always_inline int arch_flsl(unsigned long x)
->=20
-> ... you switch to always_inline here?
-Because Adnrew's patch with bitops.h for x86 changes to always_inline,
-so to be consistent, at least, for architecture.
+Surely there's a better place to add this new setting than between two
+dependent options (MEM_ACCESS_ALWAYS_ON and MEM_ACCESS).
 
-~ Oleksii
+> --- a/xen/include/xen/mm.h
+> +++ b/xen/include/xen/mm.h
+> @@ -167,6 +167,13 @@ extern unsigned long max_page;
+>  extern unsigned long total_pages;
+>  extern paddr_t mem_hotplug;
+>  
+> +extern bool opt_directmap;
+> +
+> +static inline bool has_directmap(void)
+> +{
+> +    return opt_directmap;
+> +}
 
->=20
-> (replying out of order)
->=20
-> > --- a/xen/arch/arm/include/asm/arm32/bitops.h
-> > +++ b/xen/arch/arm/include/asm/arm32/bitops.h
-> > @@ -1,7 +1,7 @@
-> > =C2=A0#ifndef _ARM_ARM32_BITOPS_H
-> > =C2=A0#define _ARM_ARM32_BITOPS_H
-> > =C2=A0
-> > -#define flsl fls
-> > +#define arch_flsl fls
->=20
-> It's the Arm maintainers to ultimately judge, but I'd be inclined to
-> suggest
->=20
-> #define arch_flsl arch_fls
->=20
-> instead. That's not only behaviorally closer to what was there
-> before, but
-> also reduces (a tiny bit) the amount of work the compiler needs to
-> carry out.
->=20
-> Jan
+As indicated before, with the Kconfig setting off I think we want to
+have an alternative
 
+#define opt_directmap true
+
+There's no need to impact generated code by needing to look at a "variable"
+which is never going to change value.
+
+Jan
 
