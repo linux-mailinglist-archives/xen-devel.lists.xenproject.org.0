@@ -2,35 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AFCF18C67C6
-	for <lists+xen-devel@lfdr.de>; Wed, 15 May 2024 15:53:18 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.722381.1126262 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B8C698C67D9
+	for <lists+xen-devel@lfdr.de>; Wed, 15 May 2024 15:55:15 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.722386.1126272 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s7F3y-0008PZ-ER; Wed, 15 May 2024 13:52:58 +0000
+	id 1s7F5u-0000YK-No; Wed, 15 May 2024 13:54:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 722381.1126262; Wed, 15 May 2024 13:52:58 +0000
+Received: by outflank-mailman (output) from mailman id 722386.1126272; Wed, 15 May 2024 13:54:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s7F3y-0008Oq-9l; Wed, 15 May 2024 13:52:58 +0000
-Received: by outflank-mailman (input) for mailman id 722381;
- Wed, 15 May 2024 13:52:57 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1s7F5u-0000W5-L0; Wed, 15 May 2024 13:54:58 +0000
+Received: by outflank-mailman (input) for mailman id 722386;
+ Wed, 15 May 2024 13:54:56 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1s7F3x-0008Og-Id; Wed, 15 May 2024 13:52:57 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1s7F3x-00027k-FX; Wed, 15 May 2024 13:52:57 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1s7F3x-00084E-6W; Wed, 15 May 2024 13:52:57 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1s7F3x-00060K-6G; Wed, 15 May 2024 13:52:57 +0000
+ (envelope-from <SRS0=EWeN=MS=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1s7F5s-0000Vv-Ev
+ for xen-devel@lists.xenproject.org; Wed, 15 May 2024 13:54:56 +0000
+Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
+ [2a00:1450:4864:20::62e])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id b48ab2a1-12c2-11ef-b4bb-af5377834399;
+ Wed, 15 May 2024 15:54:53 +0200 (CEST)
+Received: by mail-ej1-x62e.google.com with SMTP id
+ a640c23a62f3a-a59a387fbc9so207511366b.1
+ for <xen-devel@lists.xenproject.org>; Wed, 15 May 2024 06:54:53 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a5a1781cf60sm873729666b.14.2024.05.15.06.54.52
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 15 May 2024 06:54:52 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,134 +45,148 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=BpCBTHEkvBgoUDfbYyrG1+8aLkaFgguBJpva96p0/EA=; b=orML7XyU0MtTnPSd6QaI6T5STZ
-	GqRsCeZgYnZxMeUZ4fmrKTNTM70UpTiw2Tu38qhwtlDdfzUMtIhB5Vh8cy/BD18zLwaBsDM2/mtnm
-	8zAJG/+vghWuMq/PHPwu09q+X6ebTw1AXYBtVTF5wMB699QlDHdBeUMx5a21HigGp8bI=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-186003-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: b48ab2a1-12c2-11ef-b4bb-af5377834399
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1715781293; x=1716386093; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=T8KUSKK4f/TeN8ca0cnroVOq86D1LfE9MjRgPGGCXIE=;
+        b=O1ypHrVxbvk35x/5t0IZG8z84hRKnb6EVvd9HqsSWxflhX2QUxLzS8V+xZjX6xBMFb
+         eXWwiXr95irDrnSjLT87zaeC54E3ja1kyHsbVOYDUBJy8EzrtGCPazp3GYGpyDtiNYX0
+         4W+JUYM/cZypVP0NNYZoIgZHFhGhOBuTrsAkSgKarZn3n5vR69A/TRu2mS8DrRf9GDPP
+         uxk7RrRNX/UDeA8bNsoW9jpXeWQKw3JIP6Q3VIxbd6E874Qz5IyFx/tLzYkVUCJ+xXhP
+         qWNZhk94dRcyRmAxH0E2S7Gds1Eeq0mNbi9xV6qFMl8efJFFtXSTMmp4BbwrzKHaEY0L
+         ZWjQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1715781293; x=1716386093;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=T8KUSKK4f/TeN8ca0cnroVOq86D1LfE9MjRgPGGCXIE=;
+        b=gQlttVNVQ80nWGqedJqaD4nMWiTPGFNjbfvqjLJ1EZ6qVadUHYLui+cR9TMWZA/D6w
+         L1lUkBUNGLBERs5J18G9RAr8bHF3kLmGjg32LAny9Mjw4LZencvLB9W97T3CZc1R8zeL
+         /2cmCEFYcsbMZljoKcqiNmzfsidQ8PVYYgUijhlKeBNCL8MSXFbW/A4Fh83pEwsAppVt
+         0QlAOkZ5ld9E1Nn3GY8tZ65bzjDostXuLi6C/ZSMdsgflXrFIXDNnyrPr8q5igry4Sqx
+         OkxWCp0FiM9grocXDAkhgP+JnT0NTyMWHuft3UQ2OzzKgz4bKVlQ8J1T/7a6lMvded0S
+         +iPA==
+X-Gm-Message-State: AOJu0YwEVtBF5rUU4pXsNO7p+PDHG7kBd7HFEjHrkfpwYr1y45K8AARO
+	fSSssQi9DzBvbhlrBtzLgjxKYfpE42yvD2usKgwcNeIbp5T93DL0cmMJrYzZ0Q==
+X-Google-Smtp-Source: AGHT+IH0mG1n3fdPPmn9yZbacvekDjwXnHL0KXJbHTifGCKaDYC/MOdnRraLuzqNhV3OUhEKrscZeQ==
+X-Received: by 2002:a17:906:7815:b0:a59:c3bb:b83b with SMTP id a640c23a62f3a-a5a2d54c915mr890643566b.1.1715781292958;
+        Wed, 15 May 2024 06:54:52 -0700 (PDT)
+Message-ID: <086f1bbe-2b86-493e-8936-81f420500672@suse.com>
+Date: Wed, 15 May 2024 15:54:51 +0200
 MIME-Version: 1.0
-Subject: [libvirt test] 186003: tolerable all pass - PUSHED
-X-Osstest-Failures:
-    libvirt:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
-    libvirt:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    libvirt:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    libvirt:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt:saverestore-support-check:fail:nonblocking
-    libvirt:test-amd64-amd64-libvirt-qcow2:migrate-support-check:fail:nonblocking
-    libvirt:test-amd64-amd64-libvirt-raw:migrate-support-check:fail:nonblocking
-    libvirt:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
-    libvirt:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-qcow2:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-qcow2:saverestore-support-check:fail:nonblocking
-    libvirt:test-armhf-armhf-libvirt-vhd:migrate-support-check:fail:nonblocking
-    libvirt:test-armhf-armhf-libvirt-vhd:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    libvirt=2bcf14eabf02063fc7850a6b578f9bd6e26a6e60
-X-Osstest-Versions-That:
-    libvirt=2566522a55977e03c4df124b16aeaf38ad801bb1
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Wed, 15 May 2024 13:52:57 +0000
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH V3 (resend) 06/19] x86: Add a boot option to enable and
+ disable the direct map
+Content-Language: en-US
+To: Elias El Yandouzi <eliasely@amazon.com>
+Cc: xen-devel@lists.xenproject.org, julien@xen.org, pdurrant@amazon.com,
+ dwmw@amazon.com, Hongyan Xia <hongyxia@amazon.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+ <jgrall@amazon.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+References: <20240513134046.82605-1-eliasely@amazon.com>
+ <20240513134046.82605-7-eliasely@amazon.com> <ZkMs1cknBFBWZoJG@macbook>
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <ZkMs1cknBFBWZoJG@macbook>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-flight 186003 libvirt real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/186003/
+On 14.05.2024 11:20, Roger Pau Monné wrote:
+> On Mon, May 13, 2024 at 01:40:33PM +0000, Elias El Yandouzi wrote:
+>> --- a/docs/misc/xen-command-line.pandoc
+>> +++ b/docs/misc/xen-command-line.pandoc
+>> @@ -799,6 +799,18 @@ that enabling this option cannot guarantee anything beyond what underlying
+>>  hardware guarantees (with, where available and known to Xen, respective
+>>  tweaks applied).
+>>  
+>> +### directmap (x86)
+>> +> `= <boolean>`
+>> +
+>> +> Default: `true`
+>> +
+>> +Enable or disable the directmap region in Xen.
+> 
+> Enable or disable fully populating the directmap region in Xen.
 
-Failures :-/ but no regressions.
+Elias, would you please take care to address earlier review comments
+before sending a new version? This and ...
 
-Tests which did not succeed, but are not blocking:
- test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 185994
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
- test-arm64-arm64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt     16 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt-qcow2 14 migrate-support-check        fail never pass
- test-amd64-amd64-libvirt-raw 14 migrate-support-check        fail   never pass
- test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
- test-arm64-arm64-libvirt-qcow2 14 migrate-support-check        fail never pass
- test-arm64-arm64-libvirt-qcow2 15 saverestore-support-check    fail never pass
- test-armhf-armhf-libvirt-vhd 14 migrate-support-check        fail   never pass
- test-armhf-armhf-libvirt-vhd 15 saverestore-support-check    fail   never pass
+>> +
+>> +By default, Xen creates the directmap region which maps physical memory
+>                                                           ^ all?
+>> +in that region. Setting this to no will sparsely populate the directmap,
+> 
+> "Setting this to no" => "Disabling this option will sparsely..."
 
-version targeted for testing:
- libvirt              2bcf14eabf02063fc7850a6b578f9bd6e26a6e60
-baseline version:
- libvirt              2566522a55977e03c4df124b16aeaf38ad801bb1
+... this is what I had already asked for in reply to v2, of course with
+different wording.
 
-Last test of basis   185994  2024-05-14 04:20:38 Z    1 days
-Testing same since   186003  2024-05-15 04:20:33 Z    0 days    1 attempts
+>> --- a/xen/arch/x86/setup.c
+>> +++ b/xen/arch/x86/setup.c
+>> @@ -1517,6 +1517,8 @@ void asmlinkage __init noreturn __start_xen(unsigned long mbi_p)
+>>      if ( highmem_start )
+>>          xenheap_max_mfn(PFN_DOWN(highmem_start - 1));
+>>  
+>> +    printk("Booting with directmap %s\n", has_directmap() ? "on" : "off");
+> 
+> IMO this wants to be printed as part of the speculation mitigations, see
+> print_details() in spec_ctrl.c
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Abhiram Tilak <atp.exp@gmail.com>
-  Martin Kletzander <mkletzan@redhat.com>
-  Michal Privoznik <mprivozn@redhat.com>
-  Peter Krempa <pkrempa@redhat.com>
-  Rayhan Faizel <rayhan.faizel@gmail.com>
+And not "on" / "off", but "full" / "sparse" (and word order changed accordingly)
+perhaps.
 
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-arm64-libvirt                                          pass    
- build-armhf-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
- test-amd64-amd64-libvirt-xsm                                 pass    
- test-arm64-arm64-libvirt-xsm                                 pass    
- test-amd64-amd64-libvirt                                     pass    
- test-arm64-arm64-libvirt                                     pass    
- test-armhf-armhf-libvirt                                     pass    
- test-amd64-amd64-libvirt-pair                                pass    
- test-amd64-amd64-libvirt-qcow2                               pass    
- test-arm64-arm64-libvirt-qcow2                               pass    
- test-amd64-amd64-libvirt-raw                                 pass    
- test-arm64-arm64-libvirt-raw                                 pass    
- test-amd64-amd64-libvirt-vhd                                 pass    
- test-armhf-armhf-libvirt-vhd                                 pass    
+>> --- a/xen/common/Kconfig
+>> +++ b/xen/common/Kconfig
+>> @@ -80,12 +80,29 @@ config HAS_PMAP
+>>  config HAS_SCHED_GRANULARITY
+>>  	bool
+>>  
+>> +config HAS_SECRET_HIDING
+>> +	bool
+>> +
+>>  config HAS_UBSAN
+>>  	bool
+>>  
+>>  config MEM_ACCESS_ALWAYS_ON
+>>  	bool
+>>  
+>> +config SECRET_HIDING
+>> +    bool "Secret hiding"
+>> +    depends on HAS_SECRET_HIDING
+> 
+> IMO 'SECRET_HIDING' is too generic, this wants a more specific name.
+> Maybe SPARCE_DIRECTMAP or some such.
 
+This is another aspect I had raised on v2 already. SPARSE_DIRECTMAP
+would be fine with me.
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/libvirt.git
-   2566522a55..2bcf14eabf  2bcf14eabf02063fc7850a6b578f9bd6e26a6e60 -> xen-tested-master
+Jan
 
