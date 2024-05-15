@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B4E6D8C6A16
-	for <lists+xen-devel@lfdr.de>; Wed, 15 May 2024 17:59:48 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.722545.1126620 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A185E8C6A22
+	for <lists+xen-devel@lfdr.de>; Wed, 15 May 2024 18:02:57 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.722550.1126632 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s7H2N-00084X-1K; Wed, 15 May 2024 15:59:27 +0000
+	id 1s7H5O-0002YS-Jg; Wed, 15 May 2024 16:02:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 722545.1126620; Wed, 15 May 2024 15:59:26 +0000
+Received: by outflank-mailman (output) from mailman id 722550.1126632; Wed, 15 May 2024 16:02:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s7H2M-00081N-UN; Wed, 15 May 2024 15:59:26 +0000
-Received: by outflank-mailman (input) for mailman id 722545;
- Wed, 15 May 2024 15:59:25 +0000
+	id 1s7H5O-0002VJ-GK; Wed, 15 May 2024 16:02:34 +0000
+Received: by outflank-mailman (input) for mailman id 722550;
+ Wed, 15 May 2024 16:02:33 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=EWeN=MS=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1s7H2L-0007zS-FM
- for xen-devel@lists.xenproject.org; Wed, 15 May 2024 15:59:25 +0000
-Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
- [2a00:1450:4864:20::635])
+ id 1s7H5N-0002P9-5S
+ for xen-devel@lists.xenproject.org; Wed, 15 May 2024 16:02:33 +0000
+Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
+ [2a00:1450:4864:20::631])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 18e02180-12d4-11ef-b4bb-af5377834399;
- Wed, 15 May 2024 17:59:23 +0200 (CEST)
-Received: by mail-ej1-x635.google.com with SMTP id
- a640c23a62f3a-a59c0a6415fso197825266b.1
- for <xen-devel@lists.xenproject.org>; Wed, 15 May 2024 08:59:23 -0700 (PDT)
+ id 860324cb-12d4-11ef-b4bb-af5377834399;
+ Wed, 15 May 2024 18:02:26 +0200 (CEST)
+Received: by mail-ej1-x631.google.com with SMTP id
+ a640c23a62f3a-a5a5cb0e6b7so197292966b.1
+ for <xen-devel@lists.xenproject.org>; Wed, 15 May 2024 09:02:26 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a5a17b17870sm871813566b.216.2024.05.15.08.59.22
+ a640c23a62f3a-a5cd627e681sm93257066b.150.2024.05.15.09.02.25
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 15 May 2024 08:59:22 -0700 (PDT)
+ Wed, 15 May 2024 09:02:25 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,52 +45,53 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 18e02180-12d4-11ef-b4bb-af5377834399
+X-Inumbo-ID: 860324cb-12d4-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1715788763; x=1716393563; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1715788946; x=1716393746; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=FCcAy8OcZ4luyl8LZClZRMMbTK0tl1r5Psh2m0WNWzU=;
-        b=hDntHQUWKoDVEpNqGKjAzParQoDKoxLrijO4C2KsiMzDzNBndS8Cgps9tPFfCJZEQA
-         EaKVxc3kP8j7eip6O4mn3Wj9ep9z8OYZRyGUpqC5mqdybDDcICtRCpdrf0zlqV1Sb4Ml
-         qtYTBVXs5qzuAt8hkMVymkk8Bi1obqP/dhJlrEq+0+PgXmJ1QU3zhbWFSmGC5kqr29Qu
-         lTNf6/gqiVZeFjd4xYF6vez+T2f9H7x2YIvP1KKsIROam8P8CxefIUV37cS6VtO2Z3bn
-         erUd3Pv8NeeYrKvCREoVBgjDAbw/uxVufEHXDBEuDYNRtTci5jlg9lJyj8SRWUQ7+kRU
-         UncA==
+        bh=wtYr/WbH2LhECipyaU9Fs3pn4IHaginS0y/0imMygQc=;
+        b=Q3UXiIq1YRqjqqR4rH2/fzqf85pCKAEMybMO35aVvmXpzNL5EufLW37jOnM39drI8g
+         Do6ZQ2l914Su1Ua8estta/+MGuEBVJ1xY8XJRvxlK7Nv6QPLev8tF54SXTN5gqG/Inj4
+         n/pYWgqZhYfeUjjLuuPKLlZ1MaARK1OgElNSvoTGGsU1JcyO9RkpjEaXLpbRCspBnbmq
+         q89ZUA/JuJHP7wNBCpT0CF0l/bbwfqdS9t5gB3fUsviNLBW8sYMa7CjF7XLVAouJY4JW
+         efbs9OwIgPAUiAi39rRq19r77cm9I2w2Kb+Oyz04oOBdjCZBdLBCts14NNhzKb5gQmsf
+         13WA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1715788763; x=1716393563;
+        d=1e100.net; s=20230601; t=1715788946; x=1716393746;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=FCcAy8OcZ4luyl8LZClZRMMbTK0tl1r5Psh2m0WNWzU=;
-        b=NL/XZBsYxrLBX2+N7YLZicZ9C2EjgZOoXTaGMKCUTgf96CliWghZtyjBKNkZRHFflT
-         Zc9wDerhCFTSBcDgC+ikVgA0OU3sUNzB5jCXh+OSnugUte7OLL1Vn4g78Fgc3rAY5XGD
-         O7clzvejH6AbQThDnWv/ZBz14v6/DysBmLtv5XvkR3GHWcZNldZ8llT3jXbbJH/tR+yJ
-         7Oe5kJ2vMzEyAkNq4l5TUto4xzjstKBQ4K2ryc+47h4ZEw4KXtd4rFNrbLTEmcO823Ct
-         9vRACYupRgXtbEpM1ExnCRtya/VM2JN44dXBsGYSfZCqkgkZ1V69BPQbBaFXQhbCcqYH
-         Z/wg==
-X-Forwarded-Encrypted: i=1; AJvYcCUrqh25GXsJgwEEzw9plksAP0TeL3KTRtLhjc7tH3ugGbD6AoIZnhbQj8pYsM99DZT6hMBCjBGkOs+e/hKA6Uvh2XzEeK3wDQsQGD+n9SE=
-X-Gm-Message-State: AOJu0Yz4HMTddnYRHcoe3jdyvISdNckqSH1dJLM/Dq7yo4iMnnhNDeST
-	CJWthW1vmA7W3YnZaV1ni7c0agHPyGZ3CSGLXZZh+Fr5FmYdaU1RzzC6cuOJcA==
-X-Google-Smtp-Source: AGHT+IFZonrQnUx4F9nz1NYGj3AeOvBlLeQ69rctvJVQJz2D3ovvy0l1M+pBwBk1YlQCjM9mqS4xVw==
-X-Received: by 2002:a17:907:980d:b0:a5a:5496:3c76 with SMTP id a640c23a62f3a-a5a54963cdfmr1092765466b.6.1715788762767;
-        Wed, 15 May 2024 08:59:22 -0700 (PDT)
-Message-ID: <e3e75469-c356-4a02-a3aa-a9f3d277fdb1@suse.com>
-Date: Wed, 15 May 2024 17:59:21 +0200
+        bh=wtYr/WbH2LhECipyaU9Fs3pn4IHaginS0y/0imMygQc=;
+        b=rbt9it00focNIl6kpiQ29YDpgjCUQY8EoMLOBdihZ4t7/OGI92TSkUoFTvmxkvfA07
+         6p+U+RXeVWT2SfqEaLPlQFutB2M9UIEjnlPJ1MmDdx4JU4BZr89fU2BKv07hNMG3bbdD
+         CHOM0UlGsptkXKgEsp850P4uj8wL9OXf0DsG5ggpLgJvkVx1RU4IRqGEwd1h9l6SJlRu
+         ctoYqmGHynOBb/mepYpdo2wLRA9OnPxFMvePhdbuGV2xkcxh2xdTNSuQgcaOe54SFXf0
+         w3kcvYyV3MUPpvq9kaNtQw4gVnTzGDmtX6E+YIXT/FEpkvAbPxK1Ak7rPznJNtakm5Qb
+         Y5Pg==
+X-Forwarded-Encrypted: i=1; AJvYcCXc9CPRleS3V3dVAjEwcOjrcV5UAGxc5tWQqMkW2pGihy8/CXMUaHXqg8d5IqSeiHSstv8IzZ5Aib84T2n9hsnE4HZSJuKzdHyFrwn0eeg=
+X-Gm-Message-State: AOJu0YxA9tPa6IJIg6/Q61vliGQujyiHcXZ2mSZeTuXE0uxSusYKeyo+
+	Ry+VF/wHwwajqFNJ5YpqGbK0sYhQs5aFNgQIEE93jvMfkIe+JYJsRvFJCsrLEw==
+X-Google-Smtp-Source: AGHT+IHVeKhFzP79Ov6cJnYYB+OT4guvdNKwuLbsnCwBuhvHflzmRk/2bWqwvw/9oVEfUnEdVuUUbg==
+X-Received: by 2002:a17:906:4f15:b0:a5a:89a3:323d with SMTP id a640c23a62f3a-a5a89a333a9mr373828166b.72.1715788945858;
+        Wed, 15 May 2024 09:02:25 -0700 (PDT)
+Message-ID: <03813fe4-39e6-4ac1-a6bf-eeda0eb6e034@suse.com>
+Date: Wed, 15 May 2024 18:02:24 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH V3 (resend) 13/19] x86/setup: Do not create valid mappings
- when directmap=no
+Subject: Re: [PATCH V3 (resend) 06/19] x86: Add a boot option to enable and
+ disable the direct map
 Content-Language: en-US
 To: Elias El Yandouzi <eliasely@amazon.com>
 Cc: julien@xen.org, pdurrant@amazon.com, dwmw@amazon.com,
  Hongyan Xia <hongyxia@amazon.com>, Andrew Cooper
- <andrew.cooper3@citrix.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Julien Grall <jgrall@amazon.com>,
- xen-devel@lists.xenproject.org
+ <andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Julien Grall <jgrall@amazon.com>, xen-devel@lists.xenproject.org
 References: <20240513134046.82605-1-eliasely@amazon.com>
- <20240513134046.82605-14-eliasely@amazon.com>
+ <20240513134046.82605-7-eliasely@amazon.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -115,32 +116,34 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240513134046.82605-14-eliasely@amazon.com>
+In-Reply-To: <20240513134046.82605-7-eliasely@amazon.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 13.05.2024 15:40, Elias El Yandouzi wrote:
-> From: Hongyan Xia <hongyxia@amazon.com>
-> 
-> Create empty mappings in the second e820 pass. Also, destroy existing
-> direct map mappings created in the first pass.
-> 
-> To make xenheap pages visible in guests, it is necessary to create empty
-> L3 tables in the direct map even when directmap=no, since guest cr3s
-> copy idle domain's L4 entries, which means they will share mappings in
-> the direct map if we pre-populate idle domain's L4 entries and L3
-> tables. A helper is introduced for this.
+> --- a/docs/misc/xen-command-line.pandoc
+> +++ b/docs/misc/xen-command-line.pandoc
+> @@ -799,6 +799,18 @@ that enabling this option cannot guarantee anything beyond what underlying
+>  hardware guarantees (with, where available and known to Xen, respective
+>  tweaks applied).
+>  
+> +### directmap (x86)
+> +> `= <boolean>`
+> +
+> +> Default: `true`
+> +
+> +Enable or disable the directmap region in Xen.
+> +
+> +By default, Xen creates the directmap region which maps physical memory
+> +in that region. Setting this to no will sparsely populate the directmap,
+> +blocking exploits that leak secrets via speculative memory access in the
+> +directmap.
 
-Hmm. On one hand this may reduce memory consumption some, when large
-ranges of MFNs aren't allocated as Xen heap pages. Otoh this increases
-memory needs when Xen heap pages actually need mapping. I wonder whether
-the (presumably less intrusive) change of merely altering permissions
-from PAGE_HYPERVISOR to _PAGE_NONE|MAP_SMALL_PAGES wouldn't be better.
-
-> Also, after the direct map is actually gone, we need to stop updating
-> the direct map in update_xen_mappings().
-
-What is this about? You only alter setup.c here.
+Along the lines of remarks on comments and descriptions: I think we ought to
+reserve "directmap=no" to a future where there really is the option of not
+having anything direct-mapped. Right now imo that option form ought to be
+invalid, and only "directmap=sparse" should be recognized (alongside
+"directmap=yes" of course).
 
 Jan
 
