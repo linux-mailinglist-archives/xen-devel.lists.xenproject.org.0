@@ -2,38 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 353218C650C
-	for <lists+xen-devel@lfdr.de>; Wed, 15 May 2024 12:43:20 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.722144.1126039 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 47B1A8C6523
+	for <lists+xen-devel@lfdr.de>; Wed, 15 May 2024 12:50:26 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.722147.1126048 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s7C5t-0007XG-El; Wed, 15 May 2024 10:42:45 +0000
+	id 1s7CDA-0000tQ-4x; Wed, 15 May 2024 10:50:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 722144.1126039; Wed, 15 May 2024 10:42:45 +0000
+Received: by outflank-mailman (output) from mailman id 722147.1126048; Wed, 15 May 2024 10:50:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s7C5t-0007UR-Bd; Wed, 15 May 2024 10:42:45 +0000
-Received: by outflank-mailman (input) for mailman id 722144;
- Wed, 15 May 2024 10:42:44 +0000
+	id 1s7CDA-0000rO-2P; Wed, 15 May 2024 10:50:16 +0000
+Received: by outflank-mailman (input) for mailman id 722147;
+ Wed, 15 May 2024 10:50:15 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=EWeN=MS=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1s7C5s-0007UL-G4
- for xen-devel@lists.xenproject.org; Wed, 15 May 2024 10:42:44 +0000
-Received: from mail-lj1-x22d.google.com (mail-lj1-x22d.google.com
- [2a00:1450:4864:20::22d])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=733o=MS=cloud.com=kelly.choi@srs-se1.protection.inumbo.net>)
+ id 1s7CD9-0000rF-7k
+ for xen-devel@lists.xenproject.org; Wed, 15 May 2024 10:50:15 +0000
+Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
+ [2a00:1450:4864:20::536])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id db5fee4d-12a7-11ef-b4bb-af5377834399;
- Wed, 15 May 2024 12:42:42 +0200 (CEST)
-Received: by mail-lj1-x22d.google.com with SMTP id
- 38308e7fff4ca-2e428242a38so95670931fa.2
- for <xen-devel@lists.xenproject.org>; Wed, 15 May 2024 03:42:42 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a5a17922159sm845269766b.97.2024.05.15.03.42.41
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 15 May 2024 03:42:41 -0700 (PDT)
+ id e76d17a9-12a8-11ef-b4bb-af5377834399;
+ Wed, 15 May 2024 12:50:12 +0200 (CEST)
+Received: by mail-ed1-x536.google.com with SMTP id
+ 4fb4d7f45d1cf-572d83e3c7eso1582221a12.3
+ for <xen-devel@lists.xenproject.org>; Wed, 15 May 2024 03:50:11 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,178 +40,224 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: db5fee4d-12a7-11ef-b4bb-af5377834399
+X-Inumbo-ID: e76d17a9-12a8-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1715769761; x=1716374561; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=+gi4XzWWe4SUgS2l4ABdUI2Bf6HqL4MIDOC3y3/WBfA=;
-        b=KPapCHZq1lqk4KvJif1qI9oN5H+BpP2QXLikKm8WO0f0PrG+aNPin4pg/VMAfwn/F8
-         zi+urhcRuHSFdDeRjMcUGTFAefw0f9pot95pmDhi5GuRSVTnB3IJyrHksX6R0EH14DIr
-         wNO4PQS9JCmeJ0dxkghg6MSUUyXluKpMRoOnddJrVgZtT8GkqxvHACI6rw4PqaPvuoPf
-         oBUC+ts2eL0pu8ys3JgQ9PSYSUKvUpUvBVLOAcVQ8DVysJ99zbWVLNG8CmW5lOI+2mIa
-         ffkdZXpsbYSkFpZea/Mn9ZhQJlP5h1TqePAtzbooEa+sXGG97YqFxf72Oo/i1kxEmgMN
-         u2GQ==
+        d=cloud.com; s=cloud; t=1715770211; x=1716375011; darn=lists.xenproject.org;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=ZRYbz1CnCBep73DA1rCnx+h16X0jJnQs+wXCW8hOioI=;
+        b=HvSo2ILBsBfBV1fzk8G6KeHzupwav78h2mTsxojBRL5az800LLp2BEbD/t2eJ9Is+O
+         gjjzwja1UqfYHxbO9gnngh/IIvXQch6quVIXlQr22RpRJwOykJMm23fJaS0vU8zHNv6m
+         leQPQn2x9NQbZDU37nPovi3PDILxSudkWLiE0=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1715769761; x=1716374561;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=+gi4XzWWe4SUgS2l4ABdUI2Bf6HqL4MIDOC3y3/WBfA=;
-        b=imtEy45zwNcn3i4gUt7kAEh+3f4SRomA1/TitL7pwPJELDQzsrvpHrOb7wkw8WNkxD
-         jzMGqRHGgL4dJncQyAOzOSn3vgV8jZOzclS9WY1/Ct26WLHAxRSG6QCDOs87LWJXJqlE
-         6QLBekphk/Fvi7Jn8ynx9IGOh0WYt1hz7Hwyfu1WmOWzdFBkgcNeuRtc/99oOQ4XG0lK
-         MgjW8A4kzn/QsirM14hSt9PEPCM7eaGv1eY5h/6tXCCLT4JCKMe9DhH8sRYsSF2cAAfW
-         9FodrRFZmXRRdK8NksrvzXdve9ZSfzgh+7hnfZ63JnA6LAFSLayf3WnyJx6g/FnCQv4m
-         nTJA==
-X-Gm-Message-State: AOJu0YzwSvq743voDeuMNj7kknJzvJdJXf+zNAFgtA6VGnJRusyZzl46
-	ie2meEgJDlRmoJHFv0pcRqrUx3/9FOqR/EKaQh+Thi5OgunBqv9Fen2Ur+U/bw==
-X-Google-Smtp-Source: AGHT+IFvB+EZRM3CIOi6UXZ8dyGIkezBPeRMGtDwz6aOPTCltQuw67uT/VutOWhMMlsKEjDcqcW++g==
-X-Received: by 2002:a2e:9dc6:0:b0:2e6:f602:a02f with SMTP id 38308e7fff4ca-2e6f602a208mr13095381fa.52.1715769761468;
-        Wed, 15 May 2024 03:42:41 -0700 (PDT)
-Message-ID: <e9281523-a807-4889-80f0-a13804188af9@suse.com>
-Date: Wed, 15 May 2024 12:42:40 +0200
+        d=1e100.net; s=20230601; t=1715770211; x=1716375011;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=ZRYbz1CnCBep73DA1rCnx+h16X0jJnQs+wXCW8hOioI=;
+        b=ldfzgZmO1hADGqEKAo07Br7puTRARGyE1C3mdcz/hfIKHqTybVHlu/SYqSkoGy47Od
+         ZFIwaNwlkvunEgttxZD9sKUCwKLFw0vdF7dO3XY7EImyGy/huQQN+0txWfsmZDv8v6Y6
+         WBapzZ7w0L/haI5F4cIrW/57glF5D1jeTm8CzrxWPtdLVARzGqpOKjzqfrZXvXy/KMkr
+         RhnmjQ6d5rj8Va/DGBNjIYZWh4nFT57Bx7DDozcfWqTCResxK9A06Hf/HWctaf6XRzzD
+         2HgmtbEiiWqVANP7LaJYM06ghL2i3HxRpF4TUF/SiY9ktXfT7827y0aQ6oDobvt/O10M
+         tztQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWcDzxvbA+buXtLlxoxxIxWjgmCYSD2W3r5wlh8EETwJ+al/bt6KGmX3MvVELlfWIi7rB+I2gA+tz9K0t67h+I0+bANY41xIY6hMJcs6Ro=
+X-Gm-Message-State: AOJu0Yw5hGkdFuqT29qjLQr2wi+NC04l6tNHawSz7cVrXu3mL7JziR2B
+	wFdk8V8zJSnjRWrvooiOmsXW7qLY49GF+ZwgGVKmKjjvFhjPZhlkXAFLCX/AkzdiAciXIfBbRmd
+	Ew8GRT62vlEkr+wnWzk/usHDrtyrrVH5egOJ89w==
+X-Google-Smtp-Source: AGHT+IFJDezroE65n2WnhM7PTSrRF8xl/ULCEfNsdqblLyro66lc00Cii7rPSQSzyljOD26PPAbjVZR20jgRjrab/yo=
+X-Received: by 2002:a50:870d:0:b0:572:5fff:accd with SMTP id
+ 4fb4d7f45d1cf-5734d590348mr10699828a12.6.1715770211310; Wed, 15 May 2024
+ 03:50:11 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 06/12] VT-d: respect ACPI SATC's ATC_REQUIRED flag
-Content-Language: en-US
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Kevin Tian <kevin.tian@intel.com>, Paul Durrant <paul@xen.org>
-References: <64b028be-2197-4951-ae5b-32f9eabfa84a@suse.com>
- <e98daa41-c6b6-4f4e-b41d-84006011068d@suse.com> <ZjjdZRPluS0YIazc@macbook>
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <ZjjdZRPluS0YIazc@macbook>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <20240402170612.2477791-1-andrew.cooper3@citrix.com>
+ <11957460-0b2b-432d-ad92-38350306c9ff@suse.com> <b14acc58-5d3c-46ed-a300-61f422501d4c@suse.com>
+ <1ba4d87f-48e2-4332-bcd8-ac891cee8917@citrix.com>
+In-Reply-To: <1ba4d87f-48e2-4332-bcd8-ac891cee8917@citrix.com>
+From: Kelly Choi <kelly.choi@cloud.com>
+Date: Wed, 15 May 2024 11:49:35 +0100
+Message-ID: <CAO-mL=x6P3oX=FXw=3bciHPbR2RAA5GymMVNY33_xiH_vu8juQ@mail.gmail.com>
+Subject: Re: [PATCH] Revert "evtchn: refuse EVTCHNOP_status for Xen-bound
+ event channels"
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Jan Beulich <jbeulich@suse.com>, George Dunlap <George.Dunlap@citrix.com>, 
+	Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
+	Daniel Smith <dpsmith@apertussolutions.com>, Xen-devel <xen-devel@lists.xenproject.org>, 
+	"committers@xenproject.org" <committers@xenproject.org>
+Content-Type: multipart/alternative; boundary="000000000000f6438506187be1a3"
 
-On 06.05.2024 15:38, Roger Pau Monné wrote:
-> On Thu, Feb 15, 2024 at 11:16:11AM +0100, Jan Beulich wrote:
->> When the flag is set, permit Dom0 to control the device (no worse than
->> what we had before and in line with other "best effort" behavior we use
->> when it comes to Dom0),
-> 
-> I think we should somehow be able to signal dom0 that this device
-> might not operate as expected, otherwise dom0 might use it and the
-> device could silently malfunction due to ATS not being enabled.
+--000000000000f6438506187be1a3
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Whatever signaling we invented, no Dom0 would be required to respect it,
-and for (perhaps quite) some time no Dom0 kernel would even exist to query
-that property.
+Hi all,
 
-> Otherwise we should just hide the device from dom0.
+As Stefano has mentioned, we have the maintainers and committers call later
+today.
+Let's use this time to better collaborate and discuss any differences in
+opinions we have. It will also give everyone a chance to explain their
+viewpoints.
 
-This would feel wrong to me, almost like a regression from what we had
-before.
+Andy, please can I remind you to keep the language clean and professional
+in line with our standards as a community.
 
-> I assume setting the IOMMU context entry to passthrough mode would
-> also be fine for such devices that require ATS?
+Many thanks,
+Kelly Choi
 
-I'm afraid I'm lacking the connection of the question to what is being
-done here. Can you perhaps provide some more context? To provide some
-context from my side: Using pass-through mode would be excluded when Dom0
-is PVH. Hence why I'm not getting why we would want to even just consider
-doing so.
+Community Manager
+Xen Project
 
-Yet, looking at the spec, in pass-through mode translation requests are
-treated as UR. So maybe your question was towards there needing to be
-handling (whichever way) for the case where pass-through mode was
-requested for PV Dom0? The only half-way sensible thing to do in that case
-that I can think of right now would be to ignore that command line option,
-just like we do when Dom0 is PVH. Yet that would equally apply to use of
-"ats" on the command line, i.e. would likely first require yet another
-separate patch. Except that in the "ats" case it may be reasonable to
-instead panic(), for there being conflicting requests on the command line
-(and it being unclear which one would be better to ignore).
 
->> --- a/xen/drivers/passthrough/vtd/iommu.c
->> +++ b/xen/drivers/passthrough/vtd/iommu.c
->> @@ -2364,6 +2364,26 @@ static int cf_check intel_iommu_add_devi
->>      if ( ret )
->>          dprintk(XENLOG_ERR VTDPREFIX, "%pd: context mapping failed\n",
->>                  pdev->domain);
->> +    else if ( !pdev->broken )
->> +    {
->> +        const struct acpi_drhd_unit *drhd = acpi_find_matched_drhd_unit(pdev);
->> +        const struct acpi_satc_unit *satc = acpi_find_matched_satc_unit(pdev);
->> +
->> +        /*
->> +         * Prevent the device from getting assigned to an unprivileged domain
->> +         * when firmware indicates ATS is required, but ATS could not be enabled
->> +         * or was not explicitly enabled via command line option.
->> +         */
->> +        if ( satc && satc->atc_required &&
->> +             (!drhd || ats_device(pdev, drhd) <= 0 ||
->> +              !pci_ats_enabled(pdev->seg, pdev->bus, pdev->devfn) ||
->> +              opt_ats < 0) )
-> 
-> Do you need the opt_ats check here?
-> 
-> I don't think it's possible for pci_ats_enabled() to return true if
-> opt_ats is <= 0, and hence the opt_ats < 0 check can be dropped from
-> the conditional?
+On Tue, May 14, 2024 at 10:51=E2=80=AFAM Andrew Cooper <andrew.cooper3@citr=
+ix.com>
+wrote:
 
-In the present tristate mode of opt_ats a device can have ATS enabled when
-opt_ats is -1 (i.e. no command line override): For devices with ATC_REQUIRED
-set.
+> On 14/05/2024 10:25 am, Jan Beulich wrote:
+> > On 03.04.2024 08:16, Jan Beulich wrote:
+> >> On 02.04.2024 19:06, Andrew Cooper wrote:
+> >>> The commit makes a claim without any kind of justification.
+> >> Well, what does "have no business" leave open?
+> >>
+> >>> The claim is false, and the commit broke lsevtchn in dom0.
+> >> Or alternatively lsevtchn was doing something that was never meant to
+> work
+> >> (from Xen's perspective).
+> >>
+> >>>  It is also quite
+> >>> obvious from XSM_TARGET that it has broken device model stubdoms too.
+> >> Why would that be "obvious"? What business would a stubdom have to loo=
+k
+> at
+> >> Xen's side of an evtchn?
+> >>
+> >>> Whether to return information about a xen-owned evtchn is a matter of
+> policy,
+> >>> and it's not acceptable to short circuit the XSM on the matter.
+> >> I can certainly accept this as one possible view point. As in so many
+> cases
+> >> I'm afraid I dislike you putting it as if it was the only possible one=
+.
+> >>
+> >> In summary: The supposed justification you claim is missing in the
+> original
+> >> change is imo also missing here then: What business would any entity i=
+n
+> the
+> >> system have to look at Xen's side of an event channel? Back at the
+> time, 3
+> >> people agreed that it's "none".
+> > You've never responded to this reply of mine, or its follow-up. You als=
+o
+> > didn't chime in on the discussion Daniel and I were having. I consider =
+my
+> > objections unaddressed, and in fact I continue to consider the change t=
+o
+> > be wrong. Therefore it was inappropriate for you to commit it; it needs
+> > reverting asap. If you're not going to do so, I will.
+>
+> You tried defending breaking a utility with "well it shouldn't exist then=
+".
+>
+> You don't have a leg to stand on, and two maintainers of relevant
+> subsystems here just got tired of bullshit being presented in place of
+> any credible argument for having done the change in the way you did.
+>
+> The correct response was "Sorry I broke things.  Lets revert this for
+> now to unbreak, and I'll see about reworking it to not intentionally
+> subvert Xen's security mechanism".
+>
+> As it stands, you're 2-1 outvoted, and wasted any sympathy I may have
+> had for the principle of the change based on the absurdity of your
+> arguments.
+>
+> ~Andrew
+>
 
->> @@ -2375,12 +2395,26 @@ static int cf_check intel_iommu_enable_d
->>  
->>      pci_vtd_quirk(pdev);
->>  
->> -    if ( ret <= 0 )
->> -        return ret;
->> +    if ( ret <= 0 ||
->> +         (ret = enable_ats_device(pdev, &drhd->iommu->ats_devices)) < 0 ||
->> +         opt_ats < 0 )
-> 
-> Shouldn't this be opt_ats <= 0?
+--000000000000f6438506187be1a3
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-No, again not as long as this variable is a tristate one.
+<div dir=3D"ltr">Hi all,=C2=A0<div><br></div><div>As Stefano has mentioned,=
+ we have the maintainers and committers call later today.</div><div>Let&#39=
+;s use this time to better collaborate and discuss any differences in opini=
+ons we have. It will also give everyone a chance to explain their viewpoint=
+s.=C2=A0=C2=A0</div><div><br></div><div>Andy, please can I remind you to ke=
+ep the language clean and professional in line with our standards as a comm=
+unity.=C2=A0</div><div><br clear=3D"all"><div><div dir=3D"ltr" class=3D"gma=
+il_signature" data-smartmail=3D"gmail_signature"><div dir=3D"ltr"><div>Many=
+ thanks,</div><div>Kelly Choi</div><div><br></div><div><div style=3D"color:=
+rgb(136,136,136)">Community Manager</div><div style=3D"color:rgb(136,136,13=
+6)">Xen Project=C2=A0<br></div></div></div></div></div><br></div></div><br>=
+<div class=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail_attr">On Tue, Ma=
+y 14, 2024 at 10:51=E2=80=AFAM Andrew Cooper &lt;<a href=3D"mailto:andrew.c=
+ooper3@citrix.com">andrew.cooper3@citrix.com</a>&gt; wrote:<br></div><block=
+quote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1=
+px solid rgb(204,204,204);padding-left:1ex">On 14/05/2024 10:25 am, Jan Beu=
+lich wrote:<br>
+&gt; On 03.04.2024 08:16, Jan Beulich wrote:<br>
+&gt;&gt; On 02.04.2024 19:06, Andrew Cooper wrote:<br>
+&gt;&gt;&gt; The commit makes a claim without any kind of justification.<br=
+>
+&gt;&gt; Well, what does &quot;have no business&quot; leave open?<br>
+&gt;&gt;<br>
+&gt;&gt;&gt; The claim is false, and the commit broke lsevtchn in dom0.<br>
+&gt;&gt; Or alternatively lsevtchn was doing something that was never meant=
+ to work<br>
+&gt;&gt; (from Xen&#39;s perspective).<br>
+&gt;&gt;<br>
+&gt;&gt;&gt;=C2=A0 It is also quite<br>
+&gt;&gt;&gt; obvious from XSM_TARGET that it has broken device model stubdo=
+ms too.<br>
+&gt;&gt; Why would that be &quot;obvious&quot;? What business would a stubd=
+om have to look at<br>
+&gt;&gt; Xen&#39;s side of an evtchn?<br>
+&gt;&gt;<br>
+&gt;&gt;&gt; Whether to return information about a xen-owned evtchn is a ma=
+tter of policy,<br>
+&gt;&gt;&gt; and it&#39;s not acceptable to short circuit the XSM on the ma=
+tter.<br>
+&gt;&gt; I can certainly accept this as one possible view point. As in so m=
+any cases<br>
+&gt;&gt; I&#39;m afraid I dislike you putting it as if it was the only poss=
+ible one.<br>
+&gt;&gt;<br>
+&gt;&gt; In summary: The supposed justification you claim is missing in the=
+ original<br>
+&gt;&gt; change is imo also missing here then: What business would any enti=
+ty in the<br>
+&gt;&gt; system have to look at Xen&#39;s side of an event channel? Back at=
+ the time, 3<br>
+&gt;&gt; people agreed that it&#39;s &quot;none&quot;.<br>
+&gt; You&#39;ve never responded to this reply of mine, or its follow-up. Yo=
+u also<br>
+&gt; didn&#39;t chime in on the discussion Daniel and I were having. I cons=
+ider my<br>
+&gt; objections unaddressed, and in fact I continue to consider the change =
+to<br>
+&gt; be wrong. Therefore it was inappropriate for you to commit it; it need=
+s<br>
+&gt; reverting asap. If you&#39;re not going to do so, I will.<br>
+<br>
+You tried defending breaking a utility with &quot;well it shouldn&#39;t exi=
+st then&quot;.<br>
+<br>
+You don&#39;t have a leg to stand on, and two maintainers of relevant<br>
+subsystems here just got tired of bullshit being presented in place of<br>
+any credible argument for having done the change in the way you did.<br>
+<br>
+The correct response was &quot;Sorry I broke things.=C2=A0 Lets revert this=
+ for<br>
+now to unbreak, and I&#39;ll see about reworking it to not intentionally<br=
+>
+subvert Xen&#39;s security mechanism&quot;.<br>
+<br>
+As it stands, you&#39;re 2-1 outvoted, and wasted any sympathy I may have<b=
+r>
+had for the principle of the change based on the absurdity of your<br>
+arguments.<br>
+<br>
+~Andrew<br>
+</blockquote></div>
 
->> --- a/xen/drivers/passthrough/vtd/x86/ats.c
->> +++ b/xen/drivers/passthrough/vtd/x86/ats.c
->> @@ -45,8 +45,9 @@ int ats_device(const struct pci_dev *pde
->>  {
->>      struct acpi_drhd_unit *ats_drhd;
->>      unsigned int pos, expfl = 0;
->> +    const struct acpi_satc_unit *satc;
->>  
->> -    if ( opt_ats <= 0 || !iommu_qinval )
->> +    if ( !opt_ats || !iommu_qinval )
->>          return 0;
-> 
-> FWIW, I find this change confusing, hence my request earlier that
-> opt_ats must be set to 0 or 1 by the point it gets used.
-
-Right, but as said in particular on the subthread of patch 5, for now it has
-to remain a full tristate. Whereas if the spec was changed, I expect the
-variable could be switched to bool, and hence no overriding from -1 to 0/1
-would be needed anymore at all.
-
-Jan
+--000000000000f6438506187be1a3--
 
