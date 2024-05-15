@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6ED158C6E85
-	for <lists+xen-devel@lfdr.de>; Thu, 16 May 2024 00:19:15 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.722627.1126757 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DD5DE8C6EAA
+	for <lists+xen-devel@lfdr.de>; Thu, 16 May 2024 00:31:10 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.722632.1126766 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s7Mxg-0003BJ-H4; Wed, 15 May 2024 22:19:00 +0000
+	id 1s7N90-00065g-KW; Wed, 15 May 2024 22:30:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 722627.1126757; Wed, 15 May 2024 22:19:00 +0000
+Received: by outflank-mailman (output) from mailman id 722632.1126766; Wed, 15 May 2024 22:30:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s7Mxg-00039m-Cz; Wed, 15 May 2024 22:19:00 +0000
-Received: by outflank-mailman (input) for mailman id 722627;
- Wed, 15 May 2024 22:18:58 +0000
+	id 1s7N90-00063c-HW; Wed, 15 May 2024 22:30:42 +0000
+Received: by outflank-mailman (input) for mailman id 722632;
+ Wed, 15 May 2024 22:30:41 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=kF2M=MS=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1s7Mxe-00039d-SJ
- for xen-devel@lists.xenproject.org; Wed, 15 May 2024 22:18:58 +0000
+ id 1s7N8z-00063W-7a
+ for xen-devel@lists.xenproject.org; Wed, 15 May 2024 22:30:41 +0000
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 1e7bf5d4-1309-11ef-b4bb-af5377834399;
- Thu, 16 May 2024 00:18:56 +0200 (CEST)
+ id c0fe8f32-130a-11ef-b4bb-af5377834399;
+ Thu, 16 May 2024 00:30:38 +0200 (CEST)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 504D660AAD;
- Wed, 15 May 2024 22:18:55 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C0B5CC116B1;
- Wed, 15 May 2024 22:18:53 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id 5A58A615F7;
+ Wed, 15 May 2024 22:30:37 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E3D22C116B1;
+ Wed, 15 May 2024 22:30:35 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,68 +41,133 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1e7bf5d4-1309-11ef-b4bb-af5377834399
+X-Inumbo-ID: c0fe8f32-130a-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1715811535;
-	bh=hWPGgn2veiW2Ir9WKsDAPLO5QYf+tJ46ZxyS1oYFi/s=;
+	s=k20201202; t=1715812237;
+	bh=BhaxKrSJ2V074gHXzgPwRKtFyji5OeLt5R3Sl21D4t0=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=fLE2wcivHd34N8/JCEQHwnXrRDLKVrnBQEhD79p+w8c5V05OAKDzxqjnDKJjYUEvw
-	 hUpuIPZ2YTknBqDZkIFbUKL1UtvKv+tHWzsxv7ANt8ntXhGaFU59lKq/YlWeqvouEE
-	 9VH0vKPxGsZSydsRE9SP0Pc1eJm7Fd/wJaHK0g8cpSzI14iGxCiTYnAWPN67i1kAFq
-	 f1o0Ssvq/KgDksR3Nl2cW0SpatLWhU2IoOp+x12S4s/AaJ0CyLgdPHepFPImIVsj8a
-	 pXJw4fYXSW3t/oRpwJtoQsULLiJ7D1qRKB8+4eJ4v98U4GPLUBzmiJwRvh/93L+504
-	 GbJqnYPflZfHw==
-Date: Wed, 15 May 2024 15:18:52 -0700 (PDT)
+	b=DC2NxJVEy31yOLjZq9huooHYPwBBmjBjscRNb0ZIy3x6OEpnlOzGNuQT92ALOTRRV
+	 1NNhrZjfbKC0lEtLDZOmnnkdgi080nHff9IsAxUVb/vA1ieHqy5fJddxyiP7BlRu07
+	 HG78AuDwrZh9dO0iHbi3gN/jF1hi1vGY/F/9TLhql3jUuWpIr9rRHNB99sBSVcfHte
+	 0joH++aTxyWzb7rwjAJ0PSCxJrYrGnt6ObW8dQm/61+/4UlfEcEzW7mcCJgjOv2vxt
+	 OcBtySvKnw9a3yyXI8RbwBEuusgl/lGV/8pqUE8U0okm/NYcsTjYEWnd+a8Bzvuj3M
+	 kdb3NJxOwTmtg==
+Date: Wed, 15 May 2024 15:30:34 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Jan Beulich <jbeulich@suse.com>
-cc: Stefano Stabellini <sstabellini@kernel.org>, 
-    Andrew Cooper <andrew.cooper3@citrix.com>, 
-    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-    Bertrand Marquis <bertrand.marquis@arm.com>, Julien Grall <julien@xen.org>, 
-    Michal Orzel <michal.orzel@amd.com>, roberto.bagnara@bugseng.com, 
-    consulting@bugseng.com, xen-devel@lists.xenproject.org
-Subject: Re: [PATCH] docs/misra: add D4.12
-In-Reply-To: <bd1072c5-1533-46b7-b6c8-fab1c0f80ab3@suse.com>
-Message-ID: <alpine.DEB.2.22.394.2405151513530.2544314@ubuntu-linux-20-04-desktop>
-References: <alpine.DEB.2.22.394.2405141611170.2544314@ubuntu-linux-20-04-desktop> <bd1072c5-1533-46b7-b6c8-fab1c0f80ab3@suse.com>
+To: Henry Wang <xin.wang2@amd.com>
+cc: xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org, 
+    Juergen Gross <jgross@suse.com>, 
+    Stefano Stabellini <sstabellini@kernel.org>, 
+    Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, 
+    Michal Orzel <michal.orzel@amd.com>
+Subject: Re: [PATCH] drivers/xen: Improve the late XenStore init protocol
+In-Reply-To: <20240515014330.1044617-1-xin.wang2@amd.com>
+Message-ID: <alpine.DEB.2.22.394.2405151524270.2544314@ubuntu-linux-20-04-desktop>
+References: <20240515014330.1044617-1-xin.wang2@amd.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
-On Wed, 15 May 2024, Jan Beulich wrote:
-> On 15.05.2024 01:15, Stefano Stabellini wrote:
-> > Add D4.12 with the same explanation as the rules of the R21 series.
-> > D4.12 refers to the standard library memory allocation functions and
-> > similar third party libraries with memory allocation functions. It
-> > doesn't refer to the in-tree implementation we have in Xen which is
-> > subject to MISRA C rules and MISRA C scanning.
-> > 
-> > Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
-> > 
-> > diff --git a/docs/misra/rules.rst b/docs/misra/rules.rst
-> > index 80e5e972ad..bc8506add4 100644
-> > --- a/docs/misra/rules.rst
-> > +++ b/docs/misra/rules.rst
-> > @@ -76,6 +76,11 @@ maintainers if you want to suggest a change.
-> >         considered libraries from MISRA C point of view as they are
-> >         imported in source form)
-> >  
-> > +   * - `Dir 4.12 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/D_04_12.c>`_
-> > +     - Required
-> > +     - Dynamic memory allocation shall not be used
-> > +     - Xen doesn't provide, use, or link against a Standard Library [#xen-stdlib]_
+On Wed, 15 May 2024, Henry Wang wrote:
+> Currently, the late XenStore init protocol is only triggered properly
+> for the case that HVM_PARAM_STORE_PFN is ~0ULL (invalid). For the
+> case that XenStore interface is allocated but not ready (the connection
+> status is not XENSTORE_CONNECTED), Linux should also wait until the
+> XenStore is set up properly.
 > 
-> I'm having trouble connecting this remark with the directive. We do have
-> dynamic memory allocation routines, and we use them. It doesn't really
-> matter that they don't come from an external library, does it?
+> Introduce a macro to describe the XenStore interface is ready, use
+> it in xenbus_probe_initcall() and xenbus_probe() to select the code
+> path of doing the late XenStore init protocol or not.
+> 
+> Take the opportunity to enhance the check of the allocated XenStore
+> interface can be properly mapped, and return error early if the
+> memremap() fails.
+> 
+> Signed-off-by: Henry Wang <xin.wang2@amd.com>
+> Signed-off-by: Michal Orzel <michal.orzel@amd.com>
 
-Similarly to the 21.x rules series, it makes a difference if they are
-external libraries or code within the project. The rule points out that
-the standard library memory allocation functions can lead to undefined
-behavior. On the other hand, our own implementation under xen.git is
-subject to MISRA C scanning and all the other MISRA C rules.
+Please add a Fixes: tag
 
-The example in the link above, shows a use-after-free error that in our
-case it should be caught by other MISRA C rules scanning.
+
+> ---
+>  drivers/xen/xenbus/xenbus_probe.c | 21 ++++++++++++++++-----
+>  1 file changed, 16 insertions(+), 5 deletions(-)
+> 
+> diff --git a/drivers/xen/xenbus/xenbus_probe.c b/drivers/xen/xenbus/xenbus_probe.c
+> index 3205e5d724c8..8aec0ed1d047 100644
+> --- a/drivers/xen/xenbus/xenbus_probe.c
+> +++ b/drivers/xen/xenbus/xenbus_probe.c
+> @@ -72,6 +72,10 @@ EXPORT_SYMBOL_GPL(xen_store_evtchn);
+>  struct xenstore_domain_interface *xen_store_interface;
+>  EXPORT_SYMBOL_GPL(xen_store_interface);
+>  
+> +#define XS_INTERFACE_READY \
+> +	((xen_store_interface != NULL) && \
+> +	 (xen_store_interface->connection == XENSTORE_CONNECTED))
+> +
+>  enum xenstore_init xen_store_domain_type;
+>  EXPORT_SYMBOL_GPL(xen_store_domain_type);
+>  
+> @@ -751,9 +755,10 @@ static void xenbus_probe(void)
+>  {
+>  	xenstored_ready = 1;
+>  
+> -	if (!xen_store_interface) {
+> -		xen_store_interface = memremap(xen_store_gfn << XEN_PAGE_SHIFT,
+> -					       XEN_PAGE_SIZE, MEMREMAP_WB);
+> +	if (!xen_store_interface || XS_INTERFACE_READY) {
+> +		if (!xen_store_interface)
+
+These two nested if's don't make sense to me. If XS_INTERFACE_READY
+succeeds, it means that  ((xen_store_interface != NULL) &&
+(xen_store_interface->connection == XENSTORE_CONNECTED)).
+
+So it is not possible that xen_store_interface == NULL immediately
+after. Right?
+
+
+> +			xen_store_interface = memremap(xen_store_gfn << XEN_PAGE_SHIFT,
+> +						       XEN_PAGE_SIZE, MEMREMAP_WB);
+>  		/*
+>  		 * Now it is safe to free the IRQ used for xenstore late
+>  		 * initialization. No need to unbind: it is about to be
+> @@ -822,7 +827,7 @@ static int __init xenbus_probe_initcall(void)
+>  	if (xen_store_domain_type == XS_PV ||
+>  	    (xen_store_domain_type == XS_HVM &&
+>  	     !xs_hvm_defer_init_for_callback() &&
+> -	     xen_store_interface != NULL))
+> +	     XS_INTERFACE_READY))
+>  		xenbus_probe();
+>  
+>  	/*
+> @@ -831,7 +836,7 @@ static int __init xenbus_probe_initcall(void)
+>  	 * started, then probe.  It will be triggered when communication
+>  	 * starts happening, by waiting on xb_waitq.
+>  	 */
+> -	if (xen_store_domain_type == XS_LOCAL || xen_store_interface == NULL) {
+> +	if (xen_store_domain_type == XS_LOCAL || !XS_INTERFACE_READY) {
+>  		struct task_struct *probe_task;
+>  
+>  		probe_task = kthread_run(xenbus_probe_thread, NULL,
+> @@ -1014,6 +1019,12 @@ static int __init xenbus_init(void)
+>  			xen_store_interface =
+>  				memremap(xen_store_gfn << XEN_PAGE_SHIFT,
+>  					 XEN_PAGE_SIZE, MEMREMAP_WB);
+> +			if (!xen_store_interface) {
+> +				pr_err("%s: cannot map HVM_PARAM_STORE_PFN=%llx\n",
+> +				       __func__, v);
+> +				err = -ENOMEM;
+
+I think this should -EINVAL
+
+
+> +				goto out_error;
+> +			}
+>  			if (xen_store_interface->connection != XENSTORE_CONNECTED)
+>  				wait = true;
+>  		}
+> -- 
+> 2.34.1
+> 
 
