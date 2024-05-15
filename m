@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8A3208C6ED1
-	for <lists+xen-devel@lfdr.de>; Thu, 16 May 2024 00:52:28 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.722645.1126797 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 21B028C6ED8
+	for <lists+xen-devel@lfdr.de>; Thu, 16 May 2024 00:55:38 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.722648.1126807 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s7NTo-0002e7-Ny; Wed, 15 May 2024 22:52:12 +0000
+	id 1s7NWo-0003B3-7D; Wed, 15 May 2024 22:55:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 722645.1126797; Wed, 15 May 2024 22:52:12 +0000
+Received: by outflank-mailman (output) from mailman id 722648.1126807; Wed, 15 May 2024 22:55:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s7NTo-0002bl-LF; Wed, 15 May 2024 22:52:12 +0000
-Received: by outflank-mailman (input) for mailman id 722645;
- Wed, 15 May 2024 22:52:10 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=kF2M=MS=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1s7NTm-0002bf-J6
- for xen-devel@lists.xenproject.org; Wed, 15 May 2024 22:52:10 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [2604:1380:4641:c500::1])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c23560c1-130d-11ef-909d-e314d9c70b13;
- Thu, 16 May 2024 00:52:09 +0200 (CEST)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 48DF1614C5;
- Wed, 15 May 2024 22:52:08 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7FAACC116B1;
- Wed, 15 May 2024 22:52:06 +0000 (UTC)
+	id 1s7NWo-00039F-2l; Wed, 15 May 2024 22:55:18 +0000
+Received: by outflank-mailman (input) for mailman id 722648;
+ Wed, 15 May 2024 22:55:17 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1s7NWn-000395-AH; Wed, 15 May 2024 22:55:17 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1s7NWn-00049G-8j; Wed, 15 May 2024 22:55:17 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1s7NWm-0007zn-VP; Wed, 15 May 2024 22:55:17 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1s7NWm-0005QF-Ur; Wed, 15 May 2024 22:55:16 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,54 +42,89 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c23560c1-130d-11ef-909d-e314d9c70b13
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1715813528;
-	bh=yq9aJoe7mPRaP2y/18GJw006zYIktPsyCWvFrHtNf4A=;
-	h=Date:From:To:cc:Subject:From;
-	b=R9VgG3rV/tBB+KTwEnCAO5FBDL+EkermOybBCbWvtQf5M488en5V+KzpmwGX+TmJA
-	 xC02yINB2owbuDPAPY/M+i2flFh/PALWXQuVfG3O92BYNprK6qhEYRANSwmL4xL85A
-	 MdG//8imY7VVhhGMsnVoYyzAj5e9OJDgzgRDjS5kqhih9owTmMWBxeC79M++BtScdy
-	 f5ZJJ74ZAaWlJT2QrSEiRGDg9oHmkLlkgJ4BOi18dJC6dV7ev1h1tiHCdMao8cLyeu
-	 SxVHNaZdJyzoK8GKZH9DtcUUatfpzlSbAJ08fR9GESxfL7BjiW71Wfnwjg/dP1Z79w
-	 cLihdRBv9wjUw==
-Date: Wed, 15 May 2024 15:52:04 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=Go/qdM1Z5BdRmihFueQz5XAdshCcxRDVTbIohM7Qq/E=; b=jrK/aNEKT73dq12jwQooRwtVXJ
+	zCQpaJPXMKW4t1JwXA42l1nW/wk0nfqDSlZh945Cm0OjYANt9CrKsU53/orXwDig4OywCqBJ+fiRx
+	FC8XsRB1O7NPGpzR+FFxkYIlNYxvRENkxdCZC7dXEUWcVBw0bXLpRig7wNOBfAyOP5TA=;
 To: xen-devel@lists.xenproject.org
-cc: Stefano Stabellini <sstabellini@kernel.org>, 
-    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-    Andrew Cooper <andrew.cooper3@citrix.com>, 
-    Bertrand Marquis <bertrand.marquis@arm.com>, 
-    Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>, 
-    nicola.vetrini@bugseng.com, consulting@bugseng.com, jbeulich@suse.com
-Subject: [PATCH v2] include/ctype.h: fix MISRA R10.2 violation 
-Message-ID: <alpine.DEB.2.22.394.2405151549020.2544314@ubuntu-linux-20-04-desktop>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+Message-ID: <osstest-186006-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Subject: [xen-unstable-smoke test] 186006: tolerable all pass - PUSHED
+X-Osstest-Failures:
+    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=abd00b037da5ffa4e8c4508a5df0cd6eabb805a4
+X-Osstest-Versions-That:
+    xen=319a5125ca2649e6eb95670b4d721260025c187d
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Wed, 15 May 2024 22:55:16 +0000
 
-The value returned by __toupper is used in arithmetic operations causing
-MISRA C 10.2 violations. Cast to plain char in the toupper macro. Also
-do the same in tolower for consistency.
+flight 186006 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/186006/
 
-Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
----
-Changes in v2:
-- fix the toupper macro instead
+Failures :-/ but no regressions.
 
-diff --git a/xen/include/xen/ctype.h b/xen/include/xen/ctype.h
-index 6dec944a37..773ac27aa4 100644
---- a/xen/include/xen/ctype.h
-+++ b/xen/include/xen/ctype.h
-@@ -48,7 +48,7 @@ static inline unsigned char __toupper(unsigned char c)
- 	return c;
- }
- 
--#define tolower(c) __tolower(c)
--#define toupper(c) __toupper(c)
-+#define tolower(c) ((char)__tolower(c))
-+#define toupper(c) ((char)__toupper(c))
- 
- #endif
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+
+version targeted for testing:
+ xen                  abd00b037da5ffa4e8c4508a5df0cd6eabb805a4
+baseline version:
+ xen                  319a5125ca2649e6eb95670b4d721260025c187d
+
+Last test of basis   185999  2024-05-14 23:02:13 Z    0 days
+Testing same since   186006  2024-05-15 20:04:01 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrew Cooper <andrew.cooper3@citrix.com>
+  Jan Beulich <jbeulich@suse.com>
+  Juergen Gross <jgross@suse.com>
+  Leigh Brown <leigh@solinno.co.uk>
+  Roger Pau Monne <roger.pau@citrix.com>
+  Roger Pau Monné <roger.pau@citrix.com>
+
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/xen.git
+   319a5125ca..abd00b037d  abd00b037da5ffa4e8c4508a5df0cd6eabb805a4 -> smoke
 
