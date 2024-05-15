@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7C5E78C6979
-	for <lists+xen-devel@lfdr.de>; Wed, 15 May 2024 17:13:48 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.722479.1126471 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5A0BA8C6995
+	for <lists+xen-devel@lfdr.de>; Wed, 15 May 2024 17:23:09 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.722485.1126480 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s7GK2-0000Of-JA; Wed, 15 May 2024 15:13:38 +0000
+	id 1s7GSo-0002YS-Cm; Wed, 15 May 2024 15:22:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 722479.1126471; Wed, 15 May 2024 15:13:38 +0000
+Received: by outflank-mailman (output) from mailman id 722485.1126480; Wed, 15 May 2024 15:22:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s7GK2-0000MM-FW; Wed, 15 May 2024 15:13:38 +0000
-Received: by outflank-mailman (input) for mailman id 722479;
- Wed, 15 May 2024 15:13:37 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1s7GSo-0002Wl-9p; Wed, 15 May 2024 15:22:42 +0000
+Received: by outflank-mailman (input) for mailman id 722485;
+ Wed, 15 May 2024 15:22:41 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=EWeN=MS=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1s7GK1-0000MG-1G
- for xen-devel@lists.xenproject.org; Wed, 15 May 2024 15:13:37 +0000
-Received: from mail-lj1-x235.google.com (mail-lj1-x235.google.com
- [2a00:1450:4864:20::235])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b360b3bf-12cd-11ef-909d-e314d9c70b13;
- Wed, 15 May 2024 17:13:35 +0200 (CEST)
-Received: by mail-lj1-x235.google.com with SMTP id
- 38308e7fff4ca-2e0a34b2899so105228021fa.3
- for <xen-devel@lists.xenproject.org>; Wed, 15 May 2024 08:13:35 -0700 (PDT)
+ id 1s7GSn-0002Wf-Fz
+ for xen-devel@lists.xenproject.org; Wed, 15 May 2024 15:22:41 +0000
+Received: from mail-lj1-x22a.google.com (mail-lj1-x22a.google.com
+ [2a00:1450:4864:20::22a])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id f73a3c5a-12ce-11ef-b4bb-af5377834399;
+ Wed, 15 May 2024 17:22:39 +0200 (CEST)
+Received: by mail-lj1-x22a.google.com with SMTP id
+ 38308e7fff4ca-2e4b90b03a9so77107631fa.1
+ for <xen-devel@lists.xenproject.org>; Wed, 15 May 2024 08:22:39 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a5a17b01631sm871191666b.153.2024.05.15.08.13.34
+ 4fb4d7f45d1cf-5733becfc2fsm9186024a12.39.2024.05.15.08.22.38
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 15 May 2024 08:13:35 -0700 (PDT)
+ Wed, 15 May 2024 08:22:38 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,52 +45,52 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b360b3bf-12cd-11ef-909d-e314d9c70b13
+X-Inumbo-ID: f73a3c5a-12ce-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1715786015; x=1716390815; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1715786559; x=1716391359; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=SVV2/hLcQw3aZJvTlD+Rpate6U19tAQsl4o8Ekmm/AM=;
-        b=E/3JL3r8khZi8Y9wmIDPylOYY7rd8ofcbvXhKnyapFXLvVhYrmEkuxVsDdebpiPJWs
-         YvHKaRgUVMiHctjgeynmB8BMn2f1UhYHY0+/QQzue8nUl56078NOEOtBclFbyCHzRCb/
-         KX4mQ1qczbQUqifnc58dnR5xgWgPaLCFvoglu3GwC2xh9r7eah/LZfWMRY0ujkuRQ1wo
-         dXswWnMbGLVd4f2Lb3XyEHgI7eTheCMSXsxnA8nD4i0QSjF8paWMIHdGzcSQnTdfLCrJ
-         KrENmKKpT9C7wdLxBdrQ+GRIEFoRDzQPhVNRuKtMq9KUoxt+W2WV+KnTTrKa5KlYY7F2
-         L3qA==
+        bh=z90oHeb7BmjBCbCyQiMaLsBrK5r6Ef7VhFkt7CjQhXM=;
+        b=f4DTcB2je5xJE+gMFG4D54osvPP3YbDcNq9u0d3C2w3BLkLfM4wbYD5CbkmTT6r9jx
+         WNowqD/MfnWeKRuQUvRs7B4Cio4/1f/61jscx+nh/eMuWhDXYXDAr64e63OS6SBGSAXL
+         a4OoUomjo7veNA9iFpeMJzxlZvvmSfRXNMClzrMUcJCy+1ycW2fx5czv2dIbXcaSxtRA
+         Y84VAG7YVsllA1HpuWIdVTwGlkTZclphYmA9zPgS85JI1v+rH7AsZnFS8uUB7t6t0Sx/
+         JjWgTis3kB+RPHnqbezDmTmo48qL0iOm3cYb9dcaj2eefTGhgXytG7YdaUyWiQ7XURoh
+         UPzQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1715786015; x=1716390815;
+        d=1e100.net; s=20230601; t=1715786559; x=1716391359;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=SVV2/hLcQw3aZJvTlD+Rpate6U19tAQsl4o8Ekmm/AM=;
-        b=Ho3tdnGZ6RygaLcHFZsLH/WYJlOBwvtAy12QEjBGQLplZmTzqqN4UPaOGNXfgCbjg6
-         e0xvrQMH46lwYryiWtWtau0MMVQIzKp/JYGszqrHli0A6HJ9LoXvTJfdcIJcgDTqjyPJ
-         eVco9L1MOztLQ6oXW7NrWp6buSQyggudlSfxVdVtKvHwu+m8SXJTqWSZySxt3OERtwPz
-         ZH0XK5IX6gZ2PAeKPi7lKHm0VCU83FJRh4jYC7opIriKutbggxLDsFZL9koRSMb3+tkW
-         WqUvElyY9x5q0SSRkXft8yEy7is/abr8dS0RFmTWNiqq62tB1+rxtCyAoiG6vUo6SaI/
-         +XkA==
-X-Forwarded-Encrypted: i=1; AJvYcCXQiE/jr0PJ5P3QTDdTgyKoTYN3FBy9maxYr+IrCMNn/3NvaQ5lU9smNOktFQKsAvkYpdlNxbD61S9ZKiALAcqG88T0krDBUr/aZ4B0sTw=
-X-Gm-Message-State: AOJu0YztI6cBaRw9VUS4mOG/qYy5TE6yTu2pkmCOP5Xg/eTxQl4TSbkX
-	IWnMCF5cCMZP4qhaT7r/DGswoktJ/b14tzRKsevPqghxNEKVjrvZ+r3z6F/deA==
-X-Google-Smtp-Source: AGHT+IG5Q+a+LL1E4Ytt9dDWDhz0WZk2ZmmTqV1Yfi8mTlThy/GSd/zlhU1M3sLvr+ZwiZfylYa/kQ==
-X-Received: by 2002:ac2:4284:0:b0:51f:567b:c399 with SMTP id 2adb3069b0e04-52210277b79mr13825215e87.62.1715786015352;
-        Wed, 15 May 2024 08:13:35 -0700 (PDT)
-Message-ID: <f64f50f5-fc0d-465e-9904-db6352dad35d@suse.com>
-Date: Wed, 15 May 2024 17:13:34 +0200
+        bh=z90oHeb7BmjBCbCyQiMaLsBrK5r6Ef7VhFkt7CjQhXM=;
+        b=BOPg7TCqHK9nsPcMEQshxkcGZodofR56tSUzPA0WDm0vu1w7EauRw4nkRfBm+q4kYF
+         JpGuwDU5/++5Ell89npLCMOy8ndGE1MvK70cIvFBdCm6tTacw4V8AjqZ0ZRCMSlr6eyQ
+         lnYQSSsRBzEIoRhTzExIL8CRs8jnD7EgowSQ3wkvI67oo4fWeJEDl8dkEIXyWK+siWyy
+         PXdFx6Uoi67WvOebxvh/8aQDlJf2YEN4B2MtMzAA44wH3UoHNiExU6CZtqmlq1r6fPTt
+         cloFfkycUo/YgB4igzlXJ/OQlrxJulf034sO/ki1eTShEkUdtjefrTXwjyfX9ST0/rme
+         Sd7Q==
+X-Forwarded-Encrypted: i=1; AJvYcCW62BMrwkj4SmsuwNM7y3CZvM7jswlc9JtXTUYGdYx7vKI1BeN6rU/bGshpN11fLI+9vEX515z34BXqP+YuHE9Q5HQfhXBSW/lQLrhGjYg=
+X-Gm-Message-State: AOJu0Yxx3sRRBAyZuKPPhGmeEPFt52He8oIrjs+MG7rkZcW+NkAvpWjU
+	0/AbmpyO/hQIaiKB39BEJUGYnT1zJ7VNkdGvQlpVrLnchER9LtEvVo17Rfl8hA==
+X-Google-Smtp-Source: AGHT+IGny/G5TgpmQnUjj2uWAuuhJMA91VyHHQYfBP9dBM1G/itLhJh0G66cvVRg+H+d1yuet/rB5g==
+X-Received: by 2002:a19:e05a:0:b0:518:ce4b:17ef with SMTP id 2adb3069b0e04-5221006cdd3mr10961201e87.60.1715786558788;
+        Wed, 15 May 2024 08:22:38 -0700 (PDT)
+Message-ID: <bf49520a-691c-4876-a582-20a6745d4a56@suse.com>
+Date: Wed, 15 May 2024 17:22:37 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH V3 (resend) 10/19] xen/page_alloc: Add a path for xenheap
- when there is no direct map
+Subject: Re: [PATCH V3 (resend) 11/19] x86/setup: Leave early boot slightly
+ earlier
 Content-Language: en-US
 To: Elias El Yandouzi <eliasely@amazon.com>
 Cc: julien@xen.org, pdurrant@amazon.com, dwmw@amazon.com,
  Hongyan Xia <hongyxia@amazon.com>, Andrew Cooper
- <andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
- <jgrall@amazon.com>, xen-devel@lists.xenproject.org
+ <andrew.cooper3@citrix.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, Julien Grall <jgrall@amazon.com>,
+ xen-devel@lists.xenproject.org
 References: <20240513134046.82605-1-eliasely@amazon.com>
- <20240513134046.82605-11-eliasely@amazon.com>
+ <20240513134046.82605-12-eliasely@amazon.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -115,44 +115,59 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240513134046.82605-11-eliasely@amazon.com>
+In-Reply-To: <20240513134046.82605-12-eliasely@amazon.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 13.05.2024 15:40, Elias El Yandouzi wrote:
-> From: Hongyan Xia <hongyxia@amazon.com>
-> 
-> When there is not an always-mapped direct map, xenheap allocations need
-> to be mapped and unmapped on-demand.
-> 
-> Signed-off-by: Hongyan Xia <hongyxia@amazon.com>
-> Signed-off-by: Julien Grall <jgrall@amazon.com>
-> Signed-off-by: Elias El Yandouzi <eliasely@amazon.com>
-> 
-> ----
-> 
->     I have left the call to map_pages_to_xen() and destroy_xen_mappings()
->     in the split heap for now. I am not entirely convinced this is necessary
->     because in that setup only the xenheap would be always mapped and
->     this doesn't contain any guest memory (aside the grant-table).
->     So map/unmapping for every allocation seems unnecessary.
-
-Kind of depends on whether you expect guest data to potentially be copied
-into memory that cam from the Xen heap, even if just transiently.
-
-> @@ -2317,6 +2350,12 @@ void free_xenheap_pages(void *v, unsigned int order)
->      for ( i = 0; i < (1u << order); i++ )
->          pg[i].count_info &= ~PGC_xen_heap;
+> --- a/xen/arch/x86/setup.c
+> +++ b/xen/arch/x86/setup.c
+> @@ -1751,6 +1751,22 @@ void asmlinkage __init noreturn __start_xen(unsigned long mbi_p)
 >  
-> +    if ( !has_directmap() &&
-> +         destroy_xen_mappings(va, va + (1UL << (order + PAGE_SHIFT))) )
+>      numa_initmem_init(0, raw_max_page);
+>  
+> +    /*
+> +     * When we do not have a direct map, memory for metadata of heap nodes in
+> +     * init_node_heap() is allocated from xenheap, which needs to be mapped and
+> +     * unmapped on demand. However, we cannot just take memory from the boot
+> +     * allocator to create the PTEs while we are passing memory to the heap
+> +     * allocator during end_boot_allocator().
+> +     *
+> +     * To solve this race, we need to leave early boot before
+> +     * end_boot_allocator() so that Xen PTE pages are allocated from the heap
+> +     * instead of the boot allocator. We can do this because the metadata for
+> +     * the 1st node is statically allocated, and by the time we need memory to
+> +     * create mappings for the 2nd node, we already have enough memory in the
+> +     * heap allocator in the 1st node.
+> +     */
+> +    system_state = SYS_STATE_boot;
+> +
+>      if ( max_page - 1 > virt_to_mfn(HYPERVISOR_VIRT_END - 1) )
+>      {
+>          unsigned long lo = virt_to_mfn(HYPERVISOR_VIRT_END - 1);
+> @@ -1782,8 +1798,6 @@ void asmlinkage __init noreturn __start_xen(unsigned long mbi_p)
+>      else
+>          end_boot_allocator();
+>  
+> -    system_state = SYS_STATE_boot;
+> -
+>      bsp_stack = cpu_alloc_stack(0);
+>      if ( !bsp_stack )
+>          panic("No memory for BSP stack\n");
 
-PAGE_SIZE << order ?
+I'm pretty wary of this movement, even more so when Arm isn't switched at
+the same time. It has (virtually?) always been the case that this state
+switch happens _after_ end_boot_allocator(), and I wouldn't be surprised
+if there was a dependency on that somewhere. I realize you've been telling
+use that at Amazon you've been running with an earlier variant of these
+changes for a long time, and you not having hit issues with this is a good
+sign. But I'm afraid it's not a proof.
 
-Also, on x86 at least, to limit the impact of this, I think there wants to
-be a prereq change to modify_xen_mappings() limiting the final flush_area()
-there to just the one page altered, when it is just a single page that is
-being fiddled with.
+As to possible alternatives - as pointed out by Roger, the comment / patch
+description aren't entirely clear as to what exactly needs working around.
+One possibility might be to introduce an x86-only boolean controlling from
+when on to use the heap allocator for page table allocations, thus
+decoupling that from system_state.
 
 Jan
 
