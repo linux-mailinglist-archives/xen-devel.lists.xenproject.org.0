@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F394E8C6845
-	for <lists+xen-devel@lfdr.de>; Wed, 15 May 2024 16:07:41 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.722408.1126321 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A552F8C687B
+	for <lists+xen-devel@lfdr.de>; Wed, 15 May 2024 16:22:30 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.722414.1126332 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s7FHw-0005Dn-OZ; Wed, 15 May 2024 14:07:24 +0000
+	id 1s7FW1-0000vj-V0; Wed, 15 May 2024 14:21:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 722408.1126321; Wed, 15 May 2024 14:07:24 +0000
+Received: by outflank-mailman (output) from mailman id 722414.1126332; Wed, 15 May 2024 14:21:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s7FHw-0005BH-Lv; Wed, 15 May 2024 14:07:24 +0000
-Received: by outflank-mailman (input) for mailman id 722408;
- Wed, 15 May 2024 14:07:23 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1s7FW1-0000t7-Rs; Wed, 15 May 2024 14:21:57 +0000
+Received: by outflank-mailman (input) for mailman id 722414;
+ Wed, 15 May 2024 14:21:57 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=EWeN=MS=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1s7FHu-0005B6-Vf
- for xen-devel@lists.xenproject.org; Wed, 15 May 2024 14:07:22 +0000
-Received: from mail-ed1-x52a.google.com (mail-ed1-x52a.google.com
- [2a00:1450:4864:20::52a])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 7284826c-12c4-11ef-909d-e314d9c70b13;
- Wed, 15 May 2024 16:07:21 +0200 (CEST)
-Received: by mail-ed1-x52a.google.com with SMTP id
- 4fb4d7f45d1cf-56e1baf0380so2051158a12.3
- for <xen-devel@lists.xenproject.org>; Wed, 15 May 2024 07:07:21 -0700 (PDT)
+ id 1s7FW1-0000t1-9l
+ for xen-devel@lists.xenproject.org; Wed, 15 May 2024 14:21:57 +0000
+Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
+ [2a00:1450:4864:20::62e])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 7aec620e-12c6-11ef-b4bb-af5377834399;
+ Wed, 15 May 2024 16:21:54 +0200 (CEST)
+Received: by mail-ej1-x62e.google.com with SMTP id
+ a640c23a62f3a-a59c0a6415fso183487866b.1
+ for <xen-devel@lists.xenproject.org>; Wed, 15 May 2024 07:21:54 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5733bed0035sm9051531a12.50.2024.05.15.07.07.19
+ a640c23a62f3a-a5a17892444sm860426766b.76.2024.05.15.07.21.53
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 15 May 2024 07:07:20 -0700 (PDT)
+ Wed, 15 May 2024 07:21:53 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,57 +45,52 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7284826c-12c4-11ef-909d-e314d9c70b13
+X-Inumbo-ID: 7aec620e-12c6-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1715782041; x=1716386841; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1715782914; x=1716387714; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=k0PfqxX7BVmMsAZzKFvyNkhPpeR8HETprZKZjx0qju0=;
-        b=bILRp+3GTIFNODGJBNIcgQ+8zKoJIDNICSAQU9J5ZAU1uM6CWUKsuvkyX23zNtadm1
-         eKHxO7PD1ZgSZCo4hyMR0OLDUNdKY/kaYk2N+9tYZbR7gVjvDuMtlbF0YIAhSsFSHUPA
-         uGPE32a8sPwnjsbefM/oqsnO2a+OuFbAVaGx27ae+vkpNomKDt0HvHZCP+wX9PjIMR4q
-         oc2dFzx79f74WgoGKraABuzxVcyo4WKEf0dUV7iTrk7k45iReYKwMjyztjes00gIYsjY
-         8TWyYoJu0UwG1nS1jfDBrgBVJIVTbB/wK5aM0wfwTOdIQTdOfPf9q2716GRJ7fr/zcnd
-         TTMA==
+        bh=VDjKHeVmEF8gDoTf7gHB2hCYAf1lLBmvUSTuuW7v6x8=;
+        b=WURRCYYewgip3zSh1apRWAzjUXKalfmAW53mWmQ/sqpTMA4QnxL+GVK1yn3zxh7da+
+         8t36Ht6M8eZCv1GvrlP3O7L2jZFbCs5trFLfL0Z+lUyJ6UNLApYUjI/FvNZnB1P5isWR
+         3taKLG/MCMF01fJSllpG99iEL0GK3+E+kwuMpYT+XJQVo098AIx18OxEToKoBWbAY0XE
+         2YO2K5pdql5HVLwFlGT/Pgx6sQZrctRKttPPMLWPlEuci2qjV4C2Bsox7piEycAygZVL
+         Y90edCvtN59S08B3M3o0HCnC9gw/3A0zxwgYPYj0v/Vs31XXDKDzhjkZ2csOmXTuYo+l
+         iRSA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1715782041; x=1716386841;
+        d=1e100.net; s=20230601; t=1715782914; x=1716387714;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=k0PfqxX7BVmMsAZzKFvyNkhPpeR8HETprZKZjx0qju0=;
-        b=ALRj8R3snc8/y5UY9qFQYpUeUHrsFHQrBmO7qrX5E++b/OI2kFYuwiB3JJJ1AleDa2
-         crc/aGT6+q17TXY189R37TKmDxD8T68fi1FSNAURNqGYI4a9vbXIAoc2JPBkmPYIuPxh
-         RnIMrTGO3Wn++KfXjA4Kc4+5RME8UYmmPJAIOW9g4jw5w7bhcRfDRzBgcQZbFZFiJ3CL
-         Ppao6pVsWHoHogwLexddORCQ8vBxjVU3iZMGzQ/oZt3Cua5CXkRCyapOEZfoCIFPrUCt
-         d7jUL+T0t4xVw5JnZZJGrN3KBbjhh/vwXENqg5spmY4M0s6ScJWqf/7r788By4ppPb5L
-         IQfA==
-X-Forwarded-Encrypted: i=1; AJvYcCUg7Es2P8PPXbw9+o1zbYFsOd8r0l214Jc12/O0UU/Cy/G/Jh8No/dI2zMxaegck6apexcOJFyy2dumdZRbL3T4uptZNW2BBa0pYGOv6nQ=
-X-Gm-Message-State: AOJu0Ywv2aJCb0zXNjABKviOGftXOFaEyefWfYbv1Y9Z7ocynF2K90yQ
-	9wR3uul1R2Kb4j120kUhBeiBEZdRR3ODVbJfIDV6wJnhxzmkiDi/Dl5Z+p26OA==
-X-Google-Smtp-Source: AGHT+IGnMvc9sGONal+ESoQrP2J9BZXybaiKAnruUK+Z1n4UzwMOo+1hI8fMLgmDmd/Due0jcqJAeQ==
-X-Received: by 2002:a50:d59d:0:b0:56d:c91c:dfc2 with SMTP id 4fb4d7f45d1cf-5734d67eca7mr11808269a12.31.1715782041212;
-        Wed, 15 May 2024 07:07:21 -0700 (PDT)
-Message-ID: <ea90fd21-1ec4-46b5-b157-810466b3f0ab@suse.com>
-Date: Wed, 15 May 2024 16:07:18 +0200
+        bh=VDjKHeVmEF8gDoTf7gHB2hCYAf1lLBmvUSTuuW7v6x8=;
+        b=IEzYccoBO562QXSEIYXinllNQMUKfryVNpGvoNfx1PAndeW92/NkSkdW+9ZThmfhVm
+         XKUZlHrq0oCQgNCsvsvQ3/JsPhalzgI7BQowNEBWW6a46mqEuW3qocWV1QAjJwdQWDM2
+         u7bxMom2JMK4aHOGBKx1blRNRG8CDYXbQ5ETYX+c+ukKZdcxl3zCG6ZUpGjE8D78EK4i
+         uNfubLmhzRQbteChzH5ERp7WNSrrhWEEzMd7esGar1OfRinwKUNXu+hkgZCWpb5n8Vhc
+         x9jvwhbYsXxnpRAe13NMdfc2WA032klBTsquJraTJaZjoyfQfTSprWVCOpXgHoS84dOU
+         zt5g==
+X-Forwarded-Encrypted: i=1; AJvYcCU6x7UqJ5oHk+w1iQLestUCX2cr/+DSU5n2OP2QJ0aLjPZg7PnAeFymuf4QJgpe/TvhbL5noFvN8ppMVZMMsjXpK30GvBFeDy4301v7cos=
+X-Gm-Message-State: AOJu0Yy3XxaZiNpaLi+DHzZCyJwT+df5e52Z2B4ysAKnpvXLuwmsiZrN
+	6kiqHp3CLeTPUxobbV2TR+4fwJ7oXljP19CMO+AIo/N2IQOTO4KSzYzBsVJADw==
+X-Google-Smtp-Source: AGHT+IFMjyS9z0y/NWW5GiglPbeEuz+v5V6NnYCb3H0G3lPOOGrs2jV2sZhGSQw7q8cwbaebyX/f5Q==
+X-Received: by 2002:a17:907:1b0b:b0:a59:a3ef:21eb with SMTP id a640c23a62f3a-a5a2d675b19mr1303577666b.73.1715782914321;
+        Wed, 15 May 2024 07:21:54 -0700 (PDT)
+Message-ID: <4a47654c-54c4-4ada-8139-e5ca9d35af86@suse.com>
+Date: Wed, 15 May 2024 16:21:52 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v9 03/15] xen/bitops: implement fls{l}() in common logic
+Subject: Re: [PATCH V3 (resend) 09/19] x86/domain_page: Remove the fast paths
+ when mfn is not in the directmap
 Content-Language: en-US
-To: "Oleksii K." <oleksii.kurochko@gmail.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
- <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>,
- Shawn Anastasio <sanastasio@raptorengineering.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+To: Elias El Yandouzi <eliasely@amazon.com>
+Cc: julien@xen.org, pdurrant@amazon.com, dwmw@amazon.com,
+ Hongyan Xia <hongyxia@amazon.com>, Andrew Cooper
+ <andrew.cooper3@citrix.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, Julien Grall <jgrall@amazon.com>,
  xen-devel@lists.xenproject.org
-References: <cover.1714988096.git.oleksii.kurochko@gmail.com>
- <fe183f7e8ada7c3fb00ebf9b38f1fffffcc9c2d7.1714988096.git.oleksii.kurochko@gmail.com>
- <c16c0554-c376-41f4-bfe8-04c977702a04@suse.com>
- <46fd5c698fc13ffa3e8e82ed507bcfa67a9ef819.camel@gmail.com>
+References: <20240513134046.82605-1-eliasely@amazon.com>
+ <20240513134046.82605-10-eliasely@amazon.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -120,54 +115,85 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <46fd5c698fc13ffa3e8e82ed507bcfa67a9ef819.camel@gmail.com>
+In-Reply-To: <20240513134046.82605-10-eliasely@amazon.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 15.05.2024 15:55, Oleksii K. wrote:
-> On Wed, 2024-05-15 at 11:09 +0200, Jan Beulich wrote:
->> On 06.05.2024 12:15, Oleksii Kurochko wrote:
->>> Changes in V9:
->>>  - update return type of fls and flsl() to unsigned int to be
->>> aligned with other
->>>    bit ops.
->>
->> But this then needs carrying through to ...
->>
->>> --- a/xen/arch/arm/include/asm/arm64/bitops.h
->>> +++ b/xen/arch/arm/include/asm/arm64/bitops.h
->>> @@ -22,17 +22,15 @@ static /*__*/always_inline unsigned long
->>> __ffs(unsigned long word)
->>>   */
->>>  #define ffz(x)  __ffs(~(x))
->>>  
->>> -static inline int flsl(unsigned long x)
->>> +static inline int arch_flsl(unsigned long x)
->>
->> ... e.g. here. You don't want to introduce signed/unsigned
->> mismatches.
-> Do you mean that generic flsl() uses 'unsigned int' as a return type,
-> but arch_flsl continue to use 'int'?
+On 13.05.2024 15:40, Elias El Yandouzi wrote:
+> @@ -77,18 +80,24 @@ void *map_domain_page(mfn_t mfn)
+>      struct vcpu_maphash_entry *hashent;
+>  
+>  #ifdef NDEBUG
+> -    if ( mfn_x(mfn) <= PFN_DOWN(__pa(HYPERVISOR_VIRT_END - 1)) )
+> +    if ( arch_mfns_in_directmap(mfn_x(mfn), 1) )
+>          return mfn_to_virt(mfn_x(mfn));
+>  #endif
+>  
+>      v = mapcache_current_vcpu();
+> -    if ( !v )
+> -        return mfn_to_virt(mfn_x(mfn));
+> +    if ( !v || !v->domain->arch.mapcache.inuse )
+> +    {
+> +        if ( arch_mfns_in_directmap(mfn_x(mfn), 1) )
+> +            return mfn_to_virt(mfn_x(mfn));
+> +        else
+> +        {
+> +            BUG_ON(system_state >= SYS_STATE_smp_boot);
+> +            return pmap_map(mfn);
+> +        }
+> +    }
+>  
+>      dcache = &v->domain->arch.mapcache;
+>      vcache = &v->arch.mapcache;
+> -    if ( !dcache->inuse )
+> -        return mfn_to_virt(mfn_x(mfn));
 
-Yes.
+Is this case (the logic for which you move up) actually possible? I.e.
+can we observe a domain here which hasn't made it through
+mapcache_domain_init() (where ->inuse is set)?
 
->> Also why do you keep "inline" here, while ...
->>
->>> --- a/xen/arch/x86/include/asm/bitops.h
->>> +++ b/xen/arch/x86/include/asm/bitops.h
->>> @@ -425,7 +425,7 @@ static always_inline unsigned int
->>> arch_ffsl(unsigned long x)
->>>   *
->>>   * This is defined the same way as ffs.
->>>   */
->>> -static inline int flsl(unsigned long x)
->>> +static always_inline int arch_flsl(unsigned long x)
->>
->> ... you switch to always_inline here?
-> Because Adnrew's patch with bitops.h for x86 changes to always_inline,
-> so to be consistent, at least, for architecture.
+> @@ -184,6 +193,12 @@ void unmap_domain_page(const void *ptr)
+>      if ( !va || va >= DIRECTMAP_VIRT_START )
+>          return;
+>  
+> +    if ( va >= FIXADDR_START && va < FIXADDR_TOP )
+> +    {
+> +        pmap_unmap((void *)ptr);
 
-And why not extend this to Arm?
+Misra is going to object to this casting away of const. It's rather
+pmap_unmap() which wants changing, to accept a pointer-to-const.
+
+> @@ -335,6 +350,23 @@ mfn_t domain_page_map_to_mfn(const void *ptr)
+>      if ( va >= DIRECTMAP_VIRT_START )
+>          return _mfn(virt_to_mfn(ptr));
+>  
+> +    /*
+> +     * The fixmap is stealing the top-end of the VMAP. So the check for
+> +     * the PMAP *must* happen first.
+
+Not really. You could also ...
+
+> +     * Also, the fixmap translate a slot to an address backwards. The
+> +     * logic will rely on it to avoid any complexity. So check at
+> +     * compile time this will always hold.
+> +    */
+> +    BUILD_BUG_ON(fix_to_virt(FIX_PMAP_BEGIN) < fix_to_virt(FIX_PMAP_END));
+> +
+> +    if ( ((unsigned long)fix_to_virt(FIX_PMAP_END) <= va) &&
+> +         ((va & PAGE_MASK) <= (unsigned long)fix_to_virt(FIX_PMAP_BEGIN)) )
+> +    {
+> +        BUG_ON(system_state >= SYS_STATE_smp_boot);
+> +        return l1e_get_mfn(l1_fixmap[l1_table_offset(va)]);
+> +    }
+> +
+>      if ( va >= VMAP_VIRT_START && va < VMAP_VIRT_END )
+
+... put it into the body of this if() then. Which might be preferable to
+keep the non-global-mapping case straight / quick.
 
 Jan
+
+>          return vmap_to_mfn(va);
+>  
+
 
