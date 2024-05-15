@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5E21A8C6B42
-	for <lists+xen-devel@lfdr.de>; Wed, 15 May 2024 19:04:13 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.722560.1126650 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E4D928C6B71
+	for <lists+xen-devel@lfdr.de>; Wed, 15 May 2024 19:25:42 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.722568.1126660 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s7I2C-00061p-54; Wed, 15 May 2024 17:03:20 +0000
+	id 1s7IN0-0001CR-Pv; Wed, 15 May 2024 17:24:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 722560.1126650; Wed, 15 May 2024 17:03:20 +0000
+Received: by outflank-mailman (output) from mailman id 722568.1126660; Wed, 15 May 2024 17:24:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s7I2C-0005zp-2Q; Wed, 15 May 2024 17:03:20 +0000
-Received: by outflank-mailman (input) for mailman id 722560;
- Wed, 15 May 2024 17:03:18 +0000
+	id 1s7IN0-00019u-Mn; Wed, 15 May 2024 17:24:50 +0000
+Received: by outflank-mailman (input) for mailman id 722568;
+ Wed, 15 May 2024 17:24:49 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ly6O=MS=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1s7I2A-0005zj-PW
- for xen-devel@lists.xenproject.org; Wed, 15 May 2024 17:03:18 +0000
-Received: from mail-lj1-x234.google.com (mail-lj1-x234.google.com
- [2a00:1450:4864:20::234])
+ <SRS0=RHxB=MS=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1s7IMz-00019o-Bs
+ for xen-devel@lists.xenproject.org; Wed, 15 May 2024 17:24:49 +0000
+Received: from mail-qv1-xf34.google.com (mail-qv1-xf34.google.com
+ [2607:f8b0:4864:20::f34])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 02c3c83f-12dd-11ef-b4bb-af5377834399;
- Wed, 15 May 2024 19:03:11 +0200 (CEST)
-Received: by mail-lj1-x234.google.com with SMTP id
- 38308e7fff4ca-2e1fa1f1d9bso123908871fa.0
- for <xen-devel@lists.xenproject.org>; Wed, 15 May 2024 10:03:11 -0700 (PDT)
-Received: from [192.168.226.248] ([94.75.70.14])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-521f38d9192sm2609570e87.241.2024.05.15.10.03.09
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 15 May 2024 10:03:10 -0700 (PDT)
+ id 06b39987-12e0-11ef-b4bb-af5377834399;
+ Wed, 15 May 2024 19:24:47 +0200 (CEST)
+Received: by mail-qv1-xf34.google.com with SMTP id
+ 6a1803df08f44-6a04bae513cso26120406d6.1
+ for <xen-devel@lists.xenproject.org>; Wed, 15 May 2024 10:24:47 -0700 (PDT)
+Received: from [10.80.67.140] (default-46-102-197-194.interdsl.co.uk.
+ [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
+ 6a1803df08f44-6a15f179900sm66201596d6.19.2024.05.15.10.24.45
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 15 May 2024 10:24:45 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,497 +45,140 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 02c3c83f-12dd-11ef-b4bb-af5377834399
+X-Inumbo-ID: 06b39987-12e0-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1715792591; x=1716397391; darn=lists.xenproject.org;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=CudvKSAjP6QR2eUIDcgcD3uTS4NZg1oCeQIxxS4n4eo=;
-        b=D4XoW+3wRD3xBOmMmo3TzJk12XucXybVNcAggTx8H5x6CEM8syD4LXb3vHroKXVd5k
-         wdebNEIjgwaVTP8AOLSFOZEglgQItRnJK2UGDm0/gBsuLKVole1yEJelpD4peRi7Wt25
-         l2S4OXfSjDi2CODVkk+g9vJ4wFTaVJ93W4q4MRLN075Us4XDyWpZW1rtBDxs0QrpI/wt
-         9iQc3zaXXC9NXoyd/5/tkH32i1DjQbMucbPUdnTIVgJSv3PgeXsyPF+jgWUXYl/SLsv9
-         z2IFquGp0kN4FDOprWaslsENyqZ7KqLAxcEEaLndXN+gzV0LHBNKhLvnPoZHyiTYui0t
-         POFw==
+        d=citrix.com; s=google; t=1715793886; x=1716398686; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=z1nN9Ar+qfmXEaldLdkdVicnTVi7R8lyro+Fz4srAmg=;
+        b=jpmrj/lQVJ+9tPBhYy8DQZX+MEmC18wSeEdKo6v2Evpnr1smyz3mpvdzDQLE82bm4O
+         eSeTPanXBzcQoR/iESb+60c145d+YXZV/x0rzDPnqqBjFwBgObWlrNBUvRuf39MxkhxX
+         oprk3PfbtFqhBlG0fydGRDRy8xAFHVvukh+SE=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1715792591; x=1716397391;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=CudvKSAjP6QR2eUIDcgcD3uTS4NZg1oCeQIxxS4n4eo=;
-        b=vlsxZ0r5T2SNxukskG5VbrwJD6Any6JrbtSUiKvOOXf2QCZVEAaiqqKpK1URsPiCqq
-         jOdt4voamNpcYm/Oln4Annf4kGnkbBbfqUr3L6Di/HoaUeB6zMPedSFCwPzYg1eAixlp
-         SLr2frFlwjbWcgJsCHMjxRtYvmokFbhc6vqnjajPSReOvUwLdeeHIHd4ecofTYsHWKbX
-         i2UpbMiXdbr0yf3IUOSEz5xU+5CJtV9pSLIZVa+3JchObXs165ZnU7uGd0Vw8zCrF5t4
-         IlCShy2soMscrpbkW1PmZKBOGN7TP/OY/mv0UWO2C/7z3QluYG9tIWuPXbofmpc0xFsL
-         oc0w==
-X-Forwarded-Encrypted: i=1; AJvYcCUCkREbuEjU9PR8qbVrjgp7xC0tamw42lXnB3xk8+hOW/foFyjWETs0MKusvyVdz0td/3V6QjvpoYDE39Mfr5/XPDuPB/0oXhCgepiExp0=
-X-Gm-Message-State: AOJu0YwEGB77JSsDQgrx4kE0ilkNObPsgTOV0cuVOmujVu5wUGeULMfy
-	fdd63AJp6lAqFqUI7lpBSSlDClyEUBJwNMeJUObTMPeHRHeuiLko
-X-Google-Smtp-Source: AGHT+IHMk4b45aUupTs5AUMmsysZNygLlrTy77fZNAttbqJfDEHsSSwb1PHHGZHRUBz41qJw1IvM/w==
-X-Received: by 2002:a05:6512:70f:b0:523:af1f:89d9 with SMTP id 2adb3069b0e04-523af1f8aa7mr374443e87.58.1715792590780;
-        Wed, 15 May 2024 10:03:10 -0700 (PDT)
-Message-ID: <588867d6e054264551e0e27b534955fce9b6d6d5.camel@gmail.com>
-Subject: Re: [PATCH v9 02/15] xen: introduce generic non-atomic test_*bit()
-From: "Oleksii K." <oleksii.kurochko@gmail.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Roger Pau =?ISO-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>, Ross
- Lagerwall <ross.lagerwall@citrix.com>, Stefano Stabellini
- <sstabellini@kernel.org>,  Julien Grall <julien@xen.org>, Bertrand Marquis
- <bertrand.marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>, Volodymyr
- Babchuk <Volodymyr_Babchuk@epam.com>,  Andrew Cooper
- <andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>,
- Shawn Anastasio <sanastasio@raptorengineering.com>,
- xen-devel@lists.xenproject.org
-Date: Wed, 15 May 2024 19:03:09 +0200
-In-Reply-To: <5174d73f-677d-4c5c-9d4c-e651a29e4366@suse.com>
-References: <cover.1714988096.git.oleksii.kurochko@gmail.com>
-	 <616e8be09f217a766b96c4f9060f6658636a4338.1714988096.git.oleksii.kurochko@gmail.com>
-	 <2ac0ca46-6957-4d31-95cb-3016de7b11b8@suse.com>
-	 <76a84e9e239e1338fc6f86d243b74fa239d8091d.camel@gmail.com>
-	 <5174d73f-677d-4c5c-9d4c-e651a29e4366@suse.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.52.1 (3.52.1-1.fc40) 
+        d=1e100.net; s=20230601; t=1715793886; x=1716398686;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=z1nN9Ar+qfmXEaldLdkdVicnTVi7R8lyro+Fz4srAmg=;
+        b=SpXZa5y1FqWxhEkhGe2BIqlntyie7YZ4t9fXUDH2lfJIhhl1oxQrf1fsBeWc8/RfWX
+         7wxK/ZfZoFLnLOehOcUChh4peIwnlv+8+0BldEws02n4v79yOdZ02s/dw4vwwTXOtiVW
+         bQJX1dgLYhUrMMn2KjO+cPLWsOwuBBJK/YtNrBqtV2BELZNOSQfrZ6S1EBKN9Xs3ouMS
+         /46LMTVTcH8ufDP22f/6IfJ+zE2Lbm3lS/MMbLP2kMV6D8cycKEHwugn3iw2h3PdUd5+
+         OSoFoZcp4iJPEK/Wmz1i27MwwqTrcVnQcIy0sEkDAEV8y1NS39dIk54Vnh2pSOfoxxYJ
+         /esQ==
+X-Gm-Message-State: AOJu0Yyr6Y48iGFdzEKILZ+1vj3YDN49w/JMnJ21gl0UG65rZokB9oiO
+	ex73IQIudLRINbKBzMykUmTSoHLPs338JLwBXpU2iH9eBbiT7KIJZ8/dygIsw+k=
+X-Google-Smtp-Source: AGHT+IGdw9AG2XeUJ28f6yMJbXM1IBdkgQiHzyYnNYIXdLu+8pK5dtrqRxTVCz+1t401kvj+l3a/mw==
+X-Received: by 2002:a05:6214:550a:b0:6a0:5446:dbc1 with SMTP id 6a1803df08f44-6a168144b8bmr174723556d6.2.1715793886121;
+        Wed, 15 May 2024 10:24:46 -0700 (PDT)
+Message-ID: <ddc6fe6c-e7bb-4cf1-876a-843a6c5a2877@citrix.com>
+Date: Wed, 15 May 2024 18:24:43 +0100
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH v2 4/5] docs/man: document VIF vlan keyword
+To: Leigh Brown <leigh@solinno.co.uk>, Jason Andryuk <jandryuk@gmail.com>
+Cc: xen-devel@lists.xenproject.org, anthony.perard@citrix.com
+References: <20240508213824.55824-1-leigh@solinno.co.uk>
+ <20240508213824.55824-5-leigh@solinno.co.uk>
+ <CAKf6xpviWyFxt4JMq23K0LxjDcP2zJF1Sqye=1jS2UAtwcaRww@mail.gmail.com>
+ <c62b512c3b1ea58fb07e50df85b4ebd6@solinno.co.uk>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <c62b512c3b1ea58fb07e50df85b4ebd6@solinno.co.uk>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Wed, 2024-05-15 at 17:41 +0200, Jan Beulich wrote:
-> On 15.05.2024 17:29, Oleksii K. wrote:
-> > On Wed, 2024-05-15 at 10:52 +0200, Jan Beulich wrote:
-> > > On 06.05.2024 12:15, Oleksii Kurochko wrote:
-> > > > The following generic functions were introduced:
-> > > > * test_bit
-> > > > * generic__test_and_set_bit
-> > > > * generic__test_and_clear_bit
-> > > > * generic__test_and_change_bit
-> > > >=20
-> > > > Also, the patch introduces the following generics which are
-> > > > used by the functions mentioned above:
-> > > > * BITOP_BITS_PER_WORD
-> > > > * BITOP_MASK
-> > > > * BITOP_WORD
-> > > > * BITOP_TYPE
-> > > >=20
-> > > > These functions and macros can be useful for architectures
-> > > > that don't have corresponding arch-specific instructions.
-> > >=20
-> > > Logically this paragraph may better move ahead of the BITOP_*
-> > > one.
-> > >=20
-> > > > Because of that x86 has the following check in the macros
-> > > > test_bit(),
-> > > > __test_and_set_bit(), __test_and_clear_bit(),
-> > > > __test_and_change_bit():
-> > > > =C2=A0=C2=A0=C2=A0 if ( bitop_bad_size(addr) ) __bitop_bad_size();
-> > > > It was necessary to make bitop bad size check generic too, so
-> > > > arch_check_bitop_size() was introduced.
-> > >=20
-> > > Not anymore, with the most recent adjustments? There's nothing
-> > > arch-
-> > > specific anymore in the checking.
-> > >=20
-> > > > @@ -183,7 +180,7 @@ static inline int test_and_set_bit(int nr,
-> > > > volatile void *addr)
-> > > > =C2=A0 * If two examples of this operation race, one can appear to
-> > > > succeed
-> > > > =C2=A0 * but actually fail.=C2=A0 You must protect multiple accesse=
-s with
-> > > > a
-> > > > lock.
-> > > > =C2=A0 */
-> > > > -static inline int __test_and_set_bit(int nr, void *addr)
-> > > > +static inline int arch__test_and_set_bit(int nr, volatile void
-> > > > *addr)
-> > >=20
-> > > I think I raised this point before: Why arch__ here, ...
-> > >=20
-> > > > @@ -232,7 +226,7 @@ static inline int test_and_clear_bit(int
-> > > > nr,
-> > > > volatile void *addr)
-> > > > =C2=A0 * If two examples of this operation race, one can appear to
-> > > > succeed
-> > > > =C2=A0 * but actually fail.=C2=A0 You must protect multiple accesse=
-s with
-> > > > a
-> > > > lock.
-> > > > =C2=A0 */
-> > > > -static inline int __test_and_clear_bit(int nr, void *addr)
-> > > > +static inline int arch__test_and_clear_bit(int nr, volatile
-> > > > void
-> > > > *addr)
-> > >=20
-> > > ... here, ...
-> > >=20
-> > > > @@ -243,13 +237,10 @@ static inline int
-> > > > __test_and_clear_bit(int
-> > > > nr, void *addr)
-> > > > =C2=A0
-> > > > =C2=A0=C2=A0=C2=A0=C2=A0 return oldbit;
-> > > > =C2=A0}
-> > > > -#define __test_and_clear_bit(nr, addr) ({=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 \
-> > > > -=C2=A0=C2=A0=C2=A0 if ( bitop_bad_size(addr) ) __bitop_bad_size();=
-=C2=A0=C2=A0=C2=A0=C2=A0 \
-> > > > -=C2=A0=C2=A0=C2=A0 __test_and_clear_bit(nr, addr);=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 \
-> > > > -})
-> > > > +#define arch__test_and_clear_bit arch__test_and_clear_bit
-> > > > =C2=A0
-> > > > =C2=A0/* WARNING: non atomic and it can be reordered! */
-> > > > -static inline int __test_and_change_bit(int nr, void *addr)
-> > > > +static inline int arch__test_and_change_bit(int nr, volatile
-> > > > void
-> > > > *addr)
-> > >=20
-> > > ... and here, while ...
-> > >=20
-> > > > @@ -307,8 +295,7 @@ static inline int variable_test_bit(int nr,
-> > > > const volatile void *addr)
-> > > > =C2=A0=C2=A0=C2=A0=C2=A0 return oldbit;
-> > > > =C2=A0}
-> > > > =C2=A0
-> > > > -#define test_bit(nr, addr) ({=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 \
-> > > > -=C2=A0=C2=A0=C2=A0 if ( bitop_bad_size(addr) ) __bitop_bad_size();=
-=C2=A0=C2=A0=C2=A0=C2=A0 \
-> > > > +#define arch_test_bit(nr, addr) ({=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0 \
-> > >=20
-> > > ... just arch_ here? I don't like the double underscore infixes
-> > > very
-> > > much, but I'm okay with them as long as they're applied
-> > > consistently.
-> >=20
-> > Common code and x86 use __test_and_clear_bit(), and this patch
-> > provides
-> > a generic version of __test_and_clear_bit(). To emphasize that
-> > generic__test_and_clear_bit() is a common implementation of
-> > __test_and_clear_bit(), the double underscore was retained. Also,
-> > test_and_clear_bit() exists and if one day it will be needed to
-> > provide
-> > a generic version of it, then it will be needed to have
-> > generic__test_and_clear_bit() and generic_test_and_clear_bit()
-> >=20
-> > A similar logic was chosen for test_bit.
->=20
-> Right, but in all of your reply arch_ doesn't appear at all.
-I am a little confused here. According to my logic, should it be
-arch___test_and_set_bit() and generic___test_and_set_bit()?
+On 15/05/2024 4:30 pm, Leigh Brown wrote:
+> Hi Jason,
+>
+> On 2024-05-15 01:57, Jason Andryuk wrote:
+>> On Wed, May 8, 2024 at 5:39 PM Leigh Brown <leigh@solinno.co.uk> wrote:
+>>>
+>>> Document the new `vlan' keyword in xl-network-configuration(5).
+>>>
+>>> Signed-off-by: Leigh Brown <leigh@solinno.co.uk>
+>>
+>> Reviewed-by: Jason Andryuk <jason.andryuk@amd.com>
+>>
+>> One nit below
+>>
+>>> ---
+>>>  docs/man/xl-network-configuration.5.pod.in | 38 ++++++++++++++++++++++
+>>>  1 file changed, 38 insertions(+)
+>>>
+>>> diff --git a/docs/man/xl-network-configuration.5.pod.in
+>>> b/docs/man/xl-network-configuration.5.pod.in
+>>> index f3e379bcf8..c35c0922b3 100644
+>>> --- a/docs/man/xl-network-configuration.5.pod.in
+>>> +++ b/docs/man/xl-network-configuration.5.pod.in
+>>> @@ -259,6 +259,44 @@ Specifies the MTU (i.e. the maximum size of an
+>>> IP payload, exclusing headers). T
+>>
+>>> +Note, one VLAN ID must be marked as the PVID. In the case of a vlan
+>>> +specification consisting of a single VLAN ID (e.g. C<vlan=10>), the
+>>> B<p> suffix
+>>> +may be omitted. Specifying more than one untagged VLAN ID is an
+>>> advanced
+>>> +configuration - use with caution.
+>>> +
+>>> +For example:
+>>> +
+>>> +        'vlan=10' -- meaning a single VLAN that is the PVID.
+>>> +       'vlan=10p/20' -- VLAN 10 is the PVID and VLAN 20 is tagged.
+>>> +       'vlan=10p/100+10x4' -- VLANs 10, 100, 110, 120, 130, 140, 150.
+>>
+>> Indent mismatch between 7 and 8 spaces.
+>
+> FWIW I will sort that too :-)
 
-If you are asking why there is no generic implementation for
-test_and_clear_bit() without the double underscores, the reason is that
-Arm, PPC, and x86 don't use generic code and rely on specific
-instructions for this operation. Therefore, I didn't see much sense in
-providing a generic version of test_and_clear_bit(), at least, for now.
+This should be merged into patch 2 which introduces the vlan keyword.
 
+As the indentation is the only issue, I'll fix it on commit while merging.
 
->  Yet the
-> question was: Why then not arch__test_bit(), to match the other arch
-> helpers?
-Because no one uses __test_bit(). Everywhere is used test_bit().
-
->=20
-> > > > --- a/xen/include/xen/bitops.h
-> > > > +++ b/xen/include/xen/bitops.h
-> > > > @@ -65,10 +65,144 @@ static inline int generic_flsl(unsigned
-> > > > long
-> > > > x)
-> > > > =C2=A0 * scope
-> > > > =C2=A0 */
-> > > > =C2=A0
-> > > > +#define BITOP_MASK(nr)=C2=A0 ((bitop_uint_t)1 << ((nr) %
-> > > > BITOP_BITS_PER_WORD))
-> > > > +
-> > > > +#define BITOP_WORD(nr)=C2=A0 ((nr) / BITOP_BITS_PER_WORD)
-> > > > +
-> > > > +extern void __bitop_bad_size(void);
-> > > > +
-> > > > =C2=A0/* --------------------- Please tidy above here -------------=
--
-> > > > ----
-> > > > --- */
-> > > > =C2=A0
-> > > > =C2=A0#include <asm/bitops.h>
-> > > > =C2=A0
-> > > > +#ifndef arch_check_bitop_size
-> > > > +
-> > > > +#define bitop_bad_size(addr) sizeof(*(addr)) <
-> > > > sizeof(bitop_uint_t)
-> > >=20
-> > > Nit: Missing parentheses around the whole expression.
-> > >=20
-> > > > +#define arch_check_bitop_size(addr) \
-> > > > +=C2=A0=C2=A0=C2=A0 if ( bitop_bad_size(addr) ) __bitop_bad_size();
-> > >=20
-> > > Apart from the arch_ prefix that now wants dropping, this macro
-> > > (if
-> > > we
-> > > want one in the first place)=C2=A0
-> > What do you mean by 'want' here? I thought it is pretty necessary
-> > from
-> > safety point of view to have this check.
->=20
-> I don't question the check. What I was questioning is the need for a
-> macro to wrap that, seeing how x86 did without. I'm not outright
-> objecting to such a macro, though.
-We can follow x86 approach as we there's no any more intention to allow
-arch overrides.
-
->=20
-> > Except arch_ prefix does it make sense to drop "#ifndef
-> > arch_check_bitop_size" around this macros?
->=20
-> Of course, as with arch_ dropped from the name there's no intention
-> to
-> allow arch overrides.
->=20
-> > > > +/**
-> > > > + * generic__test_and_set_bit - Set a bit and return its old
-> > > > value
-> > > > + * @nr: Bit to set
-> > > > + * @addr: Address to count from
-> > > > + *
-> > > > + * This operation is non-atomic and can be reordered.
-> > > > + * If two examples of this operation race, one can appear to
-> > > > succeed
-> > > > + * but actually fail.=C2=A0 You must protect multiple accesses wit=
-h
-> > > > a
-> > > > lock.
-> > > > + */
-> > > > +static always_inline bool
-> > > > +generic__test_and_set_bit(unsigned long nr, volatile void
-> > > > *addr)
-> > >=20
-> > > The original per-arch functions all use "int" for their first
-> > > parameter.
-> > > Here you use unsigned long, without any mention in the
-> > > description of
-> > > the
-> > > potential behavioral change. Which is even worse given that then
-> > > x86
-> > > ends
-> > > up inconsistent with Arm and PPC in this regard, by ...
-> > >=20
-> > > > +{
-> > > > +=C2=A0=C2=A0=C2=A0 bitop_uint_t mask =3D BITOP_MASK(nr);
-> > > > +=C2=A0=C2=A0=C2=A0 volatile bitop_uint_t *p =3D (volatile bitop_ui=
-nt_t *)addr +
-> > > > BITOP_WORD(nr);
-> > > > +=C2=A0=C2=A0=C2=A0 bitop_uint_t old =3D *p;
-> > > > +
-> > > > +=C2=A0=C2=A0=C2=A0 *p =3D old | mask;
-> > > > +=C2=A0=C2=A0=C2=A0 return (old & mask);
-> > > > +}
-> > > > +
-> > > > +/**
-> > > > + * generic__test_and_clear_bit - Clear a bit and return its
-> > > > old
-> > > > value
-> > > > + * @nr: Bit to clear
-> > > > + * @addr: Address to count from
-> > > > + *
-> > > > + * This operation is non-atomic and can be reordered.
-> > > > + * If two examples of this operation race, one can appear to
-> > > > succeed
-> > > > + * but actually fail.=C2=A0 You must protect multiple accesses wit=
-h
-> > > > a
-> > > > lock.
-> > > > + */
-> > > > +static always_inline bool
-> > > > +generic__test_and_clear_bit(bitop_uint_t nr, volatile void
-> > > > *addr)
-> > > > +{
-> > > > +=C2=A0=C2=A0=C2=A0 bitop_uint_t mask =3D BITOP_MASK(nr);
-> > > > +=C2=A0=C2=A0=C2=A0 volatile bitop_uint_t *p =3D (volatile bitop_ui=
-nt_t *)addr +
-> > > > BITOP_WORD(nr);
-> > > > +=C2=A0=C2=A0=C2=A0 bitop_uint_t old =3D *p;
-> > > > +
-> > > > +=C2=A0=C2=A0=C2=A0 *p =3D old & ~mask;
-> > > > +=C2=A0=C2=A0=C2=A0 return (old & mask);
-> > > > +}
-> > > > +
-> > > > +/* WARNING: non atomic and it can be reordered! */
-> > > > +static always_inline bool
-> > > > +generic__test_and_change_bit(unsigned long nr, volatile void
-> > > > *addr)
-> > > > +{
-> > > > +=C2=A0=C2=A0=C2=A0 bitop_uint_t mask =3D BITOP_MASK(nr);
-> > > > +=C2=A0=C2=A0=C2=A0 volatile bitop_uint_t *p =3D (volatile bitop_ui=
-nt_t *)addr +
-> > > > BITOP_WORD(nr);
-> > > > +=C2=A0=C2=A0=C2=A0 bitop_uint_t old =3D *p;
-> > > > +
-> > > > +=C2=A0=C2=A0=C2=A0 *p =3D old ^ mask;
-> > > > +=C2=A0=C2=A0=C2=A0 return (old & mask);
-> > > > +}
-> > > > +/**
-> > > > + * generic_test_bit - Determine whether a bit is set
-> > > > + * @nr: bit number to test
-> > > > + * @addr: Address to start counting from
-> > > > + */
-> > > > +static always_inline bool generic_test_bit(int nr, const
-> > > > volatile
-> > > > void *addr)
-> > > > +{
-> > > > +=C2=A0=C2=A0=C2=A0 bitop_uint_t mask =3D BITOP_MASK(nr);
-> > > > +=C2=A0=C2=A0=C2=A0 volatile bitop_uint_t *p =3D (volatile bitop_ui=
-nt_t *)addr +
-> > > > BITOP_WORD(nr);
-> > > > +
-> > > > +=C2=A0=C2=A0=C2=A0 return (*p & mask);
-> > > > +}
-> > > > +
-> > > > +static always_inline bool
-> > > > +__test_and_set_bit(unsigned long nr, volatile void *addr)
-> > > > +{
-> > > > +#ifndef arch__test_and_set_bit
-> > > > +#define arch__test_and_set_bit generic__test_and_set_bit
-> > > > +#endif
-> > > > +
-> > > > +=C2=A0=C2=A0=C2=A0 return arch__test_and_set_bit(nr, addr);
-> > >=20
-> > > ... silently truncating and sign-converting nr here.
-> > Missed that fact. AFAIU there is no specific reason for bit number
-> > to
-> > be 'int' for this function, so it makes sense to update x86's
-> > prototype
-> > of arch__test_and_set_bit() to:
-> > =C2=A0=C2=A0 static inline int arch__test_and_set_bit(unsigned long nr,
-> > volatile
-> > =C2=A0=C2=A0 void *addr).
-> > =C2=A0=C2=A0=20
-> > But probably I can't use 'unsigned long' here too, as it should a
-> > compilation error around 'btsl' instruction.
-> >=20
-> > So it can be or 'unsinged int' or 'int'.
-> > >=20
-> > > As to generic_test_bit() - please don't cast away const-ness
-> > > there.
-> > >=20
-> > > > +}
-> > > > +#define __test_and_set_bit(nr, addr) ({=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 \
-> > > > +=C2=A0=C2=A0=C2=A0 arch_check_bitop_size(addr);=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0 \
-> > > > +=C2=A0=C2=A0=C2=A0 __test_and_set_bit(nr, addr);=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0 \
-> > > > +})
-> > > > +
-> > > > +static always_inline bool
-> > > > +__test_and_clear_bit(bitop_uint_t nr, volatile void *addr)
-> > >=20
-> > > Oddly enough here at least you use bitop_uint_t, but that's still
-> > > ...
-> > >=20
-> > > > +{
-> > > > +#ifndef arch__test_and_clear_bit
-> > > > +#define arch__test_and_clear_bit generic__test_and_clear_bit
-> > > > +#endif
-> > > > +
-> > > > +=C2=A0=C2=A0=C2=A0 return arch__test_and_clear_bit(nr, addr);
-> > >=20
-> > > ... meaning a signedness conversion on x86 then. And beware: You
-> > > can't
-> > > simply change x86'es code to use bitop_uint_t. The underlying
-> > > insns
-> > > used
-> > > interpret the bit position as a signed number, i.e. permitting
-> > > accesses
-> > > below the incoming pointer (whether it really makes sense to be
-> > > that
-> > > way
-> > > is a separate question). I'm afraid I have no good suggestion how
-> > > to
-> > > deal
-> > > with that: Any approach I can think of is either detrimental to
-> > > the
-> > > generic implementation or would have unwanted effects on the x86
-> > > one.
-> > > Others, anyone?
-> > Is the signedness conversion here a big problem? I suppose no one
-> > will
-> > pass a negative number to nr.
-> >=20
-> > It seems to me that it would be better to use 'int' everywhere and
-> > not
-> > use bitop_uint_t for 'nr' since it is just a bit position. 'Int'
-> > provides enough range for possible bit number.
->=20
-> Indeed, and that's then hopefully less of a risk as to introducing
-> hard
-> to spot issues. Provided Arm and PPC are okay with that type then as
-> well.
-Then I will update prototypes of generic functions correspondingly.
-
->=20
-> > > > --- a/xen/include/xen/types.h
-> > > > +++ b/xen/include/xen/types.h
-> > > > @@ -64,6 +64,12 @@ typedef __u64 __be64;
-> > > > =C2=A0
-> > > > =C2=A0typedef unsigned int __attribute__((__mode__(__pointer__)))
-> > > > uintptr_t;
-> > > > =C2=A0
-> > > > +#ifndef BITOP_TYPE
-> > > > +#define BITOP_BITS_PER_WORD 32
-> > > > +
-> > > > +typedef uint32_t bitop_uint_t;
-> > > > +#endif
-> > >=20
-> > > I think you mentioned to me before why this needs to live here,
-> > > not
-> > > in
-> > > xen/bitops.h. Yet I don't recall the reason, and the description
-> > > (hint,
-> > > hint) doesn't say anything either.
-> > If I remember correctly ( after this phrase I think I have to
-> > update
-> > the description ) the reason was that if I put that to
-> > xen/bitops.h:
-> >=20
-> > =C2=A0=C2=A0=C2=A0 ...
-> > =C2=A0=C2=A0=C2=A0 #include <asm/bitops.h>
-> > =C2=A0=C2=A0=C2=A0=20
-> > =C2=A0=C2=A0=C2=A0 #ifndef BITOP_TYPE
-> > =C2=A0=C2=A0=C2=A0 #define BITOP_BITS_PER_WORD 32
-> > =C2=A0=C2=A0=C2=A0 /* typedef uint32_t bitop_uint_t; */
-> > =C2=A0=C2=A0=C2=A0 #endif
-> > =C2=A0=C2=A0=C2=A0 ...
-> >=20
-> > Then we will have an issue that we can't use the generic definition
-> > of=20
-> > BITOP_BITS_PER_WORD and bitop_uint_t in asm/bitops.h as it is
-> > defined
-> > after inclusion of <asm/bitops.h>.
-> >=20
-> > But if to put it to <xen/types.h> then such problem won't occur.
-> >=20
-> > If it still makes sense, then I'll update the description in the
-> > next
-> > patch version.
->=20
-> I see. But we don't need to allow for arch overrides here anymore, so
-> in
-> xen/bitops.h couldn't we as well have
->=20
-> #define BITOP_BITS_PER_WORD 32
-> typedef uint32_t bitop_uint_t;
->=20
-> ... (if necessary)
->=20
-> #include <asm/bitops.h>
->=20
-> ?
-Good point. If there is not need to allow for arch overrides then we
-can use suggested above approach. Thanks.
-
-~ Oleksii
+~Andrew
 
