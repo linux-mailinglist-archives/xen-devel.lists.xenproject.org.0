@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 70D638C6A01
-	for <lists+xen-devel@lfdr.de>; Wed, 15 May 2024 17:51:25 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.722541.1126611 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B4E6D8C6A16
+	for <lists+xen-devel@lfdr.de>; Wed, 15 May 2024 17:59:48 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.722545.1126620 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s7GuB-0006Cl-Bn; Wed, 15 May 2024 15:50:59 +0000
+	id 1s7H2N-00084X-1K; Wed, 15 May 2024 15:59:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 722541.1126611; Wed, 15 May 2024 15:50:59 +0000
+Received: by outflank-mailman (output) from mailman id 722545.1126620; Wed, 15 May 2024 15:59:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s7GuB-0006BF-8i; Wed, 15 May 2024 15:50:59 +0000
-Received: by outflank-mailman (input) for mailman id 722541;
- Wed, 15 May 2024 15:50:57 +0000
+	id 1s7H2M-00081N-UN; Wed, 15 May 2024 15:59:26 +0000
+Received: by outflank-mailman (input) for mailman id 722545;
+ Wed, 15 May 2024 15:59:25 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=EWeN=MS=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1s7Gu9-0006B9-K8
- for xen-devel@lists.xenproject.org; Wed, 15 May 2024 15:50:57 +0000
-Received: from mail-ed1-x52b.google.com (mail-ed1-x52b.google.com
- [2a00:1450:4864:20::52b])
+ id 1s7H2L-0007zS-FM
+ for xen-devel@lists.xenproject.org; Wed, 15 May 2024 15:59:25 +0000
+Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
+ [2a00:1450:4864:20::635])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ea461344-12d2-11ef-b4bb-af5377834399;
- Wed, 15 May 2024 17:50:55 +0200 (CEST)
-Received: by mail-ed1-x52b.google.com with SMTP id
- 4fb4d7f45d1cf-56e69a51a33so1752361a12.1
- for <xen-devel@lists.xenproject.org>; Wed, 15 May 2024 08:50:55 -0700 (PDT)
+ id 18e02180-12d4-11ef-b4bb-af5377834399;
+ Wed, 15 May 2024 17:59:23 +0200 (CEST)
+Received: by mail-ej1-x635.google.com with SMTP id
+ a640c23a62f3a-a59c0a6415fso197825266b.1
+ for <xen-devel@lists.xenproject.org>; Wed, 15 May 2024 08:59:23 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a5a17b01968sm875337866b.166.2024.05.15.08.50.54
+ a640c23a62f3a-a5a17b17870sm871813566b.216.2024.05.15.08.59.22
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 15 May 2024 08:50:54 -0700 (PDT)
+ Wed, 15 May 2024 08:59:22 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,52 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ea461344-12d2-11ef-b4bb-af5377834399
+X-Inumbo-ID: 18e02180-12d4-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1715788255; x=1716393055; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1715788763; x=1716393563; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=gCBH8tcSc17q3r2TgdLdiA8tYhMQC+mdJZ2R4Rxncy8=;
-        b=VNHQzaXGtgzKQZEqwhL7EMmEGNVul3x3VpbPurhqMB7BSpoY1nUJjv+kVaDm/fknQW
-         ip5ADBFzwzFED7idp6kmRm4STpzTLEctD/FQpqFMvmY46BpYkIXs6Ca3OJxELGAJf4Aw
-         KpBH3L34+Dmpg/1JXwZpsgzImHZmFqDsc0ViM78Mu9/PxHgsl4IrZPdw9DzwdOM6flKc
-         2Na+TXVZ1kqOHbEPT0KhcV3HwXSwh1uKpezMqudvATXY6fJ5zOc/j0Kvj/EMlMgbkrOP
-         flhlsQdrXK8xESvVjTLqvD5mdDXx7rz3x83lkTCZx+/xNT3ETLe+K+b+waoNmCF0Qvrm
-         KsPQ==
+        bh=FCcAy8OcZ4luyl8LZClZRMMbTK0tl1r5Psh2m0WNWzU=;
+        b=hDntHQUWKoDVEpNqGKjAzParQoDKoxLrijO4C2KsiMzDzNBndS8Cgps9tPFfCJZEQA
+         EaKVxc3kP8j7eip6O4mn3Wj9ep9z8OYZRyGUpqC5mqdybDDcICtRCpdrf0zlqV1Sb4Ml
+         qtYTBVXs5qzuAt8hkMVymkk8Bi1obqP/dhJlrEq+0+PgXmJ1QU3zhbWFSmGC5kqr29Qu
+         lTNf6/gqiVZeFjd4xYF6vez+T2f9H7x2YIvP1KKsIROam8P8CxefIUV37cS6VtO2Z3bn
+         erUd3Pv8NeeYrKvCREoVBgjDAbw/uxVufEHXDBEuDYNRtTci5jlg9lJyj8SRWUQ7+kRU
+         UncA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1715788255; x=1716393055;
+        d=1e100.net; s=20230601; t=1715788763; x=1716393563;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=gCBH8tcSc17q3r2TgdLdiA8tYhMQC+mdJZ2R4Rxncy8=;
-        b=rlD6/ls3MFxxgIF4bAc62fjE2mFQNqE92L68zhTMjU0jmXC9BDU2MJNMZcw/l6qRuv
-         THOPp02iOf5bmhC5CkGPuLPqrut3P7ht/TvFvzupNsV+q3ppKpocX/eHU1JAYm+UVtFf
-         1nzdtEAUIByPbDlv1EKenerpfzHiBx+7/fGMq/I1tnt5X9NXWmeBHocTcechh4dYDA1O
-         9b548sb37bAHT0oU4ScPwIrWKriG49wUxL6AqMtDwt+5zTket2FeufHpEHQuOReK1K1j
-         tqRKItt4aNCeG3vsPetmq59mbXH9/YKwzZNbob7+H1GEtv9sTi0Ic6BOtWnQS4tekIdJ
-         VrRg==
-X-Gm-Message-State: AOJu0Yzj92GdpAojmO/ux2aejQ4KcOTrRjm6E6MWZaGKyb/m/U267GR1
-	yfNnbiX53czcX6oQlpZ+8Tfw0MtUBFTgduCnEzSEchcBMg1VmKBYj69EXOdU9g==
-X-Google-Smtp-Source: AGHT+IFQRA/khRP0tEFvlCmdIDIlH4A5ofEHWuCXHkO+6/yE3ODVRsFf/6tqw8VBH9pl00Wna3R6mw==
-X-Received: by 2002:a17:906:1406:b0:a5a:7a4e:7e80 with SMTP id a640c23a62f3a-a5a7a4e7effmr540744366b.72.1715788255171;
-        Wed, 15 May 2024 08:50:55 -0700 (PDT)
-Message-ID: <256495e6-cd0c-4b6f-a1c0-78cce2338eb5@suse.com>
-Date: Wed, 15 May 2024 17:50:53 +0200
+        bh=FCcAy8OcZ4luyl8LZClZRMMbTK0tl1r5Psh2m0WNWzU=;
+        b=NL/XZBsYxrLBX2+N7YLZicZ9C2EjgZOoXTaGMKCUTgf96CliWghZtyjBKNkZRHFflT
+         Zc9wDerhCFTSBcDgC+ikVgA0OU3sUNzB5jCXh+OSnugUte7OLL1Vn4g78Fgc3rAY5XGD
+         O7clzvejH6AbQThDnWv/ZBz14v6/DysBmLtv5XvkR3GHWcZNldZ8llT3jXbbJH/tR+yJ
+         7Oe5kJ2vMzEyAkNq4l5TUto4xzjstKBQ4K2ryc+47h4ZEw4KXtd4rFNrbLTEmcO823Ct
+         9vRACYupRgXtbEpM1ExnCRtya/VM2JN44dXBsGYSfZCqkgkZ1V69BPQbBaFXQhbCcqYH
+         Z/wg==
+X-Forwarded-Encrypted: i=1; AJvYcCUrqh25GXsJgwEEzw9plksAP0TeL3KTRtLhjc7tH3ugGbD6AoIZnhbQj8pYsM99DZT6hMBCjBGkOs+e/hKA6Uvh2XzEeK3wDQsQGD+n9SE=
+X-Gm-Message-State: AOJu0Yz4HMTddnYRHcoe3jdyvISdNckqSH1dJLM/Dq7yo4iMnnhNDeST
+	CJWthW1vmA7W3YnZaV1ni7c0agHPyGZ3CSGLXZZh+Fr5FmYdaU1RzzC6cuOJcA==
+X-Google-Smtp-Source: AGHT+IFZonrQnUx4F9nz1NYGj3AeOvBlLeQ69rctvJVQJz2D3ovvy0l1M+pBwBk1YlQCjM9mqS4xVw==
+X-Received: by 2002:a17:907:980d:b0:a5a:5496:3c76 with SMTP id a640c23a62f3a-a5a54963cdfmr1092765466b.6.1715788762767;
+        Wed, 15 May 2024 08:59:22 -0700 (PDT)
+Message-ID: <e3e75469-c356-4a02-a3aa-a9f3d277fdb1@suse.com>
+Date: Wed, 15 May 2024 17:59:21 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH V3 (resend) 13/19] x86/setup: Do not create valid mappings
  when directmap=no
 Content-Language: en-US
 To: Elias El Yandouzi <eliasely@amazon.com>
-Cc: xen-devel@lists.xenproject.org, julien@xen.org, pdurrant@amazon.com,
- dwmw@amazon.com, Hongyan Xia <hongyxia@amazon.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <jgrall@amazon.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: julien@xen.org, pdurrant@amazon.com, dwmw@amazon.com,
+ Hongyan Xia <hongyxia@amazon.com>, Andrew Cooper
+ <andrew.cooper3@citrix.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, Julien Grall <jgrall@amazon.com>,
+ xen-devel@lists.xenproject.org
 References: <20240513134046.82605-1-eliasely@amazon.com>
- <20240513134046.82605-14-eliasely@amazon.com> <ZkOFqFrSs41UtjIU@macbook>
+ <20240513134046.82605-14-eliasely@amazon.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -113,30 +115,32 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <ZkOFqFrSs41UtjIU@macbook>
+In-Reply-To: <20240513134046.82605-14-eliasely@amazon.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 14.05.2024 17:39, Roger Pau Monné wrote:
-> On Mon, May 13, 2024 at 01:40:40PM +0000, Elias El Yandouzi wrote:
->> +        {
->> +            l4_pgentry_t *pl4e = &idle_pg_table[l4_table_offset(vaddr)];
->> +
->> +            if ( !(l4e_get_flags(*pl4e) & _PAGE_PRESENT) )
->> +            {
->> +                mfn_t mfn = alloc_boot_pages(1, 1);
+On 13.05.2024 15:40, Elias El Yandouzi wrote:
+> From: Hongyan Xia <hongyxia@amazon.com>
 > 
-> Hm, why not use alloc_xen_pagetable()?
+> Create empty mappings in the second e820 pass. Also, destroy existing
+> direct map mappings created in the first pass.
 > 
->> +                void *v = map_domain_page(mfn);
->> +
->> +                clear_page(v);
->> +                UNMAP_DOMAIN_PAGE(v);
-> 
-> Maybe use clear_domain_page()?
+> To make xenheap pages visible in guests, it is necessary to create empty
+> L3 tables in the direct map even when directmap=no, since guest cr3s
+> copy idle domain's L4 entries, which means they will share mappings in
+> the direct map if we pre-populate idle domain's L4 entries and L3
+> tables. A helper is introduced for this.
 
-Or else use unmap_domain_page(). v is going out of scope just afterwards,
-and UNMAP_DOMAIN_PAGE() is intended to be use when that's not the case.
+Hmm. On one hand this may reduce memory consumption some, when large
+ranges of MFNs aren't allocated as Xen heap pages. Otoh this increases
+memory needs when Xen heap pages actually need mapping. I wonder whether
+the (presumably less intrusive) change of merely altering permissions
+from PAGE_HYPERVISOR to _PAGE_NONE|MAP_SMALL_PAGES wouldn't be better.
+
+> Also, after the direct map is actually gone, we need to stop updating
+> the direct map in update_xen_mappings().
+
+What is this about? You only alter setup.c here.
 
 Jan
 
