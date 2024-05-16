@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 93B4F8C7241
-	for <lists+xen-devel@lfdr.de>; Thu, 16 May 2024 09:47:32 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.722857.1127215 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6FC688C728C
+	for <lists+xen-devel@lfdr.de>; Thu, 16 May 2024 10:12:59 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.722871.1127225 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s7Vp4-0002r0-Kl; Thu, 16 May 2024 07:46:42 +0000
+	id 1s7WDn-0000wt-5N; Thu, 16 May 2024 08:12:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 722857.1127215; Thu, 16 May 2024 07:46:42 +0000
+Received: by outflank-mailman (output) from mailman id 722871.1127225; Thu, 16 May 2024 08:12:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s7Vp4-0002oE-HV; Thu, 16 May 2024 07:46:42 +0000
-Received: by outflank-mailman (input) for mailman id 722857;
- Thu, 16 May 2024 07:46:40 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1s7WDn-0000uh-2U; Thu, 16 May 2024 08:12:15 +0000
+Received: by outflank-mailman (input) for mailman id 722871;
+ Thu, 16 May 2024 08:12:13 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=LYhW=MT=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1s7Vp2-0002ni-DJ
- for xen-devel@lists.xenproject.org; Thu, 16 May 2024 07:46:40 +0000
-Received: from mail-ed1-x531.google.com (mail-ed1-x531.google.com
- [2a00:1450:4864:20::531])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 6debf468-1358-11ef-909d-e314d9c70b13;
- Thu, 16 May 2024 09:46:39 +0200 (CEST)
-Received: by mail-ed1-x531.google.com with SMTP id
- 4fb4d7f45d1cf-574ea5184abso3188069a12.3
- for <xen-devel@lists.xenproject.org>; Thu, 16 May 2024 00:46:39 -0700 (PDT)
+ id 1s7WDl-0000ub-N9
+ for xen-devel@lists.xenproject.org; Thu, 16 May 2024 08:12:13 +0000
+Received: from mail-ed1-x52f.google.com (mail-ed1-x52f.google.com
+ [2a00:1450:4864:20::52f])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id fefd52f9-135b-11ef-b4bb-af5377834399;
+ Thu, 16 May 2024 10:12:11 +0200 (CEST)
+Received: by mail-ed1-x52f.google.com with SMTP id
+ 4fb4d7f45d1cf-5709cb80b03so3204515a12.2
+ for <xen-devel@lists.xenproject.org>; Thu, 16 May 2024 01:12:11 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a5a17894d6dsm954840066b.71.2024.05.16.00.46.38
+ 4fb4d7f45d1cf-574ed753a6dsm2720087a12.77.2024.05.16.01.12.10
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 16 May 2024 00:46:38 -0700 (PDT)
+ Thu, 16 May 2024 01:12:10 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,51 +45,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6debf468-1358-11ef-909d-e314d9c70b13
+X-Inumbo-ID: fefd52f9-135b-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1715845599; x=1716450399; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=3HfXHcoIHBOaBUN7lKT3rSNX7UxonJ/JKyL/obFsIHg=;
-        b=WvaDC6RpNdhz3nxE577v5bDr517Ab7+/V4IjJxntATu0U2yCDuXYg6TkH+fnNdoydT
-         nWDhQt//DI9seBaSl5aq4fBoXRsM7oQwMu/WIl7DSGoMnUyFG1HCf5opVfEyx0cA3z+P
-         WNROwDoNDsVifjZEEPIAOWzbXHxnoQYNt3EMHtNf3TxSFRd/2qcRtpHRiHfvFOSv8YWb
-         NTTcTPc1556iYiKvWLE7fDTD/GA9Tp+59yqUqaA4LzZnl6cZAT0ELuQUEHNMNDEzLqfz
-         GLTQViu8iMOTTK92oqTeLVH4NjTACyX/tYHnKw1MrggwOrssV1GR5LfAydoOzQQzjptG
-         D9+Q==
+        d=suse.com; s=google; t=1715847131; x=1716451931; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=cQI8KB3NBiKLrVA543O5ijA8MSOfQOypRYx1X/hQDOw=;
+        b=Tf+YdUMjYIN6f790xc1JUDZQfagwO03aYmc4z56tNrjGwINHRksLaAOceV9amP5O+p
+         P5qdoLtoAalAacIdB7B2A5wLG3pUWzphKDGb4npZ2ezlzIt73aMUADbAKGaqrznR15aw
+         HfAZaoE/S+IMWXVwetMzanCBzzDVmIuWGCooW2nrW9moaYQ6webDqIE6OKqxlXQyVuXo
+         nn9kdYcHjp6QWXoZecl6RW9zZ/FSIY9DSnWh7JaKc1nQDgxL2eoLhqdcPGqVnmqw/lOV
+         M17ZEy7OHj+lms3nSgVAv8NO36pe3wkiE9BBRWI4RykczdDBTiIdS+4B5WNH+ACGFzTn
+         Z4Hw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1715845599; x=1716450399;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=3HfXHcoIHBOaBUN7lKT3rSNX7UxonJ/JKyL/obFsIHg=;
-        b=L8xt9PQAZrnx0lKYZ4k8l6M03DAIGTzYzlPRgS9Gp/ipxG7VZ9AJoOozbZEjaD5Wgs
-         O7dKl+zuk7AfAyzNQ4A2U7BSuzyskjUL/Cq5n1NTi/+uzsR67pcqT5Yto1AQ/2OYHNk1
-         vrxlxYBTDcBfnORGXhUv6rwPZ3/nSZk4iKs1QEQXaPjKh2n+hlRdSRQpjTBo21tyAVuA
-         7FhCMhWfNv6ksjJiUcxTbb3M2E2l7BlyfgZ0eehdOJZCLy9Pt8vGVznUKXWfcTYp2m2r
-         790d7I5I0gst7amjiDNwhG2JD695+AyDLVGIPfVzDGybvvt17dt+1fjDVJMunJWEBowW
-         nHnQ==
-X-Forwarded-Encrypted: i=1; AJvYcCXTZTVJ5ueGlAzgAb/JaVR/tcl3A1V0FGS8q4lCZB7oHCSlusTiZShwmxXIO9KC8b0psp6Ih8PuEhTK6IFeo6sqf3d123W/biQLOyMuI5U=
-X-Gm-Message-State: AOJu0YyWvqoX/u9FY4B+U2GPYDJKqiOIBj0Kgs2LRpFr1m7/9wW9PtUe
-	bLus8ffSn7VgPqRwRG/dc/0PrVXg9E/fIZsYBStnE3B+qHljGtS4L/slkKYMlA==
-X-Google-Smtp-Source: AGHT+IEA+/gi17v0zCRWRsyrYohJbaA4otgoSd22aQEVGKiaAOb5smdmPYGDsR2l67ngFOkBguSxMg==
-X-Received: by 2002:a17:906:e943:b0:a5a:8a63:9fee with SMTP id a640c23a62f3a-a5a8a63a051mr447767366b.3.1715845599035;
-        Thu, 16 May 2024 00:46:39 -0700 (PDT)
-Message-ID: <6d83a588-c190-4f86-92d3-da48c929563f@suse.com>
-Date: Thu, 16 May 2024 09:46:37 +0200
+        d=1e100.net; s=20230601; t=1715847131; x=1716451931;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=cQI8KB3NBiKLrVA543O5ijA8MSOfQOypRYx1X/hQDOw=;
+        b=U8yO2RXFnjd7fJSniBEs2Vlw0UzicPqhb586bVxM2J160QL0N+1C8cemo1BYc2F6QI
+         Y0rwocsBKSgCzXopqQ+NvXDc1Uc+axaMx6/OmuCJWgfuCcBaVsXIRagiCtTFLmsFi25C
+         MWtbcoWSYqX9j5WgUbOLb+AEaiQZN2odLA+Nh/+hNhSL6VFesvrD62A94/ZsFfM2FqY/
+         wk87eBDw2XzcDPfZBvJyZ7S6l7fzKmf0Lp0Jh/GuImDkFu+lnggLyB2SnFwhMY1+rfVa
+         i8IWMNnu9dsQR41BWD1bzoaVZemcWA3wFPan8nCLYvKle9xR51iP0Mcy6l0HrxaFjiX/
+         KAfA==
+X-Forwarded-Encrypted: i=1; AJvYcCUui/7X3xJHX/0/fSkQ2MINXm/2K6I3sBsCcdiLiaBqgHFHjNWUNTAYWn3sfkX3o4yTz1avII/0ttW4PL/f4WS6NJ3fWUR4WU3ISMS+zvc=
+X-Gm-Message-State: AOJu0YxPvib1i0xRRC5QaKBg5F0z4oViiVplN1vz3Dho9JmtB0v9YBxO
+	0SqehAmS5gyaPF+9Dg733is857qnONTZo2iZU3ahDkIRUrvmZiYXGu6f7asSHg==
+X-Google-Smtp-Source: AGHT+IFUEAT2Un9IUPbpLOVq2Z4f+3YXh6qVoe6kvgW8YHG8txZ7v4UnkYXJiGy7wh2K19FIOrBDyg==
+X-Received: by 2002:a50:9505:0:b0:572:6846:b899 with SMTP id 4fb4d7f45d1cf-5734d6b407dmr11630908a12.41.1715847130898;
+        Thu, 16 May 2024 01:12:10 -0700 (PDT)
+Message-ID: <e32accc2-1391-471e-afd1-e67dc681105b@suse.com>
+Date: Thu, 16 May 2024 10:12:09 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] xen/sched: set all sched_resource data inside locked
- region for new cpu
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: George Dunlap <george.dunlap@citrix.com>,
- Dario Faggioli <dfaggioli@suse.com>, Juergen Gross <jgross@suse.com>,
- xen-devel@lists.xenproject.org
-References: <20240515152539.18714-1-jgross@suse.com>
- <b04a9f8c-aed4-4672-a97a-22e5bdec51e5@citrix.com>
+Subject: Re: [PATCH v2] include/ctype.h: fix MISRA R10.2 violation
 Content-Language: en-US
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ nicola.vetrini@bugseng.com, consulting@bugseng.com,
+ xen-devel@lists.xenproject.org
+References: <alpine.DEB.2.22.394.2405151549020.2544314@ubuntu-linux-20-04-desktop>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -114,65 +114,18 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <b04a9f8c-aed4-4672-a97a-22e5bdec51e5@citrix.com>
+In-Reply-To: <alpine.DEB.2.22.394.2405151549020.2544314@ubuntu-linux-20-04-desktop>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 15.05.2024 17:27, Andrew Cooper wrote:
-> On 15/05/2024 4:25 pm, Juergen Gross wrote:
->> When adding a cpu to a scheduler, set all data items of struct
->> sched_resource inside the locked region, as otherwise a race might
->> happen (e.g. when trying to access the cpupool of the cpu):
->>
->> (XEN) ----[ Xen-4.19.0-1-d  x86_64  debug=y  Tainted:     H  ]----
->> (XEN) CPU:    45
->> (XEN) RIP:    e008:[<ffff82d040244cbf>]
->> common/sched/credit.c#csched_load_balance+0x41/0x877
->> (XEN) RFLAGS: 0000000000010092   CONTEXT: hypervisor
->> (XEN) rax: ffff82d040981618   rbx: ffff82d040981618   rcx:
->> 0000000000000000
->> (XEN) rdx: 0000003ff68cd000   rsi: 000000000000002d   rdi:
->> ffff83103723d450
->> (XEN) rbp: ffff83207caa7d48   rsp: ffff83207caa7b98   r8:
->> 0000000000000000
->> (XEN) r9:  ffff831037253cf0   r10: ffff83103767c3f0   r11:
->> 0000000000000009
->> (XEN) r12: ffff831037237990   r13: ffff831037237990   r14:
->> ffff831037253720
->> (XEN) r15: 0000000000000000   cr0: 000000008005003b   cr4:
->> 0000000000f526e0
->> (XEN) cr3: 000000005bc2f000   cr2: 0000000000000010
->> (XEN) fsb: 0000000000000000   gsb: 0000000000000000   gss:
->> 0000000000000000
->> (XEN) ds: 0000   es: 0000   fs: 0000   gs: 0000   ss: 0000   cs: e008
->> (XEN) Xen code around <ffff82d040244cbf>
->> (common/sched/credit.c#csched_load_balance+0x41/0x877):
->> (XEN)  48 8b 0c 10 48 8b 49 08 <48> 8b 79 10 48 89 bd b8 fe ff ff 49
->> 8b 4e 28 48
->> <snip>
->> (XEN) Xen call trace:
->> (XEN)    [<ffff82d040244cbf>] R
->> common/sched/credit.c#csched_load_balance+0x41/0x877
->> (XEN)    [<ffff82d040245a18>] F
->> common/sched/credit.c#csched_schedule+0x36a/0x69f
->> (XEN)    [<ffff82d040252644>] F common/sched/core.c#do_schedule+0xe8/0x433
->> (XEN)    [<ffff82d0402572dd>] F common/sched/core.c#schedule+0x2e5/0x2f9
->> (XEN)    [<ffff82d040232f35>] F common/softirq.c#__do_softirq+0x94/0xbe
->> (XEN)    [<ffff82d040232fc8>] F do_softirq+0x13/0x15
->> (XEN)    [<ffff82d0403075ef>] F arch/x86/domain.c#idle_loop+0x92/0xe6
->>
->> Reported-by: Andrew Cooper <andrew.cooper3@citrix.com>
->> Fixes: a8c6c623192e ("sched: clarify use cases of schedule_cpu_switch()")
->> Signed-off-by: Juergen Gross <jgross@suse.com>
+On 16.05.2024 00:52, Stefano Stabellini wrote:
+> The value returned by __toupper is used in arithmetic operations causing
+> MISRA C 10.2 violations. Cast to plain char in the toupper macro. Also
+> do the same in tolower for consistency.
 > 
-> Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> Tested-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> 
-> Thankyou for the quick turnaround.  I'll fix the wrapping of the commit
-> message on commit.  Not sure what went wrong on my original outgoing email.
+> Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
 
-Didn't you rush this in a little too fast? No matter how obvious it might seem,
-there was no sched/ maintainer ack so far ...
+Acked-by: Jan Beulich <jbeulich@suse.com>
 
-Jan
+
 
