@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4591B8C7383
-	for <lists+xen-devel@lfdr.de>; Thu, 16 May 2024 11:11:55 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.722910.1127308 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 48B598C739F
+	for <lists+xen-devel@lfdr.de>; Thu, 16 May 2024 11:20:40 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.722924.1127322 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s7X9B-0005VD-N1; Thu, 16 May 2024 09:11:33 +0000
+	id 1s7XHR-0007MT-KB; Thu, 16 May 2024 09:20:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 722910.1127308; Thu, 16 May 2024 09:11:33 +0000
+Received: by outflank-mailman (output) from mailman id 722924.1127322; Thu, 16 May 2024 09:20:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s7X9B-0005T6-KQ; Thu, 16 May 2024 09:11:33 +0000
-Received: by outflank-mailman (input) for mailman id 722910;
- Thu, 16 May 2024 09:11:32 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=LYhW=MT=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1s7X9A-0005Su-36
- for xen-devel@lists.xenproject.org; Thu, 16 May 2024 09:11:32 +0000
-Received: from mail-ed1-x531.google.com (mail-ed1-x531.google.com
- [2a00:1450:4864:20::531])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 47b43502-1364-11ef-b4bb-af5377834399;
- Thu, 16 May 2024 11:11:30 +0200 (CEST)
-Received: by mail-ed1-x531.google.com with SMTP id
- 4fb4d7f45d1cf-5709cb80b03so3316263a12.2
- for <xen-devel@lists.xenproject.org>; Thu, 16 May 2024 02:11:29 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5733becfcc1sm9984154a12.45.2024.05.16.02.11.28
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 16 May 2024 02:11:28 -0700 (PDT)
+	id 1s7XHR-0007JK-G9; Thu, 16 May 2024 09:20:05 +0000
+Received: by outflank-mailman (input) for mailman id 722924;
+ Thu, 16 May 2024 09:20:03 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=h+4+=MT=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1s7XHP-0006Gj-KW
+ for xen-devel@lists.xenproject.org; Thu, 16 May 2024 09:20:03 +0000
+Received: from mail-qk1-x734.google.com (mail-qk1-x734.google.com
+ [2607:f8b0:4864:20::734])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 796884b5-1365-11ef-909d-e314d9c70b13;
+ Thu, 16 May 2024 11:20:02 +0200 (CEST)
+Received: by mail-qk1-x734.google.com with SMTP id
+ af79cd13be357-78f02c96c52so480748685a.1
+ for <xen-devel@lists.xenproject.org>; Thu, 16 May 2024 02:20:02 -0700 (PDT)
+Received: from localhost ([213.195.114.223]) by smtp.gmail.com with ESMTPSA id
+ af79cd13be357-793017facabsm95003685a.88.2024.05.16.02.20.00
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 16 May 2024 02:20:00 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,215 +44,108 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 47b43502-1364-11ef-b4bb-af5377834399
+X-Inumbo-ID: 796884b5-1365-11ef-909d-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1715850689; x=1716455489; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=lT/9utrNTe0rj3FLn4NaMDWp6jMiAah10FuyiBzbjqQ=;
-        b=gtAiN/nHhPOG6snx5J+84A1NpMNB/CBRVhluL5dyET/sQr1OdW/OrxFDruKCeJk48S
-         Noxa4Lz4fENqbXmhVuER/dAGHtZERh1W7pZWasNoJy5xDS0KOkyCnNtud7uawXTuuxgF
-         SkI55iUIIt+vdo0Z6pXNI4GseusjXOkLzzhBYBgKQtMZZsu5WxkkdBgQjahVwYcUBCSO
-         qFJzzcCYGQMDr206EDbWF/tLoT7rcCBFTaORx8wybTltP0TE5KJzGFDTCqmhvexs326y
-         MrCMMgqjJF0nbbptpJ9AoMNqTEYBlzbk/BMnYKW/K6+kDE8xzINjDL0vXChX/Wdf56HW
-         EZyw==
+        d=citrix.com; s=google; t=1715851201; x=1716456001; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=wx6W+ENlg5PRro4DaaU11kdGbIPXqjVb6ItABsLuQ9w=;
+        b=nZYzH3cuRe50fJ9FBITUVcvfGrSvn47VKLUXCUjFj8K4q9KBe40OjNvH49jMSgfFcE
+         q2Qmm/EgKcb/9nPEqZcd9U+w5KtCf8KjkdrQxd70q4ZR7Hhqxmlg9zB/yKNRih9nQNjY
+         rhOjfZmnB+/9SYeMpH4sgpp6CHzVZDUDDShLI=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1715850689; x=1716455489;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
+        d=1e100.net; s=20230601; t=1715851201; x=1716456001;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=lT/9utrNTe0rj3FLn4NaMDWp6jMiAah10FuyiBzbjqQ=;
-        b=pB75h3WsvewHDCZz/KLOXU677lrj/sRJkADDngoVhLaJFgczUmBihzv+Yh2KlBGK7q
-         Z/fsCFhOzDRBG2LGCBdMQ9hp9wpw3vEzosnAMO3qp1vUT+zpVLUlXLHzmfWn/dr2xwuo
-         wIKKcT0IhrV0bBd250YkkBA7CoEUzMKwC36uD/JUg2+pRu5ercjGzqp1eRm1zDr317IC
-         2IfCoUX/diD0Y/K90vL+RUwzs9LFl9PfrYH+fqiLJReDoYsz1vkpBRKsW5zyNUVFA/lX
-         nzZZn5eYHrWvPQo+S38oBjHTsowG0aHPBs3Jeq7LBXRExPKdETDKwv1bGYMN7lKG5jQ1
-         flqA==
-X-Forwarded-Encrypted: i=1; AJvYcCX4r2UWqP2aDv7D+bjMI29zNgp6LBhTCPWtvhnm3Mpeas6fwcnQKV7YMWpOPxLtHNffvqohOhyl3jitCWMqtsdYvWcEp16yCbQtfr7IgVw=
-X-Gm-Message-State: AOJu0YxDBlbHeZ4AxAnyzD2hWjMgHWsR4Etw1wvIhgD9s0cfphjBzGzF
-	9oSpfw3xOn2e+PtKDFrCD6w73bvbEd0JxWKNrX0jlFZXTOerM9Y9V/J/yYEEc09fxJqMBYc34dQ
-	=
-X-Google-Smtp-Source: AGHT+IFJQGBgPxapaYMmPa/aU3u4tgRQS1lVGNRbKS6q12vTmyZQEmATytW+CHtl9XiYgnhyhtKMCw==
-X-Received: by 2002:a50:aa94:0:b0:572:a198:49c5 with SMTP id 4fb4d7f45d1cf-5734d5be7a2mr10903060a12.16.1715850688855;
-        Thu, 16 May 2024 02:11:28 -0700 (PDT)
-Message-ID: <e7971561-02c5-4445-af4b-f18b0a6cefde@suse.com>
-Date: Thu, 16 May 2024 11:11:27 +0200
+        bh=wx6W+ENlg5PRro4DaaU11kdGbIPXqjVb6ItABsLuQ9w=;
+        b=lbyT2QHKnf5VW03KtPtnzi9NPEd2qEFWQ9t9FQorFffapdCt5/9N9BjkW0/gfMLLjZ
+         B0thHlGmnHBDQj49L68ka3N6ae1FjLSV6pCsE6wesf1eGR09zypS8HGoVttqy34r3M31
+         NdhYtE5btZmZN9bs6vKcw/6HZ62b8YY1EKstiMa9XP6/+IgvioBgadhS7QDLSgPxUWW9
+         RKv9iMLS2RNbxpzTZMkxUgc3CP9Ufln2c1C/qtEBb8lcEXMHnNACQhPJDLjGIcHO4Oa0
+         qRqDuDTqmvtFyQ2gAS0NgMkJnpPgrN6gmSLWkpQkfOPrUprVbQ0O0OkqKiGX5ybq4+ZI
+         fRag==
+X-Forwarded-Encrypted: i=1; AJvYcCVKLKR3IAtQblab84RfsQgfVEBlbp5GzYMS6GuwtrTaXYkFrPMPF/fRK41ck3BK7ISvthPOjfSdv9bw8eAbdynH7Xw0xfC08VFUUPgWkhA=
+X-Gm-Message-State: AOJu0YyJsAhvTq1wd77K1HmvJQ3Hn+EajzY/Ppo9HlxbqBgV6qCOmgjz
+	04JLc3hdza3ep5QBNhx+xhvzWOHECxyWpZnBZbOtfeCU3sbSvZM86J0TjA+Qla4=
+X-Google-Smtp-Source: AGHT+IFBgbpaG+gm/fpEGXhcgTZ//0BPdTq1H4gMyQB8ODnBMFM52h2/0ZyWQvjIozD5yw2uGU78Fg==
+X-Received: by 2002:a05:620a:c93:b0:792:c175:b12f with SMTP id af79cd13be357-792c7600ee8mr1860050685a.63.1715851201414;
+        Thu, 16 May 2024 02:20:01 -0700 (PDT)
+Date: Thu, 16 May 2024 11:19:58 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Elias El Yandouzi <eliasely@amazon.com>, xen-devel@lists.xenproject.org,
+	julien@xen.org, pdurrant@amazon.com, dwmw@amazon.com,
+	Hongyan Xia <hongyxia@amazon.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Julien Grall <jgrall@amazon.com>
+Subject: Re: [PATCH V3 (resend) 06/19] x86: Add a boot option to enable and
+ disable the direct map
+Message-ID: <ZkXPvgRupZw31nGw@macbook>
+References: <20240513134046.82605-1-eliasely@amazon.com>
+ <20240513134046.82605-7-eliasely@amazon.com>
+ <ZkMs1cknBFBWZoJG@macbook>
+ <086f1bbe-2b86-493e-8936-81f420500672@suse.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v14 1/5] vpci/header: emulate PCI_COMMAND register for
- guests
-Content-Language: en-US
-To: Stewart Hildebrand <stewart.hildebrand@amd.com>
-Cc: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Volodymyr Babchuk <volodymyr_babchuk@epam.com>,
- xen-devel@lists.xenproject.org
-References: <20240514143400.152280-1-stewart.hildebrand@amd.com>
- <20240514143400.152280-2-stewart.hildebrand@amd.com>
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240514143400.152280-2-stewart.hildebrand@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <086f1bbe-2b86-493e-8936-81f420500672@suse.com>
 
-On 14.05.2024 16:33, Stewart Hildebrand wrote:
-> From: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
+On Wed, May 15, 2024 at 03:54:51PM +0200, Jan Beulich wrote:
+> On 14.05.2024 11:20, Roger Pau Monné wrote:
+> > On Mon, May 13, 2024 at 01:40:33PM +0000, Elias El Yandouzi wrote:
+> >> --- a/docs/misc/xen-command-line.pandoc
+> >> +++ b/docs/misc/xen-command-line.pandoc
+> >> @@ -799,6 +799,18 @@ that enabling this option cannot guarantee anything beyond what underlying
+> >>  hardware guarantees (with, where available and known to Xen, respective
+> >>  tweaks applied).
+> >>  
+> >> +### directmap (x86)
+> >> +> `= <boolean>`
+> >> +
+> >> +> Default: `true`
+> >> +
+> >> +Enable or disable the directmap region in Xen.
+> > 
+> > Enable or disable fully populating the directmap region in Xen.
 > 
-> Xen and/or Dom0 may have put values in PCI_COMMAND which they expect
-> to remain unaltered. PCI_COMMAND_SERR bit is a good example: while the
-> guest's (domU) view of this will want to be zero (for now), the host
-> having set it to 1 should be preserved, or else we'd effectively be
-> giving the domU control of the bit. Thus, PCI_COMMAND register needs
-> proper emulation in order to honor host's settings.
+> Elias, would you please take care to address earlier review comments
+> before sending a new version? This and ...
 > 
-> According to "PCI LOCAL BUS SPECIFICATION, REV. 3.0", section "6.2.2
-> Device Control" the reset state of the command register is typically 0,
-> so when assigning a PCI device use 0 as the initial state for the
-> guest's (domU) view of the command register.
+> >> +
+> >> +By default, Xen creates the directmap region which maps physical memory
+> >                                                           ^ all?
+> >> +in that region. Setting this to no will sparsely populate the directmap,
+> > 
+> > "Setting this to no" => "Disabling this option will sparsely..."
 > 
-> Here is the full list of command register bits with notes about
-> PCI/PCIe specification, and how Xen handles the bit. QEMU's behavior is
-> also documented here since that is our current reference implementation
-> for PCI passthrough.
+> ... this is what I had already asked for in reply to v2, of course with
+> different wording.
 > 
-> PCI_COMMAND_IO (bit 0)
->   PCIe 6.1: RW
->   PCI LB 3.0: RW
->   QEMU: (emu_mask) QEMU provides an emulated view of this bit. Guest
->     writes do not propagate to hardware. QEMU sets this bit to 1 in
->     hardware if an I/O BAR is exposed to the guest.
->   Xen domU: (rsvdp_mask) We treat this bit as RsvdP for now since we
->     don't yet support I/O BARs for domUs.
->   Xen dom0: We allow dom0 to control this bit freely.
+> >> --- a/xen/arch/x86/setup.c
+> >> +++ b/xen/arch/x86/setup.c
+> >> @@ -1517,6 +1517,8 @@ void asmlinkage __init noreturn __start_xen(unsigned long mbi_p)
+> >>      if ( highmem_start )
+> >>          xenheap_max_mfn(PFN_DOWN(highmem_start - 1));
+> >>  
+> >> +    printk("Booting with directmap %s\n", has_directmap() ? "on" : "off");
+> > 
+> > IMO this wants to be printed as part of the speculation mitigations, see
+> > print_details() in spec_ctrl.c
 > 
-> PCI_COMMAND_MEMORY (bit 1)
->   PCIe 6.1: RW
->   PCI LB 3.0: RW
->   QEMU: (emu_mask) QEMU provides an emulated view of this bit. Guest
->     writes do not propagate to hardware. QEMU sets this bit to 1 in
->     hardware if a Memory BAR is exposed to the guest.
->   Xen domU/dom0: We handle writes to this bit by mapping/unmapping BAR
->     regions.
->   Xen domU: For devices assigned to DomUs, memory decoding will be
->     disabled at the time of initialization.
-> 
-> PCI_COMMAND_MASTER (bit 2)
->   PCIe 6.1: RW
->   PCI LB 3.0: RW
->   QEMU: Pass through writes to hardware.
->   Xen domU/dom0: Pass through writes to hardware.
-> 
-> PCI_COMMAND_SPECIAL (bit 3)
->   PCIe 6.1: RO, hardwire to 0
->   PCI LB 3.0: RW
->   QEMU: Pass through writes to hardware.
->   Xen domU/dom0: Pass through writes to hardware.
-> 
-> PCI_COMMAND_INVALIDATE (bit 4)
->   PCIe 6.1: RO, hardwire to 0
->   PCI LB 3.0: RW
->   QEMU: Pass through writes to hardware.
->   Xen domU/dom0: Pass through writes to hardware.
-> 
-> PCI_COMMAND_VGA_PALETTE (bit 5)
->   PCIe 6.1: RO, hardwire to 0
->   PCI LB 3.0: RW
->   QEMU: Pass through writes to hardware.
->   Xen domU/dom0: Pass through writes to hardware.
-> 
-> PCI_COMMAND_PARITY (bit 6)
->   PCIe 6.1: RW
->   PCI LB 3.0: RW
->   QEMU: (emu_mask) QEMU provides an emulated view of this bit. Guest
->     writes do not propagate to hardware.
->   Xen domU: (rsvdp_mask) We treat this bit as RsvdP.
->   Xen dom0: We allow dom0 to control this bit freely.
-> 
-> PCI_COMMAND_WAIT (bit 7)
->   PCIe 6.1: RO, hardwire to 0
->   PCI LB 3.0: hardwire to 0
->   QEMU: res_mask
->   Xen domU: (rsvdp_mask) We treat this bit as RsvdP.
->   Xen dom0: We allow dom0 to control this bit freely.
-> 
-> PCI_COMMAND_SERR (bit 8)
->   PCIe 6.1: RW
->   PCI LB 3.0: RW
->   QEMU: (emu_mask) QEMU provides an emulated view of this bit. Guest
->     writes do not propagate to hardware.
->   Xen domU: (rsvdp_mask) We treat this bit as RsvdP.
->   Xen dom0: We allow dom0 to control this bit freely.
-> 
-> PCI_COMMAND_FAST_BACK (bit 9)
->   PCIe 6.1: RO, hardwire to 0
->   PCI LB 3.0: RW
->   QEMU: (emu_mask) QEMU provides an emulated view of this bit. Guest
->     writes do not propagate to hardware.
->   Xen domU: (rsvdp_mask) We treat this bit as RsvdP.
->   Xen dom0: We allow dom0 to control this bit freely.
-> 
-> PCI_COMMAND_INTX_DISABLE (bit 10)
->   PCIe 6.1: RW
->   PCI LB 3.0: RW
->   QEMU: (emu_mask) QEMU provides an emulated view of this bit. Guest
->     writes do not propagate to hardware. QEMU checks if INTx was mapped
->     for a device. If it is not, then guest can't control
->     PCI_COMMAND_INTX_DISABLE bit.
->   Xen domU: We prohibit a guest from enabling INTx if MSI(X) is enabled.
->   Xen dom0: We allow dom0 to control this bit freely.
-> 
-> Bits 11-15
->   PCIe 6.1: RsvdP
->   PCI LB 3.0: Reserved
->   QEMU: res_mask
->   Xen domU/dom0: rsvdp_mask
-> 
-> Signed-off-by: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
-> Signed-off-by: Volodymyr Babchuk <volodymyr_babchuk@epam.com>
-> Signed-off-by: Stewart Hildebrand <stewart.hildebrand@amd.com>
+> And not "on" / "off", but "full" / "sparse" (and word order changed accordingly)
+> perhaps.
 
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
-with one further nit:
+I've been thinking about this, and I'm leaning towards calling this
+new mode "ondemand" rather than "sparse".  The fact that the direct
+map ends up sparely populated is a consequence of populating it on
+demand, and hence the later would be more descriptive IMO.
 
-> --- a/xen/drivers/vpci/msi.c
-> +++ b/xen/drivers/vpci/msi.c
-> @@ -57,6 +57,7 @@ static void cf_check control_write(
->  
->      if ( new_enabled )
->      {
-> +        bool old_enabled = msi->enabled;
->          /*
->           * If the device is already enabled it means the number of
->           * enabled messages has changed. Disable and re-enable the
+(Same for the Kconfig option then ONDEMAND_DIRECTMAP, or some such)
 
-Blank line please to separate declaration(s) from statement(s) (or, in this
-case, a comment ahead of a statement). Happy to insert while committing.
-
-Jan
+Thanks, Roger.
 
