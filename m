@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5E1908C75D1
-	for <lists+xen-devel@lfdr.de>; Thu, 16 May 2024 14:17:51 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.723268.1127956 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 13F518C765F
+	for <lists+xen-devel@lfdr.de>; Thu, 16 May 2024 14:30:19 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.723272.1127966 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s7a3E-0005bN-H5; Thu, 16 May 2024 12:17:36 +0000
+	id 1s7aEo-0000g5-IM; Thu, 16 May 2024 12:29:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 723268.1127956; Thu, 16 May 2024 12:17:36 +0000
+Received: by outflank-mailman (output) from mailman id 723272.1127966; Thu, 16 May 2024 12:29:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s7a3E-0005ZP-E7; Thu, 16 May 2024 12:17:36 +0000
-Received: by outflank-mailman (input) for mailman id 723268;
- Thu, 16 May 2024 12:17:35 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=LYhW=MT=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1s7a3D-0005ZH-26
- for xen-devel@lists.xenproject.org; Thu, 16 May 2024 12:17:35 +0000
-Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
- [2a00:1450:4864:20::629])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 45ce19e4-137e-11ef-909d-e314d9c70b13;
- Thu, 16 May 2024 14:17:33 +0200 (CEST)
-Received: by mail-ej1-x629.google.com with SMTP id
- a640c23a62f3a-a5a5cb0e6b7so319152266b.1
- for <xen-devel@lists.xenproject.org>; Thu, 16 May 2024 05:17:33 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a5a179c7f32sm981391066b.106.2024.05.16.05.17.32
+	id 1s7aEo-0000dm-F5; Thu, 16 May 2024 12:29:34 +0000
+Received: by outflank-mailman (input) for mailman id 723272;
+ Thu, 16 May 2024 12:29:33 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=O3ow=MT=cloud.com=alejandro.vallejo@srs-se1.protection.inumbo.net>)
+ id 1s7aEn-0000de-17
+ for xen-devel@lists.xenproject.org; Thu, 16 May 2024 12:29:33 +0000
+Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
+ [2a00:1450:4864:20::62a])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id f0779cfc-137f-11ef-b4bb-af5377834399;
+ Thu, 16 May 2024 14:29:28 +0200 (CEST)
+Received: by mail-ej1-x62a.google.com with SMTP id
+ a640c23a62f3a-a5a5c930cf6so293598366b.0
+ for <xen-devel@lists.xenproject.org>; Thu, 16 May 2024 05:29:28 -0700 (PDT)
+Received: from [10.80.5.21] (default-46-102-197-194.interdsl.co.uk.
+ [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a5a17894eb1sm978064266b.77.2024.05.16.05.29.27
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 16 May 2024 05:17:32 -0700 (PDT)
+ Thu, 16 May 2024 05:29:27 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,101 +45,93 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 45ce19e4-137e-11ef-909d-e314d9c70b13
+X-Inumbo-ID: f0779cfc-137f-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1715861853; x=1716466653; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
+        d=cloud.com; s=cloud; t=1715862568; x=1716467368; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=KdmzI0pblVMHjBethUop9xBQnLciYn98soZ8P6ketGo=;
-        b=b8GLsb3JnRpSHf7KuP89TDXX0Jk4FJ8eOChJ4oUdXTLBSLedXyzIQfVx06BuGOTosq
-         VhKG67g/nVR51KJ8JdKWUcKqO00l992zvvBT0LQEaslSKNMWhxFW3eS/WxUVCjsFGJam
-         gxzGQMQt+5YWQ34F5xBtS0JppC6o4cCVgq3t1jcuYxL28/vPj94mvZd4a63ZFVsM6VBJ
-         PMgZ0mtE0iRqqjVrxUDqabrdy4zu8OuXWQ3QKQ5Vgy6vCWOr/yG+UENm69RbkS30Xs+r
-         BQdehxpBNIjQ2Lm7fKMlWDpeO3NMgtyTNQp4T8Mr3ZgkXafQ8WqpCgx8Ya+qdq2I2vCv
-         3CGQ==
+        bh=fXVS35DRWL5MxvMZYr1vkxLTGtIPJS670c3yyt/vKK0=;
+        b=bI1KsyOyfLUpHDeUi3tj6kF0BrcqF0O3FFaQ2KgyzwLApoRXBAju6whGkcLeBCzJlA
+         o2vSJt7eT1X/hvcYvH9yNMJA3BfRWKvfSnuka5/8OWuxAGmHRFWRw0fgkEmaD1MSJVV+
+         9welR4DY8tvXoWGSmf5nbgL07LrYLIeYzyjB8=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1715861853; x=1716466653;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
+        d=1e100.net; s=20230601; t=1715862568; x=1716467368;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=KdmzI0pblVMHjBethUop9xBQnLciYn98soZ8P6ketGo=;
-        b=FGdUm2tom0Q239NtHJend4O16t4QO5+1uOd9HbtLTT02FMOckO3EhBZ99xImuUP2fa
-         /OGCC1nylaoFuKeFUMjze1z0dVZKv3bsUAFYkuCHMbB+X5jHK4SFvFRzeOw18WStuV+W
-         ZcHRR92ikVH0yFmav71iZ7gqO5lvzdI20hZSxk8plLBODlcEXQhq28S5JdK7xqdHG64n
-         ZKx5QJmVdLtZyRC/OPlhdQ89zfBKQVmm9DH6BAc97h5wjRMIoGVfadfIvI4Sgnsf+8jK
-         fK6gJXNnsyVWrLlaGkF4O1koMHXcVatTf47tntR8bSgUQpv+v2ONNhPgzUssoFm1O5m5
-         n+9A==
-X-Gm-Message-State: AOJu0YybcMXv1h39kLxkVtV7oMbW+tJXurxZbfphlDnIIhHsbpPazDMC
-	KXtpx3/+qFYvvWg79FrupaRBu6MKvxlemFvYx+wyHgHSa4rFFoBwzO3kMQqrEw==
-X-Google-Smtp-Source: AGHT+IFqJ0x2u1Q10KzSjaxa4Awg/iKZLxNthUfs22g+aaesWeFD2P5/DXKD4NBE+4zcUw5KOqz8wg==
-X-Received: by 2002:a17:906:b081:b0:a5a:5c98:c594 with SMTP id a640c23a62f3a-a5a5c98c636mr846301766b.65.1715861853075;
-        Thu, 16 May 2024 05:17:33 -0700 (PDT)
-Message-ID: <13bbced0-a704-48c5-83e0-dbf46e2783ee@suse.com>
-Date: Thu, 16 May 2024 14:17:31 +0200
+        bh=fXVS35DRWL5MxvMZYr1vkxLTGtIPJS670c3yyt/vKK0=;
+        b=AKxLn9N3QO/2AXnLUkUlr9B7o9Cx6sojkVYeLHxuDKx8Oj5FjFC3u3l/YJa8AhlJGg
+         VVqnKBNSpALCLOYDkn/S9TtK1QMCvHHxaF+wg6ZNd6Gr8KOMeU9acqIO5U6qOiII76yM
+         mYkMAIQKRLeRanzSZHnf+ijivrB70xg2QZkzunuPjbtSDPKbFsTM7COq0blwAB6Burgz
+         7aveaI4d7kRFKcgfYKP7X/9pgUPL4JTRgo1XwlpslyB7x+M8DzFmz6w6Ebi0DdCQJpcw
+         9tqQN+OtSkDsrx0KNZxhnQvnRRj94oxjnbKucbpJxVRkZX/YUPLaA5GhNCMb1NS0eBP5
+         IKrQ==
+X-Gm-Message-State: AOJu0Yy1BaTchC48oZskFKeehkIo0bHqn0hdVnr84zYFd4bb7nsMHkqW
+	/hYc0D59xs1rj9+VR8akdaRFCu/R+WDwy+G+7MpnjSEfwEAGwtLC1yHMm9IdEfo=
+X-Google-Smtp-Source: AGHT+IEEk79PY6c/JBYBCzUGCzWhh0AMdXMCJqxePBrDc+Qb498ep3AZaoNlKRFcszH+TMj18PXVCQ==
+X-Received: by 2002:a17:906:1358:b0:a59:9eab:1622 with SMTP id a640c23a62f3a-a5a2d665e06mr1183512266b.56.1715862568328;
+        Thu, 16 May 2024 05:29:28 -0700 (PDT)
+Message-ID: <7965ba74-9177-44b7-9253-7ab5a77fd88f@cloud.com>
+Date: Thu, 16 May 2024 13:29:26 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH v2 15/15] x86/hvm: make AMD-V and Intel VT-x support
- configurable
-Content-Language: en-US
-To: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
-Cc: xen-devel@lists.xenproject.org, Xenia Ragiadakou <burzalodowa@gmail.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Xenia Ragiadakou <xenia.ragiadakou@amd.com>,
- Stefano Stabellini <sstabellini@kernel.org>
-References: <cover.1715761386.git.Sergiy_Kibrik@epam.com>
- <3ad7c0279da67e564713140fb5b247349cf4dccc.1715761386.git.Sergiy_Kibrik@epam.com>
- <alpine.DEB.2.22.394.2405151754420.2544314@ubuntu-linux-20-04-desktop>
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <alpine.DEB.2.22.394.2405151754420.2544314@ubuntu-linux-20-04-desktop>
+Subject: Re: [PATCH] tools: Add install/uninstall targets to
+ tests/x86_emulator
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>,
+ Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony@xenproject.org>
+References: <20240516110710.3446-1-alejandro.vallejo@cloud.com>
+ <ZkXvdWf2mVkPW458@macbook>
+Content-Language: en-GB
+From: Alejandro Vallejo <alejandro.vallejo@cloud.com>
+In-Reply-To: <ZkXvdWf2mVkPW458@macbook>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 16.05.2024 02:54, Stefano Stabellini wrote:
-> On Wed, 15 May 2024, Sergiy Kibrik wrote:
->> From: Xenia Ragiadakou <burzalodowa@gmail.com>
+On 16/05/2024 12:35, Roger Pau Monné wrote:
+> On Thu, May 16, 2024 at 12:07:10PM +0100, Alejandro Vallejo wrote:
+>> Bring test_x86_emulator in line with other tests by adding
+>> install/uninstall rules.
 >>
->> Provide the user with configuration control over the cpu virtualization support
->> in Xen by making SVM and VMX options user selectable.
+>> Signed-off-by: Alejandro Vallejo <alejandro.vallejo@cloud.com>
+>> ---
+>>  tools/tests/x86_emulator/Makefile | 11 +++++++++--
+>>  1 file changed, 9 insertions(+), 2 deletions(-)
 >>
->> To preserve the current default behavior, both options depend on HVM and
->> default to value of HVM.
->>
->> To prevent users from unknowingly disabling virtualization support, make the
->> controls user selectable only if EXPERT is enabled.
->>
->> No functional change intended.
->>
->> Signed-off-by: Xenia Ragiadakou <burzalodowa@gmail.com>
->> Signed-off-by: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
+>> diff --git a/tools/tests/x86_emulator/Makefile b/tools/tests/x86_emulator/Makefile
+>> index 834b2112e7fe..30edf7e0185d 100644
+>> --- a/tools/tests/x86_emulator/Makefile
+>> +++ b/tools/tests/x86_emulator/Makefile
+>> @@ -269,8 +269,15 @@ clean:
+>>  .PHONY: distclean
+>>  distclean: clean
+>>  
+>> -.PHONY: install uninstall
+>> -install uninstall:
+>> +.PHONY: install
+>> +install: all
+>> +	$(INSTALL_DIR) $(DESTDIR)$(LIBEXEC_BIN)
+>> +	$(if $(TARGET-y),$(INSTALL_PROG) $(TARGET-y) $(DESTDIR)$(LIBEXEC_BIN))
+>> +
+>> +.PHONY: uninstall
+>> +uninstall:
+>> +	$(RM) -- $(addprefix $(DESTDIR)$(LIBEXEC_BIN)/,$(TARGET-y))
+>> +
 > 
-> Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+> FWIW, should you check that HOSTCC == CC before installing?  Otherwise
+> I'm unsure of the result in cross-compiled builds, as the x86_emulator
+> is built with HOSTCC, not CC.
+> 
+> Thanks, Roger.
 
-Acked-by: Jan Beulich <jbeulich@suse.com>
+Right...
 
+More generally, should we do s/CC/HOSTCC/ on all compiler checks? I see
+no particular reason to do them on $(CC) rather than the actual compiler
+used during build.
 
+Cheers,
+Alejandro
 
