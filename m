@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 920998C756B
-	for <lists+xen-devel@lfdr.de>; Thu, 16 May 2024 13:45:17 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.723223.1127886 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 67E548C756E
+	for <lists+xen-devel@lfdr.de>; Thu, 16 May 2024 13:46:38 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.723228.1127896 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s7ZXZ-00011u-A6; Thu, 16 May 2024 11:44:53 +0000
+	id 1s7ZYy-0001pw-ML; Thu, 16 May 2024 11:46:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 723223.1127886; Thu, 16 May 2024 11:44:53 +0000
+Received: by outflank-mailman (output) from mailman id 723228.1127896; Thu, 16 May 2024 11:46:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s7ZXZ-0000yy-6n; Thu, 16 May 2024 11:44:53 +0000
-Received: by outflank-mailman (input) for mailman id 723223;
- Thu, 16 May 2024 11:44:51 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1s7ZYy-0001nl-JY; Thu, 16 May 2024 11:46:20 +0000
+Received: by outflank-mailman (input) for mailman id 723228;
+ Thu, 16 May 2024 11:46:19 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=LYhW=MT=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1s7ZXX-0000yp-SR
- for xen-devel@lists.xenproject.org; Thu, 16 May 2024 11:44:51 +0000
-Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
- [2a00:1450:4864:20::62b])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b3cc336d-1379-11ef-909d-e314d9c70b13;
- Thu, 16 May 2024 13:44:50 +0200 (CEST)
-Received: by mail-ej1-x62b.google.com with SMTP id
- a640c23a62f3a-a5cdd6cfae7so201874966b.0
- for <xen-devel@lists.xenproject.org>; Thu, 16 May 2024 04:44:50 -0700 (PDT)
+ id 1s7ZYx-0001nd-RZ
+ for xen-devel@lists.xenproject.org; Thu, 16 May 2024 11:46:19 +0000
+Received: from mail-ed1-x535.google.com (mail-ed1-x535.google.com
+ [2a00:1450:4864:20::535])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id e8135b12-1379-11ef-b4bb-af5377834399;
+ Thu, 16 May 2024 13:46:17 +0200 (CEST)
+Received: by mail-ed1-x535.google.com with SMTP id
+ 4fb4d7f45d1cf-56e69888a36so3259576a12.3
+ for <xen-devel@lists.xenproject.org>; Thu, 16 May 2024 04:46:17 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5733bed0af0sm10403816a12.49.2024.05.16.04.44.49
+ 4fb4d7f45d1cf-5733bed0af0sm10403816a12.49.2024.05.16.04.46.16
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 16 May 2024 04:44:50 -0700 (PDT)
+ Thu, 16 May 2024 04:46:16 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,49 +45,52 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b3cc336d-1379-11ef-909d-e314d9c70b13
+X-Inumbo-ID: e8135b12-1379-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1715859890; x=1716464690; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1715859977; x=1716464777; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=sPpXE8yYsiVypob5r3TlAADd7rGNXxVldr3zbRZj9N4=;
-        b=MYeVQJY2qTtEITPWfHugVzWsgbZIHu3yJgzZp97ZzKrR7vZxprufwYERvR8h8QlyC3
-         1VV1v/o3ZLbggeYI1G/xCC9WejxAc+mFpwtH0bwdjUVFEnlIeVicSI+ds4fNWLvHYAu1
-         S4cHS5AbR24sBrvaQGpG0ksnO5i9x7Xd8y/Mps1OmwpCxTYgd2LjmdVChIsqJLQYxFyR
-         BAmQbaQAARm2uPJX7eQ5Fbn631z0NGN3iZGdURQaRvCEWHdbQgmRyNntHd0EGtJSeb8E
-         WLdcfPCELb/DY1b5DHG8F/jIdMwdMhlMtsF+/hSx2kp3KjTmKViYI4DZr+xjwXxlaXeA
-         EsMg==
+        bh=RM3byCZX1/6byX6gI2+BOAfTlRNvy3a3bQJ5HRPzyAM=;
+        b=fNrhVQkpRw7mlELruqAfWnd/WnPzT5Y9bFHt5F5Ps98Slyy/8DBUETaeZMrHULHpvO
+         ap44keJP3hYgLjPvT/Qw4t28irFUDFrtvwcdRk/MA125v8Wwl6403jq2xfrVf855LZAi
+         uoKz6mWxOa+is97dkx3pUin8dBoFUjyBTOR11LGWlNh2QKYQMIg1gPHaFMLswSgBNVHK
+         W9j6P+3E2Z55M31b9r+csZ4zykHSzX2kHJeIRUWIENNz/b/1ZjQ+ChXYUjXPyGE/Kfp3
+         c6W0NYMRx/a563acn4X5l9dhrMLgVZCNpNBpWTYxkiOz9fz3mC14c4KWC3QzYgtLRL3G
+         Hbuw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1715859890; x=1716464690;
+        d=1e100.net; s=20230601; t=1715859977; x=1716464777;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=sPpXE8yYsiVypob5r3TlAADd7rGNXxVldr3zbRZj9N4=;
-        b=jKG7mBYQDarFAGGIkI8enpuL03d4bmz0mRG/wmO7CVqN2mDe60dswCp9m8CqYlRyhp
-         FEiJrgvWexskP58szmLfhyOGmtao76NLcMry7toPMpll2L6nOv4RCgbDVWGpUA0t/wx/
-         jjdYyKSSJ9No+DxUqNfujXzIW/N5N+gHKOt/h9TRnrlqGYXWk2qEjuR9ZF3GhL0cKMR5
-         VLBPDw8UUwLEBQNRLt6CXLY9SNeCoQTePFYyL77mvvFmvtKZAca3e6kw1t/NjC8GYty7
-         XBXq2ZImWkXIHKs6fEfS4KpmGGab0ui0tVk4WMJ4sI0OIiqAARU99xZrAcHJf2B9X0Uc
-         ulrA==
-X-Forwarded-Encrypted: i=1; AJvYcCVI/xYO+I7NTSx9gcSSw7XNeW1gTT1TVGVxvdelfnuYYLD5d1SyqL42sGFpp9knG9mQnhQUHXkf2585tGmNPi8WlfpyZEpVq23Een0rC5w=
-X-Gm-Message-State: AOJu0YxZk3jfa6nbd7feM6h6MRyhp9Zxi0+A1Qtd8byCQAxZ2W1wq70V
-	kVQSjWGRu00gTSi/ldpVBXLk9Y5zHkqIz544CyrShRAdj68CTWjnzAysHPobLA==
-X-Google-Smtp-Source: AGHT+IEf/ZiRmzfovEEA1TGrkFaR/f49orm9OX6DvASdIWXHJsx6bwse6SJPwaDuPKa7ZvrYUrMmkg==
-X-Received: by 2002:a17:906:6a10:b0:a59:9636:f3e with SMTP id a640c23a62f3a-a5a118c520bmr2144877066b.33.1715859890221;
-        Thu, 16 May 2024 04:44:50 -0700 (PDT)
-Message-ID: <7d8fa536-f196-46e8-870f-0cfb57c8a65d@suse.com>
-Date: Thu, 16 May 2024 13:44:48 +0200
+        bh=RM3byCZX1/6byX6gI2+BOAfTlRNvy3a3bQJ5HRPzyAM=;
+        b=D5nD8IYY00qsx8TPI6eznvcY9ktN2Rh1iftgejvUUMBmAD7q4hi3ofSSpgz8Nv7YsX
+         EflB4VPioxLV/YWPR7dK1sevalcPuuHauNsz/tUr/Fd3T+seaon0rFXFW5+EUQo+PxZ1
+         luOLGR0o/g12gXeaP60jiKD1wrMPO/nIe37jXN7FVHsqYvUczsCaQwQZWexDoeaJR2qa
+         l/5AT9TAG1EpigvQ1AacJFUtOAw0y62Pt9NLvxQxOEc1/IPvXMuY2iN6bjhQljytYLgv
+         sEFq6e1thJjYtkjDWjTybPfv33H0h9C9tuSJdQF9u+6bvJ/TSDthFos6X3SQ+sqpNtS0
+         mGtg==
+X-Gm-Message-State: AOJu0YzNaF6DXULxkGYGH+k7JQ99mcbJ1OQ1EZvd97uA5Waddg78z46B
+	yI2rcqu4e8oa7se+mRrhkmcH+FgLXn0lwdXqCCvfho6Y4sqcW0BvHTv/75vzHg==
+X-Google-Smtp-Source: AGHT+IHWeBxrUZjQ799dn9Ph9Re16jDB/a0CNvm72JgTdJwNfwOcdgcr9ptusBMCcaeubud65JAuIg==
+X-Received: by 2002:a50:d650:0:b0:572:2f0d:f4cb with SMTP id 4fb4d7f45d1cf-5734d5c16eamr11557639a12.1.1715859977330;
+        Thu, 16 May 2024 04:46:17 -0700 (PDT)
+Message-ID: <6367019b-2683-4422-a4f6-df692b0f6a5e@suse.com>
+Date: Thu, 16 May 2024 13:46:16 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/ucode: Further fixes to identify "ucode already up to
- date"
+Subject: Re: [XEN PATCH v2 04/15] x86/p2m: move altp2m-related code to
+ separate file
 Content-Language: en-US
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Fouad Hilly <fouad.hilly@cloud.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20240516113103.3018940-1-andrew.cooper3@citrix.com>
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: xen-devel@lists.xenproject.org, Andrew Cooper
+ <andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Xenia Ragiadakou <xenia.ragiadakou@amd.com>,
+ Tamas K Lengyel <tamas@tklengyel.com>, Sergiy Kibrik <Sergiy_Kibrik@epam.com>
+References: <cover.1715761386.git.Sergiy_Kibrik@epam.com>
+ <d791a552c3d9331d9b2d40c91e6568932ea6afb7.1715761386.git.Sergiy_Kibrik@epam.com>
+ <alpine.DEB.2.22.394.2405151735350.2544314@ubuntu-linux-20-04-desktop>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -112,45 +115,25 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240516113103.3018940-1-andrew.cooper3@citrix.com>
+In-Reply-To: <alpine.DEB.2.22.394.2405151735350.2544314@ubuntu-linux-20-04-desktop>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 16.05.2024 13:31, Andrew Cooper wrote:
-> When the revision in hardware is newer than anything Xen has to hand,
-> 'microcode_cache' isn't set up.  Then, `xen-ucode` initiates the update
-> because it doesn't know whether the revisions across the system are symmetric
-> or not.  This involves the patch getting all the way into the
-> apply_microcode() hooks before being found to be too old.
+On 16.05.2024 02:35, Stefano Stabellini wrote:
+> On Wed, 15 May 2024, Sergiy Kibrik wrote:
+>> Move altp2m code from generic p2m.c file to altp2m.c, so it is kept separately
+>> and can possibly be disabled in the build. We may want to disable it when
+>> building for specific platform only, that doesn't support alternate p2m.
+>>
+>> No functional change intended.
+>>
+>> Signed-off-by: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
+>> CC: Tamas K Lengyel <tamas@tklengyel.com>
+>> CC: Jan Beulich <jbeulich@suse.com>
 > 
-> This is all a giant mess and needs an overhaul, but in the short term simply
-> adjust the apply_microcode() to return -EEXIST.
-> 
-> Also, unconditionally print the preexisting microcode revision on boot.  It's
-> relevant information which is otherwise unavailable if Xen doesn't find new
-> microcode to use.
+> Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 
-Since you do this for the BSP only, I'm okay with that. Doing this for all
-CPUs would have added too much verbosity imo, and I would then have asked
-to log the pre-existing revision only when no update would be done by us.
-
-> Fixes: 648db37a155a ("x86/ucode: Distinguish "ucode already up to date"")
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
-with one small request related to the remark above:
-
-> --- a/xen/arch/x86/cpu/microcode/core.c
-> +++ b/xen/arch/x86/cpu/microcode/core.c
-> @@ -881,6 +881,8 @@ int __init early_microcode_init(unsigned long *module_map,
->  
->      ucode_ops.collect_cpu_info();
->  
-> +    printk(XENLOG_INFO "Boot microcode revision: 0x%08x\n", this_cpu(cpu_sig).rev);
-
-Can this please be "BSP" or "Boot CPU" instead of just "Boot", to clarify
-which CPU's information this is? I'm pretty sure you too have hit systems
-where firmware doesn't update all cores.
+Ouch, I'm sorry, Stefano, I failed to put this in while committing.
 
 Jan
 
