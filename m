@@ -2,42 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7C7C58C7D87
-	for <lists+xen-devel@lfdr.de>; Thu, 16 May 2024 21:58:01 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.723609.1128585 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9F5B88C7DB4
+	for <lists+xen-devel@lfdr.de>; Thu, 16 May 2024 22:31:05 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.723612.1128595 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s7hEF-00031n-AL; Thu, 16 May 2024 19:57:27 +0000
+	id 1s7hjq-0001cd-Pu; Thu, 16 May 2024 20:30:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 723609.1128585; Thu, 16 May 2024 19:57:27 +0000
+Received: by outflank-mailman (output) from mailman id 723612.1128595; Thu, 16 May 2024 20:30:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s7hEF-0002zP-7N; Thu, 16 May 2024 19:57:27 +0000
-Received: by outflank-mailman (input) for mailman id 723609;
- Thu, 16 May 2024 19:57:25 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=WdV4=MT=redhat.com=david@srs-se1.protection.inumbo.net>)
- id 1s7hED-0002zJ-N5
- for xen-devel@lists.xenproject.org; Thu, 16 May 2024 19:57:25 +0000
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 81709bfa-13be-11ef-b4bb-af5377834399;
- Thu, 16 May 2024 21:57:21 +0200 (CEST)
-Received: from mail-io1-f69.google.com (mail-io1-f69.google.com
- [209.85.166.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-596-3jAgD47jPbamzHPPWV8Lsw-1; Thu, 16 May 2024 15:57:19 -0400
-Received: by mail-io1-f69.google.com with SMTP id
- ca18e2360f4ac-7e1e05c39easo554525139f.2
- for <xen-devel@lists.xenproject.org>; Thu, 16 May 2024 12:57:19 -0700 (PDT)
-Received: from [10.21.161.194] ([65.132.165.41])
- by smtp.gmail.com with ESMTPSA id
- 8926c6da1cb9f-4893700e294sm4197464173.36.2024.05.16.12.57.16
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 16 May 2024 12:57:17 -0700 (PDT)
+	id 1s7hjq-0001ZX-NI; Thu, 16 May 2024 20:30:06 +0000
+Received: by outflank-mailman (input) for mailman id 723612;
+ Thu, 16 May 2024 20:30:04 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=HcFO=MT=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1s7hjo-0001FA-PP
+ for xen-devel@lists.xenproject.org; Thu, 16 May 2024 20:30:04 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [2604:1380:4641:c500::1])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 12754f9b-13c3-11ef-909d-e314d9c70b13;
+ Thu, 16 May 2024 22:30:03 +0200 (CEST)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id 5BD2661765;
+ Thu, 16 May 2024 20:30:01 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6D4F1C113CC;
+ Thu, 16 May 2024 20:29:59 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -49,125 +42,306 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 81709bfa-13be-11ef-b4bb-af5377834399
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1715889440;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=XZrAGdL2yy7itxdPxNw4dGHuJWRBIMxVNdHPyNKpVMw=;
-	b=LxbqQ7ZU19SeQFOlbRTzor0Yb78wnHprtlM40mHflZf7bjiD4hEcO+uUTzvJplFgS0db8e
-	OTRq2YhookjLalt9MqZVJHhTwwNmoCABt609GxbT8ZySpD5VwTE4IiEPFp5Z1knz8QhAra
-	2fGbPdldYpayLMdJbkVkCdCy/EWAs7g=
-X-MC-Unique: 3jAgD47jPbamzHPPWV8Lsw-1
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1715889438; x=1716494238;
-        h=content-transfer-encoding:in-reply-to:organization:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=XZrAGdL2yy7itxdPxNw4dGHuJWRBIMxVNdHPyNKpVMw=;
-        b=oTtDmAmLcU/QcKklqg82rL9se4UgHZEDROHpieWUvAZ8Z+HM3CsP/3LiMhiLWfy/56
-         m+JQjRMsaXfsPuRBoSqdLcGF84lKaAqSLsWFY2S37+naAjImJCCiiZ9rS6NqceF7Og0m
-         TsKgijbRG9qdFbWVa02nsJFVYq6S7HHPOhuOjSGNCBvA3Yli4+b0IHNKgJwcN2p6kiAQ
-         UF35aB0uzTnsad2o5usP+wzcmqkX+bt8NPd0kE6UZM6bKeuKfk2bKeRJoSOBmm93wY+m
-         LPMvFqNrZ4ak05+ClQF7RwAWr0jT/oAJv+PbKdXaMu/wsM5HmlZRPx5H0qDuzYtSjDqM
-         LPrQ==
-X-Forwarded-Encrypted: i=1; AJvYcCV7DFHRKfA02dmGRjEkWnlGr0UjKaFy2M4Io9hv8LicDKmuKqDWvsOitkWPUqYDXpIJWbQ1woVL0nX0bvWtcf290dFB+39RGnSpnmTmKKE=
-X-Gm-Message-State: AOJu0YycGgbXH4hciOeGjz7cgileUeKKX5yZ2uHAcWPz43DUzX4rGs89
-	21zzkqIAm+NVUhad4riOSOew/gHVr4iXEfu6AGSmThIfpEbASkCE3ym7VFYonGH34FHrL1blDfL
-	pWy0nHdTv5z/e+vh8eVI10QrffLZQ0MK8HmaBRy9Imj/wWCEkn5uEIPMh5CajuEIZ
-X-Received: by 2002:a6b:720c:0:b0:7e1:5ea0:269a with SMTP id ca18e2360f4ac-7e1b522278bmr2137213939f.21.1715889438265;
-        Thu, 16 May 2024 12:57:18 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IHJrPIdPGoj1UhOKTY5HiktV41Se6NkBKqGIK6yxnAXtLBYoBJZyNlXXQ6aYtqDwujgAO+xcQ==
-X-Received: by 2002:a6b:720c:0:b0:7e1:5ea0:269a with SMTP id ca18e2360f4ac-7e1b522278bmr2137213039f.21.1715889437992;
-        Thu, 16 May 2024 12:57:17 -0700 (PDT)
-Message-ID: <94297019-3940-450d-94ef-2d862ab55f66@redhat.com>
-Date: Thu, 16 May 2024 21:57:16 +0200
+X-Inumbo-ID: 12754f9b-13c3-11ef-909d-e314d9c70b13
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1715891401;
+	bh=L6qDb7RoyyQ5xN5zU57yiUI3gcioSC+go1Mb4ZijJrI=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=KJUXM0vzrZPLc6p437NziW5Yk7eq5iEHIK+sjVtzFT4rK56q5IZ8obZkgLd2mtkYN
+	 fdeAJHDYSCG9jdTTJDbr66RCXMsXKXIvfKlx2hN3AEEgz/nwOQQ0D8Xonbh4YsJK8p
+	 EXmAc8w4Z0w6daWYRndieZL+t859t2fIw6C4ef41UnCpGtpx7xeG71FQZzjtS0QNE9
+	 y97yqv6iFI+ceKgitBkvmBsj0ntBdcW6DUUoS0g0/EYunDJN/FEDLauW6eC6V/TiOw
+	 5vMLM5O6emQBdRfxDxhOpbmwX/AcpkdBTXwap1v+/0xg3iSqEb9dL3g5KXOBdrT/ww
+	 CdAI33djG0qfQ==
+Date: Thu, 16 May 2024 13:29:57 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: "Chen, Jiqian" <Jiqian.Chen@amd.com>
+cc: Stefano Stabellini <sstabellini@kernel.org>, 
+    Juergen Gross <jgross@suse.com>, Bjorn Helgaas <bhelgaas@google.com>, 
+    "Rafael J . Wysocki" <rafael@kernel.org>, 
+    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+    "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
+    "linux-pci@vger.kernel.org" <linux-pci@vger.kernel.org>, 
+    "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
+    "linux-acpi@vger.kernel.org" <linux-acpi@vger.kernel.org>, 
+    "Huang, Ray" <Ray.Huang@amd.com>
+Subject: Re: [RFC KERNEL PATCH v7 2/2] xen/privcmd: Add new syscall to get
+ gsi from dev
+In-Reply-To: <BL1PR12MB584969F16D93CC4A5C8E1F0FE7ED2@BL1PR12MB5849.namprd12.prod.outlook.com>
+Message-ID: <alpine.DEB.2.22.394.2405161329330.2544314@ubuntu-linux-20-04-desktop>
+References: <20240515065011.13797-1-Jiqian.Chen@amd.com> <20240515065011.13797-3-Jiqian.Chen@amd.com> <alpine.DEB.2.22.394.2405151537430.2544314@ubuntu-linux-20-04-desktop> <BL1PR12MB584969F16D93CC4A5C8E1F0FE7ED2@BL1PR12MB5849.namprd12.prod.outlook.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 6/8] xen: mapcache: Pass the ram_addr offset to
- xen_map_cache()
-To: "Edgar E. Iglesias" <edgar.iglesias@gmail.com>, qemu-devel@nongnu.org
-Cc: sstabellini@kernel.org, jgross@suse.com,
- "Edgar E. Iglesias" <edgar.iglesias@amd.com>,
- Anthony PERARD <anthony@xenproject.org>, Paul Durrant <paul@xen.org>,
- Paolo Bonzini <pbonzini@redhat.com>, Peter Xu <peterx@redhat.com>,
- =?UTF-8?Q?Philippe_Mathieu-Daud=C3=A9?= <philmd@linaro.org>,
- xen-devel@lists.xenproject.org
-References: <20240516154804.1114245-1-edgar.iglesias@gmail.com>
- <20240516154804.1114245-7-edgar.iglesias@gmail.com>
-From: David Hildenbrand <david@redhat.com>
-Autocrypt: addr=david@redhat.com; keydata=
- xsFNBFXLn5EBEAC+zYvAFJxCBY9Tr1xZgcESmxVNI/0ffzE/ZQOiHJl6mGkmA1R7/uUpiCjJ
- dBrn+lhhOYjjNefFQou6478faXE6o2AhmebqT4KiQoUQFV4R7y1KMEKoSyy8hQaK1umALTdL
- QZLQMzNE74ap+GDK0wnacPQFpcG1AE9RMq3aeErY5tujekBS32jfC/7AnH7I0v1v1TbbK3Gp
- XNeiN4QroO+5qaSr0ID2sz5jtBLRb15RMre27E1ImpaIv2Jw8NJgW0k/D1RyKCwaTsgRdwuK
- Kx/Y91XuSBdz0uOyU/S8kM1+ag0wvsGlpBVxRR/xw/E8M7TEwuCZQArqqTCmkG6HGcXFT0V9
- PXFNNgV5jXMQRwU0O/ztJIQqsE5LsUomE//bLwzj9IVsaQpKDqW6TAPjcdBDPLHvriq7kGjt
- WhVhdl0qEYB8lkBEU7V2Yb+SYhmhpDrti9Fq1EsmhiHSkxJcGREoMK/63r9WLZYI3+4W2rAc
- UucZa4OT27U5ZISjNg3Ev0rxU5UH2/pT4wJCfxwocmqaRr6UYmrtZmND89X0KigoFD/XSeVv
- jwBRNjPAubK9/k5NoRrYqztM9W6sJqrH8+UWZ1Idd/DdmogJh0gNC0+N42Za9yBRURfIdKSb
- B3JfpUqcWwE7vUaYrHG1nw54pLUoPG6sAA7Mehl3nd4pZUALHwARAQABzSREYXZpZCBIaWxk
- ZW5icmFuZCA8ZGF2aWRAcmVkaGF0LmNvbT7CwZgEEwEIAEICGwMGCwkIBwMCBhUIAgkKCwQW
- AgMBAh4BAheAAhkBFiEEG9nKrXNcTDpGDfzKTd4Q9wD/g1oFAl8Ox4kFCRKpKXgACgkQTd4Q
- 9wD/g1oHcA//a6Tj7SBNjFNM1iNhWUo1lxAja0lpSodSnB2g4FCZ4R61SBR4l/psBL73xktp
- rDHrx4aSpwkRP6Epu6mLvhlfjmkRG4OynJ5HG1gfv7RJJfnUdUM1z5kdS8JBrOhMJS2c/gPf
- wv1TGRq2XdMPnfY2o0CxRqpcLkx4vBODvJGl2mQyJF/gPepdDfcT8/PY9BJ7FL6Hrq1gnAo4
- 3Iv9qV0JiT2wmZciNyYQhmA1V6dyTRiQ4YAc31zOo2IM+xisPzeSHgw3ONY/XhYvfZ9r7W1l
- pNQdc2G+o4Di9NPFHQQhDw3YTRR1opJaTlRDzxYxzU6ZnUUBghxt9cwUWTpfCktkMZiPSDGd
- KgQBjnweV2jw9UOTxjb4LXqDjmSNkjDdQUOU69jGMUXgihvo4zhYcMX8F5gWdRtMR7DzW/YE
- BgVcyxNkMIXoY1aYj6npHYiNQesQlqjU6azjbH70/SXKM5tNRplgW8TNprMDuntdvV9wNkFs
- 9TyM02V5aWxFfI42+aivc4KEw69SE9KXwC7FSf5wXzuTot97N9Phj/Z3+jx443jo2NR34XgF
- 89cct7wJMjOF7bBefo0fPPZQuIma0Zym71cP61OP/i11ahNye6HGKfxGCOcs5wW9kRQEk8P9
- M/k2wt3mt/fCQnuP/mWutNPt95w9wSsUyATLmtNrwccz63XOwU0EVcufkQEQAOfX3n0g0fZz
- Bgm/S2zF/kxQKCEKP8ID+Vz8sy2GpDvveBq4H2Y34XWsT1zLJdvqPI4af4ZSMxuerWjXbVWb
- T6d4odQIG0fKx4F8NccDqbgHeZRNajXeeJ3R7gAzvWvQNLz4piHrO/B4tf8svmRBL0ZB5P5A
- 2uhdwLU3NZuK22zpNn4is87BPWF8HhY0L5fafgDMOqnf4guJVJPYNPhUFzXUbPqOKOkL8ojk
- CXxkOFHAbjstSK5Ca3fKquY3rdX3DNo+EL7FvAiw1mUtS+5GeYE+RMnDCsVFm/C7kY8c2d0G
- NWkB9pJM5+mnIoFNxy7YBcldYATVeOHoY4LyaUWNnAvFYWp08dHWfZo9WCiJMuTfgtH9tc75
- 7QanMVdPt6fDK8UUXIBLQ2TWr/sQKE9xtFuEmoQGlE1l6bGaDnnMLcYu+Asp3kDT0w4zYGsx
- 5r6XQVRH4+5N6eHZiaeYtFOujp5n+pjBaQK7wUUjDilPQ5QMzIuCL4YjVoylWiBNknvQWBXS
- lQCWmavOT9sttGQXdPCC5ynI+1ymZC1ORZKANLnRAb0NH/UCzcsstw2TAkFnMEbo9Zu9w7Kv
- AxBQXWeXhJI9XQssfrf4Gusdqx8nPEpfOqCtbbwJMATbHyqLt7/oz/5deGuwxgb65pWIzufa
- N7eop7uh+6bezi+rugUI+w6DABEBAAHCwXwEGAEIACYCGwwWIQQb2cqtc1xMOkYN/MpN3hD3
- AP+DWgUCXw7HsgUJEqkpoQAKCRBN3hD3AP+DWrrpD/4qS3dyVRxDcDHIlmguXjC1Q5tZTwNB
- boaBTPHSy/Nksu0eY7x6HfQJ3xajVH32Ms6t1trDQmPx2iP5+7iDsb7OKAb5eOS8h+BEBDeq
- 3ecsQDv0fFJOA9ag5O3LLNk+3x3q7e0uo06XMaY7UHS341ozXUUI7wC7iKfoUTv03iO9El5f
- XpNMx/YrIMduZ2+nd9Di7o5+KIwlb2mAB9sTNHdMrXesX8eBL6T9b+MZJk+mZuPxKNVfEQMQ
- a5SxUEADIPQTPNvBewdeI80yeOCrN+Zzwy/Mrx9EPeu59Y5vSJOx/z6OUImD/GhX7Xvkt3kq
- Er5KTrJz3++B6SH9pum9PuoE/k+nntJkNMmQpR4MCBaV/J9gIOPGodDKnjdng+mXliF3Ptu6
- 3oxc2RCyGzTlxyMwuc2U5Q7KtUNTdDe8T0uE+9b8BLMVQDDfJjqY0VVqSUwImzTDLX9S4g/8
- kC4HRcclk8hpyhY2jKGluZO0awwTIMgVEzmTyBphDg/Gx7dZU1Xf8HFuE+UZ5UDHDTnwgv7E
- th6RC9+WrhDNspZ9fJjKWRbveQgUFCpe1sa77LAw+XFrKmBHXp9ZVIe90RMe2tRL06BGiRZr
- jPrnvUsUUsjRoRNJjKKA/REq+sAnhkNPPZ/NNMjaZ5b8Tovi8C0tmxiCHaQYqj7G2rgnT0kt
- WNyWQQ==
-Organization: Red Hat
-In-Reply-To: <20240516154804.1114245-7-edgar.iglesias@gmail.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=US-ASCII
 
-On 16.05.24 17:48, Edgar E. Iglesias wrote:
-> From: "Edgar E. Iglesias" <edgar.iglesias@amd.com>
+On Thu, 16 May 2024, Chen, Jiqian wrote:
+> On 2024/5/16 06:42, Stefano Stabellini wrote:
+> > On Wed, 15 May 2024, Jiqian Chen wrote:
+> >> In PVH dom0, it uses the linux local interrupt mechanism,
+> >> when it allocs irq for a gsi, it is dynamic, and follow
+> >> the principle of applying first, distributing first. And
+> >> the irq number is alloced from small to large, but the
+> >> applying gsi number is not, may gsi 38 comes before gsi 28,
+> >> it causes the irq number is not equal with the gsi number.
+> >> And when passthrough a device, QEMU will use device's gsi
+> >> number to do pirq mapping, but the gsi number is got from
+> >> file /sys/bus/pci/devices/<sbdf>/irq, irq!= gsi, so it will
+> >> fail when mapping.
+> >> And in current linux codes, there is no method to get gsi
+> >> for userspace.
+> >>
+> >> For above purpose, record gsi of pcistub devices when init
+> >> pcistub and add a new syscall into privcmd to let userspace
+> >> can get gsi when they have a need.
+> >>
+> >> Co-developed-by: Huang Rui <ray.huang@amd.com>
+> >> Signed-off-by: Jiqian Chen <Jiqian.Chen@amd.com>
+> >> ---
+> >>  drivers/xen/privcmd.c              | 28 ++++++++++++++++++++++
+> >>  drivers/xen/xen-pciback/pci_stub.c | 38 +++++++++++++++++++++++++++---
+> >>  include/uapi/xen/privcmd.h         |  7 ++++++
+> >>  include/xen/acpi.h                 |  2 ++
+> >>  4 files changed, 72 insertions(+), 3 deletions(-)
+> >>
+> >> diff --git a/drivers/xen/privcmd.c b/drivers/xen/privcmd.c
+> >> index 67dfa4778864..5953a03b5cb0 100644
+> >> --- a/drivers/xen/privcmd.c
+> >> +++ b/drivers/xen/privcmd.c
+> >> @@ -45,6 +45,9 @@
+> >>  #include <xen/page.h>
+> >>  #include <xen/xen-ops.h>
+> >>  #include <xen/balloon.h>
+> >> +#ifdef CONFIG_ACPI
+> >> +#include <xen/acpi.h>
+> >> +#endif
+> >>  
+> >>  #include "privcmd.h"
+> >>  
+> >> @@ -842,6 +845,27 @@ static long privcmd_ioctl_mmap_resource(struct file *file,
+> >>  	return rc;
+> >>  }
+> >>  
+> >> +static long privcmd_ioctl_gsi_from_dev(struct file *file, void __user *udata)
+> >> +{
+> >> +	struct privcmd_gsi_from_dev kdata;
+> >> +
+> >> +	if (copy_from_user(&kdata, udata, sizeof(kdata)))
+> >> +		return -EFAULT;
+> >> +
+> >> +#ifdef CONFIG_ACPI
+> >> +	kdata.gsi = pcistub_get_gsi_from_sbdf(kdata.sbdf);
+> >> +	if (kdata.gsi == -1)
+> >> +		return -EINVAL;
+> >> +#else
+> >> +	kdata.gsi = -1;
+> > 
+> > Should we return an error instead, like -EINVAL, to make the behavior
+> > more similar to the CONFIG_ACPI case?
+> OK, will return -EINVAL if not config acpi.
+> Like:
+> static long privcmd_ioctl_gsi_from_dev(struct file *file, void __user *udata)
+> {
+> #ifdef CONFIG_ACPI
+> 	struct privcmd_gsi_from_dev kdata;
 > 
-> Pass the ram_addr offset to xen_map_cache.
-> This is in preparation for adding grant mappings that need
-> to compute the address within the RAMBlock.
+> 	if (copy_from_user(&kdata, udata, sizeof(kdata)))
+> 		return -EFAULT;
 > 
-> No functional changes.
+> 	kdata.gsi = pcistub_get_gsi_from_sbdf(kdata.sbdf);
+> 	if (kdata.gsi == -1)
+> 		return -EINVAL;
 > 
-> Signed-off-by: Edgar E. Iglesias <edgar.iglesias@amd.com>
-> ---
+> 	if (copy_to_user(udata, &kdata, sizeof(kdata)))
+> 		return -EFAULT;
+> 
+> 	return 0;
+> #else
+> 	return -EINVAL;
+> #endif
+> }
 
-Reviewed-by: David Hildenbrand <david@redhat.com>
 
--- 
-Cheers,
+Yep that's fine
 
-David / dhildenb
 
+
+> >> +#endif
+> >> +
+> >> +	if (copy_to_user(udata, &kdata, sizeof(kdata)))
+> >> +		return -EFAULT;
+> >> +
+> >> +	return 0;
+> >> +}
+> >> +
+> >>  #ifdef CONFIG_XEN_PRIVCMD_EVENTFD
+> >>  /* Irqfd support */
+> >>  static struct workqueue_struct *irqfd_cleanup_wq;
+> >> @@ -1529,6 +1553,10 @@ static long privcmd_ioctl(struct file *file,
+> >>  		ret = privcmd_ioctl_ioeventfd(file, udata);
+> >>  		break;
+> >>  
+> >> +	case IOCTL_PRIVCMD_GSI_FROM_DEV:
+> >> +		ret = privcmd_ioctl_gsi_from_dev(file, udata);
+> >> +		break;
+> >> +
+> >>  	default:
+> >>  		break;
+> >>  	}
+> >> diff --git a/drivers/xen/xen-pciback/pci_stub.c b/drivers/xen/xen-pciback/pci_stub.c
+> >> index 2b90d832d0a7..4b62b4d377a9 100644
+> >> --- a/drivers/xen/xen-pciback/pci_stub.c
+> >> +++ b/drivers/xen/xen-pciback/pci_stub.c
+> >> @@ -56,6 +56,9 @@ struct pcistub_device {
+> >>  
+> >>  	struct pci_dev *dev;
+> >>  	struct xen_pcibk_device *pdev;/* non-NULL if struct pci_dev is in use */
+> >> +#ifdef CONFIG_ACPI
+> >> +	int gsi;
+> >> +#endif
+> >>  };
+> >>  
+> >>  /* Access to pcistub_devices & seized_devices lists and the initialize_devices
+> >> @@ -88,6 +91,9 @@ static struct pcistub_device *pcistub_device_alloc(struct pci_dev *dev)
+> >>  
+> >>  	kref_init(&psdev->kref);
+> >>  	spin_lock_init(&psdev->lock);
+> >> +#ifdef CONFIG_ACPI
+> >> +	psdev->gsi = -1;
+> >> +#endif
+> >>  
+> >>  	return psdev;
+> >>  }
+> >> @@ -220,6 +226,25 @@ static struct pci_dev *pcistub_device_get_pci_dev(struct xen_pcibk_device *pdev,
+> >>  	return pci_dev;
+> >>  }
+> >>  
+> >> +#ifdef CONFIG_ACPI
+> >> +int pcistub_get_gsi_from_sbdf(unsigned int sbdf)
+> >> +{
+> >> +	struct pcistub_device *psdev;
+> >> +	int domain = sbdf >> 16;
+> >> +	int bus = (sbdf >> 8) & 0xff;
+> >> +	int slot = (sbdf >> 3) & 0x1f;
+> >> +	int func = sbdf & 0x7;
+> > 
+> > you can use PCI_DEVFN PCI_SLOT PCI_FUNC pci_domain_nr instead of open
+> > coding.
+> Thanks, will change to use these in next version.
+> But pci_domain_nr requires passing in pci_dev.
+> Will change like:
+> 	int domain = (sbdf >> 16) & 0xffff;
+> 	int bus = PCI_BUS_NUM(sbdf);
+> 	int slot = PCI_SLOT(sbdf);
+> 	int func = PCI_FUNC(sbdf);
+
+That's fine
+
+
+ 
+> >> +
+> >> +	psdev = pcistub_device_find(domain, bus, slot, func);
+> >> +
+> >> +	if (!psdev)
+> >> +		return -1;
+> >> +
+> >> +	return psdev->gsi;
+> >> +}
+> >> +EXPORT_SYMBOL_GPL(pcistub_get_gsi_from_sbdf);
+> >> +#endif
+> >> +
+> >>  struct pci_dev *pcistub_get_pci_dev_by_slot(struct xen_pcibk_device *pdev,
+> >>  					    int domain, int bus,
+> >>  					    int slot, int func)
+> >> @@ -367,14 +392,20 @@ static int pcistub_match(struct pci_dev *dev)
+> >>  	return found;
+> >>  }
+> >>  
+> >> -static int pcistub_init_device(struct pci_dev *dev)
+> >> +static int pcistub_init_device(struct pcistub_device *psdev)
+> >>  {
+> >>  	struct xen_pcibk_dev_data *dev_data;
+> >> +	struct pci_dev *dev;
+> >>  #ifdef CONFIG_ACPI
+> >>  	int gsi, trigger, polarity;
+> >>  #endif
+> >>  	int err = 0;
+> >>  
+> >> +	if (!psdev)
+> >> +		return -EINVAL;
+> >> +
+> >> +	dev = psdev->dev;
+> >> +
+> >>  	dev_dbg(&dev->dev, "initializing...\n");
+> >>  
+> >>  	/* The PCI backend is not intended to be a module (or to work with
+> >> @@ -448,6 +479,7 @@ static int pcistub_init_device(struct pci_dev *dev)
+> >>  		dev_err(&dev->dev, "Fail to get gsi info!\n");
+> >>  		goto config_release;
+> >>  	}
+> >> +	psdev->gsi = gsi;
+> >>  
+> >>  	if (xen_initial_domain() && xen_pvh_domain()) {
+> >>  		err = xen_pvh_setup_gsi(gsi, trigger, polarity);
+> >> @@ -495,7 +527,7 @@ static int __init pcistub_init_devices_late(void)
+> >>  
+> >>  		spin_unlock_irqrestore(&pcistub_devices_lock, flags);
+> >>  
+> >> -		err = pcistub_init_device(psdev->dev);
+> >> +		err = pcistub_init_device(psdev);
+> >>  		if (err) {
+> >>  			dev_err(&psdev->dev->dev,
+> >>  				"error %d initializing device\n", err);
+> >> @@ -565,7 +597,7 @@ static int pcistub_seize(struct pci_dev *dev,
+> >>  		spin_unlock_irqrestore(&pcistub_devices_lock, flags);
+> >>  
+> >>  		/* don't want irqs disabled when calling pcistub_init_device */
+> >> -		err = pcistub_init_device(psdev->dev);
+> >> +		err = pcistub_init_device(psdev);
+> >>  
+> >>  		spin_lock_irqsave(&pcistub_devices_lock, flags);
+> >>  
+> >> diff --git a/include/uapi/xen/privcmd.h b/include/uapi/xen/privcmd.h
+> >> index 8b8c5d1420fe..220e7670a113 100644
+> >> --- a/include/uapi/xen/privcmd.h
+> >> +++ b/include/uapi/xen/privcmd.h
+> >> @@ -126,6 +126,11 @@ struct privcmd_ioeventfd {
+> >>  	__u8 pad[2];
+> >>  };
+> >>  
+> >> +struct privcmd_gsi_from_dev {
+> >> +	__u32 sbdf;
+> >> +	int gsi;
+> >> +};
+> >> +
+> >>  /*
+> >>   * @cmd: IOCTL_PRIVCMD_HYPERCALL
+> >>   * @arg: &privcmd_hypercall_t
+> >> @@ -157,5 +162,7 @@ struct privcmd_ioeventfd {
+> >>  	_IOW('P', 8, struct privcmd_irqfd)
+> >>  #define IOCTL_PRIVCMD_IOEVENTFD					\
+> >>  	_IOW('P', 9, struct privcmd_ioeventfd)
+> >> +#define IOCTL_PRIVCMD_GSI_FROM_DEV				\
+> >> +	_IOC(_IOC_NONE, 'P', 10, sizeof(struct privcmd_gsi_from_dev))
+> >>  
+> >>  #endif /* __LINUX_PUBLIC_PRIVCMD_H__ */
+> >> diff --git a/include/xen/acpi.h b/include/xen/acpi.h
+> >> index 9b50027113f3..0bf5f4884456 100644
+> >> --- a/include/xen/acpi.h
+> >> +++ b/include/xen/acpi.h
+> >> @@ -83,4 +83,6 @@ int xen_acpi_get_gsi_info(struct pci_dev *dev,
+> >>  						  int *gsi_out,
+> >>  						  int *trigger_out,
+> >>  						  int *polarity_out);
+> >> +
+> >> +int pcistub_get_gsi_from_sbdf(unsigned int sbdf);
+> >>  #endif	/* _XEN_ACPI_H */
+> >> -- 
+> >> 2.34.1
+> >>
+> 
+> -- 
+> Best regards,
+> Jiqian Chen.
+> 
 
