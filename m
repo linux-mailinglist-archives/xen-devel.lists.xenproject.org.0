@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C7A1E8C71E2
-	for <lists+xen-devel@lfdr.de>; Thu, 16 May 2024 09:17:47 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.722834.1127165 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 67E628C7204
+	for <lists+xen-devel@lfdr.de>; Thu, 16 May 2024 09:26:13 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.722836.1127175 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s7VMY-0003dA-Hl; Thu, 16 May 2024 07:17:14 +0000
+	id 1s7VUu-0005kU-Al; Thu, 16 May 2024 07:25:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 722834.1127165; Thu, 16 May 2024 07:17:14 +0000
+Received: by outflank-mailman (output) from mailman id 722836.1127175; Thu, 16 May 2024 07:25:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s7VMY-0003ab-Ee; Thu, 16 May 2024 07:17:14 +0000
-Received: by outflank-mailman (input) for mailman id 722834;
- Thu, 16 May 2024 07:17:12 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1s7VUu-0005hl-76; Thu, 16 May 2024 07:25:52 +0000
+Received: by outflank-mailman (input) for mailman id 722836;
+ Thu, 16 May 2024 07:25:51 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=LYhW=MT=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1s7VMW-0003aV-RL
- for xen-devel@lists.xenproject.org; Thu, 16 May 2024 07:17:12 +0000
-Received: from mail-ed1-x52d.google.com (mail-ed1-x52d.google.com
- [2a00:1450:4864:20::52d])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 5047675a-1354-11ef-909d-e314d9c70b13;
- Thu, 16 May 2024 09:17:11 +0200 (CEST)
-Received: by mail-ed1-x52d.google.com with SMTP id
- 4fb4d7f45d1cf-56e48d0a632so3835784a12.2
- for <xen-devel@lists.xenproject.org>; Thu, 16 May 2024 00:17:11 -0700 (PDT)
+ id 1s7VUt-0005hf-Eq
+ for xen-devel@lists.xenproject.org; Thu, 16 May 2024 07:25:51 +0000
+Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
+ [2a00:1450:4864:20::62c])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 84c43919-1355-11ef-b4bb-af5377834399;
+ Thu, 16 May 2024 09:25:49 +0200 (CEST)
+Received: by mail-ej1-x62c.google.com with SMTP id
+ a640c23a62f3a-a59a9d66a51so252292866b.2
+ for <xen-devel@lists.xenproject.org>; Thu, 16 May 2024 00:25:49 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5733bed0035sm10127275a12.50.2024.05.16.00.17.10
+ a640c23a62f3a-a5a60eabd3csm555382066b.108.2024.05.16.00.25.48
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 16 May 2024 00:17:11 -0700 (PDT)
+ Thu, 16 May 2024 00:25:48 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,49 +45,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5047675a-1354-11ef-909d-e314d9c70b13
+X-Inumbo-ID: 84c43919-1355-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1715843831; x=1716448631; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:cc:references
+        d=suse.com; s=google; t=1715844349; x=1716449149; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=W5MeLCkLCvsz71byx6cErlNzGkhmYwaMtdCJstKIW74=;
-        b=DqejDtyzNyRx5MMEXqLlZYCqYBVeFxg5Y7x8Dxc5vDIm4RTEdWdcNNNBbp5buZGkZb
-         WtCBJS54u6pCq4EVuWoEPJ3fQ69MQ5X8Fz5zykV2nF9ySOLesYyqnrbfz2Qzl7aFYOVG
-         X+Kuzcy7/09f2ZwgTVaXlOKUijTxAFqMdkvGxot7qKIPKAnXCtBb1NUZYXJagsuxQlhU
-         pAwmLy6bzF1MaP9pLduE3eF7NtT1iwaI17l2pniz/emAAVNOy/SV3gsBQZj3h+FCfNI7
-         oK+lQm6GBmQAgIgx4FAaRENaC8Z1SGuWbczUCuAm6MfQ/AvwC2OvwxS27c54vH/Sfk62
-         Y9PA==
+        bh=g8CsRgJbNnPgWfuPER+ZlNlEhiVyDxqLDBIYMv25Pyk=;
+        b=KEbGIDwcHdIZhTCU+YCSOZvxmrcWwz2qsPRyUqHyHnxT5uR7fuohGySPd2z+MPI0J5
+         h3MEXznW0yDIGz8zImr48W/HopqF67w2GVa+vO8844HLzH8u454Y+2V1oBvOWgyOY0QR
+         CWBRoYCvjlHudq9JO7B8iavMUGi/uGL4O7VikKIGx8e34LTXlOCZn+ORQcgl8CacW/e4
+         AehQw3PeUNnu4UAwOXF5efFcrhxjlkj/AIsXWEBwkY0Ehr4g2tM3nS7NhTb/7kBNBovl
+         cPuVRzOHAb4z6sBwCzMUaYp2l1UJpYCeW4wDVv+ZZN8xIxVdqHdxd2sMXcsBlnR0HRGt
+         dpGg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1715843831; x=1716448631;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:cc:references
+        d=1e100.net; s=20230601; t=1715844349; x=1716449149;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=W5MeLCkLCvsz71byx6cErlNzGkhmYwaMtdCJstKIW74=;
-        b=ZI76AjHf9KbhdC/J8s+J7mo0gPI5NMpPSrKylbdGO+c0FyruiiwH56PUY5RgpMdAX4
-         1wGkXPMt0d4Lc9haKNGQ+IzwxZkqrxfI2fLFI8RDgBK3rGW+Qqh89QMN2jXaCzt/16vU
-         BFGEUHL5xai81zq7gPZKhAorKNZ4J595rUVsfcIIwuM7k1uFssc3Y29WARSAvKY9hx2D
-         1bdPGocjp2gfPC7B6IOPctMA/EQu3I4H/wa/E89LSsDziQTH07HBEZOYY0z/deL/xGIq
-         X+KnbkdTUrUjRZeY/j7VvTwC+6jyoi1eA0xd7UopRHhodgM6zXpUDUNkj6FLldBQrXdZ
-         S7vw==
-X-Gm-Message-State: AOJu0YybLy77xpLYFzd7IBM4nDhZPpZoDmyc6Pry6imvPD/iE0roo+Xk
-	jjYp3gFBYxBWzArBh9sEurkvuUE7LP2Z2hqTPZGs4tr9UrGPCbYV2FOdT4sSQw==
-X-Google-Smtp-Source: AGHT+IEWK7UFczPO82/ECAbemvYreZ2oDBp6W5qew16fQMB6SZaLurhDWlSc5JLtKbsWO3DxdIJbew==
-X-Received: by 2002:a50:d615:0:b0:56c:522f:53e1 with SMTP id 4fb4d7f45d1cf-5734d5d13b1mr18833901a12.17.1715843831302;
-        Thu, 16 May 2024 00:17:11 -0700 (PDT)
-Message-ID: <b50d0a83-fab4-4f59-bf4d-5c5593923f34@suse.com>
-Date: Thu, 16 May 2024 09:17:10 +0200
+        bh=g8CsRgJbNnPgWfuPER+ZlNlEhiVyDxqLDBIYMv25Pyk=;
+        b=vfystCRaCdqkKsWowEC8GgK9kFi7074WBtPXOLr5qwMQr+hcOU1q7GZ14f4jASsquq
+         mRo96dXluqarsYVWcRsXQat+MPm1SCGi2e8QgfSW9ttumxFxlMJuIdcXP2bmg7/ycHjN
+         mD/MYsv1P1lYHt482f5MaoEu9KvCVDpqZRVagGeNERal1vL+4bSSDOzOhhqrKmZPZZxk
+         q+uPjojstOqxuvS1MZjDXaAMp3q2MZFk64eaUXfYcf7V4ZyhQB07jL4xzfUFi9MoaMIn
+         Skqdx7LT0J8OQ/Fa3iqcxhTz0kTl6BasZp/q5kPgmC4bpIzKJqShztrvV0W8XBP5G2uF
+         x7+w==
+X-Gm-Message-State: AOJu0YxsMCkvPBWvIkORFOYkLs54FHgbdE2ELuUyiVuqSHDooyAeTQWV
+	kmZXbtDUWbKIN2675ItGLd9ZXNBpIFmH1wNLpSE48kYTbO/tnt90JFo1mx7fZw==
+X-Google-Smtp-Source: AGHT+IFxMeQfNqT7Ee98nTqgWi+Po6xmaZntUn8ovYs+6HgoJELrGV+J2wAvO5PawlNgP+rC71iCew==
+X-Received: by 2002:a17:906:d552:b0:a59:9c4d:da3c with SMTP id a640c23a62f3a-a5a2d5cca61mr1385266766b.40.1715844348605;
+        Thu, 16 May 2024 00:25:48 -0700 (PDT)
+Message-ID: <02449ca7-27c6-4fcf-ad74-0e570307f17b@suse.com>
+Date: Thu, 16 May 2024 09:25:47 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH V3 (resend) 01/19] x86: Create per-domain mapping of
- guest_root_pt
+Subject: Re: [XEN PATCH v2 08/15] x86/vpmu: guard vmx/svm calls with
+ cpu_has_{vmx,svm}
 Content-Language: en-US
-To: Elias El Yandouzi <eliasely@amazon.com>
-References: <20240513134046.82605-1-eliasely@amazon.com>
- <20240513134046.82605-2-eliasely@amazon.com>
- <dd145c67-8e3e-4b15-94f7-c7cd1f127d45@suse.com>
- <bda3386e-26c5-4efd-b7ad-00f3643523fa@amazon.com>
-Cc: xen-devel@lists.xenproject.org
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: xen-devel@lists.xenproject.org, Andrew Cooper
+ <andrew.cooper3@citrix.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, Xenia Ragiadakou <xenia.ragiadakou@amd.com>,
+ Sergiy Kibrik <Sergiy_Kibrik@epam.com>
+References: <cover.1715761386.git.Sergiy_Kibrik@epam.com>
+ <fbd17194026a7e61bac2198e3b468d498f45d064.1715761386.git.Sergiy_Kibrik@epam.com>
+ <alpine.DEB.2.22.394.2405151740180.2544314@ubuntu-linux-20-04-desktop>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -112,52 +114,34 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <bda3386e-26c5-4efd-b7ad-00f3643523fa@amazon.com>
+In-Reply-To: <alpine.DEB.2.22.394.2405151740180.2544314@ubuntu-linux-20-04-desktop>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 15.05.2024 20:25, Elias El Yandouzi wrote:
-> However, I noticed quite a weird bug while doing some testing. I may 
-> need your expertise to find the root cause.
+On 16.05.2024 02:44, Stefano Stabellini wrote:
+> On Wed, 15 May 2024, Sergiy Kibrik wrote:
+>> If VMX/SVM disabled in the build, we may still want to have vPMU drivers for
+>> PV guests. Yet some calls to vmx/svm-related routines needs to be guarded then.
+>>
+>> Signed-off-by: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
+> 
+> Question to the x86 maintainers: are we sure we want to support the case
+> where VMX/SVM is disabled in the build but still we want to run PV
+> guests with vPMU?
+> 
+> If the question is not, could we simplify this simply by making vpmu_amd
+> dependent on CONFIG_SVM and vpmu_intel dependent on CONFIG_VMX?
+> 
+> I realize that it is possible and technically correct to disable
+> CONFIG_SVM (or VMX) to run on AMD hardware (or Intel) with plain PV
+> guests only. But do we want to support it? I wonder if we could make
+> things easier by avoiding to support this configuration until somebody
+> asks for it.
 
-Looks like you've overflowed the dom0 kernel stack, most likely because
-of recurring nested exceptions.
-
-> In the case where I have more vCPUs than pCPUs (and let's consider we 
-> have one pCPU for two vCPUs), I noticed that I would always get a page 
-> fault in dom0 kernel (5.10.0-13-amd64) at the exact same location. I did 
-> a bit of investigation but I couldn't come to a clear conclusion. 
-> Looking at the stack trace [1], I have the feeling the crash occurs in a 
-> loop or a recursive call.
-> 
-> I tried to identify where the crash occurred using addr2line:
-> 
->  > addr2line -e vmlinux-5.10.0-29-amd64 0xffffffff810218a0
-> debian/build/build_amd64_none_amd64/arch/x86/xen/mmu_pv.c:880
-> 
-> It turns out to point on the closing bracket of the function 
-> xen_mm_unpin_all()[2].
-> 
-> I thought the crash could happen while returning from the function in 
-> the assembly epilogue but the output of objdump doesn't even show the 
-> address.
-> 
-> The only theory I could think of was that because we only have one pCPU, 
-> we may never execute one of the two vCPUs, and never setup the mapping 
-> to the guest_root_pt in write_ptbase(), hence the page fault. This is 
-> just a random theory, I couldn't find any hint suggesting it would be 
-> the case though. Any idea how I could debug this?
-
-I guess you want to instrument Xen enough to catch the top level fault (or
-the 2nd from top, depending on where the nesting actually starts) to see
-why that happens. Quite likely some guest mapping isn't set up properly.
+I think we want to allow for such a configuration; whether that's deemed
+a supported one is an orthogonal question. Much like you can set PV=n and
+HVM=n at the same time, yielding a largely useless hypervisor (where
+perhaps even the question of whether it's support may raise eyebrows).
 
 Jan
-
-> [1] https://pastebin.com/UaGRaV6a
-> [2] https://github.com/torvalds/linux/blob/v5.10/arch/x86/xen/mmu_pv.c#L880
-> 
-> Elias
-> 
-
 
