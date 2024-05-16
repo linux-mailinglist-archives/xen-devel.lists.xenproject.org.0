@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E517B8C74EC
-	for <lists+xen-devel@lfdr.de>; Thu, 16 May 2024 12:57:01 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.723125.1127699 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 37E868C74EE
+	for <lists+xen-devel@lfdr.de>; Thu, 16 May 2024 12:57:04 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.723126.1127702 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s7Yn5-00085a-19; Thu, 16 May 2024 10:56:51 +0000
+	id 1s7Yn5-0008A5-8a; Thu, 16 May 2024 10:56:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 723125.1127699; Thu, 16 May 2024 10:56:50 +0000
+Received: by outflank-mailman (output) from mailman id 723126.1127702; Thu, 16 May 2024 10:56:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s7Yn4-0007xX-Ma; Thu, 16 May 2024 10:56:50 +0000
-Received: by outflank-mailman (input) for mailman id 723125;
- Thu, 16 May 2024 10:56:48 +0000
+	id 1s7Yn5-000853-3E; Thu, 16 May 2024 10:56:51 +0000
+Received: by outflank-mailman (input) for mailman id 723126;
+ Thu, 16 May 2024 10:56:49 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=ujgU=MT=solinno.co.uk=leigh@srs-se1.protection.inumbo.net>)
- id 1s7Yn2-0007XN-ML
- for xen-devel@lists.xenproject.org; Thu, 16 May 2024 10:56:48 +0000
+ id 1s7Yn3-0007XN-MV
+ for xen-devel@lists.xenproject.org; Thu, 16 May 2024 10:56:49 +0000
 Received: from doppler.solinno.uk (doppler.solinno.uk [81.2.106.178])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id fdaeafff-1372-11ef-909d-e314d9c70b13;
+ id fe152f91-1372-11ef-909d-e314d9c70b13;
  Thu, 16 May 2024 12:56:48 +0200 (CEST)
 Received: from folly.solinno.co.uk (folly.dyn.solinno.co.uk [192.168.2.135])
- by doppler.solinno.uk (Postfix) with ESMTPSA id 5B26B8009E;
- Thu, 16 May 2024 11:56:47 +0100 (BST)
+ by doppler.solinno.uk (Postfix) with ESMTPSA id 0C42C8009F;
+ Thu, 16 May 2024 11:56:48 +0100 (BST)
 Received: by folly.solinno.co.uk (Postfix, from userid 1000)
- id 32D1520189; Thu, 16 May 2024 11:56:47 +0100 (BST)
+ id D4C4B20189; Thu, 16 May 2024 11:56:47 +0100 (BST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,108 +41,181 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fdaeafff-1372-11ef-909d-e314d9c70b13
+X-Inumbo-ID: fe152f91-1372-11ef-909d-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=solinno.co.uk;
-	s=mail; t=1715857007;
-	bh=0RL/5syMYmKDu7gc+zffZXfng7BleYOM9Jn0BEO2t7o=;
+	s=mail; t=1715857008;
+	bh=/LeYpkSLtC63z1CHHwG/PrlVgENABot2k3FS2Sid64E=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=eryxgq4RS00dz0XWpf0ry83hU9EsoIJaowHO9dpyp+xEGYa6C9J2Ecl9oDNTtbwIo
-	 P1U3pu3D62zCQ5M0OF1oMg5ooOavCYPITm9RDL5jsfvS36j3W6oYUQDRGajMGODqcf
-	 8edB1TFYEXpuoPDcMs2HG7sjurrrUzaI7jfx/L1Y=
+	b=RnuQNhykSjB2NiCV5Wh4HaLqxR5NpHTnhfMZ5lYVizmPF9dA46LeV6Bqj8SM6BXMP
+	 Om5n+o72WDQwxxpkXaC8YqJvS3sF9qKkbXo/ky/qwe+xIMN3IOFmRVNppYJmDpNWDJ
+	 3GBsd5Ts/U8OPirHDvBKAkstrBiGxCsgSz4SBFVw=
 From: Leigh Brown <leigh@solinno.co.uk>
 To: xen-devel@lists.xenproject.org
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
 	Anthony Perard <anthony.perard@citrix.com>,
 	Jason Andryuk <jandryuk@gmail.com>,
 	Leigh Brown <leigh@solinno.co.uk>
-Subject: [PATCH v3 2/4] tools/xl: add vlan keyword to vif option
-Date: Thu, 16 May 2024 11:56:10 +0100
-Message-Id: <20240516105612.15306-3-leigh@solinno.co.uk>
+Subject: [PATCH v3 3/4] tools/hotplug/Linux: Add bridge VLAN support
+Date: Thu, 16 May 2024 11:56:11 +0100
+Message-Id: <20240516105612.15306-4-leigh@solinno.co.uk>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20240516105612.15306-1-leigh@solinno.co.uk>
 References: <20240516105612.15306-1-leigh@solinno.co.uk>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Update parse_nic_config() to support a new `vlan' keyword. This
-keyword specifies the VLAN configuration to assign to the VIF when
-attaching it to the bridge port, on operating systems that support
-the capability (e.g. Linux). The vlan keyword will allow one or
-more VLANs to be configured on the VIF when adding it to the bridge
-port. This will be done by the vif-bridge script and functions.
+Update add_to_bridge shell function to read the vlan parameter from
+xenstore and set the bridge VLAN configuration for the VID.
 
-Document the new `vlan' keyword in xl-network-configuration(5).
+Add additional helper functions to parse the vlan specification,
+which consists of one or more of the following:
+
+a) single VLAN (e.g. 10).
+b) contiguous range of VLANs (e.g. 10-15).
+c) discontiguous range with base, increment and count
+   (e.g. 100+10x9 which gives VLAN IDs 100, 110, ... 190).
+
+A single VLAN can be suffixed with "p" to indicate the PVID, or
+"u" to indicate untagged. A range of VLANs can be suffixed with
+"u" to indicate untagged.  A complex example would be:
+
+   vlan=1p/10-15/20-25u
+
+This capability requires the iproute2 bridge command to be
+installed.  An error will be generated if the vlan parameter is
+set and the bridge command is not available.
 
 Signed-off-by: Leigh Brown <leigh@solinno.co.uk>
-Reviewed-by: Jason Andryuk <jandryuk@gmail.com>
 
 ---
- docs/man/xl-network-configuration.5.pod.in | 38 ++++++++++++++++++++++
- tools/xl/xl_parse.c                        |  2 ++
- 2 files changed, 40 insertions(+)
+ tools/hotplug/Linux/xen-network-common.sh | 103 ++++++++++++++++++++++
+ 1 file changed, 103 insertions(+)
 
-diff --git a/docs/man/xl-network-configuration.5.pod.in b/docs/man/xl-network-configuration.5.pod.in
-index f3e379bcf8..dfc35e72c6 100644
---- a/docs/man/xl-network-configuration.5.pod.in
-+++ b/docs/man/xl-network-configuration.5.pod.in
-@@ -259,6 +259,44 @@ Specifies the MTU (i.e. the maximum size of an IP payload, exclusing headers). T
- default value is 1500 but, if the VIF is attached to a bridge, it will be set to match
- unless overridden by this parameter.
+diff --git a/tools/hotplug/Linux/xen-network-common.sh b/tools/hotplug/Linux/xen-network-common.sh
+index 42fa704e8d..fa7615ce0f 100644
+--- a/tools/hotplug/Linux/xen-network-common.sh
++++ b/tools/hotplug/Linux/xen-network-common.sh
+@@ -121,10 +121,105 @@ create_bridge () {
+     fi
+ }
  
-+=head2 vlan
++_vif_vlan_add() {
++    # References vlans and pvid variables from the calling function
++    local -i vid=$1
++    local flag=${2:-}
 +
-+Specifies the VLAN configuration. The format of this parameter is one or more
-+VLAN IDs or ranges separated by forward slashes. Each term can be:
++    if (( vid < 1 || vid > 4094 )) ;then
++        fatal "vlan id $vid not between 1 and 4094"
++    fi
++    if [[ -n "${vlans[$vid]}" ]] ;then
++        fatal "vlan id $vid specified more than once"
++    fi
++    case $flag in
++     p) if (( pvid != 0 )) ;then
++            fatal "more than one pvid specified ($vid and $pvid)"
++        fi
++        pvid=$vid
++        vlans[$vid]=p ;;
++     u) vlans[$vid]=u ;;
++     *) vlans[$vid]=t ;;
++    esac
++}
 +
-+=over
++_vif_vlan_parse_term() {
++    local vid incr last term=${1:-}
 +
-+=item *
++    if [[ $term =~ ^([0-9]+)([pu])?$ ]] ;then
++        _vif_vlan_add ${BASH_REMATCH[1]} ${BASH_REMATCH[2]}
++    elif [[ $term =~ ^([0-9]+)-([0-9]+)(u)?$ ]] ;then
++        vid=${BASH_REMATCH[1]}
++        last=${BASH_REMATCH[2]}
++        if (( last >= vid )) ;then
++            for (( ; vid<=last; vid++ )) ;do
++                _vif_vlan_add $vid ${BASH_REMATCH[3]}
++            done
++        else
++            fatal "invalid vlan id range: $term"
++        fi
++    elif [[ $term =~ ^([0-9]+)\+([0-9]+)x([0-9]+)(u)?$ ]] ;then
++        vid=${BASH_REMATCH[1]}
++        incr=${BASH_REMATCH[2]}
++        for (( j=${BASH_REMATCH[3]}; j>0; --j, vid+=incr ))
++        do
++            _vif_vlan_add $vid ${BASH_REMATCH[4]}
++        done
++    else
++        fatal "invalid vlan specification: $term"
++    fi
++}
 +
-+B<vlan> - a single VLAN ID in the range 1 to 4094. This can optionally followed
-+by a B<p> to indicate the PVID or by a B<u> to indicate an untagged VLAN. C<p>
-+implies B<u>.
++_vif_vlan_validate_pvid() {
++    # References vlans and pvid variables from the calling function
++    if (( pvid == 0 )) ;then
++        if (( ${#vlans[@]} == 1 )) ;then
++            vlans[${!vlans[*]}]=p
++        else
++            fatal "pvid required when using multiple vlan ids"
++        fi
++    fi
++}
 +
-+=item *
++_vif_vlan_setup() {
++    # References vlans and dev variable from the calling function
++    local vid cmd
 +
-+B<vlan1>-B<vlan2> - a range of VLAN IDs from B<vlan1> to B<vlan2>, both between
-+1 and 4094 and B<vlan1> being less than or equal to B<vlan2>. This can be
-+optionally followed by a B<u> to indicate that the range of VLANs are untagged.
++    bridge vlan del dev "$dev" vid 1
++    for vid in ${!vlans[@]} ;do
++        cmd="bridge vlan add dev '$dev' vid $vid"
++        case ${vlans[$vid]} in
++             p) cmd="$cmd pvid untagged" ;;
++             u) cmd="$cmd untagged" ;;
++             t) ;;
++        esac
++        eval "$cmd"
++    done
++}
 +
-+=item *
++_vif_vlan_membership() {
++    # The vlans, pvid and dev variables are used by sub-functions
++    local -A vlans=()
++    local -a terms=()
++    local -i i pvid=0
++    local dev=$1
 +
-+B<vlan>+B<offset>xB<count> - describing a range of VLAN IDs starting at B<vlan>
-+with B<count> additional entries, each incremented by B<offset>. This can be 
-+optionally followed by a B<u> to indicate that the range of VLANs are untagged.
++    # Split the vlan specification string into its terms
++    readarray -d / -t terms <<<$2
++    for (( i=0; i<${#terms[@]}; ++i )) ;do
++        _vif_vlan_parse_term ${terms[$i]%%[[:space:]]}
++    done
 +
-+=back
++    _vif_vlan_validate_pvid
++    _vif_vlan_setup
++    return 0
++}
 +
-+Note, one VLAN ID must be marked as the PVID. In the case of a vlan 
-+specification consisting of a single VLAN ID (e.g. C<vlan=10>), the B<p> suffix
-+may be omitted. Specifying more than one untagged VLAN ID is an advanced 
-+configuration - use with caution.
-+
-+For example:
-+
-+        'vlan=10' -- meaning a single VLAN that is the PVID.
-+        'vlan=10p/20' -- VLAN 10 is the PVID and VLAN 20 is tagged.
-+        'vlan=10p/100+10x4' -- VLANs 10, 100, 110, 120, 130, 140, 150.
-+
- =head2 trusted / untrusted
+ # Usage: add_to_bridge bridge dev
+ add_to_bridge () {
+     local bridge=$1
+     local dev=$2
++    local vlan=$(xenstore_read_default "$XENBUS_PATH/vlan" "")
  
- An advisory setting for the frontend driver on whether the backend should be
-diff --git a/tools/xl/xl_parse.c b/tools/xl/xl_parse.c
-index ed983200c3..7546fe7e7a 100644
---- a/tools/xl/xl_parse.c
-+++ b/tools/xl/xl_parse.c
-@@ -565,6 +565,8 @@ int parse_nic_config(libxl_device_nic *nic, XLU_Config **config, char *token)
-         nic->devid = parse_ulong(oparg);
-     } else if (MATCH_OPTION("mtu", token, oparg)) {
-         nic->mtu = parse_ulong(oparg);
-+    } else if (MATCH_OPTION("vlan", token, oparg)) {
-+        replace_string(&nic->vlan, oparg);
-     } else if (!strcmp("trusted", token)) {
-         libxl_defbool_set(&nic->trusted, true);
-     } else if (!strcmp("untrusted", token)) {
+     # Don't add $dev to $bridge if it's already on the bridge.
+     if [ ! -e "/sys/class/net/${bridge}/brif/${dev}" ]; then
+@@ -134,6 +229,14 @@ add_to_bridge () {
+         else
+             ip link set ${dev} master ${bridge}
+         fi
++        if [ -n "${vlan}" ] ;then
++            log debug "configuring vlans for ${dev} on ${bridge}"
++            if which bridge >&/dev/null; then
++                _vif_vlan_membership "${dev}" "${vlan}"
++            else
++                fatal "vlan configuration failed: bridge command not found"
++            fi
++        fi
+     else
+         log debug "$dev already on bridge $bridge"
+     fi
 -- 
 2.39.2
 
