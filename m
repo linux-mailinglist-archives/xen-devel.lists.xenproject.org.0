@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DDDFF8C749B
-	for <lists+xen-devel@lfdr.de>; Thu, 16 May 2024 12:26:34 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.723081.1127619 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D626A8C74AE
+	for <lists+xen-devel@lfdr.de>; Thu, 16 May 2024 12:34:39 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.723101.1127630 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s7YJP-0002o8-ML; Thu, 16 May 2024 10:26:11 +0000
+	id 1s7YRI-0006sG-Dl; Thu, 16 May 2024 10:34:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 723081.1127619; Thu, 16 May 2024 10:26:11 +0000
+Received: by outflank-mailman (output) from mailman id 723101.1127630; Thu, 16 May 2024 10:34:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s7YJP-0002lJ-JG; Thu, 16 May 2024 10:26:11 +0000
-Received: by outflank-mailman (input) for mailman id 723081;
- Thu, 16 May 2024 10:26:10 +0000
+	id 1s7YRI-0006qE-Av; Thu, 16 May 2024 10:34:20 +0000
+Received: by outflank-mailman (input) for mailman id 723101;
+ Thu, 16 May 2024 10:34:18 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=LYhW=MT=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1s7YJO-0002lD-FK
- for xen-devel@lists.xenproject.org; Thu, 16 May 2024 10:26:10 +0000
-Received: from mail-lj1-x234.google.com (mail-lj1-x234.google.com
- [2a00:1450:4864:20::234])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=0hAQ=MT=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1s7YRG-0006p9-Rh
+ for xen-devel@lists.xenproject.org; Thu, 16 May 2024 10:34:18 +0000
+Received: from mail-lf1-x12e.google.com (mail-lf1-x12e.google.com
+ [2a00:1450:4864:20::12e])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b58c674a-136e-11ef-b4bb-af5377834399;
- Thu, 16 May 2024 12:26:08 +0200 (CEST)
-Received: by mail-lj1-x234.google.com with SMTP id
- 38308e7fff4ca-2e428242a38so6996551fa.2
- for <xen-devel@lists.xenproject.org>; Thu, 16 May 2024 03:26:08 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a5a17892450sm969297966b.63.2024.05.16.03.26.07
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 16 May 2024 03:26:07 -0700 (PDT)
+ id d89aa13a-136f-11ef-b4bb-af5377834399;
+ Thu, 16 May 2024 12:34:16 +0200 (CEST)
+Received: by mail-lf1-x12e.google.com with SMTP id
+ 2adb3069b0e04-52388d9ca98so1115318e87.0
+ for <xen-devel@lists.xenproject.org>; Thu, 16 May 2024 03:34:16 -0700 (PDT)
+Received: from [192.168.226.248] ([94.75.70.14])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-521f38d36a6sm2882529e87.164.2024.05.16.03.34.15
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 16 May 2024 03:34:15 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,126 +45,273 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b58c674a-136e-11ef-b4bb-af5377834399
+X-Inumbo-ID: d89aa13a-136f-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1715855168; x=1716459968; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=jstn+m1oTnzwXt5NJbmy4qbQU0ne++k/74yPZCYCL9c=;
-        b=JnP8nuuaFa/oKFXtMCdQBOxd8XV5D0GhwhFd04VRzxuEeVkte6VXKqW4JCjr7QF41G
-         5ASuO4VhLOH3PPPaw6CSL3QAmb/j4ZhBygWA0urxIbD2ymIABxhLVLNwjpbJ8KSOzE7n
-         aPINQHvAB4KWWQrGJXoA0+K4h+kUn05pazXtbML5g9fIAARYRt7gj1qpVlRgRUPpuiAH
-         U30HCsM/325DEUqZF8hM5mkl20f+J+D5921zh0Ju0nC+3qX11Rtgs8FZYD7YQP/BxvAq
-         TsK/6sf3TSzU0Ug0FSYHiNItcQFwvSf2Znb/N19U6frLq6+OxALmgnwnr63DdV9pCyT0
-         22AA==
+        d=gmail.com; s=20230601; t=1715855656; x=1716460456; darn=lists.xenproject.org;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=hjwzz+vFkptf2K4QAxJOv9UPNzPEVbyefBu/50UUC4Q=;
+        b=dvG9tyTG93YCVz48Wl88ayEonNlzyjwB1/aP6mB7ztPlSXo2OLFFVy69yyZMfXhCwc
+         eUlZ21WYbe0VsyZtE8FCrVILNkKQLvcn33oC8n2iOrRmqgC6TeqOEuj14FSAy5hqrfOJ
+         8z8zddDyPpAy6Hh8CUWoG1OcJvuugZJX6UYUbVIk9TA+1ypcPV5I1ncDzRzYF+GGoMrC
+         YegKi8FLmxxxk2cJVTPNDF//NMzIExNGZdXBtBabkMAfACqMEx4zWbXpIVXFfRnkDek9
+         UpaEsY032N7uMla6i9wj3Yf2NMN6ZXioUffwgmMLQ74QBbsME327VwkLT2VGZGq480s1
+         1mWA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1715855168; x=1716459968;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=jstn+m1oTnzwXt5NJbmy4qbQU0ne++k/74yPZCYCL9c=;
-        b=smEvZKPvC/Dgr3vgR/LpF5LrX1XavoWR4xT2PsLTRmKmX7k7s9jzTouM2pAgtdYFwM
-         ThTEpGGx9kdtKEtQIJJXqTX3/HL6nbI2ipQwefNC2ajYq23Yk3W5Cu6wKWE94es3x9UT
-         T8IPrLnz+iEiKeW3g2bHR4YdHDAnJWkT8EaKLNeoGFYH1Umci+oX1990RJT0gxHRnWON
-         mSNn1VTlfCjeWtJHpPQ8nJiUOU2zQqUykEd2v4LSvQzeKsY7A5c7oom0d4nUn4Tp9dkK
-         z7kufytChN3nOxNdg0Pii5y6t+fMrIWdyuUByrjrULik4d4x/nANFP/B2WPYH8xmV6/f
-         2eDg==
-X-Forwarded-Encrypted: i=1; AJvYcCU7vQutOpjhuzzvNHshtgq3mapfkLZ/6uUTAFLi8q7Zdsegu7XaYDOjZinYuKmWyhmKQ3fR2VPmVkts9Vz1yjt3m4gXymSZYjt1I8umkww=
-X-Gm-Message-State: AOJu0YyWKSRUoNiXuEhKZXeBuKC0OW9tgPQMpest2joUFztcasbI0hXu
-	/QyCaNw7ulKdvP8IaDVguCOQlm5GbGnAiUEojMN4of2dyrF0vBNbgCxuVgVVuQ==
-X-Google-Smtp-Source: AGHT+IFoL++S7bKYiDkYjwQv/Hd00Yn+rjxzX+1IVi0OvG1j4hzkVM1vVyTJG2h/lnkSSPgLmJ3CYQ==
-X-Received: by 2002:a05:651c:2114:b0:2e1:cb0f:4e1e with SMTP id 38308e7fff4ca-2e51fc34061mr170353091fa.2.1715855168059;
-        Thu, 16 May 2024 03:26:08 -0700 (PDT)
-Message-ID: <72e5802d-db4f-4d9b-a2ea-fc767ef2dd44@suse.com>
-Date: Thu, 16 May 2024 12:26:06 +0200
+        d=1e100.net; s=20230601; t=1715855656; x=1716460456;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=hjwzz+vFkptf2K4QAxJOv9UPNzPEVbyefBu/50UUC4Q=;
+        b=DW2UcF8iFDbp/XQuqKZE+AkH86bYcGFH/KxQqyg0+mTPrhczZa+GcKLq8at4getHUJ
+         CxdbhT3WTkKn5E+iSCJ/vzpIMYqtWwgqte1cM9AZLwzxo5I62k8j1+MV1D7PID7HpymT
+         9r5ajpZVstRI1UglIUr4EECyJOjsGiHU+hwj4NrmBCaO5tzGaZ6ynwLqzrfrxc1M4Ak+
+         gCvCIza+SPJSNSGw5gYWH10uJ51EoYxDy7eUOW1DlsYoX+Tix/lf1ULXVSMZHGJ6D1iD
+         ZRXlUemT3ujl0HDbXGNEwo+kuvS+GOpArs5OSmUd6sgOHhJGQSCXffWRfMcWe23W8j26
+         k0/w==
+X-Forwarded-Encrypted: i=1; AJvYcCVct8kdIAvNWwWOyaPdKPFXchmsYaNHMyhhdcjMa9Np/X4UpGqHG3DbtJ3cdJfe7ofqIGKtZjY1SlT06CwZUnFVl9LclNrUAbCx6ZmJeAA=
+X-Gm-Message-State: AOJu0YxdoUIh6/FeXLlimxdptO6IqKPDAIsajGPE0bYXbkKhJfa9u+cK
+	egEJrg2l8TkvODxkjWfNggIw0TGYix8epCvqfdQ/MGphPcM0VM+d
+X-Google-Smtp-Source: AGHT+IGtoLh5Go/7uW6EW6y0xCflCMhSac2wPXoh9TYPL0vfMGjEZbWe/nJr+iTYs+HeUqZlmNT26Q==
+X-Received: by 2002:ac2:5f59:0:b0:521:92f6:3d34 with SMTP id 2adb3069b0e04-5220fd7c838mr14336002e87.22.1715855655878;
+        Thu, 16 May 2024 03:34:15 -0700 (PDT)
+Message-ID: <c8bd47e8f8558d88b4d5a4a09ea10728006fd4d3.camel@gmail.com>
+Subject: Re: [PATCH v9 02/15] xen: introduce generic non-atomic test_*bit()
+From: "Oleksii K." <oleksii.kurochko@gmail.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Roger Pau =?ISO-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>, Ross
+ Lagerwall <ross.lagerwall@citrix.com>, Stefano Stabellini
+ <sstabellini@kernel.org>,  Julien Grall <julien@xen.org>, Bertrand Marquis
+ <bertrand.marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>, Volodymyr
+ Babchuk <Volodymyr_Babchuk@epam.com>,  Andrew Cooper
+ <andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>,
+ Shawn Anastasio <sanastasio@raptorengineering.com>,
+ xen-devel@lists.xenproject.org
+Date: Thu, 16 May 2024 12:34:14 +0200
+In-Reply-To: <77c6e497-631d-4f92-bd38-8ab7dba4841d@suse.com>
+References: <cover.1714988096.git.oleksii.kurochko@gmail.com>
+	 <616e8be09f217a766b96c4f9060f6658636a4338.1714988096.git.oleksii.kurochko@gmail.com>
+	 <2ac0ca46-6957-4d31-95cb-3016de7b11b8@suse.com>
+	 <76a84e9e239e1338fc6f86d243b74fa239d8091d.camel@gmail.com>
+	 <5174d73f-677d-4c5c-9d4c-e651a29e4366@suse.com>
+	 <588867d6e054264551e0e27b534955fce9b6d6d5.camel@gmail.com>
+	 <77c6e497-631d-4f92-bd38-8ab7dba4841d@suse.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.52.1 (3.52.1-1.fc40) 
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH v2 03/15] x86/p2m: guard altp2m routines
-Content-Language: en-US
-To: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Xenia Ragiadakou <xenia.ragiadakou@amd.com>,
- Tamas K Lengyel <tamas@tklengyel.com>, xen-devel@lists.xenproject.org
-References: <cover.1715761386.git.Sergiy_Kibrik@epam.com>
- <d4c537b1bcac4b301b16336ea3407834fc3076b1.1715761386.git.Sergiy_Kibrik@epam.com>
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <d4c537b1bcac4b301b16336ea3407834fc3076b1.1715761386.git.Sergiy_Kibrik@epam.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
-On 15.05.2024 11:03, Sergiy Kibrik wrote:
-> --- a/xen/arch/x86/mm/p2m-basic.c
-> +++ b/xen/arch/x86/mm/p2m-basic.c
-> @@ -126,13 +126,15 @@ int p2m_init(struct domain *d)
->          return rc;
->      }
->  
-> -    rc = p2m_init_altp2m(d);
-> -    if ( rc )
-> +    if ( hvm_altp2m_supported() )
->      {
-> -        p2m_teardown_hostp2m(d);
-> -        p2m_teardown_nestedp2m(d);
-> +        rc = p2m_init_altp2m(d);
-> +        if ( rc )
-> +        {
-> +            p2m_teardown_hostp2m(d);
-> +            p2m_teardown_nestedp2m(d);
-> +        }
+On Thu, 2024-05-16 at 09:04 +0200, Jan Beulich wrote:
+> On 15.05.2024 19:03, Oleksii K. wrote:
+> > On Wed, 2024-05-15 at 17:41 +0200, Jan Beulich wrote:
+> > > On 15.05.2024 17:29, Oleksii K. wrote:
+> > > > On Wed, 2024-05-15 at 10:52 +0200, Jan Beulich wrote:
+> > > > > On 06.05.2024 12:15, Oleksii Kurochko wrote:
+> > > > > > The following generic functions were introduced:
+> > > > > > * test_bit
+> > > > > > * generic__test_and_set_bit
+> > > > > > * generic__test_and_clear_bit
+> > > > > > * generic__test_and_change_bit
+> > > > > >=20
+> > > > > > Also, the patch introduces the following generics which are
+> > > > > > used by the functions mentioned above:
+> > > > > > * BITOP_BITS_PER_WORD
+> > > > > > * BITOP_MASK
+> > > > > > * BITOP_WORD
+> > > > > > * BITOP_TYPE
+> > > > > >=20
+> > > > > > These functions and macros can be useful for architectures
+> > > > > > that don't have corresponding arch-specific instructions.
+> > > > >=20
+> > > > > Logically this paragraph may better move ahead of the BITOP_*
+> > > > > one.
+> > > > >=20
+> > > > > > Because of that x86 has the following check in the macros
+> > > > > > test_bit(),
+> > > > > > __test_and_set_bit(), __test_and_clear_bit(),
+> > > > > > __test_and_change_bit():
+> > > > > > =C2=A0=C2=A0=C2=A0 if ( bitop_bad_size(addr) ) __bitop_bad_size=
+();
+> > > > > > It was necessary to make bitop bad size check generic too,
+> > > > > > so
+> > > > > > arch_check_bitop_size() was introduced.
+> > > > >=20
+> > > > > Not anymore, with the most recent adjustments? There's
+> > > > > nothing
+> > > > > arch-
+> > > > > specific anymore in the checking.
+> > > > >=20
+> > > > > > @@ -183,7 +180,7 @@ static inline int test_and_set_bit(int
+> > > > > > nr,
+> > > > > > volatile void *addr)
+> > > > > > =C2=A0 * If two examples of this operation race, one can appear
+> > > > > > to
+> > > > > > succeed
+> > > > > > =C2=A0 * but actually fail.=C2=A0 You must protect multiple acc=
+esses
+> > > > > > with
+> > > > > > a
+> > > > > > lock.
+> > > > > > =C2=A0 */
+> > > > > > -static inline int __test_and_set_bit(int nr, void *addr)
+> > > > > > +static inline int arch__test_and_set_bit(int nr, volatile
+> > > > > > void
+> > > > > > *addr)
+> > > > >=20
+> > > > > I think I raised this point before: Why arch__ here, ...
+> > > > >=20
+> > > > > > @@ -232,7 +226,7 @@ static inline int
+> > > > > > test_and_clear_bit(int
+> > > > > > nr,
+> > > > > > volatile void *addr)
+> > > > > > =C2=A0 * If two examples of this operation race, one can appear
+> > > > > > to
+> > > > > > succeed
+> > > > > > =C2=A0 * but actually fail.=C2=A0 You must protect multiple acc=
+esses
+> > > > > > with
+> > > > > > a
+> > > > > > lock.
+> > > > > > =C2=A0 */
+> > > > > > -static inline int __test_and_clear_bit(int nr, void *addr)
+> > > > > > +static inline int arch__test_and_clear_bit(int nr,
+> > > > > > volatile
+> > > > > > void
+> > > > > > *addr)
+> > > > >=20
+> > > > > ... here, ...
+> > > > >=20
+> > > > > > @@ -243,13 +237,10 @@ static inline int
+> > > > > > __test_and_clear_bit(int
+> > > > > > nr, void *addr)
+> > > > > > =C2=A0
+> > > > > > =C2=A0=C2=A0=C2=A0=C2=A0 return oldbit;
+> > > > > > =C2=A0}
+> > > > > > -#define __test_and_clear_bit(nr, addr) ({=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 \
+> > > > > > -=C2=A0=C2=A0=C2=A0 if ( bitop_bad_size(addr) ) __bitop_bad_siz=
+e();=C2=A0=C2=A0=C2=A0=C2=A0 \
+> > > > > > -=C2=A0=C2=A0=C2=A0 __test_and_clear_bit(nr, addr);=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 \
+> > > > > > -})
+> > > > > > +#define arch__test_and_clear_bit arch__test_and_clear_bit
+> > > > > > =C2=A0
+> > > > > > =C2=A0/* WARNING: non atomic and it can be reordered! */
+> > > > > > -static inline int __test_and_change_bit(int nr, void
+> > > > > > *addr)
+> > > > > > +static inline int arch__test_and_change_bit(int nr,
+> > > > > > volatile
+> > > > > > void
+> > > > > > *addr)
+> > > > >=20
+> > > > > ... and here, while ...
+> > > > >=20
+> > > > > > @@ -307,8 +295,7 @@ static inline int variable_test_bit(int
+> > > > > > nr,
+> > > > > > const volatile void *addr)
+> > > > > > =C2=A0=C2=A0=C2=A0=C2=A0 return oldbit;
+> > > > > > =C2=A0}
+> > > > > > =C2=A0
+> > > > > > -#define test_bit(nr, addr) ({=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 \
+> > > > > > -=C2=A0=C2=A0=C2=A0 if ( bitop_bad_size(addr) ) __bitop_bad_siz=
+e();=C2=A0=C2=A0=C2=A0=C2=A0 \
+> > > > > > +#define arch_test_bit(nr, addr) ({=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0 \
+> > > > >=20
+> > > > > ... just arch_ here? I don't like the double underscore
+> > > > > infixes
+> > > > > very
+> > > > > much, but I'm okay with them as long as they're applied
+> > > > > consistently.
+> > > >=20
+> > > > Common code and x86 use __test_and_clear_bit(), and this patch
+> > > > provides
+> > > > a generic version of __test_and_clear_bit(). To emphasize that
+> > > > generic__test_and_clear_bit() is a common implementation of
+> > > > __test_and_clear_bit(), the double underscore was retained.
+> > > > Also,
+> > > > test_and_clear_bit() exists and if one day it will be needed to
+> > > > provide
+> > > > a generic version of it, then it will be needed to have
+> > > > generic__test_and_clear_bit() and generic_test_and_clear_bit()
+> > > >=20
+> > > > A similar logic was chosen for test_bit.
+> > >=20
+> > > Right, but in all of your reply arch_ doesn't appear at all.
+> > I am a little confused here. According to my logic, should it be
+> > arch___test_and_set_bit() and generic___test_and_set_bit()?
+>=20
+> Why 3 underscores in a row? I'm clearly not following.
+>=20
+> > If you are asking why there is no generic implementation for
+> > test_and_clear_bit() without the double underscores, the reason is
+> > that
+> > Arm, PPC, and x86 don't use generic code and rely on specific
+> > instructions for this operation. Therefore, I didn't see much sense
+> > in
+> > providing a generic version of test_and_clear_bit(), at least, for
+> > now.
+>=20
+> No, there was no question in that direction. And hence ...
+>=20
+> > > =C2=A0Yet the
+> > > question was: Why then not arch__test_bit(), to match the other
+> > > arch
+> > > helpers?
+> > Because no one uses __test_bit(). Everywhere is used test_bit().
+>=20
+> ... this seems unrelated (constrained by my earlier lack of following
+> you).
+>=20
+> (Later) Wait, maybe I've finally figured it: You use
+> arch__test_and_*()
+> because those underlie __test_and_*(), but arch_test_bit() because
+> there's
+> solely test_bit() (same for the generic_* naming).
+Yes, that what I meant.
 
-With less code churn and less indentation:
+>  I guess I can accept
+> that then, despite the slight anomaly you point out, resulting in the
+> question towards 3 underscores in a row. To clarify, my thinking was
+> more
+> towards there not possibly being generic forms of test_and_*() (i.e.
+> no
+> possible set of arch_test_and_*() or generic_test_and_*()), thus
+> using
+> double inner underscores in arch__test_*() and generic__test_*() to
+> signify that those are purely internal functions, which aren't
+> supposed to
+> be called directly.
+I understand your point regarding functions that start with "__".
+For example, __test_and_clear_bit() is used not only internally (in
+terms of architecture code) but also in common code, so it is not
+strictly internal. I may have misunderstood what "internal function"
+means in this context.
 
-    rc = hvm_altp2m_supported() ? p2m_init_altp2m(d) : 0;
-    if ( rc )
-    {
-        p2m_teardown_hostp2m(d);
-        p2m_teardown_nestedp2m(d);
-    }
+I thought that, at least for bit operations, "__bit_operation" means
+that the bit operation is non-atomic and can be reordered, which
+implies that it's not a good idea to use it in common code without
+additional steps.
 
->      }
-> -
->      return rc;
->  }
+Anyway, I am not sure I understand which approach I should use in this
+patch. You mentioned that possibly test_and_() can't have a generic
+form, meaning it won't be a set of arch_test_and_() functions.
 
-Please don't remove the blank line ahead of the main return of a function.
+So, can I rename arch__test_() and generic__test_() to arch_test_() and
+generic_test_(), respectively, and use the renamed functions in
+_test_and*() in xen/bitops.h? Is my understanding correct?
+If my understanding is correct, I am happy to apply mentioned changes
+in the next patch version.
 
-> --- a/xen/arch/x86/mm/p2m-ept.c
-> +++ b/xen/arch/x86/mm/p2m-ept.c
-> @@ -986,7 +986,7 @@ out:
->      if ( is_epte_present(&old_entry) )
->          ept_free_entry(p2m, &old_entry, target);
->  
-> -    if ( entry_written && p2m_is_hostp2m(p2m) )
-> +    if ( entry_written && p2m_is_hostp2m(p2m) && hvm_altp2m_supported())
+~ Oleksii
 
-I agree with Stefano's ordering comment here, btw.
 
-Jan
+>=20
+> Jan
+
 
