@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 018558C7536
-	for <lists+xen-devel@lfdr.de>; Thu, 16 May 2024 13:28:38 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.723175.1127779 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B4D158C7539
+	for <lists+xen-devel@lfdr.de>; Thu, 16 May 2024 13:28:39 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.723177.1127796 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s7ZHd-0006e0-1E; Thu, 16 May 2024 11:28:25 +0000
+	id 1s7ZHe-0006z9-Os; Thu, 16 May 2024 11:28:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 723175.1127779; Thu, 16 May 2024 11:28:25 +0000
+Received: by outflank-mailman (output) from mailman id 723177.1127796; Thu, 16 May 2024 11:28:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s7ZHc-0006bJ-UW; Thu, 16 May 2024 11:28:24 +0000
-Received: by outflank-mailman (input) for mailman id 723175;
- Thu, 16 May 2024 11:28:23 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1s7ZHe-0006sK-I5; Thu, 16 May 2024 11:28:26 +0000
+Received: by outflank-mailman (input) for mailman id 723177;
+ Thu, 16 May 2024 11:28:25 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=S52g=MT=gmail.com=w1benny@srs-se1.protection.inumbo.net>)
- id 1s7ZHb-0006b6-I7
- for xen-devel@lists.xenproject.org; Thu, 16 May 2024 11:28:23 +0000
-Received: from mail-ed1-x52f.google.com (mail-ed1-x52f.google.com
- [2a00:1450:4864:20::52f])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 67415070-1377-11ef-909d-e314d9c70b13;
- Thu, 16 May 2024 13:28:22 +0200 (CEST)
-Received: by mail-ed1-x52f.google.com with SMTP id
- 4fb4d7f45d1cf-572c65cea55so5922160a12.0
- for <xen-devel@lists.xenproject.org>; Thu, 16 May 2024 04:28:22 -0700 (PDT)
+ id 1s7ZHd-0006b7-4l
+ for xen-devel@lists.xenproject.org; Thu, 16 May 2024 11:28:25 +0000
+Received: from mail-lf1-x131.google.com (mail-lf1-x131.google.com
+ [2a00:1450:4864:20::131])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 67cd5efb-1377-11ef-b4bb-af5377834399;
+ Thu, 16 May 2024 13:28:23 +0200 (CEST)
+Received: by mail-lf1-x131.google.com with SMTP id
+ 2adb3069b0e04-520f9d559f6so807061e87.3
+ for <xen-devel@lists.xenproject.org>; Thu, 16 May 2024 04:28:23 -0700 (PDT)
 Received: from lab.home
  (dynamic-2a00-1028-83a4-4bca-c0bb-96ff-feed-9d50.ipv6.o2.cz.
  [2a00:1028:83a4:4bca:c0bb:96ff:feed:9d50])
  by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-574bcede889sm7083043a12.92.2024.05.16.04.28.20
+ 4fb4d7f45d1cf-574bcede889sm7083043a12.92.2024.05.16.04.28.21
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 16 May 2024 04:28:21 -0700 (PDT)
+ Thu, 16 May 2024 04:28:22 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,48 +47,47 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 67415070-1377-11ef-909d-e314d9c70b13
+X-Inumbo-ID: 67cd5efb-1377-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1715858902; x=1716463702; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1715858903; x=1716463703; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=9wb2Zg0RGsFll9U2ozXeIHtw+XG8+EPJB3Bp+jbvzsQ=;
-        b=g7wKBayxZQW2hP/3F3o+/3QY0FMUX11Lolz56PlL1BcipTtCM8EU2dOfsMDF099u5I
-         5/nSYuBv2hEjSCc8UKV56BN3HyjXWUDSTEypV251/IC0salJzWSCwzHIQChFveCkU9fK
-         Xg1TIv0E0MMh0rLgg6OoyhRsk9y8Vt/OsDYukG6SjUUd2k8J5VLCjg9o4VLmDBb8Wx5c
-         fNygT+MWsbcnmDheQrePOUJYtCp8k8s50eiNNOGplKuLywbUFYTRwk7d120BmSQ3oAcI
-         nRY073JE+58KDWhXDFcSuJ3RNXgPSq4gcE43krDbX0hG+Uuad6YK3AlQM7lO7ZahrKyL
-         w6aA==
+        bh=aWD/Qk3szSfEZBTtbpcC8O4b8u+9LVoa4Hx6fikLkdc=;
+        b=OAKSN4zl9kKwGdQLBWRMJB9b9kfhMWeWGWoJrYXfQM+7bjt7OFLUMfEUABYRlzXOQF
+         uDcSzUfzdIftid9NaWRFtI/jIu5fo92rQTSKgAm6zNZZJFElvyHG6K+haJeA2qWYfMNn
+         DziNiECtOOiSCg7gTrlAxuM11+0YgzshHr59pfwctJXT+CgRqMU/3XnFWNyr2xh9SLCJ
+         msc7tbERB3uEuWibBMOj3btwV2rSj+auk/wnflHUaLB0YPw8QK0LvITfuyuF2QkJk7hZ
+         kX68SrgkCJ/AW35T5jP101ll9Cm9j7hGlHTH78zzpcEyiQ9gf9Vnwy4UQjvz2AI/eHWy
+         Pbcw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1715858902; x=1716463702;
+        d=1e100.net; s=20230601; t=1715858903; x=1716463703;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=9wb2Zg0RGsFll9U2ozXeIHtw+XG8+EPJB3Bp+jbvzsQ=;
-        b=O1dgDcTsZV0h9uPukvovN41m7cOtKABh1gqhmgvqVzdDSwgz8kWSrWwZpGYkWuWjoZ
-         N4Q5CV2naeiPvpZHNEhOCcnuJjSWplDv5L2VwgabSLe9Yy+vzJf4lHTsMK23lCAGaAcK
-         Xo8dlSJSVQCyPdnyNbtO1Knpm96ZenF0Z4wO+iGBF0cGEQebvoIwHFsm0LteLLfnR4XJ
-         jl7ZQGQNwz8NKvfNN6pQmbGGEAlxhCeFIIZn5/W6lVt54Ur/XMxRB9+SmtgBth1O7W2s
-         7WeirwOeLywaeInf9d7pZdhOxIEOXfAAlJSJ6SAfP5PFugPY6BQWphdxTW3w1UhGQZ16
-         TERw==
-X-Gm-Message-State: AOJu0Yxu/YYQQ6INtWau/r+355I7c8THe7xX6vdSf0mwk4cv7SAEXDbo
-	ZZn3dL6KmCNCVnGGkBOlxqc+axa9oHF7jRnxyu6fnzOfa9J8LuiKNPWSpE3J
-X-Google-Smtp-Source: AGHT+IGSJea0rRaSHcwu8qEp0BoExYhQPeYNJ6GI0Qo2/ni19nG/mqFw9W2LQDFxddiHBZUnOB9Ueg==
-X-Received: by 2002:a05:6402:278c:b0:574:eb36:9cf5 with SMTP id 4fb4d7f45d1cf-574eb369d9fmr7759577a12.11.1715858901825;
-        Thu, 16 May 2024 04:28:21 -0700 (PDT)
+        bh=aWD/Qk3szSfEZBTtbpcC8O4b8u+9LVoa4Hx6fikLkdc=;
+        b=br+nRm8I9SQeMESpNj6hx98KYeURRn289JV/DbHENoXBokbSlA/dP+DHslRJx1wFZz
+         3pCVNJYv9bwBljyjTQ0GCKwEBGOSkqTES7AtAAg53Xl1876gWTP5xxoskxHQoB3JgoV+
+         WGgZFZ1OX7YOEpix5l/Wnu8KQrmXSPeZ/UNV6s0tKprnji8YHFk6RjeOw8M+rWISHcU3
+         Azh9a2NYPJmTGQpZoaec03vedKqyXbcv+jdXdolkE5UKGBuajRhn29W1a8pFBgR0NhDF
+         SPFtOGjEoGPhr6y50lIgRsyJ1Lhj0PlIvGYy8IsvbGVIbTm3LpsyxaOBY+bEySwBbBty
+         1WNw==
+X-Gm-Message-State: AOJu0Yy8+R0ZOx5iS+OypjZ9pjEbfZhq46coi/qnTAlrGGUNMcuDJx6G
+	PXolxTeALjH4+uNb4RWUITGBKvB9qHD57y991IXvVUs3yL08x6AFAVMNX63g
+X-Google-Smtp-Source: AGHT+IGL1s/Lp2LGNzl8vhiI2q4MxCc8OCCAMNjP6bbLOuclhZG+4EypeAZqby+BnX5zKsvL2FiZvg==
+X-Received: by 2002:ac2:5b1e:0:b0:519:1047:7eac with SMTP id 2adb3069b0e04-5220fb746edmr12699563e87.23.1715858902834;
+        Thu, 16 May 2024 04:28:22 -0700 (PDT)
 From: "=?UTF-8?q?Petr=20Bene=C5=A1?=" <w1benny@gmail.com>
 X-Google-Original-From: =?UTF-8?q?Petr=20Bene=C5=A1?= <petr.benes@gendigital.com>
 To: xen-devel@lists.xenproject.org
 Cc: =?UTF-8?q?Petr=20Bene=C5=A1?= <w1benny@gmail.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
 	George Dunlap <george.dunlap@citrix.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH for-4.19? v3 1/6] x86/p2m: Add braces for better code clarity
-Date: Thu, 16 May 2024 11:28:08 +0000
-Message-Id: <36cb7af0de191b6a8d64931225f21a42c2c04529.1715858136.git.w1benny@gmail.com>
+	Nick Rosbrook <rosbrookn@gmail.com>,
+	Anthony PERARD <anthony@xenproject.org>,
+	Juergen Gross <jgross@suse.com>
+Subject: [PATCH for-4.19? v3 2/6] tools/xl: Add altp2m_count parameter
+Date: Thu, 16 May 2024 11:28:09 +0000
+Message-Id: <71133f351e0a5d6b993c608e8d33e62487d6142c.1715858136.git.w1benny@gmail.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <cover.1715858136.git.w1benny@gmail.com>
 References: <cover.1715858136.git.w1benny@gmail.com>
@@ -98,50 +97,121 @@ Content-Transfer-Encoding: 8bit
 
 From: Petr Beneš <w1benny@gmail.com>
 
-No functional change.
+Introduce a new altp2m_count parameter to control the maximum number of altp2m
+views a domain can use. By default, if altp2m_count is unspecified and altp2m
+is enabled, the value is set to 10, reflecting the legacy behavior.
+
+This change is preparatory; it establishes the groundwork for the feature but
+does not activate it.
 
 Signed-off-by: Petr Beneš <w1benny@gmail.com>
-Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 ---
- xen/arch/x86/mm/p2m.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ tools/golang/xenlight/helpers.gen.go | 2 ++
+ tools/golang/xenlight/types.gen.go   | 1 +
+ tools/include/libxl.h                | 8 ++++++++
+ tools/libs/light/libxl_create.c      | 9 +++++++++
+ tools/libs/light/libxl_types.idl     | 1 +
+ tools/xl/xl_parse.c                  | 4 ++++
+ 6 files changed, 25 insertions(+)
 
-diff --git a/xen/arch/x86/mm/p2m.c b/xen/arch/x86/mm/p2m.c
-index ce742c12e0..eb7996170d 100644
---- a/xen/arch/x86/mm/p2m.c
-+++ b/xen/arch/x86/mm/p2m.c
-@@ -106,6 +106,7 @@ void p2m_change_entry_type_global(struct domain *d,
-         unsigned int i;
+diff --git a/tools/golang/xenlight/helpers.gen.go b/tools/golang/xenlight/helpers.gen.go
+index 78bdb08b15..40c247a0d0 100644
+--- a/tools/golang/xenlight/helpers.gen.go
++++ b/tools/golang/xenlight/helpers.gen.go
+@@ -1158,6 +1158,7 @@ if err := x.ArchX86.MsrRelaxed.fromC(&xc.arch_x86.msr_relaxed);err != nil {
+ return fmt.Errorf("converting field ArchX86.MsrRelaxed: %v", err)
+ }
+ x.Altp2M = Altp2MMode(xc.altp2m)
++x.Altp2MCount = uint32(xc.altp2m_count)
+ x.VmtraceBufKb = int(xc.vmtrace_buf_kb)
+ if err := x.Vpmu.fromC(&xc.vpmu);err != nil {
+ return fmt.Errorf("converting field Vpmu: %v", err)
+@@ -1674,6 +1675,7 @@ if err := x.ArchX86.MsrRelaxed.toC(&xc.arch_x86.msr_relaxed); err != nil {
+ return fmt.Errorf("converting field ArchX86.MsrRelaxed: %v", err)
+ }
+ xc.altp2m = C.libxl_altp2m_mode(x.Altp2M)
++xc.altp2m_count = C.uint32_t(x.Altp2MCount)
+ xc.vmtrace_buf_kb = C.int(x.VmtraceBufKb)
+ if err := x.Vpmu.toC(&xc.vpmu); err != nil {
+ return fmt.Errorf("converting field Vpmu: %v", err)
+diff --git a/tools/golang/xenlight/types.gen.go b/tools/golang/xenlight/types.gen.go
+index ccfe18019e..a3ae8ef35a 100644
+--- a/tools/golang/xenlight/types.gen.go
++++ b/tools/golang/xenlight/types.gen.go
+@@ -602,6 +602,7 @@ ArchX86 struct {
+ MsrRelaxed Defbool
+ }
+ Altp2M Altp2MMode
++Altp2MCount uint32
+ VmtraceBufKb int
+ Vpmu Defbool
+ }
+diff --git a/tools/include/libxl.h b/tools/include/libxl.h
+index 62cb07dea6..1f149a8015 100644
+--- a/tools/include/libxl.h
++++ b/tools/include/libxl.h
+@@ -1239,6 +1239,14 @@ typedef struct libxl__ctx libxl_ctx;
+  */
+ #define LIBXL_HAVE_ALTP2M 1
 
-         for ( i = 0; i < MAX_ALTP2M; i++ )
-+        {
-             if ( d->arch.altp2m_eptp[i] != mfn_x(INVALID_MFN) )
-             {
-                 struct p2m_domain *altp2m = d->arch.altp2m_p2m[i];
-@@ -114,6 +115,7 @@ void p2m_change_entry_type_global(struct domain *d,
-                 change_entry_type_global(altp2m, ot, nt);
-                 p2m_unlock(altp2m);
-             }
-+        }
++/*
++ * LIBXL_HAVE_ALTP2M_COUNT
++ * If this is defined, then libxl supports setting the maximum number of
++ * alternate p2m tables.
++ */
++#define LIBXL_HAVE_ALTP2M_COUNT 1
++#define LIBXL_ALTP2M_COUNT_DEFAULT (~(uint32_t)0)
++
+ /*
+  * LIBXL_HAVE_REMUS
+  * If this is defined, then libxl supports remus.
+diff --git a/tools/libs/light/libxl_create.c b/tools/libs/light/libxl_create.c
+index 41252ec553..236b8c1965 100644
+--- a/tools/libs/light/libxl_create.c
++++ b/tools/libs/light/libxl_create.c
+@@ -483,6 +483,15 @@ int libxl__domain_build_info_setdefault(libxl__gc *gc,
+         return -ERROR_INVAL;
      }
 
-     p2m_unlock(hostp2m);
-@@ -139,6 +141,7 @@ void p2m_memory_type_changed(struct domain *d)
-         unsigned int i;
++    if (b_info->altp2m_count == LIBXL_ALTP2M_COUNT_DEFAULT) {
++        if ((libxl_defbool_val(b_info->u.hvm.altp2m) ||
++            b_info->altp2m != LIBXL_ALTP2M_MODE_DISABLED))
++            /* Reflect the default legacy count */
++            b_info->altp2m_count = 10;
++        else
++            b_info->altp2m_count = 0;
++    }
++
+     /* Assume that providing a bootloader user implies enabling restrict. */
+     libxl_defbool_setdefault(&b_info->bootloader_restrict,
+                              !!b_info->bootloader_user);
+diff --git a/tools/libs/light/libxl_types.idl b/tools/libs/light/libxl_types.idl
+index 79e9c656cc..eb306fedf5 100644
+--- a/tools/libs/light/libxl_types.idl
++++ b/tools/libs/light/libxl_types.idl
+@@ -728,6 +728,7 @@ libxl_domain_build_info = Struct("domain_build_info",[
+     # Alternate p2m is not bound to any architecture or guest type, as it is
+     # supported by x86 HVM and ARM support is planned.
+     ("altp2m", libxl_altp2m_mode),
++    ("altp2m_count", uint32, {'init_val': 'LIBXL_ALTP2M_COUNT_DEFAULT'}),
 
-         for ( i = 0; i < MAX_ALTP2M; i++ )
-+        {
-             if ( d->arch.altp2m_eptp[i] != mfn_x(INVALID_MFN) )
-             {
-                 struct p2m_domain *altp2m = d->arch.altp2m_p2m[i];
-@@ -147,6 +150,7 @@ void p2m_memory_type_changed(struct domain *d)
-                 _memory_type_changed(altp2m);
-                 p2m_unlock(altp2m);
-             }
-+        }
+     # Size of preallocated vmtrace trace buffers (in KBYTES).
+     # Use zero value to disable this feature.
+diff --git a/tools/xl/xl_parse.c b/tools/xl/xl_parse.c
+index c504ab3711..048ab6be0d 100644
+--- a/tools/xl/xl_parse.c
++++ b/tools/xl/xl_parse.c
+@@ -2063,6 +2063,10 @@ void parse_config_data(const char *config_source,
+         }
      }
 
-     p2m_unlock(hostp2m);
++    if (!xlu_cfg_get_long(config, "altp2m_count", &l, 1)) {
++        b_info->altp2m_count = l;
++    }
++
+     if (!xlu_cfg_get_long(config, "vmtrace_buf_kb", &l, 1) && l) {
+         b_info->vmtrace_buf_kb = l;
+     }
 --
 2.34.1
 
