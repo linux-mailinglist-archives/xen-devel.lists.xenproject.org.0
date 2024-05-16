@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6424C8C74B2
-	for <lists+xen-devel@lfdr.de>; Thu, 16 May 2024 12:37:39 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.723106.1127640 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 803078C74B7
+	for <lists+xen-devel@lfdr.de>; Thu, 16 May 2024 12:41:33 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.723109.1127649 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s7YUF-0007wq-S5; Thu, 16 May 2024 10:37:23 +0000
+	id 1s7YXx-0001Yg-Di; Thu, 16 May 2024 10:41:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 723106.1127640; Thu, 16 May 2024 10:37:23 +0000
+Received: by outflank-mailman (output) from mailman id 723109.1127649; Thu, 16 May 2024 10:41:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s7YUF-0007vK-Ns; Thu, 16 May 2024 10:37:23 +0000
-Received: by outflank-mailman (input) for mailman id 723106;
- Thu, 16 May 2024 10:37:22 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1s7YXx-0001WP-Az; Thu, 16 May 2024 10:41:13 +0000
+Received: by outflank-mailman (input) for mailman id 723109;
+ Thu, 16 May 2024 10:41:11 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=LYhW=MT=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1s7YUE-0007vC-CY
- for xen-devel@lists.xenproject.org; Thu, 16 May 2024 10:37:22 +0000
-Received: from mail-ed1-x534.google.com (mail-ed1-x534.google.com
- [2a00:1450:4864:20::534])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 467a7ac8-1370-11ef-909d-e314d9c70b13;
- Thu, 16 May 2024 12:37:21 +0200 (CEST)
-Received: by mail-ed1-x534.google.com with SMTP id
- 4fb4d7f45d1cf-5723edf0ae5so2885738a12.0
- for <xen-devel@lists.xenproject.org>; Thu, 16 May 2024 03:37:21 -0700 (PDT)
+ id 1s7YXv-0001UR-8s
+ for xen-devel@lists.xenproject.org; Thu, 16 May 2024 10:41:11 +0000
+Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com
+ [2a00:1450:4864:20::634])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id ce4cf024-1370-11ef-b4bb-af5377834399;
+ Thu, 16 May 2024 12:41:09 +0200 (CEST)
+Received: by mail-ej1-x634.google.com with SMTP id
+ a640c23a62f3a-a59b81d087aso263430866b.3
+ for <xen-devel@lists.xenproject.org>; Thu, 16 May 2024 03:41:09 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a5a179c7faasm965483366b.136.2024.05.16.03.37.19
+ a640c23a62f3a-a5cdce8f916sm126129866b.223.2024.05.16.03.41.08
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 16 May 2024 03:37:19 -0700 (PDT)
+ Thu, 16 May 2024 03:41:08 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,53 +45,52 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 467a7ac8-1370-11ef-909d-e314d9c70b13
+X-Inumbo-ID: ce4cf024-1370-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1715855841; x=1716460641; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1715856068; x=1716460868; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=YwVAVtNNMa1Hc0vHyqcKhW7ESVYZx23wYJZgcsrtoXs=;
-        b=DX+khVK6LxYnBV29EbwaL3OIU9xopPNqRqQTJHRDR+6v+co/dWApNEGrhF3XaxfGos
-         vxhOf17WTAN2nw0rBvtOMJJ5GLW5dwN6h6TtlwvyQydwcy5j3eKTWU0TR4ER43MADmr/
-         qez0ythIdLwxy+gnuO408SspGkVkCqAS9fmpgjA2d8a8Y+EBfXCGqN3DW4o5IpoBcMHI
-         1Q9DpCMI5GwD/ca6FCyQhkWD5+siQXEMMGh6dZalG6+8+Qi8JwA+brTmFYAO5eXX4MVv
-         tvYla0KltrO+KjloZN4cUUuSSIS1jCCrisnuUlVQswd76yGXHReYLywgsw1S3LdZXqBA
-         50Mg==
+        bh=8rTbD/cvfzhzDm6OSlrL0nm/TpngG0yb23GR8C0xZtQ=;
+        b=RP1SCy46d5ZcHZ4ZYg6pBcORcVlIf37WnfBi2UOv2B7Hs9TD9UKXDzVkg7/2xSRmLH
+         9+bduNZOzKeO0+FUNNMNAM9dNqSb1n8ZM6oXvSUwtC3eGFqMDLDdkcdZBIAoY2I/ewwt
+         mX+urcDUodWXYYf8ndNpMfZp4eZ4GgkYS5UoPT03I76B1fBy/V/86FcsM1xDtWvXXvBG
+         T7+ouJ0N0i5VXTNP8OurhX3u391/3xyHqkcl++HhI6QW+vLbqxB3jWkNsiiZtEPK0+MI
+         GenRwNCPM37y3C8SV4wjRLLU9E6Xmt+GYNi6fXgzk0BmrHWvRYWqGygoZSzV6oa+dGQg
+         faaQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1715855841; x=1716460641;
+        d=1e100.net; s=20230601; t=1715856068; x=1716460868;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=YwVAVtNNMa1Hc0vHyqcKhW7ESVYZx23wYJZgcsrtoXs=;
-        b=DGTVAs05D8VlvZS7Yg6dRVNaGb/MR92SDacZtriTdYZZSjibsRkwb3hX8/sPO6OCaT
-         VlruHdTBkyuH2dr38FApWjLtTuwkxQLhi8uHQUloZliVzWGcqb4pWyatyM4FwhQYx1S3
-         RAsBhZKijOQMHg1tcrEMljbPPysJzHthLoHyB52bXpy03F/IiBGcWix38bNS8tDUZFft
-         7MucelicX2+LIMKUlvayqisNYtuvzZUlng2ky0YZmTMFWXBVfXMvwDXfcCcWkhLMFxBA
-         MFvMn+Qk2qZ/8eJdT9hOqmO/IMtLbJiKEGiojCbbUGwSDzn/u20P04D2uAzDUv5ze+b4
-         wg+A==
-X-Forwarded-Encrypted: i=1; AJvYcCWxdB+2cwutHtMQFDzgnPPc5NvhdozhWWMtbHT6WD6oz/SKQdB+KyoI7b3G24YT6LaeYTBpMqDYxF1xmkE84DaOw38CVoMELqVI1MOGbB4=
-X-Gm-Message-State: AOJu0YyKoxphpeKp+yWZ/VodJA66jEvyJXvmp0zBfrCN+3QxZY4vT/Bx
-	IxdlQOAo5ZFTD9GIVs/HDQSlfT+I82ePJ4fHCwjDyZvlguIp4mVvQ+wg+mB45Q==
-X-Google-Smtp-Source: AGHT+IFhWd78SGpTXKw6a9azhaPHpXGw5tNC5QM4X+LEKzSMTtzmJvZPsW7r8AWV2tgWaFRRKuLGKA==
-X-Received: by 2002:a17:907:2d86:b0:a5a:423:a69f with SMTP id a640c23a62f3a-a5a2d53b9bemr1454620366b.9.1715855839819;
-        Thu, 16 May 2024 03:37:19 -0700 (PDT)
-Message-ID: <7681c0b5-9f16-44e0-9ad0-48bb262e58e6@suse.com>
-Date: Thu, 16 May 2024 12:37:18 +0200
+        bh=8rTbD/cvfzhzDm6OSlrL0nm/TpngG0yb23GR8C0xZtQ=;
+        b=kVuXor1ifeo8iZ3gkqhT5BWXr3saurwjdvyR39z5Ttv8bWzAmsfXq98h4jTzTab4hs
+         QWNWv421yJ7gVM+1OcX2ryiBBJ/yOwjoBYK1BHTNbo48tsauBiSzzySuxX0kdB0+ih8F
+         YMTq1nzYb+OISkV8wg+pZLWPFPH21dj8zejPXP3S2sfzOPxx9zXemvAfvMU1uv5aoaDJ
+         0nC40BXJUWhyzo6LUY4ZENy71OJ7i6P44pkbE02se5yginiY3pGHBDG3qH1zqvtQ22yX
+         +KqK7YpH0y0juwO7HScCED+gWDSg4AwZ4z/Rz++rKYRNnYM7rFYu1LmGTG5ygoGDRReo
+         ENyw==
+X-Forwarded-Encrypted: i=1; AJvYcCW6DpJYG0kzXhr5LQ///Rd6nlIAMQC9HTCyL3+cpjopU8oo7VVYXUUTs0BAW3N++kyJ2ZijLgqNCNXj3vA7nDpPiLi7KuFu8LzTmNFTLJc=
+X-Gm-Message-State: AOJu0Yxb9QTVeGSBjYZCJwu4U+T/onXM1Xff2Z8JWbE4m8ip5wbypBuy
+	RRRTuiAhhR+NGKOlG91K6ESA1SqoIhsGd1VCDR4CdoNwlUWrWx6myioAjN8Muavbpbq9xXp9U60
+	=
+X-Google-Smtp-Source: AGHT+IEUJy3Gp2/4Y1gFgIyjekpL4JYgPd9g4eMbL4svhFz0fdbkfyeTwvUtmH3eu4NGQ4XpzxdbYQ==
+X-Received: by 2002:a17:906:7f95:b0:a59:c833:d274 with SMTP id a640c23a62f3a-a5a2d5cb2a0mr1858832766b.37.1715856068675;
+        Thu, 16 May 2024 03:41:08 -0700 (PDT)
+Message-ID: <cc4fb70e-0990-4f61-83a2-7063f3277dee@suse.com>
+Date: Thu, 16 May 2024 12:41:07 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH v2 04/15] x86/p2m: move altp2m-related code to
- separate file
+Subject: Re: [XEN PATCH v2 05/15] x86: introduce CONFIG_ALTP2M Kconfig option
 Content-Language: en-US
 To: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Stefano Stabellini <sstabellini@kernel.org>,
  Xenia Ragiadakou <xenia.ragiadakou@amd.com>,
  Tamas K Lengyel <tamas@tklengyel.com>, xen-devel@lists.xenproject.org
 References: <cover.1715761386.git.Sergiy_Kibrik@epam.com>
- <d791a552c3d9331d9b2d40c91e6568932ea6afb7.1715761386.git.Sergiy_Kibrik@epam.com>
+ <14a8c523b24c87959941e905bd60933a91144bc7.1715761386.git.Sergiy_Kibrik@epam.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -116,28 +115,35 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <d791a552c3d9331d9b2d40c91e6568932ea6afb7.1715761386.git.Sergiy_Kibrik@epam.com>
+In-Reply-To: <14a8c523b24c87959941e905bd60933a91144bc7.1715761386.git.Sergiy_Kibrik@epam.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 15.05.2024 11:06, Sergiy Kibrik wrote:
-> --- a/xen/arch/x86/mm/p2m.c
-> +++ b/xen/arch/x86/mm/p2m.c
-> @@ -500,7 +500,7 @@ int p2m_alloc_table(struct p2m_domain *p2m)
->      return 0;
->  }
+On 15.05.2024 11:08, Sergiy Kibrik wrote:
+> --- a/xen/arch/x86/Kconfig
+> +++ b/xen/arch/x86/Kconfig
+> @@ -358,6 +358,11 @@ config REQUIRE_NX
+>  	  was unavailable. However, if enabled, Xen will no longer boot on
+>  	  any CPU which is lacking NX support.
 >  
-> -static int __must_check
-> +int __must_check
->  p2m_remove_entry(struct p2m_domain *p2m, gfn_t gfn, mfn_t mfn,
->                   unsigned int page_order)
+> +config ALTP2M
+> +	bool "Alternate P2M support"
+> +	def_bool y
 
-With there now being a separate declaration, __must_check doesn't need
-repeating here. Then
-Acked-by: Jan Beulich <jbeulich@suse.com>
+Since you have "bool" already, here you mean "default".
 
-I'll see whether this applies okay ahead of the earlier patches; if it
-does, I'll commit it with said adjustment.
+> +	depends on VMX && EXPERT
+
+This doesn't look right. Typical distro builds will be with EXPERT=n. Such
+builds would suddenly end up without altp2m support then. What I think you
+mean is a conditional prompt. I.e. overall
+
+config ALTP2M
+	bool "Alternate P2M support" if EXPERT
+	default y
+	depends on VMX
+	help
+	  ...
 
 Jan
 
