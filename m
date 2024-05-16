@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3ED3F8C75B6
-	for <lists+xen-devel@lfdr.de>; Thu, 16 May 2024 14:11:50 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.723255.1127926 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 61E948C75CB
+	for <lists+xen-devel@lfdr.de>; Thu, 16 May 2024 14:16:19 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.723258.1127935 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s7ZxP-0002lr-Cs; Thu, 16 May 2024 12:11:35 +0000
+	id 1s7a1Z-00044n-S9; Thu, 16 May 2024 12:15:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 723255.1127926; Thu, 16 May 2024 12:11:35 +0000
+Received: by outflank-mailman (output) from mailman id 723258.1127935; Thu, 16 May 2024 12:15:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s7ZxP-0002in-9r; Thu, 16 May 2024 12:11:35 +0000
-Received: by outflank-mailman (input) for mailman id 723255;
- Thu, 16 May 2024 12:11:33 +0000
+	id 1s7a1Z-00042n-Pb; Thu, 16 May 2024 12:15:53 +0000
+Received: by outflank-mailman (input) for mailman id 723258;
+ Thu, 16 May 2024 12:15:53 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=LYhW=MT=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1s7ZxN-0002iZ-Dj
- for xen-devel@lists.xenproject.org; Thu, 16 May 2024 12:11:33 +0000
-Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
- [2a00:1450:4864:20::62d])
+ id 1s7a1Z-00042h-7W
+ for xen-devel@lists.xenproject.org; Thu, 16 May 2024 12:15:53 +0000
+Received: from mail-ed1-x530.google.com (mail-ed1-x530.google.com
+ [2a00:1450:4864:20::530])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 6de47f9f-137d-11ef-b4bb-af5377834399;
- Thu, 16 May 2024 14:11:30 +0200 (CEST)
-Received: by mail-ej1-x62d.google.com with SMTP id
- a640c23a62f3a-a59b58fe083so268977966b.0
- for <xen-devel@lists.xenproject.org>; Thu, 16 May 2024 05:11:30 -0700 (PDT)
+ id 0923fe4b-137e-11ef-b4bb-af5377834399;
+ Thu, 16 May 2024 14:15:51 +0200 (CEST)
+Received: by mail-ed1-x530.google.com with SMTP id
+ 4fb4d7f45d1cf-572e8028e0cso3318623a12.3
+ for <xen-devel@lists.xenproject.org>; Thu, 16 May 2024 05:15:51 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a5cdc72d31fsm139788766b.169.2024.05.16.05.11.29
+ 4fb4d7f45d1cf-5750d24c8c1sm559715a12.72.2024.05.16.05.15.50
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 16 May 2024 05:11:30 -0700 (PDT)
+ Thu, 16 May 2024 05:15:50 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,54 +45,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6de47f9f-137d-11ef-b4bb-af5377834399
+X-Inumbo-ID: 0923fe4b-137e-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1715861490; x=1716466290; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=R96vRc0eklM1hVZMcOU4eHuMkP4p7QxrjGnDHYjU0P4=;
-        b=EMFxF/RyipKHyb4+g/RjjH1q7cYIdNWvCEQuT/U3F0Ek2Tf8XS9PaTtM1VIcm7NIBw
-         yi1hxOZqLP7MdV6CtUMYHo7eqzkdyRBXkc6ntH2B3YEEpFGnHtln+b2QUUJcMYkFwOqb
-         L2vV5iziH2CausY5YtrfdC+sFghCd9AowV6P6q0jCzGlzHensaDCrnWubQ+3H1XugePn
-         8gL76ltcGU1cHXrq3QWcRrrhcUz+7mkzYcgBbssdmFPgTJi0BWdEd0PGJn3D97JVt8M5
-         3E8/OwAQT2ScuvSlEhCE8tqTfJOeE7FRpEqS1id7eKf4CHlFXaJHrnA2nYVSlqUnWT/a
-         6S2Q==
+        d=suse.com; s=google; t=1715861751; x=1716466551; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=vMEbeCF6PHmkPkmy8h6WYnlrDVpl+7aVfReOgi2GNOU=;
+        b=gba97ilcJ6iY68r5EFLt4Q+EsirJBSGiwWbu8VEiEeFnGS40MKKUDwPhad6+d0A2md
+         ee8uSAprQ/ftR8ChqT5SHdTsizpbiTKgeTmKelOLLDm0et/piMmz892rexOOlXYkWjZZ
+         lPg/aFzRH4dYWRPmMnoxwAa/yVTFmZk/pESbx8WRLwI1XUnvjl32N/PYvZqpIfK3gZfc
+         cL/eYAVIJItflDiz5R1d/YZSBzEhm1CuKQh/oqilzidybuZ9H1pAiO4udI/HQ8hbQtci
+         2Ca5PB8zKO1AzvEeNrj0ZmMQLW4r2luhjHamYanG4bSuBZwr3V+cXGpdTXFCIuOzYozt
+         A6+A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1715861490; x=1716466290;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=R96vRc0eklM1hVZMcOU4eHuMkP4p7QxrjGnDHYjU0P4=;
-        b=DEMqJubp0/ELVOycyWjgIV1XA4CIgbrHix8CbPiKQUSvd5t7VkNbtDtl0w3TosO/b1
-         5yDNilkTRhSCUEd78stACwpVCVpmV5NUQ/bOqdRJefIBD+psfuCbFa7t24XQ/sM4g3w7
-         bdpMQhHvqA9CFdqG+2QPBYbCvd0efjtF8Z67L4Q6K3GIBKI5LOEDOiBxfAnIV/Qo7DWi
-         /0WFL7XMMrUO95FU/8YGwi0mADQq7B/TN4RzqWDWqmR9vI+j+hUMDztkMbdHZiwUHVYK
-         2WnWQ32mlV2IlKcp/5GcBJ55PAHc9GgTR0ckMU3z+SfM0OegwjvGUarUP0x97ldeNhDW
-         JUhg==
-X-Forwarded-Encrypted: i=1; AJvYcCXzr25z6V3UxmTksRfLuLXGTPvisMtlrIlyxHJeRPKfljTyTEKVIKDT5Xe01zyrk3MU7homBBsovqgtRoQswuo4xNRSf7PJLuyMN2uCK6I=
-X-Gm-Message-State: AOJu0Yyn8LrN1nIS1F8Y2w5EGuxrGZIlNdBPDRfusconI5wnDvj7CdMM
-	6FDFmIeDjwDJgJR0X6oAIIH9S4Tty7jEGWgf3yM8w3OJBcTpBqXLNiUHmSiQoQ==
-X-Google-Smtp-Source: AGHT+IFgS54du9FRDlAGTvmTet+3Ty52KD6gyAISMPQkRYPqyBA4GK/osw3+1HqaYd9Ga2zmxY/8yw==
-X-Received: by 2002:a17:906:ae8b:b0:a59:cb09:41d6 with SMTP id a640c23a62f3a-a5a2d65f294mr1113835766b.49.1715861490343;
-        Thu, 16 May 2024 05:11:30 -0700 (PDT)
-Message-ID: <376d2e89-da6d-49c2-90aa-aab4af6eb0d1@suse.com>
-Date: Thu, 16 May 2024 14:11:28 +0200
+        d=1e100.net; s=20230601; t=1715861751; x=1716466551;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=vMEbeCF6PHmkPkmy8h6WYnlrDVpl+7aVfReOgi2GNOU=;
+        b=Bx+sO963RphrS2qg2yeIFq2TAG+ms8zY1teLu+SfPhfsdUpIJDXr2ezkwAH7wDVHzd
+         7e2JELNtOaShKViFDKax05aN7pESWf6LQMjv+hmy31LKsk5gEthhGOu9QX6y9WhG88wM
+         m6/YFLuqQQ6z7SnCHK8mcy99mIjghDOPKGc4kF1KVDtCoxoffxigghBb6VJR48EiTHH/
+         LGTRIzYNplKagU3725BCa+CGef5/7z1xlvEdEomul2KrwxD5Z5K4BYItpOt64JVhy8DT
+         Vo47rG5aRicTrpHLRSwKR/nAgtMjFd79bqviLxxa8LT9MVIwSwJ2+PDu9o60nPI6+0AD
+         gwIQ==
+X-Forwarded-Encrypted: i=1; AJvYcCVA+Z60bEZgl23vzZ6xJ4LUWUSLhTWInnCv1PEzBkBBBBogKmnAhaCJUa4TE7KK/7tS1QUh00QXMZ13KJRlXuJe4boP0xVpvmN8caMBQKA=
+X-Gm-Message-State: AOJu0YwU/hhrd7WulF2oXzZPTSw9B5ClSyHBWE8svBD/KzAwX7f14MXt
+	TyFN7ombqNPLe2IqfNCwIHkpc9PmtHORj4fp8/PFgCwyN0ngtAjXVvsQamuYQQ==
+X-Google-Smtp-Source: AGHT+IH3UOx9xjFVRVc8cnJmjwmPjB0cVB3acOyVHMSucv1SWNCFcMwBeirw1iiSKYMvP796Ws6UTw==
+X-Received: by 2002:a50:8d18:0:b0:574:ebfb:6d93 with SMTP id 4fb4d7f45d1cf-574ebfb6ddemr4478343a12.10.1715861750790;
+        Thu, 16 May 2024 05:15:50 -0700 (PDT)
+Message-ID: <c43a554e-4b21-4a3b-92f4-60633f61f67e@suse.com>
+Date: Thu, 16 May 2024 14:15:49 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH v2 13/15] x86/ioreq: guard VIO_realmode_completion
- with CONFIG_VMX
+Subject: Re: [XEN PATCH v2 14/15] iommu/vt-d: guard vmx_pi_hooks_* calls with
+ cpu_has_vmx
+Content-Language: en-US
 To: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
-Cc: Xenia Ragiadakou <burzalodowa@gmail.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
  Stefano Stabellini <sstabellini@kernel.org>,
  Xenia Ragiadakou <xenia.ragiadakou@amd.com>, xen-devel@lists.xenproject.org
 References: <cover.1715761386.git.Sergiy_Kibrik@epam.com>
- <9e64fa33b298f789d8340cf1046a9fbf683dd2b7.1715761386.git.Sergiy_Kibrik@epam.com>
-Content-Language: en-US
+ <73072e5b2ec40ad28d4bcfb9bb0870f3838bb726.1715761386.git.Sergiy_Kibrik@epam.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -117,48 +114,18 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <9e64fa33b298f789d8340cf1046a9fbf683dd2b7.1715761386.git.Sergiy_Kibrik@epam.com>
+In-Reply-To: <73072e5b2ec40ad28d4bcfb9bb0870f3838bb726.1715761386.git.Sergiy_Kibrik@epam.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 15.05.2024 11:24, Sergiy Kibrik wrote:
-> --- a/xen/arch/x86/hvm/emulate.c
-> +++ b/xen/arch/x86/hvm/emulate.c
-> @@ -2667,7 +2667,9 @@ static int _hvm_emulate_one(struct hvm_emulate_ctxt *hvmemul_ctxt,
->          break;
->  
->      case VIO_mmio_completion:
-> +#ifdef CONFIG_VMX
->      case VIO_realmode_completion:
-> +#endif
->          BUILD_BUG_ON(sizeof(hvio->mmio_insn) < sizeof(hvmemul_ctxt->insn_buf));
->          hvio->mmio_insn_bytes = hvmemul_ctxt->insn_buf_bytes;
->          memcpy(hvio->mmio_insn, hvmemul_ctxt->insn_buf, hvio->mmio_insn_bytes);
+On 15.05.2024 11:26, Sergiy Kibrik wrote:
+> VMX posted interrupts support can now be excluded from x86 build along with
+> VMX code itself, but still we may want to keep the possibility to use
+> VT-d IOMMU driver in non-HVM setups.
+> So we guard vmx_pi_hooks_{assign/deassign} with some checks for such a case.
 
-This change doesn't buy us anything, does it?
-
-> --- a/xen/arch/x86/hvm/ioreq.c
-> +++ b/xen/arch/x86/hvm/ioreq.c
-> @@ -33,6 +33,7 @@ bool arch_vcpu_ioreq_completion(enum vio_completion completion)
->  {
->      switch ( completion )
->      {
-> +#ifdef CONFIG_VMX
->      case VIO_realmode_completion:
->      {
->          struct hvm_emulate_ctxt ctxt;
-> @@ -43,6 +44,7 @@ bool arch_vcpu_ioreq_completion(enum vio_completion completion)
->  
->          break;
->      }
-> +#endif
->  
->      default:
->          ASSERT_UNREACHABLE();
-
-And while this change is needed for the goal of the series, I wonder whether
-it wouldn't better be arch_vcpu_ioreq_completion() as whole that then gets
-stubbed out.
+But both function already have a stub each. Isn't is merely a matter of
+changing when those stubs come into play?
 
 Jan
 
