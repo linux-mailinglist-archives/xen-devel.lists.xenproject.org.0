@@ -2,32 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0ECA88C7E01
-	for <lists+xen-devel@lfdr.de>; Thu, 16 May 2024 23:23:47 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.723645.1128670 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 96FC08C7E7D
+	for <lists+xen-devel@lfdr.de>; Fri, 17 May 2024 00:16:03 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.723656.1128684 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s7iZL-0003x6-LC; Thu, 16 May 2024 21:23:19 +0000
+	id 1s7jNP-00047C-EW; Thu, 16 May 2024 22:15:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 723645.1128670; Thu, 16 May 2024 21:23:19 +0000
+Received: by outflank-mailman (output) from mailman id 723656.1128684; Thu, 16 May 2024 22:15:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s7iZL-0003tw-Hu; Thu, 16 May 2024 21:23:19 +0000
-Received: by outflank-mailman (input) for mailman id 723645;
- Thu, 16 May 2024 21:23:18 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1s7iZJ-0003tq-Ud
- for xen-devel@lists.xenproject.org; Thu, 16 May 2024 21:23:18 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1s7iZJ-00050N-Ke; Thu, 16 May 2024 21:23:17 +0000
-Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.0.211])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1s7iZJ-0007OK-FS; Thu, 16 May 2024 21:23:17 +0000
+	id 1s7jNP-00045g-Ba; Thu, 16 May 2024 22:15:03 +0000
+Received: by outflank-mailman (input) for mailman id 723656;
+ Thu, 16 May 2024 22:15:02 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=HcFO=MT=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1s7jNO-00045a-Tg
+ for xen-devel@lists.xenproject.org; Thu, 16 May 2024 22:15:02 +0000
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id bb7b0e04-13d1-11ef-909e-e314d9c70b13;
+ Fri, 17 May 2024 00:15:00 +0200 (CEST)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sin.source.kernel.org (Postfix) with ESMTP id B1662CE1788;
+ Thu, 16 May 2024 22:14:54 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 15BEEC113CC;
+ Thu, 16 May 2024 22:14:51 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,77 +41,107 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=h23PA+5jhWdPSgoGaMOBNbWiqUUduCxH34QORiLEckc=; b=j5/yeZVmiaBoBcQ75kESnGuFew
-	tfZ6bpoZlz+Kc6yWPAXXt53FE76a2+1EOJlftmn8Q4WEobgCD/g1LQ/eiphoWVFe5KLty/f1lH50c
-	qZBKgMEhqzbyH/tAL/B/rLDMrY4fGao8Oj654QFW0VjJh0yvBibRMzEJD7p5SvnGyOd8=;
-Message-ID: <fa9a1728-98a1-4b04-8965-8ec01d33b804@xen.org>
-Date: Thu, 16 May 2024 22:23:15 +0100
+X-Inumbo-ID: bb7b0e04-13d1-11ef-909e-e314d9c70b13
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1715897693;
+	bh=vpH+75ReyQpNGKULQBkFlwini+ATp8/4byOP7+8GzsQ=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=TUNCjXxUY4Ng1MJLrBwCMmYu0soYhY5pssyMR5cKiQwNGDE7NAQQS5L/SoL5YDDdK
+	 NAmUWFU90G7zodqd2Aggiu6TIdgO7yi4S+eV4tXKsoULkEmx/771dFbbiz8QHIXPqg
+	 DThnhvaTVf7aQWcI9ugoN1cFLzIjObXM00Ac/pMb7A98SwrB3HTpSd5slDLIUnDMYm
+	 NDukcwmGyEvsRW/zcztwqoKNSiQBt21118XISJ4fgNmkONhjMOzpzj3BCRg+AaHEV9
+	 FfmNIURJtMdZC8oMU3gRE8lYwO6pwPXlXJ79ynn463VWXrwacU1AaDyX3vlkecoNpa
+	 VPRe5HbbBRUGQ==
+Date: Thu, 16 May 2024 15:14:50 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+cc: Xen-devel <xen-devel@lists.xenproject.org>, 
+    Anthony PERARD <anthony@xenproject.org>, Juergen Gross <jgross@suse.com>, 
+    George Dunlap <George.Dunlap@citrix.com>, Jan Beulich <JBeulich@suse.com>, 
+    Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
+    Christian Lindig <christian.lindig@citrix.com>, 
+    =?UTF-8?Q?Edwin_T=C3=B6r=C3=B6k?= <edwin.torok@cloud.com>
+Subject: Re: [PATCH v2 1/4] LICENSES: Add MIT-0 (MIT No Attribution)
+In-Reply-To: <20240516185804.3309725-2-andrew.cooper3@citrix.com>
+Message-ID: <alpine.DEB.2.22.394.2405161514300.2544314@ubuntu-linux-20-04-desktop>
+References: <20240516185804.3309725-1-andrew.cooper3@citrix.com> <20240516185804.3309725-2-andrew.cooper3@citrix.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH 1/2] xen/arm: Add DT reserve map regions to
- bootinfo.reserved_mem
-Content-Language: en-GB
-To: Luca Fancellu <Luca.Fancellu@arm.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <Bertrand.Marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-References: <20240425131119.2299629-1-luca.fancellu@arm.com>
- <20240425131119.2299629-2-luca.fancellu@arm.com>
- <a9629975-87d1-457b-b6aa-cbeb91fd4854@xen.org>
- <0A931CEA-59CA-4B1F-A8E4-A4CB990C0476@arm.com>
- <d41b633a-7702-41f6-b2b3-26321de53af2@xen.org>
- <F353B76B-D159-43A0-898F-EF8048342B07@arm.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <F353B76B-D159-43A0-898F-EF8048342B07@arm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/mixed; boundary="8323329-1797338315-1715897693=:2544314"
 
-Hi Luca,
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-On 15/05/2024 11:05, Luca Fancellu wrote:
+--8323329-1797338315-1715897693=:2544314
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8BIT
+
+On Thu, 16 May 2024, Andrew Cooper wrote:
+> We are about to import code licensed under MIT-0.  It's compatible for us to
+> use, so identify it as a permitted license.
 > 
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+
+Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+
+
+> ---
+> CC: Anthony PERARD <anthony@xenproject.org>
+> CC: Juergen Gross <jgross@suse.com>
+> CC: George Dunlap <George.Dunlap@citrix.com>
+> CC: Jan Beulich <JBeulich@suse.com>
+> CC: Stefano Stabellini <sstabellini@kernel.org>
+> CC: Julien Grall <julien@xen.org>
+> CC: Christian Lindig <christian.lindig@citrix.com>
+> CC: Edwin Török <edwin.torok@cloud.com>
 > 
->> On 14 May 2024, at 22:06, Julien Grall <julien@xen.org> wrote:
->>
->> Hi,
->>
->> On 14/05/2024 08:53, Luca Fancellu wrote:
->>> Hi Julien,
->>> Thanks for having a look on the patch,
->>>> On 13 May 2024, at 22:54, Julien Grall <julien@xen.org> wrote:
->>>>
->>>> Hi Luca,
->>>>
->>>> On 25/04/2024 14:11, Luca Fancellu wrote:
->>>>> Currently the code is listing device tree reserve map regions
->>>>> as reserved memory for Xen, but they are not added into
->>>>> bootinfo.reserved_mem and they are fetched in multiple places
->>>>> using the same code sequence, causing duplication. Fix this
->>>>> by adding them to the bootinfo.reserved_mem at early stage.
->>>>
->>>> Do we have enough space in bootinfo.reserved_mem for them?
->>> So we have 255 banks, in my experience I would say I’ve never saw too many reserved regions
->>> in the DT, maybe a couple, but I’ve always had to deal with embedded platforms.
->>> I’ve tested this one with ADLINK AVA board, n1sdp, Juno, raspberry pi, qemu, fvp.
->>> In your experience, have you seen any numbers that could be concerning?
->> I know in the past we had to bump the memory banks a few times. But as you tested on a few platforms, I think we should be ok.
->>
->> It would be best if this patch goes sooner than later to allow wider testing before we release 4.19.
->>
->> Acked-by: Julien Grall <jgrall@amazon.com>
+> v2:
+>  * New
+> ---
+>  LICENSES/MIT-0 | 31 +++++++++++++++++++++++++++++++
+>  1 file changed, 31 insertions(+)
+>  create mode 100644 LICENSES/MIT-0
 > 
-> Yes it would make sense, this patch makes sense on its own, would you/anyone commit it separately while I work on the second
-> patch?
-
-Thank you for the confirmation. This is now committed.
-
-Cheers,
-
--- 
-Julien Grall
+> diff --git a/LICENSES/MIT-0 b/LICENSES/MIT-0
+> new file mode 100644
+> index 000000000000..70fb90ee3486
+> --- /dev/null
+> +++ b/LICENSES/MIT-0
+> @@ -0,0 +1,31 @@
+> +Valid-License-Identifier: MIT-0
+> +
+> +SPDX-URL: https://spdx.org/licenses/MIT-0.html
+> +
+> +Usage-Guide:
+> +
+> +  To use the MIT-0 License put the following SPDX tag/value pair into a
+> +  comment according to the placement guidelines in the licensing rules
+> +  documentation:
+> +    SPDX-License-Identifier: MIT-0
+> +
+> +License-Text:
+> +
+> +MIT No Attribution
+> +
+> +Copyright <year> <copyright holder>
+> +
+> +Permission is hereby granted, free of charge, to any person obtaining a copy
+> +of this software and associated documentation files (the "Software"), to deal
+> +in the Software without restriction, including without limitation the rights
+> +to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+> +copies of the Software, and to permit persons to whom the Software is
+> +furnished to do so.
+> +
+> +THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+> +IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+> +FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+> +AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+> +LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+> +OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+> +SOFTWARE.
+> -- 
+> 2.30.2
+> 
+--8323329-1797338315-1715897693=:2544314--
 
