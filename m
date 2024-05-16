@@ -2,40 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 227178C753C
-	for <lists+xen-devel@lfdr.de>; Thu, 16 May 2024 13:28:43 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.723181.1127840 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B7FD58C7542
+	for <lists+xen-devel@lfdr.de>; Thu, 16 May 2024 13:31:24 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.723194.1127850 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s7ZHj-0008EK-CK; Thu, 16 May 2024 11:28:31 +0000
+	id 1s7ZKH-0003M9-P2; Thu, 16 May 2024 11:31:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 723181.1127840; Thu, 16 May 2024 11:28:31 +0000
+Received: by outflank-mailman (output) from mailman id 723194.1127850; Thu, 16 May 2024 11:31:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s7ZHj-0008B7-8n; Thu, 16 May 2024 11:28:31 +0000
-Received: by outflank-mailman (input) for mailman id 723181;
- Thu, 16 May 2024 11:28:29 +0000
+	id 1s7ZKH-0003Jm-LH; Thu, 16 May 2024 11:31:09 +0000
+Received: by outflank-mailman (input) for mailman id 723194;
+ Thu, 16 May 2024 11:31:08 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=S52g=MT=gmail.com=w1benny@srs-se1.protection.inumbo.net>)
- id 1s7ZHh-0006b7-LA
- for xen-devel@lists.xenproject.org; Thu, 16 May 2024 11:28:29 +0000
-Received: from mail-ed1-x52b.google.com (mail-ed1-x52b.google.com
- [2a00:1450:4864:20::52b])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=lir8=MT=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1s7ZKG-0003Jg-Jw
+ for xen-devel@lists.xenproject.org; Thu, 16 May 2024 11:31:08 +0000
+Received: from mail-lf1-x135.google.com (mail-lf1-x135.google.com
+ [2a00:1450:4864:20::135])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 6a7b8689-1377-11ef-b4bb-af5377834399;
- Thu, 16 May 2024 13:28:28 +0200 (CEST)
-Received: by mail-ed1-x52b.google.com with SMTP id
- 4fb4d7f45d1cf-572a93890d1so3445325a12.3
- for <xen-devel@lists.xenproject.org>; Thu, 16 May 2024 04:28:28 -0700 (PDT)
-Received: from lab.home
- (dynamic-2a00-1028-83a4-4bca-c0bb-96ff-feed-9d50.ipv6.o2.cz.
- [2a00:1028:83a4:4bca:c0bb:96ff:feed:9d50])
- by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-574bcede889sm7083043a12.92.2024.05.16.04.28.26
+ id c88ded90-1377-11ef-b4bb-af5377834399;
+ Thu, 16 May 2024 13:31:05 +0200 (CEST)
+Received: by mail-lf1-x135.google.com with SMTP id
+ 2adb3069b0e04-5206a5854adso755933e87.0
+ for <xen-devel@lists.xenproject.org>; Thu, 16 May 2024 04:31:05 -0700 (PDT)
+Received: from andrewcoop.citrite.net (default-46-102-197-194.interdsl.co.uk.
+ [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-5733bed17b8sm10456692a12.55.2024.05.16.04.31.04
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 16 May 2024 04:28:27 -0700 (PDT)
+ Thu, 16 May 2024 04:31:04 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,134 +45,136 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6a7b8689-1377-11ef-b4bb-af5377834399
+X-Inumbo-ID: c88ded90-1377-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1715858907; x=1716463707; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=CZx7e4I8f24AmBOZ73vCNLclq5iufdJNqbBIJFjDxwY=;
-        b=Sc+mGZyYiWezTycnwzIkred2qGbRW+6rpfIGtNqySYtcrSrpBgrs2p/ku0YoqdLwvb
-         Tdx2bJkN6eCAQbnlVkptbdxrpg5YYHIuYQR1OEZeBNScLuqYIZ7ugdRFy4NFjKlMyCoI
-         4MeRaJy03JgtdJ9Kk/Ol551OB2wyZMEAVqN+zCjn7xmObnitvGXRfLgPyeNmXRJV9JvZ
-         1vyEj0l4h4geTuhJQkGa1M3lUp+3zX6OZdeeoMIzKQwes6W/+gEzWX+k3IKW9FD2/dv5
-         sB47X6tLcizzLiNGoVvob1ewIvDg2FQGiEJ5+nECFq3IKqwJwivPkJzN8cf8O+fsBFDM
-         ZrLg==
+        d=citrix.com; s=google; t=1715859065; x=1716463865; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=7eES0enU6K30VZCAG3M0bmIoFFsSRcG+0mogoPG61rA=;
+        b=em+P0DBWNWQNW419luz+38MFt+0VYrl1KONZ9m0SlFVigOEu1uAs5lp0tJg6ZYpJA6
+         1J+oMFZ3AFsrjlow3K3yWEiMamXs0/sa3+IWKL2w3t5SbmGIVpc5WeAs72A2RN3eY7kN
+         pPOkfoU4f5uZ0yjhdUNImxdLuGGr/eg3j2HH8=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1715858907; x=1716463707;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=CZx7e4I8f24AmBOZ73vCNLclq5iufdJNqbBIJFjDxwY=;
-        b=iIJXLTJMcQOloRgan+VZJI+2Ym3hokvgT1WFn8QydS5vW1FoPsuhn9ls+Kx8+zABAU
-         EuEjJEJJsK98zeHwD+qS1VlCbva3YppnvM9sAshy2dVjKEOICONEDc9EqNw0eaB1Ws1N
-         TtXBQEcjVoJ/7WHjJh0yi5+rIGCIMDQfYDgiApKzMTNroR341kjC83J/p+cM7s6ORqEO
-         sVHi8gyBTt6YU7shdG/EuSJSz25j+PfTP7ACzL3Bhu2OjU88UGpRuU/oh3dre9uUhcc4
-         TGMlFNl25GWctkaAff+9ultl39coGEGyFKgkbwv6rUDw9use0b6LgnbHM7yF43VMwff5
-         jlmA==
-X-Gm-Message-State: AOJu0YzLtRB9VNNm1goczEVocIKBoOUkt+Bj8Ci0UDgdyqXhUlGwKajg
-	tE8MkH+o+0D6V2pzxJM4wK8xMd00C2gZkPFMWu+44Y8309gXHpbnCVNB/xOh
-X-Google-Smtp-Source: AGHT+IF340ISLMPoj07I1Jt9JQ5Xug7pRVHWxjYlGkF/DFVxJW3+Izogh9HGDdXfmKU9eVffMT049g==
-X-Received: by 2002:a50:bb0f:0:b0:56f:e7b9:e67d with SMTP id 4fb4d7f45d1cf-5734d5cec3bmr19668133a12.12.1715858907443;
-        Thu, 16 May 2024 04:28:27 -0700 (PDT)
-From: "=?UTF-8?q?Petr=20Bene=C5=A1?=" <w1benny@gmail.com>
-X-Google-Original-From: =?UTF-8?q?Petr=20Bene=C5=A1?= <petr.benes@gendigital.com>
-To: xen-devel@lists.xenproject.org
-Cc: =?UTF-8?q?Petr=20Bene=C5=A1?= <w1benny@gmail.com>,
-	Christian Lindig <christian.lindig@citrix.com>,
-	David Scott <dave@recoil.org>,
-	Anthony PERARD <anthony@xenproject.org>,
-	Christian Lindig <christian.lindig@cloud.com>
-Subject: [PATCH for-4.19? v3 6/6] tools/ocaml: Add altp2m_count parameter
-Date: Thu, 16 May 2024 11:28:13 +0000
-Message-Id: <8537c5deeb409580868ec8d88171146dc7138662.1715858136.git.w1benny@gmail.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <cover.1715858136.git.w1benny@gmail.com>
-References: <cover.1715858136.git.w1benny@gmail.com>
+        d=1e100.net; s=20230601; t=1715859065; x=1716463865;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=7eES0enU6K30VZCAG3M0bmIoFFsSRcG+0mogoPG61rA=;
+        b=XpTg0L5u8EKGafNz2xvPbLT22/p9mKKySwnRdbpuJ/MwE6zvsTqLs3S9Ziol1obzzy
+         3pqlqjfQl47mqHKoDz/gQtmUc2dy0O/Hn/tewENjIiR2N/mJTRMyI6gMvwZ1N/fmuRyJ
+         hQrpA6zX2kZKZWyq367r4/T5zkgpulsr56BWS3k6HCWqrOcF2W4+RMPV+zBF0d/hYtb+
+         A8MRTMUKaBLlJl7BMlNEWmmqPsGmy3Y/p3mEbDsmFnYE7HWANa+nL+l/xBtQD5icVJpN
+         BEEQTfPDcce+amt1DhyiR3aoTGk+cnmjeVLaqImPp0xFIeuZo5e7lGu+QEGxHiR67DiE
+         x0kw==
+X-Gm-Message-State: AOJu0YxElog3a+otReNYsn04qV4D7t9xR26qA7DNWsD8EccEmccG8z2I
+	Pz0VA/ifzKMIYznstd4rkQjkKg5yLWyIuhgkchRPunzKxpuAQkRtV7ph7ptgbKShn4IOANCsE3a
+	h
+X-Google-Smtp-Source: AGHT+IHXVoEftk3i1p1rm5wrPzpW1+xaJlcnZsQHCYGBs1diEX6qnDShhwN9ttLosOwgdsFR2cG+FA==
+X-Received: by 2002:a05:6512:3ca9:b0:523:8bce:3db7 with SMTP id 2adb3069b0e04-5238bce3e92mr4606066e87.68.1715859064823;
+        Thu, 16 May 2024 04:31:04 -0700 (PDT)
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+	Jan Beulich <JBeulich@suse.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Fouad Hilly <fouad.hilly@cloud.com>
+Subject: [PATCH] x86/ucode: Further fixes to identify "ucode already up to date"
+Date: Thu, 16 May 2024 12:31:03 +0100
+Message-Id: <20240516113103.3018940-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Petr Beneš <w1benny@gmail.com>
+When the revision in hardware is newer than anything Xen has to hand,
+'microcode_cache' isn't set up.  Then, `xen-ucode` initiates the update
+because it doesn't know whether the revisions across the system are symmetric
+or not.  This involves the patch getting all the way into the
+apply_microcode() hooks before being found to be too old.
 
-Allow developers using the OCaml bindings to set the altp2m_count parameter.
+This is all a giant mess and needs an overhaul, but in the short term simply
+adjust the apply_microcode() to return -EEXIST.
 
-Signed-off-by: Petr Beneš <w1benny@gmail.com>
-Acked-by: Christian Lindig <christian.lindig@cloud.com>
+Also, unconditionally print the preexisting microcode revision on boot.  It's
+relevant information which is otherwise unavailable if Xen doesn't find new
+microcode to use.
+
+Fixes: 648db37a155a ("x86/ucode: Distinguish "ucode already up to date"")
+Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 ---
- tools/ocaml/libs/xc/xenctrl.ml      |  1 +
- tools/ocaml/libs/xc/xenctrl.mli     |  1 +
- tools/ocaml/libs/xc/xenctrl_stubs.c | 11 +++++++----
- 3 files changed, 9 insertions(+), 4 deletions(-)
+CC: Jan Beulich <JBeulich@suse.com>
+CC: Roger Pau Monné <roger.pau@citrix.com>
+CC: Fouad Hilly <fouad.hilly@cloud.com>
 
-diff --git a/tools/ocaml/libs/xc/xenctrl.ml b/tools/ocaml/libs/xc/xenctrl.ml
-index 55923857ec..dfb3d331c9 100644
---- a/tools/ocaml/libs/xc/xenctrl.ml
-+++ b/tools/ocaml/libs/xc/xenctrl.ml
-@@ -85,6 +85,7 @@ type domctl_create_config =
-     max_grant_frames: int;
-     max_maptrack_frames: int;
-     max_grant_version: int;
-+    altp2m_count: int;
-     vmtrace_buf_kb: int32;
-     cpupool_id: int32;
-     arch: arch_domainconfig;
-diff --git a/tools/ocaml/libs/xc/xenctrl.mli b/tools/ocaml/libs/xc/xenctrl.mli
-index 9b4b45db3a..ff0e309c56 100644
---- a/tools/ocaml/libs/xc/xenctrl.mli
-+++ b/tools/ocaml/libs/xc/xenctrl.mli
-@@ -77,6 +77,7 @@ type domctl_create_config = {
-   max_grant_frames: int;
-   max_maptrack_frames: int;
-   max_grant_version: int;
-+  altp2m_count: int;
-   vmtrace_buf_kb: int32;
-   cpupool_id: int32;
-   arch: arch_domainconfig;
-diff --git a/tools/ocaml/libs/xc/xenctrl_stubs.c b/tools/ocaml/libs/xc/xenctrl_stubs.c
-index 2b6d3c09df..1f544cd2e4 100644
---- a/tools/ocaml/libs/xc/xenctrl_stubs.c
-+++ b/tools/ocaml/libs/xc/xenctrl_stubs.c
-@@ -210,9 +210,10 @@ CAMLprim value stub_xc_domain_create(value xch_val, value wanted_domid, value co
- #define VAL_MAX_GRANT_FRAMES    Field(config, 6)
- #define VAL_MAX_MAPTRACK_FRAMES Field(config, 7)
- #define VAL_MAX_GRANT_VERSION   Field(config, 8)
--#define VAL_VMTRACE_BUF_KB      Field(config, 9)
--#define VAL_CPUPOOL_ID          Field(config, 10)
--#define VAL_ARCH                Field(config, 11)
-+#define VAL_ALTP2M_COUNT        Field(config, 9)
-+#define VAL_VMTRACE_BUF_KB      Field(config, 10)
-+#define VAL_CPUPOOL_ID          Field(config, 11)
-+#define VAL_ARCH                Field(config, 12)
+Sorry Fouad, but this collides with your `--force` series once again.
+Hopefully it might make things fractionally easier.
 
- 	uint32_t domid = Int_val(wanted_domid);
- 	uint64_t vmtrace_size = Int32_val(VAL_VMTRACE_BUF_KB);
-@@ -230,6 +231,7 @@ CAMLprim value stub_xc_domain_create(value xch_val, value wanted_domid, value co
- 		.max_maptrack_frames = Int_val(VAL_MAX_MAPTRACK_FRAMES),
- 		.grant_opts =
- 		    XEN_DOMCTL_GRANT_version(Int_val(VAL_MAX_GRANT_VERSION)),
-+		.nr_altp2m = Int_val(VAL_ALTP2M_COUNT),
- 		.vmtrace_size = vmtrace_size,
- 		.cpupool_id = Int32_val(VAL_CPUPOOL_ID),
- 	};
-@@ -257,7 +259,7 @@ CAMLprim value stub_xc_domain_create(value xch_val, value wanted_domid, value co
- #if defined(__i386__) || defined(__x86_64__)
+Background: For 06-55-04 (Skylake server, stepping 4 specifically), there's a
+recent production firmware update which has a newer microcode revision than
+exists in the Intel public microcode repository.  It's causing a mess in our
+automated testing, although it is finding good bugs...
+---
+ xen/arch/x86/cpu/microcode/amd.c   | 7 +++++--
+ xen/arch/x86/cpu/microcode/core.c  | 2 ++
+ xen/arch/x86/cpu/microcode/intel.c | 7 +++++--
+ 3 files changed, 12 insertions(+), 4 deletions(-)
 
- 		/* Quick & dirty check for ABI changes. */
--		BUILD_BUG_ON(sizeof(cfg) != 64);
-+		BUILD_BUG_ON(sizeof(cfg) != 68);
-
-         /* Mnemonics for the named fields inside xen_x86_arch_domainconfig */
- #define VAL_EMUL_FLAGS          Field(arch_domconfig, 0)
-@@ -288,6 +290,7 @@ CAMLprim value stub_xc_domain_create(value xch_val, value wanted_domid, value co
- #undef VAL_ARCH
- #undef VAL_CPUPOOL_ID
- #undef VAL_VMTRACE_BUF_KB
-+#undef VAL_ALTP2M_COUNT
- #undef VAL_MAX_GRANT_VERSION
- #undef VAL_MAX_MAPTRACK_FRAMES
- #undef VAL_MAX_GRANT_FRAMES
---
-2.34.1
+diff --git a/xen/arch/x86/cpu/microcode/amd.c b/xen/arch/x86/cpu/microcode/amd.c
+index 17e68697d5bf..f76a563c8b84 100644
+--- a/xen/arch/x86/cpu/microcode/amd.c
++++ b/xen/arch/x86/cpu/microcode/amd.c
+@@ -222,12 +222,15 @@ static int cf_check apply_microcode(const struct microcode_patch *patch)
+     uint32_t rev, old_rev = sig->rev;
+     enum microcode_match_result result = microcode_fits(patch);
+ 
++    if ( result == MIS_UCODE )
++        return -EINVAL;
++
+     /*
+      * Allow application of the same revision to pick up SMT-specific changes
+      * even if the revision of the other SMT thread is already up-to-date.
+      */
+-    if ( result != NEW_UCODE && result != SAME_UCODE )
+-        return -EINVAL;
++    if ( result == OLD_UCODE )
++        return -EEXIST;
+ 
+     if ( check_final_patch_levels(sig) )
+     {
+diff --git a/xen/arch/x86/cpu/microcode/core.c b/xen/arch/x86/cpu/microcode/core.c
+index 762111838f5f..519798dca4af 100644
+--- a/xen/arch/x86/cpu/microcode/core.c
++++ b/xen/arch/x86/cpu/microcode/core.c
+@@ -881,6 +881,8 @@ int __init early_microcode_init(unsigned long *module_map,
+ 
+     ucode_ops.collect_cpu_info();
+ 
++    printk(XENLOG_INFO "Boot microcode revision: 0x%08x\n", this_cpu(cpu_sig).rev);
++
+     /*
+      * Some hypervisors deliberately report a microcode revision of -1 to
+      * mean that they will not accept microcode updates.
+diff --git a/xen/arch/x86/cpu/microcode/intel.c b/xen/arch/x86/cpu/microcode/intel.c
+index 96f34b336b21..f505aa1b7888 100644
+--- a/xen/arch/x86/cpu/microcode/intel.c
++++ b/xen/arch/x86/cpu/microcode/intel.c
+@@ -294,10 +294,13 @@ static int cf_check apply_microcode(const struct microcode_patch *patch)
+ 
+     result = microcode_update_match(patch);
+ 
+-    if ( result != NEW_UCODE &&
+-         !(opt_ucode_allow_same && result == SAME_UCODE) )
++    if ( result == MIS_UCODE )
+         return -EINVAL;
+ 
++    if ( result == OLD_UCODE ||
++         (result == SAME_UCODE && !opt_ucode_allow_same) )
++        return -EEXIST;
++
+     wbinvd();
+ 
+     wrmsrl(MSR_IA32_UCODE_WRITE, (unsigned long)patch->data);
+-- 
+2.30.2
 
 
