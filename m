@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 717DE8C748B
-	for <lists+xen-devel@lfdr.de>; Thu, 16 May 2024 12:20:59 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.723069.1127610 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DDDFF8C749B
+	for <lists+xen-devel@lfdr.de>; Thu, 16 May 2024 12:26:34 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.723081.1127619 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s7YDo-00014z-31; Thu, 16 May 2024 10:20:24 +0000
+	id 1s7YJP-0002o8-ML; Thu, 16 May 2024 10:26:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 723069.1127610; Thu, 16 May 2024 10:20:24 +0000
+Received: by outflank-mailman (output) from mailman id 723081.1127619; Thu, 16 May 2024 10:26:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s7YDn-000131-VZ; Thu, 16 May 2024 10:20:23 +0000
-Received: by outflank-mailman (input) for mailman id 723069;
- Thu, 16 May 2024 10:20:23 +0000
+	id 1s7YJP-0002lJ-JG; Thu, 16 May 2024 10:26:11 +0000
+Received: by outflank-mailman (input) for mailman id 723081;
+ Thu, 16 May 2024 10:26:10 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=LYhW=MT=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1s7YDn-00012v-6f
- for xen-devel@lists.xenproject.org; Thu, 16 May 2024 10:20:23 +0000
-Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
- [2a00:1450:4864:20::629])
+ id 1s7YJO-0002lD-FK
+ for xen-devel@lists.xenproject.org; Thu, 16 May 2024 10:26:10 +0000
+Received: from mail-lj1-x234.google.com (mail-lj1-x234.google.com
+ [2a00:1450:4864:20::234])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id e65f4a4b-136d-11ef-b4bb-af5377834399;
- Thu, 16 May 2024 12:20:21 +0200 (CEST)
-Received: by mail-ej1-x629.google.com with SMTP id
- a640c23a62f3a-a59c448b44aso305073966b.2
- for <xen-devel@lists.xenproject.org>; Thu, 16 May 2024 03:20:21 -0700 (PDT)
+ id b58c674a-136e-11ef-b4bb-af5377834399;
+ Thu, 16 May 2024 12:26:08 +0200 (CEST)
+Received: by mail-lj1-x234.google.com with SMTP id
+ 38308e7fff4ca-2e428242a38so6996551fa.2
+ for <xen-devel@lists.xenproject.org>; Thu, 16 May 2024 03:26:08 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a5a17b0177asm972536566b.173.2024.05.16.03.20.19
+ a640c23a62f3a-a5a17892450sm969297966b.63.2024.05.16.03.26.07
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 16 May 2024 03:20:20 -0700 (PDT)
+ Thu, 16 May 2024 03:26:07 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,53 +45,52 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e65f4a4b-136d-11ef-b4bb-af5377834399
+X-Inumbo-ID: b58c674a-136e-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1715854820; x=1716459620; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1715855168; x=1716459968; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=ydp7O/RXU9B2RxfhCENK2SvhA9RmVIcwvX7guS8hQzc=;
-        b=YS8Td27hXd+sSp2R9Sj+iRuHi98WwEy8zEbBZOeV2XY9psWplNd/F49BrP4w7hEYa9
-         gd4v13aMoOvfrQ4J3ZlQShgo+f7Spc9TQDrAdRm1QVaHq9Lwy2cTJunmwHVl4msff8NY
-         nfuRQPAmm+MaQ7d3nm32pVxFmmOQl1g0bd3+AKXUzHnIk8bK2seMl2eTmp7btM3XeNYp
-         aTGBJxjX2ITERxnkA8QrjPONDCbpxEvkP0sByXzsOcRQLfjpzWWMXLim32gwmESjmQvg
-         Zmil0tztCuS3vU95IOb0StLlVLMTlape2NKT5ooeoox6iBQOYTIZVwC+JNV+5p+xd1sy
-         L8Tw==
+        bh=jstn+m1oTnzwXt5NJbmy4qbQU0ne++k/74yPZCYCL9c=;
+        b=JnP8nuuaFa/oKFXtMCdQBOxd8XV5D0GhwhFd04VRzxuEeVkte6VXKqW4JCjr7QF41G
+         5ASuO4VhLOH3PPPaw6CSL3QAmb/j4ZhBygWA0urxIbD2ymIABxhLVLNwjpbJ8KSOzE7n
+         aPINQHvAB4KWWQrGJXoA0+K4h+kUn05pazXtbML5g9fIAARYRt7gj1qpVlRgRUPpuiAH
+         U30HCsM/325DEUqZF8hM5mkl20f+J+D5921zh0Ju0nC+3qX11Rtgs8FZYD7YQP/BxvAq
+         TsK/6sf3TSzU0Ug0FSYHiNItcQFwvSf2Znb/N19U6frLq6+OxALmgnwnr63DdV9pCyT0
+         22AA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1715854820; x=1716459620;
+        d=1e100.net; s=20230601; t=1715855168; x=1716459968;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=ydp7O/RXU9B2RxfhCENK2SvhA9RmVIcwvX7guS8hQzc=;
-        b=HXMV2X1lM1MjSL5SE+xGtqQN/FnsR7JPNkaYDhZD6FIsBbPHezRT4YID9oJ3ytu0km
-         lrwVjS8DPSwTZJUqc9aD3AC2BaXjsrPyjwJE+4/MzmjcILL+Y5EYQia1Uq/rj7TiT18l
-         uphdGVdk+75g4b/ep+ADtuMX09gVf2JQpVroZvbNdvmIt40vJAjGK+j9KQPMX9mhubXw
-         y5+aZ+aYY7D4W+3tQUccjaie4yfR8ydX3YeBhEeOu2tIIsyy1U4PGYJatj7Esto5ScjT
-         gnaML0DBE13DtB2ybdghkBMPk3r7p/37uSB4OZ4vHEqZ2s3g3xbn6IAtD4ka84LXY59F
-         +4Og==
-X-Forwarded-Encrypted: i=1; AJvYcCVs0SLo/Fdk4QutJrDDNhylRrimSe15wq922aTrupLGyvKgApruamj6SiC0VTYSQGn8aZm0ve3d6qnUYU/qC3NadsP57ffA7zHT/BnnI0g=
-X-Gm-Message-State: AOJu0YwBVbHG+jju72Tw84/8YTHT4GKZvmxfaEAbkYYYF5zSGtbAwXuB
-	+4LZSR7Y+Xrp1lzgBURiiDl8jCGjx82DfOcTamLXefa3y7fsfoGttfw2R/j4hA==
-X-Google-Smtp-Source: AGHT+IEiQw4B2ESmjtaRVj2ir/c//ql9hmJseoZPSICA9hCOkKzLCCDOhfroJpcwOoX5Qd3cNS9hOQ==
-X-Received: by 2002:a17:906:fc05:b0:a59:ae9b:c661 with SMTP id a640c23a62f3a-a5a2d5d49b3mr1112159666b.40.1715854820437;
-        Thu, 16 May 2024 03:20:20 -0700 (PDT)
-Message-ID: <1e0dfa77-680c-4ab3-9634-e787517c3d85@suse.com>
-Date: Thu, 16 May 2024 12:20:18 +0200
+        bh=jstn+m1oTnzwXt5NJbmy4qbQU0ne++k/74yPZCYCL9c=;
+        b=smEvZKPvC/Dgr3vgR/LpF5LrX1XavoWR4xT2PsLTRmKmX7k7s9jzTouM2pAgtdYFwM
+         ThTEpGGx9kdtKEtQIJJXqTX3/HL6nbI2ipQwefNC2ajYq23Yk3W5Cu6wKWE94es3x9UT
+         T8IPrLnz+iEiKeW3g2bHR4YdHDAnJWkT8EaKLNeoGFYH1Umci+oX1990RJT0gxHRnWON
+         mSNn1VTlfCjeWtJHpPQ8nJiUOU2zQqUykEd2v4LSvQzeKsY7A5c7oom0d4nUn4Tp9dkK
+         z7kufytChN3nOxNdg0Pii5y6t+fMrIWdyuUByrjrULik4d4x/nANFP/B2WPYH8xmV6/f
+         2eDg==
+X-Forwarded-Encrypted: i=1; AJvYcCU7vQutOpjhuzzvNHshtgq3mapfkLZ/6uUTAFLi8q7Zdsegu7XaYDOjZinYuKmWyhmKQ3fR2VPmVkts9Vz1yjt3m4gXymSZYjt1I8umkww=
+X-Gm-Message-State: AOJu0YyWKSRUoNiXuEhKZXeBuKC0OW9tgPQMpest2joUFztcasbI0hXu
+	/QyCaNw7ulKdvP8IaDVguCOQlm5GbGnAiUEojMN4of2dyrF0vBNbgCxuVgVVuQ==
+X-Google-Smtp-Source: AGHT+IFoL++S7bKYiDkYjwQv/Hd00Yn+rjxzX+1IVi0OvG1j4hzkVM1vVyTJG2h/lnkSSPgLmJ3CYQ==
+X-Received: by 2002:a05:651c:2114:b0:2e1:cb0f:4e1e with SMTP id 38308e7fff4ca-2e51fc34061mr170353091fa.2.1715855168059;
+        Thu, 16 May 2024 03:26:08 -0700 (PDT)
+Message-ID: <72e5802d-db4f-4d9b-a2ea-fc767ef2dd44@suse.com>
+Date: Thu, 16 May 2024 12:26:06 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH v2 02/15] x86/monitor: guard altp2m usage
+Subject: Re: [XEN PATCH v2 03/15] x86/p2m: guard altp2m routines
 Content-Language: en-US
 To: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
-Cc: Alexandru Isaila <aisaila@bitdefender.com>,
- Petre Pircalabu <ppircalabu@bitdefender.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Stefano Stabellini <sstabellini@kernel.org>,
  Xenia Ragiadakou <xenia.ragiadakou@amd.com>,
  Tamas K Lengyel <tamas@tklengyel.com>, xen-devel@lists.xenproject.org
 References: <cover.1715761386.git.Sergiy_Kibrik@epam.com>
- <01767c3f98a88999d4b8ed3ae742ad66a0921ba3.1715761386.git.Sergiy_Kibrik@epam.com>
+ <d4c537b1bcac4b301b16336ea3407834fc3076b1.1715761386.git.Sergiy_Kibrik@epam.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -116,34 +115,56 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <01767c3f98a88999d4b8ed3ae742ad66a0921ba3.1715761386.git.Sergiy_Kibrik@epam.com>
+In-Reply-To: <d4c537b1bcac4b301b16336ea3407834fc3076b1.1715761386.git.Sergiy_Kibrik@epam.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 15.05.2024 11:01, Sergiy Kibrik wrote:
-> --- a/xen/arch/x86/hvm/monitor.c
-> +++ b/xen/arch/x86/hvm/monitor.c
-> @@ -262,6 +262,8 @@ bool hvm_monitor_check_p2m(unsigned long gla, gfn_t gfn, uint32_t pfec,
->      struct vcpu *curr = current;
->      vm_event_request_t req = {};
->      paddr_t gpa = (gfn_to_gaddr(gfn) | (gla & ~PAGE_MASK));
-> +    unsigned int altp2m_idx = altp2m_active(curr->domain) ?
-> +                              altp2m_vcpu_idx(curr) : 0;
->      int rc;
+On 15.05.2024 11:03, Sergiy Kibrik wrote:
+> --- a/xen/arch/x86/mm/p2m-basic.c
+> +++ b/xen/arch/x86/mm/p2m-basic.c
+> @@ -126,13 +126,15 @@ int p2m_init(struct domain *d)
+>          return rc;
+>      }
 >  
->      ASSERT(curr->arch.vm_event->send_event);
-> @@ -270,7 +272,7 @@ bool hvm_monitor_check_p2m(unsigned long gla, gfn_t gfn, uint32_t pfec,
->       * p2m_get_mem_access() can fail from a invalid MFN and return -ESRCH
->       * in which case access must be restricted.
->       */
-> -    rc = p2m_get_mem_access(curr->domain, gfn, &access, altp2m_vcpu_idx(curr));
-> +    rc = p2m_get_mem_access(curr->domain, gfn, &access, altp2m_idx);
+> -    rc = p2m_init_altp2m(d);
+> -    if ( rc )
+> +    if ( hvm_altp2m_supported() )
+>      {
+> -        p2m_teardown_hostp2m(d);
+> -        p2m_teardown_nestedp2m(d);
+> +        rc = p2m_init_altp2m(d);
+> +        if ( rc )
+> +        {
+> +            p2m_teardown_hostp2m(d);
+> +            p2m_teardown_nestedp2m(d);
+> +        }
 
-I think something like this wants taking care of by the function itself.
-asm/altp2m.h already has certain stubs (the conditional of which I expect
-a later change will switch to CONFIG_ALTP2M); you'd need to just add one
-more. Then the other (and any future) users of the function would be
-covered as well.
+With less code churn and less indentation:
+
+    rc = hvm_altp2m_supported() ? p2m_init_altp2m(d) : 0;
+    if ( rc )
+    {
+        p2m_teardown_hostp2m(d);
+        p2m_teardown_nestedp2m(d);
+    }
+
+>      }
+> -
+>      return rc;
+>  }
+
+Please don't remove the blank line ahead of the main return of a function.
+
+> --- a/xen/arch/x86/mm/p2m-ept.c
+> +++ b/xen/arch/x86/mm/p2m-ept.c
+> @@ -986,7 +986,7 @@ out:
+>      if ( is_epte_present(&old_entry) )
+>          ept_free_entry(p2m, &old_entry, target);
+>  
+> -    if ( entry_written && p2m_is_hostp2m(p2m) )
+> +    if ( entry_written && p2m_is_hostp2m(p2m) && hvm_altp2m_supported())
+
+I agree with Stefano's ordering comment here, btw.
 
 Jan
 
