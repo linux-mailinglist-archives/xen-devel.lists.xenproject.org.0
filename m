@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 67ED58C7A14
-	for <lists+xen-devel@lfdr.de>; Thu, 16 May 2024 18:08:20 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.723517.1128446 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4ABF28C7A16
+	for <lists+xen-devel@lfdr.de>; Thu, 16 May 2024 18:08:51 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.723518.1128456 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s7deC-0001Zz-3e; Thu, 16 May 2024 16:08:00 +0000
+	id 1s7dem-00021H-CZ; Thu, 16 May 2024 16:08:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 723517.1128446; Thu, 16 May 2024 16:08:00 +0000
+Received: by outflank-mailman (output) from mailman id 723518.1128456; Thu, 16 May 2024 16:08:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s7deC-0001Wt-0f; Thu, 16 May 2024 16:08:00 +0000
-Received: by outflank-mailman (input) for mailman id 723517;
- Thu, 16 May 2024 16:07:58 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=0hAQ=MT=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1s7deA-0001Wn-EF
- for xen-devel@lists.xenproject.org; Thu, 16 May 2024 16:07:58 +0000
-Received: from mail-lj1-x22a.google.com (mail-lj1-x22a.google.com
- [2a00:1450:4864:20::22a])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 75440604-139e-11ef-b4bb-af5377834399;
- Thu, 16 May 2024 18:07:56 +0200 (CEST)
-Received: by mail-lj1-x22a.google.com with SMTP id
- 38308e7fff4ca-2e564cad1f6so10796761fa.1
- for <xen-devel@lists.xenproject.org>; Thu, 16 May 2024 09:07:56 -0700 (PDT)
-Received: from [192.168.226.248] ([94.75.70.14])
- by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-2e6f834e5eesm5463791fa.131.2024.05.16.09.07.54
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 16 May 2024 09:07:55 -0700 (PDT)
+	id 1s7dem-0001zB-8c; Thu, 16 May 2024 16:08:36 +0000
+Received: by outflank-mailman (input) for mailman id 723518;
+ Thu, 16 May 2024 16:08:33 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=LYhW=MT=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1s7dej-0001z3-UR
+ for xen-devel@lists.xenproject.org; Thu, 16 May 2024 16:08:33 +0000
+Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
+ [2a00:1450:4864:20::62a])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 8ac7477f-139e-11ef-909d-e314d9c70b13;
+ Thu, 16 May 2024 18:08:32 +0200 (CEST)
+Received: by mail-ej1-x62a.google.com with SMTP id
+ a640c23a62f3a-a5a5c930cf6so330037266b.0
+ for <xen-devel@lists.xenproject.org>; Thu, 16 May 2024 09:08:32 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a5a178a9d81sm991765466b.83.2024.05.16.09.08.31
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 16 May 2024 09:08:31 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,87 +45,110 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 75440604-139e-11ef-b4bb-af5377834399
+X-Inumbo-ID: 8ac7477f-139e-11ef-909d-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1715875676; x=1716480476; darn=lists.xenproject.org;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=W68Q7qb73jEOcW2eXjc2JWV11ah8c1Z6pjSN1W3UmTw=;
-        b=gGcdRueuMqJVHnM9qC74Fxw45QBrSEjsB3IsIO80no2isQOXqhhfY0rcI70jleG8RZ
-         zxS5kzB2gySDDocjNdTL7k4Hs8J+yPK1O7dSeL+Z8q/D7RDQ/XIBslnHN/LjYX8sb2qA
-         Vd1Rc5njw0wy5teOdy+L3Pt7JiWi8/3pGKZNgQallOnfleMFnzMvOC08208tLRXuqvPt
-         8Y9rWnx62fXGbtr8Q46+RynbcrNII1uBgWgn2ZCE2mw3+vRMPMoGfdPnBr08bKTbkoMZ
-         19bkO8LO+WRM14A383QZB75uWdFTyjTqMVD4nugjVgeCRkWAcusSKqqFIMyBBKNB1Y4+
-         YJtA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1715875676; x=1716480476;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
+        d=suse.com; s=google; t=1715875712; x=1716480512; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=W68Q7qb73jEOcW2eXjc2JWV11ah8c1Z6pjSN1W3UmTw=;
-        b=nhdsWX2lbZv5a+zQohaNjotswwJhcfnO3gytDbN7n5ruhAjRUMuij/4UMBgwOM0HIw
-         m1zyV5n8U2UAVdlnVR4pMKAmt4ATbRlb/I38cMrMZu6hlKKX1Gel2EBBvQxBcetpYtoG
-         wLGts/YF+EgO8IbHlqiLntmZyFazE9NVXo+7rq/SzcMr5GBsxQtOBRMvpwLy2+vqixF0
-         2D/JoRdD2BKnNs0NKK37/UM7DTlB5BJVg3czbP+EJ6urm1NfeZKCShyXOu3L1oYknLiO
-         3pIsSQ5jmIYFZEhKy4viyjrylSRvL3nukIEiZKT9qdnKYqoaKnYtdKFD2s+D4s2QL0i1
-         3IXA==
-X-Forwarded-Encrypted: i=1; AJvYcCUTQB8vQhjPU9bSMMkWuvDLhDkLI0PpnUdq872SHHrM2EhRZC0fzdNBKk7EQuG09Suh7ZNCiKg+T3VzbcxPb0NQDIpbwVz6hz8DIFiB9E8=
-X-Gm-Message-State: AOJu0Ywt9vgULLO8YcSFzxr8K2KTKe2FxIN4EBaS2auCOPOlv+Ig3mBv
-	Lxd57Zlid6uVFmXHaqsx9m5J6g860zfYKFMA3UYmWTCu74tLw3ek
-X-Google-Smtp-Source: AGHT+IGtLjKN1a+5Kp/Vgxso5pZpz9M6Hgb4/VVOwbEQR7Yi7CDWKProidWD2KkSIlpUTBw0cmXMqg==
-X-Received: by 2002:a2e:a555:0:b0:2e1:a8db:2bca with SMTP id 38308e7fff4ca-2e5205e2972mr154874781fa.48.1715875675776;
-        Thu, 16 May 2024 09:07:55 -0700 (PDT)
-Message-ID: <0bb2becc5b5d327f6b3b878b876da78034bcebd6.camel@gmail.com>
-Subject: Re: [XEN PATCH v7 1/5] xen/vpci: Clear all vpci status of device
-From: "Oleksii K." <oleksii.kurochko@gmail.com>
-To: Stewart Hildebrand <stewart.hildebrand@amd.com>, 
-	xen-devel@lists.xenproject.org, Roger Pau =?ISO-8859-1?Q?Monn=E9?=
-	 <roger.pau@citrix.com>
-Cc: Jiqian Chen <Jiqian.Chen@amd.com>, Jan Beulich <jbeulich@suse.com>, 
- Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>, George
- Dunlap <george.dunlap@citrix.com>,  Julien Grall <julien@xen.org>, Stefano
- Stabellini <sstabellini@kernel.org>, Anthony PERARD
- <anthony.perard@citrix.com>, Juergen Gross <jgross@suse.com>, "Daniel P .
- Smith" <dpsmith@apertussolutions.com>, Huang Rui <Ray.Huang@amd.com>
-Date: Thu, 16 May 2024 18:07:54 +0200
-In-Reply-To: <4eab3820-d357-42cb-a367-a7a0966e7e3b@amd.com>
-References: <20240419035340.608833-1-Jiqian.Chen@amd.com>
-	 <20240419035340.608833-2-Jiqian.Chen@amd.com>
-	 <4eab3820-d357-42cb-a367-a7a0966e7e3b@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.52.1 (3.52.1-1.fc40) 
+        bh=u3GWIFoUQ8dNniA006Izn//1I6UsOs2gb+h/yuBgfR8=;
+        b=E1yqt19h7i8rL/WS6ZbGpqNx+iWlIeklZIN4wbKv7GXBMYjSrlcjwUxuYIXuyf8O6F
+         zr8FlZfQZpHvKQOEN3Qcm1WDkEa+fzS91HZBa+rMzhpxyoTPyq4uwonsdGkQJPQkEE8z
+         teCrHCHZJDRPw6vkhmf3FfiCBebLwf+mPXasFSNkZbVlLY4KBPzusfgiLn5eeXTTgDVy
+         A/cTKSZ1wdUIBgihc9MFhDIv/8t4BZQe37YmNPnov1bQ0B8e2ooQWwF0K0elyzJ9RDqj
+         2afawqnXFh9y2Ci7C+4V8MSzUAM38bgGiyzwRSaerPhNO7w7uPYlDZ3yrwtJQxPZDnaD
+         eUAA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1715875712; x=1716480512;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=u3GWIFoUQ8dNniA006Izn//1I6UsOs2gb+h/yuBgfR8=;
+        b=Z7mDasjkou3JePQ9dneQpBkZ6+D1ljzv+UivjrdbzH2Tm8CM6gCMYK+QEko8fWW71o
+         IcipTswITckgU9/esD4b9IjoMXerhsg1dtcfm8QVTG3PHt075l5MR+2Ndg6stWMqvYh0
+         GlIWnMogc5jH+N/NODDUG2ZihYOfcg4pVT3pNbVUbrL0Gn/mz1QmOkJdFrPiC4URcbet
+         qPQnDpdjjdt+34DqgP/wFRXAhbxuOSNCbafuGzMa4oxMsLADmX7JYm6ypfq2R28LvR7U
+         BMWggwF3piToGIX54GJPelOClXCteZROWRQZG/cHiQPXGv5j21ytKbelnk0oD0lpKPmZ
+         9QjA==
+X-Forwarded-Encrypted: i=1; AJvYcCUM2/bcgNYrHeoiEOezvv2OSXo4153ELk4yL2Hda5WvpkcNXguJrwxemGXII4EasendkDC9p1Ab7iZJHTV8bMYwvtxF/SaEAtHZ51u5hnU=
+X-Gm-Message-State: AOJu0YyywTRlhOAtchSg7jYM6LTd69Dkvtsxh3euhJec/2e6nLGKiooJ
+	7/XWnu4RwMYn8jhL9Xk8UK/yDxMXKNw7x+6oJmXZC8I6Wyzf/dlPgUPThbWHDQ==
+X-Google-Smtp-Source: AGHT+IHbGaM09obCanNKoIlXey0+aLDlMv2Un3ZIfyDfJnmo3m7Lk0ezoiWMgxdW5kkS878eXBeFlw==
+X-Received: by 2002:a17:907:7daa:b0:a5a:4705:ad36 with SMTP id a640c23a62f3a-a5a4705b758mr1302297766b.16.1715875712173;
+        Thu, 16 May 2024 09:08:32 -0700 (PDT)
+Message-ID: <6d19ef9b-ccd8-4ae0-9e9e-ff7f3d92b333@suse.com>
+Date: Thu, 16 May 2024 18:08:30 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [XEN PATCH 0/4] address violations of MISRA C Rule 20.7
+Content-Language: en-US
+To: "Oleksii K." <oleksii.kurochko@gmail.com>
+Cc: sstabellini@kernel.org, michal.orzel@amd.com, xenia.ragiadakou@amd.com,
+ ayan.kumar.halder@amd.com, consulting@bugseng.com,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Nicola Vetrini <nicola.vetrini@bugseng.com>, xen-devel@lists.xenproject.org
+References: <cover.1715757982.git.nicola.vetrini@bugseng.com>
+ <c67c1b8b-e14b-4c30-a381-1b89aedcddb9@suse.com>
+ <7f8ef88d0a8bd3e40b213d19dfc80cd3fd2db298.camel@gmail.com>
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <7f8ef88d0a8bd3e40b213d19dfc80cd3fd2db298.camel@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Wed, 2024-05-15 at 10:27 -0400, Stewart Hildebrand wrote:
-> On 4/18/24 23:53, Jiqian Chen wrote:
-> > When a device has been reset on dom0 side, the vpci on Xen
-> > side won't get notification, so the cached state in vpci is
-> > all out of date compare with the real device state.
-> > To solve that problem, add a new hypercall to clear all vpci
-> > device state. When the state of device is reset on dom0 side,
-> > dom0 can call this hypercall to notify vpci.
-> >=20
-> > Signed-off-by: Huang Rui <ray.huang@amd.com>
-> > Signed-off-by: Jiqian Chen <Jiqian.Chen@amd.com>
-> > Reviewed-by: Stewart Hildebrand <stewart.hildebrand@amd.com>
-> > Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
->=20
-> Could we consider this patch for 4.19? It's independent of the rest
-> of
-> this series, and it fixes a real issue observed on both Arm and x86.
-> The
-> Linux counterpart has already been merged in linux-next [0].
->=20
-> [0]
-> https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/commi=
-t/?h=3Dnext-20240515&id=3Db272722511d5e8ae580f01830687b8a6b2717f01
+On 16.05.2024 17:58, Oleksii K. wrote:
+> On Wed, 2024-05-15 at 09:48 +0200, Jan Beulich wrote:
+>> On 15.05.2024 09:34, Nicola Vetrini wrote:
+>>> this series aims to refactor some macros that cause violations of
+>>> MISRA C Rule
+>>> 20.7 ("Expressions resulting from the expansion of macro parameters
+>>> shall be
+>>> enclosed in parentheses"). All the macros touched by these patches
+>>> are in some
+>>> way involved in violations, and the strategy adopted to bring them
+>>> into
+>>> compliance is to add parentheses around macro arguments where
+>>> needed.
+>>>
+>>> Nicola Vetrini (4):
+>>>   x86/vpmu: address violations of MISRA C Rule 20.7
+>>>   x86/hvm: address violations of MISRA C Rule 20.7
+>>>   x86_64/uaccess: address violations of MISRA C Rule 20.7
+>>>   x86_64/cpu_idle: address violations of MISRA C Rule 20.7
+>>
+>> for 4.18 we took a relaxed approach towards (simple) changes for
+>> Misra purposes.
+>> I wonder whether you mean to permit the same for 4.19, or whether
+>> series like
+>> this one rather want/need delaying until after branching.
+> Lets follow the same approach for 4.19.
 
-Sure! Fixes should be merged.
+Well, okay. But if you don't say now until when this is okay, you'll
+need to announce the "stop" very prominently later on, so no-one
+misses it.
 
-Release-acked-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-
-~ Oleksii
-
+Jan
 
