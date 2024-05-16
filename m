@@ -2,37 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 48B598C739F
-	for <lists+xen-devel@lfdr.de>; Thu, 16 May 2024 11:20:40 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.722924.1127322 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B7D858C73B9
+	for <lists+xen-devel@lfdr.de>; Thu, 16 May 2024 11:23:56 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.722933.1127332 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s7XHR-0007MT-KB; Thu, 16 May 2024 09:20:05 +0000
+	id 1s7XKr-0008IE-5u; Thu, 16 May 2024 09:23:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 722924.1127322; Thu, 16 May 2024 09:20:05 +0000
+Received: by outflank-mailman (output) from mailman id 722933.1127332; Thu, 16 May 2024 09:23:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s7XHR-0007JK-G9; Thu, 16 May 2024 09:20:05 +0000
-Received: by outflank-mailman (input) for mailman id 722924;
- Thu, 16 May 2024 09:20:03 +0000
+	id 1s7XKr-0008Gh-3C; Thu, 16 May 2024 09:23:37 +0000
+Received: by outflank-mailman (input) for mailman id 722933;
+ Thu, 16 May 2024 09:23:35 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=h+4+=MT=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1s7XHP-0006Gj-KW
- for xen-devel@lists.xenproject.org; Thu, 16 May 2024 09:20:03 +0000
-Received: from mail-qk1-x734.google.com (mail-qk1-x734.google.com
- [2607:f8b0:4864:20::734])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=LYhW=MT=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1s7XKp-0008Gb-Q1
+ for xen-devel@lists.xenproject.org; Thu, 16 May 2024 09:23:35 +0000
+Received: from mail-lf1-x131.google.com (mail-lf1-x131.google.com
+ [2a00:1450:4864:20::131])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 796884b5-1365-11ef-909d-e314d9c70b13;
- Thu, 16 May 2024 11:20:02 +0200 (CEST)
-Received: by mail-qk1-x734.google.com with SMTP id
- af79cd13be357-78f02c96c52so480748685a.1
- for <xen-devel@lists.xenproject.org>; Thu, 16 May 2024 02:20:02 -0700 (PDT)
-Received: from localhost ([213.195.114.223]) by smtp.gmail.com with ESMTPSA id
- af79cd13be357-793017facabsm95003685a.88.2024.05.16.02.20.00
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 16 May 2024 02:20:00 -0700 (PDT)
+ id f7e9de29-1365-11ef-909d-e314d9c70b13;
+ Thu, 16 May 2024 11:23:34 +0200 (CEST)
+Received: by mail-lf1-x131.google.com with SMTP id
+ 2adb3069b0e04-5238b5c080cso671455e87.1
+ for <xen-devel@lists.xenproject.org>; Thu, 16 May 2024 02:23:34 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-574bcede889sm6954042a12.92.2024.05.16.02.23.33
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 16 May 2024 02:23:33 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,108 +45,108 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 796884b5-1365-11ef-909d-e314d9c70b13
+X-Inumbo-ID: f7e9de29-1365-11ef-909d-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1715851201; x=1716456001; darn=lists.xenproject.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=wx6W+ENlg5PRro4DaaU11kdGbIPXqjVb6ItABsLuQ9w=;
-        b=nZYzH3cuRe50fJ9FBITUVcvfGrSvn47VKLUXCUjFj8K4q9KBe40OjNvH49jMSgfFcE
-         q2Qmm/EgKcb/9nPEqZcd9U+w5KtCf8KjkdrQxd70q4ZR7Hhqxmlg9zB/yKNRih9nQNjY
-         rhOjfZmnB+/9SYeMpH4sgpp6CHzVZDUDDShLI=
+        d=suse.com; s=google; t=1715851414; x=1716456214; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=d9Unq06GS3W7hSL9K5ZoogCfkJuM3N5NCg/yz3EDx2k=;
+        b=J0JR/5HprA+1vSdZXmDQu+6AV/uL7WdEPM1qVwgRfKLY6IXz2ABBLvDSjSJ+XKBeQF
+         /wcsYSDW1T79a6/KHT0dVbX3B2OrdG/4S7dHuGq/3jKQg3VW1T/FMvI3KtIEujlqJZh+
+         miqI9bbQJp0Ud8+v8QlRQLliGqNyI+3gl3prtWyS65mjiVhhiwC97Ty1P8QqegNlxeKh
+         290Ic+w1l+OavudOzt7WIltFGUYNd3Lt60ENoiyc9z+lCEiCfbBUHXAPQHTluom2W+cQ
+         7rAELVY95hjPvFU/XOfNtYy37Do+N1iyctC8xdbGaU15qttwzXIYQ/S7dcb/OJ6E2Mfv
+         oSwg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1715851201; x=1716456001;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
+        d=1e100.net; s=20230601; t=1715851414; x=1716456214;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=wx6W+ENlg5PRro4DaaU11kdGbIPXqjVb6ItABsLuQ9w=;
-        b=lbyT2QHKnf5VW03KtPtnzi9NPEd2qEFWQ9t9FQorFffapdCt5/9N9BjkW0/gfMLLjZ
-         B0thHlGmnHBDQj49L68ka3N6ae1FjLSV6pCsE6wesf1eGR09zypS8HGoVttqy34r3M31
-         NdhYtE5btZmZN9bs6vKcw/6HZ62b8YY1EKstiMa9XP6/+IgvioBgadhS7QDLSgPxUWW9
-         RKv9iMLS2RNbxpzTZMkxUgc3CP9Ufln2c1C/qtEBb8lcEXMHnNACQhPJDLjGIcHO4Oa0
-         qRqDuDTqmvtFyQ2gAS0NgMkJnpPgrN6gmSLWkpQkfOPrUprVbQ0O0OkqKiGX5ybq4+ZI
-         fRag==
-X-Forwarded-Encrypted: i=1; AJvYcCVKLKR3IAtQblab84RfsQgfVEBlbp5GzYMS6GuwtrTaXYkFrPMPF/fRK41ck3BK7ISvthPOjfSdv9bw8eAbdynH7Xw0xfC08VFUUPgWkhA=
-X-Gm-Message-State: AOJu0YyJsAhvTq1wd77K1HmvJQ3Hn+EajzY/Ppo9HlxbqBgV6qCOmgjz
-	04JLc3hdza3ep5QBNhx+xhvzWOHECxyWpZnBZbOtfeCU3sbSvZM86J0TjA+Qla4=
-X-Google-Smtp-Source: AGHT+IFBgbpaG+gm/fpEGXhcgTZ//0BPdTq1H4gMyQB8ODnBMFM52h2/0ZyWQvjIozD5yw2uGU78Fg==
-X-Received: by 2002:a05:620a:c93:b0:792:c175:b12f with SMTP id af79cd13be357-792c7600ee8mr1860050685a.63.1715851201414;
-        Thu, 16 May 2024 02:20:01 -0700 (PDT)
-Date: Thu, 16 May 2024 11:19:58 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Elias El Yandouzi <eliasely@amazon.com>, xen-devel@lists.xenproject.org,
-	julien@xen.org, pdurrant@amazon.com, dwmw@amazon.com,
-	Hongyan Xia <hongyxia@amazon.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <jgrall@amazon.com>
-Subject: Re: [PATCH V3 (resend) 06/19] x86: Add a boot option to enable and
- disable the direct map
-Message-ID: <ZkXPvgRupZw31nGw@macbook>
-References: <20240513134046.82605-1-eliasely@amazon.com>
- <20240513134046.82605-7-eliasely@amazon.com>
- <ZkMs1cknBFBWZoJG@macbook>
- <086f1bbe-2b86-493e-8936-81f420500672@suse.com>
+        bh=d9Unq06GS3W7hSL9K5ZoogCfkJuM3N5NCg/yz3EDx2k=;
+        b=BqD2PrbmYfcMGPsN6pbV0ukgz8qAItmYYeRaJ5Hm/vU5r/WK52R86FdeOuTJ7zfOiX
+         p2rtaCExSzW84+B5MPNqLZghneF8tbHK5LFGQlI0p9oti0V2W64KF+km2+EQOdU1Zxg5
+         Z87XqlVW7nhkwdpaXO2shiI/Y3Enz/xxoiSCBBk+8ohqRk7F3JrmGc8S6cLLs+JeMjTv
+         9AmBzcQJpLJESJyd+F8BYmvMhJKaF3RWw+AA+N8EJu/skOlD7e8YRcKN+z4c3JlSbiF4
+         5s/IE7xDtTc/IXOubK/JOqLo4+9dTyigkiXfc6DF92cMGHsGSQ+v+gxGYhNbXNxWBeLl
+         Ynxw==
+X-Forwarded-Encrypted: i=1; AJvYcCX0THigcoOM8C83Wu9QS71RCq5qh3PJ9+7faLGVwucNY/ItWH7TefUKU/8Kv6h1QQQKFeCg7SQTiAbxe+uGiQ5lghg3/BtLpkcFOWJrkzg=
+X-Gm-Message-State: AOJu0Yy4oAwrLPP2EsnskLr/IbAlm8xwKu2MsNLN/uneMp0KINBuuPRs
+	/VNHhEx4Zohu6j8lNQnGoPN/SPAbmYkM8/0EZlo3G3tt1s72N8SX5ct8+l2DIg==
+X-Google-Smtp-Source: AGHT+IHqhH3tWmRkdQKnimlbiPtAbxk/0IoZ/FQ90eDPqkqnlPgUf15BdlmNwpYPP/F5s/c6VYxGpg==
+X-Received: by 2002:a05:6512:1310:b0:516:cc06:fa03 with SMTP id 2adb3069b0e04-5221006ccdemr14170268e87.56.1715851413935;
+        Thu, 16 May 2024 02:23:33 -0700 (PDT)
+Message-ID: <806a2978-19fb-4d31-ab6a-35ea7317c8de@suse.com>
+Date: Thu, 16 May 2024 11:23:32 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <086f1bbe-2b86-493e-8936-81f420500672@suse.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v14 2/5] vpci: add initial support for virtual PCI bus
+ topology
+Content-Language: en-US
+To: Stewart Hildebrand <stewart.hildebrand@amd.com>
+Cc: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Volodymyr Babchuk <volodymyr_babchuk@epam.com>,
+ xen-devel@lists.xenproject.org
+References: <20240514143400.152280-1-stewart.hildebrand@amd.com>
+ <20240514143400.152280-3-stewart.hildebrand@amd.com>
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20240514143400.152280-3-stewart.hildebrand@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Wed, May 15, 2024 at 03:54:51PM +0200, Jan Beulich wrote:
-> On 14.05.2024 11:20, Roger Pau Monné wrote:
-> > On Mon, May 13, 2024 at 01:40:33PM +0000, Elias El Yandouzi wrote:
-> >> --- a/docs/misc/xen-command-line.pandoc
-> >> +++ b/docs/misc/xen-command-line.pandoc
-> >> @@ -799,6 +799,18 @@ that enabling this option cannot guarantee anything beyond what underlying
-> >>  hardware guarantees (with, where available and known to Xen, respective
-> >>  tweaks applied).
-> >>  
-> >> +### directmap (x86)
-> >> +> `= <boolean>`
-> >> +
-> >> +> Default: `true`
-> >> +
-> >> +Enable or disable the directmap region in Xen.
-> > 
-> > Enable or disable fully populating the directmap region in Xen.
+On 14.05.2024 16:33, Stewart Hildebrand wrote:
+> From: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
 > 
-> Elias, would you please take care to address earlier review comments
-> before sending a new version? This and ...
+> Assign SBDF to the PCI devices being passed through with bus 0.
+> The resulting topology is where PCIe devices reside on the bus 0 of the
+> root complex itself (embedded endpoints).
+> This implementation is limited to 32 devices which are allowed on
+> a single PCI bus.
 > 
-> >> +
-> >> +By default, Xen creates the directmap region which maps physical memory
-> >                                                           ^ all?
-> >> +in that region. Setting this to no will sparsely populate the directmap,
-> > 
-> > "Setting this to no" => "Disabling this option will sparsely..."
+> Please note, that at the moment only function 0 of a multifunction
+> device can be passed through.
 > 
-> ... this is what I had already asked for in reply to v2, of course with
-> different wording.
-> 
-> >> --- a/xen/arch/x86/setup.c
-> >> +++ b/xen/arch/x86/setup.c
-> >> @@ -1517,6 +1517,8 @@ void asmlinkage __init noreturn __start_xen(unsigned long mbi_p)
-> >>      if ( highmem_start )
-> >>          xenheap_max_mfn(PFN_DOWN(highmem_start - 1));
-> >>  
-> >> +    printk("Booting with directmap %s\n", has_directmap() ? "on" : "off");
-> > 
-> > IMO this wants to be printed as part of the speculation mitigations, see
-> > print_details() in spec_ctrl.c
-> 
-> And not "on" / "off", but "full" / "sparse" (and word order changed accordingly)
-> perhaps.
+> Signed-off-by: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
+> Signed-off-by: Volodymyr Babchuk <volodymyr_babchuk@epam.com>
+> Signed-off-by: Stewart Hildebrand <stewart.hildebrand@amd.com>
 
-I've been thinking about this, and I'm leaning towards calling this
-new mode "ondemand" rather than "sparse".  The fact that the direct
-map ends up sparely populated is a consequence of populating it on
-demand, and hence the later would be more descriptive IMO.
+I'm largely okay, so
+Acked-by: Jan Beulich <jbeulich@suse.com>
 
-(Same for the Kconfig option then ONDEMAND_DIRECTMAP, or some such)
+Still my wariness remains towards the multi-function bit (it being set is
+at least misleading when the device then has no further functions), and I
+also remain not fully convinced by the earlier reply towards phantom
+functions. While those indeed don't have any config space, is their setting
+up in the IOMMU tables actually handled correctly for this virtual SBDF
+case? It may well be (as the virtual coordinates _should_ indeed not matter
+at all), but that's not entirely obvious.
 
-Thanks, Roger.
+Jan
 
