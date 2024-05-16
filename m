@@ -2,37 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id ADE938C7821
-	for <lists+xen-devel@lfdr.de>; Thu, 16 May 2024 16:00:09 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.723368.1128251 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A6A6B8C782A
+	for <lists+xen-devel@lfdr.de>; Thu, 16 May 2024 16:02:11 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.723378.1128260 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s7beH-000135-BR; Thu, 16 May 2024 13:59:57 +0000
+	id 1s7bgD-0005aG-RW; Thu, 16 May 2024 14:01:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 723368.1128251; Thu, 16 May 2024 13:59:57 +0000
+Received: by outflank-mailman (output) from mailman id 723378.1128260; Thu, 16 May 2024 14:01:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s7beH-0000y4-34; Thu, 16 May 2024 13:59:57 +0000
-Received: by outflank-mailman (input) for mailman id 723368;
- Thu, 16 May 2024 13:59:54 +0000
+	id 1s7bgD-0005Y0-Oc; Thu, 16 May 2024 14:01:57 +0000
+Received: by outflank-mailman (input) for mailman id 723378;
+ Thu, 16 May 2024 14:01:56 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=R9+o=MT=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
- id 1s7beE-0005tl-PR
- for xen-devel@lists.xenproject.org; Thu, 16 May 2024 13:59:54 +0000
-Received: from fhigh5-smtp.messagingengine.com
- (fhigh5-smtp.messagingengine.com [103.168.172.156])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=LYhW=MT=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1s7bgC-0005XX-U7
+ for xen-devel@lists.xenproject.org; Thu, 16 May 2024 14:01:56 +0000
+Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com
+ [2a00:1450:4864:20::636])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 91559875-138c-11ef-b4bb-af5377834399;
- Thu, 16 May 2024 15:59:53 +0200 (CEST)
-Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
- by mailfhigh.nyi.internal (Postfix) with ESMTP id 76D441140191;
- Thu, 16 May 2024 09:59:52 -0400 (EDT)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute1.internal (MEProxy); Thu, 16 May 2024 09:59:52 -0400
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 16 May 2024 09:59:51 -0400 (EDT)
+ id da249614-138c-11ef-b4bb-af5377834399;
+ Thu, 16 May 2024 16:01:54 +0200 (CEST)
+Received: by mail-ej1-x636.google.com with SMTP id
+ a640c23a62f3a-a59ad12efe3so152006066b.3
+ for <xen-devel@lists.xenproject.org>; Thu, 16 May 2024 07:01:54 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-574eb5ec296sm3404078a12.35.2024.05.16.07.01.53
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 16 May 2024 07:01:53 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,261 +45,173 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 91559875-138c-11ef-b4bb-af5377834399
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:cc:content-transfer-encoding
-	:content-type:date:date:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to; s=fm3; t=1715867992; x=1715954392; bh=8Lwmc35RtboctQggSkgi0
-	X2iYEdiNrOG6NFi8XBFJfU=; b=Y07+ofj+C6yaj8CQ62l94Sw9BFdAcITaXDbUd
-	oWyna9YEHPrJLiYuedx+YCE15d80c+bmJ8Kc/dci9UUZ0wQb/bARIHmOfXHEfAYx
-	q5HCiHRXNnwv1yI7lpi8sfFKBdPffc2+bwx7zV1EKvpgNRX7rE3mwc+5sKkZAipS
-	jtRRzbEQqk6HpfRnuorguonI58g2hgNy3QU7+nt8ADaW47vRMPi91WKR+6nygN2W
-	/535QV7Z22QbtoM1JBd5XrgrPU1aOD7n/hEyIszi5pg5M6U4/QigTzosy1Ux/mfb
-	lL+IKh3FFwiE/dXJKrRoXo9VjDmq13CmBIFMZhG8Wp1/nA01g==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:date:date:feedback-id:feedback-id:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to:x-me-proxy:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1715867992; x=
-	1715954392; bh=8Lwmc35RtboctQggSkgi0X2iYEdiNrOG6NFi8XBFJfU=; b=G
-	XaxK/XmnS8GPzNtSwQ9lYdOpRtfzAX4k1UF7pBTDxBF/LCvqAuL7tRCWxhdDy/w4
-	frsSh0+VusIHys6Tp1RhQXWsjXX4jv0Gzh43qqCfd9mXzMqbIO2jnXi0SOPNQFtP
-	0zxA1l9BI+Du3NzxOSdfWlCdjkyVGr908MucYli7crb+2D5X258x5Xi0OEa6UaeX
-	Mo0qp9ND9OzidDt923q1wtuzJYWWEA3+KlFyYb4XVu9ruVg57eNbajVeTRtoytVJ
-	H1snnNogValp3Nvh9k5A9icgTM53xwcWT8lp9XGnL2pVJQasG0qvg2KW0eLxK4V2
-	tKXsdQPbAAzr0JfHgcbxw==
-X-ME-Sender: <xms:WBFGZl4nLb70zh8qrl2tqAhKDyU_E9g93nnWIxjEIxKPqKpWwJ_0ng>
-    <xme:WBFGZi5TNqFRN41AR8nB7ZJ-o8UmbMgF_UkE_E-qGn1V8WnmVD8u389qFeEF99AuD
-    ShUKwqQUj0z8w>
-X-ME-Received: <xmr:WBFGZscWpfyTzaDfcQkqaIrWjxvhFd1WpRliT5-1NjMd6vURJrwhL0hvHC2jOer4WdwHay9UWW6AhU7RXX-wlIZeGjzOTLRWU5rOO5wkq8ylrNp8ibg>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvledrvdehuddgieelucetufdoteggodetrfdotf
-    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
-    uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
-    cujfgurhephffvvefufffkofgjfhgggfestdekredtredtjeenucfhrhhomhepofgrrhgv
-    khcuofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuceomhgrrhhmrghrvghksehinh
-    hvihhsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecuggftrfgrthhtvghrnhepueet
-    hefgieehheeftdeuleduhffgieelueejhffggfeiieevtefhfeffffeftdehnecuffhomh
-    grihhnpehgihhtlhgrsgdrtghomhenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgr
-    mhepmhgrihhlfhhrohhmpehmrghrmhgrrhgvkhesihhnvhhishhisghlvghthhhinhhgsh
-    hlrggsrdgtohhm
-X-ME-Proxy: <xmx:WBFGZuLoGLuJWaZq3hsWG5sizxh9_tOz9y6ruvH5K13oschCr_vtNQ>
-    <xmx:WBFGZpL4cfPXWHlaZqDptJ-mjLtD0Ms6_-9HOhkrNbAvhp_S3zsCZw>
-    <xmx:WBFGZnyeWFAnU57AzBuWSkQPAOPl-xp0pAEOfjjuhTTw5qT59znh5A>
-    <xmx:WBFGZlJ0DOlBUtaoHNgHllOsmnO7KqHYttd6uarA1NyCC0GqFQaOlg>
-    <xmx:WBFGZp3Xbzd0XyOsRetrv-AqPwiSpboj2G_1_HSQucziPf5qI0_e5Xt6>
-Feedback-ID: i1568416f:Fastmail
-From: =?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: xen-devel@lists.xenproject.org
-Cc: =?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
-	Doug Goldstein <cardoe@cardoe.com>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH 12/12] [DO NOT MERGE] switch to my containers fork
-Date: Thu, 16 May 2024 15:58:33 +0200
-Message-ID: <c9d3a79f5620f14326e54bf1f56ef0c18740d031.1715867907.git-series.marmarek@invisiblethingslab.com>
-X-Mailer: git-send-email 2.44.0
-In-Reply-To: <cover.f23e316613d8f82981f99b5fb90e36255c4adc63.1715867907.git-series.marmarek@invisiblethingslab.com>
-References: <cover.f23e316613d8f82981f99b5fb90e36255c4adc63.1715867907.git-series.marmarek@invisiblethingslab.com>
+X-Inumbo-ID: da249614-138c-11ef-b4bb-af5377834399
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1715868114; x=1716472914; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=ujnsNAx1jCOYPPKGm0C2coQ22R14RMeSetkSQ4kgQpI=;
+        b=YpIgfhOHWA19edn1dYkNmAQ1xZTyx4rrbZKQEZVRO5O0I8R8cYmYFlqoMUJgIlNAsc
+         GKzyk3bRRCKWig3Bwh/TmmuiDKH30RaDbEekctkBuAu9fh1ikafHkh/R6v70sRZQuL7+
+         zwc0VxzXRnw4SSPC/vlGMY7vqYRPo0tZrerfncs5gFKDscKV1xiYL7d8IhVOLAFtkjv4
+         EotZZkUmPJMnDoWZwz12+G/M7wXt9MKjWhmg8iPN4Rz2nJq3fvUJ0a7AKAhvhQKwAmxH
+         1rRoLntZ0xzxL202WebN7zRnE8l9ykns6K05YqT/+U0mSY+aH8oVrF+Uu4uyNgq/cGil
+         JGgg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1715868114; x=1716472914;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=ujnsNAx1jCOYPPKGm0C2coQ22R14RMeSetkSQ4kgQpI=;
+        b=GWrjTegF2QOD/2vaCoUz/MkQOvki0vMD0i72pNi/7Bkumecn+S02J6A6ns8EtB0w0f
+         OhmYT+8AG6V9HFpU97mg5pOqP4G/vaolxOYzezzxT0neyA9HfJK+SIdNlZEvL8JJCiia
+         31GFXdUsJBjf2Yz0YzniH2QkP3TKCIE6pXx6olrece9n7/ILaMBal5E0qim6Qqux1K5+
+         J22cIS8O7SWteuZ1Gho3C2wId2sccO6D5ftBFQCfe34dfb7dZEXe39pjGEuGwqQlqKFu
+         52G2QGbXtGgKPqlQ8vewv9yAXxgTyZC2UNSYTOuh62X4NjkpRxI4sRR5ZOUaAPKYL4nZ
+         b3Fg==
+X-Forwarded-Encrypted: i=1; AJvYcCWl1xfURu1JMNNpN1SQMcxdh85sAgkBydpdlu03u6upvbhnRHOaOj/3KKMhtKEQjUU1RuMugCTBzho/rSUyoC/n2v7gNyg8sin9nJZmY3Q=
+X-Gm-Message-State: AOJu0YxELyJmG7r0mFsPwGGXGRL6vZSG01KIQc4SgLcxNvnthuDyDXL+
+	obVrS63xM05u2K0+triPwIKm6fhrkpys/3bKVfrD99BFc501AZ1TaX24mp/CkA==
+X-Google-Smtp-Source: AGHT+IHvWE+TRNm9kP+7gFH5qyrY6kA1hpq9BGUCIFPQ1f08XDQ3RlBLHMAkblTfiUjObY4aRCN0Jg==
+X-Received: by 2002:a50:d741:0:b0:572:983e:4aaa with SMTP id 4fb4d7f45d1cf-5734d67f615mr16940880a12.31.1715868114267;
+        Thu, 16 May 2024 07:01:54 -0700 (PDT)
+Message-ID: <9652011f-3f24-43f8-b91e-88bd3982a4c4@suse.com>
+Date: Thu, 16 May 2024 16:01:52 +0200
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC XEN PATCH v8 5/5] domctl: Add XEN_DOMCTL_gsi_permission to
+ grant gsi
+Content-Language: en-US
+To: Jiqian Chen <Jiqian.Chen@amd.com>,
+ "Daniel P . Smith" <dpsmith@apertussolutions.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu
+ <wl@xen.org>, George Dunlap <george.dunlap@citrix.com>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ Anthony PERARD <anthony@xenproject.org>, Juergen Gross <jgross@suse.com>,
+ Stewart Hildebrand <Stewart.Hildebrand@amd.com>,
+ Huang Rui <Ray.Huang@amd.com>, xen-devel@lists.xenproject.org
+References: <20240516095235.64128-1-Jiqian.Chen@amd.com>
+ <20240516095235.64128-6-Jiqian.Chen@amd.com>
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20240516095235.64128-6-Jiqian.Chen@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
----
- automation/gitlab-ci/build.yaml | 19 ++++++++++++++++---
- automation/gitlab-ci/test.yaml  |  9 ++++++++-
- 2 files changed, 24 insertions(+), 4 deletions(-)
+On 16.05.2024 11:52, Jiqian Chen wrote:
+> Some type of domain don't have PIRQ, like PVH, when
+> passthrough a device to guest on PVH dom0, callstack
+> pci_add_dm_done->XEN_DOMCTL_irq_permission will failed
+> at domain_pirq_to_irq.
+> 
+> So, add a new hypercall to grant/revoke gsi permission
+> when dom0 is not PV or dom0 has not PIRQ flag.
 
-diff --git a/automation/gitlab-ci/build.yaml b/automation/gitlab-ci/build.yaml
-index f1e6a6144c90..88a59692a881 100644
---- a/automation/gitlab-ci/build.yaml
-+++ b/automation/gitlab-ci/build.yaml
-@@ -260,7 +260,7 @@
- 
- alpine-3.19-arm64-rootfs-export:
-   extends: .test-jobs-artifact-common
--  image: registry.gitlab.com/xen-project/xen/tests-artifacts/alpine:3.19-arm64v8
-+  image: registry.gitlab.com/xen-project/people/marmarek/xen/tests-artifacts/alpine:3.19-arm64v8
-   script:
-     - mkdir binaries && cp /initrd.tar.gz binaries/initrd.tar.gz
-   artifacts:
-@@ -320,7 +320,7 @@ qemu-system-ppc64-8.1.0-ppc64-export:
- 
- alpine-3.19-rootfs-export:
-   extends: .test-jobs-artifact-common
--  image: registry.gitlab.com/xen-project/xen/tests-artifacts/alpine:3.19
-+  image: registry.gitlab.com/xen-project/people/marmarek/xen/tests-artifacts/alpine:3.19
-   script:
-     - mkdir binaries && cp /initrd.tar.gz binaries/initrd.tar.gz
-     - cp /grub-core.img binaries/grub-core.img
-@@ -335,7 +335,7 @@ alpine-3.19-rootfs-export:
- 
- kernel-6.1.90-export:
-   extends: .test-jobs-artifact-common
--  image: registry.gitlab.com/xen-project/xen/tests-artifacts/kernel:6.1.90
-+  image: registry.gitlab.com/xen-project/people/marmarek/xen/tests-artifacts/kernel:6.1.90
-   script:
-     - mkdir binaries && cp /bzImage binaries/bzImage
-   artifacts:
-@@ -350,11 +350,13 @@ kernel-6.1.90-export:
- 
- alpine-3.19-gcc:
-   extends: .gcc-x86-64-build
-+  image: registry.gitlab.com/xen-project/people/marmarek/xen/${CONTAINER}
-   variables:
-     CONTAINER: alpine:3.19
- 
- alpine-3.19-gcc-debug:
-   extends: .gcc-x86-64-build-debug
-+  image: registry.gitlab.com/xen-project/people/marmarek/xen/${CONTAINER}
-   variables:
-     CONTAINER: alpine:3.19
-     STUBDOM_LINUX: y
-@@ -445,28 +447,33 @@ debian-bookworm-gcc-debug-arm64-randconfig:
- 
- alpine-3.19-gcc-arm64:
-   extends: .gcc-arm64-build
-+  image: registry.gitlab.com/xen-project/people/marmarek/xen/${CONTAINER}
-   variables:
-     CONTAINER: alpine:3.19-arm64v8
- 
- alpine-3.19-gcc-debug-arm64:
-   extends: .gcc-arm64-build-debug
-+  image: registry.gitlab.com/xen-project/people/marmarek/xen/${CONTAINER}
-   variables:
-     CONTAINER: alpine:3.19-arm64v8
- 
- alpine-3.19-gcc-arm64-randconfig:
-   extends: .gcc-arm64-build
-+  image: registry.gitlab.com/xen-project/people/marmarek/xen/${CONTAINER}
-   variables:
-     CONTAINER: alpine:3.19-arm64v8
-     RANDCONFIG: y
- 
- alpine-3.19-gcc-debug-arm64-randconfig:
-   extends: .gcc-arm64-build-debug
-+  image: registry.gitlab.com/xen-project/people/marmarek/xen/${CONTAINER}
-   variables:
-     CONTAINER: alpine:3.19-arm64v8
-     RANDCONFIG: y
- 
- alpine-3.19-gcc-debug-arm64-staticmem:
-   extends: .gcc-arm64-build-debug
-+  image: registry.gitlab.com/xen-project/people/marmarek/xen/${CONTAINER}
-   variables:
-     CONTAINER: alpine:3.19-arm64v8
-     EXTRA_XEN_CONFIG: |
-@@ -476,6 +483,7 @@ alpine-3.19-gcc-debug-arm64-staticmem:
- 
- alpine-3.19-gcc-debug-arm64-static-shared-mem:
-   extends: .gcc-arm64-build-debug
-+  image: registry.gitlab.com/xen-project/people/marmarek/xen/${CONTAINER}
-   variables:
-     CONTAINER: alpine:3.19-arm64v8
-     EXTRA_XEN_CONFIG: |
-@@ -485,6 +493,7 @@ alpine-3.19-gcc-debug-arm64-static-shared-mem:
- 
- alpine-3.19-gcc-debug-arm64-boot-cpupools:
-   extends: .gcc-arm64-build-debug
-+  image: registry.gitlab.com/xen-project/people/marmarek/xen/${CONTAINER}
-   variables:
-     CONTAINER: alpine:3.19-arm64v8
-     EXTRA_XEN_CONFIG: |
-@@ -598,11 +607,13 @@ debian-bookworm-gcc-arm64-cppcheck:
- 
- alpine-3.19-clang:
-   extends: .clang-x86-64-build
-+  image: registry.gitlab.com/xen-project/people/marmarek/xen/${CONTAINER}
-   variables:
-     CONTAINER: alpine:3.19
- 
- alpine-3.19-clang-debug:
-   extends: .clang-x86-64-build-debug
-+  image: registry.gitlab.com/xen-project/people/marmarek/xen/${CONTAINER}
-   variables:
-     CONTAINER: alpine:3.19
- 
-@@ -698,11 +709,13 @@ debian-bookworm-32-gcc-debug:
- 
- fedora-gcc:
-   extends: .gcc-x86-64-build
-+  image: registry.gitlab.com/xen-project/people/marmarek/xen/${CONTAINER}
-   variables:
-     CONTAINER: fedora:39
- 
- fedora-gcc-debug:
-   extends: .gcc-x86-64-build-debug
-+  image: registry.gitlab.com/xen-project/people/marmarek/xen/${CONTAINER}
-   variables:
-     CONTAINER: fedora:39
- 
-diff --git a/automation/gitlab-ci/test.yaml b/automation/gitlab-ci/test.yaml
-index 4e4dca91c26e..0f36036d8275 100644
---- a/automation/gitlab-ci/test.yaml
-+++ b/automation/gitlab-ci/test.yaml
-@@ -1,6 +1,6 @@
- .test-jobs-common:
-   stage: test
--  image: registry.gitlab.com/xen-project/xen/${CONTAINER}
-+  image: registry.gitlab.com/xen-project/people/marmarek/xen/${CONTAINER}
- 
- .arm64-test-needs: &arm64-test-needs
-   - alpine-3.19-arm64-rootfs-export
-@@ -16,6 +16,7 @@
- 
- .qemu-arm64:
-   extends: .test-jobs-common
-+  image: registry.gitlab.com/xen-project/xen/${CONTAINER}
-   variables:
-     CONTAINER: debian:bookworm-arm64v8
-     LOGFILE: qemu-smoke-arm64.log
-@@ -29,6 +30,7 @@
- 
- .qemu-arm32:
-   extends: .test-jobs-common
-+  image: registry.gitlab.com/xen-project/xen/${CONTAINER}
-   variables:
-     CONTAINER: debian:bookworm-arm64v8
-     LOGFILE: qemu-smoke-arm32.log
-@@ -42,6 +44,7 @@
- 
- .qemu-x86-64:
-   extends: .test-jobs-common
-+  image: registry.gitlab.com/xen-project/xen/${CONTAINER}
-   variables:
-     CONTAINER: debian:bookworm
-     LOGFILE: qemu-smoke-x86-64.log
-@@ -55,6 +58,7 @@
- 
- .qemu-riscv64:
-   extends: .test-jobs-common
-+  image: registry.gitlab.com/xen-project/xen/${CONTAINER}
-   variables:
-     CONTAINER: archlinux:current-riscv64
-     LOGFILE: qemu-smoke-riscv64.log
-@@ -68,6 +72,7 @@
- 
- .qemu-ppc64le:
-   extends: .test-jobs-common
-+  image: registry.gitlab.com/xen-project/xen/${CONTAINER}
-   variables:
-     CONTAINER: debian:bullseye-ppc64le
-     LOGFILE: qemu-smoke-ppc64le.log
-@@ -81,6 +86,7 @@
- 
- .xilinx-arm64:
-   extends: .test-jobs-common
-+  image: registry.gitlab.com/xen-project/xen/${CONTAINER}
-   variables:
-     CONTAINER: ubuntu:xenial-xilinx
-     LOGFILE: qemu-smoke-xilinx.log
-@@ -129,6 +135,7 @@
- # Test jobs
- build-each-commit-gcc:
-   extends: .test-jobs-common
-+  image: registry.gitlab.com/xen-project/xen/${CONTAINER}
-   variables:
-     CONTAINER: debian:bookworm
-     XEN_TARGET_ARCH: x86_64
--- 
-git-series 0.9.1
+Honestly I find this hard to follow, and thus not really making clear why
+no other existing mechanism could be used.
+
+> Signed-off-by: Huang Rui <ray.huang@amd.com>
+> Signed-off-by: Jiqian Chen <Jiqian.Chen@amd.com>
+> ---
+
+Below here in an RFC patch you typically would want to put specific items
+you're seeking feedback on. Without that it's hard to tell why this is
+marked RFC.
+
+> --- a/xen/arch/x86/domctl.c
+> +++ b/xen/arch/x86/domctl.c
+> @@ -237,6 +237,37 @@ long arch_do_domctl(
+>          break;
+>      }
+>  
+> +    case XEN_DOMCTL_gsi_permission:
+> +    {
+> +        unsigned int gsi = domctl->u.gsi_permission.gsi;
+> +        int allow = domctl->u.gsi_permission.allow_access;
+
+bool?
+
+> +        if ( is_pv_domain(current->domain) || has_pirq(current->domain) )
+> +        {
+> +            ret = -EOPNOTSUPP;
+> +            break;
+> +        }
+
+Such a restriction imo wants explaining in a comment.
+
+> +        if ( gsi >= nr_irqs_gsi )
+> +        {
+> +            ret = -EINVAL;
+> +            break;
+> +        }
+> +
+> +        if ( !irq_access_permitted(current->domain, gsi) ||
+
+I.e. assuming IRQ == GSI? Is that a valid assumption when any number of
+source overrides may be surfaced by ACPI?
+
+> +             xsm_irq_permission(XSM_HOOK, d, gsi, allow) )
+
+Here I'm pretty sure you can't very well re-use an existing hook, as the
+value of interest is in a different numbering space, and a possible hook
+function has no way of knowing which one it is. Daniel?
+
+> +        {
+> +            ret = -EPERM;
+> +            break;
+> +        }
+> +
+> +        if ( allow )
+> +            ret = irq_permit_access(d, gsi);
+> +        else
+> +            ret = irq_deny_access(d, gsi);
+
+As above I'm afraid you can't assume IRQ == GSI.
+
+> --- a/xen/include/public/domctl.h
+> +++ b/xen/include/public/domctl.h
+> @@ -447,6 +447,13 @@ struct xen_domctl_irq_permission {
+>  };
+>  
+>  
+> +/* XEN_DOMCTL_gsi_permission */
+> +struct xen_domctl_gsi_permission {
+> +    uint32_t gsi;
+> +    uint8_t allow_access;    /* flag to specify enable/disable of x86 gsi access */
+> +};
+
+Explicit padding please, including a check that it's zero on input.
+
+> +
+> +
+>  /* XEN_DOMCTL_iomem_permission */
+
+No double blank lines please. In fact you will want to break the double blank
+lines in leading context, inserting in the middle.
+
+Jan
 
