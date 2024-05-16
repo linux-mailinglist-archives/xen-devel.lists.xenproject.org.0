@@ -2,38 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A6A6B8C782A
-	for <lists+xen-devel@lfdr.de>; Thu, 16 May 2024 16:02:11 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.723378.1128260 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6D6C38C782E
+	for <lists+xen-devel@lfdr.de>; Thu, 16 May 2024 16:02:48 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.723381.1128270 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s7bgD-0005aG-RW; Thu, 16 May 2024 14:01:57 +0000
+	id 1s7bgs-0006Dc-3p; Thu, 16 May 2024 14:02:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 723378.1128260; Thu, 16 May 2024 14:01:57 +0000
+Received: by outflank-mailman (output) from mailman id 723381.1128270; Thu, 16 May 2024 14:02:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s7bgD-0005Y0-Oc; Thu, 16 May 2024 14:01:57 +0000
-Received: by outflank-mailman (input) for mailman id 723378;
- Thu, 16 May 2024 14:01:56 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=LYhW=MT=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1s7bgC-0005XX-U7
- for xen-devel@lists.xenproject.org; Thu, 16 May 2024 14:01:56 +0000
-Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com
- [2a00:1450:4864:20::636])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id da249614-138c-11ef-b4bb-af5377834399;
- Thu, 16 May 2024 16:01:54 +0200 (CEST)
-Received: by mail-ej1-x636.google.com with SMTP id
- a640c23a62f3a-a59ad12efe3so152006066b.3
- for <xen-devel@lists.xenproject.org>; Thu, 16 May 2024 07:01:54 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-574eb5ec296sm3404078a12.35.2024.05.16.07.01.53
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 16 May 2024 07:01:53 -0700 (PDT)
+	id 1s7bgs-0006Aq-0z; Thu, 16 May 2024 14:02:38 +0000
+Received: by outflank-mailman (input) for mailman id 723381;
+ Thu, 16 May 2024 14:02:36 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=G7yJ=MT=amazon.es=prvs=85909aada=nsaenz@srs-se1.protection.inumbo.net>)
+ id 1s7bgq-00069X-6h
+ for xen-devel@lists.xenproject.org; Thu, 16 May 2024 14:02:36 +0000
+Received: from smtp-fw-9102.amazon.com (smtp-fw-9102.amazon.com
+ [207.171.184.29]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id f13a966b-138c-11ef-909d-e314d9c70b13;
+ Thu, 16 May 2024 16:02:35 +0200 (CEST)
+Received: from pdx4-co-svc-p1-lb2-vlan3.amazon.com (HELO
+ smtpout.prod.us-east-1.prod.farcaster.email.amazon.dev) ([10.25.36.214])
+ by smtp-border-fw-9102.sea19.amazon.com with
+ ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 May 2024 14:02:24 +0000
+Received: from EX19MTAEUC001.ant.amazon.com [10.0.17.79:61258]
+ by smtpin.naws.eu-west-1.prod.farcaster.email.amazon.dev [10.0.38.98:2525]
+ with esmtp (Farcaster)
+ id 669cf238-0252-433a-b5ae-10131f992275; Thu, 16 May 2024 14:02:23 +0000 (UTC)
+Received: from EX19D004EUC001.ant.amazon.com (10.252.51.190) by
+ EX19MTAEUC001.ant.amazon.com (10.252.51.155) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1258.28; Thu, 16 May 2024 14:02:23 +0000
+Received: from localhost (10.13.235.138) by EX19D004EUC001.ant.amazon.com
+ (10.252.51.190) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1258.28; Thu, 16 May
+ 2024 14:02:12 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,173 +52,75 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: da249614-138c-11ef-b4bb-af5377834399
+X-Inumbo-ID: f13a966b-138c-11ef-909d-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1715868114; x=1716472914; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=ujnsNAx1jCOYPPKGm0C2coQ22R14RMeSetkSQ4kgQpI=;
-        b=YpIgfhOHWA19edn1dYkNmAQ1xZTyx4rrbZKQEZVRO5O0I8R8cYmYFlqoMUJgIlNAsc
-         GKzyk3bRRCKWig3Bwh/TmmuiDKH30RaDbEekctkBuAu9fh1ikafHkh/R6v70sRZQuL7+
-         zwc0VxzXRnw4SSPC/vlGMY7vqYRPo0tZrerfncs5gFKDscKV1xiYL7d8IhVOLAFtkjv4
-         EotZZkUmPJMnDoWZwz12+G/M7wXt9MKjWhmg8iPN4Rz2nJq3fvUJ0a7AKAhvhQKwAmxH
-         1rRoLntZ0xzxL202WebN7zRnE8l9ykns6K05YqT/+U0mSY+aH8oVrF+Uu4uyNgq/cGil
-         JGgg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1715868114; x=1716472914;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=ujnsNAx1jCOYPPKGm0C2coQ22R14RMeSetkSQ4kgQpI=;
-        b=GWrjTegF2QOD/2vaCoUz/MkQOvki0vMD0i72pNi/7Bkumecn+S02J6A6ns8EtB0w0f
-         OhmYT+8AG6V9HFpU97mg5pOqP4G/vaolxOYzezzxT0neyA9HfJK+SIdNlZEvL8JJCiia
-         31GFXdUsJBjf2Yz0YzniH2QkP3TKCIE6pXx6olrece9n7/ILaMBal5E0qim6Qqux1K5+
-         J22cIS8O7SWteuZ1Gho3C2wId2sccO6D5ftBFQCfe34dfb7dZEXe39pjGEuGwqQlqKFu
-         52G2QGbXtGgKPqlQ8vewv9yAXxgTyZC2UNSYTOuh62X4NjkpRxI4sRR5ZOUaAPKYL4nZ
-         b3Fg==
-X-Forwarded-Encrypted: i=1; AJvYcCWl1xfURu1JMNNpN1SQMcxdh85sAgkBydpdlu03u6upvbhnRHOaOj/3KKMhtKEQjUU1RuMugCTBzho/rSUyoC/n2v7gNyg8sin9nJZmY3Q=
-X-Gm-Message-State: AOJu0YxELyJmG7r0mFsPwGGXGRL6vZSG01KIQc4SgLcxNvnthuDyDXL+
-	obVrS63xM05u2K0+triPwIKm6fhrkpys/3bKVfrD99BFc501AZ1TaX24mp/CkA==
-X-Google-Smtp-Source: AGHT+IHvWE+TRNm9kP+7gFH5qyrY6kA1hpq9BGUCIFPQ1f08XDQ3RlBLHMAkblTfiUjObY4aRCN0Jg==
-X-Received: by 2002:a50:d741:0:b0:572:983e:4aaa with SMTP id 4fb4d7f45d1cf-5734d67f615mr16940880a12.31.1715868114267;
-        Thu, 16 May 2024 07:01:54 -0700 (PDT)
-Message-ID: <9652011f-3f24-43f8-b91e-88bd3982a4c4@suse.com>
-Date: Thu, 16 May 2024 16:01:52 +0200
+  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazon201209;
+  t=1715868155; x=1747404155;
+  h=mime-version:content-transfer-encoding:date:message-id:
+   cc:from:to:references:in-reply-to:subject;
+  bh=PII+OyY3HRsFOpjW5l++XBk5W4fZ/zADl3BCmJlUORM=;
+  b=MxGCVqenHOOu1amiqFPIJj8iHolMiELzMBkfgtz7aRgui5laU37yroIm
+   PQlMALS83R8GC1Hep2GTybOqW92bpd5lOId6oaujqhVvjc75ecQ6PUtaJ
+   kfxBDC2COnweQbgDZQbxg4MreqHCUZ5EY8+IykAJjK5klmj0rZDibvbBM
+   g=;
+X-IronPort-AV: E=Sophos;i="6.08,164,1712620800"; 
+   d="scan'208";a="419475431"
+Subject: Re: [RFC PATCH v3 3/5] KVM: x86: Add notifications for Heki policy
+ configuration and violation
+X-Farcaster-Flow-ID: 669cf238-0252-433a-b5ae-10131f992275
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC XEN PATCH v8 5/5] domctl: Add XEN_DOMCTL_gsi_permission to
- grant gsi
-Content-Language: en-US
-To: Jiqian Chen <Jiqian.Chen@amd.com>,
- "Daniel P . Smith" <dpsmith@apertussolutions.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu
- <wl@xen.org>, George Dunlap <george.dunlap@citrix.com>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- Anthony PERARD <anthony@xenproject.org>, Juergen Gross <jgross@suse.com>,
- Stewart Hildebrand <Stewart.Hildebrand@amd.com>,
- Huang Rui <Ray.Huang@amd.com>, xen-devel@lists.xenproject.org
-References: <20240516095235.64128-1-Jiqian.Chen@amd.com>
- <20240516095235.64128-6-Jiqian.Chen@amd.com>
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240516095235.64128-6-Jiqian.Chen@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="UTF-8"
+Date: Thu, 16 May 2024 14:02:09 +0000
+Message-ID: <D1B4HKJAJG21.2DH9F3E1Q6J9L@amazon.com>
+CC: Sean Christopherson <seanjc@google.com>, Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>, "H . Peter Anvin" <hpa@zytor.com>,
+	Ingo Molnar <mingo@redhat.com>, Kees Cook <keescook@chromium.org>, "Paolo
+ Bonzini" <pbonzini@redhat.com>, Thomas Gleixner <tglx@linutronix.de>, "Vitaly
+ Kuznetsov" <vkuznets@redhat.com>, Wanpeng Li <wanpengli@tencent.com>, "Rick P
+ Edgecombe" <rick.p.edgecombe@intel.com>, Alexander Graf <graf@amazon.com>,
+	Angelina Vu <angelinavu@linux.microsoft.com>, Anna Trikalinou
+	<atrikalinou@microsoft.com>, Chao Peng <chao.p.peng@linux.intel.com>,
+	"Forrest Yuan Yu" <yuanyu@google.com>, James Gowans <jgowans@amazon.com>,
+	James Morris <jamorris@linux.microsoft.com>, John Andersen
+	<john.s.andersen@intel.com>, "Madhavan T . Venkataraman"
+	<madvenka@linux.microsoft.com>, Marian Rotariu <marian.c.rotariu@gmail.com>,
+	=?utf-8?q?Mihai_Don=C8=9Bu?= <mdontu@bitdefender.com>,
+	=?utf-8?q?Nicu=C8=99or_C=C3=AE=C8=9Bu?= <nicu.citu@icloud.com>, Thara
+ Gopinath <tgopinath@microsoft.com>, "Trilok Soni" <quic_tsoni@quicinc.com>,
+	Wei Liu <wei.liu@kernel.org>, Will Deacon <will@kernel.org>, Yu Zhang
+	<yu.c.zhang@linux.intel.com>, =?utf-8?q?=C8=98tefan_=C8=98icleru?=
+	<ssicleru@bitdefender.com>, <dev@lists.cloudhypervisor.org>,
+	<kvm@vger.kernel.org>, <linux-hardening@vger.kernel.org>,
+	<linux-hyperv@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<linux-security-module@vger.kernel.org>, <qemu-devel@nongnu.org>,
+	<virtualization@lists.linux-foundation.org>, <x86@kernel.org>,
+	<xen-devel@lists.xenproject.org>
+From: Nicolas Saenz Julienne <nsaenz@amazon.com>
+To: =?utf-8?q?Micka=C3=ABl_Sala=C3=BCn?= <mic@digikod.net>
+X-Mailer: aerc 0.17.0-129-gd582ac682cdf-dirty
+References: <20240503131910.307630-1-mic@digikod.net>
+ <20240503131910.307630-4-mic@digikod.net> <ZjTuqV-AxQQRWwUW@google.com>
+ <20240506.ohwe7eewu0oB@digikod.net> <ZjmFPZd5q_hEBdBz@google.com>
+ <20240507.ieghomae0UoC@digikod.net> <ZjpTxt-Bxia3bRwB@google.com>
+ <D15VQ97L5M8J.1TDNQE6KLW6JO@amazon.com> <20240514.mai3Ahdoo2qu@digikod.net>
+In-Reply-To: <20240514.mai3Ahdoo2qu@digikod.net>
+X-Originating-IP: [10.13.235.138]
+X-ClientProxiedBy: EX19D046UWA001.ant.amazon.com (10.13.139.112) To
+ EX19D004EUC001.ant.amazon.com (10.252.51.190)
 
-On 16.05.2024 11:52, Jiqian Chen wrote:
-> Some type of domain don't have PIRQ, like PVH, when
-> passthrough a device to guest on PVH dom0, callstack
-> pci_add_dm_done->XEN_DOMCTL_irq_permission will failed
-> at domain_pirq_to_irq.
-> 
-> So, add a new hypercall to grant/revoke gsi permission
-> when dom0 is not PV or dom0 has not PIRQ flag.
+On Tue May 14, 2024 at 12:23 PM UTC, Micka=C3=ABl Sala=C3=BCn wrote:
+> > Development happens
+> > https://github.com/vianpl/{linux,qemu,kvm-unit-tests} and the vsm-next
+> > branch, but I'd advice against looking into it until we add some order
+> > to the rework. Regardless, feel free to get in touch.
+>
+> Thanks for the update.
+>
+> Could we schedule a PUCK meeting to synchronize and help each other?
+> What about June 12?
 
-Honestly I find this hard to follow, and thus not really making clear why
-no other existing mechanism could be used.
+Sounds great! June 12th works for me.
 
-> Signed-off-by: Huang Rui <ray.huang@amd.com>
-> Signed-off-by: Jiqian Chen <Jiqian.Chen@amd.com>
-> ---
-
-Below here in an RFC patch you typically would want to put specific items
-you're seeking feedback on. Without that it's hard to tell why this is
-marked RFC.
-
-> --- a/xen/arch/x86/domctl.c
-> +++ b/xen/arch/x86/domctl.c
-> @@ -237,6 +237,37 @@ long arch_do_domctl(
->          break;
->      }
->  
-> +    case XEN_DOMCTL_gsi_permission:
-> +    {
-> +        unsigned int gsi = domctl->u.gsi_permission.gsi;
-> +        int allow = domctl->u.gsi_permission.allow_access;
-
-bool?
-
-> +        if ( is_pv_domain(current->domain) || has_pirq(current->domain) )
-> +        {
-> +            ret = -EOPNOTSUPP;
-> +            break;
-> +        }
-
-Such a restriction imo wants explaining in a comment.
-
-> +        if ( gsi >= nr_irqs_gsi )
-> +        {
-> +            ret = -EINVAL;
-> +            break;
-> +        }
-> +
-> +        if ( !irq_access_permitted(current->domain, gsi) ||
-
-I.e. assuming IRQ == GSI? Is that a valid assumption when any number of
-source overrides may be surfaced by ACPI?
-
-> +             xsm_irq_permission(XSM_HOOK, d, gsi, allow) )
-
-Here I'm pretty sure you can't very well re-use an existing hook, as the
-value of interest is in a different numbering space, and a possible hook
-function has no way of knowing which one it is. Daniel?
-
-> +        {
-> +            ret = -EPERM;
-> +            break;
-> +        }
-> +
-> +        if ( allow )
-> +            ret = irq_permit_access(d, gsi);
-> +        else
-> +            ret = irq_deny_access(d, gsi);
-
-As above I'm afraid you can't assume IRQ == GSI.
-
-> --- a/xen/include/public/domctl.h
-> +++ b/xen/include/public/domctl.h
-> @@ -447,6 +447,13 @@ struct xen_domctl_irq_permission {
->  };
->  
->  
-> +/* XEN_DOMCTL_gsi_permission */
-> +struct xen_domctl_gsi_permission {
-> +    uint32_t gsi;
-> +    uint8_t allow_access;    /* flag to specify enable/disable of x86 gsi access */
-> +};
-
-Explicit padding please, including a check that it's zero on input.
-
-> +
-> +
->  /* XEN_DOMCTL_iomem_permission */
-
-No double blank lines please. In fact you will want to break the double blank
-lines in leading context, inserting in the middle.
-
-Jan
+Nicolas
 
