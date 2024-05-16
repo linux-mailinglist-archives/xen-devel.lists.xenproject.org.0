@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 803078C74B7
-	for <lists+xen-devel@lfdr.de>; Thu, 16 May 2024 12:41:33 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.723109.1127649 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8A4068C74D3
+	for <lists+xen-devel@lfdr.de>; Thu, 16 May 2024 12:50:24 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.723114.1127659 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s7YXx-0001Yg-Di; Thu, 16 May 2024 10:41:13 +0000
+	id 1s7YgP-0003gq-7V; Thu, 16 May 2024 10:49:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 723109.1127649; Thu, 16 May 2024 10:41:13 +0000
+Received: by outflank-mailman (output) from mailman id 723114.1127659; Thu, 16 May 2024 10:49:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s7YXx-0001WP-Az; Thu, 16 May 2024 10:41:13 +0000
-Received: by outflank-mailman (input) for mailman id 723109;
- Thu, 16 May 2024 10:41:11 +0000
+	id 1s7YgP-0003ej-4x; Thu, 16 May 2024 10:49:57 +0000
+Received: by outflank-mailman (input) for mailman id 723114;
+ Thu, 16 May 2024 10:49:55 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=LYhW=MT=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1s7YXv-0001UR-8s
- for xen-devel@lists.xenproject.org; Thu, 16 May 2024 10:41:11 +0000
-Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com
- [2a00:1450:4864:20::634])
+ id 1s7YgN-0003eY-Oz
+ for xen-devel@lists.xenproject.org; Thu, 16 May 2024 10:49:55 +0000
+Received: from mail-ed1-x535.google.com (mail-ed1-x535.google.com
+ [2a00:1450:4864:20::535])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ce4cf024-1370-11ef-b4bb-af5377834399;
- Thu, 16 May 2024 12:41:09 +0200 (CEST)
-Received: by mail-ej1-x634.google.com with SMTP id
- a640c23a62f3a-a59b81d087aso263430866b.3
- for <xen-devel@lists.xenproject.org>; Thu, 16 May 2024 03:41:09 -0700 (PDT)
+ id 06ea452b-1372-11ef-b4bb-af5377834399;
+ Thu, 16 May 2024 12:49:53 +0200 (CEST)
+Received: by mail-ed1-x535.google.com with SMTP id
+ 4fb4d7f45d1cf-572af0b12b8so3109872a12.2
+ for <xen-devel@lists.xenproject.org>; Thu, 16 May 2024 03:49:53 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a5cdce8f916sm126129866b.223.2024.05.16.03.41.08
+ 4fb4d7f45d1cf-574bcad0362sm7099189a12.20.2024.05.16.03.49.52
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 16 May 2024 03:41:08 -0700 (PDT)
+ Thu, 16 May 2024 03:49:52 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,52 +45,62 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ce4cf024-1370-11ef-b4bb-af5377834399
+X-Inumbo-ID: 06ea452b-1372-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1715856068; x=1716460868; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1715856593; x=1716461393; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=8rTbD/cvfzhzDm6OSlrL0nm/TpngG0yb23GR8C0xZtQ=;
-        b=RP1SCy46d5ZcHZ4ZYg6pBcORcVlIf37WnfBi2UOv2B7Hs9TD9UKXDzVkg7/2xSRmLH
-         9+bduNZOzKeO0+FUNNMNAM9dNqSb1n8ZM6oXvSUwtC3eGFqMDLDdkcdZBIAoY2I/ewwt
-         mX+urcDUodWXYYf8ndNpMfZp4eZ4GgkYS5UoPT03I76B1fBy/V/86FcsM1xDtWvXXvBG
-         T7+ouJ0N0i5VXTNP8OurhX3u391/3xyHqkcl++HhI6QW+vLbqxB3jWkNsiiZtEPK0+MI
-         GenRwNCPM37y3C8SV4wjRLLU9E6Xmt+GYNi6fXgzk0BmrHWvRYWqGygoZSzV6oa+dGQg
-         faaQ==
+        bh=bl/XB3ZRlZVeGhQxU9bpIlpMMOJOvBs3A0fid+cTgSs=;
+        b=IdJJ+hk4Qi0sEgpXQHfmXfBmtsX/JdVnEISAXlxLzbUFo+G0CXyKBFeu0l06iz+M1w
+         PnZ8j0l40z2QThKsTyEX3jf3nQQ+VLly9M1a4jT9jeLbuxwBEW5SfCsz9uyumHUkCPl5
+         G6/MPxIJk02qaY9WJyJp34neyeqHnm835WdxVxNN749Rj/p/YgR0b68qLRx+mbyJspcb
+         9w6ocPUogyYG8xrH5Cn/8gPGiEM2SgPryMNNiSKr1Vxm/u5dtAQMFdmHZ061P7fHUQZ+
+         yICu5I2PMxC1SiTRTipngy/fapXAsE47h3ZE8xbp8JOVs4z7kd1EuQ40O5dTilTYmb4n
+         kQgQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1715856068; x=1716460868;
+        d=1e100.net; s=20230601; t=1715856593; x=1716461393;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=8rTbD/cvfzhzDm6OSlrL0nm/TpngG0yb23GR8C0xZtQ=;
-        b=kVuXor1ifeo8iZ3gkqhT5BWXr3saurwjdvyR39z5Ttv8bWzAmsfXq98h4jTzTab4hs
-         QWNWv421yJ7gVM+1OcX2ryiBBJ/yOwjoBYK1BHTNbo48tsauBiSzzySuxX0kdB0+ih8F
-         YMTq1nzYb+OISkV8wg+pZLWPFPH21dj8zejPXP3S2sfzOPxx9zXemvAfvMU1uv5aoaDJ
-         0nC40BXJUWhyzo6LUY4ZENy71OJ7i6P44pkbE02se5yginiY3pGHBDG3qH1zqvtQ22yX
-         +KqK7YpH0y0juwO7HScCED+gWDSg4AwZ4z/Rz++rKYRNnYM7rFYu1LmGTG5ygoGDRReo
-         ENyw==
-X-Forwarded-Encrypted: i=1; AJvYcCW6DpJYG0kzXhr5LQ///Rd6nlIAMQC9HTCyL3+cpjopU8oo7VVYXUUTs0BAW3N++kyJ2ZijLgqNCNXj3vA7nDpPiLi7KuFu8LzTmNFTLJc=
-X-Gm-Message-State: AOJu0Yxb9QTVeGSBjYZCJwu4U+T/onXM1Xff2Z8JWbE4m8ip5wbypBuy
-	RRRTuiAhhR+NGKOlG91K6ESA1SqoIhsGd1VCDR4CdoNwlUWrWx6myioAjN8Muavbpbq9xXp9U60
-	=
-X-Google-Smtp-Source: AGHT+IEUJy3Gp2/4Y1gFgIyjekpL4JYgPd9g4eMbL4svhFz0fdbkfyeTwvUtmH3eu4NGQ4XpzxdbYQ==
-X-Received: by 2002:a17:906:7f95:b0:a59:c833:d274 with SMTP id a640c23a62f3a-a5a2d5cb2a0mr1858832766b.37.1715856068675;
-        Thu, 16 May 2024 03:41:08 -0700 (PDT)
-Message-ID: <cc4fb70e-0990-4f61-83a2-7063f3277dee@suse.com>
-Date: Thu, 16 May 2024 12:41:07 +0200
+        bh=bl/XB3ZRlZVeGhQxU9bpIlpMMOJOvBs3A0fid+cTgSs=;
+        b=qzTxyQHP2cnZmCJo0JxgcHZ4xAGMo1zr0PpeeoBceNRY6EIBXnJ6Lo6h8bj12OF7If
+         CO6G3wmMMY0f1zfCH+ouwJFjJrTotZdCTI22I2AgdF90PuKjGeeLznQANoMAHXZkpdH7
+         il5XBiejHTPyyJJ1vV/xagk4vMa5WxvPXuNNKKfTkho+2U8Sg5rho2NEZ8ZeDgmX2JNp
+         7Sj6Q9/HAV3DprkWNDpKxxD3YpfyZIZh8+tITTCBr46Rx6dIx0Prpp+zNHpJZEBFG5k4
+         xziz2mmRqhN9GHKTSfCP8GAEX94dHHmILsQ3Hlz4JiQk/+0NA+B9qj0pVkh/+e5jDzR/
+         oN5w==
+X-Forwarded-Encrypted: i=1; AJvYcCXzvikP+yaWoItPnefNK11vJmBn/wHswpmDByG10eJ6ELHClyVXB+pgKf4B0a0lzB3eNYIoaC+NG99iLQZ0AzUtccK10vxR0L5U6mlxFFo=
+X-Gm-Message-State: AOJu0YzKtqZS1apa9rpsH/N0iNwZ5U/Rt5OEbncy9PPeD3Tb5xbp9U9P
+	ebqYpHFdpTLbIUsYPOkfMAH2+1pt6GoHmcV7damqHNvRYRWGNpLvLoPPtZZ6sw==
+X-Google-Smtp-Source: AGHT+IG7H/Z+VkkPWcbXJlig5TIVBFBGq8GZYFhY4lMHxwGHaCqvQs4H4rHY3Hilk//oyGzqLlgpDA==
+X-Received: by 2002:a50:8711:0:b0:572:7015:f303 with SMTP id 4fb4d7f45d1cf-5734d6f00d7mr15720119a12.35.1715856593132;
+        Thu, 16 May 2024 03:49:53 -0700 (PDT)
+Message-ID: <5a121770-9bf3-40c6-ae91-8dc70174dad5@suse.com>
+Date: Thu, 16 May 2024 12:49:51 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH v2 05/15] x86: introduce CONFIG_ALTP2M Kconfig option
+Subject: Re: [PATCH v9 02/15] xen: introduce generic non-atomic test_*bit()
 Content-Language: en-US
-To: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Xenia Ragiadakou <xenia.ragiadakou@amd.com>,
- Tamas K Lengyel <tamas@tklengyel.com>, xen-devel@lists.xenproject.org
-References: <cover.1715761386.git.Sergiy_Kibrik@epam.com>
- <14a8c523b24c87959941e905bd60933a91144bc7.1715761386.git.Sergiy_Kibrik@epam.com>
+To: "Oleksii K." <oleksii.kurochko@gmail.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Ross Lagerwall <ross.lagerwall@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>,
+ Shawn Anastasio <sanastasio@raptorengineering.com>,
+ xen-devel@lists.xenproject.org
+References: <cover.1714988096.git.oleksii.kurochko@gmail.com>
+ <616e8be09f217a766b96c4f9060f6658636a4338.1714988096.git.oleksii.kurochko@gmail.com>
+ <2ac0ca46-6957-4d31-95cb-3016de7b11b8@suse.com>
+ <76a84e9e239e1338fc6f86d243b74fa239d8091d.camel@gmail.com>
+ <5174d73f-677d-4c5c-9d4c-e651a29e4366@suse.com>
+ <588867d6e054264551e0e27b534955fce9b6d6d5.camel@gmail.com>
+ <77c6e497-631d-4f92-bd38-8ab7dba4841d@suse.com>
+ <c8bd47e8f8558d88b4d5a4a09ea10728006fd4d3.camel@gmail.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -115,35 +125,62 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <14a8c523b24c87959941e905bd60933a91144bc7.1715761386.git.Sergiy_Kibrik@epam.com>
+In-Reply-To: <c8bd47e8f8558d88b4d5a4a09ea10728006fd4d3.camel@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 15.05.2024 11:08, Sergiy Kibrik wrote:
-> --- a/xen/arch/x86/Kconfig
-> +++ b/xen/arch/x86/Kconfig
-> @@ -358,6 +358,11 @@ config REQUIRE_NX
->  	  was unavailable. However, if enabled, Xen will no longer boot on
->  	  any CPU which is lacking NX support.
->  
-> +config ALTP2M
-> +	bool "Alternate P2M support"
-> +	def_bool y
+On 16.05.2024 12:34, Oleksii K. wrote:
+> On Thu, 2024-05-16 at 09:04 +0200, Jan Beulich wrote:
+>> (Later) Wait, maybe I've finally figured it: You use
+>> arch__test_and_*()
+>> because those underlie __test_and_*(), but arch_test_bit() because
+>> there's
+>> solely test_bit() (same for the generic_* naming).
+> Yes, that what I meant.
+> 
+>>  I guess I can accept
+>> that then, despite the slight anomaly you point out, resulting in the
+>> question towards 3 underscores in a row. To clarify, my thinking was
+>> more
+>> towards there not possibly being generic forms of test_and_*() (i.e.
+>> no
+>> possible set of arch_test_and_*() or generic_test_and_*()), thus
+>> using
+>> double inner underscores in arch__test_*() and generic__test_*() to
+>> signify that those are purely internal functions, which aren't
+>> supposed to
+>> be called directly.
+> I understand your point regarding functions that start with "__".
+> For example, __test_and_clear_bit() is used not only internally (in
+> terms of architecture code) but also in common code, so it is not
+> strictly internal. I may have misunderstood what "internal function"
+> means in this context.
+> 
+> I thought that, at least for bit operations, "__bit_operation" means
+> that the bit operation is non-atomic and can be reordered, which
+> implies that it's not a good idea to use it in common code without
+> additional steps.
 
-Since you have "bool" already, here you mean "default".
+Correct, up to the comma; those may very well be used in common code,
+provided non-atomic forms indeed suffice. But in my reply I didn't talk
+about double-underscore-prefixes in names of involved functions. I
+talked about inner double underscores.
 
-> +	depends on VMX && EXPERT
+> Anyway, I am not sure I understand which approach I should use in this
+> patch. You mentioned that possibly test_and_() can't have a generic
+> form, meaning it won't be a set of arch_test_and_() functions.
+> 
+> So, can I rename arch__test_() and generic__test_() to arch_test_() and
+> generic_test_(), respectively, and use the renamed functions in
+> _test_and*() in xen/bitops.h? Is my understanding correct?
 
-This doesn't look right. Typical distro builds will be with EXPERT=n. Such
-builds would suddenly end up without altp2m support then. What I think you
-mean is a conditional prompt. I.e. overall
-
-config ALTP2M
-	bool "Alternate P2M support" if EXPERT
-	default y
-	depends on VMX
-	help
-	  ...
+You could. You could also stick to what you have now - as said, I can
+accept that with the worked out explanation. Or you could switch to
+using arch__test_bit() and generic__test_bit(), thus having the double
+inner underscores identify "internal to the implementation" functions.
+My preference would be in backwards order of what I have just enumerated
+as possible options. I wonder whether really no-one else has any opinion
+here ...
 
 Jan
 
