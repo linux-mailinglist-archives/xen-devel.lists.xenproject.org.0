@@ -2,45 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6D6C38C782E
-	for <lists+xen-devel@lfdr.de>; Thu, 16 May 2024 16:02:48 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.723381.1128270 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 09BC88C7861
+	for <lists+xen-devel@lfdr.de>; Thu, 16 May 2024 16:23:39 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.723420.1128280 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s7bgs-0006Dc-3p; Thu, 16 May 2024 14:02:38 +0000
+	id 1s7c0B-0004Qu-MB; Thu, 16 May 2024 14:22:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 723381.1128270; Thu, 16 May 2024 14:02:38 +0000
+Received: by outflank-mailman (output) from mailman id 723420.1128280; Thu, 16 May 2024 14:22:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s7bgs-0006Aq-0z; Thu, 16 May 2024 14:02:38 +0000
-Received: by outflank-mailman (input) for mailman id 723381;
- Thu, 16 May 2024 14:02:36 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1s7c0B-0004PN-IR; Thu, 16 May 2024 14:22:35 +0000
+Received: by outflank-mailman (input) for mailman id 723420;
+ Thu, 16 May 2024 14:22:34 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=G7yJ=MT=amazon.es=prvs=85909aada=nsaenz@srs-se1.protection.inumbo.net>)
- id 1s7bgq-00069X-6h
- for xen-devel@lists.xenproject.org; Thu, 16 May 2024 14:02:36 +0000
-Received: from smtp-fw-9102.amazon.com (smtp-fw-9102.amazon.com
- [207.171.184.29]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f13a966b-138c-11ef-909d-e314d9c70b13;
- Thu, 16 May 2024 16:02:35 +0200 (CEST)
-Received: from pdx4-co-svc-p1-lb2-vlan3.amazon.com (HELO
- smtpout.prod.us-east-1.prod.farcaster.email.amazon.dev) ([10.25.36.214])
- by smtp-border-fw-9102.sea19.amazon.com with
- ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 May 2024 14:02:24 +0000
-Received: from EX19MTAEUC001.ant.amazon.com [10.0.17.79:61258]
- by smtpin.naws.eu-west-1.prod.farcaster.email.amazon.dev [10.0.38.98:2525]
- with esmtp (Farcaster)
- id 669cf238-0252-433a-b5ae-10131f992275; Thu, 16 May 2024 14:02:23 +0000 (UTC)
-Received: from EX19D004EUC001.ant.amazon.com (10.252.51.190) by
- EX19MTAEUC001.ant.amazon.com (10.252.51.155) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1258.28; Thu, 16 May 2024 14:02:23 +0000
-Received: from localhost (10.13.235.138) by EX19D004EUC001.ant.amazon.com
- (10.252.51.190) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1258.28; Thu, 16 May
- 2024 14:02:12 +0000
+ <SRS0=0hAQ=MT=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1s7c0A-0004PH-1d
+ for xen-devel@lists.xenproject.org; Thu, 16 May 2024 14:22:34 +0000
+Received: from mail-lj1-x22e.google.com (mail-lj1-x22e.google.com
+ [2a00:1450:4864:20::22e])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id bb8321f4-138f-11ef-b4bb-af5377834399;
+ Thu, 16 May 2024 16:22:32 +0200 (CEST)
+Received: by mail-lj1-x22e.google.com with SMTP id
+ 38308e7fff4ca-2e564cad1f1so11152431fa.0
+ for <xen-devel@lists.xenproject.org>; Thu, 16 May 2024 07:22:31 -0700 (PDT)
+Received: from [192.168.226.248] ([94.75.70.14])
+ by smtp.gmail.com with ESMTPSA id
+ 38308e7fff4ca-2e4d18344e9sm24121811fa.139.2024.05.16.07.22.30
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 16 May 2024 07:22:30 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -52,75 +45,58 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f13a966b-138c-11ef-909d-e314d9c70b13
+X-Inumbo-ID: bb8321f4-138f-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazon201209;
-  t=1715868155; x=1747404155;
-  h=mime-version:content-transfer-encoding:date:message-id:
-   cc:from:to:references:in-reply-to:subject;
-  bh=PII+OyY3HRsFOpjW5l++XBk5W4fZ/zADl3BCmJlUORM=;
-  b=MxGCVqenHOOu1amiqFPIJj8iHolMiELzMBkfgtz7aRgui5laU37yroIm
-   PQlMALS83R8GC1Hep2GTybOqW92bpd5lOId6oaujqhVvjc75ecQ6PUtaJ
-   kfxBDC2COnweQbgDZQbxg4MreqHCUZ5EY8+IykAJjK5klmj0rZDibvbBM
-   g=;
-X-IronPort-AV: E=Sophos;i="6.08,164,1712620800"; 
-   d="scan'208";a="419475431"
-Subject: Re: [RFC PATCH v3 3/5] KVM: x86: Add notifications for Heki policy
- configuration and violation
-X-Farcaster-Flow-ID: 669cf238-0252-433a-b5ae-10131f992275
-MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
+        d=gmail.com; s=20230601; t=1715869351; x=1716474151; darn=lists.xenproject.org;
+        h=mime-version:user-agent:content-transfer-encoding:date:cc:to:from
+         :subject:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=51qAFqO3J8VvzLgLj/wFYjT3KCxnpJFhUgC1HQ2a31g=;
+        b=GDjxurYwqPq9zTC61x5IF8+7BujmOJut0e+sipE0/yA+smkeAv4ysW8A0Q7nq/L0er
+         UoMHFKjPVGgDirqsc9fjSzCr3a0kkVOYjTCg5W1kN4mdzeGg2nmwg93TjHFSEyKCrTtV
+         qUzK43xdV+DOIKWX78v8Cy8mDBp3RXlar8f3NG+80a27a7s5Lzr80eCvuVFKcBmgG2x8
+         xgj7qqaORWuiZaz64tkZJpc7V+LNTr/ssYPVcrPdoEU/lOVbywwq6IP4bRJ5jdbtkShg
+         fixAZE7ziIWj2tjyryvbs8/gwpLGKqGTP0x8/PA7wUUCT9RH14ENyoAJlPYEOJw5cHf/
+         IU8g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1715869351; x=1716474151;
+        h=mime-version:user-agent:content-transfer-encoding:date:cc:to:from
+         :subject:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=51qAFqO3J8VvzLgLj/wFYjT3KCxnpJFhUgC1HQ2a31g=;
+        b=hb1qJFSKwKiQI21qrSvw1H5wN2YlZ4C6m+TJ4Ray6c26I1ynrw7yJ0zyDoZkIZNlaJ
+         s1Uj96qvlaev4ffuSot/8XE6PF3yYoyWaMUs2q2+6D7j9i4qIzsLIIPNzNo935Kfwzql
+         JY/h2Yy7JbwKMntLl2gHDXPhgMMXSnXOE0xdMrLB+6u9QqnDJL4XW1ypQxQHpz6OC2NG
+         ulStPNugAsKsXA0Dc6Aaqop2DHqcl9QriWziXwXNrqHNvhDN4lBsgwyNHs6dodDpZO6h
+         dLOjSyIcEpUUow2RQFpiTRWN2mpOlicBb3hm3PvacjqVWiKbBLqH7L7TE1OpIsIa9pLk
+         1zcg==
+X-Gm-Message-State: AOJu0YyEHzAsjKtLw3VK7d+Uu32nr+R87F5FrTK3GXzTLMvVyzzN4+LY
+	LUHolT42sItHU504UDIrCjaRtU0mwhCCiV1xNzDFZYtzikD8T9uhj4SEIynC
+X-Google-Smtp-Source: AGHT+IHGsHzTv6LLbt1WjFRX+DiJ8oBBAQAbN2MFHtmINivy7ck/5dKY1fM892GB6vgEuPdjIZ+kLw==
+X-Received: by 2002:a2e:8397:0:b0:2e6:f710:6056 with SMTP id 38308e7fff4ca-2e6f710618cmr31304871fa.18.1715869350870;
+        Thu, 16 May 2024 07:22:30 -0700 (PDT)
+Message-ID: <d7456a1a3d8a872297d65785466ae07fdf0bcbfd.camel@gmail.com>
+Subject: Feature Freeze Deadline Extended to May 24
+From: "Oleksii K." <oleksii.kurochko@gmail.com>
+To: xen-devel@lists.xenproject.org
+Cc: committers@xenproject.org, community.manager@xenproject.org, Kelly Choi
+	 <kelly.choi@cloud.com>
+Date: Thu, 16 May 2024 16:22:30 +0200
 Content-Type: text/plain; charset="UTF-8"
-Date: Thu, 16 May 2024 14:02:09 +0000
-Message-ID: <D1B4HKJAJG21.2DH9F3E1Q6J9L@amazon.com>
-CC: Sean Christopherson <seanjc@google.com>, Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>, "H . Peter Anvin" <hpa@zytor.com>,
-	Ingo Molnar <mingo@redhat.com>, Kees Cook <keescook@chromium.org>, "Paolo
- Bonzini" <pbonzini@redhat.com>, Thomas Gleixner <tglx@linutronix.de>, "Vitaly
- Kuznetsov" <vkuznets@redhat.com>, Wanpeng Li <wanpengli@tencent.com>, "Rick P
- Edgecombe" <rick.p.edgecombe@intel.com>, Alexander Graf <graf@amazon.com>,
-	Angelina Vu <angelinavu@linux.microsoft.com>, Anna Trikalinou
-	<atrikalinou@microsoft.com>, Chao Peng <chao.p.peng@linux.intel.com>,
-	"Forrest Yuan Yu" <yuanyu@google.com>, James Gowans <jgowans@amazon.com>,
-	James Morris <jamorris@linux.microsoft.com>, John Andersen
-	<john.s.andersen@intel.com>, "Madhavan T . Venkataraman"
-	<madvenka@linux.microsoft.com>, Marian Rotariu <marian.c.rotariu@gmail.com>,
-	=?utf-8?q?Mihai_Don=C8=9Bu?= <mdontu@bitdefender.com>,
-	=?utf-8?q?Nicu=C8=99or_C=C3=AE=C8=9Bu?= <nicu.citu@icloud.com>, Thara
- Gopinath <tgopinath@microsoft.com>, "Trilok Soni" <quic_tsoni@quicinc.com>,
-	Wei Liu <wei.liu@kernel.org>, Will Deacon <will@kernel.org>, Yu Zhang
-	<yu.c.zhang@linux.intel.com>, =?utf-8?q?=C8=98tefan_=C8=98icleru?=
-	<ssicleru@bitdefender.com>, <dev@lists.cloudhypervisor.org>,
-	<kvm@vger.kernel.org>, <linux-hardening@vger.kernel.org>,
-	<linux-hyperv@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<linux-security-module@vger.kernel.org>, <qemu-devel@nongnu.org>,
-	<virtualization@lists.linux-foundation.org>, <x86@kernel.org>,
-	<xen-devel@lists.xenproject.org>
-From: Nicolas Saenz Julienne <nsaenz@amazon.com>
-To: =?utf-8?q?Micka=C3=ABl_Sala=C3=BCn?= <mic@digikod.net>
-X-Mailer: aerc 0.17.0-129-gd582ac682cdf-dirty
-References: <20240503131910.307630-1-mic@digikod.net>
- <20240503131910.307630-4-mic@digikod.net> <ZjTuqV-AxQQRWwUW@google.com>
- <20240506.ohwe7eewu0oB@digikod.net> <ZjmFPZd5q_hEBdBz@google.com>
- <20240507.ieghomae0UoC@digikod.net> <ZjpTxt-Bxia3bRwB@google.com>
- <D15VQ97L5M8J.1TDNQE6KLW6JO@amazon.com> <20240514.mai3Ahdoo2qu@digikod.net>
-In-Reply-To: <20240514.mai3Ahdoo2qu@digikod.net>
-X-Originating-IP: [10.13.235.138]
-X-ClientProxiedBy: EX19D046UWA001.ant.amazon.com (10.13.139.112) To
- EX19D004EUC001.ant.amazon.com (10.252.51.190)
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.52.1 (3.52.1-1.fc40) 
+MIME-Version: 1.0
 
-On Tue May 14, 2024 at 12:23 PM UTC, Micka=C3=ABl Sala=C3=BCn wrote:
-> > Development happens
-> > https://github.com/vianpl/{linux,qemu,kvm-unit-tests} and the vsm-next
-> > branch, but I'd advice against looking into it until we add some order
-> > to the rework. Regardless, feel free to get in touch.
->
-> Thanks for the update.
->
-> Could we schedule a PUCK meeting to synchronize and help each other?
-> What about June 12?
+Hello everyone,
 
-Sounds great! June 12th works for me.
+Since there were no objections to extending the Feature Freeze Deadline
+Proposal, I would like to inform you that the deadline has been
+extended to May 24.
 
-Nicolas
+At the moment, I don't see any reason to extend other deadlines, so
+they will remain the same.
+
+Have a nice day!
+
+Best regards,
+ Oleksii
 
