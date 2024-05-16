@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E5E448C721D
-	for <lists+xen-devel@lfdr.de>; Thu, 16 May 2024 09:37:59 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.722847.1127195 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B535C8C722E
+	for <lists+xen-devel@lfdr.de>; Thu, 16 May 2024 09:41:28 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.722852.1127204 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s7VgJ-0008T6-HW; Thu, 16 May 2024 07:37:39 +0000
+	id 1s7Vjk-0002Ej-1n; Thu, 16 May 2024 07:41:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 722847.1127195; Thu, 16 May 2024 07:37:39 +0000
+Received: by outflank-mailman (output) from mailman id 722852.1127204; Thu, 16 May 2024 07:41:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s7VgJ-0008RD-EE; Thu, 16 May 2024 07:37:39 +0000
-Received: by outflank-mailman (input) for mailman id 722847;
- Thu, 16 May 2024 07:37:38 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1s7Vjj-0002Ca-VO; Thu, 16 May 2024 07:41:11 +0000
+Received: by outflank-mailman (input) for mailman id 722852;
+ Thu, 16 May 2024 07:41:10 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=LYhW=MT=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1s7VgI-0008R7-F8
- for xen-devel@lists.xenproject.org; Thu, 16 May 2024 07:37:38 +0000
-Received: from mail-lf1-x131.google.com (mail-lf1-x131.google.com
- [2a00:1450:4864:20::131])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 2ab10a1c-1357-11ef-909d-e314d9c70b13;
- Thu, 16 May 2024 09:37:37 +0200 (CEST)
-Received: by mail-lf1-x131.google.com with SMTP id
- 2adb3069b0e04-52192578b95so519270e87.2
- for <xen-devel@lists.xenproject.org>; Thu, 16 May 2024 00:37:37 -0700 (PDT)
+ id 1s7Vji-0002CE-Dw
+ for xen-devel@lists.xenproject.org; Thu, 16 May 2024 07:41:10 +0000
+Received: from mail-ed1-x531.google.com (mail-ed1-x531.google.com
+ [2a00:1450:4864:20::531])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id a71da56e-1357-11ef-b4bb-af5377834399;
+ Thu, 16 May 2024 09:41:06 +0200 (CEST)
+Received: by mail-ed1-x531.google.com with SMTP id
+ 4fb4d7f45d1cf-574d1a1c36aso2985700a12.3
+ for <xen-devel@lists.xenproject.org>; Thu, 16 May 2024 00:41:06 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-574fdb36a35sm1485104a12.17.2024.05.16.00.37.36
+ a640c23a62f3a-a5a5ecd37a3sm570486466b.79.2024.05.16.00.41.04
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 16 May 2024 00:37:36 -0700 (PDT)
+ Thu, 16 May 2024 00:41:05 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,51 +45,47 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2ab10a1c-1357-11ef-909d-e314d9c70b13
+X-Inumbo-ID: a71da56e-1357-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1715845057; x=1716449857; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1715845265; x=1716450065; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=xRrzT3j6noehZdxpl39UjpRiiFrlamncfeu4/Bf4T7s=;
-        b=CacvMaCf3cZQGbFQH7ZzEGydTd/1ZC/FaMBuIcK4JSHytyCDddJ4huDv3ho3ymROoq
-         2P4VMTJHHg29yJ9CBQNvnqkL2nshzry0cnZUbuETA3FyyHjBlGbVv2I+0ITG0h0PdFeo
-         WWS6oAcrP5URf70fyw285J8qekTdlh3GVKqbL+9xC6KA0L+gz9H+qer4Ab87rMjEW8KM
-         yn9HYqWcc+2Fss1JfyRa9uUUA0YCQQyn8Z2oBdA9oSbFdA8lZyF0KrOH574y6EmSsPhn
-         XDxMRqSpsbCtt0zjpEkANfw9TydxpOkMJPInUpWbtWILg/qRMYInysT4I8ma48fjwB1S
-         LhaQ==
+        bh=UUi9nDgpZQHSi7udgEBCMlqbXC6UNa3fLlCLL5Lanow=;
+        b=R9ph+h7nAz84KPph13hAEUhrsERhhJmwYfYeOdgFc2vWyg1iKenxF0GitFU0M5qyP2
+         hrjoOG6x48kRzCilDClaA8V4fquVrgnm/2mzB+CX65V2HRbyEw4JPPiyt5KOEdFIHLYj
+         QXHdkrljlflkRe8lGdCC+GqAHklEA1P2zysT73yy5i1baV4c3k4DzTiKPiwXIuw6D1jv
+         Ldg+NdtnpJa+SObFDrasseMTU88QlOapLP9Z4Bs5A346+dnyaol7mv5hI/v6saEAH9/y
+         nVd5FfIV0GxS+3FWVUo/iaKqd83CmD+x441wPanG0wIRCUMfmKSiUSRxBxzJjxkhhGJo
+         DXBQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1715845057; x=1716449857;
+        d=1e100.net; s=20230601; t=1715845265; x=1716450065;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=xRrzT3j6noehZdxpl39UjpRiiFrlamncfeu4/Bf4T7s=;
-        b=HgZgyALK+AZBvrn0Zt74gBxLdsZU3wf3KVMLlxAi1Z722sAUYvFypEiwrWx7tDQN9l
-         tRkBrjIQCFXuviuN/Yb73wDUa7dS/ke9nT8KfpqaPLtQgnDQwFg/jRr4Z6AxzGrMVOGr
-         1AeZ9RLq0vA2WQMh/qNm6WUHL9522UmjKSFZ4qOM+Oz4TWvLDNww2Dsqspz4i1ZHfqVE
-         fUm6YIz20K4ujG7is00NAVYuWoI/ppKhHLRb2qPXvt/9wbpMCbxHaYYWd9SVnd87OKhC
-         xRHtVp/OkhL0MKADGfVcRf87Ox2mrldwRfG2srWHUpPH3BAa9wIZD/u9WN/hKZjmITvF
-         RnrQ==
-X-Gm-Message-State: AOJu0YySCxlXrsFe0drxKZoMFNwf5iCabkXLZtBP8l7VEx8NExCCDLNm
-	pQvh2MhX3OZKbgpWiwI82ViC1dxLHpoWB6+2ZW3S6XN6P6s3xOsK/CGXqHPpDQ==
-X-Google-Smtp-Source: AGHT+IFoFlwUS/wE8TL76Cs1xUFfqKJYTFmDZ4VMN0u5ZvHgBd7616VFX2j0mX366ohukzrnqNVJKg==
-X-Received: by 2002:a05:6512:1247:b0:51e:e703:c878 with SMTP id 2adb3069b0e04-5220fa71de0mr16168959e87.14.1715845056723;
-        Thu, 16 May 2024 00:37:36 -0700 (PDT)
-Message-ID: <3104deae-0d27-438e-83ea-035a7786fd4a@suse.com>
-Date: Thu, 16 May 2024 09:37:35 +0200
+        bh=UUi9nDgpZQHSi7udgEBCMlqbXC6UNa3fLlCLL5Lanow=;
+        b=eR7V7XUEMsAo1faJTB0mY6nq5luWG3Kbtmhtq5YvpXDW+JNGY6I8pAoj97kLB5zg0w
+         rBpHIZvAwh0UcccZb99putq2IF0/uaARE9Re6ho8SdjfepKc5sR8XaCYgI3mwE0Hp3OJ
+         D0HKuG4RHmJblQ1g1hEpY3PXpVkzuaAVmvyfdiKjUjHQweXdj40xb9qkbQUcIsXjKcjU
+         Ry9TvWt76/crnRCRqGyxqx864X1QN1wH07OG2e8Js0OYo+1VhpV5VGRwWdaB9esSoMxB
+         H6QDGIF6nO4mJHxsJCjeKtrdEfQrzkDPJs3+3nsQpr3JAIoIpjymaiLqkhrHSL9F2UbU
+         bkBA==
+X-Forwarded-Encrypted: i=1; AJvYcCVpHoXnqeg1t3peYhh+BP3eYWValY/IqIXzulZhM4FzN70m1PKc5CxXMa7xJsjgEi24lAM6YSY7XVAc9z/OhJLUJEdy+cFKoSj8iFNMZpM=
+X-Gm-Message-State: AOJu0YygJg42dXvbGBEER1+tmVEHrxMZXjCQnrCo3p+YIKiFUxcNG7k0
+	3KoJLP9E7SS3CJm7z/acHJIS9ce7exPfZ8ZbbhlG9sm7803sD/zrcQ7nZFJuyQ==
+X-Google-Smtp-Source: AGHT+IEJgmyZ46oMLxX2hOixtDzwhjsLAOPvaUbr+EVnBftqqWJJ2K2w0cGLOLjvy62ej/Pny2H/Pg==
+X-Received: by 2002:a17:906:8d7:b0:a59:a0c1:2624 with SMTP id a640c23a62f3a-a5a2d5cb855mr1190695266b.39.1715845265485;
+        Thu, 16 May 2024 00:41:05 -0700 (PDT)
+Message-ID: <64083e01-edf1-4395-a9d7-82e82d220de7@suse.com>
+Date: Thu, 16 May 2024 09:41:04 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH v2 14/15] iommu/vt-d: guard vmx_pi_hooks_* calls with
- cpu_has_vmx
+Subject: Re: [PATCH] hotplug: Restore block-tap phy compatibility
 Content-Language: en-US
-To: Stefano Stabellini <sstabellini@kernel.org>,
- Sergiy Kibrik <Sergiy_Kibrik@epam.com>
-Cc: xen-devel@lists.xenproject.org, Andrew Cooper
- <andrew.cooper3@citrix.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Xenia Ragiadakou <xenia.ragiadakou@amd.com>
-References: <cover.1715761386.git.Sergiy_Kibrik@epam.com>
- <73072e5b2ec40ad28d4bcfb9bb0870f3838bb726.1715761386.git.Sergiy_Kibrik@epam.com>
- <alpine.DEB.2.22.394.2405151751530.2544314@ubuntu-linux-20-04-desktop>
+To: Jason Andryuk <jandryuk@gmail.com>
+Cc: Jason Andryuk <jason.andryuk@amd.com>,
+ Anthony PERARD <anthony@xenproject.org>, xen-devel@lists.xenproject.org
+References: <20240516022212.5034-1-jandryuk@gmail.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -114,40 +110,26 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <alpine.DEB.2.22.394.2405151751530.2544314@ubuntu-linux-20-04-desktop>
+In-Reply-To: <20240516022212.5034-1-jandryuk@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 16.05.2024 02:54, Stefano Stabellini wrote:
-> On Wed, 15 May 2024, Sergiy Kibrik wrote:
->> VMX posted interrupts support can now be excluded from x86 build along with
->> VMX code itself, but still we may want to keep the possibility to use
->> VT-d IOMMU driver in non-HVM setups.
->> So we guard vmx_pi_hooks_{assign/deassign} with some checks for such a case.
->>
->> No functional change intended here.
->>
->> Signed-off-by: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
+On 16.05.2024 04:22, Jason Andryuk wrote:
+> From: Jason Andryuk <jason.andryuk@amd.com>
 > 
-> I know that Andrew was keep on having a separate Kconfig option for
-> VT-D, separate from VMX. But still, couldn't we make the VT-D Kconfig
-> option depending on CONFIG_VMX?
-> 
-> To me, VT-D should require VMX, without VMX it should not be possible to
-> enable VT-D.
-> 
-> This comment goes in the same direction of my previous comment regarding
-> the vpmu: we are trying to make things more configurable and flexible
-> and that's good, but we don't necessary need to make all possible
-> combination work. VT-D without VMX is another one of those combination
-> that I would only enable after a customer asks.
+> From: Jason Andryuk <jason.andryuk@amd.com>
 
-Well. Imo again the configuration should be permitted. VMX and INTEL_IOMMU
-ought to be default to INTEL, but permit being turned on/off in all cases.
-(That's btw part of the reason why I continue to be unhappy with it being
-INTEL where really INTEL_CPU was meant. If what is INTEL now would be
-INTEL_CPU, INTEL could be an umbrella option for all three, or two if we
-were to tie VMX to INTEL_CPU.)
+Two identical From: (also in another patch of yours, while in yet another one
+you have two _different_ ones, when only one will survive into the eventual
+commit anyway)?
+
+> backendtype=phy using the blktap kernel module needs to use write_dev,
+> but tapback can't support that.  tapback should perform better, but make
+> the script compatible with the old kernel module again.
+> 
+> Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
+
+Should there be a Fixes: tag here?
 
 Jan
 
