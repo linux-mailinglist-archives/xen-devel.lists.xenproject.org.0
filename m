@@ -2,38 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 61E948C75CB
-	for <lists+xen-devel@lfdr.de>; Thu, 16 May 2024 14:16:19 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.723258.1127935 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 273788C75CC
+	for <lists+xen-devel@lfdr.de>; Thu, 16 May 2024 14:16:38 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.723262.1127946 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s7a1Z-00044n-S9; Thu, 16 May 2024 12:15:53 +0000
+	id 1s7a1y-0004af-4O; Thu, 16 May 2024 12:16:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 723258.1127935; Thu, 16 May 2024 12:15:53 +0000
+Received: by outflank-mailman (output) from mailman id 723262.1127946; Thu, 16 May 2024 12:16:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s7a1Z-00042n-Pb; Thu, 16 May 2024 12:15:53 +0000
-Received: by outflank-mailman (input) for mailman id 723258;
- Thu, 16 May 2024 12:15:53 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=LYhW=MT=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1s7a1Z-00042h-7W
- for xen-devel@lists.xenproject.org; Thu, 16 May 2024 12:15:53 +0000
-Received: from mail-ed1-x530.google.com (mail-ed1-x530.google.com
- [2a00:1450:4864:20::530])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 0923fe4b-137e-11ef-b4bb-af5377834399;
- Thu, 16 May 2024 14:15:51 +0200 (CEST)
-Received: by mail-ed1-x530.google.com with SMTP id
- 4fb4d7f45d1cf-572e8028e0cso3318623a12.3
- for <xen-devel@lists.xenproject.org>; Thu, 16 May 2024 05:15:51 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5750d24c8c1sm559715a12.72.2024.05.16.05.15.50
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 16 May 2024 05:15:50 -0700 (PDT)
+	id 1s7a1y-0004Xq-1c; Thu, 16 May 2024 12:16:18 +0000
+Received: by outflank-mailman (input) for mailman id 723262;
+ Thu, 16 May 2024 12:16:16 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=DxoZ=MT=gmail.com=edgar.iglesias@srs-se1.protection.inumbo.net>)
+ id 1s7a1w-0004Se-QG
+ for xen-devel@lists.xenproject.org; Thu, 16 May 2024 12:16:16 +0000
+Received: from mail-ed1-x531.google.com (mail-ed1-x531.google.com
+ [2a00:1450:4864:20::531])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 1766a1fd-137e-11ef-909d-e314d9c70b13;
+ Thu, 16 May 2024 14:16:15 +0200 (CEST)
+Received: by mail-ed1-x531.google.com with SMTP id
+ 4fb4d7f45d1cf-574b3d6c0f3so3379228a12.0
+ for <xen-devel@lists.xenproject.org>; Thu, 16 May 2024 05:16:15 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,87 +40,220 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0923fe4b-137e-11ef-b4bb-af5377834399
+X-Inumbo-ID: 1766a1fd-137e-11ef-909d-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1715861751; x=1716466551; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=vMEbeCF6PHmkPkmy8h6WYnlrDVpl+7aVfReOgi2GNOU=;
-        b=gba97ilcJ6iY68r5EFLt4Q+EsirJBSGiwWbu8VEiEeFnGS40MKKUDwPhad6+d0A2md
-         ee8uSAprQ/ftR8ChqT5SHdTsizpbiTKgeTmKelOLLDm0et/piMmz892rexOOlXYkWjZZ
-         lPg/aFzRH4dYWRPmMnoxwAa/yVTFmZk/pESbx8WRLwI1XUnvjl32N/PYvZqpIfK3gZfc
-         cL/eYAVIJItflDiz5R1d/YZSBzEhm1CuKQh/oqilzidybuZ9H1pAiO4udI/HQ8hbQtci
-         2Ca5PB8zKO1AzvEeNrj0ZmMQLW4r2luhjHamYanG4bSuBZwr3V+cXGpdTXFCIuOzYozt
-         A6+A==
+        d=gmail.com; s=20230601; t=1715861775; x=1716466575; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=Yn+oXlbgVr7a9k+BINSVHmajhWBEJ0sHm25nDF+ijag=;
+        b=Bf2AdiSCkzCVv4mwrKDDUmDi3sCamPTf3YSdpJNDyQf5PeZNUBY9hFS84M1CKPTvtv
+         3W3coyWkrA7GcCr82TGn0bXKCP3CUJcBW0/BHWUklqKiOFuY7+s/9eRb3f02OrqxfmO0
+         U3kJk2w48eYbdF/dU2H216brBzPDlHIc1ErSqopNtOryvOH8EOkOy5nRyV7H+s7Vrlx+
+         rNd+7b2mWp7wCvz/KdbBO7xE/vW432DVxQVIkTqdzoq5JG6A+uM2S05ruoiUuL12ZoJz
+         FPAkworUhZv1yVIq4lpj4h22Dnw6OYXvQoZSPmElLykLfd/LvkjO+PegpHPIC+wrpIgk
+         OLjA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1715861751; x=1716466551;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=vMEbeCF6PHmkPkmy8h6WYnlrDVpl+7aVfReOgi2GNOU=;
-        b=Bx+sO963RphrS2qg2yeIFq2TAG+ms8zY1teLu+SfPhfsdUpIJDXr2ezkwAH7wDVHzd
-         7e2JELNtOaShKViFDKax05aN7pESWf6LQMjv+hmy31LKsk5gEthhGOu9QX6y9WhG88wM
-         m6/YFLuqQQ6z7SnCHK8mcy99mIjghDOPKGc4kF1KVDtCoxoffxigghBb6VJR48EiTHH/
-         LGTRIzYNplKagU3725BCa+CGef5/7z1xlvEdEomul2KrwxD5Z5K4BYItpOt64JVhy8DT
-         Vo47rG5aRicTrpHLRSwKR/nAgtMjFd79bqviLxxa8LT9MVIwSwJ2+PDu9o60nPI6+0AD
-         gwIQ==
-X-Forwarded-Encrypted: i=1; AJvYcCVA+Z60bEZgl23vzZ6xJ4LUWUSLhTWInnCv1PEzBkBBBBogKmnAhaCJUa4TE7KK/7tS1QUh00QXMZ13KJRlXuJe4boP0xVpvmN8caMBQKA=
-X-Gm-Message-State: AOJu0YwU/hhrd7WulF2oXzZPTSw9B5ClSyHBWE8svBD/KzAwX7f14MXt
-	TyFN7ombqNPLe2IqfNCwIHkpc9PmtHORj4fp8/PFgCwyN0ngtAjXVvsQamuYQQ==
-X-Google-Smtp-Source: AGHT+IH3UOx9xjFVRVc8cnJmjwmPjB0cVB3acOyVHMSucv1SWNCFcMwBeirw1iiSKYMvP796Ws6UTw==
-X-Received: by 2002:a50:8d18:0:b0:574:ebfb:6d93 with SMTP id 4fb4d7f45d1cf-574ebfb6ddemr4478343a12.10.1715861750790;
-        Thu, 16 May 2024 05:15:50 -0700 (PDT)
-Message-ID: <c43a554e-4b21-4a3b-92f4-60633f61f67e@suse.com>
-Date: Thu, 16 May 2024 14:15:49 +0200
+        d=1e100.net; s=20230601; t=1715861775; x=1716466575;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=Yn+oXlbgVr7a9k+BINSVHmajhWBEJ0sHm25nDF+ijag=;
+        b=wTz9DEfFVOLe8ZaIua3bNUvqrEkCOfb6SjcvhxXvy35r8Ny0F+kF68kz88Tg5bft+f
+         g5oWO+jI9VnFRSx0a9ejgBjV8xkwIqc4xJafXrdZIxiDqfytWZAuX7JwixrIEvQT5aOu
+         VBBmNFIbtYKybxUvVKixRqSoAIm+aUBDiuTgUz93NmFZA0bakUuGQpSvCmumXuQMRGZy
+         F+fOl94gUZFlpla+Z+SxwdG98WNkxRtF+c6JPo/AXgIH999Vy+vG5xTRdC3kkWLH4T9Y
+         +4ad5nW4xU9KuZGtIU9HR7dzjWl1LsQ7kBIOweGxvmQ/PFTBIMftAuZUc63Zzbp8fQNc
+         pw+Q==
+X-Forwarded-Encrypted: i=1; AJvYcCWAK7PTvQBHLLm6EqXdYMF6D2sQPl50HlIxrhu8RSoW6qQGA0YtQfjf1q+l+hX7vTArOzCgf/GhbC5vgi6wsg/PqxCiJiD+oG8jDqozsOg=
+X-Gm-Message-State: AOJu0Yw+r18xFM3NkOC0Lybp6UUIbRqqaueCRstg8TV64ZhMR5EvYGuT
+	dkNg+NyUmTx6YkvA28g4wteMHgRmYyc9mSsFzgvO0tpo89N6vliz2GfXl3JLZX+GbLf4jODQ57X
+	6vKnKc4+fsBW/sz5Skh5UinFK61s=
+X-Google-Smtp-Source: AGHT+IFnT5fCN2Q3WSyadS6/AHfALVLYnoDOnQyI+y3w4CmbQMi4Z9f5oXw7pPPeYA3fC3u8vr/OEv8Pt+tb1RiaPk8=
+X-Received: by 2002:a50:d496:0:b0:572:3bcc:8370 with SMTP id
+ 4fb4d7f45d1cf-5734d4417b4mr11339654a12.0.1715861774886; Thu, 16 May 2024
+ 05:16:14 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH v2 14/15] iommu/vt-d: guard vmx_pi_hooks_* calls with
- cpu_has_vmx
-Content-Language: en-US
-To: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Xenia Ragiadakou <xenia.ragiadakou@amd.com>, xen-devel@lists.xenproject.org
-References: <cover.1715761386.git.Sergiy_Kibrik@epam.com>
- <73072e5b2ec40ad28d4bcfb9bb0870f3838bb726.1715761386.git.Sergiy_Kibrik@epam.com>
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <73072e5b2ec40ad28d4bcfb9bb0870f3838bb726.1715761386.git.Sergiy_Kibrik@epam.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20240503014449.1046238-1-edgar.iglesias@gmail.com>
+ <20240503014449.1046238-7-edgar.iglesias@gmail.com> <alpine.DEB.2.22.394.2405151605550.2544314@ubuntu-linux-20-04-desktop>
+In-Reply-To: <alpine.DEB.2.22.394.2405151605550.2544314@ubuntu-linux-20-04-desktop>
+From: "Edgar E. Iglesias" <edgar.iglesias@gmail.com>
+Date: Thu, 16 May 2024 14:16:03 +0200
+Message-ID: <CAJy5ezoB+MZDhPN0iWcTTTy_ufdVwK1qOpU-5M4aJ+Ujfv9TQg@mail.gmail.com>
+Subject: Re: [PATCH v5 6/8] xen: mapcache: Pass the ram_addr offset to xen_map_cache()
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: qemu-devel@nongnu.org, jgross@suse.com, 
+	"Edgar E. Iglesias" <edgar.iglesias@amd.com>, Anthony PERARD <anthony@xenproject.org>, 
+	Paul Durrant <paul@xen.org>, Paolo Bonzini <pbonzini@redhat.com>, Peter Xu <peterx@redhat.com>, 
+	David Hildenbrand <david@redhat.com>, =?UTF-8?Q?Philippe_Mathieu=2DDaud=C3=A9?= <philmd@linaro.org>, 
+	xen-devel@lists.xenproject.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 15.05.2024 11:26, Sergiy Kibrik wrote:
-> VMX posted interrupts support can now be excluded from x86 build along with
-> VMX code itself, but still we may want to keep the possibility to use
-> VT-d IOMMU driver in non-HVM setups.
-> So we guard vmx_pi_hooks_{assign/deassign} with some checks for such a case.
+On Thu, May 16, 2024 at 1:08=E2=80=AFAM Stefano Stabellini
+<sstabellini@kernel.org> wrote:
+>
+> On Fri, 3 May 2024, Edgar E. Iglesias wrote:
+> > From: "Edgar E. Iglesias" <edgar.iglesias@amd.com>
+> >
+> > Pass the ram_addr offset to xen_map_cache.
+> > This is in preparation for adding grant mappings that need
+> > to compute the address within the RAMBlock.
+> >
+> > No functional changes.
+> >
+> > Signed-off-by: Edgar E. Iglesias <edgar.iglesias@amd.com>
+> > ---
+> >  hw/xen/xen-mapcache.c         | 16 +++++++++++-----
+> >  include/sysemu/xen-mapcache.h |  2 ++
+> >  system/physmem.c              |  9 +++++----
+> >  3 files changed, 18 insertions(+), 9 deletions(-)
+> >
+> > diff --git a/hw/xen/xen-mapcache.c b/hw/xen/xen-mapcache.c
+> > index ec95445696..26bc38a9e3 100644
+> > --- a/hw/xen/xen-mapcache.c
+> > +++ b/hw/xen/xen-mapcache.c
+> > @@ -167,7 +167,8 @@ static void xen_remap_bucket(MapCache *mc,
+> >                               void *vaddr,
+> >                               hwaddr size,
+> >                               hwaddr address_index,
+> > -                             bool dummy)
+> > +                             bool dummy,
+> > +                             ram_addr_t ram_offset)
+> >  {
+> >      uint8_t *vaddr_base;
+> >      xen_pfn_t *pfns;
+> > @@ -266,6 +267,7 @@ static void xen_remap_bucket(MapCache *mc,
+> >
+> >  static uint8_t *xen_map_cache_unlocked(MapCache *mc,
+> >                                         hwaddr phys_addr, hwaddr size,
+> > +                                       ram_addr_t ram_offset,
+> >                                         uint8_t lock, bool dma, bool is=
+_write)
+> >  {
+> >      MapCacheEntry *entry, *pentry =3D NULL,
+> > @@ -337,14 +339,16 @@ tryagain:
+> >      if (!entry) {
+> >          entry =3D g_new0(MapCacheEntry, 1);
+> >          pentry->next =3D entry;
+> > -        xen_remap_bucket(mc, entry, NULL, cache_size, address_index, d=
+ummy);
+> > +        xen_remap_bucket(mc, entry, NULL, cache_size, address_index, d=
+ummy,
+> > +                         ram_offset);
+> >      } else if (!entry->lock) {
+> >          if (!entry->vaddr_base || entry->paddr_index !=3D address_inde=
+x ||
+> >                  entry->size !=3D cache_size ||
+> >                  !test_bits(address_offset >> XC_PAGE_SHIFT,
+> >                      test_bit_size >> XC_PAGE_SHIFT,
+> >                      entry->valid_mapping)) {
+> > -            xen_remap_bucket(mc, entry, NULL, cache_size, address_inde=
+x, dummy);
+> > +            xen_remap_bucket(mc, entry, NULL, cache_size, address_inde=
+x, dummy,
+> > +                             ram_offset);
+> >          }
+> >      }
+> >
+> > @@ -391,13 +395,15 @@ tryagain:
+> >
+> >  uint8_t *xen_map_cache(MemoryRegion *mr,
+> >                         hwaddr phys_addr, hwaddr size,
+> > +                       ram_addr_t ram_addr_offset,
+> >                         uint8_t lock, bool dma,
+> >                         bool is_write)
+> >  {
+> >      uint8_t *p;
+> >
+> >      mapcache_lock(mapcache);
+> > -    p =3D xen_map_cache_unlocked(mapcache, phys_addr, size, lock, dma,=
+ is_write);
+> > +    p =3D xen_map_cache_unlocked(mapcache, phys_addr, size, ram_addr_o=
+ffset,
+> > +                               lock, dma, is_write);
+> >      mapcache_unlock(mapcache);
+> >      return p;
+> >  }
+> > @@ -632,7 +638,7 @@ static uint8_t *xen_replace_cache_entry_unlocked(Ma=
+pCache *mc,
+> >      trace_xen_replace_cache_entry_dummy(old_phys_addr, new_phys_addr);
+> >
+> >      xen_remap_bucket(mc, entry, entry->vaddr_base,
+> > -                     cache_size, address_index, false);
+> > +                     cache_size, address_index, false, new_phys_addr);
+>
+> Everything else makes sense, but I don't understand how can it be that
+> new_phys_addr is the block->offset here?
+>
 
-But both function already have a stub each. Isn't is merely a matter of
-changing when those stubs come into play?
+Agreed, this should be old_phys_addr propagated via phys_offset from
+xen_add_to_physmap().
+The reason this didn't have an effect here is that we currently only
+use the ram_addr offset for grants,
+and xen_replace_cache_entry is never called for grants. Anyway, I'll
+fix this in the next version!
 
-Jan
+
+
+
+>
+> >      if (!test_bits(address_offset >> XC_PAGE_SHIFT,
+> >                  test_bit_size >> XC_PAGE_SHIFT,
+> >                  entry->valid_mapping)) {
+> > diff --git a/include/sysemu/xen-mapcache.h b/include/sysemu/xen-mapcach=
+e.h
+> > index 1ec9e66752..b5e3ea1bc0 100644
+> > --- a/include/sysemu/xen-mapcache.h
+> > +++ b/include/sysemu/xen-mapcache.h
+> > @@ -19,6 +19,7 @@ typedef hwaddr (*phys_offset_to_gaddr_t)(hwaddr phys_=
+offset,
+> >  void xen_map_cache_init(phys_offset_to_gaddr_t f,
+> >                          void *opaque);
+> >  uint8_t *xen_map_cache(MemoryRegion *mr, hwaddr phys_addr, hwaddr size=
+,
+> > +                       ram_addr_t ram_addr_offset,
+> >                         uint8_t lock, bool dma,
+> >                         bool is_write);
+> >  ram_addr_t xen_ram_addr_from_mapcache(void *ptr);
+> > @@ -37,6 +38,7 @@ static inline void xen_map_cache_init(phys_offset_to_=
+gaddr_t f,
+> >  static inline uint8_t *xen_map_cache(MemoryRegion *mr,
+> >                                       hwaddr phys_addr,
+> >                                       hwaddr size,
+> > +                                     ram_addr_t ram_addr_offset,
+> >                                       uint8_t lock,
+> >                                       bool dma,
+> >                                       bool is_write)
+> > diff --git a/system/physmem.c b/system/physmem.c
+> > index b7847db1a2..33d09f7571 100644
+> > --- a/system/physmem.c
+> > +++ b/system/physmem.c
+> > @@ -2231,13 +2231,14 @@ static void *qemu_ram_ptr_length(RAMBlock *bloc=
+k, ram_addr_t addr,
+> >           */
+> >          if (xen_mr_is_memory(block->mr)) {
+> >              return xen_map_cache(block->mr, block->offset + addr,
+> > -                                 len, lock, lock,
+> > -                                 is_write);
+> > +                                 len, block->offset,
+> > +                                 lock, lock, is_write);
+> >          }
+> >
+> >          block->host =3D xen_map_cache(block->mr, block->offset,
+> > -                                    block->max_length, 1,
+> > -                                    lock, is_write);
+> > +                                    block->max_length,
+> > +                                    block->offset,
+> > +                                    1, lock, is_write);
+> >      }
+>
+> This is OK but it is really making it clear that there is a mistake in
+> the code. OK for now but it is something to fix in the future.
+>
+>
+> >      return ramblock_ptr(block, addr);
+> > --
+> > 2.40.1
+> >
 
