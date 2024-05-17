@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 091748C8747
-	for <lists+xen-devel@lfdr.de>; Fri, 17 May 2024 15:35:03 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.724137.1129311 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 531158C8744
+	for <lists+xen-devel@lfdr.de>; Fri, 17 May 2024 15:34:58 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.724138.1129326 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s7xjO-0003ti-L6; Fri, 17 May 2024 13:34:42 +0000
+	id 1s7xjQ-0004GD-1t; Fri, 17 May 2024 13:34:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 724137.1129311; Fri, 17 May 2024 13:34:42 +0000
+Received: by outflank-mailman (output) from mailman id 724138.1129326; Fri, 17 May 2024 13:34:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s7xjO-0003nK-HT; Fri, 17 May 2024 13:34:42 +0000
-Received: by outflank-mailman (input) for mailman id 724137;
- Fri, 17 May 2024 13:34:41 +0000
+	id 1s7xjP-0004E1-US; Fri, 17 May 2024 13:34:43 +0000
+Received: by outflank-mailman (input) for mailman id 724138;
+ Fri, 17 May 2024 13:34:42 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=WJM7=MU=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1s7xjN-0003lB-Cp
- for xen-devel@lists.xenproject.org; Fri, 17 May 2024 13:34:41 +0000
-Received: from mail-lj1-x22e.google.com (mail-lj1-x22e.google.com
- [2a00:1450:4864:20::22e])
+ id 1s7xjO-0003lB-D0
+ for xen-devel@lists.xenproject.org; Fri, 17 May 2024 13:34:42 +0000
+Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
+ [2a00:1450:4864:20::42b])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 367aa102-1452-11ef-909e-e314d9c70b13;
- Fri, 17 May 2024 15:34:40 +0200 (CEST)
-Received: by mail-lj1-x22e.google.com with SMTP id
- 38308e7fff4ca-2db17e8767cso8917091fa.3
- for <xen-devel@lists.xenproject.org>; Fri, 17 May 2024 06:34:40 -0700 (PDT)
+ id 37124836-1452-11ef-909e-e314d9c70b13;
+ Fri, 17 May 2024 15:34:41 +0200 (CEST)
+Received: by mail-wr1-x42b.google.com with SMTP id
+ ffacd0b85a97d-34e7a35d5d4so90308f8f.2
+ for <xen-devel@lists.xenproject.org>; Fri, 17 May 2024 06:34:41 -0700 (PDT)
 Received: from localhost ([213.195.114.223]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-41f88110f3esm343070175e9.29.2024.05.17.06.34.38
+ ffacd0b85a97d-351daf8aacbsm4053618f8f.5.2024.05.17.06.34.40
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 17 May 2024 06:34:38 -0700 (PDT)
+ Fri, 17 May 2024 06:34:40 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,53 +44,45 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 367aa102-1452-11ef-909e-e314d9c70b13
+X-Inumbo-ID: 37124836-1452-11ef-909e-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1715952879; x=1716557679; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1715952881; x=1716557681; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=InYh5oMvLk+F01NISv6iHX9jFgL9SL6h0cc3g+aH2ug=;
-        b=RL/SaNwE+93gf9w0hnt4rJxgaTY51WtC5bIs65iHdfjFYwkJhXRx2DEWsSX9WM0hTI
-         nBverXOIEyVzSQwkAbS9Onc1wFGZ/EgEnytxinJ+eNFu7Y8GdPLZVvbpIcDu1WElGpBJ
-         IsqUuWSPl49hHyAIL7jwRx7/f6CFNtY3KNPCU=
+        bh=cz5G6tUTw2J7tgiMDU5XGAZ4Acz+mTvXsOD7q6Ij0fU=;
+        b=ThBzQg0xYYAl02TtN/17aupi8m95kfSwqFbhA/k8phPtOiApZ+4hY8xwlbYS5sWLyb
+         1MR923GyyVuuSBApOHjurW8HP9fFC3TNvZFkOYpmFSPHNHamfyJZcQlLbCTaVN+qaxsb
+         dp2X/ZSvwcB5BMp5b7TwUfkqs38wCyctipT1o=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1715952879; x=1716557679;
+        d=1e100.net; s=20230601; t=1715952881; x=1716557681;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=InYh5oMvLk+F01NISv6iHX9jFgL9SL6h0cc3g+aH2ug=;
-        b=afofppW0j65988NM1H7ujvYqXFwb0d3rNFh62ykP0e8ADYrvhH8VvMUB5YfsehDDDC
-         wZxDUQJc9eLfzDLQbRySz1zdXSd6224aOa8Slc/1pxlBPPKPjNQAUYbHKSlkfgDTJxAh
-         TzIsncBqjRKDqECXQj0Bk5eYZFMBjckdmxaSgRcqvYzle65weZu3PDn3AOuD63RAQAm3
-         7R1DOUI9FLWPjpliKIAn9AtWTef3x1uWHtSpF47gkV2LpjzKpwFgVhsbNTNHX+PAw1F6
-         jk56/7BGJsBErtUgbgECmELexix5mbrcdE5onfnJbN+4rSaSk3oEmjUlb+9atbqaY00+
-         HH0g==
-X-Gm-Message-State: AOJu0YwqMfliseBYg4hzv4TKo/itVHkLu1vs9v+tbFkEjUNvOVsg4Vlq
-	RjWVy/iW2JU4xjuJm2vW4siMTiG2/IuQAwkL6HEG1OD/LkyweYlv3j3B9ezQfpqCp5bQ8vyqyiU
-	w
-X-Google-Smtp-Source: AGHT+IGQFISxfnzNfTscn7hw2MgSEuiMarnI41ybpc/VCXw6LtDUEGVSUEHws/R+y9K0LGm392G+jA==
-X-Received: by 2002:a05:651c:1542:b0:2de:7046:b8f8 with SMTP id 38308e7fff4ca-2e51fd2e6a8mr223879701fa.5.1715952879322;
-        Fri, 17 May 2024 06:34:39 -0700 (PDT)
+        bh=cz5G6tUTw2J7tgiMDU5XGAZ4Acz+mTvXsOD7q6Ij0fU=;
+        b=vOT6DxGBS+5J7d5rRZ+BAXtFH7f05qOCbiHMU9kKJoCvrqch1aLp1ixiXNySLbgdFk
+         2iV8vU98mrOaIUI/Gyj02AKcZ340BIQZ4Lfhl6h3BhTrM+VWCr6l+HDvhpkHDQWi1dJ/
+         bgPcKHztNIFeF3Sg+b0xjixTn5JxDVnhoUG3ryLnEV/Sx53A/oQlvB/AYH1yEm7RbVNR
+         z7hzb01taVUVaUJjhQERHc21lOInGyaF6GEB2kr155rDu7fyRuackE3+Lxe+4WyzR+GB
+         Ux+XbJrc5muozbDWE7ndQS/FYUITTI/whFjIvCARgBoTzel+NoUMwleGvNJM8vPJaFBD
+         66LA==
+X-Gm-Message-State: AOJu0YzFA4b3ZFEXufTee9tnOyeeoDpWlU/6KrQkLFISyCdEG4rLF4BK
+	urGSCc022a4vvy8+wIH0Pb7rtVkgU4+Xsjg/Xp8Bpddd0VqcTyrpjDDxSPrF+UdS628RKY+ZwAU
+	L
+X-Google-Smtp-Source: AGHT+IGKchGSk9hZuPXcPcoqBWvz2ekAFm+dIQcZpMZC1EqlpLiDeUADq3bBc7/yMAh3RtvynUJ8Lw==
+X-Received: by 2002:adf:ec48:0:b0:34d:9467:d6d7 with SMTP id ffacd0b85a97d-3504a61d3c7mr14379536f8f.9.1715952880817;
+        Fri, 17 May 2024 06:34:40 -0700 (PDT)
 From: Roger Pau Monne <roger.pau@citrix.com>
 To: xen-devel@lists.xenproject.org
 Cc: Roger Pau Monne <roger.pau@citrix.com>,
-	Anthony PERARD <anthony@xenproject.org>,
-	Juergen Gross <jgross@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
+	Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+	Community Manager <community.manager@xenproject.org>,
 	Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Christian Lindig <christian.lindig@citrix.com>,
-	David Scott <dave@recoil.org>,
-	Bertrand Marquis <bertrand.marquis@arm.com>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	"Daniel P. Smith" <dpsmith@apertussolutions.com>
-Subject: [PATCH for-4.19 v3 2/3] xen: enable altp2m at create domain domctl
-Date: Fri, 17 May 2024 15:33:51 +0200
-Message-ID: <20240517133352.94347-3-roger.pau@citrix.com>
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>
+Subject: [PATCH for-4.19 v3 3/3] xen/x86: remove foreign mappings from the p2m on teardown
+Date: Fri, 17 May 2024 15:33:52 +0200
+Message-ID: <20240517133352.94347-4-roger.pau@citrix.com>
 X-Mailer: git-send-email 2.44.0
 In-Reply-To: <20240517133352.94347-1-roger.pau@citrix.com>
 References: <20240517133352.94347-1-roger.pau@citrix.com>
@@ -98,309 +90,270 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Enabling it using an HVM param is fragile, and complicates the logic when
-deciding whether options that interact with altp2m can also be enabled.
+Iterate over the p2m up to the maximum recorded gfn and remove any foreign
+mappings, in order to drop the underlying page references and thus don't keep
+extra page references if a domain is destroyed while still having foreign
+mappings on it's p2m.
 
-Leave the HVM param value for consumption by the guest, but prevent it from
-being set.  Enabling is now done using and additional altp2m specific field in
-xen_domctl_createdomain.
+The logic is similar to the one used on Arm.
 
-Note that albeit only currently implemented in x86, altp2m could be implemented
-in other architectures, hence why the field is added to xen_domctl_createdomain
-instead of xen_arch_domainconfig.
+Note that foreign mappings cannot be created by guests that have altp2m or
+nested HVM enabled, as p2ms different than the host one are not currently
+scrubbed when destroyed in order to drop references to any foreign maps.
+
+It's unclear whether the right solution is to take an extra reference when
+foreign maps are added to p2ms different than the host one, or just rely on the
+host p2m already having a reference.  The mapping being removed from the host
+p2m should cause it to be dropped on all domain p2ms.
 
 Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
 ---
 Changes since v2:
- - Introduce a new altp2m field in xen_domctl_createdomain.
+ - Fix arch_acquire_resource_check() condition.
 
 Changes since v1:
- - New in this version.
+ - Use existing p2m max_mapped_pfn field.
+ - Prevent creating foreign mappings by guests that have altp2m or nestedhvm
+   enabled.
 ---
- tools/libs/light/libxl_create.c     | 23 ++++++++++++++++++++++-
- tools/libs/light/libxl_x86.c        | 26 ++++++++++++--------------
- tools/ocaml/libs/xc/xenctrl_stubs.c |  2 +-
- xen/arch/arm/domain.c               |  6 ++++++
- xen/arch/x86/domain.c               | 22 ++++++++++++++++++++++
- xen/arch/x86/hvm/hvm.c              | 23 ++++++++++++++++++++++-
- xen/include/public/domctl.h         | 20 +++++++++++++++++++-
- xen/include/public/hvm/params.h     |  9 ++-------
- 8 files changed, 106 insertions(+), 25 deletions(-)
+ CHANGELOG.md                   |  1 +
+ xen/arch/x86/domain.c          |  6 +++
+ xen/arch/x86/include/asm/p2m.h | 26 +++++++------
+ xen/arch/x86/mm/p2m-basic.c    | 18 +++++++++
+ xen/arch/x86/mm/p2m.c          | 68 ++++++++++++++++++++++++++++++++--
+ 5 files changed, 103 insertions(+), 16 deletions(-)
 
-diff --git a/tools/libs/light/libxl_create.c b/tools/libs/light/libxl_create.c
-index 41252ec55370..edeadd57ef5a 100644
---- a/tools/libs/light/libxl_create.c
-+++ b/tools/libs/light/libxl_create.c
-@@ -372,7 +372,6 @@ int libxl__domain_build_info_setdefault(libxl__gc *gc,
-         libxl_defbool_setdefault(&b_info->u.hvm.viridian,           false);
-         libxl_defbool_setdefault(&b_info->u.hvm.hpet,               true);
-         libxl_defbool_setdefault(&b_info->u.hvm.vpt_align,          true);
--        libxl_defbool_setdefault(&b_info->u.hvm.altp2m,             false);
-         libxl_defbool_setdefault(&b_info->u.hvm.usb,                false);
-         libxl_defbool_setdefault(&b_info->u.hvm.vkb_device,         true);
-         libxl_defbool_setdefault(&b_info->u.hvm.xen_platform_pci,   true);
-@@ -678,6 +677,28 @@ int libxl__domain_make(libxl__gc *gc, libxl_domain_config *d_config,
-         if (info->passthrough == LIBXL_PASSTHROUGH_SYNC_PT)
-             create.iommu_opts |= XEN_DOMCTL_IOMMU_no_sharept;
+diff --git a/CHANGELOG.md b/CHANGELOG.md
+index c43c45d8d4bd..59aad04e9364 100644
+--- a/CHANGELOG.md
++++ b/CHANGELOG.md
+@@ -16,6 +16,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
+  - xl/libxl configures vkb=[] for HVM domains with priority over vkb_device.
+  - Increase the maximum number of CPUs Xen can be built for from 4095 to
+    16383.
++ - Allow HVM/PVH domains to map foreign pages.
  
-+        LOG(DETAIL, "altp2m: %s", libxl_altp2m_mode_to_string(b_info->altp2m));
-+        switch(b_info->altp2m) {
-+        case LIBXL_ALTP2M_MODE_MIXED:
-+            create.altp2m_opts |=
-+                XEN_DOMCTL_ALTP2M_mode(XEN_DOMCTL_ALTP2M_mixed);
-+            break;
-+
-+        case LIBXL_ALTP2M_MODE_EXTERNAL:
-+            create.altp2m_opts |=
-+                XEN_DOMCTL_ALTP2M_mode(XEN_DOMCTL_ALTP2M_external);
-+            break;
-+
-+        case LIBXL_ALTP2M_MODE_LIMITED:
-+            create.altp2m_opts |=
-+                XEN_DOMCTL_ALTP2M_mode(XEN_DOMCTL_ALTP2M_limited);
-+            break;
-+
-+        case LIBXL_ALTP2M_MODE_DISABLED:
-+            /* Nothing to do - altp2m disabled is signaled as mode == 0. */
-+            break;
-+        }
-+
-         /* Ultimately, handle is an array of 16 uint8_t, same as uuid */
-         libxl_uuid_copy(ctx, (libxl_uuid *)&create.handle, &info->uuid);
- 
-diff --git a/tools/libs/light/libxl_x86.c b/tools/libs/light/libxl_x86.c
-index a50ec37eb3eb..60643d6f5376 100644
---- a/tools/libs/light/libxl_x86.c
-+++ b/tools/libs/light/libxl_x86.c
-@@ -407,19 +407,9 @@ static int hvm_set_conf_params(libxl__gc *gc, uint32_t domid,
-     libxl_ctx *ctx = libxl__gc_owner(gc);
-     xc_interface *xch = ctx->xch;
-     int ret = ERROR_FAIL;
--    unsigned int altp2m = info->altp2m;
- 
-     switch(info->type) {
-     case LIBXL_DOMAIN_TYPE_HVM:
--        /* The config parameter "altp2m" replaces the parameter "altp2mhvm". For
--         * legacy reasons, both parameters are accepted on x86 HVM guests.
--         *
--         * If the legacy field info->u.hvm.altp2m is set, activate altp2m.
--         * Otherwise set altp2m based on the field info->altp2m. */
--        if (info->altp2m == LIBXL_ALTP2M_MODE_DISABLED &&
--            libxl_defbool_val(info->u.hvm.altp2m))
--            altp2m = libxl_defbool_val(info->u.hvm.altp2m);
--
-         if (xc_hvm_param_set(xch, domid, HVM_PARAM_HPET_ENABLED,
-                              libxl_defbool_val(info->u.hvm.hpet))) {
-             LOG(ERROR, "Couldn't set HVM_PARAM_HPET_ENABLED");
-@@ -444,10 +434,6 @@ static int hvm_set_conf_params(libxl__gc *gc, uint32_t domid,
-             LOG(ERROR, "Couldn't set HVM_PARAM_TIMER_MODE");
-             goto out;
-         }
--        if (xc_hvm_param_set(xch, domid, HVM_PARAM_ALTP2M, altp2m)) {
--            LOG(ERROR, "Couldn't set HVM_PARAM_ALTP2M");
--            goto out;
--        }
-         break;
- 
-     default:
-@@ -818,6 +804,18 @@ int libxl__arch_domain_build_info_setdefault(libxl__gc *gc,
-     libxl_defbool_setdefault(&b_info->acpi, true);
-     libxl_defbool_setdefault(&b_info->arch_x86.msr_relaxed, false);
- 
-+    /*
-+     * The config parameter "altp2m" replaces the parameter "altp2mhvm".
-+     * For legacy reasons, both parameters are accepted on x86 HVM guests.
-+     *
-+     * If the legacy field info->u.hvm.altp2m is set, activate altp2m.
-+     * Otherwise set altp2m based on the field info->altp2m.
-+     */
-+    libxl_defbool_setdefault(&b_info->u.hvm.altp2m, false);
-+    if (b_info->altp2m == LIBXL_ALTP2M_MODE_DISABLED &&
-+        libxl_defbool_val(b_info->u.hvm.altp2m))
-+        b_info->altp2m = libxl_defbool_val(b_info->u.hvm.altp2m);
-+
-     return 0;
- }
- 
-diff --git a/tools/ocaml/libs/xc/xenctrl_stubs.c b/tools/ocaml/libs/xc/xenctrl_stubs.c
-index 2b6d3c09dfa0..c6da9bb09137 100644
---- a/tools/ocaml/libs/xc/xenctrl_stubs.c
-+++ b/tools/ocaml/libs/xc/xenctrl_stubs.c
-@@ -257,7 +257,7 @@ CAMLprim value stub_xc_domain_create(value xch_val, value wanted_domid, value co
- #if defined(__i386__) || defined(__x86_64__)
- 
- 		/* Quick & dirty check for ABI changes. */
--		BUILD_BUG_ON(sizeof(cfg) != 64);
-+		BUILD_BUG_ON(sizeof(cfg) != 68);
- 
-         /* Mnemonics for the named fields inside xen_x86_arch_domainconfig */
- #define VAL_EMUL_FLAGS          Field(arch_domconfig, 0)
-diff --git a/xen/arch/arm/domain.c b/xen/arch/arm/domain.c
-index 34cbfe699a68..8bde2f730dfb 100644
---- a/xen/arch/arm/domain.c
-+++ b/xen/arch/arm/domain.c
-@@ -688,6 +688,12 @@ int arch_sanitise_domain_config(struct xen_domctl_createdomain *config)
-         return -EINVAL;
-     }
- 
-+    if ( config->altp2m_opts )
-+    {
-+        dprintk(XENLOG_INFO, "Altp2m not supported\n");
-+        return -EINVAL;
-+    }
-+
-     return 0;
- }
- 
+ ### Added
+  - On x86:
 diff --git a/xen/arch/x86/domain.c b/xen/arch/x86/domain.c
-index 20e83cf38bbd..a89ceff9ae93 100644
+index a89ceff9ae93..de5f6b3212fb 100644
 --- a/xen/arch/x86/domain.c
 +++ b/xen/arch/x86/domain.c
-@@ -637,6 +637,8 @@ int arch_sanitise_domain_config(struct xen_domctl_createdomain *config)
-     bool hap = config->flags & XEN_DOMCTL_CDF_hap;
-     bool nested_virt = config->flags & XEN_DOMCTL_CDF_nested_virt;
-     unsigned int max_vcpus;
-+    unsigned int altp2m_mode = MASK_EXTR(config->altp2m_opts,
-+                                         XEN_DOMCTL_ALTP2M_mode_mask);
+@@ -2386,6 +2386,7 @@ int domain_relinquish_resources(struct domain *d)
+         enum {
+             PROG_iommu_pagetables = 1,
+             PROG_shared,
++            PROG_mappings,
+             PROG_paging,
+             PROG_vcpu_pagetables,
+             PROG_xen,
+@@ -2434,6 +2435,11 @@ int domain_relinquish_resources(struct domain *d)
+         }
+ #endif
  
-     if ( hvm ? !hvm_enabled : !IS_ENABLED(CONFIG_PV) )
-     {
-@@ -715,6 +717,26 @@ int arch_sanitise_domain_config(struct xen_domctl_createdomain *config)
-         return -EINVAL;
-     }
++    PROGRESS(mappings):
++        ret = relinquish_p2m_mapping(d);
++        if ( ret )
++            return ret;
++
+     PROGRESS(paging):
  
-+    if ( config->altp2m_opts & ~XEN_DOMCTL_ALTP2M_mode_mask )
-+    {
-+        dprintk(XENLOG_INFO, "Invalid altp2m options selected: %#x\n",
-+                config->flags);
-+        return -EINVAL;
-+    }
+         /* Tear down paging-assistance stuff. */
+diff --git a/xen/arch/x86/include/asm/p2m.h b/xen/arch/x86/include/asm/p2m.h
+index 107b9f260848..c1478ffc3647 100644
+--- a/xen/arch/x86/include/asm/p2m.h
++++ b/xen/arch/x86/include/asm/p2m.h
+@@ -383,6 +383,8 @@ struct p2m_domain {
+ 
+     /* Number of foreign mappings. */
+     unsigned long      nr_foreign;
++    /* Cursor for iterating over the p2m on teardown. */
++    unsigned long      teardown_gfn;
+ #endif /* CONFIG_HVM */
+ };
+ 
+@@ -395,16 +397,7 @@ struct p2m_domain {
+ #endif
+ #include <xen/p2m-common.h>
+ 
+-static inline bool arch_acquire_resource_check(struct domain *d)
+-{
+-    /*
+-     * FIXME: Until foreign pages inserted into the P2M are properly
+-     * reference counted, it is unsafe to allow mapping of
+-     * resource pages unless the caller is the hardware domain
+-     * (see set_foreign_p2m_entry()).
+-     */
+-    return !paging_mode_translate(d) || is_hardware_domain(d);
+-}
++bool arch_acquire_resource_check(const struct domain *d);
+ 
+ /*
+  * Updates vCPU's n2pm to match its np2m_base in VMCx12 and returns that np2m.
+@@ -720,6 +713,10 @@ p2m_pod_offline_or_broken_hit(struct page_info *p);
+ void
+ p2m_pod_offline_or_broken_replace(struct page_info *p);
+ 
++/* Perform cleanup of p2m mappings ahead of teardown. */
++int
++relinquish_p2m_mapping(struct domain *d);
 +
-+    if ( altp2m_mode && nested_virt )
-+    {
-+        dprintk(XENLOG_INFO,
-+                "Nested virt and altp2m are not supported together\n");
-+        return -EINVAL;
-+    }
-+
-+    if ( altp2m_mode && !hap )
-+    {
-+        dprintk(XENLOG_INFO, "altp2m is only supported with HAP\n");
-+        return -EINVAL;
-+    }
-+
-     return 0;
+ #else
+ 
+ static inline bool
+@@ -748,6 +745,11 @@ static inline void p2m_pod_offline_or_broken_replace(struct page_info *p)
+     ASSERT_UNREACHABLE();
  }
  
-diff --git a/xen/arch/x86/hvm/hvm.c b/xen/arch/x86/hvm/hvm.c
-index 9594e0a5c530..31f64725b725 100644
---- a/xen/arch/x86/hvm/hvm.c
-+++ b/xen/arch/x86/hvm/hvm.c
-@@ -659,6 +659,22 @@ int hvm_domain_initialise(struct domain *d,
- 
-     d->arch.hvm.params[HVM_PARAM_TRIPLE_FAULT_REASON] = SHUTDOWN_reboot;
- 
-+    /* Set altp2m based on domctl flags. */
-+    switch ( MASK_EXTR(config->altp2m_opts, XEN_DOMCTL_ALTP2M_mode_mask) )
-+    {
-+    case XEN_DOMCTL_ALTP2M_mixed:
-+        d->arch.hvm.params[HVM_PARAM_ALTP2M] = XEN_ALTP2M_mixed;
-+        break;
++static inline int relinquish_p2m_mapping(struct domain *d)
++{
++    return 0;
++}
 +
-+    case XEN_DOMCTL_ALTP2M_external:
-+        d->arch.hvm.params[HVM_PARAM_ALTP2M] = XEN_ALTP2M_external;
-+        break;
-+
-+    case XEN_DOMCTL_ALTP2M_limited:
-+        d->arch.hvm.params[HVM_PARAM_ALTP2M] = XEN_ALTP2M_limited;
-+        break;
-+    }
-+
-     vpic_init(d);
+ #endif
  
-     rc = vioapic_init(d);
-@@ -4169,6 +4185,12 @@ static int hvm_allow_set_param(struct domain *d,
-     case HVM_PARAM_CONSOLE_EVTCHN:
-     case HVM_PARAM_X87_FIP_WIDTH:
+ 
+@@ -1043,7 +1045,7 @@ static inline int p2m_entry_modify(struct p2m_domain *p2m, p2m_type_t nt,
          break;
-+
-+    /* The following parameters are read-only. */
-+    case HVM_PARAM_ALTP2M:
-+        rc = -EEXIST;
-+        break;
-+
-     /* The following parameters are deprecated. */
-     case HVM_PARAM_PAE_ENABLED:
-     case HVM_PARAM_DM_DOMAIN:
-@@ -4210,7 +4232,6 @@ static int hvm_allow_set_param(struct domain *d,
-     case HVM_PARAM_BUFIOREQ_PFN:
-     case HVM_PARAM_IOREQ_SERVER_PFN:
-     case HVM_PARAM_NR_IOREQ_SERVER_PAGES:
--    case HVM_PARAM_ALTP2M:
-     case HVM_PARAM_MCA_CAP:
-         if ( value != 0 && new_value != value )
-             rc = -EEXIST;
-diff --git a/xen/include/public/domctl.h b/xen/include/public/domctl.h
-index a33f9ec32b08..e72967717e67 100644
---- a/xen/include/public/domctl.h
-+++ b/xen/include/public/domctl.h
-@@ -21,7 +21,7 @@
- #include "hvm/save.h"
- #include "memory.h"
  
--#define XEN_DOMCTL_INTERFACE_VERSION 0x00000016
-+#define XEN_DOMCTL_INTERFACE_VERSION 0x00000017
+     case p2m_map_foreign:
+-        if ( !mfn_valid(nfn) )
++        if ( !mfn_valid(nfn) || p2m != p2m_get_hostp2m(p2m->domain) )
+         {
+             ASSERT_UNREACHABLE();
+             return -EINVAL;
+@@ -1068,7 +1070,7 @@ static inline int p2m_entry_modify(struct p2m_domain *p2m, p2m_type_t nt,
+         break;
  
+     case p2m_map_foreign:
+-        if ( !mfn_valid(ofn) )
++        if ( !mfn_valid(ofn) || p2m != p2m_get_hostp2m(p2m->domain) )
+         {
+             ASSERT_UNREACHABLE();
+             return -EINVAL;
+diff --git a/xen/arch/x86/mm/p2m-basic.c b/xen/arch/x86/mm/p2m-basic.c
+index 8599bd15c61a..25d27a0a9f56 100644
+--- a/xen/arch/x86/mm/p2m-basic.c
++++ b/xen/arch/x86/mm/p2m-basic.c
+@@ -13,6 +13,8 @@
+ 
+ #include <xen/event.h>
+ #include <xen/types.h>
++#include <asm/altp2m.h>
++#include <asm/hvm/nestedhvm.h>
+ #include <asm/p2m.h>
+ #include "mm-locks.h"
+ #include "p2m.h"
+@@ -207,6 +209,22 @@ void p2m_final_teardown(struct domain *d)
+     p2m_teardown_hostp2m(d);
+ }
+ 
++bool arch_acquire_resource_check(const struct domain *d)
++{
++    /*
++     * altp2m is not supported as we would otherwise also need to walk the
++     * altp2m tables and drop any foreign map entries in order to drop the page
++     * reference.
++     *
++     * The same applies to nestedhvm nested p2m tables, as the type from the L0
++     * p2m is replicated into the L1 p2m, and there's no filtering that
++     * prevents foreign mappings from being created in nestedp2m.
++     */
++    return is_pv_domain(d) ||
++           (d->arch.hvm.params[HVM_PARAM_ALTP2M] == XEN_ALTP2M_disabled &&
++            !nestedhvm_enabled(d));
++}
++
  /*
-  * NB. xen_domctl.domain is an IN/OUT parameter for this operation.
-@@ -86,6 +86,24 @@ struct xen_domctl_createdomain {
+  * Local variables:
+  * mode: C
+diff --git a/xen/arch/x86/mm/p2m.c b/xen/arch/x86/mm/p2m.c
+index ce742c12e0de..23c6c42af275 100644
+--- a/xen/arch/x86/mm/p2m.c
++++ b/xen/arch/x86/mm/p2m.c
+@@ -2333,10 +2333,6 @@ static int p2m_add_foreign(struct domain *tdom, unsigned long fgfn,
+     int rc;
+     struct domain *fdom;
  
-     uint32_t grant_opts;
+-    /*
+-     * hvm fixme: until support is added to p2m teardown code to cleanup any
+-     * foreign entries, limit this to hardware domain only.
+-     */
+     if ( !arch_acquire_resource_check(tdom) )
+         return -EPERM;
+ 
+@@ -2693,6 +2689,70 @@ int p2m_set_altp2m_view_visibility(struct domain *d, unsigned int altp2m_idx,
+     return rc;
+ }
  
 +/*
-+ * Enable altp2m mixed mode.
-+ *
-+ * Note that 'mixed' mode has not been evaluated for safety from a security
-+ * perspective.  Before using this mode in a security-critical environment,
-+ * each subop should be evaluated for safety, with unsafe subops blacklisted in
-+ * XSM.
++ * Remove foreign mappings from the p2m, as that drops the page reference taken
++ * when mapped.
 + */
-+#define XEN_DOMCTL_ALTP2M_mixed      (1U)
-+/* Enable altp2m external mode. */
-+#define XEN_DOMCTL_ALTP2M_external   (2U)
-+/* Enable altp2m limited mode. */
-+#define XEN_DOMCTL_ALTP2M_limited    (3U)
-+/* Altp2m mode signaling uses bits [0, 1]. */
-+#define XEN_DOMCTL_ALTP2M_mode_mask  (0x3U)
-+#define XEN_DOMCTL_ALTP2M_mode(m)    ((m) & XEN_DOMCTL_ALTP2M_mode_mask)
-+    uint32_t altp2m_opts;
++int relinquish_p2m_mapping(struct domain *d)
++{
++    struct p2m_domain *p2m = p2m_get_hostp2m(d);
++    unsigned long gfn, count = 0;
++    int rc = 0;
 +
-     /* Per-vCPU buffer size in bytes.  0 to disable. */
-     uint32_t vmtrace_size;
- 
-diff --git a/xen/include/public/hvm/params.h b/xen/include/public/hvm/params.h
-index a22b4ed45d2e..99c40b4287f1 100644
---- a/xen/include/public/hvm/params.h
-+++ b/xen/include/public/hvm/params.h
-@@ -246,16 +246,11 @@
- #define HVM_PARAM_VM_GENERATION_ID_ADDR 34
- 
++    if ( !paging_mode_translate(d) )
++        return 0;
++
++    BUG_ON(!d->is_dying);
++
++    p2m_lock(p2m);
++
++    gfn = p2m->teardown_gfn;
++
++    /* Iterate over the whole p2m on debug builds to ensure correctness. */
++    while ( gfn <= p2m->max_mapped_pfn &&
++            (IS_ENABLED(CONFIG_DEBUG) || p2m->nr_foreign) )
++    {
++        unsigned int order;
++        p2m_type_t t;
++        p2m_access_t a;
++
++        _get_gfn_type_access(p2m, _gfn(gfn), &t, &a, 0, &order, 0);
++        ASSERT(IS_ALIGNED(gfn, 1UL << order));
++
++        if ( t == p2m_map_foreign )
++        {
++            ASSERT(p2m->nr_foreign);
++            ASSERT(order == 0);
++
++            rc = p2m_set_entry(p2m, _gfn(gfn), INVALID_MFN, order, p2m_invalid,
++                               p2m->default_access);
++            if ( rc )
++            {
++                printk(XENLOG_ERR
++                       "%pd: failed to unmap foreign page %" PRI_gfn " order %u error %d\n",
++                       d, gfn, order, rc);
++                ASSERT_UNREACHABLE();
++                break;
++            }
++        }
++
++        gfn += 1UL << order;
++
++        if ( !(++count & 0xff) && hypercall_preempt_check() )
++        {
++            rc = -ERESTART;
++            break;
++        }
++    }
++
++    ASSERT(gfn <= p2m->max_mapped_pfn || !p2m->nr_foreign);
++    p2m->teardown_gfn = gfn;
++
++    p2m_unlock(p2m);
++
++    return rc;
++}
++
  /*
-- * Set mode for altp2m:
-- *  disabled: don't activate altp2m (default)
-+ * Get mode for altp2m:
-+ *  disabled: altp2m not active (default)
-  *  mixed: allow access to all altp2m ops for both in-guest and external tools
-  *  external: allow access to external privileged tools only
-  *  limited: guest only has limited access (ie. control VMFUNC and #VE)
-- *
-- * Note that 'mixed' mode has not been evaluated for safety from a
-- * security perspective.  Before using this mode in a
-- * security-critical environment, each subop should be evaluated for
-- * safety, with unsafe subops blacklisted in XSM.
-  */
- #define HVM_PARAM_ALTP2M       35
- #define XEN_ALTP2M_disabled      0
+  * Local variables:
+  * mode: C
 -- 
 2.44.0
 
