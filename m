@@ -2,56 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4B76C8C8A8D
-	for <lists+xen-devel@lfdr.de>; Fri, 17 May 2024 19:07:35 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.724364.1129625 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DEC888C8A8C
+	for <lists+xen-devel@lfdr.de>; Fri, 17 May 2024 19:07:34 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.724363.1129616 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s813C-0007Nh-BE; Fri, 17 May 2024 17:07:22 +0000
+	id 1s813B-000784-1Y; Fri, 17 May 2024 17:07:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 724364.1129625; Fri, 17 May 2024 17:07:22 +0000
+Received: by outflank-mailman (output) from mailman id 724363.1129616; Fri, 17 May 2024 17:07:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s813C-0007LT-80; Fri, 17 May 2024 17:07:22 +0000
-Received: by outflank-mailman (input) for mailman id 724364;
- Fri, 17 May 2024 17:07:20 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1s813A-00075U-UG; Fri, 17 May 2024 17:07:20 +0000
+Received: by outflank-mailman (input) for mailman id 724363;
+ Fri, 17 May 2024 17:07:19 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=KIA2=MU=amd.com=Stewart.Hildebrand@srs-se1.protection.inumbo.net>)
- id 1s813A-0006C6-OQ
- for xen-devel@lists.xenproject.org; Fri, 17 May 2024 17:07:20 +0000
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on20600.outbound.protection.outlook.com
- [2a01:111:f403:2412::600])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ea53e26b-146f-11ef-b4bb-af5377834399;
- Fri, 17 May 2024 19:07:19 +0200 (CEST)
-Received: from DM6PR13CA0061.namprd13.prod.outlook.com (2603:10b6:5:134::38)
- by PH0PR12MB7887.namprd12.prod.outlook.com (2603:10b6:510:26d::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7587.28; Fri, 17 May
+ id 1s8139-0005cV-Ez
+ for xen-devel@lists.xenproject.org; Fri, 17 May 2024 17:07:19 +0000
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on20601.outbound.protection.outlook.com
+ [2a01:111:f403:2416::601])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id ea290aca-146f-11ef-909e-e314d9c70b13;
+ Fri, 17 May 2024 19:07:18 +0200 (CEST)
+Received: from CH0PR07CA0014.namprd07.prod.outlook.com (2603:10b6:610:32::19)
+ by SJ0PR12MB6781.namprd12.prod.outlook.com (2603:10b6:a03:44b::22)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7587.26; Fri, 17 May
  2024 17:07:13 +0000
-Received: from CH1PEPF0000A349.namprd04.prod.outlook.com
- (2603:10b6:5:134:cafe::d3) by DM6PR13CA0061.outlook.office365.com
- (2603:10b6:5:134::38) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7611.13 via Frontend
+Received: from CH2PEPF000000A0.namprd02.prod.outlook.com
+ (2603:10b6:610:32:cafe::d6) by CH0PR07CA0014.outlook.office365.com
+ (2603:10b6:610:32::19) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7587.30 via Frontend
  Transport; Fri, 17 May 2024 17:07:13 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CH1PEPF0000A349.mail.protection.outlook.com (10.167.244.9) with Microsoft
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ CH2PEPF000000A0.mail.protection.outlook.com (10.167.244.26) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
  15.20.7587.21 via Frontend Transport; Fri, 17 May 2024 17:07:12 +0000
-Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Fri, 17 May
- 2024 12:06:59 -0500
+ 2024 12:07:12 -0500
 Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB05.amd.com
  (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Fri, 17 May
- 2024 12:06:58 -0500
+ 2024 12:07:12 -0500
 Received: from ubuntu.mshome.net (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.35 via Frontend
- Transport; Fri, 17 May 2024 12:06:57 -0500
+ Transport; Fri, 17 May 2024 12:07:05 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,39 +63,39 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ea53e26b-146f-11ef-b4bb-af5377834399
+X-Inumbo-ID: ea290aca-146f-11ef-909e-e314d9c70b13
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=FXlIt6aRLa/lQKTfM+WWsVar9wDtckkBisIw8/U4Arw0/P7gsnMk+eY6LuuouvOQc3nrUENeMy8QWbhF3BQnGHV7qeSuB6FALovQF70pnPgjkmTJY1Uhkk/4XT/6oTUmJ+p03Lm9EGHRQA0Lrt05E8RaRUgSx9hRDKfMDvFeQDlSH1O8DQVKjDqpK8Qvh45NJBM7ekphsKSwoNGHlj/u9kVRNx+lkZW67QHK0hmgEjAJd7oQ4SaqiJjy21xIE+/cIsaxm+yxOAFY01pl3zdcYnhEpytBECtJ5YWqYIlK3D+sKVz/XLYY+0tw1kLUTNxDSWDxNW9s+rYtYqQu8rAEQQ==
+ b=f4zeHa5+mYcNejHDgbSebek8KjYBpkQK2u5AlNgP+8Ippj2O3xRRv7FciQrlt4yX2LMXjJPAEh6DByroDztdhjLbCGwNsGMM4WgeTlO75rSg4TzqDGA3mJu+oGBf4+ipBaf8IgTk3HQkV6CDToaxQJk9iWeJAzE6z1OCyKUXkEzyZ6PW+MDigjWw9is/76yeX5LSXkwJcbKzVBhc33N9E/ve4ZAgiAdz3vS8M5yoATI439kNYgtUmxcMvN0K0LReAd1KfIiHCe0+UHiYMwzP7UhAvlp8E1USR+5nqtL6Ywt+RXlqO0+8B9mAEVC0DQL/FAKlbyVOVDCtUxZOYO9Rsw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=bv7+nDlnnhjXbpYGAA9ivNDf2bKqLCBADTr28OUk9Vg=;
- b=aETuViYGb5htggsb9glyy2sZzlELADBNsd26btEK+QcbgRUYQ9UOK9HHyLlOW0s3xzazArgUcn279N4aeK1dOZCwS9Xel8QLfegtMJ7LOrAVT9GsFDvCJL/XlMKzRnqv4Zt2LDtB7IOWacfuiM9D1OWM7bdo8RQSK7YCT3hJJQGJ+pTSLp0lOtPSKkMdEkAZbmbivPq/5UjwUhtsYAL53TwBP0loOc3Kudy1PD64PQ8xZeN8UoSSUBUgsfWnjKpD5BnQzDhM6zJxpQuf59b0aRhQVjrkeTZ7O8/CkcAUmMS5/fjZmMroo5BYLTeDUF69IEyR3mvRwJ/2IyjZ7mBsgg==
+ bh=zUM6dVyovYpjq8KjZD0l2PS8q/TOLp/Wit92KUplaCw=;
+ b=JN00j14+XaNx7V/ype4xKqhW6VbtqyqIYd9MOe6QeHdpZIIykewkc+Jljghvc/BV3sJ+wLbpxaYhhd0CGmgo2KEP3qF2Iezn5lAEBtcPA/GFvfHcZ+c3hYt11WsoLxzXgs4ye4OqpUjIP0c+CvMTnIORJEJmAVcj6N541Xt/2c/rx5O/f+Lp8qtQNPoCoBI0CULrvT0W59uFqhRZ/DYgq3t+DcnOosKz59ag9pwuSgg3Yq1UpvZPiERXDTWt8PSLM1WGmORW9Le2FVnaBE8+EF7P9fCnb6mdRsPsbv2KrO2rbo9ZLdCpMFtlrYc5/gIzBiWyHGHP7sB1uZ9bMlr36Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=bv7+nDlnnhjXbpYGAA9ivNDf2bKqLCBADTr28OUk9Vg=;
- b=AJ5xnYte03j+kOZ4Is6aWcOEyWtVqVhYOxflDYeXctbkZKM+CU7lnsQMJ262LiZhV5ldrO4+80kkvSWZkzais8O3eL3dqNyjDA6btvFATPnj0iuJq03HUJcvKlNe0Iv2S5H2P2LrYZowul/E3uuUVz1aSYm+oAM3ejJRPnngT+M=
+ bh=zUM6dVyovYpjq8KjZD0l2PS8q/TOLp/Wit92KUplaCw=;
+ b=gnayb4iCZKRb2sZgjkEyZQ8C4m3nAFCZz01hI92Ijyx0b5yX5A9/lBK5/Z6Aa+vmU9bCWGVbiHmV2xoDeWwSEkisGlhjBnO+vX6zuuv5asU4AArpxceNv8Jnsii2CZ7QCGXpPiiprFzLGoICldpZLcaJlDBKlDbAalEinqA88c8=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
 From: Stewart Hildebrand <stewart.hildebrand@amd.com>
 To: <xen-devel@lists.xenproject.org>
-CC: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>, Andrew Cooper
-	<andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>, "Jan
- Beulich" <jbeulich@suse.com>, Julien Grall <julien@xen.org>, "Stefano
- Stabellini" <sstabellini@kernel.org>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
-	<roger.pau@citrix.com>, Stewart Hildebrand <stewart.hildebrand@amd.com>,
-	Volodymyr Babchuk <volodymyr_babchuk@epam.com>
-Subject: [PATCH v15 3/5] vpci: add initial support for virtual PCI bus topology
-Date: Fri, 17 May 2024 13:06:13 -0400
-Message-ID: <20240517170619.45088-4-stewart.hildebrand@amd.com>
+CC: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>, "Stewart
+ Hildebrand" <stewart.hildebrand@amd.com>, Stefano Stabellini
+	<sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Bertrand Marquis
+	<bertrand.marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>, "Volodymyr
+ Babchuk" <Volodymyr_Babchuk@epam.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
+	<roger.pau@citrix.com>, Volodymyr Babchuk <volodymyr_babchuk@epam.com>
+Subject: [PATCH v15 4/5] xen/arm: translate virtual PCI bus topology for guests
+Date: Fri, 17 May 2024 13:06:14 -0400
+Message-ID: <20240517170619.45088-5-stewart.hildebrand@amd.com>
 X-Mailer: git-send-email 2.45.1
 In-Reply-To: <20240517170619.45088-1-stewart.hildebrand@amd.com>
 References: <20240517170619.45088-1-stewart.hildebrand@amd.com>
@@ -106,283 +106,250 @@ Received-SPF: None (SATLEXMB05.amd.com: stewart.hildebrand@amd.com does not
  designate permitted sender hosts)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH1PEPF0000A349:EE_|PH0PR12MB7887:EE_
-X-MS-Office365-Filtering-Correlation-Id: 472dc026-7d09-452b-9f67-08dc7693cb8a
+X-MS-TrafficTypeDiagnostic: CH2PEPF000000A0:EE_|SJ0PR12MB6781:EE_
+X-MS-Office365-Filtering-Correlation-Id: f5c0efbd-de52-42a2-50cc-08dc7693cba1
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230031|1800799015|82310400017|376005|36860700004;
+	BCL:0;ARA:13230031|82310400017|376005|36860700004|1800799015;
 X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?/i+5S5SGy2bG6UpvQvWOsdrdytOEUQj/mqE+G1xy11UV6daVf3zfRrNg9qzf?=
- =?us-ascii?Q?o7N/UVYNaMao2QpONcgAhgcP8AVfztautVjXy9Kl65EIUpIci7Pew3Sjtxgx?=
- =?us-ascii?Q?aKG9LMmyE9toE7COZUf9UDp/gGgVNABJV8vmz9Ji28Vg1a1uFDh/PTmEEIar?=
- =?us-ascii?Q?ijYyR1V9TDMOg+CL3e51w1x7Dwbcp4zp3Zul5YyNzX5qGVseQ/8ulb+JjiYl?=
- =?us-ascii?Q?MSGy/i+WLqNLg3I15L/r3JG+C/uQIS9eCAO7JL2CLUe3bKQ8/Cdr1kRjKBza?=
- =?us-ascii?Q?tG+4X61Zdw6VNoi9/Gv46xaGUk7Cn1q/ACJdYsgI+uS7sQAXWkXYi0VW2Sjk?=
- =?us-ascii?Q?Vx/O4fndl6+JeC2+CYCippRk5wXfjRrGJFJE3l8Ns5+5Zza8AjjQ4s4kVbWm?=
- =?us-ascii?Q?gprBgHqpDCssdi52Veq72sJFu1HyY7nQyig+uvpCLoIqUoK/QHEOfV/NIOM0?=
- =?us-ascii?Q?5qHqgb8iaHn0fRwNbDuCAJrA28yQ5h66YgepwM/84pswG5/SrXTCFF4Jn99n?=
- =?us-ascii?Q?36lsfTPXqWonCIfYnX/48gFq7m25TSaHf3BQYNPudIq0XJY8qz+Eq/bfnGyy?=
- =?us-ascii?Q?e3RVfjMCnaOdPriIhD6iSQldTOnhJ0EeN2EoQP+PODQBWqAt/KDly/8L2dRT?=
- =?us-ascii?Q?Qw3rab3uanExQFuEHIB2hpSNsFcsBObRL/Kx6SG/Dp93F1nUJZ/LUAgMr5v3?=
- =?us-ascii?Q?XwFU4hnPWhIiSuQczQA+t2AKnGvclLSYzwy8Pa09y3bKlQmTp8u0S5Y3R4RF?=
- =?us-ascii?Q?DPAi06gAelGBrb10iwenSpsMXyfi0H7guJI71ivHN+LECEs5UUKBibdl3kDG?=
- =?us-ascii?Q?Fa6o90i2uPaO4HO2jIyRERoP+NiT1IvVJ7AgOAedYvy/uHqiF8LzkTrG+b4u?=
- =?us-ascii?Q?c5MV4SpO2IvRlqQKNTa7vnGb9FPJ25e5CUc5BauayLF256LrHNhiUb+IPDgN?=
- =?us-ascii?Q?M/JwU+MhwVybQp7qn0LfStz0AyLouIomBWnVbmQqfoAiDJ7ApY8seKS3fEqJ?=
- =?us-ascii?Q?4D9mRKa8smVPErQKtrC5WUc1NT2wZsviFHkgShUihpUYtLZmgCNitwGwbI0/?=
- =?us-ascii?Q?dw6x1M6bvvVi1p22l+oghRjVv4fLt7c8MupoxlrXHRBi+RWwA4KZtae1DdA+?=
- =?us-ascii?Q?B2bft58yiptwdOr1d4I7h3rn4T1eGFaKddHvKR1JFyOSuJEa+Zf4qKOxsHLv?=
- =?us-ascii?Q?V9zy2BjoEOeHruL1Lyh3N/teBlyBD/BRy2ddYRHjWrB9Zf+Zy2+8i+v3SdBz?=
- =?us-ascii?Q?RJr1DPVooJ8FO7NAoL+rCVs/V2qoRKctAB7Qv24nP8NPNN3ElMu9X9Y92+vI?=
- =?us-ascii?Q?3V6ZY7JKvBQ9D6BXrWDe0Ve/MTuhtn7QXcVIHYrH/AfDyzRzPi5NQOqLRjd4?=
- =?us-ascii?Q?thDA/og=3D?=
+	=?us-ascii?Q?CTwG2Q13s/um5srL3kk8yIvX9sf9IhUslUJiU0HBvoAqJu3S25dnTFvbPvSO?=
+ =?us-ascii?Q?TTwCJznSa8zFuftEpNXI+n19tRjUs/8BeEFcsacOVp89LG8QRrAL87W/1xga?=
+ =?us-ascii?Q?vodKMFDV9HJ+ajQt675qVgdhAfnZE0Qh+oQ3awMpxOv8iwIi5VqS6vCL2atD?=
+ =?us-ascii?Q?iYgMGRx/Yd/t6PC5VYRtiWVprcQNV77yWwBRP+kHS0RvLFOHgZBK1isElQcZ?=
+ =?us-ascii?Q?pxLBT+7F2J2zoxNFaAJBGAO4dfLRD3pl46cNkF+oqn2VK65jCCZOtffndTcl?=
+ =?us-ascii?Q?5ZYa5E6Ae64uQMIsf4mE+g+Zz7YUjvAGVmuOveYWEMUhOaDlDk+SRrxlA2ts?=
+ =?us-ascii?Q?+FW6Hq9zTTTfcaZ39N+7vs0pMU6pxWAZmGHZzGsB7DMBc1hZR7cLCLaClDlO?=
+ =?us-ascii?Q?dCjYZE5tRX62bkvV0oMJNZ/JR0lU3tN9vDURC/A6EMmAufVlXgafhIRGWIqi?=
+ =?us-ascii?Q?XqkZYMSyLlgqE63UL7LqItik2CcNshy/4ud+Hxflv+0eXhgx0WtlxFy/a7Q6?=
+ =?us-ascii?Q?R3aEXyzk8cxozLmtI3XGhoOQIc53CIBBPSolnIffxzuWd2DiaT2xTLd8AsIo?=
+ =?us-ascii?Q?W2jcfDL/ZIjTaDYnAZ5tsyudr83kgGZo+n3prhgguMeYSm2NMAn9HNxy1TIP?=
+ =?us-ascii?Q?Q/Gzfi0AXDWaMRj7gS06Gp/jm+c7JSsBMkwUucMZfW9yBsKvNa/8AC81jog4?=
+ =?us-ascii?Q?SAGAvMFe6asI9Z0yzhQd0LQLR+vuPxJo4BqixKy9blkDIXm0w44w4Ou08P6O?=
+ =?us-ascii?Q?ODHR5jLEsOI54uy2ykJjYcI/Z024H/uo87kSqWvt2BalyRRRaNAHe9UX3Hz0?=
+ =?us-ascii?Q?RhXG/OWQ8yqWBEYMD4VHfpmbqSO+rOgntjaujbyG6uggG7s5RljCKP0mC5N/?=
+ =?us-ascii?Q?LbXQ2WSXoeYKfhtj+7bKqjt795E7Ftvnn/zTas6SwJS4k12qWszxMap5sfmh?=
+ =?us-ascii?Q?C9IBaPmaTs001GgMknX/nd676pD7+GokngWNqcGKcq3HUQrseMHIWj+n/97y?=
+ =?us-ascii?Q?Kp4xe6bQlzoIsRexd6UGlRIV2CFKhWopJ4YUgdu9oL+me1i092eT7nEfv7Rs?=
+ =?us-ascii?Q?/JZnSx5x+Hh7zXgnkLZi9oPyhTaxfX4PkqK6un87/9WnZ+3maoZLi9aGoVjm?=
+ =?us-ascii?Q?oDS67mylUJELWMFX3WvXS76yYfz3nF2QJYjtRbLr+q4Oi3vlKyHh73nkdUKp?=
+ =?us-ascii?Q?8ESC0hTCctC/tSkgqF4q9vmJc4FdWwSKSYal0aVK8QfFe7YJPChu/gFzK9Dd?=
+ =?us-ascii?Q?7gUcWOYFrO3jGAxCiDiVmCtprBzPlF7Kbl6a6FNuf1DWhK69Ma7LraqHjfnn?=
+ =?us-ascii?Q?jXBTF8XgZhTiSD+xHzyrakZQ5tw4Uo5E+8BaCWSyV+ERkVCWGIsuQZSL1mnO?=
+ =?us-ascii?Q?fh51sqVr4Ws3mhficJ2CcJ+oxSb+?=
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(1800799015)(82310400017)(376005)(36860700004);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(82310400017)(376005)(36860700004)(1800799015);DIR:OUT;SFP:1101;
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 May 2024 17:07:12.6272
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 May 2024 17:07:12.7759
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 472dc026-7d09-452b-9f67-08dc7693cb8a
+X-MS-Exchange-CrossTenant-Network-Message-Id: f5c0efbd-de52-42a2-50cc-08dc7693cba1
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	CH1PEPF0000A349.namprd04.prod.outlook.com
+	CH2PEPF000000A0.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB7887
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB6781
 
 From: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
 
-Assign SBDF to the PCI devices being passed through with bus 0.
-The resulting topology is where PCIe devices reside on the bus 0 of the
-root complex itself (embedded endpoints).
-This implementation is limited to 32 devices which are allowed on
-a single PCI bus.
-
-Please note, that at the moment only function 0 of a multifunction
-device can be passed through.
+There are three  originators for the PCI configuration space access:
+1. The domain that owns physical host bridge: MMIO handlers are
+there so we can update vPCI register handlers with the values
+written by the hardware domain, e.g. physical view of the registers
+vs guest's view on the configuration space.
+2. Guest access to the passed through PCI devices: we need to properly
+map virtual bus topology to the physical one, e.g. pass the configuration
+space access to the corresponding physical devices.
+3. Emulated host PCI bridge access. It doesn't exist in the physical
+topology, e.g. it can't be mapped to some physical host bridge.
+So, all access to the host bridge itself needs to be trapped and
+emulated.
 
 Signed-off-by: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
 Signed-off-by: Volodymyr Babchuk <volodymyr_babchuk@epam.com>
 Signed-off-by: Stewart Hildebrand <stewart.hildebrand@amd.com>
-Acked-by: Jan Beulich <jbeulich@suse.com>
 ---
 In v15:
-- add Jan's A-b
-In v13:
-- s/depends on/select/ in Kconfig
-- check pdev->sbdf.fn instead of two booleans in add_virtual_device()
-- comment #endifs in sched.h
-- clarify comment about limits in vpci.h with seg/bus limit
+- base on top of ("arm/vpci: honor access size when returning an error")
 In v11:
-- Fixed code formatting
-- Removed bogus write_unlock() call
-- Fixed type for new_dev_number
-In v10:
-- Removed ASSERT(pcidevs_locked())
-- Removed redundant code (local sbdf variable, clearing sbdf during
-device removal, etc)
-- Added __maybe_unused attribute to "out:" label
-- Introduced HAS_VPCI_GUEST_SUPPORT Kconfig option, as this is the
-  first patch where it is used (previously was in "vpci: add hooks for
-  PCI device assign/de-assign")
-In v9:
-- Lock in add_virtual_device() replaced with ASSERT (thanks, Stewart)
-In v8:
-- Added write lock in add_virtual_device
+- Fixed format issues
+- Added ASSERT_UNREACHABLE() to the dummy implementation of
+vpci_translate_virtual_device()
+- Moved variable in vpci_sbdf_from_gpa(), now it is easier to follow
+the logic in the function
+Since v9:
+- Commend about required lock replaced with ASSERT()
+- Style fixes
+- call to vpci_translate_virtual_device folded into vpci_sbdf_from_gpa
+Since v8:
+- locks moved out of vpci_translate_virtual_device()
 Since v6:
-- re-work wrt new locking scheme
-- OT: add ASSERT(pcidevs_write_locked()); to add_virtual_device()
+- add pcidevs locking to vpci_translate_virtual_device
+- update wrt to the new locking scheme
 Since v5:
-- s/vpci_add_virtual_device/add_virtual_device and make it static
-- call add_virtual_device from vpci_assign_device and do not use
-  REGISTER_VPCI_INIT machinery
-- add pcidevs_locked ASSERT
-- use DECLARE_BITMAP for vpci_dev_assigned_map
+- add vpci_translate_virtual_device for #ifndef CONFIG_HAS_VPCI_GUEST_SUPPORT
+  case to simplify ifdefery
+- add ASSERT(!is_hardware_domain(d)); to vpci_translate_virtual_device
+- reset output register on failed virtual SBDF translation
 Since v4:
-- moved and re-worked guest sbdf initializers
-- s/set_bit/__set_bit
-- s/clear_bit/__clear_bit
-- minor comment fix s/Virtual/Guest/
-- added VPCI_MAX_VIRT_DEV constant (PCI_SLOT(~0) + 1) which will be used
-  later for counting the number of MMIO handlers required for a guest
-  (Julien)
+- indentation fixes
+- constify struct domain
+- updated commit message
+- updates to the new locking scheme (pdev->vpci_lock)
 Since v3:
- - make use of VPCI_INIT
- - moved all new code to vpci.c which belongs to it
- - changed open-coded 31 to PCI_SLOT(~0)
- - added comments and code to reject multifunction devices with
-   functions other than 0
- - updated comment about vpci_dev_next and made it unsigned int
- - implement roll back in case of error while assigning/deassigning devices
- - s/dom%pd/%pd
+- revisit locking
+- move code to vpci.c
 Since v2:
- - remove casts that are (a) malformed and (b) unnecessary
- - add new line for better readability
- - remove CONFIG_HAS_VPCI_GUEST_SUPPORT ifdef's as the relevant vPCI
-    functions are now completely gated with this config
- - gate common code with CONFIG_HAS_VPCI_GUEST_SUPPORT
+ - pass struct domain instead of struct vcpu
+ - constify arguments where possible
+ - gate relevant code with CONFIG_HAS_VPCI_GUEST_SUPPORT
 New in v2
 ---
- xen/drivers/Kconfig     |  4 +++
- xen/drivers/vpci/vpci.c | 57 +++++++++++++++++++++++++++++++++++++++++
- xen/include/xen/sched.h | 10 +++++++-
- xen/include/xen/vpci.h  | 12 +++++++++
- 4 files changed, 82 insertions(+), 1 deletion(-)
+ xen/arch/arm/vpci.c     | 45 ++++++++++++++++++++++++++++++++---------
+ xen/drivers/vpci/vpci.c | 24 ++++++++++++++++++++++
+ xen/include/xen/vpci.h  | 12 +++++++++++
+ 3 files changed, 71 insertions(+), 10 deletions(-)
 
-diff --git a/xen/drivers/Kconfig b/xen/drivers/Kconfig
-index db94393f47a6..20050e9bb8b3 100644
---- a/xen/drivers/Kconfig
-+++ b/xen/drivers/Kconfig
-@@ -15,4 +15,8 @@ source "drivers/video/Kconfig"
- config HAS_VPCI
- 	bool
+diff --git a/xen/arch/arm/vpci.c b/xen/arch/arm/vpci.c
+index b63a356bb4a8..516933bebfb3 100644
+--- a/xen/arch/arm/vpci.c
++++ b/xen/arch/arm/vpci.c
+@@ -7,33 +7,53 @@
  
-+config HAS_VPCI_GUEST_SUPPORT
-+	bool
-+	select HAS_VPCI
+ #include <asm/mmio.h>
+ 
+-static pci_sbdf_t vpci_sbdf_from_gpa(const struct pci_host_bridge *bridge,
+-                                     paddr_t gpa)
++static bool vpci_sbdf_from_gpa(struct domain *d,
++                               const struct pci_host_bridge *bridge,
++                               paddr_t gpa, pci_sbdf_t *sbdf)
+ {
+-    pci_sbdf_t sbdf;
++    bool translated = true;
 +
- endmenu
++    ASSERT(sbdf);
+ 
+     if ( bridge )
+     {
+-        sbdf.sbdf = VPCI_ECAM_BDF(gpa - bridge->cfg->phys_addr);
+-        sbdf.seg = bridge->segment;
+-        sbdf.bus += bridge->cfg->busn_start;
++        sbdf->sbdf = VPCI_ECAM_BDF(gpa - bridge->cfg->phys_addr);
++        sbdf->seg = bridge->segment;
++        sbdf->bus += bridge->cfg->busn_start;
+     }
+     else
+-        sbdf.sbdf = VPCI_ECAM_BDF(gpa - GUEST_VPCI_ECAM_BASE);
++    {
++        /*
++         * For the passed through devices we need to map their virtual SBDF
++         * to the physical PCI device being passed through.
++         */
++        sbdf->sbdf = VPCI_ECAM_BDF(gpa - GUEST_VPCI_ECAM_BASE);
++        read_lock(&d->pci_lock);
++        translated = vpci_translate_virtual_device(d, sbdf);
++        read_unlock(&d->pci_lock);
++    }
+ 
+-    return sbdf;
++    return translated;
+ }
+ 
+ static int vpci_mmio_read(struct vcpu *v, mmio_info_t *info,
+                           register_t *r, void *p)
+ {
+     struct pci_host_bridge *bridge = p;
+-    pci_sbdf_t sbdf = vpci_sbdf_from_gpa(bridge, info->gpa);
++    pci_sbdf_t sbdf;
+     const unsigned int access_size = (1U << info->dabt.size) * 8;
+     const register_t invalid = GENMASK_ULL(access_size - 1, 0);
+     /* data is needed to prevent a pointer cast on 32bit */
+     unsigned long data;
+ 
++    ASSERT(!bridge == !is_hardware_domain(v->domain));
++
++    if ( !vpci_sbdf_from_gpa(v->domain, bridge, info->gpa, &sbdf) )
++    {
++        *r = invalid;
++        return 1;
++    }
++
+     if ( vpci_ecam_read(sbdf, ECAM_REG_OFFSET(info->gpa),
+                         1U << info->dabt.size, &data) )
+     {
+@@ -50,7 +70,12 @@ static int vpci_mmio_write(struct vcpu *v, mmio_info_t *info,
+                            register_t r, void *p)
+ {
+     struct pci_host_bridge *bridge = p;
+-    pci_sbdf_t sbdf = vpci_sbdf_from_gpa(bridge, info->gpa);
++    pci_sbdf_t sbdf;
++
++    ASSERT(!bridge == !is_hardware_domain(v->domain));
++
++    if ( !vpci_sbdf_from_gpa(v->domain, bridge, info->gpa, &sbdf) )
++        return 1;
+ 
+     return vpci_ecam_write(sbdf, ECAM_REG_OFFSET(info->gpa),
+                            1U << info->dabt.size, r);
 diff --git a/xen/drivers/vpci/vpci.c b/xen/drivers/vpci/vpci.c
-index 97e115dc5798..23722634d50b 100644
+index 23722634d50b..98b294f09688 100644
 --- a/xen/drivers/vpci/vpci.c
 +++ b/xen/drivers/vpci/vpci.c
-@@ -40,6 +40,49 @@ extern vpci_register_init_t *const __start_vpci_array[];
- extern vpci_register_init_t *const __end_vpci_array[];
- #define NUM_VPCI_INIT (__end_vpci_array - __start_vpci_array)
- 
-+#ifdef CONFIG_HAS_VPCI_GUEST_SUPPORT
-+static int add_virtual_device(struct pci_dev *pdev)
-+{
-+    struct domain *d = pdev->domain;
-+    unsigned int new_dev_number;
-+
-+    if ( is_hardware_domain(d) )
-+        return 0;
-+
-+    ASSERT(rw_is_write_locked(&pdev->domain->pci_lock));
-+
-+    /*
-+     * Each PCI bus supports 32 devices/slots at max or up to 256 when
-+     * there are multi-function ones which are not yet supported.
-+     */
-+    if ( pdev->sbdf.fn )
-+    {
-+        gdprintk(XENLOG_ERR, "%pp: only function 0 passthrough supported\n",
-+                 &pdev->sbdf);
-+        return -EOPNOTSUPP;
-+    }
-+    new_dev_number = find_first_zero_bit(d->vpci_dev_assigned_map,
-+                                         VPCI_MAX_VIRT_DEV);
-+    if ( new_dev_number == VPCI_MAX_VIRT_DEV )
-+        return -ENOSPC;
-+
-+    __set_bit(new_dev_number, &d->vpci_dev_assigned_map);
-+
-+    /*
-+     * Both segment and bus number are 0:
-+     *  - we emulate a single host bridge for the guest, e.g. segment 0
-+     *  - with bus 0 the virtual devices are seen as embedded
-+     *    endpoints behind the root complex
-+     *
-+     * TODO: add support for multi-function devices.
-+     */
-+    pdev->vpci->guest_sbdf = PCI_SBDF(0, 0, new_dev_number, 0);
-+
-+    return 0;
-+}
-+
-+#endif /* CONFIG_HAS_VPCI_GUEST_SUPPORT */
-+
- void vpci_deassign_device(struct pci_dev *pdev)
- {
-     unsigned int i;
-@@ -49,6 +92,12 @@ void vpci_deassign_device(struct pci_dev *pdev)
-     if ( !has_vpci(pdev->domain) || !pdev->vpci )
-         return;
- 
-+#ifdef CONFIG_HAS_VPCI_GUEST_SUPPORT
-+    if ( pdev->vpci->guest_sbdf.sbdf != ~0 )
-+        __clear_bit(pdev->vpci->guest_sbdf.dev,
-+                    &pdev->domain->vpci_dev_assigned_map);
-+#endif
-+
-     spin_lock(&pdev->vpci->lock);
-     while ( !list_empty(&pdev->vpci->handlers) )
-     {
-@@ -103,6 +152,13 @@ int vpci_assign_device(struct pci_dev *pdev)
-     INIT_LIST_HEAD(&pdev->vpci->handlers);
-     spin_lock_init(&pdev->vpci->lock);
- 
-+#ifdef CONFIG_HAS_VPCI_GUEST_SUPPORT
-+    pdev->vpci->guest_sbdf.sbdf = ~0;
-+    rc = add_virtual_device(pdev);
-+    if ( rc )
-+        goto out;
-+#endif
-+
-     for ( i = 0; i < NUM_VPCI_INIT; i++ )
-     {
-         rc = __start_vpci_array[i](pdev);
-@@ -110,6 +166,7 @@ int vpci_assign_device(struct pci_dev *pdev)
-             break;
-     }
- 
-+ out: __maybe_unused;
-     if ( rc )
-         vpci_deassign_device(pdev);
- 
-diff --git a/xen/include/xen/sched.h b/xen/include/xen/sched.h
-index 132b84199598..2dcd1d1a4f8a 100644
---- a/xen/include/xen/sched.h
-+++ b/xen/include/xen/sched.h
-@@ -486,7 +486,15 @@ struct domain
-      * 2. pdev->vpci->lock
-      */
-     rwlock_t pci_lock;
--#endif
-+#ifdef CONFIG_HAS_VPCI_GUEST_SUPPORT
-+    /*
-+     * The bitmap which shows which device numbers are already used by the
-+     * virtual PCI bus topology and is used to assign a unique SBDF to the
-+     * next passed through virtual PCI device.
-+     */
-+    DECLARE_BITMAP(vpci_dev_assigned_map, VPCI_MAX_VIRT_DEV);
-+#endif /* CONFIG_HAS_VPCI_GUEST_SUPPORT */
-+#endif /* CONFIG_HAS_PCI */
- 
- #ifdef CONFIG_HAS_PASSTHROUGH
-     struct domain_iommu iommu;
-diff --git a/xen/include/xen/vpci.h b/xen/include/xen/vpci.h
-index 2064d9354f5b..980aded26fc1 100644
---- a/xen/include/xen/vpci.h
-+++ b/xen/include/xen/vpci.h
-@@ -21,6 +21,14 @@ typedef int vpci_register_init_t(struct pci_dev *dev);
- 
- #define VPCI_ECAM_BDF(addr)     (((addr) & 0x0ffff000) >> 12)
+@@ -81,6 +81,30 @@ static int add_virtual_device(struct pci_dev *pdev)
+     return 0;
+ }
  
 +/*
-+ * Maximum number of devices supported by the virtual bus topology:
-+ * each PCI bus supports 32 devices/slots at max or up to 256 when
-+ * there are multi-function ones which are not yet supported.
-+ * This limit implies only segment 0, bus 0 is supported.
++ * Find the physical device which is mapped to the virtual device
++ * and translate virtual SBDF to the physical one.
 + */
-+#define VPCI_MAX_VIRT_DEV       (PCI_SLOT(~0) + 1)
++bool vpci_translate_virtual_device(const struct domain *d, pci_sbdf_t *sbdf)
++{
++    const struct pci_dev *pdev;
 +
- #define REGISTER_VPCI_INIT(x, p)                \
-   static vpci_register_init_t *const x##_entry  \
-                __used_section(".data.vpci." p) = (x)
-@@ -175,6 +183,10 @@ struct vpci {
-             struct vpci_arch_msix_entry arch;
-         } entries[];
-     } *msix;
-+#ifdef CONFIG_HAS_VPCI_GUEST_SUPPORT
-+    /* Guest SBDF of the device. */
-+    pci_sbdf_t guest_sbdf;
-+#endif
- #endif
- };
++    ASSERT(!is_hardware_domain(d));
++    ASSERT(rw_is_locked(&d->pci_lock));
++
++    for_each_pdev ( d, pdev )
++    {
++        if ( pdev->vpci && (pdev->vpci->guest_sbdf.sbdf == sbdf->sbdf) )
++        {
++            /* Replace guest SBDF with the physical one. */
++            *sbdf = pdev->sbdf;
++            return true;
++        }
++    }
++
++    return false;
++}
++
+ #endif /* CONFIG_HAS_VPCI_GUEST_SUPPORT */
  
+ void vpci_deassign_device(struct pci_dev *pdev)
+diff --git a/xen/include/xen/vpci.h b/xen/include/xen/vpci.h
+index 980aded26fc1..7e5a0f0c50c1 100644
+--- a/xen/include/xen/vpci.h
++++ b/xen/include/xen/vpci.h
+@@ -303,6 +303,18 @@ static inline bool __must_check vpci_process_pending(struct vcpu *v)
+ }
+ #endif
+ 
++#ifdef CONFIG_HAS_VPCI_GUEST_SUPPORT
++bool vpci_translate_virtual_device(const struct domain *d, pci_sbdf_t *sbdf);
++#else
++static inline bool vpci_translate_virtual_device(const struct domain *d,
++                                                 pci_sbdf_t *sbdf)
++{
++    ASSERT_UNREACHABLE();
++
++    return false;
++}
++#endif
++
+ #endif
+ 
+ /*
 -- 
 2.45.1
 
