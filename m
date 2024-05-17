@@ -2,38 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DEF838C8190
-	for <lists+xen-devel@lfdr.de>; Fri, 17 May 2024 09:40:12 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.723876.1129015 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 77A8E8C81AB
+	for <lists+xen-devel@lfdr.de>; Fri, 17 May 2024 09:48:52 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.723882.1129025 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s7sBn-0006EB-AV; Fri, 17 May 2024 07:39:39 +0000
+	id 1s7sKN-0008OV-3z; Fri, 17 May 2024 07:48:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 723876.1129015; Fri, 17 May 2024 07:39:39 +0000
+Received: by outflank-mailman (output) from mailman id 723882.1129025; Fri, 17 May 2024 07:48:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s7sBn-0006Bt-7l; Fri, 17 May 2024 07:39:39 +0000
-Received: by outflank-mailman (input) for mailman id 723876;
- Fri, 17 May 2024 07:39:37 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1s7sKN-0008Mo-1L; Fri, 17 May 2024 07:48:31 +0000
+Received: by outflank-mailman (input) for mailman id 723882;
+ Fri, 17 May 2024 07:48:30 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Bw27=MU=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1s7sBl-0006Bn-QC
- for xen-devel@lists.xenproject.org; Fri, 17 May 2024 07:39:37 +0000
-Received: from mail-lf1-x135.google.com (mail-lf1-x135.google.com
- [2a00:1450:4864:20::135])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 9c563fb0-1420-11ef-909e-e314d9c70b13;
- Fri, 17 May 2024 09:39:36 +0200 (CEST)
-Received: by mail-lf1-x135.google.com with SMTP id
- 2adb3069b0e04-51f0f6b613dso2178061e87.1
- for <xen-devel@lists.xenproject.org>; Fri, 17 May 2024 00:39:36 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5733bed72bbsm11643241a12.57.2024.05.17.00.39.35
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 17 May 2024 00:39:35 -0700 (PDT)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1s7sKM-0008Me-0m; Fri, 17 May 2024 07:48:30 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1s7sKL-0008NW-U4; Fri, 17 May 2024 07:48:29 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1s7sKL-0003C0-MB; Fri, 17 May 2024 07:48:29 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1s7sKL-0004Lv-La; Fri, 17 May 2024 07:48:29 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,115 +42,86 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9c563fb0-1420-11ef-909e-e314d9c70b13
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1715931576; x=1716536376; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=KEU05UX5DXF0EkY4DoKFBorUQ7NKoRlveCGyioriTzY=;
-        b=UCXC+k+W7SQJUKfjMhLswKuNvMjFp8aC63fzVQ1Qh++Tl1639+O6/BNQ5FMR3FX14x
-         SzFpv5oFLExNZ54GRwb9EHJN+f1WYy+WHzteSTsQP9AwetURJ1esPVwOWRcZ8vrI1Dbs
-         MX3aDLd44mVUNpQjENa5ts0nuhOOpBbYQfaR+ibK9oIMxtUYkQyDCliCLRJg66Rbvx9K
-         nzJDfbZVyjN9YJ8QhhtrnlPFXLXwAZZdk3OES9b/QO2xqZs3E8J4EhnFodUiKaR6XTgM
-         ukNPXgFdYRVExBhCHJeIgn0lZOoXN4ZoJDsz8ioRPctS5i1HsoGOea+7GS1Gw3hZ/E/e
-         zZ7Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1715931576; x=1716536376;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=KEU05UX5DXF0EkY4DoKFBorUQ7NKoRlveCGyioriTzY=;
-        b=quJ9GoV2QZLxuf5yqJUwmOuXBfQ+RmKYZ8YHVbgM8CAYWxN/Mj//oR0AZUJMtt8G71
-         1jf/Gvbee4KUXHW9watOnSBnuINAgYXZwez33ZqIuzafduh0uLp75uyTMdF1rp79ErBz
-         rLyc0y4lQtjXej7gIQiuHPFQmsc7jHkVFt0YAU3rTHX05+Gp/Mgu0R8/gmXmmtYElAqw
-         vup8GpC/R1apnLKKO1Or03VUAXavr3mCXEyTh8+GFNBCEaVmC7q0C45khKBOZOlPPfmf
-         YtBKfa764bi3RjrpAXXUmjS9DbQn2eGexGBbGeZ7llG6nylGGPh2QDRAfoPWRCFO0t1c
-         XCOQ==
-X-Forwarded-Encrypted: i=1; AJvYcCVVRaOMkcgCexZbyYbK2CS1dBcAGbB9sSgcatC2YAbSvyKWojEzkEgDu5xqVaMNRBW6jks4uPo3RKvcpBlDf217VyNV5zsrzIzpa8gOm9Q=
-X-Gm-Message-State: AOJu0YxMgFUcUYtOhx8VuC59fkKSlsJGM6RrKh0OImvVOsnoSM31gmNW
-	Op0NyvrecM6d3JCyzO3cgUrLOSK4i3Rcwihek0XpEEgjG7ymfXGOw0CaWp7uiA==
-X-Google-Smtp-Source: AGHT+IG2NE19+Xx58x2IPIxxQmMj72AE+b4WoR5NLCOTTGDbkoXphyhU+1XDIxzGCHaFwCVS4z9YWw==
-X-Received: by 2002:a05:6512:39c9:b0:522:33dd:dcd9 with SMTP id 2adb3069b0e04-52233dddd7amr14957725e87.33.1715931576142;
-        Fri, 17 May 2024 00:39:36 -0700 (PDT)
-Message-ID: <c943807b-f5dd-4e46-aac3-a519c4051f4f@suse.com>
-Date: Fri, 17 May 2024 09:39:34 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH for-4.19?] xen/x86: pretty print interrupt CPU affinity
- masks
-Content-Language: en-US
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
- Roger Pau Monne <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
-References: <20240515152925.77197-1-roger.pau@citrix.com>
- <06844367-cc1d-42f7-b925-ba78b4532b11@citrix.com>
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <06844367-cc1d-42f7-b925-ba78b4532b11@citrix.com>
-Content-Type: text/plain; charset=UTF-8
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=jkWEZw3rF7SlhrKbzpOXlUmWW3Pd6qjsAAY1Qzm7Ji4=; b=TXwJNmLzS2ClVR4rY8epzOPDvu
+	+74H9UULeKFyRTKT+E0zAl3jlt77YsMstwTys498brEoanQmoFCmZu3U1i93kl42UuasdV+RLFXhQ
+	36TgpOr01c7iT0Pf8m8DzjAlkfrh6jQ5t1YASPCF+Gf/XcE2e7mPZdWZEbvjhhPrU5rQ=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-186024-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [xen-unstable-smoke test] 186024: tolerable all pass - PUSHED
+X-Osstest-Failures:
+    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=21611c68702dae2e18cb519a6e166cdceeaff4ca
+X-Osstest-Versions-That:
+    xen=53dc37829c31edf02e8fc56aeccca8d60f6e2f5e
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 17 May 2024 07:48:29 +0000
 
-On 16.05.2024 19:13, Andrew Cooper wrote:
-> On 15/05/2024 4:29 pm, Roger Pau Monne wrote:
->> Print the CPU affinity masks as numeric ranges instead of plain hexadecimal
->> bitfields.
->>
->> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
->> ---
->>  xen/arch/x86/irq.c | 10 +++++-----
->>  1 file changed, 5 insertions(+), 5 deletions(-)
->>
->> diff --git a/xen/arch/x86/irq.c b/xen/arch/x86/irq.c
->> index 80ba8d9fe912..3b951d81bd6d 100644
->> --- a/xen/arch/x86/irq.c
->> +++ b/xen/arch/x86/irq.c
->> @@ -1934,10 +1934,10 @@ void do_IRQ(struct cpu_user_regs *regs)
->>                  if ( ~irq < nr_irqs && irq_desc_initialized(desc) )
->>                  {
->>                      spin_lock(&desc->lock);
->> -                    printk("IRQ%d a=%04lx[%04lx,%04lx] v=%02x[%02x] t=%s s=%08x\n",
->> -                           ~irq, *cpumask_bits(desc->affinity),
->> -                           *cpumask_bits(desc->arch.cpu_mask),
->> -                           *cpumask_bits(desc->arch.old_cpu_mask),
->> +                    printk("IRQ%d a={%*pbl}[{%*pbl},{%*pbl}] v=%02x[%02x] t=%s s=%08x\n",
-> 
-> Looking at this more closely, there's still some information obfuscation
-> going on.
-> 
-> How about "... a={} o={} n={} v=..."
-> 
-> so affinity, old and new masks are all stated explicitly, instead of
-> having to remember what the square brackets mean, and in particular that
-> the masks are backwards?
+flight 186024 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/186024/
 
-Just one question: Why put old ahead of new? Aiui that's what you refer to
-with "backwards", yet I don't see what's backwards about it. Old would
-possibly matter only when the IRQ was recently moved, whereas new (actually:
-Why "new"?) would matter at all times. I'd see "... a={} m={} o={} v=..."
-as more appropriate.
+Failures :-/ but no regressions.
 
-Jan
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+
+version targeted for testing:
+ xen                  21611c68702dae2e18cb519a6e166cdceeaff4ca
+baseline version:
+ xen                  53dc37829c31edf02e8fc56aeccca8d60f6e2f5e
+
+Last test of basis   186022  2024-05-16 23:00:22 Z    0 days
+Testing same since   186024  2024-05-17 04:02:10 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Jan Beulich <jbeulich@suse.com>
+  Stefano Stabellini <sstabellini@kernel.org>
+  Stefano Stabellini <stefano.stabellini@amd.com>
+
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/xen.git
+   53dc37829c..21611c6870  21611c68702dae2e18cb519a6e166cdceeaff4ca -> smoke
 
