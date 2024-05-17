@@ -2,35 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E0C428C87A1
-	for <lists+xen-devel@lfdr.de>; Fri, 17 May 2024 15:57:46 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.724197.1129506 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0CD378C87B8
+	for <lists+xen-devel@lfdr.de>; Fri, 17 May 2024 16:05:34 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.724258.1129525 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s7y5W-0001UK-C4; Fri, 17 May 2024 13:57:34 +0000
+	id 1s7yCw-0005B9-EC; Fri, 17 May 2024 14:05:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 724197.1129506; Fri, 17 May 2024 13:57:34 +0000
+Received: by outflank-mailman (output) from mailman id 724258.1129525; Fri, 17 May 2024 14:05:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s7y5W-0001Si-8i; Fri, 17 May 2024 13:57:34 +0000
-Received: by outflank-mailman (input) for mailman id 724197;
- Fri, 17 May 2024 13:57:32 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1s7y5U-0001SY-R3; Fri, 17 May 2024 13:57:32 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1s7y5U-0007HP-Od; Fri, 17 May 2024 13:57:32 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1s7y5U-0004Cq-FH; Fri, 17 May 2024 13:57:32 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1s7y5U-0000yh-El; Fri, 17 May 2024 13:57:32 +0000
+	id 1s7yCw-00059d-BT; Fri, 17 May 2024 14:05:14 +0000
+Received: by outflank-mailman (input) for mailman id 724258;
+ Fri, 17 May 2024 14:05:12 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=4QDV=MU=solinno.co.uk=leigh@srs-se1.protection.inumbo.net>)
+ id 1s7yCu-000588-7G
+ for xen-devel@lists.xenproject.org; Fri, 17 May 2024 14:05:12 +0000
+Received: from doppler.solinno.uk
+ (8.1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.9.a.d.0.6.f.d.1.0.b.8.0.1.0.0.2.ip6.arpa
+ [2001:8b0:1df6:da9::18])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 78a2b814-1456-11ef-909e-e314d9c70b13;
+ Fri, 17 May 2024 16:05:10 +0200 (CEST)
+Received: from folly.solinno.co.uk (folly.dyn.solinno.co.uk [192.168.2.135])
+ by doppler.solinno.uk (Postfix) with ESMTPSA id 2E9C580078;
+ Fri, 17 May 2024 15:05:09 +0100 (BST)
+Received: by folly.solinno.co.uk (Postfix, from userid 1000)
+ id 0B1B42016C; Fri, 17 May 2024 15:05:09 +0100 (BST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,132 +43,64 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=bpBitsrVjYsqBLjJxQVx2P5vjyhQJm4lyBQJDLEj21c=; b=HR3T01GA4lS33REibtGBLRIDqW
-	rw4cq5tpQePoP00aUM5iXtdC2W1YL3Wpeb7pjORju8cIsrFomUQhsZlhOjqIYfoYQPTcChaMyxBJg
-	ZsWFVYRw0S5dfj1RlHaUJD1XZrZmE5r6YyNZjPy5mWhysSDTy1Y508OlWAcQdEBkwcc4=;
+X-Inumbo-ID: 78a2b814-1456-11ef-909e-e314d9c70b13
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=solinno.co.uk;
+	s=mail; t=1715954709;
+	bh=+qr5UyGF5YNpfNX83c8/e3HXP91//GFe1wX1VW+GKEs=;
+	h=From:To:Cc:Subject:Date:From;
+	b=zs8Onk7phf+jj5p9jQIag1gJa7zOHNAyTN2FURnCxILN+OE6/TmSsRua6x6bAaGfF
+	 R6qZ1JSdTaFC6kmeKG8UYaOw9+MEjZB/FbC27gManqm0oRvJ4GyBDHnLg9HBSBan+R
+	 wSQRya7kmp58WG/jRv98nVQ9Iwa49wkJmgmBtd3Y=
+From: Leigh Brown <leigh@solinno.co.uk>
 To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-186025-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+	Anthony Perard <anthony.perard@citrix.com>,
+	Jason Andryuk <jandryuk@gmail.com>,
+	Leigh Brown <leigh@solinno.co.uk>
+Subject: [PATCH v4 0/2] Finalise bridge VLAN support
+Date: Fri, 17 May 2024 15:05:04 +0100
+Message-Id: <20240517140506.8460-1-leigh@solinno.co.uk>
+X-Mailer: git-send-email 2.39.2
 MIME-Version: 1.0
-Subject: [libvirt test] 186025: tolerable all pass - PUSHED
-X-Osstest-Failures:
-    libvirt:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
-    libvirt:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    libvirt:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
-    libvirt:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt:saverestore-support-check:fail:nonblocking
-    libvirt:test-amd64-amd64-libvirt-qcow2:migrate-support-check:fail:nonblocking
-    libvirt:test-amd64-amd64-libvirt-raw:migrate-support-check:fail:nonblocking
-    libvirt:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
-    libvirt:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-qcow2:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-qcow2:saverestore-support-check:fail:nonblocking
-    libvirt:test-armhf-armhf-libvirt-vhd:migrate-support-check:fail:nonblocking
-    libvirt:test-armhf-armhf-libvirt-vhd:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    libvirt=34f52aec286af47066484e8a96ecba0ef8e79451
-X-Osstest-Versions-That:
-    libvirt=8b133e82fc62188b04dcdb2ddfc5589a48222a2c
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 17 May 2024 13:57:32 +0000
+Content-Transfer-Encoding: 8bit
 
-flight 186025 libvirt real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/186025/
+Hello,
 
-Failures :-/ but no regressions.
+The first two patches have been merged so this version has the remaining
+two. Only the first of these two patches has changed since v3.
 
-Tests which did not succeed, but are not blocking:
- test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 186011
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-arm64-arm64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt     16 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt-qcow2 14 migrate-support-check        fail never pass
- test-amd64-amd64-libvirt-raw 14 migrate-support-check        fail   never pass
- test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
- test-arm64-arm64-libvirt-qcow2 14 migrate-support-check        fail never pass
- test-arm64-arm64-libvirt-qcow2 15 saverestore-support-check    fail never pass
- test-armhf-armhf-libvirt-vhd 14 migrate-support-check        fail   never pass
- test-armhf-armhf-libvirt-vhd 15 saverestore-support-check    fail   never pass
+Summary of changes from v3 to v4:
+- Drop merged patches.
+- _vif_vlan_setup: Add comment that we delete vid 1 due to it being
+  automatically added.
+- _vif_vlan_setup: Restructure to avoid using eval and simplify.
+- _vif_vlan_membership: Add comment that we remove trailing spaces due
+  to readarray behaviour and change the code to do it only on the last
+  element of the array, prior to entering the loop.
+- _vif_vlan_membership: Simplify the loop iterating through terms.
 
-version targeted for testing:
- libvirt              34f52aec286af47066484e8a96ecba0ef8e79451
-baseline version:
- libvirt              8b133e82fc62188b04dcdb2ddfc5589a48222a2c
+Regards,
 
-Last test of basis   186011  2024-05-16 04:20:35 Z    1 days
-Testing same since   186025  2024-05-17 04:20:41 Z    0 days    1 attempts
+Leigh.
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Andrea Bolognani <abologna@redhat.com>
-  Peter Krempa <pkrempa@redhat.com>
-  Rayhan Faizel <rayhan.faizel@gmail.com>
+---
 
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-arm64-libvirt                                          pass    
- build-armhf-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
- test-amd64-amd64-libvirt-xsm                                 pass    
- test-arm64-arm64-libvirt-xsm                                 pass    
- test-amd64-amd64-libvirt                                     pass    
- test-arm64-arm64-libvirt                                     pass    
- test-armhf-armhf-libvirt                                     pass    
- test-amd64-amd64-libvirt-pair                                pass    
- test-amd64-amd64-libvirt-qcow2                               pass    
- test-arm64-arm64-libvirt-qcow2                               pass    
- test-amd64-amd64-libvirt-raw                                 pass    
- test-arm64-arm64-libvirt-raw                                 pass    
- test-amd64-amd64-libvirt-vhd                                 pass    
- test-armhf-armhf-libvirt-vhd                                 pass    
+Leigh Brown (2):
+  tools/hotplug/Linux: Add bridge VLAN support
+  tools/examples: Example Linux bridge VLAN config
 
+ docs/misc/linux-bridge-vlan/README         |  68 +++++++++++++
+ docs/misc/linux-bridge-vlan/br0.netdev     |   7 ++
+ docs/misc/linux-bridge-vlan/br0.network    |   8 ++
+ docs/misc/linux-bridge-vlan/enp0s0.network |  16 +++
+ tools/hotplug/Linux/xen-network-common.sh  | 109 +++++++++++++++++++++
+ 5 files changed, 208 insertions(+)
+ create mode 100644 docs/misc/linux-bridge-vlan/README
+ create mode 100644 docs/misc/linux-bridge-vlan/br0.netdev
+ create mode 100644 docs/misc/linux-bridge-vlan/br0.network
+ create mode 100644 docs/misc/linux-bridge-vlan/enp0s0.network
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+-- 
+2.39.2
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/libvirt.git
-   8b133e82fc..34f52aec28  34f52aec286af47066484e8a96ecba0ef8e79451 -> xen-tested-master
 
