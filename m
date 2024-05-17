@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F27268C85DE
-	for <lists+xen-devel@lfdr.de>; Fri, 17 May 2024 13:49:24 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.724094.1129276 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 30FBA8C85E3
+	for <lists+xen-devel@lfdr.de>; Fri, 17 May 2024 13:50:29 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.724098.1129285 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s7w58-0000SP-LY; Fri, 17 May 2024 11:49:02 +0000
+	id 1s7w6J-0002JJ-1d; Fri, 17 May 2024 11:50:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 724094.1129276; Fri, 17 May 2024 11:49:02 +0000
+Received: by outflank-mailman (output) from mailman id 724098.1129285; Fri, 17 May 2024 11:50:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s7w58-0000Pj-Hj; Fri, 17 May 2024 11:49:02 +0000
-Received: by outflank-mailman (input) for mailman id 724094;
- Fri, 17 May 2024 11:49:01 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1s7w6I-0002GI-V6; Fri, 17 May 2024 11:50:14 +0000
+Received: by outflank-mailman (input) for mailman id 724098;
+ Fri, 17 May 2024 11:50:13 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Bw27=MU=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1s7w57-0000Pd-Ko
- for xen-devel@lists.xenproject.org; Fri, 17 May 2024 11:49:01 +0000
-Received: from mail-lf1-x12c.google.com (mail-lf1-x12c.google.com
- [2a00:1450:4864:20::12c])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 72ba905e-1443-11ef-b4bb-af5377834399;
- Fri, 17 May 2024 13:48:59 +0200 (CEST)
-Received: by mail-lf1-x12c.google.com with SMTP id
- 2adb3069b0e04-51f99f9e0faso2152125e87.2
- for <xen-devel@lists.xenproject.org>; Fri, 17 May 2024 04:48:59 -0700 (PDT)
+ id 1s7w6H-0002Dg-Ma
+ for xen-devel@lists.xenproject.org; Fri, 17 May 2024 11:50:13 +0000
+Received: from mail-ed1-x52f.google.com (mail-ed1-x52f.google.com
+ [2a00:1450:4864:20::52f])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 9e777f7a-1443-11ef-909e-e314d9c70b13;
+ Fri, 17 May 2024 13:50:12 +0200 (CEST)
+Received: by mail-ed1-x52f.google.com with SMTP id
+ 4fb4d7f45d1cf-5727dc6d3edso4833443a12.0
+ for <xen-devel@lists.xenproject.org>; Fri, 17 May 2024 04:50:12 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5733becfc2fsm11921323a12.39.2024.05.17.04.48.58
+ 4fb4d7f45d1cf-5733becfc2fsm11921323a12.39.2024.05.17.04.50.10
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 17 May 2024 04:48:58 -0700 (PDT)
+ Fri, 17 May 2024 04:50:11 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,43 +45,44 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 72ba905e-1443-11ef-b4bb-af5377834399
+X-Inumbo-ID: 9e777f7a-1443-11ef-909e-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1715946539; x=1716551339; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=2hxd3kr1Tye406izSZ3XG4RVkVzjFpjePoPxuGJgKA8=;
-        b=S/vCfZWuAyo+0FXC3uzmeZWbg+pms5WPBhGgVMxN9EBvmVmfkGHTBCpczkrvccdA3N
-         bgIl+Yv+iXM6nvDG4xhmGzLMO90KQpv0iFZCYXVrm5PRws+yzeZrP3U42XoNafc3/WoS
-         3fm7nHj6Aip2jXxj9KJKnKDQ3IENvrPFxXogpYufqYY4lmLbHNHdeTlUZBhN/7fJZ78Q
-         1Qh8Eu+f4UnZEJ5fF5Six5PQosNIg1PZMsbPJMnUOn48OvMRY5+u5JLu28P8YY0pUG5q
-         lJZihTsjxafGDssBBBnK34IimTBNZs7w7uBNCyyTozLJL9xyhpgMuwkLJkf9hkZj+IY6
-         lKNA==
+        d=suse.com; s=google; t=1715946612; x=1716551412; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=IyMP6548kp/KKX7EzB6pG8oTFh39aQ5ntVpckr2G3v0=;
+        b=PJl7UYEdZ5OJnfx+fnwWyzUdG4R8ny4LPflcEH9OHa9x+Goovb+9xNRnM+xD2li2hH
+         cX6t0LtrW8LSD/RMQd/sQJuZ7Na5NUc3i0+d9QTnkHqFQC59qiT3bQsoQ64BmI2mmh9N
+         Ba9CZHfRyZcwAwNVdEjT8KrZ4fQuoRTrKVqm+eP5EFjDJ9Zd2gPzQt2oWvykuuotJe6+
+         PW19+RLE1V0hGfCK0pxrR9XIk+cW8PlFmt4twfVZKdfqgtvxUKkCsrhAwGEHaCZRCTeu
+         srven03VMZxsw/bcbbLTj9E+PcuibAe6lCnqkg+IVnH2Pc0sDCXhR40ObekNG/oCeIUQ
+         DXwQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1715946539; x=1716551339;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=2hxd3kr1Tye406izSZ3XG4RVkVzjFpjePoPxuGJgKA8=;
-        b=wnG7GJfJgdg2vJRBadZFrmJ+bf7kqdSp7bwXcL6we+v6XxSCXDr2/vBjpKzSvB+fMR
-         SZZZLrqmI6VDeWKMBPPuQrg6mILYhw54PL9ZoK3tXwJafgtkFdohVsDG2Li/vd1qlnJm
-         VoyfWC3fJJaSpt543Z30YuJA+6Sxf+g3VEGRtoHB8ARni6UPeIWOqel6k9mfiHblewOJ
-         +iBHUtb90rP3ba1Tgfp1eqFaJ+AMIrn4YcjVDcmq75mmAG5h6P26en6NBX2KWHF6UwDe
-         4fPEkoXo4HXLi3QWZpUEzPFgZ7Eh1cAODuROB6pWjQ4s8z5MPSmErr55saeQ3ucp6ebG
-         /zBg==
-X-Forwarded-Encrypted: i=1; AJvYcCVssQf8CLPI3KAkMRxG427t8lR1ki5EhCzQ5fRlKucZROvhlNNMOaegbnAsXbdkP2f4GBIBOCeARYDMX980FgKh+354m+8jdTAlCGEhcH0=
-X-Gm-Message-State: AOJu0YyfmNo/q/CcuqREVtsl9317Z3vPMZ25a7jYS6E8OkkcAm9vii6l
-	jGSm7ncFF6Uywb2ezREedfJ/NkShKf1MJ1zrEfYssnBiVi/qhGxVYAyezowIvQ==
-X-Google-Smtp-Source: AGHT+IFEGPBKyE6k0AHMBYvNzd4mgAcSiH/hwvlZJo4oDjAPNAtlWf6g97ybINwFJy/c1YMd6QQfww==
-X-Received: by 2002:a05:6512:3117:b0:51e:1bed:13b3 with SMTP id 2adb3069b0e04-52210174834mr14898912e87.32.1715946538774;
-        Fri, 17 May 2024 04:48:58 -0700 (PDT)
-Message-ID: <852fc4fd-0661-45d5-b0c2-6163c6d8984c@suse.com>
-Date: Fri, 17 May 2024 13:48:56 +0200
+        d=1e100.net; s=20230601; t=1715946612; x=1716551412;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=IyMP6548kp/KKX7EzB6pG8oTFh39aQ5ntVpckr2G3v0=;
+        b=mtFzHWcjZOWB2ioRCOxK4zoRHXkeihuh7cZfk4USkY4gokTiNkqc62bGO4figGcGja
+         5Firpk1U34oSAiZr000DwfWG+dp5GVzFWOBp80Uhfofq3Wb0PNDdiZhCYiYfyhQ69SWJ
+         JSIBscYvzrfB3DLKLkeMeKMqhwDZb2PMI88CsVeliw2s7+6LkftOK7kkiTRnJMOE5T+H
+         nEIS46fyHc2CZrzyPBI1Yt0E+t0rD74gVgcme9UNBM5R/8vKEDprh4Wl1vH4yzbwIuwc
+         jWaG41q3csvWks66erv6XtNepZIJT+HXYAccUu6aBScJa1ib/sz0IfB9rn79JVipRDGS
+         0bjw==
+X-Forwarded-Encrypted: i=1; AJvYcCVPX3lkmnQ2LSM5A/yOvVeUNJjaXAb8YRkjQt3pYG7CCYCW1eXFqCgJtei1dQcect+gs7h7+OyKg1XUoimroQzYYwTpF3Sw8NWb4hePtNc=
+X-Gm-Message-State: AOJu0YzeblqnxNoVh2ir1GMV7P6BoWtnqTfJ+a7xZ8gqRoFEw0z7mCwz
+	78gtJxuzxPFbrqRAbN9GSxRfEr3inPB+dLdbp2PQMqd+OJm+YBR6GfFvikySnA==
+X-Google-Smtp-Source: AGHT+IGNA10RwLs/G/b4L042DFQgtEzoBVguDiaE5VpPciMK5mUSj+SEel/KPDeF9MHMevRIxfBfcA==
+X-Received: by 2002:a05:6402:3449:b0:574:d0ae:568b with SMTP id 4fb4d7f45d1cf-574d0ae5745mr8897722a12.38.1715946612162;
+        Fri, 17 May 2024 04:50:12 -0700 (PDT)
+Message-ID: <4b311c82-b252-413a-bb64-0a36aa97680a@suse.com>
+Date: Fri, 17 May 2024 13:50:10 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH v8 1/5] xen/vpci: Clear all vpci status of device
+Subject: Re: [RFC XEN PATCH v8 5/5] domctl: Add XEN_DOMCTL_gsi_permission to
+ grant gsi
+Content-Language: en-US
 To: "Chen, Jiqian" <Jiqian.Chen@amd.com>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu
@@ -93,16 +94,11 @@ Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
  "Daniel P . Smith" <dpsmith@apertussolutions.com>
 References: <20240516095235.64128-1-Jiqian.Chen@amd.com>
- <20240516095235.64128-2-Jiqian.Chen@amd.com>
- <fb708441-b302-4727-8131-62435a54d99c@suse.com>
- <BL1PR12MB5849FCB53BDAB6968536E5A5E7EE2@BL1PR12MB5849.namprd12.prod.outlook.com>
- <cdcbb04d-72e8-4555-a67f-9fd28c5c7743@suse.com>
- <BL1PR12MB5849447757191C93B77D19E6E7EE2@BL1PR12MB5849.namprd12.prod.outlook.com>
- <0cc1e273-2c42-40ea-a02a-ef8702efc030@suse.com>
- <BL1PR12MB5849CCF9A890A7DA969F6474E7EE2@BL1PR12MB5849.namprd12.prod.outlook.com>
- <8d96e75d-5ca1-4276-9ddc-b46b11949fc6@suse.com>
- <BL1PR12MB584920177282E2F65C7A3DD9E7EE2@BL1PR12MB5849.namprd12.prod.outlook.com>
-Content-Language: en-US
+ <20240516095235.64128-6-Jiqian.Chen@amd.com>
+ <9652011f-3f24-43f8-b91e-88bd3982a4c4@suse.com>
+ <BL1PR12MB5849EB5EE20B1A6C647F5717E7EE2@BL1PR12MB5849.namprd12.prod.outlook.com>
+ <b10e68e2-3279-471d-a089-c40934050737@suse.com>
+ <BL1PR12MB58491A32C32C33545AC71AB7E7EE2@BL1PR12MB5849.namprd12.prod.outlook.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -127,69 +123,32 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <BL1PR12MB584920177282E2F65C7A3DD9E7EE2@BL1PR12MB5849.namprd12.prod.outlook.com>
+In-Reply-To: <BL1PR12MB58491A32C32C33545AC71AB7E7EE2@BL1PR12MB5849.namprd12.prod.outlook.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 17.05.2024 13:01, Chen, Jiqian wrote:
-> On 2024/5/17 18:31, Jan Beulich wrote:
->> On 17.05.2024 12:00, Chen, Jiqian wrote:
->>> On 2024/5/17 17:50, Jan Beulich wrote:
->>>> On 17.05.2024 11:28, Chen, Jiqian wrote:
->>>>> On 2024/5/17 16:20, Jan Beulich wrote:
->>>>>> On 17.05.2024 10:08, Chen, Jiqian wrote:
->>>>>>> On 2024/5/16 21:08, Jan Beulich wrote:
->>>>>>>> On 16.05.2024 11:52, Jiqian Chen wrote:
->>>>>>>>>  struct physdev_pci_device {
->>>>>>>>>      /* IN */
->>>>>>>>>      uint16_t seg;
->>>>>>>>
->>>>>>>> Is re-using this struct for this new sub-op sufficient? IOW are all
->>>>>>>> possible resets equal, and hence it doesn't need specifying what kind of
->>>>>>>> reset was done? For example, other than FLR most reset variants reset all
->>>>>>>> functions in one go aiui. Imo that would better require only a single
->>>>>>>> hypercall, just to avoid possible confusion. It also reads as if FLR would
->>>>>>>> not reset as many registers as other reset variants would.
->>>>>>> If I understood correctly that you mean in this hypercall it needs to support resetting both one function and all functions of a slot(dev)?
->>>>>>> But it can be done for caller to use a cycle to call this reset hypercall for each slot function.
->>>>>>
->>>>>> It could, yes, but since (aiui) there needs to be an indication of the
->>>>>> kind of reset anyway, we can as well avoid relying on the caller doing
->>>>>> so (and at the same time simplify what the caller needs to do).
->>>>> Since the corresponding kernel patch has been merged into linux_next branch
->>>>> https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/commit/?h=next-20240515&id=b272722511d5e8ae580f01830687b8a6b2717f01,
->>>>> if it's not very mandatory and necessary, just let the caller handle it temporarily.
+On 17.05.2024 13:14, Chen, Jiqian wrote:
+> On 2024/5/17 18:51, Jan Beulich wrote:
+>> On 17.05.2024 12:45, Chen, Jiqian wrote:
+>>> On 2024/5/16 22:01, Jan Beulich wrote:
+>>>> On 16.05.2024 11:52, Jiqian Chen wrote:
+>>>>> +        if ( gsi >= nr_irqs_gsi )
+>>>>> +        {
+>>>>> +            ret = -EINVAL;
+>>>>> +            break;
+>>>>> +        }
+>>>>> +
+>>>>> +        if ( !irq_access_permitted(current->domain, gsi) ||
 >>>>
->>>> As also mentioned for the other patch having a corresponding kernel one:
->>>> The kernel patch would imo better not be merged until the new sub-op is
->>>> actually finalized.
->>> OK, what should I do next step?
->>> Upstream a patch to revert the merged patch on kernel side?
->>>
->>>>
->>>>> Or it can add a new hypercall to reset all functions in one go in future potential requirement, like PHYSDEVOP_pci_device_state_reset_all_func.
->>>>
->>>> I disagree. We shouldn't introduce incomplete sub-ops. At the very least,
->>>> if you want to stick to the present form, I'd expect you to supply reasons
->>>> why distinguishing different reset forms is not necessary (now or later).
->>> OK, if want to distinguish different reset, is it acceptable to add a parameter, like "u8 flag", and reset every function if corresponding bit is 1?
+>>>> I.e. assuming IRQ == GSI? Is that a valid assumption when any number of
+>>>> source overrides may be surfaced by ACPI?
+>>> All irqs smaller than nr_irqs_gsi are gsi, aren't they?
 >>
->> I'm afraid a boolean won't do, at least not long term. I think it wants to
->> be an enumeration (i.e. a set of enumeration-like #define-s). And just to
->> stress it again: The extra argument is _not_ primarily for the looping over
->> all functions. It is to convey the kind of reset that was done. The single
->> vs all function(s) aspect is just a useful side effect this will have.
-> Do you mean, like:
-> enum RESET_DEVICE_STATE {
-> 	RESET_DEVICE_SINGLE_FUNC,
-> 	RESET_DEVICE_ALL_FUNC,
-> 	Others
-> };
+>> They are, but there's not necessarily a 1:1 mapping.
+> Oh, so do I need to add a new gsi_caps to store granted gsi?
 
-No. What we need to be able to tell apart in the hypervisor is (at least)
-FLR and Conventional Reset. I can't tell right away whether the sub-forms
-of the latter also may need telling apart. I expect you to dive into that
-and make a good proposal.
+Probably not. You ought to be able to translate between GSI and IRQ,
+and then continue to record in / check against IRQ permissions.
 
 Jan
 
