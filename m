@@ -2,33 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9A9C98C7FD6
-	for <lists+xen-devel@lfdr.de>; Fri, 17 May 2024 04:21:19 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.723768.1128827 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 120C48C7FDB
+	for <lists+xen-devel@lfdr.de>; Fri, 17 May 2024 04:22:56 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.723771.1128837 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s7nCW-00021N-KT; Fri, 17 May 2024 02:20:04 +0000
+	id 1s7nF6-0003Qi-1Y; Fri, 17 May 2024 02:22:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 723768.1128827; Fri, 17 May 2024 02:20:04 +0000
+Received: by outflank-mailman (output) from mailman id 723771.1128837; Fri, 17 May 2024 02:22:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s7nCW-0001xP-Hf; Fri, 17 May 2024 02:20:04 +0000
-Received: by outflank-mailman (input) for mailman id 723768;
- Fri, 17 May 2024 02:20:03 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1s7nF5-0003Ol-US; Fri, 17 May 2024 02:22:43 +0000
+Received: by outflank-mailman (input) for mailman id 723771;
+ Fri, 17 May 2024 02:22:42 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=UZ95=MU=gmail.com=jandryuk@srs-se1.protection.inumbo.net>)
- id 1s7nCU-0001dU-UD
- for xen-devel@lists.xenproject.org; Fri, 17 May 2024 02:20:02 +0000
+ id 1s7nF4-0003Of-TL
+ for xen-devel@lists.xenproject.org; Fri, 17 May 2024 02:22:42 +0000
 Received: from mail-ed1-x530.google.com (mail-ed1-x530.google.com
  [2a00:1450:4864:20::530])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f74a1f8a-13f3-11ef-909e-e314d9c70b13;
- Fri, 17 May 2024 04:20:02 +0200 (CEST)
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 5619a371-13f4-11ef-b4bb-af5377834399;
+ Fri, 17 May 2024 04:22:41 +0200 (CEST)
 Received: by mail-ed1-x530.google.com with SMTP id
- 4fb4d7f45d1cf-5708d8beec6so4150020a12.0
- for <xen-devel@lists.xenproject.org>; Thu, 16 May 2024 19:20:02 -0700 (PDT)
+ 4fb4d7f45d1cf-56e69888a36so4142329a12.3
+ for <xen-devel@lists.xenproject.org>; Thu, 16 May 2024 19:22:41 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,145 +40,68 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f74a1f8a-13f3-11ef-909e-e314d9c70b13
+X-Inumbo-ID: 5619a371-13f4-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1715912401; x=1716517201; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1715912560; x=1716517360; darn=lists.xenproject.org;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=13/tEnsX00az+Z78WeQi1Ma/WwplAv72LsKUOMKIlZY=;
-        b=cpRWHl3JLxWcfG+BK0k1eMp8n0QBx8JISWf1MtnST0FH5Bif2/a4LP49B2Rgrr+2bs
-         kjPxxAyFzTwcBjAm+cxxRMVSbO8cN/i/rFQX7ImQ+je0ifYiJbkjN/b6skdXUt9+MJrG
-         hL7clAmSXFKdxO4YKSxIEjlOGM5sG03q7N2xnZAjHFUUKhGn2vTZcjER6WyjAmosnjtB
-         JdBjzB/XYFdCs+vOWzKuudhrQ3ey3m4uH/FQFn4lZVhIed7d6O+xE7S4UX1BeTMxkZcZ
-         xrOCq4PjBdTuN8YOTaFt3n3sVefuBNN6gZBxgT6MHJRXVEfhLTfsVV03MkJ9VbnhrDnt
-         RZaA==
+        bh=XgeOXt05rT1J/mgAopx8fctx0EFrgq63XJy/wg1V9uo=;
+        b=ZlesoXka+kCr6PDFAHGG3kDPlGLbPzodyRA+ASBO6pRp+mDMqj6bb6xjn0O/AEAftb
+         xy6VraaIJ8zOu1O0AXFA7avypAIpwua7PWds2WZD4Dg79Oczo+EMrVpP9tBIHH1SmE9q
+         4uJfP7ANbpaBADgczoFswW+MViaEDmR8NlFpKvMBCu/vHngXg5x2+mTgUI2QUofI9tWR
+         7djhbkj3AQlAdRbeAPqo9DF+Ti2T/z6KY+bTlk9596NyxaAwn9Aa82tBjSzWwSUYWJau
+         Sy6fiKyoC3T2GitpRaO6nALI43GGGmY1saEbK+pDR9NM/qmIZHkgOkJRTr69VXuKKhUX
+         MqEw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1715912401; x=1716517201;
+        d=1e100.net; s=20230601; t=1715912560; x=1716517360;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=13/tEnsX00az+Z78WeQi1Ma/WwplAv72LsKUOMKIlZY=;
-        b=bpTaHy82lha02hYiaujGIFqmvF3Fi2E5BwpbsE49LmU3N3ntFuxnI+0rLU2mOAHp5a
-         W9lZ8T8xq1Xf5vx2xMzcF/Mr2CQBqYYXFWh+TPwyN0ltMCJ13G6Gy225ySJ717fMRRq8
-         TC71O3kg/2SIpUEt+aQv6W9i1eswUZdoCKedspUh2tk9Y6TTcg4FzSRDGWPhk0Ot6d3B
-         mXq7hlS/sJr+3UzsB5UPinDicW77YUldCAlu6B1qAItx8kkyK1wl8oFNKQgp0Wer16ab
-         0i4o3LgrGk1jlHe41JM+t2+2MMb46yYteh5btYvLRi2V1WyE7R4IiNC6GnR89hwrgJfO
-         N+hA==
-X-Gm-Message-State: AOJu0YzQTFtHUQrsoimI/bnX9PSrNjquGaJIeJrzhY+5KGL/YInXrz2Y
-	AZr49v7zYwG4qn1R6Wn8/+H7EygtuWesmqoswxADOfIIXQNOEP+yXTEpaRs4vEOdOxQzgtoFpMd
-	yIj4wkx8geMIBOQOqNV2lxLrwKk4=
-X-Google-Smtp-Source: AGHT+IFQhIrAP4kf4JQCCdSWLCRSARgpMDd/QyLTW7I0F455I8yRy5zLbZOHaU9gy0Ej/s2Gfm34+r7+QV6Lu4XZirQ=
-X-Received: by 2002:a50:c049:0:b0:574:ebdd:9ab6 with SMTP id
- 4fb4d7f45d1cf-574ebdd9c5emr10676238a12.6.1715912401293; Thu, 16 May 2024
- 19:20:01 -0700 (PDT)
+        bh=XgeOXt05rT1J/mgAopx8fctx0EFrgq63XJy/wg1V9uo=;
+        b=wHjG1uPAfbq3XVB+mrFmjbbNPOKCoE/qYFnoL78eRxp5G2IxG/pEZcQNiFY/I213l3
+         7AdEzF+WVEHnWCFauKmP+NM2uOXX8YyUmQvXe90A6HCet6fWKSqVJBH9mFQdveXwLED8
+         ISx4HcHmRWvu4Y5agk/9bb+rZjtbee/SqnZdbkzsNM5a9kDa5ZysmgQ8VAdllS2Rb2jk
+         ZEN1N07H8LcuW+oNqTG/ZK36i0f/yIkFT11+jMVKvlX+f98B0IJ/HfZPmflhzre7Drpy
+         mmGjKbOaHeznRPgKWMv+mEcPrwaMkNcfSwd2NqVrwfxjdWQgGHEdqoSUQQ8E4olAr4DQ
+         d3Vw==
+X-Gm-Message-State: AOJu0Yx7IgTls7voqt+xIu1o19YI+KCAiVjNy+eZy3DkRg3Bpmp6fLGk
+	PTrlYwcElFdR8ESykI1FDNT31MnyvDMfXeX8O5c2bwbDFaZGItJS+kmWIAbsXY6rYF7JRN76iAx
+	Z0V0t0vi6zzwvjlxC+vBwiDXakQ8irQ==
+X-Google-Smtp-Source: AGHT+IGOJfDYsfvpUKHT6NnvrIkRD6jwpPzibmMgocBERSPbFSqcMh8pWWSQmF/7DJgjN/kMj/8wbg9qSXtXLRfNA6s=
+X-Received: by 2002:a50:9e6d:0:b0:572:8aab:441c with SMTP id
+ 4fb4d7f45d1cf-5734d6ed908mr13252761a12.26.1715912559739; Thu, 16 May 2024
+ 19:22:39 -0700 (PDT)
 MIME-Version: 1.0
-References: <20240516105612.15306-1-leigh@solinno.co.uk> <20240516105612.15306-4-leigh@solinno.co.uk>
-In-Reply-To: <20240516105612.15306-4-leigh@solinno.co.uk>
+References: <20240516021010.3783-1-jandryuk@gmail.com>
+In-Reply-To: <20240516021010.3783-1-jandryuk@gmail.com>
 From: Jason Andryuk <jandryuk@gmail.com>
-Date: Thu, 16 May 2024 22:19:49 -0400
-Message-ID: <CAKf6xpvX2T3xhx59b0_X3e+9BpYuMZS84P=ghisZFD3yWsFssw@mail.gmail.com>
-Subject: Re: [PATCH v3 3/4] tools/hotplug/Linux: Add bridge VLAN support
-To: Leigh Brown <leigh@solinno.co.uk>
-Cc: xen-devel@lists.xenproject.org, Andrew Cooper <andrew.cooper3@citrix.com>, 
-	Anthony Perard <anthony.perard@citrix.com>
+Date: Thu, 16 May 2024 22:22:27 -0400
+Message-ID: <CAKf6xps6KaP7BoJdiOvESX4CBk3Q25-khh0OZTkMH_j6J1MwJQ@mail.gmail.com>
+Subject: Re: [PATCH v3] libxl: Enable stubdom cdrom changing
+To: xen-devel@lists.xenproject.org
+Cc: Jason Andryuk <jason.andryuk@amd.com>, Andrew Cooper <andrew.cooper3@citrix.com>, 
+	George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>, 
+	Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, 
+	Anthony PERARD <anthony@xenproject.org>, Juergen Gross <jgross@suse.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Thu, May 16, 2024 at 6:56=E2=80=AFAM Leigh Brown <leigh@solinno.co.uk> w=
-rote:
+On Wed, May 15, 2024 at 10:11=E2=80=AFPM Jason Andryuk <jandryuk@gmail.com>=
+ wrote:
 >
-> Update add_to_bridge shell function to read the vlan parameter from
-> xenstore and set the bridge VLAN configuration for the VID.
->
-> Add additional helper functions to parse the vlan specification,
-> which consists of one or more of the following:
->
-> a) single VLAN (e.g. 10).
-> b) contiguous range of VLANs (e.g. 10-15).
-> c) discontiguous range with base, increment and count
->    (e.g. 100+10x9 which gives VLAN IDs 100, 110, ... 190).
->
-> A single VLAN can be suffixed with "p" to indicate the PVID, or
-> "u" to indicate untagged. A range of VLANs can be suffixed with
-> "u" to indicate untagged.  A complex example would be:
->
->    vlan=3D1p/10-15/20-25u
->
-> This capability requires the iproute2 bridge command to be
-> installed.  An error will be generated if the vlan parameter is
-> set and the bridge command is not available.
->
-> Signed-off-by: Leigh Brown <leigh@solinno.co.uk>
->
-> ---
->  tools/hotplug/Linux/xen-network-common.sh | 103 ++++++++++++++++++++++
->  1 file changed, 103 insertions(+)
->
-> diff --git a/tools/hotplug/Linux/xen-network-common.sh b/tools/hotplug/Li=
-nux/xen-network-common.sh
-> index 42fa704e8d..fa7615ce0f 100644
-> --- a/tools/hotplug/Linux/xen-network-common.sh
-> +++ b/tools/hotplug/Linux/xen-network-common.sh
+> From: Jason Andryuk <jason.andryuk@amd.com>
 
-> +_vif_vlan_setup() {
-> +    # References vlans and dev variable from the calling function
-> +    local vid cmd
-> +
-> +    bridge vlan del dev "$dev" vid 1
+Sorry, I mess this up.  This From is incorrect.
 
-Is vid 1 always added, so you need to remove it before customizing?
+> From: Jason Andryuk <jandryuk@gmail.com>
 
-> +    for vid in ${!vlans[@]} ;do
-> +        cmd=3D"bridge vlan add dev '$dev' vid $vid"
-> +        case ${vlans[$vid]} in
-> +             p) cmd=3D"$cmd pvid untagged" ;;
-> +             u) cmd=3D"$cmd untagged" ;;
-> +             t) ;;
-> +        esac
-> +        eval "$cmd"
+This is correct.
 
-Sorry if I missed this last time, but `eval` shouldn't be necessary.
+> Signed-off-by: Jason Andryuk <jandryuk@gmail.com>
+> Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
 
-        local args
-
-        case ${vlans[$vid]} in
-             p) args=3D"pvid untagged" ;;
-             u) args=3D"untagged" ;;
-             t) ;;
-        esac
-        bridge vlan add dev "$dev" vid "$vid" $args
-
-args unquoted so it expands into maybe two args.  You could also make
-args an array and do "${args[@]}"
-
-> +    done
-> +}
-> +
-> +_vif_vlan_membership() {
-> +    # The vlans, pvid and dev variables are used by sub-functions
-> +    local -A vlans=3D()
-> +    local -a terms=3D()
-> +    local -i i pvid=3D0
-> +    local dev=3D$1
-> +
-> +    # Split the vlan specification string into its terms
-> +    readarray -d / -t terms <<<$2
-> +    for (( i=3D0; i<${#terms[@]}; ++i )) ;do
-> +        _vif_vlan_parse_term ${terms[$i]%%[[:space:]]}
-
-Because terms is not in double quotes, wouldn't it expand out?  Then
-any whitespace would be dropped when calling _vif_vlan_parse_term.
-Your %% only drops trailing spaces too.  Maybe you want
-"${terms//[[:space:]]/}" to remove all spaces?
-
-Stylistically, you use (( )) more than I would.  I'd do:
-
-local term
-for term in "${terms[@]}" ; do
-     _vif_vlan_parse_term "$term"
-
-But you can keep it your way if you prefer.
+These are correct.
 
 Regards,
 Jason
