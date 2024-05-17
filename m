@@ -2,35 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 77A8E8C81AB
-	for <lists+xen-devel@lfdr.de>; Fri, 17 May 2024 09:48:52 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.723882.1129025 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3E1258C8260
+	for <lists+xen-devel@lfdr.de>; Fri, 17 May 2024 10:07:50 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.723899.1129035 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s7sKN-0008OV-3z; Fri, 17 May 2024 07:48:31 +0000
+	id 1s7sc1-0004a7-Se; Fri, 17 May 2024 08:06:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 723882.1129025; Fri, 17 May 2024 07:48:31 +0000
+Received: by outflank-mailman (output) from mailman id 723899.1129035; Fri, 17 May 2024 08:06:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s7sKN-0008Mo-1L; Fri, 17 May 2024 07:48:31 +0000
-Received: by outflank-mailman (input) for mailman id 723882;
- Fri, 17 May 2024 07:48:30 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1s7sKM-0008Me-0m; Fri, 17 May 2024 07:48:30 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1s7sKL-0008NW-U4; Fri, 17 May 2024 07:48:29 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1s7sKL-0003C0-MB; Fri, 17 May 2024 07:48:29 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1s7sKL-0004Lv-La; Fri, 17 May 2024 07:48:29 +0000
+	id 1s7sc1-0004Xb-Pq; Fri, 17 May 2024 08:06:45 +0000
+Received: by outflank-mailman (input) for mailman id 723899;
+ Fri, 17 May 2024 08:06:44 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=q70L=MU=cloud.com=christian.lindig@srs-se1.protection.inumbo.net>)
+ id 1s7sc0-0004XV-NE
+ for xen-devel@lists.xenproject.org; Fri, 17 May 2024 08:06:44 +0000
+Received: from mail-lf1-x133.google.com (mail-lf1-x133.google.com
+ [2a00:1450:4864:20::133])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 65ec4a14-1424-11ef-909e-e314d9c70b13;
+ Fri, 17 May 2024 10:06:43 +0200 (CEST)
+Received: by mail-lf1-x133.google.com with SMTP id
+ 2adb3069b0e04-52388d9ca98so639222e87.0
+ for <xen-devel@lists.xenproject.org>; Fri, 17 May 2024 01:06:43 -0700 (PDT)
+Received: from smtpclient.apple ([160.101.139.1])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a5a1781cf91sm1087447766b.1.2024.05.17.01.06.41
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Fri, 17 May 2024 01:06:42 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,86 +45,94 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=jkWEZw3rF7SlhrKbzpOXlUmWW3Pd6qjsAAY1Qzm7Ji4=; b=TXwJNmLzS2ClVR4rY8epzOPDvu
-	+74H9UULeKFyRTKT+E0zAl3jlt77YsMstwTys498brEoanQmoFCmZu3U1i93kl42UuasdV+RLFXhQ
-	36TgpOr01c7iT0Pf8m8DzjAlkfrh6jQ5t1YASPCF+Gf/XcE2e7mPZdWZEbvjhhPrU5rQ=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-186024-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 186024: tolerable all pass - PUSHED
-X-Osstest-Failures:
-    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=21611c68702dae2e18cb519a6e166cdceeaff4ca
-X-Osstest-Versions-That:
-    xen=53dc37829c31edf02e8fc56aeccca8d60f6e2f5e
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 17 May 2024 07:48:29 +0000
-
-flight 186024 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/186024/
-
-Failures :-/ but no regressions.
-
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
-
-version targeted for testing:
- xen                  21611c68702dae2e18cb519a6e166cdceeaff4ca
-baseline version:
- xen                  53dc37829c31edf02e8fc56aeccca8d60f6e2f5e
-
-Last test of basis   186022  2024-05-16 23:00:22 Z    0 days
-Testing same since   186024  2024-05-17 04:02:10 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Jan Beulich <jbeulich@suse.com>
-  Stefano Stabellini <sstabellini@kernel.org>
-  Stefano Stabellini <stefano.stabellini@amd.com>
-
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
+X-Inumbo-ID: 65ec4a14-1424-11ef-909e-e314d9c70b13
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cloud.com; s=cloud; t=1715933203; x=1716538003; darn=lists.xenproject.org;
+        h=to:references:message-id:content-transfer-encoding:cc:date
+         :in-reply-to:from:subject:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=DxV1hJF49YePmCkWfVoIRzVzYu9CpcUHmXWTZF3b13c=;
+        b=MJkO6fSbxNS0+PB5X2li0CrRsEKXwWSqcZoKRQF5rhGgmVLVuyBEuqwzdfqcHFIlBG
+         5/Db2Dy2Ckne89w+CCYKrRXK8dnas1jVSTnYfZYbCFfM0FAp4F3YcMUxeAt8nkO8+OS0
+         bCR9DSvhNi2lbpIeUC/0keLYE4XlY3MG2nbJs=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1715933203; x=1716538003;
+        h=to:references:message-id:content-transfer-encoding:cc:date
+         :in-reply-to:from:subject:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=DxV1hJF49YePmCkWfVoIRzVzYu9CpcUHmXWTZF3b13c=;
+        b=Ze6ojv4mJcmgV62CmuU6HVj5hJ3CWwxax+spIebqj6UhBL5poYDr+5Y+DqTq5ZPiXj
+         AEcy2xdw6v6twnN/1jIkg+onw36oDwSIhlSMVzhYHWEkd9rg4zbhy91G6FUOBZLZL1+M
+         YPd0CsYIBO4qOeTTXAntcrfEcyikFVOAdev6EdBskFR+i+40L9RA+BUJwvgcoYIQUff/
+         0KEE9konCh5FiES+IYFMAE+lVUmmB9JlGTq+iDTqTTdNVJ1Dr++VhvgAqDScwvaiR7ou
+         dZ3bO8PFAA4j7bQ53XArsM+ShAgdLOFyTrOnBSBoNhMQfT1lBlwx6v552m2QKGymk0XH
+         eFkg==
+X-Gm-Message-State: AOJu0YyFd8c19kLanLqYTZZQm0GZs2vhngYeF2HxW1MU7IYraXYQScYk
+	tgPQSi48EKchgz/hOfDQtdIeYTpLVktbSQac43TGLXmMnn0mTDTDgyfFt+/TAbg=
+X-Google-Smtp-Source: AGHT+IGOfFUSvTUnVB89H81Wq5EJL4RINiDv7O/pKP6TVa0pl30QgRGD06Xsp+wwOxeR85ni4aN7iQ==
+X-Received: by 2002:a05:6512:2310:b0:51b:9254:91e7 with SMTP id 2adb3069b0e04-5236e7185abmr10038677e87.61.1715933202396;
+        Fri, 17 May 2024 01:06:42 -0700 (PDT)
+Content-Type: text/plain;
+	charset=us-ascii
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3774.500.171.1.1\))
+Subject: Re: [PATCH v2 for-4.19 0/4] Drop libsystemd
+From: Christian Lindig <christian.lindig@cloud.com>
+In-Reply-To: <20240516185804.3309725-1-andrew.cooper3@citrix.com>
+Date: Fri, 17 May 2024 09:06:30 +0100
+Cc: Xen-devel <xen-devel@lists.xenproject.org>,
+ Anthony PERARD <anthony@xenproject.org>,
+ Juergen Gross <jgross@suse.com>,
+ George Dunlap <George.Dunlap@citrix.com>,
+ Jan Beulich <JBeulich@suse.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Julien Grall <julien@xen.org>,
+ Christian Lindig <christian.lindig@citrix.com>,
+ =?utf-8?B?RWR3aW4gVMO2csO2aw==?= <edwin.torok@cloud.com>
+Content-Transfer-Encoding: 7bit
+Message-Id: <C4B17A26-6959-43AC-8ABC-9F8BEF4EFCEC@cloud.com>
+References: <20240516185804.3309725-1-andrew.cooper3@citrix.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+X-Mailer: Apple Mail (2.3774.500.171.1.1)
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+> On 16 May 2024, at 19:58, Andrew Cooper <andrew.cooper3@citrix.com> wrote:
+> 
+> On advise from the systemd leadership.
+> 
+> v2:
+> * Import the free-standing example and use that to retain existing
+>   functionality.
+> 
+> Andrew Cooper (4):
+>  LICENSES: Add MIT-0 (MIT No Attribution)
+>  tools: Import standalone sd_notify() implementation from systemd
+>  tools/{c,o}xenstored: Don't link against libsystemd
+>  tools: Drop libsystemd as a dependency
+> 
+> LICENSES/MIT-0                                |  31 +++
+> automation/build/archlinux/current.dockerfile |   1 +
+> .../build/suse/opensuse-leap.dockerfile       |   1 +
+> .../build/suse/opensuse-tumbleweed.dockerfile |   1 +
+> automation/build/ubuntu/focal.dockerfile      |   1 +
+> config/Tools.mk.in                            |   2 -
+> m4/systemd.m4                                 |   9 -
+> tools/configure                               | 256 ------------------
+> tools/include/xen-sd-notify.h                 |  98 +++++++
+> tools/ocaml/xenstored/Makefile                |   2 -
+> tools/ocaml/xenstored/systemd_stubs.c         |   2 +-
+> tools/xenstored/Makefile                      |   5 -
+> tools/xenstored/posix.c                       |   4 +-
+> 13 files changed, 136 insertions(+), 277 deletions(-)
+> create mode 100644 LICENSES/MIT-0
+> create mode 100644 tools/include/xen-sd-notify.h
+> 
+> 
+> base-commit: 977d98e67c2e929c62aa1f495fc4c6341c45abb5
+> -- 
+> 2.30.2
+> 
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+Acked-by: Christian Lindig <christian.lindig@cloud.com>
 
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/xen.git
-   53dc37829c..21611c6870  21611c68702dae2e18cb519a6e166cdceeaff4ca -> smoke
 
