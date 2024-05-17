@@ -2,56 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EFA7C8C7F72
-	for <lists+xen-devel@lfdr.de>; Fri, 17 May 2024 03:16:10 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.723729.1128768 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 64D638C7F77
+	for <lists+xen-devel@lfdr.de>; Fri, 17 May 2024 03:18:11 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.723733.1128777 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s7mCB-00037N-UI; Fri, 17 May 2024 01:15:39 +0000
+	id 1s7mEN-0003gG-8c; Fri, 17 May 2024 01:17:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 723729.1128768; Fri, 17 May 2024 01:15:39 +0000
+Received: by outflank-mailman (output) from mailman id 723733.1128777; Fri, 17 May 2024 01:17:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s7mCB-00035n-Qe; Fri, 17 May 2024 01:15:39 +0000
-Received: by outflank-mailman (input) for mailman id 723729;
- Fri, 17 May 2024 01:15:38 +0000
+	id 1s7mEN-0003eX-5u; Fri, 17 May 2024 01:17:55 +0000
+Received: by outflank-mailman (input) for mailman id 723733;
+ Fri, 17 May 2024 01:17:53 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=6mIz=MU=amd.com=Xin.Wang2@srs-se1.protection.inumbo.net>)
- id 1s7mC9-00035h-TG
- for xen-devel@lists.xenproject.org; Fri, 17 May 2024 01:15:37 +0000
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on20601.outbound.protection.outlook.com
- [2a01:111:f403:200a::601])
+ id 1s7mEL-0003eP-H7
+ for xen-devel@lists.xenproject.org; Fri, 17 May 2024 01:17:53 +0000
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on20601.outbound.protection.outlook.com
+ [2a01:111:f403:2412::601])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f5bbd00b-13ea-11ef-b4bb-af5377834399;
- Fri, 17 May 2024 03:15:35 +0200 (CEST)
-Received: from BL0PR02CA0004.namprd02.prod.outlook.com (2603:10b6:207:3c::17)
- by DM6PR12MB4121.namprd12.prod.outlook.com (2603:10b6:5:220::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7587.30; Fri, 17 May
- 2024 01:15:27 +0000
-Received: from BL02EPF00021F69.namprd02.prod.outlook.com
- (2603:10b6:207:3c:cafe::f3) by BL0PR02CA0004.outlook.office365.com
- (2603:10b6:207:3c::17) with Microsoft SMTP Server (version=TLS1_2,
+ id 46efe2cc-13eb-11ef-b4bb-af5377834399;
+ Fri, 17 May 2024 03:17:51 +0200 (CEST)
+Received: from BN9PR03CA0709.namprd03.prod.outlook.com (2603:10b6:408:ef::24)
+ by MW5PR12MB5599.namprd12.prod.outlook.com (2603:10b6:303:194::16)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7587.27; Fri, 17 May
+ 2024 01:17:47 +0000
+Received: from BN3PEPF0000B074.namprd04.prod.outlook.com
+ (2603:10b6:408:ef:cafe::68) by BN9PR03CA0709.outlook.office365.com
+ (2603:10b6:408:ef::24) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7587.28 via Frontend
- Transport; Fri, 17 May 2024 01:15:27 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BL02EPF00021F69.mail.protection.outlook.com (10.167.249.5) with Microsoft
+ Transport; Fri, 17 May 2024 01:17:47 +0000
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ BN3PEPF0000B074.mail.protection.outlook.com (10.167.243.119) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7587.21 via Frontend Transport; Fri, 17 May 2024 01:15:27 +0000
-Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ 15.20.7587.21 via Frontend Transport; Fri, 17 May 2024 01:17:46 +0000
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Thu, 16 May
- 2024 20:15:26 -0500
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB05.amd.com
- (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Thu, 16 May
- 2024 20:15:26 -0500
-Received: from henry-MS-7D54.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ 2024 20:17:46 -0500
+Received: from [172.31.124.47] (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.35 via Frontend
- Transport; Thu, 16 May 2024 20:15:24 -0500
+ Transport; Thu, 16 May 2024 20:17:44 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,202 +59,182 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f5bbd00b-13ea-11ef-b4bb-af5377834399
+X-Inumbo-ID: 46efe2cc-13eb-11ef-b4bb-af5377834399
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=aEfwZpMIE6FUgjS+jL00zhCz24VhiSRJVHJ4r3I0xTdGX9oh1PlOgrLz6UWygvKXna1pwFNFAqWYHU9s8DBu1DgamfuMClN0FvecHKoW9RVM05JzbME2SaYShdJhnV9MiT7pdZHByatO+FCvPi5aXYJEoHYUGZSkuGCoF61aWVFQcj6TOpGzMOQ5B8sdkn3/dpY9n8gAt4HLlRsIg46pka+O0IIbi4lZxYHGEC0wMbJjCXAdQTKBZVdx5m/IfW/A2ZQowie/gIu3BTPHyX4MXhlGe97NYNkmRLBPqUZan1qNH8nEdzaa829ZJ6kCj+N9iM7EZ0EZ2tWAbJZp3X2Ouw==
+ b=Bs/Q2jv0yG8Cn7b+ptGujytF/rTmER1KRPEPyDGmxgmaNf8utFBfLzP+zhX6knag0xmb5L/cZ0xVIp5z15HKxC5uZuaZd2R5PhVPHx3ztQNLSG/tnWmUQQAV3qHQLnmwFPUGqJvB3MXENzoqro9I6JkYkcAfo8GZwSR9SJHPk2wcV8I0KFw+lB0cihQyc0jqhMZUSCiKryeHmFK93dRBYy48NsfY5jlermTP5lP4HjhlsCeJyDYVq1lUVRIy9mmhpea1vUn4w+ecZ0Sdznie/KYVwPz86L50tI5Nxl7gynSP1VthMpbKgjPkvUWaBjqUhNP664R+GzrkYycVKioe8Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=wk82CmnnafP/ty0a2WVhVTjambpmPt6exWQt3tANaj0=;
- b=ULrr3xHOZ9FjxAvLaTozYdZVpNrqXgYUigVo4iydmCPf5xbMsDuqLtbQspa63TpWWeZKAESww6YQHPTbddx2Zv1osEPloFAUsg/xyBoEvMFMIfBcBptiffXTuT0RUsQi9Eqw+Ut3SO+XZBm+QIaWU2UBS8dTfH4zycjz//OFt4GQv+OyZKI5fJxPItkEj/TFfRK6FhAC0ahgJrQNMz2FRe2hB/JraMSwe+i3Moqhu2bvOhrDBEpGeRx20Fl4RWCT0GfeIh0ri+08D0uZntq4XTyMOzGz2AcyEQDRvcQDoO/8MKzjtsw+Z1u8k7adH9rCFOg6h851Yqch4tXJFe2Tag==
+ bh=Kp85KC0psuXALGt1cPe+mlXd7lcMqilrHi8mw7kjljQ=;
+ b=PeEQBbpWtWNRLigApQDsH77U5eonflQ7bbYX++NCiWED+FRfsC/1OpNdA2DyQ4zPVVNPwgtw/Kt6vqkXRlV7RsXA+0f/Kn+SuXydLXTDYQxzVo56pbmFkc7hoiSH7YC8AH1CjhUOrIfA70tsZKmwFq6+4kpc5G0KuTXYwP9oort+RRdXOHxmOIK+zqDGul4hTbND/WpAitWW+1n5nd0xgqaJBbJVqgjLwwRGNLzitw8Cx5isSiSUUFWEK4/k5x8hWj+m3dMw1lo+JyT4JHv/rwAcf0tyGwqz17gHbv8OAdHyVoI4KV8ezAQm4rph49dccgir4zLiTfPM9+3mtFK2gg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
+ 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=wk82CmnnafP/ty0a2WVhVTjambpmPt6exWQt3tANaj0=;
- b=jVL+PmIrq6rPiXFCfGQU9G0JzM+qL596OdyvWC1w+63KXndIHVb3pH66by2GKO1RvG+KKKbkDxMGjGpgNfM/vkbUX35Z4cmLRTku34zxCHJqcT5ROvDTNS4ngQeXrC6LJ4Vxp9hYNVLM+VPtPtdZXfRYzD7dAqBLibvw/SBoEZA=
+ bh=Kp85KC0psuXALGt1cPe+mlXd7lcMqilrHi8mw7kjljQ=;
+ b=PCBlgm/JytrDJ/4YOM67Mu/tTNpBvhOpYuiLekWU15SMbdKp/HWRyilW/kj8uvHjISrKw2fQruigUbpY4orYgncI8rp/YpKcLOoLP+AcC+nteKWzdPmOE8kbYzzU/uaQUzV7s5c2WfDDFPi8gweGyL5RkjT2dxuPue0zMrkpEVE=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-From: Henry Wang <xin.wang2@amd.com>
-To: <xen-devel@lists.xenproject.org>, <linux-kernel@vger.kernel.org>
-CC: Henry Wang <xin.wang2@amd.com>, Juergen Gross <jgross@suse.com>, "Stefano
- Stabellini" <sstabellini@kernel.org>, Oleksandr Tyshchenko
-	<oleksandr_tyshchenko@epam.com>, Michal Orzel <michal.orzel@amd.com>
-Subject: [PATCH v2] drivers/xen: Improve the late XenStore init protocol
-Date: Fri, 17 May 2024 09:15:16 +0800
-Message-ID: <20240517011516.1451087-1-xin.wang2@amd.com>
-X-Mailer: git-send-email 2.34.1
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Message-ID: <1539e7ab-f27f-4cea-bb79-4c341bb3c69c@amd.com>
+Date: Fri, 17 May 2024 09:17:43 +0800
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drivers/xen: Improve the late XenStore init protocol
+To: Stefano Stabellini <sstabellini@kernel.org>
+CC: <xen-devel@lists.xenproject.org>, <linux-kernel@vger.kernel.org>, "Juergen
+ Gross" <jgross@suse.com>, Oleksandr Tyshchenko
+	<oleksandr_tyshchenko@epam.com>, Michal Orzel <michal.orzel@amd.com>
+References: <20240515014330.1044617-1-xin.wang2@amd.com>
+ <alpine.DEB.2.22.394.2405151524270.2544314@ubuntu-linux-20-04-desktop>
+ <028f29be-0393-4a57-83e2-ea27fe0320d5@amd.com>
+ <alpine.DEB.2.22.394.2405161743170.2544314@ubuntu-linux-20-04-desktop>
+Content-Language: en-US
+From: Henry Wang <xin.wang2@amd.com>
+In-Reply-To: <alpine.DEB.2.22.394.2405161743170.2544314@ubuntu-linux-20-04-desktop>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-Received-SPF: None (SATLEXMB05.amd.com: xin.wang2@amd.com does not designate
+Received-SPF: None (SATLEXMB03.amd.com: xin.wang2@amd.com does not designate
  permitted sender hosts)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL02EPF00021F69:EE_|DM6PR12MB4121:EE_
-X-MS-Office365-Filtering-Correlation-Id: 97b12dc7-9b4b-420f-c37a-08dc760ed603
+X-MS-TrafficTypeDiagnostic: BN3PEPF0000B074:EE_|MW5PR12MB5599:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2b122ba2-0dff-4fa6-5dea-08dc760f293e
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230031|36860700004|1800799015|376005|82310400017;
+	BCL:0;ARA:13230031|1800799015|36860700004|376005|82310400017;
 X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?2ljjx2ZimPn2IMlx+2PP1wKTUhKyPacOVvnUwWjFenJbZKCDzp+7hPr2aoB/?=
- =?us-ascii?Q?pKvvno9m0BdNAe60rkwiH0O2gT73KyEmmYwfOAj/oEHnfaXMglPySCpM4Ylv?=
- =?us-ascii?Q?rnk2Sfc6gfzpoFh5AYXfYZeKFLvGLBp6banem0zCZzwqnrUeN7hZeWe330LM?=
- =?us-ascii?Q?G5X686EEVajH3XYXe3Ce/Ze2TkYsX+vSzP5THBHzgCv+Fz1y50uMj7hH8tAm?=
- =?us-ascii?Q?tNhQIM8PO3iN2vBEwQJy9szGowbpgDU6uu3ibWStlQmzWYxDWv9QUQkh+HLL?=
- =?us-ascii?Q?nr3QAWKRTqeZ1ZvXtGzyjZ/ANERGpB/2TXOktE1NIitNwPKq0KtvBlCsbrHY?=
- =?us-ascii?Q?id0DZQsM4ojZbEMTfW/bi4qxtC4j5S3Fn2PjfYqqmmGUcAX2nONZExh8WBes?=
- =?us-ascii?Q?Ax5geCVTyDcM68W+gvAAON9hkIpneZuc11KUMEXZWeBeezLJGuVZsnlgALHm?=
- =?us-ascii?Q?W/leEv6TTI+C5o5inTH3DpUFASIb7nqttc0qaZQGp9M57sujnvl0KO2cIzSt?=
- =?us-ascii?Q?HW9tOlSwh19UrbBD1lH9he1T8iOHs+6k5OjMrLXTVu0b/+CheGiDMxRTKF3v?=
- =?us-ascii?Q?R2Ftbw22dOQHZsjKVuAi0inac4VwJ1qUNBjf2sobkyC5XUjFDTg2BCG6yqZv?=
- =?us-ascii?Q?2syqpKO8qIQf1Xk10Zo/poDm577NfY3fqSR60ChbKLiUPgw2ZtREpjXAVgLM?=
- =?us-ascii?Q?1ks2aaHVX0i6oHy1xaieE2m5Gf7GuHjx3tnDOZJtD7zgrjDOd9TpVNraQoqW?=
- =?us-ascii?Q?LHpK5CotRY9bA1FHF9CYfZPqlixEIgI0Hz3pgMeQWc7xNDoAv87GimulGKM4?=
- =?us-ascii?Q?VqzWeKa7GzSr33C+FKSIQXrgRqkyJRnAFqq4CZtjpP8o9MQs59rIMkPmhZWT?=
- =?us-ascii?Q?kSE/jzWrlYKPt246YXfp7OmuASLiJvbARTUjhM+BOLbexPqMqQIqjvG8m7jz?=
- =?us-ascii?Q?3fMJqEcOqaiALneWb2m7mDiuCXsCbJK39OqA8yqANFqca3lBBjQNTKEyWT42?=
- =?us-ascii?Q?OXAnIe+YgzAJI1jgKpzfgp03VDaFF66YlKUkSC//PSEwI0xfKE5V4ixUajlT?=
- =?us-ascii?Q?JK5BDH+RUT4msLIXN194GEeRJcHVhGnH2q9pe/i2QbKApa0YLLVLtJx85oPa?=
- =?us-ascii?Q?DxBkJbG+1GJglo1yNkWF3hMEUJ6ybRtof6UIkSrHIsgzOGxn3DPSi4ea4jaW?=
- =?us-ascii?Q?BjR5g4xsrYwsUCeugtVEAJqiR/126tlduSFzxAxmr67HNyGVl1DTZGIPYJKE?=
- =?us-ascii?Q?rDVgtF0AETl7AhkzhAu4Wi3oKWr/NQCVmdqdqz8a6+/fjRL7o5H659YLZMmK?=
- =?us-ascii?Q?hu9Gr5oHnw5bNfGV/Zmtgm4rUQt1iVZ8Vr0rHyb/KBAKFDE9eCm9126RLqut?=
- =?us-ascii?Q?DILRIKVrajZvo6YTdiUZX+iTa5FO?=
+	=?utf-8?B?TG9NY0lrajJjZ2Ezb1IyV1dzdDJBY2dCbTA5T1llckVzSnJjb01HSlNCcVAy?=
+ =?utf-8?B?d2dCMUNKMTk0WS9ZS2RMenpkNzl4dUNaNEZ5U2JYU1ZkamZrQnVQcmZqako5?=
+ =?utf-8?B?M05EWHdpbm52YnUrWDNYbkRrVmhZS09lNVlhZ3htTHltWFhJUGhrS1Z4cVlH?=
+ =?utf-8?B?NGt6dTVyWXNndDZOdzZkWGw2TlVpcGVDblRLNHhqelloOVpJNjdRS0ZrYkVR?=
+ =?utf-8?B?dk5rellRbnlYSmlhZE96R2orL3VINjZ0V1pXNS9Ra1llMFFQOStzdll6eGRG?=
+ =?utf-8?B?bzlDd0pzN05zR0U5c1h5bG5LNVBRWGd0c3RORE8zdS9Wb0s2bndwZHhpV3RL?=
+ =?utf-8?B?Z2xPNzI0V2lsR0pxYUUvVC8xOWJ4Y01EL3JGWDF2M3VMZzVxRVFxemlJQkcv?=
+ =?utf-8?B?RHF4TFR6Z0dSMXdJUDhNTVdOOG5CbjNtVzNyTVpqcU1FaXp0d3Q5KzBpQTNm?=
+ =?utf-8?B?eElidTFIUmw3bjArbUtHNTQ0QklZQUFrbkxLMk9tMEY4Mmxnb1JvQlZZeC9a?=
+ =?utf-8?B?VjhpRVBpc2h0emtFTVhzUk5VTW1meWFUdURCNEY2TGNYUThNWGx5dVJNYlNq?=
+ =?utf-8?B?S0NhZ0xETU52Z3pmcGI2NUxHZkdBOThLOWI1MlM4ajVtMjhnVUs3Y3lkRmE4?=
+ =?utf-8?B?STYreHpQSEhkQzZiWmt4OWlobkVYK3BqblB1ZGNJSkJabWlvdjFTTWcxWDRt?=
+ =?utf-8?B?QUgremlxanBNaEFvVHVzOUxuYkEvWGZRME9YYy9LUzJBZzRqWmtnbWJKOU12?=
+ =?utf-8?B?WlBpNkh6QUF3UStzclgrL1l5UHdqK2g0andydVhJNGJLQnV1RkFNOUlmWU1N?=
+ =?utf-8?B?aTFwSGw5ajhKaW5Oc1VlZXJ0aCtNeC9DMklOalhMUU1tYXBRNGduVTBPd2Fz?=
+ =?utf-8?B?UVdrSnpYYXhQRGlWYUhDQXVLOElrTVdnYWpKZ2pwYkVrQlhzSzQ4TThTclJi?=
+ =?utf-8?B?a0RxYWVOWHFPdVVXVU1QazNuVktlRzJCKzZqRW1TS1k0Q00rb2ZVVEtFYU1p?=
+ =?utf-8?B?Szd6bUVoVUp4NVNhWitYMThEcWdWd1JaRGlmc1h2ZEZNcENKWXl6NTk4b0Zi?=
+ =?utf-8?B?dE0zNlB1ZEJRTnJUb2ZrSW5WaklyTDFqSGQrTDM0aWJWZzZhKzJTa0ZRcEMw?=
+ =?utf-8?B?RVljbXkrbXBYbVgyU0NHbG1Bc3VvY05RdFZjOS9qdTRrbGl5ZGd6UU5CcGUv?=
+ =?utf-8?B?VmR5TVlvR0hFaEdqUkdnNGRkWm5ueENHbEkvQS9HWG4xYVAxTWtzUlo2T3A5?=
+ =?utf-8?B?NjdEVHBRQk91dEM5NjF0WUdrRUl2YjNMK2FoUmpxdFcxY2lTYkR2QXQ4dDdw?=
+ =?utf-8?B?WXRzNmRMU1pzU3gyS1B2ZDgzeUJvdWd2dWpXSzN6VDY2VFdBdnE3VjRqTFM1?=
+ =?utf-8?B?SWxod2syZHFIQWExWGZFdXdsencrWThoNXVMYllsejExdFViN0hid0ZJT2Vw?=
+ =?utf-8?B?Z0MrMmdZTy9ZZVhVbG5XT1Z4R0E4eVdOYVArT1BINi95K2xDTTNxWkF2dC9p?=
+ =?utf-8?B?VWFUWEZJQjVNTU5zaDl2L3UyUXcvTnpsOERGREtXeS9jRDRlNy9RM1RaSXg0?=
+ =?utf-8?B?SnV6Q2xPQS85REl0VkkvSzhoNTkzZjBYeU4zbzIrZEQ3WkFqUWNobmtURjN1?=
+ =?utf-8?B?RklJRWJMeFlDdzMxVFhNbTArYnZraHBab2ZubjBIaUlVdE1tYzVFUmtsdkdu?=
+ =?utf-8?B?R2FkUnJObHkrU20wTjM0WW9hVlJhN1c0UjQ1M0hKV2lkcGQ4aVlncGtqUUU2?=
+ =?utf-8?B?bXdaa2U1M2pFWnlzdXNUWGs3RkhsZGJ5SU1QeVliSG5PU0hRQm5yYlFZVnBl?=
+ =?utf-8?B?Ump0ajlHdnVFcVNBUmxvaGVUd3dGS2tONDNSMWZOVE0xRG1iN2tKTHIxQzcw?=
+ =?utf-8?Q?UG2kNWVV4kE6b?=
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(36860700004)(1800799015)(376005)(82310400017);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(1800799015)(36860700004)(376005)(82310400017);DIR:OUT;SFP:1101;
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 May 2024 01:15:27.1489
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 May 2024 01:17:46.7839
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 97b12dc7-9b4b-420f-c37a-08dc760ed603
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2b122ba2-0dff-4fa6-5dea-08dc760f293e
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	BL02EPF00021F69.namprd02.prod.outlook.com
+	BN3PEPF0000B074.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4121
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW5PR12MB5599
 
-Currently, the late XenStore init protocol is only triggered properly
-for the case that HVM_PARAM_STORE_PFN is ~0ULL (invalid). For the
-case that XenStore interface is allocated but not ready (the connection
-status is not XENSTORE_CONNECTED), Linux should also wait until the
-XenStore is set up properly.
+Hi Stefano,
 
-Introduce a macro to describe the XenStore interface is ready, use
-it in xenbus_probe_initcall() to select the code path of doing the
-late XenStore init protocol or not. Since now we have more than one
-condition for XenStore late init, rework the check in xenbus_probe()
-for the free_irq().
+On 5/17/2024 8:52 AM, Stefano Stabellini wrote:
+> On Thu, 16 May 2024, Henry Wang wrote:
+>>>>    enum xenstore_init xen_store_domain_type;
+>>>>    EXPORT_SYMBOL_GPL(xen_store_domain_type);
+>>>>    @@ -751,9 +755,10 @@ static void xenbus_probe(void)
+>>>>    {
+>>>>    	xenstored_ready = 1;
+>>>>    -	if (!xen_store_interface) {
+>>>> -		xen_store_interface = memremap(xen_store_gfn <<
+>>>> XEN_PAGE_SHIFT,
+>>>> -					       XEN_PAGE_SIZE, MEMREMAP_WB);
+>>>> +	if (!xen_store_interface || XS_INTERFACE_READY) {
+>>>> +		if (!xen_store_interface)
+>>> These two nested if's don't make sense to me. If XS_INTERFACE_READY
+>>> succeeds, it means that  ((xen_store_interface != NULL) &&
+>>> (xen_store_interface->connection == XENSTORE_CONNECTED)).
+>>>
+>>> So it is not possible that xen_store_interface == NULL immediately
+>>> after. Right?
+>> I think this is because we want to free the irq for the late init case,
+>> otherwise the init-dom0less will fail. For the xenstore PFN allocated case,
+>> the connection is already set to CONNECTED when we execute init-dom0less. But
+>> I agree with you, would below diff makes more sense to you?
+>>
+>> diff --git a/drivers/xen/xenbus/xenbus_probe.c
+>> b/drivers/xen/xenbus/xenbus_probe.c
+>> index 8aec0ed1d047..b8005b651a29 100644
+>> --- a/drivers/xen/xenbus/xenbus_probe.c
+>> +++ b/drivers/xen/xenbus/xenbus_probe.c
+>> @@ -76,6 +76,8 @@ EXPORT_SYMBOL_GPL(xen_store_interface);
+>>          ((xen_store_interface != NULL) && \
+>>           (xen_store_interface->connection == XENSTORE_CONNECTED))
+>>
+>> +static bool xs_late_init = false;
+>> +
+>>   enum xenstore_init xen_store_domain_type;
+>>   EXPORT_SYMBOL_GPL(xen_store_domain_type);
+>>
+>> @@ -755,7 +757,7 @@ static void xenbus_probe(void)
+>>   {
+>>          xenstored_ready = 1;
+>>
+>> -       if (!xen_store_interface || XS_INTERFACE_READY) {
+>> +       if (xs_late_init) {
+>>                  if (!xen_store_interface)
+>>                          xen_store_interface = memremap(xen_store_gfn <<
+>
+> I would just remove the outer 'if' and do this:
+>
+>
+> 	if (!xen_store_interface)
+> 		xen_store_interface = memremap(xen_store_gfn << XEN_PAGE_SHIFT,
+> 				XEN_PAGE_SIZE, MEMREMAP_WB);
+> 	/*
+> 	 * Now it is safe to free the IRQ used for xenstore late
+> 	 * initialization. No need to unbind: it is about to be
+> 	 * bound again from xb_init_comms. Note that calling
+> 	 * unbind_from_irqhandler now would result in xen_evtchn_close()
+> 	 * being called and the event channel not being enabled again
+> 	 * afterwards, resulting in missed event notifications.
+> 	 */
+> 	if (xs_init_irq > 0)
+> 		free_irq(xs_init_irq, &xb_waitq);
+>
+>
+> I think this should work fine in all cases.
 
-Take the opportunity to enhance the check of the allocated XenStore
-interface can be properly mapped, and return error early if the
-memremap() fails.
+Thanks. I followed your suggestion in v2.
 
-Fixes: 5b3353949e89 ("xen: add support for initializing xenstore later as HVM domain")
-Signed-off-by: Henry Wang <xin.wang2@amd.com>
-Signed-off-by: Michal Orzel <michal.orzel@amd.com>
----
-v2:
-- Use -EINVAL for the memremap() check. (Stefano)
-- Add Fixes: tag. (Stefano)
-- Rework the condition for free_irq() in xenbus_probe(). (Stefano)
----
- drivers/xen/xenbus/xenbus_probe.c | 36 ++++++++++++++++++++-----------
- 1 file changed, 23 insertions(+), 13 deletions(-)
+>   I am unsure if
+> xs_init_irq==0 is possible valid value for xs_init_irq. If it is not,
+> then we are fine. If 0 is a possible valid irq number, then we should
+> initialize xs_init_irq to -1, and here check for xs_init_irq >= 0.
 
-diff --git a/drivers/xen/xenbus/xenbus_probe.c b/drivers/xen/xenbus/xenbus_probe.c
-index 3205e5d724c8..1a9ded0cddcb 100644
---- a/drivers/xen/xenbus/xenbus_probe.c
-+++ b/drivers/xen/xenbus/xenbus_probe.c
-@@ -65,13 +65,17 @@
- #include "xenbus.h"
- 
- 
--static int xs_init_irq;
-+static int xs_init_irq = -1;
- int xen_store_evtchn;
- EXPORT_SYMBOL_GPL(xen_store_evtchn);
- 
- struct xenstore_domain_interface *xen_store_interface;
- EXPORT_SYMBOL_GPL(xen_store_interface);
- 
-+#define XS_INTERFACE_READY \
-+	((xen_store_interface != NULL) && \
-+	 (xen_store_interface->connection == XENSTORE_CONNECTED))
-+
- enum xenstore_init xen_store_domain_type;
- EXPORT_SYMBOL_GPL(xen_store_domain_type);
- 
-@@ -751,19 +755,19 @@ static void xenbus_probe(void)
- {
- 	xenstored_ready = 1;
- 
--	if (!xen_store_interface) {
-+	if (!xen_store_interface)
- 		xen_store_interface = memremap(xen_store_gfn << XEN_PAGE_SHIFT,
- 					       XEN_PAGE_SIZE, MEMREMAP_WB);
--		/*
--		 * Now it is safe to free the IRQ used for xenstore late
--		 * initialization. No need to unbind: it is about to be
--		 * bound again from xb_init_comms. Note that calling
--		 * unbind_from_irqhandler now would result in xen_evtchn_close()
--		 * being called and the event channel not being enabled again
--		 * afterwards, resulting in missed event notifications.
--		 */
-+	/*
-+	 * Now it is safe to free the IRQ used for xenstore late
-+	 * initialization. No need to unbind: it is about to be
-+	 * bound again from xb_init_comms. Note that calling
-+	 * unbind_from_irqhandler now would result in xen_evtchn_close()
-+	 * being called and the event channel not being enabled again
-+	 * afterwards, resulting in missed event notifications.
-+	 */
-+	if (xs_init_irq >= 0)
- 		free_irq(xs_init_irq, &xb_waitq);
--	}
- 
- 	/*
- 	 * In the HVM case, xenbus_init() deferred its call to
-@@ -822,7 +826,7 @@ static int __init xenbus_probe_initcall(void)
- 	if (xen_store_domain_type == XS_PV ||
- 	    (xen_store_domain_type == XS_HVM &&
- 	     !xs_hvm_defer_init_for_callback() &&
--	     xen_store_interface != NULL))
-+	     XS_INTERFACE_READY))
- 		xenbus_probe();
- 
- 	/*
-@@ -831,7 +835,7 @@ static int __init xenbus_probe_initcall(void)
- 	 * started, then probe.  It will be triggered when communication
- 	 * starts happening, by waiting on xb_waitq.
- 	 */
--	if (xen_store_domain_type == XS_LOCAL || xen_store_interface == NULL) {
-+	if (xen_store_domain_type == XS_LOCAL || !XS_INTERFACE_READY) {
- 		struct task_struct *probe_task;
- 
- 		probe_task = kthread_run(xenbus_probe_thread, NULL,
-@@ -1014,6 +1018,12 @@ static int __init xenbus_init(void)
- 			xen_store_interface =
- 				memremap(xen_store_gfn << XEN_PAGE_SHIFT,
- 					 XEN_PAGE_SIZE, MEMREMAP_WB);
-+			if (!xen_store_interface) {
-+				pr_err("%s: cannot map HVM_PARAM_STORE_PFN=%llx\n",
-+				       __func__, v);
-+				err = -EINVAL;
-+				goto out_error;
-+			}
- 			if (xen_store_interface->connection != XENSTORE_CONNECTED)
- 				wait = true;
- 		}
--- 
-2.34.1
+Yeah the xs_init_irq==0 is a valid value. I followed your latter comment 
+to init it to -1 and check it >=0.
 
+Kind regards,
+Henry
 
