@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CB4B58C8EF6
-	for <lists+xen-devel@lfdr.de>; Sat, 18 May 2024 02:42:16 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.724536.1129800 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2BB868C8F05
+	for <lists+xen-devel@lfdr.de>; Sat, 18 May 2024 03:08:30 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.724551.1129809 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s8895-0001Qz-J0; Sat, 18 May 2024 00:41:55 +0000
+	id 1s88YJ-0004Td-Ef; Sat, 18 May 2024 01:07:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 724536.1129800; Sat, 18 May 2024 00:41:55 +0000
+Received: by outflank-mailman (output) from mailman id 724551.1129809; Sat, 18 May 2024 01:07:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s8895-0001P6-FA; Sat, 18 May 2024 00:41:55 +0000
-Received: by outflank-mailman (input) for mailman id 724536;
- Sat, 18 May 2024 00:41:54 +0000
+	id 1s88YJ-0004Qw-C7; Sat, 18 May 2024 01:07:59 +0000
+Received: by outflank-mailman (input) for mailman id 724551;
+ Sat, 18 May 2024 01:07:57 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=I+vq=MV=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1s8894-0001Ja-PF
- for xen-devel@lists.xenproject.org; Sat, 18 May 2024 00:41:54 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 6b8d2fae-14af-11ef-909e-e314d9c70b13;
- Sat, 18 May 2024 02:41:53 +0200 (CEST)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 809B76163C;
- Sat, 18 May 2024 00:41:52 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8FEE2C2BD10;
- Sat, 18 May 2024 00:41:51 +0000 (UTC)
+ <SRS0=clH7=MV=tklengyel.com=tamas@srs-se1.protection.inumbo.net>)
+ id 1s88YH-0004Qq-Nl
+ for xen-devel@lists.xenproject.org; Sat, 18 May 2024 01:07:57 +0000
+Received: from sender4-op-o12.zoho.com (sender4-op-o12.zoho.com
+ [136.143.188.12]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 0e06a6e8-14b3-11ef-909e-e314d9c70b13;
+ Sat, 18 May 2024 03:07:55 +0200 (CEST)
+Received: by mx.zohomail.com with SMTPS id 1715994470841306.1623133554082;
+ Fri, 17 May 2024 18:07:50 -0700 (PDT)
+Received: by mail-yb1-f181.google.com with SMTP id
+ 3f1490d57ef6-de5b1e6beceso861053276.0
+ for <xen-devel@lists.xenproject.org>; Fri, 17 May 2024 18:07:50 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,130 +41,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6b8d2fae-14af-11ef-909e-e314d9c70b13
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1715992912;
-	bh=V8Q5MWxedopOTHvDYQ3KV3TQEh3uHjrguKJ0NZRj8fk=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=Y960RWJ1oDVK3TKob1KcAOHoVZHdue6UheYYR9+Ad8RiUIbPYbdyrvCW0eM+uO4wv
-	 pPgDT7F+uoiDUeXZe5zxLKLXUCh+Go+gjvkdQAnSD6kkA/nyrif09bj88CpDBKXwOl
-	 UgSb4RyuijzpikHP91GS25NxoTnFVzfDJZ2sdH9eR7P3ZQYtVTX/WZVbCruD9GF5KX
-	 lFDT+15sj5+Itdk4MnfM5jajWK2ldZCbV/8YDqoLOt2sG5hz5CDxiU/I/3fEd4Nc4c
-	 RMNIf4XPt+roAtuDoBTIwXf34uNJhd3k+2mHcFkWxGGxt0RzaRVRk8TdWCpLlmfyXF
-	 OAQx+ak3sTA1A==
-Date: Fri, 17 May 2024 17:41:50 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-cc: xen-devel@lists.xenproject.org, Doug Goldstein <cardoe@cardoe.com>, 
-    Stefano Stabellini <sstabellini@kernel.org>
-Subject: Re: [PATCH 10/12] automation: stubdom test with PCI passthrough
-In-Reply-To: <16c7001cfec1cb7a601414b745655656ea63fe29.1715867907.git-series.marmarek@invisiblethingslab.com>
-Message-ID: <alpine.DEB.2.22.394.2405171741160.1052252@ubuntu-linux-20-04-desktop>
-References: <cover.f23e316613d8f82981f99b5fb90e36255c4adc63.1715867907.git-series.marmarek@invisiblethingslab.com> <16c7001cfec1cb7a601414b745655656ea63fe29.1715867907.git-series.marmarek@invisiblethingslab.com>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+X-Inumbo-ID: 0e06a6e8-14b3-11ef-909e-e314d9c70b13
+ARC-Seal: i=1; a=rsa-sha256; t=1715994473; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=StgLXpea2Vwb99hH4wGwDDfXJQ/KprFl2VvfawaP4pvsbgxHL4SGTntaTlOlLLGf0f4ieMsLm27RrBEKovcPMM7MjUW9WNecDFW3uQkuc3DpshF9aC5qOX8kg/ghl36ZlPMFldymtf8L0yIgx1E4wRJ37mQ9mh3a3TMFd9pDHUs=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1715994473; h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=xkR8+wmKEUf0ZWHZQWY59zOICyXkQMKCcMF/DSMIUx8=; 
+	b=avSXi+xLyrW7h2mANVpuAiLcJ+i0QTXP1ufBtHEusYkcHBfMJL622gbtrx6zDbKFL9ZTsFtwcHumUbqjKEZe5Z+cNgW4n+2dm8mRWupIcQwIMO4Ia7GYjhr4s2Fmm2rUx6inBjwGOd6xqipIekakBcjk6hLiBHZtISIIJ5sxnPs=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=tklengyel.com;
+	spf=pass  smtp.mailfrom=tamas@tklengyel.com;
+	dmarc=pass header.from=<tamas@tklengyel.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1715994473;
+	s=zmail; d=tklengyel.com; i=tamas@tklengyel.com;
+	h=MIME-Version:References:In-Reply-To:From:From:Date:Date:Message-ID:Subject:Subject:To:To:Cc:Cc:Content-Type:Message-Id:Reply-To;
+	bh=xkR8+wmKEUf0ZWHZQWY59zOICyXkQMKCcMF/DSMIUx8=;
+	b=f6Mczlx3pc0MsnsOKLnXmpCfYuvj8H9hvet6nWT7IO2ARJ/QLlcVTL4Neazy7PDH
+	9svhtJx8HuG9wbFCsAFk3s9o+s2cYhvy1HNhRF81jor9JGrL2D30U5BSB7ahjMq8MjJ
+	NfYrxq9r4ddS9ktjuRqXJSPaDS1hP1B1z0g3Vxd8=
+X-Gm-Message-State: AOJu0YxZcbQQaz1KA5abHvMfYWfF3OtQJBl1+buJXfVirCsr9dK2i3x4
+	Lt2U2FdFrdYX1rOlfteFQk92oT2D55Bu0NAKhfsJ18VA5OE8uZAb8UfW4aM8Fucj2M93CEx334s
+	ToCoE515oH9X2fhdghQkdvvbQN1U=
+X-Google-Smtp-Source: AGHT+IEbOH6FPRcVpXlX5Kaqv5pt/u50WWfytF6UNtO9dMJVzZqae7DlEA/ICyj/fw7jYdBlWxxQvgbMtfGWKudxNUY=
+X-Received: by 2002:a25:c791:0:b0:de5:53c0:b9e5 with SMTP id
+ 3f1490d57ef6-dee4f4b9abdmr23902838276.40.1715994469859; Fri, 17 May 2024
+ 18:07:49 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323329-1808204904-1715992912=:1052252"
+References: <cover.1715761386.git.Sergiy_Kibrik@epam.com> <14a8c523b24c87959941e905bd60933a91144bc7.1715761386.git.Sergiy_Kibrik@epam.com>
+In-Reply-To: <14a8c523b24c87959941e905bd60933a91144bc7.1715761386.git.Sergiy_Kibrik@epam.com>
+From: Tamas K Lengyel <tamas@tklengyel.com>
+Date: Fri, 17 May 2024 21:07:13 -0400
+X-Gmail-Original-Message-ID: <CABfawhkFG5waaP8A9KTtOT1nn4GS74Oi+yRBK-+YtagDLTbNJA@mail.gmail.com>
+Message-ID: <CABfawhkFG5waaP8A9KTtOT1nn4GS74Oi+yRBK-+YtagDLTbNJA@mail.gmail.com>
+Subject: Re: [XEN PATCH v2 05/15] x86: introduce CONFIG_ALTP2M Kconfig option
+To: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
+Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>, 
+	Andrew Cooper <andrew.cooper3@citrix.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+	Stefano Stabellini <sstabellini@kernel.org>, Xenia Ragiadakou <xenia.ragiadakou@amd.com>
+Content-Type: text/plain; charset="UTF-8"
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
+> Currently altp2m support provided for VT-d only, so option is dependant on VMX.
 
---8323329-1808204904-1715992912=:1052252
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8BIT
+No clue what is meant by "support provided for VT-d only". Altp2m has
+nothing to do with VT-d. It would be more accurate to say it's only
+implemented for Intel EPT.
 
-On Thu, 16 May 2024, Marek Marczykowski-Górecki wrote:
-> Based on the initial stubdomain test and existing PCI passthrough tests,
-> add one that combines both.
-> Schedule it on the AMD runner, as it has less tests right now.
-> 
-> Signed-off-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
-
-With the caveat that if we do tftp boot this might have to change:
-
-Acked-by: Stefano Stabellini <sstabellini@kernel.org>
-
-
-> ---
->  automation/gitlab-ci/test.yaml     |  8 ++++++++
->  automation/scripts/qubes-x86-64.sh | 30 +++++++++++++++++++++++++-----
->  2 files changed, 33 insertions(+), 5 deletions(-)
-> 
-> diff --git a/automation/gitlab-ci/test.yaml b/automation/gitlab-ci/test.yaml
-> index e3910f4c1a9f..76cc430ae00f 100644
-> --- a/automation/gitlab-ci/test.yaml
-> +++ b/automation/gitlab-ci/test.yaml
-> @@ -231,6 +231,14 @@ zen3p-pci-hvm-x86-64-gcc-debug:
->      - *x86-64-test-needs
->      - alpine-3.19-gcc-debug
->  
-> +zen3p-pci-stubdom-x86-64-gcc-debug:
-> +  extends: .zen3p-x86-64
-> +  script:
-> +    - ./automation/scripts/qubes-x86-64.sh pci-stubdom 2>&1 | tee ${LOGFILE}
-> +  needs:
-> +    - *x86-64-test-needs
-> +    - alpine-3.19-gcc-debug
-> +
->  qemu-smoke-dom0-arm64-gcc:
->    extends: .qemu-arm64
->    script:
-> diff --git a/automation/scripts/qubes-x86-64.sh b/automation/scripts/qubes-x86-64.sh
-> index fc73403dbadf..816c16fbab3e 100755
-> --- a/automation/scripts/qubes-x86-64.sh
-> +++ b/automation/scripts/qubes-x86-64.sh
-> @@ -98,8 +98,8 @@ ping -c 10 192.168.0.2 || exit 1
->  echo \"${passed}\"
->  "
->  
-> -### test: pci-pv, pci-hvm
-> -elif [ "${test_variant}" = "pci-pv" ] || [ "${test_variant}" = "pci-hvm" ]; then
-> +### test: pci-pv, pci-hvm, pci-stubdom
-> +elif [ "${test_variant}" = "pci-pv" ] || [ "${test_variant}" = "pci-hvm" ] || [ "${test_variant}" = "pci-stubdom" ]; then
->  
->      if [ -z "$PCIDEV" ]; then
->          echo "Please set 'PCIDEV' variable with BDF of test network adapter" >&2
-> @@ -109,15 +109,35 @@ elif [ "${test_variant}" = "pci-pv" ] || [ "${test_variant}" = "pci-hvm" ]; then
->  
->      passed="pci test passed"
->  
-> -    domU_config='
-> +    domain_type="${test_variant#pci-}"
-> +    if [ "$test_variant" = "pci-stubdom" ]; then
-> +        domain_type="hvm"
-> +        domU_config='
-> +type = "hvm"
-> +disk = [ "/srv/disk.img,format=raw,vdev=xvda" ]
-> +device_model_version = "qemu-xen"
-> +device_model_stubdomain_override = 1
-> +on_reboot = "destroy"
-> +# libxl configures vkb backend to be dom0 instead of the stubdomain, defer
-> +# changing that until there is consensus what to do about VGA output (VNC)
-> +vkb_device = 0
-> +'
-> +        domU_disk_path=/srv/disk.img
-> +    else
-> +        domU_config='
->  type = "'${test_variant#pci-}'"
-> -name = "domU"
->  kernel = "/boot/vmlinuz"
->  ramdisk = "/boot/initrd-domU"
->  extra = "root=/dev/ram0 console=hvc0 earlyprintk=xen"
-> +disk = [ ]
-> +'
-> +    fi
-> +
-> +    # common part
-> +    domU_config="$domU_config"'
-> +name = "domU"
->  memory = 512
->  vif = [ ]
-> -disk = [ ]
->  pci = [ "'$PCIDEV',seize=1" ]
->  on_reboot = "destroy"
->  '
-> -- 
-> git-series 0.9.1
-> 
---8323329-1808204904-1715992912=:1052252--
+Tamas
 
