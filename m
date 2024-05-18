@@ -2,35 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id ADD018C8E48
-	for <lists+xen-devel@lfdr.de>; Sat, 18 May 2024 00:27:53 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.724496.1129781 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D96428C8EF7
+	for <lists+xen-devel@lfdr.de>; Sat, 18 May 2024 02:42:16 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.724532.1129789 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s862s-0002Gm-3c; Fri, 17 May 2024 22:27:22 +0000
+	id 1s888D-0000y8-8t; Sat, 18 May 2024 00:41:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 724496.1129781; Fri, 17 May 2024 22:27:22 +0000
+Received: by outflank-mailman (output) from mailman id 724532.1129789; Sat, 18 May 2024 00:41:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s862r-0002DZ-V8; Fri, 17 May 2024 22:27:21 +0000
-Received: by outflank-mailman (input) for mailman id 724496;
- Fri, 17 May 2024 22:27:21 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1s862r-0002DP-6A; Fri, 17 May 2024 22:27:21 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1s862r-0008LK-0F; Fri, 17 May 2024 22:27:21 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1s862q-0006Bw-Oc; Fri, 17 May 2024 22:27:20 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1s862q-0002lX-OA; Fri, 17 May 2024 22:27:20 +0000
+	id 1s888D-0000vh-6F; Sat, 18 May 2024 00:41:01 +0000
+Received: by outflank-mailman (input) for mailman id 724532;
+ Sat, 18 May 2024 00:40:59 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=I+vq=MV=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1s888B-0000vb-9K
+ for xen-devel@lists.xenproject.org; Sat, 18 May 2024 00:40:59 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 49218828-14af-11ef-b4bb-af5377834399;
+ Sat, 18 May 2024 02:40:56 +0200 (CEST)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id A163D61E1E;
+ Sat, 18 May 2024 00:40:54 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9D36BC2BD10;
+ Sat, 18 May 2024 00:40:53 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,496 +41,384 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=cVdy2naBceOuUp3It3wTtxCPCF/XljMuCp20O5kEwRY=; b=fsZtqjARwuWSROiPhYapS4JebD
-	qvjrN/2zqVrhCy32DYNo/TjaBYgIS3YycYdX84FgNk3TGPooxScPaai2anqUWeBm5RTp/fhJZRfma
-	9xFDvbc0iQOMV58lLC3lbTRHhqKOvWT8fighFOVWcmr3uCdmvKKVOJhe2MgDhnZ6AbMs=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-186028-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 49218828-14af-11ef-b4bb-af5377834399
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1715992854;
+	bh=Qkdx1sDq5eH4FJtNtg1vyUmnEccgj9muqvELlebJdiQ=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=UjUeuYXaSYVg4mqdNIQrApjBsFxHWzLhzgQ/mqyBfYoTZlgp/mNpeuo0p86eP67yg
+	 tcJT+jQt0DkJzpf/PAHRO8SaZot+6Lfh8800MIGhXrUel4j/DKIbnwHN326QrOrLXi
+	 /iw70/+1gk3R4P+85hgV9e5N7NDJTu40QTrySN1Mlq513S6zTg9WJJOwpO1Rvt+Q31
+	 EBxWhhmKeRPDHxFTnG/3M3h8BzHyG43+sb1O/zU3TB2ID/vOSNIIzNc68L46/SXGRS
+	 fNgelOz55aoJBh7EbJRXcWqbUBBB6sme5yGRVeUWhWLu1vsZQir2yE4vg74dVYkDUY
+	 GF5CBzEj+WfRw==
+Date: Fri, 17 May 2024 17:40:52 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+cc: xen-devel@lists.xenproject.org, Doug Goldstein <cardoe@cardoe.com>, 
+    Stefano Stabellini <sstabellini@kernel.org>
+Subject: Re: [PATCH 06/12] RFC: automation: Add linux stubdom build and smoke
+ test
+In-Reply-To: <c11feff249928f7e06a91c9b60633e1f74bbd6fd.1715867907.git-series.marmarek@invisiblethingslab.com>
+Message-ID: <alpine.DEB.2.22.394.2405171718580.1052252@ubuntu-linux-20-04-desktop>
+References: <cover.f23e316613d8f82981f99b5fb90e36255c4adc63.1715867907.git-series.marmarek@invisiblethingslab.com> <c11feff249928f7e06a91c9b60633e1f74bbd6fd.1715867907.git-series.marmarek@invisiblethingslab.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Subject: [linux-6.1 test] 186028: tolerable FAIL - PUSHED
-X-Osstest-Failures:
-    linux-6.1:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
-    linux-6.1:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
-    linux-6.1:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
-    linux-6.1:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
-    linux-6.1:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
-    linux-6.1:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
-    linux-6.1:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
-    linux-6.1:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
-    linux-6.1:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    linux-6.1:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    linux-6.1:test-amd64-amd64-libvirt-qcow2:migrate-support-check:fail:nonblocking
-    linux-6.1:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    linux-6.1:test-amd64-amd64-libvirt-raw:migrate-support-check:fail:nonblocking
-    linux-6.1:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
-    linux-6.1:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
-    linux-6.1:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
-    linux-6.1:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
-    linux-6.1:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
-    linux-6.1:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    linux-6.1:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
-    linux-6.1:test-armhf-armhf-xl-raw:migrate-support-check:fail:nonblocking
-    linux-6.1:test-armhf-armhf-xl-raw:saverestore-support-check:fail:nonblocking
-    linux-6.1:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
-    linux-6.1:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    linux-6.1:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
-    linux-6.1:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    linux-6.1:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
-    linux-6.1:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
-    linux-6.1:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
-    linux-6.1:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
-    linux-6.1:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
-    linux-6.1:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
-    linux-6.1:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
-    linux-6.1:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
-    linux-6.1:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
-    linux-6.1:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    linux-6.1:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-    linux-6.1:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
-    linux-6.1:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
-    linux-6.1:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
-    linux-6.1:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
-    linux-6.1:test-arm64-arm64-xl-vhd:migrate-support-check:fail:nonblocking
-    linux-6.1:test-arm64-arm64-xl-vhd:saverestore-support-check:fail:nonblocking
-    linux-6.1:test-armhf-armhf-libvirt-vhd:migrate-support-check:fail:nonblocking
-    linux-6.1:test-armhf-armhf-libvirt-vhd:saverestore-support-check:fail:nonblocking
-    linux-6.1:test-armhf-armhf-xl-qcow2:migrate-support-check:fail:nonblocking
-    linux-6.1:test-armhf-armhf-xl-qcow2:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    linux=4078fa637fcd80c8487680ec2e4ef7c58308e9aa
-X-Osstest-Versions-That:
-    linux=909ba1f1b4146de529469910c1bd0b1248964536
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 17 May 2024 22:27:20 +0000
+Content-Type: multipart/mixed; BOUNDARY="8323329-1214147340-1715992830=:1052252"
+Content-ID: <alpine.DEB.2.22.394.2405171740320.1052252@ubuntu-linux-20-04-desktop>
 
-flight 186028 linux-6.1 real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/186028/
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-Failures :-/ but no regressions.
+--8323329-1214147340-1715992830=:1052252
+Content-Type: text/plain; CHARSET=UTF-8
+Content-Transfer-Encoding: 8BIT
+Content-ID: <alpine.DEB.2.22.394.2405171740321.1052252@ubuntu-linux-20-04-desktop>
 
-Tests which did not succeed, but are not blocking:
- test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 185901
- test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 185901
- test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 185901
- test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 185901
- test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 185901
- test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 185901
- test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt-qcow2 14 migrate-support-check        fail never pass
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-amd64-amd64-libvirt-raw 14 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
- test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
- test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-raw      14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-raw      15 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-rtds     15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit2  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-rtds     16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-credit2  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-credit1  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-multivcpu 15 migrate-support-check        fail  never pass
- test-armhf-armhf-xl-credit1  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-multivcpu 16 saverestore-support-check    fail  never pass
- test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
- test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-vhd      14 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-vhd      15 saverestore-support-check    fail   never pass
- test-armhf-armhf-libvirt-vhd 14 migrate-support-check        fail   never pass
- test-armhf-armhf-libvirt-vhd 15 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-qcow2    14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-qcow2    15 saverestore-support-check    fail   never pass
+On Thu, 16 May 2024, Marek Marczykowski-Górecki wrote:
+> Add minimal linux-stubdom smoke test. It starts a simple HVM with
+> linux-stubdom. The actual stubdom implementation is taken from Qubes OS
+> and then stripped off Qubes-specific code. In particular, the remaining
+> code does _not_ support:
+>  - direct kernel boot (implemented by relaying on specific guest disk
+>    laying in Qubes OS)
+>  - graphical console (used Qubes GUI agent injected into
+>    stubdomain's qemu)
+>  - audio input/output (used Qubes audio agent inside stubdomain)
+>  - USB passthrough (used qrexec <-> usbip proxy inside stubdomain)
+>  - setting up DHCP server (assumes guest addressing used in Qubes OS)
+> 
+> For this smoke test, the relevant part is missing direct kernel boot, as
+> that's used in other smoke tests. Solve this by preparing disk image
+> with proper bootloader (grub) installed. Since the test script is
+> running on arm64 to control x86_64 box, it cannot (easily) install grub
+> directly. For this reason, prepare bootsector as part of the Xen build
+> (which runs on x86_64) and then prepend do the disk image during the
+> test (and adjust partitions table afterwards).
 
-version targeted for testing:
- linux                4078fa637fcd80c8487680ec2e4ef7c58308e9aa
-baseline version:
- linux                909ba1f1b4146de529469910c1bd0b1248964536
+I am not an expert on this, but do you think it would be possible to use
+network boot and tftp instead of grub on emulated disk? That would not
+require us to build neither /grub-core.img nor build_domU_disk().
 
-Last test of basis   185901  2024-05-02 15:12:21 Z   15 days
-Testing same since   186028  2024-05-17 10:16:47 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Adam Goldman <adamg@pobox.com>
-  Al Viro <viro@zeniv.linux.org.uk>
-  Alan Stern <stern@rowland.harvard.edu>
-  Aleksa Savic <savicaleksa83@gmail.com>
-  Alex Deucher <alexander.deucher@amd.com>
-  Alexander Gordeev <agordeev@linux.ibm.com>
-  Alexander Potapenko <glider@google.com>
-  Alexander Stein <alexander.stein@ew.tq-group.com>
-  Alexander Usyskin <alexander.usyskin@intel.com>
-  Alexandra Winter <wintera@linux.ibm.com>
-  Alexei Starovoitov <ast@kernel.org>
-  Allen Pais <apais@linux.microsoft.com>
-  Aman Dhoot <amandhoot12@gmail.com>
-  Amit Sunil Dhamne <amitsd@google.com>
-  Anand Jain <anand.jain@oracle.com>
-  Andrea Righi <andrea.righi@canonical.com>
-  Andrea Righi <andrea.righi@canonical.com> # non-hostprogs
-  Andreas Gruenbacher <agruenba@redhat.com>
-  Andrei Matei <andreimatei1@gmail.com>
-  Andrew Donnellan <ajd@linux.ibm.com>
-  Andrew Morton <akpm@linux-foundation.org>
-  Andrew Price <anprice@redhat.com>
-  Andrey Ryabinin <ryabinin.a.a@gmail.com>
-  Andrii Nakryiko <andrii@kernel.org>
-  Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-  AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-  Anton Protopopov <aspsk@isovalent.com>
-  Arjan van de Ven <arjan@linux.intel.com>
-  Arnaldo Carvalho de Melo <acme@redhat.com>
-  Arnd Bergmann <arnd@arndb.de>
-  Asahi Lina <lina@asahilina.net>
-  Asbjørn Sloth Tønnesen <ast@fiberby.net>
-  Aurabindo Pillai <aurabindo.pillai@amd.com>
-  Badhri Jagan Sridharan <badhri@google.com>
-  Bartosz Golaszewski <bartosz.golaszewski@linaro.org>
-  Benno Lossin <benno.lossin@proton.me>
-  Billy Tsai <billy_tsai@aspeedtech.com>
-  Boris Burkov <boris@bur.io>
-  Borislav Petkov (AMD) <bp@alien8.de>
-  Boy Wu <boy.wu@mediatek.com>
-  Boy.Wu <boy.wu@mediatek.com>
-  Bui Quang Minh <minhquangbui99@gmail.com>
-  Bumyong Lee <bumyong.lee@samsung.com>
-  Chad Wagner <wagnerch42@gmail.com>
-  Chen Ni <nichen@iscas.ac.cn>
-  Chen-Yu Tsai <wenst@chromium.org>
-  Chris Wulff <chris.wulff@biamp.com>
-  Christian A. Ehrhardt <lk@c--e.de>
-  Christian König <christian.koenig@amd.com>
-  Christoph Paasch <cpaasch@apple.com>
-  Claudio Imbrenda <imbrenda@linux.ibm.com>
-  Conor Dooley <conor.dooley@microchip.com>
-  Damien Le Moal <dlemoal@kernel.org>
-  Dan Carpenter <dan.carpenter@linaro.org>
-  Daniel Borkmann <daniel@iogearbox.net>
-  Daniel Okazaki <dtokazaki@google.com>
-  Daniel Wheeler <daniel.wheeler@amd.com>
-  Daniel Xu <dxu@dxuuu.xyz>
-  David Bauer <mail@david-bauer.net>
-  David Lechner <dlechner@baylibre.com>
-  David Rientjes <rientjes@google.com>
-  David S. Miller <davem@davemloft.net>
-  David Sterba <dsterba@suse.com>
-  Devyn Liu <liudingyuan@huawei.com>
-  Dmitry Antipov <dmantipov@yandex.ru>
-  Dominique Martinet <dominique.martinet@atmark-techno.com>
-  Doug Berger <opendmb@gmail.com>
-  Doug Smythies <dsmythies@telus.net>
-  Douglas Anderson <dianders@chromium.org>
-  Duoming Zhou <duoming@zju.edu.cn>
-  Eric Curtin <ecurtin@redhat.com>
-  Eric Dumazet <edumazet@google.com>
-  Eric Van Hensbergen <ericvh@kernel.org>
-  Felix Fietkau <nbd@nbd.name>
-  Florian Fainelli <f.fainelli@gmail.com>
-  Florian Fainelli <florian.fainelli@broadcom.com>
-  Gabe Teeger <gabe.teeger@amd.com>
-  Gaurav Batra <gbatra@linux.ibm.com>
-  Geert Uytterhoeven <geert+renesas@glider.be>
-  George Shen <george.shen@amd.com>
-  Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-  Guenter Roeck <linux@roeck-us.net>
-  Guillaume Nault <gnault@redhat.com>
-  Hans de Goede <hdegoede@redhat.com>
-  Heiko Carstens <hca@linux.ibm.com>
-  Heiner Kallweit <hkallweit1@gmail.com>
-  Igor Artemiev <Igor.A.Artemiev@mcst.ru>
-  Ivan Babrou <ivan@cloudflare.com>
-  Jakub Kicinski <kuba@kernel.org>
-  James Chapman <jchapman@katalix.com>
-  Jan Dakinevich <jan.dakinevich@salutedevices.com>
-  Jarkko Sakkinen <jarkko@kernel.org>
-  Jason Xing <kernelxing@tencent.com>
-  Javier Carrasco <javier.carrasco.cruz@gmail.com>
-  Jeff Johnson <quic_jjohnson@quicinc.com>
-  Jeff Layton <jlayton@kernel.org>
-  Jens Axboe <axboe@kernel.dk>
-  Jens Remus <jremus@linux.ibm.com>
-  Jeremy Bongio <jbongio@google.com>
-  Jernej Skrabec <jernej.skrabec@gmail.com>
-  Jerome Brunet <jbrunet@baylibre.com>
-  Jesper Dangaard Brouer <hawk@kernel.org>
-  Jian Shen <shenjian15@huawei.com>
-  Jiaxun Yang <jiaxun.yang@flygoat.com>
-  Jijie Shao <shaojijie@huawei.com>
-  Jim Cromie <jim.cromie@gmail.com>
-  Joakim Sindholt <opensource@zhasha.com>
-  Joao Paulo Goncalves <joao.goncalves@toradex.com>
-  Joerg Roedel <jroedel@suse.de>
-  Johan Hovold <johan+linaro@kernel.org>
-  Johannes Berg <johannes.berg@intel.com>
-  John Stultz <jstultz@google.com>
-  Jon Hunter <jonathanh@nvidia.com>
-  Jonathan Cameron <Jonathan.Cameron@huawei.com>
-  Josef Bacik <josef@toxicpanda.com>
-  Julian Taylor <julian.taylor@1und1.de>
-  Justin Ernst <justin.ernst@hpe.com>
-  Justin Tee <justin.tee@broadcom.com>
-  Karthikeyan Ramasubramanian <kramasub@chromium.org>
-  Kefeng Wang <wangkefeng.wang@huawei.com>
-  Keith Busch <kbusch@kernel.org>
-  Kent Gibson <warthog618@gmail.com>
-  kernelci.org bot <bot@kernelci.org>
-  Kirill A. Shutemov <kirill.shutemov@linux.intel.com>
-  Krzysztof Kozlowski <krzk@kernel.org>
-  Kuniyuki Iwashima <kuniyu@amazon.com>
-  Lakshmi Yadlapati <lakshmiy@us.ibm.com>
-  Leah Rumancik <leah.rumancik@gmail.com>
-  Len Brown <len.brown@intel.com>
-  Li Nan <linan122@huawei.com>
-  Li Zetao <lizetao1@huawei.com>
-  Lijo Lazar <lijo.lazar@amd.com>
-  linke li <lilinke99@qq.com>
-  Linus Torvalds <torvalds@linux-foundation.org>
-  Linus Walleij <linus.walleij@linaro.org>
-  Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
-  Lukasz Majewski <lukma@denx.de>
-  Lyude Paul <lyude@redhat.com>
-  Maarten Vanraes <maarten@rmail.be>
-  Mans Rullgard <mans@mansr.com>
-  Marc Zyngier <maz@kernel.org>
-  Marek Behún <kabel@kernel.org>
-  Marek Vasut <marex@denx.de>
-  Mario Limonciello <mario.limonciello@amd.com>
-  Marius Zachmann <mail@mariuszachmann.de>
-  Mark Brown <broonie@kernel.org>
-  Martin K. Petersen <martin.petersen@oracle.com>
-  Martin KaFai Lau <martin.lau@kernel.org>
-  Martin Rodriguez Reboredo <yakoyoku@gmail.com>
-  Masahiro Yamada <masahiroy@kernel.org>
-  Matthieu Baerts (NGI0) <matttbe@kernel.org>
-  Matti Vaittinen <mazziesaccount@gmail.com>
-  Maurizio Lombardi <mlombard@redhat.com>
-  Maxime Ripard <mripard@kernel.org>
-  Miaohe Lin <linmiaohe@huawei.com>
-  Michael Ellerman <mpe@ellerman.id.au>
-  Michael Kelley <mhklinux@outlook.com>
-  Miguel Ojeda <ojeda@kernel.org>
-  Mika Westerberg <mika.westerberg@linux.intel.com>
-  Mike Kravetz <mike.kravetz@oracle.com>
-  Mike Rapoport (IBM) <rppt@kernel.org>
-  Nageswara R Sastry <rnsastry@linux.ibm.com>
-  Namhyung Kim <namhyung@kernel.org>
-  Namjae Jeon <linkinjeon@kernel.org>
-  Nayna Jain <nayna@linux.ibm.com>
-  Neal Cardwell <ncardwell@google.com>
-  Neil Armstrong <neil.armstrong@linaro.org>
-  Neil Armstrong <neil.armstrong@linaro.org> # on SM8550-QRD
-  Nikhil Rao <nikhil.rao@intel.com>
-  Nikolay Aleksandrov <razor@blackwall.org>
-  Nilesh Javali <njavali@marvell.com>
-  Oliver Upton <oliver.upton@linux.dev>
-  Oscar Salvador <osalvador@suse.de>
-  Paolo Abeni <pabeni@redhat.com>
-  Paul Davey <paul.davey@alliedtelesis.co.nz>
-  Paul Menzel <pmenzel@molgen.mpg.de> # Dell XPS 13
-  Pavel Machek (CIP) <pavel@denx.de>
-  Peiyang Wang <wangpeiyang1@huawei.com>
-  Peng Liu <liupeng17@lenovo.com>
-  Peter Korsgaard <peter@korsgaard.com>
-  Peter Ujfalusi <peter.ujfalusi@gmail.com>
-  Peter Wang <peter.wang@mediatek.com>
-  Peter Xu <peterx@redhat.com>
-  Phil Elwell <phil@raspberrypi.com>
-  Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-  Qu Wenruo <wqu@suse.com>
-  Ramona Gradinariu <ramona.bolboaca13@gmail.com>
-  Raphael Nestler <raphael.nestler@gmail.com> # non-hostprogs
-  Richard Gobert <richardbgobert@gmail.com>
-  Rick Edgecombe <rick.p.edgecombe@intel.com>
-  Rik van Riel <riel@surriel.com>
-  Roded Zats <rzats@paloaltonetworks.com>
-  Rodrigo Vivi <rodrigo.vivi@intel.com>
-  Ron Economos <re@w6rz.net>
-  Ronald Wahl <ronald.wahl@raritan.com> # KS8851 SPI
-  Russell Currey <ruscur@russell.cc>
-  Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
-  Rémi Denis-Courmont <courmisch@gmail.com>
-  Salvatore Bonaccorso <carnil@debian.org>
-  Sameer Pujar <spujar@nvidia.com>
-  Sasha Levin <sashal@kernel.org>
-  Saurav Kashyap <skashyap@marvell.com>
-  Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-  Sebastian Reichel <sebastian.reichel@collabora.com>
-  SeongJae Park <sj@kernel.org>
-  Shin'ichiro Kawasaki <shinichiro.kawasaki@wdc.com>
-  Shuah Khan <skhan@linuxfoundation.org>
-  Shyam Prasad N <sprasad@microsoft.com>
-  Sidhartha Kumar <sidhartha.kumar@oracle.com>
-  Silvio Gissi <sifonsec@amazon.com>
-  Song Liu <song@kernel.org>
-  Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-  Stanislav Fomichev <sdf@google.com>
-  Steffen Klassert <steffen.klassert@secunet.com>
-  Stephen Boyd <sboyd@kernel.org>
-  Steve French <stfrench@microsoft.com>
-  Sungwoo Kim <iam@sung-woo.kim>
-  Takashi Iwai <tiwai@suse.de>
-  Takashi Sakamoto <o-takashi@sakamocchi.jp>
-  Tejun Heo <tj@kernel.org>
-  Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
-  Thanassis Avgerinos <thanassis.avgerinos@gmail.com>
-  Thierry Reding <treding@nvidia.com>
-  Thinh Nguyen <Thinh.Nguyen@synopsys.com>
-  Thomas Bertschinger <tahbertschinger@gmail.com>
-  Thomas Bogendoerfer <tsbogend@alpha.franken.de>
-  Thomas Gleixner <tglx@linutronix.de>
-  Tim Jiang <quic_tjiang@quicinc.com>
-  Toke Høiland-Jørgensen <toke@redhat.com>
-  Tomas Winkler <tomas.winkler@intel.com>
-  Tony Luck <tony.luck@intel.com>
-  Trond Myklebust <trond.myklebust@hammerspace.com>
-  Uwe Kleine-König <u.kleine-koenig@pengutronix.de>
-  Vanillan Wang <vanillanwang@163.com>
-  Viken Dadhaniya <quic_vdadhani@quicinc.com>
-  Ville Syrjälä <ville.syrjala@linux.intel.com>
-  Vinod Koul <vkoul@kernel.org>
-  Vlastimil Babka <vbabka@suse.cz>
-  Wedson Almeida Filho <walmeida@microsoft.com>
-  Wei Liu <wei.liu@kernel.org>
-  Wei Yang <richard.weiyang@gmail.com>
-  Wen Gu <guwen@linux.alibaba.com>
-  Wyes Karny <wyes.karny@amd.com>
-  Xin Long <lucien.xin@gmail.com>
-  Xu Kuohai <xukuohai@huawei.com>
-  Yang Yingliang <yangyingliang@huawei.com>
-  Yann Sionneau <ysionneau@kalrayinc.com>
-  Yann Sionneau<ysionneau@kalrayinc.com>
-  Yi Zhang <yi.zhang@redhat.com>
-  Yonglong Liu <liuyonglong@huawei.com>
-  Zack Rusin <zack.rusin@broadcom.com>
-  Zeng Heng <zengheng4@huawei.com>
-
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-arm64-libvirt                                          pass    
- build-armhf-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl                                          pass    
- test-amd64-coresched-amd64-xl                                pass    
- test-arm64-arm64-xl                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
- test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
- test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
- test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
- test-amd64-amd64-libvirt-xsm                                 pass    
- test-arm64-arm64-libvirt-xsm                                 pass    
- test-amd64-amd64-xl-xsm                                      pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-qemuu-nested-amd                            fail    
- test-amd64-amd64-xl-pvhv2-amd                                pass    
- test-amd64-amd64-dom0pvh-xl-amd                              pass    
- test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
- test-amd64-amd64-qemuu-freebsd12-amd64                       pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-amd64-xl-qemut-win7-amd64                         fail    
- test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
- test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
- test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
- test-armhf-armhf-xl-arndale                                  pass    
- test-amd64-amd64-examine-bios                                pass    
- test-amd64-amd64-xl-credit1                                  pass    
- test-arm64-arm64-xl-credit1                                  pass    
- test-armhf-armhf-xl-credit1                                  pass    
- test-amd64-amd64-xl-credit2                                  pass    
- test-arm64-arm64-xl-credit2                                  pass    
- test-armhf-armhf-xl-credit2                                  pass    
- test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
- test-amd64-amd64-examine                                     pass    
- test-arm64-arm64-examine                                     pass    
- test-armhf-armhf-examine                                     pass    
- test-amd64-amd64-qemuu-nested-intel                          pass    
- test-amd64-amd64-xl-pvhv2-intel                              pass    
- test-amd64-amd64-dom0pvh-xl-intel                            pass    
- test-amd64-amd64-libvirt                                     pass    
- test-armhf-armhf-libvirt                                     pass    
- test-amd64-amd64-xl-multivcpu                                pass    
- test-armhf-armhf-xl-multivcpu                                pass    
- test-amd64-amd64-pair                                        pass    
- test-amd64-amd64-libvirt-pair                                pass    
- test-amd64-amd64-xl-pvshim                                   pass    
- test-amd64-amd64-pygrub                                      pass    
- test-amd64-amd64-libvirt-qcow2                               pass    
- test-amd64-amd64-xl-qcow2                                    pass    
- test-armhf-armhf-xl-qcow2                                    pass    
- test-amd64-amd64-libvirt-raw                                 pass    
- test-arm64-arm64-libvirt-raw                                 pass    
- test-amd64-amd64-xl-raw                                      pass    
- test-armhf-armhf-xl-raw                                      pass    
- test-amd64-amd64-xl-rtds                                     pass    
- test-armhf-armhf-xl-rtds                                     pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
- test-amd64-amd64-xl-shadow                                   pass    
- test-arm64-arm64-xl-thunderx                                 pass    
- test-amd64-amd64-examine-uefi                                pass    
- test-amd64-amd64-libvirt-vhd                                 pass    
- test-armhf-armhf-libvirt-vhd                                 pass    
- test-amd64-amd64-xl-vhd                                      pass    
- test-arm64-arm64-xl-vhd                                      pass    
+I am trying to avoid grub-core.img and disk.img because I think direct
+kernel boot or network boot are easier to maintain and more similar to
+the other tests. If you see the ARM tests, they all use tftp boot.
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+> Signed-off-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+> ---
+> The test is implemented using hardware runner, because some of the
+> further tests will require it (for example PCI passthrough with
+> stubdomain). But if there is strong desire to have stubdomain tested
+> inside qemu tests (to be included in patchew runs), it is probably an
+> option for this basic smoke test.
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+Thanks for this amazing work. This is a great start, we can see how to
+create more tests after merging this one.
 
 
-Pushing revision :
+> For now I'm keeping stubdomain code (build and glue scripts) in separate
+> repository on my github account. This is far from ideal. What would be
+> preferred option? New repository on xenbits? Or add directly into
+> xen.git (stubdom directory)? Honestly, I'd rather avoid the latter, as
+> from packager point of view those are mostly separate beings (similar to
+> qemu, where many use distribution-provide one instead of the one bundled
+> with Xen) and it's convenient to not need to rebuild stubdomain on every
+> hypervisor change (like a security patch).
 
-hint: The 'hooks/update' hook was ignored because it's not set as executable.
-hint: You can disable this warning with `git config advice.ignoredHook false`.
-hint: The 'hooks/post-receive' hook was ignored because it's not set as executable.
-hint: You can disable this warning with `git config advice.ignoredHook false`.
-hint: The 'hooks/post-update' hook was ignored because it's not set as executable.
-hint: You can disable this warning with `git config advice.ignoredHook false`.
-To xenbits.xen.org:/home/xen/git/linux-pvops.git
-   909ba1f1b414..4078fa637fcd  4078fa637fcd80c8487680ec2e4ef7c58308e9aa -> tested/linux-6.1
+My suggestion is to create repositories under gitlab.com/xen-project
+
+
+> Another topic is QEMU version inside stubdomain. It needs to be a
+> separate build due to vastly different configure options, so I cannot
+> reuse the qemu binary built for dom0 (or distribution-provided one if
+> Xen is configured to use it). But also, at this moment qemu for
+> stubdomain needs few extra patches that are not upstream yet.
+> What should be the proper solution here (after upstreaming all the
+> patches)?
+
+It is fine to use a different QEMU version. For now, I would suggest to
+keep the QEMU patches as patches to be applied, in the new repositories
+under gitlab.com/xen-project
+
+
+> Generally, I try to add tests early, even though there is still some
+> work to do for proper stubdomain integration into upstream Xen, so any
+> cleanups and future changes (like the CDROM libxl patches by Jason
+> Andryuk) can be made with more confidence and reduce risk of
+> regressions.
+> 
+> The patch is RFC only because of the stubdom repository location.
+> ---
+>  automation/build/alpine/3.19-arm64v8.dockerfile   |  2 +-
+>  automation/build/alpine/3.19.dockerfile           |  9 ++-
+>  automation/gitlab-ci/build.yaml                   |  3 +-
+>  automation/gitlab-ci/test.yaml                    |  8 +-
+>  automation/scripts/build                          | 12 ++-
+>  automation/scripts/qubes-x86-64.sh                | 87 +++++++++++++++-
+>  automation/tests-artifacts/alpine/3.19.dockerfile |  6 +-
+>  7 files changed, 123 insertions(+), 4 deletions(-)
+> 
+> diff --git a/automation/build/alpine/3.19-arm64v8.dockerfile b/automation/build/alpine/3.19-arm64v8.dockerfile
+> index 158cf465a9ff..12810f87ecc6 100644
+> --- a/automation/build/alpine/3.19-arm64v8.dockerfile
+> +++ b/automation/build/alpine/3.19-arm64v8.dockerfile
+> @@ -47,3 +47,5 @@ RUN apk --no-cache add \
+>    # qubes test deps
+>    openssh-client \
+>    fakeroot \
+> +  sfdisk \
+> +  e2fsprogs \
+> diff --git a/automation/build/alpine/3.19.dockerfile b/automation/build/alpine/3.19.dockerfile
+> index 0be6d7c85fe7..108284613987 100644
+> --- a/automation/build/alpine/3.19.dockerfile
+> +++ b/automation/build/alpine/3.19.dockerfile
+> @@ -49,3 +49,12 @@ RUN apk --no-cache add \
+>    pixman-dev \
+>    # livepatch-tools deps
+>    elfutils-dev \
+> +  # stubdom deps
+> +  dracut-core \
+> +  quilt \
+> +  gnupg \
+> +  libseccomp-dev \
+> +  glib-static \
+> +  gmp-dev \
+> +  mpc1-dev \
+> +  mpfr-dev \
+> diff --git a/automation/gitlab-ci/build.yaml b/automation/gitlab-ci/build.yaml
+> index b186289bbd82..783a0687ba34 100644
+> --- a/automation/gitlab-ci/build.yaml
+> +++ b/automation/gitlab-ci/build.yaml
+> @@ -323,9 +323,11 @@ alpine-3.19-rootfs-export:
+>    image: registry.gitlab.com/xen-project/xen/tests-artifacts/alpine:3.19
+>    script:
+>      - mkdir binaries && cp /initrd.tar.gz binaries/initrd.tar.gz
+> +    - cp /grub-core.img binaries/grub-core.img
+>    artifacts:
+>      paths:
+>        - binaries/initrd.tar.gz
+> +      - binaries/grub-core.img
+>    tags:
+>      - x86_64
+>  
+> @@ -353,6 +355,7 @@ alpine-3.19-gcc-debug:
+>    extends: .gcc-x86-64-build-debug
+>    variables:
+>      CONTAINER: alpine:3.19
+> +    STUBDOM_LINUX: y
+>  
+>  debian-stretch-gcc-debug:
+>    extends: .gcc-x86-64-build-debug
+> diff --git a/automation/gitlab-ci/test.yaml b/automation/gitlab-ci/test.yaml
+> index f62d426a8d34..80d10eb7f476 100644
+> --- a/automation/gitlab-ci/test.yaml
+> +++ b/automation/gitlab-ci/test.yaml
+> @@ -199,6 +199,14 @@ adl-pci-hvm-x86-64-gcc-debug:
+>      - *x86-64-test-needs
+>      - alpine-3.19-gcc-debug
+>  
+> +adl-stubdom-hvm-x86-64-gcc-debug:
+> +  extends: .adl-x86-64
+> +  script:
+> +    - ./automation/scripts/qubes-x86-64.sh stubdom-hvm 2>&1 | tee ${LOGFILE}
+> +  needs:
+> +    - *x86-64-test-needs
+> +    - alpine-3.19-gcc-debug
+> +
+>  zen3p-smoke-x86-64-gcc-debug:
+>    extends: .zen3p-x86-64
+>    script:
+> diff --git a/automation/scripts/build b/automation/scripts/build
+> index b3c71fb6fb60..f7c85b07a8d0 100755
+> --- a/automation/scripts/build
+> +++ b/automation/scripts/build
+> @@ -102,4 +102,16 @@ else
+>      # build Xen
+>      cp -r dist binaries/
+>      if [[ -f xen/xen ]] ; then cp xen/xen binaries/xen; fi
+> +
+> +    if [[ "${STUBDOM_LINUX}" == "y" ]]; then
+> +        git clone https://github.com/marmarek/qubes-vmm-xen-stubdom-linux -b for-upstream2
+> +        make -j$(nproc) -C qubes-vmm-xen-stubdom-linux get-sources
+> +        CFLAGS="-I${PWD}/dist/install/usr/local/include" \
+> +            LDFLAGS="-L${PWD}/dist/install/usr/local/lib" \
+> +            LD_LIBRARY_PATH="${PWD}/dist/install/usr/local/lib" \
+> +            PATH="${PWD}/dist/install/usr/local/bin:$PATH" \
+> +            make -j$(nproc) -C qubes-vmm-xen-stubdom-linux -f Makefile.stubdom all
+> +        cp qubes-vmm-xen-stubdom-linux/build/linux/arch/x86/boot/bzImage binaries/dist/install/usr/local/lib/xen/boot/qemu-stubdom-linux-kernel
+> +        cp qubes-vmm-xen-stubdom-linux/build/rootfs/stubdom-linux-rootfs binaries/dist/install/usr/local/lib/xen/boot/qemu-stubdom-linux-rootfs
+> +    fi
+
+I think qemu-stubdom-linux-kernel and qemu-stubdom-linux-rootfs should
+be built as test-artifacts if they are not strictly dependent on the Xen
+version.
+
+Otherwise, please create a separate new build job for linux stubdoms (do
+not reuse alpine-3.19-gcc-debug). Also I would prefer if these build
+instructions were on a separate file, separate from "build".
+
+
+>  fi
+> diff --git a/automation/scripts/qubes-x86-64.sh b/automation/scripts/qubes-x86-64.sh
+> index 77cb0d45815d..fc73403dbadf 100755
+> --- a/automation/scripts/qubes-x86-64.sh
+> +++ b/automation/scripts/qubes-x86-64.sh
+> @@ -18,6 +18,37 @@ memory = 512
+>  vif = [ "bridge=xenbr0", ]
+>  disk = [ ]
+>  '
+> +domU_disk_path=
+> +
+> +### helper functions
+> +
+> +build_domU_disk() {
+> +    local kernel="$1"
+> +    local initrd="$2"
+> +    local rootfs="$3"
+> +    local output="$4"
+> +    local grubcfg="$rootfs/boot/grub2/grub.cfg"
+> +    local kernel_cmdline="root=/dev/xvda1 console=hvc0 earlyprintk=xen"
+> +
+> +    mkdir -p "$rootfs/boot/grub2"
+> +    cp "$kernel" "$rootfs/boot/vmlinuz"
+> +    echo "linux /boot/vmlinuz $kernel_cmdline" >> "$grubcfg"
+> +    if [ -n "$initrd" ]; then
+> +        cp "$initrd" "$rootfs/boot/initrd.img"
+> +        echo "initrd /boot/initrd.img" >> "$grubcfg"
+> +    fi
+> +    echo "boot" >> "$grubcfg"
+> +    size=$(du -sm "$rootfs")
+> +    size=${size%%	*}
+> +    # add 5M margin
+> +    size=$(( size + 5 ))
+> +    mke2fs -d "$rootfs" "$output.part1" ${size}m
+> +    cat "$rootfs/usr/lib/grub/i386-pc/boot_hybrid.img" binaries/grub-core.img > "$output"
+> +    # align for the partition 1 start (2048 sectors)
+> +    truncate -s $((2048 * 512)) "$output"
+> +    cat "$output.part1" >> "$output"
+> +    echo ",,linux,*" | sfdisk "$output"
+> +}
+>  
+>  ### test: smoke test & smoke test PVH
+>  if [ -z "${test_variant}" ] || [ "${test_variant}" = "dom0pvh" ]; then
+> @@ -116,6 +147,41 @@ until grep -q \"^domU Welcome to Alpine Linux\" /var/log/xen/console/guest-domU.
+>      sleep 1
+>  done
+>  "
+> +
+> +### test: stubdom-hvm
+> +elif [ "${test_variant}" = "stubdom-hvm" ]; then
+> +    passed="ping test passed"
+> +
+> +    domU_config='
+> +type = "hvm"
+> +name = "domU"
+> +memory = 512
+> +vif = [ "bridge=xenbr0", ]
+> +disk = [ "/srv/disk.img,format=raw,vdev=xvda" ]
+> +device_model_version = "qemu-xen"
+> +device_model_stubdomain_override = 1
+> +on_reboot = "destroy"
+> +# libxl configures vkb backend to be dom0 instead of the stubdomain, defer
+> +# changing that until there is consensus what to do about VGA output (VNC)
+> +vkb_device = 0
+> +'
+> +    domU_check="
+> +ifconfig eth0 192.168.0.2
+> +until ping -c 10 192.168.0.1; do
+> +    sleep 1
+> +done
+> +echo \"${passed}\"
+> +"
+> +    dom0_check="
+> +set +x
+> +until grep -q \"${passed}\" /var/log/xen/console/guest-domU.log; do
+> +    sleep 1
+> +done
+> +set -x
+> +echo \"${passed}\"
+> +"
+> +
+> +    domU_disk_path=/srv/disk.img
+>  fi
+>  
+>  # DomU
+> @@ -137,8 +203,17 @@ ${domU_check}
+>  chmod +x etc/local.d/xen.start
+>  echo "rc_verbose=yes" >> etc/rc.conf
+>  sed -i -e 's/^Welcome/domU \0/' etc/issue
+> -find . | fakeroot -i ../fakeroot-save cpio -H newc -o | gzip > ../binaries/domU-rootfs.cpio.gz
+>  cd ..
+> +if [ -n "$domU_disk_path" ]; then
+> +    build_domU_disk \
+> +        "binaries/bzImage" \
+> +        "" \
+> +        "rootfs" \
+> +        "binaries/disk.img"
+> +else
+> +    (cd rootfs; find . | fakeroot -i ../fakeroot-save cpio -H newc -o | gzip > ../binaries/domU-rootfs.cpio.gz)
+> +fi
+> +
+>  rm -rf rootfs
+>  
+>  # DOM0 rootfs
+> @@ -152,6 +227,9 @@ mkdir srv
+>  mkdir sys
+>  rm var/run
+>  cp -ar ../binaries/dist/install/* .
+> +if [ -n "$domU_disk_path" ]; then
+> +    cp ../binaries/disk.img "./$domU_disk_path"
+> +fi
+>  
+>  echo "#!/bin/bash
+>  
+> @@ -164,8 +242,9 @@ ifconfig eth0 up
+>  ifconfig xenbr0 up
+>  ifconfig xenbr0 192.168.0.1
+>  
+> -# get domU console content into test log
+> +# get domU (and possibly its stubdom) console content into test log
+>  tail -F /var/log/xen/console/guest-domU.log 2>/dev/null | sed -e \"s/^/(domU) /\" &
+> +tail -F /var/log/xen/console/guest-domU-dm.log 2>/dev/null | sed -e \"s/^/(domU-dm) /\" &
+>  tail -F /var/log/xen/qemu-dm-domU.log 2>/dev/null | sed -e \"s/^/(qemu-dm) /\" &
+>  xl -vvv create /etc/xen/domU.cfg
+>  ${dom0_check}
+> @@ -178,7 +257,9 @@ echo "XENCONSOLED_TRACE=all" >> etc/default/xencommons
+>  echo "QEMU_XEN=/bin/false" >> etc/default/xencommons
+>  mkdir -p var/log/xen/console
+>  cp ../binaries/bzImage boot/vmlinuz
+> -cp ../binaries/domU-rootfs.cpio.gz boot/initrd-domU
+> +if [ -r ../binaries/domU-rootfs.cpio.gz ]; then
+> +    cp ../binaries/domU-rootfs.cpio.gz boot/initrd-domU
+> +fi
+>  find . | fakeroot -i ../fakeroot-save cpio -H newc -o | gzip > ../binaries/dom0-rootfs.cpio.gz
+>  cd ..
+>  
+> diff --git a/automation/tests-artifacts/alpine/3.19.dockerfile b/automation/tests-artifacts/alpine/3.19.dockerfile
+> index 6d665daedfa4..cfb2cb30fb30 100644
+> --- a/automation/tests-artifacts/alpine/3.19.dockerfile
+> +++ b/automation/tests-artifacts/alpine/3.19.dockerfile
+> @@ -35,6 +35,8 @@ RUN \
+>    apk add pciutils && \
+>    apk add libelf && \
+>    apk add libdw && \
+> +  apk add grub-bios && \
+> +  apk add libseccomp && \
+>    \
+>    # Xen
+>    cd / && \
+> @@ -64,4 +66,6 @@ RUN \
+>    \
+>    # Create rootfs
+>    cd / && \
+> -  tar cvzf /initrd.tar.gz bin dev etc home init lib mnt opt root sbin usr var
+> +  tar cvzf /initrd.tar.gz bin dev etc home init lib mnt opt root sbin usr var && \
+> +  # Prepare boot sector for HVM disk
+> +  grub-mkimage -o /grub-core.img -O i386-pc -p '(hd0,msdos1)/boot/grub2' boot part_msdos ext2 linux biosdisk configfile normal
+> -- 
+> git-series 0.9.1
+> 
+--8323329-1214147340-1715992830=:1052252--
 
