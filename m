@@ -2,32 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2F4CD8C9EDD
-	for <lists+xen-devel@lfdr.de>; Mon, 20 May 2024 16:34:38 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.726172.1130417 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9D7298C9EDC
+	for <lists+xen-devel@lfdr.de>; Mon, 20 May 2024 16:34:37 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.726173.1130428 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s945S-0003Ig-36; Mon, 20 May 2024 14:34:02 +0000
+	id 1s945T-0003XB-Av; Mon, 20 May 2024 14:34:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 726172.1130417; Mon, 20 May 2024 14:34:02 +0000
+Received: by outflank-mailman (output) from mailman id 726173.1130428; Mon, 20 May 2024 14:34:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s945S-0003GC-0N; Mon, 20 May 2024 14:34:02 +0000
-Received: by outflank-mailman (input) for mailman id 726172;
- Mon, 20 May 2024 14:34:00 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1s945T-0003US-7J; Mon, 20 May 2024 14:34:03 +0000
+Received: by outflank-mailman (input) for mailman id 726173;
+ Mon, 20 May 2024 14:34:02 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=+3cx=MX=solinno.co.uk=leigh@srs-se1.protection.inumbo.net>)
- id 1s945Q-0003G6-1O
- for xen-devel@lists.xenproject.org; Mon, 20 May 2024 14:34:00 +0000
-Received: from doppler.solinno.uk (doppler.solinno.uk [81.2.106.178])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id fd81f8d0-16b5-11ef-b4bb-af5377834399;
- Mon, 20 May 2024 16:33:57 +0200 (CEST)
-Received: from mail.solinno.uk (localhost [127.0.0.1])
- by doppler.solinno.uk (Postfix) with ESMTP id 922B38006F;
- Mon, 20 May 2024 15:33:56 +0100 (BST)
+ <SRS0=gPfm=MX=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1s945S-0003Nh-IG
+ for xen-devel@lists.xenproject.org; Mon, 20 May 2024 14:34:02 +0000
+Received: from mail-ed1-x52b.google.com (mail-ed1-x52b.google.com
+ [2a00:1450:4864:20::52b])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 00023732-16b6-11ef-909f-e314d9c70b13;
+ Mon, 20 May 2024 16:34:01 +0200 (CEST)
+Received: by mail-ed1-x52b.google.com with SMTP id
+ 4fb4d7f45d1cf-571ba432477so8320133a12.1
+ for <xen-devel@lists.xenproject.org>; Mon, 20 May 2024 07:34:01 -0700 (PDT)
+Received: from andrewcoop.citrite.net (default-46-102-197-194.interdsl.co.uk.
+ [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-5733beb89e7sm15485718a12.21.2024.05.20.07.34.00
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 20 May 2024 07:34:00 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,146 +45,214 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fd81f8d0-16b5-11ef-b4bb-af5377834399
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=solinno.co.uk;
-	s=mail; t=1716215636;
-	bh=umNSVV7br+LWKfpTsCOsdtnYlHjj/kq7PBIz0k7y5gM=;
-	h=Date:From:To:Cc:Subject:From;
-	b=g0q7NgJmLs1wkcowodrDQ9+3ZDBeSjCIzLXEkKc49Lijx2vkEr9VMOerwi3p3u2wc
-	 AbETm2LaYC+JFh9UzVEf2QNUr0o8WjOZs6bQE5K3ZBD/kV1dpKE3fRnYEtFweuEU8M
-	 Td3W12JjWyp/Vbz7JQtdD9JRuY+cDxjLan0SLUhY=
+X-Inumbo-ID: 00023732-16b6-11ef-909f-e314d9c70b13
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1716215641; x=1716820441; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=Md//2DDasxVOHTchjm5rVEUtH/pkUFEDxQJCwSHBhkE=;
+        b=jAMXymFkLFEK1wCRr5+pc89ocaXgU7j6nL59SMu/rjEDfzKN0CLY0+iT3Ddzu0RKQh
+         ATlhmnGq68ytnQvgEDhVdJnrso3/oVWQItYS4kx0jUYEywHCVyj5c/weHAlRwPE2jGhU
+         lWV+slSpcVvQLzbv7CsRnDCgc3O/WTJtrWGeU=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1716215641; x=1716820441;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=Md//2DDasxVOHTchjm5rVEUtH/pkUFEDxQJCwSHBhkE=;
+        b=uzAyJ28GQiEAtB33EqXfAGR6GsKWRFeq9dAx0o8cE+BgKwj9akMtj4mmg7C/3WCRUm
+         PZV2sgEqlhaAAR5eSBeRtY0Q3ApuXd+A2H3JLQX2UD5fKCsjnm9B7VKz3/g1QG3iSyH8
+         iYRkuEkWYT1GbV6rxn5TsIrz/+1puuLhVAy/ta5h59lisFs8KgQtDHuyDESdudQgWt3R
+         VUQlB7x0+juGAPosZ8++yh0EN60q8dVjSsl8VjtKokiyj8UpU3+NvCV3Kua7UEN+F99i
+         wAAzYBtZUH1Wqws9CbatkxYtt0QCVYP+irT4QRxlpKOWwNBbMjfatzdy+n6AttVgIBsG
+         yNCg==
+X-Gm-Message-State: AOJu0YwlmunHd611M88yk0vj/gez3I0HJP55ygV8OmnwhnlTAA5BJAms
+	iFmsv3B0W4X4w86P43ZGHKNz06G4sa0vlOv1WyylW9YxN13EDCQ+XUGHBAszDDHlqDAe3UPIY60
+	R
+X-Google-Smtp-Source: AGHT+IENdmG5RR1qRY/y+xXcpkCZHOGG9Vy+036FJKk8wEigHETxhcEJa7kbq3MdbBETqzSPctwZRw==
+X-Received: by 2002:a50:9f88:0:b0:572:a7fb:b6ad with SMTP id 4fb4d7f45d1cf-5734d590353mr21323474a12.5.1716215640765;
+        Mon, 20 May 2024 07:34:00 -0700 (PDT)
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+Cc: =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Jan Beulich <JBeulich@suse.com>
+Subject: [PATCH v3.5 3/4] tools/xen-cpuid: Use automatically generated feature names
+Date: Mon, 20 May 2024 15:33:59 +0100
+Message-Id: <20240520143359.3376849-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.30.2
+In-Reply-To: <20240510224002.2324578-4-andrew.cooper3@citrix.com>
+References: <20240510224002.2324578-4-andrew.cooper3@citrix.com>
 MIME-Version: 1.0
-Date: Mon, 20 May 2024 15:33:56 +0100
-From: Leigh Brown <leigh@solinno.co.uk>
-To: Xen Devel <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Jason Andryuk
- <jandryuk@gmail.com>
-Subject: xl list -l aborts with double free error with vlan patches
-Message-ID: <0d8fbde01bedf97dcd7540ceea6c42ab@solinno.co.uk>
-X-Sender: leigh@solinno.co.uk
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hello,
+From: Roger Pau Monné <roger.pau@citrix.com>
 
-When running xl list -l with my VLAN patches applied, a double free 
-error is raised. I'm unable to determine why.
+Have gen-cpuid.py write out INIT_FEATURE_VAL_TO_NAME, derived from the same
+data source as INIT_FEATURE_NAME_TO_VAL, although both aliases of common_1d
+are needed.
 
-broken: 0cc01c603f4287233715a526b056bc20e0e97412 (HEAD) tools/xl: add 
-vlan keyword to vif option
-okay:   3bc14e4fa4b9832888710759a7dbe5f0d239f33b tools/libs/light: Add 
-vlan field to libxl_device_nic
-okay:   e27fc7d15eab79e604e8b8728778594accc23cf1 tools/xentop: Fix cpu% 
-sort order
+In xen-cpuid.c, sanity check at build time that leaf_info[] and
+feature_names[] are of sensible length.
 
-Any suggestions appreciated...
+As dump_leaf() rendered missing names as numbers, always dump leaves even if
+we don't have the leaf name.  This conversion was argumably missed in commit
+59afdb8a81d6 ("tools/misc: Tweak reserved bit handling for xen-cpuid").
 
-Debug run and backtrace:
+Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+---
+CC: Jan Beulich <JBeulich@suse.com>
+CC: Roger Pau Monné <roger.pau@citrix.com>
 
-(gdb) run -vvvv list -l
-Starting program: /usr/sbin/xl -vvvv list -l
-[Thread debugging using libthread_db enabled]
-Using host libthread_db library 
-"/lib/x86_64-linux-gnu/libthread_db.so.1".
-libxl: debug: libxl_domain.c:2295:libxl_retrieve_domain_configuration: 
-ao 0x555555592f50: create: how=(nil) callback=(nil) 
-poller=0x55555559dde0
-[Detaching after fork from child process 1044]
-libxl: debug: libxl_domain.c:2311:libxl_retrieve_domain_configuration: 
-ao 0x555555592f50: inprogress: poller=0x55555559dde0, flags=i
-libxl: debug: libxl_domain.c:2587:retrieve_domain_configuration_end: No 
-vbd from xenstore
-libxl: debug: libxl_domain.c:2587:retrieve_domain_configuration_end: No 
-vif from xenstore
-libxl: debug: libxl_domain.c:2587:retrieve_domain_configuration_end: No 
-vtpm from xenstore
-libxl: debug: libxl_domain.c:2587:retrieve_domain_configuration_end: No 
-vusb from xenstore
-libxl: debug: libxl_domain.c:2587:retrieve_domain_configuration_end: No 
-vusb from xenstore
-libxl: debug: libxl_domain.c:2587:retrieve_domain_configuration_end: No 
-pci from xenstore
-libxl: debug: libxl_domain.c:2587:retrieve_domain_configuration_end: No 
-vdispl from xenstore
-libxl: debug: libxl_domain.c:2587:retrieve_domain_configuration_end: No 
-vsnd from xenstore
-libxl: debug: libxl_qmp.c:1920:libxl__ev_qmp_dispose:  ev 0x5555555a0240
-libxl: debug: libxl_event.c:2067:libxl__ao_complete: ao 0x555555592f50: 
-complete, rc=0
-libxl: debug: libxl_event.c:2036:libxl__ao__destroy: ao 0x555555592f50: 
-destroy
-libxl: debug: libxl_domain.c:2295:libxl_retrieve_domain_configuration: 
-Domain 1:ao 0x55555559f830: create: how=(nil) callback=(nil) 
-poller=0x55555559dde0
-[Detaching after fork from child process 1045]
-libxl: debug: libxl_domain.c:2311:libxl_retrieve_domain_configuration: 
-Domain 1:ao 0x55555559f830: inprogress: poller=0x55555559dde0, flags=i
-libxl: debug: libxl_domain.c:2587:retrieve_domain_configuration_end: 
-Domain 1:No vtpm from xenstore
-libxl: debug: libxl_domain.c:2587:retrieve_domain_configuration_end: 
-Domain 1:No vusb from xenstore
-libxl: debug: libxl_domain.c:2587:retrieve_domain_configuration_end: 
-Domain 1:No vusb from xenstore
-libxl: debug: libxl_domain.c:2587:retrieve_domain_configuration_end: 
-Domain 1:No pci from xenstore
-libxl: debug: libxl_domain.c:2587:retrieve_domain_configuration_end: 
-Domain 1:No vdispl from xenstore
-libxl: debug: libxl_domain.c:2587:retrieve_domain_configuration_end: 
-Domain 1:No vsnd from xenstore
-libxl: debug: libxl_qmp.c:1920:libxl__ev_qmp_dispose: Domain 1: ev 
-0x5555555a2820
-libxl: debug: libxl_event.c:2067:libxl__ao_complete: ao 0x55555559f830: 
-complete, rc=0
-libxl: debug: libxl_event.c:2036:libxl__ao__destroy: ao 0x55555559f830: 
-destroy
-free(): double free detected in tcache 2
+Differences in names are:
 
-Program received signal SIGABRT, Aborted.
-__pthread_kill_implementation (threadid=<optimized out>, 
-signo=signo@entry=6, no_tid=no_tid@entry=0) at ./nptl/pthread_kill.c:44
-44	./nptl/pthread_kill.c: No such file or directory.
-(gdb) bt
-#0  __pthread_kill_implementation (threadid=<optimized out>, 
-signo=signo@entry=6, no_tid=no_tid@entry=0) at ./nptl/pthread_kill.c:44
-#1  0x00007ffff7d5de8f in __pthread_kill_internal (signo=6, 
-threadid=<optimized out>) at ./nptl/pthread_kill.c:78
-#2  0x00007ffff7d0efb2 in __GI_raise (sig=sig@entry=6) at 
-../sysdeps/posix/raise.c:26
-#3  0x00007ffff7cf9472 in __GI_abort () at ./stdlib/abort.c:79
-#4  0x00007ffff7d52430 in __libc_message (action=action@entry=do_abort, 
-fmt=fmt@entry=0x7ffff7e6c459 "%s\n") at 
-../sysdeps/posix/libc_fatal.c:155
-#5  0x00007ffff7d677aa in malloc_printerr (str=str@entry=0x7ffff7e6f098 
-"free(): double free detected in tcache 2") at ./malloc/malloc.c:5660
-#6  0x00007ffff7d69a36 in _int_free (av=0x7ffff7ea5c60 <main_arena>, 
-p=0x5555555a0f90, have_lock=have_lock@entry=0) at ./malloc/malloc.c:4469
-#7  0x00007ffff7d6be8f in __GI___libc_free (mem=<optimized out>) at 
-./malloc/malloc.c:3385
-#8  0x00007ffff7f160a3 in libxl__free_all (gc=gc@entry=0x55555559f870) 
-at libxl_internal.c:86
-#9  0x00007ffff7f27c11 in libxl__ao__destroy (ctx=0x555555591850, 
-ao=ao@entry=0x55555559f830) at libxl_event.c:2039
-#10 0x00007ffff7f27c3e in ao__check_destroy (ctx=<optimized out>, 
-ao=ao@entry=0x55555559f830) at libxl_event.c:2028
-#11 0x00007ffff7f27c76 in ao__manip_leave (ctx=<optimized out>, 
-ao=ao@entry=0x55555559f830) at libxl_event.c:2021
-#12 0x00007ffff7f2948f in libxl__ao_inprogress 
-(ao=ao@entry=0x55555559f830, file=file@entry=0x7ffff7f80866 
-"libxl_domain.c", line=line@entry=2311,
-     func=func@entry=0x7ffff7f814a0 <__func__.3> 
-"libxl_retrieve_domain_configuration") at libxl_event.c:2235
-#13 0x00007ffff7f46add in libxl_retrieve_domain_configuration 
-(ctx=<optimized out>, domid=<optimized out>, 
-d_config=d_config@entry=0x7fffffffe510, ao_how=ao_how@entry=0x0)
-     at libxl_domain.c:2311
-#14 0x00005555555744f2 in list_domains_details 
-(info=info@entry=0x5555555aa1e0, nb_domain=2) at xl_info.c:479
-#15 0x0000555555575e21 in main_list (argc=<optimized out>, 
-argv=<optimized out>) at xl_info.c:582
-#16 0x0000555555561b55 in main (argc=2, argv=0x7fffffffecd8) at xl.c:451
+ sysenter    -> sep
+ tm          -> tm1
+ ds-cpl      -> dscpl
+ est         -> eist
+ sse41       -> sse4-1
+ sse42       -> sse4-2
+ movebe      -> movbe
+ tsc-dl      -> tsc-deadline
+ rdrnd       -> rdrand
+ hyper       -> hypervisor
+ mmx+        -> mmext
+ fxsr+       -> ffxsr
+ pg1g        -> page1gb
+ 3dnow+      -> 3dnowext
+ cmp         -> cmp-legacy
+ cr8d        -> cr8-legacy
+ lzcnt       -> abm
+ msse        -> misalignsse
+ 3dnowpf     -> 3dnowprefetch
+ nodeid      -> nodeid-msr
+ dbx         -> dbext
+ tsc-adj     -> tsc-adjust
+ fdp-exn     -> fdp-excp-only
+ deffp       -> no-fpu-sel
+ <24>        -> bld
+ ppin        -> amd-ppin
+ lfence+     -> lfence-dispatch
+ ppin        -> intel-ppin
+ energy-ctrl -> energy-filtering
 
-Regards,
+Apparently BLD missed the update to xen-cpuid.c.  It appears to be the only
+one.  Several of the + names would be nice to keep as were, but doing so isn't
+nice in gen-cpuid.  Any changes would alter the {dom0-}cpuid= cmdline options,
+but we intentionally don't list them, so I'm not worried.
 
-Leigh.
+Thoughts?
+
+v3:
+ * Rework somewhat.
+ * Insert aliases of common_1d.
+
+v4:
+ * Pad at the gen stage.  I don't like this, but I'm clearly outvoted on the matter.
+---
+ tools/misc/xen-cpuid.c | 16 ++++++++--------
+ xen/tools/gen-cpuid.py | 29 +++++++++++++++++++++++++++++
+ 2 files changed, 37 insertions(+), 8 deletions(-)
+
+diff --git a/tools/misc/xen-cpuid.c b/tools/misc/xen-cpuid.c
+index 6ee835b22949..51009683da1b 100644
+--- a/tools/misc/xen-cpuid.c
++++ b/tools/misc/xen-cpuid.c
+@@ -11,6 +11,7 @@
+ #include <xenguest.h>
+ 
+ #include <xen-tools/common-macros.h>
++#include <xen/lib/x86/cpuid-autogen.h>
+ 
+ static uint32_t nr_features;
+ 
+@@ -291,6 +292,8 @@ static const struct {
+ 
+ #define COL_ALIGN "24"
+ 
++static const char *const feature_names[] = INIT_FEATURE_VAL_TO_NAME;
++
+ static const char *const fs_names[] = {
+     [XEN_SYSCTL_cpu_featureset_raw]     = "Raw",
+     [XEN_SYSCTL_cpu_featureset_host]    = "Host",
+@@ -304,12 +307,6 @@ static void dump_leaf(uint32_t leaf, const char *const *strs)
+ {
+     unsigned i;
+ 
+-    if ( !strs )
+-    {
+-        printf(" ???");
+-        return;
+-    }
+-
+     for ( i = 0; i < 32; ++i )
+         if ( leaf & (1u << i) )
+         {
+@@ -327,6 +324,10 @@ static void decode_featureset(const uint32_t *features,
+ {
+     unsigned int i;
+ 
++    /* If this trips, you probably need to extend leaf_info[] above. */
++    BUILD_BUG_ON(ARRAY_SIZE(leaf_info) != FEATURESET_NR_ENTRIES);
++    BUILD_BUG_ON(ARRAY_SIZE(feature_names) != FEATURESET_NR_ENTRIES * 32);
++
+     printf("%-"COL_ALIGN"s        ", name);
+     for ( i = 0; i < length; ++i )
+         printf("%08x%c", features[i],
+@@ -338,8 +339,7 @@ static void decode_featureset(const uint32_t *features,
+     for ( i = 0; i < length && i < ARRAY_SIZE(leaf_info); ++i )
+     {
+         printf("  [%02u] %-"COL_ALIGN"s", i, leaf_info[i].name ?: "<UNKNOWN>");
+-        if ( leaf_info[i].name )
+-            dump_leaf(features[i], leaf_info[i].strs);
++        dump_leaf(features[i], &feature_names[i * 32]);
+         printf("\n");
+     }
+ }
+diff --git a/xen/tools/gen-cpuid.py b/xen/tools/gen-cpuid.py
+index 79d7f5c8e1c9..601eec608983 100755
+--- a/xen/tools/gen-cpuid.py
++++ b/xen/tools/gen-cpuid.py
+@@ -470,6 +470,35 @@ def write_results(state):
+     state.output.write(
+ """}
+ 
++""")
++
++    state.output.write(
++"""
++#define INIT_FEATURE_VAL_TO_NAME { \\
++""")
++
++    for name, bit in sorted(state.values.items()):
++        state.output.write(
++            '    [%s] = "%s",\\\n' % (bit, name)
++            )
++
++        # Add the other alias for 1d/e1d common bits.  64 is the difference
++        # between 1d and e1d.
++        if bit in state.common_1d:
++            state.output.write(
++                '    [%s] = "%s",\\\n' % (64 + bit, name)
++            )
++
++    # Pad to an exact multiple of FEATURESET_SIZE if necessary
++    pad_feat = state.nr_entries * 32 - 1
++    if not state.names.get(pad_feat):
++        state.output.write(
++            '    [%s] = NULL,\\\n' % (pad_feat, )
++        )
++
++    state.output.write(
++"""}
++
+ """)
+ 
+     for idx, text in enumerate(state.bitfields):
+-- 
+2.30.2
+
 
