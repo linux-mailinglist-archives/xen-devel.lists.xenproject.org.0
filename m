@@ -2,56 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C56838CA2D4
-	for <lists+xen-devel@lfdr.de>; Mon, 20 May 2024 21:42:08 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.726349.1130624 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 15D5A8CA3A8
+	for <lists+xen-devel@lfdr.de>; Mon, 20 May 2024 23:07:10 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.726361.1130633 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s98t3-0005vx-3C; Mon, 20 May 2024 19:41:33 +0000
+	id 1s9ACh-0007aC-V8; Mon, 20 May 2024 21:05:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 726349.1130624; Mon, 20 May 2024 19:41:33 +0000
+Received: by outflank-mailman (output) from mailman id 726361.1130633; Mon, 20 May 2024 21:05:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s98t3-0005ty-0P; Mon, 20 May 2024 19:41:33 +0000
-Received: by outflank-mailman (input) for mailman id 726349;
- Mon, 20 May 2024 19:41:31 +0000
+	id 1s9ACh-0007YV-SR; Mon, 20 May 2024 21:05:55 +0000
+Received: by outflank-mailman (input) for mailman id 726361;
+ Mon, 20 May 2024 21:05:55 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=l4Ei=MX=amd.com=Jason.Andryuk@srs-se1.protection.inumbo.net>)
- id 1s98t1-0005ts-6E
- for xen-devel@lists.xenproject.org; Mon, 20 May 2024 19:41:31 +0000
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on20601.outbound.protection.outlook.com
- [2a01:111:f403:2417::601])
+ id 1s9ACg-0007YP-Th
+ for xen-devel@lists.xenproject.org; Mon, 20 May 2024 21:05:54 +0000
+Received: from NAM02-DM3-obe.outbound.protection.outlook.com
+ (mail-dm3nam02on20600.outbound.protection.outlook.com
+ [2a01:111:f403:2405::600])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f2f71861-16e0-11ef-b4bb-af5377834399;
- Mon, 20 May 2024 21:41:28 +0200 (CEST)
-Received: from BN9PR03CA0298.namprd03.prod.outlook.com (2603:10b6:408:f5::33)
- by SA1PR12MB6800.namprd12.prod.outlook.com (2603:10b6:806:25c::9)
+ id bcf79b9c-16ec-11ef-b4bb-af5377834399;
+ Mon, 20 May 2024 23:05:52 +0200 (CEST)
+Received: from SJ0PR13CA0138.namprd13.prod.outlook.com (2603:10b6:a03:2c6::23)
+ by LV3PR12MB9258.namprd12.prod.outlook.com (2603:10b6:408:1bb::12)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7587.35; Mon, 20 May
- 2024 19:41:24 +0000
-Received: from BN2PEPF00004FBF.namprd04.prod.outlook.com
- (2603:10b6:408:f5:cafe::5) by BN9PR03CA0298.outlook.office365.com
- (2603:10b6:408:f5::33) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7587.36 via Frontend
- Transport; Mon, 20 May 2024 19:41:24 +0000
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- BN2PEPF00004FBF.mail.protection.outlook.com (10.167.243.185) with Microsoft
+ 2024 21:05:47 +0000
+Received: from CO1PEPF000066E9.namprd05.prod.outlook.com
+ (2603:10b6:a03:2c6:cafe::27) by SJ0PR13CA0138.outlook.office365.com
+ (2603:10b6:a03:2c6::23) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7611.16 via Frontend
+ Transport; Mon, 20 May 2024 21:05:47 +0000
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CO1PEPF000066E9.mail.protection.outlook.com (10.167.249.11) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7611.14 via Frontend Transport; Mon, 20 May 2024 19:41:24 +0000
-Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ 15.20.7611.14 via Frontend Transport; Mon, 20 May 2024 21:05:46 +0000
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Mon, 20 May
- 2024 14:41:23 -0500
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB06.amd.com
- (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Mon, 20 May
- 2024 14:41:23 -0500
-Received: from [172.21.89.32] (10.180.168.240) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.35 via Frontend
- Transport; Mon, 20 May 2024 14:41:23 -0500
+ 2024 16:05:45 -0500
+Received: from [172.21.89.32] (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.35 via Frontend
+ Transport; Mon, 20 May 2024 16:05:45 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,171 +59,190 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f2f71861-16e0-11ef-b4bb-af5377834399
+X-Inumbo-ID: bcf79b9c-16ec-11ef-b4bb-af5377834399
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=KO9xZjlJUUrGjV65aWvIEgQhVmPDSW9u69t0phjRLDUl4M8JZxvapQUNC8NK4w2p5DXl1tCaDInvz8QwGaS79E3+BllY7/LlwWq67Oa6D5hOQjrSLqQgqNIqm5VEb2STDdm5/GEA1I+Uw3+vVW6oFu6CnJNd2YVu8MgIeV2gC0keQezTVD4O4907IrLUamB8bCApgGq6j8swy4WQM+qgBwLeCs9re80lCAlBw+JGszZ/lRhWtvYovMAOsm4gy8P83jafaxO44jQHATzi1klNuCtNOm9ETLwXlTOdhOETp5rWVo3ivBnk+kQAHPcTMKfEshcas6R9g1Q3akNt78N0Yw==
+ b=ERN8D9mU+kVbO/1d2c+Vz7TEWRAnhj/etc7AmtIkbTyV/b88ojE8QW6jvbQQciRqh/RTz+WGKQuHw47DO6W17aVgfes3zhUin1ZuwKBUN8bZDeSUTBGX0UMHLGw2i2k84ilZv60UvSIIcrq621tEE9KLANxRnkyprbGCG3Vm9rscXovY40wSj/LdCf6cbhwzviU4iGUX+yOClq03g5uVRIovKI3jcs3XeXP6eQv2TTnv+ucdwvYku8qOerbgICd5suOSWLnENWMe0dy0QMO6FJxaE9IeEiU6UaP+cE/Tk/3/ivVyo44JJVfNFwkW94yZdMKwn2Ss7QYOtLM9TaVZIw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=HpVi/t7xur6IAV/kp/Bqzy90KKAo4YAaYUnQfTVA5d4=;
- b=h+lREDkXJDghQVRkoULhJCzjM6ExmugOBfT5mJJgMjNTD0GRNjqEpZ4ZSmJIH52sZ4GG9gSeNYKB9Nt2LYIw2UZXm4kjG3my/PpeQQPt44YVdh+laV8xUqvIWZjZd46e1DZ/MCVMPiJq2oXFW36rEJTo43PtUB9oIe3J5ONQoXf4iVNeYqM4EYAQBi4g+0ISFqSdvXt4Oq0qpBz0CPpgOZ8j8T3v8N757ZdtnB7qW4k/DRDgFUm0x2uKuQA3febXiegc2Dg52f7IUYUkEPOiQ5E8ivb4cEXB5aMr49wHESLVGJhUJgEe1XJJhULb31wwGo0FTCVEZk+WrbknFqn8qg==
+ bh=a1Dh8SCd+uOTZ2/DoKJPBehNZMUCC4Bg5NtdqbgxHj4=;
+ b=i4YHsLAhs+FIx85IE6n1IaGjyDMLuYVzpiPtOh8v+t2v2YzYtFbVXxJunGdUFeQ8zuZ0NjW//tLoiETwkVva/xWKI1Ioppg3FNESYRUml88uqhq73nf8fvatOfTZS2AvzkpixrR/oSBHeayDmdac7InEhsLgguYZeLuDSUNpHgnw8/tq3Dz2FlRukOazT8SLRhjeS2WkpwpfyA8WnHUahS9O1XuRAAGWjvo6Qtvj5SsszxjF+7562MiYvMbAix41I45WTOwTeVaI0CmOgNhFWQJ2pqEb9bdQ40VzYZK/HFlsvJrVH0rZBItGUcipyTC40OIsM1lYrKnv+QqgBAZThA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
+ 165.204.84.17) smtp.rcpttodomain=rabbit.lu smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=HpVi/t7xur6IAV/kp/Bqzy90KKAo4YAaYUnQfTVA5d4=;
- b=RfQ1fDhR+4yg0YMkfffhatYUny0jIZW1sVG0nywN62Zx9nz8miZ8l7aPdoIw5vyhKTV91eF5TUQkCdpg0iEHmC2s3qQJp5VRtf2sERhqYzqCTYle1PXOTGqEJ9ROuXUWpf6zzFL6C46hnpU9oElpZ5CfcQOkhoQscF9Cen4x+EQ=
+ bh=a1Dh8SCd+uOTZ2/DoKJPBehNZMUCC4Bg5NtdqbgxHj4=;
+ b=kxWVcElWhlizgrEem+JbHT1Wo270N3RJmeEn6Gxe0fyR0UE2ZIp4P+b7S2F+9rNIEBXGLbDeISmo60aTZMc4+kGTjVcizPtU2EPDpN66NIpLY6bThGa7RJplNAUhpwFZZK1oAKcX83spgGOsZkTrxwLrsyWpJ6z0I+Ngs50GMf4=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-Message-ID: <6a04ef17-2580-4f62-b377-aad2ebbcdb5b@amd.com>
-Date: Mon, 20 May 2024 15:41:21 -0400
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Message-ID: <c23b7593-0ead-4ff7-8032-052269fe82e5@amd.com>
+Date: Mon, 20 May 2024 17:05:44 -0400
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 7/8] tools: Introduce the "xl dt-overlay
- {attach,detach}" commands
-To: Henry Wang <xin.wang2@amd.com>, <xen-devel@lists.xenproject.org>
-CC: Anthony PERARD <anthony@xenproject.org>, Juergen Gross <jgross@suse.com>
-References: <20240516100330.1433265-1-xin.wang2@amd.com>
- <20240516100330.1433265-8-xin.wang2@amd.com>
-Content-Language: en-US
+Subject: Re: [PATCH] tools/xl: add suspend-to-ram and resume subcommands
 From: Jason Andryuk <jason.andryuk@amd.com>
-In-Reply-To: <20240516100330.1433265-8-xin.wang2@amd.com>
+To: =?UTF-8?Q?zithro_/_Cyril_R=C3=A9bert?= <slack@rabbit.lu>,
+	<xen-devel@lists.xenproject.org>
+CC: Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
+	<marmarek@invisiblethingslab.com>, Wei Liu <wl@xen.org>, Anthony PERARD
+	<anthony.perard@citrix.com>
+References: <4e9f3590be9f19edb87e05c7b7c2efeae8863109.1709190010.git.slack@rabbit.lu>
+ <d3c9ea82-ff33-4211-9e76-f2e599f21a8b@amd.com>
+Content-Language: en-US
+In-Reply-To: <d3c9ea82-ff33-4211-9e76-f2e599f21a8b@amd.com>
 Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Received-SPF: None (SATLEXMB04.amd.com: jason.andryuk@amd.com does not
+ designate permitted sender hosts)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF00004FBF:EE_|SA1PR12MB6800:EE_
-X-MS-Office365-Filtering-Correlation-Id: b3409caa-32cd-4db4-db97-08dc7904d505
+X-MS-TrafficTypeDiagnostic: CO1PEPF000066E9:EE_|LV3PR12MB9258:EE_
+X-MS-Office365-Filtering-Correlation-Id: 16d09114-d41d-49ca-186b-08dc79109ed5
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
 	BCL:0;ARA:13230031|36860700004|1800799015|376005|82310400017;
 X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?cFdZdmJsUmtVS3dDNFA2ajJYamF3LzFmTmtiamp3M3hBMUhNTndJSGpkOGdL?=
- =?utf-8?B?UWxFemIzVzdjYk10dFNTM2pmSmJsRmI0cmcrWkFHNTJhVmpya0JxOFp5R1hH?=
- =?utf-8?B?UHphL2x6eHg4R0dkeUFCT2NtQ1JLM0d5d2w4VjJQdEpGdExpU0FRWGt5YmY0?=
- =?utf-8?B?eTl0U09kTncyODlOTElscEFEZzNZUHVhR3NOWTc5NWFYS0JITWoxdnpIbzcw?=
- =?utf-8?B?RWh3YzB2bkJkVkg2WEIydTVTcTJOd2xlZkE2VkYxK2huWndTNi9HSlVETWZ5?=
- =?utf-8?B?VFpQZ2Q0aHNIQ00wV2h4N1NkUjNZekNSaC8rN29RelRnbGJoc2VpY3pIWmpI?=
- =?utf-8?B?dTB5SlYzdkwybGtvVk1qTmFBcUNEU3N1aGI3ZWtlV1RDWlJFdGZoa3dGelpT?=
- =?utf-8?B?d0tHNUI3aUhkcFpJbk5SdXpXVktiNEJueGxvWXBtcU50VlRLM2FSZm9tNjR3?=
- =?utf-8?B?aDg1VlJZajUwdTRibzZCZlhzakEvUVBQSjROTUFEMmVCOTBoNXlQQmdycDdm?=
- =?utf-8?B?c2lsTXI0SnFGbUptSjlVMjRvb25LTXJwRnloaGZZVGg3cE9KTEsySTYzeWZE?=
- =?utf-8?B?ZUV4RmF6SStORnNwZXJiTzZxTEMrdS9kV2pIbWFjTDBzQUpwdkl5eWsxSjda?=
- =?utf-8?B?Qm02SE5HdG8xb3hCREphVW1PWm1pL29UQlFFeFU1UjBPcFFza0x6alVEaEZR?=
- =?utf-8?B?S2ovZlB1enREeTNBTlc0L0FnRFZpRE1Ta052cUxCNDZoNjg1ZXVBdXdsdmdF?=
- =?utf-8?B?RDVtbC80QmZCU0daWHNlWnJuNC9CZ3F5c3NNaW5jdmFoQWtCK1VwTmRGVlFX?=
- =?utf-8?B?L0Jvb0hRZTlQYnZwUll2bXBveFk1aFdiZWhSWFBEaXZHN1AyRlMvY0YyWUt4?=
- =?utf-8?B?bGMwakNpakc4NXVscW9kcVNmTVpJY1ZFdzRpakUyOXVQK3JTenNZYWpXOXRk?=
- =?utf-8?B?UE9SRURnM0ZoYmIwZGhGOGhOaTc4ZWlpdUllYWs0aUhTTCtQVTFiK1M5SVQz?=
- =?utf-8?B?aGNWMDdJQlltdkJyTThOeDhBVVhOaXMyeWJqeU1LMHFxTXJ1Y1lhYlNOVGRX?=
- =?utf-8?B?MWJ3V29xcVh1TU5LN05MK3dFNmhiK2tYb1BEcTNxQmdnTTBWNnZ2TG0xQnRO?=
- =?utf-8?B?OTRwLzVkb0xneWR6RFhJT2JSUXhjeSsxYzNNSXFidVJjdXBsR1ZlbkNDd285?=
- =?utf-8?B?c2k5Nkhwc0wrcVh5UExQN2xGVlBOanNxSmowM3F0cHpMZFUyQlhFbFZEUld1?=
- =?utf-8?B?R0lIRURZZTl6TllIWGVWYWRSR0N5KytNMXRWc0xLTFZYcFN2UHhrVEZpQmNm?=
- =?utf-8?B?Vm9YOGFDaXViakpQTmxvd3RYalhaTUlmQkhuUG0vZlNOWkoxY2pJSEgwTlZ2?=
- =?utf-8?B?bm8yckZEY3dZdmpPZDVzRWV3YjN6SFB1elhxMVJKQnVENVpUdkZCMndMekV0?=
- =?utf-8?B?YUpRT0QrY1orcXMyVENnZ0duZDhVQ0krMDJBZUtEVHd3dUhzbmFSczhwNjk2?=
- =?utf-8?B?cS9DT3l0emVwRFBWVWhpS2tTL3hkQi8xd29heDRnYzR5azVWTU5NMWZIRlVW?=
- =?utf-8?B?WU1EQzZnVW5sd2hrMmN0Q2w3SHorelh0N3R0eWJObldwbTQ2OTJYYUFWWEZ3?=
- =?utf-8?B?bEhweEtTMnhVOXd6TFJZeFA4QVBIeVVQeEJRNHFYL1hVNkNLZkZmZFUrdGV3?=
- =?utf-8?B?dTR5RDA2R3hFRXBiMktaM054K0NXQmVHemhaZEhCdjI0T3RqNGk4REY4T0w1?=
- =?utf-8?B?L29SdVlYd2tJcHJhU0s1a3J1Z3cyQVIvUk0wWW9XUXVJSk5QT0g4bS9lMVRI?=
- =?utf-8?B?VTg0YkZXc1ZUVE5tZUNmRnVTSElIeG9hd2JZQzRxdkRiN3gzVVNhN1dMWlk5?=
- =?utf-8?Q?qMEyP5jLbD8yP?=
+	=?utf-8?B?NWFneXZYLy9oUGduMlJaUUoxN0ZqZnZJUmFuRTFHWnNVYXhjWTZxNXdsOHpw?=
+ =?utf-8?B?OWVMSHJxUnlTcW9TdmxxRWVHc0VsZkozM01YWm1IVjZmdEJhWjlodERzNWo0?=
+ =?utf-8?B?WnBJbFgvNnZQUWRXK2pkeVo1NXY4dEJGbDhqblpTb3B1eVErWW0wZnZTWjhk?=
+ =?utf-8?B?U1RaVkZ5Uldhdmhoc0tWMzltMkozdUJBRlEwbXJpTmgrRWNKbGoySWZrRjlv?=
+ =?utf-8?B?Skg0dUZOa0ZUbVJUYkQzcitySUo1SHpMU0dwdENrV3pzT3NpaUswNkZ2VmVZ?=
+ =?utf-8?B?T1lRM2UrR1YwQlBBZmw1b2c5TFo0ZjFsN3pzRzhrNkhpVi9KbEdZYm9xOEVP?=
+ =?utf-8?B?S2dIWGpkam9CUXhvdkJNZ1UxSHVyUTZ6M0hrZ2twL3VuZEtsMUxNMFVqQStV?=
+ =?utf-8?B?bWV5MWlZSXZFYjl3UXZaWEQrSDQ0SU1qblAzSzhlU28zYmVVVW96YkFzRHky?=
+ =?utf-8?B?U2I3bEdsaW5xVlVoS3dTWkF1MEZGNWRZOHBCU1h4Wmg4QWhiSHRTL3ZJUWFD?=
+ =?utf-8?B?dzIxWmN1N2R6WG9HMkVhamJ2YnZUbHJoYVNJZHRrQ3hKQXFJVExWNUJkL0FU?=
+ =?utf-8?B?TjRSRTI5NG9WbXNtZnQxcEsxRHY4MTY3TktRZDVmQ2U5bWlYTXZYOXJieVZt?=
+ =?utf-8?B?aW5mMlZsTEdORjl0aWdsMElqV25uL3lDTU13YVhoNkgwbXAzVjUrZGpqdEor?=
+ =?utf-8?B?ZmY0WkNyQ285cFhTazh3cnJiU1VxVFNMWjVSZ2RQTzIvQUlXQVR1Zk9XU2NX?=
+ =?utf-8?B?MzAzb3JpUEdnKzlFb211MzB0aTR5dTk0YXEwOFMxZUt6Yys4M3kyenpwbWtU?=
+ =?utf-8?B?b2Yvams0YkJrTUwwQzZjaTVnZ3l5ZkdVMDBBV1RyT2tWRStsaHAxVnY2L1By?=
+ =?utf-8?B?RGdTdzRnNy9XZzBjL2tDSGE3aEl1R005YkFocmZGaFlIQWhSNWFJKzlGeFUz?=
+ =?utf-8?B?aW95MGZJeHhsZDhsOC9hbDI5OEFETFNXOU8vVlVLdlY2R0NKUTA0UGd4SWd5?=
+ =?utf-8?B?K0pkRFZrWllyWXRYbTlscVpJREVFTUd4RDlGUHl4YXZvSTBaQ04xNGd5TmpI?=
+ =?utf-8?B?TEYwSzZMVFNIQWd4OUg3d3BkaW1WUUNhVm12SkRJTzlKaXZHNUJ0ZU5DZmlr?=
+ =?utf-8?B?LzNKM3lKMG9uOGR0cmRHanU3RDQ0TG1mR2ZINldFOEM3TVdiSUNZdWNCODE5?=
+ =?utf-8?B?Nm1hV1NtcWtoU0Fqc2xKUUhhM2doUlJ4K0xlV1Z5NVVreHhDN0I4Q0dGeHp3?=
+ =?utf-8?B?aitzaXlGazMwRUVVVzRRRVdtOXBDdlJFR0JuUTRwdmNSeVBBZURIaGF1UTNW?=
+ =?utf-8?B?VDE5TC9yR3l0ZWs4ckJ2N1dESFV1bDFVSzZQalNDOHQrMTRsVWpaUFdib3hD?=
+ =?utf-8?B?RERDQTVnWkh4bzhxV1lGK3VyTFVMd2VSVGVUeFFZeU4yL0RMa1h5Uis2Rlla?=
+ =?utf-8?B?c2dXWW5HdEhxR01Kc0tYVGVCa1JMcERkWGlLdGZMTVFpMVlqNXlqSFp1OWpZ?=
+ =?utf-8?B?MU9NZW9VbG5CN0VyakFZTHBXVE5aZ0tZck1RNUVsWWQvSTJGcHhENVVBZ3VM?=
+ =?utf-8?B?dXcvb0hFQ2ZRcnZHcWNQR1k0NTM1ZWV0ZUVzdDRVL2pjb20wZWJaWnJTWkoy?=
+ =?utf-8?B?N0xMYmNOV2h1bU51ME5Hc3RBandtUlY3eTZkakMvZXpFc25uR2t0TW5vTGVJ?=
+ =?utf-8?B?a3BPbnlJVzd6Y1Nxd3lMWGdzV05DNG5hdCt6ZlRsbHJHQlg3cXpIS291Nm5v?=
+ =?utf-8?B?WGFNc3JKVy9GN0hOSEJtR20vaHc0TzNaS0hWZHc0M2dvRStlbGJHSEpNTTV5?=
+ =?utf-8?B?UTBYbTdZd3lDS1kvNFBCb1BsL1RjWWVEZmZ3Qno3UlhoZWlvMUY2VmdSYnNy?=
+ =?utf-8?Q?svWHz6to0/saQ?=
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(36860700004)(1800799015)(376005)(82310400017);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(36860700004)(1800799015)(376005)(82310400017);DIR:OUT;SFP:1101;
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 May 2024 19:41:24.0216
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 May 2024 21:05:46.9564
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: b3409caa-32cd-4db4-db97-08dc7904d505
+X-MS-Exchange-CrossTenant-Network-Message-Id: 16d09114-d41d-49ca-186b-08dc79109ed5
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	BN2PEPF00004FBF.namprd04.prod.outlook.com
+	CO1PEPF000066E9.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB6800
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV3PR12MB9258
 
-On 2024-05-16 06:03, Henry Wang wrote:
-> With the XEN_DOMCTL_dt_overlay DOMCTL added, users should be able to
-> attach/detach devices from the provided DT overlay to domains.
-> Support this by introducing a new set of "xl dt-overlay" commands and
-> related documentation, i.e. "xl dt-overlay {attach,detach}". Slightly
-> rework the command option parsing logic.
+Hi Zithro,
+
+On 2024-04-24 10:03, Jason Andryuk wrote:
+> On 2024-02-29 02:00, zithro / Cyril Rébert wrote:
+>> The xl command doesn't provide suspend/resume, so add them :
+>>    xl suspend-to-ram <Domain>
+>>    xl resume <Domain>
+>>
+>> This patch follows a discussion on XenDevel: when you want the
+>> virtualized equivalent of "sleep"-ing a host, it's better to
+>> suspend/resume than to pause/unpause a domain.
+>>
+>> Suggested-by: Andrew Cooper <andrew.cooper3@citrix.com>
+>> Suggested-by: Marek Marczykowski-Górecki 
+>> <marmarek@invisiblethingslab.com>
 > 
-> Since the addition of these two commands modifies the existing libxl
-> API libxl_dt_overlay(), also provide the backward compatible for it.
+> You should include you S-o-B here to certify your patch under the 
+> Developer's Certificate of Origin.  You can read what that means in 
+> CONTRIBUTING.  tl;dr: You are stating you can make the open source 
+> contribution.
+
+I'd like to re-submit this while retaining your authorship.  Are you 
+able to provide your S-o-B?
+
+I'll do all the follow ups, but I need your S-o-B for me to make the 
+submission.
+
+> I tested this with a PVH and HVM guest.  suspend-to-ram and resume seem 
+> to function properly.  The VCPUs stop, but the domain & qemu remain. 
+> Resume works - the VCPUs start running again.
 > 
-> Signed-off-by: Henry Wang <xin.wang2@amd.com>
-> ---
-> v2:
-> - New patch.
+> However, the domain destruction seems to hang on poweroff.  The VM 
+> transitions to powered off - state shutdown - but the domain and QEMU 
+> instance are not cleaned up.
+> 
+> If I power off without a suspend-to-ram, everything is cleaned up properly.
+> 
+> Have you seen this?  It's not your code, but I guess something with 
+> libxl or qemu.
 
-Mostly looks good.  One small thing below.
+I've found the issue.  xl exits when the domain suspends.  When the 
+domain finally shuts down, xl isn't there to perform the remaining cleanup.
 
-> diff --git a/tools/xl/xl_vmcontrol.c b/tools/xl/xl_vmcontrol.c
-> index 02575d5d36..53d1fa3655 100644
-> --- a/tools/xl/xl_vmcontrol.c
-> +++ b/tools/xl/xl_vmcontrol.c
-> @@ -1268,32 +1268,43 @@ int main_create(int argc, char **argv)
->   #ifdef LIBXL_HAVE_DT_OVERLAY
->   int main_dt_overlay(int argc, char **argv)
->   {
-> -    const char *overlay_ops = NULL;
->       const char *overlay_config_file = NULL;
->       void *overlay_dtb = NULL;
->       int rc;
->       uint8_t op;
->       int overlay_dtb_size = 0;
-> -    const int overlay_add_op = 1;
-> -    const int overlay_remove_op = 2;
-> +    uint32_t domain_id = 0;
->   
->       if (argc < 2) {
->           help("dt-overlay");
->           return EXIT_FAILURE;
->       }
->   
-> -    overlay_ops = argv[1];
-> -    overlay_config_file = argv[2];
-> -
-> -    if (strcmp(overlay_ops, "add") == 0)
-> -        op = overlay_add_op;
-> -    else if (strcmp(overlay_ops, "remove") == 0)
-> -        op = overlay_remove_op;
-> +    if (strcmp(argv[optind], "add") == 0)
-> +        op = LIBXL_DT_OVERLAY_ADD;
-> +    else if (strcmp(argv[optind], "remove") == 0)
-> +        op = LIBXL_DT_OVERLAY_REMOVE;
-> +    else if (strcmp(argv[optind], "attach") == 0)
-> +        op = LIBXL_DT_OVERLAY_ATTACH;
-> +    else if (strcmp(argv[optind], "detach") == 0)
-> +        op = LIBXL_DT_OVERLAY_DETACH;
->       else {
->           fprintf(stderr, "Invalid dt overlay operation\n");
->           return EXIT_FAILURE;
->       }
->   
-> +    overlay_config_file = argv[optind+1];
-> +
-> +    if (op == LIBXL_DT_OVERLAY_ATTACH || op == LIBXL_DT_OVERLAY_DETACH) {
-> +        if (argc <= optind + 2) {
-> +            fprintf(stderr, "Missing domain ID\n");
-> +            help("dt-overlay");
-> +            return EXIT_FAILURE;
-> +        } else {
-> +            domain_id = strtol(argv[optind+2], NULL, 10);
+>> ---
+>> - Tested on v4.17, x86
+>> - the function "libxl_domain_resume" is called like libvirt does, so
+>>    using a "co-operative resume", but I don't know what it means (:
+>> - there may be a problem with the words resume <-> restore, like
+>>    for "LIBXL_HAVE_NO_SUSPEND_RESUME"
+>> - for the docs, I only slightly adapted a copy/paste from xl pause ...
+>> ---
+> 
+>> diff --git a/tools/xl/xl_vmcontrol.c b/tools/xl/xl_vmcontrol.c
+>> index 98f6bd2e76..ba45f89c5a 100644
+>> --- a/tools/xl/xl_vmcontrol.c
+>> +++ b/tools/xl/xl_vmcontrol.c
+>> @@ -42,6 +42,16 @@ static void unpause_domain(uint32_t domid)
+>>       libxl_domain_unpause(ctx, domid, NULL);
+>>   }
+>> +static void suspend_domain_toram(uint32_t domid)
+>> +{
+>> +    libxl_domain_suspend_only(ctx, domid, NULL);
+>> +}
+>> +
+>> +static void resume_domain(uint32_t domid)
+>> +{
+>> +    libxl_domain_resume(ctx, domid, 1, NULL);
+>> +}
+>> +
+> 
+> I would just inline these functions below.
 
-domain_id = find_domain(argv[optind+2]);
+I see you were following the existing style, so this may remain as you 
+wrote it.
 
-And you'll get name resolution, too.
+>>   static void destroy_domain(uint32_t domid, int force)
+>>   {
+>>       int rc;
+>> @@ -82,6 +92,32 @@ int main_unpause(int argc, char **argv)
+>>       return EXIT_SUCCESS;
+>>   }
+>> +int main_suspendtoram(int argc, char **argv)
+> 
+> Maybe main_suspend_to_ram to be closer to the command line suspend-to-ram.
+
+I'm thinking we may want to just use "suspend" for the command name and 
+all the functions.
 
 Thanks,
 Jason
