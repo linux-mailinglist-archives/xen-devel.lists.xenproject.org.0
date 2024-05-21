@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D94DA8CAD2A
-	for <lists+xen-devel@lfdr.de>; Tue, 21 May 2024 13:11:06 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.726834.1131209 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EB80C8CAD33
+	for <lists+xen-devel@lfdr.de>; Tue, 21 May 2024 13:19:25 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.726841.1131219 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s9NOH-00027k-Dg; Tue, 21 May 2024 11:10:45 +0000
+	id 1s9NW5-0002kp-6B; Tue, 21 May 2024 11:18:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 726834.1131209; Tue, 21 May 2024 11:10:45 +0000
+Received: by outflank-mailman (output) from mailman id 726841.1131219; Tue, 21 May 2024 11:18:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s9NOH-00025L-At; Tue, 21 May 2024 11:10:45 +0000
-Received: by outflank-mailman (input) for mailman id 726834;
- Tue, 21 May 2024 11:10:44 +0000
+	id 1s9NW5-0002iP-3M; Tue, 21 May 2024 11:18:49 +0000
+Received: by outflank-mailman (input) for mailman id 726841;
+ Tue, 21 May 2024 11:18:47 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=TLq1=MY=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1s9NOG-00025F-3O
- for xen-devel@lists.xenproject.org; Tue, 21 May 2024 11:10:44 +0000
-Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
- [2a00:1450:4864:20::536])
+ id 1s9NW3-0002hu-Io
+ for xen-devel@lists.xenproject.org; Tue, 21 May 2024 11:18:47 +0000
+Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
+ [2a00:1450:4864:20::62d])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c2d94469-1762-11ef-b4bb-af5377834399;
- Tue, 21 May 2024 13:10:41 +0200 (CEST)
-Received: by mail-ed1-x536.google.com with SMTP id
- 4fb4d7f45d1cf-572a93890d1so9472623a12.3
- for <xen-devel@lists.xenproject.org>; Tue, 21 May 2024 04:10:41 -0700 (PDT)
+ id e369d7eb-1763-11ef-b4bb-af5377834399;
+ Tue, 21 May 2024 13:18:45 +0200 (CEST)
+Received: by mail-ej1-x62d.google.com with SMTP id
+ a640c23a62f3a-a5a5c930cf6so846174466b.0
+ for <xen-devel@lists.xenproject.org>; Tue, 21 May 2024 04:18:45 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a5a179c7d14sm1599411566b.130.2024.05.21.04.10.40
+ a640c23a62f3a-a5cde6f8c89sm744409266b.70.2024.05.21.04.18.44
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 21 May 2024 04:10:40 -0700 (PDT)
+ Tue, 21 May 2024 04:18:45 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,56 +45,55 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c2d94469-1762-11ef-b4bb-af5377834399
+X-Inumbo-ID: e369d7eb-1763-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1716289841; x=1716894641; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1716290325; x=1716895125; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=RowLZQ7QNS+dIfDO2vpYQHhf0HXk41FQllbMwLSDpVs=;
-        b=DevbnG0B4yqq1PjIf+w4Y0qWBzHwrqu97jwExxsNyfb/4GrKZiG/hqVTavkj/qyEy+
-         FuXbh7Dv0sQ7F3ogV3r7Hm8Oy+3NtmfncWPN0qzKEu2HmpSpLvSqLTUio0nZrsKIsmJv
-         lPcQvPmupeGFBOkL6l7iz8IwnKYTTjX8kt0CONH+3ayNX2gpuUfj2ZXPeYqiOl4ENo2K
-         hSQu0v1mdCo/Pzvv9dg+zoOqfXsW3OKiHHut8b4LsQIgg9mvK95n9D+8vXAOBp2ZvPr4
-         I/0s/waj9spcC6/b3bTMhk6uv24HdchWQQUxU0WxONUXbtBJZ+X6ymncc4N3rXctxJ8H
-         UEow==
+        bh=rxPl5N/kM0RaLefHbtKfZV/XFQxzSJfrE1XvgFFM9S0=;
+        b=C3eXzaGinmzAXenJdsj9CZsZPoqxDOb03F5pRGlee07jiOeshMUC9AqwLeSGRX0d12
+         T6vy+BFp56essRl6td+94CZIjZCl2SWzeKlstqA2W2wIUCppDBaRQkjzjREOjvT3cAGO
+         uSwKEiEEE7uRfmJck1oh8M2fBmRPoOX5r0i8I/FZh0jPBxUGuQ2nfGF/OpGi7EobtU1j
+         kIWzK4D8V32CoZkFWGWoZuHTUOG1Ap9Hv9PbxexxNZN0feMM88f5MEchOLTSKwnWbHwW
+         mTa7NnFQ4RUR3hbHyRMky+yMvw6Ok5IbCMRPpBG5HA+vOYHA+YHNa0C4Deg+9LAPZqoX
+         zQQA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1716289841; x=1716894641;
+        d=1e100.net; s=20230601; t=1716290325; x=1716895125;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=RowLZQ7QNS+dIfDO2vpYQHhf0HXk41FQllbMwLSDpVs=;
-        b=CEpr9l7dG+NoKVSnY5tkPocLHidGBMqwMrTE9O+yxD+xrmc/ZwBrfNqttXIcQAfnqb
-         X16pbLxqNvGyXTwtOx/b6/YMfWoZizCgPXifqjYwKwxXfQ/H1SCO3La/nSqjsk2O3RsH
-         4U64YJm87k0y9TPiCoFtfU3YPmE9DUcaXeFC0yareUzF5pzCx/cbbmYqUecfGVynSyJh
-         DjoBPo4Pq4Yj+uGaEBs0sYvGk+4CEd8T42iLwZ7ZwsTVD+1nlMary9zVATp12RiouaAC
-         i/T84Z2nFPxXjHpUdI/4Zel7FBphllr16DMXBUDTyMvE1uXYnUyBgaNLf3AUn2iBjr+T
-         fZlw==
-X-Forwarded-Encrypted: i=1; AJvYcCXEO8rkhwYdGJfhMSuZgUnM8HMIGUz+yZK6cA/512r4q5n3Af/P4lD5KiRAc8c2806B7qymwR2HmWY4jZNFhNzyqWIVSPjPJ2TDyQmN5LQ=
-X-Gm-Message-State: AOJu0YzMofsH5aaFXLwx/FWml08jXlSibhv6rj0YEpD1ar/zcBevxfEX
-	oXp3zEOXaSgJr/1e9puMi7wGo81Lw97i0rGZOfOrbkkMQfQlj4jKoqS4zd7ZfQ==
-X-Google-Smtp-Source: AGHT+IHHH7xGkHcklLxFeb2TpeBRJtaQOXTq50OzQ6JOZ2PMqfEbLDri4KYAJF7kMC81GrbX947Kzw==
-X-Received: by 2002:a17:906:ae50:b0:a59:c3a5:4df0 with SMTP id a640c23a62f3a-a5a2d53b0bbmr3215910366b.4.1716289841147;
-        Tue, 21 May 2024 04:10:41 -0700 (PDT)
-Message-ID: <54821721-0d29-487d-b346-9dda52f339dd@suse.com>
-Date: Tue, 21 May 2024 13:10:39 +0200
+        bh=rxPl5N/kM0RaLefHbtKfZV/XFQxzSJfrE1XvgFFM9S0=;
+        b=Tz7U9Cu8EePBE/e2T+YYw79NqlO6/FPOT7sCXVJSK8qyj/CXWmq2Ow4ajqgUhLUAHt
+         QJXixa3s9QPJaKtswna0RRIf2NW6BXxAxYneWS4PZkzS3oOiu6jKiFgIR+io3Ji+cJB8
+         jw2+r6SgDFqv4geX8o0ACzFERsIe5C8HwIZk+MaG++B9dbqFhzzmvP+fi+NtigyhscXf
+         9CQqmYD9O0sBoA4UMFj44gPfpT1WQXWKPHp+JyGSvrXhHmHs5GqUwSh4c9n0Y8JW7qwT
+         Qyd9MStGl53ExJQoEJLWMqy8849PMHMhdyBSrSKM2t46WYXeGVA16zI945leDerXmydq
+         hMSg==
+X-Forwarded-Encrypted: i=1; AJvYcCVg5F6bW/AnkmUKWH3ojlNE+lIyT1ppxf5VNYdxnyyeNyHzdnm1/7XLGpeHsOqeF/shyZokxaiOsV8yWjaqJlGj/S14vglURj2IXyVPEbM=
+X-Gm-Message-State: AOJu0Yw9/01VM1C0YWe6wtFpGVvbhXazyhPeayVuwGonJZWiFi6MRzmz
+	cv7qWNNQeaYg2eu7QJj1rosmC1CvK0UQCBgYp2EFHuyCVw0IAeVDzIX3bv7q8Q==
+X-Google-Smtp-Source: AGHT+IFKKKf5Optn3FbgOwxAjmyZL4ynzOyX221FSYXTHI93WThfv52xlvb2Q349rcz7CNrhjYWoaA==
+X-Received: by 2002:a17:907:8687:b0:a59:cb29:3fb3 with SMTP id a640c23a62f3a-a5a2d666ad7mr2526071866b.53.1716290325331;
+        Tue, 21 May 2024 04:18:45 -0700 (PDT)
+Message-ID: <d26a4033-8cd1-4a9c-8549-49a36b7d52fb@suse.com>
+Date: Tue, 21 May 2024 13:18:44 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v10 02/14] xen: introduce generic non-atomic test_*bit()
+Subject: Re: [PATCH v10 03/14] xen/bitops: implement fls{l}() in common logic
 Content-Language: en-US
 To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Ross Lagerwall <ross.lagerwall@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+ <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
  Michal Orzel <michal.orzel@amd.com>,
  Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
  Andrew Cooper <andrew.cooper3@citrix.com>,
  George Dunlap <george.dunlap@citrix.com>,
  Shawn Anastasio <sanastasio@raptorengineering.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  xen-devel@lists.xenproject.org
 References: <cover.1715952103.git.oleksii.kurochko@gmail.com>
- <219df9d840a183fc55de02aff011c0972a68587c.1715952103.git.oleksii.kurochko@gmail.com>
+ <43df611d1c7b7ac16b181fb819f5d886daa31bad.1715952103.git.oleksii.kurochko@gmail.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -119,133 +118,61 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <219df9d840a183fc55de02aff011c0972a68587c.1715952103.git.oleksii.kurochko@gmail.com>
+In-Reply-To: <43df611d1c7b7ac16b181fb819f5d886daa31bad.1715952103.git.oleksii.kurochko@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 17.05.2024 15:54, Oleksii Kurochko wrote:
-> The following generic functions were introduced:
-> * test_bit
-> * generic__test_and_set_bit
-> * generic__test_and_clear_bit
-> * generic__test_and_change_bit
+> To avoid the compilation error below, it is needed to update to places
+> in common/page_alloc.c where flsl() is used as now flsl() returns unsigned int:
 > 
-> These functions and macros can be useful for architectures
-> that don't have corresponding arch-specific instructions.
+> ./include/xen/kernel.h:18:21: error: comparison of distinct pointer types lacks a cast [-Werror]
+>        18 |         (void) (&_x == &_y);            \
+>           |                     ^~
+>     common/page_alloc.c:1843:34: note: in expansion of macro 'min'
+>      1843 |         unsigned int inc_order = min(MAX_ORDER, flsl(e - s) - 1);
 > 
-> Also, the patch introduces the following generics which are
-> used by the functions mentioned above:
-> * BITOP_BITS_PER_WORD
-> * BITOP_MASK
-> * BITOP_WORD
-> * BITOP_TYPE
+> generic_fls{l} was used instead of __builtin_clz{l}(x) as if x is 0,
+> the result in undefined.
 > 
-> The following approach was chosen for generic*() and arch*() bit
-> operation functions:
-> If the bit operation function that is going to be generic starts
-> with the prefix "__", then the corresponding generic/arch function
-> will also contain the "__" prefix. For example:
->  * test_bit() will be defined using arch_test_bit() and
->    generic_test_bit().
->  * __test_and_set_bit() will be defined using
->    arch__test_and_set_bit() and generic__test_and_set_bit().
+> The prototype of the per-architecture fls{l}() functions was changed to
+> return 'unsigned int' to align with the generic implementation of these
+> functions and avoid introducing signed/unsigned mismatches.
 > 
 > Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+> ---
+>  The patch is almost independent from Andrew's patch series
+>  ( https://lore.kernel.org/xen-devel/20240313172716.2325427-1-andrew.cooper3@citrix.com/T/#t)
+>  except test_fls() function which IMO can be merged as a separate patch after Andrew's patch
+>  will be fully ready.
 
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
-with one remaining nit (can be adjusted while committing, provided other
-necessary acks arrive):
+If there wasn't this dependency (I don't think it's "almost independent"),
+I'd be offering R-b with again one nit below.
 
-> --- a/xen/include/xen/bitops.h
-> +++ b/xen/include/xen/bitops.h
-> @@ -65,10 +65,141 @@ static inline int generic_flsl(unsigned long x)
->   * scope
+> --- a/xen/arch/x86/include/asm/bitops.h
+> +++ b/xen/arch/x86/include/asm/bitops.h
+> @@ -425,20 +425,21 @@ static always_inline unsigned int arch_ffsl(unsigned long x)
+>   *
+>   * This is defined the same way as ffs.
 >   */
+> -static inline int flsl(unsigned long x)
+> +static always_inline unsigned int arch_flsl(unsigned long x)
+>  {
+> -    long r;
+> +    unsigned long r;
 >  
-> +#define BITOP_BITS_PER_WORD 32
-> +typedef uint32_t bitop_uint_t;
-> +
-> +#define BITOP_MASK(nr)  ((bitop_uint_t)1 << ((nr) % BITOP_BITS_PER_WORD))
-> +
-> +#define BITOP_WORD(nr)  ((nr) / BITOP_BITS_PER_WORD)
-> +
-> +extern void __bitop_bad_size(void);
-> +
-> +#define bitop_bad_size(addr) (sizeof(*(addr)) < sizeof(bitop_uint_t))
-> +
->  /* --------------------- Please tidy above here --------------------- */
->  
->  #include <asm/bitops.h>
->  
-> +/**
-> + * generic__test_and_set_bit - Set a bit and return its old value
-> + * @nr: Bit to set
-> + * @addr: Address to count from
-> + *
-> + * This operation is non-atomic and can be reordered.
-> + * If two examples of this operation race, one can appear to succeed
-> + * but actually fail.  You must protect multiple accesses with a lock.
-> + */
-> +static always_inline bool
-> +generic__test_and_set_bit(int nr, volatile void *addr)
-> +{
-> +    bitop_uint_t mask = BITOP_MASK(nr);
-> +    volatile bitop_uint_t *p = (volatile bitop_uint_t *)addr + BITOP_WORD(nr);
-> +    bitop_uint_t old = *p;
-> +
-> +    *p = old | mask;
-> +    return (old & mask);
-> +}
-> +
-> +/**
-> + * generic__test_and_clear_bit - Clear a bit and return its old value
-> + * @nr: Bit to clear
-> + * @addr: Address to count from
-> + *
-> + * This operation is non-atomic and can be reordered.
-> + * If two examples of this operation race, one can appear to succeed
-> + * but actually fail.  You must protect multiple accesses with a lock.
-> + */
-> +static always_inline bool
-> +generic__test_and_clear_bit(int nr, volatile void *addr)
-> +{
-> +    bitop_uint_t mask = BITOP_MASK(nr);
-> +    volatile bitop_uint_t *p = (volatile bitop_uint_t *)addr + BITOP_WORD(nr);
-> +    bitop_uint_t old = *p;
-> +
-> +    *p = old & ~mask;
-> +    return (old & mask);
-> +}
-> +
-> +/* WARNING: non atomic and it can be reordered! */
-> +static always_inline bool
-> +generic__test_and_change_bit(int nr, volatile void *addr)
-> +{
-> +    bitop_uint_t mask = BITOP_MASK(nr);
-> +    volatile bitop_uint_t *p = (volatile bitop_uint_t *)addr + BITOP_WORD(nr);
-> +    bitop_uint_t old = *p;
-> +
-> +    *p = old ^ mask;
-> +    return (old & mask);
-> +}
-> +/**
-> + * generic_test_bit - Determine whether a bit is set
-> + * @nr: bit number to test
-> + * @addr: Address to start counting from
-> + */
-> +static always_inline bool generic_test_bit(int nr, const volatile void *addr)
-> +{
-> +    bitop_uint_t mask = BITOP_MASK(nr);
-> +    const volatile bitop_uint_t *p =
-> +                        (const volatile bitop_uint_t *)addr + BITOP_WORD(nr);
+>      asm ( "bsr %1,%0\n\t"
+>            "jnz 1f\n\t"
+>            "mov $-1,%0\n"
+>            "1:" : "=r" (r) : "rm" (x));
+> -    return (int)r+1;
+> +    return (unsigned int)r+1;
 
-Indentation is odd here. Seeing that the line needs wrapping here, it would
-imo want to be
+Since you now touch this, you'd better tidy it at the same time:
 
-    const volatile bitop_uint_t *p =
-        (const volatile bitop_uint_t *)addr + BITOP_WORD(nr);
+    return r + 1;
 
-(i.e. one indentation level further from what the start of the decl has).
+(i.e. style and no need for a cast).
 
 Jan
 
