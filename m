@@ -2,37 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EFA898CA671
-	for <lists+xen-devel@lfdr.de>; Tue, 21 May 2024 04:58:23 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.726459.1130752 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5F00B8CA725
+	for <lists+xen-devel@lfdr.de>; Tue, 21 May 2024 05:50:28 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.726482.1130761 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s9FhR-00010T-F0; Tue, 21 May 2024 02:58:01 +0000
+	id 1s9GV0-0008WP-4u; Tue, 21 May 2024 03:49:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 726459.1130752; Tue, 21 May 2024 02:58:01 +0000
+Received: by outflank-mailman (output) from mailman id 726482.1130761; Tue, 21 May 2024 03:49:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s9FhR-0000xh-Bo; Tue, 21 May 2024 02:58:01 +0000
-Received: by outflank-mailman (input) for mailman id 726459;
- Tue, 21 May 2024 02:58:00 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=TC+7=MY=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
- id 1s9FhQ-0000wX-FO
- for xen-devel@lists.xenproject.org; Tue, 21 May 2024 02:58:00 +0000
-Received: from wfhigh1-smtp.messagingengine.com
- (wfhigh1-smtp.messagingengine.com [64.147.123.152])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id eb5950c2-171d-11ef-b4bb-af5377834399;
- Tue, 21 May 2024 04:57:57 +0200 (CEST)
-Received: from compute2.internal (compute2.nyi.internal [10.202.2.46])
- by mailfhigh.west.internal (Postfix) with ESMTP id 59201180013A;
- Mon, 20 May 2024 22:57:53 -0400 (EDT)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute2.internal (MEProxy); Mon, 20 May 2024 22:57:53 -0400
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 20 May 2024 22:57:51 -0400 (EDT)
+	id 1s9GV0-0008Un-29; Tue, 21 May 2024 03:49:14 +0000
+Received: by outflank-mailman (input) for mailman id 726482;
+ Tue, 21 May 2024 03:49:12 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1s9GUy-0008Ud-BY; Tue, 21 May 2024 03:49:12 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1s9GUy-0001JT-62; Tue, 21 May 2024 03:49:12 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1s9GUx-0003fF-SO; Tue, 21 May 2024 03:49:11 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1s9GUx-00028n-Rx; Tue, 21 May 2024 03:49:11 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,132 +42,221 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: eb5950c2-171d-11ef-b4bb-af5377834399
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:from:from:in-reply-to
-	:in-reply-to:message-id:mime-version:references:reply-to:subject
-	:subject:to:to; s=fm3; t=1716260272; x=1716346672; bh=bXn4ATxgHs
-	YUiQuSECyUBykp11qbPlmHmV2/8rOqouw=; b=eiy9AMiPteWokdkWidguJh47nh
-	0B4klAge7QqkMwZGtvWYI2mxcZBCq85onYXASK+KITbnWw0XM/Oae/pUxPJ9oL74
-	XpgnSzPuImdVvyjb7O7nc9zUvS6fUhxxv8EX5ejidnDloNEKfQYTL9B0uPBSfvNh
-	t25hyAoQFt4upZIojddfR0Cdn5RNVKf5MzsZmy4xgusmdw94yzUp1htEfAkfAWpa
-	/ehIgpQe+VHzmNb5V4gxWR+9QL2crQ3zJH+yZt0Naf0rTKJpyT7l5j091HLtnYXp
-	7bqbA013DADGtqvwAFzbxIIpqXj07m3PJFnOXfTZ0E3PaICWFCEqow1Rd/zQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1716260272; x=
-	1716346672; bh=bXn4ATxgHsYUiQuSECyUBykp11qbPlmHmV2/8rOqouw=; b=g
-	6H2KkhfhzGK6xTenSbqWlqkf9jH8hG5TpaiQNVk9kZcSd9Re5IKYn3qY+hmcaA0n
-	H46HiVSRRJVGCXhtH+Bi8UlDE+1gpWOX6sa2YLusjI8Q+ztn+m5lSRXslMFl8i0K
-	MusamoSWPq4j+29ssWt2OpIEUwYRxO4lfYbDFlPk0OajEgfbUh20/d2cB3DY6+A3
-	jymsn305ayHnIGZoXJK3VxPAXu878Z5+mSHfTzlv0Yu8xhkkVR5y4siQX299JgQR
-	bxGDHMdg3WqzEC1TkKrfx2kMP3QePM4qgtSG4/OgVqB1PhSG+ZszYWytGmodk/xQ
-	CdlIRex5M8lPIQUcxmNWw==
-X-ME-Sender: <xms:sA1MZsyP7820szCgCD2Ip9Lr9VzDBUtO4KkS9ApTjNiZDZR3Zld6dg>
-    <xme:sA1MZgSeN6pmyIzRRnF7XzRgdIL5iFONFwR8lhfsix-P45pLpTfkbcj4imxNTl68K
-    EhH4AYJ9o44PQ>
-X-ME-Received: <xmr:sA1MZuU3towJlYiXPD_El92gzLgxOtPZWgtui52gnb7AojphsD2CvAHGwh4qShsef5-a3xb_g1EToWqMZyZSja3PzKLbHzXjV7CPXOIkL0bNPvzZx4I>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvledrvdeiuddgieegucetufdoteggodetrfdotf
-    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
-    uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
-    cujfgurhephffvvefufffkofgjfhggtgfgsehtkeertdertdejnecuhfhrohhmpeforghr
-    vghkucforghrtgiihihkohifshhkihdqifpkrhgvtghkihcuoehmrghrmhgrrhgvkhesih
-    hnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpefg
-    ueduhefgvdefheehudejheefudevueeghfekhfehleegveduteeuiedugffgffenucevlh
-    hushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehmrghrmhgrrhgv
-    khesihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhm
-X-ME-Proxy: <xmx:sA1MZqj2zAFcEbj2rne_xzsQ-2TQ_2tMOnPNbhIZPH7Ko6knj8V4SQ>
-    <xmx:sA1MZuC5AzlXGZ_q0mdSnWA9KFW8kNbMADp27sSwoc1Kcb8zLcoSxA>
-    <xmx:sA1MZrIA_LqDle6tWZN9EtyeuyIpD_Ii_X_Qw4vutsSeZ82notGxZw>
-    <xmx:sA1MZlDJoXiyjG3EL-pQ6llBlaMUcfm0oPVLsbvgEXq5ZIiwXnHfYA>
-    <xmx:sA1MZg2A0Hxks6a9kL6j2QP0QycvvJeth59q8xwhBpW1wwXyrZkENThg>
-Feedback-ID: i1568416f:Fastmail
-From: =?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=UW9T21fOHhSL4xmDBcuSEio2u4DulyZTDdbaTl6QsQw=; b=IZIqeNugImrs6WqbhzXNxzEbBf
+	W/Y1ENrw90vdRskogvofwwVwtfFoGgpu1FAY4ZlAdjxLSNFu2O3MeHiHpK4XkVSnYwLrZAlhaA8be
+	snw14KfbguMv8j/9mK4GZtS9RS8NrTxwvnv9iqTIekN7p1S3K061Tj+YnOqGt30sWE54=;
 To: xen-devel@lists.xenproject.org
-Cc: =?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH v3 2/2] drivers/char: Use sub-page ro API to make just xhci dbc cap RO
-Date: Tue, 21 May 2024 04:54:33 +0200
-Message-ID: <7682bbf3a24045ae1fcbdf651a6dd8e609ec3a20.1716260066.git-series.marmarek@invisiblethingslab.com>
-X-Mailer: git-send-email 2.44.0
-In-Reply-To: <cover.1b2f25e20efaa1fe1e6a2da565731becd27e7ead.1716260066.git-series.marmarek@invisiblethingslab.com>
-References: <cover.1b2f25e20efaa1fe1e6a2da565731becd27e7ead.1716260066.git-series.marmarek@invisiblethingslab.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Message-ID: <osstest-186050-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [xen-unstable-smoke test] 186050: regressions - FAIL
+X-Osstest-Failures:
+    xen-unstable-smoke:test-armhf-armhf-xl:xen-boot:fail:regression
+    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=9c5444b01ad51369bc09197a442a93d87b4b76f2
+X-Osstest-Versions-That:
+    xen=26b122e3bf8f3921d87312fbf5e7e13872ae92b0
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Tue, 21 May 2024 03:49:11 +0000
 
-Not the whole page, which may contain other registers too. The XHCI
-specification describes DbC as designed to be controlled by a different
-driver, but does not mandate placing registers on a separate page. In fact
-on Tiger Lake and newer (at least), this page do contain other registers
-that Linux tries to use. And with share=yes, a domU would use them too.
-Without this patch, PV dom0 would fail to initialize the controller,
-while HVM would be killed on EPT violation.
+flight 186050 xen-unstable-smoke real [real]
+flight 186053 xen-unstable-smoke real-retest [real]
+http://logs.test-lab.xenproject.org/osstest/logs/186050/
+http://logs.test-lab.xenproject.org/osstest/logs/186053/
 
-With `share=yes`, this patch gives domU more access to the emulator
-(although a HVM with any emulated device already has plenty of it). This
-configuration is already documented as unsafe with untrusted guests and
-not security supported.
+Regressions :-(
 
-Signed-off-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
----
-Changes in v3:
-- indentation fix
-- remove stale comment
-- fallback to pci_ro_device() if subpage_mmio_ro_add() fails
-- extend commit message
-Changes in v2:
- - adjust for simplified subpage_mmio_ro_add() API
----
- xen/drivers/char/xhci-dbc.c | 27 +++++++++++++--------------
- 1 file changed, 13 insertions(+), 14 deletions(-)
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ test-armhf-armhf-xl           8 xen-boot                 fail REGR. vs. 186048
 
-diff --git a/xen/drivers/char/xhci-dbc.c b/xen/drivers/char/xhci-dbc.c
-index 8e2037f1a5f7..cac9d90d3e39 100644
---- a/xen/drivers/char/xhci-dbc.c
-+++ b/xen/drivers/char/xhci-dbc.c
-@@ -1216,20 +1216,19 @@ static void __init cf_check dbc_uart_init_postirq(struct serial_port *port)
-         break;
-     }
- #ifdef CONFIG_X86
--    /*
--     * This marks the whole page as R/O, which may include other registers
--     * unrelated to DbC. Xen needs only DbC area protected, but it seems
--     * Linux's XHCI driver (as of 5.18) works without writting to the whole
--     * page, so keep it simple.
--     */
--    if ( rangeset_add_range(mmio_ro_ranges,
--                PFN_DOWN((uart->dbc.bar_val & PCI_BASE_ADDRESS_MEM_MASK) +
--                         uart->dbc.xhc_dbc_offset),
--                PFN_UP((uart->dbc.bar_val & PCI_BASE_ADDRESS_MEM_MASK) +
--                       uart->dbc.xhc_dbc_offset +
--                sizeof(*uart->dbc.dbc_reg)) - 1) )
--        printk(XENLOG_INFO
--               "Error while adding MMIO range of device to mmio_ro_ranges\n");
-+    if ( subpage_mmio_ro_add(
-+             (uart->dbc.bar_val & PCI_BASE_ADDRESS_MEM_MASK) +
-+              uart->dbc.xhc_dbc_offset,
-+             sizeof(*uart->dbc.dbc_reg)) )
-+    {
-+        printk(XENLOG_WARNING
-+               "Error while marking MMIO range of XHCI console as R/O, "
-+               "making the whole device R/O (share=no)\n");
-+        if ( pci_ro_device(0, uart->dbc.sbdf.bus, uart->dbc.sbdf.devfn) )
-+            printk(XENLOG_WARNING
-+                   "Failed to mark read-only %pp used for XHCI console\n",
-+                   &uart->dbc.sbdf);
-+    }
- #endif
- }
- 
--- 
-git-series 0.9.1
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+
+version targeted for testing:
+ xen                  9c5444b01ad51369bc09197a442a93d87b4b76f2
+baseline version:
+ xen                  26b122e3bf8f3921d87312fbf5e7e13872ae92b0
+
+Last test of basis   186048  2024-05-20 18:02:09 Z    0 days
+Testing same since   186050  2024-05-20 22:02:07 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrew Cooper <andrew.cooper3@citrix.com>
+  Jan Beulich <jbeulich@suse.com>
+
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          fail    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+------------------------------------------------------------
+commit 9c5444b01ad51369bc09197a442a93d87b4b76f2
+Author: Andrew Cooper <andrew.cooper3@citrix.com>
+Date:   Mon Sep 20 13:40:21 2021 +0100
+
+    xen/trace: Drop old trace API
+    
+    With all users updated to the new API, drop the old API.  This includes all of
+    asm/hvm/trace.h, which allows us to drop some includes.
+    
+    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+    Acked-by: Jan Beulich <jbeulich@suse.com>
+    Reviewed-by: George Dunlap <george.dunlap@cloud.com>
+
+commit aa60520cd37f0f81cec543af37b89c342e915dbd
+Author: Andrew Cooper <andrew.cooper3@citrix.com>
+Date:   Tue Sep 21 19:55:47 2021 +0100
+
+    xen/trace: Removal final {__,}trace_var() users in favour of the new API
+    
+    The cycles parameter (which gets removed as a consequence) determines whether
+    trace() or trace_time() is used.
+    
+    No functional change.
+    
+    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+    Reviewed-by: Jan Beulich <jbeulich@suse.com>
+    Reviewed-by: George Dunlap <george.dunlap@cloud.com>
+
+commit 26da08059eef35e6ce1a308dbe276e8ef6a6c5b1
+Author: Andrew Cooper <andrew.cooper3@citrix.com>
+Date:   Sat Sep 18 00:31:27 2021 +0100
+
+    xen: Switch to new TRACE() API
+    
+    (Almost) no functional change.
+    
+     * In irq_move_cleanup_interrupt(), use the 'me' local variable rather than
+       calling smp_processor_id() again.  This manifests as a minor code
+       improvement.
+     * In vlapic_update_timer() and lapic_rearm(), introduce a new 'timer_period'
+       local variable to simplify the expressions used for both the trace and
+       create_periodic_time() calls.
+    
+    All other differences in the compiled binary are to do with line numbers
+    changing.
+    
+    Some conversion notes:
+     * HVMTRACE_LONG_[234]D() and TRACE_2_LONG_[234]D() were latently buggy.  They
+       blindly discard extra parameters, but luckily no users are impacted.  They
+       are also obfuscated wrappers, depending on exactly one or two parameters
+       being TRC_PAR_LONG() to compile successfully.
+     * HVMTRACE_LONG_1D() behaves unlike its named companions, and takes exactly
+       one 64bit parameter which it splits manually.  It's one user,
+       vmx_cr_access()'s LMSW path, is gets adjusted.
+     * TRACE_?D() and TRACE_2_LONG_*() change to TRACE_TIME() as cycles is always
+       enabled.
+     * HVMTRACE_ND() is opencoded for VMENTRY/VMEXIT records to include cycles.
+       These are converted to TRACE_TIME(), with the old modifier parameter
+       expressed as an OR at the callsite.  One callsite, svm_vmenter_helper() had
+       a nested tb_init_done check, which is dropped.  (The optimiser also spotted
+       this, which is why it doesn't manifest as a binary difference.)
+     * All uses of *LONG() are either opencoded or swapped to using a struct, to
+       avoid MISRA issues.
+     * All HVMTRACE_?D() change to TRACE() as cycles is explicitly skipped.
+    
+    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+    Reviewed-by: George Dunlap <george.dunlap@cloud.com>
+
+commit d64693df1ab98f5278cf32ab3e0c12295237c42b
+Author: Andrew Cooper <andrew.cooper3@citrix.com>
+Date:   Mon Sep 20 14:07:43 2021 +0100
+
+    xen/sched: Clean up trace handling
+    
+    There is no need for bitfields anywhere - use more sensible types.  There is
+    also no need to cast 'd' to (unsigned char *) before passing it to a function
+    taking void *.  Switch to new trace_time() API.
+    
+    No functional change.
+    
+    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+    Reviewed-by: Dario Faggioli <dfaggioli@suse.com>
+    Reviewed-by: George Dunlap <george.dunlap@cloud.com>
+
+commit df50666449a4ef0bc28f3118dc8adf1ecf5ba4a1
+Author: Andrew Cooper <andrew.cooper3@citrix.com>
+Date:   Fri Sep 17 16:28:19 2021 +0100
+
+    xen/rt: Clean up trace handling
+    
+    Most uses of bitfields and __packed are unnecessary.  There is also no need to
+    cast 'd' to (unsigned char *) before passing it to a function taking void *.
+    Switch to new trace_time() API.
+    
+    No functional change.
+    
+    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+    Reviewed-by: Dario Faggioli <dfaggioli@suse.com>
+    Reviewed-by: George Dunlap <george.dunlap@cloud.com>
+
+commit ab8bc198507de47429e0b06dfd4e31c0d9461a34
+Author: Andrew Cooper <andrew.cooper3@citrix.com>
+Date:   Wed Sep 15 17:01:43 2021 +0100
+
+    xen/credit2: Clean up trace handling
+    
+    There is no need for bitfields anywhere - use types with an explicit width
+    instead.  There is also no need to cast 'd' to (unsigned char *) before
+    passing it to a function taking void *.  Switch to new trace_time() API.
+    
+    No functional change.
+    
+    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+    Reviewed-by: Jan Beulich <jbeulich@suse.com>
+    Reviewed-by: Dario Faggioli <dfaggioli@suse.com>
+
+commit e978b462ec9a74ec90788fca0b9d37707e1f79c4
+Author: Andrew Cooper <andrew.cooper3@citrix.com>
+Date:   Mon Sep 20 13:36:12 2021 +0100
+
+    xen/trace: Introduce new API
+    
+    trace() and trace_time(), in function form for struct arguments, and macro
+    form for simple uint32_t list arguments.
+    
+    This will be used to clean up the mess of macros which exists throughout the
+    codebase, as well as eventually dropping __trace_var().
+    
+    There is intentionally no macro to split a 64-bit parameter in the new API,
+    for MISRA reasons.
+    
+    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+    Reviewed-by: George Dunlap <george.dunlap@cloud.com>
+(qemu changes not included)
 
