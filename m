@@ -2,35 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 652788CB048
-	for <lists+xen-devel@lfdr.de>; Tue, 21 May 2024 16:22:04 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.726967.1131356 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 967C18CB11C
+	for <lists+xen-devel@lfdr.de>; Tue, 21 May 2024 17:18:17 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.726977.1131366 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s9QMi-0008UD-C5; Tue, 21 May 2024 14:21:20 +0000
+	id 1s9REe-0006RE-AY; Tue, 21 May 2024 15:17:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 726967.1131356; Tue, 21 May 2024 14:21:20 +0000
+Received: by outflank-mailman (output) from mailman id 726977.1131366; Tue, 21 May 2024 15:17:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s9QMi-0008Sg-9Y; Tue, 21 May 2024 14:21:20 +0000
-Received: by outflank-mailman (input) for mailman id 726967;
- Tue, 21 May 2024 14:21:19 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1s9REe-0006PP-6i; Tue, 21 May 2024 15:17:04 +0000
+Received: by outflank-mailman (input) for mailman id 726977;
+ Tue, 21 May 2024 15:17:03 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1s9QMh-0008SW-5z; Tue, 21 May 2024 14:21:19 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1s9QMh-0005eB-2o; Tue, 21 May 2024 14:21:19 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1s9QMg-0005nR-Q3; Tue, 21 May 2024 14:21:18 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1s9QMg-0001l3-Pd; Tue, 21 May 2024 14:21:18 +0000
+ (envelope-from <SRS0=TLq1=MY=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1s9REd-0006OJ-6z
+ for xen-devel@lists.xenproject.org; Tue, 21 May 2024 15:17:03 +0000
+Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com
+ [2a00:1450:4864:20::636])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 2b6181d3-1785-11ef-909f-e314d9c70b13;
+ Tue, 21 May 2024 17:17:01 +0200 (CEST)
+Received: by mail-ej1-x636.google.com with SMTP id
+ a640c23a62f3a-a5dcb5a0db4so387913966b.2
+ for <xen-devel@lists.xenproject.org>; Tue, 21 May 2024 08:16:59 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a5a17b17cc5sm1616303866b.205.2024.05.21.08.16.58
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 21 May 2024 08:16:59 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,88 +45,297 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=aBQkd82Oa3w1xN+2ck0MGNPk0xaaimt53A4Rl2eGKzw=; b=Y8Y7mGYCVSO6SYmwXXpua9MAth
-	Am/+a+ixuPQ9KcIBq0++hskHMDXj+dWV3fkGwLS8DMvO0dH+OkAf/9m/lIDcUucbRvKdUGKzF8TqQ
-	+gaWCwiGj+ldOIgVhoEZKL576qn3p+eOvwuqkGvv7kY/U3l5sggk0MEZBkZe4VZIyS/4=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-186062-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 2b6181d3-1785-11ef-909f-e314d9c70b13
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1716304619; x=1716909419; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=aqDWoDoB9/P1jqXa+vy9bE5aV3gSEt16LrMoswx/xD0=;
+        b=D1h+O3pNkPh1aMCRDCgwO2dmzCiixb/zvnF3K4HRVSVYWQSQQ4nUeQutnQm4YWg8YO
+         AzybpYtFBJQu/ruvUdgOdcgxkJscmEutwJkiwjGEnol34XzBrzxUTOzNVOyGQdzhfYLH
+         DcDGo8zZeYVfeVoGzlC94etu1SfcvBwROFFaYpf93nl0CP3bheZlB/GXibOXkXUGV7Ip
+         w91Hp2gZtHxiUOlQhf2FISH0GVHjTqDzX6OhizPrh2LsJEIXEo4KPG7W4PKve5P2NZxQ
+         BkHyaGg7oZydcQ7aXNbqj2keDeRpl8lBqgpcwxsWo/R6GJEoDOZQYcQVuyEk76CjUUg8
+         vlkg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1716304619; x=1716909419;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=aqDWoDoB9/P1jqXa+vy9bE5aV3gSEt16LrMoswx/xD0=;
+        b=SZyDubLU9NIkbdGD6q0BnRADgwp+5iIaqbGf7aNq8kEVIYnnEgyVl0aSgEru3a2G/c
+         vu9eqLiod9CVlSU5ulRuqoOFklqmJuL9FefBsBRknHIHIWHtNHk9qA2cg02HcLC/wwFL
+         BnM5zIrPahZMKfwVz2sP2+18AjK4YstRW/4JKFDYwPs0Jbeyh7VBqatuLygg44RzCJMr
+         FiKNJ/Ek4Y/Bmriod1VurSjqzeIj1k/jLeq6kMZ3p8kQDhni4qQp7VEm8RRpcY+Nx91d
+         WcSRbtyGuyZiBWYSIm3mgpMxqOHDFNRgizo/DvvVEOeI6IHWXB749PGON9lWLaTBFkUN
+         6M8A==
+X-Forwarded-Encrypted: i=1; AJvYcCUJr/XVazAyQLB14Drn3H9R500hXBF9rCyCKcVqVVSz7iDHb4/1jrg7rc/oZuDWkUcENCks+C5ahT3uY+Z0U6oPrJjsnQKacetyKZea2ZU=
+X-Gm-Message-State: AOJu0YzgIoR+MKn2tFRuhCb/slescrxDi4lg7aYXVVimrGjiWyFCbchX
+	7OZxf8ktVB/8xZNBL8e5t3nF1F7Ela2VS74z5EgzbK5coKHpeARglrW2cAjJnRfD7jNNTFYpfNk
+	=
+X-Google-Smtp-Source: AGHT+IEwq48Jgw2CfTXIM1p6tKBcXU8w8YTVw9PxOxzR2rgCaB/xgaMzW6uokku+ziJf88PfZ7VWhw==
+X-Received: by 2002:a17:906:97c8:b0:a5a:a2b6:ba8b with SMTP id a640c23a62f3a-a5aa2b6bf6fmr1182722466b.0.1716304619365;
+        Tue, 21 May 2024 08:16:59 -0700 (PDT)
+Message-ID: <245e535a-5b23-4d3e-83e5-dc797068652c@suse.com>
+Date: Tue, 21 May 2024 17:16:58 +0200
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 186062: tolerable all pass - PUSHED
-X-Osstest-Failures:
-    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=24dbf5bd03ff11dbcebb4d15e34fbba8eb34936b
-X-Osstest-Versions-That:
-    xen=9c5444b01ad51369bc09197a442a93d87b4b76f2
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Tue, 21 May 2024 14:21:18 +0000
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 1/2] x86/mm: add API for marking only part of a MMIO
+ page read only
+Content-Language: en-US
+To: =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ xen-devel@lists.xenproject.org
+References: <cover.1b2f25e20efaa1fe1e6a2da565731becd27e7ead.1716260066.git-series.marmarek@invisiblethingslab.com>
+ <2596964a55f710a300143aa5ae195566bacb4e00.1716260066.git-series.marmarek@invisiblethingslab.com>
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <2596964a55f710a300143aa5ae195566bacb4e00.1716260066.git-series.marmarek@invisiblethingslab.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-flight 186062 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/186062/
+On 21.05.2024 04:54, Marek Marczykowski-Górecki wrote:
+> --- a/xen/arch/x86/include/asm/mm.h
+> +++ b/xen/arch/x86/include/asm/mm.h
+> @@ -522,9 +522,27 @@ extern struct rangeset *mmio_ro_ranges;
+>  void memguard_guard_stack(void *p);
+>  void memguard_unguard_stack(void *p);
+>  
+> +/*
+> + * Add more precise r/o marking for a MMIO page. Range specified here
+> + * will still be R/O, but the rest of the page (not marked as R/O via another
+> + * call) will have writes passed through.
+> + * The start address and the size must be aligned to SUBPAGE_MMIO_RO_ALIGN.
+> + *
+> + * This API cannot be used for overlapping ranges, nor for pages already added
+> + * to mmio_ro_ranges separately.
+> + *
+> + * Return values:
+> + *  - negative: error
+> + *  - 0: success
+> + */
+> +#define SUBPAGE_MMIO_RO_ALIGN 8
 
-Failures :-/ but no regressions.
+This isn't just alignment, but also (and perhaps more importantly) granularity.
+I think the name wants to express this.
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+> @@ -4910,6 +4921,260 @@ long arch_memory_op(unsigned long cmd, XEN_GUEST_HANDLE_PARAM(void) arg)
+>      return rc;
+>  }
+>  
+> +/*
+> + * Mark part of the page as R/O.
+> + * Returns:
+> + * - 0 on success - first range in the page
+> + * - 1 on success - subsequent range in the page
+> + * - <0 on error
+> + *
+> + * This needs subpage_ro_lock already taken */
 
-version targeted for testing:
- xen                  24dbf5bd03ff11dbcebb4d15e34fbba8eb34936b
-baseline version:
- xen                  9c5444b01ad51369bc09197a442a93d87b4b76f2
+Nit: Comment style (full stop and */ on its own line).
 
-Last test of basis   186056  2024-05-21 04:09:17 Z    0 days
-Testing same since   186062  2024-05-21 10:00:22 Z    0 days    1 attempts
+> +static int __init subpage_mmio_ro_add_page(
+> +    mfn_t mfn, unsigned int offset_s, unsigned int offset_e)
+> +{
+> +    struct subpage_ro_range *entry = NULL, *iter;
+> +    unsigned int i;
+> +
+> +    list_for_each_entry(iter, &subpage_ro_ranges, list)
+> +    {
+> +        if ( mfn_eq(iter->mfn, mfn) )
+> +        {
+> +            entry = iter;
+> +            break;
+> +        }
+> +    }
+> +    if ( !entry )
+> +    {
+> +        /* iter == NULL marks it was a newly allocated entry */
+> +        iter = NULL;
+> +        entry = xzalloc(struct subpage_ro_range);
+> +        if ( !entry )
+> +            return -ENOMEM;
+> +        entry->mfn = mfn;
+> +    }
+> +
+> +    for ( i = offset_s; i <= offset_e; i += SUBPAGE_MMIO_RO_ALIGN )
+> +    {
+> +        int oldbit = __test_and_set_bit(i / SUBPAGE_MMIO_RO_ALIGN,
+> +                                        entry->ro_qwords);
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Andrew Cooper <andrew.cooper3@citrix.com>
-  Oleksii Kurochko <oleksii.kurochko@gmail.com>
-  Petr Beneš <w1benny@gmail.com>
-  Roger Pau Monné <roger.pau@citrix.com>
-  Tamas K Lengyel <tamas@tklengyel.com>
+Why int, not bool?
 
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
+> +        ASSERT(!oldbit);
+> +    }
+> +
+> +    if ( !iter )
+> +        list_add(&entry->list, &subpage_ro_ranges);
+> +
+> +    return iter ? 1 : 0;
+> +}
+> +
+> +/* This needs subpage_ro_lock already taken */
+> +static void __init subpage_mmio_ro_remove_page(
+> +    mfn_t mfn,
+> +    int offset_s,
+> +    int offset_e)
 
+Can either of these be negative? The more that ...
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+> +{
+> +    struct subpage_ro_range *entry = NULL, *iter;
+> +    unsigned int i;
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+... this is used ...
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+> +    list_for_each_entry(iter, &subpage_ro_ranges, list)
+> +    {
+> +        if ( mfn_eq(iter->mfn, mfn) )
+> +        {
+> +            entry = iter;
+> +            break;
+> +        }
+> +    }
+> +    if ( !entry )
+> +        return;
+> +
+> +    for ( i = offset_s; i <= offset_e; i += SUBPAGE_MMIO_RO_ALIGN )
 
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+... with both of them?
 
+> +        __clear_bit(i / SUBPAGE_MMIO_RO_ALIGN, entry->ro_qwords);
+> +
+> +    if ( !bitmap_empty(entry->ro_qwords, PAGE_SIZE / SUBPAGE_MMIO_RO_ALIGN) )
+> +        return;
+> +
+> +    list_del(&entry->list);
+> +    if ( entry->mapped )
+> +        iounmap(entry->mapped);
+> +    xfree(entry);
+> +}
+> +
+> +int __init subpage_mmio_ro_add(
+> +    paddr_t start,
+> +    size_t size)
+> +{
+> +    mfn_t mfn_start = maddr_to_mfn(start);
+> +    paddr_t end = start + size - 1;
+> +    mfn_t mfn_end = maddr_to_mfn(end);
+> +    unsigned int offset_end = 0;
+> +    int rc;
+> +    bool subpage_start, subpage_end;
+> +
+> +    ASSERT(IS_ALIGNED(start, SUBPAGE_MMIO_RO_ALIGN));
+> +    ASSERT(IS_ALIGNED(size, SUBPAGE_MMIO_RO_ALIGN));
+> +    if ( !IS_ALIGNED(size, SUBPAGE_MMIO_RO_ALIGN) )
+> +        size = ROUNDUP(size, SUBPAGE_MMIO_RO_ALIGN);
+> +
+> +    if ( !size )
+> +        return 0;
+> +
+> +    if ( mfn_eq(mfn_start, mfn_end) )
+> +    {
+> +        /* Both starting and ending parts handled at once */
+> +        subpage_start = PAGE_OFFSET(start) || PAGE_OFFSET(end) != PAGE_SIZE - 1;
+> +        subpage_end = false;
+> +    }
+> +    else
+> +    {
+> +        subpage_start = PAGE_OFFSET(start);
+> +        subpage_end = PAGE_OFFSET(end) != PAGE_SIZE - 1;
+> +    }
+> +
+> +    spin_lock(&subpage_ro_lock);
+> +
+> +    if ( subpage_start )
+> +    {
+> +        offset_end = mfn_eq(mfn_start, mfn_end) ?
+> +                     PAGE_OFFSET(end) :
+> +                     (PAGE_SIZE - 1);
+> +        rc = subpage_mmio_ro_add_page(mfn_start,
+> +                                      PAGE_OFFSET(start),
+> +                                      offset_end);
+> +        if ( rc < 0 )
+> +            goto err_unlock;
+> +        /* Check if not marking R/W part of a page intended to be fully R/O */
+> +        ASSERT(rc || !rangeset_contains_singleton(mmio_ro_ranges,
+> +                                                  mfn_x(mfn_start)));
+> +    }
+> +
+> +    if ( subpage_end )
+> +    {
+> +        rc = subpage_mmio_ro_add_page(mfn_end, 0, PAGE_OFFSET(end));
+> +        if ( rc < 0 )
+> +            goto err_unlock_remove;
+> +        /* Check if not marking R/W part of a page intended to be fully R/O */
+> +        ASSERT(rc || !rangeset_contains_singleton(mmio_ro_ranges,
+> +                                                  mfn_x(mfn_end)));
+> +    }
+> +
+> +    spin_unlock(&subpage_ro_lock);
+> +
+> +    rc = rangeset_add_range(mmio_ro_ranges, mfn_x(mfn_start), mfn_x(mfn_end));
+> +    if ( rc )
+> +        goto err_remove;
+> +
+> +    return 0;
+> +
+> + err_remove:
+> +    spin_lock(&subpage_ro_lock);
+> +    if ( subpage_end )
+> +        subpage_mmio_ro_remove_page(mfn_end, 0, PAGE_OFFSET(end));
+> + err_unlock_remove:
+> +    if ( subpage_start )
+> +        subpage_mmio_ro_remove_page(mfn_start, PAGE_OFFSET(start), offset_end);
+> + err_unlock:
+> +    spin_unlock(&subpage_ro_lock);
+> +    return rc;
+> +}
+> +
+> +static void __iomem *subpage_mmio_get_page(struct subpage_ro_range *entry)
+> +{
+> +    void __iomem *mapped_page;
+> +
+> +    if ( entry->mapped )
+> +        return entry->mapped;
+> +
+> +    mapped_page = ioremap(mfn_x(entry->mfn) << PAGE_SHIFT, PAGE_SIZE);
 
-Pushing revision :
+mfn_to_maddr() or some such?
 
-To xenbits.xen.org:/home/xen/git/xen.git
-   9c5444b01a..24dbf5bd03  24dbf5bd03ff11dbcebb4d15e34fbba8eb34936b -> smoke
+> +    spin_lock(&subpage_ro_lock);
+> +    /* Re-check under the lock */
+> +    if ( entry->mapped )
+> +    {
+> +        spin_unlock(&subpage_ro_lock);
+> +        iounmap(mapped_page);
+
+What if ioremap() failed?
+
+Jan
 
