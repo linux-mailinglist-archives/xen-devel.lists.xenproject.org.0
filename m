@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 296008CA7FA
-	for <lists+xen-devel@lfdr.de>; Tue, 21 May 2024 08:21:51 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.726592.1130923 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9CB5E8CA801
+	for <lists+xen-devel@lfdr.de>; Tue, 21 May 2024 08:25:36 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.726599.1130932 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s9IsR-0005DL-Ok; Tue, 21 May 2024 06:21:35 +0000
+	id 1s9Iw5-0005qc-90; Tue, 21 May 2024 06:25:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 726592.1130923; Tue, 21 May 2024 06:21:35 +0000
+Received: by outflank-mailman (output) from mailman id 726599.1130932; Tue, 21 May 2024 06:25:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s9IsR-0005An-LU; Tue, 21 May 2024 06:21:35 +0000
-Received: by outflank-mailman (input) for mailman id 726592;
- Tue, 21 May 2024 06:21:34 +0000
+	id 1s9Iw5-0005ok-6I; Tue, 21 May 2024 06:25:21 +0000
+Received: by outflank-mailman (input) for mailman id 726599;
+ Tue, 21 May 2024 06:25:20 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=TLq1=MY=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1s9IsQ-00059w-Hx
- for xen-devel@lists.xenproject.org; Tue, 21 May 2024 06:21:34 +0000
-Received: from mail-ed1-x532.google.com (mail-ed1-x532.google.com
- [2a00:1450:4864:20::532])
+ id 1s9Iw4-0005oe-6x
+ for xen-devel@lists.xenproject.org; Tue, 21 May 2024 06:25:20 +0000
+Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
+ [2a00:1450:4864:20::62a])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 5e16b469-173a-11ef-b4bb-af5377834399;
- Tue, 21 May 2024 08:21:32 +0200 (CEST)
-Received: by mail-ed1-x532.google.com with SMTP id
- 4fb4d7f45d1cf-5751bcb3139so5150499a12.1
- for <xen-devel@lists.xenproject.org>; Mon, 20 May 2024 23:21:32 -0700 (PDT)
+ id e45bf144-173a-11ef-b4bb-af5377834399;
+ Tue, 21 May 2024 08:25:18 +0200 (CEST)
+Received: by mail-ej1-x62a.google.com with SMTP id
+ a640c23a62f3a-a59c0a6415fso854627266b.1
+ for <xen-devel@lists.xenproject.org>; Mon, 20 May 2024 23:25:18 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a5cdd7f8ea1sm721719866b.109.2024.05.20.23.21.31
+ a640c23a62f3a-a5a1781d350sm1564244766b.23.2024.05.20.23.25.17
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 20 May 2024 23:21:32 -0700 (PDT)
+ Mon, 20 May 2024 23:25:17 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,49 +45,48 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5e16b469-173a-11ef-b4bb-af5377834399
+X-Inumbo-ID: e45bf144-173a-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1716272492; x=1716877292; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1716272717; x=1716877517; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=RSMjAPAr7SehfQnq3F5P7aKJo2Vu8WmPbIChaMO1iIE=;
-        b=fO/6bxqDN3lWK07rjYuulSTsUlphaUIaaXHp652pM4cLwVOeRAzQLD0Lt7O4wIlCM7
-         mNiCNoTWwS5BWDbzehL9nq2W553jhVB4uTdGrybhPq/qYzid2E2rcJCwSynTuHnBaKTi
-         ij2KxjMDvzvvkm5kbMu85jnpVh9KaiBvjVKYBgjlcA7dMrz8pJu+uFK3vWN9d9o/IW2y
-         sN8cToDPlVPtA4VMPD8PwWuiUPxJ+Xq38eTTaRdqhATcKFm4FGVcd2mnieEjYujx/i8m
-         U4sktQk7u3oQihctkZhXT0mj4V4mX5TteaM5j8Whjfs94v082OzAbLIlmq3eiWfYZNwv
-         7flw==
+        bh=jWAMIsl7OjzznvuQYy7NRnhhpXRz3kn+3K3LTHeRdGw=;
+        b=fLJiXtVE4DPdg+rBMAVWg1cq04+mOjbwB+iLqIPsRz2wNpfvkrjbog/mQCm7dAxAet
+         KENCMngvQCSN0SRiOBtWYS8KKPGhFccdVQn18bQHtvwcRaPlZz5eUlz56EqnTajYWIDo
+         LmYxw9T4rxGe7HmvLWT0MW+gPIhFWBkeFCW+RukEPnm9hrkV+pA/NS1cSO2muJK9S6Uu
+         pbdew+uz9hbzTH6FSCtJFuavGQ2qI3orbLpoy0j6eJeTCxMzYcpmfRr4UHUrZWUPGbJW
+         d77dAUP4k3RdM57y+1KHwHzeBJGlyBJBxbCgypAvV5hoUtnnAKrFcJEwiL5BRiO9mdE+
+         W8/Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1716272492; x=1716877292;
+        d=1e100.net; s=20230601; t=1716272717; x=1716877517;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=RSMjAPAr7SehfQnq3F5P7aKJo2Vu8WmPbIChaMO1iIE=;
-        b=Ov5N9Ft7r1S4eqqZA6czfMVX9G03zP4+zbDgA3KBPVGopMZdlmiboPJwBPX0HK0qpg
-         LRNSF/A4bqEeThkRP38MqQbp6P2PCwevy0UHa7ib2hyGFjGHVaaVTVCw1+DwVYYQVUvY
-         YvtdH4Z/qvaxr2D26uFbGE5+RiQdjNDaaNczmYL6g4V9jzvCiLDz4AgWkyh+ZKDGy06P
-         a3LexCgungsS/QOw3cq/uOyyvB39Bn+HXQMX9/LdnSU/uoZAGOqmG+8zOTp8GQs7rQLG
-         Sx1fmcUIP9oZJXJH3gbnKqkC6jr7et12ECRXmEXRDKYUR52FjGpA38rjx9lUzAGWDavY
-         ahXQ==
-X-Gm-Message-State: AOJu0YxXpgh4NE2d1pF80Q0ACJg5FZJ0d51VKKyIH53pqUZoCnNknuf3
-	ohxnnimhM+YogKC4NUZzkdIrJg5vxpF3vO2IRFWi79GuwLehsrSz1zZcBlDqTA==
-X-Google-Smtp-Source: AGHT+IGEhYwDlKSRaScqOjniRCwXW1yPntKTRFj3hMx/TZZxoYq8XHE2WnyV22Q7mE3PYbCFNdbSow==
-X-Received: by 2002:a17:906:528b:b0:a59:cf0a:4e4d with SMTP id a640c23a62f3a-a5a2d55a730mr2056669966b.12.1716272492285;
-        Mon, 20 May 2024 23:21:32 -0700 (PDT)
-Message-ID: <d1267c40-e2d6-4919-81ac-54ad217e4702@suse.com>
-Date: Tue, 21 May 2024 08:21:35 +0200
+        bh=jWAMIsl7OjzznvuQYy7NRnhhpXRz3kn+3K3LTHeRdGw=;
+        b=XNK2QlA1nf4hjcDkAaL245J17iaqCdOxWeKVlP4KL7veAO45pXZVlmINridUryoyX8
+         F6GO7v0hvcoKa0zH264J/shK6Du/D9Yb2+CQU70SJpDoRinI0Ag3xEG99ierywgmoEtq
+         wKWC7lEA4akuDGgvdX8gWrZS+mS+SjhOTbC3W/OzS+Ma9zv8n4MgB5W9wE9VqjxAqkyz
+         PX2BX6mHaiwUZ/rBO7cA6qEOzkwtDvJ6Sx0/K8sQeOOcUbnkTbk1OksLCiJUl4QTxn8X
+         ArRTJ+fSHA09N6EyWHk145SG/uN5vXhySm9+IGTaw6NvjBN/NFDEgMITpOsMq4u/E67W
+         J+bg==
+X-Gm-Message-State: AOJu0Yw3/YT1KuTi+79nIBe+jG02bWBAGK/DAYpYS19+C69SBfcMa34z
+	BRDzlVH4e9hVpHN4vC3aEWtnNeu1nrX6x2D38213nt5j0EwrbgBeFt99yYxIeg==
+X-Google-Smtp-Source: AGHT+IGoxVyobR84bSt31y4HWaxgJJ2uJL3R8jBQ17KG3/avDB18+dYliQcbQf3ur6RffFwKxHHHaw==
+X-Received: by 2002:a17:906:9e08:b0:a5a:8b17:d851 with SMTP id a640c23a62f3a-a5a8b17db00mr1048558566b.20.1716272717523;
+        Mon, 20 May 2024 23:25:17 -0700 (PDT)
+Message-ID: <fd5334e0-d54d-48fa-bf7d-c34f9f1a78ab@suse.com>
+Date: Tue, 21 May 2024 08:25:20 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 05/12] IOMMU: rename and re-type ats_enabled
+Subject: Re: [PATCH v2 06/12] VT-d: respect ACPI SATC's ATC_REQUIRED flag
 Content-Language: en-US
 To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
 Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Paul Durrant <paul@xen.org>
+ Kevin Tian <kevin.tian@intel.com>, Paul Durrant <paul@xen.org>
 References: <64b028be-2197-4951-ae5b-32f9eabfa84a@suse.com>
- <7f11ca06-9bed-443b-9c79-0e62b71a1f96@suse.com> <ZjjQIaxEwS6b-swj@macbook>
- <24d52bbb-1329-4f8a-81be-505a35969875@suse.com> <Zjjg2ueqgjmn-MS3@macbook>
- <44af358a-9510-4056-826c-3be99dc25830@suse.com> <ZksmJp5JnQoBYZ6U@macbook>
+ <e98daa41-c6b6-4f4e-b41d-84006011068d@suse.com> <ZjjdZRPluS0YIazc@macbook>
+ <e9281523-a807-4889-80f0-a13804188af9@suse.com> <Zks1qFNsQdLkOCAs@macbook>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -112,56 +111,64 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <ZksmJp5JnQoBYZ6U@macbook>
+In-Reply-To: <Zks1qFNsQdLkOCAs@macbook>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 20.05.2024 12:29, Roger Pau Monné wrote:
-> On Wed, May 15, 2024 at 12:07:50PM +0200, Jan Beulich wrote:
->> On 06.05.2024 15:53, Roger Pau Monné wrote:
->>> On Mon, May 06, 2024 at 03:20:38PM +0200, Jan Beulich wrote:
->>>> On 06.05.2024 14:42, Roger Pau Monné wrote:
->>>>> On Thu, Feb 15, 2024 at 11:15:39AM +0100, Jan Beulich wrote:
->>>>>> @@ -196,7 +196,7 @@ static int __must_check amd_iommu_setup_
->>>>>>          dte->sys_mgt = MASK_EXTR(ivrs_dev->device_flags, ACPI_IVHD_SYSTEM_MGMT);
->>>>>>  
->>>>>>          if ( use_ats(pdev, iommu, ivrs_dev) )
->>>>>> -            dte->i = ats_enabled;
->>>>>> +            dte->i = true;
->>>>>
->>>>> Might be easier to just use:
->>>>>
->>>>> dte->i = use_ats(pdev, iommu, ivrs_dev);
->>>>
->>>> I'm hesitant here, as in principle we might be overwriting a "true" by
->>>> "false" then.
+On 20.05.2024 13:36, Roger Pau Monné wrote:
+> On Wed, May 15, 2024 at 12:42:40PM +0200, Jan Beulich wrote:
+>> On 06.05.2024 15:38, Roger Pau Monné wrote:
+>>> On Thu, Feb 15, 2024 at 11:16:11AM +0100, Jan Beulich wrote:
+>>>> When the flag is set, permit Dom0 to control the device (no worse than
+>>>> what we had before and in line with other "best effort" behavior we use
+>>>> when it comes to Dom0),
 >>>
->>> Hm, but that would be fine, what's the point in enabling the IOMMU to
->>> reply to ATS requests if ATS is not enabled on the device?
->>>
->>> IOW: overwriting a "true" with a "false" seem like the correct
->>> behavior if it's based on the output of use_ats().
+>>> I think we should somehow be able to signal dom0 that this device
+>>> might not operate as expected, otherwise dom0 might use it and the
+>>> device could silently malfunction due to ATS not being enabled.
 >>
->> I don't think so, unless there were flow guarantees excluding the possibility
->> of taking this path twice without intermediately disabling the device again.
->> Down from here the enabling of ATS is gated on use_ats(). Hence if, in an
->> earlier invocation, we enabled ATS (and set dte->i), we wouldn't turn off ATS
->> below (there's only code to turn it on), yet with what you suggest we'd clear
->> dte->i.
+>> Whatever signaling we invented, no Dom0 would be required to respect it,
+>> and for (perhaps quite) some time no Dom0 kernel would even exist to query
+>> that property.
+>>
+>>> Otherwise we should just hide the device from dom0.
+>>
+>> This would feel wrong to me, almost like a regression from what we had
+>> before.
 > 
-> Please bear with me, I think I'm confused, why would use_ats(), and if
-> that's the case, don't we want to update dte->i so that it matches the
-> ATS state?
+> Exposing a device to dom0 that won't be functional doesn't seem like a
+> very wise choice from Xen TBH.
 
-I'm afraid I can't parse this. Maybe a result of incomplete editing? The
-topic is complex enough that I don't want to even try to guess what you
-may have meant to ask ...
+Yes but. That's what we're doing right now, after all.
 
-> Otherwise we would fail to disable IOMMU device address translation
-> support if ATS was disabled?
+>>> I assume setting the IOMMU context entry to passthrough mode would
+>>> also be fine for such devices that require ATS?
+>>
+>> I'm afraid I'm lacking the connection of the question to what is being
+>> done here. Can you perhaps provide some more context? To provide some
+>> context from my side: Using pass-through mode would be excluded when Dom0
+>> is PVH. Hence why I'm not getting why we would want to even just consider
+>> doing so.
+>>
+>> Yet, looking at the spec, in pass-through mode translation requests are
+>> treated as UR. So maybe your question was towards there needing to be
+>> handling (whichever way) for the case where pass-through mode was
+>> requested for PV Dom0? The only half-way sensible thing to do in that case
+>> that I can think of right now would be to ignore that command line option,
+> 
+> Hm, maybe I'm confused, but if the IOMMU device context entry is set
+> in pass-through mode ATS won't be enabled and hence no translation
+> requests would be send from the device?
+> 
+> IOW, devices listed in the SATC can only mandate ATS enabled when the
+> IOMMU is enforcing translation.   IF the IOMMU is not enabled or if
+> the device is in passthrough mode then the requirement for having ATS
+> enabled no longer applies.
 
-I think the answer here is "no", but with the above I'm not really sure
-here, either.
+Oh, I think I now get what your original question was about: Instead of
+enabling ATS on such devices, we might run them in pass-through mode.
+For PV that would appear to be an option, yes. But with PVH (presumably)
+being the future I'd be rather hesitant to go that route.
 
 Jan
 
