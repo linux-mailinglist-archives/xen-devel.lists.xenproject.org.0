@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 603278CA7D4
-	for <lists+xen-devel@lfdr.de>; Tue, 21 May 2024 08:14:26 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.726580.1130902 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0D0818CA7E1
+	for <lists+xen-devel@lfdr.de>; Tue, 21 May 2024 08:17:29 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.726585.1130913 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s9Ikn-0002ss-Pe; Tue, 21 May 2024 06:13:41 +0000
+	id 1s9Io9-0003T4-7f; Tue, 21 May 2024 06:17:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 726580.1130902; Tue, 21 May 2024 06:13:41 +0000
+Received: by outflank-mailman (output) from mailman id 726585.1130913; Tue, 21 May 2024 06:17:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s9Ikn-0002qU-Mz; Tue, 21 May 2024 06:13:41 +0000
-Received: by outflank-mailman (input) for mailman id 726580;
- Tue, 21 May 2024 06:13:39 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1s9Io9-0003RY-4z; Tue, 21 May 2024 06:17:09 +0000
+Received: by outflank-mailman (input) for mailman id 726585;
+ Tue, 21 May 2024 06:17:07 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=TLq1=MY=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1s9Ikl-0002qO-CN
- for xen-devel@lists.xenproject.org; Tue, 21 May 2024 06:13:39 +0000
-Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com
- [2a00:1450:4864:20::529])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 4362e1df-1739-11ef-909f-e314d9c70b13;
- Tue, 21 May 2024 08:13:38 +0200 (CEST)
-Received: by mail-ed1-x529.google.com with SMTP id
- 4fb4d7f45d1cf-574f7c0bab4so10581910a12.0
- for <xen-devel@lists.xenproject.org>; Mon, 20 May 2024 23:13:38 -0700 (PDT)
+ id 1s9Io7-0003RS-OC
+ for xen-devel@lists.xenproject.org; Tue, 21 May 2024 06:17:07 +0000
+Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
+ [2a00:1450:4864:20::630])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id bef42d9f-1739-11ef-b4bb-af5377834399;
+ Tue, 21 May 2024 08:17:05 +0200 (CEST)
+Received: by mail-ej1-x630.google.com with SMTP id
+ a640c23a62f3a-a599c55055dso774640466b.0
+ for <xen-devel@lists.xenproject.org>; Mon, 20 May 2024 23:17:05 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a614224cb3csm249449566b.13.2024.05.20.23.13.37
+ a640c23a62f3a-a5a179c7fdasm1558866466b.128.2024.05.20.23.17.04
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 20 May 2024 23:13:37 -0700 (PDT)
+ Mon, 20 May 2024 23:17:04 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,53 +45,56 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4362e1df-1739-11ef-909f-e314d9c70b13
+X-Inumbo-ID: bef42d9f-1739-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1716272018; x=1716876818; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1716272225; x=1716877025; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=4Py0J/8XG38Oeg/B/OwG3ASmwChchTQyQzCMIKm8DEk=;
-        b=MwyUGyGeruF2dxDpYsaisyLPwSLXUg9RqsX3feyNXSZYvKeN9RdPC5PCFiARY4qXpF
-         INa6ABu+2Z5e5RsAbxRjnyVrGq5bbRkNuqII0Vh+M4i3JQqRVVRYgrFjxs+s6iBrHZdV
-         ndhvLBg6+3dJIek9J4Hyp7yo+6tf8uFNS9eonxei/Hk0WZwOd4tDzJ0ssqxiMgj4jqcn
-         atGjkTclqmYyAZUm++kO7roHGkXdZ9QL16rKQn6nvjQ4Pg9W5GPeYM7cXSVOLG3snFXC
-         xoXS1MJ5SzkdabB0N5qY7RM96Pi+7yHIwYAI6j2C34WK8ZZ72mvAkemKZ/FfkZSS984H
-         vlOg==
+        bh=7fbuPSgCj+Zx3hOeIkqBZTYf9SaBHpm0cpXaZth3lHM=;
+        b=a43ed6n+Rt1zUgJHjWTRh09p84+HqxTo7XdSej1OL1v3p6knUjaeSGKoFLywfeJCB2
+         5iD9ONnIP8cNzy3aSSucw+QwaHVE2x9z17Qq9fKgtuwwh1XRWxYDEDfhhsTOE9ye5T5p
+         DS5q5Sh5qCXyEakL5+Qzs4uymP/Kvp+PFMsWnwH/76r+kPMedVMo8VSAZ95SzRmXh1qQ
+         wgYjSBjdVd7GhBLtWmlo/W/U8lZZIASGI6veyqPLTqdllCKK7QDpWVamQ1yw/Vs3uPIp
+         5jrT/bHNvTh7dVYMo9yvGmbZLu54m4JAPHUSl6qczwzoUzlKGkLOXsJOt8gSN7y8CT3f
+         u5xA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1716272018; x=1716876818;
+        d=1e100.net; s=20230601; t=1716272225; x=1716877025;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=4Py0J/8XG38Oeg/B/OwG3ASmwChchTQyQzCMIKm8DEk=;
-        b=jImjvm42qD+qZ/EuzPMBm4CUDPFbcZ31m2mV1WQfkCPaTHpMzx4QUHXdRXSA2gEybr
-         nTlhyG7WE4RC5AHn/akYm29ml6FWIn0AusDIx011DDd0HWl4XnZnoAG4RH+V37tMhxql
-         TsdsaFkDVfbLgA+A8bXb9mEti4EQGLr0rTise8kBOnb2NEF9AgUKAq8W6RuRJ1shsndq
-         0iIZcVqw0vdxKUf6UFo4sA8ZmyWM6HUhPuRB2bud13RDV4fBNlWX2tq5Qa1Od/bBNZ5l
-         9nPzG23sWeNjsGPpcaJ4EIXMntxBC+3ML3F8c7HClUfP1UYThXaFZjWsvlMioM/DHK2Q
-         UqjQ==
-X-Gm-Message-State: AOJu0Yzgihe57lOCmwXN6jYMxVf8VvNFJfFyCg/Qp1Kji4pmJ1PXHq6E
-	IqN9xbGsGL3F/tEuRpbdGd5gPmu29OxFHSc3U6h6YsXxw9Q2teZB3XWua38FDEX6LGspRyrFi/U
-	=
-X-Google-Smtp-Source: AGHT+IGikqzXrDPgTGwZ1UqAgpXY/STcOmJJlk2+dLaMbdWw2LRCr3xUdZj26NLThTj1PfGdl7UNqw==
-X-Received: by 2002:a17:906:cf83:b0:a5a:5c8f:120d with SMTP id a640c23a62f3a-a5d5fd58885mr659250066b.36.1716272017749;
-        Mon, 20 May 2024 23:13:37 -0700 (PDT)
-Message-ID: <1bc341cb-7620-4597-9e35-187758dc28ce@suse.com>
-Date: Tue, 21 May 2024 08:13:40 +0200
+        bh=7fbuPSgCj+Zx3hOeIkqBZTYf9SaBHpm0cpXaZth3lHM=;
+        b=cvEec81n9WQMlgXR10O+bkxAn5BqjKlgFAjbs7X44L+YiZ/a9Xfdok+LoJJYbr3phY
+         lQHoBfGWsPeQTZqYse8LMPI/Z+Zk1CZnEXzSP7d4v9/1pdRD9yh+GMwfIGSxiwf3ic8p
+         moIfLNSuuoEuYOfV6Co3GAMT55NVErQGfLMFCZ6MjmF/M0i5VpaL9XFyiPGvVAI/DxVp
+         8Ke8wh5Lubuh98rl2T6BlfsR20vmKUd7wK2N9Ovx08ZZEMDUQZdcwIj6UIdIjgEdQNeI
+         y/q/IoxqyIEN4UrKjuT9MwDJuAnUWou3+JRWBNykYEOB5HAR1h5LIDcrs3oSYFCYkr7o
+         hpJg==
+X-Forwarded-Encrypted: i=1; AJvYcCU9OdWUeA4SfZHb+wfCodIaRZt1tUjTEohsD+eiGU+3WJ7JWNKK1Z7MLyy6+AC6xrE1/kSRO7hEYicmAXaNzERJmlypsON5Yy9sDUrVFWg=
+X-Gm-Message-State: AOJu0YxLvQU6dyjVD4HPaNBJSIwbsUYEgdMiOklV1dtG2wGn7ctmO2wM
+	HFZUnXMWYOZoSOmThToEvjlw31eVwrKGVf+JNMQmcZhfkgDwhzH86eDuNhmk+Q==
+X-Google-Smtp-Source: AGHT+IH0kheLRJErklJaJgVykhVGrbQIdujwZOwUq/+KL+wnwNUFEWCbglvzqGF9VO774F5RHeS0zw==
+X-Received: by 2002:a17:906:4083:b0:a62:c5f:e34a with SMTP id a640c23a62f3a-a620c5fe404mr103671766b.39.1716272225195;
+        Mon, 20 May 2024 23:17:05 -0700 (PDT)
+Message-ID: <3cfee629-b9bc-4b3d-9e4e-ff7e54e701d1@suse.com>
+Date: Tue, 21 May 2024 08:17:07 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] tools: Add install/uninstall targets to
- tests/x86_emulator
+Subject: Re: [PATCH] Revert "evtchn: refuse EVTCHNOP_status for Xen-bound
+ event channels"
 Content-Language: en-US
-To: Alejandro Vallejo <alejandro.vallejo@cloud.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony@xenproject.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-References: <20240516110710.3446-1-alejandro.vallejo@cloud.com>
- <ZkXvdWf2mVkPW458@macbook> <7965ba74-9177-44b7-9253-7ab5a77fd88f@cloud.com>
- <ce573d24-1d52-48a8-b3f0-8636dacd5c9b@suse.com>
- <26f1627c-4325-42f0-bbb1-0bd9be35bbce@cloud.com>
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <George.Dunlap@citrix.com>,
+ Daniel Smith <dpsmith@apertussolutions.com>, Julien Grall <julien@xen.org>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20240402170612.2477791-1-andrew.cooper3@citrix.com>
+ <11957460-0b2b-432d-ad92-38350306c9ff@suse.com>
+ <b14acc58-5d3c-46ed-a300-61f422501d4c@suse.com>
+ <b3695ec1-b9e6-4db6-a242-5dfa11bc00b6@suse.com>
+ <alpine.DEB.2.22.394.2405161806560.2544314@ubuntu-linux-20-04-desktop>
+ <e75ca24e-12fe-44ac-9c67-bcc222ac8752@suse.com>
+ <alpine.DEB.2.22.394.2405171328250.1052252@ubuntu-linux-20-04-desktop>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -116,82 +119,60 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <26f1627c-4325-42f0-bbb1-0bd9be35bbce@cloud.com>
+In-Reply-To: <alpine.DEB.2.22.394.2405171328250.1052252@ubuntu-linux-20-04-desktop>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 16.05.2024 16:46, Alejandro Vallejo wrote:
-> Hi,
-> 
-> On 16/05/2024 13:37, Jan Beulich wrote:
->> On 16.05.2024 14:29, Alejandro Vallejo wrote:
->>> On 16/05/2024 12:35, Roger Pau Monné wrote:
->>>> On Thu, May 16, 2024 at 12:07:10PM +0100, Alejandro Vallejo wrote:
->>>>> Bring test_x86_emulator in line with other tests by adding
->>>>> install/uninstall rules.
->>>>>
->>>>> Signed-off-by: Alejandro Vallejo <alejandro.vallejo@cloud.com>
->>>>> ---
->>>>>  tools/tests/x86_emulator/Makefile | 11 +++++++++--
->>>>>  1 file changed, 9 insertions(+), 2 deletions(-)
->>>>>
->>>>> diff --git a/tools/tests/x86_emulator/Makefile b/tools/tests/x86_emulator/Makefile
->>>>> index 834b2112e7fe..30edf7e0185d 100644
->>>>> --- a/tools/tests/x86_emulator/Makefile
->>>>> +++ b/tools/tests/x86_emulator/Makefile
->>>>> @@ -269,8 +269,15 @@ clean:
->>>>>  .PHONY: distclean
->>>>>  distclean: clean
->>>>>  
->>>>> -.PHONY: install uninstall
->>>>> -install uninstall:
->>>>> +.PHONY: install
->>>>> +install: all
->>>>> +	$(INSTALL_DIR) $(DESTDIR)$(LIBEXEC_BIN)
->>>>> +	$(if $(TARGET-y),$(INSTALL_PROG) $(TARGET-y) $(DESTDIR)$(LIBEXEC_BIN))
->>>>> +
->>>>> +.PHONY: uninstall
->>>>> +uninstall:
->>>>> +	$(RM) -- $(addprefix $(DESTDIR)$(LIBEXEC_BIN)/,$(TARGET-y))
->>>>> +
->>>>
->>>> FWIW, should you check that HOSTCC == CC before installing?  Otherwise
->>>> I'm unsure of the result in cross-compiled builds, as the x86_emulator
->>>> is built with HOSTCC, not CC.
->>>>
->>>> Thanks, Roger.
+On 17.05.2024 22:28, Stefano Stabellini wrote:
+> On Fri, 17 May 2024, Jan Beulich wrote:
+>> On 17.05.2024 03:21, Stefano Stabellini wrote:
+>>> On Thu, 16 May 2024, Jan Beulich wrote:
+>>>> 1) In the discussion George claimed that exposing status information in
+>>>> an uncontrolled manner is okay. I'm afraid I have to disagree, seeing
+>>>> how a similar assumption by CPU designers has led to a flood of
+>>>> vulnerabilities over the last 6+ years. Information exposure imo is never
+>>>> okay, unless it can be _proven_ that absolutely nothing "useful" can be
+>>>> inferred from it. (I'm having difficulty seeing how such a proof might
+>>>> look like.)
 >>>
->>> Right...
+>>> Many would agree that it is better not to expose status information in
+>>> an uncontrolled manner. Anyway, let's focus on the actionable.
 >>>
->>> More generally, should we do s/CC/HOSTCC/ on all compiler checks? I see
->>> no particular reason to do them on $(CC) rather than the actual compiler
->>> used during build.
+>>>
+>>>> 2) Me pointing out that the XSM hook might similarly get in the way of
+>>>> debugging, Andrew suggested that this is not an issue because any sensible
+>>>> XSM policy used in such an environment would grant sufficient privilege to
+>>>> Dom0. Yet that then still doesn't cover why DomU-s also can obtain status
+>>>> for Xen-internal event channels. The debugging argument then becomes weak,
+>>>> as in that case the XSM hook is possibly going to get in the way.
+>>>>
+>>>> 3) In the discussion Andrew further gave the impression that evtchn_send()
+>>>> had no XSM check. Yet it has; the difference to evtchn_status() is that
+>>>> the latter uses XSM_TARGET while the former uses XSM_HOOK. (Much like
+>>>> evtchn_status() may indeed be useful for debugging, evtchn_send() may be
+>>>> similarly useful to allow getting a stuck channel unstuck.)
+>>>>
+>>>> In summary I continue to think that an outright revert was inappropriate.
+>>>> DomU-s should continue to be denied status information on Xen-internal
+>>>> event channels, unconditionally and independent of whether dummy, silo, or
+>>>> Flask is in use.
+>>>
+>>> I think DomU-s should continue to be denied status information on
+>>> Xen-internal event channels *based on the default dummy, silo, or Flask
+>>> policy*. It is not up to us to decide the security policy, only to
+>>> enforce it and provide sensible defaults.
+>>>
+>>> In any case, the XSM_TARGET check in evtchn_status seems to do what we
+>>> want?
 >>
->> No. There really is a mix here, intentionally. Anything built through testcase.mk
->> is using CC, and hence respective checking needs to use CC, too. That said, I
->> don't think the split is done quite correctly just yet, which may raise the
->> question of whether having the split is actually worth it.
+>> No. XSM_TARGET permits the "owning" (not really, but it's its table) domain
+>> access. See xsm_default_action() in xsm/dummy.h.
 > 
-> I'm a bit puzzled by this. Why do we compile pieces of the test binary
-> with different toolchains?
-> 
-> At a glance it seems inconsequential in the native case and
-> fully broken on the cross-compiled case (which I guess is what Roger was
-> hinting at and I failed to notice).
-> 
-> Why the distinction? What am I missing?
+> Sorry I still don't understand. Why is that a problem? It looks like the
+> wanted default behavior?
 
-It's convoluted and not fully consistent, yes. Consider for a moment that the
-emulator truly was what its name says, i.e. not merely re-playing insns. In
-such a case it could be run on non-x86, while still emulating x86 code. Thus
-code being emulated and code doing the emulation would necessarily need to be
-built with different compilers.
-
-It being (in most cases) merely replaying, the boundary has been fuzzy for a
-very long time: While for most parts it's clear what group they fall into,
-test_x86_emulator.c itself is (has become? even 3.2.3 already has at least
-one instance) a hybrid. Yet in principle this file should also be buildable
-with the (x86 or non-x86) host compiler.
+For ordinary event channels - yes. But not for Xen-internal ones, at least
+from my pov.
 
 Jan
 
