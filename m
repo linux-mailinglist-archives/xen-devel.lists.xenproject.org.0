@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0D0818CA7E1
-	for <lists+xen-devel@lfdr.de>; Tue, 21 May 2024 08:17:29 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.726585.1130913 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 296008CA7FA
+	for <lists+xen-devel@lfdr.de>; Tue, 21 May 2024 08:21:51 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.726592.1130923 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s9Io9-0003T4-7f; Tue, 21 May 2024 06:17:09 +0000
+	id 1s9IsR-0005DL-Ok; Tue, 21 May 2024 06:21:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 726585.1130913; Tue, 21 May 2024 06:17:09 +0000
+Received: by outflank-mailman (output) from mailman id 726592.1130923; Tue, 21 May 2024 06:21:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s9Io9-0003RY-4z; Tue, 21 May 2024 06:17:09 +0000
-Received: by outflank-mailman (input) for mailman id 726585;
- Tue, 21 May 2024 06:17:07 +0000
+	id 1s9IsR-0005An-LU; Tue, 21 May 2024 06:21:35 +0000
+Received: by outflank-mailman (input) for mailman id 726592;
+ Tue, 21 May 2024 06:21:34 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=TLq1=MY=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1s9Io7-0003RS-OC
- for xen-devel@lists.xenproject.org; Tue, 21 May 2024 06:17:07 +0000
-Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
- [2a00:1450:4864:20::630])
+ id 1s9IsQ-00059w-Hx
+ for xen-devel@lists.xenproject.org; Tue, 21 May 2024 06:21:34 +0000
+Received: from mail-ed1-x532.google.com (mail-ed1-x532.google.com
+ [2a00:1450:4864:20::532])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id bef42d9f-1739-11ef-b4bb-af5377834399;
- Tue, 21 May 2024 08:17:05 +0200 (CEST)
-Received: by mail-ej1-x630.google.com with SMTP id
- a640c23a62f3a-a599c55055dso774640466b.0
- for <xen-devel@lists.xenproject.org>; Mon, 20 May 2024 23:17:05 -0700 (PDT)
+ id 5e16b469-173a-11ef-b4bb-af5377834399;
+ Tue, 21 May 2024 08:21:32 +0200 (CEST)
+Received: by mail-ed1-x532.google.com with SMTP id
+ 4fb4d7f45d1cf-5751bcb3139so5150499a12.1
+ for <xen-devel@lists.xenproject.org>; Mon, 20 May 2024 23:21:32 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a5a179c7fdasm1558866466b.128.2024.05.20.23.17.04
+ a640c23a62f3a-a5cdd7f8ea1sm721719866b.109.2024.05.20.23.21.31
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 20 May 2024 23:17:04 -0700 (PDT)
+ Mon, 20 May 2024 23:21:32 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,56 +45,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bef42d9f-1739-11ef-b4bb-af5377834399
+X-Inumbo-ID: 5e16b469-173a-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1716272225; x=1716877025; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1716272492; x=1716877292; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=7fbuPSgCj+Zx3hOeIkqBZTYf9SaBHpm0cpXaZth3lHM=;
-        b=a43ed6n+Rt1zUgJHjWTRh09p84+HqxTo7XdSej1OL1v3p6knUjaeSGKoFLywfeJCB2
-         5iD9ONnIP8cNzy3aSSucw+QwaHVE2x9z17Qq9fKgtuwwh1XRWxYDEDfhhsTOE9ye5T5p
-         DS5q5Sh5qCXyEakL5+Qzs4uymP/Kvp+PFMsWnwH/76r+kPMedVMo8VSAZ95SzRmXh1qQ
-         wgYjSBjdVd7GhBLtWmlo/W/U8lZZIASGI6veyqPLTqdllCKK7QDpWVamQ1yw/Vs3uPIp
-         5jrT/bHNvTh7dVYMo9yvGmbZLu54m4JAPHUSl6qczwzoUzlKGkLOXsJOt8gSN7y8CT3f
-         u5xA==
+        bh=RSMjAPAr7SehfQnq3F5P7aKJo2Vu8WmPbIChaMO1iIE=;
+        b=fO/6bxqDN3lWK07rjYuulSTsUlphaUIaaXHp652pM4cLwVOeRAzQLD0Lt7O4wIlCM7
+         mNiCNoTWwS5BWDbzehL9nq2W553jhVB4uTdGrybhPq/qYzid2E2rcJCwSynTuHnBaKTi
+         ij2KxjMDvzvvkm5kbMu85jnpVh9KaiBvjVKYBgjlcA7dMrz8pJu+uFK3vWN9d9o/IW2y
+         sN8cToDPlVPtA4VMPD8PwWuiUPxJ+Xq38eTTaRdqhATcKFm4FGVcd2mnieEjYujx/i8m
+         U4sktQk7u3oQihctkZhXT0mj4V4mX5TteaM5j8Whjfs94v082OzAbLIlmq3eiWfYZNwv
+         7flw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1716272225; x=1716877025;
+        d=1e100.net; s=20230601; t=1716272492; x=1716877292;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=7fbuPSgCj+Zx3hOeIkqBZTYf9SaBHpm0cpXaZth3lHM=;
-        b=cvEec81n9WQMlgXR10O+bkxAn5BqjKlgFAjbs7X44L+YiZ/a9Xfdok+LoJJYbr3phY
-         lQHoBfGWsPeQTZqYse8LMPI/Z+Zk1CZnEXzSP7d4v9/1pdRD9yh+GMwfIGSxiwf3ic8p
-         moIfLNSuuoEuYOfV6Co3GAMT55NVErQGfLMFCZ6MjmF/M0i5VpaL9XFyiPGvVAI/DxVp
-         8Ke8wh5Lubuh98rl2T6BlfsR20vmKUd7wK2N9Ovx08ZZEMDUQZdcwIj6UIdIjgEdQNeI
-         y/q/IoxqyIEN4UrKjuT9MwDJuAnUWou3+JRWBNykYEOB5HAR1h5LIDcrs3oSYFCYkr7o
-         hpJg==
-X-Forwarded-Encrypted: i=1; AJvYcCU9OdWUeA4SfZHb+wfCodIaRZt1tUjTEohsD+eiGU+3WJ7JWNKK1Z7MLyy6+AC6xrE1/kSRO7hEYicmAXaNzERJmlypsON5Yy9sDUrVFWg=
-X-Gm-Message-State: AOJu0YxLvQU6dyjVD4HPaNBJSIwbsUYEgdMiOklV1dtG2wGn7ctmO2wM
-	HFZUnXMWYOZoSOmThToEvjlw31eVwrKGVf+JNMQmcZhfkgDwhzH86eDuNhmk+Q==
-X-Google-Smtp-Source: AGHT+IH0kheLRJErklJaJgVykhVGrbQIdujwZOwUq/+KL+wnwNUFEWCbglvzqGF9VO774F5RHeS0zw==
-X-Received: by 2002:a17:906:4083:b0:a62:c5f:e34a with SMTP id a640c23a62f3a-a620c5fe404mr103671766b.39.1716272225195;
-        Mon, 20 May 2024 23:17:05 -0700 (PDT)
-Message-ID: <3cfee629-b9bc-4b3d-9e4e-ff7e54e701d1@suse.com>
-Date: Tue, 21 May 2024 08:17:07 +0200
+        bh=RSMjAPAr7SehfQnq3F5P7aKJo2Vu8WmPbIChaMO1iIE=;
+        b=Ov5N9Ft7r1S4eqqZA6czfMVX9G03zP4+zbDgA3KBPVGopMZdlmiboPJwBPX0HK0qpg
+         LRNSF/A4bqEeThkRP38MqQbp6P2PCwevy0UHa7ib2hyGFjGHVaaVTVCw1+DwVYYQVUvY
+         YvtdH4Z/qvaxr2D26uFbGE5+RiQdjNDaaNczmYL6g4V9jzvCiLDz4AgWkyh+ZKDGy06P
+         a3LexCgungsS/QOw3cq/uOyyvB39Bn+HXQMX9/LdnSU/uoZAGOqmG+8zOTp8GQs7rQLG
+         Sx1fmcUIP9oZJXJH3gbnKqkC6jr7et12ECRXmEXRDKYUR52FjGpA38rjx9lUzAGWDavY
+         ahXQ==
+X-Gm-Message-State: AOJu0YxXpgh4NE2d1pF80Q0ACJg5FZJ0d51VKKyIH53pqUZoCnNknuf3
+	ohxnnimhM+YogKC4NUZzkdIrJg5vxpF3vO2IRFWi79GuwLehsrSz1zZcBlDqTA==
+X-Google-Smtp-Source: AGHT+IGEhYwDlKSRaScqOjniRCwXW1yPntKTRFj3hMx/TZZxoYq8XHE2WnyV22Q7mE3PYbCFNdbSow==
+X-Received: by 2002:a17:906:528b:b0:a59:cf0a:4e4d with SMTP id a640c23a62f3a-a5a2d55a730mr2056669966b.12.1716272492285;
+        Mon, 20 May 2024 23:21:32 -0700 (PDT)
+Message-ID: <d1267c40-e2d6-4919-81ac-54ad217e4702@suse.com>
+Date: Tue, 21 May 2024 08:21:35 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] Revert "evtchn: refuse EVTCHNOP_status for Xen-bound
- event channels"
+Subject: Re: [PATCH v2 05/12] IOMMU: rename and re-type ats_enabled
 Content-Language: en-US
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <George.Dunlap@citrix.com>,
- Daniel Smith <dpsmith@apertussolutions.com>, Julien Grall <julien@xen.org>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20240402170612.2477791-1-andrew.cooper3@citrix.com>
- <11957460-0b2b-432d-ad92-38350306c9ff@suse.com>
- <b14acc58-5d3c-46ed-a300-61f422501d4c@suse.com>
- <b3695ec1-b9e6-4db6-a242-5dfa11bc00b6@suse.com>
- <alpine.DEB.2.22.394.2405161806560.2544314@ubuntu-linux-20-04-desktop>
- <e75ca24e-12fe-44ac-9c67-bcc222ac8752@suse.com>
- <alpine.DEB.2.22.394.2405171328250.1052252@ubuntu-linux-20-04-desktop>
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Paul Durrant <paul@xen.org>
+References: <64b028be-2197-4951-ae5b-32f9eabfa84a@suse.com>
+ <7f11ca06-9bed-443b-9c79-0e62b71a1f96@suse.com> <ZjjQIaxEwS6b-swj@macbook>
+ <24d52bbb-1329-4f8a-81be-505a35969875@suse.com> <Zjjg2ueqgjmn-MS3@macbook>
+ <44af358a-9510-4056-826c-3be99dc25830@suse.com> <ZksmJp5JnQoBYZ6U@macbook>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -119,60 +112,56 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <alpine.DEB.2.22.394.2405171328250.1052252@ubuntu-linux-20-04-desktop>
+In-Reply-To: <ZksmJp5JnQoBYZ6U@macbook>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 17.05.2024 22:28, Stefano Stabellini wrote:
-> On Fri, 17 May 2024, Jan Beulich wrote:
->> On 17.05.2024 03:21, Stefano Stabellini wrote:
->>> On Thu, 16 May 2024, Jan Beulich wrote:
->>>> 1) In the discussion George claimed that exposing status information in
->>>> an uncontrolled manner is okay. I'm afraid I have to disagree, seeing
->>>> how a similar assumption by CPU designers has led to a flood of
->>>> vulnerabilities over the last 6+ years. Information exposure imo is never
->>>> okay, unless it can be _proven_ that absolutely nothing "useful" can be
->>>> inferred from it. (I'm having difficulty seeing how such a proof might
->>>> look like.)
->>>
->>> Many would agree that it is better not to expose status information in
->>> an uncontrolled manner. Anyway, let's focus on the actionable.
->>>
->>>
->>>> 2) Me pointing out that the XSM hook might similarly get in the way of
->>>> debugging, Andrew suggested that this is not an issue because any sensible
->>>> XSM policy used in such an environment would grant sufficient privilege to
->>>> Dom0. Yet that then still doesn't cover why DomU-s also can obtain status
->>>> for Xen-internal event channels. The debugging argument then becomes weak,
->>>> as in that case the XSM hook is possibly going to get in the way.
+On 20.05.2024 12:29, Roger Pau Monné wrote:
+> On Wed, May 15, 2024 at 12:07:50PM +0200, Jan Beulich wrote:
+>> On 06.05.2024 15:53, Roger Pau Monné wrote:
+>>> On Mon, May 06, 2024 at 03:20:38PM +0200, Jan Beulich wrote:
+>>>> On 06.05.2024 14:42, Roger Pau Monné wrote:
+>>>>> On Thu, Feb 15, 2024 at 11:15:39AM +0100, Jan Beulich wrote:
+>>>>>> @@ -196,7 +196,7 @@ static int __must_check amd_iommu_setup_
+>>>>>>          dte->sys_mgt = MASK_EXTR(ivrs_dev->device_flags, ACPI_IVHD_SYSTEM_MGMT);
+>>>>>>  
+>>>>>>          if ( use_ats(pdev, iommu, ivrs_dev) )
+>>>>>> -            dte->i = ats_enabled;
+>>>>>> +            dte->i = true;
+>>>>>
+>>>>> Might be easier to just use:
+>>>>>
+>>>>> dte->i = use_ats(pdev, iommu, ivrs_dev);
 >>>>
->>>> 3) In the discussion Andrew further gave the impression that evtchn_send()
->>>> had no XSM check. Yet it has; the difference to evtchn_status() is that
->>>> the latter uses XSM_TARGET while the former uses XSM_HOOK. (Much like
->>>> evtchn_status() may indeed be useful for debugging, evtchn_send() may be
->>>> similarly useful to allow getting a stuck channel unstuck.)
->>>>
->>>> In summary I continue to think that an outright revert was inappropriate.
->>>> DomU-s should continue to be denied status information on Xen-internal
->>>> event channels, unconditionally and independent of whether dummy, silo, or
->>>> Flask is in use.
+>>>> I'm hesitant here, as in principle we might be overwriting a "true" by
+>>>> "false" then.
 >>>
->>> I think DomU-s should continue to be denied status information on
->>> Xen-internal event channels *based on the default dummy, silo, or Flask
->>> policy*. It is not up to us to decide the security policy, only to
->>> enforce it and provide sensible defaults.
+>>> Hm, but that would be fine, what's the point in enabling the IOMMU to
+>>> reply to ATS requests if ATS is not enabled on the device?
 >>>
->>> In any case, the XSM_TARGET check in evtchn_status seems to do what we
->>> want?
+>>> IOW: overwriting a "true" with a "false" seem like the correct
+>>> behavior if it's based on the output of use_ats().
 >>
->> No. XSM_TARGET permits the "owning" (not really, but it's its table) domain
->> access. See xsm_default_action() in xsm/dummy.h.
+>> I don't think so, unless there were flow guarantees excluding the possibility
+>> of taking this path twice without intermediately disabling the device again.
+>> Down from here the enabling of ATS is gated on use_ats(). Hence if, in an
+>> earlier invocation, we enabled ATS (and set dte->i), we wouldn't turn off ATS
+>> below (there's only code to turn it on), yet with what you suggest we'd clear
+>> dte->i.
 > 
-> Sorry I still don't understand. Why is that a problem? It looks like the
-> wanted default behavior?
+> Please bear with me, I think I'm confused, why would use_ats(), and if
+> that's the case, don't we want to update dte->i so that it matches the
+> ATS state?
 
-For ordinary event channels - yes. But not for Xen-internal ones, at least
-from my pov.
+I'm afraid I can't parse this. Maybe a result of incomplete editing? The
+topic is complex enough that I don't want to even try to guess what you
+may have meant to ask ...
+
+> Otherwise we would fail to disable IOMMU device address translation
+> support if ATS was disabled?
+
+I think the answer here is "no", but with the above I'm not really sure
+here, either.
 
 Jan
 
