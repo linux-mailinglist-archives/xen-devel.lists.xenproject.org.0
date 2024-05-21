@@ -2,38 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9CB5E8CA801
-	for <lists+xen-devel@lfdr.de>; Tue, 21 May 2024 08:25:36 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.726599.1130932 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 832328CA94F
+	for <lists+xen-devel@lfdr.de>; Tue, 21 May 2024 09:48:41 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.726629.1130965 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s9Iw5-0005qc-90; Tue, 21 May 2024 06:25:21 +0000
+	id 1s9KDj-00007n-6o; Tue, 21 May 2024 07:47:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 726599.1130932; Tue, 21 May 2024 06:25:21 +0000
+Received: by outflank-mailman (output) from mailman id 726629.1130965; Tue, 21 May 2024 07:47:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s9Iw5-0005ok-6I; Tue, 21 May 2024 06:25:21 +0000
-Received: by outflank-mailman (input) for mailman id 726599;
- Tue, 21 May 2024 06:25:20 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=TLq1=MY=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1s9Iw4-0005oe-6x
- for xen-devel@lists.xenproject.org; Tue, 21 May 2024 06:25:20 +0000
-Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
- [2a00:1450:4864:20::62a])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id e45bf144-173a-11ef-b4bb-af5377834399;
- Tue, 21 May 2024 08:25:18 +0200 (CEST)
-Received: by mail-ej1-x62a.google.com with SMTP id
- a640c23a62f3a-a59c0a6415fso854627266b.1
- for <xen-devel@lists.xenproject.org>; Mon, 20 May 2024 23:25:18 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a5a1781d350sm1564244766b.23.2024.05.20.23.25.17
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 20 May 2024 23:25:17 -0700 (PDT)
+	id 1s9KDj-000054-3j; Tue, 21 May 2024 07:47:39 +0000
+Received: by outflank-mailman (input) for mailman id 726629;
+ Tue, 21 May 2024 07:47:37 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=sbJz=MY=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
+ id 1s9KDh-00004w-MB
+ for xen-devel@lists.xenproject.org; Tue, 21 May 2024 07:47:37 +0000
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on20600.outbound.protection.outlook.com
+ [2a01:111:f403:2415::600])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 630f97de-1746-11ef-909f-e314d9c70b13;
+ Tue, 21 May 2024 09:47:35 +0200 (CEST)
+Received: from MN2PR12CA0002.namprd12.prod.outlook.com (2603:10b6:208:a8::15)
+ by MN0PR12MB6247.namprd12.prod.outlook.com (2603:10b6:208:3c1::15)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7587.35; Tue, 21 May
+ 2024 07:47:32 +0000
+Received: from BL6PEPF0001AB77.namprd02.prod.outlook.com
+ (2603:10b6:208:a8:cafe::75) by MN2PR12CA0002.outlook.office365.com
+ (2603:10b6:208:a8::15) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7587.35 via Frontend
+ Transport; Tue, 21 May 2024 07:47:32 +0000
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BL6PEPF0001AB77.mail.protection.outlook.com (10.167.242.170) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7611.14 via Frontend Transport; Tue, 21 May 2024 07:47:32 +0000
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Tue, 21 May
+ 2024 02:47:31 -0500
+Received: from [10.252.147.188] (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.35 via Frontend
+ Transport; Tue, 21 May 2024 02:47:30 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,130 +59,194 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e45bf144-173a-11ef-b4bb-af5377834399
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1716272717; x=1716877517; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=jWAMIsl7OjzznvuQYy7NRnhhpXRz3kn+3K3LTHeRdGw=;
-        b=fLJiXtVE4DPdg+rBMAVWg1cq04+mOjbwB+iLqIPsRz2wNpfvkrjbog/mQCm7dAxAet
-         KENCMngvQCSN0SRiOBtWYS8KKPGhFccdVQn18bQHtvwcRaPlZz5eUlz56EqnTajYWIDo
-         LmYxw9T4rxGe7HmvLWT0MW+gPIhFWBkeFCW+RukEPnm9hrkV+pA/NS1cSO2muJK9S6Uu
-         pbdew+uz9hbzTH6FSCtJFuavGQ2qI3orbLpoy0j6eJeTCxMzYcpmfRr4UHUrZWUPGbJW
-         d77dAUP4k3RdM57y+1KHwHzeBJGlyBJBxbCgypAvV5hoUtnnAKrFcJEwiL5BRiO9mdE+
-         W8/Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1716272717; x=1716877517;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=jWAMIsl7OjzznvuQYy7NRnhhpXRz3kn+3K3LTHeRdGw=;
-        b=XNK2QlA1nf4hjcDkAaL245J17iaqCdOxWeKVlP4KL7veAO45pXZVlmINridUryoyX8
-         F6GO7v0hvcoKa0zH264J/shK6Du/D9Yb2+CQU70SJpDoRinI0Ag3xEG99ierywgmoEtq
-         wKWC7lEA4akuDGgvdX8gWrZS+mS+SjhOTbC3W/OzS+Ma9zv8n4MgB5W9wE9VqjxAqkyz
-         PX2BX6mHaiwUZ/rBO7cA6qEOzkwtDvJ6Sx0/K8sQeOOcUbnkTbk1OksLCiJUl4QTxn8X
-         ArRTJ+fSHA09N6EyWHk145SG/uN5vXhySm9+IGTaw6NvjBN/NFDEgMITpOsMq4u/E67W
-         J+bg==
-X-Gm-Message-State: AOJu0Yw3/YT1KuTi+79nIBe+jG02bWBAGK/DAYpYS19+C69SBfcMa34z
-	BRDzlVH4e9hVpHN4vC3aEWtnNeu1nrX6x2D38213nt5j0EwrbgBeFt99yYxIeg==
-X-Google-Smtp-Source: AGHT+IGoxVyobR84bSt31y4HWaxgJJ2uJL3R8jBQ17KG3/avDB18+dYliQcbQf3ur6RffFwKxHHHaw==
-X-Received: by 2002:a17:906:9e08:b0:a5a:8b17:d851 with SMTP id a640c23a62f3a-a5a8b17db00mr1048558566b.20.1716272717523;
-        Mon, 20 May 2024 23:25:17 -0700 (PDT)
-Message-ID: <fd5334e0-d54d-48fa-bf7d-c34f9f1a78ab@suse.com>
-Date: Tue, 21 May 2024 08:25:20 +0200
+X-Inumbo-ID: 630f97de-1746-11ef-909f-e314d9c70b13
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=gLkCHtDzi7q3Fg/04gX0NJR3rM0mVDa17etC8rugbRLtgwRIwDYKm7QRsp1Nqb3ic7tDF//+vvqjT9m54suYoJMshqAOJ7HTVE84C5urfoTgboWb7UY4bESnMjds9nFQw3ITUM7Z+Hh+jOWDx81QwOUyH8Fu8DnXNDaNuBrYjYVgAJScOwI/lTrYuKviktsHOEqMsZSnivlou1KcidJOLO2HEN3tufkoscUnqZ4rkGAquubxuFQ2+VsX2NyqXpsdyfKLl6TTeHUuNW0P13zCO7SsjKMfI12DdAQ+76xex0HDP2oY7O1N1bJEXkvRWg7cw9JRv0F4gYe6NUsDMg5oeg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=QjoqvSVRSR9NDC874BgKN3oOL36ifj5ne8qhLOku9b0=;
+ b=WDmamD3eGbTsunOWAUY50qky5mj6LkScyEnE1NeHKeVkenJf6teF/GhlapztPkY5PusghhGhMu4KmBbG/6+LB3IwPJhpsNiLIjZjhXBAzSsJuYpJcQ8UPx9+8udlTN1K11+aHw9yXhF6aa3hV1zlpwaPIXd0n+l+qJxGF5A4BQ1oq5mLZXUwAlsIQvvK29FQtw5lB43ijmc8wW/btOexGBxC3nHppZew+ljyCOWbWR3cFpy2N/FIqPVuaEuDBXgGGgZoPYLSmgDpYOts1ZV3FZxXmKhOliQGXuRXwoNTA/d4gDWpNik4CKjPLZmEIGtWvxrcU3dGNv3yxVDoK2IBfw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=QjoqvSVRSR9NDC874BgKN3oOL36ifj5ne8qhLOku9b0=;
+ b=cDniG10Xnn2uEoch2o5uGDXtJIto8byDK6SLs/iyIcjQoXZwrGRlbGmwLh0kQrnLM01TxRDCUxdITWwkX0MFpCsFKjk4ZW9QTsoFwLpnWNSqXfuppqpAxDdelAuspSwsEgn4cb1iRSN+5bDImOQ1sJYqkxE2NhrxBtMvHKnXIR4=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Message-ID: <e724dd97-03fc-4136-9a53-94bbddce160f@amd.com>
+Date: Tue, 21 May 2024 09:47:29 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 06/12] VT-d: respect ACPI SATC's ATC_REQUIRED flag
+Subject: Re: [PATCH v3] xen/arm: Set correct per-cpu cpu_core_mask
+To: Henry Wang <xin.wang2@amd.com>, <xen-devel@lists.xenproject.org>, "Stefano
+ Stabellini" <sstabellini@kernel.org>, Julien Grall <julien@xen.org>
+CC: Bertrand Marquis <bertrand.marquis@arm.com>, Volodymyr Babchuk
+	<Volodymyr_Babchuk@epam.com>, Henry Wang <Henry.Wang@arm.com>
+References: <20240321035706.165253-1-xin.wang2@amd.com>
+ <9deeb66d-1a69-442e-a860-08006067ff44@amd.com>
 Content-Language: en-US
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Kevin Tian <kevin.tian@intel.com>, Paul Durrant <paul@xen.org>
-References: <64b028be-2197-4951-ae5b-32f9eabfa84a@suse.com>
- <e98daa41-c6b6-4f4e-b41d-84006011068d@suse.com> <ZjjdZRPluS0YIazc@macbook>
- <e9281523-a807-4889-80f0-a13804188af9@suse.com> <Zks1qFNsQdLkOCAs@macbook>
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <Zks1qFNsQdLkOCAs@macbook>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+From: Michal Orzel <michal.orzel@amd.com>
+In-Reply-To: <9deeb66d-1a69-442e-a860-08006067ff44@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+Received-SPF: None (SATLEXMB04.amd.com: michal.orzel@amd.com does not
+ designate permitted sender hosts)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL6PEPF0001AB77:EE_|MN0PR12MB6247:EE_
+X-MS-Office365-Filtering-Correlation-Id: ce45eb0e-7af5-4dd7-76fe-08dc796a4599
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230031|82310400017|1800799015|376005|36860700004;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?bE53c0Z4bWQrblNrdUhETm9EUXBCTzYrbnVubWdlWGdHSmpudUlsMzFBVXl1?=
+ =?utf-8?B?bTl4RDByYXUvMUM3NnFUNWZhaDRjMDRVWEw2eUdsL1VkM3lWenhzY3pWNGtK?=
+ =?utf-8?B?OThpQU53THZGK1ZtMUM5cm55S1YwOG1sQnBleDBQUXVxNTNFNHNtVkZpTVdL?=
+ =?utf-8?B?eFpMc0ZJR0p5R3NVUXNGbkpsV1hHOExUTVlVeE5kVnRVbThYS0tJeVpkVFNC?=
+ =?utf-8?B?YzgwWTBTbGszUmRpTmNMZ3Zjc1Q2U3JJY3VaODYxeHM5ZDVHZlYvaWsxY3Bm?=
+ =?utf-8?B?WHpma2RIZXo3NmlsNEo1YWtHT29FMmYxQWdRU0Yxb09rYkJaWUtvaEI2SnA1?=
+ =?utf-8?B?cm8wVHNaTXpRb09nKzgwYVZVOXZvL05aTWc4UFh2bVVSdVBpTmVFRm13cG5C?=
+ =?utf-8?B?bFNjbjRmL0l1M0hySGJnVHRDeklBNzZkWW9wSVRIM0FVbi9xVFVuckY5RFda?=
+ =?utf-8?B?ZENSMEp5S2QyZXBRTXREWjdhTjM3eWl4SlhtbFJxYzRicHJJYUlGQzE3TmRK?=
+ =?utf-8?B?WWVHNHEwRUZ4ZmZCc2ZacDJaZ2Q0dmROS0NkOGRVenZXQUQwRkVlRnVUTFdQ?=
+ =?utf-8?B?OFRsR3hReGJDMGNvQmdZWCtIWjlYdzVoQ0tEMTUvZDdkSHNONVA5UVh5VzRl?=
+ =?utf-8?B?ZlhvcDFaeHVjTms3MGtpT2M2U0VDQmtmR05jNGIwemlmdzQ0Y2dEVktvYXE2?=
+ =?utf-8?B?QVRaQWNDSWdoYktvYzZYTFYrUiswN3I5c2hDNUttOEc2elJLQk5Pd1VscGRp?=
+ =?utf-8?B?b2ZFcE5tRXR5QWtJSVVmV00xekdkZlBGRkhCQTVTVE5QVTd3a2owMzRkdFRi?=
+ =?utf-8?B?c1hWcXREdXNicFpXZkg4SWpCQTRIRVoyMHN4SjJabWQvU0xDbDFySEV4SVE5?=
+ =?utf-8?B?YjZic0pqbzQ5cklTQk5Ma201ZFV0YlhjdHZZWElTZVBtRjZFWi9vOUYvRCsv?=
+ =?utf-8?B?TkxYRkZkQmpBeWt4QkxCVk13WUpEU3VKSDVWZU1McnFCZW1KZEZPejZ2enh0?=
+ =?utf-8?B?SEhxVDF3elZUT2dIS2pZL1pVbkMraSs5L0RISTJMTUVXbStLUi9aalprd3Bn?=
+ =?utf-8?B?ZWdPTzlHNVhpaGo1L2N2NXI3RXdTMzZPRHg0bE9vSWoxMkp1a0dkU2owZkVh?=
+ =?utf-8?B?dHVUaGJxS0tuSVpTMUFXTUJnUHY4SDVEa0VNaHREaFhsZlZ2aGFLTkFwVHZy?=
+ =?utf-8?B?YTdubEFWWkh5RXd1YUgrS2JWMkxJdnF1OFVKb3dTNkZNTGE2ck5qTmF6WXZ1?=
+ =?utf-8?B?Q2tFZnBzSjlsWTBlTURta2lTOFBHYytiM21qUFJRZGhnTWVsV05xZkdkTmxh?=
+ =?utf-8?B?N0w5TGo3Zzl0TkczTnZKdnBZeUIybklTUkd2NWN5cW1CNHV4UCtjRmZvcHoy?=
+ =?utf-8?B?N1cvZG9uVTArZzluNlFnZ21kdXZOak1pUitWOGNYNjNaakZDYjYwcWtGNG15?=
+ =?utf-8?B?YndEa25JdlpuRzVodzQ3Vm1rVUplWmowL2ZnWXArSHhySUxQVEwrMVRrbGlB?=
+ =?utf-8?B?MU9iSjV2UjZZL0R1Uy8vUnBDQ0V1Y1VLbDE5anhqanp2enJqVGRxbXFVWlli?=
+ =?utf-8?B?a3Z6NHZidElYK0k5SG1OcFZLSzhmRWJ4enlLK1lQaVh6ZEhwSEcybUVVNlhO?=
+ =?utf-8?B?WGRTZXJ5K3lmaWNwYTZubFJQdWYzcEZydUtTK0RyeU55L1FxeU5jVnpjTFVq?=
+ =?utf-8?B?V1BsTGlTazdZTmd5VnIvQ21NVnRkOFBSNkRTMy8yZnRob1RHRk1YckNxaFYv?=
+ =?utf-8?B?SGZhbUNGYWJMQW9IZVdoSW1xRjk2a3E0bkczYVNwRWU0dU1CT2lKZGNyK2x3?=
+ =?utf-8?B?QTVVcVVYYnhXWXl5S2NnYU1pdkxMM3hXOFlSSFdlQ3dOK0pyN0NtSEcwdmxI?=
+ =?utf-8?Q?MjyXhqbBmVyk0?=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(82310400017)(1800799015)(376005)(36860700004);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 May 2024 07:47:32.0478
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: ce45eb0e-7af5-4dd7-76fe-08dc796a4599
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BL6PEPF0001AB77.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6247
 
-On 20.05.2024 13:36, Roger Pau Monné wrote:
-> On Wed, May 15, 2024 at 12:42:40PM +0200, Jan Beulich wrote:
->> On 06.05.2024 15:38, Roger Pau Monné wrote:
->>> On Thu, Feb 15, 2024 at 11:16:11AM +0100, Jan Beulich wrote:
->>>> When the flag is set, permit Dom0 to control the device (no worse than
->>>> what we had before and in line with other "best effort" behavior we use
->>>> when it comes to Dom0),
->>>
->>> I think we should somehow be able to signal dom0 that this device
->>> might not operate as expected, otherwise dom0 might use it and the
->>> device could silently malfunction due to ATS not being enabled.
->>
->> Whatever signaling we invented, no Dom0 would be required to respect it,
->> and for (perhaps quite) some time no Dom0 kernel would even exist to query
->> that property.
->>
->>> Otherwise we should just hide the device from dom0.
->>
->> This would feel wrong to me, almost like a regression from what we had
->> before.
+Hi Henry.
+
+On 20/05/2024 04:57, Henry Wang wrote:
+> Hi All,
 > 
-> Exposing a device to dom0 that won't be functional doesn't seem like a
-> very wise choice from Xen TBH.
+> Gentle ping since it has been a couple of months, any comments on this 
+> updated patch? Thanks!
+Sorry for the late reply.
 
-Yes but. That's what we're doing right now, after all.
-
->>> I assume setting the IOMMU context entry to passthrough mode would
->>> also be fine for such devices that require ATS?
->>
->> I'm afraid I'm lacking the connection of the question to what is being
->> done here. Can you perhaps provide some more context? To provide some
->> context from my side: Using pass-through mode would be excluded when Dom0
->> is PVH. Hence why I'm not getting why we would want to even just consider
->> doing so.
->>
->> Yet, looking at the spec, in pass-through mode translation requests are
->> treated as UR. So maybe your question was towards there needing to be
->> handling (whichever way) for the case where pass-through mode was
->> requested for PV Dom0? The only half-way sensible thing to do in that case
->> that I can think of right now would be to ignore that command line option,
 > 
-> Hm, maybe I'm confused, but if the IOMMU device context entry is set
-> in pass-through mode ATS won't be enabled and hence no translation
-> requests would be send from the device?
+> Kind regards,
+> Henry
 > 
-> IOW, devices listed in the SATC can only mandate ATS enabled when the
-> IOMMU is enforcing translation.   IF the IOMMU is not enabled or if
-> the device is in passthrough mode then the requirement for having ATS
-> enabled no longer applies.
+> On 3/21/2024 11:57 AM, Henry Wang wrote:
+>> In the common sysctl command XEN_SYSCTL_physinfo, the value of
+>> cores_per_socket is calculated based on the cpu_core_mask of CPU0.
+>> Currently on Arm this is a fixed value 1 (can be checked via xl info),
+>> which is not correct. This is because during the Arm CPU online
+>> process at boot time, setup_cpu_sibling_map() only sets the per-cpu
+>> cpu_core_mask for itself.
+>>
+>> cores_per_socket refers to the number of cores that belong to the same
+>> socket (NUMA node). Currently Xen on Arm does not support physical
+>> CPU hotplug and NUMA, also we assume there is no multithread. Therefore
+>> cores_per_socket means all possible CPUs detected from the device
+>> tree. Setting the per-cpu cpu_core_mask in setup_cpu_sibling_map()
+>> accordingly. Modify the in-code comment which seems to be outdated. Add
+>> a warning to users if Xen is running on processors with multithread
+>> support.
+>>
+>> Signed-off-by: Henry Wang <Henry.Wang@arm.com>
+>> Signed-off-by: Henry Wang <xin.wang2@amd.com>
+Reviewed-by: Michal Orzel <michal.orzel@amd.com>
 
-Oh, I think I now get what your original question was about: Instead of
-enabling ATS on such devices, we might run them in pass-through mode.
-For PV that would appear to be an option, yes. But with PVH (presumably)
-being the future I'd be rather hesitant to go that route.
+>> ---
+>> v3:
+>> - Use cpumask_copy() to set cpu_core_mask and drop the unnecessary
+>>    cpumask_set_cpu(cpu, per_cpu(cpu_core_mask, cpu)).
+>> - In-code comment adjustments.
+>> - Add a warning for multithread.
+>> v2:
+>> - Do not do the multithread check.
+>> ---
+>>   xen/arch/arm/smpboot.c | 18 +++++++++++++++---
+>>   1 file changed, 15 insertions(+), 3 deletions(-)
+>>
+>> diff --git a/xen/arch/arm/smpboot.c b/xen/arch/arm/smpboot.c
+>> index a84e706d77..b6268be27a 100644
+>> --- a/xen/arch/arm/smpboot.c
+>> +++ b/xen/arch/arm/smpboot.c
+>> @@ -66,7 +66,11 @@ static bool cpu_is_dead;
+>>   
+>>   /* ID of the PCPU we're running on */
+>>   DEFINE_PER_CPU(unsigned int, cpu_id);
+>> -/* XXX these seem awfully x86ish... */
+>> +/*
+>> + * Although multithread is part of the Arm spec, there are not many
+>> + * processors support multithread and current Xen on Arm assumes there
+NIT: s/support/supporting
 
-Jan
+>> + * is no multithread.
+>> + */
+>>   /* representing HT siblings of each logical CPU */
+>>   DEFINE_PER_CPU_READ_MOSTLY(cpumask_var_t, cpu_sibling_mask);
+>>   /* representing HT and core siblings of each logical CPU */
+>> @@ -85,9 +89,13 @@ static int setup_cpu_sibling_map(int cpu)
+>>            !zalloc_cpumask_var(&per_cpu(cpu_core_mask, cpu)) )
+>>           return -ENOMEM;
+>>   
+>> -    /* A CPU is a sibling with itself and is always on its own core. */
+>> +    /*
+>> +     * Currently we assume there is no multithread and NUMA, so
+>> +     * a CPU is a sibling with itself, and the all possible CPUs
+>> +     * are supposed to belong to the same socket (NUMA node).
+>> +     */
+>>       cpumask_set_cpu(cpu, per_cpu(cpu_sibling_mask, cpu));
+>> -    cpumask_set_cpu(cpu, per_cpu(cpu_core_mask, cpu));
+>> +    cpumask_copy(per_cpu(cpu_core_mask, cpu), &cpu_possible_map);
+>>   
+>>       return 0;
+>>   }
+>> @@ -277,6 +285,10 @@ void __init smp_init_cpus(void)
+>>           warning_add("WARNING: HMP COMPUTING HAS BEEN ENABLED.\n"
+>>                       "It has implications on the security and stability of the system,\n"
+>>                       "unless the cpu affinity of all domains is specified.\n");
+>> +
+>> +    if ( system_cpuinfo.mpidr.mt == 1 )
+>> +        warning_add("WARNING: MULTITHREADING HAS BEEN DETECTED ON THE PROCESSOR.\n"
+>> +                    "It might impact the security of the system.\n");
+>>   }
+>>   
+>>   unsigned int __init smp_get_max_cpus(void)
+> 
+
+~Michal
 
