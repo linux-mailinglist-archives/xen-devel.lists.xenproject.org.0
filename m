@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8B2D58CAAE7
-	for <lists+xen-devel@lfdr.de>; Tue, 21 May 2024 11:38:15 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.726703.1131043 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 40C138CAB16
+	for <lists+xen-devel@lfdr.de>; Tue, 21 May 2024 11:46:58 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.726710.1131053 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s9Lvh-0008Ag-3f; Tue, 21 May 2024 09:37:09 +0000
+	id 1s9M4u-0001SL-VL; Tue, 21 May 2024 09:46:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 726703.1131043; Tue, 21 May 2024 09:37:09 +0000
+Received: by outflank-mailman (output) from mailman id 726710.1131053; Tue, 21 May 2024 09:46:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s9Lvh-000899-05; Tue, 21 May 2024 09:37:09 +0000
-Received: by outflank-mailman (input) for mailman id 726703;
- Tue, 21 May 2024 09:37:08 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1s9M4u-0001Q1-S0; Tue, 21 May 2024 09:46:40 +0000
+Received: by outflank-mailman (input) for mailman id 726710;
+ Tue, 21 May 2024 09:46:39 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=TLq1=MY=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1s9Lvf-000893-V2
- for xen-devel@lists.xenproject.org; Tue, 21 May 2024 09:37:07 +0000
+ id 1s9M4t-0001PK-EI
+ for xen-devel@lists.xenproject.org; Tue, 21 May 2024 09:46:39 +0000
 Received: from mail-ed1-x52b.google.com (mail-ed1-x52b.google.com
  [2a00:1450:4864:20::52b])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id af7d74c7-1755-11ef-b4bb-af5377834399;
- Tue, 21 May 2024 11:37:05 +0200 (CEST)
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 05080783-1757-11ef-909f-e314d9c70b13;
+ Tue, 21 May 2024 11:46:38 +0200 (CEST)
 Received: by mail-ed1-x52b.google.com with SMTP id
- 4fb4d7f45d1cf-56e69888a36so8748851a12.3
- for <xen-devel@lists.xenproject.org>; Tue, 21 May 2024 02:37:05 -0700 (PDT)
+ 4fb4d7f45d1cf-572a93890d1so9354719a12.3
+ for <xen-devel@lists.xenproject.org>; Tue, 21 May 2024 02:46:38 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a5a17b16669sm1578644466b.188.2024.05.21.02.37.04
+ a640c23a62f3a-a5ce2eabad1sm704481566b.202.2024.05.21.02.46.37
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 21 May 2024 02:37:04 -0700 (PDT)
+ Tue, 21 May 2024 02:46:37 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,39 +45,39 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: af7d74c7-1755-11ef-b4bb-af5377834399
+X-Inumbo-ID: 05080783-1757-11ef-909f-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1716284225; x=1716889025; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1716284798; x=1716889598; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=DynbRU0A7GPBquUvob9jhkjzzQdPSGZLT+Ekxx6uq6E=;
-        b=UiQZmuHjTmwgHE2FLdUukyQ2sszv7HYEHF8MXosPar/YtW1rRkUHjfvNMmJRoeRJti
-         g5l7x+iUU9sLN874EvkaZNiGkGRKQFjfPaDfh/WmX7MuwAWUWY0DxSqjIMXQn+WArv8F
-         sSAVSwhGrVhtzdRVFtCnpOgR4qtGNBHBFbmVD4OSmyEpRUVjxaH+kTOtpg/6YFQckhee
-         TW/qR1HqxuyjFCNVHaxiM8YN5Da/v8jsD/80nXvzGqQiMthkpKmYI8A9Sd6QBl94cz5y
-         XbZ1Fgfb0so15zCFumznmbWYXkYNLvluMWJjaghKEu6boiUjN9ZP0WU93Z1fu8fHB6nY
-         eNQw==
+        bh=R96BCP96vO92VytP1iz3Eh8vWoYjjxBtd2vJWaEMbis=;
+        b=HHhPr+gWcRtypbzsqWtp4nYU14mGqNJ59BkyoiUC0it3yzqLFpwp7ThcZSk9EucFM8
+         s6sQ7t9+ap6A9Rm6en3whsDWhhebFm/4MMV5C4ja1Phqnq4VrPG8vD8G2T2uWC0cMTrC
+         zGiMQIGsveRDWKdW4eFmoQYAGfvz2lFE5N1Sx5u2UV27EpGmDlWiPeQtadKpRRVniZAp
+         l/c74yKSmXtbmhDuklIFirxv6VPjfThaXynfu9AoNTqtQvdZGCaCldp/eehAx4yVYHsI
+         bLDEL5f2c9Q36C585ozGviEyCj9zgi6h4qiqe7D361EJudNgPEJzYHQqz9F+pQvEemVy
+         AkJg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1716284225; x=1716889025;
+        d=1e100.net; s=20230601; t=1716284798; x=1716889598;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=DynbRU0A7GPBquUvob9jhkjzzQdPSGZLT+Ekxx6uq6E=;
-        b=txRTn7u246m679UYQGiBY+STbj9uyWpZzhducmBDtxEqC1I/0BLKVievre7i8P/tgx
-         J7P2+fslpO/9LwjkuOm2jZolo7XOdiHJyJyeFyzO5yVlpwo846jgdFLRHguQBtww+8jS
-         cu2N2zvusKGWU5Xarth/k1JOf6e22mnd3CPvD5hrvrWCSla71G8tWj4pYNMeKU/K359j
-         7BIPB8DVQOdn9sQZNOJHEH7HS/4AP3Vg9dLz4VsWoRn+IHI2Cgc4ASfupQpS7cul5Xdv
-         4Z+7MURMOxtvnvOwnCivbRN1uKj1AXvotDLgIOHNShsBOes0eoeaiWDFkZtKUF6Nf1XQ
-         KVHw==
-X-Forwarded-Encrypted: i=1; AJvYcCVU8F6VeGMdVNiQVi1JjO6ZpKvbRkTP+cVkb4XJrjthqpRDZi+5ztWiWUNYVzPDD3Kbva+fHDpwN7DKT7X2NJvJW3JiOqJn5EOWnTRP9IM=
-X-Gm-Message-State: AOJu0YwGhSGJtAjdbLdADGs0IlqdTYR+i08ZQIy2oVMLrSgH+E8fmgmK
-	UCC/nxyYwENlrMlkMsQlWrv0pt9xI/Xb0utQvSeGGNTpxIns4RDOqsJnZ1QhbQ==
-X-Google-Smtp-Source: AGHT+IFHxY18K3TKJNVnsoZCtml+EAAUwmKWmK45uy6YaEpFg8+cPJpYF404pc4d8kDW2g6Xjol6kA==
-X-Received: by 2002:a17:906:da8b:b0:a59:bdb7:73f8 with SMTP id a640c23a62f3a-a5a2d66a3b4mr2738871266b.47.1716284225136;
-        Tue, 21 May 2024 02:37:05 -0700 (PDT)
-Message-ID: <eef0f9f6-daee-4430-a73a-9b7e161e8731@suse.com>
-Date: Tue, 21 May 2024 11:37:03 +0200
+        bh=R96BCP96vO92VytP1iz3Eh8vWoYjjxBtd2vJWaEMbis=;
+        b=UQ5qWa9kt3i4uBGq26Of3g8dHuwU+Mt2mTNMZkSXsasaOBvl4mUhGK9+YYJ/oVTcoe
+         yswrQYtdriBVXOOeOBHhHAjPi1qVGitngUJ1ZSxK1C4pX9TipP5YemXWrSKbyjdM3TNR
+         LanIZpfOEUCzrDnesUOp1lH5sRI1yg34da+W/qONsSJeip7wQq2r4tRNGmutpTdbtES7
+         cbYYZxIes1WP4h/j1abZl1q/yMU3dwNVjsiWc99nbAC2T50euibAZAQz8Pt6xv5PHEsz
+         XajX9lTGKUFGUuqJdi3xlWXmJb4JwBz+DmLUsZRE8vePWvGDZM2SyR13FrrfI0HrLLMw
+         Uz3g==
+X-Forwarded-Encrypted: i=1; AJvYcCUJzBCNZaJXaEqwM/NgJV/tppzABrhtfDmy+d9Njc/YpStym2wLOPzDuxJP1he3rNkeMPffAqDNnFuLoLQ40H705FHkOW8oeTAo09ZZWcI=
+X-Gm-Message-State: AOJu0Yw26lQKgPxW4qsXLolnZqJrLYRVNzCtoCG1FH25o6D+2IevL4+/
+	xsO3aUNEWrbwp8ZSdSrdiKjxTrrNudWMyf5JIC6szoQllCG/hd2BcFYAEBNGbA==
+X-Google-Smtp-Source: AGHT+IGJB5qyQ7Mihd9HkcvgJJztPSgMI2ahnLqs+4l9UlSRyQVcdAe5qF2uyEJvdmw2GXRPVpt4xQ==
+X-Received: by 2002:a17:907:747:b0:a59:a3ef:21f5 with SMTP id a640c23a62f3a-a5a2d65ed16mr3935973566b.57.1716284798003;
+        Tue, 21 May 2024 02:46:38 -0700 (PDT)
+Message-ID: <43000c85-169e-4a39-8559-de2eada6bcbb@suse.com>
+Date: Tue, 21 May 2024 11:46:37 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH for-4.19] xen/x86: limit interrupt movement done by
@@ -88,7 +88,6 @@ Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  Oleksii Kurochko <oleksii.kurochko@gmail.com>, xen-devel@lists.xenproject.org
 References: <20240516132224.86005-1-roger.pau@citrix.com>
  <449c7562-18a5-4f5b-a7a6-36fbf0383517@suse.com> <ZkYstvGkdffWMn2z@macbook>
- <b77790c6-a5b5-40d9-9387-5101ace14a4c@suse.com> <ZkYzGZ3tDg9dRbnF@macbook>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -113,89 +112,76 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <ZkYzGZ3tDg9dRbnF@macbook>
+In-Reply-To: <ZkYstvGkdffWMn2z@macbook>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 16.05.2024 18:23, Roger Pau Monné wrote:
-> On Thu, May 16, 2024 at 06:04:22PM +0200, Jan Beulich wrote:
->> On 16.05.2024 17:56, Roger Pau Monné wrote:
->>> On Thu, May 16, 2024 at 05:00:54PM +0200, Jan Beulich wrote:
->>>> On 16.05.2024 15:22, Roger Pau Monne wrote:
->>>>> @@ -2576,7 +2576,12 @@ void fixup_irqs(const cpumask_t *mask, bool verbose)
->>>>>                  release_old_vec(desc);
->>>>>          }
->>>>>  
->>>>> -        if ( !desc->action || cpumask_subset(desc->affinity, mask) )
->>>>> +        /*
->>>>> +         * Avoid shuffling the interrupt around if it's assigned to a CPU set
->>>>> +         * that's all covered by the requested affinity mask.
->>>>> +         */
->>>>> +        cpumask_and(affinity, desc->arch.cpu_mask, &cpu_online_map);
->>>>> +        if ( !desc->action || cpumask_subset(affinity, mask) )
->>>>>          {
->>>>>              spin_unlock(&desc->lock);
->>>>>              continue;
->>>> [...]
->>>> In
->>>> which case cpumask_subset() is going to always return true with your
->>>> change in place, if I'm not mistaken. That seems to make your change
->>>> questionable. Yet with that I guess I'm overlooking something.)
->>>
->>> I might we wrong, but I think you are missing that the to be offlined
->>> CPU has been removed from cpu_online_map by the time it gets passed
->>> to fixup_irqs().
+On 16.05.2024 17:56, Roger Pau Monné wrote:
+> On Thu, May 16, 2024 at 05:00:54PM +0200, Jan Beulich wrote:
+>> On 16.05.2024 15:22, Roger Pau Monne wrote:
+>>> --- a/xen/arch/x86/irq.c
+>>> +++ b/xen/arch/x86/irq.c
+>>> @@ -2527,7 +2527,7 @@ static int __init cf_check setup_dump_irqs(void)
+>>>  }
+>>>  __initcall(setup_dump_irqs);
+>>>  
+>>> -/* Reset irq affinities to match the given CPU mask. */
+>>> +/* Evacuate interrupts assigned to CPUs not present in the input CPU mask. */
+>>>  void fixup_irqs(const cpumask_t *mask, bool verbose)
+>>>  {
 >>
->> Just on this part (I'll need to take more time to reply to other parts):
->> No, I've specifically paid attention to that fact. Yet for this particular
->> observation of mine is doesn't matter. If mask == &cpu_online_map, then
->> no matter what is in cpu_online_map
->>
->>         cpumask_and(affinity, desc->arch.cpu_mask, &cpu_online_map);
->>
->> will mask things down to a subset of cpu_online_map, and hence
->>
->>         if ( !desc->action || cpumask_subset(affinity, mask) )
->>
->> (effectively being
->>
->>         if ( !desc->action || cpumask_subset(affinity, &cpu_online_map) )
->>
->> ) is nothing else than
->>
->>         if ( !desc->action || true )
->>
->> . Yet that doesn't feel quite right.
+>> Evacuating is one purpose. Updating affinity, if need be, is another. I've
+>> been wondering more than once though whether it is actually correct /
+>> necessary for ->affinity to be updated by the function. As it stands you
+>> don't remove the respective code, though.
 > 
-> Oh, I get it now.  Ideally we would use cpu_online_map with the to be
-> removed CPU set, but that's complicated in this context.
+> Yeah, I didn't want to get into updating ->affinity in this patch, so
+> decided to leave that as-is.
 > 
-> For the purposes here we might as well avoid the AND of
-> ->arch.cpu_mask with cpu_online_map and just check:
+> Note however that if we shuffle the interrupt around we should update
+> ->affinity, so that the new destination is part of ->affinity?
+
+I would put it differently: If we shuffle the IRQ around, we want to
+respect ->affinity if at all possible. Only if that's impossible (all CPUs
+in ->affinity offline) we may need to update ->affinity as well. Issue is
+that ...
+
+> Otherwise we could end up with the interrupt assigned to CPU(s) that
+> are not part of the ->affinity mask.  Maybe that's OK, TBH I'm not
+> sure I understand the purpose of the ->affinity mask, hence why I've
+> decided to leave it alone in this patch.
+
+..., as you say, it's not entirely clear what ->affinity's purpose is, and
+hence whether it might be okay(ish) to leave it without any intersection
+with online CPUs. If we were to permit that, I'm relatively sure though
+that then other code may need updating (it'll at least need auditing).
+
+>>> @@ -2576,7 +2576,12 @@ void fixup_irqs(const cpumask_t *mask, bool verbose)
+>>>                  release_old_vec(desc);
+>>>          }
+>>>  
+>>> -        if ( !desc->action || cpumask_subset(desc->affinity, mask) )
+>>> +        /*
+>>> +         * Avoid shuffling the interrupt around if it's assigned to a CPU set
+>>> +         * that's all covered by the requested affinity mask.
+>>> +         */
+>>> +        cpumask_and(affinity, desc->arch.cpu_mask, &cpu_online_map);
+>>> +        if ( !desc->action || cpumask_subset(affinity, mask) )
+>>>          {
+>>>              spin_unlock(&desc->lock);
+>>>              continue;
+>>
+>> First my understanding of how the two CPU sets are used: ->affinity is
+>> merely a representation of where the IRQ is permitted to be handled.
+>> ->arch.cpu_mask describes all CPUs where the assigned vector is valid
+>> (and would thus need cleaning up when a new vector is assigned). Neither
+>> of the two needs to be a strict subset of the other.
 > 
-> if ( !desc->action || cpumask_subset(desc->arch.cpu_mask, mask) )
+> Oh, so it's allowed to have the interrupt target a CPU
+> (->arch.cpu_mask) that's not set in the affinity mask?
 
-Right, just that I wouldn't say "as well" - we simply may not mask with
-cpu_online_map, for the reason stated in the earlier reply.
-
-However, I remain unconvinced that we can outright drop the check of
-->affinity. While I doubt cpumask_subset() was correct before, if there's
-no intersection with cpu_online_map we still need to update ->affinity
-too, to avoid it becoming an "impossible" setting. So I continue to think
-that the logic as we have it right now may need splitting into two parts,
-one dealing with IRQ movement and the other with ->affinity.
-
-> As even if ->arch.cpu_mask has non-online CPUs set aside from the to
-> be offlined CPU, it would just mean that we might be shuffling more
-> than strictly necessary.
-
-Limiting the overall benefit of your change, but yes.
-
->  Note this will only be an issue with cluster
-> mode, physical mode must always have a single online CPU set in
-> ->arch.cpu_mask.
-
-Sure.
+To be honest I'm not quite sure whether it's "allowed" or merely "happens
+to".
 
 Jan
 
