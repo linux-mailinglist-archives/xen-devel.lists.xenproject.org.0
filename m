@@ -2,52 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C3D4C8CA773
-	for <lists+xen-devel@lfdr.de>; Tue, 21 May 2024 06:36:34 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.726504.1130844 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 784158CA775
+	for <lists+xen-devel@lfdr.de>; Tue, 21 May 2024 06:36:38 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.726506.1130859 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s9HEb-0008P3-VT; Tue, 21 May 2024 04:36:21 +0000
+	id 1s9HEd-0000Gv-I0; Tue, 21 May 2024 04:36:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 726504.1130844; Tue, 21 May 2024 04:36:21 +0000
+Received: by outflank-mailman (output) from mailman id 726506.1130859; Tue, 21 May 2024 04:36:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s9HEb-0008LO-Qd; Tue, 21 May 2024 04:36:21 +0000
-Received: by outflank-mailman (input) for mailman id 726504;
- Tue, 21 May 2024 04:36:19 +0000
+	id 1s9HEd-000091-80; Tue, 21 May 2024 04:36:23 +0000
+Received: by outflank-mailman (input) for mailman id 726506;
+ Tue, 21 May 2024 04:36:21 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=H+om=MY=amd.com=Xin.Wang2@srs-se1.protection.inumbo.net>)
- id 1s9HEZ-0006hu-OB
- for xen-devel@lists.xenproject.org; Tue, 21 May 2024 04:36:19 +0000
-Received: from NAM04-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam04on20600.outbound.protection.outlook.com
- [2a01:111:f403:2409::600])
+ id 1s9HEb-0006hu-QU
+ for xen-devel@lists.xenproject.org; Tue, 21 May 2024 04:36:21 +0000
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on20601.outbound.protection.outlook.com
+ [2a01:111:f403:2418::601])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a91c120f-172b-11ef-b4bb-af5377834399;
- Tue, 21 May 2024 06:36:17 +0200 (CEST)
-Received: from SA1PR04CA0016.namprd04.prod.outlook.com (2603:10b6:806:2ce::21)
- by DS0PR12MB8504.namprd12.prod.outlook.com (2603:10b6:8:155::11) with
- Microsoft SMTP Server (version=TLS1_2,
+ id aaab29f0-172b-11ef-b4bb-af5377834399;
+ Tue, 21 May 2024 06:36:19 +0200 (CEST)
+Received: from SA9PR13CA0038.namprd13.prod.outlook.com (2603:10b6:806:22::13)
+ by LV8PR12MB9184.namprd12.prod.outlook.com (2603:10b6:408:18f::9)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7587.35; Tue, 21 May
- 2024 04:36:15 +0000
-Received: from SA2PEPF00001509.namprd04.prod.outlook.com
- (2603:10b6:806:2ce:cafe::3f) by SA1PR04CA0016.outlook.office365.com
- (2603:10b6:806:2ce::21) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7587.36 via Frontend
- Transport; Tue, 21 May 2024 04:36:15 +0000
+ 2024 04:36:17 +0000
+Received: from SA2PEPF00001507.namprd04.prod.outlook.com
+ (2603:10b6:806:22:cafe::c3) by SA9PR13CA0038.outlook.office365.com
+ (2603:10b6:806:22::13) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7611.17 via Frontend
+ Transport; Tue, 21 May 2024 04:36:17 +0000
 Received: from SATLEXMB03.amd.com (165.204.84.17) by
- SA2PEPF00001509.mail.protection.outlook.com (10.167.242.41) with Microsoft
+ SA2PEPF00001507.mail.protection.outlook.com (10.167.242.39) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7611.14 via Frontend Transport; Tue, 21 May 2024 04:36:15 +0000
+ 15.20.7611.14 via Frontend Transport; Tue, 21 May 2024 04:36:17 +0000
 Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB03.amd.com
  (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Mon, 20 May
- 2024 23:36:14 -0500
+ 2024 23:36:16 -0500
 Received: from henry-MS-7D54.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.35 via Frontend
- Transport; Mon, 20 May 2024 23:36:13 -0500
+ Transport; Mon, 20 May 2024 23:36:14 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -59,22 +59,22 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a91c120f-172b-11ef-b4bb-af5377834399
+X-Inumbo-ID: aaab29f0-172b-11ef-b4bb-af5377834399
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=NHWCQdml5dsyd4yFmEEqFcnqeCsYYa5zf+yjVwVhDiX5MSfRcJxncv90F+LduLO9bvmyQsHmiUri+z/Kb2xBX7vLPPJUyBKRcujNLDyMO9/JHEAd/m1EJeuov9awrm+ol3BCx7WfI1aY3Shv+q5smepX1ehEbXkwl9cEtOMtGKCi8DL8ePpW8O25Hkvh360xHP5XjV51Tk1PsyKtj8fnDqYWFVLsvqXmEoszriGnT75x+btEwizXBwgo6ZGn/m0TIAlD+QBgrQWpV4cwVO34zkx3pJCKhAZgZNXskNPyYCgl0KVnk0T3rqStQ+pPkCawPhH5vyni9QpaDzIF0LUIWw==
+ b=fywDq+F8ZGMrfUxKPqSqqF3oAolIRpEEbBFbzBbAa8KXVzudey5rsgsIMbNRln5vrQHdRLJ9ab5T7pk215gEzEvj0OsmDfhE1f8optPrabs0UyZOvnWuJf42OMe5FZ4qY0ovnWcH4D23pXFa0mUa4XuR2B+HMp7YC8+Q45sJqq0Mi3hUq9FeJ9HH2/UQe1qKq/dw6P4b8/JEI1kGeEp8Fu/jeWaeu9/moU+vo09wA+yWHLlvSAMMaMK93PEW80sUbWEgkZoUtJ45OyNrlU8iwhfeYaPSwuShMpH2WAUL27clBZPq8S0/OckiRJeYlDnASdMpd03zChjsImOe0+kOVQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=BE7z9HeLzOE9JPXCOJkwYcS8CjTT2Ru5y5EpVZBDA6c=;
- b=i3ZuKH//kSg9znsMnvoRrbQSZyIP5KMKXf3CPo+uCxrRFIcqnodr9PW3VX98kx0la017YA0nlSaI2yQrP7iPmPPbjN4tPjVu6rgUyqXlIm1TgV/qmIKh32SMfpTVrlM/tB47h9P0MAydbuzvli9T+J6BvQzDrEbNs3zGFdZ1Owo5lyRZkP02GgG44ZdFVrl1E7s6sTuNxED2QfUGoEysvQiGNO7/HXUqvZIho99mSDo4KtV+hbBN82c7dWM4qEnhRyXW+f5jGyfBajpfYQCR0/iRjqQAuWvq/iqzuWdTxYjFzZ4paK95VIiwy9zYujf0hlFS3AG6n02Zg6zKiFPR4Q==
+ bh=XLkeA8mEKzf4yLdB3J64v/O8UY7F2ncd41W/P3+Us/g=;
+ b=UUub2UTTVSpd/hDLNf1Id5Kw4FolJSjfqMNtapVVOJr0CNMcYp4XXmDzQiz84aapscx3VbC0ybGwWqvDLhIKkC6woFYbNOfCdPGh4TCCq6t3L18JbWcXgtri1/g5VaVd5xq2rHrpDrayXC1RGXxnx8mO1QyFa4bBClO5NPBrpRpA6+An2BX1tr5U0W0ehABmiPadlouqzF74Vxl0pXiUyrdabfPynS5j4LbZLXSdfE7GYygv2M0EYjfhAHZcnqe0g6sKXhn2X6DpqPYXQrlJIr5bGO2moTryTgPpm1j2BBUdDZsCzudJc19YU9PPryCoFSjnQ0zvxJQnIX3yxgjN3w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=BE7z9HeLzOE9JPXCOJkwYcS8CjTT2Ru5y5EpVZBDA6c=;
- b=fDcBnNDMgjgGpw58GfvPp6nkvXvcuoNk2zHHI/ETgxZB+/dR5nmkh3/01WtQ7bIq7cN4K1HXjjrQAHQYrcK5Lo5zvC9/Tukq728sEtWEElUX91wAoZcBezD1h7pQyA4AJH1OMlfRa11N36FvmORZgetYhmnsaK3CA9ACi0pqQqw=
+ bh=XLkeA8mEKzf4yLdB3J64v/O8UY7F2ncd41W/P3+Us/g=;
+ b=JDTEYIVXoeRRJgh+spDH81Yzkfx9TPDdd7H346WpzdFVni27wvGUP/7dE5HUaZsWJBFCG2HnpRO/FI4YAibEySljg+P7qfVlNeUlBseFSmA+LjZgcH1uZ9Byw5tniT8KGp/+OLHbj71/mfFnQLGtJOOFC2/77YDBx1dtaWUBAZU=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -83,11 +83,13 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
 From: Henry Wang <xin.wang2@amd.com>
 To: <xen-devel@lists.xenproject.org>
-CC: Anthony PERARD <anthony@xenproject.org>, Juergen Gross <jgross@suse.com>,
-	Henry Wang <xin.wang2@amd.com>
-Subject: [PATCH v3 7/8] tools: Introduce the "xl dt-overlay {attach,detach}" commands
-Date: Tue, 21 May 2024 12:35:56 +0800
-Message-ID: <20240521043557.1580753-8-xin.wang2@amd.com>
+CC: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+	<julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>, Michal Orzel
+	<michal.orzel@amd.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	"Henry Wang" <xin.wang2@amd.com>
+Subject: [PATCH v3 8/8] docs: Add device tree overlay documentation
+Date: Tue, 21 May 2024 12:35:57 +0800
+Message-ID: <20240521043557.1580753-9-xin.wang2@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20240521043557.1580753-1-xin.wang2@amd.com>
 References: <20240521043557.1580753-1-xin.wang2@amd.com>
@@ -98,277 +100,170 @@ Received-SPF: None (SATLEXMB03.amd.com: xin.wang2@amd.com does not designate
  permitted sender hosts)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA2PEPF00001509:EE_|DS0PR12MB8504:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4b9fe93c-9dbc-4460-2658-08dc794f8cc2
+X-MS-TrafficTypeDiagnostic: SA2PEPF00001507:EE_|LV8PR12MB9184:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6fc71ecd-dcde-4d0a-93da-08dc794f8e08
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
 	BCL:0;ARA:13230031|1800799015|82310400017|376005|36860700004;
 X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?Fzb3V6t8baIST7lGd/94pmH7QN5oUjDSEYhvlfpybNneUdap1+G/ESLH9Ilk?=
- =?us-ascii?Q?lOPHq1t/2P/HUSEYhmy263qZdy+O++CuiXaO+NGdKF5OhsixsVACXWj3cJGB?=
- =?us-ascii?Q?d4vTMHNnFTEeT7uliTlqaGjyFaJZfIqVYNH6mXbL5GedV6ltCNNUKB9wI1Lh?=
- =?us-ascii?Q?Br4YfH6ei3l2ExajslKGVDezuthZ7dM5vJ9OaqZFIPiN3xFwaZUUKw2OreQ3?=
- =?us-ascii?Q?IoyduyL/dF3bhQCtazN+Tlxbf8ttpO9ZKyhxWC9Pt5PWUgpZeIpMdZXGI3Kq?=
- =?us-ascii?Q?NKjsRacfbBRKUDc39fTl5vI8aUmBODFpYtz6TQCOvP1BM4X7F5BOzho2vD2V?=
- =?us-ascii?Q?DnrFUD70k+eYAUkKiikJQuP2dRNgCQvpWa6Vrq85h8kr4xBMgZrf9An/j/zl?=
- =?us-ascii?Q?YGa2Hs+v5gChKdbOM4J51UW4BkcKil/LG1m1YeFdeuqlyEXT35fcTJiKWwYB?=
- =?us-ascii?Q?oXAtOJU1Ctz6u0CetiVATZZAkfxxcIyRfaELdtkq09EHI5usewpQYbpKzBcF?=
- =?us-ascii?Q?sYLHjP5XxIGYx44SE89KFyw1cjb+C6jId87kACSCaD6l8cqmuPbXFpxhXNt8?=
- =?us-ascii?Q?VjH8jwDcLkyMVd8OemML4+m7htmAyYCfTAw//bRmUd016JFfGpNGYg25jueL?=
- =?us-ascii?Q?nIOvsd1BHS7UfNuRHzneNH4mBShJd20kPwLh/p7lxIaNxfVD5J8QMcX2ipbj?=
- =?us-ascii?Q?UgCdhJso2yWVZi0vVfvRdiwPuxv7Xby4fYGBUhjPUnWXsXveWSiq0db5q9Gy?=
- =?us-ascii?Q?Pxv3L9fnOLOrS6U8i9pwnDMk8Mnw0z6GX7piI185MoyBu3FbOnlEnpVRA4kf?=
- =?us-ascii?Q?U7bz7cHJXK+KGNB7NaUGaCkcZSJv8TJfGbfjJoWDO5/4Y14xsmwCu5aPwtcX?=
- =?us-ascii?Q?JJaiXW4bSrRz0QSWjLvOM63UVjP/exc9C8DwjTJ73R+nE5v1Mo5ZCka0DHyb?=
- =?us-ascii?Q?kAiOf36SKDy4neU6wIQquOJYJc1D68OuNOOoOdx1H8EL0hoibt0mJ8GmWI/Y?=
- =?us-ascii?Q?AeFAMS9fX5Ygu4cZbLUTA9dEfyU5M4KH9/BdfSXnCEA6FfDoo4O1+pLbQM0L?=
- =?us-ascii?Q?NXnsBDV+LNFm5uWyiN/rgsDyNij1SEFi9mKXHmx6k/+HeHLBGRnIQnMCBwNR?=
- =?us-ascii?Q?fMOb4z3yLXDYVnrjmAWBb4FxGRkHyTcZwrrF1EsHne4MQ5ftU6vf/9jjdzUA?=
- =?us-ascii?Q?fIsmSDfmAmL7MWk+eqxyHr48ROXG1K+c7nTS0l5gMctDbzHAIzvEOMgw6+2Y?=
- =?us-ascii?Q?AS0edmW9HzgBwzzhsUDCgYMoxd2Yi1zyzFcQiQjVO77dn33dNFpZRWbdbDR5?=
- =?us-ascii?Q?gKt0v3wkW8Uj5SKUjKK2Gqj1VtEXuk4uhpezehvxM1pDQPp10iwbz51ao9X/?=
- =?us-ascii?Q?szKXkltQbNkmNnczlkndUYpnXgTL?=
+	=?us-ascii?Q?TBe6ZPZElNPFoIHFtmMPTFQQ9IZdZDGoI6LfPDW8BdhsaoX3Uy1pdWfPHH05?=
+ =?us-ascii?Q?aidU7lt3oXxEXHQjtrBCxlbQq5KOnisUzbbhiQolp1BAM3RjxFiDfFAgmhmg?=
+ =?us-ascii?Q?dL1VuA/Upb0OfbwtU+Uqs9cnOyT4UNxBuM0SIaDo5rmZqxqGqynnZzJaGt9s?=
+ =?us-ascii?Q?2kAUQ7FFoQ+n1HJmElJR7b37QqyjXhm3UE9kVsXYL7p1Yi+RZMasUSYfp/np?=
+ =?us-ascii?Q?1BtP/LgVgKhWHcsxiYGWNRgzOKTfDIXBR3lV4NUeL3c0c9uXtZORXjNw0fE5?=
+ =?us-ascii?Q?smxIfxB4LPHyyDVFrjRJ02em5GH7K31i7uxoW8awXiGFepv3jdlNn3zC8LJc?=
+ =?us-ascii?Q?GBGlPcEwHNb9IDif/kWw5PaWXKBj7XIo6eTQE0fs+vnHiKUjoGGDIo13mjg+?=
+ =?us-ascii?Q?OWlJEJxkblHavDEwq0yfIcEU3n6X0vhxQAkk1sNtmw2fe4ZNP4bwICahgWM0?=
+ =?us-ascii?Q?/bGbKGZwbWLbCHxcVbXerDMx8Dqgt1J1sOi+BjWH72GhaauoqTY4niLCxA9Z?=
+ =?us-ascii?Q?0oWbSNu5GE1o+Sv5rlnWOkcWflKFr6TA3UQDaX7/rlhIRd7vNGP+avEL/Jc/?=
+ =?us-ascii?Q?xP9GjhiaObiBey8O79FDb28sDntQwC9kGth8+gpY4o+Hc0dElZm0H62aifQ2?=
+ =?us-ascii?Q?MGmeZBhyKxR1fvw2DIG3UwwXlGQmEogDYPfxKIecucdUsidVQ1d4MdTKmiE6?=
+ =?us-ascii?Q?ohXXbIoqp6a0bpCeIucUCrbofKAgVZ/u4KtR+/1g/u1wSnr6zpc0UXfZhx3K?=
+ =?us-ascii?Q?wkVQ6X3FG1+2uFlocRz3cPjlwfbbKe+CfFJI8kJPzIXvojV3t7xseqSw5stb?=
+ =?us-ascii?Q?QuD3saALNrTWej5pI4yP3uo3OHX4bMthi+lfFFjv5WjNI5fg6CG+I8AxfHs9?=
+ =?us-ascii?Q?whFINvUnol8u9XvRc7k4UyPH+ofMRoPydf/9YnerRb2w0g9xumXvMa6aWIKj?=
+ =?us-ascii?Q?70hAIPUrp2QMyTo/AMa+gOcfcaS7rSI7/NcL8VPD+6kHbwTW9UL7LgbMHu0T?=
+ =?us-ascii?Q?feUusEEaQKclleAMAMLw1n+VX8QWmeiduGPEB34LOE8pnQYOGHBPrKhXPe+m?=
+ =?us-ascii?Q?Bxjk8OdJWSwlG9jcvvAp1iHLQ7yrbhcjXIYeY2xvyItdn4MEGKpNclZ6sTmS?=
+ =?us-ascii?Q?iNxpnO9CowvtGiLtCRgs/RH0qVSOoDg11KOjFdtPmllmxRZ0Kxg6GWK/19D1?=
+ =?us-ascii?Q?h3F4OL9iFN5WMk3aFZ9CBdcXfDJygGon7LpzZNA4oSERyvCkZhWmJzlQUDek?=
+ =?us-ascii?Q?0AVZ5hVgx+FtL+x08FshCcysfgtwZJHAzEVv/Ux9TKW4k7wzOxwqu4rl1iq9?=
+ =?us-ascii?Q?LmYmrDcjdxIdyzElOozVliSj?=
 X-Forefront-Antispam-Report:
 	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(1800799015)(82310400017)(376005)(36860700004);DIR:OUT;SFP:1101;
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 May 2024 04:36:15.0054
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 May 2024 04:36:17.1446
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4b9fe93c-9dbc-4460-2658-08dc794f8cc2
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6fc71ecd-dcde-4d0a-93da-08dc794f8e08
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	SA2PEPF00001509.namprd04.prod.outlook.com
+	SA2PEPF00001507.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8504
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR12MB9184
 
-With the XEN_DOMCTL_dt_overlay DOMCTL added, users should be able to
-attach/detach devices from the provided DT overlay to domains.
-Support this by introducing a new set of "xl dt-overlay" commands and
-related documentation, i.e. "xl dt-overlay {attach,detach}". Slightly
-rework the command option parsing logic.
+From: Vikram Garhwal <fnu.vikram@xilinx.com>
 
+Signed-off-by: Vikram Garhwal <fnu.vikram@xilinx.com>
+Signed-off-by: Stefano Stabellini <stefano.stabellini@xilinx.com>
 Signed-off-by: Henry Wang <xin.wang2@amd.com>
 ---
 v3:
-- Introduce new API libxl_dt_overlay_domain() and co., instead of
-  reusing existing API libxl_dt_overlay().
-- Add in-code comments for the LIBXL_DT_OVERLAY_* macros.
-- Use find_domain() to avoid getting domain_id from strtol().
+- No change.
 v2:
-- New patch.
+- Update the content based on the changes in this version.
 ---
- tools/include/libxl.h               | 10 +++++++
- tools/include/xenctrl.h             |  3 +++
- tools/libs/ctrl/xc_dt_overlay.c     | 31 +++++++++++++++++++++
- tools/libs/light/libxl_dt_overlay.c | 28 +++++++++++++++++++
- tools/xl/xl_cmdtable.c              |  4 +--
- tools/xl/xl_vmcontrol.c             | 42 ++++++++++++++++++++---------
- 6 files changed, 104 insertions(+), 14 deletions(-)
+ docs/misc/arm/overlay.txt | 99 +++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 99 insertions(+)
+ create mode 100644 docs/misc/arm/overlay.txt
 
-diff --git a/tools/include/libxl.h b/tools/include/libxl.h
-index 62cb07dea6..6cc6d6bf6a 100644
---- a/tools/include/libxl.h
-+++ b/tools/include/libxl.h
-@@ -2549,8 +2549,18 @@ libxl_device_pci *libxl_device_pci_list(libxl_ctx *ctx, uint32_t domid,
- void libxl_device_pci_list_free(libxl_device_pci* list, int num);
- 
- #if defined(__arm__) || defined(__aarch64__)
-+/* Values should keep consistent with the op from XEN_SYSCTL_dt_overlay */
-+#define LIBXL_DT_OVERLAY_ADD                   1
-+#define LIBXL_DT_OVERLAY_REMOVE                2
- int libxl_dt_overlay(libxl_ctx *ctx, void *overlay,
-                      uint32_t overlay_size, uint8_t overlay_op);
+diff --git a/docs/misc/arm/overlay.txt b/docs/misc/arm/overlay.txt
+new file mode 100644
+index 0000000000..811a6de369
+--- /dev/null
++++ b/docs/misc/arm/overlay.txt
+@@ -0,0 +1,99 @@
++# Device Tree Overlays support in Xen
 +
-+/* Values should keep consistent with the op from XEN_DOMCTL_dt_overlay */
-+#define LIBXL_DT_OVERLAY_DOMAIN_ATTACH         1
-+#define LIBXL_DT_OVERLAY_DOMAIN_DETACH         2
-+int libxl_dt_overlay_domain(libxl_ctx *ctx, uint32_t domain_id,
-+                            void *overlay_dt, uint32_t overlay_dt_size,
-+                            uint8_t overlay_op);
- #endif
- 
- /*
-diff --git a/tools/include/xenctrl.h b/tools/include/xenctrl.h
-index 4996855944..9ceca0cffc 100644
---- a/tools/include/xenctrl.h
-+++ b/tools/include/xenctrl.h
-@@ -2657,6 +2657,9 @@ int xc_domain_cacheflush(xc_interface *xch, uint32_t domid,
- #if defined(__arm__) || defined(__aarch64__)
- int xc_dt_overlay(xc_interface *xch, void *overlay_fdt,
-                   uint32_t overlay_fdt_size, uint8_t overlay_op);
-+int xc_dt_overlay_domain(xc_interface *xch, void *overlay_fdt,
-+                         uint32_t overlay_fdt_size, uint8_t overlay_op,
-+                         uint32_t domain_id);
- #endif
- 
- /* Compat shims */
-diff --git a/tools/libs/ctrl/xc_dt_overlay.c b/tools/libs/ctrl/xc_dt_overlay.c
-index c2224c4d15..ea1da522d1 100644
---- a/tools/libs/ctrl/xc_dt_overlay.c
-+++ b/tools/libs/ctrl/xc_dt_overlay.c
-@@ -48,3 +48,34 @@ err:
- 
-     return err;
- }
++Xen now supports dynamic device assignment to running domains,
++i.e. adding/removing nodes (using .dtbo) to/from Xen device tree, and
++attaching/detaching them to/from a running domain with given $domid.
 +
-+int xc_dt_overlay_domain(xc_interface *xch, void *overlay_fdt,
-+                         uint32_t overlay_fdt_size, uint8_t overlay_op,
-+                         uint32_t domain_id)
-+{
-+    int err;
-+    struct xen_domctl domctl = {
-+        .cmd = XEN_DOMCTL_dt_overlay,
-+        .domain = domain_id,
-+        .u.dt_overlay = {
-+            .overlay_op = overlay_op,
-+            .overlay_fdt_size = overlay_fdt_size,
-+        }
-+    };
++Dynamic node assignment works in two steps:
 +
-+    DECLARE_HYPERCALL_BOUNCE(overlay_fdt, overlay_fdt_size,
-+                             XC_HYPERCALL_BUFFER_BOUNCE_IN);
++## Add/Remove device tree overlay to/from Xen device tree
 +
-+    if ( (err = xc_hypercall_bounce_pre(xch, overlay_fdt)) )
-+        goto err;
++1. Xen tools check the dtbo given and parse all other user provided arguments
++2. Xen tools pass the dtbo to Xen hypervisor via hypercall.
++3. Xen hypervisor applies/removes the dtbo to/from Xen device tree.
 +
-+    set_xen_guest_handle(domctl.u.dt_overlay.overlay_fdt, overlay_fdt);
++## Attach/Detach device from the DT overlay to/from domain
 +
-+    if ( (err = do_domctl(xch, &domctl)) != 0 )
-+        PERROR("%s failed", __func__);
++1. Xen tools check the dtbo given and parse all other user provided arguments
++2. Xen tools pass the dtbo to Xen hypervisor via hypercall.
++3. Xen hypervisor attach/detach the device to/from the user-provided $domid by
++   mapping/unmapping node resources in the DT overlay.
 +
-+err:
-+    xc_hypercall_bounce_post(xch, overlay_fdt);
++# Examples
 +
-+    return err;
-+}
-diff --git a/tools/libs/light/libxl_dt_overlay.c b/tools/libs/light/libxl_dt_overlay.c
-index a6c709a6dc..00503b76bd 100644
---- a/tools/libs/light/libxl_dt_overlay.c
-+++ b/tools/libs/light/libxl_dt_overlay.c
-@@ -69,3 +69,31 @@ out:
-     return rc;
- }
- 
-+int libxl_dt_overlay_domain(libxl_ctx *ctx, uint32_t domain_id,
-+                            void *overlay_dt, uint32_t overlay_dt_size,
-+                            uint8_t overlay_op)
-+{
-+    int rc;
-+    int r;
-+    GC_INIT(ctx);
++Here are a few examples on how to use it.
 +
-+    if (check_overlay_fdt(gc, overlay_dt, overlay_dt_size)) {
-+        LOG(ERROR, "Overlay DTB check failed");
-+        rc = ERROR_FAIL;
-+        goto out;
-+    } else {
-+        LOG(DEBUG, "Overlay DTB check passed");
-+        rc = 0;
-+    }
++## Dom0 device add
 +
-+    r = xc_dt_overlay_domain(ctx->xch, overlay_dt, overlay_dt_size, overlay_op,
-+                             domain_id);
-+    if (r) {
-+        LOG(ERROR, "%s: Attaching/Detaching overlay dtb failed.", __func__);
-+        rc = ERROR_FAIL;
-+    }
++For assigning a device tree overlay to Dom0, user should firstly properly
++prepare the DT overlay. More information about device tree overlays can be
++found in [1]. Then, in Dom0, enter the following:
 +
-+out:
-+    GC_FREE;
-+    return rc;
-+}
-diff --git a/tools/xl/xl_cmdtable.c b/tools/xl/xl_cmdtable.c
-index 1f3c6b5897..37770b20e3 100644
---- a/tools/xl/xl_cmdtable.c
-+++ b/tools/xl/xl_cmdtable.c
-@@ -634,8 +634,8 @@ const struct cmd_spec cmd_table[] = {
- #ifdef LIBXL_HAVE_DT_OVERLAY
-     { "dt-overlay",
-       &main_dt_overlay, 0, 1,
--      "Add/Remove a device tree overlay",
--      "add/remove <.dtbo>",
-+      "Add/Remove a device tree overlay to Xen device tree, attach/detach the device to a domain",
-+      "<operation=add|remove> <.dtbo> OR <operation=attach|detach> <.dtbo> <Domain>",
-       "-h print this help\n"
-     },
- #endif
-diff --git a/tools/xl/xl_vmcontrol.c b/tools/xl/xl_vmcontrol.c
-index 02575d5d36..ccfeec39f1 100644
---- a/tools/xl/xl_vmcontrol.c
-+++ b/tools/xl/xl_vmcontrol.c
-@@ -1268,32 +1268,46 @@ int main_create(int argc, char **argv)
- #ifdef LIBXL_HAVE_DT_OVERLAY
- int main_dt_overlay(int argc, char **argv)
- {
--    const char *overlay_ops = NULL;
-     const char *overlay_config_file = NULL;
-     void *overlay_dtb = NULL;
-     int rc;
-     uint8_t op;
-     int overlay_dtb_size = 0;
--    const int overlay_add_op = 1;
--    const int overlay_remove_op = 2;
-+    uint32_t domain_id = 0;
-+    bool domain_op = false;
- 
-     if (argc < 2) {
-         help("dt-overlay");
-         return EXIT_FAILURE;
-     }
- 
--    overlay_ops = argv[1];
--    overlay_config_file = argv[2];
--
--    if (strcmp(overlay_ops, "add") == 0)
--        op = overlay_add_op;
--    else if (strcmp(overlay_ops, "remove") == 0)
--        op = overlay_remove_op;
--    else {
-+    if (strcmp(argv[optind], "add") == 0)
-+        op = LIBXL_DT_OVERLAY_ADD;
-+    else if (strcmp(argv[optind], "remove") == 0)
-+        op = LIBXL_DT_OVERLAY_REMOVE;
-+    else if (strcmp(argv[optind], "attach") == 0) {
-+        op = LIBXL_DT_OVERLAY_DOMAIN_ATTACH;
-+        domain_op = true;
-+    } else if (strcmp(argv[optind], "detach") == 0) {
-+        op = LIBXL_DT_OVERLAY_DOMAIN_DETACH;
-+        domain_op = true;
-+    } else {
-         fprintf(stderr, "Invalid dt overlay operation\n");
-         return EXIT_FAILURE;
-     }
- 
-+    overlay_config_file = argv[optind+1];
++    (dom0) xl dt-overlay add overlay.dtbo
 +
-+    if (domain_op) {
-+        if (argc <= optind + 2) {
-+            fprintf(stderr, "Missing domain ID\n");
-+            help("dt-overlay");
-+            return EXIT_FAILURE;
-+        } else {
-+            domain_id = find_domain(argv[optind+2]);
-+        }
-+    }
++This will allocate the devices mentioned in overlay.dtbo to Xen device tree.
 +
-     if (overlay_config_file) {
-         rc = libxl_read_file_contents(ctx, overlay_config_file,
-                                       &overlay_dtb, &overlay_dtb_size);
-@@ -1309,7 +1323,11 @@ int main_dt_overlay(int argc, char **argv)
-         return EXIT_FAILURE;
-     }
- 
--    rc = libxl_dt_overlay(ctx, overlay_dtb, overlay_dtb_size, op);
-+    if (!domain_op)
-+        rc = libxl_dt_overlay(ctx, overlay_dtb, overlay_dtb_size, op);
-+    else
-+        rc = libxl_dt_overlay_domain(ctx, domain_id, overlay_dtb,
-+                                     overlay_dtb_size, op);
- 
-     free(overlay_dtb);
- 
++To assign the newly added device from the dtbo to Dom0:
++
++    (dom0) xl dt-overlay attach overlay.dtbo 0
++
++Next, if the user wants to add the same device tree overlay to dom0
++Linux, execute the following:
++
++    (dom0) mkdir -p /sys/kernel/config/device-tree/overlays/new_overlay
++    (dom0) cat overlay.dtbo > /sys/kernel/config/device-tree/overlays/new_overlay/dtbo
++
++Finally if needed, the relevant Linux kernel drive can be loaded using:
++
++    (dom0) modprobe module_name.ko
++
++## Dom0 device remove
++
++For removing the device from Dom0, first detach the device from Dom0:
++
++    (dom0) xl dt-overlay detach overlay.dtbo 0
++
++NOTE: The user is expected to unload any Linux kernel modules which
++might be accessing the devices in overlay.dtbo before detach the device.
++Detaching devices without unloading the modules might result in a crash.
++
++Then remove the overlay from Xen device tree:
++
++    (dom0) xl dt-overlay remove overlay.dtbo
++
++## DomU device add/remove
++
++All the nodes in dtbo will be assigned to a domain; the user will need
++to prepare the dtb for the domU. For example, the `interrupt-parent` property
++of the DomU overlay should be changed to the Xen hardcoded value `0xfde8`.
++Below assumes the properly written DomU dtbo is `overlay_domu.dtbo`.
++
++User will need to create the DomU with below properties properly configured
++in the xl config file:
++- `iomem`
++- `passthrough` (if IOMMU is needed)
++
++User will also need to modprobe the relevant drivers.
++
++Example for domU device add:
++
++    (dom0) xl dt-overlay add overlay.dtbo            # If not executed before
++    (dom0) xl dt-overlay attach overlay.dtbo $domid
++    (dom0) xl console $domid                         # To access $domid console
++
++Next, if the user needs to modify/prepare the overlay.dtbo suitable for
++the domU:
++
++    (domU) mkdir -p /sys/kernel/config/device-tree/overlays/new_overlay
++    (domU) cat overlay_domu.dtbo > /sys/kernel/config/device-tree/overlays/new_overlay/dtbo
++
++Finally, if needed, the relevant Linux kernel drive can be probed:
++
++    (domU) modprobe module_name.ko
++
++Example for domU overlay remove:
++
++    (dom0) xl dt-overlay detach overlay.dtbo $domid
++    (dom0) xl dt-overlay remove overlay.dtbo
++
++[1] https://www.kernel.org/doc/Documentation/devicetree/overlay-notes.txt
 -- 
 2.34.1
 
