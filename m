@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 285F08CBC9F
-	for <lists+xen-devel@lfdr.de>; Wed, 22 May 2024 10:05:51 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.727315.1131777 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0B2E68CBCA7
+	for <lists+xen-devel@lfdr.de>; Wed, 22 May 2024 10:08:16 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.727320.1131788 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s9gyC-0003qy-UZ; Wed, 22 May 2024 08:05:08 +0000
+	id 1s9h12-0004QB-BT; Wed, 22 May 2024 08:08:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 727315.1131777; Wed, 22 May 2024 08:05:08 +0000
+Received: by outflank-mailman (output) from mailman id 727320.1131788; Wed, 22 May 2024 08:08:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s9gyC-0003oB-RR; Wed, 22 May 2024 08:05:08 +0000
-Received: by outflank-mailman (input) for mailman id 727315;
- Wed, 22 May 2024 08:05:07 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1s9h12-0004My-8W; Wed, 22 May 2024 08:08:04 +0000
+Received: by outflank-mailman (input) for mailman id 727320;
+ Wed, 22 May 2024 08:08:02 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=AJ0E=MZ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1s9gyB-0003o5-Ql
- for xen-devel@lists.xenproject.org; Wed, 22 May 2024 08:05:07 +0000
-Received: from mail-ed1-x534.google.com (mail-ed1-x534.google.com
- [2a00:1450:4864:20::534])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 00519e2e-1812-11ef-90a0-e314d9c70b13;
- Wed, 22 May 2024 10:05:06 +0200 (CEST)
-Received: by mail-ed1-x534.google.com with SMTP id
- 4fb4d7f45d1cf-57825ff689bso1717054a12.3
- for <xen-devel@lists.xenproject.org>; Wed, 22 May 2024 01:05:06 -0700 (PDT)
+ id 1s9h10-0004Ms-H4
+ for xen-devel@lists.xenproject.org; Wed, 22 May 2024 08:08:02 +0000
+Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
+ [2a00:1450:4864:20::12f])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 67d52215-1812-11ef-b4bb-af5377834399;
+ Wed, 22 May 2024 10:08:00 +0200 (CEST)
+Received: by mail-lf1-x12f.google.com with SMTP id
+ 2adb3069b0e04-523b017a5c6so9206280e87.1
+ for <xen-devel@lists.xenproject.org>; Wed, 22 May 2024 01:08:00 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5733bea65e2sm17909588a12.19.2024.05.22.01.05.05
+ a640c23a62f3a-a5cdd4a2793sm895867266b.0.2024.05.22.01.07.58
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 22 May 2024 01:05:06 -0700 (PDT)
+ Wed, 22 May 2024 01:07:58 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,51 +45,48 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 00519e2e-1812-11ef-90a0-e314d9c70b13
+X-Inumbo-ID: 67d52215-1812-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1716365106; x=1716969906; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+        d=suse.com; s=google; t=1716365280; x=1716970080; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:cc:references
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=0oWIspwXriEJHqp2br2tUh4rUaOxLFO8PrsC0tRtBIo=;
-        b=LR8+uo9wM0a0Ub0qU/qfme4z9DvToYuTnMy+20fAPhV9h46g4JP6ArbmTBxFtzZaKJ
-         TIJzlq6s+5cdLEQGWWR8KSAg7qtGVTS4bNhick0pS2LNqH3QmzYY15vUgZIHXyfY9Wn+
-         oLW42sULap/Om+AxAV/FaT1DC8beASdyWzPRRbHLLeos9DNXZ4neWXwSvb5b6mXPnUm6
-         L8BaNaxVtWpCMlNoPWIYlVKPZBOvuHhAMoQ2KNvN1i4MmbmL28p7YPU3Wf0HOfK4bcxR
-         NsfxGsAN95ORhiPbEAz4n3C7V8GArnmGwKWzvTXRfS/dMua+Hj9k3xq1dZu2Tc1/fbwS
-         7mHg==
+        bh=FPL+Uni1yJqIWR95mE7XmWQsFKJtpoYLHfuEejgmN9w=;
+        b=f2qYG7pWiOXltp3vcldX158hMvkoPD8ZpEizv4YNgq2xpKx3uFdXl5LflHclPFNTNG
+         RZpU1rpGwVGHhnUhyxQNFyhpy5sq9RnTqOUQyHwqb+1KIr37W0cQTUD279kqJIRD3pXS
+         m5gS4lePz31H4g0VQGUC57dbHmDFn74u6haK2blf8LILeZ7NJt9lxrEAe5/47K7e2+WZ
+         bXc7dVsDMhZnSyHV0lUaYNQMBM7FTD7egkCOE9ZTW59qQcfbF3yEF8QoAYIcV3qD46RE
+         VtC3AvdWFszaPspP3sghC977fw01MapM2rPmh5u4yQDQL6sb5Q223FrOiW1zarY88r4O
+         FUnA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1716365106; x=1716969906;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+        d=1e100.net; s=20230601; t=1716365280; x=1716970080;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:cc:references
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=0oWIspwXriEJHqp2br2tUh4rUaOxLFO8PrsC0tRtBIo=;
-        b=MFwPJ0Ypg5sAjsCjFnOO+KWfAyzJlpPSUGo/6eFusSNH/sPI2Xw7M1jrT/vWt3v/TA
-         J+FHBd5h6pO+4EZo8o+zE9dpEnCDF0sCgTOjjm6l63ce8d4SCr1YOqx4hcRoUIZxwOf7
-         ze0rqiCCPRb6hWbmx8PqZnmSMDJzINFNE3yYFHqNSUM2xx41QUiyvUInTu83LMN/16L1
-         kgMgptF0HaZtigGe8UrMBRAflDBt0t/xc4wdA+4KU8fc6XYT69I8TgHWX9j1XDuyA5PS
-         eh4tzNuHr9xwpIXj9PTzc/fNM4+a0goPJz8ZcOXVMC5x8L4qMWwCfWsgJKnnbns4K49K
-         WERw==
-X-Forwarded-Encrypted: i=1; AJvYcCUj3pZ8eVEV/5IbJYs777X7lz9H9XPQ+4qEUclz2pT0kJjvHsRMbZx9qlU80Npvj5qzcXG5psUO5rSYvcKUkHecQP+wi9EkfNwhOyH3R3U=
-X-Gm-Message-State: AOJu0YzBF72y53mz2azBj9BUKT4SvDTueTf7ak+Et9tNm7fMC6QSyYxX
-	41ddekj6e3IEeB8F0QWrf7eDGJojKAICEfZ1Qr+te6u7at864ePnF3PrcWfHZA==
-X-Google-Smtp-Source: AGHT+IF/PreU14Xh9SXa+H0Ho1Li59vJe6rA4TV8PweRe4sPsb6aOujFKFJkm1oJ1pk4kFSTJAdiEw==
-X-Received: by 2002:a50:9301:0:b0:573:1e9e:bb54 with SMTP id 4fb4d7f45d1cf-578329ec5a5mr717277a12.8.1716365106384;
-        Wed, 22 May 2024 01:05:06 -0700 (PDT)
-Message-ID: <0dbc701d-d8e6-4cbf-b7bf-27d9e05b5491@suse.com>
-Date: Wed, 22 May 2024 10:05:05 +0200
+        bh=FPL+Uni1yJqIWR95mE7XmWQsFKJtpoYLHfuEejgmN9w=;
+        b=VclO1y/Yo64b/cFfp2l/Httf0kladWEJVvhc3ekXncp56ICrZ8U2GuvoIGPW9d40H7
+         Z/nRH10Ssq8Wo9H1SfURLbazkq0mLgBWItE0meFzgogrdECyC/5u91poMv499Tm9phrV
+         UEiZAkNW61S8bhoy4WJDdO+gSagfigShLlK4eplzFktt9n9KxEXLkHgJ6y6ieHMTevub
+         8psl85eBF3LIpFlut99dYS9HGNAUQ+OwxfONt7EgYM9gA09qTWijSe/GOCP9jQ/Gw/6e
+         +Upn0SkBVEVF+eF9nByyGkhsI/38BSgWJvK8tcgLYYLfBxs6IH3E32bZwTzoeNvakNZP
+         S6IQ==
+X-Gm-Message-State: AOJu0YwpVwWLslFVlMvdk/xR+VyaTC4diQvA7Aole8hcop8HA2rWDGbZ
+	8VOzLJGHMzoofvk9bihpeRlks3dUodsiT1ymM8qHPNm1OGcRyvEP5jCFuaAs5gS/vibtANicxP4
+	=
+X-Google-Smtp-Source: AGHT+IEGOKobW5DaUipjVA/f1L7V7p2phujRxc45B43HOYccZlPgCH9TLh0Izo0/ebSMNSxKDRMafg==
+X-Received: by 2002:a05:6512:2011:b0:523:772c:2c1c with SMTP id 2adb3069b0e04-526bf82cc11mr789486e87.38.1716365278742;
+        Wed, 22 May 2024 01:07:58 -0700 (PDT)
+Message-ID: <7655e401-b927-4250-ae63-05361a5ee71d@suse.com>
+Date: Wed, 22 May 2024 10:07:57 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/2] drivers/char: Use sub-page ro API to make just
- xhci dbc cap RO
+Subject: Re: [PATCH v3 0/2] Add API for making parts of a MMIO page R/O and
+ use it in XHCI console
 Content-Language: en-US
 To: =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
  <marmarek@invisiblethingslab.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
 References: <cover.1b2f25e20efaa1fe1e6a2da565731becd27e7ead.1716260066.git-series.marmarek@invisiblethingslab.com>
- <7682bbf3a24045ae1fcbdf651a6dd8e609ec3a20.1716260066.git-series.marmarek@invisiblethingslab.com>
+Cc: xen-devel@lists.xenproject.org
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -114,56 +111,40 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <7682bbf3a24045ae1fcbdf651a6dd8e609ec3a20.1716260066.git-series.marmarek@invisiblethingslab.com>
+In-Reply-To: <cover.1b2f25e20efaa1fe1e6a2da565731becd27e7ead.1716260066.git-series.marmarek@invisiblethingslab.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 On 21.05.2024 04:54, Marek Marczykowski-Górecki wrote:
-> --- a/xen/drivers/char/xhci-dbc.c
-> +++ b/xen/drivers/char/xhci-dbc.c
-> @@ -1216,20 +1216,19 @@ static void __init cf_check dbc_uart_init_postirq(struct serial_port *port)
->          break;
->      }
->  #ifdef CONFIG_X86
-> -    /*
-> -     * This marks the whole page as R/O, which may include other registers
-> -     * unrelated to DbC. Xen needs only DbC area protected, but it seems
-> -     * Linux's XHCI driver (as of 5.18) works without writting to the whole
-> -     * page, so keep it simple.
-> -     */
-> -    if ( rangeset_add_range(mmio_ro_ranges,
-> -                PFN_DOWN((uart->dbc.bar_val & PCI_BASE_ADDRESS_MEM_MASK) +
-> -                         uart->dbc.xhc_dbc_offset),
-> -                PFN_UP((uart->dbc.bar_val & PCI_BASE_ADDRESS_MEM_MASK) +
-> -                       uart->dbc.xhc_dbc_offset +
-> -                sizeof(*uart->dbc.dbc_reg)) - 1) )
-> -        printk(XENLOG_INFO
-> -               "Error while adding MMIO range of device to mmio_ro_ranges\n");
-> +    if ( subpage_mmio_ro_add(
-> +             (uart->dbc.bar_val & PCI_BASE_ADDRESS_MEM_MASK) +
-> +              uart->dbc.xhc_dbc_offset,
-> +             sizeof(*uart->dbc.dbc_reg)) )
-> +    {
-> +        printk(XENLOG_WARNING
-> +               "Error while marking MMIO range of XHCI console as R/O, "
-> +               "making the whole device R/O (share=no)\n");
+> On older systems, XHCI xcap had a layout that no other (interesting) registers
+> were placed on the same page as the debug capability, so Linux was fine with
+> making the whole page R/O. But at least on Tiger Lake and Alder Lake, Linux
+> needs to write to some other registers on the same page too.
+> 
+> Add a generic API for making just parts of an MMIO page R/O and use it to fix
+> USB3 console with share=yes or share=hwdom options. More details in commit
+> messages.
+> 
+> Technically it may still qualify for 4.19, since v1 was sent well before
+> last posting date. But I realize it's quite late and it isn't top
+> priority series, so if it won't hit 4.19, it's okay with me too.
+> 
+> Marek Marczykowski-Górecki (2):
+>   x86/mm: add API for marking only part of a MMIO page read only
+>   drivers/char: Use sub-page ro API to make just xhci dbc cap RO
+> 
+>  xen/arch/x86/hvm/emulate.c      |   2 +-
+>  xen/arch/x86/hvm/hvm.c          |   8 +-
+>  xen/arch/x86/include/asm/mm.h   |  18 ++-
+>  xen/arch/x86/mm.c               | 268 +++++++++++++++++++++++++++++++++-
+>  xen/arch/x86/pv/ro-page-fault.c |   1 +-
+>  xen/drivers/char/xhci-dbc.c     |  27 +--
+>  6 files changed, 309 insertions(+), 15 deletions(-)
 
-Since you mention "share=no" here, wouldn't you then better also update the
-respective struct field, even if (right now) there may be nothing subsequently
-using that? Except that dbc_ensure_running() actually is looking at it, and
-that's not an __init function.
-
-> +        if ( pci_ro_device(0, uart->dbc.sbdf.bus, uart->dbc.sbdf.devfn) )
-> +            printk(XENLOG_WARNING
-> +                   "Failed to mark read-only %pp used for XHCI console\n",
-> +                   &uart->dbc.sbdf);
-> +    }
->  #endif
->  }
-
-It's been a long time since v2 and the description doesn't say anything in
-this regard: Is there a reason not to retain the rangeset addition alongside
-the pci_ro_device() on the fallback path?
+Just to mention it here again, with v2 having been quite some time ago:
+Like for that other work of yours I'm not really convinced the complexity
+is worth the gain. Ultimately this may once again mean that I'll demand
+a 2nd maintainer's ack, once technically I may be okay to offer R-b.
 
 Jan
 
