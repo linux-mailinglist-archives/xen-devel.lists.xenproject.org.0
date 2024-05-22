@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DF1258CBDDF
-	for <lists+xen-devel@lfdr.de>; Wed, 22 May 2024 11:33:40 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.727366.1131856 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DF17B8CBDE7
+	for <lists+xen-devel@lfdr.de>; Wed, 22 May 2024 11:35:53 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.727370.1131866 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s9iLe-0004Hq-N4; Wed, 22 May 2024 09:33:26 +0000
+	id 1s9iNj-0004pB-2R; Wed, 22 May 2024 09:35:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 727366.1131856; Wed, 22 May 2024 09:33:26 +0000
+Received: by outflank-mailman (output) from mailman id 727370.1131866; Wed, 22 May 2024 09:35:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s9iLe-0004Fl-KR; Wed, 22 May 2024 09:33:26 +0000
-Received: by outflank-mailman (input) for mailman id 727366;
- Wed, 22 May 2024 09:33:25 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1s9iNi-0004mh-Vy; Wed, 22 May 2024 09:35:34 +0000
+Received: by outflank-mailman (input) for mailman id 727370;
+ Wed, 22 May 2024 09:35:33 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=AJ0E=MZ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1s9iLd-0004Ff-7B
- for xen-devel@lists.xenproject.org; Wed, 22 May 2024 09:33:25 +0000
-Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
- [2a00:1450:4864:20::62e])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 552f732d-181e-11ef-b4bb-af5377834399;
- Wed, 22 May 2024 11:33:23 +0200 (CEST)
-Received: by mail-ej1-x62e.google.com with SMTP id
- a640c23a62f3a-a621cb07d8fso99550766b.2
- for <xen-devel@lists.xenproject.org>; Wed, 22 May 2024 02:33:23 -0700 (PDT)
+ id 1s9iNh-0004mb-RZ
+ for xen-devel@lists.xenproject.org; Wed, 22 May 2024 09:35:33 +0000
+Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
+ [2a00:1450:4864:20::633])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id a28c0b29-181e-11ef-90a0-e314d9c70b13;
+ Wed, 22 May 2024 11:35:32 +0200 (CEST)
+Received: by mail-ej1-x633.google.com with SMTP id
+ a640c23a62f3a-a59b097b202so733000866b.0
+ for <xen-devel@lists.xenproject.org>; Wed, 22 May 2024 02:35:32 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a5a1781cdb5sm1744216066b.29.2024.05.22.02.33.22
+ a640c23a62f3a-a5a1789240asm1752346166b.48.2024.05.22.02.35.31
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 22 May 2024 02:33:22 -0700 (PDT)
+ Wed, 22 May 2024 02:35:32 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,49 +45,54 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 552f732d-181e-11ef-b4bb-af5377834399
+X-Inumbo-ID: a28c0b29-181e-11ef-90a0-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1716370402; x=1716975202; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1716370532; x=1716975332; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=8AYXYZ50OpjNgv0sGHRw4nmKedbD2eMhNqcKvs7HDDg=;
-        b=egUcPrjoY23e6OznqPNkkq1i3GPdnPzYwxJbaxFTsjDrpQfJwzhdUYcJKJveMvSIcH
-         AV4mF9syslYNLZnuWx8/+XH8ON27vzNxz5YqvZ+sxo83MJFwkUArOm6R0B/1+HDvP/xa
-         bfjVwPns2QaqexPb7lOKiqwn5j8uWm13KwJxzhk9ISta8AGFOU11ETbcD3TO56FDwEcG
-         cNjx7MZGSKOF+Bq1QA2rEqKktPoipPQbRsthhyyBernXuy6DKrHEUkBpO2D+MAMw5asC
-         f0xKiLGNfJidNRjenTb5mxje+UbQ/x2O6ewrUugjqBlzPGk5zg6ZXCFJuNoI4vC/FJbf
-         AERw==
+        bh=ImI3BBKzBbW+mD8DrnXzbVQSijdQ7O2nEuqn52AOb4Q=;
+        b=RBYqQh230JLeQcyDCDmGcEiyeR0p3jozzBoVbpvKL4CodLEOItdPcmSD0Ze/oXFWEc
+         B2NdJ4YkBuuWX5OOQv9QUqndDq44e7SSHGzLTFcmmRDyg4Yi35PnDXbTJc9u0BaRZ0X6
+         36vtmm/D8z0onhjycEwpD6g1OPXP58Yg6Kz+fc23mIEvbPZtAJS5y9ETJNyiSI9lXgtO
+         aD+eW7ITFI20NN5ZceXhoNYRTWy3z41DhKOOdEDzH0mbaV8bJF9XMNo8SKsDBom5iCoU
+         jT2zFDVxI5QmN2QRF8G/Vqjd3b8YDgQcks8X34AZXgD3+3FxzJRORTNizCs+neb3fran
+         C+Tw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1716370402; x=1716975202;
+        d=1e100.net; s=20230601; t=1716370532; x=1716975332;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=8AYXYZ50OpjNgv0sGHRw4nmKedbD2eMhNqcKvs7HDDg=;
-        b=Yelmq1Mgcy31HLJw8PTueh0LKanVwoxTJL5tofkITLhQ5z/L19iC1wWPto18iFdAHq
-         rqccfCBH4lfS7O8aeiN2NLVUiVShQEGO9hzVP2s/hbQewQXQ7HKIS4+l/HrQC5/sp9LO
-         s9GjO4jV28v39AXY7yFekdY5U2uS16ncvAQobxO6J2vHqVtbWbSdqwucW8af7FsSNd4v
-         efvDR17BSvxkRpX4qNx0VbaVDnD3uJ7kSS/34i0LQGds8QKXXjv+TjIjGxhfdJjih9ar
-         zhWyTgUWFf8Y2A5A0r8XylDrqCBpLlz+pAZoaTKSpiakBX59tSUSErXyXXgidDmRWx31
-         oQ+w==
-X-Forwarded-Encrypted: i=1; AJvYcCXR6cSHgdYBu+LoVR4VPtIP1B5h/EIDg64YaklAScbS0lm0Al0woj9l2ipSN6Pm0BbKmicqLANvaFUmoad6BRJY+qAfhll1mHvGguuebQs=
-X-Gm-Message-State: AOJu0YwIT94XM95vVcieGKJTr2WJaBY7Q5+UJxpCrnvA8b+gNKsZLg4G
-	IH9ypGT/Hc62gk25Z3K3Ce78bANbDnHFhdfYajbxNxv7CASxHaGirb4JlBbW4A==
-X-Google-Smtp-Source: AGHT+IFNtCiKQv/ifn+lJiyDvHuCAERl6wrIquH5hTkisUcsOxkKe7P58e75n1lTulvkz9dHfDPhNQ==
-X-Received: by 2002:a17:906:9c41:b0:a5a:84c8:7710 with SMTP id a640c23a62f3a-a62281253a4mr82541066b.55.1716370402468;
-        Wed, 22 May 2024 02:33:22 -0700 (PDT)
-Message-ID: <6a21a57f-e0fa-43af-a7ea-d813e4b2976d@suse.com>
-Date: Wed, 22 May 2024 11:33:21 +0200
+        bh=ImI3BBKzBbW+mD8DrnXzbVQSijdQ7O2nEuqn52AOb4Q=;
+        b=agvLbBYFabHJUr9hDBdLHdiXzHBGxr3c+gRXPC3KQhFN1Vml+9Sha0unUJY6AiOqmR
+         cflIO6Na2vTb+kpLDpSqyaXJdvL3uchz5JgyrcHIMpkwlu6ioBsb/3adv6jqSrwWSW1W
+         mWht064n1iDq9b5l2cRK+JV/oPDSI771MgjHekC26pGgSOSqG/JbZbwurU0AlK1hIkkC
+         lh5Zu0zhwPiniuj7BXuT1/Q+fDQyQoKTN3EQSHRRd0k67GiQ86M2ITh2+rRefQd/4bK5
+         aA58k+kk4D6RhiDz6TsyKR+QK8KdO7arnlRbARG55u8a0AT7It+8bUMSlbxScJvPM8pC
+         Deyw==
+X-Gm-Message-State: AOJu0YzUxaItjL3nt64KZTvC2zZhaMyAc4bGp0LpyXOSorn1zDyZtJkk
+	rjFBEPMHPIlNSWyI6SgBUWt6+SiT0PhL6Xdd6G+yNTSu2k8gxSuKSGec22B8/w==
+X-Google-Smtp-Source: AGHT+IHvb74j6QekF+SATOi1Li7vssxxV2cE8EWP0kY1kUyaIOH4Zw+fxOkqE/s9hZPOSMx4VEz/xg==
+X-Received: by 2002:a17:906:2b05:b0:a59:c28a:d350 with SMTP id a640c23a62f3a-a6228084310mr106564666b.24.1716370532290;
+        Wed, 22 May 2024 02:35:32 -0700 (PDT)
+Message-ID: <981ede8f-b9e0-4827-a0aa-8665e0254ed7@suse.com>
+Date: Wed, 22 May 2024 11:35:31 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/8] xen/x86: Simplify header dependencies in x86/hvm
+Subject: Re: [PATCH v15 2/5] vpci/header: emulate PCI_COMMAND register for
+ guests
 Content-Language: en-US
-To: Alejandro Vallejo <alejandro.vallejo@cloud.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <cover.1715102098.git.alejandro.vallejo@cloud.com>
- <00ce7005d1d6db5c1ffc2d5023d34d4bd34ff841.1715102098.git.alejandro.vallejo@cloud.com>
+To: Stewart Hildebrand <stewart.hildebrand@amd.com>
+Cc: xen-devel@lists.xenproject.org,
+ Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Volodymyr Babchuk <volodymyr_babchuk@epam.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+References: <20240517170619.45088-1-stewart.hildebrand@amd.com>
+ <20240517170619.45088-3-stewart.hildebrand@amd.com>
+ <Zk26zphhCQ40rn2B@macbook>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -112,50 +117,48 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <00ce7005d1d6db5c1ffc2d5023d34d4bd34ff841.1715102098.git.alejandro.vallejo@cloud.com>
+In-Reply-To: <Zk26zphhCQ40rn2B@macbook>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 08.05.2024 14:39, Alejandro Vallejo wrote:
-> Otherwise it's not possible to call functions described in hvm/vlapic.h from the
-> inline functions of hvm/hvm.h.
+On 22.05.2024 11:28, Roger Pau Monné wrote:
+> On Fri, May 17, 2024 at 01:06:12PM -0400, Stewart Hildebrand wrote:
+>> @@ -754,9 +774,23 @@ static int cf_check init_header(struct pci_dev *pdev)
+>>          return -EOPNOTSUPP;
+>>      }
+>>  
+>> -    /* Setup a handler for the command register. */
+>> -    rc = vpci_add_register(pdev->vpci, vpci_hw_read16, cmd_write, PCI_COMMAND,
+>> -                           2, header);
+>> +    /*
+>> +     * Setup a handler for the command register.
+>> +     *
+>> +     * TODO: If support for emulated bits is added, re-visit how to handle
+>> +     * PCI_COMMAND_PARITY, PCI_COMMAND_SERR, and PCI_COMMAND_FAST_BACK.
+>> +     */
+>> +    rc = vpci_add_register_mask(pdev->vpci,
+>> +                                is_hwdom ? vpci_hw_read16 : guest_cmd_read,
+>> +                                cmd_write, PCI_COMMAND, 2, header, 0, 0,
+>> +                                PCI_COMMAND_RSVDP_MASK |
+>> +                                    (is_hwdom ? 0
+>> +                                              : PCI_COMMAND_IO |
+>> +                                                PCI_COMMAND_PARITY |
+>> +                                                PCI_COMMAND_WAIT |
+>> +                                                PCI_COMMAND_SERR |
+>> +                                                PCI_COMMAND_FAST_BACK),
 > 
-> This is because a static inline in vlapic.h depends on hvm.h, and pulls it
-> transitively through vpt.h. The ultimate cause is having hvm.h included in any
-> of the "v*.h" headers, so break the cycle moving the guilty inline into hvm.h.
+> We want to allow full access to the hw domain and only apply the
+> PCI_COMMAND_RSVDP_MASK when !is_hwdom in order to keep the current
+> behavior for dom0.
 > 
-> No functional change.
+> I don't think it makes a difference in practice, but we are very lax
+> in explicitly not applying any of such restrictions to dom0.
 > 
-> Signed-off-by: Alejandro Vallejo <alejandro.vallejo@cloud.com>
+> With that fixed:
+> 
+> Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
 
-In principle:
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
-But see below for one possible adjustment.
-
-> ---
-> v2:
->   * New patch. Prereq to moving vlapic_cpu_policy_changed() onto hvm.h
-
-That hook invocation living outside of hvm/hvm.h was an outlier anyway,
-so even without the planned further work this is probably a good move.
-
-> --- a/xen/arch/x86/include/asm/hvm/hvm.h
-> +++ b/xen/arch/x86/include/asm/hvm/hvm.h
-> @@ -798,6 +798,12 @@ static inline void hvm_update_vlapic_mode(struct vcpu *v)
->          alternative_vcall(hvm_funcs.update_vlapic_mode, v);
->  }
->  
-> +static inline void hvm_vlapic_sync_pir_to_irr(struct vcpu *v)
-> +{
-> +    if ( hvm_funcs.sync_pir_to_irr )
-> +        alternative_vcall(hvm_funcs.sync_pir_to_irr, v);
-> +}
-
-The hook doesn't have "vlapic" in its name. Therefore instead or prepending
-hvm_ to the original name or the wrapper, how about replacing the vlapic_
-that was there. That would then also fit better with the naming scheme used
-for other hooks and their wrappers. Happy to adjust while committing, so
-long as you don't disagree.
+Makes sense to me, so please feel free to retain my R-b with that adjustment.
 
 Jan
 
