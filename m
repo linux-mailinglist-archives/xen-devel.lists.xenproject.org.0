@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4D2148CC3EC
-	for <lists+xen-devel@lfdr.de>; Wed, 22 May 2024 17:15:58 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.727759.1132415 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F356B8CC3EF
+	for <lists+xen-devel@lfdr.de>; Wed, 22 May 2024 17:16:05 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.727760.1132425 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s9ngE-0003zO-G1; Wed, 22 May 2024 15:15:02 +0000
+	id 1s9ngQ-0004Fm-Qj; Wed, 22 May 2024 15:15:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 727759.1132415; Wed, 22 May 2024 15:15:02 +0000
+Received: by outflank-mailman (output) from mailman id 727760.1132425; Wed, 22 May 2024 15:15:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s9ngE-0003x4-CK; Wed, 22 May 2024 15:15:02 +0000
-Received: by outflank-mailman (input) for mailman id 727759;
- Wed, 22 May 2024 15:15:01 +0000
+	id 1s9ngQ-0004Dv-MY; Wed, 22 May 2024 15:15:14 +0000
+Received: by outflank-mailman (input) for mailman id 727760;
+ Wed, 22 May 2024 15:15:13 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=eEN6=MZ=cloud.com=alejandro.vallejo@srs-se1.protection.inumbo.net>)
- id 1s9ngD-0003wy-31
- for xen-devel@lists.xenproject.org; Wed, 22 May 2024 15:15:01 +0000
-Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
- [2a00:1450:4864:20::42c])
+ id 1s9ngP-0003wy-8r
+ for xen-devel@lists.xenproject.org; Wed, 22 May 2024 15:15:13 +0000
+Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
+ [2a00:1450:4864:20::42e])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 0db1c897-184e-11ef-b4bb-af5377834399;
- Wed, 22 May 2024 17:14:58 +0200 (CEST)
-Received: by mail-wr1-x42c.google.com with SMTP id
- ffacd0b85a97d-351b683f2d8so751139f8f.3
- for <xen-devel@lists.xenproject.org>; Wed, 22 May 2024 08:14:58 -0700 (PDT)
+ id 15410651-184e-11ef-b4bb-af5377834399;
+ Wed, 22 May 2024 17:15:11 +0200 (CEST)
+Received: by mail-wr1-x42e.google.com with SMTP id
+ ffacd0b85a97d-34f0e55787aso4013910f8f.2
+ for <xen-devel@lists.xenproject.org>; Wed, 22 May 2024 08:15:11 -0700 (PDT)
 Received: from [192.168.0.16] (0545937c.skybroadband.com. [5.69.147.124])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3502bbbca98sm34581412f8f.112.2024.05.22.08.14.56
+ ffacd0b85a97d-354db76acafsm1864576f8f.49.2024.05.22.08.15.09
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 22 May 2024 08:14:57 -0700 (PDT)
+ Wed, 22 May 2024 08:15:10 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,233 +45,147 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0db1c897-184e-11ef-b4bb-af5377834399
+X-Inumbo-ID: 15410651-184e-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1716390898; x=1716995698; darn=lists.xenproject.org;
+        d=cloud.com; s=cloud; t=1716390911; x=1716995711; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:from:content-language
          :references:cc:to:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=9kKdNh+rZiON7ptffywUHyNxYVSfVBM2j7BRr65fCRY=;
-        b=FofK+Vh46ZvyCEvkozPgALswji7pM6FxkzGih1AjuVT48tBc4BhQ/JFYTseFq/lUs7
-         rvaEvRkBim4LnyHQRKOPGRmolpButDGV9xrbhm1CUwwyA9GrPaOrK1l1PiX6wrhj1DXv
-         QAE5MO3II/qHwIF8cdqhTN2ED+LnVMyejppC0=
+        bh=kK3dRrXrwVNPXE4+0A/1KWYbPmGy2JdF5u4c4yDy9s4=;
+        b=F5+Fies9vkolU8Q7W7A0cXxkxZaFFM1LOlH73VoqFVytxPtEk3NeO6Aa8eGCuv1Oj3
+         KLzj1JNV8EkZ9+IE2RiLWXTHfc00fzzb/I+W1rHvXfjrafKJ2mh2DzWiWUaP3kjsGbTX
+         v522lZUZh+nPB9xZoC2fmUgYd6QZtFXGQoZak=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1716390898; x=1716995698;
+        d=1e100.net; s=20230601; t=1716390911; x=1716995711;
         h=content-transfer-encoding:in-reply-to:from:content-language
          :references:cc:to:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=9kKdNh+rZiON7ptffywUHyNxYVSfVBM2j7BRr65fCRY=;
-        b=LZdjjkV+sG23t86W59gL+BU40ywDE39UOMCiOzdj1fwVCc3ZTXrz4+yLg3bMPkZrGe
-         iBmPmUcrZtkrUBX+TPp2GKcbwgBJWGbVQ/UrKPFRATLSR8t8meqIv+DBViZGPFzchHav
-         terhKQJkwuKt8dv01KL8Ye73kI7gS4txIT9rv7Wha/L+lcLRujPAAyYGXO4xhswfTkrA
-         sAqOfu3mASl0yatMKeNGKClHSNidRnMjSXz1F+PUrwgjjpyEWfqBx6MecxEzaRxpY7sS
-         I+3MdNzeO+3mo+KnNdyUP1r/ZtY0Ml2a8m9KkQLE8s0ZzvFynvJHxasJLFjtiNn1Xxc0
-         BpOw==
-X-Gm-Message-State: AOJu0YwVWN9TJoYqVZP4jHtIcG24VjvLFurhp2xpyb4p0cU7cba0yOH2
-	mvX2AZhsyWSK9xdHHSfYhVmBedDSZRZ5/nfCdN88uldRnOmOssWUjqb9lejIoes=
-X-Google-Smtp-Source: AGHT+IG6oWA2Y3q/5TeHJdjPaFvHHHarkj3yId8ntGvmVgxu9DGx66VHuREBWLFhVf8wR2arvc6VdQ==
-X-Received: by 2002:adf:e745:0:b0:354:f1de:33e7 with SMTP id ffacd0b85a97d-354f1de3617mr1051687f8f.2.1716390898327;
-        Wed, 22 May 2024 08:14:58 -0700 (PDT)
-Message-ID: <f0efee18-54f5-4caa-a4ab-d82ceeea64bb@cloud.com>
-Date: Wed, 22 May 2024 16:14:56 +0100
+        bh=kK3dRrXrwVNPXE4+0A/1KWYbPmGy2JdF5u4c4yDy9s4=;
+        b=hoLOchSaUwjZxnDadbIhChEmeoYybx84DdDUzD3k25EbmrwzOUpmoFo/c9vbkJEqGA
+         r/ELbiiB0qz4eiS3jhROpL+7nxJ+JeYQ9USmnCkZPm4VlT/WzU0Er73+lwT+b6+VATlO
+         OUftw4IKgL4EpVW3kl2nVUzGvPSDcZ6DQflAU4rSM4nl/OyB0vx5P5DLTlkFjZL8+t3X
+         lgP/mdLYDEvSDuM1mXFT9MmJPcBUea3iCvVutOB7d6m+GNfudVCzsW4D1xzjMLkRdJPs
+         fk3Yjclik4SIUlunr6at66eyjYRkA/2KFciCHBBKnaxmG8FmH1m3M/Gm/NrhE9O7KL6q
+         02gQ==
+X-Gm-Message-State: AOJu0Yynm2fFcgqWfI9uFe59ORPh7Z+zsEq8AFOZhtT5g7rjb4JKSWuT
+	6KEEECKs7nohiLsxFnAhujMpVPkv4NTSxXZpza+inSFf9QA2OwZi1dlyyYLt91k=
+X-Google-Smtp-Source: AGHT+IG9GddBwM5c5CCKKh8vIp9biDptjqXlZAk9WQ+OyCsyroo+12gATRP4E15F30O4WDlyURbPxA==
+X-Received: by 2002:adf:f104:0:b0:34d:8d88:7c53 with SMTP id ffacd0b85a97d-354d8bd1408mr1705577f8f.0.1716390910943;
+        Wed, 22 May 2024 08:15:10 -0700 (PDT)
+Message-ID: <974bfbc6-97f6-4afa-978c-562448042d4a@cloud.com>
+Date: Wed, 22 May 2024 16:15:09 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/2] tools/xg: Streamline cpu policy
- serialise/deserialise calls
+Subject: Re: [PATCH v2 2/2] tools/xg: Clean up xend-style overrides for CPU
+ policies
 To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
 Cc: Xen-devel <xen-devel@lists.xenproject.org>,
- Anthony PERARD <anthony@xenproject.org>, Juergen Gross <jgross@suse.com>,
- Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>
+ Anthony PERARD <anthony@xenproject.org>, Juergen Gross <jgross@suse.com>
 References: <cover.1715954111.git.alejandro.vallejo@cloud.com>
- <c6c89012d189a2c3077b3e224942b33028e29336.1715954111.git.alejandro.vallejo@cloud.com>
- <ZktUfWZD67zkvaeJ@macbook>
+ <d397ec0de4138e32feeb910f3401a6568a75035e.1715954111.git.alejandro.vallejo@cloud.com>
+ <Zktl8zRt1kue5vA6@macbook>
 Content-Language: en-GB
 From: Alejandro Vallejo <alejandro.vallejo@cloud.com>
-In-Reply-To: <ZktUfWZD67zkvaeJ@macbook>
+In-Reply-To: <Zktl8zRt1kue5vA6@macbook>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 20/05/2024 14:47, Roger Pau Monné wrote:
->> @@ -917,17 +922,14 @@ int xc_cpu_policy_set_domain(xc_interface *xch, uint32_t domid,
->>                               xc_cpu_policy_t *policy)
->>  {
->>      uint32_t err_leaf = -1, err_subleaf = -1, err_msr = -1;
->> -    unsigned int nr_leaves = ARRAY_SIZE(policy->leaves);
->> -    unsigned int nr_msrs = ARRAY_SIZE(policy->msrs);
+On 20/05/2024 16:02, Roger Pau Monné wrote:
+>> -
+>>  static int xc_msr_policy(xc_interface *xch, domid_t domid,
+>> -                         const struct xc_msr *msr)
+>> +                         const struct xc_msr *msr,
+>> +                         xc_cpu_policy_t *host,
+>> +                         xc_cpu_policy_t *def,
+> 
+> host and def should likely be const?
+
+I tried, but I can't. All policies go through find_msr(), which takes a
+non-const policy, and must be non-const because it's also used for the
+cur policy.
+
+I did the next best thing (I think) by const-ifying the result of
+find_msr inside the loop for host and def. Same thing on the cpuid function.
+
+>> -    if ( rc )
+>> -    {
+>> -        PERROR("Failed to obtain host policy");
+>> -        rc = -errno;
+>> -        goto out;
+>> -    }
+>> +    if ( !msrs )
+> 
+> Does this build?  Where is 'msrs' defined in this context?  The
+> function parameter is 'msr' AFAICT.
+
+Ugh. I fixed that while adjusting it for testing within XenServer and
+then neglected to make the change in the actual for-upstream patches.
+
+You're right.
+
+> 
+>> +        return 0;
+> 
+> Should we also check for host, def, cur != NULL also?
+
+It's already done by the caller, but can do out of paranoia; returning
+-EINVAL.
+
+>> @@ -583,14 +436,16 @@ int xc_cpuid_apply_policy(xc_interface *xch, uint32_t domid, bool restore,
 >>      int rc;
+>>      bool hvm;
+>>      xc_domaininfo_t di;
+>> -    struct xc_cpu_policy *p = xc_cpu_policy_init();
+>> -    unsigned int i, nr_leaves = ARRAY_SIZE(p->leaves), nr_msrs = 0;
+>> -    uint32_t err_leaf = -1, err_subleaf = -1, err_msr = -1;
+>> -    uint32_t host_featureset[FEATURESET_NR_ENTRIES] = {};
+>> -    uint32_t len = ARRAY_SIZE(host_featureset);
 >>  
->> -    rc = xc_cpu_policy_serialise(xch, policy, policy->leaves, &nr_leaves,
->> -                                 policy->msrs, &nr_msrs);
->> +    rc = xc_cpu_policy_serialise(xch, policy);
->>      if ( rc )
->>          return rc;
+>> -    if ( !p )
+>> -        return -ENOMEM;
+>> +    struct xc_cpu_policy *host = xc_cpu_policy_init();
+>> +    struct xc_cpu_policy *def = xc_cpu_policy_init();
+> 
+> I would be helpful to have some kind of mechanism to allocate + init a
+> policy at the same time, so that the resulting object could be made
+> const here.  (Not that you need to do it in this patch).
+
+That would seem sensible, but we'd also need a way to clone it to avoid
+repeating hypercalls when they aren't required. I had a patch that did
+that, but was quite complicated for other reasons. I might get back to
+it at some point now that per-vCPU policies don't seem to be required.
+
+>> @@ -695,24 +542,24 @@ int xc_cpuid_apply_policy(xc_interface *xch, uint32_t domid, bool restore,
+>>                   !(dfs = x86_cpu_policy_lookup_deep_deps(b)) )
+>>                  continue;
 >>  
->> -    rc = xc_set_domain_cpu_policy(xch, domid, nr_leaves, policy->leaves,
->> -                                  nr_msrs, policy->msrs,
->> +    rc = xc_set_domain_cpu_policy(xch, domid, policy->nr_leaves, policy->leaves,
->> +                                  policy->nr_msrs, policy->msrs,
+>> -            for ( i = 0; i < ARRAY_SIZE(disabled_features); ++i )
+>> +            for ( size_t i = 0; i < ARRAY_SIZE(disabled_features); ++i )
 > 
-> I would be tempted to just pass the policy to
-> xc_set_domain_cpu_policy() and get rid of the separate cpuid and msrs
-> serialized arrays, but that hides (or makes it less obvious) that the
-> policy needs to be serialized before providing to
-> xc_set_domain_cpu_policy().  Just a rant, no need to change it here.
+> All this loop index type changes could be done as a separate patch,
+> you are not even touching the surrounding lines.  It adds a lot of
+> churn to this patch for no reason IMO.
 
-I'm still pondering what to do about that. I'd like to refactor all that
-faff away as well, but I'm not sure how to do it cleanly yet. The
-biggest danger I see is modifying one side of the policy and then wiping
-those changes by mistake reserializing or deserializing at the wrong time.
+I got carried away. Let me revert that. I still want to get rid of all
+those overscoped indices, but this is not the patch for it.
 
-Not for this series, I reckon.
-
-
->> +int xc_cpu_policy_get_msrs(xc_interface *xch,
->> +                           const xc_cpu_policy_t *policy,
->> +                           const xen_msr_entry_t **msrs,
->> +                           uint32_t *nr)
->> +{
->> +    if ( !policy )
->> +    {
->> +        ERROR("Failed to fetch MSRs from policy object");
->> +        errno = -EINVAL;
->> +        return -1;
->> +    }
->> +
->> +    *msrs = policy->msrs;
->> +    *nr = policy->nr_msrs;
->> +
->> +    return 0;
->> +}
+>> @@ -772,49 +619,45 @@ int xc_cpuid_apply_policy(xc_interface *xch, uint32_t domid, bool restore,
+>>               * apic_id_size values greater than 7.  Limit the value to
+>>               * 7 for now.
+>>               */
+>> -            if ( p->policy.extd.nc < 0x7f )
+>> +            if ( cur->policy.extd.nc < 0x7f )
+>>              {
+>> -                if ( p->policy.extd.apic_id_size != 0 && p->policy.extd.apic_id_size < 0x7 )
+>> -                    p->policy.extd.apic_id_size++;
+>> +                if ( cur->policy.extd.apic_id_size != 0 && cur->policy.extd.apic_id_size < 0x7 )
 > 
-> My preference would probably be to return NULL or
-> xen_{leaf,msr}_entry_t * from those, as we can then avoid an extra
-> leaves/msrs parameter.  Again I'm fine with leaving it like this.
-> 
-
-It didn't feel right to have an output parameter as the return value
-doubling as status code when another output is in the parameter list. I
-can perfectly imagine someone grabbing "nr" and ignoring "msrs" because
-"msrs" doesn't happen to be needed for them.
-
-I think there's extra safety in making it harder to ignore the error.
-
->> -    cpuid.length = nr_leaves * sizeof(xen_cpuid_leaf_t);
->> -    if ( cpuid.length )
->> +    record = (struct xc_sr_record) {
->> +        .type = REC_TYPE_X86_CPUID_POLICY,
->> +        .data = policy->leaves,
->> +        .length = policy->nr_leaves * sizeof(*policy->leaves),
->> +    };
->> +    if ( record.length )
->>      {
->> -        rc = write_record(ctx, &cpuid);
->> +        rc = write_record(ctx, &record);
->>          if ( rc )
->>              goto out;
->>      }
-> 
-> 
-> You could maybe write this as:
-> 
-> if ( policy->nr_leaves )
-> {
->     const struct xc_sr_record r = {
->         .type = REC_TYPE_X86_CPUID_POLICY,
->         .data = policy->leaves,
->         .length = policy->nr_leaves * sizeof(*policy->leaves),
->     };
-> 
->     rc = write_record(ctx, &record);
-> }
-> 
-> (same for the msr record)
-> 
-
-Ack. Looks nicer that way.
-
->>  
->> -    msrs.length = nr_msrs * sizeof(xen_msr_entry_t);
->> -    if ( msrs.length )
->> +    record = (struct xc_sr_record) {
->> +        .type = REC_TYPE_X86_MSR_POLICY,
->> +        .data = policy->msrs,
->> +        .length = policy->nr_msrs * sizeof(*policy->msrs),
->> +    };
->> +    if ( record.length )
->>      {
->> -        rc = write_record(ctx, &msrs);
->> +        rc = write_record(ctx, &record);
->>          if ( rc )
->>              goto out;
->>      }
->> @@ -100,8 +84,6 @@ int write_x86_cpu_policy_records(struct xc_sr_context *ctx)
->>      rc = 0;
->>  
->>   out:
->> -    free(cpuid.data);
->> -    free(msrs.data);
->>      xc_cpu_policy_destroy(policy);
->>  
->>      return rc;
->> diff --git a/tools/misc/xen-cpuid.c b/tools/misc/xen-cpuid.c
->> index 8893547bebce..1c9ba6d32060 100644
->> --- a/tools/misc/xen-cpuid.c
->> +++ b/tools/misc/xen-cpuid.c
->> @@ -409,17 +409,21 @@ static void dump_info(xc_interface *xch, bool detail)
->>      free(fs);
->>  }
->>  
->> -static void print_policy(const char *name,
->> -                         xen_cpuid_leaf_t *leaves, uint32_t nr_leaves,
->> -                         xen_msr_entry_t *msrs, uint32_t nr_msrs)
->> +static void print_policy(xc_interface *xch, const char *name, const xc_cpu_policy_t *policy)
-> 
-> Line length.
+> I would split the line while there, it's overly long.
 
 Ack
 
 > 
->>  {
->> -    unsigned int l;
->> +    const xen_cpuid_leaf_t *leaves;
->> +    const xen_msr_entry_t *msrs;
->> +    uint32_t nr_leaves, nr_msrs;
->> +
->> +    if ( xc_cpu_policy_get_leaves(xch, policy, &leaves, &nr_leaves) ||
->> +         xc_cpu_policy_get_msrs(xch, policy, &msrs, &nr_msrs) )
->> +        err(1, "print_policy()");
-> 
-> Shouldn't the error message be "xc_cpu_policy_get_{leaves,msrs}()"
-> instead, as one of those is the cause of the error?
-> 
-> Other err() usages do print the function triggering the error, not the
-> function context name.
-> 
-
-Sure. I've demultiplexed them into separate conditionals as well now.
-
->>  
->>      printf("%s policy: %u leaves, %u MSRs\n", name, nr_leaves, nr_msrs);
->>      printf(" CPUID:\n");
->>      printf("  %-8s %-8s -> %-8s %-8s %-8s %-8s\n",
->>             "leaf", "subleaf", "eax", "ebx", "ecx", "edx");
->> -    for ( l = 0; l < nr_leaves; ++l )
->> +    for ( uint32_t l = 0; l < nr_leaves; ++l )
->>      {
->>          /* Skip empty leaves. */
->>          if ( !leaves[l].a && !leaves[l].b && !leaves[l].c && !leaves[l].d )
->> @@ -432,7 +436,7 @@ static void print_policy(const char *name,
->>  
->>      printf(" MSRs:\n");
->>      printf("  %-8s -> %-16s\n", "index", "value");
->> -    for ( l = 0; l < nr_msrs; ++l )
->> +    for ( uint32_t l = 0; l < nr_msrs; ++l )
-> 
-> I would be tempted to leave `l` as-is, seeing as there's no real need
-> to modify it in the patch context, and the patch is already fairly
-> long.
-
-done
+> Thanks, Roger.
 
 Cheers,
 Alejandro
