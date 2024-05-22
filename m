@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CF4178CC7D7
-	for <lists+xen-devel@lfdr.de>; Wed, 22 May 2024 22:51:05 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.727880.1132567 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 837A78CC914
+	for <lists+xen-devel@lfdr.de>; Thu, 23 May 2024 00:31:36 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.727896.1132583 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s9svB-0001ZW-97; Wed, 22 May 2024 20:50:49 +0000
+	id 1s9uTc-0004V1-9C; Wed, 22 May 2024 22:30:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 727880.1132567; Wed, 22 May 2024 20:50:49 +0000
+Received: by outflank-mailman (output) from mailman id 727896.1132583; Wed, 22 May 2024 22:30:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s9svB-0001Xe-68; Wed, 22 May 2024 20:50:49 +0000
-Received: by outflank-mailman (input) for mailman id 727880;
- Wed, 22 May 2024 20:50:48 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1s9svA-0001XY-5w
- for xen-devel@lists.xenproject.org; Wed, 22 May 2024 20:50:48 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1s9sv9-0005Kl-BX; Wed, 22 May 2024 20:50:47 +0000
-Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.0.211])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1s9sv9-0005CC-5L; Wed, 22 May 2024 20:50:47 +0000
+	id 1s9uTc-0004TU-5b; Wed, 22 May 2024 22:30:28 +0000
+Received: by outflank-mailman (input) for mailman id 727896;
+ Wed, 22 May 2024 22:30:27 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=ujjH=MZ=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1s9uTb-0004TN-CK
+ for xen-devel@lists.xenproject.org; Wed, 22 May 2024 22:30:27 +0000
+Received: from sin.source.kernel.org (sin.source.kernel.org
+ [2604:1380:40e1:4800::1])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id e0dea8a1-188a-11ef-90a1-e314d9c70b13;
+ Thu, 23 May 2024 00:30:25 +0200 (CEST)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sin.source.kernel.org (Postfix) with ESMTP id 13991CE1318;
+ Wed, 22 May 2024 22:30:20 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 689BEC2BBFC;
+ Wed, 22 May 2024 22:30:18 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,62 +42,73 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=1b2wjNCaQ2OsGn5kNNZLj+IsWpe90RhjcKkH3BspCCc=; b=Gg3r/7UG5gdJr8ruNZOGmYwWTF
-	Y7s+6bUpHmhF4UubPOn/FDsTkLDz+nS+Mn5e5c0ppHsdWMeJiv9mYVZhlmnfcrOCJCBRnlP2THSS+
-	2nXCvOQFmVVItW+kuOB/vV0qCxm9PH+RMgibjxvhpQEobhLKcpedLaNWT+LELyZs6jpQ=;
-Message-ID: <fb426cc8-fda9-4e21-983d-37649499e0e4@xen.org>
-Date: Wed, 22 May 2024 21:50:45 +0100
+X-Inumbo-ID: e0dea8a1-188a-11ef-90a1-e314d9c70b13
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1716417019;
+	bh=6AmxGm/usXVZKBFgyu9AglYwlVCoutuuiYzVJmO1rWI=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=rdf3Yl4q0T69wr97dTFxwdnwqUe+ogXPP4SP/M1Zm+SFBuzjcTfGByD7wdEY4Mn5I
+	 wZOrriCcKC8eirE/4Ezmu3sS5aPsqzQ0HwehVSi2rjBK+mQtJ6NNm38mRVwarqSCTT
+	 /EHn4oVbCxuXBs/ej+4LER6SO31LfHAMZk7anW5K1axFjc1qvHc2HG9mY+J1V0y9g9
+	 SmQq7FVbt986VgM3+BTW6djml+RVkR+t0Rd1jB1g2mfJNkK8A1hIipLTW/jQqGq27m
+	 WGcDkLIQjpxLr5pPKDY8hmjEXq/ZBCsp1UqQpnivB1bZTBqKbT/WCSYAj7UyLJL2VG
+	 B5TghjTxiH9fA==
+Date: Wed, 22 May 2024 15:30:17 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
+cc: xen-devel@lists.xenproject.org, Andrew Cooper <andrew.cooper3@citrix.com>, 
+    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+    Jan Beulich <jbeulich@suse.com>, 
+    Stefano Stabellini <sstabellini@kernel.org>
+Subject: Re: [XEN PATCH v4 2/3] x86/MCE: add default switch case in
+ init_nonfatal_mce_checker()
+In-Reply-To: <9ec888c37a261c86a52f360146cbbb3ad437ad30.1716366581.git.Sergiy_Kibrik@epam.com>
+Message-ID: <alpine.DEB.2.22.394.2405221529390.1052252@ubuntu-linux-20-04-desktop>
+References: <cover.1716366581.git.Sergiy_Kibrik@epam.com> <9ec888c37a261c86a52f360146cbbb3ad437ad30.1716366581.git.Sergiy_Kibrik@epam.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: [for-4.19] Re: [XEN PATCH v3] arm/mem_access: add conditional build
- of mem_access.c
-Content-Language: en-GB
-To: Tamas K Lengyel <tamas@tklengyel.com>,
- Alessandro Zucchelli <alessandro.zucchelli@bugseng.com>
-Cc: xen-devel@lists.xenproject.org, consulting@bugseng.com,
- Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Alexandru Isaila <aisaila@bitdefender.com>,
- Petre Pircalabu <ppircalabu@bitdefender.com>,
- Oleksii Kurochko <oleksii.kurochko@gmail.com>
-References: <b3f03c4f5a78b86b01750f10bb0cebcdb2fd35cc.1715265720.git.alessandro.zucchelli@bugseng.com>
- <CABfawh=7jZmtseCm9yaZUcKkK7i+yYiudVDvTFeF6bax_1+BjA@mail.gmail.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <CABfawh=7jZmtseCm9yaZUcKkK7i+yYiudVDvTFeF6bax_1+BjA@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
 
-Hi,
-
-Adding Oleksii as the release manager.
-
-On 22/05/2024 19:27, Tamas K Lengyel wrote:
-> On Fri, May 10, 2024 at 8:32 AM Alessandro Zucchelli
-> <alessandro.zucchelli@bugseng.com> wrote:
->>
->> In order to comply to MISRA C:2012 Rule 8.4 for ARM the following
->> changes are done:
->> revert preprocessor conditional changes to xen/mem_access.h which
->> had it build unconditionally, add conditional build for xen/mem_access.c
->> as well and provide stubs in asm/mem_access.h for the users of this
->> header.
->>
->> Signed-off-by: Alessandro Zucchelli <alessandro.zucchelli@bugseng.com>
+On Wed, 22 May 2024, Sergiy Kibrik wrote:
+> The default switch case block is wanted here, to handle situation
+> e.g. of unexpected c->x86_vendor value -- then no mcheck init is done, but
+> misleading message still gets logged anyway.
 > 
-> Acked-by: Tamas K Lengyel <tamas@tklengyel.com>
+> Signed-off-by: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
+> CC: Jan Beulich <jbeulich@suse.com>
 
-Oleksii, would you be happy if this patch is committed for 4.19?
+Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 
-BTW, do you want to be release-ack every bug until the hard code freeze? 
-Or would you be fine to levea the decision to the maintainers?
 
-Cheers,
-
--- 
-Julien Grall
+> ---
+> changes in v4:
+>  - return 0 instead of -ENODEV and put a comment
+>  - update description a bit
+> ---
+>  xen/arch/x86/cpu/mcheck/non-fatal.c | 5 +++++
+>  1 file changed, 5 insertions(+)
+> 
+> diff --git a/xen/arch/x86/cpu/mcheck/non-fatal.c b/xen/arch/x86/cpu/mcheck/non-fatal.c
+> index 33cacd15c2..5a53bcd0b7 100644
+> --- a/xen/arch/x86/cpu/mcheck/non-fatal.c
+> +++ b/xen/arch/x86/cpu/mcheck/non-fatal.c
+> @@ -29,9 +29,14 @@ static int __init cf_check init_nonfatal_mce_checker(void)
+>  		/* Assume we are on K8 or newer AMD or Hygon CPU here */
+>  		amd_nonfatal_mcheck_init(c);
+>  		break;
+> +
+>  	case X86_VENDOR_INTEL:
+>  		intel_nonfatal_mcheck_init(c);
+>  		break;
+> +
+> +	default:
+> +		/* unhandled vendor isn't really an error */
+> +		return 0;
+>  	}
+>  	printk(KERN_INFO "mcheck_poll: Machine check polling timer started.\n");
+>  	return 0;
+> -- 
+> 2.25.1
+> 
 
