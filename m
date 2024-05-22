@@ -2,38 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C78BF8CC26D
-	for <lists+xen-devel@lfdr.de>; Wed, 22 May 2024 15:49:29 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.727696.1132320 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4D1108CC272
+	for <lists+xen-devel@lfdr.de>; Wed, 22 May 2024 15:51:02 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.727700.1132328 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s9mLD-00056U-Gs; Wed, 22 May 2024 13:49:15 +0000
+	id 1s9mM9-0006cB-Ph; Wed, 22 May 2024 13:50:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 727696.1132320; Wed, 22 May 2024 13:49:15 +0000
+Received: by outflank-mailman (output) from mailman id 727700.1132328; Wed, 22 May 2024 13:50:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s9mLD-00053J-DU; Wed, 22 May 2024 13:49:15 +0000
-Received: by outflank-mailman (input) for mailman id 727696;
- Wed, 22 May 2024 13:49:14 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1s9mM9-0006Zg-N0; Wed, 22 May 2024 13:50:13 +0000
+Received: by outflank-mailman (input) for mailman id 727700;
+ Wed, 22 May 2024 13:50:12 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=vsR+=MZ=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1s9mLC-00036q-NW
- for xen-devel@lists.xenproject.org; Wed, 22 May 2024 13:49:14 +0000
-Received: from mail-qv1-xf30.google.com (mail-qv1-xf30.google.com
- [2607:f8b0:4864:20::f30])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 12e1da4d-1842-11ef-90a0-e314d9c70b13;
- Wed, 22 May 2024 15:49:14 +0200 (CEST)
-Received: by mail-qv1-xf30.google.com with SMTP id
- 6a1803df08f44-6a077a861e7so37343446d6.2
- for <xen-devel@lists.xenproject.org>; Wed, 22 May 2024 06:49:14 -0700 (PDT)
-Received: from [10.80.67.140] ([160.101.139.1])
- by smtp.gmail.com with ESMTPSA id
- 6a1803df08f44-6a15f1cd1d1sm133129086d6.90.2024.05.22.06.49.12
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 22 May 2024 06:49:12 -0700 (PDT)
+ <SRS0=DzQV=MZ=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
+ id 1s9mM8-0005ZK-PA
+ for xen-devel@lists.xenproject.org; Wed, 22 May 2024 13:50:12 +0000
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on20622.outbound.protection.outlook.com
+ [2a01:111:f400:7e88::622])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 3422bd5e-1842-11ef-b4bb-af5377834399;
+ Wed, 22 May 2024 15:50:10 +0200 (CEST)
+Received: from SJ0P220CA0027.NAMP220.PROD.OUTLOOK.COM (2603:10b6:a03:41b::18)
+ by IA1PR12MB8467.namprd12.prod.outlook.com (2603:10b6:208:448::9)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7587.35; Wed, 22 May
+ 2024 13:50:06 +0000
+Received: from CO1PEPF000042AE.namprd03.prod.outlook.com
+ (2603:10b6:a03:41b:cafe::4a) by SJ0P220CA0027.outlook.office365.com
+ (2603:10b6:a03:41b::18) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7611.19 via Frontend
+ Transport; Wed, 22 May 2024 13:50:06 +0000
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ CO1PEPF000042AE.mail.protection.outlook.com (10.167.243.43) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7611.14 via Frontend Transport; Wed, 22 May 2024 13:50:05 +0000
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Wed, 22 May
+ 2024 08:50:03 -0500
+Received: from [10.252.147.188] (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.35 via Frontend
+ Transport; Wed, 22 May 2024 08:50:01 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,142 +59,325 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 12e1da4d-1842-11ef-90a0-e314d9c70b13
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1716385753; x=1716990553; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=wIhu189B01nDbbjYkoJQBwtv69wN4Gpws0k4pLKdsVI=;
-        b=a8tpKI4gYtzyNuJfh0HZoqZshyjpylRlrfil2IUrV2N4USsb0lCEil3eRbrWh4J8uf
-         ChMKcdvlQuAvobBxEYMMkycEt5jEapGEaVkzDodWxgmMbxKU/LWjwHxfa11ZgFKrSDc2
-         wuC6EbtH1GZXoRNcnUVrBhldpVfvTZ8FoYz04=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1716385753; x=1716990553;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=wIhu189B01nDbbjYkoJQBwtv69wN4Gpws0k4pLKdsVI=;
-        b=QMxwvjvZp9YCDuFOjCQPIywID9X3KLmM43oaIlma2lq9F91sBA5tWtdzbPW4UEqoU+
-         vXTe+i1xTnsFSIsn4ihwk81xoC2EhQW8CXHnGaBCe1YiIn4Vmv5dOr9w7jZIrBBGcvSk
-         Yoakh6DLEA+aPCyVCIMz65+5pYZIR2/rkARyq/f6PYjGXRWmxjoLTzorNyJLzLXF9j6h
-         IaDChiZdMqEfkmcwC0HE19+YuaZ7jEkz28FIwvmc9XPXZNsQotenx+4GSA01nSlfTxK5
-         RgKmqx/EvM9xQRdE2DbEVcabt18I1K4tatyddHYdnFbY6qzr+s4eXpY1duz/zXAMO0KN
-         u02w==
-X-Forwarded-Encrypted: i=1; AJvYcCUtt2MwEvBySlpujpNKaHWx554bZPOzSV3+hI/A5APzt4mRNPk8apeEo2zQBdrlFyZ+kPDdxcGHXYgobdpt6g7ZH57eTztc8772GMhsE+g=
-X-Gm-Message-State: AOJu0YwJ27vsMGz52LKT1kK+19r/D/vROkLahorIOPMAnrx6+Qdb6hDN
-	eWEemKlnk+jRtH5JhUREcY2Qa5KkX2DOA65IfZa1LM4xu8q96LHlsdhljVRW5n0m/KBu1VPbD5K
-	jew4=
-X-Google-Smtp-Source: AGHT+IFA0cSXGztNyHfP10CZCoe+4yNmjJtuJ6PmejheNzVxFkJOzSdzf4+KFdAc8eJS42q+dyNfJA==
-X-Received: by 2002:a05:6214:2f11:b0:6ab:8bb0:4f05 with SMTP id 6a1803df08f44-6ab8bb05022mr4623436d6.34.1716385752988;
-        Wed, 22 May 2024 06:49:12 -0700 (PDT)
-Message-ID: <f8eb1c08-c168-4259-a221-4719c91afb3b@citrix.com>
-Date: Wed, 22 May 2024 14:49:11 +0100
+X-Inumbo-ID: 3422bd5e-1842-11ef-b4bb-af5377834399
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=amuv4wdsOd0sQpS08Rb1xjpPkiy2ChXfbTPI2Z+9am+dtdjwGD7h2S3xp22oQUOFeWb7GNbxSyW+ThABmS+lv/0vmfjqSRh/TFsThFUlSOSopq2Y7UCYc1CQE7rdrPAnAyDHGh6zgCc/C57KFeqcKzOFwXW/l6LhdShzEcX649OVs5L5x7X7mjoNJSFlk1AaltlI0KXCKR9cNOZN3VNWowpUZFjUYzBolIgtRju1nR5XE13vn0hQOSMxxofnNEO9s5O+1Hn4yecVDTeI8JyZkoy6cQ8BdmMQGwAa98dWKdtGGLQjY5B46MW9z6lQqJuRdChaMo5EhGRWnZa4QL7X7A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=hpin80pWJf11sF4u2kqwI0Qs5OSeNVouPFEGB027mxw=;
+ b=cjuNP/0yLYobKyTZ7DUaGHCnxJUinLiCu0ar5Ix5dQ/VhO71EqwFw7HMfH+Kx2zDRXBAhco4qvohnM6R8rq50HhAIrzBK8A+ZQWz3WCjS+Op1olXNUuwBh0Yq3Xdh6fssWVq9AVJj8yPGl0Ce8xOuZZyBWZDPfORo9Vecigr/tQ/lGIf96vKwl3sqIBOiz3AT1owbEJE8sTAy8YYlVBiPK/AMYVgmi6r43cK5Pb8onAT1QqO8yCDsS0k1o1L0UXqs94kTbFDo3SZ/snJjdq67G3xulbzOJ2DK2y33SUYJVbaNErGS4TmIehA2eeSd+hSwwhfVHBCOHjckkv6cpK34w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=arm.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=hpin80pWJf11sF4u2kqwI0Qs5OSeNVouPFEGB027mxw=;
+ b=HaJpHjuxvlDW8mLazGpZqxtEjauTjyc5G+pbSGx4xXr1hTpzZymnR3djt/dfuZZp2o6uExNBMJkCFveFifZqJi0wRTnwUD3LBBPnwlUjDdYg9o0W/SVbVaSJNOAwr8OxXTM1RftcXVCG1V3GhFSkJCZXr1cxckv4jdDPhvW2xoY=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Message-ID: <5a339b77-0ce6-4670-9e79-99be5ac48bb2@amd.com>
+Date: Wed, 22 May 2024 15:50:01 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: New Defects reported by Coverity Scan for XenProject
-To: Jan Beulich <jbeulich@suse.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <664dc165759df_5e9362b92d249399c762@prd-scan-dashboard-0.mail>
- <1b607d3b-429e-4841-a3b0-ed3a39e12ed7@suse.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <1b607d3b-429e-4841-a3b0-ed3a39e12ed7@suse.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH v3 4/7] xen/arm: Parse xen,shared-mem when host phys
+ address is not provided
+To: Luca Fancellu <luca.fancellu@arm.com>, <xen-devel@lists.xenproject.org>
+CC: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+	<julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>, Volodymyr
+ Babchuk <Volodymyr_Babchuk@epam.com>
+References: <20240522075151.3373899-1-luca.fancellu@arm.com>
+ <20240522075151.3373899-5-luca.fancellu@arm.com>
+Content-Language: en-US
+From: Michal Orzel <michal.orzel@amd.com>
+In-Reply-To: <20240522075151.3373899-5-luca.fancellu@arm.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+Received-SPF: None (SATLEXMB03.amd.com: michal.orzel@amd.com does not
+ designate permitted sender hosts)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO1PEPF000042AE:EE_|IA1PR12MB8467:EE_
+X-MS-Office365-Filtering-Correlation-Id: 49b2ef37-de84-4956-f930-08dc7a661659
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230031|1800799015|376005|82310400017|36860700004;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?eU9jZFdhQ0wyc2h3cW1VbFJsYVB4eTdLdnZ4Y3ZadUtBRUh6M1NwQnpzZEZn?=
+ =?utf-8?B?OUphQjdINUluSTBoTnFJSnJLWHIwSW1EdktYWFhMSUp1RUJJWkVUaGZBdjVZ?=
+ =?utf-8?B?cWNORzgvdDZnQjB3SjQ0cmdQNzVMdENBeDJTMXRLU25wbzlVRVh5RzFEKzhW?=
+ =?utf-8?B?QWdZdWhROGpZT0l4Zk5GYkNuWnNWYm9tUWJxT3BOZVN0eGM2VUIxSUlsK3hB?=
+ =?utf-8?B?aVo3RlJMcXNrUGlaVkNVekNlbGZQWWZHNmxsbzhBakFNUnFLRFF2VzF2OERL?=
+ =?utf-8?B?ajVUTE9jWElCMENGYzVTYWVNVnhEWjAyRExiRGkvK21vRnpQam1sb1NoaGQv?=
+ =?utf-8?B?S0pHKzJJejhueHRCbXBVS3RiSG9YR1kweGpuQmdsdnNkaE84SmJJZytVU0tt?=
+ =?utf-8?B?ZzJFVUZ2NFNVUHYwR3pSVW1hVkgzNHJuZlBzR25oNGFIZmE3bk9jb2ZjbFJp?=
+ =?utf-8?B?dWVOb1hXUnM3a1MxM21NbHF6b0tsY2pCYVp5Y05lTDQ0cnZocDdNOTdieExa?=
+ =?utf-8?B?dW11MFp6cFVlUHlmZWw4WjVSZUN5ZmRTZEk1U0pVZGU0UVMzd0M1VWkzaWhX?=
+ =?utf-8?B?UXNlVUI3aUo4R0RyYkFrVzJFS0hVQmNxVW9rN0JmMVkxdndEdWFWeXpwdEV5?=
+ =?utf-8?B?VElmaXV2MFhocDVScDBxV2ZqT01pYlhhdTZpK2ZMZHg4aTdKdWZDcFNWemkx?=
+ =?utf-8?B?SjVFQS9YQ2cyVlVvVFVJemFFTXFtTi9FUzJTT3hGdXVacy9LSWkxS3J6V2xl?=
+ =?utf-8?B?MVpOcG1OVEhIdnkrWEkvTEpxYU1uOC8yaGd2S0FLazY4VElsdkRtNVFod2Ja?=
+ =?utf-8?B?QUlLMDFFc1hWdTRvNVkwVkprdGRZeU55OThFbmdubzFOY0hCcWNaTUJ6cG1v?=
+ =?utf-8?B?V3o0anZZR2VobW00KzFFVnAyaUk4RGNUYmNHbEFFTVhBZm5ZMytiM1owYlFL?=
+ =?utf-8?B?czg0VzlrQlVKdFQ1K2tBNlkxREdTWmNya0dPalRWcUw0VWNjS0hWNUtZSmNZ?=
+ =?utf-8?B?ZXUydWtNaDdXblZCbHRBMzVIQkdWMGNyMGlZUEJtY3lDcllyOWdObmhyaVpP?=
+ =?utf-8?B?RGhqYml1S1VCOFV2bnoxMDJyVXdwQW9GK01pMGp1ZVZZTCs5RWdGUWVjVjBU?=
+ =?utf-8?B?amRhL05TL1hBYXMxNHQwOUxlK2lTRHk2V3E5UUdINE9ZakN0QnRzRWNKQlE5?=
+ =?utf-8?B?eWNSUVdmSTNERUJpdWkydkZ5c3F6c2VuVXZSVVNFQnZRWGRUay8yRDNPUkla?=
+ =?utf-8?B?bmdQbThDUzU0ZG9OWk10cllEaVJLV3lCOWRIaTIwS203VGtDaU1Ua0hrbURQ?=
+ =?utf-8?B?dWd5amwxckw2MVZWbGkrWVJwNWtXOEV1Q1owaXRZbXVDeFlob3NsSlNVckJ4?=
+ =?utf-8?B?ZXllY1R2SlY0UGUxa3hMN2kvYVFpYng0STBtRkM0clp1Z05LdlFFeU5TTEh5?=
+ =?utf-8?B?b3FUdkFXLzBZMVJWSjQzNVdRY1VtOC8wQ1E2aW0zbEdaaHVGVWo4OXBnZ2ky?=
+ =?utf-8?B?aE1SMVNjNmhNVHA1QmJDd0RZZ1NISlA3bkZYZU43QWtrdTIrSXRrZUpxMU0r?=
+ =?utf-8?B?WkgvU3ZYL1lkRHFiSDE0WWRSa0RvRDFnY3RXYWprajBNMlpqREo4ZkFtdEpi?=
+ =?utf-8?B?VDJXTDNqem5zVFYxaWlISW1JVXpTbjdsU0FQaFF3NnZiNHhZWDFhWWU3OHE1?=
+ =?utf-8?B?NDNGdGpLaXBPTjZEN0RwbXVuWUFFWlZzcGp1Z05RSHY1QUJyU0R5dkc5OGJv?=
+ =?utf-8?B?eWhmOUhzcGxwZ2RsQjdaSEs0VmJzSGZZMWhPS1VmalhtL2thU1FMT083clRO?=
+ =?utf-8?B?dXp6ejh3S3JOemhhL0VQcGE0OTJlcGJxRjJqZ2M4UjJnenhxZ3huQXdxRHVq?=
+ =?utf-8?Q?k/cZXylDZOx5b?=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(1800799015)(376005)(82310400017)(36860700004);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 May 2024 13:50:05.8140
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 49b2ef37-de84-4956-f930-08dc7a661659
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CO1PEPF000042AE.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB8467
 
-On 22/05/2024 11:05 am, Jan Beulich wrote:
-> On 22.05.2024 11:56, scan-admin@coverity.com wrote:
->> ** CID 1598431:  Memory - corruptions  (OVERRUN)
->>
->>
->> ________________________________________________________________________________________________________
->> *** CID 1598431:  Memory - corruptions  (OVERRUN)
->> /xen/common/trace.c: 798 in trace()
->> 792         }
->> 793     
->> 794         if ( rec_size > bytes_to_wrap )
->> 795             insert_wrap_record(buf, rec_size);
->> 796     
->> 797         /* Write the original record */
->>>>>     CID 1598431:  Memory - corruptions  (OVERRUN)
->>>>>     Overrunning callee's array of size 28 by passing argument "extra" (which evaluates to 31) in call to "__insert_record".
->> 798         __insert_record(buf, event, extra, cycles, rec_size, extra_data);
->> 799     
->> 800     unlock:
->> 801         spin_unlock_irqrestore(&this_cpu(t_lock), flags);
->> 802     
->> 803         /* Notify trace buffer consumer that we've crossed the high water mark. */
-> How does the tool conclude "extra" evaluating to 31, when at the top of
-> the function it is clearly checked to be less than 28?
+Hi Luca,
 
-Which "top" ?
+On 22/05/2024 09:51, Luca Fancellu wrote:
+> 
+> 
+> Handle the parsing of the 'xen,shared-mem' property when the host physical
+> address is not provided, this commit is introducing the logic to parse it,
+> but the functionality is still not implemented and will be part of future
+> commits.
+> 
+> Rework the logic inside process_shm_node to check the shm_id before doing
+> the other checks, because it ease the logic itself, add more comment on
+> the logic.
+> Now when the host physical address is not provided, the value
+> INVALID_PADDR is chosen to signal this condition and it is stored as
+> start of the bank, due to that change also early_print_info_shmem and
+> init_sharedmem_pages are changed, to not handle banks with start equal
+> to INVALID_PADDR.
+> 
+> Another change is done inside meminfo_overlap_check, to skip banks that
+> are starting with the start address INVALID_PADDR, that function is used
+> to check banks from reserved memory, shared memory and ACPI and since
+> the comment above the function states that wrapping around is not handled,
+> it's unlikely for these bank to have the start address as INVALID_PADDR.
+> Same change is done inside consider_modules, find_unallocated_memory and
+> dt_unreserved_regions functions, in order to skip banks that starts with
+> INVALID_PADDR from any computation.
+> The changes above holds because of this consideration.
+> 
+> Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
+> Reviewed-by: Michal Orzel <michal.orzel@amd.com>
+> ---
+> v3 changes:
+>  - fix typo in commit msg, add R-by Michal
+> v2 changes:
+>  - fix comments, add parenthesis to some conditions, remove unneeded
+>    variables, remove else branch, increment counter in the for loop,
+>    skip INVALID_PADDR start banks from also consider_modules,
+>    find_unallocated_memory and dt_unreserved_regions. (Michal)
+> ---
+>  xen/arch/arm/arm32/mmu/mm.c |  11 +++-
+>  xen/arch/arm/domain_build.c |   5 ++
+>  xen/arch/arm/setup.c        |  14 +++-
+>  xen/arch/arm/static-shmem.c | 125 +++++++++++++++++++++++++-----------
+>  4 files changed, 111 insertions(+), 44 deletions(-)
+> 
+> diff --git a/xen/arch/arm/arm32/mmu/mm.c b/xen/arch/arm/arm32/mmu/mm.c
+> index be480c31ea05..30a7aa1e8e51 100644
+> --- a/xen/arch/arm/arm32/mmu/mm.c
+> +++ b/xen/arch/arm/arm32/mmu/mm.c
+> @@ -101,8 +101,15 @@ static paddr_t __init consider_modules(paddr_t s, paddr_t e,
+>      nr += reserved_mem->nr_banks;
+>      for ( ; i - nr < shmem->nr_banks; i++ )
+>      {
+> -        paddr_t r_s = shmem->bank[i - nr].start;
+> -        paddr_t r_e = r_s + shmem->bank[i - nr].size;
+> +        paddr_t r_s, r_e;
+> +
+> +        r_s = shmem->bank[i - nr].start;
+> +
+> +        /* Shared memory banks can contain INVALID_PADDR as start */
+> +        if ( INVALID_PADDR == r_s )
+> +            continue;
+> +
+> +        r_e = r_s + shmem->bank[i - nr].size;
+> 
+>          if ( s < r_e && r_s < e )
+>          {
+> diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
+> index 968c497efc78..02e741685102 100644
+> --- a/xen/arch/arm/domain_build.c
+> +++ b/xen/arch/arm/domain_build.c
+> @@ -927,6 +927,11 @@ static int __init find_unallocated_memory(const struct kernel_info *kinfo,
+>          for ( j = 0; j < mem_banks[i]->nr_banks; j++ )
+>          {
+>              start = mem_banks[i]->bank[j].start;
+> +
+> +            /* Shared memory banks can contain INVALID_PADDR as start */
+> +            if ( INVALID_PADDR == start )
+> +                continue;
+> +
+>              end = mem_banks[i]->bank[j].start + mem_banks[i]->bank[j].size;
+>              res = rangeset_remove_range(unalloc_mem, PFN_DOWN(start),
+>                                          PFN_DOWN(end - 1));
+> diff --git a/xen/arch/arm/setup.c b/xen/arch/arm/setup.c
+> index c4e5c19b11d6..0c2fdaceaf21 100644
+> --- a/xen/arch/arm/setup.c
+> +++ b/xen/arch/arm/setup.c
+> @@ -240,8 +240,15 @@ static void __init dt_unreserved_regions(paddr_t s, paddr_t e,
+>      offset = reserved_mem->nr_banks;
+>      for ( ; i - offset < shmem->nr_banks; i++ )
+>      {
+> -        paddr_t r_s = shmem->bank[i - offset].start;
+> -        paddr_t r_e = r_s + shmem->bank[i - offset].size;
+> +        paddr_t r_s, r_e;
+> +
+> +        r_s = shmem->bank[i - offset].start;
+> +
+> +        /* Shared memory banks can contain INVALID_PADDR as start */
+> +        if ( INVALID_PADDR == r_s )
+> +            continue;
+> +
+> +        r_e = r_s + shmem->bank[i - offset].size;
+> 
+>          if ( s < r_e && r_s < e )
+>          {
+> @@ -272,7 +279,8 @@ static bool __init meminfo_overlap_check(const struct membanks *mem,
+>          bank_start = mem->bank[i].start;
+>          bank_end = bank_start + mem->bank[i].size;
+> 
+> -        if ( region_end <= bank_start || region_start >= bank_end )
+> +        if ( INVALID_PADDR == bank_start || region_end <= bank_start ||
+> +             region_start >= bank_end )
+>              continue;
+>          else
+>          {
+> diff --git a/xen/arch/arm/static-shmem.c b/xen/arch/arm/static-shmem.c
+> index c15a65130659..74c81904b8a4 100644
+> --- a/xen/arch/arm/static-shmem.c
+> +++ b/xen/arch/arm/static-shmem.c
+> @@ -264,6 +264,12 @@ int __init process_shm(struct domain *d, struct kernel_info *kinfo,
+>          pbase = boot_shm_bank->start;
+>          psize = boot_shm_bank->size;
+> 
+> +        if ( INVALID_PADDR == pbase )
+> +        {
+> +            printk("%pd: host physical address must be chosen by users at the moment", d);
+> +            return -EINVAL;
+> +        }
+> +
+>          /*
+>           * xen,shared-mem = <pbase, gbase, size>;
+>           * TODO: pbase is optional.
+> @@ -377,7 +383,8 @@ int __init process_shm_node(const void *fdt, int node, uint32_t address_cells,
+>  {
+>      const struct fdt_property *prop, *prop_id, *prop_role;
+>      const __be32 *cell;
+> -    paddr_t paddr, gaddr, size, end;
+> +    paddr_t paddr = INVALID_PADDR;
+> +    paddr_t gaddr, size, end;
+>      struct membanks *mem = bootinfo_get_shmem();
+>      struct shmem_membank_extra *shmem_extra = bootinfo_get_shmem_extra();
+>      unsigned int i;
+> @@ -432,24 +439,37 @@ int __init process_shm_node(const void *fdt, int node, uint32_t address_cells,
+>      if ( !prop )
+>          return -ENOENT;
+> 
+> +    cell = (const __be32 *)prop->data;
+>      if ( len != dt_cells_to_size(address_cells + size_cells + address_cells) )
+>      {
+> -        if ( len == dt_cells_to_size(size_cells + address_cells) )
+> -            printk("fdt: host physical address must be chosen by users at the moment.\n");
+> -
+> -        printk("fdt: invalid `xen,shared-mem` property.\n");
+> -        return -EINVAL;
+> +        if ( len == dt_cells_to_size(address_cells + size_cells) )
+> +            device_tree_get_reg(&cell, address_cells, size_cells, &gaddr,
+> +                                &size);
+> +        else
+> +        {
+> +            printk("fdt: invalid `xen,shared-mem` property.\n");
+> +            return -EINVAL;
+> +        }
+>      }
+> +    else
+> +    {
+> +        device_tree_get_reg(&cell, address_cells, address_cells, &paddr,
+> +                            &gaddr);
+> +        size = dt_next_cell(size_cells, &cell);
+> 
+> -    cell = (const __be32 *)prop->data;
+> -    device_tree_get_reg(&cell, address_cells, address_cells, &paddr, &gaddr);
+> -    size = dt_next_cell(size_cells, &cell);
+> +        if ( !IS_ALIGNED(paddr, PAGE_SIZE) )
+> +        {
+> +            printk("fdt: physical address 0x%"PRIpaddr" is not suitably aligned.\n",
+> +                paddr);
+> +            return -EINVAL;
+> +        }
+> 
+> -    if ( !IS_ALIGNED(paddr, PAGE_SIZE) )
+> -    {
+> -        printk("fdt: physical address 0x%"PRIpaddr" is not suitably aligned.\n",
+> -               paddr);
+> -        return -EINVAL;
+> +        end = paddr + size;
+> +        if ( end <= paddr )
+> +        {
+> +            printk("fdt: static shared memory region %s overflow\n", shm_id);
+> +            return -EINVAL;
+> +        }
+>      }
+> 
+>      if ( !IS_ALIGNED(gaddr, PAGE_SIZE) )
+> @@ -471,39 +491,64 @@ int __init process_shm_node(const void *fdt, int node, uint32_t address_cells,
+>          return -EINVAL;
+>      }
+> 
+> -    end = paddr + size;
+> -    if ( end <= paddr )
+> -    {
+> -        printk("fdt: static shared memory region %s overflow\n", shm_id);
+> -        return -EINVAL;
+> -    }
+> -
+>      for ( i = 0; i < mem->nr_banks; i++ )
+>      {
+>          /*
+>           * Meet the following check:
+> -         * 1) The shm ID matches and the region exactly match
+> -         * 2) The shm ID doesn't match and the region doesn't overlap
+> -         * with an existing one
+> +         * - when host address is provided:
+> +         *   1) The shm ID matches and the region exactly match
+> +         *   2) The shm ID doesn't match and the region doesn't overlap
+> +         *      with an existing one
+> +         * - when host address is not provided:
+> +         *   1) The shm ID matches and the region size exactly match
+>           */
+> -        if ( paddr == mem->bank[i].start && size == mem->bank[i].size )
+> +        bool paddr_assigned = (INVALID_PADDR == paddr);
+Shouldn't it be INVALID_PADDR != paddr to indicate that paddr was assigned? Otherwise, looking at the
+code belowe you would allow a configuration where the shm_id matches but the phys addresses don't.
 
-The reasoning is:
-
- 2. Condition extra % 4UL /* sizeof (uint32_t) */, taking false branch.
- 3. Condition extra / 4UL /* sizeof (uint32_t) */ > 7, taking false branch.
- 4. cond_at_most: Checking extra / 4UL > 7UL implies that extra may be
-up to 31 on the false branch.
-
-which is where 31 comes from.
-
-What Coverity hasn't done is equated "<31 && multiple of 4" to mean
-"<28".  I don't think this is unreasonable; analysis has to prune the
-reasoning somewhere...
-
-This is (fundamentally) a dumb-ABI problem where we're passing a byte
-count but only ever wanting to use it as a unit-of-uint32_t's count.
-
-But it's also problem that we're passing both extra and rec_size into
-__insert_record() when one is calculated from the other.
-
-I had decided to leave this alone for now, but maybe it could do with
-some improvements (simplifications) to the code.
-
-~Andrew
+~Michal
 
