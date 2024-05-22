@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6ABFD8CC225
-	for <lists+xen-devel@lfdr.de>; Wed, 22 May 2024 15:30:13 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.727659.1132249 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DE20A8CC235
+	for <lists+xen-devel@lfdr.de>; Wed, 22 May 2024 15:34:52 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.727666.1132258 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s9m2X-0005xW-ER; Wed, 22 May 2024 13:29:57 +0000
+	id 1s9m70-0008Az-Uy; Wed, 22 May 2024 13:34:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 727659.1132249; Wed, 22 May 2024 13:29:57 +0000
+Received: by outflank-mailman (output) from mailman id 727666.1132258; Wed, 22 May 2024 13:34:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s9m2X-0005vk-BP; Wed, 22 May 2024 13:29:57 +0000
-Received: by outflank-mailman (input) for mailman id 727659;
- Wed, 22 May 2024 13:29:55 +0000
+	id 1s9m70-00088N-SE; Wed, 22 May 2024 13:34:34 +0000
+Received: by outflank-mailman (input) for mailman id 727666;
+ Wed, 22 May 2024 13:34:33 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=AJ0E=MZ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1s9m2V-0005uB-IU
- for xen-devel@lists.xenproject.org; Wed, 22 May 2024 13:29:55 +0000
-Received: from mail-ed1-x532.google.com (mail-ed1-x532.google.com
- [2a00:1450:4864:20::532])
+ id 1s9m6z-00088H-2J
+ for xen-devel@lists.xenproject.org; Wed, 22 May 2024 13:34:33 +0000
+Received: from mail-ed1-x52b.google.com (mail-ed1-x52b.google.com
+ [2a00:1450:4864:20::52b])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 5f4ec0a9-183f-11ef-b4bb-af5377834399;
- Wed, 22 May 2024 15:29:53 +0200 (CEST)
-Received: by mail-ed1-x532.google.com with SMTP id
- 4fb4d7f45d1cf-56e6a1edecfso14127946a12.1
- for <xen-devel@lists.xenproject.org>; Wed, 22 May 2024 06:29:53 -0700 (PDT)
+ id 04b5b287-1840-11ef-b4bb-af5377834399;
+ Wed, 22 May 2024 15:34:30 +0200 (CEST)
+Received: by mail-ed1-x52b.google.com with SMTP id
+ 4fb4d7f45d1cf-571ba432477so11578263a12.1
+ for <xen-devel@lists.xenproject.org>; Wed, 22 May 2024 06:34:30 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a5a17b17555sm1773890266b.189.2024.05.22.06.29.52
+ 4fb4d7f45d1cf-5733becfde7sm18385336a12.48.2024.05.22.06.34.29
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 22 May 2024 06:29:52 -0700 (PDT)
+ Wed, 22 May 2024 06:34:30 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,52 +45,58 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5f4ec0a9-183f-11ef-b4bb-af5377834399
+X-Inumbo-ID: 04b5b287-1840-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1716384593; x=1716989393; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1716384870; x=1716989670; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=TBQwF2MTC44b/9TtLPH2MX0VuDwOJrgwU5fmaM9VTQw=;
-        b=VySFlEjRjzqRIdw9F2BLsQbPKqXpsIuD7I0GtwyTn5pc8nT2E6aqh+VVFWYf7OKno5
-         Fv06PiW80d5dlnckI1BO9k9Et4tHmClNtGkkaxmuVtMMmaZCm6sQEShyGtN5OUdtu89s
-         mNxT/6h898bM0ZTKUBiDF2kuPwQ2xT/l72xRzEh3mHcOU9HMrX0a0lfkjK77qFAuIWVg
-         KvRtfeiX207yc70TEV1fn8Dfw7I9Eyc1EfU8TZbMfWqMjvw3oSwbSIPP/AvGOtzWyD+R
-         06HzMjTdORchWnUkzx6T/KJrbDoS4zpSdm2V4ndHspdz2mB1CiRbzR6VKBtHjCRIzLXZ
-         Rkhg==
+        bh=Cf9soWzvYdTy8NjbCQLAIORudY8WanUALOqCMgKvsfw=;
+        b=dXq0OY5o6ToVd/MQi4LJmvTzfyVHSorDQycLFMev2C88yWGGWABkpnBgGWmFZNKu5T
+         uGwQnF5vB6YemESCTVJKE+9ANziSWGW/+rqpuYRYGrLqCjM0DLSoVL0b2Az96F3Iv63A
+         KabEJQLXjexwdZmo3vJH6oUABMLqcLKaMHtxyleYcY6BEYjjuqN9VmhfMSehNzkxu78/
+         Xtj5NmyV7ymfP6CAdwtozjpxvo35AOf9prdS5UxiNoByQaNwR9mmJUQJAhQEEQ9bklUO
+         Kb6hkZGRqkjeAs1GmkVA9tBxXanZtFAcyaHwVnGCB4J0cGR7lcVhIIT2SWLaJUtum0JX
+         jF6A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1716384593; x=1716989393;
+        d=1e100.net; s=20230601; t=1716384870; x=1716989670;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=TBQwF2MTC44b/9TtLPH2MX0VuDwOJrgwU5fmaM9VTQw=;
-        b=i9njNCtg+aSXjTwtiS3cHytEg2DZJpCDwd9QF1yeINR9UJcX+dD+BdAya/iYaXkPNu
-         RuEBS6ZJmuK5K1sjrrY69cx3jps58m9olXhEPRwg3KLUlDW3Goa9QMfh/L0WpxGSNSvY
-         ZvS+nfHC/DxTJe/FLq99W8P0fGBvQVUb7rYomc+KvW/QvC3JprNmkiokJUAR0wSQbEf8
-         hIlt5Xopg3zr7FOfytVZBpG6bfy1tUHKYsdCZnDgSmS5procvYwVMiEAipSAT2cilaPO
-         MnDm6NpQaoSOr91z5Tqd168u797OYcAqtcbC1BHnGBXXs/XC81xILcmQ33Wjrlziiy/4
-         m9pQ==
-X-Forwarded-Encrypted: i=1; AJvYcCVldbPwv4/7uKlmPxWQh4gH5dOmxaL/Dpx84p668MaRmV4rLbtCifUM/OPT2x60nEHNALzNwjdqUYd0YesZ4NEs/7e8m2Ih1cLFg0A588g=
-X-Gm-Message-State: AOJu0Yz8HaKkJYEP5TVeKwEXxWssRocZlbgaGS5TjBXuvWAVzbWDCD24
-	tyGYCYenNIqyTpWemFHxPJrXtfnPU7H1idX4bukgdhkWbbng0AyFpR9HCnxqwA==
-X-Google-Smtp-Source: AGHT+IGX9DUTMg58NzGkz/C5hDlFYHSaWaR9BMHaC2XzSJw57H/UxAqRbwZ2cNoNhtS4rFCpFeJ2Wg==
-X-Received: by 2002:a17:906:3594:b0:a59:b784:ced4 with SMTP id a640c23a62f3a-a622818ebc3mr125008766b.75.1716384592843;
-        Wed, 22 May 2024 06:29:52 -0700 (PDT)
-Message-ID: <93c7230a-bd2a-4763-a90a-89e02a169b1d@suse.com>
-Date: Wed, 22 May 2024 15:29:51 +0200
+        bh=Cf9soWzvYdTy8NjbCQLAIORudY8WanUALOqCMgKvsfw=;
+        b=Lpry4xg+gjVDpdNUQdx6molR0I3cHuz0XAh+Bq+RbtaoFyVHndUJAm7J7YoBVo7e3E
+         +6Sb8sNmUIMg0GJJoxG2MIb30BqeEkarvelh7rlK0fMx1+eLWe67zwKJgn4Dr1lBCqi4
+         r7SZt0Qj/peN9KDTdhPmCJyf7ZJVDOkSaHurWoNRi32hi+xD1owoGvMuA6le0NqIDbo/
+         IJXp6vCT4McPTgFwM/qKq58dUPjjVtUTttt/z8rOwHl21uDUtpB63aoL4XR7xKvKnPfS
+         Sgt2Qec9HLLjFGMK+bBz66twi5O7PfOOMPdjuz1pQn4B8ZbW3acjBTFisob3KwtzhZC8
+         DcRA==
+X-Forwarded-Encrypted: i=1; AJvYcCUbHlQclTTBzRRcm9lsRtHvv3bVtqkn12F88FayGQm5+5rf3/OUhWBwKr4bJwM32E881hoheFI3+ThJo0gDyAMbfmoXqNCS7g1+Qp7as3Y=
+X-Gm-Message-State: AOJu0YzN5luOsXESoWsUa3or5TiPm79jHJj6liMZ6okF+VC4f3rUBWSd
+	oEASM/KYyVt8MjdfnTIa87D9/oUtlBwrrBolexQOm0pJT5S71MPNNs79Itkxrg==
+X-Google-Smtp-Source: AGHT+IGMlS5esugqUatklBs0q8eioDDVcGA7Cmj8xEvRAHh7Y6iHpTCBS9GnM5QzijmRcNopQqUCdw==
+X-Received: by 2002:a50:954e:0:b0:56e:2bf4:fe0a with SMTP id 4fb4d7f45d1cf-57832c06250mr1636496a12.35.1716384870426;
+        Wed, 22 May 2024 06:34:30 -0700 (PDT)
+Message-ID: <5484aab7-b15d-46c5-9ff1-9a5b54640acc@suse.com>
+Date: Wed, 22 May 2024 15:34:29 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/2] x86/mm: add API for marking only part of a MMIO
- page read only
+Subject: Re: [PATCH for-4.19 v3 2/3] xen: enable altp2m at create domain
+ domctl
 Content-Language: en-US
-To: =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: Anthony PERARD <anthony@xenproject.org>, Juergen Gross <jgross@suse.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Christian Lindig <christian.lindig@citrix.com>, David Scott
+ <dave@recoil.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ "Daniel P. Smith" <dpsmith@apertussolutions.com>,
  xen-devel@lists.xenproject.org
-References: <cover.1b2f25e20efaa1fe1e6a2da565731becd27e7ead.1716260066.git-series.marmarek@invisiblethingslab.com>
- <2596964a55f710a300143aa5ae195566bacb4e00.1716260066.git-series.marmarek@invisiblethingslab.com>
- <2708dbbb-f913-4920-a008-beef12cd1265@suse.com> <Zk3xtK0SaaqEadXY@mail-itl>
+References: <20240517133352.94347-1-roger.pau@citrix.com>
+ <20240517133352.94347-3-roger.pau@citrix.com>
+ <cd1bf7b0-4a0a-4a38-9129-53822cb8e037@suse.com> <Zk3wMevPye8Rfjm4@macbook>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -115,29 +121,83 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <Zk3xtK0SaaqEadXY@mail-itl>
+In-Reply-To: <Zk3wMevPye8Rfjm4@macbook>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 22.05.2024 15:22, Marek Marczykowski-Górecki wrote:
-> On Wed, May 22, 2024 at 09:52:44AM +0200, Jan Beulich wrote:
->> On 21.05.2024 04:54, Marek Marczykowski-Górecki wrote:
->>> +static void subpage_mmio_write_emulate(
->>> +    mfn_t mfn,
->>> +    unsigned int offset,
->>> +    const void *data,
->>> +    unsigned int len)
->>> +{
->>> +    struct subpage_ro_range *entry;
->>> +    void __iomem *addr;
+On 22.05.2024 15:16, Roger Pau Monné wrote:
+> On Tue, May 21, 2024 at 12:30:32PM +0200, Jan Beulich wrote:
+>> On 17.05.2024 15:33, Roger Pau Monne wrote:
+>>> Enabling it using an HVM param is fragile, and complicates the logic when
+>>> deciding whether options that interact with altp2m can also be enabled.
+>>>
+>>> Leave the HVM param value for consumption by the guest, but prevent it from
+>>> being set.  Enabling is now done using and additional altp2m specific field in
+>>> xen_domctl_createdomain.
+>>>
+>>> Note that albeit only currently implemented in x86, altp2m could be implemented
+>>> in other architectures, hence why the field is added to xen_domctl_createdomain
+>>> instead of xen_arch_domainconfig.
+>>>
+>>> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
 >>
->> Wouldn't this better be pointer-to-volatile, with ...
+>> Reviewed-by: Jan Beulich <jbeulich@suse.com> # hypervisor
+>> albeit with one question:
+>>
+>>> --- a/xen/arch/x86/domain.c
+>>> +++ b/xen/arch/x86/domain.c
+>>> @@ -637,6 +637,8 @@ int arch_sanitise_domain_config(struct xen_domctl_createdomain *config)
+>>>      bool hap = config->flags & XEN_DOMCTL_CDF_hap;
+>>>      bool nested_virt = config->flags & XEN_DOMCTL_CDF_nested_virt;
+>>>      unsigned int max_vcpus;
+>>> +    unsigned int altp2m_mode = MASK_EXTR(config->altp2m_opts,
+>>> +                                         XEN_DOMCTL_ALTP2M_mode_mask);
+>>>  
+>>>      if ( hvm ? !hvm_enabled : !IS_ENABLED(CONFIG_PV) )
+>>>      {
+>>> @@ -715,6 +717,26 @@ int arch_sanitise_domain_config(struct xen_domctl_createdomain *config)
+>>>          return -EINVAL;
+>>>      }
+>>>  
+>>> +    if ( config->altp2m_opts & ~XEN_DOMCTL_ALTP2M_mode_mask )
+>>> +    {
+>>> +        dprintk(XENLOG_INFO, "Invalid altp2m options selected: %#x\n",
+>>> +                config->flags);
+>>> +        return -EINVAL;
+>>> +    }
+>>> +
+>>> +    if ( altp2m_mode && nested_virt )
+>>> +    {
+>>> +        dprintk(XENLOG_INFO,
+>>> +                "Nested virt and altp2m are not supported together\n");
+>>> +        return -EINVAL;
+>>> +    }
+>>> +
+>>> +    if ( altp2m_mode && !hap )
+>>> +    {
+>>> +        dprintk(XENLOG_INFO, "altp2m is only supported with HAP\n");
+>>> +        return -EINVAL;
+>>> +    }
+>>
+>> Should this last one perhaps be further extended to permit altp2m with EPT
+>> only?
 > 
-> Shouldn't then most other uses of __iomem in the code base be this way
-> too? I see volatile only in few places...
+> Hm, yes, that would be more accurate as:
+> 
+> if ( altp2m_mode && (!hap || !hvm_altp2m_supported()) )
 
-Quite likely, yet being consistent at least in new code is going to be
-at least desirable.
+Wouldn't
+
+   if ( altp2m_mode && !hvm_altp2m_supported() )
+
+suffice? hvm_funcs.caps.altp2m is not supposed to be set when no HAP,
+as long as HAP continues to be a pre-condition?
+
+> Would you be fine adjusting at commit, or would you prefer me to send
+> an updated version?
+
+I'd be happy to fold in whatever we settle on.
 
 Jan
+
 
