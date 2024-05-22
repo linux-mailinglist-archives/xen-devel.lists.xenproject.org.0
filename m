@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 64FB58CBF23
-	for <lists+xen-devel@lfdr.de>; Wed, 22 May 2024 12:18:03 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.727457.1131924 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CB66B8CBF4B
+	for <lists+xen-devel@lfdr.de>; Wed, 22 May 2024 12:34:35 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.727474.1131940 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s9j2M-00063R-Aq; Wed, 22 May 2024 10:17:34 +0000
+	id 1s9jIG-0001NZ-PF; Wed, 22 May 2024 10:34:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 727457.1131924; Wed, 22 May 2024 10:17:34 +0000
+Received: by outflank-mailman (output) from mailman id 727474.1131940; Wed, 22 May 2024 10:34:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s9j2M-00061Z-7r; Wed, 22 May 2024 10:17:34 +0000
-Received: by outflank-mailman (input) for mailman id 727457;
- Wed, 22 May 2024 10:17:32 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=AJ0E=MZ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1s9j2K-00061T-Rp
- for xen-devel@lists.xenproject.org; Wed, 22 May 2024 10:17:32 +0000
-Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com
- [2a00:1450:4864:20::52e])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 8002fb06-1824-11ef-90a0-e314d9c70b13;
- Wed, 22 May 2024 12:17:31 +0200 (CEST)
-Received: by mail-ed1-x52e.google.com with SMTP id
- 4fb4d7f45d1cf-56e69888a36so10667124a12.3
- for <xen-devel@lists.xenproject.org>; Wed, 22 May 2024 03:17:31 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a5a17b017a5sm1758048466b.180.2024.05.22.03.17.30
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 22 May 2024 03:17:31 -0700 (PDT)
+	id 1s9jIG-0001M2-Md; Wed, 22 May 2024 10:34:00 +0000
+Received: by outflank-mailman (input) for mailman id 727474;
+ Wed, 22 May 2024 10:33:58 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=9ieL=MZ=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1s9jIE-0001Lt-PQ
+ for xen-devel@lists.xenproject.org; Wed, 22 May 2024 10:33:58 +0000
+Received: from mail-vk1-xa2e.google.com (mail-vk1-xa2e.google.com
+ [2607:f8b0:4864:20::a2e])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id ca9f1ca2-1826-11ef-b4bb-af5377834399;
+ Wed, 22 May 2024 12:33:56 +0200 (CEST)
+Received: by mail-vk1-xa2e.google.com with SMTP id
+ 71dfb90a1353d-4df3f7b93a7so238994e0c.1
+ for <xen-devel@lists.xenproject.org>; Wed, 22 May 2024 03:33:56 -0700 (PDT)
+Received: from localhost ([213.195.114.223]) by smtp.gmail.com with ESMTPSA id
+ af79cd13be357-792dc0a5bb2sm1063747185a.42.2024.05.22.03.33.54
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 22 May 2024 03:33:54 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,116 +44,235 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8002fb06-1824-11ef-90a0-e314d9c70b13
+X-Inumbo-ID: ca9f1ca2-1826-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1716373051; x=1716977851; darn=lists.xenproject.org;
-        h=content-transfer-encoding:autocrypt:subject:from:cc:to
-         :content-language:user-agent:mime-version:date:message-id:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=LsEGTnCgHx262Iq6DzYer+wCgYB5sQXE9o6NLnCsuBo=;
-        b=RDlfUaW8o6s9axQS1/E7R4ThBvm4CyvFuZrjpYyejdlLH0qf2UEeVqjGBj7+MSf6TV
-         oxxSAGKtvIMHrWsO/oS9x1DJyt1wVHT1UP9rVbXWT/ShnhlhAlh4zwXg/7MHgCjlRaZN
-         diPzNACPus2yFflav3XRBjQgJEAaV7yoMseuKQCrIekd6TQqyUDwJ9o9blQpFdzoOntv
-         MW2CWp8Nj2rehQBa8MAl5W8y2hCUKlQ8RKZlB+KG8rSh3wGvTlvyqnHDF7F4HQxL/Jb7
-         aVz6BAB4NR4+NhB6JZ8N1u1t2j4nyyXeniqqMDSEW3KIszZEQi7c7EtN2HOsRv2WQZ7u
-         VTnw==
+        d=citrix.com; s=google; t=1716374035; x=1716978835; darn=lists.xenproject.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=IgajI+gTSooT6QyaQjrxAm9fg0R7qgPUodTv4dLfUDk=;
+        b=kvYYHXR4xP9VSlkk7y6ee032DTv4aDpmwZS2sBV8MwUyv/YF4wmTvEZO6a685Jpc20
+         0rrvc4hDebG3qCcoFIwXgyJUukxYGPPhTvk06O7db9eFP2nnhfB6FW+KdoFqt5Fr9FDn
+         SXgGzN8TaQmBADBwIjnYhplNyh4t7o0QfaJlg=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1716373051; x=1716977851;
-        h=content-transfer-encoding:autocrypt:subject:from:cc:to
-         :content-language:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=LsEGTnCgHx262Iq6DzYer+wCgYB5sQXE9o6NLnCsuBo=;
-        b=Z4wl0QtjtXi+bDc51NHc0MsqS+sQU1pLL+DSSz2ZR+ZXBvuznYSBxOnrOVNvadbkXw
-         bhDuLV29FmVzPyyu0GtQlae27yvHlU0/YFJtdHlafTB4knePV9tKrfIKFDFY+TYETyan
-         6bvGIFWRLFEyeQB57zvXfyrlaPQTCfmpDdec51irVVq7MOg4Np9Y10KUL/0+ADqmo8/2
-         iP9uRh5VZED3kE5PMyRnJ9nHE7wuW2iMv5FopzjMz2x3e6pF6DUMByLgJB+UwLUQRYuj
-         s0qdr08fmiHBwbE99yMFv/ZKuySGKTDuQL+f59qlLKewTL3WbBRqJoZoRhnTAZmCLz5M
-         W9UA==
-X-Gm-Message-State: AOJu0Yy2jf0cLLFcIPnL2MuuPUlSaxFOw/yAkYQzopvSVuZsVgai2ET5
-	HXQaOUVQvcQb5IlH20/+6td+TUEOHY8CHbqIL56KaWTg+sv6nk6P3yShP4Zn1d53U6GsafYDvXk
-	=
-X-Google-Smtp-Source: AGHT+IEerRNk/qnKg7CM/QXot6V5imyKJxpO6/hp2cu+eLXdmcVWzjdtokqAlPIXo++nXmDoIUabzA==
-X-Received: by 2002:a17:906:16c9:b0:a59:b136:e40f with SMTP id a640c23a62f3a-a62280b6fb3mr97414266b.38.1716373051238;
-        Wed, 22 May 2024 03:17:31 -0700 (PDT)
-Message-ID: <5133a01d-346d-4779-b319-a156ef944669@suse.com>
-Date: Wed, 22 May 2024 12:17:30 +0200
+        d=1e100.net; s=20230601; t=1716374035; x=1716978835;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=IgajI+gTSooT6QyaQjrxAm9fg0R7qgPUodTv4dLfUDk=;
+        b=Y/0KD8W4S0ICKolO/vo+CKeVaf6pggguIA6hHpEYaqd4gqn3iOS1DL+U/rhpZqD+IZ
+         lFvzsNi5r6jtqHgtJQt8z12EWQJK3fbsyEZk3nVu9lg9o3KdBXr+BXDBNbfoID5IvPob
+         ZBdZhfX5q9avqyDOkrvYjoVRPnL/4yi6jy6hBfbvIIGtdFj2u3wtpZpPMPVc5mgAXyx8
+         zloDOmyWH5mAuimHgAo0DczxcFwXY2A0Dm4SWCvJxmTvzt+Oh0GTh2Kl6hcREqlwpIqR
+         pImK6isTxk0iBcClz35uPNVANHNEtYOzztrn7RWljhbwe+GYAAU+vVE8x9s8I+sGQIHh
+         TjDg==
+X-Gm-Message-State: AOJu0YzJcFRHlFXLmaCNRDm3lwe/kZbEUsRxGhsvo6PKRyoM7oqOjMhV
+	w55Sw4x5+0yX40lhew2P4XKJ4E2jARPXo6cCuLBh7c7C7o/OrfZPcX3Bs1MFABA=
+X-Google-Smtp-Source: AGHT+IGIJx7Q5C9fIuBMt7z5SOvQVv+nyedzlS3WpPdjf5OU5LMSZxPQO/F1ApjtlbUIRwld87XQJw==
+X-Received: by 2002:a05:6122:31a8:b0:4d8:7222:b6da with SMTP id 71dfb90a1353d-4e2184ed83amr1520531e0c.6.1716374035190;
+        Wed, 22 May 2024 03:33:55 -0700 (PDT)
+Date: Wed, 22 May 2024 12:33:52 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Stewart Hildebrand <stewart.hildebrand@amd.com>
+Cc: xen-devel@lists.xenproject.org,
+	Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Volodymyr Babchuk <volodymyr_babchuk@epam.com>
+Subject: Re: [PATCH v15 3/5] vpci: add initial support for virtual PCI bus
+ topology
+Message-ID: <Zk3KEKSb5ZsDhFBR@macbook>
+References: <20240517170619.45088-1-stewart.hildebrand@amd.com>
+ <20240517170619.45088-4-stewart.hildebrand@amd.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Tim Deegan <tim@xen.org>, George Dunlap <george.dunlap@cloud.com>,
- Oleksii Kurochko <oleksii.kurochko@gmail.com>
-From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH] x86/shadow: don't leave trace record field uninitialized
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20240517170619.45088-4-stewart.hildebrand@amd.com>
 
-The emulation_count field is set only conditionally right now. Convert
-all field setting to an initializer, thus guaranteeing that field to be
-set to 0 (default initialized) when GUEST_PAGING_LEVELS != 3.
+On Fri, May 17, 2024 at 01:06:13PM -0400, Stewart Hildebrand wrote:
+> From: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
+> 
+> Assign SBDF to the PCI devices being passed through with bus 0.
+> The resulting topology is where PCIe devices reside on the bus 0 of the
+> root complex itself (embedded endpoints).
+> This implementation is limited to 32 devices which are allowed on
+> a single PCI bus.
+> 
+> Please note, that at the moment only function 0 of a multifunction
+> device can be passed through.
+> 
+> Signed-off-by: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
+> Signed-off-by: Volodymyr Babchuk <volodymyr_babchuk@epam.com>
+> Signed-off-by: Stewart Hildebrand <stewart.hildebrand@amd.com>
+> Acked-by: Jan Beulich <jbeulich@suse.com>
+> ---
+> In v15:
+> - add Jan's A-b
+> In v13:
+> - s/depends on/select/ in Kconfig
+> - check pdev->sbdf.fn instead of two booleans in add_virtual_device()
+> - comment #endifs in sched.h
+> - clarify comment about limits in vpci.h with seg/bus limit
+> In v11:
+> - Fixed code formatting
+> - Removed bogus write_unlock() call
+> - Fixed type for new_dev_number
+> In v10:
+> - Removed ASSERT(pcidevs_locked())
+> - Removed redundant code (local sbdf variable, clearing sbdf during
+> device removal, etc)
+> - Added __maybe_unused attribute to "out:" label
+> - Introduced HAS_VPCI_GUEST_SUPPORT Kconfig option, as this is the
+>   first patch where it is used (previously was in "vpci: add hooks for
+>   PCI device assign/de-assign")
+> In v9:
+> - Lock in add_virtual_device() replaced with ASSERT (thanks, Stewart)
+> In v8:
+> - Added write lock in add_virtual_device
+> Since v6:
+> - re-work wrt new locking scheme
+> - OT: add ASSERT(pcidevs_write_locked()); to add_virtual_device()
+> Since v5:
+> - s/vpci_add_virtual_device/add_virtual_device and make it static
+> - call add_virtual_device from vpci_assign_device and do not use
+>   REGISTER_VPCI_INIT machinery
+> - add pcidevs_locked ASSERT
+> - use DECLARE_BITMAP for vpci_dev_assigned_map
+> Since v4:
+> - moved and re-worked guest sbdf initializers
+> - s/set_bit/__set_bit
+> - s/clear_bit/__clear_bit
+> - minor comment fix s/Virtual/Guest/
+> - added VPCI_MAX_VIRT_DEV constant (PCI_SLOT(~0) + 1) which will be used
+>   later for counting the number of MMIO handlers required for a guest
+>   (Julien)
+> Since v3:
+>  - make use of VPCI_INIT
+>  - moved all new code to vpci.c which belongs to it
+>  - changed open-coded 31 to PCI_SLOT(~0)
+>  - added comments and code to reject multifunction devices with
+>    functions other than 0
+>  - updated comment about vpci_dev_next and made it unsigned int
+>  - implement roll back in case of error while assigning/deassigning devices
+>  - s/dom%pd/%pd
+> Since v2:
+>  - remove casts that are (a) malformed and (b) unnecessary
+>  - add new line for better readability
+>  - remove CONFIG_HAS_VPCI_GUEST_SUPPORT ifdef's as the relevant vPCI
+>     functions are now completely gated with this config
+>  - gate common code with CONFIG_HAS_VPCI_GUEST_SUPPORT
+> New in v2
+> ---
+>  xen/drivers/Kconfig     |  4 +++
+>  xen/drivers/vpci/vpci.c | 57 +++++++++++++++++++++++++++++++++++++++++
+>  xen/include/xen/sched.h | 10 +++++++-
+>  xen/include/xen/vpci.h  | 12 +++++++++
+>  4 files changed, 82 insertions(+), 1 deletion(-)
+> 
+> diff --git a/xen/drivers/Kconfig b/xen/drivers/Kconfig
+> index db94393f47a6..20050e9bb8b3 100644
+> --- a/xen/drivers/Kconfig
+> +++ b/xen/drivers/Kconfig
+> @@ -15,4 +15,8 @@ source "drivers/video/Kconfig"
+>  config HAS_VPCI
+>  	bool
+>  
+> +config HAS_VPCI_GUEST_SUPPORT
+> +	bool
+> +	select HAS_VPCI
+> +
+>  endmenu
+> diff --git a/xen/drivers/vpci/vpci.c b/xen/drivers/vpci/vpci.c
+> index 97e115dc5798..23722634d50b 100644
+> --- a/xen/drivers/vpci/vpci.c
+> +++ b/xen/drivers/vpci/vpci.c
+> @@ -40,6 +40,49 @@ extern vpci_register_init_t *const __start_vpci_array[];
+>  extern vpci_register_init_t *const __end_vpci_array[];
+>  #define NUM_VPCI_INIT (__end_vpci_array - __start_vpci_array)
+>  
+> +#ifdef CONFIG_HAS_VPCI_GUEST_SUPPORT
+> +static int add_virtual_device(struct pci_dev *pdev)
 
-While there also drop the "event" local variable, thus eliminating an
-instance of the being phased out u32 type.
+This seems quite generic, IMO it would better named
+`assign_{guest,virtual}_sbdf()` or similar, unless there are plans to
+add more code here that's not strictly only about setting the guest
+SBDF.
 
-Coverity ID: 1598430
-Fixes: 9a86ac1aa3d2 ("xentrace 5/7: Additional tracing for the shadow code")
-Signed-off-by: Jan Beulich <jbeulich@suse.com>
+> +{
+> +    struct domain *d = pdev->domain;
+> +    unsigned int new_dev_number;
+> +
+> +    if ( is_hardware_domain(d) )
+> +        return 0;
+> +
+> +    ASSERT(rw_is_write_locked(&pdev->domain->pci_lock));
 
---- a/xen/arch/x86/mm/shadow/multi.c
-+++ b/xen/arch/x86/mm/shadow/multi.c
-@@ -2093,20 +2093,18 @@ static inline void trace_shadow_emulate(
-             guest_l1e_t gl1e, write_val;
-             guest_va_t va;
-             uint32_t flags:29, emulation_count:3;
--        } d;
--        u32 event;
--
--        event = TRC_SHADOW_EMULATE | ((GUEST_PAGING_LEVELS-2)<<8);
--
--        d.gl1e = gl1e;
--        d.write_val.l1 = this_cpu(trace_emulate_write_val);
--        d.va = va;
-+        } d = {
-+            .gl1e = gl1e,
-+            .write_val.l1 = this_cpu(trace_emulate_write_val),
-+            .va = va,
- #if GUEST_PAGING_LEVELS == 3
--        d.emulation_count = this_cpu(trace_extra_emulation_count);
-+            .emulation_count = this_cpu(trace_extra_emulation_count),
- #endif
--        d.flags = this_cpu(trace_shadow_path_flags);
-+            .flags = this_cpu(trace_shadow_path_flags),
-+        };
- 
--        trace(event, sizeof(d), &d);
-+        trace(TRC_SHADOW_EMULATE | ((GUEST_PAGING_LEVELS - 2) << 8),
-+              sizeof(d), &d);
-     }
- }
- #endif /* CONFIG_HVM */
+Shouldn't the assert be done before the is_hardware_domain() check, so
+that we assert that all possible paths (even those from dom0) have
+taken the correct lock?
+
+> +
+> +    /*
+> +     * Each PCI bus supports 32 devices/slots at max or up to 256 when
+> +     * there are multi-function ones which are not yet supported.
+> +     */
+> +    if ( pdev->sbdf.fn )
+> +    {
+> +        gdprintk(XENLOG_ERR, "%pp: only function 0 passthrough supported\n",
+> +                 &pdev->sbdf);
+> +        return -EOPNOTSUPP;
+> +    }
+> +    new_dev_number = find_first_zero_bit(d->vpci_dev_assigned_map,
+> +                                         VPCI_MAX_VIRT_DEV);
+> +    if ( new_dev_number == VPCI_MAX_VIRT_DEV )
+> +        return -ENOSPC;
+> +
+> +    __set_bit(new_dev_number, &d->vpci_dev_assigned_map);
+> +
+> +    /*
+> +     * Both segment and bus number are 0:
+> +     *  - we emulate a single host bridge for the guest, e.g. segment 0
+> +     *  - with bus 0 the virtual devices are seen as embedded
+> +     *    endpoints behind the root complex
+> +     *
+> +     * TODO: add support for multi-function devices.
+> +     */
+> +    pdev->vpci->guest_sbdf = PCI_SBDF(0, 0, new_dev_number, 0);
+> +
+> +    return 0;
+> +}
+> +
+> +#endif /* CONFIG_HAS_VPCI_GUEST_SUPPORT */
+> +
+>  void vpci_deassign_device(struct pci_dev *pdev)
+>  {
+>      unsigned int i;
+> @@ -49,6 +92,12 @@ void vpci_deassign_device(struct pci_dev *pdev)
+>      if ( !has_vpci(pdev->domain) || !pdev->vpci )
+>          return;
+>  
+> +#ifdef CONFIG_HAS_VPCI_GUEST_SUPPORT
+> +    if ( pdev->vpci->guest_sbdf.sbdf != ~0 )
+> +        __clear_bit(pdev->vpci->guest_sbdf.dev,
+> +                    &pdev->domain->vpci_dev_assigned_map);
+> +#endif
+> +
+>      spin_lock(&pdev->vpci->lock);
+>      while ( !list_empty(&pdev->vpci->handlers) )
+>      {
+> @@ -103,6 +152,13 @@ int vpci_assign_device(struct pci_dev *pdev)
+>      INIT_LIST_HEAD(&pdev->vpci->handlers);
+>      spin_lock_init(&pdev->vpci->lock);
+>  
+> +#ifdef CONFIG_HAS_VPCI_GUEST_SUPPORT
+> +    pdev->vpci->guest_sbdf.sbdf = ~0;
+
+I think ~0 wants to be in a define here:
+
+#define INVALID_GUEST_SBDF ~0
+
+Or similar.
+
+Thanks, Roger.
 
