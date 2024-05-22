@@ -2,39 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E90768CBEF6
-	for <lists+xen-devel@lfdr.de>; Wed, 22 May 2024 12:05:58 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.727443.1131915 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 64FB58CBF23
+	for <lists+xen-devel@lfdr.de>; Wed, 22 May 2024 12:18:03 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.727457.1131924 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s9iqX-0003kj-7L; Wed, 22 May 2024 10:05:21 +0000
+	id 1s9j2M-00063R-Aq; Wed, 22 May 2024 10:17:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 727443.1131915; Wed, 22 May 2024 10:05:21 +0000
+Received: by outflank-mailman (output) from mailman id 727457.1131924; Wed, 22 May 2024 10:17:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s9iqX-0003hh-43; Wed, 22 May 2024 10:05:21 +0000
-Received: by outflank-mailman (input) for mailman id 727443;
- Wed, 22 May 2024 10:05:20 +0000
+	id 1s9j2M-00061Z-7r; Wed, 22 May 2024 10:17:34 +0000
+Received: by outflank-mailman (input) for mailman id 727457;
+ Wed, 22 May 2024 10:17:32 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=AJ0E=MZ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1s9iqW-0003hb-6A
- for xen-devel@lists.xenproject.org; Wed, 22 May 2024 10:05:20 +0000
-Received: from mail-lf1-x12e.google.com (mail-lf1-x12e.google.com
- [2a00:1450:4864:20::12e])
+ id 1s9j2K-00061T-Rp
+ for xen-devel@lists.xenproject.org; Wed, 22 May 2024 10:17:32 +0000
+Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com
+ [2a00:1450:4864:20::52e])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id cb53c015-1822-11ef-90a0-e314d9c70b13;
- Wed, 22 May 2024 12:05:19 +0200 (CEST)
-Received: by mail-lf1-x12e.google.com with SMTP id
- 2adb3069b0e04-52742fdd363so242618e87.1
- for <xen-devel@lists.xenproject.org>; Wed, 22 May 2024 03:05:19 -0700 (PDT)
+ id 8002fb06-1824-11ef-90a0-e314d9c70b13;
+ Wed, 22 May 2024 12:17:31 +0200 (CEST)
+Received: by mail-ed1-x52e.google.com with SMTP id
+ 4fb4d7f45d1cf-56e69888a36so10667124a12.3
+ for <xen-devel@lists.xenproject.org>; Wed, 22 May 2024 03:17:31 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a5a179c814dsm1745026166b.118.2024.05.22.03.05.18
- for <xen-devel@lists.xenproject.org>
+ a640c23a62f3a-a5a17b017a5sm1758048466b.180.2024.05.22.03.17.30
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 22 May 2024 03:05:18 -0700 (PDT)
+ Wed, 22 May 2024 03:17:31 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,46 +45,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: cb53c015-1822-11ef-90a0-e314d9c70b13
+X-Inumbo-ID: 8002fb06-1824-11ef-90a0-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1716372319; x=1716977119; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=44FK3+ZDN+NKpxUSF4D8wmATvQF1ajJL4qiJab6qpH0=;
-        b=EcFk24fZeV6fLD0bzSlQ7ASh+ElhDbC7lX+5DIK7AYFWSTx3GFtUGP1VlVM7tm6lem
-         LHqPFuiHgUQhhEHs78gXs4iirPV1U5m0PKX8t5A1IF+opO/W3A7eEWtwafCVcyb6P5uf
-         HrUWSQs6I7htV4cvT3Fk+j9pD8UvmxJh+Kqp5JcM3CudgBPKPUbOY7hAvapR2V/GjPVg
-         xaxEviCKKPYVGdmuEL80Bd8WdqGdg9z+kSmRXXJqHKKEKNPRyDs9fC2+WW+g9m2kqLob
-         W70FzPUKs0K1Sb0fIdplJ9cn1pRHzgKsfL/+Vnh+0CHwV8x4wmnPbUYu69LG4VSq6656
-         Nmhw==
+        d=suse.com; s=google; t=1716373051; x=1716977851; darn=lists.xenproject.org;
+        h=content-transfer-encoding:autocrypt:subject:from:cc:to
+         :content-language:user-agent:mime-version:date:message-id:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=LsEGTnCgHx262Iq6DzYer+wCgYB5sQXE9o6NLnCsuBo=;
+        b=RDlfUaW8o6s9axQS1/E7R4ThBvm4CyvFuZrjpYyejdlLH0qf2UEeVqjGBj7+MSf6TV
+         oxxSAGKtvIMHrWsO/oS9x1DJyt1wVHT1UP9rVbXWT/ShnhlhAlh4zwXg/7MHgCjlRaZN
+         diPzNACPus2yFflav3XRBjQgJEAaV7yoMseuKQCrIekd6TQqyUDwJ9o9blQpFdzoOntv
+         MW2CWp8Nj2rehQBa8MAl5W8y2hCUKlQ8RKZlB+KG8rSh3wGvTlvyqnHDF7F4HQxL/Jb7
+         aVz6BAB4NR4+NhB6JZ8N1u1t2j4nyyXeniqqMDSEW3KIszZEQi7c7EtN2HOsRv2WQZ7u
+         VTnw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1716372319; x=1716977119;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:to
-         :content-language:subject:user-agent:mime-version:date:message-id
+        d=1e100.net; s=20230601; t=1716373051; x=1716977851;
+        h=content-transfer-encoding:autocrypt:subject:from:cc:to
+         :content-language:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=44FK3+ZDN+NKpxUSF4D8wmATvQF1ajJL4qiJab6qpH0=;
-        b=XboyjCVir5HTcxPL8LQTs9tiV+pedwxn6dMhpZFpfiddfRTsMCpLD0vVCyI1LJvjMT
-         lPIR84CcRT98r+q9u+xgLfJZjQyMyYVYAxQrAkA+AfoAI+qWGzYADdu1FF30vDncEXMf
-         NLU5GDARzMSkOOnsykxt3IEFnY4RXwO8R+MwHk821wsFA/ceQYHSYBKAPFQ3yiO2N6dw
-         2HkS3euGFDrEFpVM23McCuZKwi2J8PiJ+RcLR2G2s5qc1Q5WQlfpL7kHJ2zjyaxUYghQ
-         Y+XM02e0LWpX3IFZc8PwxU2NgdcvnFrFl6TCcS/qHHMmRpQULOavmfMqM5iVA9OOiRtv
-         Mx/w==
-X-Gm-Message-State: AOJu0Yz3n+rI2m7HrPlL0XycNjnws/S41klreWIJCycmAZaGcc2DAQcL
-	vtNjuyGa+xvSS7o/LwacC9nlJeJLAhEGl3GUt4ultgJ/9KaMo7u0pXhVYRSC019agvZkSRh4sAY
+        bh=LsEGTnCgHx262Iq6DzYer+wCgYB5sQXE9o6NLnCsuBo=;
+        b=Z4wl0QtjtXi+bDc51NHc0MsqS+sQU1pLL+DSSz2ZR+ZXBvuznYSBxOnrOVNvadbkXw
+         bhDuLV29FmVzPyyu0GtQlae27yvHlU0/YFJtdHlafTB4knePV9tKrfIKFDFY+TYETyan
+         6bvGIFWRLFEyeQB57zvXfyrlaPQTCfmpDdec51irVVq7MOg4Np9Y10KUL/0+ADqmo8/2
+         iP9uRh5VZED3kE5PMyRnJ9nHE7wuW2iMv5FopzjMz2x3e6pF6DUMByLgJB+UwLUQRYuj
+         s0qdr08fmiHBwbE99yMFv/ZKuySGKTDuQL+f59qlLKewTL3WbBRqJoZoRhnTAZmCLz5M
+         W9UA==
+X-Gm-Message-State: AOJu0Yy2jf0cLLFcIPnL2MuuPUlSaxFOw/yAkYQzopvSVuZsVgai2ET5
+	HXQaOUVQvcQb5IlH20/+6td+TUEOHY8CHbqIL56KaWTg+sv6nk6P3yShP4Zn1d53U6GsafYDvXk
 	=
-X-Google-Smtp-Source: AGHT+IEe/OjtgVdqneqvwLczqW7tRhjXM/vYH+P+kj/aHzrRtWv1QXljEVsA2UeFeh757XpXWyZiLA==
-X-Received: by 2002:a19:4311:0:b0:51c:1d6b:5171 with SMTP id 2adb3069b0e04-526bfc01ae0mr828472e87.56.1716372318609;
-        Wed, 22 May 2024 03:05:18 -0700 (PDT)
-Message-ID: <1b607d3b-429e-4841-a3b0-ed3a39e12ed7@suse.com>
-Date: Wed, 22 May 2024 12:05:17 +0200
+X-Google-Smtp-Source: AGHT+IEerRNk/qnKg7CM/QXot6V5imyKJxpO6/hp2cu+eLXdmcVWzjdtokqAlPIXo++nXmDoIUabzA==
+X-Received: by 2002:a17:906:16c9:b0:a59:b136:e40f with SMTP id a640c23a62f3a-a62280b6fb3mr97414266b.38.1716373051238;
+        Wed, 22 May 2024 03:17:31 -0700 (PDT)
+Message-ID: <5133a01d-346d-4779-b319-a156ef944669@suse.com>
+Date: Wed, 22 May 2024 12:17:30 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: New Defects reported by Coverity Scan for XenProject
 Content-Language: en-US
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <664dc165759df_5e9362b92d249399c762@prd-scan-dashboard-0.mail>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Tim Deegan <tim@xen.org>, George Dunlap <george.dunlap@cloud.com>,
+ Oleksii Kurochko <oleksii.kurochko@gmail.com>
 From: Jan Beulich <jbeulich@suse.com>
+Subject: [PATCH] x86/shadow: don't leave trace record field uninitialized
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -109,58 +111,50 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <664dc165759df_5e9362b92d249399c762@prd-scan-dashboard-0.mail>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 22.05.2024 11:56, scan-admin@coverity.com wrote:
-> ** CID 1598431:  Memory - corruptions  (OVERRUN)
-> 
-> 
-> ________________________________________________________________________________________________________
-> *** CID 1598431:  Memory - corruptions  (OVERRUN)
-> /xen/common/trace.c: 798 in trace()
-> 792         }
-> 793     
-> 794         if ( rec_size > bytes_to_wrap )
-> 795             insert_wrap_record(buf, rec_size);
-> 796     
-> 797         /* Write the original record */
->>>>     CID 1598431:  Memory - corruptions  (OVERRUN)
->>>>     Overrunning callee's array of size 28 by passing argument "extra" (which evaluates to 31) in call to "__insert_record".
-> 798         __insert_record(buf, event, extra, cycles, rec_size, extra_data);
-> 799     
-> 800     unlock:
-> 801         spin_unlock_irqrestore(&this_cpu(t_lock), flags);
-> 802     
-> 803         /* Notify trace buffer consumer that we've crossed the high water mark. */
+The emulation_count field is set only conditionally right now. Convert
+all field setting to an initializer, thus guaranteeing that field to be
+set to 0 (default initialized) when GUEST_PAGING_LEVELS != 3.
 
-How does the tool conclude "extra" evaluating to 31, when at the top of
-the function it is clearly checked to be less than 28?
+While there also drop the "event" local variable, thus eliminating an
+instance of the being phased out u32 type.
 
-> ** CID 1598430:  Uninitialized variables  (UNINIT)
-> 
-> 
-> ________________________________________________________________________________________________________
-> *** CID 1598430:  Uninitialized variables  (UNINIT)
-> /xen/arch/x86/mm/shadow/multi.c: 2109 in trace_shadow_emulate()
-> 2103             d.va = va;
-> 2104     #if GUEST_PAGING_LEVELS == 3
-> 2105             d.emulation_count = this_cpu(trace_extra_emulation_count);
-> 2106     #endif
-> 2107             d.flags = this_cpu(trace_shadow_path_flags);
-> 2108     
->>>>     CID 1598430:  Uninitialized variables  (UNINIT)
->>>>     Using uninitialized value "d". Field "d.emulation_count" is uninitialized when calling "trace".
-> 2109             trace(event, sizeof(d), &d);
-> 2110         }
-> 2111     }
-> 2112     #endif /* CONFIG_HVM */
-> 2113     
-> 2114     /**************************************************************************/
+Coverity ID: 1598430
+Fixes: 9a86ac1aa3d2 ("xentrace 5/7: Additional tracing for the shadow code")
+Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
-This, otoh, looks to be a valid (but long-standing) issue, which I'll make
-a patch for.
-
-Jan
+--- a/xen/arch/x86/mm/shadow/multi.c
++++ b/xen/arch/x86/mm/shadow/multi.c
+@@ -2093,20 +2093,18 @@ static inline void trace_shadow_emulate(
+             guest_l1e_t gl1e, write_val;
+             guest_va_t va;
+             uint32_t flags:29, emulation_count:3;
+-        } d;
+-        u32 event;
+-
+-        event = TRC_SHADOW_EMULATE | ((GUEST_PAGING_LEVELS-2)<<8);
+-
+-        d.gl1e = gl1e;
+-        d.write_val.l1 = this_cpu(trace_emulate_write_val);
+-        d.va = va;
++        } d = {
++            .gl1e = gl1e,
++            .write_val.l1 = this_cpu(trace_emulate_write_val),
++            .va = va,
+ #if GUEST_PAGING_LEVELS == 3
+-        d.emulation_count = this_cpu(trace_extra_emulation_count);
++            .emulation_count = this_cpu(trace_extra_emulation_count),
+ #endif
+-        d.flags = this_cpu(trace_shadow_path_flags);
++            .flags = this_cpu(trace_shadow_path_flags),
++        };
+ 
+-        trace(event, sizeof(d), &d);
++        trace(TRC_SHADOW_EMULATE | ((GUEST_PAGING_LEVELS - 2) << 8),
++              sizeof(d), &d);
+     }
+ }
+ #endif /* CONFIG_HVM */
 
