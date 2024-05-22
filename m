@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DE20A8CC235
-	for <lists+xen-devel@lfdr.de>; Wed, 22 May 2024 15:34:52 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.727666.1132258 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 556E38CC251
+	for <lists+xen-devel@lfdr.de>; Wed, 22 May 2024 15:41:20 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.727674.1132269 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s9m70-0008Az-Uy; Wed, 22 May 2024 13:34:34 +0000
+	id 1s9mD8-0001Ub-JR; Wed, 22 May 2024 13:40:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 727666.1132258; Wed, 22 May 2024 13:34:34 +0000
+Received: by outflank-mailman (output) from mailman id 727674.1132269; Wed, 22 May 2024 13:40:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s9m70-00088N-SE; Wed, 22 May 2024 13:34:34 +0000
-Received: by outflank-mailman (input) for mailman id 727666;
- Wed, 22 May 2024 13:34:33 +0000
+	id 1s9mD8-0001T4-Gg; Wed, 22 May 2024 13:40:54 +0000
+Received: by outflank-mailman (input) for mailman id 727674;
+ Wed, 22 May 2024 13:40:53 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=AJ0E=MZ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1s9m6z-00088H-2J
- for xen-devel@lists.xenproject.org; Wed, 22 May 2024 13:34:33 +0000
-Received: from mail-ed1-x52b.google.com (mail-ed1-x52b.google.com
- [2a00:1450:4864:20::52b])
+ id 1s9mD7-0001Rk-GP
+ for xen-devel@lists.xenproject.org; Wed, 22 May 2024 13:40:53 +0000
+Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com
+ [2a00:1450:4864:20::132])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 04b5b287-1840-11ef-b4bb-af5377834399;
- Wed, 22 May 2024 15:34:30 +0200 (CEST)
-Received: by mail-ed1-x52b.google.com with SMTP id
- 4fb4d7f45d1cf-571ba432477so11578263a12.1
- for <xen-devel@lists.xenproject.org>; Wed, 22 May 2024 06:34:30 -0700 (PDT)
+ id e78fe5d5-1840-11ef-b4bb-af5377834399;
+ Wed, 22 May 2024 15:40:51 +0200 (CEST)
+Received: by mail-lf1-x132.google.com with SMTP id
+ 2adb3069b0e04-5231efd80f2so7170000e87.2
+ for <xen-devel@lists.xenproject.org>; Wed, 22 May 2024 06:40:51 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5733becfde7sm18385336a12.48.2024.05.22.06.34.29
+ a640c23a62f3a-a5cdd7f8ea1sm939739066b.109.2024.05.22.06.40.50
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 22 May 2024 06:34:30 -0700 (PDT)
+ Wed, 22 May 2024 06:40:50 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,58 +45,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 04b5b287-1840-11ef-b4bb-af5377834399
+X-Inumbo-ID: e78fe5d5-1840-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1716384870; x=1716989670; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1716385251; x=1716990051; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=Cf9soWzvYdTy8NjbCQLAIORudY8WanUALOqCMgKvsfw=;
-        b=dXq0OY5o6ToVd/MQi4LJmvTzfyVHSorDQycLFMev2C88yWGGWABkpnBgGWmFZNKu5T
-         uGwQnF5vB6YemESCTVJKE+9ANziSWGW/+rqpuYRYGrLqCjM0DLSoVL0b2Az96F3Iv63A
-         KabEJQLXjexwdZmo3vJH6oUABMLqcLKaMHtxyleYcY6BEYjjuqN9VmhfMSehNzkxu78/
-         Xtj5NmyV7ymfP6CAdwtozjpxvo35AOf9prdS5UxiNoByQaNwR9mmJUQJAhQEEQ9bklUO
-         Kb6hkZGRqkjeAs1GmkVA9tBxXanZtFAcyaHwVnGCB4J0cGR7lcVhIIT2SWLaJUtum0JX
-         jF6A==
+        bh=Pev6S84hbabPRG5sK0VuSlB/JOoBHk5GMSJ0GUMmO64=;
+        b=P+hGP9nyuC/YWzmE7+nCkL+mDUgud/jJu01Mm4t/1wFauF5nw88Xsba3HSS4N+toqj
+         2oxEVznbsMi+y8g7nnayjDGfv7O+9J8iMerEbyJrqoqsxQMqqBHSRMrGAju3Kiy8XNKI
+         oEj8MeCifg+AsYU9GCg9+7ERQjh33ruR+WmRn6OS3pephlKTrYEsaHhN29FnS3lQmyBR
+         fjp7D7ib33rs/CCnA+C/iHJVm7SotaNhWXT7xeAzZ7f/DbhakheJ4IscF9/YlSy/80eD
+         djJPstBs9TeSxGZ4DWeKbD1cSnGSFUCTMcyoyAGnl9GYdGY8DAaomAgOJHgNL3y8ine8
+         ZMFw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1716384870; x=1716989670;
+        d=1e100.net; s=20230601; t=1716385251; x=1716990051;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=Cf9soWzvYdTy8NjbCQLAIORudY8WanUALOqCMgKvsfw=;
-        b=Lpry4xg+gjVDpdNUQdx6molR0I3cHuz0XAh+Bq+RbtaoFyVHndUJAm7J7YoBVo7e3E
-         +6Sb8sNmUIMg0GJJoxG2MIb30BqeEkarvelh7rlK0fMx1+eLWe67zwKJgn4Dr1lBCqi4
-         r7SZt0Qj/peN9KDTdhPmCJyf7ZJVDOkSaHurWoNRi32hi+xD1owoGvMuA6le0NqIDbo/
-         IJXp6vCT4McPTgFwM/qKq58dUPjjVtUTttt/z8rOwHl21uDUtpB63aoL4XR7xKvKnPfS
-         Sgt2Qec9HLLjFGMK+bBz66twi5O7PfOOMPdjuz1pQn4B8ZbW3acjBTFisob3KwtzhZC8
-         DcRA==
-X-Forwarded-Encrypted: i=1; AJvYcCUbHlQclTTBzRRcm9lsRtHvv3bVtqkn12F88FayGQm5+5rf3/OUhWBwKr4bJwM32E881hoheFI3+ThJo0gDyAMbfmoXqNCS7g1+Qp7as3Y=
-X-Gm-Message-State: AOJu0YzN5luOsXESoWsUa3or5TiPm79jHJj6liMZ6okF+VC4f3rUBWSd
-	oEASM/KYyVt8MjdfnTIa87D9/oUtlBwrrBolexQOm0pJT5S71MPNNs79Itkxrg==
-X-Google-Smtp-Source: AGHT+IGMlS5esugqUatklBs0q8eioDDVcGA7Cmj8xEvRAHh7Y6iHpTCBS9GnM5QzijmRcNopQqUCdw==
-X-Received: by 2002:a50:954e:0:b0:56e:2bf4:fe0a with SMTP id 4fb4d7f45d1cf-57832c06250mr1636496a12.35.1716384870426;
-        Wed, 22 May 2024 06:34:30 -0700 (PDT)
-Message-ID: <5484aab7-b15d-46c5-9ff1-9a5b54640acc@suse.com>
-Date: Wed, 22 May 2024 15:34:29 +0200
+        bh=Pev6S84hbabPRG5sK0VuSlB/JOoBHk5GMSJ0GUMmO64=;
+        b=k5wATlNiUgXyjAnm5BMYyqcC+6lSTztGh2EPrFaeUSawrECK2QGM4bJ67KRbn7EiJr
+         ngng3JRyY+TLxQonHAT1jYKyfceHul6LbVRYpFqjEtL+kqKnmhrejJ1s5M1wCfrc8hUm
+         8AFe59j36w6mYRUWIOzp5fapd6zNx5AoXJCZnr/qzePP3iQkD7YtgET8kmAy5LeWe//z
+         BSjKybe2bgQZCQn7Vc5ZjNuHfpUznTnfUJm01nbHktObtq/4AuA4/sryfdhmjKs5BBr3
+         N341AeuUKVMLM4J/W9uALS4zEhdqTl+BQzMBv2hFj5e1peJU+V/RDbhYbQEruS+hTqbc
+         Z5bQ==
+X-Forwarded-Encrypted: i=1; AJvYcCXTA+zMb4dxQygEFBiyDlWzugyeYL1Ow9aL7M7n9+reKkpuFqdZwDJZlAEVQ/Gxz+VMP/KBHANVvYMh/SBnBRwi/4eJCiRqJBQ7sY/ykTA=
+X-Gm-Message-State: AOJu0YwmjiLtJs8sepdeHZHUNxlu5+gOW0ABYC1IjEmoWEKwzJqcORum
+	RMkgDNvZmmFUsxdjnrojM8Wi6zPbsb1rl9x+lYp7zzTt7XPBdmbJcMKXvoDiRw==
+X-Google-Smtp-Source: AGHT+IH/CVoPvduXRkd20bv5YoPTQ4G0HM5cNIh/wHlEbtSq5olm9UtJFaG717pRgYhv5vn8ofSAHA==
+X-Received: by 2002:a05:6512:1042:b0:51d:44a3:6cc9 with SMTP id 2adb3069b0e04-526c130a249mr1302533e87.58.1716385250912;
+        Wed, 22 May 2024 06:40:50 -0700 (PDT)
+Message-ID: <1140d40f-2f5c-402d-a0fc-1c6598a7a424@suse.com>
+Date: Wed, 22 May 2024 15:40:49 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH for-4.19 v3 2/3] xen: enable altp2m at create domain
- domctl
+Subject: Re: [PATCH v2 1/4] x86/shadow: Rework trace_shadow_gen() into
+ sh_trace_va()
 Content-Language: en-US
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: Anthony PERARD <anthony@xenproject.org>, Juergen Gross <jgross@suse.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Christian Lindig <christian.lindig@citrix.com>, David Scott
- <dave@recoil.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- "Daniel P. Smith" <dpsmith@apertussolutions.com>,
- xen-devel@lists.xenproject.org
-References: <20240517133352.94347-1-roger.pau@citrix.com>
- <20240517133352.94347-3-roger.pau@citrix.com>
- <cd1bf7b0-4a0a-4a38-9129-53822cb8e037@suse.com> <Zk3wMevPye8Rfjm4@macbook>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20240522131703.30839-1-andrew.cooper3@citrix.com>
+ <20240522131703.30839-2-andrew.cooper3@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -121,83 +113,38 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <Zk3wMevPye8Rfjm4@macbook>
+In-Reply-To: <20240522131703.30839-2-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 22.05.2024 15:16, Roger Pau Monné wrote:
-> On Tue, May 21, 2024 at 12:30:32PM +0200, Jan Beulich wrote:
->> On 17.05.2024 15:33, Roger Pau Monne wrote:
->>> Enabling it using an HVM param is fragile, and complicates the logic when
->>> deciding whether options that interact with altp2m can also be enabled.
->>>
->>> Leave the HVM param value for consumption by the guest, but prevent it from
->>> being set.  Enabling is now done using and additional altp2m specific field in
->>> xen_domctl_createdomain.
->>>
->>> Note that albeit only currently implemented in x86, altp2m could be implemented
->>> in other architectures, hence why the field is added to xen_domctl_createdomain
->>> instead of xen_arch_domainconfig.
->>>
->>> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
->>
->> Reviewed-by: Jan Beulich <jbeulich@suse.com> # hypervisor
->> albeit with one question:
->>
->>> --- a/xen/arch/x86/domain.c
->>> +++ b/xen/arch/x86/domain.c
->>> @@ -637,6 +637,8 @@ int arch_sanitise_domain_config(struct xen_domctl_createdomain *config)
->>>      bool hap = config->flags & XEN_DOMCTL_CDF_hap;
->>>      bool nested_virt = config->flags & XEN_DOMCTL_CDF_nested_virt;
->>>      unsigned int max_vcpus;
->>> +    unsigned int altp2m_mode = MASK_EXTR(config->altp2m_opts,
->>> +                                         XEN_DOMCTL_ALTP2M_mode_mask);
->>>  
->>>      if ( hvm ? !hvm_enabled : !IS_ENABLED(CONFIG_PV) )
->>>      {
->>> @@ -715,6 +717,26 @@ int arch_sanitise_domain_config(struct xen_domctl_createdomain *config)
->>>          return -EINVAL;
->>>      }
->>>  
->>> +    if ( config->altp2m_opts & ~XEN_DOMCTL_ALTP2M_mode_mask )
->>> +    {
->>> +        dprintk(XENLOG_INFO, "Invalid altp2m options selected: %#x\n",
->>> +                config->flags);
->>> +        return -EINVAL;
->>> +    }
->>> +
->>> +    if ( altp2m_mode && nested_virt )
->>> +    {
->>> +        dprintk(XENLOG_INFO,
->>> +                "Nested virt and altp2m are not supported together\n");
->>> +        return -EINVAL;
->>> +    }
->>> +
->>> +    if ( altp2m_mode && !hap )
->>> +    {
->>> +        dprintk(XENLOG_INFO, "altp2m is only supported with HAP\n");
->>> +        return -EINVAL;
->>> +    }
->>
->> Should this last one perhaps be further extended to permit altp2m with EPT
->> only?
-> 
-> Hm, yes, that would be more accurate as:
-> 
-> if ( altp2m_mode && (!hap || !hvm_altp2m_supported()) )
+On 22.05.2024 15:17, Andrew Cooper wrote:
+> --- a/xen/arch/x86/mm/shadow/multi.c
+> +++ b/xen/arch/x86/mm/shadow/multi.c
+> @@ -1974,13 +1974,17 @@ typedef u32 guest_va_t;
+>  typedef u32 guest_pa_t;
+>  #endif
+>  
+> -static inline void trace_shadow_gen(u32 event, guest_va_t va)
+> +/* Shadow trace event with GUEST_PAGING_LEVELS folded into the event field. */
+> +static void sh_trace(uint32_t event, unsigned int extra, const void *extra_data)
+> +{
+> +    trace(event | ((GUEST_PAGING_LEVELS - 2) << 8), extra, extra_data);
+> +}
+> +
+> +/* Shadow trace event with the guest's linear address. */
+> +static void sh_trace_va(uint32_t event, guest_va_t va)
+>  {
+>      if ( tb_init_done )
+> -    {
+> -        event |= (GUEST_PAGING_LEVELS-2)<<8;
+> -        trace(event, sizeof(va), &va);
+> -    }
+> +        sh_trace(event, sizeof(va), &va);
+>  }
 
-Wouldn't
-
-   if ( altp2m_mode && !hvm_altp2m_supported() )
-
-suffice? hvm_funcs.caps.altp2m is not supposed to be set when no HAP,
-as long as HAP continues to be a pre-condition?
-
-> Would you be fine adjusting at commit, or would you prefer me to send
-> an updated version?
-
-I'd be happy to fold in whatever we settle on.
+If any tb_init_done check, then perhaps rather in sh_trace()? With that
+(and provided you agree)
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
 Jan
-
 
