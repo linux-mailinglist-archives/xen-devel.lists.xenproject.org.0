@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0B2E68CBCA7
-	for <lists+xen-devel@lfdr.de>; Wed, 22 May 2024 10:08:16 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.727320.1131788 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 35FA68CBCBE
+	for <lists+xen-devel@lfdr.de>; Wed, 22 May 2024 10:16:01 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.727324.1131797 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s9h12-0004QB-BT; Wed, 22 May 2024 08:08:04 +0000
+	id 1s9h8J-0006HT-4b; Wed, 22 May 2024 08:15:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 727320.1131788; Wed, 22 May 2024 08:08:04 +0000
+Received: by outflank-mailman (output) from mailman id 727324.1131797; Wed, 22 May 2024 08:15:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s9h12-0004My-8W; Wed, 22 May 2024 08:08:04 +0000
-Received: by outflank-mailman (input) for mailman id 727320;
- Wed, 22 May 2024 08:08:02 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1s9h8J-0006Ec-0Y; Wed, 22 May 2024 08:15:35 +0000
+Received: by outflank-mailman (input) for mailman id 727324;
+ Wed, 22 May 2024 08:15:33 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=AJ0E=MZ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1s9h10-0004Ms-H4
- for xen-devel@lists.xenproject.org; Wed, 22 May 2024 08:08:02 +0000
-Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
- [2a00:1450:4864:20::12f])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 67d52215-1812-11ef-b4bb-af5377834399;
- Wed, 22 May 2024 10:08:00 +0200 (CEST)
-Received: by mail-lf1-x12f.google.com with SMTP id
- 2adb3069b0e04-523b017a5c6so9206280e87.1
- for <xen-devel@lists.xenproject.org>; Wed, 22 May 2024 01:08:00 -0700 (PDT)
+ id 1s9h8G-0006EU-Um
+ for xen-devel@lists.xenproject.org; Wed, 22 May 2024 08:15:32 +0000
+Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
+ [2a00:1450:4864:20::62b])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 74f4dbcb-1813-11ef-90a0-e314d9c70b13;
+ Wed, 22 May 2024 10:15:31 +0200 (CEST)
+Received: by mail-ej1-x62b.google.com with SMTP id
+ a640c23a62f3a-a59a387fbc9so979434066b.1
+ for <xen-devel@lists.xenproject.org>; Wed, 22 May 2024 01:15:31 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a5cdd4a2793sm895867266b.0.2024.05.22.01.07.58
+ a640c23a62f3a-a5a8a55f2e8sm1054428466b.126.2024.05.22.01.15.30
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 22 May 2024 01:07:58 -0700 (PDT)
+ Wed, 22 May 2024 01:15:31 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,48 +45,57 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 67d52215-1812-11ef-b4bb-af5377834399
+X-Inumbo-ID: 74f4dbcb-1813-11ef-90a0-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1716365280; x=1716970080; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:cc:references
+        d=suse.com; s=google; t=1716365731; x=1716970531; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=FPL+Uni1yJqIWR95mE7XmWQsFKJtpoYLHfuEejgmN9w=;
-        b=f2qYG7pWiOXltp3vcldX158hMvkoPD8ZpEizv4YNgq2xpKx3uFdXl5LflHclPFNTNG
-         RZpU1rpGwVGHhnUhyxQNFyhpy5sq9RnTqOUQyHwqb+1KIr37W0cQTUD279kqJIRD3pXS
-         m5gS4lePz31H4g0VQGUC57dbHmDFn74u6haK2blf8LILeZ7NJt9lxrEAe5/47K7e2+WZ
-         bXc7dVsDMhZnSyHV0lUaYNQMBM7FTD7egkCOE9ZTW59qQcfbF3yEF8QoAYIcV3qD46RE
-         VtC3AvdWFszaPspP3sghC977fw01MapM2rPmh5u4yQDQL6sb5Q223FrOiW1zarY88r4O
-         FUnA==
+        bh=I07GPXVjk/wNjF5w8+JeEg5eMFs3z+5p0J67OkCSbm8=;
+        b=OUriiPb7Qblw97E4UFZFTvvx8Iu/PeQg+NiVnUKs9DitjmRFjpyRdQHeX4VRvrWOKT
+         mm4ttd3jzdSxAgAeU9x0Ua0UEauy9Ks+YWVlpefZUKWwpA8XTv8+UcO1/WeDSKOWIEHc
+         G5GTa1xKILYx07Y/auBFQZcFXWSJCTXPg4aU+TkDE2rSrgz4P805WcdxDDPog++VMzdR
+         bkLWGsLj4+i+DOPur2YrosFqv55FoRXsQOF0/IKb9a2DQl1LAt4HcG3K5ujjcfa0msq6
+         SIltmd7T7aqJ5Hc3alHDW9ETd9LBVbNQP20hi13YMzJ0tGy1sVuGSlrbedujLD7VMpLv
+         NP0w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1716365280; x=1716970080;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:cc:references
+        d=1e100.net; s=20230601; t=1716365731; x=1716970531;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=FPL+Uni1yJqIWR95mE7XmWQsFKJtpoYLHfuEejgmN9w=;
-        b=VclO1y/Yo64b/cFfp2l/Httf0kladWEJVvhc3ekXncp56ICrZ8U2GuvoIGPW9d40H7
-         Z/nRH10Ssq8Wo9H1SfURLbazkq0mLgBWItE0meFzgogrdECyC/5u91poMv499Tm9phrV
-         UEiZAkNW61S8bhoy4WJDdO+gSagfigShLlK4eplzFktt9n9KxEXLkHgJ6y6ieHMTevub
-         8psl85eBF3LIpFlut99dYS9HGNAUQ+OwxfONt7EgYM9gA09qTWijSe/GOCP9jQ/Gw/6e
-         +Upn0SkBVEVF+eF9nByyGkhsI/38BSgWJvK8tcgLYYLfBxs6IH3E32bZwTzoeNvakNZP
-         S6IQ==
-X-Gm-Message-State: AOJu0YwpVwWLslFVlMvdk/xR+VyaTC4diQvA7Aole8hcop8HA2rWDGbZ
-	8VOzLJGHMzoofvk9bihpeRlks3dUodsiT1ymM8qHPNm1OGcRyvEP5jCFuaAs5gS/vibtANicxP4
-	=
-X-Google-Smtp-Source: AGHT+IEGOKobW5DaUipjVA/f1L7V7p2phujRxc45B43HOYccZlPgCH9TLh0Izo0/ebSMNSxKDRMafg==
-X-Received: by 2002:a05:6512:2011:b0:523:772c:2c1c with SMTP id 2adb3069b0e04-526bf82cc11mr789486e87.38.1716365278742;
-        Wed, 22 May 2024 01:07:58 -0700 (PDT)
-Message-ID: <7655e401-b927-4250-ae63-05361a5ee71d@suse.com>
-Date: Wed, 22 May 2024 10:07:57 +0200
+        bh=I07GPXVjk/wNjF5w8+JeEg5eMFs3z+5p0J67OkCSbm8=;
+        b=EKsmEEQ5cmjF9yivolHnrSd4y+IB+HRrnouLjUBZWwNrO/EUULZF6rg6Ux14epCmBn
+         2BYHDAt2is7325KgQRKTJ7oDFiXL4EoPHxhTS4AQ07Nv5XhhiW5+kW+JqpYocsrY0mEW
+         PUJSIjGyVLAJgaglsv8A7ZG6XCp2CAxKoqPYZRK/uXil9Oin4gCs3D/yBKahb+tWtJn5
+         VoOK27/2/LJ55BPPzJgvBBVe5CMDl4Lf2kDaA0AQxko/uOON97/Qu6FrGHv2vvkTJ7xz
+         ZTWh+kVa1nxiOPtrIr/ef1BdVDMlkIs5iiGGVa7dGSeWo5CSOoU5CpGgDu4b93EUmIxP
+         O7lA==
+X-Forwarded-Encrypted: i=1; AJvYcCUzLR5QGeOHjOqMzgJbKX6o4xfauLJVW6Kqezl+S9+rSQuHvINj06jslN7VrwaA582kq/EcMyyHRVdcKm16SGPI/D7Voua8Q+FoFkBkHm8=
+X-Gm-Message-State: AOJu0YzSL5Xi8fO3Um3TiFLHjZWaWv0KHsXl5+YL3AJrd/iu/cvSnK2L
+	+3ceIg4thNy9Pt1M0fVcLg5MrYopXgfdmG/F4eCdEttui1f+iSRPx0bMSmXdLg==
+X-Google-Smtp-Source: AGHT+IEq9vhuF6IA/pC+hMVG6JtiF5y6XQnWVQDsV7lejdlkTWk+JfCp/li40vC7FB0+k4P0zExyWA==
+X-Received: by 2002:a17:906:c302:b0:a59:b8e2:a0c5 with SMTP id a640c23a62f3a-a6228143abfmr61026666b.51.1716365731340;
+        Wed, 22 May 2024 01:15:31 -0700 (PDT)
+Message-ID: <df910cf3-b784-48a6-a0af-32527302fb9f@suse.com>
+Date: Wed, 22 May 2024 10:15:29 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 0/2] Add API for making parts of a MMIO page R/O and
- use it in XHCI console
+Subject: Re: [PATCH v10 03/14] xen/bitops: implement fls{l}() in common logic
 Content-Language: en-US
-To: =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>
-References: <cover.1b2f25e20efaa1fe1e6a2da565731becd27e7ead.1716260066.git-series.marmarek@invisiblethingslab.com>
-Cc: xen-devel@lists.xenproject.org
+To: "Oleksii K." <oleksii.kurochko@gmail.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+ <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ George Dunlap <george.dunlap@citrix.com>,
+ Shawn Anastasio <sanastasio@raptorengineering.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ xen-devel@lists.xenproject.org
+References: <cover.1715952103.git.oleksii.kurochko@gmail.com>
+ <43df611d1c7b7ac16b181fb819f5d886daa31bad.1715952103.git.oleksii.kurochko@gmail.com>
+ <d26a4033-8cd1-4a9c-8549-49a36b7d52fb@suse.com>
+ <9e59da99eb87a7d3fcd8cc6a3c6d6ef2753736af.camel@gmail.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -111,40 +120,60 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <cover.1b2f25e20efaa1fe1e6a2da565731becd27e7ead.1716260066.git-series.marmarek@invisiblethingslab.com>
+In-Reply-To: <9e59da99eb87a7d3fcd8cc6a3c6d6ef2753736af.camel@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 21.05.2024 04:54, Marek Marczykowski-Górecki wrote:
-> On older systems, XHCI xcap had a layout that no other (interesting) registers
-> were placed on the same page as the debug capability, so Linux was fine with
-> making the whole page R/O. But at least on Tiger Lake and Alder Lake, Linux
-> needs to write to some other registers on the same page too.
+On 22.05.2024 09:37, Oleksii K. wrote:
+> On Tue, 2024-05-21 at 13:18 +0200, Jan Beulich wrote:
+>> On 17.05.2024 15:54, Oleksii Kurochko wrote:
+>>> To avoid the compilation error below, it is needed to update to
+>>> places
+>>> in common/page_alloc.c where flsl() is used as now flsl() returns
+>>> unsigned int:
+>>>
+>>> ./include/xen/kernel.h:18:21: error: comparison of distinct pointer
+>>> types lacks a cast [-Werror]
+>>>        18 |         (void) (&_x == &_y);            \
+>>>           |                     ^~
+>>>     common/page_alloc.c:1843:34: note: in expansion of macro 'min'
+>>>      1843 |         unsigned int inc_order = min(MAX_ORDER, flsl(e
+>>> - s) - 1);
+>>>
+>>> generic_fls{l} was used instead of __builtin_clz{l}(x) as if x is
+>>> 0,
+>>> the result in undefined.
+>>>
+>>> The prototype of the per-architecture fls{l}() functions was
+>>> changed to
+>>> return 'unsigned int' to align with the generic implementation of
+>>> these
+>>> functions and avoid introducing signed/unsigned mismatches.
+>>>
+>>> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+>>> ---
+>>>  The patch is almost independent from Andrew's patch series
+>>>  (
+>>> https://lore.kernel.org/xen-devel/20240313172716.2325427-1-andrew.cooper3@citrix.com/T/#t
+>>> )
+>>>  except test_fls() function which IMO can be merged as a separate
+>>> patch after Andrew's patch
+>>>  will be fully ready.
+>>
+>> If there wasn't this dependency (I don't think it's "almost
+>> independent"),
+>> I'd be offering R-b with again one nit below.
 > 
-> Add a generic API for making just parts of an MMIO page R/O and use it to fix
-> USB3 console with share=yes or share=hwdom options. More details in commit
-> messages.
-> 
-> Technically it may still qualify for 4.19, since v1 was sent well before
-> last posting date. But I realize it's quite late and it isn't top
-> priority series, so if it won't hit 4.19, it's okay with me too.
-> 
-> Marek Marczykowski-Górecki (2):
->   x86/mm: add API for marking only part of a MMIO page read only
->   drivers/char: Use sub-page ro API to make just xhci dbc cap RO
-> 
->  xen/arch/x86/hvm/emulate.c      |   2 +-
->  xen/arch/x86/hvm/hvm.c          |   8 +-
->  xen/arch/x86/include/asm/mm.h   |  18 ++-
->  xen/arch/x86/mm.c               | 268 +++++++++++++++++++++++++++++++++-
->  xen/arch/x86/pv/ro-page-fault.c |   1 +-
->  xen/drivers/char/xhci-dbc.c     |  27 +--
->  6 files changed, 309 insertions(+), 15 deletions(-)
+> Aren't all changes, except those in xen/common/bitops.c, independent? I
+> could move these changes in xen/common/bitops.c to a separate commit. I
+> think it is safe to commit them ( an introduction of common logic for
+> fls{l}() and tests ) separately since the CI tests have passed.
 
-Just to mention it here again, with v2 having been quite some time ago:
-Like for that other work of yours I'm not really convinced the complexity
-is worth the gain. Ultimately this may once again mean that I'll demand
-a 2nd maintainer's ack, once technically I may be okay to offer R-b.
+Technically they might be, but contextually there are further conflicts.
+Just try "patch --dry-run" on top of a plain staging tree. You really
+need to settle, perhaps consulting Andrew, whether you want to go on top
+of his change, or ahead of it. I'm not willing to approve a patch that's
+presented one way but then is (kind of) expected to go in the other way.
 
 Jan
 
