@@ -2,37 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A67658CC4DD
-	for <lists+xen-devel@lfdr.de>; Wed, 22 May 2024 18:22:59 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.727816.1132501 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5BBC18CC60E
+	for <lists+xen-devel@lfdr.de>; Wed, 22 May 2024 20:06:28 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.727831.1132511 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s9oir-0002lI-0G; Wed, 22 May 2024 16:21:49 +0000
+	id 1s9qL0-0006kM-1s; Wed, 22 May 2024 18:05:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 727816.1132501; Wed, 22 May 2024 16:21:48 +0000
+Received: by outflank-mailman (output) from mailman id 727831.1132511; Wed, 22 May 2024 18:05:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s9oiq-0002i7-Sn; Wed, 22 May 2024 16:21:48 +0000
-Received: by outflank-mailman (input) for mailman id 727816;
- Wed, 22 May 2024 16:21:47 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1s9qKz-0006hH-VD; Wed, 22 May 2024 18:05:17 +0000
+Received: by outflank-mailman (input) for mailman id 727831;
+ Wed, 22 May 2024 18:05:16 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=9ieL=MZ=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1s9oip-0002i1-NS
- for xen-devel@lists.xenproject.org; Wed, 22 May 2024 16:21:47 +0000
-Received: from mail-ot1-x32e.google.com (mail-ot1-x32e.google.com
- [2607:f8b0:4864:20::32e])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 6113ac63-1857-11ef-b4bb-af5377834399;
- Wed, 22 May 2024 18:21:44 +0200 (CEST)
-Received: by mail-ot1-x32e.google.com with SMTP id
- 46e09a7af769-6f1016f41e2so2476220a34.1
- for <xen-devel@lists.xenproject.org>; Wed, 22 May 2024 09:21:45 -0700 (PDT)
-Received: from localhost ([213.195.114.223]) by smtp.gmail.com with ESMTPSA id
- 6a1803df08f44-6a8d595809esm42940246d6.56.2024.05.22.09.21.42
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 22 May 2024 09:21:43 -0700 (PDT)
+ <SRS0=MVRZ=MZ=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
+ id 1s9qKy-0006hB-Iy
+ for xen-devel@lists.xenproject.org; Wed, 22 May 2024 18:05:16 +0000
+Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id d6468b06-1865-11ef-90a0-e314d9c70b13;
+ Wed, 22 May 2024 20:05:14 +0200 (CEST)
+Received: from support.bugseng.com (support.bugseng.com [162.55.131.47])
+ by support.bugseng.com (Postfix) with ESMTPA id 484994EE0738;
+ Wed, 22 May 2024 20:05:13 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,136 +39,73 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6113ac63-1857-11ef-b4bb-af5377834399
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1716394904; x=1716999704; darn=lists.xenproject.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=N4+qUAE3RinRnCNLSdqj+tsXo//3UZJt8DNMpzP2Ibs=;
-        b=PCGafyMTVgBpdvwV7QAX0uS/pEMWyhfzZXQ2Vzj25HLL3XP335AQQUISRIwfdSlewQ
-         JTU/fw9zSjSb5T604hrngDlT/qUn1izZ5CZiQNWOGDIbRN5hUkvNyzvGdaMDSBpkVS3Q
-         8m2woGCS4pfIMWLOCxQjAU5C3x+niq8muyKjk=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1716394904; x=1716999704;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=N4+qUAE3RinRnCNLSdqj+tsXo//3UZJt8DNMpzP2Ibs=;
-        b=BsOFI2HoimmtZA+fK2xfvJCMrtm7a5ic9kkHcXvxE6ARlSfQWlDQfmryt6u50zfkbp
-         h+hCcj8F8O9bIIXbuDmo/jhAeu7qcc5J/bmEcYPKn9hUaICcIeEfbPLpI8K5mpf+Ogbd
-         f+OQMuvGczyeQQW3LZVNuqVneBlbTLH8iqFpFpo1/ys4fdsXHWGl/2qeCk9mc8uly38g
-         cxlQRU9cL0kFtFd4Opjm8gso76jgi761Nndtm9U+puqcpcDRT7KFZbHkSHXXMz6MiI8U
-         z9rVwr9lcbOFSug9bzEbgKu/GKhagDQjeCSndSMR97K9Adp99uJ4AbWP8LnCTcK+NtKc
-         ERBg==
-X-Forwarded-Encrypted: i=1; AJvYcCUR9uBk/cm7ETSrlQMWZuivy3S8uCE+lq3BjTTkbpz2lXU1K4ULhAiJCfXza8ReCaWdnlsysCMaf+fb0G6kDc4osFmK6ke/3CFXl7clgaY=
-X-Gm-Message-State: AOJu0Yyxkl68JXCMHmSKzIhj0FZeO3cE+ut6kHqW0/lrFN6NYywBjpsI
-	8Y1eiGDB8icYcj3c4wxLM8M3G2veZ4PnAWeqH/LTTLtSi2/PBzqPpqG77lFE3Uo=
-X-Google-Smtp-Source: AGHT+IEkxH0PYLn/hDKBcNbrdXS8OyxHsQk7PQAVHZ1VuY6DaMH0yE7e+t1B597bI2RYqSkzIaY6BA==
-X-Received: by 2002:a05:6358:a59:b0:192:47fd:8bf9 with SMTP id e5c5f4694b2df-19791cce683mr224927455d.3.1716394903628;
-        Wed, 22 May 2024 09:21:43 -0700 (PDT)
-Date: Wed, 22 May 2024 18:21:41 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Anthony PERARD <anthony@xenproject.org>,
-	Juergen Gross <jgross@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Christian Lindig <christian.lindig@citrix.com>,
-	David Scott <dave@recoil.org>,
-	Bertrand Marquis <bertrand.marquis@arm.com>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	"Daniel P. Smith" <dpsmith@apertussolutions.com>,
-	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH for-4.19 v3 2/3] xen: enable altp2m at create domain
- domctl
-Message-ID: <Zk4blZ9z6cn-ORrv@macbook>
-References: <20240517133352.94347-1-roger.pau@citrix.com>
- <20240517133352.94347-3-roger.pau@citrix.com>
- <cd1bf7b0-4a0a-4a38-9129-53822cb8e037@suse.com>
- <Zk3wMevPye8Rfjm4@macbook>
- <5484aab7-b15d-46c5-9ff1-9a5b54640acc@suse.com>
+X-Inumbo-ID: d6468b06-1865-11ef-90a0-e314d9c70b13
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <5484aab7-b15d-46c5-9ff1-9a5b54640acc@suse.com>
+Date: Wed, 22 May 2024 20:05:13 +0200
+From: Nicola Vetrini <nicola.vetrini@bugseng.com>
+To: Julien Grall <julien@xen.org>
+Cc: Alessandro Zucchelli <alessandro.zucchelli@bugseng.com>,
+ xen-devel@lists.xenproject.org, consulting@bugseng.com, Stefano Stabellini
+ <sstabellini@kernel.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>, Volodymyr Babchuk
+ <Volodymyr_Babchuk@epam.com>, Tamas K Lengyel <tamas@tklengyel.com>,
+ Alexandru Isaila <aisaila@bitdefender.com>, Petre Pircalabu
+ <ppircalabu@bitdefender.com>
+Subject: Re: [XEN PATCH v3] arm/mem_access: add conditional build of
+ mem_access.c
+In-Reply-To: <d659e73f-762a-48c9-8936-94bbc771218c@xen.org>
+References: <b3f03c4f5a78b86b01750f10bb0cebcdb2fd35cc.1715265720.git.alessandro.zucchelli@bugseng.com>
+ <d659e73f-762a-48c9-8936-94bbc771218c@xen.org>
+Message-ID: <6b7fee28e8f54799fe8ec7fdc6d4001d@bugseng.com>
+X-Sender: nicola.vetrini@bugseng.com
+Organization: BUGSENG s.r.l.
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Wed, May 22, 2024 at 03:34:29PM +0200, Jan Beulich wrote:
-> On 22.05.2024 15:16, Roger Pau Monné wrote:
-> > On Tue, May 21, 2024 at 12:30:32PM +0200, Jan Beulich wrote:
-> >> On 17.05.2024 15:33, Roger Pau Monne wrote:
-> >>> Enabling it using an HVM param is fragile, and complicates the logic when
-> >>> deciding whether options that interact with altp2m can also be enabled.
-> >>>
-> >>> Leave the HVM param value for consumption by the guest, but prevent it from
-> >>> being set.  Enabling is now done using and additional altp2m specific field in
-> >>> xen_domctl_createdomain.
-> >>>
-> >>> Note that albeit only currently implemented in x86, altp2m could be implemented
-> >>> in other architectures, hence why the field is added to xen_domctl_createdomain
-> >>> instead of xen_arch_domainconfig.
-> >>>
-> >>> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
-> >>
-> >> Reviewed-by: Jan Beulich <jbeulich@suse.com> # hypervisor
-> >> albeit with one question:
-> >>
-> >>> --- a/xen/arch/x86/domain.c
-> >>> +++ b/xen/arch/x86/domain.c
-> >>> @@ -637,6 +637,8 @@ int arch_sanitise_domain_config(struct xen_domctl_createdomain *config)
-> >>>      bool hap = config->flags & XEN_DOMCTL_CDF_hap;
-> >>>      bool nested_virt = config->flags & XEN_DOMCTL_CDF_nested_virt;
-> >>>      unsigned int max_vcpus;
-> >>> +    unsigned int altp2m_mode = MASK_EXTR(config->altp2m_opts,
-> >>> +                                         XEN_DOMCTL_ALTP2M_mode_mask);
-> >>>  
-> >>>      if ( hvm ? !hvm_enabled : !IS_ENABLED(CONFIG_PV) )
-> >>>      {
-> >>> @@ -715,6 +717,26 @@ int arch_sanitise_domain_config(struct xen_domctl_createdomain *config)
-> >>>          return -EINVAL;
-> >>>      }
-> >>>  
-> >>> +    if ( config->altp2m_opts & ~XEN_DOMCTL_ALTP2M_mode_mask )
-> >>> +    {
-> >>> +        dprintk(XENLOG_INFO, "Invalid altp2m options selected: %#x\n",
-> >>> +                config->flags);
-> >>> +        return -EINVAL;
-> >>> +    }
-> >>> +
-> >>> +    if ( altp2m_mode && nested_virt )
-> >>> +    {
-> >>> +        dprintk(XENLOG_INFO,
-> >>> +                "Nested virt and altp2m are not supported together\n");
-> >>> +        return -EINVAL;
-> >>> +    }
-> >>> +
-> >>> +    if ( altp2m_mode && !hap )
-> >>> +    {
-> >>> +        dprintk(XENLOG_INFO, "altp2m is only supported with HAP\n");
-> >>> +        return -EINVAL;
-> >>> +    }
-> >>
-> >> Should this last one perhaps be further extended to permit altp2m with EPT
-> >> only?
-> > 
-> > Hm, yes, that would be more accurate as:
-> > 
-> > if ( altp2m_mode && (!hap || !hvm_altp2m_supported()) )
-> 
-> Wouldn't
-> 
->    if ( altp2m_mode && !hvm_altp2m_supported() )
-> 
-> suffice? hvm_funcs.caps.altp2m is not supposed to be set when no HAP,
-> as long as HAP continues to be a pre-condition?
+On 2024-05-10 22:59, Julien Grall wrote:
+> Hi,
 
-No, `hap` here signals whether the domain is using HAP, and we need to
-take this int account, otherwise we would allow enabling altp2m for
-domains using shadow.
+Hi,
 
-Thanks, Roger.
+> 
+> On 10/05/2024 13:32, Alessandro Zucchelli wrote:
+>> In order to comply to MISRA C:2012 Rule 8.4 for ARM the following
+>> changes are done:
+>> revert preprocessor conditional changes to xen/mem_access.h which
+>> had it build unconditionally, add conditional build for 
+>> xen/mem_access.c
+> 
+> I am afraid, I don't understand this one as you don't seem to modify 
+> xen/mem_access.h. Is this meant to be part of the changelog?
+> 
+> You also don't seem to mention the change in Makefile. This is the one 
+> I was asking for in the previous version. So what about:
+> 
+> "xen/arm: mem_access: Conditionally compile mem_access.c
+> 
+> Commit 634cfc8beb ("Make MEM_ACCESS configurable") intended to make 
+> MEM_ACCESS configurable on Arm to reduce the code size when the user 
+> doesn't need it.
+> 
+> However, this didn't cover the arch specific code. None of the code in 
+> arm/mem_access.c is necessary when MEM_ACCESS=n, so it can be compiled 
+> out. This will require to provide some stub for functions called by the 
+> common code.
+> 
+> This is also fixing violation of the MISRA C:2012 Rule 8.4 reported by 
+> ECLAIR.
+> "
+> 
+> The patch itself loks good so once we agree on the commit message, then 
+> I am happy to update it on commit.
+> 
+> Cheers,
+
+since Julien is ok with the patch, with the commit message he proposed, 
+I think this needs an R-by or an A-by in order to commit for 4.19.
+
+-- 
+Nicola Vetrini, BSc
+Software Engineer, BUGSENG srl (https://bugseng.com)
 
