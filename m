@@ -2,32 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6A9D28CC211
-	for <lists+xen-devel@lfdr.de>; Wed, 22 May 2024 15:26:13 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.727649.1132229 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 72ABB8CC218
+	for <lists+xen-devel@lfdr.de>; Wed, 22 May 2024 15:27:49 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.727655.1132238 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s9lye-0004gq-Pz; Wed, 22 May 2024 13:25:56 +0000
+	id 1s9m0A-0005Fi-2r; Wed, 22 May 2024 13:27:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 727649.1132229; Wed, 22 May 2024 13:25:56 +0000
+Received: by outflank-mailman (output) from mailman id 727655.1132238; Wed, 22 May 2024 13:27:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s9lye-0004f7-Lx; Wed, 22 May 2024 13:25:56 +0000
-Received: by outflank-mailman (input) for mailman id 727649;
- Wed, 22 May 2024 13:25:55 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1s9lyd-0004f1-2C
- for xen-devel@lists.xenproject.org; Wed, 22 May 2024 13:25:55 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1s9lyc-0005N7-KQ; Wed, 22 May 2024 13:25:54 +0000
-Received: from [15.248.2.235] (helo=[10.24.67.23])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1s9lyc-0001Sq-Dw; Wed, 22 May 2024 13:25:54 +0000
+	id 1s9m0A-0005DI-02; Wed, 22 May 2024 13:27:30 +0000
+Received: by outflank-mailman (input) for mailman id 727655;
+ Wed, 22 May 2024 13:27:28 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=KudH=MZ=cloud.com=ross.lagerwall@srs-se1.protection.inumbo.net>)
+ id 1s9m08-0005DA-QU
+ for xen-devel@lists.xenproject.org; Wed, 22 May 2024 13:27:28 +0000
+Received: from mail-pl1-x635.google.com (mail-pl1-x635.google.com
+ [2607:f8b0:4864:20::635])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 077a223c-183f-11ef-b4bb-af5377834399;
+ Wed, 22 May 2024 15:27:26 +0200 (CEST)
+Received: by mail-pl1-x635.google.com with SMTP id
+ d9443c01a7336-1eeb1a4c10aso9670035ad.3
+ for <xen-devel@lists.xenproject.org>; Wed, 22 May 2024 06:27:26 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,195 +40,65 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=VDKSEBUOclnWGgyKYib2zSQlrQbuicW7+yxJnId/su0=; b=deD4V1vGpE0wMVVeHmbcg94zHR
-	btOpJkUxSgpikADmV3XnIZeO4I0U8JBwgFiLGx5gtiUDIDnWlUjjts/+ZZgnrZqftFliKQ7uxIbrx
-	JcpiAvUjmMBPdqOfQbOlNJqeOuqzmOm8PbxLShKG17Pa1hsvfqkWZmgRWYwEUY96ldj0=;
-Message-ID: <c10b2513-b0f1-4042-a538-2115e92408d1@xen.org>
-Date: Wed, 22 May 2024 14:25:52 +0100
+X-Inumbo-ID: 077a223c-183f-11ef-b4bb-af5377834399
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1716384445; x=1716989245; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=EwB3RcBisi76IVmLC/UT43L475zdqnUfkVo4QkSZkpc=;
+        b=OxRqsVrvqPmZHfR2nRAUvCbiwtWx2soi5UYEI7cNW7aWKPjbuO2DBEWIZLAqXIMnOm
+         HQUAQI/2KhNbA65S5P3VRRWkjJlqVxfauKWH7rIrcIOLRaQjwtIbfsCdS/H8scaxd1Ki
+         tPJgxF2+5MPa8FNIj8IRq8Z/BVUJJVLQTHeiw=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1716384445; x=1716989245;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=EwB3RcBisi76IVmLC/UT43L475zdqnUfkVo4QkSZkpc=;
+        b=BoVfj7KSfoliz56Xsk7RJu+Bu1q259Awrww7+zFGLJJZsbbzVyejiypmZ0/WZcMEl6
+         V8OBJJICvZauoZPlR6ChOfwe/wR07/FH4T9h3+wR89Ok9aFNkWN4ogXAm4fZ4uvHZrEs
+         xQZAFkJBy9Q94lD8+UDK9C1/iRZUcQjCMR6TZ4MrG1aQ06M872Ahu4Y/MvGz8kJhrnGs
+         0AVt9ZFwKHzQ/p5DBFkbLOtOL7wstHcu6EDSIvcUEmY+LTu2GkIj+Qiog/BvKF+eHTUd
+         EuxtOQBTrOisfxj3P9ffxJZSDLfDYemRd0dTZJDxu2+IF7GsUuTt+Trc6QuZwwGvvN3c
+         RcUw==
+X-Gm-Message-State: AOJu0YxHNqp5wcAhHJR5vz99rxzU/GuIxrq4O2NY3DmLfbWIvvBhda05
+	l2OwxWWEudxcq7dE/YqlYH5n+FMSMFKi0B41kc8R6AhGqfNTt2khdZFWGl7deJlFUKOS9rGRyHO
+	kWuRKv1mHu1FSzCIOmFgWbpDZiQrN5qEZ8X8A
+X-Google-Smtp-Source: AGHT+IEPsZO4wTSTvCCWbqkQjo3rpj0QNpwikohXeENbBm/GcVY3/qwcND9IKst8HidOA5jp2xgin3nRz3GJRNuLlko=
+X-Received: by 2002:a17:902:e54e:b0:1f2:f9de:c9e8 with SMTP id
+ d9443c01a7336-1f31c95d498mr21594415ad.2.1716384445238; Wed, 22 May 2024
+ 06:27:25 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 3/7] xen/p2m: put reference for level 2 superpage
-Content-Language: en-GB
-To: Luca Fancellu <luca.fancellu@arm.com>, xen-devel@lists.xenproject.org
-Cc: Penny Zheng <Penny.Zheng@arm.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-References: <20240522075151.3373899-1-luca.fancellu@arm.com>
- <20240522075151.3373899-4-luca.fancellu@arm.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <20240522075151.3373899-4-luca.fancellu@arm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20231201101641.51198-1-roger.pau@citrix.com>
+In-Reply-To: <20231201101641.51198-1-roger.pau@citrix.com>
+From: Ross Lagerwall <ross.lagerwall@citrix.com>
+Date: Wed, 22 May 2024 14:27:14 +0100
+Message-ID: <CAG7k0EoQDXiK4TL4Ew3RxE8s=tM5zvSVPZ3_TBmfn=6w-GBqpg@mail.gmail.com>
+Subject: Re: [PATCH] xen/livepatch: make .livepatch.funcs read-only for
+ in-tree tests
+To: Roger Pau Monne <roger.pau@citrix.com>
+Cc: xen-devel@lists.xenproject.org, 
+	Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Luca,
+On Fri, Dec 1, 2023 at 10:16=E2=80=AFAM Roger Pau Monne <roger.pau@citrix.c=
+om> wrote:
+>
+> This matches the flags of the .livepatch.funcs section when generated usi=
+ng
+> livepatch-build-tools, which only sets the SHT_ALLOC flag.
+>
+> Also constify the definitions of the livepatch_func variables in the test=
+s
+> themselves, in order to better match the resulting output.  Note that jus=
+t
+> making those variables constant is not enough to force the generated sect=
+ions
+> to be read-only.
+>
+> Signed-off-by: Roger Pau Monn=C3=A9 <roger.pau@citrix.com>
 
-On 22/05/2024 08:51, Luca Fancellu wrote:
-> From: Penny Zheng <Penny.Zheng@arm.com>
-> 
-> We are doing foreign memory mapping for static shared memory, and
-> there is a great possibility that it could be super mapped.
-> But today, p2m_put_l3_page could not handle superpages.
-> 
-> This commits implements a new function p2m_put_l2_superpage to handle
-> 2MB superpages, specifically for helping put extra references for
-> foreign superpages.
-> 
-> Modify relinquish_p2m_mapping as well to take into account preemption
-> when type is foreign memory and order is above 9 (2MB).
-> 
-> Currently 1GB superpages are not handled because Xen is not preemptible
-> and therefore some work is needed to handle such superpages, for which
-> at some point Xen might end up freeing memory and therefore for such a
-> big mapping it could end up in a very long operation.
-> 
-> Signed-off-by: Penny Zheng <penny.zheng@arm.com>
-> Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
-> ---
-> v3:
->   - Add reasoning why we don't support now 1GB superpage, remove level_order
->     variable from p2m_put_l2_superpage, update TODO comment inside
->     p2m_free_entry, use XEN_PT_LEVEL_ORDER(2) instead of value 9 inside
->     relinquish_p2m_mapping. (Michal)
-> v2:
->   - Do not handle 1GB super page as there might be some issue where
->     a lot of calls to put_page(...) might be issued which could lead
->     to free memory that is a long operation.
-> v1:
->   - patch from https://patchwork.kernel.org/project/xen-devel/patch/20231206090623.1932275-9-Penny.Zheng@arm.com/
-> ---
->   xen/arch/arm/mmu/p2m.c | 63 ++++++++++++++++++++++++++++++------------
->   1 file changed, 46 insertions(+), 17 deletions(-)
-> 
-> diff --git a/xen/arch/arm/mmu/p2m.c b/xen/arch/arm/mmu/p2m.c
-> index 41fcca011cf4..b496266deef6 100644
-> --- a/xen/arch/arm/mmu/p2m.c
-> +++ b/xen/arch/arm/mmu/p2m.c
-> @@ -753,17 +753,9 @@ static int p2m_mem_access_radix_set(struct p2m_domain *p2m, gfn_t gfn,
->       return rc;
->   }
->   
-> -/*
-> - * Put any references on the single 4K page referenced by pte.
-> - * TODO: Handle superpages, for now we only take special references for leaf
-> - * pages (specifically foreign ones, which can't be super mapped today).
-> - */
-> -static void p2m_put_l3_page(const lpae_t pte)
-> +/* Put any references on the single 4K page referenced by mfn. */
-> +static void p2m_put_l3_page(mfn_t mfn, p2m_type_t type)
->   {
-> -    mfn_t mfn = lpae_get_mfn(pte);
-> -
-> -    ASSERT(p2m_is_valid(pte));
-> -
->       /*
->        * TODO: Handle other p2m types
->        *
-> @@ -771,16 +763,43 @@ static void p2m_put_l3_page(const lpae_t pte)
->        * flush the TLBs if the page is reallocated before the end of
->        * this loop.
->        */
-> -    if ( p2m_is_foreign(pte.p2m.type) )
-> +    if ( p2m_is_foreign(type) )
->       {
->           ASSERT(mfn_valid(mfn));
->           put_page(mfn_to_page(mfn));
->       }
->       /* Detect the xenheap page and mark the stored GFN as invalid. */
-> -    else if ( p2m_is_ram(pte.p2m.type) && is_xen_heap_mfn(mfn) )
-> +    else if ( p2m_is_ram(type) && is_xen_heap_mfn(mfn) )
->           page_set_xenheap_gfn(mfn_to_page(mfn), INVALID_GFN);
->   }
-
-All the pages within a 2MB mapping should be the same type. So...
-
->   
-> +/* Put any references on the superpage referenced by mfn. */
-> +static void p2m_put_l2_superpage(mfn_t mfn, p2m_type_t type)
-> +{
-> +    unsigned int i;
-> +
-> +    for ( i = 0; i < XEN_PT_LPAE_ENTRIES; i++ )
-> +    {
-> +        p2m_put_l3_page(mfn, type);
-> +
-> +        mfn = mfn_add(mfn, 1);
-> +    }
-
-... this solution is a bit wasteful as we will now call 
-p2m_put_l3_page() 512 times even though there is nothing to do.
-
-So instead can we move the checks outside to optimize the path a bit? 
-Otherwise...
-
-> +}
-> +
-> +/* Put any references on the page referenced by pte. */
-> +static void p2m_put_page(const lpae_t pte, unsigned int level)
-> +{
-> +    mfn_t mfn = lpae_get_mfn(pte);
-> +
-> +    ASSERT(p2m_is_valid(pte));
-> +
-> +    /* We have a second level 2M superpage */
-> +    if ( p2m_is_superpage(pte, level) && (level == 2) )
-> +        return p2m_put_l2_superpage(mfn, pte.p2m.type);
-> +    else if ( level == 3 )
-> +        return p2m_put_l3_page(mfn, pte.p2m.type);
-> +}
-> +
->   /* Free lpae sub-tree behind an entry */
->   static void p2m_free_entry(struct p2m_domain *p2m,
->                              lpae_t entry, unsigned int level)
-> @@ -809,9 +828,16 @@ static void p2m_free_entry(struct p2m_domain *p2m,
->   #endif
->   
->           p2m->stats.mappings[level]--;
-> -        /* Nothing to do if the entry is a super-page. */
-> -        if ( level == 3 )
-> -            p2m_put_l3_page(entry);
-> +        /*
-> +         * TODO: Currently we don't handle 1GB super-page, Xen is not
-> +         * preemptible and therefore some work is needed to handle such
-> +         * superpages, for which at some point Xen might end up freeing memory
-> +         * and therefore for such a big mapping it could end up in a very long
-> +         * operation.
-> +         */
-> +        if ( level >= 2 )
-> +            p2m_put_page(entry, level);
-> +
->           return;
->       }
->   
-> @@ -1558,9 +1584,12 @@ int relinquish_p2m_mapping(struct domain *d)
->   
->           count++;
->           /*
-> -         * Arbitrarily preempt every 512 iterations.
-> +         * Arbitrarily preempt every 512 iterations or when type is foreign
-> +         * mapping and the order is above 9 (2MB).
->            */
-> -        if ( !(count % 512) && hypercall_preempt_check() )
-> +        if ( (!(count % 512) ||
-> +              (p2m_is_foreign(t) && (order > XEN_PT_LEVEL_ORDER(2)))) &&
-
-... we would need to preempt for every 2MB rather than just for the 
-p2m_is_foreign().
-
-BTW, p2m_put_l3_page() has also another case. Should we consider to 
-handle preemption for it too?
-
-> +             hypercall_preempt_check() )
->           {
->               rc = -ERESTART;
->               break;
-
-Cheers,
-
--- 
-Julien Grall
+Reviewed-by: Ross Lagerwall <ross.lagerwall@citrix.com>
 
