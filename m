@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6FB908CC196
-	for <lists+xen-devel@lfdr.de>; Wed, 22 May 2024 14:51:02 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.727544.1132019 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 507898CC1AB
+	for <lists+xen-devel@lfdr.de>; Wed, 22 May 2024 14:58:26 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.727583.1132093 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s9lQd-00006I-VO; Wed, 22 May 2024 12:50:47 +0000
+	id 1s9lXg-0001Xg-EI; Wed, 22 May 2024 12:58:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 727544.1132019; Wed, 22 May 2024 12:50:47 +0000
+Received: by outflank-mailman (output) from mailman id 727583.1132093; Wed, 22 May 2024 12:58:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s9lQd-0008Ve-SY; Wed, 22 May 2024 12:50:47 +0000
-Received: by outflank-mailman (input) for mailman id 727544;
- Wed, 22 May 2024 12:50:46 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1s9lXg-0001WA-B4; Wed, 22 May 2024 12:58:04 +0000
+Received: by outflank-mailman (input) for mailman id 727583;
+ Wed, 22 May 2024 12:58:03 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=AJ0E=MZ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1s9lQc-0008VS-KQ
- for xen-devel@lists.xenproject.org; Wed, 22 May 2024 12:50:46 +0000
-Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
- [2a00:1450:4864:20::62e])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e787069a-1839-11ef-90a0-e314d9c70b13;
- Wed, 22 May 2024 14:50:45 +0200 (CEST)
-Received: by mail-ej1-x62e.google.com with SMTP id
- a640c23a62f3a-a59ad344f7dso805911966b.0
- for <xen-devel@lists.xenproject.org>; Wed, 22 May 2024 05:50:44 -0700 (PDT)
+ id 1s9lXf-0001W4-6G
+ for xen-devel@lists.xenproject.org; Wed, 22 May 2024 12:58:03 +0000
+Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
+ [2a00:1450:4864:20::62d])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id eb7eace8-183a-11ef-b4bb-af5377834399;
+ Wed, 22 May 2024 14:58:01 +0200 (CEST)
+Received: by mail-ej1-x62d.google.com with SMTP id
+ a640c23a62f3a-a5a4bc9578cso958822266b.2
+ for <xen-devel@lists.xenproject.org>; Wed, 22 May 2024 05:58:01 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a61a00e96c1sm421187166b.151.2024.05.22.05.50.43
+ a640c23a62f3a-a5a5c033afasm1433727366b.156.2024.05.22.05.58.00
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 22 May 2024 05:50:44 -0700 (PDT)
+ Wed, 22 May 2024 05:58:00 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,53 +45,48 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e787069a-1839-11ef-90a0-e314d9c70b13
+X-Inumbo-ID: eb7eace8-183a-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1716382244; x=1716987044; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=To6RFsbStQNcF2OM1F7hlOKwvz4Avk1FcrDGPsfmwao=;
-        b=Zg0dtiwrga3VZgNXylWFKOgudcU/2L/1dxt9NENw9Md/1hg4iTTG8N9/D9Z+J2Gpsx
-         t10kvbvu/LFPhJBXDYQppIH5zasPkXhRF5yh4o0QZ3Mndd2PlMxD4/Z3W5bQpqNCqgKc
-         zEDdAPjY8Thf5pV3sWstXap0X1MXTaMjrnlkLAmB0LYdP7I4dUhgjWUDmAJiqTQ/qNtJ
-         W8tcPuw6K3vYc3ZUVAt++1QO5OPgAjarsHDBj9TMxBy0KVpbpQ8azo8BgP6cBF0LXGb2
-         091Xrlafklv095NaamGgBHuMZvxs7TwtnWLe6pcQNSRAAoGkCRJfp4qo3IhC92t/tFGX
-         rwlg==
+        d=suse.com; s=google; t=1716382680; x=1716987480; darn=lists.xenproject.org;
+        h=content-transfer-encoding:autocrypt:subject:from:cc:to
+         :content-language:user-agent:mime-version:date:message-id:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=ejHjN77I6205aI9N+tr1vAfoGHfyt+oSRb0cin8tAFI=;
+        b=dY3qUnx1gu3j2vMbD28fbsyjm+Pm6K8dNy3/SsNmcVK4KespojRFVT+s/7qoRuLY38
+         /a03Uzr6Wkzwh2UbpmI4Q8Kc6iVgITPZjEs2zOUV5MNTw7Sko6G8zFF2VqfejRp44czB
+         Ht4ltHvf6JsS11uCEN08vBNC31r+90PFgiwHsLEc+msqDFteJiy6R5q5+LfPz1GAd1pJ
+         xMzhi9dK8deckBIFAYRUiPPSR8fx5S745fu/MUz5E0/HSIRwr49SnEvovRe6IhOkZbP6
+         SxYHw6juMwGmafDKlLjB0kXuCJQomZQVIJCMtu55tGJTbjSeBd6VSaFH45RgZacQnSga
+         fGJg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1716382244; x=1716987044;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
+        d=1e100.net; s=20230601; t=1716382680; x=1716987480;
+        h=content-transfer-encoding:autocrypt:subject:from:cc:to
+         :content-language:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=To6RFsbStQNcF2OM1F7hlOKwvz4Avk1FcrDGPsfmwao=;
-        b=CEUQn8ZYXuxodOuienl6MwMz5ywrnHdpTBjaPeJePctItjmXKem5VVPgIIxZMuHHow
-         B45otf43cj5q+1py7jgzaJXew6TGA0dCN9d3iSHsJygEkHjWDtM4reiHWE8EuBFxlqc8
-         LvSZF1B8HL0KbHcahHDpDHRtM+mJppWa8UYOJuAkd6fQDCC5ZXOVm6xDVW0STwfP/Sfb
-         L67x2azpZ9ovqC2x7yFdtPTGnW0OsapQlAccB1ne3/1cOYfbIf0dMhtpWpUZy0eyulSJ
-         KCXJIl99b++lkvzllgB3RVQtvZVsf27kMIeSrd1VktBna7a4wgLwcNn4i5pg2IP+30zL
-         d24g==
-X-Forwarded-Encrypted: i=1; AJvYcCUyfCvgEaOeujkl/v9RYtQFvspYlzAsn86GO4/41o9mmBg/Ll59XXYx9SyyAZ0MNdPupF02S7HbhxNuaLrVjSq0/e/bw3CbzC5KRt+hm5U=
-X-Gm-Message-State: AOJu0Yw42Kmn5TAKsqrOj7Izqvx8COuqPYdOYRvnevKS2aIQIJjZ21ph
-	tBRwdEwDgjB4+a68f1b10r9aXMBN858CcFPYYs1RJTgy66sQqjyhNApZh2z25A==
-X-Google-Smtp-Source: AGHT+IHWUJ179WKtW0ez1S05YqC/5+srEduaIZvIIVUZRn31nhlHQoJzMuTVFlrFP7K/H0cHGVXF2A==
-X-Received: by 2002:a17:906:404:b0:a5a:377e:4c4a with SMTP id a640c23a62f3a-a622816dd71mr117854666b.63.1716382244377;
-        Wed, 22 May 2024 05:50:44 -0700 (PDT)
-Message-ID: <d14a8c61-7f29-49be-97a8-0d8fd8719655@suse.com>
-Date: Wed, 22 May 2024 14:50:43 +0200
+        bh=ejHjN77I6205aI9N+tr1vAfoGHfyt+oSRb0cin8tAFI=;
+        b=iv4qJJiJV6KB4WmuIBjtoBtfpTnfkefRZZkTUIXLu3evPLZA7PwSY3gs2koQ0ceRIZ
+         PBFsNkZY+OYgXX89i3TSHYx0+FsLThZepfxzH0GioCdBJpUiAvqjf5+EZ1G8cFQ9Mx3E
+         nG+6Pr0Mc+upIy9h2TfYba7/DiYSiD6vRYB+6zKl/Rfe8XUUgCkwPB25YEC4v6+wAByI
+         x6xibUTPy7kEOtVDzw28S5ryArxQ81r8iIiLBCFK6Bd5X9NzDS3lVvNQ1rMy+68yZ+bJ
+         fgikLA9C9mVv4czsU1imAdXTUApqWRe2s3HDrhJB58qyJ/zLyK4orzwP9q3ByrZFP/LX
+         M2BA==
+X-Gm-Message-State: AOJu0Ywhf9cVvHY/ubSWNIzc5sK/CDx6g1jL3nab48GUaG2SfzTJE2mD
+	Yi9cEJrVCKO/s9rGm93/CL8OObC8+T4tV/FUvP0KR5bvL7nWceNfQlYwN9VNuV+PPLeTSR2JLsQ
+	=
+X-Google-Smtp-Source: AGHT+IGyfMEOvJdPNDLFJjA7oHtW9RZok+yOaZGxf7dJCdQHGStGpZiS50mD25kIFWpOw8QilXzVQQ==
+X-Received: by 2002:a17:906:a1d4:b0:a59:a033:3e2 with SMTP id a640c23a62f3a-a622820b853mr176348566b.74.1716382680584;
+        Wed, 22 May 2024 05:58:00 -0700 (PDT)
+Message-ID: <14d35449-fc65-4dcf-95db-8d94dd3455fb@suse.com>
+Date: Wed, 22 May 2024 14:57:59 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/2] x86/mm: add API for marking only part of a MMIO
- page read only
 Content-Language: en-US
-To: =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org
-References: <cover.1b2f25e20efaa1fe1e6a2da565731becd27e7ead.1716260066.git-series.marmarek@invisiblethingslab.com>
- <2596964a55f710a300143aa5ae195566bacb4e00.1716260066.git-series.marmarek@invisiblethingslab.com>
- <2708dbbb-f913-4920-a008-beef12cd1265@suse.com> <Zk3Kw2WX8r8qpjQj@mail-itl>
+ Jason Andryuk <jason.andryuk@amd.com>
 From: Jan Beulich <jbeulich@suse.com>
+Subject: [PATCH v3 0/2] x86: detect PIT aliasing on ports other than 0x4[0-3]
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -115,116 +110,14 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <Zk3Kw2WX8r8qpjQj@mail-itl>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 22.05.2024 12:36, Marek Marczykowski-Górecki wrote:
-> On Wed, May 22, 2024 at 09:52:44AM +0200, Jan Beulich wrote:
->> On 21.05.2024 04:54, Marek Marczykowski-Górecki wrote:
->>> --- a/xen/arch/x86/hvm/hvm.c
->>> +++ b/xen/arch/x86/hvm/hvm.c
->>> @@ -2009,6 +2009,14 @@ int hvm_hap_nested_page_fault(paddr_t gpa, unsigned long gla,
->>>          goto out_put_gfn;
->>>      }
->>>  
->>> +    if ( (p2mt == p2m_mmio_direct) && npfec.write_access && npfec.present &&
->>> +         subpage_mmio_write_accept(mfn, gla) &&
->>
->> Afaics subpage_mmio_write_accept() is unreachable then when CONFIG_HVM=n?
-> 
-> Right, the PV path hits mmio_ro_emulated_write() without my changes
-> already.
-> Do you suggest to make subpage_mmio_write_accept() under #ifdef
-> CONFIG_HVM?
+1: PIT: supply and use #define-s
+2: detect PIT aliasing on ports other than 0x4[0-3]
 
-That's not just me, but also Misra.
-
->>> +         (hvm_emulate_one_mmio(mfn_x(mfn), gla) == X86EMUL_OKAY) )
->>> +    {
->>> +        rc = 1;
->>> +        goto out_put_gfn;
->>> +    }
->>
->> Overall this new if() is pretty similar to the immediate preceding one.
->> So similar that I wonder whether the two shouldn't be folded. 
-> 
-> I can do that if you prefer.
-> 
->> In fact
->> it looks as if the new one is needed only for the case where you'd pass
->> through (to a DomU) a device partially used by Xen. That could certainly
->> do with mentioning explicitly.
-> 
-> Well, the change in mmio_ro_emulated_write() is relevant to both dom0
-> and domU. It simply wasn't reachable (in this case) for HVM domU before
-> (but was for PV already).
-
-The remark was about the code here only. Of course that other change you
-talk about is needed for both, and I wasn't meaning to suggest Dom0 had
-worked (in this regard) prior to your change.
-
->>> +static void __iomem *subpage_mmio_get_page(struct subpage_ro_range *entry)
->>> +{
->>> +    void __iomem *mapped_page;
->>> +
->>> +    if ( entry->mapped )
->>> +        return entry->mapped;
->>> +
->>> +    mapped_page = ioremap(mfn_x(entry->mfn) << PAGE_SHIFT, PAGE_SIZE);
->>> +
->>> +    spin_lock(&subpage_ro_lock);
->>> +    /* Re-check under the lock */
->>> +    if ( entry->mapped )
->>> +    {
->>> +        spin_unlock(&subpage_ro_lock);
->>> +        iounmap(mapped_page);
->>
->> The only unmap is on an error path here and on another error path elsewhere.
->> IOW it looks as if devices with such marked pages are meant to never be hot
->> unplugged. I can see that being intentional for the XHCI console, but imo
->> such a restriction also needs prominently calling out in a comment next to
->> e.g. the function declaration.
-> 
-> The v1 included subpage_mmio_ro_remove() function (which would need to
-> be used in case of hot-unplug of such device, if desirable), but since
-> this series doesn't introduce any use of it (as you say, it isn't
-> desirable for XHCI console specifically), you asked me to remove it...
-> 
-> Should I add an explicit comment about the limitation, instead of having
-> it implicit by not having subpage_mmio_ro_remove() there?
-
-That's what I was asking for in my earlier comment, yes.
-
->>> --- a/xen/arch/x86/pv/ro-page-fault.c
->>> +++ b/xen/arch/x86/pv/ro-page-fault.c
->>> @@ -330,6 +330,7 @@ static int mmio_ro_do_page_fault(struct x86_emulate_ctxt *ctxt,
->>>              return X86EMUL_UNHANDLEABLE;
->>>      }
->>>  
->>> +    mmio_ro_ctxt.mfn = mfn;
->>>      ctxt->data = &mmio_ro_ctxt;
->>>      if ( pci_ro_mmcfg_decode(mfn_x(mfn), &mmio_ro_ctxt.seg, &mmio_ro_ctxt.bdf) )
->>>          return x86_emulate(ctxt, &mmcfg_intercept_ops);
->>
->> Wouldn't you better set .mfn only on the "else" path, just out of context?
->> Suggesting that the new field in the struct could actually overlay the
->> (seg,bdf) tuple (being of relevance only to MMCFG intercept handling).
->> This would be more for documentation purposes than to actually save space.
->> (If so, perhaps the "else" itself would also better be dropped while making
->> the adjustment.)
-> 
-> I can do that if you prefer. But personally, I find such such use of an
-> union risky (without some means for a compiler to actually enforce their
-> proper use) - while for correct code it may save some space, it makes
-> the impact of a type confusion bug potentially worse - now that the
-> unexpected value would be potentially attacker controlled.
-> For a documentation purpose I can simply add a comment.
-
-Well, I'm not going to insist on using a union. But I am pretty firm on
-expecting the setting of .mfn to move down. Not using a union will then
-mean static analysis tools may point out that .mfn is left uninitialized
-for the above visible 1st invocation of x86_emulate().
+No functional change from v2, just the introduction of the new prereq
+patch to help overall readability.
 
 Jan
 
