@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DCF3D8CC1AD
-	for <lists+xen-devel@lfdr.de>; Wed, 22 May 2024 14:59:45 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.727588.1132103 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4E57B8CC1AE
+	for <lists+xen-devel@lfdr.de>; Wed, 22 May 2024 15:00:09 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.727591.1132113 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s9lZ3-00028w-TA; Wed, 22 May 2024 12:59:29 +0000
+	id 1s9lZU-0002sA-4S; Wed, 22 May 2024 12:59:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 727588.1132103; Wed, 22 May 2024 12:59:29 +0000
+Received: by outflank-mailman (output) from mailman id 727591.1132113; Wed, 22 May 2024 12:59:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s9lZ3-00027P-PW; Wed, 22 May 2024 12:59:29 +0000
-Received: by outflank-mailman (input) for mailman id 727588;
- Wed, 22 May 2024 12:59:28 +0000
+	id 1s9lZU-0002p2-19; Wed, 22 May 2024 12:59:56 +0000
+Received: by outflank-mailman (input) for mailman id 727591;
+ Wed, 22 May 2024 12:59:54 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=AJ0E=MZ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1s9lZ2-00025w-04
- for xen-devel@lists.xenproject.org; Wed, 22 May 2024 12:59:28 +0000
-Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
- [2a00:1450:4864:20::632])
+ id 1s9lZS-00025w-Ky
+ for xen-devel@lists.xenproject.org; Wed, 22 May 2024 12:59:54 +0000
+Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
+ [2a00:1450:4864:20::62e])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 1e0d845f-183b-11ef-b4bb-af5377834399;
- Wed, 22 May 2024 14:59:25 +0200 (CEST)
-Received: by mail-ej1-x632.google.com with SMTP id
- a640c23a62f3a-a59ad344f7dso806760666b.0
- for <xen-devel@lists.xenproject.org>; Wed, 22 May 2024 05:59:25 -0700 (PDT)
+ id 2e1d14d2-183b-11ef-b4bb-af5377834399;
+ Wed, 22 May 2024 14:59:52 +0200 (CEST)
+Received: by mail-ej1-x62e.google.com with SMTP id
+ a640c23a62f3a-a59cf8140d0so815171566b.3
+ for <xen-devel@lists.xenproject.org>; Wed, 22 May 2024 05:59:52 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a5a179c7e02sm1775829466b.105.2024.05.22.05.59.24
+ a640c23a62f3a-a5a179c7e02sm1775829466b.105.2024.05.22.05.59.51
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 22 May 2024 05:59:25 -0700 (PDT)
+ Wed, 22 May 2024 05:59:52 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1e0d845f-183b-11ef-b4bb-af5377834399
+X-Inumbo-ID: 2e1d14d2-183b-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1716382765; x=1716987565; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
+        d=suse.com; s=google; t=1716382792; x=1716987592; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
+         :from:content-language:subject:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=Ot36334SXNG/2Q+xhXO1nt7KGyGP0a+FespoVK2pges=;
-        b=f+2OcwC9CSj58JJK5x+RfOLcMLTZ3+ga85Wjo3kJr+kTT8rIxGaivJBce8Tc1QjFZC
-         YaklO1mWV5CqZswhziLSgRT8FNTICDvH95FI4BxMdBZ4RW1YofH1Itf3fq4daMrVL9p7
-         VIHxMWFBndXJg76UNXjE/tZiiyKWO08GSFdgOrLBXLFu4gcshSKVceGwDZUS5WwDB642
-         FpxQ64RkwaSXzIxnh2WdpS14zqsVLdbvZHJPhkTCvuY6D2Mnr/jnvin7Q8dwP1rYYAi+
-         Jsf0pAhIXWU7N6oDUtrHknmFMcC0Y7qNl9GGTH5ZpYWaVwIP6ebum0MjZJ4Smy8VM04F
-         bqCw==
+        bh=4YzomDhXXm/vFcq+Eo68VE4aq0MfzRMkOmfWSyEBToo=;
+        b=XiTeH/AMKeoFvUO3S2FhER3hpsyFZudjKHisGBdY6Zsb7CWDWIjZ3BKTz5XROc9pyg
+         TlbICZJiM5GqgmDhgiHZEGJYTppXk/WiWKs4ej/vD88bekqlXKxhQ7ar89b6VgsOSFKK
+         UekXDhfZwvWTi+Z0xuO5h49Tj4bgpIA+3o+xM4ds47rxf1+q7LWg6/erJB6qYGQGpwD9
+         gqL/wOpIkWJmQFw9uPUpRN8Y2tBEpWDY/k8S0SlpxTx7yh5A7MNGqH641V3/ik2y+UA+
+         anVm190gxQoe1SefDNiVett3CQUk+5rjSXbbJ81plofPPa4Cq+RHXQnW7nwloFVWxCds
+         9q1A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1716382765; x=1716987565;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
+        d=1e100.net; s=20230601; t=1716382792; x=1716987592;
+        h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
+         :from:content-language:subject:user-agent:mime-version:date
          :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=Ot36334SXNG/2Q+xhXO1nt7KGyGP0a+FespoVK2pges=;
-        b=GGBwXrN/z5isVONSVELJ+61YD/Qs27tz9zHuJZNM5IK216h67PkB2HjdTH85zBgZrI
-         gfVB5txRMme6TWQV48Q98hG8G0pv3eG3gT3CjAdAIjdbCKTaCeWawxvhLfnHsqr4fO1y
-         ER/XNl9jaiuxjYijcc3Mebjo3/IykPm3ABMDGD+2uB+QNxeN2rvlNLTtB3M8hx+n8Fkm
-         v2a4eH3l0tZ1woJfnjGb7tjFw2ZXxYhtmEpkTX5yNBnnnXwx2PfhGav+BXW7B6H/QoW7
-         mRo0+b7gwjT1PMYnu6JfFMmaZC6awDnf9nG7Y4zCGP1+7KLZ53FW1RjFWQymkfzkV+ob
-         7rBQ==
-X-Gm-Message-State: AOJu0Yw8T+tHkoHP4z3/4W+ukt9cJ3xpJY8QQZPvFxeW9CuFgq4xnt8a
-	TpHACuM3RXKi/BoscUTpd6swz5fFrmXDJNE1D81Ocw+3KXa62EGzneau4Om9y91T0MkV4Ehr42Q
+        bh=4YzomDhXXm/vFcq+Eo68VE4aq0MfzRMkOmfWSyEBToo=;
+        b=JjR3eqDRtSmDjR3ArqHjbA0jsXnSLDYUujdAqaQhvT8vr7tIujdYHgoTt8mmmGvL3x
+         xveI6Fyd3jLxbTw9JPgQmIqp2gQoCYZDc7WuzsW8W3tweB4H9+l6GpgTV8+rVklsk1nG
+         EPhn1d8W4CmKHwskK0MDlpSBFpG8M5Z19DPTzaR6xF5QcOYWOiZrpPxH9jV7bBGYi2RM
+         InOVL5fZN1Vnp1/4HQfii+8qUghHvRm4mJ3bdtQc0GfiWVP6nEWutmJyE87ktdlxryTw
+         V6WLlFMH+GnfvpjFeJV6MUTt9YNvHyZY06EPSdnW9YK0DU6IT/9O4qIUx8ifBd6ngKYR
+         s1MA==
+X-Gm-Message-State: AOJu0Yw1bsFjcw6SNXwqfo9CACcn7dpif1LC9kBsDU2xEPyetkbC5pnE
+	foSFbffFKV4B3xm1PWSFHpS32On11qxG99oqAKHfScBun6I+XGPruzL4z+75tdUQyAxQMS6Ruas
 	=
-X-Google-Smtp-Source: AGHT+IEVYMYlfCgC5O1dvLV7XE9cbvi0a7DkNm9/U+lwVpGbgblJx0gDuYb9X/n1dsRhkK43Vk9qZA==
-X-Received: by 2002:a17:906:404:b0:a5a:377e:4c4a with SMTP id a640c23a62f3a-a622816dd71mr119023766b.63.1716382765327;
-        Wed, 22 May 2024 05:59:25 -0700 (PDT)
-Message-ID: <fb87a1db-4d8f-4e33-8858-71de4de6e276@suse.com>
-Date: Wed, 22 May 2024 14:59:24 +0200
+X-Google-Smtp-Source: AGHT+IF4mcbHXyyQIF7CzBK3CMoIN3r/xzogk7aUVq111GiUwOhUlZ7d20pjVYsARTy/cvZwrqu82A==
+X-Received: by 2002:a17:906:3715:b0:a55:a895:46ae with SMTP id a640c23a62f3a-a62281c48b7mr128549666b.63.1716382792354;
+        Wed, 22 May 2024 05:59:52 -0700 (PDT)
+Message-ID: <df53dd77-9341-4a72-a4ce-33654b2e877d@suse.com>
+Date: Wed, 22 May 2024 14:59:51 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: [PATCH v3 1/2] x86/PIT: supply and use #define-s
+Subject: [PATCH v3 2/2] x86: detect PIT aliasing on ports other than 0x4[0-3]
+Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Jason Andryuk <jason.andryuk@amd.com>
 References: <14d35449-fc65-4dcf-95db-8d94dd3455fb@suse.com>
-Content-Language: en-US
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -116,151 +116,155 @@ In-Reply-To: <14d35449-fc65-4dcf-95db-8d94dd3455fb@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-Help reading of code programming the PIT by introducing constants for
-control word, read back and latch commands, as well as status.
+... in order to also deny Dom0 access through the alias ports (commonly
+observed on Intel chipsets). Without this it is only giving the
+impression of denying access to PIT. Unlike for CMOS/RTC, do detection
+pretty early, to avoid disturbing normal operation later on (even if
+typically we won't use much of the PIT).
 
-Requested-by: Jason Andryuk <jason.andryuk@amd.com>
+Like for CMOS/RTC a fundamental assumption of the probing is that reads
+from the probed alias port won't have side effects (beyond such that PIT
+reads have anyway) in case it does not alias the PIT's.
+
+As to the port 0x61 accesses: Unlike other accesses we do, this masks
+off the top four bits (in addition to the bottom two ones), following
+Intel chipset documentation saying that these (read-only) bits should
+only be written with zero.
+
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
 ---
-v3: New.
+If Xen was running on top of another instance of itself (in HVM mode,
+not PVH, i.e. not as a shim), prior to 14f42af3f52d ('x86/vPIT: account
+for "counter stopped" time') I'm afraid our vPIT logic would not have
+allowed the "Try to further make sure ..." check to pass in the Xen
+running on top: We don't respect the gate bit being clear when handling
+counter reads. (There are more unhandled [and unmentioned as being so]
+aspects of PIT behavior though, yet it's unclear in how far addressing
+at least some of them would be useful.)
+---
+v3: Use PIT_* in dom0_setup_permissions(). Use #define-s introduced by
+    new earlier patch.
+v2: Use new command line option. Re-base over changes to earlier
+    patches. Use ISOLATE_LSB().
 
---- a/xen/arch/x86/apic.c
-+++ b/xen/arch/x86/apic.c
-@@ -983,7 +983,7 @@ static unsigned int __init get_8254_time
+--- a/xen/arch/x86/dom0_build.c
++++ b/xen/arch/x86/dom0_build.c
+@@ -20,6 +20,7 @@
+ #include <asm/p2m.h>
+ #include <asm/setup.h>
+ #include <asm/spec_ctrl.h>
++#include <io_ports.h>
  
-     /*spin_lock_irqsave(&i8253_lock, flags);*/
+ struct memsize {
+     long nr_pages;
+@@ -495,7 +496,11 @@ int __init dom0_setup_permissions(struct
+     rc |= ioports_deny_access(d, 0x4D0, 0x4D1);
  
--    outb_p(0x00, PIT_MODE);
-+    outb_p(PIT_LTCH_CH(0), PIT_MODE);
-     count = inb_p(PIT_CH0);
-     count |= inb_p(PIT_CH0) << 8;
+     /* Interval Timer (PIT). */
+-    rc |= ioports_deny_access(d, 0x40, 0x43);
++    for ( offs = 0, i = ISOLATE_LSB(pit_alias_mask) ?: 4;
++          offs <= pit_alias_mask; offs += i )
++        if ( !(offs & ~pit_alias_mask) )
++            rc |= ioports_deny_access(d, PIT_CH0 + offs, PIT_MODE + offs);
++
+     /* PIT Channel 2 / PC Speaker Control. */
+     rc |= ioports_deny_access(d, 0x61, 0x61);
  
---- a/xen/arch/x86/include/asm/time.h
-+++ b/xen/arch/x86/include/asm/time.h
-@@ -58,4 +58,38 @@ struct time_scale;
- void set_time_scale(struct time_scale *ts, u64 ticks_per_sec);
- u64 scale_delta(u64 delta, const struct time_scale *scale);
+--- a/xen/arch/x86/include/asm/setup.h
++++ b/xen/arch/x86/include/asm/setup.h
+@@ -49,6 +49,7 @@ extern unsigned long highmem_start;
+ #endif
  
-+/* Programmable Interval Timer (8254) */
-+
-+/* Timer Control Word */
-+#define PIT_TCW_CH(n)         ((n) << 6)
-+/* Lower bits also Timer Status. */
-+#define PIT_RW_MSB            (1 << 5)
-+#define PIT_RW_LSB            (1 << 4)
-+#define PIT_RW_LSB_MSB        (PIT_RW_LSB | PIT_RW_MSB)
-+#define PIT_MODE_EOC          (0 << 1)
-+#define PIT_MODE_ONESHOT      (1 << 1)
-+#define PIT_MODE_RATE_GEN     (2 << 1)
-+#define PIT_MODE_SQUARE_WAVE  (3 << 1)
-+#define PIT_MODE_SW_STROBE    (4 << 1)
-+#define PIT_MODE_HW_STROBE    (5 << 1)
-+#define PIT_BINARY            (0 << 0)
-+#define PIT_BCD               (1 << 0)
-+
-+/* Read Back Command */
-+#define PIT_RDB               PIT_TCW_CH(3)
-+#define PIT_RDB_NO_COUNT      (1 << 5)
-+#define PIT_RDB_NO_STATUS     (1 << 4)
-+#define PIT_RDB_CH2           (1 << 3)
-+#define PIT_RDB_CH1           (1 << 2)
-+#define PIT_RDB_CH0           (1 << 1)
-+#define PIT_RDB_RSVD          (1 << 0)
-+
-+/* Counter Latch Command */
-+#define PIT_LTCH_CH(n)        PIT_TCW_CH(n)
-+
-+/* Timer Status */
-+#define PIT_STATUS_OUT_PIN    (1 << 7)
-+#define PIT_STATUS_NULL_COUNT (1 << 6)
-+/* Lower bits match Timer Control Word. */
-+
- #endif /* __X86_TIME_H__ */
+ extern unsigned int i8259A_alias_mask;
++extern unsigned int pit_alias_mask;
+ 
+ extern int8_t opt_smt;
+ extern int8_t opt_probe_port_aliases;
 --- a/xen/arch/x86/time.c
 +++ b/xen/arch/x86/time.c
-@@ -222,7 +222,7 @@ static void cf_check timer_interrupt(int
+@@ -427,6 +427,74 @@ static struct platform_timesource __init
+     .resume = resume_pit,
+ };
  
-         spin_lock_irq(&pit_lock);
- 
--        outb(0x80, PIT_MODE);
-+        outb(PIT_LTCH_CH(2), PIT_MODE);
-         count  = inb(PIT_CH2);
-         count |= inb(PIT_CH2) << 8;
- 
-@@ -245,7 +245,8 @@ static void preinit_pit(void)
- {
-     /* Set PIT channel 0 to HZ Hz. */
- #define LATCH (((CLOCK_TICK_RATE)+(HZ/2))/HZ)
--    outb_p(0x34, PIT_MODE);        /* binary, mode 2, LSB/MSB, ch 0 */
-+    outb_p(PIT_TCW_CH(0) | PIT_RW_LSB_MSB | PIT_MODE_RATE_GEN | PIT_BINARY,
-+           PIT_MODE);
-     outb_p(LATCH & 0xff, PIT_CH0); /* LSB */
-     outb(LATCH >> 8, PIT_CH0);     /* MSB */
- #undef LATCH
-@@ -356,7 +357,7 @@ static u64 cf_check read_pit_count(void)
- 
-     spin_lock_irqsave(&pit_lock, flags);
- 
--    outb(0x80, PIT_MODE);
-+    outb(PIT_LTCH_CH(2), PIT_MODE);
-     count16  = inb(PIT_CH2);
-     count16 |= inb(PIT_CH2) << 8;
- 
-@@ -383,7 +384,8 @@ static s64 __init cf_check init_pit(stru
-      */
- #define CALIBRATE_LATCH CALIBRATE_VALUE(CLOCK_TICK_RATE)
-     BUILD_BUG_ON(CALIBRATE_LATCH >> 16);
--    outb(0xb0, PIT_MODE);                  /* binary, mode 0, LSB/MSB, Ch 2 */
-+    outb(PIT_TCW_CH(2) | PIT_RW_LSB_MSB | PIT_MODE_EOC | PIT_BINARY,
++unsigned int __initdata pit_alias_mask;
++
++static void __init probe_pit_alias(void)
++{
++    unsigned int mask = 0x1c;
++    uint8_t val = 0;
++
++    if ( !opt_probe_port_aliases )
++        return;
++
++    /*
++     * Use channel 2 in mode 0 for probing.  In this mode even a non-initial
++     * count is loaded independent of counting being / becoming enabled.  Thus
++     * we have a 16-bit value fully under our control, to write and then check
++     * whether we can also read it back unaltered.
++     */
++
++    /* Turn off speaker output and disable channel 2 counting. */
++    outb(inb(0x61) & 0x0c, 0x61);
++
++    outb(PIT_LTCH_CH(2) | PIT_RW_LSB_MSB | PIT_MODE_EOC | PIT_BINARY,
 +         PIT_MODE);
-     outb(CALIBRATE_LATCH & 0xff, PIT_CH2); /* LSB of count */
-     outb(CALIBRATE_LATCH >> 8, PIT_CH2);   /* MSB of count */
- #undef CALIBRATE_LATCH
-@@ -408,7 +410,8 @@ static s64 __init cf_check init_pit(stru
- static void cf_check resume_pit(struct platform_timesource *pts)
- {
-     /* Set CTC channel 2 to mode 0 again; initial value does not matter. */
--    outb(0xb0, PIT_MODE); /* binary, mode 0, LSB/MSB, Ch 2 */
-+    outb(PIT_TCW_CH(2) | PIT_RW_LSB_MSB | PIT_MODE_EOC | PIT_BINARY,
-+         PIT_MODE);
-     outb(0, PIT_CH2);     /* LSB of count */
-     outb(0, PIT_CH2);     /* MSB of count */
- }
-@@ -2456,7 +2459,8 @@ static int _disable_pit_irq(bool init)
++
++    do {
++        uint8_t val2;
++        unsigned int offs;
++
++        outb(val, PIT_CH2);
++        outb(val ^ 0xff, PIT_CH2);
++
++        /* Wait for the Null Count bit to clear. */
++        do {
++            /* Latch status. */
++            outb(PIT_RDB | PIT_RDB_NO_COUNT | PIT_RDB_CH2, PIT_MODE);
++
++            /* Try to make sure we're actually having a PIT here. */
++            val2 = inb(PIT_CH2);
++            if ( (val2 & ~(PIT_STATUS_OUT_PIN | PIT_STATUS_NULL_COUNT)) !=
++                 (PIT_RW_LSB_MSB | PIT_MODE_EOC | PIT_BINARY) )
++                return;
++        } while ( val2 & (1 << 6) );
++
++        /*
++         * Try to further make sure we're actually having a PIT here.
++         *
++         * NB: Deliberately |, not ||, as we always want both reads.
++         */
++        val2 = inb(PIT_CH2);
++        if ( (val2 ^ val) | (inb(PIT_CH2) ^ val ^ 0xff) )
++            return;
++
++        for ( offs = ISOLATE_LSB(mask); offs <= mask; offs <<= 1 )
++        {
++            if ( !(mask & offs) )
++                continue;
++            val2 = inb(PIT_CH2 + offs);
++            if ( (val2 ^ val) | (inb(PIT_CH2 + offs) ^ val ^ 0xff) )
++                mask &= ~offs;
++        }
++    } while ( mask && (val += 0x0b) );  /* Arbitrary uneven number. */
++
++    if ( mask )
++    {
++        dprintk(XENLOG_INFO, "PIT aliasing mask: %02x\n", mask);
++        pit_alias_mask = mask;
++    }
++}
++
+ /************************************************************
+  * PLATFORM TIMER 2: HIGH PRECISION EVENT TIMER (HPET)
+  */
+@@ -2416,6 +2484,8 @@ void __init early_time_init(void)
      }
  
-     /* Disable PIT CH0 timer interrupt. */
--    outb_p(0x30, PIT_MODE);
-+    outb_p(PIT_TCW_CH(0) | PIT_RW_LSB_MSB | PIT_MODE_EOC | PIT_BINARY,
-+           PIT_MODE);
-     outb_p(0, PIT_CH0);
-     outb_p(0, PIT_CH0);
+     preinit_pit();
++    probe_pit_alias();
++
+     tmp = init_platform_timer();
+     plt_tsc.frequency = tmp;
  
-@@ -2562,17 +2566,18 @@ int hwdom_pit_access(struct ioreq *ioreq
-     case PIT_MODE:
-         if ( ioreq->dir == IOREQ_READ )
-             return 0; /* urk! */
--        switch ( ioreq->data & 0xc0 )
-+        switch ( ioreq->data & PIT_TCW_CH(3) )
-         {
--        case 0xc0: /* Read Back */
--            if ( ioreq->data & 0x08 )    /* Select Channel 2? */
--                outb(ioreq->data & 0xf8, PIT_MODE);
--            if ( !(ioreq->data & 0x06) ) /* Select Channel 0/1? */
-+        case PIT_RDB: /* Read Back */
-+            if ( ioreq->data & PIT_RDB_CH2 )
-+                outb(ioreq->data & ~(PIT_RDB_CH1 | PIT_RDB_CH0 | PIT_RDB_RSVD),
-+                     PIT_MODE);
-+            if ( !(ioreq->data & (PIT_RDB_CH0 | PIT_RDB_CH1)) )
-                 return 1; /* no - we're done */
-             /* Filter Channel 2 and reserved bit 0. */
--            ioreq->data &= ~0x09;
-+            ioreq->data &= ~(PIT_RDB_CH2 | PIT_RDB_RSVD);
-             return 0; /* emulate ch0/1 readback */
--        case 0x80: /* Select Counter 2 */
-+        case PIT_TCW_CH(2):
-             outb(ioreq->data, PIT_MODE);
-             return 1;
-         }
 
 
