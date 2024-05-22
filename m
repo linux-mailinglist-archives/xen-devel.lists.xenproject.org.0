@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F19AD8CBAD4
-	for <lists+xen-devel@lfdr.de>; Wed, 22 May 2024 07:57:12 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.727212.1131626 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 042F58CBAEB
+	for <lists+xen-devel@lfdr.de>; Wed, 22 May 2024 08:04:07 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.727217.1131637 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s9exB-00059H-SD; Wed, 22 May 2024 05:55:57 +0000
+	id 1s9f4m-0006o7-KB; Wed, 22 May 2024 06:03:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 727212.1131626; Wed, 22 May 2024 05:55:57 +0000
+Received: by outflank-mailman (output) from mailman id 727217.1131637; Wed, 22 May 2024 06:03:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s9exB-00056z-Pb; Wed, 22 May 2024 05:55:57 +0000
-Received: by outflank-mailman (input) for mailman id 727212;
- Wed, 22 May 2024 05:55:56 +0000
+	id 1s9f4m-0006lW-H0; Wed, 22 May 2024 06:03:48 +0000
+Received: by outflank-mailman (input) for mailman id 727217;
+ Wed, 22 May 2024 06:03:46 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=AJ0E=MZ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1s9exA-00056r-D7
- for xen-devel@lists.xenproject.org; Wed, 22 May 2024 05:55:56 +0000
-Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com
- [2a00:1450:4864:20::52c])
+ id 1s9f4k-0006lO-PG
+ for xen-devel@lists.xenproject.org; Wed, 22 May 2024 06:03:46 +0000
+Received: from mail-ed1-x534.google.com (mail-ed1-x534.google.com
+ [2a00:1450:4864:20::534])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f3aacc1e-17ff-11ef-90a0-e314d9c70b13;
- Wed, 22 May 2024 07:55:54 +0200 (CEST)
-Received: by mail-ed1-x52c.google.com with SMTP id
- 4fb4d7f45d1cf-57822392a0dso2111453a12.0
- for <xen-devel@lists.xenproject.org>; Tue, 21 May 2024 22:55:54 -0700 (PDT)
+ id 0c74b417-1801-11ef-90a0-e314d9c70b13;
+ Wed, 22 May 2024 08:03:45 +0200 (CEST)
+Received: by mail-ed1-x534.google.com with SMTP id
+ 4fb4d7f45d1cf-572baf393ddso839414a12.1
+ for <xen-devel@lists.xenproject.org>; Tue, 21 May 2024 23:03:45 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a5a17b17f37sm1718809566b.224.2024.05.21.22.55.53
+ 4fb4d7f45d1cf-5733c323d3asm17657662a12.90.2024.05.21.23.03.44
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 21 May 2024 22:55:53 -0700 (PDT)
+ Tue, 21 May 2024 23:03:44 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,52 +45,52 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f3aacc1e-17ff-11ef-90a0-e314d9c70b13
+X-Inumbo-ID: 0c74b417-1801-11ef-90a0-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1716357354; x=1716962154; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1716357825; x=1716962625; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=LePKoXr0FLblhlhUauuhiDI0SW2kKNtKN3dtQv1Flfo=;
-        b=BVjbZyUtDpJ9nnfYj2yQdMgG51swxb8HdqOHZGrwxB0ALKrubJW9NaykqWjVp8B5jL
-         WCaVPzOFl6T7OIuZzYtZMiDNMIky/ixZvklavBmqAUkBwQpFBm5rIAXVLMgMpz9OfdpM
-         WLDppAGj12xpzZhFvDQABcsG1t80bvgYiHaIKIkwi/cbCHjMjcDNlGvC8D8ZjZOdwRBu
-         Ox92baWmlIdXIDFvTan3J/UYY9Z3h7p6SyxHGGeE3Gpb/u5WyysKzzLwvl2cnXxNP1zU
-         07N1XlvT8DndRGOxLpVeuVCSws+CvmAGuhmOpT8Y5tS3oGBoni34N4qt/8V4lRe4/L/5
-         zljw==
+        bh=owceRJhufTWT1Cdxp0koOg0CpKeWWSqtqNgL/ikKK/U=;
+        b=bxc7Q1ErL2OOC5lsVYvYNH5pPy8sM4fnJvFG3a1etu/loxNcUmP0v/TbUifpSb0hUh
+         w7k1HZAv/Yr2qM7WhfMHuueiTYF0XXYJNM+RaOmoUgkf5n2FQoDV67VZ5NGOkCWA0dJO
+         zurea0qGukDSYKcs9yhteYXey7TZkjinJESo2De6inggbEHZTck9yXqB2AGrGi0is1KJ
+         Einrw/Fu9qTJp4NcGStzvvlypIbcbVz2CNWpSkoPg5+6lvWKXYL3uR5Ae++DYgqfQ7hN
+         ckNjg9/OFeW8ljmm3LmxfyuZsHf7BJHoXvv7fd61aPEihzhxVBGxc4fyCeG1zf8LBYol
+         0Rkw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1716357354; x=1716962154;
+        d=1e100.net; s=20230601; t=1716357825; x=1716962625;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=LePKoXr0FLblhlhUauuhiDI0SW2kKNtKN3dtQv1Flfo=;
-        b=JmMRMnCCfPp4lyt+fYA0zQ6nPQ0VxGw+VfSHfd2cT0esLglY27/P1Q7H3QxCs9yPHN
-         VEy8bJiHqRZ/YGbwBeyH06Xo3EO1ykrzUqnKqTf2XfdgBQ5xiPJ0wIDH289VCd3d+3dR
-         MTczdxurym9F2Slc3Z4HGddRY8P+B8kvCNdoEtmaOYFimN6Lao9NR5B4r/3BPI6luW8/
-         wQXEz3f6xvevVjI29CJIiGoDpasN/nmgCtwo2HEfpEBj/Uh4CuWTtrrtlL15MQwVnBSG
-         HHERHa/WBPiF2N/+mHDZ+OncJZG0XnJqiSID2eYKNPN7pcXqhEwsJKP63YSWwkFUYl1+
-         lh9w==
-X-Forwarded-Encrypted: i=1; AJvYcCWnzizW47wEpuIogNryTTqEyhg9STi0JkBE79uawOUomcnTrQ1nY+5U9Ro2QRGpG+HVgNJbhl/ZHyZd6VzUeIUQ1jwFPzvsJ1oCRwp3xV8=
-X-Gm-Message-State: AOJu0YwNJ4S1mOn525vx8g5sEkLLqka3Bq2vDsGYTAIMI4NmmeDUOJfj
-	tXHnd+W3GUGBSdy1tmpdLrgPcEtiQevxWGuRyTwQ7WRVeVdc2U8x1K/JzSujcA==
-X-Google-Smtp-Source: AGHT+IEcx7Ep/6O5ryEQJBBnbjc5YGxzDB+UpytZQa/jmueNtrdtr8NSLOzRDrok5Fe7PNE1eDf5Hg==
-X-Received: by 2002:a17:906:374e:b0:a59:ba2b:590e with SMTP id a640c23a62f3a-a62281cb3e8mr45481266b.48.1716357353843;
-        Tue, 21 May 2024 22:55:53 -0700 (PDT)
-Message-ID: <6115ebe4-0554-48b6-bf4f-8370e9a9f539@suse.com>
-Date: Wed, 22 May 2024 07:55:52 +0200
+        bh=owceRJhufTWT1Cdxp0koOg0CpKeWWSqtqNgL/ikKK/U=;
+        b=S459ijuuzD5KlT6N2kGs26PCyABHitYTV4/5w2zGDLSQxo/b1I98Zd/AwIXa/bw9uz
+         y2j9S6g2lHSOK2n2lRh5D5/MAAIlkk6C6a9MZDKL1lPx7M1snGxYg0p7+nM2m7MbdU9z
+         ms51AUcR1H7hHlbD+orJpCJpH1Dll/iXHN+F++TaBrp3VW5vYWs7we7xFVqUPjV4/iTZ
+         cCN5HssjM3Lynp1QbQMQJRnk91jzdDZD2f2nKRIZnhxFwTfvLSLPCQhAD/azrwZ8z4Kd
+         GuA/BihKLs3DToVD0X3wbgdi596aBlTZN5c24vNQbZMabp9grMIF26reufpAQGg+4bQv
+         2rrg==
+X-Forwarded-Encrypted: i=1; AJvYcCUCDgWlAZ/Cw0BLQpCOo79mZyojcwTI+jOqSreLfQtWoIfXtcRlnOYvzv1OGgxf++qG+39fZpM1uJ6DWRY2GTNY65V5j+FnB/kf+LlYsDI=
+X-Gm-Message-State: AOJu0YyyQXk9u0+Y6kWiQxcDNeg9MA4wHvAHpIRyPqual10iLHliqd2W
+	cfcOYcdMNH+IOc7nLrvgEHUy6/ZAj669b9gGiIXgbnqTL/Vd5B6GMaTvNAfARg==
+X-Google-Smtp-Source: AGHT+IGdxbsnZf2VU8XWuzwBw0Q0tZpRj6bZBG/9eBNTgPMW+6AUBUya80OXf7lHGdBzcab3MrPC+Q==
+X-Received: by 2002:a50:8d5e:0:b0:572:2fdf:b965 with SMTP id 4fb4d7f45d1cf-5752b432b79mr10704205a12.7.1716357824777;
+        Tue, 21 May 2024 23:03:44 -0700 (PDT)
+Message-ID: <bd0fe385-73a4-4f8f-b7b0-28acc9078f40@suse.com>
+Date: Wed, 22 May 2024 08:03:43 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/2] x86/mm: add API for marking only part of a MMIO
- page read only
+Subject: Re: [PATCH 2/3] xen/x86: Drop useless non-Kconfig CONFIG_* variables
 Content-Language: en-US
-To: =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org
-References: <cover.1b2f25e20efaa1fe1e6a2da565731becd27e7ead.1716260066.git-series.marmarek@invisiblethingslab.com>
- <2596964a55f710a300143aa5ae195566bacb4e00.1716260066.git-series.marmarek@invisiblethingslab.com>
- <245e535a-5b23-4d3e-83e5-dc797068652c@suse.com> <Zky-4C2WOTboJFLb@mail-itl>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: George Dunlap <George.Dunlap@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Roberto Bagnara <roberto.bagnara@bugseng.com>,
+ "consulting @ bugseng . com" <consulting@bugseng.com>,
+ Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20240521171546.3650664-1-andrew.cooper3@citrix.com>
+ <20240521171546.3650664-3-andrew.cooper3@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -115,77 +115,55 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <Zky-4C2WOTboJFLb@mail-itl>
+In-Reply-To: <20240521171546.3650664-3-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 21.05.2024 17:33, Marek Marczykowski-Górecki wrote:
-> On Tue, May 21, 2024 at 05:16:58PM +0200, Jan Beulich wrote:
->> On 21.05.2024 04:54, Marek Marczykowski-Górecki wrote:
->>> --- a/xen/arch/x86/include/asm/mm.h
->>> +++ b/xen/arch/x86/include/asm/mm.h
->>> @@ -522,9 +522,27 @@ extern struct rangeset *mmio_ro_ranges;
->>>  void memguard_guard_stack(void *p);
->>>  void memguard_unguard_stack(void *p);
->>>  
->>> +/*
->>> + * Add more precise r/o marking for a MMIO page. Range specified here
->>> + * will still be R/O, but the rest of the page (not marked as R/O via another
->>> + * call) will have writes passed through.
->>> + * The start address and the size must be aligned to SUBPAGE_MMIO_RO_ALIGN.
->>> + *
->>> + * This API cannot be used for overlapping ranges, nor for pages already added
->>> + * to mmio_ro_ranges separately.
->>> + *
->>> + * Return values:
->>> + *  - negative: error
->>> + *  - 0: success
->>> + */
->>> +#define SUBPAGE_MMIO_RO_ALIGN 8
->>
->> This isn't just alignment, but also (and perhaps more importantly) granularity.
->> I think the name wants to express this.
+On 21.05.2024 19:15, Andrew Cooper wrote:
+> These are all either completely unused, or do nothing useful.
 > 
-> SUBPAGE_MMIO_RO_GRANULARITY? Sounds a bit long...
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-..._GRAN? ..._CHUNK? ..._UNIT? (Perhaps also want to have MMIO_RO_ first.)
+Not an objection, i.e. you're fine to commit as is with Stefano's R-b, yet
+still a question:
 
->>> +static int __init subpage_mmio_ro_add_page(
->>> +    mfn_t mfn, unsigned int offset_s, unsigned int offset_e)
->>> +{
->>> +    struct subpage_ro_range *entry = NULL, *iter;
->>> +    unsigned int i;
->>> +
->>> +    list_for_each_entry(iter, &subpage_ro_ranges, list)
->>> +    {
->>> +        if ( mfn_eq(iter->mfn, mfn) )
->>> +        {
->>> +            entry = iter;
->>> +            break;
->>> +        }
->>> +    }
->>> +    if ( !entry )
->>> +    {
->>> +        /* iter == NULL marks it was a newly allocated entry */
->>> +        iter = NULL;
->>> +        entry = xzalloc(struct subpage_ro_range);
->>> +        if ( !entry )
->>> +            return -ENOMEM;
->>> +        entry->mfn = mfn;
->>> +    }
->>> +
->>> +    for ( i = offset_s; i <= offset_e; i += SUBPAGE_MMIO_RO_ALIGN )
->>> +    {
->>> +        int oldbit = __test_and_set_bit(i / SUBPAGE_MMIO_RO_ALIGN,
->>> +                                        entry->ro_qwords);
->>
->> Why int, not bool?
-> 
-> Because __test_and_set_bit returns int. But I can change to bool if you
-> prefer.
+> @@ -30,11 +29,8 @@
+>  /* Intel P4 currently has largest cache line (L2 line size is 128 bytes). */
+>  #define CONFIG_X86_L1_CACHE_SHIFT 7
+>  
+> -#define CONFIG_ACPI_SRAT 1
+>  #define CONFIG_ACPI_CSTATE 1
+>  
+> -#define CONFIG_WATCHDOG 1
 
-test_bit() and the test-and set of functions should eventually all change
-to be returning bool. One less use site to then also take care of.
+I wonder if this wouldn't make sense to become a proper Kconfig setting,
+thus ...
+
+> --- a/xen/include/xen/watchdog.h
+> +++ b/xen/include/xen/watchdog.h
+> @@ -9,8 +9,6 @@
+>  
+>  #include <xen/types.h>
+>  
+> -#ifdef CONFIG_WATCHDOG
+> -
+>  /* Try to set up a watchdog. */
+>  int watchdog_setup(void);
+>  
+> @@ -23,13 +21,4 @@ void watchdog_disable(void);
+>  /* Is the watchdog currently enabled. */
+>  bool watchdog_enabled(void);
+>  
+> -#else
+> -
+> -#define watchdog_setup() ((void)0)
+> -#define watchdog_enable() ((void)0)
+> -#define watchdog_disable() ((void)0)
+> -#define watchdog_enabled() ((void)0)
+> -
+> -#endif
+
+... assigning purpose to these stubs.
 
 Jan
 
