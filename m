@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6AB8F8CBC61
-	for <lists+xen-devel@lfdr.de>; Wed, 22 May 2024 09:53:02 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.727288.1131766 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 285F08CBC9F
+	for <lists+xen-devel@lfdr.de>; Wed, 22 May 2024 10:05:51 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.727315.1131777 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s9gmH-0001Br-LQ; Wed, 22 May 2024 07:52:49 +0000
+	id 1s9gyC-0003qy-UZ; Wed, 22 May 2024 08:05:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 727288.1131766; Wed, 22 May 2024 07:52:49 +0000
+Received: by outflank-mailman (output) from mailman id 727315.1131777; Wed, 22 May 2024 08:05:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s9gmH-0001AE-Ib; Wed, 22 May 2024 07:52:49 +0000
-Received: by outflank-mailman (input) for mailman id 727288;
- Wed, 22 May 2024 07:52:48 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1s9gyC-0003oB-RR; Wed, 22 May 2024 08:05:08 +0000
+Received: by outflank-mailman (input) for mailman id 727315;
+ Wed, 22 May 2024 08:05:07 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=AJ0E=MZ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1s9gmG-0006Z1-Eg
- for xen-devel@lists.xenproject.org; Wed, 22 May 2024 07:52:48 +0000
-Received: from mail-lf1-x129.google.com (mail-lf1-x129.google.com
- [2a00:1450:4864:20::129])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 46f3f3cd-1810-11ef-b4bb-af5377834399;
- Wed, 22 May 2024 09:52:46 +0200 (CEST)
-Received: by mail-lf1-x129.google.com with SMTP id
- 2adb3069b0e04-5238b7d0494so6243102e87.3
- for <xen-devel@lists.xenproject.org>; Wed, 22 May 2024 00:52:46 -0700 (PDT)
+ id 1s9gyB-0003o5-Ql
+ for xen-devel@lists.xenproject.org; Wed, 22 May 2024 08:05:07 +0000
+Received: from mail-ed1-x534.google.com (mail-ed1-x534.google.com
+ [2a00:1450:4864:20::534])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 00519e2e-1812-11ef-90a0-e314d9c70b13;
+ Wed, 22 May 2024 10:05:06 +0200 (CEST)
+Received: by mail-ed1-x534.google.com with SMTP id
+ 4fb4d7f45d1cf-57825ff689bso1717054a12.3
+ for <xen-devel@lists.xenproject.org>; Wed, 22 May 2024 01:05:06 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a5a893a91b9sm1059832166b.7.2024.05.22.00.52.45
+ 4fb4d7f45d1cf-5733bea65e2sm17909588a12.19.2024.05.22.01.05.05
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 22 May 2024 00:52:45 -0700 (PDT)
+ Wed, 22 May 2024 01:05:06 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,51 +45,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 46f3f3cd-1810-11ef-b4bb-af5377834399
+X-Inumbo-ID: 00519e2e-1812-11ef-90a0-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1716364366; x=1716969166; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1716365106; x=1716969906; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=GCOB4JeNG5xQU2yj2tSqSJzbGGZIC4RzJ677ijFSXRA=;
-        b=V+EuCGw9ZqwGgqbiqAB8UPiYcoMGy/L5LrcpcjLitGApB/MxC7ZdcQwwxA5uv4y7LW
-         L7dU4qQbuWDsAQOSboyIMx7PeN4dpVwmiYeekqXPO9jIBkGsWuMRdW5TEwR7gdIu08fW
-         iFg6vmzjNrxlyWaFguR5TzjPJhbWUjLbtFGfwreChaaD6iI5l0OOFD0Hd44yPbM1dp5S
-         EiykNh4z0yBhsBzz7AGDOb7ngFzyW8nZB0JVuzJ/YZ9UsRrapVC53mS7hKa/Nuo5GELS
-         vHWshRKYKZuBV2Tpf69tTUfhw0QUFNV6ai6Hh/iymhpaQEHfzFzzqV2BQoRhc2y6U2va
-         klDw==
+        bh=0oWIspwXriEJHqp2br2tUh4rUaOxLFO8PrsC0tRtBIo=;
+        b=LR8+uo9wM0a0Ub0qU/qfme4z9DvToYuTnMy+20fAPhV9h46g4JP6ArbmTBxFtzZaKJ
+         TIJzlq6s+5cdLEQGWWR8KSAg7qtGVTS4bNhick0pS2LNqH3QmzYY15vUgZIHXyfY9Wn+
+         oLW42sULap/Om+AxAV/FaT1DC8beASdyWzPRRbHLLeos9DNXZ4neWXwSvb5b6mXPnUm6
+         L8BaNaxVtWpCMlNoPWIYlVKPZBOvuHhAMoQ2KNvN1i4MmbmL28p7YPU3Wf0HOfK4bcxR
+         NsfxGsAN95ORhiPbEAz4n3C7V8GArnmGwKWzvTXRfS/dMua+Hj9k3xq1dZu2Tc1/fbwS
+         7mHg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1716364366; x=1716969166;
+        d=1e100.net; s=20230601; t=1716365106; x=1716969906;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=GCOB4JeNG5xQU2yj2tSqSJzbGGZIC4RzJ677ijFSXRA=;
-        b=s6uw2IZjxJeXsjkmsGhBS0mKPiURhNUmnzGxzPpn80qLKF/N3DZMCg8NOOtvb3zyNJ
-         dy179aQ1+srRhEnqmaSUgn/csKTNEv8+5MK9GAIugR7D0l7KbngwhU/CwKsYCq43gr8c
-         hvQlPh8ygX3GmMkBLjnJua3hCaMHsOGu/nb9flksJXeT1U3isYeo/xvB8npfvlqqE/Fl
-         tmdexurSeBZpc0cyEKgKImxdhVbrxrjUc4c9ONh9vA1AkCpRqCnr3xxIqSNctZy4eNdv
-         dCu+GawzmB/2KaGr5df6nHXU4h8upPCsyY/iTiF754IDJ1+6sZNbAzZ/0K8JK8tSFrs4
-         FGLA==
-X-Forwarded-Encrypted: i=1; AJvYcCVHzWErVRXnqP8MlQNvJg9j21FETPNeiBvYjT+3oNrEOA8KChl+7zRg3hbm4/cJDJKv/iSGbIwOkrfA5MlwOl2Ickvf6PEMRGpLFYqTutk=
-X-Gm-Message-State: AOJu0Yy5qeO/jXrnO543hqXejwQahpanQSNgqz5bkYOgDyWt454kkybL
-	6du8dywqx3B9CMQ6ZQnKo+5RhkZ6YSx0H9RLBz5Sn5VvhWW679OS2IxtcVgqTg==
-X-Google-Smtp-Source: AGHT+IGAM6NRvz0OIvbVysBcvW+HGDRWtViIpJYmOkWlHHJ/bX7slkm3WJxsUjr96TO60yKEwDV/LQ==
-X-Received: by 2002:ac2:5e3b:0:b0:51d:5ffd:efe4 with SMTP id 2adb3069b0e04-526beca95f8mr1089686e87.1.1716364365778;
-        Wed, 22 May 2024 00:52:45 -0700 (PDT)
-Message-ID: <2708dbbb-f913-4920-a008-beef12cd1265@suse.com>
-Date: Wed, 22 May 2024 09:52:44 +0200
+        bh=0oWIspwXriEJHqp2br2tUh4rUaOxLFO8PrsC0tRtBIo=;
+        b=MFwPJ0Ypg5sAjsCjFnOO+KWfAyzJlpPSUGo/6eFusSNH/sPI2Xw7M1jrT/vWt3v/TA
+         J+FHBd5h6pO+4EZo8o+zE9dpEnCDF0sCgTOjjm6l63ce8d4SCr1YOqx4hcRoUIZxwOf7
+         ze0rqiCCPRb6hWbmx8PqZnmSMDJzINFNE3yYFHqNSUM2xx41QUiyvUInTu83LMN/16L1
+         kgMgptF0HaZtigGe8UrMBRAflDBt0t/xc4wdA+4KU8fc6XYT69I8TgHWX9j1XDuyA5PS
+         eh4tzNuHr9xwpIXj9PTzc/fNM4+a0goPJz8ZcOXVMC5x8L4qMWwCfWsgJKnnbns4K49K
+         WERw==
+X-Forwarded-Encrypted: i=1; AJvYcCUj3pZ8eVEV/5IbJYs777X7lz9H9XPQ+4qEUclz2pT0kJjvHsRMbZx9qlU80Npvj5qzcXG5psUO5rSYvcKUkHecQP+wi9EkfNwhOyH3R3U=
+X-Gm-Message-State: AOJu0YzBF72y53mz2azBj9BUKT4SvDTueTf7ak+Et9tNm7fMC6QSyYxX
+	41ddekj6e3IEeB8F0QWrf7eDGJojKAICEfZ1Qr+te6u7at864ePnF3PrcWfHZA==
+X-Google-Smtp-Source: AGHT+IF/PreU14Xh9SXa+H0Ho1Li59vJe6rA4TV8PweRe4sPsb6aOujFKFJkm1oJ1pk4kFSTJAdiEw==
+X-Received: by 2002:a50:9301:0:b0:573:1e9e:bb54 with SMTP id 4fb4d7f45d1cf-578329ec5a5mr717277a12.8.1716365106384;
+        Wed, 22 May 2024 01:05:06 -0700 (PDT)
+Message-ID: <0dbc701d-d8e6-4cbf-b7bf-27d9e05b5491@suse.com>
+Date: Wed, 22 May 2024 10:05:05 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/2] x86/mm: add API for marking only part of a MMIO
- page read only
+Subject: Re: [PATCH v3 2/2] drivers/char: Use sub-page ro API to make just
+ xhci dbc cap RO
 Content-Language: en-US
 To: =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
  <marmarek@invisiblethingslab.com>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
 References: <cover.1b2f25e20efaa1fe1e6a2da565731becd27e7ead.1716260066.git-series.marmarek@invisiblethingslab.com>
- <2596964a55f710a300143aa5ae195566bacb4e00.1716260066.git-series.marmarek@invisiblethingslab.com>
+ <7682bbf3a24045ae1fcbdf651a6dd8e609ec3a20.1716260066.git-series.marmarek@invisiblethingslab.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -114,166 +114,56 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <2596964a55f710a300143aa5ae195566bacb4e00.1716260066.git-series.marmarek@invisiblethingslab.com>
+In-Reply-To: <7682bbf3a24045ae1fcbdf651a6dd8e609ec3a20.1716260066.git-series.marmarek@invisiblethingslab.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 On 21.05.2024 04:54, Marek Marczykowski-Górecki wrote:
-> --- a/xen/arch/x86/hvm/hvm.c
-> +++ b/xen/arch/x86/hvm/hvm.c
-> @@ -2009,6 +2009,14 @@ int hvm_hap_nested_page_fault(paddr_t gpa, unsigned long gla,
->          goto out_put_gfn;
+> --- a/xen/drivers/char/xhci-dbc.c
+> +++ b/xen/drivers/char/xhci-dbc.c
+> @@ -1216,20 +1216,19 @@ static void __init cf_check dbc_uart_init_postirq(struct serial_port *port)
+>          break;
 >      }
->  
-> +    if ( (p2mt == p2m_mmio_direct) && npfec.write_access && npfec.present &&
-> +         subpage_mmio_write_accept(mfn, gla) &&
-
-Afaics subpage_mmio_write_accept() is unreachable then when CONFIG_HVM=n?
-
-> +         (hvm_emulate_one_mmio(mfn_x(mfn), gla) == X86EMUL_OKAY) )
+>  #ifdef CONFIG_X86
+> -    /*
+> -     * This marks the whole page as R/O, which may include other registers
+> -     * unrelated to DbC. Xen needs only DbC area protected, but it seems
+> -     * Linux's XHCI driver (as of 5.18) works without writting to the whole
+> -     * page, so keep it simple.
+> -     */
+> -    if ( rangeset_add_range(mmio_ro_ranges,
+> -                PFN_DOWN((uart->dbc.bar_val & PCI_BASE_ADDRESS_MEM_MASK) +
+> -                         uart->dbc.xhc_dbc_offset),
+> -                PFN_UP((uart->dbc.bar_val & PCI_BASE_ADDRESS_MEM_MASK) +
+> -                       uart->dbc.xhc_dbc_offset +
+> -                sizeof(*uart->dbc.dbc_reg)) - 1) )
+> -        printk(XENLOG_INFO
+> -               "Error while adding MMIO range of device to mmio_ro_ranges\n");
+> +    if ( subpage_mmio_ro_add(
+> +             (uart->dbc.bar_val & PCI_BASE_ADDRESS_MEM_MASK) +
+> +              uart->dbc.xhc_dbc_offset,
+> +             sizeof(*uart->dbc.dbc_reg)) )
 > +    {
-> +        rc = 1;
-> +        goto out_put_gfn;
+> +        printk(XENLOG_WARNING
+> +               "Error while marking MMIO range of XHCI console as R/O, "
+> +               "making the whole device R/O (share=no)\n");
+
+Since you mention "share=no" here, wouldn't you then better also update the
+respective struct field, even if (right now) there may be nothing subsequently
+using that? Except that dbc_ensure_running() actually is looking at it, and
+that's not an __init function.
+
+> +        if ( pci_ro_device(0, uart->dbc.sbdf.bus, uart->dbc.sbdf.devfn) )
+> +            printk(XENLOG_WARNING
+> +                   "Failed to mark read-only %pp used for XHCI console\n",
+> +                   &uart->dbc.sbdf);
 > +    }
+>  #endif
+>  }
 
-Overall this new if() is pretty similar to the immediate preceding one.
-So similar that I wonder whether the two shouldn't be folded. In fact
-it looks as if the new one is needed only for the case where you'd pass
-through (to a DomU) a device partially used by Xen. That could certainly
-do with mentioning explicitly.
-
-> +static void __iomem *subpage_mmio_get_page(struct subpage_ro_range *entry)
-
-Considering what the function does and what it returns, perhaps better
-s/get/map/? The "get_page" part of the name generally has a different
-meaning in Xen's memory management.
-
-> +{
-> +    void __iomem *mapped_page;
-> +
-> +    if ( entry->mapped )
-> +        return entry->mapped;
-> +
-> +    mapped_page = ioremap(mfn_x(entry->mfn) << PAGE_SHIFT, PAGE_SIZE);
-> +
-> +    spin_lock(&subpage_ro_lock);
-> +    /* Re-check under the lock */
-> +    if ( entry->mapped )
-> +    {
-> +        spin_unlock(&subpage_ro_lock);
-> +        iounmap(mapped_page);
-
-The only unmap is on an error path here and on another error path elsewhere.
-IOW it looks as if devices with such marked pages are meant to never be hot
-unplugged. I can see that being intentional for the XHCI console, but imo
-such a restriction also needs prominently calling out in a comment next to
-e.g. the function declaration.
-
-> +        return entry->mapped;
-> +    }
-> +
-> +    entry->mapped = mapped_page;
-> +    spin_unlock(&subpage_ro_lock);
-> +    return entry->mapped;
-> +}
-> +
-> +static void subpage_mmio_write_emulate(
-> +    mfn_t mfn,
-> +    unsigned int offset,
-> +    const void *data,
-> +    unsigned int len)
-> +{
-> +    struct subpage_ro_range *entry;
-> +    void __iomem *addr;
-
-Wouldn't this better be pointer-to-volatile, with ...
-
-> +    list_for_each_entry(entry, &subpage_ro_ranges, list)
-> +    {
-> +        if ( mfn_eq(entry->mfn, mfn) )
-> +        {
-> +            if ( test_bit(offset / SUBPAGE_MMIO_RO_ALIGN, entry->ro_qwords) )
-> +            {
-> + write_ignored:
-> +                gprintk(XENLOG_WARNING,
-> +                        "ignoring write to R/O MMIO 0x%"PRI_mfn"%03x len %u\n",
-> +                        mfn_x(mfn), offset, len);
-> +                return;
-> +            }
-> +
-> +            addr = subpage_mmio_get_page(entry);
-> +            if ( !addr )
-> +            {
-> +                gprintk(XENLOG_ERR,
-> +                        "Failed to map page for MMIO write at 0x%"PRI_mfn"%03x\n",
-> +                        mfn_x(mfn), offset);
-> +                return;
-> +            }
-> +
-> +            switch ( len )
-> +            {
-> +            case 1:
-> +                writeb(*(const uint8_t*)data, addr);
-> +                break;
-> +            case 2:
-> +                writew(*(const uint16_t*)data, addr);
-> +                break;
-> +            case 4:
-> +                writel(*(const uint32_t*)data, addr);
-> +                break;
-> +            case 8:
-> +                writeq(*(const uint64_t*)data, addr);
-> +                break;
-
-... this being how it's written? (If so, volatile suitably carried through to
-other places as well.)
-
-> +            default:
-> +                /* mmio_ro_emulated_write() already validated the size */
-> +                ASSERT_UNREACHABLE();
-> +                goto write_ignored;
-> +            }
-> +            return;
-> +        }
-> +    }
-> +    /* Do not print message for pages without any writable parts. */
-> +}
-> +
-> +bool subpage_mmio_write_accept(mfn_t mfn, unsigned long gla)
-> +{
-> +    unsigned int offset = PAGE_OFFSET(gla);
-> +    const struct subpage_ro_range *entry;
-> +
-> +    list_for_each_entry_rcu(entry, &subpage_ro_ranges, list)
-
-Considering the other remark about respective devices impossible to go
-away, is the RCU form here really needed? Its use gives the (false)
-impression of entry removal being possible.
-
-> +        if ( mfn_eq(entry->mfn, mfn) &&
-> +             !test_bit(offset / SUBPAGE_MMIO_RO_ALIGN, entry->ro_qwords) )
-
-Btw, "qwords" in the field name is kind of odd when SUBPAGE_MMIO_RO_ALIGN
-in principle suggests that changing granularity ought to be possible by
-simply adjusting that #define. Maybe "->ro_elems"?
-
-> --- a/xen/arch/x86/pv/ro-page-fault.c
-> +++ b/xen/arch/x86/pv/ro-page-fault.c
-> @@ -330,6 +330,7 @@ static int mmio_ro_do_page_fault(struct x86_emulate_ctxt *ctxt,
->              return X86EMUL_UNHANDLEABLE;
->      }
->  
-> +    mmio_ro_ctxt.mfn = mfn;
->      ctxt->data = &mmio_ro_ctxt;
->      if ( pci_ro_mmcfg_decode(mfn_x(mfn), &mmio_ro_ctxt.seg, &mmio_ro_ctxt.bdf) )
->          return x86_emulate(ctxt, &mmcfg_intercept_ops);
-
-Wouldn't you better set .mfn only on the "else" path, just out of context?
-Suggesting that the new field in the struct could actually overlay the
-(seg,bdf) tuple (being of relevance only to MMCFG intercept handling).
-This would be more for documentation purposes than to actually save space.
-(If so, perhaps the "else" itself would also better be dropped while making
-the adjustment.)
+It's been a long time since v2 and the description doesn't say anything in
+this regard: Is there a reason not to retain the rangeset addition alongside
+the pci_ro_device() on the fallback path?
 
 Jan
 
