@@ -2,38 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4E57B8CC1AE
-	for <lists+xen-devel@lfdr.de>; Wed, 22 May 2024 15:00:09 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.727591.1132113 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AB3158CC1B5
+	for <lists+xen-devel@lfdr.de>; Wed, 22 May 2024 15:04:09 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.727601.1132128 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s9lZU-0002sA-4S; Wed, 22 May 2024 12:59:56 +0000
+	id 1s9ldC-0004Vh-KH; Wed, 22 May 2024 13:03:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 727591.1132113; Wed, 22 May 2024 12:59:56 +0000
+Received: by outflank-mailman (output) from mailman id 727601.1132128; Wed, 22 May 2024 13:03:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s9lZU-0002p2-19; Wed, 22 May 2024 12:59:56 +0000
-Received: by outflank-mailman (input) for mailman id 727591;
- Wed, 22 May 2024 12:59:54 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1s9ldC-0004T0-Gy; Wed, 22 May 2024 13:03:46 +0000
+Received: by outflank-mailman (input) for mailman id 727601;
+ Wed, 22 May 2024 13:03:44 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=AJ0E=MZ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1s9lZS-00025w-Ky
- for xen-devel@lists.xenproject.org; Wed, 22 May 2024 12:59:54 +0000
-Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
- [2a00:1450:4864:20::62e])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 2e1d14d2-183b-11ef-b4bb-af5377834399;
- Wed, 22 May 2024 14:59:52 +0200 (CEST)
-Received: by mail-ej1-x62e.google.com with SMTP id
- a640c23a62f3a-a59cf8140d0so815171566b.3
- for <xen-devel@lists.xenproject.org>; Wed, 22 May 2024 05:59:52 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a5a179c7e02sm1775829466b.105.2024.05.22.05.59.51
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 22 May 2024 05:59:52 -0700 (PDT)
+ (envelope-from <julien@xen.org>) id 1s9ldA-0004Ss-FK
+ for xen-devel@lists.xenproject.org; Wed, 22 May 2024 13:03:44 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1s9ldA-0004z9-5B; Wed, 22 May 2024 13:03:44 +0000
+Received: from [15.248.2.235] (helo=[10.24.67.23])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1s9ld9-0007LV-VI; Wed, 22 May 2024 13:03:44 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,226 +39,181 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2e1d14d2-183b-11ef-b4bb-af5377834399
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1716382792; x=1716987592; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
-         :from:content-language:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=4YzomDhXXm/vFcq+Eo68VE4aq0MfzRMkOmfWSyEBToo=;
-        b=XiTeH/AMKeoFvUO3S2FhER3hpsyFZudjKHisGBdY6Zsb7CWDWIjZ3BKTz5XROc9pyg
-         TlbICZJiM5GqgmDhgiHZEGJYTppXk/WiWKs4ej/vD88bekqlXKxhQ7ar89b6VgsOSFKK
-         UekXDhfZwvWTi+Z0xuO5h49Tj4bgpIA+3o+xM4ds47rxf1+q7LWg6/erJB6qYGQGpwD9
-         gqL/wOpIkWJmQFw9uPUpRN8Y2tBEpWDY/k8S0SlpxTx7yh5A7MNGqH641V3/ik2y+UA+
-         anVm190gxQoe1SefDNiVett3CQUk+5rjSXbbJ81plofPPa4Cq+RHXQnW7nwloFVWxCds
-         9q1A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1716382792; x=1716987592;
-        h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
-         :from:content-language:subject:user-agent:mime-version:date
-         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=4YzomDhXXm/vFcq+Eo68VE4aq0MfzRMkOmfWSyEBToo=;
-        b=JjR3eqDRtSmDjR3ArqHjbA0jsXnSLDYUujdAqaQhvT8vr7tIujdYHgoTt8mmmGvL3x
-         xveI6Fyd3jLxbTw9JPgQmIqp2gQoCYZDc7WuzsW8W3tweB4H9+l6GpgTV8+rVklsk1nG
-         EPhn1d8W4CmKHwskK0MDlpSBFpG8M5Z19DPTzaR6xF5QcOYWOiZrpPxH9jV7bBGYi2RM
-         InOVL5fZN1Vnp1/4HQfii+8qUghHvRm4mJ3bdtQc0GfiWVP6nEWutmJyE87ktdlxryTw
-         V6WLlFMH+GnfvpjFeJV6MUTt9YNvHyZY06EPSdnW9YK0DU6IT/9O4qIUx8ifBd6ngKYR
-         s1MA==
-X-Gm-Message-State: AOJu0Yw1bsFjcw6SNXwqfo9CACcn7dpif1LC9kBsDU2xEPyetkbC5pnE
-	foSFbffFKV4B3xm1PWSFHpS32On11qxG99oqAKHfScBun6I+XGPruzL4z+75tdUQyAxQMS6Ruas
-	=
-X-Google-Smtp-Source: AGHT+IF4mcbHXyyQIF7CzBK3CMoIN3r/xzogk7aUVq111GiUwOhUlZ7d20pjVYsARTy/cvZwrqu82A==
-X-Received: by 2002:a17:906:3715:b0:a55:a895:46ae with SMTP id a640c23a62f3a-a62281c48b7mr128549666b.63.1716382792354;
-        Wed, 22 May 2024 05:59:52 -0700 (PDT)
-Message-ID: <df53dd77-9341-4a72-a4ce-33654b2e877d@suse.com>
-Date: Wed, 22 May 2024 14:59:51 +0200
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=i8TmxNEgU3AOS6pP//wlBVKSGvFnWCKtg1OZBAIjH4I=; b=fwJpHJR3BU4M5jX0n7l+IEspfW
+	X/ga8s+6BifKcySyHRiXpmhbob7SY/J8cDrcs6ZRof6iT5b9d6gGR2f0xrE3tNAEL7l7/5r4Wh5Pv
+	QLK4ir4wEB35FqfEWVk0fOyb7W7VleSxPq1n925kAnFl/ugAwEc/I8eL+Kwc6LZLSf4Q=;
+Message-ID: <1754e63c-00a5-4d66-b151-8fa436f5c844@xen.org>
+Date: Wed, 22 May 2024 14:03:42 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: [PATCH v3 2/2] x86: detect PIT aliasing on ports other than 0x4[0-3]
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Jason Andryuk <jason.andryuk@amd.com>
-References: <14d35449-fc65-4dcf-95db-8d94dd3455fb@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <14d35449-fc65-4dcf-95db-8d94dd3455fb@suse.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v3 5/8] xen/arm/gic: Allow routing/removing interrupt to
+ running VMs
+Content-Language: en-GB
+To: Henry Wang <xin.wang2@amd.com>,
+ Stefano Stabellini <sstabellini@kernel.org>
+Cc: xen-devel@lists.xenproject.org,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <20240521043557.1580753-1-xin.wang2@amd.com>
+ <20240521043557.1580753-6-xin.wang2@amd.com>
+ <3f6fa7e7-c02c-4fa5-b4aa-5e4c2efed65f@xen.org>
+ <4f6a24b5-5e7b-41e0-9314-496bbcaa8888@amd.com>
+ <alpine.DEB.2.22.394.2405211815040.1052252@ubuntu-linux-20-04-desktop>
+ <29073700-673d-40aa-8759-efc60af3b7c0@amd.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <29073700-673d-40aa-8759-efc60af3b7c0@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-... in order to also deny Dom0 access through the alias ports (commonly
-observed on Intel chipsets). Without this it is only giving the
-impression of denying access to PIT. Unlike for CMOS/RTC, do detection
-pretty early, to avoid disturbing normal operation later on (even if
-typically we won't use much of the PIT).
+Hi Henry,
 
-Like for CMOS/RTC a fundamental assumption of the probing is that reads
-from the probed alias port won't have side effects (beyond such that PIT
-reads have anyway) in case it does not alias the PIT's.
+On 22/05/2024 02:22, Henry Wang wrote:
+> On 5/22/2024 9:16 AM, Stefano Stabellini wrote:
+>> On Wed, 22 May 2024, Henry Wang wrote:
+>>> Hi Julien,
+>>>
+>>> On 5/21/2024 8:30 PM, Julien Grall wrote:
+>>>> Hi,
+>>>>
+>>>> On 21/05/2024 05:35, Henry Wang wrote:
+>>>>> diff --git a/xen/arch/arm/gic-vgic.c b/xen/arch/arm/gic-vgic.c
+>>>>> index 56490dbc43..956c11ba13 100644
+>>>>> --- a/xen/arch/arm/gic-vgic.c
+>>>>> +++ b/xen/arch/arm/gic-vgic.c
+>>>>> @@ -439,24 +439,33 @@ int vgic_connect_hw_irq(struct domain *d, struct
+>>>>> vcpu *v, unsigned int virq,
+>>>>>          /* We are taking to rank lock to prevent parallel 
+>>>>> connections. */
+>>>>>        vgic_lock_rank(v_target, rank, flags);
+>>>>> +    spin_lock(&v_target->arch.vgic.lock);
+>>>> I know this is what Stefano suggested, but v_target would point to the
+>>>> current affinity whereas the interrupt may be pending/active on the
+>>>> "previous" vCPU. So it is a little unclear whether v_target is the 
+>>>> correct
+>>>> lock. Do you have more pointer to show this is correct?
+>>> No I think you are correct, we have discussed this in the initial 
+>>> version of
+>>> this patch. Sorry.
+>>>
+>>> I followed the way from that discussion to note down the vcpu ID and 
+>>> retrieve
+>>> here, below is the diff, would this make sense to you?
+>>>
+>>> diff --git a/xen/arch/arm/gic-vgic.c b/xen/arch/arm/gic-vgic.c
+>>> index 956c11ba13..134ed4e107 100644
+>>> --- a/xen/arch/arm/gic-vgic.c
+>>> +++ b/xen/arch/arm/gic-vgic.c
+>>> @@ -439,7 +439,7 @@ int vgic_connect_hw_irq(struct domain *d, struct 
+>>> vcpu *v,
+>>> unsigned int virq,
+>>>
+>>>       /* We are taking to rank lock to prevent parallel connections. */
+>>>       vgic_lock_rank(v_target, rank, flags);
+>>> -    spin_lock(&v_target->arch.vgic.lock);
+>>> + spin_lock(&d->vcpu[p->spi_vcpu_id]->arch.vgic.lock);
+>>>
+>>>       if ( connect )
+>>>       {
+>>> @@ -465,7 +465,7 @@ int vgic_connect_hw_irq(struct domain *d, struct 
+>>> vcpu *v,
+>>> unsigned int virq,
+>>>               p->desc = NULL;
+>>>       }
+>>>
+>>> -    spin_unlock(&v_target->arch.vgic.lock);
+>>> + spin_unlock(&d->vcpu[p->spi_vcpu_id]->arch.vgic.lock);
+>>>       vgic_unlock_rank(v_target, rank, flags);
+>>>
+>>>       return ret;
+>>> diff --git a/xen/arch/arm/include/asm/vgic.h 
+>>> b/xen/arch/arm/include/asm/vgic.h
+>>> index 79b73a0dbb..f4075d3e75 100644
+>>> --- a/xen/arch/arm/include/asm/vgic.h
+>>> +++ b/xen/arch/arm/include/asm/vgic.h
+>>> @@ -85,6 +85,7 @@ struct pending_irq
+>>>       uint8_t priority;
+>>>       uint8_t lpi_priority;       /* Caches the priority if this is 
+>>> an LPI. */
+>>>       uint8_t lpi_vcpu_id;        /* The VCPU for an LPI. */
+>>> +    uint8_t spi_vcpu_id;        /* The VCPU for an SPI. */
+>>>       /* inflight is used to append instances of pending_irq to
+>>>        * vgic.inflight_irqs */
+>>>       struct list_head inflight;
+>>> diff --git a/xen/arch/arm/vgic.c b/xen/arch/arm/vgic.c
+>>> index c04fc4f83f..e852479f13 100644
+>>> --- a/xen/arch/arm/vgic.c
+>>> +++ b/xen/arch/arm/vgic.c
+>>> @@ -632,6 +632,7 @@ void vgic_inject_irq(struct domain *d, struct 
+>>> vcpu *v,
+>>> unsigned int virq,
+>>>       }
+>>>       list_add_tail(&n->inflight, &v->arch.vgic.inflight_irqs);
+>>>   out:
+>>> +    n->spi_vcpu_id = v->vcpu_id;
+>>>       spin_unlock_irqrestore(&v->arch.vgic.lock, flags);
+>>>
+>>>       /* we have a new higher priority irq, inject it into the guest */
+>>>       vcpu_kick(v);
+>>>
+>>>
+>>>> Also, while looking at the locking, I noticed that we are not doing 
+>>>> anything
+>>>> with GIC_IRQ_GUEST_MIGRATING. In gic_update_one_lr(), we seem to 
+>>>> assume that
+>>>> if the flag is set, then p->desc cannot be NULL.
+>>>>
+>>>> Can we reach vgic_connect_hw_irq() with the flag set?
+>>> I think even from the perspective of making the code extra safe, we 
+>>> should
+>>> also check GIC_IRQ_GUEST_MIGRATING as the LR is allocated for this 
+>>> case. I
+>>> will also add the check of GIC_IRQ_GUEST_MIGRATING here.
+>> Yes. I think it might be easier to check for GIC_IRQ_GUEST_MIGRATING
+>> early and return error immediately in that case. Otherwise, we can
+>> continue and take spin_lock(&v_target->arch.vgic.lock) because no
+>> migration is in progress
+> 
+> Ok, this makes sense to me, I will add
+> 
+>      if( test_bit(GIC_IRQ_GUEST_MIGRATING, &p->status) )
+>      {
+>          vgic_unlock_rank(v_target, rank, flags);
+>          return -EBUSY;
+>      }
+> 
+> right after taking the vgic rank lock.
 
-As to the port 0x61 accesses: Unlike other accesses we do, this masks
-off the top four bits (in addition to the bottom two ones), following
-Intel chipset documentation saying that these (read-only) bits should
-only be written with zero.
+I think that would be ok. I have to admit, I am still a bit wary about 
+allowing to remove interrupts when the domain is running.
 
-Signed-off-by: Jan Beulich <jbeulich@suse.com>
----
-If Xen was running on top of another instance of itself (in HVM mode,
-not PVH, i.e. not as a shim), prior to 14f42af3f52d ('x86/vPIT: account
-for "counter stopped" time') I'm afraid our vPIT logic would not have
-allowed the "Try to further make sure ..." check to pass in the Xen
-running on top: We don't respect the gate bit being clear when handling
-counter reads. (There are more unhandled [and unmentioned as being so]
-aspects of PIT behavior though, yet it's unclear in how far addressing
-at least some of them would be useful.)
----
-v3: Use PIT_* in dom0_setup_permissions(). Use #define-s introduced by
-    new earlier patch.
-v2: Use new command line option. Re-base over changes to earlier
-    patches. Use ISOLATE_LSB().
+I am less concerned about the add part. Do you need the remove part now? 
+If not, I would suggest to split in two so we can get the most of this 
+series merged for 4.19 and continue to deal with the remove path in the 
+background.
 
---- a/xen/arch/x86/dom0_build.c
-+++ b/xen/arch/x86/dom0_build.c
-@@ -20,6 +20,7 @@
- #include <asm/p2m.h>
- #include <asm/setup.h>
- #include <asm/spec_ctrl.h>
-+#include <io_ports.h>
- 
- struct memsize {
-     long nr_pages;
-@@ -495,7 +496,11 @@ int __init dom0_setup_permissions(struct
-     rc |= ioports_deny_access(d, 0x4D0, 0x4D1);
- 
-     /* Interval Timer (PIT). */
--    rc |= ioports_deny_access(d, 0x40, 0x43);
-+    for ( offs = 0, i = ISOLATE_LSB(pit_alias_mask) ?: 4;
-+          offs <= pit_alias_mask; offs += i )
-+        if ( !(offs & ~pit_alias_mask) )
-+            rc |= ioports_deny_access(d, PIT_CH0 + offs, PIT_MODE + offs);
-+
-     /* PIT Channel 2 / PC Speaker Control. */
-     rc |= ioports_deny_access(d, 0x61, 0x61);
- 
---- a/xen/arch/x86/include/asm/setup.h
-+++ b/xen/arch/x86/include/asm/setup.h
-@@ -49,6 +49,7 @@ extern unsigned long highmem_start;
- #endif
- 
- extern unsigned int i8259A_alias_mask;
-+extern unsigned int pit_alias_mask;
- 
- extern int8_t opt_smt;
- extern int8_t opt_probe_port_aliases;
---- a/xen/arch/x86/time.c
-+++ b/xen/arch/x86/time.c
-@@ -427,6 +427,74 @@ static struct platform_timesource __init
-     .resume = resume_pit,
- };
- 
-+unsigned int __initdata pit_alias_mask;
-+
-+static void __init probe_pit_alias(void)
-+{
-+    unsigned int mask = 0x1c;
-+    uint8_t val = 0;
-+
-+    if ( !opt_probe_port_aliases )
-+        return;
-+
-+    /*
-+     * Use channel 2 in mode 0 for probing.  In this mode even a non-initial
-+     * count is loaded independent of counting being / becoming enabled.  Thus
-+     * we have a 16-bit value fully under our control, to write and then check
-+     * whether we can also read it back unaltered.
-+     */
-+
-+    /* Turn off speaker output and disable channel 2 counting. */
-+    outb(inb(0x61) & 0x0c, 0x61);
-+
-+    outb(PIT_LTCH_CH(2) | PIT_RW_LSB_MSB | PIT_MODE_EOC | PIT_BINARY,
-+         PIT_MODE);
-+
-+    do {
-+        uint8_t val2;
-+        unsigned int offs;
-+
-+        outb(val, PIT_CH2);
-+        outb(val ^ 0xff, PIT_CH2);
-+
-+        /* Wait for the Null Count bit to clear. */
-+        do {
-+            /* Latch status. */
-+            outb(PIT_RDB | PIT_RDB_NO_COUNT | PIT_RDB_CH2, PIT_MODE);
-+
-+            /* Try to make sure we're actually having a PIT here. */
-+            val2 = inb(PIT_CH2);
-+            if ( (val2 & ~(PIT_STATUS_OUT_PIN | PIT_STATUS_NULL_COUNT)) !=
-+                 (PIT_RW_LSB_MSB | PIT_MODE_EOC | PIT_BINARY) )
-+                return;
-+        } while ( val2 & (1 << 6) );
-+
-+        /*
-+         * Try to further make sure we're actually having a PIT here.
-+         *
-+         * NB: Deliberately |, not ||, as we always want both reads.
-+         */
-+        val2 = inb(PIT_CH2);
-+        if ( (val2 ^ val) | (inb(PIT_CH2) ^ val ^ 0xff) )
-+            return;
-+
-+        for ( offs = ISOLATE_LSB(mask); offs <= mask; offs <<= 1 )
-+        {
-+            if ( !(mask & offs) )
-+                continue;
-+            val2 = inb(PIT_CH2 + offs);
-+            if ( (val2 ^ val) | (inb(PIT_CH2 + offs) ^ val ^ 0xff) )
-+                mask &= ~offs;
-+        }
-+    } while ( mask && (val += 0x0b) );  /* Arbitrary uneven number. */
-+
-+    if ( mask )
-+    {
-+        dprintk(XENLOG_INFO, "PIT aliasing mask: %02x\n", mask);
-+        pit_alias_mask = mask;
-+    }
-+}
-+
- /************************************************************
-  * PLATFORM TIMER 2: HIGH PRECISION EVENT TIMER (HPET)
-  */
-@@ -2416,6 +2484,8 @@ void __init early_time_init(void)
-     }
- 
-     preinit_pit();
-+    probe_pit_alias();
-+
-     tmp = init_platform_timer();
-     plt_tsc.frequency = tmp;
- 
+I will answer here to the other reply:
 
+ > I don't think so, if I am not mistaken, no LR will be allocated with 
+other flags set.
+
+I wasn't necessarily thinking about the LR allocation. I was more 
+thinking whether there are any flags that could still be set.
+
+IOW, will the vIRQ like new once vgic_connect_hw_irq() is succesful?
+
+Also, while looking at the flags, I noticed we clear _IRQ_INPROGRESS 
+before vgic_connect_hw_irq(). Shouldn't we only clear *after*?
+
+This brings to another question. You don't special case a dying domain. 
+If the domain is crashing, wouldn't this mean it wouldn't be possible to 
+destroy it?
+
+Cheers,
+
+-- 
+Julien Grall
 
