@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F356B8CC3EF
-	for <lists+xen-devel@lfdr.de>; Wed, 22 May 2024 17:16:05 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.727760.1132425 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2B28B8CC403
+	for <lists+xen-devel@lfdr.de>; Wed, 22 May 2024 17:22:53 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.727771.1132434 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s9ngQ-0004Fm-Qj; Wed, 22 May 2024 15:15:14 +0000
+	id 1s9nnX-0006WI-Gk; Wed, 22 May 2024 15:22:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 727760.1132425; Wed, 22 May 2024 15:15:14 +0000
+Received: by outflank-mailman (output) from mailman id 727771.1132434; Wed, 22 May 2024 15:22:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1s9ngQ-0004Dv-MY; Wed, 22 May 2024 15:15:14 +0000
-Received: by outflank-mailman (input) for mailman id 727760;
- Wed, 22 May 2024 15:15:13 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1s9nnX-0006TT-Dq; Wed, 22 May 2024 15:22:35 +0000
+Received: by outflank-mailman (input) for mailman id 727771;
+ Wed, 22 May 2024 15:22:33 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=eEN6=MZ=cloud.com=alejandro.vallejo@srs-se1.protection.inumbo.net>)
- id 1s9ngP-0003wy-8r
- for xen-devel@lists.xenproject.org; Wed, 22 May 2024 15:15:13 +0000
-Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
- [2a00:1450:4864:20::42e])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 15410651-184e-11ef-b4bb-af5377834399;
- Wed, 22 May 2024 17:15:11 +0200 (CEST)
-Received: by mail-wr1-x42e.google.com with SMTP id
- ffacd0b85a97d-34f0e55787aso4013910f8f.2
- for <xen-devel@lists.xenproject.org>; Wed, 22 May 2024 08:15:11 -0700 (PDT)
-Received: from [192.168.0.16] (0545937c.skybroadband.com. [5.69.147.124])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-354db76acafsm1864576f8f.49.2024.05.22.08.15.09
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 22 May 2024 08:15:10 -0700 (PDT)
+ <SRS0=UKXr=MZ=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
+ id 1s9nnV-0006TN-KE
+ for xen-devel@lists.xenproject.org; Wed, 22 May 2024 15:22:33 +0000
+Received: from wfhigh8-smtp.messagingengine.com
+ (wfhigh8-smtp.messagingengine.com [64.147.123.159])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 1a3a7317-184f-11ef-90a0-e314d9c70b13;
+ Wed, 22 May 2024 17:22:31 +0200 (CEST)
+Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
+ by mailfhigh.west.internal (Postfix) with ESMTP id E16181800132;
+ Wed, 22 May 2024 11:22:27 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute1.internal (MEProxy); Wed, 22 May 2024 11:22:28 -0400
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 22 May 2024 11:22:26 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,148 +44,129 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 15410651-184e-11ef-b4bb-af5377834399
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1716390911; x=1716995711; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=kK3dRrXrwVNPXE4+0A/1KWYbPmGy2JdF5u4c4yDy9s4=;
-        b=F5+Fies9vkolU8Q7W7A0cXxkxZaFFM1LOlH73VoqFVytxPtEk3NeO6Aa8eGCuv1Oj3
-         KLzj1JNV8EkZ9+IE2RiLWXTHfc00fzzb/I+W1rHvXfjrafKJ2mh2DzWiWUaP3kjsGbTX
-         v522lZUZh+nPB9xZoC2fmUgYd6QZtFXGQoZak=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1716390911; x=1716995711;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=kK3dRrXrwVNPXE4+0A/1KWYbPmGy2JdF5u4c4yDy9s4=;
-        b=hoLOchSaUwjZxnDadbIhChEmeoYybx84DdDUzD3k25EbmrwzOUpmoFo/c9vbkJEqGA
-         r/ELbiiB0qz4eiS3jhROpL+7nxJ+JeYQ9USmnCkZPm4VlT/WzU0Er73+lwT+b6+VATlO
-         OUftw4IKgL4EpVW3kl2nVUzGvPSDcZ6DQflAU4rSM4nl/OyB0vx5P5DLTlkFjZL8+t3X
-         lgP/mdLYDEvSDuM1mXFT9MmJPcBUea3iCvVutOB7d6m+GNfudVCzsW4D1xzjMLkRdJPs
-         fk3Yjclik4SIUlunr6at66eyjYRkA/2KFciCHBBKnaxmG8FmH1m3M/Gm/NrhE9O7KL6q
-         02gQ==
-X-Gm-Message-State: AOJu0Yynm2fFcgqWfI9uFe59ORPh7Z+zsEq8AFOZhtT5g7rjb4JKSWuT
-	6KEEECKs7nohiLsxFnAhujMpVPkv4NTSxXZpza+inSFf9QA2OwZi1dlyyYLt91k=
-X-Google-Smtp-Source: AGHT+IG9GddBwM5c5CCKKh8vIp9biDptjqXlZAk9WQ+OyCsyroo+12gATRP4E15F30O4WDlyURbPxA==
-X-Received: by 2002:adf:f104:0:b0:34d:8d88:7c53 with SMTP id ffacd0b85a97d-354d8bd1408mr1705577f8f.0.1716390910943;
-        Wed, 22 May 2024 08:15:10 -0700 (PDT)
-Message-ID: <974bfbc6-97f6-4afa-978c-562448042d4a@cloud.com>
-Date: Wed, 22 May 2024 16:15:09 +0100
+X-Inumbo-ID: 1a3a7317-184f-11ef-90a0-e314d9c70b13
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm3; t=1716391347;
+	 x=1716477747; bh=cKcXdNX7CaZv/PzfX4FoVyVEW4o/dLnJS3xNLqLVInQ=; b=
+	N/Yz3/HRkaaxjFQ8+83RXSS7Ue9U6kkL9TcsQ8Tqmqn6+m9X1JPx0HQ9IJEvKXX5
+	qGKQX1+ns3kWeFwKZq4sYlaFvLzpdOSWNdHBzAmlm6PTLkj3iZWIs0LQn+dpqxu4
+	r9jlSK9fPCOqXg9+HlSBUURxl30CFNhOunwP81JtHvnmsWTltR4jx3KnvgoXeT++
+	PqrHmiV0gUjpuc9Nfnnx0LWybstyCpQm3DxtfMYGUahlo3ynkCtIw94zVfgCsqcz
+	7QRTIaFo31XdhOxbsXbUHSnqBTWsnUFbYzq7v9He6w3ghK/3bbO3UNo7HANcylyw
+	oBYdSUPIdUQ8hIDMsGcjIQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+	fm1; t=1716391347; x=1716477747; bh=cKcXdNX7CaZv/PzfX4FoVyVEW4o/
+	dLnJS3xNLqLVInQ=; b=f3y6WehXNNtGPRG8+tvjSQgeNy8aDu42LkIJiI+2lvOa
+	sWhvcSoOCg6cZuLAbvqC87Ix83fTTsCTSfxFYHc1QzkwSwYTwc8ml3Bwwy6OXG7q
+	k6j8bsI+aKRRjEn2N0as8a6kIFqXaR/iPgdxsUcExCIfx8B+yQCV8CErGOjux3Yg
+	CV1EqrZcm5YmF9wjXqCnpk0+KgQPu7Gb+AmneQmucTyX7ZIHxeytywG5ToTO/mzR
+	CHk4nYovfOEDw3LdpOCfIqmt6Sjc3zs9yAwLMwPsrbxk6Vx0XP9bm91hQmISa5J2
+	giLYV9c7GyaXkbHs31ukazW9uPb6vTjOuSN4ejf/QQ==
+X-ME-Sender: <xms:sw1OZpxJk7SQ403wVFVHXahfJ8vpQRv9KYyOufKhzEqH6OFQDbj_Hg>
+    <xme:sw1OZpSbnqLTPvNwrDLU3XPqfs890dihM3P35oxG0epBExLwLfqWpl1S98lOn27jF
+    Tcdd1nFbBpowQ>
+X-ME-Received: <xmr:sw1OZjWOH3mpWIOfW8TQ7-hJB1gDInLRMo7SerpQugUDUdqCaYgD24DxIp93_Nlr4yefdugA8HkT7Y5UPPiedNS5bW7OPpiR_A>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvledrvdeigedgvddvucetufdoteggodetrfdotf
+    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+    uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+    cujfgurhepfffhvfevuffkfhggtggujgesghdtreertddtjeenucfhrhhomhepofgrrhgv
+    khcuofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuceomhgrrhhmrghrvghksehinh
+    hvihhsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecuggftrfgrthhtvghrnhepgfdu
+    leetfeevhfefheeiteeliefhjefhleduveetteekveettddvgeeuteefjedunecuvehluh
+    hsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepmhgrrhhmrghrvghk
+    sehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomh
+X-ME-Proxy: <xmx:sw1OZriW8j82jm6R5EjZU-viUeLv-cU8KOS2pAtxpE2RsmD-RciQMg>
+    <xmx:sw1OZrBAl-sFy2txbIuMo8q5awSz6btRSBCZwqxfq2XSUdCoZP_-wA>
+    <xmx:sw1OZkJHq_bpzdBIupdXSLwMlpw_JP30WrF6ixMioX810w7xEMjbcw>
+    <xmx:sw1OZqA0aEgO16Xl1V5VFuUUkveXX8_MZGTmDmBZcsBlRcC2qYZ3HQ>
+    <xmx:sw1OZiOTiF2mHV8XKxytQ0bgfsHW9jRbJYDmCBgTGWaAk4OYSjKKS6_V>
+Feedback-ID: i1568416f:Fastmail
+Date: Wed, 22 May 2024 17:22:23 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
+	xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v3 1/2] x86/mm: add API for marking only part of a MMIO
+ page read only
+Message-ID: <Zk4NsM_Df0futo-Z@mail-itl>
+References: <cover.1b2f25e20efaa1fe1e6a2da565731becd27e7ead.1716260066.git-series.marmarek@invisiblethingslab.com>
+ <2596964a55f710a300143aa5ae195566bacb4e00.1716260066.git-series.marmarek@invisiblethingslab.com>
+ <2708dbbb-f913-4920-a008-beef12cd1265@suse.com>
+ <Zk3xtK0SaaqEadXY@mail-itl>
+ <93c7230a-bd2a-4763-a90a-89e02a169b1d@suse.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/2] tools/xg: Clean up xend-style overrides for CPU
- policies
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>,
- Anthony PERARD <anthony@xenproject.org>, Juergen Gross <jgross@suse.com>
-References: <cover.1715954111.git.alejandro.vallejo@cloud.com>
- <d397ec0de4138e32feeb910f3401a6568a75035e.1715954111.git.alejandro.vallejo@cloud.com>
- <Zktl8zRt1kue5vA6@macbook>
-Content-Language: en-GB
-From: Alejandro Vallejo <alejandro.vallejo@cloud.com>
-In-Reply-To: <Zktl8zRt1kue5vA6@macbook>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="uurQj1kwzf6TNO7b"
+Content-Disposition: inline
+In-Reply-To: <93c7230a-bd2a-4763-a90a-89e02a169b1d@suse.com>
 
-On 20/05/2024 16:02, Roger Pau Monné wrote:
->> -
->>  static int xc_msr_policy(xc_interface *xch, domid_t domid,
->> -                         const struct xc_msr *msr)
->> +                         const struct xc_msr *msr,
->> +                         xc_cpu_policy_t *host,
->> +                         xc_cpu_policy_t *def,
-> 
-> host and def should likely be const?
 
-I tried, but I can't. All policies go through find_msr(), which takes a
-non-const policy, and must be non-const because it's also used for the
-cur policy.
+--uurQj1kwzf6TNO7b
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 22 May 2024 17:22:23 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
+	xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v3 1/2] x86/mm: add API for marking only part of a MMIO
+ page read only
 
-I did the next best thing (I think) by const-ifying the result of
-find_msr inside the loop for host and def. Same thing on the cpuid function.
+On Wed, May 22, 2024 at 03:29:51PM +0200, Jan Beulich wrote:
+> On 22.05.2024 15:22, Marek Marczykowski-G=C3=B3recki wrote:
+> > On Wed, May 22, 2024 at 09:52:44AM +0200, Jan Beulich wrote:
+> >> On 21.05.2024 04:54, Marek Marczykowski-G=C3=B3recki wrote:
+> >>> +static void subpage_mmio_write_emulate(
+> >>> +    mfn_t mfn,
+> >>> +    unsigned int offset,
+> >>> +    const void *data,
+> >>> +    unsigned int len)
+> >>> +{
+> >>> +    struct subpage_ro_range *entry;
+> >>> +    void __iomem *addr;
+> >>
+> >> Wouldn't this better be pointer-to-volatile, with ...
+> >=20
+> > Shouldn't then most other uses of __iomem in the code base be this way
+> > too? I see volatile only in few places...
+>=20
+> Quite likely, yet being consistent at least in new code is going to be
+> at least desirable.
 
->> -    if ( rc )
->> -    {
->> -        PERROR("Failed to obtain host policy");
->> -        rc = -errno;
->> -        goto out;
->> -    }
->> +    if ( !msrs )
-> 
-> Does this build?  Where is 'msrs' defined in this context?  The
-> function parameter is 'msr' AFAICT.
+I tried. Build fails because iounmap() doesn't declare its argument as
+volatile, so it triggers -Werror=3Ddiscarded-qualifiers...
 
-Ugh. I fixed that while adjusting it for testing within XenServer and
-then neglected to make the change in the actual for-upstream patches.
+I'll change it just in subpage_mmio_write_emulate(), but leave
+subpage_mmio_map_page() (was _get_page) without volatile.
 
-You're right.
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
 
-> 
->> +        return 0;
-> 
-> Should we also check for host, def, cur != NULL also?
+--uurQj1kwzf6TNO7b
+Content-Type: application/pgp-signature; name="signature.asc"
 
-It's already done by the caller, but can do out of paranoia; returning
--EINVAL.
+-----BEGIN PGP SIGNATURE-----
 
->> @@ -583,14 +436,16 @@ int xc_cpuid_apply_policy(xc_interface *xch, uint32_t domid, bool restore,
->>      int rc;
->>      bool hvm;
->>      xc_domaininfo_t di;
->> -    struct xc_cpu_policy *p = xc_cpu_policy_init();
->> -    unsigned int i, nr_leaves = ARRAY_SIZE(p->leaves), nr_msrs = 0;
->> -    uint32_t err_leaf = -1, err_subleaf = -1, err_msr = -1;
->> -    uint32_t host_featureset[FEATURESET_NR_ENTRIES] = {};
->> -    uint32_t len = ARRAY_SIZE(host_featureset);
->>  
->> -    if ( !p )
->> -        return -ENOMEM;
->> +    struct xc_cpu_policy *host = xc_cpu_policy_init();
->> +    struct xc_cpu_policy *def = xc_cpu_policy_init();
-> 
-> I would be helpful to have some kind of mechanism to allocate + init a
-> policy at the same time, so that the resulting object could be made
-> const here.  (Not that you need to do it in this patch).
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmZODbAACgkQ24/THMrX
+1yyN5Af+OMhdFfQA18mjMg7vv7WCWIURPTVXlCsHUvpCnnXxlrkrhT6NCUwMimgW
+M1hS+jkbUHogu9rCxwad6hQ6Ex+OKat4qIVGep03NYoXFk+CyZJ0Ebv/QaLKTG27
+8J4bqN3WHcaQxl6mTNB8S82iK1kpLdEaRWJJ4K8uhWdnL7Wg9FU6Rkce+wrqSH8m
+QF6xaGGrGo2MEHBKSQfi2KFsnu/gfSZlV8u5jm/FeUQJLK1WacrnYpG2GU6AmxoL
+x6J25dmVHG0Lr4z3v0KL0OrZX++pHcpW4ZQ14KQFv6zjA42IOSbAxSAi5zmrJOvj
+f2sydZ0SiiisCaCt3GC38i8EN5oZfA==
+=C0BQ
+-----END PGP SIGNATURE-----
 
-That would seem sensible, but we'd also need a way to clone it to avoid
-repeating hypercalls when they aren't required. I had a patch that did
-that, but was quite complicated for other reasons. I might get back to
-it at some point now that per-vCPU policies don't seem to be required.
-
->> @@ -695,24 +542,24 @@ int xc_cpuid_apply_policy(xc_interface *xch, uint32_t domid, bool restore,
->>                   !(dfs = x86_cpu_policy_lookup_deep_deps(b)) )
->>                  continue;
->>  
->> -            for ( i = 0; i < ARRAY_SIZE(disabled_features); ++i )
->> +            for ( size_t i = 0; i < ARRAY_SIZE(disabled_features); ++i )
-> 
-> All this loop index type changes could be done as a separate patch,
-> you are not even touching the surrounding lines.  It adds a lot of
-> churn to this patch for no reason IMO.
-
-I got carried away. Let me revert that. I still want to get rid of all
-those overscoped indices, but this is not the patch for it.
-
->> @@ -772,49 +619,45 @@ int xc_cpuid_apply_policy(xc_interface *xch, uint32_t domid, bool restore,
->>               * apic_id_size values greater than 7.  Limit the value to
->>               * 7 for now.
->>               */
->> -            if ( p->policy.extd.nc < 0x7f )
->> +            if ( cur->policy.extd.nc < 0x7f )
->>              {
->> -                if ( p->policy.extd.apic_id_size != 0 && p->policy.extd.apic_id_size < 0x7 )
->> -                    p->policy.extd.apic_id_size++;
->> +                if ( cur->policy.extd.apic_id_size != 0 && cur->policy.extd.apic_id_size < 0x7 )
-> 
-> I would split the line while there, it's overly long.
-
-Ack
-
-> 
-> Thanks, Roger.
-
-Cheers,
-Alejandro
+--uurQj1kwzf6TNO7b--
 
