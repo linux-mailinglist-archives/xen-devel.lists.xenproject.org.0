@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DA70B8CD6C3
-	for <lists+xen-devel@lfdr.de>; Thu, 23 May 2024 17:11:23 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.728645.1133663 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7D19E8CD72A
+	for <lists+xen-devel@lfdr.de>; Thu, 23 May 2024 17:35:27 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.728656.1133679 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sAA5o-0004fr-RJ; Thu, 23 May 2024 15:10:56 +0000
+	id 1sAASc-0001YN-Gf; Thu, 23 May 2024 15:34:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 728645.1133663; Thu, 23 May 2024 15:10:56 +0000
+Received: by outflank-mailman (output) from mailman id 728656.1133679; Thu, 23 May 2024 15:34:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sAA5o-0004dP-NZ; Thu, 23 May 2024 15:10:56 +0000
-Received: by outflank-mailman (input) for mailman id 728645;
- Thu, 23 May 2024 15:10:55 +0000
+	id 1sAASc-0001Ws-Dm; Thu, 23 May 2024 15:34:30 +0000
+Received: by outflank-mailman (input) for mailman id 728656;
+ Thu, 23 May 2024 15:34:29 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=OfYh=M2=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sAA5n-0004dJ-6J
- for xen-devel@lists.xenproject.org; Thu, 23 May 2024 15:10:55 +0000
-Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
- [2a00:1450:4864:20::632])
+ id 1sAASb-0001Wm-C8
+ for xen-devel@lists.xenproject.org; Thu, 23 May 2024 15:34:29 +0000
+Received: from mail-ed1-x531.google.com (mail-ed1-x531.google.com
+ [2a00:1450:4864:20::531])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 7e9464ad-1916-11ef-b4bb-af5377834399;
- Thu, 23 May 2024 17:09:47 +0200 (CEST)
-Received: by mail-ej1-x632.google.com with SMTP id
- a640c23a62f3a-a59cf8140d0so935804166b.3
- for <xen-devel@lists.xenproject.org>; Thu, 23 May 2024 08:09:47 -0700 (PDT)
+ id f03e2f1f-1919-11ef-b4bb-af5377834399;
+ Thu, 23 May 2024 17:34:26 +0200 (CEST)
+Received: by mail-ed1-x531.google.com with SMTP id
+ 4fb4d7f45d1cf-57847c08e0cso1178183a12.1
+ for <xen-devel@lists.xenproject.org>; Thu, 23 May 2024 08:34:26 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a5a1787c63bsm1949324766b.51.2024.05.23.08.09.46
+ 4fb4d7f45d1cf-574bcad0362sm16692090a12.20.2024.05.23.08.34.25
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 23 May 2024 08:09:46 -0700 (PDT)
+ Thu, 23 May 2024 08:34:25 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,49 +45,48 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7e9464ad-1916-11ef-b4bb-af5377834399
+X-Inumbo-ID: f03e2f1f-1919-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1716476987; x=1717081787; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=buMAg0LS8akaLYVn1mf1luZlef5FqtF+8iT745eiTPQ=;
-        b=M4Zjy8lA++k1LH1tBehoWiNrSnil4lkDgJKQU5rzB6HtSx3zjRt8ev/RejGfXRzNHd
-         U25PHBDigg7CWp44YPTJvjaDvWbUPJ5VOv/yGnjxC0+xatoTNWeY7cO5OXBGYrWfJXz/
-         E9TqiGjz20V04z/W/oKVwdnrHlyTsWOH7TXEN4IIdmw1fz369RLeMduJ6gvAJUybS6Vk
-         ywnpmHleg0NGxlPMklRNFJ81grAsJ2okJirihyNP0KcvgT3fvgPx1WkyzNDlE/lGV3jV
-         fWS3r/L3spfbInoWnU66zHJYNhJMC0arFX9luTJBlAEwVR94fi8TszSB35XKvbAzUm95
-         dnBA==
+        d=suse.com; s=google; t=1716478466; x=1717083266; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=/4SiQWsf5o2I0gyNSUlQoMspiZtx0wo3qkAr4NjkpFI=;
+        b=NviB6wcg8YALxo3y/9o+vDl579TP3ub3DWQino4wDJq1AR7meYIsXqr2C1giW4jAcH
+         xTXBwCnq6xdEQ/oqOECRdsLAWTsUdeywr9+XdPCEVqe9JYXBZIyIyuWuFHKtE/I9RvAY
+         tgs5ELivwfXb6VHDU+F5ijrvtxJpsAXQq77nyVAFHdCPQf/4mRRpMq7XTAPtxcrf2EWz
+         zJEmOPX+c22G8iR5zZK5qwQxVcVWpUg//shw9+lQxaLTaPgogT2hCKnnylaagneW3QrX
+         F5hknuFpyzbsqhn5F7uto7sjX6mFY3iNdnbO6eB7ddpshHcPcDpWZEJEUuh9OPK/IWJt
+         B3Vw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1716476987; x=1717081787;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=buMAg0LS8akaLYVn1mf1luZlef5FqtF+8iT745eiTPQ=;
-        b=sOUYi4XJHDLM4sOVpPHrU8NNadprsJ9rjcq3aXu0+mDVhGK02nWs1QsaqqDcBfIRSL
-         HPBqQlQcu5AUuVv7Qn23+CkoYCNGv5yCVm/KmbqW50PU+r4pSqpRlKM93LjcbEQtArwM
-         qtbd257fM27AF0HFpuaUQ6C7q2rqPpLyV9qSyX8H/pmyzwE5doxwvscOjUVZ3ejW10bv
-         4yggBIxylV3bJv0MtU963Y8p3+IUvfCpVdxmKR7BRy1Es3UbKJG8CekiElHTGrmGYebH
-         fgeUuP1T1G5JnpBo+N5t3r2o1BDjShpzInHA0w0k83LgpuWVx29YM7asAjVLqB/51ggF
-         mmbw==
-X-Forwarded-Encrypted: i=1; AJvYcCWcjLVC3wTIEvOihKzX4cc4yNZ19fR9KbpcdSj96RVcCYY8UPXD0ws183rQln+bTrV2E8CVKicdPA6fxgILR1AzlSnXHfK5pllaGf05gkY=
-X-Gm-Message-State: AOJu0Yzbtfcpx5daRCWIDVUPxiEzDJCPynBz60Za6aPP7khisJdR0vyl
-	WEP97I6hs+mO3fWxvvwFZIGyqJUFCNdOXj+GYr4AMDCqLvhS8MccskIoQl3bsA==
-X-Google-Smtp-Source: AGHT+IFJHdPcenIMGjRAmc4re1PrzhAy95N3NTcdJzLheVYPZq5oaJ6ZqnQn+4w1/sliI+3BAX498Q==
-X-Received: by 2002:a17:907:26cb:b0:a59:f30e:fecd with SMTP id a640c23a62f3a-a622807a844mr454892266b.2.1716476986989;
-        Thu, 23 May 2024 08:09:46 -0700 (PDT)
-Message-ID: <1def14d9-f98e-432e-b5bb-db6cd64676a2@suse.com>
-Date: Thu, 23 May 2024 17:09:45 +0200
+        d=1e100.net; s=20230601; t=1716478466; x=1717083266;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=/4SiQWsf5o2I0gyNSUlQoMspiZtx0wo3qkAr4NjkpFI=;
+        b=RMb4TbwaMw2CUH8lniHISY3jwtf2GeEQby8kHQSR2TNjtdV4RmNNbMUeIVSujPG487
+         b+xHakEqacuzy7rMhs/xd48rs0ygx4UWO+CVQt0PhVqZtkQh4q/6QdkQ+1V6uk7TEKeN
+         0MfiC/uIqEnFYifqITpAw7ZUkq4o/6DfTjtCQlsQ33GU8qH2E5urLp+clClgLPXsLjgU
+         p4pcBBtxnMTL2fOglntFhdUsE1D3f4RmJFKrjoVa8aUJsQd88OAqzACtiwYsrYEDz8S3
+         pX64Mi50diA1qXCWUyKHZBJjalHJdOPuhruOIv1siB6EwIjducO3QfKlWy0GNOaf+XJ5
+         VDfA==
+X-Forwarded-Encrypted: i=1; AJvYcCWai/lo8lawxuswVj20VVS6aTXrHr666o62W3QydokV0k0WOhMo6jekZZQ4OiycZWsB6WT7JowbY5JnNxVms0trKxm8Anzkr73WmYOgS+A=
+X-Gm-Message-State: AOJu0YxqiFYXZqyDXK8yD8YtLiFaJfgtu+QMUPIYQwSu8QDqg1NsKpL2
+	2sxVQPRrU9h52LhyikjgSRh9YkaLQt/h4nh+vsG9ss1vga2VMOXMIIDYViIHtg==
+X-Google-Smtp-Source: AGHT+IGxbZZPcwy3Tz5tFFp/od9gLBSq2doW8l5XOPgeuKxy2gt+IWHX0DJsNAy9zqg+WqguO6uw8Q==
+X-Received: by 2002:a50:d655:0:b0:572:7d77:179d with SMTP id 4fb4d7f45d1cf-57843c7a592mr1998648a12.5.1716478466214;
+        Thu, 23 May 2024 08:34:26 -0700 (PDT)
+Message-ID: <22e0473a-aca8-4645-a3f4-21a9d9e0ebd3@suse.com>
+Date: Thu, 23 May 2024 17:34:25 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/7] x86/xstate: Fix initialisation of XSS cache
+Subject: Re: [PATCH 2/7] x86/xstate: Cross-check dynamic XSTATE sizes at boot
+Content-Language: en-US
 To: Andrew Cooper <andrew.cooper3@citrix.com>
 Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Xen-devel <xen-devel@lists.xenproject.org>
 References: <20240523111627.28896-1-andrew.cooper3@citrix.com>
- <20240523111627.28896-2-andrew.cooper3@citrix.com>
-Content-Language: en-US
+ <20240523111627.28896-3-andrew.cooper3@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -112,78 +111,137 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240523111627.28896-2-andrew.cooper3@citrix.com>
+In-Reply-To: <20240523111627.28896-3-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 23.05.2024 13:16, Andrew Cooper wrote:
-> The clobbering of this_cpu(xcr0) and this_cpu(xss) to architecturally invalid
-> values is to force the subsequent set_xcr0() and set_msr_xss() to reload the
-> hardware register.
+> Right now, xstate_ctxt_size() performs a cross-check of size with CPUID in for
+> every call.  This is expensive, being used for domain create/migrate, as well
+> as to service certain guest CPUID instructions.
 > 
-> While XCR0 is reloaded in xstate_init(), MSR_XSS isn't.  This causes
-> get_msr_xss() to return the invalid value, and logic of the form:
+> Instead, arrange to check the sizes once at boot.  See the code comments for
+> details.  Right now, it just checks hardware against the algorithm
+> expectations.  Later patches will add further cross-checking.
 > 
->   old = get_msr_xss();
->   set_msr_xss(new);
->   ...
->   set_msr_xss(old);
-> 
-> to try and restore the architecturally invalid value.
-> 
-> The architecturally invalid value must be purged from the cache, meaning the
-> hardware register must be written at least once.  This in turn highlights that
-> the invalid value must only be used in the case that the hardware register is
-> available.
-> 
-> Fixes: f7f4a523927f ("x86/xstate: reset cached register values on resume")
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> Introduce the missing X86_XCR0_* and X86_XSS_* constants, and a couple of
+> missing CPUID bits.  This is to maximise coverage in the sanity check, even if
+> we don't expect to use/virtualise some of these features any time soon.  Leave
+> HDC and HWP alone for now.  We don't have CPUID bits from them stored nicely.
 
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
+Since you say "the missing", ...
 
-However, I view it as pretty unfair that now I will need to re-base
-https://lists.xen.org/archives/html/xen-devel/2021-04/msg01336.html
-over ...
+> --- a/xen/arch/x86/include/asm/x86-defns.h
+> +++ b/xen/arch/x86/include/asm/x86-defns.h
+> @@ -77,7 +77,7 @@
+>  #define X86_CR4_PKS        0x01000000 /* Protection Key Supervisor */
+>  
+>  /*
+> - * XSTATE component flags in XCR0
+> + * XSTATE component flags in XCR0 | MSR_XSS
+>   */
+>  #define X86_XCR0_FP_POS           0
+>  #define X86_XCR0_FP               (1ULL << X86_XCR0_FP_POS)
+> @@ -95,11 +95,34 @@
+>  #define X86_XCR0_ZMM              (1ULL << X86_XCR0_ZMM_POS)
+>  #define X86_XCR0_HI_ZMM_POS       7
+>  #define X86_XCR0_HI_ZMM           (1ULL << X86_XCR0_HI_ZMM_POS)
+> +#define X86_XSS_PROC_TRACE        (_AC(1, ULL) <<  8)
+>  #define X86_XCR0_PKRU_POS         9
+>  #define X86_XCR0_PKRU             (1ULL << X86_XCR0_PKRU_POS)
+> +#define X86_XSS_PASID             (_AC(1, ULL) << 10)
+> +#define X86_XSS_CET_U             (_AC(1, ULL) << 11)
+> +#define X86_XSS_CET_S             (_AC(1, ULL) << 12)
+> +#define X86_XSS_HDC               (_AC(1, ULL) << 13)
+> +#define X86_XSS_UINTR             (_AC(1, ULL) << 14)
+> +#define X86_XSS_LBR               (_AC(1, ULL) << 15)
+> +#define X86_XSS_HWP               (_AC(1, ULL) << 16)
+> +#define X86_XCR0_TILE_CFG         (_AC(1, ULL) << 17)
+> +#define X86_XCR0_TILE_DATA        (_AC(1, ULL) << 18)
+
+... I'm wondering if you deliberately left out APX (bit 19).
+
+Since you're re-doing some of what I have long had in patches already,
+I'd also like to ask whether the last underscores each in the two AMX
+names really are useful in your opinion. While rebasing isn't going
+to be difficult either way, it would be yet simpler with
+X86_XCR0_TILECFG and X86_XCR0_TILEDATA, as I've had it in my patches
+for over 3 years.
 
 > --- a/xen/arch/x86/xstate.c
 > +++ b/xen/arch/x86/xstate.c
-> @@ -641,13 +641,6 @@ void xstate_init(struct cpuinfo_x86 *c)
->          return;
->      }
+> @@ -604,9 +604,156 @@ static bool valid_xcr0(uint64_t xcr0)
+>      if ( !(xcr0 & X86_XCR0_BNDREGS) != !(xcr0 & X86_XCR0_BNDCSR) )
+>          return false;
 >  
-> -    /*
-> -     * Zap the cached values to make set_xcr0() and set_msr_xss() really
-> -     * write it.
-> -     */
-> -    this_cpu(xcr0) = 0;
-> -    this_cpu(xss) = ~0;
-> -
->      cpuid_count(XSTATE_CPUID, 0, &eax, &ebx, &ecx, &edx);
->      feature_mask = (((u64)edx << 32) | eax) & XCNTXT_MASK;
->      BUG_ON(!valid_xcr0(feature_mask));
-> @@ -657,8 +650,19 @@ void xstate_init(struct cpuinfo_x86 *c)
->       * Set CR4_OSXSAVE and run "cpuid" to get xsave_cntxt_size.
->       */
->      set_in_cr4(X86_CR4_OSXSAVE);
+> +    /* TILE_CFG and TILE_DATA must be the same. */
+> +    if ( !(xcr0 & X86_XCR0_TILE_CFG) != !(xcr0 & X86_XCR0_TILE_DATA) )
+> +        return false;
+> +
+>      return true;
+>  }
+>  
+> +struct xcheck_state {
+> +    uint64_t states;
+> +    uint32_t uncomp_size;
+> +    uint32_t comp_size;
+> +};
+> +
+> +static void __init check_new_xstate(struct xcheck_state *s, uint64_t new)
+> +{
+> +    uint32_t hw_size;
+> +
+> +    BUILD_BUG_ON(X86_XCR0_STATES & X86_XSS_STATES);
+> +
+> +    BUG_ON(s->states & new); /* States only increase. */
+> +    BUG_ON(!valid_xcr0(s->states | new)); /* Xen thinks it's a good value. */
+> +    BUG_ON(new & ~(X86_XCR0_STATES | X86_XSS_STATES)); /* Known state. */
+> +    BUG_ON((new & X86_XCR0_STATES) &&
+> +           (new & X86_XSS_STATES)); /* User or supervisor, not both. */
+> +
+> +    s->states |= new;
+> +    if ( new & X86_XCR0_STATES )
+> +    {
+> +        if ( !set_xcr0(s->states & X86_XCR0_STATES) )
+> +            BUG();
+> +    }
+> +    else
+> +        set_msr_xss(s->states & X86_XSS_STATES);
 > +
 > +    /*
-> +     * Zap the cached values to make set_xcr0() and set_msr_xss() really write
-> +     * the hardware register.
+> +     * Check the uncompressed size.  Some XSTATEs are out-of-order and fill in
+> +     * prior holes in the state area, so we check that the size doesn't
+> +     * decrease.
 > +     */
-> +    this_cpu(xcr0) = 0;
->      if ( !set_xcr0(feature_mask) )
->          BUG();
-> +    if ( cpu_has_xsaves )
+> +    hw_size = cpuid_count_ebx(0xd, 0);
+> +
+> +    if ( hw_size < s->uncomp_size )
+> +        panic("XSTATE 0x%016"PRIx64", new bits {%63pbl}, uncompressed hw size %#x < prev size %#x\n",
+> +              s->states, &new, hw_size, s->uncomp_size);
+> +
+> +    s->uncomp_size = hw_size;
+> +
+> +    /*
+> +     * Check the compressed size, if available.  All components strictly
+> +     * appear in index order.  In principle there are no holes, but some
+> +     * components have their base address 64-byte aligned for efficiency
+> +     * reasons (e.g. AMX-TILE) and there are other components small enough to
+> +     * fit in the gap (e.g. PKRU) without increasing the overall length.
+> +     */
+> +    hw_size = cpuid_count_ebx(0xd, 1);
+> +
+> +    if ( cpu_has_xsavec )
 > +    {
-> +        this_cpu(xss) = ~0;
-> +        set_msr_xss(0);
+> +        if ( hw_size < s->comp_size )
+> +            panic("XSTATE 0x%016"PRIx64", new bits {%63pbl}, compressed hw size %#x < prev size %#x\n",
+> +                  s->states, &new, hw_size, s->comp_size);
+> +
+> +        s->comp_size = hw_size;
 > +    }
+> +    else
+> +        BUG_ON(hw_size); /* Compressed size reported, but no XSAVEC ? */
 
-... this change, kind of breaking again your nice arrangement. Seeing for how
-long that change has been pending, it _really_ should have gone in ahead of
-this one, with you then sorting how you'd like things to be arranged in the
-combined result, rather than me re-posting and then either again not getting
-any feedback for years, or you disliking what I've done. Oh well ...
+I'm not quite happy with this being fatal to booting. Maybe just WARN_ON()?
 
 Jan
 
