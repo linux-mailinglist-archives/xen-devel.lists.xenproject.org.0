@@ -2,40 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 515338CCE30
-	for <lists+xen-devel@lfdr.de>; Thu, 23 May 2024 10:28:27 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.728232.1133097 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C4FCE8CCE3A
+	for <lists+xen-devel@lfdr.de>; Thu, 23 May 2024 10:37:20 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.728243.1133107 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sA3nu-000479-3o; Thu, 23 May 2024 08:28:02 +0000
+	id 1sA3wV-0006gg-2H; Thu, 23 May 2024 08:36:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 728232.1133097; Thu, 23 May 2024 08:28:02 +0000
+Received: by outflank-mailman (output) from mailman id 728243.1133107; Thu, 23 May 2024 08:36:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sA3nu-00045K-0n; Thu, 23 May 2024 08:28:02 +0000
-Received: by outflank-mailman (input) for mailman id 728232;
- Thu, 23 May 2024 08:28:00 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=cGfz=M2=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1sA3ns-00045E-Q3
- for xen-devel@lists.xenproject.org; Thu, 23 May 2024 08:28:00 +0000
-Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
- [2a00:1450:4864:20::629])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 5d2af421-18de-11ef-90a1-e314d9c70b13;
- Thu, 23 May 2024 10:27:59 +0200 (CEST)
-Received: by mail-ej1-x629.google.com with SMTP id
- a640c23a62f3a-a623cf23927so123728266b.0
- for <xen-devel@lists.xenproject.org>; Thu, 23 May 2024 01:27:59 -0700 (PDT)
-Received: from ?IPV6:2003:e5:8729:4000:29eb:6d9d:3214:39d2?
- (p200300e58729400029eb6d9d321439d2.dip0.t-ipconnect.de.
- [2003:e5:8729:4000:29eb:6d9d:3214:39d2])
+	id 1sA3wU-0006e4-VZ; Thu, 23 May 2024 08:36:54 +0000
+Received: by outflank-mailman (input) for mailman id 728243;
+ Thu, 23 May 2024 08:36:53 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=WSi9=M2=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1sA3wT-0006dr-Q1
+ for xen-devel@lists.xenproject.org; Thu, 23 May 2024 08:36:53 +0000
+Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com
+ [2a00:1450:4864:20::132])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 9a6630b1-18df-11ef-b4bb-af5377834399;
+ Thu, 23 May 2024 10:36:52 +0200 (CEST)
+Received: by mail-lf1-x132.google.com with SMTP id
+ 2adb3069b0e04-51ffff16400so11911462e87.2
+ for <xen-devel@lists.xenproject.org>; Thu, 23 May 2024 01:36:52 -0700 (PDT)
+Received: from [192.168.1.10] (host-92-26-98-202.as13285.net. [92.26.98.202])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a5a8967a711sm1227007466b.2.2024.05.23.01.27.58
+ a640c23a62f3a-a5a17b01631sm1904138966b.153.2024.05.23.01.36.50
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 23 May 2024 01:27:59 -0700 (PDT)
+ Thu, 23 May 2024 01:36:51 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,43 +45,41 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5d2af421-18de-11ef-90a1-e314d9c70b13
+X-Inumbo-ID: 9a6630b1-18df-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1716452879; x=1717057679; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=jhpvbBfwpJWGF5iUcQkjO7ndJQwWC1rVlWpqUpT0O4s=;
-        b=SU99fmFqruFm/5CSzURqPh2QCt+P+HAABoHSbdEyiMgmvOfAOpDEQcJ+h841SUUTU3
-         3kfyCdg5CS/IdyNpzp62tzbY5/O4yLgE1gsoDAbc1BAGxbtkX3WrbxPKbq9pM4+3j46Z
-         Ew1ExOYP3d37+Y2ddY5rfhFtAKRiCP4X5/HC/jDEmPSVcAekviBlfZvXgWoGAWcjPBvJ
-         auV1OwPkuvKmDQ5N1YW28KBwBA6NlM2AGtEl959Y7XYCQkkVGs+iCmtCIeHSy9ef+ozh
-         Xd+3L7HfMQB1A/eYZt4Ku4X9EA58IfvxSqEmOBHfXSr3uz5S8s7bkvHwfz4h1fvrCN+y
-         KP8Q==
+        d=citrix.com; s=google; t=1716453411; x=1717058211; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=7l/2d6fclAu6FofaUz5jRdfurxhewbvq7pz++xoGK1E=;
+        b=ur+aE2ORX+zmydK4u1Za4NhW8AfcV5fNWFX52LUZ7eRpkfFNF0j0GVzg1o4+xU1mzX
+         tnGdpmkdvZz1pQtYp+loqWNnkhKPmBxzM+Zq1U8Bd0MmkgC+TAsDXeu3Jn3rJAfmSvRg
+         85OhQkl4UAyr8tUEfeO7efjQ6lQP4M1bk7qzY=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1716452879; x=1717057679;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=jhpvbBfwpJWGF5iUcQkjO7ndJQwWC1rVlWpqUpT0O4s=;
-        b=KhDTWAbVPaUOleVuruGIisZFYA1c5o+y3/HPN5YG4Z8PJRk9l6DKlOkSAMAB2GbpyX
-         Qxt0KoKijzQXlgwz8BVzrq5ERdNLBDrsLxhH8qtUBfn2ZegC2F4LEEPsvobtkVjE6TEN
-         UP9MyhqOINyM/WVImfLmlDJr0tMrHGJRBZYuHMSS+LDgUd27VzJnRKNs6u8LM+tIMNGu
-         g51HlfGdaS45N4Y1aOcKAH0q4Kb/Yj1jKFv73Aa7td0D18bPv7N21IoASeRhDR8l2H4R
-         rz1ow77NNYrRwH3dTm3BFmbC8Dzip1k6t9R4PRe4L+2Hx1vL5RZ+wcfJoTfcAEl9NaHY
-         28Fg==
-X-Forwarded-Encrypted: i=1; AJvYcCUcgdBXcHztM+7pqEreJpMmnya2mGG2R4QGxZtbG/U1OWrg51OsGcm/OCizO6GoplwdqZnw6fD26Ar/2Gw+3C55asbVFfSJzrGWenuMtT8=
-X-Gm-Message-State: AOJu0YxxnZHJqkcFQZCun2G/yuf5Jmh3YFQI0D+KYCfD/WPd9oY1qRxh
-	cALe3SBrqybgqcjoOrlD6Q5GxtbI3IRXewp13vPqLe6nLb/3xwk8ektq2CS+dT0=
-X-Google-Smtp-Source: AGHT+IEuBhjg/MG9JEuabnR/N1PzCOaBGU5xNemthbK5N8Gkevd6Z9RRqTn5FvpAjVmlMfFBN+WCnQ==
-X-Received: by 2002:a17:906:4a14:b0:a59:bf27:5f2e with SMTP id a640c23a62f3a-a623e8f7e02mr121836166b.20.1716452879245;
-        Thu, 23 May 2024 01:27:59 -0700 (PDT)
-Message-ID: <19c7a56c-5640-438d-aece-6a62f748e893@suse.com>
-Date: Thu, 23 May 2024 10:27:58 +0200
+        d=1e100.net; s=20230601; t=1716453411; x=1717058211;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=7l/2d6fclAu6FofaUz5jRdfurxhewbvq7pz++xoGK1E=;
+        b=fYSu2ALbMUWj6PD+iYR1sTSuIVpLqBFuAQNoMzbib+zqFcP3sb85FFJ89gtzw0jBi8
+         l1sNZRTwMpzfSlWxcna7MmEj29gTmSBJuErO0bPO7W14l1ZiECYbFVcyFdoA3DsO94E7
+         EcSFF4O7otkYA3ker66Q0Tb2FSzHSgdD08g24GSgVFSbjCxwgnIA08+vEmWCnjwOkE8D
+         C2xppXsc5VU2UL0fFC8KukcO8EqYDZj6x5mVfbJyuj15cULyiDLotybGZ8McsQVw8j6B
+         xtMnzsMEWmEjr9/iug/BWAnsHXaPB0FcfGo35xx7d1sdxkvnhB6TnlTnGzwd5u5swsXL
+         3UJw==
+X-Forwarded-Encrypted: i=1; AJvYcCXPToQvsE4yrNMfZk3OtXcp97MOLM1sqLHMAVM3Jrg/FX64oK3/UkE9fKUjoVviP5Wj8WzWtDS1Spr0y0QXY5E24d828AgZOtbKqTSvUSE=
+X-Gm-Message-State: AOJu0Yx+3gdgdNwazWEcoT5n53oszLp5wCpKj99pp8y0fNcBO7wRVHKn
+	G6ItWqVZZuYpGvKeDBVZew0jLLTdMCieJr/kqWUB7QyEhOAgTUUaCYh4cWmZ6s4=
+X-Google-Smtp-Source: AGHT+IGAJIV4q9G5CAkOexovAiYUVnf8I01Qc7hEc+So2iEDHqRNAIVrJ3/M8MzMtpIqqov5YOMfmg==
+X-Received: by 2002:a05:6512:48d7:b0:51f:2a80:a982 with SMTP id 2adb3069b0e04-526c0b5dc01mr3551603e87.47.1716453411455;
+        Thu, 23 May 2024 01:36:51 -0700 (PDT)
+Message-ID: <0708b3dc-442d-4ae2-bdf2-a27b48a8c5c2@citrix.com>
+Date: Thu, 23 May 2024 09:36:50 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH v2 4/4] tools: Drop libsystemd as a dependency
-To: Andrew Cooper <andrew.cooper3@citrix.com>,
+To: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>,
  Xen-devel <xen-devel@lists.xenproject.org>
 Cc: Anthony PERARD <anthony@xenproject.org>,
  George Dunlap <George.Dunlap@citrix.com>, Jan Beulich <JBeulich@suse.com>,
@@ -92,57 +88,84 @@ Cc: Anthony PERARD <anthony@xenproject.org>,
  =?UTF-8?B?RWR3aW4gVMO2csO2aw==?= <edwin.torok@cloud.com>
 References: <20240516185804.3309725-1-andrew.cooper3@citrix.com>
  <20240516185804.3309725-5-andrew.cooper3@citrix.com>
-Content-Language: en-US
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-In-Reply-To: <20240516185804.3309725-5-andrew.cooper3@citrix.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+ <19c7a56c-5640-438d-aece-6a62f748e893@suse.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <19c7a56c-5640-438d-aece-6a62f748e893@suse.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 16.05.24 20:58, Andrew Cooper wrote:
-> There are no more users, and we want to disuade people from introducing new
-> users just for sd_notify() and friends.  Drop the dependency.
-> 
-> We still want the overall --with{,out}-systemd to gate the generation of the
-> service/unit/mount/etc files.
-> 
-> Rerun autogen.sh, and mark the dependency as removed in the build containers.
-> 
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> ---
-> CC: Anthony PERARD <anthony@xenproject.org>
-> CC: Juergen Gross <jgross@suse.com>
-> CC: George Dunlap <George.Dunlap@citrix.com>
-> CC: Jan Beulich <JBeulich@suse.com>
-> CC: Stefano Stabellini <sstabellini@kernel.org>
-> CC: Julien Grall <julien@xen.org>
-> CC: Christian Lindig <christian.lindig@citrix.com>
-> CC: Edwin Török <edwin.torok@cloud.com>
-> 
-> v2:
->   * Only strip out the library check.
-> ---
->   automation/build/archlinux/current.dockerfile |   1 +
->   .../build/suse/opensuse-leap.dockerfile       |   1 +
->   .../build/suse/opensuse-tumbleweed.dockerfile |   1 +
->   automation/build/ubuntu/focal.dockerfile      |   1 +
->   config/Tools.mk.in                            |   2 -
->   m4/systemd.m4                                 |   9 -
->   tools/configure                               | 256 ------------------
->   7 files changed, 4 insertions(+), 267 deletions(-)
-> 
-> diff --git a/automation/build/archlinux/current.dockerfile b/automation/build/archlinux/current.dockerfile
-> index 3e37ab5c40c1..d29f1358c2bd 100644
-> --- a/automation/build/archlinux/current.dockerfile
-> +++ b/automation/build/archlinux/current.dockerfile
-> @@ -37,6 +37,7 @@ RUN pacman -S --refresh --sysupgrade --noconfirm --noprogressbar --needed \
->           sdl2 \
->           spice \
->           spice-protocol \
-> +        # systemd for Xen < 4.19
+On 23/05/2024 9:27 am, Jürgen Groß wrote:
+> On 16.05.24 20:58, Andrew Cooper wrote:
+>> diff --git a/automation/build/archlinux/current.dockerfile
+>> b/automation/build/archlinux/current.dockerfile
+>> index 3e37ab5c40c1..d29f1358c2bd 100644
+>> --- a/automation/build/archlinux/current.dockerfile
+>> +++ b/automation/build/archlinux/current.dockerfile
+>> @@ -37,6 +37,7 @@ RUN pacman -S --refresh --sysupgrade --noconfirm
+>> --noprogressbar --needed \
+>>           sdl2 \
+>>           spice \
+>>           spice-protocol \
+>> +        # systemd for Xen < 4.19
+>
+> Does this work as intended? A comment between the parameters and no
+> "\" at the
+> end of the line?
 
-Does this work as intended? A comment between the parameters and no "\" at the
-end of the line?
+Sadly, yes.
 
+Comments are stripped out on a line-granuar basis, prior to Docker
+interpreting the remainder.
 
-Juergen
+This is the approved way to do comments in dockerfiles, and we already
+have other examples of this in our dockerfiles.
+
+See e.g. a0e29b316363d9 for what I'll be doing with these comments in
+~3y time.
+
+~Andrew
 
