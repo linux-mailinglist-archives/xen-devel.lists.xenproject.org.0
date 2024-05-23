@@ -2,40 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D92548CCE21
-	for <lists+xen-devel@lfdr.de>; Thu, 23 May 2024 10:22:55 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.728202.1133048 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 20B448CCE22
+	for <lists+xen-devel@lfdr.de>; Thu, 23 May 2024 10:23:00 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.728205.1133064 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sA3in-0002UN-0M; Thu, 23 May 2024 08:22:45 +0000
+	id 1sA3ip-0002n6-AC; Thu, 23 May 2024 08:22:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 728202.1133048; Thu, 23 May 2024 08:22:44 +0000
+Received: by outflank-mailman (output) from mailman id 728205.1133064; Thu, 23 May 2024 08:22:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sA3im-0002Sd-Tv; Thu, 23 May 2024 08:22:44 +0000
-Received: by outflank-mailman (input) for mailman id 728202;
- Thu, 23 May 2024 08:22:43 +0000
+	id 1sA3ip-0002jY-7G; Thu, 23 May 2024 08:22:47 +0000
+Received: by outflank-mailman (input) for mailman id 728205;
+ Thu, 23 May 2024 08:22:45 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=cGfz=M2=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1sA3il-00026a-88
- for xen-devel@lists.xenproject.org; Thu, 23 May 2024 08:22:43 +0000
-Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
- [2a00:1450:4864:20::631])
+ (envelope-from <SRS0=OfYh=M2=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1sA3in-00026a-Dp
+ for xen-devel@lists.xenproject.org; Thu, 23 May 2024 08:22:45 +0000
+Received: from mail-lf1-x131.google.com (mail-lf1-x131.google.com
+ [2a00:1450:4864:20::131])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a019e07e-18dd-11ef-90a1-e314d9c70b13;
- Thu, 23 May 2024 10:22:42 +0200 (CEST)
-Received: by mail-ej1-x631.google.com with SMTP id
- a640c23a62f3a-a5a5cb0e6b7so1120880366b.1
- for <xen-devel@lists.xenproject.org>; Thu, 23 May 2024 01:22:42 -0700 (PDT)
-Received: from ?IPV6:2003:e5:8729:4000:29eb:6d9d:3214:39d2?
- (p200300e58729400029eb6d9d321439d2.dip0.t-ipconnect.de.
- [2003:e5:8729:4000:29eb:6d9d:3214:39d2])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a616b07164asm564603666b.116.2024.05.23.01.22.41
+ id a18a0ad6-18dd-11ef-90a1-e314d9c70b13;
+ Thu, 23 May 2024 10:22:44 +0200 (CEST)
+Received: by mail-lf1-x131.google.com with SMTP id
+ 2adb3069b0e04-52388d9ca98so11008973e87.0
+ for <xen-devel@lists.xenproject.org>; Thu, 23 May 2024 01:22:44 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a5a1787c6b1sm1901920166b.57.2024.05.23.01.22.43
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 23 May 2024 01:22:41 -0700 (PDT)
+ Thu, 23 May 2024 01:22:44 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,150 +45,97 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a019e07e-18dd-11ef-90a1-e314d9c70b13
+X-Inumbo-ID: a18a0ad6-18dd-11ef-90a1-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1716452562; x=1717057362; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=rnnvZryhw0yRCTtGjZKhvo1G7tBBUoE48gETUVXle/4=;
-        b=LOFZUm/DyoZPEs5XZLukmrTdcYFnZSha3ir4i8PKep1VPlSgmXaIbKDzp0E5QP5H/R
-         grXAY9XkBkVc4KWC4wBn8E/eQVsvB+1S4Jt7OAwC7oVbsIrm99oJWEicUmF4ZqcQET0g
-         APkLipN27ZxALFfla6iTfVoNP9I1l/GTa7DDRRCQA9IvoCeziNi4pykcLB7juTCyYhf8
-         DuCdU4i/8KNjCp7DdH88Q7raNBeG1u7zxDSETrEGKjpQ62qxiWnwIQoIu6TO1yIsFTwo
-         FodIKMfU1vMY2ZZS/+FVTWXQ3yBHZKxoN9+zq6BdG15wlE8RfCyqG3NLqRPCZ+FM/Cwl
-         YH6w==
+        d=suse.com; s=google; t=1716452564; x=1717057364; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=U53RxWXEYKSWLg5Ju6vVotqdHlvFxcIu9IrmCSx409s=;
+        b=Uj0JKcVQIVQklOb4uUns5QNfU18qPng+3vVx0PCqaM7E0xEUaW580VHhfUJexixNDZ
+         B4kj2h1KhdBk4x2KL7qkQSDIBqlFp/G+XauZtG7Dvgp1beHUKgjMhuJWzhKE+Yrdde8B
+         fZiR4lGRAo5QCA8blS+mCwCv7XWYAfxRVA5hhuxhEU2Mm9wa5ZCxTLhNY2LnVMW6thAY
+         hEtevASNAl7g1A8EZtQJF2o0Zh5JZUNPnN8yKT8qF47G/2VCjuR05LDzj8SKu9GRqAh6
+         nHfuq9jrnegunQgL77Asc4eGqQZN7qyEpyuzrMArqwK+dxXtWfVvE3Ap94ec0O7wNsLv
+         8cxQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1716452562; x=1717057362;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=rnnvZryhw0yRCTtGjZKhvo1G7tBBUoE48gETUVXle/4=;
-        b=Qo6q1mPbth4CD+sjbZbcqBchYCOt7dZYISTfioyF7B7ybq2mhqEH7TPC1hwWnHrDot
-         OnoGTzsCqXIbuaX5oEGwIb2xb7YZL5O0YWBDBd/Jwr9QxH1OHO0QaMl4njTg15PM2hJQ
-         0E5xmbbfAoVH8WuvkzP3viTL0AhEGAcqVAm4FrQy/uhEVs+10GZ+QQDhu8dhUXTqUtnQ
-         uEa3Yk1b+Ik782UjLuDcnlZjdISfu3Odmio73JiJpvdyXLH/Oi1nzw7pCFVKS/X6aIC+
-         KqlN8zT8xO5l2MmhSBvAWWz4JasH+ByIFtK5XNaVXF+GZfex74CGI7QIYkwHlEuPN0/H
-         kdbA==
-X-Forwarded-Encrypted: i=1; AJvYcCXAVZEHRdDhhpBYDm8nZSZc6W/IW3Pswvy1S4ueavmMu/Ic11PWM6jugv4jFHOCFeX2jnZKlkx+OnxHTyee+jVrd/ihcfvp1XkLbMx6hzs=
-X-Gm-Message-State: AOJu0YwzYdbZy79r31lVKgaRJueBLS5yUPACW6EcbQtXWhMlPT/cdbby
-	FVDl59N7ZKwzJCX4+sGQr2xYhlHuGwo53sPXCf1IbjKHnpMEJ0jRNxhHKUMPmDI=
-X-Google-Smtp-Source: AGHT+IEjRK8mZUWOCvE4tRb8yz/3DAIX24rSVGFcr9neimXd+6PkVGLlmWjCpqwihbyFsVjMwHsPbg==
-X-Received: by 2002:a17:906:6d85:b0:a5a:84f9:df73 with SMTP id a640c23a62f3a-a62280a12e6mr266281566b.38.1716452562064;
-        Thu, 23 May 2024 01:22:42 -0700 (PDT)
-Message-ID: <b2c66956-97a8-44da-b2fd-c50f84cbc170@suse.com>
-Date: Thu, 23 May 2024 10:22:41 +0200
+        d=1e100.net; s=20230601; t=1716452564; x=1717057364;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=U53RxWXEYKSWLg5Ju6vVotqdHlvFxcIu9IrmCSx409s=;
+        b=IbGDRIzShOHr2833h9Z3H3GVLTV1IjaYZZCyfJMmyw+dPxMdHokjUnvsziC8kYMKT9
+         j7BPZVQ8AGPbukeTKwiybII5FfXRsGtO5wsTn3W+ahnN4Ks74Oz9H4VnlIibGrn7jkDu
+         ztmDqS25Cj3JlzmNEOSa0bLsVSuD/x1dwEnuRPeRkHbdH1sqtfhSKwpK0tIrlwlyQZCw
+         Vv02x8QoqtS/7pYo8vC06SUvJ7/BKwNu/8PymxAQ7UjzXmieKMk3abRbPc57HTkErtI8
+         dw1MaA85pgRRgFJ1Tm98rEtB/33h9bLb/gODBPfOT1vLOsuh32W2bFu8hPrltb/tlWTy
+         Ov9g==
+X-Forwarded-Encrypted: i=1; AJvYcCUXVF6zCOIAnCYGc6LuMDXeh8SP3yQZ9BTrIM4xNcTpCnrN5/7v2EQNa9FJzzl53dHJFFGfEVJ6ngxoex0l4Tvz6Pi0rPUGHnaOFjSaPSw=
+X-Gm-Message-State: AOJu0Yzy97z8/eFz42GSJuLPZmd+eIeWYkxU0evyFMYGP+V+qH54UpHG
+	YMLn643/j51slSUcqbO1/5PoWWdTUexlc60R10vhYualyootTsA9DGjJD6RWrQ==
+X-Google-Smtp-Source: AGHT+IGMpH5PGljwmz0DduOePvcuPXGZUqLFJuLOTwV0U52MbDtJSnywO+KPg9qBBMJlxzH70aJ1ww==
+X-Received: by 2002:a19:f510:0:b0:51d:3675:6a06 with SMTP id 2adb3069b0e04-526c12153f0mr3100052e87.66.1716452564313;
+        Thu, 23 May 2024 01:22:44 -0700 (PDT)
+Message-ID: <3011751b-aa59-4266-b52d-df661bb9e4ee@suse.com>
+Date: Thu, 23 May 2024 10:22:42 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/4] tools/{c,o}xenstored: Don't link against
- libsystemd
-To: Andrew Cooper <andrew.cooper3@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Anthony PERARD <anthony@xenproject.org>,
- George Dunlap <George.Dunlap@citrix.com>, Jan Beulich <JBeulich@suse.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Christian Lindig <christian.lindig@citrix.com>,
- =?UTF-8?B?RWR3aW4gVMO2csO2aw==?= <edwin.torok@cloud.com>
-References: <20240516185804.3309725-1-andrew.cooper3@citrix.com>
- <20240516185804.3309725-4-andrew.cooper3@citrix.com>
+Subject: Re: [PATCH v4 2/2] drivers/char: Use sub-page ro API to make just
+ xhci dbc cap RO
+To: =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <cover.68462f37276d69ab6e268be94d049f866a321f73.1716392340.git-series.marmarek@invisiblethingslab.com>
+ <83dfaaf5cbd056ffbe381cbd39f0230348257642.1716392340.git-series.marmarek@invisiblethingslab.com>
 Content-Language: en-US
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-In-Reply-To: <20240516185804.3309725-4-andrew.cooper3@citrix.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <83dfaaf5cbd056ffbe381cbd39f0230348257642.1716392340.git-series.marmarek@invisiblethingslab.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 16.05.24 20:58, Andrew Cooper wrote:
-> Use the local freestanding wrapper instead.
+On 22.05.2024 17:39, Marek Marczykowski-Górecki wrote:
+> Not the whole page, which may contain other registers too. The XHCI
+> specification describes DbC as designed to be controlled by a different
+> driver, but does not mandate placing registers on a separate page. In fact
+> on Tiger Lake and newer (at least), this page do contain other registers
+> that Linux tries to use. And with share=yes, a domU would use them too.
+> Without this patch, PV dom0 would fail to initialize the controller,
+> while HVM would be killed on EPT violation.
 > 
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-
-Reviewed-by: Juergen Gross <jgross@suse.com> # tools/xenstored
-
-
-Juergen
-
-> ---
-> CC: Anthony PERARD <anthony@xenproject.org>
-> CC: Juergen Gross <jgross@suse.com>
-> CC: George Dunlap <George.Dunlap@citrix.com>
-> CC: Jan Beulich <JBeulich@suse.com>
-> CC: Stefano Stabellini <sstabellini@kernel.org>
-> CC: Julien Grall <julien@xen.org>
-> CC: Christian Lindig <christian.lindig@citrix.com>
-> CC: Edwin Török <edwin.torok@cloud.com>
+> With `share=yes`, this patch gives domU more access to the emulator
+> (although a HVM with any emulated device already has plenty of it). This
+> configuration is already documented as unsafe with untrusted guests and
+> not security supported.
 > 
-> v2:
->   * Redo almost from scratch, using the freestanding wrapper instead.
-> ---
->   tools/ocaml/xenstored/Makefile        | 2 --
->   tools/ocaml/xenstored/systemd_stubs.c | 2 +-
->   tools/xenstored/Makefile              | 5 -----
->   tools/xenstored/posix.c               | 4 ++--
->   4 files changed, 3 insertions(+), 10 deletions(-)
-> 
-> diff --git a/tools/ocaml/xenstored/Makefile b/tools/ocaml/xenstored/Makefile
-> index e8aaecf2e630..a8b8bb64698e 100644
-> --- a/tools/ocaml/xenstored/Makefile
-> +++ b/tools/ocaml/xenstored/Makefile
-> @@ -4,8 +4,6 @@ include $(OCAML_TOPLEVEL)/common.make
->   
->   # Include configure output (config.h)
->   CFLAGS += -include $(XEN_ROOT)/tools/config.h
-> -CFLAGS-$(CONFIG_SYSTEMD)  += $(SYSTEMD_CFLAGS)
-> -LDFLAGS-$(CONFIG_SYSTEMD) += $(SYSTEMD_LIBS)
->   
->   CFLAGS  += $(CFLAGS-y)
->   CFLAGS  += $(APPEND_CFLAGS)
-> diff --git a/tools/ocaml/xenstored/systemd_stubs.c b/tools/ocaml/xenstored/systemd_stubs.c
-> index f4c875075abe..7dbbdd35bf30 100644
-> --- a/tools/ocaml/xenstored/systemd_stubs.c
-> +++ b/tools/ocaml/xenstored/systemd_stubs.c
-> @@ -25,7 +25,7 @@
->   
->   #if defined(HAVE_SYSTEMD)
->   
-> -#include <systemd/sd-daemon.h>
-> +#include <xen-sd-notify.h>
->   
->   CAMLprim value ocaml_sd_notify_ready(value ignore)
->   {
-> diff --git a/tools/xenstored/Makefile b/tools/xenstored/Makefile
-> index e0897ed1ba30..09adfe1d5064 100644
-> --- a/tools/xenstored/Makefile
-> +++ b/tools/xenstored/Makefile
-> @@ -9,11 +9,6 @@ xenstored: LDLIBS += $(LDLIBS_libxenctrl)
->   xenstored: LDLIBS += -lrt
->   xenstored: LDLIBS += $(SOCKET_LIBS)
->   
-> -ifeq ($(CONFIG_SYSTEMD),y)
-> -$(XENSTORED_OBJS-y): CFLAGS += $(SYSTEMD_CFLAGS)
-> -xenstored: LDLIBS += $(SYSTEMD_LIBS)
-> -endif
-> -
->   TARGETS := xenstored
->   
->   .PHONY: all
-> diff --git a/tools/xenstored/posix.c b/tools/xenstored/posix.c
-> index d88c82d972d7..6037d739d013 100644
-> --- a/tools/xenstored/posix.c
-> +++ b/tools/xenstored/posix.c
-> @@ -27,7 +27,7 @@
->   #include <sys/socket.h>
->   #include <sys/un.h>
->   #if defined(HAVE_SYSTEMD)
-> -#include <systemd/sd-daemon.h>
-> +#include <xen-sd-notify.h>
->   #endif
->   #include <xen-tools/xenstore-common.h>
->   
-> @@ -393,7 +393,7 @@ void late_init(bool live_update)
->   #if defined(HAVE_SYSTEMD)
->   	if (!live_update) {
->   		sd_notify(1, "READY=1");
-> -		fprintf(stderr, SD_NOTICE "xenstored is ready\n");
-> +		fprintf(stderr, "xenstored is ready\n");
->   	}
->   #endif
->   }
+> Signed-off-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
+
 
 
