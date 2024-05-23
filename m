@@ -2,46 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 478D08CD09A
-	for <lists+xen-devel@lfdr.de>; Thu, 23 May 2024 12:45:53 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.728327.1133206 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C8ACE8CD0A9
+	for <lists+xen-devel@lfdr.de>; Thu, 23 May 2024 12:48:14 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.728332.1133218 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sA5wd-0007p1-1B; Thu, 23 May 2024 10:45:11 +0000
+	id 1sA5zH-0008PD-Fk; Thu, 23 May 2024 10:47:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 728327.1133206; Thu, 23 May 2024 10:45:11 +0000
+Received: by outflank-mailman (output) from mailman id 728332.1133218; Thu, 23 May 2024 10:47:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sA5wc-0007n3-Uh; Thu, 23 May 2024 10:45:10 +0000
-Received: by outflank-mailman (input) for mailman id 728327;
- Thu, 23 May 2024 10:45:08 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1sA5zH-0008M0-C2; Thu, 23 May 2024 10:47:55 +0000
+Received: by outflank-mailman (input) for mailman id 728332;
+ Thu, 23 May 2024 10:47:54 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Oh0r=M2=epam.com=prvs=18734d070d=sergiy_kibrik@srs-se1.protection.inumbo.net>)
- id 1sA5wa-0007mx-TM
- for xen-devel@lists.xenproject.org; Thu, 23 May 2024 10:45:08 +0000
-Received: from mx0a-0039f301.pphosted.com (mx0a-0039f301.pphosted.com
- [148.163.133.242]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 83647f53-18f1-11ef-b4bb-af5377834399;
- Thu, 23 May 2024 12:45:05 +0200 (CEST)
-Received: from pps.filterd (m0174679.ppops.net [127.0.0.1])
- by mx0a-0039f301.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 44N4j2vf024358;
- Thu, 23 May 2024 10:44:55 GMT
-Received: from eur04-vi1-obe.outbound.protection.outlook.com
- (mail-vi1eur04lp2051.outbound.protection.outlook.com [104.47.14.51])
- by mx0a-0039f301.pphosted.com (PPS) with ESMTPS id 3y9y23992h-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 23 May 2024 10:44:55 +0000 (GMT)
-Received: from AS8PR03MB9192.eurprd03.prod.outlook.com (2603:10a6:20b:5c0::11)
- by PR3PR03MB6586.eurprd03.prod.outlook.com (2603:10a6:102:77::16)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7611.19; Thu, 23 May
- 2024 10:44:50 +0000
-Received: from AS8PR03MB9192.eurprd03.prod.outlook.com
- ([fe80::baa9:29b3:908:ed7d]) by AS8PR03MB9192.eurprd03.prod.outlook.com
- ([fe80::baa9:29b3:908:ed7d%6]) with mapi id 15.20.7611.013; Thu, 23 May 2024
- 10:44:50 +0000
+ <SRS0=bqPc=M2=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1sA5zG-0008Lu-BS
+ for xen-devel@lists.xenproject.org; Thu, 23 May 2024 10:47:54 +0000
+Received: from mail-qv1-xf2e.google.com (mail-qv1-xf2e.google.com
+ [2607:f8b0:4864:20::f2e])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id e798a6b4-18f1-11ef-90a1-e314d9c70b13;
+ Thu, 23 May 2024 12:47:53 +0200 (CEST)
+Received: by mail-qv1-xf2e.google.com with SMTP id
+ 6a1803df08f44-6a919a4bb83so22973846d6.1
+ for <xen-devel@lists.xenproject.org>; Thu, 23 May 2024 03:47:52 -0700 (PDT)
+Received: from localhost ([213.195.114.223]) by smtp.gmail.com with ESMTPSA id
+ 6a1803df08f44-6a15f1cd271sm141335426d6.101.2024.05.23.03.47.50
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 23 May 2024 03:47:51 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -53,197 +44,593 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 83647f53-18f1-11ef-b4bb-af5377834399
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=CiZUOwIoGOYrn6LrOXYgSf14BnG3YEdMFGVqWZmJdPDxQNYsf+H4t1LGq45cwcn73zxh+A7sAcCiqbEmj2NIs5iB+P6nvVsuucn6SRVeE6MKkb0x9TIRPCxPdhJFrKb6vXNnKzxO9TBT1SL7EypqtOonRI19Ys0n05a7FObPcIiJcp/BnFZqBCAVb69ys4gs/Co8vQKQ5J09Kbrmny4IQ3SvxmdUyUq9AFjngLgbeZe/ZgAQVtk17qxM1JKZdOV6fStVdRbhdfljjW46qOM78gD9rCIqr9X65lhu1A5THlDgepZirY+Wn4obg4iMKbr4QAqO1TaPZVFd2mZVksRW5w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=kpx9T7B2+zG/EYxXkneyTPeQ0oLcp7fIPBnmPbxjrsc=;
- b=GnwhHQDfi8EgF1D+B/DFR4VbUlbjEk9TI8R6xDsv+0EhvZnTnj7IJB9s4cn6Na/+OUQLvVlkyiI8p7hkW0w3c0Lyqezk1iD8NyuO28LK5Yjzp/S17Hp95Zo3B+umr34Wo+e6La6aXON9WL2Mjjevu/Lz7GUBMiqwUffdDY5rLtv2hJQafibmT1XIoUfzBnBgqO+DEV97KWXxqkykVxDPnbVkyJLluc11XqDxbeFVPwJk8x3q2H2mGxaaFgyEF5AJho4XVnzhCT74D2jUeivGHC07NVCS6OD783R3079JjtbKOEJ9rGOc/rWIBvk0FSv4h7KHMlrdJzAIssxK4YZFtw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
- dkim=pass header.d=epam.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=kpx9T7B2+zG/EYxXkneyTPeQ0oLcp7fIPBnmPbxjrsc=;
- b=RJ5LI1s7Hi/FmP7nzx1l8suIYWgBroOTKkVJhYQpnGuzBcQAPr7sn7+O4T/bImfj5mOeRtDT3r3v8nWkz6sfxucBBMuw60HsI65h3BpmWYMB787VsBcNe4uVpRB7zKHCRIGg/6Ayb8zuAL2dkHsUOr6lc/TewF+3HJC1pow4LCQFZrBgtn1iK65/4ebf3JDt7cgYmBYC4aWxJh6x6kHckZg5ixDxbYv6pt1Jr/tszwdvByjCjCeXh6u+urCS9Mkm/51/KFE7XR6Wa8GG34rpLB4KMfveWqJPTyPP5T4d2n0l2Stq38Crit8fSGlHe8n57wpF0U+n/7CvMjNCrU3bnw==
-Message-ID: <71559cd3-c558-4f91-9c6c-227f502645d7@epam.com>
-Date: Thu, 23 May 2024 13:44:48 +0300
-User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH v2 06/15] x86/p2m: guard altp2m code with
- CONFIG_ALTP2M option
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-        =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
-        George Dunlap <george.dunlap@citrix.com>,
-        Stefano Stabellini <sstabellini@kernel.org>,
-        Xenia Ragiadakou <xenia.ragiadakou@amd.com>,
-        Tamas K Lengyel <tamas@tklengyel.com>, xen-devel@lists.xenproject.org
-References: <cover.1715761386.git.Sergiy_Kibrik@epam.com>
- <7a6980b1c67dedb306985f73afb23db359771e8f.1715761386.git.Sergiy_Kibrik@epam.com>
- <29604726-8768-4b33-a8ef-eba6ad112d44@suse.com>
-Content-Language: en-US
-From: Sergiy Kibrik <sergiy_kibrik@epam.com>
-In-Reply-To: <29604726-8768-4b33-a8ef-eba6ad112d44@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: WA1P291CA0021.POLP291.PROD.OUTLOOK.COM
- (2603:10a6:1d0:19::21) To AS8PR03MB9192.eurprd03.prod.outlook.com
- (2603:10a6:20b:5c0::11)
+X-Inumbo-ID: e798a6b4-18f1-11ef-90a1-e314d9c70b13
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1716461272; x=1717066072; darn=lists.xenproject.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=shb6PaAVO27bplQev1XIlZhGAu2ssNDgQXzls8G3qoQ=;
+        b=tye05u/X0kyG3pszIXxgaxFbZFxsQ5gzRSZh1B2Hko8+uzcGJBDV/Qwv7900vgG5+T
+         DrVtNNG/E638jQF2ZaeEHWlJhmygMl+KTM8xdmm3Wm8bmnhX5vgzV0NAd3macBx7UBLD
+         gYWsiTbw5qH7yUhgxsbU4jn0eY8lQ5Nj3Kli8=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1716461272; x=1717066072;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=shb6PaAVO27bplQev1XIlZhGAu2ssNDgQXzls8G3qoQ=;
+        b=jBiR5sA/5UkfdRLk6Z5NBgxS/ORN1BN3jySigJm3iHdAOh5CQkFNpIdAfS0ztXKcDF
+         o1i/wwE8ETjpOhIlKExrLZW4aANcVJuZRYQmuJUoCj1lCXvW73y3A0UOXtZymXeoujO3
+         98M0132lTDfKfvwF0OI0lGoGJbzw6E00ofzbH6dfVVgkVsyZEMg/mHm062pHjRwbTuUS
+         ixwJpbv9LNpGvPA5VAkrkht1wzytGluAJkFYGJ1QfMblpuD/JP0BnD+5/BUIcoe5EQQY
+         uB4LZkUmCOdFv2rl0Wuh05/wdwIDjvtEcJnd9rPDxqIsbxIK119mQxSjaoFCIyk5ZvYj
+         wB2w==
+X-Gm-Message-State: AOJu0YxzQySdBm53Rm7QQspwTJDzMso4rt24TW4GIPWANq3vWz3uLc11
+	gRHQTsH2/jlCiYmfdfDH/XVlV6HWk/MQvOBTTsUw3mloVEnbcqd5d8Hlo5e8jqc=
+X-Google-Smtp-Source: AGHT+IFWX7jzjcIJOm79SekjElAK7c6SOlxUoFlweKpFZuMzyUEqx6xsz8fLa9FsUWl+MvBOCuGeLQ==
+X-Received: by 2002:a05:6214:459d:b0:6a0:a7a9:4988 with SMTP id 6a1803df08f44-6ab7f33865fmr51063316d6.13.1716461271570;
+        Thu, 23 May 2024 03:47:51 -0700 (PDT)
+Date: Thu, 23 May 2024 12:47:49 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Alejandro Vallejo <alejandro.vallejo@cloud.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>,
+	Anthony PERARD <anthony@xenproject.org>,
+	Juergen Gross <jgross@suse.com>
+Subject: Re: [PATCH v3 2/2] tools/xg: Clean up xend-style overrides for CPU
+ policies
+Message-ID: <Zk8e1RabTi0YXCgW@macbook>
+References: <cover.1716457040.git.alejandro.vallejo@cloud.com>
+ <ae180fd606cb9a6aa0108080fe8cf7a6496a4ce3.1716457040.git.alejandro.vallejo@cloud.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AS8PR03MB9192:EE_|PR3PR03MB6586:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0243c2d3-d0f9-4e5d-f055-08dc7b155f63
-X-LD-Processed: b41b72d0-4e9f-4c26-8a69-f949f367c91d,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230031|376005|366007|1800799015;
-X-Microsoft-Antispam-Message-Info: 
-	=?utf-8?B?V1NFZndEVE0wQVEwOVdFOEdHUE12czBUeHk0VU8xRkpBR0pZT0ZsalJyUmd1?=
- =?utf-8?B?N0hZMjRhR3RUQU5TNkVLWHEvdmRYamRYL1QrRFFQRVd5UzhIbUhDV0hmT2o3?=
- =?utf-8?B?elJRQkErK2FsU29HSk9ZaXFSWGtxTzVNQnlHQWJrQkVLaE03M3QzK1dvcGd1?=
- =?utf-8?B?WnBvZllRSkorWDhiaVJjZG96WUErRjdzd1oyb3YwYUp1VHlBSEtIYmlBY3RX?=
- =?utf-8?B?cTV5TmNSZGwyelN4OWZNbS9sZHE4czZrVTU4RDgzVVhkSnVoYkRQZjh5SkpY?=
- =?utf-8?B?aFM5VmUyZjFqV2RZM3FaREJmL0pLWGc1WE81TjJLbCtWNmpDWWxoUWxXclUw?=
- =?utf-8?B?aXFZL0xXdEJpcExad1ZJcnFvb0tHdFhCalpLUjg4dWhTVkRoc2lpWEVRdmJq?=
- =?utf-8?B?SzN3aTA4bjBDUGpwRGhTN0Uwb3RJd1Uzby9HU2RkSHBpMXdyTW5pTTNPZmpt?=
- =?utf-8?B?Y3puNkFiTmZJVmQ3cW5XMzk3bVdrSDgyVVJBa1hXdTVXN2pRNXFDR3pyVkpV?=
- =?utf-8?B?eXNtczJqbkNuaVVpeE9pVVE1RnVVa3dTNWtvQzkvblhCTUQ0M1o2dzNlQWZF?=
- =?utf-8?B?QStwaE1iT1FiWWNRd0dPYUdvOFhzcnZaSDBDOWQrM2lOZVdxV0JWQi9lckUx?=
- =?utf-8?B?K0VKRHJ4SURxMDJnNmdJaG9VMEEydzRJSG9wODgzSlRnSUlTVWZZWFJDVnNC?=
- =?utf-8?B?UXh4dmg1Q3lPYXFYTWFDTUdZTjFONnQrbUc1L3EzZDl4d3BXVHgyVmh2aHgx?=
- =?utf-8?B?Mkpad2dEaW94VE9IUlJvbEx5TUlMMzVhQmQ5dlNQWEFrcmRwMWUvKzYyNzFv?=
- =?utf-8?B?STMwbGp0K3IzNTR4bTdMTUZZakJ2bG1wcCs3SEFTV3lJZ1ZpNmc4SzBwTlRn?=
- =?utf-8?B?dm1aSnBpZXVZY05YcG1KUGszbVdCZ1NZM2l3UHl3WUZNUDBzZnErTW1IRFVw?=
- =?utf-8?B?cTY2WU11K21NNHZGQ1JTb29BSnJrN3d2aU03OUlGSElKeHlSc25GalhlWHhj?=
- =?utf-8?B?cm9veVlTV0pKQURpcGxGc2hORkNpaDYvVllRNHU2NTQ5dlg2R0VvUmloeExs?=
- =?utf-8?B?MUNYWjJqNEJTbmZDa3RueWNobUZnb2piZjNqMjFGVVdvaVFKUE04ZWxiK2Rz?=
- =?utf-8?B?UjlOL2FvL09CYlVZeGVUTGx3NEZVYU5jbFhDanJvdnNYcWduaEpSWlFxeXJ6?=
- =?utf-8?B?QWg3RHB2MkdNcmk1bGszOXpGb0p2RUg1YjhHUnVOQVN4OHJpNXQycEZtVko2?=
- =?utf-8?B?WURmaS96WG1kWEFEc1djZm5EbWw3djRIcmFyQ1EwNDNhbmM0RHRjbmRGUlBE?=
- =?utf-8?B?UTM3ZGtJWEhxWGV2NlV4bVhDWkVOS0NxeDdsRnZOVjJ2a3lrdWdKanNTVVRU?=
- =?utf-8?B?bGhuMXdiNTBJMGJUNm5HeHlKdkVqcHlYNW5hbHJ2QXk0NnFoUFJVSUppU256?=
- =?utf-8?B?VVNpcDFlTVBVTVQxaTA0UVpIblA2ZlFGeE1hY3p0ck9wNXI1MmxqYzJOR1ZP?=
- =?utf-8?B?WmxJRnc2WDFoUG40OFJ4Z2l4VVM1ejJXWERnMTJDaGxsRmFaYUtXOHNsZUlT?=
- =?utf-8?B?V3pSOGxndUYybDM0MktGSWhKNmNqcHE1OGlHTDkzQXJrMTIvR1dHSGhudXN6?=
- =?utf-8?B?MjY5dmpjQ1pBdVdncWlGeWdUOXRvSEhGSC9FbWJmQUNGN0pWWWplc29FTnhK?=
- =?utf-8?B?R3dLL0VIeXJzTHRQNVZRdXBFOVZKeVpkNldSRGhwVUMwRys0OTNqb2hRPT0=?=
-X-Forefront-Antispam-Report: 
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS8PR03MB9192.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(376005)(366007)(1800799015);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 
-	=?utf-8?B?QWpQWmgxRUhMbWl1NHl3RmxpRDMySDgvUll1Z0l1dURsVUZQcWwrUitScHp2?=
- =?utf-8?B?SUtPekVhOXh2QzRqQ0lNTnNnK2M0N2ZVR3R3d0t1bTdTT3F3NFpwRWFHenpK?=
- =?utf-8?B?dTJ2QXZ6S0cxYkZHcXBrRkZ5aUpFemtHcHdyR1lxVFZsSGxtZzNmbGdiQnhV?=
- =?utf-8?B?ejhBVDg2cGhiUVEwQWpGN3F0S2ZEa2JjaCt5dlp1MjRMc2JEL0c4TGFzQi9k?=
- =?utf-8?B?TGpseVQ3b1d1NHNhbEdzNTMrTFV0TXBCSzVWQTdkTkZvV01XK3hST2IzNVNr?=
- =?utf-8?B?M3QvQ0N2Mk12eVF1S0Z4Z0RqcXFpVy9mOHBlR1AzV1N3VTZRWHYyTE81L2Zs?=
- =?utf-8?B?K2tickwxbUZJakVEUTVRNzBTUEVYZEl0OVJxZTZqTXlWU0doSmYyOU10ME1z?=
- =?utf-8?B?YzJmMjUvUjZSbFlDUkFVVGpKaEZhaGc0QXhiRGtwVzFkSnZwb1VrY1hscWp2?=
- =?utf-8?B?dVFXSGlxT2d4UFhTOTJ3Yk5RaXNaZHdtV1hpVFk3dW5yck1uRWVpU0RWYzBG?=
- =?utf-8?B?RkxYS0pGSEJuZ1Eza1hKaDRQK3VEbnBYTFZFV0JUbG5GaU9mTitrTEJnTG5F?=
- =?utf-8?B?M2tXWCtobXpNMFJDU2JLY2YrYW81WGQrbWk3c2psb3JkYnp5cmQ4OWJ0eXZp?=
- =?utf-8?B?L3hVRjJ1aHBFYTJaTEhSeEFBWnpUb2lCYVd5NHNyZ1ZNeUZCMnF1OHZTMGM5?=
- =?utf-8?B?Q1Y4a3hOYytPTkRRbG5PbU4zMHl6eURKeWdWSXdEYllzek4wWld6UFNLR1JG?=
- =?utf-8?B?eHF1R0s3Y2g1d00vLysvKzNsRWRyc1E5dGhETHRpSEhCb1Z2bHA1bTc2L1pv?=
- =?utf-8?B?VUxLQjJpdkI1U3NvaGhmS3laZkVDdFBvL1ZvWkF5MzhYdGNMZnQxVm5oOVBS?=
- =?utf-8?B?eFg4Y2ZFcjFrV3pjMkgzd29jdTdYUUR3K2FOTCtRRCtaWm5qM3pEd0QwVzNt?=
- =?utf-8?B?SUE1dGZHenE4Sit2T0t3M2p0cElkMS92RHIvU3lQajlSOEFyKy91UXFkU21I?=
- =?utf-8?B?UVZiTXQ1UlczRDVKMGVVZ25PaXVBOURLMzVWdkUvMzhOM2l2aGQ4YUZSQTlR?=
- =?utf-8?B?VVpCL0VWb2FJUmtLeXRPNS9NTXQwNkRKUm9pZTRtTTRURHFId3IrcnBhUUYy?=
- =?utf-8?B?RFFSS1prNTJkb0p6d0tYbCt4T1NLaGV2TXAySy9BRExuS0twSWNuMzBIK05p?=
- =?utf-8?B?L2hXWWR6Vm5welNKZWxwNDFXei81RDNQTEZ4QWJPL2hWWGdvZWxlb2dDbytM?=
- =?utf-8?B?am1QYzVWWnFKUmJlc3ByMnRUV21mVzR5djNxU1NsMkFJS0UrcFhVSFdwQmVp?=
- =?utf-8?B?bVpxd011OExNUzBabnNUNzFieHlDdUJnUllubnVLWHhqb05yVENtQTVqTFNF?=
- =?utf-8?B?L3pHR1pSMFNGOGQ5SUEyOUlLOGZMNHcrell5aDlUaXNJOUNhWWVmT3ptNHBF?=
- =?utf-8?B?MnZuVUlFT2JDVW1NeWRkVWpEdmQ1ZU5OcnVwMzhjb2NucEVhMWpxSEhRcEZl?=
- =?utf-8?B?aFFPRjNtUERxYzlpRDdWRVA2T0VZcUIvRGRWWjljcXJyMTBNS2t3TkxIL0Fn?=
- =?utf-8?B?dmVranhWenQveWxlNVl5WTJlek1EZFdTQzd4bFB0bkd6ZGJCN3MrUWs4azcw?=
- =?utf-8?B?MjdZdmRSN01jREdOVHMxVllSOVBOa1VEbm9FN0R4a3BreHRlVVhNNkJPdk50?=
- =?utf-8?B?V3ZIWmlDYXBPYXlGRlpWR0hvbXJPc2psZVVlcGZOVHlzYVFVcUJaTzlsTzYz?=
- =?utf-8?B?cEZiVHZKV0dYYmN1MWRCOG9pVTZDbENBcWs3MmV0Yzh0ZTVuUkZPaWR4VEx5?=
- =?utf-8?B?MGIyTS80NlRJQmtmZVVWZ0YvZnQrMVJUQWlRbFJhUFhsRnRIOG1iRTZmelY4?=
- =?utf-8?B?Q201MVFRNml0S25KTVUwdWlMWkhmVCsxZ0t3WHJwWkk0U3VVWGtxanpHNXd4?=
- =?utf-8?B?NzRXZW5kRmwvZWhoY2Z2MWVmS0V6aEIzRnN5MnpaK2FHS0t4MnBLaGhMRUxk?=
- =?utf-8?B?QTdSeEZPYkJqdEQvMjc5UlhDcHpSTHRESDd5dlZrT0g2SDdQMzBPUTV6OEY5?=
- =?utf-8?B?bGxMNlhGRndTaFlmektROHVpOE5xNzVxOEhpTlVEQmkzcVdPUDROdEtLdVYz?=
- =?utf-8?B?WmdYRUsrSzd6Q2Y2bEJFeG9GaDRFRXNnZ1BHemp6cndyb0gwWk5CSHZMbXh5?=
- =?utf-8?B?enc9PQ==?=
-X-OriginatorOrg: epam.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0243c2d3-d0f9-4e5d-f055-08dc7b155f63
-X-MS-Exchange-CrossTenant-AuthSource: AS8PR03MB9192.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 May 2024 10:44:50.6032
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: bOIKGDpzc+VzjAaklzy5i2zE4YCyfFkL0e5/fhgwEmJ0vn77O5nvvulJ6h7Y1hf9bMGlKpTVb8Jzft+rkcv38A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PR3PR03MB6586
-X-Proofpoint-ORIG-GUID: ZXXXPLTu2_ow3eO4jBR6T21HEsD97b6F
-X-Proofpoint-GUID: ZXXXPLTu2_ow3eO4jBR6T21HEsD97b6F
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.650,FMLib:17.12.28.16
- definitions=2024-05-23_05,2024-05-23_01,2024-05-17_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 priorityscore=1501
- bulkscore=0 spamscore=0 mlxscore=0 adultscore=0 lowpriorityscore=0
- impostorscore=0 malwarescore=0 phishscore=0 suspectscore=0 mlxlogscore=999
- clxscore=1011 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2405010000 definitions=main-2405230072
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <ae180fd606cb9a6aa0108080fe8cf7a6496a4ce3.1716457040.git.alejandro.vallejo@cloud.com>
 
-16.05.24 14:01, Jan Beulich:
-> On 15.05.2024 11:10, Sergiy Kibrik wrote:
->> @@ -38,7 +38,10 @@ static inline bool altp2m_active(const struct domain *d)
->>   }
->>   
->>   /* Only declaration is needed. DCE will optimise it out when linking. */
->> +void altp2m_vcpu_initialise(struct vcpu *v);
->> +void altp2m_vcpu_destroy(struct vcpu *v);
->>   uint16_t altp2m_vcpu_idx(const struct vcpu *v);
->> +int altp2m_vcpu_enable_ve(struct vcpu *v, gfn_t gfn);
->>   void altp2m_vcpu_disable_ve(struct vcpu *v);
+On Thu, May 23, 2024 at 10:41:30AM +0100, Alejandro Vallejo wrote:
+> Factor out policy getters/setters from both (CPUID and MSR) policy override
+> functions. Additionally, use host policy rather than featureset when
+> preparing the cur policy, saving one hypercall and several lines of
+> boilerplate.
 > 
-> These additions look unrelated, as long as the description says nothing in
-> this regard.
-
-agree, I'll update description on why these declarations are added
-
+> No functional change intended.
 > 
->> --- a/xen/arch/x86/include/asm/hvm/hvm.h
->> +++ b/xen/arch/x86/include/asm/hvm/hvm.h
->> @@ -670,7 +670,7 @@ static inline bool hvm_hap_supported(void)
->>   /* returns true if hardware supports alternate p2m's */
->>   static inline bool hvm_altp2m_supported(void)
->>   {
->> -    return hvm_funcs.caps.altp2m;
->> +    return IS_ENABLED(CONFIG_ALTP2M) && hvm_funcs.caps.altp2m;
+> Signed-off-by: Alejandro Vallejo <alejandro.vallejo@cloud.com>
+> ---
+> v3:
+>   * Restored overscoped loop indices
+>   * Split long line in conditional
+> ---
+>  tools/libs/guest/xg_cpuid_x86.c | 438 ++++++++++----------------------
+>  1 file changed, 131 insertions(+), 307 deletions(-)
 > 
-> Which in turn raises the question whether the altp2m struct field shouldn't
-> become conditional upon CONFIG_ALTP2M too (or rather: instead, as the change
-> here then would need to be done differently). Yet maybe that would entail
-> further changes elsewhere, so may well better be left for later.
-> 
+> diff --git a/tools/libs/guest/xg_cpuid_x86.c b/tools/libs/guest/xg_cpuid_x86.c
+> index 4f4b86b59470..1e631fd46d2f 100644
+> --- a/tools/libs/guest/xg_cpuid_x86.c
+> +++ b/tools/libs/guest/xg_cpuid_x86.c
+> @@ -36,6 +36,34 @@ enum {
+>  #define bitmaskof(idx)      (1u << ((idx) & 31))
+>  #define featureword_of(idx) ((idx) >> 5)
+>  
+> +static int deserialize_policy(xc_interface *xch, xc_cpu_policy_t *policy)
+> +{
+> +    uint32_t err_leaf = -1, err_subleaf = -1, err_msr = -1;
+> +    int rc;
+> +
+> +    rc = x86_cpuid_copy_from_buffer(&policy->policy, policy->leaves,
+> +                                    policy->nr_leaves, &err_leaf, &err_subleaf);
+> +    if ( rc )
+> +    {
+> +        if ( err_leaf != -1 )
+> +            ERROR("Failed to deserialise CPUID (err leaf %#x, subleaf %#x) (%d = %s)",
+> +                  err_leaf, err_subleaf, -rc, strerror(-rc));
+> +        return rc;
+> +    }
+> +
+> +    rc = x86_msr_copy_from_buffer(&policy->policy, policy->msrs,
+> +                                  policy->nr_msrs, &err_msr);
+> +    if ( rc )
+> +    {
+> +        if ( err_msr != -1 )
+> +            ERROR("Failed to deserialise MSR (err MSR %#x) (%d = %s)",
+> +                  err_msr, -rc, strerror(-rc));
+> +        return rc;
+> +    }
+> +
+> +    return 0;
+> +}
+> +
+>  int xc_get_cpu_levelling_caps(xc_interface *xch, uint32_t *caps)
+>  {
+>      struct xen_sysctl sysctl = {};
+> @@ -260,102 +288,37 @@ static int compare_leaves(const void *l, const void *r)
+>      return 0;
+>  }
+>  
+> -static xen_cpuid_leaf_t *find_leaf(
+> -    xen_cpuid_leaf_t *leaves, unsigned int nr_leaves,
+> -    const struct xc_xend_cpuid *xend)
+> +static xen_cpuid_leaf_t *find_leaf(xc_cpu_policy_t *p,
+> +                                   const struct xc_xend_cpuid *xend)
+>  {
+>      const xen_cpuid_leaf_t key = { xend->leaf, xend->subleaf };
+>  
+> -    return bsearch(&key, leaves, nr_leaves, sizeof(*leaves), compare_leaves);
+> +    return bsearch(&key, p->leaves, ARRAY_SIZE(p->leaves),
 
-  but hvm_funcs.caps.altp2m is only a capability bit -- is it worth to 
-become conditional?
+Don't you need to use p->nr_leaves here, as otherwise we could check
+against possibly uninitialized leaves (or leaves with stale data)?
 
->> --- a/xen/arch/x86/mm/Makefile
->> +++ b/xen/arch/x86/mm/Makefile
->> @@ -1,7 +1,7 @@
->>   obj-y += shadow/
->>   obj-$(CONFIG_HVM) += hap/
->>   
->> -obj-$(CONFIG_HVM) += altp2m.o
->> +obj-$(CONFIG_ALTP2M) += altp2m.o
-> 
-> This change I think wants to move to patch 5.
-> 
+> +                   sizeof(*p->leaves), compare_leaves);
+>  }
+>  
+> -static int xc_cpuid_xend_policy(
+> -    xc_interface *xch, uint32_t domid, const struct xc_xend_cpuid *xend)
+> +static int xc_cpuid_xend_policy(xc_interface *xch, uint32_t domid,
+> +                                const struct xc_xend_cpuid *xend,
+> +                                xc_cpu_policy_t *host,
+> +                                xc_cpu_policy_t *def,
+> +                                xc_cpu_policy_t *cur)
+>  {
+> -    int rc;
+> -    bool hvm;
+> -    xc_domaininfo_t di;
+> -    unsigned int nr_leaves, nr_msrs;
+> -    uint32_t err_leaf = -1, err_subleaf = -1, err_msr = -1;
+> -    /*
+> -     * Three full policies.  The host, default for the domain type,
+> -     * and domain current.
+> -     */
+> -    xen_cpuid_leaf_t *host = NULL, *def = NULL, *cur = NULL;
+> -    unsigned int nr_host, nr_def, nr_cur;
+> -
+> -    if ( (rc = xc_domain_getinfo_single(xch, domid, &di)) < 0 )
+> -    {
+> -        PERROR("Failed to obtain d%d info", domid);
+> -        rc = -errno;
+> -        goto fail;
+> -    }
+> -    hvm = di.flags & XEN_DOMINF_hvm_guest;
+> -
+> -    rc = xc_cpu_policy_get_size(xch, &nr_leaves, &nr_msrs);
+> -    if ( rc )
+> -    {
+> -        PERROR("Failed to obtain policy info size");
+> -        rc = -errno;
+> -        goto fail;
+> -    }
+> -
+> -    rc = -ENOMEM;
+> -    if ( (host = calloc(nr_leaves, sizeof(*host))) == NULL ||
+> -         (def  = calloc(nr_leaves, sizeof(*def)))  == NULL ||
+> -         (cur  = calloc(nr_leaves, sizeof(*cur)))  == NULL )
+> -    {
+> -        ERROR("Unable to allocate memory for %u CPUID leaves", nr_leaves);
+> -        goto fail;
+> -    }
+> -
+> -    /* Get the domain's current policy. */
+> -    nr_msrs = 0;
+> -    nr_cur = nr_leaves;
+> -    rc = get_domain_cpu_policy(xch, domid, &nr_cur, cur, &nr_msrs, NULL);
+> -    if ( rc )
+> -    {
+> -        PERROR("Failed to obtain d%d current policy", domid);
+> -        rc = -errno;
+> -        goto fail;
+> -    }
+> +    if ( !xend )
+> +        return 0;
+>  
+> -    /* Get the domain type's default policy. */
+> -    nr_msrs = 0;
+> -    nr_def = nr_leaves;
+> -    rc = get_system_cpu_policy(xch, hvm ? XEN_SYSCTL_cpu_policy_hvm_default
+> -                                        : XEN_SYSCTL_cpu_policy_pv_default,
+> -                               &nr_def, def, &nr_msrs, NULL);
+> -    if ( rc )
+> -    {
+> -        PERROR("Failed to obtain %s def policy", hvm ? "hvm" : "pv");
+> -        rc = -errno;
+> -        goto fail;
+> -    }
+> +    if ( !host || !def || !cur )
+> +        return -EINVAL;
+>  
+> -    /* Get the host policy. */
+> -    nr_msrs = 0;
+> -    nr_host = nr_leaves;
+> -    rc = get_system_cpu_policy(xch, XEN_SYSCTL_cpu_policy_host,
+> -                               &nr_host, host, &nr_msrs, NULL);
+> -    if ( rc )
+> -    {
+> -        PERROR("Failed to obtain host policy");
+> -        rc = -errno;
+> -        goto fail;
+> -    }
+> -
+> -    rc = -EINVAL;
+>      for ( ; xend->leaf != XEN_CPUID_INPUT_UNUSED; ++xend )
+>      {
+> -        xen_cpuid_leaf_t *cur_leaf = find_leaf(cur, nr_cur, xend);
+> -        const xen_cpuid_leaf_t *def_leaf = find_leaf(def, nr_def, xend);
+> -        const xen_cpuid_leaf_t *host_leaf = find_leaf(host, nr_host, xend);
+> +        xen_cpuid_leaf_t *cur_leaf = find_leaf(cur, xend);
+> +        const xen_cpuid_leaf_t *def_leaf = find_leaf(def, xend);
+> +        const xen_cpuid_leaf_t *host_leaf = find_leaf(host, xend);
+>  
+>          if ( cur_leaf == NULL || def_leaf == NULL || host_leaf == NULL )
+>          {
+>              ERROR("Missing leaf %#x, subleaf %#x", xend->leaf, xend->subleaf);
+> -            goto fail;
+> +            return -EINVAL;
+>          }
+>  
+>          for ( unsigned int i = 0; i < ARRAY_SIZE(xend->policy); i++ )
+> @@ -384,7 +347,7 @@ static int xc_cpuid_xend_policy(
+>                  {
+>                      ERROR("Bad character '%c' in policy[%d] string '%s'",
+>                            xend->policy[i][j], i, xend->policy[i]);
+> -                    goto fail;
+> +                    return -EINVAL;
+>                  }
+>  
+>                  clear_bit(31 - j, cur_reg);
+> @@ -394,25 +357,7 @@ static int xc_cpuid_xend_policy(
+>          }
+>      }
+>  
+> -    /* Feed the transformed currrent policy back up to Xen. */
+> -    rc = xc_set_domain_cpu_policy(xch, domid, nr_cur, cur, 0, NULL,
+> -                                  &err_leaf, &err_subleaf, &err_msr);
+> -    if ( rc )
+> -    {
+> -        PERROR("Failed to set d%d's policy (err leaf %#x, subleaf %#x, msr %#x)",
+> -               domid, err_leaf, err_subleaf, err_msr);
+> -        rc = -errno;
+> -        goto fail;
+> -    }
+> -
+> -    /* Success! */
+> -
+> - fail:
+> -    free(cur);
+> -    free(def);
+> -    free(host);
+> -
+> -    return rc;
+> +    return 0;
+>  }
+>  
+>  static int compare_msr(const void *l, const void *r)
+> @@ -426,104 +371,38 @@ static int compare_msr(const void *l, const void *r)
+>      return lhs->idx < rhs->idx ? -1 : 1;
+>  }
+>  
+> -static xen_msr_entry_t *find_msr(
+> -    xen_msr_entry_t *msrs, unsigned int nr_msrs,
+> -    uint32_t index)
+> +static xen_msr_entry_t *find_msr(xc_cpu_policy_t *p,
+> +                                 uint32_t index)
+>  {
+>      const xen_msr_entry_t key = { .idx = index };
+>  
+> -    return bsearch(&key, msrs, nr_msrs, sizeof(*msrs), compare_msr);
+> +    return bsearch(&key, p->msrs, ARRAY_SIZE(p->msrs),
 
-If this moves to patch 5 then HVM=y && ALTP2M=n configuration 
-combination will break the build in between patch 5 and 6, so I've 
-decided to put it together with fixes of these build failures in patch 6.
-Maybe I can merge patch 5 & 6 together then ?
+Same comment here regarding the usage of ARRAY_SIZE instead of
+p->nr_msrs.
 
-   -Sergiy
+> +                   sizeof(*p->msrs), compare_msr);
+>  }
+>  
+> -
+>  static int xc_msr_policy(xc_interface *xch, domid_t domid,
+> -                         const struct xc_msr *msr)
+> +                         const struct xc_msr *msr,
+> +                         xc_cpu_policy_t *host,
+> +                         xc_cpu_policy_t *def,
+> +                         xc_cpu_policy_t *cur)
+>  {
+> -    int rc;
+> -    bool hvm;
+> -    xc_domaininfo_t di;
+> -    unsigned int nr_leaves, nr_msrs;
+> -    uint32_t err_leaf = -1, err_subleaf = -1, err_msr = -1;
+> -    /*
+> -     * Three full policies.  The host, default for the domain type,
+> -     * and domain current.
+> -     */
+> -    xen_msr_entry_t *host = NULL, *def = NULL, *cur = NULL;
+> -    unsigned int nr_host, nr_def, nr_cur;
+> -
+> -    if ( (rc = xc_domain_getinfo_single(xch, domid, &di)) < 0 )
+> -    {
+> -        PERROR("Failed to obtain d%d info", domid);
+> -        rc = -errno;
+> -        goto out;
+> -    }
+> -    hvm = di.flags & XEN_DOMINF_hvm_guest;
+> -
+> -    rc = xc_cpu_policy_get_size(xch, &nr_leaves, &nr_msrs);
+> -    if ( rc )
+> -    {
+> -        PERROR("Failed to obtain policy info size");
+> -        rc = -errno;
+> -        goto out;
+> -    }
+> -
+> -    if ( (host = calloc(nr_msrs, sizeof(*host))) == NULL ||
+> -         (def  = calloc(nr_msrs, sizeof(*def)))  == NULL ||
+> -         (cur  = calloc(nr_msrs, sizeof(*cur)))  == NULL )
+> -    {
+> -        ERROR("Unable to allocate memory for %u CPUID leaves", nr_leaves);
+> -        rc = -ENOMEM;
+> -        goto out;
+> -    }
+> -
+> -    /* Get the domain's current policy. */
+> -    nr_leaves = 0;
+> -    nr_cur = nr_msrs;
+> -    rc = get_domain_cpu_policy(xch, domid, &nr_leaves, NULL, &nr_cur, cur);
+> -    if ( rc )
+> -    {
+> -        PERROR("Failed to obtain d%d current policy", domid);
+> -        rc = -errno;
+> -        goto out;
+> -    }
+> -
+> -    /* Get the domain type's default policy. */
+> -    nr_leaves = 0;
+> -    nr_def = nr_msrs;
+> -    rc = get_system_cpu_policy(xch, hvm ? XEN_SYSCTL_cpu_policy_hvm_default
+> -                                        : XEN_SYSCTL_cpu_policy_pv_default,
+> -                               &nr_leaves, NULL, &nr_def, def);
+> -    if ( rc )
+> -    {
+> -        PERROR("Failed to obtain %s def policy", hvm ? "hvm" : "pv");
+> -        rc = -errno;
+> -        goto out;
+> -    }
+> +    if ( !msr )
+> +        return 0;
+>  
+> -    /* Get the host policy. */
+> -    nr_leaves = 0;
+> -    nr_host = nr_msrs;
+> -    rc = get_system_cpu_policy(xch, XEN_SYSCTL_cpu_policy_host,
+> -                               &nr_leaves, NULL, &nr_host, host);
+> -    if ( rc )
+> -    {
+> -        PERROR("Failed to obtain host policy");
+> -        rc = -errno;
+> -        goto out;
+> -    }
+> +    if ( !host || !def || !cur )
+> +        return -EINVAL;
+>  
+>      for ( ; msr->index != XC_MSR_INPUT_UNUSED; ++msr )
+>      {
+> -        xen_msr_entry_t *cur_msr = find_msr(cur, nr_cur, msr->index);
+> -        const xen_msr_entry_t *def_msr = find_msr(def, nr_def, msr->index);
+> -        const xen_msr_entry_t *host_msr = find_msr(host, nr_host, msr->index);
+>          unsigned int i;
+> +        xen_msr_entry_t *cur_msr = find_msr(cur, msr->index);
+> +        const xen_msr_entry_t *def_msr = find_msr(def, msr->index);
+> +        const xen_msr_entry_t *host_msr = find_msr(host, msr->index);
+>  
+>          if ( cur_msr == NULL || def_msr == NULL || host_msr == NULL )
+>          {
+>              ERROR("Missing MSR %#x", msr->index);
+> -            rc = -ENOENT;
+> -            goto out;
+> +            return -ENOENT;
+>          }
+>  
+>          for ( i = 0; i < ARRAY_SIZE(msr->policy) - 1; i++ )
+> @@ -542,8 +421,7 @@ static int xc_msr_policy(xc_interface *xch, domid_t domid,
+>              {
+>                  ERROR("MSR index %#x: bad character '%c' in policy string '%s'",
+>                        msr->index, msr->policy[i], msr->policy);
+> -                rc = -EINVAL;
+> -                goto out;
+> +                return -EINVAL;
+>              }
+>  
+>              if ( val )
+> @@ -553,25 +431,7 @@ static int xc_msr_policy(xc_interface *xch, domid_t domid,
+>          }
+>      }
+>  
+> -    /* Feed the transformed policy back up to Xen. */
+> -    rc = xc_set_domain_cpu_policy(xch, domid, 0, NULL, nr_cur, cur,
+> -                                  &err_leaf, &err_subleaf, &err_msr);
+> -    if ( rc )
+> -    {
+> -        PERROR("Failed to set d%d's policy (err leaf %#x, subleaf %#x, msr %#x)",
+> -               domid, err_leaf, err_subleaf, err_msr);
+> -        rc = -errno;
+> -        goto out;
+> -    }
+> -
+> -    /* Success! */
+> -
+> - out:
+> -    free(cur);
+> -    free(def);
+> -    free(host);
+> -
+> -    return rc;
+> +    return 0;
+>  }
+>  
+>  int xc_cpuid_apply_policy(xc_interface *xch, uint32_t domid, bool restore,
+> @@ -583,14 +443,17 @@ int xc_cpuid_apply_policy(xc_interface *xch, uint32_t domid, bool restore,
+>      int rc;
+>      bool hvm;
+>      xc_domaininfo_t di;
+> -    struct xc_cpu_policy *p = xc_cpu_policy_init();
+> -    unsigned int i, nr_leaves = ARRAY_SIZE(p->leaves), nr_msrs = 0;
+> -    uint32_t err_leaf = -1, err_subleaf = -1, err_msr = -1;
+> -    uint32_t host_featureset[FEATURESET_NR_ENTRIES] = {};
+> -    uint32_t len = ARRAY_SIZE(host_featureset);
+> +    unsigned int i;
+>  
+> -    if ( !p )
+> -        return -ENOMEM;
+> +    struct xc_cpu_policy *host = xc_cpu_policy_init();
+> +    struct xc_cpu_policy *def = xc_cpu_policy_init();
+> +    struct xc_cpu_policy *cur = xc_cpu_policy_init();
+> +
+> +    if ( !host || !def || !cur )
+> +    {
+> +        rc = -ENOMEM;
+> +        goto out;
+> +    }
+>  
+>      if ( (rc = xc_domain_getinfo_single(xch, domid, &di)) < 0 )
+>      {
+> @@ -600,21 +463,19 @@ int xc_cpuid_apply_policy(xc_interface *xch, uint32_t domid, bool restore,
+>      }
+>      hvm = di.flags & XEN_DOMINF_hvm_guest;
+>  
+> -    /* Get the host policy. */
+> -    rc = xc_get_cpu_featureset(xch, XEN_SYSCTL_cpu_featureset_host,
+> -                               &len, host_featureset);
+> -    /* Tolerate "buffer too small", as we've got the bits we need. */
+> -    if ( rc && errno != ENOBUFS )
+> +    /* Get the raw host policy */
+> +    rc = xc_cpu_policy_get_system(xch, XEN_SYSCTL_cpu_policy_host, host);
+> +    if ( rc )
+>      {
+> -        PERROR("Failed to obtain host featureset");
+> +        PERROR("Failed to obtain host policy");
+>          rc = -errno;
+>          goto out;
+>      }
+>  
+>      /* Get the domain's default policy. */
+> -    rc = get_system_cpu_policy(xch, hvm ? XEN_SYSCTL_cpu_policy_hvm_default
+> -                                        : XEN_SYSCTL_cpu_policy_pv_default,
+> -                               &nr_leaves, p->leaves, &nr_msrs, NULL);
+> +    rc = xc_cpu_policy_get_system(xch, hvm ? XEN_SYSCTL_cpu_policy_hvm_default
+> +                                           : XEN_SYSCTL_cpu_policy_pv_default,
+> +                                  def);
+>      if ( rc )
+>      {
+>          PERROR("Failed to obtain %s default policy", hvm ? "hvm" : "pv");
+> @@ -622,14 +483,8 @@ int xc_cpuid_apply_policy(xc_interface *xch, uint32_t domid, bool restore,
+>          goto out;
+>      }
+>  
+> -    rc = x86_cpuid_copy_from_buffer(&p->policy, p->leaves, nr_leaves,
+> -                                    &err_leaf, &err_subleaf);
+> -    if ( rc )
+> -    {
+> -        ERROR("Failed to deserialise CPUID (err leaf %#x, subleaf %#x) (%d = %s)",
+> -              err_leaf, err_subleaf, -rc, strerror(-rc));
+> -        goto out;
+> -    }
+> +    /* Copy the deserialised default policy to modify it */
+> +    memcpy(cur, def, sizeof(*cur));
+>  
+>      if ( restore )
+>      {
+> @@ -647,18 +502,18 @@ int xc_cpuid_apply_policy(xc_interface *xch, uint32_t domid, bool restore,
+>           * - Re-enable features which have become (possibly) off by default.
+>           */
+>  
+> -        p->policy.basic.rdrand = test_bit(X86_FEATURE_RDRAND, host_featureset);
+> -        p->policy.feat.hle = test_bit(X86_FEATURE_HLE, host_featureset);
+> -        p->policy.feat.rtm = test_bit(X86_FEATURE_RTM, host_featureset);
+> +        cur->policy.basic.rdrand = host->policy.basic.rdrand;
+> +        cur->policy.feat.hle = host->policy.feat.hle;
+> +        cur->policy.feat.rtm = host->policy.feat.rtm;
+>  
+>          if ( hvm )
+>          {
+> -            p->policy.feat.mpx = test_bit(X86_FEATURE_MPX, host_featureset);
+> +            cur->policy.feat.mpx = host->policy.feat.mpx;
+>          }
+>  
+> -        p->policy.basic.max_leaf = min(p->policy.basic.max_leaf, 0xdu);
+> -        p->policy.feat.max_subleaf = 0;
+> -        p->policy.extd.max_leaf = min(p->policy.extd.max_leaf, 0x8000001c);
+> +        cur->policy.basic.max_leaf = min(cur->policy.basic.max_leaf, 0xdu);
+> +        cur->policy.feat.max_subleaf = 0;
+> +        cur->policy.extd.max_leaf = min(cur->policy.extd.max_leaf, 0x8000001c);
+>      }
+>  
+>      if ( featureset )
+> @@ -702,17 +557,17 @@ int xc_cpuid_apply_policy(xc_interface *xch, uint32_t domid, bool restore,
+>              }
+>          }
+>  
+> -        x86_cpu_featureset_to_policy(feat, &p->policy);
+> +        x86_cpu_featureset_to_policy(feat, &cur->policy);
+>      }
+>      else
+>      {
+> -        p->policy.extd.itsc = itsc;
+> +        cur->policy.extd.itsc = itsc;
+>  
+>          if ( hvm )
+>          {
+> -            p->policy.basic.pae = pae;
+> -            p->policy.basic.vmx = nested_virt;
+> -            p->policy.extd.svm = nested_virt;
+> +            cur->policy.basic.pae = pae;
+> +            cur->policy.basic.vmx = nested_virt;
+> +            cur->policy.extd.svm = nested_virt;
+>          }
+>      }
+>  
+> @@ -722,8 +577,8 @@ int xc_cpuid_apply_policy(xc_interface *xch, uint32_t domid, bool restore,
+>           * On hardware without CPUID Faulting, PV guests see real topology.
+>           * As a consequence, they also need to see the host htt/cmp fields.
+>           */
+> -        p->policy.basic.htt       = test_bit(X86_FEATURE_HTT, host_featureset);
+> -        p->policy.extd.cmp_legacy = test_bit(X86_FEATURE_CMP_LEGACY, host_featureset);
+> +        cur->policy.basic.htt       = host->policy.basic.htt;
+> +        cur->policy.extd.cmp_legacy = host->policy.extd.cmp_legacy;
+>      }
+>      else
+>      {
+> @@ -731,28 +586,28 @@ int xc_cpuid_apply_policy(xc_interface *xch, uint32_t domid, bool restore,
+>           * Topology for HVM guests is entirely controlled by Xen.  For now, we
+>           * hardcode APIC_ID = vcpu_id * 2 to give the illusion of no SMT.
+>           */
+> -        p->policy.basic.htt = true;
+> -        p->policy.extd.cmp_legacy = false;
+> +        cur->policy.basic.htt = true;
+> +        cur->policy.extd.cmp_legacy = false;
+>  
+>          /*
+>           * Leaf 1 EBX[23:16] is Maximum Logical Processors Per Package.
+>           * Update to reflect vLAPIC_ID = vCPU_ID * 2, but make sure to avoid
+>           * overflow.
+>           */
+> -        if ( !p->policy.basic.lppp )
+> -            p->policy.basic.lppp = 2;
+> -        else if ( !(p->policy.basic.lppp & 0x80) )
+> -            p->policy.basic.lppp *= 2;
+> +        if ( !cur->policy.basic.lppp )
+> +            cur->policy.basic.lppp = 2;
+> +        else if ( !(cur->policy.basic.lppp & 0x80) )
+> +            cur->policy.basic.lppp *= 2;
+>  
+> -        switch ( p->policy.x86_vendor )
+> +        switch ( cur->policy.x86_vendor )
+>          {
+>          case X86_VENDOR_INTEL:
+> -            for ( i = 0; (p->policy.cache.subleaf[i].type &&
+> -                          i < ARRAY_SIZE(p->policy.cache.raw)); ++i )
+> +            for ( i = 0; (cur->policy.cache.subleaf[i].type &&
+> +                                i < ARRAY_SIZE(cur->policy.cache.raw)); ++i )
+
+Nit: indentation is weird here.  I would use:
+
+            for ( i = 0; cur->policy.cache.subleaf[i].type &&
+                         i < ARRAY_SIZE(cur->policy.cache.raw); ++i )
+
+Thanks, Roger.
 
