@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 948E28CDC6F
-	for <lists+xen-devel@lfdr.de>; Thu, 23 May 2024 23:56:18 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.728888.1133958 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7AC968CDCED
+	for <lists+xen-devel@lfdr.de>; Fri, 24 May 2024 00:42:59 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.728902.1133979 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sAGP6-00024a-Dr; Thu, 23 May 2024 21:55:16 +0000
+	id 1sAH8e-0008Vj-S4; Thu, 23 May 2024 22:42:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 728888.1133958; Thu, 23 May 2024 21:55:16 +0000
+Received: by outflank-mailman (output) from mailman id 728902.1133979; Thu, 23 May 2024 22:42:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sAGP6-00022m-At; Thu, 23 May 2024 21:55:16 +0000
-Received: by outflank-mailman (input) for mailman id 728888;
- Thu, 23 May 2024 21:55:14 +0000
+	id 1sAH8e-0008UC-Oi; Thu, 23 May 2024 22:42:20 +0000
+Received: by outflank-mailman (input) for mailman id 728902;
+ Thu, 23 May 2024 22:42:18 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1sAGP4-00022g-Pb
- for xen-devel@lists.xenproject.org; Thu, 23 May 2024 21:55:14 +0000
+ (envelope-from <julien@xen.org>) id 1sAH8c-0008U6-HV
+ for xen-devel@lists.xenproject.org; Thu, 23 May 2024 22:42:18 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1sAGP4-00071t-C4; Thu, 23 May 2024 21:55:14 +0000
+ id 1sAH8c-0007n0-DT; Thu, 23 May 2024 22:42:18 +0000
 Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.1.244])
  by xenbits.xenproject.org with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1sAGP4-00062r-1i; Thu, 23 May 2024 21:55:14 +0000
+ id 1sAH8c-0008RA-4n; Thu, 23 May 2024 22:42:18 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,250 +42,322 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
 	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
 	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=LrvouJBRSenBDORUTSo8DkVLhcr/S1bCKVT07dT2whk=; b=yWpyGSOKBHWTkZ2q3xaGkPMAWl
-	iRX8+Pxm/0EZNdb2y+KHV9B6g4x9nk46vOS87MigZBujOX2MVcQI+PvVsulDBaYckvJ6ssBeBBm9u
-	d65aG7pne+rELyETajAihKsFVWM6sPnkk+IbdqtYiB0TsuX5zP8OsmBA2/1ZICd596Bo=;
-Message-ID: <311c645f-d0cf-45ef-abb3-c7d8a58f1130@xen.org>
-Date: Thu, 23 May 2024 22:55:12 +0100
+	bh=MKSSdCDliWElWe1MT0ed4Gi7k4ta2XLjuxWA8fnaqIM=; b=qjpfxFELQDNAXeCjNizUrQ9Xb7
+	y5LOtFuQfPogR5EuZXbwojbcp3SC4EanmI+egvyhOhNCbV7KC3E0q+7DjUqJAmWq0AH+X2mJ0c07A
+	Vk7s8JzieClcrFFB1UEdX8DanxGHCv4yrQpVWmUAtNINf1whPWI+N9vMGjaBhzz1Pfsk=;
+Message-ID: <a9033982-9c7b-4b16-b2c0-e47a3f73e452@xen.org>
+Date: Thu, 23 May 2024 23:42:16 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 5/9] xen/arm: Add XEN_DOMCTL_dt_overlay and device
- attachment to domains
+Subject: Re: [PATCH v4 7/9] xen/arm: Support device detachment from domains
 Content-Language: en-GB
 To: Henry Wang <xin.wang2@amd.com>, xen-devel@lists.xenproject.org
 Cc: Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
  Andrew Cooper <andrew.cooper3@citrix.com>,
  George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>
 References: <20240523074040.1611264-1-xin.wang2@amd.com>
- <20240523074040.1611264-6-xin.wang2@amd.com>
+ <20240523074040.1611264-8-xin.wang2@amd.com>
 From: Julien Grall <julien@xen.org>
-In-Reply-To: <20240523074040.1611264-6-xin.wang2@amd.com>
+In-Reply-To: <20240523074040.1611264-8-xin.wang2@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
 Hi Henry,
 
 On 23/05/2024 08:40, Henry Wang wrote:
-> In order to support the dynamic dtbo device assignment to a running
-> VM, the add/remove of the DT overlay and the attach/detach of the
-> device from the DT overlay should happen separately. Therefore,
-> repurpose the existing XEN_SYSCTL_dt_overlay to only add the DT
-> overlay to Xen device tree
-
-I think it would be worth mentioning in the commit message why changing 
-the sysctl behavior is fine. The feature is experimental and therefore 
-breaking compatibility is ok.
-
-> , instead of assigning the device to the
-> hardware domain at the same time. Add the XEN_DOMCTL_dt_overlay with
-> operations XEN_DOMCTL_DT_OVERLAY_ATTACH to do the device assignment
-> to the domain.
-> 
-> The hypervisor firstly checks the DT overlay passed from the toolstack
-> is valid. Then the device nodes are retrieved from the overlay tracker
-> based on the DT overlay. The attach of the device is implemented by
-> mapping the IRQ and IOMMU resources.
-
-So, the expectation is the user will always want to attach all the 
-devices in the overlay to a single domain. Is that correct?
-
+> Similarly as the device attachment from DT overlay to domain, this
+> commit implements the device detachment from domain. The DOMCTL
+> XEN_DOMCTL_dt_overlay op is extended to have the operation
+> XEN_DOMCTL_DT_OVERLAY_DETACH. The detachment of the device is
+> implemented by unmapping the IRQ and IOMMU resources. Note that with
+> these changes, the device de-registration from the IOMMU driver should
+> only happen at the time when the DT overlay is removed from the Xen
+> device tree.
 > 
 > Signed-off-by: Henry Wang <xin.wang2@amd.com>
 > Signed-off-by: Vikram Garhwal <fnu.vikram@xilinx.com>
 > ---
 > v4:
-> - Split the original patch, only do the device attachment.
-> v3:
-> - Style fixes for arch-selection #ifdefs.
-> - Do not include public/domctl.h, only add a forward declaration of
->    struct xen_domctl_dt_overlay.
-> - Extract the overlay track entry finding logic to a function, drop
->    the unused variables.
-> - Use op code 1&2 for XEN_DOMCTL_DT_OVERLAY_{ATTACH,DETACH}.
-> v2:
-> - New patch.
+> - Split the original patch, only do device detachment from domain.
 > ---
->   xen/arch/arm/domctl.c        |   3 +
->   xen/common/dt-overlay.c      | 199 ++++++++++++++++++++++++++---------
->   xen/include/public/domctl.h  |  14 +++
->   xen/include/public/sysctl.h  |  11 +-
->   xen/include/xen/dt-overlay.h |   7 ++
->   5 files changed, 176 insertions(+), 58 deletions(-)
+>   xen/common/dt-overlay.c     | 243 ++++++++++++++++++++++++++++--------
+>   xen/include/public/domctl.h |   3 +-
+>   2 files changed, 194 insertions(+), 52 deletions(-)
 > 
-> diff --git a/xen/arch/arm/domctl.c b/xen/arch/arm/domctl.c
-> index ad56efb0f5..12a12ee781 100644
-> --- a/xen/arch/arm/domctl.c
-> +++ b/xen/arch/arm/domctl.c
-> @@ -5,6 +5,7 @@
->    * Copyright (c) 2012, Citrix Systems
->    */
->   
-> +#include <xen/dt-overlay.h>
->   #include <xen/errno.h>
->   #include <xen/guest_access.h>
->   #include <xen/hypercall.h>
-> @@ -176,6 +177,8 @@ long arch_do_domctl(struct xen_domctl *domctl, struct domain *d,
->   
->           return rc;
->       }
-> +    case XEN_DOMCTL_dt_overlay:
-> +        return dt_overlay_domctl(d, &domctl->u.dt_overlay);
->       default:
->           return subarch_do_domctl(domctl, d, u_domctl);
->       }
 > diff --git a/xen/common/dt-overlay.c b/xen/common/dt-overlay.c
-> index 9cece79067..1087f9b502 100644
+> index 1087f9b502..693b6e4777 100644
 > --- a/xen/common/dt-overlay.c
 > +++ b/xen/common/dt-overlay.c
-> @@ -356,6 +356,42 @@ static int overlay_get_nodes_info(const void *fdto, char **nodes_full_path)
->       return 0;
+> @@ -392,24 +392,100 @@ find_track_entry_from_tracker(const void *overlay_fdt,
+>       return entry;
 >   }
 >   
-> +/* This function should be called with the overlay_lock taken */
-> +static struct overlay_track *
-> +find_track_entry_from_tracker(const void *overlay_fdt,
-> +                              uint32_t overlay_fdt_size)
+> +static int remove_irq(unsigned long s, unsigned long e, void *data)
 > +{
-> +    struct overlay_track *entry, *temp;
-> +    bool found_entry = false;
-> +
-> +    ASSERT(spin_is_locked(&overlay_lock));
+> +    struct domain *d = data;
+> +    int rc = 0;
 > +
 > +    /*
-> +     * First check if dtbo is correct i.e. it should one of the dtbo which was
-> +     * used when dynamically adding the node.
-> +     * Limitation: Cases with same node names but different property are not
-> +     * supported currently. We are relying on user to provide the same dtbo
-> +     * as it was used when adding the nodes.
+> +     * IRQ should always have access unless there are duplication of
+> +     * of irqs in device tree. There are few cases of xen device tree
+> +     * where there are duplicate interrupts for the same node.
 > +     */
-> +    list_for_each_entry_safe( entry, temp, &overlay_tracker, entry )
+> +    if (!irq_access_permitted(d, s))
+
+Because of this check, it means that ...
+
+> +        return 0;
+> +    /*
+> +     * TODO: We don't handle shared IRQs for now. So, it is assumed that
+> +     * the IRQs was not shared with another domain.
+> +     */
+> +    rc = irq_deny_access(d, s);
+> +    if ( rc )
 > +    {
-> +        if ( memcmp(entry->overlay_fdt, overlay_fdt, overlay_fdt_size) == 0 )
-> +        {
-> +            found_entry = true;
-> +            break;
-> +        }
+> +        printk(XENLOG_ERR "unable to revoke access for irq %ld\n", s);
+> +        return rc;
 > +    }
 > +
-> +    if ( !found_entry )
+> +    rc = release_guest_irq(d, s);
+
+... release_guest_irq() fails on the next retry it will pass. I don't 
+think this is what we want.
+
+Instead, we probably want to re-order the call.
+
+> +    if ( rc )
 > +    {
-> +        printk(XENLOG_ERR "Cannot find any matching tracker with input dtbo."
-> +               " Operation is supported only for prior added dtbo.\n");
-> +        return NULL;
+> +        printk(XENLOG_ERR "unable to release irq %ld\n", s);
+> +        return rc;
 > +    }
 > +
-> +    return entry;
+> +    return rc;
+> +}
+> +
+> +static int remove_all_irqs(struct rangeset *irq_ranges, struct domain *d)
+> +{
+> +    return rangeset_report_ranges(irq_ranges, 0, ~0UL, remove_irq, d);
+> +}
+> +
+> +static int remove_iomem(unsigned long s, unsigned long e, void *data)
+> +{
+> +    struct domain *d = data;
+> +    int rc = 0;
+> +    p2m_type_t t;
+> +    mfn_t mfn;
+> +
+> +    mfn = p2m_lookup(d, _gfn(s), &t);
+
+What are you trying to addres with this check? For instance, the fact 
+that the first MFN is mapped, doesn't guarantee the rest is.
+
+> +    if ( mfn_x(mfn) == 0 || mfn_x(mfn) == ~0UL )
+
+I don't understand why we are checking for 0 here. In theory, it is 
+valid MFN. Also, the second part wants to be INVALID_MFN.
+
+> +        return -EINVAL;
+> +
+> +    rc = iomem_deny_access(d, s, e);
+
+iomem_deny_access() works on MFN but here you pass an MFN. Are you 
+assuming the GFN == MFN? How would that work for domains that are not 
+direct mapped?
+
+> +    if ( rc )
+> +    {
+> +        printk(XENLOG_ERR "Unable to remove %pd access to %#lx - %#lx\n",
+> +               d, s, e);
+> +        return rc;
+> +    }
+> +
+> +    rc = unmap_mmio_regions(d, _gfn(s), e - s, _mfn(s));
+> +    if ( rc )
+> +        return rc;
+> +
+> +    return rc;
+> +}
+> +
+> +static int remove_all_iomems(struct rangeset *iomem_ranges, struct domain *d)
+> +{
+> +    return rangeset_report_ranges(iomem_ranges, 0, ~0UL, remove_iomem, d);
 > +}
 > +
 >   /* Check if node itself can be removed and remove node from IOMMU. */
->   static int remove_node_resources(struct dt_device_node *device_node)
+> -static int remove_node_resources(struct dt_device_node *device_node)
+> +static int remove_node_resources(struct dt_device_node *device_node,
+> +                                 struct domain *d)
 >   {
-> @@ -485,8 +521,7 @@ static long handle_remove_overlay_nodes(const void *overlay_fdt,
->                                           uint32_t overlay_fdt_size)
->   {
->       int rc;
-> -    struct overlay_track *entry, *temp, *track;
-> -    bool found_entry = false;
-> +    struct overlay_track *entry;
+>       int rc = 0;
+>       unsigned int len;
+>       domid_t domid;
 >   
->       rc = check_overlay_fdt(overlay_fdt, overlay_fdt_size);
->       if ( rc )
-> @@ -494,29 +529,10 @@ static long handle_remove_overlay_nodes(const void *overlay_fdt,
+> -    domid = dt_device_used_by(device_node);
+> +    if ( !d )
+
+I looked at the code, I am a bit unsure how "d" can be NULL. Do you have 
+any pointer?
+
+> +    {
+> +        domid = dt_device_used_by(device_node);
 >   
->       spin_lock(&overlay_lock);
+> -    dt_dprintk("Checking if node %s is used by any domain\n",
+> -               device_node->full_name);
+> +        dt_dprintk("Checking if node %s is used by any domain\n",
+> +                   device_node->full_name);
 >   
-> -    /*
-> -     * First check if dtbo is correct i.e. it should one of the dtbo which was
-> -     * used when dynamically adding the node.
-> -     * Limitation: Cases with same node names but different property are not
-> -     * supported currently. We are relying on user to provide the same dtbo
-> -     * as it was used when adding the nodes.
-> -     */
-> -    list_for_each_entry_safe( entry, temp, &overlay_tracker, entry )
+> -    /* Remove the node if only it's assigned to hardware domain or domain io. */
+> -    if ( domid != hardware_domain->domain_id && domid != DOMID_IO )
 > -    {
-> -        if ( memcmp(entry->overlay_fdt, overlay_fdt, overlay_fdt_size) == 0 )
-> -        {
-> -            track = entry;
-> -            found_entry = true;
-> -            break;
-> -        }
-> -    }
-> -
-> -    if ( !found_entry )
-> +    entry = find_track_entry_from_tracker(overlay_fdt, overlay_fdt_size);
-> +    if ( entry == NULL )
->       {
->           rc = -EINVAL;
-> -
-> -        printk(XENLOG_ERR "Cannot find any matching tracker with input dtbo."
-> -               " Removing nodes is supported only for prior added dtbo.\n");
->           goto out;
->   
+> -        printk(XENLOG_ERR "Device %s is being used by domain %u. Removing nodes failed\n",
+> -               device_node->full_name, domid);
+> -        return -EINVAL;
+> +        /*
+> +         * We also check if device is assigned to DOMID_IO as when a domain
+> +         * is destroyed device is assigned to DOMID_IO.
+> +         */
+> +        if ( domid != DOMID_IO )
+> +        {
+> +            printk(XENLOG_ERR "Device %s is being assigned to %u. Device is assigned to %d\n",
+> +                   device_node->full_name, DOMID_IO, domid);
+> +            return -EINVAL;
+> +        }
 >       }
-> @@ -620,15 +636,7 @@ static long add_nodes(struct overlay_track *tr, char **nodes_full_path)
->               return -EFAULT;
+>   
+>       /* Check if iommu property exists. */
+> @@ -417,9 +493,12 @@ static int remove_node_resources(struct dt_device_node *device_node)
+>       {
+>           if ( dt_device_is_protected(device_node) )
+>           {
+> -            rc = iommu_remove_dt_device(device_node);
+> -            if ( rc < 0 )
+> -                return rc;
+> +            if ( !list_empty(&device_node->domain_list) )
+> +            {
+> +                rc = iommu_deassign_dt_device(d, device_node);
+> +                if ( rc < 0 )
+> +                    return rc;
+> +            }
+>           }
+>       }
+>   
+> @@ -428,7 +507,8 @@ static int remove_node_resources(struct dt_device_node *device_node)
+>   
+>   /* Remove all descendants from IOMMU. */
+>   static int
+> -remove_descendant_nodes_resources(const struct dt_device_node *device_node)
+> +remove_descendant_nodes_resources(const struct dt_device_node *device_node,
+> +                                  struct domain *d)
+>   {
+>       int rc = 0;
+>       struct dt_device_node *child_node;
+> @@ -438,12 +518,12 @@ remove_descendant_nodes_resources(const struct dt_device_node *device_node)
+>       {
+>           if ( child_node->child )
+>           {
+> -            rc = remove_descendant_nodes_resources(child_node);
+> +            rc = remove_descendant_nodes_resources(child_node, d);
+>               if ( rc )
+>                   return rc;
 >           }
 >   
-> -        rc = handle_device(hardware_domain, overlay_node, p2m_mmio_direct_c,
-> -                           tr->iomem_ranges,
-> -                           tr->irq_ranges);
->           write_unlock(&dt_host_lock);
+> -        rc = remove_node_resources(child_node);
+> +        rc = remove_node_resources(child_node, d);
+>           if ( rc )
+>               return rc;
+>       }
+> @@ -456,8 +536,7 @@ static int remove_nodes(const struct overlay_track *tracker)
+>   {
+>       int rc = 0;
+>       struct dt_device_node *overlay_node;
+> -    unsigned int j;
+> -    struct domain *d = hardware_domain;
+> +    unsigned int j, len;
+>   
+>       for ( j = 0; j < tracker->num_nodes; j++ )
+>       {
+> @@ -467,18 +546,15 @@ static int remove_nodes(const struct overlay_track *tracker)
+>   
+>           write_lock(&dt_host_lock);
+>   
+> -        rc = remove_descendant_nodes_resources(overlay_node);
 > -        if ( rc )
-> -        {
-> -            printk(XENLOG_ERR "Adding IRQ and IOMMU failed\n");
+> +        /* Check if iommu property exists. */
+> +        if ( dt_get_property(overlay_node, "iommus", &len) )
+
+Why do we need to check for the property in the "iommus" rather than ...
+
+>           {
+> -            write_unlock(&dt_host_lock);
 > -            return rc;
 > -        }
+> -
+> -        rc = remove_node_resources(overlay_node);
+> -        if ( rc )
+> -        {
+> -            write_unlock(&dt_host_lock);
+> -            return rc;
+> +            if ( dt_device_is_protected(overlay_node) )
+
+... relying on dt_device_is_protected()?
+
+> +            {
+> +                rc = iommu_remove_dt_device(overlay_node);
+> +                if ( rc < 0 )
+> +                    return rc;
+> +            }
+>           }
 >   
->           /* Keep overlay_node address in tracker. */
->           tr->nodes_address[j] = (unsigned long)overlay_node;
-> @@ -638,9 +646,7 @@ static long add_nodes(struct overlay_track *tr, char **nodes_full_path)
->   }
->   /*
->    * Adds device tree nodes under target node.
-> - * We use tr->dt_host_new to unflatten the updated device_tree_flattened. This
-> - * is done to avoid the removal of device_tree generation, iomem regions mapping
-> - * to hardware domain done by handle_node().
-> + * We use tr->dt_host_new to unflatten the updated device_tree_flattened.
->    */
->   static long handle_add_overlay_nodes(void *overlay_fdt,
->                                        uint32_t overlay_fdt_size)
-> @@ -774,20 +780,6 @@ static long handle_add_overlay_nodes(void *overlay_fdt,
->           goto err;
+>           dt_dprintk("Removing node: %s\n", overlay_node->full_name);
+> @@ -493,22 +569,6 @@ static int remove_nodes(const struct overlay_track *tracker)
+>           write_unlock(&dt_host_lock);
 >       }
 >   
-> -    tr->irq_ranges = rangeset_new(hardware_domain, "Overlays: Interrupts", 0);
-> -    if (tr->irq_ranges == NULL)
+> -    /* Remove IRQ access. */
+> -    if ( tracker->irq_ranges )
 > -    {
-> -        printk(XENLOG_ERR "Creating IRQ rangeset failed");
-> -        goto err;
+> -        rc = rangeset_consume_ranges(tracker->irq_ranges, irq_remove_cb, d);
+> -        if ( rc )
+> -            return rc;
 > -    }
 > -
-> -    tr->iomem_ranges = rangeset_new(hardware_domain, "Overlay: I/O Memory", 0);
-> -    if (tr->iomem_ranges == NULL)
+> -   /* Remove mmio access. */
+> -    if ( tracker->iomem_ranges )
 > -    {
-> -        printk(XENLOG_ERR "Creating IOMMU rangeset failed");
-> -        goto err;
+> -        rc = rangeset_consume_ranges(tracker->iomem_ranges, iomem_remove_cb, d);
+> -        if ( rc )
+> -            return rc;
 > -    }
 > -
->       rc = add_nodes(tr, nodes_full_path);
->       if ( rc )
->       {
-> @@ -843,14 +835,83 @@ static long handle_add_overlay_nodes(void *overlay_fdt,
->       xfree(tr->nodes_address);
->       xfree(tr->fdt);
->   
-> -    rangeset_destroy(tr->irq_ranges);
-> -    rangeset_destroy(tr->iomem_ranges);
-> -
->       xfree(tr);
->   
 >       return rc;
 >   }
 >   
-> +static long handle_attach_overlay_nodes(struct domain *d,
+> @@ -534,7 +594,6 @@ static long handle_remove_overlay_nodes(const void *overlay_fdt,
+>       {
+>           rc = -EINVAL;
+>           goto out;
+> -
+
+Valid but unrelated change?
+
+>       }
+>   
+>       rc = remove_nodes(entry);
+> @@ -552,9 +611,6 @@ static long handle_remove_overlay_nodes(const void *overlay_fdt,
+>   
+>       xfree(entry->nodes_address);
+>   
+> -    rangeset_destroy(entry->irq_ranges);
+> -    rangeset_destroy(entry->iomem_ranges);
+> -
+>       xfree(entry);
+>   
+>    out:
+> @@ -840,6 +896,88 @@ static long handle_add_overlay_nodes(void *overlay_fdt,
+>       return rc;
+>   }
+>   
+> +static long handle_detach_overlay_nodes(struct domain *d,
 > +                                        const void *overlay_fdt,
 > +                                        uint32_t overlay_fdt_size)
 > +{
@@ -306,27 +378,15 @@ devices in the overlay to a single domain. Is that correct?
 > +        goto out;
 > +    }
 > +
-> +    entry->irq_ranges = rangeset_new(d, "Overlays: Interrupts", 0);
-> +    if (entry->irq_ranges == NULL)
-> +    {
-> +        rc = -ENOMEM;
-> +        printk(XENLOG_ERR "Creating IRQ rangeset failed");
-> +        goto out;
-> +    }
-> +
-> +    entry->iomem_ranges = rangeset_new(d, "Overlay: I/O Memory", 0);
-> +    if (entry->iomem_ranges == NULL)
-> +    {
-> +        rc = -ENOMEM;
-> +        printk(XENLOG_ERR "Creating IOMMU rangeset failed");
-> +        goto out;
-> +    }
-> +
 > +    for ( j = 0; j < entry->num_nodes; j++ )
 > +    {
 > +        struct dt_device_node *overlay_node;
 > +
 > +        overlay_node = (struct dt_device_node *)entry->nodes_address[j];
+
+Can you remind me why nodes_address is storing unsigned long rather 
+struct dt_device_node?
+
 > +        if ( overlay_node == NULL )
 > +        {
 > +            rc = -EINVAL;
@@ -334,200 +394,109 @@ devices in the overlay to a single domain. Is that correct?
 > +        }
 > +
 > +        write_lock(&dt_host_lock);
-> +        rc = handle_device(d, overlay_node, p2m_mmio_direct_c,
-> +                           entry->iomem_ranges, entry->irq_ranges);
-> +        write_unlock(&dt_host_lock);
+> +        rc = remove_descendant_nodes_resources(overlay_node, d);
 > +        if ( rc )
 > +        {
-> +            printk(XENLOG_ERR "Adding IRQ and IOMMU failed\n");
+> +            write_unlock(&dt_host_lock);
 > +            goto out;
 > +        }
+> +
+> +        rc = remove_node_resources(overlay_node, d);
+> +        if ( rc )
+> +        {
+> +            write_unlock(&dt_host_lock);
+> +            goto out;
+> +        }
+> +        write_unlock(&dt_host_lock);
+> +
+> +        rc = remove_all_irqs(entry->irq_ranges, d);
+
+I am really confused. This is called in the for loop but entry doesn't 
+seem to change. So why do we need to call it for every iteration? Also...
+
+
+> +        if ( rc )
+> +            goto out;
+> +
+> +        rc = remove_all_iomems(entry->iomem_ranges, d);
+> +        if ( rc )
+> +            goto out;
 > +    }
 > +
-> +    spin_unlock(&overlay_lock);
+> +    /* Remove IRQ access. */
+> +    if ( entry->irq_ranges )
+> +    {
+> +        rc = rangeset_consume_ranges(entry->irq_ranges, irq_remove_cb, d);
+
+... remove_all_irqs() will revert the permission. So why do we need to 
+do it again?
+
+> +        if ( rc )
+> +            goto out;
+> +    }
 > +
-> +    return 0;
-> +
-> + out:
-> +    spin_unlock(&overlay_lock);
+> +    /* Remove mmio access. */
+> +    if ( entry->iomem_ranges )
+> +    {
+> +        rc = rangeset_consume_ranges(entry->iomem_ranges, iomem_remove_cb, d);
+
+Same question here.
+
+> +        if ( rc )
+> +            goto out;
+> +    }
 > +
 > +    rangeset_destroy(entry->irq_ranges);
 > +    rangeset_destroy(entry->iomem_ranges);
 > +
+> + out:
+> +    spin_unlock(&overlay_lock);
+> +
 > +    return rc;
 > +}
 > +
->   long dt_overlay_sysctl(struct xen_sysctl_dt_overlay *op)
->   {
+>   static long handle_attach_overlay_nodes(struct domain *d,
+>                                           const void *overlay_fdt,
+>                                           uint32_t overlay_fdt_size)
+> @@ -956,7 +1094,8 @@ long dt_overlay_domctl(struct domain *d, struct xen_domctl_dt_overlay *op)
 >       long ret;
-> @@ -890,6 +951,42 @@ long dt_overlay_sysctl(struct xen_sysctl_dt_overlay *op)
->       return ret;
->   }
+>       void *overlay_fdt;
 >   
-> +long dt_overlay_domctl(struct domain *d, struct xen_domctl_dt_overlay *op)
-> +{
-> +    long ret;
-> +    void *overlay_fdt;
-> +
-> +    if ( op->overlay_op != XEN_DOMCTL_DT_OVERLAY_ATTACH )
-> +        return -EOPNOTSUPP;
-> +
-> +    if ( op->overlay_fdt_size == 0 || op->overlay_fdt_size > KB(500) )
-
-Let's avoid to hardocode KB(500) a second time (it alredy exists in the 
-sysctl path).
-
-But I would actually consider to allow up to 512KB because...
-
-> +        return -EINVAL;
-> +
-> +    if ( op->pad[0] || op->pad[1] || op->pad[2] )
-> +        return -EINVAL;
-> +
-> +    overlay_fdt = xmalloc_bytes(op->overlay_fdt_size);
-
-... xmalloc_bytes() will be more efficient. If the size is not power of 
-2 pages, it will free the leftover. Anyway, this could be a follow-up patch.
-
-> +
-> +    if ( overlay_fdt == NULL )
-> +        return -ENOMEM;
-> +
-> +    ret = copy_from_guest(overlay_fdt, op->overlay_fdt, op->overlay_fdt_size);
-> +    if ( ret )
-> +    {
-> +        gprintk(XENLOG_ERR, "copy from guest failed\n");
-> +        xfree(overlay_fdt);
-> +
-> +        return -EFAULT;
-> +    }
-> +
-> +    if ( op->overlay_op == XEN_DOMCTL_DT_OVERLAY_ATTACH )
-> +        ret = handle_attach_overlay_nodes(d, overlay_fdt, op->overlay_fdt_size);
-
-I think you would return 0 if the operation is not supported. But I 
-think we need to return -EOPNOTSUPP.
-
-> +
-> +    xfree(overlay_fdt);
-> +
-> +    return ret;
-> +}
-> +
->   /*
->    * Local variables:
->    * mode: C
+> -    if ( op->overlay_op != XEN_DOMCTL_DT_OVERLAY_ATTACH )
+> +    if ( op->overlay_op != XEN_DOMCTL_DT_OVERLAY_ATTACH &&
+> +         op->overlay_op != XEN_DOMCTL_DT_OVERLAY_DETACH )
+>           return -EOPNOTSUPP;
+>   
+>       if ( op->overlay_fdt_size == 0 || op->overlay_fdt_size > KB(500) )
+> @@ -979,7 +1118,9 @@ long dt_overlay_domctl(struct domain *d, struct xen_domctl_dt_overlay *op)
+>           return -EFAULT;
+>       }
+>   
+> -    if ( op->overlay_op == XEN_DOMCTL_DT_OVERLAY_ATTACH )
+> +    if ( op->overlay_op == XEN_DOMCTL_DT_OVERLAY_DETACH )
+> +        ret = handle_detach_overlay_nodes(d, overlay_fdt, op->overlay_fdt_size);
+> +    else
+>           ret = handle_attach_overlay_nodes(d, overlay_fdt, op->overlay_fdt_size);
+>   
+>       xfree(overlay_fdt);
 > diff --git a/xen/include/public/domctl.h b/xen/include/public/domctl.h
-> index a33f9ec32b..ac3c2a7c4c 100644
+> index ac3c2a7c4c..e91f743fa4 100644
 > --- a/xen/include/public/domctl.h
 > +++ b/xen/include/public/domctl.h
-
-If I am not mistkane, this is the first change in the domctl header for 
-4.19. So you want to bump XEN_DOMCTL_INTERFACE_VERSION.
-
-> @@ -1190,6 +1190,16 @@ struct xen_domctl_vmtrace_op {
->   typedef struct xen_domctl_vmtrace_op xen_domctl_vmtrace_op_t;
->   DEFINE_XEN_GUEST_HANDLE(xen_domctl_vmtrace_op_t);
->   
-> +#if defined(__arm__) || defined(__aarch64__)
-> +struct xen_domctl_dt_overlay {
-> +    XEN_GUEST_HANDLE_64(const_void) overlay_fdt;  /* IN: overlay fdt. */
-> +    uint32_t overlay_fdt_size;              /* IN: Overlay dtb size. */
-> +#define XEN_DOMCTL_DT_OVERLAY_ATTACH                1
-
-OOI, why not starting from 0?
-
-> +    uint8_t overlay_op;                     /* IN: Attach. */
-> +    uint8_t pad[3];                         /* IN: Must be zero. */
-> +};
-> +#endif
-> +
->   struct xen_domctl {
->       uint32_t cmd;
->   #define XEN_DOMCTL_createdomain                   1
-> @@ -1277,6 +1287,7 @@ struct xen_domctl {
->   #define XEN_DOMCTL_vmtrace_op                    84
->   #define XEN_DOMCTL_get_paging_mempool_size       85
->   #define XEN_DOMCTL_set_paging_mempool_size       86
-> +#define XEN_DOMCTL_dt_overlay                    87
->   #define XEN_DOMCTL_gdbsx_guestmemio            1000
->   #define XEN_DOMCTL_gdbsx_pausevcpu             1001
->   #define XEN_DOMCTL_gdbsx_unpausevcpu           1002
-> @@ -1339,6 +1350,9 @@ struct xen_domctl {
->           struct xen_domctl_vuart_op          vuart_op;
->           struct xen_domctl_vmtrace_op        vmtrace_op;
->           struct xen_domctl_paging_mempool    paging_mempool;
-> +#if defined(__arm__) || defined(__aarch64__)
-> +        struct xen_domctl_dt_overlay        dt_overlay;
-> +#endif
->           uint8_t                             pad[128];
->       } u;
->   };
-> diff --git a/xen/include/public/sysctl.h b/xen/include/public/sysctl.h
-> index febaa4b16a..3a6e7d48f0 100644
-> --- a/xen/include/public/sysctl.h
-> +++ b/xen/include/public/sysctl.h
-> @@ -1184,14 +1184,11 @@ typedef struct xen_sysctl_cpu_policy xen_sysctl_cpu_policy_t;
->   DEFINE_XEN_GUEST_HANDLE(xen_sysctl_cpu_policy_t);
->   #endif
->   
-> -#if defined(__arm__) || defined (__aarch64__)
-> +#if defined(__arm__) || defined(__aarch64__)
-
-This seems like unrelated change. Maybe mention in the commit message 
-that you are fixing the coding style?
-
->   /*
->    * XEN_SYSCTL_dt_overlay
-> - * Performs addition/removal of device tree nodes under parent node using dtbo.
-> - * This does in three steps:
-> - *  - Adds/Removes the nodes from dt_host.
-> - *  - Adds/Removes IRQ permission for the nodes.
-> - *  - Adds/Removes MMIO accesses.
-> + * Performs addition/removal of device tree nodes under parent node using dtbo
-> + * from dt_host.
->    */
->   struct xen_sysctl_dt_overlay {
+> @@ -1195,7 +1195,8 @@ struct xen_domctl_dt_overlay {
 >       XEN_GUEST_HANDLE_64(const_void) overlay_fdt;  /* IN: overlay fdt. */
-> @@ -1265,7 +1262,7 @@ struct xen_sysctl {
->           struct xen_sysctl_cpu_policy        cpu_policy;
->   #endif
->   
-> -#if defined(__arm__) || defined (__aarch64__)
-> +#if defined(__arm__) || defined(__aarch64__)
->           struct xen_sysctl_dt_overlay        dt_overlay;
->   #endif
->           uint8_t                             pad[128];
-> diff --git a/xen/include/xen/dt-overlay.h b/xen/include/xen/dt-overlay.h
-> index c0567741ee..7f0f3741b5 100644
-> --- a/xen/include/xen/dt-overlay.h
-> +++ b/xen/include/xen/dt-overlay.h
-> @@ -39,15 +39,22 @@ struct overlay_track {
+>       uint32_t overlay_fdt_size;              /* IN: Overlay dtb size. */
+>   #define XEN_DOMCTL_DT_OVERLAY_ATTACH                1
+> -    uint8_t overlay_op;                     /* IN: Attach. */
+> +#define XEN_DOMCTL_DT_OVERLAY_DETACH                2
+> +    uint8_t overlay_op;                     /* IN: Attach/Detach. */
+
+Changing the comment for every operation we add is not really scalable 
+:). If you want an explanation, can it be generic?
+
+>       uint8_t pad[3];                         /* IN: Must be zero. */
 >   };
->   
->   struct xen_sysctl_dt_overlay;
-> +struct xen_domctl_dt_overlay;
->   
->   #ifdef CONFIG_OVERLAY_DTB
->   long dt_overlay_sysctl(struct xen_sysctl_dt_overlay *op);
-> +long dt_overlay_domctl(struct domain *d, struct xen_domctl_dt_overlay *op);
->   #else
->   #include <xen/errno.h>
->   static inline long dt_overlay_sysctl(struct xen_sysctl_dt_overlay *op)
->   {
->       return -EOPNOTSUPP;
->   }
-
-NIT: Newline here please.
-
-> +static inline long dt_overlay_domctl(struct domain *d,
-> +                                     struct xen_domctl_dt_overlay *op)
-> +{
-> +    return -EOPNOTSUPP;
-> +}
 >   #endif
->   
->   #endif /* __XEN_DT_OVERLAY_H__ */
 
 Cheers,
 
