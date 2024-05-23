@@ -2,35 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DCF6C8CDD0E
-	for <lists+xen-devel@lfdr.de>; Fri, 24 May 2024 00:54:38 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.728914.1134000 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 61F3E8CDD1B
+	for <lists+xen-devel@lfdr.de>; Fri, 24 May 2024 01:06:49 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.728923.1134009 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sAHK7-0002RN-5S; Thu, 23 May 2024 22:54:11 +0000
+	id 1sAHVQ-0004DE-5o; Thu, 23 May 2024 23:05:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 728914.1134000; Thu, 23 May 2024 22:54:11 +0000
+Received: by outflank-mailman (output) from mailman id 728923.1134009; Thu, 23 May 2024 23:05:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sAHK7-0002OF-2C; Thu, 23 May 2024 22:54:11 +0000
-Received: by outflank-mailman (input) for mailman id 728914;
- Thu, 23 May 2024 22:54:09 +0000
+	id 1sAHVQ-0004Bd-2y; Thu, 23 May 2024 23:05:52 +0000
+Received: by outflank-mailman (input) for mailman id 728923;
+ Thu, 23 May 2024 23:05:51 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1sAHK5-0002O5-Hm; Thu, 23 May 2024 22:54:09 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
+ (envelope-from <julien@xen.org>) id 1sAHVO-0004BX-TI
+ for xen-devel@lists.xenproject.org; Thu, 23 May 2024 23:05:51 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1sAHK5-0007yU-Cm; Thu, 23 May 2024 22:54:09 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1sAHK5-0004EA-3K; Thu, 23 May 2024 22:54:09 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1sAHK5-0002TZ-2m; Thu, 23 May 2024 22:54:09 +0000
+ (envelope-from <julien@xen.org>)
+ id 1sAHVO-0008Cf-JI; Thu, 23 May 2024 23:05:50 +0000
+Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.1.244])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1sAHVO-0001KZ-DX; Thu, 23 May 2024 23:05:50 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,306 +39,192 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=dPhNq4YCb2BAGi5ETzT2er8fmg3nMW4FPpSFumkHeQ0=; b=2bQvCURWm6H+jPe0c1a1NA4OO9
-	9rEUI5DnDlzkEbRbzajQnB6Sl1PBWQvUScts/NzDgLihZ0zYGSGG864xfGoYLrdkdgAmQfg2enaZI
-	HPMON06vxXYsyrUtymPGMfvEY69kQPN5YjBluOPoS+gieOqJ5D/4OzkRhfL6T+9UR+/U=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-186103-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=5z+uVk4AZgOoyi41Yz1XiORy3HPDEZSb2w8edttFTOU=; b=rp0F+pvXnP1qMrQoAREObl9EiE
+	3kcse7649JaO0vXf/QTIO6OrVSgBOGP/HJHC7A0ZiY2l6KyBjjPmvGLhQFC4SEXZQ6+bqWPacw0FW
+	SNgmdbR0aTzfFlePVkiDC0gGZ8QMbpBR90q8tSTb7ASfnIwsf0AQSmU1uJfCOR07yDgA=;
+Message-ID: <02e22734-2e0c-4a0a-8c5a-42beee0cc396@xen.org>
+Date: Fri, 24 May 2024 00:05:48 +0100
 MIME-Version: 1.0
-Subject: [linux-linus test] 186103: regressions - FAIL
-X-Osstest-Failures:
-    linux-linus:build-amd64-xsm:xen-build:fail:regression
-    linux-linus:build-amd64:xen-build:fail:regression
-    linux-linus:build-i386:xen-build:fail:regression
-    linux-linus:build-i386-xsm:xen-build:fail:regression
-    linux-linus:build-armhf:xen-build:fail:regression
-    linux-linus:test-amd64-amd64-xl-vhd:build-check(1):blocked:nonblocking
-    linux-linus:test-amd64-amd64-xl-shadow:build-check(1):blocked:nonblocking
-    linux-linus:test-amd64-amd64-xl-rtds:build-check(1):blocked:nonblocking
-    linux-linus:test-amd64-amd64-xl-raw:build-check(1):blocked:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemuu-ws16-amd64:build-check(1):blocked:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemuu-win7-amd64:build-check(1):blocked:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict:build-check(1):blocked:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm:build-check(1):blocked:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow:build-check(1):blocked:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemuu-debianhvm-amd64:build-check(1):blocked:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemut-ws16-amd64:build-check(1):blocked:nonblocking
-    linux-linus:build-amd64-libvirt:build-check(1):blocked:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemut-win7-amd64:build-check(1):blocked:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemut-debianhvm-i386-xsm:build-check(1):blocked:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemut-debianhvm-amd64:build-check(1):blocked:nonblocking
-    linux-linus:test-amd64-amd64-xl-qcow2:build-check(1):blocked:nonblocking
-    linux-linus:build-armhf-libvirt:build-check(1):blocked:nonblocking
-    linux-linus:test-amd64-amd64-xl-pvshim:build-check(1):blocked:nonblocking
-    linux-linus:build-i386-libvirt:build-check(1):blocked:nonblocking
-    linux-linus:test-amd64-amd64-xl-pvhv2-intel:build-check(1):blocked:nonblocking
-    linux-linus:test-amd64-amd64-dom0pvh-xl-amd:build-check(1):blocked:nonblocking
-    linux-linus:test-amd64-amd64-xl-pvhv2-amd:build-check(1):blocked:nonblocking
-    linux-linus:test-amd64-amd64-dom0pvh-xl-intel:build-check(1):blocked:nonblocking
-    linux-linus:test-amd64-amd64-xl-multivcpu:build-check(1):blocked:nonblocking
-    linux-linus:test-amd64-amd64-examine:build-check(1):blocked:nonblocking
-    linux-linus:test-amd64-amd64-examine-bios:build-check(1):blocked:nonblocking
-    linux-linus:test-amd64-amd64-examine-uefi:build-check(1):blocked:nonblocking
-    linux-linus:test-amd64-amd64-xl-credit2:build-check(1):blocked:nonblocking
-    linux-linus:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
-    linux-linus:test-amd64-amd64-libvirt-pair:build-check(1):blocked:nonblocking
-    linux-linus:test-amd64-amd64-xl-credit1:build-check(1):blocked:nonblocking
-    linux-linus:test-amd64-amd64-libvirt-qcow2:build-check(1):blocked:nonblocking
-    linux-linus:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
-    linux-linus:test-amd64-amd64-xl:build-check(1):blocked:nonblocking
-    linux-linus:test-amd64-amd64-libvirt-raw:build-check(1):blocked:nonblocking
-    linux-linus:test-amd64-amd64-libvirt-vhd:build-check(1):blocked:nonblocking
-    linux-linus:test-amd64-amd64-qemuu-nested-intel:build-check(1):blocked:nonblocking
-    linux-linus:test-amd64-amd64-libvirt-xsm:build-check(1):blocked:nonblocking
-    linux-linus:test-amd64-amd64-pair:build-check(1):blocked:nonblocking
-    linux-linus:test-amd64-amd64-qemuu-nested-amd:build-check(1):blocked:nonblocking
-    linux-linus:test-amd64-amd64-pygrub:build-check(1):blocked:nonblocking
-    linux-linus:test-amd64-amd64-qemuu-freebsd11-amd64:build-check(1):blocked:nonblocking
-    linux-linus:test-amd64-amd64-qemuu-freebsd12-amd64:build-check(1):blocked:nonblocking
-    linux-linus:test-amd64-amd64-xl-xsm:build-check(1):blocked:nonblocking
-    linux-linus:test-amd64-coresched-amd64-xl:build-check(1):blocked:nonblocking
-    linux-linus:test-armhf-armhf-examine:build-check(1):blocked:nonblocking
-    linux-linus:test-armhf-armhf-libvirt:build-check(1):blocked:nonblocking
-    linux-linus:test-armhf-armhf-libvirt-vhd:build-check(1):blocked:nonblocking
-    linux-linus:test-armhf-armhf-xl:build-check(1):blocked:nonblocking
-    linux-linus:test-armhf-armhf-xl-arndale:build-check(1):blocked:nonblocking
-    linux-linus:test-armhf-armhf-xl-credit1:build-check(1):blocked:nonblocking
-    linux-linus:test-armhf-armhf-xl-credit2:build-check(1):blocked:nonblocking
-    linux-linus:test-armhf-armhf-xl-multivcpu:build-check(1):blocked:nonblocking
-    linux-linus:test-armhf-armhf-xl-qcow2:build-check(1):blocked:nonblocking
-    linux-linus:test-armhf-armhf-xl-raw:build-check(1):blocked:nonblocking
-    linux-linus:test-armhf-armhf-xl-rtds:build-check(1):blocked:nonblocking
-    linux-linus:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-vhd:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-vhd:saverestore-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    linux=c760b3725e52403dc1b28644fb09c47a83cacea6
-X-Osstest-Versions-That:
-    linux=8f6a15f095a63a83b096d9b29aaff4f0fbe6f6e6
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Thu, 23 May 2024 22:54:09 +0000
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 3/9] tools/arm: Introduce the "nr_spis" xl config entry
+Content-Language: en-GB
+To: Henry Wang <xin.wang2@amd.com>, xen-devel@lists.xenproject.org
+Cc: Anthony PERARD <anthony@xenproject.org>,
+ George Dunlap <george.dunlap@citrix.com>, Nick Rosbrook
+ <rosbrookn@gmail.com>, Juergen Gross <jgross@suse.com>,
+ Jason Andryuk <jason.andryuk@amd.com>
+References: <20240523074040.1611264-1-xin.wang2@amd.com>
+ <20240523074040.1611264-4-xin.wang2@amd.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <20240523074040.1611264-4-xin.wang2@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-flight 186103 linux-linus real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/186103/
+Hi Henry,
 
-Regressions :-(
+On 23/05/2024 08:40, Henry Wang wrote:
+> Currently, the number of SPIs allocated to the domain is only
+> configurable for Dom0less DomUs. Xen domains are supposed to be
+> platform agnostics and therefore the numbers of SPIs for libxl
+> guests should not be based on the hardware.
+> 
+> Introduce a new xl config entry for Arm to provide a method for
+> user to decide the number of SPIs. This would help to avoid
+> bumping the `config->arch.nr_spis` in libxl everytime there is a
+> new platform with increased SPI numbers.
+> 
+> Update the doc and the golang bindings accordingly.
+> 
+> Signed-off-by: Henry Wang <xin.wang2@amd.com>
+> Reviewed-by: Jason Andryuk <jason.andryuk@amd.com>
+> ---
+> v4:
+> - Add Jason's Reviewed-by tag.
+> v3:
+> - Reword documentation to avoid ambiguity.
+> v2:
+> - New patch to replace the original patch in v1:
+>    "[PATCH 05/15] tools/libs/light: Increase nr_spi to 160"
+> ---
+>   docs/man/xl.cfg.5.pod.in             | 14 ++++++++++++++
+>   tools/golang/xenlight/helpers.gen.go |  2 ++
+>   tools/golang/xenlight/types.gen.go   |  1 +
+>   tools/libs/light/libxl_arm.c         |  4 ++--
+>   tools/libs/light/libxl_types.idl     |  1 +
+>   tools/xl/xl_parse.c                  |  3 +++
+>   6 files changed, 23 insertions(+), 2 deletions(-)
+> 
+> diff --git a/docs/man/xl.cfg.5.pod.in b/docs/man/xl.cfg.5.pod.in
+> index 8f2b375ce9..416d582844 100644
+> --- a/docs/man/xl.cfg.5.pod.in
+> +++ b/docs/man/xl.cfg.5.pod.in
+> @@ -3072,6 +3072,20 @@ raised.
+>   
+>   =back
+>   
+> +=over 4
+> +
+> +=item B<nr_spis="NR_SPIS">
+> +
+> +An optional 32-bit integer parameter specifying the number of SPIs (Shared
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-amd64-xsm               6 xen-build                fail REGR. vs. 186052
- build-amd64                   6 xen-build                fail REGR. vs. 186052
- build-i386                    6 xen-build                fail REGR. vs. 186052
- build-i386-xsm                6 xen-build                fail REGR. vs. 186052
- build-armhf                   6 xen-build                fail REGR. vs. 186052
+We can't support that much SPIs :). The limit would be 991 SPIs.
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-xl-vhd       1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-shadow    1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-rtds      1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-raw       1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-qemuu-ws16-amd64  1 build-check(1)             blocked n/a
- test-amd64-amd64-xl-qemuu-win7-amd64  1 build-check(1)             blocked n/a
- test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
- test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict 1 build-check(1) blocked n/a
- test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm  1 build-check(1)     blocked n/a
- test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow  1 build-check(1) blocked n/a
- test-amd64-amd64-xl-qemuu-debianhvm-amd64  1 build-check(1)        blocked n/a
- test-amd64-amd64-xl-qemut-ws16-amd64  1 build-check(1)             blocked n/a
- build-amd64-libvirt           1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-qemut-win7-amd64  1 build-check(1)             blocked n/a
- test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
- test-amd64-amd64-xl-qemut-debianhvm-i386-xsm  1 build-check(1)     blocked n/a
- test-amd64-amd64-xl-qemut-debianhvm-amd64  1 build-check(1)        blocked n/a
- test-amd64-amd64-xl-qcow2     1 build-check(1)               blocked  n/a
- build-armhf-libvirt           1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-pvshim    1 build-check(1)               blocked  n/a
- build-i386-libvirt            1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-pvhv2-intel  1 build-check(1)               blocked  n/a
- test-amd64-amd64-dom0pvh-xl-amd  1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-pvhv2-amd  1 build-check(1)               blocked  n/a
- test-amd64-amd64-dom0pvh-xl-intel  1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-multivcpu  1 build-check(1)               blocked  n/a
- test-amd64-amd64-examine      1 build-check(1)               blocked  n/a
- test-amd64-amd64-examine-bios  1 build-check(1)               blocked  n/a
- test-amd64-amd64-examine-uefi  1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-credit2   1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt-pair  1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-credit1   1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt-qcow2  1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
- test-amd64-amd64-xl           1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt-raw  1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt-vhd  1 build-check(1)               blocked  n/a
- test-amd64-amd64-qemuu-nested-intel  1 build-check(1)              blocked n/a
- test-amd64-amd64-libvirt-xsm  1 build-check(1)               blocked  n/a
- test-amd64-amd64-pair         1 build-check(1)               blocked  n/a
- test-amd64-amd64-qemuu-nested-amd  1 build-check(1)               blocked  n/a
- test-amd64-amd64-pygrub       1 build-check(1)               blocked  n/a
- test-amd64-amd64-qemuu-freebsd11-amd64  1 build-check(1)           blocked n/a
- test-amd64-amd64-qemuu-freebsd12-amd64  1 build-check(1)           blocked n/a
- test-amd64-amd64-xl-xsm       1 build-check(1)               blocked  n/a
- test-amd64-coresched-amd64-xl  1 build-check(1)               blocked  n/a
- test-armhf-armhf-examine      1 build-check(1)               blocked  n/a
- test-armhf-armhf-libvirt      1 build-check(1)               blocked  n/a
- test-armhf-armhf-libvirt-vhd  1 build-check(1)               blocked  n/a
- test-armhf-armhf-xl           1 build-check(1)               blocked  n/a
- test-armhf-armhf-xl-arndale   1 build-check(1)               blocked  n/a
- test-armhf-armhf-xl-credit1   1 build-check(1)               blocked  n/a
- test-armhf-armhf-xl-credit2   1 build-check(1)               blocked  n/a
- test-armhf-armhf-xl-multivcpu  1 build-check(1)               blocked  n/a
- test-armhf-armhf-xl-qcow2     1 build-check(1)               blocked  n/a
- test-armhf-armhf-xl-raw       1 build-check(1)               blocked  n/a
- test-armhf-armhf-xl-rtds      1 build-check(1)               blocked  n/a
- test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
- test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-vhd      14 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-vhd      15 saverestore-support-check    fail   never pass
- test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
+> +Peripheral Interrupts) to allocate for the domain. If the value specified by
+> +the `nr_spis` parameter is smaller than the number of SPIs calculated by the
+> +toolstack based on the devices allocated for the domain, or the `nr_spis`
+> +parameter is not specified, the value calculated by the toolstack will be used
+> +for the domain. Otherwise, the value specified by the `nr_spis` parameter will
+> +be used.
 
-version targeted for testing:
- linux                c760b3725e52403dc1b28644fb09c47a83cacea6
-baseline version:
- linux                8f6a15f095a63a83b096d9b29aaff4f0fbe6f6e6
+I think it would be worth mentioning that the number of SPIs should 
+match the highest interrupt ID that will be assigned to the domain 
+(rather than the number of SPIs planned to be assigned).
 
-Last test of basis   186052  2024-05-21 01:42:42 Z    2 days
-Failing since        186065  2024-05-21 16:10:24 Z    2 days    3 attempts
-Testing same since   186103  2024-05-23 05:27:56 Z    0 days    1 attempts
+> +
+> +=back
+> +
+>   =head3 x86
+>   
+>   =over 4
+> diff --git a/tools/golang/xenlight/helpers.gen.go b/tools/golang/xenlight/helpers.gen.go
+> index b9cb5b33c7..fe5110474d 100644
+> --- a/tools/golang/xenlight/helpers.gen.go
+> +++ b/tools/golang/xenlight/helpers.gen.go
+> @@ -1154,6 +1154,7 @@ return fmt.Errorf("invalid union key '%v'", x.Type)}
+>   x.ArchArm.GicVersion = GicVersion(xc.arch_arm.gic_version)
+>   x.ArchArm.Vuart = VuartType(xc.arch_arm.vuart)
+>   x.ArchArm.SveVl = SveType(xc.arch_arm.sve_vl)
+> +x.ArchArm.NrSpis = uint32(xc.arch_arm.nr_spis)
+>   if err := x.ArchX86.MsrRelaxed.fromC(&xc.arch_x86.msr_relaxed);err != nil {
+>   return fmt.Errorf("converting field ArchX86.MsrRelaxed: %v", err)
+>   }
+> @@ -1670,6 +1671,7 @@ return fmt.Errorf("invalid union key '%v'", x.Type)}
+>   xc.arch_arm.gic_version = C.libxl_gic_version(x.ArchArm.GicVersion)
+>   xc.arch_arm.vuart = C.libxl_vuart_type(x.ArchArm.Vuart)
+>   xc.arch_arm.sve_vl = C.libxl_sve_type(x.ArchArm.SveVl)
+> +xc.arch_arm.nr_spis = C.uint32_t(x.ArchArm.NrSpis)
+>   if err := x.ArchX86.MsrRelaxed.toC(&xc.arch_x86.msr_relaxed); err != nil {
+>   return fmt.Errorf("converting field ArchX86.MsrRelaxed: %v", err)
+>   }
+> diff --git a/tools/golang/xenlight/types.gen.go b/tools/golang/xenlight/types.gen.go
+> index 5b293755d7..c9e45b306f 100644
+> --- a/tools/golang/xenlight/types.gen.go
+> +++ b/tools/golang/xenlight/types.gen.go
+> @@ -597,6 +597,7 @@ ArchArm struct {
+>   GicVersion GicVersion
+>   Vuart VuartType
+>   SveVl SveType
+> +NrSpis uint32
+>   }
+>   ArchX86 struct {
+>   MsrRelaxed Defbool
+> diff --git a/tools/libs/light/libxl_arm.c b/tools/libs/light/libxl_arm.c
+> index 1cb89fa584..a4029e3ac8 100644
+> --- a/tools/libs/light/libxl_arm.c
+> +++ b/tools/libs/light/libxl_arm.c
+> @@ -181,8 +181,8 @@ int libxl__arch_domain_prepare_config(libxl__gc *gc,
+>   
+>       LOG(DEBUG, "Configure the domain");
+>   
+> -    config->arch.nr_spis = nr_spis;
+> -    LOG(DEBUG, " - Allocate %u SPIs", nr_spis);
+> +    config->arch.nr_spis = max(nr_spis, d_config->b_info.arch_arm.nr_spis);
 
-------------------------------------------------------------
-435 people touched revisions under test,
-not listing them all
+I am not entirely sure about using max(). To me if the user specifies a 
+lower limit, then we should throw an error because this is likely an 
+indication that the SPIs they will want to assign will clash with the 
+emulated ones.
 
-jobs:
- build-amd64-xsm                                              fail    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               fail    
- build-amd64                                                  fail    
- build-arm64                                                  pass    
- build-armhf                                                  fail    
- build-i386                                                   fail    
- build-amd64-libvirt                                          blocked 
- build-arm64-libvirt                                          pass    
- build-armhf-libvirt                                          blocked 
- build-i386-libvirt                                           blocked 
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl                                          blocked 
- test-amd64-coresched-amd64-xl                                blocked 
- test-arm64-arm64-xl                                          pass    
- test-armhf-armhf-xl                                          blocked 
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           blocked 
- test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        blocked 
- test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 blocked 
- test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 blocked 
- test-amd64-amd64-libvirt-xsm                                 blocked 
- test-arm64-arm64-libvirt-xsm                                 pass    
- test-amd64-amd64-xl-xsm                                      blocked 
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-qemuu-nested-amd                            blocked 
- test-amd64-amd64-xl-pvhv2-amd                                blocked 
- test-amd64-amd64-dom0pvh-xl-amd                              blocked 
- test-amd64-amd64-xl-qemut-debianhvm-amd64                    blocked 
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    blocked 
- test-amd64-amd64-qemuu-freebsd11-amd64                       blocked 
- test-amd64-amd64-qemuu-freebsd12-amd64                       blocked 
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
- test-amd64-amd64-xl-qemut-win7-amd64                         blocked 
- test-amd64-amd64-xl-qemuu-win7-amd64                         blocked 
- test-amd64-amd64-xl-qemut-ws16-amd64                         blocked 
- test-amd64-amd64-xl-qemuu-ws16-amd64                         blocked 
- test-armhf-armhf-xl-arndale                                  blocked 
- test-amd64-amd64-examine-bios                                blocked 
- test-amd64-amd64-xl-credit1                                  blocked 
- test-arm64-arm64-xl-credit1                                  pass    
- test-armhf-armhf-xl-credit1                                  blocked 
- test-amd64-amd64-xl-credit2                                  blocked 
- test-arm64-arm64-xl-credit2                                  pass    
- test-armhf-armhf-xl-credit2                                  blocked 
- test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        blocked 
- test-amd64-amd64-examine                                     blocked 
- test-arm64-arm64-examine                                     pass    
- test-armhf-armhf-examine                                     blocked 
- test-amd64-amd64-qemuu-nested-intel                          blocked 
- test-amd64-amd64-xl-pvhv2-intel                              blocked 
- test-amd64-amd64-dom0pvh-xl-intel                            blocked 
- test-amd64-amd64-libvirt                                     blocked 
- test-armhf-armhf-libvirt                                     blocked 
- test-amd64-amd64-xl-multivcpu                                blocked 
- test-armhf-armhf-xl-multivcpu                                blocked 
- test-amd64-amd64-pair                                        blocked 
- test-amd64-amd64-libvirt-pair                                blocked 
- test-amd64-amd64-xl-pvshim                                   blocked 
- test-amd64-amd64-pygrub                                      blocked 
- test-amd64-amd64-libvirt-qcow2                               blocked 
- test-amd64-amd64-xl-qcow2                                    blocked 
- test-armhf-armhf-xl-qcow2                                    blocked 
- test-amd64-amd64-libvirt-raw                                 blocked 
- test-arm64-arm64-libvirt-raw                                 pass    
- test-amd64-amd64-xl-raw                                      blocked 
- test-armhf-armhf-xl-raw                                      blocked 
- test-amd64-amd64-xl-rtds                                     blocked 
- test-armhf-armhf-xl-rtds                                     blocked 
- test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             blocked 
- test-amd64-amd64-xl-shadow                                   blocked 
- test-arm64-arm64-xl-thunderx                                 pass    
- test-amd64-amd64-examine-uefi                                blocked 
- test-amd64-amd64-libvirt-vhd                                 blocked 
- test-armhf-armhf-libvirt-vhd                                 blocked 
- test-amd64-amd64-xl-vhd                                      blocked 
- test-arm64-arm64-xl-vhd                                      pass    
+So it would be better to warn at domain creation rather than waiting 
+until the IRQs are assigned.
 
+I would like Anthony's opinion on this one. Given he is away this month, 
+I guess we could get this patch merged (with other comments addressed) 
+and have a follow-up if wanted before 4.19.
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+> +    LOG(DEBUG, " - Allocate %u SPIs", config->arch.nr_spis);
+>   
+>       switch (d_config->b_info.arch_arm.gic_version) {
+>       case LIBXL_GIC_VERSION_DEFAULT:
+> diff --git a/tools/libs/light/libxl_types.idl b/tools/libs/light/libxl_types.idl
+> index 79e9c656cc..4e65e6fda5 100644
+> --- a/tools/libs/light/libxl_types.idl
+> +++ b/tools/libs/light/libxl_types.idl
+> @@ -722,6 +722,7 @@ libxl_domain_build_info = Struct("domain_build_info",[
+>       ("arch_arm", Struct(None, [("gic_version", libxl_gic_version),
+>                                  ("vuart", libxl_vuart_type),
+>                                  ("sve_vl", libxl_sve_type),
+> +                               ("nr_spis", uint32),
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+ From my understandig, any change in the .idl requires a corresponding 
+LIBXL_HAVE_... in include/libxl.h. This is in order to allow external 
+toolstack (such as libvirt) to be able to select at build time between 
+multiple version of libxl.
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+>                                 ])),
+>       ("arch_x86", Struct(None, [("msr_relaxed", libxl_defbool),
+>                                 ])),
+> diff --git a/tools/xl/xl_parse.c b/tools/xl/xl_parse.c
+> index c504ab3711..e3a4800f6e 100644
+> --- a/tools/xl/xl_parse.c
+> +++ b/tools/xl/xl_parse.c
+> @@ -2935,6 +2935,9 @@ skip_usbdev:
+>           }
+>       }
+>   
+> +    if (!xlu_cfg_get_long (config, "nr_spis", &l, 0))
+> +        b_info->arch_arm.nr_spis = l;
+> +
+>       parse_vkb_list(config, d_config);
+>   
+>       d_config->virtios = NULL;
 
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+Cheers,
 
-
-Not pushing.
-
-(No revision log; it would be 36039 lines long.)
+-- 
+Julien Grall
 
