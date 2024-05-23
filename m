@@ -2,38 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B7CF88CCD48
-	for <lists+xen-devel@lfdr.de>; Thu, 23 May 2024 09:47:42 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.728125.1132962 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1C96F8CCD2F
+	for <lists+xen-devel@lfdr.de>; Thu, 23 May 2024 09:41:31 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.728093.1132863 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sA3Aa-000778-Ir; Thu, 23 May 2024 07:47:24 +0000
+	id 1sA34G-0001Z7-Iq; Thu, 23 May 2024 07:40:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 728125.1132962; Thu, 23 May 2024 07:47:24 +0000
+Received: by outflank-mailman (output) from mailman id 728093.1132863; Thu, 23 May 2024 07:40:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sA3Aa-00074v-Fk; Thu, 23 May 2024 07:47:24 +0000
-Received: by outflank-mailman (input) for mailman id 728125;
- Thu, 23 May 2024 07:47:22 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=5tjK=M2=linaro.org=manos.pitsidianakis@srs-se1.protection.inumbo.net>)
- id 1sA3AY-00074k-Bb
- for xen-devel@lists.xenproject.org; Thu, 23 May 2024 07:47:22 +0000
-Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
- [2a00:1450:4864:20::42f])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id aed39276-18d8-11ef-b4bb-af5377834399;
- Thu, 23 May 2024 09:47:19 +0200 (CEST)
-Received: by mail-wr1-x42f.google.com with SMTP id
- ffacd0b85a97d-354de3c5c61so1288525f8f.0
- for <xen-devel@lists.xenproject.org>; Thu, 23 May 2024 00:47:20 -0700 (PDT)
-Received: from meli-email.org (adsl-49.37.6.163.tellas.gr. [37.6.163.49])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-354cc7738dasm7480210f8f.18.2024.05.23.00.47.18
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 23 May 2024 00:47:18 -0700 (PDT)
+	id 1sA34G-0001We-F5; Thu, 23 May 2024 07:40:52 +0000
+Received: by outflank-mailman (input) for mailman id 728093;
+ Thu, 23 May 2024 07:40:50 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=1Po+=M2=amd.com=Xin.Wang2@srs-se1.protection.inumbo.net>)
+ id 1sA34E-0001WY-HU
+ for xen-devel@lists.xenproject.org; Thu, 23 May 2024 07:40:50 +0000
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on20624.outbound.protection.outlook.com
+ [2a01:111:f400:7e88::624])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id c5d858ae-18d7-11ef-90a1-e314d9c70b13;
+ Thu, 23 May 2024 09:40:49 +0200 (CEST)
+Received: from CH0PR03CA0210.namprd03.prod.outlook.com (2603:10b6:610:e4::35)
+ by SN7PR12MB6672.namprd12.prod.outlook.com (2603:10b6:806:26c::5)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7611.22; Thu, 23 May
+ 2024 07:40:45 +0000
+Received: from CH1PEPF0000AD76.namprd04.prod.outlook.com
+ (2603:10b6:610:e4:cafe::fd) by CH0PR03CA0210.outlook.office365.com
+ (2603:10b6:610:e4::35) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7611.19 via Frontend
+ Transport; Thu, 23 May 2024 07:40:45 +0000
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ CH1PEPF0000AD76.mail.protection.outlook.com (10.167.244.53) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7611.14 via Frontend Transport; Thu, 23 May 2024 07:40:44 +0000
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Thu, 23 May
+ 2024 02:40:44 -0500
+Received: from henry-MS-7D54.amd.com (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.35 via Frontend
+ Transport; Thu, 23 May 2024 02:40:41 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,498 +59,161 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: aed39276-18d8-11ef-b4bb-af5377834399
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1716450439; x=1717055239; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:in-reply-to
-         :references:user-agent:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=aH6mnjfZkzeYOjZvZ/7yNuU7flVChupqdi/iX01ZoMA=;
-        b=agN5QjwT6WFIwt0/QBoUxidyQBB3s5Dmgv+jlimGBIFPr5U0/cZDmSAh8SH+tx/ilK
-         /L2l2PFBaKj+/fiMLViHpuB5ihXGmS+75DZrNge60oLAfS4b48EB3PIxfn6zc4WUeJAH
-         UUhcBzEVOBAPOyjqn0AEfzgjuFbo6+MtZB0qqMcj95hJf0pwXSeRv3pRNbyLBL3s3CP1
-         tAviuufWNCZ3egDKj4utrvGuZ8hmRERztgiJGh4tK4SReRiJNmLHAh8eykADRdDNV1VC
-         i5urReAlPVLyFSDPwpcH5c5/BOhC0wi9VTx7c6OecVlW++nLa00PQjXx/hmACOqbjGeL
-         iErA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1716450439; x=1717055239;
-        h=content-transfer-encoding:mime-version:message-id:in-reply-to
-         :references:user-agent:subject:cc:to:from:date:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=aH6mnjfZkzeYOjZvZ/7yNuU7flVChupqdi/iX01ZoMA=;
-        b=vRHLFurXDop5P4suE0UifVWVDj91lNH/YsLW34yo/yZ/lC/HFs1Cmzg+SORrz7U4hD
-         m6xojh8EfcIi8/pABr+2DMh1u4N/mQZsQ2tcyFRunWdUA+Z8BjKjmdbB6PBijTBYO0Wy
-         mPl2dGVuuwtcLFGULCNDhHBVusi9YMGptqhrTDmPtMA6lFM18McvmZGQ2ztdMdXmCugb
-         b06f0XbLvqWJEKRl7STnLRTZ14k39ex4veQaxXwqNHKs9j7uWYmc+KU7KHIC4bUzDB8u
-         CqKpof1jqntO5jYDFUXyP1HK3w9lM6+fHUcAKQwp623ffAH9mhOaISgc3nbull4amZfJ
-         Yx3Q==
-X-Gm-Message-State: AOJu0Yx4bKwUd6OvkkmvZeA/5+loR28BKrGKo2C5sNBzJwHZcFP1vnfs
-	bZqsnxEKLUAyATG4sLEBlzThssB7FO9uDq0HawlS/HSLrmiX0+OF436Ms5oUu7y+9nMGsoeYvW7
-	c
-X-Google-Smtp-Source: AGHT+IGQeMd5yBkAmawll57ZNdrxkOB8lTV5IsVrDnByQEuUMkNFKEANvw8CndcTxVK9s5YYxaoABQ==
-X-Received: by 2002:a5d:4ecd:0:b0:34c:f320:247 with SMTP id ffacd0b85a97d-354d8d83640mr3198074f8f.49.1716450438824;
-        Thu, 23 May 2024 00:47:18 -0700 (PDT)
-Date: Thu, 23 May 2024 10:35:04 +0300
-From: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
-To: xen-devel@lists.xenproject.org, "Edgar E. Iglesias" <edgar.iglesias@gmail.com>, qemu-devel@nongnu.org
-Cc: edgar.iglesias@gmail.com, sstabellini@kernel.org, jgross@suse.com, "Edgar E. Iglesias" <edgar.iglesias@amd.com>, Anthony PERARD <anthony@xenproject.org>, Paul Durrant <paul@xen.org>, xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v6 7/8] xen: mapcache: Add support for grant mappings
-User-Agent: meli 0.8.5
-References: <20240516154804.1114245-1-edgar.iglesias@gmail.com> <20240516154804.1114245-8-edgar.iglesias@gmail.com>
-In-Reply-To: <20240516154804.1114245-8-edgar.iglesias@gmail.com>
-Message-ID: <dxhms.qrh0wkni3yz@linaro.org>
+X-Inumbo-ID: c5d858ae-18d7-11ef-90a1-e314d9c70b13
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=eBUFhwhuQjb7+8X5X6R4kmafl+OL6+/T+s7/7QRLM8LsMPe7aAnQYQce5Uceckjnm4ulN7kPX90a87WaTQg3YIpy2IZ0fkW1m+b0yAjfRtxlGUrIwx53tWq6G7C0/HVKwD+rQF0vkz2BXkAGpYVPtI89FYg9ewNIFnqANypiqMgzLOedgXgbtxGZED90lYmpJVzoPBKf6qfBpG3Gjr7JohMBdQ+DhZA7ai+Sylo+N6gg108yNo0fxISl2O7bVpzjivIxMsqblngHYBZ8Lpf4RP8EgA1PSL6/x1emsTyH6+w5sMJOFEjiMH7CHR/i6lIC6f6fX7uVEhxtfHlrBV/UGg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=s6GY8LYUMBjl94igM9pP1TWRNhnTdORD7Nqir12syYE=;
+ b=GD0yVgQJvqm2A6K/aRhqKWts4b8KpkSQIe1W6qG2WFmQGYlviHmqhyFwhxeh1KQUMVS83InoXJOBN18dMk0AXlc1y1HG0DjqfXomIfEXbjytlXX7kDeds6vS38Lc46zFu7Ygt5K1OjDsGVRoW7IldNZ3RnooEa7KTSrjfnQAflGPOqkillkMzd+MCqfrNo1jFHj5gQQpH0MQh5GbO2eH9N8kkHSQCmblknYFiI1UUH5wIabOb4ztLxfjar9Z3E6+eR3bOG1RuhrsX2ZSgNKlpJ7gKuLifuf9auQ1K+zhrldHAu9kU9PEoU+eJWMrvVjyNESO+iLCdUbhi977ahg6lw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=s6GY8LYUMBjl94igM9pP1TWRNhnTdORD7Nqir12syYE=;
+ b=2/xt8J4PMWfwWRhXHPSqdOsc9VTic6XmrzYqH29ztZa7YUXdNSwdzfZjesVPQwBIZhGnzRUFpL/nV121VS64xace/RAgkaUabUyDLhbZI2m+IkXujzCa53Sgh5I9ZPpJszbUxm99E5g1Rgq2tWk849FIejbouwhu6dfcVcwwWKY=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+From: Henry Wang <xin.wang2@amd.com>
+To: <xen-devel@lists.xenproject.org>
+CC: Anthony PERARD <anthony@xenproject.org>, Stefano Stabellini
+	<sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Bertrand Marquis
+	<bertrand.marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>, "Volodymyr
+ Babchuk" <Volodymyr_Babchuk@epam.com>, George Dunlap
+	<george.dunlap@citrix.com>, Nick Rosbrook <rosbrookn@gmail.com>, "Juergen
+ Gross" <jgross@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>, "Jan
+ Beulich" <jbeulich@suse.com>
+Subject: [PATCH v4 0/9] Remaining patches for dynamic node programming using overlay dtbo
+Date: Thu, 23 May 2024 15:40:31 +0800
+Message-ID: <20240523074040.1611264-1-xin.wang2@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Type: text/plain
+Received-SPF: None (SATLEXMB03.amd.com: xin.wang2@amd.com does not designate
+ permitted sender hosts)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH1PEPF0000AD76:EE_|SN7PR12MB6672:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7468e249-a0b4-4744-f97f-08dc7afba794
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230031|82310400017|376005|1800799015|36860700004|7416005;
+X-Microsoft-Antispam-Message-Info:
+	=?us-ascii?Q?NBmC6hn3LQhREzPCW69Tq4ZqhcLA27uy65HuAVw65egaUcvJbqJgrntnyCRk?=
+ =?us-ascii?Q?HsJzFsHdOD7aCDOThMmvuxJtJmjpVQngcjU32KuNJPws3hp8gPyDZl6oj5V6?=
+ =?us-ascii?Q?N1OXRGJXYVxE4ZAoVBRSkwaB+PP8/fZc391NxIht8ha6T+y6/geYT6uma02M?=
+ =?us-ascii?Q?Fy9jXd8Qw+6qNpgU49dlDC8Vrd6Kicoj898WdLPV/p/K5w3hxVw1skA6olSO?=
+ =?us-ascii?Q?dSk/HPrPJrPIwj2dRTLGI0vxMG8PR0XEDEnLfswEctraVmE0SzawC4vz0784?=
+ =?us-ascii?Q?nmseRuqq+qcMJmfQHOvuvDX14sGrlHgl64ECA5K1NcRnipVk+jTDUfU3Km1p?=
+ =?us-ascii?Q?6bYYsHFBga6vPuj4iqFiwM1Je94bykjj4enWGf+7cY433Qa3uzVDx+cQLhk6?=
+ =?us-ascii?Q?z4Nbx+fQMgQGsHuAtBFceUl4i5aW4yXIILeUraAQaIiB7mvMuByTJp06yO+m?=
+ =?us-ascii?Q?oJCEYH3+6rMLtqZWITKTrn5ucp6QwcvweOXbfUz1HMDuWGmg9w/HEebVfjbm?=
+ =?us-ascii?Q?LIlJW6W6ld7E+5EtPLB/Tc4fK6CvGlC05TEskK5ci33O5sGVVtTO1YTer5he?=
+ =?us-ascii?Q?bNSuFewWuf9PTZHL8yQcCO7ERbCSpE9Ftnn3mk/R9SvMYrTTYtPcgHTMJntu?=
+ =?us-ascii?Q?ij+G840Vzl+WRv1xEwOyjZCTFXrpFA+O1dlwoTyk7i5gLiqowOSTIBrbNR8H?=
+ =?us-ascii?Q?37o4GbzdBkMmGsEFGLZKjgwJQgmp8ciwZyP0jvEaqlNxTm4mG7GViwUoLIdx?=
+ =?us-ascii?Q?c/ueOkNJAbr3kxgl0O0nkR0fwNoMyn7JHLROK7lFjfAefe6u/pSoQRcvOL+F?=
+ =?us-ascii?Q?dGx0f4J0LP40imynIOVELoU99lF2lXAm+eTOmGZIzfGXVz1Xb7+2XL/6IrlH?=
+ =?us-ascii?Q?5B05esIR7fEcpmwQbvruKA9qZpTYH+mpSajFGHnS49fTxlmtc2GCgmGtZahn?=
+ =?us-ascii?Q?w59RZWd3Ky2/EWUZ6EkaA0QNxxPtoirF7yjPLdC2faeZAOwfFfpy9SrY1UBA?=
+ =?us-ascii?Q?o/ajC+Xn5Pl6TU/I0RgG0FgAoKuId7PlCtf8rN/RlTGFeg1FBdJMMT7cfJ03?=
+ =?us-ascii?Q?VKxKU+39alBlxqAW6NkSFy1D9inRTSAjkHLUr3Poqm2IITT/7lWxczY8Qt1+?=
+ =?us-ascii?Q?ud76zRIpk2IWfRRrtCbDVnhl4plrU3CyCSeOYnAadbXtZVJQCcgPaAgOIrEd?=
+ =?us-ascii?Q?Xbq/8PizAW5YiwPC8HbfmT8k+TSbnUju5lQC05u/N36sG2luCW3Fau9a7IT3?=
+ =?us-ascii?Q?rJ83A3qH2saH6Jq5d756Q/NLZDg4SFKNeeMRnw4Cep/bTFiUp31Mb+fXY6xW?=
+ =?us-ascii?Q?bdtAzLXaDbFiF3x/2C+VnVHtIOA9iZhf57UM5kflcMqibA=3D=3D?=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(82310400017)(376005)(1800799015)(36860700004)(7416005);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 May 2024 07:40:44.5924
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7468e249-a0b4-4744-f97f-08dc7afba794
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CH1PEPF0000AD76.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB6672
 
-On Thu, 16 May 2024 18:48, "Edgar E. Iglesias" <edgar.iglesias@gmail.com> wrote:
->From: "Edgar E. Iglesias" <edgar.iglesias@amd.com>
->
->Add a second mapcache for grant mappings. The mapcache for
->grants needs to work with XC_PAGE_SIZE granularity since
->we can't map larger ranges than what has been granted to us.
->
->Like with foreign mappings (xen_memory), machines using grants
->are expected to initialize the xen_grants MR and map it
->into their address-map accordingly.
->
->Signed-off-by: Edgar E. Iglesias <edgar.iglesias@amd.com>
->Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
->---
-> hw/xen/xen-hvm-common.c         |  12 ++-
-> hw/xen/xen-mapcache.c           | 163 ++++++++++++++++++++++++++------
-> include/hw/xen/xen-hvm-common.h |   3 +
-> include/sysemu/xen.h            |   7 ++
-> 4 files changed, 152 insertions(+), 33 deletions(-)
->
->diff --git a/hw/xen/xen-hvm-common.c b/hw/xen/xen-hvm-common.c
->index a0a0252da0..b8ace1c368 100644
->--- a/hw/xen/xen-hvm-common.c
->+++ b/hw/xen/xen-hvm-common.c
->@@ -10,12 +10,18 @@
-> #include "hw/boards.h"
-> #include "hw/xen/arch_hvm.h"
-> 
->-MemoryRegion xen_memory;
->+MemoryRegion xen_memory, xen_grants;
-> 
->-/* Check for xen memory.  */
->+/* Check for any kind of xen memory, foreign mappings or grants.  */
-> bool xen_mr_is_memory(MemoryRegion *mr)
-> {
->-    return mr == &xen_memory;
->+    return mr == &xen_memory || mr == &xen_grants;
->+}
->+
->+/* Check specifically for grants.  */
->+bool xen_mr_is_grants(MemoryRegion *mr)
->+{
->+    return mr == &xen_grants;
-> }
-> 
-> void xen_ram_alloc(ram_addr_t ram_addr, ram_addr_t size, MemoryRegion *mr,
->diff --git a/hw/xen/xen-mapcache.c b/hw/xen/xen-mapcache.c
->index a07c47b0b1..1cbc2aeaa9 100644
->--- a/hw/xen/xen-mapcache.c
->+++ b/hw/xen/xen-mapcache.c
->@@ -14,6 +14,7 @@
-> 
-> #include <sys/resource.h>
-> 
->+#include "hw/xen/xen-hvm-common.h"
-> #include "hw/xen/xen_native.h"
-> #include "qemu/bitmap.h"
-> 
->@@ -21,6 +22,8 @@
-> #include "sysemu/xen-mapcache.h"
-> #include "trace.h"
-> 
->+#include <xenevtchn.h>
->+#include <xengnttab.h>
-> 
-> #if HOST_LONG_BITS == 32
-> #  define MCACHE_MAX_SIZE     (1UL<<31) /* 2GB Cap */
->@@ -41,6 +44,7 @@ typedef struct MapCacheEntry {
->     unsigned long *valid_mapping;
->     uint32_t lock;
-> #define XEN_MAPCACHE_ENTRY_DUMMY (1 << 0)
->+#define XEN_MAPCACHE_ENTRY_GRANT (1 << 1)
+Hi all,
 
-Might we get more entry kinds in the future? (for example foreign maps). 
-Maybe this could be an enum.
+This is the remaining series for the full functional "dynamic node
+programming using overlay dtbo" feature. The first part [1] has
+already been merged.
 
->     uint8_t flags;
->     hwaddr size;
->     struct MapCacheEntry *next;
->@@ -71,6 +75,8 @@ typedef struct MapCache {
-> } MapCache;
-> 
-> static MapCache *mapcache;
->+static MapCache *mapcache_grants;
->+static xengnttab_handle *xen_region_gnttabdev;
-> 
-> static inline void mapcache_lock(MapCache *mc)
-> {
->@@ -131,6 +137,12 @@ void xen_map_cache_init(phys_offset_to_gaddr_t f, void *opaque)
->     unsigned long max_mcache_size;
->     unsigned int bucket_shift;
-> 
->+    xen_region_gnttabdev = xengnttab_open(NULL, 0);
->+    if (xen_region_gnttabdev == NULL) {
->+        error_report("mapcache: Failed to open gnttab device");
->+        exit(EXIT_FAILURE);
->+    }
->+
->     if (HOST_LONG_BITS == 32) {
->         bucket_shift = 16;
->     } else {
->@@ -159,6 +171,15 @@ void xen_map_cache_init(phys_offset_to_gaddr_t f, void *opaque)
->     mapcache = xen_map_cache_init_single(f, opaque,
->                                          bucket_shift,
->                                          max_mcache_size);
->+
->+    /*
->+     * Grant mappings must use XC_PAGE_SIZE granularity since we can't
->+     * map anything beyond the number of pages granted to us.
->+     */
->+    mapcache_grants = xen_map_cache_init_single(f, opaque,
->+                                                XC_PAGE_SHIFT,
->+                                                max_mcache_size);
->+
->     setrlimit(RLIMIT_AS, &rlimit_as);
-> }
-> 
->@@ -168,17 +189,24 @@ static void xen_remap_bucket(MapCache *mc,
->                              hwaddr size,
->                              hwaddr address_index,
->                              bool dummy,
->+                             bool grant,
->+                             bool is_write,
->                              ram_addr_t ram_offset)
-> {
->     uint8_t *vaddr_base;
->-    xen_pfn_t *pfns;
->+    uint32_t *refs = NULL;
->+    xen_pfn_t *pfns = NULL;
->     int *err;
+Quoting from the original series, the first part has already made
+Xen aware of new device tree node which means updating the dt_host
+with overlay node information, and in this series, the goal is to
+map IRQ and IOMMU during runtime, where we will do the actual IOMMU
+and IRQ mapping and unmapping to a running domain. Also, documentation
+of the "dynamic node programming using overlay dtbo" feature is added.
 
-You should use g_autofree to perform automatic cleanup on function exit 
-instead of manually freeing, since the allocations should only live 
-within the function call.
+During the discussion in v3, I was recommended to split the overlay
+devices attach/detach to/from running domains to separated patches [3].
+But I decided to only expose the xl user interfaces together to the
+users after device attach/detach is fully functional, so I didn't
+split the toolstack patch (#8).
 
->     unsigned int i;
->     hwaddr nb_pfn = size >> XC_PAGE_SHIFT;
-> 
->     trace_xen_remap_bucket(address_index);
-> 
->-    pfns = g_new0(xen_pfn_t, nb_pfn);
->+    if (grant) {
->+        refs = g_new0(uint32_t, nb_pfn);
->+    } else {
->+        pfns = g_new0(xen_pfn_t, nb_pfn);
->+    }
->     err = g_new0(int, nb_pfn);
-> 
->     if (entry->vaddr_base != NULL) {
->@@ -207,21 +235,51 @@ static void xen_remap_bucket(MapCache *mc,
->     g_free(entry->valid_mapping);
->     entry->valid_mapping = NULL;
-> 
->-    for (i = 0; i < nb_pfn; i++) {
->-        pfns[i] = (address_index << (mc->bucket_shift - XC_PAGE_SHIFT)) + i;
->+    if (grant) {
->+        hwaddr grant_base = address_index - (ram_offset >> XC_PAGE_SHIFT);
->+
->+        for (i = 0; i < nb_pfn; i++) {
->+            refs[i] = grant_base + i;
->+        }
->+    } else {
->+        for (i = 0; i < nb_pfn; i++) {
->+            pfns[i] = (address_index << (mc->bucket_shift - XC_PAGE_SHIFT)) + i;
->+        }
->     }
-> 
->-    /*
->-     * If the caller has requested the mapping at a specific address use
->-     * MAP_FIXED to make sure it's honored.
->-     */
->+    entry->flags &= ~XEN_MAPCACHE_ENTRY_GRANT;
->+
->     if (!dummy) {
->-        vaddr_base = xenforeignmemory_map2(xen_fmem, xen_domid, vaddr,
->-                                           PROT_READ | PROT_WRITE,
->-                                           vaddr ? MAP_FIXED : 0,
->-                                           nb_pfn, pfns, err);
+Patch 1 is a fix of the existing code which is noticed during my local
+tests, details please see the commit message.
 
-Since err is not NULL here, the function might return a valid pointer 
-but individual frames might have failed.
+Gitlab CI for this series can be found in [2].
 
+[1] https://lore.kernel.org/xen-devel/20230906011631.30310-1-vikram.garhwal@amd.com/
+[2] https://gitlab.com/xen-project/people/henryw/xen/-/pipelines/1301720278
+[3] https://lore.kernel.org/xen-devel/e743d3d2-5884-4e55-8627-85985ba339f9@amd.com/
 
->+        if (grant) {
->+            int prot = PROT_READ;
->+
->+            if (is_write) {
->+                prot |= PROT_WRITE;
->+            }
->+
->+            entry->flags |= XEN_MAPCACHE_ENTRY_GRANT;
->+            assert(vaddr == NULL);
->+            vaddr_base = xengnttab_map_domain_grant_refs(xen_region_gnttabdev,
->+                                                         nb_pfn,
->+                                                         xen_domid, refs,
->+                                                         prot);
->+        } else {
->+            /*
->+             * If the caller has requested the mapping at a specific address use
->+             * MAP_FIXED to make sure it's honored.
->+             *
->+             * We don't yet support upgrading mappings from RO to RW, to handle
->+             * models using ordinary address_space_rw(), foreign mappings ignore
->+             * is_write and are always mapped RW.
->+             */
->+            vaddr_base = xenforeignmemory_map2(xen_fmem, xen_domid, vaddr,
->+                                               PROT_READ | PROT_WRITE,
->+                                               vaddr ? MAP_FIXED : 0,
->+                                               nb_pfn, pfns, err);
->+        }
->         if (vaddr_base == NULL) {
->-            perror("xenforeignmemory_map2");
->+            perror(grant ? "xengnttab_map_domain_grant_refs"
->+                           : "xenforeignmemory_map2");
->             exit(-1);
->         }
->     } else {
->@@ -261,6 +319,7 @@ static void xen_remap_bucket(MapCache *mc,
->         }
->     }
-> 
->+    g_free(refs);
->     g_free(pfns);
->     g_free(err);
-> }
->@@ -268,7 +327,8 @@ static void xen_remap_bucket(MapCache *mc,
-> static uint8_t *xen_map_cache_unlocked(MapCache *mc,
->                                        hwaddr phys_addr, hwaddr size,
->                                        ram_addr_t ram_offset,
->-                                       uint8_t lock, bool dma, bool is_write)
->+                                       uint8_t lock, bool dma,
->+                                       bool grant, bool is_write)
-> {
->     MapCacheEntry *entry, *pentry = NULL,
->                   *free_entry = NULL, *free_pentry = NULL;
->@@ -340,7 +400,7 @@ tryagain:
->         entry = g_new0(MapCacheEntry, 1);
->         pentry->next = entry;
->         xen_remap_bucket(mc, entry, NULL, cache_size, address_index, dummy,
->-                         ram_offset);
->+                         grant, is_write, ram_offset);
->     } else if (!entry->lock) {
->         if (!entry->vaddr_base || entry->paddr_index != address_index ||
->                 entry->size != cache_size ||
->@@ -348,7 +408,7 @@ tryagain:
->                     test_bit_size >> XC_PAGE_SHIFT,
->                     entry->valid_mapping)) {
->             xen_remap_bucket(mc, entry, NULL, cache_size, address_index, dummy,
->-                             ram_offset);
->+                             grant, is_write, ram_offset);
->         }
->     }
-> 
->@@ -399,12 +459,28 @@ uint8_t *xen_map_cache(MemoryRegion *mr,
->                        uint8_t lock, bool dma,
->                        bool is_write)
-> {
->+    bool grant = xen_mr_is_grants(mr);
->+    MapCache *mc = grant ? mapcache_grants : mapcache;
->     uint8_t *p;
-> 
->-    mapcache_lock(mapcache);
->-    p = xen_map_cache_unlocked(mapcache, phys_addr, size, ram_addr_offset,
->-                               lock, dma, is_write);
->-    mapcache_unlock(mapcache);
->+    if (grant) {
->+        /*
->+         * Grants are only supported via address_space_map(). Anything
->+         * else is considered a user/guest error.
->+         *
->+         * QEMU generally doesn't expect these mappings to ever fail, so
->+         * if this happens we report an error message and abort().
->+         */
->+        if (!lock) {
+Henry Wang (7):
+  tools/xl: Correct the help information and exit code of the dt-overlay
+    command
+  xen/arm, doc: Add a DT property to specify IOMMU for Dom0less domUs
+  tools/arm: Introduce the "nr_spis" xl config entry
+  xen/arm/gic: Allow adding interrupt to running VMs
+  xen/arm: Add XEN_DOMCTL_dt_overlay and device attachment to domains
+  xen/arm: Support device detachment from domains
+  tools: Introduce the "xl dt-overlay {attach,detach}" commands
 
-Nested if conditions that can be flattened, i.e. this could be 
+Vikram Garhwal (2):
+  xen/arm/gic: Allow removing interrupt to running VMs
+  docs: Add device tree overlay documentation
 
-if (grant && !lock)
+ docs/man/xl.cfg.5.pod.in              |  14 +
+ docs/misc/arm/device-tree/booting.txt |  16 +
+ docs/misc/arm/overlay.txt             |  99 ++++++
+ tools/golang/xenlight/helpers.gen.go  |   2 +
+ tools/golang/xenlight/types.gen.go    |   1 +
+ tools/include/libxl.h                 |  10 +
+ tools/include/xenctrl.h               |   3 +
+ tools/libs/ctrl/xc_dt_overlay.c       |  31 ++
+ tools/libs/light/libxl_arm.c          |   4 +-
+ tools/libs/light/libxl_dt_overlay.c   |  28 ++
+ tools/libs/light/libxl_types.idl      |   1 +
+ tools/xl/xl_cmdtable.c                |   4 +-
+ tools/xl/xl_parse.c                   |   3 +
+ tools/xl/xl_vmcontrol.c               |  48 ++-
+ xen/arch/arm/dom0less-build.c         |  11 +-
+ xen/arch/arm/domctl.c                 |   3 +
+ xen/arch/arm/gic-vgic.c               |  36 ++-
+ xen/arch/arm/gic.c                    |  17 +-
+ xen/arch/arm/vgic/vgic.c              |  31 +-
+ xen/common/dt-overlay.c               | 438 ++++++++++++++++++++------
+ xen/include/public/domctl.h           |  15 +
+ xen/include/public/sysctl.h           |  11 +-
+ xen/include/xen/dt-overlay.h          |   7 +
+ 23 files changed, 678 insertions(+), 155 deletions(-)
+ create mode 100644 docs/misc/arm/overlay.txt
 
->+            error_report("Trying access a grant reference without mapping it.");
+-- 
+2.34.1
 
-s/Trying access a grant/Tried to access a grant/
-
->+            abort();
->+        }
->+    }
->+
->+    mapcache_lock(mc);
->+    p = xen_map_cache_unlocked(mc, phys_addr, size, ram_addr_offset,
->+                               lock, dma, grant, is_write);
->+    mapcache_unlock(mc);
->     return p;
-> }
-> 
->@@ -449,7 +525,14 @@ static ram_addr_t xen_ram_addr_from_mapcache_single(MapCache *mc, void *ptr)
-> 
-> ram_addr_t xen_ram_addr_from_mapcache(void *ptr)
-> {
->-    return xen_ram_addr_from_mapcache_single(mapcache, ptr);
->+    ram_addr_t addr;
->+
->+    addr = xen_ram_addr_from_mapcache_single(mapcache, ptr);
->+    if (addr == RAM_ADDR_INVALID) {
->+        addr = xen_ram_addr_from_mapcache_single(mapcache_grants, ptr);
->+    }
->+
->+    return addr;
-> }
-> 
-> static void xen_invalidate_map_cache_entry_unlocked(MapCache *mc,
->@@ -460,6 +543,7 @@ static void xen_invalidate_map_cache_entry_unlocked(MapCache *mc,
->     hwaddr paddr_index;
->     hwaddr size;
->     int found = 0;
->+    int rc;
-> 
->     QTAILQ_FOREACH(reventry, &mc->locked_entries, next) {
->         if (reventry->vaddr_req == buffer) {
->@@ -502,7 +586,14 @@ static void xen_invalidate_map_cache_entry_unlocked(MapCache *mc,
->     }
-> 
->     ram_block_notify_remove(entry->vaddr_base, entry->size, entry->size);
->-    if (munmap(entry->vaddr_base, entry->size) != 0) {
->+    if (entry->flags & XEN_MAPCACHE_ENTRY_GRANT) {
->+        rc = xengnttab_unmap(xen_region_gnttabdev, entry->vaddr_base,
->+                             entry->size >> mc->bucket_shift);
->+    } else {
->+        rc = munmap(entry->vaddr_base, entry->size);
->+    }
->+
->+    if (rc) {
->         perror("unmap fails");
->         exit(-1);
->     }
->@@ -521,14 +612,24 @@ typedef struct XenMapCacheData {
->     uint8_t *buffer;
-> } XenMapCacheData;
-> 
->+static void xen_invalidate_map_cache_entry_single(MapCache *mc, uint8_t *buffer)
->+{
->+    mapcache_lock(mc);
->+    xen_invalidate_map_cache_entry_unlocked(mc, buffer);
->+    mapcache_unlock(mc);
->+}
->+
->+static void xen_invalidate_map_cache_entry_all(uint8_t *buffer)
->+{
->+    xen_invalidate_map_cache_entry_single(mapcache, buffer);
->+    xen_invalidate_map_cache_entry_single(mapcache_grants, buffer);
->+}
->+
-> static void xen_invalidate_map_cache_entry_bh(void *opaque)
-> {
->     XenMapCacheData *data = opaque;
-> 
->-    mapcache_lock(mapcache);
->-    xen_invalidate_map_cache_entry_unlocked(mapcache, data->buffer);
->-    mapcache_unlock(mapcache);
->-
->+    xen_invalidate_map_cache_entry_all(data->buffer);
->     aio_co_wake(data->co);
-> }
-> 
->@@ -543,9 +644,7 @@ void coroutine_mixed_fn xen_invalidate_map_cache_entry(uint8_t *buffer)
->                                 xen_invalidate_map_cache_entry_bh, &data);
->         qemu_coroutine_yield();
->     } else {
->-        mapcache_lock(mapcache);
->-        xen_invalidate_map_cache_entry_unlocked(mapcache, buffer);
->-        mapcache_unlock(mapcache);
->+        xen_invalidate_map_cache_entry_all(buffer);
->     }
-> }
-> 
->@@ -597,6 +696,7 @@ void xen_invalidate_map_cache(void)
->     bdrv_drain_all();
-> 
->     xen_invalidate_map_cache_single(mapcache);
->+    xen_invalidate_map_cache_single(mapcache_grants);
-> }
-> 
-> static uint8_t *xen_replace_cache_entry_unlocked(MapCache *mc,
->@@ -632,13 +732,16 @@ static uint8_t *xen_replace_cache_entry_unlocked(MapCache *mc,
->         return NULL;
->     }
-> 
->+    assert((entry->flags & XEN_MAPCACHE_ENTRY_GRANT) == 0);
->+
->     address_index  = new_phys_addr >> mc->bucket_shift;
->     address_offset = new_phys_addr & (mc->bucket_size - 1);
-> 
->     trace_xen_replace_cache_entry_dummy(old_phys_addr, new_phys_addr);
-> 
->     xen_remap_bucket(mc, entry, entry->vaddr_base,
->-                     cache_size, address_index, false, old_phys_addr);
->+                     cache_size, address_index, false,
->+                     false, false, old_phys_addr);
->     if (!test_bits(address_offset >> XC_PAGE_SHIFT,
->                 test_bit_size >> XC_PAGE_SHIFT,
->                 entry->valid_mapping)) {
->diff --git a/include/hw/xen/xen-hvm-common.h b/include/hw/xen/xen-hvm-common.h
->index 65a51aac2e..3d796235dc 100644
->--- a/include/hw/xen/xen-hvm-common.h
->+++ b/include/hw/xen/xen-hvm-common.h
->@@ -16,6 +16,7 @@
-> #include <xen/hvm/ioreq.h>
-> 
-> extern MemoryRegion xen_memory;
->+extern MemoryRegion xen_grants;
-> extern MemoryListener xen_io_listener;
-> extern DeviceListener xen_device_listener;
-> 
->@@ -29,6 +30,8 @@ extern DeviceListener xen_device_listener;
->     do { } while (0)
-> #endif
-> 
->+#define XEN_GRANT_ADDR_OFF (1ULL << 63)
->+
-> static inline uint32_t xen_vcpu_eport(shared_iopage_t *shared_page, int i)
-> {
->     return shared_page->vcpu_ioreq[i].vp_eport;
->diff --git a/include/sysemu/xen.h b/include/sysemu/xen.h
->index dc72f83bcb..19dccf4d71 100644
->--- a/include/sysemu/xen.h
->+++ b/include/sysemu/xen.h
->@@ -35,6 +35,7 @@ void xen_ram_alloc(ram_addr_t ram_addr, ram_addr_t size,
->                    struct MemoryRegion *mr, Error **errp);
-> 
-> bool xen_mr_is_memory(MemoryRegion *mr);
->+bool xen_mr_is_grants(MemoryRegion *mr);
-> 
-> #else /* !CONFIG_XEN_IS_POSSIBLE */
-> 
->@@ -55,6 +56,12 @@ static inline bool xen_mr_is_memory(MemoryRegion *mr)
->     return false;
-> }
-> 
->+static inline bool xen_mr_is_grants(MemoryRegion *mr)
->+{
->+    g_assert_not_reached();
->+    return false;
->+}
->+
-> #endif /* CONFIG_XEN_IS_POSSIBLE */
-> 
-> #endif
->-- 
->2.40.1
->
->
 
