@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7B43E8CCDC0
-	for <lists+xen-devel@lfdr.de>; Thu, 23 May 2024 10:04:55 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.728178.1133003 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 307FC8CCDCC
+	for <lists+xen-devel@lfdr.de>; Thu, 23 May 2024 10:06:13 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.728182.1133013 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sA3RE-0005JJ-SU; Thu, 23 May 2024 08:04:36 +0000
+	id 1sA3SY-0005wI-5m; Thu, 23 May 2024 08:05:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 728178.1133003; Thu, 23 May 2024 08:04:36 +0000
+Received: by outflank-mailman (output) from mailman id 728182.1133013; Thu, 23 May 2024 08:05:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sA3RE-0005Go-Ou; Thu, 23 May 2024 08:04:36 +0000
-Received: by outflank-mailman (input) for mailman id 728178;
- Thu, 23 May 2024 08:04:35 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1sA3SY-0005tb-2x; Thu, 23 May 2024 08:05:58 +0000
+Received: by outflank-mailman (input) for mailman id 728182;
+ Thu, 23 May 2024 08:05:57 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=TgV8=M2=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1sA3RD-0005Gi-9Q
- for xen-devel@lists.xenproject.org; Thu, 23 May 2024 08:04:35 +0000
-Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
- [2a00:1450:4864:20::12f])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 16a6a3d4-18db-11ef-b4bb-af5377834399;
- Thu, 23 May 2024 10:04:32 +0200 (CEST)
-Received: by mail-lf1-x12f.google.com with SMTP id
- 2adb3069b0e04-5206a5854adso6603405e87.0
- for <xen-devel@lists.xenproject.org>; Thu, 23 May 2024 01:04:33 -0700 (PDT)
+ id 1sA3SX-0005tV-8L
+ for xen-devel@lists.xenproject.org; Thu, 23 May 2024 08:05:57 +0000
+Received: from mail-lj1-x22c.google.com (mail-lj1-x22c.google.com
+ [2a00:1450:4864:20::22c])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 4844ebe6-18db-11ef-90a1-e314d9c70b13;
+ Thu, 23 May 2024 10:05:56 +0200 (CEST)
+Received: by mail-lj1-x22c.google.com with SMTP id
+ 38308e7fff4ca-2e78fe9fc2bso31366091fa.3
+ for <xen-devel@lists.xenproject.org>; Thu, 23 May 2024 01:05:56 -0700 (PDT)
 Received: from [192.168.219.221] ([94.75.70.14])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-521f35ad3c7sm5248350e87.35.2024.05.23.01.04.31
+ 2adb3069b0e04-521f35ba564sm5245334e87.99.2024.05.23.01.05.55
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 23 May 2024 01:04:32 -0700 (PDT)
+ Thu, 23 May 2024 01:05:55 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,92 +45,88 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 16a6a3d4-18db-11ef-b4bb-af5377834399
+X-Inumbo-ID: 4844ebe6-18db-11ef-90a1-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1716451472; x=1717056272; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1716451556; x=1717056356; darn=lists.xenproject.org;
         h=mime-version:user-agent:content-transfer-encoding:references
          :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
          :date:message-id:reply-to;
-        bh=X2UdYcGeBEiDNLatqEDT2A8B9sTUunerNT7zZ2p/WiE=;
-        b=hT8YeGrtqVbl92xB8pP/AxZcy7wqygDsxisPcAtIUPlI/YtFCB6uyT4AyCztKcN+it
-         nOHfkPEkhfMu71Mc/m4nLdtUieTbh6xAAZ8gsRhyNXZ9P/Hxick4wBDKhclQL0q3JFei
-         G22Pi6xY4qROhErczoB/k7H2MhpJhBPOoihBvZ6ZlUBzSnnisyWybQEztpckRu+CPkUq
-         zDSCXhLP5B8KXF58gEDilOhc6NLk2R7JQvTz1qVy7ZR8XMSH9692bu8CXqMC5pvGmxQD
-         xegM3XmOn/wABMgJ4m9hp/BV08goYEwnNIAiDgINrz0QsgxTMloNhFllRm/pO5Fl1Bik
-         x3BA==
+        bh=cPE1TsUCa10n5DcZIyd/0GWGnxDF2jkNsyqFqDPCUcA=;
+        b=LifVNs7KR5qHrg60TdRcyLM+qsWr/M+j2yv9Vk6ZFl0PDBLuS2nynpvzkX043s13F7
+         tsxSsRZ8RHwaxlA6VpeJ+Z1fLG2wGf4EJlwxyT8tgQ1gbDnianh79zJ90b0dtHsKIKGo
+         XB1cM37DGVZQGWGynX/2khY4FcvnJMHq3uF8UVbyHTlj+5DCm5/s3cwwrqsZ5N7JJI2Q
+         yxtcWqpNmXn+ebwytwf3iAShJ2EouK0wH2HJMed5VkLSVnBSDVtoVbmYfr0CkTyRcEd3
+         /ZqHhHVy0bSieXdbfN9n4+PztP/ayYW7QqBakHaKJd7QC0oh/2bA8fFj2T4YwWNgm2Wy
+         XzOQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1716451472; x=1717056272;
+        d=1e100.net; s=20230601; t=1716451556; x=1717056356;
         h=mime-version:user-agent:content-transfer-encoding:references
          :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=X2UdYcGeBEiDNLatqEDT2A8B9sTUunerNT7zZ2p/WiE=;
-        b=mSYWKbQsy+Ap3Qz3au7PqCBymaM5j6a1AsP95mz7aWFZqqg5IrwM4TsMUH1DqNUS/Y
-         sbbjBWFd/fh7SWzyK2p2HdDCiN2gECtkBgWnZrh0fjVuckwrf4q4bvWLT6l6XGXJThke
-         kjELIhj487kdldr7CEoOcYk1NjfD50rp07RsY3fmj68HJbjC0C4F/151eO1+ycAWvA6f
-         /yBhgVc/9ntU62gletlmsBnKqNk2BkQvXhiTZ6xgPRfjkepI1QvRjql6ccmyEGyBBIva
-         K9MlSJORQb4vLDZWoA38omADIdBgwjQXrZpwzkycYkZCgRd5wLOeJGBR9LZMh7GQc1kC
-         gvWA==
-X-Gm-Message-State: AOJu0Ywy5UZr3mcZF07mM7GKEluwRIsGV7/iaeLZGn0JJ6gMhF+lGWjO
-	F8AeTDEwBEifv2DrVjUpRg6PV4lSD0b0jyDN9jAaOMJ5DFglY9vk
-X-Google-Smtp-Source: AGHT+IGy2lqeeGLvLdZyq1Nzxq1SnkMMcHXq3cAIbUUtiTRHx+7HniiYP9D+sNg59A2J/RFdD198Kw==
-X-Received: by 2002:a05:6512:3ee:b0:518:9cbf:cd6b with SMTP id 2adb3069b0e04-526bd69494fmr2500440e87.13.1716451472368;
-        Thu, 23 May 2024 01:04:32 -0700 (PDT)
-Message-ID: <a9fdb75d26839c31a8b0ceda9c940b2e13a89bab.camel@gmail.com>
-Subject: Re: [for-4.19] Re: [XEN PATCH v3] arm/mem_access: add conditional
- build of mem_access.c
+        bh=cPE1TsUCa10n5DcZIyd/0GWGnxDF2jkNsyqFqDPCUcA=;
+        b=hBfVuPY1wdRXp0ZJwwkAhSz41iO8TlIIUrK1qa4gSb/ce2nSCmGTBQGyb2EO+8oTJM
+         hmgeKxf6rEPldX2sQMPVJY1ZNDmFTjO24+B9IVOrDB0GRJ0kFKF0q8nPw6tcARODePaJ
+         FrJz/+UTOnou7zKYSqOOThzSJznnA56fhKggtPg951DRzACtjrId9j4JObod7HS1zbnW
+         nAK/pAHznuPDMRYhUrRm1tdjkTIlcdAn5MF5NgtlL+mWkTL9/0wcm5lEywGQ2Xd1QJm+
+         Dk4spvQ2vLySncEuRie9Ik2EojNbdknTg73UrQDnj2lAEOtkV+94G+k3Iq/cL02Zxzv+
+         znlA==
+X-Forwarded-Encrypted: i=1; AJvYcCWTQteuBSSCNs9hJMlZ4AZ9f3n1JIlJdbcNp4FUe87eR98c/GjFZSE6+EAwB2lGZEXqZno7hQZJ8KCj5/EAP4kog8aGZ8wvFU9vibr9qDE=
+X-Gm-Message-State: AOJu0YxgDLoTGfZVqyd4DQO6oG6LDMv2XBr/hfZFJVqXDunOmgSbOBPT
+	tEau7xVOUwH2PwklBeZzUJnZ7JTmn5eh1vAVjMnSAmHlBLGz+024rvBoFS+k
+X-Google-Smtp-Source: AGHT+IFMkUL8eZ1Wenh2hDb/BV1olkuVdACAvLiLVtFiE43JJkKfCc9A6N4V8+DX5tUQANNWbNZN/g==
+X-Received: by 2002:ac2:4c10:0:b0:518:95b6:176f with SMTP id 2adb3069b0e04-526c068ea7cmr2425012e87.50.1716451555494;
+        Thu, 23 May 2024 01:05:55 -0700 (PDT)
+Message-ID: <58c63d645b27dbacdb6264b30ff78a74dc0acaa0.camel@gmail.com>
+Subject: Re: [PATCH] x86/shadow: don't leave trace record field uninitialized
 From: "Oleksii K." <oleksii.kurochko@gmail.com>
-To: Julien Grall <julien@xen.org>, Tamas K Lengyel <tamas@tklengyel.com>, 
- Alessandro Zucchelli <alessandro.zucchelli@bugseng.com>
-Cc: xen-devel@lists.xenproject.org, consulting@bugseng.com, Stefano
- Stabellini <sstabellini@kernel.org>, Bertrand Marquis
- <bertrand.marquis@arm.com>,  Michal Orzel <michal.orzel@amd.com>, Volodymyr
- Babchuk <Volodymyr_Babchuk@epam.com>, Alexandru Isaila
- <aisaila@bitdefender.com>, Petre Pircalabu <ppircalabu@bitdefender.com>
-Date: Thu, 23 May 2024 10:04:31 +0200
-In-Reply-To: <fb426cc8-fda9-4e21-983d-37649499e0e4@xen.org>
-References: 
-	<b3f03c4f5a78b86b01750f10bb0cebcdb2fd35cc.1715265720.git.alessandro.zucchelli@bugseng.com>
-	 <CABfawh=7jZmtseCm9yaZUcKkK7i+yYiudVDvTFeF6bax_1+BjA@mail.gmail.com>
-	 <fb426cc8-fda9-4e21-983d-37649499e0e4@xen.org>
+To: Jan Beulich <jbeulich@suse.com>, "xen-devel@lists.xenproject.org"
+	 <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Roger Pau
+ =?ISO-8859-1?Q?Monn=E9?=
+	 <roger.pau@citrix.com>, Tim Deegan <tim@xen.org>, George Dunlap
+	 <george.dunlap@cloud.com>
+Date: Thu, 23 May 2024 10:05:54 +0200
+In-Reply-To: <5133a01d-346d-4779-b319-a156ef944669@suse.com>
+References: <5133a01d-346d-4779-b319-a156ef944669@suse.com>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: base64
 User-Agent: Evolution 3.52.1 (3.52.1-1.fc40) 
 MIME-Version: 1.0
 
-Hi Julien,
+T24gV2VkLCAyMDI0LTA1LTIyIGF0IDEyOjE3ICswMjAwLCBKYW4gQmV1bGljaCB3cm90ZToKPiBU
+aGUgZW11bGF0aW9uX2NvdW50IGZpZWxkIGlzIHNldCBvbmx5IGNvbmRpdGlvbmFsbHkgcmlnaHQg
+bm93Lgo+IENvbnZlcnQKPiBhbGwgZmllbGQgc2V0dGluZyB0byBhbiBpbml0aWFsaXplciwgdGh1
+cyBndWFyYW50ZWVpbmcgdGhhdCBmaWVsZCB0bwo+IGJlCj4gc2V0IHRvIDAgKGRlZmF1bHQgaW5p
+dGlhbGl6ZWQpIHdoZW4gR1VFU1RfUEFHSU5HX0xFVkVMUyAhPSAzLgo+IAo+IFdoaWxlIHRoZXJl
+IGFsc28gZHJvcCB0aGUgImV2ZW50IiBsb2NhbCB2YXJpYWJsZSwgdGh1cyBlbGltaW5hdGluZyBh
+bgo+IGluc3RhbmNlIG9mIHRoZSBiZWluZyBwaGFzZWQgb3V0IHUzMiB0eXBlLgo+IAo+IENvdmVy
+aXR5IElEOiAxNTk4NDMwCj4gRml4ZXM6IDlhODZhYzFhYTNkMiAoInhlbnRyYWNlIDUvNzogQWRk
+aXRpb25hbCB0cmFjaW5nIGZvciB0aGUgc2hhZG93Cj4gY29kZSIpCj4gU2lnbmVkLW9mZi1ieTog
+SmFuIEJldWxpY2ggPGpiZXVsaWNoQHN1c2UuY29tPgpSZWxlYXNlLWFja2VkLWJ5OiBPbGVrc2lp
+IEt1cm9jaGtvIDxvbGVrc2lpLmt1cm9jaGtvLmNvbT4KCn4gT2xla3NpaQo+IAo+IC0tLSBhL3hl
+bi9hcmNoL3g4Ni9tbS9zaGFkb3cvbXVsdGkuYwo+ICsrKyBiL3hlbi9hcmNoL3g4Ni9tbS9zaGFk
+b3cvbXVsdGkuYwo+IEBAIC0yMDkzLDIwICsyMDkzLDE4IEBAIHN0YXRpYyBpbmxpbmUgdm9pZCB0
+cmFjZV9zaGFkb3dfZW11bGF0ZSgKPiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgZ3Vlc3RfbDFl
+X3QgZ2wxZSwgd3JpdGVfdmFsOwo+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBndWVzdF92YV90
+IHZhOwo+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB1aW50MzJfdCBmbGFnczoyOSwgZW11bGF0
+aW9uX2NvdW50OjM7Cj4gLcKgwqDCoMKgwqDCoMKgIH0gZDsKPiAtwqDCoMKgwqDCoMKgwqAgdTMy
+IGV2ZW50Owo+IC0KPiAtwqDCoMKgwqDCoMKgwqAgZXZlbnQgPSBUUkNfU0hBRE9XX0VNVUxBVEUg
+fCAoKEdVRVNUX1BBR0lOR19MRVZFTFMtMik8PDgpOwo+IC0KPiAtwqDCoMKgwqDCoMKgwqAgZC5n
+bDFlID0gZ2wxZTsKPiAtwqDCoMKgwqDCoMKgwqAgZC53cml0ZV92YWwubDEgPSB0aGlzX2NwdSh0
+cmFjZV9lbXVsYXRlX3dyaXRlX3ZhbCk7Cj4gLcKgwqDCoMKgwqDCoMKgIGQudmEgPSB2YTsKPiAr
+wqDCoMKgwqDCoMKgwqAgfSBkID0gewo+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIC5nbDFlID0g
+Z2wxZSwKPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCAud3JpdGVfdmFsLmwxID0gdGhpc19jcHUo
+dHJhY2VfZW11bGF0ZV93cml0ZV92YWwpLAo+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIC52YSA9
+IHZhLAo+IMKgI2lmIEdVRVNUX1BBR0lOR19MRVZFTFMgPT0gMwo+IC3CoMKgwqDCoMKgwqDCoCBk
+LmVtdWxhdGlvbl9jb3VudCA9IHRoaXNfY3B1KHRyYWNlX2V4dHJhX2VtdWxhdGlvbl9jb3VudCk7
+Cj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqAgLmVtdWxhdGlvbl9jb3VudCA9Cj4gdGhpc19jcHUo
+dHJhY2VfZXh0cmFfZW11bGF0aW9uX2NvdW50KSwKPiDCoCNlbmRpZgo+IC3CoMKgwqDCoMKgwqDC
+oCBkLmZsYWdzID0gdGhpc19jcHUodHJhY2Vfc2hhZG93X3BhdGhfZmxhZ3MpOwo+ICvCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgIC5mbGFncyA9IHRoaXNfY3B1KHRyYWNlX3NoYWRvd19wYXRoX2ZsYWdz
+KSwKPiArwqDCoMKgwqDCoMKgwqAgfTsKPiDCoAo+IC3CoMKgwqDCoMKgwqDCoCB0cmFjZShldmVu
+dCwgc2l6ZW9mKGQpLCAmZCk7Cj4gK8KgwqDCoMKgwqDCoMKgIHRyYWNlKFRSQ19TSEFET1dfRU1V
+TEFURSB8ICgoR1VFU1RfUEFHSU5HX0xFVkVMUyAtIDIpIDw8IDgpLAo+ICvCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoCBzaXplb2YoZCksICZkKTsKPiDCoMKgwqDCoCB9Cj4gwqB9Cj4gwqAjZW5k
+aWYgLyogQ09ORklHX0hWTSAqLwoK
 
-On Wed, 2024-05-22 at 21:50 +0100, Julien Grall wrote:
-> Hi,
->=20
-> Adding Oleksii as the release manager.
->=20
-> On 22/05/2024 19:27, Tamas K Lengyel wrote:
-> > On Fri, May 10, 2024 at 8:32=E2=80=AFAM Alessandro Zucchelli
-> > <alessandro.zucchelli@bugseng.com> wrote:
-> > >=20
-> > > In order to comply to MISRA C:2012 Rule 8.4 for ARM the following
-> > > changes are done:
-> > > revert preprocessor conditional changes to xen/mem_access.h which
-> > > had it build unconditionally, add conditional build for
-> > > xen/mem_access.c
-> > > as well and provide stubs in asm/mem_access.h for the users of
-> > > this
-> > > header.
-> > >=20
-> > > Signed-off-by: Alessandro Zucchelli
-> > > <alessandro.zucchelli@bugseng.com>
-> >=20
-> > Acked-by: Tamas K Lengyel <tamas@tklengyel.com>
->=20
-> Oleksii, would you be happy if this patch is committed for 4.19?
-Sure:
- Release-acked-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-
->=20
-> BTW, do you want to be release-ack every bug until the hard code
-> freeze?=20
-> Or would you be fine to levea the decision to the maintainers?
-I would prefer to leave the decision to the maintainers.
-
-~ Oleksii
 
