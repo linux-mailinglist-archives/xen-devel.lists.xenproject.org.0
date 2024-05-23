@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CF9038CCC93
-	for <lists+xen-devel@lfdr.de>; Thu, 23 May 2024 08:55:14 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.728077.1132833 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E7ABE8CCCEC
+	for <lists+xen-devel@lfdr.de>; Thu, 23 May 2024 09:20:33 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.728083.1132843 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sA2Ll-0002bk-TU; Thu, 23 May 2024 06:54:53 +0000
+	id 1sA2jw-0005Za-P8; Thu, 23 May 2024 07:19:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 728077.1132833; Thu, 23 May 2024 06:54:53 +0000
+Received: by outflank-mailman (output) from mailman id 728083.1132843; Thu, 23 May 2024 07:19:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sA2Ll-0002Zt-Pk; Thu, 23 May 2024 06:54:53 +0000
-Received: by outflank-mailman (input) for mailman id 728077;
- Thu, 23 May 2024 06:54:52 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1sA2jw-0005Xa-MI; Thu, 23 May 2024 07:19:52 +0000
+Received: by outflank-mailman (input) for mailman id 728083;
+ Thu, 23 May 2024 07:19:51 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=OfYh=M2=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sA2Lk-0002Zn-Rq
- for xen-devel@lists.xenproject.org; Thu, 23 May 2024 06:54:52 +0000
-Received: from mail-ed1-x535.google.com (mail-ed1-x535.google.com
- [2a00:1450:4864:20::535])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 5a32c9ea-18d1-11ef-90a1-e314d9c70b13;
- Thu, 23 May 2024 08:54:51 +0200 (CEST)
-Received: by mail-ed1-x535.google.com with SMTP id
- 4fb4d7f45d1cf-57822392a0dso3683772a12.0
- for <xen-devel@lists.xenproject.org>; Wed, 22 May 2024 23:54:51 -0700 (PDT)
+ id 1sA2jv-0005XU-Gm
+ for xen-devel@lists.xenproject.org; Thu, 23 May 2024 07:19:51 +0000
+Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
+ [2a00:1450:4864:20::635])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id d704cb42-18d4-11ef-b4bb-af5377834399;
+ Thu, 23 May 2024 09:19:49 +0200 (CEST)
+Received: by mail-ej1-x635.google.com with SMTP id
+ a640c23a62f3a-a59cc765c29so177962266b.3
+ for <xen-devel@lists.xenproject.org>; Thu, 23 May 2024 00:19:49 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5733bea66f9sm19259539a12.15.2024.05.22.23.54.49
+ a640c23a62f3a-a5df00490cfsm731905266b.159.2024.05.23.00.19.48
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 22 May 2024 23:54:50 -0700 (PDT)
+ Thu, 23 May 2024 00:19:48 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,59 +45,48 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5a32c9ea-18d1-11ef-90a1-e314d9c70b13
+X-Inumbo-ID: d704cb42-18d4-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1716447291; x=1717052091; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1716448788; x=1717053588; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=oLfL0xWJbsfChY8rKWUYHVyUtWt3t7ZkmOe/WaKW2nA=;
-        b=SgQSGXEWqSJtViQ/3H9A+pCIqq/xnPpW6B4C+kzY1jU5p1nydObFKb9z1+0HpqjV9Q
-         bxgGFstqKYQdhSazAdXLKfW7z8OtNWnjdZBihqwi13Jlb2pa8FPj0xZSQ8uZlVhEuBYd
-         dsf5xhkSZioxYJ0bJxWc7hoZEF1FHVUGsjEzT3x1aOJn9XLtDovEFSoUUTeAKLC3RrKE
-         FLYv0GnPnLrLtRi8fzkHFLA529lbsG50lHOWPYDyHm5RxVdUacQmqnZv1OTH0FPjLtHG
-         O1fymqhAi+rcf+q+qttYERwRjiy0a1ZyXvbRUIYVdz1pOUnJkYzsgjAYWNRpJh3wrftB
-         4Czg==
+        bh=EkA1IoKHeNHQ8JzFiCMQbdV8RlpbiTWROT1aS2MrU7c=;
+        b=H78r9szOyyhsW37ezA/jONtXn8fTqwAp9YWvnr+YII91sFbq27L7CDE7KKkDn89/K8
+         EfJKwTb9+YaItnj10gUgJOYv3iDXYGkOWPitkkANLQstjSOR0OkDmSLQwSuI9xaowt/N
+         BlIV49awg6UVe8YDK3T+92b7fNdZ0/Rgdzd44lkdgiQ4z9zOCLOaabXrEdMjsPrXpY9i
+         druuC0EEeZeJZP1GaTcHU4vCoDQoDla6lfvoF5QJEAd0csnDfrFh8SzKU1YqNa7rjpR2
+         oFES5izSOiEnPYpBKG8m0kglt87MuB5BKIcf7Icy/1/76LyWSMO/O/b3KX8BkAFG8swJ
+         185A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1716447291; x=1717052091;
+        d=1e100.net; s=20230601; t=1716448788; x=1717053588;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=oLfL0xWJbsfChY8rKWUYHVyUtWt3t7ZkmOe/WaKW2nA=;
-        b=kXxdEN4bh+3/oTJIcUmwI9JHhJRAUu0cWGOvXs4bRj8GkS9OQxziHpV4JwScp57P0Y
-         NWmadWea9w47FMEWM829jd85eDaiYwxDNWwz9k0svrgwyexQo+jhDOSTge0HE4FzHcie
-         EXX1aTOmEpxqUU2LL/kv6OTqXvnaIUPuvdh8yDl9OPIUXSOU75rCHwf63O2DPZDKH3jr
-         jDquecvdxtMT1d1JCPac2uA7f6hWPc6vAiGv336Xtu51jpmaRFp460Ht0+axF99Iw/EA
-         imzLgwJdGQkiOVFCkBbIVkUZSuveYFxRfjE/Cr7dBVKDcySNnEPSxnhfh/6kCsRHjvaO
-         DM2A==
-X-Forwarded-Encrypted: i=1; AJvYcCWCviaubZIBdKep7qRV2dHFRHK1juzz9cpwQ2gOZMnhqvcLcDtcnK4pnMaghpnP89QpGnFkrFkZC/Ff0VHgq0hZ55ZdLisFsIuoAd1+XJo=
-X-Gm-Message-State: AOJu0YysDiiMNWUJLNQHHMF8+3MZXlWASALI0O1mreSC13iddeXw4w1I
-	RRjuFabzOrh7TnUd7llgEKHb15BG+KxcdRUT15Jfyi9baciSN32asuaXykARkA==
-X-Google-Smtp-Source: AGHT+IEAvnQa3b97gEH9UWIBTfsfaCNgjp+twUtPOTgQ5kjkYvsKaTX8tD50yL80ujx7B1KH6X2wiQ==
-X-Received: by 2002:a50:baa2:0:b0:572:a049:c4bb with SMTP id 4fb4d7f45d1cf-57832a847d9mr2461568a12.20.1716447290704;
-        Wed, 22 May 2024 23:54:50 -0700 (PDT)
-Message-ID: <14059212-3704-47e9-b758-6294f220cb83@suse.com>
-Date: Thu, 23 May 2024 08:54:49 +0200
+        bh=EkA1IoKHeNHQ8JzFiCMQbdV8RlpbiTWROT1aS2MrU7c=;
+        b=U31zWMEWEN3V8CexEkFvQBEP471TpCK+qTpIHVt9PQlbhDJNxu6bYsTLhr9aKXgj86
+         D8wuz7cRqszAwy8qEwZ4D88fWfU71p4Kwwd0kHqKna7qsCAHs2RdswLCXQe55FBwke4d
+         idX8suOGwTR7bmGsJe4TAf8P+AVxQSwv8wsn6L8Qgo2ex7YYpOF4L04gXxf4SyjnWDWj
+         fja+cejc3Mc/hIJ4SHbjGiAg7HkFpjloejgC8hTViUUG9hN4FVVHufqYmRP1p0giYkfw
+         yt/EiIVUPX17fq9yM4zXLbIFKYDvdXt7GVjeeNFARPPZcb1mOJVMLCSV5EfFPkoppFhx
+         Kq8A==
+X-Forwarded-Encrypted: i=1; AJvYcCWs2cenD7n6Ue+sIpt/TPtJLwdx+Wmmeh2ovIHm9hJIJnU6NFq7U2vNlveOpAcjxt7URH3K9v+Bn1TBUDMo/w8HXLJmbsreeauI8GGedVA=
+X-Gm-Message-State: AOJu0YxjVru7K6wRKBIMtgubnffUdYufMpqr+kL8p5c+c+Rai7OomHCu
+	TClqpJGDMmAF0oeDgcCLj87MiQqbvBLKGyzvMBfdep4ILVLeH81C8/MGM8LRNA==
+X-Google-Smtp-Source: AGHT+IGOVbZnFkYKTFkg0eWf1vzGgFjD+A29pp2VSFQraBEwKEwhiXncV7I8e6Jx7JTABjzZajP7HQ==
+X-Received: by 2002:a17:906:2b53:b0:a59:a977:a154 with SMTP id a640c23a62f3a-a622818fa42mr246364966b.64.1716448788664;
+        Thu, 23 May 2024 00:19:48 -0700 (PDT)
+Message-ID: <19073c21-d878-4d8d-95d8-90f567688ed5@suse.com>
+Date: Thu, 23 May 2024 09:19:47 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH for-4.19 v3 2/3] xen: enable altp2m at create domain
- domctl
+Subject: Re: [PATCH] docs/misra: rules for mass adoption
 Content-Language: en-US
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: Anthony PERARD <anthony@xenproject.org>, Juergen Gross <jgross@suse.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Christian Lindig <christian.lindig@citrix.com>, David Scott
- <dave@recoil.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: andrew.cooper3@citrix.com, george.dunlap@citrix.com, julien@xen.org,
+ michal.orzel@amd.com, bertrand.marquis@arm.com, roger.pau@citrix.com,
  xen-devel@lists.xenproject.org
-References: <20240517133352.94347-1-roger.pau@citrix.com>
- <20240517133352.94347-3-roger.pau@citrix.com>
- <cd1bf7b0-4a0a-4a38-9129-53822cb8e037@suse.com> <Zk3wMevPye8Rfjm4@macbook>
- <5484aab7-b15d-46c5-9ff1-9a5b54640acc@suse.com> <Zk4blZ9z6cn-ORrv@macbook>
+References: <alpine.DEB.2.22.394.2405221822500.1052252@ubuntu-linux-20-04-desktop>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -122,90 +111,57 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <Zk4blZ9z6cn-ORrv@macbook>
+In-Reply-To: <alpine.DEB.2.22.394.2405221822500.1052252@ubuntu-linux-20-04-desktop>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 22.05.2024 18:21, Roger Pau Monné wrote:
-> On Wed, May 22, 2024 at 03:34:29PM +0200, Jan Beulich wrote:
->> On 22.05.2024 15:16, Roger Pau Monné wrote:
->>> On Tue, May 21, 2024 at 12:30:32PM +0200, Jan Beulich wrote:
->>>> On 17.05.2024 15:33, Roger Pau Monne wrote:
->>>>> Enabling it using an HVM param is fragile, and complicates the logic when
->>>>> deciding whether options that interact with altp2m can also be enabled.
->>>>>
->>>>> Leave the HVM param value for consumption by the guest, but prevent it from
->>>>> being set.  Enabling is now done using and additional altp2m specific field in
->>>>> xen_domctl_createdomain.
->>>>>
->>>>> Note that albeit only currently implemented in x86, altp2m could be implemented
->>>>> in other architectures, hence why the field is added to xen_domctl_createdomain
->>>>> instead of xen_arch_domainconfig.
->>>>>
->>>>> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
->>>>
->>>> Reviewed-by: Jan Beulich <jbeulich@suse.com> # hypervisor
->>>> albeit with one question:
->>>>
->>>>> --- a/xen/arch/x86/domain.c
->>>>> +++ b/xen/arch/x86/domain.c
->>>>> @@ -637,6 +637,8 @@ int arch_sanitise_domain_config(struct xen_domctl_createdomain *config)
->>>>>      bool hap = config->flags & XEN_DOMCTL_CDF_hap;
->>>>>      bool nested_virt = config->flags & XEN_DOMCTL_CDF_nested_virt;
->>>>>      unsigned int max_vcpus;
->>>>> +    unsigned int altp2m_mode = MASK_EXTR(config->altp2m_opts,
->>>>> +                                         XEN_DOMCTL_ALTP2M_mode_mask);
->>>>>  
->>>>>      if ( hvm ? !hvm_enabled : !IS_ENABLED(CONFIG_PV) )
->>>>>      {
->>>>> @@ -715,6 +717,26 @@ int arch_sanitise_domain_config(struct xen_domctl_createdomain *config)
->>>>>          return -EINVAL;
->>>>>      }
->>>>>  
->>>>> +    if ( config->altp2m_opts & ~XEN_DOMCTL_ALTP2M_mode_mask )
->>>>> +    {
->>>>> +        dprintk(XENLOG_INFO, "Invalid altp2m options selected: %#x\n",
->>>>> +                config->flags);
->>>>> +        return -EINVAL;
->>>>> +    }
->>>>> +
->>>>> +    if ( altp2m_mode && nested_virt )
->>>>> +    {
->>>>> +        dprintk(XENLOG_INFO,
->>>>> +                "Nested virt and altp2m are not supported together\n");
->>>>> +        return -EINVAL;
->>>>> +    }
->>>>> +
->>>>> +    if ( altp2m_mode && !hap )
->>>>> +    {
->>>>> +        dprintk(XENLOG_INFO, "altp2m is only supported with HAP\n");
->>>>> +        return -EINVAL;
->>>>> +    }
->>>>
->>>> Should this last one perhaps be further extended to permit altp2m with EPT
->>>> only?
->>>
->>> Hm, yes, that would be more accurate as:
->>>
->>> if ( altp2m_mode && (!hap || !hvm_altp2m_supported()) )
->>
->> Wouldn't
->>
->>    if ( altp2m_mode && !hvm_altp2m_supported() )
->>
->> suffice? hvm_funcs.caps.altp2m is not supposed to be set when no HAP,
->> as long as HAP continues to be a pre-condition?
-> 
-> No, `hap` here signals whether the domain is using HAP, and we need to
-> take this int account, otherwise we would allow enabling altp2m for
-> domains using shadow.
+On 23.05.2024 03:26, Stefano Stabellini wrote:
+> @@ -725,12 +787,25 @@ maintainers if you want to suggest a change.
+>       - The Standard Library function system of <stdlib.h> shall not be used
+>       -
+>  
+> +   * - `Rule 22.1 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_22_01.c>`_
+> +     - Required
+> +     - All resources obtained dynamically by means of Standard Library
+> +       functions shall be explicitly released
+> +     -
+> +     - Xen doesn't provide, use, or link against a Standard Library [#xen-stdlib]_
 
-Oh, right. But then the original for is good enough HAP-wise, as a request
-to use HAP when HAP isn't available is deal with elsewhere. The
-!hvm_altp2m_supported() is still wanted imo (for there potentially being
-other restrictions), but then in a separate check, not resulting in a HAP-
-specific log message. I'll commit the patch in its original form, and that
-further addition can then be an incremental change.
+The empty sub-bullet-point looks stray here.
+
+> @@ -748,6 +823,31 @@ maintainers if you want to suggest a change.
+>         stream has been closed
+>       -
+>  
+> +   * - `Rule 22.7 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_22_07.c>`_
+> +     - Required
+> +     - The macro EOF shall only be compared with the unmodified return
+> +       value from any Standard Library function capable of returning EOF
+> +     - Xen doesn't provide, use, or link against a Standard Library [#xen-stdlib]_
+
+Shouldn't this remark also be replicated ...
+
+> +   * - `Rule 22.8 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_22_08.c>`_
+> +     - Required
+> +     - The value of errno shall be set to zero prior to a call to an
+> +       errno-setting-function
+> +     -
+> +
+> +   * - `Rule 22.9 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_22_09.c>`_
+> +     - Required
+> +     - The value of errno shall be tested against zero after calling an
+> +       errno-setting-function
+> +     -
+> +
+> +   * - `Rule 22.10 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_22_10.c>`_
+> +     - Required
+> +     - The value of errno shall only be tested when the last function to
+> +       be called was an errno-setting-function
+> +     -
+
+... for all three of these, seeing that errno is something a (standard) library
+would provide? Or alternatively should remarks here say that we simply have no
+errno?
 
 Jan
 
