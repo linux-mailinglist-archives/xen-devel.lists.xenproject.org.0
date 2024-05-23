@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 22AC98CD932
-	for <lists+xen-devel@lfdr.de>; Thu, 23 May 2024 19:37:05 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.728781.1133829 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5D5EA8CD81B
+	for <lists+xen-devel@lfdr.de>; Thu, 23 May 2024 18:09:48 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.728726.1133760 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sACMi-0006fp-Fk; Thu, 23 May 2024 17:36:32 +0000
+	id 1sAB0I-00040K-Pu; Thu, 23 May 2024 16:09:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 728781.1133829; Thu, 23 May 2024 17:36:32 +0000
+Received: by outflank-mailman (output) from mailman id 728726.1133760; Thu, 23 May 2024 16:09:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sACMi-0006dV-Cg; Thu, 23 May 2024 17:36:32 +0000
-Received: by outflank-mailman (input) for mailman id 728781;
- Thu, 23 May 2024 17:36:31 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=VxBl=M2=gmail.com=edgar.iglesias@srs-se1.protection.inumbo.net>)
- id 1sACMh-0006ST-Ib
- for xen-devel@lists.xenproject.org; Thu, 23 May 2024 17:36:31 +0000
-Received: from mail-lf1-x12e.google.com (mail-lf1-x12e.google.com
- [2a00:1450:4864:20::12e])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id fcf53a47-192a-11ef-b4bb-af5377834399;
- Thu, 23 May 2024 19:36:29 +0200 (CEST)
-Received: by mail-lf1-x12e.google.com with SMTP id
- 2adb3069b0e04-51ffff16400so12882838e87.2
- for <xen-devel@lists.xenproject.org>; Thu, 23 May 2024 10:36:29 -0700 (PDT)
-Received: from gmail.com (213-67-3-247-no600.tbcn.telia.com. [213.67.3.247])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-521f38d8c38sm5409244e87.211.2024.05.23.10.36.27
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 23 May 2024 10:36:27 -0700 (PDT)
+	id 1sAB0I-0003x8-Mj; Thu, 23 May 2024 16:09:18 +0000
+Received: by outflank-mailman (input) for mailman id 728726;
+ Thu, 23 May 2024 16:09:17 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=OfYh=M2=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1sAB0H-0003x2-JD
+ for xen-devel@lists.xenproject.org; Thu, 23 May 2024 16:09:17 +0000
+Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
+ [2a00:1450:4864:20::62b])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id cd8eb929-191e-11ef-90a1-e314d9c70b13;
+ Thu, 23 May 2024 18:09:16 +0200 (CEST)
+Received: by mail-ej1-x62b.google.com with SMTP id
+ a640c23a62f3a-a59ab4f60a6so1029600466b.0
+ for <xen-devel@lists.xenproject.org>; Thu, 23 May 2024 09:09:16 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a5cde6f8c89sm1104579766b.70.2024.05.23.09.09.14
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 23 May 2024 09:09:15 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,142 +45,119 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fcf53a47-192a-11ef-b4bb-af5377834399
+X-Inumbo-ID: cd8eb929-191e-11ef-90a1-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1716485788; x=1717090588; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=d5HekHGljObQIi5oqspdisbrUbBneLRK1/u/IomN9bI=;
-        b=Gh2Bdur/vMgZR0CySPWdhpj350U6Q1ghAIRsSNnip+whDFGxwqe+mxd1KDzjNs9WQ1
-         Vrlnz/Nza03uRXTZRq9pfypsbSg6eyNsrdcfq4px9Zx28jZeoFmg3z0P/3MasF5V4R5O
-         pVcE9oWa70V8IOuit5xr/ZAVX4uVoSdW/JxKej74w9DbXUE5Mk2hFrIFC+dgOW9le4cY
-         J9x6beFvc6RXmRLRyBfskJpIjDynegKONujdWwghL+n8bSOtiD8oEgzP1UUR4ngnu1zy
-         4yl01/c0TXxIn28RB/T+bp0A+jnAMC569V1EGgDlJ7gwJF5nj91OhEfxx+a90+x2AuUt
-         x3fg==
+        d=suse.com; s=google; t=1716480555; x=1717085355; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=pxSEiwn+dUJxSbRC+Me5htjo8uhksvt5o8XNMC4y8zg=;
+        b=bEqP0NItQPQI7DrPy8VJJZ+bpKpBqAgqtOu9nGmMpctWMHFcothqB5kq/qJBdIJB47
+         4yuo6uRdYiZlWtDRAz/UZgF1DJc6Ik1VXwyuST1Q17j2PtsFc3AyQIj7d5lQBUnvjmlF
+         0iC+2r6/6ix9S6DxwglTEdP4H/ecgmNS3F04EvkJMIdA9ukKfbuMRH57zYTOxFuD8xTR
+         xXJ0C+8SOCXnCoLdjqwwm3SqSLc+MwVT4hXOpEuZYVOxPOaxiFeJLHv/rdDhKbucLQAd
+         e6nklIFMmIGutbZspCyF+zB8kpdUwKp7mEmulcq9U0MGtwto5RFYmNF7PZASnrWuvv3j
+         WwvQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1716485788; x=1717090588;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=d5HekHGljObQIi5oqspdisbrUbBneLRK1/u/IomN9bI=;
-        b=rhKCYwjqWYFUQIdzCs+oNJPbsA+yEwydSh957Y1X3Bw+xG6V3KtRzByNiKL8FPoaTr
-         YEXIeZsZrTl8bBRyFaEhJFzJRfETwm0i8qJKpBpkTAjzBNUxPsHTAmimQ4+0Nks2rpal
-         4IBgd/i9481w+MeRT1H/24tohCW1bFpasTrr8xpuNZ8BYHPOboyfLJU2wVlRn4kduwIR
-         0rC5gdLKHjyVQQMut0qfuf0rRnV7WBdwVGq/YItB9K3Gk/4o7QRxuZyPWfwmAErAGNId
-         gddRIbbWOQ2u/O89vM1sKwIxoIX53kfEFBo/tcW0F+Ygg3fjT9dFeQSdf1MijeQgRI2f
-         wyJw==
-X-Gm-Message-State: AOJu0YyMDq6AZsxUY6T8GmbVa9Hiv55APFCGIIie/2Mg909TJRDm5DUT
-	WcXM1D/y8y4JwBjPgO7l+U0L+a98THA3mT1srnWrV+HYc+eVWB4xv3g1PyPA
-X-Google-Smtp-Source: AGHT+IEUq0+9wFqxKhc/lmLmCmUAHY/bXm30RVFWAx+aYve5caIrf4gFhTCtMm+zHduPKC9v5clgvQ==
-X-Received: by 2002:ac2:554b:0:b0:51d:9e17:29f0 with SMTP id 2adb3069b0e04-526bf07e6b3mr4368830e87.24.1716485788095;
-        Thu, 23 May 2024 10:36:28 -0700 (PDT)
-From: "Edgar E. Iglesias" <edgar.iglesias@gmail.com>
-To: xen-devel@lists.xenproject.org
-Cc: sstabellini@kernel.org,
-	julien@xen.org,
-	bertrand.marquis@arm.com,
-	rahul.singh@arm.com,
-	michal.orzel@amd.com,
-	Volodymyr_Babchuk@epam.com,
-	edgar.iglesias@amd.com
-Subject: [PATCH v1 1/1] xen/arm: smmuv3: Mark more init-only functions with __init
-Date: Wed, 22 May 2024 15:28:29 +0200
-Message-Id: <20240522132829.1278625-2-edgar.iglesias@gmail.com>
-X-Mailer: git-send-email 2.40.1
-In-Reply-To: <20240522132829.1278625-1-edgar.iglesias@gmail.com>
-References: <20240522132829.1278625-1-edgar.iglesias@gmail.com>
+        d=1e100.net; s=20230601; t=1716480555; x=1717085355;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=pxSEiwn+dUJxSbRC+Me5htjo8uhksvt5o8XNMC4y8zg=;
+        b=dNxJAvcokdGxhF3K0z2mcIjw7juWKl7GLyvYpM+0l5BCdAYD9oMaVy+wVCVg6Pozcs
+         CIR+EiwCqjphmP/hWGIhI7OkMdbpQKB4X7LWW6KrKkEGtf0qbO+O0dYAsZDYzs28cXFX
+         AYt6yQhtkaHQy5o/sML5+kdM8HBshAlvWZxQzeVmTiMgY+Vt8yUHDiXWqEJSTJwkov11
+         0opP8AD5YBdNDrwlLiZK1tD8Rha7TcipDugzsyhu4Gfca84/3ReogJ1RqnrFVTHMBB31
+         4FwS8YS1bL+KEgCookQW6KGFvRa11TJE2F3dfLAg4gH+BNx7bEO38lfYiFMgu0ZCIwXy
+         WQZQ==
+X-Forwarded-Encrypted: i=1; AJvYcCUXBKFSQciCrXUHMZ7N9THKlyfgGLe2ov50vH6+Z81EMVQ4wpd9pgspVBgBr3ISaqkIFJ+UnDOeolSzdggYiDQTh4azosDyELB332XmoiU=
+X-Gm-Message-State: AOJu0YwFX7fEYbRc6VtBVo3nKsaX6mBWcWx6iw032qDhSGLsuRkYlYj4
+	mFMZ3D26xHGO0Wu4EwRndfKdxRiigNTj6QdfcU7MCmeNvpXuHkM62JfJ+61wmw==
+X-Google-Smtp-Source: AGHT+IH5QYdFAFKYtS8rnBO7d0q/aDRAStpjo92pUN+YQYwlrsck/y9mNADOTpuxwNdaLHUHrlyD0A==
+X-Received: by 2002:a17:906:298a:b0:a62:47d7:247d with SMTP id a640c23a62f3a-a6247d72788mr138494766b.56.1716480555465;
+        Thu, 23 May 2024 09:09:15 -0700 (PDT)
+Message-ID: <b0d92d89-5ca7-4870-8118-139a47057a88@suse.com>
+Date: Thu, 23 May 2024 18:09:14 +0200
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 4/7] x86/xstate: Rework xstate_ctxt_size() as
+ xstate_uncompressed_size()
+Content-Language: en-US
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20240523111627.28896-1-andrew.cooper3@citrix.com>
+ <20240523111627.28896-5-andrew.cooper3@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20240523111627.28896-5-andrew.cooper3@citrix.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-From: "Edgar E. Iglesias" <edgar.iglesias@amd.com>
+On 23.05.2024 13:16, Andrew Cooper wrote:
+> @@ -611,6 +587,40 @@ static bool valid_xcr0(uint64_t xcr0)
+>      return true;
+>  }
+>  
+> +unsigned int xstate_uncompressed_size(uint64_t xcr0)
+> +{
+> +    unsigned int size = XSTATE_AREA_MIN_SIZE, i;
+> +
+> +    ASSERT((xcr0 & ~X86_XCR0_STATES) == 0);
 
-Move more functions that are only called at init to
-the .init.text section.
+I'm puzzled by the combination of this assertion and ...
 
-Signed-off-by: Edgar E. Iglesias <edgar.iglesias@amd.com>
----
- xen/drivers/passthrough/arm/smmu-v3.c | 17 +++++++++--------
- 1 file changed, 9 insertions(+), 8 deletions(-)
+> +    if ( xcr0 == xfeature_mask )
+> +        return xsave_cntxt_size;
 
-diff --git a/xen/drivers/passthrough/arm/smmu-v3.c b/xen/drivers/passthrough/arm/smmu-v3.c
-index 6904962467..cee5724022 100644
---- a/xen/drivers/passthrough/arm/smmu-v3.c
-+++ b/xen/drivers/passthrough/arm/smmu-v3.c
-@@ -1545,7 +1545,7 @@ static int arm_smmu_dt_xlate(struct device *dev,
- }
- 
- /* Probing and initialisation functions */
--static int arm_smmu_init_one_queue(struct arm_smmu_device *smmu,
-+static int __init arm_smmu_init_one_queue(struct arm_smmu_device *smmu,
- 				   struct arm_smmu_queue *q,
- 				   void __iomem *page,
- 				   unsigned long prod_off,
-@@ -1588,7 +1588,7 @@ static int arm_smmu_init_one_queue(struct arm_smmu_device *smmu,
- 	return 0;
- }
- 
--static int arm_smmu_init_queues(struct arm_smmu_device *smmu)
-+static int __init arm_smmu_init_queues(struct arm_smmu_device *smmu)
- {
- 	int ret;
- 
-@@ -1724,7 +1724,7 @@ static int arm_smmu_init_strtab(struct arm_smmu_device *smmu)
- 	return 0;
- }
- 
--static int arm_smmu_init_structures(struct arm_smmu_device *smmu)
-+static int __init arm_smmu_init_structures(struct arm_smmu_device *smmu)
- {
- 	int ret;
- 
-@@ -1746,7 +1746,8 @@ static int arm_smmu_write_reg_sync(struct arm_smmu_device *smmu, u32 val,
- }
- 
- /* GBPA is "special" */
--static int arm_smmu_update_gbpa(struct arm_smmu_device *smmu, u32 set, u32 clr)
-+static int __init arm_smmu_update_gbpa(struct arm_smmu_device *smmu,
-+                                       u32 set, u32 clr)
- {
- 	int ret;
- 	u32 reg, __iomem *gbpa = smmu->base + ARM_SMMU_GBPA;
-@@ -1842,7 +1843,7 @@ static void arm_smmu_setup_msis(struct arm_smmu_device *smmu)
- static inline void arm_smmu_setup_msis(struct arm_smmu_device *smmu) { }
- #endif /* CONFIG_MSI */
- 
--static void arm_smmu_free_irqs(struct arm_smmu_device *smmu)
-+static void __init arm_smmu_free_irqs(struct arm_smmu_device *smmu)
- {
- 	int irq;
- 
-@@ -1926,7 +1927,7 @@ err_free_evtq_irq:
- 	return ret;
- }
- 
--static int arm_smmu_setup_irqs(struct arm_smmu_device *smmu)
-+static int __init arm_smmu_setup_irqs(struct arm_smmu_device *smmu)
- {
- 	int ret, irq;
- 	u32 irqen_flags = IRQ_CTRL_EVTQ_IRQEN | IRQ_CTRL_GERROR_IRQEN;
-@@ -1988,7 +1989,7 @@ static int arm_smmu_device_disable(struct arm_smmu_device *smmu)
- 	return ret;
- }
- 
--static int arm_smmu_device_reset(struct arm_smmu_device *smmu)
-+static int __init arm_smmu_device_reset(struct arm_smmu_device *smmu)
- {
- 	int ret;
- 	u32 reg, enables;
-@@ -2405,7 +2406,7 @@ static void arm_smmu_free_structures(struct arm_smmu_device *smmu)
- 		xfree(smmu->strtab_cfg.l1_desc);
- }
- 
--static int arm_smmu_device_probe(struct platform_device *pdev)
-+static int __init arm_smmu_device_probe(struct platform_device *pdev)
- {
- 	int irq, ret;
- 	paddr_t ioaddr, iosize;
--- 
-2.40.1
+... this conditional return. Yes, right now we don't support/use any XSS
+components, but without any comment the assertion looks overly restrictive
+to me.
 
+> @@ -818,14 +834,14 @@ void xstate_init(struct cpuinfo_x86 *c)
+>           * xsave_cntxt_size is the max size required by enabled features.
+>           * We know FP/SSE and YMM about eax, and nothing about edx at present.
+>           */
+> -        xsave_cntxt_size = hw_uncompressed_size(feature_mask);
+> +        xsave_cntxt_size = cpuid_count_ebx(0xd, 0);
+>          printk("xstate: size: %#x and states: %#"PRIx64"\n",
+>                 xsave_cntxt_size, xfeature_mask);
+>      }
+>      else
+>      {
+>          BUG_ON(xfeature_mask != feature_mask);
+> -        BUG_ON(xsave_cntxt_size != hw_uncompressed_size(feature_mask));
+> +        BUG_ON(xsave_cntxt_size != cpuid_count_ebx(0xd, 0));
+>      }
+
+Hmm, this may make re-basing of said earlier patch touching this code yet
+more interesting. Or maybe it actually simplifies things, will need to see
+... The overall comment remains though: Patches pending for so long should
+really take priority over creating yet more new ones. But what do I do - I
+can't enforce this, unless I was now going to block your work the same way.
+Which I don't mean to do.
+
+Jan
 
