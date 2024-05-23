@@ -2,33 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 72A6D8CD0CD
-	for <lists+xen-devel@lfdr.de>; Thu, 23 May 2024 13:02:27 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.728342.1133226 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 13E6C8CD0DF
+	for <lists+xen-devel@lfdr.de>; Thu, 23 May 2024 13:06:38 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.728348.1133237 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sA6C7-00038P-NI; Thu, 23 May 2024 11:01:11 +0000
+	id 1sA6H9-0003if-8P; Thu, 23 May 2024 11:06:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 728342.1133226; Thu, 23 May 2024 11:01:11 +0000
+Received: by outflank-mailman (output) from mailman id 728348.1133237; Thu, 23 May 2024 11:06:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sA6C7-00036I-KP; Thu, 23 May 2024 11:01:11 +0000
-Received: by outflank-mailman (input) for mailman id 728342;
- Thu, 23 May 2024 11:01:10 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=jOX+=M2=cloud.com=ross.lagerwall@srs-se1.protection.inumbo.net>)
- id 1sA6C6-00036C-ON
- for xen-devel@lists.xenproject.org; Thu, 23 May 2024 11:01:10 +0000
-Received: from mail-pg1-x52d.google.com (mail-pg1-x52d.google.com
- [2607:f8b0:4864:20::52d])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c24037ef-18f3-11ef-90a1-e314d9c70b13;
- Thu, 23 May 2024 13:01:09 +0200 (CEST)
-Received: by mail-pg1-x52d.google.com with SMTP id
- 41be03b00d2f7-657a07878easo2008340a12.0
- for <xen-devel@lists.xenproject.org>; Thu, 23 May 2024 04:01:09 -0700 (PDT)
+	id 1sA6H9-0003gb-5f; Thu, 23 May 2024 11:06:23 +0000
+Received: by outflank-mailman (input) for mailman id 728348;
+ Thu, 23 May 2024 11:06:22 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1sA6H8-0003gR-6Y; Thu, 23 May 2024 11:06:22 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1sA6H8-00046Y-3n; Thu, 23 May 2024 11:06:22 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1sA6H7-0007Gm-Sc; Thu, 23 May 2024 11:06:21 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1sA6H7-00023E-S0; Thu, 23 May 2024 11:06:21 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,108 +42,94 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c24037ef-18f3-11ef-90a1-e314d9c70b13
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1716462068; x=1717066868; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=91U11pUevJarFFJNYMAR2AcdGvDfJkQNRP9NpdObBVA=;
-        b=F5vR/AUognyK2RXfKWuN4eyFi0Sw+mC/Z+mOkPMpT9iUs2yFTHusUVuyQzeHD0LX8l
-         djsQK6pqOkw5OCAJZaDh5FKuqVxWb3jR2mq6tbAmnxhLRdc/dzxrTFCZez1D9aDoqpv1
-         32Yr5YWiW9Fn9ZTKxi+0sXg47ivGb1bK1dYCc=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1716462068; x=1717066868;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=91U11pUevJarFFJNYMAR2AcdGvDfJkQNRP9NpdObBVA=;
-        b=CEqBS4Az6Ira1rbY4vU47o+8e1xF/J+ViG6/TnYK+DKQC8Yii0/6N7KRaTEhzfVcQH
-         ks+U3p1zzXEem2WPqkCl3wZ1E25KUxzTa+LmDNtGDKbmaa1Ln4ZiIS8MW3uJC6rkgCTw
-         nXWnfN/HCjqTp1NDrKLrgtf9vz1igKt4N3eGWjY/bDcHcqVd/FuqjWqHrZhAKuKmMGc8
-         ZCI/zN+bps9JTTkE0X3ewzWidJQl5KMRwGVwgOp/8aQCQ1FIhOn5XfDzUbc0p0tbecM6
-         MrIshulqQOY5tS2KBTOWrSQKV1S8tsNfHyuUGc120htWF+64gU3fxCRLu6xLTi9E9mT4
-         rqQA==
-X-Forwarded-Encrypted: i=1; AJvYcCUHd+E0eLB3zuQ31PJqK5I6Kt32dn01DUWW9Dflra3BmE3IH0nkfUblYNOTuMu/SFxQcUYp8YG2h837il8MWBYBS8h+x8BOLpGAdIzEOOY=
-X-Gm-Message-State: AOJu0YwUqvrLanD46Fd9He5g2YItJBel3leDlPyoW3kRMwI1spJh2xLh
-	C6XVMEg13FfMeGkQulJhFhYXCRlrhc5R0XuH3tXSMz9fmkGgiUJUZAjhcK/YvdB2O0yXBSt7qD7
-	aJd0LCAjhLGwB+EfqqSRvnLEfB5N/lE1sB5kw
-X-Google-Smtp-Source: AGHT+IGvuyeyuzWjiUToY5J16n8njwnJeOg1DbjbIwk+JKoOUqhMoTuOFFBMO1x/lFU8L5/TrbpAdDsGw6w6Iw9iSQY=
-X-Received: by 2002:a17:90b:1003:b0:2b3:79ad:856d with SMTP id
- 98e67ed59e1d1-2bd9f5d6291mr5469546a91.48.1716462067785; Thu, 23 May 2024
- 04:01:07 -0700 (PDT)
-MIME-Version: 1.0
-References: <20240404140833.1557953-1-ross.lagerwall@citrix.com>
- <90f07634-1600-4654-8e36-7ac9e2f457e8@perard> <CAG7k0EqJvVZJUNaf31Jd1ZfwvOon8saNbtHofon=VvB6gpj9qw@mail.gmail.com>
-In-Reply-To: <CAG7k0EqJvVZJUNaf31Jd1ZfwvOon8saNbtHofon=VvB6gpj9qw@mail.gmail.com>
-From: Ross Lagerwall <ross.lagerwall@citrix.com>
-Date: Thu, 23 May 2024 12:00:56 +0100
-Message-ID: <CAG7k0Eo29eoZc+vgH+uDYe=YKiHM0a3jm6hoW5j+Wyc5kEh8tg@mail.gmail.com>
-Subject: Re: [PATCH] xen-hvm: Avoid livelock while handling buffered ioreqs
-To: Anthony PERARD <anthony.perard@cloud.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Paul Durrant <paul@xen.org>, xen-devel@lists.xenproject.org, 
-	qemu-devel@nongnu.org
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=zwPpKFWaGmQXYDMeRj5Wg64ZA8pmCf6LL49YOpX/YwU=; b=RDCpEv5Plkr1/Mx5gceLEXyruk
+	uPy18AoH6OVQ/7S2fOc/HnoZYtQb5hBTjLLEZqWNbdwj6dkT5yyrvq/7sq3VJyz381e4MoWiDZSbM
+	mNWqLDI+1ehz398eDvJr13HrXApgAirOcDzHeAP2nAA/U6+49aX8mMk60rAIyjw8/Uts=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-186104-mainreport@xen.org>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [xen-unstable-smoke test] 186104: regressions - FAIL
+X-Osstest-Failures:
+    xen-unstable-smoke:build-armhf:xen-build:fail:regression
+    xen-unstable-smoke:test-armhf-armhf-xl:build-check(1):blocked:nonblocking
+    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=d6a7fd83039af36c28bd0ae2174f12c3888ce993
+X-Osstest-Versions-That:
+    xen=ced21fbb2842ac4655048bdee56232974ff9ff9c
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Thu, 23 May 2024 11:06:21 +0000
 
-On Tue, Apr 9, 2024 at 3:19=E2=80=AFPM Ross Lagerwall <ross.lagerwall@citri=
-x.com> wrote:
->
-> On Tue, Apr 9, 2024 at 11:20=E2=80=AFAM Anthony PERARD <anthony.perard@cl=
-oud.com> wrote:
-> >
-> > On Thu, Apr 04, 2024 at 03:08:33PM +0100, Ross Lagerwall wrote:
-> > > diff --git a/hw/xen/xen-hvm-common.c b/hw/xen/xen-hvm-common.c
-> > > index 1627da739822..1116b3978938 100644
-> > > --- a/hw/xen/xen-hvm-common.c
-> > > +++ b/hw/xen/xen-hvm-common.c
-> > > @@ -521,22 +521,30 @@ static bool handle_buffered_iopage(XenIOState *=
-state)
-> > [...]
-> > >
-> > >  static void handle_buffered_io(void *opaque)
-> > >  {
-> > > +    unsigned int handled;
-> > >      XenIOState *state =3D opaque;
-> > >
-> > > -    if (handle_buffered_iopage(state)) {
-> > > +    handled =3D handle_buffered_iopage(state);
-> > > +    if (handled >=3D IOREQ_BUFFER_SLOT_NUM) {
-> > > +        /* We handled a full page of ioreqs. Schedule a timer to con=
-tinue
-> > > +         * processing while giving other stuff a chance to run.
-> > > +         */
-> >
-> > ./scripts/checkpatch.pl report a style issue here:
-> >     WARNING: Block comments use a leading /* on a separate line
-> >
-> > I can try to remember to fix that on commit.
->
-> I copied the comment style from a few lines above but I guess it was
-> wrong.
->
-> >
-> > >          timer_mod(state->buffered_io_timer,
-> > > -                BUFFER_IO_MAX_DELAY + qemu_clock_get_ms(QEMU_CLOCK_R=
-EALTIME));
-> > > -    } else {
-> > > +                qemu_clock_get_ms(QEMU_CLOCK_REALTIME));
-> > > +    } else if (handled =3D=3D 0) {
-> >
-> > Just curious, why did you check for `handled =3D=3D 0` here instead of
-> > `handled !=3D 0`? That would have avoided to invert the last 2 cases, a=
-nd
-> > the patch would just have introduce a new case without changing the
-> > order of the existing ones. But not that important I guess.
-> >
->
-> In general I try to use conditionals with the least amount of negation
-> since I think it is easier to read. I can change it if you would prefer?
+flight 186104 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/186104/
 
-It looks like this hasn't been committed anywhere. Were you expecting
-an updated version with the style issue fixed or has it fallen through
-the cracks?
+Regressions :-(
 
-Thanks,
-Ross
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-armhf                   6 xen-build                fail REGR. vs. 186064
+
+Tests which did not succeed, but are not blocking:
+ test-armhf-armhf-xl           1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+
+version targeted for testing:
+ xen                  d6a7fd83039af36c28bd0ae2174f12c3888ce993
+baseline version:
+ xen                  ced21fbb2842ac4655048bdee56232974ff9ff9c
+
+Last test of basis   186064  2024-05-21 15:04:02 Z    1 days
+Testing same since   186104  2024-05-23 09:00:22 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Alejandro Vallejo <alejandro.vallejo@cloud.com>
+  Bobby Eshleman <bobbyeshleman@gmail.com>
+  Jan Beulich <jbeulich@suse.com>
+  Julien Grall <jgrall@amazon.com>
+  Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
+  Oleksii Kurochko <oleksii.kurochko@gmail.com>
+  Roger Pau Monné <roger.pau@citrix.com>
+  Stewart Hildebrand <stewart.hildebrand@amd.com>
+  Volodymyr Babchuk <volodymyr_babchuk@epam.com>
+
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  fail    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          blocked 
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 387 lines long.)
 
