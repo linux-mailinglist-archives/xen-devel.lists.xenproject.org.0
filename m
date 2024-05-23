@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DDED28CCFB2
-	for <lists+xen-devel@lfdr.de>; Thu, 23 May 2024 11:54:01 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.728303.1133176 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D31A58CD03E
+	for <lists+xen-devel@lfdr.de>; Thu, 23 May 2024 12:22:27 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.728314.1133187 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sA57y-00075S-ML; Thu, 23 May 2024 09:52:50 +0000
+	id 1sA5a3-0003cR-Tr; Thu, 23 May 2024 10:21:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 728303.1133176; Thu, 23 May 2024 09:52:50 +0000
+Received: by outflank-mailman (output) from mailman id 728314.1133187; Thu, 23 May 2024 10:21:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sA57y-00072m-JE; Thu, 23 May 2024 09:52:50 +0000
-Received: by outflank-mailman (input) for mailman id 728303;
- Thu, 23 May 2024 09:52:50 +0000
+	id 1sA5a3-0003Zy-Pw; Thu, 23 May 2024 10:21:51 +0000
+Received: by outflank-mailman (input) for mailman id 728314;
+ Thu, 23 May 2024 10:21:50 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=bqPc=M2=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1sA57y-00072g-3H
- for xen-devel@lists.xenproject.org; Thu, 23 May 2024 09:52:50 +0000
-Received: from mail-qk1-x732.google.com (mail-qk1-x732.google.com
- [2607:f8b0:4864:20::732])
+ id 1sA5a2-0003Zg-9G
+ for xen-devel@lists.xenproject.org; Thu, 23 May 2024 10:21:50 +0000
+Received: from mail-oi1-x236.google.com (mail-oi1-x236.google.com
+ [2607:f8b0:4864:20::236])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 36255a95-18ea-11ef-90a1-e314d9c70b13;
- Thu, 23 May 2024 11:52:48 +0200 (CEST)
-Received: by mail-qk1-x732.google.com with SMTP id
- af79cd13be357-792b8d98a56so474487685a.2
- for <xen-devel@lists.xenproject.org>; Thu, 23 May 2024 02:52:48 -0700 (PDT)
+ id 436b6238-18ee-11ef-90a1-e314d9c70b13;
+ Thu, 23 May 2024 12:21:49 +0200 (CEST)
+Received: by mail-oi1-x236.google.com with SMTP id
+ 5614622812f47-3c9b94951d5so2997122b6e.3
+ for <xen-devel@lists.xenproject.org>; Thu, 23 May 2024 03:21:49 -0700 (PDT)
 Received: from localhost ([213.195.114.223]) by smtp.gmail.com with ESMTPSA id
- af79cd13be357-792bf27fa4asm1471326385a.43.2024.05.23.02.52.46
+ af79cd13be357-79484010bcdsm392777085a.133.2024.05.23.03.21.46
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 23 May 2024 02:52:47 -0700 (PDT)
+ Thu, 23 May 2024 03:21:47 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,111 +44,230 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 36255a95-18ea-11ef-90a1-e314d9c70b13
+X-Inumbo-ID: 436b6238-18ee-11ef-90a1-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1716457967; x=1717062767; darn=lists.xenproject.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=tyTeWN/+8z/4F9vK2R+GVpI8XwMfkIXVPIglqrEEYuw=;
-        b=i/m3T01BvmJYLOng/xtzzVdiuHT7+zbX7RxRRILHc4WoCkDVivbDhgIwC+2ouuL2+2
-         cKBmTXSfUarVn0YqqQNuKrNCZFJQGLkdIpOwJh2hyo6VFhq2TweXSm7UYNEQZXMTV8Y4
-         blWq4Y9fnCx83ftORwuInng48iz0JI0HIrU94=
+        d=citrix.com; s=google; t=1716459708; x=1717064508; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=VxFEt76Z8/U7ETN/vJNgM1sjQaSyKSjkXHjl9SQVCDo=;
+        b=HN9s2Y5ud5E9epKQKz0AikoG9Sczw477IrzG5Ld+hDK1Mf4oEF4EGuOGiO68QK8paq
+         Dhgvzzwsh9LnTWHYdoKaOqfC1+W7P14mCvM88VR5GOSkQXKNhitWLbgEGHMNjqw2jYLi
+         ECvjD7C9L5rdsJVr6cCl81dZ5VS8FX9r7A+BA=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1716457967; x=1717062767;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=tyTeWN/+8z/4F9vK2R+GVpI8XwMfkIXVPIglqrEEYuw=;
-        b=ghvpZULmmYsB9EPALjTkyJsgH9OfOjplTcgI1DTfSup+7r27NL9Jj2dZiftfcI/IUx
-         +JspbrA3iGy9HvnjY+/N2KkowJl9Eewu2mb4gAqipodb+foJivh0zydaDUH478TadIoS
-         DyElus/iHA5/+8fx2IS9/pnaMOgXv5YurtqXJwhqoL/AVaucsFRZAathaNLYvEwtp9MF
-         F+WEXISCEMfa00wec5d7NLxL+NKsFYeCDmdzq2NwvjwG++PdoRf5KQpltvDuG6qNTxAs
-         1JpunMPMwD2vhqm610+zyqPYJqi13NhavJuquZnNRzKDdZNYVHr+SReIWtnC0Yl5awD3
-         dSbw==
-X-Gm-Message-State: AOJu0YxxXKvrxqFnE8UMtjwJNE24iRFbCScFLg5CucpTPDA1vsnQjT4t
-	JFVHcdTrolhETLE3iU743Udn6OtEBmQggyLtfVK44P007ehDU5p7cjnp0ZTccdWb7HpkJceZKkx
-	w
-X-Google-Smtp-Source: AGHT+IENn22mYam9JRDfdyj3gtDSvwEUDhOJpucb9n0pWEveQPtT/JUC5Xa2AoBqOuSNQM+Tpz39KQ==
-X-Received: by 2002:a05:620a:2888:b0:792:949d:bb0 with SMTP id af79cd13be357-794994b29b4mr683161685a.47.1716457967424;
-        Thu, 23 May 2024 02:52:47 -0700 (PDT)
-Date: Thu, 23 May 2024 11:52:45 +0200
+        d=1e100.net; s=20230601; t=1716459708; x=1717064508;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=VxFEt76Z8/U7ETN/vJNgM1sjQaSyKSjkXHjl9SQVCDo=;
+        b=T5iIF5cgsQnNsrVp6s9GolSzBjwNSKYCVsmA/plnTWUcpuHy7Wf+qeOkX1C/YgQv7h
+         13rLaOfotqXX7h7OXmDA8NWuJgiRooI5fPBYLmAvjxRu7Ui63KN65rBHrzC2iKsM8ZiI
+         /HEamOf4mTPH+0aUC71eH69ehla+bnfLUDbaok5QlnmCM6YP53Uwwrj59isx+fKPS9SC
+         eu0ahnBEsxX2lnVa/HDMxbD4IiUI1Tr+TMwuFhyUvQHlxeWSTodtEyFtS241jpAX34V5
+         NO3vArJMDaf8QsxE0w4CJ5G7r1hRhr6PFE6qCn1MRSnPPrIciPc6Mr7IkHKWv4D1XzzV
+         2M0g==
+X-Gm-Message-State: AOJu0Ywpwf4zx4N69uiBTzVfyrufzDpFp2OzrPNhlswfIL650Tgu7sEy
+	cO7g8UU/1S4fi9bc91lNZLRo2IfzQdn0ZqCAT39y7oi2TGPQeOs4B18+W6Oz/6Q=
+X-Google-Smtp-Source: AGHT+IHrp2K1n78aysbceZHypu7Rwm4s7kvfWgzqy55Uj5/riRKkFkig0ub6m3wSYWDCQiKQFxo/Uw==
+X-Received: by 2002:aca:915:0:b0:3c9:6bd5:44aa with SMTP id 5614622812f47-3cdb67a680emr4187187b6e.34.1716459707711;
+        Thu, 23 May 2024 03:21:47 -0700 (PDT)
+Date: Thu, 23 May 2024 12:21:45 +0200
 From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Teddy Astie <teddy.astie@vates.tech>
-Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>,
+To: Alejandro Vallejo <alejandro.vallejo@cloud.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>,
+	Anthony PERARD <anthony@xenproject.org>,
+	Juergen Gross <jgross@suse.com>, Jan Beulich <jbeulich@suse.com>,
 	Andrew Cooper <andrew.cooper3@citrix.com>
-Subject: Re: [XEN PATCH] x86/iommu: Conditionally compile platform-specific
- union entries
-Message-ID: <Zk8R7YAhD9UHtVW6@macbook>
-References: <2744240f42dadcb1edc69d0f921d5909fe0f63a2.1716455673.git.teddy.astie@vates.tech>
+Subject: Re: [PATCH v3 1/2] tools/xg: Streamline cpu policy
+ serialise/deserialise calls
+Message-ID: <Zk8YucyA1ZwGU4Y-@macbook>
+References: <cover.1716457040.git.alejandro.vallejo@cloud.com>
+ <5c6ee74b60bad4eb9cc8e17dbfcf7158d38bd32c.1716457040.git.alejandro.vallejo@cloud.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <2744240f42dadcb1edc69d0f921d5909fe0f63a2.1716455673.git.teddy.astie@vates.tech>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <5c6ee74b60bad4eb9cc8e17dbfcf7158d38bd32c.1716457040.git.alejandro.vallejo@cloud.com>
 
-On Thu, May 23, 2024 at 09:19:53AM +0000, Teddy Astie wrote:
-> If some platform driver isn't compiled in, remove its related union
-> entries as they are not used.
+On Thu, May 23, 2024 at 10:41:29AM +0100, Alejandro Vallejo wrote:
+> The idea is to use xc_cpu_policy_t as a single object containing both the
+> serialised and deserialised forms of the policy. Note that we need lengths
+> for the arrays, as the serialised policies may be shorter than the array
+> capacities.
 > 
-> Signed-off-by Teddy Astie <teddy.astie@vates.tech>
+> * Add the serialised lengths to the struct so we can distinguish
+>   between length and capacity of the serialisation buffers.
+> * Remove explicit buffer+lengths in serialise/deserialise calls
+>   and use the internal buffer inside xc_cpu_policy_t instead.
+> * Refactor everything to use the new serialisation functions.
+> * Remove redundant serialization calls and avoid allocating dynamic
+>   memory aside from the policy objects in xen-cpuid. Also minor cleanup
+>   in the policy print call sites.
+> 
+> No functional change intended.
+> 
+> Signed-off-by: Alejandro Vallejo <alejandro.vallejo@cloud.com>
+
+Acked-by: Roger Pau Monné <roger.pau@citrix.com>
+
+Just two comments.
+
 > ---
->  xen/arch/x86/include/asm/iommu.h | 4 ++++
->  xen/arch/x86/include/asm/pci.h   | 4 ++++
->  2 files changed, 8 insertions(+)
+> v3:
+>   * Better context scoping in xg_sr_common_x86.
+>     * Can't be const because write_record() takes non-const.
+>   * Adjusted line length of xen-cpuid's print_policy.
+>   * Adjusted error messages in xen-cpuid's print_policy.
+>   * Reverted removal of overscoped loop indices.
+> ---
+>  tools/include/xenguest.h            |  8 ++-
+>  tools/libs/guest/xg_cpuid_x86.c     | 98 ++++++++++++++++++++---------
+>  tools/libs/guest/xg_private.h       |  2 +
+>  tools/libs/guest/xg_sr_common_x86.c | 56 ++++++-----------
+>  tools/misc/xen-cpuid.c              | 41 ++++--------
+>  5 files changed, 106 insertions(+), 99 deletions(-)
 > 
-> diff --git a/xen/arch/x86/include/asm/iommu.h b/xen/arch/x86/include/asm/iommu.h
-> index 8dc464fbd3..99180940c4 100644
-> --- a/xen/arch/x86/include/asm/iommu.h
-> +++ b/xen/arch/x86/include/asm/iommu.h
-> @@ -42,17 +42,21 @@ struct arch_iommu
->      struct list_head identity_maps;
+> diff --git a/tools/include/xenguest.h b/tools/include/xenguest.h
+> index e01f494b772a..563811cd8dde 100644
+> --- a/tools/include/xenguest.h
+> +++ b/tools/include/xenguest.h
+> @@ -799,14 +799,16 @@ int xc_cpu_policy_set_domain(xc_interface *xch, uint32_t domid,
+>                               xc_cpu_policy_t *policy);
 >  
->      union {
-> +        #ifdef CONFIG_INTEL_IOMMU
->          /* Intel VT-d */
->          struct {
->              uint64_t pgd_maddr; /* io page directory machine address */
->              unsigned int agaw; /* adjusted guest address width, 0 is level 2 30-bit */
->              unsigned long *iommu_bitmap; /* bitmap of iommu(s) that the domain uses */
->          } vtd;
-> +        #endif
-> +        #ifdef CONFIG_AMD_IOMMU
->          /* AMD IOMMU */
->          struct {
->              unsigned int paging_mode;
->              struct page_info *root_table;
->          } amd;
-> +        #endif
->      };
->  };
+>  /* Manipulate a policy via architectural representations. */
+> -int xc_cpu_policy_serialise(xc_interface *xch, const xc_cpu_policy_t *policy,
+> -                            xen_cpuid_leaf_t *leaves, uint32_t *nr_leaves,
+> -                            xen_msr_entry_t *msrs, uint32_t *nr_msrs);
+> +int xc_cpu_policy_serialise(xc_interface *xch, xc_cpu_policy_t *policy);
+>  int xc_cpu_policy_update_cpuid(xc_interface *xch, xc_cpu_policy_t *policy,
+>                                 const xen_cpuid_leaf_t *leaves,
+>                                 uint32_t nr);
+>  int xc_cpu_policy_update_msrs(xc_interface *xch, xc_cpu_policy_t *policy,
+>                                const xen_msr_entry_t *msrs, uint32_t nr);
+> +int xc_cpu_policy_get_leaves(xc_interface *xch, const xc_cpu_policy_t *policy,
+> +                             const xen_cpuid_leaf_t **leaves, uint32_t *nr);
+> +int xc_cpu_policy_get_msrs(xc_interface *xch, const xc_cpu_policy_t *policy,
+> +                           const xen_msr_entry_t **msrs, uint32_t *nr);
+
+Maybe it would be helpful to have a comment clarifying that the return
+of xc_cpu_policy_get_{leaves,msrs}() is a reference to the content of
+the policy, not a copy of it (and hence is tied to the lifetime of
+policy, and doesn't require explicit freeing).
+
 >  
-> diff --git a/xen/arch/x86/include/asm/pci.h b/xen/arch/x86/include/asm/pci.h
-> index fd5480d67d..842710f0dc 100644
-> --- a/xen/arch/x86/include/asm/pci.h
-> +++ b/xen/arch/x86/include/asm/pci.h
-> @@ -22,12 +22,16 @@ struct arch_pci_dev {
->       */
->      union {
->          /* Subset of struct arch_iommu's fields, to be used in dom_io. */
-> +        #ifdef CONFIG_INTEL_IOMMU
->          struct {
->              uint64_t pgd_maddr;
->          } vtd;
-> +        #endif
-> +        #ifdef CONFIG_AMD_IOMMU
->          struct {
->              struct page_info *root_table;
->          } amd;
-> +        #endif
->      };
+>  /* Compatibility calculations. */
+>  bool xc_cpu_policy_is_compatible(xc_interface *xch, xc_cpu_policy_t *host,
+> diff --git a/tools/libs/guest/xg_cpuid_x86.c b/tools/libs/guest/xg_cpuid_x86.c
+> index 4453178100ad..4f4b86b59470 100644
+> --- a/tools/libs/guest/xg_cpuid_x86.c
+> +++ b/tools/libs/guest/xg_cpuid_x86.c
+> @@ -834,14 +834,13 @@ void xc_cpu_policy_destroy(xc_cpu_policy_t *policy)
+>      }
+>  }
+>  
+> -static int deserialize_policy(xc_interface *xch, xc_cpu_policy_t *policy,
+> -                              unsigned int nr_leaves, unsigned int nr_entries)
+> +static int deserialize_policy(xc_interface *xch, xc_cpu_policy_t *policy)
+>  {
+>      uint32_t err_leaf = -1, err_subleaf = -1, err_msr = -1;
+>      int rc;
+>  
+>      rc = x86_cpuid_copy_from_buffer(&policy->policy, policy->leaves,
+> -                                    nr_leaves, &err_leaf, &err_subleaf);
+> +                                    policy->nr_leaves, &err_leaf, &err_subleaf);
+>      if ( rc )
+>      {
+>          if ( err_leaf != -1 )
+> @@ -851,7 +850,7 @@ static int deserialize_policy(xc_interface *xch, xc_cpu_policy_t *policy,
+>      }
+>  
+>      rc = x86_msr_copy_from_buffer(&policy->policy, policy->msrs,
+> -                                  nr_entries, &err_msr);
+> +                                  policy->nr_msrs, &err_msr);
+>      if ( rc )
+>      {
+>          if ( err_msr != -1 )
+> @@ -878,7 +877,10 @@ int xc_cpu_policy_get_system(xc_interface *xch, unsigned int policy_idx,
+>          return rc;
+>      }
+>  
+> -    rc = deserialize_policy(xch, policy, nr_leaves, nr_msrs);
+> +    policy->nr_leaves = nr_leaves;
+> +    policy->nr_msrs = nr_msrs;
+> +
+> +    rc = deserialize_policy(xch, policy);
+>      if ( rc )
+>      {
+>          errno = -rc;
+> @@ -903,7 +905,10 @@ int xc_cpu_policy_get_domain(xc_interface *xch, uint32_t domid,
+>          return rc;
+>      }
+>  
+> -    rc = deserialize_policy(xch, policy, nr_leaves, nr_msrs);
+> +    policy->nr_leaves = nr_leaves;
+> +    policy->nr_msrs = nr_msrs;
+> +
+> +    rc = deserialize_policy(xch, policy);
+>      if ( rc )
+>      {
+>          errno = -rc;
+> @@ -917,17 +922,14 @@ int xc_cpu_policy_set_domain(xc_interface *xch, uint32_t domid,
+>                               xc_cpu_policy_t *policy)
+>  {
+>      uint32_t err_leaf = -1, err_subleaf = -1, err_msr = -1;
+> -    unsigned int nr_leaves = ARRAY_SIZE(policy->leaves);
+> -    unsigned int nr_msrs = ARRAY_SIZE(policy->msrs);
+>      int rc;
+>  
+> -    rc = xc_cpu_policy_serialise(xch, policy, policy->leaves, &nr_leaves,
+> -                                 policy->msrs, &nr_msrs);
+> +    rc = xc_cpu_policy_serialise(xch, policy);
+>      if ( rc )
+>          return rc;
+>  
+> -    rc = xc_set_domain_cpu_policy(xch, domid, nr_leaves, policy->leaves,
+> -                                  nr_msrs, policy->msrs,
+> +    rc = xc_set_domain_cpu_policy(xch, domid, policy->nr_leaves, policy->leaves,
+> +                                  policy->nr_msrs, policy->msrs,
+>                                    &err_leaf, &err_subleaf, &err_msr);
+>      if ( rc )
+>      {
+> @@ -942,34 +944,32 @@ int xc_cpu_policy_set_domain(xc_interface *xch, uint32_t domid,
+>      return rc;
+>  }
+>  
+> -int xc_cpu_policy_serialise(xc_interface *xch, const xc_cpu_policy_t *p,
+> -                            xen_cpuid_leaf_t *leaves, uint32_t *nr_leaves,
+> -                            xen_msr_entry_t *msrs, uint32_t *nr_msrs)
+> +int xc_cpu_policy_serialise(xc_interface *xch, xc_cpu_policy_t *p)
+>  {
+> +    unsigned int nr_leaves = ARRAY_SIZE(p->leaves);
+> +    unsigned int nr_msrs = ARRAY_SIZE(p->msrs);
+>      int rc;
+>  
+> -    if ( leaves )
+> +    rc = x86_cpuid_copy_to_buffer(&p->policy, p->leaves, &nr_leaves);
+> +    if ( rc )
+>      {
+> -        rc = x86_cpuid_copy_to_buffer(&p->policy, leaves, nr_leaves);
+> -        if ( rc )
+> -        {
+> -            ERROR("Failed to serialize CPUID policy");
+> -            errno = -rc;
+> -            return -1;
+> -        }
+> +        ERROR("Failed to serialize CPUID policy");
+> +        errno = -rc;
+> +        return -1;
+>      }
+>  
+> -    if ( msrs )
+> +    p->nr_leaves = nr_leaves;
 
-The #ifdef and #endif processor directives shouldn't be indented.
-
-Would you mind adding /* CONFIG_{AMD,INTEL}_IOMMU */ comments in the
-#endif directives?
-
-I wonder if we could move the definitions of those structures to the
-vendor specific headers, but that's more convoluted, and would require
-including the iommu headers in pci.h
+Nit: FWIW, I think you could avoid having to introduce local
+nr_{leaves,msrs} variables and just use p->nr_{leaves,msrs}?  By
+setting them to ARRAY_SIZE() at the top of the function and then
+letting x86_{cpuid,msr}_copy_to_buffer() adjust as necessary.
 
 Thanks, Roger.
 
