@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3BB0A8CD63B
-	for <lists+xen-devel@lfdr.de>; Thu, 23 May 2024 16:53:58 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.728622.1133630 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 532E98CD69E
+	for <lists+xen-devel@lfdr.de>; Thu, 23 May 2024 17:04:38 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.728632.1133640 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sA9pC-0000Ac-TV; Thu, 23 May 2024 14:53:46 +0000
+	id 1sA9zE-00025S-UQ; Thu, 23 May 2024 15:04:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 728622.1133630; Thu, 23 May 2024 14:53:46 +0000
+Received: by outflank-mailman (output) from mailman id 728632.1133640; Thu, 23 May 2024 15:04:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sA9pC-00007A-QI; Thu, 23 May 2024 14:53:46 +0000
-Received: by outflank-mailman (input) for mailman id 728622;
- Thu, 23 May 2024 14:53:45 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=OfYh=M2=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sA9pB-00006r-9f
- for xen-devel@lists.xenproject.org; Thu, 23 May 2024 14:53:45 +0000
-Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
- [2a00:1450:4864:20::536])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 3fae73fd-1914-11ef-b4bb-af5377834399;
- Thu, 23 May 2024 16:53:43 +0200 (CEST)
-Received: by mail-ed1-x536.google.com with SMTP id
- 4fb4d7f45d1cf-56e1bbdb362so9613849a12.1
- for <xen-devel@lists.xenproject.org>; Thu, 23 May 2024 07:53:43 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a5a17b01a2esm1943060566b.185.2024.05.23.07.53.42
+	id 1sA9zE-00023r-Qw; Thu, 23 May 2024 15:04:08 +0000
+Received: by outflank-mailman (input) for mailman id 728632;
+ Thu, 23 May 2024 15:04:07 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=WSi9=M2=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1sA9zD-00023l-Am
+ for xen-devel@lists.xenproject.org; Thu, 23 May 2024 15:04:07 +0000
+Received: from mail-qk1-x72e.google.com (mail-qk1-x72e.google.com
+ [2607:f8b0:4864:20::72e])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id b2cc2fce-1915-11ef-90a1-e314d9c70b13;
+ Thu, 23 May 2024 17:04:06 +0200 (CEST)
+Received: by mail-qk1-x72e.google.com with SMTP id
+ af79cd13be357-792ce7a1fa8so532993185a.1
+ for <xen-devel@lists.xenproject.org>; Thu, 23 May 2024 08:04:06 -0700 (PDT)
+Received: from [10.125.231.30] ([217.156.233.157])
+ by smtp.gmail.com with ESMTPSA id
+ af79cd13be357-7930f124416sm694158485a.119.2024.05.23.08.04.03
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 23 May 2024 07:53:42 -0700 (PDT)
+ Thu, 23 May 2024 08:04:04 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,92 +45,123 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3fae73fd-1914-11ef-b4bb-af5377834399
+X-Inumbo-ID: b2cc2fce-1915-11ef-90a1-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1716476022; x=1717080822; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:cc:references
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=cpsNufTSxl5uFSh8vwPZqZgoWvtPcUnSgHFo5kmo+6M=;
-        b=bIOK8SegaknRCRTlw+bkA/lyaNvqQBMS1cNeAbS9/1rwBWmBN99UOaTbV+On6J5trs
-         CPZHJ/CGoXMXGAFYP0UMO1/xM0+SJQdzCBj9PhPNAPMjWjY3QxN72WW+6CNGyxC/G8zn
-         flzxd8AOY77vZIXHx7hEYyFo/R9UuETeHscsSv3F7evmCkJ/mLnJQNqASHGldJM8CIzJ
-         aAJEpeLF75jIxepaywiA7OQNwdqkvxbXgKwpr9q2cOiumSB4nmkMcginqRixFFXFLquk
-         RjVL53yR+3aE4on1I/Ta26UGNNitY07X1u2tK6auG41okvBnXo1LtO8p5ekv74RuJXw0
-         +jcQ==
+        d=citrix.com; s=google; t=1716476645; x=1717081445; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=x6bypk45n2WDAwnPN2WsudmjX9+lKvI0xbg3Obu88C4=;
+        b=hyeEF/KkepvU+gYPXJMQGAjaYOa0PMH+aiKuG90Lo0x8dr3M6jrigW78fCMwDZReng
+         QhoH3zyz6AmFZzdAdAtEQZ4gd18qx8IwlmsAS0EqmZad1NUotoQ0blRIyffI54OSQvAq
+         T3bUGlRccOuYSvI7MF17SFQPE6FpVpJvJGEL8=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1716476022; x=1717080822;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:cc:references
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=cpsNufTSxl5uFSh8vwPZqZgoWvtPcUnSgHFo5kmo+6M=;
-        b=QjEna6ZODNrghVxA3f1SIfxTOKrSkHYCzQzcuNtHs6DeCv+RTqVFbRHw43QO5VqE7U
-         w4d1aH/zjJeb03FnNWaCpXihWUOvs/MkOFQwmn19Cfk17wq+W56mC6+l6g9UF1Zj07hk
-         yv4rgxQIgAJwR4KWgvYHmOAJyeYc09ToJ/cNTUjWLLNEeqMRhQiaerUQ6CYnK6rKRiJS
-         mlsSD6szVPjWJwjAaW8Jn/yRjK4y3Sj7FRuTDpd77709YQAaF8FEqPIq6wP/leOIZC+t
-         xR3Lv+f0hoR566or7TGVlZcR6meKr14Q2IfJmX4jSKFwRmWJ23l9WCRRL4bdfLFeYSMK
-         2mww==
-X-Gm-Message-State: AOJu0YyI8dm+L5BDxY+Hk85M4TfqrdUVpwAFonU7R0N0+S15JQ0qh1nq
-	X4ySyVaZY02DVtSXsM0gPs2EctYN1J0MqtGXAzxhOw8mn0zjWKbv3Pj6Ar3+EtGxBsz+3IoZF3s
-	=
-X-Google-Smtp-Source: AGHT+IH9iXYtnBw1AZH2BewLNNWfoNxFcWseBv+hERq2zEhcfoA6mdP29P96Wslv6pLobJoT64gm0w==
-X-Received: by 2002:a17:906:6b93:b0:a53:ed1b:f3ba with SMTP id a640c23a62f3a-a62280d68admr471088566b.28.1716476022573;
-        Thu, 23 May 2024 07:53:42 -0700 (PDT)
-Message-ID: <6ad6074e-26ce-43e0-918f-63f28723397b@suse.com>
-Date: Thu, 23 May 2024 16:53:41 +0200
+        d=1e100.net; s=20230601; t=1716476645; x=1717081445;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=x6bypk45n2WDAwnPN2WsudmjX9+lKvI0xbg3Obu88C4=;
+        b=Iit4XyFj05mU6JCYv1MgGaUnjBFaJJvTCO8qsWKvADwcn1adQOcG1mklo+FzK/5CTZ
+         nMmGxPkIY09xyt2dFdEttE0Bn8fekclyCRhik8hBAJmRr0FRk0/Mx31do7nCKkzjuPTI
+         sFqvdnIBqlGqJSgVnARnlV0u8R5g3gwFmUzOUO1tezDfupTQNP74PqGWhMg58Pyb+dju
+         xdYUR2vUCzRjfm0XqoY46vaQEcNMCo8/0kWq+JhEz9JWDXWT3ny19hOQvbz1juFTjX7n
+         4dp3BILBSFrElaQpL7Ady34a8ZMDz/cZRF4GUktqjPbO+gYrk23756suYdSaY+8dII/1
+         mSbQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWLbV9QtNVTO3OLOZf4WN8ENOaBEnlF9Zi+MKeCBhGczgF8QGS8Yry0/YTKykyQJmaq8cLR3RDMDGm0KlxDiQMdU/Q2EgfCCX5r/LJ6H78=
+X-Gm-Message-State: AOJu0YyBv4ceHXO+2BJyAQR/lw4McgXU/SvS5tRKPbGt9ewXvvHevgRU
+	PdRg0BRrnUmsBbMAGmXmmYOm/nG7f5DyK7w1LHR/wp6OQli7K/2aTpwbH17eveA=
+X-Google-Smtp-Source: AGHT+IGnctaEmrmxDPdmkJhj3h+m4MzjeFD846b/qWjjB+1rTTcO2V9Kroy8bTZMzWW77gqTZoSzeA==
+X-Received: by 2002:a05:620a:118b:b0:792:7d2f:156f with SMTP id af79cd13be357-794994e55f4mr491068685a.77.1716476644982;
+        Thu, 23 May 2024 08:04:04 -0700 (PDT)
+Message-ID: <1613ceeb-916f-43d1-970e-913877f46fac@citrix.com>
+Date: Thu, 23 May 2024 16:04:02 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [xen-4.17-testing test] 186087: regressions - FAIL
-Content-Language: en-US
-To: osstest service owner <osstest-admin@xenproject.org>
-References: <osstest-186087-mainreport@xen.org>
-Cc: xen-devel@lists.xenproject.org
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <osstest-186087-mainreport@xen.org>
+Subject: Re: [PATCH v2 1/2] x86/hvm/trace: Use a different trace type for AMD
+ processors
+To: George Dunlap <george.dunlap@cloud.com>, xen-devel@lists.xenproject.org
+Cc: Jan Beulich <jbeulich@suse.com>, Roger Pau Monne <roger.pau@cloud.com>,
+ Anthony Perard <anthony.perard@cloud.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Olaf Hering <olaf@aepfle.de>
+References: <20240523141020.2256177-1-george.dunlap@cloud.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <20240523141020.2256177-1-george.dunlap@cloud.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 23.05.2024 16:40, osstest service owner wrote:
-> flight 186087 xen-4.17-testing real [real]
-> http://logs.test-lab.xenproject.org/osstest/logs/186087/
-> 
-> Regressions :-(
-> 
-> Tests which did not succeed and are blocking,
-> including tests which could not be run:
->  build-amd64                   6 xen-build                fail REGR. vs. 185864
->  build-amd64-xsm               6 xen-build                fail REGR. vs. 185864
->  build-i386-xsm                6 xen-build                fail REGR. vs. 185864
->  build-i386                    6 xen-build                fail REGR. vs. 185864
->  build-amd64-prev              6 xen-build                fail REGR. vs. 185864
->  build-i386-prev               6 xen-build                fail REGR. vs. 185864
+On 23/05/2024 3:10 pm, George Dunlap wrote:
+> A long-standing usability sub-optimality with xenalyze is the
+> necessity to specify `--svm-mode` when analyzing AMD processors.  This
+> fundamentally comes about because the same trace event ID is used for
+> both VMX and SVM, but the contents of the trace must be interpreted
+> differently.
+>
+> Instead, allocate separate trace events for VMX and SVM vmexits in
+> Xen; this will allow all readers to properly interpret the meaning of
+> the vmexit reason.
+>
+> In xenalyze, first remove the redundant call to init_hvm_data();
+> there's no way to get to hvm_vmexit_process() without it being already
+> initialized by the set_vcpu_type call in hvm_process().
+>
+> Replace this with set_hvm_exit_reson_data(), and move setting of
+> hvm->exit_reason_* into that function.
+>
+> Modify hvm_process and hvm_vmexit_process to handle all four potential
+> values appropriately.
+>
+> If SVM entries are encountered, set opt.svm_mode so that other
+> SVM-specific functionality is triggered.
+>
+> Remove the `--svm-mode` command-line option, since it's now redundant.
+>
+> Signed-off-by: George Dunlap <george.dunlap@cloud.com>
 
-These look to be recurring, yet at the same time these look to be infrastructure
-issues. This not happening for the first time I'm not sure we can simply wait
-and hope for the problem to clear itself.
-
-Jan
+Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
