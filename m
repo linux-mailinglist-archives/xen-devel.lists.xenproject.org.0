@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 006BA8CD892
-	for <lists+xen-devel@lfdr.de>; Thu, 23 May 2024 18:41:16 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.728757.1133799 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 006968CD8B0
+	for <lists+xen-devel@lfdr.de>; Thu, 23 May 2024 18:51:17 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.728764.1133809 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sABUJ-0004nV-SW; Thu, 23 May 2024 16:40:19 +0000
+	id 1sABeQ-0007A9-Q6; Thu, 23 May 2024 16:50:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 728757.1133799; Thu, 23 May 2024 16:40:19 +0000
+Received: by outflank-mailman (output) from mailman id 728764.1133809; Thu, 23 May 2024 16:50:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sABUJ-0004lA-PT; Thu, 23 May 2024 16:40:19 +0000
-Received: by outflank-mailman (input) for mailman id 728757;
- Thu, 23 May 2024 16:40:18 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1sABeQ-00077M-Mk; Thu, 23 May 2024 16:50:46 +0000
+Received: by outflank-mailman (input) for mailman id 728764;
+ Thu, 23 May 2024 16:50:45 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=TgV8=M2=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1sABUI-0004l4-Ms
- for xen-devel@lists.xenproject.org; Thu, 23 May 2024 16:40:18 +0000
-Received: from mail-ed1-x52b.google.com (mail-ed1-x52b.google.com
- [2a00:1450:4864:20::52b])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 22bd5327-1923-11ef-90a1-e314d9c70b13;
- Thu, 23 May 2024 18:40:17 +0200 (CEST)
-Received: by mail-ed1-x52b.google.com with SMTP id
- 4fb4d7f45d1cf-56e48d0a632so16271677a12.2
- for <xen-devel@lists.xenproject.org>; Thu, 23 May 2024 09:40:17 -0700 (PDT)
-Received: from [192.168.219.221] ([94.75.70.14])
- by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5733c34fed1sm20017906a12.96.2024.05.23.09.40.14
+ <SRS0=bqPc=M2=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1sABeO-00077G-Tz
+ for xen-devel@lists.xenproject.org; Thu, 23 May 2024 16:50:45 +0000
+Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
+ [2a00:1450:4864:20::331])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 97622fe6-1924-11ef-b4bb-af5377834399;
+ Thu, 23 May 2024 18:50:42 +0200 (CEST)
+Received: by mail-wm1-x331.google.com with SMTP id
+ 5b1f17b1804b1-4202cea9941so55185525e9.1
+ for <xen-devel@lists.xenproject.org>; Thu, 23 May 2024 09:50:42 -0700 (PDT)
+Received: from localhost ([213.195.114.223]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-355038eb8cbsm503505f8f.33.2024.05.23.09.50.40
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 23 May 2024 09:40:15 -0700 (PDT)
+ Thu, 23 May 2024 09:50:41 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,325 +44,368 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 22bd5327-1923-11ef-90a1-e314d9c70b13
+X-Inumbo-ID: 97622fe6-1924-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1716482416; x=1717087216; darn=lists.xenproject.org;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=ByR5oC3ZqlfSCZX3QYIiuX/qOz3B9BfZ8Aja4wUjKq4=;
-        b=iOTMbRLFSiX/7nmoVrjIYl4gjDvZcOk8LrGBu4eHzilV94Myfn7HeCexBMl3DbyknS
-         +lLEp3SOIU2gM4KCtw2rrdYRqGDqoC3LaMQPsnyMvBeOs06c0JiwipWnLDHKNKTMIQRx
-         74ORVtsxmXGDfybNIdjr/zltflB+zaPknAowm7P+92D26SStpbCIwOzccPsKHfCI7nsN
-         baky0cNQHTin3bNy1tZakwSIisaTfwnShTagfHgMO/S6oDq4YKvKKbOvIHb/IiMR93Os
-         z3OSnbSn7rH1EH/LJWzLtvHQPEnP1i6VLVvpGx7iMLZp/poRMouhXaxQ5So+fOLaRxyX
-         QSMA==
+        d=citrix.com; s=google; t=1716483041; x=1717087841; darn=lists.xenproject.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=Une7sB2nD33xp74w7FaBn0c64cKbphTpkHiHzkUm+EQ=;
+        b=X1BZRMzGMn5WhqZAD8l19c1W5ZYY7SX66OX2rQ2Bl4YLbrGxJROSvzJLQG6kFPHPhy
+         fUOyFeiYsFc6YOCMjqRUDAHpCAFZBTonLuSrhqF6L+ADwKvNjnHXvE0fbOxclm1INSoD
+         raXmregwnldcXm5bAlHoIwsGzN6w9edsMXpAM=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1716482416; x=1717087216;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=ByR5oC3ZqlfSCZX3QYIiuX/qOz3B9BfZ8Aja4wUjKq4=;
-        b=eitkM8jg8c3OaMLChExYa38BdbHMeAdXAZC7CuhR3EbhAsjfCv/KMnJHyYXV7JfKov
-         ddooNVtG6yewx03GgEIPgUBTr3QL2tbOYXiEyYZYmE+oFTd3pjEMd5ae3wl5BjZTc0mC
-         0ysEpvFGzOiF63DAgmKN9V9zLCa0dxekgd7v+uoT2ivHAcwf48Am/gaKXJvhsoLqEZkb
-         lGT5v4VNdyie/8qXspILkBUHSjRN4ID8V/pyPCEeDOD3303yFppIahgo6e9l+p67RfbV
-         BosolURtDod1IRwUVGiWoj+hYFGx7Manac8MpLBrXsLTWyGAAA6iMKFGlhQMM3eFX1HU
-         punQ==
-X-Forwarded-Encrypted: i=1; AJvYcCVhMWZiEWMNsVHF4/sDjopCyrBisFynKSV2USdBsFQP5FS0nrY13MAbi1+OoQ/9/YX2aGdoWz9TAHj+qA21qXXuzFasdv3zuD4H/1lA6XA=
-X-Gm-Message-State: AOJu0YwiUxTVzLneP7EZbFbOEYiBh5kA6MVP5qJDg7OwM2Wu9S4qgXOf
-	UMMeSbgdx9KapRVa3QHgtQRdx81dzKmVzhlV1mfGeZh8S4CxgqyS
-X-Google-Smtp-Source: AGHT+IEq1SRzfMGIJnUc0Iz+cPnRHCHij+cC8lOh6QoOo8xfEsGjbbvVPocx8HTWoNpDcHPbLbU9uQ==
-X-Received: by 2002:a50:d513:0:b0:574:ebf4:f787 with SMTP id 4fb4d7f45d1cf-57832a3b5eemr4728108a12.19.1716482416219;
-        Thu, 23 May 2024 09:40:16 -0700 (PDT)
-Message-ID: <ea2c01d19160431ed9f6e4e7b6c122ab27aa676b.camel@gmail.com>
-Subject: Re: [PATCH v10 02/14] xen: introduce generic non-atomic test_*bit()
-From: "Oleksii K." <oleksii.kurochko@gmail.com>
-To: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org, Jan
- Beulich <jbeulich@suse.com>
-Cc: Roger Pau =?ISO-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>, Ross
- Lagerwall <ross.lagerwall@citrix.com>, Stefano Stabellini
- <sstabellini@kernel.org>,  Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>, Volodymyr Babchuk
- <Volodymyr_Babchuk@epam.com>, Andrew Cooper <andrew.cooper3@citrix.com>, 
- George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
- Shawn Anastasio <sanastasio@raptorengineering.com>
-Date: Thu, 23 May 2024 18:40:14 +0200
-In-Reply-To: <a535a3fc-5b90-454f-8d3f-202de631bc49@xen.org>
-References: <cover.1715952103.git.oleksii.kurochko@gmail.com>
-	 <219df9d840a183fc55de02aff011c0972a68587c.1715952103.git.oleksii.kurochko@gmail.com>
-	 <1554d534-7998-4ad4-9218-579b2568b744@xen.org>
-	 <9f02d973c2520d36ee33d01b871378de16ede4d0.camel@gmail.com>
-	 <a535a3fc-5b90-454f-8d3f-202de631bc49@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.52.1 (3.52.1-1.fc40) 
+        d=1e100.net; s=20230601; t=1716483041; x=1717087841;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=Une7sB2nD33xp74w7FaBn0c64cKbphTpkHiHzkUm+EQ=;
+        b=G1nEp25LlxmJZpXpP+sru78mnMiwK/3zbkkxFXu+y7yqO53j+RRiuUTC4oNE+9sIMS
+         vxrU/ir2U/rVxxjs1dw2h6i3o9O2tW+KLhZChxOCfGEW3FSfZQb61XcR9dMfcWhp4gBq
+         40r95bYCIBwMRhFqVKg16kk13RI1lpuDWpMVjxIbuw2azJquZdCaUqIEpBgRlErxVHUx
+         FC19qsTotuhtATDXRi23kYgNAoeEgkDgF7eEZ7mExfA8Z/FBSaCQ/Cz7yizxt9s1vaEK
+         WNOimWEewsvzJLvOHUNRF4l/u7d8snDari/cUSmqBz3crZxFwBVRUnSypa3cQD7JRIx5
+         Jmug==
+X-Gm-Message-State: AOJu0Yxipyo+mKDX6yZvITdqz5aBTBH8EysBOjuv3FZm0WT0RYbjSiyg
+	fNvFFcuxajwSI5sxWRJjtHZNv4W6obWLtmC/UyQ28vqb1gi9aTS2Q3HnNPy+ODI=
+X-Google-Smtp-Source: AGHT+IHt95GprgDPx6yopwP2lS1+9+nnhOK4Ujf9Smw7wTQGWLbIihnbbbGJUNUW1TVnwhj6eJXbAQ==
+X-Received: by 2002:a7b:cb42:0:b0:41a:2044:1b3e with SMTP id 5b1f17b1804b1-420fd34d850mr40774885e9.32.1716483041434;
+        Thu, 23 May 2024 09:50:41 -0700 (PDT)
+Date: Thu, 23 May 2024 18:50:40 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Alejandro Vallejo <alejandro.vallejo@cloud.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>,
+	Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Anthony PERARD <anthony@xenproject.org>
+Subject: Re: [PATCH v2 6/8] xen/lib: Add topology generator for x86
+Message-ID: <Zk9z4HJmqXpbivRu@macbook>
+References: <cover.1715102098.git.alejandro.vallejo@cloud.com>
+ <1ffad529d7fed10381df67215c747fc2d69f805e.1715102098.git.alejandro.vallejo@cloud.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <1ffad529d7fed10381df67215c747fc2d69f805e.1715102098.git.alejandro.vallejo@cloud.com>
 
-On Thu, 2024-05-23 at 15:33 +0100, Julien Grall wrote:
->=20
->=20
-> On 23/05/2024 15:11, Oleksii K. wrote:
-> > On Thu, 2024-05-23 at 14:00 +0100, Julien Grall wrote:
-> > > Hi Oleksii,
-> > Hi Julien,
-> >=20
-> > >=20
-> > > On 17/05/2024 14:54, Oleksii Kurochko wrote:
-> > > > diff --git a/xen/arch/arm/arm64/livepatch.c
-> > > > b/xen/arch/arm/arm64/livepatch.c
-> > > > index df2cebedde..4bc8ed9be5 100644
-> > > > --- a/xen/arch/arm/arm64/livepatch.c
-> > > > +++ b/xen/arch/arm/arm64/livepatch.c
-> > > > @@ -10,7 +10,6 @@
-> > > > =C2=A0=C2=A0 #include <xen/mm.h>
-> > > > =C2=A0=C2=A0 #include <xen/vmap.h>
-> > > > =C2=A0=C2=A0=20
-> > > > -#include <asm/bitops.h>
-> > >=20
-> > > It is a bit unclear how this change is related to the patch. Can
-> > > you
-> > > explain in the commit message?
-> > Probably it doesn't need anymore. I will double check and if this
-> > change is not needed, I will just drop it in the next patch
-> > version.
-> >=20
-> > >=20
-> > > > =C2=A0=C2=A0 #include <asm/byteorder.h>
-> > > > =C2=A0=C2=A0 #include <asm/insn.h>
-> > > > =C2=A0=C2=A0 #include <asm/livepatch.h>
-> > > > diff --git a/xen/arch/arm/include/asm/bitops.h
-> > > > b/xen/arch/arm/include/asm/bitops.h
-> > > > index 5104334e48..8e16335e76 100644
-> > > > --- a/xen/arch/arm/include/asm/bitops.h
-> > > > +++ b/xen/arch/arm/include/asm/bitops.h
-> > > > @@ -22,9 +22,6 @@
-> > > > =C2=A0=C2=A0 #define __set_bit(n,p)=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 set_bit(n,p)
-> > > > =C2=A0=C2=A0 #define __clear_bit(n,p)=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0 clear_bit(n,p)
-> > > > =C2=A0=C2=A0=20
-> > > > -#define BITOP_BITS_PER_WORD=C2=A0=C2=A0=C2=A0=C2=A0 32
-> > > > -#define BITOP_MASK(nr)=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0 (1UL << ((nr) %
-> > > > BITOP_BITS_PER_WORD))
-> > > > -#define BITOP_WORD(nr)=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0 ((nr) / BITOP_BITS_PER_WORD)
-> > > > =C2=A0=C2=A0 #define BITS_PER_BYTE=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0 8
-> > >=20
-> > > OOI, any reason BITS_PER_BYTE has not been moved as well? I don't
-> > > expect
-> > > the value to change across arch.
-> > I can move it to generic one header too in the next patch version.
-> >=20
-> > >=20
-> > > [...]
-> > >=20
-> > > > diff --git a/xen/include/xen/bitops.h
-> > > > b/xen/include/xen/bitops.h
-> > > > index f14ad0d33a..6eeeff0117 100644
-> > > > --- a/xen/include/xen/bitops.h
-> > > > +++ b/xen/include/xen/bitops.h
-> > > > @@ -65,10 +65,141 @@ static inline int generic_flsl(unsigned
-> > > > long
-> > > > x)
-> > > > =C2=A0=C2=A0=C2=A0 * scope
-> > > > =C2=A0=C2=A0=C2=A0 */
-> > > > =C2=A0=C2=A0=20
-> > > > +#define BITOP_BITS_PER_WORD 32
-> > > > +typedef uint32_t bitop_uint_t;
-> > > > +
-> > > > +#define BITOP_MASK(nr)=C2=A0 ((bitop_uint_t)1 << ((nr) %
-> > > > BITOP_BITS_PER_WORD))
-> > > > +
-> > > > +#define BITOP_WORD(nr)=C2=A0 ((nr) / BITOP_BITS_PER_WORD)
-> > > > +
-> > > > +extern void __bitop_bad_size(void);
-> > > > +
-> > > > +#define bitop_bad_size(addr) (sizeof(*(addr)) <
-> > > > sizeof(bitop_uint_t))
-> > > > +
-> > > > =C2=A0=C2=A0 /* --------------------- Please tidy above here ------=
-------
-> > > > -----
-> > > > ---- */
-> > > > =C2=A0=C2=A0=20
-> > > > =C2=A0=C2=A0 #include <asm/bitops.h>
-> > > > =C2=A0=C2=A0=20
-> > > > +/**
-> > > > + * generic__test_and_set_bit - Set a bit and return its old
-> > > > value
-> > > > + * @nr: Bit to set
-> > > > + * @addr: Address to count from
-> > > > + *
-> > > > + * This operation is non-atomic and can be reordered.
-> > > > + * If two examples of this operation race, one can appear to
-> > > > succeed
-> > > > + * but actually fail.=C2=A0 You must protect multiple accesses wit=
-h
-> > > > a
-> > > > lock.
-> > > > + */
-> > >=20
-> > > Sorry for only mentioning this on v10. I think this comment
-> > > should be
-> > > duplicated (or moved to) on top of test_bit() because this is
-> > > what
-> > > everyone will use. This will avoid the developper to follow the
-> > > function
-> > > calls and only notice the x86 version which says "This function
-> > > is
-> > > atomic and may not be reordered." and would be wrong for all the
-> > > other arch.
-> > It makes sense to add this comment on top of test_bit(), but I am
-> > curious if it is needed to mention that for x86 arch_test_bit() "is
-> > atomic and may not be reordered":
->=20
-> I would say no because any developper modifying common code can't=20
-> relying it.
->=20
-> >=20
-> > =C2=A0 * This operation is non-atomic and can be reordered. ( Exception=
-:
-> > for
-> > * x86 arch_test_bit() is atomic and may not be reordered )
-> > =C2=A0 * If two examples of this operation race, one can appear to
-> > succeed
-> > =C2=A0 * but actually fail.=C2=A0 You must protect multiple accesses wi=
-th a
-> > lock.
-> > =C2=A0 */
-> >=20
-> > >=20
-> > > > +static always_inline bool
-> > > > +generic__test_and_set_bit(int nr, volatile void *addr)
-> > > > +{
-> > > > +=C2=A0=C2=A0=C2=A0 bitop_uint_t mask =3D BITOP_MASK(nr);
-> > > > +=C2=A0=C2=A0=C2=A0 volatile bitop_uint_t *p =3D (volatile bitop_ui=
-nt_t *)addr +
-> > > > BITOP_WORD(nr);
-> > > > +=C2=A0=C2=A0=C2=A0 bitop_uint_t old =3D *p;
-> > > > +
-> > > > +=C2=A0=C2=A0=C2=A0 *p =3D old | mask;
-> > > > +=C2=A0=C2=A0=C2=A0 return (old & mask);
-> > > > +}
-> > > > +
-> > > > +/**
-> > > > + * generic__test_and_clear_bit - Clear a bit and return its
-> > > > old
-> > > > value
-> > > > + * @nr: Bit to clear
-> > > > + * @addr: Address to count from
-> > > > + *
-> > > > + * This operation is non-atomic and can be reordered.
-> > > > + * If two examples of this operation race, one can appear to
-> > > > succeed
-> > > > + * but actually fail.=C2=A0 You must protect multiple accesses wit=
-h
-> > > > a
-> > > > lock.
-> > > > + */
-> > >=20
-> > > Same applies here and ...
-> > >=20
-> > > > +static always_inline bool
-> > > > +generic__test_and_clear_bit(int nr, volatile void *addr)
-> > > > +{
-> > > > +=C2=A0=C2=A0=C2=A0 bitop_uint_t mask =3D BITOP_MASK(nr);
-> > > > +=C2=A0=C2=A0=C2=A0 volatile bitop_uint_t *p =3D (volatile bitop_ui=
-nt_t *)addr +
-> > > > BITOP_WORD(nr);
-> > > > +=C2=A0=C2=A0=C2=A0 bitop_uint_t old =3D *p;
-> > > > +
-> > > > +=C2=A0=C2=A0=C2=A0 *p =3D old & ~mask;
-> > > > +=C2=A0=C2=A0=C2=A0 return (old & mask);
-> > > > +}
-> > > > +
-> > > > +/* WARNING: non atomic and it can be reordered! */
-> > >=20
-> > > ... here.
-> > >=20
-> > > > +static always_inline bool
-> > > > +generic__test_and_change_bit(int nr, volatile void *addr)
-> > > > +{
-> > > > +=C2=A0=C2=A0=C2=A0 bitop_uint_t mask =3D BITOP_MASK(nr);
-> > > > +=C2=A0=C2=A0=C2=A0 volatile bitop_uint_t *p =3D (volatile bitop_ui=
-nt_t *)addr +
-> > > > BITOP_WORD(nr);
-> > > > +=C2=A0=C2=A0=C2=A0 bitop_uint_t old =3D *p;
-> > > > +
-> > > > +=C2=A0=C2=A0=C2=A0 *p =3D old ^ mask;
-> > > > +=C2=A0=C2=A0=C2=A0 return (old & mask);
-> > > > +}
-> > > > +/**
-> > > > + * generic_test_bit - Determine whether a bit is set
-> > > > + * @nr: bit number to test
-> > > > + * @addr: Address to start counting from
-> > > > + */
-> > > > +static always_inline bool generic_test_bit(int nr, const
-> > > > volatile
-> > > > void *addr)
-> > > > +{
-> > > > +=C2=A0=C2=A0=C2=A0 bitop_uint_t mask =3D BITOP_MASK(nr);
-> > > > +=C2=A0=C2=A0=C2=A0 const volatile bitop_uint_t *p =3D
-> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 (c=
-onst volatile bitop_uint_t *)addr +
-> > > > BITOP_WORD(nr);
-> > > > +
-> > > > +=C2=A0=C2=A0=C2=A0 return (*p & mask);
-> > > > +}
-> > > > +
-> > > > +static always_inline bool
-> > > > +__test_and_set_bit(int nr, volatile void *addr)
-> > > > +{
-> > > > +#ifndef arch__test_and_set_bit
-> > > > +#define arch__test_and_set_bit generic__test_and_set_bit
-> > > > +#endif
-> > > > +
-> > > > +=C2=A0=C2=A0=C2=A0 return arch__test_and_set_bit(nr, addr);
-> > > > +}
-> > >=20
-> > > NIT: It is a bit too late to change this one. But I have to
-> > > admit, I
-> > > don't understand the purpose of the static inline when you could
-> > > have
-> > > simply call...
-> > >=20
-> > > > +#define __test_and_set_bit(nr, addr) ({=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 \
-> > > > +=C2=A0=C2=A0=C2=A0 if ( bitop_bad_size(addr) ) __bitop_bad_size();=
- \
-> > > > +=C2=A0=C2=A0=C2=A0 __test_and_set_bit(nr, addr);=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0 \
-> > >=20
-> > > ... __arch__test_and_set_bit here.
-> > I just wanted to be in sync with other non-atomic test*_bit()
-> > operations and Andrew's patch series ( xen/bitops: Reduce the mess,
-> > starting with ffs() ).
->=20
-> I looked at Andrew series and I can't seem to find an example where
-> he=20
-> uses both the macro + static inline. He seems only use a static
-> inline.
-> Do you have any pointer?
->=20
-> But by any chance are you referring to the pattern on x86? If so, I=20
-> would really like to understand what's the benefits of introducing a
-> a=20
-> one-liner static inline which is "shadowed" by a macro...
-Yes, I was referring to the x86 pattern.
+On Wed, May 08, 2024 at 01:39:25PM +0100, Alejandro Vallejo wrote:
+> Add a helper to populate topology leaves in the cpu policy from
+> threads/core and cores/package counts.
+> 
+> No functional change, as it's not connected to anything yet.
 
-I tried to find the reason in the commit but couldn't:
-https://lists.xenproject.org/archives/html/xen-changelog/2008-03/msg00097.h=
-tml
+There is a functional change in test-cpu-policy.c.
 
-For some reason, I also couldn't find the mailing list thread for this.
+Maybe the commit message needs to be updated to reflect the added
+testing to test-cpu-policy.c using the newly introduced helper to
+generate topologies?
 
-Perhaps Jan could help here, based on the commit message he might have
-a suggestion.
+> 
+> Signed-off-by: Alejandro Vallejo <alejandro.vallejo@cloud.com>
+> ---
+> v2:
+>   * New patch. Extracted from v1/patch6
+> ---
+>  tools/tests/cpu-policy/test-cpu-policy.c | 128 +++++++++++++++++++++++
+>  xen/include/xen/lib/x86/cpu-policy.h     |  16 +++
+>  xen/lib/x86/policy.c                     |  86 +++++++++++++++
+>  3 files changed, 230 insertions(+)
+> 
+> diff --git a/tools/tests/cpu-policy/test-cpu-policy.c b/tools/tests/cpu-policy/test-cpu-policy.c
+> index 301df2c00285..0ba8c418b1b3 100644
+> --- a/tools/tests/cpu-policy/test-cpu-policy.c
+> +++ b/tools/tests/cpu-policy/test-cpu-policy.c
+> @@ -650,6 +650,132 @@ static void test_is_compatible_failure(void)
+>      }
+>  }
+>  
+> +static void test_topo_from_parts(void)
+> +{
+> +    static const struct test {
+> +        unsigned int threads_per_core;
+> +        unsigned int cores_per_pkg;
+> +        struct cpu_policy policy;
+> +    } tests[] = {
+> +        {
+> +            .threads_per_core = 3, .cores_per_pkg = 1,
+> +            .policy = {
+> +                .x86_vendor = X86_VENDOR_AMD,
+> +                .topo.subleaf = {
+> +                    [0] = { .nr_logical = 3, .level = 0, .type = 1, .id_shift = 2, },
+> +                    [1] = { .nr_logical = 1, .level = 1, .type = 2, .id_shift = 2, },
+> +                },
+> +            },
+> +        },
+> +        {
+> +            .threads_per_core = 1, .cores_per_pkg = 3,
+> +            .policy = {
+> +                .x86_vendor = X86_VENDOR_AMD,
+> +                .topo.subleaf = {
+> +                    [0] = { .nr_logical = 1, .level = 0, .type = 1, .id_shift = 0, },
+> +                    [1] = { .nr_logical = 3, .level = 1, .type = 2, .id_shift = 2, },
+> +                },
+> +            },
+> +        },
+> +        {
+> +            .threads_per_core = 7, .cores_per_pkg = 5,
+> +            .policy = {
+> +                .x86_vendor = X86_VENDOR_AMD,
+> +                .topo.subleaf = {
+> +                    [0] = { .nr_logical = 7, .level = 0, .type = 1, .id_shift = 3, },
+> +                    [1] = { .nr_logical = 5, .level = 1, .type = 2, .id_shift = 6, },
+> +                },
+> +            },
+> +        },
+> +        {
+> +            .threads_per_core = 2, .cores_per_pkg = 128,
+> +            .policy = {
+> +                .x86_vendor = X86_VENDOR_AMD,
+> +                .topo.subleaf = {
+> +                    [0] = { .nr_logical = 2, .level = 0, .type = 1, .id_shift = 1, },
+> +                    [1] = { .nr_logical = 128, .level = 1, .type = 2, .id_shift = 8, },
+> +                },
+> +            },
+> +        },
+> +        {
+> +            .threads_per_core = 3, .cores_per_pkg = 1,
+> +            .policy = {
+> +                .x86_vendor = X86_VENDOR_INTEL,
+> +                .topo.subleaf = {
+> +                    [0] = { .nr_logical = 3, .level = 0, .type = 1, .id_shift = 2, },
+> +                    [1] = { .nr_logical = 3, .level = 1, .type = 2, .id_shift = 2, },
+> +                },
+> +            },
+> +        },
+> +        {
+> +            .threads_per_core = 1, .cores_per_pkg = 3,
+> +            .policy = {
+> +                .x86_vendor = X86_VENDOR_INTEL,
+> +                .topo.subleaf = {
+> +                    [0] = { .nr_logical = 1, .level = 0, .type = 1, .id_shift = 0, },
+> +                    [1] = { .nr_logical = 3, .level = 1, .type = 2, .id_shift = 2, },
+> +                },
+> +            },
+> +        },
+> +        {
+> +            .threads_per_core = 7, .cores_per_pkg = 5,
+> +            .policy = {
+> +                .x86_vendor = X86_VENDOR_INTEL,
+> +                .topo.subleaf = {
+> +                    [0] = { .nr_logical = 7, .level = 0, .type = 1, .id_shift = 3, },
+> +                    [1] = { .nr_logical = 35, .level = 1, .type = 2, .id_shift = 6, },
+> +                },
+> +            },
+> +        },
+> +        {
+> +            .threads_per_core = 2, .cores_per_pkg = 128,
+> +            .policy = {
+> +                .x86_vendor = X86_VENDOR_INTEL,
+> +                .topo.subleaf = {
+> +                    [0] = { .nr_logical = 2, .level = 0, .type = 1, .id_shift = 1, },
+> +                    [1] = { .nr_logical = 256, .level = 1, .type = 2, .id_shift = 8, },
 
-~ Oleksii
+You don't need the array index in the initialization:
+
+                .topo.subleaf = {
+                    { .nr_logical = 2, .level = 0, .type = 1, .id_shift = 1, },
+                    { .nr_logical = 256, .level = 1, .type = 2,
+                      .id_shift = 8, },
+                }
+
+And lines should be limited to 80 columns if possible.
+
+> +                },
+> +            },
+> +        },
+> +    };
+> +
+> +    printf("Testing topology synthesis from parts:\n");
+> +
+> +    for ( size_t i = 0; i < ARRAY_SIZE(tests); ++i )
+> +    {
+> +        const struct test *t = &tests[i];
+> +        struct cpu_policy actual = { .x86_vendor = t->policy.x86_vendor };
+> +        int rc = x86_topo_from_parts(&actual, t->threads_per_core, t->cores_per_pkg);
+> +
+> +        if ( rc || memcmp(&actual.topo, &t->policy.topo, sizeof(actual.topo)) )
+> +        {
+> +#define TOPO(n) topo.subleaf[(n)]
+> +            fail("FAIL[%d] - '%s %u t/c, %u c/p'\n",
+> +                 rc,
+> +                 x86_cpuid_vendor_to_str(t->policy.x86_vendor),
+> +                 t->threads_per_core, t->cores_per_pkg);
+> +            printf("  subleaf=%u  expected_n=%u actual_n=%u\n"
+> +                   "             expected_lvl=%u actual_lvl=%u\n"
+> +                   "             expected_type=%u actual_type=%u\n"
+> +                   "             expected_shift=%u actual_shift=%u\n",
+> +                   0, t->policy.TOPO(0).nr_logical, actual.TOPO(0).nr_logical,
+> +                      t->policy.TOPO(0).level,      actual.TOPO(0).level,
+> +                      t->policy.TOPO(0).type,       actual.TOPO(0).type,
+> +                      t->policy.TOPO(0).id_shift,   actual.TOPO(0).id_shift);
+> +
+> +            printf("  subleaf=%u  expected_n=%u actual_n=%u\n"
+> +                   "             expected_lvl=%u actual_lvl=%u\n"
+> +                   "             expected_type=%u actual_type=%u\n"
+> +                   "             expected_shift=%u actual_shift=%u\n",
+> +                   1, t->policy.TOPO(1).nr_logical, actual.TOPO(1).nr_logical,
+> +                      t->policy.TOPO(1).level,      actual.TOPO(1).level,
+> +                      t->policy.TOPO(1).type,       actual.TOPO(1).type,
+> +                      t->policy.TOPO(1).id_shift,   actual.TOPO(1).id_shift);
+> +#undef TOPO
+
+Seeing the usage of the macro, maybe you could even do something like:
+
+TOPO(n, f)  t->policy.topo.subleaf[(n)].f, actual.topo.subleaf[(n)].f
+
+This will limit a bit the repetition of the "t->policy..., actual..."
+tuple.
+
+> +        }
+> +    }
+> +}
+> +
+>  int main(int argc, char **argv)
+>  {
+>      printf("CPU Policy unit tests\n");
+> @@ -667,6 +793,8 @@ int main(int argc, char **argv)
+>      test_is_compatible_success();
+>      test_is_compatible_failure();
+>  
+> +    test_topo_from_parts();
+> +
+>      if ( nr_failures )
+>          printf("Done: %u failures\n", nr_failures);
+>      else
+> diff --git a/xen/include/xen/lib/x86/cpu-policy.h b/xen/include/xen/lib/x86/cpu-policy.h
+> index 392320b9adbe..f5df18e9f77c 100644
+> --- a/xen/include/xen/lib/x86/cpu-policy.h
+> +++ b/xen/include/xen/lib/x86/cpu-policy.h
+> @@ -551,6 +551,22 @@ int x86_cpu_policies_are_compatible(const struct cpu_policy *host,
+>   */
+>  uint32_t x86_x2apic_id_from_vcpu_id(const struct cpu_policy *p, uint32_t id);
+>  
+> +/**
+> + * Synthesise topology information in `p` given high-level constraints
+> + *
+> + * Topology is given in various fields accross several leaves, some of
+> + * which are vendor-specific. This function uses the policy itself to
+> + * derive such leaves from threads/core and cores/package.
+> + *
+> + * @param p                   CPU policy of the domain.
+> + * @param threads_per_core    threads/core. Doesn't need to be a power of 2.
+> + * @param cores_per_package   cores/package. Doesn't need to be a power of 2.
+> + * @return                    0 on success; -errno on failure
+> + */
+> +int x86_topo_from_parts(struct cpu_policy *p,
+> +                        unsigned int threads_per_core,
+> +                        unsigned int cores_per_pkg);
+> +
+>  #endif /* !XEN_LIB_X86_POLICIES_H */
+>  
+>  /*
+> diff --git a/xen/lib/x86/policy.c b/xen/lib/x86/policy.c
+> index 4cef658feeb8..d033ee5398dd 100644
+> --- a/xen/lib/x86/policy.c
+> +++ b/xen/lib/x86/policy.c
+> @@ -13,6 +13,92 @@ uint32_t x86_x2apic_id_from_vcpu_id(const struct cpu_policy *p, uint32_t id)
+>      return vcpu_id * 2;
+>  }
+>  
+> +static unsigned int order(unsigned int n)
+> +{
+> +    return 8 * sizeof(n) - __builtin_clz(n);
+
+Do we need to assert that n is not 0, otherwise the return of
+__builtin_clz() is undefined.
+
+I think the usage below doesn't pass 0 to __builtin_clz() in any case,
+but better add the check IMO.
+
+Is __builtin_clz() also available in all versions of GCC and CLANG
+that we support?  I have no idea when this was introduced.
+
+> +}
+> +
+> +int x86_topo_from_parts(struct cpu_policy *p,
+> +                        unsigned int threads_per_core,
+> +                        unsigned int cores_per_pkg)
+> +{
+> +    unsigned int threads_per_pkg = threads_per_core * cores_per_pkg;
+> +    unsigned int apic_id_size;
+> +
+> +    if ( !p || !threads_per_core || !cores_per_pkg )
+> +        return -EINVAL;
+> +
+> +    p->basic.max_leaf = MAX(0xb, p->basic.max_leaf);
+> +
+> +    memset(p->topo.raw, 0, sizeof(p->topo.raw));
+> +
+> +    /* thread level */
+> +    p->topo.subleaf[0].nr_logical = threads_per_core;
+> +    p->topo.subleaf[0].id_shift = 0;
+> +    p->topo.subleaf[0].level = 0;
+> +    p->topo.subleaf[0].type = 1;
+> +    if ( threads_per_core > 1 )
+> +        p->topo.subleaf[0].id_shift = order(threads_per_core - 1);
+> +
+> +    /* core level */
+> +    p->topo.subleaf[1].nr_logical = cores_per_pkg;
+> +    if ( p->x86_vendor == X86_VENDOR_INTEL )
+> +        p->topo.subleaf[1].nr_logical = threads_per_pkg;
+> +    p->topo.subleaf[1].id_shift = p->topo.subleaf[0].id_shift;
+> +    p->topo.subleaf[1].level = 1;
+> +    p->topo.subleaf[1].type = 2;
+> +    if ( cores_per_pkg > 1 )
+> +        p->topo.subleaf[1].id_shift += order(cores_per_pkg - 1);
+> +
+> +    apic_id_size = p->topo.subleaf[1].id_shift;
+> +
+> +    /*
+> +     * Contrary to what the name might seem to imply. HTT is an enabler for
+> +     * SMP and there's no harm in setting it even with a single vCPU.
+> +     */
+> +    p->basic.htt = true;
+> +    p->basic.lppp = MIN(0xff, p->basic.lppp);
+> +
+> +    switch ( p->x86_vendor )
+> +    {
+> +        case X86_VENDOR_INTEL: {
+> +            struct cpuid_cache_leaf *sl = p->cache.subleaf;
+
+Newline please.
+
+> +            for ( size_t i = 0; sl->type &&
+> +                                i < ARRAY_SIZE(p->cache.raw); i++, sl++ )
+> +            {
+> +                sl->cores_per_package = cores_per_pkg - 1;
+> +                sl->threads_per_cache = threads_per_core - 1;
+> +                if ( sl->type == 3 /* unified cache */ )
+> +                    sl->threads_per_cache = threads_per_pkg - 1;
+> +            }
+> +            break;
+> +        }
+
+Newline here also.
+
+> +        case X86_VENDOR_AMD:
+> +        case X86_VENDOR_HYGON:
+> +            /* Expose p->basic.lppp */
+> +            p->extd.cmp_legacy = true;
+> +
+> +            /* Clip NC to the maximum value it can hold */
+> +            p->extd.nc = 0xff;
+> +            if ( threads_per_pkg <= 0xff )
+> +                p->extd.nc = threads_per_pkg - 1;
+> +
+> +            /* TODO: Expose leaf e1E */
+> +            p->extd.topoext = false;
+> +
+> +            /*
+> +             * Clip APIC ID to 8 bits, as that's what high core-count machines do
+
+Overly long line?  And missing full stop.
+
+> +             *
+> +             * That what AMD EPYC 9654 does with >256 CPUs
+                  ^ That's
+
+Thanks, Roger.
 
