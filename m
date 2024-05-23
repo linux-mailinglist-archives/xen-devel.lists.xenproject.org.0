@@ -2,38 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 20B448CCE22
-	for <lists+xen-devel@lfdr.de>; Thu, 23 May 2024 10:23:00 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.728205.1133064 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 515338CCE30
+	for <lists+xen-devel@lfdr.de>; Thu, 23 May 2024 10:28:27 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.728232.1133097 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sA3ip-0002n6-AC; Thu, 23 May 2024 08:22:47 +0000
+	id 1sA3nu-000479-3o; Thu, 23 May 2024 08:28:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 728205.1133064; Thu, 23 May 2024 08:22:47 +0000
+Received: by outflank-mailman (output) from mailman id 728232.1133097; Thu, 23 May 2024 08:28:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sA3ip-0002jY-7G; Thu, 23 May 2024 08:22:47 +0000
-Received: by outflank-mailman (input) for mailman id 728205;
- Thu, 23 May 2024 08:22:45 +0000
+	id 1sA3nu-00045K-0n; Thu, 23 May 2024 08:28:02 +0000
+Received: by outflank-mailman (input) for mailman id 728232;
+ Thu, 23 May 2024 08:28:00 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=OfYh=M2=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sA3in-00026a-Dp
- for xen-devel@lists.xenproject.org; Thu, 23 May 2024 08:22:45 +0000
-Received: from mail-lf1-x131.google.com (mail-lf1-x131.google.com
- [2a00:1450:4864:20::131])
+ (envelope-from <SRS0=cGfz=M2=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1sA3ns-00045E-Q3
+ for xen-devel@lists.xenproject.org; Thu, 23 May 2024 08:28:00 +0000
+Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
+ [2a00:1450:4864:20::629])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a18a0ad6-18dd-11ef-90a1-e314d9c70b13;
- Thu, 23 May 2024 10:22:44 +0200 (CEST)
-Received: by mail-lf1-x131.google.com with SMTP id
- 2adb3069b0e04-52388d9ca98so11008973e87.0
- for <xen-devel@lists.xenproject.org>; Thu, 23 May 2024 01:22:44 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a5a1787c6b1sm1901920166b.57.2024.05.23.01.22.43
+ id 5d2af421-18de-11ef-90a1-e314d9c70b13;
+ Thu, 23 May 2024 10:27:59 +0200 (CEST)
+Received: by mail-ej1-x629.google.com with SMTP id
+ a640c23a62f3a-a623cf23927so123728266b.0
+ for <xen-devel@lists.xenproject.org>; Thu, 23 May 2024 01:27:59 -0700 (PDT)
+Received: from ?IPV6:2003:e5:8729:4000:29eb:6d9d:3214:39d2?
+ (p200300e58729400029eb6d9d321439d2.dip0.t-ipconnect.de.
+ [2003:e5:8729:4000:29eb:6d9d:3214:39d2])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a5a8967a711sm1227007466b.2.2024.05.23.01.27.58
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 23 May 2024 01:22:44 -0700 (PDT)
+ Thu, 23 May 2024 01:27:59 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,97 +47,102 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a18a0ad6-18dd-11ef-90a1-e314d9c70b13
+X-Inumbo-ID: 5d2af421-18de-11ef-90a1-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1716452564; x=1717057364; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=U53RxWXEYKSWLg5Ju6vVotqdHlvFxcIu9IrmCSx409s=;
-        b=Uj0JKcVQIVQklOb4uUns5QNfU18qPng+3vVx0PCqaM7E0xEUaW580VHhfUJexixNDZ
-         B4kj2h1KhdBk4x2KL7qkQSDIBqlFp/G+XauZtG7Dvgp1beHUKgjMhuJWzhKE+Yrdde8B
-         fZiR4lGRAo5QCA8blS+mCwCv7XWYAfxRVA5hhuxhEU2Mm9wa5ZCxTLhNY2LnVMW6thAY
-         hEtevASNAl7g1A8EZtQJF2o0Zh5JZUNPnN8yKT8qF47G/2VCjuR05LDzj8SKu9GRqAh6
-         nHfuq9jrnegunQgL77Asc4eGqQZN7qyEpyuzrMArqwK+dxXtWfVvE3Ap94ec0O7wNsLv
-         8cxQ==
+        d=suse.com; s=google; t=1716452879; x=1717057679; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=jhpvbBfwpJWGF5iUcQkjO7ndJQwWC1rVlWpqUpT0O4s=;
+        b=SU99fmFqruFm/5CSzURqPh2QCt+P+HAABoHSbdEyiMgmvOfAOpDEQcJ+h841SUUTU3
+         3kfyCdg5CS/IdyNpzp62tzbY5/O4yLgE1gsoDAbc1BAGxbtkX3WrbxPKbq9pM4+3j46Z
+         Ew1ExOYP3d37+Y2ddY5rfhFtAKRiCP4X5/HC/jDEmPSVcAekviBlfZvXgWoGAWcjPBvJ
+         auV1OwPkuvKmDQ5N1YW28KBwBA6NlM2AGtEl959Y7XYCQkkVGs+iCmtCIeHSy9ef+ozh
+         Xd+3L7HfMQB1A/eYZt4Ku4X9EA58IfvxSqEmOBHfXSr3uz5S8s7bkvHwfz4h1fvrCN+y
+         KP8Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1716452564; x=1717057364;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=U53RxWXEYKSWLg5Ju6vVotqdHlvFxcIu9IrmCSx409s=;
-        b=IbGDRIzShOHr2833h9Z3H3GVLTV1IjaYZZCyfJMmyw+dPxMdHokjUnvsziC8kYMKT9
-         j7BPZVQ8AGPbukeTKwiybII5FfXRsGtO5wsTn3W+ahnN4Ks74Oz9H4VnlIibGrn7jkDu
-         ztmDqS25Cj3JlzmNEOSa0bLsVSuD/x1dwEnuRPeRkHbdH1sqtfhSKwpK0tIrlwlyQZCw
-         Vv02x8QoqtS/7pYo8vC06SUvJ7/BKwNu/8PymxAQ7UjzXmieKMk3abRbPc57HTkErtI8
-         dw1MaA85pgRRgFJ1Tm98rEtB/33h9bLb/gODBPfOT1vLOsuh32W2bFu8hPrltb/tlWTy
-         Ov9g==
-X-Forwarded-Encrypted: i=1; AJvYcCUXVF6zCOIAnCYGc6LuMDXeh8SP3yQZ9BTrIM4xNcTpCnrN5/7v2EQNa9FJzzl53dHJFFGfEVJ6ngxoex0l4Tvz6Pi0rPUGHnaOFjSaPSw=
-X-Gm-Message-State: AOJu0Yzy97z8/eFz42GSJuLPZmd+eIeWYkxU0evyFMYGP+V+qH54UpHG
-	YMLn643/j51slSUcqbO1/5PoWWdTUexlc60R10vhYualyootTsA9DGjJD6RWrQ==
-X-Google-Smtp-Source: AGHT+IGMpH5PGljwmz0DduOePvcuPXGZUqLFJuLOTwV0U52MbDtJSnywO+KPg9qBBMJlxzH70aJ1ww==
-X-Received: by 2002:a19:f510:0:b0:51d:3675:6a06 with SMTP id 2adb3069b0e04-526c12153f0mr3100052e87.66.1716452564313;
-        Thu, 23 May 2024 01:22:44 -0700 (PDT)
-Message-ID: <3011751b-aa59-4266-b52d-df661bb9e4ee@suse.com>
-Date: Thu, 23 May 2024 10:22:42 +0200
+        d=1e100.net; s=20230601; t=1716452879; x=1717057679;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=jhpvbBfwpJWGF5iUcQkjO7ndJQwWC1rVlWpqUpT0O4s=;
+        b=KhDTWAbVPaUOleVuruGIisZFYA1c5o+y3/HPN5YG4Z8PJRk9l6DKlOkSAMAB2GbpyX
+         Qxt0KoKijzQXlgwz8BVzrq5ERdNLBDrsLxhH8qtUBfn2ZegC2F4LEEPsvobtkVjE6TEN
+         UP9MyhqOINyM/WVImfLmlDJr0tMrHGJRBZYuHMSS+LDgUd27VzJnRKNs6u8LM+tIMNGu
+         g51HlfGdaS45N4Y1aOcKAH0q4Kb/Yj1jKFv73Aa7td0D18bPv7N21IoASeRhDR8l2H4R
+         rz1ow77NNYrRwH3dTm3BFmbC8Dzip1k6t9R4PRe4L+2Hx1vL5RZ+wcfJoTfcAEl9NaHY
+         28Fg==
+X-Forwarded-Encrypted: i=1; AJvYcCUcgdBXcHztM+7pqEreJpMmnya2mGG2R4QGxZtbG/U1OWrg51OsGcm/OCizO6GoplwdqZnw6fD26Ar/2Gw+3C55asbVFfSJzrGWenuMtT8=
+X-Gm-Message-State: AOJu0YxxnZHJqkcFQZCun2G/yuf5Jmh3YFQI0D+KYCfD/WPd9oY1qRxh
+	cALe3SBrqybgqcjoOrlD6Q5GxtbI3IRXewp13vPqLe6nLb/3xwk8ektq2CS+dT0=
+X-Google-Smtp-Source: AGHT+IEuBhjg/MG9JEuabnR/N1PzCOaBGU5xNemthbK5N8Gkevd6Z9RRqTn5FvpAjVmlMfFBN+WCnQ==
+X-Received: by 2002:a17:906:4a14:b0:a59:bf27:5f2e with SMTP id a640c23a62f3a-a623e8f7e02mr121836166b.20.1716452879245;
+        Thu, 23 May 2024 01:27:59 -0700 (PDT)
+Message-ID: <19c7a56c-5640-438d-aece-6a62f748e893@suse.com>
+Date: Thu, 23 May 2024 10:27:58 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 2/2] drivers/char: Use sub-page ro API to make just
- xhci dbc cap RO
-To: =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <cover.68462f37276d69ab6e268be94d049f866a321f73.1716392340.git-series.marmarek@invisiblethingslab.com>
- <83dfaaf5cbd056ffbe381cbd39f0230348257642.1716392340.git-series.marmarek@invisiblethingslab.com>
+Subject: Re: [PATCH v2 4/4] tools: Drop libsystemd as a dependency
+To: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Anthony PERARD <anthony@xenproject.org>,
+ George Dunlap <George.Dunlap@citrix.com>, Jan Beulich <JBeulich@suse.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Christian Lindig <christian.lindig@citrix.com>,
+ =?UTF-8?B?RWR3aW4gVMO2csO2aw==?= <edwin.torok@cloud.com>
+References: <20240516185804.3309725-1-andrew.cooper3@citrix.com>
+ <20240516185804.3309725-5-andrew.cooper3@citrix.com>
 Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <83dfaaf5cbd056ffbe381cbd39f0230348257642.1716392340.git-series.marmarek@invisiblethingslab.com>
-Content-Type: text/plain; charset=UTF-8
+From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+In-Reply-To: <20240516185804.3309725-5-andrew.cooper3@citrix.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-On 22.05.2024 17:39, Marek Marczykowski-Górecki wrote:
-> Not the whole page, which may contain other registers too. The XHCI
-> specification describes DbC as designed to be controlled by a different
-> driver, but does not mandate placing registers on a separate page. In fact
-> on Tiger Lake and newer (at least), this page do contain other registers
-> that Linux tries to use. And with share=yes, a domU would use them too.
-> Without this patch, PV dom0 would fail to initialize the controller,
-> while HVM would be killed on EPT violation.
+On 16.05.24 20:58, Andrew Cooper wrote:
+> There are no more users, and we want to disuade people from introducing new
+> users just for sd_notify() and friends.  Drop the dependency.
 > 
-> With `share=yes`, this patch gives domU more access to the emulator
-> (although a HVM with any emulated device already has plenty of it). This
-> configuration is already documented as unsafe with untrusted guests and
-> not security supported.
+> We still want the overall --with{,out}-systemd to gate the generation of the
+> service/unit/mount/etc files.
 > 
-> Signed-off-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+> Rerun autogen.sh, and mark the dependency as removed in the build containers.
+> 
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> ---
+> CC: Anthony PERARD <anthony@xenproject.org>
+> CC: Juergen Gross <jgross@suse.com>
+> CC: George Dunlap <George.Dunlap@citrix.com>
+> CC: Jan Beulich <JBeulich@suse.com>
+> CC: Stefano Stabellini <sstabellini@kernel.org>
+> CC: Julien Grall <julien@xen.org>
+> CC: Christian Lindig <christian.lindig@citrix.com>
+> CC: Edwin Török <edwin.torok@cloud.com>
+> 
+> v2:
+>   * Only strip out the library check.
+> ---
+>   automation/build/archlinux/current.dockerfile |   1 +
+>   .../build/suse/opensuse-leap.dockerfile       |   1 +
+>   .../build/suse/opensuse-tumbleweed.dockerfile |   1 +
+>   automation/build/ubuntu/focal.dockerfile      |   1 +
+>   config/Tools.mk.in                            |   2 -
+>   m4/systemd.m4                                 |   9 -
+>   tools/configure                               | 256 ------------------
+>   7 files changed, 4 insertions(+), 267 deletions(-)
+> 
+> diff --git a/automation/build/archlinux/current.dockerfile b/automation/build/archlinux/current.dockerfile
+> index 3e37ab5c40c1..d29f1358c2bd 100644
+> --- a/automation/build/archlinux/current.dockerfile
+> +++ b/automation/build/archlinux/current.dockerfile
+> @@ -37,6 +37,7 @@ RUN pacman -S --refresh --sysupgrade --noconfirm --noprogressbar --needed \
+>           sdl2 \
+>           spice \
+>           spice-protocol \
+> +        # systemd for Xen < 4.19
 
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
+Does this work as intended? A comment between the parameters and no "\" at the
+end of the line?
 
 
+Juergen
 
