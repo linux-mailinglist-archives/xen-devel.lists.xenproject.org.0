@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1C7B78CDBE9
-	for <lists+xen-devel@lfdr.de>; Thu, 23 May 2024 23:24:33 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.728864.1133915 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9A47C8CDC15
+	for <lists+xen-devel@lfdr.de>; Thu, 23 May 2024 23:27:38 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.728874.1133932 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sAFuo-0005Dh-GG; Thu, 23 May 2024 21:23:58 +0000
+	id 1sAFy9-0005pI-0q; Thu, 23 May 2024 21:27:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 728864.1133915; Thu, 23 May 2024 21:23:58 +0000
+Received: by outflank-mailman (output) from mailman id 728874.1133932; Thu, 23 May 2024 21:27:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sAFuo-0005CB-DV; Thu, 23 May 2024 21:23:58 +0000
-Received: by outflank-mailman (input) for mailman id 728864;
- Thu, 23 May 2024 21:23:57 +0000
+	id 1sAFy8-0005nl-UA; Thu, 23 May 2024 21:27:24 +0000
+Received: by outflank-mailman (input) for mailman id 728874;
+ Thu, 23 May 2024 21:27:24 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1sAFun-0005C5-8k
- for xen-devel@lists.xenproject.org; Thu, 23 May 2024 21:23:57 +0000
+ (envelope-from <julien@xen.org>) id 1sAFy8-0005nf-7b
+ for xen-devel@lists.xenproject.org; Thu, 23 May 2024 21:27:24 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1sAFun-0006VZ-0W; Thu, 23 May 2024 21:23:57 +0000
+ id 1sAFy7-0006Zg-Tq; Thu, 23 May 2024 21:27:23 +0000
 Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.1.244])
  by xenbits.xenproject.org with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1sAFum-0004JX-Q2; Thu, 23 May 2024 21:23:56 +0000
+ id 1sAFy7-0004QV-PD; Thu, 23 May 2024 21:27:23 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,15 +42,14 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
 	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
 	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=N6kjwu2fTaT6KkSOu1pbvEUSSozPo48Ld5dSPHla/Tw=; b=wKs6pIxCJsQXouhcBlVuzZlwWL
-	7JjYKSFpmUXxLRel54Em2PK2Jty+rkQMXD2lEDGnac40QVAaLbrK124yHSX0fi8DFx791pF9N39Bx
-	fbt4Et7+JK8wzSiwGFMkIBIAc3XC3N8nYjG9yyDnGvoaUhPO7O1psN3l2nvk7BhsRs2E=;
-Message-ID: <55b10b42-44ae-473e-8b85-95e9f8e03413@xen.org>
-Date: Thu, 23 May 2024 22:23:55 +0100
+	bh=rCmAIsR+oj6kcNc/BpUQyQ7KNqfoJU5JzPpseoOvmN0=; b=mqTfmnhFOQemzV37MAwikd4Zkd
+	ULMtfKVzYA7eD6Dv1LlLd+8NwCf+SRcdGGCCwjCIfceSZhpMRdof8tA/dNBBzrUvQc9hazUqqiW1G
+	UnSPuZ1ed2Mz1HfBPd01abzhCP6aHz7Qll++wYw/zVPZEa+kl9ygRvbjqiu9SgX7oQec=;
+Message-ID: <94652928-866e-4492-bcd0-62a20ec795ce@xen.org>
+Date: Thu, 23 May 2024 22:27:22 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 2/9] xen/arm, doc: Add a DT property to specify IOMMU
- for Dom0less domUs
+Subject: Re: [PATCH v4 4/9] xen/arm/gic: Allow adding interrupt to running VMs
 Content-Language: en-GB
 To: Henry Wang <xin.wang2@amd.com>, xen-devel@lists.xenproject.org
 Cc: Stefano Stabellini <sstabellini@kernel.org>,
@@ -58,30 +57,55 @@ Cc: Stefano Stabellini <sstabellini@kernel.org>,
  Michal Orzel <michal.orzel@amd.com>,
  Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
 References: <20240523074040.1611264-1-xin.wang2@amd.com>
- <20240523074040.1611264-3-xin.wang2@amd.com>
+ <20240523074040.1611264-5-xin.wang2@amd.com>
 From: Julien Grall <julien@xen.org>
-In-Reply-To: <20240523074040.1611264-3-xin.wang2@amd.com>
+In-Reply-To: <20240523074040.1611264-5-xin.wang2@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
 Hi Henry,
 
 On 23/05/2024 08:40, Henry Wang wrote:
-> There are some use cases in which the dom0less domUs need to have
-> the XEN_DOMCTL_CDF_iommu set at the domain construction time. For
-> example, the dynamic dtbo feature allows the domain to be assigned
-> a device that is behind the IOMMU at runtime. For these use cases,
-> we need to have a way to specify the domain will need the IOMMU
-> mapping at domain construction time.
+> Currently, adding physical interrupts are only allowed at
+> the domain creation time. For use cases such as dynamic device
+> tree overlay addition, the adding of physical IRQ to
+> running domains should be allowed.
 > 
-> Introduce a "passthrough" DT property for Dom0less DomUs following
-> the same entry as the xl.cfg. Currently only provide two options,
-> i.e. "enable" and "disable". Set the XEN_DOMCTL_CDF_iommu at domain
-> construction time based on the property.
+> Drop the above-mentioned domain creation check. Since this
+> will introduce interrupt state unsync issues for cases when the
+> interrupt is active or pending in the guest, therefore for these
+> cases we simply reject the operation. Do it for both new and old
+> vGIC implementations.
 > 
 > Signed-off-by: Henry Wang <xin.wang2@amd.com>
 
+With one remark below:
+
 Reviewed-by: Julien Grall <jgrall@amazon.com>
+
+> diff --git a/xen/arch/arm/vgic/vgic.c b/xen/arch/arm/vgic/vgic.c
+> index b9463a5f27..048e12c562 100644
+> --- a/xen/arch/arm/vgic/vgic.c
+> +++ b/xen/arch/arm/vgic/vgic.c
+> @@ -876,8 +876,11 @@ int vgic_connect_hw_irq(struct domain *d, struct vcpu *vcpu,
+>   
+>       if ( connect )                      /* assign a mapped IRQ */
+>       {
+> -        /* The VIRQ should not be already enabled by the guest */
+> -        if ( !irq->hw && !irq->enabled )
+> +        /*
+> +         * The VIRQ should not be already enabled by the guest nor
+> +         * active/pending in the guest
+
+Typo: Missing full stop.
+
+It can be fixed on commit.
+
+> +         */
+> +        if ( !irq->hw && !irq->enabled && !irq->active && !irq->pending_latch )
+>           {
+>               irq->hw = true;
+>               irq->hwintid = desc->irq;
 
 Cheers,
 
