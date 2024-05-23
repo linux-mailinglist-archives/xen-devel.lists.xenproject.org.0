@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BCF648CD5E1
-	for <lists+xen-devel@lfdr.de>; Thu, 23 May 2024 16:34:59 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.728576.1133547 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8AC9C8CD5F1
+	for <lists+xen-devel@lfdr.de>; Thu, 23 May 2024 16:37:50 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.728586.1133557 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sA9Wm-0000WV-LU; Thu, 23 May 2024 14:34:44 +0000
+	id 1sA9ZV-0001Gn-2Z; Thu, 23 May 2024 14:37:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 728576.1133547; Thu, 23 May 2024 14:34:44 +0000
+Received: by outflank-mailman (output) from mailman id 728586.1133557; Thu, 23 May 2024 14:37:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sA9Wm-0000Th-IS; Thu, 23 May 2024 14:34:44 +0000
-Received: by outflank-mailman (input) for mailman id 728576;
- Thu, 23 May 2024 14:34:43 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=OfYh=M2=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sA9Wl-0000TZ-6S
- for xen-devel@lists.xenproject.org; Thu, 23 May 2024 14:34:43 +0000
-Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
- [2a00:1450:4864:20::62f])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 977c0c58-1911-11ef-90a1-e314d9c70b13;
- Thu, 23 May 2024 16:34:41 +0200 (CEST)
-Received: by mail-ej1-x62f.google.com with SMTP id
- a640c23a62f3a-a5a5cce2ce6so1032633666b.3
- for <xen-devel@lists.xenproject.org>; Thu, 23 May 2024 07:34:42 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a5a17b179casm1936481766b.203.2024.05.23.07.34.41
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 23 May 2024 07:34:41 -0700 (PDT)
+	id 1sA9ZU-0001Dq-W4; Thu, 23 May 2024 14:37:32 +0000
+Received: by outflank-mailman (input) for mailman id 728586;
+ Thu, 23 May 2024 14:37:31 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=bqPc=M2=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1sA9ZT-0001Dk-PE
+ for xen-devel@lists.xenproject.org; Thu, 23 May 2024 14:37:31 +0000
+Received: from mail-qv1-xf36.google.com (mail-qv1-xf36.google.com
+ [2607:f8b0:4864:20::f36])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id fb2afffa-1911-11ef-b4bb-af5377834399;
+ Thu, 23 May 2024 16:37:29 +0200 (CEST)
+Received: by mail-qv1-xf36.google.com with SMTP id
+ 6a1803df08f44-69b782287f9so11219686d6.0
+ for <xen-devel@lists.xenproject.org>; Thu, 23 May 2024 07:37:29 -0700 (PDT)
+Received: from localhost ([213.195.114.223]) by smtp.gmail.com with ESMTPSA id
+ 6a1803df08f44-6a15f185787sm144487306d6.45.2024.05.23.07.37.27
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 23 May 2024 07:37:28 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,106 +44,135 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 977c0c58-1911-11ef-90a1-e314d9c70b13
+X-Inumbo-ID: fb2afffa-1911-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1716474881; x=1717079681; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:cc:references
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=tNwXYm0mm5d+jelZ0oLji3E88NIrdy2izCUlWbmVy+0=;
-        b=AI2i7tg8bilrhne5BnKKNBgxCmVcc+ACl96CX9KR3jakASIn5fjS6+a+jVPsp4vunh
-         /Q/+0T2s+rEZPJ36IU18zvhpXHLWsa6TJZEc9s32hyNVVuy/CMriWdhYkt9MLr7rzR0U
-         lkzVH7Czho9dxpDR5/7Lb79PQFo/LDwZFoTyE3Ft+sy5WZQP3OAOecz7f8jFwknPM5Tv
-         SbMp3JR80Tv1kFSN3lg72g3SaD56L5vmL95d+GljzMjtLWj1fD9msXR7ZM1rpNc3cCXU
-         E2SeNO6nlt0DtPwLh851twGCr+oVRhuNUxDc5rt0QQlAJ0nr1EQ6oIxxpGmfApHANRPo
-         ko9g==
+        d=citrix.com; s=google; t=1716475048; x=1717079848; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=vR9yvXuCCsbyLrcpWVWbYCim0WWirbw4WHo2dHfc/sY=;
+        b=kU+f+1H/qqc/tC/NDylnbmwz1WgGns2MkfZdR7/oELvAoSdf5d40mQ4L2r0dpjUe4g
+         DAhHOvMj0yljpLJLkqPrI4LdOD/h8oYIYZk5+R73P/4HndxESLY2DWx46fbzmfhEQLOG
+         k0z/LKL4m9ycfYtdeQmeqLTar17xCqNqLFMpA=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1716474881; x=1717079681;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:cc:references
-         :to:content-language:subject:user-agent:mime-version:date:message-id
+        d=1e100.net; s=20230601; t=1716475048; x=1717079848;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=tNwXYm0mm5d+jelZ0oLji3E88NIrdy2izCUlWbmVy+0=;
-        b=mz1U/XfmtGhhEAmq6Qjz9xJ4kEz3tgUM0sbZ2ZnKMZgMZEWwvQBgVZMfV/FuB38oaO
-         M0DE+gv6qluoHVRpz1vYGNLSyk0nzeuloFXUWnWpVs5apygbGZ907D+RJEAzEW28kIrm
-         9Z8nFCVMl+/jLwXJFZc4N/t3j3Iw563T2tZguUAm+cWD2WqGr1lF5Ig91PZgDBGLd4aH
-         Sc1F1VNT4l3s+gl9rMCgghacbaYzhxtF81T9dkcQvZPSmM54XwJEEoFUvfQ80az5NXZs
-         FUi6z6Ei6aVAHSWqFQqXCZWXrGdbrKMsTRQGgeCcsekPfvgk7OdkHbhBcrV/5s6jnFz1
-         AFpQ==
-X-Gm-Message-State: AOJu0Yw/dwPQ0+iVu80FZ3K1DNhyWAP7Gk/VDtg+Nrt2RbrJz6rBIshk
-	UU7kdLrPR+symXi0ZTe7SbGqEigZYQVo6A9RTGbfk/JVIEl1SUlSLg3EPk6WsQ==
-X-Google-Smtp-Source: AGHT+IGQg9juDUZsDQ/8k7BlyDhY+HqBJ/499kP5CMEUnrtk1MpboZRyXi1s/kFOHLPrR3TeN4hLoQ==
-X-Received: by 2002:a17:906:3404:b0:a59:c28a:7ec2 with SMTP id a640c23a62f3a-a62280970ebmr313682966b.41.1716474881628;
-        Thu, 23 May 2024 07:34:41 -0700 (PDT)
-Message-ID: <189c73d8-9a5b-4983-affe-0c39878f9304@suse.com>
-Date: Thu, 23 May 2024 16:34:40 +0200
+        bh=vR9yvXuCCsbyLrcpWVWbYCim0WWirbw4WHo2dHfc/sY=;
+        b=aJGbDs8PA7QL16p6ofhtettvFpuGdx3ykUV45cH1RK0DPRCsGWkk/R3bAAEglO0lD9
+         AClTWcVl9F7ShPxr7a+nQWRlN/p+fc6YYR/zK850xiXGnHV4bqhxj12jvl+a5fH7OYDc
+         d+Me6hnNg7WB1ndlzTKUUEO1D8G0fcnSap6ZrgZ8+Kb440jU02dJXVzORxdyfiD9i9uB
+         LaCxlxOfC8ZvmMlN2lF/FbFkJhhjhu/wFEQfh8XCdAtC2j03U9+V7C8Ii3NzfvfzdIHw
+         TsVsPEulJFEbQ7zbS4LtGqoIG1ghos804zDNigUal32NOFzV9H0DRc5xga+vLQL6/F5l
+         FVXg==
+X-Gm-Message-State: AOJu0Yx4UCUSvvwXvHx0xJf1h7KQSYAKRjfBmXx4TTqtvXr6gvHhMJhr
+	ysmcJE9tgHKCe4nIiBBOU9ze/iEr3IAoJ4kEMfVP98fXU9T4SM9SP4rpHHhdfwA=
+X-Google-Smtp-Source: AGHT+IHUF0bpiHJdoF4nm36eJG60w2siviK6P4ncJvgfAEoDgXUISEGgb1vkS+oNXbDed9VTKl/+6Q==
+X-Received: by 2002:a05:6214:5b0a:b0:6aa:7373:942c with SMTP id 6a1803df08f44-6ab7f363e3bmr67762676d6.25.1716475048462;
+        Thu, 23 May 2024 07:37:28 -0700 (PDT)
+Date: Thu, 23 May 2024 16:37:26 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Alejandro Vallejo <alejandro.vallejo@cloud.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>,
+	Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>
+Subject: Re: [PATCH v2 2/8] xen/x86: Simplify header dependencies in x86/hvm
+Message-ID: <Zk9Upg9y03IYZEXd@macbook>
+References: <cover.1715102098.git.alejandro.vallejo@cloud.com>
+ <00ce7005d1d6db5c1ffc2d5023d34d4bd34ff841.1715102098.git.alejandro.vallejo@cloud.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [xen-unstable-smoke test] 186107: regressions - FAIL
-Content-Language: en-US
-To: osstest service owner <osstest-admin@xenproject.org>
-References: <osstest-186107-mainreport@xen.org>
-Cc: xen-devel@lists.xenproject.org
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <osstest-186107-mainreport@xen.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <00ce7005d1d6db5c1ffc2d5023d34d4bd34ff841.1715102098.git.alejandro.vallejo@cloud.com>
 
-On 23.05.2024 15:45, osstest service owner wrote:
-> flight 186107 xen-unstable-smoke real [real]
-> http://logs.test-lab.xenproject.org/osstest/logs/186107/
+On Wed, May 08, 2024 at 01:39:21PM +0100, Alejandro Vallejo wrote:
+> Otherwise it's not possible to call functions described in hvm/vlapic.h from the
+> inline functions of hvm/hvm.h.
 > 
-> Regressions :-(
+> This is because a static inline in vlapic.h depends on hvm.h, and pulls it
+> transitively through vpt.h. The ultimate cause is having hvm.h included in any
+> of the "v*.h" headers, so break the cycle moving the guilty inline into hvm.h.
 > 
-> Tests which did not succeed and are blocking,
-> including tests which could not be run:
->  build-armhf                   6 xen-build                fail REGR. vs. 186064
+> No functional change.
+> 
+> Signed-off-by: Alejandro Vallejo <alejandro.vallejo@cloud.com>
 
-Found ninja-1.11.1 at /usr/bin/ninja
+Acked-by: Roger Pau Monné <roger.pau@citrix.com>
 
-ERROR: Clock skew detected. File /usr/bin/bash has a time stamp 1682259478.4465s in the future.
+One cosmetic comment below.
 
-A full log can be found at /home/osstest/build.186107.build-armhf/xen/tools/qemu-xen-build/meson-logs/meson-log.txt
+> ---
+> v2:
+>   * New patch. Prereq to moving vlapic_cpu_policy_changed() onto hvm.h
+> ---
+>  xen/arch/x86/hvm/irq.c                | 6 +++---
+>  xen/arch/x86/hvm/vlapic.c             | 4 ++--
+>  xen/arch/x86/include/asm/hvm/hvm.h    | 6 ++++++
+>  xen/arch/x86/include/asm/hvm/vlapic.h | 6 ------
+>  xen/arch/x86/include/asm/hvm/vpt.h    | 1 -
+>  5 files changed, 11 insertions(+), 12 deletions(-)
+> 
+> diff --git a/xen/arch/x86/hvm/irq.c b/xen/arch/x86/hvm/irq.c
+> index 4a9fe82cbd8d..4f5479b12c98 100644
+> --- a/xen/arch/x86/hvm/irq.c
+> +++ b/xen/arch/x86/hvm/irq.c
+> @@ -512,13 +512,13 @@ struct hvm_intack hvm_vcpu_has_pending_irq(struct vcpu *v)
+>      int vector;
+>  
+>      /*
+> -     * Always call vlapic_sync_pir_to_irr so that PIR is synced into IRR when
+> -     * using posted interrupts. Note this is also done by
+> +     * Always call hvm_vlapic_sync_pir_to_irr so that PIR is synced into IRR
+> +     * when using posted interrupts. Note this is also done by
+>       * vlapic_has_pending_irq but depending on which interrupts are pending
+>       * hvm_vcpu_has_pending_irq will return early without calling
+>       * vlapic_has_pending_irq.
+>       */
+> -    vlapic_sync_pir_to_irr(v);
+> +    hvm_vlapic_sync_pir_to_irr(v);
+>  
+>      if ( unlikely(v->arch.nmi_pending) )
+>          return hvm_intack_nmi;
+> diff --git a/xen/arch/x86/hvm/vlapic.c b/xen/arch/x86/hvm/vlapic.c
+> index 61a96474006b..8a244100009c 100644
+> --- a/xen/arch/x86/hvm/vlapic.c
+> +++ b/xen/arch/x86/hvm/vlapic.c
+> @@ -98,7 +98,7 @@ static void vlapic_clear_irr(int vector, struct vlapic *vlapic)
+>  
+>  static int vlapic_find_highest_irr(struct vlapic *vlapic)
+>  {
+> -    vlapic_sync_pir_to_irr(vlapic_vcpu(vlapic));
+> +    hvm_vlapic_sync_pir_to_irr(vlapic_vcpu(vlapic));
+>  
+>      return vlapic_find_highest_vector(&vlapic->regs->data[APIC_IRR]);
+>  }
+> @@ -1516,7 +1516,7 @@ static int cf_check lapic_save_regs(struct vcpu *v, hvm_domain_context_t *h)
+>      if ( !has_vlapic(v->domain) )
+>          return 0;
+>  
+> -    vlapic_sync_pir_to_irr(v);
+> +    hvm_vlapic_sync_pir_to_irr(v);
+>  
+>      return hvm_save_entry(LAPIC_REGS, v->vcpu_id, h, vcpu_vlapic(v)->regs);
+>  }
+> diff --git a/xen/arch/x86/include/asm/hvm/hvm.h b/xen/arch/x86/include/asm/hvm/hvm.h
+> index e1f0585d75a9..84911f3ebcb4 100644
+> --- a/xen/arch/x86/include/asm/hvm/hvm.h
+> +++ b/xen/arch/x86/include/asm/hvm/hvm.h
+> @@ -798,6 +798,12 @@ static inline void hvm_update_vlapic_mode(struct vcpu *v)
+>          alternative_vcall(hvm_funcs.update_vlapic_mode, v);
+>  }
+>  
+> +static inline void hvm_vlapic_sync_pir_to_irr(struct vcpu *v)
+> +{
+> +    if ( hvm_funcs.sync_pir_to_irr )
+> +        alternative_vcall(hvm_funcs.sync_pir_to_irr, v);
 
-ERROR: meson setup failed
+Nit: for consistency the wrappers are usually named hvm_<hook_name>,
+so in this case it would be hvm_sync_pir_to_irr(), or the hvm_funcs
+field should be renamed to vlapic_sync_pir_to_irr.
 
-make: Entering directory '/home/osstest/build.186107.build-armhf/xen/tools/qemu-xen-build'
-config-host.mak is out-of-date, running configure
-  GIT     ui/keycodemapdb meson tests/fp/berkeley-testfloat-3 tests/fp/berkeley-softfloat-3 dtc
-bash: line 4: ./config.status: No such file or directory
-make: *** No rule to make target 'config-host.mak', needed by 'Makefile.prereqs'.  Stop.
-make: *** Waiting for unfinished jobs....
-make: Leaving directory '/home/osstest/build.186107.build-armhf/xen/tools/qemu-xen-build'
-make[2]: *** [Makefile:212: subdir-all-qemu-xen-dir] Error 2
-make[2]: Leaving directory '/home/osstest/build.186107.build-armhf/xen/tools'
-make[1]: *** [/home/osstest/build.186107.build-armhf/xen/tools/../tools/Rules.mk:199: subdirs-all] Error 2
-make[1]: Leaving directory '/home/osstest/build.186107.build-armhf/xen/tools'
-make: *** [Makefile:63: build-tools] Error 2
-
-Suggest to me that there's some issue with the build host.
-
-Jan
-
+Thanks, Roger.
 
