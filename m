@@ -2,40 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4B6938CD10E
-	for <lists+xen-devel@lfdr.de>; Thu, 23 May 2024 13:15:05 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.728360.1133249 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8AF738CD114
+	for <lists+xen-devel@lfdr.de>; Thu, 23 May 2024 13:16:57 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.728364.1133259 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sA6PE-0005YP-22; Thu, 23 May 2024 11:14:44 +0000
+	id 1sA6R8-00064T-Ch; Thu, 23 May 2024 11:16:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 728360.1133249; Thu, 23 May 2024 11:14:44 +0000
+Received: by outflank-mailman (output) from mailman id 728364.1133259; Thu, 23 May 2024 11:16:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sA6PD-0005WD-VP; Thu, 23 May 2024 11:14:43 +0000
-Received: by outflank-mailman (input) for mailman id 728360;
- Thu, 23 May 2024 11:14:42 +0000
+	id 1sA6R8-00062z-9r; Thu, 23 May 2024 11:16:42 +0000
+Received: by outflank-mailman (input) for mailman id 728364;
+ Thu, 23 May 2024 11:16:40 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=cGfz=M2=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1sA6PC-0005W7-Pm
- for xen-devel@lists.xenproject.org; Thu, 23 May 2024 11:14:42 +0000
-Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com
- [2a00:1450:4864:20::52e])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=WSi9=M2=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1sA6R6-00062t-J0
+ for xen-devel@lists.xenproject.org; Thu, 23 May 2024 11:16:40 +0000
+Received: from mail-ot1-x335.google.com (mail-ot1-x335.google.com
+ [2607:f8b0:4864:20::335])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a6c82484-18f5-11ef-90a1-e314d9c70b13;
- Thu, 23 May 2024 13:14:41 +0200 (CEST)
-Received: by mail-ed1-x52e.google.com with SMTP id
- 4fb4d7f45d1cf-572c65cea55so3425843a12.0
- for <xen-devel@lists.xenproject.org>; Thu, 23 May 2024 04:14:41 -0700 (PDT)
-Received: from ?IPV6:2003:e5:8729:4000:29eb:6d9d:3214:39d2?
- (p200300e58729400029eb6d9d321439d2.dip0.t-ipconnect.de.
- [2003:e5:8729:4000:29eb:6d9d:3214:39d2])
+ id ecb122b8-18f5-11ef-90a1-e314d9c70b13;
+ Thu, 23 May 2024 13:16:39 +0200 (CEST)
+Received: by mail-ot1-x335.google.com with SMTP id
+ 46e09a7af769-6f12ff2da3fso2684885a34.3
+ for <xen-devel@lists.xenproject.org>; Thu, 23 May 2024 04:16:39 -0700 (PDT)
+Received: from andrew-laptop.citrite.net ([217.156.233.157])
  by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-57842fec9edsm1219709a12.43.2024.05.23.04.14.40
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 23 May 2024 04:14:40 -0700 (PDT)
+ 6a1803df08f44-6a15f179cebsm142194236d6.3.2024.05.23.04.16.35
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 23 May 2024 04:16:35 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,111 +45,83 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a6c82484-18f5-11ef-90a1-e314d9c70b13
+X-Inumbo-ID: ecb122b8-18f5-11ef-90a1-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1716462881; x=1717067681; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=KLJpqS0EFUKkRXVB1cT+nXd/u/klamMtJaCc9IVI1lI=;
-        b=YCMqi0A/iWx41JrgOhlr73Oy0cgZwZpJHryjnNhbq9EcS7Keroww0pr3voQXSnmcUU
-         yQ3F301xFTGzk0cDEWzK4VamaGz3T5O6nSl1EsuwdpQeyhX+eDFZuywbyxtJlEWRWdw/
-         IgP3blbeXY7tNqac96WNFJ/BhiGRsTgDKf+lNCdqrrh0fFG/mPFKFxoZzLrmSTbj92sJ
-         Pe0ovZRIMXUiYMj4DKuWx09kwf9rvXz9ucW5yHXSe7g+o0+9edF8RKONY5kTfAFlhHqw
-         62v63Kp+N0+6rElHpkgZ7UMZs7ZDLzD0yCpd4OdZJR0yk7t2CSAwStVpkpcAweN642b3
-         IDCQ==
+        d=citrix.com; s=google; t=1716462997; x=1717067797; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=io6NKi/HuBeU1oPKPl4oPHpp6HTYVxQANok6ys1P3tY=;
+        b=ur0Go7nO/n1f/t8y2Dhmfq13i+hftaJm4rU2c25J7jWVQAvOlue96zHB8MbkaSGqoG
+         XVwDR0ch+zEwmBKPOA2MGNBWkT88HEB5HZw42VONWqqfvMmsnbssy5pqbDAAIWpwneHc
+         EzwHwV25alwY6LqQ1x57WqfyvOZy6HuDo+C4g=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1716462881; x=1717067681;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=KLJpqS0EFUKkRXVB1cT+nXd/u/klamMtJaCc9IVI1lI=;
-        b=JYZmqCGiwVfkjbWpbax5zr/0u2tmNvcrSzjy5f0un5RTc0ijGC3gI+OsGQzxkxUEcJ
-         VD23ymdBlYFR8vsAFvC2f3OLDr+2+NftfN2ZUcpRTpozT+qEBhjaV3X+Mj0X0B3LT545
-         Y2T31z09YSHYXhfkvyukv+Ez16SwViCCpzbaLU1MateuTV5G3vkQyRQQwNo3LQB1d1nO
-         D/qgD6xjIgxEpCjqHBdPSHh4NKhCYZychRPWsCOlsWl+g2dOkSmx28IWRbQ1dfo803Wk
-         HtblzVvAYa27AnSklKEqGx9iXzlmXFuuwu6JheUWIPsbTjmER1yqH2d1Nog1Ag2410OP
-         wIpw==
-X-Gm-Message-State: AOJu0YyB3Ry0n6QMDxPel0gWZJ0w1x23l73Sj+vCiJqOmcXj1WkdOxiw
-	jbAqFL5q0HwRfOKJTSJVEx+OynahTFmWEb1RdUPcZwMVXNh5wicXfh3ohVUjmx8=
-X-Google-Smtp-Source: AGHT+IHqN2XZTEwnKPApkGhAohBfim6j8tShT33YK8omVdaG/SeSliXh4y0qU68y1sT3JRzGAZohjQ==
-X-Received: by 2002:a50:9e2e:0:b0:574:ebf4:f786 with SMTP id 4fb4d7f45d1cf-57843ef8e9dmr1459296a12.16.1716462881184;
-        Thu, 23 May 2024 04:14:41 -0700 (PDT)
-Message-ID: <9cddfb9d-0627-4f00-b027-4cb1bbdfad4f@suse.com>
-Date: Thu, 23 May 2024 13:14:40 +0200
+        d=1e100.net; s=20230601; t=1716462997; x=1717067797;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=io6NKi/HuBeU1oPKPl4oPHpp6HTYVxQANok6ys1P3tY=;
+        b=P528VAFPs/snnrs1xWzfaa2eCSfruTe02Bl3uBMXrnOToN0DgRdhUpLAhuOEN0JIuq
+         4JmcCQClkEciuEFMZS584XiAt2A9MjXk8vssKLLcT39pL28zwjvJu2XgcKSpdZ0ZOPGW
+         HHLOxaLIdkbS2Emx03pZNrT7JssFozLaklPJcFtkOt4OYHr32MfMh/myK8lNAl8QE2Sv
+         a03QqrbikOkT/CcRUKPgDmpnV67jlYXdHmr45VXEZT4yqkLrBwCEcRG5omL9fv5T/vAm
+         kORo1EbCh3uU0kVDBfnQ4/rzCZe2QwhzWo/+vJoKU7Tfdk40zQzs6z5B5ypbt+N1g2uu
+         P4+A==
+X-Gm-Message-State: AOJu0YxcpY72mSgJaBE1CaRPOhgdKWS67g2DdXlx96cq9gGfAE5pswkN
+	9MaoDaPxGJBzZ/vuuTGVHn4QUqR51kiJgwTNUgP11tsB4VWtD0qTgndgyNRqw81dbnYOce4t543
+	ll/E=
+X-Google-Smtp-Source: AGHT+IFEpJLgLx9LJqjO15FS64H8Szi7raczWajXLknNr9EAY6IlUsgNwKl/yarlIrlfSZV2UnwJqQ==
+X-Received: by 2002:a05:6830:11ce:b0:6f0:e381:77b1 with SMTP id 46e09a7af769-6f668e68a28mr5008281a34.27.1716462996976;
+        Thu, 23 May 2024 04:16:36 -0700 (PDT)
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+	Jan Beulich <JBeulich@suse.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Subject: [PATCH for-4.19 v3 0/7] x86/xstate: Fixes to size calculations
+Date: Thu, 23 May 2024 12:16:20 +0100
+Message-Id: <20240523111627.28896-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/5] x86/pvh: Set phys_base when calling xen_prepare_pvh()
-To: Jason Andryuk <jason.andryuk@amd.com>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
- x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- Paolo Bonzini <pbonzini@redhat.com>
-Cc: xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org
-References: <20240410194850.39994-1-jason.andryuk@amd.com>
- <20240410194850.39994-4-jason.andryuk@amd.com>
-Content-Language: en-US
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-In-Reply-To: <20240410194850.39994-4-jason.andryuk@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On 10.04.24 21:48, Jason Andryuk wrote:
-> phys_base needs to be set for __pa() to work in xen_pvh_init() when
-> finding the hypercall page.  Set it before calling into
-> xen_prepare_pvh(), which calls xen_pvh_init().  Clear it afterward to
-> avoid __startup_64() adding to it and creating an incorrect value.
-> 
-> Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
-> ---
-> Instead of setting and clearing phys_base, a dedicated variable could be
-> used just for the hypercall page.  Having phys_base set properly may
-> avoid further issues if the use of phys_base or __pa() grows.
-> ---
->   arch/x86/platform/pvh/head.S | 10 ++++++++++
->   1 file changed, 10 insertions(+)
-> 
-> diff --git a/arch/x86/platform/pvh/head.S b/arch/x86/platform/pvh/head.S
-> index bb1e582e32b1..c08d08d8cc92 100644
-> --- a/arch/x86/platform/pvh/head.S
-> +++ b/arch/x86/platform/pvh/head.S
-> @@ -125,7 +125,17 @@ SYM_CODE_START_LOCAL(pvh_start_xen)
->   	xor %edx, %edx
->   	wrmsr
->   
-> +	/* Calculate load offset from LOAD_PHYSICAL_ADDR and store in
-> +	 * phys_base.  __pa() needs phys_base set to calculate the
-> +	 * hypercall page in xen_pvh_init(). */
+This has grown somewhat from v2, but is better for it IMO.
 
-Please use the correct style for multi-line comments:
+The headline change is patch 2 performing all the cross-checking at boot time.
+This turned into needing prepare the Raw CPU policy earlier on boot (to avoid
+further-adding to scheme we're already looking to retire).
 
-	/*
-	 * comment lines
-	 * comment lines
-	 */
+The end result has been tested across the entire XenServer hardware lab.  This
+found several false assupmtion about how the dynamic sizes behave.
 
-> +	movq %rbp, %rbx
-> +	subq $LOAD_PHYSICAL_ADDR, %rbx
-> +	movq %rbx, phys_base(%rip)
->   	call xen_prepare_pvh
-> +	/* Clear phys_base.  __startup_64 will *add* to its value,
-> +	 * so reset to 0. */
+Patches 1 and 6 the main bugfixes from this series.  There's still lots more
+work to do in order to get AMX and/or CET working, but this is at least a 4-yo
+series finally off my plate.
 
-Comment style again.
+Andrew Cooper (7):
+  x86/xstate: Fix initialisation of XSS cache
+  x86/xstate: Cross-check dynamic XSTATE sizes at boot
+  x86/boot: Collect the Raw CPU Policy earlier on boot
+  x86/xstate: Rework xstate_ctxt_size() as xstate_uncompressed_size()
+  x86/cpu-policy: Simplify recalculate_xstate()
+  x86/cpuid: Fix handling of XSAVE dynamic leaves
+  x86/defns: Clean up X86_{XCR0,XSS}_* constants
 
-> +	xor  %rbx, %rbx
-> +	movq %rbx, phys_base(%rip)
->   
->   	/* startup_64 expects boot_params in %rsi. */
->   	lea rva(pvh_bootparams)(%ebp), %rsi
+ xen/arch/x86/cpu-policy.c                   |  56 ++--
+ xen/arch/x86/cpuid.c                        |  24 +-
+ xen/arch/x86/domctl.c                       |   2 +-
+ xen/arch/x86/hvm/hvm.c                      |   2 +-
+ xen/arch/x86/i387.c                         |   2 +-
+ xen/arch/x86/include/asm/x86-defns.h        |  55 ++--
+ xen/arch/x86/include/asm/xstate.h           |   8 +-
+ xen/arch/x86/setup.c                        |   4 +-
+ xen/arch/x86/xstate.c                       | 286 +++++++++++++++++---
+ xen/include/public/arch-x86/cpufeatureset.h |   3 +
+ xen/include/xen/lib/x86/cpu-policy.h        |   2 +-
+ 11 files changed, 322 insertions(+), 122 deletions(-)
 
-With above fixed:
+-- 
+2.30.2
 
-Reviewed-by: Juergen Gross <jgross@suse.com>
-
-
-Juergen
 
