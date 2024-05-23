@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 98B358CDCFD
-	for <lists+xen-devel@lfdr.de>; Fri, 24 May 2024 00:48:20 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.728907.1133990 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DCF6C8CDD0E
+	for <lists+xen-devel@lfdr.de>; Fri, 24 May 2024 00:54:38 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.728914.1134000 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sAHEC-0000k8-GW; Thu, 23 May 2024 22:48:04 +0000
+	id 1sAHK7-0002RN-5S; Thu, 23 May 2024 22:54:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 728907.1133990; Thu, 23 May 2024 22:48:04 +0000
+Received: by outflank-mailman (output) from mailman id 728914.1134000; Thu, 23 May 2024 22:54:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sAHEC-0000he-Du; Thu, 23 May 2024 22:48:04 +0000
-Received: by outflank-mailman (input) for mailman id 728907;
- Thu, 23 May 2024 22:48:03 +0000
+	id 1sAHK7-0002OF-2C; Thu, 23 May 2024 22:54:11 +0000
+Received: by outflank-mailman (input) for mailman id 728914;
+ Thu, 23 May 2024 22:54:09 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1sAHEA-0000hY-Uu
- for xen-devel@lists.xenproject.org; Thu, 23 May 2024 22:48:02 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1sAHK5-0002O5-Hm; Thu, 23 May 2024 22:54:09 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1sAHEA-0007so-Li; Thu, 23 May 2024 22:48:02 +0000
-Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.1.244])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1sAHEA-0000KJ-GL; Thu, 23 May 2024 22:48:02 +0000
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1sAHK5-0007yU-Cm; Thu, 23 May 2024 22:54:09 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1sAHK5-0004EA-3K; Thu, 23 May 2024 22:54:09 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1sAHK5-0002TZ-2m; Thu, 23 May 2024 22:54:09 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,172 +42,306 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=GbNAxB2Q9Ar/rzjRdCeKi29r70K4caa/qZut9mqrfH0=; b=6wTEN93yl53ro01RSmQ71iOjvO
-	JScXd25bGkZLqJj28vULfGrehFMVruPgn8odqwsqODqFAJt3PhHjIZSbLpADEqlhJpAt5rXbEDx15
-	0QvSHBXDFoHb6S7UZ8dlEQpg6XilFiRXah2Xg2Y7KzLotilr3BWZsjrYweLh9fmzVpB0=;
-Message-ID: <a437fe4c-bb21-456f-acf3-53ae8916f4f6@xen.org>
-Date: Thu, 23 May 2024 23:48:00 +0100
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=dPhNq4YCb2BAGi5ETzT2er8fmg3nMW4FPpSFumkHeQ0=; b=2bQvCURWm6H+jPe0c1a1NA4OO9
+	9rEUI5DnDlzkEbRbzajQnB6Sl1PBWQvUScts/NzDgLihZ0zYGSGG864xfGoYLrdkdgAmQfg2enaZI
+	HPMON06vxXYsyrUtymPGMfvEY69kQPN5YjBluOPoS+gieOqJ5D/4OzkRhfL6T+9UR+/U=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-186103-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 9/9] docs: Add device tree overlay documentation
-Content-Language: en-GB
-To: Henry Wang <xin.wang2@amd.com>, xen-devel@lists.xenproject.org
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-References: <20240523074040.1611264-1-xin.wang2@amd.com>
- <20240523074040.1611264-10-xin.wang2@amd.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <20240523074040.1611264-10-xin.wang2@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Subject: [linux-linus test] 186103: regressions - FAIL
+X-Osstest-Failures:
+    linux-linus:build-amd64-xsm:xen-build:fail:regression
+    linux-linus:build-amd64:xen-build:fail:regression
+    linux-linus:build-i386:xen-build:fail:regression
+    linux-linus:build-i386-xsm:xen-build:fail:regression
+    linux-linus:build-armhf:xen-build:fail:regression
+    linux-linus:test-amd64-amd64-xl-vhd:build-check(1):blocked:nonblocking
+    linux-linus:test-amd64-amd64-xl-shadow:build-check(1):blocked:nonblocking
+    linux-linus:test-amd64-amd64-xl-rtds:build-check(1):blocked:nonblocking
+    linux-linus:test-amd64-amd64-xl-raw:build-check(1):blocked:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemuu-ws16-amd64:build-check(1):blocked:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemuu-win7-amd64:build-check(1):blocked:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict:build-check(1):blocked:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm:build-check(1):blocked:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow:build-check(1):blocked:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemuu-debianhvm-amd64:build-check(1):blocked:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemut-ws16-amd64:build-check(1):blocked:nonblocking
+    linux-linus:build-amd64-libvirt:build-check(1):blocked:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemut-win7-amd64:build-check(1):blocked:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemut-debianhvm-i386-xsm:build-check(1):blocked:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemut-debianhvm-amd64:build-check(1):blocked:nonblocking
+    linux-linus:test-amd64-amd64-xl-qcow2:build-check(1):blocked:nonblocking
+    linux-linus:build-armhf-libvirt:build-check(1):blocked:nonblocking
+    linux-linus:test-amd64-amd64-xl-pvshim:build-check(1):blocked:nonblocking
+    linux-linus:build-i386-libvirt:build-check(1):blocked:nonblocking
+    linux-linus:test-amd64-amd64-xl-pvhv2-intel:build-check(1):blocked:nonblocking
+    linux-linus:test-amd64-amd64-dom0pvh-xl-amd:build-check(1):blocked:nonblocking
+    linux-linus:test-amd64-amd64-xl-pvhv2-amd:build-check(1):blocked:nonblocking
+    linux-linus:test-amd64-amd64-dom0pvh-xl-intel:build-check(1):blocked:nonblocking
+    linux-linus:test-amd64-amd64-xl-multivcpu:build-check(1):blocked:nonblocking
+    linux-linus:test-amd64-amd64-examine:build-check(1):blocked:nonblocking
+    linux-linus:test-amd64-amd64-examine-bios:build-check(1):blocked:nonblocking
+    linux-linus:test-amd64-amd64-examine-uefi:build-check(1):blocked:nonblocking
+    linux-linus:test-amd64-amd64-xl-credit2:build-check(1):blocked:nonblocking
+    linux-linus:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-pair:build-check(1):blocked:nonblocking
+    linux-linus:test-amd64-amd64-xl-credit1:build-check(1):blocked:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-qcow2:build-check(1):blocked:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
+    linux-linus:test-amd64-amd64-xl:build-check(1):blocked:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-raw:build-check(1):blocked:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-vhd:build-check(1):blocked:nonblocking
+    linux-linus:test-amd64-amd64-qemuu-nested-intel:build-check(1):blocked:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-xsm:build-check(1):blocked:nonblocking
+    linux-linus:test-amd64-amd64-pair:build-check(1):blocked:nonblocking
+    linux-linus:test-amd64-amd64-qemuu-nested-amd:build-check(1):blocked:nonblocking
+    linux-linus:test-amd64-amd64-pygrub:build-check(1):blocked:nonblocking
+    linux-linus:test-amd64-amd64-qemuu-freebsd11-amd64:build-check(1):blocked:nonblocking
+    linux-linus:test-amd64-amd64-qemuu-freebsd12-amd64:build-check(1):blocked:nonblocking
+    linux-linus:test-amd64-amd64-xl-xsm:build-check(1):blocked:nonblocking
+    linux-linus:test-amd64-coresched-amd64-xl:build-check(1):blocked:nonblocking
+    linux-linus:test-armhf-armhf-examine:build-check(1):blocked:nonblocking
+    linux-linus:test-armhf-armhf-libvirt:build-check(1):blocked:nonblocking
+    linux-linus:test-armhf-armhf-libvirt-vhd:build-check(1):blocked:nonblocking
+    linux-linus:test-armhf-armhf-xl:build-check(1):blocked:nonblocking
+    linux-linus:test-armhf-armhf-xl-arndale:build-check(1):blocked:nonblocking
+    linux-linus:test-armhf-armhf-xl-credit1:build-check(1):blocked:nonblocking
+    linux-linus:test-armhf-armhf-xl-credit2:build-check(1):blocked:nonblocking
+    linux-linus:test-armhf-armhf-xl-multivcpu:build-check(1):blocked:nonblocking
+    linux-linus:test-armhf-armhf-xl-qcow2:build-check(1):blocked:nonblocking
+    linux-linus:test-armhf-armhf-xl-raw:build-check(1):blocked:nonblocking
+    linux-linus:test-armhf-armhf-xl-rtds:build-check(1):blocked:nonblocking
+    linux-linus:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-vhd:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-vhd:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    linux=c760b3725e52403dc1b28644fb09c47a83cacea6
+X-Osstest-Versions-That:
+    linux=8f6a15f095a63a83b096d9b29aaff4f0fbe6f6e6
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Thu, 23 May 2024 22:54:09 +0000
 
-Hi Henry,
+flight 186103 linux-linus real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/186103/
 
-On 23/05/2024 08:40, Henry Wang wrote:
-> From: Vikram Garhwal <fnu.vikram@xilinx.com>
-> 
-> Signed-off-by: Vikram Garhwal <fnu.vikram@xilinx.com>
-> Signed-off-by: Stefano Stabellini <stefano.stabellini@xilinx.com>
-> Signed-off-by: Henry Wang <xin.wang2@amd.com>
-> ---
-> v4:
-> - No change.
-> v3:
-> - No change.
-> v2:
-> - Update the content based on the changes in this version.
-> ---
->   docs/misc/arm/overlay.txt | 99 +++++++++++++++++++++++++++++++++++++++
->   1 file changed, 99 insertions(+)
->   create mode 100644 docs/misc/arm/overlay.txt
-> 
-> diff --git a/docs/misc/arm/overlay.txt b/docs/misc/arm/overlay.txt
-> new file mode 100644
-> index 0000000000..811a6de369
-> --- /dev/null
-> +++ b/docs/misc/arm/overlay.txt
-> @@ -0,0 +1,99 @@
-> +# Device Tree Overlays support in Xen
-> +
-> +Xen now supports dynamic device assignment to running domains,
+Regressions :-(
 
-This reads as we "support" the feature. I would prefer if we write "Xen 
-expirementally supports..." or similar.
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-amd64-xsm               6 xen-build                fail REGR. vs. 186052
+ build-amd64                   6 xen-build                fail REGR. vs. 186052
+ build-i386                    6 xen-build                fail REGR. vs. 186052
+ build-i386-xsm                6 xen-build                fail REGR. vs. 186052
+ build-armhf                   6 xen-build                fail REGR. vs. 186052
 
-> +i.e. adding/removing nodes (using .dtbo) to/from Xen device tree, and
-> +attaching/detaching them to/from a running domain with given $domid.
-> +
-> +Dynamic node assignment works in two steps:
-> +
-> +## Add/Remove device tree overlay to/from Xen device tree
-> +
-> +1. Xen tools check the dtbo given and parse all other user provided arguments
-> +2. Xen tools pass the dtbo to Xen hypervisor via hypercall.
-> +3. Xen hypervisor applies/removes the dtbo to/from Xen device tree.
-> +
-> +## Attach/Detach device from the DT overlay to/from domain
-> +
-> +1. Xen tools check the dtbo given and parse all other user provided arguments
-> +2. Xen tools pass the dtbo to Xen hypervisor via hypercall.
-> +3. Xen hypervisor attach/detach the device to/from the user-provided $domid by
-> +   mapping/unmapping node resources in the DT overlay.
-> +
-> +# Examples
-> +
-> +Here are a few examples on how to use it.
-> +
-> +## Dom0 device add
-> +
-> +For assigning a device tree overlay to Dom0, user should firstly properly
-> +prepare the DT overlay. More information about device tree overlays can be
-> +found in [1]. Then, in Dom0, enter the following:
-> +
-> +    (dom0) xl dt-overlay add overlay.dtbo
-> +
-> +This will allocate the devices mentioned in overlay.dtbo to Xen device tree.
-> +
-> +To assign the newly added device from the dtbo to Dom0:
-> +
-> +    (dom0) xl dt-overlay attach overlay.dtbo 0
-> +
-> +Next, if the user wants to add the same device tree overlay to dom0
-> +Linux, execute the following:
-> +
-> +    (dom0) mkdir -p /sys/kernel/config/device-tree/overlays/new_overlay
-> +    (dom0) cat overlay.dtbo > /sys/kernel/config/device-tree/overlays/new_overlay/dtbo
-> +
-> +Finally if needed, the relevant Linux kernel drive can be loaded using:
-> +
-> +    (dom0) modprobe module_name.ko
-> +
-> +## Dom0 device remove
-> +
-> +For removing the device from Dom0, first detach the device from Dom0:
-> +
-> +    (dom0) xl dt-overlay detach overlay.dtbo 0
-> +
-> +NOTE: The user is expected to unload any Linux kernel modules which
-> +might be accessing the devices in overlay.dtbo before detach the device.
-> +Detaching devices without unloading the modules might result in a crash.
-> +
-> +Then remove the overlay from Xen device tree:
-> +
-> +    (dom0) xl dt-overlay remove overlay.dtbo
-> +
-> +## DomU device add/remove
-> +
-> +All the nodes in dtbo will be assigned to a domain; the user will need
-> +to prepare the dtb for the domU. For example, the `interrupt-parent` property
-> +of the DomU overlay should be changed to the Xen hardcoded value `0xfde8`.
-> +Below assumes the properly written DomU dtbo is `overlay_domu.dtbo`.
-> +
-> +User will need to create the DomU with below properties properly configured
-> +in the xl config file:
-> +- `iomem`
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-xl-vhd       1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-shadow    1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-rtds      1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-raw       1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemuu-ws16-amd64  1 build-check(1)             blocked n/a
+ test-amd64-amd64-xl-qemuu-win7-amd64  1 build-check(1)             blocked n/a
+ test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict 1 build-check(1) blocked n/a
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm  1 build-check(1)     blocked n/a
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow  1 build-check(1) blocked n/a
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64  1 build-check(1)        blocked n/a
+ test-amd64-amd64-xl-qemut-ws16-amd64  1 build-check(1)             blocked n/a
+ build-amd64-libvirt           1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemut-win7-amd64  1 build-check(1)             blocked n/a
+ test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
+ test-amd64-amd64-xl-qemut-debianhvm-i386-xsm  1 build-check(1)     blocked n/a
+ test-amd64-amd64-xl-qemut-debianhvm-amd64  1 build-check(1)        blocked n/a
+ test-amd64-amd64-xl-qcow2     1 build-check(1)               blocked  n/a
+ build-armhf-libvirt           1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-pvshim    1 build-check(1)               blocked  n/a
+ build-i386-libvirt            1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-pvhv2-intel  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-dom0pvh-xl-amd  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-pvhv2-amd  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-dom0pvh-xl-intel  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-multivcpu  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-examine      1 build-check(1)               blocked  n/a
+ test-amd64-amd64-examine-bios  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-examine-uefi  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-credit2   1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt-pair  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-credit1   1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt-qcow2  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
+ test-amd64-amd64-xl           1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt-raw  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt-vhd  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-qemuu-nested-intel  1 build-check(1)              blocked n/a
+ test-amd64-amd64-libvirt-xsm  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-pair         1 build-check(1)               blocked  n/a
+ test-amd64-amd64-qemuu-nested-amd  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-pygrub       1 build-check(1)               blocked  n/a
+ test-amd64-amd64-qemuu-freebsd11-amd64  1 build-check(1)           blocked n/a
+ test-amd64-amd64-qemuu-freebsd12-amd64  1 build-check(1)           blocked n/a
+ test-amd64-amd64-xl-xsm       1 build-check(1)               blocked  n/a
+ test-amd64-coresched-amd64-xl  1 build-check(1)               blocked  n/a
+ test-armhf-armhf-examine      1 build-check(1)               blocked  n/a
+ test-armhf-armhf-libvirt      1 build-check(1)               blocked  n/a
+ test-armhf-armhf-libvirt-vhd  1 build-check(1)               blocked  n/a
+ test-armhf-armhf-xl           1 build-check(1)               blocked  n/a
+ test-armhf-armhf-xl-arndale   1 build-check(1)               blocked  n/a
+ test-armhf-armhf-xl-credit1   1 build-check(1)               blocked  n/a
+ test-armhf-armhf-xl-credit2   1 build-check(1)               blocked  n/a
+ test-armhf-armhf-xl-multivcpu  1 build-check(1)               blocked  n/a
+ test-armhf-armhf-xl-qcow2     1 build-check(1)               blocked  n/a
+ test-armhf-armhf-xl-raw       1 build-check(1)               blocked  n/a
+ test-armhf-armhf-xl-rtds      1 build-check(1)               blocked  n/a
+ test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-vhd      14 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-vhd      15 saverestore-support-check    fail   never pass
+ test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
 
-I don't quite understand how the user can specify the MMIO region if the 
-device is attached after the domain is created.
+version targeted for testing:
+ linux                c760b3725e52403dc1b28644fb09c47a83cacea6
+baseline version:
+ linux                8f6a15f095a63a83b096d9b29aaff4f0fbe6f6e6
 
-> +- `passthrough` (if IOMMU is needed)
-> +
-> +User will also need to modprobe the relevant drivers.
-> +
-> +Example for domU device add:
-> +
-> +    (dom0) xl dt-overlay add overlay.dtbo            # If not executed before
-> +    (dom0) xl dt-overlay attach overlay.dtbo $domid
+Last test of basis   186052  2024-05-21 01:42:42 Z    2 days
+Failing since        186065  2024-05-21 16:10:24 Z    2 days    3 attempts
+Testing same since   186103  2024-05-23 05:27:56 Z    0 days    1 attempts
 
-Can how clarify how the MMIO will be mapped? Is it direct mapped? If so, 
-couldn't this result to clash with other part of the address space (e.g. 
-RAM?).
+------------------------------------------------------------
+435 people touched revisions under test,
+not listing them all
 
-> +    (dom0) xl console $domid                         # To access $domid console
-> +
-> +Next, if the user needs to modify/prepare the overlay.dtbo suitable for
-> +the domU:
-> +
-> +    (domU) mkdir -p /sys/kernel/config/device-tree/overlays/new_overlay
-> +    (domU) cat overlay_domu.dtbo > /sys/kernel/config/device-tree/overlays/new_overlay/dtbo
-> +
-> +Finally, if needed, the relevant Linux kernel drive can be probed:
-> +
-> +    (domU) modprobe module_name.ko
-> +
-> +Example for domU overlay remove:
-> +
-> +    (dom0) xl dt-overlay detach overlay.dtbo $domid
-> +    (dom0) xl dt-overlay remove overlay.dtbo
+jobs:
+ build-amd64-xsm                                              fail    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               fail    
+ build-amd64                                                  fail    
+ build-arm64                                                  pass    
+ build-armhf                                                  fail    
+ build-i386                                                   fail    
+ build-amd64-libvirt                                          blocked 
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          blocked 
+ build-i386-libvirt                                           blocked 
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl                                          blocked 
+ test-amd64-coresched-amd64-xl                                blocked 
+ test-arm64-arm64-xl                                          pass    
+ test-armhf-armhf-xl                                          blocked 
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           blocked 
+ test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        blocked 
+ test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 blocked 
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 blocked 
+ test-amd64-amd64-libvirt-xsm                                 blocked 
+ test-arm64-arm64-libvirt-xsm                                 pass    
+ test-amd64-amd64-xl-xsm                                      blocked 
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-qemuu-nested-amd                            blocked 
+ test-amd64-amd64-xl-pvhv2-amd                                blocked 
+ test-amd64-amd64-dom0pvh-xl-amd                              blocked 
+ test-amd64-amd64-xl-qemut-debianhvm-amd64                    blocked 
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    blocked 
+ test-amd64-amd64-qemuu-freebsd11-amd64                       blocked 
+ test-amd64-amd64-qemuu-freebsd12-amd64                       blocked 
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
+ test-amd64-amd64-xl-qemut-win7-amd64                         blocked 
+ test-amd64-amd64-xl-qemuu-win7-amd64                         blocked 
+ test-amd64-amd64-xl-qemut-ws16-amd64                         blocked 
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         blocked 
+ test-armhf-armhf-xl-arndale                                  blocked 
+ test-amd64-amd64-examine-bios                                blocked 
+ test-amd64-amd64-xl-credit1                                  blocked 
+ test-arm64-arm64-xl-credit1                                  pass    
+ test-armhf-armhf-xl-credit1                                  blocked 
+ test-amd64-amd64-xl-credit2                                  blocked 
+ test-arm64-arm64-xl-credit2                                  pass    
+ test-armhf-armhf-xl-credit2                                  blocked 
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        blocked 
+ test-amd64-amd64-examine                                     blocked 
+ test-arm64-arm64-examine                                     pass    
+ test-armhf-armhf-examine                                     blocked 
+ test-amd64-amd64-qemuu-nested-intel                          blocked 
+ test-amd64-amd64-xl-pvhv2-intel                              blocked 
+ test-amd64-amd64-dom0pvh-xl-intel                            blocked 
+ test-amd64-amd64-libvirt                                     blocked 
+ test-armhf-armhf-libvirt                                     blocked 
+ test-amd64-amd64-xl-multivcpu                                blocked 
+ test-armhf-armhf-xl-multivcpu                                blocked 
+ test-amd64-amd64-pair                                        blocked 
+ test-amd64-amd64-libvirt-pair                                blocked 
+ test-amd64-amd64-xl-pvshim                                   blocked 
+ test-amd64-amd64-pygrub                                      blocked 
+ test-amd64-amd64-libvirt-qcow2                               blocked 
+ test-amd64-amd64-xl-qcow2                                    blocked 
+ test-armhf-armhf-xl-qcow2                                    blocked 
+ test-amd64-amd64-libvirt-raw                                 blocked 
+ test-arm64-arm64-libvirt-raw                                 pass    
+ test-amd64-amd64-xl-raw                                      blocked 
+ test-armhf-armhf-xl-raw                                      blocked 
+ test-amd64-amd64-xl-rtds                                     blocked 
+ test-armhf-armhf-xl-rtds                                     blocked 
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             blocked 
+ test-amd64-amd64-xl-shadow                                   blocked 
+ test-arm64-arm64-xl-thunderx                                 pass    
+ test-amd64-amd64-examine-uefi                                blocked 
+ test-amd64-amd64-libvirt-vhd                                 blocked 
+ test-armhf-armhf-libvirt-vhd                                 blocked 
+ test-amd64-amd64-xl-vhd                                      blocked 
+ test-arm64-arm64-xl-vhd                                      pass    
 
-I assume we have safety check in place to ensure we can't remove the 
-device if it is already attached. Is that correct?
 
-Cheers,
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
--- 
-Julien Grall
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 36039 lines long.)
 
