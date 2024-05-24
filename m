@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1CAA38CE43A
-	for <lists+xen-devel@lfdr.de>; Fri, 24 May 2024 12:33:12 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.729298.1134410 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3209C8CE46D
+	for <lists+xen-devel@lfdr.de>; Fri, 24 May 2024 12:52:27 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.729310.1134420 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sASEJ-0001qv-GK; Fri, 24 May 2024 10:32:55 +0000
+	id 1sASWm-0005kG-UX; Fri, 24 May 2024 10:52:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 729298.1134410; Fri, 24 May 2024 10:32:55 +0000
+Received: by outflank-mailman (output) from mailman id 729310.1134420; Fri, 24 May 2024 10:52:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sASEJ-0001oi-DH; Fri, 24 May 2024 10:32:55 +0000
-Received: by outflank-mailman (input) for mailman id 729298;
- Fri, 24 May 2024 10:32:54 +0000
+	id 1sASWm-0005hE-RQ; Fri, 24 May 2024 10:52:00 +0000
+Received: by outflank-mailman (input) for mailman id 729310;
+ Fri, 24 May 2024 10:51:59 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=di0w=M3=cloud.com=alejandro.vallejo@srs-se1.protection.inumbo.net>)
- id 1sASEI-0001HK-39
- for xen-devel@lists.xenproject.org; Fri, 24 May 2024 10:32:54 +0000
-Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
- [2a00:1450:4864:20::42b])
+ <SRS0=2lVY=M3=gmail.com=edgar.iglesias@srs-se1.protection.inumbo.net>)
+ id 1sASWl-0005h8-KC
+ for xen-devel@lists.xenproject.org; Fri, 24 May 2024 10:51:59 +0000
+Received: from mail-lj1-x22a.google.com (mail-lj1-x22a.google.com
+ [2a00:1450:4864:20::22a])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f97dd3e6-19b8-11ef-b4bb-af5377834399;
- Fri, 24 May 2024 12:32:52 +0200 (CEST)
-Received: by mail-wr1-x42b.google.com with SMTP id
- ffacd0b85a97d-354e0cc9c5cso2554692f8f.0
- for <xen-devel@lists.xenproject.org>; Fri, 24 May 2024 03:32:52 -0700 (PDT)
-Received: from [192.168.0.16] (0545937c.skybroadband.com. [5.69.147.124])
+ id a3e90c24-19bb-11ef-b4bb-af5377834399;
+ Fri, 24 May 2024 12:51:57 +0200 (CEST)
+Received: by mail-lj1-x22a.google.com with SMTP id
+ 38308e7fff4ca-2e6f51f9de4so100058001fa.3
+ for <xen-devel@lists.xenproject.org>; Fri, 24 May 2024 03:51:57 -0700 (PDT)
+Received: from gmail.com (213-67-3-247-no600.tbcn.telia.com. [213.67.3.247])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3557a0931c9sm1269766f8f.65.2024.05.24.03.32.51
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 24 May 2024 03:32:51 -0700 (PDT)
+ 38308e7fff4ca-2e95bcd7c20sm1491561fa.33.2024.05.24.03.51.56
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 24 May 2024 03:51:56 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,247 +45,232 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f97dd3e6-19b8-11ef-b4bb-af5377834399
+X-Inumbo-ID: a3e90c24-19bb-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1716546772; x=1717151572; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=4sC4hyVDtv8Dy6ruPjJsuJvbEvg/9VKuCLBxdu6Om/s=;
-        b=IPAwYGatLJ3hCN9VKOetL2DgXzVby+d37CI9pa3oyy1+3mYPn5zshS5P+vKYDH8x83
-         xalCPaCfl1gKX22zpzEAMbPnYpouaXTdUKxvOn9/s6u7d1dWbxep6INU3eVrhHUsIhC1
-         GHtW+hxxg1eV0gCX+gnfgiM3uEPixKWsYOVvg=
+        d=gmail.com; s=20230601; t=1716547916; x=1717152716; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=oKmmum6z28VcY8ouSg3YJA3bHZvP87XkBXtO/hd8PR8=;
+        b=dQHWug0UlN40N6YIbgnyJtYw6nyjlpIX2Srd7N+YUqHdNXQdbrH7S12OwLtQJJLe2T
+         XmQRLNgf0IpHPvUVlP3XAGjLm37pfjyAWSsgPAOGLIHl11Z/1juo7i8jXh0PqpkOkww/
+         BmhacJkobhIK2mZtIFTqSdvbwlanNwX8Pe052Q5Hl1DUV0wpDndRUANd1w+ZZbT2nbFf
+         Oy/asv5LBx+brESTw9j+z2fLLADmqOgZ/ad9qx5n6v0NqrbVg5AOWNSmFj+nEY7D2MBe
+         xsHHRXq3Jss4iITLE2UoQBr6gTEwAv5EdR55kG9/WJhLPM9weeJRR+YGTjRqdZN7IDSL
+         4Vow==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1716546772; x=1717151572;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=4sC4hyVDtv8Dy6ruPjJsuJvbEvg/9VKuCLBxdu6Om/s=;
-        b=DKXV/bdDNAFVewKY7L4dVaB/qu8DRKe4obarwoP/MXeXyr0wSYpjBC9amHy0fZESMb
-         DJWl9SvoadcdZECNL6lIGdNamPfUHsBZHcYL9EroICk4cBh6tiRzLCd2C5vyTcIwFDX+
-         5OS04DCY+lVntM7SP2hTvN263gfOJtWuYUBrqp+jpFA9qn/M+Sluw7ySZKTZSA9c48Pw
-         GcNVQF7mrP6lAf3kWHO6oh20v9WjUTWwRFIk/FQw21CxSmBCtJ/XM9NML7meFMUh9ESV
-         ODqmBmFsO+m81cmEtSDKCbL0Iq9y0e7lK0WB/FuAXC/UNk4YS19CypoRjeklNThXvDem
-         HkXw==
-X-Gm-Message-State: AOJu0Yytu7i4yC7ZKxy8QWR4rYB1JDG4PM8MxyR/hJ8sB3xEQY3oX5Ow
-	g3/5sN5HaeDdGHo26jM7EKIx18AqPvlrZL8WhWoQD183/I6F6//ZXJyyPNeS7uQ=
-X-Google-Smtp-Source: AGHT+IF8Lbrj01EXtzdBE+xuUilIfxojctlcogSMfV5y6PYVLJqta20UIWoEe39z6tZvVBiybN2AAw==
-X-Received: by 2002:adf:ce07:0:b0:354:f286:4f0f with SMTP id ffacd0b85a97d-35526c3a2e7mr1284687f8f.30.1716546771785;
-        Fri, 24 May 2024 03:32:51 -0700 (PDT)
-Message-ID: <de256e4b-fdc4-48a8-9173-38092ab90716@cloud.com>
-Date: Fri, 24 May 2024 11:32:50 +0100
+        d=1e100.net; s=20230601; t=1716547916; x=1717152716;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=oKmmum6z28VcY8ouSg3YJA3bHZvP87XkBXtO/hd8PR8=;
+        b=GwyqCGjIFGy4F5T13OtaTp+rmp2/H+weqHpamZN4tGomll4vmMSJ/JSm6Cp6DNkKkB
+         U8fObKoyeERkJ7h3TzQuSW2Nj+c/M2x/Fw0TeptRG/ckxgLUkwpRrTi0/nqZXt+RRZpX
+         EjjyGD5uw62PD6zLuV3RtxgmXoUnxH6zMGCgwzKQApG9vqD/a5pNEygBpqxnyR4yyv5z
+         SmB91gUb6HyQe4H6Q9ORpAtDPZJtpCqjhpvMIQh23K5xykMSsad8iJYhCWZxlYOUi1Dw
+         5HPl1p+X5OdsYxKePkbw4KJKcYq4CQaqh79IfCkqqauTQNVV/dxModYtytcaQ9ScA8wm
+         XvGQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWZMFzThER9vTRX30lgcVaX087c5gfSxKhOJziaG6Dpz3P1UqF9n5nl19/kDIiwzA61zn0NpsMMqdkczMVxHMQ5V2WAWdB5HVkucw2k+wY=
+X-Gm-Message-State: AOJu0YxRUxLK1qYML5HbqelcFxTwC9JMLBvuuuStNNuYoUVD0UYwVQPQ
+	7k9d0yt93j51g1T/zW5QfP11YhwL+phBERq1D/lf1FSXnIjf/LunHUNTlH+R
+X-Google-Smtp-Source: AGHT+IEGg/j9kr5jKj/tv+syV4xN0QPHZQ3VcNTdBVPyyQs2WD0/L2C8QLd0gT/jlHUTsM+RTiWqvg==
+X-Received: by 2002:a2e:b784:0:b0:2e0:6313:fe3a with SMTP id 38308e7fff4ca-2e95b256875mr16230641fa.35.1716547916526;
+        Fri, 24 May 2024 03:51:56 -0700 (PDT)
+From: "Edgar E. Iglesias" <edgar.iglesias@gmail.com>
+To: qemu-devel@nongnu.org
+Cc: edgar.iglesias@gmail.com,
+	sstabellini@kernel.org,
+	jgross@suse.com,
+	"Edgar E. Iglesias" <edgar.iglesias@amd.com>,
+	Anthony PERARD <anthony@xenproject.org>,
+	Paul Durrant <paul@xen.org>,
+	xen-devel@lists.xenproject.org
+Subject: [PATCH v7 1/8] xen: mapcache: Make MCACHE_BUCKET_SHIFT runtime configurable
+Date: Fri, 24 May 2024 12:51:45 +0200
+Message-Id: <20240524105152.1301842-2-edgar.iglesias@gmail.com>
+X-Mailer: git-send-email 2.40.1
+In-Reply-To: <20240524105152.1301842-1-edgar.iglesias@gmail.com>
+References: <20240524105152.1301842-1-edgar.iglesias@gmail.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/2] tools/xg: Streamline cpu policy
- serialise/deserialise calls
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>,
- Anthony PERARD <anthony@xenproject.org>, Juergen Gross <jgross@suse.com>,
- Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>
-References: <cover.1716457040.git.alejandro.vallejo@cloud.com>
- <5c6ee74b60bad4eb9cc8e17dbfcf7158d38bd32c.1716457040.git.alejandro.vallejo@cloud.com>
- <Zk8YucyA1ZwGU4Y-@macbook>
-Content-Language: en-GB
-From: Alejandro Vallejo <alejandro.vallejo@cloud.com>
-In-Reply-To: <Zk8YucyA1ZwGU4Y-@macbook>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 23/05/2024 11:21, Roger Pau Monné wrote:
-> On Thu, May 23, 2024 at 10:41:29AM +0100, Alejandro Vallejo wrote:
->> The idea is to use xc_cpu_policy_t as a single object containing both the
->> serialised and deserialised forms of the policy. Note that we need lengths
->> for the arrays, as the serialised policies may be shorter than the array
->> capacities.
->>
->> * Add the serialised lengths to the struct so we can distinguish
->>   between length and capacity of the serialisation buffers.
->> * Remove explicit buffer+lengths in serialise/deserialise calls
->>   and use the internal buffer inside xc_cpu_policy_t instead.
->> * Refactor everything to use the new serialisation functions.
->> * Remove redundant serialization calls and avoid allocating dynamic
->>   memory aside from the policy objects in xen-cpuid. Also minor cleanup
->>   in the policy print call sites.
->>
->> No functional change intended.
->>
->> Signed-off-by: Alejandro Vallejo <alejandro.vallejo@cloud.com>
-> 
-> Acked-by: Roger Pau Monné <roger.pau@citrix.com>
-> 
-> Just two comments.
-> 
->> ---
->> v3:
->>   * Better context scoping in xg_sr_common_x86.
->>     * Can't be const because write_record() takes non-const.
->>   * Adjusted line length of xen-cpuid's print_policy.
->>   * Adjusted error messages in xen-cpuid's print_policy.
->>   * Reverted removal of overscoped loop indices.
->> ---
->>  tools/include/xenguest.h            |  8 ++-
->>  tools/libs/guest/xg_cpuid_x86.c     | 98 ++++++++++++++++++++---------
->>  tools/libs/guest/xg_private.h       |  2 +
->>  tools/libs/guest/xg_sr_common_x86.c | 56 ++++++-----------
->>  tools/misc/xen-cpuid.c              | 41 ++++--------
->>  5 files changed, 106 insertions(+), 99 deletions(-)
->>
->> diff --git a/tools/include/xenguest.h b/tools/include/xenguest.h
->> index e01f494b772a..563811cd8dde 100644
->> --- a/tools/include/xenguest.h
->> +++ b/tools/include/xenguest.h
->> @@ -799,14 +799,16 @@ int xc_cpu_policy_set_domain(xc_interface *xch, uint32_t domid,
->>                               xc_cpu_policy_t *policy);
->>  
->>  /* Manipulate a policy via architectural representations. */
->> -int xc_cpu_policy_serialise(xc_interface *xch, const xc_cpu_policy_t *policy,
->> -                            xen_cpuid_leaf_t *leaves, uint32_t *nr_leaves,
->> -                            xen_msr_entry_t *msrs, uint32_t *nr_msrs);
->> +int xc_cpu_policy_serialise(xc_interface *xch, xc_cpu_policy_t *policy);
->>  int xc_cpu_policy_update_cpuid(xc_interface *xch, xc_cpu_policy_t *policy,
->>                                 const xen_cpuid_leaf_t *leaves,
->>                                 uint32_t nr);
->>  int xc_cpu_policy_update_msrs(xc_interface *xch, xc_cpu_policy_t *policy,
->>                                const xen_msr_entry_t *msrs, uint32_t nr);
->> +int xc_cpu_policy_get_leaves(xc_interface *xch, const xc_cpu_policy_t *policy,
->> +                             const xen_cpuid_leaf_t **leaves, uint32_t *nr);
->> +int xc_cpu_policy_get_msrs(xc_interface *xch, const xc_cpu_policy_t *policy,
->> +                           const xen_msr_entry_t **msrs, uint32_t *nr);
-> 
-> Maybe it would be helpful to have a comment clarifying that the return
-> of xc_cpu_policy_get_{leaves,msrs}() is a reference to the content of
-> the policy, not a copy of it (and hence is tied to the lifetime of
-> policy, and doesn't require explicit freeing).
+From: "Edgar E. Iglesias" <edgar.iglesias@amd.com>
 
-Sure.
+Make MCACHE_BUCKET_SHIFT runtime configurable per cache instance.
 
-> 
->>  
->>  /* Compatibility calculations. */
->>  bool xc_cpu_policy_is_compatible(xc_interface *xch, xc_cpu_policy_t *host,
->> diff --git a/tools/libs/guest/xg_cpuid_x86.c b/tools/libs/guest/xg_cpuid_x86.c
->> index 4453178100ad..4f4b86b59470 100644
->> --- a/tools/libs/guest/xg_cpuid_x86.c
->> +++ b/tools/libs/guest/xg_cpuid_x86.c
->> @@ -834,14 +834,13 @@ void xc_cpu_policy_destroy(xc_cpu_policy_t *policy)
->>      }
->>  }
->>  
->> -static int deserialize_policy(xc_interface *xch, xc_cpu_policy_t *policy,
->> -                              unsigned int nr_leaves, unsigned int nr_entries)
->> +static int deserialize_policy(xc_interface *xch, xc_cpu_policy_t *policy)
->>  {
->>      uint32_t err_leaf = -1, err_subleaf = -1, err_msr = -1;
->>      int rc;
->>  
->>      rc = x86_cpuid_copy_from_buffer(&policy->policy, policy->leaves,
->> -                                    nr_leaves, &err_leaf, &err_subleaf);
->> +                                    policy->nr_leaves, &err_leaf, &err_subleaf);
->>      if ( rc )
->>      {
->>          if ( err_leaf != -1 )
->> @@ -851,7 +850,7 @@ static int deserialize_policy(xc_interface *xch, xc_cpu_policy_t *policy,
->>      }
->>  
->>      rc = x86_msr_copy_from_buffer(&policy->policy, policy->msrs,
->> -                                  nr_entries, &err_msr);
->> +                                  policy->nr_msrs, &err_msr);
->>      if ( rc )
->>      {
->>          if ( err_msr != -1 )
->> @@ -878,7 +877,10 @@ int xc_cpu_policy_get_system(xc_interface *xch, unsigned int policy_idx,
->>          return rc;
->>      }
->>  
->> -    rc = deserialize_policy(xch, policy, nr_leaves, nr_msrs);
->> +    policy->nr_leaves = nr_leaves;
->> +    policy->nr_msrs = nr_msrs;
->> +
->> +    rc = deserialize_policy(xch, policy);
->>      if ( rc )
->>      {
->>          errno = -rc;
->> @@ -903,7 +905,10 @@ int xc_cpu_policy_get_domain(xc_interface *xch, uint32_t domid,
->>          return rc;
->>      }
->>  
->> -    rc = deserialize_policy(xch, policy, nr_leaves, nr_msrs);
->> +    policy->nr_leaves = nr_leaves;
->> +    policy->nr_msrs = nr_msrs;
->> +
->> +    rc = deserialize_policy(xch, policy);
->>      if ( rc )
->>      {
->>          errno = -rc;
->> @@ -917,17 +922,14 @@ int xc_cpu_policy_set_domain(xc_interface *xch, uint32_t domid,
->>                               xc_cpu_policy_t *policy)
->>  {
->>      uint32_t err_leaf = -1, err_subleaf = -1, err_msr = -1;
->> -    unsigned int nr_leaves = ARRAY_SIZE(policy->leaves);
->> -    unsigned int nr_msrs = ARRAY_SIZE(policy->msrs);
->>      int rc;
->>  
->> -    rc = xc_cpu_policy_serialise(xch, policy, policy->leaves, &nr_leaves,
->> -                                 policy->msrs, &nr_msrs);
->> +    rc = xc_cpu_policy_serialise(xch, policy);
->>      if ( rc )
->>          return rc;
->>  
->> -    rc = xc_set_domain_cpu_policy(xch, domid, nr_leaves, policy->leaves,
->> -                                  nr_msrs, policy->msrs,
->> +    rc = xc_set_domain_cpu_policy(xch, domid, policy->nr_leaves, policy->leaves,
->> +                                  policy->nr_msrs, policy->msrs,
->>                                    &err_leaf, &err_subleaf, &err_msr);
->>      if ( rc )
->>      {
->> @@ -942,34 +944,32 @@ int xc_cpu_policy_set_domain(xc_interface *xch, uint32_t domid,
->>      return rc;
->>  }
->>  
->> -int xc_cpu_policy_serialise(xc_interface *xch, const xc_cpu_policy_t *p,
->> -                            xen_cpuid_leaf_t *leaves, uint32_t *nr_leaves,
->> -                            xen_msr_entry_t *msrs, uint32_t *nr_msrs)
->> +int xc_cpu_policy_serialise(xc_interface *xch, xc_cpu_policy_t *p)
->>  {
->> +    unsigned int nr_leaves = ARRAY_SIZE(p->leaves);
->> +    unsigned int nr_msrs = ARRAY_SIZE(p->msrs);
->>      int rc;
->>  
->> -    if ( leaves )
->> +    rc = x86_cpuid_copy_to_buffer(&p->policy, p->leaves, &nr_leaves);
->> +    if ( rc )
->>      {
->> -        rc = x86_cpuid_copy_to_buffer(&p->policy, leaves, nr_leaves);
->> -        if ( rc )
->> -        {
->> -            ERROR("Failed to serialize CPUID policy");
->> -            errno = -rc;
->> -            return -1;
->> -        }
->> +        ERROR("Failed to serialize CPUID policy");
->> +        errno = -rc;
->> +        return -1;
->>      }
->>  
->> -    if ( msrs )
->> +    p->nr_leaves = nr_leaves;
-> 
-> Nit: FWIW, I think you could avoid having to introduce local
-> nr_{leaves,msrs} variables and just use p->nr_{leaves,msrs}?  By
-> setting them to ARRAY_SIZE() at the top of the function and then
-> letting x86_{cpuid,msr}_copy_to_buffer() adjust as necessary.
-> 
-> Thanks, Roger.
+Signed-off-by: Edgar E. Iglesias <edgar.iglesias@amd.com>
+Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+---
+ hw/xen/xen-mapcache.c | 54 ++++++++++++++++++++++++++-----------------
+ 1 file changed, 33 insertions(+), 21 deletions(-)
 
-The intent was to avoid mutating the policy object in the error cases
-during deserialise. Then I adjusted the serialise case to have symmetry.
+diff --git a/hw/xen/xen-mapcache.c b/hw/xen/xen-mapcache.c
+index fa6813b1ad..bc860f4373 100644
+--- a/hw/xen/xen-mapcache.c
++++ b/hw/xen/xen-mapcache.c
+@@ -23,13 +23,10 @@
+ 
+ 
+ #if HOST_LONG_BITS == 32
+-#  define MCACHE_BUCKET_SHIFT 16
+ #  define MCACHE_MAX_SIZE     (1UL<<31) /* 2GB Cap */
+ #else
+-#  define MCACHE_BUCKET_SHIFT 20
+ #  define MCACHE_MAX_SIZE     (1UL<<35) /* 32GB Cap */
+ #endif
+-#define MCACHE_BUCKET_SIZE (1UL << MCACHE_BUCKET_SHIFT)
+ 
+ /* This is the size of the virtual address space reserve to QEMU that will not
+  * be use by MapCache.
+@@ -65,7 +62,8 @@ typedef struct MapCache {
+     /* For most cases (>99.9%), the page address is the same. */
+     MapCacheEntry *last_entry;
+     unsigned long max_mcache_size;
+-    unsigned int mcache_bucket_shift;
++    unsigned int bucket_shift;
++    unsigned long bucket_size;
+ 
+     phys_offset_to_gaddr_t phys_offset_to_gaddr;
+     QemuMutex lock;
+@@ -95,11 +93,14 @@ static inline int test_bits(int nr, int size, const unsigned long *addr)
+ 
+ static MapCache *xen_map_cache_init_single(phys_offset_to_gaddr_t f,
+                                            void *opaque,
++                                           unsigned int bucket_shift,
+                                            unsigned long max_size)
+ {
+     unsigned long size;
+     MapCache *mc;
+ 
++    assert(bucket_shift >= XC_PAGE_SHIFT);
++
+     mc = g_new0(MapCache, 1);
+ 
+     mc->phys_offset_to_gaddr = f;
+@@ -108,12 +109,14 @@ static MapCache *xen_map_cache_init_single(phys_offset_to_gaddr_t f,
+ 
+     QTAILQ_INIT(&mc->locked_entries);
+ 
++    mc->bucket_shift = bucket_shift;
++    mc->bucket_size = 1UL << bucket_shift;
+     mc->max_mcache_size = max_size;
+ 
+     mc->nr_buckets =
+         (((mc->max_mcache_size >> XC_PAGE_SHIFT) +
+-          (1UL << (MCACHE_BUCKET_SHIFT - XC_PAGE_SHIFT)) - 1) >>
+-         (MCACHE_BUCKET_SHIFT - XC_PAGE_SHIFT));
++          (1UL << (bucket_shift - XC_PAGE_SHIFT)) - 1) >>
++         (bucket_shift - XC_PAGE_SHIFT));
+ 
+     size = mc->nr_buckets * sizeof(MapCacheEntry);
+     size = (size + XC_PAGE_SIZE - 1) & ~(XC_PAGE_SIZE - 1);
+@@ -126,6 +129,13 @@ void xen_map_cache_init(phys_offset_to_gaddr_t f, void *opaque)
+ {
+     struct rlimit rlimit_as;
+     unsigned long max_mcache_size;
++    unsigned int bucket_shift;
++
++    if (HOST_LONG_BITS == 32) {
++        bucket_shift = 16;
++    } else {
++        bucket_shift = 20;
++    }
+ 
+     if (geteuid() == 0) {
+         rlimit_as.rlim_cur = RLIM_INFINITY;
+@@ -146,7 +156,9 @@ void xen_map_cache_init(phys_offset_to_gaddr_t f, void *opaque)
+         }
+     }
+ 
+-    mapcache = xen_map_cache_init_single(f, opaque, max_mcache_size);
++    mapcache = xen_map_cache_init_single(f, opaque,
++                                         bucket_shift,
++                                         max_mcache_size);
+     setrlimit(RLIMIT_AS, &rlimit_as);
+ }
+ 
+@@ -195,7 +207,7 @@ static void xen_remap_bucket(MapCache *mc,
+     entry->valid_mapping = NULL;
+ 
+     for (i = 0; i < nb_pfn; i++) {
+-        pfns[i] = (address_index << (MCACHE_BUCKET_SHIFT-XC_PAGE_SHIFT)) + i;
++        pfns[i] = (address_index << (mc->bucket_shift - XC_PAGE_SHIFT)) + i;
+     }
+ 
+     /*
+@@ -266,8 +278,8 @@ static uint8_t *xen_map_cache_unlocked(MapCache *mc,
+     bool dummy = false;
+ 
+ tryagain:
+-    address_index  = phys_addr >> MCACHE_BUCKET_SHIFT;
+-    address_offset = phys_addr & (MCACHE_BUCKET_SIZE - 1);
++    address_index  = phys_addr >> mc->bucket_shift;
++    address_offset = phys_addr & (mc->bucket_size - 1);
+ 
+     trace_xen_map_cache(phys_addr);
+ 
+@@ -294,14 +306,14 @@ tryagain:
+         return mc->last_entry->vaddr_base + address_offset;
+     }
+ 
+-    /* size is always a multiple of MCACHE_BUCKET_SIZE */
++    /* size is always a multiple of mc->bucket_size */
+     if (size) {
+         cache_size = size + address_offset;
+-        if (cache_size % MCACHE_BUCKET_SIZE) {
+-            cache_size += MCACHE_BUCKET_SIZE - (cache_size % MCACHE_BUCKET_SIZE);
++        if (cache_size % mc->bucket_size) {
++            cache_size += mc->bucket_size - (cache_size % mc->bucket_size);
+         }
+     } else {
+-        cache_size = MCACHE_BUCKET_SIZE;
++        cache_size = mc->bucket_size;
+     }
+ 
+     entry = &mc->entry[address_index % mc->nr_buckets];
+@@ -422,7 +434,7 @@ static ram_addr_t xen_ram_addr_from_mapcache_single(MapCache *mc, void *ptr)
+         trace_xen_ram_addr_from_mapcache_not_in_cache(ptr);
+         raddr = RAM_ADDR_INVALID;
+     } else {
+-        raddr = (reventry->paddr_index << MCACHE_BUCKET_SHIFT) +
++        raddr = (reventry->paddr_index << mc->bucket_shift) +
+              ((unsigned long) ptr - (unsigned long) entry->vaddr_base);
+     }
+     mapcache_unlock(mc);
+@@ -585,8 +597,8 @@ static uint8_t *xen_replace_cache_entry_unlocked(MapCache *mc,
+     hwaddr address_index, address_offset;
+     hwaddr test_bit_size, cache_size = size;
+ 
+-    address_index  = old_phys_addr >> MCACHE_BUCKET_SHIFT;
+-    address_offset = old_phys_addr & (MCACHE_BUCKET_SIZE - 1);
++    address_index  = old_phys_addr >> mc->bucket_shift;
++    address_offset = old_phys_addr & (mc->bucket_size - 1);
+ 
+     assert(size);
+     /* test_bit_size is always a multiple of XC_PAGE_SIZE */
+@@ -595,8 +607,8 @@ static uint8_t *xen_replace_cache_entry_unlocked(MapCache *mc,
+         test_bit_size += XC_PAGE_SIZE - (test_bit_size % XC_PAGE_SIZE);
+     }
+     cache_size = size + address_offset;
+-    if (cache_size % MCACHE_BUCKET_SIZE) {
+-        cache_size += MCACHE_BUCKET_SIZE - (cache_size % MCACHE_BUCKET_SIZE);
++    if (cache_size % mc->bucket_size) {
++        cache_size += mc->bucket_size - (cache_size % mc->bucket_size);
+     }
+ 
+     entry = &mc->entry[address_index % mc->nr_buckets];
+@@ -609,8 +621,8 @@ static uint8_t *xen_replace_cache_entry_unlocked(MapCache *mc,
+         return NULL;
+     }
+ 
+-    address_index  = new_phys_addr >> MCACHE_BUCKET_SHIFT;
+-    address_offset = new_phys_addr & (MCACHE_BUCKET_SIZE - 1);
++    address_index  = new_phys_addr >> mc->bucket_shift;
++    address_offset = new_phys_addr & (mc->bucket_size - 1);
+ 
+     trace_xen_replace_cache_entry_dummy(old_phys_addr, new_phys_addr);
+ 
+-- 
+2.40.1
 
-It's true the preservation is not meaningful in the serialise case
-because at that point the serialised form is already corrupted.
-
-I don't mind either way. Seeing how I'm sending one final version with
-the comments of patch2 I'll just adjust as you proposed.
-
-Cheers,
-Alejandro
 
