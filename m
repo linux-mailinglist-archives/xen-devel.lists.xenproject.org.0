@@ -2,52 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BB3848CDF6B
-	for <lists+xen-devel@lfdr.de>; Fri, 24 May 2024 04:18:54 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.728983.1134079 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5BFCF8CDF6D
+	for <lists+xen-devel@lfdr.de>; Fri, 24 May 2024 04:18:57 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.728984.1134084 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sAKW2-0003vR-BS; Fri, 24 May 2024 02:18:42 +0000
+	id 1sAKW2-00040q-K6; Fri, 24 May 2024 02:18:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 728983.1134079; Fri, 24 May 2024 02:18:42 +0000
+Received: by outflank-mailman (output) from mailman id 728984.1134084; Fri, 24 May 2024 02:18:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sAKW2-0003tq-83; Fri, 24 May 2024 02:18:42 +0000
-Received: by outflank-mailman (input) for mailman id 728983;
+	id 1sAKW2-0003vW-Fz; Fri, 24 May 2024 02:18:42 +0000
+Received: by outflank-mailman (input) for mailman id 728984;
  Fri, 24 May 2024 02:18:40 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=4rgR=M3=amd.com=stefano.stabellini@srs-se1.protection.inumbo.net>)
- id 1sAKW0-0003tc-Gm
+ id 1sAKW0-0003tc-Nt
  for xen-devel@lists.xenproject.org; Fri, 24 May 2024 02:18:40 +0000
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on20600.outbound.protection.outlook.com
- [2a01:111:f403:2415::600])
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on20600.outbound.protection.outlook.com
+ [2a01:111:f403:2418::600])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id ee6c294a-1973-11ef-90a1-e314d9c70b13;
- Fri, 24 May 2024 04:18:38 +0200 (CEST)
-Received: from MW4PR04CA0066.namprd04.prod.outlook.com (2603:10b6:303:6b::11)
- by CH3PR12MB7617.namprd12.prod.outlook.com (2603:10b6:610:140::21)
- with Microsoft SMTP Server (version=TLS1_2,
+ id ee563b6e-1973-11ef-90a1-e314d9c70b13;
+ Fri, 24 May 2024 04:18:39 +0200 (CEST)
+Received: from MW4PR04CA0088.namprd04.prod.outlook.com (2603:10b6:303:6b::33)
+ by DS0PR12MB6629.namprd12.prod.outlook.com (2603:10b6:8:d3::15) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7611.22; Fri, 24 May
- 2024 02:18:33 +0000
+ 2024 02:18:35 +0000
 Received: from CO1PEPF000075EF.namprd03.prod.outlook.com
- (2603:10b6:303:6b:cafe::f8) by MW4PR04CA0066.outlook.office365.com
- (2603:10b6:303:6b::11) with Microsoft SMTP Server (version=TLS1_2,
+ (2603:10b6:303:6b:cafe::57) by MW4PR04CA0088.outlook.office365.com
+ (2603:10b6:303:6b::33) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7611.22 via Frontend
- Transport; Fri, 24 May 2024 02:18:32 +0000
+ Transport; Fri, 24 May 2024 02:18:33 +0000
 Received: from SATLEXMB03.amd.com (165.204.84.17) by
  CO1PEPF000075EF.mail.protection.outlook.com (10.167.249.38) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7611.14 via Frontend Transport; Fri, 24 May 2024 02:18:32 +0000
+ 15.20.7611.14 via Frontend Transport; Fri, 24 May 2024 02:18:33 +0000
 Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB03.amd.com
  (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Thu, 23 May
- 2024 21:18:29 -0500
+ 2024 21:18:30 -0500
 Received: from smtp.xilinx.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.35 via Frontend
- Transport; Thu, 23 May 2024 21:18:28 -0500
+ Transport; Thu, 23 May 2024 21:18:29 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -59,22 +59,22 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ee6c294a-1973-11ef-90a1-e314d9c70b13
+X-Inumbo-ID: ee563b6e-1973-11ef-90a1-e314d9c70b13
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=QfnTtZrjHcOZuTG1RV24o7aioszq+2i1wi9SL+VzVENbB1OeNZ0AVReOMnsIPL7G+l6OfoesjLxad6etSxq7qDsXuBPKYeL37r/s7b3WlnRAWgsUc9ZYMsNRV9ugD+vJL1YHwp8B594Lzxs58kumF2vDBpKJLOKAFaN1/w5y7kf2qTShZE7hf61jeU26aAw7xixiowl4mVovg3yoZbt2jazISTBv+Uu63VupuXgc7KdpmE5B38AcbSFIWAGRklt+H6KV1iKK9Vka4zXWgTYxdq/CzlQ9rGhx3z3lsKH7Ov1902M5cj2WhS3mbXSCY2/JsSCM4S9Vqs6n1AqnGzxbgA==
+ b=j3WIzEpIHCPlXtoXUXhyn/HedDkRCrCvBT/QC58XOqfNHcZ03lmY6cm+XorMsd9+SVcQ6Ar4IBTc5D1nUIETuu88KwH7rqpxbspJXNqqHEBn9n7hrOLu170rfMy5dgsbZrUXPYF3VuSofJsgPKpjhsFr6API/kr8E3uXxyX8ai2BYhZinzGYFMETz4jHYkbbr07EbqBi1+mFfDZ/8akekNhCN2tOYE5nuS3plGJ1cg22t5XZbnO5agCHeBRKKa/VtAyH08jAQ2Fuy0Qm9GUkKGqPBax3wM33K3ReECjYTBV8rlizs5RWEdVxsvFGvZw+fD63WfDf4xshF0XUgHVO/g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=DJzU+Lo23+pblv8U5ELG1eHDNPAMdYWdjjMuN9k4W2I=;
- b=f9skBc+HMDg/vp2x+inOpaYSEwC5VF/9qu6pJBpF3dqnX9lLjmrSh761TqNmy7Plq8EuqiKnewY3lekPO/AqRnTarALX+2iwObvFLuT0pQcOBHDvlHhl2RfnIJU4FEnT8DnRKmdCOU9/341mVsPkkNNP5Vx3D9iMPCUYABOTqxgN8l6ha+UrKVqyPA5JVd0UG2EsHNN4Fhtw7ljOT4BL76P4/JNXOFE43jAh0wBSfNO2bttEHX9Bq257dJor6T8NIUwc/eaReYW9h88ZFpnA3nOrSSQze2jjOsqYNxDtqWCv5Z840kP/DLUEWIEpm4DKSkt0M1Kkz9Q+i1sYdXx7Eg==
+ bh=xRJXSt/i9q6c1C8Y7abmDgKw7TBf2B9wiQ/rWE+b2Go=;
+ b=CG63nlEYG1l25gWL8g6nobKFBpKDm4Sd8VuOGcj/t2NKQvTRrkcAy5E4Whj+1FxnfblkZWhoyStb/3Xvx8HQKTihkwJLdvhttNr53VbANBZoY5c81bFdXCXdGEiMaktQ7Zbesyk8wg8RvJOe8cNApdCLqNIn/xpcQBVzyGsBsinF+qDPuyszjMH2x17i1whbtV44F7/FYC70Gb4rbKObBWBH2NNSZVovEneBGbDCyAHbG8nlIONaVAVK4m49nP31cyJXiqr5XE2IY4TiKeabIy+zYaMSvGySaCTX91udGXpa6PzUkRTJBSteUMgf3e+hNpxyIrIu1PXymPb2odJukA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=DJzU+Lo23+pblv8U5ELG1eHDNPAMdYWdjjMuN9k4W2I=;
- b=OW9r2Ob3j4jAh6VUZ6GJ4nhym9xZtlIgNbhUhys/8sFSnl7nffFfL0dfXKWHYaNkz8csVIkjuxPxHC8GSOqqEQpPjpVNvvHMEoYWhX1PaYln64q29HhZJGUi0Z8EJnK76nwmzVuKFms9Jiz0W2gqXoDF8QeXFWceKscPNAG1ghA=
+ bh=xRJXSt/i9q6c1C8Y7abmDgKw7TBf2B9wiQ/rWE+b2Go=;
+ b=zjhRv5QNzmd6ikViC6Ww2u9xJ9EPI9RXq1n8ziDkhHxZLw5bz99FBgkkRJ4kXPTz+33n3Z+4hlBxl1fifi9E7rptnZUqtuvUpvi0J6EL4PE5i8ougj+X0PdIOu/QOJ6wMY3ND4SzM6uRU5bBzDo4fW/7ihfaF1v0Pt2QKQb1MkA=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -85,11 +85,11 @@ From: Stefano Stabellini <stefano.stabellini@amd.com>
 To: <xen-devel@lists.xenproject.org>
 CC: <anthony@xenproject.org>, <sstabellini@kernel.org>, <julien@xen.org>,
 	<bertrand.marquis@arm.com>, <michal.orzel@amd.com>,
-	<Volodymyr_Babchuk@epam.com>, Henry Wang <xin.wang2@amd.com>, Jason Andryuk
-	<jason.andryuk@amd.com>
-Subject: [PATCH v5 1/7] tools/xl: Correct the help information and exit code of the dt-overlay command
-Date: Thu, 23 May 2024 19:18:08 -0700
-Message-ID: <20240524021814.2666257-1-stefano.stabellini@amd.com>
+	<Volodymyr_Babchuk@epam.com>, Henry Wang <xin.wang2@amd.com>, Julien Grall
+	<jgrall@amazon.com>
+Subject: [PATCH v5 2/7] xen/arm, doc: Add a DT property to specify IOMMU for Dom0less domUs
+Date: Thu, 23 May 2024 19:18:09 -0700
+Message-ID: <20240524021814.2666257-2-stefano.stabellini@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <alpine.DEB.2.22.394.2405231914360.2557291@ubuntu-linux-20-04-desktop>
 References: <alpine.DEB.2.22.394.2405231914360.2557291@ubuntu-linux-20-04-desktop>
@@ -100,110 +100,128 @@ Received-SPF: None (SATLEXMB03.amd.com: stefano.stabellini@amd.com does not
  designate permitted sender hosts)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PEPF000075EF:EE_|CH3PR12MB7617:EE_
-X-MS-Office365-Filtering-Correlation-Id: bc86422b-143b-4581-7f6c-08dc7b97ceed
+X-MS-TrafficTypeDiagnostic: CO1PEPF000075EF:EE_|DS0PR12MB6629:EE_
+X-MS-Office365-Filtering-Correlation-Id: d30934c1-8e23-4436-4e62-08dc7b97cfbf
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230031|36860700004|82310400017|376005|1800799015;
+	BCL:0;ARA:13230031|376005|36860700004|1800799015|82310400017;
 X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?uaq+5J7VJsp1R+HKQxmoUH+RO6C2TKR545pzmUQ5G22Xks5xPqG5QpmK7hDp?=
- =?us-ascii?Q?DnE+47ejbwree+MPqGh2q7aFJpuyI6CAdwYxZiNqgZk6aw3CRW/IZKRa+Wy5?=
- =?us-ascii?Q?zgTdwnvd07jTcV/CQJuNjnbtQScsfrk6L89m15vxJ3YO2NAMFOvoBeHrcBWF?=
- =?us-ascii?Q?BmXmSqYEI4EIDx7PDQfpJ3bySZbhyd0nWpgiyD+ZXvRx3ucyLyzJDy7H11gd?=
- =?us-ascii?Q?VUyLiLb5zmwwcnQyo4dSUH7nJ3OnU1b8iblErzSLg70bJbneMyJmLOFF0HCx?=
- =?us-ascii?Q?LudUVN6P+z3w2cTYSBK3MzKoqdivGohF+UhhDeM3qL0LBUODHQ8ruWT68nz1?=
- =?us-ascii?Q?n0klytLuHcM7NvWzbTklciVyQpA6XVAotPCzgMFLHOrCgIQU+kewjz11t/8W?=
- =?us-ascii?Q?FpcgNKzElpvXGaUv9iQ9wWXHkMsQoJHuuGQKG/cG+03H48KNfdWRsE7h2kNN?=
- =?us-ascii?Q?BtGV9noCK9DV8T64UplMKb3/skKxl9tWBB0amY9Nne+/kFnkhb2wJY2Bn4XD?=
- =?us-ascii?Q?joiyHDt8CElj59v0/61Ri83FTzVD6bVO0/rYTbDMGH2LaroFfji6SRv0TRpY?=
- =?us-ascii?Q?/ShNzPnQPO6iIAyDCA4EccW3USmyePLTPPPGz4t7tLzIZZBExMXHysG8uL/3?=
- =?us-ascii?Q?qgPgqb/tdSkJBrO06k6ZWJQfpBi/UjiZ+RgWbk2j6L5+daPWsx208ZpEX9lb?=
- =?us-ascii?Q?MH7grKIDq9rQ0q/ag2ZYLVSFSlGCaInHfePx5GzSvfltWKCmCJfCmO1dcNLt?=
- =?us-ascii?Q?CgAkryECoTpGYzszNNNJup4bqBKbIMABLHqvZPSKJIIO8cWKiUjDj1jIhCg+?=
- =?us-ascii?Q?Y3c1swBDADy1xU5SAUKPn57nSIfT/YEaxHH2NlrhndEI3hrLEeqosJFGMTEX?=
- =?us-ascii?Q?VP3maKkX+kYuff0Lpe/mWj2hECW//sVQ7DRwaqvxAc1CO97VhD1z93uKO+lZ?=
- =?us-ascii?Q?nSDzHgdkePhPGmPnMkpNYnPToLtydCp+jWY4HkHT8RuoJAq2IKnet8+yKC7F?=
- =?us-ascii?Q?G7cDYuXrpZ6nEVU3J26Z02jyRZ9ZCNP9Z5RxtX29RMMyOb1cx3BDKW3/mCG9?=
- =?us-ascii?Q?+JRINt/HJr87Apmu7wKiUkVxxxSezDyJ6XwoXbbVBVfXn4CCSbzZXy24oZ+U?=
- =?us-ascii?Q?4rjuQfJ+UrJN9XkH5EHNa+phNgl/1lAUygTQZjOA/czT0tAz6t6ewHmr6TQ2?=
- =?us-ascii?Q?n4einKpOsSvh9bvQyshJFSUbzx8Yh4iP/2o78DEFEicQsHosuTlHzAplgaMT?=
- =?us-ascii?Q?7diX0j+KlDrA1VApnOPru+JxR2oINSGrEsx02GtM9GkXhUsxF9CieQQJDFNe?=
- =?us-ascii?Q?f9gvaXXqPXjKnRcKdalYijsLNQ43bDnPdEdLccK4BOk6L/br1yybMs6OOuwO?=
- =?us-ascii?Q?EPIF7l0=3D?=
+	=?us-ascii?Q?ZhWZs+o9k/4kk5rtRKSY62PMffnLmD5TNjCHCUppI8IrLmLkm0MQSao8twv3?=
+ =?us-ascii?Q?v/M8mREIxzJKLtxT+fd/R9xS/vDnzL5rxyPlYTpbEten4/YspKOHqhUPoNiZ?=
+ =?us-ascii?Q?ZYwB+AJIjgA02ixesTg+HSlgSX/XdrHqYfJf+3pImFS5j6FRu8QYPWJFdIHp?=
+ =?us-ascii?Q?PDwQn2iXrD+FaU0bGVzkomDuXhPdgEHjtuwY2EPDhC03MY74frnXwAY/J6pz?=
+ =?us-ascii?Q?WlrjgRqG16NDJWMDn2F0x3T4m3cOTVABJ/go4/Spdbi2gxD6bx0TY+R926oR?=
+ =?us-ascii?Q?2IrwbsV6JDO56Ggg2xRG3GJZ3joFAbcVx4YJNeYU76or6tLQiL5CbndFCKFL?=
+ =?us-ascii?Q?tqdDwtd/P+Gdxvb91SvNzuMb5Aqy82ccai38e8BwBzNW5x80UtvmLDWq+s3Q?=
+ =?us-ascii?Q?+8+7b7wNr3unv3tBxDXWzYLqhp+XPk+5mtIM3fh/fy1bn92UeN6d0VZEvPM/?=
+ =?us-ascii?Q?Y2GE3ZTzqAVyptCBe7OdPLOVbKp5EzPR1GcQ4ErOK5vHoAMl1SmKmor7A2KQ?=
+ =?us-ascii?Q?ZLQfqr/nva9Q3Y8fQCtyrbvQ9UlZUPFjfN6hV3FDPuFwd2B3RNxgrbIZajJa?=
+ =?us-ascii?Q?O5tZaJVIq1f3ZcbpBCc28olOOCY4+LSxGiBuuOi1RckddiVk961rR4lCLn1i?=
+ =?us-ascii?Q?xOtLTeQnrYuXVrpE3Ebu/isr0QQibxK0+Pdq3FRJHIe0tW9UufUEY/6Q2FEI?=
+ =?us-ascii?Q?X1Qvp9aRinAJUBm+CLO516Fv5jhJvgfAxIF9KtFOadu6z4XUfYJyiuhehQxf?=
+ =?us-ascii?Q?ZRsnLmTSmjZStQYRbU44H9SIoNzrY8wt31RohdG/hm4kA+bp649lPo3Je6Ul?=
+ =?us-ascii?Q?/IUOGeIaCdboCdT6UHtv96EtDdY3WZiOZ6VrsprnAkYvrkhBcdOapZdnl8U+?=
+ =?us-ascii?Q?otR0KGob++MrgNOn8XDmwI3etKXNeVDJVy73b8GpjVwig3NbPXLY3hlgRgOU?=
+ =?us-ascii?Q?iXZC+eevJ4AbsKKA22xq9kM4P8KHC1rlaHng4QZcfMR03a0dIsYiMQQfJIK8?=
+ =?us-ascii?Q?cjBVWEmXU7Y3McZ7iLKtmnHcZg1YpZs3P6ckme0/F39+MvCUfL5PMF7lWH6z?=
+ =?us-ascii?Q?wVTof09EeBCRnw7oqFvY5GZyyLv1QE8ZiPFxhMQ1ftkoBS7IBdFbxwsFr1fv?=
+ =?us-ascii?Q?/wUkdNNsupJv2moe40FCWG+7XHob7LI3JdWxdj2solkxk2th/rdaQCxufZw4?=
+ =?us-ascii?Q?qPhVMSWYjnxkEQcFVfQ1nX2I+iMXt4wlOBAo8mgqPEvtYdblPOd2WxQntlL/?=
+ =?us-ascii?Q?a/2NvEoEl49qZGiZnR1a21SZnk5Snc0fFE0e99rhf9vsRT0rETwjKex0Mox0?=
+ =?us-ascii?Q?AvzgcU0eYtdYtjqC+RiLo3QI0IzErkIoGwAWa220Q3ZJDSg1IoHMQWIEiZRW?=
+ =?us-ascii?Q?u5Q7CZC78OW5yojAaPlJPNBnWPqH?=
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(36860700004)(82310400017)(376005)(1800799015);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(376005)(36860700004)(1800799015)(82310400017);DIR:OUT;SFP:1101;
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 May 2024 02:18:32.0310
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 May 2024 02:18:33.4060
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: bc86422b-143b-4581-7f6c-08dc7b97ceed
+X-MS-Exchange-CrossTenant-Network-Message-Id: d30934c1-8e23-4436-4e62-08dc7b97cfbf
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
 	CO1PEPF000075EF.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB7617
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB6629
 
 From: Henry Wang <xin.wang2@amd.com>
 
-Fix the name mismatch in the xl dt-overlay command, the
-command name should be "dt-overlay" instead of "dt_overlay".
-Add the missing "," in the cmdtable.
+There are some use cases in which the dom0less domUs need to have
+the XEN_DOMCTL_CDF_iommu set at the domain construction time. For
+example, the dynamic dtbo feature allows the domain to be assigned
+a device that is behind the IOMMU at runtime. For these use cases,
+we need to have a way to specify the domain will need the IOMMU
+mapping at domain construction time.
 
-Fix the exit code of the dt-overlay command, use EXIT_FAILURE
-instead of ERROR_FAIL.
+Introduce a "passthrough" DT property for Dom0less DomUs following
+the same entry as the xl.cfg. Currently only provide two options,
+i.e. "enable" and "disable". Set the XEN_DOMCTL_CDF_iommu at domain
+construction time based on the property.
 
-Fixes: 61765a07e3d8 ("tools/xl: Add new xl command overlay for device tree overlay support")
-Suggested-by: Anthony PERARD <anthony@xenproject.org>
 Signed-off-by: Henry Wang <xin.wang2@amd.com>
-Reviewed-by: Jason Andryuk <jason.andryuk@amd.com>
-Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+Reviewed-by: Julien Grall <jgrall@amazon.com>
 ---
- tools/xl/xl_cmdtable.c  | 2 +-
- tools/xl/xl_vmcontrol.c | 6 +++---
- 2 files changed, 4 insertions(+), 4 deletions(-)
+ docs/misc/arm/device-tree/booting.txt | 16 ++++++++++++++++
+ xen/arch/arm/dom0less-build.c         | 11 +++++++++--
+ 2 files changed, 25 insertions(+), 2 deletions(-)
 
-diff --git a/tools/xl/xl_cmdtable.c b/tools/xl/xl_cmdtable.c
-index 62bdb2aeaa..1f3c6b5897 100644
---- a/tools/xl/xl_cmdtable.c
-+++ b/tools/xl/xl_cmdtable.c
-@@ -635,7 +635,7 @@ const struct cmd_spec cmd_table[] = {
-     { "dt-overlay",
-       &main_dt_overlay, 0, 1,
-       "Add/Remove a device tree overlay",
--      "add/remove <.dtbo>"
-+      "add/remove <.dtbo>",
-       "-h print this help\n"
-     },
- #endif
-diff --git a/tools/xl/xl_vmcontrol.c b/tools/xl/xl_vmcontrol.c
-index 98f6bd2e76..02575d5d36 100644
---- a/tools/xl/xl_vmcontrol.c
-+++ b/tools/xl/xl_vmcontrol.c
-@@ -1278,7 +1278,7 @@ int main_dt_overlay(int argc, char **argv)
-     const int overlay_remove_op = 2;
+diff --git a/docs/misc/arm/device-tree/booting.txt b/docs/misc/arm/device-tree/booting.txt
+index bbd955e9c2..f1fd069c87 100644
+--- a/docs/misc/arm/device-tree/booting.txt
++++ b/docs/misc/arm/device-tree/booting.txt
+@@ -260,6 +260,22 @@ with the following properties:
+     value specified by Xen command line parameter gnttab_max_maptrack_frames
+     (or its default value if unspecified, i.e. 1024) is used.
  
-     if (argc < 2) {
--        help("dt_overlay");
-+        help("dt-overlay");
-         return EXIT_FAILURE;
-     }
++- passthrough
++
++    A string property specifying whether IOMMU mappings are enabled for the
++    domain and hence whether it will be enabled for passthrough hardware.
++    Possible property values are:
++
++    - "enabled"
++    IOMMU mappings are enabled for the domain. Note that this option is the
++    default if the user provides the device partial passthrough device tree
++    for the domain.
++
++    - "disabled"
++    IOMMU mappings are disabled for the domain and so hardware may not be
++    passed through. This option is the default if this property is missing
++    and the user does not provide the device partial device tree for the domain.
++
+ Under the "xen,domain" compatible node, one or more sub-nodes are present
+ for the DomU kernel and ramdisk.
  
-@@ -1302,11 +1302,11 @@ int main_dt_overlay(int argc, char **argv)
-             fprintf(stderr, "failed to read the overlay device tree file %s\n",
-                     overlay_config_file);
-             free(overlay_dtb);
--            return ERROR_FAIL;
-+            return EXIT_FAILURE;
-         }
-     } else {
-         fprintf(stderr, "overlay dtbo file not provided\n");
--        return ERROR_FAIL;
-+        return EXIT_FAILURE;
-     }
+diff --git a/xen/arch/arm/dom0less-build.c b/xen/arch/arm/dom0less-build.c
+index 74f053c242..5830a7051d 100644
+--- a/xen/arch/arm/dom0less-build.c
++++ b/xen/arch/arm/dom0less-build.c
+@@ -848,6 +848,8 @@ static int __init construct_domU(struct domain *d,
+ void __init create_domUs(void)
+ {
+     struct dt_device_node *node;
++    const char *dom0less_iommu;
++    bool iommu = false;
+     const struct dt_device_node *cpupool_node,
+                                 *chosen = dt_find_node_by_path("/chosen");
  
-     rc = libxl_dt_overlay(ctx, overlay_dtb, overlay_dtb_size, op);
+@@ -895,8 +897,13 @@ void __init create_domUs(void)
+             panic("Missing property 'cpus' for domain %s\n",
+                   dt_node_name(node));
+ 
+-        if ( dt_find_compatible_node(node, NULL, "multiboot,device-tree") &&
+-             iommu_enabled )
++        if ( !dt_property_read_string(node, "passthrough", &dom0less_iommu) &&
++             !strcmp(dom0less_iommu, "enabled") )
++            iommu = true;
++
++        if ( iommu_enabled &&
++             (iommu || dt_find_compatible_node(node, NULL,
++                                               "multiboot,device-tree")) )
+             d_cfg.flags |= XEN_DOMCTL_CDF_iommu;
+ 
+         if ( !dt_property_read_u32(node, "nr_spis", &d_cfg.arch.nr_spis) )
 -- 
 2.25.1
 
