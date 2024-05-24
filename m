@@ -2,32 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B12F78CE62A
-	for <lists+xen-devel@lfdr.de>; Fri, 24 May 2024 15:26:41 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.729563.1134760 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 943978CE62F
+	for <lists+xen-devel@lfdr.de>; Fri, 24 May 2024 15:29:19 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.729567.1134770 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sAUwG-0004zJ-9R; Fri, 24 May 2024 13:26:28 +0000
+	id 1sAUyh-0005Yr-MD; Fri, 24 May 2024 13:28:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 729563.1134760; Fri, 24 May 2024 13:26:28 +0000
+Received: by outflank-mailman (output) from mailman id 729567.1134770; Fri, 24 May 2024 13:28:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sAUwG-0004wv-6e; Fri, 24 May 2024 13:26:28 +0000
-Received: by outflank-mailman (input) for mailman id 729563;
- Fri, 24 May 2024 13:26:26 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1sAUyh-0005Wc-JC; Fri, 24 May 2024 13:28:59 +0000
+Received: by outflank-mailman (input) for mailman id 729567;
+ Fri, 24 May 2024 13:28:57 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1sAUwE-0004wp-Q4
- for xen-devel@lists.xenproject.org; Fri, 24 May 2024 13:26:26 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1sAUwE-0002Ax-FS; Fri, 24 May 2024 13:26:26 +0000
-Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.0.211])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1sAUwE-0003ns-8B; Fri, 24 May 2024 13:26:26 +0000
+ (envelope-from <SRS0=nTfd=M3=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1sAUyf-0005WT-LY
+ for xen-devel@lists.xenproject.org; Fri, 24 May 2024 13:28:57 +0000
+Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
+ [2a00:1450:4864:20::62b])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 91b57b92-19d1-11ef-b4bb-af5377834399;
+ Fri, 24 May 2024 15:28:55 +0200 (CEST)
+Received: by mail-ej1-x62b.google.com with SMTP id
+ a640c23a62f3a-a59a352bbd9so557611066b.1
+ for <xen-devel@lists.xenproject.org>; Fri, 24 May 2024 06:28:55 -0700 (PDT)
+Received: from ?IPV6:2003:e5:8729:4000:29eb:6d9d:3214:39d2?
+ (p200300e58729400029eb6d9d321439d2.dip0.t-ipconnect.de.
+ [2003:e5:8729:4000:29eb:6d9d:3214:39d2])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a626c9376edsm132712666b.59.2024.05.24.06.28.54
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 24 May 2024 06:28:54 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,88 +47,77 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=jac7bR+7bZ91CBiafCoUuw2taOp9HF8ytcW5DOkX+yY=; b=ckH/Xw9AD01MtB0OqeppC4ttLp
-	ve4moZr9puFECrb18h0qujPo3CO71yQjuaZBuRClUBIGtM0eCjK/Y4oaCbHoxXKd6g8pvZ/nQtbAr
-	Uf/My2rOL5Zum2XKQRYAOlJ0CxnCA5Andxm2O3Frd1bnct4SQKLUTubo0nsiuAavmbYI=;
-Message-ID: <69f9c0b7-b3f3-49bb-9f9a-42c6ef6d0edc@xen.org>
-Date: Fri, 24 May 2024 14:26:24 +0100
+X-Inumbo-ID: 91b57b92-19d1-11ef-b4bb-af5377834399
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1716557335; x=1717162135; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=3NcilalvADXfBySrQYa0n8hNSTrv08kwAHmEPErC5Dg=;
+        b=JG7xY9EVOweJPQMsRSF5nw3g6/AhN+KrCvRvbVhfm3cuvytCnnT6naxyeIwEgIvr0q
+         g0Twucanp5F5LWI3k/c8lVdfOnYdf87ZGXBIiwDMmbCWPPNUpICQ7d7PNj9LYK+SbSka
+         W+eiZClqa/mO6E0OISuVhSZicpDZh5ts+yiNxJl0y2EXidolraRLUtZI7G4MrKj90g9g
+         MuWDkVUdzfA4IIgOta2jMwa+tZTP53bLf8zmnImtueLpAA92WXGG1Y3rl4rtJdv/FqEV
+         vSQi02hQ8JbD5ZNwFlN5rJJsAAJcd4LMsZ8YHdLLQp55ULAUUZU4rz1ExZvquQlSNOKD
+         QeqQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1716557335; x=1717162135;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=3NcilalvADXfBySrQYa0n8hNSTrv08kwAHmEPErC5Dg=;
+        b=mlV5/W1WYnwbzsIodQSkFBLV7W54jFVjSACjJ9wOsQeVD6Hm7TyEFo+hiv790G/tTo
+         AyjOuVTCumhslNwsk1cWo6eeee7LOPhLiuiaoBJtggm4iD7Mv5eq7ew8eUx5CSEEirfo
+         lgogerul5ug3njIKRKB5MRczeslxe7lkx6AG9VhglGiRR4YKIJAExHASBHPSjhzoNR21
+         svo+hK/qluqIG2B0L1c8Dc5QOyh6LOjAhVmY4EcEN/NNkGxv6KPtrnS1bTNirY6tfbw7
+         DKHDQMhdRA007NYiZVa9Km8r96/U8+VZOQFPgq2n8RXJAyNYZ88Cc0Ve0V8aGYSB+IjG
+         VxIQ==
+X-Forwarded-Encrypted: i=1; AJvYcCX9GZYwH/c0KiBcpJpLUsHzBXoKB0lZZUjkXdXPsgkrEPdL5FVsrR/YXUKuOYvraMBxQ2ySxt5rNZKi4oMLHZEv1Hy4NjNJG2hV8NjqqiQ=
+X-Gm-Message-State: AOJu0Yz3DPrDovNea1MK4bkcPqe6/rVxroYD3wXzQImN6nZudWvDmTj5
+	kLdXisQ1bYCwnlQGrnUZy4eYlL9jLY7RBBsaBJyfK7CebRi0Z9mLP3+lxs1LI5g=
+X-Google-Smtp-Source: AGHT+IFtDuHED1hdSpxXhxPqDbPnJHfqtWqQV3lWCA5XYYdtu1Yb0HgbFEJ/SAbPwr9HtzulYJKkgQ==
+X-Received: by 2002:a17:906:275a:b0:a5a:3e00:6317 with SMTP id a640c23a62f3a-a623ea0380bmr413697766b.31.1716557335063;
+        Fri, 24 May 2024 06:28:55 -0700 (PDT)
+Message-ID: <6cc5222a-1dfb-434d-8d84-e1f02be38511@suse.com>
+Date: Fri, 24 May 2024 15:28:53 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] xen/arm: Set correct per-cpu cpu_core_mask
-Content-Language: en-GB
-To: Michal Orzel <michal.orzel@amd.com>, Henry Wang <xin.wang2@amd.com>,
- xen-devel@lists.xenproject.org, Stefano Stabellini <sstabellini@kernel.org>
-Cc: Bertrand Marquis <bertrand.marquis@arm.com>,
+Subject: Re: [PATCH for-4.19 v3 2/3] xen: enable altp2m at create domain
+ domctl
+To: Roger Pau Monne <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
+Cc: Anthony PERARD <anthony@xenproject.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ Christian Lindig <christian.lindig@citrix.com>, David Scott
+ <dave@recoil.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
  Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Henry Wang <Henry.Wang@arm.com>
-References: <20240321035706.165253-1-xin.wang2@amd.com>
- <9deeb66d-1a69-442e-a860-08006067ff44@amd.com>
- <e724dd97-03fc-4136-9a53-94bbddce160f@amd.com>
- <e81356e7-fcf2-4fdb-8585-e544ac4a15df@amd.com>
- <e9e188ef-6de5-4cc7-8edd-dd7d004670de@amd.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <e9e188ef-6de5-4cc7-8edd-dd7d004670de@amd.com>
+ "Daniel P. Smith" <dpsmith@apertussolutions.com>
+References: <20240517133352.94347-1-roger.pau@citrix.com>
+ <20240517133352.94347-3-roger.pau@citrix.com>
+Content-Language: en-US
+From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+In-Reply-To: <20240517133352.94347-3-roger.pau@citrix.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-Hi,
-
-On 21/05/2024 08:57, Michal Orzel wrote:
+On 17.05.24 15:33, Roger Pau Monne wrote:
+> Enabling it using an HVM param is fragile, and complicates the logic when
+> deciding whether options that interact with altp2m can also be enabled.
 > 
+> Leave the HVM param value for consumption by the guest, but prevent it from
+> being set.  Enabling is now done using and additional altp2m specific field in
+> xen_domctl_createdomain.
 > 
-> On 21/05/2024 09:51, Henry Wang wrote:
->> Hi Michal,
->>
->> On 5/21/2024 3:47 PM, Michal Orzel wrote:
->>> Hi Henry.
->>>
->>> On 3/21/2024 11:57 AM, Henry Wang wrote:
->>>>> In the common sysctl command XEN_SYSCTL_physinfo, the value of
->>>>> cores_per_socket is calculated based on the cpu_core_mask of CPU0.
->>>>> Currently on Arm this is a fixed value 1 (can be checked via xl info),
->>>>> which is not correct. This is because during the Arm CPU online
->>>>> process at boot time, setup_cpu_sibling_map() only sets the per-cpu
->>>>> cpu_core_mask for itself.
->>>>>
->>>>> cores_per_socket refers to the number of cores that belong to the same
->>>>> socket (NUMA node). Currently Xen on Arm does not support physical
->>>>> CPU hotplug and NUMA, also we assume there is no multithread. Therefore
->>>>> cores_per_socket means all possible CPUs detected from the device
->>>>> tree. Setting the per-cpu cpu_core_mask in setup_cpu_sibling_map()
->>>>> accordingly. Modify the in-code comment which seems to be outdated. Add
->>>>> a warning to users if Xen is running on processors with multithread
->>>>> support.
->>>>>
->>>>> Signed-off-by: Henry Wang <Henry.Wang@arm.com>
->>>>> Signed-off-by: Henry Wang <xin.wang2@amd.com>
->>> Reviewed-by: Michal Orzel <michal.orzel@amd.com>
->>
->> Thanks.
->>
->>>>>     /* ID of the PCPU we're running on */
->>>>>     DEFINE_PER_CPU(unsigned int, cpu_id);
->>>>> -/* XXX these seem awfully x86ish... */
->>>>> +/*
->>>>> + * Although multithread is part of the Arm spec, there are not many
->>>>> + * processors support multithread and current Xen on Arm assumes there
->>> NIT: s/support/supporting
->>
->> Sorry, it should have been spotted locally before sending. Anyway, I
->> will correct this in v4 with your Reviewed-by tag taken. Thanks for
->> pointing this out.
-> I don't think there is a need to resend a patch just for fixing this typo. It can be done on commit.
-
-Fixed and committed.
-
-Cheers,
-
+> Note that albeit only currently implemented in x86, altp2m could be implemented
+> in other architectures, hence why the field is added to xen_domctl_createdomain
+> instead of xen_arch_domainconfig.
 > 
-> ~Michal
-> 
+> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
 
--- 
-Julien Grall
+Reviewed-by: Juergen Gross <jgross@suse.com> # tools/libs/
+
+
+Juergen
 
