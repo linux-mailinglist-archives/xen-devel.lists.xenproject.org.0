@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C79078CEC9D
-	for <lists+xen-devel@lfdr.de>; Sat, 25 May 2024 01:13:23 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.730031.1135403 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BCD3E8CECAC
+	for <lists+xen-devel@lfdr.de>; Sat, 25 May 2024 01:20:16 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.730039.1135414 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sAe5x-0005DF-7o; Fri, 24 May 2024 23:13:05 +0000
+	id 1sAeCU-0006Jb-Tv; Fri, 24 May 2024 23:19:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 730031.1135403; Fri, 24 May 2024 23:13:05 +0000
+Received: by outflank-mailman (output) from mailman id 730039.1135414; Fri, 24 May 2024 23:19:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sAe5x-0005AH-4d; Fri, 24 May 2024 23:13:05 +0000
-Received: by outflank-mailman (input) for mailman id 730031;
- Fri, 24 May 2024 23:13:04 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1sAe5w-00058v-10
- for xen-devel@lists.xenproject.org; Fri, 24 May 2024 23:13:04 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1sAe5v-0004Fy-KG; Fri, 24 May 2024 23:13:03 +0000
-Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.1.244])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1sAe5v-0004Vg-FB; Fri, 24 May 2024 23:13:03 +0000
+	id 1sAeCU-0006Hs-PM; Fri, 24 May 2024 23:19:50 +0000
+Received: by outflank-mailman (input) for mailman id 730039;
+ Fri, 24 May 2024 23:19:49 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=K6bJ=M3=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1sAeCT-0006Hm-T0
+ for xen-devel@lists.xenproject.org; Fri, 24 May 2024 23:19:49 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [2604:1380:4641:c500::1])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 1cae37b9-1a24-11ef-90a1-e314d9c70b13;
+ Sat, 25 May 2024 01:19:48 +0200 (CEST)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id B5232632A9;
+ Fri, 24 May 2024 23:19:46 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A089BC2BBFC;
+ Fri, 24 May 2024 23:19:44 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,121 +42,79 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=RL4ZX7klA5U0PTSL6uIu8UyuYsdsyCmM2AhccTjf8pM=; b=iqnRXM4ynJoYV+BoE75/fDllwU
-	OMv7ohPnDZ45KU6nbaKaq+zXov8TWX0vzYbeYb5nM/PAc2ZCHiEiULtvQGTCIcOFd5NHhA79+L+uv
-	O0W7fctweS8KO5zt4MhZvuf40w70X4ardH0c/RjhluWEWr+K9Sqz4XHaxlmswe6QTsIw=;
-Message-ID: <0bd12ab7-98e3-4ef6-8305-5c78e95cab76@xen.org>
-Date: Sat, 25 May 2024 00:13:01 +0100
+X-Inumbo-ID: 1cae37b9-1a24-11ef-90a1-e314d9c70b13
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1716592786;
+	bh=Y8RlXmRX4MU9EfvBRdC6XMdY2PMPSUSBAEST/7avcQs=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=hMqGlYsPPCBOeqK6QvmrA2nq5vdENKDlK9opW7YtOBKLcNyRN4sj81JHygv7KuG98
+	 t8A6FzpxfOTYTL3AezGMBehsGF0vJJoIVwtqmE7YJFrqBeUPKyNqGMWZV+k5vlnwwf
+	 JVmz3u0m4gu0wJdhQb3uSYXe8HT/lv++prYKIJikqtC+xljbsTGMSMCLJD7VzrsV3Z
+	 XpQDXg3gmi/DYqmBU26KWPCxgEVE/6a5R7mRsJkWcJRj2sFZI7mdZCXsUz8ugjg5ng
+	 Oos5KsBz/mSENwbpPswdE05vwaV6E+duUJwvDBSLpwj0j1TMv/ROjJhqXQuqKoo59E
+	 mlHccUCl5Dd8Q==
+Date: Fri, 24 May 2024 16:19:43 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: =?UTF-8?Q?J=C3=BCrgen_Gro=C3=9F?= <jgross@suse.com>
+cc: Julien Grall <julien@xen.org>, Henry Wang <xin.wang2@amd.com>, 
+    xen-devel@lists.xenproject.org, 
+    Stefano Stabellini <sstabellini@kernel.org>, 
+    Bertrand Marquis <bertrand.marquis@arm.com>, 
+    Michal Orzel <michal.orzel@amd.com>, 
+    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
+    Alec Kwapis <alec.kwapis@medtronic.com>, 
+    "Daniel P . Smith" <dpsmith@apertussolutions.com>
+Subject: Re: [PATCH v3 2/4] xen/arm: Alloc XenStore page for Dom0less DomUs
+ from hypervisor
+In-Reply-To: <d3aca96b-2b6b-4bb8-99bf-7c0ede4c94fe@suse.com>
+Message-ID: <alpine.DEB.2.22.394.2405241614370.2557291@ubuntu-linux-20-04-desktop>
+References: <20240517032156.1490515-1-xin.wang2@amd.com> <20240517032156.1490515-3-xin.wang2@amd.com> <cf0a096a-0fe8-4d91-a064-910bd6c43951@xen.org> <d3aca96b-2b6b-4bb8-99bf-7c0ede4c94fe@suse.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 7/7] docs: Add device tree overlay documentation
-Content-Language: en-GB
-To: Stefano Stabellini <stefano.stabellini@amd.com>,
- xen-devel@lists.xenproject.org
-Cc: anthony@xenproject.org, sstabellini@kernel.org, bertrand.marquis@arm.com,
- michal.orzel@amd.com, Volodymyr_Babchuk@epam.com,
- Vikram Garhwal <fnu.vikram@xilinx.com>,
- Stefano Stabellini <stefano.stabellini@xilinx.com>,
- Henry Wang <xin.wang2@amd.com>
-References: <alpine.DEB.2.22.394.2405241515210.2557291@ubuntu-linux-20-04-desktop>
- <20240524221647.2860711-7-stefano.stabellini@amd.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <20240524221647.2860711-7-stefano.stabellini@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="8323329-2138729461-1716592786=:2557291"
 
-Hi Stefano,
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-On 24/05/2024 23:16, Stefano Stabellini wrote:
-> From: Vikram Garhwal <fnu.vikram@xilinx.com>
+--8323329-2138729461-1716592786=:2557291
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8BIT
+
+On Fri, 24 May 2024, Jürgen Groß wrote:
+> On 24.05.24 15:58, Julien Grall wrote:
+> > Hi Henry,
+> > 
+> > + Juergen as the Xenstore maintainers. I'd like his opinion on the approach.
+> > The documentation of the new logic is in:
+> > 
+> > https://lore.kernel.org/xen-devel/20240517032156.1490515-5-xin.wang2@amd.com/
+> > 
+> > FWIW I am happy in principle with the logic (this is what we discussed on
+> > the call last week). Some comments below.
 > 
-> Signed-off-by: Vikram Garhwal <fnu.vikram@xilinx.com>
-> Signed-off-by: Stefano Stabellini <stefano.stabellini@xilinx.com>
-> Signed-off-by: Henry Wang <xin.wang2@amd.com>
-> ---
->   docs/misc/arm/overlay.txt | 82 +++++++++++++++++++++++++++++++++++++++
->   1 file changed, 82 insertions(+)
->   create mode 100644 docs/misc/arm/overlay.txt
+> I'm not against this logic, but I'm wondering why it needs to be so
+> complicated.
+
+Actually the reason I like it is that in my view, this is the simplest
+approach. You allocate a domain, you also allocate the xenstore page
+together with it. Initially the xenstore connection has an
+"uninitialized" state, as it should be. That's it. At some point, when
+xenstored is ready, the state changes to CONNECTED.
+
+
+> Can't the domU itself allocate the Xenstore page from its RAM pages,
+> write the PFN into the Xenstore grant tab entry, and then make it
+> public via setting HVM_PARAM_STORE_PFN?
+
+This is not simpler in my view
+
+
+> The init-dom0less application could then check HVM_PARAM_STORE_PFN
+> being set and call XS_introduce_domain.
 > 
-> diff --git a/docs/misc/arm/overlay.txt b/docs/misc/arm/overlay.txt
-> new file mode 100644
-> index 0000000000..ef3ef792f7
-> --- /dev/null
-> +++ b/docs/misc/arm/overlay.txt
-> @@ -0,0 +1,82 @@
-> +# Device Tree Overlays support in Xen
-> +
-> +Xen experimentally supports dynamic device assignment to running
-> +domains, i.e. adding/removing nodes (using .dtbo) to/from Xen device
-> +tree, and attaching them to a running domain with given $domid.
-> +
-> +Dynamic node assignment works in two steps:
-> +
-> +## Add/Remove device tree overlay to/from Xen device tree
-> +
-> +1. Xen tools check the dtbo given and parse all other user provided arguments
-> +2. Xen tools pass the dtbo to Xen hypervisor via hypercall.
-> +3. Xen hypervisor applies/removes the dtbo to/from Xen device tree.
-> +
-> +## Attach device from the DT overlay to domain
-> +
-> +1. Xen tools check the dtbo given and parse all other user provided arguments
-> +2. Xen tools pass the dtbo to Xen hypervisor via hypercall.
-> +3. Xen hypervisor attach the device to the user-provided $domid by
-> +   mapping node resources in the DT overlay.
-> +
-> +# Examples
-> +
-> +Here are a few examples on how to use it.
-> +
-> +## Dom0 device add
-> +
-> +For assigning a device tree overlay to Dom0, user should firstly properly
-> +prepare the DT overlay. More information about device tree overlays can be
-> +found in [1]. Then, in Dom0, enter the following:
-> +
-> +    (dom0) xl dt-overlay add overlay.dtbo
-> +
-> +This will allocate the devices mentioned in overlay.dtbo to Xen device tree.
-> +
-> +To assign the newly added device from the dtbo to Dom0:
-> +
-> +    (dom0) xl dt-overlay attach overlay.dtbo 0
-> +
-> +Next, if the user wants to add the same device tree overlay to dom0
-> +Linux, execute the following:
-> +
-> +    (dom0) mkdir -p /sys/kernel/config/device-tree/overlays/new_overlay
-> +    (dom0) cat overlay.dtbo > /sys/kernel/config/device-tree/overlays/new_overlay/dtbo
-> +
-> +Finally if needed, the relevant Linux kernel drive can be loaded using:
-> +
-> +    (dom0) modprobe module_name.ko
-> +
-> +## DomU device add/remove
-> +
-> +All the nodes in dtbo will be assigned to one domain. The user will need
-> +to prepare a different dtbo for the domU. For example, the
-> +`interrupt-parent` property of the DomU overlay should be changed to the
-> +Xen hardcoded value `0xfde8` and the xen,reg property should be added to
-> +specify the address mappings. If the domain is not 1:1 mapped, xen,reg
-> +must be present. See the xen,reg format description in
-> +docs/misc/arm/passthrough.txt. Below assumes the properly written DomU
-> +dtbo is `overlay_domu.dtbo`.
-> +
-> +You need to set the `passthrough` property in the xl config file if you
-
-s/You need/The user needs/ to match the rest of the documentation.
-
-With that addresed:
-
-Reviewed-by: Julien Grall <jgrall@amazon.com>
-
-Cheers,
-
--- 
-Julien Grall
+> Note that at least C-xenstored does not need the PFN of the Xenstore
+> page, as it is just using GNTTAB_RESERVED_XENSTORE for mapping the
+> page.
+--8323329-2138729461-1716592786=:2557291--
 
