@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EE7278CE4BE
-	for <lists+xen-devel@lfdr.de>; Fri, 24 May 2024 13:09:22 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.729363.1134565 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 31EBC8CE4BF
+	for <lists+xen-devel@lfdr.de>; Fri, 24 May 2024 13:09:23 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.729364.1134572 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sASnO-0005CM-Mc; Fri, 24 May 2024 11:09:10 +0000
+	id 1sASnP-0005Jq-9s; Fri, 24 May 2024 11:09:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 729363.1134565; Fri, 24 May 2024 11:09:10 +0000
+Received: by outflank-mailman (output) from mailman id 729364.1134572; Fri, 24 May 2024 11:09:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sASnO-00053h-Gu; Fri, 24 May 2024 11:09:10 +0000
-Received: by outflank-mailman (input) for mailman id 729363;
- Fri, 24 May 2024 11:09:08 +0000
+	id 1sASnP-0005CV-1z; Fri, 24 May 2024 11:09:11 +0000
+Received: by outflank-mailman (input) for mailman id 729364;
+ Fri, 24 May 2024 11:09:09 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=vqrK=M3=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1sASnM-0003Cz-Bu
- for xen-devel@lists.xenproject.org; Fri, 24 May 2024 11:09:08 +0000
-Received: from mail-lj1-x235.google.com (mail-lj1-x235.google.com
- [2a00:1450:4864:20::235])
+ id 1sASnN-0003Cz-Bt
+ for xen-devel@lists.xenproject.org; Fri, 24 May 2024 11:09:09 +0000
+Received: from mail-lf1-x135.google.com (mail-lf1-x135.google.com
+ [2a00:1450:4864:20::135])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 0919f488-19be-11ef-b4bb-af5377834399;
+ id 09aac8da-19be-11ef-b4bb-af5377834399;
  Fri, 24 May 2024 13:09:06 +0200 (CEST)
-Received: by mail-lj1-x235.google.com with SMTP id
- 38308e7fff4ca-2e576057c2bso128759731fa.1
+Received: by mail-lf1-x135.google.com with SMTP id
+ 2adb3069b0e04-529614b8c29so1080110e87.2
  for <xen-devel@lists.xenproject.org>; Fri, 24 May 2024 04:09:06 -0700 (PDT)
 Received: from fedora.. ([94.75.70.14]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a626c817c81sm116051366b.28.2024.05.24.04.09.04
+ a640c23a62f3a-a626c817c81sm116051366b.28.2024.05.24.04.09.05
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 24 May 2024 04:09:04 -0700 (PDT)
+ Fri, 24 May 2024 04:09:05 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,36 +44,36 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0919f488-19be-11ef-b4bb-af5377834399
+X-Inumbo-ID: 09aac8da-19be-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1716548945; x=1717153745; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1716548946; x=1717153746; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=8soMyFnI8t1ld70bWlw2X55VwVVkeYWhI/zk046fYOA=;
-        b=HEx2jywNHGwkZybkNLgWDx0mC/+qt5l3sGLf5NuXHUO2IZ3pvcEPgRdojYbVvmgJCs
-         W9FbAAPhiN58yur60+rodF1S2FBgRbalhhVofLW4xH6B0eFHS9Vd9P9O6uUFrYkRdsBl
-         Cks38qS1vTJKEZlmdK595VFkdfm4Mc8HwcjRsibATWSieDcmNUz0ppCdqeGDKFHmGfgi
-         dAD44s83iY6SRVbah91TAey0vl0QWc2h+RpetKzUUR2/e3Ff4/pd4umohcASkGP3pjw+
-         jVPhUst6XIa6PPQwamm8rUV+ya/Ca/HgIb5Vt7Oul6Pi4yI4ySCOUr/Z3i/ly/clqlXD
-         8Tfw==
+        bh=b94wI6kNLTmJ8tMNKvMfG5/MPujiYvHPiuL4CtLKoSc=;
+        b=TGApL4xbpj1bi+C+A/R1tnjLrosORRiReivdaxuhQOpKsnNvCNJ+0seR7+K0OZpTlo
+         sUo+XqjON0yg0Xr5KPiOj5+KCToKwH4dvXM5AS4D/Eml9gfVI67C1ignHcYCfTfW8V4d
+         sKgxw8BEyaQFuBYwBQpjfynBvC7MiK5rrFdHSzFJRCt3EpxSJXh688seRzHWcrwBJ5iU
+         vCa2xMa87+iHMeNVjZVBq7v3YFM0HL8Pu2pILBHqTBbKISXCt50nfiRmYyz/umwAFU6e
+         a6MtJ9GSnkVeF4r31tMNiuPakaoQnXKgVQGN8gTbXiFIT9PZXy7GXX+VrgNN6q1D9TYm
+         Hc3w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1716548945; x=1717153745;
+        d=1e100.net; s=20230601; t=1716548946; x=1717153746;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=8soMyFnI8t1ld70bWlw2X55VwVVkeYWhI/zk046fYOA=;
-        b=RKJikxWZunn7LmUCDZdlokyHaTFzH6JYdLmhPUlaakiB74+RpooJJmCODOiFNBF02B
-         9wP210vDUDXyvI1OCLEiWfiZEQHdW6xj8gQvGS91cpp2WfAsFADAFZWyuvW48K7hXXSG
-         J0cPDG0Hr5ZGWH1XzrRGAPSacLFVJZf4aVGcdsHy8aP3HdwLvXGSQxcbm049xR2ICIed
-         5NfPj83EcWVggRulK4vM/ik+oTEvxY8HVWP2PHW1XmDvOtpq7YgzNgDbW48c799ZvhuH
-         IP3VTqYSiDy9P5yi1PqWUyKWkdOXAIIZHegntPiy71DMOsmZbNYsigM4Eo/Jv15IFfWK
-         kbXg==
-X-Gm-Message-State: AOJu0Yz5m+G8ZV811FkSj1fShJBeKVdjNf7BfylMPsjzLYinjd9Sl0Cx
-	+t1zxocMYjfVGjF8Cce1GETATnGCAeeixX9O14uQzk1JYEldnngSDQy7D6/E
-X-Google-Smtp-Source: AGHT+IFMmS7tWE3sAjBB+4Kh33RHI5xwLFwXue+VgMCUrIRS+RXeg5+XNW1aif+08Wj0lxUzWN07Qg==
-X-Received: by 2002:a2e:b2c7:0:b0:2e8:5d2:5e9b with SMTP id 38308e7fff4ca-2e95b096b9cmr17169121fa.13.1716548945146;
-        Fri, 24 May 2024 04:09:05 -0700 (PDT)
+        bh=b94wI6kNLTmJ8tMNKvMfG5/MPujiYvHPiuL4CtLKoSc=;
+        b=R5bDn17ycChOAUX2Nq4Qbjw2NAsVDpwpSy1nsdC9x839okL7JPI8SnGdwKTKtc+wlG
+         p4zoZjC9CxoxUn9Ty7bpF5yDuBPtij2O5qlg/bI6UT+rn02XfYJe57ZMxTp9hfnF+5A5
+         6dWRc4bkRPAnCOTvINZK6GPhmCwLixdMDX8aJBbdz6MAc07+PsEGdSy49sOiiS8ubA7H
+         JfzbT1B37Wkm96dYrEwoFtoGsSscdsGMZyaDEu87yyXoix/OfFRCYQPPMw4nZuuwdg3q
+         NbCKtLEFD3t79+F3zNDvU2j4pVBILfe8Dtok0kQsQu1V7FdqXtinTabRXndwuEdp2ofz
+         aSBQ==
+X-Gm-Message-State: AOJu0YzATpinc9dqHr10zXU+MqqBlK8oQc9+fBM1rR1sluWGb1VA4RVk
+	nF7TR39MxXvsHbaZFAwGRpzgw89eiBArDZfQNFoObPCiVImfU4PdRhH58tLS
+X-Google-Smtp-Source: AGHT+IGTH7Y8u4ycvlLBGeDfRcjwpph4JM2NgKLV/prJHx2KwU7K2TBeDUfL+BiJjbWFST7ABLYYbA==
+X-Received: by 2002:ac2:4c49:0:b0:51d:8842:f0b8 with SMTP id 2adb3069b0e04-5296529053bmr2240082e87.13.1716548946203;
+        Fri, 24 May 2024 04:09:06 -0700 (PDT)
 From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 To: xen-devel@lists.xenproject.org
 Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
@@ -85,9 +85,9 @@ Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
 	Jan Beulich <jbeulich@suse.com>,
 	Julien Grall <julien@xen.org>,
 	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH v11 7/9] xen/riscv: add minimal amount of stubs to build full Xen
-Date: Fri, 24 May 2024 13:08:53 +0200
-Message-ID: <94d628999fd4cf32d7ca82a5f6f20297d06d3cef.1716547693.git.oleksii.kurochko@gmail.com>
+Subject: [PATCH v11 8/9] xen/riscv: enable full Xen build
+Date: Fri, 24 May 2024 13:08:54 +0200
+Message-ID: <0a684923efb23fb6094aeab680022b6b14196eef.1716547693.git.oleksii.kurochko@gmail.com>
 X-Mailer: git-send-email 2.45.0
 In-Reply-To: <cover.1716547693.git.oleksii.kurochko@gmail.com>
 References: <cover.1716547693.git.oleksii.kurochko@gmail.com>
@@ -95,646 +95,292 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
 Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Acked-by: Jan Beulich <jbeulich@suse.com>
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
 ---
-Changes in V7-V11:
- - Only rebase was done.
+ At least this patch cann't be merged w/o Andrew's patch series is merged as ffs related
+ functions are used from that patch series:
+  https://lore.kernel.org/xen-devel/20240313172716.2325427-1-andrew.cooper3@citrix.com/T/#t
 ---
-Changes in V6:
- - update the commit in stubs.c around /* ... common/irq.c ... */
- - add Acked-by: Jan Beulich <jbeulich@suse.com>
----
-Changes in V5:
- - drop unrelated changes
- - assert_failed("unimplmented...") change to BUG_ON()
+Changes in V5-V11:
+ - Nothing changed. Only rebase.
+ - Add the footer after Signed-off section.
 ---
 Changes in V4:
-  - added new stubs which are necessary for compilation after rebase: __cpu_up(), __cpu_disable(), __cpu_die()
-    from smpboot.c
-  - back changes related to printk() in early_printk() as they should be removed in the next patch to avoid
-    compilation error.
-  - update definition of cpu_khz: __read_mostly -> __ro_after_init.
-  - drop vm_event_reset_vmtrace(). It is defibed in asm-generic/vm_event.h.
-  - move vm_event_*() functions from stubs.c to riscv/vm_event.c.
-  - s/BUG/BUG_ON("unimplemented") in stubs.c
-  - back irq_actor_none() and irq_actor_none() as common/irq.c isn't compiled at this moment,
-    so this function are needed to avoid compilation error.
-  - defined max_page to avoid compilation error, it will be removed as soon as common/page_alloc.c will
-    be compiled.
+ - drop stubs for irq_actor_none() and irq_actor_none() as common/irq.c is compiled now.
+ - drop defintion of max_page in stubs.c as common/page_alloc.c is compiled now.
+ - drop printk() related changes in riscv/early_printk.c as common version will be used.
 ---
 Changes in V3:
- - code style fixes.
- - update attribute for frametable_base_pdx  and frametable_virt_end to __ro_after_init.
-   insteaf of read_mostly.
- - use BUG() instead of assert_failed/WARN for newly introduced stubs.
- - drop "#include <public/vm_event.h>" in stubs.c and use forward declaration instead.
- - drop ack_node() and end_node() as they aren't used now.
+ - Reviewed-by: Jan Beulich <jbeulich@suse.com>
+ - unrealted change dropped in tiny64_defconfig
 ---
 Changes in V2:
- - define udelay stub
- - remove 'select HAS_PDX' from RISC-V Kconfig because of
-   https://lore.kernel.org/xen-devel/20231006144405.1078260-1-andrew.cooper3@citrix.com/
+ - Nothing changed. Only rebase.
 ---
- xen/arch/riscv/Makefile |   1 +
- xen/arch/riscv/mm.c     |  50 +++++
- xen/arch/riscv/setup.c  |   8 +
- xen/arch/riscv/stubs.c  | 439 ++++++++++++++++++++++++++++++++++++++++
- xen/arch/riscv/traps.c  |  25 +++
- 5 files changed, 523 insertions(+)
- create mode 100644 xen/arch/riscv/stubs.c
+
+ xen/arch/riscv/Makefile       |  16 +++-
+ xen/arch/riscv/arch.mk        |   4 -
+ xen/arch/riscv/early_printk.c | 168 ----------------------------------
+ xen/arch/riscv/stubs.c        |  24 -----
+ 4 files changed, 15 insertions(+), 197 deletions(-)
 
 diff --git a/xen/arch/riscv/Makefile b/xen/arch/riscv/Makefile
-index 1ed1a8369b..60afbc0ad9 100644
+index 60afbc0ad9..81b77b13d6 100644
 --- a/xen/arch/riscv/Makefile
 +++ b/xen/arch/riscv/Makefile
-@@ -4,6 +4,7 @@ obj-y += mm.o
- obj-$(CONFIG_RISCV_64) += riscv64/
- obj-y += sbi.o
- obj-y += setup.o
-+obj-y += stubs.o
- obj-y += traps.o
- obj-y += vm_event.o
+@@ -12,10 +12,24 @@ $(TARGET): $(TARGET)-syms
+ 	$(OBJCOPY) -O binary -S $< $@
  
-diff --git a/xen/arch/riscv/mm.c b/xen/arch/riscv/mm.c
-index fe3a43be20..2c3fb7d72e 100644
---- a/xen/arch/riscv/mm.c
-+++ b/xen/arch/riscv/mm.c
-@@ -1,5 +1,6 @@
- /* SPDX-License-Identifier: GPL-2.0-only */
+ $(TARGET)-syms: $(objtree)/prelink.o $(obj)/xen.lds
+-	$(LD) $(XEN_LDFLAGS) -T $(obj)/xen.lds -N $< $(build_id_linker) -o $@
++	$(LD) $(XEN_LDFLAGS) -T $(obj)/xen.lds -N $< \
++	    $(objtree)/common/symbols-dummy.o -o $(dot-target).0
++	$(NM) -pa --format=sysv $(dot-target).0 \
++		| $(objtree)/tools/symbols $(all_symbols) --sysv --sort \
++		> $(dot-target).0.S
++	$(MAKE) $(build)=$(@D) $(dot-target).0.o
++	$(LD) $(XEN_LDFLAGS) -T $(obj)/xen.lds -N $< \
++	    $(dot-target).0.o -o $(dot-target).1
++	$(NM) -pa --format=sysv $(dot-target).1 \
++		| $(objtree)/tools/symbols $(all_symbols) --sysv --sort \
++		> $(dot-target).1.S
++	$(MAKE) $(build)=$(@D) $(dot-target).1.o
++	$(LD) $(XEN_LDFLAGS) -T $(obj)/xen.lds -N $< $(build_id_linker) \
++	    $(dot-target).1.o -o $@
+ 	$(NM) -pa --format=sysv $@ \
+ 		| $(objtree)/tools/symbols --all-symbols --xensyms --sysv --sort \
+ 		> $@.map
++	rm -f $(@D)/.$(@F).[0-9]*
  
-+#include <xen/bug.h>
- #include <xen/cache.h>
- #include <xen/compiler.h>
- #include <xen/init.h>
-@@ -14,6 +15,9 @@
- #include <asm/page.h>
- #include <asm/processor.h>
+ $(obj)/xen.lds: $(src)/xen.lds.S FORCE
+ 	$(call if_changed_dep,cpp_lds_S)
+diff --git a/xen/arch/riscv/arch.mk b/xen/arch/riscv/arch.mk
+index 8c071aff65..17827c302c 100644
+--- a/xen/arch/riscv/arch.mk
++++ b/xen/arch/riscv/arch.mk
+@@ -38,7 +38,3 @@ extensions := $(subst $(space),,$(extensions))
+ # -mcmodel=medlow would force Xen into the lower half.
  
-+unsigned long __ro_after_init frametable_base_pdx;
-+unsigned long __ro_after_init frametable_virt_end;
-+
- struct mmu_desc {
-     unsigned int num_levels;
-     unsigned int pgtbl_count;
-@@ -294,3 +298,49 @@ unsigned long __init calc_phys_offset(void)
-     phys_offset = load_start - XEN_VIRT_START;
-     return phys_offset;
+ CFLAGS += $(riscv-generic-flags)$(extensions) -mstrict-align -mcmodel=medany
+-
+-# TODO: Drop override when more of the build is working
+-override ALL_OBJS-y = arch/$(SRCARCH)/built_in.o
+-override ALL_LIBS-y =
+diff --git a/xen/arch/riscv/early_printk.c b/xen/arch/riscv/early_printk.c
+index 60742a042d..610c814f54 100644
+--- a/xen/arch/riscv/early_printk.c
++++ b/xen/arch/riscv/early_printk.c
+@@ -40,171 +40,3 @@ void early_printk(const char *str)
+         str++;
+     }
  }
-+
-+void put_page(struct page_info *page)
-+{
-+    BUG_ON("unimplemented");
-+}
-+
-+unsigned long get_upper_mfn_bound(void)
-+{
-+    /* No memory hotplug yet, so current memory limit is the final one. */
-+    return max_page - 1;
-+}
-+
-+void arch_dump_shared_mem_info(void)
-+{
-+    BUG_ON("unimplemented");
-+}
-+
-+int populate_pt_range(unsigned long virt, unsigned long nr_mfns)
-+{
-+    BUG_ON("unimplemented");
-+    return -1;
-+}
-+
-+int xenmem_add_to_physmap_one(struct domain *d, unsigned int space,
-+                              union add_to_physmap_extra extra,
-+                              unsigned long idx, gfn_t gfn)
-+{
-+    BUG_ON("unimplemented");
-+
-+    return 0;
-+}
-+
-+int destroy_xen_mappings(unsigned long s, unsigned long e)
-+{
-+    BUG_ON("unimplemented");
-+    return -1;
-+}
-+
-+int map_pages_to_xen(unsigned long virt,
-+                     mfn_t mfn,
-+                     unsigned long nr_mfns,
-+                     unsigned int flags)
-+{
-+    BUG_ON("unimplemented");
-+    return -1;
-+}
-diff --git a/xen/arch/riscv/setup.c b/xen/arch/riscv/setup.c
-index 98a94c4c48..8bb5bdb2ae 100644
---- a/xen/arch/riscv/setup.c
-+++ b/xen/arch/riscv/setup.c
-@@ -1,11 +1,19 @@
- /* SPDX-License-Identifier: GPL-2.0-only */
- 
-+#include <xen/bug.h>
- #include <xen/compile.h>
- #include <xen/init.h>
- #include <xen/mm.h>
- 
-+#include <public/version.h>
-+
- #include <asm/early_printk.h>
- 
-+void arch_get_xen_caps(xen_capabilities_info_t *info)
-+{
-+    BUG_ON("unimplemented");
-+}
-+
- /* Xen stack for bringing up the first CPU. */
- unsigned char __initdata cpu0_boot_stack[STACK_SIZE]
-     __aligned(STACK_SIZE);
+-
+-/*
+- * The following #if 1 ... #endif should be removed after printk
+- * and related stuff are ready.
+- */
+-#if 1
+-
+-#include <xen/stdarg.h>
+-#include <xen/string.h>
+-
+-/**
+- * strlen - Find the length of a string
+- * @s: The string to be sized
+- */
+-size_t (strlen)(const char * s)
+-{
+-    const char *sc;
+-
+-    for (sc = s; *sc != '\0'; ++sc)
+-        /* nothing */;
+-    return sc - s;
+-}
+-
+-/**
+- * memcpy - Copy one area of memory to another
+- * @dest: Where to copy to
+- * @src: Where to copy from
+- * @count: The size of the area.
+- *
+- * You should not use this function to access IO space, use memcpy_toio()
+- * or memcpy_fromio() instead.
+- */
+-void *(memcpy)(void *dest, const void *src, size_t count)
+-{
+-    char *tmp = (char *) dest, *s = (char *) src;
+-
+-    while (count--)
+-        *tmp++ = *s++;
+-
+-    return dest;
+-}
+-
+-int vsnprintf(char* str, size_t size, const char* format, va_list args)
+-{
+-    size_t i = 0; /* Current position in the output string */
+-    size_t written = 0; /* Total number of characters written */
+-    char* dest = str;
+-
+-    while ( format[i] != '\0' && written < size - 1 )
+-    {
+-        if ( format[i] == '%' )
+-        {
+-            i++;
+-
+-            if ( format[i] == '\0' )
+-                break;
+-
+-            if ( format[i] == '%' )
+-            {
+-                if ( written < size - 1 )
+-                {
+-                    dest[written] = '%';
+-                    written++;
+-                }
+-                i++;
+-                continue;
+-            }
+-
+-            /*
+-             * Handle format specifiers.
+-             * For simplicity, only %s and %d are implemented here.
+-             */
+-
+-            if ( format[i] == 's' )
+-            {
+-                char* arg = va_arg(args, char*);
+-                size_t arglen = strlen(arg);
+-
+-                size_t remaining = size - written - 1;
+-
+-                if ( arglen > remaining )
+-                    arglen = remaining;
+-
+-                memcpy(dest + written, arg, arglen);
+-
+-                written += arglen;
+-                i++;
+-            }
+-            else if ( format[i] == 'd' )
+-            {
+-                int arg = va_arg(args, int);
+-
+-                /* Convert the integer to string representation */
+-                char numstr[32]; /* Assumes a maximum of 32 digits */
+-                int numlen = 0;
+-                int num = arg;
+-                size_t remaining;
+-
+-                if ( arg < 0 )
+-                {
+-                    if ( written < size - 1 )
+-                    {
+-                        dest[written] = '-';
+-                        written++;
+-                    }
+-
+-                    num = -arg;
+-                }
+-
+-                do
+-                {
+-                    numstr[numlen] = '0' + num % 10;
+-                    num = num / 10;
+-                    numlen++;
+-                } while ( num > 0 );
+-
+-                /* Reverse the string */
+-                for (int j = 0; j < numlen / 2; j++)
+-                {
+-                    char tmp = numstr[j];
+-                    numstr[j] = numstr[numlen - 1 - j];
+-                    numstr[numlen - 1 - j] = tmp;
+-                }
+-
+-                remaining = size - written - 1;
+-
+-                if ( numlen > remaining )
+-                    numlen = remaining;
+-
+-                memcpy(dest + written, numstr, numlen);
+-
+-                written += numlen;
+-                i++;
+-            }
+-        }
+-        else
+-        {
+-            if ( written < size - 1 )
+-            {
+-                dest[written] = format[i];
+-                written++;
+-            }
+-            i++;
+-        }
+-    }
+-
+-    if ( size > 0 )
+-        dest[written] = '\0';
+-
+-    return written;
+-}
+-
+-void printk(const char *format, ...)
+-{
+-    static char buf[1024];
+-
+-    va_list args;
+-    va_start(args, format);
+-
+-    (void)vsnprintf(buf, sizeof(buf), format, args);
+-
+-    early_printk(buf);
+-
+-    va_end(args);
+-}
+-
+-#endif
+-
 diff --git a/xen/arch/riscv/stubs.c b/xen/arch/riscv/stubs.c
-new file mode 100644
-index 0000000000..8285bcffef
---- /dev/null
+index 8285bcffef..bda35fc347 100644
+--- a/xen/arch/riscv/stubs.c
 +++ b/xen/arch/riscv/stubs.c
-@@ -0,0 +1,439 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
-+#include <xen/cpumask.h>
-+#include <xen/domain.h>
-+#include <xen/irq.h>
-+#include <xen/nodemask.h>
-+#include <xen/time.h>
-+#include <public/domctl.h>
-+
-+#include <asm/current.h>
-+
-+/* smpboot.c */
-+
-+cpumask_t cpu_online_map;
-+cpumask_t cpu_present_map;
-+cpumask_t cpu_possible_map;
-+
-+/* ID of the PCPU we're running on */
-+DEFINE_PER_CPU(unsigned int, cpu_id);
-+/* XXX these seem awfully x86ish... */
-+/* representing HT siblings of each logical CPU */
-+DEFINE_PER_CPU_READ_MOSTLY(cpumask_var_t, cpu_sibling_mask);
-+/* representing HT and core siblings of each logical CPU */
-+DEFINE_PER_CPU_READ_MOSTLY(cpumask_var_t, cpu_core_mask);
-+
-+nodemask_t __read_mostly node_online_map = { { [0] = 1UL } };
-+
-+/*
-+ * max_page is defined in page_alloc.c which isn't complied for now.
-+ * definition of max_page will be remove as soon as page_alloc is built.
-+ */
-+unsigned long __read_mostly max_page;
-+
-+/* time.c */
-+
-+unsigned long __ro_after_init cpu_khz;  /* CPU clock frequency in kHz. */
-+
-+s_time_t get_s_time(void)
-+{
-+    BUG_ON("unimplemented");
-+}
-+
-+int reprogram_timer(s_time_t timeout)
-+{
-+    BUG_ON("unimplemented");
-+}
-+
-+void send_timer_event(struct vcpu *v)
-+{
-+    BUG_ON("unimplemented");
-+}
-+
-+void domain_set_time_offset(struct domain *d, int64_t time_offset_seconds)
-+{
-+    BUG_ON("unimplemented");
-+}
-+
-+/* shutdown.c */
-+
-+void machine_restart(unsigned int delay_millisecs)
-+{
-+    BUG_ON("unimplemented");
-+}
-+
-+void machine_halt(void)
-+{
-+    BUG_ON("unimplemented");
-+}
-+
-+/* domctl.c */
-+
-+long arch_do_domctl(struct xen_domctl *domctl, struct domain *d,
-+                    XEN_GUEST_HANDLE_PARAM(xen_domctl_t) u_domctl)
-+{
-+    BUG_ON("unimplemented");
-+}
-+
-+void arch_get_domain_info(const struct domain *d,
-+                          struct xen_domctl_getdomaininfo *info)
-+{
-+    BUG_ON("unimplemented");
-+}
-+
-+void arch_get_info_guest(struct vcpu *v, vcpu_guest_context_u c)
-+{
-+    BUG_ON("unimplemented");
-+}
-+
-+/* monitor.c */
-+
-+int arch_monitor_domctl_event(struct domain *d,
-+                              struct xen_domctl_monitor_op *mop)
-+{
-+    BUG_ON("unimplemented");
-+}
-+
-+/* smp.c */
-+
-+void arch_flush_tlb_mask(const cpumask_t *mask)
-+{
-+    BUG_ON("unimplemented");
-+}
-+
-+void smp_send_event_check_mask(const cpumask_t *mask)
-+{
-+    BUG_ON("unimplemented");
-+}
-+
-+void smp_send_call_function_mask(const cpumask_t *mask)
-+{
-+    BUG_ON("unimplemented");
-+}
-+
-+/* irq.c */
-+
-+struct pirq *alloc_pirq_struct(struct domain *d)
-+{
-+    BUG_ON("unimplemented");
-+}
-+
-+int pirq_guest_bind(struct vcpu *v, struct pirq *pirq, int will_share)
-+{
-+    BUG_ON("unimplemented");
-+}
-+
-+void pirq_guest_unbind(struct domain *d, struct pirq *pirq)
-+{
-+    BUG_ON("unimplemented");
-+}
-+
-+void pirq_set_affinity(struct domain *d, int pirq, const cpumask_t *mask)
-+{
-+    BUG_ON("unimplemented");
-+}
-+
-+hw_irq_controller no_irq_type = {
-+    .typename = "none",
-+    .startup = irq_startup_none,
-+    .shutdown = irq_shutdown_none,
-+    .enable = irq_enable_none,
-+    .disable = irq_disable_none,
-+};
-+
-+int arch_init_one_irq_desc(struct irq_desc *desc)
-+{
-+    BUG_ON("unimplemented");
-+}
-+
-+void smp_send_state_dump(unsigned int cpu)
-+{
-+    BUG_ON("unimplemented");
-+}
-+
-+/* domain.c */
-+
-+DEFINE_PER_CPU(struct vcpu *, curr_vcpu);
-+unsigned long __per_cpu_offset[NR_CPUS];
-+
-+void context_switch(struct vcpu *prev, struct vcpu *next)
-+{
-+    BUG_ON("unimplemented");
-+}
-+
-+void continue_running(struct vcpu *same)
-+{
-+    BUG_ON("unimplemented");
-+}
-+
-+void sync_local_execstate(void)
-+{
-+    BUG_ON("unimplemented");
-+}
-+
-+void sync_vcpu_execstate(struct vcpu *v)
-+{
-+    BUG_ON("unimplemented");
-+}
-+
-+void startup_cpu_idle_loop(void)
-+{
-+    BUG_ON("unimplemented");
-+}
-+
-+void free_domain_struct(struct domain *d)
-+{
-+    BUG_ON("unimplemented");
-+}
-+
-+void dump_pageframe_info(struct domain *d)
-+{
-+    BUG_ON("unimplemented");
-+}
-+
-+void free_vcpu_struct(struct vcpu *v)
-+{
-+    BUG_ON("unimplemented");
-+}
-+
-+int arch_vcpu_create(struct vcpu *v)
-+{
-+    BUG_ON("unimplemented");
-+}
-+
-+void arch_vcpu_destroy(struct vcpu *v)
-+{
-+    BUG_ON("unimplemented");
-+}
-+
-+void vcpu_switch_to_aarch64_mode(struct vcpu *v)
-+{
-+    BUG_ON("unimplemented");
-+}
-+
-+int arch_sanitise_domain_config(struct xen_domctl_createdomain *config)
-+{
-+    BUG_ON("unimplemented");
-+}
-+
-+int arch_domain_create(struct domain *d,
-+                       struct xen_domctl_createdomain *config,
-+                       unsigned int flags)
-+{
-+    BUG_ON("unimplemented");
-+}
-+
-+int arch_domain_teardown(struct domain *d)
-+{
-+    BUG_ON("unimplemented");
-+}
-+
-+void arch_domain_destroy(struct domain *d)
-+{
-+    BUG_ON("unimplemented");
-+}
-+
-+void arch_domain_shutdown(struct domain *d)
-+{
-+    BUG_ON("unimplemented");
-+}
-+
-+void arch_domain_pause(struct domain *d)
-+{
-+    BUG_ON("unimplemented");
-+}
-+
-+void arch_domain_unpause(struct domain *d)
-+{
-+    BUG_ON("unimplemented");
-+}
-+
-+int arch_domain_soft_reset(struct domain *d)
-+{
-+    BUG_ON("unimplemented");
-+}
-+
-+void arch_domain_creation_finished(struct domain *d)
-+{
-+    BUG_ON("unimplemented");
-+}
-+
-+int arch_set_info_guest(struct vcpu *v, vcpu_guest_context_u c)
-+{
-+    BUG_ON("unimplemented");
-+}
-+
-+int arch_initialise_vcpu(struct vcpu *v, XEN_GUEST_HANDLE_PARAM(void) arg)
-+{
-+    BUG_ON("unimplemented");
-+}
-+
-+int arch_vcpu_reset(struct vcpu *v)
-+{
-+    BUG_ON("unimplemented");
-+}
-+
-+int domain_relinquish_resources(struct domain *d)
-+{
-+    BUG_ON("unimplemented");
-+}
-+
-+void arch_dump_domain_info(struct domain *d)
-+{
-+    BUG_ON("unimplemented");
-+}
-+
-+void arch_dump_vcpu_info(struct vcpu *v)
-+{
-+    BUG_ON("unimplemented");
-+}
-+
-+void vcpu_mark_events_pending(struct vcpu *v)
-+{
-+    BUG_ON("unimplemented");
-+}
-+
-+void vcpu_update_evtchn_irq(struct vcpu *v)
-+{
-+    BUG_ON("unimplemented");
-+}
-+
-+void vcpu_block_unless_event_pending(struct vcpu *v)
-+{
-+    BUG_ON("unimplemented");
-+}
-+
-+void vcpu_kick(struct vcpu *v)
-+{
-+    BUG_ON("unimplemented");
-+}
-+
-+struct domain *alloc_domain_struct(void)
-+{
-+    BUG_ON("unimplemented");
-+}
-+
-+struct vcpu *alloc_vcpu_struct(const struct domain *d)
-+{
-+    BUG_ON("unimplemented");
-+}
-+
-+unsigned long
-+hypercall_create_continuation(unsigned int op, const char *format, ...)
-+{
-+    BUG_ON("unimplemented");
-+}
-+
-+int __init parse_arch_dom0_param(const char *s, const char *e)
-+{
-+    BUG_ON("unimplemented");
-+}
-+
-+/* guestcopy.c */
-+
-+unsigned long raw_copy_to_guest(void *to, const void *from, unsigned int len)
-+{
-+    BUG_ON("unimplemented");
-+}
-+
-+unsigned long raw_copy_from_guest(void *to, const void __user *from,
-+                                  unsigned int len)
-+{
-+    BUG_ON("unimplemented");
-+}
-+
-+/* sysctl.c */
-+
-+long arch_do_sysctl(struct xen_sysctl *sysctl,
-+                    XEN_GUEST_HANDLE_PARAM(xen_sysctl_t) u_sysctl)
-+{
-+    BUG_ON("unimplemented");
-+}
-+
-+void arch_do_physinfo(struct xen_sysctl_physinfo *pi)
-+{
-+    BUG_ON("unimplemented");
-+}
-+
-+/* p2m.c */
-+
-+int arch_set_paging_mempool_size(struct domain *d, uint64_t size)
-+{
-+    BUG_ON("unimplemented");
-+}
-+
-+int unmap_mmio_regions(struct domain *d,
-+                       gfn_t start_gfn,
-+                       unsigned long nr,
-+                       mfn_t mfn)
-+{
-+    BUG_ON("unimplemented");
-+}
-+
-+int map_mmio_regions(struct domain *d,
-+                     gfn_t start_gfn,
-+                     unsigned long nr,
-+                     mfn_t mfn)
-+{
-+    BUG_ON("unimplemented");
-+}
-+
-+int set_foreign_p2m_entry(struct domain *d, const struct domain *fd,
-+                          unsigned long gfn, mfn_t mfn)
-+{
-+    BUG_ON("unimplemented");
-+}
-+
-+/* Return the size of the pool, in bytes. */
-+int arch_get_paging_mempool_size(struct domain *d, uint64_t *size)
-+{
-+    BUG_ON("unimplemented");
-+}
-+
-+/* delay.c */
-+
-+void udelay(unsigned long usecs)
-+{
-+    BUG_ON("unimplemented");
-+}
-+
-+/* guest_access.h */ 
-+
-+static inline unsigned long raw_clear_guest(void *to, unsigned int len)
-+{
-+    BUG_ON("unimplemented");
-+}
-+
-+/* smpboot.c */
-+
-+int __cpu_up(unsigned int cpu)
-+{
-+    BUG_ON("unimplemented");
-+}
-+
-+void __cpu_disable(void)
-+{
-+    BUG_ON("unimplemented");
-+}
-+
-+void __cpu_die(unsigned int cpu)
-+{
-+    BUG_ON("unimplemented");
-+}
-+
-+/*
-+ * The following functions are defined in common/irq.c, but common/irq.c isn't
-+ * built for now. These changes will be removed there when common/irq.c is
-+ * ready.
-+ */
-+
-+void cf_check irq_actor_none(struct irq_desc *desc)
-+{
-+    BUG_ON("unimplemented");
-+}
-+
-+unsigned int cf_check irq_startup_none(struct irq_desc *desc)
-+{
-+    BUG_ON("unimplemented");
-+
-+    return 0;
-+}
-diff --git a/xen/arch/riscv/traps.c b/xen/arch/riscv/traps.c
-index ccd3593f5a..5415cf8d90 100644
---- a/xen/arch/riscv/traps.c
-+++ b/xen/arch/riscv/traps.c
-@@ -4,6 +4,10 @@
-  *
-  * RISC-V Trap handlers
-  */
-+
-+#include <xen/lib.h>
-+#include <xen/sched.h>
-+
- #include <asm/processor.h>
- #include <asm/traps.h>
+@@ -24,12 +24,6 @@ DEFINE_PER_CPU_READ_MOSTLY(cpumask_var_t, cpu_core_mask);
  
-@@ -11,3 +15,24 @@ void do_trap(struct cpu_user_regs *cpu_regs)
+ nodemask_t __read_mostly node_online_map = { { [0] = 1UL } };
+ 
+-/*
+- * max_page is defined in page_alloc.c which isn't complied for now.
+- * definition of max_page will be remove as soon as page_alloc is built.
+- */
+-unsigned long __read_mostly max_page;
+-
+ /* time.c */
+ 
+ unsigned long __ro_after_init cpu_khz;  /* CPU clock frequency in kHz. */
+@@ -419,21 +413,3 @@ void __cpu_die(unsigned int cpu)
  {
-     die();
+     BUG_ON("unimplemented");
  }
-+
-+void vcpu_show_execution_state(struct vcpu *v)
-+{
-+    BUG_ON("unimplemented");
-+}
-+
-+void show_execution_state(const struct cpu_user_regs *regs)
-+{
-+    printk("implement show_execution_state(regs)\n");
-+}
-+
-+void arch_hypercall_tasklet_result(struct vcpu *v, long res)
-+{
-+    BUG_ON("unimplemented");
-+}
-+
-+enum mc_disposition arch_do_multicall_call(struct mc_state *state)
-+{
-+    BUG_ON("unimplemented");
-+    return mc_continue;
-+}
+-
+-/*
+- * The following functions are defined in common/irq.c, but common/irq.c isn't
+- * built for now. These changes will be removed there when common/irq.c is
+- * ready.
+- */
+-
+-void cf_check irq_actor_none(struct irq_desc *desc)
+-{
+-    BUG_ON("unimplemented");
+-}
+-
+-unsigned int cf_check irq_startup_none(struct irq_desc *desc)
+-{
+-    BUG_ON("unimplemented");
+-
+-    return 0;
+-}
 -- 
 2.45.0
 
