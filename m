@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5C6828CE589
-	for <lists+xen-devel@lfdr.de>; Fri, 24 May 2024 14:56:31 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.729528.1134720 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 815058CE593
+	for <lists+xen-devel@lfdr.de>; Fri, 24 May 2024 15:01:36 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.729532.1134730 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sAUT3-0006Lo-DX; Fri, 24 May 2024 12:56:17 +0000
+	id 1sAUXX-0008Eb-RM; Fri, 24 May 2024 13:00:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 729528.1134720; Fri, 24 May 2024 12:56:17 +0000
+Received: by outflank-mailman (output) from mailman id 729532.1134730; Fri, 24 May 2024 13:00:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sAUT3-0006Jt-A7; Fri, 24 May 2024 12:56:17 +0000
-Received: by outflank-mailman (input) for mailman id 729528;
- Fri, 24 May 2024 12:56:15 +0000
+	id 1sAUXX-0008D5-OX; Fri, 24 May 2024 13:00:55 +0000
+Received: by outflank-mailman (input) for mailman id 729532;
+ Fri, 24 May 2024 13:00:53 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1sAUT1-0006Jn-Jc
- for xen-devel@lists.xenproject.org; Fri, 24 May 2024 12:56:15 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1sAUXV-0008Cv-SH; Fri, 24 May 2024 13:00:53 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1sAUT1-0001cc-8h; Fri, 24 May 2024 12:56:15 +0000
-Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.0.211])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1sAUT1-00023j-1R; Fri, 24 May 2024 12:56:15 +0000
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1sAUXV-0001jg-Q6; Fri, 24 May 2024 13:00:53 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1sAUXV-0002R3-Cr; Fri, 24 May 2024 13:00:53 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1sAUXV-0000l8-CM; Fri, 24 May 2024 13:00:53 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,223 +42,282 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=KSo6E1/ypMC6exwEzyNt1iyZhi/Mxf+YhL6fenkFbKw=; b=fN0IRUm0zeYwB8LPnynmOuoZka
-	bMWL8jaIEymffoLA0b5s2kLJ+VbVfR+mPf75zPKqpLK/n8rZRYlUhRKtFdD6EtMVtQseQKoptFAol
-	8Gy5jZfKpzVycOmB5sgfv9MuD6b/b+MEFNsw6Bj6MpfFhHPnwf6Z77qouZ2VErX4xLTs=;
-Message-ID: <30d78526-da89-4228-9cf4-e9792ed2468d@xen.org>
-Date: Fri, 24 May 2024 13:56:13 +0100
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=ytsFVcH0Dn+0zVHJ1XPOwEh6Llrd8oUZG3KtWjWbk5g=; b=Zv9oZBM7kkYa8awuYwCrZKANNq
+	hpKr6ycYkt4+B3YUEEoJTYxTDgm7Qh417pBWyeRoTWhD/QZrGUyJ5c5OU0O11y/lR9lv48PR+zRl8
+	GicPkxwXYYsaGdCwyx3Ld4uL5lhrRBLv/bowsYrGewVQA3DPSSdkDHBfeX8zUfXXQjNU=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-186129-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 3/7] xen/p2m: put reference for level 2 superpage
-Content-Language: en-GB
-To: Luca Fancellu <luca.fancellu@arm.com>, xen-devel@lists.xenproject.org
-Cc: Penny Zheng <Penny.Zheng@arm.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-References: <20240524124055.3871399-1-luca.fancellu@arm.com>
- <20240524124055.3871399-4-luca.fancellu@arm.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <20240524124055.3871399-4-luca.fancellu@arm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Subject: [xen-4.17-testing test] 186129: regressions - FAIL
+X-Osstest-Failures:
+    xen-4.17-testing:build-arm64-pvops:kernel-build:fail:regression
+    xen-4.17-testing:test-armhf-armhf-xl-credit1:host-ping-check-xen:fail:heisenbug
+    xen-4.17-testing:test-armhf-armhf-xl:xen-boot:fail:heisenbug
+    xen-4.17-testing:test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm:debian-hvm-install:fail:heisenbug
+    xen-4.17-testing:test-arm64-arm64-xl-vhd:build-check(1):blocked:nonblocking
+    xen-4.17-testing:test-arm64-arm64-libvirt-xsm:build-check(1):blocked:nonblocking
+    xen-4.17-testing:test-arm64-arm64-xl-thunderx:build-check(1):blocked:nonblocking
+    xen-4.17-testing:test-arm64-arm64-xl-credit2:build-check(1):blocked:nonblocking
+    xen-4.17-testing:test-arm64-arm64-xl-xsm:build-check(1):blocked:nonblocking
+    xen-4.17-testing:test-arm64-arm64-xl-credit1:build-check(1):blocked:nonblocking
+    xen-4.17-testing:test-arm64-arm64-xl:build-check(1):blocked:nonblocking
+    xen-4.17-testing:test-arm64-arm64-libvirt-raw:build-check(1):blocked:nonblocking
+    xen-4.17-testing:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
+    xen-4.17-testing:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    xen-4.17-testing:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
+    xen-4.17-testing:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
+    xen-4.17-testing:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    xen-4.17-testing:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
+    xen-4.17-testing:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    xen-4.17-testing:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    xen-4.17-testing:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    xen-4.17-testing:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-4.17-testing:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    xen-4.17-testing:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
+    xen-4.17-testing:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
+    xen-4.17-testing:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    xen-4.17-testing:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
+    xen-4.17-testing:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
+    xen-4.17-testing:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
+    xen-4.17-testing:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
+    xen-4.17-testing:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
+    xen-4.17-testing:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
+    xen-4.17-testing:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
+    xen-4.17-testing:test-amd64-amd64-libvirt-qcow2:migrate-support-check:fail:nonblocking
+    xen-4.17-testing:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
+    xen-4.17-testing:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
+    xen-4.17-testing:test-amd64-amd64-libvirt-raw:migrate-support-check:fail:nonblocking
+    xen-4.17-testing:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    xen-4.17-testing:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+    xen-4.17-testing:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
+    xen-4.17-testing:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
+    xen-4.17-testing:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
+    xen-4.17-testing:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
+    xen-4.17-testing:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
+    xen-4.17-testing:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
+    xen-4.17-testing:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
+    xen-4.17-testing:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
+    xen-4.17-testing:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
+    xen-4.17-testing:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
+    xen-4.17-testing:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
+    xen-4.17-testing:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
+    xen-4.17-testing:test-arm64-arm64-xl-vhd:migrate-support-check:fail:nonblocking
+    xen-4.17-testing:test-arm64-arm64-xl-vhd:saverestore-support-check:fail:nonblocking
+    xen-4.17-testing:test-armhf-armhf-xl-qcow2:migrate-support-check:fail:nonblocking
+    xen-4.17-testing:test-armhf-armhf-xl-qcow2:saverestore-support-check:fail:nonblocking
+    xen-4.17-testing:test-armhf-armhf-libvirt-vhd:migrate-support-check:fail:nonblocking
+    xen-4.17-testing:test-armhf-armhf-libvirt-vhd:saverestore-support-check:fail:nonblocking
+    xen-4.17-testing:test-armhf-armhf-xl-raw:migrate-support-check:fail:nonblocking
+    xen-4.17-testing:test-armhf-armhf-xl-raw:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=3c7c9225ffa5605bf0603f9dd1666f3f786e2c44
+X-Osstest-Versions-That:
+    xen=effcf70f020ff12d34c80e2abde0ecb00ce92bda
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 24 May 2024 13:00:53 +0000
 
-Hi Luca,
+flight 186129 xen-4.17-testing real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/186129/
 
-On 24/05/2024 13:40, Luca Fancellu wrote:
-> From: Penny Zheng <Penny.Zheng@arm.com>
-> 
-> We are doing foreign memory mapping for static shared memory, and
-> there is a great possibility that it could be super mapped.
-> But today, p2m_put_l3_page could not handle superpages.
-> 
-> This commits implements a new function p2m_put_l2_superpage to handle
-> 2MB superpages, specifically for helping put extra references for
-> foreign superpages.
-> 
-> Modify relinquish_p2m_mapping as well to take into account preemption
-> when type is foreign memory and order is above 9 (2MB).
-> 
-> Currently 1GB superpages are not handled because Xen is not preemptible
-> and therefore some work is needed to handle such superpages, for which
-> at some point Xen might end up freeing memory and therefore for such a
-> big mapping it could end up in a very long operation.
-> 
-> Signed-off-by: Penny Zheng <penny.zheng@arm.com>
-> Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
-> ---
-> v4 changes:
->   - optimised the path to call put_page() on the foreign mapping as
->     Julien suggested. Add a comment in p2m_put_l2_superpage to state
->     that any changes needs to take into account some change in the
->     relinquish code. (Julien)
-> v3 changes:
->   - Add reasoning why we don't support now 1GB superpage, remove level_order
->     variable from p2m_put_l2_superpage, update TODO comment inside
->     p2m_free_entry, use XEN_PT_LEVEL_ORDER(2) instead of value 9 inside
->     relinquish_p2m_mapping. (Michal)
-> v2:
->   - Do not handle 1GB super page as there might be some issue where
->     a lot of calls to put_page(...) might be issued which could lead
->     to free memory that is a long operation.
-> v1:
->   - patch from https://patchwork.kernel.org/project/xen-devel/patch/20231206090623.1932275-9-Penny.Zheng@arm.com/
-> ---
->   xen/arch/arm/mmu/p2m.c | 82 +++++++++++++++++++++++++++++++-----------
->   1 file changed, 62 insertions(+), 20 deletions(-)
-> 
-> diff --git a/xen/arch/arm/mmu/p2m.c b/xen/arch/arm/mmu/p2m.c
-> index 41fcca011cf4..986c5a03c54b 100644
-> --- a/xen/arch/arm/mmu/p2m.c
-> +++ b/xen/arch/arm/mmu/p2m.c
-> @@ -753,34 +753,66 @@ static int p2m_mem_access_radix_set(struct p2m_domain *p2m, gfn_t gfn,
->       return rc;
->   }
->   
-> -/*
-> - * Put any references on the single 4K page referenced by pte.
-> - * TODO: Handle superpages, for now we only take special references for leaf
-> - * pages (specifically foreign ones, which can't be super mapped today).
-> - */
-> -static void p2m_put_l3_page(const lpae_t pte)
-> +static void p2m_put_foreign_page(struct page_info *pg)
->   {
-> -    mfn_t mfn = lpae_get_mfn(pte);
-> -
-> -    ASSERT(p2m_is_valid(pte));
-> -
->       /*
-> -     * TODO: Handle other p2m types
-> -     *
->        * It's safe to do the put_page here because page_alloc will
->        * flush the TLBs if the page is reallocated before the end of
->        * this loop.
->        */
-> -    if ( p2m_is_foreign(pte.p2m.type) )
-> +    put_page(pg);
-> +}
-> +
-> +/* Put any references on the single 4K page referenced by mfn. */
-> +static void p2m_put_l3_page(mfn_t mfn, p2m_type_t type)
-> +{
-> +    /* TODO: Handle other p2m types */
-> +    if ( p2m_is_foreign(type) )
->       {
->           ASSERT(mfn_valid(mfn));
-> -        put_page(mfn_to_page(mfn));
-> +        p2m_put_foreign_page(mfn_to_page(mfn));
->       }
->       /* Detect the xenheap page and mark the stored GFN as invalid. */
-> -    else if ( p2m_is_ram(pte.p2m.type) && is_xen_heap_mfn(mfn) )
-> +    else if ( p2m_is_ram(type) && is_xen_heap_mfn(mfn) )
->           page_set_xenheap_gfn(mfn_to_page(mfn), INVALID_GFN);
->   }
->   
-> +/* Put any references on the superpage referenced by mfn. */
-> +static void p2m_put_l2_superpage(mfn_t mfn, p2m_type_t type)
-> +{
-> +    struct page_info *pg;
-> +    unsigned int i;
-> +
-> +    /*
-> +     * TODO: Handle other p2m types, but be aware that any changes to handle
-> +     * different types should require an update on the relinquish code to handle
-> +     * preemption.
-> +     */
-> +    if ( !p2m_is_foreign(type) )
-> +        return;
-> +
-> +    ASSERT(mfn_valid(mfn));
-> +
-> +    pg = mfn_to_page(mfn);
-> +
-> +    for ( i = 0; i < XEN_PT_LPAE_ENTRIES; i++, pg++ )
-> +        p2m_put_foreign_page(pg);
-> +}
-> +
-> +/* Put any references on the page referenced by pte. */
-> +static void p2m_put_page(const lpae_t pte, unsigned int level)
-> +{
-> +    mfn_t mfn = lpae_get_mfn(pte);
-> +
-> +    ASSERT(p2m_is_valid(pte));
-> +
-> +    /* We have a second level 2M superpage */
-> +    if ( p2m_is_superpage(pte, level) && (level == 2) )
+Regressions :-(
 
-AFAICT, p2m_put_page() can only be called if the pte points to a 
-superpage or page:
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-arm64-pvops             6 kernel-build   fail in 186109 REGR. vs. 185864
 
-     if ( p2m_is_superpage(entry, level) || (level == 3) )
-     {
-        ...
-        p2m_put_page()
+Tests which are failing intermittently (not blocking):
+ test-armhf-armhf-xl-credit1 10 host-ping-check-xen fail in 186109 pass in 186129
+ test-armhf-armhf-xl           8 xen-boot         fail in 186109 pass in 186129
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm 12 debian-hvm-install fail pass in 186109
 
-     }
+Tests which did not succeed, but are not blocking:
+ test-arm64-arm64-xl-vhd       1 build-check(1)           blocked in 186109 n/a
+ test-arm64-arm64-libvirt-xsm  1 build-check(1)           blocked in 186109 n/a
+ test-arm64-arm64-xl-thunderx  1 build-check(1)           blocked in 186109 n/a
+ test-arm64-arm64-xl-credit2   1 build-check(1)           blocked in 186109 n/a
+ test-arm64-arm64-xl-xsm       1 build-check(1)           blocked in 186109 n/a
+ test-arm64-arm64-xl-credit1   1 build-check(1)           blocked in 186109 n/a
+ test-arm64-arm64-xl           1 build-check(1)           blocked in 186109 n/a
+ test-arm64-arm64-libvirt-raw  1 build-check(1)           blocked in 186109 n/a
+ test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 185864
+ test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 185864
+ test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 185864
+ test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 185864
+ test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 185864
+ test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 185864
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-qcow2 14 migrate-support-check        fail never pass
+ test-armhf-armhf-xl-multivcpu 15 migrate-support-check        fail  never pass
+ test-armhf-armhf-xl-multivcpu 16 saverestore-support-check    fail  never pass
+ test-amd64-amd64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit2  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-credit1  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-rtds     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-rtds     16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-vhd      14 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-vhd      15 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-qcow2    14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-qcow2    15 saverestore-support-check    fail   never pass
+ test-armhf-armhf-libvirt-vhd 14 migrate-support-check        fail   never pass
+ test-armhf-armhf-libvirt-vhd 15 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-raw      14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-raw      15 saverestore-support-check    fail   never pass
 
-So do we actually need to check p2m_is_superpage()?
+version targeted for testing:
+ xen                  3c7c9225ffa5605bf0603f9dd1666f3f786e2c44
+baseline version:
+ xen                  effcf70f020ff12d34c80e2abde0ecb00ce92bda
 
-> +        return p2m_put_l2_superpage(mfn, pte.p2m.type);
-> +    else if ( level == 3 )
-> +        return p2m_put_l3_page(mfn, pte.p2m.type);
-> +}
-> +
->   /* Free lpae sub-tree behind an entry */
->   static void p2m_free_entry(struct p2m_domain *p2m,
->                              lpae_t entry, unsigned int level)
-> @@ -809,9 +841,16 @@ static void p2m_free_entry(struct p2m_domain *p2m,
->   #endif
->   
->           p2m->stats.mappings[level]--;
-> -        /* Nothing to do if the entry is a super-page. */
-> -        if ( level == 3 )
-> -            p2m_put_l3_page(entry);
-> +        /*
-> +         * TODO: Currently we don't handle 1GB super-page, Xen is not
-> +         * preemptible and therefore some work is needed to handle such
-> +         * superpages, for which at some point Xen might end up freeing memory
-> +         * and therefore for such a big mapping it could end up in a very long
-> +         * operation.
-> +         */
-> +        if ( level >= 2 )
+Last test of basis   185864  2024-04-29 08:08:55 Z   25 days
+Failing since        186063  2024-05-21 10:06:36 Z    3 days    5 attempts
+Testing same since   186069  2024-05-22 01:58:18 Z    2 days    4 attempts
 
-The code in p2m_put_page() can properly handle level 1. So I would 
-rather prefer if we remove this check (again in order to reduce the 
-amount of work in the P2M code).
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrew Cooper <andrew.cooper3@citrix.com>
+  Daniel P. Smith <dpsmith@apertussolutions.com>
+  Demi Marie Obenour <demi@invisiblethingslab.com>
+  Jan Beulich <jbeulich@suse.com>
+  Jason Andryuk <jandryuk@gmail.com>
+  Jason Andryuk <jason.andryuk@amd.com>
+  Juergen Gross <jgross@suse.com>
+  Leigh Brown <leigh@solinno.co.uk>
+  Roger Pau Monné <roger.pau@citrix.com>
+  Ross Lagerwall <ross.lagerwall@citrix.com>
 
-This TODO could be moved there.
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64-xtf                                              pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-prev                                             pass    
+ build-i386-prev                                              pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-xtf-amd64-amd64-1                                       pass    
+ test-xtf-amd64-amd64-2                                       pass    
+ test-xtf-amd64-amd64-3                                       pass    
+ test-xtf-amd64-amd64-4                                       pass    
+ test-xtf-amd64-amd64-5                                       pass    
+ test-amd64-amd64-xl                                          pass    
+ test-amd64-coresched-amd64-xl                                pass    
+ test-arm64-arm64-xl                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
+ test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 fail    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 pass    
+ test-amd64-amd64-xl-xsm                                      pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-qemuu-nested-amd                            fail    
+ test-amd64-amd64-xl-pvhv2-amd                                pass    
+ test-amd64-amd64-dom0pvh-xl-amd                              pass    
+ test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
+ test-amd64-amd64-qemuu-freebsd12-amd64                       pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-amd64-xl-qemut-win7-amd64                         fail    
+ test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
+ test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
+ test-armhf-armhf-xl-arndale                                  pass    
+ test-amd64-amd64-xl-credit1                                  pass    
+ test-arm64-arm64-xl-credit1                                  pass    
+ test-armhf-armhf-xl-credit1                                  pass    
+ test-amd64-amd64-xl-credit2                                  pass    
+ test-arm64-arm64-xl-credit2                                  pass    
+ test-armhf-armhf-xl-credit2                                  pass    
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
+ test-amd64-amd64-qemuu-nested-intel                          pass    
+ test-amd64-amd64-xl-pvhv2-intel                              pass    
+ test-amd64-amd64-dom0pvh-xl-intel                            pass    
+ test-amd64-amd64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     pass    
+ test-amd64-amd64-livepatch                                   pass    
+ test-amd64-amd64-migrupgrade                                 pass    
+ test-amd64-amd64-xl-multivcpu                                pass    
+ test-armhf-armhf-xl-multivcpu                                pass    
+ test-amd64-amd64-pair                                        pass    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-amd64-xl-pvshim                                   pass    
+ test-amd64-amd64-pygrub                                      pass    
+ test-amd64-amd64-libvirt-qcow2                               pass    
+ test-amd64-amd64-xl-qcow2                                    pass    
+ test-armhf-armhf-xl-qcow2                                    pass    
+ test-amd64-amd64-libvirt-raw                                 pass    
+ test-arm64-arm64-libvirt-raw                                 pass    
+ test-amd64-amd64-xl-raw                                      pass    
+ test-armhf-armhf-xl-raw                                      pass    
+ test-amd64-amd64-xl-rtds                                     pass    
+ test-armhf-armhf-xl-rtds                                     pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
+ test-amd64-amd64-xl-shadow                                   pass    
+ test-arm64-arm64-xl-thunderx                                 pass    
+ test-amd64-amd64-libvirt-vhd                                 pass    
+ test-armhf-armhf-libvirt-vhd                                 pass    
+ test-amd64-amd64-xl-vhd                                      pass    
+ test-arm64-arm64-xl-vhd                                      pass    
 
-> +            p2m_put_page(entry, level);
-> +
->           return;
->       }
->   
-> @@ -1558,9 +1597,12 @@ int relinquish_p2m_mapping(struct domain *d)
->   
->           count++;
->           /*
-> -         * Arbitrarily preempt every 512 iterations.
-> +         * Arbitrarily preempt every 512 iterations or when type is foreign
-> +         * mapping and the order is above 9 (2MB).
 
-Let's avoid mentioning 2MB. This is only valid when using 4KB pages.
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-This is also talking about a specific when the code below is not 4KB 
-specific. I would rework anything after the 'or' to:
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
-'we have a level-2 foreign mapping'
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
-The rest of the LGTM to me but I don't feel confortable to do all those 
-changes on commit. So this will want a respin.
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
-For simplicity, you can only resend this patch.
 
-Cheers,
+Not pushing.
 
--- 
-Julien Grall
+(No revision log; it would be 438 lines long.)
 
