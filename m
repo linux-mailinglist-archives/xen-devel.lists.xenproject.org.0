@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A1F338CE176
-	for <lists+xen-devel@lfdr.de>; Fri, 24 May 2024 09:21:57 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.729104.1134233 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8623B8CE17A
+	for <lists+xen-devel@lfdr.de>; Fri, 24 May 2024 09:22:58 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.729110.1134244 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sAPEs-0007TQ-4Q; Fri, 24 May 2024 07:21:18 +0000
+	id 1sAPGI-00082Z-Ds; Fri, 24 May 2024 07:22:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 729104.1134233; Fri, 24 May 2024 07:21:18 +0000
+Received: by outflank-mailman (output) from mailman id 729110.1134244; Fri, 24 May 2024 07:22:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sAPEs-0007SS-1I; Fri, 24 May 2024 07:21:18 +0000
-Received: by outflank-mailman (input) for mailman id 729104;
- Fri, 24 May 2024 07:21:17 +0000
+	id 1sAPGI-0007zn-Ax; Fri, 24 May 2024 07:22:46 +0000
+Received: by outflank-mailman (input) for mailman id 729110;
+ Fri, 24 May 2024 07:22:45 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=LySr=M3=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1sAPEr-0007S6-5i
- for xen-devel@lists.xenproject.org; Fri, 24 May 2024 07:21:17 +0000
-Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
- [2a00:1450:4864:20::32e])
+ id 1sAPGH-0007zQ-7R
+ for xen-devel@lists.xenproject.org; Fri, 24 May 2024 07:22:45 +0000
+Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
+ [2a00:1450:4864:20::32d])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 34852698-199e-11ef-b4bb-af5377834399;
- Fri, 24 May 2024 09:21:15 +0200 (CEST)
-Received: by mail-wm1-x32e.google.com with SMTP id
- 5b1f17b1804b1-4200ee78f34so27640125e9.3
- for <xen-devel@lists.xenproject.org>; Fri, 24 May 2024 00:21:15 -0700 (PDT)
+ id 695a506b-199e-11ef-b4bb-af5377834399;
+ Fri, 24 May 2024 09:22:43 +0200 (CEST)
+Received: by mail-wm1-x32d.google.com with SMTP id
+ 5b1f17b1804b1-420180b5838so44040855e9.2
+ for <xen-devel@lists.xenproject.org>; Fri, 24 May 2024 00:22:43 -0700 (PDT)
 Received: from localhost ([213.195.114.223]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-42100fbb140sm45215505e9.44.2024.05.24.00.21.13
+ ffacd0b85a97d-3557a1c93c6sm889533f8f.85.2024.05.24.00.22.42
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 24 May 2024 00:21:13 -0700 (PDT)
+ Fri, 24 May 2024 00:22:42 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,165 +44,115 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 34852698-199e-11ef-b4bb-af5377834399
+X-Inumbo-ID: 695a506b-199e-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1716535274; x=1717140074; darn=lists.xenproject.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=Ot/MgWABH9HqREAPl6rw3Run923e5V+E6Z3ZVH5fA+c=;
-        b=H3ulg6kl4et+qSlsK7xcEiJsbAa8TmqdDZOKi4/kBX8mlmcGOxuT7N0c3EIoGCVhS4
-         A4gye9VGe1LyJwo923/8+GkQwFA/H9ewJI0iYNtHNA6NpjBVKgJs+p3uRNCA0eLW+j/p
-         XNta9cU71pDdTwZvo9eTAbemhjz/U6Dv+O4io=
+        d=citrix.com; s=google; t=1716535363; x=1717140163; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=hDYO1vx3pxdXiZRN27quhtULXuy3BunbmQgjoaLa634=;
+        b=DyMLKLuhNS8pYKU7Kw60N0Qr909BtRIcouDTTuEcOoZOC1849kfkMo3RDMIPdynDE3
+         WoSnNV26Z9lfSiOVMo898kmiP9FMoG2IGgh8AqNOjoTJVfKIwxVk5OTZQt7qQgrFzPO3
+         G5fz/ZXrgS/nw7jWkuPU33gq/KjHFiJu3gl9E=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1716535274; x=1717140074;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=Ot/MgWABH9HqREAPl6rw3Run923e5V+E6Z3ZVH5fA+c=;
-        b=bwD8da2Y2cJ+t1Gyp1qSmbZ6+al1KUHebJl6yR7rzYUFtUY8DAPlAqMmE4+pnb8UC6
-         4JfPlAmKdUhg19ohrqwLIhVCVQuWUBqP9m4a4oBzZ9/mtND5E+v5aA+TGHnHorCRpxuJ
-         v+z4qsHyesNGJe9v+RtAnxz7YkAFq1x5BTEK3Zn17F/AdfYrFbDh7gdacQoggy/8QPUr
-         7GX4YX/Z1all1Bb09AhVQJ3Kmffksn/6nQ2q7rA8A6q46LS099H38SOp4hKpfuVO+7/m
-         6OfJvnKQ8X5WK+zTHwAI9WKmZqmA8IITT0+1bWMdbP+dyWNCdvH2DVGaXfmV8ET4qigv
-         nNzw==
-X-Gm-Message-State: AOJu0Yyjsd/xPRWbbHW86Sdads36yGVck6vf0KKWhy3qtnO+FTXJCjFG
-	v4xX1AAvj1QpZw9Zq/dzIjZyooR53028plM8IT06j9kpMsVfw8LnxoFi9SGheV/0VwNuGB1KsGc
-	f
-X-Google-Smtp-Source: AGHT+IExFByH1foFIEoIqFB6OUUiH2/8wABd6YVSG6aqJhNwT64F+8HLY41ZqppFzIzMa8QPsy7Nnw==
-X-Received: by 2002:a05:600c:6a93:b0:41b:f359:2b53 with SMTP id 5b1f17b1804b1-42108a14eaemr11195605e9.37.1716535274219;
-        Fri, 24 May 2024 00:21:14 -0700 (PDT)
-Date: Fri, 24 May 2024 09:21:12 +0200
+        d=1e100.net; s=20230601; t=1716535363; x=1717140163;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=hDYO1vx3pxdXiZRN27quhtULXuy3BunbmQgjoaLa634=;
+        b=hy0PK5bguYckueD4ZD0NgnNfdG0hxkhTx9V89B310HKXEiVSS7JyRfoeHnlFzVLdXk
+         j6lFxUntMIOIf8Ae5ZFeK+ymFB6EZmCsIXFlSQStnkchfMQaqd81PZWFUkLEoVoD4/Y9
+         VkSGgbrhtyWlZ2e63Me4swtVVv+VMatt8MXpvT+CD/A5Om6dNR1Z6vtwZrpSuLWyRJ9U
+         aF9HEjFPDfhcLwTNhFWv4jWidmMzpQqggmpzG8rjvBLRUyin9AQSHmYOCpAJKTsaVAlQ
+         UD0kZcK6gHbFhW8lh3iNQUeAKzAHLFN32TNaOzcPue9/UJWgHBvZjUBFTcoYaxRcxplQ
+         gWRw==
+X-Forwarded-Encrypted: i=1; AJvYcCXODwXxwO+xkpu5kO2nFXdyYUD9g2iG6YdRXxEioyLoA3aXTSUkyewJ8y/d3/HFe1VL1a7f3yY/v+yWnVLyyRVfbrFoN+UM+zsJWPxvT30=
+X-Gm-Message-State: AOJu0YwPF6yVeO4tAhNfcAejqLEOELvAaiWcFxpYyn4Ui+MDRe8tMqxs
+	HuVL4TlW5jP8FC/sxS3enfpGkPjk+Kn0SFKxgWViSY0KMeBZ4ExKNlghwaNInPI=
+X-Google-Smtp-Source: AGHT+IEZxBS18z8UiBenD2B5gQoP1aU6T1KWFMp4np+gywznQz84I0TpVTRLuHvpklGdp0wgDA/ODQ==
+X-Received: by 2002:a5d:6342:0:b0:354:c329:90d1 with SMTP id ffacd0b85a97d-3552fdefa90mr1185753f8f.63.1716535363001;
+        Fri, 24 May 2024 00:22:43 -0700 (PDT)
+Date: Fri, 24 May 2024 09:22:41 +0200
 From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Alejandro Vallejo <alejandro.vallejo@cloud.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>,
-	Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Anthony PERARD <anthony@xenproject.org>
-Subject: Re: [PATCH v2 5/8] tools/hvmloader: Retrieve (x2)APIC IDs from the
- APs themselves
-Message-ID: <ZlA_6Abtw-u4a84J@macbook>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Alejandro Vallejo <alejandro.vallejo@cloud.com>,
+	Xen-devel <xen-devel@lists.xenproject.org>,
+	Jan Beulich <jbeulich@suse.com>
+Subject: Re: [PATCH v2 3/8] x86/vlapic: Move lapic_load_hidden migration
+ checks to the check hook
+Message-ID: <ZlBAQbgE7FvobVsu@macbook>
 References: <cover.1715102098.git.alejandro.vallejo@cloud.com>
- <b2d4109cd30c82e0af153d36f8dce77c59f03695.1715102098.git.alejandro.vallejo@cloud.com>
+ <499e029a7d2fce4fb9118b1e508313f369b37c79.1715102098.git.alejandro.vallejo@cloud.com>
+ <630e0117-f401-4d55-a1de-2682d8d9b406@citrix.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <b2d4109cd30c82e0af153d36f8dce77c59f03695.1715102098.git.alejandro.vallejo@cloud.com>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <630e0117-f401-4d55-a1de-2682d8d9b406@citrix.com>
 
-On Wed, May 08, 2024 at 01:39:24PM +0100, Alejandro Vallejo wrote:
-> Make it so the APs expose their own APIC IDs in a LUT. We can use that LUT to
-> populate the MADT, decoupling the algorithm that relates CPU IDs and APIC IDs
-> from hvmloader.
+On Thu, May 23, 2024 at 07:58:57PM +0100, Andrew Cooper wrote:
+> On 08/05/2024 1:39 pm, Alejandro Vallejo wrote:
+> > diff --git a/xen/arch/x86/hvm/vlapic.c b/xen/arch/x86/hvm/vlapic.c
+> > index 8a244100009c..2f06bff1b2cc 100644
+> > --- a/xen/arch/x86/hvm/vlapic.c
+> > +++ b/xen/arch/x86/hvm/vlapic.c
+> > @@ -1573,35 +1573,54 @@ static void lapic_load_fixup(struct vlapic *vlapic)
+> >                 v, vlapic->loaded.id, vlapic->loaded.ldr, good_ldr);
+> >  }
+> >  
+> > -static int cf_check lapic_load_hidden(struct domain *d, hvm_domain_context_t *h)
+> > +static int cf_check lapic_check_hidden(const struct domain *d,
+> > +                                       hvm_domain_context_t *h)
+> >  {
+> >      unsigned int vcpuid = hvm_load_instance(h);
+> > -    struct vcpu *v;
+> > -    struct vlapic *s;
+> > +    struct hvm_hw_lapic s;
+> >  
+> >      if ( !has_vlapic(d) )
+> >          return -ENODEV;
+> >  
+> >      /* Which vlapic to load? */
+> > -    if ( vcpuid >= d->max_vcpus || (v = d->vcpu[vcpuid]) == NULL )
+> > +    if ( vcpuid >= d->max_vcpus || d->vcpu[vcpuid] == NULL )
 > 
-> While at this also remove ap_callin, as writing the APIC ID may serve the same
-> purpose.
+> As you're editing this anyway, swap for
 > 
-> Signed-off-by: Alejandro Vallejo <alejandro.vallejo@cloud.com>
-> ---
-> v2:
->   * New patch. Replaces adding cpu policy to hvmloader in v1.
-> ---
->  tools/firmware/hvmloader/config.h    |  6 ++++-
->  tools/firmware/hvmloader/hvmloader.c |  4 +--
->  tools/firmware/hvmloader/smp.c       | 40 +++++++++++++++++++++++-----
->  tools/firmware/hvmloader/util.h      |  5 ++++
->  xen/arch/x86/include/asm/hvm/hvm.h   |  1 +
->  5 files changed, 47 insertions(+), 9 deletions(-)
+>     if ( !domain_vcpu(d, vcpuid) )
 > 
-> diff --git a/tools/firmware/hvmloader/config.h b/tools/firmware/hvmloader/config.h
-> index c82adf6dc508..edf6fa9c908c 100644
-> --- a/tools/firmware/hvmloader/config.h
-> +++ b/tools/firmware/hvmloader/config.h
-> @@ -4,6 +4,8 @@
->  #include <stdint.h>
->  #include <stdbool.h>
->  
-> +#include <xen/hvm/hvm_info_table.h>
-> +
->  enum virtual_vga { VGA_none, VGA_std, VGA_cirrus, VGA_pt };
->  extern enum virtual_vga virtual_vga;
->  
-> @@ -49,8 +51,10 @@ extern uint8_t ioapic_version;
->  
->  #define IOAPIC_ID           0x01
->  
-> +extern uint32_t CPU_TO_X2APICID[HVM_MAX_VCPUS];
-> +
->  #define LAPIC_BASE_ADDRESS  0xfee00000
-> -#define LAPIC_ID(vcpu_id)   ((vcpu_id) * 2)
-> +#define LAPIC_ID(vcpu_id)   (CPU_TO_X2APICID[(vcpu_id)])
->  
->  #define PCI_ISA_DEVFN       0x08    /* dev 1, fn 0 */
->  #define PCI_ISA_IRQ_MASK    0x0c20U /* ISA IRQs 5,10,11 are PCI connected */
-> diff --git a/tools/firmware/hvmloader/hvmloader.c b/tools/firmware/hvmloader/hvmloader.c
-> index c58841e5b556..1eba92229925 100644
-> --- a/tools/firmware/hvmloader/hvmloader.c
-> +++ b/tools/firmware/hvmloader/hvmloader.c
-> @@ -342,11 +342,11 @@ int main(void)
->  
->      printf("CPU speed is %u MHz\n", get_cpu_mhz());
->  
-> +    smp_initialise();
-> +
->      apic_setup();
->      pci_setup();
->  
-> -    smp_initialise();
-> -
->      perform_tests();
->  
->      if ( bios->bios_info_setup )
-> diff --git a/tools/firmware/hvmloader/smp.c b/tools/firmware/hvmloader/smp.c
-> index a668f15d7e1f..4d75f239c2f5 100644
-> --- a/tools/firmware/hvmloader/smp.c
-> +++ b/tools/firmware/hvmloader/smp.c
-> @@ -29,7 +29,34 @@
->  
->  #include <xen/vcpu.h>
->  
-> -static int ap_callin, ap_cpuid;
-> +static int ap_cpuid;
-> +
-> +/**
-> + * Lookup table of x2APIC IDs.
-> + *
-> + * Each entry is populated its respective CPU as they come online. This is required
-> + * for generating the MADT with minimal assumptions about ID relationships.
-> + */
-> +uint32_t CPU_TO_X2APICID[HVM_MAX_VCPUS];
-> +
-> +static uint32_t read_apic_id(void)
-> +{
-> +    uint32_t apic_id;
-> +
-> +    cpuid(1, NULL, &apic_id, NULL, NULL);
-> +    apic_id >>= 24;
-> +
-> +    /*
-> +     * APIC IDs over 255 are represented by 255 in leaf 1 and are meant to be
-> +     * read from topology leaves instead. Xen exposes x2APIC IDs in leaf 0xb,
-> +     * but only if the x2APIC feature is present. If there are that many CPUs
-> +     * it's guaranteed to be there so we can avoid checking for it specifically
-> +     */
-> +    if ( apic_id == 255 )
-> +        cpuid(0xb, NULL, NULL, NULL, &apic_id);
-> +
-> +    return apic_id;
-> +}
->  
->  static void ap_start(void)
->  {
-> @@ -37,12 +64,12 @@ static void ap_start(void)
->      cacheattr_init();
->      printf("done.\n");
->  
-> +    wmb();
-> +    ACCESS_ONCE(CPU_TO_X2APICID[ap_cpuid]) = read_apic_id();
+> please.
+> 
+> >      {
+> >          dprintk(XENLOG_G_ERR, "HVM restore: dom%d has no apic%u\n",
+> >                  d->domain_id, vcpuid);
+> >          return -EINVAL;
+> >      }
+> > -    s = vcpu_vlapic(v);
+> >  
+> > -    if ( hvm_load_entry_zeroextend(LAPIC, h, &s->hw) != 0 )
+> > +    if ( hvm_load_entry_zeroextend(LAPIC, h, &s) )
+> > +        return -ENODATA;
+> > +
+> > +    /* EN=0 with EXTD=1 is illegal */
+> > +    if ( (s.apic_base_msr & (APIC_BASE_ENABLE | APIC_BASE_EXTD)) ==
+> > +         APIC_BASE_EXTD )
+> > +        return -EINVAL;
+> 
+> This is very insufficient auditing for the incoming value, but it turns
+> out that there's no nice logic for this at all.
+> 
+> As it's just a less obfuscated form of the logic from
+> lapic_load_hidden(), it's probably fine to stay as it is for now.
+> 
+> The major changes since this logic was written originally are that the
+> CPU policy correct (so we can reject EXTD on VMs which can't see
+> x2apic), and that we now prohibit VMs moving the xAPIC MMIO window away
+> from its default location (as this would require per-vCPU P2Ms in order
+> to virtualise properly.)
 
-Further thinking about this: do we really need the wmb(), given the
-usage of ACCESS_ONCE()?
-
-wmb() is a compiler barrier, and the usage of volatile in
-ACCESS_ONCE() should already prevent any compiler re-ordering.
+Since this is just migration of the existing checks I think keeping
+them as-is is best.  Adding new checks should be done in a followup
+patch.
 
 Thanks, Roger.
 
