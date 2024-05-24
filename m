@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 824EF8CE331
-	for <lists+xen-devel@lfdr.de>; Fri, 24 May 2024 11:18:29 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.729200.1134314 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4033B8CE34F
+	for <lists+xen-devel@lfdr.de>; Fri, 24 May 2024 11:27:58 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.729210.1134323 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sAR3F-0001Fi-6B; Fri, 24 May 2024 09:17:25 +0000
+	id 1sARD8-00037U-40; Fri, 24 May 2024 09:27:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 729200.1134314; Fri, 24 May 2024 09:17:25 +0000
+Received: by outflank-mailman (output) from mailman id 729210.1134323; Fri, 24 May 2024 09:27:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sAR3F-0001DI-2t; Fri, 24 May 2024 09:17:25 +0000
-Received: by outflank-mailman (input) for mailman id 729200;
- Fri, 24 May 2024 09:17:24 +0000
+	id 1sARD8-00035U-1E; Fri, 24 May 2024 09:27:38 +0000
+Received: by outflank-mailman (input) for mailman id 729210;
+ Fri, 24 May 2024 09:27:37 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1sAR3E-0001DC-7y
- for xen-devel@lists.xenproject.org; Fri, 24 May 2024 09:17:24 +0000
+ (envelope-from <julien@xen.org>) id 1sARD6-00035O-Vk
+ for xen-devel@lists.xenproject.org; Fri, 24 May 2024 09:27:36 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1sAR3D-00066I-Rb; Fri, 24 May 2024 09:17:23 +0000
+ id 1sARD6-0006HI-Az; Fri, 24 May 2024 09:27:36 +0000
 Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.0.211])
  by xenbits.xenproject.org with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1sAR3D-0002qI-GT; Fri, 24 May 2024 09:17:23 +0000
+ id 1sARD6-0003Ge-3N; Fri, 24 May 2024 09:27:36 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,88 +42,140 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
 	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
 	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=9AZj1h9UOhZHEe/Py/Og1fOziSe/VD3m91jq1FB5heI=; b=cqfAA9bP8Y7fLI3W7qUv0jN1eX
-	leVAPMYMBRRMnUgYAZFE6lqBPcXdbn/NI5fvc9aVROOEz5uh/zfY2pwTP99uUDBcX5RV3VSNQP3AM
-	tJRAoggKdFxN9w5Te2IGcJED2IpxIvkE5buh7zTpsAByeEmSmG1PcUB2rcGqFoR65L7E=;
-Message-ID: <555a80ba-3981-4b3e-877d-77ff172ac186@xen.org>
-Date: Fri, 24 May 2024 10:17:21 +0100
+	bh=WxQ8/sE4b6bNUwlJcvudr7BBemUV0Y/a9eCa0Swo9fU=; b=PDLaKjbo6WYrv0nCiW105NPZEk
+	D7qTIJ7W0Nxly7owPD8J3au4aJRHBOAVNQrkqxprzsZGm7Ega7/6zSmyB4h/H2RiXT0xN6zQcvIu6
+	o32jip4G/iMFEP6POLFpQsIpHOepf2XKaSivtTEEOpYGnax2sSfLfIjryqml/+tfeYgY=;
+Message-ID: <56bf92b7-9bcc-4093-b51c-b8ec0b43209c@xen.org>
+Date: Fri, 24 May 2024 10:27:34 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v10 02/14] xen: introduce generic non-atomic test_*bit()
+Subject: Re: [PATCH v5 3/7] tools/arm: Introduce the "nr_spis" xl config entry
 Content-Language: en-GB
-To: "Oleksii K." <oleksii.kurochko@gmail.com>, xen-devel@lists.xenproject.org
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Ross Lagerwall <ross.lagerwall@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
- Shawn Anastasio <sanastasio@raptorengineering.com>
-References: <cover.1715952103.git.oleksii.kurochko@gmail.com>
- <219df9d840a183fc55de02aff011c0972a68587c.1715952103.git.oleksii.kurochko@gmail.com>
- <1554d534-7998-4ad4-9218-579b2568b744@xen.org>
- <9f02d973c2520d36ee33d01b871378de16ede4d0.camel@gmail.com>
- <a535a3fc-5b90-454f-8d3f-202de631bc49@xen.org>
- <82b8828112ffb05170472310d7d510ceb4edc555.camel@gmail.com>
+To: Stefano Stabellini <stefano.stabellini@amd.com>,
+ xen-devel@lists.xenproject.org
+Cc: anthony@xenproject.org, sstabellini@kernel.org, bertrand.marquis@arm.com,
+ michal.orzel@amd.com, Volodymyr_Babchuk@epam.com,
+ Henry Wang <xin.wang2@amd.com>, Jason Andryuk <jason.andryuk@amd.com>
+References: <alpine.DEB.2.22.394.2405231914360.2557291@ubuntu-linux-20-04-desktop>
+ <20240524021814.2666257-3-stefano.stabellini@amd.com>
 From: Julien Grall <julien@xen.org>
-In-Reply-To: <82b8828112ffb05170472310d7d510ceb4edc555.camel@gmail.com>
+In-Reply-To: <20240524021814.2666257-3-stefano.stabellini@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-Hi Oleksii,
+Hi,
 
-On 24/05/2024 09:58, Oleksii K. wrote:
-> On Thu, 2024-05-23 at 15:33 +0100, Julien Grall wrote:
->>>>>      #include <asm/bitops.h>
->>>>>      
->>>>> +/**
->>>>> + * generic__test_and_set_bit - Set a bit and return its old
->>>>> value
->>>>> + * @nr: Bit to set
->>>>> + * @addr: Address to count from
->>>>> + *
->>>>> + * This operation is non-atomic and can be reordered.
->>>>> + * If two examples of this operation race, one can appear to
->>>>> succeed
->>>>> + * but actually fail.  You must protect multiple accesses with
->>>>> a
->>>>> lock.
->>>>> + */
->>>>
->>>> Sorry for only mentioning this on v10. I think this comment
->>>> should be
->>>> duplicated (or moved to) on top of test_bit() because this is
->>>> what
->>>> everyone will use. This will avoid the developper to follow the
->>>> function
->>>> calls and only notice the x86 version which says "This function
->>>> is
->>>> atomic and may not be reordered." and would be wrong for all the
->>>> other arch.
->>> It makes sense to add this comment on top of test_bit(), but I am
->>> curious if it is needed to mention that for x86 arch_test_bit() "is
->>> atomic and may not be reordered":
->>
->> I would say no because any developper modifying common code can't
->> relying it.
-> But won't then be confusion that if not generic implementation of
-> test_bit() is chosen then test_bit() can be " atomic and cannot be
-> reordered " ( as it is in case of x86 )?
+On 24/05/2024 03:18, Stefano Stabellini wrote:
+> From: Henry Wang <xin.wang2@amd.com>
+> 
+> Currently, the number of SPIs allocated to the domain is only
+> configurable for Dom0less DomUs. Xen domains are supposed to be
+> platform agnostics and therefore the numbers of SPIs for libxl
+> guests should not be based on the hardware.
+> 
+> Introduce a new xl config entry for Arm to provide a method for
+> user to decide the number of SPIs. This would help to avoid
+> bumping the `config->arch.nr_spis` in libxl everytime there is a
+> new platform with increased SPI numbers.
+> 
+> Update the doc and the golang bindings accordingly.
+> 
+> Signed-off-by: Henry Wang <xin.wang2@amd.com>
+> Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
+> Reviewed-by: Jason Andryuk <jason.andryuk@amd.com>
+> ---
+>   docs/man/xl.cfg.5.pod.in             | 16 ++++++++++++++++
+>   tools/golang/xenlight/helpers.gen.go |  2 ++
+>   tools/golang/xenlight/types.gen.go   |  1 +
+>   tools/include/libxl.h                |  7 +++++++
+>   tools/libs/light/libxl_arm.c         |  4 ++--
+>   tools/libs/light/libxl_types.idl     |  1 +
+>   tools/xl/xl_parse.c                  |  3 +++
+>   7 files changed, 32 insertions(+), 2 deletions(-)
+> 
+> diff --git a/docs/man/xl.cfg.5.pod.in b/docs/man/xl.cfg.5.pod.in
+> index 8f2b375ce9..ac3f88fd57 100644
+> --- a/docs/man/xl.cfg.5.pod.in
+> +++ b/docs/man/xl.cfg.5.pod.in
+> @@ -3072,6 +3072,22 @@ raised.
+>   
+>   =back
+>   
+> +=over 4
+> +
+> +=item B<nr_spis="NR_SPIS">
+> +
+> +An optional integer parameter specifying the number of SPIs (Shared
+> +Peripheral Interrupts) to allocate for the domain. Max is 991 SPIs. If
+> +the value specified by the `nr_spis` parameter is smaller than the
+> +number of SPIs calculated by the toolstack based on the devices
+> +allocated for the domain, or the `nr_spis` parameter is not specified,
+> +the value calculated by the toolstack will be used for the domain.
+> +Otherwise, the value specified by the `nr_spis` parameter will be used.
+> +The number of SPIs should match the highest interrupt ID that will be
+> +assigned to the domain.
+> +
+> +=back
+> +
+>   =head3 x86
+>   
+>   =over 4
+> diff --git a/tools/golang/xenlight/helpers.gen.go b/tools/golang/xenlight/helpers.gen.go
+> index b9cb5b33c7..fe5110474d 100644
+> --- a/tools/golang/xenlight/helpers.gen.go
+> +++ b/tools/golang/xenlight/helpers.gen.go
+> @@ -1154,6 +1154,7 @@ return fmt.Errorf("invalid union key '%v'", x.Type)}
+>   x.ArchArm.GicVersion = GicVersion(xc.arch_arm.gic_version)
+>   x.ArchArm.Vuart = VuartType(xc.arch_arm.vuart)
+>   x.ArchArm.SveVl = SveType(xc.arch_arm.sve_vl)
+> +x.ArchArm.NrSpis = uint32(xc.arch_arm.nr_spis)
+>   if err := x.ArchX86.MsrRelaxed.fromC(&xc.arch_x86.msr_relaxed);err != nil {
+>   return fmt.Errorf("converting field ArchX86.MsrRelaxed: %v", err)
+>   }
+> @@ -1670,6 +1671,7 @@ return fmt.Errorf("invalid union key '%v'", x.Type)}
+>   xc.arch_arm.gic_version = C.libxl_gic_version(x.ArchArm.GicVersion)
+>   xc.arch_arm.vuart = C.libxl_vuart_type(x.ArchArm.Vuart)
+>   xc.arch_arm.sve_vl = C.libxl_sve_type(x.ArchArm.SveVl)
+> +xc.arch_arm.nr_spis = C.uint32_t(x.ArchArm.NrSpis)
+>   if err := x.ArchX86.MsrRelaxed.toC(&xc.arch_x86.msr_relaxed); err != nil {
+>   return fmt.Errorf("converting field ArchX86.MsrRelaxed: %v", err)
+>   }
+> diff --git a/tools/golang/xenlight/types.gen.go b/tools/golang/xenlight/types.gen.go
+> index 5b293755d7..c9e45b306f 100644
+> --- a/tools/golang/xenlight/types.gen.go
+> +++ b/tools/golang/xenlight/types.gen.go
+> @@ -597,6 +597,7 @@ ArchArm struct {
+>   GicVersion GicVersion
+>   Vuart VuartType
+>   SveVl SveType
+> +NrSpis uint32
+>   }
+>   ArchX86 struct {
+>   MsrRelaxed Defbool
+> diff --git a/tools/include/libxl.h b/tools/include/libxl.h
+> index 62cb07dea6..3b5c18b48b 100644
+> --- a/tools/include/libxl.h
+> +++ b/tools/include/libxl.h
+> @@ -636,6 +636,13 @@
+>    */
+>   #define LIBXL_HAVE_XEN_9PFS 1
+>   
+> +/*
+> + * LIBXL_HAVE_NR_SPIS indicates the presence of the nr_spis field in
+> + * libxl_domain_build_info that specifies the number of SPIs interrupts
+> + * for the guest.
+> + */
+> +#define LIBXL_HAVE_NR_SPIS 1
+> +
 
-I don't understand what confusion could arise. A developper cannot rely 
-on the x86 behavior in common code. They have to write code that works 
-for every arch.
+Looking at the other arch.arm field, I think this wants to be:
 
-The first thing a developer will do is to check test_bit(). The comment 
-on top will say they can't relying on ordering. And that what most of 
-the developper needs to rely on.
+/*
+  * libxl_domain_build_info has the arch_arm.nr_spis field
+  */
+#define LIBXL_HAVE_BUILDINFO_ARCH_NR_SPIS 1
 
-If someone wants to write more optimized code for x86, they are free to 
-look at the implementation. But I don't think this should be detailed on 
-top of the common wrapper (the x86 implementation would still be 
-compatible with the comment).
+This would also clarify that the field is Arm specific.
 
 Cheers,
 
