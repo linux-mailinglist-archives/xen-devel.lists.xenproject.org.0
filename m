@@ -2,38 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D90448CE4C4
-	for <lists+xen-devel@lfdr.de>; Fri, 24 May 2024 13:16:21 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.729409.1134601 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D33C98CE562
+	for <lists+xen-devel@lfdr.de>; Fri, 24 May 2024 14:32:20 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.729462.1134609 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sASu9-0003NT-EU; Fri, 24 May 2024 11:16:09 +0000
+	id 1sAU53-000552-1G; Fri, 24 May 2024 12:31:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 729409.1134601; Fri, 24 May 2024 11:16:09 +0000
+Received: by outflank-mailman (output) from mailman id 729462.1134609; Fri, 24 May 2024 12:31:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sASu9-0003KH-Az; Fri, 24 May 2024 11:16:09 +0000
-Received: by outflank-mailman (input) for mailman id 729409;
- Fri, 24 May 2024 11:16:08 +0000
+	id 1sAU52-00052s-Ud; Fri, 24 May 2024 12:31:28 +0000
+Received: by outflank-mailman (input) for mailman id 729462;
+ Fri, 24 May 2024 12:31:27 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=di0w=M3=cloud.com=alejandro.vallejo@srs-se1.protection.inumbo.net>)
- id 1sASu8-0003K3-0X
- for xen-devel@lists.xenproject.org; Fri, 24 May 2024 11:16:08 +0000
-Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com
- [2a00:1450:4864:20::636])
+ <SRS0=J/Vf=M3=bounce.vates.tech=bounce-md_30504962.6650889a.v1-b9480d857674453791d98acf668f11dd@srs-se1.protection.inumbo.net>)
+ id 1sAU51-00051V-6z
+ for xen-devel@lists.xenproject.org; Fri, 24 May 2024 12:31:27 +0000
+Received: from mail136-17.atl41.mandrillapp.com
+ (mail136-17.atl41.mandrillapp.com [198.2.136.17])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 017ba667-19bf-11ef-b4bb-af5377834399;
- Fri, 24 May 2024 13:16:02 +0200 (CEST)
-Received: by mail-ej1-x636.google.com with SMTP id
- a640c23a62f3a-a6265d3ba8fso69688666b.0
- for <xen-devel@lists.xenproject.org>; Fri, 24 May 2024 04:16:02 -0700 (PDT)
-Received: from [192.168.0.16] (0545937c.skybroadband.com. [5.69.147.124])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a626cc8e2b2sm116641866b.171.2024.05.24.04.16.01
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 24 May 2024 04:16:01 -0700 (PDT)
+ id 8867d8cf-19c9-11ef-b4bb-af5377834399;
+ Fri, 24 May 2024 14:31:24 +0200 (CEST)
+Received: from pmta11.mandrill.prod.atl01.rsglab.com (localhost [127.0.0.1])
+ by mail136-17.atl41.mandrillapp.com (Mailchimp) with ESMTP id
+ 4Vm4CZ55cDzPm0PRK
+ for <xen-devel@lists.xenproject.org>; Fri, 24 May 2024 12:31:22 +0000 (GMT)
+Received: from [37.26.189.201] by mandrillapp.com id
+ b9480d857674453791d98acf668f11dd; Fri, 24 May 2024 12:31:22 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,115 +43,139 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 017ba667-19bf-11ef-b4bb-af5377834399
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1716549362; x=1717154162; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=LErNZqDdT1LDKm+B+1gqdgsfgkPjrgXE96aziTJ654M=;
-        b=O0fV8+BeehFz3tkqFSf2Oy3Az4qwv1I8ue45oh9WX3D5jA71sdf71w756IwQM6ijfH
-         NTvZHHOorD7xHyn2bLo6vY08BkpcdJpj8bKNnmDLOEdK/XWzDYC+bpqTS7C1qUZrWzXo
-         DnRRtm72T045nqAJ7r6S9gw319fFRXvTN3m5A=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1716549362; x=1717154162;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=LErNZqDdT1LDKm+B+1gqdgsfgkPjrgXE96aziTJ654M=;
-        b=eSch5IAoIrNEnjPVTSmZxlT36ttnXRinj0kH6XcSzPTzretH1wp5ZrRP2fTTDgMoah
-         FQJYmPV9YaibGWqTWWMRmaGQwsW6JAq/FS8WXv+ZrCc8Zuecp3AwTW0PX54h+jZPEKWM
-         eC2+JTrVo8rYmb/sOy85KLy6/e96rCHb0VI3BS2nk15uFQvQ3h0iv9a2z0aM6puQUMsj
-         e2H3o7dkNVLGcF0K8OgGjOF10bae80CZh13gtEnTsclYD7o0MtSk2BrDXNM5Q+Xyi7Qf
-         NlOTmqkzHSNgn4SmrPzI9KczThwdeYu1kWv45xO4H9dUzKEHioBPWTPugliID6KNkl3r
-         zpLQ==
-X-Gm-Message-State: AOJu0YwotMVCfO4M05eGEjgLiiBsGHG+/1MkZ3CDZvWWONYcd3vQJVxo
-	6tGfoWs25Kz1Aa6aYv2Yt6quD3/BNBJ+wh77+qRKr6gsqCoT0+4StHmvyFrti6E=
-X-Google-Smtp-Source: AGHT+IFvAbBYwIfdM6sb67Rlktjl3lRkBTwQx2ML+6+wxE1Y5nXsbhxs98rjKHoeHWHh5vdPjqDIzw==
-X-Received: by 2002:a17:907:3a13:b0:a59:cb29:3fb5 with SMTP id a640c23a62f3a-a62641de8a2mr113291766b.20.1716549362182;
-        Fri, 24 May 2024 04:16:02 -0700 (PDT)
-Message-ID: <a1f7a182-4cf2-4fd1-ba8f-5b12a34b1af0@cloud.com>
-Date: Fri, 24 May 2024 12:16:00 +0100
+X-Inumbo-ID: 8867d8cf-19c9-11ef-b4bb-af5377834399
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
+	s=mte1; t=1716553882; x=1716814382;
+	bh=tlJyPYKFhaSXXv4BnrdLWt4xxrI76gRAyevGwxWPheE=;
+	h=From:Subject:To:Cc:Message-Id:Feedback-ID:Date:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:CC:Date:Subject:From;
+	b=JF4TV6zbXv9jcw8mX6ePjox7oAR+1V+12cSJD+KrFlg8wzNlvMwFpH6oBQ48Sg8RG
+	 2OVYFnhFaDGtOWpqLQ/be4d43YzcusyP3gpaZxtVI/uAQlYxaeoYp8MmouY6PODs5F
+	 h8ukRZRxSSaM/P1mapiYW1FouGOf7hkefNa7nqkTO1Z0QYS7kijMf3n7qsevTsuwRJ
+	 mqvnQNvUReVy4ktDr9yPPzG6Yvxa0Ug3bEGo20TJW7bC7tRlBJHVHQmbo4KtuD6DLY
+	 RtE3KGFuyw/f4iGM1KW9r6XAb/FgXpGRFXAwh/60QtNHXsbfdWE0T4OOlji725YzaJ
+	 hMtIEPquMkPWQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
+	t=1716553882; x=1716814382; i=vaishali.thakkar@vates.tech;
+	bh=tlJyPYKFhaSXXv4BnrdLWt4xxrI76gRAyevGwxWPheE=;
+	h=From:Subject:To:Cc:Message-Id:Feedback-ID:Date:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:CC:Date:Subject:From;
+	b=b4Qlf5nZ+7sZ7vuIQWbHEjgN0ZmWdslRHeXkrd+ofgSJnRXkBr60i2WrmTigpMA7r
+	 v7b5S3QjakYog3TWZXzxNzwcQ7xzIgA371qmPbt5xBEXBjaG+VoARSM1hAqdS3xfcC
+	 vOg8g1LKKp9jFNW+uRzeC2jMboDD694G226SCgtSDRgQV6TIOHZPYIgxeLSi5sGtPB
+	 9jE7QhtSw87tNqJvs4rg5kL0oOcJPI4BVLhffUnhd0WphPJzdaZ+vmgXoP+mQSFVU+
+	 go2kbVhhFCfAyQJ4CG4IQAG2tbnfptz0ciUFSywJcBjBtFxY8yy1ISNKroAE2kA7bH
+	 VzsDJ7X1crAUA==
+From: Vaishali Thakkar <vaishali.thakkar@vates.tech>
+Subject: =?utf-8?Q?[RFC=20for-4.20=20v1=200/1]=20x86/hvm:=20Introduce=20Xen-wide=20ASID=20allocator?=
+X-Mailer: git-send-email 2.45.0
+X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
+X-Bm-Transport-Timestamp: 1716553881342
+To: xen-devel@lists.xenproject.org
+Cc: jbeulich@suse.com, andrew.cooper3@citrix.com, roger.pau@citrix.com, george.dunlap@citrix.com, Vaishali Thakkar <vaishali.thakkar@vates.tech>
+Message-Id: <cover.1716551380.git.vaishali.thakkar@vates.tech>
+X-Native-Encoded: 1
+X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.b9480d857674453791d98acf668f11dd?=
+X-Mandrill-User: md_30504962
+Feedback-ID: 30504962:30504962.20240524:md
+Date: Fri, 24 May 2024 12:31:22 +0000
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/8] x86/vlapic: Move lapic_load_hidden migration
- checks to the check hook
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>,
- Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>
-References: <cover.1715102098.git.alejandro.vallejo@cloud.com>
- <499e029a7d2fce4fb9118b1e508313f369b37c79.1715102098.git.alejandro.vallejo@cloud.com>
- <Zk9Xy7W30WWZlb6-@macbook>
-Content-Language: en-GB
-From: Alejandro Vallejo <alejandro.vallejo@cloud.com>
-In-Reply-To: <Zk9Xy7W30WWZlb6-@macbook>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On 23/05/2024 15:50, Roger Pau Monné wrote:
-> On Wed, May 08, 2024 at 01:39:22PM +0100, Alejandro Vallejo wrote:
->> While at it, add a check for the reserved field in the hidden save area.
->>
->> Signed-off-by: Alejandro Vallejo <alejandro.vallejo@cloud.com>
->> ---
->> v2:
->>   * New patch. Addresses the missing check for rsvd_zero in v1.
-> 
-> Oh, it would be better if this was done at the time when rsvd_zero is
-> introduced.  I think this should be moved ahead of the series, so that
-> the patch that introduces rsvd_zero can add the check in
-> lapic_check_hidden().
+Motivation:
+-----------
+This is part of the effort to enable AMD SEV technologies in Xen. For
+AMD SEV support, we need a fixed ASID associated with all vcpus of the
+same domain throughout the domain's lifetime. This is because for SEV/
+SEV-{ES,SNP} VM, the ASID is the index which is associated with the
+encryption key.
 
-I'll give that a whirl.
+Currently, ASID generation and management is done per-PCPU in Xen. And
+at the time of each VMENTER, the ASID associated with vcpus of the
+domain is changed. This implementation is incompatible with SEV
+technologies for the above mentioned reasons. In a discussion with
+Andrew Cooper, it came up that it=E2=80=99ll be nice to have fixed ASIDs no=
+t
+only for SEV VMs but also for all VMs. Because it opens up the
+opportunity to use instructions like TLBSYNC and INVLPGB (Section
+5.5.3 in AMD Architecture manual[0]) for broadcasting the TLB
+Invalidations.
 
-> 
->> ---
->>  xen/arch/x86/hvm/vlapic.c | 41 ++++++++++++++++++++++++++++-----------
->>  1 file changed, 30 insertions(+), 11 deletions(-)
->>
->> diff --git a/xen/arch/x86/hvm/vlapic.c b/xen/arch/x86/hvm/vlapic.c
->> index 8a244100009c..2f06bff1b2cc 100644
->> --- a/xen/arch/x86/hvm/vlapic.c
->> +++ b/xen/arch/x86/hvm/vlapic.c
->> @@ -1573,35 +1573,54 @@ static void lapic_load_fixup(struct vlapic *vlapic)
->>                 v, vlapic->loaded.id, vlapic->loaded.ldr, good_ldr);
->>  }
->>  
->> -static int cf_check lapic_load_hidden(struct domain *d, hvm_domain_context_t *h)
->> +static int cf_check lapic_check_hidden(const struct domain *d,
->> +                                       hvm_domain_context_t *h)
->>  {
->>      unsigned int vcpuid = hvm_load_instance(h);
->> -    struct vcpu *v;
->> -    struct vlapic *s;
->> +    struct hvm_hw_lapic s;
->>  
->>      if ( !has_vlapic(d) )
->>          return -ENODEV;
->>  
->>      /* Which vlapic to load? */
->> -    if ( vcpuid >= d->max_vcpus || (v = d->vcpu[vcpuid]) == NULL )
->> +    if ( vcpuid >= d->max_vcpus || d->vcpu[vcpuid] == NULL )
->>      {
->>          dprintk(XENLOG_G_ERR, "HVM restore: dom%d has no apic%u\n",
->>                  d->domain_id, vcpuid);
->>          return -EINVAL;
->>      }
->> -    s = vcpu_vlapic(v);
->>  
->> -    if ( hvm_load_entry_zeroextend(LAPIC, h, &s->hw) != 0 )
->> +    if ( hvm_load_entry_zeroextend(LAPIC, h, &s) )
-> 
-> Can't you use hvm_get_entry() to perform the sanity checks:
-> 
-> const struct hvm_hw_lapic *s = hvm_get_entry(LAPIC, h);
-> 
-> Thanks, Roger.
+Why is this RFC?
+----------------
+This is only tested on AMD SVM at the moment. There are a few points
+that I would like to discuss and get a feedback on from the community
+before further development and testing. I=E2=80=99ve also submitted a desig=
+n
+session for this RFC to discuss further at the Xen Summit.
 
-I don't think I can. Because the last field (rsvd_zero) might or might
-not be there, so it needs to be zero-extended. Unless I misunderstood
-what hvm_get_entry() is meant to do. It seems to check for exact sizes.
+Points of discussion:
+---------------------
+1. I=E2=80=99m not sure how this should be handled for the nestedhvm. To st=
+art
+with, at the moment all the values seem to be handled via struct
+nestedvcpu. Do we want to keep it that way or do we want to have
+something like nestedhvm_domain to associate certain values like asid?
+I=E2=80=99ve not handled this as part of this RFC as I would like to know t=
+he
+opinions and plans of those working on nested virtualization.
 
-Cheers,
-Alejandro
+2. I=E2=80=99m doing initialization of xen-wide asids at the moment in setu=
+p.c
+but is that the right place to do it? I=E2=80=99m asking this because I=E2=
+=80=99ve
+been seeing a weird bug with the code in this RFC. Dom0 is able to
+have a fixed asid through the lifecycle of it. But if I start a domU
+with 2/4 vcpus via xl, sometimes it only brings up the one vcpu and
+shows =E2=80=98tsc: Unable to calibrate against PIT=E2=80=99 while booting =
+the kernel.
+
+Notes:
+-----
+1. Currently the RFC doesn=E2=80=99t demonstrate the use of TLBSYNC and INV=
+LPGB.
+It can further be added if required. I'm not sure if it should be part
+of the same patch series or not.
+
+2. This is a basic RFC to start the discussion on the above points but
+I further plan to add a logic to reclaim the asids that are no longer
+in use and add a check to pick the asid from such stack before doing
+hvm_asid_flush_all.
+
+[0] https://www.amd.com/content/dam/amd/en/documents/processor-tech-docs/pr=
+ogrammer-references/24593.pdf
+
+
+
+Vaishali Thakkar (1):
+  x86/hvm: Introduce Xen-wide ASID Allocator
+
+ xen/arch/x86/flushtlb.c                |  1 -
+ xen/arch/x86/hvm/asid.c                | 61 ++++++++++++++------------
+ xen/arch/x86/hvm/emulate.c             |  3 --
+ xen/arch/x86/hvm/hvm.c                 |  2 +-
+ xen/arch/x86/hvm/nestedhvm.c           |  4 +-
+ xen/arch/x86/hvm/svm/asid.c            | 28 +++++++-----
+ xen/arch/x86/hvm/svm/nestedsvm.c       |  2 +-
+ xen/arch/x86/hvm/svm/svm.c             | 33 ++++++--------
+ xen/arch/x86/hvm/svm/svm.h             |  1 -
+ xen/arch/x86/hvm/vmx/vmcs.c            |  2 +-
+ xen/arch/x86/hvm/vmx/vmx.c             | 15 +++----
+ xen/arch/x86/hvm/vmx/vvmx.c            |  6 +--
+ xen/arch/x86/include/asm/hvm/asid.h    | 19 ++++----
+ xen/arch/x86/include/asm/hvm/domain.h  |  1 +
+ xen/arch/x86/include/asm/hvm/hvm.h     |  2 +-
+ xen/arch/x86/include/asm/hvm/svm/svm.h |  1 +
+ xen/arch/x86/include/asm/hvm/vcpu.h    |  6 +--
+ xen/arch/x86/include/asm/hvm/vmx/vmx.h |  3 +-
+ xen/arch/x86/mm/hap/hap.c              |  4 +-
+ xen/arch/x86/mm/p2m.c                  |  6 +--
+ xen/arch/x86/mm/paging.c               |  2 +-
+ xen/arch/x86/setup.c                   |  7 +++
+ 22 files changed, 108 insertions(+), 101 deletions(-)
+
+-- 
+2.45.0
+
 
