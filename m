@@ -2,52 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 13A008CDF70
-	for <lists+xen-devel@lfdr.de>; Fri, 24 May 2024 04:19:00 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.728989.1134135 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 93C9B8CDF81
+	for <lists+xen-devel@lfdr.de>; Fri, 24 May 2024 04:30:22 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.729035.1134180 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sAKW8-0005JJ-O6; Fri, 24 May 2024 02:18:48 +0000
+	id 1sAKh9-0003Yi-Ej; Fri, 24 May 2024 02:30:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 728989.1134135; Fri, 24 May 2024 02:18:48 +0000
+Received: by outflank-mailman (output) from mailman id 729035.1134180; Fri, 24 May 2024 02:30:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sAKW8-0005Ew-Gf; Fri, 24 May 2024 02:18:48 +0000
-Received: by outflank-mailman (input) for mailman id 728989;
- Fri, 24 May 2024 02:18:47 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1sAKh9-0003VA-Bg; Fri, 24 May 2024 02:30:11 +0000
+Received: by outflank-mailman (input) for mailman id 729035;
+ Fri, 24 May 2024 02:30:09 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=4rgR=M3=amd.com=stefano.stabellini@srs-se1.protection.inumbo.net>)
- id 1sAKW7-0004I4-DO
- for xen-devel@lists.xenproject.org; Fri, 24 May 2024 02:18:47 +0000
-Received: from NAM04-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam04on20600.outbound.protection.outlook.com
- [2a01:111:f403:240a::600])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f19a7382-1973-11ef-b4bb-af5377834399;
- Fri, 24 May 2024 04:18:45 +0200 (CEST)
-Received: from BN1PR13CA0028.namprd13.prod.outlook.com (2603:10b6:408:e2::33)
- by SA3PR12MB7808.namprd12.prod.outlook.com (2603:10b6:806:31b::18)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7611.22; Fri, 24 May
- 2024 02:18:40 +0000
-Received: from BN3PEPF0000B374.namprd21.prod.outlook.com
- (2603:10b6:408:e2:cafe::71) by BN1PR13CA0028.outlook.office365.com
- (2603:10b6:408:e2::33) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7633.5 via Frontend
- Transport; Fri, 24 May 2024 02:18:40 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN3PEPF0000B374.mail.protection.outlook.com (10.167.243.171) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7633.0 via Frontend Transport; Fri, 24 May 2024 02:18:38 +0000
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Thu, 23 May
- 2024 21:18:35 -0500
-Received: from smtp.xilinx.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.35 via Frontend
- Transport; Thu, 23 May 2024 21:18:34 -0500
+ <SRS0=K6bJ=M3=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1sAKWk-0003tc-KI
+ for xen-devel@lists.xenproject.org; Fri, 24 May 2024 02:19:26 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 09d8cb2f-1974-11ef-90a1-e314d9c70b13;
+ Fri, 24 May 2024 04:19:25 +0200 (CEST)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id CBA4B62F9E;
+ Fri, 24 May 2024 02:19:23 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7BE25C2BD10;
+ Fri, 24 May 2024 02:19:22 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -59,191 +41,210 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f19a7382-1973-11ef-b4bb-af5377834399
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Fs3ERBiqLH43cXK4d92rJTJk5XKoqn/N9iAZyMIGSBTo5kAMwcidPAxPDhubgzub6ENMkj+OhIYrwIi0ReCD258Dp2yEagpUf8fn1iEXO84D01rJimDzpNZ5/3b0tx7K05rd+TiaO2izJq1ovDCDZ5vDb1pPM5TCnWhkTWftQp7gT/O3IPrdm9f86mkd31ZXF2aCJZVCLFKfvIPLXtWQbAA861nOnCagd9EG1gs2hhC1SvjM9zW7XCr+VROOTjcVrMsNyzBxxbqasfIuhy+FoyvOT3HPYTLpH/VQ5nxICfUyruFvcpWdFNyxJyPNglhwtOC/8P7t6M58ZqPzRn7opQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=spfuWcKUhy4IpKgxdQbUBhNNhHU158grwSfyfQ+eUYo=;
- b=HYKmb8aI6KtNvlloVTSrsMxCRN8LKkj0H3Gjb3IhMghKn/0ldjNg9siSvVAUbyDcBZQgTjXiVRwBym+u0X7EzkXUlJ8MrYsgwhBlIgJPlHs7YnnN9ZasgyoTX2DQxcuNteUzKSj5avlVla+C1YgVEtajPqftWoTkqqfhVJA00lh20l9p5tMgU5B9VtrvTeBydgcBoEA+S91O4DLhk2FReLf3ZYYU7iJeXvf8NoTB7GPQIJ4NEcc83zOVHgOHfQ+T5f/K3P8nhLMpvOzJ2vSF9FZ7xOC+9J5NeiaO8ZmEzZbfdB9hZdl7r6yoTKDNMrVT8qHKolD973086XctB1v0NA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=spfuWcKUhy4IpKgxdQbUBhNNhHU158grwSfyfQ+eUYo=;
- b=qgUa3GAcc0X79CF2OsHLFWP/KK341C23/WpjuZEUvrTlsGHnln3bYg5KILYth5xNqjQ1bSuZgdLU9nhxR43hXbJBFiIj3eK5nQuwBQmuL3Inxf2+JI2jKGbDvpg4UZf+ZfDxS8c2lA+IsuslAMk/N+rQ5AKzqdD3Y+pF8PU86JY=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-From: Stefano Stabellini <stefano.stabellini@amd.com>
-To: <xen-devel@lists.xenproject.org>
-CC: <anthony@xenproject.org>, <sstabellini@kernel.org>, <julien@xen.org>,
-	<bertrand.marquis@arm.com>, <michal.orzel@amd.com>,
-	<Volodymyr_Babchuk@epam.com>, Vikram Garhwal <fnu.vikram@xilinx.com>,
-	"Stefano Stabellini" <stefano.stabellini@xilinx.com>, Henry Wang
-	<xin.wang2@amd.com>
-Subject: [PATCH v5 7/7] docs: Add device tree overlay documentation
-Date: Thu, 23 May 2024 19:18:14 -0700
-Message-ID: <20240524021814.2666257-7-stefano.stabellini@amd.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <alpine.DEB.2.22.394.2405231914360.2557291@ubuntu-linux-20-04-desktop>
-References: <alpine.DEB.2.22.394.2405231914360.2557291@ubuntu-linux-20-04-desktop>
+X-Inumbo-ID: 09d8cb2f-1974-11ef-90a1-e314d9c70b13
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1716517163;
+	bh=ww9wwzaIabqdPH5v4U3tm6QEcQmHmaxF/Yt+pirjSPU=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=ssZlT1lj9Zv7nDQYLzT8SnolJr8VbY+FEWccmnq6v74gq9vvHv134yqtntovF2U3+
+	 PvijpMk3St2FmkTML6kGjk7v7Chznc/7RAaeaFmvAb63gp6iEd2bB8+MaEucvkD0dd
+	 r8ZuYcYAU9gAuwiRAW0Hw39Aj+roNtXvciAJakODwdG+TDFR8H8eMpA97EOgVzpMhT
+	 Y2+m0xZgkgDdUpVzK6MoZASXLSvBAddo6zmpUpm2ev+ZSOHwD6sQ7ESH4a2kNsvaWE
+	 WRj+lnzqpBzXXhxA7cHLr5dHB2L1RzgojSDyGeYa7JRD7UHYIKAY6PokXJ983EnbCz
+	 orWVek/To9fMw==
+Date: Thu, 23 May 2024 19:19:21 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Julien Grall <julien@xen.org>
+cc: Henry Wang <xin.wang2@amd.com>, xen-devel@lists.xenproject.org, 
+    Anthony PERARD <anthony@xenproject.org>, 
+    George Dunlap <george.dunlap@citrix.com>, 
+    Nick Rosbrook <rosbrookn@gmail.com>, Juergen Gross <jgross@suse.com>, 
+    Jason Andryuk <jason.andryuk@amd.com>
+Subject: Re: [PATCH v4 3/9] tools/arm: Introduce the "nr_spis" xl config
+ entry
+In-Reply-To: <02e22734-2e0c-4a0a-8c5a-42beee0cc396@xen.org>
+Message-ID: <alpine.DEB.2.22.394.2405231802010.2557291@ubuntu-linux-20-04-desktop>
+References: <20240523074040.1611264-1-xin.wang2@amd.com> <20240523074040.1611264-4-xin.wang2@amd.com> <02e22734-2e0c-4a0a-8c5a-42beee0cc396@xen.org>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-Received-SPF: None (SATLEXMB04.amd.com: stefano.stabellini@amd.com does not
- designate permitted sender hosts)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN3PEPF0000B374:EE_|SA3PR12MB7808:EE_
-X-MS-Office365-Filtering-Correlation-Id: e4961a22-ac01-47d0-80d5-08dc7b97d2f3
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230031|1800799015|376005|82310400017|36860700004;
-X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?WLmn1WgWEulHuBgsdlmgC06rLAkeRjI7lKTDnoUxl9HAFHN6vGddY044lrNl?=
- =?us-ascii?Q?uLTx+mWFd+cxpC2lMCdMqcPqX8XmAOx+QPgxxokOHrQPtAGO5UWVj/Ftmhin?=
- =?us-ascii?Q?XXFoiUZXPkojMntMhhGWWuQRpAMInUIksgXx2o35I9b/2CJEiE1BindYw3m2?=
- =?us-ascii?Q?QN4YUSfjO90iqzbjNqBLMcmu1F77Mdi7ftUZ47nMR7tVs31EoETftWHXfAKg?=
- =?us-ascii?Q?XfIsNGjsrgNzmilFbAJ5cr7UX7OHWBtyDmjtjZtYZRq8bkoSyN6nXjdekVAK?=
- =?us-ascii?Q?9Xp9Z5u6XXhj5rWDF6Oe5W1u3ZqmjUQo5Td7An5Zta/k++Xh7Yp8t5po8ZG+?=
- =?us-ascii?Q?TzJLJdtcXTvrmjZwvBDI5JbanPxdEkDoPmTbusKAejzWSJwVue4aK9vD7n20?=
- =?us-ascii?Q?8/F6Thu3Ingk7lr3tCo0eJXIOY1PJrIctaCt9wSvt97uKicW4c+8pobrbitE?=
- =?us-ascii?Q?GIDH5LI29ZiedKIrwkfFp4yy4Mh6r1DNQfL09Ejsq6MliuEy33iCWrevANoh?=
- =?us-ascii?Q?APLojt9fz4NNo2uMFvU6Gyxk5Xz2q3tdwDawlqlcD6+h5dFU2q1UaC3SPzWx?=
- =?us-ascii?Q?9xmeHiGV9q8SwTzrdCBO4bmtZ6KSbkweDXNQdd+ujTp2PSI7703HDiQqtWMI?=
- =?us-ascii?Q?UQnPybyZVtNbmU5cNJrSzJLPAPwA0XsfB/LimTDpIUT3q9Z6P86+ctVPez/6?=
- =?us-ascii?Q?Z79GrF9rPMgqRrzN+GErd2/pGDNb8KPEh166gRZ3g4GiHMcJfsHYXP/PKsph?=
- =?us-ascii?Q?HRcEtAtJ5iQnsP3fyHBd2UGvzyfi+DuHSy1ofHc1dJnjRH4NpMReCtv0qVVY?=
- =?us-ascii?Q?XP6GOq6l5apBfPM19R8Rr5yUdz7+lKvf76t75hKWVk/Drt6iOaFtbyowigQc?=
- =?us-ascii?Q?2vgrgq6LGSYTaCQQxsAdIz2bL9kHwq0eEnq4x/Ev6OAUOhfA3+6KtlAXQxVl?=
- =?us-ascii?Q?LoQcSmDHRLfVvCvr8ST2Po9fyGsVue+QmGanaYulI6e2tEzEGKQKJLP0z9md?=
- =?us-ascii?Q?GL7iVTtHfzzLjbmx33rp73aotZ/VCL6rPi1D94RrF/lkV0971IlqWDluIrG5?=
- =?us-ascii?Q?DegjslMF/Iy/kI/odgdngVL8sQEqdK1MPepPA90+z8qMvGjBV1A1k08iy/Xr?=
- =?us-ascii?Q?Ah+KhGzkyYRCsfGp8oZgM+HG8Y0RMVwDpAccnr/wcAcnJ11xnMSdeojJG4hD?=
- =?us-ascii?Q?FfXEEIGHEGEKK8JLb5o0VzBS8pkTJW26v3v3h8PswvJsuC8S6QTY11mVAWrL?=
- =?us-ascii?Q?1EGmoLEp7AS1CEeVl6e/wU9Zwh6OahGOXC88L5aRv9NwMi6wxsGl03jT6JxK?=
- =?us-ascii?Q?LEZY/ZxGkBn4ESo4sUIhUWUH?=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(1800799015)(376005)(82310400017)(36860700004);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 May 2024 02:18:38.8750
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: e4961a22-ac01-47d0-80d5-08dc7b97d2f3
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN3PEPF0000B374.namprd21.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB7808
+Content-Type: text/plain; charset=US-ASCII
 
-From: Vikram Garhwal <fnu.vikram@xilinx.com>
+On Fri, 24 May 2024, Julien Grall wrote:
+> Hi Henry,
+> 
+> On 23/05/2024 08:40, Henry Wang wrote:
+> > Currently, the number of SPIs allocated to the domain is only
+> > configurable for Dom0less DomUs. Xen domains are supposed to be
+> > platform agnostics and therefore the numbers of SPIs for libxl
+> > guests should not be based on the hardware.
+> > 
+> > Introduce a new xl config entry for Arm to provide a method for
+> > user to decide the number of SPIs. This would help to avoid
+> > bumping the `config->arch.nr_spis` in libxl everytime there is a
+> > new platform with increased SPI numbers.
+> > 
+> > Update the doc and the golang bindings accordingly.
+> > 
+> > Signed-off-by: Henry Wang <xin.wang2@amd.com>
+> > Reviewed-by: Jason Andryuk <jason.andryuk@amd.com>
+> > ---
+> > v4:
+> > - Add Jason's Reviewed-by tag.
+> > v3:
+> > - Reword documentation to avoid ambiguity.
+> > v2:
+> > - New patch to replace the original patch in v1:
+> >    "[PATCH 05/15] tools/libs/light: Increase nr_spi to 160"
+> > ---
+> >   docs/man/xl.cfg.5.pod.in             | 14 ++++++++++++++
+> >   tools/golang/xenlight/helpers.gen.go |  2 ++
+> >   tools/golang/xenlight/types.gen.go   |  1 +
+> >   tools/libs/light/libxl_arm.c         |  4 ++--
+> >   tools/libs/light/libxl_types.idl     |  1 +
+> >   tools/xl/xl_parse.c                  |  3 +++
+> >   6 files changed, 23 insertions(+), 2 deletions(-)
+> > 
+> > diff --git a/docs/man/xl.cfg.5.pod.in b/docs/man/xl.cfg.5.pod.in
+> > index 8f2b375ce9..416d582844 100644
+> > --- a/docs/man/xl.cfg.5.pod.in
+> > +++ b/docs/man/xl.cfg.5.pod.in
+> > @@ -3072,6 +3072,20 @@ raised.
+> >     =back
+> >   +=over 4
+> > +
+> > +=item B<nr_spis="NR_SPIS">
+> > +
+> > +An optional 32-bit integer parameter specifying the number of SPIs (Shared
+> 
+> We can't support that much SPIs :). The limit would be 991 SPIs.
 
-Signed-off-by: Vikram Garhwal <fnu.vikram@xilinx.com>
-Signed-off-by: Stefano Stabellini <stefano.stabellini@xilinx.com>
-Signed-off-by: Henry Wang <xin.wang2@amd.com>
----
- docs/misc/arm/overlay.txt | 82 +++++++++++++++++++++++++++++++++++++++
- 1 file changed, 82 insertions(+)
- create mode 100644 docs/misc/arm/overlay.txt
+I change it
 
-diff --git a/docs/misc/arm/overlay.txt b/docs/misc/arm/overlay.txt
-new file mode 100644
-index 0000000000..0a2dee951a
---- /dev/null
-+++ b/docs/misc/arm/overlay.txt
-@@ -0,0 +1,82 @@
-+# Device Tree Overlays support in Xen
-+
-+Xen experimentally supports dynamic device assignment to running
-+domains, i.e. adding/removing nodes (using .dtbo) to/from Xen device
-+tree, and attaching them to a running domain with given $domid.
-+
-+Dynamic node assignment works in two steps:
-+
-+## Add/Remove device tree overlay to/from Xen device tree
-+
-+1. Xen tools check the dtbo given and parse all other user provided arguments
-+2. Xen tools pass the dtbo to Xen hypervisor via hypercall.
-+3. Xen hypervisor applies/removes the dtbo to/from Xen device tree.
-+
-+## Attach device from the DT overlay to domain
-+
-+1. Xen tools check the dtbo given and parse all other user provided arguments
-+2. Xen tools pass the dtbo to Xen hypervisor via hypercall.
-+3. Xen hypervisor attach the device to the user-provided $domid by
-+   mapping node resources in the DT overlay.
-+
-+# Examples
-+
-+Here are a few examples on how to use it.
-+
-+## Dom0 device add
-+
-+For assigning a device tree overlay to Dom0, user should firstly properly
-+prepare the DT overlay. More information about device tree overlays can be
-+found in [1]. Then, in Dom0, enter the following:
-+
-+    (dom0) xl dt-overlay add overlay.dtbo
-+
-+This will allocate the devices mentioned in overlay.dtbo to Xen device tree.
-+
-+To assign the newly added device from the dtbo to Dom0:
-+
-+    (dom0) xl dt-overlay attach overlay.dtbo 0
-+
-+Next, if the user wants to add the same device tree overlay to dom0
-+Linux, execute the following:
-+
-+    (dom0) mkdir -p /sys/kernel/config/device-tree/overlays/new_overlay
-+    (dom0) cat overlay.dtbo > /sys/kernel/config/device-tree/overlays/new_overlay/dtbo
-+
-+Finally if needed, the relevant Linux kernel drive can be loaded using:
-+
-+    (dom0) modprobe module_name.ko
-+
-+## DomU device add/remove
-+
-+All the nodes in dtbo will be assigned to a domain; the user will need
-+to prepare the dtb for the domU. For example, the `interrupt-parent`
-+property of the DomU overlay should be changed to the Xen hardcoded
-+value `0xfde8`, and the xen,reg property should be added to specify the
-+address mappings. If xen,reg is not present, it is assumed 1:1 mapping.
-+Below assumes the properly written DomU dtbo is `overlay_domu.dtbo`.
-+
-+For new domains to be created, the user will need to create the DomU
-+with below properties properly configured in the xl config file:
-+- `iomem`
-+- `passthrough` (if IOMMU is needed)
-+
-+User will also need to modprobe the relevant drivers. For already
-+running domains, the user can use the xl dt-overlay attach command,
-+example:
-+
-+    (dom0) xl dt-overlay add overlay.dtbo            # If not executed before
-+    (dom0) xl dt-overlay attach overlay.dtbo $domid
-+    (dom0) xl console $domid                         # To access $domid console
-+
-+Next, if the user needs to modify/prepare the overlay.dtbo suitable for
-+the domU:
-+
-+    (domU) mkdir -p /sys/kernel/config/device-tree/overlays/new_overlay
-+    (domU) cat overlay_domu.dtbo > /sys/kernel/config/device-tree/overlays/new_overlay/dtbo
-+
-+Finally, if needed, the relevant Linux kernel drive can be probed:
-+
-+    (domU) modprobe module_name.ko
-+
-+[1] https://www.kernel.org/doc/Documentation/devicetree/overlay-notes.txt
--- 
-2.25.1
 
+> > +Peripheral Interrupts) to allocate for the domain. If the value specified
+> > by
+> > +the `nr_spis` parameter is smaller than the number of SPIs calculated by
+> > the
+> > +toolstack based on the devices allocated for the domain, or the `nr_spis`
+> > +parameter is not specified, the value calculated by the toolstack will be
+> > used
+> > +for the domain. Otherwise, the value specified by the `nr_spis` parameter
+> > will
+> > +be used.
+> 
+> I think it would be worth mentioning that the number of SPIs should match the
+> highest interrupt ID that will be assigned to the domain (rather than the
+> number of SPIs planned to be assigned).
+
+I added it
+
+
+> > +
+> > +=back
+> > +
+> >   =head3 x86
+> >     =over 4
+> > diff --git a/tools/golang/xenlight/helpers.gen.go
+> > b/tools/golang/xenlight/helpers.gen.go
+> > index b9cb5b33c7..fe5110474d 100644
+> > --- a/tools/golang/xenlight/helpers.gen.go
+> > +++ b/tools/golang/xenlight/helpers.gen.go
+> > @@ -1154,6 +1154,7 @@ return fmt.Errorf("invalid union key '%v'", x.Type)}
+> >   x.ArchArm.GicVersion = GicVersion(xc.arch_arm.gic_version)
+> >   x.ArchArm.Vuart = VuartType(xc.arch_arm.vuart)
+> >   x.ArchArm.SveVl = SveType(xc.arch_arm.sve_vl)
+> > +x.ArchArm.NrSpis = uint32(xc.arch_arm.nr_spis)
+> >   if err := x.ArchX86.MsrRelaxed.fromC(&xc.arch_x86.msr_relaxed);err != nil
+> > {
+> >   return fmt.Errorf("converting field ArchX86.MsrRelaxed: %v", err)
+> >   }
+> > @@ -1670,6 +1671,7 @@ return fmt.Errorf("invalid union key '%v'", x.Type)}
+> >   xc.arch_arm.gic_version = C.libxl_gic_version(x.ArchArm.GicVersion)
+> >   xc.arch_arm.vuart = C.libxl_vuart_type(x.ArchArm.Vuart)
+> >   xc.arch_arm.sve_vl = C.libxl_sve_type(x.ArchArm.SveVl)
+> > +xc.arch_arm.nr_spis = C.uint32_t(x.ArchArm.NrSpis)
+> >   if err := x.ArchX86.MsrRelaxed.toC(&xc.arch_x86.msr_relaxed); err != nil {
+> >   return fmt.Errorf("converting field ArchX86.MsrRelaxed: %v", err)
+> >   }
+> > diff --git a/tools/golang/xenlight/types.gen.go
+> > b/tools/golang/xenlight/types.gen.go
+> > index 5b293755d7..c9e45b306f 100644
+> > --- a/tools/golang/xenlight/types.gen.go
+> > +++ b/tools/golang/xenlight/types.gen.go
+> > @@ -597,6 +597,7 @@ ArchArm struct {
+> >   GicVersion GicVersion
+> >   Vuart VuartType
+> >   SveVl SveType
+> > +NrSpis uint32
+> >   }
+> >   ArchX86 struct {
+> >   MsrRelaxed Defbool
+> > diff --git a/tools/libs/light/libxl_arm.c b/tools/libs/light/libxl_arm.c
+> > index 1cb89fa584..a4029e3ac8 100644
+> > --- a/tools/libs/light/libxl_arm.c
+> > +++ b/tools/libs/light/libxl_arm.c
+> > @@ -181,8 +181,8 @@ int libxl__arch_domain_prepare_config(libxl__gc *gc,
+> >         LOG(DEBUG, "Configure the domain");
+> >   -    config->arch.nr_spis = nr_spis;
+> > -    LOG(DEBUG, " - Allocate %u SPIs", nr_spis);
+> > +    config->arch.nr_spis = max(nr_spis, d_config->b_info.arch_arm.nr_spis);
+> 
+> I am not entirely sure about using max(). To me if the user specifies a lower
+> limit, then we should throw an error because this is likely an indication that
+> the SPIs they will want to assign will clash with the emulated ones.
+> 
+> So it would be better to warn at domain creation rather than waiting until the
+> IRQs are assigned.
+> 
+> I would like Anthony's opinion on this one. Given he is away this month, I
+> guess we could get this patch merged (with other comments addressed) and have
+> a follow-up if wanted before 4.19.
+
+I left it as is for now
+
+
+> > +    LOG(DEBUG, " - Allocate %u SPIs", config->arch.nr_spis);
+> >         switch (d_config->b_info.arch_arm.gic_version) {
+> >       case LIBXL_GIC_VERSION_DEFAULT:
+> > diff --git a/tools/libs/light/libxl_types.idl
+> > b/tools/libs/light/libxl_types.idl
+> > index 79e9c656cc..4e65e6fda5 100644
+> > --- a/tools/libs/light/libxl_types.idl
+> > +++ b/tools/libs/light/libxl_types.idl
+> > @@ -722,6 +722,7 @@ libxl_domain_build_info = Struct("domain_build_info",[
+> >       ("arch_arm", Struct(None, [("gic_version", libxl_gic_version),
+> >                                  ("vuart", libxl_vuart_type),
+> >                                  ("sve_vl", libxl_sve_type),
+> > +                               ("nr_spis", uint32),
+> 
+> From my understandig, any change in the .idl requires a corresponding
+> LIBXL_HAVE_... in include/libxl.h. This is in order to allow external
+> toolstack (such as libvirt) to be able to select at build time between
+> multiple version of libxl.
+
+I added it
+
+
+> >                                 ])),
+> >       ("arch_x86", Struct(None, [("msr_relaxed", libxl_defbool),
+> >                                 ])),
+> > diff --git a/tools/xl/xl_parse.c b/tools/xl/xl_parse.c
+> > index c504ab3711..e3a4800f6e 100644
+> > --- a/tools/xl/xl_parse.c
+> > +++ b/tools/xl/xl_parse.c
+> > @@ -2935,6 +2935,9 @@ skip_usbdev:
+> >           }
+> >       }
+> >   +    if (!xlu_cfg_get_long (config, "nr_spis", &l, 0))
+> > +        b_info->arch_arm.nr_spis = l;
+> > +
+> >       parse_vkb_list(config, d_config);
+> >         d_config->virtios = NULL;
+> 
+> Cheers,
+> 
+> -- 
+> Julien Grall
+> 
 
