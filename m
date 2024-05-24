@@ -2,32 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 07F9E8CE3EA
-	for <lists+xen-devel@lfdr.de>; Fri, 24 May 2024 11:56:27 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.729244.1134389 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 296538CE43B
+	for <lists+xen-devel@lfdr.de>; Fri, 24 May 2024 12:33:12 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.729293.1134400 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sARen-00021h-KS; Fri, 24 May 2024 09:56:13 +0000
+	id 1sASDV-0001KT-63; Fri, 24 May 2024 10:32:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 729244.1134389; Fri, 24 May 2024 09:56:13 +0000
+Received: by outflank-mailman (output) from mailman id 729293.1134400; Fri, 24 May 2024 10:32:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sARen-0001zV-Gv; Fri, 24 May 2024 09:56:13 +0000
-Received: by outflank-mailman (input) for mailman id 729244;
- Fri, 24 May 2024 09:56:12 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1sARem-0001wi-BK
- for xen-devel@lists.xenproject.org; Fri, 24 May 2024 09:56:12 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1sARel-0006lq-Hl; Fri, 24 May 2024 09:56:11 +0000
-Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.0.211])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1sARel-0005Nv-A1; Fri, 24 May 2024 09:56:11 +0000
+	id 1sASDV-0001Iv-2S; Fri, 24 May 2024 10:32:05 +0000
+Received: by outflank-mailman (input) for mailman id 729293;
+ Fri, 24 May 2024 10:32:03 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=di0w=M3=cloud.com=alejandro.vallejo@srs-se1.protection.inumbo.net>)
+ id 1sASDT-0001HK-HJ
+ for xen-devel@lists.xenproject.org; Fri, 24 May 2024 10:32:03 +0000
+Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
+ [2a00:1450:4864:20::434])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id db168bd8-19b8-11ef-b4bb-af5377834399;
+ Fri, 24 May 2024 12:32:01 +0200 (CEST)
+Received: by mail-wr1-x434.google.com with SMTP id
+ ffacd0b85a97d-355080e6ff9so497269f8f.2
+ for <xen-devel@lists.xenproject.org>; Fri, 24 May 2024 03:32:01 -0700 (PDT)
+Received: from [192.168.0.16] (0545937c.skybroadband.com. [5.69.147.124])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-3557a08aba8sm1269932f8f.42.2024.05.24.03.31.59
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 24 May 2024 03:32:00 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,172 +45,86 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=EEDfjkRt6blO2trxyslNclOy3h3ZXVBkdsotf+FX3lI=; b=ZX2EtO9odUk1nDPpIKW0BWyc56
-	9Rg93BrHoNv4kph7p61Q7Y2hA4KMDIkuP+cm/+QXnvPHO8iaSyNu28F9wxj//RDSrUsGUjEA34dSe
-	ZrfwVK6muhKssUFvQR7F8r8wwmejBHzTWEGdwVRXNcb45VAOGII6fTsIrPD8Rt0tREx0=;
-Message-ID: <a7a0456d-9eac-4db4-8782-ae94c7e338b1@xen.org>
-Date: Fri, 24 May 2024 10:56:09 +0100
+X-Inumbo-ID: db168bd8-19b8-11ef-b4bb-af5377834399
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cloud.com; s=cloud; t=1716546721; x=1717151521; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=/j1AH2CW1D72ZHr3W8o3rzzMsGfMwZCkPJJE+Ii7QK8=;
+        b=AlTZbcRy8yjW4YWNh41T4CVLrToPhFXsqosbyE4W3cfu0Cg8VXVbqdfCXIPRUK9ZHH
+         2UTkHUtTATUcbfcM97Y6xIwrL9Emph6DCCd4NNR1iqbrgqOyswWW/fDt8wa4jWAbzt6P
+         RhnwyoeViOb0sRSuq1DU4LYb4qW/hcX++WVG4=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1716546721; x=1717151521;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=/j1AH2CW1D72ZHr3W8o3rzzMsGfMwZCkPJJE+Ii7QK8=;
+        b=uDM8Sgu8rlbgAFpRPOgQYa07cSlm9UEv7IPS3DbtnFvoTt7I8ZTCc5QKnXgB3zp/+k
+         RGHBc10Q2wyZR149Mg8u0swrwOu6N4q+AWsizG30Bs9ydFyYA4t9P3ieVZXkDg7pq+tz
+         bgXpTCrnnxBa3I33089bOuRIrzject8YqpVEfdjdc9aSH6p13bKphl2xJO4coep6lLnc
+         e4NALfZUS3GEPDEdmr1EGHZxeL+15sLUTCxuz77gEx00Iu7h0FSkW6VpJub7jJ7BNpDk
+         mDNKMW1RtuSTMiSOiPKvUE5MfCzxMPbN1K2FDmqCNHpL2My4MxPlWKu0z0tAqfBubX2k
+         ZsPA==
+X-Gm-Message-State: AOJu0Yy1oLBRJugl49CDNFY5u4KEiIB4R1kf5iiLBKA3hwa+s48nKu5W
+	jS3w7/qbc3saQtw2VLSc5GGBjfST1BEUVXLFZhSmIaMLwNJHkDrOCoNPvDfHfEc=
+X-Google-Smtp-Source: AGHT+IFAdmBE26nT1NqSf+apueplaOS+4Wh9gEgmrQZMeYVdmDMTDYFFSGA4t30yjSDOwCshjNFq3A==
+X-Received: by 2002:adf:e402:0:b0:34a:2852:f119 with SMTP id ffacd0b85a97d-3552fda1cffmr1100385f8f.36.1716546720766;
+        Fri, 24 May 2024 03:32:00 -0700 (PDT)
+Message-ID: <cb48ebac-3406-47e3-9323-ad75f487265a@cloud.com>
+Date: Fri, 24 May 2024 11:31:58 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 7/7] docs: Add device tree overlay documentation
+Subject: Re: [PATCH v3 2/2] tools/xg: Clean up xend-style overrides for CPU
+ policies
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>,
+ Anthony PERARD <anthony@xenproject.org>, Juergen Gross <jgross@suse.com>
+References: <cover.1716457040.git.alejandro.vallejo@cloud.com>
+ <ae180fd606cb9a6aa0108080fe8cf7a6496a4ce3.1716457040.git.alejandro.vallejo@cloud.com>
+ <Zk8e1RabTi0YXCgW@macbook>
 Content-Language: en-GB
-To: Stefano Stabellini <stefano.stabellini@amd.com>,
- xen-devel@lists.xenproject.org
-Cc: anthony@xenproject.org, sstabellini@kernel.org, bertrand.marquis@arm.com,
- michal.orzel@amd.com, Volodymyr_Babchuk@epam.com,
- Vikram Garhwal <fnu.vikram@xilinx.com>,
- Stefano Stabellini <stefano.stabellini@xilinx.com>,
- Henry Wang <xin.wang2@amd.com>
-References: <alpine.DEB.2.22.394.2405231914360.2557291@ubuntu-linux-20-04-desktop>
- <20240524021814.2666257-7-stefano.stabellini@amd.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <20240524021814.2666257-7-stefano.stabellini@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+From: Alejandro Vallejo <alejandro.vallejo@cloud.com>
+In-Reply-To: <Zk8e1RabTi0YXCgW@macbook>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hi Stefano,
-
-On 24/05/2024 03:18, Stefano Stabellini wrote:
-> From: Vikram Garhwal <fnu.vikram@xilinx.com>
+On 23/05/2024 11:47, Roger Pau Monné wrote:
+>> -static xen_cpuid_leaf_t *find_leaf(
+>> -    xen_cpuid_leaf_t *leaves, unsigned int nr_leaves,
+>> -    const struct xc_xend_cpuid *xend)
+>> +static xen_cpuid_leaf_t *find_leaf(xc_cpu_policy_t *p,
+>> +                                   const struct xc_xend_cpuid *xend)
+>>  {
+>>      const xen_cpuid_leaf_t key = { xend->leaf, xend->subleaf };
+>>  
+>> -    return bsearch(&key, leaves, nr_leaves, sizeof(*leaves), compare_leaves);
+>> +    return bsearch(&key, p->leaves, ARRAY_SIZE(p->leaves),
 > 
-> Signed-off-by: Vikram Garhwal <fnu.vikram@xilinx.com>
-> Signed-off-by: Stefano Stabellini <stefano.stabellini@xilinx.com>
-> Signed-off-by: Henry Wang <xin.wang2@amd.com>
-> ---
->   docs/misc/arm/overlay.txt | 82 +++++++++++++++++++++++++++++++++++++++
->   1 file changed, 82 insertions(+)
->   create mode 100644 docs/misc/arm/overlay.txt
+> Don't you need to use p->nr_leaves here, as otherwise we could check
+> against possibly uninitialized leaves (or leaves with stale data)?
+
+Indeed. Good catch (same on the MSR side).
+
+>> -        switch ( p->policy.x86_vendor )
+>> +        switch ( cur->policy.x86_vendor )
+>>          {
+>>          case X86_VENDOR_INTEL:
+>> -            for ( i = 0; (p->policy.cache.subleaf[i].type &&
+>> -                          i < ARRAY_SIZE(p->policy.cache.raw)); ++i )
+>> +            for ( i = 0; (cur->policy.cache.subleaf[i].type &&
+>> +                                i < ARRAY_SIZE(cur->policy.cache.raw)); ++i )
 > 
-> diff --git a/docs/misc/arm/overlay.txt b/docs/misc/arm/overlay.txt
-> new file mode 100644
-> index 0000000000..0a2dee951a
-> --- /dev/null
-> +++ b/docs/misc/arm/overlay.txt
-> @@ -0,0 +1,82 @@
-> +# Device Tree Overlays support in Xen
-> +
-> +Xen experimentally supports dynamic device assignment to running
-> +domains, i.e. adding/removing nodes (using .dtbo) to/from Xen device
-> +tree, and attaching them to a running domain with given $domid.
-> +
-> +Dynamic node assignment works in two steps:
-> +
-> +## Add/Remove device tree overlay to/from Xen device tree
-> +
-> +1. Xen tools check the dtbo given and parse all other user provided arguments
-> +2. Xen tools pass the dtbo to Xen hypervisor via hypercall.
-> +3. Xen hypervisor applies/removes the dtbo to/from Xen device tree.
-> +
-> +## Attach device from the DT overlay to domain
-> +
-> +1. Xen tools check the dtbo given and parse all other user provided arguments
-> +2. Xen tools pass the dtbo to Xen hypervisor via hypercall.
-> +3. Xen hypervisor attach the device to the user-provided $domid by
-> +   mapping node resources in the DT overlay.
-> +
-> +# Examples
-> +
-> +Here are a few examples on how to use it.
-> +
-> +## Dom0 device add
-> +
-> +For assigning a device tree overlay to Dom0, user should firstly properly
-> +prepare the DT overlay. More information about device tree overlays can be
-> +found in [1]. Then, in Dom0, enter the following:
-> +
-> +    (dom0) xl dt-overlay add overlay.dtbo
-> +
-> +This will allocate the devices mentioned in overlay.dtbo to Xen device tree.
-> +
-> +To assign the newly added device from the dtbo to Dom0:
-> +
-> +    (dom0) xl dt-overlay attach overlay.dtbo 0
-> +
-> +Next, if the user wants to add the same device tree overlay to dom0
-> +Linux, execute the following:
-> +
-> +    (dom0) mkdir -p /sys/kernel/config/device-tree/overlays/new_overlay
-> +    (dom0) cat overlay.dtbo > /sys/kernel/config/device-tree/overlays/new_overlay/dtbo
-> +
-> +Finally if needed, the relevant Linux kernel drive can be loaded using:
-> +
-> +    (dom0) modprobe module_name.ko
-> +
-> +## DomU device add/remove
-> +
-> +All the nodes in dtbo will be assigned to a domain; the user will need
-> +to prepare the dtb for the domU.
+> Nit: indentation is weird here.  I would use:
+> 
+>             for ( i = 0; cur->policy.cache.subleaf[i].type &&
+>                          i < ARRAY_SIZE(cur->policy.cache.raw); ++i )
+> 
+> Thanks, Roger.
 
-s/dtb/dtbo/? But I am little bit confused with the wording. I think you 
-may want to add *different dtbo* so it clarifies from the start (this 
-only becomes obvious at the end of the section) that the user is not 
-meant to use the same for all the commands.
-
-  For example, the `interrupt-parent`
-> +property of the DomU overlay should be changed to the Xen hardcoded
-> +value `0xfde8`, and the xen,reg property should be added to specify the
-> +address mappings. 
-> If xen,reg is not present, it is assumed 1:1 mapping.
-
-Repeating an earlier comment here. I think xen,reg should be mandatory 
-for non-direct mapped domain.
-
-Also, can you clarify what is the expect property layout for xen,reg?
-
-> +Below assumes the properly written DomU dtbo is `overlay_domu.dtbo`.
-> +
-> +For new domains to be created, the user will need to create the DomU
-> +with below properties properly configured in the xl config file:
-> +- `iomem`
-
-I looked at your reply in v4 and I am afraid I still don't understand 
-why we are mentioning 'iomem'. If we want to use the commands below, 
-then the domain needs to be created in advance. So you can't yet know 
-'iomem'.
-
-You could avoid "xl dt-overlay attach" but then you need the user to 
-specify both "irqs" and "iomem". From a user point of view, it would be 
-easier to add a new propery in the configuration file listing the 
-overlays. Something like:
-
-dt_overlays = [ "overlay.dtbo", ... ]
-
-Anyway, that somewhat separate. For now, I think we want to drop 'iomem' 
-from the list and reword this paragraph to say that the 'passthrough' 
-property needs to be set if you plan to use DT overlay and devices 
-requiring the IOMMU.
-
-> +- `passthrough` (if IOMMU is needed)
-
-This property is required at the start because we don't support enabling 
-the IOMMU lazily.
-
-> +
-> +User will also need to modprobe the relevant drivers. For already
-> +running domains, the user can use the xl dt-overlay attach command,
-> +example:
-> +
-> +    (dom0) xl dt-overlay add overlay.dtbo            # If not executed before
-> +    (dom0) xl dt-overlay attach overlay.dtbo $domid
-> +    (dom0) xl console $domid                         # To access $domid console
-> +
-> +Next, if the user needs to modify/prepare the overlay.dtbo suitable for
-> +the domU:
-> +
-> +    (domU) mkdir -p /sys/kernel/config/device-tree/overlays/new_overlay
-> +    (domU) cat overlay_domu.dtbo > /sys/kernel/config/device-tree/overlays/new_overlay/dtbo
-> +
-> +Finally, if needed, the relevant Linux kernel drive can be probed:
-> +
-> +    (domU) modprobe module_name.ko
-> +
-> +[1] https://www.kernel.org/doc/Documentation/devicetree/overlay-notes.txt
+Sure. Leftover from removing the size_t in v2.
 
 Cheers,
-
--- 
-Julien Grall
+Alejandro
 
