@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 708AE8CFA5B
-	for <lists+xen-devel@lfdr.de>; Mon, 27 May 2024 09:46:40 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.730610.1135739 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 05D538CFAF1
+	for <lists+xen-devel@lfdr.de>; Mon, 27 May 2024 10:06:41 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.730619.1135748 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sBV2y-0001E3-OK; Mon, 27 May 2024 07:45:32 +0000
+	id 1sBVMz-0004T9-Eg; Mon, 27 May 2024 08:06:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 730610.1135739; Mon, 27 May 2024 07:45:32 +0000
+Received: by outflank-mailman (output) from mailman id 730619.1135748; Mon, 27 May 2024 08:06:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sBV2y-0001CC-LM; Mon, 27 May 2024 07:45:32 +0000
-Received: by outflank-mailman (input) for mailman id 730610;
- Mon, 27 May 2024 07:45:31 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1sBVMz-0004Qw-Bp; Mon, 27 May 2024 08:06:13 +0000
+Received: by outflank-mailman (input) for mailman id 730619;
+ Mon, 27 May 2024 08:06:12 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=0flO=M6=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1sBV2x-0001C6-Rh
- for xen-devel@lists.xenproject.org; Mon, 27 May 2024 07:45:31 +0000
-Received: from mail-lj1-x22b.google.com (mail-lj1-x22b.google.com
- [2a00:1450:4864:20::22b])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 174f1edf-1bfd-11ef-90a1-e314d9c70b13;
- Mon, 27 May 2024 09:45:30 +0200 (CEST)
-Received: by mail-lj1-x22b.google.com with SMTP id
- 38308e7fff4ca-2e719bab882so104065261fa.3
- for <xen-devel@lists.xenproject.org>; Mon, 27 May 2024 00:45:30 -0700 (PDT)
+ id 1sBVMx-0004Qq-VO
+ for xen-devel@lists.xenproject.org; Mon, 27 May 2024 08:06:11 +0000
+Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
+ [2a00:1450:4864:20::32b])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id fa00ddb7-1bff-11ef-b4bb-af5377834399;
+ Mon, 27 May 2024 10:06:09 +0200 (CEST)
+Received: by mail-wm1-x32b.google.com with SMTP id
+ 5b1f17b1804b1-420180b58c5so44361875e9.3
+ for <xen-devel@lists.xenproject.org>; Mon, 27 May 2024 01:06:09 -0700 (PDT)
 Received: from localhost ([213.195.114.223]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-42100fb9042sm132704485e9.39.2024.05.27.00.45.29
+ 5b1f17b1804b1-421089ae976sm99890605e9.38.2024.05.27.01.06.08
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 27 May 2024 00:45:29 -0700 (PDT)
+ Mon, 27 May 2024 01:06:08 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,87 +44,103 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 174f1edf-1bfd-11ef-90a1-e314d9c70b13
+X-Inumbo-ID: fa00ddb7-1bff-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1716795930; x=1717400730; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1716797169; x=1717401969; darn=lists.xenproject.org;
         h=in-reply-to:content-transfer-encoding:content-disposition
          :mime-version:references:message-id:subject:cc:to:from:date:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=OCwXm4CkTF9x2cDNqDZPQHJI1jrYKUj/dD8FNi/knVI=;
-        b=i4YqivSLcC3XoNSu+X6gMjwKPRA7yy6kDc6UwWmiZJNXCsA0l/vq/fq3gPZgEucOWO
-         37mvldd8tq6HudGvX7uqmeM2WQi6fM9LZOFA6XhIzOTbpvLN/8033eELSUSRMGsBNQ4A
-         fygyEyy2+AJNKmkjq9m/9ib4e8LlDxyi5hnaI=
+        bh=UCNZOPVcSv6vgS5x24ELfr5/tjnkICUuAG3SIv/QHNM=;
+        b=jKPTSqY1z5tltO2mMhTbgWP9yK5rJCNCRkJIIqQgmjqziTCy1CWrXvHrdPjcsb99RJ
+         kyqZ3fRCIK6aACXP0lZ1dBYZiqKvScKnLTlUbNraKfTz3uowe5a57F+ELSqWAK8jdmzh
+         01K79P2sqsYryD0PdbsCVJUMbNpEStAHQvtyE=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1716795930; x=1717400730;
+        d=1e100.net; s=20230601; t=1716797169; x=1717401969;
         h=in-reply-to:content-transfer-encoding:content-disposition
          :mime-version:references:message-id:subject:cc:to:from:date
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=OCwXm4CkTF9x2cDNqDZPQHJI1jrYKUj/dD8FNi/knVI=;
-        b=AMzsPf89/siNnZDK3dTGjP3G+gguEBijtKdo1rgQLXr3ApPGlK115qi2pleLNEvh0s
-         pwmQyRY8s5UsJm0lhFm27ONjLYfrMIE9A8V6DlN4tp0J4JcpqU5d2nwUrlleckQOyUVv
-         th1/pRpVDJYj2gAuDleLBxYzoKoqAQrpeY3VWKfPTRuWiPC67eai8z3VwiLMj20dhcya
-         aZ78FAt2ehSnBhiTGgQs4Q1m5QDNCc0wfBXVjQ0uJ47Hk8HFvvvuzUatv+AqRc26m9dV
-         pZPDWmd5+gRWposyqAmjsDvVx2+FU7TCnik6osPiWyCI/4yg7c+Q3OIbDuOcyVLloEn9
-         M0IQ==
-X-Forwarded-Encrypted: i=1; AJvYcCXgkJ1nDHJdwXaC55CDjds3J2y7F1PfFTnkc7LQna8M9vKQc1jMk+USGFr9oDuvoyafsqQSoxL3ZuOP87hK5Sz6qZxiYd98Qh79K68gDEc=
-X-Gm-Message-State: AOJu0YxGtURFiBpr+x0DzneedXcKEAuCKln9FGUaHq726TY4Dx0JpaEn
-	z3FEF3+OMcpOEy4SWnFmy5oJUfFw3vozYUfzC67P5D8NAW67mOGUSgz5IfePCBY=
-X-Google-Smtp-Source: AGHT+IHNfO1uozzSIFlA74/2waqzTYuaRNA2g91sAU1dtroDz76kpwdIn0iCG1zTtiVxR77FxmZCFA==
-X-Received: by 2002:a2e:2c16:0:b0:2e5:8720:50d2 with SMTP id 38308e7fff4ca-2e95af3493dmr53328111fa.0.1716795929812;
-        Mon, 27 May 2024 00:45:29 -0700 (PDT)
-Date: Mon, 27 May 2024 09:45:28 +0200
+        bh=UCNZOPVcSv6vgS5x24ELfr5/tjnkICUuAG3SIv/QHNM=;
+        b=C8BFC7EMVtUqnD6eZ64/NesYYHJv+uCNFwzC7xXpNjnpj1APPsN5gV1UXFPfZFi7H6
+         g6i9gOFqN3h8lU69TpumkqpMIOw5yZVmiL4mGDb1+8AYDpua14bJmr3L4jpYGNf4fuLX
+         bJ67kXeUhCIOTdD7xsXCISRQFE5Ab9ah43qtDi0+LfRKX0s9iU5XPwbSPWxYOyGmIEZ4
+         ViLL4/bq1JMMCrAhxZuvototW9Q3QWEaOW1oS2tS7kui9bJVhrMGZxktAgWM7DqET6bV
+         VeSbQPT29CSuGmcz9CQPRTDNcB6Kzml1cZ3oItq5VOY92rnqxh1Ria4GPodIjk6yRNe0
+         wHgg==
+X-Gm-Message-State: AOJu0YzZeUTetQMcipeodcE4nRyup+YDcImo+C1MwUP9/OPOLp49SY35
+	elJeA29Cqa6xRgW22uljri46/j9QHCzn0fOLCWfCfBYWth5Dz2gfCs44rJV3vBY=
+X-Google-Smtp-Source: AGHT+IHSJSvQdnZzenFvFruvxK3Dm5P//mmkDbY65D90oaTnglYrgIB45e5seH+GnEjPJPf3jixtNw==
+X-Received: by 2002:a05:600c:4592:b0:41a:bdaf:8c78 with SMTP id 5b1f17b1804b1-421089b2201mr73713255e9.8.1716797169111;
+        Mon, 27 May 2024 01:06:09 -0700 (PDT)
+Date: Mon, 27 May 2024 10:06:07 +0200
 From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Julien Grall <julien@xen.org>
-Cc: Stewart Hildebrand <stewart.hildebrand@amd.com>,
-	xen-devel@lists.xenproject.org,
-	Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Bertrand Marquis <bertrand.marquis@arm.com>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: Re: [PATCH v16 4/5] xen/arm: translate virtual PCI bus topology for
- guests
-Message-ID: <ZlQ6GNO6vv8lTHTM@macbook>
-References: <20240522225927.77398-1-stewart.hildebrand@amd.com>
- <20240522225927.77398-5-stewart.hildebrand@amd.com>
- <Zk70udmiriruMt0r@macbook>
- <4afe33f2-72e6-4755-98ce-d7f9da374e90@xen.org>
+To: Alejandro Vallejo <alejandro.vallejo@cloud.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>,
+	Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Anthony PERARD <anthony@xenproject.org>
+Subject: Re: [PATCH v2 7/8] xen/x86: Derive topologically correct x2APIC IDs
+ from the policy
+Message-ID: <ZlQ-7w0Kmzlmvfb1@macbook>
+References: <cover.1715102098.git.alejandro.vallejo@cloud.com>
+ <87a2a4589e330472b7260ff6ab513744596a4488.1715102098.git.alejandro.vallejo@cloud.com>
+ <ZlBSPYCpEAosNVzo@macbook>
+ <1e16ffa9-3f6c-43ed-b36c-55fe132c8145@cloud.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <4afe33f2-72e6-4755-98ce-d7f9da374e90@xen.org>
+In-Reply-To: <1e16ffa9-3f6c-43ed-b36c-55fe132c8145@cloud.com>
 
-On Fri, May 24, 2024 at 02:21:09PM +0100, Julien Grall wrote:
-> Hi,
-> 
-> Sorry I didn't notice there was a v16 and posted comments on the v15. The
-> only one is about the size of the list we iterate.
-> 
-> On 23/05/2024 08:48, Roger Pau Monné wrote:
-> > On Wed, May 22, 2024 at 06:59:23PM -0400, Stewart Hildebrand wrote:
-> > > From: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
-> > > +    }
-> > > -    return sbdf;
-> > > +    return translated;
-> > >   }
-> > >   static int vpci_mmio_read(struct vcpu *v, mmio_info_t *info,
-> > >                             register_t *r, void *p)
-> > >   {
-> > >       struct pci_host_bridge *bridge = p;
-> > > -    pci_sbdf_t sbdf = vpci_sbdf_from_gpa(bridge, info->gpa);
-> > > +    pci_sbdf_t sbdf;
-> > >       const unsigned int access_size = (1U << info->dabt.size) * 8;
-> > >       const register_t invalid = GENMASK_ULL(access_size - 1, 0);
+On Fri, May 24, 2024 at 06:03:22PM +0100, Alejandro Vallejo wrote:
+> On 24/05/2024 09:39, Roger Pau Monné wrote:
+> > On Wed, May 08, 2024 at 01:39:26PM +0100, Alejandro Vallejo wrote:
 > > 
-> > Do you know why the invalid value is truncated to the access size.
+> > Also you could initialize x2apic_id at definition:
+> > 
+> > const struct test *t = &tests[j];
+> > struct cpu_policy policy = { .x86_vendor = vendors[i] };
+> > int rc = x86_topo_from_parts(&policy, t->threads_per_core, t->cores_per_pkg);
+> > uint32_t x2apic_id = x86_x2apic_id_from_vcpu_id(&policy, t->vcpu_id);
 > 
-> Because no other callers are doing the truncation and therefore the guest
-> would read 1s even for 8-byte unsigned access.
+> Seeing this snippet I just realized there's a bug. The second loop
+> should use j rather than i. Ugh.
 
-I think forcing all handlers to do the truncation is a lot of
-duplication, and more risky than just doing it in the dispatcher
-itself (handle_read()), see my reply to 1/5.
+Well, you shadow the outer variable with the inner one, which makes it
+still fine.  Yet I don't like that shadowing much.  I was going to
+comment, but for the requested change you need to not shadow the outer
+loop variable (in the example chunk I've used 'j' to signal the outer
+loop index).
+
+> >> +}
+> >> +
+> >>  uint32_t x86_x2apic_id_from_vcpu_id(const struct cpu_policy *p, uint32_t id)
+> >>  {
+> >> +    uint32_t shift = 0, x2apic_id = 0;
+> >> +
+> >> +    /* In the absence of topology leaves, fallback to traditional mapping */
+> >> +    if ( !p->topo.subleaf[0].type )
+> >> +        return id * 2;
+> >> +
+> >>      /*
+> >> -     * TODO: Derive x2APIC ID from the topology information inside `p`
+> >> -     *       rather than from vCPU ID. This bodge is a temporary measure
+> >> -     *       until all infra is in place to retrieve or derive the initial
+> >> -     *       x2APIC ID from migrated domains.
+> > 
+> > I'm a bit confused with this, the policy is domain wide, so we will
+> > always need to pass the vCPU ID into x86_x2apic_id_from_vcpu_id()?
+> > IOW: the x2APIC ID will always be derived from the vCPU ID.
+> > 
+> > Thanks, Roger.
+> 
+> The x2APIC ID is derived (after the series) from the vCPU ID _and_ the
+> topology information. The vCPU alone will work out in all cases because
+> it'll be cached in the vlapic hvm structure.
+> 
+> I guess the comment could be rewritten as "... rather than from the vCPU
+> ID alone..."
+
+Yup, that's clearer :).
 
 Thanks, Roger.
 
