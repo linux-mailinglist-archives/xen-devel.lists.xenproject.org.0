@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2F1458D058E
-	for <lists+xen-devel@lfdr.de>; Mon, 27 May 2024 17:12:57 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.730838.1136083 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0D04F8D0599
+	for <lists+xen-devel@lfdr.de>; Mon, 27 May 2024 17:13:45 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.730841.1136094 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sBc1k-0002ce-8b; Mon, 27 May 2024 15:12:44 +0000
+	id 1sBc2W-0003B9-Hl; Mon, 27 May 2024 15:13:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 730838.1136083; Mon, 27 May 2024 15:12:44 +0000
+Received: by outflank-mailman (output) from mailman id 730841.1136094; Mon, 27 May 2024 15:13:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sBc1k-0002aA-5w; Mon, 27 May 2024 15:12:44 +0000
-Received: by outflank-mailman (input) for mailman id 730838;
- Mon, 27 May 2024 15:12:42 +0000
+	id 1sBc2W-00038M-EP; Mon, 27 May 2024 15:13:32 +0000
+Received: by outflank-mailman (input) for mailman id 730841;
+ Mon, 27 May 2024 15:13:30 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=O60l=M6=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sBc1i-00026J-KM
- for xen-devel@lists.xenproject.org; Mon, 27 May 2024 15:12:42 +0000
-Received: from mail-lj1-x234.google.com (mail-lj1-x234.google.com
- [2a00:1450:4864:20::234])
+ id 1sBc2U-00037V-Pr
+ for xen-devel@lists.xenproject.org; Mon, 27 May 2024 15:13:30 +0000
+Received: from mail-ed1-x534.google.com (mail-ed1-x534.google.com
+ [2a00:1450:4864:20::534])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 90263c40-1c3b-11ef-90a1-e314d9c70b13;
- Mon, 27 May 2024 17:12:41 +0200 (CEST)
-Received: by mail-lj1-x234.google.com with SMTP id
- 38308e7fff4ca-2e724bc46c4so90426741fa.2
- for <xen-devel@lists.xenproject.org>; Mon, 27 May 2024 08:12:41 -0700 (PDT)
+ id aceacbfe-1c3b-11ef-90a1-e314d9c70b13;
+ Mon, 27 May 2024 17:13:30 +0200 (CEST)
+Received: by mail-ed1-x534.google.com with SMTP id
+ 4fb4d7f45d1cf-57857e0f45eso2560281a12.0
+ for <xen-devel@lists.xenproject.org>; Mon, 27 May 2024 08:13:30 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-579c2026406sm3047825a12.37.2024.05.27.08.12.40
+ 4fb4d7f45d1cf-579c2026406sm3047825a12.37.2024.05.27.08.13.29
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 27 May 2024 08:12:41 -0700 (PDT)
+ Mon, 27 May 2024 08:13:29 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,51 +45,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 90263c40-1c3b-11ef-90a1-e314d9c70b13
+X-Inumbo-ID: aceacbfe-1c3b-11ef-90a1-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1716822761; x=1717427561; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1716822810; x=1717427610; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=P7Jh/8RdqOL74XKYE/SJmV4ggngj0/VZwa7qcHlFTbw=;
-        b=gRldI3ufelrr55TEE4cxVerhxnlAFa0dOrX9HaDNM3ZNFcIYBlQou8ymC+oQQphMSH
-         Tco3gje52AfwSWn2NXAhyEPr69Td1I6dXnzta0i20tRhfhyJfv4KBKggVw/AznKN03og
-         Oi3i8m75AExPjZY3fLBToCA6ACqra/1BZCy6zALhLCq3ozQbtCQXH59jR3O+66McTL/I
-         Dc2VheYtmLkFHEqmCy1yenuis/ylPpesOV/Z5z1dMn/VVWh+BLBTzUqlHCYt5fJauny3
-         rmtD+y1u4qz7icQKSRNkHKmfsFv2D8139xsqQkkd4V79xnKeRkedEFd53BWtwFlywDD/
-         Znww==
+        bh=VvbTbEsKmn4mnDBuGKxl6geDipRxQV4dq73yiizKjYY=;
+        b=bWzRVmhfOIi0HOsmOI+0bN2sSHfZGq3uilo1VldEtqYZRp35+gO9Y9JaMu2Uz7D4s9
+         pYG85VPs+ws9NFhW52DRF+oxEeHDrRhbnJhAw9RJyZWZ9AIBNMSRctZup83TWtrfglTk
+         Qs1321y5wxijNDOdBzO0VUovAdr1z2tb81YITwuFSeLl2YkGg+8dpuyeBCPzyUkNhJfl
+         AJAbLNmimpLziLbwjXn3F5U+JyW7wtjiR9VvrAdlQJCJM9kFz9Ct146rSXsCgsdL03ru
+         ezWhq3/QvKux1/fLpumyqGMyizPbawnR70QFu+SQFdo+SstRPfXsy0jaoCzcrihkDnz8
+         9CpQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1716822761; x=1717427561;
+        d=1e100.net; s=20230601; t=1716822810; x=1717427610;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=P7Jh/8RdqOL74XKYE/SJmV4ggngj0/VZwa7qcHlFTbw=;
-        b=rwH9W+6d7oIkjVPYkLxKe1KijDSrpQwihTdLTB39m3X+yiVKRZSGzPfyOEZ+hUJAmx
-         Qzg7wcmDuw/hKb8lA6+Uepw2iJT1vZsQmsiYcwVh9+CxN85i0I+Do24SzRHsLnOODaKl
-         IVneGhK5Kyfq2KGd7qXyeeRKBaDeuTsEh3EaBJFL+bCb/fK64teNbh7SIsf3m6FP+Z4C
-         BkMec9wwfmxy9Adw1zhpWNVU9hH9l9pA+RuznAZ6mJ9Ypk+WeTaJ7Z0dN2HNETdLleZe
-         uajo/wKYOcM4kp/FgAI3hQJfSFJyAp4GTetcjIPPDcFjPGBGxQK50qFukmtYpCkBBNVt
-         +x+Q==
-X-Forwarded-Encrypted: i=1; AJvYcCVc3DS3nyBikrDS0BlAfa6LaiRveM480nQabMabofjmmGJIfXqw5josVs1BB15p5UjgpaKpy8kkiaAmVuYOh2T3zLW0mvUbwitthavlVcM=
-X-Gm-Message-State: AOJu0YzbVMiXz/lmAw2FM099aZ4mcw6qv3BaoPRPPjtcQzbPzFm4JWNp
-	1L3UTm28l9Iya+P5KSMrlduqIoKTGQLaEHJjwQL6go1VGy+5LWRGnpi6WUZYng==
-X-Google-Smtp-Source: AGHT+IGc+OVBxYrQlplVJwO4XOrS+Wk+NMzdMI/oNmtoW1i03lV/kEhbp83lB93lobjbNu2VZ39jbg==
-X-Received: by 2002:a2e:a265:0:b0:2e6:f4c1:31e5 with SMTP id 38308e7fff4ca-2e95b209930mr61950551fa.23.1716822761469;
-        Mon, 27 May 2024 08:12:41 -0700 (PDT)
-Message-ID: <b2aa5bc0-8566-40f2-88b9-523b9b8fef3f@suse.com>
-Date: Mon, 27 May 2024 17:12:40 +0200
+        bh=VvbTbEsKmn4mnDBuGKxl6geDipRxQV4dq73yiizKjYY=;
+        b=gyAClc0k3AD+Uye1qFwwXObDkPnkb5MtXr0I3Hgs6rjlcMuImOOzA/mgb2DSvV8XHU
+         sfG5EKF/8+70RIELj5THcuUXEJXn/PVXwwN+zP7NaN3V3tLZtYJCtXvOvAYCqz8GtEDX
+         aRK8Be9CyapMirPn5B5S469rEjVbj+zjqmc3YoxlrWmfbDacZCAQu8YYl2AUI9FEbQnh
+         CaKZk0eWGhTcw4U84LV3W64h0CopMVvLe1sVwSuvHvGbQon8ZZjSwpie7YtzuhkE5sdC
+         vTtko1Y9rkqhDt5YK/UaBvaIh8yP4o79Am7pK5Xogh0meCZZecn/ZjQo3oZrVsx+6inf
+         cPmg==
+X-Forwarded-Encrypted: i=1; AJvYcCVmBbWNEWScqRBaIbTum5k7Ag5gCpALVZ79Wh3Gyild5VX3zkNaRFtJ5C6Mr5DfoskLKd6TNoomD/FEzV7x4H11VQPXub57yIvjhFgzL40=
+X-Gm-Message-State: AOJu0YwT5Zrt8DGiqGmTw+u4P5XlHVr5OgyBw1k7PDRVDWgQwmn2TpG5
+	6/4tMXJ+ONecUqLGn+qzdmnGyf7o+HUJZWzQt/5IOoHuxZ5uCOfVj1FyzOJlhw==
+X-Google-Smtp-Source: AGHT+IE/uJGMOHzeNk5N+KyK1QM5Qndle606c2a6aXzqOCAXMvaPXORbHOa/tEReLnSkVKQvOgx6UA==
+X-Received: by 2002:a50:d655:0:b0:578:6410:1d50 with SMTP id 4fb4d7f45d1cf-57864101db2mr7029360a12.34.1716822809714;
+        Mon, 27 May 2024 08:13:29 -0700 (PDT)
+Message-ID: <86e1e74b-f1e3-4e16-b87e-a9c512dcc655@suse.com>
+Date: Mon, 27 May 2024 17:13:29 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH 1/4] docs/misra: exclude gdbsx from MISRA compliance
+Subject: Re: [XEN PATCH 2/4] automation/eclair_analysis: avoid an ECLAIR
+ warning about escaping
 Content-Language: en-US
 To: Nicola Vetrini <nicola.vetrini@bugseng.com>
 Cc: sstabellini@kernel.org, michal.orzel@amd.com, xenia.ragiadakou@amd.com,
  ayan.kumar.halder@amd.com, consulting@bugseng.com,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- xen-devel@lists.xenproject.org
+ Simone Ballarin <simone.ballarin@bugseng.com>,
+ Doug Goldstein <cardoe@cardoe.com>, xen-devel@lists.xenproject.org
 References: <cover.1716814609.git.nicola.vetrini@bugseng.com>
- <83d89e6fa141bb91d7716cf33f086edf9a6d7ae1.1716814609.git.nicola.vetrini@bugseng.com>
+ <f489cc3d668830eab2f2ce724164d65dc623baa7.1716814609.git.nicola.vetrini@bugseng.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -114,19 +114,37 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <83d89e6fa141bb91d7716cf33f086edf9a6d7ae1.1716814609.git.nicola.vetrini@bugseng.com>
+In-Reply-To: <f489cc3d668830eab2f2ce724164d65dc623baa7.1716814609.git.nicola.vetrini@bugseng.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 27.05.2024 16:53, Nicola Vetrini wrote:
-> These files are used when debugging Xen, and are not meant to comply
-> with MISRA rules at the moment.
-> 
-> No functional change.
-> 
+> The parentheses in this regular expression should be doubly
+> escaped because they are undergo escaping twice.
+
+Do you maybe mean "undergo expansion twice"?
+
+Jan
+
 > Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
-
-Acked-by: Jan Beulich <jbeulich@suse.com>
-
+> ---
+>  automation/eclair_analysis/ECLAIR/deviations.ecl | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+> 
+> diff --git a/automation/eclair_analysis/ECLAIR/deviations.ecl b/automation/eclair_analysis/ECLAIR/deviations.ecl
+> index b9b377c56b25..cf62a874d928 100644
+> --- a/automation/eclair_analysis/ECLAIR/deviations.ecl
+> +++ b/automation/eclair_analysis/ECLAIR/deviations.ecl
+> @@ -405,8 +405,8 @@ explicit comment indicating the fallthrough intention is present."
+>  #
+>  
+>  -doc_begin="printf()-like functions are allowed to use the variadic features provided by stdarg.h."
+> --config=MC3R1.R17.1,reports+={deliberate,"any_area(^.*va_list.*$&&context(ancestor_or_self(^.*printk\(.*\)$)))"}
+> --config=MC3R1.R17.1,reports+={deliberate,"any_area(^.*va_list.*$&&context(ancestor_or_self(^.*printf\(.*\)$)))"}
+> +-config=MC3R1.R17.1,reports+={deliberate,"any_area(^.*va_list.*$&&context(ancestor_or_self(^.*printk\\(.*\\)$)))"}
+> +-config=MC3R1.R17.1,reports+={deliberate,"any_area(^.*va_list.*$&&context(ancestor_or_self(^.*printf\\(.*\\)$)))"}
+>  -config=MC3R1.R17.1,reports+={deliberate,"any_area(^.*va_list.*$&&context(ancestor_or_self(name(panic)&&kind(function))))"}
+>  -config=MC3R1.R17.1,reports+={deliberate,"any_area(^.*va_list.*$&&context(ancestor_or_self(name(elf_call_log_callback)&&kind(function))))"}
+>  -config=MC3R1.R17.1,reports+={deliberate,"any_area(^.*va_list.*$&&context(ancestor_or_self(name(vprintk_common)&&kind(function))))"}
 
 
