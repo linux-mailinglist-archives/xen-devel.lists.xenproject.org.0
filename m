@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 592BC8D001A
-	for <lists+xen-devel@lfdr.de>; Mon, 27 May 2024 14:34:07 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.730710.1135864 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 544758D0035
+	for <lists+xen-devel@lfdr.de>; Mon, 27 May 2024 14:41:00 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.730713.1135874 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sBZXW-0000ie-Mk; Mon, 27 May 2024 12:33:22 +0000
+	id 1sBZe8-0002I5-Dn; Mon, 27 May 2024 12:40:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 730710.1135864; Mon, 27 May 2024 12:33:22 +0000
+Received: by outflank-mailman (output) from mailman id 730713.1135874; Mon, 27 May 2024 12:40:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sBZXW-0000h8-KB; Mon, 27 May 2024 12:33:22 +0000
-Received: by outflank-mailman (input) for mailman id 730710;
- Mon, 27 May 2024 12:33:21 +0000
+	id 1sBZe8-0002FL-9w; Mon, 27 May 2024 12:40:12 +0000
+Received: by outflank-mailman (input) for mailman id 730713;
+ Mon, 27 May 2024 12:40:11 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=O60l=M6=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sBZXV-0000h2-2e
- for xen-devel@lists.xenproject.org; Mon, 27 May 2024 12:33:21 +0000
-Received: from mail-ed1-x52f.google.com (mail-ed1-x52f.google.com
- [2a00:1450:4864:20::52f])
+ id 1sBZe7-0002FF-Bc
+ for xen-devel@lists.xenproject.org; Mon, 27 May 2024 12:40:11 +0000
+Received: from mail-ed1-x530.google.com (mail-ed1-x530.google.com
+ [2a00:1450:4864:20::530])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 4c8af4c5-1c25-11ef-90a1-e314d9c70b13;
- Mon, 27 May 2024 14:33:19 +0200 (CEST)
-Received: by mail-ed1-x52f.google.com with SMTP id
- 4fb4d7f45d1cf-57863e2846aso2297066a12.1
- for <xen-devel@lists.xenproject.org>; Mon, 27 May 2024 05:33:19 -0700 (PDT)
+ id 4161ac84-1c26-11ef-90a1-e314d9c70b13;
+ Mon, 27 May 2024 14:40:10 +0200 (CEST)
+Received: by mail-ed1-x530.google.com with SMTP id
+ 4fb4d7f45d1cf-579cd80450fso1670558a12.0
+ for <xen-devel@lists.xenproject.org>; Mon, 27 May 2024 05:40:10 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a626c8176e1sm482254366b.8.2024.05.27.05.33.18
+ a640c23a62f3a-a626c93a828sm489279866b.83.2024.05.27.05.40.08
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 27 May 2024 05:33:18 -0700 (PDT)
+ Mon, 27 May 2024 05:40:09 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,42 +45,43 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4c8af4c5-1c25-11ef-90a1-e314d9c70b13
+X-Inumbo-ID: 4161ac84-1c26-11ef-90a1-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1716813199; x=1717417999; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1716813610; x=1717418410; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=pyh2Q8fs8dzasn3zI/WdkZ9hhYD4APQT0yrKwptzCVo=;
-        b=Pv92bRCUc7YG/Qnl2wipwYIMxA6P4Iykf1devqibdhHGvXDoTttEGORwve0WATddJ9
-         7n6JrFVW0x18KFR79fa98lypsOmieBbksA96lB1JkwEo+z0CKVr/Z6n8fYfsi6WIHuBc
-         7WzvUOvLGR5NvcqlWF6HPzEymU8K/zf+0E5BQvmeDUPSFl6wzTP+kjdQrQpHqXG6Wq8h
-         73RnWAk5sgf+7or82zdXHQeuv+0XvP/DXRvoE5AptUa8E0Hgz2m3BzQn35Y+ZcdCoDi0
-         xkL34CmIvH8uX1zrysj0o0PlrG4vp29+VgNloga94JkT0f1NQQk+e5IC9mQJQuwWwIkz
-         qYkw==
+        bh=FxKlfdChlSYZ4PmUC9Mn34y5/B81hF6zVELLg0A85aM=;
+        b=X0vw6FRzhwmIT1rShSUhmBwBOzz0AVeoD/7KI3O4OxWj2BxeWLVvMHo+p4msTWWaZ4
+         eInqVgNl7SedqoYdrNAXivm9kx2QaIY+tmOG4WLGisUVYdx79//EXvLdReBzsGYn8C4f
+         ta8Su5YklH+9cG7d2uoaSy32uHYM83YFgeXFzmDhV8ft+/CRNDyTVDpnAyiZDPZS8FK+
+         ik25nlSv+r0h60gISowQULqVKKUrMyXuv1O/pEiBBKkxvQFAWOQqYgf7A6Ap0zyoNLp0
+         8410HBoH189k2OE9f10mDEEQrSGbtSvwPuYnUz1if++bh1etqNWokyehXY0zdS7K6Jcc
+         2HuQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1716813199; x=1717417999;
+        d=1e100.net; s=20230601; t=1716813610; x=1717418410;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=pyh2Q8fs8dzasn3zI/WdkZ9hhYD4APQT0yrKwptzCVo=;
-        b=BX3CPidKouKggzCKicTpIWE6oMsY73QeTTyAvVwy0qkFPzzUn6DG3LADyDHgoMKumd
-         wmrXxWJ5ia7LfiqpL7a46RRImpyWlhBHeqo4W5Xh5bsqCxNcMUFYRH1P3iDh6gr3fO0y
-         HNLqYbGwut5sWDuJK5aCBNWe3XI0APhYITGlzDnSGXKMIUq7+2uRvrrpCvvCsnDoWSb9
-         AtHYMjV3WxrzZYdI2os0xlAYiMZLN2P0+O7xRsKkbbSlw+0yIJtA+1zgjcnJp+1i5uJf
-         AqOIFLRSc+pFL8IsbBV/gMdZefQCZ+REMixqGUPd3VON7d9xn5D4TCq/WzJdBmhAXDhK
-         BAMg==
-X-Forwarded-Encrypted: i=1; AJvYcCXtaGD4mEDzlZCbKkQ9kk3N/WqO02xTNU8gdZIw2mYj1t7X4ivhwjxcasde3qfUGXbFTWt0hO4bkmACVoeWu2MiLr0z7/adtV0aGeNGXm8=
-X-Gm-Message-State: AOJu0YwfHlh6G5ogaYhZ6z6CUiKUN8m0Eu9OqM+QK4s/Qfnw+eITHfDw
-	zoilvXIpotjbRYxrnXDOftq7kaNee89oaO0wFxL70d3478PB/arVfDTd82phdg==
-X-Google-Smtp-Source: AGHT+IHx4QXo/coC8rMzpNCwsnazGNaMQgCvYDG/UlkwNDbXD9Cr9KkmGq+Ze5GhV27GKipmzOX02w==
-X-Received: by 2002:a17:906:478c:b0:a5a:7a1:5d9c with SMTP id a640c23a62f3a-a6265146984mr647600566b.62.1716813198980;
-        Mon, 27 May 2024 05:33:18 -0700 (PDT)
-Message-ID: <1f885616-3c14-4a80-bc83-8cf712a02d8f@suse.com>
-Date: Mon, 27 May 2024 14:33:17 +0200
+        bh=FxKlfdChlSYZ4PmUC9Mn34y5/B81hF6zVELLg0A85aM=;
+        b=WqcesRxxRIw0gk5I8aMmy0ecRp/FE+Zmp/cLyaEG1cSScdYQH+AC9f/aI5wDCHDL7/
+         wmWDNDwZgSgWUG9cCXzICV1kr6Ar+KbEjnKySlyDqRknqYvJIyk51BMAiQ2IAflmz5Nv
+         1aMPg49cQgnvBxjcxWz1pQ8A5dLI/R1pVX5+8AvO1OfPztCy1NOSa9xcxm7npw7Ek6Gr
+         rAiSnDc0jCY/KMiwKpxJ4EdfhR7tqdglTQygdUav73myp60+hqi/Ldy7Z/8ArdBXsTwO
+         dHDqOgxfiz+/BbvEvzp21wKjTqtjSCD6GBQYsHIkkPwymbL5lN+BkOx28L6Ere7zD+wc
+         A8aA==
+X-Forwarded-Encrypted: i=1; AJvYcCU/6Dbt9qag7od8DVOn0lKhaxsP+dWLU+i/wQev8p0ghn/OwOSVGeN3pz5RK1VCapsWMzU0dTIrvlJ0n1jpcKT9ffqzdyRcrUsNAas6+tA=
+X-Gm-Message-State: AOJu0YyBDabja5dFYmxSEsTa88dXsTX1O4/A7UGE/Z9vAt1PggGYlT6h
+	UphEpX+0aKTDjuRgDKmGzBQoq1KqWYsGTsZgaBvGNZ9mpDB8Yiu4H6gvf+nTDg==
+X-Google-Smtp-Source: AGHT+IFhIqN6IW7XC1qNeMbmSeC7SRlcUtgruu2r+2H9TNLDI9NbP3F+iYHpTigGaJQRX/rLzxV6hA==
+X-Received: by 2002:a17:907:7da2:b0:a62:ef39:19c2 with SMTP id a640c23a62f3a-a62ef391e87mr303033766b.4.1716813609825;
+        Mon, 27 May 2024 05:40:09 -0700 (PDT)
+Message-ID: <ebae5dff-009b-495f-8b07-169956199208@suse.com>
+Date: Mon, 27 May 2024 14:40:07 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 06/13] xen/bitops: Implement ffs() in common logic
+Subject: Re: [PATCH v2 07/13] x86/bitops: Improve arch_ffs() in the general
+ case
 Content-Language: en-US
 To: Andrew Cooper <andrew.cooper3@citrix.com>
 Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
@@ -96,7 +97,7 @@ Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Nicola Vetrini <nicola.vetrini@bugseng.com>,
  Xen-devel <xen-devel@lists.xenproject.org>
 References: <20240524200338.1232391-1-andrew.cooper3@citrix.com>
- <20240524200338.1232391-7-andrew.cooper3@citrix.com>
+ <20240524200338.1232391-8-andrew.cooper3@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -121,30 +122,48 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240524200338.1232391-7-andrew.cooper3@citrix.com>
+In-Reply-To: <20240524200338.1232391-8-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 24.05.2024 22:03, Andrew Cooper wrote:
-> Perform constant-folding unconditionally, rather than having it implemented
-> inconsistency between architectures.
+> The asm in arch_ffs() is safe but inefficient.
 > 
-> Confirm the expected behaviour with compile time and boot time tests.
+> CMOV would be an improvement over a conditional branch, but for 64bit CPUs
+> both Intel and AMD have provided enough details about the behaviour for a zero
+> input.  It is safe to pre-load the destination register with -1 and drop the
+> conditional logic.
 > 
-> For non-constant inputs, use arch_ffs() if provided but fall back to
-> generic_ffsl() if not.  In particular, RISC-V doesn't have a builtin that
-> works in all configurations.
+> However, it is common to find ffs() in a context where the optimiser knows
+> that x in nonzero even if it the value isn't known precisely, and in that case
+> it's safe to drop the preload of -1 too.
 > 
-> For x86, rename ffs() to arch_ffs() and adjust the prototype.
+> There are only a handful of uses of ffs() in the x86 build, and all of them
+> improve as a result of this:
 > 
-> For PPC, __builtin_ctz() is 1/3 of the size of size of the transform to
-> generic_fls().  Drop the definition entirely.  ARM too benefits in the general
-> case by using __builtin_ctz(), but less dramatically because it using
-> optimised asm().
+>   add/remove: 0/0 grow/shrink: 0/2 up/down: 0/-31 (-31)
+>   Function                                     old     new   delta
+>   mask_write                                   114     107      -7
+>   xmem_pool_alloc                             1063    1039     -24
 > 
 > Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
 Reviewed-by: Jan Beulich <jbeulich@suse.com>
+with one suggestion:
 
+> --- a/xen/arch/x86/include/asm/bitops.h
+> +++ b/xen/arch/x86/include/asm/bitops.h
+> @@ -432,12 +432,28 @@ static inline int ffsl(unsigned long x)
+>  
+>  static always_inline unsigned int arch_ffs(unsigned int x)
+>  {
+> -    int r;
+> +    unsigned int r;
+> +
+> +    if ( __builtin_constant_p(x > 0) && x > 0 )
 
+__builtin_constant_p(x) surely will do. In fact even the other "> 0" could
+in principle be left out here.
+
+Jan
 
