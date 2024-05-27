@@ -2,38 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AB56A8D0859
-	for <lists+xen-devel@lfdr.de>; Mon, 27 May 2024 18:26:09 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.730907.1136194 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 112BE8D09CA
+	for <lists+xen-devel@lfdr.de>; Mon, 27 May 2024 20:13:39 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.730915.1136204 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sBdAH-00034l-LD; Mon, 27 May 2024 16:25:37 +0000
+	id 1sBepf-0002RS-2H; Mon, 27 May 2024 18:12:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 730907.1136194; Mon, 27 May 2024 16:25:37 +0000
+Received: by outflank-mailman (output) from mailman id 730915.1136204; Mon, 27 May 2024 18:12:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sBdAH-00032B-Hm; Mon, 27 May 2024 16:25:37 +0000
-Received: by outflank-mailman (input) for mailman id 730907;
- Mon, 27 May 2024 16:25:36 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=VIbX=M6=linaro.org=philmd@srs-se1.protection.inumbo.net>)
- id 1sBdAG-000325-Lx
- for xen-devel@lists.xenproject.org; Mon, 27 May 2024 16:25:36 +0000
-Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
- [2a00:1450:4864:20::32d])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id be5fd511-1c45-11ef-b4bb-af5377834399;
- Mon, 27 May 2024 18:25:34 +0200 (CEST)
-Received: by mail-wm1-x32d.google.com with SMTP id
- 5b1f17b1804b1-420298ff5b1so111546515e9.1
- for <xen-devel@lists.xenproject.org>; Mon, 27 May 2024 09:25:34 -0700 (PDT)
-Received: from [192.168.69.100] ([176.176.152.134])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3557a08a8c9sm9425250f8f.40.2024.05.27.09.25.32
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 27 May 2024 09:25:33 -0700 (PDT)
+	id 1sBepe-0002Pm-Vk; Mon, 27 May 2024 18:12:26 +0000
+Received: by outflank-mailman (input) for mailman id 730915;
+ Mon, 27 May 2024 18:12:25 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=MISB=M6=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1sBepd-0002Pg-Pw
+ for xen-devel@lists.xenproject.org; Mon, 27 May 2024 18:12:25 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id aa393001-1c54-11ef-90a1-e314d9c70b13;
+ Mon, 27 May 2024 20:12:24 +0200 (CEST)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id 5A20761B86;
+ Mon, 27 May 2024 18:12:22 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9B1D0C2BBFC;
+ Mon, 27 May 2024 18:12:20 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,120 +41,81 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: be5fd511-1c45-11ef-b4bb-af5377834399
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1716827134; x=1717431934; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=pHCRB1EKjD0Nhx9Lp4qHLpHLpjYqMbPoKLCmaUHOhBk=;
-        b=FZBwif6X1r4eUhmRPQcUb+hT966bGafJBklkOnFdpWyp6RkicmNU1iCm69AAMTrR4E
-         d1D9Qu68n6qmZUJwLE8TtPFPuCedkheM0Pbv5Jq9fXLkBsl22w4uTjrzHy8ZobjDXRfh
-         Idkb8UW1xaiMfydeDIpxy/TtsAPTtv1+UIyeN8Ea43f/00l6pr7kDPSq9MujCNs0xjUK
-         76S+fYJ29jG0CbKdX9dRtUjTMXRTPEQIoLql6/c1BPy9ct0kgDoNuRrMlY25NF8+9+8u
-         l891w+rSf/lHfaJWYwOD2jL+j5bSD0ah1VcM3OiT+gH/OSUPQ3UtdlEV5V5Q2V5ahX2K
-         CDdg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1716827134; x=1717431934;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=pHCRB1EKjD0Nhx9Lp4qHLpHLpjYqMbPoKLCmaUHOhBk=;
-        b=eGlkFDw0wyVq0oVzFTn4Iq8G7lhZbBFXpcfdT4nT9AhXUSKsm5xqZ2iFjOtIsV3DGS
-         pc3JlQjOpKTwHmCM5suwSYCXztfJGRHDiZ1YZguOqSxSyFNwmDw2m4OG5RFWjWvEgYQ7
-         DZyhZdLw1mR77Fgf+x8LmZn2vAoo9cpamMNSqO9kSSfTM5C/1rPj7DpnyCE6WKYyc3Sd
-         gq4tSMwQo+9jpImhsfLG4pZmuGD2MFRIj2JVnRKH3cczr+e8SXVTBolgMAfOs0Dw792M
-         jWGhcJvxnJvLFdc675sUKiz0oNemv8ETZ0by4o0YclU1TVcbpBRz7mLpSayy9DgnDMmh
-         VZ0A==
-X-Forwarded-Encrypted: i=1; AJvYcCVAPxi6HzKVnBMe5aj5Uf3H0lkC4VR+r0YTSkGUzwYEOBRbByjs3p9WnWD4sXuMb1s/ufgPU+eTVKqm4NOG4OLpuGtbDv+l6RvlE98MPKM=
-X-Gm-Message-State: AOJu0YxzYekXDT5rJyEi3KgscrwwqP3tzc34bALsMICHOWuYBpdBQ1gD
-	e89hFm60x6RTjROlG8+FB2ABQKd2gtqq7s8GkpZLOK96/ei3gORVMixfU8Ctt4M=
-X-Google-Smtp-Source: AGHT+IH6WMXwWBG4+mCGuCUb/g8oSTSVIPe9BmZQhyjU+xKoK4iDxbkQ67gIKHpGtUg5mEm1R3VGJA==
-X-Received: by 2002:a05:600c:138e:b0:41b:fa34:9e48 with SMTP id 5b1f17b1804b1-42108a99ea9mr89258365e9.30.1716827133954;
-        Mon, 27 May 2024 09:25:33 -0700 (PDT)
-Message-ID: <4025f82f-242c-4c3e-952e-8ecf7a66838f@linaro.org>
-Date: Mon, 27 May 2024 18:25:31 +0200
+X-Inumbo-ID: aa393001-1c54-11ef-90a1-e314d9c70b13
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1716833542;
+	bh=fBmuH4cXhZojeW2O6Rp+qJH/rY/Fl3e4iWLDvnMo+Lw=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=P51+ghXmSHFgkDI6AiSxJOaorD3l79ZtVBHyW/fLO8yc9d/A8n07E8DKeK4zu1/bf
+	 1QdQStHjMPigr6hNsZVcvHkY6DeVAwJ/ZshWx1/WykXEwEcLCkKBrwgSrzUqfy34BC
+	 CykfTG+ufFNeG4v6+24avoQyOwuuZFGfaIAYFQnDtVMod4DmaBmRPl315HYhLUCM09
+	 hsz0sa4S3T00LScV5zvJknEGAEULHxzPgc4WvAQ9vgbqzfV+uD4yMTU/l6seVF8Bak
+	 b+4F37TLQGRlVzwj6YYWstlLEtO3l9oP5YLxuyytO2456FC4CMZ3H/C3kTPHofoS19
+	 cj13eqhR6iWLA==
+Date: Mon, 27 May 2024 11:12:19 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: =?UTF-8?Q?J=C3=BCrgen_Gro=C3=9F?= <jgross@suse.com>
+cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
+    Henry Wang <xin.wang2@amd.com>, xen-devel@lists.xenproject.org, 
+    Bertrand Marquis <bertrand.marquis@arm.com>, 
+    Michal Orzel <michal.orzel@amd.com>, 
+    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
+    Alec Kwapis <alec.kwapis@medtronic.com>, 
+    "Daniel P . Smith" <dpsmith@apertussolutions.com>
+Subject: Re: [PATCH v3 2/4] xen/arm: Alloc XenStore page for Dom0less DomUs
+ from hypervisor
+In-Reply-To: <480ccee9-a50a-4b30-92c4-3f39e4202bca@suse.com>
+Message-ID: <alpine.DEB.2.22.394.2405271111220.2557291@ubuntu-linux-20-04-desktop>
+References: <20240517032156.1490515-1-xin.wang2@amd.com> <20240517032156.1490515-3-xin.wang2@amd.com> <cf0a096a-0fe8-4d91-a064-910bd6c43951@xen.org> <d3aca96b-2b6b-4bb8-99bf-7c0ede4c94fe@suse.com> <alpine.DEB.2.22.394.2405241614370.2557291@ubuntu-linux-20-04-desktop>
+ <480ccee9-a50a-4b30-92c4-3f39e4202bca@suse.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 3/8] xen: Add xen_mr_is_memory()
-To: "Edgar E. Iglesias" <edgar.iglesias@gmail.com>, qemu-devel@nongnu.org
-Cc: sstabellini@kernel.org, jgross@suse.com,
- "Edgar E. Iglesias" <edgar.iglesias@amd.com>,
- David Hildenbrand <david@redhat.com>, Anthony PERARD
- <anthony@xenproject.org>, Paul Durrant <paul@xen.org>,
- xen-devel@lists.xenproject.org
-References: <20240524105152.1301842-1-edgar.iglesias@gmail.com>
- <20240524105152.1301842-4-edgar.iglesias@gmail.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Philippe_Mathieu-Daud=C3=A9?= <philmd@linaro.org>
-In-Reply-To: <20240524105152.1301842-4-edgar.iglesias@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/mixed; boundary="8323329-99592716-1716833542=:2557291"
 
-Hi Edgar,
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-On 24/5/24 12:51, Edgar E. Iglesias wrote:
-> From: "Edgar E. Iglesias" <edgar.iglesias@amd.com>
+--8323329-99592716-1716833542=:2557291
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8BIT
+
+On Mon, 27 May 2024, Jürgen Groß wrote:
+> On 25.05.24 01:19, Stefano Stabellini wrote:
+> > On Fri, 24 May 2024, Jürgen Groß wrote:
+> > > On 24.05.24 15:58, Julien Grall wrote:
+> > > > Hi Henry,
+> > > > 
+> > > > + Juergen as the Xenstore maintainers. I'd like his opinion on the
+> > > > approach.
+> > > > The documentation of the new logic is in:
+> > > > 
+> > > > https://lore.kernel.org/xen-devel/20240517032156.1490515-5-xin.wang2@amd.com/
+> > > > 
+> > > > FWIW I am happy in principle with the logic (this is what we discussed
+> > > > on
+> > > > the call last week). Some comments below.
+> > > 
+> > > I'm not against this logic, but I'm wondering why it needs to be so
+> > > complicated.
+> > 
+> > Actually the reason I like it is that in my view, this is the simplest
+> > approach. You allocate a domain, you also allocate the xenstore page
+> > together with it. Initially the xenstore connection has an
+> > "uninitialized" state, as it should be. That's it. At some point, when
+> > xenstored is ready, the state changes to CONNECTED.
+> > 
+> > 
+> > > Can't the domU itself allocate the Xenstore page from its RAM pages,
+> > > write the PFN into the Xenstore grant tab entry, and then make it
+> > > public via setting HVM_PARAM_STORE_PFN?
+> > 
+> > This is not simpler in my view
 > 
-> Add xen_mr_is_memory() to abstract away tests for the
-> xen_memory MR.
-> 
-> No functional changes.
-> 
-> Signed-off-by: Edgar E. Iglesias <edgar.iglesias@amd.com>
-> Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
-> Acked-by: David Hildenbrand <david@redhat.com>
-> ---
->   hw/xen/xen-hvm-common.c | 10 ++++++++--
->   include/sysemu/xen.h    |  8 ++++++++
->   2 files changed, 16 insertions(+), 2 deletions(-)
+> Okay, fine with me. I had the impression that violating the 1:1 mapping
+> of the domain would add complexity, but if you are fine with that I don't
+> mind your approach.
 
-To consolidate we could add:
-
-   static MemoryRegion xen_memory;
-
-   MemoryRegion *xen_mr_memory_init(uint64_t block_len)
-   {
-      assert(!xen_memory.size);
-      memory_region_init_ram(&xen_memory, NULL, "xen.ram", block_len, 
-&error_fatal);
-      return &xen_memory;
-   }
-
-and remove the extern declaration.
-
-> diff --git a/include/sysemu/xen.h b/include/sysemu/xen.h
-> index 754ec2e6cb..dc72f83bcb 100644
-> --- a/include/sysemu/xen.h
-> +++ b/include/sysemu/xen.h
-> @@ -34,6 +34,8 @@ void xen_hvm_modified_memory(ram_addr_t start, ram_addr_t length);
->   void xen_ram_alloc(ram_addr_t ram_addr, ram_addr_t size,
->                      struct MemoryRegion *mr, Error **errp);
->   
-> +bool xen_mr_is_memory(MemoryRegion *mr);
-> +
->   #else /* !CONFIG_XEN_IS_POSSIBLE */
->   
->   #define xen_enabled() 0
-> @@ -47,6 +49,12 @@ static inline void xen_ram_alloc(ram_addr_t ram_addr, ram_addr_t size,
->       g_assert_not_reached();
->   }
->   
-> +static inline bool xen_mr_is_memory(MemoryRegion *mr)
-> +{
-> +    g_assert_not_reached();
-> +    return false;
-
-No need for the stub, just always declare xen_mr_is_memory() ...
-> +}
-> +
->   #endif /* CONFIG_XEN_IS_POSSIBLE */
-
-... here.
-
->   #endif
-
-Removing the stub:
-Reviewed-by: Philippe Mathieu-Daudé <philmd@linaro.org>
-
+Yes, that's fine. Thanks!
+--8323329-99592716-1716833542=:2557291--
 
