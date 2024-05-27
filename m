@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5A25E8D07A9
-	for <lists+xen-devel@lfdr.de>; Mon, 27 May 2024 18:10:24 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.730894.1136173 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 033728D07D4
+	for <lists+xen-devel@lfdr.de>; Mon, 27 May 2024 18:13:39 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.730901.1136183 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sBcvC-0007EB-6d; Mon, 27 May 2024 16:10:02 +0000
+	id 1sBcyR-0000ec-K8; Mon, 27 May 2024 16:13:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 730894.1136173; Mon, 27 May 2024 16:10:02 +0000
+Received: by outflank-mailman (output) from mailman id 730901.1136183; Mon, 27 May 2024 16:13:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sBcvC-0007Aq-3r; Mon, 27 May 2024 16:10:02 +0000
-Received: by outflank-mailman (input) for mailman id 730894;
- Mon, 27 May 2024 16:10:00 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ClYa=M6=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1sBcvA-0007AY-Ua
- for xen-devel@lists.xenproject.org; Mon, 27 May 2024 16:10:00 +0000
-Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
- [2a00:1450:4864:20::62c])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 90ca1256-1c43-11ef-b4bb-af5377834399;
- Mon, 27 May 2024 18:09:59 +0200 (CEST)
-Received: by mail-ej1-x62c.google.com with SMTP id
- a640c23a62f3a-a6265d3c488so439963666b.0
- for <xen-devel@lists.xenproject.org>; Mon, 27 May 2024 09:09:59 -0700 (PDT)
-Received: from [192.168.219.221] ([94.75.70.14])
+	id 1sBcyR-0000cU-Hc; Mon, 27 May 2024 16:13:23 +0000
+Received: by outflank-mailman (input) for mailman id 730901;
+ Mon, 27 May 2024 16:13:22 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=VIbX=M6=linaro.org=philmd@srs-se1.protection.inumbo.net>)
+ id 1sBcyP-0000b9-Tu
+ for xen-devel@lists.xenproject.org; Mon, 27 May 2024 16:13:22 +0000
+Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
+ [2a00:1450:4864:20::42b])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 08e42e38-1c44-11ef-90a1-e314d9c70b13;
+ Mon, 27 May 2024 18:13:20 +0200 (CEST)
+Received: by mail-wr1-x42b.google.com with SMTP id
+ ffacd0b85a97d-357f1c0b86fso1373853f8f.0
+ for <xen-devel@lists.xenproject.org>; Mon, 27 May 2024 09:13:20 -0700 (PDT)
+Received: from [192.168.69.100] ([176.176.152.134])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a626c938502sm504376666b.73.2024.05.27.09.09.57
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 27 May 2024 09:09:57 -0700 (PDT)
+ ffacd0b85a97d-3557a0908e4sm9460093f8f.63.2024.05.27.09.13.18
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 27 May 2024 09:13:19 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,91 +45,76 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 90ca1256-1c43-11ef-b4bb-af5377834399
+X-Inumbo-ID: 08e42e38-1c44-11ef-90a1-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1716826198; x=1717430998; darn=lists.xenproject.org;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=6jrcUzHGOlskCQ/YF23KTYoqp2ziYcD5a/4kXi7Mv04=;
-        b=Lqk62Tt5E7XdTsg+k5YDfvRlKBQVMK7IyXwlH1FSCBfFVyOvAmKXUvVMy0KJOX0Prk
-         a7hxK85ROl43yCkUI9bdlZdBTYWjofyNalMJUo2mM7mwlN/6sZFo8Y1ORlh/lB86mzgk
-         WumUwJe+Yk+BiaR7HkLmYR2X13nBHSe6XXYQMhC8YZBujjZHhBLANRlrFGOZ4Wf4HOHK
-         IqYtJWxOhf332jOKy8JvkBFsKW160flVVQlQwdPU+WZW5GYD5/oVql0HOR5QGL0BY86G
-         eZEuwP/I81F6SFBHvrUX+tDY9+yppGTvBn28i71iRXtHt/bBDGlo6ij0cGy9Ztj6JoRK
-         67ZA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1716826198; x=1717430998;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
+        d=linaro.org; s=google; t=1716826400; x=1717431200; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=6jrcUzHGOlskCQ/YF23KTYoqp2ziYcD5a/4kXi7Mv04=;
-        b=DHXofkf2qJCGjt90MyUz7KcAtLZacGUQWYB0Ft5HU7sPV2eyYGPzTCkZ3x4Bj9kXWO
-         VsCiS1kdAFbaiUspxBP2y7u8SbOCEZBKN1AC3gcBWICZKvcKjvG/zEC6w0x2CCpdasbT
-         73u5olox0TyMVNa7CkDNs47Ec4aGq1CBiYEevBoVl20npENtsd7okpp8K0+0ex8Bo6qL
-         EKJrrPQoAsYmtpY8QF5YPaKzNObpEqnZC14+GkaUIdgEHc4/9Nj5F+p57FMXUWCfou6m
-         VSSavzETxFIpPWDfQQX9h2mR6DkQUrn7zZu9eukXvVCwVDXk3KMigDaD3xxUgqRmcuAW
-         qCyw==
-X-Forwarded-Encrypted: i=1; AJvYcCW9AEr7Yp4i5J8gMY0ZegKMXVKuoV4RFwFXaUBXQVgByWoI+WnUxLFCh3gR5ylOFbau3aKf9PmepdFLl0WM29S13rw5IBCTknB8JdXChUM=
-X-Gm-Message-State: AOJu0Yw12IicYbm9k12VYBcOwulG1iDplAD1b1d8RRWhBKBl8kjNCrGg
-	ul0G/KHZrno3ARJ5wciJFyZTSv2VV7N4ujznMCmN4w+aOK1ZKD7m
-X-Google-Smtp-Source: AGHT+IGmlP4JkXDvaatweWV00vtHK/G6WptJlpmYG4sygTD4j55h9c7OmeDFzWXrjaurrlTQVfGh1g==
-X-Received: by 2002:a17:906:2ada:b0:a59:c941:e5e5 with SMTP id a640c23a62f3a-a62646d5a8amr899802366b.45.1716826198067;
-        Mon, 27 May 2024 09:09:58 -0700 (PDT)
-Message-ID: <4ef493874d6a3dc5a6403d5c5668e7cef276ce33.camel@gmail.com>
-Subject: Re: Code freeze date for Xen 4.19 is 31.05.2024
-From: "Oleksii K." <oleksii.kurochko@gmail.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: committers@xenproject.org, community.manager@xenproject.org, Kelly Choi
-	 <kelly.choi@cloud.com>, xen-devel@lists.xenproject.org
-Date: Mon, 27 May 2024 18:09:57 +0200
-In-Reply-To: <2d0c1ebf-fecd-43a5-b616-9869e98ece5e@suse.com>
-References: <6a4323b46dd3dbb170c48fa24e78a23fa030b2a2.camel@gmail.com>
-	 <a1e65a79-d8a4-4b8a-ad4d-a18544389e5a@suse.com>
-	 <48f5e40e1f13ef96e8448b59f76878b522876030.camel@gmail.com>
-	 <2d0c1ebf-fecd-43a5-b616-9869e98ece5e@suse.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.52.1 (3.52.1-1.fc40) 
+        bh=mfmM0j3HF+vLiXdV40d+v8fDYCHro8ZxhgNASHgkLhU=;
+        b=e8O3e1n8bu90OulnfG2zmDriGUuacLyWe9Hx3Em7qWyhyESzr7vem3CHm6fU5up8Y5
+         5FizYRkAQBgj/KR/dQHWqslKkREH/Ls2UbNshRdkZ0LDD3CN2HvIpIAbaR6CM7r+Q0iM
+         sQntRtLzz7zaHzHNVsBXQ7h8fqnv15KXVIsOUPSgb42jqiCgQRxv1UIt0PY1LIvvlXAo
+         mE/Plnal+qvB7CoWOviZAxij0wZQqa04sHvVJXaAlVpAsnYXXZZG1Gv8g56UHlRE1r39
+         K86gP9zTFKhUpDQrQCT1AVgrAnYLEmTncBFH2b9kAf8H6Q+5iwOiNm4urAtaDemWHEDU
+         1uCw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1716826400; x=1717431200;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=mfmM0j3HF+vLiXdV40d+v8fDYCHro8ZxhgNASHgkLhU=;
+        b=MHFSJhV6HIOIWitPTGA8INqPaARozl4f4op6nqLTXAjWytXQf7hEORzL3+NBfjuPYK
+         vFSbmfrlE9s0WTqFPHvN0Ferqo7nPWCDjm+wUF8yQLPLWjCpwKwxH9FVGFC6+PwPVAHV
+         MyLWju2gJZd77gwAJgPvaGD8IP/LWmBEdBX2Spd+AnH4GNjlRGpZSIrg+vNIVXpyCWpM
+         LAEaQbYL6YuACWi3LC0MGS/wpTXXJ9oGJt9ySG7HoRDhLwyINZWK718LP2PNC5kxoJ4Q
+         McPKEZky1cWAE9ILUvEDu3fj5ssU3ZkL8VOsYkroCTqfyeAQxcDeK/fBKigpKmNZRvDB
+         zUXQ==
+X-Forwarded-Encrypted: i=1; AJvYcCXpmBA5zlQB5xJoMB7EJ07UAKxZyWr/8QxhixeHlMHzUi4Ve9kIa4t27jpj5FWU0bVfwOksRHJgJy5Gvu7VL+QUj4adSeagx3+QjC8+1JY=
+X-Gm-Message-State: AOJu0YyuZaHeEt8OLBw/HtRcU9P8Oipa3o9gowHoQOM0Y+qQ/AyrCI3D
+	J+f6cGUVdKg1rDMMMM32xgJM90VD+Noj9LOJh47+ijp7rhlVCqr+yVm8qtkNJ8Y=
+X-Google-Smtp-Source: AGHT+IFPUBbJ4AV9nNMW5an0kxmRJqDQYgV9r0unWjNl5K2YvpMuoRlLjuLz+k0jRnurcN/gTOehvQ==
+X-Received: by 2002:adf:dd89:0:b0:354:e021:51ce with SMTP id ffacd0b85a97d-35526c27950mr6660105f8f.12.1716826399989;
+        Mon, 27 May 2024 09:13:19 -0700 (PDT)
+Message-ID: <f4918050-11f4-4610-bcf3-2cca4ac0f3e4@linaro.org>
+Date: Mon, 27 May 2024 18:13:17 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v7 6/8] xen: mapcache: Pass the ram_addr offset to
+ xen_map_cache()
+To: "Edgar E. Iglesias" <edgar.iglesias@gmail.com>, qemu-devel@nongnu.org
+Cc: sstabellini@kernel.org, jgross@suse.com,
+ "Edgar E. Iglesias" <edgar.iglesias@amd.com>,
+ David Hildenbrand <david@redhat.com>, Anthony PERARD
+ <anthony@xenproject.org>, Paul Durrant <paul@xen.org>,
+ Paolo Bonzini <pbonzini@redhat.com>, Peter Xu <peterx@redhat.com>,
+ xen-devel@lists.xenproject.org
+References: <20240524105152.1301842-1-edgar.iglesias@gmail.com>
+ <20240524105152.1301842-7-edgar.iglesias@gmail.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Philippe_Mathieu-Daud=C3=A9?= <philmd@linaro.org>
+In-Reply-To: <20240524105152.1301842-7-edgar.iglesias@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Mon, 2024-05-27 at 17:55 +0200, Jan Beulich wrote:
-> On 27.05.2024 17:52, Oleksii K. wrote:
-> > On Mon, 2024-05-27 at 17:12 +0200, Jan Beulich wrote:
-> > > On 27.05.2024 15:58, Oleksii K. wrote:
-> > > > I would like to remind you that the code freeze date for Xen
-> > > > 4.19
-> > > > is
-> > > > May 31, 2024.
-> > >=20
-> > > I may be confused: With feature freeze having been last Friday
-> > > aiui,
-> > > isn't
-> > > this a little too short a period? I was actually expecting a
-> > > longer-
-> > > than-
-> > > normal one to account for the Xen Summit week.
-> > It makes sense to move the last day to June 14. Consequently, we
-> > would
-> > need to adjust the schedule as follows:
-> >=20
-> > Hard Code Freeze: from June 21 to June 28
-> > Final commits: from July 5 to July 12
-> > Release: July 17
-> >=20
-> > And this schedule also looks good to me.
-> >=20
-> > However, another option is to combine the Code Freeze and Hard Code
-> > Freeze periods since both phases are about accepting only bug
-> > fixes,
-> > differing only in the severity of the fixes.
->=20
-> I'm okay with whichever way you want it. All I'm seeking is clarity.
-I realized that we have the Xen Summit coming up, which means we'll
-lose almost a week from the review process perspective.
+On 24/5/24 12:51, Edgar E. Iglesias wrote:
+> From: "Edgar E. Iglesias" <edgar.iglesias@amd.com>
+> 
+> Pass the ram_addr offset to xen_map_cache.
+> This is in preparation for adding grant mappings that need
+> to compute the address within the RAMBlock.
+> 
+> No functional changes.
+> 
+> Signed-off-by: Edgar E. Iglesias <edgar.iglesias@amd.com>
+> Reviewed-by: David Hildenbrand <david@redhat.com>
+> Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+> ---
+>   hw/xen/xen-mapcache.c         | 16 +++++++++++-----
+>   include/sysemu/xen-mapcache.h |  2 ++
+>   system/physmem.c              |  9 +++++----
+>   3 files changed, 18 insertions(+), 9 deletions(-)
 
-I would like to hear the other maintainers' thoughts on updating our
-release schedule to have the release on July 17.
+Reviewed-by: Philippe Mathieu-Daudé <philmd@linaro.org>
 
-~ Oleksii
 
