@@ -2,38 +2,46 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 516C98CFE59
-	for <lists+xen-devel@lfdr.de>; Mon, 27 May 2024 12:49:50 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.730670.1135829 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 61F018CFE77
+	for <lists+xen-devel@lfdr.de>; Mon, 27 May 2024 12:58:56 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.730682.1135844 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sBXur-0003H1-GA; Mon, 27 May 2024 10:49:21 +0000
+	id 1sBY3a-0005DY-Bk; Mon, 27 May 2024 10:58:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 730670.1135829; Mon, 27 May 2024 10:49:21 +0000
+Received: by outflank-mailman (output) from mailman id 730682.1135844; Mon, 27 May 2024 10:58:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sBXur-0003EK-Ce; Mon, 27 May 2024 10:49:21 +0000
-Received: by outflank-mailman (input) for mailman id 730670;
- Mon, 27 May 2024 10:49:20 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1sBY3a-0005C0-8d; Mon, 27 May 2024 10:58:22 +0000
+Received: by outflank-mailman (input) for mailman id 730682;
+ Mon, 27 May 2024 10:58:20 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=O60l=M6=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sBXuq-0003EE-6x
- for xen-devel@lists.xenproject.org; Mon, 27 May 2024 10:49:20 +0000
-Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
- [2a00:1450:4864:20::62c])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c4d662cd-1c16-11ef-90a1-e314d9c70b13;
- Mon, 27 May 2024 12:49:19 +0200 (CEST)
-Received: by mail-ej1-x62c.google.com with SMTP id
- a640c23a62f3a-a61b70394c0so903218666b.1
- for <xen-devel@lists.xenproject.org>; Mon, 27 May 2024 03:49:19 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a626c818362sm479015566b.34.2024.05.27.03.49.17
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 27 May 2024 03:49:18 -0700 (PDT)
+ (envelope-from <SRS0=9k1s=M6=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1sBY3Y-0005Bm-Qh
+ for xen-devel@lists.xenproject.org; Mon, 27 May 2024 10:58:20 +0000
+Received: from smtp-out1.suse.de (smtp-out1.suse.de
+ [2a07:de40:b251:101:10:150:64:1])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 06609585-1c18-11ef-b4bb-af5377834399;
+ Mon, 27 May 2024 12:58:18 +0200 (CEST)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id B5BA821B1B;
+ Mon, 27 May 2024 10:58:17 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 83C3713A6B;
+ Mon, 27 May 2024 10:58:17 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id /1KJHklnVGbEAwAAD6G6ig
+ (envelope-from <jgross@suse.com>); Mon, 27 May 2024 10:58:17 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,201 +53,250 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c4d662cd-1c16-11ef-90a1-e314d9c70b13
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1716806958; x=1717411758; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=8dvO+/8haWXIPjweNYb9W8ujvzQUrct9skr+FbumigQ=;
-        b=FAtvIyG8OijPeGZR2vHm70j91oPDwAzHjUwMrh+DCnThIaAcBn2z1/LTG0ekFMnofX
-         qe8DFk9YlPuQFTo4IqHkON3l6ENbqIChL3yZ4yRx0zdkJjlLUKOJAQS5lFxWuy1+GvKJ
-         3A7dRCvenmQgqeFXLp251CnRzAXNDLiK2EZD8T8xyEYntowpdmk6b/zgj2jZoHM6n7AZ
-         3h1AdqOIN47acPfmZvz7E+Lmv2Oxyn0UHSrknBfrsKCS9kQnxKIlbj4dQ5CCjI3OXOvu
-         ZMlciwGw8aHWmfMWx1umgKFldrp49vjftC4WiWQO53Cd2iA9xhg+OeITtEey3cuLi3kw
-         pV0A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1716806958; x=1717411758;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=8dvO+/8haWXIPjweNYb9W8ujvzQUrct9skr+FbumigQ=;
-        b=J4FcEvEg3ZwA43aHxaczfRHee3hKLllCqO1k/7mg+cudfQL0dOnCbgKxHPYOFLnRWL
-         f6R3VBmcTGZoOPlbSlF0KEBhEKE5wevu/PPBzhHJFsrBXDbCtyCwPOTV8l9XNAIYEgb5
-         xulY+y70DHmPLDexLvKPXvWAzUb2E/BhdHWHyTvbS6JRpKyoQ0as2MFIquSnTjDXJjVw
-         A2iGwXKgNsc3S2P/r6FxNUav5k4MbFOilqgkp6/W517my9z3wTHGH6vf4ZsXu1XtgGcW
-         tNIlL+br2x4gsGrDel+SAN55g3VNF3Jkh4j1yfNkViEm+m5UcH2Kp6yxjMzn8i0LIAGm
-         za1w==
-X-Forwarded-Encrypted: i=1; AJvYcCUMG3Nc4WFJTP3sc1myx+ypxclkfQJUW9Ar7Pj9l+3iyiTupLKaY6bMC877vCmeHsQ5qvWMf7pgCE9BYmN5o5GQ/njFqZqwqLQh0PRkiWY=
-X-Gm-Message-State: AOJu0Yz58NCUXVANHftC7L4xhkFygwlwqnZDY99o2ZRachJbc0TdDH4g
-	u4Ku9MDfhrIrAbUhPJ0MU2h5lSl4T5pMjKRKPuNxMoQjm1Mwk1mn4erYC0omqcehAh88W7J8CjI
-	=
-X-Google-Smtp-Source: AGHT+IFNPnrVTZsmXBSmjLfqrz6gNHNFefuMq9DDR/uKlpOFez43acCnEwchlG3eOb3DkfQP04jX0w==
-X-Received: by 2002:a17:906:2890:b0:a62:2ef9:13d with SMTP id a640c23a62f3a-a626308f5cbmr602170466b.0.1716806958281;
-        Mon, 27 May 2024 03:49:18 -0700 (PDT)
-Message-ID: <a695f51e-aaaf-4132-bbf5-d7d108cdc37a@suse.com>
-Date: Mon, 27 May 2024 12:49:17 +0200
+X-Inumbo-ID: 06609585-1c18-11ef-b4bb-af5377834399
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1716807497; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=OUaamV24W6oWhF4J0lRbAl4NhZatFacXTrb9FeqRlLc=;
+	b=m0/klhO6ex5yNmvPBdXsTDgQTvyqY4Mz0Ml1rWgfBnUEtwaGsJjwkYlaIgBVa6Bxzn0+Lq
+	rKjsCV7xjZLaZkXdy/QuJ591/9IE82kMmVm1+6lJgx3lyINQtO9xOqRYwUsdi4aIwiztXV
+	FKH4hmcHg6lc7UMel3+3UiehvVNiw+w=
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.com header.s=susede1 header.b="m0/klhO6"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1716807497; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=OUaamV24W6oWhF4J0lRbAl4NhZatFacXTrb9FeqRlLc=;
+	b=m0/klhO6ex5yNmvPBdXsTDgQTvyqY4Mz0Ml1rWgfBnUEtwaGsJjwkYlaIgBVa6Bxzn0+Lq
+	rKjsCV7xjZLaZkXdy/QuJ591/9IE82kMmVm1+6lJgx3lyINQtO9xOqRYwUsdi4aIwiztXV
+	FKH4hmcHg6lc7UMel3+3UiehvVNiw+w=
+Message-ID: <9fba239d-2e22-425b-b45f-86ecf016c2fd@suse.com>
+Date: Mon, 27 May 2024 12:58:16 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH v2 07/15] x86: guard cpu_has_{svm/vmx} macros with
- CONFIG_{SVM/VMX}
+From: Juergen Gross <jgross@suse.com>
+Subject: Re: CVE-2021-47377: kernel: xen/balloon: use a kernel thread instead
+ a workqueue
+To: gregkh@linuxfoundation.org
+Cc: cve@kernel.org, linux-cve-announce@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ "Xen.org security team" <security@xen.org>
+References: <2024041747-CVE-2024-26908-4690@gregkh>
 Content-Language: en-US
-To: Sergiy Kibrik <sergiy_kibrik@epam.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Xenia Ragiadakou <xenia.ragiadakou@amd.com>, xen-devel@lists.xenproject.org
-References: <cover.1715761386.git.Sergiy_Kibrik@epam.com>
- <09f1336974c8fd2f788fe8e1d3ca5fee91da5a81.1715761386.git.Sergiy_Kibrik@epam.com>
- <a881c6a6-2c36-4e5c-8336-21cd0e14b873@suse.com>
- <4b02bf84-0d81-467e-8577-f33dbfb71e8f@epam.com>
- <201c4e7f-c493-4156-a855-b2207107e6c4@suse.com>
- <0b2292da-a68f-4608-93a1-bbf54611e3e1@epam.com>
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <0b2292da-a68f-4608-93a1-bbf54611e3e1@epam.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Autocrypt: addr=jgross@suse.com; keydata=
+ xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOB
+ ycWxw3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJve
+ dYm8Of8Zd621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJ
+ NwQpd369y9bfIhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvx
+ XP3FAp2pkW0xqG7/377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEB
+ AAHNH0p1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT7CwHkEEwECACMFAlOMcK8CGwMH
+ CwkIBwMCAQYVCAIJCgsEFgIDAQIeAQIXgAAKCRCw3p3WKL8TL8eZB/9G0juS/kDY9LhEXseh
+ mE9U+iA1VsLhgDqVbsOtZ/S14LRFHczNd/Lqkn7souCSoyWsBs3/wO+OjPvxf7m+Ef+sMtr0
+ G5lCWEWa9wa0IXx5HRPW/ScL+e4AVUbL7rurYMfwCzco+7TfjhMEOkC+va5gzi1KrErgNRHH
+ kg3PhlnRY0Udyqx++UYkAsN4TQuEhNN32MvN0Np3WlBJOgKcuXpIElmMM5f1BBzJSKBkW0Jc
+ Wy3h2Wy912vHKpPV/Xv7ZwVJ27v7KcuZcErtptDevAljxJtE7aJG6WiBzm+v9EswyWxwMCIO
+ RoVBYuiocc51872tRGywc03xaQydB+9R7BHPzsBNBFOMcBYBCADLMfoA44MwGOB9YT1V4KCy
+ vAfd7E0BTfaAurbG+Olacciz3yd09QOmejFZC6AnoykydyvTFLAWYcSCdISMr88COmmCbJzn
+ sHAogjexXiif6ANUUlHpjxlHCCcELmZUzomNDnEOTxZFeWMTFF9Rf2k2F0Tl4E5kmsNGgtSa
+ aMO0rNZoOEiD/7UfPP3dfh8JCQ1VtUUsQtT1sxos8Eb/HmriJhnaTZ7Hp3jtgTVkV0ybpgFg
+ w6WMaRkrBh17mV0z2ajjmabB7SJxcouSkR0hcpNl4oM74d2/VqoW4BxxxOD1FcNCObCELfIS
+ auZx+XT6s+CE7Qi/c44ibBMR7hyjdzWbABEBAAHCwF8EGAECAAkFAlOMcBYCGwwACgkQsN6d
+ 1ii/Ey9D+Af/WFr3q+bg/8v5tCknCtn92d5lyYTBNt7xgWzDZX8G6/pngzKyWfedArllp0Pn
+ fgIXtMNV+3t8Li1Tg843EXkP7+2+CQ98MB8XvvPLYAfW8nNDV85TyVgWlldNcgdv7nn1Sq8g
+ HwB2BHdIAkYce3hEoDQXt/mKlgEGsLpzJcnLKimtPXQQy9TxUaLBe9PInPd+Ohix0XOlY+Uk
+ QFEx50Ki3rSDl2Zt2tnkNYKUCvTJq7jvOlaPd6d/W0tZqpyy7KVay+K4aMobDsodB3dvEAs6
+ ScCnh03dDAFgIq5nsB11j3KPKdVoPlfucX2c7kGNH+LUMbzqV6beIENfNexkOfxHfw==
+In-Reply-To: <2024041747-CVE-2024-26908-4690@gregkh>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------dVaJww6PxA11a6ZZ7Kz9oRix"
+X-Spam-Level: 
+X-Spamd-Result: default: False [-7.20 / 50.00];
+	BAYES_HAM(-2.80)[99.15%];
+	SIGNED_PGP(-2.00)[];
+	DWL_DNSWL_MED(-2.00)[suse.com:dkim];
+	MIME_BASE64_TEXT_BOGUS(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_DKIM_ALLOW(-0.20)[suse.com:s=susede1];
+	MIME_GOOD(-0.20)[multipart/signed,multipart/mixed,text/plain];
+	NEURAL_HAM_SHORT(-0.20)[-0.992];
+	MIME_UNKNOWN(0.10)[application/pgp-keys];
+	MIME_BASE64_TEXT(0.10)[];
+	MX_GOOD(-0.01)[];
+	XM_UA_NO_VERSION(0.01)[];
+	MIME_TRACE(0.00)[0:+,1:+,2:+,3:+,4:~,5:~];
+	TO_DN_SOME(0.00)[];
+	DKIM_SIGNED(0.00)[suse.com:s=susede1];
+	TO_DN_EQ_ADDR_SOME(0.00)[];
+	ARC_NA(0.00)[];
+	FUZZY_BLOCKED(0.00)[rspamd.com];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	FROM_HAS_DN(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[6];
+	DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	RCVD_COUNT_TWO(0.00)[2];
+	FROM_EQ_ENVFROM(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	DKIM_TRACE(0.00)[suse.com:+];
+	HAS_ATTACHMENT(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.com:dkim]
+X-Rspamd-Action: no action
+X-Rspamd-Queue-Id: B5BA821B1B
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Spam-Flag: NO
+X-Spam-Score: -7.20
 
-On 27.05.2024 12:27, Sergiy Kibrik wrote:
-> 23.05.24 17:50, Jan Beulich:
->> On 23.05.2024 15:07, Sergiy Kibrik wrote:
->>> 16.05.24 14:12, Jan Beulich:
->>>> On 15.05.2024 11:12, Sergiy Kibrik wrote:
->>>>> --- a/xen/arch/x86/include/asm/cpufeature.h
->>>>> +++ b/xen/arch/x86/include/asm/cpufeature.h
->>>>> @@ -81,7 +81,8 @@ static inline bool boot_cpu_has(unsigned int feat)
->>>>>    #define cpu_has_sse3            boot_cpu_has(X86_FEATURE_SSE3)
->>>>>    #define cpu_has_pclmulqdq       boot_cpu_has(X86_FEATURE_PCLMULQDQ)
->>>>>    #define cpu_has_monitor         boot_cpu_has(X86_FEATURE_MONITOR)
->>>>> -#define cpu_has_vmx             boot_cpu_has(X86_FEATURE_VMX)
->>>>> +#define cpu_has_vmx             ( IS_ENABLED(CONFIG_VMX) && \
->>>>> +                                  boot_cpu_has(X86_FEATURE_VMX))
->>>>>    #define cpu_has_eist            boot_cpu_has(X86_FEATURE_EIST)
->>>>>    #define cpu_has_ssse3           boot_cpu_has(X86_FEATURE_SSSE3)
->>>>>    #define cpu_has_fma             boot_cpu_has(X86_FEATURE_FMA)
->>>>> @@ -109,7 +110,8 @@ static inline bool boot_cpu_has(unsigned int feat)
->>>>>    
->>>>>    /* CPUID level 0x80000001.ecx */
->>>>>    #define cpu_has_cmp_legacy      boot_cpu_has(X86_FEATURE_CMP_LEGACY)
->>>>> -#define cpu_has_svm             boot_cpu_has(X86_FEATURE_SVM)
->>>>> +#define cpu_has_svm             ( IS_ENABLED(CONFIG_SVM) && \
->>>>> +                                  boot_cpu_has(X86_FEATURE_SVM))
->>>>>    #define cpu_has_sse4a           boot_cpu_has(X86_FEATURE_SSE4A)
->>>>>    #define cpu_has_xop             boot_cpu_has(X86_FEATURE_XOP)
->>>>>    #define cpu_has_skinit          boot_cpu_has(X86_FEATURE_SKINIT)
->>>>
->>>> Hmm, leaving aside the style issue (stray blanks after opening parentheses,
->>>> and as a result one-off indentation on the wrapped lines) I'm not really
->>>> certain we can do this. The description goes into detail why we would want
->>>> this, but it doesn't cover at all why it is safe for all present (and
->>>> ideally also future) uses. I wouldn't be surprised if we had VMX/SVM checks
->>>> just to derive further knowledge from that, without them being directly
->>>> related to the use of VMX/SVM. Take a look at calculate_hvm_max_policy(),
->>>> for example. While it looks to be okay there, it may give you an idea of
->>>> what I mean.
->>>>
->>>> Things might become better separated if instead for such checks we used
->>>> host and raw CPU policies instead of cpuinfo_x86.x86_capability[]. But
->>>> that's still pretty far out, I'm afraid.
->>>
->>> I've followed a suggestion you made for patch in previous series:
->>>
-> [..]
->>
->> See the "If not, ..." that I had put there. Doing the change just mechanically
->> isn't enough, you also need to make clear (in the description) that you
->> verified it's safe to have this way.
->>
->>> yet if this approach can potentially be unsafe (I'm not completely sure
->>> it's safe), should we instead fallback to the way it was done in v1
->>> series? I.e. guard calls to vmx/svm-specific calls where needed, like in
->>> these 3 patches:
->>>
-> [..]
->>
->> I don't like this sprinkling around of IS_ENABLED() very much. Maybe we want
->> to have two new helpers (say using_svm() and using_vmx()), to be used in place
->> of most but possibly not all cpu_has_{svm,vmx}? Doing such a transformation
->> would then kind of implicitly answer the safety question above, as at every
->> use site you'd need to judge whether the replacement is correct. If it's
->> correct everywhere, the construct(s) as proposed in this version could then be
->> considered to be used in this very shape (instead of introducing the two new
->> helpers). But of course the transition could also be done gradually then,
->> touching only those uses that previously you touched in 1), 2), and 3).
->>
-> 
-> now I might be seeing your concerns, if I understood correctly, 
-> situation is the following.
-> 
->   As an example of cpu_has_vmx macro, it can be used to prove either of 
-> following two statements: 1) VMX features can be used or 2) CPU provides 
-> VMX features.
-> Currently they're the same for Xen, yet after this patch series they're 
-> not, as the situation possible when non-vmx build would be able to get 
-> executed on vmx-enabled machine. E.g. the case of PV guest, or (if that 
-> makes any sense) at least hypervisor's code is still able to run until 
-> HVM guest has to be created. Changes in this patch makes 
-> indistinguishable for a user whether VMX support is absent in code or in 
-> hardware -- hence we may need two separate macros for these.
-> 
-> Still the question remains whether a separate macro to check if CPU 
-> provides VMX/SVM is really needed at all at this point.
-> 
-> I've counted only 16 uses of cpu_has_vmx in the code, not that much to 
-> check every one of them, so I did that.
-> Most of uses are obviously checks before using vmx features, so logic 
-> not broken.
-> As for the others, the surrounding context presumes that HVM domain 
-> required there or had already been created. But non-vmx build can't 
-> create HVM VMX domain anyway, so the logic not broken either.
-> 
-> As for cpu_has_svm only 8 uses I've counted, all but one also don't seem 
-> to break logic as described above. One check of cpu_has_svm in 
-> init_speculation_mitigations(), where default speculation control flag 
-> gets set, not uses SVM features directly. Yet from the comment I can 
-> assume that it's also related to running HVM domain and usage of VMX 
-> features at later time.
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------dVaJww6PxA11a6ZZ7Kz9oRix
+Content-Type: multipart/mixed; boundary="------------G3ihLASy2vtu3dMCGzkOqHQy";
+ protected-headers="v1"
+From: Juergen Gross <jgross@suse.com>
+To: gregkh@linuxfoundation.org
+Cc: cve@kernel.org, linux-cve-announce@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ "Xen.org security team" <security@xen.org>
+Message-ID: <9fba239d-2e22-425b-b45f-86ecf016c2fd@suse.com>
+Subject: Re: CVE-2021-47377: kernel: xen/balloon: use a kernel thread instead
+ a workqueue
+References: <2024041747-CVE-2024-26908-4690@gregkh>
+In-Reply-To: <2024041747-CVE-2024-26908-4690@gregkh>
+Autocrypt-Gossip: addr=security@xen.org; keydata=
+ xsBNBE+hNqgBCADYua5OFR0/Jeu0rByk+Obk6+SewIeGej1FAcjo+Cvpcr1dfnLBAhmmhbfM
+ b++qr6SG6Ek+cUQogYAFvZcEcusbRPy4MIzJkqoPSyOUhCxZoxWNWUfhDdt0TWA3Hs1vYmFO
+ e+2jvlL3h7yAsGMYO8jo6ow8ceBEOmf8Q5BLq2OPkNpGcaHEhbSv0VZ3mdHM30ynY6GubIws
+ c68LZ5hTORTSjKaj2WVCe4OorBMZte5Im+6MOEUbCjynqPJSU9KNFhIhUuyXp1vn0gZ2N5QS
+ pkghpzBJLzeBNEI6ecV3Q0p+/pq8EvEAuUSNLUEbIZ/NSLqyTVMc9HZxnPu59im8wB9rABEB
+ AAHNK1hlbi5vcmcgKGluY29taW5nIGVtYWlsKSA8c2VjdXJpdHlAeGVuLm9yZz7CwHgEEwEC
+ ACIFAk+hNqgCGwMGCwkIBwMCBhUIAgkKCwQWAgMBAh4BAheAAAoJEHQ6P8qC06lk1y0H/2Pj
+ jQyPDZVS4zIVnR4xQOQ1KphPCdSTPlhj+VVrjZZNXWGCUKvJShL84XIONH62fIgQE/6CTWXJ
+ tx6i4u1oAtFH4+8HayFjg609lxx9frJ4tJkJitw5TT6VEGAambchIG5QaP9hepgyrVXjQ0X2
+ ot0jgpwL6G3sx0L1gewiMALXtGT6oTqLjXius/nv69yRe26wxU1GX80oWWH/5p585xt54C1X
+ nhDEVzp0S9UW7VAAVDCWuSefSrihh3jZi4QE1fnGRwO0RfeLh1sXeuMn9uFIz0CmaCbAp5Pe
+ UyNb6wgG60h4JLCDyhJntoHfq8pQLEJ8G9nvjDfw8BLvkBKYNvbOwE0ET6E2qAEIALqWNlGF
+ d3uIj+DXZ40/i7fsoPb+HaYaG6Y+7+ZWxMxUeQDTLBnTYiAa+EGVutc4v52BXH8RZc9I/NH9
+ lBT2/AwaEVSomxLicbixXUGoFC9kMp/VP1xwWJ+gm+ZEnQzY+2AFJGMvqEsGocQA7yLw121J
+ UOrorny3CqpHykPUF3fqp4n/GL47VTaKxlsoV8o2JgZZ62NJlkBtnbA4ODzhWr6cA21smWFg
+ sfFJ+EkXb1NEeYLs8CWtTn2EiQXlZTQ8OgBPahfvLZ+AJ4sM/Raoi2c3UIQrlCsg9BoojKMk
+ Li8XUrywr8HEJYjhBYObCgbmaeIEfmrw5XJqOKlMg40XY+MAEQEAAcLAXwQYAQIACQUCT6E2
+ qAIbDAAKCRB0Oj/KgtOpZDhJB/0XtxrlVuRttpjK1PEYK/A/9h47VH9p0UvVYCH+ZS2a+sTg
+ sapx0zp4uni8wtytkvGw/EM06D4ZoaWAUcjXILNKGdi62q/z+WAfdEY/WrONxAbr2Dtv/LT0
+ 0/2nifYU9O1vGYS1Kx/B3D8fU0w+2Sjv+hYjbGDWn619etC8dNEIxczH6V/cVOZf0D2KhoBf
+ MCHUoKeuAfaIKDMxOZjb7sajfUW70cxFFWYqH96Py01oxDroOKzy0x62iVdsYFGB3FvcD9tD
+ WsxVWwGHA8DKEfKMuNPiuapzdxdrNm5AQilSUlfD65KK9d3kQdoOUPdPWoIQnz8GnHMPDe99
+ 7SuwxWGb
 
-Note how to comment (necessarily) mixes SVM and VT-x. The !cpu_have_svm
-really looks to mean cpu_has_vmx there (i.e. absence of SVM on a HVM-only
-path implying VT-x). This would be broken if cpu_has_svm had
-IS_ENABLED() added to it. You'll want to consult the commit introducing
-the construct as well as perhaps Andrew directly as to whether switching
-to cpu_has_vmx here would be appropriate. I'm pretty sure there was a
-reason why this was written using the negative (!SVM) form.
+--------------G3ihLASy2vtu3dMCGzkOqHQy
+Content-Type: multipart/mixed; boundary="------------emd4kqbqlUBoHXDuj7s7yzqQ"
 
-> With all above, at the moment there doesn't seem to be uses of 
-> cpu_has_{svm,vmx} macros without subsequent usage of svm/vmx features, 
-> so this patch should be quite safe.
-> 
-> Please let me know whether the above reasoning makes sense.
+--------------emd4kqbqlUBoHXDuj7s7yzqQ
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
 
-Fundamentally it does, with said one exception. Yet even in the absence
-of that exception the question would then remain whether we really want
-to close the road to one of the two possible uses of these constructs.
+SGksDQoNCkknZCBsaWtlIHRvIGRpc3B1dGUgQ1ZFLTIwMjEtNDczNzc6IHRoZSBpc3N1ZSBm
+aXhlZCBieSB1cHN0cmVhbSBjb21taXQNCjg0ODBlZDljMmJiZDU2ZmM4NjUyNDk5OGU1ZjJl
+M2UyMmY1MDM4ZjYgY2FuIGluIG5vIHdheSBiZSB0cmlnZ2VyZWQgYnkNCmFuIHVucHJpdmls
+ZWdlZCB1c2VyIG9yIGJ5IGEgcmVtb3RlIGF0dGFjayBvZiB0aGUgc3lzdGVtLCBhcyBpdCBy
+ZXF1aXJlcw0KaW5pdGlhdGlvbiBvZiBtZW1vcnkgYmFsbG9vbmluZyBvZiB0aGUgcnVubmlu
+ZyBzeXN0ZW0uIFRoaXMgY2FuIGJlIGRvbmUNCm9ubHkgYnkgZWl0aGVyIGEgaG9zdCBhZG1p
+biBvciBieSBhbiBhZG1pbiBvZiB0aGUgZ3Vlc3Qgd2hpY2ggbWlnaHQNCnN1ZmZlciB0aGUg
+ZGV0ZWN0aW9uIG9mIHRoZSBoYW5naW5nIHdvcmtxdWV1ZS4NCg0KUGxlYXNlIHJldm9rZSB0
+aGlzIENWRS4NCg0KDQpKdWVyZ2VuDQo=
+--------------emd4kqbqlUBoHXDuj7s7yzqQ
+Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Description: OpenPGP public key
+Content-Transfer-Encoding: quoted-printable
 
-Jan
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+
+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
+kt+z4drzFUyEjLM1vVvIMjkUoJs=3D
+=3DeeAB
+-----END PGP PUBLIC KEY BLOCK-----
+
+
+--------------emd4kqbqlUBoHXDuj7s7yzqQ--
+
+--------------G3ihLASy2vtu3dMCGzkOqHQy--
+
+--------------dVaJww6PxA11a6ZZ7Kz9oRix
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmZUZ0kFAwAAAAAACgkQsN6d1ii/Ey9F
+GQf9FgVPyzTFKIgeWrwPDxN9H9ZslHo23VxxgV3zePI48TpLefea4JqyovD7dc/BBWK5FW/Fre2N
+s5pRkzPERlvTXx8HqvIEdIAAOYx8j1MZPRUMPwZ6YOb+4o6LtE0XxRXHnTlnNOBbV/L9W3R9Nu13
+ZnQVqOfy+GXrwoD/K2Ja/gh8jRtZUEriAKH3x7oJIDuyD4mpaLK36tqLq1b/cKca4tYfY+wzoX1i
+/Lf2+M51VWLLL0qJl1pk2wUnXej7BnpGit5f4I5qDiiAY6Kuh1CknXadw7r4XWYuWNcm2eVOlJ5e
+h2qRzZ+V42KALNAs9bXpebMhKVDQnEfgrRAxU+03tQ==
+=FxZe
+-----END PGP SIGNATURE-----
+
+--------------dVaJww6PxA11a6ZZ7Kz9oRix--
 
