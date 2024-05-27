@@ -2,33 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9ACA08CF6DE
-	for <lists+xen-devel@lfdr.de>; Mon, 27 May 2024 01:56:40 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.730564.1135678 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 790158CF735
+	for <lists+xen-devel@lfdr.de>; Mon, 27 May 2024 03:01:18 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.730571.1135688 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sBNi2-0007a4-7z; Sun, 26 May 2024 23:55:26 +0000
+	id 1sBOil-0004J0-Rg; Mon, 27 May 2024 01:00:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 730564.1135678; Sun, 26 May 2024 23:55:26 +0000
+Received: by outflank-mailman (output) from mailman id 730571.1135688; Mon, 27 May 2024 01:00:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sBNi2-0007Xv-4d; Sun, 26 May 2024 23:55:26 +0000
-Received: by outflank-mailman (input) for mailman id 730564;
- Sun, 26 May 2024 23:55:24 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1sBOil-0004Dz-OO; Mon, 27 May 2024 01:00:15 +0000
+Received: by outflank-mailman (input) for mailman id 730571;
+ Mon, 27 May 2024 01:00:13 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=QFAz=M5=gmail.com=w1benny@srs-se1.protection.inumbo.net>)
- id 1sBNi0-0007Xp-OX
- for xen-devel@lists.xenproject.org; Sun, 26 May 2024 23:55:24 +0000
-Received: from mail-oo1-xc31.google.com (mail-oo1-xc31.google.com
- [2607:f8b0:4864:20::c31])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 69800bfb-1bbb-11ef-b4bb-af5377834399;
- Mon, 27 May 2024 01:55:22 +0200 (CEST)
-Received: by mail-oo1-xc31.google.com with SMTP id
- 006d021491bc7-5b5254f9c32so4005375eaf.0
- for <xen-devel@lists.xenproject.org>; Sun, 26 May 2024 16:55:22 -0700 (PDT)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1sBOij-0003e1-Oh; Mon, 27 May 2024 01:00:13 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1sBOij-0002qe-MO; Mon, 27 May 2024 01:00:13 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1sBOij-0003II-Ch; Mon, 27 May 2024 01:00:13 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1sBOij-0003hm-CJ; Mon, 27 May 2024 01:00:13 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,159 +42,298 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 69800bfb-1bbb-11ef-b4bb-af5377834399
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1716767721; x=1717372521; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=1FtBCXJECgH5jG4zdwJ6hIO5ONat+ArbMrNEVsu+qeM=;
-        b=BgBq+tk5iAJWriLYxPZBgk+AUYkP/qgK3gceXaYly8saUIZT2A0IHvp9OyAcD/I87Z
-         KBNJ8rcBh8g7U/Gs4JWMSgpuRcfcw4verh+S/qDR3+nAz/Hl8sS49DYzWzYXKxnN0SG8
-         4OM1ccHVp6N0ne7+4OQketZmjErTwRovuBUhB7Or3ktGmJOxHs0gsNrgkI8bdCiNaRaI
-         /PJrkVX/LO/fGiRFygEMIYxwPtOw78xcyMdGnGkofMC9L6/kO2iOu2WE3sSHqTv+ni06
-         mi94wyzwa5N7D2jWpvZjZBs9B6v68StugUAiFCGXF0qXRhsuMsS5Pjz6BR4HpWIHEVsB
-         fmBQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1716767721; x=1717372521;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=1FtBCXJECgH5jG4zdwJ6hIO5ONat+ArbMrNEVsu+qeM=;
-        b=Qj2vmjuwnqZJzXwdfDTmgWAwus+KWaFTW/k4+1Tn4m7rxuKNDmqUxxk1XDgu5qBBYx
-         BPF6UXnUKHcyAiLBaYrO3FF5JpxSwqv2F+JpgmhIQuS+90yigK+3fn6fzsxm/K+lhIm3
-         SftQHEGpuo7jBWP1k00y0aZ6J4a+KQdjfHHzmoOEP2FvxuCiFy+Sl246JcBgRs+G3/V5
-         jL4v5R8hkyTlyevpgFEWpUknuse51bwheYX8QZRdCG2K6Q6M77IdQyyXjHRSfFb5Humi
-         cqJI87fXMYS//DFI1Rp+BRXIUiERjznReZQVfvS9ToDgD6yUJmrvnfQ0tCrW3NtL3Des
-         1f1Q==
-X-Forwarded-Encrypted: i=1; AJvYcCV/TIZJqSC53iWsEgwaCOshlteXkKHxIYtdrs9rQ6QVUrhRZu9DBC2ZVPtWa/07AcQBkT4MNjdA65aanu3EQ0IxBJKYK7ZoyqeCgss4aqE=
-X-Gm-Message-State: AOJu0Yx3DryPRJBCDh5X/CU+oIE1Nvct9DhfycZOkdudyYgJKCeM9xiD
-	6i9P5GyKF7dEyVhmu+HmxhbExSFyLJl4bbgaNptIrtmiKIAcpBcgrjpv9HNr/VvL5/jBehqfmds
-	tCXeXGYE8V3tVHm3qLsWzN0YaQLc=
-X-Google-Smtp-Source: AGHT+IHqFmBtelvkkarGAKz5L+Vf5A9nRqAWmELa9QVrAg6u0FlXGqFvMFQ1uOF3djmvv90IY39NQ8sQGvYbIqNjDhE=
-X-Received: by 2002:a05:6870:218c:b0:24f:bd2e:9c3f with SMTP id
- 586e51a60fabf-24fbd2fea0dmr6752334fac.11.1716767720815; Sun, 26 May 2024
- 16:55:20 -0700 (PDT)
-MIME-Version: 1.0
-References: <cover.1716029860.git.w1benny@gmail.com> <ba5b81fdaf174a236c3963fcfd29ae3b19aff13d.1716029860.git.w1benny@gmail.com>
- <21196eb3-82ca-470b-8dc9-1a95b427f3b9@suse.com>
-In-Reply-To: <21196eb3-82ca-470b-8dc9-1a95b427f3b9@suse.com>
-From: =?UTF-8?Q?Petr_Bene=C5=A1?= <w1benny@gmail.com>
-Date: Mon, 27 May 2024 01:55:09 +0200
-Message-ID: <CAKBKdXj7xUyuy-wPCjR0a+kNwqCmGXOoO=-pMQa7=Yiyaom_mg@mail.gmail.com>
-Subject: Re: [PATCH for-4.19? v4 4/6] x86: Make the maximum number of altp2m
- views configurable
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-	George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>, 
-	Stefano Stabellini <sstabellini@kernel.org>, Tamas K Lengyel <tamas@tklengyel.com>, 
-	Alexandru Isaila <aisaila@bitdefender.com>, Petre Pircalabu <ppircalabu@bitdefender.com>, 
-	xen-devel@lists.xenproject.org
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=qo1meo2cVFi+bh2MluYvsbPoaAAMhy+qidCZ3isOMtQ=; b=GxmGykNcKrujCRHNK486bl/Gd7
+	GDHbITuxtycnnLRrqeE93Mhv7mU/4JoOZcLveofzMdieVNJO3RW30ZrRAHXW6yB7Y5vM4yrDmJXaN
+	twD8QmTOzo4IuqllX2tfVCBPDsgzy0/QAwvNYmLul61SdN7s5gHLF8ffNiiNmsUtl1aY=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-186155-mainreport@xen.org>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [linux-linus test] 186155: regressions - FAIL
+X-Osstest-Failures:
+    linux-linus:test-amd64-amd64-xl-credit1:guest-start/debian.repeat:fail:regression
+    linux-linus:build-armhf:xen-build:fail:regression
+    linux-linus:build-armhf-libvirt:build-check(1):blocked:nonblocking
+    linux-linus:test-armhf-armhf-examine:build-check(1):blocked:nonblocking
+    linux-linus:test-armhf-armhf-libvirt:build-check(1):blocked:nonblocking
+    linux-linus:test-armhf-armhf-libvirt-vhd:build-check(1):blocked:nonblocking
+    linux-linus:test-armhf-armhf-xl:build-check(1):blocked:nonblocking
+    linux-linus:test-armhf-armhf-xl-arndale:build-check(1):blocked:nonblocking
+    linux-linus:test-armhf-armhf-xl-credit1:build-check(1):blocked:nonblocking
+    linux-linus:test-armhf-armhf-xl-credit2:build-check(1):blocked:nonblocking
+    linux-linus:test-armhf-armhf-xl-multivcpu:build-check(1):blocked:nonblocking
+    linux-linus:test-armhf-armhf-xl-qcow2:build-check(1):blocked:nonblocking
+    linux-linus:test-armhf-armhf-xl-raw:build-check(1):blocked:nonblocking
+    linux-linus:test-armhf-armhf-xl-rtds:build-check(1):blocked:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-qcow2:migrate-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-raw:migrate-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-vhd:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-vhd:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    linux=6fbf71854e2ddea7c99397772fbbb3783bfe15b5
+X-Osstest-Versions-That:
+    linux=56fb6f92854f29dcb6c3dc3ba92eeda1b615e88c
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Mon, 27 May 2024 01:00:13 +0000
 
-On Tue, May 21, 2024 at 12:59=E2=80=AFPM Jan Beulich <jbeulich@suse.com> wr=
-ote:
->
-> The compared entities don't really fit together. I think we want a new
-> MAX_NR_ALTP2M, which - for the time being - could simply be
->
-> #define MAX_NR_ALTP2M MAX_EPTP
->
-> in the header. That would then be a suitable replacement for the
-> min(ARRAY_SIZE(d->arch.altp2m_p2m), MAX_EPTP) that you're adjusting
-> elsewhere. Which however raises the question whether in EPT-specific
-> code the min() wouldn't better survive, as min(d->nr_altp2m, MAX_EPTP).
->
+flight 186155 linux-linus real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/186155/
 
-As you mentioned in a previous email, I've removed all the min(...,
-MAX_EPTP) invocations from the code, since nr_altp2m is validated to
-be no greater than that value. The only remaining places where this
-value occurs are:
+Regressions :-(
 
-- In my newly introduced condition in arch_sanitise_domain_config:
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ test-amd64-amd64-xl-credit1 22 guest-start/debian.repeat fail REGR. vs. 186148
+ build-armhf                   6 xen-build                fail REGR. vs. 186148
 
-if ( config->nr_altp2m > MAX_EPTP )
-{
-    dprintk(XENLOG_INFO, "nr_altp2m must be <=3D %lu\n", MAX_NR_ALTP2M);
-    return -EINVAL;
-}
+Tests which did not succeed, but are not blocking:
+ build-armhf-libvirt           1 build-check(1)               blocked  n/a
+ test-armhf-armhf-examine      1 build-check(1)               blocked  n/a
+ test-armhf-armhf-libvirt      1 build-check(1)               blocked  n/a
+ test-armhf-armhf-libvirt-vhd  1 build-check(1)               blocked  n/a
+ test-armhf-armhf-xl           1 build-check(1)               blocked  n/a
+ test-armhf-armhf-xl-arndale   1 build-check(1)               blocked  n/a
+ test-armhf-armhf-xl-credit1   1 build-check(1)               blocked  n/a
+ test-armhf-armhf-xl-credit2   1 build-check(1)               blocked  n/a
+ test-armhf-armhf-xl-multivcpu  1 build-check(1)               blocked  n/a
+ test-armhf-armhf-xl-qcow2     1 build-check(1)               blocked  n/a
+ test-armhf-armhf-xl-raw       1 build-check(1)               blocked  n/a
+ test-armhf-armhf-xl-rtds      1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 186148
+ test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 186148
+ test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 186148
+ test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 186148
+ test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 186148
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-qcow2 14 migrate-support-check        fail never pass
+ test-amd64-amd64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-vhd      14 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-vhd      15 saverestore-support-check    fail   never pass
+ test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
 
-- In hap_enable():
+version targeted for testing:
+ linux                6fbf71854e2ddea7c99397772fbbb3783bfe15b5
+baseline version:
+ linux                56fb6f92854f29dcb6c3dc3ba92eeda1b615e88c
 
-for ( i =3D 0; i < MAX_EPTP; i++ )
-{
-    d->arch.altp2m_eptp[i] =3D mfn_x(INVALID_MFN);
-    d->arch.altp2m_visible_eptp[i] =3D mfn_x(INVALID_MFN);
-}
+Last test of basis   186148  2024-05-25 18:11:58 Z    1 days
+Failing since        186152  2024-05-26 05:15:42 Z    0 days    2 attempts
+Testing same since   186155  2024-05-26 19:13:32 Z    0 days    1 attempts
 
-Note that altp2m_eptp/altp2m_visible_eptp is never accessed beyond
-nr_altp2m. From what you're saying, it sounds to me like I should only
-replace the first mentioned occurrence with MAX_NR_ALTP2M. Correct me
-if I'm wrong.
+------------------------------------------------------------
+People who touched revisions under test:
+  Al Viro <viro@zeniv.linux.org.uk>
+  Alexandre Belloni <alexandre.belloni@bootlin.com>
+  Allen Pais <allen.lkml@gmail.com>
+  Allen Pais <apais@linux.microsoft.com>
+  Andrew Morton <akpm@linux-foundation.org>
+  Andrey Konovalov <andreyknvl@gmail.com>
+  Arnaldo Carvalho de Melo <acme@redhat.com>
+  Arnd Bergmann <arnd@kernel.org>
+  Artem Ikonnikov <artem@datacrunch.io>
+  Billy Tsai <billy_tsai@aspeedtech.com>
+  Borislav Petkov (AMD) <bp@alien8.de>
+  Carsten Tolkmit <ctolkmit@ennit.de>
+  Chengming Zhou <chengming.zhou@linux.dev>
+  Christian Heusel <christian@heusel.eu>
+  Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+  Corey Minyard <cminyard@mvista.com>
+  Corey Minyard <minyard@acm.org>
+  David Hildenbrand <david@redhat.com>
+  David Howells <dhowells@redhat.com>
+  Dev Jain <dev.jain@arm.com>
+  dicken.ding <dicken.ding@mediatek.com>
+  Dongli Zhang <dongli.zhang@oracle.com>
+  Duoming Zhou <duoming@zju.edu.cn>
+  Frank Li <Frank.Li@nxp.com>
+  Guenter Roeck <linux@roeck-us.net>
+  Hailong.Liu <hailong.liu@oppo.com>
+  Herbert Xu <herbert@gondor.apana.org.au>
+  Ilya Dryomov <idryomov@gmail.com>
+  Javier Carrasco <javier.carrasco.cruz@gmail.com>
+  Jeff Layton <jlayton@kernel.org>
+  Johannes Berg <johannes.berg@intel.com>
+  Josh Poimboeuf <jpoimboe@kernel.org>
+  Klara Modin <klarasmodin@gmail.com>
+  Konstantin Komarov <almaz.alexandrovich@paragon-software.com>
+  Krzysztof Kozlowski <krzk@kernel.org>
+  Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+  Kunwu Chan <chentao@kylinos.cn>
+  Lenko Donchev <lenko.donchev@gmail.com>
+  Linus Torvalds <torvalds@linux-foundation.org>
+  Masahiro Yamada <masahiroy@kernel.org>
+  Mia Lin <mimi05633@gmail.com>
+  Miaohe Lin <linmiaohe@huawei.com>
+  Michael Ellerman <mpe@ellerman.id.au>
+  Michal Hocko <mhocko@suse.com>
+  Mike Rapoport (IBM) <rppt@kernel.org>
+  Mukesh Kumar Savaliya <quic_msavaliy@quicinc.com>
+  Namjae Jeon <linkinjeon@kernel.org>
+  Nandor Kracser <bonifaido@gmail.com>
+  Nico Pache <npache@redhat.com>
+  Niklas Schnelle <schnelle@linux.ibm.com>
+  Palmer Dabbelt <palmer@rivosinc.com>
+  Randy Dunlap <rdunlap@infradead.org>
+  Richard Weinberger <richard@nod.at>
+  Roberto Sassu <roberto.sassu@huawei.com>
+  Ryusuke Konishi <konishi.ryusuke@gmail.com>
+  Satya Priya Kakitapalli <quic_skakitap@quicinc.com>
+  Steve French <stfrench@microsoft.com>
+  Suren Baghdasaryan <surenb@google.com>
+  Thomas Gleixner <tglx@linutronix.de>
+  Tiwei Bie <tiwei.btw@antgroup.com>
+  Tony Luck <tony.luck@intel.com>
+  Tzung-Bi Shih <tzungbi@kernel.org>
+  Uwe Kleine-König <u.kleine-koenig@pengutronix.de>
+  Wang Yong <wang.yong12@zte.com.cn>
+  Waqar Hameed <waqar.hameed@axis.com>
+  Will Deacon <will@kernel.org>
+  Xiubo Li <xiubli@redhat.com>
+  Yuanyuan Zhong <yzhong@purestorage.com>
+  Yueh-Shun Li <shamrocklee@posteo.net>
 
-> > @@ -5228,7 +5234,7 @@ void hvm_fast_singlestep(struct vcpu *v, uint16_t=
- p2midx)
-> >      if ( !hvm_is_singlestep_supported() )
-> >          return;
-> >
-> > -    if ( p2midx >=3D MAX_ALTP2M )
-> > +    if ( p2midx >=3D v->domain->nr_altp2m )
-> >          return;
->
-> You don't introduce a new local variable here. I'd like to ask that you a=
-lso
-> don't ...
->
-> > @@ -403,12 +403,12 @@ long p2m_set_mem_access_multi(struct domain *d,
-> >      /* altp2m view 0 is treated as the hostp2m */
-> >      if ( altp2m_idx )
-> >      {
-> > -        if ( altp2m_idx >=3D min(ARRAY_SIZE(d->arch.altp2m_p2m), MAX_E=
-PTP) ||
-> > -             d->arch.altp2m_eptp[array_index_nospec(altp2m_idx, MAX_EP=
-TP)] =3D=3D
-> > -             mfn_x(INVALID_MFN) )
-> > +        if ( altp2m_idx >=3D d->nr_altp2m ||
-> > +             d->arch.altp2m_eptp[array_index_nospec(altp2m_idx, d->nr_=
-altp2m)]
-> > +             =3D=3D mfn_x(INVALID_MFN) )
->
-> Please don't break previously correct style: Binary operators (here: =3D=
-=3D )
-> belong onto the end of the earlier line. That'll render the line too long
-> again, but you want to deal with that e.g. thus:
->
->              d->arch.altp2m_eptp[array_index_nospec(altp2m_idx,
->                                                     d->nr_altp2m)] =3D=3D
->              mfn_x(INVALID_MFN) )
->
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  fail    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          blocked 
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl                                          pass    
+ test-amd64-coresched-amd64-xl                                pass    
+ test-arm64-arm64-xl                                          pass    
+ test-armhf-armhf-xl                                          blocked 
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
+ test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 pass    
+ test-amd64-amd64-xl-xsm                                      pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-qemuu-nested-amd                            fail    
+ test-amd64-amd64-xl-pvhv2-amd                                pass    
+ test-amd64-amd64-dom0pvh-xl-amd                              pass    
+ test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
+ test-amd64-amd64-qemuu-freebsd12-amd64                       pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-amd64-xl-qemut-win7-amd64                         fail    
+ test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
+ test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
+ test-armhf-armhf-xl-arndale                                  blocked 
+ test-amd64-amd64-examine-bios                                pass    
+ test-amd64-amd64-xl-credit1                                  fail    
+ test-arm64-arm64-xl-credit1                                  pass    
+ test-armhf-armhf-xl-credit1                                  blocked 
+ test-amd64-amd64-xl-credit2                                  pass    
+ test-arm64-arm64-xl-credit2                                  pass    
+ test-armhf-armhf-xl-credit2                                  blocked 
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
+ test-amd64-amd64-examine                                     pass    
+ test-arm64-arm64-examine                                     pass    
+ test-armhf-armhf-examine                                     blocked 
+ test-amd64-amd64-qemuu-nested-intel                          pass    
+ test-amd64-amd64-xl-pvhv2-intel                              pass    
+ test-amd64-amd64-dom0pvh-xl-intel                            pass    
+ test-amd64-amd64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     blocked 
+ test-amd64-amd64-xl-multivcpu                                pass    
+ test-armhf-armhf-xl-multivcpu                                blocked 
+ test-amd64-amd64-pair                                        pass    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-amd64-xl-pvshim                                   pass    
+ test-amd64-amd64-pygrub                                      pass    
+ test-amd64-amd64-libvirt-qcow2                               pass    
+ test-amd64-amd64-xl-qcow2                                    pass    
+ test-armhf-armhf-xl-qcow2                                    blocked 
+ test-amd64-amd64-libvirt-raw                                 pass    
+ test-arm64-arm64-libvirt-raw                                 pass    
+ test-amd64-amd64-xl-raw                                      pass    
+ test-armhf-armhf-xl-raw                                      blocked 
+ test-amd64-amd64-xl-rtds                                     pass    
+ test-armhf-armhf-xl-rtds                                     blocked 
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
+ test-amd64-amd64-xl-shadow                                   pass    
+ test-arm64-arm64-xl-thunderx                                 pass    
+ test-amd64-amd64-examine-uefi                                pass    
+ test-amd64-amd64-libvirt-vhd                                 pass    
+ test-armhf-armhf-libvirt-vhd                                 blocked 
+ test-amd64-amd64-xl-vhd                                      pass    
+ test-arm64-arm64-xl-vhd                                      pass    
 
-Roger suggested introducing the altp2m_get_p2m() function, which I
-like. I think introducing altp2m_get_eptp/visible_eptp and
-altp2m_set_eptp/visible_eptp would also elegantly solve the issue of
-overly long lines. My question is: if I go this route, should I
-strictly replace with these functions only accesses that use
-array_index_nospec()? Or should I replace all array accesses? For
-example:
 
-for ( i =3D 0; i < d->nr_altp2m; i++ )
-{
-    struct p2m_domain *p2m;
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-    if ( d->arch.altp2m_eptp[i] =3D=3D mfn_x(INVALID_MFN) )
-        continue;
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
-    p2m =3D d->arch.altp2m_p2m[i];
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
-    p2m_lock(p2m);
-    p2m->ept.ad =3D value;
-    p2m_unlock(p2m);
-}
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
-... should I be consistent and also replace these accesses with
-altp2m_get_eptp/altp2m_get_p2m (which will internally use
-array_index_nospec), or should I leave them as they are?
 
-P.
+Not pushing.
+
+(No revision log; it would be 2966 lines long.)
 
