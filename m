@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D124C8D00A6
-	for <lists+xen-devel@lfdr.de>; Mon, 27 May 2024 14:58:47 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.730734.1135905 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BED0A8D0173
+	for <lists+xen-devel@lfdr.de>; Mon, 27 May 2024 15:27:51 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.730750.1135934 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sBZvw-00058B-Hw; Mon, 27 May 2024 12:58:36 +0000
+	id 1sBaNh-0002dQ-3b; Mon, 27 May 2024 13:27:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 730734.1135905; Mon, 27 May 2024 12:58:36 +0000
+Received: by outflank-mailman (output) from mailman id 730750.1135934; Mon, 27 May 2024 13:27:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sBZvw-000557-DU; Mon, 27 May 2024 12:58:36 +0000
-Received: by outflank-mailman (input) for mailman id 730734;
- Mon, 27 May 2024 12:58:35 +0000
+	id 1sBaNh-0002aX-0j; Mon, 27 May 2024 13:27:17 +0000
+Received: by outflank-mailman (input) for mailman id 730750;
+ Mon, 27 May 2024 13:27:15 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=O60l=M6=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sBZvv-00054x-2P
- for xen-devel@lists.xenproject.org; Mon, 27 May 2024 12:58:35 +0000
-Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com
- [2a00:1450:4864:20::634])
+ id 1sBaNf-0002aR-6i
+ for xen-devel@lists.xenproject.org; Mon, 27 May 2024 13:27:15 +0000
+Received: from mail-lf1-x135.google.com (mail-lf1-x135.google.com
+ [2a00:1450:4864:20::135])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d333dd8e-1c28-11ef-90a1-e314d9c70b13;
- Mon, 27 May 2024 14:58:34 +0200 (CEST)
-Received: by mail-ej1-x634.google.com with SMTP id
- a640c23a62f3a-a62972c88a9so236161766b.1
- for <xen-devel@lists.xenproject.org>; Mon, 27 May 2024 05:58:34 -0700 (PDT)
+ id d4374d88-1c2c-11ef-90a1-e314d9c70b13;
+ Mon, 27 May 2024 15:27:13 +0200 (CEST)
+Received: by mail-lf1-x135.google.com with SMTP id
+ 2adb3069b0e04-529661f2552so3066232e87.2
+ for <xen-devel@lists.xenproject.org>; Mon, 27 May 2024 06:27:13 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a62c501e85dsm247769766b.117.2024.05.27.05.58.32
+ 4fb4d7f45d1cf-578649b3001sm4032343a12.77.2024.05.27.06.27.12
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 27 May 2024 05:58:33 -0700 (PDT)
+ Mon, 27 May 2024 06:27:12 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,42 +45,43 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d333dd8e-1c28-11ef-90a1-e314d9c70b13
+X-Inumbo-ID: d4374d88-1c2c-11ef-90a1-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1716814713; x=1717419513; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1716816433; x=1717421233; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=+Yme6rd5RZYashNZq5SnUrewWqWptJp8i6Jp+GbeKLw=;
-        b=DR8Wku8IflbSgrHzpw4Y9BAXcKrPHjZ/B3g6/xNKmRI/tZRgkocxTrPJE4Ee2HGrYN
-         ZiVAiZALy/UojRPEahf2JHvpDvTCLW9QeM3ADKvZSlXeRzB5Ct6ufV7QMaUnWHD0CRjG
-         Fxd9pMb9wWYark0AHeYUBswug5aGZDtJ2qyrPPU5tb0rAgBIZScW2JUdYu2kMk6qL4P1
-         v4RHv/hmTy8lhrsUE3uYvn/kCegwHXqIXZYWjJ2QkJomHZl9r0h2OxFjxXxmCF+94ZiC
-         Lkew5tD9o3IFUbY1IN+LWBZQJgVp7cPFkQJGlaqNAMixgBYbfkBu5AZbSYFHijfcMyWj
-         gF5A==
+        bh=rKSNs4523+4teDwcbjKLKgWAgOut0WjV9YrmmUEFspI=;
+        b=O/CFUgmt8LgfRo28yhsK9/rLcoUPsI4bIlpwoiD9/SV7XN0TeDyIV3KC9Pwoi8X182
+         kbj+y4Ftt0KWr4cQc82crCv0FNO6UqszbSALzI2J+fPKe0xECbNfcNDSGCarMaiKcz8E
+         uoF2vJtbqAJvU8IJQbzOzERBSbQ8U5ghX/ojKChgtRlJ7jh9rEt85Yr1gar6RqKMo6/U
+         mfJ1osxkrqhVLKbS1eLcvKG08LWlnTgQeI7FEiZZ0+epn6Qx4DLaPyIQf+Eral4FaQpT
+         xuODPrRsJA3Ukcuqw+3AXvv/pOUlYi3j0GAA+NaCGmNQSyx2+uNW5khoIPSFLwi27jYB
+         S24A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1716814713; x=1717419513;
+        d=1e100.net; s=20230601; t=1716816433; x=1717421233;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=+Yme6rd5RZYashNZq5SnUrewWqWptJp8i6Jp+GbeKLw=;
-        b=meXIGTQIIyomkdishavYbLYeZO0va6GnFLa85W+WRoE3nkBpkFoD6IL1mvHEFYqaOY
-         wbUbcoJHUxa0uuYoqwnI+bs/yhr3U9pJ0FaEHFBadxX88oUWu1sk0ANXJBb7GiwIzEUL
-         tI1m4cIQtM1D2xKb9xFtiM/cWCS0AwrupPQk9dolINK7Dhns8VXELyLEb+iX2H67MH6h
-         bkaulh+pq0MqS3ELp9BjcN+db7vYdErEGH39XeL6rk91ahvqzolysAeQ0b6D9fYL7ZQ7
-         Ec39NZPZdf7bRHVlmFYc/6aa0ODE39D02nUbyTOBnxXjtZI0lqWDL0RZux51ozmqL537
-         ZgvA==
-X-Forwarded-Encrypted: i=1; AJvYcCVevuFYFWEtGmZdwlLXZvoahTZ28kzzB6ohALsvzXcv0QlqnrLEKNsKI492pJkT4tKRPcX54paVat2NAlVBALt89JnUD+4lqcx4v5AmfqI=
-X-Gm-Message-State: AOJu0YwpPkoA/jq6VR7QUo9Y6chTz69ArBz7AR9ns1eU5x3+wjv2yHJS
-	vlaPIs6UI0XW4hA8jI1mrCMhj73NgSHwJH10kWqjl3oiZifeVuWnh0vSWpr0Ag==
-X-Google-Smtp-Source: AGHT+IGbz1zNzGOOQzvC3vXB7vasindAwIi0MBbktLeKFgA2UWNqPL4IucJUAE+oaqG8uq7eWWsqrg==
-X-Received: by 2002:a17:906:c49:b0:a5c:dd34:2312 with SMTP id a640c23a62f3a-a6264f01525mr590867766b.62.1716814713475;
-        Mon, 27 May 2024 05:58:33 -0700 (PDT)
-Message-ID: <a9b7ddb7-a485-4d0f-b2cc-7207093514c1@suse.com>
-Date: Mon, 27 May 2024 14:58:32 +0200
+        bh=rKSNs4523+4teDwcbjKLKgWAgOut0WjV9YrmmUEFspI=;
+        b=YMZ683VJTrgumcddAll1VDr6Mz1gtrDxh15R6RswGxEVagUUVe2EMZuXABvh+Fmp+Q
+         PjM+YB0smeeO9c2JxT9ntU2Xd+qEZzo7oq0UVxb+5W8xscrv3c1VJ3ccJsB2pVN+e6HA
+         1CdEr4jlbt62pEguKjZAHNQ1bkdMKR1aKabMdsaawzRD9NRSCbvl5ELpe0W8jr79pn8b
+         90Xzd27mzzWEOmbe04lcl17FQ56hOXJeyX9Ra62nkvOGDxX6FD0xFLesIi47uZSJ97kE
+         Arof3n90KVahyHpCErAvGpXJsqZv9/8LXfS2lT2KIcM9qsF04tEyQqUKh9e3DbAV0YjE
+         aFpw==
+X-Forwarded-Encrypted: i=1; AJvYcCXLGpY3jHesAYwM6q9mxuK0Lq8R4FHAxsQEG+JCCpWsLFxTbASrItcFLDFckZB0q+szE2LgL/w+rrbtH1SoaEOTB3LZKRG0czMX/sa+wRg=
+X-Gm-Message-State: AOJu0YzEyupy0/2/BON0wK4P9qhckOsIfA4rZAlst3K73oGjac60tdaK
+	cd8h0FJp1xD6ceZc/cmzQ2GvPhoK/J6A6QaJ3uw+vdPCLx4VuiQk6EH+ifhLEQ==
+X-Google-Smtp-Source: AGHT+IFKRzD2OdT2IGhCCThP3gDFk3CxPFQhNOcCbfeLY3vK7Uw0Y1y6iSRYPWqUqGhwHC7kGcHSlg==
+X-Received: by 2002:a05:6512:3684:b0:51e:f8ae:db35 with SMTP id 2adb3069b0e04-529668ca029mr5061217e87.43.1716816433122;
+        Mon, 27 May 2024 06:27:13 -0700 (PDT)
+Message-ID: <1660a2a7-cea4-4e6f-9286-0c134c34b6fb@suse.com>
+Date: Mon, 27 May 2024 15:27:11 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 10/13] xen/bitops: Delete find_first_set_bit()
+Subject: Re: [PATCH v2 07/13] x86/bitops: Improve arch_ffs() in the general
+ case
 Content-Language: en-US
 To: Andrew Cooper <andrew.cooper3@citrix.com>
 Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
@@ -96,7 +97,7 @@ Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Nicola Vetrini <nicola.vetrini@bugseng.com>,
  Xen-devel <xen-devel@lists.xenproject.org>
 References: <20240524200338.1232391-1-andrew.cooper3@citrix.com>
- <20240524200338.1232391-11-andrew.cooper3@citrix.com>
+ <20240524200338.1232391-8-andrew.cooper3@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -121,16 +122,34 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240524200338.1232391-11-andrew.cooper3@citrix.com>
+In-Reply-To: <20240524200338.1232391-8-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 24.05.2024 22:03, Andrew Cooper wrote:
-> No more users.
-> 
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> --- a/xen/arch/x86/include/asm/bitops.h
+> +++ b/xen/arch/x86/include/asm/bitops.h
+> @@ -432,12 +432,28 @@ static inline int ffsl(unsigned long x)
+>  
+>  static always_inline unsigned int arch_ffs(unsigned int x)
+>  {
+> -    int r;
+> +    unsigned int r;
+> +
+> +    if ( __builtin_constant_p(x > 0) && x > 0 )
+> +    {
+> +        /* Safe, when the compiler knows that x is nonzero. */
+> +        asm ( "bsf %[val], %[res]"
+> +              : [res] "=r" (r)
+> +              : [val] "rm" (x) );
+> +    }
 
-Acked-by: Jan Beulich <jbeulich@suse.com>
+In patch 11 relevant things are all in a single patch, making it easier
+to spot that this is dead code: The sole caller already has a
+__builtin_constant_p(), hence I don't see how the one here could ever
+return true. With that the respective part of the description is then
+questionable, too, I'm afraid: Where did you observe any actual effect
+from this? Or if you did - what am I missing?
 
-
+Jan
 
