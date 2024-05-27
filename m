@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 536798CFB4A
-	for <lists+xen-devel@lfdr.de>; Mon, 27 May 2024 10:24:38 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.730632.1135769 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 40C258CFBE0
+	for <lists+xen-devel@lfdr.de>; Mon, 27 May 2024 10:44:37 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.730638.1135778 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sBVeY-0007qm-4Q; Mon, 27 May 2024 08:24:22 +0000
+	id 1sBVxg-0002Vt-MF; Mon, 27 May 2024 08:44:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 730632.1135769; Mon, 27 May 2024 08:24:22 +0000
+Received: by outflank-mailman (output) from mailman id 730638.1135778; Mon, 27 May 2024 08:44:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sBVeY-0007oi-0y; Mon, 27 May 2024 08:24:22 +0000
-Received: by outflank-mailman (input) for mailman id 730632;
- Mon, 27 May 2024 08:24:20 +0000
+	id 1sBVxg-0002Sm-JQ; Mon, 27 May 2024 08:44:08 +0000
+Received: by outflank-mailman (input) for mailman id 730638;
+ Mon, 27 May 2024 08:44:07 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=O60l=M6=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sBVeW-0007oc-9M
- for xen-devel@lists.xenproject.org; Mon, 27 May 2024 08:24:20 +0000
-Received: from mail-ed1-x52a.google.com (mail-ed1-x52a.google.com
- [2a00:1450:4864:20::52a])
+ id 1sBVxf-0002Sg-Tt
+ for xen-devel@lists.xenproject.org; Mon, 27 May 2024 08:44:07 +0000
+Received: from mail-lf1-x133.google.com (mail-lf1-x133.google.com
+ [2a00:1450:4864:20::133])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 82aa0e91-1c02-11ef-b4bb-af5377834399;
- Mon, 27 May 2024 10:24:18 +0200 (CEST)
-Received: by mail-ed1-x52a.google.com with SMTP id
- 4fb4d7f45d1cf-57864327f6eso3282063a12.1
- for <xen-devel@lists.xenproject.org>; Mon, 27 May 2024 01:24:18 -0700 (PDT)
+ id 466a72a3-1c05-11ef-b4bb-af5377834399;
+ Mon, 27 May 2024 10:44:05 +0200 (CEST)
+Received: by mail-lf1-x133.google.com with SMTP id
+ 2adb3069b0e04-52965199234so3262682e87.2
+ for <xen-devel@lists.xenproject.org>; Mon, 27 May 2024 01:44:05 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-57860a2eab3sm4401359a12.28.2024.05.27.01.24.16
+ 4fb4d7f45d1cf-578524b5898sm5531726a12.82.2024.05.27.01.44.04
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 27 May 2024 01:24:17 -0700 (PDT)
+ Mon, 27 May 2024 01:44:04 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,42 +45,42 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 82aa0e91-1c02-11ef-b4bb-af5377834399
+X-Inumbo-ID: 466a72a3-1c05-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1716798257; x=1717403057; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1716799445; x=1717404245; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=BaTlOnCaTA/1XHNDwnVyAuCDZhHsZEyVzojdDKal27s=;
-        b=XxdvfbM28j5EisTjHpqxQfQfSflHXClW7ikd9KKZ0XuXsc4c4I6iLoVGlDAR7zFOiO
-         r9bWslAXRosyWiHkp1Avj+YERK5ZOmmzjEvKU0nQ1GJjs02hzJQTZrTg2tK1eeWebCN/
-         FrtPXKeb704iKWXbRK7lzPh+7hwCMrpjEGvnqiMhmkFeSdu2VmIpidssSpVfPhf5/yaY
-         2NRHkzZjeNVRfdXhW8R4JpODAe4zoMVPM5AbIDAPm1GSpNZz0XOBrQmqkulEn0Dqy9zh
-         nPCVrnXALtFm86Q1kGzlA9ZAYjiojcLU+cWa+MebKcDG6Vq+UCLpamI5fsxXX/T3Dfyc
-         iNpA==
+        bh=/fhmiO0NEDD4yqRoUXsKlv3IeX5bLl/f6Z453pOqPyE=;
+        b=E6SUAvhm35qFpRd0VzVjCtYPhhNPf3tCTPreo8Zbp0VyBzPh7YqRESlLWdcsXUQL2t
+         SN0/UK+U/qvxdDrw3shWwEqSuaGi2Z59DjGNsvSZZ64ZHPXmApe5H/hd8JMAXN1MSB9s
+         M94AoXcWbKoAmG34RdDi42KUned7QYSoYDOu2ukjVshQAM5kEuR2A0MooQNpXNUVIHWq
+         IEUoY8KBwMWGa1tQBsgmolOAvIcYtmowwDPsDZSw2T5GYgksIkN0p64vtr3ad3QgqzXs
+         dGvGYxMTm5knY+ixD//d9z+twoIp26aE7tRbrpeRguo1EvshSsRX8S1rTwHtXIo4S9mL
+         fR0w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1716798257; x=1717403057;
+        d=1e100.net; s=20230601; t=1716799445; x=1717404245;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=BaTlOnCaTA/1XHNDwnVyAuCDZhHsZEyVzojdDKal27s=;
-        b=KumRrXNYV6O09uz2YxqKROy0l/achY3NLCM19uXRT5lZGFtMqjSLogqoPZPZpRxh0O
-         AqCL6chS3GykoBn/6eUwEb+H/sF/zUE1EI7LHA4wD5EM0FjnOrh+QqawzYy4YOsUbc+Y
-         dsmKu0I0LzcwXThGRXzMuYpbACaUiDP2pInYCjKHA8r38FxSb3MYr6VnWqrB0NS4eGtm
-         NU+SPlsaEDtNI50/yS2flWW4VooMCXWsEBUxvCu3Pbv9Q2RrBwHJ2KY7Wct+KLsv/8p5
-         2yTmV1lpVYrQQwYH8lYkhJOrApAC9xz1uXDPP0BnmxE48OT2Z25FZkNdpA8bO8SXvHpn
-         d+hQ==
-X-Forwarded-Encrypted: i=1; AJvYcCU0oUpcyA4FtL+IqJGjC2H7C+6pYhdiTry6Nt9s7RLwsk/zri7C9kR26kLAKZWCgLQ+gwkVYtCst85WHRP2J5mliUy0dMB+7wksyPqUENM=
-X-Gm-Message-State: AOJu0Yw7d4SkP/V08m6vnEjaTj4EppXTWHLIwHwRpjQeLLpl744K08NI
-	BiEc371i3SlLmUVU/VVZyt7Yvf0Sc5CQ1XhN8CYoPFqC+nQ6QTwX9dOdBT+LZA==
-X-Google-Smtp-Source: AGHT+IGgnmxEyutQ0DzAbAPiRUjk+mU6UIbJa0hcLR8dIaVnTVUrpe34xgvjHGLwUjoZB/2FFfcHyg==
-X-Received: by 2002:a50:8d4c:0:b0:572:3fac:e085 with SMTP id 4fb4d7f45d1cf-57843f1589fmr10741572a12.13.1716798257439;
-        Mon, 27 May 2024 01:24:17 -0700 (PDT)
-Message-ID: <c70f769b-57b9-4f71-9c31-8052b773d28a@suse.com>
-Date: Mon, 27 May 2024 10:24:18 +0200
+        bh=/fhmiO0NEDD4yqRoUXsKlv3IeX5bLl/f6Z453pOqPyE=;
+        b=wfHVoOBCJcYHF2H94SYz+Pk7SRysU3PQ+ElxA75H+ZlkSE+ipgcG7VVJ3okX7wdtWU
+         iqJo7HuW6yH6PovMEzXVztxIwpOSz64nG3wRGGRep/P93xuQbu8OXh8v4etATi7Js3FU
+         2ZCswa/+CPs+LxyDfqRdXVZ509P+GAvaXCgUdnhI4VQ6MRTzQy9VzdNWobfiNPtX8l98
+         RTTXFY758AJOWaOYsWzswZ9bLJ9BoH0VNvXa/hSn9zo5QOyG5z8hLAp1WEzeb2h9qcBg
+         mj/z6/LokuBT3pv5+vau0asCwh2A5lbs/xnSroYZTWjetUabHkuf38Ore4ZoAOrAtD4L
+         okjw==
+X-Forwarded-Encrypted: i=1; AJvYcCXnsjN/7pb6E/3CdIZ1RBsEDs7gsjcr20MDJt/jtsAJaZJydM6sa+cOGT+hIS/2JNt5VjdxhIMGlQ3DyK0PgiXhen5vWLZCqq36TZlOOnA=
+X-Gm-Message-State: AOJu0YwKohQMcvvT2zI4Vypw7UboDY9b/rTIyAeZJePb0RiFadr/u0y0
+	19SsNzlh9JEkiaW9F+l06xkkEdOde7LwtF1WVTfa2idERUQ84DsVLLl8DNPhlw==
+X-Google-Smtp-Source: AGHT+IH+nnLt1sRnNaTWLZ1/9FmTTIN1KqF58OD6bQp7YgaCJuthf9zdpVTjWqJGXRNFSjOCdt/lzQ==
+X-Received: by 2002:a05:6512:21e:b0:51a:d5d3:ee52 with SMTP id 2adb3069b0e04-529649c5eb2mr5492525e87.17.1716799444791;
+        Mon, 27 May 2024 01:44:04 -0700 (PDT)
+Message-ID: <7305a8b9-5f43-47e4-987b-c5ca76bcc312@suse.com>
+Date: Mon, 27 May 2024 10:44:05 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 02/13] xen/bitops: Cleanup ahead of rearrangements
+Subject: Re: [PATCH v2 05/13] xen/bitops: Implement generic_f?sl() in lib/
 Content-Language: en-US
 To: Andrew Cooper <andrew.cooper3@citrix.com>
 Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
@@ -96,7 +96,7 @@ Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Nicola Vetrini <nicola.vetrini@bugseng.com>,
  Xen-devel <xen-devel@lists.xenproject.org>
 References: <20240524200338.1232391-1-andrew.cooper3@citrix.com>
- <20240524200338.1232391-3-andrew.cooper3@citrix.com>
+ <20240524200338.1232391-6-andrew.cooper3@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -121,74 +121,137 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240524200338.1232391-3-andrew.cooper3@citrix.com>
+In-Reply-To: <20240524200338.1232391-6-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 24.05.2024 22:03, Andrew Cooper wrote:
->  * Rename __attribute_pure__ to just __pure before it gains users.
->  * Introduce __constructor which is going to be used in lib/, and is
->    unconditionally cf_check.
->  * Identify the areas of xen/bitops.h which are a mess.
->  * Introduce xen/boot-check.h as helpers for compile and boot time testing.
->    This provides a statement of the ABI, and a confirmation that arch-specific
->    implementations behave as expected.
+> generic_f?s() being static inline is the cause of lots of the complexity
+> between the common and arch-specific bitops.h
 > 
-> Sadly Clang 7 and older isn't happy with the compile time checks.  Skip them,
-> and just rely on the runtime checks.
+> They appear to be static inline for constant-folding reasons (ARM uses them
+> for this), but there are better ways to achieve the same effect.
+> 
+> It is presumptuous that an unrolled binary search is the right algorithm to
+> use on all microarchitectures.  Indeed, it's not for the eventual users, but
+> that can be addressed at a later point.
+> 
+> It is also nonsense to implement the int form as the base primitive and
+> construct the long form from 2x int in 64-bit builds, when it's just one extra
+> step to operate at the native register width.
+> 
+> Therefore, implement generic_f?sl() in lib/.  They're not actually needed in
+> x86/ARM/PPC by the end of the cleanup (i.e. the functions will be dropped by
+> the linker), and they're only expected be needed by RISC-V on hardware which
+> lacks the Zbb extension.
+> 
+> Implement generic_fls() in terms of generic_flsl() for now, but this will be
+> cleaned up in due course.
+> 
+> Provide basic runtime testing using __constructor inside the lib/ file.  This
+> is important, as it means testing runs if and only if generic_f?sl() are used
+> elsewhere in Xen.
 > 
 > Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
 Reviewed-by: Jan Beulich <jbeulich@suse.com>
+with a suggestion and a question.
 
-Further remarks, though:
+> I suspect we want to swap CONFIG_DEBUG for CONFIG_BOOT_UNIT_TESTS in due
+> course.  These ought to be able to be used in a release build too.
 
-> ---
->  xen/include/xen/bitops.h     | 13 ++++++--
->  xen/include/xen/boot-check.h | 60 ++++++++++++++++++++++++++++++++++++
->  xen/include/xen/compiler.h   |  3 +-
->  3 files changed, 72 insertions(+), 4 deletions(-)
->  create mode 100644 xen/include/xen/boot-check.h
-
-The bulk of the changes isn't about bitops; it's just that you're intending
-to first use it for testing there. The subject prefix therefore is somewhat
-misleading.
++1
 
 > --- /dev/null
-> +++ b/xen/include/xen/boot-check.h
-> @@ -0,0 +1,60 @@
-> +/* SPDX-License-Identifier: GPL-2.0-or-later */
+> +++ b/xen/lib/generic-ffsl.c
+> @@ -0,0 +1,65 @@
+> +/* SPDX-License-Identifier: GPL-2.0 */
 > +
-> +/*
-> + * Helpers for boot-time checks of basic logic, including confirming that
-> + * examples which should be calculated by the compiler are.
-> + */
-> +#ifndef XEN_BOOT_CHECK_H
-> +#define XEN_BOOT_CHECK_H
+> +#include <xen/bitops.h>
+> +#include <xen/boot-check.h>
+> +#include <xen/init.h>
 > +
-> +#include <xen/lib.h>
+> +unsigned int generic_ffsl(unsigned long x)
+> +{
+> +    unsigned int r = 1;
 > +
-> +/* Hide a value from the optimiser. */
-> +#define HIDE(x)                                                         \
-> +    ({ typeof(x) _x = (x); asm volatile ( "" : "+r" (_x) ); _x; })
+> +    if ( !x )
+> +        return 0;
+> +
+> +#if BITS_PER_LONG > 32
 
-In principle this is a macro that could be of use elsewhere. That's also
-reflected in its entirely generic name. It therefore feels mis-placed in
-this header. Otoh though the use of "+r" is more restricting than truly
-necessary: While I'm not sure if "+g" would work, i.e. if that wouldn't
-cause issues with literals, pretty surely "+rm" ought to work, removing
-the strict requirement for the compiler to put a certain value in a
-register.
+To be future-proof, perhaps ahead of this
 
-Assuming you may have reservations against "+g" / "+rm" (and hence the
-construct wants keeping here), maybe rename to e.g. BOOT_CHECK_HIDE()?
-Alternatively, if generalized, moving to xen/macros.h would seem
-appropriate to me.
+#if BITS_PER_LONG > 64
+# error "..."
+#endif
 
-Finally, plainly as a remark with no request for any change (but
-possibly a minor argument against moving to xen/macros.h), this construct
-won't, afaict, work if x is of array(-of-const) type. A more specialized
-variant may need introducing, should any such use ever appear.
+or a functionally similar BUILD_BUG_ON()?
+
+> --- /dev/null
+> +++ b/xen/lib/generic-flsl.c
+> @@ -0,0 +1,68 @@
+> +/* SPDX-License-Identifier: GPL-2.0 */
+> +
+> +#include <xen/bitops.h>
+> +#include <xen/boot-check.h>
+> +#include <xen/init.h>
+> +
+> +/* Mask of type UL with the upper x bits set. */
+> +#define UPPER_MASK(x) (~0UL << (BITS_PER_LONG - (x)))
+> +
+> +unsigned int generic_flsl(unsigned long x)
+> +{
+> +    unsigned int r = BITS_PER_LONG;
+> +
+> +    if ( !x )
+> +        return 0;
+> +
+> +#if BITS_PER_LONG > 32
+> +    if ( !(x & UPPER_MASK(32)) )
+> +    {
+> +        x <<= 32;
+> +        r -= 32;
+> +    }
+> +#endif
+> +    if ( !(x & UPPER_MASK(16)) )
+> +    {
+> +        x <<= 16;
+> +        r -= 16;
+> +    }
+> +    if ( !(x & UPPER_MASK(8)) )
+> +    {
+> +        x <<= 8;
+> +        r -= 8;
+> +    }
+> +    if ( !(x & UPPER_MASK(4)) )
+> +    {
+> +        x <<= 4;
+> +        r -= 4;
+> +    }
+> +    if ( !(x & UPPER_MASK(2)) )
+> +    {
+> +        x <<= 2;
+> +        r -= 2;
+> +    }
+> +    if ( !(x & UPPER_MASK(1)) )
+> +    {
+> +        x <<= 1;
+> +        r -= 1;
+> +    }
+> +
+> +    return r;
+> +}
+
+While, as you say, the expectation is for this code to not commonly come
+into actual use, I still find the algorithm a little inefficient in terms
+of the constants used, specifically considering how they would need
+instantiating in resulting assembly. It may be that Arm's fancy constant-
+move insns can actually efficiently synthesize them, but I think on most
+other architectures it would be more efficient (and presumably no less
+efficient on Arm) to shift the "remaining" value right, thus allowing for
+successively smaller (and hence easier to instantiate) constants to be
+used.
 
 Jan
 
