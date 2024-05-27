@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0D04F8D0599
-	for <lists+xen-devel@lfdr.de>; Mon, 27 May 2024 17:13:45 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.730841.1136094 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DA4378D066B
+	for <lists+xen-devel@lfdr.de>; Mon, 27 May 2024 17:42:16 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.730854.1136104 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sBc2W-0003B9-Hl; Mon, 27 May 2024 15:13:32 +0000
+	id 1sBcTt-0007sn-ND; Mon, 27 May 2024 15:41:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 730841.1136094; Mon, 27 May 2024 15:13:32 +0000
+Received: by outflank-mailman (output) from mailman id 730854.1136104; Mon, 27 May 2024 15:41:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sBc2W-00038M-EP; Mon, 27 May 2024 15:13:32 +0000
-Received: by outflank-mailman (input) for mailman id 730841;
- Mon, 27 May 2024 15:13:30 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1sBcTt-0007qI-J5; Mon, 27 May 2024 15:41:49 +0000
+Received: by outflank-mailman (input) for mailman id 730854;
+ Mon, 27 May 2024 15:41:48 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=O60l=M6=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sBc2U-00037V-Pr
- for xen-devel@lists.xenproject.org; Mon, 27 May 2024 15:13:30 +0000
-Received: from mail-ed1-x534.google.com (mail-ed1-x534.google.com
- [2a00:1450:4864:20::534])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id aceacbfe-1c3b-11ef-90a1-e314d9c70b13;
- Mon, 27 May 2024 17:13:30 +0200 (CEST)
-Received: by mail-ed1-x534.google.com with SMTP id
- 4fb4d7f45d1cf-57857e0f45eso2560281a12.0
- for <xen-devel@lists.xenproject.org>; Mon, 27 May 2024 08:13:30 -0700 (PDT)
+ id 1sBcTs-0007qC-2O
+ for xen-devel@lists.xenproject.org; Mon, 27 May 2024 15:41:48 +0000
+Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
+ [2a00:1450:4864:20::536])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 9f61ece2-1c3f-11ef-b4bb-af5377834399;
+ Mon, 27 May 2024 17:41:45 +0200 (CEST)
+Received: by mail-ed1-x536.google.com with SMTP id
+ 4fb4d7f45d1cf-5786988ae9bso2821516a12.3
+ for <xen-devel@lists.xenproject.org>; Mon, 27 May 2024 08:41:45 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-579c2026406sm3047825a12.37.2024.05.27.08.13.29
+ a640c23a62f3a-a626cda1a97sm504051866b.188.2024.05.27.08.41.43
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 27 May 2024 08:13:29 -0700 (PDT)
+ Mon, 27 May 2024 08:41:43 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,51 +45,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: aceacbfe-1c3b-11ef-90a1-e314d9c70b13
+X-Inumbo-ID: 9f61ece2-1c3f-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1716822810; x=1717427610; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1716824505; x=1717429305; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=VvbTbEsKmn4mnDBuGKxl6geDipRxQV4dq73yiizKjYY=;
-        b=bWzRVmhfOIi0HOsmOI+0bN2sSHfZGq3uilo1VldEtqYZRp35+gO9Y9JaMu2Uz7D4s9
-         pYG85VPs+ws9NFhW52DRF+oxEeHDrRhbnJhAw9RJyZWZ9AIBNMSRctZup83TWtrfglTk
-         Qs1321y5wxijNDOdBzO0VUovAdr1z2tb81YITwuFSeLl2YkGg+8dpuyeBCPzyUkNhJfl
-         AJAbLNmimpLziLbwjXn3F5U+JyW7wtjiR9VvrAdlQJCJM9kFz9Ct146rSXsCgsdL03ru
-         ezWhq3/QvKux1/fLpumyqGMyizPbawnR70QFu+SQFdo+SstRPfXsy0jaoCzcrihkDnz8
-         9CpQ==
+        bh=7DJhBKEUSk4v7qdZPx9Ged9Zc+8cyZuGmrSSTuulOfQ=;
+        b=AnhDEnZpC+vyZ6iOcHzUrmKyAhdReZMMnISF1t7Pp1GwpDxt+W5nh9w5XWje1DtXmg
+         xovk6I8Uf5nUpmWGNZqPUlK++vpv05DzR62+AxLqzh0yX9wDK0lnzxSKKRbSviKyTyHJ
+         K6I+MCyBdn7iMQ8QgmpmqdiYZc6H7M/Jslrj0E7kbxVjOn05+kAXR4hWnLWoYFjyH3z1
+         m4KEMQ9bzJMTCcAgR6fB+3WFPEeSIE5+OCQseKvpiQkCN5ayp9mEVKh+Rsk4engXPf94
+         AW2BgKWfDBtQge2N1G3w0yAAqLA521cZJ9RhYCNUsoTbvFVzaw1j5vXVLBQNDfjaoESq
+         ukfw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1716822810; x=1717427610;
+        d=1e100.net; s=20230601; t=1716824505; x=1717429305;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=VvbTbEsKmn4mnDBuGKxl6geDipRxQV4dq73yiizKjYY=;
-        b=gyAClc0k3AD+Uye1qFwwXObDkPnkb5MtXr0I3Hgs6rjlcMuImOOzA/mgb2DSvV8XHU
-         sfG5EKF/8+70RIELj5THcuUXEJXn/PVXwwN+zP7NaN3V3tLZtYJCtXvOvAYCqz8GtEDX
-         aRK8Be9CyapMirPn5B5S469rEjVbj+zjqmc3YoxlrWmfbDacZCAQu8YYl2AUI9FEbQnh
-         CaKZk0eWGhTcw4U84LV3W64h0CopMVvLe1sVwSuvHvGbQon8ZZjSwpie7YtzuhkE5sdC
-         vTtko1Y9rkqhDt5YK/UaBvaIh8yP4o79Am7pK5Xogh0meCZZecn/ZjQo3oZrVsx+6inf
-         cPmg==
-X-Forwarded-Encrypted: i=1; AJvYcCVmBbWNEWScqRBaIbTum5k7Ag5gCpALVZ79Wh3Gyild5VX3zkNaRFtJ5C6Mr5DfoskLKd6TNoomD/FEzV7x4H11VQPXub57yIvjhFgzL40=
-X-Gm-Message-State: AOJu0YwT5Zrt8DGiqGmTw+u4P5XlHVr5OgyBw1k7PDRVDWgQwmn2TpG5
-	6/4tMXJ+ONecUqLGn+qzdmnGyf7o+HUJZWzQt/5IOoHuxZ5uCOfVj1FyzOJlhw==
-X-Google-Smtp-Source: AGHT+IE/uJGMOHzeNk5N+KyK1QM5Qndle606c2a6aXzqOCAXMvaPXORbHOa/tEReLnSkVKQvOgx6UA==
-X-Received: by 2002:a50:d655:0:b0:578:6410:1d50 with SMTP id 4fb4d7f45d1cf-57864101db2mr7029360a12.34.1716822809714;
-        Mon, 27 May 2024 08:13:29 -0700 (PDT)
-Message-ID: <86e1e74b-f1e3-4e16-b87e-a9c512dcc655@suse.com>
-Date: Mon, 27 May 2024 17:13:29 +0200
+        bh=7DJhBKEUSk4v7qdZPx9Ged9Zc+8cyZuGmrSSTuulOfQ=;
+        b=cTLYQgW8haImOThxzQep8jurmr/arn3OOQC1sibWaIbIQEXuOMmajrgs9P8acIZmqW
+         PjM719lqf5u8VPz7jRoeLLdCzJ/XNdIFfYih7e6pisg+curM4zjGxGU47jOmzv3YdThZ
+         RRLdnPCOp7CsIIZEsGqJCs7XKDR6bW3R0F7mQ8Gn/PGSqjlcgfMvUqSNFf29oww2H5m2
+         NMCrxeISVw/JGo5adIzR+IbXat3fydBKBBWoS8DYdCuITgWzIYiVe67BtQOt4K/+j+T3
+         CdoXSjE62DgLnki4wAB3QU0+dvXDIbO02ZEJP16a/HDrPe8D66Spv8ntPDpx9pAFnY1k
+         VsWQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWpothdlCri2LQ+i2PBLRpbDlcxiV6twww9JxVcl/nUXwcWMQPLK2wkzIZS+P1ejfm2tkT+VShT7vA34WELGhuiDMwn4BMTx+kH/KmaaIk=
+X-Gm-Message-State: AOJu0YyKko1Py5o9R92HC3234Dm9V5HY710RQlcUFCBrbp3H9O2mYAvB
+	SviEwEGZsoWZ5zg/UgBcWkSHRY1wMEuySNIEF9+lueHf1wSNIvo/2UEsrz60GA==
+X-Google-Smtp-Source: AGHT+IExvN7gqoCunX6bfygeh3BZNTKhOuZOHrs5O/re1wjYAwv6DFKqXekcGMauBQUw7BNG18wZhg==
+X-Received: by 2002:a17:907:350f:b0:a5d:107b:60be with SMTP id a640c23a62f3a-a62650116c9mr532775866b.69.1716824504051;
+        Mon, 27 May 2024 08:41:44 -0700 (PDT)
+Message-ID: <2724a1fe-d0d4-4d27-a39e-4286f95c6236@suse.com>
+Date: Mon, 27 May 2024 17:41:42 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH 2/4] automation/eclair_analysis: avoid an ECLAIR
- warning about escaping
+Subject: Re: [XEN PATCH v4 1/3] x86/intel: move vmce_has_lmce() routine to
+ header
 Content-Language: en-US
-To: Nicola Vetrini <nicola.vetrini@bugseng.com>
-Cc: sstabellini@kernel.org, michal.orzel@amd.com, xenia.ragiadakou@amd.com,
- ayan.kumar.halder@amd.com, consulting@bugseng.com,
- Simone Ballarin <simone.ballarin@bugseng.com>,
- Doug Goldstein <cardoe@cardoe.com>, xen-devel@lists.xenproject.org
-References: <cover.1716814609.git.nicola.vetrini@bugseng.com>
- <f489cc3d668830eab2f2ce724164d65dc623baa7.1716814609.git.nicola.vetrini@bugseng.com>
+To: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <cover.1716366581.git.Sergiy_Kibrik@epam.com>
+ <db547833fa3887e2e36c8418d3f8a142bebb847d.1716366581.git.Sergiy_Kibrik@epam.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -114,37 +113,27 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <f489cc3d668830eab2f2ce724164d65dc623baa7.1716814609.git.nicola.vetrini@bugseng.com>
+In-Reply-To: <db547833fa3887e2e36c8418d3f8a142bebb847d.1716366581.git.Sergiy_Kibrik@epam.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 27.05.2024 16:53, Nicola Vetrini wrote:
-> The parentheses in this regular expression should be doubly
-> escaped because they are undergo escaping twice.
+On 22.05.2024 10:40, Sergiy Kibrik wrote:
+> --- a/xen/arch/x86/msr.c
+> +++ b/xen/arch/x86/msr.c
+> @@ -24,6 +24,8 @@
+>  
+>  #include <public/hvm/params.h>
+>  
+> +#include "cpu/mcheck/mce.h"
 
-Do you maybe mean "undergo expansion twice"?
+Considering that I asked about this before, I'm a little irritated
+that this is is entirely unadorned. Such an unusual #include wants
+explaining some, you'll find similar comments elsewhere:
+
+#include "cpu/mcheck/mce.h" /* for vmce_has_lmce() */
+
+With that, which could also be adjusted while committing,
+Acked-by: Jan Beulich <jbeulich@suse.com>
 
 Jan
-
-> Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
-> ---
->  automation/eclair_analysis/ECLAIR/deviations.ecl | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/automation/eclair_analysis/ECLAIR/deviations.ecl b/automation/eclair_analysis/ECLAIR/deviations.ecl
-> index b9b377c56b25..cf62a874d928 100644
-> --- a/automation/eclair_analysis/ECLAIR/deviations.ecl
-> +++ b/automation/eclair_analysis/ECLAIR/deviations.ecl
-> @@ -405,8 +405,8 @@ explicit comment indicating the fallthrough intention is present."
->  #
->  
->  -doc_begin="printf()-like functions are allowed to use the variadic features provided by stdarg.h."
-> --config=MC3R1.R17.1,reports+={deliberate,"any_area(^.*va_list.*$&&context(ancestor_or_self(^.*printk\(.*\)$)))"}
-> --config=MC3R1.R17.1,reports+={deliberate,"any_area(^.*va_list.*$&&context(ancestor_or_self(^.*printf\(.*\)$)))"}
-> +-config=MC3R1.R17.1,reports+={deliberate,"any_area(^.*va_list.*$&&context(ancestor_or_self(^.*printk\\(.*\\)$)))"}
-> +-config=MC3R1.R17.1,reports+={deliberate,"any_area(^.*va_list.*$&&context(ancestor_or_self(^.*printf\\(.*\\)$)))"}
->  -config=MC3R1.R17.1,reports+={deliberate,"any_area(^.*va_list.*$&&context(ancestor_or_self(name(panic)&&kind(function))))"}
->  -config=MC3R1.R17.1,reports+={deliberate,"any_area(^.*va_list.*$&&context(ancestor_or_self(name(elf_call_log_callback)&&kind(function))))"}
->  -config=MC3R1.R17.1,reports+={deliberate,"any_area(^.*va_list.*$&&context(ancestor_or_self(name(vprintk_common)&&kind(function))))"}
-
 
