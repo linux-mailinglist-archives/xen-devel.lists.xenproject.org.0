@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B3D388D0589
-	for <lists+xen-devel@lfdr.de>; Mon, 27 May 2024 17:12:40 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.730835.1136073 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2F1458D058E
+	for <lists+xen-devel@lfdr.de>; Mon, 27 May 2024 17:12:57 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.730838.1136083 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sBc16-000291-0p; Mon, 27 May 2024 15:12:04 +0000
+	id 1sBc1k-0002ce-8b; Mon, 27 May 2024 15:12:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 730835.1136073; Mon, 27 May 2024 15:12:03 +0000
+Received: by outflank-mailman (output) from mailman id 730838.1136083; Mon, 27 May 2024 15:12:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sBc15-00027A-UO; Mon, 27 May 2024 15:12:03 +0000
-Received: by outflank-mailman (input) for mailman id 730835;
- Mon, 27 May 2024 15:12:03 +0000
+	id 1sBc1k-0002aA-5w; Mon, 27 May 2024 15:12:44 +0000
+Received: by outflank-mailman (input) for mailman id 730838;
+ Mon, 27 May 2024 15:12:42 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=O60l=M6=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sBc15-00026J-6Y
- for xen-devel@lists.xenproject.org; Mon, 27 May 2024 15:12:03 +0000
-Received: from mail-lj1-x22c.google.com (mail-lj1-x22c.google.com
- [2a00:1450:4864:20::22c])
+ id 1sBc1i-00026J-KM
+ for xen-devel@lists.xenproject.org; Mon, 27 May 2024 15:12:42 +0000
+Received: from mail-lj1-x234.google.com (mail-lj1-x234.google.com
+ [2a00:1450:4864:20::234])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 783bf1c7-1c3b-11ef-90a1-e314d9c70b13;
- Mon, 27 May 2024 17:12:01 +0200 (CEST)
-Received: by mail-lj1-x22c.google.com with SMTP id
- 38308e7fff4ca-2e95a74d51fso52518141fa.2
- for <xen-devel@lists.xenproject.org>; Mon, 27 May 2024 08:12:01 -0700 (PDT)
+ id 90263c40-1c3b-11ef-90a1-e314d9c70b13;
+ Mon, 27 May 2024 17:12:41 +0200 (CEST)
+Received: by mail-lj1-x234.google.com with SMTP id
+ 38308e7fff4ca-2e724bc46c4so90426741fa.2
+ for <xen-devel@lists.xenproject.org>; Mon, 27 May 2024 08:12:41 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-579c2026406sm3047825a12.37.2024.05.27.08.12.00
+ 4fb4d7f45d1cf-579c2026406sm3047825a12.37.2024.05.27.08.12.40
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 27 May 2024 08:12:00 -0700 (PDT)
+ Mon, 27 May 2024 08:12:41 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,47 +45,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 783bf1c7-1c3b-11ef-90a1-e314d9c70b13
+X-Inumbo-ID: 90263c40-1c3b-11ef-90a1-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1716822721; x=1717427521; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1716822761; x=1717427561; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=LYVU3Lt0wdYOJAEy0vlDaUBkPVEZk/L21I2tclE2jO8=;
-        b=flG5S/HjscMcrgSuVhGZqauL3feNaTcxgAtlHMfCDEyJ6C1ERJ6ZSyYna45fIM7j8r
-         6CDG+6q7bpiKjDZ2uZJfq0MxyWZaxR8cgzu6xYrbwBdvqDVpdSpDfetbz0j+BFq0L93U
-         lbQy9wR9PPZepXlJGI4letSU0NBjTAfySo/YjLa8LrDmZcHLhAogQPs7XxL2Zz4Z0zFL
-         iM0PGxTzqsiEtiBnNxGxAc0ry+Y8zUU6HjpF+iHOOeHrK/cI8kuAOyz+nwTbC8jcZVaL
-         n9MPuMXVA9eBk/36wSYzWMIi1C33H0XxoEcEIUuguGjlx4DlP2llutTjn4mZb7d14s5B
-         haqQ==
+        bh=P7Jh/8RdqOL74XKYE/SJmV4ggngj0/VZwa7qcHlFTbw=;
+        b=gRldI3ufelrr55TEE4cxVerhxnlAFa0dOrX9HaDNM3ZNFcIYBlQou8ymC+oQQphMSH
+         Tco3gje52AfwSWn2NXAhyEPr69Td1I6dXnzta0i20tRhfhyJfv4KBKggVw/AznKN03og
+         Oi3i8m75AExPjZY3fLBToCA6ACqra/1BZCy6zALhLCq3ozQbtCQXH59jR3O+66McTL/I
+         Dc2VheYtmLkFHEqmCy1yenuis/ylPpesOV/Z5z1dMn/VVWh+BLBTzUqlHCYt5fJauny3
+         rmtD+y1u4qz7icQKSRNkHKmfsFv2D8139xsqQkkd4V79xnKeRkedEFd53BWtwFlywDD/
+         Znww==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1716822721; x=1717427521;
+        d=1e100.net; s=20230601; t=1716822761; x=1717427561;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=LYVU3Lt0wdYOJAEy0vlDaUBkPVEZk/L21I2tclE2jO8=;
-        b=pDgJrJBvS4bK5fl+SuFpk7C4g26JC4JA3VVHlXLatVJMnseeQpbwEbrhhswtk96gU2
-         ordMBAvD9nHtx85KHNSPwsjy8rYMpuvi/+wZjYDbd+t7/kN0PLRKodQaPKzMFsxjsSb8
-         OIC99GFj4L7XcKp3Dz15XhXr1T/yJvvtcuwEYNcEKUnq55WWjALyCPv4thiBs6ffviQ1
-         6HtZw7cmaAPzVEsBkqazZHQWTvt/n0QdfbuGcB+zKd2gtkkgx4Fz7vNsVKQoOz8lUJu6
-         hhQFDAaRCMxPKa5A0LrZV0zFOEKKOnTzeJWp9/fdmPVkTY2S3K21blzM3aN7VVHgIltg
-         Dbpg==
-X-Forwarded-Encrypted: i=1; AJvYcCXC9a0j4FsF7gxbbLoMN73U/hjjN07hkl9ajDvATSzuzDuWQvUgx6/w8q5dBoFBuAwTPueKVuh80zxwL7uyX1fH7qrqCCNaq1jhS4Es7Tw=
-X-Gm-Message-State: AOJu0YxB5Kzr7tYscBKfHNZpsOYpOStyZ1nswH3BR/kW1gNo3rP71dv9
-	E7ZhDfjVxszqspN1kmtdSQiPCGSv9cJqUE6QOSbYAXlyKsGXEBn0TW434w4oSA==
-X-Google-Smtp-Source: AGHT+IEpMcRLYjqAJagDX3kfhhlSZrUOaZImRArzaE/Yq/y8UWXivhWf48ZgZA75BI2JVseVYBNY8g==
-X-Received: by 2002:a2e:9e04:0:b0:2d8:5fe6:820d with SMTP id 38308e7fff4ca-2e95b0411c8mr76249161fa.11.1716822721194;
-        Mon, 27 May 2024 08:12:01 -0700 (PDT)
-Message-ID: <a1e65a79-d8a4-4b8a-ad4d-a18544389e5a@suse.com>
-Date: Mon, 27 May 2024 17:12:00 +0200
+        bh=P7Jh/8RdqOL74XKYE/SJmV4ggngj0/VZwa7qcHlFTbw=;
+        b=rwH9W+6d7oIkjVPYkLxKe1KijDSrpQwihTdLTB39m3X+yiVKRZSGzPfyOEZ+hUJAmx
+         Qzg7wcmDuw/hKb8lA6+Uepw2iJT1vZsQmsiYcwVh9+CxN85i0I+Do24SzRHsLnOODaKl
+         IVneGhK5Kyfq2KGd7qXyeeRKBaDeuTsEh3EaBJFL+bCb/fK64teNbh7SIsf3m6FP+Z4C
+         BkMec9wwfmxy9Adw1zhpWNVU9hH9l9pA+RuznAZ6mJ9Ypk+WeTaJ7Z0dN2HNETdLleZe
+         uajo/wKYOcM4kp/FgAI3hQJfSFJyAp4GTetcjIPPDcFjPGBGxQK50qFukmtYpCkBBNVt
+         +x+Q==
+X-Forwarded-Encrypted: i=1; AJvYcCVc3DS3nyBikrDS0BlAfa6LaiRveM480nQabMabofjmmGJIfXqw5josVs1BB15p5UjgpaKpy8kkiaAmVuYOh2T3zLW0mvUbwitthavlVcM=
+X-Gm-Message-State: AOJu0YzbVMiXz/lmAw2FM099aZ4mcw6qv3BaoPRPPjtcQzbPzFm4JWNp
+	1L3UTm28l9Iya+P5KSMrlduqIoKTGQLaEHJjwQL6go1VGy+5LWRGnpi6WUZYng==
+X-Google-Smtp-Source: AGHT+IGc+OVBxYrQlplVJwO4XOrS+Wk+NMzdMI/oNmtoW1i03lV/kEhbp83lB93lobjbNu2VZ39jbg==
+X-Received: by 2002:a2e:a265:0:b0:2e6:f4c1:31e5 with SMTP id 38308e7fff4ca-2e95b209930mr61950551fa.23.1716822761469;
+        Mon, 27 May 2024 08:12:41 -0700 (PDT)
+Message-ID: <b2aa5bc0-8566-40f2-88b9-523b9b8fef3f@suse.com>
+Date: Mon, 27 May 2024 17:12:40 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: Code freeze date for Xen 4.19 is 31.05.2024
+Subject: Re: [XEN PATCH 1/4] docs/misra: exclude gdbsx from MISRA compliance
 Content-Language: en-US
-To: "Oleksii K." <oleksii.kurochko@gmail.com>
-Cc: committers@xenproject.org, community.manager@xenproject.org,
- Kelly Choi <kelly.choi@cloud.com>, xen-devel@lists.xenproject.org
-References: <6a4323b46dd3dbb170c48fa24e78a23fa030b2a2.camel@gmail.com>
+To: Nicola Vetrini <nicola.vetrini@bugseng.com>
+Cc: sstabellini@kernel.org, michal.orzel@amd.com, xenia.ragiadakou@amd.com,
+ ayan.kumar.halder@amd.com, consulting@bugseng.com,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ xen-devel@lists.xenproject.org
+References: <cover.1716814609.git.nicola.vetrini@bugseng.com>
+ <83d89e6fa141bb91d7716cf33f086edf9a6d7ae1.1716814609.git.nicola.vetrini@bugseng.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -110,26 +114,19 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <6a4323b46dd3dbb170c48fa24e78a23fa030b2a2.camel@gmail.com>
+In-Reply-To: <83d89e6fa141bb91d7716cf33f086edf9a6d7ae1.1716814609.git.nicola.vetrini@bugseng.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 27.05.2024 15:58, Oleksii K. wrote:
-> I would like to remind you that the code freeze date for Xen 4.19 is
-> May 31, 2024.
-
-I may be confused: With feature freeze having been last Friday aiui, isn't
-this a little too short a period? I was actually expecting a longer-than-
-normal one to account for the Xen Summit week.
-
-Jan
-
-> I'm okay with bug fixes being committed without my release ack (just CC
-> me), except in cases where a one of maintainers gives a strong NACK.
+On 27.05.2024 16:53, Nicola Vetrini wrote:
+> These files are used when debugging Xen, and are not meant to comply
+> with MISRA rules at the moment.
 > 
-> Have a nice week!
+> No functional change.
 > 
-> Best regards,
-> Oleksii
+> Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
+
+Acked-by: Jan Beulich <jbeulich@suse.com>
+
 
 
