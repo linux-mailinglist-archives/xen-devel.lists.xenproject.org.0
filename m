@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3431B8D1CB3
-	for <lists+xen-devel@lfdr.de>; Tue, 28 May 2024 15:21:12 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.731147.1136500 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9BAFD8D1CF6
+	for <lists+xen-devel@lfdr.de>; Tue, 28 May 2024 15:29:10 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.731154.1136511 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sBwl4-0008It-00; Tue, 28 May 2024 13:20:54 +0000
+	id 1sBwsb-0000d8-K4; Tue, 28 May 2024 13:28:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 731147.1136500; Tue, 28 May 2024 13:20:53 +0000
+Received: by outflank-mailman (output) from mailman id 731154.1136511; Tue, 28 May 2024 13:28:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sBwl3-0008Gk-Tj; Tue, 28 May 2024 13:20:53 +0000
-Received: by outflank-mailman (input) for mailman id 731147;
- Tue, 28 May 2024 13:20:52 +0000
+	id 1sBwsb-0000bH-HC; Tue, 28 May 2024 13:28:41 +0000
+Received: by outflank-mailman (input) for mailman id 731154;
+ Tue, 28 May 2024 13:28:40 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=bNtp=M7=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1sBwl2-0008Ge-A3
- for xen-devel@lists.xenproject.org; Tue, 28 May 2024 13:20:52 +0000
-Received: from mail-qv1-xf30.google.com (mail-qv1-xf30.google.com
- [2607:f8b0:4864:20::f30])
+ <SRS0=+/BF=M7=cloud.com=alejandro.vallejo@srs-se1.protection.inumbo.net>)
+ id 1sBwsa-0000bB-O5
+ for xen-devel@lists.xenproject.org; Tue, 28 May 2024 13:28:40 +0000
+Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
+ [2a00:1450:4864:20::62c])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 199163dc-1cf5-11ef-b4bb-af5377834399;
- Tue, 28 May 2024 15:20:49 +0200 (CEST)
-Received: by mail-qv1-xf30.google.com with SMTP id
- 6a1803df08f44-6ab9e0a4135so29382586d6.1
- for <xen-devel@lists.xenproject.org>; Tue, 28 May 2024 06:20:49 -0700 (PDT)
-Received: from [10.125.231.30] ([217.156.233.157])
- by smtp.gmail.com with ESMTPSA id
- 6a1803df08f44-6ad7a4da6f7sm23989776d6.98.2024.05.28.06.20.46
+ id 30f67980-1cf6-11ef-b4bb-af5377834399;
+ Tue, 28 May 2024 15:28:38 +0200 (CEST)
+Received: by mail-ej1-x62c.google.com with SMTP id
+ a640c23a62f3a-a63036f2daaso106361866b.1
+ for <xen-devel@lists.xenproject.org>; Tue, 28 May 2024 06:28:38 -0700 (PDT)
+Received: from [10.80.5.21] ([160.101.139.1]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a63570e5d0esm24566866b.214.2024.05.28.06.28.36
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 28 May 2024 06:20:48 -0700 (PDT)
+ Tue, 28 May 2024 06:28:37 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,256 +44,391 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 199163dc-1cf5-11ef-b4bb-af5377834399
+X-Inumbo-ID: 30f67980-1cf6-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1716902449; x=1717507249; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=jt55f7uGGjZV9XnmbRPk/ICKgW7KTxcKEzUfXVckBEM=;
-        b=PRnmGu8gIuOyB1cRW7nmzWZXMxUGNysuhde43TYRN3z1xJ4hyffYPpiF8IJlTODS+J
-         X5BCKZKGMUeFlEWiUIu4uz9DY/6G+yfIv7TjTXCZzLLnF6lFWtw/1QbJMuT54GxW+yyO
-         gsIh/EvttmSS9AkE8+4g2Rp+s0vgN8Tmz1mYE=
+        d=cloud.com; s=cloud; t=1716902918; x=1717507718; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:content-language:references
+         :cc:to:subject:from:user-agent:mime-version:date:message-id:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=Stzh1/6q+z2/sSILrF67K/1rlkNSVEaKd0fowUH80q4=;
+        b=eRb4xAiPilIflQnBP2UJhSgmkLGZkUhCaLCvOGOFTfYU6dkwTgWpbVbvSTm9lCKs82
+         cL5zEDOA8VE+ErzM4bYfujJkfCOsVyUTv9qkuAWhxpO4bEeJTkwL1DyEqS19ZAMDuWXf
+         96tDepBO5W7KDiwC8yGL/toQK3d/1wZHLs+u4=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1716902449; x=1717507249;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=jt55f7uGGjZV9XnmbRPk/ICKgW7KTxcKEzUfXVckBEM=;
-        b=UpHpqqcokkR0Gny+g6vH52dcG2TaBXVt1ws/1wJ7IupxvUYdKaF2jC+d+Dk9O0Z4wS
-         QK/hP7MWsC1VNgkgHdS+Gjz9h/G6FYaBOk4GgOdlFRJuMJLuqQl8C/vTHd/bWDngodDA
-         qXnvibjnRswBjVnd2WYYu+3f3an5RYTdRuxXbMe1mEmxIybhrBW1ixW8UIenw/rx1dY1
-         O8CJP7DVLrRh88Fy4KrXCgoEX7cLLtitnmcbLLbdItcgGOt9fwtwdqt6YKZ+AIBipbjp
-         WAeB2jL2EZFF5jU/7pKl9hbbJxKCCH59NW6/YnVblF7iftlN9rg5kbnLsmvRXm8C/+Iq
-         /7sQ==
-X-Forwarded-Encrypted: i=1; AJvYcCXUGaCDIPIXiajBWXxY9lXdJSJVDcIPAWnRJuwwe9R2KOoYLYpa0i+b1Lu/cnIJKkzDh7Rd7z7JIazuR6QiyZF1vI5AnjKighSns0m8wKQ=
-X-Gm-Message-State: AOJu0YyzTdHoXwDqmjBI96gCPMtctCqSCvE/EqlDtcdUxOO8kSpd/IsF
-	aZTiSYKIzq11tk2kr+tkWIerSWKeosIjFRRHQXfiYgblFsadabhLMAjblNTh1d8=
-X-Google-Smtp-Source: AGHT+IFbfbwa3NsL2kJPdLZZc/15FNGV9gn6h8K/YYqupjGHVJ6O8fl33Ho3aumRepddoEWQRScXdA==
-X-Received: by 2002:a05:6214:45a0:b0:6a8:dcc7:9088 with SMTP id 6a1803df08f44-6ab9d06e5c9mr256805756d6.26.1716902448813;
-        Tue, 28 May 2024 06:20:48 -0700 (PDT)
-Message-ID: <07f14337-a646-4041-be49-1f6e5ccab32e@citrix.com>
-Date: Tue, 28 May 2024 14:20:45 +0100
+        d=1e100.net; s=20230601; t=1716902918; x=1717507718;
+        h=content-transfer-encoding:in-reply-to:content-language:references
+         :cc:to:subject:from:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=Stzh1/6q+z2/sSILrF67K/1rlkNSVEaKd0fowUH80q4=;
+        b=ID3cQlOrpXv2BZjynBy5I9YNnklOzw4yenLZlf9L2OPdccnHxJ5HEty64gSJfJbWg2
+         WnK/QPabhl+WqE+3i9v5epM5/FW7o+7TBDse3gN/0W7ZCcwvniVcRgqr/XD4S9H5/ViF
+         +GC53Mfg5BbZKOW7CG94Uekl42aOS6vxUdwcw13K4PLmZvYD+X0gA5CZE6FKlJXjjh4d
+         8Ucp+yAUg3S/ROdHKJ4jF0g5MZT0GBh+a0dtiR4Q2ER6rN8JJbBOv3rACEJnqxH4ODk0
+         E9dPylj/vxGnbsvRF2DR0bNhaLZTFnWCxEzBX6maTK9aaNW+Nl06f9TPzwkGjAaDlP0e
+         Cfcw==
+X-Gm-Message-State: AOJu0YxIdZS5csQX/pe264NrHs5hbcxRjJSlxCYH8uOjgWU8T+nRefxo
+	9Cq97w7UD+FTb0ZuxH/VQ+9C5weVrJIJ3lhnRIhZl+Q+vK2jn+yQFBAe87C7p+w=
+X-Google-Smtp-Source: AGHT+IFvrXlE421GnEB77R2Ak42rqJUMCknFT4TuGWbtszvpa78z3EQ6vS5ZmS8dhJJB7EwY6EpTcg==
+X-Received: by 2002:a17:906:4903:b0:a62:ad6:4286 with SMTP id a640c23a62f3a-a62642d9799mr910331966b.7.1716902917446;
+        Tue, 28 May 2024 06:28:37 -0700 (PDT)
+Message-ID: <ec59063d-fb06-428b-9e00-41f5f7aaebf1@cloud.com>
+Date: Tue, 28 May 2024 14:28:34 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 05/13] xen/bitops: Implement generic_f?sl() in lib/
-To: Jan Beulich <jbeulich@suse.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Wei Liu <wl@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- Julien Grall <julien@xen.org>, Volodymyr Babchuk
- <Volodymyr_Babchuk@epam.com>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Oleksii Kurochko <oleksii.kurochko@gmail.com>,
- Shawn Anastasio <sanastasio@raptorengineering.com>,
- "consulting @ bugseng . com" <consulting@bugseng.com>,
- Simone Ballarin <simone.ballarin@bugseng.com>,
- Federico Serafini <federico.serafini@bugseng.com>,
- Nicola Vetrini <nicola.vetrini@bugseng.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20240524200338.1232391-1-andrew.cooper3@citrix.com>
- <20240524200338.1232391-6-andrew.cooper3@citrix.com>
- <7305a8b9-5f43-47e4-987b-c5ca76bcc312@suse.com>
+From: Alejandro Vallejo <alejandro.vallejo@cloud.com>
+Subject: Re: [PATCH v2 6/8] xen/lib: Add topology generator for x86
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>,
+ Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony@xenproject.org>
+References: <cover.1715102098.git.alejandro.vallejo@cloud.com>
+ <1ffad529d7fed10381df67215c747fc2d69f805e.1715102098.git.alejandro.vallejo@cloud.com>
+ <Zk9z4HJmqXpbivRu@macbook>
 Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <7305a8b9-5f43-47e4-987b-c5ca76bcc312@suse.com>
+In-Reply-To: <Zk9z4HJmqXpbivRu@macbook>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 27/05/2024 9:44 am, Jan Beulich wrote:
-> On 24.05.2024 22:03, Andrew Cooper wrote:
->> generic_f?s() being static inline is the cause of lots of the complexity
->> between the common and arch-specific bitops.h
+On 23/05/2024 17:50, Roger Pau Monné wrote:
+> On Wed, May 08, 2024 at 01:39:25PM +0100, Alejandro Vallejo wrote:
+>> Add a helper to populate topology leaves in the cpu policy from
+>> threads/core and cores/package counts.
 >>
->> They appear to be static inline for constant-folding reasons (ARM uses them
->> for this), but there are better ways to achieve the same effect.
->>
->> It is presumptuous that an unrolled binary search is the right algorithm to
->> use on all microarchitectures.  Indeed, it's not for the eventual users, but
->> that can be addressed at a later point.
->>
->> It is also nonsense to implement the int form as the base primitive and
->> construct the long form from 2x int in 64-bit builds, when it's just one extra
->> step to operate at the native register width.
->>
->> Therefore, implement generic_f?sl() in lib/.  They're not actually needed in
->> x86/ARM/PPC by the end of the cleanup (i.e. the functions will be dropped by
->> the linker), and they're only expected be needed by RISC-V on hardware which
->> lacks the Zbb extension.
->>
->> Implement generic_fls() in terms of generic_flsl() for now, but this will be
->> cleaned up in due course.
->>
->> Provide basic runtime testing using __constructor inside the lib/ file.  This
->> is important, as it means testing runs if and only if generic_f?sl() are used
->> elsewhere in Xen.
->>
->> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> Reviewed-by: Jan Beulich <jbeulich@suse.com>
+>> No functional change, as it's not connected to anything yet.
+> 
+> There is a functional change in test-cpu-policy.c.
+> 
+> Maybe the commit message needs to be updated to reflect the added
+> testing to test-cpu-policy.c using the newly introduced helper to
+> generate topologies?
+> 
 
-Thanks.
+Sure to this and all formatting feedback below.
 
-> with a suggestion and a question.
->
->> I suspect we want to swap CONFIG_DEBUG for CONFIG_BOOT_UNIT_TESTS in due
->> course.  These ought to be able to be used in a release build too.
-> +1
-
-Actually - I might as well do this now.  Start as we mean to go on.
-
->
->> --- /dev/null
->> +++ b/xen/lib/generic-ffsl.c
->> @@ -0,0 +1,65 @@
->> +/* SPDX-License-Identifier: GPL-2.0 */
->> +
->> +#include <xen/bitops.h>
->> +#include <xen/boot-check.h>
->> +#include <xen/init.h>
->> +
->> +unsigned int generic_ffsl(unsigned long x)
+>>
+>> Signed-off-by: Alejandro Vallejo <alejandro.vallejo@cloud.com>
+>> ---
+>> v2:
+>>   * New patch. Extracted from v1/patch6
+>> ---
+>>  tools/tests/cpu-policy/test-cpu-policy.c | 128 +++++++++++++++++++++++
+>>  xen/include/xen/lib/x86/cpu-policy.h     |  16 +++
+>>  xen/lib/x86/policy.c                     |  86 +++++++++++++++
+>>  3 files changed, 230 insertions(+)
+>>
+>> diff --git a/tools/tests/cpu-policy/test-cpu-policy.c b/tools/tests/cpu-policy/test-cpu-policy.c
+>> index 301df2c00285..0ba8c418b1b3 100644
+>> --- a/tools/tests/cpu-policy/test-cpu-policy.c
+>> +++ b/tools/tests/cpu-policy/test-cpu-policy.c
+>> @@ -650,6 +650,132 @@ static void test_is_compatible_failure(void)
+>>      }
+>>  }
+>>  
+>> +static void test_topo_from_parts(void)
 >> +{
->> +    unsigned int r = 1;
+>> +    static const struct test {
+>> +        unsigned int threads_per_core;
+>> +        unsigned int cores_per_pkg;
+>> +        struct cpu_policy policy;
+>> +    } tests[] = {
+>> +        {
+>> +            .threads_per_core = 3, .cores_per_pkg = 1,
+>> +            .policy = {
+>> +                .x86_vendor = X86_VENDOR_AMD,
+>> +                .topo.subleaf = {
+>> +                    [0] = { .nr_logical = 3, .level = 0, .type = 1, .id_shift = 2, },
+>> +                    [1] = { .nr_logical = 1, .level = 1, .type = 2, .id_shift = 2, },
+>> +                },
+>> +            },
+>> +        },
+>> +        {
+>> +            .threads_per_core = 1, .cores_per_pkg = 3,
+>> +            .policy = {
+>> +                .x86_vendor = X86_VENDOR_AMD,
+>> +                .topo.subleaf = {
+>> +                    [0] = { .nr_logical = 1, .level = 0, .type = 1, .id_shift = 0, },
+>> +                    [1] = { .nr_logical = 3, .level = 1, .type = 2, .id_shift = 2, },
+>> +                },
+>> +            },
+>> +        },
+>> +        {
+>> +            .threads_per_core = 7, .cores_per_pkg = 5,
+>> +            .policy = {
+>> +                .x86_vendor = X86_VENDOR_AMD,
+>> +                .topo.subleaf = {
+>> +                    [0] = { .nr_logical = 7, .level = 0, .type = 1, .id_shift = 3, },
+>> +                    [1] = { .nr_logical = 5, .level = 1, .type = 2, .id_shift = 6, },
+>> +                },
+>> +            },
+>> +        },
+>> +        {
+>> +            .threads_per_core = 2, .cores_per_pkg = 128,
+>> +            .policy = {
+>> +                .x86_vendor = X86_VENDOR_AMD,
+>> +                .topo.subleaf = {
+>> +                    [0] = { .nr_logical = 2, .level = 0, .type = 1, .id_shift = 1, },
+>> +                    [1] = { .nr_logical = 128, .level = 1, .type = 2, .id_shift = 8, },
+>> +                },
+>> +            },
+>> +        },
+>> +        {
+>> +            .threads_per_core = 3, .cores_per_pkg = 1,
+>> +            .policy = {
+>> +                .x86_vendor = X86_VENDOR_INTEL,
+>> +                .topo.subleaf = {
+>> +                    [0] = { .nr_logical = 3, .level = 0, .type = 1, .id_shift = 2, },
+>> +                    [1] = { .nr_logical = 3, .level = 1, .type = 2, .id_shift = 2, },
+>> +                },
+>> +            },
+>> +        },
+>> +        {
+>> +            .threads_per_core = 1, .cores_per_pkg = 3,
+>> +            .policy = {
+>> +                .x86_vendor = X86_VENDOR_INTEL,
+>> +                .topo.subleaf = {
+>> +                    [0] = { .nr_logical = 1, .level = 0, .type = 1, .id_shift = 0, },
+>> +                    [1] = { .nr_logical = 3, .level = 1, .type = 2, .id_shift = 2, },
+>> +                },
+>> +            },
+>> +        },
+>> +        {
+>> +            .threads_per_core = 7, .cores_per_pkg = 5,
+>> +            .policy = {
+>> +                .x86_vendor = X86_VENDOR_INTEL,
+>> +                .topo.subleaf = {
+>> +                    [0] = { .nr_logical = 7, .level = 0, .type = 1, .id_shift = 3, },
+>> +                    [1] = { .nr_logical = 35, .level = 1, .type = 2, .id_shift = 6, },
+>> +                },
+>> +            },
+>> +        },
+>> +        {
+>> +            .threads_per_core = 2, .cores_per_pkg = 128,
+>> +            .policy = {
+>> +                .x86_vendor = X86_VENDOR_INTEL,
+>> +                .topo.subleaf = {
+>> +                    [0] = { .nr_logical = 2, .level = 0, .type = 1, .id_shift = 1, },
+>> +                    [1] = { .nr_logical = 256, .level = 1, .type = 2, .id_shift = 8, },
+> 
+> You don't need the array index in the initialization:
+> 
+>                 .topo.subleaf = {
+>                     { .nr_logical = 2, .level = 0, .type = 1, .id_shift = 1, },
+>                     { .nr_logical = 256, .level = 1, .type = 2,
+>                       .id_shift = 8, },
+>                 }
+> 
+> And lines should be limited to 80 columns if possible.
+> 
+>> +                },
+>> +            },
+>> +        },
+>> +    };
 >> +
->> +    if ( !x )
->> +        return 0;
+>> +    printf("Testing topology synthesis from parts:\n");
 >> +
->> +#if BITS_PER_LONG > 32
-> To be future-proof, perhaps ahead of this
->
-> #if BITS_PER_LONG > 64
-> # error "..."
-> #endif
->
-> or a functionally similar BUILD_BUG_ON()?
+>> +    for ( size_t i = 0; i < ARRAY_SIZE(tests); ++i )
+>> +    {
+>> +        const struct test *t = &tests[i];
+>> +        struct cpu_policy actual = { .x86_vendor = t->policy.x86_vendor };
+>> +        int rc = x86_topo_from_parts(&actual, t->threads_per_core, t->cores_per_pkg);
+>> +
+>> +        if ( rc || memcmp(&actual.topo, &t->policy.topo, sizeof(actual.topo)) )
+>> +        {
+>> +#define TOPO(n) topo.subleaf[(n)]
+>> +            fail("FAIL[%d] - '%s %u t/c, %u c/p'\n",
+>> +                 rc,
+>> +                 x86_cpuid_vendor_to_str(t->policy.x86_vendor),
+>> +                 t->threads_per_core, t->cores_per_pkg);
+>> +            printf("  subleaf=%u  expected_n=%u actual_n=%u\n"
+>> +                   "             expected_lvl=%u actual_lvl=%u\n"
+>> +                   "             expected_type=%u actual_type=%u\n"
+>> +                   "             expected_shift=%u actual_shift=%u\n",
+>> +                   0, t->policy.TOPO(0).nr_logical, actual.TOPO(0).nr_logical,
+>> +                      t->policy.TOPO(0).level,      actual.TOPO(0).level,
+>> +                      t->policy.TOPO(0).type,       actual.TOPO(0).type,
+>> +                      t->policy.TOPO(0).id_shift,   actual.TOPO(0).id_shift);
+>> +
+>> +            printf("  subleaf=%u  expected_n=%u actual_n=%u\n"
+>> +                   "             expected_lvl=%u actual_lvl=%u\n"
+>> +                   "             expected_type=%u actual_type=%u\n"
+>> +                   "             expected_shift=%u actual_shift=%u\n",
+>> +                   1, t->policy.TOPO(1).nr_logical, actual.TOPO(1).nr_logical,
+>> +                      t->policy.TOPO(1).level,      actual.TOPO(1).level,
+>> +                      t->policy.TOPO(1).type,       actual.TOPO(1).type,
+>> +                      t->policy.TOPO(1).id_shift,   actual.TOPO(1).id_shift);
+>> +#undef TOPO
+> 
+> Seeing the usage of the macro, maybe you could even do something like:
+> 
+> TOPO(n, f)  t->policy.topo.subleaf[(n)].f, actual.topo.subleaf[(n)].f
+> 
+> This will limit a bit the repetition of the "t->policy..., actual..."
+> tuple.
+> 
 
-Good point.  I'll fold this in to both files.
+Hm. Sure, but bear in mind it ends up looking rather cryptic.
 
->
->> --- /dev/null
->> +++ b/xen/lib/generic-flsl.c
->> @@ -0,0 +1,68 @@
->> +/* SPDX-License-Identifier: GPL-2.0 */
->> +
->> +#include <xen/bitops.h>
->> +#include <xen/boot-check.h>
->> +#include <xen/init.h>
->> +
->> +/* Mask of type UL with the upper x bits set. */
->> +#define UPPER_MASK(x) (~0UL << (BITS_PER_LONG - (x)))
->> +
->> +unsigned int generic_flsl(unsigned long x)
->> +{
->> +    unsigned int r = BITS_PER_LONG;
->> +
->> +    if ( !x )
->> +        return 0;
->> +
->> +#if BITS_PER_LONG > 32
->> +    if ( !(x & UPPER_MASK(32)) )
->> +    {
->> +        x <<= 32;
->> +        r -= 32;
+>> +        }
 >> +    }
->> +#endif
->> +    if ( !(x & UPPER_MASK(16)) )
->> +    {
->> +        x <<= 16;
->> +        r -= 16;
->> +    }
->> +    if ( !(x & UPPER_MASK(8)) )
->> +    {
->> +        x <<= 8;
->> +        r -= 8;
->> +    }
->> +    if ( !(x & UPPER_MASK(4)) )
->> +    {
->> +        x <<= 4;
->> +        r -= 4;
->> +    }
->> +    if ( !(x & UPPER_MASK(2)) )
->> +    {
->> +        x <<= 2;
->> +        r -= 2;
->> +    }
->> +    if ( !(x & UPPER_MASK(1)) )
->> +    {
->> +        x <<= 1;
->> +        r -= 1;
->> +    }
->> +
->> +    return r;
 >> +}
-> While, as you say, the expectation is for this code to not commonly come
-> into actual use, I still find the algorithm a little inefficient in terms
-> of the constants used, specifically considering how they would need
-> instantiating in resulting assembly. It may be that Arm's fancy constant-
-> move insns can actually efficiently synthesize them, but I think on most
-> other architectures it would be more efficient (and presumably no less
-> efficient on Arm) to shift the "remaining" value right, thus allowing for
-> successively smaller (and hence easier to instantiate) constants to be
-> used.
+>> +
+>>  int main(int argc, char **argv)
+>>  {
+>>      printf("CPU Policy unit tests\n");
+>> @@ -667,6 +793,8 @@ int main(int argc, char **argv)
+>>      test_is_compatible_success();
+>>      test_is_compatible_failure();
+>>  
+>> +    test_topo_from_parts();
+>> +
+>>      if ( nr_failures )
+>>          printf("Done: %u failures\n", nr_failures);
+>>      else
+>> diff --git a/xen/include/xen/lib/x86/cpu-policy.h b/xen/include/xen/lib/x86/cpu-policy.h
+>> index 392320b9adbe..f5df18e9f77c 100644
+>> --- a/xen/include/xen/lib/x86/cpu-policy.h
+>> +++ b/xen/include/xen/lib/x86/cpu-policy.h
+>> @@ -551,6 +551,22 @@ int x86_cpu_policies_are_compatible(const struct cpu_policy *host,
+>>   */
+>>  uint32_t x86_x2apic_id_from_vcpu_id(const struct cpu_policy *p, uint32_t id);
+>>  
+>> +/**
+>> + * Synthesise topology information in `p` given high-level constraints
+>> + *
+>> + * Topology is given in various fields accross several leaves, some of
+>> + * which are vendor-specific. This function uses the policy itself to
+>> + * derive such leaves from threads/core and cores/package.
+>> + *
+>> + * @param p                   CPU policy of the domain.
+>> + * @param threads_per_core    threads/core. Doesn't need to be a power of 2.
+>> + * @param cores_per_package   cores/package. Doesn't need to be a power of 2.
+>> + * @return                    0 on success; -errno on failure
+>> + */
+>> +int x86_topo_from_parts(struct cpu_policy *p,
+>> +                        unsigned int threads_per_core,
+>> +                        unsigned int cores_per_pkg);
+>> +
+>>  #endif /* !XEN_LIB_X86_POLICIES_H */
+>>  
+>>  /*
+>> diff --git a/xen/lib/x86/policy.c b/xen/lib/x86/policy.c
+>> index 4cef658feeb8..d033ee5398dd 100644
+>> --- a/xen/lib/x86/policy.c
+>> +++ b/xen/lib/x86/policy.c
+>> @@ -13,6 +13,92 @@ uint32_t x86_x2apic_id_from_vcpu_id(const struct cpu_policy *p, uint32_t id)
+>>      return vcpu_id * 2;
+>>  }
+>>  
+>> +static unsigned int order(unsigned int n)
+>> +{
+>> +    return 8 * sizeof(n) - __builtin_clz(n);
+> 
+> Do we need to assert that n is not 0, otherwise the return of
+> __builtin_clz() is undefined.
+> 
+> I think the usage below doesn't pass 0 to __builtin_clz() in any case,
+> but better add the check IMO.
 
-ARM can only synthesise UPPER_MASK(16) and narrower masks, I think.
+I doesn't, but asserting sanity sounds good.
 
-That said, I'm not concerned about the (in)efficiency seeing as this
-doesn't get included in x86/ARM/PPC builds by the end of the series.
+> 
+> Is __builtin_clz() also available in all versions of GCC and CLANG
+> that we support?  I have no idea when this was introduced.
+> 
 
-It's RISC-V which matters, and I'm pretty sure this is the wrong
-algorithm to be using.
+Works on GCC 4.1.2 and Clang 3.5 according to godbolt.
 
-Incidentally, this algorithm is terrible for superscalar pipelines,
-because each branch is inherently unpredictable.
+>> +}
+>> +
+>> +int x86_topo_from_parts(struct cpu_policy *p,
+>> +                        unsigned int threads_per_core,
+>> +                        unsigned int cores_per_pkg)
+>> +{
+>> +    unsigned int threads_per_pkg = threads_per_core * cores_per_pkg;
+>> +    unsigned int apic_id_size;
+>> +
+>> +    if ( !p || !threads_per_core || !cores_per_pkg )
+>> +        return -EINVAL;
+>> +
+>> +    p->basic.max_leaf = MAX(0xb, p->basic.max_leaf);
+>> +
+>> +    memset(p->topo.raw, 0, sizeof(p->topo.raw));
+>> +
+>> +    /* thread level */
+>> +    p->topo.subleaf[0].nr_logical = threads_per_core;
+>> +    p->topo.subleaf[0].id_shift = 0;
+>> +    p->topo.subleaf[0].level = 0;
+>> +    p->topo.subleaf[0].type = 1;
+>> +    if ( threads_per_core > 1 )
+>> +        p->topo.subleaf[0].id_shift = order(threads_per_core - 1);
+>> +
+>> +    /* core level */
+>> +    p->topo.subleaf[1].nr_logical = cores_per_pkg;
+>> +    if ( p->x86_vendor == X86_VENDOR_INTEL )
+>> +        p->topo.subleaf[1].nr_logical = threads_per_pkg;
+>> +    p->topo.subleaf[1].id_shift = p->topo.subleaf[0].id_shift;
+>> +    p->topo.subleaf[1].level = 1;
+>> +    p->topo.subleaf[1].type = 2;
+>> +    if ( cores_per_pkg > 1 )
+>> +        p->topo.subleaf[1].id_shift += order(cores_per_pkg - 1);
+>> +
+>> +    apic_id_size = p->topo.subleaf[1].id_shift;
+>> +
+>> +    /*
+>> +     * Contrary to what the name might seem to imply. HTT is an enabler for
+>> +     * SMP and there's no harm in setting it even with a single vCPU.
+>> +     */
+>> +    p->basic.htt = true;
+>> +    p->basic.lppp = MIN(0xff, p->basic.lppp);
+>> +
+>> +    switch ( p->x86_vendor )
+>> +    {
+>> +        case X86_VENDOR_INTEL: {
+>> +            struct cpuid_cache_leaf *sl = p->cache.subleaf;
+> 
+> Newline please.
+> 
+>> +            for ( size_t i = 0; sl->type &&
+>> +                                i < ARRAY_SIZE(p->cache.raw); i++, sl++ )
+>> +            {
+>> +                sl->cores_per_package = cores_per_pkg - 1;
+>> +                sl->threads_per_cache = threads_per_core - 1;
+>> +                if ( sl->type == 3 /* unified cache */ )
+>> +                    sl->threads_per_cache = threads_per_pkg - 1;
+>> +            }
+>> +            break;
+>> +        }
+> 
+> Newline here also.
+> 
+>> +        case X86_VENDOR_AMD:
+>> +        case X86_VENDOR_HYGON:
+>> +            /* Expose p->basic.lppp */
+>> +            p->extd.cmp_legacy = true;
+>> +
+>> +            /* Clip NC to the maximum value it can hold */
+>> +            p->extd.nc = 0xff;
+>> +            if ( threads_per_pkg <= 0xff )
+>> +                p->extd.nc = threads_per_pkg - 1;
+>> +
+>> +            /* TODO: Expose leaf e1E */
+>> +            p->extd.topoext = false;
+>> +
+>> +            /*
+>> +             * Clip APIC ID to 8 bits, as that's what high core-count machines do
+> 
+> Overly long line?  And missing full stop.
 
-Both these files want rewriting based on an analysis of the H-capable
-Zbb-incapable RISC-V cores which exist.
+I've reduced the indentation of the case statement to align them to the
+switch. The line fits afterwards.
 
-I expect that what we actually want is the De Bruijn form which is an
-O(1) algorithm, given a decent hardware multiplier.  If not, there's a
-loop form which I expect would still be better than this.
+> 
+>> +             *
+>> +             * That what AMD EPYC 9654 does with >256 CPUs
+>                   ^ That's
+> 
+> Thanks, Roger.
 
-~Andrew
+Cheers,
+Alejandro
 
