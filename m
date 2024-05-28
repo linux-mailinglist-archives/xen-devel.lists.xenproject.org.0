@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EB8408D2065
-	for <lists+xen-devel@lfdr.de>; Tue, 28 May 2024 17:30:54 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.731197.1136593 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F0A9B8D2061
+	for <lists+xen-devel@lfdr.de>; Tue, 28 May 2024 17:30:53 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.731196.1136591 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sBymD-0001yY-VK; Tue, 28 May 2024 15:30:13 +0000
+	id 1sBymD-0001sb-Qe; Tue, 28 May 2024 15:30:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 731197.1136593; Tue, 28 May 2024 15:30:13 +0000
+Received: by outflank-mailman (output) from mailman id 731196.1136591; Tue, 28 May 2024 15:30:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sBymD-0001s8-Rq; Tue, 28 May 2024 15:30:13 +0000
-Received: by outflank-mailman (input) for mailman id 731197;
+	id 1sBymD-0001pK-IR; Tue, 28 May 2024 15:30:13 +0000
+Received: by outflank-mailman (input) for mailman id 731196;
  Tue, 28 May 2024 15:30:12 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=5inG=M7=cloud.com=fouad.hilly@srs-se1.protection.inumbo.net>)
- id 1sBymC-00018E-AS
+ id 1sBymC-00018F-6c
  for xen-devel@lists.xenproject.org; Tue, 28 May 2024 15:30:12 +0000
-Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
- [2a00:1450:4864:20::432])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 2b9df50d-1d07-11ef-b4bb-af5377834399;
- Tue, 28 May 2024 17:30:10 +0200 (CEST)
-Received: by mail-wr1-x432.google.com with SMTP id
- ffacd0b85a97d-354faf5f1b4so779629f8f.1
- for <xen-devel@lists.xenproject.org>; Tue, 28 May 2024 08:30:10 -0700 (PDT)
+Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
+ [2a00:1450:4864:20::635])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 2c014c96-1d07-11ef-90a1-e314d9c70b13;
+ Tue, 28 May 2024 17:30:11 +0200 (CEST)
+Received: by mail-ej1-x635.google.com with SMTP id
+ a640c23a62f3a-a63359aaaa6so126666066b.2
+ for <xen-devel@lists.xenproject.org>; Tue, 28 May 2024 08:30:11 -0700 (PDT)
 Received: from fhilly.citrite.net ([160.101.139.1])
  by smtp.gmail.com with ESMTPSA id
  a640c23a62f3a-a626c937444sm621673366b.61.2024.05.28.08.30.09
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 28 May 2024 08:30:09 -0700 (PDT)
+ Tue, 28 May 2024 08:30:10 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,174 +45,189 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2b9df50d-1d07-11ef-b4bb-af5377834399
+X-Inumbo-ID: 2c014c96-1d07-11ef-90a1-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=cloud.com; s=cloud; t=1716910210; x=1717515010; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=29kKGaSNhLed8Jk9dwMB1HDWbyK77p3VZnpuSymtJak=;
-        b=ishgnpllRC/svCCzlkPPL7nnUgrCjrP1JeLR6CvohTRc/AnaYHsPUJ1/JnXjxJMvtb
-         48stk6/tUkjyr8RwLuO3mXGIbNhkcRXf+IhENdzwrukS/Og/m6C7Ev9UmUpqaGIibYiI
-         dV5aOYRRt9cb4OKd3rxdHRBwLVKDWTOrZ7BmY=
+        bh=z7mcoezWV0j0H2zzn7JIYS8Z2/p6a2i2l5f1Q/llZE0=;
+        b=CWQ9MkMxFzYjqVq8JEzhTJ2ctT11Uq0m1Aib1E4zLZMy6d2llX6MxmHmRyOXsxM4yF
+         lY2w+uV/D2G8l7SkEej/y8Dl6HdQqozFCI2M/I9dy+CPPZ6i9lVc/RcUyZ9f73ues3rJ
+         QJDnisQS1Cik7CiHF8f3X3WC43NUjndyejmsc=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20230601; t=1716910210; x=1717515010;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=29kKGaSNhLed8Jk9dwMB1HDWbyK77p3VZnpuSymtJak=;
-        b=PLzoKtte6ONCmDChBq39npOQAra0eIcUuzyiHKer9A3l4MlVdZHUB/ZlAF1z1osgZF
-         5oOXO34DBkc5edfxHanu+k7ZNR+2ZldOUN71ASj4l9NuEDB2Rc9zis9nfw+EWzWiVq+N
-         AMcHA0yRVN9Mgstp9zxsZATwco90kIFXz8MyirNo1MwxZWLro0EvWSzoRujLAixCT55o
-         KhEnW+AC3ntiNzLUyotmdNJ/HVpQ69uVVVzPVSJMcksgMIdGf4OpEQRSelexml+vKNGV
-         2hxwnStGu6XJo4EkiMrOzFB6Tk4zYodcaUvO6YnfKaZ6mEETRzWoBEuR4TwJcpCdyzSP
-         xkNg==
-X-Gm-Message-State: AOJu0YybK6Jr4tSM22vIzh7pgksLsY9daxQUluflw7X0OOFmEBnDadXZ
-	xBuB1VHvZyeYDs8qWsVr2CDA7Yyw6A73rUPNi3turjzBDQPF45n5vy8Qzy75poBYxW17wk8iG8C
-	oY48=
-X-Google-Smtp-Source: AGHT+IHJ5pIptnLo5qJAv1DVP0wUcqG2/5riYCtRVCTsvS+oNS+wekQ6nvMZBPq3NglWopzcliQulQ==
-X-Received: by 2002:adf:e681:0:b0:34c:b80a:233c with SMTP id ffacd0b85a97d-3552f4fd1b5mr10569229f8f.15.1716910209647;
-        Tue, 28 May 2024 08:30:09 -0700 (PDT)
+        bh=z7mcoezWV0j0H2zzn7JIYS8Z2/p6a2i2l5f1Q/llZE0=;
+        b=N0raUnfeVDjtZtrpUEpJQ6EZv54SGUiVi+jUQqgzCEtAPdhV4ikeHea+K/4uYIWish
+         7mFKkfqUzpDxcyk1/TtcMEtarX3hB8TtF2mfY187U0ULZ2Hkpg0aJ7hZA5Q2429YzMiQ
+         KZdKNIY5IiYxPwGBKFOFA7gu08r2iiikPPaAdu+R7P/diJZCF7eUWe99AwmJ/QdhxA6H
+         Xlo37LyLyIULJThoC93cbgThHR1hhPNSGfvZciRwtgqx3KHlGYqhKXa2yZL38VYAfHKl
+         Y6mlfQ6+Z15qJ+TY2ANi/ZYJjXxVkd8+i46ua5jC+edAc21tdIqdB77BTa22IXi19URe
+         yN9Q==
+X-Gm-Message-State: AOJu0Yzn6/U2LcSvXk4aAir6uS5rgocu5QNViWEQJowp5WEPbwUfsfLk
+	JMlCD31X5/ksYk2/aIH12u4Bf0aTlwimVWN9Z9Ml38JYqcfOjB10pXUKL+r8N81v1qvQIOrAAgI
+	S2U0=
+X-Google-Smtp-Source: AGHT+IG4ytefBo9qwZrlmg2vHgWyH70OIDv7RtLE8pO6Uf1I0FZqM0xsPwXkUBHRuVwjEpLdxigKzQ==
+X-Received: by 2002:a17:906:a287:b0:a59:cb29:3fb3 with SMTP id a640c23a62f3a-a6265148babmr864229366b.53.1716910210477;
+        Tue, 28 May 2024 08:30:10 -0700 (PDT)
 From: Fouad Hilly <fouad.hilly@cloud.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
 Cc: Fouad Hilly <fouad.hilly@cloud.com>,
-	Anthony PERARD <anthony@xenproject.org>,
-	Juergen Gross <jgross@suse.com>
-Subject: [PATCH v4 3/4] x86/ucode: Introduce --force option to xen-ucode to force skipping microcode version check
-Date: Tue, 28 May 2024 16:29:42 +0100
-Message-ID: <20240528152943.3915760-4-fouad.hilly@cloud.com>
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
+Subject: [PATCH v4 4/4] x86/ucode: Utilize ucode_force and remove opt_ucode_allow_same
+Date: Tue, 28 May 2024 16:29:43 +0100
+Message-ID: <20240528152943.3915760-5-fouad.hilly@cloud.com>
 X-Mailer: git-send-email 2.42.0
 In-Reply-To: <20240528152943.3915760-1-fouad.hilly@cloud.com>
 References: <20240528152943.3915760-1-fouad.hilly@cloud.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Introduce --force option to xen-ucode to force skipping microcode version check, which
-allows the user to update x86 microcode even if both versions are the same or downgrade.
-xc_microcode_update() refactored to accept flags and utilize xenpf_microcode_update2.
+Pass ucode_force to common micorocde checks and utilize it to allow for microcode downgrade
+or reapply the same version of the microcode.
+Update low level Intel and AMD to check for valid signature only. Any version checks is done
+at core.c.
+While adding ucode_force, opt_ucode_allow_same was removed.
+Remove opt_ucode_allow_same from documentation.
 
 Signed-off-by: Fouad Hilly <fouad.hilly@cloud.com>
 ---
 [4]
-1- Add --force to xen-ucode options.
-2- Update xc_microcode_update() to accept and handle flags.
+1- As opt_ucode_allow_same is not required anymore, it has been removed while introducing ucode_force.
+2- Apply the changes for both AMD and Intel.
+3- Remove the mention of opt_ucode_allow_same from documentation.
 ---
- tools/include/xenctrl.h   |  3 ++-
- tools/libs/ctrl/xc_misc.c | 12 +++++++-----
- tools/misc/xen-ucode.c    | 14 +++++++++++---
- 3 files changed, 20 insertions(+), 9 deletions(-)
+ docs/misc/xen-command-line.pandoc    | 7 +------
+ xen/arch/x86/cpu/microcode/amd.c     | 7 -------
+ xen/arch/x86/cpu/microcode/core.c    | 9 +++------
+ xen/arch/x86/cpu/microcode/intel.c   | 4 ----
+ xen/arch/x86/cpu/microcode/private.h | 2 --
+ 5 files changed, 4 insertions(+), 25 deletions(-)
 
-diff --git a/tools/include/xenctrl.h b/tools/include/xenctrl.h
-index 499685594427..7fb409bc6dc4 100644
---- a/tools/include/xenctrl.h
-+++ b/tools/include/xenctrl.h
-@@ -1171,7 +1171,8 @@ typedef uint32_t xc_node_to_node_dist_t;
- int xc_physinfo(xc_interface *xch, xc_physinfo_t *info);
- int xc_cputopoinfo(xc_interface *xch, unsigned *max_cpus,
-                    xc_cputopo_t *cputopo);
--int xc_microcode_update(xc_interface *xch, const void *buf, size_t len);
-+int xc_microcode_update(xc_interface *xch, const void *buf,
-+                        size_t len, unsigned int flags);
- int xc_get_cpu_version(xc_interface *xch, struct xenpf_pcpu_version *cpu_ver);
- int xc_get_ucode_revision(xc_interface *xch,
-                           struct xenpf_ucode_revision *ucode_rev);
-diff --git a/tools/libs/ctrl/xc_misc.c b/tools/libs/ctrl/xc_misc.c
-index 50282fd60dcc..6a60216bda03 100644
---- a/tools/libs/ctrl/xc_misc.c
-+++ b/tools/libs/ctrl/xc_misc.c
-@@ -203,11 +203,12 @@ int xc_physinfo(xc_interface *xch,
-     return 0;
- }
+diff --git a/docs/misc/xen-command-line.pandoc b/docs/misc/xen-command-line.pandoc
+index 1dea7431fab6..a42ce1039fed 100644
+--- a/docs/misc/xen-command-line.pandoc
++++ b/docs/misc/xen-command-line.pandoc
+@@ -2648,7 +2648,7 @@ performance.
+    Alternatively, selecting `tsx=1` will re-enable TSX at the users own risk.
  
--int xc_microcode_update(xc_interface *xch, const void *buf, size_t len)
-+int xc_microcode_update(xc_interface *xch, const void *buf,
-+                        size_t len, unsigned int flags)
- {
-     int ret;
-     struct xen_platform_op platform_op = {};
--    DECLARE_HYPERCALL_BUFFER(struct xenpf_microcode_update, uc);
-+    DECLARE_HYPERCALL_BUFFER(struct xenpf_microcode_update2, uc);
+ ### ucode
+-> `= List of [ <integer> | scan=<bool>, nmi=<bool>, allow-same=<bool> ]`
++> `= List of [ <integer> | scan=<bool>, nmi=<bool> ]`
  
-     uc = xc_hypercall_buffer_alloc(xch, uc, len);
-     if ( uc == NULL )
-@@ -215,9 +216,10 @@ int xc_microcode_update(xc_interface *xch, const void *buf, size_t len)
+     Applicability: x86
+     Default: `nmi`
+@@ -2680,11 +2680,6 @@ precedence over `scan`.
+ stop_machine context. In NMI handler, even NMIs are blocked, which is
+ considered safer. The default value is `true`.
  
-     memcpy(uc, buf, len);
+-'allow-same' alters the default acceptance policy for new microcode to permit
+-trying to reload the same version.  Many CPUs will actually reload microcode
+-of the same version, and this allows for easy testing of the late microcode
+-loading path.
+-
+ ### unrestricted_guest (Intel)
+ > `= <boolean>`
  
--    platform_op.cmd = XENPF_microcode_update;
--    platform_op.u.microcode.length = len;
--    set_xen_guest_handle(platform_op.u.microcode.data, uc);
-+    platform_op.cmd = XENPF_microcode_update2;
-+    platform_op.u.microcode2.length = len;
-+    platform_op.u.microcode2.flags = flags;
-+    set_xen_guest_handle(platform_op.u.microcode2.data, uc);
+diff --git a/xen/arch/x86/cpu/microcode/amd.c b/xen/arch/x86/cpu/microcode/amd.c
+index f76a563c8b84..4bcc79f1ab2d 100644
+--- a/xen/arch/x86/cpu/microcode/amd.c
++++ b/xen/arch/x86/cpu/microcode/amd.c
+@@ -225,13 +225,6 @@ static int cf_check apply_microcode(const struct microcode_patch *patch)
+     if ( result == MIS_UCODE )
+         return -EINVAL;
  
-     ret = do_platform_op(xch, &platform_op);
- 
-diff --git a/tools/misc/xen-ucode.c b/tools/misc/xen-ucode.c
-index 6f9dd2a7e431..b878edf2399a 100644
---- a/tools/misc/xen-ucode.c
-+++ b/tools/misc/xen-ucode.c
-@@ -13,6 +13,8 @@
- #include <xenctrl.h>
- #include <getopt.h>
- 
-+#include <xen/platform.h>
-+
- static xc_interface *xch;
- 
- static const char intel_id[] = "GenuineIntel";
-@@ -24,7 +26,8 @@ static void usage(FILE *stream, const char *name)
-            "Usage: %s [microcode file] [options]\n"
-            "options:\n"
-            "  -h, --help            display this help and exit\n"
--           "  -s, --show-cpu-info   show CPU information and exit\n",
-+           "  -s, --show-cpu-info   show CPU information and exit\n"
-+           "  -f, --force           force to skip microcode version check\n",
-            name, name);
- }
- 
-@@ -89,10 +92,12 @@ int main(int argc, char *argv[])
-     size_t len;
-     struct stat st;
-     int opt;
-+    uint32_t ucode_flags = 0;
- 
-     static const struct option options[] = {
-         {"help", no_argument, NULL, 'h'},
-         {"show-cpu-info", no_argument, NULL, 's'},
-+        {"force", no_argument, NULL, 'f'},
-         {NULL, no_argument, NULL, 0}
-     };
- 
-@@ -104,7 +109,7 @@ int main(int argc, char *argv[])
-         exit(1);
-     }
- 
--    while ( (opt = getopt_long(argc, argv, "hs", options, NULL)) != -1 )
-+    while ( (opt = getopt_long(argc, argv, "hsf", options, NULL)) != -1 )
+-    /*
+-     * Allow application of the same revision to pick up SMT-specific changes
+-     * even if the revision of the other SMT thread is already up-to-date.
+-     */
+-    if ( result == OLD_UCODE )
+-        return -EEXIST;
+-
+     if ( check_final_patch_levels(sig) )
      {
-         switch (opt)
-         {
-@@ -114,6 +119,9 @@ int main(int argc, char *argv[])
-         case 's':
-             show_curr_cpu(stdout);
-             exit(EXIT_SUCCESS);
-+        case 'f':
-+            ucode_flags = XENPF_UCODE_FORCE;
-+            break;
-         default:
-             goto ext_err;
-         }
-@@ -147,7 +155,7 @@ int main(int argc, char *argv[])
-     }
+         printk(XENLOG_ERR
+diff --git a/xen/arch/x86/cpu/microcode/core.c b/xen/arch/x86/cpu/microcode/core.c
+index 8a9e744489b9..fc8ad8cfdd76 100644
+--- a/xen/arch/x86/cpu/microcode/core.c
++++ b/xen/arch/x86/cpu/microcode/core.c
+@@ -100,8 +100,6 @@ static bool __initdata ucode_scan;
+ /* By default, ucode loading is done in NMI handler */
+ static bool ucode_in_nmi = true;
  
-     errno = 0;
--    ret = xc_microcode_update(xch, buf, len);
-+    ret = xc_microcode_update(xch, buf, len, ucode_flags);
-     if ( ret == -1 && errno == EEXIST )
-         printf("Microcode already up to date\n");
-     else if ( ret )
+-bool __read_mostly opt_ucode_allow_same;
+-
+ /* Protected by microcode_mutex */
+ static struct microcode_patch *microcode_cache;
+ 
+@@ -128,8 +126,6 @@ static int __init cf_check parse_ucode(const char *s)
+ 
+         if ( (val = parse_boolean("nmi", s, ss)) >= 0 )
+             ucode_in_nmi = val;
+-        else if ( (val = parse_boolean("allow-same", s, ss)) >= 0 )
+-            opt_ucode_allow_same = val;
+         else if ( !ucode_mod_forced ) /* Not forced by EFI */
+         {
+             if ( (val = parse_boolean("scan", s, ss)) >= 0 )
+@@ -583,6 +579,7 @@ static long cf_check microcode_update_helper(void *data)
+     struct ucode_buf *buffer = data;
+     unsigned int cpu, updated;
+     struct microcode_patch *patch;
++    bool ucode_force = buffer->flags == XENPF_UCODE_FORCE;
+ 
+     /* cpu_online_map must not change during update */
+     if ( !get_cpu_maps() )
+@@ -636,12 +633,12 @@ static long cf_check microcode_update_helper(void *data)
+                                   microcode_cache);
+ 
+         if ( result != NEW_UCODE &&
+-             !(opt_ucode_allow_same && result == SAME_UCODE) )
++             (!ucode_force || (result & ~SAME_UCODE)) )
+         {
+             spin_unlock(&microcode_mutex);
+             printk(XENLOG_WARNING
+                    "microcode: couldn't find any newer%s revision in the provided blob!\n",
+-                   opt_ucode_allow_same ? " (or the same)" : "");
++                   ucode_force? " (or a valid)" : "");
+             microcode_free_patch(patch);
+             ret = -EEXIST;
+ 
+diff --git a/xen/arch/x86/cpu/microcode/intel.c b/xen/arch/x86/cpu/microcode/intel.c
+index f505aa1b7888..5e1b528ffe05 100644
+--- a/xen/arch/x86/cpu/microcode/intel.c
++++ b/xen/arch/x86/cpu/microcode/intel.c
+@@ -297,10 +297,6 @@ static int cf_check apply_microcode(const struct microcode_patch *patch)
+     if ( result == MIS_UCODE )
+         return -EINVAL;
+ 
+-    if ( result == OLD_UCODE ||
+-         (result == SAME_UCODE && !opt_ucode_allow_same) )
+-        return -EEXIST;
+-
+     wbinvd();
+ 
+     wrmsrl(MSR_IA32_UCODE_WRITE, (unsigned long)patch->data);
+diff --git a/xen/arch/x86/cpu/microcode/private.h b/xen/arch/x86/cpu/microcode/private.h
+index da556fe5060a..aea51678a662 100644
+--- a/xen/arch/x86/cpu/microcode/private.h
++++ b/xen/arch/x86/cpu/microcode/private.h
+@@ -3,8 +3,6 @@
+ 
+ #include <asm/microcode.h>
+ 
+-extern bool opt_ucode_allow_same;
+-
+ enum microcode_match_result {
+     OLD_UCODE, /* signature matched, but revision id is older */
+     SAME_UCODE, /* signature matched, but revision id is the same */
 -- 
 2.42.0
 
