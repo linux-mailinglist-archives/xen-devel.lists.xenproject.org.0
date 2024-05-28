@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5F2FC8D2229
-	for <lists+xen-devel@lfdr.de>; Tue, 28 May 2024 19:09:34 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.731261.1136685 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6F9B18D2252
+	for <lists+xen-devel@lfdr.de>; Tue, 28 May 2024 19:20:06 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.731269.1136695 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sC0Jh-0004H3-8u; Tue, 28 May 2024 17:08:53 +0000
+	id 1sC0U8-0006Pp-9u; Tue, 28 May 2024 17:19:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 731261.1136685; Tue, 28 May 2024 17:08:53 +0000
+Received: by outflank-mailman (output) from mailman id 731269.1136695; Tue, 28 May 2024 17:19:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sC0Jh-0004FV-5j; Tue, 28 May 2024 17:08:53 +0000
-Received: by outflank-mailman (input) for mailman id 731261;
- Tue, 28 May 2024 17:08:52 +0000
+	id 1sC0U8-0006No-7G; Tue, 28 May 2024 17:19:40 +0000
+Received: by outflank-mailman (input) for mailman id 731269;
+ Tue, 28 May 2024 17:19:38 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=bNtp=M7=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1sC0Jg-0004FP-3w
- for xen-devel@lists.xenproject.org; Tue, 28 May 2024 17:08:52 +0000
-Received: from mail-qt1-x831.google.com (mail-qt1-x831.google.com
- [2607:f8b0:4864:20::831])
+ id 1sC0U6-0006MV-P7
+ for xen-devel@lists.xenproject.org; Tue, 28 May 2024 17:19:38 +0000
+Received: from mail-qk1-x729.google.com (mail-qk1-x729.google.com
+ [2607:f8b0:4864:20::729])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f3954c0c-1d14-11ef-b4bb-af5377834399;
- Tue, 28 May 2024 19:08:50 +0200 (CEST)
-Received: by mail-qt1-x831.google.com with SMTP id
- d75a77b69052e-43de92e234dso31031cf.1
- for <xen-devel@lists.xenproject.org>; Tue, 28 May 2024 10:08:50 -0700 (PDT)
+ id 74ac3f19-1d16-11ef-b4bb-af5377834399;
+ Tue, 28 May 2024 19:19:36 +0200 (CEST)
+Received: by mail-qk1-x729.google.com with SMTP id
+ af79cd13be357-79305314956so79016585a.3
+ for <xen-devel@lists.xenproject.org>; Tue, 28 May 2024 10:19:36 -0700 (PDT)
 Received: from [10.125.231.30] ([217.156.233.157])
  by smtp.gmail.com with ESMTPSA id
- d75a77b69052e-43fb16bed16sm44270981cf.17.2024.05.28.10.08.47
+ 6a1803df08f44-6ac07100a89sm45661156d6.68.2024.05.28.10.19.33
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 28 May 2024 10:08:48 -0700 (PDT)
+ Tue, 28 May 2024 10:19:34 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,46 +45,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f3954c0c-1d14-11ef-b4bb-af5377834399
+X-Inumbo-ID: 74ac3f19-1d16-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1716916129; x=1717520929; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1716916775; x=1717521575; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=0VnGD27iR18NGYFpXaECx07fWw283SIdLHOT0uxClus=;
-        b=t0QdmHiDrpi8fib8zqXOqUSgojul1ZTtdX2a7TgfIKtwauTZKhbWbLXDcNTt7CyGu3
-         gZlL7j7UjQy7DmXldg6CIdDpNSyzk0wkHmzAhnh9SlazN60H3zWmmfcGQhhyaOVRmu82
-         1ibnL+4K20nYHUATtdaqd13V6iRjKIZcwC0oo=
+        bh=TPDO1mb7r21QsV8AV9LX1kCPFbWEzhggozge8QMrGBY=;
+        b=ZcS0HHaCra+SMPc2ylkz2CCgkEPyBp2Ycf9HttMq/bUlhqNqwyPBIQX50fdomrQg4f
+         vy5dbp3V5nTU7bFIXWi2hXGgRi9hZ8XVWok3u3VDhwuHhpO10q9dHthqPDQ4lX4XA7Bf
+         qfseyJvtapiRLmEXTNE7vc0Ywg1euDisAw0ms=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1716916129; x=1717520929;
+        d=1e100.net; s=20230601; t=1716916775; x=1717521575;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=0VnGD27iR18NGYFpXaECx07fWw283SIdLHOT0uxClus=;
-        b=VnSEV4HsuYnf13/5kOmmxwRbD0AfL41GGMLaNGZ1zemVAJDENT7MY5IlTyBRsFray3
-         sMXrZWgKktm2i2U9ubC+KNj87BSiqSC7tAeJkPb9l8l4X8NyNRZPQ87smjCLwGGblv/6
-         uPLW68VKX7rCiGhJ63ij9vM1K6XgB3mPyU97eZ5yGHc//0QIDmYPcssSmKpnw2cjkwHh
-         9QLT8L8xZdcc1m3NFKy4rXh1ntE/xbfK9taWhECm/sslU3i0FN2u2cCIUgxCU83/E4Nh
-         OFFLeXgSnF3gYUN2fWxWl3aAmXoIR928f/M9AW/aPQSaQUcQmKg+qGX/pcl3z4E/CWa7
-         40zw==
-X-Forwarded-Encrypted: i=1; AJvYcCVFSby+VsJ6UmBPqojy/MjfkXkwTk7QFUd8Tn+GpSURLZ71MtJoICeH1tsLqzWq9g0jfzcnVfJMYH9Fdxa1OWpXjTTOThT5iWnBMa0z4bM=
-X-Gm-Message-State: AOJu0Yxv5/hjgrBTuDIKuKY72ko5wrybPxWi6afx+lvdzB+UrHKv8cb1
-	YYtiNDyFg6/o60gGnnxboe1vIcBQ5Jk3b6BP7pl+1mhhOjB6hMi1xpY82KEC4Lg=
-X-Google-Smtp-Source: AGHT+IFhs/t1q2nipb+JyQdfdLJnq6P3Rx+8boe6Rsfy5U1KI6yZCOz0RdeWrz+dCM4Ouw8LxFgHIA==
-X-Received: by 2002:ac8:584a:0:b0:43a:d7a9:386 with SMTP id d75a77b69052e-43fafb19bdbmr256359691cf.17.1716916128882;
-        Tue, 28 May 2024 10:08:48 -0700 (PDT)
-Message-ID: <522f2449-030d-4b3b-9ace-5ff20ceafc2d@citrix.com>
-Date: Tue, 28 May 2024 18:08:46 +0100
+        bh=TPDO1mb7r21QsV8AV9LX1kCPFbWEzhggozge8QMrGBY=;
+        b=GRYCqXZmi5HlhEpPKjCZ1HdRo2nV3+9k+Pyavc8BbjbS8GVvfKpdaHWzW+USHX6cwc
+         pAua9xvrJBhvrPpohQQ4nspbV+PCtfcmZpsD0hPqXPtt7NsyTZfx4cSUvf9+gz9wbKGo
+         LQ7c/t6Immg1B1wnBFa1trtg91Z7tRWqVFXd51tcDxC+dQHVS0y0+gqQVboUJvziOlBL
+         PZHif4h1o3F9yfW8kmOJtOPsEPYUL8XhduEqZy4vjf5hV+F4DTh40D8b1tOlr31+xa0S
+         77ES+xLjKrV7BPgF0ji+vnOkMqJqk5hx2/HoCkY5wxOvH4lNE+UENPOScv9x+Hg+iR14
+         dQ3g==
+X-Forwarded-Encrypted: i=1; AJvYcCUJPLwrsbDX3UpZPlQiEaLnF4gRTByVkNk2EcIRvABVg0r9RhWkD6gNoKlflN1sg5uFt38ick3FmZ6HN5HxkdXv9ztaWGb30PPpL1HLNDU=
+X-Gm-Message-State: AOJu0YwR9ZTvwCfUgXMetS/8bavI4onxMgFnNZH1PVqNNd7tUqeRg5CR
+	Fit0Ykw2/WzDdfueNyCgO9nIymU7wGOgZdc5cS9LeS+aVvpk1g8/5NmUsZLYJZE=
+X-Google-Smtp-Source: AGHT+IFqTiPCLeyEZbfisNnGoazSQe4xweRRZ+7QCr6O3UR25XxhV/sswJu/nwAGQEl8C4HmetC/5w==
+X-Received: by 2002:a05:6214:4345:b0:6a8:f00e:cfb0 with SMTP id 6a1803df08f44-6abcd0de75fmr168451756d6.47.1716916774817;
+        Tue, 28 May 2024 10:19:34 -0700 (PDT)
+Message-ID: <3319c42c-3eb5-47ae-b722-952583829cce@citrix.com>
+Date: Tue, 28 May 2024 18:19:32 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 3/4] x86/ucode: Introduce --force option to xen-ucode
- to force skipping microcode version check
+Subject: Re: [PATCH v4 4/4] x86/ucode: Utilize ucode_force and remove
+ opt_ucode_allow_same
 To: Fouad Hilly <fouad.hilly@cloud.com>,
  Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Anthony PERARD <anthony@xenproject.org>, Juergen Gross <jgross@suse.com>
+Cc: George Dunlap <george.dunlap@citrix.com>, Jan Beulich
+ <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
 References: <20240528152943.3915760-1-fouad.hilly@cloud.com>
- <20240528152943.3915760-4-fouad.hilly@cloud.com>
+ <20240528152943.3915760-5-fouad.hilly@cloud.com>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -130,47 +133,126 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <20240528152943.3915760-4-fouad.hilly@cloud.com>
+In-Reply-To: <20240528152943.3915760-5-fouad.hilly@cloud.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
 On 28/05/2024 4:29 pm, Fouad Hilly wrote:
-> Introduce --force option to xen-ucode to force skipping microcode version check, which
-> allows the user to update x86 microcode even if both versions are the same or downgrade.
-> xc_microcode_update() refactored to accept flags and utilize xenpf_microcode_update2.
+> Pass ucode_force to common micorocde checks and utilize it to allow for microcode downgrade
+> or reapply the same version of the microcode.
+> Update low level Intel and AMD to check for valid signature only. Any version checks is done
+> at core.c.
+> While adding ucode_force, opt_ucode_allow_same was removed.
+> Remove opt_ucode_allow_same from documentation.
 >
 > Signed-off-by: Fouad Hilly <fouad.hilly@cloud.com>
-
-I think it would be better to stop the subject at "... to xen-ucode". 
-The commit message itself covers what has changed.
-
-> diff --git a/tools/misc/xen-ucode.c b/tools/misc/xen-ucode.c
-> index 6f9dd2a7e431..b878edf2399a 100644
-> --- a/tools/misc/xen-ucode.c
-> +++ b/tools/misc/xen-ucode.c
-> @@ -13,6 +13,8 @@
->  #include <xenctrl.h>
->  #include <getopt.h>
+> ---
+> [4]
+> 1- As opt_ucode_allow_same is not required anymore, it has been removed while introducing ucode_force.
+> 2- Apply the changes for both AMD and Intel.
+> 3- Remove the mention of opt_ucode_allow_same from documentation.
+> ---
+>  docs/misc/xen-command-line.pandoc    | 7 +------
+>  xen/arch/x86/cpu/microcode/amd.c     | 7 -------
+>  xen/arch/x86/cpu/microcode/core.c    | 9 +++------
+>  xen/arch/x86/cpu/microcode/intel.c   | 4 ----
+>  xen/arch/x86/cpu/microcode/private.h | 2 --
+>  5 files changed, 4 insertions(+), 25 deletions(-)
+>
+> diff --git a/docs/misc/xen-command-line.pandoc b/docs/misc/xen-command-line.pandoc
+> index 1dea7431fab6..a42ce1039fed 100644
+> --- a/docs/misc/xen-command-line.pandoc
+> +++ b/docs/misc/xen-command-line.pandoc
+> @@ -2648,7 +2648,7 @@ performance.
+>     Alternatively, selecting `tsx=1` will re-enable TSX at the users own risk.
 >  
-> +#include <xen/platform.h>
-> +
->  static xc_interface *xch;
+>  ### ucode
+> -> `= List of [ <integer> | scan=<bool>, nmi=<bool>, allow-same=<bool> ]`
+> +> `= List of [ <integer> | scan=<bool>, nmi=<bool> ]`
 >  
->  static const char intel_id[] = "GenuineIntel";
-> @@ -24,7 +26,8 @@ static void usage(FILE *stream, const char *name)
->             "Usage: %s [microcode file] [options]\n"
->             "options:\n"
->             "  -h, --help            display this help and exit\n"
-> -           "  -s, --show-cpu-info   show CPU information and exit\n",
-> +           "  -s, --show-cpu-info   show CPU information and exit\n"
-> +           "  -f, --force           force to skip microcode version check\n",
+>      Applicability: x86
+>      Default: `nmi`
+> @@ -2680,11 +2680,6 @@ precedence over `scan`.
+>  stop_machine context. In NMI handler, even NMIs are blocked, which is
+>  considered safer. The default value is `true`.
+>  
+> -'allow-same' alters the default acceptance policy for new microcode to permit
+> -trying to reload the same version.  Many CPUs will actually reload microcode
+> -of the same version, and this allows for easy testing of the late microcode
+> -loading path.
+> -
+>  ### unrestricted_guest (Intel)
+>  > `= <boolean>`
+>  
+> diff --git a/xen/arch/x86/cpu/microcode/amd.c b/xen/arch/x86/cpu/microcode/amd.c
+> index f76a563c8b84..4bcc79f1ab2d 100644
+> --- a/xen/arch/x86/cpu/microcode/amd.c
+> +++ b/xen/arch/x86/cpu/microcode/amd.c
+> @@ -225,13 +225,6 @@ static int cf_check apply_microcode(const struct microcode_patch *patch)
+>      if ( result == MIS_UCODE )
+>          return -EINVAL;
+>  
+> -    /*
+> -     * Allow application of the same revision to pick up SMT-specific changes
+> -     * even if the revision of the other SMT thread is already up-to-date.
+> -     */
+> -    if ( result == OLD_UCODE )
+> -        return -EEXIST;
+> -
 
-I'd phrase this as "skip certain checks; do not use unless you know
-exactly what you are doing"
+I'm afraid that because of the observation leading to 977d98e67c2e, I
+see no option other than to plumb the force flag down into
+apply_microcode().
 
-which makes it very clear that people get to keep all pieces if they try
-this.
+This check cannot be deleted unconditionally, or we'll try downgrading
+microcode even without the force flag being passed.
 
-Otherwise (and subject to the style cleanup in the previous patch),
-Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
+Unless we can fix the cacheing layer to not treat "I didn't load ucode
+at boot" as "no idea of the symmetry of the system".
+
+I'm unsure which of these two is going to be less ugly...
+
+>      if ( check_final_patch_levels(sig) )
+>      {
+>          printk(XENLOG_ERR
+> diff --git a/xen/arch/x86/cpu/microcode/core.c b/xen/arch/x86/cpu/microcode/core.c
+> index 8a9e744489b9..fc8ad8cfdd76 100644
+> --- a/xen/arch/x86/cpu/microcode/core.c
+> +++ b/xen/arch/x86/cpu/microcode/core.c
+> @@ -100,8 +100,6 @@ static bool __initdata ucode_scan;
+>  /* By default, ucode loading is done in NMI handler */
+>  static bool ucode_in_nmi = true;
+>  
+> -bool __read_mostly opt_ucode_allow_same;
+> -
+>  /* Protected by microcode_mutex */
+>  static struct microcode_patch *microcode_cache;
+>  
+> @@ -128,8 +126,6 @@ static int __init cf_check parse_ucode(const char *s)
+>  
+>          if ( (val = parse_boolean("nmi", s, ss)) >= 0 )
+>              ucode_in_nmi = val;
+> -        else if ( (val = parse_boolean("allow-same", s, ss)) >= 0 )
+> -            opt_ucode_allow_same = val;
+>          else if ( !ucode_mod_forced ) /* Not forced by EFI */
+>          {
+>              if ( (val = parse_boolean("scan", s, ss)) >= 0 )
+> @@ -583,6 +579,7 @@ static long cf_check microcode_update_helper(void *data)
+>      struct ucode_buf *buffer = data;
+>      unsigned int cpu, updated;
+>      struct microcode_patch *patch;
+> +    bool ucode_force = buffer->flags == XENPF_UCODE_FORCE;
+>  
+>      /* cpu_online_map must not change during update */
+>      if ( !get_cpu_maps() )
+> @@ -636,12 +633,12 @@ static long cf_check microcode_update_helper(void *data)
+>                                    microcode_cache);
+>  
+>          if ( result != NEW_UCODE &&
+> -             !(opt_ucode_allow_same && result == SAME_UCODE) )
+> +             (!ucode_force || (result & ~SAME_UCODE)) )
+
+What is "result & ~SAME_UCODE" trying to do?
+
+~Andrew
 
