@@ -2,34 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C9ABC8D23AE
-	for <lists+xen-devel@lfdr.de>; Tue, 28 May 2024 21:03:22 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.731292.1136732 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C59BE8D2540
+	for <lists+xen-devel@lfdr.de>; Tue, 28 May 2024 21:53:33 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.731297.1136742 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sC26A-00033a-3v; Tue, 28 May 2024 19:03:02 +0000
+	id 1sC2sS-0000U2-Ox; Tue, 28 May 2024 19:52:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 731292.1136732; Tue, 28 May 2024 19:03:02 +0000
+Received: by outflank-mailman (output) from mailman id 731297.1136742; Tue, 28 May 2024 19:52:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sC26A-00030j-15; Tue, 28 May 2024 19:03:02 +0000
-Received: by outflank-mailman (input) for mailman id 731292;
- Tue, 28 May 2024 19:03:01 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=KRkd=M7=linuxfoundation.org=gregkh@srs-se1.protection.inumbo.net>)
- id 1sC268-00030d-Un
- for xen-devel@lists.xenproject.org; Tue, 28 May 2024 19:03:01 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e5e74b7d-1d24-11ef-90a1-e314d9c70b13;
- Tue, 28 May 2024 21:02:59 +0200 (CEST)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id DDB8962348;
- Tue, 28 May 2024 19:02:57 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 45F71C32786;
- Tue, 28 May 2024 19:02:57 +0000 (UTC)
+	id 1sC2sS-0000RN-Lo; Tue, 28 May 2024 19:52:56 +0000
+Received: by outflank-mailman (input) for mailman id 731297;
+ Tue, 28 May 2024 19:52:54 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1sC2sQ-0000RD-PA; Tue, 28 May 2024 19:52:54 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1sC2sQ-0004ZL-MR; Tue, 28 May 2024 19:52:54 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1sC2sQ-000433-Df; Tue, 28 May 2024 19:52:54 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1sC2sQ-0007ID-DE; Tue, 28 May 2024 19:52:54 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,46 +42,85 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e5e74b7d-1d24-11ef-90a1-e314d9c70b13
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
-	s=korg; t=1716922977;
-	bh=GD3/dN6ZzfzJRaXladDHQA1hNTErMD4rTa0AbrBxOys=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=K19noRN/T7YC+i1E7Fkaoig7m7TchlX7Ihp54S2kNAmAvFxD77KVCgZp7oBpY/nrE
-	 vH9MWNO2aQmpDABcsobPDhIHqyq3jmSTGwQ0RhfWTuQP1x93puLo6ULybvUuu4fFns
-	 +Um0sNgoRC2z1kA5bcjukNYj3/wU+18y3tkozg5Q=
-Date: Tue, 28 May 2024 21:03:01 +0200
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Juergen Gross <jgross@suse.com>
-Cc: cve@kernel.org, linux-cve-announce@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
-	"Xen.org security team" <security@xen.org>
-Subject: Re: CVE-2021-47377: kernel: xen/balloon: use a kernel thread instead
- a workqueue
-Message-ID: <2024052826-overpass-manliness-7f2c@gregkh>
-References: <2024041747-CVE-2024-26908-4690@gregkh>
- <9fba239d-2e22-425b-b45f-86ecf016c2fd@suse.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=dtwf1Y8MMzXAmV1IgHiQGRK4/U+h32cvmplmqrBneBs=; b=t+/fZ7hZ4FXnwXHIbl/iC6jEYm
+	/1NaJScLHI0I8NlFEgWmNarW7IBQgBKoWC4qnWUnTj5xIEbaaT0ZZDpw96Rv3m9Dqs9vi1ysMyNAY
+	1YsgvGVf4KWJl/FPcvPRUwDnHwll2sFA0FDJNJQMcK2F/xxAQkGrPIeFD68Vvo0gl/9A=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-186172-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <9fba239d-2e22-425b-b45f-86ecf016c2fd@suse.com>
+Subject: [xen-unstable-smoke test] 186172: tolerable all pass - PUSHED
+X-Osstest-Failures:
+    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=d27c2835e0005200d464b57156c76455d46f74bb
+X-Osstest-Versions-That:
+    xen=2d93f78bfe25f695d8ffb61d110da9df293ed71b
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Tue, 28 May 2024 19:52:54 +0000
 
-On Mon, May 27, 2024 at 12:58:16PM +0200, Juergen Gross wrote:
-> Hi,
-> 
-> I'd like to dispute CVE-2021-47377: the issue fixed by upstream commit
-> 8480ed9c2bbd56fc86524998e5f2e3e22f5038f6 can in no way be triggered by
-> an unprivileged user or by a remote attack of the system, as it requires
-> initiation of memory ballooning of the running system. This can be done
-> only by either a host admin or by an admin of the guest which might
-> suffer the detection of the hanging workqueue.
-> 
-> Please revoke this CVE.
+flight 186172 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/186172/
 
-Ah, good catch, this came in as part of the GSD import, and I missed
-that this required that type of permissions.  Now revoked, thanks for
-the review!
+Failures :-/ but no regressions.
 
-greg k-h
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+
+version targeted for testing:
+ xen                  d27c2835e0005200d464b57156c76455d46f74bb
+baseline version:
+ xen                  2d93f78bfe25f695d8ffb61d110da9df293ed71b
+
+Last test of basis   186170  2024-05-28 11:00:23 Z    0 days
+Testing same since   186172  2024-05-28 17:01:57 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrew Cooper <andrew.cooper3@citrix.com>
+  Jan Beulich <jbeulich@suse.com>
+
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/xen.git
+   2d93f78bfe..d27c2835e0  d27c2835e0005200d464b57156c76455d46f74bb -> smoke
 
