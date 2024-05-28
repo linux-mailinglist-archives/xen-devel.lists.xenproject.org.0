@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 158EC8D1DEC
-	for <lists+xen-devel@lfdr.de>; Tue, 28 May 2024 16:08:00 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.731167.1136526 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 93DFF8D1E7F
+	for <lists+xen-devel@lfdr.de>; Tue, 28 May 2024 16:23:10 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.731173.1136537 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sBxTO-0006NQ-CD; Tue, 28 May 2024 14:06:42 +0000
+	id 1sBxiu-0000qT-Pl; Tue, 28 May 2024 14:22:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 731167.1136526; Tue, 28 May 2024 14:06:42 +0000
+Received: by outflank-mailman (output) from mailman id 731173.1136537; Tue, 28 May 2024 14:22:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sBxTO-0006Lr-9c; Tue, 28 May 2024 14:06:42 +0000
-Received: by outflank-mailman (input) for mailman id 731167;
- Tue, 28 May 2024 14:06:41 +0000
+	id 1sBxiu-0000ny-N9; Tue, 28 May 2024 14:22:44 +0000
+Received: by outflank-mailman (input) for mailman id 731173;
+ Tue, 28 May 2024 14:22:43 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=+/BF=M7=cloud.com=alejandro.vallejo@srs-se1.protection.inumbo.net>)
- id 1sBxTN-0006Ll-Ll
- for xen-devel@lists.xenproject.org; Tue, 28 May 2024 14:06:41 +0000
-Received: from mail-ed1-x533.google.com (mail-ed1-x533.google.com
- [2a00:1450:4864:20::533])
+ <SRS0=bNtp=M7=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1sBxit-0000ns-Po
+ for xen-devel@lists.xenproject.org; Tue, 28 May 2024 14:22:43 +0000
+Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
+ [2a00:1450:4864:20::62c])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 8020c10a-1cfb-11ef-b4bb-af5377834399;
- Tue, 28 May 2024 16:06:38 +0200 (CEST)
-Received: by mail-ed1-x533.google.com with SMTP id
- 4fb4d7f45d1cf-57864327f6eso1474494a12.1
- for <xen-devel@lists.xenproject.org>; Tue, 28 May 2024 07:06:38 -0700 (PDT)
-Received: from [10.125.230.17] ([217.156.233.157])
+ id be44446e-1cfd-11ef-b4bb-af5377834399;
+ Tue, 28 May 2024 16:22:41 +0200 (CEST)
+Received: by mail-ej1-x62c.google.com with SMTP id
+ a640c23a62f3a-a635a74e0deso30209466b.0
+ for <xen-devel@lists.xenproject.org>; Tue, 28 May 2024 07:22:41 -0700 (PDT)
+Received: from andrewcoop.citrite.net ([160.101.139.1])
  by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-578638009b1sm5719158a12.17.2024.05.28.07.06.36
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 28 May 2024 07:06:37 -0700 (PDT)
+ a640c23a62f3a-a626cc8e295sm617318766b.185.2024.05.28.07.22.40
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 28 May 2024 07:22:40 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,120 +45,153 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8020c10a-1cfb-11ef-b4bb-af5377834399
+X-Inumbo-ID: be44446e-1cfd-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1716905198; x=1717509998; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=Bhn2iLHzD8RvektTs6H45lIDox1xDUH0MHd7mOG3ujU=;
-        b=D6wCgbxEQ/OaTRyNeyEAyzP0/UJYVaM9WkgcDmI0K4/gVN+d2eIQHr0I0Jlroq6GLo
-         dfF3xraTxcHTZ2rZiYrpDJdokCBC+Q2IiUWsFEAJ7xl1GEXdxua6QcSl+l+8dxD4IZ+v
-         mqW8Wy3F/x0/iTYNTVbBAr947NTOzmITJWI4E=
+        d=citrix.com; s=google; t=1716906161; x=1717510961; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=hiFfRD3NkJZafGxeBd15GFIv6yknVt/RJZXHd7avlw0=;
+        b=RivQJyvB3GjeaWMiuUAdljKgxl9FTHLISnuz/yz6SDbsrVW4a5b715/lcAnC9xOU2R
+         xmO6563dj7t6Y6qttYnd5J0za2dDZ7lGougpon3An1z5SdXYR+scfYjk9CXttuuriAPJ
+         KvjgwXbR/8MtDz2yHm54SA7BMiop3rQsrj9Gc=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1716905198; x=1717509998;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=Bhn2iLHzD8RvektTs6H45lIDox1xDUH0MHd7mOG3ujU=;
-        b=V9cIoA8U3Y7aKnRPFcO5oaFvyVNTWRHVZtWgaJWW6ioeTDmUWDYYqoxx/YRcyytEQj
-         rzhXPRD0S9OTV+R0BZy1LilAuidFVKP6pBwU4s0srY2tpA38kTq0EAwjuNK16sWeZQtI
-         N5cIGE4eAUIv94ePI5J3zcjTP8Zy4Rm2QoiyR8G42inrqhCUWa+a8pyQLXRoLnkAPkoq
-         30tZN07NVtpp828sOBjeE3aA0l/lwYkVKdzByPaCRymM3k/YtPDn8QvzVrgKM5/rGYKA
-         hpKfuMb3mEyz9dJ4txO3xp1Acpnx/MQY/gQKh9fxh9+zkfURwXBzWO8VR3oHsrvqwXX9
-         8tAA==
-X-Gm-Message-State: AOJu0YyvKA35EiQCMaEhgsrIHM+dF8zbQ7EgAw7OCsMeqKtMb9bTfmMK
-	jhRXhLEv0n1LBKtOFi9MCaFGMIj2Cm3+3tSmdaJzMKO3J6lp7PIhBYRlFPRTuIXbwPok37oGqAv
-	Cr68=
-X-Google-Smtp-Source: AGHT+IFxxosmwm5fJLRksdu5GoaFebftUhqfuKMLz9fQvz5jhSkuIx/ZWMEW47zD7NnhNranfn4A9w==
-X-Received: by 2002:a50:cd01:0:b0:578:6019:265a with SMTP id 4fb4d7f45d1cf-578601927e8mr9871190a12.8.1716905197814;
-        Tue, 28 May 2024 07:06:37 -0700 (PDT)
-Message-ID: <5d00435f-510e-463e-ae1a-d7b3bce31151@cloud.com>
-Date: Tue, 28 May 2024 15:06:36 +0100
+        d=1e100.net; s=20230601; t=1716906161; x=1717510961;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=hiFfRD3NkJZafGxeBd15GFIv6yknVt/RJZXHd7avlw0=;
+        b=HlxO+Z7Dkr//vnQzVZXIyTTh5Gh/KRoVem8MaaiZFPA1i6RngTCjaqVnoPdgHMEfaQ
+         gn/O0TcYPsrnq3QYSy8fjMGKXuLSsyQVUCp8TLH5Ac+NBQId9K50YIHMKic+c7hEpfbN
+         qWIRMPJKSFmjiHXWMkqraGmXtCj5hFXh5CaeIAu6OYB8YBlU2+OmaskL0XxixQ2Z6ts/
+         eEgcO3xpcgdbJ47+7ctY5z3WBKcEs2QngJOCw5LAsbsttEEKXZOvk+OoV8EvKdmsbS4y
+         hUX3XVHIkVlW+6ilLZ62+fWhLAPbrxZm36xnOK31FZ1vm47tvwDUaM4bscQl3kgbxeYL
+         gg8w==
+X-Gm-Message-State: AOJu0Ywju2Gc3a66JfdfKJFo0Zw7NiCB1Lx3y26EJ9jfCe30D6fcUWjy
+	Q2SpxZPegiGUmihLU6qtl0IdbOambuGH1FYkohlC4d/rbVGkYpCMK96FU8c3MyYIbVs7kK2jtaM
+	919Q=
+X-Google-Smtp-Source: AGHT+IHvXG7uFMRmADwZ9KZBFro9Zxnay4o8Kz3oIymPjgQ/DwjM9yR/g3ZWlo0Vecjg+21SveG2YQ==
+X-Received: by 2002:a17:906:3d0:b0:a63:5421:85b0 with SMTP id a640c23a62f3a-a6354218711mr80265266b.75.1716906160935;
+        Tue, 28 May 2024 07:22:40 -0700 (PDT)
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+	Jan Beulich <JBeulich@suse.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Wei Liu <wl@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Julien Grall <julien@xen.org>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+	Shawn Anastasio <sanastasio@raptorengineering.com>,
+	"consulting @ bugseng . com" <consulting@bugseng.com>,
+	Simone Ballarin <simone.ballarin@bugseng.com>,
+	Federico Serafini <federico.serafini@bugseng.com>,
+	Nicola Vetrini <nicola.vetrini@bugseng.com>
+Subject: [PATCH v2 for-4.19 0.5/13] xen: Introduce CONFIG_SELF_TESTS
+Date: Tue, 28 May 2024 15:22:38 +0100
+Message-Id: <20240528142238.1340228-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.30.2
+In-Reply-To: <20240524200338.1232391-1-andrew.cooper3@citrix.com>
+References: <20240524200338.1232391-1-andrew.cooper3@citrix.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 8/8] xen/x86: Synthesise domain topologies
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>,
- Anthony PERARD <anthony@xenproject.org>, Juergen Gross <jgross@suse.com>,
- Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>
-References: <cover.1715102098.git.alejandro.vallejo@cloud.com>
- <f51b54328a09c510c9320f1317c2da371ef16eb5.1715102098.git.alejandro.vallejo@cloud.com>
- <ZlBWtXkpkqzh1EWC@macbook> <6e1c52a3-98d2-42e9-96b7-91010806cdf5@cloud.com>
- <ZlRCXmjhsM5o4tVw@macbook>
-Content-Language: en-GB
-From: Alejandro Vallejo <alejandro.vallejo@cloud.com>
-In-Reply-To: <ZlRCXmjhsM5o4tVw@macbook>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 27/05/2024 09:20, Roger Pau Monné wrote:
-> On Fri, May 24, 2024 at 06:16:01PM +0100, Alejandro Vallejo wrote:
->> On 24/05/2024 09:58, Roger Pau Monné wrote:
->>> On Wed, May 08, 2024 at 01:39:27PM +0100, Alejandro Vallejo wrote:
->>>
->>>> +        rc = x86_topo_from_parts(&p->policy, threads_per_core, cores_per_pkg);
->>>
->>> I assume this generates the same topology as the current code, or will
->>> the population of the leaves be different in some way?
->>>
->>
->> The current code does not populate 0xb. This generates a topology
->> consistent with the existing INTENDED topology. The actual APIC IDs will
->> be different though (because there's no skipping of odd values).
->>
->> All the dance in patch 1 was to make this migrate-safe. The x2apic ID is
->> stored in the lapic hidden regs so differences with previous behaviour
->> don't matter.
-> 
-> What about systems without CPU policy in the migration stream, will
-> those also get restored as expected?
-> 
-> I think you likely need to check whether 'restore' is set and keep the
-> old logic in that case?
-> 
-> As otherwise migrated systems without a CPU policy will get the new
-> topology information instead of the old one?
+... and move x86's stub_selftest() under this new option.
 
-Bah. I hoped the x2apic ID restoration would mean I could get away with
-removing all that junk, but migrations from Xen v.StoneAge do cause
-mayhem. And it'd be very bizarre because the new topology leaves would
-not reflect the existing x2apic IDs either.
+There is value in having these tests included in release builds too.
 
-I'll condense that blob of nonsense with the old scheme into a separate
-function so we can easily deprecate it in the future.
+It will shortly be used to gate the bitops unit tests on all architectures.
 
-> 
->> IOW, The differences are:
->>   * 0xb is exposed, whereas previously it wasn't
->>   * APIC IDs are compacted such that new_apicid=old_apicid/2
->>   * There's also a cleanup of the murkier paths to put the right core
->>     counts in the right leaves (whereas previously it was bonkers)
-> 
-> This needs to be in the commit message IMO.
-> 
+Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+---
+CC: Jan Beulich <JBeulich@suse.com>
+CC: Roger Pau Monné <roger.pau@citrix.com>
+CC: Wei Liu <wl@xen.org>
+CC: Stefano Stabellini <sstabellini@kernel.org>
+CC: Julien Grall <julien@xen.org>
+CC: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+CC: Bertrand Marquis <bertrand.marquis@arm.com>
+CC: Michal Orzel <michal.orzel@amd.com>
+CC: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+CC: Shawn Anastasio <sanastasio@raptorengineering.com>
+CC: consulting@bugseng.com <consulting@bugseng.com>
+CC: Simone Ballarin <simone.ballarin@bugseng.com>
+CC: Federico Serafini <federico.serafini@bugseng.com>
+CC: Nicola Vetrini <nicola.vetrini@bugseng.com>
 
-Sure.
+v2.5:
+ * As suggested in "[PATCH v2 05/13] xen/bitops: Implement generic_f?sl() in
+ lib/"
 
->>>
->>> Note that currently the host policy also gets the topology leaves
->>> cleared, is it intended to not clear them anymore after this change?
->>>
->>> (as you only clear the leaves for the guest {max,def} policies)
->>>
->>> Thanks, Roger.
->>
->> It was like that originally in v1, I changed in v2 as part of feedback
->> from Jan.
-> 
-> I think that's fine, but this divergence from current behavior of
-> cleaning the topology for the host policy needs to be mentioned in
-> the commit message.
-> 
-> Thanks, Roger.
+I've gone with SELF_TESTS rather than BOOT_TESTS, because already in bitops
+we've got compile time tests (which aren't strictly boot time), and the
+livepatching testing wants to be included here and is definitely not boot
+time.
+---
+ xen/Kconfig.debug      | 6 ++++++
+ xen/arch/x86/extable.c | 4 ++--
+ xen/arch/x86/setup.c   | 2 +-
+ 3 files changed, 9 insertions(+), 3 deletions(-)
 
-Sure.
+diff --git a/xen/Kconfig.debug b/xen/Kconfig.debug
+index 61b24ac552cd..07ff7eb7ba83 100644
+--- a/xen/Kconfig.debug
++++ b/xen/Kconfig.debug
+@@ -29,6 +29,12 @@ config FRAME_POINTER
+ 	  maybe slower, but it gives very useful debugging information
+ 	  in case of any Xen bugs.
+ 
++config SELF_TESTS
++	bool "Extra self-testing"
++	default DEBUG
++	help
++	  Enable extra unit and functional testing.
++
+ config COVERAGE
+ 	bool "Code coverage support"
+ 	depends on !LIVEPATCH
+diff --git a/xen/arch/x86/extable.c b/xen/arch/x86/extable.c
+index 8415cd1fa249..705cf9eb94ca 100644
+--- a/xen/arch/x86/extable.c
++++ b/xen/arch/x86/extable.c
+@@ -144,7 +144,7 @@ search_exception_table(const struct cpu_user_regs *regs, unsigned long *stub_ra)
+     return 0;
+ }
+ 
+-#ifdef CONFIG_DEBUG
++#ifdef CONFIG_SELF_TESTS
+ #include <asm/setup.h>
+ #include <asm/traps.h>
+ 
+@@ -214,7 +214,7 @@ int __init cf_check stub_selftest(void)
+     return 0;
+ }
+ __initcall(stub_selftest);
+-#endif
++#endif /* CONFIG_SELF_TESTS */
+ 
+ unsigned long asmlinkage search_pre_exception_table(struct cpu_user_regs *regs)
+ {
+diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
+index b50c9c84af6d..dd51e68dbe5b 100644
+--- a/xen/arch/x86/setup.c
++++ b/xen/arch/x86/setup.c
+@@ -742,7 +742,7 @@ static void noreturn init_done(void)
+     system_state = SYS_STATE_active;
+ 
+     /* Re-run stub recovery self-tests with CET-SS active. */
+-    if ( IS_ENABLED(CONFIG_DEBUG) && cpu_has_xen_shstk )
++    if ( IS_ENABLED(CONFIG_SELF_TESTS) && cpu_has_xen_shstk )
+         stub_selftest();
+ 
+     domain_unpause_by_systemcontroller(dom0);
 
-Cheers,
-Alejandro
+base-commit: 2d93f78bfe25f695d8ffb61d110da9df293ed71b
+-- 
+2.30.2
+
 
