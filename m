@@ -2,35 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C59BE8D2540
-	for <lists+xen-devel@lfdr.de>; Tue, 28 May 2024 21:53:33 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.731297.1136742 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AFDFE8D2610
+	for <lists+xen-devel@lfdr.de>; Tue, 28 May 2024 22:41:07 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.731305.1136752 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sC2sS-0000U2-Ox; Tue, 28 May 2024 19:52:56 +0000
+	id 1sC3c2-0005aT-43; Tue, 28 May 2024 20:40:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 731297.1136742; Tue, 28 May 2024 19:52:56 +0000
+Received: by outflank-mailman (output) from mailman id 731305.1136752; Tue, 28 May 2024 20:40:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sC2sS-0000RN-Lo; Tue, 28 May 2024 19:52:56 +0000
-Received: by outflank-mailman (input) for mailman id 731297;
- Tue, 28 May 2024 19:52:54 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1sC2sQ-0000RD-PA; Tue, 28 May 2024 19:52:54 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1sC2sQ-0004ZL-MR; Tue, 28 May 2024 19:52:54 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1sC2sQ-000433-Df; Tue, 28 May 2024 19:52:54 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1sC2sQ-0007ID-DE; Tue, 28 May 2024 19:52:54 +0000
+	id 1sC3c2-0005Xd-1I; Tue, 28 May 2024 20:40:02 +0000
+Received: by outflank-mailman (input) for mailman id 731305;
+ Tue, 28 May 2024 20:40:00 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=OYOI=M7=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
+ id 1sC3c0-0005QA-G0
+ for xen-devel@lists.xenproject.org; Tue, 28 May 2024 20:40:00 +0000
+Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 730cbdbc-1d32-11ef-90a1-e314d9c70b13;
+ Tue, 28 May 2024 22:39:59 +0200 (CEST)
+Received: from support.bugseng.com (support.bugseng.com [162.55.131.47])
+ by support.bugseng.com (Postfix) with ESMTPA id 6A2014EE073F;
+ Tue, 28 May 2024 22:39:58 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,85 +39,58 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=dtwf1Y8MMzXAmV1IgHiQGRK4/U+h32cvmplmqrBneBs=; b=t+/fZ7hZ4FXnwXHIbl/iC6jEYm
-	/1NaJScLHI0I8NlFEgWmNarW7IBQgBKoWC4qnWUnTj5xIEbaaT0ZZDpw96Rv3m9Dqs9vi1ysMyNAY
-	1YsgvGVf4KWJl/FPcvPRUwDnHwll2sFA0FDJNJQMcK2F/xxAQkGrPIeFD68Vvo0gl/9A=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-186172-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 730cbdbc-1d32-11ef-90a1-e314d9c70b13
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 186172: tolerable all pass - PUSHED
-X-Osstest-Failures:
-    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=d27c2835e0005200d464b57156c76455d46f74bb
-X-Osstest-Versions-That:
-    xen=2d93f78bfe25f695d8ffb61d110da9df293ed71b
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Tue, 28 May 2024 19:52:54 +0000
+Date: Tue, 28 May 2024 22:39:58 +0200
+From: Nicola Vetrini <nicola.vetrini@bugseng.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: sstabellini@kernel.org, michal.orzel@amd.com, xenia.ragiadakou@amd.com,
+ ayan.kumar.halder@amd.com, consulting@bugseng.com, Andrew Cooper
+ <andrew.cooper3@citrix.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
+Subject: Re: [XEN PATCH 3/4] x86: address violations of MISRA C Rule 8.4
+In-Reply-To: <ffb55f45-d08e-4c60-af71-f9a56856bca9@suse.com>
+References: <cover.1716814609.git.nicola.vetrini@bugseng.com>
+ <cf926194a541d11e02670516a8d337de27836dce.1716814609.git.nicola.vetrini@bugseng.com>
+ <ffb55f45-d08e-4c60-af71-f9a56856bca9@suse.com>
+Message-ID: <7f39c844e1c781504ef71fecbd086009@bugseng.com>
+X-Sender: nicola.vetrini@bugseng.com
+Organization: BUGSENG s.r.l.
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
+Content-Transfer-Encoding: 7bit
 
-flight 186172 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/186172/
+On 2024-05-28 08:28, Jan Beulich wrote:
+> On 27.05.2024 16:53, Nicola Vetrini wrote:
+>> Rule 8.4 states: "A compatible declaration shall be visible when
+>> an object or function with external linkage is defined."
+>> 
+>> These variables are only referenced from asm modules, so they
+>> need to be extern and there is negligible risk of them being
+>> used improperly without noticing.
+> 
+> "asm modules" isn't quite correct, as there's one use from inline
+> assembly. I have to admit I have no good wording suggestion other than
+> explicitly covering both: "asm modules or inline assembly". Yet that
+> then is ambiguous, as a use in inline assembly may also mean that
+> symbol is actually visible to the compiler by being mentioned as on of
+> the operands. Better ideas?
+> 
 
-Failures :-/ but no regressions.
+Maybe generically "asm code" or just "asm"? It's not really relevant 
+whether it's inline or not, as far as I understand.
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+>> As a result, they can be exempted using a comment-based deviation.
+>> No functional change.
+>> 
+>> Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
+> 
+> With suitably adjusted wording:
+> Acked-by: Jan Beulich <jbeulich@suse.com>
+> 
+> Jan
 
-version targeted for testing:
- xen                  d27c2835e0005200d464b57156c76455d46f74bb
-baseline version:
- xen                  2d93f78bfe25f695d8ffb61d110da9df293ed71b
-
-Last test of basis   186170  2024-05-28 11:00:23 Z    0 days
-Testing same since   186172  2024-05-28 17:01:57 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Andrew Cooper <andrew.cooper3@citrix.com>
-  Jan Beulich <jbeulich@suse.com>
-
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/xen.git
-   2d93f78bfe..d27c2835e0  d27c2835e0005200d464b57156c76455d46f74bb -> smoke
+-- 
+Nicola Vetrini, BSc
+Software Engineer, BUGSENG srl (https://bugseng.com)
 
