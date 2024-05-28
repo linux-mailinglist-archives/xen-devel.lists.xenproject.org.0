@@ -2,37 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8CE7F8D1B66
-	for <lists+xen-devel@lfdr.de>; Tue, 28 May 2024 14:36:27 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.731124.1136460 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3CB848D1BCE
+	for <lists+xen-devel@lfdr.de>; Tue, 28 May 2024 14:57:03 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.731130.1136470 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sBw3o-0000G5-1M; Tue, 28 May 2024 12:36:12 +0000
+	id 1sBwNT-0003Dn-LJ; Tue, 28 May 2024 12:56:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 731124.1136460; Tue, 28 May 2024 12:36:12 +0000
+Received: by outflank-mailman (output) from mailman id 731130.1136470; Tue, 28 May 2024 12:56:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sBw3n-0000EF-V1; Tue, 28 May 2024 12:36:11 +0000
-Received: by outflank-mailman (input) for mailman id 731124;
- Tue, 28 May 2024 12:36:11 +0000
+	id 1sBwNT-0003BD-Ib; Tue, 28 May 2024 12:56:31 +0000
+Received: by outflank-mailman (input) for mailman id 731130;
+ Tue, 28 May 2024 12:56:30 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=+/BF=M7=cloud.com=alejandro.vallejo@srs-se1.protection.inumbo.net>)
- id 1sBw3m-0000E9-VA
- for xen-devel@lists.xenproject.org; Tue, 28 May 2024 12:36:11 +0000
-Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com
- [2a00:1450:4864:20::634])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id dbd1ccb1-1cee-11ef-b4bb-af5377834399;
- Tue, 28 May 2024 14:36:08 +0200 (CEST)
-Received: by mail-ej1-x634.google.com with SMTP id
- a640c23a62f3a-a635c83bb7eso3372766b.0
- for <xen-devel@lists.xenproject.org>; Tue, 28 May 2024 05:36:08 -0700 (PDT)
-Received: from [10.80.5.21] ([160.101.139.1]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-579ce607407sm3488800a12.74.2024.05.28.05.36.07
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 28 May 2024 05:36:07 -0700 (PDT)
+ <SRS0=YQ9m=M7=arm.com=luca.fancellu@srs-se1.protection.inumbo.net>)
+ id 1sBwNS-0003B7-LT
+ for xen-devel@lists.xenproject.org; Tue, 28 May 2024 12:56:30 +0000
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTP
+ id b1ece388-1cf1-11ef-b4bb-af5377834399;
+ Tue, 28 May 2024 14:56:27 +0200 (CEST)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id D6F56339;
+ Tue, 28 May 2024 05:56:50 -0700 (PDT)
+Received: from e125770.cambridge.arm.com (e125770.arm.com [10.1.199.43])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 9991E3F641;
+ Tue, 28 May 2024 05:56:25 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,77 +42,194 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: dbd1ccb1-1cee-11ef-b4bb-af5377834399
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1716899768; x=1717504568; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=bq2xCfVw6p5MkufH5QCKHLXDWhQgnTKEifRaEzGjd+U=;
-        b=WEJuIEfPIQyGAfCG/SKPEzV2wBe1TWw3iYyiLPFaMxgDve86Hb4KCFv5WvtzTri2RC
-         CkYBDSkaQrqnraR1xw1UhJLjKtzJpMqpngn3F4fn1Nlvimeb8sAzGIwaVdUr2oEv7x4U
-         S6CsX+CivXhtij9jnWkYZ+yBvnvDJc+ME1wLQ=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1716899768; x=1717504568;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=bq2xCfVw6p5MkufH5QCKHLXDWhQgnTKEifRaEzGjd+U=;
-        b=aqqTrZSIxQmO7YoodWXLA3CTY0XjLhf05l1cLWSdWttMR9qAxa3SrJ2C0MyPLAQN1N
-         /OgvaMrVMB3JCcCA30nDab+wfqFV2aGWKVevnqVnwr5cTdlfKU+o6Tdjt5+ZYrrF6kOB
-         JAh4+OrV0oWCOT3Qk/oHZ0apyZ08+5SRLpYKv6VN9dHlsCciuLyxznF60/5wAB4RIlQR
-         t6k0ErXvnekrmTXe7MZMd+ZNuu08FJuf/QEidlH68lqNNoytT/rVb0ME/Kzk+NDrl8O2
-         Fc5IJxalh74uxRB0b+y8D/HymXeIM0CBSYvQRtvYm3WxzzU3sjjFKcEm6yiHTZxOGtS3
-         wFSg==
-X-Gm-Message-State: AOJu0YyvC3a6Evug3eb22dCELgvdAAyN74kQM1uJkBDXV+bt7l1q7OdE
-	IBDNa+ukE0oq6eKAZdMnFqAOHSxdAFIzDmeHaGW0ZpHBCX5nj5MXiB9jGrEuOck=
-X-Google-Smtp-Source: AGHT+IFrq3xdKGuEDVBdSdV7rVEmUbzAGB9Pipyt0H/i1u8+jBVEC0GA1YGhQ+wI9RUrZOlmS3CVBA==
-X-Received: by 2002:a50:c052:0:b0:578:649c:f7f0 with SMTP id 4fb4d7f45d1cf-578649cf802mr9090049a12.0.1716899768273;
-        Tue, 28 May 2024 05:36:08 -0700 (PDT)
-Message-ID: <97f7caeb-85e8-488b-b763-9860720f02cb@cloud.com>
-Date: Tue, 28 May 2024 13:35:54 +0100
+X-Inumbo-ID: b1ece388-1cf1-11ef-b4bb-af5377834399
+From: Luca Fancellu <luca.fancellu@arm.com>
+To: xen-devel@lists.xenproject.org
+Cc: Penny Zheng <Penny.Zheng@arm.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Julien Grall <julien@xen.org>,
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	Penny Zheng <penny.zheng@arm.com>
+Subject: [PATCH v4.2] xen/p2m: put reference for level 2 superpage
+Date: Tue, 28 May 2024 13:56:03 +0100
+Message-Id: <20240528125603.2467640-1-luca.fancellu@arm.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 5/8] tools/hvmloader: Retrieve (x2)APIC IDs from the
- APs themselves
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>,
- Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony@xenproject.org>
-References: <cover.1715102098.git.alejandro.vallejo@cloud.com>
- <b2d4109cd30c82e0af153d36f8dce77c59f03695.1715102098.git.alejandro.vallejo@cloud.com>
- <ZlA_6Abtw-u4a84J@macbook> <8cac1707-855b-478a-b88d-7fd619f19352@cloud.com>
- <ZlRJtN7h32uOHEOi@macbook>
-Content-Language: en-GB
-From: Alejandro Vallejo <alejandro.vallejo@cloud.com>
-In-Reply-To: <ZlRJtN7h32uOHEOi@macbook>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 27/05/2024 09:52, Roger Pau Monné wrote:
->> My intent here was to prevent the compiler omitting the write (though in
->> practice it didn't). I think the barrier is still required to prevent
->> reordering according to the spec.
-> 
-> Yes, my understating is that you added the ACCESS_ONCE() to possibly
-> prevent the compiler from re-ordering the CPU_TO_X2APICID[ap_cpuid]) =
-> read_apic_id() after the 'hlt' loop?
+From: Penny Zheng <Penny.Zheng@arm.com>
 
-Yes, but not only that. Also preventing the compiler from eliding the
-write altogether on the basis that it's not read after within the
-function. I have suffered that particular behaviour on older versions of
-GCC and it stung very much.
+We are doing foreign memory mapping for static shared memory, and
+there is a great possibility that it could be super mapped.
+But today, p2m_put_l3_page could not handle superpages.
 
-> 
-> AFAICT the expressions in the `for` statement are considered sequence
-> points, and the calling `read_apic_id()` could have side-effects, so
-> the compiler won't be able to elide or move the setting of
-> CPU_TO_X2APICID[] due to all side-effects of previous evaluations must
-> be complete at sequence points.
-> > I'm fine with leaving the wmb() + ACCESS_ONCE().
-> 
-> Thanks, Roger.
+This commits implements a new function p2m_put_l2_superpage to handle
+level 2 superpages, specifically for helping put extra references for
+foreign superpages.
 
-Cheers,
-Alejandro
+Modify relinquish_p2m_mapping as well to take into account preemption
+when we have a level-2 foreign mapping.
+
+Currently level 1 superpages are not handled because Xen is not
+preemptible and therefore some work is needed to handle such superpages,
+for which at some point Xen might end up freeing memory and therefore
+for such a big mapping it could end up in a very long operation.
+
+Signed-off-by: Penny Zheng <penny.zheng@arm.com>
+Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
+---
+v4.2 changes:
+ - rework commit message to don't explicit say the size of the mapping
+   but only say the level, remove unnecessary p2m_is_superpage() check
+   in p2m_put_page, remove (level >= 2) condition to call p2m_put_page
+   inside p2m_free_entry because the code in that function can already
+   handle the levels, move TODO comment inside p2m_put_page, avoid
+   mentioning 2MB in the comments. (Julien)
+ - This patch is meant to superseed the homonymous patch in the serie:
+   https://patchwork.kernel.org/project/xen-devel/cover/20240524124055.3871399-1-luca.fancellu@arm.com/
+v4 changes:
+ - optimised the path to call put_page() on the foreign mapping as
+   Julien suggested. Add a comment in p2m_put_l2_superpage to state
+   that any changes needs to take into account some change in the
+   relinquish code. (Julien)
+v3 changes:
+ - Add reasoning why we don't support now 1GB superpage, remove level_order
+   variable from p2m_put_l2_superpage, update TODO comment inside
+   p2m_free_entry, use XEN_PT_LEVEL_ORDER(2) instead of value 9 inside
+   relinquish_p2m_mapping. (Michal)
+v2:
+ - Do not handle 1GB super page as there might be some issue where
+   a lot of calls to put_page(...) might be issued which could lead
+   to free memory that is a long operation.
+v1:
+ - patch from https://patchwork.kernel.org/project/xen-devel/patch/20231206090623.1932275-9-Penny.Zheng@arm.com/
+---
+ xen/arch/arm/mmu/p2m.c | 81 +++++++++++++++++++++++++++++++-----------
+ 1 file changed, 61 insertions(+), 20 deletions(-)
+
+diff --git a/xen/arch/arm/mmu/p2m.c b/xen/arch/arm/mmu/p2m.c
+index 41fcca011cf4..1725cca649b5 100644
+--- a/xen/arch/arm/mmu/p2m.c
++++ b/xen/arch/arm/mmu/p2m.c
+@@ -753,34 +753,72 @@ static int p2m_mem_access_radix_set(struct p2m_domain *p2m, gfn_t gfn,
+     return rc;
+ }
+ 
+-/*
+- * Put any references on the single 4K page referenced by pte.
+- * TODO: Handle superpages, for now we only take special references for leaf
+- * pages (specifically foreign ones, which can't be super mapped today).
+- */
+-static void p2m_put_l3_page(const lpae_t pte)
++static void p2m_put_foreign_page(struct page_info *pg)
+ {
+-    mfn_t mfn = lpae_get_mfn(pte);
+-
+-    ASSERT(p2m_is_valid(pte));
+-
+     /*
+-     * TODO: Handle other p2m types
+-     *
+      * It's safe to do the put_page here because page_alloc will
+      * flush the TLBs if the page is reallocated before the end of
+      * this loop.
+      */
+-    if ( p2m_is_foreign(pte.p2m.type) )
++    put_page(pg);
++}
++
++/* Put any references on the single 4K page referenced by mfn. */
++static void p2m_put_l3_page(mfn_t mfn, p2m_type_t type)
++{
++    /* TODO: Handle other p2m types */
++    if ( p2m_is_foreign(type) )
+     {
+         ASSERT(mfn_valid(mfn));
+-        put_page(mfn_to_page(mfn));
++        p2m_put_foreign_page(mfn_to_page(mfn));
+     }
+     /* Detect the xenheap page and mark the stored GFN as invalid. */
+-    else if ( p2m_is_ram(pte.p2m.type) && is_xen_heap_mfn(mfn) )
++    else if ( p2m_is_ram(type) && is_xen_heap_mfn(mfn) )
+         page_set_xenheap_gfn(mfn_to_page(mfn), INVALID_GFN);
+ }
+ 
++/* Put any references on the superpage referenced by mfn. */
++static void p2m_put_l2_superpage(mfn_t mfn, p2m_type_t type)
++{
++    struct page_info *pg;
++    unsigned int i;
++
++    /*
++     * TODO: Handle other p2m types, but be aware that any changes to handle
++     * different types should require an update on the relinquish code to handle
++     * preemption.
++     */
++    if ( !p2m_is_foreign(type) )
++        return;
++
++    ASSERT(mfn_valid(mfn));
++
++    pg = mfn_to_page(mfn);
++
++    for ( i = 0; i < XEN_PT_LPAE_ENTRIES; i++, pg++ )
++        p2m_put_foreign_page(pg);
++}
++
++/* Put any references on the page referenced by pte. */
++static void p2m_put_page(const lpae_t pte, unsigned int level)
++{
++    mfn_t mfn = lpae_get_mfn(pte);
++
++    ASSERT(p2m_is_valid(pte));
++
++    /*
++     * TODO: Currently we don't handle level 1 super-page, Xen is not
++     * preemptible and therefore some work is needed to handle such
++     * superpages, for which at some point Xen might end up freeing memory
++     * and therefore for such a big mapping it could end up in a very long
++     * operation.
++     */
++    if ( level == 2 )
++        return p2m_put_l2_superpage(mfn, pte.p2m.type);
++    else if ( level == 3 )
++        return p2m_put_l3_page(mfn, pte.p2m.type);
++}
++
+ /* Free lpae sub-tree behind an entry */
+ static void p2m_free_entry(struct p2m_domain *p2m,
+                            lpae_t entry, unsigned int level)
+@@ -809,9 +847,9 @@ static void p2m_free_entry(struct p2m_domain *p2m,
+ #endif
+ 
+         p2m->stats.mappings[level]--;
+-        /* Nothing to do if the entry is a super-page. */
+-        if ( level == 3 )
+-            p2m_put_l3_page(entry);
++
++        p2m_put_page(entry, level);
++
+         return;
+     }
+ 
+@@ -1558,9 +1596,12 @@ int relinquish_p2m_mapping(struct domain *d)
+ 
+         count++;
+         /*
+-         * Arbitrarily preempt every 512 iterations.
++         * Arbitrarily preempt every 512 iterations or when we have a level-2
++         * foreign mapping.
+          */
+-        if ( !(count % 512) && hypercall_preempt_check() )
++        if ( (!(count % 512) ||
++              (p2m_is_foreign(t) && (order > XEN_PT_LEVEL_ORDER(2)))) &&
++             hypercall_preempt_check() )
+         {
+             rc = -ERESTART;
+             break;
+-- 
+2.34.1
+
 
