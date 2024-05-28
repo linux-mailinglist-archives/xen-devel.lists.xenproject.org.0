@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D72738D1716
-	for <lists+xen-devel@lfdr.de>; Tue, 28 May 2024 11:18:56 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.731052.1136368 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 881198D175E
+	for <lists+xen-devel@lfdr.de>; Tue, 28 May 2024 11:39:56 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.731058.1136387 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sBsyD-0005tK-W5; Tue, 28 May 2024 09:18:13 +0000
+	id 1sBtIa-0000oD-RY; Tue, 28 May 2024 09:39:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 731052.1136368; Tue, 28 May 2024 09:18:13 +0000
+Received: by outflank-mailman (output) from mailman id 731058.1136387; Tue, 28 May 2024 09:39:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sBsyD-0005qZ-TJ; Tue, 28 May 2024 09:18:13 +0000
-Received: by outflank-mailman (input) for mailman id 731052;
- Tue, 28 May 2024 09:18:13 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1sBsyC-0005qT-Ud
- for xen-devel@lists.xenproject.org; Tue, 28 May 2024 09:18:12 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1sBsyC-0001a8-IJ; Tue, 28 May 2024 09:18:12 +0000
-Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.0.211])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1sBsyC-0004sA-8b; Tue, 28 May 2024 09:18:12 +0000
+	id 1sBtIa-0000lL-Of; Tue, 28 May 2024 09:39:16 +0000
+Received: by outflank-mailman (input) for mailman id 731058;
+ Tue, 28 May 2024 09:39:15 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=FWDT=M7=bugseng.com=federico.serafini@srs-se1.protection.inumbo.net>)
+ id 1sBtIZ-0000X2-AL
+ for xen-devel@lists.xenproject.org; Tue, 28 May 2024 09:39:15 +0000
+Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 24f36bf4-1cd6-11ef-90a1-e314d9c70b13;
+ Tue, 28 May 2024 11:39:14 +0200 (CEST)
+Received: from truciolo.bugseng.com (unknown [78.210.197.134])
+ by support.bugseng.com (Postfix) with ESMTPSA id 53D754EE073F;
+ Tue, 28 May 2024 11:39:11 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,108 +39,159 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=YJ93bg5WbEIzO+FmzdVwg7AAzvKyktDzrPdI/cCDzWY=; b=lfko9Eo4lImfUs1mFLkCvIJR6R
-	W4HH1PeFMpUo8GymZq1k3My4uC/T1KqjXSbDZ1taqemZHq+KWRrmvDRB5cc3AvA8Bhy7XwuslQ36q
-	Y3/O4D33snPKMRtqyDFL9z1JDuadcKuM8g66R9NbSJRzQrpu3MQZN7ldckGlPtil9WFQ=;
-Message-ID: <bc6660ef-59f1-4514-9792-067d987e3fbc@xen.org>
-Date: Tue, 28 May 2024 10:18:10 +0100
+X-Inumbo-ID: 24f36bf4-1cd6-11ef-90a1-e314d9c70b13
+From: Federico Serafini <federico.serafini@bugseng.com>
+To: xen-devel@lists.xenproject.org
+Cc: consulting@bugseng.com,
+	Federico Serafini <federico.serafini@bugseng.com>,
+	Simone Ballarin <simone.ballarin@bugseng.com>,
+	Doug Goldstein <cardoe@cardoe.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>
+Subject: [XEN PATCH] automation/eclair: extend and modifiy existing deviations of MISRA C:2012 Rule 16.3
+Date: Tue, 28 May 2024 11:39:03 +0200
+Message-Id: <f65f0e884038773952d50e35552bb97c6ae8ea19.1716888049.git.federico.serafini@bugseng.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v16 1/5] arm/vpci: honor access size when returning an
- error
-Content-Language: en-GB
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: Stewart Hildebrand <stewart.hildebrand@amd.com>,
- xen-devel@lists.xenproject.org,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>
-References: <20240522225927.77398-1-stewart.hildebrand@amd.com>
- <20240522225927.77398-2-stewart.hildebrand@amd.com>
- <Zk72jPtd9iXhChbc@macbook> <3b3fd3a2-6b5c-41a2-a0b3-219a362f645f@xen.org>
- <ZlWDvJ9_Om_3gX3b@macbook>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <ZlWDvJ9_Om_3gX3b@macbook>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-Hi Roger,
+Update ECLAIR configuration to deviate more cases where an
+unintentional fallthrough cannot happen.
 
-On 28/05/2024 08:11, Roger Pau Monné wrote:
-> On Mon, May 27, 2024 at 10:14:59PM +0100, Julien Grall wrote:
->> Hi Roger,
->>
->> On 23/05/2024 08:55, Roger Pau Monné wrote:
->>> On Wed, May 22, 2024 at 06:59:20PM -0400, Stewart Hildebrand wrote:
->>>> From: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
->>>>
->>>> Guest can try to read config space using different access sizes: 8,
->>>> 16, 32, 64 bits. We need to take this into account when we are
->>>> returning an error back to MMIO handler, otherwise it is possible to
->>>> provide more data than requested: i.e. guest issues LDRB instruction
->>>> to read one byte, but we are writing 0xFFFFFFFFFFFFFFFF in the target
->>>> register.
->>>
->>> Shouldn't this be taken care of in the trap handler subsystem, rather
->>> than forcing each handler to ensure the returned data matches the
->>> access size?
->>
->> I understand how this can be useful when we return all 1s.
->>
->> However, in most of the current cases, we already need to deal with the
->> masking because the data is extracted from a wider field (for instance, see
->> the vGIC emulation). For those handlers, I would argue it would be
->> concerning/ a bug if the handler return bits above the access size.
->> Although, this would only impact the guest itself.
-> 
-> Even if there was a bug in the handler, it would be mitigated by the
-> truncation done in io.c.
-> 
->> So overall, this seems to be a matter of taste and I don't quite (yet) see
->> the benefits to do it in io.c. Regardless that...
-> 
-> It's up to you really, it's all ARM code so I don't really have a
-> stake.  IMO it makes the handlers more complicated and fragile.
+Add Rule 16.3 to the monitored set and tag as clean for arm.
 
-I will let the other Arm folks commenting on it.
+Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
+---
+In previous discussions about Rule 16.3, the preference expressed was to deviate
+cases where a fallthrough cannot occur (rather that refactoring the code).
+---
+ .../eclair_analysis/ECLAIR/deviations.ecl     | 30 ++++++++++++++-----
+ .../eclair_analysis/ECLAIR/monitored.ecl      |  1 +
+ automation/eclair_analysis/ECLAIR/tagging.ecl |  2 +-
+ docs/misra/deviations.rst                     | 28 +++++++++++++++--
+ 4 files changed, 49 insertions(+), 12 deletions(-)
 
-> 
-> If nothing else I would at least add an ASSERT() in io.c to ensure
-> that the data returned from the handler matches the size constrains
-> you expect.
-That would be a good idea.
-
-> 
->>>
->>> IOW, something like:
->>>
->>> diff --git a/xen/arch/arm/io.c b/xen/arch/arm/io.c
->>> index 96c740d5636c..b7e12df85f87 100644
->>> --- a/xen/arch/arm/io.c
->>> +++ b/xen/arch/arm/io.c
->>> @@ -37,6 +37,7 @@ static enum io_state handle_read(const struct mmio_handler *handler,
->>>            return IO_ABORT;
->>>
->>>        r = sign_extend(dabt, r);
->>> +    r = r & GENMASK_ULL((1U << dabt.size) * 8 - 1, 0);
->>
->> ... in some case we need to sign extend up to the width of the register
->> (even if the access is 8-byte). So we would need to do the masking *before*
->> calling sign_extend().
-> 
-> I would consider doing the truncation in sign_extend() if suitable,
-> even if that's doing more than what the function name implies.
-
-If we decide to do a general truncation, then I would rather prefer if 
-it happens outside of sign_extend(). Or the function needs to be renamed 
-(I can't find a good name so far).
-
-Cheers,
-
+diff --git a/automation/eclair_analysis/ECLAIR/deviations.ecl b/automation/eclair_analysis/ECLAIR/deviations.ecl
+index cf62a874d9..95f07718ba 100644
+--- a/automation/eclair_analysis/ECLAIR/deviations.ecl
++++ b/automation/eclair_analysis/ECLAIR/deviations.ecl
+@@ -364,14 +364,29 @@ therefore it is deemed better to leave such files as is."
+ -config=MC3R1.R16.2,reports+={deliberate, "any_area(any_loc(file(x86_emulate||x86_svm_emulate)))"}
+ -doc_end
+ 
+--doc_begin="Switch clauses ending with continue, goto, return statements are
+-safe."
+--config=MC3R1.R16.3,terminals+={safe, "node(continue_stmt||goto_stmt||return_stmt)"}
++-doc_begin="Statements that change the control flow (i.e., break, continue, goto, return) and calls to functions that does not return the control back are \"allowed terminal statements\"."
++-stmt_selector+={r16_3_allowed_terminal, "node(break_stmt||continue_stmt||goto_stmt||return_stmt)||call(property(noreturn))"}
++-config=MC3R1.R16.3,terminals+={safe, "r16_3_allowed_terminal"}
++-doc_end
++
++-doc_begin="An if-else statement having both branches ending with an allowed terminal statement is itself an allowed terminal statement."
++-stmt_selector+={r16_3_if, "node(if_stmt)&&(child(then,r16_3_allowed_terminal)||child(then,any_stmt(stmt,-1,r16_3_allowed_terminal)))"}
++-stmt_selector+={r16_3_else, "node(if_stmt)&&(child(else,r16_3_allowed_terminal)||child(else,any_stmt(stmt,-1,r16_3_allowed_terminal)))"}
++-stmt_selector+={r16_3_if_else, "r16_3_if&&r16_3_else"}
++-config=MC3R1.R16.3,terminals+={safe, "r16_3_if_else"}
++-doc_end
++
++-doc_begin="An if-else statement having an always true condition and the true branch ending with an allowed terminal statement is itself an allowed terminal statement."
++-stmt_selector+={r16_3_if_true, "r16_3_if&&child(cond,definitely_in(1..))"}
++-config=MC3R1.R16.3,terminals+={safe, "r16_3_if_true"}
++-doc_end
++
++-doc_begin="Switch clauses ending with a statement expression which, in turn, ends with an allowed terminal statement are safe."
++-config=MC3R1.R16.3,terminals+={safe, "node(stmt_expr)&&child(stmt,node(compound_stmt)&&any_stmt(stmt,-1,r16_3_allowed_terminal||r16_3_if_else||r16_3_if_true))"}
+ -doc_end
+ 
+--doc_begin="Switch clauses ending with a call to a function that does not give
+-the control back (i.e., a function with attribute noreturn) are safe."
+--config=MC3R1.R16.3,terminals+={safe, "call(property(noreturn))"}
++-doc_begin="Switch clauses ending with a do-while-false which, in turn, ends with an allowed terminal statement are safe, except for debug macro ASSERT_UNREACHABLE()."
++-config=MC3R1.R16.3,terminals+={safe, "!macro(name(ASSERT_UNREACHABLE))&&node(do_stmt)&&child(cond,definitely_in(0))&&child(body,any_stmt(stmt,-1,r16_3_allowed_terminal||r16_3_if_else||r16_3_if_true))"}
+ -doc_end
+ 
+ -doc_begin="Switch clauses ending with pseudo-keyword \"fallthrough\" are
+@@ -383,8 +398,7 @@ safe."
+ -config=MC3R1.R16.3,reports+={safe, "any_area(end_loc(any_exp(text(/BUG\\(\\);/))))"}
+ -doc_end
+ 
+--doc_begin="Switch clauses not ending with the break statement are safe if an
+-explicit comment indicating the fallthrough intention is present."
++-doc_begin="Switch clauses ending with an explicit comment indicating the fallthrough intention is present are safe."
+ -config=MC3R1.R16.3,reports+={safe, "any_area(end_loc(any_exp(text(^(?s).*/\\* [fF]all ?through.? \\*/.*$,0..1))))"}
+ -doc_end
+ 
+diff --git a/automation/eclair_analysis/ECLAIR/monitored.ecl b/automation/eclair_analysis/ECLAIR/monitored.ecl
+index 4daecb0c83..45a60074f9 100644
+--- a/automation/eclair_analysis/ECLAIR/monitored.ecl
++++ b/automation/eclair_analysis/ECLAIR/monitored.ecl
+@@ -22,6 +22,7 @@
+ -enable=MC3R1.R14.1
+ -enable=MC3R1.R14.4
+ -enable=MC3R1.R16.2
++-enable=MC3R1.R16.3
+ -enable=MC3R1.R16.6
+ -enable=MC3R1.R16.7
+ -enable=MC3R1.R17.1
+diff --git a/automation/eclair_analysis/ECLAIR/tagging.ecl b/automation/eclair_analysis/ECLAIR/tagging.ecl
+index a354ff322e..07de2e7b65 100644
+--- a/automation/eclair_analysis/ECLAIR/tagging.ecl
++++ b/automation/eclair_analysis/ECLAIR/tagging.ecl
+@@ -105,7 +105,7 @@ if(string_equal(target,"x86_64"),
+ )
+ 
+ if(string_equal(target,"arm64"),
+-    service_selector({"additional_clean_guidelines","MC3R1.R14.4||MC3R1.R16.6||MC3R1.R20.12||MC3R1.R2.1||MC3R1.R5.3||MC3R1.R7.2||MC3R1.R7.3||MC3R1.R8.6||MC3R1.R9.3"})
++    service_selector({"additional_clean_guidelines","MC3R1.R14.4||MC3R1.R16.3||MC3R1.R16.6||MC3R1.R20.12||MC3R1.R2.1||MC3R1.R5.3||MC3R1.R7.2||MC3R1.R7.3||MC3R1.R8.6||MC3R1.R9.3"})
+ )
+ 
+ -reports+={clean:added,"service(clean_guidelines_common||additional_clean_guidelines)"}
+diff --git a/docs/misra/deviations.rst b/docs/misra/deviations.rst
+index 36959aa44a..88164fb0e1 100644
+--- a/docs/misra/deviations.rst
++++ b/docs/misra/deviations.rst
+@@ -309,12 +309,34 @@ Deviations related to MISRA C:2012 Rules:
+      - Tagged as `deliberate` for ECLAIR.
+ 
+    * - R16.3
+-     - Switch clauses ending with continue, goto, return statements are safe.
++     - Statements that change the control flow (i.e., break, continue, goto,
++       return) and calls to functions that does not return the control back are
++       \"allowed terminal statements\".
+      - Tagged as `safe` for ECLAIR.
+ 
+    * - R16.3
+-     - Switch clauses ending with a call to a function that does not give
+-       the control back (i.e., a function with attribute noreturn) are safe.
++     - An if-else statement having both branches ending with one of the allowed
++       terminal statemets is itself an allowed terminal statements.
++     - Tagged as `safe` for ECLAIR.
++
++   * - R16.3
++     - An if-else statement having an always true condition and the true
++       branch ending with an allowed terminal statement is itself an allowed
++       terminal statement.
++     - Tagged as `safe` for ECLAIR.
++
++   * - R16.3
++     - Switch clauses ending with a statement expression which, in turn, ends
++       with an allowed terminal statement are safe (e.g., the expansion of
++       generate_exception()).
++     - Tagged as `safe` for ECLAIR.
++
++   * - R16.3
++     - Switch clauses ending with a do-while-false which, in turn, ends with an
++       allowed terminal statement are safe (e.g., PARSE_ERR_RET()).
++       Being ASSERT_UNREACHABLE() a construct that is effective in debug builds
++       only, it is not considered as an allowed terminal statement, despite its
++       definition.
+      - Tagged as `safe` for ECLAIR.
+ 
+    * - R16.3
 -- 
-Julien Grall
+2.34.1
+
 
