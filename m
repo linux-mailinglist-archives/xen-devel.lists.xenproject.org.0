@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6AC918D2064
+	by mail.lfdr.de (Postfix) with ESMTPS id 17D3F8D2062
 	for <lists+xen-devel@lfdr.de>; Tue, 28 May 2024 17:30:54 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.731195.1136568 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.731194.1136564 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sBymC-0001JZ-Bc; Tue, 28 May 2024 15:30:12 +0000
+	id 1sBymC-0001Fb-6F; Tue, 28 May 2024 15:30:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 731195.1136568; Tue, 28 May 2024 15:30:12 +0000
+Received: by outflank-mailman (output) from mailman id 731194.1136564; Tue, 28 May 2024 15:30:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sBymC-0001FH-71; Tue, 28 May 2024 15:30:12 +0000
-Received: by outflank-mailman (input) for mailman id 731195;
- Tue, 28 May 2024 15:30:11 +0000
+	id 1sBymC-0001AM-0U; Tue, 28 May 2024 15:30:12 +0000
+Received: by outflank-mailman (input) for mailman id 731194;
+ Tue, 28 May 2024 15:30:10 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=5inG=M7=cloud.com=fouad.hilly@srs-se1.protection.inumbo.net>)
- id 1sBymB-00018F-6L
- for xen-devel@lists.xenproject.org; Tue, 28 May 2024 15:30:11 +0000
-Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
- [2a00:1450:4864:20::633])
+ id 1sBymA-00018F-P2
+ for xen-devel@lists.xenproject.org; Tue, 28 May 2024 15:30:10 +0000
+Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com
+ [2a00:1450:4864:20::634])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 2accabe2-1d07-11ef-90a1-e314d9c70b13;
+ id 2af7124b-1d07-11ef-90a1-e314d9c70b13;
  Tue, 28 May 2024 17:30:09 +0200 (CEST)
-Received: by mail-ej1-x633.google.com with SMTP id
- a640c23a62f3a-a6341cf2c99so98851466b.0
+Received: by mail-ej1-x634.google.com with SMTP id
+ a640c23a62f3a-a62ef52e837so116111266b.3
  for <xen-devel@lists.xenproject.org>; Tue, 28 May 2024 08:30:09 -0700 (PDT)
 Received: from fhilly.citrite.net ([160.101.139.1])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a626c937444sm621673366b.61.2024.05.28.08.30.07
+ a640c23a62f3a-a626c937444sm621673366b.61.2024.05.28.08.30.08
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
  Tue, 28 May 2024 08:30:08 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
@@ -45,198 +45,154 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2accabe2-1d07-11ef-90a1-e314d9c70b13
+X-Inumbo-ID: 2af7124b-1d07-11ef-90a1-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1716910208; x=1717515008; darn=lists.xenproject.org;
+        d=cloud.com; s=cloud; t=1716910209; x=1717515009; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=bJX73ZmntNKRAs0BEZRhybEqHcJwu5VuVHE4B8+pY60=;
-        b=jsH+tYRG95sELT8cWmsfGHEKCkPHYDNU3TW66Xhd9e98bau26M3lUVmgGOsC5GKd5m
-         iLneUP35aqUVOdJkUOawonZiMCtloe9/+7D1B/kwKdD+flGQ50Ft56fS61TkqKFajSOA
-         7vSqM+qFtDmfgQMqZ3KwmBHMP5KWaoDy4cNQ4=
+        bh=eiZixxDd1y7HmvULwDCnAUl2gq5YDTcVfKI5Yqc7A6o=;
+        b=Sh7lNcJHSd6q+jXD65e0hzkl69rRH8HrJdzb2lAtbzI+AM3jMi7xoX0ZuAge387TF3
+         S1c7tYqb3wCirwJNNuZnd001THXFe0dy40jCgaDen+HnqnJiIvcAW47jyyOb8rkFKuge
+         mjKEdd0JF92934BaXrT7B5jkk9pXM0zBTntZc=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1716910208; x=1717515008;
+        d=1e100.net; s=20230601; t=1716910209; x=1717515009;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=bJX73ZmntNKRAs0BEZRhybEqHcJwu5VuVHE4B8+pY60=;
-        b=Eh4PuwG0b4G7cGw3bmb766wb1N6DFYSygO5MnYEVKbB/BXNIrWGIPYo2PnK6PPTMV0
-         ZfILHwDUmZR8MGxlAqvYPIPoJUBIawN2xwlM56ffgGUV7tFr1SkpD38KXAl8FVrvpEXk
-         5sdY3XPhuQnXU+S0IYZyJvDSjg7aFBl47QQJNmJLOgJ3uc82MCwc2BTyd+DmZhUvyaWB
-         T5ZV1wb51zOfngWOSVX5Dyw48yQC+MQ78KzNkuhCWd7hLmaNWj0OGO6tDs9+D9FptV6M
-         OOLcKBzlOjpHlRx6frUUoW5KDN2wAzyOYYt4gN9cMVaHBczBI8Js1IzOJVmvlUNOKDYa
-         QkgA==
-X-Gm-Message-State: AOJu0Yx87t1DNWHPTAp4KSCxodswAWOx/5HE0Q4V+SsmTbJ4m55P9sSx
-	9yl7pH/UcdORY25+lupDdXO5nIVd2RGFjNk32ofg9QyP7g9wxE9OrV+CM6w4yWxJc7YoIYSyElX
-	9U48=
-X-Google-Smtp-Source: AGHT+IHzLvVpGVHVUdhsRJaFBLhxIExE5P2Hb13QIBulTEa2VIkMdvPfsb8s3kG1g7MR5q0a2ZRzUg==
-X-Received: by 2002:a17:906:3741:b0:a5a:1f4f:cb4c with SMTP id a640c23a62f3a-a62641b4532mr886848066b.7.1716910208404;
+        bh=eiZixxDd1y7HmvULwDCnAUl2gq5YDTcVfKI5Yqc7A6o=;
+        b=G0L3j1cAHsoGMQAakdms81MHhTuT7k8vlvf/grpJzX6dVveUw72r+8Nu+LTPK8Mh+b
+         +1tDCBPII6jfu6RzICf8HiCsTv1TnyDjStwK/uwNop9McHazdA1iSpYHBvSu4oJDzl/c
+         pACPABuu+9BNSPSMgdQoIH78Zq1Dq8Vl8H1jDY8SbxWNoNcGUnLM4J/J0QuquGNDlwCQ
+         9ZXJOIONcd+PTZadx5xn2m2a87yzc1lzvQF7iv+2cXRa5o+aalfLV/FP4pq56wgVO0mt
+         5p4yD7RU5URxyxkS4n2Nvh1FTpaVfvCCUluhpUU+VNYaFzOv22e3YmNHV7hsvs/yiyjA
+         V/ng==
+X-Gm-Message-State: AOJu0YwpQRQI1+FO5LU72mqYOn63gA82/WP3xf7bZUYFXnmpLPzxFqz/
+	gEpwh2YM2vPxPqziUt8hRtsbTRqOpXnI84L/JBhTPv3KRLyjG6uwyNctsmxt72VKIXgtwkYWSur
+	+zP8=
+X-Google-Smtp-Source: AGHT+IGrPVCUH8m9ucxJfQ8Bfo55q54C/wA4hv+O7jryDjihHoTJ4VxJksixq/14le3M65dEFfPECg==
+X-Received: by 2002:a17:906:1945:b0:a59:b807:330a with SMTP id a640c23a62f3a-a62641cf941mr896251366b.32.1716910208980;
         Tue, 28 May 2024 08:30:08 -0700 (PDT)
 From: Fouad Hilly <fouad.hilly@cloud.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
 Cc: Fouad Hilly <fouad.hilly@cloud.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH v4 1/4] x86/ucode: Introduce PF_microcode_update2 with flags parameter
-Date: Tue, 28 May 2024 16:29:40 +0100
-Message-ID: <20240528152943.3915760-2-fouad.hilly@cloud.com>
+	Anthony PERARD <anthony@xenproject.org>
+Subject: [PATCH v4 2/4] x86/ucode: refactor xen-ucode to utilize getopt
+Date: Tue, 28 May 2024 16:29:41 +0100
+Message-ID: <20240528152943.3915760-3-fouad.hilly@cloud.com>
 X-Mailer: git-send-email 2.42.0
 In-Reply-To: <20240528152943.3915760-1-fouad.hilly@cloud.com>
 References: <20240528152943.3915760-1-fouad.hilly@cloud.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Refactor microcode_update() by adding flags field.
-struct xenpf_microcode_update2 added with uint32_t flags field.
-Introduce XENPF_microcode_update2 hypercall with flags field.
+Use getopt_long() to handle command line arguments.
+Introduce ext_err for common exit with errors.
+xc_microcode_update() refactored to accept flags and utilize xenpf_microcode_update2
+Introducing usage() to handle usage\help messages in a common block.
+show_curr_cpu is printed to stdout only.
 
 Signed-off-by: Fouad Hilly <fouad.hilly@cloud.com>
 ---
 [v4]
-1- Commit message and description updated.
-2- Changing the order of the patches.
-[v3]
-1- Updated Commit message description.
-2- Revereted changes to a stable ABI and introduced a new struct.
-3- ucode_force_flag updated from static to a local variable.
-4- microcode_update() updated to reject unsupported flags yet.
-
-[v2]
-1- Update message description to highlight interface change.
-2- Removed extra empty lines.
-3- removed unnecessary define.
-4- Corrected long lines.
-5- Removed ternary operator.
-6- Introduced static ucode_update_flags, which will be used later to determine local ucode_force_flag.
+1- Merge three patches into one.
+2- usage() to print messages to the correct stream.
+3- Update commit message and description.
 ---
- xen/arch/x86/cpu/microcode/core.c    | 11 ++++++++---
- xen/arch/x86/include/asm/microcode.h |  3 ++-
- xen/arch/x86/platform_hypercall.c    | 13 ++++++++++++-
- xen/include/public/platform.h        | 14 ++++++++++++++
- 4 files changed, 36 insertions(+), 5 deletions(-)
+ tools/misc/xen-ucode.c | 51 ++++++++++++++++++++++++++++++++----------
+ 1 file changed, 39 insertions(+), 12 deletions(-)
 
-diff --git a/xen/arch/x86/cpu/microcode/core.c b/xen/arch/x86/cpu/microcode/core.c
-index e90055772acf..8a9e744489b9 100644
---- a/xen/arch/x86/cpu/microcode/core.c
-+++ b/xen/arch/x86/cpu/microcode/core.c
-@@ -40,6 +40,8 @@
- #include <asm/processor.h>
- #include <asm/setup.h>
+diff --git a/tools/misc/xen-ucode.c b/tools/misc/xen-ucode.c
+index 390969db3d1c..6f9dd2a7e431 100644
+--- a/tools/misc/xen-ucode.c
++++ b/tools/misc/xen-ucode.c
+@@ -11,12 +11,23 @@
+ #include <sys/stat.h>
+ #include <fcntl.h>
+ #include <xenctrl.h>
++#include <getopt.h>
  
-+#include <public/platform.h>
+ static xc_interface *xch;
+ 
+ static const char intel_id[] = "GenuineIntel";
+ static const char   amd_id[] = "AuthenticAMD";
+ 
++static void usage(FILE *stream, const char *name)
++{
++    fprintf(stream, "%s: Xen microcode updating tool\n"
++           "Usage: %s [microcode file] [options]\n"
++           "options:\n"
++           "  -h, --help            display this help and exit\n"
++           "  -s, --show-cpu-info   show CPU information and exit\n",
++           name, name);
++}
 +
- #include "private.h"
- 
- /*
-@@ -570,6 +572,7 @@ static int cf_check do_microcode_update(void *patch)
- }
- 
- struct ucode_buf {
-+    unsigned int flags;
-     unsigned int len;
-     char buffer[];
- };
-@@ -708,13 +711,14 @@ static long cf_check microcode_update_helper(void *data)
-     return ret;
- }
- 
--int microcode_update(XEN_GUEST_HANDLE(const_void) buf, unsigned long len)
-+int microcode_update(XEN_GUEST_HANDLE(const_void) buf,
-+                     unsigned long len, unsigned int flags)
+ static void show_curr_cpu(FILE *f)
  {
      int ret;
-     struct ucode_buf *buffer;
- 
--    if ( len != (uint32_t)len )
--        return -E2BIG;
-+    if ( flags & ~XENPF_UCODE_FORCE )
-+        return -EINVAL;
- 
-     if ( !ucode_ops.apply_microcode )
-         return -EINVAL;
-@@ -730,6 +734,7 @@ int microcode_update(XEN_GUEST_HANDLE(const_void) buf, unsigned long len)
-         return -EFAULT;
-     }
-     buffer->len = len;
-+    buffer->flags = flags;
- 
-     /*
-      * Always queue microcode_update_helper() on CPU0.  Most of the logic
-diff --git a/xen/arch/x86/include/asm/microcode.h b/xen/arch/x86/include/asm/microcode.h
-index 8f59b20b0289..57c08205d475 100644
---- a/xen/arch/x86/include/asm/microcode.h
-+++ b/xen/arch/x86/include/asm/microcode.h
-@@ -22,7 +22,8 @@ struct cpu_signature {
- DECLARE_PER_CPU(struct cpu_signature, cpu_sig);
- 
- void microcode_set_module(unsigned int idx);
--int microcode_update(XEN_GUEST_HANDLE(const_void) buf, unsigned long len);
-+int microcode_update(XEN_GUEST_HANDLE(const_void) buf,
-+                     unsigned long len, unsigned int flags);
- int early_microcode_init(unsigned long *module_map,
-                          const struct multiboot_info *mbi);
- int microcode_init_cache(unsigned long *module_map,
-diff --git a/xen/arch/x86/platform_hypercall.c b/xen/arch/x86/platform_hypercall.c
-index 95467b88ab64..7e3278109300 100644
---- a/xen/arch/x86/platform_hypercall.c
-+++ b/xen/arch/x86/platform_hypercall.c
-@@ -311,7 +311,18 @@ ret_t do_platform_op(
- 
-         guest_from_compat_handle(data, op->u.microcode.data);
- 
--        ret = microcode_update(data, op->u.microcode.length);
-+        ret = microcode_update(data, op->u.microcode.length, 0);
-+        break;
-+    }
+@@ -77,6 +88,13 @@ int main(int argc, char *argv[])
+     char *filename, *buf;
+     size_t len;
+     struct stat st;
++    int opt;
 +
-+    case XENPF_microcode_update2:
-+    {
-+        XEN_GUEST_HANDLE(const_void) data;
-+
-+        guest_from_compat_handle(data, op->u.microcode2.data);
-+
-+        ret = microcode_update(data, op->u.microcode2.length,
-+                               op->u.microcode2.flags);
-         break;
++    static const struct option options[] = {
++        {"help", no_argument, NULL, 'h'},
++        {"show-cpu-info", no_argument, NULL, 's'},
++        {NULL, no_argument, NULL, 0}
++    };
+ 
+     xch = xc_interface_open(NULL, NULL, 0);
+     if ( xch == NULL )
+@@ -86,22 +104,25 @@ int main(int argc, char *argv[])
+         exit(1);
      }
  
-diff --git a/xen/include/public/platform.h b/xen/include/public/platform.h
-index 15777b541690..2725b8d1044f 100644
---- a/xen/include/public/platform.h
-+++ b/xen/include/public/platform.h
-@@ -624,6 +624,19 @@ struct xenpf_ucode_revision {
- typedef struct xenpf_ucode_revision xenpf_ucode_revision_t;
- DEFINE_XEN_GUEST_HANDLE(xenpf_ucode_revision_t);
+-    if ( argc < 2 )
++    while ( (opt = getopt_long(argc, argv, "hs", options, NULL)) != -1 )
+     {
+-        fprintf(stderr,
+-                "xen-ucode: Xen microcode updating tool\n"
+-                "Usage: %s [<microcode file> | show-cpu-info]\n", argv[0]);
+-        show_curr_cpu(stderr);
+-        exit(2);
++        switch (opt)
++        {
++        case 'h':
++            usage(stdout, argv[0]);
++            exit(EXIT_SUCCESS);
++        case 's':
++            show_curr_cpu(stdout);
++            exit(EXIT_SUCCESS);
++        default:
++            goto ext_err;
++        }
+     }
  
-+/* Hypercall to microcode_update with flags */
-+#define XENPF_microcode_update2    66
-+struct xenpf_microcode_update2 {
-+    /* IN variables. */
-+    uint32_t flags;                   /* Flags to be passed with ucode. */
-+/* Force to skip microcode version check */
-+#define XENPF_UCODE_FORCE           1
-+    uint32_t length;                  /* Length of microcode data. */
-+    XEN_GUEST_HANDLE(const_void) data;/* Pointer to microcode data */
-+};
-+typedef struct xenpf_microcode_update2 xenpf_microcode_update2_t;
-+DEFINE_XEN_GUEST_HANDLE(xenpf_microcode_update2_t);
+-    if ( !strcmp(argv[1], "show-cpu-info") )
+-    {
+-        show_curr_cpu(stdout);
+-        return 0;
+-    }
++    if ( optind == argc )
++        goto ext_err;
+ 
+-    filename = argv[1];
++    filename = argv[optind];
+     fd = open(filename, O_RDONLY);
+     if ( fd < 0 )
+     {
+@@ -146,4 +167,10 @@ int main(int argc, char *argv[])
+     close(fd);
+ 
+     return 0;
 +
- /*
-  * ` enum neg_errnoval
-  * ` HYPERVISOR_platform_op(const struct xen_platform_op*);
-@@ -656,6 +669,7 @@ struct xen_platform_op {
-         xenpf_symdata_t               symdata;
-         xenpf_dom0_console_t          dom0_console;
-         xenpf_ucode_revision_t        ucode_revision;
-+        xenpf_microcode_update2_t     microcode2;
-         uint8_t                       pad[128];
-     } u;
- };
++ ext_err:
++    fprintf(stderr,
++            "%s: unable to process command line arguments\n", argv[0]);
++    usage(stderr, argv[0]);
++    exit(EXIT_FAILURE);
+ }
 -- 
 2.42.0
 
