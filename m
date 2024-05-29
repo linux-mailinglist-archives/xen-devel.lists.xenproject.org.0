@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 85E4B8D2DDE
-	for <lists+xen-devel@lfdr.de>; Wed, 29 May 2024 09:13:38 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.731482.1136989 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0CF2C8D2E0E
+	for <lists+xen-devel@lfdr.de>; Wed, 29 May 2024 09:24:45 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.731488.1137000 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sCDUk-0000eR-Pz; Wed, 29 May 2024 07:13:10 +0000
+	id 1sCDfb-0002TX-Rs; Wed, 29 May 2024 07:24:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 731482.1136989; Wed, 29 May 2024 07:13:10 +0000
+Received: by outflank-mailman (output) from mailman id 731488.1137000; Wed, 29 May 2024 07:24:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sCDUk-0000bH-MV; Wed, 29 May 2024 07:13:10 +0000
-Received: by outflank-mailman (input) for mailman id 731482;
- Wed, 29 May 2024 07:13:09 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1sCDfb-0002Rp-OY; Wed, 29 May 2024 07:24:23 +0000
+Received: by outflank-mailman (input) for mailman id 731488;
+ Wed, 29 May 2024 07:24:21 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=RuQ4=NA=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sCDUj-0000b7-Fh
- for xen-devel@lists.xenproject.org; Wed, 29 May 2024 07:13:09 +0000
-Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
- [2a00:1450:4864:20::631])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id e52a47fd-1d8a-11ef-b4bb-af5377834399;
- Wed, 29 May 2024 09:13:06 +0200 (CEST)
-Received: by mail-ej1-x631.google.com with SMTP id
- a640c23a62f3a-a5a89787ea4so178230066b.2
- for <xen-devel@lists.xenproject.org>; Wed, 29 May 2024 00:13:07 -0700 (PDT)
+ id 1sCDfZ-0002Rj-Qd
+ for xen-devel@lists.xenproject.org; Wed, 29 May 2024 07:24:21 +0000
+Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
+ [2a00:1450:4864:20::62c])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 772d9ea7-1d8c-11ef-90a1-e314d9c70b13;
+ Wed, 29 May 2024 09:24:20 +0200 (CEST)
+Received: by mail-ej1-x62c.google.com with SMTP id
+ a640c23a62f3a-a635a74e0deso114407166b.0
+ for <xen-devel@lists.xenproject.org>; Wed, 29 May 2024 00:24:20 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a626cc4ff24sm692535466b.130.2024.05.29.00.13.06
+ a640c23a62f3a-a626cc4fedesm678741166b.118.2024.05.29.00.24.19
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 29 May 2024 00:13:06 -0700 (PDT)
+ Wed, 29 May 2024 00:24:19 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,58 +45,57 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e52a47fd-1d8a-11ef-b4bb-af5377834399
+X-Inumbo-ID: 772d9ea7-1d8c-11ef-90a1-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1716966787; x=1717571587; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1716967460; x=1717572260; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=Ym8+Kx4FdFlFPWRKcWibUZmDuugOnBJ9TD8u5uTPtag=;
-        b=fDCDaogex7N1vuLQAgjdPuvKoDoOSfg2a7U57kL6fJ+Yq7YRIhlcvlVGaDmbAUze3a
-         T59ZuVCL3R51i71PZ0Shl7qp0yJ+CuNTRX3jgiAM+coyMqexw4pt6aATFNWiQYOfYP1q
-         1DC5BBLaP3sqjv54cGiKWulKx7ZQptlTpuX0OMcsbjAjLHOUFFqxmh/cFN0EF3BTiivH
-         UERI9KYlGsgeObAPLYj6tozT6CRWHx0/tZR0AZzgkGNw7MSk/fGU+KsQ2nQpFphmJwKu
-         Wu2pl9+6IYUSKKbRHweisu1SNc08KKgD+AdrW80fP/21QZOWSXgV67YKs1h8bi9Is0HO
-         JuaQ==
+        bh=iUTtgt2aFMpSmMUgR5accW4qs9bkbOHGw/CHMkfJ1Q8=;
+        b=QVajw/zxfxohsxJo3pJbeNKXtSTg5k67F6TpB509qpb1ci0pS4tcGG2BDjbxqu8nzy
+         prmCjl+02Dxrr0FglN0mEdZCxli8xY5rQmTq9q4ilTCf2UQmb+xC1UqllY7NpbFFWVpv
+         W2HnVVovwCS7cg+z2QNrzkaIFYOWG2HBNO021guj/jz9/3y5U803ggWtYS6hgYp5QoN+
+         fFWdIEx57p8qpsyBsmDlk8gOzOjG97uh9QgnZtPNIzAt1+oQyT2LlaZfQgoa9jQwaKP8
+         BW5+Dnhn9Zz45gZiCu8fGcCRlwjUPfNoASIwKn8PyRUlnGw1NIu1gRjHxAL81CgfOzYD
+         v0Sw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1716966787; x=1717571587;
+        d=1e100.net; s=20230601; t=1716967460; x=1717572260;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=Ym8+Kx4FdFlFPWRKcWibUZmDuugOnBJ9TD8u5uTPtag=;
-        b=ilL/f4c6ueL1gWgH2xvMrXYOmE6VSTq7Jf4qo9n/NIopgHqz6dvi+ng+IB6++viCEZ
-         hBpA/VC/YHM0vlaDSOApTzwWEtdSQh7g1KVgpiDh6C0KpWvKpGUVk4uqdtX70rs5iB0G
-         TZKM2u1CVQXjyWEZz7BSWuDCrHb6zF6Ov/b0YckVTNMkgjW8yeQj7s9zYcQZesVsYqx1
-         V1OTn3aqBiz5NI6/ioWY9WgGxtD1OetZXDm1e3/V1+mB/6EMdxkWqHTdKZqHZU39ZU/H
-         PCiIAzDEiDEAwcSI3hakf2Jn8JWua+PJ/NTWUNVyMO3mNdDs1Rzvo1ILWN4U63BOUzzk
-         ctiQ==
-X-Forwarded-Encrypted: i=1; AJvYcCWZY4zsTPYWIl8erDzCGi0fr3edFBhg3JQ1W7aNdo0PDKrufcq//i3zRo+jk8i5eq/mdiFjDlPTUUrWU6z5rNvM2TOMJO0ShjpZJNBzGMk=
-X-Gm-Message-State: AOJu0YxJegdJKpTLHpDPGerg9QZxRYtxJRi/eQv+xquIHVp2oLy7OFxL
-	FMc+yuIBiDtL0mir7rVQ6AwBgvp/3LgD2FnRse+dS01nxp7QH1vgmy20XR4ycA==
-X-Google-Smtp-Source: AGHT+IEif6jGTfTkRxmBNVRO7V3ZOrM6H7KDujrAx/g/YW86O7/9C8M3wTJ/VYJT1S+j3OmCOm6DmQ==
-X-Received: by 2002:a17:906:2482:b0:a59:9e01:e788 with SMTP id a640c23a62f3a-a62646d6280mr900924266b.34.1716966786871;
-        Wed, 29 May 2024 00:13:06 -0700 (PDT)
-Message-ID: <7ba8686b-8d59-4107-b807-0e8397fc0e25@suse.com>
-Date: Wed, 29 May 2024 09:13:05 +0200
+        bh=iUTtgt2aFMpSmMUgR5accW4qs9bkbOHGw/CHMkfJ1Q8=;
+        b=M1lg2a/P9v8AthjsmHYAUrrrJU0kfOwAKoMX04FYn+t8Fx2QvLQpmGgunMPvZboMLm
+         pOXEq344AxCS56YOdXsXa4svhzuoPHqF2XZUMdQyJa2Nl/5ofnNJ7S/tDrNJUGJ5ocbI
+         /sP1S/6N62zi7ERGvGI9fXZoPUrh4YWOUf52LGZ0r3upsS9N8hg66AsShU+JxfYfvOQZ
+         9zGQX0G3PYPulckxZe5K5eIj/u1P38ABQxCx/oxPAPT1pDgT4cBnL+pqAAEqiwzqcZ50
+         LkeCStMIgh9qWo6f22YMhZyZ/IWbVFTIMB769+y0qvZM1tjX46XpYDbiWFf5f/BJmaOa
+         lmCQ==
+X-Forwarded-Encrypted: i=1; AJvYcCW7GXMGUGv/zJ//3VWq+Pz2nr8fNiXkwLs7i5vB0Pina4aA1pVT0SudxQ7XtenpWbLdyQz2k2YVexuP49CpCHH79hOO/1lOmOHmD6rgF7c=
+X-Gm-Message-State: AOJu0YxGJ5CXgA2cXepC1skUEQAszlkJPuZTw8NHIkpBA8atS+0ksIE4
+	OurBCxUau2xg1Mo0EaUh5unD0PndoznjN4X8si+YAdHlER3vs9M7g+p/8W1HIA==
+X-Google-Smtp-Source: AGHT+IE0PWBhT7K0kCY7fbVzU19w3zq5nP7KvA65nBv7Rm8vBSqhEzwIRqR+ukse2WvnVt07ycwKZw==
+X-Received: by 2002:a17:906:e84:b0:a62:404a:d0d0 with SMTP id a640c23a62f3a-a62643e458cmr923721266b.42.1716967459948;
+        Wed, 29 May 2024 00:24:19 -0700 (PDT)
+Message-ID: <0c4a9a00-b8de-4472-afb4-0a8d70c7aada@suse.com>
+Date: Wed, 29 May 2024 09:24:18 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 for-4.19 0.5/13] xen: Introduce CONFIG_SELF_TESTS
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Wei Liu <wl@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- Julien Grall <julien@xen.org>, Volodymyr Babchuk
- <Volodymyr_Babchuk@epam.com>, Bertrand Marquis <bertrand.marquis@arm.com>,
+Subject: Re: [PATCH for-4.19 v3 0/3] xen/x86: support foreign mappings for
+ HVM/PVH
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony@xenproject.org>, Juergen Gross <jgross@suse.com>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Christian Lindig <christian.lindig@citrix.com>, David Scott
+ <dave@recoil.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
  Michal Orzel <michal.orzel@amd.com>,
- Oleksii Kurochko <oleksii.kurochko@gmail.com>,
- Shawn Anastasio <sanastasio@raptorengineering.com>,
- "consulting @ bugseng . com" <consulting@bugseng.com>,
- Simone Ballarin <simone.ballarin@bugseng.com>,
- Federico Serafini <federico.serafini@bugseng.com>,
- Nicola Vetrini <nicola.vetrini@bugseng.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20240524200338.1232391-1-andrew.cooper3@citrix.com>
- <20240528142238.1340228-1-andrew.cooper3@citrix.com>
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+ Community Manager <community.manager@xenproject.org>,
+ Roger Pau Monne <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
+References: <20240517133352.94347-1-roger.pau@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -122,27 +121,53 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240528142238.1340228-1-andrew.cooper3@citrix.com>
+In-Reply-To: <20240517133352.94347-1-roger.pau@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 28.05.2024 16:22, Andrew Cooper wrote:
-> ... and move x86's stub_selftest() under this new option.
+On 17.05.2024 15:33, Roger Pau Monne wrote:
+> Hello,
 > 
-> There is value in having these tests included in release builds too.
+> The following series attempts to solve a shortcoming of HVM/PVH guests
+> with the lack of support for foreign mappings.  Such lack of support
+> prevents using PVH based guests as stubdomains for example.
 > 
-> It will shortly be used to gate the bitops unit tests on all architectures.
+> Add support in a way similar to how it's done on Arm, by iterating over
+> the p2m based on the maximum gfn.
 > 
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> Patch 2 is not strictly needed.  Moving the enablement of altp2m from an
+> HVM param to a create domctl flag avoids any possible race with the HVM
+> param changing after it's been evaluated.  Note the param can only be
+> set by the control domain, and libxl currently sets it at domain
+> create.  Also altp2m enablement is different from activation, as
+> activation does happen during runtime of the domain.
+> 
+> Thanks, Roger.
+> 
+> Roger Pau Monne (3):
+>   xen/x86: account number of foreign mappings in the p2m
+>   xen/x86: enable altp2m at create domain domctl
+>   xen/x86: remove foreign mappings from the p2m on teardown
 
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
-
-> I've gone with SELF_TESTS rather than BOOT_TESTS, because already in bitops
-> we've got compile time tests (which aren't strictly boot time), and the
-> livepatching testing wants to be included here and is definitely not boot
-> time.
-
-I second this consideration, fwiw.
+Here, too, I'd like to ask whether to keep this as a candidate for 4.19, or
+whether to postpone. Afaict what's still missing are Arm and tool chain acks
+on patch 2.
 
 Jan
+
+>  CHANGELOG.md                        |  1 +
+>  tools/libs/light/libxl_create.c     | 23 +++++++++-
+>  tools/libs/light/libxl_x86.c        | 26 +++++------
+>  tools/ocaml/libs/xc/xenctrl_stubs.c |  2 +-
+>  xen/arch/arm/domain.c               |  6 +++
+>  xen/arch/x86/domain.c               | 28 ++++++++++++
+>  xen/arch/x86/hvm/hvm.c              | 23 +++++++++-
+>  xen/arch/x86/include/asm/p2m.h      | 32 +++++++++-----
+>  xen/arch/x86/mm/p2m-basic.c         | 18 ++++++++
+>  xen/arch/x86/mm/p2m.c               | 68 +++++++++++++++++++++++++++--
+>  xen/include/public/domctl.h         | 20 ++++++++-
+>  xen/include/public/hvm/params.h     |  9 +---
+>  12 files changed, 215 insertions(+), 41 deletions(-)
+> 
+
 
