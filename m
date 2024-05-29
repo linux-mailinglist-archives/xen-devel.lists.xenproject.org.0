@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AA4C38D3610
-	for <lists+xen-devel@lfdr.de>; Wed, 29 May 2024 14:14:01 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.731833.1137559 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E6CED8D3623
+	for <lists+xen-devel@lfdr.de>; Wed, 29 May 2024 14:17:00 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.731837.1137569 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sCIAq-0000yA-4J; Wed, 29 May 2024 12:12:56 +0000
+	id 1sCIEY-0001W2-Ic; Wed, 29 May 2024 12:16:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 731833.1137559; Wed, 29 May 2024 12:12:56 +0000
+Received: by outflank-mailman (output) from mailman id 731837.1137569; Wed, 29 May 2024 12:16:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sCIAq-0000vs-1N; Wed, 29 May 2024 12:12:56 +0000
-Received: by outflank-mailman (input) for mailman id 731833;
- Wed, 29 May 2024 12:12:55 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1sCIEY-0001Tu-Fy; Wed, 29 May 2024 12:16:46 +0000
+Received: by outflank-mailman (input) for mailman id 731837;
+ Wed, 29 May 2024 12:16:45 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=RuQ4=NA=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sCIAp-0000vm-9a
- for xen-devel@lists.xenproject.org; Wed, 29 May 2024 12:12:55 +0000
-Received: from mail-lf1-x12b.google.com (mail-lf1-x12b.google.com
- [2a00:1450:4864:20::12b])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c292fa46-1db4-11ef-b4bb-af5377834399;
- Wed, 29 May 2024 14:12:46 +0200 (CEST)
-Received: by mail-lf1-x12b.google.com with SMTP id
- 2adb3069b0e04-52ab1d7243fso1087326e87.1
- for <xen-devel@lists.xenproject.org>; Wed, 29 May 2024 05:12:46 -0700 (PDT)
+ id 1sCIEX-0001To-1h
+ for xen-devel@lists.xenproject.org; Wed, 29 May 2024 12:16:45 +0000
+Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
+ [2a00:1450:4864:20::62e])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 4f910756-1db5-11ef-90a1-e314d9c70b13;
+ Wed, 29 May 2024 14:16:43 +0200 (CEST)
+Received: by mail-ej1-x62e.google.com with SMTP id
+ a640c23a62f3a-a626919d19dso149639766b.0
+ for <xen-devel@lists.xenproject.org>; Wed, 29 May 2024 05:16:43 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a626cc8d606sm721799666b.176.2024.05.29.05.12.45
+ a640c23a62f3a-a626cc8d70bsm707420166b.180.2024.05.29.05.16.42
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 29 May 2024 05:12:45 -0700 (PDT)
+ Wed, 29 May 2024 05:16:42 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,51 +45,54 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c292fa46-1db4-11ef-b4bb-af5377834399
+X-Inumbo-ID: 4f910756-1db5-11ef-90a1-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1716984766; x=1717589566; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1716985003; x=1717589803; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=fmRB6jrOdeLAvItV4kDL65wtkp1iX9xMxEWKsiF7NLc=;
-        b=KKpAsr5JcRBdaiSpqjmlY5B1HGr8o+rWWEGr6/wbxZLFHxSDmBRDtmVSEVPmf4NfFo
-         BaGTs+ynb0uFu6wW3DWY56ujIE3F2CrXqyPJ05GCxxeL6ADFxw1b3WUcSh8+kkk4m8JX
-         oc5nDtiysWbOj2sDQsfeZA/O5fVD2j1bXP8DYLXDMffOqvlIOFbEtibO1uQGI1uFxmME
-         5vy27JlhbnhyB1/DCY0STw4OGeP1wSIaDz/hCItLU3SMp4oeApsP5b0Pqwg0gWzt3EqU
-         PVT9fPGl4E+IgM2mh6IEFVbqNM08Z6jCoWeMhQULXJKpiK1INMpxYaBzHCRQqq6e06xM
-         A/pA==
+        bh=rG/fvfzzduYmDhNxdJuBdBQWYN0pxrOBGx3ksl4Y5A4=;
+        b=Ay7RHCQn5ioXrcML2obpJMUIN9gPulBAUdqJIRQqYRdvB7cBtdsH19srtZDMAZBvip
+         Riayk/4uM/qnqZCTMKaXsgJsthlS9zxvncdQF9la4GAUn4cBPrGC6C6qvdIdPveceRYs
+         cg99s3rutDwnZ5lf/WiqxJXv0sLQ4aMqU8djm1nPpePK42Dc3+yIigAUhGpQDjoz1T93
+         q7i1WJJweE1HQlWjcbyuwLLaeO3Akw2QLcp6It1PH4TZU/NZEOzWVIU9S8sPJSzSyKyi
+         h/wbUoE8a3ODlDVjF5M+J/1IHPRVJgDcZhu72L3YYZKDD7MT06UQ5YGuBGFFhY/p7S+O
+         0C5Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1716984766; x=1717589566;
+        d=1e100.net; s=20230601; t=1716985003; x=1717589803;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=fmRB6jrOdeLAvItV4kDL65wtkp1iX9xMxEWKsiF7NLc=;
-        b=lyrKjm7Fi70PtEZ2+O8dFGMvUZc52TwqYmWSZBsmYZotN6HGnhjASwglpiHTKx7F3S
-         zBhyqrKm5lqUEMPVgvqpF/GHbev8qAiPvH0qXpQZu7vC+cebBeelin1f2kGDIMgad+TU
-         Lkaet5LT2TobNlRHWFbBbCj8rtUQiMFgZxl0QdgScP2td2q1NbcRg5p1VB3wUJjQIfHx
-         qq4KnTZmWtpgCyM0Sk5TCX/tyU+svJJE8lc/+UbH+Fne0LhdNaqxwkd0q6vcKL49DRtO
-         /QKtTpKpRBN7ttHF4d0KmDf5Ka+8sz13SEINHdDhGHaQ96rHyeHib34D0Q5BUtArP7JT
-         bcvQ==
-X-Forwarded-Encrypted: i=1; AJvYcCU29hqRkYOt246F5p32hCL1wYI9u6SZrhGXw7Yb787vcLvUxlusCM3O49ZsL1P3jNu2eIqB9NPrsqurx3lbr1YwIK/sv8zSA5DOzJrg6EQ=
-X-Gm-Message-State: AOJu0YzxppiVjPJtjcKBYrwlq7izgvIKh8FJTlzpPKoy8N+rcoYOPA9N
-	SIo10r8jFJ/hNgGWHO0uYvS9XUU8fMLwqG5Mo71SpC2uT7hRewcLzFlJOecBhw==
-X-Google-Smtp-Source: AGHT+IHc6zNMy6fBtIKY22dplRV0lCweNsI+hKLE0IKrdJxQPIg4XCsVhuU1X1ZlR/SBxjXvpdS9kw==
-X-Received: by 2002:a05:6512:ad6:b0:529:b717:2a14 with SMTP id 2adb3069b0e04-529b7172ebdmr5368906e87.14.1716984766206;
-        Wed, 29 May 2024 05:12:46 -0700 (PDT)
-Message-ID: <8b73306a-cb79-43b6-9da5-bb90c0bf8627@suse.com>
-Date: Wed, 29 May 2024 14:12:44 +0200
+        bh=rG/fvfzzduYmDhNxdJuBdBQWYN0pxrOBGx3ksl4Y5A4=;
+        b=Ee1z7e8bB6/kk/7O6RxLU7rC22DPa4PwvVpcTmRE85dxX0k5Gt/0JnFtN1UekRh6XG
+         5Tr4hSU0XIzP9iWDcDCWZYFqqaHrlYtJZrqOIKlh0eCNGkVd5UjWSAZEEp4GveOVxq00
+         BTb22+bvHE0XCuVqwjYujaXVgPgNa0Y4AZNVV+82yfdd35VU9yPEtKPmZxr3zdGNOFkb
+         ateqxymz3gCt5EDzpJKJduQr57zbux2POE/9fboNeudID5MEHWgP6SNWTLcVfggK0Hyl
+         KEtr/6u2vqTvxXtc6IfFccpud93EXU6EBX1XTOH+ZrwqwzHdRFLS0pI5Lg3lPw1pyTZe
+         TvAQ==
+X-Gm-Message-State: AOJu0YxeuPE5fRKDtR/Z6debu3ut5c1ZQEbmw1hHO7AWL82khmY5QZQA
+	5uCAzsonEIJonmglQrcYxoTOak4e8zX9ehtx7/l9WGnH7xLx6B4rQhi5kRd1cg==
+X-Google-Smtp-Source: AGHT+IHR/6lZ/Dx+CVPKGCJswTV2hCRNabPR03yu1XxtMiJVSbZjjVPRlCqTJOwnbV8GcRNOhkB0AA==
+X-Received: by 2002:a17:906:a898:b0:a62:2e6e:d28c with SMTP id a640c23a62f3a-a642da8aeedmr167064066b.34.1716985002973;
+        Wed, 29 May 2024 05:16:42 -0700 (PDT)
+Message-ID: <bfa3a3e0-0cc7-4321-80f1-814a256a054f@suse.com>
+Date: Wed, 29 May 2024 14:16:41 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] Partial revert of "x86/MCE: optional build of AMD/Intel
- MCE code"
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Sergiy Kibrik <Sergiy_Kibrik@epam.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Oleksii Kurochko <oleksii.kurochko@gmail.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20240529103752.1431366-1-andrew.cooper3@citrix.com>
+Subject: Re: [XEN PATCH v2 12/15] x86/vmx: guard access to cpu_has_vmx_* in
+ common code
+To: Sergiy Kibrik <sergiy_kibrik@epam.com>
+Cc: xen-devel@lists.xenproject.org, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, Paul Durrant <paul@xen.org>,
+ Xenia Ragiadakou <xenia.ragiadakou@amd.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>
+References: <cover.1715761386.git.Sergiy_Kibrik@epam.com>
+ <c1f40e8e9a35f7e9ba55adc44a9fe93d48749c92.1715761386.git.Sergiy_Kibrik@epam.com>
+ <alpine.DEB.2.22.394.2405151748080.2544314@ubuntu-linux-20-04-desktop>
+ <4f2c1486-1b58-4c8d-a74e-ad83bf9cc4c7@suse.com>
+ <8d9fd413-fa35-429d-bc4b-8261671b9c6a@epam.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -115,20 +118,62 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240529103752.1431366-1-andrew.cooper3@citrix.com>
+In-Reply-To: <8d9fd413-fa35-429d-bc4b-8261671b9c6a@epam.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 29.05.2024 12:37, Andrew Cooper wrote:
-> {cmci,lmce}_support are written during S3 resume, so cannot live in
-> __ro_after_init.  Move them back to being __read_mostly, as they were
-> originally.
+On 29.05.2024 12:58, Sergiy Kibrik wrote:
+> 16.05.24 10:32, Jan Beulich:
+>> On 16.05.2024 02:50, Stefano Stabellini wrote:
+>>> On Wed, 15 May 2024, Sergiy Kibrik wrote:
+>>>> There're several places in common code, outside of arch/x86/hvm/vmx,
+>>>> where cpu_has_vmx_* get accessed without checking if VMX present first.
+>>>> We may want to guard these macros, as they read global variables defined
+>>>> inside vmx-specific files -- so VMX can be made optional later on.
+>>>>
+>>>> Signed-off-by: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
+>>>> CC: Andrew Cooper <andrew.cooper3@citrix.com>
+>>>> CC: Jan Beulich <jbeulich@suse.com>
+>>>> ---
+>>>> Here I've tried a different approach from prev.patches [1,2] -- instead of
+>>>> modifying whole set of cpu_has_{svm/vmx}_* macros, we can:
+>>>>   1) do not touch SVM part at all, because just as Andrew pointed out they're
+>>>> used inside arch/x86/hvm/svm only.
+>>>>   2) track several places in common code where cpu_has_vmx_* features are
+>>>> checked out and guard them using cpu_has_vmx condition
+>>>>   3) two of cpu_has_vmx_* macros being used in common code are checked in a bit
+>>>> more tricky way, so instead of making complex conditionals even more complicated,
+>>>> we can instead integrate cpu_has_vmx condition inside these two macros.
+>>>>
+>>>> This patch aims to replace [1,2] from v1 series by doing steps above.
+>>>>
+> [..]
+>>>
+>>> I am missing some of the previous discussions but why can't we just fix
+>>> all of the cpu_has_vmx_* #defines in vmcs.h to also check for
+>>> cpu_has_vmx?
+>>>
+>>> That seems easier and simpler than to add add-hoc checks at the invocations?
+>>
+>> I'd like to take the question on step further: Following 0b5f149338e3
+>> ("x86/HVM: hide SVM/VMX when their enabling is prohibited by firmware"),
+>> is this change needed at all? IOW is there a path left where cpu_has_vmx
+>> may be false, by any cpu_has_vmx_* may still yield true?
+>>
 > 
-> Link: https://gitlab.com/xen-project/xen/-/jobs/6966698361
-> Fixes: 19b6e9f9149f ("x86/MCE: optional build of AMD/Intel MCE code")
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> This change is about exec control variables (vmx_secondary_exec_control, 
+> vmx_pin_based_exec_control etc) not been built, because they're in vmx 
+> code, but accessed in common code. The description is probably unclear 
+> about that.
+> Also build issues related to VMX can be solved differently, without 
+> touching cpu_has_vmx_* macros and related logic at all.
+> I can move exec control variables from vmcs.c to common hvm.c, this 
+> would be simpler change and directly related to problem that I'm having.
 
-Acked-by: Jan Beulich <jbeulich@suse.com>
+That would be moving them one layer too high. Proper disentangling then
+will need to wait until that data is actually part of the (host) CPU
+policy. For the time being your change may thus be acceptable, assuming
+that we won't be very quick in doing said move.
 
-
+Jan
 
