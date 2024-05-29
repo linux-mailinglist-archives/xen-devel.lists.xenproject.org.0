@@ -2,38 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7A5628D364E
-	for <lists+xen-devel@lfdr.de>; Wed, 29 May 2024 14:23:52 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.731853.1137601 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5A25B8D3660
+	for <lists+xen-devel@lfdr.de>; Wed, 29 May 2024 14:28:17 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.731860.1137609 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sCIL9-0004RX-QJ; Wed, 29 May 2024 12:23:35 +0000
+	id 1sCIPP-00053y-9P; Wed, 29 May 2024 12:27:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 731853.1137601; Wed, 29 May 2024 12:23:35 +0000
+Received: by outflank-mailman (output) from mailman id 731860.1137609; Wed, 29 May 2024 12:27:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sCIL9-0004PU-Lr; Wed, 29 May 2024 12:23:35 +0000
-Received: by outflank-mailman (input) for mailman id 731853;
- Wed, 29 May 2024 12:23:33 +0000
+	id 1sCIPP-00051G-6o; Wed, 29 May 2024 12:27:59 +0000
+Received: by outflank-mailman (input) for mailman id 731860;
+ Wed, 29 May 2024 12:27:57 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=vA4L=NA=gmail.com=yskelg@srs-se1.protection.inumbo.net>)
- id 1sCIL7-0004PK-Lj
- for xen-devel@lists.xenproject.org; Wed, 29 May 2024 12:23:33 +0000
-Received: from mail-pj1-x1035.google.com (mail-pj1-x1035.google.com
- [2607:f8b0:4864:20::1035])
+ (envelope-from <SRS0=U3iI=NA=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1sCIPN-00051A-Lk
+ for xen-devel@lists.xenproject.org; Wed, 29 May 2024 12:27:57 +0000
+Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
+ [2a00:1450:4864:20::335])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 42e7f4f2-1db6-11ef-90a1-e314d9c70b13;
- Wed, 29 May 2024 14:23:32 +0200 (CEST)
-Received: by mail-pj1-x1035.google.com with SMTP id
- 98e67ed59e1d1-2bdd8968dabso1493451a91.3
- for <xen-devel@lists.xenproject.org>; Wed, 29 May 2024 05:23:32 -0700 (PDT)
-Received: from paran-QEMU-Virtual-Machine.. ([118.32.98.101])
+ id e0949662-1db6-11ef-90a1-e314d9c70b13;
+ Wed, 29 May 2024 14:27:56 +0200 (CEST)
+Received: by mail-wm1-x335.google.com with SMTP id
+ 5b1f17b1804b1-4211249fdf4so18314445e9.3
+ for <xen-devel@lists.xenproject.org>; Wed, 29 May 2024 05:27:56 -0700 (PDT)
+Received: from ?IPV6:2003:e5:8729:4000:29eb:6d9d:3214:39d2?
+ (p200300e58729400029eb6d9d321439d2.dip0.t-ipconnect.de.
+ [2003:e5:8729:4000:29eb:6d9d:3214:39d2])
  by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-2bf5f987248sm9399359a91.44.2024.05.29.05.23.27
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 29 May 2024 05:23:30 -0700 (PDT)
+ 5b1f17b1804b1-42100fad7fasm211038455e9.38.2024.05.29.05.27.55
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 29 May 2024 05:27:55 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,78 +47,84 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 42e7f4f2-1db6-11ef-90a1-e314d9c70b13
+X-Inumbo-ID: e0949662-1db6-11ef-90a1-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1716985411; x=1717590211; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=Bu8X2LCUalqzu3Ya3NkSgnwgrwDIZEosx1eIzHQjc28=;
-        b=TeFe4NSCMMl017y+MOfd4lylluB+eQdlE54itGLIPe7o3z0PjghW4eWZ/3QVVR08fj
-         /PXZ9lKYG8yCTRARFmYTtyrC1ExWBkmaoCnI7A6bJU7QUt+oxcrgQCiOMZm/banIZReU
-         57PRVDcjFDjXnCllQe6q7WeXJNJiYQbe2ShzyqeA6jWnn7f05qiNODg8HZCOd7OD3jS/
-         PeVz5MS0e0nHPOr4eiOwohFq6t0BRvAGN+YZh4cTpQNeLiutBmoH3zmyqLZsH5apfK0f
-         kxrQ64UFheF0b7cNSiHb8Ovnwma0P2JKWPLvc1+pJ2x45kaInahefHGuwCqiJsIXI/vW
-         lMgw==
+        d=suse.com; s=google; t=1716985676; x=1717590476; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=o0im46VMvTgzf4CgpxLpfyG0tO3nmPdi92aMWun6A3U=;
+        b=KUb4RRdHLI2vuXJ+h00fC7xsxwTijWMHRUbaYcHW8oOxrRQ2PANDoDaapU6yCKlmjQ
+         g/unyPn5n0RRP96rhczt9iCDaKt09Ooi3Gc3sAxzea7xG1hyqzp/WD6vFHRVrPFkKQR9
+         BOhIYMihp4EEjVE5T+fT7iXZj6CKG2YlKVtamhU4tC1Byz6wtR4tulVKa9I4EVRLWJvC
+         trEfm9WKD+joD0o0uQ3Ih1cMuB23mn48lojM+u9qRghUTOsiSs4wNzG014auPbAVqeDL
+         KlR1yUq5H/8iq2ipjBRg58+nMwy/WCMt+sW7a2sivCwHV8o1f4uo968XznGD8NZXJIzJ
+         eQ3A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1716985411; x=1717590211;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=Bu8X2LCUalqzu3Ya3NkSgnwgrwDIZEosx1eIzHQjc28=;
-        b=SC+ep7X0nHvpvs8FU8m7TLGe9zJ+WSHra7yA4YOd6U1BPGv/TyMJdVTJD5KClq2Kmz
-         fU7uYkullmnXXrTAwco9LOJIDtRDMAPjD0hZhmgS1pKlrMzx+ApgDqXU1Qy4MblVHr4d
-         yo0jGoB09ub8JMwkHuiOQuAksk3ti718roDJ4hfdx6/vzp4d9c3Z2s37m3AgrlBE+ciH
-         VTv2wl0BKprQXfyiOwvOwDDE2TgQyIeqbqY1JpMRRAR3Fmw4o0TxKtyS/TXR6Zs/OENC
-         gXvzCZ/BMb+ZMV8s+FIg2wVs7iNiysFwJ27o0EtIqu47wW6Wu9Q9hFdowWmtkPOREVkG
-         HKsg==
-X-Forwarded-Encrypted: i=1; AJvYcCV4IdL4m/nckulyyvcd5Tk+0m9BzP5hbC2PU4Oq04YhY0bMfJihDz4c3ED5BJbGg5EsHiCdPWrDm7Z023BYZc0fspWPr19qLx7OfvtiC8c=
-X-Gm-Message-State: AOJu0YxE8SjPFNbgWmosNZPj5G3oPQPTNAzfr5vzswuAtU2YBIv/AhlT
-	SrFAS2m6ZL4OswjtN4TuaoEm/ttoBWewbxJHgIhZy/5Ht3bZvt5e
-X-Google-Smtp-Source: AGHT+IGpop5Rh0Gl6NPGn+yzSeNeXcyhhaZwMs48bAu4Ha451DIdYSt4ISyatz1BTqz9iqNA8XPlsg==
-X-Received: by 2002:a17:90b:46d3:b0:2ae:7f27:82cd with SMTP id 98e67ed59e1d1-2bf5e171f8amr12877376a91.7.1716985411004;
-        Wed, 29 May 2024 05:23:31 -0700 (PDT)
-From: yskelg@gmail.com
-To: Stefano Stabellini <sstabellini@kernel.org>,
-	Juergen Gross <jgross@suse.com>,
-	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-Cc: skhan@linuxfoundation.org,
-	sj@kernel.org,
-	Austin Kim <austindh.kim@gmail.com>,
-	shjy180909@gmail.com,
-	linux-kernel@vger.kernel.org,
-	xen-devel@lists.xenproject.org,
-	linux-kernel-mentees@lists.linuxfoundation.org,
-	Yunseong Kim <yskelg@gmail.com>
-Subject: [PATCH] xen/xenbus: handle potential dangling pointer issue in xen_pcibk_xenbus_probe
-Date: Wed, 29 May 2024 21:22:33 +0900
-Message-Id: <20240529122232.25360-1-yskelg@gmail.com>
-X-Mailer: git-send-email 2.34.1
+        d=1e100.net; s=20230601; t=1716985676; x=1717590476;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=o0im46VMvTgzf4CgpxLpfyG0tO3nmPdi92aMWun6A3U=;
+        b=sU+/uOgOk3EZDwkB+PM5aCtxgBqjpPCWMchrLYZ/pcxf0daBh3cXJ5qhElTbi4Aeuw
+         lMWN1totWma807BvF77JS6eLRjuUsNcZwfa+aC7QOfoAIlPLprCPtvHib5qKe7ZKiznS
+         7bpMMVMC8JfLj1mkIgrxJLxh+HscNohYVeH6KH8IAjy+5ov6KyrK0FoWAXA/qhWabpTB
+         BtGk2cecSbbZS+WCg9Cx8mrrjnm1ZbY4HtKkT6spLJNg3u6xB568JnMIW5bPmghkDm8h
+         wLl2f6dDrvUqDgN7BVmGfv4Hfbdt5e2tl/hLUzMtpZ8eaNhiY2SRCSWR/4/XJ7a0M3VI
+         pWqw==
+X-Forwarded-Encrypted: i=1; AJvYcCWQ0zhInG4VHyuCDppKD+RZQ05X0gHDVuIEU2vXElKQWbZqAsyBpc+AoyH6hPFv/UX8oP4wmavDuthCAUa1MvRwosSAGEpoyAhKB8VIJDM=
+X-Gm-Message-State: AOJu0Yw4UmmDxzoqYNhuYcZcu9/yMawqqRwStouNHs3OV/4jaAfmZK1o
+	39b64K67vWR+b4dSCYlq7KFFdZ1JpncxYxxQxsbHyb2Ok079URn/uhBxeduidvw=
+X-Google-Smtp-Source: AGHT+IGh33p4hKsb6CQ/ea4derqiTxXb5sBTzSj5MqjCQx3uSuJyvMs24xDjjXfWO5KMwaEt87X2sA==
+X-Received: by 2002:a05:600c:5593:b0:420:2b2e:f6e7 with SMTP id 5b1f17b1804b1-42108a79034mr125180765e9.17.1716985675868;
+        Wed, 29 May 2024 05:27:55 -0700 (PDT)
+Message-ID: <0c53415d-3394-455a-a6b5-99d3efb92318@suse.com>
+Date: Wed, 29 May 2024 14:27:54 +0200
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] xen/xenbus: handle potential dangling pointer issue in
+ xen_pcibk_xenbus_probe
+To: yskelg@gmail.com, Stefano Stabellini <sstabellini@kernel.org>,
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+Cc: skhan@linuxfoundation.org, sj@kernel.org,
+ Austin Kim <austindh.kim@gmail.com>, shjy180909@gmail.com,
+ linux-kernel@vger.kernel.org, xen-devel@lists.xenproject.org,
+ linux-kernel-mentees@lists.linuxfoundation.org
+References: <20240529122232.25360-1-yskelg@gmail.com>
+Content-Language: en-US
+From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+In-Reply-To: <20240529122232.25360-1-yskelg@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-From: Yunseong Kim <yskelg@gmail.com>
+On 29.05.24 14:22, yskelg@gmail.com wrote:
+> From: Yunseong Kim <yskelg@gmail.com>
+> 
+> If 'xen_pcibk_init_devices()' fails. This ensures that 'pdev->xdev' does
+> not point to 'xdev' when 'pdev' is freed.
+> 
+> Signed-off-by: Yunseong Kim <yskelg@gmail.com>
+> ---
+>   drivers/xen/xen-pciback/xenbus.c | 1 +
+>   1 file changed, 1 insertion(+)
+> 
+> diff --git a/drivers/xen/xen-pciback/xenbus.c b/drivers/xen/xen-pciback/xenbus.c
+> index b11e401f1b1e..348d6803b8c0 100644
+> --- a/drivers/xen/xen-pciback/xenbus.c
+> +++ b/drivers/xen/xen-pciback/xenbus.c
+> @@ -54,6 +54,7 @@ static struct xen_pcibk_device *alloc_pdev(struct xenbus_device *xdev)
+>   	INIT_WORK(&pdev->op_work, xen_pcibk_do_op);
+>   
+>   	if (xen_pcibk_init_devices(pdev)) {
+> +		pdev->xdev = NULL;
+>   		kfree(pdev);
+>   		pdev = NULL;
+>   	}
 
-If 'xen_pcibk_init_devices()' fails. This ensures that 'pdev->xdev' does
-not point to 'xdev' when 'pdev' is freed.
+NAK.
 
-Signed-off-by: Yunseong Kim <yskelg@gmail.com>
----
- drivers/xen/xen-pciback/xenbus.c | 1 +
- 1 file changed, 1 insertion(+)
+This doesn't make any sense, as pdev is freed.
 
-diff --git a/drivers/xen/xen-pciback/xenbus.c b/drivers/xen/xen-pciback/xenbus.c
-index b11e401f1b1e..348d6803b8c0 100644
---- a/drivers/xen/xen-pciback/xenbus.c
-+++ b/drivers/xen/xen-pciback/xenbus.c
-@@ -54,6 +54,7 @@ static struct xen_pcibk_device *alloc_pdev(struct xenbus_device *xdev)
- 	INIT_WORK(&pdev->op_work, xen_pcibk_do_op);
- 
- 	if (xen_pcibk_init_devices(pdev)) {
-+		pdev->xdev = NULL;
- 		kfree(pdev);
- 		pdev = NULL;
- 	}
--- 
-2.34.1
 
+Juergen
 
