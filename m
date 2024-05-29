@@ -2,52 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C4A2D8D3B02
-	for <lists+xen-devel@lfdr.de>; Wed, 29 May 2024 17:30:49 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.732188.1138072 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D51C18D3B09
+	for <lists+xen-devel@lfdr.de>; Wed, 29 May 2024 17:31:31 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.732192.1138083 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sCLG6-0005r2-Mo; Wed, 29 May 2024 15:30:34 +0000
+	id 1sCLGd-0006QW-Un; Wed, 29 May 2024 15:31:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 732188.1138072; Wed, 29 May 2024 15:30:34 +0000
+Received: by outflank-mailman (output) from mailman id 732192.1138083; Wed, 29 May 2024 15:31:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sCLG6-0005pC-K8; Wed, 29 May 2024 15:30:34 +0000
-Received: by outflank-mailman (input) for mailman id 732188;
- Wed, 29 May 2024 15:30:33 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=DcHb=NA=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
- id 1sCLG5-0005p6-D6
- for xen-devel@lists.xenproject.org; Wed, 29 May 2024 15:30:33 +0000
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on20601.outbound.protection.outlook.com
- [2a01:111:f403:2416::601])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 61ecdb89-1dd0-11ef-90a1-e314d9c70b13;
- Wed, 29 May 2024 17:30:32 +0200 (CEST)
-Received: from PH8PR20CA0004.namprd20.prod.outlook.com (2603:10b6:510:23c::12)
- by BL3PR12MB6378.namprd12.prod.outlook.com (2603:10b6:208:3b1::6)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7611.28; Wed, 29 May
- 2024 15:30:26 +0000
-Received: from CY4PEPF0000E9D8.namprd05.prod.outlook.com
- (2603:10b6:510:23c:cafe::fc) by PH8PR20CA0004.outlook.office365.com
- (2603:10b6:510:23c::12) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7611.30 via Frontend
- Transport; Wed, 29 May 2024 15:30:25 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CY4PEPF0000E9D8.mail.protection.outlook.com (10.167.241.71) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7633.15 via Frontend Transport; Wed, 29 May 2024 15:30:25 +0000
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Wed, 29 May
- 2024 10:30:24 -0500
-Received: from [10.252.147.188] (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.35 via Frontend
- Transport; Wed, 29 May 2024 10:30:23 -0500
+	id 1sCLGd-0006O6-Rw; Wed, 29 May 2024 15:31:07 +0000
+Received: by outflank-mailman (input) for mailman id 732192;
+ Wed, 29 May 2024 15:31:06 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=RuQ4=NA=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1sCLGc-0006Nv-Go
+ for xen-devel@lists.xenproject.org; Wed, 29 May 2024 15:31:06 +0000
+Received: from mail-lf1-x129.google.com (mail-lf1-x129.google.com
+ [2a00:1450:4864:20::129])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 761f1814-1dd0-11ef-b4bb-af5377834399;
+ Wed, 29 May 2024 17:31:04 +0200 (CEST)
+Received: by mail-lf1-x129.google.com with SMTP id
+ 2adb3069b0e04-52a54d664e3so1217773e87.0
+ for <xen-devel@lists.xenproject.org>; Wed, 29 May 2024 08:31:04 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a6590d02e53sm45253766b.119.2024.05.29.08.31.03
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 29 May 2024 08:31:03 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -59,135 +45,136 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 61ecdb89-1dd0-11ef-90a1-e314d9c70b13
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=IuPoDDsLIDCEwwp5ieUxidhXdZIDkath53V/79jXX/5P5l9jiY8pSxyiW7LDWSGwjtd8L9+J+vvgn3HfB6Oe77ESZa1kvCtxMHCEJr+xp8tFDiPrscpWkDHDNK7NiHUwXbXhdqyMw8kiX9dPRt4iVYIrkyoUzyzhx2DyeZ8lGb5rBT+rIOBi6w8X1+HLo6OG3++MdQr/B49keJXnMvZZ9/diX9OnsuQPy5DBlH13OQ77F00djQFicwZqhSh3v941IEdq+vjeCnbHWGgAIPeAS/vZnK470TPweMCsyA49jDJzYgSvyzkv/auGaHCRUabcHLsnn81kbkeYNwA4JGfu3w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=wTUBGfr3d7J2x5WWwui99WN/K/I5ilvznelX0mozrms=;
- b=fe4YPKXrmi1exRq1+V+ni1nSsDxN+inD2STUv50T398aa9E4VajuD2RqWdMH/y8nUazmFmf4Hl7zGuJj29jawvv9QOSeMEFquv9D0FZX5WdNB9QuLD1WG2tBNBbezEZsvbSZS8ClF806TDDFUB8d35Kj5y75Ymy8IYAbATli3k7DtHuu/CkynwAJaZ4Cn4vO4vYwtLIdYcJcR+sb+pcpqW9Pw6IS1L2ZSCNJjsyDhckSP/SHP7FeY4WTPV8jLxo1CgvO2j0dDeRS/oCW14Wami0tf9WDsfVStzg4rggfhJOFDqP3jW6fKj/ISp2H02bQ5eByULIkFJpMcuXD65+KXA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=citrix.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=wTUBGfr3d7J2x5WWwui99WN/K/I5ilvznelX0mozrms=;
- b=sJ+f78gcVI13e70nagRQSTRYZCFJ3rqvMJ2NIm+AwGXBGFcJHjKla+cjIHNIRyj60q4D7fTxaO43ObwYpDj75EgpCcjFIwJbhACEQCGjGPMDotwp2C6pz99KQxxmkb5g9d+dhic0+D8LShNggeyNeyXXgY5Mqsk8HYGNjiFwVAQ=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Message-ID: <10676879-e0e4-4332-b8cb-732d56cda818@amd.com>
-Date: Wed, 29 May 2024 17:30:22 +0200
+X-Inumbo-ID: 761f1814-1dd0-11ef-b4bb-af5377834399
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1716996664; x=1717601464; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=M0ApkL0EDfx0AVoficEZQyK5XZidmmaFxKpqjcjDPTg=;
+        b=Xnd6snh+13PhyTrxchSgPKU0rVnniAeShrq4OihajYF0Pv3IsnsMdscZTEqVdf9jVH
+         5lwhq40C+C2Mvkz+gw2f9pt5aQM1jqSXVl8FDm/1stUydRsJKQs/TnaiCtAR4RRntMrp
+         Gb89o/OnZt4FyluZ6lPqezhQ8A0HlLQKcuEuiFYF33oXALk4z2WCxijCf99Po/dAeowh
+         Ao0zaw4Dy7tobw3TXHv3YmEklf2f+1bYcjfgWI0uPjMs3UcHdw4ZjxWiQg2EthMp0bF5
+         HlM2FMSphRywfWnLMkTdgnbaOHk/l2ydN/UyCuTuxXLu+L4Ny+bIf5hcJrgkKUytjo7b
+         juDA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1716996664; x=1717601464;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=M0ApkL0EDfx0AVoficEZQyK5XZidmmaFxKpqjcjDPTg=;
+        b=EmaSrKkN8ishBdidD15Nn8QuY3fFjxqCMPCE8dJk+eLGaZxQqc3FfictUrdbQI7767
+         /eWxR9iX88iRUHCBhy24bkee9dU34J4XOl4pXUSmC4dgIl4ezK9bod1vkrMpaElfMzuP
+         EQqbkuOMdpt06IDGI33yv4DlrYR1U7roz4PwV/v2xbZ11k4xWtWnSSY9TkOx87rOG0Pm
+         zldCLyooWHSfkM0FXXXv+rJA451dpr0CyZy2fqS28LTqwdsFqSm0KzFqRzS3gecM5YYt
+         Enl/+A2E3rmWHNOmLgcO/IWWqkRKubj/du2vbMyAtrb2C7ej7LLJAFuNrMQsgiZVPE4A
+         v3WQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWAb98N0Q4JFaWF3/dQT6BT6tJ4vCxkcssXumEMInxr1+LCa+C4rm55EpBPP8abNywwEyEcp6jxpQWb6Fpncveclfp7CbatkltXfT+DTI8=
+X-Gm-Message-State: AOJu0YyT1ktC9JatwqOWC2cwV53mxEf4yw0LVO0vZOdQVHlq62cQ9aig
+	mJCaSvHAVaUifn4a0cCQE/+DpLEF6H0nGcaWDT78nUrFjwWnK7P9UHljtJqH9g==
+X-Google-Smtp-Source: AGHT+IF0uzGLQlLjUHzcntWU8AcBe0p2JBn7yQXrVfpE49iOBGndG5TFByqo/L0+xHTAWidMJ3Mxhw==
+X-Received: by 2002:a05:6512:214f:b0:52b:660a:666 with SMTP id 2adb3069b0e04-52b660a0821mr858544e87.38.1716996663888;
+        Wed, 29 May 2024 08:31:03 -0700 (PDT)
+Message-ID: <b427a74b-60e4-4bdf-96dd-164ea2506ba1@suse.com>
+Date: Wed, 29 May 2024 17:31:02 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/3] CI: Use a debug build of Xen for the Xilinx HW tests
-To: Andrew Cooper <andrew.cooper3@citrix.com>, Xen-devel
-	<xen-devel@lists.xenproject.org>
-CC: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Stefano
- Stabellini <sstabellini@kernel.org>,
-	=?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
-	<marmarek@invisiblethingslab.com>, Oleksii Kurochko
-	<oleksii.kurochko@gmail.com>
-References: <20240529141945.41669-1-andrew.cooper3@citrix.com>
- <20240529141945.41669-3-andrew.cooper3@citrix.com>
+Subject: Re: [PATCH for-4.19 2/9] xen/cpu: do not get the CPU map in
+ stop_machine_run()
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org,
+ Michal Orzel <michal.orzel@amd.com>,
+ Bertrand Marquis <bertrand.marquis@arm.com>
+References: <20240529090132.59434-1-roger.pau@citrix.com>
+ <20240529090132.59434-3-roger.pau@citrix.com>
+ <7954b3c2-e101-4db0-b317-a6585a6a8689@suse.com> <ZldHvAW_2nqAuWcq@macbook>
 Content-Language: en-US
-From: Michal Orzel <michal.orzel@amd.com>
-In-Reply-To: <20240529141945.41669-3-andrew.cooper3@citrix.com>
-Content-Type: text/plain; charset="UTF-8"
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <ZldHvAW_2nqAuWcq@macbook>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Received-SPF: None (SATLEXMB04.amd.com: michal.orzel@amd.com does not
- designate permitted sender hosts)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000E9D8:EE_|BL3PR12MB6378:EE_
-X-MS-Office365-Filtering-Correlation-Id: a26c6f6d-97d2-49ad-e048-08dc7ff44347
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230031|1800799015|82310400017|376005|36860700004;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?eDhNYWxBNXlGSlY0VnY1UUw1akdCSno3MG5FNlZUUXhoRmo5ekN3RGJ4UFdn?=
- =?utf-8?B?MlcxQ0NrNER1QmxiS0g3VjlZNDk5dElPU2crQWhEK2RxMVAxYlpHWlAwRnFu?=
- =?utf-8?B?R3U4d3ZFclJkVXFna3Myb3lweHNSV0hvU3RNVlVnanRHbmswTkFQVFdiK05s?=
- =?utf-8?B?NGFLUmtnd2VJQUtCQU4rWExNZlpTWUJwRzA2RXVKN2NHZ3ZLbWtUTnp3SGsr?=
- =?utf-8?B?NDI1NFA3eDNCekRXald5aVBzbyt0a3VCTEtrUTFkRCtnVTJOZG9aVExlbllH?=
- =?utf-8?B?WHpqa3FYekZoQlBqeTBKTGMvbkM0SU5aaVdGQzAyNm9ZMzhwRzJQdWhGT3Qr?=
- =?utf-8?B?TjFhSFh1clg0aVkwZWUzanlDcGFXdEgwUGZhUUdMTVVKM3UveW1xUlBMY1dz?=
- =?utf-8?B?YjBBcGpsdHVDOUNYUml4V1JkNmJtMzlobEd1TmFEdGhSdndQUlVWSUVCV3JH?=
- =?utf-8?B?N1dkdVFjdW5zQUNqZ2R0SmloNnRDRjNuZm16VFdtOFRxeHlTMEptNmdDc0gz?=
- =?utf-8?B?d1B6eGMrSUluc2Z5RkRCVCthT1Rydyt1ZzZ4T2RTc0FRM3k2MzdQdDFhdmJW?=
- =?utf-8?B?c3hyNTgvNnRmTE1pSnd2YU9ZYStGTlMzL0krRVdTc09aQXZBaytnbDY5QkUx?=
- =?utf-8?B?YVRFMS9iSHBNaGQrMEFMQW00Y1pHR2JhOStUNGd4aExRRzRQMk00Zmd2WnRl?=
- =?utf-8?B?NHZuRnZ2YS9Vanl0cXNxcGJXOEZYVWtFeldkNno3SjBZYjYyNWVzMlBDM2RI?=
- =?utf-8?B?aVFBV2VqSmVZb0p5UVV1bjd4NndwMGx0VDRRVjREbURWVnZiWlBGbXVuSjFh?=
- =?utf-8?B?OUJ5ejhqR252RWJsK2pUQVRkSlpZd1B0YzlOSFl2bUlCNGp3NTB3SUNhWmVC?=
- =?utf-8?B?RCsycEE3dkNrVkpnODlNWTZZYStzb2orcDVQVk82bU5veHlHUkgyV21abENM?=
- =?utf-8?B?WllxZXFJSjhTNTgxK3ZVTEZUMzV5VFJGWmFYRVN4QkptMVZTeEpvUEViVzFX?=
- =?utf-8?B?OWZ6cDdiRjJhT2JJVzVNYmg1V1Y5Z0RkcEJnWERBMzB3UlM3b0FuUWVoY1Jw?=
- =?utf-8?B?TkVVekt4ekpLWlB3WWZUTFE1YS9YOFV2Zm5YcDhhK3FGd1ZWRXhXaWhWaFhK?=
- =?utf-8?B?Rks2VTFZeGdUL2p0L0FBWlhyY05VNE1Wd3VIb2FHUEE1azlJWS8rT1BURTE1?=
- =?utf-8?B?Q0JQZitadkx5cWdSd3Q3aVFWVjRSTEpZUGlTbGcvbFhUWDRrOWJHUCsvbDVB?=
- =?utf-8?B?eDBBQjFGWWFMNFNuYjAxdEgxMmhrVWVhelJyTDRleEJ5L0p5QlowVUFFYnAw?=
- =?utf-8?B?Ulp3UmJyQWFaaU96a0xIVXJEY0FubHA2bEQ2bU81Umk5aVg4U0wvaXZhMEQz?=
- =?utf-8?B?aEF6ZmJlL0NPQ3ZqeTJFNXlaZGhqTE15RVVVcGQ3SzdtUnpHMUhuRFljZ00v?=
- =?utf-8?B?dzJPR2Q2UlovVVF5RlV2UmRCWllWdlMwSm1JSDkyVEVjTDVHUmZKMG5MVk0z?=
- =?utf-8?B?MUpqUEVBSGpGNUZsMWpHcDRGVWV3aUxpWXNGNHMrckJvVGZOT244ZmZuQmJo?=
- =?utf-8?B?ZWtSSVBBQU9lQTQ2L2lSQjF2QUdmUXRCUW13SGZMRkRuYVYxL3hublBYZ1lw?=
- =?utf-8?B?S3A5eVZCVFVmc1hhTWx3K0dDZ0VESWNGWkkzOFVLRktUbDRNRklNMUYzNzFs?=
- =?utf-8?B?ZW5XNWZxWElDSDEzN2x0K1Evcnk3REI5SVltZUIzd0N5OGE0VjVRcFM5TkNp?=
- =?utf-8?B?bWxtTlEzRnJPeDk4eVR0TW1oVGNqRTRjUFdZZGxPNFRkdWVXNit3R0s5NWNB?=
- =?utf-8?B?cGlvTVVoZENvd1hJWlpac1prbWIyK096VjdRY0U0cmNZL1NXampVclFrUytI?=
- =?utf-8?Q?9M+Weic+7Ceux?=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(1800799015)(82310400017)(376005)(36860700004);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 May 2024 15:30:25.6205
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: a26c6f6d-97d2-49ad-e048-08dc7ff44347
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CY4PEPF0000E9D8.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL3PR12MB6378
 
-Hi Andrew,
+On 29.05.2024 17:20, Roger Pau Monné wrote:
+> On Wed, May 29, 2024 at 03:04:13PM +0200, Jan Beulich wrote:
+>> On 29.05.2024 11:01, Roger Pau Monne wrote:
+>>> The current callers of stop_machine_run() outside of init code already have the
+>>> CPU maps locked, and hence there's no reason for stop_machine_run() to attempt
+>>> to lock again.
+>>
+>> While purely from a description perspective this is okay, ...
+>>
+>>> --- a/xen/common/stop_machine.c
+>>> +++ b/xen/common/stop_machine.c
+>>> @@ -82,9 +82,15 @@ int stop_machine_run(int (*fn)(void *data), void *data, unsigned int cpu)
+>>>      BUG_ON(!local_irq_is_enabled());
+>>>      BUG_ON(!is_idle_vcpu(current));
+>>>  
+>>> -    /* cpu_online_map must not change. */
+>>> -    if ( !get_cpu_maps() )
+>>> +    /*
+>>> +     * cpu_online_map must not change.  The only two callers of
+>>> +     * stop_machine_run() outside of init code already have the CPU map locked.
+>>> +     */
+>>
+>> ... the "two" here is not unlikely to quickly go stale; who knows what PPC
+>> and RISC-V will have as their code becomes more complete?
+>>
+>> I'm also unconvinced that requiring ...
+>>
+>>> +    if ( system_state >= SYS_STATE_active && !cpu_map_locked() )
+>>
+>> ... this for all future (post-init) uses of stop_machine_run() is a good
+>> idea. It is quite a bit more natural, to me at least, for the function to
+>> effect this itself, as is the case prior to your change.
+> 
+> This is mostly a pre-req for the next change that switches
+> get_cpu_maps() to return false if the current CPU is holding the CPU
+> maps lock in write mode.
+> 
+> IF we don't want to go this route we need a way to signal
+> send_IPI_mask() when a CPU hot{,un}plug operation is taking place,
+> because get_cpu_maps() enough is not suitable.
+> 
+> Overall I don't like the corner case where get_cpu_maps() returns true
+> if a CPU hot{,un}plug operation is taking place in the current CPU
+> context.  The guarantee of get_cpu_maps() is that no CPU hot{,un}plug
+> operations can be in progress if it returns true.
 
-On 29/05/2024 16:19, Andrew Cooper wrote:
-> 
-> 
-> ... like the other hardware tests.  This gets more value out of the testing.
-> 
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> ---
-> CC: Roger Pau Monné <roger.pau@citrix.com>
-> CC: Stefano Stabellini <sstabellini@kernel.org>
-> CC: Michal Orzel <michal.orzel@amd.com>
-> CC: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
-> CC: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-> ---
->  automation/gitlab-ci/test.yaml | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/automation/gitlab-ci/test.yaml b/automation/gitlab-ci/test.yaml
-> index efd3ad46f08e..e96ccdfad54c 100644
-> --- a/automation/gitlab-ci/test.yaml
-> +++ b/automation/gitlab-ci/test.yaml
-> @@ -149,7 +149,7 @@ xilinx-smoke-dom0less-arm64-gcc:
->      - ./automation/scripts/xilinx-smoke-dom0less-arm64.sh 2>&1 | tee ${LOGFILE}
->    needs:
->      - *arm64-test-needs
-> -    - alpine-3.18-gcc-arm64
-> +    - alpine-3.18-gcc-debug-arm64
-This change should be reflected in the name of the test changed (here and below), so that it contains -debug suffix just like every other debug job.
-With that done:
-Reviewed-by: Michal Orzel <michal.orzel@amd.com>
+I'm not convinced of looking at it this way. To me the guarantee is
+merely that no CPU operation is taking place _elsewhere_. As indicated,
+imo the local CPU should be well aware of what context it's actually in,
+and hence what is (or is not) appropriate to do at a particular point in
+time.
 
-~Michal
+I guess what I'm missing is an example of a concrete code path where
+things presently go wrong.
+
+Jan
 
