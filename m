@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 610708D3A1A
-	for <lists+xen-devel@lfdr.de>; Wed, 29 May 2024 16:59:09 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.732146.1138003 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6BB798D3A40
+	for <lists+xen-devel@lfdr.de>; Wed, 29 May 2024 17:03:45 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.732152.1138013 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sCKl5-0002LM-U0; Wed, 29 May 2024 14:58:31 +0000
+	id 1sCKps-0004PR-Dt; Wed, 29 May 2024 15:03:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 732146.1138003; Wed, 29 May 2024 14:58:31 +0000
+Received: by outflank-mailman (output) from mailman id 732152.1138013; Wed, 29 May 2024 15:03:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sCKl5-0002Jq-Qn; Wed, 29 May 2024 14:58:31 +0000
-Received: by outflank-mailman (input) for mailman id 732146;
- Wed, 29 May 2024 14:58:30 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1sCKps-0004N6-Ay; Wed, 29 May 2024 15:03:28 +0000
+Received: by outflank-mailman (input) for mailman id 732152;
+ Wed, 29 May 2024 15:03:27 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=DI5e=NA=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1sCKl4-0002Jk-MD
- for xen-devel@lists.xenproject.org; Wed, 29 May 2024 14:58:30 +0000
-Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
- [2a00:1450:4864:20::62e])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id e83abd71-1dcb-11ef-b4bb-af5377834399;
- Wed, 29 May 2024 16:58:28 +0200 (CEST)
-Received: by mail-ej1-x62e.google.com with SMTP id
- a640c23a62f3a-a62ef52e837so239979966b.3
- for <xen-devel@lists.xenproject.org>; Wed, 29 May 2024 07:58:28 -0700 (PDT)
-Received: from [192.168.219.221] ([94.75.70.14])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a65ab5c9009sm34339766b.116.2024.05.29.07.58.26
+ <SRS0=FJ4/=NA=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1sCKpr-0004N0-9n
+ for xen-devel@lists.xenproject.org; Wed, 29 May 2024 15:03:27 +0000
+Received: from mail-lf1-x130.google.com (mail-lf1-x130.google.com
+ [2a00:1450:4864:20::130])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 99acefbf-1dcc-11ef-90a1-e314d9c70b13;
+ Wed, 29 May 2024 17:03:26 +0200 (CEST)
+Received: by mail-lf1-x130.google.com with SMTP id
+ 2adb3069b0e04-52b6ccfdf28so565395e87.2
+ for <xen-devel@lists.xenproject.org>; Wed, 29 May 2024 08:03:26 -0700 (PDT)
+Received: from localhost ([213.195.114.223]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-3557a08abd8sm15023448f8f.32.2024.05.29.08.03.24
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 29 May 2024 07:58:27 -0700 (PDT)
+ Wed, 29 May 2024 08:03:25 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,235 +44,119 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e83abd71-1dcb-11ef-b4bb-af5377834399
+X-Inumbo-ID: 99acefbf-1dcc-11ef-90a1-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1716994708; x=1717599508; darn=lists.xenproject.org;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=BNViD2QjGbbdDZhkRCgcqFaqgTYj5buD4YzpkiaWovc=;
-        b=f92myGlXfNyZ9ZAazv4Un8OvqoLONPNjsJkYXDt5St2+3hQwT01cUZT9R0YBpuuQ0R
-         5Rm8U0th6o6eU6HrBu55mArtwvvHVNzhtEZRGHcUgu4vDiq5NMPPsDv8zfYaSuyayCtv
-         ZYXH0F0JpWX2NgguSIKVaf7tGYeZLgAZmw+23ePBsDtCB/WOy/8r5iXD7UNWhKavFZBS
-         A90vzuEiBVwbZo8CpGnzd/L/OivdOJgE0kN7ELYj1IcMAIhh6U2Gls5ZJoUnjpzqRnAI
-         OOCpIjkWRPxPHfrWi+CaJ/KjXcC6q4NGeBvLhkBqP8cSgeWvzBuRfmj4Xl3ZDVn6CaC7
-         jTew==
+        d=citrix.com; s=google; t=1716995006; x=1717599806; darn=lists.xenproject.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=B15XUFlmFFShNmtqs74WHz9M7v0pbt+dJmTE0D0fce0=;
+        b=arhX60sFD2HJ/L98aREawqjeD3S53Sm0KNQsD71RGn4Z9/U/hcGfaf49AynALIMFkd
+         TVR+LQZ0DrG3n1AkHeh0qaNVOmGlqnnSVFwi9hjf/UmkxZx+D9KaxOgf5V8Cs7pApy1w
+         3AaZVJ+rHiHOJefCHyucqy85OuZ4isW8Sf230=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1716994708; x=1717599508;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=BNViD2QjGbbdDZhkRCgcqFaqgTYj5buD4YzpkiaWovc=;
-        b=cRjfppmElCyUmzP+MS3Po3yDZrSXSVEEMuFy9kyOTHK84ISsoneX7MOOmcRIhA8Nub
-         iy28X8VkmAWpx+ohc+av2ssD/QGzNeooRzLjaRCIB+/H3pgZV7Sb2uwC+2NyLpFKPRYl
-         rermErJLim1MYPk7o5GozoiPo5b7mt5yCtICnBvyt9OZ0JZPfjM7Orhl50SabqlYVSd1
-         0/F1w2McI22d8xlHuIeYbaCGhHKc00Mdp8/YPMMoPCJTFJ8VXpqSKVcHctABxXPZk+MP
-         p3+n23gp9OZ0BVGIvcoIi0oFvZtvf02FzX/8imkOKtpMoWciKoR/cWV+i0QwjZyejCr1
-         4tkA==
-X-Forwarded-Encrypted: i=1; AJvYcCXlDrVTG5NLgf4F1V+TLGV/3TICXE+NtPPiFa9vGkN/HN3LG6Ki83VPDz+DlawC/Y5rdGkwqmVFSV0O6mHTtf1NTCcagZ2hH8hJeQdpPKE=
-X-Gm-Message-State: AOJu0YwGlL4W2ZmQgNXIf2dtbzuC2EpmCy36MEmw/VUHzCvBwrHgthpY
-	5HovLWTAuenaGgRK+EBTWHOInuX9xExPdC4M33RwpC2k6Ui3G03Y
-X-Google-Smtp-Source: AGHT+IG+BJpUK57O/ezY+NRQ1ijJsptJOVug6YwQgG0HEd07BzlFFao2QiSbkMUYJiYCj3dd68/3QA==
-X-Received: by 2002:a17:906:2890:b0:a5a:a2b6:ba8f with SMTP id a640c23a62f3a-a6262f87932mr1158371866b.0.1716994707639;
-        Wed, 29 May 2024 07:58:27 -0700 (PDT)
-Message-ID: <2bc05407cc62c829d63da757e071db51a003eb79.camel@gmail.com>
-Subject: Re: [PATCH v11 2/9] xen: introduce generic non-atomic test_*bit()
-From: "Oleksii K." <oleksii.kurochko@gmail.com>
-To: Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Bertrand Marquis
- <bertrand.marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>, Volodymyr
- Babchuk <Volodymyr_Babchuk@epam.com>, Andrew Cooper
- <andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>,
- Shawn Anastasio <sanastasio@raptorengineering.com>,  Roger Pau
- =?ISO-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org
-Date: Wed, 29 May 2024 16:58:26 +0200
-In-Reply-To: <ded13a36-b790-4989-a952-9a4130293b50@suse.com>
-References: <cover.1716547693.git.oleksii.kurochko@gmail.com>
-	 <79c3c31f0032a79c25d0a458b6091904457c8939.1716547693.git.oleksii.kurochko@gmail.com>
-	 <ab275ed4-29c3-4473-b1ee-2a9cda63eeaf@suse.com>
-	 <d8fd70469a1ac8d8cc291dddd0496f6bfabf6720.camel@gmail.com>
-	 <a39c3c03-ef54-4329-833d-03b60f162234@xen.org>
-	 <56b97916d1c36040a0be547759d5d10d311c9ed3.camel@gmail.com>
-	 <5438a9b1-d13a-415b-95e4-af520c228e01@suse.com>
-	 <c72784d5-20d2-4583-9e8a-f8b1cbf31aa6@xen.org>
-	 <ded13a36-b790-4989-a952-9a4130293b50@suse.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.52.1 (3.52.1-1.fc40) 
+        d=1e100.net; s=20230601; t=1716995006; x=1717599806;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=B15XUFlmFFShNmtqs74WHz9M7v0pbt+dJmTE0D0fce0=;
+        b=gIDScNA5f+mj7G0/l1zPOH9VL1ErDGT/0pQF+6me0hUG49oltUdRe48woJulfwVSkl
+         gSBDXBL4ORNBY4LEUYfEaecod+3ajJhZutwacGJWqM+xmK0xuekhR4NJ+s9UDdCxWB8+
+         Yq5N1rCaNKNBxM5RSfSTdRFPLE/JfUTNRz2R6UuwqSlqrDbEPVTAa7pRJ7beJ7t/HEkn
+         Pmy8MibISIBg+iOnoG8rNlZnlNSm5GWuUtD9CusrsMRHGDC5xxksbShAx+vsYXqtb1QJ
+         Rx5BrJf51bR9sX6TCyaRr7UulnyrSJj+nYyEia+YWnl/SufX9A65TobIF08EL3cP+NGU
+         w8xQ==
+X-Forwarded-Encrypted: i=1; AJvYcCUJFkxuRd1uDTViWHL5OanPJkViR8OYBY8GO3Gjx6bkEVHhvsPStbO+3slJvdDq2Y+iXFbI8pL/Js8a+urXfuqLkHTvaAwdgcSt3OF1lKQ=
+X-Gm-Message-State: AOJu0YxLK0L30EFKTzgcZwnsaGRy4xgjLdjtNP3M86P358AdvhEfV6hc
+	1PSKd0dIfKV4ruHvR70HdJde4AcleG1gETuNaSLvvvF84P7HXsBBrbO6ObMNRUE=
+X-Google-Smtp-Source: AGHT+IED122ZGSEUteWAaWI2hzBfQzDzxqJyxuQHPvDWYjR041fJuao15xFdMQdk/W3sKWrUL3T06w==
+X-Received: by 2002:a2e:9483:0:b0:2e6:f556:48a5 with SMTP id 38308e7fff4ca-2e95b08f95dmr106981761fa.19.1716995005455;
+        Wed, 29 May 2024 08:03:25 -0700 (PDT)
+Date: Wed, 29 May 2024 17:03:24 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	xen-devel@lists.xenproject.org
+Subject: Re: [PATCH for-4.19 3/9] xen/cpu: ensure get_cpu_maps() returns
+ false if CPU operations are underway
+Message-ID: <ZldDvH8GhhQcu5NX@macbook>
+References: <20240529090132.59434-1-roger.pau@citrix.com>
+ <20240529090132.59434-4-roger.pau@citrix.com>
+ <597b0bf9-8949-41f3-a630-18937c219d8b@suse.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <597b0bf9-8949-41f3-a630-18937c219d8b@suse.com>
 
-static always_inline bool test_bit(int nr, const volatile void *addr)On
-Wed, 2024-05-29 at 12:06 +0200, Jan Beulich wrote:
-> On 29.05.2024 11:59, Julien Grall wrote:
-> > Hi,
-> >=20
-> > On 29/05/2024 09:36, Jan Beulich wrote:
-> > > On 29.05.2024 09:50, Oleksii K. wrote:
-> > > > On Tue, 2024-05-28 at 09:53 +0100, Julien Grall wrote:
-> > > > > > > > +/**
-> > > > > > > > + * generic_test_bit - Determine whether a bit is set
-> > > > > > > > + * @nr: bit number to test
-> > > > > > > > + * @addr: Address to start counting from
-> > > > > > > > + *
-> > > > > > > > + * This operation is non-atomic and can be reordered.
-> > > > > > > > + * If two examples of this operation race, one can
-> > > > > > > > appear to
-> > > > > > > > succeed
-> > > > > > > > + * but actually fail.=C2=A0 You must protect multiple
-> > > > > > > > accesses with
-> > > > > > > > a
-> > > > > > > > lock.
-> > > > > > > > + */
-> > > > > > >=20
-> > > > > > > You got carried away updating comments - there's no
-> > > > > > > raciness for
-> > > > > > > simple test_bit(). As is also expressed by its name not
-> > > > > > > having
-> > > > > > > those
-> > > > > > > double underscores that the others have.
-> > > > > > Then it is true for every function in this header. Based on
-> > > > > > the
-> > > > > > naming
-> > > > > > the conclusion can be done if it is atomic/npn-atomic and
-> > > > > > can/can't
-> > > > > > be
-> > > > > > reordered.
-> > > > >=20
-> > > > > So let me start with that my only request is to keep the
-> > > > > existing
-> > > > > comments as you move it. It looks like there were none of
-> > > > > test_bit()
-> > > > > before.
-> > > > Just to clarify that I understand correctly.
-> > > >=20
-> > > > Do we need any comment above functions generic_*()? Based on
-> > > > that they
-> > > > are implemented in generic way they will be always "non-atomic
-> > > > and can
-> > > > be reordered.".
-> > >=20
-> > > I indicated before that I think reproducing the same comments
-> > > __test_and_*
-> > > already have also for generic_* isn't overly useful. If someone
-> > > insisted
-> > > on them being there as well, I could live with that, though.
-> >=20
-> > Would you be ok if the comment is only on top of the __test_and_*=20
-> > version? (So no comments on top of the generic_*)
->=20
-> That's my preferred variant, actually. The alternative I would also
-> be
-> okay-ish with is to have the comments also ahead of generic_*.
->=20
-> > > > Do you find the following comment useful?
-> > > >=20
-> > > > " * If two examples of this operation race, one can appear to
-> > > > succeed
-> > > > =C2=A0 * but actually fail.=C2=A0 You must protect multiple accesse=
-s with
-> > > > a lock."
-> > > >=20
-> > > > It seems to me that it can dropped as basically "non-atomic and
-> > > > can be
-> > > > reordered." means that.
-> > >=20
-> > > I agree, or else - as indicated before - the wording would need
-> > > to further
-> > > change. Yet iirc you've added that in response to a comment from
-> > > Julien,
-> > > so you'll primarily want his input as to the presence of
-> > > something along
-> > > these lines.
-> >=20
-> > I didn't realise this was an existing comment. I think the
-> > suggestion is=20
-> > a little bit odd because you could use the atomic version of the
-> > helper.
-> >=20
-> > Looking at Linux, the second sentence was dropped. But not the
-> > first=20
-> > one. I would suggest to do the same. IOW keep:
-> >=20
-> > "
-> > If two examples of this operation race, one can appear to succeed
-> > but=20
-> > actually fail.
-> > "
->=20
-> As indicated, I'm okay with that being retained, but only in a form
-> that
-> actually makes sense. I've explained before (to Oleksii) what I
-> consider
-> wrong in this way of wording things.
+On Wed, May 29, 2024 at 03:35:04PM +0200, Jan Beulich wrote:
+> On 29.05.2024 11:01, Roger Pau Monne wrote:
+> > Due to the current rwlock logic, if the CPU calling get_cpu_maps() does so from
+> > a cpu_hotplug_{begin,done}() region the function will still return success,
+> > because a CPU taking the rwlock in read mode after having taken it in write
+> > mode is allowed.  Such behavior however defeats the purpose of get_cpu_maps(),
+> > as it should always return false when called with a CPU hot{,un}plug operation
+> > is in progress.
+> 
+> I'm not sure I can agree with this. The CPU doing said operation ought to be
+> aware of what it is itself doing. And all other CPUs will get back false from
+> get_cpu_maps().
 
-Would it be suitable to rephrase it in the following way:
-     * This operation is non-atomic and can be reordered.
-   - * If two examples of this operation race, one can appear to
-   succeed
-   - * but actually fail.  You must protect multiple accesses with a
-   lock.
-   + * If two instances of this operation race, one may succeed in
-   updating
-   + * the bit in memory, but actually fail. It should be protected
-   from
-   + * potentially racy behavior.
-     */
-    static always_inline bool
-    __test_and_set_bit(int nr, volatile void *addr)
-   @@ -228,8 +191,9 @@ __test_and_set_bit(int nr, volatile void *addr)
-     * @addr: Address to count from
-     *
-     * This operation is non-atomic and can be reordered.
-   - * If two examples of this operation race, one can appear to
-   succeed
-   - * but actually fail.  You must protect multiple accesses with a
-   lock.
-   + * If two instances of this operation race, one may succeed in
-   clearing
-   + * the bit in memory, but actually fail. It should be protected
-   from
-   + * potentially racy behavior.
-     */
-    static always_inline bool
-    __test_and_clear_bit(int nr, volatile void *addr)
-   @@ -251,8 +215,9 @@ __test_and_clear_bit(int nr, volatile void
-   *addr)
-     * @addr: Address to count from
-     *
-     * This operation is non-atomic and can be reordered.
-   - * If two examples of this operation race, one can appear to
-   succeed
-   - * but actually fail.  You must protect multiple accesses with a
-   lock.
-   + * If two instances of this operation race, one may succeed in
-   changing
-   + * the bit in memory, but actually fail. It should be protected
-   from
-   + * potentially racy behavior.
-     */
-    static always_inline bool
-    __test_and_change_bit(int nr, volatile void *addr)
-   @@ -274,8 +239,9 @@ __test_and_change_bit(int nr, volatile void
-   *addr)
-     * @addr: Address to start counting from
-     *
-     * This operation is non-atomic and can be reordered.
-   - * If two examples of this operation race, one can appear to
-   succeed
-   - * but actually fail.  You must protect multiple accesses with a
-   lock.
-   + * If two instances of this operation race, one may succeed in
-   testing
-   + * the bit in memory, but actually fail. It should be protected
-   from
-   + * potentially racy behavior.
-     */
-    static always_inline bool test_bit(int nr, const volatile void
-   *addr)
+Well, the CPU is aware in the context of cpu_{up,down}(), but not in
+the interrupts that might be handled while that operation is in
+progress, see below for a concrete example.
 
-~ Oleksii
->=20
-> Jan
+> >  Otherwise the logic in send_IPI_mask() for example is wrong,
+> > as it could decide to use the shorthand even when a CPU operation is in
+> > progress.
+> 
+> It's also not becoming clear what's wrong there: As long as a CPU isn't
+> offline enough to not be in cpu_online_map anymore, it may well need to still
+> be the target of IPIs, and targeting it with a shorthand then is still fine.
 
+The issue is in the online path: there's a window where the CPU is
+online (and the lapic active), but cpu_online_map hasn't been updated
+yet.  A specific example would be time_calibration() being executed on
+the CPU that is running cpu_up().  That could result in a shorthand
+IPI being used, but the mask in r.cpu_calibration_map not containing
+the CPU that's being brought up online because it's not yet added to
+cpu_online_map.  Then the number of CPUs actually running
+time_calibration_rendezvous_fn won't match the weight of the cpumask
+in r.cpu_calibration_map.
+
+> In any event this would again affect only the CPU leading the CPU operation,
+> which should clearly know at which point(s) it is okay to send IPIs. Are we
+> actually sending any IPIs from within CPU-online or CPU-offline paths?
+
+Yes, I've seen the time rendezvous happening while in the middle of a
+hotplug operation, and the CPU coordinating the rendezvous being the
+one doing the CPU hotplug operation, so get_cpu_maps() returning true.
+
+> Together with the earlier paragraph the critical window would be between the
+> CPU being taken off of cpu_online_map and the CPU actually going "dead" (i.e.
+> on x86: its LAPIC becoming unresponsive to other than INIT/SIPI). And even
+> then the question would be what bad, if any, would happen to that CPU if an
+> IPI was still targeted at it by way of using the shorthand. I'm pretty sure
+> it runs with IRQs off at that time, so no ordinary IRQ could be delivered.
+> 
+> > Adjust the logic in get_cpu_maps() to return false when the CPUs lock is
+> > already hold in write mode by the current CPU, as read_trylock() would
+> > otherwise return true.
+> > 
+> > Fixes: 868a01021c6f ('rwlock: allow recursive read locking when already locked in write mode')
+> 
+> I'm puzzled by this as well: Prior to that and the change referenced by its
+> Fixes: tag, recursive spin locks were used. For the purposes here that's the
+> same as permitting read locking even when the write lock is already held by
+> the local CPU.
+
+I see, so the Fixes should be:
+
+x86/smp: use APIC ALLBUT destination shorthand when possible
+
+Instead, which is the commit that started using get_cpu_maps() in
+send_IPI_mask().
+
+Thanks, Roger.
 
