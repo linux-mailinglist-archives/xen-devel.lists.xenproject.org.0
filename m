@@ -2,38 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 598B58D332C
-	for <lists+xen-devel@lfdr.de>; Wed, 29 May 2024 11:37:55 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.731762.1137445 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F2D778D33D8
+	for <lists+xen-devel@lfdr.de>; Wed, 29 May 2024 12:00:03 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.731770.1137460 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sCFkb-0003p8-9H; Wed, 29 May 2024 09:37:41 +0000
+	id 1sCG5p-0007od-01; Wed, 29 May 2024 09:59:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 731762.1137445; Wed, 29 May 2024 09:37:41 +0000
+Received: by outflank-mailman (output) from mailman id 731770.1137460; Wed, 29 May 2024 09:59:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sCFkb-0003mZ-6d; Wed, 29 May 2024 09:37:41 +0000
-Received: by outflank-mailman (input) for mailman id 731762;
- Wed, 29 May 2024 09:37:39 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=DI5e=NA=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1sCFkZ-0003mT-BK
- for xen-devel@lists.xenproject.org; Wed, 29 May 2024 09:37:39 +0000
-Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
- [2a00:1450:4864:20::633])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 15b5f5f8-1d9f-11ef-b4bb-af5377834399;
- Wed, 29 May 2024 11:37:37 +0200 (CEST)
-Received: by mail-ej1-x633.google.com with SMTP id
- a640c23a62f3a-a59a609dd3fso130482466b.0
- for <xen-devel@lists.xenproject.org>; Wed, 29 May 2024 02:37:37 -0700 (PDT)
-Received: from [192.168.219.221] ([94.75.70.14])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a6590d02e53sm15473266b.119.2024.05.29.02.37.36
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 29 May 2024 02:37:36 -0700 (PDT)
+	id 1sCG5o-0007ls-T2; Wed, 29 May 2024 09:59:36 +0000
+Received: by outflank-mailman (input) for mailman id 731770;
+ Wed, 29 May 2024 09:59:35 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1sCG5m-0007lm-Uw
+ for xen-devel@lists.xenproject.org; Wed, 29 May 2024 09:59:34 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1sCG5g-0003rA-Nr; Wed, 29 May 2024 09:59:28 +0000
+Received: from [15.248.2.235] (helo=[10.24.67.23])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1sCG5f-0008Lt-Gi; Wed, 29 May 2024 09:59:27 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,128 +39,109 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 15b5f5f8-1d9f-11ef-b4bb-af5377834399
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1716975457; x=1717580257; darn=lists.xenproject.org;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=XcNnbIHkW/U9vIREQElgqUTXZk5+980LQo63v6C3vg4=;
-        b=DNyaLGMg7Bur/X8crHNIVg5LReMTqL4Jug1H3t/OfZeR/fdixSWLJStUMYFPB4+4lL
-         KltPNfpaMr7qdX16B2tF0ynBGGPWxFnqZx5PHtuY5jI3p3Y8sZxflLQhmEYuNI1A9wUs
-         OOHkSmtEtCyeVwx/n5fkTdJo4zYkyEzWqG1JG7qU+d8H6G36JhIVcepGruKqmdl6hCmJ
-         mypdDwkLvYUW52Fm3ffS7SrNINLH83QdNv+Qqz7efPqdOOr2CZzQdn5tVAEJf+cf8+6w
-         tN67jvPE4PyGZf5g4mdSlpccD5c5U+hX582FSEN37S3In8BDnVhQex3Qt3Tvk1UhCsOn
-         ix9w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1716975457; x=1717580257;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=XcNnbIHkW/U9vIREQElgqUTXZk5+980LQo63v6C3vg4=;
-        b=Iz88xn/H2lCIMui6Zc1uItzNTCCelsMRVvAJBVZlQxjoTAAEImTljtMon3mvAi6NPv
-         TpyRf3RPk88XzEmv6RRGiVd0yVChrQaDqJrvPB7MtL7fGWvg+O8kVJFeIUjkCe1A7dXn
-         iQYI5DSytEosSOalP3G7GCovrd5qvwubw43T1ni80livez156W+5XhFGQ5JTnK+VXBZk
-         ZEkCMuFVUPJmxZIwEDlAGkF+4YPWXDvUzVFizYiKKfyIiEGXTKspuJSZxxfmsZnJX8bY
-         wv+C4PWYxGnd7tyO4JSv9ASPnNmm4Hw2bi7zwCjIg4InKZ5oLJcaWDIYtM1hp1xuYshc
-         nsAQ==
-X-Forwarded-Encrypted: i=1; AJvYcCV2JsGH/owLJIVdoADmKp0zWWMFuoMnPRr9XtGrfFTVkWzQXk6C0UgZdfy3lUfH5+BdVpyoxnuL0h6BfuOHKWyIPXjQnp6I0HW6dtnGk7o=
-X-Gm-Message-State: AOJu0YzsoHbDbImMdgL0+gjRJqLep2ynhnKRkOMQzd/GHWpcuTqtmfN+
-	cKhImS5C8t90SD0wT3OMyt1qSprNkERz+WCE7bs5yH3XCa9y3uRS
-X-Google-Smtp-Source: AGHT+IG7PHF2zT8oN+tH8Ybs8ivLzyNjYwo0eMhqKUh2ITdHkdmh54XSGmya+06zH4SCeaqQ+FxClQ==
-X-Received: by 2002:a17:906:319b:b0:a59:bf27:5f2e with SMTP id a640c23a62f3a-a642d5a384fmr140282466b.20.1716975456668;
-        Wed, 29 May 2024 02:37:36 -0700 (PDT)
-Message-ID: <96cbb9df754f35d8df805df0138c942466a8f904.camel@gmail.com>
-Subject: Re: [PATCH for-4.19 0/9] x86/irq: fixes for CPU hot{,un}plug
-From: "Oleksii K." <oleksii.kurochko@gmail.com>
-To: Roger Pau Monne <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
-Cc: Jan Beulich <jbeulich@suse.com>, Andrew Cooper
- <andrew.cooper3@citrix.com>,  George Dunlap <george.dunlap@citrix.com>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>
-Date: Wed, 29 May 2024 11:37:35 +0200
-In-Reply-To: <20240529090132.59434-1-roger.pau@citrix.com>
-References: <20240529090132.59434-1-roger.pau@citrix.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.52.1 (3.52.1-1.fc40) 
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=b124mvg5qzZDE/KIEcur7k4yY6QifKGxb9xSVpWeEXI=; b=RbvaeSl3B2IAMRvYMtGLwhkxla
+	Cvprdxq+3PLWZgAx+UYrrpQSllnNIlQgqPLox2SnMM9u1dVnfvmsVr3XVW2bRns/hOY9ztpT1kLWe
+	h0S6v41uw+d17jD/7FCj76pgl/4Ao7IxBrd5wnOBHT0dUj0nwQUKNtuyNQbw4Ay9NuQE=;
+Message-ID: <c72784d5-20d2-4583-9e8a-f8b1cbf31aa6@xen.org>
+Date: Wed, 29 May 2024 10:59:24 +0100
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v11 2/9] xen: introduce generic non-atomic test_*bit()
+Content-Language: en-GB
+To: Jan Beulich <jbeulich@suse.com>, "Oleksii K." <oleksii.kurochko@gmail.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>,
+ Shawn Anastasio <sanastasio@raptorengineering.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ xen-devel@lists.xenproject.org
+References: <cover.1716547693.git.oleksii.kurochko@gmail.com>
+ <79c3c31f0032a79c25d0a458b6091904457c8939.1716547693.git.oleksii.kurochko@gmail.com>
+ <ab275ed4-29c3-4473-b1ee-2a9cda63eeaf@suse.com>
+ <d8fd70469a1ac8d8cc291dddd0496f6bfabf6720.camel@gmail.com>
+ <a39c3c03-ef54-4329-833d-03b60f162234@xen.org>
+ <56b97916d1c36040a0be547759d5d10d311c9ed3.camel@gmail.com>
+ <5438a9b1-d13a-415b-95e4-af520c228e01@suse.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <5438a9b1-d13a-415b-95e4-af520c228e01@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Wed, 2024-05-29 at 11:01 +0200, Roger Pau Monne wrote:
-> Hello,
->=20
-> The following series aim to fix interrupt handling when doing CPU
-> plug/unplug operations.=C2=A0 Without this series running:
->=20
-> cpus=3D`xl info max_cpu_id`
-> while [ 1 ]; do
-> =C2=A0=C2=A0=C2=A0 for i in `seq 1 $cpus`; do
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 xen-hptool cpu-offline $i;
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 xen-hptool cpu-online $i;
-> =C2=A0=C2=A0=C2=A0 done
-> done
->=20
-> Quite quickly results in interrupts getting lost and "No irq handler
-> for
-> vector" messages on the Xen console.=C2=A0 Drivers in dom0 also start
-> getting
-> interrupt timeouts and the system becomes unusable.
->=20
-> After applying the series running the loop over night still result in
-> a
-> fully usable system, no=C2=A0 "No irq handler for vector" messages at all=
-,
-> no
-> interrupt loses reported by dom0.=C2=A0 Test with
-> x2apic-mode=3D{mixed,cluster}.
->=20
-> I'm tagging this for 4.19 as it's IMO bugfixes, but the series has
-> grown
-> quite bigger than expected, and hence we need to be careful to not
-> introduce breakages late in the release cycle.=C2=A0 I've attempted to
-> document all code as good as I could, interrupt handling has some
-> unexpected corner cases that are hard to diagnose and reason about.
-Despite of the fact that it can be considered as bugfixes, it seems to
-me that this patch series can be risky. Let's wait for maintainers
-opinion...
+Hi,
 
-~ Oleksii
->=20
-> I'm currently also doing some extra testing with XenRT in case I've
-> missed something.
->=20
-> Thanks, Roger.
->=20
-> Roger Pau Monne (9):
-> =C2=A0 x86/irq: remove offline CPUs from old CPU mask when adjusting
-> =C2=A0=C2=A0=C2=A0 move_cleanup_count
-> =C2=A0 xen/cpu: do not get the CPU map in stop_machine_run()
-> =C2=A0 xen/cpu: ensure get_cpu_maps() returns false if CPU operations are
-> =C2=A0=C2=A0=C2=A0 underway
-> =C2=A0 x86/irq: describe how the interrupt CPU movement works
-> =C2=A0 x86/irq: limit interrupt movement done by fixup_irqs()
-> =C2=A0 x86/irq: restrict CPU movement in set_desc_affinity()
-> =C2=A0 x86/irq: deal with old_cpu_mask for interrupts in movement in
-> =C2=A0=C2=A0=C2=A0 fixup_irqs()
-> =C2=A0 x86/irq: handle moving interrupts in _assign_irq_vector()
-> =C2=A0 x86/irq: forward pending interrupts to new destination in
-> fixup_irqs()
->=20
-> =C2=A0xen/arch/x86/apic.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 5 +
-> =C2=A0xen/arch/x86/include/asm/apic.h |=C2=A0=C2=A0 3 +
-> =C2=A0xen/arch/x86/include/asm/irq.h=C2=A0 |=C2=A0 28 +++++-
-> =C2=A0xen/arch/x86/irq.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 172 +++++++++++++++++++++++++-----
-> --
-> =C2=A0xen/common/cpu.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 8 +-
-> =C2=A0xen/common/stop_machine.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=
-=A0 15 +--
-> =C2=A0xen/include/xen/cpu.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 2 +
-> =C2=A0xen/include/xen/rwlock.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 =
-|=C2=A0=C2=A0 2 +
-> =C2=A08 files changed, 190 insertions(+), 45 deletions(-)
->=20
+On 29/05/2024 09:36, Jan Beulich wrote:
+> On 29.05.2024 09:50, Oleksii K. wrote:
+>> On Tue, 2024-05-28 at 09:53 +0100, Julien Grall wrote:
+>>>>>> +/**
+>>>>>> + * generic_test_bit - Determine whether a bit is set
+>>>>>> + * @nr: bit number to test
+>>>>>> + * @addr: Address to start counting from
+>>>>>> + *
+>>>>>> + * This operation is non-atomic and can be reordered.
+>>>>>> + * If two examples of this operation race, one can appear to
+>>>>>> succeed
+>>>>>> + * but actually fail.  You must protect multiple accesses with
+>>>>>> a
+>>>>>> lock.
+>>>>>> + */
+>>>>>
+>>>>> You got carried away updating comments - there's no raciness for
+>>>>> simple test_bit(). As is also expressed by its name not having
+>>>>> those
+>>>>> double underscores that the others have.
+>>>> Then it is true for every function in this header. Based on the
+>>>> naming
+>>>> the conclusion can be done if it is atomic/npn-atomic and can/can't
+>>>> be
+>>>> reordered.
+>>>
+>>> So let me start with that my only request is to keep the existing
+>>> comments as you move it. It looks like there were none of test_bit()
+>>> before.
+>> Just to clarify that I understand correctly.
+>>
+>> Do we need any comment above functions generic_*()? Based on that they
+>> are implemented in generic way they will be always "non-atomic and can
+>> be reordered.".
+> 
+> I indicated before that I think reproducing the same comments __test_and_*
+> already have also for generic_* isn't overly useful. If someone insisted
+> on them being there as well, I could live with that, though.
 
+Would you be ok if the comment is only on top of the __test_and_* 
+version? (So no comments on top of the generic_*)
+
+> 
+>> Do you find the following comment useful?
+>>
+>> " * If two examples of this operation race, one can appear to succeed
+>>   * but actually fail.  You must protect multiple accesses with a lock."
+>>
+>> It seems to me that it can dropped as basically "non-atomic and can be
+>> reordered." means that.
+> 
+> I agree, or else - as indicated before - the wording would need to further
+> change. Yet iirc you've added that in response to a comment from Julien,
+> so you'll primarily want his input as to the presence of something along
+> these lines.
+
+I didn't realise this was an existing comment. I think the suggestion is 
+a little bit odd because you could use the atomic version of the helper.
+
+Looking at Linux, the second sentence was dropped. But not the first 
+one. I would suggest to do the same. IOW keep:
+
+"
+If two examples of this operation race, one can appear to succeed but 
+actually fail.
+"
+
+-- 
+Julien Grall
 
