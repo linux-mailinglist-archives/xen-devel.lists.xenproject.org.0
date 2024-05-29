@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4E5A18D38FE
-	for <lists+xen-devel@lfdr.de>; Wed, 29 May 2024 16:20:14 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.732038.1137834 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 766A38D3938
+	for <lists+xen-devel@lfdr.de>; Wed, 29 May 2024 16:31:09 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.732067.1137877 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sCK9k-0000yJ-R9; Wed, 29 May 2024 14:19:56 +0000
+	id 1sCKKB-0006at-9r; Wed, 29 May 2024 14:30:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 732038.1137834; Wed, 29 May 2024 14:19:56 +0000
+Received: by outflank-mailman (output) from mailman id 732067.1137877; Wed, 29 May 2024 14:30:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sCK9k-0000vR-Is; Wed, 29 May 2024 14:19:56 +0000
-Received: by outflank-mailman (input) for mailman id 732038;
- Wed, 29 May 2024 14:19:55 +0000
+	id 1sCKKB-0006Yg-6g; Wed, 29 May 2024 14:30:43 +0000
+Received: by outflank-mailman (input) for mailman id 732067;
+ Wed, 29 May 2024 14:30:42 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=mTS/=NA=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1sCK9j-0000nP-Eq
- for xen-devel@lists.xenproject.org; Wed, 29 May 2024 14:19:55 +0000
-Received: from mail-ed1-x535.google.com (mail-ed1-x535.google.com
- [2a00:1450:4864:20::535])
+ <SRS0=ygCr=NA=cloud.com=alejandro.vallejo@srs-se1.protection.inumbo.net>)
+ id 1sCKKA-0006Xm-FV
+ for xen-devel@lists.xenproject.org; Wed, 29 May 2024 14:30:42 +0000
+Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
+ [2a00:1450:4864:20::62f])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 853ebdb4-1dc6-11ef-90a1-e314d9c70b13;
- Wed, 29 May 2024 16:19:54 +0200 (CEST)
-Received: by mail-ed1-x535.google.com with SMTP id
- 4fb4d7f45d1cf-57857e0f464so2789442a12.0
- for <xen-devel@lists.xenproject.org>; Wed, 29 May 2024 07:19:54 -0700 (PDT)
-Received: from andrew-laptop.citrite.net ([217.156.233.157])
+ id 06850f46-1dc8-11ef-90a1-e314d9c70b13;
+ Wed, 29 May 2024 16:30:41 +0200 (CEST)
+Received: by mail-ej1-x62f.google.com with SMTP id
+ a640c23a62f3a-a62972c88a9so272487466b.1
+ for <xen-devel@lists.xenproject.org>; Wed, 29 May 2024 07:30:41 -0700 (PDT)
+Received: from EMEAENGAAD19049.citrite.net ([217.156.233.157])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a6389a0b4ccsm101767066b.22.2024.05.29.07.19.53
+ a640c23a62f3a-a626c937b92sm720180266b.68.2024.05.29.07.30.39
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 29 May 2024 07:19:53 -0700 (PDT)
+ Wed, 29 May 2024 07:30:39 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,104 +45,103 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 853ebdb4-1dc6-11ef-90a1-e314d9c70b13
+X-Inumbo-ID: 06850f46-1dc8-11ef-90a1-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1716992394; x=1717597194; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=dYSXQhJ0PGNDlVpaDWx18D2dK2stcV3qob4/lvY8HMU=;
-        b=N8XIv60u30rCL+EVRlh40On8PeAQPP/7JU4m3myfLz6G3x6aHdKSy278rzWtH8lkiQ
-         hAeaVmpbTTrUEy30Wl3Mj0uZCEpjqqTcli37heorFOuCfjJfHkPo0rpEvCoEkdai0N19
-         HLn65zOe5tb/uTIYWnzLKlceMZN5XbAz8zWHc=
+        d=cloud.com; s=cloud; t=1716993040; x=1717597840; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=+yUT538RuJE2ZDH/10+V5jqjUG50quYq2RZl3j1igMg=;
+        b=kBV4ppiFZbRuz9I8ER25BPGmPHFz8B9Hxi17jBr92dqML4ftUyi/LCA0NgPI+5hcgU
+         oyG0mU0+C9A2kWcqZj1S3VUD2l/J3ZfHUyrAODaL6Ss6w3qTPuigDS8UqfGJ23P51mUN
+         lNLAaf9B5YqFlPEBFHdVJmidANkm6sp7OdZLM=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1716992394; x=1717597194;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=dYSXQhJ0PGNDlVpaDWx18D2dK2stcV3qob4/lvY8HMU=;
-        b=S1r5qi8AkiU2E67K8itK/fTX4HAQlA8xOswvmghYiZWih/vWEeUSaLYX6ETjJGIqZu
-         Iz4G/Rq3kmw3d0PK3Nl8xPUCxEQ7Z9ikUgeUoUATTfBlEBI1mLEx67Eh5avugKzKBd1V
-         9D+2ZdW2+DYS4/ul3NSzyn3ggb+yCQdbuFmbsIJIitwpzRRqsX1GjMtxyq3KFnEFJkZA
-         hSDVJLmcEKvDTaueh46T9ntraSdRYFcTvWP+G4EksimijB/xFFXdJrfUSYRGyjqrju9d
-         71hBoG0GOH5yyMuK9uLb0fT0jphPd/X8JEnZ3b4hdZibG91c+2cXqz3gtLahEXjQPQ4/
-         Tk+w==
-X-Gm-Message-State: AOJu0YwNiwzGdUHmgyWwxdivlzBLUvMKBF8i3sssXg1Gjc/Yo4qggDg9
-	pVA0V8JyHhLR/kgW+1Wl0ZOhl5+mGIRzYAfB3l34tUxEvKRQtVXtRWOOjdSOLPEDZCX3l55N7Yt
-	OUnc=
-X-Google-Smtp-Source: AGHT+IH8Mm/hWecuku0+y8gQZdQGlDm2/HgQ7UTncEgW22ljdqB4qeA1EPM0HiL6Nz9RQ80UF36lyQ==
-X-Received: by 2002:a17:906:2516:b0:a63:535b:b316 with SMTP id a640c23a62f3a-a63535bb4a2mr285160066b.44.1716992394253;
-        Wed, 29 May 2024 07:19:54 -0700 (PDT)
-From: Andrew Cooper <andrew.cooper3@citrix.com>
+        d=1e100.net; s=20230601; t=1716993040; x=1717597840;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=+yUT538RuJE2ZDH/10+V5jqjUG50quYq2RZl3j1igMg=;
+        b=V78+JpqWf5uBGE1glrj7g35eGBI9HT2bhKwUrxS4jc7VypWvHGOHXiF//EjbFQS+lG
+         bRrlgo1BD16GXlUZI/UVJ2eR0oqNp7eH6GQHoNxT6A3qMxfOfiSW4blR/b2TQoKCyL3i
+         n+wLVYE6nvgioELM9wOfBidzfeaxePwJWekq0zkdT89UvRe+4tc/9wJT4c48ri0iHAhW
+         EM4LxO2fBae/HboxeU1jcLY7x6xIFDpGHHNJywNVxbWyhFCU4ssYEGj6zFNy184PFTpQ
+         BpAlJbJejOlJUZKIrZpioAiwb47M/h0tQ3bMnSAFuWM2I1ohvLz6pFE6NRu2++X2G+Uc
+         C8wA==
+X-Gm-Message-State: AOJu0Yzz6rdZaIxN/S2Pjl1SLPRFpKmYCpPWy+dpHKTCfvCuvJ8ZcCYr
+	eIFdd4hppJ8pIxHqu+yUZAk8kv7sHEM2swAZf0DPfp/xIs7Mt2pc+qYGIMFckYvkaYArKgaiKPQ
+	n
+X-Google-Smtp-Source: AGHT+IFsXtn8pr9gBJIq4zfxnVRojgg1TjyaV7rfzONLW9FO5US8h8doGmzs5PcIryRjhidABCM8Yw==
+X-Received: by 2002:a17:906:3695:b0:a5a:7cfe:30e9 with SMTP id a640c23a62f3a-a6264f01e40mr1054978566b.49.1716993040272;
+        Wed, 29 May 2024 07:30:40 -0700 (PDT)
+From: Alejandro Vallejo <alejandro.vallejo@cloud.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Michal Orzel <michal.orzel@amd.com>,
-	=?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
-	Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Subject: [PATCH 3/3] CI: Improve serial handling in qemu-smoke-ppc64le.sh
-Date: Wed, 29 May 2024 15:19:45 +0100
-Message-Id: <20240529141945.41669-4-andrew.cooper3@citrix.com>
+Cc: Alejandro Vallejo <alejandro.vallejo@cloud.com>,
+	Anthony PERARD <anthony@xenproject.org>,
+	Juergen Gross <jgross@suse.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
+Subject: [PATCH v4 0/2] Clean the policy manipulation path in domain creation
+Date: Wed, 29 May 2024 15:30:36 +0100
+Message-Id: <cover.1716992707.git.alejandro.vallejo@cloud.com>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20240529141945.41669-1-andrew.cooper3@citrix.com>
-References: <20240529141945.41669-1-andrew.cooper3@citrix.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Have PPC put serial to stdout like all other tests, so it shows up in the main
-job log.
+v3 -> v4:
+  * More changes in style and comments
+  * Removal of unneeded local variables
+  * Fixed unhandled corner cases in bsearch()
 
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
----
-CC: Roger Pau Monné <roger.pau@citrix.com>
-CC: Stefano Stabellini <sstabellini@kernel.org>
-CC: Michal Orzel <michal.orzel@amd.com>
-CC: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
-CC: Oleksii Kurochko <oleksii.kurochko@gmail.com>
----
- automation/scripts/qemu-smoke-ppc64le.sh | 13 +++++++------
- 1 file changed, 7 insertions(+), 6 deletions(-)
+v2 -> v3:
+  * Style adjustments
+  * Revert of loop index scope refactors
 
-diff --git a/automation/scripts/qemu-smoke-ppc64le.sh b/automation/scripts/qemu-smoke-ppc64le.sh
-index 2adbdac87ef5..701d81107d18 100755
---- a/automation/scripts/qemu-smoke-ppc64le.sh
-+++ b/automation/scripts/qemu-smoke-ppc64le.sh
-@@ -2,15 +2,15 @@
- 
- set -ex
- 
-+serial_log="$(pwd)/smoke.serial"
-+
- # machine type from first arg passed directly to qemu -M
- machine=$1
- 
- # Run the test
--rm -f smoke.serial
-+rm -f ${serial_log}
- set +e
- 
--touch smoke.serial
--
- timeout -k 1 20 \
- binaries/qemu-system-ppc64 \
-     -bios binaries/skiboot.lid \
-@@ -20,9 +20,10 @@ binaries/qemu-system-ppc64 \
-     -vga none \
-     -monitor none \
-     -nographic \
--    -serial file:smoke.serial \
--    -kernel binaries/xen
-+    -serial stdio \
-+    -kernel binaries/xen \
-+    |& tee ${serial_log} | sed 's/\r//'
- 
- set -e
--(grep -q "Hello, ppc64le!" smoke.serial) || exit 1
-+(grep -q "Hello, ppc64le!" ${serial_log}) || exit 1
- exit 0
+v1 -> v2:
+  * Removed xc_cpu_policy from xenguest.h (dropped v1/patch1)
+  * Added accessors for xc_cpu_policy so the serialised form can be extracted.
+  * Modified xen-cpuid to use accessors.
+
+==== Original cover letter ====
+
+In the context of creating a domain, we currently issue a lot of hypercalls
+redundantly while populating its CPU policy; likely a side effect of
+organic growth more than anything else.
+
+However, the worst part is not the overhead (this is a glacially cold
+path), but the insane amounts of boilerplate that make it really hard to
+pick apart what's going on. One major contributor to this situation is the
+fact that what's effectively "setup" and "teardown" phases in policy
+manipulation are not factored out from the functions that perform said
+manipulations, leading to the same getters and setter being invoked many
+times, when once each would do.
+
+Another big contributor is the code being unaware of when a policy is
+serialised and when it's not.
+
+This patch attempts to alleviate this situation, yielding over 200 LoC
+reduction.
+
+Patch 1: Mechanical change. Makes xc_cpu_policy_t public so it's usable
+         from clients of libxc/libxg.
+Patch 2: Changes the (de)serialization wrappers in xenguest so they always
+         serialise to/from the internal buffers of xc_cpu_policy_t. The
+         struct is suitably expanded to hold extra information required.
+Patch 3: Performs the refactor of the policy manipulation code so that it
+         follows a strict: PULL_POLICIES, MUTATE_POLICY (n times), PUSH_POLICY.
+
+Alejandro Vallejo (2):
+  tools/xg: Streamline cpu policy serialise/deserialise calls
+  tools/xg: Clean up xend-style overrides for CPU policies
+
+ tools/include/xenguest.h            |  14 +-
+ tools/libs/guest/xg_cpuid_x86.c     | 525 ++++++++++------------------
+ tools/libs/guest/xg_private.h       |   2 +
+ tools/libs/guest/xg_sr_common_x86.c |  56 ++-
+ tools/misc/xen-cpuid.c              |  41 +--
+ 5 files changed, 235 insertions(+), 403 deletions(-)
+
 -- 
-2.30.2
+2.34.1
 
 
