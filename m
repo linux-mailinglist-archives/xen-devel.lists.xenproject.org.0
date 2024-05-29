@@ -2,33 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EC7388D3ED5
-	for <lists+xen-devel@lfdr.de>; Wed, 29 May 2024 21:20:31 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.732304.1138232 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F07988D3EF4
+	for <lists+xen-devel@lfdr.de>; Wed, 29 May 2024 21:35:45 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.732312.1138243 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sCOqR-00076S-T1; Wed, 29 May 2024 19:20:19 +0000
+	id 1sCP4v-0000Sc-46; Wed, 29 May 2024 19:35:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 732304.1138232; Wed, 29 May 2024 19:20:19 +0000
+Received: by outflank-mailman (output) from mailman id 732312.1138243; Wed, 29 May 2024 19:35:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sCOqR-00074B-QV; Wed, 29 May 2024 19:20:19 +0000
-Received: by outflank-mailman (input) for mailman id 732304;
- Wed, 29 May 2024 19:20:19 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=xAhx=NA=gmail.com=w1benny@srs-se1.protection.inumbo.net>)
- id 1sCOqR-000745-AD
- for xen-devel@lists.xenproject.org; Wed, 29 May 2024 19:20:19 +0000
-Received: from mail-oo1-xc2e.google.com (mail-oo1-xc2e.google.com
- [2607:f8b0:4864:20::c2e])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 7b043fac-1df0-11ef-b4bb-af5377834399;
- Wed, 29 May 2024 21:20:17 +0200 (CEST)
-Received: by mail-oo1-xc2e.google.com with SMTP id
- 006d021491bc7-5b9776123a3so22305eaf.0
- for <xen-devel@lists.xenproject.org>; Wed, 29 May 2024 12:20:17 -0700 (PDT)
+	id 1sCP4v-0000Qs-1O; Wed, 29 May 2024 19:35:17 +0000
+Received: by outflank-mailman (input) for mailman id 732312;
+ Wed, 29 May 2024 19:35:15 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=0akS=NA=raptorengineering.com=sanastasio@srs-se1.protection.inumbo.net>)
+ id 1sCP4t-0000Qm-M1
+ for xen-devel@lists.xenproject.org; Wed, 29 May 2024 19:35:15 +0000
+Received: from raptorengineering.com (mail.raptorengineering.com
+ [23.155.224.40]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 909ac36f-1df2-11ef-90a1-e314d9c70b13;
+ Wed, 29 May 2024 21:35:13 +0200 (CEST)
+Received: from localhost (localhost [127.0.0.1])
+ by mail.rptsys.com (Postfix) with ESMTP id 092A58287045;
+ Wed, 29 May 2024 14:35:11 -0500 (CDT)
+Received: from mail.rptsys.com ([127.0.0.1])
+ by localhost (vali.starlink.edu [127.0.0.1]) (amavisd-new, port 10032)
+ with ESMTP id WiR5U2434Tuw; Wed, 29 May 2024 14:35:10 -0500 (CDT)
+Received: from localhost (localhost [127.0.0.1])
+ by mail.rptsys.com (Postfix) with ESMTP id CDC43828718A;
+ Wed, 29 May 2024 14:35:09 -0500 (CDT)
+Received: from mail.rptsys.com ([127.0.0.1])
+ by localhost (vali.starlink.edu [127.0.0.1]) (amavisd-new, port 10026)
+ with ESMTP id u-IVwvgOBNcD; Wed, 29 May 2024 14:35:09 -0500 (CDT)
+Received: from [10.11.0.2] (5.edge.rptsys.com [23.155.224.38])
+ by mail.rptsys.com (Postfix) with ESMTPSA id C6B9F8287045;
+ Wed, 29 May 2024 14:35:08 -0500 (CDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,96 +51,57 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7b043fac-1df0-11ef-b4bb-af5377834399
+X-Inumbo-ID: 909ac36f-1df2-11ef-90a1-e314d9c70b13
+DKIM-Filter: OpenDKIM Filter v2.10.3 mail.rptsys.com CDC43828718A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1717010416; x=1717615216; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=nYEZ3QdPOBVtKLMGxphyZXjG3jXLrbQxZILjLBd0uT8=;
-        b=cKFi4iq26jWEDOk4ZDVZEWDEGfOKFZ2yu0bK+ZYFI9F60QAyg0nWL6PMPode6w00rQ
-         5NCy7mvvsTU0e6tO8H28siHblF1cd7BJ5q9lecUl4jQY+RPXAeL2YCnLM/81gY3w5piS
-         P7G6e/IlN8EbRy7txN3Fh5gc2/ey3mKTopK5Udufx/1mj53JCmS6CGbWEtE5POcFFw9Z
-         KeIP6iReqCyGgbO+v8yeDZf8AH/RmstMCB6nZ0i1Z3o6jrZRv575w0DGuMeuZkghmaiQ
-         vGYJk/2pnmsd9dPleZqvn/MpIErC91fP0NPKERosQB8dOJAu0ESg4YUWFNcyKAimdUkp
-         8YaQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1717010416; x=1717615216;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=nYEZ3QdPOBVtKLMGxphyZXjG3jXLrbQxZILjLBd0uT8=;
-        b=uVK3jrYS3WEjQMz9fPurjFmvga8B6WLS1WB7FSgvtnuIQ8gzpCZ/pd3qtMIG8d+MDb
-         fMc8wqD3mt6S0bVmi4JFQw30KzTxSZdXQPHKKBk4K9genGUv79dI4icgojWWPTn01xId
-         etgCrN4ljorBGTNGVQ3HOrKLpgngkJQC6zmRHdDWdjhUVKQYsqheoiUNDRAQbgf/6W81
-         62ihlvDG+PKF1YB10HZAqw/lnJTFf5ZMTW5WzIvjMlekl/uU+gW+1qi1UGwU8Qq1dA0j
-         VkKyeNgTKbcW0o5YOpjLZB4tdd9rnwnDc/ynBieA0bsgU3NDNbX0pFukCWydjdcsVHfx
-         Az1g==
-X-Forwarded-Encrypted: i=1; AJvYcCWYHkaJcm1YSoO5Hqduc3OihkznIiBAL6Pr1gk+cuu1LVZ68s63ahqvbm+SUYHsiMG6TxXwS88+seIOlSIxvB/Ctz/4rOWB+cMN9Kg+U/8=
-X-Gm-Message-State: AOJu0YxTpvz5medRmyxL1Tk4mru8AjXkEwnO///69A35a0j035E178kT
-	WYBoettvGMhWBrqIh1M3dyO0kkNWJomh+ggTiRdt07tiemhA1hOiKbQLXffZsJ04jb3+1gG3ND3
-	B2+acwa2GqDvIWaV1RinXPvlkMcU=
-X-Google-Smtp-Source: AGHT+IH7dzzBsRBUM6NjiNPEqPePk3LBlVotkKy36aTOkYG7k8Mdi271TA5C51uZ1qI7DV9hYpXkCeMN4l0lHFIg46E=
-X-Received: by 2002:a05:6871:5210:b0:24f:dad3:97c with SMTP id
- 586e51a60fabf-25060dd25aemr162328fac.46.1717010415890; Wed, 29 May 2024
- 12:20:15 -0700 (PDT)
+	d=raptorengineering.com; s=B8E824E6-0BE2-11E6-931D-288C65937AAD;
+	t=1717011309; bh=dwXIRi2j9fE09Pzdoge9/pLUywiTgX1ILFFSyE1O6Gc=;
+	h=Message-ID:Date:MIME-Version:To:From;
+	b=sxOxTfzuKi6BmoGGNt0fvda0Yucgiwi5lGbwWNMggm8D+uIPYcYdvP86udtWnBrnk
+	 5b1tNqz/dkYRZjcLgVqSFmNK75RpqMGiK4nl8vDeU5ijbSVOB3B2bmrzWhmWdjgj2y
+	 K48MZlgUCjwOzgvXVlTQ2jwc/z1DOpupAJvN2QsI=
+X-Virus-Scanned: amavisd-new at rptsys.com
+Message-ID: <2e845397-5d0f-4905-baef-cbf4402abd55@raptorengineering.com>
+Date: Wed, 29 May 2024 14:35:08 -0500
 MIME-Version: 1.0
-References: <cover.1716029860.git.w1benny@gmail.com> <ba5b81fdaf174a236c3963fcfd29ae3b19aff13d.1716029860.git.w1benny@gmail.com>
- <21196eb3-82ca-470b-8dc9-1a95b427f3b9@suse.com> <CAKBKdXj7xUyuy-wPCjR0a+kNwqCmGXOoO=-pMQa7=Yiyaom_mg@mail.gmail.com>
- <12335f4d-adde-42d3-aa25-b662e701b96d@suse.com>
-In-Reply-To: <12335f4d-adde-42d3-aa25-b662e701b96d@suse.com>
-From: =?UTF-8?Q?Petr_Bene=C5=A1?= <w1benny@gmail.com>
-Date: Wed, 29 May 2024 21:20:04 +0200
-Message-ID: <CAKBKdXjuf3T1ozYFm3njU5pq0bwZnHjAoHjD0LsvcDnCRxdTBw@mail.gmail.com>
-Subject: Re: [PATCH for-4.19? v4 4/6] x86: Make the maximum number of altp2m
- views configurable
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-	George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>, 
-	Stefano Stabellini <sstabellini@kernel.org>, Tamas K Lengyel <tamas@tklengyel.com>, 
-	Alexandru Isaila <aisaila@bitdefender.com>, Petre Pircalabu <ppircalabu@bitdefender.com>, 
-	xen-devel@lists.xenproject.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 01/13] ppc/boot: Run constructors on boot
+To: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Jan Beulich <JBeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, Wei Liu <wl@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+ "consulting @ bugseng . com" <consulting@bugseng.com>,
+ Simone Ballarin <simone.ballarin@bugseng.com>,
+ Federico Serafini <federico.serafini@bugseng.com>,
+ Nicola Vetrini <nicola.vetrini@bugseng.com>
+References: <20240524200338.1232391-1-andrew.cooper3@citrix.com>
+ <20240524200338.1232391-2-andrew.cooper3@citrix.com>
+Content-Language: en-US
+From: Shawn Anastasio <sanastasio@raptorengineering.com>
+In-Reply-To: <20240524200338.1232391-2-andrew.cooper3@citrix.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Mon, May 27, 2024 at 8:19=E2=80=AFAM Jan Beulich <jbeulich@suse.com> wro=
-te:
->
->
-> This is suspicious: You compare against one value but log another. This
-> isn't EPT-specific, so shouldn't use MAX_EPTP.
+Hi Andrew,
 
-Sorry, I copy-pasted a snippet and didn't edit it correctly. Of
-course, it should have been:
+On 5/24/24 3:03 PM, Andrew Cooper wrote:
+> PPC collects constructors, but doesn't run them yet.  Do so.
+> 
+> They'll shortly be used to confirm correct behaviour of the bitops primitives.
+> 
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> ---
 
-if ( config->nr_altp2m > MAX_NR_ALTP2M )
-{
-    dprintk(XENLOG_INFO, "nr_altp2m must be <=3D %lu\n", MAX_NR_ALTP2M);
-    return -EINVAL;
-}
+Looks good to me.
 
-> > ... should I be consistent and also replace these accesses with
-> > altp2m_get_eptp/altp2m_get_p2m (which will internally use
-> > array_index_nospec), or should I leave them as they are?
->
-> Perhaps leave them as they are, unless you can technically justify the
-> adjustment.
+Acked-by: Shawn Anastasio <sanastasio@raptorengineering.com>
 
-If we can avoid speculative execution, why just not do it? The
-performance overhead array_index_nospec is negligible compared to the
-whole VMEXIT handling. It will also serve as future-proofing, since
-nobody will be confused whether they should directly access the array,
-but instead use the accessor function.
+Thanks,
+Shawn
 
-Currently, the idea seems to be that array_index_nospec() is used when
-the index is user-controlled, and not used when the index is under
-xen's control (i.e. in loops). But I found at least 2 instances where
-the index _is_ user controlled and the nospec access is not used -
-further proving my previous point.
-
-That being said, if there are no protests, I would replace all array
-index accesses with the newly introduced accessor functions, which
-will unconditionally use array_index_nospec().
-
-P.
 
