@@ -2,35 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 524808D2F0B
-	for <lists+xen-devel@lfdr.de>; Wed, 29 May 2024 10:01:00 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.731588.1137175 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0954A8D2F67
+	for <lists+xen-devel@lfdr.de>; Wed, 29 May 2024 10:04:03 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.731594.1137186 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sCEEo-0001Et-0p; Wed, 29 May 2024 08:00:46 +0000
+	id 1sCEHj-00021Z-EM; Wed, 29 May 2024 08:03:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 731588.1137175; Wed, 29 May 2024 08:00:45 +0000
+Received: by outflank-mailman (output) from mailman id 731594.1137186; Wed, 29 May 2024 08:03:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sCEEn-0001Cq-UR; Wed, 29 May 2024 08:00:45 +0000
-Received: by outflank-mailman (input) for mailman id 731588;
- Wed, 29 May 2024 08:00:44 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1sCEHj-0001zA-BU; Wed, 29 May 2024 08:03:47 +0000
+Received: by outflank-mailman (input) for mailman id 731594;
+ Wed, 29 May 2024 08:03:46 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ZZuD=NA=kernel.org=dlemoal@srs-se1.protection.inumbo.net>)
- id 1sCEEm-0001Au-JC
- for xen-devel@lists.xenproject.org; Wed, 29 May 2024 08:00:44 +0000
-Received: from sin.source.kernel.org (sin.source.kernel.org
- [2604:1380:40e1:4800::1])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 8a98e8d9-1d91-11ef-90a1-e314d9c70b13;
- Wed, 29 May 2024 10:00:43 +0200 (CEST)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id 8C2D6CE1676;
- Wed, 29 May 2024 08:00:38 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D1365C2BD10;
- Wed, 29 May 2024 08:00:35 +0000 (UTC)
+ <SRS0=DI5e=NA=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1sCEHi-0001z0-CG
+ for xen-devel@lists.xenproject.org; Wed, 29 May 2024 08:03:46 +0000
+Received: from mail-lj1-x231.google.com (mail-lj1-x231.google.com
+ [2a00:1450:4864:20::231])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id f8295c1b-1d91-11ef-b4bb-af5377834399;
+ Wed, 29 May 2024 10:03:44 +0200 (CEST)
+Received: by mail-lj1-x231.google.com with SMTP id
+ 38308e7fff4ca-2e716e3030aso15967521fa.2
+ for <xen-devel@lists.xenproject.org>; Wed, 29 May 2024 01:03:44 -0700 (PDT)
+Received: from [192.168.219.221] ([94.75.70.14])
+ by smtp.gmail.com with ESMTPSA id
+ 38308e7fff4ca-2e95bcd73acsm24683021fa.29.2024.05.29.01.03.41
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 29 May 2024 01:03:41 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,89 +45,66 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8a98e8d9-1d91-11ef-90a1-e314d9c70b13
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1716969637;
-	bh=G8ukn4/ipULjaA61nZoKSh0N7cnsV0YBmRdlGxpAHeY=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=SuVzllmYSRfquuJcDcRWnc0GHSPtFNyp26AyBluVbJ0up4tbRtITWjDNuKs1XeKsj
-	 9unRV1rYyOv2gxNp3rc+jY9sEkrRoqVZBHFucwYGOw+cZtDcO5G4HtfEKacdVyOA5g
-	 6mlURbCvBUcRD04eBHxPfjMS/Igzp8+knm7PD62kn5RYL66jlTq5s1KxPqTq4ABeHL
-	 J7gn1nDulWyl0ZYRxhgciUY+N6bzgokG2U4wmuyIXgq6xnWCSKMrB/TqQkHYeFuDg7
-	 CGmud4af4+/jP58GUdbsQFpcZukByzTLb1+jCTWsClYve1yVdsTgRE9/fLAmqjluGl
-	 t4JqpvDKBOzCw==
-Message-ID: <8878dcb7-5f18-4e34-b917-ee5e1ee15cff@kernel.org>
-Date: Wed, 29 May 2024 17:00:34 +0900
+X-Inumbo-ID: f8295c1b-1d91-11ef-b4bb-af5377834399
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1716969823; x=1717574623; darn=lists.xenproject.org;
+        h=mime-version:user-agent:content-transfer-encoding:date:cc:to:from
+         :subject:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=Cwlm85y15hvEBwmwyKTMv8ZFXNIJ7y0Stx07S583OOQ=;
+        b=f84lZxyc1PlEoCvxvfgh4R7Z2ZLiOmWNaJER9o69AE7vr1OUHQbMxpsGu2ADzOO6vE
+         ErHQXttu5YjTgmVpkiHrG8MHph9Ceg7DjwyQSwr1CvkR1dVFkPnpNVny1LOwhBI61puX
+         SBx85i1qik3D96mUtrHADBhrYvIX8ppe4OPsyKZOSUUWieTXCTEqYbpLIuCiQPvVWx3s
+         pzotZPTRhlwdY6SElVbDS0KFD9onnJAV9j7/KrJS+zmK1PU8T+hOBcp/SZvnX8UPuCJA
+         lEGEQ/pIDnfJwyG2/z2XgVvEjkv3zVoMuF8p5u/0pZrnUqrSmp5m7eIB1zvCEmv5Foql
+         hrHQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1716969823; x=1717574623;
+        h=mime-version:user-agent:content-transfer-encoding:date:cc:to:from
+         :subject:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=Cwlm85y15hvEBwmwyKTMv8ZFXNIJ7y0Stx07S583OOQ=;
+        b=Pz6gwAFTaAHQGLrAGo1SeYU2GwWYP269yZF8Vx9hDchE8+uKDaoZai5G92hTIxu+ke
+         uHkLc2TkymmjNOmis3wqszQy2giCqoxgBjWR/r7hkeLDUCxSAGVA0s/ND8VJisQYDnv0
+         NGMVGoYVOSkXvbObUTjOkYs+hej+Zvet6aBFloJKKjCIDMvJG63Cchs4351fhgdOSroj
+         /ytxVIfiSEtgfKilX1J633OISGlTy8grcaVT60zV8+pWUFgjl/5/Szp+xM3Rq8IdARTg
+         mRwPjdv6JyX823nQUlLKccMp3QJT0TA7i6OhnuhVSHlJRn/Xe5UstN21VLWXiASwEwig
+         whNQ==
+X-Gm-Message-State: AOJu0YxVearGcy5XfOPBa0g3N+K0A5zgvYuVrTf9M0KK+sLI/LBmW2HD
+	1A0hHc0Psk4rcvDWc0gp7A92SjOx/V60emNA6WEkMn90xgrglW8IpjDJkLhC
+X-Google-Smtp-Source: AGHT+IEucP+Ht4k1hx3HGvoBTWJctR13u69mYAuMoYihHdUT04IFGF405mIJQJgQVGKeKmWJiQ7UOA==
+X-Received: by 2002:a2e:3c18:0:b0:2ea:7db8:7ce6 with SMTP id 38308e7fff4ca-2ea7db87ec8mr3209811fa.38.1716969822089;
+        Wed, 29 May 2024 01:03:42 -0700 (PDT)
+Message-ID: <e9514fa9fc0a0ea9eae2f0c4accf9b3060e95f9e.camel@gmail.com>
+Subject: Updated Xen 4.19 schedule
+From: "Oleksii K." <oleksii.kurochko@gmail.com>
+To: xen-devel@lists.xenproject.org
+Cc: committers@xenproject.org, community.manager@xenproject.org, Kelly Choi
+	 <kelly.choi@cloud.com>
+Date: Wed, 29 May 2024 10:03:41 +0200
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.52.1 (3.52.1-1.fc40) 
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 01/12] ubd: untagle discard vs write zeroes not support
- handling
-To: Christoph Hellwig <hch@lst.de>, Jens Axboe <axboe@kernel.dk>,
- "Martin K. Petersen" <martin.petersen@oracle.com>
-Cc: Richard Weinberger <richard@nod.at>,
- Anton Ivanov <anton.ivanov@cambridgegreys.com>,
- Johannes Berg <johannes@sipsolutions.net>, Josef Bacik
- <josef@toxicpanda.com>, Ilya Dryomov <idryomov@gmail.com>,
- Dongsheng Yang <dongsheng.yang@easystack.cn>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- linux-um@lists.infradead.org, linux-block@vger.kernel.org,
- nbd@other.debian.org, ceph-devel@vger.kernel.org,
- xen-devel@lists.xenproject.org, linux-scsi@vger.kernel.org
-References: <20240529050507.1392041-1-hch@lst.de>
- <20240529050507.1392041-2-hch@lst.de>
-From: Damien Le Moal <dlemoal@kernel.org>
-Content-Language: en-US
-Organization: Western Digital Research
-In-Reply-To: <20240529050507.1392041-2-hch@lst.de>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
-On 5/29/24 14:04, Christoph Hellwig wrote:
-> Discard and Write Zeroes are different operation and implemented
-> by different fallocate opcodes for ubd.  If one fails the other one
-> can work and vice versa.
-> 
-> Split the code to disable the operations in ubd_handler to only
-> disable the operation that actually failed.
-> 
-> Fixes: 50109b5a03b4 ("um: Add support for DISCARD in the UBD Driver")
-> Signed-off-by: Christoph Hellwig <hch@lst.de>
-> ---
->  arch/um/drivers/ubd_kern.c | 11 ++++++++---
->  1 file changed, 8 insertions(+), 3 deletions(-)
-> 
-> diff --git a/arch/um/drivers/ubd_kern.c b/arch/um/drivers/ubd_kern.c
-> index ef805eaa9e013d..a79a3b7c33a647 100644
-> --- a/arch/um/drivers/ubd_kern.c
-> +++ b/arch/um/drivers/ubd_kern.c
-> @@ -471,9 +471,14 @@ static void ubd_handler(void)
->  		for (count = 0; count < n/sizeof(struct io_thread_req *); count++) {
->  			struct io_thread_req *io_req = (*irq_req_buffer)[count];
->  
-> -			if ((io_req->error == BLK_STS_NOTSUPP) && (req_op(io_req->req) == REQ_OP_DISCARD)) {
-> -				blk_queue_max_discard_sectors(io_req->req->q, 0);
-> -				blk_queue_max_write_zeroes_sectors(io_req->req->q, 0);
-> +			if (io_req->error == BLK_STS_NOTSUPP) {
-> +				struct request_queue *q = io_req->req->q;
-> +
-> +				if (req_op(io_req->req) == REQ_OP_DISCARD)
-> +					blk_queue_max_discard_sectors(q, 0);
-> +				if (req_op(io_req->req) == REQ_OP_WRITE_ZEROES)
+Hello everyone,
 
-Nit: this can be an "else if".
+I would like to announce that I have decided to update the Xen 4.19
+schedule due to the extended feature freeze period and the upcoming Xen
+Summit next week.
 
-Otherwise, looks OK to me.
+I propose the following updates:
+   Code Freeze: from May 31 to June 7
+   Hard Code Freeze: from June 21 to June 28
+   Final commits: from July 5 to July 12
+   Release: July 17
+The release date is shifted, but it still remains in July, which seems
+acceptable to me.
 
-Reviewed-by: Damien Le Moal <dlemoal@kernel.org>
+One more thing:
+No release ack is needed before Rc1. Please commit bug fixes at will.
 
-> +					blk_queue_max_write_zeroes_sectors(q,
-> +							0);
->  			}
->  			blk_mq_end_request(io_req->req, io_req->error);
->  			kfree(io_req);
+Have a nice day.
 
--- 
-Damien Le Moal
-Western Digital Research
-
+Best regards,
+Oleksii
 
