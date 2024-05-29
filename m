@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D9FE58D3282
-	for <lists+xen-devel@lfdr.de>; Wed, 29 May 2024 11:03:11 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.731689.1137346 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2F25E8D327E
+	for <lists+xen-devel@lfdr.de>; Wed, 29 May 2024 11:03:10 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.731690.1137355 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sCFCU-00073i-Vo; Wed, 29 May 2024 09:02:26 +0000
+	id 1sCFCW-0007JO-BS; Wed, 29 May 2024 09:02:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 731689.1137346; Wed, 29 May 2024 09:02:26 +0000
+Received: by outflank-mailman (output) from mailman id 731690.1137355; Wed, 29 May 2024 09:02:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sCFCU-00071B-Sz; Wed, 29 May 2024 09:02:26 +0000
-Received: by outflank-mailman (input) for mailman id 731689;
- Wed, 29 May 2024 09:02:25 +0000
+	id 1sCFCW-0007GK-8Y; Wed, 29 May 2024 09:02:28 +0000
+Received: by outflank-mailman (input) for mailman id 731690;
+ Wed, 29 May 2024 09:02:27 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=FJ4/=NA=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1sCFCT-0006nV-T7
- for xen-devel@lists.xenproject.org; Wed, 29 May 2024 09:02:25 +0000
-Received: from mail-qv1-xf34.google.com (mail-qv1-xf34.google.com
- [2607:f8b0:4864:20::f34])
+ id 1sCFCV-0006nV-3E
+ for xen-devel@lists.xenproject.org; Wed, 29 May 2024 09:02:27 +0000
+Received: from mail-qt1-x82c.google.com (mail-qt1-x82c.google.com
+ [2607:f8b0:4864:20::82c])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 2a42f51a-1d9a-11ef-90a1-e314d9c70b13;
- Wed, 29 May 2024 11:02:24 +0200 (CEST)
-Received: by mail-qv1-xf34.google.com with SMTP id
- 6a1803df08f44-6ab9d406101so10364256d6.3
- for <xen-devel@lists.xenproject.org>; Wed, 29 May 2024 02:02:24 -0700 (PDT)
+ id 2b3c2558-1d9a-11ef-90a1-e314d9c70b13;
+ Wed, 29 May 2024 11:02:26 +0200 (CEST)
+Received: by mail-qt1-x82c.google.com with SMTP id
+ d75a77b69052e-43f87ba7d3eso8992531cf.0
+ for <xen-devel@lists.xenproject.org>; Wed, 29 May 2024 02:02:26 -0700 (PDT)
 Received: from localhost ([213.195.114.223]) by smtp.gmail.com with ESMTPSA id
- 6a1803df08f44-6ac163189cbsm52218246d6.125.2024.05.29.02.02.21
+ d75a77b69052e-43fb16b9770sm52129441cf.6.2024.05.29.02.02.24
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 29 May 2024 02:02:22 -0700 (PDT)
+ Wed, 29 May 2024 02:02:24 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,34 +44,34 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2a42f51a-1d9a-11ef-90a1-e314d9c70b13
+X-Inumbo-ID: 2b3c2558-1d9a-11ef-90a1-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1716973343; x=1717578143; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1716973345; x=1717578145; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=q0Nh3rBmN+pTUZ9mi1QuaHwm6Qdmm1bW1P320o0L9uQ=;
-        b=UrCRNhoAdwKdMwnay26lSkyLKktz/PB5H92GLpZxY27JCpJxj/cf5ZewimxjIy28hr
-         fV5XTeAa4MyoxbDVvBL9cm17LFMuRO7GsJxeoVM/UGz6OLS7VaMhpVYhtbiQ/CIhfBEo
-         mBUKP+Twdv2nzuy9KtzB8y4SXpuXmzmzbicmM=
+        bh=nBJNMx2S48pD7GARHNMhhe8qb1w3vAy8ioD3DvtxaK0=;
+        b=h9HQD/CtQY7JTRR314/fx5bxpAqhS/rmFY2phrwXtUnOMsOcrbt+FI+IeRb29Zd+nd
+         P6LN6vcwDq5/L9m+8t508co5xltNbfdxtPNykzdw71RBxWCh8dgSKqQE9k9t1ugjGlCn
+         Z7VFnCxAYQhA24rpL0USKvu7EBJGXAu2TVVQs=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1716973343; x=1717578143;
+        d=1e100.net; s=20230601; t=1716973345; x=1717578145;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=q0Nh3rBmN+pTUZ9mi1QuaHwm6Qdmm1bW1P320o0L9uQ=;
-        b=jKCK9rPPQij7Z2sFb3KGSteqLY6q78V5/TOV71rWFIfCbI3XO8DVuJikl7kqAhiIBS
-         g/JA5396YceHog8lOwiDgB8XKPYQkMJbYcOsaDbr3DMeLvl0287vnebNW/xM6MjJlnq0
-         KDjN9QyFk8Cx1dVTpFyWZMcIXZoIV4z7rvsqyJZJOPG6sgF/iO3G0M4nKUhbT8r2cAL6
-         6O/xKXw1tNd0xxDWxbYZ8WqengB6CVyR2ceW1aw0KNu8iG8khEuoFZnNjgW3xbPso4UW
-         VEimtzETbXHnZZtI9Q50CUdr+jc+sg4Kt1kmVWm1P0l3zKyl6ETokyVF1jcJV0bs9wnk
-         Br0w==
-X-Gm-Message-State: AOJu0Yxg+JxPe7mLlFPVUa02Ni7NyzAo6dT9b4/sZKs4DnfiWVqULpEO
-	ZT5doBshy5l01CSd4cnByPlgSV5ZglTsTVjAG2iGlYSPmm8+dFS6KMmIgCgkGvkY6cHy7yIqRQc
-	m
-X-Google-Smtp-Source: AGHT+IFHRIN1eZv4oe0SSy/cz+Iz9pCra+5E0JzLjhkBniawjYKENoDwI5H8li2IB8bRXo70SdnG0g==
-X-Received: by 2002:a05:6214:4a07:b0:6a0:b3cc:ee48 with SMTP id 6a1803df08f44-6abc8cd1be4mr175200136d6.37.1716973342641;
-        Wed, 29 May 2024 02:02:22 -0700 (PDT)
+        bh=nBJNMx2S48pD7GARHNMhhe8qb1w3vAy8ioD3DvtxaK0=;
+        b=dsfrday04ntS/rA0twvR5OYLlEGyC4JZKqS+hrnom1JQ5vPCPrhw+cgTSEynRypMtq
+         JUXUHMnYh+jb1e5+kkrpw3h4r7p4YNRyjyYHfWvPqepvucM/zZWSV9R4hGK4W46VyBlF
+         CzOeTMgJVtaPXltXlOcALuBX30zjVOCMKk+jpkGyR3YRzWsjavLH0vQzJT2ARq4TSMbu
+         jEKMGSjSRI0F3VPf3IP6R4ntK/MVoESrM2qio6uSMhvXuQcWz+53roXB3Ti9pq+gG8yQ
+         Ed+WDjdaD6v4q6rI7TNS6vZqDqLerTlge+4O2Hf3U3kHuhFllzylmD1hlcwKEyZxvPyk
+         9eVw==
+X-Gm-Message-State: AOJu0YzltI1JhO+aSzNLo56x7goXzBDzmPNqUJjW52t0hD8YWVAiuqAC
+	fXycsdrS5g5W859QY9uCUDQgNqgqtHrV6bNMX/0hYACgjhiNkLxaHi2PK2rdSDLhLkS9HZrZwUw
+	7
+X-Google-Smtp-Source: AGHT+IFHrl3J3xvu8cJrUJptqFsfoUxoTDgqwa6ABiAHIEPBty/+m2iD8CgPpr1TfF9sKgBxFQzAoQ==
+X-Received: by 2002:a05:622a:1811:b0:43e:e6e:21df with SMTP id d75a77b69052e-43fb0e8584emr144478991cf.15.1716973345017;
+        Wed, 29 May 2024 02:02:25 -0700 (PDT)
 From: Roger Pau Monne <roger.pau@citrix.com>
 To: xen-devel@lists.xenproject.org
 Cc: Roger Pau Monne <roger.pau@citrix.com>,
@@ -80,9 +80,9 @@ Cc: Roger Pau Monne <roger.pau@citrix.com>,
 	Jan Beulich <jbeulich@suse.com>,
 	Julien Grall <julien@xen.org>,
 	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH for-4.19 2/9] xen/cpu: do not get the CPU map in stop_machine_run()
-Date: Wed, 29 May 2024 11:01:24 +0200
-Message-ID: <20240529090132.59434-3-roger.pau@citrix.com>
+Subject: [PATCH for-4.19 3/9] xen/cpu: ensure get_cpu_maps() returns false if CPU operations are underway
+Date: Wed, 29 May 2024 11:01:25 +0200
+Message-ID: <20240529090132.59434-4-roger.pau@citrix.com>
 X-Mailer: git-send-email 2.44.0
 In-Reply-To: <20240529090132.59434-1-roger.pau@citrix.com>
 References: <20240529090132.59434-1-roger.pau@citrix.com>
@@ -90,94 +90,53 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-The current callers of stop_machine_run() outside of init code already have the
-CPU maps locked, and hence there's no reason for stop_machine_run() to attempt
-to lock again.
+Due to the current rwlock logic, if the CPU calling get_cpu_maps() does so from
+a cpu_hotplug_{begin,done}() region the function will still return success,
+because a CPU taking the rwlock in read mode after having taken it in write
+mode is allowed.  Such behavior however defeats the purpose of get_cpu_maps(),
+as it should always return false when called with a CPU hot{,un}plug operation
+is in progress.  Otherwise the logic in send_IPI_mask() for example is wrong,
+as it could decide to use the shorthand even when a CPU operation is in
+progress.
 
-Replace the get_cpu_maps() call with a suitable unreachable assert.
+Adjust the logic in get_cpu_maps() to return false when the CPUs lock is
+already hold in write mode by the current CPU, as read_trylock() would
+otherwise return true.
 
-Further changes will modify the conditions under which get_cpu_maps() returns
-success and without the adjustment proposed here the usage of
-stop_machine_run() in cpu_down() would then return an error.
-
+Fixes: 868a01021c6f ('rwlock: allow recursive read locking when already locked in write mode')
 Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
 ---
- xen/common/cpu.c          |  5 +++++
- xen/common/stop_machine.c | 15 ++++++++-------
- xen/include/xen/cpu.h     |  2 ++
- 3 files changed, 15 insertions(+), 7 deletions(-)
+ xen/common/cpu.c         | 3 ++-
+ xen/include/xen/rwlock.h | 2 ++
+ 2 files changed, 4 insertions(+), 1 deletion(-)
 
 diff --git a/xen/common/cpu.c b/xen/common/cpu.c
-index 8709db4d2957..6173220e771b 100644
+index 6173220e771b..d76f80fe2e99 100644
 --- a/xen/common/cpu.c
 +++ b/xen/common/cpu.c
-@@ -68,6 +68,11 @@ void cpu_hotplug_done(void)
-     write_unlock(&cpu_add_remove_lock);
+@@ -49,7 +49,8 @@ static DEFINE_RWLOCK(cpu_add_remove_lock);
+ 
+ bool get_cpu_maps(void)
+ {
+-    return read_trylock(&cpu_add_remove_lock);
++    return !rw_is_write_locked_by_me(&cpu_add_remove_lock) &&
++           read_trylock(&cpu_add_remove_lock);
  }
  
-+bool cpu_map_locked(void)
-+{
-+    return rw_is_locked(&cpu_add_remove_lock);
-+}
-+
- static NOTIFIER_HEAD(cpu_chain);
+ void put_cpu_maps(void)
+diff --git a/xen/include/xen/rwlock.h b/xen/include/xen/rwlock.h
+index a2e98cad343e..4e7802821859 100644
+--- a/xen/include/xen/rwlock.h
++++ b/xen/include/xen/rwlock.h
+@@ -316,6 +316,8 @@ static always_inline void write_lock_irq(rwlock_t *l)
  
- void __init register_cpu_notifier(struct notifier_block *nb)
-diff --git a/xen/common/stop_machine.c b/xen/common/stop_machine.c
-index 398cfd507c10..7face75648e8 100644
---- a/xen/common/stop_machine.c
-+++ b/xen/common/stop_machine.c
-@@ -82,9 +82,15 @@ int stop_machine_run(int (*fn)(void *data), void *data, unsigned int cpu)
-     BUG_ON(!local_irq_is_enabled());
-     BUG_ON(!is_idle_vcpu(current));
+ #define rw_is_locked(l)               _rw_is_locked(l)
+ #define rw_is_write_locked(l)         _rw_is_write_locked(l)
++#define rw_is_write_locked_by_me(l) \
++    lock_evaluate_nospec(_is_write_locked_by_me(atomic_read(&(l)->cnts)))
  
--    /* cpu_online_map must not change. */
--    if ( !get_cpu_maps() )
-+    /*
-+     * cpu_online_map must not change.  The only two callers of
-+     * stop_machine_run() outside of init code already have the CPU map locked.
-+     */
-+    if ( system_state >= SYS_STATE_active && !cpu_map_locked() )
-+    {
-+        ASSERT_UNREACHABLE();
-         return -EBUSY;
-+    }
  
-     nr_cpus = num_online_cpus();
-     if ( cpu_online(this) )
-@@ -92,10 +98,7 @@ int stop_machine_run(int (*fn)(void *data), void *data, unsigned int cpu)
- 
-     /* Must not spin here as the holder will expect us to be descheduled. */
-     if ( !spin_trylock(&stopmachine_lock) )
--    {
--        put_cpu_maps();
-         return -EBUSY;
--    }
- 
-     stopmachine_data.fn = fn;
-     stopmachine_data.fn_data = data;
-@@ -136,8 +139,6 @@ int stop_machine_run(int (*fn)(void *data), void *data, unsigned int cpu)
- 
-     spin_unlock(&stopmachine_lock);
- 
--    put_cpu_maps();
--
-     return ret;
- }
- 
-diff --git a/xen/include/xen/cpu.h b/xen/include/xen/cpu.h
-index e1d4eb59675c..d8c8264c58b0 100644
---- a/xen/include/xen/cpu.h
-+++ b/xen/include/xen/cpu.h
-@@ -13,6 +13,8 @@ void put_cpu_maps(void);
- void cpu_hotplug_begin(void);
- void cpu_hotplug_done(void);
- 
-+bool cpu_map_locked(void);
-+
- /* Receive notification of CPU hotplug events. */
- void register_cpu_notifier(struct notifier_block *nb);
- 
+ typedef struct percpu_rwlock percpu_rwlock_t;
 -- 
 2.44.0
 
