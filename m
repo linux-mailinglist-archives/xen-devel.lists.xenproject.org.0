@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7C5BD8D3693
-	for <lists+xen-devel@lfdr.de>; Wed, 29 May 2024 14:41:24 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.731871.1137620 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A13BE8D36A7
+	for <lists+xen-devel@lfdr.de>; Wed, 29 May 2024 14:46:28 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.731876.1137630 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sCIbw-000096-Ca; Wed, 29 May 2024 12:40:56 +0000
+	id 1sCIh1-0000jt-W0; Wed, 29 May 2024 12:46:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 731871.1137620; Wed, 29 May 2024 12:40:56 +0000
+Received: by outflank-mailman (output) from mailman id 731876.1137630; Wed, 29 May 2024 12:46:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sCIbw-00006C-9Y; Wed, 29 May 2024 12:40:56 +0000
-Received: by outflank-mailman (input) for mailman id 731871;
- Wed, 29 May 2024 12:40:55 +0000
+	id 1sCIh1-0000hM-SR; Wed, 29 May 2024 12:46:11 +0000
+Received: by outflank-mailman (input) for mailman id 731876;
+ Wed, 29 May 2024 12:46:09 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=RuQ4=NA=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sCIbv-000066-83
- for xen-devel@lists.xenproject.org; Wed, 29 May 2024 12:40:55 +0000
-Received: from mail-lf1-x135.google.com (mail-lf1-x135.google.com
- [2a00:1450:4864:20::135])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=FJ4/=NA=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1sCIgz-0000hG-Ta
+ for xen-devel@lists.xenproject.org; Wed, 29 May 2024 12:46:09 +0000
+Received: from mail-qk1-x735.google.com (mail-qk1-x735.google.com
+ [2607:f8b0:4864:20::735])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id afff5eae-1db8-11ef-90a1-e314d9c70b13;
- Wed, 29 May 2024 14:40:53 +0200 (CEST)
-Received: by mail-lf1-x135.google.com with SMTP id
- 2adb3069b0e04-52a6ef5e731so1178675e87.0
- for <xen-devel@lists.xenproject.org>; Wed, 29 May 2024 05:40:53 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a626cc500a1sm713337466b.125.2024.05.29.05.40.52
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 29 May 2024 05:40:52 -0700 (PDT)
+ id 68e40220-1db9-11ef-90a1-e314d9c70b13;
+ Wed, 29 May 2024 14:46:04 +0200 (CEST)
+Received: by mail-qk1-x735.google.com with SMTP id
+ af79cd13be357-794e5e77b8bso12322685a.1
+ for <xen-devel@lists.xenproject.org>; Wed, 29 May 2024 05:46:04 -0700 (PDT)
+Received: from localhost ([213.195.114.223]) by smtp.gmail.com with ESMTPSA id
+ af79cd13be357-794abd39bf3sm466104785a.114.2024.05.29.05.46.02
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 29 May 2024 05:46:03 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,116 +44,198 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: afff5eae-1db8-11ef-90a1-e314d9c70b13
+X-Inumbo-ID: 68e40220-1db9-11ef-90a1-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1716986453; x=1717591253; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=leLXeNe0XEV2m4n0wwCD4Lh/2K4710UzGF+YXnQAG8M=;
-        b=ZKGTuFIYxsEnc5dCtCnIIzS3Wvsgk3d0aL8Bt9UgTjgI+CJVc6+zwQk4yg4a7CiEVe
-         LmdSSr8XUDhvxv1qGu6urDM+T3wjjhOVScx1mDpCKsLiw2cQB1bCDI5LkMitq065kDYg
-         xQ3dryIWiHvGv3F/1z/oGdleNagabeEBOS5gCbzPgpejNK7ngz+UKnc48bjO/84W7Qir
-         hjsQ/edUOlHYEGccl/xlIxQMlSlhZ6cuxDRzmThyFAkqX3kAwm9wbyOm65p7sp0eO6dH
-         dgie01URdwc9mPHpdEtMzN2Hms2Q5r09K3nqZYyVhU3hfQ40X3a2bPyKdaMjhTlnyl/u
-         Syjg==
+        d=citrix.com; s=google; t=1716986763; x=1717591563; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=aFNf5VydKznM4YREguZ+9UnLyeQJGJfw2gjaHbvAWec=;
+        b=n/3lRIYmR7TK9os+XGCRBP9AgFT9c9tL/QYnfZNOHSmkWrRT3d8d8BL5f67FK3nUee
+         hJCAUzppbKH95tbHCW0ScxfA3YWuBt9AXg/nkS0FbfEjf3EMQqTD3tcbcRo+vMeAEAYJ
+         x6RCryL6B/yfoI56FB5scpycaFvHc8bLOeZnw=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1716986453; x=1717591253;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=leLXeNe0XEV2m4n0wwCD4Lh/2K4710UzGF+YXnQAG8M=;
-        b=MKSfT0MK8Schy2RvOSDCbY7JujvKKM35AlgWnprPlYfbCtIgp5Jqd5imaiqRcAbsOS
-         6zzxNE0dkqDBkhfmLGUTbJ+yKSdoxB7H8uK0jMPSkvpVlSRXPqVqc20g2/WxYaj3Jsc1
-         3Gn4T+aorH9F2YH+ODlcD1W8LCU0Q+qzYE7QmaI5eh49S/oWw27ykn643rhIQ8arosY4
-         lU/jqUJahMA7W79skJ8SD2KSWUuMfablr5Xw+gneFrmsW3ud+VVVoM+9xS2WAfuU6g7e
-         bh4GC5E+zf64lf4AksKBD8DluW79KEVxqHD1DvgBHi8ipa02utoyllJ1EdgLQcbsK1Uy
-         O4gg==
-X-Forwarded-Encrypted: i=1; AJvYcCUFyBunCksqgktWJlFoZYR4BnoEdmvSY8Zu8bdBF/TV50v0bj8U74CcH6zIw5ORk8l52JTHd8j0FXphCFLi/5dx8Uoetu19qxEEwT0bhLw=
-X-Gm-Message-State: AOJu0YzRMdrgvbKRHiM7RpO4JB1HAcLVklr/bRsgc1BJ6KzP+Z3XAomk
-	QzCE5CUNAo9Yyo99n912/Fkqlto5bMoLw9hCcv8H25DAT0PZfMqK1DpmgMQDhA==
-X-Google-Smtp-Source: AGHT+IGm8PeX2GO9KrCtKsVZD1buqtBvVZxRdsCL5NMokU1Z8WYvyfCMZqEXmlHtphwMnL3v8n8o2A==
-X-Received: by 2002:a05:6512:52e:b0:52b:4c20:5cec with SMTP id 2adb3069b0e04-52b4c205d4fmr712196e87.61.1716986453293;
-        Wed, 29 May 2024 05:40:53 -0700 (PDT)
-Message-ID: <0a2f1f9a-fab1-409c-96f8-399b19077f12@suse.com>
-Date: Wed, 29 May 2024 14:40:51 +0200
+        d=1e100.net; s=20230601; t=1716986763; x=1717591563;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=aFNf5VydKznM4YREguZ+9UnLyeQJGJfw2gjaHbvAWec=;
+        b=hV2IdbQCbcRnY8cDO/RjjehA5QILrNtFYGhMNgN7Bn7o3QDPCB2Wrx1+LTksla5ksD
+         0oiuKVdrE/3uaAxjpGo72Nop/CZSMWitOm/++nverAr9yCAzjgrxV37IY7ZFDkJweiYt
+         FNDZdzZrGr22qZKyzOQ2g7mm36tMaqroy+367lm1T5W+J6A1RfAAcMdrsKT7h+j7Nm+S
+         It7wb5ZGMZwR0Kl+Vul6OJlTlTo7J1FJfXckJm/p4D68Ol0Lxt/oaX9ZpGQ8AA4l3Bv2
+         RX8F3+dyASKKrc9u/HRj3eXPkCkTSLAWV/VGGEfh4yPXC+fS0as7sJSchQ2fjAzSwJg/
+         lPXw==
+X-Gm-Message-State: AOJu0YzBbsVxE/gyWBNgvfGvvr+NTYRpfQiD0e73l+blcUhQuDizN5Vy
+	I2/EUBiRuborZKpvsDBfMHyQ+2oXoAcb+aA36LhTQ+XjIG4ifx4hPsW5BbICtQM=
+X-Google-Smtp-Source: AGHT+IHm6w8Jp8Ddjpkdcix0hcRoRFtcGRl7rBLCzoq+2sGuYXSHTn5haLHWUyW4PicAza0oeeGj7w==
+X-Received: by 2002:a05:620a:4089:b0:794:d524:18fc with SMTP id af79cd13be357-794d5241b8dmr565822485a.56.1716986763370;
+        Wed, 29 May 2024 05:46:03 -0700 (PDT)
+Date: Wed, 29 May 2024 14:46:00 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: =?utf-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+Cc: xen-devel@lists.xenproject.org, Dario Faggioli <dfaggioli@suse.com>,
+	George Dunlap <george.dunlap@citrix.com>
+Subject: Re: CPU_DOWN_FAILED hits ASSERTs in scheduling logic
+Message-ID: <ZlcjiOJyAuvyy48n@macbook>
+References: <ZlW-ZyFeAzvh3pGG@macbook>
+ <a749c066-0c05-47dd-b499-e712e5454033@suse.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH for-4.19 1/9] x86/irq: remove offline CPUs from old CPU
- mask when adjusting move_cleanup_count
-To: Roger Pau Monne <roger.pau@citrix.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
-References: <20240529090132.59434-1-roger.pau@citrix.com>
- <20240529090132.59434-2-roger.pau@citrix.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240529090132.59434-2-roger.pau@citrix.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <a749c066-0c05-47dd-b499-e712e5454033@suse.com>
 
-On 29.05.2024 11:01, Roger Pau Monne wrote:
-> When adjusting move_cleanup_count to account for CPUs that are offline also
-> adjust old_cpu_mask, otherwise further calls to fixup_irqs() could subtract
-> those again creating and create an imbalance in move_cleanup_count.
+On Wed, May 29, 2024 at 01:47:09PM +0200, Jürgen Groß wrote:
+> On 28.05.24 13:22, Roger Pau Monné wrote:
+> > Hello,
+> > 
+> > When the stop_machine_run() call in cpu_down() fails and calls the CPU
+> > notifier CPU_DOWN_FAILED hook the following assert triggers in the
+> > scheduling code:
+> > 
+> > Assertion '!cpumask_test_cpu(cpu, &prv->initialized)' failed at common/sched/cred1
+> > ----[ Xen-4.19-unstable  x86_64  debug=y  Tainted:   C    ]----
+> > CPU:    0
+> > RIP:    e008:[<ffff82d040248299>] common/sched/credit2.c#csched2_free_pdata+0xc8/0x177
+> > RFLAGS: 0000000000010093   CONTEXT: hypervisor
+> > rax: 0000000000000000   rbx: ffff83202ecc2f80   rcx: ffff83202f3e64c0
+> > rdx: 0000000000000001   rsi: 0000000000000002   rdi: ffff83202ecc2f88
+> > rbp: ffff83203ffffd58   rsp: ffff83203ffffd30   r8:  0000000000000000
+> > r9:  ffff83202f3e6e01   r10: 0000000000000000   r11: 0f0f0f0f0f0f0f0f
+> > r12: ffff83202ecb80b0   r13: 0000000000000001   r14: 0000000000000282
+> > r15: ffff83202ecbbf00   cr0: 000000008005003b   cr4: 00000000007526e0
+> > cr3: 00000000574c2000   cr2: 0000000000000000
+> > fsb: 0000000000000000   gsb: 0000000000000000   gss: 0000000000000000
+> > ds: 0000   es: 0000   fs: 0000   gs: 0000   ss: 0000   cs: e008
+> > Xen code around <ffff82d040248299> (common/sched/credit2.c#csched2_free_pdata+0xc8/0x177):
+> >   fe ff eb 9a 0f 0b 0f 0b <0f> 0b 49 8d 4f 08 49 8b 47 08 48 3b 48 08 75 2e
+> > Xen stack trace from rsp=ffff83203ffffd30:
+> >     ffff83202d74d100 0000000000000001 ffff82d0404c4430 0000000000000006
+> >     0000000000000000 ffff83203ffffd78 ffff82d040257454 0000000000000000
+> >     0000000000000001 ffff83203ffffda8 ffff82d04021f303 ffff82d0404c4628
+> >     ffff82d0404c4620 ffff82d0404c4430 0000000000000006 ffff83203ffffdf0
+> >     ffff82d04022bc4c ffff83203ffffe18 0000000000000001 0000000000000001
+> >     00000000fffffff0 0000000000000000 0000000000000000 ffff82d0405e6500
+> >     ffff83203ffffe08 ffff82d040204fd5 0000000000000001 ffff83203ffffe30
+> >     ffff82d0402054f0 ffff82d0404c5860 0000000000000001 ffff83202ec75000
+> >     ffff83203ffffe48 ffff82d040348c25 ffff83202d74d0d0 ffff83203ffffe68
+> >     ffff82d0402071aa ffff83202ec751d0 ffff82d0405ce210 ffff83203ffffe80
+> >     ffff82d0402343c9 ffff82d0405ce200 ffff83203ffffeb0 ffff82d040234631
+> >     0000000000000000 0000000000007fff ffff82d0405d5080 ffff82d0405ce210
+> >     ffff83203ffffee8 ffff82d040321411 ffff82d040321399 ffff83202f3a9000
+> >     0000000000000000 0000001d91a6fa2d ffff82d0405e6500 ffff83203ffffde0
+> >     ffff82d040324391 0000000000000000 0000000000000000 0000000000000000
+> >     0000000000000000 0000000000000000 0000000000000000 0000000000000000
+> >     0000000000000000 0000000000000000 0000000000000000 0000000000000000
+> >     0000000000000000 0000000000000000 0000000000000000 0000000000000000
+> >     0000000000000000 0000000000000000 0000000000000000 0000000000000000
+> >     0000000000000000 0000000000000000 0000000000000000 0000000000000000
+> > Xen call trace:
+> >     [<ffff82d040248299>] R common/sched/credit2.c#csched2_free_pdata+0xc8/0x177
+> >     [<ffff82d040257454>] F free_cpu_rm_data+0x41/0x58
+> >     [<ffff82d04021f303>] F common/sched/cpupool.c#cpu_callback+0xfb/0x466
+> >     [<ffff82d04022bc4c>] F notifier_call_chain+0x6c/0x96
+> >     [<ffff82d040204fd5>] F common/cpu.c#cpu_notifier_call_chain+0x1b/0x36
+> >     [<ffff82d0402054f0>] F cpu_down+0xa7/0x143
+> >     [<ffff82d040348c25>] F cpu_down_helper+0x11/0x27
+> >     [<ffff82d0402071aa>] F common/domain.c#continue_hypercall_tasklet_handler+0x50/0xbd
+> >     [<ffff82d0402343c9>] F common/tasklet.c#do_tasklet_work+0x76/0xaf
+> >     [<ffff82d040234631>] F do_tasklet+0x5b/0x8d
+> >     [<ffff82d040321411>] F arch/x86/domain.c#idle_loop+0x78/0xe6
+> >     [<ffff82d040324391>] F continue_running+0x5b/0x5d
+> > 
+> > 
+> > ****************************************
+> > Panic on CPU 0:
+> > Assertion '!cpumask_test_cpu(cpu, &prv->initialized)' failed at common/sched/credit2.c:4111
+> > ****************************************
+> > 
+> > The issue seems to be that since the CPU hasn't been removed, it's
+> > still part of prv->initialized and the assert in csched2_free_pdata()
+> > called as part of free_cpu_rm_data() triggers.
+> > 
+> > It's easy to reproduce by substituting the stop_machine_run() call in
+> > cpu_down() with an error.
+> 
+> Could you please give the attached patch a try?
 
-I'm in trouble with "creating"; I can't seem to be able to guess what you may
-have meant.
+I still get the following assert:
 
-> Fixes: 472e0b74c5c4 ('x86/IRQ: deal with move cleanup count state in fixup_irqs()')
-> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+Assertion '!cpumask_test_cpu(cpu, &prv->initialized)' failed at common/sched/credit2.c:4111
+----[ Xen-4.19-unstable  x86_64  debug=y  Not tainted ]----
+CPU:    0
+RIP:    e008:[<ffff82d040248173>] common/sched/credit2.c#csched2_free_pdata+0xc8/0x177
+RFLAGS: 0000000000010093   CONTEXT: hypervisor
+rax: 0000000000000000   rbx: ffff83202ecc2f80   rcx: ffff83202f3e64c0
+rdx: 0000000000000001   rsi: 0000000000000002   rdi: ffff83202ecc2f88
+rbp: ffff83203ffffd50   rsp: ffff83203ffffd28   r8:  0000000000000000
+r9:  ffff83202f3e6e01   r10: 0000000000000000   r11: 0f0f0f0f0f0f0f0f
+r12: ffff83202ecb80b0   r13: 0000000000000001   r14: 0000000000000282
+r15: ffff83202ecbbf00   cr0: 000000008005003b   cr4: 00000000007526e0
+cr3: 00000000574c2000   cr2: 0000000000000000
+fsb: 0000000000000000   gsb: 0000000000000000   gss: 0000000000000000
+ds: 0000   es: 0000   fs: 0000   gs: 0000   ss: 0000   cs: e008
+Xen code around <ffff82d040248173> (common/sched/credit2.c#csched2_free_pdata+0xc8/0x177):
+ fe ff eb 9a 0f 0b 0f 0b <0f> 0b 49 8d 4f 08 49 8b 47 08 48 3b 48 08 75 2e
+Xen stack trace from rsp=ffff83203ffffd28:
+   0000000000000001 ffff83202e029100 ffff82d0404c4430 0000000000000006
+   0000000000000000 ffff83203ffffd70 ffff82d040257338 0000000000000000
+   0000000000000001 ffff83203ffffda0 ffff82d04021f1e6 ffff82d0404c4628
+   ffff82d0404c4620 ffff82d0404c4430 0000000000000006 ffff83203ffffde8
+   ffff82d04022bb2f ffff83203ffffe10 0000000000000001 0000000000000001
+   0000000000000000 ffff83203ffffe10 0000000000000000 ffff82d0405e6500
+   ffff83203ffffe00 ffff82d040204fd5 0000000000000001 ffff83203ffffe30
+   ffff82d040205464 ffff82d0404c5860 0000000000000001 ffff83202ec5d000
+   0000000000000000 ffff83203ffffe48 ffff82d040348bd0 ffff83202e0290d0
+   ffff83203ffffe68 ffff82d04020708d ffff83202ec5d1d0 ffff82d0405ce210
+   ffff83203ffffe80 ffff82d0402342a3 ffff82d0405ce200 ffff83203ffffeb0
+   ffff82d04023450b 0000000000000000 0000000000007fff ffff82d0405d5080
+   ffff82d0405ce210 ffff83203ffffee8 ffff82d040321363 ffff82d0403212eb
+   ffff83202f3a9000 0000000000000000 00000014b1552bff ffff82d0405e6500
+   ffff83203ffffde0 ffff82d0403242e3 0000000000000000 0000000000000000
+   0000000000000000 0000000000000000 0000000000000000 0000000000000000
+   0000000000000000 0000000000000000 0000000000000000 0000000000000000
+   0000000000000000 0000000000000000 0000000000000000 0000000000000000
+   0000000000000000 0000000000000000 0000000000000000 0000000000000000
+   0000000000000000 0000000000000000 0000000000000000 0000000000000000
+Xen call trace:
+   [<ffff82d040248173>] R common/sched/credit2.c#csched2_free_pdata+0xc8/0x177
+   [<ffff82d040257338>] F free_cpu_rm_data+0x48/0x80
+   [<ffff82d04021f1e6>] F common/sched/cpupool.c#cpu_callback+0xfb/0x466
+   [<ffff82d04022bb2f>] F notifier_call_chain+0x6c/0x96
+   [<ffff82d040204fd5>] F common/cpu.c#cpu_notifier_call_chain+0x1b/0x36
+   [<ffff82d040205464>] F cpu_down+0x60/0x83
+   [<ffff82d040348bd0>] F cpu_down_helper+0x11/0x27
+   [<ffff82d04020708d>] F common/domain.c#continue_hypercall_tasklet_handler+0x50/0xbd
+   [<ffff82d0402342a3>] F common/tasklet.c#do_tasklet_work+0x76/0xaf
+   [<ffff82d04023450b>] F do_tasklet+0x5b/0x8d
+   [<ffff82d040321363>] F arch/x86/domain.c#idle_loop+0x78/0xe6
+   [<ffff82d0403242e3>] F continue_running+0x5b/0x5d
 
-With the above clarified (adjustment can be done while committing)
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
-> --- a/xen/arch/x86/irq.c
-> +++ b/xen/arch/x86/irq.c
-> @@ -2572,6 +2572,14 @@ void fixup_irqs(const cpumask_t *mask, bool verbose)
->              desc->arch.move_cleanup_count -= cpumask_weight(affinity);
->              if ( !desc->arch.move_cleanup_count )
->                  release_old_vec(desc);
-> +            else
-> +                /*
-> +                 * Adjust old_cpu_mask to account for the offline CPUs,
-> +                 * otherwise further calls to fixup_irqs() could subtract those
-> +                 * again and possibly underflow the counter.
-> +                 */
-> +                cpumask_and(desc->arch.old_cpu_mask, desc->arch.old_cpu_mask,
-> +                            &cpu_online_map);
->          }
+****************************************
+Panic on CPU 0:
+Assertion '!cpumask_test_cpu(cpu, &prv->initialized)' failed at common/sched/credit2.c:4111
+****************************************
 
-While functionality-wise okay, imo it would be slightly better to use
-"affinity" here as well, so that even without looking at context beyond
-what's shown here there is a direct connection to the cpumask_weight()
-call. I.e.
+Reboot in five seconds...
+Resetting with ACPI MEMORY or I/O RESET_REG.
 
-                cpumask_andnot(desc->arch.old_cpu_mask, desc->arch.old_cpu_mask,
-                               affinity);
+I have the following bodge to trigger the failure:
 
-Thoughts?
+diff --git a/xen/common/cpu.c b/xen/common/cpu.c
+index d76f80fe2e99..b38796038e31 100644
+--- a/xen/common/cpu.c
++++ b/xen/common/cpu.c
+@@ -126,6 +126,7 @@ int cpu_down(unsigned int cpu)
+     if ( err )
+         goto fail;
 
-Jan
++    goto fail;
+     if ( system_state < SYS_STATE_active || system_state == SYS_STATE_resume )
+         on_selected_cpus(cpumask_of(cpu), _take_cpu_down, NULL, true);
+     else if ( (err = stop_machine_run(take_cpu_down, NULL, cpu)) < 0 )
+
+Thanks, Roger.
 
