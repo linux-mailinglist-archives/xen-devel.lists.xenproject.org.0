@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 391538D2BF4
+	by mail.lfdr.de (Postfix) with ESMTPS id 8B0628D2BF6
 	for <lists+xen-devel@lfdr.de>; Wed, 29 May 2024 07:06:05 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.731375.1136825 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.731373.1136812 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sCBVB-0002Xh-HU; Wed, 29 May 2024 05:05:29 +0000
+	id 1sCBVA-0002KX-U8; Wed, 29 May 2024 05:05:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 731375.1136825; Wed, 29 May 2024 05:05:29 +0000
+Received: by outflank-mailman (output) from mailman id 731373.1136812; Wed, 29 May 2024 05:05:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sCBVB-0002Mv-BM; Wed, 29 May 2024 05:05:29 +0000
-Received: by outflank-mailman (input) for mailman id 731375;
+	id 1sCBVA-0002Il-R3; Wed, 29 May 2024 05:05:28 +0000
+Received: by outflank-mailman (input) for mailman id 731373;
  Wed, 29 May 2024 05:05:27 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=r7nM=NA=bombadil.srs.infradead.org=BATV+c55c297d46ee5715703b+7584+infradead.org+hch@srs-se1.protection.inumbo.net>)
- id 1sCBV9-0002IO-Cd
+ id 1sCBV6-0002IO-VQ
  for xen-devel@lists.xenproject.org; Wed, 29 May 2024 05:05:27 +0000
 Received: from bombadil.infradead.org (bombadil.infradead.org
  [2607:7c80:54:3::133])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 0daed0b5-1d79-11ef-90a1-e314d9c70b13;
+ id 0cd62887-1d79-11ef-90a1-e314d9c70b13;
  Wed, 29 May 2024 07:05:23 +0200 (CEST)
 Received: from
  2a02-8389-2341-5b80-7775-b725-99f7-3344.cable.dynamic.v6.surfer.at
  ([2a02:8389:2341:5b80:7775:b725:99f7:3344] helo=localhost)
  by bombadil.infradead.org with esmtpsa (Exim 4.97.1 #2 (Red Hat Linux))
- id 1sCBUs-00000002pSJ-2CVr; Wed, 29 May 2024 05:05:11 +0000
+ id 1sCBUv-00000002pSP-1Lzk; Wed, 29 May 2024 05:05:13 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,17 +42,17 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0daed0b5-1d79-11ef-90a1-e314d9c70b13
+X-Inumbo-ID: 0cd62887-1d79-11ef-90a1-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
-	MIME-Version:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:
-	Content-ID:Content-Description:In-Reply-To:References;
-	bh=TkLi7QJRJk+eDm0XKX9y4O+chg+2e2GHQobCf0qIp3Q=; b=j6TH1jV+bD9SRCoTjPn2/w5mPx
-	Sn9ZORQd/0Vc8GCHMbe57GctL2xLaw94IPMXbiJcX95T1JOMiz6/rTaTDfBNMHzt2nFlgKG30WzoF
-	dIAc0Wxprcex1TUAE9kVEamco0ms0NAnDTyHDmkwxAjOMGcnTzwA/qjowsfaaOxk+Q7ohP80n6DFh
-	v0tR+RqojdE8wkTeuKbpKCEu64xWSJW+O63gy+h/ERmksEVT5Z+j3VJtipRNQyIKdFcIPJifoT7Lc
-	JNKkuNwua/4XXVb82UFUzCKKgQOn1LTgSY21EVqNBDHbXJZj6E9u2XVKVoPDNoZ/0QiJ/ZgSUMdps
-	IHDNZnvQ==;
+	MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender
+	:Reply-To:Content-Type:Content-ID:Content-Description;
+	bh=/OLpY6jO6BGmZUZluvnHNfe+GDP4sT7VwC1y29SpC6U=; b=OeadjJJGioCa4ge9VNZLLPIeJ8
+	O9S5rUx9FafsfCUd/nVJdDPOpkJsv/E9yKCxbOOv290nnhE62p3wpyYQNPmrOmNyU3hzVOzhGPQxa
+	5a4T1lTIFSW+n3MtalzxAOCYtI3DQHhzspZ8bYnEdLFBuQ+bNkNK5b871ug/c8Zf1MXixhuq1fwcL
+	BxKay23FFqMmNqBL5VSxy6HUEZFvyI7zrsX4GqEOmWHd2HuIc7ZktQuuiNYT9hnqC19jbRgfOjXtD
+	KR9+Ssjbvj0F4kFxGdIepfLmbgfwNS35I/CDczeE6V2t2s7vUtO9/Gkm7F3aD4SXdu4zuGlpm8kbx
+	t86dAPmA==;
 From: Christoph Hellwig <hch@lst.de>
 To: Jens Axboe <axboe@kernel.dk>,
 	"Martin K. Petersen" <martin.petersen@oracle.com>
@@ -69,47 +69,52 @@ Cc: Richard Weinberger <richard@nod.at>,
 	ceph-devel@vger.kernel.org,
 	xen-devel@lists.xenproject.org,
 	linux-scsi@vger.kernel.org
-Subject: convert the SCSI ULDs to the atomic queue limits API
-Date: Wed, 29 May 2024 07:04:02 +0200
-Message-ID: <20240529050507.1392041-1-hch@lst.de>
+Subject: [PATCH 01/12] ubd: untagle discard vs write zeroes not support handling
+Date: Wed, 29 May 2024 07:04:03 +0200
+Message-ID: <20240529050507.1392041-2-hch@lst.de>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20240529050507.1392041-1-hch@lst.de>
+References: <20240529050507.1392041-1-hch@lst.de>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by bombadil.infradead.org. See http://www.infradead.org/rpr.html
 
-Hi all,
+Discard and Write Zeroes are different operation and implemented
+by different fallocate opcodes for ubd.  If one fails the other one
+can work and vice versa.
 
-this series converts the SCSI upper level drivers to the atomic queue
-limits API.
+Split the code to disable the operations in ubd_handler to only
+disable the operation that actually failed.
 
-The first patch is a bug fix for ubd that later patches depend on and
-might be worth picking up for 6.10.
+Fixes: 50109b5a03b4 ("um: Add support for DISCARD in the UBD Driver")
+Signed-off-by: Christoph Hellwig <hch@lst.de>
+---
+ arch/um/drivers/ubd_kern.c | 11 ++++++++---
+ 1 file changed, 8 insertions(+), 3 deletions(-)
 
-The second patch changes the max_sectors calculation to take the optimal
-I/O size into account so that sd, nbd and rbd don't have to mess with
-the user max_sector value.  I'd love to see a careful review from the
-nbd and rbd maintainers for this one!
+diff --git a/arch/um/drivers/ubd_kern.c b/arch/um/drivers/ubd_kern.c
+index ef805eaa9e013d..a79a3b7c33a647 100644
+--- a/arch/um/drivers/ubd_kern.c
++++ b/arch/um/drivers/ubd_kern.c
+@@ -471,9 +471,14 @@ static void ubd_handler(void)
+ 		for (count = 0; count < n/sizeof(struct io_thread_req *); count++) {
+ 			struct io_thread_req *io_req = (*irq_req_buffer)[count];
+ 
+-			if ((io_req->error == BLK_STS_NOTSUPP) && (req_op(io_req->req) == REQ_OP_DISCARD)) {
+-				blk_queue_max_discard_sectors(io_req->req->q, 0);
+-				blk_queue_max_write_zeroes_sectors(io_req->req->q, 0);
++			if (io_req->error == BLK_STS_NOTSUPP) {
++				struct request_queue *q = io_req->req->q;
++
++				if (req_op(io_req->req) == REQ_OP_DISCARD)
++					blk_queue_max_discard_sectors(q, 0);
++				if (req_op(io_req->req) == REQ_OP_WRITE_ZEROES)
++					blk_queue_max_write_zeroes_sectors(q,
++							0);
+ 			}
+ 			blk_mq_end_request(io_req->req, io_req->error);
+ 			kfree(io_req);
+-- 
+2.43.0
 
-The following patches clean up a few lose ends in the sd driver, and
-then convert sd and sr to the atomic queue limits API.  The final
-patches remove the now unused block APIs, and convert a few to be
-specific to their now more narrow use case.
-
-The patches are against Jens' block-6.10 tree.  Due to the amount of
-block layer changes in here, and other that will depend on it, it
-would be good if this could eventually be merged through the block
-tree, or at least a shared branch between the SCSI and block trees.
-
-Diffstat:
- arch/um/drivers/ubd_kern.c   |   10 +
- block/blk-settings.c         |  238 +------------------------------------------
- drivers/block/nbd.c          |    2 
- drivers/block/rbd.c          |    1 
- drivers/block/xen-blkfront.c |    4 
- drivers/scsi/sd.c            |  218 ++++++++++++++++++++-------------------
- drivers/scsi/sd.h            |    6 -
- drivers/scsi/sd_zbc.c        |   27 ++--
- drivers/scsi/sr.c            |   42 ++++---
- include/linux/blkdev.h       |   40 +++----
- 10 files changed, 196 insertions(+), 392 deletions(-)
 
