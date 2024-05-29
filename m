@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 958508D394E
-	for <lists+xen-devel@lfdr.de>; Wed, 29 May 2024 16:33:00 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.732085.1137936 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 96AD28D394F
+	for <lists+xen-devel@lfdr.de>; Wed, 29 May 2024 16:33:01 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.732086.1137947 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sCKMD-00015P-5b; Wed, 29 May 2024 14:32:49 +0000
+	id 1sCKME-0001LX-Gu; Wed, 29 May 2024 14:32:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 732085.1137936; Wed, 29 May 2024 14:32:49 +0000
+Received: by outflank-mailman (output) from mailman id 732086.1137947; Wed, 29 May 2024 14:32:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sCKMC-00012c-Vx; Wed, 29 May 2024 14:32:48 +0000
-Received: by outflank-mailman (input) for mailman id 732085;
- Wed, 29 May 2024 14:32:47 +0000
+	id 1sCKME-0001Jl-Cg; Wed, 29 May 2024 14:32:50 +0000
+Received: by outflank-mailman (input) for mailman id 732086;
+ Wed, 29 May 2024 14:32:48 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=ygCr=NA=cloud.com=alejandro.vallejo@srs-se1.protection.inumbo.net>)
- id 1sCKMB-0000Tu-FY
- for xen-devel@lists.xenproject.org; Wed, 29 May 2024 14:32:47 +0000
-Received: from mail-ed1-x530.google.com (mail-ed1-x530.google.com
- [2a00:1450:4864:20::530])
+ id 1sCKMC-0000Tu-OY
+ for xen-devel@lists.xenproject.org; Wed, 29 May 2024 14:32:48 +0000
+Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
+ [2a00:1450:4864:20::635])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 50b6373a-1dc8-11ef-b4bb-af5377834399;
- Wed, 29 May 2024 16:32:45 +0200 (CEST)
-Received: by mail-ed1-x530.google.com with SMTP id
- 4fb4d7f45d1cf-5789733769dso24214a12.1
- for <xen-devel@lists.xenproject.org>; Wed, 29 May 2024 07:32:45 -0700 (PDT)
+ id 5143fb92-1dc8-11ef-b4bb-af5377834399;
+ Wed, 29 May 2024 16:32:46 +0200 (CEST)
+Received: by mail-ej1-x635.google.com with SMTP id
+ a640c23a62f3a-a626919d19dso6782666b.0
+ for <xen-devel@lists.xenproject.org>; Wed, 29 May 2024 07:32:46 -0700 (PDT)
 Received: from EMEAENGAAD19049.citrite.net ([217.156.233.157])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a647b827400sm74614166b.69.2024.05.29.07.32.44
+ a640c23a62f3a-a647b827400sm74614166b.69.2024.05.29.07.32.45
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 29 May 2024 07:32:44 -0700 (PDT)
+ Wed, 29 May 2024 07:32:45 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,34 +45,34 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 50b6373a-1dc8-11ef-b4bb-af5377834399
+X-Inumbo-ID: 5143fb92-1dc8-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1716993165; x=1717597965; darn=lists.xenproject.org;
+        d=cloud.com; s=cloud; t=1716993166; x=1717597966; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=Ej2rPGHuJHoDIQ9G5DQv2lvCsMSRzdoop6CVxyhmmpE=;
-        b=kfb3ILmihg9O58dmrYwLURACOw1LnUiC0e3/dSUNC4iGKQROEX1f9Xz9U9evB4QVHc
-         7/N1Kc7Ud3xsduISzqeFRwVJsSzGfQrTuL92dyXQoPiOXTM1/Li/k+PRj+GZFmnlip2Y
-         fcWRwA+jUr0opqKpRt4/foreLtCuIakE4YopY=
+        bh=AqAozDSX51jFkv79KS5nld9q87yWir7rtgXqZSiRO/Y=;
+        b=jwjrHmgT3SvP8MH5Ab4BbsudgDqgJ0MRPvzKJ38usk5t3grbSMg6OWm+5ubmXmK9e5
+         c7vWafgVOyHm/kT2S0NiwUYpBavvJNM3YBMwOEcBzjQDDytidkb5cher0jypO1X8tefR
+         iYzgIr4/9Uzy7aWsYha92iTTYQUPSWN/mvaow=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1716993165; x=1717597965;
+        d=1e100.net; s=20230601; t=1716993166; x=1717597966;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=Ej2rPGHuJHoDIQ9G5DQv2lvCsMSRzdoop6CVxyhmmpE=;
-        b=P1UYqOEOCPCLmiCU8/0mjXK20I/L1iHCOORnHBj2/itm2VzvSCUUykLdrSvzyGdqOY
-         gPEZEq8laDpQPS0FwGUUD0KAjkJG8t4Pu5ZtBsdXGArKi6EDAQ80NVa/HHrc/bs7TtlC
-         Lz44VaJjaTHRtQHdddFBXTHscchIAuztppqB6bfkHE/JWXsKSAq8ocqh8Io5EVeF+r9D
-         qoYBYCeRLSS22xmxWnqSCI5/M7clqMiK5DzZ4mPu9inUbsnioM4TEI+7SpggXMbG0XaD
-         o4bK96/WdldwMbEB5PMzL1bMFjPfJBDUrQHON821ich2L+KNJ1m8le7tYWuO/JXXPM4k
-         haSA==
-X-Gm-Message-State: AOJu0YyYI4QiI6BjuPm5l0HmQvu8vXgQ9hdpsaK36IKQT1C87QC5QUB7
-	DWEHu9kokwlttuqdF6r1cAh5vHde4xyVthzcYMILofvPz4AwYVYCBqQ98rcSV6Vl5WatxFBRP18
-	/
-X-Google-Smtp-Source: AGHT+IHeS6/oDzvSmtImY2NDIfAASj8WslOmXwjKcdgQTIesJwXIWNp5FDLSzbKkBCsZx8a/GcTN4w==
-X-Received: by 2002:a17:906:1555:b0:a5a:24ab:f5e with SMTP id a640c23a62f3a-a642d7d7473mr185870466b.25.1716993164998;
-        Wed, 29 May 2024 07:32:44 -0700 (PDT)
+        bh=AqAozDSX51jFkv79KS5nld9q87yWir7rtgXqZSiRO/Y=;
+        b=HArz5FSaChZFWqyUIOGcLsx+WI5iC0Pis8mYGTT+zMX+1oXhrHmR9V2lDNJRRRD5L3
+         QBr0WPFXthH3F1NBQ8kr27B8gMfgDd3HumQrpkFYIPDAZyu5f4kNtf3cAaT/Q+Ty9PAA
+         uNddU1yen0IS7M8zj4rnmwejHZno1OrjCdPN1lQQjSEBtn+sIOnTEUPKfrlt713WG3Uu
+         QV2ndZk7tCnvXBsaaOStBGmQvcxIb5bFyoBBAbrHw4/38bAUPRBHRNMnDLu/WyekBMMo
+         Fb7T+dW0FjDhlSfqRHo6Rb/kKDjOb1WZq5m9LE87Z7IMfkO/F7OcmjzcXY5W7KbZoxMT
+         qbvA==
+X-Gm-Message-State: AOJu0YxxaVeIgvJqdhd1HZjk6sEk3+dWAPSpGJzuFbdTe6DtDp3InE3r
+	B40yHCgBWiJKkaALKbxNq38wXKBVGohYgpcyv1A8Hze5OkInSDS7imovCapR+m8UGWQhhPMOa7N
+	0
+X-Google-Smtp-Source: AGHT+IEOThwnXaeq9fshTzbk9nrW6TnAafCr7FaExi1BI368bZLSekGyXbBXb69LLRWXbZvmyqDphQ==
+X-Received: by 2002:a17:906:348d:b0:a59:c62c:344d with SMTP id a640c23a62f3a-a642d37e41emr200072366b.9.1716993165836;
+        Wed, 29 May 2024 07:32:45 -0700 (PDT)
 From: Alejandro Vallejo <alejandro.vallejo@cloud.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
 Cc: Alejandro Vallejo <alejandro.vallejo@cloud.com>,
@@ -80,193 +80,345 @@ Cc: Alejandro Vallejo <alejandro.vallejo@cloud.com>,
 	Andrew Cooper <andrew.cooper3@citrix.com>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
 	Anthony PERARD <anthony@xenproject.org>
-Subject: [PATCH v3 3/6] tools/hvmloader: Retrieve (x2)APIC IDs from the APs themselves
-Date: Wed, 29 May 2024 15:32:32 +0100
-Message-Id: <eb7438639cc4755d3c959029d809451ee000ccbc.1716976271.git.alejandro.vallejo@cloud.com>
+Subject: [PATCH v3 4/6] xen/lib: Add topology generator for x86
+Date: Wed, 29 May 2024 15:32:33 +0100
+Message-Id: <22c291ff33d2fe88b92e24946304a73064cb247c.1716976271.git.alejandro.vallejo@cloud.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <cover.1716976271.git.alejandro.vallejo@cloud.com>
 References: <cover.1716976271.git.alejandro.vallejo@cloud.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Make it so the APs expose their own APIC IDs in a LUT. We can use that LUT to
-populate the MADT, decoupling the algorithm that relates CPU IDs and APIC IDs
-from hvmloader.
+Add a helper to populate topology leaves in the cpu policy from
+threads/core and cores/package counts. It's unit-tested in test-cpu-policy.c,
+but it's not connected to the rest of the code yet.
 
-While at this also remove ap_callin, as writing the APIC ID may serve the same
-purpose.
+Adds the ASSERT() macro to xen/lib/x86/private.h, as it was missing.
 
 Signed-off-by: Alejandro Vallejo <alejandro.vallejo@cloud.com>
 ---
 v3:
-  * Moved ACCESS_ONCE() to common-macros.h
-  * 8bit APIC IDs clipping at 255 was a bogus assumption. Stop relying on it.
-    * APIC ID taken from leaf 0xb instead when the x2apic feature is supported.
-  * Assert APIC IDs read by the APs are never zero, as that's always the BSP.
-  * Added comment about how CPU_TO_X2APICID serves as cross-vcpu synchronizer.
+  * Style adjustments (linewraps, newlines...)
+  * Slight refactor of the TOPO() macro in unit tests.
+  * Reduce indentation of x86_topo_from_parts().
+  * Remove "no functional change" from commit message.
+  * Assert n!=0 in clz(n)
+    * Which implied adding the ASSERT() macro to private.h
 ---
- tools/firmware/hvmloader/config.h       |  6 ++-
- tools/firmware/hvmloader/hvmloader.c    |  4 +-
- tools/firmware/hvmloader/smp.c          | 54 ++++++++++++++++++++-----
- tools/include/xen-tools/common-macros.h |  5 +++
- 4 files changed, 56 insertions(+), 13 deletions(-)
+ tools/tests/cpu-policy/test-cpu-policy.c | 133 +++++++++++++++++++++++
+ xen/include/xen/lib/x86/cpu-policy.h     |  16 +++
+ xen/lib/x86/policy.c                     |  90 +++++++++++++++
+ xen/lib/x86/private.h                    |   4 +
+ 4 files changed, 243 insertions(+)
 
-diff --git a/tools/firmware/hvmloader/config.h b/tools/firmware/hvmloader/config.h
-index cd716bf39245..213ac1f28e17 100644
---- a/tools/firmware/hvmloader/config.h
-+++ b/tools/firmware/hvmloader/config.h
-@@ -4,6 +4,8 @@
- #include <stdint.h>
- #include <stdbool.h>
+diff --git a/tools/tests/cpu-policy/test-cpu-policy.c b/tools/tests/cpu-policy/test-cpu-policy.c
+index 301df2c00285..849d7cebaa7c 100644
+--- a/tools/tests/cpu-policy/test-cpu-policy.c
++++ b/tools/tests/cpu-policy/test-cpu-policy.c
+@@ -650,6 +650,137 @@ static void test_is_compatible_failure(void)
+     }
+ }
  
-+#include <xen/hvm/hvm_info_table.h>
-+
- enum virtual_vga { VGA_none, VGA_std, VGA_cirrus, VGA_pt };
- extern enum virtual_vga virtual_vga;
- 
-@@ -48,8 +50,10 @@ extern uint8_t ioapic_version;
- 
- #define IOAPIC_ID           0x01
- 
-+extern uint32_t CPU_TO_X2APICID[HVM_MAX_VCPUS];
-+
- #define LAPIC_BASE_ADDRESS  0xfee00000
--#define LAPIC_ID(vcpu_id)   ((vcpu_id) * 2)
-+#define LAPIC_ID(vcpu_id)   (CPU_TO_X2APICID[(vcpu_id)])
- 
- #define PCI_ISA_DEVFN       0x08    /* dev 1, fn 0 */
- #define PCI_ISA_IRQ_MASK    0x0c20U /* ISA IRQs 5,10,11 are PCI connected */
-diff --git a/tools/firmware/hvmloader/hvmloader.c b/tools/firmware/hvmloader/hvmloader.c
-index f8af88fabf24..5c02e8fc226a 100644
---- a/tools/firmware/hvmloader/hvmloader.c
-+++ b/tools/firmware/hvmloader/hvmloader.c
-@@ -341,11 +341,11 @@ int main(void)
- 
-     printf("CPU speed is %u MHz\n", get_cpu_mhz());
- 
-+    smp_initialise();
-+
-     apic_setup();
-     pci_setup();
- 
--    smp_initialise();
--
-     perform_tests();
- 
-     if ( bios->bios_info_setup )
-diff --git a/tools/firmware/hvmloader/smp.c b/tools/firmware/hvmloader/smp.c
-index 5d46eee1c5f4..f878d91898bf 100644
---- a/tools/firmware/hvmloader/smp.c
-+++ b/tools/firmware/hvmloader/smp.c
-@@ -29,7 +29,34 @@
- 
- #include <xen/vcpu.h>
- 
--static int ap_callin;
-+/**
-+ * Lookup table of x2APIC IDs.
-+ *
-+ * Each entry is populated its respective CPU as they come online. This is required
-+ * for generating the MADT with minimal assumptions about ID relationships.
-+ */
-+uint32_t CPU_TO_X2APICID[HVM_MAX_VCPUS];
-+
-+/** Tristate about x2apic being supported. -1=unknown */
-+static int has_x2apic = -1;
-+
-+static uint32_t read_apic_id(void)
++static void test_topo_from_parts(void)
 +{
-+    uint32_t apic_id;
++    static const struct test {
++        unsigned int threads_per_core;
++        unsigned int cores_per_pkg;
++        struct cpu_policy policy;
++    } tests[] = {
++        {
++            .threads_per_core = 3, .cores_per_pkg = 1,
++            .policy = {
++                .x86_vendor = X86_VENDOR_AMD,
++                .topo.subleaf = {
++                    { .nr_logical = 3, .level = 0, .type = 1, .id_shift = 2, },
++                    { .nr_logical = 1, .level = 1, .type = 2, .id_shift = 2, },
++                },
++            },
++        },
++        {
++            .threads_per_core = 1, .cores_per_pkg = 3,
++            .policy = {
++                .x86_vendor = X86_VENDOR_AMD,
++                .topo.subleaf = {
++                    { .nr_logical = 1, .level = 0, .type = 1, .id_shift = 0, },
++                    { .nr_logical = 3, .level = 1, .type = 2, .id_shift = 2, },
++                },
++            },
++        },
++        {
++            .threads_per_core = 7, .cores_per_pkg = 5,
++            .policy = {
++                .x86_vendor = X86_VENDOR_AMD,
++                .topo.subleaf = {
++                    { .nr_logical = 7, .level = 0, .type = 1, .id_shift = 3, },
++                    { .nr_logical = 5, .level = 1, .type = 2, .id_shift = 6, },
++                },
++            },
++        },
++        {
++            .threads_per_core = 2, .cores_per_pkg = 128,
++            .policy = {
++                .x86_vendor = X86_VENDOR_AMD,
++                .topo.subleaf = {
++                    { .nr_logical = 2, .level = 0, .type = 1, .id_shift = 1, },
++                    { .nr_logical = 128, .level = 1, .type = 2,
++                      .id_shift = 8, },
++                },
++            },
++        },
++        {
++            .threads_per_core = 3, .cores_per_pkg = 1,
++            .policy = {
++                .x86_vendor = X86_VENDOR_INTEL,
++                .topo.subleaf = {
++                    { .nr_logical = 3, .level = 0, .type = 1, .id_shift = 2, },
++                    { .nr_logical = 3, .level = 1, .type = 2, .id_shift = 2, },
++                },
++            },
++        },
++        {
++            .threads_per_core = 1, .cores_per_pkg = 3,
++            .policy = {
++                .x86_vendor = X86_VENDOR_INTEL,
++                .topo.subleaf = {
++                    { .nr_logical = 1, .level = 0, .type = 1, .id_shift = 0, },
++                    { .nr_logical = 3, .level = 1, .type = 2, .id_shift = 2, },
++                },
++            },
++        },
++        {
++            .threads_per_core = 7, .cores_per_pkg = 5,
++            .policy = {
++                .x86_vendor = X86_VENDOR_INTEL,
++                .topo.subleaf = {
++                    { .nr_logical = 7, .level = 0, .type = 1, .id_shift = 3, },
++                    { .nr_logical = 35, .level = 1, .type = 2, .id_shift = 6, },
++                },
++            },
++        },
++        {
++            .threads_per_core = 2, .cores_per_pkg = 128,
++            .policy = {
++                .x86_vendor = X86_VENDOR_INTEL,
++                .topo.subleaf = {
++                    { .nr_logical = 2, .level = 0, .type = 1, .id_shift = 1, },
++                    { .nr_logical = 256, .level = 1, .type = 2,
++                      .id_shift = 8, },
++                },
++            },
++        },
++    };
 +
-+    if ( has_x2apic )
-+        cpuid(0xb, NULL, NULL, NULL, &apic_id);
-+    else
++    printf("Testing topology synthesis from parts:\n");
++
++    for ( size_t i = 0; i < ARRAY_SIZE(tests); ++i )
 +    {
-+        cpuid(1, NULL, &apic_id, NULL, NULL);
-+        apic_id >>= 24;
++        const struct test *t = &tests[i];
++        struct cpu_policy actual = { .x86_vendor = t->policy.x86_vendor };
++        int rc = x86_topo_from_parts(&actual, t->threads_per_core,
++                                     t->cores_per_pkg);
++
++        if ( rc || memcmp(&actual.topo, &t->policy.topo, sizeof(actual.topo)) )
++        {
++#define TOPO(n, f)  t->policy.topo.subleaf[(n)].f, actual.topo.subleaf[(n)].f
++            fail("FAIL[%d] - '%s %u t/c, %u c/p'\n",
++                 rc,
++                 x86_cpuid_vendor_to_str(t->policy.x86_vendor),
++                 t->threads_per_core, t->cores_per_pkg);
++            printf("  subleaf=%u  expected_n=%u actual_n=%u\n"
++                   "             expected_lvl=%u actual_lvl=%u\n"
++                   "             expected_type=%u actual_type=%u\n"
++                   "             expected_shift=%u actual_shift=%u\n",
++                   0,
++                   TOPO(0, nr_logical),
++                   TOPO(0, level),
++                   TOPO(0, type),
++                   TOPO(0, id_shift));
++
++            printf("  subleaf=%u  expected_n=%u actual_n=%u\n"
++                   "             expected_lvl=%u actual_lvl=%u\n"
++                   "             expected_type=%u actual_type=%u\n"
++                   "             expected_shift=%u actual_shift=%u\n",
++                   1,
++                   TOPO(1, nr_logical),
++                   TOPO(1, level),
++                   TOPO(1, type),
++                   TOPO(1, id_shift));
++#undef TOPO
++        }
++    }
++}
++
+ int main(int argc, char **argv)
+ {
+     printf("CPU Policy unit tests\n");
+@@ -667,6 +798,8 @@ int main(int argc, char **argv)
+     test_is_compatible_success();
+     test_is_compatible_failure();
+ 
++    test_topo_from_parts();
++
+     if ( nr_failures )
+         printf("Done: %u failures\n", nr_failures);
+     else
+diff --git a/xen/include/xen/lib/x86/cpu-policy.h b/xen/include/xen/lib/x86/cpu-policy.h
+index 392320b9adbe..f5df18e9f77c 100644
+--- a/xen/include/xen/lib/x86/cpu-policy.h
++++ b/xen/include/xen/lib/x86/cpu-policy.h
+@@ -551,6 +551,22 @@ int x86_cpu_policies_are_compatible(const struct cpu_policy *host,
+  */
+ uint32_t x86_x2apic_id_from_vcpu_id(const struct cpu_policy *p, uint32_t id);
+ 
++/**
++ * Synthesise topology information in `p` given high-level constraints
++ *
++ * Topology is given in various fields accross several leaves, some of
++ * which are vendor-specific. This function uses the policy itself to
++ * derive such leaves from threads/core and cores/package.
++ *
++ * @param p                   CPU policy of the domain.
++ * @param threads_per_core    threads/core. Doesn't need to be a power of 2.
++ * @param cores_per_package   cores/package. Doesn't need to be a power of 2.
++ * @return                    0 on success; -errno on failure
++ */
++int x86_topo_from_parts(struct cpu_policy *p,
++                        unsigned int threads_per_core,
++                        unsigned int cores_per_pkg);
++
+ #endif /* !XEN_LIB_X86_POLICIES_H */
+ 
+ /*
+diff --git a/xen/lib/x86/policy.c b/xen/lib/x86/policy.c
+index b70b22d55fcf..7709736a2812 100644
+--- a/xen/lib/x86/policy.c
++++ b/xen/lib/x86/policy.c
+@@ -13,6 +13,96 @@ uint32_t x86_x2apic_id_from_vcpu_id(const struct cpu_policy *p, uint32_t id)
+     return id * 2;
+ }
+ 
++static unsigned int order(unsigned int n)
++{
++    ASSERT(n); /* clz(0) is UB */
++
++    return 8 * sizeof(n) - __builtin_clz(n);
++}
++
++int x86_topo_from_parts(struct cpu_policy *p,
++                        unsigned int threads_per_core,
++                        unsigned int cores_per_pkg)
++{
++    unsigned int threads_per_pkg = threads_per_core * cores_per_pkg;
++    unsigned int apic_id_size;
++
++    if ( !p || !threads_per_core || !cores_per_pkg )
++        return -EINVAL;
++
++    p->basic.max_leaf = MAX(0xb, p->basic.max_leaf);
++
++    memset(p->topo.raw, 0, sizeof(p->topo.raw));
++
++    /* thread level */
++    p->topo.subleaf[0].nr_logical = threads_per_core;
++    p->topo.subleaf[0].id_shift = 0;
++    p->topo.subleaf[0].level = 0;
++    p->topo.subleaf[0].type = 1;
++    if ( threads_per_core > 1 )
++        p->topo.subleaf[0].id_shift = order(threads_per_core - 1);
++
++    /* core level */
++    p->topo.subleaf[1].nr_logical = cores_per_pkg;
++    if ( p->x86_vendor == X86_VENDOR_INTEL )
++        p->topo.subleaf[1].nr_logical = threads_per_pkg;
++    p->topo.subleaf[1].id_shift = p->topo.subleaf[0].id_shift;
++    p->topo.subleaf[1].level = 1;
++    p->topo.subleaf[1].type = 2;
++    if ( cores_per_pkg > 1 )
++        p->topo.subleaf[1].id_shift += order(cores_per_pkg - 1);
++
++    apic_id_size = p->topo.subleaf[1].id_shift;
++
++    /*
++     * Contrary to what the name might seem to imply. HTT is an enabler for
++     * SMP and there's no harm in setting it even with a single vCPU.
++     */
++    p->basic.htt = true;
++    p->basic.lppp = MIN(0xff, p->basic.lppp);
++
++    switch ( p->x86_vendor )
++    {
++    case X86_VENDOR_INTEL: {
++        struct cpuid_cache_leaf *sl = p->cache.subleaf;
++
++        for ( size_t i = 0; sl->type &&
++                            i < ARRAY_SIZE(p->cache.raw); i++, sl++ )
++        {
++            sl->cores_per_package = cores_per_pkg - 1;
++            sl->threads_per_cache = threads_per_core - 1;
++            if ( sl->type == 3 /* unified cache */ )
++                sl->threads_per_cache = threads_per_pkg - 1;
++        }
++        break;
 +    }
 +
-+    /* Never called by cpu0, so should never return 0 */
-+    ASSERT(!apic_id);
++    case X86_VENDOR_AMD:
++    case X86_VENDOR_HYGON:
++        /* Expose p->basic.lppp */
++        p->extd.cmp_legacy = true;
 +
-+    return apic_id;
++        /* Clip NC to the maximum value it can hold */
++        p->extd.nc = 0xff;
++        if ( threads_per_pkg <= 0xff )
++            p->extd.nc = threads_per_pkg - 1;
++
++        /* TODO: Expose leaf e1E */
++        p->extd.topoext = false;
++
++        /*
++         * Clip APIC ID to 8 bits, as that's what high core-count machines do.
++         *
++         * That's what AMD EPYC 9654 does with >256 CPUs.
++         */
++        p->extd.apic_id_size = MIN(8, apic_id_size);
++
++        break;
++    }
++
++    return 0;
 +}
- 
- static void __attribute__((regparm(1))) cpu_setup(unsigned int cpu)
- {
-@@ -37,13 +64,17 @@ static void __attribute__((regparm(1))) cpu_setup(unsigned int cpu)
-     cacheattr_init();
-     printf("done.\n");
- 
--    if ( !cpu ) /* Used on the BSP too */
-+    /* The BSP exits early because its APIC ID is known to be zero */
-+    if ( !cpu )
-         return;
- 
-     wmb();
--    ap_callin = 1;
-+    ACCESS_ONCE(CPU_TO_X2APICID[cpu]) = read_apic_id();
- 
--    /* After this point, the BSP will shut us down. */
-+    /*
-+     * After this point the BSP will shut us down. A write to
-+     * CPU_TO_X2APICID[cpu] signals the BSP to bring down `cpu`.
-+     */
- 
-     for ( ;; )
-         asm volatile ( "hlt" );
-@@ -54,10 +85,6 @@ static void boot_cpu(unsigned int cpu)
-     static uint8_t ap_stack[PAGE_SIZE] __attribute__ ((aligned (16)));
-     static struct vcpu_hvm_context ap;
- 
--    /* Initialise shared variables. */
--    ap_callin = 0;
--    wmb();
--
-     /* Wake up the secondary processor */
-     ap = (struct vcpu_hvm_context) {
-         .mode = VCPU_HVM_MODE_32B,
-@@ -90,10 +117,11 @@ static void boot_cpu(unsigned int cpu)
-         BUG();
- 
-     /*
--     * Wait for the secondary processor to complete initialisation.
-+     * Wait for the secondary processor to complete initialisation,
-+     * which is signaled by its x2APIC ID being written to the LUT.
-      * Do not touch shared resources meanwhile.
-      */
--    while ( !ap_callin )
-+    while ( !ACCESS_ONCE(CPU_TO_X2APICID[cpu]) )
-         cpu_relax();
- 
-     /* Take the secondary processor offline. */
-@@ -104,6 +132,12 @@ static void boot_cpu(unsigned int cpu)
- void smp_initialise(void)
- {
-     unsigned int i, nr_cpus = hvm_info->nr_vcpus;
-+    uint32_t ecx;
 +
-+    cpuid(1, NULL, NULL, &ecx, NULL);
-+    has_x2apic = (ecx >> 21) & 1;
-+    if ( has_x2apic )
-+        printf("x2APIC supported\n");
+ int x86_cpu_policies_are_compatible(const struct cpu_policy *host,
+                                     const struct cpu_policy *guest,
+                                     struct cpu_policy_errors *err)
+diff --git a/xen/lib/x86/private.h b/xen/lib/x86/private.h
+index 60bb82a400b7..2ec9dbee33c2 100644
+--- a/xen/lib/x86/private.h
++++ b/xen/lib/x86/private.h
+@@ -4,6 +4,7 @@
+ #ifdef __XEN__
  
-     printf("Multiprocessor initialisation:\n");
-     cpu_setup(0);
-diff --git a/tools/include/xen-tools/common-macros.h b/tools/include/xen-tools/common-macros.h
-index 60912225cb7a..336c6309d96e 100644
---- a/tools/include/xen-tools/common-macros.h
-+++ b/tools/include/xen-tools/common-macros.h
-@@ -108,4 +108,9 @@
- #define get_unaligned(ptr)      get_unaligned_t(typeof(*(ptr)), ptr)
- #define put_unaligned(val, ptr) put_unaligned_t(typeof(*(ptr)), val, ptr)
+ #include <xen/bitops.h>
++#include <xen/bug.h>
+ #include <xen/guest_access.h>
+ #include <xen/kernel.h>
+ #include <xen/lib.h>
+@@ -17,6 +18,7 @@
  
-+#define __ACCESS_ONCE(x) ({                             \
-+            (void)(typeof(x))0; /* Scalar typecheck. */ \
-+            (volatile typeof(x) *)&(x); })
-+#define ACCESS_ONCE(x) (*__ACCESS_ONCE(x))
+ #else
+ 
++#include <assert.h>
+ #include <errno.h>
+ #include <inttypes.h>
+ #include <stdbool.h>
+@@ -28,6 +30,8 @@
+ 
+ #include <xen-tools/common-macros.h>
+ 
++#define ASSERT(x) assert(x)
 +
- #endif	/* __XEN_TOOLS_COMMON_MACROS__ */
+ static inline bool test_bit(unsigned int bit, const void *vaddr)
+ {
+     const char *addr = vaddr;
 -- 
 2.34.1
 
