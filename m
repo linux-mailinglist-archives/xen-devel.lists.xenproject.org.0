@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 767CC8D3AAE
-	for <lists+xen-devel@lfdr.de>; Wed, 29 May 2024 17:22:20 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.732170.1138042 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CD1ED8D3ACF
+	for <lists+xen-devel@lfdr.de>; Wed, 29 May 2024 17:27:35 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.732177.1138052 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sCL7t-0002w7-C4; Wed, 29 May 2024 15:22:05 +0000
+	id 1sCLCp-0003je-Ul; Wed, 29 May 2024 15:27:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 732170.1138042; Wed, 29 May 2024 15:22:05 +0000
+Received: by outflank-mailman (output) from mailman id 732177.1138052; Wed, 29 May 2024 15:27:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sCL7t-0002th-9V; Wed, 29 May 2024 15:22:05 +0000
-Received: by outflank-mailman (input) for mailman id 732170;
- Wed, 29 May 2024 15:22:04 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1sCLCp-0003hF-S8; Wed, 29 May 2024 15:27:11 +0000
+Received: by outflank-mailman (input) for mailman id 732177;
+ Wed, 29 May 2024 15:27:10 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=RuQ4=NA=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sCL7s-0002sI-KV
- for xen-devel@lists.xenproject.org; Wed, 29 May 2024 15:22:04 +0000
-Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
- [2a00:1450:4864:20::62f])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 339bee64-1dcf-11ef-90a1-e314d9c70b13;
- Wed, 29 May 2024 17:22:03 +0200 (CEST)
-Received: by mail-ej1-x62f.google.com with SMTP id
- a640c23a62f3a-a621cb07d8fso250072466b.2
- for <xen-devel@lists.xenproject.org>; Wed, 29 May 2024 08:22:03 -0700 (PDT)
+ id 1sCLCo-0003h9-Sj
+ for xen-devel@lists.xenproject.org; Wed, 29 May 2024 15:27:10 +0000
+Received: from mail-ed1-x535.google.com (mail-ed1-x535.google.com
+ [2a00:1450:4864:20::535])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id e98ab62e-1dcf-11ef-b4bb-af5377834399;
+ Wed, 29 May 2024 17:27:08 +0200 (CEST)
+Received: by mail-ed1-x535.google.com with SMTP id
+ 4fb4d7f45d1cf-572c65cea55so160697a12.0
+ for <xen-devel@lists.xenproject.org>; Wed, 29 May 2024 08:27:08 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a626cc8dcbdsm741528166b.175.2024.05.29.08.22.02
+ 4fb4d7f45d1cf-57861b4ddefsm7274275a12.60.2024.05.29.08.27.07
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 29 May 2024 08:22:02 -0700 (PDT)
+ Wed, 29 May 2024 08:27:07 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,63 +45,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 339bee64-1dcf-11ef-90a1-e314d9c70b13
+X-Inumbo-ID: e98ab62e-1dcf-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1716996123; x=1717600923; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1716996428; x=1717601228; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=tdxYn410jYiX71+OkYGeRpynQ7LAu99vUNbAzovPB3g=;
-        b=gJLy4z4GnpYKXJGkw7OUKql3G6SwcmhBS5qZwWxuX4cETe+YG5PkQ+WFY4K/n5TxhX
-         nODLES2hUusutoSfC20LV09taFavzxFGMeBI75sc2pkwsORpyUKBy5ZB5cBWSuzbKXGV
-         jzZPNzrgUMEqNIAkQeNBPlHcZNt1+rcBCKMx2xvHHXu2a/Eh6GD0X2ZWJUxdyFOadXuH
-         V7uAegaUdUiC08Tk5/H4jDn+ufa4cyxq1iIg1LVGrlS0bzrIwaaDN/g+4sxJZVSv89Ix
-         YM8Rh6JT2vkA1DINl/qmY+uAV1AAAO9Yd7uJwCoy32jU9Vo6LUTCKdj9ps6/ZQoBfbKq
-         r0Yw==
+        bh=Q6MsRT6qQ4rmyScI+Jz3Lny4rVSNKZa/8YroPYI+NZM=;
+        b=fEUDq2uVxpNZo//1hgPyJgKzj/ARQSUA+J6pmAF0jvbvaQ+1iW2Wwkx9ZbzoiOAtOu
+         0DGP5FFYKUX2LIquWgA4+Cr06p37M28Koq7OmGB5DLH4kKALUBcoorGLYe4WzhwFXRgl
+         VsX9KxjLESCGOC5x3JTgLhqj/Y0O7QZmKfz5/um+ggAo51eFpUPsZ9jS5y9xqjQOAk7M
+         eHjC2DhKg0HGqyWvJw4ciZG4KCo9YmYEH+MHlfFRPaaPfBN5uPIKw6uobed93iBjTQSv
+         /XDCCv4V2i6jz1koGifiRqY6Sn3QfuH2RMvuDbnU9hih+2veWqnhWfmkfzGsEZ8nxbwm
+         6Ohg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1716996123; x=1717600923;
+        d=1e100.net; s=20230601; t=1716996428; x=1717601228;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=tdxYn410jYiX71+OkYGeRpynQ7LAu99vUNbAzovPB3g=;
-        b=TklcYug8BJXHK2BL9aZ9gAKOuGvnRhNiwMJFpmIiEYwy8JqNM2QWfx3MOfZ4ciLC+F
-         sa7tQ0MAaSAVdLxTbsYnqMWIxCKl0xh7oKMMMk/TN1ExPQCuoQwuF2oRHYXIb/x7eBfD
-         Pbzj1mtfymPrvW0oQ2TEzXvyc5f0fLv66VdW1DdxsoLYxJcOtm5rq3Qh9iDsPQ3ewqam
-         hpHjN7pu89f2gD/6g4LSaWJSj6kvwoJzn8k8DTh8426O5JBusjb4qKpArArdyAEHkeb5
-         4ohbRAKvSPbhecpK4uye4k9xblNz2l7TfoD2TulNXhmvFS5CBudfjFHgsvqwdMg1FiJk
-         7v3Q==
-X-Forwarded-Encrypted: i=1; AJvYcCVdqdoI2fjFo+2aEWGXiMVlsirG2Lp8ED75qQCNLly1BnsAcENk1ATUyKdCMRUctUUp0QNybl01fh+oECOaHlqgKHylb5tvpSEaKlrAhfM=
-X-Gm-Message-State: AOJu0Yxg/BGbYMFBYxyKtwdimbXXB0Nm6x0rUrUBGbIkcblTFf5bAzYX
-	g8jSw0+QLqo7V68yHCIOe/FuzwVDM5H19fMBHvedy8B3e9x7Nw4DMgWgNmZEcw==
-X-Google-Smtp-Source: AGHT+IFdsCupvYhSyVJvwfh2MXpfu9RkSBdAsD0GB8snKmg/jUgZ0JBK3sD92cdE7lZNTFGCA3u8lg==
-X-Received: by 2002:a17:907:76d6:b0:a63:3c57:5806 with SMTP id a640c23a62f3a-a633c575ccbmr360740266b.32.1716996122927;
-        Wed, 29 May 2024 08:22:02 -0700 (PDT)
-Message-ID: <23790bd6-e06a-4adc-90a9-517f947be00a@suse.com>
-Date: Wed, 29 May 2024 17:22:01 +0200
+        bh=Q6MsRT6qQ4rmyScI+Jz3Lny4rVSNKZa/8YroPYI+NZM=;
+        b=WMCc0jKUnR73B5O2SgZt87QjORC0iCQt/QfzI/rD+6PQ3AzWRG7ByF10rep+hMfKEO
+         63XZ1Nmx3lFwJPYa/TYrE2Xo79Omyn7RcOjQeLeBc3Wr6vbRf9f0mA4qlWcFnfEdCjVe
+         XRL5bK8s6NbiwYhzRkpMrL80zAcxipjg7Plydu+quit8123H6/dm8rVwOyzcTMb7Sp4m
+         4s9mT5tOrTd6+ACIXk+4ECwx4H90amCqWqXxpgWiPxYm8FhChELIxhMpBYr1uzBns2CA
+         hiY+nSOezJpT82wr/krx2cz/Xcs3DgWAsYMO3QFuDKiWLuYSs+2XGFdwAPhdvs6YxLaS
+         ALEQ==
+X-Forwarded-Encrypted: i=1; AJvYcCXFeVMv1VTqs87z4Vt4i+xaoLGGRL4V4AFq7Q+8LKl/m/tJ6AyCuA/pK6rRC//r5KGzv8+auF9arTxGRAme2saWLaKnwV76Wzj1WHCke/0=
+X-Gm-Message-State: AOJu0YyX601SfriWk6xy0qAXPZcQsipwDuC7UOD406a8iW01sJEYuGHv
+	ts65yYBSbiMTU4xYNXRhkn6ichYF9kEKz/dOvu6Mex3KHbcdDe1WN6/x/5SHzA==
+X-Google-Smtp-Source: AGHT+IF0FWIqeSqjU2L8e6lfQioqXAc59wKYjgFXUDQW/tMeP8jl6Sstt/qyaXWyU6/A+XW1Y6blIg==
+X-Received: by 2002:a50:955c:0:b0:574:ebf4:f786 with SMTP id 4fb4d7f45d1cf-57a03fb3bfcmr2271955a12.16.1716996428014;
+        Wed, 29 May 2024 08:27:08 -0700 (PDT)
+Message-ID: <b9a667ea-45a6-45d1-8dda-0ec3aa00b9cf@suse.com>
+Date: Wed, 29 May 2024 17:27:06 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v11 2/9] xen: introduce generic non-atomic test_*bit()
-To: "Oleksii K." <oleksii.kurochko@gmail.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>,
- Shawn Anastasio <sanastasio@raptorengineering.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org, Julien Grall <julien@xen.org>
-References: <cover.1716547693.git.oleksii.kurochko@gmail.com>
- <79c3c31f0032a79c25d0a458b6091904457c8939.1716547693.git.oleksii.kurochko@gmail.com>
- <ab275ed4-29c3-4473-b1ee-2a9cda63eeaf@suse.com>
- <d8fd70469a1ac8d8cc291dddd0496f6bfabf6720.camel@gmail.com>
- <a39c3c03-ef54-4329-833d-03b60f162234@xen.org>
- <56b97916d1c36040a0be547759d5d10d311c9ed3.camel@gmail.com>
- <5438a9b1-d13a-415b-95e4-af520c228e01@suse.com>
- <c72784d5-20d2-4583-9e8a-f8b1cbf31aa6@xen.org>
- <ded13a36-b790-4989-a952-9a4130293b50@suse.com>
- <2bc05407cc62c829d63da757e071db51a003eb79.camel@gmail.com>
+Subject: Re: [PATCH for-4.19 1/9] x86/irq: remove offline CPUs from old CPU
+ mask when adjusting move_cleanup_count
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
+References: <20240529090132.59434-1-roger.pau@citrix.com>
+ <20240529090132.59434-2-roger.pau@citrix.com>
+ <0a2f1f9a-fab1-409c-96f8-399b19077f12@suse.com> <ZldGe6z70R0CD32Z@macbook>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -127,59 +113,68 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <2bc05407cc62c829d63da757e071db51a003eb79.camel@gmail.com>
+In-Reply-To: <ZldGe6z70R0CD32Z@macbook>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 29.05.2024 16:58, Oleksii K. wrote:
-> static always_inline bool test_bit(int nr, const volatile void *addr)On
-> Wed, 2024-05-29 at 12:06 +0200, Jan Beulich wrote:
->> On 29.05.2024 11:59, Julien Grall wrote:
->>> I didn't realise this was an existing comment. I think the
->>> suggestion is 
->>> a little bit odd because you could use the atomic version of the
->>> helper.
->>>
->>> Looking at Linux, the second sentence was dropped. But not the
->>> first 
->>> one. I would suggest to do the same. IOW keep:
->>>
->>> "
->>> If two examples of this operation race, one can appear to succeed
->>> but 
->>> actually fail.
->>> "
+On 29.05.2024 17:15, Roger Pau Monné wrote:
+> On Wed, May 29, 2024 at 02:40:51PM +0200, Jan Beulich wrote:
+>> On 29.05.2024 11:01, Roger Pau Monne wrote:
+>>> When adjusting move_cleanup_count to account for CPUs that are offline also
+>>> adjust old_cpu_mask, otherwise further calls to fixup_irqs() could subtract
+>>> those again creating and create an imbalance in move_cleanup_count.
 >>
->> As indicated, I'm okay with that being retained, but only in a form
->> that
->> actually makes sense. I've explained before (to Oleksii) what I
->> consider
->> wrong in this way of wording things.
+>> I'm in trouble with "creating"; I can't seem to be able to guess what you may
+>> have meant.
 > 
-> Would it be suitable to rephrase it in the following way:
->      * This operation is non-atomic and can be reordered.
->    - * If two examples of this operation race, one can appear to
->    succeed
->    - * but actually fail.  You must protect multiple accesses with a
->    lock.
->    + * If two instances of this operation race, one may succeed in
->    updating
->    + * the bit in memory, but actually fail. It should be protected
->    from
->    + * potentially racy behavior.
->      */
->     static always_inline bool
->     __test_and_set_bit(int nr, volatile void *addr)
+> Oh, sorry, that's a typo.
+> 
+> I was meaning to point out that not removing the already subtracted
+> CPUs from the mask can lead to further calls to fixup_irqs()
+> subtracting them again and move_cleanup_count possibly underflowing.
+> 
+> Would you prefer to write it as:
+> 
+> "... could subtract those again and possibly underflow move_cleanup_count."
 
-You've lost the "appear to" ahead of "succeed". Yet even with the adjustment
-I still don't see what the "appear to succeed" really is supposed to mean
-here. The issue (imo) isn't with success or failure, but with the write of
-one CPU potentially being immediately overwritten by another CPU, not
-observing the bit change that the first CPU did. IOW both will succeed (or
-appear to succeed), but one update may end up being lost. Maybe "..., both
-may update memory with their view of the new value, not taking into account
-the update the respectively other one did"? Or "..., both will appear to
-succeed, but one of the updates may be lost"?
+Fine with me. Looks like simply deleting "creating" and keeping the rest
+as it was would be okay too? Whatever you prefer in the end.
+
+>>> --- a/xen/arch/x86/irq.c
+>>> +++ b/xen/arch/x86/irq.c
+>>> @@ -2572,6 +2572,14 @@ void fixup_irqs(const cpumask_t *mask, bool verbose)
+>>>              desc->arch.move_cleanup_count -= cpumask_weight(affinity);
+>>>              if ( !desc->arch.move_cleanup_count )
+>>>                  release_old_vec(desc);
+>>> +            else
+>>> +                /*
+>>> +                 * Adjust old_cpu_mask to account for the offline CPUs,
+>>> +                 * otherwise further calls to fixup_irqs() could subtract those
+>>> +                 * again and possibly underflow the counter.
+>>> +                 */
+>>> +                cpumask_and(desc->arch.old_cpu_mask, desc->arch.old_cpu_mask,
+>>> +                            &cpu_online_map);
+>>>          }
+>>
+>> While functionality-wise okay, imo it would be slightly better to use
+>> "affinity" here as well, so that even without looking at context beyond
+>> what's shown here there is a direct connection to the cpumask_weight()
+>> call. I.e.
+>>
+>>                 cpumask_andnot(desc->arch.old_cpu_mask, desc->arch.old_cpu_mask,
+>>                                affinity);
+>>
+>> Thoughts?
+> 
+> It was more straightforward for me to reason that removing the offline
+> CPUs is OK, but I can see that you might prefer to use 'affinity',
+> because that's the weight that's subtracted from move_cleanup_count.
+> Using either should lead to the same result if my understanding is
+> correct.
+
+That was the conclusion I came to, or else I wouldn't have made the
+suggestion. Unless you have a strong preference for the as-is form, I'd
+indeed prefer the suggested alternative.
 
 Jan
 
