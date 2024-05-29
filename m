@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F07D68D2E1B
-	for <lists+xen-devel@lfdr.de>; Wed, 29 May 2024 09:26:24 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.731500.1137064 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CCA398D2E1C
+	for <lists+xen-devel@lfdr.de>; Wed, 29 May 2024 09:26:26 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.731501.1137079 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sCDhN-0004aJ-RO; Wed, 29 May 2024 07:26:13 +0000
+	id 1sCDhR-0005AW-57; Wed, 29 May 2024 07:26:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 731500.1137064; Wed, 29 May 2024 07:26:13 +0000
+Received: by outflank-mailman (output) from mailman id 731501.1137079; Wed, 29 May 2024 07:26:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sCDhN-0004Xs-MU; Wed, 29 May 2024 07:26:13 +0000
-Received: by outflank-mailman (input) for mailman id 731500;
- Wed, 29 May 2024 07:26:12 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1sCDhR-00056q-15; Wed, 29 May 2024 07:26:17 +0000
+Received: by outflank-mailman (input) for mailman id 731501;
+ Wed, 29 May 2024 07:26:15 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=T+wO=NA=linaro.org=jens.wiklander@srs-se1.protection.inumbo.net>)
- id 1sCDhM-0003Qb-Ar
- for xen-devel@lists.xenproject.org; Wed, 29 May 2024 07:26:12 +0000
-Received: from mail-lf1-x133.google.com (mail-lf1-x133.google.com
- [2a00:1450:4864:20::133])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b97cdd2f-1d8c-11ef-90a1-e314d9c70b13;
+ id 1sCDhP-0002xp-7I
+ for xen-devel@lists.xenproject.org; Wed, 29 May 2024 07:26:15 +0000
+Received: from mail-lf1-x135.google.com (mail-lf1-x135.google.com
+ [2a00:1450:4864:20::135])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id b99d04ef-1d8c-11ef-b4bb-af5377834399;
  Wed, 29 May 2024 09:26:11 +0200 (CEST)
-Received: by mail-lf1-x133.google.com with SMTP id
- 2adb3069b0e04-52ae14e78e5so352601e87.3
- for <xen-devel@lists.xenproject.org>; Wed, 29 May 2024 00:26:11 -0700 (PDT)
+Received: by mail-lf1-x135.google.com with SMTP id
+ 2adb3069b0e04-529682e013dso2045289e87.3
+ for <xen-devel@lists.xenproject.org>; Wed, 29 May 2024 00:26:13 -0700 (PDT)
 Received: from localhost.localdomain ([2001:2043:5e37:9d00:b09:3200:dd72:cfc8])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5296ee4a58fsm1182353e87.67.2024.05.29.00.26.09
+ 2adb3069b0e04-5296ee4a58fsm1182353e87.67.2024.05.29.00.26.10
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 29 May 2024 00:26:09 -0700 (PDT)
+ Wed, 29 May 2024 00:26:11 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,131 +45,122 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b97cdd2f-1d8c-11ef-90a1-e314d9c70b13
+X-Inumbo-ID: b99d04ef-1d8c-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1716967571; x=1717572371; darn=lists.xenproject.org;
+        d=linaro.org; s=google; t=1716967572; x=1717572372; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=yqcaM/22lmEA4Im1sZdSJGF9/Zga7zG5i6aY5+pENkc=;
-        b=JoqR5twlnKnlx641Z91rxxU7T2zsze1jbWPyq7jV7bIcw8vMuN6wJR7Q3SoSsE4Y1Q
-         xdzm6RUEM/vpArvjzXs7plobqRFoJ26zqQQ6Kbcn+e1NARTno2gd6YPczuNFYxvsWCpJ
-         2fvYGpX0AoOlqatB4YnI+w54CeDVmCCJ1LZo8oiMuuj+GklOb/nJhbD5aWdEjNXKAJ/N
-         ioHdR53nLpu0+kjZh+pCe8o5HnJk3vPj59hGIgM8cG43lU/3mUWNH/pyIIzhGHrV3PsY
-         X7pUgi/komKUFXjbQR8Iwpt2IQxeUp+RoSkLnya1PpFEke9SXqXfwVk7l+FfRtWt4DMV
-         Rx7w==
+        bh=Px3daIYvC5d3ihWRjkhDysb/DJOq/aAiZUJCtozW1Ns=;
+        b=LA4eHj7skT1HsI4uWzgRhfNAZo7SnBYMQNsx5agvJ7gwsb2J/Vqw42wt77K1J+G4Bu
+         fgONsnWw+w7ftjUdfSChH4wqXHGy6q8CPGPkbPi0ii0QtZytxVMWQjHzHnvvkwT1nj2+
+         reBb9PO4UmgZIkwW2o4psRdg2RbrrtdAVfeA+AkNyhygb8Kp2y3+31xb3pXAAuFeKpgO
+         IQB8/V4DdYcmXNC5SvTGTYbWWj92TPPhjJraWf0FdyPWBZE/gnZuYpiN4UY6MxdzvuwW
+         tPH0wt8WmvT5f+Vyv5HzGOebGqARxyT53TU9oXaO/r3yL6SZVdHWNkRNsJwwJ40fqOzl
+         pQ7g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1716967571; x=1717572371;
+        d=1e100.net; s=20230601; t=1716967572; x=1717572372;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=yqcaM/22lmEA4Im1sZdSJGF9/Zga7zG5i6aY5+pENkc=;
-        b=v2A/XgjRNFAKdaaFu6kZlF40djo64q5chEUGkphmnxh+hD31caEXmCIbEYrLMu1hIa
-         PltF7hUaIBJCWkXC9vQTXaX6te3JtSkYfpf2lVD5vEKScjN7P6qEVmYOS8Ki/3Enyom5
-         J675lGnu6pSkA/lVkTw8DjIfnB6awx4GAoD0Uz1/mZ3mnwGP2IVwlO6rnU8O2GzGaPU9
-         de3PrtDZ/yGXScTFHsVzltu/M73J9JrtiB50VNA8+GzrDbcr2N8Zb5cUX9U2qFGnAoat
-         RUvIiPxBa/0LaTqMDXFMYWL3AZ74BybhC0q0mNGEXxw93+ASDI4W+FY6hHncC0JB3v8K
-         z+GQ==
-X-Gm-Message-State: AOJu0YxdRXJ9dwOFy18PpGS3BGs8K4Agd+W2v8luHbtLe9UfK58fuNsi
-	NZwtfkg9WoVKDzKRKN36v08y5PgR6a0FeWfBJiQMaB8wib0at0ifkk0Wlny9pbu1Ij9DdW9fRO7
-	IRfo=
-X-Google-Smtp-Source: AGHT+IHk4ObidGwCD812vZGe+Z1dmGa50LEp02UVipqGGD3NRtyQPamoN4Tga8ZC5srPW8Wo0VdLlA==
-X-Received: by 2002:a05:6512:eaa:b0:51c:d6c9:e9a3 with SMTP id 2adb3069b0e04-52964aba890mr10135809e87.17.1716967570797;
-        Wed, 29 May 2024 00:26:10 -0700 (PDT)
+        bh=Px3daIYvC5d3ihWRjkhDysb/DJOq/aAiZUJCtozW1Ns=;
+        b=uImUovKYjA4c/TLcB5obFRmLO9XJ0nqEpPD9VkoSCzJ3P5XA8P5w3xZSq3HTy2WqsG
+         KywJnvLrho4EEpP/tyHBCOIxjJnNDl4KsWAvZaNs8JvpcYZAIo8QLpGJWg+OLI9Lk9qB
+         M65OPS2PjkpG5G3elhYipK7RbBkf1ilmwUn2LT1wITmLCT61XxHhOnvXfK/akkgzZKFz
+         Yq7Gk/pXBNUkOtUUwdH9cd85cRbJSak0CDJSWoCFiiPfy5D/XRGspY9jNJlL9q63A763
+         XNuktXSCKwF/jSI3XxHzkPRls4UyuEydkShzqSWzN0wfHxpbCwFy4UR18Ywwof6cbwLA
+         ADOg==
+X-Gm-Message-State: AOJu0Yy3LtSophNl45IhMU0Iz941RBumdL3G1DijDCpWFwjG/QEeGEmg
+	oOrqh/bd9q1o+6tAFqSH2/MDlY1+4IJAarIEVRriWRiWJQZFi6Z4SCnHHqkrr/fl+nKS5WPeReF
+	1ICA=
+X-Google-Smtp-Source: AGHT+IHZbnpYtnOOu1mZzARWcnHwDkNNpf8A2L3wrm68sMOOMmvSDs1EjYrgF4UQT+PbkcE6gf4Tyg==
+X-Received: by 2002:ac2:5dd3:0:b0:521:a96:bf15 with SMTP id 2adb3069b0e04-52965198d34mr8322912e87.38.1716967572307;
+        Wed, 29 May 2024 00:26:12 -0700 (PDT)
 From: Jens Wiklander <jens.wiklander@linaro.org>
 To: xen-devel@lists.xenproject.org
 Cc: patches@linaro.org,
 	Jens Wiklander <jens.wiklander@linaro.org>,
-	Volodymyr Babchuk <volodymyr_babchuk@epam.com>,
 	Stefano Stabellini <sstabellini@kernel.org>,
 	Julien Grall <julien@xen.org>,
 	Bertrand Marquis <bertrand.marquis@arm.com>,
-	Michal Orzel <michal.orzel@amd.com>
-Subject: [XEN PATCH v5 5/7] xen/arm: add and call init_tee_interrupt()
-Date: Wed, 29 May 2024 09:25:57 +0200
-Message-Id: <20240529072559.2486986-6-jens.wiklander@linaro.org>
+	Michal Orzel <michal.orzel@amd.com>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: [XEN PATCH v5 6/7] xen/arm: add and call tee_free_domain_ctx()
+Date: Wed, 29 May 2024 09:25:58 +0200
+Message-Id: <20240529072559.2486986-7-jens.wiklander@linaro.org>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20240529072559.2486986-1-jens.wiklander@linaro.org>
 References: <20240529072559.2486986-1-jens.wiklander@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add init_tee_interrupt() to the TEE mediator framework and call it from
-start_secondary() late enough that per-cpu interrupts can be configured
-on CPUs as they are initialized. This is needed in later patches.
+Add tee_free_domain_ctx() to the TEE mediator framework.
+tee_free_domain_ctx() is called from arch_domain_destroy() to allow late
+freeing of the d->arch.tee context. This will simplify access to
+d->arch.tee for domains retrieved with rcu_lock_domain_by_id().
 
 Signed-off-by: Jens Wiklander <jens.wiklander@linaro.org>
 ---
- xen/arch/arm/include/asm/tee/tee.h | 8 ++++++++
- xen/arch/arm/smpboot.c             | 2 ++
+ xen/arch/arm/domain.c              | 1 +
+ xen/arch/arm/include/asm/tee/tee.h | 6 ++++++
  xen/arch/arm/tee/tee.c             | 6 ++++++
- 3 files changed, 16 insertions(+)
+ 3 files changed, 13 insertions(+)
 
+diff --git a/xen/arch/arm/domain.c b/xen/arch/arm/domain.c
+index 34cbfe699a68..61e46a157ccc 100644
+--- a/xen/arch/arm/domain.c
++++ b/xen/arch/arm/domain.c
+@@ -837,6 +837,7 @@ int arch_domain_teardown(struct domain *d)
+ 
+ void arch_domain_destroy(struct domain *d)
+ {
++    tee_free_domain_ctx(d);
+     /* IOMMU page table is shared with P2M, always call
+      * iommu_domain_destroy() before p2m_final_teardown().
+      */
 diff --git a/xen/arch/arm/include/asm/tee/tee.h b/xen/arch/arm/include/asm/tee/tee.h
-index da324467e130..eda8a8aa38f2 100644
+index eda8a8aa38f2..2e99a38184be 100644
 --- a/xen/arch/arm/include/asm/tee/tee.h
 +++ b/xen/arch/arm/include/asm/tee/tee.h
-@@ -28,6 +28,9 @@ struct tee_mediator_ops {
+@@ -38,6 +38,7 @@ struct tee_mediator_ops {
       */
-     bool (*probe)(void);
+     int (*domain_init)(struct domain *d);
+     int (*domain_teardown)(struct domain *d);
++    void (*free_domain_ctx)(struct domain *d);
  
-+    /* Initialize eventual interrupt handlers on the secondary CPUs */
-+    void (*init_interrupt)(void);
-+
      /*
-      * Called during domain construction if toolstack requests to enable
-      * TEE support so mediator can inform TEE about new
-@@ -66,6 +69,7 @@ int tee_domain_init(struct domain *d, uint16_t tee_type);
- int tee_domain_teardown(struct domain *d);
+      * Called during domain destruction to relinquish resources used
+@@ -70,6 +71,7 @@ int tee_domain_teardown(struct domain *d);
  int tee_relinquish_resources(struct domain *d);
  uint16_t tee_get_type(void);
-+void init_tee_interrupt(void);
+ void init_tee_interrupt(void);
++void tee_free_domain_ctx(struct domain *d);
  
  #define REGISTER_TEE_MEDIATOR(_name, _namestr, _type, _ops)         \
  static const struct tee_mediator_desc __tee_desc_##_name __used     \
-@@ -105,6 +109,10 @@ static inline uint16_t tee_get_type(void)
-     return XEN_DOMCTL_CONFIG_TEE_NONE;
+@@ -113,6 +115,10 @@ static inline void init_tee_interrupt(void)
+ {
  }
  
-+static inline void init_tee_interrupt(void)
++static inline void tee_free_domain_ctx(struct domain *d)
 +{
 +}
 +
  #endif  /* CONFIG_TEE */
  
  #endif /* __ARCH_ARM_TEE_TEE_H__ */
-diff --git a/xen/arch/arm/smpboot.c b/xen/arch/arm/smpboot.c
-index 93a10d7721b4..e1c1e20efd98 100644
---- a/xen/arch/arm/smpboot.c
-+++ b/xen/arch/arm/smpboot.c
-@@ -29,6 +29,7 @@
- #include <asm/procinfo.h>
- #include <asm/psci.h>
- #include <asm/acpi.h>
-+#include <asm/tee/tee.h>
- 
- /* Override macros from asm/page.h to make them work with mfn_t */
- #undef virt_to_mfn
-@@ -401,6 +402,7 @@ void asmlinkage start_secondary(void)
-      */
-     init_maintenance_interrupt();
-     init_timer_interrupt();
-+    init_tee_interrupt();
- 
-     local_abort_enable();
- 
 diff --git a/xen/arch/arm/tee/tee.c b/xen/arch/arm/tee/tee.c
-index ddd17506a9ff..8117fd55123e 100644
+index 8117fd55123e..cb65f187f51f 100644
 --- a/xen/arch/arm/tee/tee.c
 +++ b/xen/arch/arm/tee/tee.c
-@@ -96,6 +96,12 @@ static int __init tee_init(void)
+@@ -102,6 +102,12 @@ void __init init_tee_interrupt(void)
+         cur_mediator->ops->init_interrupt();
+ }
  
- __initcall(tee_init);
- 
-+void __init init_tee_interrupt(void)
++void tee_free_domain_ctx(struct domain *d)
 +{
-+    if ( cur_mediator && cur_mediator->ops->init_interrupt)
-+        cur_mediator->ops->init_interrupt();
++    if ( cur_mediator && cur_mediator->ops->free_domain_ctx)
++        cur_mediator->ops->free_domain_ctx(d);
 +}
 +
  /*
