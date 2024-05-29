@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9C77D8D393B
-	for <lists+xen-devel@lfdr.de>; Wed, 29 May 2024 16:31:12 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.732068.1137886 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 38A408D3939
+	for <lists+xen-devel@lfdr.de>; Wed, 29 May 2024 16:31:10 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.732069.1137897 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sCKKC-0006p3-HF; Wed, 29 May 2024 14:30:44 +0000
+	id 1sCKKE-000762-RY; Wed, 29 May 2024 14:30:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 732068.1137886; Wed, 29 May 2024 14:30:44 +0000
+Received: by outflank-mailman (output) from mailman id 732069.1137897; Wed, 29 May 2024 14:30:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sCKKC-0006mx-EL; Wed, 29 May 2024 14:30:44 +0000
-Received: by outflank-mailman (input) for mailman id 732068;
- Wed, 29 May 2024 14:30:43 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1sCKKE-00073V-OS; Wed, 29 May 2024 14:30:46 +0000
+Received: by outflank-mailman (input) for mailman id 732069;
+ Wed, 29 May 2024 14:30:45 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=ygCr=NA=cloud.com=alejandro.vallejo@srs-se1.protection.inumbo.net>)
- id 1sCKKB-0006Xm-4R
- for xen-devel@lists.xenproject.org; Wed, 29 May 2024 14:30:43 +0000
-Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
- [2a00:1450:4864:20::629])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 07273fc0-1dc8-11ef-90a1-e314d9c70b13;
- Wed, 29 May 2024 16:30:42 +0200 (CEST)
-Received: by mail-ej1-x629.google.com with SMTP id
- a640c23a62f3a-a62ef52e837so236580566b.3
- for <xen-devel@lists.xenproject.org>; Wed, 29 May 2024 07:30:42 -0700 (PDT)
+ id 1sCKKD-00071F-K3
+ for xen-devel@lists.xenproject.org; Wed, 29 May 2024 14:30:45 +0000
+Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
+ [2a00:1450:4864:20::62b])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 0789a1e1-1dc8-11ef-b4bb-af5377834399;
+ Wed, 29 May 2024 16:30:43 +0200 (CEST)
+Received: by mail-ej1-x62b.google.com with SMTP id
+ a640c23a62f3a-a6341cf2c99so225960566b.0
+ for <xen-devel@lists.xenproject.org>; Wed, 29 May 2024 07:30:43 -0700 (PDT)
 Received: from EMEAENGAAD19049.citrite.net ([217.156.233.157])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a626c937b92sm720180266b.68.2024.05.29.07.30.40
+ a640c23a62f3a-a626c937b92sm720180266b.68.2024.05.29.07.30.41
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 29 May 2024 07:30:40 -0700 (PDT)
+ Wed, 29 May 2024 07:30:41 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,477 +45,694 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 07273fc0-1dc8-11ef-90a1-e314d9c70b13
+X-Inumbo-ID: 0789a1e1-1dc8-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1716993041; x=1717597841; darn=lists.xenproject.org;
+        d=cloud.com; s=cloud; t=1716993042; x=1717597842; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=OLhg3CnTs3yrTCfULMEgcsfOyxcHrWQPcRCfZl8y51o=;
-        b=kAfA0mVn4zFL9VjrbVGUTMeFhuNGOafvVMG+d1rYfm6T425ZJiIU3oRNtzvK6p6KTr
-         8A1iR43uuqRxxzDoLNq2v9s/uG3xjAsnaz0+50zfx7CCJvL9XWEo94gBpJ75DZrmLM7J
-         7IlJqpvZXHRnV+1BblU14d5H++wYRt8vk0qNY=
+        bh=ACDNCT9wciuPyxlqGAwOtlGDI3MKxbnMcgfQ+hZoPRk=;
+        b=R6twMvs5QlWwQPwcQ1SiYP/aRjqQhY5umhorzvNzWqJYxXYVwLRcQ7G/koD8ft8SAX
+         rAeXldHe9pfDfZdxW2ndLW5ErBMWUvu5CXBzkUIcZTFyR16/csVB2nZUKb+TPEmAI3UJ
+         KzXVNy4Zrk0a7P4ThGbJIjj+wZUhlAxJXu+YY=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1716993041; x=1717597841;
+        d=1e100.net; s=20230601; t=1716993042; x=1717597842;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=OLhg3CnTs3yrTCfULMEgcsfOyxcHrWQPcRCfZl8y51o=;
-        b=msXtEEmmMFMjleOO9wH2lIRBtOG3uUJQjnOQhIPBhpYQDKKDVwmmc3XNpx64eDqVoh
-         meulTDQGoy5ZVmKfzt+JT0rS/+a+RJfQVJ14D1h6L6Y2PssRYeA4cE0zf1JpesIea8Kc
-         nheMdwxlWqTu2Rvu4VddbbnEfVB7qxLMM6dGWwt9MBF/GN5BjVexDoIJpmA/yXN7D8G7
-         TIOIRPy70xic8APgiTnzqtffY8dOBzS9p4Ktk9/6Eibh3wBK3AUJsNpHevm5WYRSakfo
-         IzLI/qU2UeC/LWj1Q16dAAVGq5A66/pRhVQ35jBBLIV0Pp/TfjNVGtXu+LaIeoy45pjT
-         wmRw==
-X-Gm-Message-State: AOJu0Yy7DeEyWZl5Eg2aN5HUcbn/hL8ppFMUoMH7wAJMjfePGz/D9nU8
-	qbch+YEntg2mUcr5vbuq4DrSKEA0sJlNPqqYla1E95jaQhXzNybxVXQkz+0zkt3fiZ+oXDOhWkm
-	u
-X-Google-Smtp-Source: AGHT+IGwXxQgnWzo5aeNTixO7+ynUQSRC4UA4W07qr2Zdq6yTTCP6CWsteUJQjhk8q1Ru8XYg2mhxg==
-X-Received: by 2002:a17:906:f813:b0:a59:a85d:31c6 with SMTP id a640c23a62f3a-a62651123b4mr1050704066b.66.1716993041280;
-        Wed, 29 May 2024 07:30:41 -0700 (PDT)
+        bh=ACDNCT9wciuPyxlqGAwOtlGDI3MKxbnMcgfQ+hZoPRk=;
+        b=wYPf3E4BxGALTYLl37qM1WeUS2WLxfRyy0b4qshiPm0cGJKe7eWkfhCZdZp1C0bc0n
+         oRdEkvYP6EwhjDpgReL2rO4AapONADeslzvSnPxPJOmBpblJ7wgOi1wJGYdwEX2dKgfG
+         5eYRjUElaswXk0WTvLPs+jQb2hiZs791ZOpWAFD3T6BSufcXq7I0+TOPLPM3cjTni+LI
+         9DmzPgGZA+Br5FPQwtPedzxSCWbehjeSEe2hanmOGR/YgEJOzNZGj+xIg9rFSauwi43X
+         WixEFLIxRpsWqzOKgZ5wYORcoVD7SbxR6305Ohab/KWtkZcSGvT/9/tnQ5Sza7xvNZLG
+         TgqQ==
+X-Gm-Message-State: AOJu0Yy0Bu9iGxwaHeYbnkztlp1sYl/YoGX1uGqBoOeK0qn8tVdYbTsW
+	LbF5t7gi7OzrJcWbBvbicGk0Y5tXMU3yK/d7Akk+z2A5ssVOhi93WnQyGqZRj8wUUqTZlyfhgHi
+	q
+X-Google-Smtp-Source: AGHT+IEQpWFvsL1H2BKO/eU+9sH/Muc2mBce4oKTznbn9kp74NNLaZnaQfm805NjowAt1d5vQ+SeQA==
+X-Received: by 2002:a17:906:c113:b0:a62:a9ca:2111 with SMTP id a640c23a62f3a-a62a9ca25admr1011211866b.11.1716993042076;
+        Wed, 29 May 2024 07:30:42 -0700 (PDT)
 From: Alejandro Vallejo <alejandro.vallejo@cloud.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
 Cc: Alejandro Vallejo <alejandro.vallejo@cloud.com>,
 	Anthony PERARD <anthony@xenproject.org>,
-	Juergen Gross <jgross@suse.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [PATCH v4 1/2] tools/xg: Streamline cpu policy serialise/deserialise calls
-Date: Wed, 29 May 2024 15:30:37 +0100
-Message-Id: <f456bfb8996bb1fd4b965755622cda6fcb61b297.1716992707.git.alejandro.vallejo@cloud.com>
+	Juergen Gross <jgross@suse.com>
+Subject: [PATCH v4 2/2] tools/xg: Clean up xend-style overrides for CPU policies
+Date: Wed, 29 May 2024 15:30:38 +0100
+Message-Id: <ce6dc0221bbab353b6f47cf4bbbbcdf3aacc0cb8.1716992707.git.alejandro.vallejo@cloud.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <cover.1716992707.git.alejandro.vallejo@cloud.com>
 References: <cover.1716992707.git.alejandro.vallejo@cloud.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-The idea is to use xc_cpu_policy_t as a single object containing both the
-serialised and deserialised forms of the policy. Note that we need lengths
-for the arrays, as the serialised policies may be shorter than the array
-capacities.
-
-* Add the serialised lengths to the struct so we can distinguish
-  between length and capacity of the serialisation buffers.
-* Remove explicit buffer+lengths in serialise/deserialise calls
-  and use the internal buffer inside xc_cpu_policy_t instead.
-* Refactor everything to use the new serialisation functions.
-* Remove redundant serialization calls and avoid allocating dynamic
-  memory aside from the policy objects in xen-cpuid. Also minor cleanup
-  in the policy print call sites.
+Factor out policy getters/setters from both (CPUID and MSR) policy override
+functions. Additionally, use host policy rather than featureset when
+preparing the cur policy, saving one hypercall and several lines of
+boilerplate.
 
 No functional change intended.
 
 Signed-off-by: Alejandro Vallejo <alejandro.vallejo@cloud.com>
-Acked-by: Roger Pau Monné <roger.pau@citrix.com>
 ---
 v4:
-  * Clarify with a comment the semantics of the serialised buffer accessors
-  * Remove local variables in policy serialiser
+  * Indentation adjustment.
+  * Fix unhandled corner case using bsearch() with MSR and leaf buffers
 ---
- tools/include/xenguest.h            | 14 ++++-
- tools/libs/guest/xg_cpuid_x86.c     | 94 +++++++++++++++++++----------
- tools/libs/guest/xg_private.h       |  2 +
- tools/libs/guest/xg_sr_common_x86.c | 56 ++++++-----------
- tools/misc/xen-cpuid.c              | 41 ++++---------
- 5 files changed, 108 insertions(+), 99 deletions(-)
+ tools/libs/guest/xg_cpuid_x86.c | 437 ++++++++++----------------------
+ 1 file changed, 130 insertions(+), 307 deletions(-)
 
-diff --git a/tools/include/xenguest.h b/tools/include/xenguest.h
-index e01f494b772a..85d56f26537b 100644
---- a/tools/include/xenguest.h
-+++ b/tools/include/xenguest.h
-@@ -799,15 +799,23 @@ int xc_cpu_policy_set_domain(xc_interface *xch, uint32_t domid,
-                              xc_cpu_policy_t *policy);
- 
- /* Manipulate a policy via architectural representations. */
--int xc_cpu_policy_serialise(xc_interface *xch, const xc_cpu_policy_t *policy,
--                            xen_cpuid_leaf_t *leaves, uint32_t *nr_leaves,
--                            xen_msr_entry_t *msrs, uint32_t *nr_msrs);
-+int xc_cpu_policy_serialise(xc_interface *xch, xc_cpu_policy_t *policy);
- int xc_cpu_policy_update_cpuid(xc_interface *xch, xc_cpu_policy_t *policy,
-                                const xen_cpuid_leaf_t *leaves,
-                                uint32_t nr);
- int xc_cpu_policy_update_msrs(xc_interface *xch, xc_cpu_policy_t *policy,
-                               const xen_msr_entry_t *msrs, uint32_t nr);
- 
-+/*
-+ * Accessors for the serialised forms of the policy. The outputs are pointers
-+ * into the policy object and not fresh allocations, so their lifetimes are tied
-+ * to the policy object itself.
-+ */
-+int xc_cpu_policy_get_leaves(xc_interface *xch, const xc_cpu_policy_t *policy,
-+                             const xen_cpuid_leaf_t **leaves, uint32_t *nr);
-+int xc_cpu_policy_get_msrs(xc_interface *xch, const xc_cpu_policy_t *policy,
-+                           const xen_msr_entry_t **msrs, uint32_t *nr);
-+
- /* Compatibility calculations. */
- bool xc_cpu_policy_is_compatible(xc_interface *xch, xc_cpu_policy_t *host,
-                                  xc_cpu_policy_t *guest);
 diff --git a/tools/libs/guest/xg_cpuid_x86.c b/tools/libs/guest/xg_cpuid_x86.c
-index 4453178100ad..6cab5c60bb41 100644
+index 6cab5c60bb41..552ec2ab7312 100644
 --- a/tools/libs/guest/xg_cpuid_x86.c
 +++ b/tools/libs/guest/xg_cpuid_x86.c
-@@ -834,14 +834,13 @@ void xc_cpu_policy_destroy(xc_cpu_policy_t *policy)
-     }
- }
+@@ -36,6 +36,34 @@ enum {
+ #define bitmaskof(idx)      (1u << ((idx) & 31))
+ #define featureword_of(idx) ((idx) >> 5)
  
--static int deserialize_policy(xc_interface *xch, xc_cpu_policy_t *policy,
--                              unsigned int nr_leaves, unsigned int nr_entries)
 +static int deserialize_policy(xc_interface *xch, xc_cpu_policy_t *policy)
- {
-     uint32_t err_leaf = -1, err_subleaf = -1, err_msr = -1;
-     int rc;
- 
-     rc = x86_cpuid_copy_from_buffer(&policy->policy, policy->leaves,
--                                    nr_leaves, &err_leaf, &err_subleaf);
++{
++    uint32_t err_leaf = -1, err_subleaf = -1, err_msr = -1;
++    int rc;
++
++    rc = x86_cpuid_copy_from_buffer(&policy->policy, policy->leaves,
 +                                    policy->nr_leaves, &err_leaf, &err_subleaf);
-     if ( rc )
-     {
-         if ( err_leaf != -1 )
-@@ -851,7 +850,7 @@ static int deserialize_policy(xc_interface *xch, xc_cpu_policy_t *policy,
-     }
- 
-     rc = x86_msr_copy_from_buffer(&policy->policy, policy->msrs,
--                                  nr_entries, &err_msr);
++    if ( rc )
++    {
++        if ( err_leaf != -1 )
++            ERROR("Failed to deserialise CPUID (err leaf %#x, subleaf %#x) (%d = %s)",
++                  err_leaf, err_subleaf, -rc, strerror(-rc));
++        return rc;
++    }
++
++    rc = x86_msr_copy_from_buffer(&policy->policy, policy->msrs,
 +                                  policy->nr_msrs, &err_msr);
-     if ( rc )
-     {
-         if ( err_msr != -1 )
-@@ -878,7 +877,10 @@ int xc_cpu_policy_get_system(xc_interface *xch, unsigned int policy_idx,
-         return rc;
-     }
- 
--    rc = deserialize_policy(xch, policy, nr_leaves, nr_msrs);
-+    policy->nr_leaves = nr_leaves;
-+    policy->nr_msrs = nr_msrs;
-+
-+    rc = deserialize_policy(xch, policy);
-     if ( rc )
-     {
-         errno = -rc;
-@@ -903,7 +905,10 @@ int xc_cpu_policy_get_domain(xc_interface *xch, uint32_t domid,
-         return rc;
-     }
- 
--    rc = deserialize_policy(xch, policy, nr_leaves, nr_msrs);
-+    policy->nr_leaves = nr_leaves;
-+    policy->nr_msrs = nr_msrs;
-+
-+    rc = deserialize_policy(xch, policy);
-     if ( rc )
-     {
-         errno = -rc;
-@@ -917,17 +922,14 @@ int xc_cpu_policy_set_domain(xc_interface *xch, uint32_t domid,
-                              xc_cpu_policy_t *policy)
- {
-     uint32_t err_leaf = -1, err_subleaf = -1, err_msr = -1;
--    unsigned int nr_leaves = ARRAY_SIZE(policy->leaves);
--    unsigned int nr_msrs = ARRAY_SIZE(policy->msrs);
-     int rc;
- 
--    rc = xc_cpu_policy_serialise(xch, policy, policy->leaves, &nr_leaves,
--                                 policy->msrs, &nr_msrs);
-+    rc = xc_cpu_policy_serialise(xch, policy);
-     if ( rc )
-         return rc;
- 
--    rc = xc_set_domain_cpu_policy(xch, domid, nr_leaves, policy->leaves,
--                                  nr_msrs, policy->msrs,
-+    rc = xc_set_domain_cpu_policy(xch, domid, policy->nr_leaves, policy->leaves,
-+                                  policy->nr_msrs, policy->msrs,
-                                   &err_leaf, &err_subleaf, &err_msr);
-     if ( rc )
-     {
-@@ -942,32 +944,26 @@ int xc_cpu_policy_set_domain(xc_interface *xch, uint32_t domid,
-     return rc;
- }
- 
--int xc_cpu_policy_serialise(xc_interface *xch, const xc_cpu_policy_t *p,
--                            xen_cpuid_leaf_t *leaves, uint32_t *nr_leaves,
--                            xen_msr_entry_t *msrs, uint32_t *nr_msrs)
-+int xc_cpu_policy_serialise(xc_interface *xch, xc_cpu_policy_t *p)
- {
-     int rc;
-+    p->nr_leaves = ARRAY_SIZE(p->leaves);
-+    p->nr_msrs = ARRAY_SIZE(p->msrs);
- 
--    if ( leaves )
-+    rc = x86_cpuid_copy_to_buffer(&p->policy, p->leaves, &p->nr_leaves);
 +    if ( rc )
-     {
--        rc = x86_cpuid_copy_to_buffer(&p->policy, leaves, nr_leaves);
--        if ( rc )
--        {
--            ERROR("Failed to serialize CPUID policy");
--            errno = -rc;
--            return -1;
--        }
-+        ERROR("Failed to serialize CPUID policy");
-+        errno = -rc;
-+        return -1;
-     }
- 
--    if ( msrs )
-+    rc = x86_msr_copy_to_buffer(&p->policy, p->msrs, &p->nr_msrs);
-+    if ( rc )
-     {
--        rc = x86_msr_copy_to_buffer(&p->policy, msrs, nr_msrs);
--        if ( rc )
--        {
--            ERROR("Failed to serialize MSR policy");
--            errno = -rc;
--            return -1;
--        }
-+        ERROR("Failed to serialize MSR policy");
-+        errno = -rc;
-+        return -1;
-     }
- 
-     errno = 0;
-@@ -1012,6 +1008,42 @@ int xc_cpu_policy_update_msrs(xc_interface *xch, xc_cpu_policy_t *policy,
-     return rc;
- }
- 
-+int xc_cpu_policy_get_leaves(xc_interface *xch,
-+                             const xc_cpu_policy_t *policy,
-+                             const xen_cpuid_leaf_t **leaves,
-+                             uint32_t *nr)
-+{
-+    if ( !policy )
 +    {
-+        ERROR("Failed to fetch CPUID leaves from policy object");
-+        errno = -EINVAL;
-+        return -1;
++        if ( err_msr != -1 )
++            ERROR("Failed to deserialise MSR (err MSR %#x) (%d = %s)",
++                  err_msr, -rc, strerror(-rc));
++        return rc;
 +    }
-+
-+    *leaves = policy->leaves;
-+    *nr = policy->nr_leaves;
 +
 +    return 0;
 +}
 +
-+int xc_cpu_policy_get_msrs(xc_interface *xch,
-+                           const xc_cpu_policy_t *policy,
-+                           const xen_msr_entry_t **msrs,
-+                           uint32_t *nr)
-+{
-+    if ( !policy )
-+    {
-+        ERROR("Failed to fetch MSRs from policy object");
-+        errno = -EINVAL;
-+        return -1;
-+    }
-+
-+    *msrs = policy->msrs;
-+    *nr = policy->nr_msrs;
-+
-+    return 0;
-+}
-+
- bool xc_cpu_policy_is_compatible(xc_interface *xch, xc_cpu_policy_t *host,
-                                  xc_cpu_policy_t *guest)
+ int xc_get_cpu_levelling_caps(xc_interface *xch, uint32_t *caps)
  {
-diff --git a/tools/libs/guest/xg_private.h b/tools/libs/guest/xg_private.h
-index d73947094f2e..a65dae818f3d 100644
---- a/tools/libs/guest/xg_private.h
-+++ b/tools/libs/guest/xg_private.h
-@@ -177,6 +177,8 @@ struct xc_cpu_policy {
-     struct cpu_policy policy;
-     xen_cpuid_leaf_t leaves[CPUID_MAX_SERIALISED_LEAVES];
-     xen_msr_entry_t msrs[MSR_MAX_SERIALISED_ENTRIES];
-+    uint32_t nr_leaves;
-+    uint32_t nr_msrs;
- };
- #endif /* x86 */
+     struct xen_sysctl sysctl = {};
+@@ -260,102 +288,37 @@ static int compare_leaves(const void *l, const void *r)
+     return 0;
+ }
  
-diff --git a/tools/libs/guest/xg_sr_common_x86.c b/tools/libs/guest/xg_sr_common_x86.c
-index 563b4f016877..a0d67c3211c6 100644
---- a/tools/libs/guest/xg_sr_common_x86.c
-+++ b/tools/libs/guest/xg_sr_common_x86.c
-@@ -1,4 +1,5 @@
- #include "xg_sr_common_x86.h"
-+#include "xg_sr_stream_format.h"
- 
- int write_x86_tsc_info(struct xc_sr_context *ctx)
+-static xen_cpuid_leaf_t *find_leaf(
+-    xen_cpuid_leaf_t *leaves, unsigned int nr_leaves,
+-    const struct xc_xend_cpuid *xend)
++static xen_cpuid_leaf_t *find_leaf(xc_cpu_policy_t *p,
++                                   const struct xc_xend_cpuid *xend)
  {
-@@ -45,54 +46,39 @@ int handle_x86_tsc_info(struct xc_sr_context *ctx, struct xc_sr_record *rec)
- int write_x86_cpu_policy_records(struct xc_sr_context *ctx)
- {
-     xc_interface *xch = ctx->xch;
--    struct xc_sr_record cpuid = { .type = REC_TYPE_X86_CPUID_POLICY, };
--    struct xc_sr_record msrs  = { .type = REC_TYPE_X86_MSR_POLICY, };
--    uint32_t nr_leaves = 0, nr_msrs = 0;
--    xc_cpu_policy_t *policy = NULL;
-+    xc_cpu_policy_t *policy = xc_cpu_policy_init();
-     int rc;
+     const xen_cpuid_leaf_t key = { xend->leaf, xend->subleaf };
  
--    if ( xc_cpu_policy_get_size(xch, &nr_leaves, &nr_msrs) < 0 )
+-    return bsearch(&key, leaves, nr_leaves, sizeof(*leaves), compare_leaves);
++    return bsearch(&key, p->leaves, p->nr_leaves,
++                   sizeof(*p->leaves), compare_leaves);
+ }
+ 
+-static int xc_cpuid_xend_policy(
+-    xc_interface *xch, uint32_t domid, const struct xc_xend_cpuid *xend)
++static int xc_cpuid_xend_policy(xc_interface *xch, uint32_t domid,
++                                const struct xc_xend_cpuid *xend,
++                                xc_cpu_policy_t *host,
++                                xc_cpu_policy_t *def,
++                                xc_cpu_policy_t *cur)
+ {
+-    int rc;
+-    bool hvm;
+-    xc_domaininfo_t di;
+-    unsigned int nr_leaves, nr_msrs;
+-    uint32_t err_leaf = -1, err_subleaf = -1, err_msr = -1;
+-    /*
+-     * Three full policies.  The host, default for the domain type,
+-     * and domain current.
+-     */
+-    xen_cpuid_leaf_t *host = NULL, *def = NULL, *cur = NULL;
+-    unsigned int nr_host, nr_def, nr_cur;
+-
+-    if ( (rc = xc_domain_getinfo_single(xch, domid, &di)) < 0 )
 -    {
--        PERROR("Unable to get CPU Policy size");
--        return -1;
+-        PERROR("Failed to obtain d%d info", domid);
+-        rc = -errno;
+-        goto fail;
+-    }
+-    hvm = di.flags & XEN_DOMINF_hvm_guest;
+-
+-    rc = xc_cpu_policy_get_size(xch, &nr_leaves, &nr_msrs);
+-    if ( rc )
+-    {
+-        PERROR("Failed to obtain policy info size");
+-        rc = -errno;
+-        goto fail;
 -    }
 -
--    cpuid.data = malloc(nr_leaves * sizeof(xen_cpuid_leaf_t));
--    msrs.data  = malloc(nr_msrs   * sizeof(xen_msr_entry_t));
--    policy = xc_cpu_policy_init();
--    if ( !cpuid.data || !msrs.data || !policy )
+-    rc = -ENOMEM;
+-    if ( (host = calloc(nr_leaves, sizeof(*host))) == NULL ||
+-         (def  = calloc(nr_leaves, sizeof(*def)))  == NULL ||
+-         (cur  = calloc(nr_leaves, sizeof(*cur)))  == NULL )
 -    {
--        ERROR("Cannot allocate memory for CPU Policy");
--        rc = -1;
+-        ERROR("Unable to allocate memory for %u CPUID leaves", nr_leaves);
+-        goto fail;
+-    }
+-
+-    /* Get the domain's current policy. */
+-    nr_msrs = 0;
+-    nr_cur = nr_leaves;
+-    rc = get_domain_cpu_policy(xch, domid, &nr_cur, cur, &nr_msrs, NULL);
+-    if ( rc )
+-    {
+-        PERROR("Failed to obtain d%d current policy", domid);
+-        rc = -errno;
+-        goto fail;
+-    }
++    if ( !xend )
++        return 0;
+ 
+-    /* Get the domain type's default policy. */
+-    nr_msrs = 0;
+-    nr_def = nr_leaves;
+-    rc = get_system_cpu_policy(xch, hvm ? XEN_SYSCTL_cpu_policy_hvm_default
+-                                        : XEN_SYSCTL_cpu_policy_pv_default,
+-                               &nr_def, def, &nr_msrs, NULL);
+-    if ( rc )
+-    {
+-        PERROR("Failed to obtain %s def policy", hvm ? "hvm" : "pv");
+-        rc = -errno;
+-        goto fail;
+-    }
++    if ( !host || !def || !cur )
++        return -EINVAL;
+ 
+-    /* Get the host policy. */
+-    nr_msrs = 0;
+-    nr_host = nr_leaves;
+-    rc = get_system_cpu_policy(xch, XEN_SYSCTL_cpu_policy_host,
+-                               &nr_host, host, &nr_msrs, NULL);
+-    if ( rc )
+-    {
+-        PERROR("Failed to obtain host policy");
+-        rc = -errno;
+-        goto fail;
+-    }
+-
+-    rc = -EINVAL;
+     for ( ; xend->leaf != XEN_CPUID_INPUT_UNUSED; ++xend )
+     {
+-        xen_cpuid_leaf_t *cur_leaf = find_leaf(cur, nr_cur, xend);
+-        const xen_cpuid_leaf_t *def_leaf = find_leaf(def, nr_def, xend);
+-        const xen_cpuid_leaf_t *host_leaf = find_leaf(host, nr_host, xend);
++        xen_cpuid_leaf_t *cur_leaf = find_leaf(cur, xend);
++        const xen_cpuid_leaf_t *def_leaf = find_leaf(def, xend);
++        const xen_cpuid_leaf_t *host_leaf = find_leaf(host, xend);
+ 
+         if ( cur_leaf == NULL || def_leaf == NULL || host_leaf == NULL )
+         {
+             ERROR("Missing leaf %#x, subleaf %#x", xend->leaf, xend->subleaf);
+-            goto fail;
++            return -EINVAL;
+         }
+ 
+         for ( unsigned int i = 0; i < ARRAY_SIZE(xend->policy); i++ )
+@@ -384,7 +347,7 @@ static int xc_cpuid_xend_policy(
+                 {
+                     ERROR("Bad character '%c' in policy[%d] string '%s'",
+                           xend->policy[i][j], i, xend->policy[i]);
+-                    goto fail;
++                    return -EINVAL;
+                 }
+ 
+                 clear_bit(31 - j, cur_reg);
+@@ -394,25 +357,7 @@ static int xc_cpuid_xend_policy(
+         }
+     }
+ 
+-    /* Feed the transformed currrent policy back up to Xen. */
+-    rc = xc_set_domain_cpu_policy(xch, domid, nr_cur, cur, 0, NULL,
+-                                  &err_leaf, &err_subleaf, &err_msr);
+-    if ( rc )
+-    {
+-        PERROR("Failed to set d%d's policy (err leaf %#x, subleaf %#x, msr %#x)",
+-               domid, err_leaf, err_subleaf, err_msr);
+-        rc = -errno;
+-        goto fail;
+-    }
+-
+-    /* Success! */
+-
+- fail:
+-    free(cur);
+-    free(def);
+-    free(host);
+-
+-    return rc;
++    return 0;
+ }
+ 
+ static int compare_msr(const void *l, const void *r)
+@@ -426,104 +371,37 @@ static int compare_msr(const void *l, const void *r)
+     return lhs->idx < rhs->idx ? -1 : 1;
+ }
+ 
+-static xen_msr_entry_t *find_msr(
+-    xen_msr_entry_t *msrs, unsigned int nr_msrs,
+-    uint32_t index)
++static xen_msr_entry_t *find_msr(xc_cpu_policy_t *p,
++                                 uint32_t index)
+ {
+     const xen_msr_entry_t key = { .idx = index };
+ 
+-    return bsearch(&key, msrs, nr_msrs, sizeof(*msrs), compare_msr);
++    return bsearch(&key, p->msrs, p->nr_msrs, sizeof(*p->msrs), compare_msr);
+ }
+ 
+-
+ static int xc_msr_policy(xc_interface *xch, domid_t domid,
+-                         const struct xc_msr *msr)
++                         const struct xc_msr *msr,
++                         xc_cpu_policy_t *host,
++                         xc_cpu_policy_t *def,
++                         xc_cpu_policy_t *cur)
+ {
+-    int rc;
+-    bool hvm;
+-    xc_domaininfo_t di;
+-    unsigned int nr_leaves, nr_msrs;
+-    uint32_t err_leaf = -1, err_subleaf = -1, err_msr = -1;
+-    /*
+-     * Three full policies.  The host, default for the domain type,
+-     * and domain current.
+-     */
+-    xen_msr_entry_t *host = NULL, *def = NULL, *cur = NULL;
+-    unsigned int nr_host, nr_def, nr_cur;
+-
+-    if ( (rc = xc_domain_getinfo_single(xch, domid, &di)) < 0 )
+-    {
+-        PERROR("Failed to obtain d%d info", domid);
+-        rc = -errno;
+-        goto out;
+-    }
+-    hvm = di.flags & XEN_DOMINF_hvm_guest;
+-
+-    rc = xc_cpu_policy_get_size(xch, &nr_leaves, &nr_msrs);
+-    if ( rc )
+-    {
+-        PERROR("Failed to obtain policy info size");
+-        rc = -errno;
 -        goto out;
 -    }
 -
--    if ( xc_cpu_policy_get_domain(xch, ctx->domid, policy) )
-+    if ( !policy || xc_cpu_policy_get_domain(xch, ctx->domid, policy) )
+-    if ( (host = calloc(nr_msrs, sizeof(*host))) == NULL ||
+-         (def  = calloc(nr_msrs, sizeof(*def)))  == NULL ||
+-         (cur  = calloc(nr_msrs, sizeof(*cur)))  == NULL )
+-    {
+-        ERROR("Unable to allocate memory for %u CPUID leaves", nr_leaves);
+-        rc = -ENOMEM;
+-        goto out;
+-    }
+-
+-    /* Get the domain's current policy. */
+-    nr_leaves = 0;
+-    nr_cur = nr_msrs;
+-    rc = get_domain_cpu_policy(xch, domid, &nr_leaves, NULL, &nr_cur, cur);
+-    if ( rc )
+-    {
+-        PERROR("Failed to obtain d%d current policy", domid);
+-        rc = -errno;
+-        goto out;
+-    }
+-
+-    /* Get the domain type's default policy. */
+-    nr_leaves = 0;
+-    nr_def = nr_msrs;
+-    rc = get_system_cpu_policy(xch, hvm ? XEN_SYSCTL_cpu_policy_hvm_default
+-                                        : XEN_SYSCTL_cpu_policy_pv_default,
+-                               &nr_leaves, NULL, &nr_def, def);
+-    if ( rc )
+-    {
+-        PERROR("Failed to obtain %s def policy", hvm ? "hvm" : "pv");
+-        rc = -errno;
+-        goto out;
+-    }
++    if ( !msr )
++        return 0;
+ 
+-    /* Get the host policy. */
+-    nr_leaves = 0;
+-    nr_host = nr_msrs;
+-    rc = get_system_cpu_policy(xch, XEN_SYSCTL_cpu_policy_host,
+-                               &nr_leaves, NULL, &nr_host, host);
+-    if ( rc )
+-    {
+-        PERROR("Failed to obtain host policy");
+-        rc = -errno;
+-        goto out;
+-    }
++    if ( !host || !def || !cur )
++        return -EINVAL;
+ 
+     for ( ; msr->index != XC_MSR_INPUT_UNUSED; ++msr )
      {
-         PERROR("Unable to get d%d CPU Policy", ctx->domid);
-         rc = -1;
+-        xen_msr_entry_t *cur_msr = find_msr(cur, nr_cur, msr->index);
+-        const xen_msr_entry_t *def_msr = find_msr(def, nr_def, msr->index);
+-        const xen_msr_entry_t *host_msr = find_msr(host, nr_host, msr->index);
+         unsigned int i;
++        xen_msr_entry_t *cur_msr = find_msr(cur, msr->index);
++        const xen_msr_entry_t *def_msr = find_msr(def, msr->index);
++        const xen_msr_entry_t *host_msr = find_msr(host, msr->index);
+ 
+         if ( cur_msr == NULL || def_msr == NULL || host_msr == NULL )
+         {
+             ERROR("Missing MSR %#x", msr->index);
+-            rc = -ENOENT;
+-            goto out;
++            return -ENOENT;
+         }
+ 
+         for ( i = 0; i < ARRAY_SIZE(msr->policy) - 1; i++ )
+@@ -542,8 +420,7 @@ static int xc_msr_policy(xc_interface *xch, domid_t domid,
+             {
+                 ERROR("MSR index %#x: bad character '%c' in policy string '%s'",
+                       msr->index, msr->policy[i], msr->policy);
+-                rc = -EINVAL;
+-                goto out;
++                return -EINVAL;
+             }
+ 
+             if ( val )
+@@ -553,25 +430,7 @@ static int xc_msr_policy(xc_interface *xch, domid_t domid,
+         }
+     }
+ 
+-    /* Feed the transformed policy back up to Xen. */
+-    rc = xc_set_domain_cpu_policy(xch, domid, 0, NULL, nr_cur, cur,
+-                                  &err_leaf, &err_subleaf, &err_msr);
+-    if ( rc )
+-    {
+-        PERROR("Failed to set d%d's policy (err leaf %#x, subleaf %#x, msr %#x)",
+-               domid, err_leaf, err_subleaf, err_msr);
+-        rc = -errno;
+-        goto out;
+-    }
+-
+-    /* Success! */
+-
+- out:
+-    free(cur);
+-    free(def);
+-    free(host);
+-
+-    return rc;
++    return 0;
+ }
+ 
+ int xc_cpuid_apply_policy(xc_interface *xch, uint32_t domid, bool restore,
+@@ -583,14 +442,17 @@ int xc_cpuid_apply_policy(xc_interface *xch, uint32_t domid, bool restore,
+     int rc;
+     bool hvm;
+     xc_domaininfo_t di;
+-    struct xc_cpu_policy *p = xc_cpu_policy_init();
+-    unsigned int i, nr_leaves = ARRAY_SIZE(p->leaves), nr_msrs = 0;
+-    uint32_t err_leaf = -1, err_subleaf = -1, err_msr = -1;
+-    uint32_t host_featureset[FEATURESET_NR_ENTRIES] = {};
+-    uint32_t len = ARRAY_SIZE(host_featureset);
++    unsigned int i;
+ 
+-    if ( !p )
+-        return -ENOMEM;
++    struct xc_cpu_policy *host = xc_cpu_policy_init();
++    struct xc_cpu_policy *def = xc_cpu_policy_init();
++    struct xc_cpu_policy *cur = xc_cpu_policy_init();
++
++    if ( !host || !def || !cur )
++    {
++        rc = -ENOMEM;
++        goto out;
++    }
+ 
+     if ( (rc = xc_domain_getinfo_single(xch, domid, &di)) < 0 )
+     {
+@@ -600,21 +462,19 @@ int xc_cpuid_apply_policy(xc_interface *xch, uint32_t domid, bool restore,
+     }
+     hvm = di.flags & XEN_DOMINF_hvm_guest;
+ 
+-    /* Get the host policy. */
+-    rc = xc_get_cpu_featureset(xch, XEN_SYSCTL_cpu_featureset_host,
+-                               &len, host_featureset);
+-    /* Tolerate "buffer too small", as we've got the bits we need. */
+-    if ( rc && errno != ENOBUFS )
++    /* Get the raw host policy */
++    rc = xc_cpu_policy_get_system(xch, XEN_SYSCTL_cpu_policy_host, host);
++    if ( rc )
+     {
+-        PERROR("Failed to obtain host featureset");
++        PERROR("Failed to obtain host policy");
+         rc = -errno;
          goto out;
      }
--    if ( xc_cpu_policy_serialise(xch, policy, cpuid.data, &nr_leaves,
--                                 msrs.data, &nr_msrs) )
+ 
+     /* Get the domain's default policy. */
+-    rc = get_system_cpu_policy(xch, hvm ? XEN_SYSCTL_cpu_policy_hvm_default
+-                                        : XEN_SYSCTL_cpu_policy_pv_default,
+-                               &nr_leaves, p->leaves, &nr_msrs, NULL);
++    rc = xc_cpu_policy_get_system(xch, hvm ? XEN_SYSCTL_cpu_policy_hvm_default
++                                           : XEN_SYSCTL_cpu_policy_pv_default,
++                                  def);
+     if ( rc )
+     {
+         PERROR("Failed to obtain %s default policy", hvm ? "hvm" : "pv");
+@@ -622,14 +482,8 @@ int xc_cpuid_apply_policy(xc_interface *xch, uint32_t domid, bool restore,
+         goto out;
+     }
+ 
+-    rc = x86_cpuid_copy_from_buffer(&p->policy, p->leaves, nr_leaves,
+-                                    &err_leaf, &err_subleaf);
+-    if ( rc )
 -    {
--        PERROR("Unable to serialize d%d CPU Policy", ctx->domid);
--        rc = -1;
+-        ERROR("Failed to deserialise CPUID (err leaf %#x, subleaf %#x) (%d = %s)",
+-              err_leaf, err_subleaf, -rc, strerror(-rc));
 -        goto out;
 -    }
++    /* Copy the deserialised default policy to modify it */
++    memcpy(cur, def, sizeof(*cur));
  
--    cpuid.length = nr_leaves * sizeof(xen_cpuid_leaf_t);
--    if ( cpuid.length )
-+
-+    if ( policy->nr_leaves )
+     if ( restore )
      {
--        rc = write_record(ctx, &cpuid);
-+        struct xc_sr_record record = {
-+            .type = REC_TYPE_X86_CPUID_POLICY,
-+            .data = policy->leaves,
-+            .length = policy->nr_leaves * sizeof(*policy->leaves),
-+        };
-+
-+        rc = write_record(ctx, &record);
-         if ( rc )
-             goto out;
-     }
+@@ -647,18 +501,18 @@ int xc_cpuid_apply_policy(xc_interface *xch, uint32_t domid, bool restore,
+          * - Re-enable features which have become (possibly) off by default.
+          */
  
--    msrs.length = nr_msrs * sizeof(xen_msr_entry_t);
--    if ( msrs.length )
-+    if ( policy->nr_msrs )
-     {
--        rc = write_record(ctx, &msrs);
-+        struct xc_sr_record record = {
-+            .type = REC_TYPE_X86_MSR_POLICY,
-+            .data = policy->msrs,
-+            .length = policy->nr_msrs * sizeof(*policy->msrs),
-+        };
-+
-+        rc = write_record(ctx, &record);
-         if ( rc )
-             goto out;
-     }
-@@ -100,8 +86,6 @@ int write_x86_cpu_policy_records(struct xc_sr_context *ctx)
-     rc = 0;
+-        p->policy.basic.rdrand = test_bit(X86_FEATURE_RDRAND, host_featureset);
+-        p->policy.feat.hle = test_bit(X86_FEATURE_HLE, host_featureset);
+-        p->policy.feat.rtm = test_bit(X86_FEATURE_RTM, host_featureset);
++        cur->policy.basic.rdrand = host->policy.basic.rdrand;
++        cur->policy.feat.hle = host->policy.feat.hle;
++        cur->policy.feat.rtm = host->policy.feat.rtm;
  
-  out:
--    free(cpuid.data);
--    free(msrs.data);
-     xc_cpu_policy_destroy(policy);
- 
-     return rc;
-diff --git a/tools/misc/xen-cpuid.c b/tools/misc/xen-cpuid.c
-index 4c4593528dfe..488f43378406 100644
---- a/tools/misc/xen-cpuid.c
-+++ b/tools/misc/xen-cpuid.c
-@@ -156,12 +156,18 @@ static void dump_info(xc_interface *xch, bool detail)
- 
-     free(fs);
- }
--
--static void print_policy(const char *name,
--                         xen_cpuid_leaf_t *leaves, uint32_t nr_leaves,
--                         xen_msr_entry_t *msrs, uint32_t nr_msrs)
-+static void print_policy(xc_interface *xch, const char *name,
-+                         const xc_cpu_policy_t *policy)
- {
-     unsigned int l;
-+    const xen_cpuid_leaf_t *leaves;
-+    const xen_msr_entry_t *msrs;
-+    uint32_t nr_leaves, nr_msrs;
-+
-+    if ( xc_cpu_policy_get_leaves(xch, policy, &leaves, &nr_leaves) )
-+        err(1, "xc_cpu_policy_get_leaves()");
-+    if ( xc_cpu_policy_get_msrs(xch, policy, &msrs, &nr_msrs) )
-+        err(1, "xc_cpu_policy_get_msrs()");
- 
-     printf("%s policy: %u leaves, %u MSRs\n", name, nr_leaves, nr_msrs);
-     printf(" CPUID:\n");
-@@ -287,8 +293,6 @@ int main(int argc, char **argv)
-             [ XEN_SYSCTL_cpu_policy_pv_default ]   = "PV Default",
-             [ XEN_SYSCTL_cpu_policy_hvm_default ]  = "HVM Default",
-         };
--        xen_cpuid_leaf_t *leaves;
--        xen_msr_entry_t *msrs;
-         uint32_t i, max_leaves, max_msrs;
- 
-         xc_interface *xch = xc_interface_open(0, 0, 0);
-@@ -305,36 +309,21 @@ int main(int argc, char **argv)
-             printf("Xen reports there are maximum %u leaves and %u MSRs\n",
-                    max_leaves, max_msrs);
- 
--        leaves = calloc(max_leaves, sizeof(xen_cpuid_leaf_t));
--        if ( !leaves )
--            err(1, "calloc(max_leaves)");
--        msrs = calloc(max_msrs, sizeof(xen_msr_entry_t));
--        if ( !msrs )
--            err(1, "calloc(max_msrs)");
--
-         if ( domid != -1 )
+         if ( hvm )
          {
-             char name[20];
--            uint32_t nr_leaves = max_leaves;
--            uint32_t nr_msrs = max_msrs;
- 
-             if ( xc_cpu_policy_get_domain(xch, domid, policy) )
-                 err(1, "xc_cpu_policy_get_domain(, %d, )", domid);
--            if ( xc_cpu_policy_serialise(xch, policy, leaves, &nr_leaves,
--                                         msrs, &nr_msrs) )
--                err(1, "xc_cpu_policy_serialise");
- 
-             snprintf(name, sizeof(name), "Domain %d", domid);
--            print_policy(name, leaves, nr_leaves, msrs, nr_msrs);
-+            print_policy(xch, name, policy);
+-            p->policy.feat.mpx = test_bit(X86_FEATURE_MPX, host_featureset);
++            cur->policy.feat.mpx = host->policy.feat.mpx;
          }
-         else
-         {
-             /* Get system policies */
-             for ( i = 0; i < ARRAY_SIZE(sys_policies); ++i )
-             {
--                uint32_t nr_leaves = max_leaves;
--                uint32_t nr_msrs = max_msrs;
--
-                 if ( xc_cpu_policy_get_system(xch, i, policy) )
-                 {
-                     if ( errno == EOPNOTSUPP )
-@@ -346,18 +335,12 @@ int main(int argc, char **argv)
  
-                     err(1, "xc_cpu_policy_get_system(, %s, )", sys_policies[i]);
-                 }
--                if ( xc_cpu_policy_serialise(xch, policy, leaves, &nr_leaves,
--                                             msrs, &nr_msrs) )
--                    err(1, "xc_cpu_policy_serialise");
+-        p->policy.basic.max_leaf = min(p->policy.basic.max_leaf, 0xdu);
+-        p->policy.feat.max_subleaf = 0;
+-        p->policy.extd.max_leaf = min(p->policy.extd.max_leaf, 0x8000001c);
++        cur->policy.basic.max_leaf = min(cur->policy.basic.max_leaf, 0xdu);
++        cur->policy.feat.max_subleaf = 0;
++        cur->policy.extd.max_leaf = min(cur->policy.extd.max_leaf, 0x8000001c);
+     }
  
--                print_policy(sys_policies[i], leaves, nr_leaves,
--                             msrs, nr_msrs);
-+                print_policy(xch, sys_policies[i], policy);
+     if ( featureset )
+@@ -702,17 +556,17 @@ int xc_cpuid_apply_policy(xc_interface *xch, uint32_t domid, bool restore,
              }
          }
  
-         xc_cpu_policy_destroy(policy);
--        free(leaves);
--        free(msrs);
-         xc_interface_close(xch);
+-        x86_cpu_featureset_to_policy(feat, &p->policy);
++        x86_cpu_featureset_to_policy(feat, &cur->policy);
      }
-     else if ( mode == MODE_INFO || mode == MODE_DETAIL )
+     else
+     {
+-        p->policy.extd.itsc = itsc;
++        cur->policy.extd.itsc = itsc;
+ 
+         if ( hvm )
+         {
+-            p->policy.basic.pae = pae;
+-            p->policy.basic.vmx = nested_virt;
+-            p->policy.extd.svm = nested_virt;
++            cur->policy.basic.pae = pae;
++            cur->policy.basic.vmx = nested_virt;
++            cur->policy.extd.svm = nested_virt;
+         }
+     }
+ 
+@@ -722,8 +576,8 @@ int xc_cpuid_apply_policy(xc_interface *xch, uint32_t domid, bool restore,
+          * On hardware without CPUID Faulting, PV guests see real topology.
+          * As a consequence, they also need to see the host htt/cmp fields.
+          */
+-        p->policy.basic.htt       = test_bit(X86_FEATURE_HTT, host_featureset);
+-        p->policy.extd.cmp_legacy = test_bit(X86_FEATURE_CMP_LEGACY, host_featureset);
++        cur->policy.basic.htt       = host->policy.basic.htt;
++        cur->policy.extd.cmp_legacy = host->policy.extd.cmp_legacy;
+     }
+     else
+     {
+@@ -731,28 +585,28 @@ int xc_cpuid_apply_policy(xc_interface *xch, uint32_t domid, bool restore,
+          * Topology for HVM guests is entirely controlled by Xen.  For now, we
+          * hardcode APIC_ID = vcpu_id * 2 to give the illusion of no SMT.
+          */
+-        p->policy.basic.htt = true;
+-        p->policy.extd.cmp_legacy = false;
++        cur->policy.basic.htt = true;
++        cur->policy.extd.cmp_legacy = false;
+ 
+         /*
+          * Leaf 1 EBX[23:16] is Maximum Logical Processors Per Package.
+          * Update to reflect vLAPIC_ID = vCPU_ID * 2, but make sure to avoid
+          * overflow.
+          */
+-        if ( !p->policy.basic.lppp )
+-            p->policy.basic.lppp = 2;
+-        else if ( !(p->policy.basic.lppp & 0x80) )
+-            p->policy.basic.lppp *= 2;
++        if ( !cur->policy.basic.lppp )
++            cur->policy.basic.lppp = 2;
++        else if ( !(cur->policy.basic.lppp & 0x80) )
++            cur->policy.basic.lppp *= 2;
+ 
+-        switch ( p->policy.x86_vendor )
++        switch ( cur->policy.x86_vendor )
+         {
+         case X86_VENDOR_INTEL:
+-            for ( i = 0; (p->policy.cache.subleaf[i].type &&
+-                          i < ARRAY_SIZE(p->policy.cache.raw)); ++i )
++            for ( i = 0; cur->policy.cache.subleaf[i].type &&
++                         i < ARRAY_SIZE(cur->policy.cache.raw); ++i )
+             {
+-                p->policy.cache.subleaf[i].cores_per_package =
+-                    (p->policy.cache.subleaf[i].cores_per_package << 1) | 1;
+-                p->policy.cache.subleaf[i].threads_per_cache = 0;
++                cur->policy.cache.subleaf[i].cores_per_package =
++                    (cur->policy.cache.subleaf[i].cores_per_package << 1) | 1;
++                cur->policy.cache.subleaf[i].threads_per_cache = 0;
+             }
+             break;
+ 
+@@ -772,49 +626,46 @@ int xc_cpuid_apply_policy(xc_interface *xch, uint32_t domid, bool restore,
+              * apic_id_size values greater than 7.  Limit the value to
+              * 7 for now.
+              */
+-            if ( p->policy.extd.nc < 0x7f )
++            if ( cur->policy.extd.nc < 0x7f )
+             {
+-                if ( p->policy.extd.apic_id_size != 0 && p->policy.extd.apic_id_size < 0x7 )
+-                    p->policy.extd.apic_id_size++;
++                if ( cur->policy.extd.apic_id_size != 0 &&
++                     cur->policy.extd.apic_id_size < 0x7 )
++                    cur->policy.extd.apic_id_size++;
+ 
+-                p->policy.extd.nc = (p->policy.extd.nc << 1) | 1;
++                cur->policy.extd.nc = (cur->policy.extd.nc << 1) | 1;
+             }
+             break;
+         }
+     }
+ 
+-    nr_leaves = ARRAY_SIZE(p->leaves);
+-    rc = x86_cpuid_copy_to_buffer(&p->policy, p->leaves, &nr_leaves);
+-    if ( rc )
++    if ( xend || msr )
+     {
+-        ERROR("Failed to serialise CPUID (%d = %s)", -rc, strerror(-rc));
+-        goto out;
++        /* The overrides are over the serialised form of the policy */
++        if ( (rc = xc_cpu_policy_serialise(xch, cur)) )
++            goto out;
++
++        if ( (rc = xc_cpuid_xend_policy(xch, domid, xend, host, def, cur)) )
++            goto out;
++        if ( (rc = xc_msr_policy(xch, domid, msr, host, def, cur)) )
++            goto out;
++
++        if ( (rc = deserialize_policy(xch, cur)) )
++            goto out;
+     }
+ 
+-    rc = xc_set_domain_cpu_policy(xch, domid, nr_leaves, p->leaves, 0, NULL,
+-                                  &err_leaf, &err_subleaf, &err_msr);
++    rc = xc_cpu_policy_set_domain(xch, domid, cur);
+     if ( rc )
+     {
+-        PERROR("Failed to set d%d's policy (err leaf %#x, subleaf %#x, msr %#x)",
+-               domid, err_leaf, err_subleaf, err_msr);
+         rc = -errno;
+         goto out;
+     }
+ 
+-    if ( xend && (rc = xc_cpuid_xend_policy(xch, domid, xend)) )
+-        goto out;
+-
+-    if ( msr )
+-    {
+-        rc = xc_msr_policy(xch, domid, msr);
+-        if ( rc )
+-            goto out;
+-    }
+-
+     rc = 0;
+ 
+ out:
+-    xc_cpu_policy_destroy(p);
++    xc_cpu_policy_destroy(def);
++    xc_cpu_policy_destroy(host);
++    xc_cpu_policy_destroy(cur);
+ 
+     return rc;
+ }
+@@ -834,34 +685,6 @@ void xc_cpu_policy_destroy(xc_cpu_policy_t *policy)
+     }
+ }
+ 
+-static int deserialize_policy(xc_interface *xch, xc_cpu_policy_t *policy)
+-{
+-    uint32_t err_leaf = -1, err_subleaf = -1, err_msr = -1;
+-    int rc;
+-
+-    rc = x86_cpuid_copy_from_buffer(&policy->policy, policy->leaves,
+-                                    policy->nr_leaves, &err_leaf, &err_subleaf);
+-    if ( rc )
+-    {
+-        if ( err_leaf != -1 )
+-            ERROR("Failed to deserialise CPUID (err leaf %#x, subleaf %#x) (%d = %s)",
+-                  err_leaf, err_subleaf, -rc, strerror(-rc));
+-        return rc;
+-    }
+-
+-    rc = x86_msr_copy_from_buffer(&policy->policy, policy->msrs,
+-                                  policy->nr_msrs, &err_msr);
+-    if ( rc )
+-    {
+-        if ( err_msr != -1 )
+-            ERROR("Failed to deserialise MSR (err MSR %#x) (%d = %s)",
+-                  err_msr, -rc, strerror(-rc));
+-        return rc;
+-    }
+-
+-    return 0;
+-}
+-
+ int xc_cpu_policy_get_system(xc_interface *xch, unsigned int policy_idx,
+                              xc_cpu_policy_t *policy)
+ {
 -- 
 2.34.1
 
