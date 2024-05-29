@@ -2,40 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6BBFF8D3799
-	for <lists+xen-devel@lfdr.de>; Wed, 29 May 2024 15:29:05 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.731913.1137679 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 12DE88D37C3
+	for <lists+xen-devel@lfdr.de>; Wed, 29 May 2024 15:35:38 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.731921.1137690 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sCJMH-0001Hn-5g; Wed, 29 May 2024 13:28:49 +0000
+	id 1sCJSP-0003P9-Pw; Wed, 29 May 2024 13:35:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 731913.1137679; Wed, 29 May 2024 13:28:49 +0000
+Received: by outflank-mailman (output) from mailman id 731921.1137690; Wed, 29 May 2024 13:35:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sCJMH-0001GH-31; Wed, 29 May 2024 13:28:49 +0000
-Received: by outflank-mailman (input) for mailman id 731913;
- Wed, 29 May 2024 13:28:47 +0000
+	id 1sCJSP-0003MM-Ma; Wed, 29 May 2024 13:35:09 +0000
+Received: by outflank-mailman (input) for mailman id 731921;
+ Wed, 29 May 2024 13:35:07 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=U3iI=NA=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1sCJMF-0001GB-4i
- for xen-devel@lists.xenproject.org; Wed, 29 May 2024 13:28:47 +0000
-Received: from mail-lf1-x12a.google.com (mail-lf1-x12a.google.com
- [2a00:1450:4864:20::12a])
+ (envelope-from <SRS0=RuQ4=NA=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1sCJSN-0003MG-Lu
+ for xen-devel@lists.xenproject.org; Wed, 29 May 2024 13:35:07 +0000
+Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
+ [2a00:1450:4864:20::62a])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 601acb56-1dbf-11ef-90a1-e314d9c70b13;
- Wed, 29 May 2024 15:28:46 +0200 (CEST)
-Received: by mail-lf1-x12a.google.com with SMTP id
- 2adb3069b0e04-52aea6067c8so802262e87.0
- for <xen-devel@lists.xenproject.org>; Wed, 29 May 2024 06:28:46 -0700 (PDT)
-Received: from ?IPV6:2003:e5:8729:4000:29eb:6d9d:3214:39d2?
- (p200300e58729400029eb6d9d321439d2.dip0.t-ipconnect.de.
- [2003:e5:8729:4000:29eb:6d9d:3214:39d2])
- by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-579d7276d95sm3726512a12.78.2024.05.29.06.28.44
+ id 42c81c58-1dc0-11ef-90a1-e314d9c70b13;
+ Wed, 29 May 2024 15:35:06 +0200 (CEST)
+Received: by mail-ej1-x62a.google.com with SMTP id
+ a640c23a62f3a-a630ff4ac84so235989166b.1
+ for <xen-devel@lists.xenproject.org>; Wed, 29 May 2024 06:35:06 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a626cc8b980sm715700266b.154.2024.05.29.06.35.05
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 29 May 2024 06:28:45 -0700 (PDT)
+ Wed, 29 May 2024 06:35:05 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,97 +45,119 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 601acb56-1dbf-11ef-90a1-e314d9c70b13
+X-Inumbo-ID: 42c81c58-1dc0-11ef-90a1-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1716989325; x=1717594125; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=gXmr6j/tvonQwkWDxBgodd8VSD2h8lNR4zZeNwuG1Go=;
-        b=UTvwRpNuNy/KP6pChpMwQDUORi6+BxJGlj9NpCZ2VW2NxqoCyP3MeZQc4eflWa8a3V
-         BXAi1k5q2REgFBLphOCl20x/aee9cqf31iclWDzygS1Rb11Ofpz13C+QlcyMRS6QY3iY
-         8cyVXfD89CuJuBDFzkFmqjjDVv9i/4K4PQEKLVcSPMoS6ykOSyBHe0yqizocghwSDCWT
-         tMiebrGZ1EuDNnYLdSWF98ePpUnjJQlS2B7c+hZ7bT+hrgMUwWrB5hC1NJRkwNHHuwAm
-         kL36ZpCy7sv1/fpzRlT+XfUYabsAsWZuDHWKK5Nmx/S6D25HBxJPUbtWReFJyObM4oxA
-         iyuA==
+        d=suse.com; s=google; t=1716989706; x=1717594506; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=EV46/AZY/HKbhP5b1+XxO0OUC3ytXActtv4A1/6Stek=;
+        b=TiHmx3MtSpgndvIiIHzQkRLqDovHm+f44qAOLxkLebcXN3CRl3Vu6Zx0i3Ow1uxDfY
+         kPZTbBg+Uv27lGYUGaYcjA4TXihdNoxAacPV9ebJuUl0s3DLjG4/W2bGsKkrkd9GLKWU
+         R6PepH8IEUkbsb6SmyguaTa0vQMwAtsYCD5A2E9f3VPM1eCVKhqBSD6sTOvhzFC6BBdf
+         UlcwQUYRrX1M5ybG/ywtKUfNyW0ppSNTmHm/9h7X4/xcOO/LVZVSrJIgseNwaBMAV1LY
+         XMohvrC4m6ia4xd+unRAm7KhYWiBO/q8e/Kdp8tO7q5TJ1S3VwCJQPtmSe8z+26Ox7co
+         o8cQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1716989325; x=1717594125;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=gXmr6j/tvonQwkWDxBgodd8VSD2h8lNR4zZeNwuG1Go=;
-        b=l2UHBm04caYXqRCx7QhxaBaOtLaXJhfg4plS82yKIGlim5e2ZkDFNlVUjCPgGNJzOR
-         WoxZh1MfNPYkIP80VvcOFNoxl3RLR9UzFFSThszDLzfXPL3+YrHGuc6TWp/g91YfPFFe
-         Uiov1YQQH3cfBPS4kHpgs4FmAifrx2dDod/gNE0eh1D175y/rMtR1jjVFwnBiLXHCl8m
-         Yl5g+eIj0OzLUx+S5xlWlI9/9vtkYyVE62j6spCSt47lucdLDdY0tFmmcC12CgfuuP7t
-         hskqlq+sQLZ/Va4XpN3RvXd3+GG6rloS8i5kVWfNJan+Vlr9fPZzYcLGjd/wqXDQ9BI5
-         x0Dw==
-X-Forwarded-Encrypted: i=1; AJvYcCUb8drI2Mf31CdiJ+RfARXOEZaYEahEWp27H0+x2Xfol/yv+A9+QJpcmxApn1fNmPxlzqIkD7XGkRVpogHRs6nWqlFZpW/jk5p4gVOCOPc=
-X-Gm-Message-State: AOJu0YyW49By3Wjoz+dl67Q9SRAnAqQWdb8la/OIvLaDColPzYAtdkLt
-	YWo41tiUKLL6QNoxNB0I17KvpUekNMQxMnR166syQFDFPH/0ypQQPUvwRjyILz4=
-X-Google-Smtp-Source: AGHT+IEq5J35jp5oyjSaT4U2EpNtDbrlLRiwcYvKIzo9K+RuuN07fUdxYFnLzwmPTjwExZKBrEuQig==
-X-Received: by 2002:a05:6512:1042:b0:529:a389:f6a6 with SMTP id 2adb3069b0e04-529a389f747mr9715451e87.67.1716989325376;
-        Wed, 29 May 2024 06:28:45 -0700 (PDT)
-Message-ID: <2095a4a2-7db5-4de6-9609-d8e6a5adf27f@suse.com>
-Date: Wed, 29 May 2024 15:28:44 +0200
+        d=1e100.net; s=20230601; t=1716989706; x=1717594506;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=EV46/AZY/HKbhP5b1+XxO0OUC3ytXActtv4A1/6Stek=;
+        b=bRva5MXpBAwkN+lUntIbVSmR2H5JRTc0bVxEkiIbbrop+AHZWPjCFL61MNR2+BY+G/
+         PcuWU84SIdXX0dJzaIEE0PF0X34NQY5+ih8VatIolfihLQ5baDWn3px7mCqX8zx8PA5L
+         GOBP0nOU1j0ubmnU9HzkceymwLCH++GRDgDiAArfc3+08sG+2uILWtH1ADVYzSmh0Ahw
+         mtyDNqFQeVlBJ5qj6AAfR1TiUaBRbgkguW2WvBbVC4cziu/+E/XAFPGw41OUEvN+GJVh
+         86BhbRgtuPvPsqAV/QYBNoSXukUvBlpbMSANAY2wGzSNsv/xEx4klS4vjom5qTGC8fQ4
+         G5Sw==
+X-Forwarded-Encrypted: i=1; AJvYcCXGigg2kXdm/bfkFOUroVWo06cx0k1y41gdvdf+g4rtMF3KyJV3Nj6PPJu49tHrYfBUnJ/W9SSOLTfIo0bw1LQAAWb/vTd0piEFxG/fmJE=
+X-Gm-Message-State: AOJu0Yxmdcy9PSrV+6MvjN7+0xMGFyxQQNmKxLzfBR383qySxX66z4Zi
+	/oAsneNlRDg6AOetrGrG8B8ZyLk0KENVDNG/XqssH4EJO2lmooxiKOQEbyZciA==
+X-Google-Smtp-Source: AGHT+IHy4uAKWHKXXq+m7FmTz1cT01vmXB4tmbtDy1RvjWBXyhq0hdfVR9gs4tr+6wQX6D4+UKzVNw==
+X-Received: by 2002:a17:906:1c12:b0:a63:359b:e5bf with SMTP id a640c23a62f3a-a63359be69cmr324786666b.42.1716989705772;
+        Wed, 29 May 2024 06:35:05 -0700 (PDT)
+Message-ID: <597b0bf9-8949-41f3-a630-18937c219d8b@suse.com>
+Date: Wed, 29 May 2024 15:35:04 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] xen/xenbus: handle pointer to NULL in alloc/free_pdev
-To: yskelg@gmail.com, Stefano Stabellini <sstabellini@kernel.org>,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-Cc: skhan@linuxfoundation.org, sj@kernel.org,
- Austin Kim <austindh.kim@gmail.com>, shjy180909@gmail.com,
- linux-kernel@vger.kernel.org, xen-devel@lists.xenproject.org,
- linux-kernel-mentees@lists.linuxfoundation.org
-References: <20240529131926.29590-1-yskelg@gmail.com>
+Subject: Re: [PATCH for-4.19 3/9] xen/cpu: ensure get_cpu_maps() returns false
+ if CPU operations are underway
+To: Roger Pau Monne <roger.pau@citrix.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <20240529090132.59434-1-roger.pau@citrix.com>
+ <20240529090132.59434-4-roger.pau@citrix.com>
 Content-Language: en-US
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-In-Reply-To: <20240529131926.29590-1-yskelg@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20240529090132.59434-4-roger.pau@citrix.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 29.05.24 15:19, yskelg@gmail.com wrote:
-> From: Yunseong Kim <yskelg@gmail.com>
+On 29.05.2024 11:01, Roger Pau Monne wrote:
+> Due to the current rwlock logic, if the CPU calling get_cpu_maps() does so from
+> a cpu_hotplug_{begin,done}() region the function will still return success,
+> because a CPU taking the rwlock in read mode after having taken it in write
+> mode is allowed.  Such behavior however defeats the purpose of get_cpu_maps(),
+> as it should always return false when called with a CPU hot{,un}plug operation
+> is in progress.
+
+I'm not sure I can agree with this. The CPU doing said operation ought to be
+aware of what it is itself doing. And all other CPUs will get back false from
+get_cpu_maps().
+
+>  Otherwise the logic in send_IPI_mask() for example is wrong,
+> as it could decide to use the shorthand even when a CPU operation is in
+> progress.
+
+It's also not becoming clear what's wrong there: As long as a CPU isn't
+offline enough to not be in cpu_online_map anymore, it may well need to still
+be the target of IPIs, and targeting it with a shorthand then is still fine.
+
+In any event this would again affect only the CPU leading the CPU operation,
+which should clearly know at which point(s) it is okay to send IPIs. Are we
+actually sending any IPIs from within CPU-online or CPU-offline paths?
+Together with the earlier paragraph the critical window would be between the
+CPU being taken off of cpu_online_map and the CPU actually going "dead" (i.e.
+on x86: its LAPIC becoming unresponsive to other than INIT/SIPI). And even
+then the question would be what bad, if any, would happen to that CPU if an
+IPI was still targeted at it by way of using the shorthand. I'm pretty sure
+it runs with IRQs off at that time, so no ordinary IRQ could be delivered.
+
+> Adjust the logic in get_cpu_maps() to return false when the CPUs lock is
+> already hold in write mode by the current CPU, as read_trylock() would
+> otherwise return true.
 > 
-> Modify 'alloc_pdev()' to set 'pdev->xdev' to NULL
-> if 'xen_pcibk_init_devices()' fails. This ensures that 'pdev->xdev' does
-> not point to 'xdev' when 'pdev' is freed.
-> And modify 'free_pdev()' to set 'pdev' to NULL.
-> 
-> Signed-off-by: Yunseong Kim <yskelg@gmail.com>
-> ---
->   drivers/xen/xen-pciback/xenbus.c | 2 ++
->   1 file changed, 2 insertions(+)
-> 
-> diff --git a/drivers/xen/xen-pciback/xenbus.c b/drivers/xen/xen-pciback/xenbus.c
-> index b11e401f1b1e..f1709b8e284a 100644
-> --- a/drivers/xen/xen-pciback/xenbus.c
-> +++ b/drivers/xen/xen-pciback/xenbus.c
-> @@ -54,6 +54,7 @@ static struct xen_pcibk_device *alloc_pdev(struct xenbus_device *xdev)
->   	INIT_WORK(&pdev->op_work, xen_pcibk_do_op);
->   
->   	if (xen_pcibk_init_devices(pdev)) {
-> +		pdev->xdev = NULL;
->   		kfree(pdev);
->   		pdev = NULL;
->   	}
-> @@ -102,6 +103,7 @@ static void free_pdev(struct xen_pcibk_device *pdev)
->   	pdev->xdev = NULL;
->   
->   	kfree(pdev);
-> +	pdev = NULL;
->   }
->   
->   static int xen_pcibk_do_attach(struct xen_pcibk_device *pdev, int gnt_ref,
+> Fixes: 868a01021c6f ('rwlock: allow recursive read locking when already locked in write mode')
 
-NAK!
+I'm puzzled by this as well: Prior to that and the change referenced by its
+Fixes: tag, recursive spin locks were used. For the purposes here that's the
+same as permitting read locking even when the write lock is already held by
+the local CPU.
 
-Please stop that nonsense. NULL-ing pointers which have no chance to be used any
-more is just adding code for no purpose at all.
-
-Please don't send other iterations of this patch. You are wasting review
-bandwidth.
-
-
-Juergen
+Jan
 
