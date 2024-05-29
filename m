@@ -2,37 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E2DBD8D3AD5
-	for <lists+xen-devel@lfdr.de>; Wed, 29 May 2024 17:28:20 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.732183.1138064 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C4A2D8D3B02
+	for <lists+xen-devel@lfdr.de>; Wed, 29 May 2024 17:30:49 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.732188.1138072 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sCLDl-0004Iq-Bs; Wed, 29 May 2024 15:28:09 +0000
+	id 1sCLG6-0005r2-Mo; Wed, 29 May 2024 15:30:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 732183.1138064; Wed, 29 May 2024 15:28:09 +0000
+Received: by outflank-mailman (output) from mailman id 732188.1138072; Wed, 29 May 2024 15:30:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sCLDl-0004G5-8U; Wed, 29 May 2024 15:28:09 +0000
-Received: by outflank-mailman (input) for mailman id 732183;
- Wed, 29 May 2024 15:28:07 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1sCLG6-0005pC-K8; Wed, 29 May 2024 15:30:34 +0000
+Received: by outflank-mailman (input) for mailman id 732188;
+ Wed, 29 May 2024 15:30:33 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=FJ4/=NA=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1sCLDj-0003h9-Be
- for xen-devel@lists.xenproject.org; Wed, 29 May 2024 15:28:07 +0000
-Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
- [2a00:1450:4864:20::335])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 0b5b4007-1dd0-11ef-b4bb-af5377834399;
- Wed, 29 May 2024 17:28:05 +0200 (CEST)
-Received: by mail-wm1-x335.google.com with SMTP id
- 5b1f17b1804b1-42108856c33so513935e9.1
- for <xen-devel@lists.xenproject.org>; Wed, 29 May 2024 08:28:05 -0700 (PDT)
-Received: from localhost ([213.195.114.223]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-35579d7dd8esm15013488f8f.10.2024.05.29.08.28.04
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 29 May 2024 08:28:04 -0700 (PDT)
+ <SRS0=DcHb=NA=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
+ id 1sCLG5-0005p6-D6
+ for xen-devel@lists.xenproject.org; Wed, 29 May 2024 15:30:33 +0000
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on20601.outbound.protection.outlook.com
+ [2a01:111:f403:2416::601])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 61ecdb89-1dd0-11ef-90a1-e314d9c70b13;
+ Wed, 29 May 2024 17:30:32 +0200 (CEST)
+Received: from PH8PR20CA0004.namprd20.prod.outlook.com (2603:10b6:510:23c::12)
+ by BL3PR12MB6378.namprd12.prod.outlook.com (2603:10b6:208:3b1::6)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7611.28; Wed, 29 May
+ 2024 15:30:26 +0000
+Received: from CY4PEPF0000E9D8.namprd05.prod.outlook.com
+ (2603:10b6:510:23c:cafe::fc) by PH8PR20CA0004.outlook.office365.com
+ (2603:10b6:510:23c::12) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7611.30 via Frontend
+ Transport; Wed, 29 May 2024 15:30:25 +0000
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CY4PEPF0000E9D8.mail.protection.outlook.com (10.167.241.71) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7633.15 via Frontend Transport; Wed, 29 May 2024 15:30:25 +0000
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Wed, 29 May
+ 2024 10:30:24 -0500
+Received: from [10.252.147.188] (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.35 via Frontend
+ Transport; Wed, 29 May 2024 10:30:23 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,112 +59,135 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0b5b4007-1dd0-11ef-b4bb-af5377834399
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1716996485; x=1717601285; darn=lists.xenproject.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=vgf6iO5UWB16AaiuEruVh71mcKykYduHrqyGEP27qgQ=;
-        b=ek65V3zFx2r5cRVE2J4nOwj1we8yvi9PsYOg+0U4lhf24r50DSNWqeywzPoL5ZX4x4
-         1AW71XMZaLOhTxUOMb0AZhu/gLiCe+k48StontqdwF6Kv3d4II9ZK77+QAi4XdzB++4t
-         i9wwykdTWVYM4qrZ/6sUCe9OB1w6XFOs2lmYM=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1716996485; x=1717601285;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=vgf6iO5UWB16AaiuEruVh71mcKykYduHrqyGEP27qgQ=;
-        b=gI3IJN+xZoa6eDOUNVqaC5zXzZSWL9IiSay/4hOQlPzptnEMVwnk5yCjHsNdSpkTbO
-         MZnz2Zic5wnqRt1H2RRkN4ZZnuDR/aaBaQPQvduI+YYb+8kIkBlPULTVSCkVcCIKeFuz
-         QzNO2qTcPWMxIlbRzTkJFm+XFRS4q36zYeoXcNP30B51lwj4STySmBuY2tPGuWoLFXU+
-         FSL/D6/VeYdITtC4zsl50J04kh6b+0vsHRmfQksh9YWOINxKbOdXZcQw3muvVGRYoZPb
-         Ilb9nKh5HpFPe8MikUhFecykRtWTKaZseyWGmme+I3M2nhsO3Ctwu8Ef+z7yWDYIVcZs
-         EgwA==
-X-Forwarded-Encrypted: i=1; AJvYcCURyZcuMnAcSOJjoK0oBmUv1Qs4h5BgyFosdqJ4JWcSAw9RacjEszXhIJv/DJcChZxyCQ3ceRgGfiTFEgMTNnRPzrcG+Mv6aEUMFhZQfxk=
-X-Gm-Message-State: AOJu0Yxh/fNmPCtWv0rMmXhB7g5Fbe4Y1Ax05TwxSvts5O2IGsI+12oV
-	yvfQgaz/TnyUDVxpAYigg4wo8i2VTlOjyxCGEs65i7+Lo6Hz5sd2SYsZLg4eE1A=
-X-Google-Smtp-Source: AGHT+IGRV4rt6jmRJeV7HWcXdePj5WDRmBcz9L5WQ9WZM+MdBl9XEb/Dxss5ZvWRyOfE6pH9kTlGpQ==
-X-Received: by 2002:a05:600c:3548:b0:41f:c5c5:c9df with SMTP id 5b1f17b1804b1-42122b00e42mr24253635e9.14.1716996484837;
-        Wed, 29 May 2024 08:28:04 -0700 (PDT)
-Date: Wed, 29 May 2024 17:28:03 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH for-4.19 4/9] x86/irq: describe how the interrupt CPU
- movement works
-Message-ID: <ZldJgwu2nDGv2HJP@macbook>
-References: <20240529090132.59434-1-roger.pau@citrix.com>
- <20240529090132.59434-5-roger.pau@citrix.com>
- <24201381-2a43-427e-a3e5-1de316d212b8@suse.com>
+X-Inumbo-ID: 61ecdb89-1dd0-11ef-90a1-e314d9c70b13
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=IuPoDDsLIDCEwwp5ieUxidhXdZIDkath53V/79jXX/5P5l9jiY8pSxyiW7LDWSGwjtd8L9+J+vvgn3HfB6Oe77ESZa1kvCtxMHCEJr+xp8tFDiPrscpWkDHDNK7NiHUwXbXhdqyMw8kiX9dPRt4iVYIrkyoUzyzhx2DyeZ8lGb5rBT+rIOBi6w8X1+HLo6OG3++MdQr/B49keJXnMvZZ9/diX9OnsuQPy5DBlH13OQ77F00djQFicwZqhSh3v941IEdq+vjeCnbHWGgAIPeAS/vZnK470TPweMCsyA49jDJzYgSvyzkv/auGaHCRUabcHLsnn81kbkeYNwA4JGfu3w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=wTUBGfr3d7J2x5WWwui99WN/K/I5ilvznelX0mozrms=;
+ b=fe4YPKXrmi1exRq1+V+ni1nSsDxN+inD2STUv50T398aa9E4VajuD2RqWdMH/y8nUazmFmf4Hl7zGuJj29jawvv9QOSeMEFquv9D0FZX5WdNB9QuLD1WG2tBNBbezEZsvbSZS8ClF806TDDFUB8d35Kj5y75Ymy8IYAbATli3k7DtHuu/CkynwAJaZ4Cn4vO4vYwtLIdYcJcR+sb+pcpqW9Pw6IS1L2ZSCNJjsyDhckSP/SHP7FeY4WTPV8jLxo1CgvO2j0dDeRS/oCW14Wami0tf9WDsfVStzg4rggfhJOFDqP3jW6fKj/ISp2H02bQ5eByULIkFJpMcuXD65+KXA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=citrix.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=wTUBGfr3d7J2x5WWwui99WN/K/I5ilvznelX0mozrms=;
+ b=sJ+f78gcVI13e70nagRQSTRYZCFJ3rqvMJ2NIm+AwGXBGFcJHjKla+cjIHNIRyj60q4D7fTxaO43ObwYpDj75EgpCcjFIwJbhACEQCGjGPMDotwp2C6pz99KQxxmkb5g9d+dhic0+D8LShNggeyNeyXXgY5Mqsk8HYGNjiFwVAQ=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Message-ID: <10676879-e0e4-4332-b8cb-732d56cda818@amd.com>
+Date: Wed, 29 May 2024 17:30:22 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <24201381-2a43-427e-a3e5-1de316d212b8@suse.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/3] CI: Use a debug build of Xen for the Xilinx HW tests
+To: Andrew Cooper <andrew.cooper3@citrix.com>, Xen-devel
+	<xen-devel@lists.xenproject.org>
+CC: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Stefano
+ Stabellini <sstabellini@kernel.org>,
+	=?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
+	<marmarek@invisiblethingslab.com>, Oleksii Kurochko
+	<oleksii.kurochko@gmail.com>
+References: <20240529141945.41669-1-andrew.cooper3@citrix.com>
+ <20240529141945.41669-3-andrew.cooper3@citrix.com>
+Content-Language: en-US
+From: Michal Orzel <michal.orzel@amd.com>
+In-Reply-To: <20240529141945.41669-3-andrew.cooper3@citrix.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+Received-SPF: None (SATLEXMB04.amd.com: michal.orzel@amd.com does not
+ designate permitted sender hosts)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000E9D8:EE_|BL3PR12MB6378:EE_
+X-MS-Office365-Filtering-Correlation-Id: a26c6f6d-97d2-49ad-e048-08dc7ff44347
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230031|1800799015|82310400017|376005|36860700004;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?eDhNYWxBNXlGSlY0VnY1UUw1akdCSno3MG5FNlZUUXhoRmo5ekN3RGJ4UFdn?=
+ =?utf-8?B?MlcxQ0NrNER1QmxiS0g3VjlZNDk5dElPU2crQWhEK2RxMVAxYlpHWlAwRnFu?=
+ =?utf-8?B?R3U4d3ZFclJkVXFna3Myb3lweHNSV0hvU3RNVlVnanRHbmswTkFQVFdiK05s?=
+ =?utf-8?B?NGFLUmtnd2VJQUtCQU4rWExNZlpTWUJwRzA2RXVKN2NHZ3ZLbWtUTnp3SGsr?=
+ =?utf-8?B?NDI1NFA3eDNCekRXald5aVBzbyt0a3VCTEtrUTFkRCtnVTJOZG9aVExlbllH?=
+ =?utf-8?B?WHpqa3FYekZoQlBqeTBKTGMvbkM0SU5aaVdGQzAyNm9ZMzhwRzJQdWhGT3Qr?=
+ =?utf-8?B?TjFhSFh1clg0aVkwZWUzanlDcGFXdEgwUGZhUUdMTVVKM3UveW1xUlBMY1dz?=
+ =?utf-8?B?YjBBcGpsdHVDOUNYUml4V1JkNmJtMzlobEd1TmFEdGhSdndQUlVWSUVCV3JH?=
+ =?utf-8?B?N1dkdVFjdW5zQUNqZ2R0SmloNnRDRjNuZm16VFdtOFRxeHlTMEptNmdDc0gz?=
+ =?utf-8?B?d1B6eGMrSUluc2Z5RkRCVCthT1Rydyt1ZzZ4T2RTc0FRM3k2MzdQdDFhdmJW?=
+ =?utf-8?B?c3hyNTgvNnRmTE1pSnd2YU9ZYStGTlMzL0krRVdTc09aQXZBaytnbDY5QkUx?=
+ =?utf-8?B?YVRFMS9iSHBNaGQrMEFMQW00Y1pHR2JhOStUNGd4aExRRzRQMk00Zmd2WnRl?=
+ =?utf-8?B?NHZuRnZ2YS9Vanl0cXNxcGJXOEZYVWtFeldkNno3SjBZYjYyNWVzMlBDM2RI?=
+ =?utf-8?B?aVFBV2VqSmVZb0p5UVV1bjd4NndwMGx0VDRRVjREbURWVnZiWlBGbXVuSjFh?=
+ =?utf-8?B?OUJ5ejhqR252RWJsK2pUQVRkSlpZd1B0YzlOSFl2bUlCNGp3NTB3SUNhWmVC?=
+ =?utf-8?B?RCsycEE3dkNrVkpnODlNWTZZYStzb2orcDVQVk82bU5veHlHUkgyV21abENM?=
+ =?utf-8?B?WllxZXFJSjhTNTgxK3ZVTEZUMzV5VFJGWmFYRVN4QkptMVZTeEpvUEViVzFX?=
+ =?utf-8?B?OWZ6cDdiRjJhT2JJVzVNYmg1V1Y5Z0RkcEJnWERBMzB3UlM3b0FuUWVoY1Jw?=
+ =?utf-8?B?TkVVekt4ekpLWlB3WWZUTFE1YS9YOFV2Zm5YcDhhK3FGd1ZWRXhXaWhWaFhK?=
+ =?utf-8?B?Rks2VTFZeGdUL2p0L0FBWlhyY05VNE1Wd3VIb2FHUEE1azlJWS8rT1BURTE1?=
+ =?utf-8?B?Q0JQZitadkx5cWdSd3Q3aVFWVjRSTEpZUGlTbGcvbFhUWDRrOWJHUCsvbDVB?=
+ =?utf-8?B?eDBBQjFGWWFMNFNuYjAxdEgxMmhrVWVhelJyTDRleEJ5L0p5QlowVUFFYnAw?=
+ =?utf-8?B?Ulp3UmJyQWFaaU96a0xIVXJEY0FubHA2bEQ2bU81Umk5aVg4U0wvaXZhMEQz?=
+ =?utf-8?B?aEF6ZmJlL0NPQ3ZqeTJFNXlaZGhqTE15RVVVcGQ3SzdtUnpHMUhuRFljZ00v?=
+ =?utf-8?B?dzJPR2Q2UlovVVF5RlV2UmRCWllWdlMwSm1JSDkyVEVjTDVHUmZKMG5MVk0z?=
+ =?utf-8?B?MUpqUEVBSGpGNUZsMWpHcDRGVWV3aUxpWXNGNHMrckJvVGZOT244ZmZuQmJo?=
+ =?utf-8?B?ZWtSSVBBQU9lQTQ2L2lSQjF2QUdmUXRCUW13SGZMRkRuYVYxL3hublBYZ1lw?=
+ =?utf-8?B?S3A5eVZCVFVmc1hhTWx3K0dDZ0VESWNGWkkzOFVLRktUbDRNRklNMUYzNzFs?=
+ =?utf-8?B?ZW5XNWZxWElDSDEzN2x0K1Evcnk3REI5SVltZUIzd0N5OGE0VjVRcFM5TkNp?=
+ =?utf-8?B?bWxtTlEzRnJPeDk4eVR0TW1oVGNqRTRjUFdZZGxPNFRkdWVXNit3R0s5NWNB?=
+ =?utf-8?B?cGlvTVVoZENvd1hJWlpac1prbWIyK096VjdRY0U0cmNZL1NXampVclFrUytI?=
+ =?utf-8?Q?9M+Weic+7Ceux?=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(1800799015)(82310400017)(376005)(36860700004);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 May 2024 15:30:25.6205
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: a26c6f6d-97d2-49ad-e048-08dc7ff44347
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CY4PEPF0000E9D8.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL3PR12MB6378
 
-On Wed, May 29, 2024 at 03:57:19PM +0200, Jan Beulich wrote:
-> On 29.05.2024 11:01, Roger Pau Monne wrote:
-> > --- a/xen/arch/x86/include/asm/irq.h
-> > +++ b/xen/arch/x86/include/asm/irq.h
-> > @@ -28,6 +28,32 @@ typedef struct {
-> >  
-> >  struct irq_desc;
-> >  
-> > +/*
-> > + * Xen logic for moving interrupts around CPUs allows manipulating interrupts
-> > + * that target remote CPUs.  The logic to move an interrupt from CPU(s) is as
-> > + * follows:
-> > + *
-> > + * 1. cpu_mask and vector is copied to old_cpu_mask and old_vector.
-> > + * 2. New cpu_mask and vector are set, vector is setup at the new destination.
-> > + * 3. move_in_progress is set.
-> > + * 4. Interrupt source is updated to target new CPU and vector.
-> > + * 5. Interrupts arriving at old_cpu_mask are processed normally.
-> > + * 6. When an interrupt is delivered at the new destination (cpu_mask) as part
-> > + *    of acking the interrupt move_in_progress is cleared and move_cleanup_count
+Hi Andrew,
+
+On 29/05/2024 16:19, Andrew Cooper wrote:
 > 
-> Nit: A comma after "interrupt" may help reading.
 > 
-> > + *    is set to the weight of online CPUs in old_cpu_mask.
-> > + *    IRQ_MOVE_CLEANUP_VECTOR is sent to all CPUs in old_cpu_mask.
+> ... like the other hardware tests.  This gets more value out of the testing.
 > 
-> These last two steps aren't precise enough, compared to what the code does.
-> old_cpu_mask is first reduced to online CPUs therein. If the result is non-
-> empty, what you describe is done. If, however, the result is empty, the
-> vector is released right away (this code may be there just in case, but I
-> think it shouldn't be omitted here).
-
-I've left that out because I got the impression it made the text more
-complex to follow (with the extra branch) for no real benefit, but I'm
-happy to attempt to add it.
-
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> ---
+> CC: Roger Pau Monné <roger.pau@citrix.com>
+> CC: Stefano Stabellini <sstabellini@kernel.org>
+> CC: Michal Orzel <michal.orzel@amd.com>
+> CC: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+> CC: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+> ---
+>  automation/gitlab-ci/test.yaml | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
 > 
-> > + * 7. When receiving IRQ_MOVE_CLEANUP_VECTOR CPUs in old_cpu_mask clean the
-> > + *    vector entry and decrease the count in move_cleanup_count.  The CPU that
-> > + *    sets move_cleanup_count to 0 releases the vector.
-> > + *
-> > + * Note that when interrupt movement (either move_in_progress or
-> > + * move_cleanup_count set) is in progress it's not possible to move the
-> > + * interrupt to yet a different CPU.
-> > + *
-> > + * By keeping the vector in the old CPU(s) configured until the interrupt is
-> > + * acked on the new destination Xen allows draining any pending interrupts at
-> > + * the old destinations.
-> > + */
-> >  struct arch_irq_desc {
-> >          s16 vector;                  /* vector itself is only 8 bits, */
-> >          s16 old_vector;              /* but we use -1 for unassigned  */
-> 
-> I take it that it is not a goal to (also) describe under what conditions
-> an IRQ move may actually be initiated (IRQ_MOVE_PENDING)? I ask not the
-> least because the 2nd from last paragraph lightly touches that area.
+> diff --git a/automation/gitlab-ci/test.yaml b/automation/gitlab-ci/test.yaml
+> index efd3ad46f08e..e96ccdfad54c 100644
+> --- a/automation/gitlab-ci/test.yaml
+> +++ b/automation/gitlab-ci/test.yaml
+> @@ -149,7 +149,7 @@ xilinx-smoke-dom0less-arm64-gcc:
+>      - ./automation/scripts/xilinx-smoke-dom0less-arm64.sh 2>&1 | tee ${LOGFILE}
+>    needs:
+>      - *arm64-test-needs
+> -    - alpine-3.18-gcc-arm64
+> +    - alpine-3.18-gcc-debug-arm64
+This change should be reflected in the name of the test changed (here and below), so that it contains -debug suffix just like every other debug job.
+With that done:
+Reviewed-by: Michal Orzel <michal.orzel@amd.com>
 
-Right, I was mostly focused on moves (forcefully) initiated from
-fixup_irqs(), which is different from the opportunistic affinity
-changes signaled by IRQ_MOVE_PENDING.
-
-Not sure whether I want to mention this ahead of the list in a
-paragraph, or just add it as a step.  Do you have any preference?
-
-Thanks, Roger.
+~Michal
 
