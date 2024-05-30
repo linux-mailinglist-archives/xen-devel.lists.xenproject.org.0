@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AC0798D51BF
-	for <lists+xen-devel@lfdr.de>; Thu, 30 May 2024 20:27:24 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.732949.1139008 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 682E38D51E3
+	for <lists+xen-devel@lfdr.de>; Thu, 30 May 2024 20:40:54 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.732957.1139017 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sCkUS-0001bp-MK; Thu, 30 May 2024 18:27:04 +0000
+	id 1sCkhW-0004eV-V6; Thu, 30 May 2024 18:40:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 732949.1139008; Thu, 30 May 2024 18:27:04 +0000
+Received: by outflank-mailman (output) from mailman id 732957.1139017; Thu, 30 May 2024 18:40:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sCkUS-0001ZM-Ih; Thu, 30 May 2024 18:27:04 +0000
-Received: by outflank-mailman (input) for mailman id 732949;
- Thu, 30 May 2024 18:27:03 +0000
+	id 1sCkhW-0004bR-SS; Thu, 30 May 2024 18:40:34 +0000
+Received: by outflank-mailman (input) for mailman id 732957;
+ Thu, 30 May 2024 18:40:33 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=LA40=NB=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1sCkUR-0001Xj-BD
- for xen-devel@lists.xenproject.org; Thu, 30 May 2024 18:27:03 +0000
-Received: from mail-lj1-x22f.google.com (mail-lj1-x22f.google.com
- [2a00:1450:4864:20::22f])
+ <SRS0=8pxM=NB=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1sCkhV-0004bL-4Y
+ for xen-devel@lists.xenproject.org; Thu, 30 May 2024 18:40:33 +0000
+Received: from mail-ed1-x52a.google.com (mail-ed1-x52a.google.com
+ [2a00:1450:4864:20::52a])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 357c51f4-1eb2-11ef-90a1-e314d9c70b13;
- Thu, 30 May 2024 20:27:02 +0200 (CEST)
-Received: by mail-lj1-x22f.google.com with SMTP id
- 38308e7fff4ca-2e72224c395so10996641fa.3
- for <xen-devel@lists.xenproject.org>; Thu, 30 May 2024 11:27:02 -0700 (PDT)
-Received: from [192.168.219.221] ([94.75.70.14])
+ id 1826dad5-1eb4-11ef-90a1-e314d9c70b13;
+ Thu, 30 May 2024 20:40:32 +0200 (CEST)
+Received: by mail-ed1-x52a.google.com with SMTP id
+ 4fb4d7f45d1cf-5789733769dso2315600a12.1
+ for <xen-devel@lists.xenproject.org>; Thu, 30 May 2024 11:40:32 -0700 (PDT)
+Received: from andrew-laptop.citrite.net ([217.156.233.157])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-52b84d89485sm32279e87.254.2024.05.30.11.27.01
+ a640c23a62f3a-a67e6f02d29sm4086666b.14.2024.05.30.11.40.30
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 30 May 2024 11:27:01 -0700 (PDT)
+ Thu, 30 May 2024 11:40:30 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,172 +45,71 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 357c51f4-1eb2-11ef-90a1-e314d9c70b13
+X-Inumbo-ID: 1826dad5-1eb4-11ef-90a1-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1717093622; x=1717698422; darn=lists.xenproject.org;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=JO7Vprcr74OLOAx5MFxE/wYQ+52Z1NDEYUh3yhUtyds=;
-        b=XH5VEJ9QfFpXqhOkewZ9/4wWPthqri+tl4jGPaJs5I5+/FKmp3JghNcZZOaNIX2C5D
-         DER0EzAPO9pIj6XSRD4V+Wb7/4HrzWVm1Q7Eppfkp83fUpICjtJj+v2HB5aqTfN4yJJ9
-         vYjPaw25IINfLQlHx6bq8U9rVxRKB1hRYNIkVj5Kv5WqDbwEIPBzw4sy6vdg0O5EU7oH
-         YEhdKlk4H9lus512qQt9+qJp3Lfizr+t02E7UhOLT+Cw/ObArI4/YY4PGx9rpi2WPEwS
-         1SC0MUpE7lwGyiGZpesm1AJvhpUM0annCspQT+QxQ+mfH6qZoSc392XqHgJq9Il76n9m
-         gcFQ==
+        d=citrix.com; s=google; t=1717094431; x=1717699231; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=JJuNoSq0OuQqzdgRdtc7jFxhjSPmfyd/fXrf/kWjNhQ=;
+        b=Sag8l9CZTqN8yLky+ThHtbuWbWuKheSZAG59ey80tQCGT+ZQ48u5QD+Rh3isGE8/2Z
+         sM8jKYjqnj3ue2WfUC9BLI5BL+QFjGSrh4l0oM6uTX06veRE2qMZpENd5lXKjfh6Ps2q
+         ycRD176PW3/w/VA5QZ3HnzmdYimxzS/V/cWfU=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1717093622; x=1717698422;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=JO7Vprcr74OLOAx5MFxE/wYQ+52Z1NDEYUh3yhUtyds=;
-        b=M5/4YPjnH4R6xwbKUCPu2zE4XX4DV/pVG97pUz1d48ZYKuD40+NNIPrnD7TJHiExys
-         Db6akv6x2wqPGsFM8jNB5vtKq3kEgQ36zk4DLWMJIMKCiUH/STgs1IGJwEWlo24AIqRv
-         kwJWb5PwnfnnpXaooc7qATlx2tJW1nDV2GKgdB2f06z69PplTfNIxOvzgrZ3b4/itWy/
-         49FBQImPMdEiIu9ZokOEAe4w78pv/rzjncclv2kYhJh9gNNknR2+0CyAFG1+63PlWo7R
-         c3i+Qk8WJVRtzbQTDMX9YwGlDYzoXfFdSJaexqYwM7InAoRnZeY29sgfvNFC28ZFDtDh
-         7rIQ==
-X-Forwarded-Encrypted: i=1; AJvYcCWoEbBAfAbEaUQvPVmAqJvA8YROFY0ngrrTHzfEbmNe0jXq4xlhhmZsUDnVc/r+EvEPFb3DtLIH748Y/L+/zG8DuSaIF4q/lg9xQtedDGY=
-X-Gm-Message-State: AOJu0Yww+6Bh67XLsQg4pArsyDk6TJ0wKYxjqOvFp28dJOXf2Ftf2f58
-	6Cd9dpLf0JiKQKu6GbrxFEETlIWaiWW/pF7BPEK0dFBhdnAXowTb
-X-Google-Smtp-Source: AGHT+IELFMT8Jpq+yczGXk2pdKBr0KHXOEFr2vdN1VNKLGjt4omHsnA3LtdOZyXLNztdwi/sh4PorA==
-X-Received: by 2002:ac2:4c2f:0:b0:51e:2a1d:6654 with SMTP id 2adb3069b0e04-52b7d43aeefmr1648061e87.31.1717093621584;
-        Thu, 30 May 2024 11:27:01 -0700 (PDT)
-Message-ID: <934dbe6381e646d551e7f815aacb415e87f0210d.camel@gmail.com>
-Subject: Re: [PATCH v12 7/8] xen/riscv: enable full Xen build
-From: "Oleksii K." <oleksii.kurochko@gmail.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
-Cc: Alistair Francis <alistair.francis@wdc.com>, Bob Eshleman
- <bobbyeshleman@gmail.com>, Connor Davis <connojdavis@gmail.com>, George
- Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>, Julien
- Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>
-Date: Thu, 30 May 2024 20:27:00 +0200
-In-Reply-To: <61c227f6-9515-4bfb-932b-aa0a5d33bc66@citrix.com>
-References: <cover.1717008161.git.oleksii.kurochko@gmail.com>
-	 <1cea913117f771a5f3b4404d7bfb7e1329f3f38e.1717008161.git.oleksii.kurochko@gmail.com>
-	 <1ecd7a2c-b7da-4c59-8ebd-c3841d5991f8@citrix.com>
-	 <2747a20d490252c279dd051c41a9b8dc69fb4c3e.camel@gmail.com>
-	 <61c227f6-9515-4bfb-932b-aa0a5d33bc66@citrix.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.52.1 (3.52.1-1.fc40) 
+        d=1e100.net; s=20230601; t=1717094431; x=1717699231;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=JJuNoSq0OuQqzdgRdtc7jFxhjSPmfyd/fXrf/kWjNhQ=;
+        b=anMg3vf7i83lwoIx5PKYKIP/WwiuTot58QMOSgGkG3qikyZR5P9stZwm7Z58KQeq6C
+         5eZj+SJXKSRHlWgPnDQkpXW16cHrG6GgOkii8Gy94+jzcEFZHOfJCJYFf464Fapry0L9
+         1AGN+zgPEeWmX3mNPG1nbj2obrAi7m90KLf7kUemUQV989Nk0vi64W3PJfI/m/60++n2
+         uOHbr9EqAARtRv7SApBlt7Xmg0DZjdZBm7y76/JTnMkQo2gbHlQmkSyOqIxQFM7j8aVR
+         3Gxf1HToLNDzurywVPTMk8zJVdmUJ72Ra+P2aHcXVvz0Bq5qQUxngxPeyszgtOEBFDNB
+         fbvw==
+X-Gm-Message-State: AOJu0Yxbbq5DYw+WVeWREkGNPBpzjzZKUMi28VYa6oLsKqTv4NTnfAE/
+	7RsVUCeuHavcEos4bjkeBNQPlMcB8eCnBtWbN/b/x7xKMSDaRjK0CFI3KTJDrC1nmtWF0TqlLsX
+	i
+X-Google-Smtp-Source: AGHT+IFM4sUCoWuD618J0Ddv1WsGtE5ssj5fZDr9xCzIqkDsGm94uJZcQrb+haYSG/2G2rsH7I82sQ==
+X-Received: by 2002:a17:906:1c41:b0:a5a:8cc0:8c23 with SMTP id a640c23a62f3a-a65f0bd69cemr233518966b.27.1717094431322;
+        Thu, 30 May 2024 11:40:31 -0700 (PDT)
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+	Jan Beulich <JBeulich@suse.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Julien Grall <julien@xen.org>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+	Shawn Anastasio <sanastasio@raptorengineering.com>
+Subject: [PATCH for-4.19 0/2] arch/irq: Untangle no_irq_type
+Date: Thu, 30 May 2024 19:40:25 +0100
+Message-Id: <20240530184027.44609-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Thu, 2024-05-30 at 18:45 +0100, Andrew Cooper wrote:
-> On 30/05/2024 6:12 pm, Oleksii K. wrote:
-> > On Thu, 2024-05-30 at 17:48 +0100, Andrew Cooper wrote:
-> > > On 29/05/2024 8:55 pm, Oleksii Kurochko wrote:
-> > > > diff --git a/xen/arch/riscv/stubs.c b/xen/arch/riscv/stubs.c
-> > > > index 8285bcffef..bda35fc347 100644
-> > > > --- a/xen/arch/riscv/stubs.c
-> > > > +++ b/xen/arch/riscv/stubs.c
-> > > > @@ -24,12 +24,6 @@ DEFINE_PER_CPU_READ_MOSTLY(cpumask_var_t,
-> > > > cpu_core_mask);
-> > > > =C2=A0
-> > > > =C2=A0nodemask_t __read_mostly node_online_map =3D { { [0] =3D 1UL =
-} };
-> > > > =C2=A0
-> > > > -/*
-> > > > - * max_page is defined in page_alloc.c which isn't complied
-> > > > for
-> > > > now.
-> > > > - * definition of max_page will be remove as soon as page_alloc
-> > > > is
-> > > > built.
-> > > > - */
-> > > > -unsigned long __read_mostly max_page;
-> > > > -
-> > > > =C2=A0/* time.c */
-> > > > =C2=A0
-> > > > =C2=A0unsigned long __ro_after_init cpu_khz;=C2=A0 /* CPU clock fre=
-quency
-> > > > in
-> > > > kHz. */
-> > > > @@ -419,21 +413,3 @@ void __cpu_die(unsigned int cpu)
-> > > > =C2=A0{
-> > > > =C2=A0=C2=A0=C2=A0=C2=A0 BUG_ON("unimplemented");
-> > > > =C2=A0}
-> > > > -
-> > > > -/*
-> > > > - * The following functions are defined in common/irq.c, but
-> > > > common/irq.c isn't
-> > > > - * built for now. These changes will be removed there when
-> > > > common/irq.c is
-> > > > - * ready.
-> > > > - */
-> > > > -
-> > > > -void cf_check irq_actor_none(struct irq_desc *desc)
-> > > > -{
-> > > > -=C2=A0=C2=A0=C2=A0 BUG_ON("unimplemented");
-> > > > -}
-> > > > -
-> > > > -unsigned int cf_check irq_startup_none(struct irq_desc *desc)
-> > > > -{
-> > > > -=C2=A0=C2=A0=C2=A0 BUG_ON("unimplemented");
-> > > > -
-> > > > -=C2=A0=C2=A0=C2=A0 return 0;
-> > > > -}
-> > > All 3 of these are introduced in the previous patch and deleted
-> > > again
-> > > here.=C2=A0 Looks like a rebasing accident.
-> > Not really.
-> >=20
-> > This was done to avoid build failures for RISC-V. If the HEAD is on
-> > the
-> > previous patch where these changes are introduced and then we just
-> > drop
-> > them, it will lead to a linkage error because these functions are
-> > defined in common/irq.c, which isn't built for RISC-V if the HEAD
-> > is on
-> > the previous patch:
-> > =C2=A0=C2=A0 /build/xen/arch/riscv/entry.S:86: undefined reference to
-> > `max_page'
->=20
-> Nothing in the series touches entry.S, so I'm not sure what this is
-> complaining about.
->=20
-> The stub for get_upper_mfn_bound() references max_page, but it's only
-> used in a SYSCTL so you can avoid the problem with a BUG_ON().
-I didn't get how I can use BUG_ON() with declaration of variable to
-avoid the compilation issue the undefined reference to max_page?
+Found when reviewing Oleksii's series to enable the RISC-V build.
 
->=20
-> BTW, you also don't need a return after a BUG_ON().=C2=A0
-> __builtin_unreachable() takes care of everything properly for you.
->=20
->=20
-> > =C2=A0=C2=A0 riscv64-linux-gnu-ld: prelink.o:(.rodata+0x8): undefined
-> > reference to
-> > =C2=A0=C2=A0 `irq_startup_none'
-> > =C2=A0=C2=A0 riscv64-linux-gnu-ld: prelink.o:(.rodata+0x10): undefined
-> > reference to
-> > =C2=A0=C2=A0 `irq_actor_none'
-> > =C2=A0=C2=A0 riscv64-linux-gnu-ld: prelink.o:(.rodata+0x18): undefined
-> > reference to
-> > =C2=A0=C2=A0 `irq_actor_none'
-> > =C2=A0=C2=A0 riscv64-linux-gnu-ld: prelink.o:(.rodata+0x20): undefined
-> > reference to
-> > =C2=A0=C2=A0 `irq_actor_none'
-> > =C2=A0=C2=A0 riscv64-linux-gnu-ld: xen-syms: hidden symbol `irq_actor_n=
-one'
-> > isn't
-> > =C2=A0=C2=A0 defined
-> >=20
-> > That is why these stubs were introduced in the previous patch
-> > (because
-> > common/irq.c isn't built at that moment) and are removed in this
-> > patch
-> > (since at the moment of this patch, common/irq.c is now being
-> > built).
->=20
-> These OTOH are a side effect of how no_irq_type works, which is
-> horrifying, and not something I can unsee.
->=20
-> I'll see about fixing it, because I really can't bare to leave it
-> like
-> this...
-I am really sorry, but I don't understand should I deal with this
-somehow now or the provided changes are okay?
+The way no_irq_type works is horrifying.  Make it less-so.
 
-~ Oleksii
+Andrew Cooper (2):
+  arch/irq: Make irq_ack_none() mandatory
+  arch/irq: Centralise no_irq_type
+
+ xen/arch/arm/include/asm/irq.h |  3 +++
+ xen/arch/arm/irq.c             | 14 ++------------
+ xen/arch/ppc/stubs.c           | 11 ++++-------
+ xen/arch/x86/irq.c             | 11 +----------
+ xen/common/irq.c               | 13 +++++++++++++
+ xen/include/xen/irq.h          |  8 +++++++-
+ 6 files changed, 30 insertions(+), 30 deletions(-)
+
+
+base-commit: 9a905d7dc65883af082532b4dc91ce0131e54047
+-- 
+2.30.2
+
 
