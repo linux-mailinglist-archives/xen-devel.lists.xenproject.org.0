@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DA07F8D5020
-	for <lists+xen-devel@lfdr.de>; Thu, 30 May 2024 18:49:11 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.732835.1138854 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8B0558D5023
+	for <lists+xen-devel@lfdr.de>; Thu, 30 May 2024 18:50:02 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.732839.1138865 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sCixV-0004Re-H8; Thu, 30 May 2024 16:48:57 +0000
+	id 1sCiyK-0004xq-Q9; Thu, 30 May 2024 16:49:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 732835.1138854; Thu, 30 May 2024 16:48:57 +0000
+Received: by outflank-mailman (output) from mailman id 732839.1138865; Thu, 30 May 2024 16:49:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sCixV-0004Q8-E1; Thu, 30 May 2024 16:48:57 +0000
-Received: by outflank-mailman (input) for mailman id 732835;
- Thu, 30 May 2024 16:48:55 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1sCiyK-0004uE-N9; Thu, 30 May 2024 16:49:48 +0000
+Received: by outflank-mailman (input) for mailman id 732839;
+ Thu, 30 May 2024 16:49:46 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=8pxM=NB=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1sCixT-0004Q2-Mb
- for xen-devel@lists.xenproject.org; Thu, 30 May 2024 16:48:55 +0000
-Received: from mail-vs1-xe2a.google.com (mail-vs1-xe2a.google.com
- [2607:f8b0:4864:20::e2a])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 7fe227a4-1ea4-11ef-90a1-e314d9c70b13;
- Thu, 30 May 2024 18:48:54 +0200 (CEST)
-Received: by mail-vs1-xe2a.google.com with SMTP id
- ada2fe7eead31-48a39e0c441so18692137.2
- for <xen-devel@lists.xenproject.org>; Thu, 30 May 2024 09:48:54 -0700 (PDT)
+ id 1sCiyI-0004pF-Js
+ for xen-devel@lists.xenproject.org; Thu, 30 May 2024 16:49:46 +0000
+Received: from mail-qk1-x730.google.com (mail-qk1-x730.google.com
+ [2607:f8b0:4864:20::730])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 9de464cc-1ea4-11ef-b4bb-af5377834399;
+ Thu, 30 May 2024 18:49:45 +0200 (CEST)
+Received: by mail-qk1-x730.google.com with SMTP id
+ af79cd13be357-79476195696so73398585a.0
+ for <xen-devel@lists.xenproject.org>; Thu, 30 May 2024 09:49:45 -0700 (PDT)
 Received: from [10.125.231.30] ([217.156.233.157])
  by smtp.gmail.com with ESMTPSA id
- af79cd13be357-794abd0845dsm566765285a.91.2024.05.30.09.47.38
+ af79cd13be357-794abd0845dsm566765285a.91.2024.05.30.09.48.53
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 30 May 2024 09:48:21 -0700 (PDT)
+ Thu, 30 May 2024 09:49:06 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,48 +45,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7fe227a4-1ea4-11ef-90a1-e314d9c70b13
+X-Inumbo-ID: 9de464cc-1ea4-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1717087733; x=1717692533; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1717087784; x=1717692584; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=L+KqWGZTZGpOULZC/Hv+9sZLxHgeNukXsnVk4PzK7m4=;
-        b=XAUPxEjOrd/jxgHqS1fiOULrv/j0UlQZmJ+zu8cfitF2D4NcdkXE9fmaDpnJG0DuU1
-         JXyjcg/c+kW7O51mrEox6+d4lvOmSQdxD+XYAthy70dSW7qR1woTFtdzuT+lwkwxEpcC
-         8UiKmcd71VKVyZvkn1saSgumkUCczl3PdHDEM=
+        bh=D06sgf/A4q21cvquEasbm7EXnFj7RPSW5uAPC2GLecA=;
+        b=q0sdOSnTvqH4YUw03m2Qi0IGQUsrYvdhsuibpFqImur3RdijcrMG47uN4zahmYne4K
+         oyuJxy3EIwWGPjSmcEAYxQDxmN/9HXu1gUqfAmNL6M6+aAEJ2bS3E8LbjmIylM/IKeoC
+         6qp9HqV4bDGKbhDUmaMXb166tnu7K/oyStbTs=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1717087733; x=1717692533;
+        d=1e100.net; s=20230601; t=1717087784; x=1717692584;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=L+KqWGZTZGpOULZC/Hv+9sZLxHgeNukXsnVk4PzK7m4=;
-        b=EmLR5YvSrpWn6otKMHjUtJaaclcAfx4vFT5GGPKm496SZSAe2D0EqOFeN8ObSJrAZQ
-         R+5Yvw+/vY5TMoLd/hBTkjNFUhXmmR+ao+79GLT+AzeQRcdW1/L0i/6s8bUzzZ+n5xdT
-         2x2t0QfKA3PR4YBT16uYjwZ3fMnW3dwJeEzl78IUIfUYHu/3WchnRGuYSTpJnzT5xw92
-         i2dXpeG6EW+ue1ox6cQCq5QttOlksG8H5yzjrFRWSRaV+cJJIb5UK6OLw9Rl5g1USgFO
-         h0UF/cObekbSogslS9Qr6Sxh+D0hZD5LgXW8Hu9k6RRYAP1kqerK61nsqYcJP+FiANMa
-         oyyA==
-X-Forwarded-Encrypted: i=1; AJvYcCWLBBQFkOxGGHbqw/B+ywL/oVpWtP4yYvENhS44IvRuUGd6NpiHydLmhbrIdj7U2RfHltJUKR1qC/XXkOZNlyplPFJWAFjNggA0+WgKhfo=
-X-Gm-Message-State: AOJu0YyJ1wduGc4ZrDKCqk81UFTOJiWCwS+50H7yCA3c2fMH5xMX2qU/
-	6977p6hrO9R1N/ABgpW0mAFQdCnx78Jpw7PXr0paNh3zmJQqeA5Xp6EhoxCyf+E=
-X-Google-Smtp-Source: AGHT+IGEu6NItf5t7ZoJdXMLpswN1Ejx0s5HXCP7DuFzFEI+nVhvVIwvp8QMGk3qHF6IYNf1CEhz1g==
-X-Received: by 2002:a05:6102:21ab:b0:47f:684:a3d with SMTP id ada2fe7eead31-48baeab1b70mr2790458137.27.1717087733444;
-        Thu, 30 May 2024 09:48:53 -0700 (PDT)
-Message-ID: <065c4b2f-93b6-428f-beca-b77e6f98cecc@citrix.com>
-Date: Thu, 30 May 2024 17:47:21 +0100
+        bh=D06sgf/A4q21cvquEasbm7EXnFj7RPSW5uAPC2GLecA=;
+        b=nwaf1+4V9ZEcuK1v1ESN5KGPSYHuRRA1eFJuBf/346YqazzbZhqrep2+AVjEGRQcce
+         gniV0gxOCZlNcckQkMfhsiWwEVOUqx2UW9condBEoimgRI/X8OEIFvJ1mEVtfABzN3no
+         2hxRUtpSrmBWK0ZZwUfGCpGQI8+ptzaUrLOTcOicGycjLDfyALkPg2amDsLqNBVeF2V0
+         17odpK7eIizf/J4xY8xV8Te/4X7t5nZS9P20JnTDCUzgu0OV4I8+9fI7LvyUPrZB9ZeL
+         BihHENnwQVBf1LcSe1AzwhEvRaThzc90zTyN+D0irgqz05BCzXKSVFp5nphfaZiovCQK
+         ldxQ==
+X-Forwarded-Encrypted: i=1; AJvYcCUQ5wVougEO48Llxj8712eQz2egbQb6H3fdE+RPN58qk5WKDlSsjXa4QZ5okrcYp6btHwRi6eQd8W2qcMR7EtNaHjjBRBUEiz0VnYPg+hY=
+X-Gm-Message-State: AOJu0YyzMo5tWXAjktSHkJT982s8h7/5gIqpMIfEtnUEKG6OTS+fNF+6
+	dUlj9xVhFOzl1BCrPp57/BjKYVNA1dHX1AsqjKBk8K0+TdHsS0J+ql2JuUgkPU0=
+X-Google-Smtp-Source: AGHT+IHMby/7clvFJcqhMCFATWdGoNWQIlt5oEnOTS06iaB6XpSRX+868/szTkNH/IGeyIdqVLgRdQ==
+X-Received: by 2002:a05:620a:60f4:b0:794:e8af:69c9 with SMTP id af79cd13be357-794e9e4c079mr261938085a.75.1717087783890;
+        Thu, 30 May 2024 09:49:43 -0700 (PDT)
+Message-ID: <1ecd7a2c-b7da-4c59-8ebd-c3841d5991f8@citrix.com>
+Date: Thu, 30 May 2024 17:48:46 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v12 8/8] xen/README: add compiler and binutils versions
- for RISC-V64
+Subject: Re: [PATCH v12 7/8] xen/riscv: enable full Xen build
 To: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
  xen-devel@lists.xenproject.org
-Cc: George Dunlap <george.dunlap@citrix.com>, Jan Beulich
- <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, George Dunlap <george.dunlap@citrix.com>,
+ Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
  Stefano Stabellini <sstabellini@kernel.org>
 References: <cover.1717008161.git.oleksii.kurochko@gmail.com>
- <c6ff49af9a107965f8121862e6b32c24548956e6.1717008161.git.oleksii.kurochko@gmail.com>
+ <1cea913117f771a5f3b4404d7bfb7e1329f3f38e.1717008161.git.oleksii.kurochko@gmail.com>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -132,29 +133,56 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <c6ff49af9a107965f8121862e6b32c24548956e6.1717008161.git.oleksii.kurochko@gmail.com>
+In-Reply-To: <1cea913117f771a5f3b4404d7bfb7e1329f3f38e.1717008161.git.oleksii.kurochko@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 On 29/05/2024 8:55 pm, Oleksii Kurochko wrote:
-> diff --git a/README b/README
-> index c8a108449e..30da5ff9c0 100644
-> --- a/README
-> +++ b/README
-> @@ -48,6 +48,10 @@ provided by your OS distributor:
->        - For ARM 64-bit:
->          - GCC 5.1 or later
->          - GNU Binutils 2.24 or later
-> +      - For RISC-V 64-bit:
-> +        - GCC 12.2 or later
-> +        - GNU Binutils 2.39 or later
-> +          Older GCC and GNU Binutils would work, but this is not a guarantee.
+> diff --git a/xen/arch/riscv/stubs.c b/xen/arch/riscv/stubs.c
+> index 8285bcffef..bda35fc347 100644
+> --- a/xen/arch/riscv/stubs.c
+> +++ b/xen/arch/riscv/stubs.c
+> @@ -24,12 +24,6 @@ DEFINE_PER_CPU_READ_MOSTLY(cpumask_var_t, cpu_core_mask);
+>  
+>  nodemask_t __read_mostly node_online_map = { { [0] = 1UL } };
+>  
+> -/*
+> - * max_page is defined in page_alloc.c which isn't complied for now.
+> - * definition of max_page will be remove as soon as page_alloc is built.
+> - */
+> -unsigned long __read_mostly max_page;
+> -
+>  /* time.c */
+>  
+>  unsigned long __ro_after_init cpu_khz;  /* CPU clock frequency in kHz. */
+> @@ -419,21 +413,3 @@ void __cpu_die(unsigned int cpu)
+>  {
+>      BUG_ON("unimplemented");
+>  }
+> -
+> -/*
+> - * The following functions are defined in common/irq.c, but common/irq.c isn't
+> - * built for now. These changes will be removed there when common/irq.c is
+> - * ready.
+> - */
+> -
+> -void cf_check irq_actor_none(struct irq_desc *desc)
+> -{
+> -    BUG_ON("unimplemented");
+> -}
+> -
+> -unsigned int cf_check irq_startup_none(struct irq_desc *desc)
+> -{
+> -    BUG_ON("unimplemented");
+> -
+> -    return 0;
+> -}
 
-This sentence isn't appropriate to live here.
+All 3 of these are introduced in the previous patch and deleted again
+here.  Looks like a rebasing accident.
 
-The commit message saying "this is what we run in CI" is perfectly good
-enough.
+(This patch has to be the final one touching build related things, so I
+can't simply fix it on commit)
 
-With this dropped, Reviewed-by: Andrew Cooper
-<andrew.cooper3@citrix.com>.  Can fix on commit.
+~Andrew
 
