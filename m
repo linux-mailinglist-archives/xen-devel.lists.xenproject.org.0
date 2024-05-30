@@ -2,40 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 10FAE8D4F73
-	for <lists+xen-devel@lfdr.de>; Thu, 30 May 2024 17:51:50 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.732812.1138835 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id ED0158D5005
+	for <lists+xen-devel@lfdr.de>; Thu, 30 May 2024 18:44:55 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.732828.1138845 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sCi3Y-00050d-1g; Thu, 30 May 2024 15:51:08 +0000
+	id 1sCisx-0003oM-Sr; Thu, 30 May 2024 16:44:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 732812.1138835; Thu, 30 May 2024 15:51:08 +0000
+Received: by outflank-mailman (output) from mailman id 732828.1138845; Thu, 30 May 2024 16:44:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sCi3X-0004xz-Ur; Thu, 30 May 2024 15:51:07 +0000
-Received: by outflank-mailman (input) for mailman id 732812;
- Thu, 30 May 2024 15:51:06 +0000
+	id 1sCisx-0003lO-Pg; Thu, 30 May 2024 16:44:15 +0000
+Received: by outflank-mailman (input) for mailman id 732828;
+ Thu, 30 May 2024 16:44:14 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=RCh7=NB=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sCi3W-0004xt-PM
- for xen-devel@lists.xenproject.org; Thu, 30 May 2024 15:51:06 +0000
-Received: from mail-lj1-x236.google.com (mail-lj1-x236.google.com
- [2a00:1450:4864:20::236])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=8pxM=NB=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1sCisw-0003lI-Do
+ for xen-devel@lists.xenproject.org; Thu, 30 May 2024 16:44:14 +0000
+Received: from mail-qk1-x72a.google.com (mail-qk1-x72a.google.com
+ [2607:f8b0:4864:20::72a])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 6ab6d9e1-1e9c-11ef-90a1-e314d9c70b13;
- Thu, 30 May 2024 17:51:02 +0200 (CEST)
-Received: by mail-lj1-x236.google.com with SMTP id
- 38308e7fff4ca-2ea82db9a1fso12117171fa.2
- for <xen-devel@lists.xenproject.org>; Thu, 30 May 2024 08:51:02 -0700 (PDT)
-Received: from ?IPV6:2003:ca:b724:491c:251a:48e:75b1:a320?
- (p200300cab724491c251a048e75b1a320.dip0.t-ipconnect.de.
- [2003:ca:b724:491c:251a:48e:75b1:a320])
+ id d8093f9d-1ea3-11ef-90a1-e314d9c70b13;
+ Thu, 30 May 2024 18:44:13 +0200 (CEST)
+Received: by mail-qk1-x72a.google.com with SMTP id
+ af79cd13be357-794ab20699cso7061785a.2
+ for <xen-devel@lists.xenproject.org>; Thu, 30 May 2024 09:44:13 -0700 (PDT)
+Received: from [10.125.231.30] ([217.156.233.157])
  by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-578524bb86bsm9603759a12.97.2024.05.30.08.51.01
+ af79cd13be357-794abd32207sm565507585a.112.2024.05.30.09.44.10
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 30 May 2024 08:51:01 -0700 (PDT)
+ Thu, 30 May 2024 09:44:11 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,180 +45,159 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6ab6d9e1-1e9c-11ef-90a1-e314d9c70b13
+X-Inumbo-ID: d8093f9d-1ea3-11ef-90a1-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1717084262; x=1717689062; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1717087452; x=1717692252; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=M0mOBzAZp90VOVLlxifP8OSrPoz+pnEc2VAGr0EWOe0=;
-        b=GuI+3bw7QlFyCP3BJJIp7fZ8lc3kAc5Z3CprMSCrh0J9ave0cPOSBDng+E2rA6IIkq
-         EeZYJggjRO04bvZ3U45ZNrxfT3+fogtkXmP8KLGa7ms4FEIvIu3P7sDzpoTc4RuJwvJU
-         cHa7P3nEFeloMBacj61BDpSUoPdAF6L+6Hcp7eFKAfMSl6jXzt594beYY5FU2+H8Y5YI
-         zzz1QNa0pZmecgNGCofLBNNICiFwmVVwds5KhFWhdkvjaGUUZFKXnvhfmhsmH7OdDRRN
-         ZcKtOqa17FDMIvI6Ndo4OwM2aS5G1zNSASuvVLEUCh2YsQcJQKQsRXNis1WxXyxWvdxU
-         JLqg==
+        bh=vT2fk1rgF/oHjVjPLloIashUDDheN/bTYNz4G/vtus0=;
+        b=ILJMUUC0h3ShcnQvub0rnOx/vR2dD2KaMkf5r8qIrKBHdN2y/3doy5Pe3Xw6TGR6d/
+         Q6aj6ND7retn+JHvJ5AIpED8R0d74Rx1tJHAwwK8CRnKCptd9a6Mfn3Ed3+/nTVxpN26
+         J6UEyoIk0sTPTgpk7nq6EEpN1JE/I9NgQ9aoo=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1717084262; x=1717689062;
+        d=1e100.net; s=20230601; t=1717087452; x=1717692252;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=M0mOBzAZp90VOVLlxifP8OSrPoz+pnEc2VAGr0EWOe0=;
-        b=ZaP2YZ1Kto4myD7LPTSayhzS4kKd1cXlDnfjGbUTq0wMLH/DBVAOnxPFCfCave4xys
-         hbMJA7eL592UFFgde4ZyTJUDLn2ACoensrh7OPNvyC3B7Ggk1Q+YzPqxQoUee140C0Ka
-         5H4wsP/37PhMq/R9oK2ZajtxzIs8073RuHyn54IbRbOnJwGjbjVUdrEsLJ3AFAU9ES2c
-         pYlfNC2/kTNome5RWZxGCqq+6pis1NmfcC427SofTg+F6QKFhFl0jE1XTipt0nx0+XJ1
-         CEpv0GPOeQADJ/V3AcTkYfsCVeNclvWQK5JFAwkPa0/aheHfwTeh20DqcVnFzccSDzmy
-         neUA==
-X-Forwarded-Encrypted: i=1; AJvYcCWIideQaOJvSC/ZvJRgUCYH+J7iSzMqZumfK1yZnwCJfq63OomtYQFlbRgpia33S1Xk7U8DYLwAQQ8vk4y5pRgoGxcV5IatrCxQZcMiYcA=
-X-Gm-Message-State: AOJu0YxoyHmuBOV1nuO8SV70O1H0hL/ju7iKeLQJKnokJQpt1B2ufEnH
-	HWm4x/QAlLBA9nKwQXpxZ/WU4JrFchqDE/GE5Y1ZicRW1XRftndfZDDJRcfoGA==
-X-Google-Smtp-Source: AGHT+IFZLpzoZIyXErnvVdHQSnEEyhOoh4f9oGCYrW7Xhi5VQzOGDXA9VB3dEVl9g4xK1LxTZfegZQ==
-X-Received: by 2002:a2e:be23:0:b0:2ea:8217:214a with SMTP id 38308e7fff4ca-2ea84826aa3mr16438861fa.32.1717084262073;
-        Thu, 30 May 2024 08:51:02 -0700 (PDT)
-Message-ID: <677e564e-4702-4a37-83df-8d47135b62ff@suse.com>
-Date: Thu, 30 May 2024 17:51:01 +0200
+        bh=vT2fk1rgF/oHjVjPLloIashUDDheN/bTYNz4G/vtus0=;
+        b=gqy//wo+MdsG3HuMw5kGcNC/OcXDnF7RqypDVW/NU+11b+VUZ0DqKbU9uKP9SM6AKY
+         aai4VlRRve85/O7spN7zKDhbuQiSu0wwGlmdtBuufo14l16btuwHltO+0748HkzfAjyc
+         h02OWWpcDGxIj7I21UeK3j3PkwY9LjErg3kahgGX83jRv+L7ATDXtij8Izma0L+JvGSs
+         Du+o5RAoQ/LEJDGHc4BzPjQsJUYOhdrqAjQC0ju41pw4faavVwJzaQ7i6LegO0J1XfiP
+         iXyhA/OivkFV+t7Q5MWH6SyQO+vKCHzFxktfxZUF3SVevy5EapHbnA1oB7yKP4hWeUbi
+         hvMA==
+X-Forwarded-Encrypted: i=1; AJvYcCWtR0R7jC2hTW0QG5cXnnt9FSO3+8vnThlbRWnPE2y8w2f/KkEsIrajqH2haJF2moBs6OR0iekGzCOwlFGBK/Lp7AvrWIJpQd+h7JVobGM=
+X-Gm-Message-State: AOJu0Yz1DESxIG50nm7pT3wbM1giyqKDwGIv72sQlykkUs49Pp+8h7Dt
+	BSSGtobxu0VJShacZsKIMP7Qk+zSsEhH/col/yjn7Z8eSOLQ5GgyVkj/TuKvtOY=
+X-Google-Smtp-Source: AGHT+IHo3hmRL/CFEP2hQrB5W1//G4XauQ0LntrUNwnRnDZulWc/lTZLPy2AdXcuCQW/M6IvRCNL6Q==
+X-Received: by 2002:a05:620a:1a1f:b0:794:c275:c9a1 with SMTP id af79cd13be357-794e9d95ce0mr326934085a.1.1717087451827;
+        Thu, 30 May 2024 09:44:11 -0700 (PDT)
+Message-ID: <0f12ce69-b139-4d97-8e36-23dd7c6bea41@citrix.com>
+Date: Thu, 30 May 2024 17:44:09 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC XEN PATCH v8 5/5] domctl: Add XEN_DOMCTL_gsi_permission to
- grant gsi
-To: "Chen, Jiqian" <Jiqian.Chen@amd.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu
- <wl@xen.org>, George Dunlap <george.dunlap@citrix.com>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- Anthony PERARD <anthony@xenproject.org>, Juergen Gross <jgross@suse.com>,
- "Hildebrand, Stewart" <Stewart.Hildebrand@amd.com>,
- "Huang, Ray" <Ray.Huang@amd.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- "Daniel P . Smith" <dpsmith@apertussolutions.com>
-References: <20240516095235.64128-1-Jiqian.Chen@amd.com>
- <20240516095235.64128-6-Jiqian.Chen@amd.com>
- <9652011f-3f24-43f8-b91e-88bd3982a4c4@suse.com>
- <BL1PR12MB5849EB5EE20B1A6C647F5717E7EE2@BL1PR12MB5849.namprd12.prod.outlook.com>
- <b10e68e2-3279-471d-a089-c40934050737@suse.com>
- <BL1PR12MB58491A32C32C33545AC71AB7E7EE2@BL1PR12MB5849.namprd12.prod.outlook.com>
- <4b311c82-b252-413a-bb64-0a36aa97680a@suse.com>
- <BL1PR12MB5849333D416160492A7475E2E7F22@BL1PR12MB5849.namprd12.prod.outlook.com>
- <70c86c74-3ed6-4b22-9ba6-3f927f81bcd0@suse.com>
- <BL1PR12MB584922B0352AA2F4A359FD66E7F22@BL1PR12MB5849.namprd12.prod.outlook.com>
- <7cdff236-bb7d-4dad-9a83-47faaa6dc15f@suse.com>
- <BL1PR12MB58493D3365CC451F36DB554FE7F22@BL1PR12MB5849.namprd12.prod.outlook.com>
- <fbaf7086-85d8-4433-91d9-ef8f74512685@suse.com>
- <BL1PR12MB58494B521CB40BAEA30CB412E7F32@BL1PR12MB5849.namprd12.prod.outlook.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <BL1PR12MB58494B521CB40BAEA30CB412E7F32@BL1PR12MB5849.namprd12.prod.outlook.com>
+Subject: Re: [PATCH v12 1/8] xen/riscv: disable unnecessary configs
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+ xen-devel@lists.xenproject.org
+Cc: Doug Goldstein <cardoe@cardoe.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, "Daniel P. Smith" <dpsmith@apertussolutions.com>
+References: <cover.1717008161.git.oleksii.kurochko@gmail.com>
+ <35cf9d52e538aab964a3ecc050260abb3f27c60d.1717008161.git.oleksii.kurochko@gmail.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <35cf9d52e538aab964a3ecc050260abb3f27c60d.1717008161.git.oleksii.kurochko@gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 30.05.2024 13:19, Chen, Jiqian wrote:
-> On 2024/5/29 20:22, Jan Beulich wrote:
->> On 29.05.2024 13:13, Chen, Jiqian wrote:
->>> On 2024/5/29 15:10, Jan Beulich wrote:
->>>> On 29.05.2024 08:56, Chen, Jiqian wrote:
->>>>> On 2024/5/29 14:31, Jan Beulich wrote:
->>>>>> On 29.05.2024 04:41, Chen, Jiqian wrote:
->>>>>>> But I found in function init_irq_data:
->>>>>>>     for ( irq = 0; irq < nr_irqs_gsi; irq++ )
->>>>>>>     {
->>>>>>>         int rc;
->>>>>>>
->>>>>>>         desc = irq_to_desc(irq);
->>>>>>>         desc->irq = irq;
->>>>>>>
->>>>>>>         rc = init_one_irq_desc(desc);
->>>>>>>         if ( rc )
->>>>>>>             return rc;
->>>>>>>     }
->>>>>>> Does it mean that when irq < nr_irqs_gsi, the gsi and irq is a 1:1 mapping?
->>>>>>
->>>>>> No, as explained before. I also don't see how you would derive that from the code above.
->>>>> Because here set desc->irq = irq, and it seems there is no other place to change this desc->irq, so, gsi 1 is considered to irq 1.
->>>>
->>>> What are you taking this from? The loop bound isn't nr_gsis, and the iteration
->>>> variable isn't in GSI space either; it's in IRQ numbering space. In this loop
->>>> we're merely leveraging that every GSI has a corresponding IRQ;
->>>> there are no assumptions made about the mapping between the two. Afaics at least.
->>>>
->>>>>> "nr_irqs_gsi" describes what its name says: The number of
->>>>>> IRQs mapping to a (_some_) GSI. That's to tell them from the non-GSI (i.e.
->>>>>> mainly MSI) ones. There's no implication whatsoever on the IRQ <-> GSI
->>>>>> mapping.
->>>>>>
->>>>>>> What's more, when using PHYSDEVOP_setup_gsi, it calls mp_register_gsi,
->>>>>>> and in mp_register_gsi, it uses " desc = irq_to_desc(gsi); " to get irq_desc directly.
->>>>>>
->>>>>> Which may be wrong, while that wrong-ness may not have hit anyone in
->>>>>> practice (for reasons that would need working out).
->>>>>>
->>>>>>> Combining above, can we consider "gsi == irq" when irq < nr_irqs_gsi ?
->>>>>>
->>>>>> Again - no.
->>>>> Since you are certain that they are not equal, could you tell me where show they are not equal or where build their mappings,
->>>>> so that I can know how to do a conversion gsi from irq.
->>>>
->>>> I did point you at the ACPI Interrupt Source Override structure before.
->>>> We're parsing those in acpi_parse_int_src_ovr(), to give you a place to
->>>> start going from.
->>> Oh! I think I know.
->>> If I want to transform gsi to irq, I need to do below:
->>> 	int irq, entry, ioapic, pin;
->>>
->>> 	ioapic = mp_find_ioapic(gsi);
->>> 	pin = gsi - mp_ioapic_routing[ioapic].gsi_base;
->>> 	entry = find_irq_entry(ioapic, pin, mp_INT);
->>> 	irq = pin_2_irq(entry, ioapic, pin);
->>>
->>> Am I right?
->>
->> This looks plausible, yes.
-> I dump all mpc_config_intsrc of array mp_irqs, it shows:
-> (XEN) find_irq_entry type 3 irqtype 0 irqflag 0 srcbus 0 srcbusirq 0 dstapic 33 dstirq 2
-> (XEN) find_irq_entry type 3 irqtype 0 irqflag 15 srcbus 0 srcbusirq 9 dstapic 33 dstirq 9
-> (XEN) find_irq_entry type 3 irqtype 0 irqflag 0 srcbus 0 srcbusirq 1 dstapic 33 dstirq 1
-> (XEN) find_irq_entry type 3 irqtype 0 irqflag 0 srcbus 0 srcbusirq 3 dstapic 33 dstirq 3
-> (XEN) find_irq_entry type 3 irqtype 0 irqflag 0 srcbus 0 srcbusirq 4 dstapic 33 dstirq 4
-> (XEN) find_irq_entry type 3 irqtype 0 irqflag 0 srcbus 0 srcbusirq 5 dstapic 33 dstirq 5
-> (XEN) find_irq_entry type 3 irqtype 0 irqflag 0 srcbus 0 srcbusirq 6 dstapic 33 dstirq 6
-> (XEN) find_irq_entry type 3 irqtype 0 irqflag 0 srcbus 0 srcbusirq 7 dstapic 33 dstirq 7
-> (XEN) find_irq_entry type 3 irqtype 0 irqflag 0 srcbus 0 srcbusirq 8 dstapic 33 dstirq 8
-> (XEN) find_irq_entry type 3 irqtype 0 irqflag 0 srcbus 0 srcbusirq 10 dstapic 33 dstirq 10
-> (XEN) find_irq_entry type 3 irqtype 0 irqflag 0 srcbus 0 srcbusirq 11 dstapic 33 dstirq 11
-> (XEN) find_irq_entry type 3 irqtype 0 irqflag 0 srcbus 0 srcbusirq 12 dstapic 33 dstirq 12
-> (XEN) find_irq_entry type 3 irqtype 0 irqflag 0 srcbus 0 srcbusirq 13 dstapic 33 dstirq 13
-> (XEN) find_irq_entry type 3 irqtype 0 irqflag 0 srcbus 0 srcbusirq 14 dstapic 33 dstirq 14
-> (XEN) find_irq_entry type 3 irqtype 0 irqflag 0 srcbus 0 srcbusirq 15 dstapic 33 dstirq 15
-> 
-> It seems only Legacy irq and gsi[0:15] has a mapping in mp_irqs.
-> Other gsi can be considered 1:1 mapping with irq? Or are there other places reflect the mapping between irq and gsi?
 
-It may be uncommon to have overrides for higher GSIs, but I don't think ACPI
-disallows that.
+The subject should say "update Kconfig", because you're not (only)
+disabling.
 
-Jan
+I'd suggest "xen/riscv: Update Kconfig in preparation for a full Xen build".
+
+On 29/05/2024 8:55 pm, Oleksii Kurochko wrote:
+> Disables unnecessary configs for two cases:
+> 1. By utilizing EXTRA_FIXED_RANDCONFIG for randconfig builds (GitLab CI jobs).
+> 2. By using tiny64_defconfig for non-randconfig builds.
+>
+> Only configs which lead to compilation issues were disabled.
+>
+> Remove lines related to disablement of configs which aren't affected
+> compilation:
+>  -# CONFIG_SCHED_CREDIT is not set
+>  -# CONFIG_SCHED_RTDS is not set
+>  -# CONFIG_SCHED_NULL is not set
+>  -# CONFIG_SCHED_ARINC653 is not set
+>  -# CONFIG_TRACEBUFFER is not set
+>  -# CONFIG_HYPFS is not set
+>  -# CONFIG_SPECULATIVE_HARDEN_ARRAY is not set
+>
+> To allow CONFIG_ARGO build happy it was included <asm/p2m.h> to <asm/domain.h>
+> as ARGO requires p2m_type_t ( p2m_ram_rw ) and declaration of
+> check_get_page_from_gfn() from xen/p2m-common.h.
+>
+> Also, it was included <xen/errno.h> to asm/p2m.h as after the latter was
+> included to <asm/domain.h> the compilation error that EINVAL, EOPNOTSUPP
+> aren't declared started to occur.
+>
+> CONFIG_XSM=n as it requires an introduction of:
+> * boot_module_find_by_kind()
+> * BOOTMOD_XSM
+> * struct bootmodule
+> * copy_from_paddr()
+> The mentioned things aren't introduced now.
+>
+> CPU_BOOT_TIME_CPUPOOLS requires an introduction of cpu_physical_id() and
+> acpi_disabled, so it is disabled for now.
+
+CONFIG_BOOT_TIME_CPUPOOLS
+
+Also the "depends on DT" isn't good enough as a restriction IMO.  It's
+very ARM-dom0less specific.
+
+> PERF_COUNTERS requires asm/perf.h and asm/perfc-defn.h, so it is
+> also disabled for now, as RISC-V hasn't introduced this headers yet.
+> LIVEPATCH isn't ready for RISC-V too and it can be overriden by randconfig,
+> so to avoid compilation errors for randconfig it is disabled for now.
+
+PERF_COUNTERS is x86-only, and both LIVEPATCH really should be guarded
+by have HAVE_$FOO selected by ARCH.
+
+However, that's not work to get stuck into now.
+
+It's quite unreasonable how much stuff doesn't work in simple builds...
+
+> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+
+Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+
+I'm happy to fix up the two minor issues on commit.
 
