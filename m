@@ -2,37 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 207E38D46D4
-	for <lists+xen-devel@lfdr.de>; Thu, 30 May 2024 10:14:55 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.732543.1138539 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B9B1A8D46D8
+	for <lists+xen-devel@lfdr.de>; Thu, 30 May 2024 10:16:08 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.732548.1138548 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sCavb-0000dA-Gh; Thu, 30 May 2024 08:14:27 +0000
+	id 1sCax1-00018r-QA; Thu, 30 May 2024 08:15:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 732543.1138539; Thu, 30 May 2024 08:14:27 +0000
+Received: by outflank-mailman (output) from mailman id 732548.1138548; Thu, 30 May 2024 08:15:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sCavb-0000aY-Di; Thu, 30 May 2024 08:14:27 +0000
-Received: by outflank-mailman (input) for mailman id 732543;
- Thu, 30 May 2024 08:14:26 +0000
+	id 1sCax1-00016b-NO; Thu, 30 May 2024 08:15:55 +0000
+Received: by outflank-mailman (input) for mailman id 732548;
+ Thu, 30 May 2024 08:15:54 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=MghO=NB=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1sCava-0000aS-F1
- for xen-devel@lists.xenproject.org; Thu, 30 May 2024 08:14:26 +0000
-Received: from mail-qt1-x82d.google.com (mail-qt1-x82d.google.com
- [2607:f8b0:4864:20::82d])
+ <SRS0=8pxM=NB=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1sCax0-00016V-1U
+ for xen-devel@lists.xenproject.org; Thu, 30 May 2024 08:15:54 +0000
+Received: from mail-qk1-x736.google.com (mail-qk1-x736.google.com
+ [2607:f8b0:4864:20::736])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a0752cfa-1e5c-11ef-90a1-e314d9c70b13;
- Thu, 30 May 2024 10:14:25 +0200 (CEST)
-Received: by mail-qt1-x82d.google.com with SMTP id
- d75a77b69052e-43fb909d45cso3108991cf.3
- for <xen-devel@lists.xenproject.org>; Thu, 30 May 2024 01:14:25 -0700 (PDT)
-Received: from localhost ([213.195.114.223]) by smtp.gmail.com with ESMTPSA id
- 6a1803df08f44-6ad860c9fdesm32734876d6.34.2024.05.30.01.14.23
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 30 May 2024 01:14:24 -0700 (PDT)
+ id d4aaf3c6-1e5c-11ef-90a1-e314d9c70b13;
+ Thu, 30 May 2024 10:15:53 +0200 (CEST)
+Received: by mail-qk1-x736.google.com with SMTP id
+ af79cd13be357-794ba2d4601so46431385a.1
+ for <xen-devel@lists.xenproject.org>; Thu, 30 May 2024 01:15:53 -0700 (PDT)
+Received: from [192.168.1.10] (host-92-26-98-202.as13285.net. [92.26.98.202])
+ by smtp.gmail.com with ESMTPSA id
+ af79cd13be357-794abd083a9sm538276385a.77.2024.05.30.01.15.50
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 30 May 2024 01:15:51 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,69 +45,111 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a0752cfa-1e5c-11ef-90a1-e314d9c70b13
+X-Inumbo-ID: d4aaf3c6-1e5c-11ef-90a1-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1717056864; x=1717661664; darn=lists.xenproject.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=AB3C2fbZzXkeRXi10wONWuuMDzrUvbNythpE1EQ3R7I=;
-        b=HWEZinL6IQdpTVZAAtHk3LjgbfqYijhBQF5NLMxGZhkDJznq06Lmrfxo+ByXYY08tQ
-         oQVjrta2ZBZu/aivvC5pp3XcmaAqORilBGeb6JxPRYL6agOZQJBYVEXkS4xOLK3Os2+g
-         pfFi69ky5H1NzWeKHgb2Sis83PGu/0b4fjxl0=
+        d=citrix.com; s=google; t=1717056952; x=1717661752; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=X2hd4avSIK5bX5EiqwjantdwrJQHKTlw2wHLS5/HiIk=;
+        b=aWRVu7zaCwrW8BB4iiWBN/rxr8GFTu2sksC4dk5dFteNmthKeKKYVRwd/z/tvF2fS6
+         73RJj7BeeZ1S4P7SVs8bGDWTrK0m+swar5rieJ8pRATxWm7feizb7ODKkL1TFNlfgEOE
+         Q3Wvcojd7TyoriPjLpl0Y4oyF/Vb+gHlZ4Hfs=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1717056864; x=1717661664;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=AB3C2fbZzXkeRXi10wONWuuMDzrUvbNythpE1EQ3R7I=;
-        b=reoIMfeqMiQUUX0uWQdfsZ32zRL7xY9/xvpw4Z39sbbsF/75oXdOfRq1Hl7Sv/Ewi9
-         I3SKOnUkxDmKDObZcTlxO5dsl3GtaZ2808K2CPrnnQCQx3103LJeltv2TqwS6k69Bbqb
-         nNeGUY+ycT/yU9FNRluGDDtO0rnI7QwH4nmtqClNcCyqPxdyZIP1j4jLiH4IAY8+DElb
-         oK2EnCN0r/Lviy9zZmVxCruG3+NDZpHBv8XzEW+6TiBeRl6f352jo3H8jhzNADE9yw9c
-         suqoYPkiH8+BgnkR/ATPQnkwZBc17nyQpgZBv9q3uavlfX6WHKb80hEgm81nFf6ZAUdG
-         ed0g==
-X-Gm-Message-State: AOJu0YxWxxLwBfxjitYRxq8kcC7R70q/RX6hl2GO5PERCzQGKHOaRqAf
-	qVPSwWQRuStZxTfbuqu5jHeHZjc2+MvnzL7wWG2A3C06V+sAZm5KEG27ozj16LsZXqO4opiwjjS
-	n
-X-Google-Smtp-Source: AGHT+IG1BWCAhoXAMgzSCSERzv+mVXMuvxiNmddmuDXRO7NPrUPAUFBAnZFStlhC/x4Lb/usqgx5mw==
-X-Received: by 2002:ac8:7d54:0:b0:43e:3d29:4312 with SMTP id d75a77b69052e-43fe92bba06mr17241281cf.22.1717056864437;
-        Thu, 30 May 2024 01:14:24 -0700 (PDT)
-Date: Thu, 30 May 2024 10:14:22 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>,
-	Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Subject: Re: [PATCH] x86/hvm: allow XENMEM_machine_memory_map
-Message-ID: <Zlg1XiUFR0sF3KCg@macbook>
-References: <20240530075318.67491-1-roger.pau@citrix.com>
- <0768b842-719e-4736-a941-dfa4d50c173d@citrix.com>
+        d=1e100.net; s=20230601; t=1717056952; x=1717661752;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=X2hd4avSIK5bX5EiqwjantdwrJQHKTlw2wHLS5/HiIk=;
+        b=tWOTsRBZNFJPOamSnYE/bbyZLC3M8yM6LE26QpH/YUwtSerXvnXHuopcJFqHNwIXfb
+         9Z1a7u5TC3+1RB2xDFIm0jz1uRBGQDbYEauxExNvLSragpEskwdsMUERql100clEoH4U
+         UffaxqbM62GGy+tynmDGplk5c2hd/fYKhP8AbQB/KTjcGd9sd+f058o6eelShwOmgVyk
+         kpq5X6R++dhdBTALmOxLuvC2FSozINkssMVvhrtu54g61+bvKYfau73QpFUVWwUpnxVT
+         UNnNSJ8rFnV6ojfKCr+/hBptNS+kP59kA28VL+4ERhVATZQh/bN3P37RygTokCs98U6L
+         9RbA==
+X-Gm-Message-State: AOJu0YynIzkWzq/D0Ea+OTpu+lycXTvZE2y8snCGAq5xBNzyZlrWPb2D
+	mHNwA6Q1T0nWxd4YHbyKAznaTPdj5GjevrCnzmJKJM7+Yu7zKgYQdIojTpL00AI=
+X-Google-Smtp-Source: AGHT+IFqkk64lklx4BqpmT7xWMNve9pzAFAGf0YnkJg5e+nevMU4Js+ee20fep0BD3jlqOE8I2eF1Q==
+X-Received: by 2002:a05:620a:22b6:b0:793:822:d737 with SMTP id af79cd13be357-794e9e3a3a8mr140449685a.69.1717056951835;
+        Thu, 30 May 2024 01:15:51 -0700 (PDT)
+Message-ID: <3f160e36-9e7f-409c-bac5-5de2b13d0ae9@citrix.com>
+Date: Thu, 30 May 2024 09:15:49 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] x86/hvm: allow XENMEM_machine_memory_map
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>,
+ Oleksii Kurochko <oleksii.kurochko@gmail.com>
+References: <20240530075318.67491-1-roger.pau@citrix.com>
+ <0768b842-719e-4736-a941-dfa4d50c173d@citrix.com> <Zlg1XiUFR0sF3KCg@macbook>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <Zlg1XiUFR0sF3KCg@macbook>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <0768b842-719e-4736-a941-dfa4d50c173d@citrix.com>
 
-On Thu, May 30, 2024 at 09:04:08AM +0100, Andrew Cooper wrote:
-> On 30/05/2024 8:53 am, Roger Pau Monne wrote:
-> > For HVM based control domains XENMEM_machine_memory_map must be available so
-> > that the `e820_host` xl.cfg option can be used.
-> >
-> > Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
-> 
-> Seems safe enough to allow.
-> 
-> Does this want a reported-by, or some further discussion about how it
-> was found?
+On 30/05/2024 9:14 am, Roger Pau Monné wrote:
+> On Thu, May 30, 2024 at 09:04:08AM +0100, Andrew Cooper wrote:
+>> On 30/05/2024 8:53 am, Roger Pau Monne wrote:
+>>> For HVM based control domains XENMEM_machine_memory_map must be available so
+>>> that the `e820_host` xl.cfg option can be used.
+>>>
+>>> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+>> Seems safe enough to allow.
+>>
+>> Does this want a reported-by, or some further discussion about how it
+>> was found?
+> I've found it while attempting to repro an issue with e820_host
+> reported by Marek, but the issue he reported is not related to this.
+> It's just that I have most of my test systems set as PVH dom0.
+>
+>> Also, as it's mostly PVH Dom0 bugfixing, shouldn't we want it in 4.19?
+> Yeah, forgot to add the for-4.19 line and Oleksii, adding him now for
+> consideration for 4.19.
 
-I've found it while attempting to repro an issue with e820_host
-reported by Marek, but the issue he reported is not related to this.
-It's just that I have most of my test systems set as PVH dom0.
-
-> Also, as it's mostly PVH Dom0 bugfixing, shouldn't we want it in 4.19?
-
-Yeah, forgot to add the for-4.19 line and Oleksii, adding him now for
-consideration for 4.19.
-
-Thanks, Roger.
+Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
