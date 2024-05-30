@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id ED0158D5005
-	for <lists+xen-devel@lfdr.de>; Thu, 30 May 2024 18:44:55 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.732828.1138845 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DA07F8D5020
+	for <lists+xen-devel@lfdr.de>; Thu, 30 May 2024 18:49:11 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.732835.1138854 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sCisx-0003oM-Sr; Thu, 30 May 2024 16:44:15 +0000
+	id 1sCixV-0004Re-H8; Thu, 30 May 2024 16:48:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 732828.1138845; Thu, 30 May 2024 16:44:15 +0000
+Received: by outflank-mailman (output) from mailman id 732835.1138854; Thu, 30 May 2024 16:48:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sCisx-0003lO-Pg; Thu, 30 May 2024 16:44:15 +0000
-Received: by outflank-mailman (input) for mailman id 732828;
- Thu, 30 May 2024 16:44:14 +0000
+	id 1sCixV-0004Q8-E1; Thu, 30 May 2024 16:48:57 +0000
+Received: by outflank-mailman (input) for mailman id 732835;
+ Thu, 30 May 2024 16:48:55 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=8pxM=NB=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1sCisw-0003lI-Do
- for xen-devel@lists.xenproject.org; Thu, 30 May 2024 16:44:14 +0000
-Received: from mail-qk1-x72a.google.com (mail-qk1-x72a.google.com
- [2607:f8b0:4864:20::72a])
+ id 1sCixT-0004Q2-Mb
+ for xen-devel@lists.xenproject.org; Thu, 30 May 2024 16:48:55 +0000
+Received: from mail-vs1-xe2a.google.com (mail-vs1-xe2a.google.com
+ [2607:f8b0:4864:20::e2a])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d8093f9d-1ea3-11ef-90a1-e314d9c70b13;
- Thu, 30 May 2024 18:44:13 +0200 (CEST)
-Received: by mail-qk1-x72a.google.com with SMTP id
- af79cd13be357-794ab20699cso7061785a.2
- for <xen-devel@lists.xenproject.org>; Thu, 30 May 2024 09:44:13 -0700 (PDT)
+ id 7fe227a4-1ea4-11ef-90a1-e314d9c70b13;
+ Thu, 30 May 2024 18:48:54 +0200 (CEST)
+Received: by mail-vs1-xe2a.google.com with SMTP id
+ ada2fe7eead31-48a39e0c441so18692137.2
+ for <xen-devel@lists.xenproject.org>; Thu, 30 May 2024 09:48:54 -0700 (PDT)
 Received: from [10.125.231.30] ([217.156.233.157])
  by smtp.gmail.com with ESMTPSA id
- af79cd13be357-794abd32207sm565507585a.112.2024.05.30.09.44.10
+ af79cd13be357-794abd0845dsm566765285a.91.2024.05.30.09.47.38
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 30 May 2024 09:44:11 -0700 (PDT)
+ Thu, 30 May 2024 09:48:21 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,49 +45,48 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d8093f9d-1ea3-11ef-90a1-e314d9c70b13
+X-Inumbo-ID: 7fe227a4-1ea4-11ef-90a1-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1717087452; x=1717692252; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1717087733; x=1717692533; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=vT2fk1rgF/oHjVjPLloIashUDDheN/bTYNz4G/vtus0=;
-        b=ILJMUUC0h3ShcnQvub0rnOx/vR2dD2KaMkf5r8qIrKBHdN2y/3doy5Pe3Xw6TGR6d/
-         Q6aj6ND7retn+JHvJ5AIpED8R0d74Rx1tJHAwwK8CRnKCptd9a6Mfn3Ed3+/nTVxpN26
-         J6UEyoIk0sTPTgpk7nq6EEpN1JE/I9NgQ9aoo=
+        bh=L+KqWGZTZGpOULZC/Hv+9sZLxHgeNukXsnVk4PzK7m4=;
+        b=XAUPxEjOrd/jxgHqS1fiOULrv/j0UlQZmJ+zu8cfitF2D4NcdkXE9fmaDpnJG0DuU1
+         JXyjcg/c+kW7O51mrEox6+d4lvOmSQdxD+XYAthy70dSW7qR1woTFtdzuT+lwkwxEpcC
+         8UiKmcd71VKVyZvkn1saSgumkUCczl3PdHDEM=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1717087452; x=1717692252;
+        d=1e100.net; s=20230601; t=1717087733; x=1717692533;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=vT2fk1rgF/oHjVjPLloIashUDDheN/bTYNz4G/vtus0=;
-        b=gqy//wo+MdsG3HuMw5kGcNC/OcXDnF7RqypDVW/NU+11b+VUZ0DqKbU9uKP9SM6AKY
-         aai4VlRRve85/O7spN7zKDhbuQiSu0wwGlmdtBuufo14l16btuwHltO+0748HkzfAjyc
-         h02OWWpcDGxIj7I21UeK3j3PkwY9LjErg3kahgGX83jRv+L7ATDXtij8Izma0L+JvGSs
-         Du+o5RAoQ/LEJDGHc4BzPjQsJUYOhdrqAjQC0ju41pw4faavVwJzaQ7i6LegO0J1XfiP
-         iXyhA/OivkFV+t7Q5MWH6SyQO+vKCHzFxktfxZUF3SVevy5EapHbnA1oB7yKP4hWeUbi
-         hvMA==
-X-Forwarded-Encrypted: i=1; AJvYcCWtR0R7jC2hTW0QG5cXnnt9FSO3+8vnThlbRWnPE2y8w2f/KkEsIrajqH2haJF2moBs6OR0iekGzCOwlFGBK/Lp7AvrWIJpQd+h7JVobGM=
-X-Gm-Message-State: AOJu0Yz1DESxIG50nm7pT3wbM1giyqKDwGIv72sQlykkUs49Pp+8h7Dt
-	BSSGtobxu0VJShacZsKIMP7Qk+zSsEhH/col/yjn7Z8eSOLQ5GgyVkj/TuKvtOY=
-X-Google-Smtp-Source: AGHT+IHo3hmRL/CFEP2hQrB5W1//G4XauQ0LntrUNwnRnDZulWc/lTZLPy2AdXcuCQW/M6IvRCNL6Q==
-X-Received: by 2002:a05:620a:1a1f:b0:794:c275:c9a1 with SMTP id af79cd13be357-794e9d95ce0mr326934085a.1.1717087451827;
-        Thu, 30 May 2024 09:44:11 -0700 (PDT)
-Message-ID: <0f12ce69-b139-4d97-8e36-23dd7c6bea41@citrix.com>
-Date: Thu, 30 May 2024 17:44:09 +0100
+        bh=L+KqWGZTZGpOULZC/Hv+9sZLxHgeNukXsnVk4PzK7m4=;
+        b=EmLR5YvSrpWn6otKMHjUtJaaclcAfx4vFT5GGPKm496SZSAe2D0EqOFeN8ObSJrAZQ
+         R+5Yvw+/vY5TMoLd/hBTkjNFUhXmmR+ao+79GLT+AzeQRcdW1/L0i/6s8bUzzZ+n5xdT
+         2x2t0QfKA3PR4YBT16uYjwZ3fMnW3dwJeEzl78IUIfUYHu/3WchnRGuYSTpJnzT5xw92
+         i2dXpeG6EW+ue1ox6cQCq5QttOlksG8H5yzjrFRWSRaV+cJJIb5UK6OLw9Rl5g1USgFO
+         h0UF/cObekbSogslS9Qr6Sxh+D0hZD5LgXW8Hu9k6RRYAP1kqerK61nsqYcJP+FiANMa
+         oyyA==
+X-Forwarded-Encrypted: i=1; AJvYcCWLBBQFkOxGGHbqw/B+ywL/oVpWtP4yYvENhS44IvRuUGd6NpiHydLmhbrIdj7U2RfHltJUKR1qC/XXkOZNlyplPFJWAFjNggA0+WgKhfo=
+X-Gm-Message-State: AOJu0YyJ1wduGc4ZrDKCqk81UFTOJiWCwS+50H7yCA3c2fMH5xMX2qU/
+	6977p6hrO9R1N/ABgpW0mAFQdCnx78Jpw7PXr0paNh3zmJQqeA5Xp6EhoxCyf+E=
+X-Google-Smtp-Source: AGHT+IGEu6NItf5t7ZoJdXMLpswN1Ejx0s5HXCP7DuFzFEI+nVhvVIwvp8QMGk3qHF6IYNf1CEhz1g==
+X-Received: by 2002:a05:6102:21ab:b0:47f:684:a3d with SMTP id ada2fe7eead31-48baeab1b70mr2790458137.27.1717087733444;
+        Thu, 30 May 2024 09:48:53 -0700 (PDT)
+Message-ID: <065c4b2f-93b6-428f-beca-b77e6f98cecc@citrix.com>
+Date: Thu, 30 May 2024 17:47:21 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v12 1/8] xen/riscv: disable unnecessary configs
+Subject: Re: [PATCH v12 8/8] xen/README: add compiler and binutils versions
+ for RISC-V64
 To: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
  xen-devel@lists.xenproject.org
-Cc: Doug Goldstein <cardoe@cardoe.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, "Daniel P. Smith" <dpsmith@apertussolutions.com>
+Cc: George Dunlap <george.dunlap@citrix.com>, Jan Beulich
+ <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>
 References: <cover.1717008161.git.oleksii.kurochko@gmail.com>
- <35cf9d52e538aab964a3ecc050260abb3f27c60d.1717008161.git.oleksii.kurochko@gmail.com>
+ <c6ff49af9a107965f8121862e6b32c24548956e6.1717008161.git.oleksii.kurochko@gmail.com>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -133,71 +132,29 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <35cf9d52e538aab964a3ecc050260abb3f27c60d.1717008161.git.oleksii.kurochko@gmail.com>
+In-Reply-To: <c6ff49af9a107965f8121862e6b32c24548956e6.1717008161.git.oleksii.kurochko@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-
-The subject should say "update Kconfig", because you're not (only)
-disabling.
-
-I'd suggest "xen/riscv: Update Kconfig in preparation for a full Xen build".
-
 On 29/05/2024 8:55 pm, Oleksii Kurochko wrote:
-> Disables unnecessary configs for two cases:
-> 1. By utilizing EXTRA_FIXED_RANDCONFIG for randconfig builds (GitLab CI jobs).
-> 2. By using tiny64_defconfig for non-randconfig builds.
->
-> Only configs which lead to compilation issues were disabled.
->
-> Remove lines related to disablement of configs which aren't affected
-> compilation:
->  -# CONFIG_SCHED_CREDIT is not set
->  -# CONFIG_SCHED_RTDS is not set
->  -# CONFIG_SCHED_NULL is not set
->  -# CONFIG_SCHED_ARINC653 is not set
->  -# CONFIG_TRACEBUFFER is not set
->  -# CONFIG_HYPFS is not set
->  -# CONFIG_SPECULATIVE_HARDEN_ARRAY is not set
->
-> To allow CONFIG_ARGO build happy it was included <asm/p2m.h> to <asm/domain.h>
-> as ARGO requires p2m_type_t ( p2m_ram_rw ) and declaration of
-> check_get_page_from_gfn() from xen/p2m-common.h.
->
-> Also, it was included <xen/errno.h> to asm/p2m.h as after the latter was
-> included to <asm/domain.h> the compilation error that EINVAL, EOPNOTSUPP
-> aren't declared started to occur.
->
-> CONFIG_XSM=n as it requires an introduction of:
-> * boot_module_find_by_kind()
-> * BOOTMOD_XSM
-> * struct bootmodule
-> * copy_from_paddr()
-> The mentioned things aren't introduced now.
->
-> CPU_BOOT_TIME_CPUPOOLS requires an introduction of cpu_physical_id() and
-> acpi_disabled, so it is disabled for now.
+> diff --git a/README b/README
+> index c8a108449e..30da5ff9c0 100644
+> --- a/README
+> +++ b/README
+> @@ -48,6 +48,10 @@ provided by your OS distributor:
+>        - For ARM 64-bit:
+>          - GCC 5.1 or later
+>          - GNU Binutils 2.24 or later
+> +      - For RISC-V 64-bit:
+> +        - GCC 12.2 or later
+> +        - GNU Binutils 2.39 or later
+> +          Older GCC and GNU Binutils would work, but this is not a guarantee.
 
-CONFIG_BOOT_TIME_CPUPOOLS
+This sentence isn't appropriate to live here.
 
-Also the "depends on DT" isn't good enough as a restriction IMO.  It's
-very ARM-dom0less specific.
+The commit message saying "this is what we run in CI" is perfectly good
+enough.
 
-> PERF_COUNTERS requires asm/perf.h and asm/perfc-defn.h, so it is
-> also disabled for now, as RISC-V hasn't introduced this headers yet.
-> LIVEPATCH isn't ready for RISC-V too and it can be overriden by randconfig,
-> so to avoid compilation errors for randconfig it is disabled for now.
-
-PERF_COUNTERS is x86-only, and both LIVEPATCH really should be guarded
-by have HAVE_$FOO selected by ARCH.
-
-However, that's not work to get stuck into now.
-
-It's quite unreasonable how much stuff doesn't work in simple builds...
-
-> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-
-Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
-
-I'm happy to fix up the two minor issues on commit.
+With this dropped, Reviewed-by: Andrew Cooper
+<andrew.cooper3@citrix.com>.  Can fix on commit.
 
