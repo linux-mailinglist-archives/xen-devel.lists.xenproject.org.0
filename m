@@ -2,35 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7950D8D51F3
-	for <lists+xen-devel@lfdr.de>; Thu, 30 May 2024 20:44:40 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.732976.1139058 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 073268D5271
+	for <lists+xen-devel@lfdr.de>; Thu, 30 May 2024 21:40:36 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.732994.1139067 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sCklJ-0006mw-8S; Thu, 30 May 2024 18:44:29 +0000
+	id 1sClcU-00068Z-78; Thu, 30 May 2024 19:39:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 732976.1139058; Thu, 30 May 2024 18:44:29 +0000
+Received: by outflank-mailman (output) from mailman id 732994.1139067; Thu, 30 May 2024 19:39:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sCklJ-0006j8-4S; Thu, 30 May 2024 18:44:29 +0000
-Received: by outflank-mailman (input) for mailman id 732976;
- Thu, 30 May 2024 18:44:28 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1sCklI-0006ij-Ap; Thu, 30 May 2024 18:44:28 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1sCklI-0005cY-9C; Thu, 30 May 2024 18:44:28 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1sCklI-0000oM-02; Thu, 30 May 2024 18:44:28 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1sCklH-0001fy-Vs; Thu, 30 May 2024 18:44:27 +0000
+	id 1sClcU-00065i-4L; Thu, 30 May 2024 19:39:26 +0000
+Received: by outflank-mailman (input) for mailman id 732994;
+ Thu, 30 May 2024 19:39:24 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=LA40=NB=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1sClcS-00065c-Mv
+ for xen-devel@lists.xenproject.org; Thu, 30 May 2024 19:39:24 +0000
+Received: from mail-lj1-x22b.google.com (mail-lj1-x22b.google.com
+ [2a00:1450:4864:20::22b])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 50d53f1f-1ebc-11ef-90a1-e314d9c70b13;
+ Thu, 30 May 2024 21:39:23 +0200 (CEST)
+Received: by mail-lj1-x22b.google.com with SMTP id
+ 38308e7fff4ca-2e95a883101so16615601fa.3
+ for <xen-devel@lists.xenproject.org>; Thu, 30 May 2024 12:39:23 -0700 (PDT)
+Received: from [192.168.219.221] ([94.75.70.14])
+ by smtp.gmail.com with ESMTPSA id
+ 38308e7fff4ca-2ea91ce8773sm502891fa.102.2024.05.30.12.39.21
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 30 May 2024 12:39:22 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,73 +45,82 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=q9yDaERmEMOH1yhX1uwdFx+vQ72Xo5QZ8bUZANGtRfI=; b=MgghIaa8peuPaVnWoP1FBzHY/u
-	sdfVNmQOpIG6nHLoBfoqOMeDuGys6UJJ4G+yilitRtRFvK1rM16fYrlN2GU50XocbAqO2d35xpGQA
-	g6+83SgzTfKFKOMNrVgwhF1L+99KkCQ1o4qCAfDySlcHSNUsFZqdeq1UtNL3w2+jHeKg=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-186199-mainreport@xen.org>
+X-Inumbo-ID: 50d53f1f-1ebc-11ef-90a1-e314d9c70b13
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1717097963; x=1717702763; darn=lists.xenproject.org;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=+nrLzN7m2dk4bnSZ+3NSo2S7ZYGMRvpTxgRNUYuc4/Y=;
+        b=CEHRECgrfqIMxpoOlLZqW5fZFkmxpsuFXGahe3CeLpLokaRrNCsn9qp56SK6/I6ldu
+         bX8YvMCF3JTxvS07NsfywV+fYan6VYKmR1KfsoJQwp0TCvNp7eD74sBNrpceNGul9AC6
+         oV1UUGOPkMVUxX7OEmj8bpp2jFQj8TfTt1PBeN9+0+x2PDqM6CMbUMVHt5Ieec0UGC+V
+         1dwBydaJpHoQ/arvvqxOKJCgN3yeIqqLVCY7kwy9N21iVulrzPAit3udBeLntZ5FSRiw
+         Y3mdW57T0j6aqeHYwvrboPzd9LQiiF5I+k/sTQrVr3RhrEtXmdSrxTPCp44eKnvLjAf6
+         qyxw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1717097963; x=1717702763;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=+nrLzN7m2dk4bnSZ+3NSo2S7ZYGMRvpTxgRNUYuc4/Y=;
+        b=gTRm7Aw6i/Q6cGnxPac+PVNYr42FR75p34310WZJtHXUJUTS+w1h8nsjq2I8rPMDAe
+         SIJ8u/EJUIdq5HXOUGu0LO7PSGef01J4Fv/Lk57wfs75Kcsn3uQHCFvxqstkVYAxUn0D
+         KNLKvhgXTT7m+4SB+en5/CDh/dYjZYjCuXIAV3SV1VJn+6T4rcrAubRB7dFypJgnaSnf
+         AubOW1Vf+LUql3YBiHh7dq/XrWhpJYG1HDYtPrJSI0jRIw28fqkA365tRu4581XWAyYL
+         Jp6KmzW+ib51rJgncsfqdVoTT+QT6sA89kHCZh6r8IHgkhn5PNvOcYBHkAo4i792nGto
+         c+ww==
+X-Forwarded-Encrypted: i=1; AJvYcCWfphNmcK95XnTt2/pkdOfhaevHIGQqx4TgyHfU2Z5yXd9MclVRzUYAk07ASQZvQP4Dn6wkEGB/IwqMRY1LA8areDl6k/HT49s9AqTeHrQ=
+X-Gm-Message-State: AOJu0YxDElIb+UsG3UfbYJKnaj79VkHfuD6/Wq+jHYKec9l3+6trz5YP
+	jZg3NT+d7m9UlBUu6lIL8IruCXkCEiirHIV3hpsXqy4mRuRISCoi
+X-Google-Smtp-Source: AGHT+IFvZ6E7VIR1loWl5lNDeAIlA3+tQEMoEMJpUbEaBHSY07oLpZeoGlNno/mrIcv1dXk9nkmB4g==
+X-Received: by 2002:a2e:7a09:0:b0:2e9:5689:6fde with SMTP id 38308e7fff4ca-2ea8479f906mr18058261fa.14.1717097962518;
+        Thu, 30 May 2024 12:39:22 -0700 (PDT)
+Message-ID: <a925b579a3a7309532248f9d647e7ffcfc2d30af.camel@gmail.com>
+Subject: Re: [PATCH for-4.19 0/2] arch/irq: Untangle no_irq_type
+From: "Oleksii K." <oleksii.kurochko@gmail.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>, Xen-devel
+	 <xen-devel@lists.xenproject.org>
+Cc: Jan Beulich <JBeulich@suse.com>, Roger Pau =?ISO-8859-1?Q?Monn=E9?=
+ <roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>, Julien
+ Grall <julien@xen.org>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Bertrand Marquis <bertrand.marquis@arm.com>, Shawn Anastasio
+ <sanastasio@raptorengineering.com>
+Date: Thu, 30 May 2024 21:39:21 +0200
+In-Reply-To: <20240530184027.44609-1-andrew.cooper3@citrix.com>
+References: <20240530184027.44609-1-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.52.1 (3.52.1-1.fc40) 
 MIME-Version: 1.0
-Subject: [ovmf test] 186199: all pass - PUSHED
-X-Osstest-Versions-This:
-    ovmf=e7848481160b270ebc59d68ecbc8d2722e3aed8c
-X-Osstest-Versions-That:
-    ovmf=9518d77eb869034a141799b3d28cac20ecb60fe0
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Thu, 30 May 2024 18:44:27 +0000
 
-flight 186199 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/186199/
+On Thu, 2024-05-30 at 19:40 +0100, Andrew Cooper wrote:
+> Found when reviewing Oleksii's series to enable the RISC-V build.
+>=20
+> The way no_irq_type works is horrifying.=C2=A0 Make it less-so.
+>=20
+> Andrew Cooper (2):
+> =C2=A0 arch/irq: Make irq_ack_none() mandatory
+> =C2=A0 arch/irq: Centralise no_irq_type
+>=20
+> =C2=A0xen/arch/arm/include/asm/irq.h |=C2=A0 3 +++
+> =C2=A0xen/arch/arm/irq.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0 | 14 ++------------
+> =C2=A0xen/arch/ppc/stubs.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0 | 11 ++++-------
+> =C2=A0xen/arch/x86/irq.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0 | 11 +----------
+> =C2=A0xen/common/irq.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 13 +++++++++++++
+> =C2=A0xen/include/xen/irq.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0 |=C2=A0 8 +++++++-
+> =C2=A06 files changed, 30 insertions(+), 30 deletions(-)
+>=20
+>=20
+> base-commit: 9a905d7dc65883af082532b4dc91ce0131e54047
+I am okay to have it in release if the necessary acks will be recieved.
 
-Perfect :-)
-All tests in this flight passed as required
-version targeted for testing:
- ovmf                 e7848481160b270ebc59d68ecbc8d2722e3aed8c
-baseline version:
- ovmf                 9518d77eb869034a141799b3d28cac20ecb60fe0
+Release-Acked-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 
-Last test of basis   186198  2024-05-30 12:41:14 Z    0 days
-Testing same since   186199  2024-05-30 17:14:30 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.com>
-  dependabot[bot] <support@github.com>
-
-jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
-   9518d77eb8..e784848116  e7848481160b270ebc59d68ecbc8d2722e3aed8c -> xen-tested-master
+~ Oleksii
 
