@@ -2,65 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3457E8D47FC
-	for <lists+xen-devel@lfdr.de>; Thu, 30 May 2024 11:04:31 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.732571.1138559 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 806508D4848
+	for <lists+xen-devel@lfdr.de>; Thu, 30 May 2024 11:21:35 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.732580.1138569 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sCbhR-0007nE-E5; Thu, 30 May 2024 09:03:53 +0000
+	id 1sCbxW-000274-Pe; Thu, 30 May 2024 09:20:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 732571.1138559; Thu, 30 May 2024 09:03:53 +0000
+Received: by outflank-mailman (output) from mailman id 732580.1138569; Thu, 30 May 2024 09:20:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sCbhR-0007kR-BL; Thu, 30 May 2024 09:03:53 +0000
-Received: by outflank-mailman (input) for mailman id 732571;
- Thu, 30 May 2024 09:03:51 +0000
+	id 1sCbxW-000257-Ln; Thu, 30 May 2024 09:20:30 +0000
+Received: by outflank-mailman (input) for mailman id 732580;
+ Thu, 30 May 2024 09:17:04 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=lthE=NB=arm.com=Bertrand.Marquis@srs-se1.protection.inumbo.net>)
- id 1sCbhP-0007jh-IM
- for xen-devel@lists.xenproject.org; Thu, 30 May 2024 09:03:51 +0000
-Received: from EUR03-DBA-obe.outbound.protection.outlook.com
- (mail-dbaeur03on20601.outbound.protection.outlook.com
- [2a01:111:f403:260d::601])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 87bdd136-1e63-11ef-90a1-e314d9c70b13;
- Thu, 30 May 2024 11:03:50 +0200 (CEST)
-Received: from AM8P191CA0003.EURP191.PROD.OUTLOOK.COM (2603:10a6:20b:21a::8)
- by DB8PR08MB5499.eurprd08.prod.outlook.com (2603:10a6:10:fa::16) with
+ <SRS0=/zMW=NB=oracle.com=john.g.garry@srs-se1.protection.inumbo.net>)
+ id 1sCbuC-00013j-Ff
+ for xen-devel@lists.xenproject.org; Thu, 30 May 2024 09:17:04 +0000
+Received: from mx0b-00069f02.pphosted.com (mx0b-00069f02.pphosted.com
+ [205.220.177.32]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 5f8e7cae-1e65-11ef-90a1-e314d9c70b13;
+ Thu, 30 May 2024 11:17:02 +0200 (CEST)
+Received: from pps.filterd (m0246632.ppops.net [127.0.0.1])
+ by mx0b-00069f02.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 44U7n5hV002784; Thu, 30 May 2024 09:16:43 GMT
+Received: from phxpaimrmta03.imrmtpd1.prodappphxaev1.oraclevcn.com
+ (phxpaimrmta03.appoci.oracle.com [138.1.37.129])
+ by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 3yb8fcghay-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Thu, 30 May 2024 09:16:43 +0000
+Received: from pps.filterd
+ (phxpaimrmta03.imrmtpd1.prodappphxaev1.oraclevcn.com [127.0.0.1])
+ by phxpaimrmta03.imrmtpd1.prodappphxaev1.oraclevcn.com (8.17.1.19/8.17.1.19)
+ with ESMTP id 44U7Jqpe006215; Thu, 30 May 2024 09:16:42 GMT
+Received: from nam10-mw2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10lp2042.outbound.protection.outlook.com [104.47.55.42])
+ by phxpaimrmta03.imrmtpd1.prodappphxaev1.oraclevcn.com (PPS) with ESMTPS id
+ 3yd7c6pax4-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Thu, 30 May 2024 09:16:42 +0000
+Received: from DM6PR10MB4313.namprd10.prod.outlook.com (2603:10b6:5:212::20)
+ by PH0PR10MB5706.namprd10.prod.outlook.com (2603:10b6:510:148::10) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7633.21; Thu, 30 May
- 2024 09:03:47 +0000
-Received: from AM4PEPF00025F9A.EURPRD83.prod.outlook.com
- (2603:10a6:20b:21a:cafe::d1) by AM8P191CA0003.outlook.office365.com
- (2603:10a6:20b:21a::8) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7633.21 via Frontend
- Transport; Thu, 30 May 2024 09:03:47 +0000
-Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
- AM4PEPF00025F9A.mail.protection.outlook.com (10.167.16.9) with
- Microsoft SMTP
- Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.20.7656.0 via
- Frontend Transport; Thu, 30 May 2024 09:03:45 +0000
-Received: ("Tessian outbound a0025cf119c5:v327");
- Thu, 30 May 2024 09:03:45 +0000
-Received: from 2bc1eb3bc0f0.1
- by 64aa7808-outbound-1.mta.getcheckrecipient.com id
- 69D9C1F4-9622-4E9D-9857-0D0B855F1120.1; 
- Thu, 30 May 2024 09:03:39 +0000
-Received: from EUR01-DB5-obe.outbound.protection.outlook.com
- by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id 2bc1eb3bc0f0.1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
- Thu, 30 May 2024 09:03:39 +0000
-Received: from DB9PR08MB6588.eurprd08.prod.outlook.com (2603:10a6:10:25a::24)
- by FRZPR08MB11190.eurprd08.prod.outlook.com (2603:10a6:d10:139::17)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7587.36; Thu, 30 May
- 2024 09:03:37 +0000
-Received: from DB9PR08MB6588.eurprd08.prod.outlook.com
- ([fe80::a8fc:ea0d:baf1:23a]) by DB9PR08MB6588.eurprd08.prod.outlook.com
- ([fe80::a8fc:ea0d:baf1:23a%5]) with mapi id 15.20.7611.030; Thu, 30 May 2024
- 09:03:36 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7633.22; Thu, 30 May
+ 2024 09:16:39 +0000
+Received: from DM6PR10MB4313.namprd10.prod.outlook.com
+ ([fe80::4f45:f4ab:121:e088]) by DM6PR10MB4313.namprd10.prod.outlook.com
+ ([fe80::4f45:f4ab:121:e088%5]) with mapi id 15.20.7633.018; Thu, 30 May 2024
+ 09:16:39 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -72,344 +63,525 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 87bdd136-1e63-11ef-90a1-e314d9c70b13
-ARC-Seal: i=2; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=pass;
- b=JYqwl4xl0KhAUQMUblpOGdPch8MJf7oMSG7e16o7jhrxNT3D1oCKsBKieyoSOYKB1psNhc9DUfA8V2yCGOfhVRJb73mK2vq4DYFBLvFM5aiYsc8ENRAZIeveuIbUjU377TAHCkssmgu2En/uXevkfbFnWTunZ/EN+Tkh56/cyuei7TugjVgKcwC6fl/n+iIVJD1HC7vKWY4FeFS2sjpRoiS8u7jAE4BrFl/mQg4YQZ0nJOdQEw9chQxYOiaan4p/oyvYnsxf5sEZbqCRs153+ZdX/tzJWU3CtCCFdfIHY/bvKtiJtnmILaW7Vd5qYLBK9FR2K5qs6Sr0qXnzXYTcig==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=pBf+gGNTpvlyPFsg4FGV3jSyPfiHCbGdaEQksFAO3Dw=;
- b=blpvcJCtYdqeiY8YiMlk3aDmxfyWxAMN0sWUoWNZSQUpe5Msg5aJI+7rqPqrA+Lw+4mPA557i+CZmIwFsZm9kq61/xTlcenGcraZ2Ec0kD+2yWBdUPLeeCAmzeGjd1awuuGHMYypJR+K+CUpHKioxOCSlPjLO2mcl3fxcNlhrPgJ0z7OSo0nYlMsLzSLrFyn7MQPUbKCG1GaFSwnvP+t3Ifyz1HGTS+zomP3P3TrKRYcXEl/6QscBfN9bkm81LpZnmQzVSWoGqBHQfmBgtGR0TRs7UKcucHQcjtpz6jIe5JNOEIh1coQ7ImSNcVGDi0aVB++L55u8HywBN9B0S+Iww==
-ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
- 63.35.35.123) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=arm.com;
- dmarc=pass (p=none sp=none pct=100) action=none header.from=arm.com;
- dkim=pass (signature was verified) header.d=arm.com; arc=pass (0 oda=1 ltdi=1
- spf=[1,1,smtp.mailfrom=arm.com] dkim=[1,1,header.d=arm.com]
- dmarc=[1,1,header.from=arm.com])
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=pBf+gGNTpvlyPFsg4FGV3jSyPfiHCbGdaEQksFAO3Dw=;
- b=EleRQWOY+wNZM7dVQLK/8v7OeZL9Dm5kwfDKo8kfZqXgU+B3hdfu2jP1WPEflw7ur+67xr726a3yVeEAP0uvniwZSh9k6fh1JeHZwlU7x9PR1RkTZI6TGwQbigAY9RE1nAFbAnTun1eBZ59ZNUqEydmhWAd3ZwxDgBXsYh1UPlM=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
- smtp.mailfrom=arm.com; dkim=pass (signature was verified)
- header.d=arm.com;dmarc=pass action=none header.from=arm.com;
-Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
- 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
- client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
- pr=C
-X-CheckRecipientChecked: true
-X-CR-MTA-CID: f2f7685686976c73
-X-CR-MTA-TID: 64aa7808
+X-Inumbo-ID: 5f8e7cae-1e65-11ef-90a1-e314d9c70b13
+DKIM-Signature: =?UTF-8?Q?v=3D1;_a=3Drsa-sha256;_c=3Drelaxed/relaxed;_d=3Doracle.com;_h?=
+ =?UTF-8?Q?=3Dcc:content-transfer-encoding:content-type:date:from:in-reply?=
+ =?UTF-8?Q?-to:message-id:mime-version:references:subject:to;_s=3Dcorp-202?=
+ =?UTF-8?Q?3-11-20;_bh=3DBdPYxC5USHVULUTy7ZfZqhM+RCgM6BcNA8YOCr9E+nE=3D;_b?=
+ =?UTF-8?Q?=3DiEXCWqw7ljieCh6HQcv6moF6g6zlOtYTs6l/bQyZBV7mrEjbMzJiceT6F0TR?=
+ =?UTF-8?Q?mJYApcHD_rrmIiuOIR//EoyWR5w5CSCCTXNENc+IUNFx3eivp4gh377HOwdhGXi?=
+ =?UTF-8?Q?LP5i7sN6kjGLHM_LDBfpz+1caJFy25YoJCcGZ/fD/OU2M+YZLB4kMTCD69tUswW?=
+ =?UTF-8?Q?3N8vMnLx5eV8OkcTv0Xc_vNISwufG4aQ5sr3GKcT/Xq7FCrvNjhtKsIEv90+n7P?=
+ =?UTF-8?Q?+gACPMVFAPtt9crp60YwPRs3dr_smafucRx/zlmlFgn9uu1Q+J/CM2vjEQXkAQ3?=
+ =?UTF-8?Q?uxyo1jJ1rqG7DC7kE0Kqc8IyI4bl7JCo_Mw=3D=3D_?=
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=NIk4va0MznYfibV2SzVm3OuGpH1BHWIM3ppvrSNOzdrj3ZRpAxmCwMP74wpBrtGV0j1Vky3tooO04yjIub1xPpEkxWy1w/2Lep3S0b2TAigC35SZhZ54qG4vvJ7IKpIs4jwBMFotljTO+tnBadcbu0ZZwXpjrIcXuRg0gPA7qtwUEPb/XoLb9wCMOGXcIdANo8kS8+40SoRSUHsXV/KNMh84KfuaBgIqFJUBJ41y+MSt4kemMK7HcwaYGEK0tt+P2HXn3VjemRlxkUVeB0MO6GqU3q9p7VjePi1tHb9GrObCeEuDnDi+zTj1bnc0/alUoWkiQEghBtim5j7HpgjeKQ==
+ b=ZW4sdwt7nQbdjT0+fvotSJ75hJ6npAhUXI5NdHvh5g2RfO7Hwze0n6s4G7cAHt5sM7X2WtDBBIjEVtGgby77A+ClUiEEERrhNwsldrqxryazhuHk5ou7HAB5cNLPT9RuywPSPtBJxKEfr2b19fM2xMP911XbMN9HPtFlE8saewhwqJtkhvVSbPAg8DCxN3hXyf84ug3gHb0sz+fEuR3KELd3qgrluqMkrcjbpCSvNpTKIvZAl8hJYsIULC7JIvXVKG9eEzs9OUInDVTmSWxH9lvDF7uTRgPeBdEI4Vx+xN3+sihlxpPD1k/ioz6RTGWx7AGkO/97mo0nYRPoKptH0Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=pBf+gGNTpvlyPFsg4FGV3jSyPfiHCbGdaEQksFAO3Dw=;
- b=V6YSO6IsGSL8NI8381qZpcCv73U2Cp9J6VlR1+rXCQX4o2IbIz8fiR5Hd27xFsc5Sx2k2G/j2cxHQL8XYoRvc/WrZ/nlnS5OUjVacoqke2+/LJ879zogE6Z6sZ4hIDma48Tx25+gdUNdsMOR0mONDvI+vHGQkb4MSqHWZVWLyhubq8J8aR2x8KmPtZyo9WnPE+GUr324lFLXIjvaJNkuytsOiIzvPujNrimHCPPd2D8TdTL6a6fsbiTcS2xBrWeEgSJBpRW0P9SoWOmCtvU2FNo7nYIbngkE/xxZRzgmtsUMn7of2MmSa+B2Rw+FpWvxmZNv2BlUFZu/+lftRc3dpA==
+ bh=BdPYxC5USHVULUTy7ZfZqhM+RCgM6BcNA8YOCr9E+nE=;
+ b=MxU1uyBe/4XWuZlHRz6ZGJ//6QpvoPjDgaSd3O0hpy4VHW1FKCqSfE04+mAGBtdbxoYWqCUHOyGsTS2P/9xlDtT8XnZ+LhvY0R5Vd95y2NAnjwGhp4xgVLBXB3sbAsBonL5WRbbXn0DjH9NSfjgUnnTwIEhEs4cvGQRqyUtu4dJ2HGLMSYWC/iPr63WwiOmOhrxrCtgmsx5x64f+6e9/9zVXTFWxMNhGyg93UvvaLsue55s/d2FjpgKWvjnh8wJy3jrDClGkKIJyV57+rifk4KX+Pm9/9bI/KQtbCB2kUqIIUt3SuMxwaxr8QlFdg57WNNJiDjxXgGEZyxMIXlNwhA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
- header.d=arm.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
+ smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
+ dkim=pass header.d=oracle.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=pBf+gGNTpvlyPFsg4FGV3jSyPfiHCbGdaEQksFAO3Dw=;
- b=EleRQWOY+wNZM7dVQLK/8v7OeZL9Dm5kwfDKo8kfZqXgU+B3hdfu2jP1WPEflw7ur+67xr726a3yVeEAP0uvniwZSh9k6fh1JeHZwlU7x9PR1RkTZI6TGwQbigAY9RE1nAFbAnTun1eBZ59ZNUqEydmhWAd3ZwxDgBXsYh1UPlM=
-From: Bertrand Marquis <Bertrand.Marquis@arm.com>
-To: Julien Grall <julien@xen.org>
-CC: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Stefano
- Stabellini <sstabellini@kernel.org>, Michal Orzel <michal.orzel@amd.com>
-Subject: Re: [PATCH] arm: dom0less: add TEE support
-Thread-Topic: [PATCH] arm: dom0less: add TEE support
-Thread-Index: AQHasgjZKwS4pdCyJUe9LewXYMLHeLGutaSAgAAAkICAALRFAIAAEesA
-Date: Thu, 30 May 2024 09:03:36 +0000
-Message-ID: <91FCE951-780D-40A3-BF67-4788FA80DCE8@arm.com>
-References: <20240529204305.1402036-1-volodymyr_babchuk@epam.com>
- <be133b0b-5b22-4b82-b5f6-3c257b45553f@xen.org> <87bk4oxpxk.fsf@epam.com>
- <eff6e2e6-5c58-4b19-99f4-3754f655210d@xen.org>
-In-Reply-To: <eff6e2e6-5c58-4b19-99f4-3754f655210d@xen.org>
-Accept-Language: en-GB, en-US
+ bh=BdPYxC5USHVULUTy7ZfZqhM+RCgM6BcNA8YOCr9E+nE=;
+ b=G/7QTVDgO+k85ObUI8TepKa4ed7WFzUGZgaPA/T1NlpuXHcU5g6u/DK/lJFVobL9IyH3DZgHV7oNkueIPT1RrT/AuDv25KcA5Mk5siotZ7nswU82hU2RiKjTMiHDBmwJmkT3sO/vg+heGPGmcBgVVb9ScoszC+PtHlQMwESHSG8=
+Message-ID: <1a1854bb-1f28-44d1-a4ac-30872bd6c3c8@oracle.com>
+Date: Thu, 30 May 2024 10:16:33 +0100
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 09/12] sd: convert to the atomic queue limits API
+To: Christoph Hellwig <hch@lst.de>, Jens Axboe <axboe@kernel.dk>,
+        "Martin K. Petersen" <martin.petersen@oracle.com>
+Cc: Richard Weinberger <richard@nod.at>,
+        Anton Ivanov <anton.ivanov@cambridgegreys.com>,
+        Johannes Berg <johannes@sipsolutions.net>,
+        Josef Bacik
+ <josef@toxicpanda.com>, Ilya Dryomov <idryomov@gmail.com>,
+        Dongsheng Yang <dongsheng.yang@easystack.cn>,
+        =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+        linux-um@lists.infradead.org, linux-block@vger.kernel.org,
+        nbd@other.debian.org, ceph-devel@vger.kernel.org,
+        xen-devel@lists.xenproject.org, linux-scsi@vger.kernel.org
+References: <20240529050507.1392041-1-hch@lst.de>
+ <20240529050507.1392041-10-hch@lst.de>
 Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-mailer: Apple Mail (2.3774.500.171.1.1)
-Authentication-Results-Original: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=arm.com;
-x-ms-traffictypediagnostic:
-	DB9PR08MB6588:EE_|FRZPR08MB11190:EE_|AM4PEPF00025F9A:EE_|DB8PR08MB5499:EE_
-X-MS-Office365-Filtering-Correlation-Id: 23374a66-34d1-43b1-8714-08dc8087696a
-x-checkrecipientrouted: true
-nodisclaimer: true
+From: John Garry <john.g.garry@oracle.com>
+Organization: Oracle Corporation
+In-Reply-To: <20240529050507.1392041-10-hch@lst.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: AM9P193CA0024.EURP193.PROD.OUTLOOK.COM
+ (2603:10a6:20b:21e::29) To DM6PR10MB4313.namprd10.prod.outlook.com
+ (2603:10b6:5:212::20)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM6PR10MB4313:EE_|PH0PR10MB5706:EE_
+X-MS-Office365-Filtering-Correlation-Id: 58489bb1-ca80-451c-ae61-08dc80893636
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam-Untrusted:
- BCL:0;ARA:13230031|1800799015|366007|376005|38070700009;
-X-Microsoft-Antispam-Message-Info-Original:
- =?us-ascii?Q?gZrZBjD9MswbsJB+QeWmP0Vqj79/RO+ThCLQNdW3S5udYSW6fAmitL2GUEOm?=
- =?us-ascii?Q?UWz8XySrA7p5IUvEtcQnjzqn5LPozlZBhygizZxdfwAn/uBYtvjycq9W9LyF?=
- =?us-ascii?Q?Fohx80g7z9msuY6U86RrAisr9ndlwKESu63fGzF+UTwcEou24NwCntd9vW7Q?=
- =?us-ascii?Q?b5fMzTxgcXroJ9l1tfK9A21nu9g8UGcmi5Mm2xjWIospFYm1n2CZOw0jl43M?=
- =?us-ascii?Q?pkimdfrqgOYkcKSPxuzFFcg/VXN626yuCd5QauyIuMxvFCjv3OKVSA1lmjfT?=
- =?us-ascii?Q?tA6DBSFTYc5xnzz6iq4UrepRhkf0dOz0d1EVlym++RoB75NsVWu5dvtODNL/?=
- =?us-ascii?Q?AcwFDJD6TQtRlPvYW9h0CIOaJFY2770KEoSEkci8y66NDJtmVHu9mrwoDz/+?=
- =?us-ascii?Q?xF3Z0AZ6rOgnm4heAsV5d71T43fzMq3kGg3GHSMwq8hK1WCGhJNAoz5FaAjL?=
- =?us-ascii?Q?4ATE/xkj4ugwmePDKYtYGuqwz68NTmdAtpaQYIapzMf3NLQejOMHq6QiFjBX?=
- =?us-ascii?Q?eQQxijBkL+UCxEZYJSJhUseb3iX+nNv1HSxkAhWnehZeVbwpajSbJEIC0JVw?=
- =?us-ascii?Q?Vqn+7FDztdzOU7VbfW1AJJ86yALlU5U0D5T1lc4JpBuNw2sGQJ7HKBg3+lbm?=
- =?us-ascii?Q?XeriAYQ+laLu0akAX7VH9MebzmBOlnlJAWHNS6q3TnoL2pOv/mcZKfGbm3ut?=
- =?us-ascii?Q?lgAenPoqeWp6+OTuYPBPX6caMRhoyVE5g3oS05nb3OP0jIxSiXkURvA7jyOH?=
- =?us-ascii?Q?KjcUhitDO4jt6MwIbb9F/qum28V7P9G/k9fUK/uoKxaXzcih17nAWWxSHYLl?=
- =?us-ascii?Q?iGpmtdlZ8lCkQ/BIQduk2UUWC1km+wPA/awhlxI9huFch0ECc78RmjrirqHW?=
- =?us-ascii?Q?FgNzsMh4p++ONaXzNJUPHA/VP4KlYIAOhKSn02mEzjGGXlkLPNJfholXAJz3?=
- =?us-ascii?Q?TNQ8GvmGKY4rEMlX7UKxNDza8YiF9NGLqjgE9iJ1AqcFeTwKeyV8CxgxHkWc?=
- =?us-ascii?Q?DJvXqKuEkhEqHw4HPU5NAXUPZVVRo9znvYM9SvaqSXafxz7zFz7P4w5ytm9F?=
- =?us-ascii?Q?IfmrzTwk2y9fXx5CMQPaa9Rh03iYl/gSx2HjQCoH7rXkeueBrO/7XKENpRof?=
- =?us-ascii?Q?Bhk9rnoiWbS+ajaS3JReIYEyL+h+YgO/wwr/Cf9PHm67ZMEvahs6WqE1hEg6?=
- =?us-ascii?Q?4JeqfBCgx0oBJpudxm4qNPNk66P+DYBZPfjx+GUYPXT+23BZdqpQEhEqQlN8?=
- =?us-ascii?Q?4Nfh5xH5aaGNv5NNcSBIKKkDYImaOlBYa4Az6wVVGGekXvBPSRXN4IcorgZE?=
- =?us-ascii?Q?el9BwZfuwRWMywfBms8ouQ8bFCdchWpNKwkAwFg9qHl5Gg=3D=3D?=
-X-Forefront-Antispam-Report-Untrusted:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DB9PR08MB6588.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(1800799015)(366007)(376005)(38070700009);DIR:OUT;SFP:1101;
-Content-Type: text/plain; charset="us-ascii"
-Content-ID: <F5E7A21EE3C5CA48AF09995F75C68F33@eurprd08.prod.outlook.com>
-Content-Transfer-Encoding: quoted-printable
-MIME-Version: 1.0
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: FRZPR08MB11190
-Original-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=arm.com;
-X-EOPAttributedMessage: 0
-X-MS-Exchange-Transport-CrossTenantHeadersStripped:
- AM4PEPF00025F9A.EURPRD83.prod.outlook.com
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	fd2f1c10-4442-4cb8-9ab3-08dc80876427
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230031|1800799015|376005|36860700004|82310400017|35042699013;
-X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?PC9rnt+LPrdxWmprW7oyZ1VJzXrdtK17x7YaTMiRTtqh3bzf2Z6DMYQp68bg?=
- =?us-ascii?Q?t3MMvrn+5PvvhhXguPpy7NBxZVO6XETK2Ggha5c6UumqvbtkLoah0Y4g4T9l?=
- =?us-ascii?Q?g1mVJUWhvsB1pJi3RhNfL2i0YT+9ZCG6CihrfzW/KwoZ0Mjem5sxZavs2GgL?=
- =?us-ascii?Q?h2BmTm8B1SGGEfnkQziJQ7/FveZx2i04QVHcN8MY9WWldviZKk4M0dVRAXp0?=
- =?us-ascii?Q?fDCGTFYjhc6KoIbip790SLngfKFJIoVl8IW2bx/ZGzH/gp2td6eU1+0EhVGI?=
- =?us-ascii?Q?fXLpTJCqTFuWyIqTFxHiuGqJC7Dd514G+h5HHbODOeBz/wfdQlKFCKOIL++g?=
- =?us-ascii?Q?nYxFVfRKRDX1Iz/w9XIAObkxBpKESRyJb4ZOtyCXxFS7ltHr07nVihZBt1ad?=
- =?us-ascii?Q?g2QurSPB7ELo2FOmBGRgL4u946LpOdkFkDKkRznBIQZ18DupFA9OxURS9sd+?=
- =?us-ascii?Q?GnzC9SyRRAFsL9ql8B1zmgiPCYHaCbGvGohwRKC/G5LsqI5qAycyHXLxkbts?=
- =?us-ascii?Q?duFJ2uFAo01JNDx/AiKGbmV8xDEczI6ES1ZuwsT4gwa0KLARh2YSkc/68RlZ?=
- =?us-ascii?Q?nRl2Dp/0bwPW9uMTOpHT07kpepFxtcizYi6y1S4fu+ZDihY0lDfbdZlYsqxt?=
- =?us-ascii?Q?03wIaV1oUVTUajMXfN4K4Mn9AmGERpcWuiefHBdOkK25326zg0oZMo8ey3O/?=
- =?us-ascii?Q?FhMzcoz8xHRr36jDpntXKSrDTXaPCBhNjuOOcAUZvv5OGNQrhzFD3vIDlv7x?=
- =?us-ascii?Q?xi1RctbpkHsyKE5x8Id9CqKTZW2IVcl0hXJDqk/YN+Peswh+2L8cwWQMo16U?=
- =?us-ascii?Q?3wWnzoQA2IfzORp6N96mUuaIe8apC6ILFwpXrwp06njnHGMiBAipNyfHUYD0?=
- =?us-ascii?Q?+DyePzabaev9gIHDOTtUcLcn3pAsFv5b6IIMDXXGVDI2PRoNaIu3Z6fN+wyx?=
- =?us-ascii?Q?1AvHizGRlVvJS7bLfpHGZSeXrzYQDo30TcWZZkmUvsCoMUZdms0LfAb7cO15?=
- =?us-ascii?Q?30UBS+U3OZ/OmsPAHGfrbppKh6jNLG0cYrVzBG8qzL2bzPxDia2+nF6grnzl?=
- =?us-ascii?Q?Kn7hmnqUiUHqNT8YEW+B/uKImOboOV3KwAVk2YnI2yjb8TJyZ2c7YJQqye2Q?=
- =?us-ascii?Q?Ng2iriBpoGQYCBpKuJtL57IeFp0pqCblj3U+DhMZa9VdHQPoytNkVGhpn/In?=
- =?us-ascii?Q?dbTeKeya4euN1PhEGCSQ2lmltRF3U2QBtFQLUvLu5WARuAd5YcvNAJK58AT/?=
- =?us-ascii?Q?DCmDxd5A1OTCjFNBMsK7MqgVGljStq/JMtKvz/jS9kti7WkkVvNFAs+egWBN?=
- =?us-ascii?Q?XZ6g7s8Nh1NExwI7jo9SX6BbsSdigzbYe7VHKtnR53aoP67ZyUUMqZ7EAIno?=
- =?us-ascii?Q?C6H+d1C34OrM/D8SPWprDw/OVSs9?=
-X-Forefront-Antispam-Report:
-	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(13230031)(1800799015)(376005)(36860700004)(82310400017)(35042699013);DIR:OUT;SFP:1101;
-X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 May 2024 09:03:45.6672
+X-Microsoft-Antispam: BCL:0;ARA:13230031|366007|1800799015|7416005|376005;
+X-Microsoft-Antispam-Message-Info: 
+	=?utf-8?B?Zk0xKzhCaGd6TXRoNUJzU21JbVY5VEkrRVA4TndzUW1Ycm5kUnRnWmozM3Fs?=
+ =?utf-8?B?UGpOYTVxdXYrdlI3bHlUSTY3c3Q3SHBVODBFRWYra25zaDdXbEJUUnV6ME5w?=
+ =?utf-8?B?OWFldVYvMHhRdVkvNmFQcHRnSjFlWDdLT0szV1RDanpKQWxPMURhbmJUSjlo?=
+ =?utf-8?B?NEMrMzZzWHlKeE9SRTNESGN4YmE0ekIxWHlIZHZvdWdaaVpIZXRFRFREQktw?=
+ =?utf-8?B?R2RocTEvczQ4ZUhJZ3p0RmZDaEpzWGkxREtBejJVWjlyN05yc1Rtak5YUWpF?=
+ =?utf-8?B?dk54SVlSaURrQ3lFZmtEV3NZWjVRNG5KamtqRzFHNFlVdTBmZDFHRFFWbjBi?=
+ =?utf-8?B?Mmh2bmtTYnZHTnpEOVRTcVRzSUJvQmpLQUNsV0xaK2o5aklIdzUvZ3ZGVXlT?=
+ =?utf-8?B?SGxHdk1hbmNxdklPQnp2VVovYUhWRE0xK1lHaGhhbGo1cVlrLzg4VDZyMDVu?=
+ =?utf-8?B?U1JjZVlrYW5QK2tKZnRPV25VQlhTZFE0am5hbnlXbWoxdlE4cWpuU2ZjUGR2?=
+ =?utf-8?B?MmlYMmN0UlRpYVF4VDRNTVBTMlVzVURhcytXSmtXRnU0T1J5Q1VXK2FwSTNK?=
+ =?utf-8?B?QzRwemsxbGxTeWNhZ3Z0bUZ1V250YXN5NEU2VjZxbXFqZGVGRUgzYVIyNVN0?=
+ =?utf-8?B?TW82K05MM3hYQUlQQ2xNMUlUWmpDNTRtWVRTZlI3ZGJ0RGJvYS9wOFdHTjh4?=
+ =?utf-8?B?c1ZXUkkxdnluYk1yUjJPbmoxRkxNM3MvaElUSjNDTm5pTFMzWWNMVWhxSkQ3?=
+ =?utf-8?B?Umlwb01mMU16a3VRQWxMRHlpNk9jcGxWMDVuTCthQkVSQ3FEdW4vcVJLY3lB?=
+ =?utf-8?B?RS9Ddk9FZTV5MHpMdy8vRTRSaXp4T0JHaU1pNjRObVFzaU1GenFwWWhGRGNO?=
+ =?utf-8?B?WmtMbmw1UXFoMVd6dXlyM0dJbjM0cVFRaXVjdmRCbG1DSHZNL2JYZXZsTi9l?=
+ =?utf-8?B?VzMrSzVETUFFUGpFZitUWVJOSlNDMXJFQlEzQTdNYjlXZUwrZjN2SDh0cENM?=
+ =?utf-8?B?cVpvcFRuTEhVQ0pCUWs4NGpnN1ZiN3I4Zkw4K0NvSi9yWnlIT0Y4RktLTDVl?=
+ =?utf-8?B?cUFpeklwdDdXM29WaGx1VXNjak9KVkF2eDFpRTNsenVaMWZIL3ZKSW94OTc2?=
+ =?utf-8?B?TUcxRU1HNWV2QWx3Y1FrWTVYWDJSWDVSMi8rVGhtSi96OGdhTTRja2N6TW1y?=
+ =?utf-8?B?cHd5U3Z0TFZHUDM2K2dIZG9rN3JqK2xWY0RFVVVqVWpTZTRvbnM2KytZNnNF?=
+ =?utf-8?B?UmFiQUdCaUw1UFYrSnRzWSt5dEJycW1sUjI3N0hXVEdGcDlBVHVhZWZTa2pK?=
+ =?utf-8?B?UHJYbXhJOTdzaGFzSEd0VktpTXIzaSt2Y2RtR3NHbUdaRUI5RXRnWkRGOVRP?=
+ =?utf-8?B?WXpXbndBTGp1aCtBRlc2dFloNFFMVFRQbEZwb3RIMnZXalVDYnBWdVBjOENa?=
+ =?utf-8?B?eW5qa0xKVjllZXVjNHdoanhOYk5CZ1hrdFJGNFNxOURoTnlhdkxYYUZuRWxN?=
+ =?utf-8?B?aGU3YzVLMEhFajByTXlQWTYxYUZFSERETmdIbTNIYjdMTnR2a0V3Y1J0QXJL?=
+ =?utf-8?B?elRTNG1nbVJkQTRMOG4vbHl5TjBqaDNKMGFzclRITXVsUndVbU1uMTYwTXpN?=
+ =?utf-8?B?aTI2VFRhbmpmQnYxVU9ieXcwNnAraStPTjBaaVpTRFpSM0hUenl6anZLdU45?=
+ =?utf-8?B?dktJcEszckovaVRpSnVPSnFtYXFkTXBmZXNkSzkxNkJXeEY2MFVJN3JBPT0=?=
+X-Forefront-Antispam-Report: 
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM6PR10MB4313.namprd10.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(366007)(1800799015)(7416005)(376005);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: 
+	=?utf-8?B?amJLcStFaDB3aGZZZndOMzkyRGQvc3BFeUNZNUtkN25iNVoxUnJlWkZzam81?=
+ =?utf-8?B?VXcyU3dXYU5sRjl0Ylh3TlBqWXo5VnFCR3B4UEtvNDRIeER3WmNPRXRScmRx?=
+ =?utf-8?B?REZKY3hIRDhjaStkRExVd3I2eGRmYTk2Smd0NnBMcGh6d1dtTEhxVHIwa0dY?=
+ =?utf-8?B?UEZ6OHhnMm9MN2NLQ0svUjE4TTN6ZHF6dHBwRUd1cVdQRHp5RXNXbWlaeTdC?=
+ =?utf-8?B?V2ZsNFNzY2x5RzkxNEhuZExaZkhJMTh3SkdwdG43TFdUWkI5SWVSTmN5d1ZI?=
+ =?utf-8?B?NndIS0Z6VUpaMVAzMjE5NzVWSE5Ib05FaVBsZTA0SVVqVDlGc3hMNVBUajJL?=
+ =?utf-8?B?SDROVTlRV2ZwaUxWNWQ4Q1hrOGtCOXNjckovNmZreUxiRVlJRWR2QnJmVGJL?=
+ =?utf-8?B?UWtzV1hadmd1ckc0ZGQ5eU1uRGVWb0kzK25HcGp5eitYN1NGTWZCdURWTUNW?=
+ =?utf-8?B?NkdvMS8xVWpBL3FDZWdNWktLQW9xR2R6RW5PK1NidTI2Q2JsUGFFVjVHOWFM?=
+ =?utf-8?B?NGd5SXBxekZ1cEZCNVRjSEkyQ3U5Tlp0M0ZkQUJWRGxvWXgvSGZOM3RPMTlz?=
+ =?utf-8?B?U0VMb1hOanF4NzlqTC9ibjI2ZXFKZGFsZTJDb3dQL3UxZ3BOSVhoamlEcFhi?=
+ =?utf-8?B?WS80SkZWZ2o2SHdVSEx3ZWcrUWpHUm1JM0dkTVdnZGxqRjVDRS9MTUxlSjdR?=
+ =?utf-8?B?SUkvcVQzSmx3ZFVoSDVia1crYXdQMk9IWlFmbDFMRG5GMkhzTTNaRnpwbGp3?=
+ =?utf-8?B?WUx0bURzeHBhTU1mTzlkbDExcEZ3dm1VRDVDb0xTZ0pSZWxSNjIwVzJxKzJt?=
+ =?utf-8?B?MHZhL1ZPaEpydXhKaDAxUi9PeEFZZXF5TjJKekx1Y2hCb0FnMklFaUxVWmF6?=
+ =?utf-8?B?K3NiVmZxZ0VpUjlUZjA1d3RFcXlYaFk1VEMxd3gxdTlHTExqR1hJc0dFajRq?=
+ =?utf-8?B?TzMzbG5UMWFoMnJaMVkrQm01cDZ0L1M4a2wyMlp5WXlMWWhYVjVvN2UrNnRY?=
+ =?utf-8?B?bCtjcDNCVG0wTkRqM0l2bGxPVFp3WDlUdHdmcmJxUTd1TE5RRm41dU9BaTFY?=
+ =?utf-8?B?aWgwTnFyeFMvcUJ6Kzc5OVZDY1FXMkZKOTF2TWdhT3djMUtudVNETzQxeDd2?=
+ =?utf-8?B?c0s5TkE3bFhVd2NEWVBxMk1Pd3J4MThKTmhLWllZRnYvUDBxMzlCZHdpa2FJ?=
+ =?utf-8?B?MUxJVHdEUGE4SSt0Z2U5cmhyVHRGenp3RHk5bUNEYnBpazlnbVJWKzJGRUQ2?=
+ =?utf-8?B?ZUNmVnJtaExlZTFONGFyZDgvUkxMZENzNzhLOStYSzZ2TGRyanpjUFB5enlj?=
+ =?utf-8?B?anN6ekFNM2wrM2RzS3lRdkwvRFM4UHB6NXVzeWVRQ3JWTW93ejNMS01YZ3JH?=
+ =?utf-8?B?Y0haMWh3a3ZaZ0ljaTBLOGFQNFVlQ1NhMHJXVUlHT1FRNGpKQjFWSDBtQkFt?=
+ =?utf-8?B?OHRXQldRaTZaTnpFY0h4TmFqQlRVUjA4aFRVUWxCN29zOCtlajZ3YVR2aTB0?=
+ =?utf-8?B?MTJyeTNqR3g5YjkwMTRrcHRzeGhqZDBLN1lKNjZpd29FNjZKd1ZWSE5TZEhO?=
+ =?utf-8?B?VzlUQUlKajRSU1N4czhWdWdxK1llU2RoNS9KT0VFa3RLWkFFRENRSjAzU1Vo?=
+ =?utf-8?B?Y01zOFFMODJPaEQ4bTkrbkdzd2ZjRGEvTVBYZlN3RXdWN1V1U25MWG1sN0NM?=
+ =?utf-8?B?bmtQYm40c3JmZVowL0xnYmg2VWd3VEcxTzMyQzREWE9kRm5kT2plczExS1Fm?=
+ =?utf-8?B?RDVrbzkzcG1odGZSZWE0TlZsSzU4bGZpM3FDQXBFYlVibitaRVEwMDlqd0xZ?=
+ =?utf-8?B?RWpETGp2L1VQRVlHQ0RJT0NxTWltZWxwU1hhSlNmbFBSZTFCNUppb2hFMTJn?=
+ =?utf-8?B?Y0tPVVpRL0w1U21EU2FIQVhkVEphdGdjOGJYcEdFc1RjVnZ2S1FnT1ZFamdR?=
+ =?utf-8?B?eWdBbmhyYTcxK09QSFk1T3BCUWVsTDhUSVVMSzIyTlVmRXV0T1UrQTJSRW5P?=
+ =?utf-8?B?bTJrZnluNm1vNTkyaW5aS1psTFV4QWN2RnZuNHE3Z0RFK1MwalV4RXVaeWt3?=
+ =?utf-8?B?U1RvMWxYYjh0QW9QR3B4c0dsVmVPRFlJR3pITFhCWFJTaFNEcWgvK1lNbFdx?=
+ =?utf-8?B?b3R2a0l6YktNWmRMcU9jYndBWFUvWHNzenk0TEVOUEs3QWlMcFU2RnZtaGVD?=
+ =?utf-8?B?c0E9PQ==?=
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0: 
+	UKTJAUO3q0sghuFUKdNK7rSr3+26ZMaipkdPiZvhJNc6wEVZhwno+clU5y4O/Pp2HdYW9iY9QMLMMu16TGOXKV3oMqO6rCXomRyHdIh/WZfnTafxZz4bl4UmIM1aGNnza2BXXAKWMZhOy89w23kxxkLdAvcbSne+mnYN+gYyu7tBvhFK8HSJ0LyLN22ccrn8smNq6J3SS6TQxzSGOnTYS6o7//CFbHNaxMIx5yrdTbVTyM7juYmbzAKLezaOGOmFtu14XqszW5g5ilg3xVRAKAtNPlQ1UVvjqyIbahZr71mY+wKwbf0jJSiIyb3sQPinnCkfuOvXDXSGFWGk7WdKk6Kg2elkAL0MtyuzKyp8WFRxFURwuezmn8qYPRAVucqDnqEPXAVEdNx1UOd3F7bpYuRtRa2xDXL7LN8lY4qFNaaFTk2rnxKAhk7pgfiAPoaQtLchXox5YiNwAymXCHJi9qo4iFJIjwEDrTiPRcLepaAWdUPt4qYGcDZXXMW8XftWdeFHEbUV7EDIED/sBj8hfOAGscwNl2qU6E7IYjlsm9EBer516R1/bQotVqeWKIlKz5QLaotXqC9hIEHT5GXx1HmqlLAFlMZe5/AytMHkTeg=
+X-OriginatorOrg: oracle.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 58489bb1-ca80-451c-ae61-08dc80893636
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR10MB4313.namprd10.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 May 2024 09:16:39.0204
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 23374a66-34d1-43b1-8714-08dc8087696a
-X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	AM4PEPF00025F9A.EURPRD83.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB8PR08MB5499
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: B5GSa65PHgdF5oTKzy44z/QFhMi5Un1nMJTu2pndw9ivSAwVhBMG/01UeobuMRTKqOVi2hMHLSMrwmVHN7oHSQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR10MB5706
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.650,FMLib:17.12.28.16
+ definitions=2024-05-30_06,2024-05-28_01,2024-05-17_01
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 phishscore=0 malwarescore=0 bulkscore=0
+ suspectscore=0 mlxscore=0 adultscore=0 spamscore=0 mlxlogscore=999
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2405010000
+ definitions=main-2405300069
+X-Proofpoint-GUID: j10R_a81KfEQxABw76oXQWImEvLQnw5t
+X-Proofpoint-ORIG-GUID: j10R_a81KfEQxABw76oXQWImEvLQnw5t
 
-Hi Julien,
+On 29/05/2024 06:04, Christoph Hellwig wrote:
+> Assign all queue limits through a local queue_limits variable and
+> queue_limits_commit_update so that we can't race updating them from
+> multiple places, and free the queue when updating them so that
+> in-progress I/O submissions don't see half-updated limits.
+> 
+> Signed-off-by: Christoph Hellwig <hch@lst.de>
+> ---
+>   drivers/scsi/sd.c     | 126 ++++++++++++++++++++++++------------------
+>   drivers/scsi/sd.h     |   6 +-
+>   drivers/scsi/sd_zbc.c |  15 ++---
+>   3 files changed, 84 insertions(+), 63 deletions(-)
+> 
+> diff --git a/drivers/scsi/sd.c b/drivers/scsi/sd.c
+> index 2d08b69154b995..03e67936b27928 100644
+> --- a/drivers/scsi/sd.c
+> +++ b/drivers/scsi/sd.c
+> @@ -101,12 +101,13 @@ MODULE_ALIAS_SCSI_DEVICE(TYPE_ZBC);
+>   
+>   #define SD_MINORS	16
+>   
+> -static void sd_config_discard(struct scsi_disk *, unsigned int);
+> -static void sd_config_write_same(struct scsi_disk *);
+> +static void sd_config_discard(struct scsi_disk *sdkp, struct queue_limits *lim,
+> +		unsigned int mode);
 
-> On 30 May 2024, at 09:59, Julien Grall <julien@xen.org> wrote:
->=20
->=20
->=20
-> On 29/05/2024 22:34, Volodymyr Babchuk wrote:
->> Hi Julien,
->=20
-> Hi Volodymyr,
->=20
->> Julien Grall <julien@xen.org> writes:
->>> Hi Volodymyr,
->>>=20
->>> Can you clarify whether this is intended for the next release cycle?
->> Well, I don't think that this patch should be committed ASAP if this is
->> what you are asking about.
->>> On 29/05/2024 21:43, Volodymyr Babchuk wrote:
->>>> Allow to provide TEE type for a Dom0less guest via "xen,tee"
->>>> property. Create appropriate nodes in the guests' device tree and
->>>> initialize tee subsystem for it.
->>>=20
->>> The new property needs to be documented in
->>> docs/misc/arm/device-tree/booting.txt.
->>>=20
->> Yes, missed that.
->>>> Signed-off-by: Volodymyr Babchuk <volodymyr_babchuk@epam.com>
->>>> ---
->>>>   xen/arch/arm/dom0less-build.c     | 69 +++++++++++++++++++++++++++++=
-++
->>>>   xen/arch/arm/include/asm/kernel.h |  3 ++
->>>>   2 files changed, 72 insertions(+)
->>>> diff --git a/xen/arch/arm/dom0less-build.c
->>>> b/xen/arch/arm/dom0less-build.c
->>>> index fb63ec6fd1..1ea3ecc45c 100644
->>>> --- a/xen/arch/arm/dom0less-build.c
->>>> +++ b/xen/arch/arm/dom0less-build.c
->>>> @@ -15,6 +15,7 @@
->>>>   #include <asm/domain_build.h>
->>>>   #include <asm/static-memory.h>
->>>>   #include <asm/static-shmem.h>
->>>> +#include <asm/tee/tee.h>
->>>>     bool __init is_dom0less_mode(void)
->>>>   {
->>>> @@ -277,6 +278,42 @@ static int __init make_vpl011_uart_node(struct ke=
-rnel_info *kinfo)
->>>>   }
->>>>   #endif
->>>>   +#ifdef CONFIG_OPTEE
->>>> +static int __init make_optee_node(struct kernel_info *kinfo)
->>>=20
->>> Please introduce a callback in the TEE framework that will create the
->>> OPTEE node.
->> This is the reason why this is RFC.
->=20
-> If this is meant an RFC, then I would recommend to tag your series with R=
-FC. Similarly...
->=20
->=20
->> I wanted to discuss the right method
->> of doing this.
->=20
-> ... if you have any open questions. Then please write them down after the=
- "---" (so they are not committed). So this is not a guessing game for the =
-reviewer.
->=20
-> For instance, if you hadn't asked the question, I wouldn't have realized =
-you were not entirely happy with your solution. To me it looked fine becaus=
-e this is self-contained in an OP-TEE specific function.
->=20
->> "optee" node should reside in "/firmware/" node as per
->> device tree bindings. But "/firmware/" node can contain additional
->> entries, for example linux device tree bindings also define
->> "/firmware/sdei". So, probably correct solution is to implement function
->> "make_firmware_node()" in this file, which in turn will call TEE
->> framework.
->=20
-> Longer term possibly. But at the moment, we have no implementation of the=
- "sdei" node and I am not aware of any future plan. So I don't think it is =
-necessary to split the work in two functions.
->=20
->> But we are making assumption that all TEE implementation will have its
->> node inside "/firmware/". I am not 100% sure that this is correct. For
->> example I saw that Google Trusty uses "/trusty" node (directly inside
->> the DTS root). On other hand, it is not defined in dts bindings, as far
->> as I know.
->=20
-> TBH, if there is no official binding documentation, then Xen cannot sensi=
-bly create those nodes because they are not "stable". So the first step wou=
-ld be to have official binding.
->=20
->=20
-> Bertrand, I couldn't find any documentation for the FFA binding. Do you k=
-now if they will be created under /firmware?
+Are there any reasons why we keep forward declarations like this? 
+AFAICS, this sd_config_discard forward declaration could be removed.
 
-There is not device tree entry needed for FF-A because it is detected throu=
-gh a FF-A call.
+> +static void sd_config_write_same(struct scsi_disk *sdkp,
+> +		struct queue_limits *lim);
+>   static int  sd_revalidate_disk(struct gendisk *);
+>   static void sd_unlock_native_capacity(struct gendisk *disk);
+>   static void sd_shutdown(struct device *);
+> -static void sd_read_capacity(struct scsi_disk *sdkp, unsigned char *buffer);
+>   static void scsi_disk_release(struct device *cdev);
+>   
+>   static DEFINE_IDA(sd_index_ida);
+> @@ -456,7 +457,8 @@ provisioning_mode_store(struct device *dev, struct device_attribute *attr,
+>   {
+>   	struct scsi_disk *sdkp = to_scsi_disk(dev);
+>   	struct scsi_device *sdp = sdkp->device;
+> -	int mode;
+> +	struct queue_limits lim;
+> +	int mode, err;
+>   
+>   	if (!capable(CAP_SYS_ADMIN))
+>   		return -EACCES;
+> @@ -472,8 +474,13 @@ provisioning_mode_store(struct device *dev, struct device_attribute *attr,
+>   	if (mode < 0)
+>   		return -EINVAL;
+>   
+> -	sd_config_discard(sdkp, mode);
+> -
+> +	lim = queue_limits_start_update(sdkp->disk->queue);
+> +	sd_config_discard(sdkp, &lim, mode);
+> +	blk_mq_freeze_queue(sdkp->disk->queue);
+> +	err = queue_limits_commit_update(sdkp->disk->queue, &lim);
+> +	blk_mq_unfreeze_queue(sdkp->disk->queue);
+> +	if (err)
+> +		return err;
+>   	return count;
+>   }
+>   static DEVICE_ATTR_RW(provisioning_mode);
+> @@ -556,6 +563,7 @@ max_write_same_blocks_store(struct device *dev, struct device_attribute *attr,
+>   {
+>   	struct scsi_disk *sdkp = to_scsi_disk(dev);
+>   	struct scsi_device *sdp = sdkp->device;
+> +	struct queue_limits lim;
+>   	unsigned long max;
+>   	int err;
+>   
+> @@ -577,8 +585,13 @@ max_write_same_blocks_store(struct device *dev, struct device_attribute *attr,
+>   		sdkp->max_ws_blocks = max;
+>   	}
+>   
+> -	sd_config_write_same(sdkp);
+> -
+> +	lim = queue_limits_start_update(sdkp->disk->queue);
+> +	sd_config_write_same(sdkp, &lim);
+> +	blk_mq_freeze_queue(sdkp->disk->queue);
+> +	err = queue_limits_commit_update(sdkp->disk->queue, &lim);
+> +	blk_mq_unfreeze_queue(sdkp->disk->queue);
+> +	if (err)
+> +		return err;
+>   	return count;
+>   }
+>   static DEVICE_ATTR_RW(max_write_same_blocks);
+> @@ -827,17 +840,15 @@ static void sd_disable_discard(struct scsi_disk *sdkp)
+>   	blk_queue_max_discard_sectors(sdkp->disk->queue, 0);
+>   }
+>   
+> -static void sd_config_discard(struct scsi_disk *sdkp, unsigned int mode)
+> +static void sd_config_discard(struct scsi_disk *sdkp, struct queue_limits *lim,
+> +		unsigned int mode)
+>   {
+> -	struct request_queue *q = sdkp->disk->queue;
+>   	unsigned int logical_block_size = sdkp->device->sector_size;
+>   	unsigned int max_blocks = 0;
+>   
+> -	q->limits.discard_alignment =
+> -		sdkp->unmap_alignment * logical_block_size;
+> -	q->limits.discard_granularity =
+> -		max(sdkp->physical_block_size,
+> -		    sdkp->unmap_granularity * logical_block_size);
+> +	lim->discard_alignment = sdkp->unmap_alignment * logical_block_size;
+> +	lim->discard_granularity = max(sdkp->physical_block_size,
+> +			sdkp->unmap_granularity * logical_block_size);
+>   	sdkp->provisioning_mode = mode;
+>   
+>   	switch (mode) {
+> @@ -875,7 +886,8 @@ static void sd_config_discard(struct scsi_disk *sdkp, unsigned int mode)
+>   		break;
+>   	}
+>   
+> -	blk_queue_max_discard_sectors(q, max_blocks * (logical_block_size >> 9));
+> +	lim->max_hw_discard_sectors = max_blocks *
+> +		(logical_block_size >> SECTOR_SHIFT);
+>   }
+>   
+>   static void *sd_set_special_bvec(struct request *rq, unsigned int data_len)
+> @@ -1010,9 +1022,9 @@ static void sd_disable_write_same(struct scsi_disk *sdkp)
+>   	blk_queue_max_write_zeroes_sectors(sdkp->disk->queue, 0);
+>   }
+>   
+> -static void sd_config_write_same(struct scsi_disk *sdkp)
+> +static void sd_config_write_same(struct scsi_disk *sdkp,
+> +		struct queue_limits *lim)
+>   {
+> -	struct request_queue *q = sdkp->disk->queue;
+>   	unsigned int logical_block_size = sdkp->device->sector_size;
+>   
+>   	if (sdkp->device->no_write_same) {
+> @@ -1066,8 +1078,8 @@ static void sd_config_write_same(struct scsi_disk *sdkp)
+>   	}
+>   
+>   out:
+> -	blk_queue_max_write_zeroes_sectors(q, sdkp->max_ws_blocks *
+> -					 (logical_block_size >> 9));
+> +	lim->max_write_zeroes_sectors =
+> +		sdkp->max_ws_blocks * (logical_block_size >> 9);
 
->=20
->>>>   /*
->>>>    * Scan device tree properties for passthrough specific information.
->>>>    * Returns < 0 on error
->>>> @@ -650,6 +687,15 @@ static int __init prepare_dtb_domU(struct domain =
-*d, struct kernel_info *kinfo)
->>>>       if ( ret )
->>>>           goto err;
->>>>   +#ifdef CONFIG_OPTEE
->>>> +    if ( kinfo->tee_type =3D=3D XEN_DOMCTL_CONFIG_TEE_OPTEE)
->>>> +    {
->>>> +        ret =3D make_optee_node(kinfo);
->>>> +        if ( ret )
->>>> +            goto err;
->>>> +    }
->>>> +#endif
->>>> +
->>>>       /*
->>>>        * domain_handle_dtb_bootmodule has to be called before the rest=
- of
->>>>        * the device tree is generated because it depends on the value =
-of
->>>> @@ -743,6 +789,9 @@ static int __init construct_domU(struct domain *d,
->>>>   {
->>>>       struct kernel_info kinfo =3D {};
->>>>       const char *dom0less_enhanced;
->>>> +#ifdef CONFIG_TEE
->>>> +    const char *tee;
->>>> +#endif
->>>>       int rc;
->>>>       u64 mem;
->>>>       u32 p2m_mem_mb;
->>>> @@ -786,6 +835,18 @@ static int __init construct_domU(struct domain *d=
-,
->>>>       else if ( rc =3D=3D 0 && !strcmp(dom0less_enhanced, "no-xenstore=
-") )
->>>>           kinfo.dom0less_feature =3D DOM0LESS_ENHANCED_NO_XS;
->>>>   +#ifdef CONFIG_TEE
->>>=20
->>> I would rather prefer if this code is implemented in tee.c. We also...
->>>=20
->>>> +    rc =3D dt_property_read_string(node, "xen,tee", &tee);
->>>=20
->>> ... want to return an error if "xen,tee" exists because CONFIG_TEE is
->>> not set.
->>>=20
->>>> +    if ( rc =3D=3D -EILSEQ ||
->>>> +         rc =3D=3D -ENODATA ||
->>>> +         (rc =3D=3D 0 && !strcmp(tee, "none")) )
->>>> +    {
->>>> +        if ( !hardware_domain )
->>>=20
->>>=20
->>> I don't understand this check. Why would we require dom0 for OP-TEE?
->> OP-TEE is enabled for Dom0 unconditionally in create_dom0(void);
->=20
-> I am sorry but this still doesn't make sense. AFAICT, this path is only u=
-sed by domU. In some dom0less setup, we may not have dom0 at all. So why do=
- you want to prevent OP-TEE for such case?
->=20
-> Or are you intending to check that "d" is not the hardware domain? If so,=
- you have the wrong check (you want to check is_hardware_domain(d) and AFAI=
-K this path is not called for dom0.
->=20
->> This is another topic I wanted to discuss, actually, Should we use the
->> same "xen,tee" for Dom0? In this case we might want to alter Dom0 DTB to
->> remove TEE entry if user wants it to be disabled.
-> Is there any existing use case to disable OP-TEE in dom0? I am asking bec=
-ause removing the nodes will make the code a bit more complicated. So if th=
-ere is no need, then my preference is to not do it.
+Would it be ok to use SECTOR_SHIFT here? A similar change is made in 
+sd_config_discard(), above
 
-I would say there are several:
-- optee not supported in Xen (dom0 cannot access it anyway)
-- optee to be used in a guest instead of dom0
-- ff-a used to communicate with optee (in this case optee support is not us=
-ed but ff-a is).
+>   }
+>   
+>   static blk_status_t sd_setup_flush_cmnd(struct scsi_cmnd *cmd)
+> @@ -2523,7 +2535,7 @@ static void read_capacity_error(struct scsi_disk *sdkp, struct scsi_device *sdp,
+>   #define READ_CAPACITY_RETRIES_ON_RESET	10
+>   
+>   static int read_capacity_16(struct scsi_disk *sdkp, struct scsi_device *sdp,
+> -						unsigned char *buffer)
+> +		struct queue_limits *lim, unsigned char *buffer)
+>   {
+>   	unsigned char cmd[16];
+>   	struct scsi_sense_hdr sshdr;
+> @@ -2597,7 +2609,7 @@ static int read_capacity_16(struct scsi_disk *sdkp, struct scsi_device *sdp,
+>   
+>   	/* Lowest aligned logical block */
+>   	alignment = ((buffer[14] & 0x3f) << 8 | buffer[15]) * sector_size;
+> -	blk_queue_alignment_offset(sdp->request_queue, alignment);
+> +	lim->alignment_offset = alignment;
+>   	if (alignment && sdkp->first_scan)
+>   		sd_printk(KERN_NOTICE, sdkp,
+>   			  "physical block alignment offset: %u\n", alignment);
+> @@ -2608,7 +2620,7 @@ static int read_capacity_16(struct scsi_disk *sdkp, struct scsi_device *sdp,
+>   		if (buffer[14] & 0x40) /* LBPRZ */
+>   			sdkp->lbprz = 1;
+>   
+> -		sd_config_discard(sdkp, SD_LBP_WS16);
+> +		sd_config_discard(sdkp, lim, SD_LBP_WS16);
+>   	}
+>   
+>   	sdkp->capacity = lba + 1;
+> @@ -2711,13 +2723,14 @@ static int sd_try_rc16_first(struct scsi_device *sdp)
+>    * read disk capacity
+>    */
+>   static void
+> -sd_read_capacity(struct scsi_disk *sdkp, unsigned char *buffer)
+> +sd_read_capacity(struct scsi_disk *sdkp, struct queue_limits *lim,
+> +		unsigned char *buffer)
+>   {
+>   	int sector_size;
+>   	struct scsi_device *sdp = sdkp->device;
+>   
+>   	if (sd_try_rc16_first(sdp)) {
+> -		sector_size = read_capacity_16(sdkp, sdp, buffer);
+> +		sector_size = read_capacity_16(sdkp, sdp, lim, buffer);
+>   		if (sector_size == -EOVERFLOW)
+>   			goto got_data;
+>   		if (sector_size == -ENODEV)
+> @@ -2737,7 +2750,7 @@ sd_read_capacity(struct scsi_disk *sdkp, unsigned char *buffer)
+>   			int old_sector_size = sector_size;
+>   			sd_printk(KERN_NOTICE, sdkp, "Very big device. "
+>   					"Trying to use READ CAPACITY(16).\n");
+> -			sector_size = read_capacity_16(sdkp, sdp, buffer);
+> +			sector_size = read_capacity_16(sdkp, sdp, lim, buffer);
+>   			if (sector_size < 0) {
+>   				sd_printk(KERN_NOTICE, sdkp,
+>   					"Using 0xffffffff as device size\n");
+> @@ -2796,9 +2809,8 @@ sd_read_capacity(struct scsi_disk *sdkp, unsigned char *buffer)
+>   		 */
+>   		sector_size = 512;
+>   	}
+> -	blk_queue_logical_block_size(sdp->request_queue, sector_size);
+> -	blk_queue_physical_block_size(sdp->request_queue,
+> -				      sdkp->physical_block_size);
+> +	lim->logical_block_size = sector_size;
+> +	lim->physical_block_size = sdkp->physical_block_size;
+>   	sdkp->device->sector_size = sector_size;
+>   
+>   	if (sdkp->capacity > 0xffffffff)
+> @@ -3220,11 +3232,11 @@ static unsigned int sd_discard_mode(struct scsi_disk *sdkp)
+>   	return SD_LBP_DISABLE;
+>   }
+>   
+> -/**
+> - * sd_read_block_limits - Query disk device for preferred I/O sizes.
+> - * @sdkp: disk to query
+> +/*
+> + * Query disk device for preferred I/O sizes.
+>    */
+> -static void sd_read_block_limits(struct scsi_disk *sdkp)
+> +static void sd_read_block_limits(struct scsi_disk *sdkp,
+> +		struct queue_limits *lim)
+>   {
+>   	struct scsi_vpd *vpd;
+>   
+> @@ -3258,7 +3270,7 @@ static void sd_read_block_limits(struct scsi_disk *sdkp)
+>   			sdkp->unmap_alignment =
+>   				get_unaligned_be32(&vpd->data[32]) & ~(1 << 31);
+>   
+> -		sd_config_discard(sdkp, sd_discard_mode(sdkp));
+> +		sd_config_discard(sdkp, lim, sd_discard_mode(sdkp));
+>   	}
+>   
+>    out:
+> @@ -3278,10 +3290,10 @@ static void sd_read_block_limits_ext(struct scsi_disk *sdkp)
+>   }
+>   
+>   /**
 
-On this subject, I will not ask you to add support for FF-A for this but wh=
-atever you do please keep in mind
-that we will probably add the same for FF-A so that we end up with somethin=
-g coherent where the tee can
-be selected by configuration for guests or by device tree for dom0 or dom0l=
-ess guests.
+below is not a kernel doc comment
 
-I will make a path on the next version of the patch for this.
+> - * sd_read_block_characteristics - Query block dev. characteristics
+> - * @sdkp: disk to query
+> + * Query block dev. characteristics
+>    */
+> -static void sd_read_block_characteristics(struct scsi_disk *sdkp)
+> +static void sd_read_block_characteristics(struct scsi_disk *sdkp,
+> +		struct queue_limits *lim)
+>   {
+>   	struct request_queue *q = sdkp->disk->queue;
+>   	struct scsi_vpd *vpd;
+> @@ -3307,29 +3319,26 @@ static void sd_read_block_characteristics(struct scsi_disk *sdkp)
+>   
+>   #ifdef CONFIG_BLK_DEV_ZONED /* sd_probe rejects ZBD devices early otherwise */
+>   	if (sdkp->device->type == TYPE_ZBC) {
+> -		/*
+> -		 * Host-managed.
+> -		 */
+> -		disk_set_zoned(sdkp->disk);
+> +		lim->zoned = true;
+>   
+>   		/*
+>   		 * Per ZBC and ZAC specifications, writes in sequential write
+>   		 * required zones of host-managed devices must be aligned to
+>   		 * the device physical block size.
+>   		 */
+> -		blk_queue_zone_write_granularity(q, sdkp->physical_block_size);
+> +		lim->zone_write_granularity = sdkp->physical_block_size;
+>   	} else {
+>   		/*
+>   		 * Host-aware devices are treated as conventional.
+>   		 */
+> -		WARN_ON_ONCE(blk_queue_is_zoned(q));
+> +		lim->zoned = false;
+>   	}
+>   #endif /* CONFIG_BLK_DEV_ZONED */
+>   
+>   	if (!sdkp->first_scan)
+>   		return;
+>   
+> -	if (blk_queue_is_zoned(q))
+> +	if (lim->zoned)
+>   		sd_printk(KERN_NOTICE, sdkp, "Host-managed zoned block device\n");
+>   	else if (sdkp->zoned == 1)
+>   		sd_printk(KERN_NOTICE, sdkp, "Host-aware SMR disk used as regular disk\n");
+> @@ -3605,8 +3614,10 @@ static int sd_revalidate_disk(struct gendisk *disk)
+>   	struct scsi_device *sdp = sdkp->device;
+>   	struct request_queue *q = sdkp->disk->queue;
+>   	sector_t old_capacity = sdkp->capacity;
+> +	struct queue_limits lim;
+>   	unsigned char *buffer;
+>   	unsigned int dev_max;
+> +	int err;
+>   
+>   	SCSI_LOG_HLQUEUE(3, sd_printk(KERN_INFO, sdkp,
+>   				      "sd_revalidate_disk\n"));
+> @@ -3627,12 +3638,14 @@ static int sd_revalidate_disk(struct gendisk *disk)
+>   
+>   	sd_spinup_disk(sdkp);
+>   
+> +	lim = queue_limits_start_update(sdkp->disk->queue);
+> +
+>   	/*
+>   	 * Without media there is no reason to ask; moreover, some devices
+>   	 * react badly if we do.
+>   	 */
+>   	if (sdkp->media_present) {
+> -		sd_read_capacity(sdkp, buffer);
+> +		sd_read_capacity(sdkp, &lim, buffer);
+>   		/*
+>   		 * Some USB/UAS devices return generic values for mode pages
+>   		 * until the media has been accessed. Trigger a READ operation
+> @@ -3651,10 +3664,10 @@ static int sd_revalidate_disk(struct gendisk *disk)
+>   
+>   		if (scsi_device_supports_vpd(sdp)) {
+>   			sd_read_block_provisioning(sdkp);
+> -			sd_read_block_limits(sdkp);
+> +			sd_read_block_limits(sdkp, &lim);
+>   			sd_read_block_limits_ext(sdkp);
+> -			sd_read_block_characteristics(sdkp);
+> -			sd_zbc_read_zones(sdkp, buffer);
+> +			sd_read_block_characteristics(sdkp, &lim);
+> +			sd_zbc_read_zones(sdkp, &lim, buffer);
+>   			sd_read_cpr(sdkp);
+>   		}
+>   
+> @@ -3683,28 +3696,33 @@ static int sd_revalidate_disk(struct gendisk *disk)
+>   	q->limits.max_dev_sectors = logical_to_sectors(sdp, dev_max);
 
-Cheers
-Bertrand
 
+is setting q->limits.max_dev_sectors directly proper?
+
+>   
+>   	if (sd_validate_min_xfer_size(sdkp))
+> -		blk_queue_io_min(sdkp->disk->queue,
+> -				 logical_to_bytes(sdp, sdkp->min_xfer_blocks));
+> +		lim.io_min = logical_to_bytes(sdp, sdkp->min_xfer_blocks);
+>   	else
+> -		blk_queue_io_min(sdkp->disk->queue, 0);
+> +		lim.io_min = 0;
+>   
+>   	/*
+>   	 * Limit default to SCSI host optimal sector limit if set. There may be
+>   	 * an impact on performance for when the size of a request exceeds this
+>   	 * host limit.
+>   	 */
+> -	q->limits.io_opt = sdp->host->opt_sectors << SECTOR_SHIFT;
+> +	lim.io_opt = sdp->host->opt_sectors << SECTOR_SHIFT;
+>   	if (sd_validate_opt_xfer_size(sdkp, dev_max)) {
+> -		q->limits.io_opt = min_not_zero(q->limits.io_opt,
+> +		lim.io_opt = min_not_zero(lim.io_opt,
+>   				logical_to_bytes(sdp, sdkp->opt_xfer_blocks));
+>   	}
+>   
+>   	sdkp->first_scan = 0;
+>   
+>   	set_capacity_and_notify(disk, logical_to_sectors(sdp, sdkp->capacity));
+> -	sd_config_write_same(sdkp);
+> +	sd_config_write_same(sdkp, &lim);
+>   	kfree(buffer);
+>   
 
 
