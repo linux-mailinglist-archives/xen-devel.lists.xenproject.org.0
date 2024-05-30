@@ -2,37 +2,65 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 943328D4C5A
-	for <lists+xen-devel@lfdr.de>; Thu, 30 May 2024 15:16:04 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.732716.1138756 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DE1DC8D4C86
+	for <lists+xen-devel@lfdr.de>; Thu, 30 May 2024 15:23:31 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.732725.1138765 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sCfdG-0006uD-2p; Thu, 30 May 2024 13:15:50 +0000
+	id 1sCfkK-0000I3-SK; Thu, 30 May 2024 13:23:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 732716.1138756; Thu, 30 May 2024 13:15:50 +0000
+Received: by outflank-mailman (output) from mailman id 732725.1138765; Thu, 30 May 2024 13:23:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sCfdF-0006r1-VD; Thu, 30 May 2024 13:15:49 +0000
-Received: by outflank-mailman (input) for mailman id 732716;
- Thu, 30 May 2024 13:15:48 +0000
+	id 1sCfkK-0000G7-PX; Thu, 30 May 2024 13:23:08 +0000
+Received: by outflank-mailman (input) for mailman id 732725;
+ Thu, 30 May 2024 13:23:07 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=MghO=NB=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1sCfdE-0006qr-ND
- for xen-devel@lists.xenproject.org; Thu, 30 May 2024 13:15:48 +0000
-Received: from mail-qk1-x733.google.com (mail-qk1-x733.google.com
- [2607:f8b0:4864:20::733])
+ <SRS0=lthE=NB=arm.com=Bertrand.Marquis@srs-se1.protection.inumbo.net>)
+ id 1sCfkJ-0000G1-Ec
+ for xen-devel@lists.xenproject.org; Thu, 30 May 2024 13:23:07 +0000
+Received: from EUR03-DBA-obe.outbound.protection.outlook.com
+ (mail-dbaeur03on20601.outbound.protection.outlook.com
+ [2a01:111:f403:260d::601])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id ba12cf6b-1e86-11ef-90a1-e314d9c70b13;
- Thu, 30 May 2024 15:15:47 +0200 (CEST)
-Received: by mail-qk1-x733.google.com with SMTP id
- af79cd13be357-794ab12341aso88920485a.1
- for <xen-devel@lists.xenproject.org>; Thu, 30 May 2024 06:15:47 -0700 (PDT)
-Received: from localhost ([213.195.114.223]) by smtp.gmail.com with ESMTPSA id
- af79cd13be357-794abcdca88sm552340385a.66.2024.05.30.06.15.45
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 30 May 2024 06:15:45 -0700 (PDT)
+ id bf9e4918-1e87-11ef-90a1-e314d9c70b13;
+ Thu, 30 May 2024 15:23:06 +0200 (CEST)
+Received: from AS4P189CA0060.EURP189.PROD.OUTLOOK.COM (2603:10a6:20b:659::15)
+ by AS8PR08MB7864.eurprd08.prod.outlook.com (2603:10a6:20b:52f::20)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7611.30; Thu, 30 May
+ 2024 13:23:00 +0000
+Received: from AM1PEPF000252DB.eurprd07.prod.outlook.com
+ (2603:10a6:20b:659:cafe::c6) by AS4P189CA0060.outlook.office365.com
+ (2603:10a6:20b:659::15) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7633.21 via Frontend
+ Transport; Thu, 30 May 2024 13:23:00 +0000
+Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
+ AM1PEPF000252DB.mail.protection.outlook.com (10.167.16.53) with
+ Microsoft
+ SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.20.7633.15
+ via Frontend Transport; Thu, 30 May 2024 13:23:00 +0000
+Received: ("Tessian outbound a0025cf119c5:v327");
+ Thu, 30 May 2024 13:22:59 +0000
+Received: from 7a062bfab231.1
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com id
+ 6F2FFDA0-1461-4C6A-A8D9-0EEF65A1F537.1; 
+ Thu, 30 May 2024 13:22:53 +0000
+Received: from EUR04-DB3-obe.outbound.protection.outlook.com
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id 7a062bfab231.1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
+ Thu, 30 May 2024 13:22:53 +0000
+Received: from DB9PR08MB6588.eurprd08.prod.outlook.com (2603:10a6:10:25a::24)
+ by AS8PR08MB7887.eurprd08.prod.outlook.com (2603:10a6:20b:52b::16)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7633.21; Thu, 30 May
+ 2024 13:22:50 +0000
+Received: from DB9PR08MB6588.eurprd08.prod.outlook.com
+ ([fe80::a8fc:ea0d:baf1:23a]) by DB9PR08MB6588.eurprd08.prod.outlook.com
+ ([fe80::a8fc:ea0d:baf1:23a%5]) with mapi id 15.20.7611.030; Thu, 30 May 2024
+ 13:22:50 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,207 +72,200 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ba12cf6b-1e86-11ef-90a1-e314d9c70b13
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1717074946; x=1717679746; darn=lists.xenproject.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=9+qqFQq3i9fpO4By1QcUnaKmtZDkBza7jyHqUqOSYUQ=;
-        b=tX0lr+N6YI/pTKoLIATLWxIpa+BfgaF4yI1JAIMvnpRrc86W2Vtzcns1lwITC1To1O
-         R1J1JqSMOrbleYDcHS8iLwmLObV6NKGZcjEwNiePhCvmqooFYzb0U3fI9fVgWfDTRlt+
-         FKU40fBf9syCFd8CoQblaPKj2+XagwO1dz8CU=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1717074946; x=1717679746;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=9+qqFQq3i9fpO4By1QcUnaKmtZDkBza7jyHqUqOSYUQ=;
-        b=JPRIvimqr5vYfKxohKsda7y1WOYtVMmWQTZlqCOzN7P/O6krNpu+0c5dHsCadDdOBj
-         1fK3RRMoCfp/0YjFO65Ze9JgZjfUl9o1ra270gH4kZN7on6n7bGPRdv8sVga5OCtoTWf
-         z+fkdC6uvaOMz8chTyvV0zmy/6bcH1UdmYLTJHfDclgHQszqIyGuttf6K2x+3nNmZqzg
-         T5D2xxY1PXpJVMjre5Yv/yZBiOCmFe2rZkzjyCoGT4ViDW420kqxnr91Rk+D4x5OVj02
-         YttSd7twIng22mkYplA6urPQELlxaD2+OCxczydQfn+5Yqshp5XzTy6VjxRfn2L01q4z
-         9uRw==
-X-Gm-Message-State: AOJu0YzlcTSp2SzwSrGT5eLfaqe3160qUOnQ4N03TbxebIcYtjIEf/59
-	+hxGdpUoRKUHlE3GvkBh6QSs0VfZoNXAD9HuU6HvAKt0yAiesxWrFzxVRRxXbZM=
-X-Google-Smtp-Source: AGHT+IFsmOvsoe0XMJa9f4G/2/j2L1HfkUjQfPzr6qOAXFu6m/dFtUDSbMZnR//tpZ5JwNRbTxDxmA==
-X-Received: by 2002:a05:620a:4506:b0:794:e68c:260a with SMTP id af79cd13be357-794eaeb14aemr314917085a.4.1717074946225;
-        Thu, 30 May 2024 06:15:46 -0700 (PDT)
-Date: Thu, 30 May 2024 15:15:43 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: =?utf-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Cc: xen-devel@lists.xenproject.org, Dario Faggioli <dfaggioli@suse.com>,
-	George Dunlap <george.dunlap@citrix.com>
-Subject: Re: CPU_DOWN_FAILED hits ASSERTs in scheduling logic
-Message-ID: <Zlh7_zYCV0Pc8ZUl@macbook>
-References: <ZlW-ZyFeAzvh3pGG@macbook>
- <a749c066-0c05-47dd-b499-e712e5454033@suse.com>
- <ZlcjiOJyAuvyy48n@macbook>
- <1147a06d-d9ec-4fa9-a1d0-dfecd7a670dc@suse.com>
- <ZldRusciaXuwTC9u@macbook>
- <bba693b3-ad73-4fb8-ae9c-dba025f6f5c1@suse.com>
+X-Inumbo-ID: bf9e4918-1e87-11ef-90a1-e314d9c70b13
+ARC-Seal: i=2; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=pass;
+ b=TowmUU8xO316RJ7dL9LKEFjVUnBj7gTIOJRV/JwDmGzBU9cwN+jJHFJtYASYfoXIQPMP/pn6ZnNcwIimyLmsiMLa3tLg1YtryjXjRXXOahkMffeQWd6H+UJD3MMHT4BPvcgugo4ksq7a4L8T9BpcWqOWoyHPt5qkuYpVDcl8H7Au6o2YMftwKEnbZfAZDONqCzcsb19UfL/E+DIeUVNUNkmwp72/Pl8hCwt+Zsc7XVqd2qm40zNO+T4ZrVficooYu+I0LxiIzPRqfGT9MWInGiPrLrLhX1rLHIbP8kquDsfPGX0FJbxKJydJ+uV7XBeWq21dvbwOmXbhw/htx86n/g==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=xvybumCqWgkYIZD6Th8cbehhH1VZ5yOfQbP5Ck7p3bU=;
+ b=FkmpZ7iv/YO9eZiItsRKl9FhoR9nFpgY6D5esr8SZN8qMn++KinGADW8ooSxeHWkeYuQOsWF/d89VTd9TvlerNcxzcNlO4psXTsaqV3IhL2o3wiyxulvBH9L7bxkHncd6NvH0MjSEmltKnZ3F6ojBy1p20mCJQe4hffACF+M8ptjeCeWXBV6N5gFd1NA4CyXc7r5319xQqrjU8aifSeSb/8ktIdP8/lQVwXhc9/zuzQuT1bf/Qv/OqpqIOfdzQKgIEovunKKc0Udr4XD39W57FIX48aNFTlA9fuZD+zxQ8uDRlzfsO0flv07VzR3tvnDwMcwWuRMHzCtDFvc5pkH1w==
+ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
+ 63.35.35.123) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=arm.com;
+ dmarc=pass (p=none sp=none pct=100) action=none header.from=arm.com;
+ dkim=pass (signature was verified) header.d=arm.com; arc=pass (0 oda=1 ltdi=1
+ spf=[1,1,smtp.mailfrom=arm.com] dkim=[1,1,header.d=arm.com]
+ dmarc=[1,1,header.from=arm.com])
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=xvybumCqWgkYIZD6Th8cbehhH1VZ5yOfQbP5Ck7p3bU=;
+ b=jz/ysq173zQtZnvCCrKjxUFV+wKzAVQGWy5+XHDW66IjZ/dTfY7u5/g8/zrwW/+j1CmEaJo0C1Vnq0aWV5xx1QgCIGCOJ/FR+uTMdTZNLbaRAWkiFsMbBJ9dDZqGvmvSUA1YORDeHRHIpLJ/tUtcb3Zh6055oWEEipsUSS0ycTk=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
+ smtp.mailfrom=arm.com; dkim=pass (signature was verified)
+ header.d=arm.com;dmarc=pass action=none header.from=arm.com;
+Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
+ 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
+ client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
+ pr=C
+X-CheckRecipientChecked: true
+X-CR-MTA-CID: 38323b2e27ca1ca1
+X-CR-MTA-TID: 64aa7808
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=UNVsBOsGqqIia0frtU04RjPQDJJTjqpZDVqfiI01idOnN/1KO0BC4C6oeMxVXEHIDn+Ext/aDCsN0WIpZG+PTmhvxknRs0uMlAfFuz1qbkCoYUEmB/ksMJfDW8gDn0yFbSxOGVpEGZlzs2/iQun1iOvQzuEg5nkNVkFAdKf3qfC73E7/NkyXdOTxeCnRg8AeCR60vvuD3P6OX+bvvvWdxxvUCisSBKkrdD2Q+UhxPNVsgUG9oMUItO4lShMGRqhuFdimbllktAoMwBCifle9S5iTHDuLaLcafA7AL8zu+ea9QFo82X5zEcy9HVBRgGZSxCxJEJJhCKxc0Lw714x/5g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=xvybumCqWgkYIZD6Th8cbehhH1VZ5yOfQbP5Ck7p3bU=;
+ b=JxG/rt/x+ucDP4QVGeHMwCdBWEiqxsx2VethMvl2rL9/NaEUn/tjSPKaH8s7LYyZjZenrqPqDucyTngHtKC2xta0IZtl9vv1EjfTRMaHSPFSiBDRostRXsRm9CkiqinmoOYsx1dw01TS6/YASNuLfVx8OxP5PELp/0ZVd6EkAvcejrRg6Zn02Q0s2VLhhHRfBJ1QyJpnuTCGQSlh1MJszDp9786QbdrNqDnicsBoUwDDV7hArDx243toCsU+CltuI99dSntoIuCuoyI0PrwC4vsYhJ4cE01+7OA9XxSW7B67LfkZZN1dGFAhGObQxzVCGLazwHelPtH0+Rc0du1Giw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
+ header.d=arm.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=xvybumCqWgkYIZD6Th8cbehhH1VZ5yOfQbP5Ck7p3bU=;
+ b=jz/ysq173zQtZnvCCrKjxUFV+wKzAVQGWy5+XHDW66IjZ/dTfY7u5/g8/zrwW/+j1CmEaJo0C1Vnq0aWV5xx1QgCIGCOJ/FR+uTMdTZNLbaRAWkiFsMbBJ9dDZqGvmvSUA1YORDeHRHIpLJ/tUtcb3Zh6055oWEEipsUSS0ycTk=
+From: Bertrand Marquis <Bertrand.Marquis@arm.com>
+To: Julien Grall <julien@xen.org>
+CC: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Stefano
+ Stabellini <sstabellini@kernel.org>, Michal Orzel <michal.orzel@amd.com>
+Subject: Re: [PATCH] arm: dom0less: add TEE support
+Thread-Topic: [PATCH] arm: dom0less: add TEE support
+Thread-Index: AQHasgjZKwS4pdCyJUe9LewXYMLHeLGutaSAgAAAkICAANCCAIAAD1cAgAAuxIA=
+Date: Thu, 30 May 2024 13:22:50 +0000
+Message-ID: <E337CF92-42DE-424C-95D5-97FF096885B1@arm.com>
+References: <20240529204305.1402036-1-volodymyr_babchuk@epam.com>
+ <be133b0b-5b22-4b82-b5f6-3c257b45553f@xen.org> <87bk4oxpxk.fsf@epam.com>
+ <CBB42DF2-94AE-4566-B83D-3AB3CB2E01DE@arm.com>
+ <047ca670-cd9e-4803-8083-7770b7230042@xen.org>
+In-Reply-To: <047ca670-cd9e-4803-8083-7770b7230042@xen.org>
+Accept-Language: en-GB, en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-mailer: Apple Mail (2.3774.500.171.1.1)
+Authentication-Results-Original: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=arm.com;
+x-ms-traffictypediagnostic:
+	DB9PR08MB6588:EE_|AS8PR08MB7887:EE_|AM1PEPF000252DB:EE_|AS8PR08MB7864:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6e4c6108-b476-4edd-a8ac-08dc80aba0bc
+x-checkrecipientrouted: true
+nodisclaimer: true
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam-Untrusted:
+ BCL:0;ARA:13230031|366007|1800799015|376005|38070700009;
+X-Microsoft-Antispam-Message-Info-Original:
+ =?us-ascii?Q?kdS/2RUbUNW0R4jGkJ10mXHxtMZ0XWEIRdUVpBi4DFpFcwc6YfGd2vHX12Kf?=
+ =?us-ascii?Q?5re2sFKXNG6gU+YxiMwN9d4M5IiPps7F9a1XIhNgpza0R1N07QgBFKcW1ycD?=
+ =?us-ascii?Q?mj6teShBRBPbAyi0Ro1RzLEqGvMsaXg1/hTGMe27RxokOtZLMNzjQ8koidEj?=
+ =?us-ascii?Q?hOhU7fjZ9IFtiyqO1dssd9SlE/FmwpitI1Yet0RbIDlzTernbT5bxTqFkwkf?=
+ =?us-ascii?Q?wWU6L8zmeQ8DaMYeYY/LEG/Q4bM1MgwgHrswUTlGeEZPb8CWDXdzGbsw3y5h?=
+ =?us-ascii?Q?ZQ1vRotfTRdSvmiW3HB3s3SNnJURF4hw2xNw2M4YzMmTPlFk9D+DkXFh1jxY?=
+ =?us-ascii?Q?rbJfgSNrlnyaYuVn2kYDYfDO8IzeC+h+G3G5coYfxWT5A2YFOfBLUamTv6iy?=
+ =?us-ascii?Q?A+v6686Lfzd8N2uAk+2GltvFakIqY2DIeAknBOSyKGImxwrEG22vayH3FI2m?=
+ =?us-ascii?Q?NW/58O33khc1TCRyiv+CJtH6is1z0KNG1QQZXK/Ucqfzi+nT8ulbcQeq/d6p?=
+ =?us-ascii?Q?+DtbKjAg4YFjh7QiVxqcsQgGYOEvLik2OwEKZJDx+MOK0XEorB71xtaBag41?=
+ =?us-ascii?Q?96aDHNB6LrVIMqaJfPFC7MWoZVFEb/FpNH/Dek8sxcuZONLqgXBNlC+f20XI?=
+ =?us-ascii?Q?LMpAtH+luxlOY9jIoskBaGxPOf9sPWuZ1Up+V4kEQ6obB9VA3w9nPnmJaVbs?=
+ =?us-ascii?Q?CfIxaW1UwBOgm+DPj/cCXoRQexVG7Aajgtl5J31zLFowWGzvJtSbGYjwtN2t?=
+ =?us-ascii?Q?IkSoITRGJ+bE64ZnjHOF4wUacxwpXP/S1IEoB+2A3UC7o2uI4ulBz8CCt8ez?=
+ =?us-ascii?Q?mk1h+QpRjdgKVbtUvxHqyvSGhu10DvhlTD7l6wJ8co81E22TJse8sRF3UpJE?=
+ =?us-ascii?Q?hpCD7GSyUoaEECOVWQYcWrF//TDfqdeDO1jMCLQ4i2+Su4gV8mpJ6tPt0B7L?=
+ =?us-ascii?Q?I/d3zqeRB4yRMHTqXFp9MgZSbv4KjW9FU/CBFTBnMJDqmM+qENMDbWgmL4Un?=
+ =?us-ascii?Q?VSgnTyfVigQrdCvPf+uSmVV0L4S7pk1J/1Ps7DYuMFhMwj7bhqxDnQUJ38S6?=
+ =?us-ascii?Q?9TNX+mppE52RKnHw4XCfEBN+JzMS5aHDgRKRx/dcfwnY0jWgMpW5cvoP3481?=
+ =?us-ascii?Q?3QWYNtquxZ1rxx6a3MeQla70omB7dIWCVjwd+YtX+Uw8su+alokg5wExAkCJ?=
+ =?us-ascii?Q?U5Pey7I2aKHVElaAiPKMMfrWOzM3T+tfaHXw6clvfmxUD4y3iPd+tiKu0iUC?=
+ =?us-ascii?Q?TXZ46l1STS6rO3FF1dTWVxHxvDcNnkW8a/DzbraHAkRgNJ2qz9JMlMsspanc?=
+ =?us-ascii?Q?V0y275bFccECsecG0li2cIhG4JdRu24W6hh4ipWqiBM7/g=3D=3D?=
+X-Forefront-Antispam-Report-Untrusted:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DB9PR08MB6588.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(366007)(1800799015)(376005)(38070700009);DIR:OUT;SFP:1101;
+Content-Type: text/plain; charset="us-ascii"
+Content-ID: <8019A8B62F3DF64FAB43FA7E37E20A49@eurprd08.prod.outlook.com>
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <bba693b3-ad73-4fb8-ae9c-dba025f6f5c1@suse.com>
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR08MB7887
+Original-Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=arm.com;
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Transport-CrossTenantHeadersStripped:
+ AM1PEPF000252DB.eurprd07.prod.outlook.com
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id-Prvs:
+	d2047446-bb4a-409e-4e10-08dc80ab9aa1
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230031|36860700004|82310400017|1800799015|35042699013|376005;
+X-Microsoft-Antispam-Message-Info:
+	=?us-ascii?Q?Y79kZ13BaDQOLFzbG24mHVWiRKFSQOng48rh6R5GO75mOS10DpEa2pYZALJH?=
+ =?us-ascii?Q?Pv0fCYEiLKOJVuDxJ9cYjDmru3A7nGuTcrnR4cY+WuDQgQ9x6RJF1L74fdKT?=
+ =?us-ascii?Q?Nk64SS08oKiH7TCKE93byc0T1xB+QF3mkPri+uPfZwdxiGP9jvc4IRJJfGk0?=
+ =?us-ascii?Q?LzuHexstM8s/7V6rD+zcVPYh2xRi/x6rc1hWYPW9x6M7ETfb5xItqvzratAz?=
+ =?us-ascii?Q?xrFFc1Y0QBW8p60MDNlB+qVb/RorHq9LLu+MUQ0E2lODvgjbR3lNrxepD/U0?=
+ =?us-ascii?Q?hAPIJ3OUIWzavZFYMUetEsPa7FMF/fLgzEs2NcWPvK0jFUAytf+y+0bDOMOt?=
+ =?us-ascii?Q?7XrKDaWqB9C1E45Jl8tzv7DLtDBDBrhVmIzHyosc8CKtwfwnD8idu1mX6j3y?=
+ =?us-ascii?Q?gISaAYABC7g1lPI7REoYIQnswB5JSGBon4cZJAEbB786bRHpe0RPkPOGWguE?=
+ =?us-ascii?Q?Z3UAxU8oLvkUTj7S6naSPW3dQX50B6anuaOiTeokQSEy9RBTMwNuS74175ab?=
+ =?us-ascii?Q?yq+PUhA5rCTdOYH4gPHejDxEtHWNrKeZD5VYabPhKbWWfMeZDEdI7pu6dBax?=
+ =?us-ascii?Q?QOUVlsiFp1Bs3UyKf8SQXmyP1Ykqn8sM/GZBkDJ7lw+5eygARizlLH6BudFs?=
+ =?us-ascii?Q?efh1mVP5DM/jWznXlBh9my6Z2yzzfLaDtM45/vNurEWV5BqbostwOk7PTwuy?=
+ =?us-ascii?Q?k0YFlozY8TYVDENTtkdn4H0WfWsRuSy7wVjAGqU899KOCg1BSBALb2dqCmgv?=
+ =?us-ascii?Q?DUl0P8s10sTy6q6Zx271gnTzoigoG9VDwpB3IHB/eyxmQ9eqBfVk4CSQX7h8?=
+ =?us-ascii?Q?PK4IzijjFJwxQWzO/W367L4CiTltgB8z3ywooQA88fGlAyE/dBBSPzW4gXxD?=
+ =?us-ascii?Q?U93SyrqxhZ3DGHGzPbjcqMSmLx74DxjExahwrKApTSxciZ3iJLr1M0rohiyu?=
+ =?us-ascii?Q?s4BXoiX2UboBZ4YZF9hNK5LvDXJCgpb4yuEG+hRwwodQm+Z/1AHtkFyb+4a/?=
+ =?us-ascii?Q?eqV8fXAMoNOSAe6B2oaFFiSsb+NTMB+5/gbYP+pYmwHhxS2FTz9XGbxuzpqg?=
+ =?us-ascii?Q?rH+P++H1u+T0qihPJCAB1SPABX33adVfRMLE7d2UeLUsEYwZEM4LwFtwTwvO?=
+ =?us-ascii?Q?F2n3gFfkX70NDF+k2BZR/NrDzRwvS02Dsnxj3NS53ngG393VUmq1DVDbqGMc?=
+ =?us-ascii?Q?wzKwEUufC8uhgOt+nsn3rUMS90+OSNnWqvCz9ppP8JtCGFSnZINXK2s5ro3z?=
+ =?us-ascii?Q?IwHskwOEOLMRjDkRsGfHxBlScmo2BTF0wr29cA2j0C8RKMgrpxTvWJ6Ou4Ur?=
+ =?us-ascii?Q?Z6Mtl6+nFK/6Zy0/1Isymwqmj/H3kg3HEINWX8x75P4m8MRq3FkcgYcoRzEq?=
+ =?us-ascii?Q?CtUeCuiwQ4xVwh5DrMEGwJMjLFh4?=
+X-Forefront-Antispam-Report:
+	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(13230031)(36860700004)(82310400017)(1800799015)(35042699013)(376005);DIR:OUT;SFP:1101;
+X-OriginatorOrg: arm.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 May 2024 13:23:00.3780
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6e4c6108-b476-4edd-a8ac-08dc80aba0bc
+X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	AM1PEPF000252DB.eurprd07.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR08MB7864
 
-On Thu, May 30, 2024 at 02:45:18PM +0200, Jürgen Groß wrote:
-> On 29.05.24 18:03, Roger Pau Monné wrote:
-> > On Wed, May 29, 2024 at 03:08:49PM +0200, Jürgen Groß wrote:
-> > > On 29.05.24 14:46, Roger Pau Monné wrote:
-> > > > On Wed, May 29, 2024 at 01:47:09PM +0200, Jürgen Groß wrote:
-> > > > > On 28.05.24 13:22, Roger Pau Monné wrote:
-> > > > > > Hello,
-> > > > > > 
-> > > > > > When the stop_machine_run() call in cpu_down() fails and calls the CPU
-> > > > > > notifier CPU_DOWN_FAILED hook the following assert triggers in the
-> > > > > > scheduling code:
-> > > > > > 
-> > > > > > Assertion '!cpumask_test_cpu(cpu, &prv->initialized)' failed at common/sched/cred1
-> > > > > > ----[ Xen-4.19-unstable  x86_64  debug=y  Tainted:   C    ]----
-> > > > > > CPU:    0
-> > > > > > RIP:    e008:[<ffff82d040248299>] common/sched/credit2.c#csched2_free_pdata+0xc8/0x177
-> > > > > > RFLAGS: 0000000000010093   CONTEXT: hypervisor
-> > > > > > rax: 0000000000000000   rbx: ffff83202ecc2f80   rcx: ffff83202f3e64c0
-> > > > > > rdx: 0000000000000001   rsi: 0000000000000002   rdi: ffff83202ecc2f88
-> > > > > > rbp: ffff83203ffffd58   rsp: ffff83203ffffd30   r8:  0000000000000000
-> > > > > > r9:  ffff83202f3e6e01   r10: 0000000000000000   r11: 0f0f0f0f0f0f0f0f
-> > > > > > r12: ffff83202ecb80b0   r13: 0000000000000001   r14: 0000000000000282
-> > > > > > r15: ffff83202ecbbf00   cr0: 000000008005003b   cr4: 00000000007526e0
-> > > > > > cr3: 00000000574c2000   cr2: 0000000000000000
-> > > > > > fsb: 0000000000000000   gsb: 0000000000000000   gss: 0000000000000000
-> > > > > > ds: 0000   es: 0000   fs: 0000   gs: 0000   ss: 0000   cs: e008
-> > > > > > Xen code around <ffff82d040248299> (common/sched/credit2.c#csched2_free_pdata+0xc8/0x177):
-> > > > > >     fe ff eb 9a 0f 0b 0f 0b <0f> 0b 49 8d 4f 08 49 8b 47 08 48 3b 48 08 75 2e
-> > > > > > Xen stack trace from rsp=ffff83203ffffd30:
-> > > > > >       ffff83202d74d100 0000000000000001 ffff82d0404c4430 0000000000000006
-> > > > > >       0000000000000000 ffff83203ffffd78 ffff82d040257454 0000000000000000
-> > > > > >       0000000000000001 ffff83203ffffda8 ffff82d04021f303 ffff82d0404c4628
-> > > > > >       ffff82d0404c4620 ffff82d0404c4430 0000000000000006 ffff83203ffffdf0
-> > > > > >       ffff82d04022bc4c ffff83203ffffe18 0000000000000001 0000000000000001
-> > > > > >       00000000fffffff0 0000000000000000 0000000000000000 ffff82d0405e6500
-> > > > > >       ffff83203ffffe08 ffff82d040204fd5 0000000000000001 ffff83203ffffe30
-> > > > > >       ffff82d0402054f0 ffff82d0404c5860 0000000000000001 ffff83202ec75000
-> > > > > >       ffff83203ffffe48 ffff82d040348c25 ffff83202d74d0d0 ffff83203ffffe68
-> > > > > >       ffff82d0402071aa ffff83202ec751d0 ffff82d0405ce210 ffff83203ffffe80
-> > > > > >       ffff82d0402343c9 ffff82d0405ce200 ffff83203ffffeb0 ffff82d040234631
-> > > > > >       0000000000000000 0000000000007fff ffff82d0405d5080 ffff82d0405ce210
-> > > > > >       ffff83203ffffee8 ffff82d040321411 ffff82d040321399 ffff83202f3a9000
-> > > > > >       0000000000000000 0000001d91a6fa2d ffff82d0405e6500 ffff83203ffffde0
-> > > > > >       ffff82d040324391 0000000000000000 0000000000000000 0000000000000000
-> > > > > >       0000000000000000 0000000000000000 0000000000000000 0000000000000000
-> > > > > >       0000000000000000 0000000000000000 0000000000000000 0000000000000000
-> > > > > >       0000000000000000 0000000000000000 0000000000000000 0000000000000000
-> > > > > >       0000000000000000 0000000000000000 0000000000000000 0000000000000000
-> > > > > >       0000000000000000 0000000000000000 0000000000000000 0000000000000000
-> > > > > > Xen call trace:
-> > > > > >       [<ffff82d040248299>] R common/sched/credit2.c#csched2_free_pdata+0xc8/0x177
-> > > > > >       [<ffff82d040257454>] F free_cpu_rm_data+0x41/0x58
-> > > > > >       [<ffff82d04021f303>] F common/sched/cpupool.c#cpu_callback+0xfb/0x466
-> > > > > >       [<ffff82d04022bc4c>] F notifier_call_chain+0x6c/0x96
-> > > > > >       [<ffff82d040204fd5>] F common/cpu.c#cpu_notifier_call_chain+0x1b/0x36
-> > > > > >       [<ffff82d0402054f0>] F cpu_down+0xa7/0x143
-> > > > > >       [<ffff82d040348c25>] F cpu_down_helper+0x11/0x27
-> > > > > >       [<ffff82d0402071aa>] F common/domain.c#continue_hypercall_tasklet_handler+0x50/0xbd
-> > > > > >       [<ffff82d0402343c9>] F common/tasklet.c#do_tasklet_work+0x76/0xaf
-> > > > > >       [<ffff82d040234631>] F do_tasklet+0x5b/0x8d
-> > > > > >       [<ffff82d040321411>] F arch/x86/domain.c#idle_loop+0x78/0xe6
-> > > > > >       [<ffff82d040324391>] F continue_running+0x5b/0x5d
-> > > > > > 
-> > > > > > 
-> > > > > > ****************************************
-> > > > > > Panic on CPU 0:
-> > > > > > Assertion '!cpumask_test_cpu(cpu, &prv->initialized)' failed at common/sched/credit2.c:4111
-> > > > > > ****************************************
-> > > > > > 
-> > > > > > The issue seems to be that since the CPU hasn't been removed, it's
-> > > > > > still part of prv->initialized and the assert in csched2_free_pdata()
-> > > > > > called as part of free_cpu_rm_data() triggers.
-> > > > > > 
-> > > > > > It's easy to reproduce by substituting the stop_machine_run() call in
-> > > > > > cpu_down() with an error.
-> > > > > 
-> > > > > Could you please give the attached patch a try?
-> > > > 
-> > > > I still get the following assert:
-> > > 
-> > > Oh, silly me. Without core scheduling active nr_sr_unused will be 0 all
-> > > the time. :-(
-> > > 
-> > > Next try.
-> > 
-> > I'm afraid I have a new trace for you:
-> > 
-> > Assertion '!cpumask_test_cpu(cpu, &prv->initialized)' failed at common/sched/credit2.c:3987
-> > ----[ Xen-4.19-unstable  x86_64  debug=y  Not tainted ]----
-> > CPU:    0
-> > RIP:    e008:[<ffff82d040247d27>] common/sched/credit2.c#csched2_switch_sched+0x115/0x339
-> > RFLAGS: 0000000000010093   CONTEXT: hypervisor
-> > rax: 000000000000c000   rbx: 0000000000000001   rcx: ffff82d0405e6500
-> > rdx: 0000004feee13000   rsi: 0000000000000004   rdi: ffff83202ecc2f88
-> > rbp: ffff83203ffffc80   rsp: ffff83203ffffc38   r8:  0000000000000000
-> > r9:  ffff83202ecbbf01   r10: 0000000000000000   r11: 0f0f0f0f0f0f0f0f
-> > r12: ffff83202ecc2f80   r13: ffff83402ca50100   r14: ffff83402ca50140
-> > r15: ffff83202ecc2f88   cr0: 000000008005003b   cr4: 00000000007526e0
-> > cr3: 00000000574c2000   cr2: 0000000000000000
-> > fsb: 0000000000000000   gsb: 0000000000000000   gss: 0000000000000000
-> > ds: 0000   es: 0000   fs: 0000   gs: 0000   ss: 0000   cs: e008
-> > Xen code around <ffff82d040247d27> (common/sched/credit2.c#csched2_switch_sched+0x115/0x339):
-> >   7c ff ff ff 0f 0b 0f 0b <0f> 0b 0f 0b 41 8b 56 30 89 de 48 8d 3d e8 00 1a
-> > Xen stack trace from rsp=ffff83203ffffc38:
-> >     ffff83203ffffc48 ffff82d0402332ba ffff83203ffffc68 ffff82d04023343d
-> >     0000000000000001 ffff82d0405cf398 ffff83402ca50100 ffff82d0405e6500
-> >     ffff83202ecbbdb0 ffff83203ffffd18 ffff82d040256e1a ffff83203fff386c
-> >     ffff83203fff2000 0000000000000005 ffff83202ecbbf00 ffff83402ca50140
-> >     ffff83203fff3868 0000000000000282 0000000040233509 ffff83202ecbbdb0
-> >     ffff83402ca50100 ffff83202f3e6d80 ffff83202ecc2ec0 ffff83202ecc2ec0
-> >     0000000000000001 ffff82d0403da460 0000000000000048 0000000000000000
-> >     ffff83203ffffd48 ffff82d0402414b7 0000000000000001 0000000000000000
-> >     ffff82d0403da460 0000000000000006 ffff83203ffffd70 ffff82d04024173d
-> >     0000000000000000 0000000000000001 ffff82d0404c4430 ffff83203ffffda0
-> >     ffff82d04021f1f9 ffff82d0404c4628 ffff82d0404c4620 ffff82d0404c4430
-> >     0000000000000006 ffff83203ffffde8 ffff82d04022bb2f ffff83203ffffe10
-> >     0000000000000001 0000000000000001 0000000000000000 ffff83203ffffe10
-> >     0000000000000000 ffff82d0405e6500 ffff83203ffffe00 ffff82d040204fd5
-> >     0000000000000001 ffff83203ffffe30 ffff82d040205464 ffff82d0404c5860
-> >     0000000000000001 ffff83202ec86000 0000000000000000 ffff83203ffffe48
-> >     ffff82d040348c32 ffff83402ca500d0 ffff83203ffffe68 ffff82d04020708d
-> >     ffff83202ec861d0 ffff82d0405ce210 ffff83203ffffe80 ffff82d0402342a3
-> >     ffff82d0405ce200 ffff83203ffffeb0 ffff82d04023450b 0000000000000000
-> >     0000000000007fff ffff82d0405d5080 ffff82d0405ce210 ffff83203ffffee8
-> > Xen call trace:
-> >     [<ffff82d040247d27>] R common/sched/credit2.c#csched2_switch_sched+0x115/0x339
-> >     [<ffff82d040256e1a>] F schedule_cpu_add+0x1a4/0x463
-> >     [<ffff82d0402414b7>] F common/sched/cpupool.c#cpupool_assign_cpu_locked+0x5a/0x17e
-> >     [<ffff82d04024173d>] F common/sched/cpupool.c#cpupool_cpu_add+0x162/0x16c
-> >     [<ffff82d04021f1f9>] F common/sched/cpupool.c#cpu_callback+0x10e/0x466
-> >     [<ffff82d04022bb2f>] F notifier_call_chain+0x6c/0x96
-> >     [<ffff82d040204fd5>] F common/cpu.c#cpu_notifier_call_chain+0x1b/0x36
-> >     [<ffff82d040205464>] F cpu_down+0x60/0x83
-> >     [<ffff82d040348c32>] F cpu_down_helper+0x11/0x27
-> >     [<ffff82d04020708d>] F common/domain.c#continue_hypercall_tasklet_handler+0x50/0xbd
-> >     [<ffff82d0402342a3>] F common/tasklet.c#do_tasklet_work+0x76/0xaf
-> >     [<ffff82d04023450b>] F do_tasklet+0x5b/0x8d
-> >     [<ffff82d040321372>] F arch/x86/domain.c#idle_loop+0x78/0xe6
-> >     [<ffff82d0403242f2>] F continue_running+0x5b/0x5d
-> > 
-> > 
-> > ****************************************
-> > Panic on CPU 0:
-> > Assertion '!cpumask_test_cpu(cpu, &prv->initialized)' failed at common/sched/credit2.c:3987
-> > ****************************************
-> > 
-> > This time is one of the asserts in init_pdata().
-> 
-> Yeah, the reason is similar, but fixing this is a little bit more work
-> than the other patch.
-> 
-> Not sure I'll manage to do this before Xen Summit.
+Hi Julien,
 
-No worries, I'm not in a rush.  I'm happy as long as it's on your
-plate and not mine :).
+> On 30 May 2024, at 12:35, Julien Grall <julien@xen.org> wrote:
+>=20
+> Hi Bertrand,
+>=20
+> On 30/05/2024 10:40, Bertrand Marquis wrote:
+>>> But we are making assumption that all TEE implementation will have its
+>>> node inside "/firmware/". I am not 100% sure that this is correct. For
+>>> example I saw that Google Trusty uses "/trusty" node (directly inside
+>>> the DTS root). On other hand, it is not defined in dts bindings, as far
+>>> as I know.
+>> Regarding the firmware part you can easily handle that by looking for /f=
+irmware
+>> and create it if it does not exist before creating your sub-node and thi=
+s should
+>> be node in the optee node creation function not in tee.c.
+>=20
+> This would work if the node /firmware doesn't exist. But how would you ha=
+ndle the case where it is already present?
+>=20
+> I looked at the libfdt API and AFAICT the DTB creation needs to be linear=
+. IOW, you can't add a subnode to an already created node.
+>=20
+> There is an helper to create a placeholder, but AFAIK this is only for a =
+property. You also need to know the size in advance.
 
-Thanks, Roger.
+I thought it was possible but i definitely can be wrong.
+
+As right now we have only one need for the node, we could delay a possible =
+solution and just create it in the optee driver.
+Designing a solution for a possible future case right now seems a bit compl=
+ex without a use case.
+
+Cheers
+Bertrand
+
+>=20
+> Cheers,
+>=20
+> --=20
+> Julien Grall
+
 
