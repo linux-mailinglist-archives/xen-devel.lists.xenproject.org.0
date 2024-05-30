@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 350CE8D4E5F
-	for <lists+xen-devel@lfdr.de>; Thu, 30 May 2024 16:49:40 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.732782.1138815 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0D4508D4F65
+	for <lists+xen-devel@lfdr.de>; Thu, 30 May 2024 17:48:50 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.732807.1138824 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sCh5M-0004N4-RV; Thu, 30 May 2024 14:48:56 +0000
+	id 1sCi0c-0003NL-L3; Thu, 30 May 2024 15:48:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 732782.1138815; Thu, 30 May 2024 14:48:56 +0000
+Received: by outflank-mailman (output) from mailman id 732807.1138824; Thu, 30 May 2024 15:48:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sCh5M-0004LY-On; Thu, 30 May 2024 14:48:56 +0000
-Received: by outflank-mailman (input) for mailman id 732782;
- Thu, 30 May 2024 14:48:54 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1sCi0c-0003L6-IF; Thu, 30 May 2024 15:48:06 +0000
+Received: by outflank-mailman (input) for mailman id 732807;
+ Thu, 30 May 2024 15:48:05 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=LA40=NB=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1sCh5K-0004LS-KA
- for xen-devel@lists.xenproject.org; Thu, 30 May 2024 14:48:54 +0000
-Received: from mail-lf1-x136.google.com (mail-lf1-x136.google.com
- [2a00:1450:4864:20::136])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id bc05ecd6-1e93-11ef-90a1-e314d9c70b13;
- Thu, 30 May 2024 16:48:53 +0200 (CEST)
-Received: by mail-lf1-x136.google.com with SMTP id
- 2adb3069b0e04-52ad8230bb9so1092241e87.3
- for <xen-devel@lists.xenproject.org>; Thu, 30 May 2024 07:48:53 -0700 (PDT)
-Received: from [192.168.219.221] ([94.75.70.14])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-52b7d42911fsm243645e87.281.2024.05.30.07.48.52
+ <SRS0=MghO=NB=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1sCi0b-0003L0-1J
+ for xen-devel@lists.xenproject.org; Thu, 30 May 2024 15:48:05 +0000
+Received: from mail-qv1-xf2f.google.com (mail-qv1-xf2f.google.com
+ [2607:f8b0:4864:20::f2f])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id feaa4aed-1e9b-11ef-b4bb-af5377834399;
+ Thu, 30 May 2024 17:48:02 +0200 (CEST)
+Received: by mail-qv1-xf2f.google.com with SMTP id
+ 6a1803df08f44-6ae0adfba9cso5624466d6.2
+ for <xen-devel@lists.xenproject.org>; Thu, 30 May 2024 08:48:02 -0700 (PDT)
+Received: from localhost ([213.195.114.223]) by smtp.gmail.com with ESMTPSA id
+ 6a1803df08f44-6ae3747dabfsm1590926d6.80.2024.05.30.08.47.59
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 30 May 2024 07:48:52 -0700 (PDT)
+ Thu, 30 May 2024 08:48:00 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,70 +44,59 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bc05ecd6-1e93-11ef-90a1-e314d9c70b13
+X-Inumbo-ID: feaa4aed-1e9b-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1717080533; x=1717685333; darn=lists.xenproject.org;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=/aH8GhKdYYOAQ9pcnE2jsIowDMws/vgnHyfVWQgneqM=;
-        b=M/JHjPzUK5bfRnBYSWKNu8Xsh8xwl0aliEdml3fztqzFmKTlGgI5EtC7k2TerrgOQh
-         gVLp1SezHDF9uWkD2h1LoGxXzet7xa2CxhjBFZ8D7ZZqMBlobVmz/talbAGKYrnJyBsn
-         T3EVI2jkVrcG4jIZds0roUZ10X+DfA3wspQrN2/OnZCIUvnccLyElqn0dihw0+RJSl9X
-         ajt3SF8nVmWKz8hRGnsqSlLw7L5tZEsBjwQyBaF+FPXflNqCU7fYuPV1cQTjDxtUkIc5
-         O2fXpu172Lvj3ChYduf0RFVP0Op9ijV5pVSWGkR4LIjjPZssvyVaNQCUf7i/4IDZsI1P
-         On9g==
+        d=citrix.com; s=google; t=1717084081; x=1717688881; darn=lists.xenproject.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=oxqf3xs1970Nf5zEjfxi/reh434J2MVMUjSk7tO9XVk=;
+        b=grlr1wTWe6rXInwLhhL9i7Q0zAafTYM5pvnYWJf+nglTOMtGQm3i0SAGwmERpyyDqD
+         23wNBCIsmPIEcIwXbDl9wnbtKfccvK0UApKV9zzgxp5TaOaCEunFMTZ0Qw3AwFZTWCQM
+         rN4IVMzPplfqTK231Th/O9fhjVaBiZTKSOgdg=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1717080533; x=1717685333;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=/aH8GhKdYYOAQ9pcnE2jsIowDMws/vgnHyfVWQgneqM=;
-        b=EsNg2evrjPnbsaKCAgFDRZ+sDZc1VTW42V3wKG022oGeagfdt7ZfH5aqPYObT1b1AR
-         fDIhArlcuBVtHCe7iAme7MCyGlzG6rjyt2JB/mfmJzRiA2CYd/rIHakeK+LpmQ4SKDss
-         JaLH70ykoeR1F59XXg45Ks/5mAOesP4x9SDs/0q77fugjYZc8dDz/Dt+k2ZP5CnbIJo1
-         zxHQSOPcafIGRYalES6NyB5Vy+Cj3TlFBBUIwnahNIna4PDTEPjXk3fhfL8XwXpD+hBd
-         S86r1tWL4VS4O5is3TVEkGLPzJt7UM+f3XIMyRPKPtPkpkzcw2N/ZbYRuUTcKK93ND+Z
-         ss8A==
-X-Forwarded-Encrypted: i=1; AJvYcCVKaZha1oySIXu1As5HR3lyxsvUDirG48n2klOknlPyxPppvCyunfGxXmjQ/6mrVFL4RFEj2/x3v47ar2+m49U3z1C8k6dptOv4wwYWU+o=
-X-Gm-Message-State: AOJu0YxPohQ8BbtuY3u1ZYT14ho9GrLhNhhornhOMVfvD/QXBMfyr/2Q
-	DI8pHOnuUEk/Srmh4O6sk6DZ595xWVvznoinKNlAeTJ4Xw/gIXRy
-X-Google-Smtp-Source: AGHT+IGTwvIJwrmRudii8xHUhVchPDfTGVMguqLBG2sasuFKwsn9a3grBAP9ICOAk+Vg6RP3hZhfbA==
-X-Received: by 2002:a05:6512:701:b0:516:d219:3779 with SMTP id 2adb3069b0e04-52b7d48922bmr1449038e87.58.1717080532696;
-        Thu, 30 May 2024 07:48:52 -0700 (PDT)
-Message-ID: <ce7409498d3e8620e873d854caf3c61828e34d15.camel@gmail.com>
-Subject: Re: [PATCH v4 0/2] Clean the policy manipulation path in domain
- creation
-From: "Oleksii K." <oleksii.kurochko@gmail.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>, Alejandro Vallejo
-	 <alejandro.vallejo@cloud.com>, Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Anthony PERARD <anthony@xenproject.org>, Juergen Gross
- <jgross@suse.com>,  Jan Beulich <jbeulich@suse.com>, Roger Pau
- =?ISO-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>
-Date: Thu, 30 May 2024 16:48:51 +0200
-In-Reply-To: <19e240ca-6606-482c-9c0b-3c0a6c2c4e89@citrix.com>
-References: <cover.1716992707.git.alejandro.vallejo@cloud.com>
-	 <19e240ca-6606-482c-9c0b-3c0a6c2c4e89@citrix.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.52.1 (3.52.1-1.fc40) 
+        d=1e100.net; s=20230601; t=1717084081; x=1717688881;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=oxqf3xs1970Nf5zEjfxi/reh434J2MVMUjSk7tO9XVk=;
+        b=pvn3seU9MqS91t/rT1D7pnZmQAk1AIGrNQ2zNIjPfh+nyg9LKDn+ZSOThHjhUgLfew
+         j5lASdJRG8d0d2siSfKw7fcD5/aoYDpDg/8bE0/J+1zMpkChOKnO0EdC7PybrJzZgrU7
+         gZedbkMt+7xVoCHxdWvZcCJN3UnYg2k2trhrEUE6vnGNTOlCYirjBWY8zp4NCr1/hmtM
+         B3sdBYqcr/IsIdRWBXWoUxuYi3M64jOc9l7OyacLUhUyKGN6TXPxudXQa1kEZZAiXzAL
+         E8wCvkr3qFF4rMkNc/ChspQa1pjfiq5Ddfl2eBTwCCQcQjgPXuj644k/GmgYBjfyB02W
+         qPyw==
+X-Forwarded-Encrypted: i=1; AJvYcCWx0YeOI8+HjMWmTEpc8e7P0tF2bLN36ZyTc42ZDdt0IzaqjZYbehRLYyeD59HfKFAGz3hxIkPJUVPHXMEq0lUtENCYPjerGedMo1K1bx4=
+X-Gm-Message-State: AOJu0YyIaH7VQFwqf6Hm6plVZhGUEEWNq5eSOe3+OzYk9iDUxh7x3cYO
+	9/hfTzDPN3+KsJZOrkWPA66RTnIwFQdHo3YMx7eZwUvzi7GHZr/VABbGsqTSwRw=
+X-Google-Smtp-Source: AGHT+IHE9QQL0YCf+/J5BYCzknuSYnGYXbQ6CM3je54Kz7kkHtTY+j+Jg+sXGzp1GTOoWYKJVt35Eg==
+X-Received: by 2002:a05:6214:3c8a:b0:6ae:20:3723 with SMTP id 6a1803df08f44-6ae0cafc262mr30183836d6.5.1717084080634;
+        Thu, 30 May 2024 08:48:00 -0700 (PDT)
+Date: Thu, 30 May 2024 17:47:58 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Alejandro Vallejo <alejandro.vallejo@cloud.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+	Xen-devel <xen-devel@lists.xenproject.org>,
+	Jan Beulich <jbeulich@suse.com>
+Subject: Re: [PATCH v3 2/6] xen/x86: Add initial x2APIC ID to the per-vLAPIC
+ save area
+Message-ID: <Zlifrqp5NfKu8xTw@macbook>
+References: <cover.1716976271.git.alejandro.vallejo@cloud.com>
+ <9912423b866ed696c375e0a51954d363c3706470.1716976271.git.alejandro.vallejo@cloud.com>
+ <0d3101bc-624e-43b0-95e7-cc89de3bb259@citrix.com>
+ <e6b9fc65-365b-4a38-8181-a76d576939e4@cloud.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <e6b9fc65-365b-4a38-8181-a76d576939e4@cloud.com>
 
-On Thu, 2024-05-30 at 10:44 +0100, Andrew Cooper wrote:
-> On 29/05/2024 3:30 pm, Alejandro Vallejo wrote:
-> > Alejandro Vallejo (2):
-> > =C2=A0 tools/xg: Streamline cpu policy serialise/deserialise calls
-> > =C2=A0 tools/xg: Clean up xend-style overrides for CPU policies
->=20
-> Oleksii: Please consider for 4.19.
-Release-Acked-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+On Thu, May 30, 2024 at 02:48:10PM +0100, Alejandro Vallejo wrote:
+> I'll try to do that soon-ish. I suspect the pain points are going to be
+> making it work nicely as well on 1vCPU systems with no APIC (are
+> those expected to work?).
 
-~ Oleksii
->=20
-> This is internal clean-up to CPUID handling which has been trying
-> (one
-> way or another) to land for more than 3 years now.
->=20
-> ~Andrew
+We do not allow creation of PVH/HVM domains without an emulated local
+APIC, and I don't think we ever want to allow doing so (see
+emulation_flags_ok()).
 
+Thanks, Roger.
 
