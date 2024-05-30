@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D53F08D4A0F
-	for <lists+xen-devel@lfdr.de>; Thu, 30 May 2024 13:08:54 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.732663.1138679 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6D6818D4A1A
+	for <lists+xen-devel@lfdr.de>; Thu, 30 May 2024 13:12:41 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.732669.1138688 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sCde1-0004YL-Oc; Thu, 30 May 2024 11:08:29 +0000
+	id 1sCdho-0006H5-7V; Thu, 30 May 2024 11:12:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 732663.1138679; Thu, 30 May 2024 11:08:29 +0000
+Received: by outflank-mailman (output) from mailman id 732669.1138688; Thu, 30 May 2024 11:12:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sCde1-0004W0-Lr; Thu, 30 May 2024 11:08:29 +0000
-Received: by outflank-mailman (input) for mailman id 732663;
- Thu, 30 May 2024 11:08:28 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1sCdho-0006FF-4u; Thu, 30 May 2024 11:12:24 +0000
+Received: by outflank-mailman (input) for mailman id 732669;
+ Thu, 30 May 2024 11:12:23 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=8pxM=NB=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1sCde0-0004Vu-Jz
- for xen-devel@lists.xenproject.org; Thu, 30 May 2024 11:08:28 +0000
-Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
- [2a00:1450:4864:20::630])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f0c18f6d-1e74-11ef-90a1-e314d9c70b13;
- Thu, 30 May 2024 13:08:27 +0200 (CEST)
-Received: by mail-ej1-x630.google.com with SMTP id
- a640c23a62f3a-a635a74e031so88883566b.0
- for <xen-devel@lists.xenproject.org>; Thu, 30 May 2024 04:08:27 -0700 (PDT)
+ id 1sCdhm-0006F9-VL
+ for xen-devel@lists.xenproject.org; Thu, 30 May 2024 11:12:22 +0000
+Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
+ [2a00:1450:4864:20::631])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 7bd0ff95-1e75-11ef-b4bb-af5377834399;
+ Thu, 30 May 2024 13:12:21 +0200 (CEST)
+Received: by mail-ej1-x631.google.com with SMTP id
+ a640c23a62f3a-a635a74e0deso75117466b.0
+ for <xen-devel@lists.xenproject.org>; Thu, 30 May 2024 04:12:21 -0700 (PDT)
 Received: from [10.125.231.30] ([217.156.233.157])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a66b9a876c2sm16307666b.196.2024.05.30.04.08.26
+ a640c23a62f3a-a626cda2e60sm810341166b.189.2024.05.30.04.12.19
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 30 May 2024 04:08:26 -0700 (PDT)
+ Thu, 30 May 2024 04:12:20 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,47 +45,48 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f0c18f6d-1e74-11ef-90a1-e314d9c70b13
+X-Inumbo-ID: 7bd0ff95-1e75-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1717067307; x=1717672107; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1717067540; x=1717672340; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=cYj/4GpETTQq5gzUVSXQKkVw4LGNcmrbU/zLmYHMHP8=;
-        b=J7o9lwu5EvSkd6QGNWyHB4vwbbBa30WF7bONBKND/Edap/hz3Rp3D5zDUZE5cmPqOp
-         6ZiBcyobLd2UyPgDPpFo39/71kJqtB0+E4wn/t8WVADY7SThgdigxFs+rOqqtefjl//x
-         mxI9bm138U3zGLofyyeh1MQAxvcMweQqSoCWA=
+        bh=9zQF3Nyb+SVEpU/uIHxnQvGzPyaWiFBmCLVh5gHC2Rw=;
+        b=gH8byyepyV5ltPR7qWHZZnAWCG7Uk58r7VX5EJh5UOgcC/dHr3YxaNJATii+oxG35t
+         vamEyRwRSbYNJa1Hnwp18V8Z518AYbl/qiXgZmUXnYZypmmZ1Dm9GCje+GOlrvQl5nze
+         SSQD23UplPpyqMYCbGu+etkd80zNq0gycS/WQ=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1717067307; x=1717672107;
+        d=1e100.net; s=20230601; t=1717067540; x=1717672340;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=cYj/4GpETTQq5gzUVSXQKkVw4LGNcmrbU/zLmYHMHP8=;
-        b=J3t0ChfTe/6Ta4wRGTyjBgEd4l9s37GxWERJ2cCOazUN6kFEO4Oa+Q08O0d/OUjxhJ
-         QvGOO4AabrQ76Yxp3n0MtpC10ZOY0Rfa1gAjnSHRiXOKaA73AEcw71KgwWzHScQPcmrQ
-         bMrYfktfP5DW9Np1PJ8z1WXC+J1Urdq8chKXwFcMxyH81wWlqR8P9qwqOviPyiEGTkq9
-         PFqcEsHgzbPV8Rb4pKOz6UPVycy/JylBGqe1UH7tVQ0hibX7ybZCn+IhUheIZUwYhEyJ
-         aF7ewuM68Kv11h2NbIl2Vq7/uyd1OzGbGPCzdE0c6HQM3FEb65GaPOkhyJETax53Pr8W
-         ZNpw==
-X-Forwarded-Encrypted: i=1; AJvYcCVd1nMW2OCKgavyxuKPMmPPr+O2SHwbG1pwfweEpS6U57jeclcLX4dBrVSmq+zy438en2xtFLCB+ObWTRpRZGImhOZn2Et4jKV0Kn6e3Es=
-X-Gm-Message-State: AOJu0Yz/jO08Ljt6UIHvrdUSVFmHNZfm+OqdtLKd/3Tuj2Ew7QNB2LaW
-	4ASoUX5VaoKC79kjB/+mK9MMw3PurpNKtfyN7m7NNG8yxSfqppFXlVaSLgQbJ4A=
-X-Google-Smtp-Source: AGHT+IFcVVO5KFEiGJMwiCmjs/Okz70R8fcylmlMjDG+mj4RquN/Dr6YOOKhQPHUkJ4IcmzFShT83Q==
-X-Received: by 2002:a17:906:3958:b0:a5c:daf2:1cfb with SMTP id a640c23a62f3a-a65e923c323mr222182366b.63.1717067307086;
-        Thu, 30 May 2024 04:08:27 -0700 (PDT)
-Message-ID: <0d3101bc-624e-43b0-95e7-cc89de3bb259@citrix.com>
-Date: Thu, 30 May 2024 12:08:26 +0100
+        bh=9zQF3Nyb+SVEpU/uIHxnQvGzPyaWiFBmCLVh5gHC2Rw=;
+        b=bZ1/ZDHsZjp633VRssIz+fP5/0LdtDuzaG2tk+LlWPohgNdeMGbt/iYuM1KSzk2zcj
+         mHvYzgHV5RUygqJeQZ/kXeYBK+uxdHgjAPVVlD8U0+4FQmnHoFxrvE+xy+HfnkMR3w6r
+         AUlBcS5UMKJ8lWmKRGQ8z+D+0K/NwmhrGCL32G0lIfqGruuqnyDH2KTD0On0iSJXwxlz
+         RwlIzUFvHvD1GA95GMrJtheFm7AEXtN13VXIivLiSWMqWPgwx+pK/vg1RJ660JD8Mjam
+         HHhXIVeEsjDI6/1OHNHeKd+RNqjb+RAGNYBQGhkmZjmhpVjNppTAcHxeI5ErdObJV9sE
+         3GJw==
+X-Gm-Message-State: AOJu0YxUSJzWnefioOKCZY2NatfU8eo5p9hkRYBizZxV43bPKjsqIYpO
+	k1MYLScKmOdW5OOnhrU+geJ866nttWPp4OhebKqQGEfa+6YLXqXCR+RcPVJ/BYzBpd2hlWhT0Bt
+	0
+X-Google-Smtp-Source: AGHT+IEBFHm3hSRt93Xk0S6pfM6xCy4gOrh3g+PzdSbwkIOMZydGP/djUIJz+pQ969QAPj4EOn5J0A==
+X-Received: by 2002:a17:906:755:b0:a64:3518:f904 with SMTP id a640c23a62f3a-a65e8d12597mr140407566b.7.1717067540471;
+        Thu, 30 May 2024 04:12:20 -0700 (PDT)
+Message-ID: <71bbc310-1093-44d1-a0b0-e5a8ab10a0ea@citrix.com>
+Date: Thu, 30 May 2024 12:12:19 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/6] xen/x86: Add initial x2APIC ID to the per-vLAPIC
- save area
-To: Alejandro Vallejo <alejandro.vallejo@cloud.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>
-References: <cover.1716976271.git.alejandro.vallejo@cloud.com>
- <9912423b866ed696c375e0a51954d363c3706470.1716976271.git.alejandro.vallejo@cloud.com>
+Subject: Re: [PATCH] tools: (Actually) drop libsystemd as a dependency
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>,
+ Anthony PERARD <anthony@xenproject.org>, Juergen Gross <jgross@suse.com>,
+ Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+ George Dunlap <George.Dunlap@citrix.com>, Jan Beulich <JBeulich@suse.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>
+References: <20240530101439.16730-1-andrew.cooper3@citrix.com>
+ <ZlhcyOmu_Cc92pP5@macbook>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -131,79 +132,25 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <9912423b866ed696c375e0a51954d363c3706470.1716976271.git.alejandro.vallejo@cloud.com>
+In-Reply-To: <ZlhcyOmu_Cc92pP5@macbook>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 29/05/2024 3:32 pm, Alejandro Vallejo wrote:
-> diff --git a/xen/lib/x86/policy.c b/xen/lib/x86/policy.c
-> index f033d22785be..b70b22d55fcf 100644
-> --- a/xen/lib/x86/policy.c
-> +++ b/xen/lib/x86/policy.c
-> @@ -2,6 +2,17 @@
->  
->  #include <xen/lib/x86/cpu-policy.h>
->  
-> +uint32_t x86_x2apic_id_from_vcpu_id(const struct cpu_policy *p, uint32_t id)
-> +{
-> +    /*
-> +     * TODO: Derive x2APIC ID from the topology information inside `p`
-> +     *       rather than from the vCPU ID alone. This bodge is a temporary
-> +     *       measure until all infra is in place to retrieve or derive the
-> +     *       initial x2APIC ID from migrated domains.
-> +     */
-> +    return id * 2;
-> +}
-> +
+On 30/05/2024 12:02 pm, Roger Pau Monné wrote:
+> On Thu, May 30, 2024 at 11:14:39AM +0100, Andrew Cooper wrote:
+>> When reinstating some of systemd.m4 between v1 and v2, I reintroduced a little
+>> too much.  While {c,o}xenstored are indeed no longer linked against
+>> libsystemd, ./configure still looks for it.
+>>
+>> Drop this too.
+>>
+>> Fixes: ae26101f6bfc ("tools: Drop libsystemd as a dependency")
+>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> LGTM, but my knowledge of systemd is very limited.
+>
+> Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
 
-I'm afraid it's nonsensical to try and derive x2APIC ID from a
-policy+vcpu_id.
-
-Take a step back, and think the data through.
-
-A VM has:
-* A unique APIC_ID for each vCPU
-* Info in CPUID describing how to decompose the APIC_ID into topology
-
-Right now, because this is all completely broken, we have:
-* Hardcoded APIC_ID = vCPU_ID * 2
-* Total nonsense in CPUID
-
-
-When constructing a VM, the toolstack (given suitable admin
-guidance/defaults) *must* choose both:
-* The APIC_ID themselves
-* The CPUID topo data to match
-
-i.e. this series should be editing the toolstack's call to
-xc_domain_hvm_setcontext().
-
-It's not, because AFAICT you're depending on the migration compatibility
-logic and inserting a new hardcoded assumption about symmetry of the layout.
-
-
-The data flows we need are:
-
-(New) create:
-* Toolstack chooses both parts of topo information
-* Xen needs a default, which reasonably can be APIC_ID=vCPU_ID when the
-rest of the data flow has been cleaned up.  But this is needs to be
-explicit in vcpu_create() and without reference to the policy.
-
-And to be clear, it's fine for now for the toolstack to choose a
-symmetric layout and pick appropriate APIC_IDs+CPUID for this, but it
-needs to be the toolstack making this decision, not Xen inventing state
-out of thin air based on the toolstack only giving half the information.
-
-(New) migrate:
-* Data from the stream, exactly as presented
-
-(Compat) migrate:
-* Synthesize the missing xapic_id field in LAPIC_REGs as APIC_ID=vCPU_ID
-* 2.
-
-I'm pretty sure this will be a net reduction in complexity in this
-series.  It definitely reduces the Xen complexity.
+Thanks.  TBH, this is all M4/autoconf, rather than systemd.
 
 ~Andrew
 
