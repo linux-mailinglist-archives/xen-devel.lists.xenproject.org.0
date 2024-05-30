@@ -2,37 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 399258D4961
+	by mail.lfdr.de (Postfix) with ESMTPS id B1DAE8D4962
 	for <lists+xen-devel@lfdr.de>; Thu, 30 May 2024 12:15:01 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.732625.1138629 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.732626.1138638 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sCcnt-0003JA-V6; Thu, 30 May 2024 10:14:37 +0000
+	id 1sCco4-0003Zc-6B; Thu, 30 May 2024 10:14:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 732625.1138629; Thu, 30 May 2024 10:14:37 +0000
+Received: by outflank-mailman (output) from mailman id 732626.1138638; Thu, 30 May 2024 10:14:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sCcnt-0003Gc-Rz; Thu, 30 May 2024 10:14:37 +0000
-Received: by outflank-mailman (input) for mailman id 732625;
- Thu, 30 May 2024 10:14:36 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1sCco4-0003Y4-2u; Thu, 30 May 2024 10:14:48 +0000
+Received: by outflank-mailman (input) for mailman id 732626;
+ Thu, 30 May 2024 10:14:46 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=MghO=NB=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1sCcns-0003GW-5F
- for xen-devel@lists.xenproject.org; Thu, 30 May 2024 10:14:36 +0000
-Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
- [2a00:1450:4864:20::42f])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 69602dd9-1e6d-11ef-b4bb-af5377834399;
- Thu, 30 May 2024 12:14:34 +0200 (CEST)
-Received: by mail-wr1-x42f.google.com with SMTP id
- ffacd0b85a97d-35dc04717a1so480982f8f.2
- for <xen-devel@lists.xenproject.org>; Thu, 30 May 2024 03:14:34 -0700 (PDT)
-Received: from localhost ([213.195.114.223]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3557a0909a7sm16887391f8f.55.2024.05.30.03.14.33
+ <SRS0=8pxM=NB=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1sCco2-0003XJ-9A
+ for xen-devel@lists.xenproject.org; Thu, 30 May 2024 10:14:46 +0000
+Received: from mail-ed1-x530.google.com (mail-ed1-x530.google.com
+ [2a00:1450:4864:20::530])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 6fee0bac-1e6d-11ef-90a1-e314d9c70b13;
+ Thu, 30 May 2024 12:14:45 +0200 (CEST)
+Received: by mail-ed1-x530.google.com with SMTP id
+ 4fb4d7f45d1cf-57a033c2ed4so358272a12.1
+ for <xen-devel@lists.xenproject.org>; Thu, 30 May 2024 03:14:45 -0700 (PDT)
+Received: from andrew-laptop.citrite.net ([217.156.233.157])
+ by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-578524bc547sm9655170a12.96.2024.05.30.03.14.43
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 30 May 2024 03:14:33 -0700 (PDT)
+ Thu, 30 May 2024 03:14:44 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,64 +45,371 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 69602dd9-1e6d-11ef-b4bb-af5377834399
+X-Inumbo-ID: 6fee0bac-1e6d-11ef-90a1-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1717064073; x=1717668873; darn=lists.xenproject.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=7fFZBq18WqVghcHtWuAgoj32tpEX347GF3vAtMzqrng=;
-        b=X98nEzFUl9SePVuvfkRxmdaR8CnHBnaz+EQ+HiqLQ+6wq3+CSziWYWkuEYjZdSOPja
-         APwQK4bSQBme0reoQNkfxdg96HcQ5t2vdTAH74UhCqH7wA48Z+CgWWMAe+ZxMUrkg7LL
-         BKGXKv6R1pp2/o/3frkz9wuHTW8tjncZOUWJ8=
+        d=citrix.com; s=google; t=1717064084; x=1717668884; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=tTfIIWc+srFYonFV65OGtACpB5k1PlG9WcTO4urHy48=;
+        b=MA4+UFBj+s7jmKx2vOw8fCZm7oWHRetjw6et/S9VeVyRLUGDpR3laDpHmZbCS5izDo
+         VDNlqMxw1P5V/XqBJfrow5FieM01vthBPMt4pbWR9YyME53pafjcu08YMdxz6znf2xTB
+         rBSkPHUwwHexSn8N4WgbJs3WYBvSVMyWh84GU=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1717064073; x=1717668873;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=7fFZBq18WqVghcHtWuAgoj32tpEX347GF3vAtMzqrng=;
-        b=eA10Bh0z3qUPXj2OcgRVEaVfgE5Bw2SeMZ4PakTHEypw5+jVHsGPhQS5m/cd/QkYvq
-         F9UbRhPThb/bNAoGC+5SfnHP1+IGWnCJfzTOBZRTRqW+n/2z1yQb+Xnqv70UbGqncivJ
-         XHz2Eq14KD2KSWA2ycYv1w9H4r/Lq042bxFnDHtWrinR1XspAGa3TFu0EfYPW7q6geLZ
-         NqPygnVoL6S0+gV5Vwh5TnchXApy/TgwJTacwahYJFuSmdPgAua0ZjUrMIyTHOQnvorw
-         4xm7IU6HyEwHvGMamAofTlo04JqUJAsq4gFKHnklvHY+Fpn7Y6OurP3+UHFT2Kr7eC4T
-         1NQA==
-X-Gm-Message-State: AOJu0Yyk00Jz4pk6hqHYHstKTWjqkiPD/J2ebw4CqrKbOK1QorpjKnic
-	v9nxeVsFpXE/X02GEVXoo10LyieIlRUpZcpq6EkgaKa1KwVl/wzGqEc9/JKgEYA=
-X-Google-Smtp-Source: AGHT+IHDALesgu7Kz/Z9C2Lx+ykM6bC6I76joVU+11Cv1qWrj790FpRKaF4RD/l9GMskEbJ5UfnF8A==
-X-Received: by 2002:a5d:4acb:0:b0:354:db90:6df1 with SMTP id ffacd0b85a97d-35dc009cc6emr2187749f8f.38.1717064073549;
-        Thu, 30 May 2024 03:14:33 -0700 (PDT)
-Date: Thu, 30 May 2024 12:14:32 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Alejandro Vallejo <alejandro.vallejo@cloud.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>,
-	Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>
-Subject: Re: [PATCH v3 2/6] xen/x86: Add initial x2APIC ID to the per-vLAPIC
- save area
-Message-ID: <ZlhRiEOvIZ9W6RoD@macbook>
-References: <cover.1716976271.git.alejandro.vallejo@cloud.com>
- <9912423b866ed696c375e0a51954d363c3706470.1716976271.git.alejandro.vallejo@cloud.com>
+        d=1e100.net; s=20230601; t=1717064084; x=1717668884;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=tTfIIWc+srFYonFV65OGtACpB5k1PlG9WcTO4urHy48=;
+        b=gV0kixXBRSoTDOiVuWroa5642zGHWnWlkXqSW45vbwbyseRUuaAF5+vQI6ZjabSITN
+         w//MpErtPUKDE2PPK/6uOKJ8L5X9Ra74tGZ3uOs1rWNYm8u3j8mndW8nzBcMuI5g66XX
+         EDquCnBXd4c17KjLsqjv1nENT2wVohqTHUAX9F4TXkBhWoB4p8XrGgFvzs+VmFi/EGeF
+         yTNRV17EhQlknSUvktyBy0O/i2P6cfN06W/T6xW0Al5HT/LOWZp7HZzTpiu3r9S/st3l
+         NoI087VCBhuB5I7EPi2SsvrAoeR/UKlnRjAbsgPsQz3fS26bda4zF9n3ASLtHFNTZwU4
+         jl+A==
+X-Gm-Message-State: AOJu0YwU3MyyA8tY4kPcyf7mkPnXgujIOjp8fdoVVkIwbWpGHW1kgLM/
+	N8NneMlaPL+bu/YWpdEhsUtw5zpnOtXqiZ5JNwcwGp2ozwjma1r5BAlIdOsGQkV+Km5/O5kI9zp
+	aTnA=
+X-Google-Smtp-Source: AGHT+IFVXhseUmJR3bV1SH3Zn0hZ9L628OT9ocnmo1k6r49pZduu4EhkKgafMhmeA+VALegv1zYZEg==
+X-Received: by 2002:a50:d6d4:0:b0:574:eb0f:df9b with SMTP id 4fb4d7f45d1cf-57a17833cb5mr1503255a12.14.1717064084283;
+        Thu, 30 May 2024 03:14:44 -0700 (PDT)
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+	Anthony PERARD <anthony@xenproject.org>,
+	Juergen Gross <jgross@suse.com>,
+	Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+	George Dunlap <George.Dunlap@citrix.com>,
+	Jan Beulich <JBeulich@suse.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Julien Grall <julien@xen.org>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
+Subject: [PATCH] tools: (Actually) drop libsystemd as a dependency
+Date: Thu, 30 May 2024 11:14:39 +0100
+Message-Id: <20240530101439.16730-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <9912423b866ed696c375e0a51954d363c3706470.1716976271.git.alejandro.vallejo@cloud.com>
 
-On Wed, May 29, 2024 at 03:32:31PM +0100, Alejandro Vallejo wrote:
-> This allows the initial x2APIC ID to be sent on the migration stream. The
-> hardcoded mapping x2apic_id=2*vcpu_id is maintained for the time being.
-> Given the vlapic data is zero-extended on restore, fix up migrations from
-> hosts without the field by setting it to the old convention if zero.
-> 
-> x2APIC IDs are calculated from the CPU policy where the guest topology is
-> defined. For the time being, the function simply returns the old
-> relationship, but will eventually return results consistent with the
-> topology.
-> 
-> Signed-off-by: Alejandro Vallejo <alejandro.vallejo@cloud.com>
+When reinstating some of systemd.m4 between v1 and v2, I reintroduced a little
+too much.  While {c,o}xenstored are indeed no longer linked against
+libsystemd, ./configure still looks for it.
 
-Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
+Drop this too.
 
-Thanks, Roger.
+Fixes: ae26101f6bfc ("tools: Drop libsystemd as a dependency")
+Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+---
+CC: Anthony PERARD <anthony@xenproject.org>
+CC: Juergen Gross <jgross@suse.com>
+CC: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+CC: George Dunlap <George.Dunlap@citrix.com>
+CC: Jan Beulich <JBeulich@suse.com>
+CC: Stefano Stabellini <sstabellini@kernel.org>
+CC: Julien Grall <julien@xen.org>
+CC: Roger Pau Monné <roger.pau@citrix.com>
+
+Found when trying to build Xen in XenServer with libsystemd absent from the
+chroot.
+---
+ m4/systemd.m4   |   8 --
+ tools/configure | 229 +-----------------------------------------------
+ 2 files changed, 1 insertion(+), 236 deletions(-)
+
+diff --git a/m4/systemd.m4 b/m4/systemd.m4
+index e4fe51a8ba..ab12ea313d 100644
+--- a/m4/systemd.m4
++++ b/m4/systemd.m4
+@@ -86,13 +86,6 @@ AC_DEFUN([AX_CHECK_SYSTEMD], [
+ 	],[systemd=n])
+ ])
+ 
+-AC_DEFUN([AX_CHECK_SYSTEMD_ENABLE_AVAILABLE], [
+-	PKG_CHECK_MODULES([SYSTEMD], [libsystemd-daemon], [systemd="y"],[
+-		PKG_CHECK_MODULES([SYSTEMD], [libsystemd >= 209],
+-				  [systemd="y"],[systemd="n"])
+-	])
+-])
+-
+ dnl Enables systemd by default and requires a --disable-systemd option flag
+ dnl to configure if you want to disable.
+ AC_DEFUN([AX_ENABLE_SYSTEMD], [
+@@ -112,6 +105,5 @@ dnl to have systemd build libraries it will be enabled. You can always force
+ dnl disable with --disable-systemd
+ AC_DEFUN([AX_AVAILABLE_SYSTEMD], [
+ 	AX_ALLOW_SYSTEMD_OPTS()
+-	AX_CHECK_SYSTEMD_ENABLE_AVAILABLE()
+ 	AX_CHECK_SYSTEMD()
+ ])
+diff --git a/tools/configure b/tools/configure
+index b8faa1d520..459bfb5652 100755
+--- a/tools/configure
++++ b/tools/configure
+@@ -626,8 +626,6 @@ ac_subst_vars='LTLIBOBJS
+ LIBOBJS
+ pvshim
+ ninepfs
+-SYSTEMD_LIBS
+-SYSTEMD_CFLAGS
+ SYSTEMD_MODULES_LOAD
+ SYSTEMD_DIR
+ systemd
+@@ -864,9 +862,7 @@ pixman_LIBS
+ libzstd_CFLAGS
+ libzstd_LIBS
+ LIBNL3_CFLAGS
+-LIBNL3_LIBS
+-SYSTEMD_CFLAGS
+-SYSTEMD_LIBS'
++LIBNL3_LIBS'
+ 
+ 
+ # Initialize some variables set by options.
+@@ -1621,10 +1617,6 @@ Some influential environment variables:
+   LIBNL3_CFLAGS
+               C compiler flags for LIBNL3, overriding pkg-config
+   LIBNL3_LIBS linker flags for LIBNL3, overriding pkg-config
+-  SYSTEMD_CFLAGS
+-              C compiler flags for SYSTEMD, overriding pkg-config
+-  SYSTEMD_LIBS
+-              linker flags for SYSTEMD, overriding pkg-config
+ 
+ Use these variables to override the choices made by `configure' or to help
+ it to find libraries and programs with nonstandard names/locations.
+@@ -3889,8 +3881,6 @@ esac
+ 
+ 
+ 
+-
+-
+ 
+ 
+ 
+@@ -9540,223 +9530,6 @@ fi
+ 
+ 
+ 
+-
+-pkg_failed=no
+-{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for SYSTEMD" >&5
+-$as_echo_n "checking for SYSTEMD... " >&6; }
+-
+-if test -n "$SYSTEMD_CFLAGS"; then
+-    pkg_cv_SYSTEMD_CFLAGS="$SYSTEMD_CFLAGS"
+- elif test -n "$PKG_CONFIG"; then
+-    if test -n "$PKG_CONFIG" && \
+-    { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"libsystemd-daemon\""; } >&5
+-  ($PKG_CONFIG --exists --print-errors "libsystemd-daemon") 2>&5
+-  ac_status=$?
+-  $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
+-  test $ac_status = 0; }; then
+-  pkg_cv_SYSTEMD_CFLAGS=`$PKG_CONFIG --cflags "libsystemd-daemon" 2>/dev/null`
+-		      test "x$?" != "x0" && pkg_failed=yes
+-else
+-  pkg_failed=yes
+-fi
+- else
+-    pkg_failed=untried
+-fi
+-if test -n "$SYSTEMD_LIBS"; then
+-    pkg_cv_SYSTEMD_LIBS="$SYSTEMD_LIBS"
+- elif test -n "$PKG_CONFIG"; then
+-    if test -n "$PKG_CONFIG" && \
+-    { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"libsystemd-daemon\""; } >&5
+-  ($PKG_CONFIG --exists --print-errors "libsystemd-daemon") 2>&5
+-  ac_status=$?
+-  $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
+-  test $ac_status = 0; }; then
+-  pkg_cv_SYSTEMD_LIBS=`$PKG_CONFIG --libs "libsystemd-daemon" 2>/dev/null`
+-		      test "x$?" != "x0" && pkg_failed=yes
+-else
+-  pkg_failed=yes
+-fi
+- else
+-    pkg_failed=untried
+-fi
+-
+-
+-
+-if test $pkg_failed = yes; then
+-   	{ $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+-$as_echo "no" >&6; }
+-
+-if $PKG_CONFIG --atleast-pkgconfig-version 0.20; then
+-        _pkg_short_errors_supported=yes
+-else
+-        _pkg_short_errors_supported=no
+-fi
+-        if test $_pkg_short_errors_supported = yes; then
+-	        SYSTEMD_PKG_ERRORS=`$PKG_CONFIG --short-errors --print-errors --cflags --libs "libsystemd-daemon" 2>&1`
+-        else
+-	        SYSTEMD_PKG_ERRORS=`$PKG_CONFIG --print-errors --cflags --libs "libsystemd-daemon" 2>&1`
+-        fi
+-	# Put the nasty error message in config.log where it belongs
+-	echo "$SYSTEMD_PKG_ERRORS" >&5
+-
+-
+-
+-pkg_failed=no
+-{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for SYSTEMD" >&5
+-$as_echo_n "checking for SYSTEMD... " >&6; }
+-
+-if test -n "$SYSTEMD_CFLAGS"; then
+-    pkg_cv_SYSTEMD_CFLAGS="$SYSTEMD_CFLAGS"
+- elif test -n "$PKG_CONFIG"; then
+-    if test -n "$PKG_CONFIG" && \
+-    { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"libsystemd >= 209\""; } >&5
+-  ($PKG_CONFIG --exists --print-errors "libsystemd >= 209") 2>&5
+-  ac_status=$?
+-  $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
+-  test $ac_status = 0; }; then
+-  pkg_cv_SYSTEMD_CFLAGS=`$PKG_CONFIG --cflags "libsystemd >= 209" 2>/dev/null`
+-		      test "x$?" != "x0" && pkg_failed=yes
+-else
+-  pkg_failed=yes
+-fi
+- else
+-    pkg_failed=untried
+-fi
+-if test -n "$SYSTEMD_LIBS"; then
+-    pkg_cv_SYSTEMD_LIBS="$SYSTEMD_LIBS"
+- elif test -n "$PKG_CONFIG"; then
+-    if test -n "$PKG_CONFIG" && \
+-    { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"libsystemd >= 209\""; } >&5
+-  ($PKG_CONFIG --exists --print-errors "libsystemd >= 209") 2>&5
+-  ac_status=$?
+-  $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
+-  test $ac_status = 0; }; then
+-  pkg_cv_SYSTEMD_LIBS=`$PKG_CONFIG --libs "libsystemd >= 209" 2>/dev/null`
+-		      test "x$?" != "x0" && pkg_failed=yes
+-else
+-  pkg_failed=yes
+-fi
+- else
+-    pkg_failed=untried
+-fi
+-
+-
+-
+-if test $pkg_failed = yes; then
+-   	{ $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+-$as_echo "no" >&6; }
+-
+-if $PKG_CONFIG --atleast-pkgconfig-version 0.20; then
+-        _pkg_short_errors_supported=yes
+-else
+-        _pkg_short_errors_supported=no
+-fi
+-        if test $_pkg_short_errors_supported = yes; then
+-	        SYSTEMD_PKG_ERRORS=`$PKG_CONFIG --short-errors --print-errors --cflags --libs "libsystemd >= 209" 2>&1`
+-        else
+-	        SYSTEMD_PKG_ERRORS=`$PKG_CONFIG --print-errors --cflags --libs "libsystemd >= 209" 2>&1`
+-        fi
+-	# Put the nasty error message in config.log where it belongs
+-	echo "$SYSTEMD_PKG_ERRORS" >&5
+-
+-	systemd="n"
+-elif test $pkg_failed = untried; then
+-     	{ $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+-$as_echo "no" >&6; }
+-	systemd="n"
+-else
+-	SYSTEMD_CFLAGS=$pkg_cv_SYSTEMD_CFLAGS
+-	SYSTEMD_LIBS=$pkg_cv_SYSTEMD_LIBS
+-        { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes" >&5
+-$as_echo "yes" >&6; }
+-	systemd="y"
+-fi
+-
+-elif test $pkg_failed = untried; then
+-     	{ $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+-$as_echo "no" >&6; }
+-
+-
+-pkg_failed=no
+-{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for SYSTEMD" >&5
+-$as_echo_n "checking for SYSTEMD... " >&6; }
+-
+-if test -n "$SYSTEMD_CFLAGS"; then
+-    pkg_cv_SYSTEMD_CFLAGS="$SYSTEMD_CFLAGS"
+- elif test -n "$PKG_CONFIG"; then
+-    if test -n "$PKG_CONFIG" && \
+-    { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"libsystemd >= 209\""; } >&5
+-  ($PKG_CONFIG --exists --print-errors "libsystemd >= 209") 2>&5
+-  ac_status=$?
+-  $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
+-  test $ac_status = 0; }; then
+-  pkg_cv_SYSTEMD_CFLAGS=`$PKG_CONFIG --cflags "libsystemd >= 209" 2>/dev/null`
+-		      test "x$?" != "x0" && pkg_failed=yes
+-else
+-  pkg_failed=yes
+-fi
+- else
+-    pkg_failed=untried
+-fi
+-if test -n "$SYSTEMD_LIBS"; then
+-    pkg_cv_SYSTEMD_LIBS="$SYSTEMD_LIBS"
+- elif test -n "$PKG_CONFIG"; then
+-    if test -n "$PKG_CONFIG" && \
+-    { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"libsystemd >= 209\""; } >&5
+-  ($PKG_CONFIG --exists --print-errors "libsystemd >= 209") 2>&5
+-  ac_status=$?
+-  $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
+-  test $ac_status = 0; }; then
+-  pkg_cv_SYSTEMD_LIBS=`$PKG_CONFIG --libs "libsystemd >= 209" 2>/dev/null`
+-		      test "x$?" != "x0" && pkg_failed=yes
+-else
+-  pkg_failed=yes
+-fi
+- else
+-    pkg_failed=untried
+-fi
+-
+-
+-
+-if test $pkg_failed = yes; then
+-   	{ $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+-$as_echo "no" >&6; }
+-
+-if $PKG_CONFIG --atleast-pkgconfig-version 0.20; then
+-        _pkg_short_errors_supported=yes
+-else
+-        _pkg_short_errors_supported=no
+-fi
+-        if test $_pkg_short_errors_supported = yes; then
+-	        SYSTEMD_PKG_ERRORS=`$PKG_CONFIG --short-errors --print-errors --cflags --libs "libsystemd >= 209" 2>&1`
+-        else
+-	        SYSTEMD_PKG_ERRORS=`$PKG_CONFIG --print-errors --cflags --libs "libsystemd >= 209" 2>&1`
+-        fi
+-	# Put the nasty error message in config.log where it belongs
+-	echo "$SYSTEMD_PKG_ERRORS" >&5
+-
+-	systemd="n"
+-elif test $pkg_failed = untried; then
+-     	{ $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+-$as_echo "no" >&6; }
+-	systemd="n"
+-else
+-	SYSTEMD_CFLAGS=$pkg_cv_SYSTEMD_CFLAGS
+-	SYSTEMD_LIBS=$pkg_cv_SYSTEMD_LIBS
+-        { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes" >&5
+-$as_echo "yes" >&6; }
+-	systemd="y"
+-fi
+-
+-else
+-	SYSTEMD_CFLAGS=$pkg_cv_SYSTEMD_CFLAGS
+-	SYSTEMD_LIBS=$pkg_cv_SYSTEMD_LIBS
+-        { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes" >&5
+-$as_echo "yes" >&6; }
+-	systemd="y"
+-fi
+-
+-
+ 		if test "x$enable_systemd" != "xno"; then :
+ 
+ 	     if test "x$systemd" = "xy" ; then :
+-- 
+2.34.1
+
 
