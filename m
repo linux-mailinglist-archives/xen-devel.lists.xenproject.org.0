@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D49A38D502A
-	for <lists+xen-devel@lfdr.de>; Thu, 30 May 2024 18:52:38 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.732845.1138874 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id ACEB58D5049
+	for <lists+xen-devel@lfdr.de>; Thu, 30 May 2024 18:56:21 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.732852.1138885 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sCj0P-0006fe-4y; Thu, 30 May 2024 16:51:57 +0000
+	id 1sCj4L-0007GH-Kq; Thu, 30 May 2024 16:56:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 732845.1138874; Thu, 30 May 2024 16:51:57 +0000
+Received: by outflank-mailman (output) from mailman id 732852.1138885; Thu, 30 May 2024 16:56:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sCj0P-0006dN-2B; Thu, 30 May 2024 16:51:57 +0000
-Received: by outflank-mailman (input) for mailman id 732845;
- Thu, 30 May 2024 16:51:55 +0000
+	id 1sCj4L-0007Dd-Hq; Thu, 30 May 2024 16:56:01 +0000
+Received: by outflank-mailman (input) for mailman id 732852;
+ Thu, 30 May 2024 16:56:00 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=8pxM=NB=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1sCj0N-0006d6-FT
- for xen-devel@lists.xenproject.org; Thu, 30 May 2024 16:51:55 +0000
-Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com
- [2a00:1450:4864:20::52c])
+ <SRS0=LA40=NB=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1sCj4K-0007DX-TO
+ for xen-devel@lists.xenproject.org; Thu, 30 May 2024 16:56:00 +0000
+Received: from mail-lf1-x12d.google.com (mail-lf1-x12d.google.com
+ [2a00:1450:4864:20::12d])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id eb9bf29a-1ea4-11ef-90a1-e314d9c70b13;
- Thu, 30 May 2024 18:51:54 +0200 (CEST)
-Received: by mail-ed1-x52c.google.com with SMTP id
- 4fb4d7f45d1cf-57a2ed9af7dso344886a12.1
- for <xen-devel@lists.xenproject.org>; Thu, 30 May 2024 09:51:54 -0700 (PDT)
-Received: from [10.125.231.30] ([217.156.233.157])
+ id 7db3fbf7-1ea5-11ef-90a1-e314d9c70b13;
+ Thu, 30 May 2024 18:55:59 +0200 (CEST)
+Received: by mail-lf1-x12d.google.com with SMTP id
+ 2adb3069b0e04-52b83225088so400851e87.3
+ for <xen-devel@lists.xenproject.org>; Thu, 30 May 2024 09:55:59 -0700 (PDT)
+Received: from [192.168.219.221] ([94.75.70.14])
  by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-57a31c6d44fsm4979a12.61.2024.05.30.09.51.47
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 30 May 2024 09:51:48 -0700 (PDT)
+ 2adb3069b0e04-52b84d34500sm16955e87.54.2024.05.30.09.55.58
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 30 May 2024 09:55:58 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,118 +45,134 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: eb9bf29a-1ea4-11ef-90a1-e314d9c70b13
+X-Inumbo-ID: 7db3fbf7-1ea5-11ef-90a1-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1717087914; x=1717692714; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=q1iXChzx3I0tb/MZycIp9NIeTxN3s9RHuHsOh+AQOu8=;
-        b=pak9d7QxkCSTnmQvMXf11EpbzpFhaf9NZZYQwS3Hz3ohyjSbJZfZmhgqw9R1rj/7jJ
-         tZzNd6wz1d+kTvJzaB1Ed6hS3sEF7AxPurfQjD8ECftrKf8RW4iGGnSaXW8b7NYlCsIn
-         2eatbYUGxGAYTW6ijDbxc6Zdc1n/SNEtWYOH0=
+        d=gmail.com; s=20230601; t=1717088159; x=1717692959; darn=lists.xenproject.org;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=YGHVeE5O/iLTCsbWg7npMOS8KTfQhrI/JPwNfdlyenI=;
+        b=FSOzoo89/xtcwkSBII3zt+reyu9xKwCT6RrR0m3v4Arpk/ME1/9JJxy9ZoNagUCZDZ
+         YFnEuAN79dMphfWKO8qsE+yV7LVpK9qaZItwXFNISeb0D9Z90E3nVdY8UqZt4IL0sjqt
+         VzmB3W5BPas0lzJY8MffkSjbczA4DjLKAe3Rm2fJJjinHy0ek8UUAYlmrheJSDuoalVU
+         AFvTLWUSxDpYcapharcF+4yOOI5vHcYvD94QS70Cj3kg1Thllu6jCGgy0R2rB6BDaif9
+         jAi5cbOYnM7roiLxYGnIjXhWY7t2xyAaFv9WuyY/QIjVHplE0lmgceNfI8x/Hs4xN+ps
+         DAGQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1717087914; x=1717692714;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=q1iXChzx3I0tb/MZycIp9NIeTxN3s9RHuHsOh+AQOu8=;
-        b=rEt7zghdK/1UTgTbNr4nWcE5bNac0xqeA/92eIE992m1Yjdtbmjtl1Y7Fi0yXse8xW
-         YVBh21mpErCYo86x1vz/yXA1CBNBwocM6+aX4VKzWQCSJ5vAW8DaKOjI9rf1YSR1DSiI
-         G0onOfMtcW5mJ/d+XwNo/9NAxUGl7JGWnPhHCFrAhLIqSzNoynlTXw3tGB3G7smfuRW4
-         GcDqCJUuu3AxmaUi8xS9qCkVxXHDJ1tQvCXyq5/dZeqlHeYTNHHtGAInW6dok8hbKSHG
-         eOwyy+8+HZhC1KrEeecMbqZOOyvON05TmUBYov2tNPOzVL9bywxPVgUJn5ANvZNYMwpH
-         mchA==
-X-Forwarded-Encrypted: i=1; AJvYcCUAhLbtmu2jt4ALFCuLohmyYn3A0AezkuR4xLQwBW8pWZYTW8kbnGnNBGZ9cGB+W5P0gaVN4vVzSaXxi0O7nEune94Nyc3+qZgkAL39XD0=
-X-Gm-Message-State: AOJu0YyUUNKF5qbE+He8C39KUKpzVXz8X+3BN6T18yK3lCuUY7RNfoLu
-	acZFjpHdYygFbDM5g8ctOy/5lvKfC1UdFqhflJQvIS7d/djnvjjlec0WmOTcfyQ=
-X-Google-Smtp-Source: AGHT+IFo54zFzKbmCCHj/8bzC2qy9sQ4S1+IoyIfa4G+0HIRfVaVpZ4iN+k1vkD+Y1x2HmmAI/WuIw==
-X-Received: by 2002:a50:8e5d:0:b0:57a:242e:806b with SMTP id 4fb4d7f45d1cf-57a242e81d1mr1515517a12.18.1717087914380;
-        Thu, 30 May 2024 09:51:54 -0700 (PDT)
-Message-ID: <02564ec6-1f44-465f-9e3f-9ab92a08ff9d@citrix.com>
-Date: Thu, 30 May 2024 17:51:46 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v12 6/8] xen/riscv: add minimal amount of stubs to build
- full Xen
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
- xen-devel@lists.xenproject.org
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, George Dunlap <george.dunlap@citrix.com>,
- Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>
+        d=1e100.net; s=20230601; t=1717088159; x=1717692959;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=YGHVeE5O/iLTCsbWg7npMOS8KTfQhrI/JPwNfdlyenI=;
+        b=hWxIITr+dPpQIqva1tOWcrPKbMsVVsBP+sVWqG1SeJxpBq7t20SdhtymGiTJyAASst
+         x9Tw8t3XZsqx8F0jfyiXt2C68QL6yE1n/eER4JmH81dmTqZljG9vjMs7VpcU77MEfZKJ
+         8LnZg7a6ynAaxUHxiGbRlicu+YPYWhrTNx5gbbG9AtMtu+SAWd0vjcbjkNTJvekMnBWJ
+         STJsAjiVPPfxTtO8uTYPK70EISbFZsEq3AXo1o7FlabvCbWchy2z8Q9HMD2AVmXRWYbl
+         +y3cNY0UiSOuf2cYX23MHBA3DHjfzDFQmNqZp5HKoQfoXJXWgo+tnjuF4GvknJthR4M2
+         r2Kg==
+X-Forwarded-Encrypted: i=1; AJvYcCXcgwm2QdmiAYw5XVq9q8Nyy3/gSrQJmBAiZLa3zu7g8sp9+9b59B5img34GFPCPMTInWo8IM7EkPEJ2w5meDev7qxNi7sOkDuziA5K0j0=
+X-Gm-Message-State: AOJu0YyeKIAKmYZAxPIgioVQkgQMWce+V5EARrigZ4o3AI5lBufwx7o7
+	8jiRgRBPwOHaVTBdFF9WLGLk1w3HXuEqkucambG1Dh2khqfkbH2k
+X-Google-Smtp-Source: AGHT+IGfn1AuIvmFx4weRdCBLGL14uKkUhrDaGlkdYpXW/GSKV+9ZefApbmFShGAE+MisgcaRCrVrQ==
+X-Received: by 2002:a19:770d:0:b0:51f:4c53:8e4c with SMTP id 2adb3069b0e04-52b7d43aee4mr1725419e87.33.1717088159135;
+        Thu, 30 May 2024 09:55:59 -0700 (PDT)
+Message-ID: <840dacc2b79260c31761a6fadd95fc5d4bb2b50d.camel@gmail.com>
+Subject: Re: [PATCH v12 1/8] xen/riscv: disable unnecessary configs
+From: "Oleksii K." <oleksii.kurochko@gmail.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
+Cc: Doug Goldstein <cardoe@cardoe.com>, Stefano Stabellini
+ <sstabellini@kernel.org>, Alistair Francis <alistair.francis@wdc.com>, Bob
+ Eshleman <bobbyeshleman@gmail.com>, Connor Davis <connojdavis@gmail.com>,
+ "Daniel P. Smith" <dpsmith@apertussolutions.com>
+Date: Thu, 30 May 2024 18:55:58 +0200
+In-Reply-To: <0f12ce69-b139-4d97-8e36-23dd7c6bea41@citrix.com>
 References: <cover.1717008161.git.oleksii.kurochko@gmail.com>
- <4e5b814c3f73bd4ae6bb80296e17ac80bd8d224a.1717008161.git.oleksii.kurochko@gmail.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <4e5b814c3f73bd4ae6bb80296e17ac80bd8d224a.1717008161.git.oleksii.kurochko@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+	 <35cf9d52e538aab964a3ecc050260abb3f27c60d.1717008161.git.oleksii.kurochko@gmail.com>
+	 <0f12ce69-b139-4d97-8e36-23dd7c6bea41@citrix.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.52.1 (3.52.1-1.fc40) 
+MIME-Version: 1.0
 
-On 29/05/2024 8:55 pm, Oleksii Kurochko wrote:
-> diff --git a/xen/arch/riscv/stubs.c b/xen/arch/riscv/stubs.c
-> new file mode 100644
-> index 0000000000..8285bcffef
-> --- /dev/null
-> +++ b/xen/arch/riscv/stubs.c
-> @@ -0,0 +1,439 @@
-> <snip>
-> +void udelay(unsigned long usecs)
-> +{
-> +    BUG_ON("unimplemented");
-> +}
-> +
-> +/* guest_access.h */ 
+On Thu, 2024-05-30 at 17:44 +0100, Andrew Cooper wrote:
+>=20
+> The subject should say "update Kconfig", because you're not (only)
+> disabling.
+>=20
+> I'd suggest "xen/riscv: Update Kconfig in preparation for a full Xen
+> build".
+>=20
+> On 29/05/2024 8:55 pm, Oleksii Kurochko wrote:
+> > Disables unnecessary configs for two cases:
+> > 1. By utilizing EXTRA_FIXED_RANDCONFIG for randconfig builds
+> > (GitLab CI jobs).
+> > 2. By using tiny64_defconfig for non-randconfig builds.
+> >=20
+> > Only configs which lead to compilation issues were disabled.
+> >=20
+> > Remove lines related to disablement of configs which aren't
+> > affected
+> > compilation:
+> > =C2=A0-# CONFIG_SCHED_CREDIT is not set
+> > =C2=A0-# CONFIG_SCHED_RTDS is not set
+> > =C2=A0-# CONFIG_SCHED_NULL is not set
+> > =C2=A0-# CONFIG_SCHED_ARINC653 is not set
+> > =C2=A0-# CONFIG_TRACEBUFFER is not set
+> > =C2=A0-# CONFIG_HYPFS is not set
+> > =C2=A0-# CONFIG_SPECULATIVE_HARDEN_ARRAY is not set
+> >=20
+> > To allow CONFIG_ARGO build happy it was included <asm/p2m.h> to
+> > <asm/domain.h>
+> > as ARGO requires p2m_type_t ( p2m_ram_rw ) and declaration of
+> > check_get_page_from_gfn() from xen/p2m-common.h.
+> >=20
+> > Also, it was included <xen/errno.h> to asm/p2m.h as after the
+> > latter was
+> > included to <asm/domain.h> the compilation error that EINVAL,
+> > EOPNOTSUPP
+> > aren't declared started to occur.
+> >=20
+> > CONFIG_XSM=3Dn as it requires an introduction of:
+> > * boot_module_find_by_kind()
+> > * BOOTMOD_XSM
+> > * struct bootmodule
+> > * copy_from_paddr()
+> > The mentioned things aren't introduced now.
+> >=20
+> > CPU_BOOT_TIME_CPUPOOLS requires an introduction of
+> > cpu_physical_id() and
+> > acpi_disabled, so it is disabled for now.
+>=20
+> CONFIG_BOOT_TIME_CPUPOOLS
+>=20
+> Also the "depends on DT" isn't good enough as a restriction IMO.=C2=A0
+> It's
+> very ARM-dom0less specific.
+>=20
+> > PERF_COUNTERS requires asm/perf.h and asm/perfc-defn.h, so it is
+> > also disabled for now, as RISC-V hasn't introduced this headers
+> > yet.
+> > LIVEPATCH isn't ready for RISC-V too and it can be overriden by
+> > randconfig,
+> > so to avoid compilation errors for randconfig it is disabled for
+> > now.
+>=20
+> PERF_COUNTERS is x86-only, and both LIVEPATCH really should be
+> guarded
+> by have HAVE_$FOO selected by ARCH.
+>=20
+> However, that's not work to get stuck into now.
+>=20
+> It's quite unreasonable how much stuff doesn't work in simple
+> builds...
+>=20
+> > Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+>=20
+> Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+>=20
+> I'm happy to fix up the two minor issues on commit.
+Thanks. I Would appreciate that.
 
-You've got trailing whitespace here.
+~ Oleksii
 
-Also, this patch is (still) a shocking indictment on how bad our common
-vs arch split really is.
-
-~Andrew
 
