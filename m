@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3540B8D5175
-	for <lists+xen-devel@lfdr.de>; Thu, 30 May 2024 19:46:44 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.732917.1138968 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B3E018D5178
+	for <lists+xen-devel@lfdr.de>; Thu, 30 May 2024 19:48:07 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.732921.1138977 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sCjqp-0001x8-VA; Thu, 30 May 2024 17:46:07 +0000
+	id 1sCjsW-0002V9-9Q; Thu, 30 May 2024 17:47:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 732917.1138968; Thu, 30 May 2024 17:46:07 +0000
+Received: by outflank-mailman (output) from mailman id 732921.1138977; Thu, 30 May 2024 17:47:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sCjqp-0001vL-SD; Thu, 30 May 2024 17:46:07 +0000
-Received: by outflank-mailman (input) for mailman id 732917;
- Thu, 30 May 2024 17:46:07 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1sCjsW-0002Sm-6l; Thu, 30 May 2024 17:47:52 +0000
+Received: by outflank-mailman (input) for mailman id 732921;
+ Thu, 30 May 2024 17:47:50 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=8pxM=NB=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1sCjqp-0001vF-7a
- for xen-devel@lists.xenproject.org; Thu, 30 May 2024 17:46:07 +0000
-Received: from mail-oi1-x234.google.com (mail-oi1-x234.google.com
- [2607:f8b0:4864:20::234])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 7abd8beb-1eac-11ef-b4bb-af5377834399;
- Thu, 30 May 2024 19:46:02 +0200 (CEST)
-Received: by mail-oi1-x234.google.com with SMTP id
- 5614622812f47-3c9cc681ee0so621606b6e.0
- for <xen-devel@lists.xenproject.org>; Thu, 30 May 2024 10:46:02 -0700 (PDT)
+ id 1sCjsU-0002Sg-Qw
+ for xen-devel@lists.xenproject.org; Thu, 30 May 2024 17:47:50 +0000
+Received: from mail-oa1-x2a.google.com (mail-oa1-x2a.google.com
+ [2001:4860:4864:20::2a])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id bae77918-1eac-11ef-90a1-e314d9c70b13;
+ Thu, 30 May 2024 19:47:49 +0200 (CEST)
+Received: by mail-oa1-x2a.google.com with SMTP id
+ 586e51a60fabf-24d8b372911so617672fac.1
+ for <xen-devel@lists.xenproject.org>; Thu, 30 May 2024 10:47:49 -0700 (PDT)
 Received: from [10.125.231.30] ([217.156.233.157])
  by smtp.gmail.com with ESMTPSA id
- 6a1803df08f44-6ae4a7462a6sm455936d6.40.2024.05.30.10.45.58
+ d75a77b69052e-43ff258039fsm256311cf.79.2024.05.30.10.47.46
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 30 May 2024 10:45:59 -0700 (PDT)
+ Thu, 30 May 2024 10:47:47 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7abd8beb-1eac-11ef-b4bb-af5377834399
+X-Inumbo-ID: bae77918-1eac-11ef-90a1-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1717091161; x=1717695961; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1717091268; x=1717696068; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=8EyIqUxtnOINUrW9rFJ3KihtzaOkt2Vxdi5/JFaCyqk=;
-        b=Ut7mwNtWcokbTdbZT0cQdKWGlfh/79o11wrpwYHQNFmcCTT3P1rFVzIdtoB37ZeRnM
-         NusCXoWN3KloCiCRUvhKQhOriJM1br0H+/pTkdRIasih7T8hwKEtVBdXu2SoxSQmSHir
-         xZ3rFPKAn22ok2j0JZztKqOGM5ZXDyKZFFAaI=
+        bh=8Ria0bPgRndThepF5tccflUZu7ASqbAJHvzyfzmhvuQ=;
+        b=TRFDtOPULrVLIXvenbLRqYl3aVMyZjwKZd5t5gIWb3tOFhYhgVN8u0HIcmRHA7rcrq
+         IC2A/HDk5t+9ZRFWFrODLd4aeYGJkvaZPtcrqzlrFp15piNV/WtuSr/foyYwYLeW1f9n
+         xolcwDIofBl/Klx/IWpoO41kvZo4KhknBTG5A=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1717091161; x=1717695961;
+        d=1e100.net; s=20230601; t=1717091268; x=1717696068;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=8EyIqUxtnOINUrW9rFJ3KihtzaOkt2Vxdi5/JFaCyqk=;
-        b=wylaC5D4JNxG9wEMFvTZbKN4uWy1WNY/5qiL8v2CTpcMOd4U0pZfSfciaRGhLL2tFR
-         J10eW4QmHkZpZQLWq6g7FLTERaQgR0jYDTb3ki1IK61bFTVjRoBS7ZPtM3mLJcgLsUrq
-         jtyEGe393MgP3bxHkSkr2Ex36AcUH+89g8joMCEBI1lnJD+1oxZ79KodNGQiNlaUCVSo
-         aU2Lej9kKbipFASRFJmHcw0d+N96pT160vxDNfTdvXiSqSBeVrWoRsGTogjCsK0igfzJ
-         NCLnk9lw8sv3vn3J8C+08/xNtWNU36IgYeSlw5cQfpBTCl80ULXxZon2YoqmsRKxsOXQ
-         x1tQ==
-X-Forwarded-Encrypted: i=1; AJvYcCU3hnVvUyXlWQAcaV2lHBNKSatij/1nqstuFJnVFW+DABH7nAcvTeYjBTI+pwUSK3o+j/Rislsyh4OZW6Bl0lRmes+3dEkjU79Ppj97i74=
-X-Gm-Message-State: AOJu0YwXMnqd8xAf6oc/JiSqKFf7YulDOYQPQRt4BJ7lAwzS8CdoTavg
-	9SCFG9sD3ixnp70GEp6Ufp31PTUjBFeoYQskCk5BkE6Fx2cYqNtOaU5rOuMC8rc=
-X-Google-Smtp-Source: AGHT+IFxeKXYq48pYd3SIZXu8Mx/AM4laNIxC/SFNNFXYx1M4EibGPLEo/iX1PDG0PLIMDMD+BuS5w==
-X-Received: by 2002:a05:6808:3010:b0:3c9:9473:4300 with SMTP id 5614622812f47-3d1dcd20f26mr3505299b6e.48.1717091160796;
-        Thu, 30 May 2024 10:46:00 -0700 (PDT)
-Message-ID: <61c227f6-9515-4bfb-932b-aa0a5d33bc66@citrix.com>
-Date: Thu, 30 May 2024 18:45:57 +0100
+        bh=8Ria0bPgRndThepF5tccflUZu7ASqbAJHvzyfzmhvuQ=;
+        b=O9iUGj2+werfnw3UPApvIzAeB97FmL/bkfUSX/NPEWn1i0kWMYBEWnbjFKHjveFWy+
+         cvbYuvc01oOi+R0L/kDS2yAO/MtwewtNL8nWNAtsatWdr7Rt6GLXVjYgJdxNQKoNw6YH
+         DoIUbUGU2lMb80LsTDH//pkCg6ylaOdXrYcgdOE/26v38drwL6Gs9KV8H4LNdMJYEXm3
+         y6o7kIxvjY/+xJTQys2h5ph70tulzt4BhND7bE/7T870N1h7UTASTILe0t2xuZVrf7ex
+         rSyEqhX3YkC36DyK5IIdkLUYWpGcDZ1uB3yZ86LOju2z32RbhXUY0qZWbKb11NSzzTp0
+         p9/w==
+X-Forwarded-Encrypted: i=1; AJvYcCW26N1DQgDi6DwoFHv3uJnJMiyObPmpkej7rEN1bkTlFwuGdjao+uzGaN0aKTwj3mRaFQPbiZE1Gi5lF0KYWq93Wu/YBJ/pzYAzyzb45oU=
+X-Gm-Message-State: AOJu0YzhzaVhLAXCQNlrnhjs5oNrEh6nDdKk5NsyNIvfYrhsxHrgiunQ
+	4UVCey8f42JwxX/BTZ5rE5FOKL2147ZEAeCHmx01qr6Per4LuqdRfd1/HvgE+Vc=
+X-Google-Smtp-Source: AGHT+IFHYuzj514kDmVKOdpM4ERsPRcRWRYcWbNG4R4lYTwq5eA1Vvep9lW5KdOdMugMCuEONJUM0A==
+X-Received: by 2002:a05:6870:d68f:b0:24f:d57f:86ad with SMTP id 586e51a60fabf-25060b015c3mr3065166fac.8.1717091268426;
+        Thu, 30 May 2024 10:47:48 -0700 (PDT)
+Message-ID: <0c667b0f-7469-4c38-a16b-f8d62e894a98@citrix.com>
+Date: Thu, 30 May 2024 18:47:45 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v12 7/8] xen/riscv: enable full Xen build
-To: "Oleksii K." <oleksii.kurochko@gmail.com>, xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v12 6/8] xen/riscv: add minimal amount of stubs to build
+ full Xen
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+ xen-devel@lists.xenproject.org
 Cc: Alistair Francis <alistair.francis@wdc.com>,
  Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
  <connojdavis@gmail.com>, George Dunlap <george.dunlap@citrix.com>,
  Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
  Stefano Stabellini <sstabellini@kernel.org>
 References: <cover.1717008161.git.oleksii.kurochko@gmail.com>
- <1cea913117f771a5f3b4404d7bfb7e1329f3f38e.1717008161.git.oleksii.kurochko@gmail.com>
- <1ecd7a2c-b7da-4c59-8ebd-c3841d5991f8@citrix.com>
- <2747a20d490252c279dd051c41a9b8dc69fb4c3e.camel@gmail.com>
+ <4e5b814c3f73bd4ae6bb80296e17ac80bd8d224a.1717008161.git.oleksii.kurochko@gmail.com>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -134,99 +134,31 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <2747a20d490252c279dd051c41a9b8dc69fb4c3e.camel@gmail.com>
+In-Reply-To: <4e5b814c3f73bd4ae6bb80296e17ac80bd8d224a.1717008161.git.oleksii.kurochko@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 30/05/2024 6:12 pm, Oleksii K. wrote:
-> On Thu, 2024-05-30 at 17:48 +0100, Andrew Cooper wrote:
->> On 29/05/2024 8:55 pm, Oleksii Kurochko wrote:
->>> diff --git a/xen/arch/riscv/stubs.c b/xen/arch/riscv/stubs.c
->>> index 8285bcffef..bda35fc347 100644
->>> --- a/xen/arch/riscv/stubs.c
->>> +++ b/xen/arch/riscv/stubs.c
->>> @@ -24,12 +24,6 @@ DEFINE_PER_CPU_READ_MOSTLY(cpumask_var_t,
->>> cpu_core_mask);
->>>  
->>>  nodemask_t __read_mostly node_online_map = { { [0] = 1UL } };
->>>  
->>> -/*
->>> - * max_page is defined in page_alloc.c which isn't complied for
->>> now.
->>> - * definition of max_page will be remove as soon as page_alloc is
->>> built.
->>> - */
->>> -unsigned long __read_mostly max_page;
->>> -
->>>  /* time.c */
->>>  
->>>  unsigned long __ro_after_init cpu_khz;  /* CPU clock frequency in
->>> kHz. */
->>> @@ -419,21 +413,3 @@ void __cpu_die(unsigned int cpu)
->>>  {
->>>      BUG_ON("unimplemented");
->>>  }
->>> -
->>> -/*
->>> - * The following functions are defined in common/irq.c, but
->>> common/irq.c isn't
->>> - * built for now. These changes will be removed there when
->>> common/irq.c is
->>> - * ready.
->>> - */
->>> -
->>> -void cf_check irq_actor_none(struct irq_desc *desc)
->>> -{
->>> -    BUG_ON("unimplemented");
->>> -}
->>> -
->>> -unsigned int cf_check irq_startup_none(struct irq_desc *desc)
->>> -{
->>> -    BUG_ON("unimplemented");
->>> -
->>> -    return 0;
->>> -}
->> All 3 of these are introduced in the previous patch and deleted again
->> here.  Looks like a rebasing accident.
-> Not really.
->
-> This was done to avoid build failures for RISC-V. If the HEAD is on the
-> previous patch where these changes are introduced and then we just drop
-> them, it will lead to a linkage error because these functions are
-> defined in common/irq.c, which isn't built for RISC-V if the HEAD is on
-> the previous patch:
->    /build/xen/arch/riscv/entry.S:86: undefined reference to `max_page'
+On 29/05/2024 8:55 pm, Oleksii Kurochko wrote:
+> diff --git a/xen/arch/riscv/mm.c b/xen/arch/riscv/mm.c
+> index fe3a43be20..2c3fb7d72e 100644
+> --- a/xen/arch/riscv/mm.c
+> +++ b/xen/arch/riscv/mm.c
+> @@ -1,5 +1,6 @@
+>  /* SPDX-License-Identifier: GPL-2.0-only */
+>  
+> +#include <xen/bug.h>
+>  #include <xen/cache.h>
+>  #include <xen/compiler.h>
+>  #include <xen/init.h>
+> @@ -14,6 +15,9 @@
+>  #include <asm/page.h>
+>  #include <asm/processor.h>
+>  
+> +unsigned long __ro_after_init frametable_base_pdx;
+> +unsigned long __ro_after_init frametable_virt_end;
 
-Nothing in the series touches entry.S, so I'm not sure what this is
-complaining about.
-
-The stub for get_upper_mfn_bound() references max_page, but it's only
-used in a SYSCTL so you can avoid the problem with a BUG_ON().
-
-BTW, you also don't need a return after a BUG_ON(). 
-__builtin_unreachable() takes care of everything properly for you.
-
-
->    riscv64-linux-gnu-ld: prelink.o:(.rodata+0x8): undefined reference to
->    `irq_startup_none'
->    riscv64-linux-gnu-ld: prelink.o:(.rodata+0x10): undefined reference to
->    `irq_actor_none'
->    riscv64-linux-gnu-ld: prelink.o:(.rodata+0x18): undefined reference to
->    `irq_actor_none'
->    riscv64-linux-gnu-ld: prelink.o:(.rodata+0x20): undefined reference to
->    `irq_actor_none'
->    riscv64-linux-gnu-ld: xen-syms: hidden symbol `irq_actor_none' isn't
->    defined
->
-> That is why these stubs were introduced in the previous patch (because
-> common/irq.c isn't built at that moment) and are removed in this patch
-> (since at the moment of this patch, common/irq.c is now being built).
-
-These OTOH are a side effect of how no_irq_type works, which is
-horrifying, and not something I can unsee.
-
-I'll see about fixing it, because I really can't bare to leave it like
-this...
+Along with removing base_pdx, virt_end appears to be unique to ARM
+before and after the series.  I'd recommend dropping it too.
 
 ~Andrew
 
