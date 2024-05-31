@@ -2,37 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5448F8D60D5
-	for <lists+xen-devel@lfdr.de>; Fri, 31 May 2024 13:40:24 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.733669.1139980 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 884168D6159
+	for <lists+xen-devel@lfdr.de>; Fri, 31 May 2024 14:08:52 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.733684.1140000 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sD0c9-0002bG-Py; Fri, 31 May 2024 11:40:05 +0000
+	id 1sD13e-0007mq-F8; Fri, 31 May 2024 12:08:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 733669.1139980; Fri, 31 May 2024 11:40:05 +0000
+Received: by outflank-mailman (output) from mailman id 733684.1140000; Fri, 31 May 2024 12:08:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sD0c9-0002YM-Ms; Fri, 31 May 2024 11:40:05 +0000
-Received: by outflank-mailman (input) for mailman id 733669;
- Fri, 31 May 2024 11:40:04 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1sD13e-0007kl-BZ; Fri, 31 May 2024 12:08:30 +0000
+Received: by outflank-mailman (input) for mailman id 733684;
+ Fri, 31 May 2024 12:08:29 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=xPZo=NC=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
- id 1sD0c8-0002Ae-0n
- for xen-devel@lists.xenproject.org; Fri, 31 May 2024 11:40:04 +0000
-Received: from wfout1-smtp.messagingengine.com
- (wfout1-smtp.messagingengine.com [64.147.123.144])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 837edcfa-1f42-11ef-90a1-e314d9c70b13;
- Fri, 31 May 2024 13:40:02 +0200 (CEST)
-Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
- by mailfout.west.internal (Postfix) with ESMTP id 18F651C00224;
- Fri, 31 May 2024 07:39:59 -0400 (EDT)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute3.internal (MEProxy); Fri, 31 May 2024 07:39:59 -0400
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 31 May 2024 07:39:56 -0400 (EDT)
+ <SRS0=cAP5=NC=oracle.com=martin.petersen@srs-se1.protection.inumbo.net>)
+ id 1sD13d-0007ke-Eh
+ for xen-devel@lists.xenproject.org; Fri, 31 May 2024 12:08:29 +0000
+Received: from mx0a-00069f02.pphosted.com (mx0a-00069f02.pphosted.com
+ [205.220.165.32]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 7b89db31-1f46-11ef-b4bb-af5377834399;
+ Fri, 31 May 2024 14:08:26 +0200 (CEST)
+Received: from pps.filterd (m0246629.ppops.net [127.0.0.1])
+ by mx0b-00069f02.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 44V9VaPq025198; Fri, 31 May 2024 12:08:09 GMT
+Received: from phxpaimrmta03.imrmtpd1.prodappphxaev1.oraclevcn.com
+ (phxpaimrmta03.appoci.oracle.com [138.1.37.129])
+ by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 3yb8p7tx8x-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Fri, 31 May 2024 12:08:08 +0000
+Received: from pps.filterd
+ (phxpaimrmta03.imrmtpd1.prodappphxaev1.oraclevcn.com [127.0.0.1])
+ by phxpaimrmta03.imrmtpd1.prodappphxaev1.oraclevcn.com (8.17.1.19/8.17.1.19)
+ with ESMTP id 44VAB7eR006340; Fri, 31 May 2024 12:08:07 GMT
+Received: from nam11-dm6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11lp2169.outbound.protection.outlook.com [104.47.57.169])
+ by phxpaimrmta03.imrmtpd1.prodappphxaev1.oraclevcn.com (PPS) with ESMTPS id
+ 3yd7c89dp9-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Fri, 31 May 2024 12:08:07 +0000
+Received: from PH0PR10MB4759.namprd10.prod.outlook.com (2603:10b6:510:3d::12)
+ by SA1PR10MB5866.namprd10.prod.outlook.com (2603:10b6:806:22b::19)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7611.22; Fri, 31 May
+ 2024 12:08:01 +0000
+Received: from PH0PR10MB4759.namprd10.prod.outlook.com
+ ([fe80::5c74:6a24:843e:e8f7]) by PH0PR10MB4759.namprd10.prod.outlook.com
+ ([fe80::5c74:6a24:843e:e8f7%4]) with mapi id 15.20.7633.021; Fri, 31 May 2024
+ 12:08:01 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,164 +63,164 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 837edcfa-1f42-11ef-90a1-e314d9c70b13
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm1; t=1717155598;
-	 x=1717241998; bh=PtyDoQ5hXIUw/iYJcJ0Fd/M4Ak5wsByW/SqcYzEaX/Y=; b=
-	FjH2Uz3gFWVXntIWh/tFZBVsB0yZQpEIbnBJhHlm1tquzjcFOWQZ8GhzHLnZwWZl
-	dsDpue7nhFXqpRYtUro9P+UsNWaRqOkwqi/a2ZCKySflULqAEFVgc8yqEi6+ylAL
-	OfTrpBk0zC4h/suma/SjgbZ68T3S8luD+K4H5+bvWb9wEgZf85/4eOrU0ny1FyTo
-	hL/Ey8gMbRl0XpbWVf3yUuOlxOJ8o0zpA1uWCGssynrELZYev0Mv54ly3X2UGqcN
-	FC1AXz1pz/hCjQGzV3n6TShkNzD9VCwLowPRzLMEu8JpieHy2TvuhjTQUxOHR+74
-	7UBnD+l5Kl9ReUBmN6rc0w==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
-	fm1; t=1717155598; x=1717241998; bh=PtyDoQ5hXIUw/iYJcJ0Fd/M4Ak5w
-	sByW/SqcYzEaX/Y=; b=kfJ8r3d/HPvq4TDMlUmxkVw9c2uiVJI0N2aPLS9bhGP0
-	YWpu92UeJ1P1AXC+bPM+OjO93kzWjiGZAgq2gcY/X8PDbZ3nwxFTgTs+WxccKI7S
-	uIESJ4vlDgqgyGuDcmxhAj+QIJ0Zo9m1ok/8qOLfwohjtWmeeTLLBYvYgmWhINly
-	7PJEm016mXft6bsFhvQc0j52y9oNYKZxPovYusbcDxq7jZCioguDGYFpiceB8W4n
-	D9cnoKAo/tZGnIXQcepg0zhGmfEDUvMPtnNzVvgtnT7QqPlrSgCRt/XWgsItY4IP
-	/P4cTD9gMgxluTG0IAHtyojvDldnwZqGL4BHxlsJQA==
-X-ME-Sender: <xms:DrdZZmSoj_HAULYl5hfZn-cZwWNceuMbp88tqPlvwzGpjyfW-l_7uQ>
-    <xme:DrdZZrymmic_iJ2jENfSlgp-mptBh-lXj6RAAd61moqF36DCmPbHTDecELUjOlvS4
-    5guYjNs6hpPTQ>
-X-ME-Received: <xmr:DrdZZj0-VoP8NyDw0aAF23RwhRukJDplFiQZ35yD2NKQae61IGlEz5erO0I>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvledrvdekiedggeduucetufdoteggodetrfdotf
-    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
-    uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
-    cujfgurhepfffhvfevuffkfhggtggujgesghdtreertddtjeenucfhrhhomhepofgrrhgv
-    khcuofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuceomhgrrhhmrghrvghksehinh
-    hvihhsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecuggftrfgrthhtvghrnhepgfdu
-    leetfeevhfefheeiteeliefhjefhleduveetteekveettddvgeeuteefjedunecuvehluh
-    hsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepmhgrrhhmrghrvghk
-    sehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomh
-X-ME-Proxy: <xmx:DrdZZiC6wvK-z-wSibhxhty8VYeGSdt2xiozSxmRdGvzxuUX59ONwA>
-    <xmx:DrdZZvjD5eGZLkfgS-Ecl8J5vsZe3v6sRxx7wiVUz0u-ZdeJ3IiXTA>
-    <xmx:DrdZZurca9YnRObjruZwF6g5yu5ZfeCuIZxdBfj8i3yi8Fu8ML4tdA>
-    <xmx:DrdZZijdvDrdFXLtRZLZ6WwPXrY4WEIAN1DuNCmAJEWzHRvfotztoA>
-    <xmx:DrdZZlYRF1_gY_Arfhaojkz3wMRa2xma2m8EBRLbdbePdu9ADLc44Y8f>
-Feedback-ID: i1568416f:Fastmail
-Date: Fri, 31 May 2024 13:39:54 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	Xen-devel <xen-devel@lists.xenproject.org>,
-	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Subject: Re: [PATCH 1/3] CI: Remove CI_COMMIT_REF_PROTECTED requirement for
- HW jobs
-Message-ID: <Zlm3CwgwccpPU4f6@mail-itl>
-References: <20240529141945.41669-1-andrew.cooper3@citrix.com>
- <20240529141945.41669-2-andrew.cooper3@citrix.com>
- <ZlfHh_blx1i0eE7O@mail-itl>
- <alpine.DEB.2.22.394.2405301715010.2557291@ubuntu-linux-20-04-desktop>
+X-Inumbo-ID: 7b89db31-1f46-11ef-b4bb-af5377834399
+DKIM-Signature: =?UTF-8?Q?v=3D1;_a=3Drsa-sha256;_c=3Drelaxed/relaxed;_d=3Doracle.com;_h?=
+ =?UTF-8?Q?=3Dcc:content-type:date:from:in-reply-to:message-id:mime-versio?=
+ =?UTF-8?Q?n:references:subject:to;_s=3Dcorp-2023-11-20;_bh=3DXUmnzuXbv30y?=
+ =?UTF-8?Q?x5U2wKdOOuX0y4eJ9Z+Fx4zUNeqmrA8=3D;_b=3DbLik8BL1kIRcvUaO5/XX8V9?=
+ =?UTF-8?Q?auvdrZNNiQ1QpwjXBt7TJhhA/sQNCAG33ljPmHc7Me5G+_rhBJMNiOG8zxys8fP?=
+ =?UTF-8?Q?ShUoCMKM65Sfz7+dV1hZiRQ06txwmaDpBK9O4PYDwOK2bMkbN6E_1PJZWk1mEIB?=
+ =?UTF-8?Q?mi5nwgDqHhmnCavEi4wTlRcKoDfoJ7JcQj6yKtrWD202t2BcF4xTqVUsm_Ooyi0?=
+ =?UTF-8?Q?CeOo0g/zbwersyHrysPfVpapLj4B2VqAXRl2B9Mx1tLOTHbmkPMZBPGUng/4yEl?=
+ =?UTF-8?Q?_62e2e3sewab+EUKNDiPligSKKLhVNsKBKF6OeKY3fL8wHHERAyG+mEv+JRL+Tw?=
+ =?UTF-8?Q?0nM1tp_iA=3D=3D_?=
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=D8Qs0KgGt5BbEcDA7zEdaSCCWaMiB1jiFB4DBE+5MABoYB/YRaG8yzzpzL6KODm4m3BtsQj8+2ddAC/We+EsqMr1oiLxua1K2uXwcZq712xPNEe14RAOwY6SCIsvBki8QdYal7zoDWazK1XMbgI1QbvEbY8XpSfV7M+Ydt1VJoim1bmYkTCS6YsLfy++can89EU6/W+Bx/8RoeKMsW1rTwKjr5CagdEFxn2i3uPSWsEqGFCmIYz15bYCUMpKn1hvgASw52fQMCbju8k800XmwYDJ7EGt4KYsQ//zgnYtVdaJ6btcrypqTEGtR2vc8wSCm5T1HqNQfEB4VuApY2aBtg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=XUmnzuXbv30yx5U2wKdOOuX0y4eJ9Z+Fx4zUNeqmrA8=;
+ b=a7bmNc1VaUDsa2Wan323773RDqh75STrNUy/Ai3fVokW0bVZLgDuAh1+bpfTT3gg0WlMkxDD08QlXAjAaoa9fvcHlnaVjZ827hpIND2KsuKgTKhBQZPEHhLtA4wZ5Mhhb9z9AgPkDlGiu3P+6soYlU5V++J1Qhj0Rywm/39dDJg8dHAmO6liKpjhWVb7cEY5Jc11dPAHrA6RcMsZ3y4PIuDuL/fRwVhFU8J33mn1AOPA9XgrY4qdc8MWF/7Li33BE9UAn9d3emFweeGgtwwBWpfNOWT3fjczGEVAQ9oZBzmzmuFVoZPlvSEmwVQzXTpxAtEXjPn+wirgcMABKS1y9Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
+ dkim=pass header.d=oracle.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=XUmnzuXbv30yx5U2wKdOOuX0y4eJ9Z+Fx4zUNeqmrA8=;
+ b=s4mzQLWgmqgVGzkyplSKscdbfLWAsDBRdSqWbV31dFtbw1XqMsHo+CExP5E0Aqjy4430twSFlRjHMnu/JXfrQ8fubLGCYpoFHNWTzL0QJVhWVDopUGqKvPX1VnGGZkvppNH5eZWoP5UyaCCHQsY467OYoKFv3NYIC9eFyugjwpo=
+To: Christoph Hellwig <hch@lst.de>
+Cc: Jens Axboe <axboe@kernel.dk>,
+        "Martin K. Petersen"
+ <martin.petersen@oracle.com>,
+        Richard Weinberger <richard@nod.at>,
+        Anton
+ Ivanov <anton.ivanov@cambridgegreys.com>,
+        Johannes Berg
+ <johannes@sipsolutions.net>,
+        Josef Bacik <josef@toxicpanda.com>, Ilya
+ Dryomov <idryomov@gmail.com>,
+        Dongsheng Yang
+ <dongsheng.yang@easystack.cn>,
+        Roger Pau =?utf-8?Q?Monn=C3=A9?=
+ <roger.pau@citrix.com>,
+        linux-um@lists.infradead.org, linux-block@vger.kernel.org,
+        nbd@other.debian.org, ceph-devel@vger.kernel.org,
+        xen-devel@lists.xenproject.org, linux-scsi@vger.kernel.org
+Subject: Re: convert the SCSI ULDs to the atomic queue limits API v2
+From: "Martin K. Petersen" <martin.petersen@oracle.com>
+In-Reply-To: <20240531074837.1648501-1-hch@lst.de> (Christoph Hellwig's
+	message of "Fri, 31 May 2024 09:47:55 +0200")
+Organization: Oracle Corporation
+Message-ID: <yq17cfadwd0.fsf@ca-mkp.ca.oracle.com>
+References: <20240531074837.1648501-1-hch@lst.de>
+Date: Fri, 31 May 2024 08:07:54 -0400
+Content-Type: text/plain
+X-ClientProxiedBy: LO4P123CA0232.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:1a6::21) To PH0PR10MB4759.namprd10.prod.outlook.com
+ (2603:10b6:510:3d::12)
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="0qbZMnV+fSlTWEii"
-Content-Disposition: inline
-In-Reply-To: <alpine.DEB.2.22.394.2405301715010.2557291@ubuntu-linux-20-04-desktop>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH0PR10MB4759:EE_|SA1PR10MB5866:EE_
+X-MS-Office365-Filtering-Correlation-Id: 15231c24-f371-4dc1-49b9-08dc816a5123
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230031|7416005|1800799015|366007|376005;
+X-Microsoft-Antispam-Message-Info: 
+	=?us-ascii?Q?KGyupYCU+JuKBi4UuVZYwz9OLjYKekpeYkYcQo/cjZHH7Kuz4PUQyhEzPk7N?=
+ =?us-ascii?Q?l24tI/1dCvAMiIc1xsIcTWpz93ph9ygSHtZYuQsALfFTDd5l3esC4ekZUCqV?=
+ =?us-ascii?Q?WBpMIwFIBod021ZlfCCw4O8SUgKgDqcaiIzd8LLwkCvHKxPyLOfTtcyHo3UV?=
+ =?us-ascii?Q?rb2U3sUKZTjgEm3iNLxCjvU2qzhi6tum3B9P6aY5C0ZdRRYxgXzIk68Ix1Lr?=
+ =?us-ascii?Q?fhxhdHYpUz41KhWATzkCaLHEnNcre7833Yt48vqDRDvzDoONmpWIzIX0iLSL?=
+ =?us-ascii?Q?qufkgdADy8d3LrB6sCMRAsFbS2cPX/W2jAgJR6Hgn5j/hEoAuFf75TnOYe6N?=
+ =?us-ascii?Q?nYESmNVmJARlTgoCd8vxabgcPH1MlTx9+oFmS8whNRWmOo4xgQuY/BmJFv2G?=
+ =?us-ascii?Q?iEJttOCUvl5tquX14Ys+gc85j4CFgFCYUAe0p1JumX+w9ReyH+oeBzL3/kYc?=
+ =?us-ascii?Q?Jysnnpv/MTJMPSFxLWt0a1dvDLOezXUUi26b0vAZZmAkBMp3eM6rj8l0JaZC?=
+ =?us-ascii?Q?QXk1Ok9PdtA1vrh/3X8Lobh6JoUv8AMoFO465u59yyL4NVosgI3i+RVPz7Ax?=
+ =?us-ascii?Q?6VNqQ2A5ID4hdJCpLpqeJ+eJe+vddUHBCw0a3DDrsO5WByXHWO630N7zIEL7?=
+ =?us-ascii?Q?P8VZtrKD15nZKogvMS//gUmvTsh96nsAKP38sq6hAEnFFSHEk8ua+qHL0gJg?=
+ =?us-ascii?Q?OxPvEnDjOX8SmHyExo3I0ndprLUUhONvjDYxRj206TS6OraXzwQuh1OgDQCq?=
+ =?us-ascii?Q?nFdMktnlmjIGfEUhkOgblel8E11Ew0pyPIN8N9QjkprHTT/uB9ttlfO6WLQT?=
+ =?us-ascii?Q?58IzJvrcxxhGS7/krA1VRG2/R56r4pHRws0xtCOKL4HjFYCXI3JFZyeLnUpk?=
+ =?us-ascii?Q?dib20rXzdVbygFJhjy4v+pgiW3JjrfnGGJd0s2w7Y8usMOYN0FguIC9pvRyU?=
+ =?us-ascii?Q?oe+quvPlk+0QXwLXoO2C315ZDA37wOkMHH2NIwaOfg6K8/tD9wbHH/lAMdXP?=
+ =?us-ascii?Q?8u1fAMcDiBb5zMIMnvat7ZRq2bmw+u3mJx5YvrkPLaNlOBHnGbq0sBFXrsTq?=
+ =?us-ascii?Q?dRbMVSL1dlvcx2exNyagFF1utPjgkPMFTvqJcFHHuyH5lZC9z5v4ppl0CFpE?=
+ =?us-ascii?Q?5EqEvICwS3k9gPSSzFmziywHgHpDe5CyK71XHSHs6jdxD5tOL5Ggga4+Z2Bu?=
+ =?us-ascii?Q?RtSdKe8ahoyvfngWM2Jw1GkBQmpDNcooUk4b81i9CtmNV2Fuuy4h316dXB/1?=
+ =?us-ascii?Q?BjhMKetb2ZyZi3tI54UnhFux5O6DV4l6HuWMB3HiJQ=3D=3D?=
+X-Forefront-Antispam-Report: 
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR10MB4759.namprd10.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(7416005)(1800799015)(366007)(376005);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: 
+	=?us-ascii?Q?iVzbOLNXq4lTV/BnQAAh0CCD/RpGP+lD4E47LNbEGKNd8R44TGNPsgkSEwWG?=
+ =?us-ascii?Q?VwjViG8vklwn1fX5t9N99TuNtPe/ETCHLCGyNHjg7ZOwxgvc1u/PyRv0QSFZ?=
+ =?us-ascii?Q?pvFDLTouoK/KPHvp1LgIxPfgb00mpG7qBSYGQ8OphG1fFmhanR3nkedSwCGN?=
+ =?us-ascii?Q?Y4Ozu9Z2AyV58qlLM7n+5wp2oqJounr+nKgeZTECy+svTK+RmBYPUXU13Go+?=
+ =?us-ascii?Q?wNZshNXhZYS/PRvQlA2nzYlIMpc4+5tamZoFKN1nO+lpKJfoFgRoHVXNxwoF?=
+ =?us-ascii?Q?Ds23YiRAcPFRGSC1xX2YVBBDAJcV+tlULpQlKIcWdoNOoTZR7ZunwK3xK6i7?=
+ =?us-ascii?Q?NNn9tqEXuKVPUPy3Zl95zKkaKznjX08KXCs7H8+0CXsUIaRcbyN3CKM59jDc?=
+ =?us-ascii?Q?3b3QXZsKYmlxyjT59VlzttlhcUX2X/VFWidhzASGaVzWYu/Q1ocpgtNdDJak?=
+ =?us-ascii?Q?JFxQXkMXK6a+GMphJw0ih9DFIC07pxJ5sMD8GyxNwDHuETiLVrCQFNlQyrzL?=
+ =?us-ascii?Q?IKAq2qG/B1QeBmqAddjALuppMVZVXHDSHKajgDbg8KtU6VT66BM35zzPyvOJ?=
+ =?us-ascii?Q?1JikWTCuY8HZXeto229WBA5bLxXo5GW9CZZwMJbO7UdNfY38MKbFmfoKvLLe?=
+ =?us-ascii?Q?hGLUYO9q9xNbHPP9uiQBw85FWwSvd6e0fGDK2qxLPvY7HXPIiWEBOvwvCvHl?=
+ =?us-ascii?Q?U7ER08nN9yvvT2FNTjT7RNpKe9G4mxIGXisI2YMdam6hQWLMYBrz1/KNpqhx?=
+ =?us-ascii?Q?0kD15tbTjPOrXmb8KCai4bmr1XRtBMGOSd77hVCoVnnYM0p/dLEs8ELtmm9J?=
+ =?us-ascii?Q?/qnI8R2W4dNQvSwEmWkIc5KwYLdGRzWmWFnBR/sK85F1k19UWoUtau4FuMWQ?=
+ =?us-ascii?Q?66oLUfokPSGrq8HOpaEB2NbC3ZHuCd4NP00WEJvF2Q2Me694G7W5+P1uzA27?=
+ =?us-ascii?Q?nZ/A9/r+FzS01UhWmjd8mbSMFD9wDr18MS7iP1yNyYl23TCr6B2GBJpCRSt9?=
+ =?us-ascii?Q?gQ8mcINFj6gV6X+ixNk3IeOXWcuoXd2D/a0P41dXPDnfbWC8qRASLqMvogIL?=
+ =?us-ascii?Q?jS+IJjZt76I6MiLcIR4hbsT+Ykr9ugsOK2wPb7Iu8P9PKDpea/yTChHUQ+qf?=
+ =?us-ascii?Q?nMg7daxYnSQNsyOf9ushMhKeMzLh4go+R/VC+xWGB6FzxW2r77O8NlLoIhKm?=
+ =?us-ascii?Q?p+tjypG4cW0ZzZWH4+qBV2jVphahthEdVfxflshGS+t5+riIUnQB3F2aqLtF?=
+ =?us-ascii?Q?fhxv65iEHO1zNK0yIPWtSohdxmwIjh2D30gkn5nre6jPGvQQYARDo3GqaoWB?=
+ =?us-ascii?Q?YK464ZqYg+sfskO8Hdx/ydAvrxzj7gx3r8k6giVeelf+bmoSpBn9MMRfBOqQ?=
+ =?us-ascii?Q?ASZWa9dS8XpJDNy1hu70pMbANDc+ni87Mm9N5jHiiVpITRMMNcRSoN+F7lSx?=
+ =?us-ascii?Q?z9YFvj2p4hBb/6ZleS5H0nOA9NSqhvpP9Y1VZwE0Kdroimuc/BkPf41VCDPf?=
+ =?us-ascii?Q?D5cRgu+7OYqwavsYqjK+dYqK9YI/N4+oAnx9Sa93CEc5DqZnXg1VJvbXitdn?=
+ =?us-ascii?Q?wmDAmLWhLXbTljcZJKMdrtbRXYlbMEiXjgOf0AC2MlDlufOn4CRGMEx15L7P?=
+ =?us-ascii?Q?QA=3D=3D?=
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0: 
+	lK8IfBr1SHHVS9FF5MD6gx/516EVDlcMO/iBC6yKlIZiINYPf85/ZRz1VS2hbm1Ou63LclIjZIDbzjnj8dxekW2nTtXLZ9RI5PUOF8kR9T/O8nhE3Kduqgd120Bs5xjdtenS18qKb1r8gq8RIbeufgXOvseUvcQUx1utpCpfoLvhzf0LRd8SxUN5xfLdsppahpvF574hV5JmVFZnN3s0nZ+eST9oH5WJDZr0JyoolfrGdcdXv+riG/CTg0pfdbPLXL0loXGndYqjERFUS5Z2foaNya6R03SopQDw8oy2IiXuE6QSWVy+dIkEDxDNji6EMTzuvKn2xfXAH3XpDwpcn5TjJRYt7RtVZPDCxcSUp35S4PUfnsj3vzAWG88roVeFKu1u0xoaqz4Xxwkvwl8jhDkUlBtMn6pHqGfGpj0kTbaRtQco30hIf2aWjLJ2dyCoZkAjs6GleH2QvAPpatNGJbT25sHZ144U3syrukMvw7pBE2G02NsHdAVEp1d5KIYPq12GHH0uFbwV0QcG+WGTlOsXhTmYlPoc8W2tv8iitK1de9PgZju7IjPy6AqFhHFvktbVLmwH/drpWv9e86p7mJJctskVKYYS4Vb847ESKGw=
+X-OriginatorOrg: oracle.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 15231c24-f371-4dc1-49b9-08dc816a5123
+X-MS-Exchange-CrossTenant-AuthSource: PH0PR10MB4759.namprd10.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 May 2024 12:08:00.9782
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: zKFa9LSK9YuRCEEy2m6s2lnhPchFGR//EIwv63PomuICtEESvhe6cwDAuTJL7NFj0VHKV1vov6dfKgk6pxM7aSbPKewh4HNplkS6uYmumoE=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR10MB5866
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.650,FMLib:17.12.28.16
+ definitions=2024-05-31_08,2024-05-30_01,2024-05-17_01
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 phishscore=0 malwarescore=0 bulkscore=0
+ suspectscore=0 mlxscore=0 adultscore=0 spamscore=0 mlxlogscore=923
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2405010000
+ definitions=main-2405310089
+X-Proofpoint-ORIG-GUID: kqo-xGx4FEW29fmZBsPEc76KzvlEFz3Q
+X-Proofpoint-GUID: kqo-xGx4FEW29fmZBsPEc76KzvlEFz3Q
 
 
---0qbZMnV+fSlTWEii
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 31 May 2024 13:39:54 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	Xen-devel <xen-devel@lists.xenproject.org>,
-	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Subject: Re: [PATCH 1/3] CI: Remove CI_COMMIT_REF_PROTECTED requirement for
- HW jobs
+Christoph,
 
-On Thu, May 30, 2024 at 05:43:12PM -0700, Stefano Stabellini wrote:
-> On Thu, 30 May 2024, Marek Marczykowski-G=C3=B3recki wrote:
-> > On Wed, May 29, 2024 at 03:19:43PM +0100, Andrew Cooper wrote:
-> > > This restriction doesn't provide any security because anyone with sui=
-table
-> > > permissions on the HW runners can bypass it with this local patch.
-> > >=20
-> > > Requiring branches to be protected hampers usability of transient tes=
-ting
-> > > branches (specifically, can't delete branches except via the Gitlab U=
-I).
-> > >
-> > > Drop the requirement.
-> > >=20
-> > > Fixes: 746774cd1786 ("automation: introduce a dom0less test run on Xi=
-linx hardware")
-> > > Fixes: 0ab316e7e15f ("automation: add a smoke and suspend test on an =
-Alder Lake system")
-> > > Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> >=20
-> > Runners used to be set to run only on protected branches. I think it
-> > isn't the case anymore from what I see, but it needs checking (I don't
-> > see specific settings in all the projects). If it were still the case,
-> > removing variable check would result in jobs forever pending.
->=20
-> Andrew, thank you so much for pointing this out.
->=20
-> I think the idea was that we can specify the individual users with
-> access to protected branches. We cannot add restrictions for unprotected
-> branches. So if we set the gitlab runner to only run protected jobs,
-> then the $CI_COMMIT_REF_PROTECTED check makes sense. Not for security,
-> but to prevent the jobs from getting stuck waiting for a runner that
-> will never arrive.
->=20
-> However, like Marek said, now the gitlab runners don't have the
-> "Protected" check set, so it is all useless :-(
->=20
-> I would prefer to set "Protected" in the gitlab runners settings so that
-> it becomes easier to specify users that can and cannot trigger the jobs.
+> The patches are against Jens' block-6.10 tree.  Due to the amount of
+> block layer changes in here, and other that will depend on it, it
+> would be good if this could eventually be merged through the block
+> tree, or at least a shared branch between the SCSI and block trees.
 
-Owners of subprojects can control branch protection rules, so this
-feature doesn't help with limiting access to runners added to the whole
-group. Qubes runners are not group runners, they are project runners
-added only to select projects.
+If you have other block layer changes depending on this series we'll
+probably need a shared branch. I'll need to make several changes to sd.c
+to fix reported issues, including a couple in the zeroing/discard
+department.
 
-I don't remember why exactly runners got "protected" disabled, but AFAIR
-there was some issue with that setting.
+No objections to your series so far. Just trying to reconcile your
+changes with mine...
 
-> Then, we'll need the $CI_COMMIT_REF_PROTECTED check, not for security,
-> but to avoid pipelines getting stuck for unprotected branches.
->=20
-> It is really difficult to restrict users from triggering jobs in other
-> way because they are all automatically added to all subprojects.
->=20
->=20
-> Would you guys be OK if I set "Protected" in the Xilinx and Qubes gitlab
-> runners as soon as possible?
-
-
---=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
-
---0qbZMnV+fSlTWEii
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmZZtwsACgkQ24/THMrX
-1yy5+Qf+ICtQHPgXu0IXrYCdZYqHJNc18ypMaNIJKR4Ltj0OF40ylFkEcVSBswnX
-Z6y0ZlJH9D6R8CFgIIpR5rQ0YxIExslDUj2E1KFnluqt6zg3fFN23eDxflYvmI8C
-4O7tEcdDLlB765NAWyCY+CvBvO1yG9xCW0WrkWkKOAwajqYNBUcpVOQ/syhftUnZ
-JWb+ePoPrlwq1bDKqHO7jidmjtGIMdfzt2bbJbR4m70VRb5Zftai0uyjr54p+km0
-omXfL+T5SJRctnUpcH+xS7Z38gjCKaLW29CXXKJiKFJibyhizm345ZD26nXz5ycm
-6tB+eUu7RLxgPCj4JxywV8gi0NVV3A==
-=162x
------END PGP SIGNATURE-----
-
---0qbZMnV+fSlTWEii--
+-- 
+Martin K. Petersen	Oracle Linux Engineering
 
