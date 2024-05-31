@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 93B8B8D5A6F
-	for <lists+xen-devel@lfdr.de>; Fri, 31 May 2024 08:18:50 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.733274.1139412 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C68628D5A88
+	for <lists+xen-devel@lfdr.de>; Fri, 31 May 2024 08:27:51 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.733280.1139421 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sCvaj-0004Cj-6H; Fri, 31 May 2024 06:18:17 +0000
+	id 1sCvj7-0005mN-U3; Fri, 31 May 2024 06:26:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 733274.1139412; Fri, 31 May 2024 06:18:17 +0000
+Received: by outflank-mailman (output) from mailman id 733280.1139421; Fri, 31 May 2024 06:26:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sCvaj-0004Aq-36; Fri, 31 May 2024 06:18:17 +0000
-Received: by outflank-mailman (input) for mailman id 733274;
- Fri, 31 May 2024 06:18:15 +0000
+	id 1sCvj7-0005kR-RM; Fri, 31 May 2024 06:26:57 +0000
+Received: by outflank-mailman (input) for mailman id 733280;
+ Fri, 31 May 2024 06:26:55 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=fjOV=NC=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sCvah-0004Ak-A5
- for xen-devel@lists.xenproject.org; Fri, 31 May 2024 06:18:15 +0000
-Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
- [2a00:1450:4864:20::62e])
+ id 1sCvj5-0005kL-UW
+ for xen-devel@lists.xenproject.org; Fri, 31 May 2024 06:26:55 +0000
+Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
+ [2a00:1450:4864:20::62d])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 8e956857-1f15-11ef-b4bb-af5377834399;
- Fri, 31 May 2024 08:18:12 +0200 (CEST)
-Received: by mail-ej1-x62e.google.com with SMTP id
- a640c23a62f3a-a673a60f544so83860766b.3
- for <xen-devel@lists.xenproject.org>; Thu, 30 May 2024 23:18:12 -0700 (PDT)
+ id c5aa587e-1f16-11ef-b4bb-af5377834399;
+ Fri, 31 May 2024 08:26:53 +0200 (CEST)
+Received: by mail-ej1-x62d.google.com with SMTP id
+ a640c23a62f3a-a673a60f544so84480066b.3
+ for <xen-devel@lists.xenproject.org>; Thu, 30 May 2024 23:26:53 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a67e6f038b5sm51499566b.34.2024.05.30.23.18.10
+ a640c23a62f3a-a67eb3444bfsm51371266b.201.2024.05.30.23.26.52
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 30 May 2024 23:18:11 -0700 (PDT)
+ Thu, 30 May 2024 23:26:53 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,51 +45,53 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8e956857-1f15-11ef-b4bb-af5377834399
+X-Inumbo-ID: c5aa587e-1f16-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1717136291; x=1717741091; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1717136813; x=1717741613; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=nn/e8lquZXF1nnUIFfv4gc/2j2gaSh7SKplJqVn88Wo=;
-        b=NaRGy3lc7J5qFSwSlmNqgkTAc1EwHNife8FVAEeK7FAG2NHhhTUnJtwhQjx14vFOah
-         zAPCe9MFvmBRE9kUlDPsTah4pZopYWDNNNOFuDDbMWGPaOZA0STwKgvV/UCocf5M7SV1
-         aFmQa7ioOdLAdFQRAvNfhlCQ8i5Zcr053dKQDZt4vYMAFX194BCPJXe7SqnDobqIJscT
-         P42gqzcSeq7Zf+D0hJczxFYrHCmRaRwAcifjGujQP63ZcSS0E4NhVJ7gdzM7/5iTFVg7
-         1+KjkJNou2lbO5GrbPQcB0zqdfAPD3Ye6a5q3vo8YcvgBxYHT5BPDSSDAKambHuZmNrx
-         LYLA==
+        bh=/BnfkwZulJdfDdkH/BzNnva6jmSvd1VIYFrx5/7OMk4=;
+        b=cxEUTE9Wegl1ytxZbCGRclNSy5dVzYFxkuMo1O9vIsFcryfhqb4o4UxZR3xp4Gs3ZR
+         b0rdPJm83fHmTbrtTSCHBanYLGd9M2N0Wq3fGhhd/+jRgNdfHnKgaY3dA7TfbHdCWYok
+         wHyz2Mc4oTcxOsDasiuL5PZqzGpK3UlOJuM8Oo1j+3hkurrZtyvcL5NhIFN0lyDg0lZu
+         IrxSYcOytxs2TeI3rMXGbkwMLDSPh2EktwVbq9hn6/tBKJhuF1uhu5cHvaZxf5GV1dk3
+         CYA/0IS7K7WF2vrQNrSWNavAKX0BAW7IfBrKc3fm+zeq5DfEieHqOIw78QU6BbTvDKe5
+         tHsg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1717136291; x=1717741091;
+        d=1e100.net; s=20230601; t=1717136813; x=1717741613;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=nn/e8lquZXF1nnUIFfv4gc/2j2gaSh7SKplJqVn88Wo=;
-        b=D7L8+OC/s4Uao4tE/amkPpRQt+BROrwAETP5vVC9Z3GHVCtaJ9b3GFn7vO6Xlkb54Y
-         KhYZmdZhqzUEClYMCgmlTRnVjuKOFduWX/DuB3rPtlemOYBQkwDB2/mC51wQPBeVw1sa
-         wxrxHEn/Th8va+FgrEr1cOUprQIW0lwOvFnOWBkMrKQLJxfYXFz0QaTUfUtghf64Tl2o
-         MOipz1qtPd9kWkOdibXL7/393XWxAtUl4y/ZYIDMHSYuWgpEbFmSuCIeqCPsYFsRsxsx
-         jZjtV0Rt6Gu1dcckBCY3hVeifoPGSqsbCTdCm1L1qSBM2M1LrURJuIGhb0ckTJDpqZ29
-         NtOg==
-X-Forwarded-Encrypted: i=1; AJvYcCVpR2OCp38DErTG1Q3OfZ2hTkfJhj/5hm7gVEpXjH80ClNoyp3dmIoOsw+Kj3auMMhkX8KUhplUjEX8F32rwpGQd14bE4ln9ZigDDVgHdU=
-X-Gm-Message-State: AOJu0YzDaKoiMIiYWdbnHDH4svuPPXWC8OBlkbfEHFEQbbcJ7mUDWpso
-	NgEY7HjYJqW2vopS8ebDfqyf979OCSSmH4C9HQZkthrYVs7P6aliSJEo395uXQ==
-X-Google-Smtp-Source: AGHT+IGAKp6X3H2N43hNuNomACQu9vmApamfOd034G7EHuW0NbRvSs+WYYUBbKgyQ8Bj7osI+sC15g==
-X-Received: by 2002:a17:906:fd55:b0:a68:5f08:2e2a with SMTP id a640c23a62f3a-a685f082eefmr27374466b.28.1717136291390;
-        Thu, 30 May 2024 23:18:11 -0700 (PDT)
-Message-ID: <79a2d936-62f1-4749-9e75-0be019cd3d99@suse.com>
-Date: Fri, 31 May 2024 08:18:09 +0200
+        bh=/BnfkwZulJdfDdkH/BzNnva6jmSvd1VIYFrx5/7OMk4=;
+        b=tV3CQqHTXjXxKM9ujhXtg/my1KvK6+/upq7Q5PYbulsgfaRo8fWq0+w82efTdcXNVd
+         I2nS/N2zJjJeXqDSqCC+W3QZNJZ2tD+Xu31IyLVMWa52Y+Rg3YBIrCIUCSIRdI8vFYs/
+         ZZZvjW69ydF/2crIun9Zk+tuQp1CAoeo4Qpj94yDyZkvl/3a3jsSsLj8IxRC98nRrqpJ
+         b5x7AVsuv9lta1GqeflC+fuDkr+Dk9iEcqLIJW8Sk9d4IKPswHS0mjnz3gGyms++9WUK
+         /WXfX+QiBkXt7MGYnbss4SOHjm/gQ0dZ4VBgDhOjtPjcGQs/u3BX0/lkREtzhctKECrg
+         Di7g==
+X-Forwarded-Encrypted: i=1; AJvYcCV+7NsPPb17pR986JGUCwzUrBohggFqgMMyXxnkruK3VsVoB2Rr4hvl/cudLu1E0ssPfr6bVWXf/XjlT+4WgkhUlzHBiv14zB1qsy5NzhE=
+X-Gm-Message-State: AOJu0Yz0RjsRz8w6VVwGFO5ZpAUnoUrL+hx6kTzjWNLxsysnDOv8as+X
+	/+ldR7Go8MOoWe5syRhHAnu5xRCVITC+u8jg1bhUXwgPV53YYQt2oVLdyF7JcA==
+X-Google-Smtp-Source: AGHT+IGk6XJ2jrMyGYDevOOAdcERz8ZVEpgahSbolsE3uYVFhVD+bapaGGYNrlQvhmT9jTAx5Bwbow==
+X-Received: by 2002:a17:906:43c7:b0:a59:bacc:b082 with SMTP id a640c23a62f3a-a6821d646a5mr52337966b.60.1717136813296;
+        Thu, 30 May 2024 23:26:53 -0700 (PDT)
+Message-ID: <b24681c6-fbd3-4b01-beb4-560eabf3ad49@suse.com>
+Date: Fri, 31 May 2024 08:26:51 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v12 8/8] xen/README: add compiler and binutils versions
- for RISC-V64
+Subject: Re: [PATCH v12 5/8] xen/riscv: add minimal stuff to mm.h to build
+ full Xen
 To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, George Dunlap <george.dunlap@citrix.com>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
  Oleksii Kurochko <oleksii.kurochko@gmail.com>, xen-devel@lists.xenproject.org
 References: <cover.1717008161.git.oleksii.kurochko@gmail.com>
- <c6ff49af9a107965f8121862e6b32c24548956e6.1717008161.git.oleksii.kurochko@gmail.com>
- <d4e5b4c8-d494-440b-8970-488b49bee12e@citrix.com>
+ <d00b86f41ef2c7d928a28dadd8c34fb845f23d0a.1717008161.git.oleksii.kurochko@gmail.com>
+ <70128dba-498f-4d85-8507-bb1621182754@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -115,32 +117,19 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <d4e5b4c8-d494-440b-8970-488b49bee12e@citrix.com>
+In-Reply-To: <70128dba-498f-4d85-8507-bb1621182754@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 30.05.2024 21:52, Andrew Cooper wrote:
+On 30.05.2024 19:23, Andrew Cooper wrote:
 > On 29/05/2024 8:55 pm, Oleksii Kurochko wrote:
->> diff --git a/README b/README
->> index c8a108449e..30da5ff9c0 100644
->> --- a/README
->> +++ b/README
->> @@ -48,6 +48,10 @@ provided by your OS distributor:
->>        - For ARM 64-bit:
->>          - GCC 5.1 or later
->>          - GNU Binutils 2.24 or later
->> +      - For RISC-V 64-bit:
->> +        - GCC 12.2 or later
->> +        - GNU Binutils 2.39 or later
+>> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+>> Acked-by: Jan Beulich <jbeulich@suse.com>
 > 
-> I would like to petition for GCC 10 and Binutils 2.35.
-> 
-> These are the versions provided as cross-compilers by Debian, and
-> therefore are the versions I would prefer to do smoke testing with.
+> This patch looks like it can go in independently?  Or does it depend on
+> having bitops.h working in practice?
 
-See why I asked to amend the specified versions by a softening sentence that
-you (only now) said you dislike? The "this is what we use in CI" makes it a
-very random choice, entirely unrelated to the compiler's abilities.
+The latter, iirc. In fact I had already tried at least twice to pull this ahead.
 
 Jan
 
