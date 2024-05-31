@@ -2,34 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2175D8D5780
-	for <lists+xen-devel@lfdr.de>; Fri, 31 May 2024 03:04:28 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.733180.1139306 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 000F18D57A4
+	for <lists+xen-devel@lfdr.de>; Fri, 31 May 2024 03:12:37 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.733187.1139316 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sCqgG-0005hc-AI; Fri, 31 May 2024 01:03:40 +0000
+	id 1sCqoZ-0007o1-7c; Fri, 31 May 2024 01:12:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 733180.1139306; Fri, 31 May 2024 01:03:40 +0000
+Received: by outflank-mailman (output) from mailman id 733187.1139316; Fri, 31 May 2024 01:12:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sCqgG-0005g6-7a; Fri, 31 May 2024 01:03:40 +0000
-Received: by outflank-mailman (input) for mailman id 733180;
- Fri, 31 May 2024 01:03:39 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=h8zp=NC=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1sCqgF-0005fz-44
- for xen-devel@lists.xenproject.org; Fri, 31 May 2024 01:03:39 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 9b0786d0-1ee9-11ef-b4bb-af5377834399;
- Fri, 31 May 2024 03:03:35 +0200 (CEST)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 349F162A3F;
- Fri, 31 May 2024 01:03:34 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F24F5C2BBFC;
- Fri, 31 May 2024 01:03:31 +0000 (UTC)
+	id 1sCqoZ-0007lp-4u; Fri, 31 May 2024 01:12:15 +0000
+Received: by outflank-mailman (input) for mailman id 733187;
+ Fri, 31 May 2024 01:12:14 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1sCqoY-0007lf-B0; Fri, 31 May 2024 01:12:14 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1sCqoY-000395-6d; Fri, 31 May 2024 01:12:14 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1sCqoX-0008CS-Tq; Fri, 31 May 2024 01:12:13 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1sCqoX-0003x1-TW; Fri, 31 May 2024 01:12:13 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,83 +42,73 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9b0786d0-1ee9-11ef-b4bb-af5377834399
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1717117413;
-	bh=aVd5LuN6M3XAeK8UOhR8JfGPaq/mAscPNc2cSB/MUdo=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=gOeiix9t5lSPUwppW8w5GC4F3X9sq9EF7R/SKLBfomCF8Gcuptl6ELMJ24cFle74u
-	 wDIwQL//hmA5qfT8Rqv+/iknnjZBADB89DSSGWzgnP64lbo/tDLaqRQVln1HFnaatA
-	 c4g0GUMyjfqgCxLOVQ63Giu1WMZIrilIDh8i5I6H1KwArWErR5uv0fFImhQ++1O1GT
-	 gSQGnSbwhv7Re+lNUR4uXdIR/mzre27J1/Vr27bsRfSIsoU6g6adhJGV2RM9VtHYcD
-	 MSj9qCPOIpb2+g9KEe1dzgC0nK24wY3G5OZ3LK5aPHOq2sa/ezfaf67W1heGce1yTt
-	 vwz700xjVgyzw==
-Date: Thu, 30 May 2024 18:03:30 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Jan Beulich <jbeulich@suse.com>
-cc: Andrew Cooper <andrew.cooper3@citrix.com>, 
-    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-    Wei Liu <wl@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, 
-    Julien Grall <julien@xen.org>, 
-    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
-    Bertrand Marquis <bertrand.marquis@arm.com>, 
-    Michal Orzel <michal.orzel@amd.com>, 
-    Oleksii Kurochko <oleksii.kurochko@gmail.com>, 
-    Shawn Anastasio <sanastasio@raptorengineering.com>, 
-    "consulting @ bugseng . com" <consulting@bugseng.com>, 
-    Simone Ballarin <simone.ballarin@bugseng.com>, 
-    Federico Serafini <federico.serafini@bugseng.com>, 
-    Nicola Vetrini <nicola.vetrini@bugseng.com>, 
-    Xen-devel <xen-devel@lists.xenproject.org>
-Subject: Re: [PATCH v2 05/13] xen/bitops: Implement generic_f?sl() in lib/
-In-Reply-To: <7305a8b9-5f43-47e4-987b-c5ca76bcc312@suse.com>
-Message-ID: <alpine.DEB.2.22.394.2405301803050.2557291@ubuntu-linux-20-04-desktop>
-References: <20240524200338.1232391-1-andrew.cooper3@citrix.com> <20240524200338.1232391-6-andrew.cooper3@citrix.com> <7305a8b9-5f43-47e4-987b-c5ca76bcc312@suse.com>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=TvH0Mnc970mV4Y3vmfb0SIIVpgYStQqHaE/IxfRnohw=; b=kX19XUnzH/k1hhDLIIZU7vnTn1
+	8Z+6Ho2pMymSzAn5UjmlB/9/bXjhE7rc25/ISeNFJggXxLoeiBcxmbSejkTR3JRIHyxT/Vr+5CKiR
+	ZptIwVvlYbw3D2tLDOid5/xiEKS1TuNkdcRy/fHItks8/bphwZLTG8Chr5aC3SY/3JAE=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-186203-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Subject: [ovmf test] 186203: all pass - PUSHED
+X-Osstest-Versions-This:
+    ovmf=a8dc6bf73f789f38f2930641b20dfd6d9e38f411
+X-Osstest-Versions-That:
+    ovmf=ced13b93afea87a8a1fe6ddbb67240a84cb2e3d3
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 31 May 2024 01:12:13 +0000
 
-On Mon, 27 May 2024, Jan Beulich wrote:
-> On 24.05.2024 22:03, Andrew Cooper wrote:
-> > generic_f?s() being static inline is the cause of lots of the complexity
-> > between the common and arch-specific bitops.h
-> > 
-> > They appear to be static inline for constant-folding reasons (ARM uses them
-> > for this), but there are better ways to achieve the same effect.
-> > 
-> > It is presumptuous that an unrolled binary search is the right algorithm to
-> > use on all microarchitectures.  Indeed, it's not for the eventual users, but
-> > that can be addressed at a later point.
-> > 
-> > It is also nonsense to implement the int form as the base primitive and
-> > construct the long form from 2x int in 64-bit builds, when it's just one extra
-> > step to operate at the native register width.
-> > 
-> > Therefore, implement generic_f?sl() in lib/.  They're not actually needed in
-> > x86/ARM/PPC by the end of the cleanup (i.e. the functions will be dropped by
-> > the linker), and they're only expected be needed by RISC-V on hardware which
-> > lacks the Zbb extension.
-> > 
-> > Implement generic_fls() in terms of generic_flsl() for now, but this will be
-> > cleaned up in due course.
-> > 
-> > Provide basic runtime testing using __constructor inside the lib/ file.  This
-> > is important, as it means testing runs if and only if generic_f?sl() are used
-> > elsewhere in Xen.
-> > 
-> > Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> 
-> Reviewed-by: Jan Beulich <jbeulich@suse.com>
-> with a suggestion and a question.
+flight 186203 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/186203/
 
-Acked-by: Stefano Stabellini <sstabellini@kernel.org>
+Perfect :-)
+All tests in this flight passed as required
+version targeted for testing:
+ ovmf                 a8dc6bf73f789f38f2930641b20dfd6d9e38f411
+baseline version:
+ ovmf                 ced13b93afea87a8a1fe6ddbb67240a84cb2e3d3
+
+Last test of basis   186201  2024-05-30 21:13:00 Z    0 days
+Testing same since   186203  2024-05-30 23:12:41 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.com>
+  dependabot[bot] <support@github.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
 
 
-> > I suspect we want to swap CONFIG_DEBUG for CONFIG_BOOT_UNIT_TESTS in due
-> > course.  These ought to be able to be used in a release build too.
-> 
-> +1
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-+1
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
+   ced13b93af..a8dc6bf73f  a8dc6bf73f789f38f2930641b20dfd6d9e38f411 -> xen-tested-master
 
