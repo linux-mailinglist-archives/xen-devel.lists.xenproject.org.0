@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7B08A8D5B1A
-	for <lists+xen-devel@lfdr.de>; Fri, 31 May 2024 09:02:56 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.733310.1139472 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 427FE8D5B35
+	for <lists+xen-devel@lfdr.de>; Fri, 31 May 2024 09:06:34 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.733316.1139481 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sCwHT-0004tU-Cp; Fri, 31 May 2024 07:02:27 +0000
+	id 1sCwL9-0005Vr-R3; Fri, 31 May 2024 07:06:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 733310.1139472; Fri, 31 May 2024 07:02:27 +0000
+Received: by outflank-mailman (output) from mailman id 733316.1139481; Fri, 31 May 2024 07:06:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sCwHT-0004rn-9M; Fri, 31 May 2024 07:02:27 +0000
-Received: by outflank-mailman (input) for mailman id 733310;
- Fri, 31 May 2024 07:02:25 +0000
+	id 1sCwL9-0005Tb-O0; Fri, 31 May 2024 07:06:15 +0000
+Received: by outflank-mailman (input) for mailman id 733316;
+ Fri, 31 May 2024 07:06:13 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=fjOV=NC=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sCwHR-0004rg-O0
- for xen-devel@lists.xenproject.org; Fri, 31 May 2024 07:02:25 +0000
-Received: from mail-lj1-x22b.google.com (mail-lj1-x22b.google.com
- [2a00:1450:4864:20::22b])
+ id 1sCwL7-0005TV-Ot
+ for xen-devel@lists.xenproject.org; Fri, 31 May 2024 07:06:13 +0000
+Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
+ [2a00:1450:4864:20::62a])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id bab90099-1f1b-11ef-90a1-e314d9c70b13;
- Fri, 31 May 2024 09:02:22 +0200 (CEST)
-Received: by mail-lj1-x22b.google.com with SMTP id
- 38308e7fff4ca-2ea9386cde0so5926801fa.2
- for <xen-devel@lists.xenproject.org>; Fri, 31 May 2024 00:02:22 -0700 (PDT)
+ id 43bbeb89-1f1c-11ef-90a1-e314d9c70b13;
+ Fri, 31 May 2024 09:06:12 +0200 (CEST)
+Received: by mail-ej1-x62a.google.com with SMTP id
+ a640c23a62f3a-a63359aaaa6so194841366b.2
+ for <xen-devel@lists.xenproject.org>; Fri, 31 May 2024 00:06:12 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-57a31c6d4a0sm660261a12.77.2024.05.31.00.02.21
+ a640c23a62f3a-a67eab84ebcsm54252166b.150.2024.05.31.00.06.11
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 31 May 2024 00:02:22 -0700 (PDT)
+ Fri, 31 May 2024 00:06:11 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,52 +45,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bab90099-1f1b-11ef-90a1-e314d9c70b13
+X-Inumbo-ID: 43bbeb89-1f1c-11ef-90a1-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1717138942; x=1717743742; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1717139172; x=1717743972; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=Bxmq4PUQqJEOSiOM3m0L/AXci6h8bSFL7LysBvNsQx8=;
-        b=cFJu5GIV8DipEKoTJ4LgfCnr6WiRTCbtp1NzCCTONOlJTV3xrY6PDV+sCSkzbZ+Xw7
-         cHC8KwIgFFm+Hx0RN4KeYhnHhAnRyjl0bgtZUKcCZoFlLtWROV9XB+hYIvTkb8yqfnAS
-         SRMPslX3WdlfPFcd408ooSmpc1zgGDk4uN2WIT1e629a2RUC4dMMok7IyeYdTPP0d5ES
-         15Krxmd1EO/BMPWhgxdSrlANQTPxzyjVoMliVCLCLjU6EbmcIFMFmoFjEtJb3/byE3hb
-         SlvbX6wNkRwgiNs20SC2WllMvTmLtcH/EFQb3sICmyVhX8fOJc2fxBWtyuU7GizDy2E5
-         u+VA==
+        bh=xc35MN7Ki9JfS9cT2TThfFPfvWqpsYztpVrHRcx1pkY=;
+        b=L5QPTcyDwo0LbpP0iz1783/3LPZOgSoIesqCQmBCLmAtGQ49cgIWPzrvoUaFkMU5wt
+         LBKzlFlUtRpkSPN2S4m2fM9Hgq8Ooyn3bWoNkVlH5xV4QVnVOiMtHnOx98fAnSTakAYR
+         9qpYMxl7ra1WcT4o1IMsI2tJ2ussxHi71xMIx9o1Czm7p6NIjxjH3VPcY/RTnn+nVLm5
+         rW1lyf+Wnp3SAyMLlSyEpagozktV7NITYIrWh2oD2DEGgndnjpv4I8gfjhHOcpn56g7W
+         8Q90FlSQHjzJb21o9rKUnGnHyXUjrd0dyM3sBMPGQ0+3m5YvppMwad6fMhYdt6FEqrOA
+         nOgw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1717138942; x=1717743742;
+        d=1e100.net; s=20230601; t=1717139172; x=1717743972;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=Bxmq4PUQqJEOSiOM3m0L/AXci6h8bSFL7LysBvNsQx8=;
-        b=sC8rgIA7f61LqNhN6nOs7XyQvatjcT1akypo1LnuNqbbPj5NfSFV/L3Mrt02CwC84B
-         j+ijbwTCZR5knUJoq03Es6xNP8XMGc5j1kkr2ayz2Q0pYpXl1uGrP6qb643XJqbvcBv0
-         2+aG/FZZmp7yqlkT8bCTtaz7dUeyJwmrjSN4LhlR1iBPG4ecLT+mboLb0fhXarYiQr4y
-         ugh0c34V5sMndTAb7xz9SP4vCZozJGWio1azErueQ/hhMdi+7druEP6tgJ6wKDWgBvDu
-         G8KM6xlKBtSZv01Te7U05WDJrHO8nHtUoZcb0ez4ZWLnb5R/DNEVdRLT2HkWgOwhEt8C
-         vxAw==
-X-Forwarded-Encrypted: i=1; AJvYcCVOZ2OOteFLYYo6P0rkNZhCQqny6MszVcsY1f5HRF9jyUTXQyJUxVkVz+Dfs/Y+R+zfUW1HpO6CEP6ZPCL582jwIL8fQxJf67SbOrFspiQ=
-X-Gm-Message-State: AOJu0Yz3HhamdodkwugdtvZdzzEsD9rzdHomzjc8l0Xb25gr0jukBvp6
-	3VzhLujqypbFLX7KvEJNkH1qVfa4xzOK8j3EEbKKmH696nOLe2y2a0nJTH4Mrw==
-X-Google-Smtp-Source: AGHT+IGwC+tSg9suj5VY3MS7ejlCHPdm5Nysm2Sjcr8LbL4XrQtprP00IoX+ksiP/h6BjXPazTyIgw==
-X-Received: by 2002:a19:5e5d:0:b0:52a:622c:dae8 with SMTP id 2adb3069b0e04-52b89596635mr504443e87.20.1717138942252;
-        Fri, 31 May 2024 00:02:22 -0700 (PDT)
-Message-ID: <075168de-1a3f-4f23-a445-8ba74082fb8f@suse.com>
-Date: Fri, 31 May 2024 09:02:20 +0200
+        bh=xc35MN7Ki9JfS9cT2TThfFPfvWqpsYztpVrHRcx1pkY=;
+        b=S2CWIpoNC/5G36Rc6stQ54dDxZU5eTC1k1HVkx3lYqycDP4FbZL1RYztShsGOKYCy0
+         a8xAkZqfXYNeSLMMVOUE1YdjOWtvIGElqulGKsYCI5YmzMj38cF7OaJQaBw0Shlnin1k
+         Cl2W27edjMELoDK8qYZlfZgwE7xTNQ7n+z/zUomaU2PsqsuFDvio3TZ44ROmz09JJQAr
+         Nod0z9klquXKQBEkDG90dcjiRCoZwmJyOhOrlTPyv4BZGRBHTt4MPe5lXC3ar7FMhZ8/
+         Wjm2Khy7/ZNkfqEW31jJ3AXUnIgZ2YErMFHH5qcdaTFyu6vIgkLHqxLymxFDTbFCYYMx
+         EYjg==
+X-Forwarded-Encrypted: i=1; AJvYcCXc+e9kQ8OjUDbfL4cXUP/CSeSq/DbIBroPtd2AC3YXAiYyl2nK66Ktumm3Ulm7UNuRTwca+d7Djwl19ajM8QjGV8wFYi6DBpcAua2MY7E=
+X-Gm-Message-State: AOJu0Yzvsit9xorpFaThHTfld3yFqKjrJzVT2VDWcBZ8Jd6bK1q1MFP8
+	ZwsPNXSkfqbqoK4icAykWOkufcVk2sKWaq7VKLVnFAJzUcdRFTG74Bm3TYGHwQ==
+X-Google-Smtp-Source: AGHT+IGUN27DhbOrV6/mgfgehwQDzVP2rQrMhqZfXiFC5o+Y3sbDL/JZL94mkaTmP1jsrZ6wdnR5gg==
+X-Received: by 2002:a17:906:d8c5:b0:a68:137b:949 with SMTP id a640c23a62f3a-a6820516e7bmr55450366b.29.1717139172056;
+        Fri, 31 May 2024 00:06:12 -0700 (PDT)
+Message-ID: <011d96d4-8778-430f-bb93-4a48f7ddd32c@suse.com>
+Date: Fri, 31 May 2024 09:06:10 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH for-4.19 3/9] xen/cpu: ensure get_cpu_maps() returns false
- if CPU operations are underway
+Subject: Re: [PATCH for-4.19 4/9] x86/irq: describe how the interrupt CPU
+ movement works
 To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
 References: <20240529090132.59434-1-roger.pau@citrix.com>
- <20240529090132.59434-4-roger.pau@citrix.com>
- <597b0bf9-8949-41f3-a630-18937c219d8b@suse.com> <ZldDvH8GhhQcu5NX@macbook>
- <3ccdfec3-924a-4ef0-bf8d-653b6019aecb@suse.com> <ZldUgJRJvytRsjhu@macbook>
+ <20240529090132.59434-5-roger.pau@citrix.com>
+ <24201381-2a43-427e-a3e5-1de316d212b8@suse.com> <ZldJgwu2nDGv2HJP@macbook>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -116,118 +113,81 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <ZldUgJRJvytRsjhu@macbook>
+In-Reply-To: <ZldJgwu2nDGv2HJP@macbook>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 29.05.2024 18:14, Roger Pau Monné wrote:
-> On Wed, May 29, 2024 at 05:49:48PM +0200, Jan Beulich wrote:
->> On 29.05.2024 17:03, Roger Pau Monné wrote:
->>> On Wed, May 29, 2024 at 03:35:04PM +0200, Jan Beulich wrote:
->>>> On 29.05.2024 11:01, Roger Pau Monne wrote:
->>>>> Due to the current rwlock logic, if the CPU calling get_cpu_maps() does so from
->>>>> a cpu_hotplug_{begin,done}() region the function will still return success,
->>>>> because a CPU taking the rwlock in read mode after having taken it in write
->>>>> mode is allowed.  Such behavior however defeats the purpose of get_cpu_maps(),
->>>>> as it should always return false when called with a CPU hot{,un}plug operation
->>>>> is in progress.
->>>>
->>>> I'm not sure I can agree with this. The CPU doing said operation ought to be
->>>> aware of what it is itself doing. And all other CPUs will get back false from
->>>> get_cpu_maps().
->>>
->>> Well, the CPU is aware in the context of cpu_{up,down}(), but not in
->>> the interrupts that might be handled while that operation is in
->>> progress, see below for a concrete example.
->>>
->>>>>  Otherwise the logic in send_IPI_mask() for example is wrong,
->>>>> as it could decide to use the shorthand even when a CPU operation is in
->>>>> progress.
->>>>
->>>> It's also not becoming clear what's wrong there: As long as a CPU isn't
->>>> offline enough to not be in cpu_online_map anymore, it may well need to still
->>>> be the target of IPIs, and targeting it with a shorthand then is still fine.
->>>
->>> The issue is in the online path: there's a window where the CPU is
->>> online (and the lapic active), but cpu_online_map hasn't been updated
->>> yet.  A specific example would be time_calibration() being executed on
->>> the CPU that is running cpu_up().  That could result in a shorthand
->>> IPI being used, but the mask in r.cpu_calibration_map not containing
->>> the CPU that's being brought up online because it's not yet added to
->>> cpu_online_map.  Then the number of CPUs actually running
->>> time_calibration_rendezvous_fn won't match the weight of the cpumask
->>> in r.cpu_calibration_map.
+On 29.05.2024 17:28, Roger Pau Monné wrote:
+> On Wed, May 29, 2024 at 03:57:19PM +0200, Jan Beulich wrote:
+>> On 29.05.2024 11:01, Roger Pau Monne wrote:
+>>> --- a/xen/arch/x86/include/asm/irq.h
+>>> +++ b/xen/arch/x86/include/asm/irq.h
+>>> @@ -28,6 +28,32 @@ typedef struct {
+>>>  
+>>>  struct irq_desc;
+>>>  
+>>> +/*
+>>> + * Xen logic for moving interrupts around CPUs allows manipulating interrupts
+>>> + * that target remote CPUs.  The logic to move an interrupt from CPU(s) is as
+>>> + * follows:
+>>> + *
+>>> + * 1. cpu_mask and vector is copied to old_cpu_mask and old_vector.
+>>> + * 2. New cpu_mask and vector are set, vector is setup at the new destination.
+>>> + * 3. move_in_progress is set.
+>>> + * 4. Interrupt source is updated to target new CPU and vector.
+>>> + * 5. Interrupts arriving at old_cpu_mask are processed normally.
+>>> + * 6. When an interrupt is delivered at the new destination (cpu_mask) as part
+>>> + *    of acking the interrupt move_in_progress is cleared and move_cleanup_count
 >>
->> I see, but maybe only partly. Prior to the CPU having its bit set in
->> cpu_online_map, can it really take interrupts already? Shouldn't it be
->> running with IRQs off until later, thus preventing it from making it
->> into the rendezvous function in the first place? But yes, I can see
->> how the IRQ (IPI) then being delivered later (once IRQs are enabled)
->> might cause problems, too.
-> 
-> The interrupt will get set in IRR and handled when interrupts are
-> enabled.
-> 
+>> Nit: A comma after "interrupt" may help reading.
 >>
->> Plus, with how the rendezvous function is invoked (via
->> on_selected_cpus() with the mask copied from cpu_online_map), the
->> first check in smp_call_function_interrupt() ought to prevent the
->> function from being called on the CPU being onlined. A problem would
->> arise though if the IPI arrived later and call_data was already
->> (partly or fully) overwritten with the next request.
-> 
-> Yeah, there's a small window where the fields in call_data are out of
-> sync.
-> 
->>>> In any event this would again affect only the CPU leading the CPU operation,
->>>> which should clearly know at which point(s) it is okay to send IPIs. Are we
->>>> actually sending any IPIs from within CPU-online or CPU-offline paths?
->>>
->>> Yes, I've seen the time rendezvous happening while in the middle of a
->>> hotplug operation, and the CPU coordinating the rendezvous being the
->>> one doing the CPU hotplug operation, so get_cpu_maps() returning true.
+>>> + *    is set to the weight of online CPUs in old_cpu_mask.
+>>> + *    IRQ_MOVE_CLEANUP_VECTOR is sent to all CPUs in old_cpu_mask.
 >>
->> Right, yet together with ...
->>
->>>> Together with the earlier paragraph the critical window would be between the
->>>> CPU being taken off of cpu_online_map and the CPU actually going "dead" (i.e.
->>>> on x86: its LAPIC becoming unresponsive to other than INIT/SIPI). And even
->>>> then the question would be what bad, if any, would happen to that CPU if an
->>>> IPI was still targeted at it by way of using the shorthand. I'm pretty sure
->>>> it runs with IRQs off at that time, so no ordinary IRQ could be delivered.
->>>>
->>>>> Adjust the logic in get_cpu_maps() to return false when the CPUs lock is
->>>>> already hold in write mode by the current CPU, as read_trylock() would
->>>>> otherwise return true.
->>>>>
->>>>> Fixes: 868a01021c6f ('rwlock: allow recursive read locking when already locked in write mode')
->>>>
->>>> I'm puzzled by this as well: Prior to that and the change referenced by its
->>>> Fixes: tag, recursive spin locks were used. For the purposes here that's the
->>>> same as permitting read locking even when the write lock is already held by
->>>> the local CPU.
->>>
->>> I see, so the Fixes should be:
->>>
->>> x86/smp: use APIC ALLBUT destination shorthand when possible
->>>
->>> Instead, which is the commit that started using get_cpu_maps() in
->>> send_IPI_mask().
->>
->> ... this I then wonder whether it's really only the condition in
->> send_IPI_mask() which needs further amending, rather than fiddling with
->> get_cpu_maps().
+>> These last two steps aren't precise enough, compared to what the code does.
+>> old_cpu_mask is first reduced to online CPUs therein. If the result is non-
+>> empty, what you describe is done. If, however, the result is empty, the
+>> vector is released right away (this code may be there just in case, but I
+>> think it shouldn't be omitted here).
 > 
-> That the other option, but I have impression it's more fragile to
-> adjust the condition in send_IPI_mask() rather than fiddle with
-> get_cpu_maps().
-> 
-> However if that's the preference I can adjust.
+> I've left that out because I got the impression it made the text more
+> complex to follow (with the extra branch) for no real benefit, but I'm
+> happy to attempt to add it.
 
-I guess we need other REST input here then. The two of us clearly disagree on
-what use of get_cpu_maps() is meant to guarantee. And I deem fiddling with
-common code here more risky (and more intrusive - the other change would be
-a single-line code change afaict, plus extending the related comment).
+Why "no real benefit"? Isn't the goal to accurately describe what code does
+(in various places)? If the result isn't an accurate description in one
+specific regard, how reliable would the rest be from a reader's perspective?
+
+>>> + * 7. When receiving IRQ_MOVE_CLEANUP_VECTOR CPUs in old_cpu_mask clean the
+>>> + *    vector entry and decrease the count in move_cleanup_count.  The CPU that
+>>> + *    sets move_cleanup_count to 0 releases the vector.
+>>> + *
+>>> + * Note that when interrupt movement (either move_in_progress or
+>>> + * move_cleanup_count set) is in progress it's not possible to move the
+>>> + * interrupt to yet a different CPU.
+>>> + *
+>>> + * By keeping the vector in the old CPU(s) configured until the interrupt is
+>>> + * acked on the new destination Xen allows draining any pending interrupts at
+>>> + * the old destinations.
+>>> + */
+>>>  struct arch_irq_desc {
+>>>          s16 vector;                  /* vector itself is only 8 bits, */
+>>>          s16 old_vector;              /* but we use -1 for unassigned  */
+>>
+>> I take it that it is not a goal to (also) describe under what conditions
+>> an IRQ move may actually be initiated (IRQ_MOVE_PENDING)? I ask not the
+>> least because the 2nd from last paragraph lightly touches that area.
+> 
+> Right, I was mostly focused on moves (forcefully) initiated from
+> fixup_irqs(), which is different from the opportunistic affinity
+> changes signaled by IRQ_MOVE_PENDING.
+> 
+> Not sure whether I want to mention this ahead of the list in a
+> paragraph, or just add it as a step.  Do you have any preference?
+
+I think ahead might be better. But I also won't insist on it being added.
+Just if you don't, perhaps mention in the description that leaving that
+out is intentional.
 
 Jan
 
