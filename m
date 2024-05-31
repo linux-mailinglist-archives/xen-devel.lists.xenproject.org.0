@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7F6B18D5CAB
-	for <lists+xen-devel@lfdr.de>; Fri, 31 May 2024 10:27:19 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.733441.1139692 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BEB488D5CB9
+	for <lists+xen-devel@lfdr.de>; Fri, 31 May 2024 10:31:37 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.733446.1139702 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sCxau-0003LM-5K; Fri, 31 May 2024 08:26:36 +0000
+	id 1sCxfX-00051X-M8; Fri, 31 May 2024 08:31:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 733441.1139692; Fri, 31 May 2024 08:26:36 +0000
+Received: by outflank-mailman (output) from mailman id 733446.1139702; Fri, 31 May 2024 08:31:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sCxau-0003IV-20; Fri, 31 May 2024 08:26:36 +0000
-Received: by outflank-mailman (input) for mailman id 733441;
- Fri, 31 May 2024 08:26:33 +0000
+	id 1sCxfX-0004zV-It; Fri, 31 May 2024 08:31:23 +0000
+Received: by outflank-mailman (input) for mailman id 733446;
+ Fri, 31 May 2024 08:31:22 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Tcd8=NC=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1sCxar-0003IP-SQ
- for xen-devel@lists.xenproject.org; Fri, 31 May 2024 08:26:33 +0000
-Received: from mail-yb1-xb31.google.com (mail-yb1-xb31.google.com
- [2607:f8b0:4864:20::b31])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=fjOV=NC=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1sCxfW-0004zP-JR
+ for xen-devel@lists.xenproject.org; Fri, 31 May 2024 08:31:22 +0000
+Received: from mail-ed1-x52b.google.com (mail-ed1-x52b.google.com
+ [2a00:1450:4864:20::52b])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 7ba7a1cb-1f27-11ef-b4bb-af5377834399;
- Fri, 31 May 2024 10:26:31 +0200 (CEST)
-Received: by mail-yb1-xb31.google.com with SMTP id
- 3f1490d57ef6-dfa7ab78ef2so214450276.0
- for <xen-devel@lists.xenproject.org>; Fri, 31 May 2024 01:26:31 -0700 (PDT)
-Received: from [192.168.1.10] (host-92-26-98-202.as13285.net. [92.26.98.202])
- by smtp.gmail.com with ESMTPSA id
- af79cd13be357-794f317073fsm42967785a.112.2024.05.31.01.26.28
+ id 2811b04e-1f28-11ef-b4bb-af5377834399;
+ Fri, 31 May 2024 10:31:20 +0200 (CEST)
+Received: by mail-ed1-x52b.google.com with SMTP id
+ 4fb4d7f45d1cf-5751bcb3139so2049117a12.1
+ for <xen-devel@lists.xenproject.org>; Fri, 31 May 2024 01:31:20 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-57a31b9919asm752375a12.8.2024.05.31.01.31.19
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 31 May 2024 01:26:30 -0700 (PDT)
+ Fri, 31 May 2024 01:31:19 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,134 +45,107 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7ba7a1cb-1f27-11ef-b4bb-af5377834399
+X-Inumbo-ID: 2811b04e-1f28-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1717143990; x=1717748790; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1717144280; x=1717749080; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=1a1ryheQen9WxY4LMMuEhi4hk6Cgc8e7s9lJfWj8R7w=;
-        b=pXIXmEswpStYk95hwrp27gvsB+h75t2TdW86+8WqLuFiq6qCMRMygcX46qjjvlFAFW
-         JtKeZRO1XCTzqWRs1FHeoJ5ujrMPEK8LOX1TBGn9G++zhq887JMK9+4pjTMeUhe1h17H
-         XbdIKB4g3iuyRHhWctXGhfIkUepmkpa8Bz+Zk=
+        bh=YcLzLE4Z3E7kIRjSBw2I5srCpX7gYlmZMZ7dNTS8rFo=;
+        b=L0RY7sKeizT+jTGQUVgNIf5czWI1Y7X7Ei6HPrPXoMp8hgmzVPHu2xYwAmcJd2cELn
+         9Sbfr/OpCljxBq/1AtUA1hEy4+KDEDI5ADRot8BZNRa4R2RNHW2hhJl6t2Eg7Gkkm2YC
+         K111SrbGIgkyCUME7CSVkwbnLNDg3nJn2CHRBkjYUxvtsbIoa6/SnjczAdZZAKBmsZKN
+         HjZZTtQaUrJd7sKq6PnBiZUI+qTR/I53zeKAUX/j62/dRvKbLbOZRDx/mgM1X2ozfma/
+         ojR8N+Id5GDyb1U07rX+WZKwxvRh/cZIerdUg2RPOx8S6HX5h0JdmzhvlFdnZi9vLF17
+         8IYQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1717143990; x=1717748790;
+        d=1e100.net; s=20230601; t=1717144280; x=1717749080;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=1a1ryheQen9WxY4LMMuEhi4hk6Cgc8e7s9lJfWj8R7w=;
-        b=BrpLdx+DMxGDSU/u4wM+H5g2/n8BoZSlx7hPStQ3cVMiyzjJK6xHgAtCdFYIu0cNhR
-         Nf6hwF598DDSxktrwRjei7Us9XNWj9/0PeoXciT8jzMj0xvTe1+E8a6LSG0RFcH9hmLS
-         ZUQ36OKpzxMOHfI0K9/46YvSi3gXq8so1+AhmnEARoQGlYSLVJePdP+NxY51A35s8dvp
-         6Mj0kRWOUFCnrLdaOwORydxEV6OkoA6LOqE3QalNe6WOpYEMaxcPetXJkoEm18fen9nQ
-         KcMBrhM2o9fL6KirOSOIN2RiRC4l6XhVhAjRhcr9VkIWULfcgjMkmQNGHOCviySvSKVc
-         TN5w==
-X-Forwarded-Encrypted: i=1; AJvYcCXatPyHk1ASxbDvWng6kEGzdCNL1jlLOhclxM6gHRS/Szu1D05SZNd2T7DzM03J3cRWRgwVpa1D4gU6sTe2HGBvQYsxYn8xmWWaCQHvXM4=
-X-Gm-Message-State: AOJu0Yw2U28XfMJevj5zary8WN+dcI/MRX9cIEf+POhPgY/3itf6FOcS
-	G1S10zi7pITAahrd6vXJnXquTwKRqrhXmPRUshvT+yvWeGFMuLpQEq2URLZ6u3U=
-X-Google-Smtp-Source: AGHT+IGpZvp+kzq6US03HRa3BV/hi+1y6p2t+X4cxz9RWf29hfY2+yaYgUWi+NLHAbBgTSDp+h9KOg==
-X-Received: by 2002:a25:874e:0:b0:dcd:d94:3db5 with SMTP id 3f1490d57ef6-dfa73dbaf9fmr1212168276.52.1717143990510;
-        Fri, 31 May 2024 01:26:30 -0700 (PDT)
-Message-ID: <732f5239-c45e-4439-b28a-265e43d46faa@citrix.com>
-Date: Fri, 31 May 2024 09:26:27 +0100
+        bh=YcLzLE4Z3E7kIRjSBw2I5srCpX7gYlmZMZ7dNTS8rFo=;
+        b=fzRoGKxIvMeVnkOZXr9kB9ToBuactIULVTGVn24aFqgZg/dttzPY+2UU8Am/j8DVo3
+         JdQj6f2/QguP/3YFUnN0Y33niKU/fs0CJydP07y6/aUhc5asrOYoagHAnYDzjjogu08c
+         U6GbNVDFoXSBuapj3lXv5RiPFJ3xclnybzaSqNxWvQmGA2WjwLkHTkS8f/jgAEy1AXnN
+         3I3b11+XdjvRN0TCBpZD7//RksG/TJSkhVB0csDXwDxvuA4dVHRNzhMlkQ/IINjvWbLZ
+         tn8Le1OSTRX5FmUsN9KALUwp0cfaOlVmJpUiuB88uLnVlD7yZ+Mp9u1cqvnPiSNPmaJI
+         uxWw==
+X-Forwarded-Encrypted: i=1; AJvYcCXBHEW3xCu1MqY8rQyscnx/RPowPTTDSbFJYr3si2vengE8zNJuMur1g7OnlcESv0bRXZb4NpMILwf9EsO2o7XxDNNNkXTWde5in/0vdDg=
+X-Gm-Message-State: AOJu0Yxfgrpo6ndhAOomzfwmwppKdSDoPcnSIDzingzQn74nxrTxLYXa
+	gO2oZ7p4GD9QasWaiGPg/wNMU2ssAJLOJrJvokY7gyfRTRFHWrzzqU345ESXQA==
+X-Google-Smtp-Source: AGHT+IGe1H042Qk81yAjhw0hO6pCk0VdNukNepwUtcnMubcwkZgxMNZMfV8M3GTOX6KYJGCGONHtnw==
+X-Received: by 2002:a50:f687:0:b0:57a:2e7c:1d88 with SMTP id 4fb4d7f45d1cf-57a3638fb05mr916867a12.20.1717144279894;
+        Fri, 31 May 2024 01:31:19 -0700 (PDT)
+Message-ID: <e9e11f6c-5da0-4121-b716-041fcda9d3b2@suse.com>
+Date: Fri, 31 May 2024 10:31:18 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] arch/irq: Make irq_ack_none() mandatory
-To: Jan Beulich <jbeulich@suse.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Oleksii Kurochko <oleksii.kurochko@gmail.com>,
- Shawn Anastasio <sanastasio@raptorengineering.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20240530184027.44609-1-andrew.cooper3@citrix.com>
- <20240530184027.44609-2-andrew.cooper3@citrix.com>
- <e5741eb1-1708-463f-8b3a-2d34d6fd4fbc@suse.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <e5741eb1-1708-463f-8b3a-2d34d6fd4fbc@suse.com>
+Subject: Re: [XEN PATCH v2 13/15] x86/ioreq: guard VIO_realmode_completion
+ with CONFIG_VMX
+To: Sergiy Kibrik <sergiy_kibrik@epam.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Xenia Ragiadakou <xenia.ragiadakou@amd.com>, xen-devel@lists.xenproject.org
+References: <cover.1715761386.git.Sergiy_Kibrik@epam.com>
+ <9e64fa33b298f789d8340cf1046a9fbf683dd2b7.1715761386.git.Sergiy_Kibrik@epam.com>
+ <376d2e89-da6d-49c2-90aa-aab4af6eb0d1@suse.com>
+ <a38ac7e4-cf47-40a4-b76c-6752237b1ccc@epam.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <a38ac7e4-cf47-40a4-b76c-6752237b1ccc@epam.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 31/05/2024 7:42 am, Jan Beulich wrote:
-> On 30.05.2024 20:40, Andrew Cooper wrote:
->> Any non-stub implementation of these is going to have to do something here.
-> For whatever definition of "something", seeing ...
->
->> --- a/xen/arch/arm/irq.c
->> +++ b/xen/arch/arm/irq.c
->> @@ -31,12 +31,12 @@ struct irq_guest
->>      unsigned int virq;
->>  };
->>  
->> -static void ack_none(struct irq_desc *irq)
->> +void irq_ack_none(struct irq_desc *irq)
->>  {
->>      printk("unexpected IRQ trap at irq %02x\n", irq->irq);
->>  }
-> ... this, which - perhaps apart from the word "trap" - is entirely Arm-
-> independent, and could hence quite well live in a common code fallback
-> implementation.
+On 31.05.2024 10:05, Sergiy Kibrik wrote:
+> 16.05.24 15:11, Jan Beulich:
+>> On 15.05.2024 11:24, Sergiy Kibrik wrote:
+>>> --- a/xen/arch/x86/hvm/emulate.c
+>>> +++ b/xen/arch/x86/hvm/emulate.c
+>>> @@ -2667,7 +2667,9 @@ static int _hvm_emulate_one(struct hvm_emulate_ctxt *hvmemul_ctxt,
+>>>           break;
+>>>   
+>>>       case VIO_mmio_completion:
+>>> +#ifdef CONFIG_VMX
+>>>       case VIO_realmode_completion:
+>>> +#endif
+>>>           BUILD_BUG_ON(sizeof(hvio->mmio_insn) < sizeof(hvmemul_ctxt->insn_buf));
+>>>           hvio->mmio_insn_bytes = hvmemul_ctxt->insn_buf_bytes;
+>>>           memcpy(hvio->mmio_insn, hvmemul_ctxt->insn_buf, hvio->mmio_insn_bytes);
+>>
+>> This change doesn't buy us anything, does it?
+> 
+> why not? Code won't compile w/o it.
+> Or do you mean hiding the whole VIO_realmode_completion enum under 
+> CONFIG_VMX wasn't really useful?
 
-Not really.
+That's what I meant, by implication. To me it's extra #ifdef-ary without
+real gain.
 
-On ARM, ack()+end() are both mandatory and it's end() which is taking
-the useful action.
-
-On x86, ack() has the effect and end() is optional (and has a different
-prototype even!)
-
-
->  Nevertheless with patch 2 clearly being an improvement,
-> both patches:
-> Reviewed-by: Jan Beulich <jbeulich@suse.com>
-
-Thanks.
-
-~Andrew
+Jan
 
