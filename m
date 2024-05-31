@@ -2,34 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 476D68D57AA
-	for <lists+xen-devel@lfdr.de>; Fri, 31 May 2024 03:16:15 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.733198.1139336 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8DF278D593A
+	for <lists+xen-devel@lfdr.de>; Fri, 31 May 2024 06:11:57 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.733224.1139345 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sCqsF-0000Rw-Vy; Fri, 31 May 2024 01:16:03 +0000
+	id 1sCtbD-0004zD-Pg; Fri, 31 May 2024 04:10:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 733198.1139336; Fri, 31 May 2024 01:16:03 +0000
+Received: by outflank-mailman (output) from mailman id 733224.1139345; Fri, 31 May 2024 04:10:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sCqsF-0000Q6-Rl; Fri, 31 May 2024 01:16:03 +0000
-Received: by outflank-mailman (input) for mailman id 733198;
- Fri, 31 May 2024 01:16:02 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=h8zp=NC=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1sCqsE-0000Pt-1e
- for xen-devel@lists.xenproject.org; Fri, 31 May 2024 01:16:02 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 573df8b7-1eeb-11ef-90a1-e314d9c70b13;
- Fri, 31 May 2024 03:16:01 +0200 (CEST)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id C8BE261628;
- Fri, 31 May 2024 01:15:59 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 71C59C2BBFC;
- Fri, 31 May 2024 01:15:57 +0000 (UTC)
+	id 1sCtbD-0004ww-Mj; Fri, 31 May 2024 04:10:39 +0000
+Received: by outflank-mailman (input) for mailman id 733224;
+ Fri, 31 May 2024 04:10:38 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1sCtbC-0004wm-Ci; Fri, 31 May 2024 04:10:38 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1sCtbC-0006Vu-9U; Fri, 31 May 2024 04:10:38 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1sCtbB-0005cW-Ux; Fri, 31 May 2024 04:10:37 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1sCtbB-0002pS-UK; Fri, 31 May 2024 04:10:37 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,51 +42,73 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 573df8b7-1eeb-11ef-90a1-e314d9c70b13
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1717118159;
-	bh=0ciOzSyMXNlpzwdsYHjf2865CDzJmea3wO2lRnTSFYY=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=Dja9Cx0xNZm/b9dEn2JRfpB45TmKRkjKzR0lwMZ5RVYfaoLQa7ASqTMYM75V0orLz
-	 oM/V+OR2Jb5gC1gLg/iYZBpqRdQ1sGgf8au+NiDpKASCyr58vv202CbmeWqShahNHi
-	 +ybKtpo9K1Pk4Ka76pv9UGkJY6n6NoovubiRbn2PzQkiC0jYDPO2oMs45Wuxpaifm2
-	 XdlrDksV8T6CtOmVSeD/V1CgGg83IWng0hY2NJNojzRs6U0Pc04quJxm0a1chckT6O
-	 xGY7Q8UFj7ihC8RCZkanZ1wufBzHFNiOSjLczeMYVwEVXVCkgEvnhiluKwlM9Src4E
-	 cS15RVWvdzq0A==
-Date: Thu, 30 May 2024 18:15:55 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Jan Beulich <jbeulich@suse.com>
-cc: Andrew Cooper <andrew.cooper3@citrix.com>, 
-    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-    Wei Liu <wl@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, 
-    Julien Grall <julien@xen.org>, 
-    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
-    Bertrand Marquis <bertrand.marquis@arm.com>, 
-    Michal Orzel <michal.orzel@amd.com>, 
-    Oleksii Kurochko <oleksii.kurochko@gmail.com>, 
-    Shawn Anastasio <sanastasio@raptorengineering.com>, 
-    "consulting @ bugseng . com" <consulting@bugseng.com>, 
-    Simone Ballarin <simone.ballarin@bugseng.com>, 
-    Federico Serafini <federico.serafini@bugseng.com>, 
-    Nicola Vetrini <nicola.vetrini@bugseng.com>, 
-    Xen-devel <xen-devel@lists.xenproject.org>
-Subject: Re: [PATCH v2 08/13] xen/bitops: Implement ffsl() in common logic
-In-Reply-To: <db5f4449-e333-426f-bbe8-e5b77daba16d@suse.com>
-Message-ID: <alpine.DEB.2.22.394.2405301815490.2557291@ubuntu-linux-20-04-desktop>
-References: <20240524200338.1232391-1-andrew.cooper3@citrix.com> <20240524200338.1232391-9-andrew.cooper3@citrix.com> <db5f4449-e333-426f-bbe8-e5b77daba16d@suse.com>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=PvbGnXC7+2ebYeWHR8EmOL5NHxT+Hb1cJyXAqlR1uVQ=; b=1//p1yg5aKthFmDG8u/CcrLtsm
+	vvdqIhBL7zUaOKuBtXJp7WILo3k2Fn4/mPhtc378p+HgvV+Qp4Yw9oa1mqWXQPJ1QcvkB9M//T3FZ
+	uUxaGpfZ/imAC1VXR1qdYLBI4suzATsZerA7DIgLhy/n/5ZH5j09HeE1m38//recu/I4=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-186205-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Subject: [ovmf test] 186205: all pass - PUSHED
+X-Osstest-Versions-This:
+    ovmf=5f68a363d0d95bd0d383861ae21886d9824a8cd4
+X-Osstest-Versions-That:
+    ovmf=a8dc6bf73f789f38f2930641b20dfd6d9e38f411
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 31 May 2024 04:10:37 +0000
 
-On Mon, 27 May 2024, Jan Beulich wrote:
-> On 24.05.2024 22:03, Andrew Cooper wrote:
-> > Just like ffs() in the previous changes.  Express the upper bound of the
-> > testing in terms of BITS_PER_LONG as it varies between architectures.
-> > 
-> > Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> 
-> Reviewed-by: Jan Beulich <jbeulich@suse.com>
+flight 186205 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/186205/
 
-Acked-by: Stefano Stabellini <sstabellini@kernel.org>
+Perfect :-)
+All tests in this flight passed as required
+version targeted for testing:
+ ovmf                 5f68a363d0d95bd0d383861ae21886d9824a8cd4
+baseline version:
+ ovmf                 a8dc6bf73f789f38f2930641b20dfd6d9e38f411
+
+Last test of basis   186203  2024-05-30 23:12:41 Z    0 days
+Testing same since   186205  2024-05-31 02:11:12 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.com>
+  dependabot[bot] <support@github.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
+   a8dc6bf73f..5f68a363d0  5f68a363d0d95bd0d383861ae21886d9824a8cd4 -> xen-tested-master
 
