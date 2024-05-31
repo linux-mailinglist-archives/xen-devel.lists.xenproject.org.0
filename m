@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 46D568D5CC4
-	for <lists+xen-devel@lfdr.de>; Fri, 31 May 2024 10:34:49 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.733449.1139712 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 267AA8D5CC5
+	for <lists+xen-devel@lfdr.de>; Fri, 31 May 2024 10:34:53 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.733454.1139721 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sCxi8-0005mP-1T; Fri, 31 May 2024 08:34:04 +0000
+	id 1sCxik-0006Kl-DD; Fri, 31 May 2024 08:34:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 733449.1139712; Fri, 31 May 2024 08:34:04 +0000
+Received: by outflank-mailman (output) from mailman id 733454.1139721; Fri, 31 May 2024 08:34:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sCxi7-0005kh-Ux; Fri, 31 May 2024 08:34:03 +0000
-Received: by outflank-mailman (input) for mailman id 733449;
- Fri, 31 May 2024 08:34:03 +0000
+	id 1sCxik-0006Hf-AW; Fri, 31 May 2024 08:34:42 +0000
+Received: by outflank-mailman (input) for mailman id 733454;
+ Fri, 31 May 2024 08:34:41 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=fjOV=NC=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sCxi7-0005kb-6e
- for xen-devel@lists.xenproject.org; Fri, 31 May 2024 08:34:03 +0000
-Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
- [2a00:1450:4864:20::631])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=Tcd8=NC=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1sCxij-0005kb-BP
+ for xen-devel@lists.xenproject.org; Fri, 31 May 2024 08:34:41 +0000
+Received: from mail-qk1-x735.google.com (mail-qk1-x735.google.com
+ [2607:f8b0:4864:20::735])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 87c6d5f5-1f28-11ef-b4bb-af5377834399;
- Fri, 31 May 2024 10:34:01 +0200 (CEST)
-Received: by mail-ej1-x631.google.com with SMTP id
- a640c23a62f3a-a5dcb5a0db4so187108666b.2
- for <xen-devel@lists.xenproject.org>; Fri, 31 May 2024 01:34:01 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a67eb6214fcsm61579066b.224.2024.05.31.01.33.59
+ id 9e852ede-1f28-11ef-b4bb-af5377834399;
+ Fri, 31 May 2024 10:34:39 +0200 (CEST)
+Received: by mail-qk1-x735.google.com with SMTP id
+ af79cd13be357-794ba2d4579so120960885a.1
+ for <xen-devel@lists.xenproject.org>; Fri, 31 May 2024 01:34:39 -0700 (PDT)
+Received: from [192.168.1.10] (host-92-26-98-202.as13285.net. [92.26.98.202])
+ by smtp.gmail.com with ESMTPSA id
+ 6a1803df08f44-6ae4b406549sm4912126d6.100.2024.05.31.01.34.36
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 31 May 2024 01:34:00 -0700 (PDT)
+ Fri, 31 May 2024 01:34:38 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,198 +45,148 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 87c6d5f5-1f28-11ef-b4bb-af5377834399
+X-Inumbo-ID: 9e852ede-1f28-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1717144440; x=1717749240; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1717144478; x=1717749278; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=Fv7P1b8LgUkd769Ez3yba/ErGOX7JkgtzCjTpafeiRU=;
-        b=VGsN0GHrWjfvaTHxlowGBeZwy8kpbxUmvNuyy3vqs+uVu0LAnjM3wxlMp40aIw861l
-         hrM/A+kMXvpH0xgzm1yfAMTDN3QhFnoeYLBNpamLo/0Hv+EnpDSJ/y4rqjkTEOlgRbIi
-         +Zr5nWLPUnMVXVSUnT4XONIU+IcxEK8FJqNs0eno+WOtm1r8h90izbMCpvWdokZ0IwBH
-         5KdY9KBBd2cKeGbBZLa6ar0R6EGeFY8GpsPVGb+jAbhFCOvKKBlERFa2gJwePOz8VR3w
-         cDspOSszAVKy4eLmsZ+GV0vMRwcVtYFAu5W5g0gCXcIxOoOZf2z097ZhNwkjrdo7Vutk
-         b9JA==
+        bh=LKiAmvQOzZQsFP46IA5w5fikv5CZ3YmraqhDhLdCOpA=;
+        b=FC3Wntfx+3ZSZZnGC1zJ5r+nmwU7bIU7SSHe9uO/hta05OORiUWMDmyu/wwMfBtmKA
+         p6mDKAwOQzp32ETPF+lGqzSR/NeMLSMzvIdw9sjgUnoUcIuuug5xo4paBpe53rTRRm58
+         8aNnvoGYUWprYL8h70W2X8ZuPzEH60iBLIe8I=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1717144440; x=1717749240;
+        d=1e100.net; s=20230601; t=1717144478; x=1717749278;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=Fv7P1b8LgUkd769Ez3yba/ErGOX7JkgtzCjTpafeiRU=;
-        b=eHTY1TMO3XKiPhr2b83d366GrpLrXCGu+8LC8Id9A8ZK/kxuzjO655rLONU3XpY87P
-         NkKGVbo3Y6fFwDLsG6hZgqF70xZlJjZ6UUYZS+m/g+87LB4/BzfLvuFx3ab9/BdHFbXc
-         CpcCv6OH+e0kJ7mg4jTwyT2cfhmj3kRPR5SuAjY/mJfkMDTX5/BaWpVY4hiMbLK7ANIS
-         nePLI7qHMwXvnvzGN2xxwYh/CDqJ64KcjE9otXt82MmFPlFDaD0pz4Ry8f4c+61CQNig
-         GQKuPzgoES8XB7da8fm4x8rppq5eWP2fWnQgLtbskvYFVwgsmYyU7cqo+WyV6VV0UuHi
-         asGw==
-X-Forwarded-Encrypted: i=1; AJvYcCVlwEeyfQOlAhAeLJVlqhU1X1g51/9UNX4ySD1lNyVz1noICmnkuiAFiB+CFG+Hmb61nn3I+yCz+kpIA/Q0q8s1zQvPj1FYSAiII8m7ILg=
-X-Gm-Message-State: AOJu0YzanB14sSVftOoCDcM95M7NKTWkCMeRTQVVDD8G6J4URjjJNuYF
-	Xlhd9iBxP9KKvji++zb+zVAQ0LQRMmt7nLnphro0FkT5/VR++PCt28xn2kpnsg==
-X-Google-Smtp-Source: AGHT+IEM4v+DjbOY8sH4CpBxHv0Ogs9ljDq3RaZTRruHWVxL/qOdiwzM80y+HIOp1mcerEDi+/1CZQ==
-X-Received: by 2002:a17:906:600a:b0:a66:7b79:3572 with SMTP id a640c23a62f3a-a681fc5bfb9mr68101466b.15.1717144440367;
-        Fri, 31 May 2024 01:34:00 -0700 (PDT)
-Message-ID: <e39c9e0c-2596-483f-a82d-86d424717081@suse.com>
-Date: Fri, 31 May 2024 10:33:58 +0200
+        bh=LKiAmvQOzZQsFP46IA5w5fikv5CZ3YmraqhDhLdCOpA=;
+        b=cidwgu9T4kaUX+8VNuIQvDPXfX3bBMtw+HN6AsEvvmXbOyAfX3C2AoYFl1rql0b/jB
+         S5O5InDaksyL7Z0og4xk+6UD8NaChOwECP+I9Noau7eOfTyqv2Oasz8LeulpMAA9b62D
+         SiZhlviLa7O+sov6bC9l4LSn8PfQCfl2ij1hkbFlPyJcHVRbk618xea6097MIeC65KZA
+         jo5EXAuxJolA3TmN1cGn+ZSdbFvLqE5DzjsgF2pkNWzs9tc7BeGAeZ3ZwKKW2Lc5PqZU
+         jS0fqMdyVQieIMxmI+nViiyCFRbYJkZ1Ordc6s0gnVP9xm4Q0oJO11t7bMRNNIzLE1GV
+         auWA==
+X-Gm-Message-State: AOJu0Yx450AbUqnHxCcGTG9Ce1ShtBfLb4jfrXtU+AXDczSVyo/mZn+i
+	slUqQF5A1bjfpOXvUpL+ePASLoirj1yDPXhetbcgVyXO7fg7hOsEL+g6YIVgFao=
+X-Google-Smtp-Source: AGHT+IEp9JXxcYkL+cimxVDP84hYyA+XZHmhbqDGZmF0iKYR+DvfQkRt3PirLZbxciH03wf6Kw2wTA==
+X-Received: by 2002:a05:6214:449b:b0:6ae:4dea:6c69 with SMTP id 6a1803df08f44-6aecd6ffdbbmr13062246d6.63.1717144478524;
+        Fri, 31 May 2024 01:34:38 -0700 (PDT)
+Message-ID: <2917e122-51d8-4caf-ba70-52da70d1342a@citrix.com>
+Date: Fri, 31 May 2024 09:34:35 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH for-4.19 3/9] xen/cpu: ensure get_cpu_maps() returns false
- if CPU operations are underway
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <20240529090132.59434-1-roger.pau@citrix.com>
- <20240529090132.59434-4-roger.pau@citrix.com>
- <597b0bf9-8949-41f3-a630-18937c219d8b@suse.com> <ZldDvH8GhhQcu5NX@macbook>
- <3ccdfec3-924a-4ef0-bf8d-653b6019aecb@suse.com> <ZldUgJRJvytRsjhu@macbook>
- <075168de-1a3f-4f23-a445-8ba74082fb8f@suse.com> <Zll8xQJiM83EZhTd@macbook>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <Zll8xQJiM83EZhTd@macbook>
+Subject: Re: [PATCH v2 06/13] xen/bitops: Implement ffs() in common logic
+To: Nicola Vetrini <nicola.vetrini@bugseng.com>,
+ Stefano Stabellini <sstabellini@kernel.org>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>,
+ Jan Beulich <JBeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, Wei Liu <wl@xen.org>, Julien Grall <julien@xen.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+ Shawn Anastasio <sanastasio@raptorengineering.com>,
+ "consulting @ bugseng . com" <consulting@bugseng.com>,
+ Simone Ballarin <simone.ballarin@bugseng.com>,
+ Federico Serafini <federico.serafini@bugseng.com>
+References: <20240524200338.1232391-1-andrew.cooper3@citrix.com>
+ <20240524200338.1232391-7-andrew.cooper3@citrix.com>
+ <alpine.DEB.2.22.394.2405301809170.2557291@ubuntu-linux-20-04-desktop>
+ <7b974b36b89c216379b86170af9de451@bugseng.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <7b974b36b89c216379b86170af9de451@bugseng.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 31.05.2024 09:31, Roger Pau Monné wrote:
-> On Fri, May 31, 2024 at 09:02:20AM +0200, Jan Beulich wrote:
->> On 29.05.2024 18:14, Roger Pau Monné wrote:
->>> On Wed, May 29, 2024 at 05:49:48PM +0200, Jan Beulich wrote:
->>>> On 29.05.2024 17:03, Roger Pau Monné wrote:
->>>>> On Wed, May 29, 2024 at 03:35:04PM +0200, Jan Beulich wrote:
->>>>>> On 29.05.2024 11:01, Roger Pau Monne wrote:
->>>>>>> Due to the current rwlock logic, if the CPU calling get_cpu_maps() does so from
->>>>>>> a cpu_hotplug_{begin,done}() region the function will still return success,
->>>>>>> because a CPU taking the rwlock in read mode after having taken it in write
->>>>>>> mode is allowed.  Such behavior however defeats the purpose of get_cpu_maps(),
->>>>>>> as it should always return false when called with a CPU hot{,un}plug operation
->>>>>>> is in progress.
->>>>>>
->>>>>> I'm not sure I can agree with this. The CPU doing said operation ought to be
->>>>>> aware of what it is itself doing. And all other CPUs will get back false from
->>>>>> get_cpu_maps().
->>>>>
->>>>> Well, the CPU is aware in the context of cpu_{up,down}(), but not in
->>>>> the interrupts that might be handled while that operation is in
->>>>> progress, see below for a concrete example.
->>>>>
->>>>>>>  Otherwise the logic in send_IPI_mask() for example is wrong,
->>>>>>> as it could decide to use the shorthand even when a CPU operation is in
->>>>>>> progress.
->>>>>>
->>>>>> It's also not becoming clear what's wrong there: As long as a CPU isn't
->>>>>> offline enough to not be in cpu_online_map anymore, it may well need to still
->>>>>> be the target of IPIs, and targeting it with a shorthand then is still fine.
->>>>>
->>>>> The issue is in the online path: there's a window where the CPU is
->>>>> online (and the lapic active), but cpu_online_map hasn't been updated
->>>>> yet.  A specific example would be time_calibration() being executed on
->>>>> the CPU that is running cpu_up().  That could result in a shorthand
->>>>> IPI being used, but the mask in r.cpu_calibration_map not containing
->>>>> the CPU that's being brought up online because it's not yet added to
->>>>> cpu_online_map.  Then the number of CPUs actually running
->>>>> time_calibration_rendezvous_fn won't match the weight of the cpumask
->>>>> in r.cpu_calibration_map.
->>>>
->>>> I see, but maybe only partly. Prior to the CPU having its bit set in
->>>> cpu_online_map, can it really take interrupts already? Shouldn't it be
->>>> running with IRQs off until later, thus preventing it from making it
->>>> into the rendezvous function in the first place? But yes, I can see
->>>> how the IRQ (IPI) then being delivered later (once IRQs are enabled)
->>>> might cause problems, too.
+On 31/05/2024 7:56 am, Nicola Vetrini wrote:
+> On 2024-05-31 03:14, Stefano Stabellini wrote:
+>> On Fri, 24 May 2024, Andrew Cooper wrote:
+>>> Perform constant-folding unconditionally, rather than having it
+>>> implemented
+>>> inconsistency between architectures.
 >>>
->>> The interrupt will get set in IRR and handled when interrupts are
->>> enabled.
+>>> Confirm the expected behaviour with compile time and boot time tests.
 >>>
->>>>
->>>> Plus, with how the rendezvous function is invoked (via
->>>> on_selected_cpus() with the mask copied from cpu_online_map), the
->>>> first check in smp_call_function_interrupt() ought to prevent the
->>>> function from being called on the CPU being onlined. A problem would
->>>> arise though if the IPI arrived later and call_data was already
->>>> (partly or fully) overwritten with the next request.
+>>> For non-constant inputs, use arch_ffs() if provided but fall back to
+>>> generic_ffsl() if not.  In particular, RISC-V doesn't have a builtin
+>>> that
+>>> works in all configurations.
 >>>
->>> Yeah, there's a small window where the fields in call_data are out of
->>> sync.
+>>> For x86, rename ffs() to arch_ffs() and adjust the prototype.
 >>>
->>>>>> In any event this would again affect only the CPU leading the CPU operation,
->>>>>> which should clearly know at which point(s) it is okay to send IPIs. Are we
->>>>>> actually sending any IPIs from within CPU-online or CPU-offline paths?
->>>>>
->>>>> Yes, I've seen the time rendezvous happening while in the middle of a
->>>>> hotplug operation, and the CPU coordinating the rendezvous being the
->>>>> one doing the CPU hotplug operation, so get_cpu_maps() returning true.
->>>>
->>>> Right, yet together with ...
->>>>
->>>>>> Together with the earlier paragraph the critical window would be between the
->>>>>> CPU being taken off of cpu_online_map and the CPU actually going "dead" (i.e.
->>>>>> on x86: its LAPIC becoming unresponsive to other than INIT/SIPI). And even
->>>>>> then the question would be what bad, if any, would happen to that CPU if an
->>>>>> IPI was still targeted at it by way of using the shorthand. I'm pretty sure
->>>>>> it runs with IRQs off at that time, so no ordinary IRQ could be delivered.
->>>>>>
->>>>>>> Adjust the logic in get_cpu_maps() to return false when the CPUs lock is
->>>>>>> already hold in write mode by the current CPU, as read_trylock() would
->>>>>>> otherwise return true.
->>>>>>>
->>>>>>> Fixes: 868a01021c6f ('rwlock: allow recursive read locking when already locked in write mode')
->>>>>>
->>>>>> I'm puzzled by this as well: Prior to that and the change referenced by its
->>>>>> Fixes: tag, recursive spin locks were used. For the purposes here that's the
->>>>>> same as permitting read locking even when the write lock is already held by
->>>>>> the local CPU.
->>>>>
->>>>> I see, so the Fixes should be:
->>>>>
->>>>> x86/smp: use APIC ALLBUT destination shorthand when possible
->>>>>
->>>>> Instead, which is the commit that started using get_cpu_maps() in
->>>>> send_IPI_mask().
->>>>
->>>> ... this I then wonder whether it's really only the condition in
->>>> send_IPI_mask() which needs further amending, rather than fiddling with
->>>> get_cpu_maps().
+>>> For PPC, __builtin_ctz() is 1/3 of the size of size of the transform to
+>>> generic_fls().  Drop the definition entirely.  ARM too benefits in
+>>> the general
+>>> case by using __builtin_ctz(), but less dramatically because it using
+>>> optimised asm().
 >>>
->>> That the other option, but I have impression it's more fragile to
->>> adjust the condition in send_IPI_mask() rather than fiddle with
->>> get_cpu_maps().
->>>
->>> However if that's the preference I can adjust.
+>>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 >>
->> I guess we need other REST input here then. The two of us clearly disagree on
->> what use of get_cpu_maps() is meant to guarantee. And I deem fiddling with
->> common code here more risky (and more intrusive - the other change would be
->> a single-line code change afaict, plus extending the related comment).
-> 
-> How do you envision that other change to be done?  Adding an extra
-> variable and toggling it in cpu_hotplug_{begin,done}() to signal
-> whether a CPU hotplug is in progress?
+>> This patch made me realize that we should add __builtin_ctz,
+>> __builtin_constant_p and always_inline to
+>> docs/misra/C-language-toolchain.rst as they don't seem to be currently
+>> documented and they are not part of the C standard
+>>
+>> Patch welcome :-)
+>>
+>
+> I can send a patch for the builtins.
 
-I was thinking of an is-write-locked-by-me check on cpu_add_remove_lock.
+That's very kind of you.
 
-Jan
+In total by the end of this series, we've got __builtin_constant_p() 
+(definitely used elsewhere already), and __builtin_{ffs,ctz,clz}{,l}() 
+(3x primitives, 2x input types).
+
+If we're going for a list of the primitive operations, lets add
+__builtin_popcnt{,l}() too right away, because if it weren't for 4.19
+code freeze, I'd have cleaned up the hweight() helpers too.
+
+~Andrew
 
