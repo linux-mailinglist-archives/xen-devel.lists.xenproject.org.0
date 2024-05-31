@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 94CAC8D6C91
-	for <lists+xen-devel@lfdr.de>; Sat,  1 Jun 2024 00:43:08 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.733888.1140164 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D374A8D6C99
+	for <lists+xen-devel@lfdr.de>; Sat,  1 Jun 2024 00:49:01 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.733893.1140174 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sDAwj-0000Sz-5S; Fri, 31 May 2024 22:42:01 +0000
+	id 1sDB3F-00015l-QN; Fri, 31 May 2024 22:48:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 733888.1140164; Fri, 31 May 2024 22:42:01 +0000
+Received: by outflank-mailman (output) from mailman id 733893.1140174; Fri, 31 May 2024 22:48:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sDAwj-0000Qa-2M; Fri, 31 May 2024 22:42:01 +0000
-Received: by outflank-mailman (input) for mailman id 733888;
- Fri, 31 May 2024 22:41:59 +0000
+	id 1sDB3F-00013J-N5; Fri, 31 May 2024 22:48:45 +0000
+Received: by outflank-mailman (input) for mailman id 733893;
+ Fri, 31 May 2024 22:48:44 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Tcd8=NC=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1sDAwh-0000QU-0C
- for xen-devel@lists.xenproject.org; Fri, 31 May 2024 22:41:59 +0000
-Received: from mail-yw1-x1136.google.com (mail-yw1-x1136.google.com
- [2607:f8b0:4864:20::1136])
+ <SRS0=xPZo=NC=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
+ id 1sDB3E-00013B-KH
+ for xen-devel@lists.xenproject.org; Fri, 31 May 2024 22:48:44 +0000
+Received: from wfhigh2-smtp.messagingengine.com
+ (wfhigh2-smtp.messagingengine.com [64.147.123.153])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id fbfa2b07-1f9e-11ef-90a1-e314d9c70b13;
- Sat, 01 Jun 2024 00:41:57 +0200 (CEST)
-Received: by mail-yw1-x1136.google.com with SMTP id
- 00721157ae682-62a0849f5a8so24754727b3.2
- for <xen-devel@lists.xenproject.org>; Fri, 31 May 2024 15:41:57 -0700 (PDT)
-Received: from [192.168.1.10] (host-92-26-98-202.as13285.net. [92.26.98.202])
- by smtp.gmail.com with ESMTPSA id
- af79cd13be357-794f3184388sm91021085a.125.2024.05.31.15.41.53
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 31 May 2024 15:41:54 -0700 (PDT)
+ id ec5b1f42-1f9f-11ef-90a1-e314d9c70b13;
+ Sat, 01 Jun 2024 00:48:42 +0200 (CEST)
+Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
+ by mailfhigh.west.internal (Postfix) with ESMTP id 7095718000BA;
+ Fri, 31 May 2024 18:48:38 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute5.internal (MEProxy); Fri, 31 May 2024 18:48:38 -0400
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
+ 31 May 2024 18:48:36 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,204 +44,251 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fbfa2b07-1f9e-11ef-90a1-e314d9c70b13
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1717195316; x=1717800116; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=nsT8LH63XtmTzmQcx0YFZfAbK7mznoH1MaRFA0+o4OU=;
-        b=nMMUcGhB1Uoz9qRSFK1LTeFk0V6B/HOTd0d4MXktIjjuYmt/ruLeUfYVcY+bhNtiew
-         BoiNEebgZToEXGe3oReTgQTt9AMWCGXGOhLlTyXYpeAjylXW1qIGX3eegykmKcpPeAFW
-         MH2VKHFIZFWbl8zdZ9Jw8DPIJ7dpIz+SlPB2c=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1717195316; x=1717800116;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=nsT8LH63XtmTzmQcx0YFZfAbK7mznoH1MaRFA0+o4OU=;
-        b=eSrdLhTItDTaxTaJxUIYO4//wQh3TqWVU0PRFal77esZW7gsUBpFL60vow97K7Rxx9
-         Ri3SbkRJ871pNynQiAJfO141pI4n3KBw2In1E87Ul/buFJqlAFrhawJXRi+e5ucdGcAG
-         JPN3pFlu8Hi0tgHr1Y4kOF/72jnoeyIk/f2nhm8o2sgBxWeclfuBkcTDdtJKh2kae833
-         IzcW0S/OL0ln56b+vfYz+iqZXzo56YwAEO3Wm2kFdP0n9nj2P5ed+Y/iEKYM+TJeE/r8
-         bDU7nqwkfXG16ccFpCcRbOecSSk2AQ49zU/o6lm/NsI19n65i/YiAbq9+cJ3dM0W60Nx
-         Kk5g==
-X-Forwarded-Encrypted: i=1; AJvYcCUq4vDxVRdqWzrhqhEolbkGV2WZmx0u/oo3OxFrnq2PIqZBab8S7MWUEmj2hCN2ywpjcqui+dScSSmTkpl5h3Tf8ar+QQEgq4oylOuk/Xk=
-X-Gm-Message-State: AOJu0YxAr5GY8SnQw7ivE4Q2fF9P+nYeb293+5Z8xQZ8Sx733/WL+g4R
-	045SZaQCSeiGxlDZAZa7DLuAwccV10B32qf/mWnAwd1JNddAf7w7NKa4HBvME+4=
-X-Google-Smtp-Source: AGHT+IGplGr+YkdzvmcNPa32xsVdbr+IKqOMzTxGKfcHYWlerHx1lyK30RLd5pdN9JA/+HmVQ9QhGA==
-X-Received: by 2002:a81:c907:0:b0:620:255a:a5c5 with SMTP id 00721157ae682-62c79852ef9mr32532317b3.32.1717195315461;
-        Fri, 31 May 2024 15:41:55 -0700 (PDT)
-Message-ID: <275fbd2a-9460-4836-8dd1-30f36cf137ae@citrix.com>
-Date: Fri, 31 May 2024 23:41:51 +0100
+X-Inumbo-ID: ec5b1f42-1f9f-11ef-90a1-e314d9c70b13
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1717195718;
+	 x=1717282118; bh=xBqG5KeyHw6loZw0/cyADHLe7k/DxHhcD0woNr8hcJM=; b=
+	rx9u5Qp02zYTx6ZIMxPXsbNxEH6kV5FDLGJ+kpgezKK3bf/3WXtF205FFj4sChwG
+	dhzSis//Zktvmiie9lDbiHaCafj1UXUJMWM3EyuQ82jhzjx2c7vaC8O/dxZdfjG8
+	5msK8j56il9t4jc0iP/EQ41Wt659h9bssY7vsKi05GHaXrJ3YpkNUs9fp5vtxfLw
+	Kwfh3kdEbgu4pO/R/G3HO/YLaQkClWXQOAbs3FEqAVnmGvFeRJU2dnkNWEio0XWP
+	aiBimquILN4flQ7Xf56zln3/pvkklm8hd9S1Y6hv1Ho6xJUHHb2MMFpjlMv4rU8x
+	FgpNDkb96/GoOHvpaXRxuA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+	fm1; t=1717195718; x=1717282118; bh=xBqG5KeyHw6loZw0/cyADHLe7k/D
+	xHhcD0woNr8hcJM=; b=oU2Qun8Wz3C+AVTKd/Kx0pvKv+XFaWc1n/fobD2akB6Y
+	UEZNHy2n0/CVgIuXtKZUur4+3KPW8hVJujbbmE/GXhNEtKhtudUOrBCmQHo0UvD2
+	grw3sVONIvhl18h3+DGqy85e7dcnbG4B56Mbl1fdyE1mLBPvSftbSJY2q+X+9sBC
+	wXDREWoqmcjuKUWwq9vcSk9sHzw0bHVh9X3AqTjkN+rdj0FgVonf3PnP3D+Y6QkV
+	gjADxry3b0tW4Z7mByUB72mTuR3qweTJjn8KKeNAwX5FN/SKJQX1RY3CCQjykxfV
+	Oscm21Lv1xxQfnfSse7Z0MMHnf1pwXxkueafQU5XjQ==
+X-ME-Sender: <xms:xVNaZuqUeSGShb2KukS9kjKwHP9-ZfVSlyk4ZPB4zua9AOwhic1fmg>
+    <xme:xVNaZsq_PPhi5u0Iy_4jWZTQFfo0Q7rvZCVNt1HbElnT20lWRBvKr5Lb-XbIXcZFQ
+    lPEHCeMcgUB3g>
+X-ME-Received: <xmr:xVNaZjN9xTcEvAkS0cUrSfUpk94mStUZ6tu_qW-R6cRA9QZ4tovhvfUuuh8>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvledrvdekjedgudegucetufdoteggodetrfdotf
+    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+    uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+    cujfgurhepfffhvfevuffkfhggtggujgesghdtroertddtjeenucfhrhhomhepofgrrhgv
+    khcuofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuceomhgrrhhmrghrvghksehinh
+    hvihhsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecuggftrfgrthhtvghrnhepheeh
+    ueektedufeelvddvffeghedtjeeludehffeuuddugfettdelvdffjeduheevnecuffhomh
+    grihhnpehophgvnhhsuhhsvgdrohhrghdpqhhusggvshdqohhsrdhorhhgpdhgihhthhhu
+    sgdrtghomhenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhroh
+    hmpehmrghrmhgrrhgvkhesihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhm
+X-ME-Proxy: <xmx:xVNaZt6MeRd7BmAMHdrDT4gwwgfdXWJrddEgo6dS7RDYoMfccDqLfg>
+    <xmx:xVNaZt4yPNABCzf5cI8gsyctWE6w6IJUX_RxeaY2PsbB60wnIBw-og>
+    <xmx:xVNaZti446jogTuRrPrg6OIpKRvBzOA4Z9pFe4CXzmmsq5NXkQKNrg>
+    <xmx:xVNaZn5VxapMr8BMG2di-BVVm6HuWMb3YmJOkYDij5GNm9SXDscpzw>
+    <xmx:xlNaZtF9OzQnnI6oAkjg0Z4j11NWOVQiKdeypRocfaYWFhA2YnBzlqXl>
+Feedback-ID: i1568416f:Fastmail
+Date: Sat, 1 Jun 2024 00:48:33 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Julien Grall <julien@xen.org>
+Cc: xen-devel <xen-devel@lists.xenproject.org>,
+	Juergen Gross <jgross@suse.com>
+Subject: Re: NULL pointer dereference in xenbus_thread->...
+Message-ID: <ZlpTwbmDjNLkCNgH@mail-itl>
+References: <ZO0WrR5J0xuwDIxW@mail-itl>
+ <ZTUuRj6e5x5xFVqb@mail-itl>
+ <ZgGjf3hpLHXXtb8z@mail-itl>
+ <0f8c0e27-e60d-4e64-bc8a-6cb407c67ab2@xen.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 02/13] xen/bitops: Cleanup ahead of rearrangements
-To: Jan Beulich <jbeulich@suse.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Wei Liu <wl@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- Julien Grall <julien@xen.org>, Volodymyr Babchuk
- <Volodymyr_Babchuk@epam.com>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Oleksii Kurochko <oleksii.kurochko@gmail.com>,
- Shawn Anastasio <sanastasio@raptorengineering.com>,
- "consulting @ bugseng . com" <consulting@bugseng.com>,
- Simone Ballarin <simone.ballarin@bugseng.com>,
- Federico Serafini <federico.serafini@bugseng.com>,
- Nicola Vetrini <nicola.vetrini@bugseng.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20240524200338.1232391-1-andrew.cooper3@citrix.com>
- <20240524200338.1232391-3-andrew.cooper3@citrix.com>
- <c70f769b-57b9-4f71-9c31-8052b773d28a@suse.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <c70f769b-57b9-4f71-9c31-8052b773d28a@suse.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="4ybz0eHqAMeE41R+"
+Content-Disposition: inline
+In-Reply-To: <0f8c0e27-e60d-4e64-bc8a-6cb407c67ab2@xen.org>
 
-On 27/05/2024 9:24 am, Jan Beulich wrote:
-> On 24.05.2024 22:03, Andrew Cooper wrote:
->>  * Rename __attribute_pure__ to just __pure before it gains users.
->>  * Introduce __constructor which is going to be used in lib/, and is
->>    unconditionally cf_check.
->>  * Identify the areas of xen/bitops.h which are a mess.
->>  * Introduce xen/boot-check.h as helpers for compile and boot time testing.
->>    This provides a statement of the ABI, and a confirmation that arch-specific
->>    implementations behave as expected.
->>
->> Sadly Clang 7 and older isn't happy with the compile time checks.  Skip them,
->> and just rely on the runtime checks.
->>
->> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
-Thanks.
+--4ybz0eHqAMeE41R+
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Sat, 1 Jun 2024 00:48:33 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Julien Grall <julien@xen.org>
+Cc: xen-devel <xen-devel@lists.xenproject.org>,
+	Juergen Gross <jgross@suse.com>
+Subject: Re: NULL pointer dereference in xenbus_thread->...
 
->
-> Further remarks, though:
->
->> ---
->>  xen/include/xen/bitops.h     | 13 ++++++--
->>  xen/include/xen/boot-check.h | 60 ++++++++++++++++++++++++++++++++++++
->>  xen/include/xen/compiler.h   |  3 +-
->>  3 files changed, 72 insertions(+), 4 deletions(-)
->>  create mode 100644 xen/include/xen/boot-check.h
-> The bulk of the changes isn't about bitops; it's just that you're intending
-> to first use it for testing there. The subject prefix therefore is somewhat
-> misleading.
+On Tue, Mar 26, 2024 at 11:00:50AM +0000, Julien Grall wrote:
+> Hi Marek,
+>=20
+> +Juergen for visibility
+>=20
+> When sending a bug report, I would suggest to CC relevant people as
+> otherwise it can get lost (not may people monitors Xen devel if they are =
+not
+> CCed).
+>=20
+> Cheers,
+>=20
+> On 25/03/2024 16:17, Marek Marczykowski-G=C3=B3recki wrote:
+> > On Sun, Oct 22, 2023 at 04:14:30PM +0200, Marek Marczykowski-G=C3=B3rec=
+ki wrote:
+> > > On Mon, Aug 28, 2023 at 11:50:36PM +0200, Marek Marczykowski-G=C3=B3r=
+ecki wrote:
+> > > > Hi,
+> > > >=20
+> > > > I've noticed in Qubes's CI failure like this:
+> > > >=20
+> > > > [  871.271292] BUG: kernel NULL pointer dereference, address: 00000=
+00000000000
+> > > > [  871.275290] #PF: supervisor read access in kernel mode
+> > > > [  871.277282] #PF: error_code(0x0000) - not-present page
+> > > > [  871.279182] PGD 106fdb067 P4D 106fdb067 PUD 106fdc067 PMD 0
+> > > > [  871.281071] Oops: 0000 [#1] PREEMPT SMP NOPTI
+> > > > [  871.282698] CPU: 1 PID: 28 Comm: xenbus Not tainted 6.1.43-1.qub=
+es.fc37.x86_64 #1
+> > > > [  871.285222] Hardware name: QEMU Standard PC (i440FX + PIIX, 1996=
+), BIOS rel-1.16.0-0-gd239552-rebuilt.opensuse.org 04/01/2014
+> > > > [  871.288883] RIP: e030:__wake_up_common+0x4c/0x180
+> > > > [  871.292838] Code: 24 0c 89 4c 24 08 4d 85 c9 74 0a 41 f6 01 04 0=
+f 85 a3 00 00 00 48 8b 43 08 4c 8d 40 e8 48 83 c3 08 49 8d 40 18 48 39 c3 7=
+4 5b <49> 8b 40 18 31 ed 4c 8d 70 e8 45 8b 28 41 f6 c5 04 75 5f 49 8b 40
+> > > > [  871.299776] RSP: e02b:ffffc900400f7e10 EFLAGS: 00010082
+> > > > [  871.301656] RAX: 0000000000000000 RBX: ffff88810541ce98 RCX: 000=
+0000000000000
+> > > > [  871.304255] RDX: 0000000000000001 RSI: 0000000000000003 RDI: fff=
+f88810541ce90
+> > > > [  871.306714] RBP: ffffc900400f0280 R08: ffffffffffffffe8 R09: fff=
+fc900400f7e68
+> > > > [  871.309937] R10: 0000000000007ff0 R11: ffff888100ad3000 R12: fff=
+fc900400f7e68
+> > > > [  871.312326] R13: 0000000000000000 R14: 0000000000000000 R15: 000=
+0000000000000
+> > > > [  871.314647] FS:  0000000000000000(0000) GS:ffff88813ff00000(0000=
+) knlGS:0000000000000000
+> > > > [  871.317677] CS:  10000e030 DS: 0000 ES: 0000 CR0: 00000000800500=
+33
+> > > > [  871.319644] CR2: 0000000000000000 CR3: 00000001067fe000 CR4: 000=
+0000000040660
+> > > > [  871.321973] Call Trace:
+> > > > [  871.322782]  <TASK>
+> > > > [  871.323494]  ? show_trace_log_lvl+0x1d3/0x2ef
+> > > > [  871.324901]  ? show_trace_log_lvl+0x1d3/0x2ef
+> > > > [  871.326310]  ? show_trace_log_lvl+0x1d3/0x2ef
+> > > > [  871.327721]  ? __wake_up_common_lock+0x82/0xd0
+> > > > [  871.329147]  ? __die_body.cold+0x8/0xd
+> > > > [  871.330378]  ? page_fault_oops+0x163/0x1a0
+> > > > [  871.331691]  ? exc_page_fault+0x70/0x170
+> > > > [  871.332946]  ? asm_exc_page_fault+0x22/0x30
+> > > > [  871.334454]  ? __wake_up_common+0x4c/0x180
+> > > > [  871.335777]  __wake_up_common_lock+0x82/0xd0
+> > > > [  871.337183]  ? process_writes+0x240/0x240
+> > > > [  871.338461]  process_msg+0x18e/0x2f0
+> > > > [  871.339627]  xenbus_thread+0x165/0x1c0
+> > > > [  871.340830]  ? cpuusage_read+0x10/0x10
+> > > > [  871.342032]  kthread+0xe9/0x110
+> > > > [  871.343317]  ? kthread_complete_and_exit+0x20/0x20
+> > > > [  871.345020]  ret_from_fork+0x22/0x30
+> > > > [  871.346239]  </TASK>
+> > > > [  871.347060] Modules linked in: snd_hda_codec_generic ledtrig_aud=
+io snd_hda_intel snd_intel_dspcfg snd_intel_sdw_acpi snd_hda_codec snd_hda_=
+core snd_hwdep snd_seq snd_seq_device joydev snd_pcm intel_rapl_msr ppdev i=
+ntel_rapl_common snd_timer pcspkr e1000e snd soundcore i2c_piix4 parport_pc=
+ parport loop fuse xenfs dm_crypt crct10dif_pclmul crc32_pclmul crc32c_inte=
+l polyval_clmulni polyval_generic floppy ghash_clmulni_intel sha512_ssse3 s=
+erio_raw virtio_scsi virtio_console bochs xhci_pci xhci_pci_renesas xhci_hc=
+d qemu_fw_cfg drm_vram_helper drm_ttm_helper ttm ata_generic pata_acpi xen_=
+privcmd xen_pciback xen_blkback xen_gntalloc xen_gntdev xen_evtchn scsi_dh_=
+rdac scsi_dh_emc scsi_dh_alua uinput dm_multipath
+> > > > [  871.368892] CR2: 0000000000000000
+> > > > [  871.370160] ---[ end trace 0000000000000000 ]---
+> > > > [  871.371719] RIP: e030:__wake_up_common+0x4c/0x180
+> > > > [  871.373273] Code: 24 0c 89 4c 24 08 4d 85 c9 74 0a 41 f6 01 04 0=
+f 85 a3 00 00 00 48 8b 43 08 4c 8d 40 e8 48 83 c3 08 49 8d 40 18 48 39 c3 7=
+4 5b <49> 8b 40 18 31 ed 4c 8d 70 e8 45 8b 28 41 f6 c5 04 75 5f 49 8b 40
+> > > > [  871.379866] RSP: e02b:ffffc900400f7e10 EFLAGS: 00010082
+> > > > [  871.381689] RAX: 0000000000000000 RBX: ffff88810541ce98 RCX: 000=
+0000000000000
+> > > > [  871.383971] RDX: 0000000000000001 RSI: 0000000000000003 RDI: fff=
+f88810541ce90
+> > > > [  871.386235] RBP: ffffc900400f0280 R08: ffffffffffffffe8 R09: fff=
+fc900400f7e68
+> > > > [  871.388521] R10: 0000000000007ff0 R11: ffff888100ad3000 R12: fff=
+fc900400f7e68
+> > > > [  871.390789] R13: 0000000000000000 R14: 0000000000000000 R15: 000=
+0000000000000
+> > > > [  871.393101] FS:  0000000000000000(0000) GS:ffff88813ff00000(0000=
+) knlGS:0000000000000000
+> > > > [  871.395671] CS:  10000e030 DS: 0000 ES: 0000 CR0: 00000000800500=
+33
+> > > > [  871.397863] CR2: 0000000000000000 CR3: 00000001067fe000 CR4: 000=
+0000000040660
+> > > > [  871.400441] Kernel panic - not syncing: Fatal exception
+> > > > [  871.402171] Kernel Offset: disabled
+> > > > (XEN) Hardware Dom0 crashed: rebooting machine in 5 seconds.
+> > > >=20
+> > > > It isn't the first time I see similar crash, but I can't really
+> > > > reproduce it reliably. Restarted test usually passes.
+> > > > Note this is Xen nested in KVM, so it could very well be some oddity
+> > > > about nested virt, although looking at the stack trace, it's unlike=
+ly
+> > > > and more likely some race condition hit only on slower system.
+> > >=20
+> > > Recently I've got the same crash on a real system in domU too. And al=
+so
+> > > on nested on newer kernel 6.1.57 (here it happened in dom0). So, this=
+ is
+> > > still an issue and affects not only nested case :/
+> > >=20
+> > > > Unfortunately I don't have symbols for this kernel handy, but there=
+ is a
+> > > > single wake_up() call in process_writes(), so it shouldn't be an is=
+sue.
+> > > >=20
+> > > > Any ideas?
+> > > >=20
+> > > > Full log at https://openqa.qubes-os.org/tests/80779/logfile?filenam=
+e=3Dserial0.txt
+> > >=20
+> > > More links at https://github.com/QubesOS/qubes-issues/issues/8638,
+> > > including more recent stack trace.
+> >=20
+> > Happens on 6.1.75 too (new stack trace I've added to the issue above,
+> > but it's pretty similar).
 
-I'll change to "Cleanup and infrastructure ahead ..." but the bitops
-aspect is still reasonably important.
->> --- /dev/null
->> +++ b/xen/include/xen/boot-check.h
->> @@ -0,0 +1,60 @@
->> +/* SPDX-License-Identifier: GPL-2.0-or-later */
->> +
->> +/*
->> + * Helpers for boot-time checks of basic logic, including confirming that
->> + * examples which should be calculated by the compiler are.
->> + */
->> +#ifndef XEN_BOOT_CHECK_H
->> +#define XEN_BOOT_CHECK_H
+Recently I've got a report from another user about similar issue, on
+6.6.29 this time. I also still encounter this issue once a month or so,
+but the user claims they get it much more often:
+https://github.com/QubesOS/qubes-issues/issues/8638#issuecomment-2135419896
+The extra conditions reported by the user are:
+- old AMD system (KGPE-D16 with Opteron 6282 SE) requiring
+  `spec-ctrl=3Dibpb-entry=3Dno-pv` to remain usable=20
+- Whonix domU, which has a bunch of sysctl parameters changed, listed
+  at:
+  - https://github.com/Kicksecure/security-misc
+  - https://github.com/Kicksecure/security-misc/blob/master/usr/lib/sysctl.=
+d/990-security-misc.conf
+  (unsure which are relevant, maybe `vm.swappiness=3D1`?)
 
-Given that CONFIG_SELF_TESTS was subsequently approved, I've renamed
-this file to match.
 
->> +
->> +#include <xen/lib.h>
->> +
->> +/* Hide a value from the optimiser. */
->> +#define HIDE(x)                                                         \
->> +    ({ typeof(x) _x = (x); asm volatile ( "" : "+r" (_x) ); _x; })
-> In principle this is a macro that could be of use elsewhere. That's also
-> reflected in its entirely generic name. It therefore feels mis-placed in
-> this header.
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
 
-I'd forgotten that we several variations of this already.  compiler.h
-has both OPTIMIZER_HIDE_VAR() and RELOC_HIDE().
+--4ybz0eHqAMeE41R+
+Content-Type: application/pgp-signature; name="signature.asc"
 
->  Otoh though the use of "+r" is more restricting than truly
-> necessary: While I'm not sure if "+g" would work, i.e. if that wouldn't
-> cause issues with literals,
+-----BEGIN PGP SIGNATURE-----
 
-OPTIMIZER_HIDE_VAR() is indeed buggy using "+g", and RELOC_HIDE() even
-explains how "g" tickles a bug in a compiler we probably don't care
-about any more.
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmZaU8EACgkQ24/THMrX
+1yzlBQf/U9j0tGuo4A2afz3xwZ7iglL8ZWb6RE7/XS33u15Be96Zpbi4LkzVEXAl
+lz9Qyl1wbS3OHMvXeuv+HerZWNXIWOe6lqIonlQBlrFkJn/aC7QHhh0BGb1+S1i9
+0DcPMjtxVTfzBDBD6qSi3WlkQgr+GKSChxUqYCAQiQTBzQOrZj9V5AlK4uXSTj+T
+E4hxGJRQO229qfFPe81C1SSTUhJ72Y+kcfFvagKRveHxRoJLas1sq82G9v42w5dt
+I3rxLAQwrWfTuAQtnl3LrPYUvqIK473AS3J/TGlWv4fUJsyWr+F6Sg+jw21sIXoZ
+GrQNSzqTh6+FubfuZmLmZw/64yX4TQ==
+=l/kf
+-----END PGP SIGNATURE-----
 
-[Slightly out of order] the use of OPTIMIZER_HIDE_VAR() in gsi_vioapic()
-is bogus AFAICT, and is actively creating the problem the commit message
-says it was trying to avoid.
-
->  pretty surely "+rm" ought to work, removing
-> the strict requirement for the compiler to put a certain value in a
-> register.
-
-"+rm" would be ideal in theory, we can't use it in practice because
-Clang will (still!) interpret it as "+m" and force a spill.
-
-While that's not necessarily a problem for the SELF_TESTS, it really is
-a problem in array_index_mask_nospec(), which is latently buggy even now.
-
-If the compiler really uses the flexibility offered by
-OPTIMIZER_HIDE_VAR() to spill the value, array_index_mask_nospec() has
-entirely failed at its purpose.
-
-> Assuming you may have reservations against "+g" / "+rm" (and hence the
-> construct wants keeping here), maybe rename to e.g. BOOT_CHECK_HIDE()?
-> Alternatively, if generalized, moving to xen/macros.h would seem
-> appropriate to me.
-
-I've moved it to macros.h (because we should consolidate around it), but
-kept as "+r" for both Clang and array_index_mask_nospec() reasons.
-
-I don't expect HIDE() is ever actually going to be used in a case where
-letting the value stay in memory is a useful thing overall.  But if you
-still feel strongly about it, we can debate further when consolidating
-the other users.
-
-~Andrew
+--4ybz0eHqAMeE41R+--
 
