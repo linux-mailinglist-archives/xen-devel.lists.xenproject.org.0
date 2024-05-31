@@ -2,31 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AA2A88D5AE9
-	for <lists+xen-devel@lfdr.de>; Fri, 31 May 2024 08:56:30 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.733298.1139452 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8500E8D5AEA
+	for <lists+xen-devel@lfdr.de>; Fri, 31 May 2024 08:56:58 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.733301.1139462 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sCwBM-0002aS-KC; Fri, 31 May 2024 06:56:08 +0000
+	id 1sCwBy-00034b-QA; Fri, 31 May 2024 06:56:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 733298.1139452; Fri, 31 May 2024 06:56:08 +0000
+Received: by outflank-mailman (output) from mailman id 733301.1139462; Fri, 31 May 2024 06:56:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sCwBM-0002YX-GP; Fri, 31 May 2024 06:56:08 +0000
-Received: by outflank-mailman (input) for mailman id 733298;
- Fri, 31 May 2024 06:56:06 +0000
+	id 1sCwBy-00032o-NY; Fri, 31 May 2024 06:56:46 +0000
+Received: by outflank-mailman (input) for mailman id 733301;
+ Fri, 31 May 2024 06:56:45 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=ULw3=NC=lst.de=hch@srs-se1.protection.inumbo.net>)
- id 1sCwBK-0002YA-PP
- for xen-devel@lists.xenproject.org; Fri, 31 May 2024 06:56:06 +0000
-Received: from verein.lst.de (verein.lst.de [213.95.11.211])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=aSYE=NC=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
+ id 1sCwBx-0002YA-2o
+ for xen-devel@lists.xenproject.org; Fri, 31 May 2024 06:56:45 +0000
+Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d8bbd908-1f1a-11ef-90a1-e314d9c70b13;
- Fri, 31 May 2024 08:56:03 +0200 (CEST)
-Received: by verein.lst.de (Postfix, from userid 2407)
- id CC83168BEB; Fri, 31 May 2024 08:56:00 +0200 (CEST)
+ id f08d1780-1f1a-11ef-90a1-e314d9c70b13;
+ Fri, 31 May 2024 08:56:44 +0200 (CEST)
+Received: from support.bugseng.com (support.bugseng.com [162.55.131.47])
+ by support.bugseng.com (Postfix) with ESMTPA id E62F64EE0743;
+ Fri, 31 May 2024 08:56:42 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,43 +39,225 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d8bbd908-1f1a-11ef-90a1-e314d9c70b13
-Date: Fri, 31 May 2024 08:56:00 +0200
-From: Christoph Hellwig <hch@lst.de>
-To: Ilya Dryomov <idryomov@gmail.com>
-Cc: Christoph Hellwig <hch@lst.de>, Jens Axboe <axboe@kernel.dk>,
-	"Martin K. Petersen" <martin.petersen@oracle.com>,
-	Richard Weinberger <richard@nod.at>,
-	Anton Ivanov <anton.ivanov@cambridgegreys.com>,
-	Johannes Berg <johannes@sipsolutions.net>,
-	Josef Bacik <josef@toxicpanda.com>,
-	Dongsheng Yang <dongsheng.yang@easystack.cn>,
-	Roger Pau Monn?? <roger.pau@citrix.com>,
-	linux-um@lists.infradead.org, linux-block@vger.kernel.org,
-	nbd@other.debian.org, ceph-devel@vger.kernel.org,
-	xen-devel@lists.xenproject.org, linux-scsi@vger.kernel.org
-Subject: Re: [PATCH 02/12] block: take io_opt and io_min into account for
- max_sectors
-Message-ID: <20240531065600.GA18681@lst.de>
-References: <20240529050507.1392041-1-hch@lst.de> <20240529050507.1392041-3-hch@lst.de> <CAOi1vP-F0FO4WTnrEt7FC-uu2C8NTbejvJQQGdZqT475c2G1jA@mail.gmail.com> <20240531055456.GC17396@lst.de> <CAOi1vP-VXeOH-kShRKv-b=id1zN9tLiqOo8EKpOWoJuQp_Pm1g@mail.gmail.com>
+X-Inumbo-ID: f08d1780-1f1a-11ef-90a1-e314d9c70b13
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAOi1vP-VXeOH-kShRKv-b=id1zN9tLiqOo8EKpOWoJuQp_Pm1g@mail.gmail.com>
-User-Agent: Mutt/1.5.17 (2007-11-01)
+Date: Fri, 31 May 2024 08:56:42 +0200
+From: Nicola Vetrini <nicola.vetrini@bugseng.com>
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Xen-devel
+ <xen-devel@lists.xenproject.org>, Jan Beulich <JBeulich@suse.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu
+ <wl@xen.org>, Julien Grall <julien@xen.org>, Volodymyr Babchuk
+ <Volodymyr_Babchuk@epam.com>, Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>, Oleksii Kurochko
+ <oleksii.kurochko@gmail.com>, Shawn Anastasio
+ <sanastasio@raptorengineering.com>, "consulting @ bugseng . com"
+ <consulting@bugseng.com>, Simone Ballarin <simone.ballarin@bugseng.com>,
+ Federico Serafini <federico.serafini@bugseng.com>
+Subject: Re: [PATCH v2 06/13] xen/bitops: Implement ffs() in common logic
+In-Reply-To: <alpine.DEB.2.22.394.2405301809170.2557291@ubuntu-linux-20-04-desktop>
+References: <20240524200338.1232391-1-andrew.cooper3@citrix.com>
+ <20240524200338.1232391-7-andrew.cooper3@citrix.com>
+ <alpine.DEB.2.22.394.2405301809170.2557291@ubuntu-linux-20-04-desktop>
+Message-ID: <7b974b36b89c216379b86170af9de451@bugseng.com>
+X-Sender: nicola.vetrini@bugseng.com
+Organization: BUGSENG s.r.l.
+Content-Type: text/plain; charset=UTF-8;
+ format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Fri, May 31, 2024 at 08:48:12AM +0200, Ilya Dryomov wrote:
-> We should revert io_opt from opts->alloc_size to objset_bytes (I think
-> it's what you meant to say but typoed).
+On 2024-05-31 03:14, Stefano Stabellini wrote:
+> On Fri, 24 May 2024, Andrew Cooper wrote:
+>> Perform constant-folding unconditionally, rather than having it 
+>> implemented
+>> inconsistency between architectures.
+>> 
+>> Confirm the expected behaviour with compile time and boot time tests.
+>> 
+>> For non-constant inputs, use arch_ffs() if provided but fall back to
+>> generic_ffsl() if not.  In particular, RISC-V doesn't have a builtin 
+>> that
+>> works in all configurations.
+>> 
+>> For x86, rename ffs() to arch_ffs() and adjust the prototype.
+>> 
+>> For PPC, __builtin_ctz() is 1/3 of the size of size of the transform 
+>> to
+>> generic_fls().  Drop the definition entirely.  ARM too benefits in the 
+>> general
+>> case by using __builtin_ctz(), but less dramatically because it using
+>> optimised asm().
+>> 
+>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> 
+> This patch made me realize that we should add __builtin_ctz,
+> __builtin_constant_p and always_inline to
+> docs/misra/C-language-toolchain.rst as they don't seem to be currently
+> documented and they are not part of the C standard
+> 
+> Patch welcome :-)
+> 
 
-Yes, sorry.
+I can send a patch for the builtins. I think that for attributes it was 
+decided to document the use of the __attribute__ token, rather than 
+listing all the attributes used by Xen
 
-> How do you want to handle it?  I can put together a patch, send it to
-> ceph-devel and it will be picked by linux-next sometime next week.  Then
-> this patch would grow a contextual conflict and the description would
-> need to be updated to not mention a behavior change for rbd anymore.
+> Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+> 
+> 
+>> ---
+>> CC: Jan Beulich <JBeulich@suse.com>
+>> CC: Roger Pau Monné <roger.pau@citrix.com>
+>> CC: Wei Liu <wl@xen.org>
+>> CC: Stefano Stabellini <sstabellini@kernel.org>
+>> CC: Julien Grall <julien@xen.org>
+>> CC: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+>> CC: Bertrand Marquis <bertrand.marquis@arm.com>
+>> CC: Michal Orzel <michal.orzel@amd.com>
+>> CC: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+>> CC: Shawn Anastasio <sanastasio@raptorengineering.com>
+>> CC: consulting@bugseng.com <consulting@bugseng.com>
+>> CC: Simone Ballarin <simone.ballarin@bugseng.com>
+>> CC: Federico Serafini <federico.serafini@bugseng.com>
+>> CC: Nicola Vetrini <nicola.vetrini@bugseng.com>
+>> 
+>> v2:
+>>  * Fall back to generic, not builtin.
+>>  * Extend the testing with multi-bit values.
+>>  * Use always_inline for x86
+>>  * Defer x86 optimisation to a later change
+>> ---
+>>  xen/arch/arm/include/asm/bitops.h |  2 +-
+>>  xen/arch/ppc/include/asm/bitops.h |  2 +-
+>>  xen/arch/x86/include/asm/bitops.h |  3 ++-
+>>  xen/common/Makefile               |  1 +
+>>  xen/common/bitops.c               | 19 +++++++++++++++++++
+>>  xen/include/xen/bitops.h          | 17 +++++++++++++++++
+>>  6 files changed, 41 insertions(+), 3 deletions(-)
+>>  create mode 100644 xen/common/bitops.c
+>> 
+>> diff --git a/xen/arch/arm/include/asm/bitops.h 
+>> b/xen/arch/arm/include/asm/bitops.h
+>> index ec1cf7b9b323..a88ec2612e16 100644
+>> --- a/xen/arch/arm/include/asm/bitops.h
+>> +++ b/xen/arch/arm/include/asm/bitops.h
+>> @@ -157,7 +157,7 @@ static inline int fls(unsigned int x)
+>>  }
+>> 
+>> 
+>> -#define ffs(x) ({ unsigned int __t = (x); fls(ISOLATE_LSB(__t)); })
+>> +#define arch_ffs(x)  ((x) ? 1 + __builtin_ctz(x) : 0)
+>>  #define ffsl(x) ({ unsigned long __t = (x); flsl(ISOLATE_LSB(__t)); 
+>> })
+>> 
+>>  /**
+>> diff --git a/xen/arch/ppc/include/asm/bitops.h 
+>> b/xen/arch/ppc/include/asm/bitops.h
+>> index ab692d01717b..5c36a6cc0ce3 100644
+>> --- a/xen/arch/ppc/include/asm/bitops.h
+>> +++ b/xen/arch/ppc/include/asm/bitops.h
+>> @@ -173,7 +173,7 @@ static inline int __test_and_clear_bit(int nr, 
+>> volatile void *addr)
+>> 
+>>  #define flsl(x) generic_flsl(x)
+>>  #define fls(x) generic_flsl(x)
+>> -#define ffs(x) ({ unsigned int t_ = (x); fls(t_ & -t_); })
+>> +#define arch_ffs(x)  ((x) ? 1 + __builtin_ctz(x) : 0)
+>>  #define ffsl(x) ({ unsigned long t_ = (x); flsl(t_ & -t_); })
+>> 
+>>  /**
+>> diff --git a/xen/arch/x86/include/asm/bitops.h 
+>> b/xen/arch/x86/include/asm/bitops.h
+>> index 5a71afbc89d5..122767fc0d10 100644
+>> --- a/xen/arch/x86/include/asm/bitops.h
+>> +++ b/xen/arch/x86/include/asm/bitops.h
+>> @@ -430,7 +430,7 @@ static inline int ffsl(unsigned long x)
+>>      return (int)r+1;
+>>  }
+>> 
+>> -static inline int ffs(unsigned int x)
+>> +static always_inline unsigned int arch_ffs(unsigned int x)
+>>  {
+>>      int r;
+>> 
+>> @@ -440,6 +440,7 @@ static inline int ffs(unsigned int x)
+>>            "1:" : "=r" (r) : "rm" (x));
+>>      return r + 1;
+>>  }
+>> +#define arch_ffs arch_ffs
+>> 
+>>  /**
+>>   * fls - find last bit set
+>> diff --git a/xen/common/Makefile b/xen/common/Makefile
+>> index d512cad5243f..21a4fb4c7166 100644
+>> --- a/xen/common/Makefile
+>> +++ b/xen/common/Makefile
+>> @@ -1,5 +1,6 @@
+>>  obj-$(CONFIG_ARGO) += argo.o
+>>  obj-y += bitmap.o
+>> +obj-bin-$(CONFIG_DEBUG) += bitops.init.o
+>>  obj-$(CONFIG_GENERIC_BUG_FRAME) += bug.o
+>>  obj-$(CONFIG_HYPFS_CONFIG) += config_data.o
+>>  obj-$(CONFIG_CORE_PARKING) += core_parking.o
+>> diff --git a/xen/common/bitops.c b/xen/common/bitops.c
+>> new file mode 100644
+>> index 000000000000..8c161b8ea7fa
+>> --- /dev/null
+>> +++ b/xen/common/bitops.c
+>> @@ -0,0 +1,19 @@
+>> +#include <xen/bitops.h>
+>> +#include <xen/boot-check.h>
+>> +#include <xen/init.h>
+>> +
+>> +static void __init test_ffs(void)
+>> +{
+>> +    /* unsigned int ffs(unsigned int) */
+>> +    CHECK(ffs, 0, 0);
+>> +    CHECK(ffs, 1, 1);
+>> +    CHECK(ffs, 3, 1);
+>> +    CHECK(ffs, 7, 1);
+>> +    CHECK(ffs, 6, 2);
+>> +    CHECK(ffs, 0x80000000U, 32);
+>> +}
+>> +
+>> +static void __init __constructor test_bitops(void)
+>> +{
+>> +    test_ffs();
+>> +}
+>> diff --git a/xen/include/xen/bitops.h b/xen/include/xen/bitops.h
+>> index cd405df96180..f7e90a2893a5 100644
+>> --- a/xen/include/xen/bitops.h
+>> +++ b/xen/include/xen/bitops.h
+>> @@ -31,6 +31,23 @@ unsigned int __pure generic_flsl(unsigned long x);
+>> 
+>>  #include <asm/bitops.h>
+>> 
+>> +/*
+>> + * Find First/Last Set bit (all forms).
+>> + *
+>> + * Bits are labelled from 1.  Returns 0 if given 0.
+>> + */
+>> +static always_inline __pure unsigned int ffs(unsigned int x)
+>> +{
+>> +    if ( __builtin_constant_p(x) )
+>> +        return __builtin_ffs(x);
+>> +
+>> +#ifdef arch_ffs
+>> +    return arch_ffs(x);
+>> +#else
+>> +    return generic_ffsl(x);
+>> +#endif
+>> +}
+>> +
+>>  /* --------------------- Please tidy below here --------------------- 
+>> */
+>> 
+>>  #ifndef find_next_bit
+>> --
+>> 2.30.2
+>> 
 
-If that works for you I'd much prefer to include it with this series.
-I'd be happy to write it myself.
-
+-- 
+Nicola Vetrini, BSc
+Software Engineer, BUGSENG srl (https://bugseng.com)
 
