@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6C7D88D7059
-	for <lists+xen-devel@lfdr.de>; Sat,  1 Jun 2024 16:02:21 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.734213.1140425 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C24FF8D7072
+	for <lists+xen-devel@lfdr.de>; Sat,  1 Jun 2024 16:38:31 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.734241.1140436 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sDPJ4-0005Yr-S4; Sat, 01 Jun 2024 14:02:02 +0000
+	id 1sDPre-0001cC-Iw; Sat, 01 Jun 2024 14:37:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 734213.1140425; Sat, 01 Jun 2024 14:02:02 +0000
+Received: by outflank-mailman (output) from mailman id 734241.1140436; Sat, 01 Jun 2024 14:37:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sDPJ4-0005WL-PD; Sat, 01 Jun 2024 14:02:02 +0000
-Received: by outflank-mailman (input) for mailman id 734213;
- Sat, 01 Jun 2024 14:02:00 +0000
+	id 1sDPre-0001Zw-FX; Sat, 01 Jun 2024 14:37:46 +0000
+Received: by outflank-mailman (input) for mailman id 734241;
+ Sat, 01 Jun 2024 14:37:45 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=OKEA=ND=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1sDPJ2-0005WF-Qz
- for xen-devel@lists.xenproject.org; Sat, 01 Jun 2024 14:02:00 +0000
-Received: from mail-qv1-xf2a.google.com (mail-qv1-xf2a.google.com
- [2607:f8b0:4864:20::f2a])
+ id 1sDPrd-0001Zq-Lm
+ for xen-devel@lists.xenproject.org; Sat, 01 Jun 2024 14:37:45 +0000
+Received: from mail-qt1-x831.google.com (mail-qt1-x831.google.com
+ [2607:f8b0:4864:20::831])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 830a756d-201f-11ef-b4bb-af5377834399;
- Sat, 01 Jun 2024 16:01:59 +0200 (CEST)
-Received: by mail-qv1-xf2a.google.com with SMTP id
- 6a1803df08f44-6ad74e5afeaso18607546d6.0
- for <xen-devel@lists.xenproject.org>; Sat, 01 Jun 2024 07:01:59 -0700 (PDT)
+ id 8140ba75-2024-11ef-b4bb-af5377834399;
+ Sat, 01 Jun 2024 16:37:43 +0200 (CEST)
+Received: by mail-qt1-x831.google.com with SMTP id
+ d75a77b69052e-43fecdecd32so15480691cf.1
+ for <xen-devel@lists.xenproject.org>; Sat, 01 Jun 2024 07:37:43 -0700 (PDT)
 Received: from [192.168.1.10] (host-92-26-98-202.as13285.net. [92.26.98.202])
  by smtp.gmail.com with ESMTPSA id
- 6a1803df08f44-6ae4a7462f1sm14811306d6.33.2024.06.01.07.01.54
+ d75a77b69052e-43ff23a3c75sm19528691cf.14.2024.06.01.07.37.40
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sat, 01 Jun 2024 07:01:57 -0700 (PDT)
+ Sat, 01 Jun 2024 07:37:42 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,52 +45,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 830a756d-201f-11ef-b4bb-af5377834399
+X-Inumbo-ID: 8140ba75-2024-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1717250518; x=1717855318; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1717252662; x=1717857462; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=SuGF2XzFM+x7P8iYkP6eccS0bdWkdBlZETCYtzm4ego=;
-        b=t92Z7A7jhctxK5EzvMclXXS5Ddwn+TS+bPLauSiJ/zXk0a9vzgPefAKTa3eHriUycs
-         unZmwImyigkc9ZVYCgetwA+JzWLukpCT3MIX/X5uwLvWOb4uro7XezXucP4dIjbsaMtR
-         S2cMyzuMY7yKuOW+Ye2u8zUfJhD4oyaHsyPo4=
+        bh=9dijQdS5Avup1F+5bLxZGXhPRRYBOFud66ULN15XSaA=;
+        b=P+4hiJ08tmO+wkSeSQ546Qd1sUqoeiJgMWOpf4KBTFMy2dLjeHm+id+qpq57kEMEOQ
+         MbbQPseavv5FqNq8uWeCCg/kfhpvwuDCaEH9D524zW3CGgXANWvom8TrorvN6SyWb95Z
+         BCcNY4oLA9Nj2oLvUZI+Y2OloNr6nQuVCHkno=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1717250518; x=1717855318;
+        d=1e100.net; s=20230601; t=1717252662; x=1717857462;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=SuGF2XzFM+x7P8iYkP6eccS0bdWkdBlZETCYtzm4ego=;
-        b=MsW+8WJMpGtKJ3zpUEuGW2iisBvZyS2kkhOk03wre8QA1fAQMiNScSb68/fRZs4qx+
-         cpl9IDcgw9tIz14rq61U/Vdl+BTF2iYGe2IOa41uiRbRLk73vwTDQ+j9348ZFpdu9Qk0
-         A9A5PlHsWVjJfXfwuzelTO9WF8qeBevwhG52jIDGJ2DYeNFEyoh3b7g48DVURM+/66uj
-         XO+F26PcF3R4holJEKIsCvbkBdri9ppsOy2AaePXJ0Xvpf7tiEKROGnHSa7BecX6Wf5W
-         mVU4fXB/d10IARFgMSTWBCNNRJUfU0FKS+6tnv6o5hYkOgrHtIX32WU0glJtycbq1txL
-         O8qg==
-X-Gm-Message-State: AOJu0Yw84ZTCsr0llEa5SkpayA6Fd3iuqoZwCXf+MAy9xZVvxSWNJl4F
-	tRNlr8H49OOvhDZfK8t/jFyO7NOwmDHEonfg7aTYq+ZXYp1iPuERvKR8s3NDYA4=
-X-Google-Smtp-Source: AGHT+IH9hS1n35ry0qDr4aqte2rhIp2CS/ikf1Vi6BaXT5EMbXSaEbWBFcBbxvLRYeee+XpCJ6us5Q==
-X-Received: by 2002:a05:6214:5f02:b0:6af:565c:d16 with SMTP id 6a1803df08f44-6af565c1ab5mr6753936d6.21.1717250517550;
-        Sat, 01 Jun 2024 07:01:57 -0700 (PDT)
-Message-ID: <06445c42-1e4f-4830-bed6-b16cfd5c3a9a@citrix.com>
-Date: Sat, 1 Jun 2024 15:01:53 +0100
+        bh=9dijQdS5Avup1F+5bLxZGXhPRRYBOFud66ULN15XSaA=;
+        b=bTII3yZoZkybxdsWwoKv7RCoKgcP6qenk1wjADXx5Xm0codkGVrOtf/5Nq4VGefLhI
+         djlQWXkccnMiURDANTbt4hHWqWLTqbUpWrVOkP/9OSSwy1mxefg7LcCc7p+IQz2dBY/x
+         1UzxAY+dcKUkS9BzFGMTeDFnDa/hoVrsPe0JeIB5kg7uTCpfKUGcvvbkhLydnQ7jpplm
+         ccH0kagXnN66k7qiZo88QV1V3/Zw7M2qX/UOZP3mtgn+mDv1wM3VskNYFVQA8msfkSVZ
+         UeRUo42fJ1ZQv/3Bm3wDcHx19L7YqqL6vNj21rwaSds0eI3q2IC1oNHy8XNfKIWcf62+
+         uGXg==
+X-Forwarded-Encrypted: i=1; AJvYcCXnksqlV012KmBhTkXpwNE40fERunDEs4VQMgBQiyjF+A7kRFYrFk+JnrKbP/szwvpbP2LVi66pRofJ5WVkioJ0JCtL2LyqJAoWn8OKQ8w=
+X-Gm-Message-State: AOJu0YxQNosOQrtlk9JVscEyZGAhPRcGyhlr84Gl9gYeCMd9hvUlWyT5
+	CDbypY5Z/uDhSyfe/sN84FEgDHQA7ItP2cFZBGwXHK3H37ZZgSkFh81TLF3i8gk=
+X-Google-Smtp-Source: AGHT+IHNoVZQ7YXsFYwkMbX2zP4vu0osrgiVvsYVb4keGEM9B9uGv5MWxejsbeGguC0M9VnKe1yhoA==
+X-Received: by 2002:a05:622a:20f:b0:43f:eecd:c81c with SMTP id d75a77b69052e-43ff523782emr49796521cf.2.1717252662559;
+        Sat, 01 Jun 2024 07:37:42 -0700 (PDT)
+Message-ID: <b4267610-464b-479a-b886-12489c5e5a9b@citrix.com>
+Date: Sat, 1 Jun 2024 15:37:39 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH 5/5] xen: fix MISRA regressions on rule 20.9 and 20.12
-To: Nicola Vetrini <nicola.vetrini@bugseng.com>
-Cc: xen-devel@lists.xenproject.org, sstabellini@kernel.org,
- michal.orzel@amd.com, xenia.ragiadakou@amd.com, ayan.kumar.halder@amd.com,
- consulting@bugseng.com, Simone Ballarin <simone.ballarin@bugseng.com>,
- Doug Goldstein <cardoe@cardoe.com>, George Dunlap
- <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
- Julien Grall <julien@xen.org>
+Subject: Re: [XEN PATCH 0/5] address violations of MISRA C rules
+To: Nicola Vetrini <nicola.vetrini@bugseng.com>,
+ xen-devel@lists.xenproject.org
+Cc: sstabellini@kernel.org, michal.orzel@amd.com, xenia.ragiadakou@amd.com,
+ ayan.kumar.halder@amd.com, consulting@bugseng.com,
+ George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+ Julien Grall <julien@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, Simone Ballarin <simone.ballarin@bugseng.com>,
+ Doug Goldstein <cardoe@cardoe.com>,
+ Oleksii Kurochko <oleksii.kurochko@gmail.com>
 References: <cover.1717236930.git.nicola.vetrini@bugseng.com>
- <7d454066eb24e0515ff5b37864ed7a7ef5215dc5.1717236930.git.nicola.vetrini@bugseng.com>
- <6ea1507d-25dc-4b3c-8c00-3b7b271e69a0@citrix.com>
- <00424ba7b8e418c497ccee25167320e1@bugseng.com>
- <02138ee8-7a30-40b0-823f-af451fb4f060@citrix.com>
- <00e1530e288a5957e87936e0b010a8cd@bugseng.com>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -136,87 +134,31 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <00e1530e288a5957e87936e0b010a8cd@bugseng.com>
+In-Reply-To: <cover.1717236930.git.nicola.vetrini@bugseng.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 01/06/2024 2:52 pm, Nicola Vetrini wrote:
-> On 2024-06-01 15:08, Andrew Cooper wrote:
->> On 01/06/2024 1:58 pm, Nicola Vetrini wrote:
->>> On 2024-06-01 14:47, Andrew Cooper wrote:
->>>> On 01/06/2024 11:16 am, Nicola Vetrini wrote:
->>>>> ea59e7d780d9 ("xen/bitops: Cleanup and new infrastructure ahead of
->>>>> rearrangements")
->>>>> introduced new violations on previously clean rules 20.9 and 20.12.
->>>>>
->>>>> The first is introduced because CONFIG_CC_IS_CLANG in
->>>>> xen/self-tests.h is not
->>>>> defined in the configuration under analysis. Using "defined()"
->>>>> instead avoids
->>>>> relying on the preprocessor's behaviour upon encountering an
->>>>> undedfined identifier
->>>>> and addresses the violation.
->>>>>
->>>>> The violation of Rule 20.12 is due to "val" being used both as an
->>>>> ordinary argument
->>>>> in macro RUNTIME_CHECK, and as a stringification operator.
->>>>>
->>>>> No functional change.
->>>>>
->>>>> Fixes: ea59e7d780d9 ("xen/bitops: Cleanup and new infrastructure
->>>>> ahead of rearrangements")
->>>>> Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
->>>>
->>>> Thankyou for this patch.  I'd seen that I'd broken something. 
->>>> (Entirely
->>>> my fault - I've done a lot of testing in Gitlab for the series, but
->>>> never manually ran the Eclair jobs.  I'll try to remember better next
->>>> time.)
->>>>
->>>> One question though. 
->>>> https://gitlab.com/xen-project/xen/-/jobs/6994213979 says:
->>>>
->>>> Failure: 1 regressions found for clean guidelines
->>>>   service MC3R1.R20.9: (required) All identifiers used in the
->>>> controlling expression of `#if' or `#elif' preprocessing directives
->>>> shall be #define'd before evaluation:
->>>>    violation: 1
->>>>
->>>> While there is a report for 20.12, it's not clean yet (so the first
->>>> sentence wants adjusting), and RUNTIME_CHECK doesn't show up newly in
->>>> it.
->>>>
->>>> So, while I agree that RUNTIME_CHECK() should be included in the 20.12
->>>> exclusions, why is current Gitlab Run not reporting it?
->>>>
->>>> ~Andrew
->>>
->>> While Rule 20.12 wasn't clean on x86, but it was on arm, so in the
->>> arm64 run it is reported as such
->>>
->>> https://gitlab.com/xen-project/xen/-/jobs/6994213980
->>>
->>> with the other patches in the series the rule should be clean on both
->>> architectures, so this imbalance should disappear rather shortly.
->>>
->>
->> Thanks - I'd just found the ARM report and was replying - I'll rebase
->> onto this thread.
->>
->> I still don't understand why the violation doesn't show up on the x86
->> build.  Specifically, why it's missing from here:
->> https://saas.eclairit.com:3787/fs/var/local/eclair/xen-project.ecdf/xen-project/xen/ECLAIR_normal/staging/X86_64/6994213979/prev/PROJECT.ecd;/by_service/MC3R1.R20.12.html
->>
->>
+On 01/06/2024 11:16 am, Nicola Vetrini wrote:
+> Patches 1 to 4 address violations of MISRA C Rule 20.12 by deviating certain
+> uses of some macros, while the last patch addresses some regressions introduced
+> by the latest bitops series
 >
-> Note the "prev" here in the URL: this means you're looking at the
-> analysis run before your series was merged (on 03147e6837ff045db)
->
-> this is the latest run for x86 on staging:
->
-> https://saas.eclairit.com:3787/fs/var/local/eclair/xen-project.ecdf/xen-project/xen/ECLAIR_normal/staging/X86_64/6994213979/PROJECT.ecd;/by_service/MC3R1.R20.12.html
+> Nicola Vetrini (5):
+>   xen/domain: deviate violation of MISRA C Rule 20.12
+>   x86/domain: deviate violation of MISRA C Rule 20.12
+>   x86: deviate violation of MISRA C Rule 20.12
+>   automation/eclair_analysis: address remaining violations of MISRA C
+>     Rule 20.12
+>   xen: fix MISRA regressions on rule 20.9 and 20.12
 
-Oh - thankyou for explaining.
+I've committed patch 5 because it fixes a blocking failure in Gitlab CI
+from content already accepted for Xen 4.19.
+
+The others look fine to me, but you'll need to negotiate with Oleksii
+(CC'd) to get them in, at this point in the release.
+
+Given that this series makes x86 clean to Rule 20.12, shouldn't there be
+a final patch making it blocking, to bring x86 in line with ARM?
 
 ~Andrew
 
