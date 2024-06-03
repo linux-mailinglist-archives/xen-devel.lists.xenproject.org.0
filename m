@@ -2,46 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9EC1F8D7B0C
-	for <lists+xen-devel@lfdr.de>; Mon,  3 Jun 2024 07:46:27 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.734648.1140759 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 516498D7B1A
+	for <lists+xen-devel@lfdr.de>; Mon,  3 Jun 2024 07:59:07 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.734690.1140770 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sE0VF-0000yc-RR; Mon, 03 Jun 2024 05:45:05 +0000
+	id 1sE0iL-0002lo-4V; Mon, 03 Jun 2024 05:58:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 734648.1140759; Mon, 03 Jun 2024 05:45:05 +0000
+Received: by outflank-mailman (output) from mailman id 734690.1140770; Mon, 03 Jun 2024 05:58:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sE0VF-0000wn-Oc; Mon, 03 Jun 2024 05:45:05 +0000
-Received: by outflank-mailman (input) for mailman id 734648;
- Mon, 03 Jun 2024 00:37:38 +0000
+	id 1sE0iL-0002kJ-1Y; Mon, 03 Jun 2024 05:58:37 +0000
+Received: by outflank-mailman (input) for mailman id 734690;
+ Mon, 03 Jun 2024 05:58:35 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=/YIx=NF=quicinc.com=quic_jjohnson@srs-se1.protection.inumbo.net>)
- id 1sDvhi-0007dJ-S5
- for xen-devel@lists.xenproject.org; Mon, 03 Jun 2024 00:37:38 +0000
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 77e5d704-2141-11ef-b4bb-af5377834399;
- Mon, 03 Jun 2024 02:37:35 +0200 (CEST)
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 452NgCVZ029983;
- Mon, 3 Jun 2024 00:37:31 GMT
-Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3yfw7djnw2-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 03 Jun 2024 00:37:31 +0000 (GMT)
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA05.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 4530bTpn029167
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 3 Jun 2024 00:37:29 GMT
-Received: from [169.254.0.1] (10.49.16.6) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Sun, 2 Jun 2024
- 17:37:29 -0700
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=29W0=NF=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1sE0iJ-0002kD-HF
+ for xen-devel@lists.xenproject.org; Mon, 03 Jun 2024 05:58:35 +0000
+Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
+ [2a00:1450:4864:20::332])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 4f1dd34d-216e-11ef-b4bb-af5377834399;
+ Mon, 03 Jun 2024 07:58:33 +0200 (CEST)
+Received: by mail-wm1-x332.google.com with SMTP id
+ 5b1f17b1804b1-42134bb9735so15126915e9.1
+ for <xen-devel@lists.xenproject.org>; Sun, 02 Jun 2024 22:58:33 -0700 (PDT)
+Received: from ?IPV6:2003:ca:b724:4976:f1a7:a03d:19f7:6554?
+ (p200300cab7244976f1a7a03d19f76554.dip0.t-ipconnect.de.
+ [2003:ca:b724:4976:f1a7:a03d:19f7:6554])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4213ab7ca26sm38200405e9.25.2024.06.02.22.58.31
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Sun, 02 Jun 2024 22:58:32 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -53,74 +47,96 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 77e5d704-2141-11ef-b4bb-af5377834399
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
-	cc:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=qcppdkim1; bh=gI23069akMvv2fLPXYYcSC
-	TFV09EJupDQM5/X6eZXMI=; b=GtQviHh4QfXIpYC/XJTYu3uGqqDBP2fbEExWgT
-	T9OP7YIdlxKV3H63+gq3RccikmQWrjzkIxczGEhHvuIB3H8w1Hx52RNKKY4+es26
-	Qpj8ALOvEtDMuzd4XWsRUbozIjobUIpr4Y0CkJKf3wIm1TEgCs/5dJq8sLRXHp2/
-	EoBzIDzBapY7YUY/8vy7MxW6fzk9vIFOfCecK0Cgzbg9LX/ShYMJm1NGk5f50Ser
-	NFA/g2PTMT/UWrqGdO19rPElQBuhye/PB4qMZ/58zP6J51KgaYFbPqUhqLIe6gki
-	0y/cugFGr6UGwoc5+Pz/814gdZWv9LKPAMl8oqBxXUgfZP3Q==
-From: Jeff Johnson <quic_jjohnson@quicinc.com>
-Date: Sun, 2 Jun 2024 17:37:28 -0700
-Subject: [PATCH] xen/blkback: add missing MODULE_DESCRIPTION() macro
+X-Inumbo-ID: 4f1dd34d-216e-11ef-b4bb-af5377834399
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1717394312; x=1717999112; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=IPvT6jy0s4j9O9+2tmG66NrXggrPlQni7x5Sszi+yxI=;
+        b=FwXlLfXypTNdvFWyiH1QUQ8IOEnE2p3BtojFuCzEAF5IaaNh5pKw8ufvi2kdr/JoZ7
+         KHdm2RiZEeUu5k6PbnC/YjaoMRm5JEKnb6/Jsau6mDEZ3RkL0VJnifrmvDcBwg3cEmOX
+         rRyLoV8ioq13cc0Pc6kGZgcNHInltFF+5iWMeeCZnTz8CRwkdIJgLFO1reg2uFIuP67v
+         3DwTOyYQK37eacSAaj/qe5N8G7xnPmGXq/Peiygdtxi7QcHfZuzlFTkz0OXTb+r63ME+
+         AqNeD0bEer7WaeJb/kwGgIiOUdu8uPuKK07wObpZ3gKwW3gqFV3cm9A0E50/1cHDTgEQ
+         V3aQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1717394312; x=1717999112;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=IPvT6jy0s4j9O9+2tmG66NrXggrPlQni7x5Sszi+yxI=;
+        b=SvLkRHX3L8Xpiq83UOojdEt75y8uSIgz7qT1lkgI7oQ0Xyl9nDMpxkkUwBP/8jVZrh
+         YwTaS+muRfwheFEP566eNvtmXfWslTJxyeoEV/CaO2ncqXcMljdrhxCf8Xn7PAqTMXGW
+         G9hQxapTe/EbDUy5t2Voh9IOA52S7xnY70q7+uf1vkN/146J9yBX0LU9hDrbNsYjCyJ+
+         6kdT7idw1z7O2OTeu++pTfIBFfvdzbUB0pWddGz/ZowuSNW0sjSheSNGh4bUjsTJaCzK
+         vSYTS3vx8uxcygs5jHmC2a59BxtQuxNo/5bxN55SJCtu1FToTqsCqRQXYFhI2dhRUBCz
+         X5hw==
+X-Forwarded-Encrypted: i=1; AJvYcCX6tufW9Nbjy9aVUwDDwne1wh6+E/CKJKfN/Nn3OmbcT8tBz1G6ZnBMWaFsg8nQycUaUcsdHytfUkbyxjylu5gBezL9Hk3HctMcd5Czm7U=
+X-Gm-Message-State: AOJu0Yyzc1HCYkza27lZy4emiUvHDqE4DOQcboAd7jLg3fiMifsHXoZN
+	xuqkpIqxJH7df/xk7dK+xzSnO8D916LXUP6Zv5lnlUx6oNF8fVfLrVctCv7gyQ==
+X-Google-Smtp-Source: AGHT+IFKWAamOY0F3twXzaGHTrkpI3MeQIoceCYLoX6cqL9weHF+ij89NL0mb/YCViqq55bGudNjhA==
+X-Received: by 2002:a05:600c:19c9:b0:41b:e84d:67a3 with SMTP id 5b1f17b1804b1-4212e0065e0mr66128555e9.0.1717394312362;
+        Sun, 02 Jun 2024 22:58:32 -0700 (PDT)
+Message-ID: <90c40d6a-d648-46bb-9cb0-df11ac165bd7@suse.com>
+Date: Mon, 3 Jun 2024 07:58:30 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [XEN PATCH 4/5] automation/eclair_analysis: address remaining
+ violations of MISRA C Rule 20.12
+To: Nicola Vetrini <nicola.vetrini@bugseng.com>
+Cc: sstabellini@kernel.org, michal.orzel@amd.com, xenia.ragiadakou@amd.com,
+ ayan.kumar.halder@amd.com, consulting@bugseng.com,
+ Simone Ballarin <simone.ballarin@bugseng.com>,
+ Doug Goldstein <cardoe@cardoe.com>, xen-devel@lists.xenproject.org
+References: <cover.1717236930.git.nicola.vetrini@bugseng.com>
+ <ba7e17494f0bb167fe48f7fe0a69fabc1c3f5d1a.1717236930.git.nicola.vetrini@bugseng.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <ba7e17494f0bb167fe48f7fe0a69fabc1c3f5d1a.1717236930.git.nicola.vetrini@bugseng.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-ID: <20240602-md-block-xen-blkback-v1-1-6ff5b58bdee1@quicinc.com>
-X-B4-Tracking: v=1; b=H4sIAEcQXWYC/x2MQQrCMBAAv1L27EIMwaJfEQ+bZGuXtqlsqgRK/
- +7qbeYws0NlFa5w63ZQ/kiVtZicTx2kkcqTUbI5eOeDuziPS8Y4r2nCxsVoimTscgzXkH3f0wC
- WvpQHaf/t/WEeqTJGpZLG32yW8m64UN1Y4Ti+leS1yYUAAAA=
-To: =?utf-8?q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
-        Jens Axboe
-	<axboe@kernel.dk>
-CC: <xen-devel@lists.xenproject.org>, <linux-block@vger.kernel.org>,
-        <linux-kernel@vger.kernel.org>, <kernel-janitors@vger.kernel.org>,
-        "Jeff
- Johnson" <quic_jjohnson@quicinc.com>
-X-Mailer: b4 0.13.0
-X-Originating-IP: [10.49.16.6]
-X-ClientProxiedBy: nalasex01b.na.qualcomm.com (10.47.209.197) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800 signatures=585085
-X-Proofpoint-ORIG-GUID: gIsLlGKjs2kiMEpeW4_9gb3LGjvCXwcn
-X-Proofpoint-GUID: gIsLlGKjs2kiMEpeW4_9gb3LGjvCXwcn
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.650,FMLib:17.12.28.16
- definitions=2024-06-02_15,2024-05-30_01,2024-05-17_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 suspectscore=0
- mlxlogscore=999 impostorscore=0 malwarescore=0 phishscore=0 adultscore=0
- clxscore=1011 bulkscore=0 priorityscore=1501 lowpriorityscore=0
- spamscore=0 mlxscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2405170001 definitions=main-2406030003
 
-make allmodconfig && make W=1 C=1 reports:
-WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/block/xen-blkback/xen-blkback.o
+On 01.06.2024 12:16, Nicola Vetrini wrote:
+> --- a/automation/eclair_analysis/ECLAIR/deviations.ecl
+> +++ b/automation/eclair_analysis/ECLAIR/deviations.ecl
+> @@ -483,6 +483,12 @@ leads to a violation of the Rule are deviated."
+>  -config=MC3R1.R20.12,macros+={deliberate, "name(GENERATE_CASE)&&loc(file(deliberate_generate_case))"}
+>  -doc_end
+>  
+> +-doc_begin="The macro DEFINE is defined and used in excluded files asm-offsets.c.
+> +This may still cause violations if entities outside these files are referred to
+> +in the expansion."
+> +-config=MC3R1.R20.12,macros+={deliberate, "name(DEFINE)&&loc(file(asm_offsets))"}
+> +-doc_end
 
-Add the missing invocation of the MODULE_DESCRIPTION() macro.
+Can you give an example of such a reference? Nothing _in_ asm-offsets.c
+should be referenced, I'd think. Only stuff in asm-offsets.h as _generated
+from_ asm-offsets.c will, of course, be.
 
-Signed-off-by: Jeff Johnson <quic_jjohnson@quicinc.com>
----
- drivers/block/xen-blkback/blkback.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/drivers/block/xen-blkback/blkback.c b/drivers/block/xen-blkback/blkback.c
-index 944576d582fb..838064593f62 100644
---- a/drivers/block/xen-blkback/blkback.c
-+++ b/drivers/block/xen-blkback/blkback.c
-@@ -1563,5 +1563,6 @@ static void __exit xen_blkif_fini(void)
- 
- module_exit(xen_blkif_fini);
- 
-+MODULE_DESCRIPTION("Virtual block device back-end driver");
- MODULE_LICENSE("Dual BSD/GPL");
- MODULE_ALIAS("xen-backend:vbd");
-
----
-base-commit: a693b9c95abd4947c2d06e05733de5d470ab6586
-change-id: 20240602-md-block-xen-blkback-0db494d277af
-
+Jan
 
