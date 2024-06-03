@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BC8778DAA28
-	for <lists+xen-devel@lfdr.de>; Mon,  3 Jun 2024 23:20:18 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.735033.1141180 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9E16F8DAF8A
+	for <lists+xen-devel@lfdr.de>; Mon,  3 Jun 2024 23:24:56 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.735040.1141190 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sEF5c-0000xR-41; Mon, 03 Jun 2024 21:19:36 +0000
+	id 1sEFAY-0002Tp-Pg; Mon, 03 Jun 2024 21:24:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 735033.1141180; Mon, 03 Jun 2024 21:19:36 +0000
+Received: by outflank-mailman (output) from mailman id 735040.1141190; Mon, 03 Jun 2024 21:24:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sEF5c-0000v4-0z; Mon, 03 Jun 2024 21:19:36 +0000
-Received: by outflank-mailman (input) for mailman id 735033;
- Mon, 03 Jun 2024 21:19:35 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1sEFAY-0002Qo-Mz; Mon, 03 Jun 2024 21:24:42 +0000
+Received: by outflank-mailman (input) for mailman id 735040;
+ Mon, 03 Jun 2024 21:24:41 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=29W0=NF=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sEF5b-0000uy-2V
- for xen-devel@lists.xenproject.org; Mon, 03 Jun 2024 21:19:35 +0000
-Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
- [2a00:1450:4864:20::42e])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f69242c2-21ee-11ef-b4bb-af5377834399;
- Mon, 03 Jun 2024 23:19:29 +0200 (CEST)
-Received: by mail-wr1-x42e.google.com with SMTP id
- ffacd0b85a97d-35dce6102f4so291637f8f.3
- for <xen-devel@lists.xenproject.org>; Mon, 03 Jun 2024 14:19:29 -0700 (PDT)
+ id 1sEFAX-0002Qi-0j
+ for xen-devel@lists.xenproject.org; Mon, 03 Jun 2024 21:24:41 +0000
+Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
+ [2a00:1450:4864:20::329])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id af1394e8-21ef-11ef-90a1-e314d9c70b13;
+ Mon, 03 Jun 2024 23:24:39 +0200 (CEST)
+Received: by mail-wm1-x329.google.com with SMTP id
+ 5b1f17b1804b1-42121d28664so42256635e9.2
+ for <xen-devel@lists.xenproject.org>; Mon, 03 Jun 2024 14:24:39 -0700 (PDT)
 Received: from [172.31.7.231] ([62.48.184.126])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-35dd066d317sm9754719f8f.113.2024.06.03.14.19.28
+ 5b1f17b1804b1-4213847aad7sm85430695e9.43.2024.06.03.14.24.37
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 03 Jun 2024 14:19:28 -0700 (PDT)
+ Mon, 03 Jun 2024 14:24:38 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,149 +45,112 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f69242c2-21ee-11ef-b4bb-af5377834399
+X-Inumbo-ID: af1394e8-21ef-11ef-90a1-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1717449569; x=1718054369; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1717449878; x=1718054678; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:from:content-language
          :references:cc:to:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=6/fMCteIGurMwvJFr+zKaGcV1XwSTll/UXfxnP8XqWw=;
-        b=CLbSgSvYveyMRFA+dpjM2Kq1GUYq7IEfEZHUiet7j64nLgQzE4JtObhcmckpmPRM0I
-         jBfTr5WPERSibKW6zj8RsOe/9kbpI7ztwgcj+f9QejjkHxy6sCQlNkIP7tHxyvPFgWCV
-         aeA4bmV1H9QfPRm+MPmvk0t68xYEm+mcySHtvWea0nt3/o4afY0sAud4wIbpHLcBP+KT
-         ZSojJWZoa1oYnW5BV3F+Ms8XgVytLIkT7u0SIO4GPzL16yA5u+IB96BFpgRiGKQGeEPn
-         Ejx3oHMaWW2h6Yyl0pVMzTW1EBUpcai8fr5CblDGeoxG/84B/je8GqAvCjOkZrJZDav4
-         WkXA==
+        bh=1h0IsyhmP1Kky0DXeowcrBtQ0fOwQqtGQ3MVVjWF9SI=;
+        b=Xu+kej17jGU56u5sizA3up31cjrfhdCCdV0bVwak/Ss5A1YB3kwBU4MegJ05UDeVGj
+         NptL66K6IRz49fl2SRwJAUH01KKEZpDx2hhGokvafCMK4wj2+k7TemZ4cTL7302YKIOu
+         2vLQMCBppIRCVMGpxYtPBcrY/OBPK7FB4afN6oSbQwRV/+D2Whi/dtv9ZODYbtOvs4Pl
+         wwFKnIqfkVqKEkOrIXkQI1y3rXC6Ixy9juHIQYzBPF76DEN6BADtQ/jMikRhXdGlEgKk
+         +kyDPiHX4AQfn3CFJiVMXGKZkZjcE+OrWHIAm89rCoyLngsVs8HK0aNVIcIAStDq+yuX
+         Q0BQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1717449569; x=1718054369;
+        d=1e100.net; s=20230601; t=1717449878; x=1718054678;
         h=content-transfer-encoding:in-reply-to:from:content-language
          :references:cc:to:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=6/fMCteIGurMwvJFr+zKaGcV1XwSTll/UXfxnP8XqWw=;
-        b=ch51W5Ja+2XrHrHmZEzJWesrWWq/2qB5Iuxdh/RUJSvAxS8tzMVxrrbde+XwVSdhwQ
-         SMHtBKML9qsVmaWmV8E8GLB4+3JMNvjgau7no48Ip5B3IOCavyAQmhHZDy9gMrI80VMs
-         xJnhUi78+pVXMCIpCElRqRhwpEXvfL5q4koV0qw+AkZbylp8efnHEEqVmu51DH3pbWL8
-         RJT7MXP1/zIg2qX+rVDeSjKC3b0DUDP86aF2NOjJeHuiywWBTCnaYytRl/A+iWi3mePq
-         RD9sOSfRD5TRktyY4eKwy3cXv08g0JO1ss+rdJhXlCj+x6Fh9uj2JQ/UMvM8sPfgiAWi
-         qr6Q==
-X-Forwarded-Encrypted: i=1; AJvYcCXIls/R6LAzBiGEnpmLFmsFyzo4CENHLYd7MJMX+f/XtHPrar7kVNn0HdzzTNgY9IIw0u7H7dqRnfskwhjzxh7gLdsUj/BoOpSjObxSEUs=
-X-Gm-Message-State: AOJu0YwgmbnBP1t3ctVod4OrkjZw2e6Oub38izevCq+yjRHMdaEkiFbw
-	7pZrI3RICo1q+ZoL7eZfUriOklbkYFhMDSUWQE/6Vehou5YZWgyKi0h449JlWg==
-X-Google-Smtp-Source: AGHT+IEDqgWFVAEMzctxEZUAg27CKh0pRkwNNNqZwsIU0wE798z7Rt/yvl/9SoZB7+b3jtG+U2qXGA==
-X-Received: by 2002:a5d:53c4:0:b0:355:75f:2876 with SMTP id ffacd0b85a97d-35e0f25a3c2mr6685235f8f.5.1717449569006;
-        Mon, 03 Jun 2024 14:19:29 -0700 (PDT)
-Message-ID: <c5951643-5172-4aa1-9833-1a7a0eebb540@suse.com>
-Date: Mon, 3 Jun 2024 23:19:26 +0200
+        bh=1h0IsyhmP1Kky0DXeowcrBtQ0fOwQqtGQ3MVVjWF9SI=;
+        b=wVZ/d4IG6cbTs4e8b5Cu8ecTvDkeaGe+i+GonyyITwrEd6uSXZE6wEm5I4d9cdmRKS
+         qBWDgmX3+c0pE3AiKwKtSzaWg2o33egcrGywivFkRJqLvES9qX+CO6GvD2xA6Luef6X7
+         jMnFY8KGiWum64aFV4w+c0bWwXoHxk8CkMk1UYyXjM3RDtUEgivnr9UMNsPF8RjvMZOQ
+         pcR2BwnSXwQuLLCexrXMJ2kIzj/NcIPDgRq8+y2c51vPp3E6fFeKWm1DxxVjXeVQFiTl
+         JS7SGLM2zYYVvhQZRFgv7z+CczVbaVq76984zB6L1/pwUkc/iyVUOCaoilW2NQeMm4JG
+         pwxA==
+X-Forwarded-Encrypted: i=1; AJvYcCU3Lia/b6L5nRU1Urj2VsMXVSHDtoG0IFXJfZ4WAP6d8GFZDBQ22l4prYyAVoby0oDpIDffBnY5mPqe3JxeJqBhgN69jB9wV/FDQNI3p/c=
+X-Gm-Message-State: AOJu0YzkuZxZw1gEyJV4dNn6HRQA3gvzmfUYKQS84/3TG5mbmT78m2KK
+	7oUPnx+W1CPe9rcULUEjSrC8r4E7smkVYk/03lRit95toKeK4Vw2ngJzuNtAdA==
+X-Google-Smtp-Source: AGHT+IF6hFRjvDjjsXNRQMaHDJEjO9hwb152W+UWDr8fxLAENLlh/E3eTBikQ0kl5oR1H1xcRzZNrw==
+X-Received: by 2002:a05:600c:35d3:b0:421:3979:8c56 with SMTP id 5b1f17b1804b1-42139798e83mr39680165e9.40.1717449878506;
+        Mon, 03 Jun 2024 14:24:38 -0700 (PDT)
+Message-ID: <a27b1218-7530-43c7-8695-16057b712f89@suse.com>
+Date: Mon, 3 Jun 2024 23:24:36 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: vcpumask_to_pcpumask() case study
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- xen-devel <xen-devel@lists.xenproject.org>
-References: <3bb4e3fa-376b-4641-824d-61864b4e1e8e@citrix.com>
+Subject: Re: [XEN PATCH 4/5] automation/eclair_analysis: address remaining
+ violations of MISRA C Rule 20.12
+To: Nicola Vetrini <nicola.vetrini@bugseng.com>
+Cc: sstabellini@kernel.org, michal.orzel@amd.com, xenia.ragiadakou@amd.com,
+ ayan.kumar.halder@amd.com, consulting@bugseng.com,
+ Simone Ballarin <simone.ballarin@bugseng.com>,
+ Doug Goldstein <cardoe@cardoe.com>, xen-devel@lists.xenproject.org
+References: <cover.1717236930.git.nicola.vetrini@bugseng.com>
+ <ba7e17494f0bb167fe48f7fe0a69fabc1c3f5d1a.1717236930.git.nicola.vetrini@bugseng.com>
+ <90c40d6a-d648-46bb-9cb0-df11ac165bd7@suse.com>
+ <085aabe9953d53e634d5cf75fecdb8b7@bugseng.com>
+ <cb14826d-3c5c-45b8-aaea-30cfa85a450f@suse.com>
+ <017a3e69ef784eb919a96a06b0fcf0dc@bugseng.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <3bb4e3fa-376b-4641-824d-61864b4e1e8e@citrix.com>
+In-Reply-To: <017a3e69ef784eb919a96a06b0fcf0dc@bugseng.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 01.06.2024 20:50, Andrew Cooper wrote:
-> One of the followon items I had from the bitops clean-up is this:
+On 03.06.2024 21:12, Nicola Vetrini wrote:
+> On 2024-06-03 20:52, Jan Beulich wrote:
+>> On 03.06.2024 09:13, Nicola Vetrini wrote:
+>>> On 2024-06-03 07:58, Jan Beulich wrote:
+>>>> On 01.06.2024 12:16, Nicola Vetrini wrote:
+>>>>> --- a/automation/eclair_analysis/ECLAIR/deviations.ecl
+>>>>> +++ b/automation/eclair_analysis/ECLAIR/deviations.ecl
+>>>>> @@ -483,6 +483,12 @@ leads to a violation of the Rule are deviated."
+>>>>>  -config=MC3R1.R20.12,macros+={deliberate,
+>>>>> "name(GENERATE_CASE)&&loc(file(deliberate_generate_case))"}
+>>>>>  -doc_end
+>>>>>
+>>>>> +-doc_begin="The macro DEFINE is defined and used in excluded files
+>>>>> asm-offsets.c.
+>>>>> +This may still cause violations if entities outside these files are
+>>>>> referred to
+>>>>> +in the expansion."
+>>>>> +-config=MC3R1.R20.12,macros+={deliberate,
+>>>>> "name(DEFINE)&&loc(file(asm_offsets))"}
+>>>>> +-doc_end
+>>>>
+>>>> Can you give an example of such a reference? Nothing _in_ 
+>>>> asm-offsets.c
+>>>> should be referenced, I'd think. Only stuff in asm-offsets.h as
+>>>> _generated
+>>>> from_ asm-offsets.c will, of course, be.
+>>>>
+>>>
+>>> Perhaps I could have expressed that more clearly. What I meant is that
+>>> there are some arguments to DEFINE that are not part of asm-offsets.c,
+>>> therefore they end up in the violation report, but are not actually
+>>> relevant, because the macro DEFINE is actually what we want to 
+>>> exclude.
+>>>
+>>> See for instance at the link below VCPU_TRAP_{NMI,MCE}, which are
+>>> defined in asm/domain.h and used as arguments to DEFINE inside
+>>> asm-offsets.c.
+>>>
+>>> https://saas.eclairit.com:3787/fs/var/local/eclair/XEN.ecdf/ECLAIR_normal/staging/X86_64-BUGSENG/676/PROJECT.ecd;/by_service/MC3R1.R20.12.html
+>>
+>> I'm afraid I still don't understand: The file being supposed to be
+>> excluded from scanning, why does it even show up in that report?
 > 
-> diff --git a/xen/arch/x86/mm.c b/xen/arch/x86/mm.c
-> index 648d6dd475ba..9c3a017606ed 100644
-> --- a/xen/arch/x86/mm.c
-> +++ b/xen/arch/x86/mm.c
-> @@ -3425,7 +3425,7 @@ static int vcpumask_to_pcpumask(
->              unsigned int cpu;
->  
->              vcpu_id = ffsl(vmask) - 1;
-> -            vmask &= ~(1UL << vcpu_id);
-> +            vmask &= vmask - 1;
->              vcpu_id += vcpu_bias;
->              if ( (vcpu_id >= d->max_vcpus) )
->                  return 0;
-> 
-> which yields the following improvement:
-> 
->   add/remove: 0/0 grow/shrink: 0/1 up/down: 0/-34 (-34)
->   Function                                     old     new   delta
->   vcpumask_to_pcpumask                         519     485     -34
+> The report is made up of several source code locations. Three of them 
+> are within asm-offsets.c, which is excluded from compliance but still 
+> analyzed, but one references a macro definition in another file (e.g., 
+> VCPU_TRAP_NMI from asm/domain.h). So in this case the exclusion of 
+> asm-offsets.c is not enough for the report not to be shown.
 
-Nice. At the risk of getting flamed again for raising dumb questions:
-Considering that elsewhere "trickery" like the &= mask - 1 here were
-deemed not nice to have (at least wanting to be hidden behind a
-suitably named macro; see e.g. ISOLATE_LSB()), wouldn't __clear_bit()
-be suitable here too, and less at risk of being considered "trickery"?
-But yes, that would eliminate the benefit of making the bit clearing
-independent of the ffsl() result. And personally I'm fine anyway with
-the form as suggested.
-
-> While I (the programmer) can reason the two expressions are equivalent,
-> the compiler can't,
-
-Why is it you think it can't? There's no further knowledge that you
-as a human need to rely on for this, afaics. If ffsl() uses the
-built-in (as it now does), the compiler has full insight into what's
-going on. It's just that compiler engineers may not deem it worth the
-effort to carry out such a special-case optimization.
-
-> so we really are saving a SHL to re-calculate (1 <<
-> vcpu_id) and swapping it for a LEA -1(vmask) which happens to be hoisted
-> above the ffsl() call.
-> 
-> However, the majority of the savings came from the fact that the old
-> code used to hold 1 in %r15 (across the entire function!) so it could
-> calculate (1 << vcpu_id) on each loop iteration.  With %r15 now free for
-> other use, we one fewer thing spilt to the stack.
-> 
-> Anyway - while it goes to show that while/ffs logic should be extra
-> careful to use x &= x - 1 for it's loop condition logic, that's not all.
-> 
-> The rest of this function is crazy.  We're reading a guest-word at a
-> time in order to make a d->max_vcpus sized bitmap (with a reasonable
-> amount of opencoded logic to reassemble the fragments back into a vcpu
-> number).
-> 
-> PVH dom0 can reach here, and because it's not pv32, will be deemed to
-> have a guest word size of 64.  Also, word-at-time for any HVM guest is
-> an insane overhead in terms of the pagewalks behind the copy_from_hvm()
-> infrastructure.
-> 
-> Instead, we should calculate the size of the bitmap at
-> DIV_ROUND_UP(d->max_vcpus, 8), copy the bitmap in one whole go, and then
-> just have a single for_each_set_bit() looping over it.  Importantly this
-> avoids needing to know or care about the guest word size.
-> 
-> This removes 4 of the 6 hiding lfences; the pair for calculating
-> is_native to start with, and then one of the two pairs behind the use of
-> is_native to select the type of the access.
-> 
-> The only complications is this:  Right now, PV max vCPUS is 8k, so we
-> could even get away with this being an on-stack bitmap.  However, the
-> vast majority of PV guests small and a 64-bit bitmap would do fine.
-> 
-> But, given this is just one example, wouldn't it be better if we just
-> unconditionally had a marshalling buffer for hypercalls?  There's the
-> XLAT area but it doesn't exist PV64, and we've got various other pieces
-> of scratch per-cpu data.
-> 
-> If not, having a 128/256-bit bitmap on the stack will still be good
-> enough in practice, but still ok at amortising the PVH dom0 costs.
-> 
-> Thoughts?
-
-Well, yes, the last of what you suggest might certainly be worthwhile
-as a minimal improvement. The only slight concern with increasing the
-granularity is that it'll be increasingly less likely that a 2nd or
-further iterations of the loop would actually be exercised in routine
-testing.
-
-A marshalling buffer might also make sense to have, as long as we have
-more than just one or two places wanting to use it. Since you say "just
-one example", likely you have further uses in mind. In most other
-places we use input data more directly, so it looks like I can't right
-away come up with possible further use cases.
+But the (would-be-)violation is in asm-offsets.c. The other locations
+pointed at are providing context. To report a violation, it should be
+enough to exclude the file where the violation itself is?
 
 Jan
 
