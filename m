@@ -2,38 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3200F8D86BE
-	for <lists+xen-devel@lfdr.de>; Mon,  3 Jun 2024 17:58:25 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.734978.1141129 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CEBD98D88C3
+	for <lists+xen-devel@lfdr.de>; Mon,  3 Jun 2024 20:40:49 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.734990.1141140 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sEA46-0002Qp-DK; Mon, 03 Jun 2024 15:57:42 +0000
+	id 1sECaj-00054h-Ej; Mon, 03 Jun 2024 18:39:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 734978.1141129; Mon, 03 Jun 2024 15:57:42 +0000
+Received: by outflank-mailman (output) from mailman id 734990.1141140; Mon, 03 Jun 2024 18:39:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sEA46-0002PK-Ae; Mon, 03 Jun 2024 15:57:42 +0000
-Received: by outflank-mailman (input) for mailman id 734978;
- Mon, 03 Jun 2024 15:57:40 +0000
+	id 1sECaj-00052z-AD; Mon, 03 Jun 2024 18:39:33 +0000
+Received: by outflank-mailman (input) for mailman id 734990;
+ Mon, 03 Jun 2024 18:39:32 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=YA0q=NF=linaro.org=philmd@srs-se1.protection.inumbo.net>)
- id 1sEA44-0002PE-Nl
- for xen-devel@lists.xenproject.org; Mon, 03 Jun 2024 15:57:40 +0000
-Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
- [2a00:1450:4864:20::432])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 004e8db4-21c2-11ef-b4bb-af5377834399;
- Mon, 03 Jun 2024 17:57:38 +0200 (CEST)
-Received: by mail-wr1-x432.google.com with SMTP id
- ffacd0b85a97d-35dbfe31905so58347f8f.2
- for <xen-devel@lists.xenproject.org>; Mon, 03 Jun 2024 08:57:38 -0700 (PDT)
-Received: from [192.168.69.100] ([176.176.177.241])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-35dd0667366sm8975604f8f.111.2024.06.03.08.57.36
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 03 Jun 2024 08:57:37 -0700 (PDT)
+ (envelope-from <SRS0=8Wgl=NF=digikod.net=mic@srs-se1.protection.inumbo.net>)
+ id 1sECai-00052t-1J
+ for xen-devel@lists.xenproject.org; Mon, 03 Jun 2024 18:39:32 +0000
+Received: from smtp-bc0e.mail.infomaniak.ch (smtp-bc0e.mail.infomaniak.ch
+ [45.157.188.14]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 9ca8f14b-21d8-11ef-b4bb-af5377834399;
+ Mon, 03 Jun 2024 20:39:30 +0200 (CEST)
+Received: from smtp-3-0000.mail.infomaniak.ch (smtp-3-0000.mail.infomaniak.ch
+ [10.4.36.107])
+ by smtp-3-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4VtMvh6qFGzbqD;
+ Mon,  3 Jun 2024 20:39:28 +0200 (CEST)
+Received: from unknown by smtp-3-0000.mail.infomaniak.ch (Postfix) with ESMTPA
+ id 4VtMvf5T4yz1Y3; Mon,  3 Jun 2024 20:39:26 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,67 +42,72 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 004e8db4-21c2-11ef-b4bb-af5377834399
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1717430258; x=1718035058; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=pfqXv9O156k/qVlRPORBHveRYZBimdALutURsiXGVic=;
-        b=DMhi96OyNNRWjBA/KtxI5GauPu9nIsfAtZq5xAQq7gblKWfEP5k7xOjbdHYl/8hYeR
-         gkZj9ez+j3YkqOCU5c1FM/fLwJujzB5IUBBPwE1bfsS3SDr3KFU+GrZ4qHuruRKFVrDR
-         38X5KGWarITmqGd+pUBpFT3n6fbBTVFMTdVlnYyLaSAVksJ0Spa8i3sMjRO2nsHr1vnL
-         q678NdxpWFH55JJnXglQQ2FCvLqydR7KE5CtuH3HWzA5VpNWTQEBFzgJ+JOEq+qF51Ho
-         /uU+6i4bkjaxC8ukGxELPUn5muOHxurpSXbcJmQzhtNevmMpbt+E51vRXSXmk1puqiF/
-         1HlQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1717430258; x=1718035058;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=pfqXv9O156k/qVlRPORBHveRYZBimdALutURsiXGVic=;
-        b=M18t7kj0ZbEEwVpsyfqY72kvkfuLWYp0tu+J6jTVXDfU1EHHgFT50uMaywcRiJxUHe
-         sTu4K585gb2aA/EKLgMe1Ql+4OtgYSQze3RnWuxmODEK5JsoE1hAB3Y4DCSii2AIkowj
-         WxIT05O5ucRVTqN9QNQ9usK663kGAOBNdG/jDI/kBfMY1fD11l/KAV4r2h/j4Pq/XxAK
-         9WjaBmT7od+ne1tk1yjmad6mNlj1rKzOYknl91ZykWJfqqDV0Dk306e/nxWR9OOL+cx7
-         P7VNpmEqYreobPnIGQJOuHhI6m0oO3jiVGCJo015vyxzQG/SxM9JO5KEthIF2Pz6FKxn
-         z/jQ==
-X-Forwarded-Encrypted: i=1; AJvYcCXVumatO+kSSG9MiasrDebL53sPdfsNh59Cy/gr2So+4uyzyYBS3pFWOTYw80tBUFIh0V3blzVOa8OTM2t2YRlmD3ilah0vEO9U/oPpUfE=
-X-Gm-Message-State: AOJu0YzfRZ4x3VfXbImia63BcYWUc3rghlpCEnLkOW9XV5uPc9IQYcVt
-	9DwhX5OLbS7BaDxQsJCIVYRDWNuXAADPdnV+daT04WuXhBkp/AGbwsLiWMI9GS8=
-X-Google-Smtp-Source: AGHT+IG0AwImAZQCWL5EcwF+xN/h0jceBRg8jiE8riT+hg2DO7rDBxMnf5lD3Tad7RQSC7AjUj7+Fw==
-X-Received: by 2002:a5d:5272:0:b0:354:de21:2145 with SMTP id ffacd0b85a97d-35e0f271297mr7022282f8f.22.1717430258024;
-        Mon, 03 Jun 2024 08:57:38 -0700 (PDT)
-Message-ID: <abf1c6da-71fe-483d-8edb-0ebfef14dbcc@linaro.org>
-Date: Mon, 3 Jun 2024 17:57:35 +0200
+X-Inumbo-ID: 9ca8f14b-21d8-11ef-b4bb-af5377834399
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=digikod.net;
+	s=20191114; t=1717439968;
+	bh=gtIaPUDSXyeON8s2CCg1DgIhDlLJpeFMkqvOS8MasVM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=xgOLEnz6SJcIhFjVsyAJkws+cB0hDF1vBl5UhdAnMFZ3IwIv9+mfJG3z/z022GaLC
+	 hucCNjddaf0O63psa6tLWOQ3L5xKcN9U7KIay9a2JpyiZ7tPESeMWs+1ppcAXahNNL
+	 fGKNj5z+dog4VQDnEUOYMq6wUCsWbim9yiLiW2VQ=
+Date: Mon, 3 Jun 2024 20:39:24 +0200
+From: =?utf-8?Q?Micka=C3=ABl_Sala=C3=BCn?= <mic@digikod.net>
+To: Sean Christopherson <seanjc@google.com>
+Cc: Nicolas Saenz Julienne <nsaenz@amazon.com>, 
+	Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, 
+	"H . Peter Anvin" <hpa@zytor.com>, Ingo Molnar <mingo@redhat.com>, 
+	Kees Cook <keescook@chromium.org>, Paolo Bonzini <pbonzini@redhat.com>, 
+	Thomas Gleixner <tglx@linutronix.de>, Vitaly Kuznetsov <vkuznets@redhat.com>, 
+	Wanpeng Li <wanpengli@tencent.com>, Rick P Edgecombe <rick.p.edgecombe@intel.com>, 
+	Alexander Graf <graf@amazon.com>, Angelina Vu <angelinavu@linux.microsoft.com>, 
+	Anna Trikalinou <atrikalinou@microsoft.com>, Chao Peng <chao.p.peng@linux.intel.com>, 
+	Forrest Yuan Yu <yuanyu@google.com>, James Gowans <jgowans@amazon.com>, 
+	James Morris <jamorris@linux.microsoft.com>, John Andersen <john.s.andersen@intel.com>, 
+	"Madhavan T . Venkataraman" <madvenka@linux.microsoft.com>, Marian Rotariu <marian.c.rotariu@gmail.com>, 
+	Mihai =?utf-8?B?RG9uyJt1?= <mdontu@bitdefender.com>, =?utf-8?B?TmljdciZb3IgQ8OuyJt1?= <nicu.citu@icloud.com>, 
+	Thara Gopinath <tgopinath@microsoft.com>, Trilok Soni <quic_tsoni@quicinc.com>, 
+	Wei Liu <wei.liu@kernel.org>, Will Deacon <will@kernel.org>, 
+	Yu Zhang <yu.c.zhang@linux.intel.com>, =?utf-8?Q?=C8=98tefan_=C8=98icleru?= <ssicleru@bitdefender.com>, 
+	dev@lists.cloudhypervisor.org, kvm@vger.kernel.org, linux-hardening@vger.kernel.org, 
+	linux-hyperv@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-security-module@vger.kernel.org, qemu-devel@nongnu.org, virtualization@lists.linux-foundation.org, 
+	x86@kernel.org, xen-devel@lists.xenproject.org
+Subject: Re: [RFC PATCH v3 3/5] KVM: x86: Add notifications for Heki policy
+ configuration and violation
+Message-ID: <20240603.ahNg8waif6Fu@digikod.net>
+References: <20240503131910.307630-1-mic@digikod.net>
+ <20240503131910.307630-4-mic@digikod.net>
+ <ZjTuqV-AxQQRWwUW@google.com>
+ <20240506.ohwe7eewu0oB@digikod.net>
+ <ZjmFPZd5q_hEBdBz@google.com>
+ <20240507.ieghomae0UoC@digikod.net>
+ <ZjpTxt-Bxia3bRwB@google.com>
+ <D15VQ97L5M8J.1TDNQE6KLW6JO@amazon.com>
+ <20240514.mai3Ahdoo2qu@digikod.net>
+ <ZkUb2IWj4Z9FziCb@google.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 1/8] xen: mapcache: Make MCACHE_BUCKET_SHIFT runtime
- configurable
-To: "Edgar E. Iglesias" <edgar.iglesias@gmail.com>, qemu-devel@nongnu.org
-Cc: sstabellini@kernel.org, jgross@suse.com,
- "Edgar E. Iglesias" <edgar.iglesias@amd.com>,
- Anthony PERARD <anthony@xenproject.org>, Paul Durrant <paul@xen.org>,
- xen-devel@lists.xenproject.org
-References: <20240529140739.1387692-1-edgar.iglesias@gmail.com>
- <20240529140739.1387692-2-edgar.iglesias@gmail.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Philippe_Mathieu-Daud=C3=A9?= <philmd@linaro.org>
-In-Reply-To: <20240529140739.1387692-2-edgar.iglesias@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <ZkUb2IWj4Z9FziCb@google.com>
+X-Infomaniak-Routing: alpha
 
-On 29/5/24 16:07, Edgar E. Iglesias wrote:
-> From: "Edgar E. Iglesias" <edgar.iglesias@amd.com>
+On Wed, May 15, 2024 at 01:32:24PM -0700, Sean Christopherson wrote:
+> On Tue, May 14, 2024, Mickaël Salaün wrote:
+> > On Fri, May 10, 2024 at 10:07:00AM +0000, Nicolas Saenz Julienne wrote:
+> > > Development happens
+> > > https://github.com/vianpl/{linux,qemu,kvm-unit-tests} and the vsm-next
+> > > branch, but I'd advice against looking into it until we add some order
+> > > to the rework. Regardless, feel free to get in touch.
+> > 
+> > Thanks for the update.
+> > 
+> > Could we schedule a PUCK meeting to synchronize and help each other?
+> > What about June 12?
 > 
-> Make MCACHE_BUCKET_SHIFT runtime configurable per cache instance.
-> 
-> Signed-off-by: Edgar E. Iglesias <edgar.iglesias@amd.com>
-> Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
-> ---
->   hw/xen/xen-mapcache.c | 54 ++++++++++++++++++++++++++-----------------
->   1 file changed, 33 insertions(+), 21 deletions(-)
+> June 12th works on my end.
 
-Reviewed-by: Philippe Mathieu-Daudé <philmd@linaro.org>
+Can you please send an invite?
 
+ Mickaël
 
