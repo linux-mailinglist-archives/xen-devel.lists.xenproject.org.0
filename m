@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E70698FB064
-	for <lists+xen-devel@lfdr.de>; Tue,  4 Jun 2024 12:50:48 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.735327.1141497 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 681578FB0B9
+	for <lists+xen-devel@lfdr.de>; Tue,  4 Jun 2024 13:07:42 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.735333.1141508 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sERkP-0001eR-1J; Tue, 04 Jun 2024 10:50:33 +0000
+	id 1sES0Y-0003oY-Cq; Tue, 04 Jun 2024 11:07:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 735327.1141497; Tue, 04 Jun 2024 10:50:33 +0000
+Received: by outflank-mailman (output) from mailman id 735333.1141508; Tue, 04 Jun 2024 11:07:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sERkO-0001cZ-Uu; Tue, 04 Jun 2024 10:50:32 +0000
-Received: by outflank-mailman (input) for mailman id 735327;
- Tue, 04 Jun 2024 10:50:31 +0000
+	id 1sES0Y-0003m2-9T; Tue, 04 Jun 2024 11:07:14 +0000
+Received: by outflank-mailman (input) for mailman id 735333;
+ Tue, 04 Jun 2024 11:07:12 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1sERkN-0001cT-CF
- for xen-devel@lists.xenproject.org; Tue, 04 Jun 2024 10:50:31 +0000
+ (envelope-from <julien@xen.org>) id 1sES0W-0003ld-Tk
+ for xen-devel@lists.xenproject.org; Tue, 04 Jun 2024 11:07:12 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1sERkM-00088Q-RG; Tue, 04 Jun 2024 10:50:30 +0000
+ id 1sES0W-00005g-DX; Tue, 04 Jun 2024 11:07:12 +0000
 Received: from [62.28.225.65] (helo=[172.20.145.71])
  by xenbits.xenproject.org with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1sERkM-0000gn-Io; Tue, 04 Jun 2024 10:50:30 +0000
+ id 1sES0W-0001gQ-5o; Tue, 04 Jun 2024 11:07:12 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,167 +42,234 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
 	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
 	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=z6vpzpsfxfMyMDwp7y9YIOP9EZv+qTKBIiUzP933kQ8=; b=xO2R9AL+pLfrSeiUMHW2AW66S0
-	+RDWG0tO4XHhA5Bj5CLilqkidi0A0khhAbYQXUTq7iOgmH06rIHkxI8Tl2fN6BpxXHjJQjD9lus3t
-	asqFpt8T4hw3IfRltmom2MQcGV+lJ+G4N1v3sQ1WYOKJHLzk/qrFClSqgm/glKC1VFes=;
-Message-ID: <9e62b5d9-9c80-4f7c-9cc6-3b863f0c90ad@xen.org>
-Date: Tue, 4 Jun 2024 11:50:28 +0100
+	bh=2W+G2fBIShc8NgWCIfF5YQxJyIolvkSOJjpdntoxqpE=; b=J0lVTuB5kowSOxEKEVDDV0oAG+
+	vfAThKhqgig4Gn9H8ykih9ztKJ/H+SpzfgJHaQVdq6aTZ6g7n9UqEaaAoPtE16DIQUAVQqWV7zcS1
+	gKEDvWUt/PZOBp1v3Oku+vd4eV2yRknZENvWeUJTYcs2ANFU3sCz80OCLiSYeLY92xJg=;
+Message-ID: <cc51da4b-d024-4923-95a4-18e11b150f90@xen.org>
+Date: Tue, 4 Jun 2024 12:07:09 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH v2] arm: dom0less: add TEE support
+Subject: Re: [XEN PATCH v3 14/16] ioreq: make arch_vcpu_ioreq_completion() an
+ optional callback
 Content-Language: en-GB
-To: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+To: Sergiy Kibrik <Sergiy_Kibrik@epam.com>, xen-devel@lists.xenproject.org
 Cc: Stefano Stabellini <sstabellini@kernel.org>,
  Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>
-References: <20240531174915.1679443-1-volodymyr_babchuk@epam.com>
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Xenia Ragiadakou <xenia.ragiadakou@amd.com>
+References: <cover.1717410850.git.Sergiy_Kibrik@epam.com>
+ <a0f9c5ef8554d63e149afd0a413a27385c889faa.1717410850.git.Sergiy_Kibrik@epam.com>
 From: Julien Grall <julien@xen.org>
-In-Reply-To: <20240531174915.1679443-1-volodymyr_babchuk@epam.com>
+In-Reply-To: <a0f9c5ef8554d63e149afd0a413a27385c889faa.1717410850.git.Sergiy_Kibrik@epam.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-Hi Volodymyr,
+Hi Sergiy,
 
-On 31/05/2024 18:49, Volodymyr Babchuk wrote:
-> Extend TEE mediator interface with two functions :
+On 03/06/2024 12:34, Sergiy Kibrik wrote:
+> For the most cases arch_vcpu_ioreq_completion() routine is just an empty stub,
+> except when handling VIO_realmode_completion, which only happens on HVM
+> domains running on VT-x machine. When VT-x is disabled in build configuration,
+> both x86 & arm version of routine become empty stubs.
+> To dispose of these useless stubs we can do optional call to arch-specific
+> ioreq completion handler, if it's present, and drop arm and generic x86 handlers.
+> Actual handling of VIO_realmore_completion can be done by VMX code then.
 > 
->   - tee_get_type_from_dts() returns TEE type based on input string
->   - tee_make_dtb_node() creates a DTB entry for the selected
->     TEE mediator
-> 
-> Use those new functions to parse "xen,tee" DTS property for dom0less
-> guests and enable appropriate TEE mediator.
-> 
-> Signed-off-by: Volodymyr Babchuk <volodymyr_babchuk@epam.com>
-> 
+> Signed-off-by: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
 > ---
+>   xen/arch/arm/ioreq.c       |  6 ------
+>   xen/arch/x86/hvm/ioreq.c   | 23 -----------------------
+>   xen/arch/x86/hvm/vmx/vmx.c | 16 ++++++++++++++++
+>   xen/common/ioreq.c         |  5 ++++-
+>   xen/include/xen/ioreq.h    |  2 +-
+>   5 files changed, 21 insertions(+), 31 deletions(-)
 > 
-> This is still RFC because I am not happy how I decide if
-> tee_make_dtb_node() needs to be called.
-> 
-> TEE type is stored in d_cfg, but d_cfg is not passed to
-> construct_domU()->prepare_dtb_domU(). So right now I am relying on
-> fact that every TEE mediator initilizes d->arch.tee.
-> 
-> Also I am sorry about previous completely botched version of this
-> patch. I really messed it up, including absence of [RFC] tag :(
-
-That's fine. We all sent botched patches at least once :). Some comments 
-below on the series.
-
-> 
-> ---
->   docs/misc/arm/device-tree/booting.txt | 17 +++++++++++++
->   xen/arch/arm/dom0less-build.c         | 19 +++++++++++++++
->   xen/arch/arm/include/asm/tee/tee.h    | 13 ++++++++++
->   xen/arch/arm/tee/ffa.c                |  8 ++++++
->   xen/arch/arm/tee/optee.c              | 35 +++++++++++++++++++++++++++
->   xen/arch/arm/tee/tee.c                | 21 ++++++++++++++++
->   6 files changed, 113 insertions(+)
-> 
-> diff --git a/docs/misc/arm/device-tree/booting.txt b/docs/misc/arm/device-tree/booting.txt
-> index bbd955e9c2..711a6080b5 100644
-> --- a/docs/misc/arm/device-tree/booting.txt
-> +++ b/docs/misc/arm/device-tree/booting.txt
-> @@ -231,6 +231,23 @@ with the following properties:
->       In the future other possible property values might be added to
->       enable only selected interfaces.
+> diff --git a/xen/arch/arm/ioreq.c b/xen/arch/arm/ioreq.c
+> index 5df755b48b..2e829d2e7f 100644
+> --- a/xen/arch/arm/ioreq.c
+> +++ b/xen/arch/arm/ioreq.c
+> @@ -135,12 +135,6 @@ bool arch_ioreq_complete_mmio(void)
+>       return false;
+>   }
 >   
-> +- xen,tee
-> +
-> +    A string property that describes what TEE mediator should be enabled
-> +    for the domain. Possible property values are:
-> +
-> +    - "none" (or missing property value)
-> +    No TEE will be available in the VM.
-> +
-> +    - "OP-TEE"
-> +    VM will have access to the OP-TEE using classic OP-TEE SMC interface.
-> +
-> +    - "FF-A"
-> +    VM will have access to a TEE using generic FF-A interface.
-
-I understand why you chose those name, but it also means we are using 
-different name in XL and Dom0less. I would rather prefer if they are the 
-same.
-
-> +
-> +    In the future other TEE mediators may be added, extending possible
-> +    values for this property.
-> +
->   - xen,domain-p2m-mem-mb
+> -bool arch_vcpu_ioreq_completion(enum vio_completion completion)
+> -{
+> -    ASSERT_UNREACHABLE();
+> -    return true;
+> -}
+> -
+>   /*
+>    * The "legacy" mechanism of mapping magic pages for the IOREQ servers
+>    * is x86 specific, so the following hooks don't need to be implemented on Arm:
+> diff --git a/xen/arch/x86/hvm/ioreq.c b/xen/arch/x86/hvm/ioreq.c
+> index 4eb7a70182..088650e007 100644
+> --- a/xen/arch/x86/hvm/ioreq.c
+> +++ b/xen/arch/x86/hvm/ioreq.c
+> @@ -29,29 +29,6 @@ bool arch_ioreq_complete_mmio(void)
+>       return handle_mmio();
+>   }
 >   
->       Optional. A 32-bit integer specifying the amount of megabytes of RAM
-> diff --git a/xen/arch/arm/dom0less-build.c b/xen/arch/arm/dom0less-build.c
-> index fb63ec6fd1..13fdd44eef 100644
-> --- a/xen/arch/arm/dom0less-build.c
-> +++ b/xen/arch/arm/dom0less-build.c
-> @@ -15,6 +15,7 @@
->   #include <asm/domain_build.h>
->   #include <asm/static-memory.h>
->   #include <asm/static-shmem.h>
-> +#include <asm/tee/tee.h>
->   
->   bool __init is_dom0less_mode(void)
+> -bool arch_vcpu_ioreq_completion(enum vio_completion completion)
+> -{
+> -    switch ( completion )
+> -    {
+> -    case VIO_realmode_completion:
+> -    {
+> -        struct hvm_emulate_ctxt ctxt;
+> -
+> -        hvm_emulate_init_once(&ctxt, NULL, guest_cpu_user_regs());
+> -        vmx_realmode_emulate_one(&ctxt);
+> -        hvm_emulate_writeback(&ctxt);
+> -
+> -        break;
+> -    }
+> -
+> -    default:
+> -        ASSERT_UNREACHABLE();
+> -        break;
+> -    }
+> -
+> -    return true;
+> -}
+> -
+>   static gfn_t hvm_alloc_legacy_ioreq_gfn(struct ioreq_server *s)
 >   {
-> @@ -650,6 +651,10 @@ static int __init prepare_dtb_domU(struct domain *d, struct kernel_info *kinfo)
->       if ( ret )
->           goto err;
+>       struct domain *d = s->target;
+> diff --git a/xen/arch/x86/hvm/vmx/vmx.c b/xen/arch/x86/hvm/vmx/vmx.c
+> index f16faa6a61..7187d1819c 100644
+> --- a/xen/arch/x86/hvm/vmx/vmx.c
+> +++ b/xen/arch/x86/hvm/vmx/vmx.c
+> @@ -10,6 +10,7 @@
+>   #include <xen/param.h>
+>   #include <xen/trace.h>
+>   #include <xen/sched.h>
+> +#include <xen/ioreq.h>
+>   #include <xen/irq.h>
+>   #include <xen/softirq.h>
+>   #include <xen/domain_page.h>
+> @@ -2749,6 +2750,20 @@ static void cf_check vmx_set_reg(struct vcpu *v, unsigned int reg, uint64_t val)
+>       vmx_vmcs_exit(v);
+>   }
 >   
-> +    /* We are making assumption that every mediator sets d->arch.tee */
-> +    if ( d->arch.tee )
+> +bool realmode_vcpu_ioreq_completion(enum vio_completion completion)
 
-I think the assumption is Ok. I would consider to move this check in 
-each TEE callback. IOW call tee_make_dtb_node() unconditionally.
+No one seems to call this function outside of vmx.c. So can it be 'static'?
 
-> +        tee_make_dtb_node(kinfo->fdt);
+> +{
+> +    struct hvm_emulate_ctxt ctxt;
+> +
+> +    if ( completion != VIO_realmode_completion )
+> +        ASSERT_UNREACHABLE();
+> +
+> +    hvm_emulate_init_once(&ctxt, NULL, guest_cpu_user_regs());
+> +    vmx_realmode_emulate_one(&ctxt);
+> +    hvm_emulate_writeback(&ctxt);
+> +
+> +    return true;
+> +}
+> +
+>   static struct hvm_function_table __initdata_cf_clobber vmx_function_table = {
+>       .name                 = "VMX",
+>       .cpu_up_prepare       = vmx_cpu_up_prepare,
+> @@ -3070,6 +3085,7 @@ const struct hvm_function_table * __init start_vmx(void)
+>       lbr_tsx_fixup_check();
+>       ler_to_fixup_check();
+>   
+> +    arch_vcpu_ioreq_completion = realmode_vcpu_ioreq_completion;
+>       return &vmx_function_table;
+>   }
+>   
+> diff --git a/xen/common/ioreq.c b/xen/common/ioreq.c
+> index 1257a3d972..94fde97ece 100644
+> --- a/xen/common/ioreq.c
+> +++ b/xen/common/ioreq.c
+> @@ -33,6 +33,8 @@
+>   #include <public/hvm/ioreq.h>
+>   #include <public/hvm/params.h>
+>   
+> +bool (*arch_vcpu_ioreq_completion)(enum vio_completion completion) = NULL;
 
-AFAICT, tee_make_dtb_node() can return an error. So please check the 
-return value.
+I don't think this should be allowed to be modified after boot. So I 
+woudl add __ro_after_init.
 
 > +
->       /*
->        * domain_handle_dtb_bootmodule has to be called before the rest of
->        * the device tree is generated because it depends on the value of
-> @@ -871,6 +876,7 @@ void __init create_domUs(void)
->           unsigned int flags = 0U;
->           uint32_t val;
->           int rc;
-> +        const char *tee_name;
+>   void ioreq_request_mapcache_invalidate(const struct domain *d)
+>   {
+>       struct vcpu *v = current;
+> @@ -244,7 +246,8 @@ bool vcpu_ioreq_handle_completion(struct vcpu *v)
+>           break;
 >   
->           if ( !dt_device_is_compatible(node, "xen,domain") )
->               continue;
-> @@ -881,6 +887,19 @@ void __init create_domUs(void)
->           if ( dt_find_property(node, "xen,static-mem", NULL) )
->               flags |= CDF_staticmem;
+>       default:
+> -        res = arch_vcpu_ioreq_completion(completion);
+> +        if ( arch_vcpu_ioreq_completion )
+> +            res = arch_vcpu_ioreq_completion(completion);
+
+I think this wants an:
+
+else {
+   ASSERT_UNREACHABLE();
+}
+
+So this match the existing code. But I am not fully convinced that this 
+is the right approach. Arch_vcpu_ioreq_completion is not meant to change 
+across boot (or even at compile time for Arm).
+
+Reading the previous thread, I think something like below would work:
+
+static arch_vcpu_ioreq_completion(...)
+{
+#ifdef CONFIG_VMX
+/* Existing code */
+#else
+ASSERT_UNREACHABLE();
+return true;
+#endif
+}
+
+If we want to avoid stub, then I think it would be better to use
+
+#ifdef CONFIG_VMX
+static  arch_vcpu_ioreq...
+{
+}
+#endif CONFIG_VMX
+
+Then in the x86 header.
+
+#ifdef CONFIG_VMX
+static arch_vcpu_ioreq..();
+#define arch_vcpu_ioreq...
+#endif
+
+And then in common/ioreq.c
+
+#ifdef arch_vcpu_ioreq
+res = arch_vcpu_ioreq(...)
+#else
+ASSERT_UNREACHABLE();
+#endif
+
+>           break;
+>       }
 >   
-> +        tee_name = dt_get_property(node, "xen,tee", NULL);
+> diff --git a/xen/include/xen/ioreq.h b/xen/include/xen/ioreq.h
+> index cd399adf17..880214ec41 100644
+> --- a/xen/include/xen/ioreq.h
+> +++ b/xen/include/xen/ioreq.h
+> @@ -111,7 +111,7 @@ void ioreq_domain_init(struct domain *d);
+>   int ioreq_server_dm_op(struct xen_dm_op *op, struct domain *d, bool *const_op);
+>   
+>   bool arch_ioreq_complete_mmio(void);
+> -bool arch_vcpu_ioreq_completion(enum vio_completion completion);
+> +extern bool (*arch_vcpu_ioreq_completion)(enum vio_completion completion);
+>   int arch_ioreq_server_map_pages(struct ioreq_server *s);
+>   void arch_ioreq_server_unmap_pages(struct ioreq_server *s);
+>   void arch_ioreq_server_enable(struct ioreq_server *s);
 
-In the previous version, you used dt_property_read_property_string() 
-which contained some sanity check. Can you explain why you switch to 
-dt_get_property()?
-
-> +        if ( tee_name )
-> +        {
-> +            rc = tee_get_type_from_dts(tee_name);
-> +            if ( rc < 0) > +                panic("Can't enable requested TEE for domain: %d\n", 
-rc);> +            d_cfg.arch.tee_type = rc;
-> +        }
-> +        else
-> +        {
-
-NIT: The parentheses are not necessary.
-
-> +            d_cfg.arch.tee_type = XEN_DOMCTL_CONFIG_TEE_NONE;
-> +        }
-> +
->           if ( dt_property_read_bool(node, "direct-map") )
->           {
->               if ( !(flags & CDF_staticmem) )
-
-Cheers,
-
----
+-- 
 Julien Grall
 
