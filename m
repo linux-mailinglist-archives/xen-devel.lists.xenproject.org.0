@@ -2,37 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7CACA8FAABB
-	for <lists+xen-devel@lfdr.de>; Tue,  4 Jun 2024 08:27:55 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.735160.1141330 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7ACE68FAAE2
+	for <lists+xen-devel@lfdr.de>; Tue,  4 Jun 2024 08:33:29 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.735169.1141339 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sENdy-0002po-4m; Tue, 04 Jun 2024 06:27:38 +0000
+	id 1sENjG-000533-Py; Tue, 04 Jun 2024 06:33:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 735160.1141330; Tue, 04 Jun 2024 06:27:38 +0000
+Received: by outflank-mailman (output) from mailman id 735169.1141339; Tue, 04 Jun 2024 06:33:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sENdy-0002nR-0x; Tue, 04 Jun 2024 06:27:38 +0000
-Received: by outflank-mailman (input) for mailman id 735160;
- Tue, 04 Jun 2024 06:27:36 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=tQmQ=NG=redhat.com=mlureau@srs-se1.protection.inumbo.net>)
- id 1sENdw-0002nJ-EW
- for xen-devel@lists.xenproject.org; Tue, 04 Jun 2024 06:27:36 +0000
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 877b4719-223b-11ef-90a1-e314d9c70b13;
- Tue, 04 Jun 2024 08:27:35 +0200 (CEST)
-Received: from mail-ed1-f69.google.com (mail-ed1-f69.google.com
- [209.85.208.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-516-jOWUnELcMXG84PjIF3E6Hw-1; Tue, 04 Jun 2024 02:27:33 -0400
-Received: by mail-ed1-f69.google.com with SMTP id
- 4fb4d7f45d1cf-57a33a589b3so1383512a12.0
- for <xen-devel@lists.xenproject.org>; Mon, 03 Jun 2024 23:27:32 -0700 (PDT)
+	id 1sENjG-0004zz-NE; Tue, 04 Jun 2024 06:33:06 +0000
+Received: by outflank-mailman (input) for mailman id 735169;
+ Tue, 04 Jun 2024 06:33:04 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=N7N6=NG=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1sENjE-0004zt-Ln
+ for xen-devel@lists.xenproject.org; Tue, 04 Jun 2024 06:33:04 +0000
+Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com
+ [2a00:1450:4864:20::444])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 4add9ab0-223c-11ef-b4bb-af5377834399;
+ Tue, 04 Jun 2024 08:33:02 +0200 (CEST)
+Received: by mail-wr1-x444.google.com with SMTP id
+ ffacd0b85a97d-35dca73095aso4324379f8f.0
+ for <xen-devel@lists.xenproject.org>; Mon, 03 Jun 2024 23:33:02 -0700 (PDT)
+Received: from [172.31.7.231] ([62.48.184.126])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-35e5985c269sm5124501f8f.82.2024.06.03.23.33.00
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 03 Jun 2024 23:33:01 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,106 +45,83 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 877b4719-223b-11ef-90a1-e314d9c70b13
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1717482454;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=0JVtdIWNto+KqDFiBlQzdZJhx14N17tSKBoZOMoyk4A=;
-	b=jLv4t5rjJhvJaDdRYp/A9ePW1a7CpxMaYBH+bDF8L/Qa6e/xblTSvoa0pXecbyOagKJrUJ
-	6Fh+x7NR2n/DvmG5tWj2hqgsVh0RIGOqR4oWXZ8Pv8CQpquNjLESIeFSjcDBAO15/xbW2l
-	o1Ve7dmCMBpZJz9BjNSNQd45c2gRcDs=
-X-MC-Unique: jOWUnELcMXG84PjIF3E6Hw-1
+X-Inumbo-ID: 4add9ab0-223c-11ef-b4bb-af5377834399
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1717482782; x=1718087582; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=KeeXnvLZvFjvzNPaGphVDY3NWv2H+tFCnzPe1I0QI7w=;
+        b=gw8U+2EIOfsoKVL7CELREgxfyqgF/cGHaYMTTXtwQ/FOTeaIqyItXAP1yHP58gOT12
+         9EwZHqSh8nQ/GXIju+AYC0AevPe1DeCsa7tl+EIDKcrWwtPzAZULIG3j5WaZTY82918Q
+         qggFycP7nQTvTbhBJh/qXsNRjrjsqGIyZoLYDtJDpq0X7EKNumJISgTzTN+IS5Sod/Nm
+         7bh5Y2vpX+OHt+pmjP90pyoy7UVCwS104vFd1oDKSKy+PhSBT7MDIwE9GuvRyYcXVBBH
+         th8cEA8bmv/iH09Lk0kFRaS9bD35xsTfrSM8ea8A+DYc6Z10d2cv64QARSUqdvdiUDuU
+         HCbw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1717482451; x=1718087251;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=0JVtdIWNto+KqDFiBlQzdZJhx14N17tSKBoZOMoyk4A=;
-        b=HtIgBk2Kdwb/9RTPui19PjWFfRY2z7fc9B4HPCVZ5t8B1HJZM9e60fO6KkmBxIS0D/
-         jVRCEUn+/FLBIzIt9H5g1STS6crjSXDeqfU/JFmBTziudtoAmasaLDnRz1gasnDI8DTy
-         /Qbyiyoyak3eQYjrtBS+pf0691VsfbxkbhMOJAv07CCV1u61mUZtsbp7U8hL/WmL7ded
-         C17hAEQEC62/AR0UKYyvHN8/PhaBAmdSXAGJlQkHly56sT2z/8FFuTvIUo/wZ7XidsiO
-         Lc3MkwTT7zXRxak6UImINpvxVKtribxi7E5WUGoj73n/zZNVJgQg5m14RErOXAY+0Kzi
-         ub0g==
-X-Forwarded-Encrypted: i=1; AJvYcCVTjRgNK+HSYKl9KtZQnV4aIWyJnhTRLJfz3+qrtJ0GRw/kt4p011vtI6L2AXPU9SfkPUepPZ8tW1zN2uPHGheQhqMPzPFbwy1PE1Lpx6E=
-X-Gm-Message-State: AOJu0Yw3zilfJCoZCQWBlrJ/2k2bqPZVHq1A3578q72qAMs6MLXSvW0v
-	HU0aXnE509UoFzPt8RA5hhMp0pnNIjGM+lAsb8+mNqL10InQC1xjzqQodAVm8xQBwSaefI9p9wl
-	WD7XPnXCkafYRlhYlS0Uac/2C+b+sL+pDt8848hJ9F9GxHi8kyIUmsSWMPwmEIiDcselogt/zu3
-	9j2M6Qrh+6jwzWB5p9KSfLzOkKA7GIKd/y0ztTLhOrVMJP4EE=
-X-Received: by 2002:a50:9548:0:b0:57a:2ccf:ed2f with SMTP id 4fb4d7f45d1cf-57a363b4972mr7705408a12.3.1717482450705;
-        Mon, 03 Jun 2024 23:27:30 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IGgCCSiWmq1QljOi/YHDSSxZ/u0tvY5jfAekfJZ3pRnQnD3+sRh5XAJAPUGxLID5iQcee+lK0g7D2RiA9UbizE=
-X-Received: by 2002:a50:9548:0:b0:57a:2ccf:ed2f with SMTP id
- 4fb4d7f45d1cf-57a363b4972mr7705397a12.3.1717482450320; Mon, 03 Jun 2024
- 23:27:30 -0700 (PDT)
+        d=1e100.net; s=20230601; t=1717482782; x=1718087582;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=KeeXnvLZvFjvzNPaGphVDY3NWv2H+tFCnzPe1I0QI7w=;
+        b=VBKrArCfqbPAdifNPBQFSLUWzaxoMKfuf8igQy5DQLThE6IEMZAGC1MxvfD+XvBSsD
+         IQnGSoGKf0mEKBpap5gpA4jtVci//q4gkX9+cyntR1nORq/nnC9jS6h5wakgjAJrjxcF
+         J1BrOsvIdCbUOJrGWdM5656mzWMKguUtMkTj26WRyB87ewozowvCfz/+GvsvHAAkD0Ex
+         Mz8LV6YnYdzWrWxntKExUwJnZDO8LYUEklSr/KxqBGDRCFiAEucnLap9jMmFML1oc36O
+         HbrTfcrHnu4O+OQzoIri+4OLXy4N0wQGe3ITJ53QduFTshE5LxQywh9raMhWUVXJ1HDr
+         sgtg==
+X-Forwarded-Encrypted: i=1; AJvYcCUbg0v++5gFxryEpIBbGevB8+bgJiBRhxL6fc+QkkxI0eRb1t1k7W4lcrCiEsl1RA6+x5WzDgi52SpvdwPaZog/yuoQXflFh4jkuFCjBkM=
+X-Gm-Message-State: AOJu0YxQkLt63es4BjN2mNpgo9DjnolVOEgBmLyizry0+7DJHPMpDeNb
+	0l/tZvdPtnh1vlC3Jp8MDWV3jVpt9hw4V/0jMwUOFHc+pKDbhJg9AiDT4Unu/w==
+X-Google-Smtp-Source: AGHT+IFxSnuBjFBwSqqrJg0E7ncAuXrKf+20NrKkRzK+bDiMgizkHGnAY7XLYZchJnBVX6ruzkbrew==
+X-Received: by 2002:adf:f404:0:b0:355:39d:f7b with SMTP id ffacd0b85a97d-35e0f30df18mr7704737f8f.45.1717482781637;
+        Mon, 03 Jun 2024 23:33:01 -0700 (PDT)
+Message-ID: <1dde6a74-9bca-45f8-90a1-1e2459148a74@suse.com>
+Date: Tue, 4 Jun 2024 08:33:00 +0200
 MIME-Version: 1.0
-References: <20240603151825.188353-1-kraxel@redhat.com> <20240603151825.188353-2-kraxel@redhat.com>
-In-Reply-To: <20240603151825.188353-2-kraxel@redhat.com>
-From: =?UTF-8?B?TWFyYy1BbmRyw6kgTHVyZWF1?= <marcandre.lureau@redhat.com>
-Date: Tue, 4 Jun 2024 10:27:18 +0400
-Message-ID: <CAMxuvawqf-0dKPsZP2UTcDWPWQ+8FKbZ=S4KX02hQO1qeeGVMA@mail.gmail.com>
-Subject: Re: [PATCH v2 1/3] stdvga: fix screen blanking
-To: Gerd Hoffmann <kraxel@redhat.com>
-Cc: qemu-devel@nongnu.org, Anthony PERARD <anthony@xenproject.org>, 
-	Paul Durrant <paul@xen.org>, xen-devel@lists.xenproject.org, 
-	Stefano Stabellini <sstabellini@kernel.org>, qemu-stable@nongnu.org
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 4/4] x86/ucode: Utilize ucode_force and remove
+ opt_ucode_allow_same
+To: Fouad Hilly <fouad.hilly@cloud.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20240528152943.3915760-1-fouad.hilly@cloud.com>
+ <20240528152943.3915760-5-fouad.hilly@cloud.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+In-Reply-To: <20240528152943.3915760-5-fouad.hilly@cloud.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi
+On 28.05.2024 17:29, Fouad Hilly wrote:
+> --- a/docs/misc/xen-command-line.pandoc
+> +++ b/docs/misc/xen-command-line.pandoc
+> @@ -2648,7 +2648,7 @@ performance.
+>     Alternatively, selecting `tsx=1` will re-enable TSX at the users own risk.
+>  
+>  ### ucode
+> -> `= List of [ <integer> | scan=<bool>, nmi=<bool>, allow-same=<bool> ]`
+> +> `= List of [ <integer> | scan=<bool>, nmi=<bool> ]`
+>  
+>      Applicability: x86
+>      Default: `nmi`
+> @@ -2680,11 +2680,6 @@ precedence over `scan`.
+>  stop_machine context. In NMI handler, even NMIs are blocked, which is
+>  considered safer. The default value is `true`.
+>  
+> -'allow-same' alters the default acceptance policy for new microcode to permit
+> -trying to reload the same version.  Many CPUs will actually reload microcode
+> -of the same version, and this allows for easy testing of the late microcode
+> -loading path.
+> -
+>  ### unrestricted_guest (Intel)
+>  > `= <boolean>`
 
-On Mon, Jun 3, 2024 at 7:18=E2=80=AFPM Gerd Hoffmann <kraxel@redhat.com> wr=
-ote:
->
-> In case the display surface uses a shared buffer (i.e. uses vga vram
-> directly instead of a shadow) go unshare the buffer before clearing it.
->
-> This avoids vga memory corruption, which in turn fixes unblanking not
-> working properly with X11.
->
-> Cc: qemu-stable@nongnu.org
-> Resolves: https://gitlab.com/qemu-project/qemu/-/issues/2067
-> Signed-off-by: Gerd Hoffmann <kraxel@redhat.com>
-> ---
->  hw/display/vga.c | 6 ++++++
->  1 file changed, 6 insertions(+)
->
-> diff --git a/hw/display/vga.c b/hw/display/vga.c
-> index 30facc6c8e33..474b6b14c327 100644
-> --- a/hw/display/vga.c
-> +++ b/hw/display/vga.c
-> @@ -1762,6 +1762,12 @@ static void vga_draw_blank(VGACommonState *s, int =
-full_update)
->      if (s->last_scr_width <=3D 0 || s->last_scr_height <=3D 0)
->          return;
->
-> +    if (is_buffer_shared(surface)) {
+Removal of a command line (sub-)option nowadays wants accompanying by a
+CHANGELOG.md entry.
 
-Perhaps the suggestion to rename the function (in the following patch)
-should instead be surface_is_allocated() ? that would match the actual
-flag check. But callers would have to ! the result. Wdyt?
-
-> +        /* unshare buffer, otherwise the blanking corrupts vga vram */
-> +        surface =3D qemu_create_displaysurface(s->last_scr_width, s->las=
-t_scr_height);
-> +        dpy_gfx_replace_surface(s->con, surface);
-
-Ok, this looks safer than calling "resize".
-
-thanks
-
-> +    }
-> +
->      w =3D s->last_scr_width * surface_bytes_per_pixel(surface);
->      d =3D surface_data(surface);
->      for(i =3D 0; i < s->last_scr_height; i++) {
-> --
-> 2.45.1
->
-
+Jan
 
