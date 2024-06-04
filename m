@@ -2,32 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 346D58FA528
-	for <lists+xen-devel@lfdr.de>; Tue,  4 Jun 2024 00:00:03 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.735047.1141200 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 28D9E8FA70A
+	for <lists+xen-devel@lfdr.de>; Tue,  4 Jun 2024 02:31:02 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.735062.1141209 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sEFN9-0004FB-U0; Mon, 03 Jun 2024 21:37:43 +0000
+	id 1sEI3p-0006u2-Di; Tue, 04 Jun 2024 00:29:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 735047.1141200; Mon, 03 Jun 2024 21:37:43 +0000
+Received: by outflank-mailman (output) from mailman id 735062.1141209; Tue, 04 Jun 2024 00:29:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sEFN9-0004Ch-RH; Mon, 03 Jun 2024 21:37:43 +0000
-Received: by outflank-mailman (input) for mailman id 735047;
- Mon, 03 Jun 2024 21:37:41 +0000
+	id 1sEI3p-0006s4-AV; Tue, 04 Jun 2024 00:29:57 +0000
+Received: by outflank-mailman (input) for mailman id 735062;
+ Tue, 04 Jun 2024 00:29:55 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=u3ZA=NF=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
- id 1sEFN7-0004Cb-Sd
- for xen-devel@lists.xenproject.org; Mon, 03 Jun 2024 21:37:41 +0000
-Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
+ <SRS0=QWSe=NG=flex--seanjc.bounces.google.com=3_l9eZgYKCXEhTPcYRVddVaT.RdbmTc-STkTaaXhih.mTcegdYTRi.dgV@srs-se1.protection.inumbo.net>)
+ id 1sEI3n-0006ry-2M
+ for xen-devel@lists.xenproject.org; Tue, 04 Jun 2024 00:29:55 +0000
+Received: from mail-pl1-x649.google.com (mail-pl1-x649.google.com
+ [2607:f8b0:4864:20::649])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 80330586-21f1-11ef-b4bb-af5377834399;
- Mon, 03 Jun 2024 23:37:39 +0200 (CEST)
-Received: from support.bugseng.com (support.bugseng.com [162.55.131.47])
- by support.bugseng.com (Postfix) with ESMTPA id 0ACA64EE0739;
- Mon,  3 Jun 2024 23:37:39 +0200 (CEST)
+ id 8ec18a40-2209-11ef-b4bb-af5377834399;
+ Tue, 04 Jun 2024 02:29:52 +0200 (CEST)
+Received: by mail-pl1-x649.google.com with SMTP id
+ d9443c01a7336-1f6582eca2bso20755445ad.1
+ for <xen-devel@lists.xenproject.org>; Mon, 03 Jun 2024 17:29:52 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,99 +40,122 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 80330586-21f1-11ef-b4bb-af5377834399
-MIME-Version: 1.0
-Date: Mon, 03 Jun 2024 23:37:39 +0200
-From: Nicola Vetrini <nicola.vetrini@bugseng.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: sstabellini@kernel.org, michal.orzel@amd.com, xenia.ragiadakou@amd.com,
- ayan.kumar.halder@amd.com, consulting@bugseng.com, Simone Ballarin
- <simone.ballarin@bugseng.com>, Doug Goldstein <cardoe@cardoe.com>,
- xen-devel@lists.xenproject.org
-Subject: Re: [XEN PATCH 4/5] automation/eclair_analysis: address remaining
- violations of MISRA C Rule 20.12
-In-Reply-To: <a27b1218-7530-43c7-8695-16057b712f89@suse.com>
-References: <cover.1717236930.git.nicola.vetrini@bugseng.com>
- <ba7e17494f0bb167fe48f7fe0a69fabc1c3f5d1a.1717236930.git.nicola.vetrini@bugseng.com>
- <90c40d6a-d648-46bb-9cb0-df11ac165bd7@suse.com>
- <085aabe9953d53e634d5cf75fecdb8b7@bugseng.com>
- <cb14826d-3c5c-45b8-aaea-30cfa85a450f@suse.com>
- <017a3e69ef784eb919a96a06b0fcf0dc@bugseng.com>
- <a27b1218-7530-43c7-8695-16057b712f89@suse.com>
-Message-ID: <9d89ab3fe34597a9e721e6fea102f728@bugseng.com>
-X-Sender: nicola.vetrini@bugseng.com
-Organization: BUGSENG s.r.l.
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
-Content-Transfer-Encoding: 7bit
+X-Inumbo-ID: 8ec18a40-2209-11ef-b4bb-af5377834399
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20230601; t=1717460991; x=1718065791; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:from:subject:message-id:references
+         :mime-version:in-reply-to:date:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=QxIMQXFvRFWSOBKMLO/Pb11VLx9FgWxOAKpcjqg1q6M=;
+        b=dJ2ShQMh3hc4yiE61PsP9IkkrlHw5+NxTDZLMlmh5xRqfR5mzP93zwUzZJh5NYQkRd
+         V7/shSpH1IIrjwrCbhOeuNLgeMCRbkM2jeqC3fSF1aF0yE+HYtFJ0jUmLwz6eHDOkt1a
+         PAXwlHlYThQiZ+IqQmBU4pOTrkkYL8IMiBcAt3eMQiJGTZ/2KW6pCpGQo+p0rZDBUSWF
+         AnCuYGyBFZkgKI7+V6BcBKeZFa/Wrr/KYfiVlZfHbRvZLo7KJXK8YBEWO0EOYmbLtNqA
+         jVWod18rVtis0gUF/IPyxTipnGVZpta0icYWnPj5o61u56VWJPp1nFot4D7duDwfGwUO
+         JnHA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1717460991; x=1718065791;
+        h=content-transfer-encoding:cc:to:from:subject:message-id:references
+         :mime-version:in-reply-to:date:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=QxIMQXFvRFWSOBKMLO/Pb11VLx9FgWxOAKpcjqg1q6M=;
+        b=UZM8I30WOvoMdjG66mJ8xmb7JhxMvtbBQs9gm7glpqzSH6DUeHr2X8FUaz6Uj3M5eD
+         brpkrg2uwIVRO1Kf2GJ9OcZ+ET6v34TBTllc39LD8igbIaDyznoxZ35TgBeMm8rOaU8o
+         CeL1NtYLd/a9BVukzK11DC1OO0NIYV7T337kv0HPH1eliPiKuYdTdIjIkZZMj8K1HM3I
+         6q6JJbM9PWhScWHBwwhD3lkzX+ryAXbW3dnAU8pXyn9PXbg51BtauM68SmNgzImjO5X2
+         Vq9Du3YRaJ8dUGU5KfM+xi6U+eVoP28+IsZw7Fei9nrx/4IEWQqp6PW0XKIOZ+KColbE
+         5Pcw==
+X-Forwarded-Encrypted: i=1; AJvYcCW7QfN9ifOXJ21PRbINn2hvOiayQ9qZIrQOPTIpa75b9SWBoAMj3PcR1gKz71Hq6ZhS0npimUfHA9ya5qdr6yVCUDIJqHHETxQyIjW+4Nc=
+X-Gm-Message-State: AOJu0YyhTNtZv8ZBRBy2dPlX8sJikIgMeitVuK/Pm8kJQH5yovkxjK3R
+	bDEJWCW0c40CnkZ0UcC/RbZx2iIGtuJbeOb6cDe1Csi69YBoUB/1MFVdq4iJaykpm1dkZbwSaAF
+	Y7g==
+X-Google-Smtp-Source: AGHT+IENLGEaWbs37HwWar6l9tfsoGWg6m42nFsyoTQfIezFlKVeE9IraziAYhpEU9jmdwNYoPJqg3Pzh8c=
+X-Received: from zagreus.c.googlers.com ([fda3:e722:ac3:cc00:7f:e700:c0a8:5c37])
+ (user=seanjc job=sendgmr) by 2002:a17:902:f7c1:b0:1f4:620b:6a47 with SMTP id
+ d9443c01a7336-1f6370524bemr2945395ad.4.1717460990723; Mon, 03 Jun 2024
+ 17:29:50 -0700 (PDT)
+Date: Mon, 3 Jun 2024 17:29:49 -0700
+In-Reply-To: <20240514.OoPohLaejai6@digikod.net>
+Mime-Version: 1.0
+References: <20240503131910.307630-1-mic@digikod.net> <20240503131910.307630-4-mic@digikod.net>
+ <ZjTuqV-AxQQRWwUW@google.com> <20240506.ohwe7eewu0oB@digikod.net>
+ <ZjmFPZd5q_hEBdBz@google.com> <20240507.ieghomae0UoC@digikod.net>
+ <ZjpTxt-Bxia3bRwB@google.com> <20240514.OoPohLaejai6@digikod.net>
+Message-ID: <Zl5f_T7Nb-Fk8Y1o@google.com>
+Subject: Re: [RFC PATCH v3 3/5] KVM: x86: Add notifications for Heki policy
+ configuration and violation
+From: Sean Christopherson <seanjc@google.com>
+To: "=?utf-8?Q?Micka=C3=ABl_Sala=C3=BCn?=" <mic@digikod.net>
+Cc: Nicolas Saenz Julienne <nsaenz@amazon.com>, Borislav Petkov <bp@alien8.de>, 
+	Dave Hansen <dave.hansen@linux.intel.com>, "H . Peter Anvin" <hpa@zytor.com>, 
+	Ingo Molnar <mingo@redhat.com>, Kees Cook <keescook@chromium.org>, 
+	Paolo Bonzini <pbonzini@redhat.com>, Thomas Gleixner <tglx@linutronix.de>, 
+	Vitaly Kuznetsov <vkuznets@redhat.com>, Wanpeng Li <wanpengli@tencent.com>, 
+	Rick P Edgecombe <rick.p.edgecombe@intel.com>, Alexander Graf <graf@amazon.com>, 
+	Angelina Vu <angelinavu@linux.microsoft.com>, 
+	Anna Trikalinou <atrikalinou@microsoft.com>, Chao Peng <chao.p.peng@linux.intel.com>, 
+	Forrest Yuan Yu <yuanyu@google.com>, James Gowans <jgowans@amazon.com>, 
+	James Morris <jamorris@linux.microsoft.com>, John Andersen <john.s.andersen@intel.com>, 
+	"Madhavan T . Venkataraman" <madvenka@linux.microsoft.com>, Marian Rotariu <marian.c.rotariu@gmail.com>, 
+	"Mihai =?utf-8?B?RG9uyJt1?=" <mdontu@bitdefender.com>, 
+	"=?utf-8?B?TmljdciZb3IgQ8OuyJt1?=" <nicu.citu@icloud.com>, Thara Gopinath <tgopinath@microsoft.com>, 
+	Trilok Soni <quic_tsoni@quicinc.com>, Wei Liu <wei.liu@kernel.org>, 
+	Will Deacon <will@kernel.org>, Yu Zhang <yu.c.zhang@linux.intel.com>, 
+	"=?utf-8?Q?=C8=98tefan_=C8=98icleru?=" <ssicleru@bitdefender.com>, dev@lists.cloudhypervisor.org, 
+	kvm@vger.kernel.org, linux-hardening@vger.kernel.org, 
+	linux-hyperv@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-security-module@vger.kernel.org, qemu-devel@nongnu.org, 
+	virtualization@lists.linux-foundation.org, x86@kernel.org, 
+	xen-devel@lists.xenproject.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 2024-06-03 23:24, Jan Beulich wrote:
-> On 03.06.2024 21:12, Nicola Vetrini wrote:
->> On 2024-06-03 20:52, Jan Beulich wrote:
->>> On 03.06.2024 09:13, Nicola Vetrini wrote:
->>>> On 2024-06-03 07:58, Jan Beulich wrote:
->>>>> On 01.06.2024 12:16, Nicola Vetrini wrote:
->>>>>> --- a/automation/eclair_analysis/ECLAIR/deviations.ecl
->>>>>> +++ b/automation/eclair_analysis/ECLAIR/deviations.ecl
->>>>>> @@ -483,6 +483,12 @@ leads to a violation of the Rule are 
->>>>>> deviated."
->>>>>>  -config=MC3R1.R20.12,macros+={deliberate,
->>>>>> "name(GENERATE_CASE)&&loc(file(deliberate_generate_case))"}
->>>>>>  -doc_end
->>>>>> 
->>>>>> +-doc_begin="The macro DEFINE is defined and used in excluded 
->>>>>> files
->>>>>> asm-offsets.c.
->>>>>> +This may still cause violations if entities outside these files 
->>>>>> are
->>>>>> referred to
->>>>>> +in the expansion."
->>>>>> +-config=MC3R1.R20.12,macros+={deliberate,
->>>>>> "name(DEFINE)&&loc(file(asm_offsets))"}
->>>>>> +-doc_end
->>>>> 
->>>>> Can you give an example of such a reference? Nothing _in_
->>>>> asm-offsets.c
->>>>> should be referenced, I'd think. Only stuff in asm-offsets.h as
->>>>> _generated
->>>>> from_ asm-offsets.c will, of course, be.
->>>>> 
->>>> 
->>>> Perhaps I could have expressed that more clearly. What I meant is 
->>>> that
->>>> there are some arguments to DEFINE that are not part of 
->>>> asm-offsets.c,
->>>> therefore they end up in the violation report, but are not actually
->>>> relevant, because the macro DEFINE is actually what we want to
->>>> exclude.
->>>> 
->>>> See for instance at the link below VCPU_TRAP_{NMI,MCE}, which are
->>>> defined in asm/domain.h and used as arguments to DEFINE inside
->>>> asm-offsets.c.
->>>> 
->>>> https://saas.eclairit.com:3787/fs/var/local/eclair/XEN.ecdf/ECLAIR_normal/staging/X86_64-BUGSENG/676/PROJECT.ecd;/by_service/MC3R1.R20.12.html
->>> 
->>> I'm afraid I still don't understand: The file being supposed to be
->>> excluded from scanning, why does it even show up in that report?
->> 
->> The report is made up of several source code locations. Three of them
->> are within asm-offsets.c, which is excluded from compliance but still
->> analyzed, but one references a macro definition in another file (e.g.,
->> VCPU_TRAP_NMI from asm/domain.h). So in this case the exclusion of
->> asm-offsets.c is not enough for the report not to be shown.
-> 
-> But the (would-be-)violation is in asm-offsets.c. The other locations
-> pointed at are providing context. To report a violation, it should be
-> enough to exclude the file where the violation itself is?
-> 
+On Tue, May 14, 2024, Micka=C3=ABl Sala=C3=BCn wrote:
+> On Tue, May 07, 2024 at 09:16:06AM -0700, Sean Christopherson wrote:
+> > On Tue, May 07, 2024, Micka=C3=ABl Sala=C3=BCn wrote:
+> > > If yes, that would indeed require a *lot* of work for something we're=
+ not
+> > > sure will be accepted later on.
+> >=20
+> > Yes and no.  The AWS folks are pursuing VSM support in KVM+QEMU, and SV=
+SM support
+> > is trending toward the paired VM+vCPU model.  IMO, it's entirely feasib=
+le to
+> > design KVM support such that much of the development load can be shared=
+ between
+> > the projects.  And having 2+ use cases for a feature (set) makes it _mu=
+ch_ more
+> > likely that the feature(s) will be accepted.
+> >=20
+> > And similar to what Paolo said regarding HEKI not having a complete sto=
+ry, I
+> > don't see a clear line of sight for landing host-defined policy enforce=
+ment, as
+> > there are many open, non-trivial questions that need answers. I.e. upst=
+reaming
+> > HEKI in its current form is also far from a done deal, and isn't guaran=
+teed to
+> > be substantially less work when all is said and done.
+>=20
+> I'm not sure to understand why "Heki not having a complete story".  The
+> goal is the same as the current kernel self-protection mechanisms.
 
-In general that may not be the safest choice, or it can limit the 
-granularity of the configuration (not in the specific case, but the 
-mechanism is general).
-It's a design aspect of the tool to show a report unless all its 
-locations are not meant to be shown.
+HEKI doesn't have a complete story for how it's going to play nice with kex=
+ec(),
+emulated RESET, etc.  The kernel's existing self-protection mechanisms Just=
+ Work
+because the protections are automatically disabled/lost on such transitions=
+.
+They are obviously significant drawbacks to that behavior, but they are acc=
+epted
+drawbacks, i.e. solving those problems isn't in scope (yet) for the kernel.=
+  And
+the "failure" mode is also loss of hardening, not an unusable guest.
 
--- 
-Nicola Vetrini, BSc
-Software Engineer, BUGSENG srl (https://bugseng.com)
+In other words, the kernel's hardening is firmly best effort at this time,
+whereas HEKI likely needs to be much more than "best effort" in order to ju=
+stify
+the extra complexity.  And that means having answers to the various interop=
+erability
+questions.
 
