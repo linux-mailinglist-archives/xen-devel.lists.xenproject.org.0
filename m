@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 673EF8FAAB5
-	for <lists+xen-devel@lfdr.de>; Tue,  4 Jun 2024 08:26:17 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.735153.1141319 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7CACA8FAABB
+	for <lists+xen-devel@lfdr.de>; Tue,  4 Jun 2024 08:27:55 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.735160.1141330 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sENcH-0002GO-Q9; Tue, 04 Jun 2024 06:25:53 +0000
+	id 1sENdy-0002po-4m; Tue, 04 Jun 2024 06:27:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 735153.1141319; Tue, 04 Jun 2024 06:25:53 +0000
+Received: by outflank-mailman (output) from mailman id 735160.1141330; Tue, 04 Jun 2024 06:27:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sENcH-0002E9-Mn; Tue, 04 Jun 2024 06:25:53 +0000
-Received: by outflank-mailman (input) for mailman id 735153;
- Tue, 04 Jun 2024 06:25:52 +0000
+	id 1sENdy-0002nR-0x; Tue, 04 Jun 2024 06:27:38 +0000
+Received: by outflank-mailman (input) for mailman id 735160;
+ Tue, 04 Jun 2024 06:27:36 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=N7N6=NG=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sENcG-0002E3-5N
- for xen-devel@lists.xenproject.org; Tue, 04 Jun 2024 06:25:52 +0000
-Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
- [2a00:1450:4864:20::433])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=tQmQ=NG=redhat.com=mlureau@srs-se1.protection.inumbo.net>)
+ id 1sENdw-0002nJ-EW
+ for xen-devel@lists.xenproject.org; Tue, 04 Jun 2024 06:27:36 +0000
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 49b65bc0-223b-11ef-90a1-e314d9c70b13;
- Tue, 04 Jun 2024 08:25:50 +0200 (CEST)
-Received: by mail-wr1-x433.google.com with SMTP id
- ffacd0b85a97d-35dc0472b7eso4446749f8f.2
- for <xen-devel@lists.xenproject.org>; Mon, 03 Jun 2024 23:25:50 -0700 (PDT)
-Received: from [172.31.7.231] ([62.48.184.126])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-35dd066ff77sm10526121f8f.117.2024.06.03.23.25.49
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 03 Jun 2024 23:25:50 -0700 (PDT)
+ id 877b4719-223b-11ef-90a1-e314d9c70b13;
+ Tue, 04 Jun 2024 08:27:35 +0200 (CEST)
+Received: from mail-ed1-f69.google.com (mail-ed1-f69.google.com
+ [209.85.208.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-516-jOWUnELcMXG84PjIF3E6Hw-1; Tue, 04 Jun 2024 02:27:33 -0400
+Received: by mail-ed1-f69.google.com with SMTP id
+ 4fb4d7f45d1cf-57a33a589b3so1383512a12.0
+ for <xen-devel@lists.xenproject.org>; Mon, 03 Jun 2024 23:27:32 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,107 +44,106 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 49b65bc0-223b-11ef-90a1-e314d9c70b13
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1717482350; x=1718087150; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=ye2oNNCCTk3NquB+RcNnnO9FibV1EaflNrAJcs5QPqk=;
-        b=UVCYxuC9xvOROp6VP7ZsrBds98Z0OrfJsmyqRBle9OLVASptjLYrR+z8ByaAudU2Og
-         P3JYsykPVIoqaBsCsj/0uN2XZW4y3aWwUM9kUTQMJ+M7BY9xLOQ3GtMgzBftnqugWiVj
-         FMbYdMO2dMLMOWXXAONF36f5b9RXlxPz2b7kWu+ABIdVCLdQE/4MVfqt4pCsVR8zHo6y
-         Cfu5mGSqGQl9NKBE3OFe2PgWba56pMgkQXRIYS+FnF/MoruC3BEY1CiADYs/JWNm3KeI
-         VqSfrd+//xj9UNc3tBQF7EH+vYClHG/Yk7kcqFaDdW+7xeAGHfTKqAtdOsfu/VMGeLaK
-         vocA==
+X-Inumbo-ID: 877b4719-223b-11ef-90a1-e314d9c70b13
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1717482454;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=0JVtdIWNto+KqDFiBlQzdZJhx14N17tSKBoZOMoyk4A=;
+	b=jLv4t5rjJhvJaDdRYp/A9ePW1a7CpxMaYBH+bDF8L/Qa6e/xblTSvoa0pXecbyOagKJrUJ
+	6Fh+x7NR2n/DvmG5tWj2hqgsVh0RIGOqR4oWXZ8Pv8CQpquNjLESIeFSjcDBAO15/xbW2l
+	o1Ve7dmCMBpZJz9BjNSNQd45c2gRcDs=
+X-MC-Unique: jOWUnELcMXG84PjIF3E6Hw-1
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1717482350; x=1718087150;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=ye2oNNCCTk3NquB+RcNnnO9FibV1EaflNrAJcs5QPqk=;
-        b=Rkr5HNLsuqiyp/6LnDQEj3m5t968u9kP/P3kZ44AL+LRkZPIiA9D0/0dgKc/ub4APz
-         adYn17oeE15cawwD/LLmFxcDO+tgW7FRHz+PHOYUPCMi51yEwhpaMpwoMEjTLjq6HZWH
-         5YzZhomQ4FgxlBTAzkGJfdp2cEL2mk6PZ0E9T/eUaTBqyvpyEIfzdz14JyRXAm9jSufZ
-         jUeFQDDRONSUdLFwK5by06GegkrZCNqP846QgoKAna26ahdiX2O5B3RWfamKORv0byEz
-         x2UgS20hIhNxjLVqQhY615xhsnBZNQ1wyPs89pJOFN6Cjd0lIXAbKqAVXlvwvxDwTOm5
-         7rNA==
-X-Forwarded-Encrypted: i=1; AJvYcCX8A3YltJ9zBPsCnAnv0M5xrplvfiOmLVhWI2dmpoXMRvmdKdD4KiY2DFlegdPgqOhQb3ISn5Vh0F2SXmRBnDkMby3eosrdck3O3CYIayA=
-X-Gm-Message-State: AOJu0YyqpL42vh2J2azNQU6yqei4woinQwH3pZQsBEvZMeVWgP6yyM09
-	HT3uaR0RmEWXC/UgR8WJJtDULVTBw39W6Ux+R8shA1lgqXm/iawHdfWXp8UeFg==
-X-Google-Smtp-Source: AGHT+IGKcqzt3ZuVw8gG3upQPLpnvnbqrRvH9ZWvLFd/Z0Cumf+r4++TYGV7LmRfHRoznplFBVj+bA==
-X-Received: by 2002:a5d:47ad:0:b0:355:1e8:4512 with SMTP id ffacd0b85a97d-35e0f31888cmr9518895f8f.43.1717482350230;
-        Mon, 03 Jun 2024 23:25:50 -0700 (PDT)
-Message-ID: <e612d581-9f5f-4776-bfa0-9cc174973ee2@suse.com>
-Date: Tue, 4 Jun 2024 08:25:48 +0200
+        d=1e100.net; s=20230601; t=1717482451; x=1718087251;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=0JVtdIWNto+KqDFiBlQzdZJhx14N17tSKBoZOMoyk4A=;
+        b=HtIgBk2Kdwb/9RTPui19PjWFfRY2z7fc9B4HPCVZ5t8B1HJZM9e60fO6KkmBxIS0D/
+         jVRCEUn+/FLBIzIt9H5g1STS6crjSXDeqfU/JFmBTziudtoAmasaLDnRz1gasnDI8DTy
+         /Qbyiyoyak3eQYjrtBS+pf0691VsfbxkbhMOJAv07CCV1u61mUZtsbp7U8hL/WmL7ded
+         C17hAEQEC62/AR0UKYyvHN8/PhaBAmdSXAGJlQkHly56sT2z/8FFuTvIUo/wZ7XidsiO
+         Lc3MkwTT7zXRxak6UImINpvxVKtribxi7E5WUGoj73n/zZNVJgQg5m14RErOXAY+0Kzi
+         ub0g==
+X-Forwarded-Encrypted: i=1; AJvYcCVTjRgNK+HSYKl9KtZQnV4aIWyJnhTRLJfz3+qrtJ0GRw/kt4p011vtI6L2AXPU9SfkPUepPZ8tW1zN2uPHGheQhqMPzPFbwy1PE1Lpx6E=
+X-Gm-Message-State: AOJu0Yw3zilfJCoZCQWBlrJ/2k2bqPZVHq1A3578q72qAMs6MLXSvW0v
+	HU0aXnE509UoFzPt8RA5hhMp0pnNIjGM+lAsb8+mNqL10InQC1xjzqQodAVm8xQBwSaefI9p9wl
+	WD7XPnXCkafYRlhYlS0Uac/2C+b+sL+pDt8848hJ9F9GxHi8kyIUmsSWMPwmEIiDcselogt/zu3
+	9j2M6Qrh+6jwzWB5p9KSfLzOkKA7GIKd/y0ztTLhOrVMJP4EE=
+X-Received: by 2002:a50:9548:0:b0:57a:2ccf:ed2f with SMTP id 4fb4d7f45d1cf-57a363b4972mr7705408a12.3.1717482450705;
+        Mon, 03 Jun 2024 23:27:30 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IGgCCSiWmq1QljOi/YHDSSxZ/u0tvY5jfAekfJZ3pRnQnD3+sRh5XAJAPUGxLID5iQcee+lK0g7D2RiA9UbizE=
+X-Received: by 2002:a50:9548:0:b0:57a:2ccf:ed2f with SMTP id
+ 4fb4d7f45d1cf-57a363b4972mr7705397a12.3.1717482450320; Mon, 03 Jun 2024
+ 23:27:30 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v12 2/8] xen: introduce generic non-atomic test_*bit()
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
- <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>,
- Shawn Anastasio <sanastasio@raptorengineering.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org
-References: <cover.1717008161.git.oleksii.kurochko@gmail.com>
- <526d2a5a76f03aa0e3cc7ee3192b1c87834f0e9e.1717008161.git.oleksii.kurochko@gmail.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <526d2a5a76f03aa0e3cc7ee3192b1c87834f0e9e.1717008161.git.oleksii.kurochko@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20240603151825.188353-1-kraxel@redhat.com> <20240603151825.188353-2-kraxel@redhat.com>
+In-Reply-To: <20240603151825.188353-2-kraxel@redhat.com>
+From: =?UTF-8?B?TWFyYy1BbmRyw6kgTHVyZWF1?= <marcandre.lureau@redhat.com>
+Date: Tue, 4 Jun 2024 10:27:18 +0400
+Message-ID: <CAMxuvawqf-0dKPsZP2UTcDWPWQ+8FKbZ=S4KX02hQO1qeeGVMA@mail.gmail.com>
+Subject: Re: [PATCH v2 1/3] stdvga: fix screen blanking
+To: Gerd Hoffmann <kraxel@redhat.com>
+Cc: qemu-devel@nongnu.org, Anthony PERARD <anthony@xenproject.org>, 
+	Paul Durrant <paul@xen.org>, xen-devel@lists.xenproject.org, 
+	Stefano Stabellini <sstabellini@kernel.org>, qemu-stable@nongnu.org
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 29.05.2024 21:55, Oleksii Kurochko wrote:
-> The following generic functions were introduced:
-> * test_bit
-> * generic__test_and_set_bit
-> * generic__test_and_clear_bit
-> * generic__test_and_change_bit
-> 
-> These functions and macros can be useful for architectures
-> that don't have corresponding arch-specific instructions.
-> 
-> Also, the patch introduces the following generics which are
-> used by the functions mentioned above:
-> * BITOP_BITS_PER_WORD
-> * BITOP_MASK
-> * BITOP_WORD
-> * BITOP_TYPE
-> 
-> The following approach was chosen for generic*() and arch*() bit
-> operation functions:
-> If the bit operation function that is going to be generic starts
-> with the prefix "__", then the corresponding generic/arch function
-> will also contain the "__" prefix. For example:
->  * test_bit() will be defined using arch_test_bit() and
->    generic_test_bit().
->  * __test_and_set_bit() will be defined using
->    arch__test_and_set_bit() and generic__test_and_set_bit().
-> 
-> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Hi
 
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
+On Mon, Jun 3, 2024 at 7:18=E2=80=AFPM Gerd Hoffmann <kraxel@redhat.com> wr=
+ote:
+>
+> In case the display surface uses a shared buffer (i.e. uses vga vram
+> directly instead of a shadow) go unshare the buffer before clearing it.
+>
+> This avoids vga memory corruption, which in turn fixes unblanking not
+> working properly with X11.
+>
+> Cc: qemu-stable@nongnu.org
+> Resolves: https://gitlab.com/qemu-project/qemu/-/issues/2067
+> Signed-off-by: Gerd Hoffmann <kraxel@redhat.com>
+> ---
+>  hw/display/vga.c | 6 ++++++
+>  1 file changed, 6 insertions(+)
+>
+> diff --git a/hw/display/vga.c b/hw/display/vga.c
+> index 30facc6c8e33..474b6b14c327 100644
+> --- a/hw/display/vga.c
+> +++ b/hw/display/vga.c
+> @@ -1762,6 +1762,12 @@ static void vga_draw_blank(VGACommonState *s, int =
+full_update)
+>      if (s->last_scr_width <=3D 0 || s->last_scr_height <=3D 0)
+>          return;
+>
+> +    if (is_buffer_shared(surface)) {
 
-Albeit I think you cound have gone further ...
+Perhaps the suggestion to rename the function (in the following patch)
+should instead be surface_is_allocated() ? that would match the actual
+flag check. But callers would have to ! the result. Wdyt?
 
-> @@ -307,8 +295,7 @@ static inline int variable_test_bit(int nr, const volatile void *addr)
->      return oldbit;
->  }
->  
-> -#define test_bit(nr, addr) ({                           \
-> -    if ( bitop_bad_size(addr) ) __bitop_bad_size();     \
-> +#define arch_test_bit(nr, addr) ({                      \
->      __builtin_constant_p(nr) ?                          \
->          constant_test_bit(nr, addr) :                   \
->          variable_test_bit(nr, addr);                    \
+> +        /* unshare buffer, otherwise the blanking corrupts vga vram */
+> +        surface =3D qemu_create_displaysurface(s->last_scr_width, s->las=
+t_scr_height);
+> +        dpy_gfx_replace_surface(s->con, surface);
 
-... here, as constant_test_bit() is functionally the same as
-generic_test_bit(), afaict. But that can well be cleaned up
-subsequently, in order to no further delay this work of yours.
+Ok, this looks safer than calling "resize".
 
-Jan
+thanks
+
+> +    }
+> +
+>      w =3D s->last_scr_width * surface_bytes_per_pixel(surface);
+>      d =3D surface_data(surface);
+>      for(i =3D 0; i < s->last_scr_height; i++) {
+> --
+> 2.45.1
+>
+
 
