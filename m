@@ -2,35 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BFEDD8FC9F2
-	for <lists+xen-devel@lfdr.de>; Wed,  5 Jun 2024 13:13:11 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.735717.1141835 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6467D8FCBF1
+	for <lists+xen-devel@lfdr.de>; Wed,  5 Jun 2024 14:09:42 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.735745.1141845 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sEoYz-0002pk-QZ; Wed, 05 Jun 2024 11:12:17 +0000
+	id 1sEpRl-0002Ij-5B; Wed, 05 Jun 2024 12:08:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 735717.1141835; Wed, 05 Jun 2024 11:12:17 +0000
+Received: by outflank-mailman (output) from mailman id 735745.1141845; Wed, 05 Jun 2024 12:08:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sEoYz-0002np-O3; Wed, 05 Jun 2024 11:12:17 +0000
-Received: by outflank-mailman (input) for mailman id 735717;
- Wed, 05 Jun 2024 11:12:16 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1sEoYy-0002nf-96; Wed, 05 Jun 2024 11:12:16 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1sEoYy-00055d-74; Wed, 05 Jun 2024 11:12:16 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1sEoYx-0001eC-Sn; Wed, 05 Jun 2024 11:12:15 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1sEoYx-0006B6-SN; Wed, 05 Jun 2024 11:12:15 +0000
+	id 1sEpRl-0002HA-2h; Wed, 05 Jun 2024 12:08:53 +0000
+Received: by outflank-mailman (input) for mailman id 735745;
+ Wed, 05 Jun 2024 12:08:51 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=OW4N=NH=redhat.com=mlureau@srs-se1.protection.inumbo.net>)
+ id 1sEpRj-0002Gz-Sq
+ for xen-devel@lists.xenproject.org; Wed, 05 Jun 2024 12:08:51 +0000
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 5dd2ca5d-2334-11ef-b4bb-af5377834399;
+ Wed, 05 Jun 2024 14:08:50 +0200 (CEST)
+Received: from mail-ed1-f69.google.com (mail-ed1-f69.google.com
+ [209.85.208.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-678-h_UGk8sUMvS-YfTWapbYEg-1; Wed, 05 Jun 2024 08:08:47 -0400
+Received: by mail-ed1-f69.google.com with SMTP id
+ 4fb4d7f45d1cf-57a306c4b1eso3237982a12.0
+ for <xen-devel@lists.xenproject.org>; Wed, 05 Jun 2024 05:08:47 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,130 +44,75 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=4pyXuEtLTnvEiK3MAdfPEc+kj7ugbA7S6NhD+iE8W5E=; b=q8Cc5wBfyMxvr++NseIZEW8Q5f
-	LysZx8Yiys1MYmyaOdqi3M4tUsGe2pvEz/WX4pLsKViuSiEdF/sQVpps3LNh8WojtxY8RdCWL4tP2
-	s+2/Lq8FWhmXwKlcTTSzwzhFJrrvUhvIufrk0HESDJX8yL7TetwDew341fRCxVU9EmNk=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-186255-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 5dd2ca5d-2334-11ef-b4bb-af5377834399
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1717589328;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=2v9Z4zn5H16gf2IEP0RcvQSdt1WbgFyv76Fd0JybRQE=;
+	b=NIsDfowt3iB6zNABTta6Cjs9pcnu/470jqWtXTPCs9BM7KZeXNlllBCNDxgjATgY0f6qbH
+	empyx4v5qJD++bM60CzyV5jFmqBtPn1UtN6uEagXbv9HWqUFdftb0/D4EzdOJ4PCHVf2Eg
+	EcCUzheeL7l7FvS/soiPjdcBflZ1dvg=
+X-MC-Unique: h_UGk8sUMvS-YfTWapbYEg-1
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1717589326; x=1718194126;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=2v9Z4zn5H16gf2IEP0RcvQSdt1WbgFyv76Fd0JybRQE=;
+        b=iumGmIedipODdjRCamjY0ynhfPh1cGpcy4ME/z9NAjsiRNVu3jHlpAZK+gFnqPsh+L
+         VnfXMhbO/bp9iKv8XvUohsBvgXsPZaOeTf6p4smQAfTCPUlGLB4+iIxWG4a2auZUjaqo
+         fHiKmNEByxEAfSTIQGes6vMr7onxzWDavaXOmZITXXNCsT03vW2NiCqwNMLhb42sQmSP
+         deZ/Z9Vib2TYCsT2RDHVmn9lAB/vmSYt7II8dHy9Z5Db9Gk45qtON/SAqpr+AwcAwoI2
+         bMTtU+y/KJETDrJY//vSpqJ2TbGVxF9QNJDVHvWbL0iV0mUkBqoRy1xkALGG6sYHQBty
+         xGsA==
+X-Forwarded-Encrypted: i=1; AJvYcCVo7hW4ApSSleupNfS3VZbCyet2lhhD8Kjg4oITPtAHN0q0gtgl2F3eIHuy4Wh7cavM3tHN/DM9YKgkBErTyRzWIbvLssE/4UrFmwqONNc=
+X-Gm-Message-State: AOJu0YxGOYKoZoUYCC8ESjuugWzB90vH/7eVHHD9bdQPD31rDvdtlN7I
+	Z7mqFoqDmalziT0kqO3c9Zbi+dU64z8iH05Ja92MZ1lEJHAc3Eq34573NRkUExeIOwoCJfbBonX
+	uKlbzUXeWwSbNK6wAHxieeUcyBFx+PKOFvpKQ6KIzknR1esMesDeIKKEV+9C/hKI0elgdFDB2ZF
+	RQ+zm590tixwrnfZv1P0OelwkjUMGDbLlf6AnLoHw=
+X-Received: by 2002:a50:ccc6:0:b0:57a:27e5:2a8a with SMTP id 4fb4d7f45d1cf-57a8b67c31fmr1805739a12.8.1717589326254;
+        Wed, 05 Jun 2024 05:08:46 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IE+JxuJ520EzT+4QtY4uXVm+JfZMvYvj6q9jh0fTRQVgJJ52LosO9DfGMFok6kJpKaWnybVCz6cTTo87EWHuIc=
+X-Received: by 2002:a50:ccc6:0:b0:57a:27e5:2a8a with SMTP id
+ 4fb4d7f45d1cf-57a8b67c31fmr1805731a12.8.1717589325928; Wed, 05 Jun 2024
+ 05:08:45 -0700 (PDT)
 MIME-Version: 1.0
-Subject: [libvirt test] 186255: tolerable all pass - PUSHED
-X-Osstest-Failures:
-    libvirt:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
-    libvirt:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    libvirt:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
-    libvirt:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt:saverestore-support-check:fail:nonblocking
-    libvirt:test-amd64-amd64-libvirt-qcow2:migrate-support-check:fail:nonblocking
-    libvirt:test-amd64-amd64-libvirt-raw:migrate-support-check:fail:nonblocking
-    libvirt:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
-    libvirt:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-qcow2:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-qcow2:saverestore-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
-    libvirt:test-armhf-armhf-libvirt-vhd:migrate-support-check:fail:nonblocking
-    libvirt:test-armhf-armhf-libvirt-vhd:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    libvirt=4381b83d991b51a07ba5b6d3f56e6c0a8910a38d
-X-Osstest-Versions-That:
-    libvirt=83bed4367e76e9003479a8d7bd5cbee080d80017
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Wed, 05 Jun 2024 11:12:15 +0000
+References: <20240603151825.188353-1-kraxel@redhat.com> <20240603151825.188353-2-kraxel@redhat.com>
+ <CAMxuvawqf-0dKPsZP2UTcDWPWQ+8FKbZ=S4KX02hQO1qeeGVMA@mail.gmail.com> <tmtartaqh2ac4azfq4cgwh22uuc4pnrnxjpcpky24xzjrkwb5c@ung7cyha4ppa>
+In-Reply-To: <tmtartaqh2ac4azfq4cgwh22uuc4pnrnxjpcpky24xzjrkwb5c@ung7cyha4ppa>
+From: =?UTF-8?B?TWFyYy1BbmRyw6kgTHVyZWF1?= <marcandre.lureau@redhat.com>
+Date: Wed, 5 Jun 2024 16:08:33 +0400
+Message-ID: <CAMxuvay6qMGCSc7eWzs0Nu7x=VOyG6D56Jb9sNe+azh80GFe1Q@mail.gmail.com>
+Subject: Re: [PATCH v2 1/3] stdvga: fix screen blanking
+To: Gerd Hoffmann <kraxel@redhat.com>
+Cc: qemu-devel@nongnu.org, Anthony PERARD <anthony@xenproject.org>, 
+	Paul Durrant <paul@xen.org>, xen-devel@lists.xenproject.org, 
+	Stefano Stabellini <sstabellini@kernel.org>, qemu-stable@nongnu.org
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-flight 186255 libvirt real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/186255/
+Hi
 
-Failures :-/ but no regressions.
+On Wed, Jun 5, 2024 at 11:36=E2=80=AFAM Gerd Hoffmann <kraxel@redhat.com> w=
+rote:
+>
+> On Tue, Jun 04, 2024 at 10:27:18AM GMT, Marc-Andr=C3=A9 Lureau wrote:
+> > Hi
+> >
+> > > +    if (is_buffer_shared(surface)) {
+> >
+> > Perhaps the suggestion to rename the function (in the following patch)
+> > should instead be surface_is_allocated() ? that would match the actual
+> > flag check. But callers would have to ! the result. Wdyt?
+>
+> surface_is_shadow() ?  Comes closer to the typical naming in computer
+> graphics.
 
-Tests which did not succeed, but are not blocking:
- test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 186243
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-arm64-arm64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt     16 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt-qcow2 14 migrate-support-check        fail never pass
- test-amd64-amd64-libvirt-raw 14 migrate-support-check        fail   never pass
- test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-qcow2 14 migrate-support-check        fail never pass
- test-arm64-arm64-libvirt-qcow2 15 saverestore-support-check    fail never pass
- test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
- test-armhf-armhf-libvirt-vhd 14 migrate-support-check        fail   never pass
- test-armhf-armhf-libvirt-vhd 15 saverestore-support-check    fail   never pass
+If the underlying flag is renamed too, that's ok to me.
 
-version targeted for testing:
- libvirt              4381b83d991b51a07ba5b6d3f56e6c0a8910a38d
-baseline version:
- libvirt              83bed4367e76e9003479a8d7bd5cbee080d80017
-
-Last test of basis   186243  2024-06-04 04:20:32 Z    1 days
-Testing same since   186255  2024-06-05 04:20:30 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Michal Privoznik <mprivozn@redhat.com>
-
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-arm64-libvirt                                          pass    
- build-armhf-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
- test-amd64-amd64-libvirt-xsm                                 pass    
- test-arm64-arm64-libvirt-xsm                                 pass    
- test-amd64-amd64-libvirt                                     pass    
- test-arm64-arm64-libvirt                                     pass    
- test-armhf-armhf-libvirt                                     pass    
- test-amd64-amd64-libvirt-pair                                pass    
- test-amd64-amd64-libvirt-qcow2                               pass    
- test-arm64-arm64-libvirt-qcow2                               pass    
- test-amd64-amd64-libvirt-raw                                 pass    
- test-arm64-arm64-libvirt-raw                                 pass    
- test-amd64-amd64-libvirt-vhd                                 pass    
- test-armhf-armhf-libvirt-vhd                                 pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/libvirt.git
-   83bed4367e..4381b83d99  4381b83d991b51a07ba5b6d3f56e6c0a8910a38d -> xen-tested-master
 
