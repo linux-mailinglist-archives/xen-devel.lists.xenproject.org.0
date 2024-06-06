@@ -2,35 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0F35C8FDE11
-	for <lists+xen-devel@lfdr.de>; Thu,  6 Jun 2024 07:10:34 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.735881.1141986 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 769A18FDE4D
+	for <lists+xen-devel@lfdr.de>; Thu,  6 Jun 2024 07:48:32 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.735891.1141996 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sF5NJ-0001Zp-3b; Thu, 06 Jun 2024 05:09:21 +0000
+	id 1sF5ye-0006Fk-Vh; Thu, 06 Jun 2024 05:47:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 735881.1141986; Thu, 06 Jun 2024 05:09:21 +0000
+Received: by outflank-mailman (output) from mailman id 735891.1141996; Thu, 06 Jun 2024 05:47:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sF5NJ-0001XC-0G; Thu, 06 Jun 2024 05:09:21 +0000
-Received: by outflank-mailman (input) for mailman id 735881;
- Thu, 06 Jun 2024 05:09:19 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1sF5ye-0006DJ-SJ; Thu, 06 Jun 2024 05:47:56 +0000
+Received: by outflank-mailman (input) for mailman id 735891;
+ Thu, 06 Jun 2024 05:47:55 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1sF5NH-0001X2-GS; Thu, 06 Jun 2024 05:09:19 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1sF5NH-0001DE-D7; Thu, 06 Jun 2024 05:09:19 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1sF5NH-0002g7-53; Thu, 06 Jun 2024 05:09:19 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1sF5NH-0000k3-4e; Thu, 06 Jun 2024 05:09:19 +0000
+ (envelope-from <SRS0=OoW9=NI=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1sF5yc-0006DD-V0
+ for xen-devel@lists.xenproject.org; Thu, 06 Jun 2024 05:47:54 +0000
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 502ca8ec-23c8-11ef-b4bb-af5377834399;
+ Thu, 06 Jun 2024 07:47:52 +0200 (CEST)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 3DD591F8A3;
+ Thu,  6 Jun 2024 05:47:51 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 8637513A7B;
+ Thu,  6 Jun 2024 05:47:50 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id RHutHIZNYWbSMgAAD6G6ig
+ (envelope-from <jgross@suse.com>); Thu, 06 Jun 2024 05:47:50 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,72 +52,95 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=7+6v1S2w02tNByKPLNpsWdT9RO9iTdTpZRmFDsZAY9c=; b=N/W5H0zbiTCN/Agw1LGRVQQKhF
-	trMCvmsWho4vfTX03LbTArZN5AApWNTkvUIpRYpPH/EMRc37gr38VCCisPkBxyFr5sl6XKpsmef3/
-	9gW5TvHFxljDTUJVdCsoviEePIa8Re7uXg6elR6vHrhDQF1tTuoL4OqXVE/0Fw7Oxtik=;
+X-Inumbo-ID: 502ca8ec-23c8-11ef-b4bb-af5377834399
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1717652871; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=HJD9NQU4GT2PqKcUt8lgFTWuNUHKLP/7bYpY6Dky8iA=;
+	b=Pud4WLzeP7Kt3B/B5ROkKS9x86OXynbB+r8fq6Aq77WBJKnoBHsS+GGLJvkTOh+CMgdU+0
+	y+yLR1koUfKl1bQ8LnJDsrVFWxWVY2ZuI6QrLg5kXxLSUtKaFN0ZVKabBTC8P3uEe47V0D
+	Z9hpqp2nYuPxnChCO6krWmNYfkBoecQ=
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.com header.s=susede1 header.b=Pud4WLze
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1717652871; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=HJD9NQU4GT2PqKcUt8lgFTWuNUHKLP/7bYpY6Dky8iA=;
+	b=Pud4WLzeP7Kt3B/B5ROkKS9x86OXynbB+r8fq6Aq77WBJKnoBHsS+GGLJvkTOh+CMgdU+0
+	y+yLR1koUfKl1bQ8LnJDsrVFWxWVY2ZuI6QrLg5kXxLSUtKaFN0ZVKabBTC8P3uEe47V0D
+	Z9hpqp2nYuPxnChCO6krWmNYfkBoecQ=
+From: Juergen Gross <jgross@suse.com>
 To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-186262-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+Cc: Juergen Gross <jgross@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Wei Liu <wl@xen.org>
+Subject: [PATCH] MAINTAINERS: add an entry for tools/9pfsd
+Date: Thu,  6 Jun 2024 07:47:44 +0200
+Message-Id: <20240606054745.23555-1-jgross@suse.com>
+X-Mailer: git-send-email 2.35.3
 MIME-Version: 1.0
-Subject: [ovmf test] 186262: all pass - PUSHED
-X-Osstest-Versions-This:
-    ovmf=b45aff0dc9cb87f316eb17a11e5d4438175d9cca
-X-Osstest-Versions-That:
-    ovmf=10ab1c67c489942b787b784a48d46623b442cfd1
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Thu, 06 Jun 2024 05:09:19 +0000
+Content-Transfer-Encoding: 8bit
+X-Spam-Level: 
+X-Spamd-Result: default: False [-0.28 / 50.00];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_MISSING_CHARSET(0.50)[];
+	BAYES_HAM(-0.27)[74.15%];
+	R_DKIM_ALLOW(-0.20)[suse.com:s=susede1];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	ARC_NA(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	FUZZY_BLOCKED(0.00)[rspamd.com];
+	DKIM_SIGNED(0.00)[suse.com:s=susede1];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_TLS_ALL(0.00)[];
+	DKIM_TRACE(0.00)[suse.com:+];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	RCPT_COUNT_SEVEN(0.00)[8];
+	DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from,2a07:de40:b281:106:10:150:64:167:received];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:dkim,suse.com:email]
+X-Spam-Flag: NO
+X-Spam-Score: -0.28
+X-Spamd-Bar: /
+X-Rspamd-Queue-Id: 3DD591F8A3
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Action: no action
 
-flight 186262 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/186262/
+Add me as the maintainer for the tools/9pfsd directory.
 
-Perfect :-)
-All tests in this flight passed as required
-version targeted for testing:
- ovmf                 b45aff0dc9cb87f316eb17a11e5d4438175d9cca
-baseline version:
- ovmf                 10ab1c67c489942b787b784a48d46623b442cfd1
+Signed-off-by: Juergen Gross <jgross@suse.com>
+---
+ MAINTAINERS | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-Last test of basis   186259  2024-06-05 22:11:07 Z    0 days
-Testing same since   186262  2024-06-06 02:42:55 Z    0 days    1 attempts
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 076cf1e141..28fb35582b 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -206,6 +206,12 @@ Maintainers List (try to look for most precise areas first)
+ 
+ 		-----------------------------------
+ 
++9PFSD
++M:	Juergen Gross <jgross@suse.com>
++M:	Anthony PERARD <anthony.perard@citrix.com>
++S:	Supported
++F:	tools/9pfsd
++
+ ACPI
+ M:	Jan Beulich <jbeulich@suse.com>
+ S:	Supported
+-- 
+2.35.3
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Gerd Hoffmann <kraxel@redhat.com>
-
-jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
-   10ab1c67c4..b45aff0dc9  b45aff0dc9cb87f316eb17a11e5d4438175d9cca -> xen-tested-master
 
