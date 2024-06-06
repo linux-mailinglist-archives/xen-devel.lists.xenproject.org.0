@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 60D9A8FE049
-	for <lists+xen-devel@lfdr.de>; Thu,  6 Jun 2024 09:58:17 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.736014.1142146 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DCF608FE11C
+	for <lists+xen-devel@lfdr.de>; Thu,  6 Jun 2024 10:38:06 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.736026.1142156 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sF80O-0006Dw-9O; Thu, 06 Jun 2024 07:57:52 +0000
+	id 1sF8cC-0005WS-7M; Thu, 06 Jun 2024 08:36:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 736014.1142146; Thu, 06 Jun 2024 07:57:52 +0000
+Received: by outflank-mailman (output) from mailman id 736026.1142156; Thu, 06 Jun 2024 08:36:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sF80O-0006Bt-6c; Thu, 06 Jun 2024 07:57:52 +0000
-Received: by outflank-mailman (input) for mailman id 736014;
- Thu, 06 Jun 2024 07:57:50 +0000
+	id 1sF8cC-0005Tm-4a; Thu, 06 Jun 2024 08:36:56 +0000
+Received: by outflank-mailman (input) for mailman id 736026;
+ Thu, 06 Jun 2024 08:36:54 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=tbpc=NI=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sF80M-0006Bn-8D
- for xen-devel@lists.xenproject.org; Thu, 06 Jun 2024 07:57:50 +0000
-Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
- [2a00:1450:4864:20::42f])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=PrXz=NI=gmail.com=xadimgnik@srs-se1.protection.inumbo.net>)
+ id 1sF8cA-0005Tg-IF
+ for xen-devel@lists.xenproject.org; Thu, 06 Jun 2024 08:36:54 +0000
+Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
+ [2a00:1450:4864:20::332])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 7796abe9-23da-11ef-90a2-e314d9c70b13;
- Thu, 06 Jun 2024 09:57:48 +0200 (CEST)
-Received: by mail-wr1-x42f.google.com with SMTP id
- ffacd0b85a97d-35dce610207so767939f8f.2
- for <xen-devel@lists.xenproject.org>; Thu, 06 Jun 2024 00:57:48 -0700 (PDT)
-Received: from [172.20.145.98] ([62.28.225.65])
+ id ecc18d80-23df-11ef-90a2-e314d9c70b13;
+ Thu, 06 Jun 2024 10:36:53 +0200 (CEST)
+Received: by mail-wm1-x332.google.com with SMTP id
+ 5b1f17b1804b1-4210aa012e5so8856205e9.0
+ for <xen-devel@lists.xenproject.org>; Thu, 06 Jun 2024 01:36:53 -0700 (PDT)
+Received: from [192.168.0.151] (54-240-197-239.amazon.com. [54.240.197.239])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-35ef5d29e63sm847640f8f.17.2024.06.06.00.57.47
+ 5b1f17b1804b1-4215c2c690dsm13781485e9.34.2024.06.06.01.36.51
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 06 Jun 2024 00:57:48 -0700 (PDT)
+ Thu, 06 Jun 2024 01:36:51 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,67 +45,78 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7796abe9-23da-11ef-90a2-e314d9c70b13
+X-Inumbo-ID: ecc18d80-23df-11ef-90a2-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1717660668; x=1718265468; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=LiSjfKscAIgkbIh+5/HtmWJ/93xp6nvqOK25vHNy3og=;
-        b=gaD1BMrHABOOFCVqT1ZMm2QS9qS9HDemc/fQgo+6yGLynKcJOot/36SQPEoO8I5U9s
-         9gOS/lIPldXql8v21nnxejgFBFNKiaHlEONEVxdd/vvLhc3ouXDKqMIirZrlHUhJaA7S
-         tAU2L+reCm+dDdPIl8BYSBtQI8RtQ/kKG5ol7+hnkn9osw18iN2FQ+O79nNyk5GD3jde
-         uL1zdX2hj7NcGsaL+PhTfvDbRs7fCgUR9upDuHno05O4rP/VHoZUEhKmu2r4KMgn0dgV
-         cQFwjscIIbcY65qMNcC0+L3gk8pQjvhgn43nnC7NTIWtN2OLALcg8SjVsNUc/1uXzjPc
-         w03g==
+        d=gmail.com; s=20230601; t=1717663012; x=1718267812; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:organization:content-language
+         :references:cc:to:subject:reply-to:user-agent:mime-version:date
+         :message-id:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=rzOlTpGXOFDC46rae4mb64yBb7uEDZ0xP/1eKZGmBUw=;
+        b=FrxzL4GhLm10bhjOnz/7cvkbWOyzrN5DmuBsLeJaI+Nrp6ZuNPHt076egcBXVrTSZX
+         duQif5UbtlfxuUdpt/2M3UCbqZ42CxrN3qIDpGEIeY3MVyzMJSKJ5m3AAwAlMWuCQ8Rn
+         /o0Xft/wgaqDtI0IzQXl1oybgrtfLeDXh0Hjb9SVyG+OIaOsoBCBziMO6TUWMAeiB+oN
+         jaubWJJ8QWSi4nBHjRUAw/hcw9sOO/664jXJFwYL5+8wsNKx3itF7eyAUt+ah4GAMyq5
+         jAk3KCyNKLrd8X91iCaxrnz305Sr6lRZyRmAOuFIcqch3+U6wIin8QKxvXX2PRxQtInv
+         n2gA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1717660668; x=1718265468;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=LiSjfKscAIgkbIh+5/HtmWJ/93xp6nvqOK25vHNy3og=;
-        b=ADABd+xsBgsoGKEdlFY7Q3QPGIWetGxs2nuCYujX62cUF+ehdHmqayF7g0Xiap+lao
-         bB11XTXwskgoGUhUBSHeORcLJk88g1EHq2nI5RxutIpg4Z7PZ7s55Tg21mt8THdngSXr
-         f+I7sz3JDiR/lnZ/ywuturF30wzw/WwWEEK1o0mxJeB83yp00S1E3s7lnV8ssWN7QE4t
-         O+ckLWBNMtlB9/JJmT2usjfN6thmmZVOCbn7OFjN4T8ehqBg9ZnmgdCgVgkdeMo/mkgh
-         IxWn+QE+zigiQhb4H5HiSwoXm9FfZ01C9W9m6zaXUV2JJrbOjRIKE9j+fI9WLTiY4AVE
-         eKHA==
-X-Forwarded-Encrypted: i=1; AJvYcCVgEQznhgHATDgVL3jJkaI8REFfWU5R5giBluWtI9UJntu5cC2hCTd6TID3Ygomk9PkKih/aqHhXdD0UGuJ8LK2Eqnk4G/Qz13DHC2/ZFg=
-X-Gm-Message-State: AOJu0YxEWu37QqPxFawQiPWEfdmBVKiSCJm7Bzj4OHaeK4jM+w4/hUkS
-	s1AA89b8ScYuL5Vl6R2/tYjtvNwqzTPIRO5BaxkRR+pXovEGkdFJkur+lz+3Oz84Y6JCNXXGmCY
-	=
-X-Google-Smtp-Source: AGHT+IEc0Jq3aAP8S7dwx87ffsQIZv9tJumymC80qkr4UerYfp5GLyBFA74vfMUPbnDHujvAJpuF8w==
-X-Received: by 2002:adf:f601:0:b0:354:f489:faf with SMTP id ffacd0b85a97d-35e8406dd8emr4514038f8f.1.1717660668369;
-        Thu, 06 Jun 2024 00:57:48 -0700 (PDT)
-Message-ID: <8936b5ef-1ef7-4606-9f19-c75287aa88fa@suse.com>
-Date: Thu, 6 Jun 2024 09:57:46 +0200
+        d=1e100.net; s=20230601; t=1717663012; x=1718267812;
+        h=content-transfer-encoding:in-reply-to:organization:content-language
+         :references:cc:to:subject:reply-to:user-agent:mime-version:date
+         :message-id:from:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=rzOlTpGXOFDC46rae4mb64yBb7uEDZ0xP/1eKZGmBUw=;
+        b=kcJe2BjnUdR/NwxZd6EMpOxRIVesGRnFJ/MCH68rhMkjdSHiXQMDRgP6aMonviT8ms
+         53aejD0ada75rQxWeHFlNxC7tSIgjl8g59/pQ1xcMfO9EJMksg/jxy+H14hM6A7FT97S
+         H6KK7gXl1gj7GAdTKV8SF7oSyYDfKD+8NV4GdLuCsGi9ub29qJ+LYC8toTtsqdG0v0X5
+         OAf6PtAKKNag+uK1n5ypfh+E8QHXNKzDeOWMVwMMU8g27Wr7r3H3PmTFaX008UT4oJsy
+         zmtgJzs9kS5pb9lJCo+TFOckDPoiFf7hLUVc5O2s1pnoryI7no6lJgAOrRrNeLkS7KRA
+         XN1A==
+X-Forwarded-Encrypted: i=1; AJvYcCVEzk9pQIue3A9pm5FSB++wWDqE6PGbGgdmYaSwgK6ZI1bCzzJ+HVfiYs5/nZAGG/xAHe2ZdKVx0p3wNQ+wsTJ+u63J2JFmP7zfEM/JeKE=
+X-Gm-Message-State: AOJu0YzJ/PXblyi3if1PW55bpUw8eKiPGD+GeVBx/0luNJGXxrO64ad5
+	oq0wYpVeZh9zmTRGEJS8iYS5F3wjtNf8XTH0J1WxYxGVtOuocy+P
+X-Google-Smtp-Source: AGHT+IGzT54QNK7IhOhsW9oQdhMM/tkMLq7skxG0VwQqxfW7PvYNgJZbnLqz09Ajr4xdIhZI5tb7+w==
+X-Received: by 2002:a05:600c:524c:b0:421:4f34:3ada with SMTP id 5b1f17b1804b1-4215632dd1bmr43362575e9.32.1717663012050;
+        Thu, 06 Jun 2024 01:36:52 -0700 (PDT)
+From: Paul Durrant <xadimgnik@gmail.com>
+X-Google-Original-From: Paul Durrant <paul@xen.org>
+Message-ID: <434fea2b-c7e9-42b3-bc1c-27ef811d0027@xen.org>
+Date: Thu, 6 Jun 2024 09:36:50 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH for-4.19? v5 09/10] xen/x86: Disallow creating domains
- with altp2m enabled and altp2m.nr == 0
-To: =?UTF-8?Q?Petr_Bene=C5=A1?= <w1benny@gmail.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org
-References: <cover.1717356829.git.w1benny@gmail.com>
- <d6fd97b66b5f1a974e317c9d3f72fb139b39118f.1717356829.git.w1benny@gmail.com>
+Reply-To: paul@xen.org
+Subject: Re: [PATCH v3 3/3] ui+display: rename is_buffer_shared() ->
+ surface_is_allocated()
+To: Gerd Hoffmann <kraxel@redhat.com>, qemu-devel@nongnu.org
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ =?UTF-8?Q?Marc-Andr=C3=A9_Lureau?= <marcandre.lureau@redhat.com>,
+ xen-devel@lists.xenproject.org, Anthony PERARD <anthony@xenproject.org>,
+ =?UTF-8?Q?Marc-Andr=C3=A9_Lureau?= <marcandre.lureau@gmail.com>
+References: <20240605131444.797896-1-kraxel@redhat.com>
+ <20240605131444.797896-4-kraxel@redhat.com>
 Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <d6fd97b66b5f1a974e317c9d3f72fb139b39118f.1717356829.git.w1benny@gmail.com>
-Content-Type: text/plain; charset=UTF-8
+Organization: Xen Project
+In-Reply-To: <20240605131444.797896-4-kraxel@redhat.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-On 02.06.2024 22:04, Petr Beneš wrote:
-> From: Petr Beneš <w1benny@gmail.com>
+On 05/06/2024 14:14, Gerd Hoffmann wrote:
+> Boolean return value is reversed, to align with QEMU_ALLOCATED_FLAG, so
+> all callers must be adapted.  Also rename share_surface variable in
+> vga_draw_graphic() to reduce confusion.
 > 
-> Since libxl finally sends the altp2m.nr value, we can remove the previously
-> introduced temporary workaround.
+> No functional change.
 > 
-> Creating domain with enabled altp2m while setting altp2m.nr == 0 doesn't
-> make sense and it's probably not what user wants.
+> Suggested-by: Marc-André Lureau <marcandre.lureau@gmail.com>
+> Signed-off-by: Gerd Hoffmann <kraxel@redhat.com>
+> ---
+>   include/ui/surface.h    |  4 ++--
+>   hw/display/qxl-render.c |  2 +-
+>   hw/display/vga.c        | 20 ++++++++++----------
+>   hw/display/xenfb.c      |  5 +++--
+>   ui/console.c            |  3 ++-
+>   5 files changed, 18 insertions(+), 16 deletions(-)
+> 
 
-Yet: Do we need separate count and flag anymore? Can't "nr != 0"
-take the place of the flag being true?
+Reviewed-by: Paul Durrant <paul@xen.org>
 
-Jan
 
