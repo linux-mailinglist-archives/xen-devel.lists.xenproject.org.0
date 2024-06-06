@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EE8408FDE9A
-	for <lists+xen-devel@lfdr.de>; Thu,  6 Jun 2024 08:15:31 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.735907.1142026 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 85FAB8FDF26
+	for <lists+xen-devel@lfdr.de>; Thu,  6 Jun 2024 08:53:38 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.735916.1142036 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sF6OS-00039f-CG; Thu, 06 Jun 2024 06:14:36 +0000
+	id 1sF6zb-0000DT-8Z; Thu, 06 Jun 2024 06:52:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 735907.1142026; Thu, 06 Jun 2024 06:14:36 +0000
+Received: by outflank-mailman (output) from mailman id 735916.1142036; Thu, 06 Jun 2024 06:52:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sF6OS-00037P-9C; Thu, 06 Jun 2024 06:14:36 +0000
-Received: by outflank-mailman (input) for mailman id 735907;
- Thu, 06 Jun 2024 06:14:34 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1sF6zb-0000BM-4n; Thu, 06 Jun 2024 06:52:59 +0000
+Received: by outflank-mailman (input) for mailman id 735916;
+ Thu, 06 Jun 2024 06:52:57 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=tbpc=NI=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sF6OQ-00037J-Oc
- for xen-devel@lists.xenproject.org; Thu, 06 Jun 2024 06:14:34 +0000
-Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
- [2a00:1450:4864:20::432])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 0a297257-23cc-11ef-b4bb-af5377834399;
- Thu, 06 Jun 2024 08:14:32 +0200 (CEST)
-Received: by mail-wr1-x432.google.com with SMTP id
- ffacd0b85a97d-35dcff36522so614717f8f.1
- for <xen-devel@lists.xenproject.org>; Wed, 05 Jun 2024 23:14:32 -0700 (PDT)
+ id 1sF6zZ-0000BG-Qj
+ for xen-devel@lists.xenproject.org; Thu, 06 Jun 2024 06:52:57 +0000
+Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
+ [2a00:1450:4864:20::42b])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 6772c8b1-23d1-11ef-90a2-e314d9c70b13;
+ Thu, 06 Jun 2024 08:52:56 +0200 (CEST)
+Received: by mail-wr1-x42b.google.com with SMTP id
+ ffacd0b85a97d-35dc36b107fso640762f8f.1
+ for <xen-devel@lists.xenproject.org>; Wed, 05 Jun 2024 23:52:56 -0700 (PDT)
 Received: from [172.31.7.231] ([62.28.210.62])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-35ef5e96c15sm644603f8f.75.2024.06.05.23.14.30
+ ffacd0b85a97d-35ef5e98b0fsm716632f8f.72.2024.06.05.23.52.54
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 05 Jun 2024 23:14:31 -0700 (PDT)
+ Wed, 05 Jun 2024 23:52:55 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,84 +45,232 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0a297257-23cc-11ef-b4bb-af5377834399
+X-Inumbo-ID: 6772c8b1-23d1-11ef-90a2-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1717654472; x=1718259272; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1717656776; x=1718261576; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:from:content-language
          :references:cc:to:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=kRKrKhUC+jacDQ6vyLo09CgzUBl80TIrI9om95rMHjY=;
-        b=W6WLq8xEqYum0C3domXE8AVrlrChQZaN7Tvfl9GoJko83Br+8swFYU7oIv61LU39yJ
-         b4oKZsRphlK6+BI56YMBQ684HOid6L4dMHsYi8ee4dEmlkaBJ7LSasKnUgrtAFnk8GO3
-         vf34Br10zWmXZR1U58HVs7z/mZy+GwMvhF/TKYjQ2A3OOAtIVjdkThzYYaRwqtgBAiTv
-         lXjcv18yQxHBzqGc4l5C19hta/+yrzC8ZbuVnzkl5XYbBe2MUzwX/Sif6Uj1h8jaFNtx
-         wJiXyM9UXpUGVYpr8URdkYNgIMx4YMH88+PWEnigx5gzIf1P4nf1gxvqvzwzXjgYvkXN
-         ctjA==
+        bh=+MVxC/nZqC5UrbUucVWosnkii0meRc5NzeEzYI0F+Bs=;
+        b=bO0ul5fNGLIQS9OlX6mAlnRz+mKvhkMs+SZUBpMP4kM0m3Ts/dAM8yUYg+ioFWgDhW
+         smlEdGAE663Ck5CgOKqgSU2wacm4o5BbLrAvFZ0rzzP8io8g4Y6Ugqd/u6l531pehWdz
+         fQqOqRs1x6ULCYKbO/Eq0dID2U2BcuVXlxVLLydaYBpDc98ixN/sJZzKFqQ81ac4dS+d
+         yu8Ve3eg+Fonk6hT1Vih8BpZVF967dop+mNaWioKAYEfGbgo5+RVXpLhB6RSCpaNAyhe
+         00pELBRHMmtKN2Zehl98OoGjHTGex8ec2yZgl6cRFpF4DunUBZeYMxqYiiaisdwNG7j+
+         euPw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1717654472; x=1718259272;
+        d=1e100.net; s=20230601; t=1717656776; x=1718261576;
         h=content-transfer-encoding:in-reply-to:from:content-language
          :references:cc:to:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=kRKrKhUC+jacDQ6vyLo09CgzUBl80TIrI9om95rMHjY=;
-        b=vMJWh/3dtuMyWnMKC7HOGOSCEGfDocX4oVfcnHDQuTPir3zXu7cY5OmwBD38vHtSTJ
-         LFrpnqt6PfgQ8u0CkxpqXqnvcmBECvDZood3KPJgwHXhp5VdxsZdhMo5dQABaBHErGqo
-         tnqPSANqZ076CWQtFScXFblVCIFPTygGaZhZQZ/xY92JElCRRnfPIQ+RaGg/BthWLFad
-         a2xbapck+5IpUmlhYUP6xLVHHyji3Ndpxl7ntNYptBeRFxyDQlD0PTtwey9oYlBqSEWz
-         aZ8PYagL6wXRjh4DkQO1ViM8L98cmOO4OaT3FAnsxvWynqz36bPxwNDwekfwHfeGyKwe
-         uuKA==
-X-Forwarded-Encrypted: i=1; AJvYcCXg/Y4lvIvIol7K0wH+41+hERr4Ov3I1YTz04osnYaxd+WRU9ZSYP3A0soWp+KgmEe3qCwUzuLEgchnBqe5cdd2SCglktdC2lcRJ6beV6Q=
-X-Gm-Message-State: AOJu0Yy0C5otPZKgWixqR0zWLvB2HeYHUtC+s7P7Pn4fwRABH3Q6a2/G
-	O3DGretbcYBKfCLwva1La9MS75ROYu7DRgdkmWyTaJU9atWg0pZehuS+nX67+w==
-X-Google-Smtp-Source: AGHT+IEI0uoyaFiPKkVpQ7TkAvRlOxIZZCvxldIDqD8mPU9mkQzgsjMUmWfk+rR1Q4J+of6VyaMtaQ==
-X-Received: by 2002:a5d:4b0a:0:b0:354:e746:7515 with SMTP id ffacd0b85a97d-35e8ef15cd1mr3061975f8f.34.1717654471751;
-        Wed, 05 Jun 2024 23:14:31 -0700 (PDT)
-Message-ID: <053fe7c5-4f91-450c-b00d-24ae231e2e8c@suse.com>
-Date: Thu, 6 Jun 2024 08:14:29 +0200
+        bh=+MVxC/nZqC5UrbUucVWosnkii0meRc5NzeEzYI0F+Bs=;
+        b=hNMDidUn71M1TL07VOzfUFv05caL/+Bnxe2WQ5JoM9f6kou3A87Rv6i2BKCZCgCpRO
+         t22x85xdwKAxN2a/BuO3LGP0tw/cnj1qVwItG/uhCcmHXfv16NuNODKNSp5gNo6AnUVA
+         iLY6nq2zfFdh8BBuLqgTlYTjJl4zq93fLrvm4ns29peDS/Am+iTKxFREjNNhyhtOlgqR
+         QoW2EkueuXKXsMNPtZvVcjktKn4iMs1mLwdwL+NlxBoitABpjTxZtD6JkQdKVfPxtsvz
+         ByrNfuUVExVNgcapvyP+RD0A5rqNmwdR6zu3ULhDR8pRlZn3lqo4EIpEVio0dL5OS134
+         E6Lw==
+X-Forwarded-Encrypted: i=1; AJvYcCWzrwGsmBYPBziR51/BAvxjyZ/YOwLTxC0ktSw2ilNe5qdu8gYRAX92P3ZR9W4s7sJvcFB5yebAOZRiIEv3Lw8AO/v6JevRALH1zHkJYpM=
+X-Gm-Message-State: AOJu0YwffQx/IUNEs1eDd+R2yWL17AE/qJSI3cueveGyIH2jCpjY+xFj
+	PhUto+3zfsH2Am1aiSJg9Od3mjkb21OVAQRil8R/5o3Venfg9lRvBilVkwh2Dw==
+X-Google-Smtp-Source: AGHT+IH/3T92HokCXPs3pX2e6M4X9PKLybkMVdIZSCucz/4AXa4FWyJho66RCZWTtaZSB/7dCoHxAA==
+X-Received: by 2002:a05:6000:b82:b0:356:4cfa:b4b9 with SMTP id ffacd0b85a97d-35e84058666mr3683902f8f.2.1717656775681;
+        Wed, 05 Jun 2024 23:52:55 -0700 (PDT)
+Message-ID: <abe801a1-dba7-487b-91c6-3a97cb8523ca@suse.com>
+Date: Thu, 6 Jun 2024 08:52:53 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC XEN PATCH v8 5/5] domctl: Add XEN_DOMCTL_gsi_permission to
- grant gsi
-To: "Chen, Jiqian" <Jiqian.Chen@amd.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu
- <wl@xen.org>, George Dunlap <george.dunlap@citrix.com>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- Anthony PERARD <anthony@xenproject.org>, Juergen Gross <jgross@suse.com>,
- "Hildebrand, Stewart" <Stewart.Hildebrand@amd.com>,
- "Huang, Ray" <Ray.Huang@amd.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- "Daniel P . Smith" <dpsmith@apertussolutions.com>
-References: <20240516095235.64128-1-Jiqian.Chen@amd.com>
- <fbaf7086-85d8-4433-91d9-ef8f74512685@suse.com>
- <BL1PR12MB58494B521CB40BAEA30CB412E7F32@BL1PR12MB5849.namprd12.prod.outlook.com>
- <677e564e-4702-4a37-83df-8d47135b62ff@suse.com>
- <BL1PR12MB58494C3B7032B8BEFECF057DE7F82@BL1PR12MB5849.namprd12.prod.outlook.com>
- <4a421aa5-b4c5-43f3-85cb-68c2021f13dd@suse.com>
- <BL1PR12MB58492BA224EBCE98549A0349E7F82@BL1PR12MB5849.namprd12.prod.outlook.com>
- <f125e2e3-b579-410f-b6ab-93d008bf9a9e@suse.com>
- <BL1PR12MB58494B2DD0CD75CCDF1F5CA1E7F82@BL1PR12MB5849.namprd12.prod.outlook.com>
- <67960b60-3108-4920-8bf1-68a00e117569@suse.com>
- <BL1PR12MB58490E8F1F26532B0FDFFFD6E7F82@BL1PR12MB5849.namprd12.prod.outlook.com>
- <46b884e2-cbec-46f0-9070-7013307a310f@suse.com>
- <BL1PR12MB5849C1D40FCF9861BFE7B208E7F92@BL1PR12MB5849.namprd12.prod.outlook.com>
- <6d2e49bf-7be2-48f1-8075-dc0626015c17@suse.com>
- <BL1PR12MB5849932D0F3D280E4B8574DCE7F92@BL1PR12MB5849.namprd12.prod.outlook.com>
+Subject: Re: [PATCH] xen/riscv: PE/COFF image header for RISC-V target
+To: milandjokic1995@gmail.com
+Cc: milan.djokic@rt-rk.com, Nikola Jelic <nikola.jelic@rt-rk.com>,
+ Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ xen-devel@lists.xenproject.org, Oleksii Kurochko <oleksii.kurochko@gmail.com>
+References: <87b5e458498bbff2e54ac011a50ff1f9555c3613.1717354932.git.milan.djokic@rt-rk.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <BL1PR12MB5849932D0F3D280E4B8574DCE7F92@BL1PR12MB5849.namprd12.prod.outlook.com>
+In-Reply-To: <87b5e458498bbff2e54ac011a50ff1f9555c3613.1717354932.git.milan.djokic@rt-rk.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 05.06.2024 12:22, Chen, Jiqian wrote:
-> On 2024/6/5 18:09, Jan Beulich wrote:
->> On 05.06.2024 09:04, Chen, Jiqian wrote:
->>> For now, if hypervisor gets a high GSIs, it can't be transformed to irq, because there is no mapping between them.
->>
->> No, in the absence of a source override (note the word "override") the
->> default identity mapping applies.
-> What is identity mapping?
+On 05.06.2024 18:54, milandjokic1995@gmail.com wrote:
+> --- a/xen/arch/riscv/Kconfig
+> +++ b/xen/arch/riscv/Kconfig
+> @@ -9,6 +9,15 @@ config ARCH_DEFCONFIG
+>  	string
+>  	default "arch/riscv/configs/tiny64_defconfig"
+>  
+> +config RISCV_EFI
+> +	bool "UEFI boot service support"
+> +	depends on RISCV_64
+> +	default n
+> +	help
+> +	  This option provides support for boot services through
+> +	  UEFI firmware. A UEFI stub is provided to allow Xen to
+> +	  be booted as an EFI application.
 
-GSI == IRQ
+Hmm, all of this promises quite a bit more than you actually add. If
+there are future plans, please clarify in the description. Otherwise
+please consider adjusting name, prompt, and help text to actually
+cover just what's actually done.
+
+> --- /dev/null
+> +++ b/xen/arch/riscv/include/asm/image.h
+
+This is pretty generic a name for something pretty specific.
+
+> @@ -0,0 +1,62 @@
+> +/* SPDX-License-Identifier: GPL-2.0 */
+> +
+> +
+> +#ifndef _ASM_RISCV_IMAGE_H
+> +#define _ASM_RISCV_IMAGE_H
+> +
+> +#define RISCV_IMAGE_MAGIC	"RISCV\0\0\0"
+> +#define RISCV_IMAGE_MAGIC2	"RSC\x05"
+> +
+> +#define RISCV_IMAGE_FLAG_BE_SHIFT	0
+> +#define RISCV_IMAGE_FLAG_BE_MASK	0x1
+> +
+> +#define RISCV_IMAGE_FLAG_LE		0
+> +#define RISCV_IMAGE_FLAG_BE		1
+> +
+> +#ifdef CONFIG_CPU_BIG_ENDIAN
+
+I don't think we have such a Kconfig control.
+
+> +#error conversion of header fields to LE not yet implemented
+> +#else
+> +#define __HEAD_FLAG_BE		RISCV_IMAGE_FLAG_LE
+> +#endif
+> +
+> +#define __HEAD_FLAG(field)	(__HEAD_FLAG_##field << \
+> +				RISCV_IMAGE_FLAG_##field##_SHIFT)
+> +
+> +#define __HEAD_FLAGS		(__HEAD_FLAG(BE))
+> +
+> +#define RISCV_HEADER_VERSION_MAJOR 0
+> +#define RISCV_HEADER_VERSION_MINOR 2
+> +
+> +#define RISCV_HEADER_VERSION (RISCV_HEADER_VERSION_MAJOR << 16 | \
+> +			      RISCV_HEADER_VERSION_MINOR)
+
+Nit: Indentation of this 2nd line wants to result in the two RISCV_
+to be properly aligned.
+
+> +#ifndef __ASSEMBLY__
+> +/*
+> + * struct riscv_image_header - riscv xen image header
+> + *
+> + * @code0:		Executable code
+> + * @code1:		Executable code
+> + * @text_offset:	Image load offset
+> + * @image_size:		Effective Image size
+> + * @reserved:		reserved
+> + * @reserved:		reserved
+> + * @reserved:		reserved
+> + * @magic:		Magic number
+> + * @reserved:		reserved
+> + * @reserved:		reserved (will be used for PE COFF offset)
+> + */
+> +
+> +struct riscv_image_header {
+> +	u32 code0;
+> +	u32 code1;
+> +	u64 text_offset;
+> +	u64 image_size;
+> +	u64 res1;
+> +	u64 res2;
+> +	u64 res3;
+> +	u64 magic;
+> +	u32 res4;
+> +	u32 res5;
+
+No new uses of u32 / u64 anymore, please. We're in the process of fully
+moving to uint<N>_t.
+
+> --- a/xen/arch/riscv/riscv64/head.S
+> +++ b/xen/arch/riscv/riscv64/head.S
+> @@ -1,14 +1,40 @@
+>  #include <asm/asm.h>
+>  #include <asm/riscv_encoding.h>
+> +#include <asm/image.h>
+>  
+>          .section .text.header, "ax", %progbits
+>  
+>          /*
+>           * OpenSBI pass to start():
+>           *   a0 -> hart_id ( bootcpu_id )
+> -         *   a1 -> dtb_base 
+> +         *   a1 -> dtb_base
+>           */
+>  FUNC(start)
+> +#ifdef CONFIG_RISCV_EFI
+> +        j xen_start
+
+Comparing with what Arm does, shouldn't this similarly resolve to
+the MZ pattern in the binary? In which case likely it needs to be
+an entirely different insn, if such an insn even exists on RISC-V?
+Otherwise the lack of MZ would clearly need explaining in the
+description.
+
+> +        /* -----------  Header -------------- */
+> +	.word 0
+
+Nit: Please use consistent indentation - either always tabs or
+always blanks (matching what existing code uses).
+
+> +	.balign 8
+> +#if __riscv_xlen == 64
+
+Wouldn't this better be CONFIG_RISCV_64? We do have #if-s like
+this, but in different contexts. Even there I wonder of the
+mix - Cc-ing Oleksii to possible comment (you probably should
+have Cc-ed him anyway).
+
+> +	/* Image load offset(2MB) from start of RAM */
+> +	.dword 0x200000
+> +#else
+> +	/* Image load offset(4MB) from start of RAM */
+> +	.dword 0x400000
+> +#endif
+> +	/* Effective size of xen image */
+> +	.dword _end - _start
+> +	.dword __HEAD_FLAGS
+> +	.word RISCV_HEADER_VERSION
+> +	.word 0
+> +	.dword 0
+> +	.ascii RISCV_IMAGE_MAGIC
+> +	.balign 4
+> +	.ascii RISCV_IMAGE_MAGIC2
+
+There's only one "magic" in the struct further up.
+
+This also isn't quite enough for a PE/COFF image, see again Arm
+code. If the other header parts aren't needed, that too would
+want mentioning / explaining in the description.
+
+> +FUNC(xen_start)
+> +#endif
+>          /* Mask all interrupts */
+>          csrw    CSR_SIE, zero
+>  
+> @@ -60,6 +86,11 @@ FUNC(start)
+>          mv      a1, s1
+>  
+>          tail    start_xen
+> +
+> +#ifdef CONFIG_RISCV_EFI
+> +END(xen_start)
+> +#endif
+> +
+>  END(start)
+
+I'm not convinced it is a good idea to have two functions nested
+within one another, ELF-annotation-wise.
 
 Jan
 
