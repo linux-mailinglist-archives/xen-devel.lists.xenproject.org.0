@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BF63F9006C4
-	for <lists+xen-devel@lfdr.de>; Fri,  7 Jun 2024 16:35:38 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.736551.1142651 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E1D8C900846
+	for <lists+xen-devel@lfdr.de>; Fri,  7 Jun 2024 17:07:58 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.736559.1142661 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sFafm-0001fL-MS; Fri, 07 Jun 2024 14:34:30 +0000
+	id 1sFbBf-0005Y9-5q; Fri, 07 Jun 2024 15:07:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 736551.1142651; Fri, 07 Jun 2024 14:34:30 +0000
+Received: by outflank-mailman (output) from mailman id 736559.1142661; Fri, 07 Jun 2024 15:07:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sFafm-0001dq-JY; Fri, 07 Jun 2024 14:34:30 +0000
-Received: by outflank-mailman (input) for mailman id 736551;
- Fri, 07 Jun 2024 14:34:29 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ppZm=NJ=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
- id 1sFafl-0001dk-JK
- for xen-devel@lists.xenproject.org; Fri, 07 Jun 2024 14:34:29 +0000
-Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 0ad8c6c6-24db-11ef-b4bb-af5377834399;
- Fri, 07 Jun 2024 16:34:27 +0200 (CEST)
-Received: from support.bugseng.com (support.bugseng.com [162.55.131.47])
- by support.bugseng.com (Postfix) with ESMTPA id 9CC5F4EE073E;
- Fri,  7 Jun 2024 16:34:26 +0200 (CEST)
+	id 1sFbBf-0005Ut-2i; Fri, 07 Jun 2024 15:07:27 +0000
+Received: by outflank-mailman (input) for mailman id 736559;
+ Fri, 07 Jun 2024 15:07:25 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1sFbBd-0005Uj-Ih; Fri, 07 Jun 2024 15:07:25 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1sFbBd-00073M-Ff; Fri, 07 Jun 2024 15:07:25 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1sFbBd-0007zW-7S; Fri, 07 Jun 2024 15:07:25 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1sFbBd-0001q5-6Z; Fri, 07 Jun 2024 15:07:25 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,58 +42,139 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0ad8c6c6-24db-11ef-b4bb-af5377834399
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=dgoCTF0hUTEfSPsihG99iirP/WCnGjFRarQEdTFlGBI=; b=oP71ZFWUgXe+kivRHnhXhUYkBx
+	qGC34o3XiCyJnoaMd53db7DmNZDZnPWmIsl5lN30/1/1o+7ioq87Er+XxVNr6EKzQt+Dv0l371opC
+	MqYT2QtBQ3UbQJe5Gcxf7pkOBp59PYorMZzeWbLzQWQdgpsYmx0os+PhJD/dwqmMNeD8=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-186274-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Date: Fri, 07 Jun 2024 16:34:26 +0200
-From: Nicola Vetrini <nicola.vetrini@bugseng.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: sstabellini@kernel.org, michal.orzel@amd.com, xenia.ragiadakou@amd.com,
- ayan.kumar.halder@amd.com, consulting@bugseng.com, Andrew Cooper
- <andrew.cooper3@citrix.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
-Subject: Re: [XEN PATCH 3/5] x86: deviate violation of MISRA C Rule 20.12
-In-Reply-To: <02262bd1-4d2f-413f-bc03-58c7181be216@suse.com>
-References: <cover.1717236930.git.nicola.vetrini@bugseng.com>
- <475daa82f5be77644b1f32ecd3f6e66ccd9ac904.1717236930.git.nicola.vetrini@bugseng.com>
- <02262bd1-4d2f-413f-bc03-58c7181be216@suse.com>
-Message-ID: <317aa87b389a8eb7de86853c7fc45829@bugseng.com>
-X-Sender: nicola.vetrini@bugseng.com
-Organization: BUGSENG s.r.l.
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
-Content-Transfer-Encoding: 7bit
+Subject: [libvirt test] 186274: tolerable FAIL - PUSHED
+X-Osstest-Failures:
+    libvirt:test-armhf-armhf-libvirt-vhd:xen-boot:fail:heisenbug
+    libvirt:test-armhf-armhf-libvirt-vhd:migrate-support-check:fail:nonblocking
+    libvirt:test-armhf-armhf-libvirt-vhd:saverestore-support-check:fail:nonblocking
+    libvirt:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt:saverestore-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt-qcow2:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt-raw:migrate-support-check:fail:nonblocking
+    libvirt:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-qcow2:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-qcow2:saverestore-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    libvirt=f8ec3f9c2f8ddb3ea4ae89f1849897ef23633d83
+X-Osstest-Versions-That:
+    libvirt=9d0c8618db599c407d47a8a6af881708608cdcd9
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 07 Jun 2024 15:07:25 +0000
 
-On 2024-06-04 08:08, Jan Beulich wrote:
-> On 01.06.2024 12:16, Nicola Vetrini wrote:
->> --- a/xen/arch/x86/include/asm/shared.h
->> +++ b/xen/arch/x86/include/asm/shared.h
->> @@ -76,6 +76,7 @@ static inline void arch_set_##field(struct vcpu *v,  
->>        \
->> 
->>  GET_SET_SHARED(unsigned long, max_pfn)
->>  GET_SET_SHARED(xen_pfn_t, pfn_to_mfn_frame_list_list)
->> +/* SAF-6-safe Rule 20.12: expansion of macro nmi_reason */
->>  GET_SET_SHARED(unsigned long, nmi_reason)
-> 
-> Before we go this route, were alternatives at least considered? Plus
-> didn't we special-case function-like macros already, when used in
-> situations where only object-like macros would be expanded anyway?
-> 
+flight 186274 libvirt real [real]
+flight 186279 libvirt real-retest [real]
+http://logs.test-lab.xenproject.org/osstest/logs/186274/
+http://logs.test-lab.xenproject.org/osstest/logs/186279/
 
-It may be the case that this is already deviated, hence meaning that the 
-patch can be dropped: I'll recheck.
+Failures :-/ but no regressions.
 
-In that case, thanks for pointing this out.
+Tests which are failing intermittently (not blocking):
+ test-armhf-armhf-libvirt-vhd  8 xen-boot            fail pass in 186279-retest
 
-> As to alternatives: nmi_reason() is used in exactly one place.
-> Dropping the #define and expanding the one use instead would be an
-> option. I further wonder whether moving the #define-s past the
-> piece of code you actually modify would also be an option (i.e. the
-> tool then no longer complaining).
-> 
-> Jan
+Tests which did not succeed, but are not blocking:
+ test-armhf-armhf-libvirt-vhd 14 migrate-support-check fail in 186279 never pass
+ test-armhf-armhf-libvirt-vhd 15 saverestore-support-check fail in 186279 never pass
+ test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 186263
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-arm64-arm64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt     16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-qcow2 14 migrate-support-check        fail never pass
+ test-amd64-amd64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-qcow2 14 migrate-support-check        fail never pass
+ test-arm64-arm64-libvirt-qcow2 15 saverestore-support-check    fail never pass
+ test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
 
--- 
-Nicola Vetrini, BSc
-Software Engineer, BUGSENG srl (https://bugseng.com)
+version targeted for testing:
+ libvirt              f8ec3f9c2f8ddb3ea4ae89f1849897ef23633d83
+baseline version:
+ libvirt              9d0c8618db599c407d47a8a6af881708608cdcd9
+
+Last test of basis   186263  2024-06-06 04:20:34 Z    1 days
+Testing same since   186274  2024-06-07 04:18:45 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Daniel P. Berrangé <berrange@redhat.com>
+  Göran Uddeborg <goeran@uddeborg.se>
+  Michal Privoznik <mprivozn@redhat.com>
+  김인수 <simmon@nplob.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 pass    
+ test-amd64-amd64-libvirt                                     pass    
+ test-arm64-arm64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     pass    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-amd64-libvirt-qcow2                               pass    
+ test-arm64-arm64-libvirt-qcow2                               pass    
+ test-amd64-amd64-libvirt-raw                                 pass    
+ test-arm64-arm64-libvirt-raw                                 pass    
+ test-amd64-amd64-libvirt-vhd                                 pass    
+ test-armhf-armhf-libvirt-vhd                                 fail    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/libvirt.git
+   9d0c8618db..f8ec3f9c2f  f8ec3f9c2f8ddb3ea4ae89f1849897ef23633d83 -> xen-tested-master
 
