@@ -2,44 +2,46 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0937A8FFEEC
-	for <lists+xen-devel@lfdr.de>; Fri,  7 Jun 2024 11:10:46 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.736431.1142532 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 352EA8FFF04
+	for <lists+xen-devel@lfdr.de>; Fri,  7 Jun 2024 11:15:10 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.736451.1142540 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sFVc4-00084v-Nq; Fri, 07 Jun 2024 09:10:20 +0000
+	id 1sFVgV-0001SQ-AJ; Fri, 07 Jun 2024 09:14:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 736431.1142532; Fri, 07 Jun 2024 09:10:20 +0000
+Received: by outflank-mailman (output) from mailman id 736451.1142540; Fri, 07 Jun 2024 09:14:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sFVc4-00081R-J9; Fri, 07 Jun 2024 09:10:20 +0000
-Received: by outflank-mailman (input) for mailman id 736431;
- Fri, 07 Jun 2024 09:10:19 +0000
+	id 1sFVgV-0001Pl-7Z; Fri, 07 Jun 2024 09:14:55 +0000
+Received: by outflank-mailman (input) for mailman id 736451;
+ Fri, 07 Jun 2024 09:14:53 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=NiIp=NJ=redhat.com=david@srs-se1.protection.inumbo.net>)
- id 1sFVc3-0006Bc-P9
- for xen-devel@lists.xenproject.org; Fri, 07 Jun 2024 09:10:19 +0000
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c2252ea2-24ad-11ef-90a2-e314d9c70b13;
- Fri, 07 Jun 2024 11:10:18 +0200 (CEST)
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-592-yH10sX6lNoa9rUALrYBFDg-1; Fri, 07 Jun 2024 05:10:01 -0400
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
- [10.11.54.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 16217811E81;
- Fri,  7 Jun 2024 09:10:00 +0000 (UTC)
-Received: from t14s.fritz.box (unknown [10.39.194.94])
- by smtp.corp.redhat.com (Postfix) with ESMTP id CF51437E7;
- Fri,  7 Jun 2024 09:09:55 +0000 (UTC)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=ERR9=NJ=epam.com=prvs=288857fa54=sergiy_kibrik@srs-se1.protection.inumbo.net>)
+ id 1sFVgT-0001Pf-I9
+ for xen-devel@lists.xenproject.org; Fri, 07 Jun 2024 09:14:53 +0000
+Received: from mx0a-0039f301.pphosted.com (mx0a-0039f301.pphosted.com
+ [148.163.133.242]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 64e2fd0d-24ae-11ef-90a2-e314d9c70b13;
+ Fri, 07 Jun 2024 11:14:52 +0200 (CEST)
+Received: from pps.filterd (m0174676.ppops.net [127.0.0.1])
+ by mx0a-0039f301.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 45769RDY013605;
+ Fri, 7 Jun 2024 09:14:37 GMT
+Received: from eur04-he1-obe.outbound.protection.outlook.com
+ (mail-he1eur04lp2040.outbound.protection.outlook.com [104.47.13.40])
+ by mx0a-0039f301.pphosted.com (PPS) with ESMTPS id 3ykvp6rjun-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 07 Jun 2024 09:14:37 +0000 (GMT)
+Received: from AS8PR03MB9192.eurprd03.prod.outlook.com (2603:10a6:20b:5c0::11)
+ by DU0PR03MB8981.eurprd03.prod.outlook.com (2603:10a6:10:477::17)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7656.15; Fri, 7 Jun
+ 2024 09:14:33 +0000
+Received: from AS8PR03MB9192.eurprd03.prod.outlook.com
+ ([fe80::baa9:29b3:908:ed7d]) by AS8PR03MB9192.eurprd03.prod.outlook.com
+ ([fe80::baa9:29b3:908:ed7d%6]) with mapi id 15.20.7656.012; Fri, 7 Jun 2024
+ 09:14:33 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,210 +53,185 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c2252ea2-24ad-11ef-90a2-e314d9c70b13
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1717751417;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=BkvZtA0DZCTst0gmiY3p4tzfSSSAg0RWHnN+gN89loE=;
-	b=GKS4Exv49hOzsBLMaPqOha/mm31v0EwICUqWSPgUeIO9FvzjrdpskTrBZeDrcPtsfe1Rbk
-	BSfeVuNbfB0vJgeg6zAA6QLPbzSeXHIKiy4kFQJZobdZEK91aRfP1Q1X7v5r4coAptWyet
-	hRCjqaDSgsmF4ZlhH4nzU2ubmxDkq9Q=
-X-MC-Unique: yH10sX6lNoa9rUALrYBFDg-1
-From: David Hildenbrand <david@redhat.com>
-To: linux-kernel@vger.kernel.org
-Cc: linux-mm@kvack.org,
-	linux-hyperv@vger.kernel.org,
-	virtualization@lists.linux.dev,
-	xen-devel@lists.xenproject.org,
-	kasan-dev@googlegroups.com,
-	David Hildenbrand <david@redhat.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Oscar Salvador <osalvador@suse.de>,
-	"K. Y. Srinivasan" <kys@microsoft.com>,
-	Haiyang Zhang <haiyangz@microsoft.com>,
-	Wei Liu <wei.liu@kernel.org>,
-	Dexuan Cui <decui@microsoft.com>,
-	"Michael S. Tsirkin" <mst@redhat.com>,
-	Jason Wang <jasowang@redhat.com>,
-	Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
-	=?UTF-8?q?Eugenio=20P=C3=A9rez?= <eperezma@redhat.com>,
-	Juergen Gross <jgross@suse.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
-	Alexander Potapenko <glider@google.com>,
-	Marco Elver <elver@google.com>,
-	Dmitry Vyukov <dvyukov@google.com>
-Subject: [PATCH v1 3/3] mm/memory_hotplug: skip adjust_managed_page_count() for PageOffline() pages when offlining
-Date: Fri,  7 Jun 2024 11:09:38 +0200
-Message-ID: <20240607090939.89524-4-david@redhat.com>
-In-Reply-To: <20240607090939.89524-1-david@redhat.com>
-References: <20240607090939.89524-1-david@redhat.com>
+X-Inumbo-ID: 64e2fd0d-24ae-11ef-90a2-e314d9c70b13
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=mYOnVkWUUHaqMSpkk69QKjRiMTUJhdfh1v+Ow5eGCEt74p5tEsSa/pOIXq/57Ek3mTyEI85Yx8MARnDogUZ+8cpYy3/sBsCoPZpwW06jQJua7JTysGMNuW5W7us9Jd6JlYTq/gZZspztpPdbuXJwhjdtvSxzlU8S1vmb1rHR2EYYZfnFVxQaTBI2Jr/ce4P7YTupyz3s8KjCttFwk0+ikGvhqyJtD/yQNLg0ok5oErWqeHkILnKuPgrWG3Ad5WBDIZxrorHADZP/wh8ldp9UmTqFSmyQywGEQk6qRcVnAvb10fLwFPmXp77fLLx0GAKw6W3BAdrvgz1TRTYDcfVYsw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=GiKVYOgXgaZpYoJuUo4D3kT4lGfZJ/ey2VihoOkDpHU=;
+ b=F79Kl81dmgOYVf+6fzuohp7kBQuUdwdrmhsZH+5DCuFr+c1qnzbQXMTgpn6Hp2RUXVYzd9kzJ1Q+IURBsTWQ+cd71oW7Ol9IcNZxLbeg3ZVPOge1mYP+7W386qOqGFRRJjHc4KH3J5gkk3u6V4qd+hByx6/4FtBWznzfe9nD+CYj5HH0yjMTWYCTz15M/c++X1HDMJX2ctjjy07cMPy+b23aRQ76VlvGLTdX/B43ulK9PGCaReYvFtBPSi2p2pSBoPbn2Omv5WvQXJ5drT7YNIp8P14qqfWa6ohcF3cNz4NAtjFhfX8mOeTUtU5M5Gcun0jO2n3NwigRgm7Fdyxotg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
+ dkim=pass header.d=epam.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=GiKVYOgXgaZpYoJuUo4D3kT4lGfZJ/ey2VihoOkDpHU=;
+ b=su0M8Y+VW9cYdpvsaHGTsPdgbGBQFCGM20K3Bpz/jpBIfGzs/ZMzVB1VPUh4DT0e8oRwqQ8kV/JAo6dzZ18znJXXRnAi2AGQfCzgtkLvuzP0bxqhk0O5Ea3GhC1Ds40jid1J7B7gQOG1tpf78IK8mQ5DIIcm/ZqISt+BOR5eJjxZSV8SXhZI+jR1jal4iy0J8FUMV4YRUd7ms8lFzuFI5lbOWYi27oHxuFiRn3+ZpSTy60rS7qQa4QwF6csL2RMV9nJZbzZf/2cRVK+venN+lND1n2Ra854JusGfv/F0Ir/Kr7Ef8B6oUk7oSaZ0HEekryf193qyHWnLD/QHmhMXAw==
+Message-ID: <647b086a-04b0-42be-a7b8-a266c4f4e64b@epam.com>
+Date: Fri, 7 Jun 2024 12:14:31 +0300
+User-Agent: Mozilla Thunderbird
+Subject: Re: [XEN PATCH v1] x86/cpufreq: separate powernow/hwp cpufreq code
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+        =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+        Stefano Stabellini <sstabellini@kernel.org>,
+        Jason Andryuk <jason.andryuk@amd.com>, xen-devel@lists.xenproject.org
+References: <20240604093406.2448552-1-Sergiy_Kibrik@epam.com>
+ <5cb13d1a-1452-4542-b50d-23e6a9d9d3ef@suse.com>
+ <c66966da-bbe3-432e-8a2f-809bf434db39@epam.com>
+ <ab57f7f3-ac54-4b41-950a-1f7bee4293ab@suse.com>
+Content-Language: en-US
+From: Sergiy Kibrik <sergiy_kibrik@epam.com>
+In-Reply-To: <ab57f7f3-ac54-4b41-950a-1f7bee4293ab@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: WA2P291CA0044.POLP291.PROD.OUTLOOK.COM
+ (2603:10a6:1d0:1f::20) To AS8PR03MB9192.eurprd03.prod.outlook.com
+ (2603:10a6:20b:5c0::11)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.4.1 on 10.11.54.1
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AS8PR03MB9192:EE_|DU0PR03MB8981:EE_
+X-MS-Office365-Filtering-Correlation-Id: 844d433e-8692-484b-6c4e-08dc86d23e9a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230031|366007|1800799015|376005;
+X-Microsoft-Antispam-Message-Info: 
+	=?utf-8?B?REpGcmtWRnNsR0NMK2pzdUNkcDVjTW9TOTRSamc1RU81VnNvTmZqd1QzclFH?=
+ =?utf-8?B?b1k4OEx1Vms4SHk4NmdwdGt2SzhtNk52cTdtR05Ed2dUSHN6bEh0SlBjSW95?=
+ =?utf-8?B?Q3FsYXRmbzdabXNidkgvV1h2SlJqTUdLS3RHL1NaSzI3ektmRDIxd2orMjl1?=
+ =?utf-8?B?WEgyeDZlaGk2MXI1dnoxdk83ZG0zYU1IWUcwdExnUVBHR0d3NUJpQldueUhX?=
+ =?utf-8?B?M2NoZ3ErUGtuZmpTTlZGczJuQkhDdTVNeU1DdHRnMzRoSXJiSENjQ1h0UDBS?=
+ =?utf-8?B?Y2o0R1QyR1d1Kyt5aDlJTkNBUFcwdUtxVkxoc3BXK3dZRmUxaWV4VHNvOFNE?=
+ =?utf-8?B?ekk4L2xwb0ZOZXdRTkFEeG8yTmNKWGx5NWZXL3BpVlEwM3RFMnlBQjZGTmpa?=
+ =?utf-8?B?bDh2cmhrVi9ZbHNCN0pHUlhmWkt6aDkxNUN6R2lMMXJ4Y05MSzdGT2ltcDEz?=
+ =?utf-8?B?cDNPQnYzSGJJWkVFY2lXQXAwYUR2Zzd3WmxUdzVBREE5RzFTdTJ6a1A4SlpM?=
+ =?utf-8?B?WXVWS0IveDhHNVZQczl1MGUrWUVRUVJ2ZXU3RkFYWmI1RW1icXJEczgzbkdy?=
+ =?utf-8?B?RFZFYzlxbmdxY2RrcDR4M2U4Q3Erdnc3VWJwMTJvaTZUdXNJVnB5R09FY0ph?=
+ =?utf-8?B?WVBQNGpyVDNBcCtwWmFkMEFITWxVREhQcFk3c0NhVURNbEFHcXZmSHJreUo2?=
+ =?utf-8?B?M21ZSzN5bStZS2IrWXhqd3FGT3FWdTdyM3NBZFZDQVJ6YllKZmpKcXp0NU9p?=
+ =?utf-8?B?dE9XNkRmS0srblNNNEsyZm1JRGVLbWlKRTJvbURHakVqVlBMaGFhM1BIZnI1?=
+ =?utf-8?B?b3J6OUNTYTJuT0hXYWhKUEZ1cGlCRlptdnhHUmp1TlFoT05hRGxKMitxdzZu?=
+ =?utf-8?B?ZFVNU0g0M1dJczF1NlV3Qm45TnV6Q2drUWN6ZHZ6czJFa1RrNzdKY3d5Y05i?=
+ =?utf-8?B?NDdGc0RKT1RXQnc3MlhZUStBMXlEZ2F2NGJSY0lYRmJlR09hNy8xYXJJUHBl?=
+ =?utf-8?B?RHMyMUpEVGRrZlBVajV0a0JzK3ByL0NpYzlMS3FORUFRVjh2czIxSXI0K05H?=
+ =?utf-8?B?bHhJczlxcWt6NDNhczJtVm1sT3dZdE93K1U2SnpYSlA1UXFPdWliejJ4b2dm?=
+ =?utf-8?B?QjlyQUxBNTc1aDBaZkhKM0NqVC9YU1BycU5JVnl2dkdTeW1TVFZqd2laOGN0?=
+ =?utf-8?B?V3RnbFo0ZmsvZDIyL2hiSGJTdHFJd25XVGZUTVJ6alhMUWNwYU44SjJuUUQr?=
+ =?utf-8?B?NDlpM2VnWXdjNytqbDd0RTdOOFdWaUxLSkc4VitSN0t4dksxMDZqQnJJK0Y4?=
+ =?utf-8?B?NkwyRUg4QkN0RGV1Znhhb05sVWVXdGJ0RGNSSjRrOUp0bE1vTllpYys5RVlZ?=
+ =?utf-8?B?SThkbVVRNkhDTFZFWTFRYU9aUEtyc3ZtQlZYcmt2UUNVNXFyQm05NkI2UGxT?=
+ =?utf-8?B?VndvdkpUZWpEVkFZNGVJeThjcEZ5bGZMVndTSTZBdU83ZFEwT1BiZFBwcHY4?=
+ =?utf-8?B?N1RVU1VwOFZNQUpMbFBBekcyS2hOZmpnQWQ5QmphOUFIeDJtSW4zUFVKNkh3?=
+ =?utf-8?B?VjVEcEtVOW1GZGNXUHJDN2E0U3hnUEhQK2JMM05rNkJwQ3VQN1o0bFJwSVVW?=
+ =?utf-8?B?aDFodXFxNU1mK0NEK3B4MnJiUGtBbnRtaGtzd1VpRW14VTR0T1pBdDFlVCtY?=
+ =?utf-8?B?WDhlMjdaa3pzbFMxZldUeVZyUGFwZGVpWEEvV3FVQURnVHBxT3Q2VmdwejY4?=
+ =?utf-8?Q?gE/AE1I3xcPahMux3Oy2tm2vLF6mAVMqrGi0cT6?=
+X-Forefront-Antispam-Report: 
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS8PR03MB9192.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(366007)(1800799015)(376005);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: 
+	=?utf-8?B?c1d2YmVUWm5Gb0trZlAvUmVxMENRVWY4dEhvVmFBNjZTQTR0azJ6bi81M21G?=
+ =?utf-8?B?VUJIWXVUVXREdnRONjlsTCtHVXNTMGswc2t4U0lHTzMwdUJPWlRsMnVkM0h3?=
+ =?utf-8?B?aG5qSXEyaTVVUGFERkN1RWo1QUVBSlY5dkF1QU4wRFBEaDRVTElhc0t3SStO?=
+ =?utf-8?B?Z1pTUTYxdmx5RVZlSlVoREVjS2pYWWxHRUxCbThWU2l5Y3hJMTU1R1JKQzhO?=
+ =?utf-8?B?Z0x0U3dpdUJGdmZMR3VyTUJEeEY3dTdXQWhLcFVIekJoakJKRU9XV1VqM3cz?=
+ =?utf-8?B?RkVCbVpHSTZ4MXFOVlZSS213aDhNSEg1d0tiQVdiamRacVoyMTVUMFQrQ3lS?=
+ =?utf-8?B?eHpSQ2VWdkw4UDZNallUY0V4Z080bVIzN2xlRjBVUkxWWkhlVDNvbEkvZ1g2?=
+ =?utf-8?B?ZXhIb2hGTm5WcnBsTkF6cHhyTmVpSjdKdEJOSzI4OEE4dUlwalhGRUZvMVZT?=
+ =?utf-8?B?Y1hvaXROelJsMjJHbEFJTzN4VmNySWNJVm12dWNmRko2alBDZCtJTWxZLzhy?=
+ =?utf-8?B?di9VMU1tSFY2Ky9oVUFTdDF3VkpWZ3R3RUpsRzZNRzdHV0FPSUJlQXErdjJi?=
+ =?utf-8?B?OUoySWZOcG1LaEY2bHdUZ2p3dDBrMDZtc0IybDdOK1FWcFYvMVptUldKYVZn?=
+ =?utf-8?B?WmlEVjM4bUI1VXFoVWxCZUQ5SnRzUGgrV2pvZk9pRVhyeGh5VFRqYk9XVnFk?=
+ =?utf-8?B?eU1FdUVzMklQR3RPbWdLbTlaRDNJNG5ld2MyVXAzcm1kV2NGRk9nUGpDT1g2?=
+ =?utf-8?B?VjJSSS9vYjFsakVnQ2hrQWJRUGZPbzJZUVNxR0xVcnZHZkR1aSt2ckpibDdM?=
+ =?utf-8?B?WDJjblkzMVZCbTNkQ2RnQnF2WGM4L1R6N2lmUmo1T21SY3JLbC85cEhUdFY5?=
+ =?utf-8?B?NlpoWkxBUG9KaTg1dTUxZFNuLzBYVnhxRjFvMG4xN3JoRG1EYTNFcTNnNFcw?=
+ =?utf-8?B?YzVYRUVqenFTeGR1M0E5eFh6d1FTZ0FnMUI2YkpHMVBvZFQxV204ZUtLc3pF?=
+ =?utf-8?B?M0VBMExkUjlCWXBSSTlFazlOTDNFOGlyRkhrYTFXbWhjUTdGZ2Z0MnFKV0tZ?=
+ =?utf-8?B?aDRLZWZ1VExyMWZ5aE1MbGFCT1U4d1Z5TWJRRGRuazFaSnYxSGVjQWZDQjdq?=
+ =?utf-8?B?WWtTRWxyMWcyYWJrdnMxd0RvaVNIU0lPRWVnM1BUL3N1ODQ5TXVJSGdid2Zu?=
+ =?utf-8?B?cVAvNXZoVTk2WEgxbklQTlUrb2R5WTRkYi9xY1lYTmpYNEhCMEZkcENqVW9z?=
+ =?utf-8?B?Umd3S3psc3Z5VU55THl4MFBBMDVKU1FVRkdPbFpiVzJObXhMYll5c1FHVjN1?=
+ =?utf-8?B?US9hSVgrT0FTTHJXeG5NMld5REhuWUhsWGlld2VJWWhwb0FmRWNEQ2JHV0Jy?=
+ =?utf-8?B?eFBBQVF4eEtHZXRtMVZKdmNxR2x4SGpaRldKTW1aS0duZXV2c2x2MGZieXdv?=
+ =?utf-8?B?TG8zTGw4enJucmpyRmxVenB2cWlnMjJRVG1VK1pVTS84RjRnWGM2L0J2MnFC?=
+ =?utf-8?B?TzRpKzk4TUpyMUx0T2tIQ2ZYRWtJbWNhZWpTbkJoZVBaalB2SGJnb2prMDhE?=
+ =?utf-8?B?UDVUcCtaRStWK2JoS3VQN2Zjc2cyYjduZFZodGZucUhQVGxOUnBBTUtHaHpq?=
+ =?utf-8?B?ckhtQk5ubHZLRFRFMXZ2eHlocE5RQU1hU3Npd0pJZnVKeHR2TlprTG53WjVW?=
+ =?utf-8?B?eEs4Qy9Od2Z2SUR6YTFtTlJxek53TytmWmlYSTRJNmV3eVh2TlIxeUt6R2pp?=
+ =?utf-8?B?ajVMeU5QRDc2aDU5bVBDSXlCRnNKdSs1OXhpM1ZxSHBmS05JQ0FOcm1zWFdU?=
+ =?utf-8?B?c1ZEcXc4NnlHaCtWVDFqNkhUSGdlamJ6c3Fya01keFdXS3NjODBkUjdyUERy?=
+ =?utf-8?B?R24zc0VEOWhEeEpQWDdwNmlTMzJMc1dYV2krZjFGMzk0bmtsNTQrMGtyM1ly?=
+ =?utf-8?B?S1Juakx6ZTZES0VuNldVeU96cW04U1djWXEzRmhxZnlkQ1JaZnI3bG1TL1J6?=
+ =?utf-8?B?aDFCeHVvVjdIbllvUHdvRHFYU2VGVzFmeUhKM0ZGRTZPbSs4NWx0L2hkbTBu?=
+ =?utf-8?B?aU45WElaVWhFQkJKTXdWU1g2TGtUdWtPMzVVRFFJRzdTVnU1THQ1b3pSeVd5?=
+ =?utf-8?Q?f816imtojE0NpqieXZR3G7yii?=
+X-OriginatorOrg: epam.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 844d433e-8692-484b-6c4e-08dc86d23e9a
+X-MS-Exchange-CrossTenant-AuthSource: AS8PR03MB9192.eurprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Jun 2024 09:14:33.2767
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: SAFM+Qu4/pO/5oPATkvA08aBT4okO2iFTB9dU2PuVY5JR5ObflMaBzbeFZY9LwEYsCqE7WEQ7oCRsNZccLtFfQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU0PR03MB8981
+X-Proofpoint-GUID: f23x7LXJJyCBkg_1Dwu6Ur0MIHtBW4Fw
+X-Proofpoint-ORIG-GUID: f23x7LXJJyCBkg_1Dwu6Ur0MIHtBW4Fw
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.28.16
+ definitions=2024-06-07_04,2024-06-06_02,2024-05-17_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 lowpriorityscore=0
+ malwarescore=0 clxscore=1015 spamscore=0 impostorscore=0 bulkscore=0
+ adultscore=0 phishscore=0 mlxlogscore=999 mlxscore=0 suspectscore=0
+ priorityscore=1501 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2405170001 definitions=main-2406070066
 
-We currently have a hack for virtio-mem in place to handle memory
-offlining with PageOffline pages for which we already adjusted the
-managed page count.
+06.06.24 10:54, Jan Beulich:
+> On 06.06.2024 09:30, Sergiy Kibrik wrote:
+>> 06.06.24 10:08, Jan Beulich:
+>>> On 04.06.2024 11:34, Sergiy Kibrik wrote:
+>>>> --- a/xen/arch/x86/acpi/cpufreq/cpufreq.c
+>>>> +++ b/xen/arch/x86/acpi/cpufreq/cpufreq.c
+>>>> @@ -657,7 +657,7 @@ static int __init cf_check cpufreq_driver_init(void)
+>>>>    
+>>>>            case X86_VENDOR_AMD:
+>>>>            case X86_VENDOR_HYGON:
+>>>> -            ret = powernow_register_driver();
+>>>> +            ret = IS_ENABLED(CONFIG_AMD) ? powernow_register_driver() : -ENODEV;
+>>>>                break;
+>>>>            }
+>>>
+>>> What about the Intel-specific code immediately up from here?
+>>> Dealing with that as well may likely permit to reduce ...
+>>
+>> you mean to guard a call to hwp_register_driver() the same way as for
+>> powernow_register_driver(), and save one stub? ?
+> 
+> Yes, and perhaps more. Maybe more stubs can be avoided? And
+> acpi_cpufreq_driver doesn't need registering either, and hence
+> would presumably be left unreferenced when !INTEL?
+> 
 
-Let's enlighten memory offlining code so we can get rid of that hack,
-and document the situation.
+{get,set}_hwp_para() can be avoided, as they're being called just once 
+and may be guarded by IS_ENABLED(CONFIG_INTEL).
+The same for hwp_cmdline_parse().
+As for hwp_active() it's being used many times by generic cpufreq code 
+and even outside of cpufreq, so probably it has to be either a stub, or 
+be moved outside of hwp.c and become smth, like this:
 
-Signed-off-by: David Hildenbrand <david@redhat.com>
----
- drivers/virtio/virtio_mem.c    | 11 ++---------
- include/linux/memory_hotplug.h |  4 ++--
- include/linux/page-flags.h     |  8 ++++++--
- mm/memory_hotplug.c            |  6 +++---
- mm/page_alloc.c                | 12 ++++++++++--
- 5 files changed, 23 insertions(+), 18 deletions(-)
+  bool hwp_active(void)
+  {
+     return IS_ENABLED(CONFIG_INTEL) && hwp_in_use;
+  }
 
-diff --git a/drivers/virtio/virtio_mem.c b/drivers/virtio/virtio_mem.c
-index b90df29621c81..b0b8714415783 100644
---- a/drivers/virtio/virtio_mem.c
-+++ b/drivers/virtio/virtio_mem.c
-@@ -1269,12 +1269,6 @@ static void virtio_mem_fake_offline_going_offline(unsigned long pfn,
- 	struct page *page;
- 	unsigned long i;
- 
--	/*
--	 * Drop our reference to the pages so the memory can get offlined
--	 * and add the unplugged pages to the managed page counters (so
--	 * offlining code can correctly subtract them again).
--	 */
--	adjust_managed_page_count(pfn_to_page(pfn), nr_pages);
- 	/* Drop our reference to the pages so the memory can get offlined. */
- 	for (i = 0; i < nr_pages; i++) {
- 		page = pfn_to_page(pfn + i);
-@@ -1293,10 +1287,9 @@ static void virtio_mem_fake_offline_cancel_offline(unsigned long pfn,
- 	unsigned long i;
- 
- 	/*
--	 * Get the reference we dropped when going offline and subtract the
--	 * unplugged pages from the managed page counters.
-+	 * Get the reference again that we dropped via page_ref_dec_and_test()
-+	 * when going offline.
- 	 */
--	adjust_managed_page_count(pfn_to_page(pfn), -nr_pages);
- 	for (i = 0; i < nr_pages; i++)
- 		page_ref_inc(pfn_to_page(pfn + i));
- }
-diff --git a/include/linux/memory_hotplug.h b/include/linux/memory_hotplug.h
-index 7a9ff464608d7..ebe876930e782 100644
---- a/include/linux/memory_hotplug.h
-+++ b/include/linux/memory_hotplug.h
-@@ -175,8 +175,8 @@ extern int mhp_init_memmap_on_memory(unsigned long pfn, unsigned long nr_pages,
- extern void mhp_deinit_memmap_on_memory(unsigned long pfn, unsigned long nr_pages);
- extern int online_pages(unsigned long pfn, unsigned long nr_pages,
- 			struct zone *zone, struct memory_group *group);
--extern void __offline_isolated_pages(unsigned long start_pfn,
--				     unsigned long end_pfn);
-+extern unsigned long __offline_isolated_pages(unsigned long start_pfn,
-+		unsigned long end_pfn);
- 
- typedef void (*online_page_callback_t)(struct page *page, unsigned int order);
- 
-diff --git a/include/linux/page-flags.h b/include/linux/page-flags.h
-index e0362ce7fc109..0876aca0833e7 100644
---- a/include/linux/page-flags.h
-+++ b/include/linux/page-flags.h
-@@ -1024,11 +1024,15 @@ PAGE_TYPE_OPS(Buddy, buddy, buddy)
-  * putting them back to the buddy, it can do so via the memory notifier by
-  * decrementing the reference count in MEM_GOING_OFFLINE and incrementing the
-  * reference count in MEM_CANCEL_OFFLINE. When offlining, the PageOffline()
-- * pages (now with a reference count of zero) are treated like free pages,
-- * allowing the containing memory block to get offlined. A driver that
-+ * pages (now with a reference count of zero) are treated like free (unmanaged)
-+ * pages, allowing the containing memory block to get offlined. A driver that
-  * relies on this feature is aware that re-onlining the memory block will
-  * require not giving them to the buddy via generic_online_page().
-  *
-+ * Memory offlining code will not adjust the managed page count for any
-+ * PageOffline() pages, treating them like they were never exposed to the
-+ * buddy using generic_online_page().
-+ *
-  * There are drivers that mark a page PageOffline() and expect there won't be
-  * any further access to page content. PFN walkers that read content of random
-  * pages should check PageOffline() and synchronize with such drivers using
-diff --git a/mm/memory_hotplug.c b/mm/memory_hotplug.c
-index 0254059efcbe1..965707a02556f 100644
---- a/mm/memory_hotplug.c
-+++ b/mm/memory_hotplug.c
-@@ -1941,7 +1941,7 @@ int __ref offline_pages(unsigned long start_pfn, unsigned long nr_pages,
- 			struct zone *zone, struct memory_group *group)
- {
- 	const unsigned long end_pfn = start_pfn + nr_pages;
--	unsigned long pfn, system_ram_pages = 0;
-+	unsigned long pfn, managed_pages, system_ram_pages = 0;
- 	const int node = zone_to_nid(zone);
- 	unsigned long flags;
- 	struct memory_notify arg;
-@@ -2062,7 +2062,7 @@ int __ref offline_pages(unsigned long start_pfn, unsigned long nr_pages,
- 	} while (ret);
- 
- 	/* Mark all sections offline and remove free pages from the buddy. */
--	__offline_isolated_pages(start_pfn, end_pfn);
-+	managed_pages = __offline_isolated_pages(start_pfn, end_pfn);
- 	pr_debug("Offlined Pages %ld\n", nr_pages);
- 
- 	/*
-@@ -2078,7 +2078,7 @@ int __ref offline_pages(unsigned long start_pfn, unsigned long nr_pages,
- 	zone_pcp_enable(zone);
- 
- 	/* removal success */
--	adjust_managed_page_count(pfn_to_page(start_pfn), -nr_pages);
-+	adjust_managed_page_count(pfn_to_page(start_pfn), -managed_pages);
- 	adjust_present_page_count(pfn_to_page(start_pfn), group, -nr_pages);
- 
- 	/* reinitialise watermarks and update pcp limits */
-diff --git a/mm/page_alloc.c b/mm/page_alloc.c
-index 039bc52cc9091..809bc4a816e85 100644
---- a/mm/page_alloc.c
-+++ b/mm/page_alloc.c
-@@ -6745,14 +6745,19 @@ void zone_pcp_reset(struct zone *zone)
- /*
-  * All pages in the range must be in a single zone, must not contain holes,
-  * must span full sections, and must be isolated before calling this function.
-+ *
-+ * Returns the number of managed (non-PageOffline()) pages in the range: the
-+ * number of pages for which memory offlining code must adjust managed page
-+ * counters using adjust_managed_page_count().
-  */
--void __offline_isolated_pages(unsigned long start_pfn, unsigned long end_pfn)
-+unsigned long __offline_isolated_pages(unsigned long start_pfn,
-+		unsigned long end_pfn)
- {
-+	unsigned long already_offline = 0, flags;
- 	unsigned long pfn = start_pfn;
- 	struct page *page;
- 	struct zone *zone;
- 	unsigned int order;
--	unsigned long flags;
- 
- 	offline_mem_sections(pfn, end_pfn);
- 	zone = page_zone(pfn_to_page(pfn));
-@@ -6774,6 +6779,7 @@ void __offline_isolated_pages(unsigned long start_pfn, unsigned long end_pfn)
- 		if (PageOffline(page)) {
- 			BUG_ON(page_count(page));
- 			BUG_ON(PageBuddy(page));
-+			already_offline++;
- 			pfn++;
- 			continue;
- 		}
-@@ -6786,6 +6792,8 @@ void __offline_isolated_pages(unsigned long start_pfn, unsigned long end_pfn)
- 		pfn += (1 << order);
- 	}
- 	spin_unlock_irqrestore(&zone->lock, flags);
-+
-+	return end_pfn - start_pfn - already_offline;
- }
- #endif
- 
--- 
-2.45.1
+Though I'm not sure such movement would be any better than a stub.
 
+acpi_cpufreq_driver, i.e. the most of code in cpufreq.c file, can 
+probably be separated into acpi.c and put under CONFIG_INTEL as well. 
+What you think of this?
+
+  -Sergiy
 
