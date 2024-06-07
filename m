@@ -2,35 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7E2BB8FF8BB
-	for <lists+xen-devel@lfdr.de>; Fri,  7 Jun 2024 02:43:52 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.736184.1142246 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8CDE58FFA1F
+	for <lists+xen-devel@lfdr.de>; Fri,  7 Jun 2024 05:16:31 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.736200.1142256 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sFNgj-0001QZ-57; Fri, 07 Jun 2024 00:42:37 +0000
+	id 1sFQ4b-0008Ce-FR; Fri, 07 Jun 2024 03:15:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 736184.1142246; Fri, 07 Jun 2024 00:42:37 +0000
+Received: by outflank-mailman (output) from mailman id 736200.1142256; Fri, 07 Jun 2024 03:15:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sFNgi-0001OI-VO; Fri, 07 Jun 2024 00:42:36 +0000
-Received: by outflank-mailman (input) for mailman id 736184;
- Fri, 07 Jun 2024 00:42:35 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1sFNgh-0001O8-OA; Fri, 07 Jun 2024 00:42:35 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1sFNgh-0007Xo-KC; Fri, 07 Jun 2024 00:42:35 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1sFNgh-0001Rm-6n; Fri, 07 Jun 2024 00:42:35 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1sFNgh-00046A-6K; Fri, 07 Jun 2024 00:42:35 +0000
+	id 1sFQ4b-0008A6-Cm; Fri, 07 Jun 2024 03:15:25 +0000
+Received: by outflank-mailman (input) for mailman id 736200;
+ Fri, 07 Jun 2024 03:15:24 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=DKnY=NJ=gmail.com=mhkelley58@srs-se1.protection.inumbo.net>)
+ id 1sFQ4a-00089x-7p
+ for xen-devel@lists.xenproject.org; Fri, 07 Jun 2024 03:15:24 +0000
+Received: from mail-pl1-x62d.google.com (mail-pl1-x62d.google.com
+ [2607:f8b0:4864:20::62d])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 131d08fe-247c-11ef-90a2-e314d9c70b13;
+ Fri, 07 Jun 2024 05:14:39 +0200 (CEST)
+Received: by mail-pl1-x62d.google.com with SMTP id
+ d9443c01a7336-1f480624d0dso16069085ad.1
+ for <xen-devel@lists.xenproject.org>; Thu, 06 Jun 2024 20:14:39 -0700 (PDT)
+Received: from localhost.localdomain (c-67-161-114-176.hsd1.wa.comcast.net.
+ [67.161.114.176]) by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-1f6bd7f7ec1sm23027405ad.271.2024.06.06.20.14.36
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 06 Jun 2024 20:14:37 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,334 +45,601 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=U+WpC/eRlvGk9h2zrlJQeh9xOB1uqQ+n79rnIfQtiTM=; b=f1hKGV2dAJpkBCgizz72S1fidv
-	IvweWKwHZMnz6FJ41EyAPTeECXknXCeeTD/EtbitpMVcXMDWPBqwNyxu5otEktwaHm6h/xNhB4tm9
-	BxqP6EnRYaDfrgv+Gf+AHBag162CP32kIaZWanle4NkzqnPlYulw29KgArOmqjCWFoeU=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-186268-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 131d08fe-247c-11ef-90a2-e314d9c70b13
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1717730078; x=1718334878; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:reply-to:message-id:date
+         :subject:to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=S6sq1v/HYVth5hgL6aHLmT9s4dMG30DKkez74RK4Byw=;
+        b=PWxn4Z+pKTxIhSiebQ1DqW9mRhmews7Dx4SUqPtkLQvldlNO/MxJgHWzVdfVyJNREt
+         RSbGG9eavUSuxErbZgrqNQWoYjSKgqeXvAh9hr6eIx/6pbyk2sq3ezbOxVVwdS+FY5KS
+         c0H7zDWVeLbK1LIezeCWNAMLQfBsUQW9vYct2DuJhveBS/OmnFUcOK7jjL8Yiie/O0kP
+         COPBw2jgTIXJ3c3G6mYb3ZxjqBxroXD7Jq+RDf4E5PwMH5sVLGnp+sbEe9B1ewuO1Y+K
+         NiBHke2NMr/jYUJp7DuomdSGYBRkuo23iNBhLwsd9E/V/lX2QCMH20/ownYXVTd4xf5K
+         d7cw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1717730078; x=1718334878;
+        h=content-transfer-encoding:mime-version:reply-to:message-id:date
+         :subject:to:from:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=S6sq1v/HYVth5hgL6aHLmT9s4dMG30DKkez74RK4Byw=;
+        b=ntcr00o1ujoE1A4/2wk6Ki4vobMCPtPo7h3mreqDKXcqx0tL/9gaIMGK5LtVfJzJta
+         90mxnrIz0R0icIOLpWzLtNGaz24ZnOiWHT4FtCxbr13sQlBW66wdeRuZdiOoIxLW7TXv
+         Vr4ozG4nwSg/iTCZibkh3jctnq/WOGiaQKhKI+Gs7I2aglxnyU1h5rt47tDlXDS7HPdp
+         Wnk3VmGDx70Q6jsJN/q7hUPpPCwKKcGcu9EH/yvTp50wWOTItg2KjCU29rkx4kjyCN7V
+         UrQSz4vXk1Xqj7mn/X9CrL0ZilLN6hvRatOd1K9rScjSxSE765+GJV0wF1YaOfUZBiEX
+         q8ZA==
+X-Forwarded-Encrypted: i=1; AJvYcCWrQ4AfnyT07SUBX+Q9kSeXsbqcTm0oGESD3/ScijOqTUqyntfMFLD5Xg5MfhK5yCXG6O9yfuy6taHK2l/nGPPW5KavwMNGlA0rSb5Fp/w=
+X-Gm-Message-State: AOJu0YwpGj9Ke6EtTHTXQXlcvlD6Ej27+k3aBLqj3Spf8w16k2+Z4lfP
+	y/5HTi68X5DYQyv1Q5AKKCbey2pjC76tcHEdi4K/h9Ux74kvZ71r
+X-Google-Smtp-Source: AGHT+IGVLbOop05kbtCd0vA2QzX1cxZyTlSfbXjA3G457nSL5A9bMH4Wmsybo0Hjsa4Y5lzdKheiWA==
+X-Received: by 2002:a17:902:ea0b:b0:1f6:92f1:b01c with SMTP id d9443c01a7336-1f6d03b9604mr16907795ad.69.1717730077750;
+        Thu, 06 Jun 2024 20:14:37 -0700 (PDT)
+From: mhkelley58@gmail.com
+X-Google-Original-From: mhklinux@outlook.com
+To: robin.murphy@arm.com,
+	joro@8bytes.org,
+	will@kernel.org,
+	jgross@suse.com,
+	sstabellini@kernel.org,
+	oleksandr_tyshchenko@epam.com,
+	hch@lst.de,
+	m.szyprowski@samsung.com,
+	petr@tesarici.cz,
+	iommu@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	xen-devel@lists.xenproject.org
+Subject: [RFC 1/1] swiotlb: Reduce calls to swiotlb_find_pool()
+Date: Thu,  6 Jun 2024 20:14:21 -0700
+Message-Id: <20240607031421.182589-1-mhklinux@outlook.com>
+X-Mailer: git-send-email 2.25.1
+Reply-To: mhklinux@outlook.com
 MIME-Version: 1.0
-Subject: [linux-linus test] 186268: tolerable FAIL - PUSHED
-X-Osstest-Failures:
-    linux-linus:test-armhf-armhf-libvirt:xen-boot:fail:heisenbug
-    linux-linus:test-armhf-armhf-xl-rtds:host-ping-check-xen:fail:allowable
-    linux-linus:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-libvirt-vhd:xen-boot:fail:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
-    linux-linus:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt-qcow2:migrate-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt-raw:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-qcow2:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-qcow2:saverestore-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-vhd:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-vhd:saverestore-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-raw:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-raw:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    linux=d30d0e49da71de8df10bf3ff1b3de880653af562
-X-Osstest-Versions-That:
-    linux=2df0193e62cf887f373995fb8a91068562784adc
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 07 Jun 2024 00:42:35 +0000
+Content-Transfer-Encoding: 8bit
 
-flight 186268 linux-linus real [real]
-flight 186269 linux-linus real-retest [real]
-http://logs.test-lab.xenproject.org/osstest/logs/186268/
-http://logs.test-lab.xenproject.org/osstest/logs/186269/
+From: Michael Kelley <mhklinux@outlook.com>
 
-Failures :-/ but no regressions.
+With CONFIG_SWIOTLB_DYNAMIC enabled, each round-trip map/unmap pair
+in the swiotlb results in 6 calls to swiotlb_find_pool(). In multiple
+places, the pool is found and used in one function, and then must
+found again in the next function that is called because only the
+tlb_addr is passed as an argument. These are the six call sites:
 
-Tests which are failing intermittently (not blocking):
- test-armhf-armhf-libvirt      8 xen-boot            fail pass in 186269-retest
+dma_direct_map_page:
+1. swiotlb_map->swiotlb_tbl_map_single->swiotlb_bounce
 
-Regressions which are regarded as allowable (not blocking):
- test-armhf-armhf-xl-rtds     10 host-ping-check-xen      fail REGR. vs. 186260
+dma_direct_unmap_page:
+2. dma_direct_sync_single_for_cpu->is_swiotlb_buffer
+3. dma_direct_sync_single_for_cpu->swiotlb_sync_single_for_cpu->
+	swiotlb_bounce
+4. is_swiotlb_buffer
+5. swiotlb_tbl_unmap_single->swiotlb_del_transient
+6. swiotlb_tbl_unmap_single->swiotlb_release_slots
 
-Tests which did not succeed, but are not blocking:
- test-armhf-armhf-libvirt 16 saverestore-support-check fail in 186269 like 186260
- test-armhf-armhf-libvirt    15 migrate-support-check fail in 186269 never pass
- test-armhf-armhf-libvirt-vhd  8 xen-boot                     fail  like 186260
- test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 186260
- test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 186260
- test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 186260
- test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 186260
- test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 186260
- test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
- test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-multivcpu 15 migrate-support-check        fail  never pass
- test-armhf-armhf-xl-multivcpu 16 saverestore-support-check    fail  never pass
- test-armhf-armhf-xl-credit1  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit1  16 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt-qcow2 14 migrate-support-check        fail never pass
- test-amd64-amd64-libvirt-raw 14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit2  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit2  16 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-qcow2    14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-qcow2    15 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-vhd      14 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-vhd      15 saverestore-support-check    fail   never pass
- test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-raw      14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-raw      15 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
+Reduce the number of calls by finding the pool at a higher level, and
+passing it as an argument instead of searching again. A key change is
+for is_swiotlb_buffer() to return a pool pointer instead of a boolean,
+and then pass this pool pointer to subsequent swiotlb functions.
+With these changes, a round-trip map/unmap pair requires only 2 calls
+to swiotlb_find_pool():
 
-version targeted for testing:
- linux                d30d0e49da71de8df10bf3ff1b3de880653af562
-baseline version:
- linux                2df0193e62cf887f373995fb8a91068562784adc
+dma_direct_unmap_page:
+1. dma_direct_sync_single_for_cpu->is_swiotlb_buffer
+2. is_swiotlb_buffer
 
-Last test of basis   186260  2024-06-06 00:12:08 Z    1 days
-Testing same since   186268  2024-06-06 17:10:36 Z    0 days    1 attempts
+These changes come from noticing the inefficiencies in a code review,
+not from performance measurements. With CONFIG_SWIOTLB_DYNAMIC,
+swiotlb_find_pool() is not trivial, and it uses an RCU read lock,
+so avoiding the redundant calls helps performance in a hot path.
+When CONFIG_SWIOTLB_DYNAMIC is *not* set, the code size reduction
+is minimal and the perf benefits are likely negligible, but no
+harm is done.
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Aditya Kumar Singh <quic_adisi@quicinc.com>
-  Aleksandr Mishin <amishin@t-argos.ru>
-  Alexei Starovoitov <ast@kernel.org>
-  Alexis Lothoré <alexis.lothore@bootlin.com>
-  Andrii Nakryiko <andrii@kernel.org>
-  Antonio Quartulli <a@unstable.cc>
-  Ard Biesheuvel <ardb@kernel.org>
-  Ayala Beker <ayala.beker@intel.com>
-  Baochen Qiang <quic_bqiang@quicinc.com>
-  Benjamin Berg <benjamin.berg@intel.com>
-  Bitterblue Smith <rtl8821cerfe2@gmail.com>
-  Breno Leitao <leitao@debian.org>
-  Carl Huang <quic_cjhuang@quicinc.com>
-  Chandan Kumar Rout <chandanx.rout@intel.com>
-  Chris Maness <christopher.maness@gmail.com>
-  Cong Wang <cong.wang@bytedance.com>
-  Dan Cross <crossd@gmail.com>
-  Daniel Borkmann <daniel@iogearbox.net>
-  David S. Miller <davem@davemloft.net>
-  DelphineCCChiu <delphine_cc_chiu@wiwynn.com>
-  Dmitry Antipov <dmantipov@yandex.ru>
-  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-  Dmitry Safonov <0x7f454c46@gmail.com>
-  Duoming Zhou <duoming@zju.edu.cn>
-  Emmanuel Grumbach <emmanuel.grumbach@intel.com>
-  Eric Dumazet <edumazet@google.com>
-  Frank Wunderlich <frank-w@public-files.de>
-  Geliang Tang <geliang@kernel.org>
-  Guilherme G. Piccoli <gpiccoli@igalia.com>
-  Hangbin Liu <liuhangbin@gmail.com>
-  Hangyu Hua <hbh25y@gmail.com>
-  Heng Qi <hengqi@linux.alibaba.com>
-  Huacai Chen <chenhuacai@loongson.cn>
-  Ilan Peer <ilan.peer@intel.com>
-  Jacob Keller <jacob.e.keller@intel.com>
-  Jakub Kicinski <kuba@kernel.org>
-  Jason Wang <jasowang@redhat.com>
-  Jason Xing <kernelxing@tencent.com>
-  Jeff Johnson <quic_jjohnson@quicinc.com>
-  Jiri Olsa <jolsa@kernel.org>
-  Johannes Berg <johannes.berg@intel.com>
-  Kalle Valo <kvalo@kernel.org>
-  Kalle Valo <quic_kvalo@quicinc.com>
-  Karol Kolacinski <karol.kolacinski@intel.com>
-  Kuniyuki Iwashima <kuniyu@amazon.com>
-  Lars Kellogg-Stedman <lars@oddbit.com>
-  Larysa Zaremba <larysa.zaremba@intel.com>
-  Lin Ma <linma@zju.edu.cn>
-  Lingbo Kong <quic_lingbok@quicinc.com>
-  Linus Torvalds <torvalds@linux-foundation.org>
-  Luca Weiss <luca.weiss@fairphone.com>
-  Magnus Karlsson <magnus.karlsson@intel.com>
-  Matthias Stocker <mstocker@barracuda.com>
-  Matthieu Baerts (NGI0) <matttbe@kernel.org>
-  Michael S. Tsirkin <mst@redhat.com>
-  Miri Korenblit <miriam.rachel.korenblit@intel.com>
-  Mordechay Goodstein <mordechay.goodstein@intel.com>
-  Moshe Shemesh <moshe@nvidia.com>
-  Naama Meir <naamax.meir@linux.intel.com>
-  Nathan Chancellor <nathan@kernel.org>
-  Nicolas Escande <nico.escande@gmail.com>
-  Paolo Abeni <pabeni@redhat.com>
-  Paul Greenwalt <paul.greenwalt@intel.com>
-  Peter Geis <pgwipeout@gmail.com>
-  Ping-Ke Shih <pkshih@realtek.com>
-  Pucha Himasekhar Reddy <himasekharx.reddy.pucha@intel.com>
-  Remi Pommarel <repk@triplefau.lt>
-  Richard Cochran <richardcochran@gmail.com>
-  Sasha Neftin <sasha.neftin@intel.com>
-  Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-  Sergey Ryazanov <ryazanov.s.a@gmail.com>
-  Shahar S Matityahu <shahar.s.matityahu@intel.com>
-  Shaul Triebitz <shaul.triebitz@intel.com>
-  Shay Drory <shayd@nvidia.com>
-  Simon Horman <horms@kernel.org>
-  Su Hui <suhui@nfschina.com>
-  Subbaraya Sundeep <sbhatta@marvell.com>
-  Taehee Yoo <ap420073@gmail.com>
-  Tariq Toukan <tariqt@nvidia.com>
-  Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>
-  Thorsten Blum <thorsten.blum@toblux.com>
-  Tristram Ha <tristram.ha@microchip.com>
-  Vadim Fedorenko <vadfed@meta.com>
-  Vinicius Costa Gomes <vinicius.gomes@intel.com>
-  Wen Gu <guwen@linux.alibaba.com>
-  Yedidya Benshimol <yedidya.ben.shimol@intel.com>
+No functional change is intended.
 
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-arm64-libvirt                                          pass    
- build-armhf-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl                                          pass    
- test-amd64-coresched-amd64-xl                                pass    
- test-arm64-arm64-xl                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
- test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
- test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
- test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
- test-amd64-amd64-libvirt-xsm                                 pass    
- test-arm64-arm64-libvirt-xsm                                 pass    
- test-amd64-amd64-xl-xsm                                      pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-qemuu-nested-amd                            fail    
- test-amd64-amd64-xl-pvhv2-amd                                pass    
- test-amd64-amd64-dom0pvh-xl-amd                              pass    
- test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
- test-amd64-amd64-qemuu-freebsd12-amd64                       pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-amd64-xl-qemut-win7-amd64                         fail    
- test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
- test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
- test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
- test-armhf-armhf-xl-arndale                                  pass    
- test-amd64-amd64-examine-bios                                pass    
- test-amd64-amd64-xl-credit1                                  pass    
- test-arm64-arm64-xl-credit1                                  pass    
- test-armhf-armhf-xl-credit1                                  pass    
- test-amd64-amd64-xl-credit2                                  pass    
- test-arm64-arm64-xl-credit2                                  pass    
- test-armhf-armhf-xl-credit2                                  pass    
- test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
- test-amd64-amd64-examine                                     pass    
- test-arm64-arm64-examine                                     pass    
- test-armhf-armhf-examine                                     pass    
- test-amd64-amd64-qemuu-nested-intel                          pass    
- test-amd64-amd64-xl-pvhv2-intel                              pass    
- test-amd64-amd64-dom0pvh-xl-intel                            pass    
- test-amd64-amd64-libvirt                                     pass    
- test-armhf-armhf-libvirt                                     fail    
- test-amd64-amd64-xl-multivcpu                                pass    
- test-armhf-armhf-xl-multivcpu                                pass    
- test-amd64-amd64-pair                                        pass    
- test-amd64-amd64-libvirt-pair                                pass    
- test-amd64-amd64-xl-pvshim                                   pass    
- test-amd64-amd64-pygrub                                      pass    
- test-amd64-amd64-libvirt-qcow2                               pass    
- test-amd64-amd64-xl-qcow2                                    pass    
- test-armhf-armhf-xl-qcow2                                    pass    
- test-amd64-amd64-libvirt-raw                                 pass    
- test-arm64-arm64-libvirt-raw                                 pass    
- test-amd64-amd64-xl-raw                                      pass    
- test-armhf-armhf-xl-raw                                      pass    
- test-amd64-amd64-xl-rtds                                     pass    
- test-armhf-armhf-xl-rtds                                     fail    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
- test-amd64-amd64-xl-shadow                                   pass    
- test-arm64-arm64-xl-thunderx                                 pass    
- test-amd64-amd64-examine-uefi                                pass    
- test-amd64-amd64-libvirt-vhd                                 pass    
- test-armhf-armhf-libvirt-vhd                                 fail    
- test-amd64-amd64-xl-vhd                                      pass    
- test-arm64-arm64-xl-vhd                                      pass    
+Signed-off-by: Michael Kelley <mhklinux@outlook.com>
+---
+This patch trades off making many of the core swiotlb APIs take
+an additional argument in order to avoid duplicating calls to
+swiotlb_find_pool(). The current code seems rather wasteful in
+making 6 calls per round-trip, but I'm happy to accept others'
+judgment as to whether getting rid of the waste is worth the
+additional code complexity.
 
+ drivers/iommu/dma-iommu.c | 27 ++++++++++++++------
+ drivers/xen/swiotlb-xen.c | 25 +++++++++++-------
+ include/linux/swiotlb.h   | 54 +++++++++++++++++++++------------------
+ kernel/dma/direct.c       | 12 ++++++---
+ kernel/dma/direct.h       | 18 ++++++++-----
+ kernel/dma/swiotlb.c      | 43 ++++++++++++++++---------------
+ 6 files changed, 106 insertions(+), 73 deletions(-)
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+diff --git a/drivers/iommu/dma-iommu.c b/drivers/iommu/dma-iommu.c
+index f731e4b2a417..ab6bc37ecf90 100644
+--- a/drivers/iommu/dma-iommu.c
++++ b/drivers/iommu/dma-iommu.c
+@@ -1073,6 +1073,7 @@ static void iommu_dma_sync_single_for_cpu(struct device *dev,
+ 		dma_addr_t dma_handle, size_t size, enum dma_data_direction dir)
+ {
+ 	phys_addr_t phys;
++	struct io_tlb_pool *pool;
+ 
+ 	if (dev_is_dma_coherent(dev) && !dev_use_swiotlb(dev, size, dir))
+ 		return;
+@@ -1081,21 +1082,25 @@ static void iommu_dma_sync_single_for_cpu(struct device *dev,
+ 	if (!dev_is_dma_coherent(dev))
+ 		arch_sync_dma_for_cpu(phys, size, dir);
+ 
+-	if (is_swiotlb_buffer(dev, phys))
+-		swiotlb_sync_single_for_cpu(dev, phys, size, dir);
++	pool = is_swiotlb_buffer(dev, phys);
++	if (pool)
++		swiotlb_sync_single_for_cpu(dev, phys, size, dir, pool);
+ }
+ 
+ static void iommu_dma_sync_single_for_device(struct device *dev,
+ 		dma_addr_t dma_handle, size_t size, enum dma_data_direction dir)
+ {
+ 	phys_addr_t phys;
++	struct io_tlb_pool *pool;
+ 
+ 	if (dev_is_dma_coherent(dev) && !dev_use_swiotlb(dev, size, dir))
+ 		return;
+ 
+ 	phys = iommu_iova_to_phys(iommu_get_dma_domain(dev), dma_handle);
+-	if (is_swiotlb_buffer(dev, phys))
+-		swiotlb_sync_single_for_device(dev, phys, size, dir);
++
++	pool = is_swiotlb_buffer(dev, phys);
++	if (pool)
++		swiotlb_sync_single_for_device(dev, phys, size, dir, pool);
+ 
+ 	if (!dev_is_dma_coherent(dev))
+ 		arch_sync_dma_for_device(phys, size, dir);
+@@ -1189,8 +1194,12 @@ static dma_addr_t iommu_dma_map_page(struct device *dev, struct page *page,
+ 		arch_sync_dma_for_device(phys, size, dir);
+ 
+ 	iova = __iommu_dma_map(dev, phys, size, prot, dma_mask);
+-	if (iova == DMA_MAPPING_ERROR && is_swiotlb_buffer(dev, phys))
+-		swiotlb_tbl_unmap_single(dev, phys, size, dir, attrs);
++	if (iova == DMA_MAPPING_ERROR) {
++		struct io_tlb_pool *pool = is_swiotlb_buffer(dev, phys);
++
++		if (pool)
++			swiotlb_tbl_unmap_single(dev, phys, size, dir, attrs, pool);
++	}
+ 	return iova;
+ }
+ 
+@@ -1199,6 +1208,7 @@ static void iommu_dma_unmap_page(struct device *dev, dma_addr_t dma_handle,
+ {
+ 	struct iommu_domain *domain = iommu_get_dma_domain(dev);
+ 	phys_addr_t phys;
++	struct io_tlb_pool *pool;
+ 
+ 	phys = iommu_iova_to_phys(domain, dma_handle);
+ 	if (WARN_ON(!phys))
+@@ -1209,8 +1219,9 @@ static void iommu_dma_unmap_page(struct device *dev, dma_addr_t dma_handle,
+ 
+ 	__iommu_dma_unmap(dev, dma_handle, size);
+ 
+-	if (unlikely(is_swiotlb_buffer(dev, phys)))
+-		swiotlb_tbl_unmap_single(dev, phys, size, dir, attrs);
++	pool = is_swiotlb_buffer(dev, phys);
++	if (unlikely(pool))
++		swiotlb_tbl_unmap_single(dev, phys, size, dir, attrs, pool);
+ }
+ 
+ /*
+diff --git a/drivers/xen/swiotlb-xen.c b/drivers/xen/swiotlb-xen.c
+index 6579ae3f6dac..7af8c8466e1d 100644
+--- a/drivers/xen/swiotlb-xen.c
++++ b/drivers/xen/swiotlb-xen.c
+@@ -88,7 +88,7 @@ static inline int range_straddles_page_boundary(phys_addr_t p, size_t size)
+ 	return 0;
+ }
+ 
+-static int is_xen_swiotlb_buffer(struct device *dev, dma_addr_t dma_addr)
++static struct io_tlb_pool *is_xen_swiotlb_buffer(struct device *dev, dma_addr_t dma_addr)
+ {
+ 	unsigned long bfn = XEN_PFN_DOWN(dma_to_phys(dev, dma_addr));
+ 	unsigned long xen_pfn = bfn_to_local_pfn(bfn);
+@@ -100,7 +100,7 @@ static int is_xen_swiotlb_buffer(struct device *dev, dma_addr_t dma_addr)
+ 	 */
+ 	if (pfn_valid(PFN_DOWN(paddr)))
+ 		return is_swiotlb_buffer(dev, paddr);
+-	return 0;
++	return NULL;
+ }
+ 
+ #ifdef CONFIG_X86
+@@ -228,7 +228,8 @@ static dma_addr_t xen_swiotlb_map_page(struct device *dev, struct page *page,
+ 	 */
+ 	if (unlikely(!dma_capable(dev, dev_addr, size, true))) {
+ 		swiotlb_tbl_unmap_single(dev, map, size, dir,
+-				attrs | DMA_ATTR_SKIP_CPU_SYNC);
++				attrs | DMA_ATTR_SKIP_CPU_SYNC,
++				swiotlb_find_pool(dev, map));
+ 		return DMA_MAPPING_ERROR;
+ 	}
+ 
+@@ -254,6 +255,7 @@ static void xen_swiotlb_unmap_page(struct device *hwdev, dma_addr_t dev_addr,
+ 		size_t size, enum dma_data_direction dir, unsigned long attrs)
+ {
+ 	phys_addr_t paddr = xen_dma_to_phys(hwdev, dev_addr);
++	struct io_tlb_pool *pool;
+ 
+ 	BUG_ON(dir == DMA_NONE);
+ 
+@@ -265,8 +267,9 @@ static void xen_swiotlb_unmap_page(struct device *hwdev, dma_addr_t dev_addr,
+ 	}
+ 
+ 	/* NOTE: We use dev_addr here, not paddr! */
+-	if (is_xen_swiotlb_buffer(hwdev, dev_addr))
+-		swiotlb_tbl_unmap_single(hwdev, paddr, size, dir, attrs);
++	pool = is_xen_swiotlb_buffer(hwdev, dev_addr);
++	if (pool)
++		swiotlb_tbl_unmap_single(hwdev, paddr, size, dir, attrs, pool);
+ }
+ 
+ static void
+@@ -274,6 +277,7 @@ xen_swiotlb_sync_single_for_cpu(struct device *dev, dma_addr_t dma_addr,
+ 		size_t size, enum dma_data_direction dir)
+ {
+ 	phys_addr_t paddr = xen_dma_to_phys(dev, dma_addr);
++	struct io_tlb_pool *pool;
+ 
+ 	if (!dev_is_dma_coherent(dev)) {
+ 		if (pfn_valid(PFN_DOWN(dma_to_phys(dev, dma_addr))))
+@@ -282,8 +286,9 @@ xen_swiotlb_sync_single_for_cpu(struct device *dev, dma_addr_t dma_addr,
+ 			xen_dma_sync_for_cpu(dev, dma_addr, size, dir);
+ 	}
+ 
+-	if (is_xen_swiotlb_buffer(dev, dma_addr))
+-		swiotlb_sync_single_for_cpu(dev, paddr, size, dir);
++	pool = is_xen_swiotlb_buffer(dev, dma_addr);
++	if (pool)
++		swiotlb_sync_single_for_cpu(dev, paddr, size, dir, pool);
+ }
+ 
+ static void
+@@ -291,9 +296,11 @@ xen_swiotlb_sync_single_for_device(struct device *dev, dma_addr_t dma_addr,
+ 		size_t size, enum dma_data_direction dir)
+ {
+ 	phys_addr_t paddr = xen_dma_to_phys(dev, dma_addr);
++	struct io_tlb_pool *pool;
+ 
+-	if (is_xen_swiotlb_buffer(dev, dma_addr))
+-		swiotlb_sync_single_for_device(dev, paddr, size, dir);
++	pool = is_xen_swiotlb_buffer(dev, dma_addr);
++	if (pool)
++		swiotlb_sync_single_for_device(dev, paddr, size, dir, pool);
+ 
+ 	if (!dev_is_dma_coherent(dev)) {
+ 		if (pfn_valid(PFN_DOWN(dma_to_phys(dev, dma_addr))))
+diff --git a/include/linux/swiotlb.h b/include/linux/swiotlb.h
+index 14bc10c1bb23..ce8651949123 100644
+--- a/include/linux/swiotlb.h
++++ b/include/linux/swiotlb.h
+@@ -42,24 +42,6 @@ int swiotlb_init_late(size_t size, gfp_t gfp_mask,
+ 	int (*remap)(void *tlb, unsigned long nslabs));
+ extern void __init swiotlb_update_mem_attributes(void);
+ 
+-phys_addr_t swiotlb_tbl_map_single(struct device *hwdev, phys_addr_t phys,
+-		size_t mapping_size,
+-		unsigned int alloc_aligned_mask, enum dma_data_direction dir,
+-		unsigned long attrs);
+-
+-extern void swiotlb_tbl_unmap_single(struct device *hwdev,
+-				     phys_addr_t tlb_addr,
+-				     size_t mapping_size,
+-				     enum dma_data_direction dir,
+-				     unsigned long attrs);
+-
+-void swiotlb_sync_single_for_device(struct device *dev, phys_addr_t tlb_addr,
+-		size_t size, enum dma_data_direction dir);
+-void swiotlb_sync_single_for_cpu(struct device *dev, phys_addr_t tlb_addr,
+-		size_t size, enum dma_data_direction dir);
+-dma_addr_t swiotlb_map(struct device *dev, phys_addr_t phys,
+-		size_t size, enum dma_data_direction dir, unsigned long attrs);
+-
+ #ifdef CONFIG_SWIOTLB
+ 
+ /**
+@@ -168,12 +150,12 @@ static inline struct io_tlb_pool *swiotlb_find_pool(struct device *dev,
+  * * %true if @paddr points into a bounce buffer
+  * * %false otherwise
+  */
+-static inline bool is_swiotlb_buffer(struct device *dev, phys_addr_t paddr)
++static inline struct io_tlb_pool *is_swiotlb_buffer(struct device *dev, phys_addr_t paddr)
+ {
+ 	struct io_tlb_mem *mem = dev->dma_io_tlb_mem;
+ 
+ 	if (!mem)
+-		return false;
++		return NULL;
+ 
+ #ifdef CONFIG_SWIOTLB_DYNAMIC
+ 	/*
+@@ -187,10 +169,13 @@ static inline bool is_swiotlb_buffer(struct device *dev, phys_addr_t paddr)
+ 	 * This barrier pairs with smp_mb() in swiotlb_find_slots().
+ 	 */
+ 	smp_rmb();
+-	return READ_ONCE(dev->dma_uses_io_tlb) &&
+-		swiotlb_find_pool(dev, paddr);
++	if (READ_ONCE(dev->dma_uses_io_tlb))
++		return swiotlb_find_pool(dev, paddr);
++	return NULL;
+ #else
+-	return paddr >= mem->defpool.start && paddr < mem->defpool.end;
++	if (paddr >= mem->defpool.start && paddr < mem->defpool.end)
++		return &mem->defpool;
++	return NULL;
+ #endif
+ }
+ 
+@@ -201,6 +186,25 @@ static inline bool is_swiotlb_force_bounce(struct device *dev)
+ 	return mem && mem->force_bounce;
+ }
+ 
++phys_addr_t swiotlb_tbl_map_single(struct device *hwdev, phys_addr_t phys,
++		size_t mapping_size,
++		unsigned int alloc_aligned_mask, enum dma_data_direction dir,
++		unsigned long attrs);
++
++extern void swiotlb_tbl_unmap_single(struct device *hwdev,
++				     phys_addr_t tlb_addr,
++				     size_t mapping_size,
++				     enum dma_data_direction dir,
++				     unsigned long attrs,
++				     struct io_tlb_pool *pool);
++
++void swiotlb_sync_single_for_device(struct device *dev, phys_addr_t tlb_addr,
++		size_t size, enum dma_data_direction dir, struct io_tlb_pool *pool);
++void swiotlb_sync_single_for_cpu(struct device *dev, phys_addr_t tlb_addr,
++		size_t size, enum dma_data_direction dir, struct io_tlb_pool *pool);
++dma_addr_t swiotlb_map(struct device *dev, phys_addr_t phys,
++		size_t size, enum dma_data_direction dir, unsigned long attrs);
++
+ void swiotlb_init(bool addressing_limited, unsigned int flags);
+ void __init swiotlb_exit(void);
+ void swiotlb_dev_init(struct device *dev);
+@@ -219,9 +223,9 @@ static inline void swiotlb_dev_init(struct device *dev)
+ {
+ }
+ 
+-static inline bool is_swiotlb_buffer(struct device *dev, phys_addr_t paddr)
++static inline struct io_tlb_pool *is_swiotlb_buffer(struct device *dev, phys_addr_t paddr)
+ {
+-	return false;
++	return NULL;
+ }
+ static inline bool is_swiotlb_force_bounce(struct device *dev)
+ {
+diff --git a/kernel/dma/direct.c b/kernel/dma/direct.c
+index 4d543b1e9d57..50689afb0ffd 100644
+--- a/kernel/dma/direct.c
++++ b/kernel/dma/direct.c
+@@ -399,14 +399,16 @@ void dma_direct_sync_sg_for_device(struct device *dev,
+ 		struct scatterlist *sgl, int nents, enum dma_data_direction dir)
+ {
+ 	struct scatterlist *sg;
++	struct io_tlb_pool *pool;
+ 	int i;
+ 
+ 	for_each_sg(sgl, sg, nents, i) {
+ 		phys_addr_t paddr = dma_to_phys(dev, sg_dma_address(sg));
+ 
+-		if (unlikely(is_swiotlb_buffer(dev, paddr)))
++		pool = is_swiotlb_buffer(dev, paddr);
++		if (unlikely(pool))
+ 			swiotlb_sync_single_for_device(dev, paddr, sg->length,
+-						       dir);
++						       dir, pool);
+ 
+ 		if (!dev_is_dma_coherent(dev))
+ 			arch_sync_dma_for_device(paddr, sg->length,
+@@ -422,6 +424,7 @@ void dma_direct_sync_sg_for_cpu(struct device *dev,
+ 		struct scatterlist *sgl, int nents, enum dma_data_direction dir)
+ {
+ 	struct scatterlist *sg;
++	struct io_tlb_pool *pool;
+ 	int i;
+ 
+ 	for_each_sg(sgl, sg, nents, i) {
+@@ -430,9 +433,10 @@ void dma_direct_sync_sg_for_cpu(struct device *dev,
+ 		if (!dev_is_dma_coherent(dev))
+ 			arch_sync_dma_for_cpu(paddr, sg->length, dir);
+ 
+-		if (unlikely(is_swiotlb_buffer(dev, paddr)))
++		pool = is_swiotlb_buffer(dev, paddr);
++		if (unlikely(pool))
+ 			swiotlb_sync_single_for_cpu(dev, paddr, sg->length,
+-						    dir);
++						    dir, pool);
+ 
+ 		if (dir == DMA_FROM_DEVICE)
+ 			arch_dma_mark_clean(paddr, sg->length);
+diff --git a/kernel/dma/direct.h b/kernel/dma/direct.h
+index 18d346118fe8..72aa65558e07 100644
+--- a/kernel/dma/direct.h
++++ b/kernel/dma/direct.h
+@@ -57,9 +57,11 @@ static inline void dma_direct_sync_single_for_device(struct device *dev,
+ 		dma_addr_t addr, size_t size, enum dma_data_direction dir)
+ {
+ 	phys_addr_t paddr = dma_to_phys(dev, addr);
++	struct io_tlb_pool *pool;
+ 
+-	if (unlikely(is_swiotlb_buffer(dev, paddr)))
+-		swiotlb_sync_single_for_device(dev, paddr, size, dir);
++	pool = is_swiotlb_buffer(dev, paddr);
++	if (unlikely(pool))
++		swiotlb_sync_single_for_device(dev, paddr, size, dir, pool);
+ 
+ 	if (!dev_is_dma_coherent(dev))
+ 		arch_sync_dma_for_device(paddr, size, dir);
+@@ -69,14 +71,16 @@ static inline void dma_direct_sync_single_for_cpu(struct device *dev,
+ 		dma_addr_t addr, size_t size, enum dma_data_direction dir)
+ {
+ 	phys_addr_t paddr = dma_to_phys(dev, addr);
++	struct io_tlb_pool *pool;
+ 
+ 	if (!dev_is_dma_coherent(dev)) {
+ 		arch_sync_dma_for_cpu(paddr, size, dir);
+ 		arch_sync_dma_for_cpu_all();
+ 	}
+ 
+-	if (unlikely(is_swiotlb_buffer(dev, paddr)))
+-		swiotlb_sync_single_for_cpu(dev, paddr, size, dir);
++	pool = is_swiotlb_buffer(dev, paddr);
++	if (unlikely(pool))
++		swiotlb_sync_single_for_cpu(dev, paddr, size, dir, pool);
+ 
+ 	if (dir == DMA_FROM_DEVICE)
+ 		arch_dma_mark_clean(paddr, size);
+@@ -117,12 +121,14 @@ static inline void dma_direct_unmap_page(struct device *dev, dma_addr_t addr,
+ 		size_t size, enum dma_data_direction dir, unsigned long attrs)
+ {
+ 	phys_addr_t phys = dma_to_phys(dev, addr);
++	struct io_tlb_pool *pool;
+ 
+ 	if (!(attrs & DMA_ATTR_SKIP_CPU_SYNC))
+ 		dma_direct_sync_single_for_cpu(dev, addr, size, dir);
+ 
+-	if (unlikely(is_swiotlb_buffer(dev, phys)))
++	pool = is_swiotlb_buffer(dev, phys);
++	if (unlikely(pool))
+ 		swiotlb_tbl_unmap_single(dev, phys, size, dir,
+-					 attrs | DMA_ATTR_SKIP_CPU_SYNC);
++					 attrs | DMA_ATTR_SKIP_CPU_SYNC, pool);
+ }
+ #endif /* _KERNEL_DMA_DIRECT_H */
+diff --git a/kernel/dma/swiotlb.c b/kernel/dma/swiotlb.c
+index fe1ccb53596f..59b3e333651d 100644
+--- a/kernel/dma/swiotlb.c
++++ b/kernel/dma/swiotlb.c
+@@ -855,9 +855,8 @@ static unsigned int swiotlb_align_offset(struct device *dev,
+  * Bounce: copy the swiotlb buffer from or back to the original dma location
+  */
+ static void swiotlb_bounce(struct device *dev, phys_addr_t tlb_addr, size_t size,
+-			   enum dma_data_direction dir)
++			   enum dma_data_direction dir, struct io_tlb_pool *mem)
+ {
+-	struct io_tlb_pool *mem = swiotlb_find_pool(dev, tlb_addr);
+ 	int index = (tlb_addr - mem->start) >> IO_TLB_SHIFT;
+ 	phys_addr_t orig_addr = mem->slots[index].orig_addr;
+ 	size_t alloc_size = mem->slots[index].alloc_size;
+@@ -1435,13 +1434,13 @@ phys_addr_t swiotlb_tbl_map_single(struct device *dev, phys_addr_t orig_addr,
+ 	 * hardware behavior.  Use of swiotlb is supposed to be transparent,
+ 	 * i.e. swiotlb must not corrupt memory by clobbering unwritten bytes.
+ 	 */
+-	swiotlb_bounce(dev, tlb_addr, mapping_size, DMA_TO_DEVICE);
++	swiotlb_bounce(dev, tlb_addr, mapping_size, DMA_TO_DEVICE, pool);
+ 	return tlb_addr;
+ }
+ 
+-static void swiotlb_release_slots(struct device *dev, phys_addr_t tlb_addr)
++static void swiotlb_release_slots(struct device *dev, phys_addr_t tlb_addr,
++				  struct io_tlb_pool *mem)
+ {
+-	struct io_tlb_pool *mem = swiotlb_find_pool(dev, tlb_addr);
+ 	unsigned long flags;
+ 	unsigned int offset = swiotlb_align_offset(dev, 0, tlb_addr);
+ 	int index, nslots, aindex;
+@@ -1505,11 +1504,9 @@ static void swiotlb_release_slots(struct device *dev, phys_addr_t tlb_addr)
+  *
+  * Return: %true if @tlb_addr belonged to a transient pool that was released.
+  */
+-static bool swiotlb_del_transient(struct device *dev, phys_addr_t tlb_addr)
++static bool swiotlb_del_transient(struct device *dev, phys_addr_t tlb_addr,
++				  struct io_tlb_pool *pool)
+ {
+-	struct io_tlb_pool *pool;
+-
+-	pool = swiotlb_find_pool(dev, tlb_addr);
+ 	if (!pool->transient)
+ 		return false;
+ 
+@@ -1522,7 +1519,8 @@ static bool swiotlb_del_transient(struct device *dev, phys_addr_t tlb_addr)
+ #else  /* !CONFIG_SWIOTLB_DYNAMIC */
+ 
+ static inline bool swiotlb_del_transient(struct device *dev,
+-					 phys_addr_t tlb_addr)
++					 phys_addr_t tlb_addr,
++					 struct io_tlb_pool *pool)
+ {
+ 	return false;
+ }
+@@ -1534,34 +1532,34 @@ static inline bool swiotlb_del_transient(struct device *dev,
+  */
+ void swiotlb_tbl_unmap_single(struct device *dev, phys_addr_t tlb_addr,
+ 			      size_t mapping_size, enum dma_data_direction dir,
+-			      unsigned long attrs)
++			      unsigned long attrs, struct io_tlb_pool *pool)
+ {
+ 	/*
+ 	 * First, sync the memory before unmapping the entry
+ 	 */
+ 	if (!(attrs & DMA_ATTR_SKIP_CPU_SYNC) &&
+ 	    (dir == DMA_FROM_DEVICE || dir == DMA_BIDIRECTIONAL))
+-		swiotlb_bounce(dev, tlb_addr, mapping_size, DMA_FROM_DEVICE);
++		swiotlb_bounce(dev, tlb_addr, mapping_size, DMA_FROM_DEVICE, pool);
+ 
+-	if (swiotlb_del_transient(dev, tlb_addr))
++	if (swiotlb_del_transient(dev, tlb_addr, pool))
+ 		return;
+-	swiotlb_release_slots(dev, tlb_addr);
++	swiotlb_release_slots(dev, tlb_addr, pool);
+ }
+ 
+ void swiotlb_sync_single_for_device(struct device *dev, phys_addr_t tlb_addr,
+-		size_t size, enum dma_data_direction dir)
++		size_t size, enum dma_data_direction dir, struct io_tlb_pool *pool)
+ {
+ 	if (dir == DMA_TO_DEVICE || dir == DMA_BIDIRECTIONAL)
+-		swiotlb_bounce(dev, tlb_addr, size, DMA_TO_DEVICE);
++		swiotlb_bounce(dev, tlb_addr, size, DMA_TO_DEVICE, pool);
+ 	else
+ 		BUG_ON(dir != DMA_FROM_DEVICE);
+ }
+ 
+ void swiotlb_sync_single_for_cpu(struct device *dev, phys_addr_t tlb_addr,
+-		size_t size, enum dma_data_direction dir)
++		size_t size, enum dma_data_direction dir, struct io_tlb_pool *pool)
+ {
+ 	if (dir == DMA_FROM_DEVICE || dir == DMA_BIDIRECTIONAL)
+-		swiotlb_bounce(dev, tlb_addr, size, DMA_FROM_DEVICE);
++		swiotlb_bounce(dev, tlb_addr, size, DMA_FROM_DEVICE, pool);
+ 	else
+ 		BUG_ON(dir != DMA_TO_DEVICE);
+ }
+@@ -1586,7 +1584,8 @@ dma_addr_t swiotlb_map(struct device *dev, phys_addr_t paddr, size_t size,
+ 	dma_addr = phys_to_dma_unencrypted(dev, swiotlb_addr);
+ 	if (unlikely(!dma_capable(dev, dma_addr, size, true))) {
+ 		swiotlb_tbl_unmap_single(dev, swiotlb_addr, size, dir,
+-			attrs | DMA_ATTR_SKIP_CPU_SYNC);
++			attrs | DMA_ATTR_SKIP_CPU_SYNC,
++			swiotlb_find_pool(dev, swiotlb_addr));
+ 		dev_WARN_ONCE(dev, 1,
+ 			"swiotlb addr %pad+%zu overflow (mask %llx, bus limit %llx).\n",
+ 			&dma_addr, size, *dev->dma_mask, dev->bus_dma_limit);
+@@ -1774,11 +1773,13 @@ struct page *swiotlb_alloc(struct device *dev, size_t size)
+ bool swiotlb_free(struct device *dev, struct page *page, size_t size)
+ {
+ 	phys_addr_t tlb_addr = page_to_phys(page);
++	struct io_tlb_pool *pool;
+ 
+-	if (!is_swiotlb_buffer(dev, tlb_addr))
++	pool = is_swiotlb_buffer(dev, tlb_addr);
++	if (!pool)
+ 		return false;
+ 
+-	swiotlb_release_slots(dev, tlb_addr);
++	swiotlb_release_slots(dev, tlb_addr, pool);
+ 
+ 	return true;
+ }
+-- 
+2.25.1
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-hint: The 'hooks/update' hook was ignored because it's not set as executable.
-hint: You can disable this warning with `git config advice.ignoredHook false`.
-hint: The 'hooks/post-receive' hook was ignored because it's not set as executable.
-hint: You can disable this warning with `git config advice.ignoredHook false`.
-hint: The 'hooks/post-update' hook was ignored because it's not set as executable.
-hint: You can disable this warning with `git config advice.ignoredHook false`.
-To xenbits.xen.org:/home/xen/git/linux-pvops.git
-   2df0193e62cf..d30d0e49da71  d30d0e49da71de8df10bf3ff1b3de880653af562 -> tested/linux-linus
 
