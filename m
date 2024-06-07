@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A7EB2900CBE
-	for <lists+xen-devel@lfdr.de>; Fri,  7 Jun 2024 22:13:51 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.736622.1142753 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5025C900D4B
+	for <lists+xen-devel@lfdr.de>; Fri,  7 Jun 2024 22:59:55 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.736647.1142770 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sFfxr-0001xl-9E; Fri, 07 Jun 2024 20:13:31 +0000
+	id 1sFgfi-0000N5-Gb; Fri, 07 Jun 2024 20:58:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 736622.1142753; Fri, 07 Jun 2024 20:13:31 +0000
+Received: by outflank-mailman (output) from mailman id 736647.1142770; Fri, 07 Jun 2024 20:58:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sFfxr-0001p4-5c; Fri, 07 Jun 2024 20:13:31 +0000
-Received: by outflank-mailman (input) for mailman id 736622;
- Fri, 07 Jun 2024 20:13:29 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ppZm=NJ=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
- id 1sFfxp-0001UQ-Cq
- for xen-devel@lists.xenproject.org; Fri, 07 Jun 2024 20:13:29 +0000
-Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 67727495-250a-11ef-90a2-e314d9c70b13;
- Fri, 07 Jun 2024 22:13:28 +0200 (CEST)
-Received: from nico.bugseng.com (unknown [46.228.253.194])
- by support.bugseng.com (Postfix) with ESMTPSA id 6A9F24EE0745;
- Fri,  7 Jun 2024 22:13:27 +0200 (CEST)
+	id 1sFgfi-0000L8-E0; Fri, 07 Jun 2024 20:58:50 +0000
+Received: by outflank-mailman (input) for mailman id 736647;
+ Fri, 07 Jun 2024 20:58:49 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1sFgfh-0000Ky-0R; Fri, 07 Jun 2024 20:58:49 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1sFgfg-0005Yg-Vf; Fri, 07 Jun 2024 20:58:48 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1sFgfg-0002u6-Mi; Fri, 07 Jun 2024 20:58:48 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1sFgfg-0004wA-MC; Fri, 07 Jun 2024 20:58:48 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,69 +42,73 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 67727495-250a-11ef-90a2-e314d9c70b13
-From: Nicola Vetrini <nicola.vetrini@bugseng.com>
-To: nicola.vetrini@bugseng.com,
-	xen-devel@lists.xenproject.org
-Cc: sstabellini@kernel.org,
-	michal.orzel@amd.com,
-	xenia.ragiadakou@amd.com,
-	ayan.kumar.halder@amd.com,
-	consulting@bugseng.com,
-	Simone Ballarin <simone.ballarin@bugseng.com>,
-	Doug Goldstein <cardoe@cardoe.com>,
-	Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Subject: [XEN PATCH for-4.19 v2 3/3] automation/eclair_analysis: add more clean MISRA guidelines
-Date: Fri,  7 Jun 2024 22:13:18 +0200
-Message-Id: <42645b41cf9d2d8b5ef72f0b171989711edb00a1.1717790683.git.nicola.vetrini@bugseng.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <cover.1717790683.git.nicola.vetrini@bugseng.com>
-References: <cover.1717790683.git.nicola.vetrini@bugseng.com>
-MIME-Version: 1.0
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=uU17lVaMVsdSGO/703rEv3cElSHdVauBJy+PUzEoF54=; b=bYy5AfnHKcGAFS5O7V7NfeVKii
+	XtibnX/hYf89ghcJA7DJwlHaFpP6JO0kEOd8dXmgc9YzArnaWUGkCzoERYywfBjdr2S31gPxdPadF
+	1WRxXu176xsoBYxejCG/vMPuJP4dE0PXGrSQugDys7DiOj4Zzx4Dk0C1sjooHmzZLhnM=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-186283-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [ovmf test] 186283: all pass - PUSHED
+X-Osstest-Versions-This:
+    ovmf=ab069d580111ccc64d6b0c9697b7c5fd6e1507ce
+X-Osstest-Versions-That:
+    ovmf=c36414b131dfd0a1ca51f10f87a18955bc110ff2
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 07 Jun 2024 20:58:48 +0000
 
-Rules 20.9, 20.12 and 14.4 are now clean on ARM and x86, so they are added
-to the list of clean guidelines.
+flight 186283 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/186283/
 
-Some guidelines listed in the additional clean section for ARM are also
-clean on x86, so they can be removed from there.
+Perfect :-)
+All tests in this flight passed as required
+version targeted for testing:
+ ovmf                 ab069d580111ccc64d6b0c9697b7c5fd6e1507ce
+baseline version:
+ ovmf                 c36414b131dfd0a1ca51f10f87a18955bc110ff2
 
-No functional change.
+Last test of basis   186281  2024-06-07 15:44:37 Z    0 days
+Testing same since   186283  2024-06-07 18:13:28 Z    0 days    1 attempts
 
-Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
----
- automation/eclair_analysis/ECLAIR/tagging.ecl | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+------------------------------------------------------------
+People who touched revisions under test:
+  Ard Biesheuvel <ardb@kernel.org>
+  Gerd Hoffmann <kraxel@redhat.com>
 
-diff --git a/automation/eclair_analysis/ECLAIR/tagging.ecl b/automation/eclair_analysis/ECLAIR/tagging.ecl
-index a354ff322e03..b829655ca0bc 100644
---- a/automation/eclair_analysis/ECLAIR/tagging.ecl
-+++ b/automation/eclair_analysis/ECLAIR/tagging.ecl
-@@ -60,6 +60,7 @@ MC3R1.R11.7||
- MC3R1.R11.9||
- MC3R1.R12.5||
- MC3R1.R14.1||
-+MC3R1.R14.4||
- MC3R1.R16.7||
- MC3R1.R17.1||
- MC3R1.R17.3||
-@@ -73,6 +74,7 @@ MC3R1.R20.4||
- MC3R1.R20.6||
- MC3R1.R20.9||
- MC3R1.R20.11||
-+MC3R1.R20.12||
- MC3R1.R20.13||
- MC3R1.R20.14||
- MC3R1.R21.3||
-@@ -105,7 +107,7 @@ if(string_equal(target,"x86_64"),
- )
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
 
- if(string_equal(target,"arm64"),
--    service_selector({"additional_clean_guidelines","MC3R1.R14.4||MC3R1.R16.6||MC3R1.R20.12||MC3R1.R2.1||MC3R1.R5.3||MC3R1.R7.2||MC3R1.R7.3||MC3R1.R8.6||MC3R1.R9.3"})
-+    service_selector({"additional_clean_guidelines","MC3R1.R16.6||MC3R1.R2.1||MC3R1.R5.3||MC3R1.R7.3"})
- )
 
- -reports+={clean:added,"service(clean_guidelines_common||additional_clean_guidelines)"}
---
-2.34.1
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
+   c36414b131..ab069d5801  ab069d580111ccc64d6b0c9697b7c5fd6e1507ce -> xen-tested-master
 
