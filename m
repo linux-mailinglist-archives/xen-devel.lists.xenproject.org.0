@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A071C901420
-	for <lists+xen-devel@lfdr.de>; Sun,  9 Jun 2024 03:26:31 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.736788.1142851 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6B1ED90152D
+	for <lists+xen-devel@lfdr.de>; Sun,  9 Jun 2024 10:48:47 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.736806.1142861 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sG7JC-0005dg-PU; Sun, 09 Jun 2024 01:25:22 +0000
+	id 1sGED4-0004vu-Ab; Sun, 09 Jun 2024 08:47:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 736788.1142851; Sun, 09 Jun 2024 01:25:22 +0000
+Received: by outflank-mailman (output) from mailman id 736806.1142861; Sun, 09 Jun 2024 08:47:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sG7JC-0005c1-MH; Sun, 09 Jun 2024 01:25:22 +0000
-Received: by outflank-mailman (input) for mailman id 736788;
- Sun, 09 Jun 2024 01:25:20 +0000
+	id 1sGED4-0004tO-7G; Sun, 09 Jun 2024 08:47:30 +0000
+Received: by outflank-mailman (input) for mailman id 736806;
+ Sun, 09 Jun 2024 08:47:29 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <osstest-admin@xenproject.org>)
- id 1sG7JA-0005br-EZ; Sun, 09 Jun 2024 01:25:20 +0000
+ id 1sGED3-0004tE-9x; Sun, 09 Jun 2024 08:47:29 +0000
 Received: from host146.205.237.98.conversent.net ([205.237.98.146]
  helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <osstest-admin@xenproject.org>)
- id 1sG7JA-0003wI-9Q; Sun, 09 Jun 2024 01:25:20 +0000
+ id 1sGED3-0004b5-6k; Sun, 09 Jun 2024 08:47:29 +0000
 Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
  by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <osstest-admin@xenproject.org>)
- id 1sG7J9-0000MH-Te; Sun, 09 Jun 2024 01:25:20 +0000
+ id 1sGED2-0001Ii-S2; Sun, 09 Jun 2024 08:47:28 +0000
 Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
  4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1sG7J9-0003K4-TD; Sun, 09 Jun 2024 01:25:19 +0000
+ id 1sGED2-00080V-RW; Sun, 09 Jun 2024 08:47:28 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,26 +45,32 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
 	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=wzpd9yJr4Iu1Sh2+b4bZUVxs05Z7GVl7+Qu/CjlImOM=; b=gfxD9q4mxse/A1ZZbmZlTJzoTS
-	39OiZQkT4kIVdtuF0atJ3oUYKmlshSA/Le9RaJNg8TLiryltaOW9G7ePqXh8rnjTHXG5t4dcyfk2Y
-	uOrI5ZrWux0wIQj+xgSg8t/TPyQ3pmPXdR+B+sXwPIHiEOd/O1ztcxPMoAOJcolZvnI8=;
+	bh=BKATRq97Y92SjU0Fn3ezUYYEEAbIjResPwDiqB4winQ=; b=bf8KQ/ZGiUbkayrgheRtPtnzwY
+	6oel+x6DU+OklsJV5d2BVzcw2VN0cDYAiKxY21s+MtF7MHrv21R695Js4ZP+n81gxipxNyn9HUZnu
+	SndgwxM7FFhXnx8hCsumbGm9tYRJh2l9GSXoszSI/KYuxAf4CaVEu2Tx98Df8vd9Pc8g=;
 To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-186290-mainreport@xen.org>
+Message-ID: <osstest-186292-mainreport@xen.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Subject: [linux-linus test] 186290: FAIL
+Subject: [linux-linus test] 186292: regressions - FAIL
 X-Osstest-Failures:
-    linux-linus:test-amd64-amd64-xl-qemut-debianhvm-i386-xsm:<job status>:broken:regression
-    linux-linus:test-amd64-amd64-xl-qemut-debianhvm-i386-xsm:host-reuse/final:broken:heisenbug
-    linux-linus:test-armhf-armhf-examine:reboot:fail:heisenbug
-    linux-linus:test-amd64-amd64-xl-qemut-debianhvm-i386-xsm:debian-hvm-install:fail:heisenbug
+    linux-linus:test-armhf-armhf-examine:reboot:fail:regression
+    linux-linus:test-amd64-amd64-xl-qemut-debianhvm-i386-xsm:debian-hvm-install:fail:regression
     linux-linus:test-armhf-armhf-xl-arndale:xen-boot:fail:heisenbug
+    linux-linus:test-armhf-armhf-xl:xen-boot:fail:heisenbug
+    linux-linus:test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict:debian-hvm-install:fail:heisenbug
+    linux-linus:test-armhf-armhf-xl-multivcpu:xen-boot:fail:heisenbug
     linux-linus:test-armhf-armhf-xl-rtds:xen-boot:fail:allowable
-    linux-linus:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
     linux-linus:test-armhf-armhf-xl-qcow2:xen-boot:fail:nonblocking
     linux-linus:test-armhf-armhf-libvirt-vhd:xen-boot:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-raw:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-raw:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-raw:xen-boot:fail:nonblocking
     linux-linus:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
     linux-linus:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
     linux-linus:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
@@ -86,8 +92,6 @@ X-Osstest-Failures:
     linux-linus:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
     linux-linus:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
     linux-linus:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
     linux-linus:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
     linux-linus:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
     linux-linus:test-amd64-amd64-libvirt-qcow2:migrate-support-check:fail:nonblocking
@@ -98,44 +102,50 @@ X-Osstest-Failures:
     linux-linus:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
     linux-linus:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
     linux-linus:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-qcow2:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-qcow2:saverestore-support-check:fail:nonblocking
     linux-linus:test-arm64-arm64-xl-vhd:migrate-support-check:fail:nonblocking
     linux-linus:test-arm64-arm64-xl-vhd:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-raw:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-raw:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-libvirt-vhd:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-libvirt-vhd:saverestore-support-check:fail:nonblocking
 X-Osstest-Versions-This:
     linux=061d1af7b0305227182bd9da60c7706c079348b7
 X-Osstest-Versions-That:
     linux=8a92980606e3585d72d510a03b59906e96755b8a
 From: osstest service owner <osstest-admin@xenproject.org>
-Date: Sun, 09 Jun 2024 01:25:19 +0000
+Date: Sun, 09 Jun 2024 08:47:28 +0000
 
-flight 186290 linux-linus real [real]
-flight 186291 linux-linus real-retest [real]
-http://logs.test-lab.xenproject.org/osstest/logs/186290/
-http://logs.test-lab.xenproject.org/osstest/logs/186291/
+flight 186292 linux-linus real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/186292/
 
-Failures and problems with tests :-(
+Regressions :-(
 
 Tests which did not succeed and are blocking,
 including tests which could not be run:
- test-amd64-amd64-xl-qemut-debianhvm-i386-xsm    <job status>  broken in 186291
+ test-armhf-armhf-examine      8 reboot                   fail REGR. vs. 186282
+ test-amd64-amd64-xl-qemut-debianhvm-i386-xsm 12 debian-hvm-install fail REGR. vs. 186282
 
 Tests which are failing intermittently (not blocking):
- test-amd64-amd64-xl-qemut-debianhvm-i386-xsm 25 host-reuse/final broken in 186291 pass in 186290
- test-armhf-armhf-examine      8 reboot              fail pass in 186291-retest
- test-amd64-amd64-xl-qemut-debianhvm-i386-xsm 12 debian-hvm-install fail pass in 186291-retest
- test-armhf-armhf-xl-arndale   8 xen-boot            fail pass in 186291-retest
+ test-armhf-armhf-xl-arndale   8 xen-boot         fail in 186290 pass in 186292
+ test-armhf-armhf-xl           8 xen-boot                   fail pass in 186290
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict 12 debian-hvm-install fail pass in 186290
+ test-armhf-armhf-xl-multivcpu  8 xen-boot                  fail pass in 186290
 
 Regressions which are regarded as allowable (not blocking):
  test-armhf-armhf-xl-rtds      8 xen-boot                 fail REGR. vs. 186282
 
 Tests which did not succeed, but are not blocking:
- test-armhf-armhf-xl-arndale 15 migrate-support-check fail in 186291 never pass
- test-armhf-armhf-xl-arndale 16 saverestore-support-check fail in 186291 never pass
- test-armhf-armhf-xl-qcow2     8 xen-boot                     fail  like 186278
- test-armhf-armhf-libvirt-vhd  8 xen-boot                     fail  like 186278
+ test-armhf-armhf-xl-qcow2     8 xen-boot            fail in 186290 like 186278
+ test-armhf-armhf-libvirt-vhd  8 xen-boot            fail in 186290 like 186278
+ test-armhf-armhf-xl         15 migrate-support-check fail in 186290 never pass
+ test-armhf-armhf-xl     16 saverestore-support-check fail in 186290 never pass
+ test-armhf-armhf-xl-raw     14 migrate-support-check fail in 186290 never pass
+ test-armhf-armhf-xl-raw 15 saverestore-support-check fail in 186290 never pass
+ test-armhf-armhf-xl-multivcpu 15 migrate-support-check fail in 186290 never pass
+ test-armhf-armhf-xl-multivcpu 16 saverestore-support-check fail in 186290 never pass
+ test-armhf-armhf-xl-raw       8 xen-boot                     fail  like 186278
  test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 186282
  test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 186282
  test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 186282
@@ -157,8 +167,6 @@ Tests which did not succeed, but are not blocking:
  test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
  test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
  test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
  test-armhf-armhf-xl-credit1  15 migrate-support-check        fail   never pass
  test-armhf-armhf-xl-credit1  16 saverestore-support-check    fail   never pass
  test-amd64-amd64-libvirt-qcow2 14 migrate-support-check        fail never pass
@@ -169,12 +177,14 @@ Tests which did not succeed, but are not blocking:
  test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
  test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
  test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-qcow2    14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-qcow2    15 saverestore-support-check    fail   never pass
  test-arm64-arm64-xl-vhd      14 migrate-support-check        fail   never pass
  test-arm64-arm64-xl-vhd      15 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-raw      14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-raw      15 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-multivcpu 15 migrate-support-check        fail  never pass
- test-armhf-armhf-xl-multivcpu 16 saverestore-support-check    fail  never pass
+ test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-libvirt-vhd 14 migrate-support-check        fail   never pass
+ test-armhf-armhf-libvirt-vhd 15 saverestore-support-check    fail   never pass
 
 version targeted for testing:
  linux                061d1af7b0305227182bd9da60c7706c079348b7
@@ -182,8 +192,8 @@ baseline version:
  linux                8a92980606e3585d72d510a03b59906e96755b8a
 
 Last test of basis   186282  2024-06-07 18:13:19 Z    1 days
-Failing since        186284  2024-06-08 00:43:36 Z    1 days    3 attempts
-Testing same since   186290  2024-06-08 18:41:41 Z    0 days    1 attempts
+Failing since        186284  2024-06-08 00:43:36 Z    1 days    4 attempts
+Testing same since   186290  2024-06-08 18:41:41 Z    0 days    2 attempts
 
 ------------------------------------------------------------
 People who touched revisions under test:
@@ -321,7 +331,7 @@ jobs:
  test-amd64-amd64-xl                                          pass    
  test-amd64-coresched-amd64-xl                                pass    
  test-arm64-arm64-xl                                          pass    
- test-armhf-armhf-xl                                          pass    
+ test-armhf-armhf-xl                                          fail    
  test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
  test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
  test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 fail    
@@ -342,7 +352,7 @@ jobs:
  test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
  test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
  test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
- test-armhf-armhf-xl-arndale                                  fail    
+ test-armhf-armhf-xl-arndale                                  pass    
  test-amd64-amd64-examine-bios                                pass    
  test-amd64-amd64-xl-credit1                                  pass    
  test-arm64-arm64-xl-credit1                                  pass    
@@ -350,7 +360,7 @@ jobs:
  test-amd64-amd64-xl-credit2                                  pass    
  test-arm64-arm64-xl-credit2                                  pass    
  test-armhf-armhf-xl-credit2                                  pass    
- test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        fail    
  test-amd64-amd64-examine                                     pass    
  test-arm64-arm64-examine                                     pass    
  test-armhf-armhf-examine                                     fail    
@@ -360,18 +370,18 @@ jobs:
  test-amd64-amd64-libvirt                                     pass    
  test-armhf-armhf-libvirt                                     pass    
  test-amd64-amd64-xl-multivcpu                                pass    
- test-armhf-armhf-xl-multivcpu                                pass    
+ test-armhf-armhf-xl-multivcpu                                fail    
  test-amd64-amd64-pair                                        pass    
  test-amd64-amd64-libvirt-pair                                pass    
  test-amd64-amd64-xl-pvshim                                   pass    
  test-amd64-amd64-pygrub                                      pass    
  test-amd64-amd64-libvirt-qcow2                               pass    
  test-amd64-amd64-xl-qcow2                                    pass    
- test-armhf-armhf-xl-qcow2                                    fail    
+ test-armhf-armhf-xl-qcow2                                    pass    
  test-amd64-amd64-libvirt-raw                                 pass    
  test-arm64-arm64-libvirt-raw                                 pass    
  test-amd64-amd64-xl-raw                                      pass    
- test-armhf-armhf-xl-raw                                      pass    
+ test-armhf-armhf-xl-raw                                      fail    
  test-amd64-amd64-xl-rtds                                     pass    
  test-armhf-armhf-xl-rtds                                     fail    
  test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
@@ -379,7 +389,7 @@ jobs:
  test-arm64-arm64-xl-thunderx                                 pass    
  test-amd64-amd64-examine-uefi                                pass    
  test-amd64-amd64-libvirt-vhd                                 pass    
- test-armhf-armhf-libvirt-vhd                                 fail    
+ test-armhf-armhf-libvirt-vhd                                 pass    
  test-amd64-amd64-xl-vhd                                      pass    
  test-arm64-arm64-xl-vhd                                      pass    
 
@@ -399,7 +409,6 @@ Explanation of these reports, and of osstest in general, is at
 Test harness code can be found at
     http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
-broken-job test-amd64-amd64-xl-qemut-debianhvm-i386-xsm broken
 
 Not pushing.
 
