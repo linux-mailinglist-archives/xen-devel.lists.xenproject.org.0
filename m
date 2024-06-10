@@ -2,37 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1537E901E9B
-	for <lists+xen-devel@lfdr.de>; Mon, 10 Jun 2024 11:55:04 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.737096.1143239 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id ADCBB901EC4
+	for <lists+xen-devel@lfdr.de>; Mon, 10 Jun 2024 12:05:10 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.737105.1143249 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sGbjh-0008GL-6z; Mon, 10 Jun 2024 09:54:45 +0000
+	id 1sGbtK-0002BF-6j; Mon, 10 Jun 2024 10:04:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 737096.1143239; Mon, 10 Jun 2024 09:54:45 +0000
+Received: by outflank-mailman (output) from mailman id 737105.1143249; Mon, 10 Jun 2024 10:04:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sGbjh-0008Ed-46; Mon, 10 Jun 2024 09:54:45 +0000
-Received: by outflank-mailman (input) for mailman id 737096;
- Mon, 10 Jun 2024 09:54:43 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1sGbtK-00029k-3n; Mon, 10 Jun 2024 10:04:42 +0000
+Received: by outflank-mailman (input) for mailman id 737105;
+ Mon, 10 Jun 2024 10:04:41 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Rpda=NM=intel.com=lkp@srs-se1.protection.inumbo.net>)
- id 1sGbjf-0008EX-10
- for xen-devel@lists.xenproject.org; Mon, 10 Jun 2024 09:54:43 +0000
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 726da0b4-270f-11ef-b4bb-af5377834399;
- Mon, 10 Jun 2024 11:54:39 +0200 (CEST)
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
- by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Jun 2024 02:54:36 -0700
-Received: from lkp-server01.sh.intel.com (HELO 8967fbab76b3) ([10.239.97.150])
- by fmviesa009.fm.intel.com with ESMTP; 10 Jun 2024 02:54:33 -0700
-Received: from kbuild by 8967fbab76b3 with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1sGbjT-00022n-1H;
- Mon, 10 Jun 2024 09:54:31 +0000
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1sGbtJ-00029a-EO; Mon, 10 Jun 2024 10:04:41 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1sGbtJ-0002tx-BO; Mon, 10 Jun 2024 10:04:41 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1sGbtI-0001je-W8; Mon, 10 Jun 2024 10:04:41 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1sGbtI-0008Ov-Vd; Mon, 10 Jun 2024 10:04:40 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,181 +42,251 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 726da0b4-270f-11ef-b4bb-af5377834399
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1718013279; x=1749549279;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=yGdh2DgY5dbRPihxx4eSyhu1F2/ygbWCIoyyX/MAbWQ=;
-  b=K9vp++lef2T6RG+/4hDpBXAoOfwwPHHR6232yWBoYf6Y53ic5OGahGtR
-   I/ZUk7MkW1zjlgNLiFAQ3jj3o0KvC8ZXVcg7ejTrpTul4rh4eO0rIVuA8
-   asLUf9OmHZ+e++c5qQpcIWr+asWeyPAqo95I+BMQEj280nIPMeApzEUJk
-   TZSShgRma9kz8lXi3hLZYof+34+mOUkQkzV7w+8wWxnJ9cHCjWaNs7zOa
-   yPD3UFz10CJEfY3OUHPyQGxAiUE2PwcsMyCVZ1C4JfBE+BdM31MRQN59D
-   HxCOOh6QjC0VKq1HBJvxl0Y2LYsb6RGQEKrbHAFj8laPrW4T7uHwCUgHh
-   A==;
-X-CSE-ConnectionGUID: 6QZWxRt8TCOxxYfz32r18Q==
-X-CSE-MsgGUID: yOx5sKorSGuIIEFoN+W0pQ==
-X-IronPort-AV: E=McAfee;i="6600,9927,11098"; a="14818096"
-X-IronPort-AV: E=Sophos;i="6.08,227,1712646000"; 
-   d="scan'208";a="14818096"
-X-CSE-ConnectionGUID: epjzt1QBSXWXDm/6gQpdhA==
-X-CSE-MsgGUID: E+67wbjFTGe7ZAIo23ieyQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.08,227,1712646000"; 
-   d="scan'208";a="39129952"
-Date: Mon, 10 Jun 2024 17:53:44 +0800
-From: kernel test robot <lkp@intel.com>
-To: Abhinav Jain <jain.abhinav177@gmail.com>, jgross@suse.com,
-	sstabellini@kernel.org, oleksandr_tyshchenko@epam.com,
-	xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
-	skhan@linuxfoundation.org, javier.carrasco.cruz@gmail.com,
-	jain.abhinav177@gmail.com
-Subject: Re: [PATCH] xen: xen-pciback: Export a bridge and all its children
- as per TODO
-Message-ID: <202406101933.49pM50Ii-lkp@intel.com>
-References: <20240609184410.53500-1-jain.abhinav177@gmail.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=YsSDOa0YDldmRWIsvjDqG0/el5E/SMGQ0uZUz4oEm2E=; b=id37HiMCrjvVCqP+cFOmoo4sfM
+	EqMLp5o0sYDUmKiaeQ5kmcTsiw2jrYbEsoQM1JSj+4Rcvt5EH0bBnBQ19OC6RsSrfKFl+3DSWZAP2
+	Gajy9+q189386iNFapKorlrcEt8bhXs5fb0oXOTIyXeIXHpDcNClubsZNJ7AKz6HE9pM=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-186298-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20240609184410.53500-1-jain.abhinav177@gmail.com>
+Subject: [linux-linus test] 186298: regressions - FAIL
+X-Osstest-Failures:
+    linux-linus:test-armhf-armhf-examine:reboot:fail:regression
+    linux-linus:test-armhf-armhf-xl-rtds:xen-boot:fail:allowable
+    linux-linus:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-qcow2:xen-boot:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-qcow2:migrate-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-raw:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-vhd:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-vhd:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-raw:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-raw:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-libvirt-vhd:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-libvirt-vhd:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    linux=83a7eefedc9b56fe7bfeff13b6c7356688ffa670
+X-Osstest-Versions-That:
+    linux=771ed66105de9106a6f3e4311e06451881cdac5e
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Mon, 10 Jun 2024 10:04:40 +0000
 
-Hi Abhinav,
+flight 186298 linux-linus real [real]
+flight 186300 linux-linus real-retest [real]
+http://logs.test-lab.xenproject.org/osstest/logs/186298/
+http://logs.test-lab.xenproject.org/osstest/logs/186300/
 
-kernel test robot noticed the following build warnings:
+Regressions :-(
 
-[auto build test WARNING on xen-tip/linux-next]
-[also build test WARNING on linus/master v6.10-rc3 next-20240607]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ test-armhf-armhf-examine      8 reboot                   fail REGR. vs. 186294
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Abhinav-Jain/xen-xen-pciback-Export-a-bridge-and-all-its-children-as-per-TODO/20240610-024623
-base:   https://git.kernel.org/pub/scm/linux/kernel/git/xen/tip.git linux-next
-patch link:    https://lore.kernel.org/r/20240609184410.53500-1-jain.abhinav177%40gmail.com
-patch subject: [PATCH] xen: xen-pciback: Export a bridge and all its children as per TODO
-config: x86_64-randconfig-006-20240610 (https://download.01.org/0day-ci/archive/20240610/202406101933.49pM50Ii-lkp@intel.com/config)
-compiler: clang version 18.1.5 (https://github.com/llvm/llvm-project 617a15a9eac96088ae5e9134248d8236e34b91b1)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20240610/202406101933.49pM50Ii-lkp@intel.com/reproduce)
+Regressions which are regarded as allowable (not blocking):
+ test-armhf-armhf-xl-rtds      8 xen-boot                 fail REGR. vs. 186294
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202406101933.49pM50Ii-lkp@intel.com/
+Tests which did not succeed, but are not blocking:
+ test-armhf-armhf-libvirt   16 saverestore-support-check fail blocked in 186294
+ test-armhf-armhf-xl-qcow2     8 xen-boot                     fail  like 186294
+ test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 186294
+ test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 186294
+ test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 186294
+ test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 186294
+ test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 186294
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-qcow2 14 migrate-support-check        fail never pass
+ test-amd64-amd64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit2  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit1  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-vhd      14 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-vhd      15 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-raw      14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-raw      15 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-multivcpu 15 migrate-support-check        fail  never pass
+ test-armhf-armhf-xl-multivcpu 16 saverestore-support-check    fail  never pass
+ test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-libvirt-vhd 14 migrate-support-check        fail   never pass
+ test-armhf-armhf-libvirt-vhd 15 saverestore-support-check    fail   never pass
 
-All warnings (new ones prefixed by >>):
+version targeted for testing:
+ linux                83a7eefedc9b56fe7bfeff13b6c7356688ffa670
+baseline version:
+ linux                771ed66105de9106a6f3e4311e06451881cdac5e
 
->> drivers/xen/xen-pciback/xenbus.c:262:21: warning: use of logical '&&' with constant operand [-Wconstant-logical-operand]
-     262 |         if ((dev->hdr_type && PCI_HEADER_TYPE_MASK) == PCI_HEADER_TYPE_BRIDGE) {
-         |                            ^  ~~~~~~~~~~~~~~~~~~~~
-   drivers/xen/xen-pciback/xenbus.c:262:21: note: use '&' for a bitwise operation
-     262 |         if ((dev->hdr_type && PCI_HEADER_TYPE_MASK) == PCI_HEADER_TYPE_BRIDGE) {
-         |                            ^~
-         |                            &
-   drivers/xen/xen-pciback/xenbus.c:262:21: note: remove constant to silence this warning
-     262 |         if ((dev->hdr_type && PCI_HEADER_TYPE_MASK) == PCI_HEADER_TYPE_BRIDGE) {
-         |                            ^~~~~~~~~~~~~~~~~~~~~~~
-   drivers/xen/xen-pciback/xenbus.c:270:12: error: no member named 'domain' in 'struct pci_dev'
-     270 |                                 child->domain, child->bus->number,
-         |                                 ~~~~~  ^
-   include/linux/dev_printk.h:163:47: note: expanded from macro 'dev_dbg'
-     163 |                 dev_printk(KERN_DEBUG, dev, dev_fmt(fmt), ##__VA_ARGS__); \
-         |                                                             ^~~~~~~~~~~
-   include/linux/dev_printk.h:129:34: note: expanded from macro 'dev_printk'
-     129 |                 _dev_printk(level, dev, fmt, ##__VA_ARGS__);            \
-         |                                                ^~~~~~~~~~~
-   drivers/xen/xen-pciback/xenbus.c:275:20: error: no member named 'domain' in 'struct pci_dev'
-     275 |                                                       child->domain,
-         |                                                       ~~~~~  ^
-   drivers/xen/xen-pciback/xenbus.c:284:13: error: no member named 'domain' in 'struct pci_dev'
-     284 |                                         child->domain,
-         |                                         ~~~~~  ^
-   include/linux/dev_printk.h:144:65: note: expanded from macro 'dev_err'
-     144 |         dev_printk_index_wrap(_dev_err, KERN_ERR, dev, dev_fmt(fmt), ##__VA_ARGS__)
-         |                                                                        ^~~~~~~~~~~
-   include/linux/dev_printk.h:110:23: note: expanded from macro 'dev_printk_index_wrap'
-     110 |                 _p_func(dev, fmt, ##__VA_ARGS__);                       \
-         |                                     ^~~~~~~~~~~
-   1 warning and 3 errors generated.
+Last test of basis   186294  2024-06-09 08:51:48 Z    1 days
+Failing since        186296  2024-06-09 17:11:41 Z    0 days    2 attempts
+Testing same since   186298  2024-06-10 01:11:40 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Arnaldo Carvalho de Melo <acme@redhat.com>
+  Borislav Petkov (AMD) <bp@alien8.de>
+  Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
+  Ingo Molnar <mingo@kernel.org>
+  Linus Torvalds <torvalds@linux-foundation.org>
+  Mark Rutland <mark.rutland@arm.com>
+  Milian Wolff <milian.wolff@kdab.com>
+  Namhyung Kim <namhyung@kernel.org>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl                                          pass    
+ test-amd64-coresched-amd64-xl                                pass    
+ test-arm64-arm64-xl                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
+ test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 pass    
+ test-amd64-amd64-xl-xsm                                      pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-qemuu-nested-amd                            fail    
+ test-amd64-amd64-xl-pvhv2-amd                                pass    
+ test-amd64-amd64-dom0pvh-xl-amd                              pass    
+ test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
+ test-amd64-amd64-qemuu-freebsd12-amd64                       pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-amd64-xl-qemut-win7-amd64                         fail    
+ test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
+ test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
+ test-armhf-armhf-xl-arndale                                  pass    
+ test-amd64-amd64-examine-bios                                pass    
+ test-amd64-amd64-xl-credit1                                  pass    
+ test-arm64-arm64-xl-credit1                                  pass    
+ test-armhf-armhf-xl-credit1                                  pass    
+ test-amd64-amd64-xl-credit2                                  pass    
+ test-arm64-arm64-xl-credit2                                  pass    
+ test-armhf-armhf-xl-credit2                                  pass    
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
+ test-amd64-amd64-examine                                     pass    
+ test-arm64-arm64-examine                                     pass    
+ test-armhf-armhf-examine                                     fail    
+ test-amd64-amd64-qemuu-nested-intel                          pass    
+ test-amd64-amd64-xl-pvhv2-intel                              pass    
+ test-amd64-amd64-dom0pvh-xl-intel                            pass    
+ test-amd64-amd64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     pass    
+ test-amd64-amd64-xl-multivcpu                                pass    
+ test-armhf-armhf-xl-multivcpu                                pass    
+ test-amd64-amd64-pair                                        pass    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-amd64-xl-pvshim                                   pass    
+ test-amd64-amd64-pygrub                                      pass    
+ test-amd64-amd64-libvirt-qcow2                               pass    
+ test-amd64-amd64-xl-qcow2                                    pass    
+ test-armhf-armhf-xl-qcow2                                    fail    
+ test-amd64-amd64-libvirt-raw                                 pass    
+ test-arm64-arm64-libvirt-raw                                 pass    
+ test-amd64-amd64-xl-raw                                      pass    
+ test-armhf-armhf-xl-raw                                      pass    
+ test-amd64-amd64-xl-rtds                                     pass    
+ test-armhf-armhf-xl-rtds                                     fail    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
+ test-amd64-amd64-xl-shadow                                   pass    
+ test-arm64-arm64-xl-thunderx                                 pass    
+ test-amd64-amd64-examine-uefi                                pass    
+ test-amd64-amd64-libvirt-vhd                                 pass    
+ test-armhf-armhf-libvirt-vhd                                 pass    
+ test-amd64-amd64-xl-vhd                                      pass    
+ test-arm64-arm64-xl-vhd                                      pass    
 
 
-vim +262 drivers/xen/xen-pciback/xenbus.c
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-   225	
-   226	static int xen_pcibk_export_device(struct xen_pcibk_device *pdev,
-   227					 int domain, int bus, int slot, int func,
-   228					 int devid)
-   229	{
-   230		struct pci_dev *dev;
-   231		int err = 0;
-   232	
-   233		dev_dbg(&pdev->xdev->dev, "exporting dom %x bus %x slot %x func %x\n",
-   234			domain, bus, slot, func);
-   235	
-   236		dev = pcistub_get_pci_dev_by_slot(pdev, domain, bus, slot, func);
-   237		if (!dev) {
-   238			err = -EINVAL;
-   239			xenbus_dev_fatal(pdev->xdev, err,
-   240					 "Couldn't locate PCI device "
-   241					 "(%04x:%02x:%02x.%d)! "
-   242					 "perhaps already in-use?",
-   243					 domain, bus, slot, func);
-   244			goto out;
-   245		}
-   246	
-   247		err = xen_pcibk_add_pci_dev(pdev, dev, devid,
-   248					    xen_pcibk_publish_pci_dev);
-   249		if (err)
-   250			goto out;
-   251	
-   252		dev_info(&dev->dev, "registering for %d\n", pdev->xdev->otherend_id);
-   253		if (xen_register_device_domain_owner(dev,
-   254						     pdev->xdev->otherend_id) != 0) {
-   255			dev_err(&dev->dev, "Stealing ownership from dom%d.\n",
-   256				xen_find_device_domain_owner(dev));
-   257			xen_unregister_device_domain_owner(dev);
-   258			xen_register_device_domain_owner(dev, pdev->xdev->otherend_id);
-   259		}
-   260	
-   261		/* Check if the device is a bridge and export all its children */
- > 262		if ((dev->hdr_type && PCI_HEADER_TYPE_MASK) == PCI_HEADER_TYPE_BRIDGE) {
-   263			struct pci_dev *child = NULL;
-   264	
-   265			/* Iterate over all the devices in this bridge */
-   266			list_for_each_entry(child, &dev->subordinate->devices,
-   267					bus_list) {
-   268				dev_dbg(&pdev->xdev->dev,
-   269					"exporting child device %04x:%02x:%02x.%d\n",
-   270					child->domain, child->bus->number,
-   271					PCI_SLOT(child->devfn),
-   272					PCI_FUNC(child->devfn));
-   273	
-   274				err = xen_pcibk_export_device(pdev,
-   275							      child->domain,
-   276							      child->bus->number,
-   277							      PCI_SLOT(child->devfn),
-   278							      PCI_FUNC(child->devfn),
-   279							      devid);
-   280				if (err) {
-   281					dev_err(&pdev->xdev->dev,
-   282						"failed to export child device : "
-   283						"%04x:%02x:%02x.%d\n",
-   284						child->domain,
-   285						child->bus->number,
-   286						PCI_SLOT(child->devfn),
-   287						PCI_FUNC(child->devfn));
-   288					goto out;
-   289				}
-   290			}
-   291		}
-   292	out:
-   293		return err;
-   294	}
-   295	
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 658 lines long.)
 
