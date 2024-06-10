@@ -2,38 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 081899025C9
-	for <lists+xen-devel@lfdr.de>; Mon, 10 Jun 2024 17:39:46 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.737397.1143683 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6E5429025E3
+	for <lists+xen-devel@lfdr.de>; Mon, 10 Jun 2024 17:44:48 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.737405.1143692 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sGh73-0003W8-Mz; Mon, 10 Jun 2024 15:39:13 +0000
+	id 1sGhCB-00052h-CW; Mon, 10 Jun 2024 15:44:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 737397.1143683; Mon, 10 Jun 2024 15:39:13 +0000
+Received: by outflank-mailman (output) from mailman id 737405.1143692; Mon, 10 Jun 2024 15:44:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sGh73-0003Uc-KI; Mon, 10 Jun 2024 15:39:13 +0000
-Received: by outflank-mailman (input) for mailman id 737397;
- Mon, 10 Jun 2024 15:39:12 +0000
+	id 1sGhCB-000517-9d; Mon, 10 Jun 2024 15:44:31 +0000
+Received: by outflank-mailman (input) for mailman id 737405;
+ Mon, 10 Jun 2024 15:44:30 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Mjq2=NM=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sGh72-0003UW-AY
- for xen-devel@lists.xenproject.org; Mon, 10 Jun 2024 15:39:12 +0000
-Received: from mail-ed1-x52f.google.com (mail-ed1-x52f.google.com
- [2a00:1450:4864:20::52f])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=oRC9=NM=cloud.com=george.dunlap@srs-se1.protection.inumbo.net>)
+ id 1sGhCA-00050q-2C
+ for xen-devel@lists.xenproject.org; Mon, 10 Jun 2024 15:44:30 +0000
+Received: from mail-ot1-x335.google.com (mail-ot1-x335.google.com
+ [2607:f8b0:4864:20::335])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 94adb3a3-273f-11ef-90a2-e314d9c70b13;
- Mon, 10 Jun 2024 17:39:10 +0200 (CEST)
-Received: by mail-ed1-x52f.google.com with SMTP id
- 4fb4d7f45d1cf-57a44c2ce80so5271511a12.0
- for <xen-devel@lists.xenproject.org>; Mon, 10 Jun 2024 08:39:10 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-57c82a5e0f9sm1847534a12.12.2024.06.10.08.39.09
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 10 Jun 2024 08:39:09 -0700 (PDT)
+ id 521cf19e-2740-11ef-90a2-e314d9c70b13;
+ Mon, 10 Jun 2024 17:44:28 +0200 (CEST)
+Received: by mail-ot1-x335.google.com with SMTP id
+ 46e09a7af769-6f9866bd5ccso66580a34.3
+ for <xen-devel@lists.xenproject.org>; Mon, 10 Jun 2024 08:44:28 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,149 +40,71 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 94adb3a3-273f-11ef-90a2-e314d9c70b13
+X-Inumbo-ID: 521cf19e-2740-11ef-90a2-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1718033950; x=1718638750; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=L699gjE9dnfl5DrdeNkMwQqNupwDuxbteRalIAJif1A=;
-        b=EOLYVFtiTdm7leC1EcUENaqs7pyyDqpI5gt5v8YVBDgTPxDeRsy8fj2HE6m1giEI3c
-         oPm4rIvvlc+BK5SzAho+uvGxWoO2hZ+akrUPg6gDfrlnHIqyp7zaqmqL+6BL/TQtqukr
-         IE5UHzhuNGNK9LUKmSUfqhzgsp68uEC7Lc6k5/2AK9Nk/cf1B5MGsWK0oVJs2grPm/gr
-         8EPMfEAxZMbKlq9K1f7J958L/VT/0Hhk98TN7n6vxod5Yo3vH982Svp7RZkELjxjAEtR
-         ccB2Ks1iT24YY8P2cv1wgSeYaEERiFWkuF26VpJb7upeEkXzT/c9l06voelBeN5l2yHW
-         qF4w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1718033950; x=1718638750;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+        d=cloud.com; s=cloud; t=1718034267; x=1718639067; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=L699gjE9dnfl5DrdeNkMwQqNupwDuxbteRalIAJif1A=;
-        b=AysHPF2oAbKrkCoSMjhSetDlbk807ohCY4dN/qOWqrpM9kFuZYbIh85cCG+gM8n/Gg
-         UYGi0J2/e8TDDivPfwGWbiPxVg+mfNO9OuR5LHaqke3b8euVCL/MpnuBPewy7GlswsFY
-         xSSiNMxdyIXZQ3eTPJ1GdEgBLThUFg5um9sxA66sGpHGdhCneydY1pH1bZugGRf+04C2
-         yUPb52jtKCpekhtgvedWjtgI+uPtTpGy23w9IC8N4g5cgP0tolIBGq7ZAIMiuJCe9vLQ
-         we2DJkpr/VV35NKKktOSn2FR8Zdo/0eknA77NCOOADN3v1hQtHBjF29eiqf/P3ltoo/U
-         qqUQ==
-X-Forwarded-Encrypted: i=1; AJvYcCVCdA6ANKu8hRhoGJhKf+DPFPCyB671MpcJAKn9i1ZlrvPZUIvoOHRE59fcbeCndaBw2k/oAuVh0fs/tW3nlii1gRzq93G5lJ/5L0dfcZk=
-X-Gm-Message-State: AOJu0YwgEuSyPKS94MT92Q9LQ0AnkeerPSCM32A6X5Pz7YqkSolZ2F2V
-	TXGOgcrJtSGk07vcysRKHbrobG25DCWZFGs9hM/AcmjEkot5lyapMp7KIEGkEg==
-X-Google-Smtp-Source: AGHT+IHHhohiPHKv7y4w0IAS2V0Vbc3EC3Jj7Q91xOYqOmch+BmkKbhVRm9WayctOFOK+BxPSkPTHw==
-X-Received: by 2002:a50:c355:0:b0:57c:8339:6dcc with SMTP id 4fb4d7f45d1cf-57c83396e44mr1643099a12.33.1718033949808;
-        Mon, 10 Jun 2024 08:39:09 -0700 (PDT)
-Message-ID: <3398ea60-4562-454d-858f-9a5906ad2792@suse.com>
-Date: Mon, 10 Jun 2024 17:39:08 +0200
+        bh=tdir/UNx0SSe9If8XC4A9luyE79i5T/zOKoNAl1clQM=;
+        b=RXQX2yycty5AeUFWuZK6jOUBU1tS5RjHhEvHC9xv73pv6Dpso13tf2nfwgoV1eMDs8
+         +fKJE9XXo1yB4rtFSYpP6zJ2drdAXK+NrZIX7hQY8ZXEMXghLMqjX5Ix3FnqUaydVA5H
+         X5/qP8CmZHwXReVUtcNJT2Xb4npmA6akDW1i4=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1718034267; x=1718639067;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=tdir/UNx0SSe9If8XC4A9luyE79i5T/zOKoNAl1clQM=;
+        b=kFcQy5RESAkiFiQ10AV0PZxlrsSONhmrKiT3DNZTPfMrvE20xJn8cv3avTYd6RMZPX
+         XIPa8YAxLFpeyhh+IDOJkgAFIB2cI6NfKp3NB62bHlIEeVID2jABMvaTXUzr15TGQB8n
+         Vngk4MjGY7IMF9JbZiRu1aEe+C7OiCcw2tSLz0wJAqzwD+wY4hyvxaX80sgXTeQyxxb6
+         tsZndtpi9JPKC2V5yE6Twp4RqaT48f8LOn+ztePXAdnp6WG+EsnC+9A+l483ziXdG56X
+         uAWBB2mwqtE7mvoe2lGnJ6nUvcLcWMw1v6i45+AWOHpEImxcW00UxhKw5T2dNEm0pZ6J
+         CAfA==
+X-Gm-Message-State: AOJu0Yxx2XOJOpOLbhKUv6tUQdxhnYpRTpm9Sg0D2XlydPp7kOl5mDs9
+	D9DArU75bp9zmquQnbuC4Lr8e8uNI6MKP/IfdvSvY1tPJGLsSoVuyiblkdWLRJjzeadEarTVXF/
+	7gf8vl33fbCRQeltEXL1d7/cqMFIdscPCVyEWmQ==
+X-Google-Smtp-Source: AGHT+IHGHopiDXgahkEfW7GwMW+RmLo6MeGwznjXO2H+eXg6yect+cbsCO+B7a/xyikoTTj4P0L4gsC/LsVVwcJl3A0=
+X-Received: by 2002:a05:6870:65ac:b0:254:b4a6:958d with SMTP id
+ 586e51a60fabf-254b4a6a1f8mr4558972fac.2.1718034267534; Mon, 10 Jun 2024
+ 08:44:27 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH v1] x86/intel: optional build of PSR support
-To: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <20240606083908.2510396-1-Sergiy_Kibrik@epam.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240606083908.2510396-1-Sergiy_Kibrik@epam.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20240606054745.23555-1-jgross@suse.com> <20240606054745.23555-2-jgross@suse.com>
+In-Reply-To: <20240606054745.23555-2-jgross@suse.com>
+From: George Dunlap <george.dunlap@cloud.com>
+Date: Mon, 10 Jun 2024 16:44:16 +0100
+Message-ID: <CA+zSX=akVNGAKnhsXRvMpBthUi-gZGpjKjimP88rgnux=XfQ+w@mail.gmail.com>
+Subject: Re: [PATCH] MAINTAINERS: add me as scheduer maintainer
+To: Juergen Gross <jgross@suse.com>
+Cc: xen-devel@lists.xenproject.org, Andrew Cooper <andrew.cooper3@citrix.com>, 
+	Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>, 
+	Stefano Stabellini <sstabellini@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 06.06.2024 10:39, Sergiy Kibrik wrote:
-> --- a/xen/arch/x86/domctl.c
-> +++ b/xen/arch/x86/domctl.c
-> @@ -1160,6 +1160,7 @@ long arch_do_domctl(
->          break;
->      }
->  
-> +#ifdef CONFIG_INTEL
->      case XEN_DOMCTL_psr_cmt_op:
->          if ( !psr_cmt_enabled() )
->          {
-> @@ -1262,6 +1263,7 @@ long arch_do_domctl(
->          }
->  
->          break;
-> +#endif
+On Thu, Jun 6, 2024 at 6:48=E2=80=AFAM Juergen Gross <jgross@suse.com> wrot=
+e:
+>
+> I've been active in the scheduling code since many years now. Add
+> me as a maintainer.
+>
+> Signed-off-by: Juergen Gross <jgross@suse.com>
+> ---
+>  MAINTAINERS | 1 +
+>  1 file changed, 1 insertion(+)
+>
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 6ba7d2765f..cc40c0be9d 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -490,6 +490,7 @@ F:  xen/common/sched/rt.c
+>  SCHEDULING
+>  M:     George Dunlap <george.dunlap@citrix.com>
+>  M:     Dario Faggioli <dfaggioli@suse.com>
+> +M:     Juergen Gross <jgross@suse.com>
 
-Imo the result thereof shouldn't be -ENOSYS, but -EOPNOTSUPP (at least
-for XEN_DOMCTL_psr_alloc; for XEN_DOMCTL_psr_cmt_op it shouldn't change,
-even if I consider this wrong, but that's a separate topic). Wouldn't it
-be possible here to reduce the #ifdef scope a little to just most of the
-inner switch()es (i.e. requiring it to be split into two regions), whose
-"default" case is already (kind of) doing what we want?
+Reviewed-by: George Dunlap <george.dunlap@cloud.com>
 
-> --- a/xen/arch/x86/include/asm/psr.h
-> +++ b/xen/arch/x86/include/asm/psr.h
-> @@ -72,6 +72,8 @@ static inline bool psr_cmt_enabled(void)
->      return !!psr_cmt;
->  }
->  
-> +#ifdef CONFIG_INTEL
-> +
->  int psr_alloc_rmid(struct domain *d);
->  void psr_free_rmid(struct domain *d);
->  void psr_ctxt_switch_to(struct domain *d);
-> @@ -86,6 +88,19 @@ int psr_set_val(struct domain *d, unsigned int socket,
->  void psr_domain_init(struct domain *d);
->  void psr_domain_free(struct domain *d);
->  
-> +#else
-> +
-> +static inline void psr_ctxt_switch_to(struct domain *d)
-> +{
-> +}
-> +static inline void psr_domain_init(struct domain *d)
-> +{
-> +}
-> +static inline void psr_domain_free(struct domain *d)
-> +{
-> +}
-> +#endif /* CONFIG_INTEL */
-
-As I think I did mention elsewhere, such stubs can have the braces on the
-same line the the function specifier.
-
-> @@ -169,6 +171,7 @@ long arch_do_sysctl(
->      }
->      break;
->  
-> +#ifdef CONFIG_INTEL
->      case XEN_SYSCTL_psr_cmt_op:
->          if ( !psr_cmt_enabled() )
->              return -ENODEV;
-> @@ -286,6 +289,7 @@ long arch_do_sysctl(
->          }
->          break;
->      }
-> +#endif
-
-Like for domctl I think you want to reduce the #ifdef scope some, even if
-for XEN_SYSCTL_psr_cmt_op that'll still result in -ENOSYS. At least we'll
-then be consistent in clearing sysctl->u.psr_cmt_op.u.data there.
-
-Jan
+Welcome aboard, Juergen!
 
