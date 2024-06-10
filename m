@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 03AE3901BE9
-	for <lists+xen-devel@lfdr.de>; Mon, 10 Jun 2024 09:31:06 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.736969.1143061 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3D7F9901BEE
+	for <lists+xen-devel@lfdr.de>; Mon, 10 Jun 2024 09:33:41 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.736978.1143071 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sGZUI-0005x3-NK; Mon, 10 Jun 2024 07:30:42 +0000
+	id 1sGZWu-0007Ij-5y; Mon, 10 Jun 2024 07:33:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 736969.1143061; Mon, 10 Jun 2024 07:30:42 +0000
+Received: by outflank-mailman (output) from mailman id 736978.1143071; Mon, 10 Jun 2024 07:33:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sGZUI-0005vY-K7; Mon, 10 Jun 2024 07:30:42 +0000
-Received: by outflank-mailman (input) for mailman id 736969;
- Mon, 10 Jun 2024 07:30:41 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1sGZWu-0007Gj-2l; Mon, 10 Jun 2024 07:33:24 +0000
+Received: by outflank-mailman (input) for mailman id 736978;
+ Mon, 10 Jun 2024 07:33:23 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Mjq2=NM=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sGZUH-0005uC-Re
- for xen-devel@lists.xenproject.org; Mon, 10 Jun 2024 07:30:41 +0000
-Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com
- [2a00:1450:4864:20::636])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 56949246-26fb-11ef-90a2-e314d9c70b13;
- Mon, 10 Jun 2024 09:30:40 +0200 (CEST)
-Received: by mail-ej1-x636.google.com with SMTP id
- a640c23a62f3a-a63359aaaa6so599766366b.2
- for <xen-devel@lists.xenproject.org>; Mon, 10 Jun 2024 00:30:40 -0700 (PDT)
+ id 1sGZWt-0007GR-2A
+ for xen-devel@lists.xenproject.org; Mon, 10 Jun 2024 07:33:23 +0000
+Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
+ [2a00:1450:4864:20::631])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id b5d2e47f-26fb-11ef-b4bb-af5377834399;
+ Mon, 10 Jun 2024 09:33:20 +0200 (CEST)
+Received: by mail-ej1-x631.google.com with SMTP id
+ a640c23a62f3a-a626919d19dso910731366b.0
+ for <xen-devel@lists.xenproject.org>; Mon, 10 Jun 2024 00:33:20 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a6f1e099418sm116013466b.72.2024.06.10.00.30.38
+ a640c23a62f3a-a6efed85dc3sm314515466b.124.2024.06.10.00.33.19
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 10 Jun 2024 00:30:39 -0700 (PDT)
+ Mon, 10 Jun 2024 00:33:19 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,59 +45,53 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 56949246-26fb-11ef-90a2-e314d9c70b13
+X-Inumbo-ID: b5d2e47f-26fb-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1718004640; x=1718609440; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1718004800; x=1718609600; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=azg+i8jPdC9upu0njj2bLfuldZjvuVjTdieDPOOveK0=;
-        b=eB3W2YntMTMC6hr8rLFGIeiNQ5Quw5/V4X7z2S+t85bu4MMBTKWYkAZRcdP+Thigy1
-         +4XmSgVUtQeElygpI3Lo1YxJY1v5ce2O+dCpqRyIF/nBHhVosxODXE56qG83GIqOlVwl
-         4/ogSeY0j7d5plF5JBuKaNm3opselRU/dzSrnj5bJWMcdkdK2/rOZzoG9ukBsu+U6CMN
-         8WJIg5xC07L3uUGdWtiU/0tZHJHKCjPDQQg/TKp0GQbxJDi5g4pcywDb4/tL9ewjQvbI
-         YQik6JGmXvHgSpCSwmzBuJ2mTEYRKi+NNz6OoNH8UsJFKGvDFl0fsqao6Q8tiSyFzmP+
-         2yRg==
+        bh=WzLFkLtR7EbRJPACEKegzEuozy8200Ef12p+Now7ihA=;
+        b=AtNoNo9hHrRSfid7OE/IHp6glNdfu5ZAcGHh07RU4sToucjE6nMyNNMWoYlSGUfBTc
+         u6E24Gx5RB3YHEXilQHntongzmrl82lnQB8CU9deQHFSNZa2azQI/7yPh+qoCo32YjpD
+         VjKIkPs2H+i1kwdTisDSi5YaqtUJDvFjJFdNdoiYHvp9jbJqfOWgS2n0RmX0olGgYGJx
+         OQ9LyBPPOuCb3qoDDDDlQRzMzbNY7pP9iL8dOPXqktWJq7kJS5wgfHF/H/D5za5eouZG
+         wDu5wLYg9au7aSggmn6Omp7/fApbM0UJ2vsuhRplX9sh5AlrSxj5BsIUTGugrqE8xLOt
+         l8bA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1718004640; x=1718609440;
+        d=1e100.net; s=20230601; t=1718004800; x=1718609600;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=azg+i8jPdC9upu0njj2bLfuldZjvuVjTdieDPOOveK0=;
-        b=VKo9b/I/FOLMSucCE44t0lnSYcH1ducSlfuDx9W0IbWAZUUCsYwObtYFFcsvQOr30T
-         bABcy7Nfy+4uOFsF0aUPyyaHsFKdElQpdtPlWyCLiy7XWYQJ6+TubLy0+FHb9ynaICXo
-         nDTAE9bYzz0YJ4baS3aQRAeFGgezHKHcunhEUhzJa5cGqHZNXYYZJda58q1KU0JiBGEA
-         IDGKeGaB8P1kK5dcl3PAgoR+cYvfbZqa+HX+a9KI6szRXfx653IQORwofAIZnhLQQUqr
-         9dlKEmu20qUXV8LAlN2YwB1NHvP8GPgkhWePAYS8j2sIzP/kQ747upQeT0p/D3D1305A
-         IdmQ==
-X-Forwarded-Encrypted: i=1; AJvYcCUCUS2E31tLdp67PwVNT/aOaAoNgm4NSp1sn52fKLYlb/WVWuDtkAjqx1iqdBjrRdsN9aEOHrqPKQLR17iL60Pc7xEy3YpmjHrZDjIdM6s=
-X-Gm-Message-State: AOJu0Yzj7ba+5/TPqVDfmGycjHXt0naheAR7gDDoZYZI0UYFu1RwCfju
-	ee4utwQDegwmr6SBJ4XMHnh9GbvxZWOyIcNt4zXSKSsWDd3ekgj7pXh4O9yvBg==
-X-Google-Smtp-Source: AGHT+IF43XhAidsP8/nIzdYsw8KXB0QcdwlVoDPrsdPQMs1o6uANeGnoQm44q2kXrBHXxTatKZsBow==
-X-Received: by 2002:a17:906:8418:b0:a6f:1fd6:61b6 with SMTP id a640c23a62f3a-a6f1fd661femr89962066b.35.1718004639785;
-        Mon, 10 Jun 2024 00:30:39 -0700 (PDT)
-Message-ID: <f3cd00f2-bdcb-4604-bdc2-fd13eddb8ea0@suse.com>
-Date: Mon, 10 Jun 2024 09:30:38 +0200
+        bh=WzLFkLtR7EbRJPACEKegzEuozy8200Ef12p+Now7ihA=;
+        b=ZIcj/Dj5+OWXlZsSVvHRcYRa7Yc673n3f1mb8ud9aI5AO2rAnuhlgKMH6sHDKFO5tk
+         Uq6TkBvoCMowvWcArxGBMx8eUBLoy4hIdBq5WCvUxb5xrM8kDt8Z8uCaHHsUqsZOro+B
+         4+RZV/8rmgMp5y0+9bx3TrevF3NMhUv34GOUog4HrajKKvhOPKmWAkCXq/oQXLNmiwYI
+         B7zTLvfAgjTucUef+5ICHU/W8eu4alvsJu99p5plU6Oam/k4MW/d2pI2A8pwKDchYxSA
+         Gb4jpB03yKKcHFEQSO6EH7z5sCR/xjm80YU1f+bY83O1NDWf+PzLjnICl3bCGBPaJoYi
+         xe8A==
+X-Forwarded-Encrypted: i=1; AJvYcCVXYIN6bL8bFnSD5l5U7sFqqHTP83HO5+0fcMCTOCK0ZaWpjoKftnf8AgzkqaCChnhW14jw6NhD4DOWGyaXoLb0oS/EHvH7VOANnHQh2qI=
+X-Gm-Message-State: AOJu0YyPMjh3Exo5ixbJJTvQ9H5CVWr03TFnExXhNdWU4EOKeN3ED4zw
+	nWaSfM9nqcUEF2EsIN6MHUyYwcKi2tAnuCRVBbA5qxxhvHsxR/TTTYVdhthSrxdacYiNnQQBRTo
+	=
+X-Google-Smtp-Source: AGHT+IEyGyI/8woqsRj6pEXWhIdYhUmKG3SNNSGc7iIwnV7LENiyyrIMk5ZL1f6lX0RxunQvL5iT0A==
+X-Received: by 2002:a17:906:2991:b0:a6f:259d:9a5f with SMTP id a640c23a62f3a-a6f259d9ee9mr51402666b.35.1718004799625;
+        Mon, 10 Jun 2024 00:33:19 -0700 (PDT)
+Message-ID: <651a4f58-9737-462e-9ffa-1d3d14db6963@suse.com>
+Date: Mon, 10 Jun 2024 09:33:18 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH for-4.19? v5 07/10] xen: Make the maximum number of altp2m
- views configurable for x86
+Subject: Re: [PATCH for-4.19? v5 09/10] xen/x86: Disallow creating domains
+ with altp2m enabled and altp2m.nr == 0
 To: =?UTF-8?Q?Petr_Bene=C5=A1?= <w1benny@gmail.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
- <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>,
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Tamas K Lengyel <tamas@tklengyel.com>,
- Alexandru Isaila <aisaila@bitdefender.com>,
- Petre Pircalabu <ppircalabu@bitdefender.com>, xen-devel@lists.xenproject.org
+ xen-devel@lists.xenproject.org
 References: <cover.1717356829.git.w1benny@gmail.com>
- <84794f97bc738add96a66790425a3aa5f5084a25.1717356829.git.w1benny@gmail.com>
- <22eabe14-10c3-4095-91d3-b63911908cb2@suse.com>
- <CAKBKdXhZ4HOqThPMkwaWB5ZhQOc6gE=xsKzkoL4_h+M6y33dcQ@mail.gmail.com>
+ <d6fd97b66b5f1a974e317c9d3f72fb139b39118f.1717356829.git.w1benny@gmail.com>
+ <8936b5ef-1ef7-4606-9f19-c75287aa88fa@suse.com>
+ <CAKBKdXi9uiADe+rXyHSd6HV3A-MvT04fgJAdJA=LNuYOr2Eedw@mail.gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -123,59 +117,33 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <CAKBKdXhZ4HOqThPMkwaWB5ZhQOc6gE=xsKzkoL4_h+M6y33dcQ@mail.gmail.com>
+In-Reply-To: <CAKBKdXi9uiADe+rXyHSd6HV3A-MvT04fgJAdJA=LNuYOr2Eedw@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 09.06.2024 01:06, Petr Beneš wrote:
-> On Thu, Jun 6, 2024 at 9:24 AM Jan Beulich <jbeulich@suse.com> wrote:
->>> @@ -122,7 +131,12 @@ int p2m_init_altp2m(struct domain *d)
->>>      struct p2m_domain *hostp2m = p2m_get_hostp2m(d);
->>>
->>>      mm_lock_init(&d->arch.altp2m_list_lock);
->>> -    for ( i = 0; i < MAX_ALTP2M; i++ )
->>> +    d->arch.altp2m_p2m = xzalloc_array(struct p2m_domain *, d->nr_altp2m);
->>> +
->>> +    if ( !d->arch.altp2m_p2m )
->>> +        return -ENOMEM;
->>
->> This isn't really needed, is it? Both ...
->>
->>> +    for ( i = 0; i < d->nr_altp2m; i++ )
->>
->> ... this and ...
->>
->>>      {
->>>          d->arch.altp2m_p2m[i] = p2m = p2m_init_one(d);
->>>          if ( p2m == NULL )
->>> @@ -143,7 +157,10 @@ void p2m_teardown_altp2m(struct domain *d)
->>>      unsigned int i;
->>>      struct p2m_domain *p2m;
->>>
->>> -    for ( i = 0; i < MAX_ALTP2M; i++ )
->>> +    if ( !d->arch.altp2m_p2m )
->>> +        return;
+On 09.06.2024 01:08, Petr Beneš wrote:
+> The flag isn't bool. It can hold one of 3 values (besides 0).
 
-I'm sorry, the question was meant to be on this if() instead.
+Oh, sorry, yes.
 
->>> +    for ( i = 0; i < d->nr_altp2m; i++ )
->>>      {
->>>          if ( !d->arch.altp2m_p2m[i] )
->>>              continue;
->>> @@ -151,6 +168,8 @@ void p2m_teardown_altp2m(struct domain *d)
->>>          d->arch.altp2m_p2m[i] = NULL;
->>>          p2m_free_one(p2m);
->>>      }
->>> +
->>> +    XFREE(d->arch.altp2m_p2m);
->>>  }
->>
->> ... this ought to be fine without?
-> 
-> Could you, please, elaborate? I honestly don't know what you mean here
-> (by "this isn't needed").
-
-I hope the above correction is enough?
+Acked-by: Jan Beulich <jbeulich@suse.com>
 
 Jan
+
+> On Thu, Jun 6, 2024 at 9:57 AM Jan Beulich <jbeulich@suse.com> wrote:
+>>
+>> On 02.06.2024 22:04, Petr Beneš wrote:
+>>> From: Petr Beneš <w1benny@gmail.com>
+>>>
+>>> Since libxl finally sends the altp2m.nr value, we can remove the previously
+>>> introduced temporary workaround.
+>>>
+>>> Creating domain with enabled altp2m while setting altp2m.nr == 0 doesn't
+>>> make sense and it's probably not what user wants.
+>>
+>> Yet: Do we need separate count and flag anymore? Can't "nr != 0"
+>> take the place of the flag being true?
+>>
+>> Jan
+
 
