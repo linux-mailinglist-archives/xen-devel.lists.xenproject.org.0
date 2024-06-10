@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 916B1902507
-	for <lists+xen-devel@lfdr.de>; Mon, 10 Jun 2024 17:10:32 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.737364.1143633 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1B9A9902539
+	for <lists+xen-devel@lfdr.de>; Mon, 10 Jun 2024 17:16:52 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.737372.1143643 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sGgf1-0004y5-LT; Mon, 10 Jun 2024 15:10:15 +0000
+	id 1sGgl7-0005g5-8z; Mon, 10 Jun 2024 15:16:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 737364.1143633; Mon, 10 Jun 2024 15:10:15 +0000
+Received: by outflank-mailman (output) from mailman id 737372.1143643; Mon, 10 Jun 2024 15:16:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sGgf1-0004vZ-Hp; Mon, 10 Jun 2024 15:10:15 +0000
-Received: by outflank-mailman (input) for mailman id 737364;
- Mon, 10 Jun 2024 15:10:14 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1sGgl7-0005dh-5k; Mon, 10 Jun 2024 15:16:33 +0000
+Received: by outflank-mailman (input) for mailman id 737372;
+ Mon, 10 Jun 2024 15:16:31 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Mjq2=NM=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sGgf0-0004vT-9P
- for xen-devel@lists.xenproject.org; Mon, 10 Jun 2024 15:10:14 +0000
-Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
- [2a00:1450:4864:20::631])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 88700d4f-273b-11ef-b4bb-af5377834399;
- Mon, 10 Jun 2024 17:10:11 +0200 (CEST)
-Received: by mail-ej1-x631.google.com with SMTP id
- a640c23a62f3a-a6f1cf00b3aso204387466b.0
- for <xen-devel@lists.xenproject.org>; Mon, 10 Jun 2024 08:10:11 -0700 (PDT)
+ id 1sGgl5-0005db-KT
+ for xen-devel@lists.xenproject.org; Mon, 10 Jun 2024 15:16:31 +0000
+Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com
+ [2a00:1450:4864:20::52c])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 69fb46b8-273c-11ef-90a2-e314d9c70b13;
+ Mon, 10 Jun 2024 17:16:30 +0200 (CEST)
+Received: by mail-ed1-x52c.google.com with SMTP id
+ 4fb4d7f45d1cf-57864327f6eso45225a12.1
+ for <xen-devel@lists.xenproject.org>; Mon, 10 Jun 2024 08:16:30 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a6ef61aa6afsm428291066b.101.2024.06.10.08.10.10
+ 4fb4d7f45d1cf-57c81a98bfdsm2023951a12.26.2024.06.10.08.16.29
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 10 Jun 2024 08:10:10 -0700 (PDT)
+ Mon, 10 Jun 2024 08:16:29 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,52 +45,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 88700d4f-273b-11ef-b4bb-af5377834399
+X-Inumbo-ID: 69fb46b8-273c-11ef-90a2-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1718032211; x=1718637011; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1718032590; x=1718637390; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=aCva5wXetFBP2BAPl883qTT/FreXl4XL7F5vVY8dcxI=;
-        b=eTW2ao4Yx4xqwCtMZ75oDIV3RKHP1o+zFksdDkaUOkHHZ9oYNPw8q706AvquOiA+Qy
-         BYtVGOgsWvtAiA7yPmH450oNx7UiQtITgXJ3KUV8gCR3ku3+QC+7iWNuNhi8VB8wjnII
-         SyEa+Tg8Avvi4ouo9z+HJf3rojPFntzD3kgT59X/SlXT7+H/Lcyf4rI+8S4+MrZLq330
-         KgyCczTYMDb7ZdusmhDdcSSWWM5zNk+jxm7kdsANV5PFpS5wpCmKDqc+iOVD27YL1j9P
-         1BhmUj6GcvS0QJm5jx6C9hGs1FK2S+BdLuROGkhRalvzKIM6iBiFNyPIyCMlxXaHQnUR
-         wwTg==
+        bh=AfawYvK/3FPV8tNdd4JFKAjuYyTJiAyKxi7NnMRsCIk=;
+        b=Bnik8D0+b/yWo6EuoPd4kcz3iCgByeXrDXPkTEeAu0o/kTx+yBxaoN0e5Nqxx3cP/C
+         hTrYxHQGW2RvOUKyDN82I1AIKW2X1z83ZSFDuTXK/uRQtAx1qCvrVftxmo5rUIqiF45B
+         CGoDF13qkUJruuH6SndCEhg5b4softxdA7cbRaFpNNHvsahHDowJWhKnLv3tM8HYGqud
+         +GiXLfAYBMrwsZwphSUHeqdEu/QBzCtTqoIdtpgfVpCocYr8wUP5u/MGs9bEqeNVUNXm
+         Udb9NdONufqR0kEKRgMo/kUBiaQnH66NDKmKaOas4SvowdvH0MJVVkbRjnyL7KxxTVxP
+         v4HA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1718032211; x=1718637011;
+        d=1e100.net; s=20230601; t=1718032590; x=1718637390;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=aCva5wXetFBP2BAPl883qTT/FreXl4XL7F5vVY8dcxI=;
-        b=r+5iDnLB2BWtHU8nb87ipg9RDxMxtrMH7D832pCYJ4BhRJDX4nGyphFa68G/NbS38f
-         oTh+vNt7le06y+GWv3TyVDP82m0/taOiAihsw9YBCR8QHXZusxt/TXNo9NHctGqj6u7h
-         kbfohYFEn5jUILVHsreV0ymCBpYoeqxkX0jtuOF5mMN/PRjf/qmQm1NcG8uALT+5rJF+
-         e+zt0lqkEcYIKeFMydveLt853g3jLpm9BpLWCuvink+ACjRQSXNybfFsuCjwhwTw8imW
-         LsFAUpKomG5O8T49dTugb+QtphkMWjG21GyQLw7rtJt8drCKsiHe7TeWXeAw5otA/95g
-         v3RQ==
-X-Forwarded-Encrypted: i=1; AJvYcCXRZGzJ9sNT9jdrR92ZgwQq0f/fIhrlimHs8XyiyXse/hMhgUYBNW0xnbBWikxerdn1Sk+BY1cXtYshyjAr7wqLTSo6HbPXTtZcuKe1PiM=
-X-Gm-Message-State: AOJu0Yxr5ZZVIUZ4f2q+B+awxlafQUkIRsnnC+kuoq7ueXi+gkKj/RGW
-	K/ZaJoUS1fRacZDBG1CisNgUGZsP4poLKwR4Zw/rk2V3zpBY+GgiO1J6NCyYcg==
-X-Google-Smtp-Source: AGHT+IHDs3sBs1VsKohIlv1RvlAqOR3U00lAv+fAH5wa1BnaLFDstKjRwsAk90j60Q8dco4N46fwhA==
-X-Received: by 2002:a17:907:6d24:b0:a6f:2002:5bc4 with SMTP id a640c23a62f3a-a6f20025c37mr195339166b.15.1718032211274;
-        Mon, 10 Jun 2024 08:10:11 -0700 (PDT)
-Message-ID: <1bf03bd6-0f30-4a57-b597-bb59dcf800fa@suse.com>
-Date: Mon, 10 Jun 2024 17:10:09 +0200
+        bh=AfawYvK/3FPV8tNdd4JFKAjuYyTJiAyKxi7NnMRsCIk=;
+        b=TUNEFy/w6cFdIRp9fzh3o0hUXfHIgcGhBow9P9tGGVwr5LfqrsPANw3xNQNvdmRVe7
+         XnfLrLYIlUKea1AtUClm4lQFRgfDCXnpBKJ2UvZCDrshEKE1q7ZleUBEEz2XIROCE70y
+         eUnauIeFpz3752YMFLbPXBf3usPTTysFMiMC0SAVvfuJ9iG8t9bQoGKRtjyy/UoBWglf
+         Xb/DvfhrRJJMQG9A+mTnJHFxPS/gbWtjM2S23mm6jAb4AYHx/fWJ80x5wRK+h+P7UsBz
+         dD+IVjcbBPPcjE4Xf6GQ6Q7lVLxtOjQZPpRMrjMvTvh9zJ8LLPNop5Hyogz73wLpmDOE
+         FweQ==
+X-Forwarded-Encrypted: i=1; AJvYcCVIUD9DIk1wuCtrsolQOusf08WXeCWafOg1ySfuPHsw8MDsIw9dukO6dhh3kpHCiSsDN4d3tumSQjOPaSrsQKcDNO2POb9CFyhw0tn4y8k=
+X-Gm-Message-State: AOJu0YwfNb94Qq0WbqfWQrnUs6Vpej3UYRZCLBgxZpnNfVo8iR2rU1u3
+	qVRjapSxq217UTUrdx/27u+3HGwBsQAi0es0bHvSF0aAngVjeWH9+2htLrwPpg==
+X-Google-Smtp-Source: AGHT+IHRuMGFukhvdwxiYpB+k+Yt11iuwcSWLgGLy0v/omMOJ+oy1oz2FIhxLjiWt1K0Tr8wXO0oNA==
+X-Received: by 2002:a50:874a:0:b0:57a:6aa6:b4f7 with SMTP id 4fb4d7f45d1cf-57aa55c697amr9815410a12.19.1718032589669;
+        Mon, 10 Jun 2024 08:16:29 -0700 (PDT)
+Message-ID: <6c7d0cc9-46b7-4aea-8181-0b21f8a9da48@suse.com>
+Date: Mon, 10 Jun 2024 17:16:28 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH v3 10/16] x86/domain: guard svm specific functions
- with usinc_svm macro
+Subject: Re: [XEN PATCH v3 12/16] x86/vmx: guard access to cpu_has_vmx_* in
+ common code
 To: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
-Cc: Xenia Ragiadakou <burzalodowa@gmail.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Xenia Ragiadakou <xenia.ragiadakou@amd.com>, xen-devel@lists.xenproject.org
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Paul Durrant <paul@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ Xenia Ragiadakou <xenia.ragiadakou@amd.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
 References: <cover.1717410850.git.Sergiy_Kibrik@epam.com>
- <e03693d1daa386a31e09794b0167d282df5a8bfe.1717410850.git.Sergiy_Kibrik@epam.com>
+ <1645c0d4a5aae7b53cfb166ac10235e12ae4dbb1.1717410850.git.Sergiy_Kibrik@epam.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -116,58 +115,26 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <e03693d1daa386a31e09794b0167d282df5a8bfe.1717410850.git.Sergiy_Kibrik@epam.com>
+In-Reply-To: <1645c0d4a5aae7b53cfb166ac10235e12ae4dbb1.1717410850.git.Sergiy_Kibrik@epam.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 03.06.2024 13:26, Sergiy Kibrik wrote:
-> From: Xenia Ragiadakou <burzalodowa@gmail.com>
-> 
-> Replace cpu_has_svm check with using_svm, so that not only SVM support in CPU
-> gets checked, but also presence of functions svm_load_segs() and
-> svm_load_segs_prefetch() in the build checked as well.
-> 
-> Since SVM depends on HVM, it can be used alone.
-> 
-> Signed-off-by: Xenia Ragiadakou <burzalodowa@gmail.com>
-> Signed-off-by: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
+On 03.06.2024 13:30, Sergiy Kibrik wrote:
+> --- a/xen/arch/x86/hvm/hvm.c
+> +++ b/xen/arch/x86/hvm/hvm.c
+> @@ -5197,7 +5197,7 @@ int hvm_debug_op(struct vcpu *v, int32_t op)
+>      {
+>          case XEN_DOMCTL_DEBUG_OP_SINGLE_STEP_ON:
+>          case XEN_DOMCTL_DEBUG_OP_SINGLE_STEP_OFF:
+> -            if ( !cpu_has_monitor_trap_flag )
+> +            if ( !using_vmx || !cpu_has_monitor_trap_flag )
+>                  return -EOPNOTSUPP;
+>              break;
 
-The code you're touching is solely for PV, even if it's interacting with HVM
-code. Therefore "x86/PV:" may be the better subject prefix.
-
-> --- a/xen/arch/x86/domain.c
-> +++ b/xen/arch/x86/domain.c
-> @@ -1731,11 +1731,9 @@ static void load_segments(struct vcpu *n)
->          if ( !(n->arch.flags & TF_kernel_mode) )
->              SWAP(gsb, gss);
->  
-> -#ifdef CONFIG_HVM
-> -        if ( cpu_has_svm && (uregs->fs | uregs->gs) <= 3 )
-> +        if ( using_svm && (uregs->fs | uregs->gs) <= 3 )
->              fs_gs_done = svm_load_segs(n->arch.pv.ldt_ents, LDT_VIRT_START(n),
->                                         n->arch.pv.fs_base, gsb, gss);
-> -#endif
->      }
->  
->      if ( !fs_gs_done )
-> @@ -2048,9 +2046,9 @@ static void __context_switch(void)
->  
->      write_ptbase(n);
->  
-> -#if defined(CONFIG_PV) && defined(CONFIG_HVM)
-> +#if defined(CONFIG_PV)
-
-In such a case, would you mind switching (back) to the shorter "#ifdef" form?
-Then
-Acked-by: Jan Beulich <jbeulich@suse.com>
+Here and elsewhere you're adding a redundant check of cpu_has_vmx, even
+if that's not visible without looking at using_vmx. I'm inclined to
+think that adding IS_ENABLED() to the various cpu_has_* that you care
+about might end up better (for being a little cheaper at runtime).
 
 Jan
-
->      /* Prefetch the VMCB if we expect to use it later in the context switch */
-> -    if ( cpu_has_svm && is_pv_64bit_domain(nd) && !is_idle_domain(nd) )
-> +    if ( using_svm && is_pv_64bit_domain(nd) && !is_idle_domain(nd) )
->          svm_load_segs_prefetch();
->  #endif
->  
-
 
