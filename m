@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E2773902040
-	for <lists+xen-devel@lfdr.de>; Mon, 10 Jun 2024 13:22:27 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.737180.1143359 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 710A990204C
+	for <lists+xen-devel@lfdr.de>; Mon, 10 Jun 2024 13:27:17 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.737186.1143369 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sGd5y-0005ZF-RE; Mon, 10 Jun 2024 11:21:50 +0000
+	id 1sGdAw-00069A-D4; Mon, 10 Jun 2024 11:26:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 737180.1143359; Mon, 10 Jun 2024 11:21:50 +0000
+Received: by outflank-mailman (output) from mailman id 737186.1143369; Mon, 10 Jun 2024 11:26:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sGd5y-0005Ws-O4; Mon, 10 Jun 2024 11:21:50 +0000
-Received: by outflank-mailman (input) for mailman id 737180;
- Mon, 10 Jun 2024 11:21:50 +0000
+	id 1sGdAw-00067G-9E; Mon, 10 Jun 2024 11:26:58 +0000
+Received: by outflank-mailman (input) for mailman id 737186;
+ Mon, 10 Jun 2024 11:26:57 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Mjq2=NM=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sGd5y-0005Wm-86
- for xen-devel@lists.xenproject.org; Mon, 10 Jun 2024 11:21:50 +0000
-Received: from mail-ed1-x530.google.com (mail-ed1-x530.google.com
- [2a00:1450:4864:20::530])
+ id 1sGdAv-00067A-94
+ for xen-devel@lists.xenproject.org; Mon, 10 Jun 2024 11:26:57 +0000
+Received: from mail-ed1-x535.google.com (mail-ed1-x535.google.com
+ [2a00:1450:4864:20::535])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a02a9f63-271b-11ef-b4bb-af5377834399;
- Mon, 10 Jun 2024 13:21:47 +0200 (CEST)
-Received: by mail-ed1-x530.google.com with SMTP id
- 4fb4d7f45d1cf-57c681dd692so2613298a12.3
- for <xen-devel@lists.xenproject.org>; Mon, 10 Jun 2024 04:21:47 -0700 (PDT)
+ id 57905e70-271c-11ef-b4bb-af5377834399;
+ Mon, 10 Jun 2024 13:26:55 +0200 (CEST)
+Received: by mail-ed1-x535.google.com with SMTP id
+ 4fb4d7f45d1cf-57864327f6eso6269482a12.1
+ for <xen-devel@lists.xenproject.org>; Mon, 10 Jun 2024 04:26:55 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a6f117c09c9sm254984866b.138.2024.06.10.04.21.45
+ 4fb4d7f45d1cf-57c8615c188sm1006411a12.10.2024.06.10.04.26.54
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 10 Jun 2024 04:21:46 -0700 (PDT)
+ Mon, 10 Jun 2024 04:26:54 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,63 +45,54 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a02a9f63-271b-11ef-b4bb-af5377834399
+X-Inumbo-ID: 57905e70-271c-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1718018507; x=1718623307; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1718018815; x=1718623615; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=XGldr9vcI6oDKmX5z8MXspCZpPQK+hCqKg1tnDCMmg8=;
-        b=c4lstLTH++ftMsmmT3EJqEGGZ1UfmHXwKmPtAJPGHglpvtn913t/K9XqK7ZOjgDE0B
-         abKqdAoLXqSLgIJroyp9QndIWzhuKwEBMbEl9ftd3axebl+CbVGbf2WNgUCswMeu2xow
-         Z/E1PxFC/mDAQl15tSgA6Gmvxjydt8I0Cc6NHgqpEGyK97tP3/Jskawbqt1LLoCW2wGA
-         Sz87TDFlnAqoGZ4x7MR7b9yVd4KrQdBqKp1QyWZs/KiOhBwKUklwHkkNCU5S5sNyO9gV
-         FGpFa7M8ltkRUS7dmXV/zMzNnvGbM0zDmiU7d8McV4w2xLWAr/+ri+WldPISaXEGWgn3
-         WrDQ==
+        bh=/vdEmArE5XL+7quSxxBXVAaCtSRnV30OuJL1b8ceXW4=;
+        b=HKaMpkwV/at14w/dr63vM5trO71TVAVQGNyiJpcmd73YTgR0GCFdfRtijiu/tQAJvX
+         dmO+2nO3GXdzeJ51hrtA7iEh1X63oU5clijF+h0YEMoXQkrDAJXppMa1GaWyueomDXFC
+         uQfv3vUyYcr3y7PaGWBXEuRTt5Qp3001xZ7bweN21mMNRHVteRCHmrUuJgseBenP7eu7
+         +aj2yVdbjaMkm2ewZ+FczNRp1r5HAbOxhBuJUGt9MBcIJshLpcKKHbbTu6iglBisGZ6n
+         PGGa7ftYMu2eJQuSrVOFie+ciuRo2RnkxzXZbdsOGsb83jPi6wdHD72vBbjj3P9Rf0a7
+         /VUw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1718018507; x=1718623307;
+        d=1e100.net; s=20230601; t=1718018815; x=1718623615;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=XGldr9vcI6oDKmX5z8MXspCZpPQK+hCqKg1tnDCMmg8=;
-        b=YswWTpRH0JpMIg6+rBEC9q/M6XLtaV5fCcLDSCcnO7D8OGQr+dTX3mHCb/8w8kMpSy
-         H9w25OHA+o+SJFzCvIXIRnvbc2FmiwYaoJPs9iQ5tVNOGZkYSfjltG5r4JG1Z1ralv13
-         cRT1D1vFIqpYRAUwWzC1zxn4OdV26Hh4KHJm1XtLT2UFiQBLtrco5T5z8oZYdKuKh+fc
-         OzIJDD6G2EPm4BcbmagiWQEdGtElg4AWWDCmj5XE0w6D0dPdO7E0hxqP1BeUqUtrE+Qc
-         bQ4AS6jdjaNZTx+BpG3iir7cKN4vzpXArAyvVRB8qRvJc1xqE5RIoKSh/3xAlBSM5Lf1
-         yrZw==
-X-Forwarded-Encrypted: i=1; AJvYcCXLnUomdP67GYbeKtWLVBeNIL+o/kufljTSZ1P19Jxvfzf07nVh/bfeT1mO7es4rG1iVTD2bafTfJICUL+NXRl0D1tM8yacJ353e63yOyQ=
-X-Gm-Message-State: AOJu0YygVIRy59AT5syoxwjtdhp6Up6+K6yLm7kzFktmFHRy/hF5drNY
-	IIEILx9NYx1OqEcjeyBy3Sk0mdWWgojSGLcVZup4CiWuBuafZsZwkW2+pt5KsA==
-X-Google-Smtp-Source: AGHT+IG0WA96tnh1GEBo5R2OR82Iu0ENmjmOHoi+59W01QN+m1PO8GWfl6wK381/FjHJKz9mEF1bzg==
-X-Received: by 2002:a17:906:fe07:b0:a6d:b66f:7b21 with SMTP id a640c23a62f3a-a6db66f7e7emr721229066b.54.1718018507004;
-        Mon, 10 Jun 2024 04:21:47 -0700 (PDT)
-Message-ID: <093a45d0-da0b-44d1-902e-730eede80112@suse.com>
-Date: Mon, 10 Jun 2024 13:21:45 +0200
+        bh=/vdEmArE5XL+7quSxxBXVAaCtSRnV30OuJL1b8ceXW4=;
+        b=Q0QXuYxWLA2Jf+KDZKwDXnfrlGKOMLrHKdZyexh3kOHLhNWfuab6jWgRN3fbSnTHY2
+         LtpI97QP7DBMyOEOw0LidirZ0XIXov6UQtsukHyQjcXn9s2N88oHIGlqQAyZqnXI5uhF
+         NUhoOYWk2p2lPxedMluQOdLL8d0PUlthn6qp8OZpxTL0sYyHJwmgBdNACjedkuNuHr2F
+         +Pe2n/5tIcg09lGjnl5EsB8umt+DLzfAgD4aRAsJejEso0eVUKngeokTCpr+e8Li3Zb4
+         IYzROYoWFM+jmV4FO+wM6mKNYiHvtfIFTMyZLXgvmLnI+m+7sEfCu+B9rfeQiPILc16D
+         nEsw==
+X-Forwarded-Encrypted: i=1; AJvYcCWursxzJ5g69v7CqsaSwdFYRAqB6x5AuWgaoa94TAlJGci2oWZAxJdL3lsoOk6b+PgPu+DpIswbJ0bYV0IgiYXnpt9Jn2vhRHNGceQpdWI=
+X-Gm-Message-State: AOJu0YzVlspNgTk8ylKeWlecjpbPTtjdznEr+FtqDiB1UKv+R2lIZCi1
+	QNTeXfIBbPFyDPDwDF8+Qmzx7iEFScIU6uZUzF9ASkZ1JGjk4USLdoYI2yh3Dg==
+X-Google-Smtp-Source: AGHT+IH3YGzNvlzAjkw1WXC7R6lSf8RUEE6T6culeoS7lotBzQaTnwVn5pHNP7rMePfBMEq5jBgXxw==
+X-Received: by 2002:a50:9f4b:0:b0:57c:603a:6b2b with SMTP id 4fb4d7f45d1cf-57c603a6eebmr5118402a12.21.1718018814703;
+        Mon, 10 Jun 2024 04:26:54 -0700 (PDT)
+Message-ID: <be69d7c6-c004-44de-acee-c16dc923d412@suse.com>
+Date: Mon, 10 Jun 2024 13:26:53 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH for-4.19? v5 07/10] xen: Make the maximum number of altp2m
- views configurable for x86
-To: =?UTF-8?Q?Petr_Bene=C5=A1?= <w1benny@gmail.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
- <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>,
+Subject: Re: [XEN PATCH v3 04/16] x86: introduce CONFIG_ALTP2M Kconfig option
+To: Sergiy Kibrik <sergiy_kibrik@epam.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Tamas K Lengyel <tamas@tklengyel.com>,
- Alexandru Isaila <aisaila@bitdefender.com>,
- Petre Pircalabu <ppircalabu@bitdefender.com>, xen-devel@lists.xenproject.org
-References: <cover.1717356829.git.w1benny@gmail.com>
- <84794f97bc738add96a66790425a3aa5f5084a25.1717356829.git.w1benny@gmail.com>
- <22eabe14-10c3-4095-91d3-b63911908cb2@suse.com>
- <CAKBKdXhZ4HOqThPMkwaWB5ZhQOc6gE=xsKzkoL4_h+M6y33dcQ@mail.gmail.com>
- <f3cd00f2-bdcb-4604-bdc2-fd13eddb8ea0@suse.com>
- <CAKBKdXje+_dd7kh3+aDJACw84+-1ozXt6N==KbA6Tgm7GeZEnQ@mail.gmail.com>
- <8961cf72-4eeb-4c47-9723-35da3e47d4d2@suse.com>
- <CAKBKdXiQhFeihx9HeuOv5cFe8K7H2O+GFUXy4ThF1X6ZGjCrig@mail.gmail.com>
+ George Dunlap <george.dunlap@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Xenia Ragiadakou <xenia.ragiadakou@amd.com>,
+ Tamas K Lengyel <tamas@tklengyel.com>, xen-devel@lists.xenproject.org
+References: <cover.1717410850.git.Sergiy_Kibrik@epam.com>
+ <035f63f2b92b963f2585064fa21e09e73157f9d3.1717410850.git.Sergiy_Kibrik@epam.com>
+ <856e3517-4aef-4e18-85b1-174ebf5c358f@suse.com>
+ <6b55015a-4cea-4064-a50e-38ab2b2e665c@epam.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -127,98 +118,72 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <CAKBKdXiQhFeihx9HeuOv5cFe8K7H2O+GFUXy4ThF1X6ZGjCrig@mail.gmail.com>
+In-Reply-To: <6b55015a-4cea-4064-a50e-38ab2b2e665c@epam.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 10.06.2024 12:34, Petr Beneš wrote:
-> On Mon, Jun 10, 2024 at 12:16 PM Jan Beulich <jbeulich@suse.com> wrote:
+On 10.06.2024 12:48, Sergiy Kibrik wrote:
+> 07.06.24 10:47, Jan Beulich:
+>> On 03.06.2024 13:13, Sergiy Kibrik wrote:
+>>> --- a/xen/arch/x86/include/asm/p2m.h
+>>> +++ b/xen/arch/x86/include/asm/p2m.h
+>>> @@ -577,10 +577,10 @@ static inline gfn_t mfn_to_gfn(const struct domain *d, mfn_t mfn)
+>>>           return _gfn(mfn_x(mfn));
+>>>   }
+>>>   
+>>> -#ifdef CONFIG_HVM
+>>>   #define AP2MGET_prepopulate true
+>>>   #define AP2MGET_query false
+>>>   
+>>> +#ifdef CONFIG_ALTP2M
+>>>   /*
+>>>    * Looks up altp2m entry. If the entry is not found it looks up the entry in
+>>>    * hostp2m.
 >>
->> On 10.06.2024 11:10, Petr Beneš wrote:
->>> On Mon, Jun 10, 2024 at 9:30 AM Jan Beulich <jbeulich@suse.com> wrote:
->>>>
->>>> On 09.06.2024 01:06, Petr Beneš wrote:
->>>>> On Thu, Jun 6, 2024 at 9:24 AM Jan Beulich <jbeulich@suse.com> wrote:
->>>>>>> @@ -122,7 +131,12 @@ int p2m_init_altp2m(struct domain *d)
->>>>>>>      struct p2m_domain *hostp2m = p2m_get_hostp2m(d);
->>>>>>>
->>>>>>>      mm_lock_init(&d->arch.altp2m_list_lock);
->>>>>>> -    for ( i = 0; i < MAX_ALTP2M; i++ )
->>>>>>> +    d->arch.altp2m_p2m = xzalloc_array(struct p2m_domain *, d->nr_altp2m);
->>>>>>> +
->>>>>>> +    if ( !d->arch.altp2m_p2m )
->>>>>>> +        return -ENOMEM;
->>>>>>
->>>>>> This isn't really needed, is it? Both ...
->>>>>>
->>>>>>> +    for ( i = 0; i < d->nr_altp2m; i++ )
->>>>>>
->>>>>> ... this and ...
->>>>>>
->>>>>>>      {
->>>>>>>          d->arch.altp2m_p2m[i] = p2m = p2m_init_one(d);
->>>>>>>          if ( p2m == NULL )
->>>>>>> @@ -143,7 +157,10 @@ void p2m_teardown_altp2m(struct domain *d)
->>>>>>>      unsigned int i;
->>>>>>>      struct p2m_domain *p2m;
->>>>>>>
->>>>>>> -    for ( i = 0; i < MAX_ALTP2M; i++ )
->>>>>>> +    if ( !d->arch.altp2m_p2m )
->>>>>>> +        return;
->>>>
->>>> I'm sorry, the question was meant to be on this if() instead.
->>>>
->>>>>>> +    for ( i = 0; i < d->nr_altp2m; i++ )
->>>>>>>      {
->>>>>>>          if ( !d->arch.altp2m_p2m[i] )
->>>>>>>              continue;
->>>>>>> @@ -151,6 +168,8 @@ void p2m_teardown_altp2m(struct domain *d)
->>>>>>>          d->arch.altp2m_p2m[i] = NULL;
->>>>>>>          p2m_free_one(p2m);
->>>>>>>      }
->>>>>>> +
->>>>>>> +    XFREE(d->arch.altp2m_p2m);
->>>>>>>  }
->>>>>>
->>>>>> ... this ought to be fine without?
->>>>>
->>>>> Could you, please, elaborate? I honestly don't know what you mean here
->>>>> (by "this isn't needed").
->>>>
->>>> I hope the above correction is enough?
->>>
->>> I'm sorry, but not really? I feel like I'm blind but I can't see
->>> anything I could remove without causing (or risking) crash.
+>> In principle this #ifdef shouldn't need moving. It's just that the
+>> three use sites need taking care of a little differently. E.g. ...
 >>
->> The loop is going to do nothing when d->nr_altp2m == 0, and the XFREE() is
->> going to do nothing when d->arch.altp2m_p2m == NULL. Hence what does the
->> if() guard against? IOW what possible crashes are you seeing that I don't
->> see?
+>>> @@ -589,6 +589,15 @@ static inline gfn_t mfn_to_gfn(const struct domain *d, mfn_t mfn)
+>>>   int altp2m_get_effective_entry(struct p2m_domain *ap2m, gfn_t gfn, mfn_t *mfn,
+>>>                                  p2m_type_t *t, p2m_access_t *a,
+>>>                                  bool prepopulate);
+>>> +#else
+>>> +static inline int altp2m_get_effective_entry(struct p2m_domain *ap2m,
+>>> +                                             gfn_t gfn, mfn_t *mfn,
+>>> +                                             p2m_type_t *t, p2m_access_t *a,
+>>> +                                             bool prepopulate)
+>>> +{
+>>> +    ASSERT_UNREACHABLE();
+>>> +    return -EOPNOTSUPP;
+>>> +}
+>>
+>> static inline int altp2m_get_effective_entry(struct p2m_domain *ap2m,
+>>                                               gfn_t gfn, mfn_t *mfn,
+>>                                               p2m_type_t *t, p2m_access_t *a)
+>> {
+>>      ASSERT_UNREACHABLE();
+>>      return -EOPNOTSUPP;
+>> }
+>> #define altp2m_get_effective_entry(ap2m, gfn, mfn, t, a, prepopulate) \
+>>          altp2m_get_effective_entry(ap2m, gfn, mfn, t, a)
+>>
+>> Misra doesn't like such shadowing, so the inline function may want
+>> naming slightly differently, e.g. _ap2m_get_effective_entry().
 > 
-> I see now. I was seeing ghosts - my thinking was that if
-> p2m_init_altp2m fails to allocate altp2m_p2m, it will call
-> p2m_teardown_altp2m - which, without the if(), would start to iterate
-> through an array that is not allocated. It doesn't happen, it just
-> returns -ENOMEM.
 > 
-> So to reiterate:
-> 
->     if ( !d->arch.altp2m_p2m )
->         return;
-> 
-> ... are we talking that this condition inside p2m_teardown_altp2m
-> isn't needed?
+> I can do that, sure.
+> Though here I'm curious what benefits we're getting from little 
+> complication of an indirect call to an empty stub -- is avoiding of 
+> AP2MGET_* defines worth it?
 
-I'm not sure about "isn't" vs "shouldn't". The call from p2m_final_teardown()
-also needs to remain safe to make. Which may require that upon allocation
-failure you zap d->nr_altp2m. Or which alternatively may mean that the if()
-actually needs to stay.
+First - how is an indirect call coming into the picture here? We aim at
+avoiding indirect calls where possible, after all. Yet iirc all calls
+to altp2m_get_effective_entry() are direct ones.
 
-> Or is there anything else?
-
-There was also the question of whether to guard the allocation, to avoid a
-de-generate xmalloc_array() of zero size. Yet in the interest of avoiding
-not strictly necessary conditionals, that may well want to remain as is.
+As to avoiding the (or in fact any such) #define-s - imo it's better to
+not have items in the name space which can't validly be used, unless this
+(elsewhere) helps to keep the code tidy overall. This way problems (e.g.
+from misunderstandings or flaws elsewhere) can be detected early.
 
 Jan
 
