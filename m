@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 66B77901B97
-	for <lists+xen-devel@lfdr.de>; Mon, 10 Jun 2024 09:16:22 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.736952.1143030 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E5253901B9F
+	for <lists+xen-devel@lfdr.de>; Mon, 10 Jun 2024 09:17:20 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.736957.1143041 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sGZFl-0001Mi-W2; Mon, 10 Jun 2024 07:15:41 +0000
+	id 1sGZHA-0001sd-9v; Mon, 10 Jun 2024 07:17:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 736952.1143030; Mon, 10 Jun 2024 07:15:41 +0000
+Received: by outflank-mailman (output) from mailman id 736957.1143041; Mon, 10 Jun 2024 07:17:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sGZFl-0001Jq-TR; Mon, 10 Jun 2024 07:15:41 +0000
-Received: by outflank-mailman (input) for mailman id 736952;
- Mon, 10 Jun 2024 07:15:40 +0000
+	id 1sGZHA-0001r8-71; Mon, 10 Jun 2024 07:17:08 +0000
+Received: by outflank-mailman (input) for mailman id 736957;
+ Mon, 10 Jun 2024 07:17:06 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Mjq2=NM=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sGZFk-0001Jk-MB
- for xen-devel@lists.xenproject.org; Mon, 10 Jun 2024 07:15:40 +0000
-Received: from mail-lj1-x234.google.com (mail-lj1-x234.google.com
- [2a00:1450:4864:20::234])
+ id 1sGZH8-0001qy-No
+ for xen-devel@lists.xenproject.org; Mon, 10 Jun 2024 07:17:06 +0000
+Received: from mail-ed1-x52a.google.com (mail-ed1-x52a.google.com
+ [2a00:1450:4864:20::52a])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 3d5903ea-26f9-11ef-90a2-e314d9c70b13;
- Mon, 10 Jun 2024 09:15:39 +0200 (CEST)
-Received: by mail-lj1-x234.google.com with SMTP id
- 38308e7fff4ca-2eaae2a6dc1so80989701fa.0
- for <xen-devel@lists.xenproject.org>; Mon, 10 Jun 2024 00:15:39 -0700 (PDT)
+ id 70dca8c3-26f9-11ef-90a2-e314d9c70b13;
+ Mon, 10 Jun 2024 09:17:05 +0200 (CEST)
+Received: by mail-ed1-x52a.google.com with SMTP id
+ 4fb4d7f45d1cf-57c76497cefso1284319a12.1
+ for <xen-devel@lists.xenproject.org>; Mon, 10 Jun 2024 00:17:05 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a6c80581c1csm615294966b.17.2024.06.10.00.15.38
+ 4fb4d7f45d1cf-57aae237408sm6922828a12.93.2024.06.10.00.17.04
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 10 Jun 2024 00:15:38 -0700 (PDT)
+ Mon, 10 Jun 2024 00:17:04 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,49 +45,53 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3d5903ea-26f9-11ef-90a2-e314d9c70b13
+X-Inumbo-ID: 70dca8c3-26f9-11ef-90a2-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1718003739; x=1718608539; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1718003825; x=1718608625; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=KxOqOh8UfBu2g09J9Z0iUbukC5LS8oAauWEWOrv76J0=;
-        b=VzkIuvKcP1UdzrlhHtnHWkWwgMm7RFPS1X2bcvvOct4tYl51TU3qkpnG9e3KZOUgtk
-         jLyd7Lhuh6Em8VIXB5SfbIsH+55ZmnjgO/g/i5xXLfSVJtQGKbVesr5z3kjIajlN4L1j
-         YumsKGF7wm7ErQl1zO20K+QVcYzP62c1vw32alIiFOP1/nqiHdONsbrYkTnKa+41peGl
-         VsLoUTjpiIXs3yzNOoBgI+rhSw4I0hR5EHjpHVxSpLwbMd1b79QQsrEjoNBNvZUi+Z/6
-         NJBjt/dmpxXMgL66qPkr/dcKrnqdFFwBoMsr5+4eSUPlZOXAzmXTmzbdAL1SAAhd4J/4
-         9FTw==
+        bh=JfXo5DY86DUjRjTZno/zguF/2yTWu03Tx+dhEuiFnwE=;
+        b=RZDi/OiwzJ3F6E/EMocV9dkU6QeX0aTpleNKSoj58ihCvMR8cyBAb9Iq0M9APZOoUe
+         GzI1rsmt5E3I/uHBAbvVkdhpDvd/2FopRSm5qcJi1V8UNh01zgAVwIV0BYFUi6KqiP9r
+         ZGumVyjonhl7Zunk7K+GNYC9R+YGemxM6NpBXRjYFrHpP8M6qXVnXFfN+mrcxLki0kQx
+         PlvsIwdhnHZaC+SH2+TLbvzNINrfnTWveFRb0Gx41SBnvVuNl/9p7IdAVmlTHBJl2gOx
+         ZjacjDA/FMKCfHYtYhY2200QNywtHUJIsMRmyRwcaNMBW/9FjVkt97W25LMHIfWDLHlk
+         qo9g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1718003739; x=1718608539;
+        d=1e100.net; s=20230601; t=1718003825; x=1718608625;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=KxOqOh8UfBu2g09J9Z0iUbukC5LS8oAauWEWOrv76J0=;
-        b=LOlbAY/S/IxAMYiFiiq1IHlev5HSmtfNuFOFfglW+rc8c3CbReV+PoinH/pkGBXowf
-         9xfkNuGhUPLIMsZmPLzFDU/BUx7VcoeYB+nI8nTPXt/Xq9eG0r3c6bHJrH/5C9rRufRn
-         ELjjVFBF7ZSSEKeWW+wDQKKVyroeQ5+oeA6X2WGrtHYPCKLLqSC/ehncAHHuqnxtMebT
-         tQDkNzHnvMCsBae3FyWIQHooNE9xyU0hg2zZxj4j8G6uMLlJd3w6O0gb+yovTrTpmMZj
-         HmhUuE2Mb9OQg6xRuz9aIt/z07KOMEYpjsTue1oMAPXnCHwZlCsqLa4RkFv5mIuGr7j5
-         WU8w==
-X-Forwarded-Encrypted: i=1; AJvYcCU1Gdt5GlFvwbng6cNcIcXx8uRK8QUbY58lvPOJEzk/ITD2orX48zepGqxM7LMgiSwHsPDgxIwA6FbdExCWTHtVOiZ4FcaTQNP2tQibGxo=
-X-Gm-Message-State: AOJu0YzDUfYFexy2wC/mn1t5POnrBqsZ+lmMxPg9rNzWEa4sLm/tYgxD
-	5Hrh7N7fcvvpstPhOIcOtIfZyxolC89ncwqu0QcHXNC8BUVtIbKtSJekAze6/w==
-X-Google-Smtp-Source: AGHT+IGPt0CYADzORpmApfrMzt0iCjrpewhgiiew/HUx1RM0IEzMThHfiIei/VXmKnn5sksxNFbJ2A==
-X-Received: by 2002:a05:6512:3ca5:b0:52b:c296:9739 with SMTP id 2adb3069b0e04-52bc2969770mr6331782e87.41.1718003738710;
-        Mon, 10 Jun 2024 00:15:38 -0700 (PDT)
-Message-ID: <afc347c0-ca2f-4972-b895-71184b1074ea@suse.com>
-Date: Mon, 10 Jun 2024 09:15:37 +0200
+        bh=JfXo5DY86DUjRjTZno/zguF/2yTWu03Tx+dhEuiFnwE=;
+        b=a0Ta50jAJfykKyvw+b0z9WRxP8HkfMQI8NqkpEYcDiHpqF0p59yPighPTpVTUnPSuF
+         Bnj2MGNlwbx+87oIK3H35RU0b/5Z45my0oO3e5RDM0WIuj8CtGG1dSGCX1oZ6yFAp/XR
+         Zfs5+kCKpeBNkAVdYL5qlaX/yocBG2elZssQDwRspGm3kQJEc+2J/2JvWdwgkL0/7Yn0
+         2GJ0+BvPw+M00zSUAPsz4/3EKmu1TWerSLvNX73aB1QlTzHrNNqE0sqALUOU1L2KrqT/
+         u9CvX5jRdpLpNbvb/mZVFSy4ckgfcMTp7BdRFQzKf4erXkst0BQ4MQRt/p3akjjiBNsC
+         8uXQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWSsjUINzIdt7v5SkSTu365Fv1C0mH9kODNfXy3cYPryTRLehJTrJBNbBIpMq1EuejK8NdaRW9I/6Qfxfc88rEwRW5gqy1kAf40OCwldog=
+X-Gm-Message-State: AOJu0YwKtsHVyWOvFYX8CMQVjoBY9aGpf5xsl+7/VqaeOhRTKR4MCxf3
+	UaJl31hwcevu8eHZ0UbdII6QbupKFQ0V7DHrckj21JZJ4x12Kgn9I8eTVzOt6A==
+X-Google-Smtp-Source: AGHT+IFdDdcYuzFyiNiGOqyXwLz8UwIbjCTHYMbqhf4AD3V2WY9wDjhS5bzzzAAD7go3RrQS1b5hMw==
+X-Received: by 2002:a50:c306:0:b0:57c:6861:d735 with SMTP id 4fb4d7f45d1cf-57c6861d783mr4418309a12.19.1718003825210;
+        Mon, 10 Jun 2024 00:17:05 -0700 (PDT)
+Message-ID: <c642d1ef-9466-424a-9e84-54accecd8c6a@suse.com>
+Date: Mon, 10 Jun 2024 09:17:04 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: vcpumask_to_pcpumask() case study
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- xen-devel <xen-devel@lists.xenproject.org>
-References: <3bb4e3fa-376b-4641-824d-61864b4e1e8e@citrix.com>
- <c5951643-5172-4aa1-9833-1a7a0eebb540@suse.com>
- <1745d84b-59b7-4f90-a0a8-5d459b83b0bc@citrix.com>
+Subject: Re: [XEN PATCH v1] x86/cpufreq: separate powernow/hwp cpufreq code
+To: Sergiy Kibrik <sergiy_kibrik@epam.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Jason Andryuk <jason.andryuk@amd.com>, xen-devel@lists.xenproject.org
+References: <20240604093406.2448552-1-Sergiy_Kibrik@epam.com>
+ <5cb13d1a-1452-4542-b50d-23e6a9d9d3ef@suse.com>
+ <c66966da-bbe3-432e-8a2f-809bf434db39@epam.com>
+ <ab57f7f3-ac54-4b41-950a-1f7bee4293ab@suse.com>
+ <647b086a-04b0-42be-a7b8-a266c4f4e64b@epam.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -113,47 +117,56 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <1745d84b-59b7-4f90-a0a8-5d459b83b0bc@citrix.com>
+In-Reply-To: <647b086a-04b0-42be-a7b8-a266c4f4e64b@epam.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 07.06.2024 14:35, Andrew Cooper wrote:
-> On 03/06/2024 10:19 pm, Jan Beulich wrote:
->> On 01.06.2024 20:50, Andrew Cooper wrote:
->>> One of the followon items I had from the bitops clean-up is this:
+On 07.06.2024 11:14, Sergiy Kibrik wrote:
+> 06.06.24 10:54, Jan Beulich:
+>> On 06.06.2024 09:30, Sergiy Kibrik wrote:
+>>> 06.06.24 10:08, Jan Beulich:
+>>>> On 04.06.2024 11:34, Sergiy Kibrik wrote:
+>>>>> --- a/xen/arch/x86/acpi/cpufreq/cpufreq.c
+>>>>> +++ b/xen/arch/x86/acpi/cpufreq/cpufreq.c
+>>>>> @@ -657,7 +657,7 @@ static int __init cf_check cpufreq_driver_init(void)
+>>>>>    
+>>>>>            case X86_VENDOR_AMD:
+>>>>>            case X86_VENDOR_HYGON:
+>>>>> -            ret = powernow_register_driver();
+>>>>> +            ret = IS_ENABLED(CONFIG_AMD) ? powernow_register_driver() : -ENODEV;
+>>>>>                break;
+>>>>>            }
+>>>>
+>>>> What about the Intel-specific code immediately up from here?
+>>>> Dealing with that as well may likely permit to reduce ...
 >>>
->>> diff --git a/xen/arch/x86/mm.c b/xen/arch/x86/mm.c
->>> index 648d6dd475ba..9c3a017606ed 100644
->>> --- a/xen/arch/x86/mm.c
->>> +++ b/xen/arch/x86/mm.c
->>> @@ -3425,7 +3425,7 @@ static int vcpumask_to_pcpumask(
->>>              unsigned int cpu;
->>>  
->>>              vcpu_id = ffsl(vmask) - 1;
->>> -            vmask &= ~(1UL << vcpu_id);
->>> +            vmask &= vmask - 1;
->>>              vcpu_id += vcpu_bias;
->>>              if ( (vcpu_id >= d->max_vcpus) )
->>>                  return 0;
->>>
->>> which yields the following improvement:
->>>
->>>   add/remove: 0/0 grow/shrink: 0/1 up/down: 0/-34 (-34)
->>>   Function                                     old     new   delta
->>>   vcpumask_to_pcpumask                         519     485     -34
->> Nice. At the risk of getting flamed again for raising dumb questions:
->> Considering that elsewhere "trickery" like the &= mask - 1 here were
->> deemed not nice to have (at least wanting to be hidden behind a
->> suitably named macro; see e.g. ISOLATE_LSB()), wouldn't __clear_bit()
->> be suitable here too, and less at risk of being considered "trickery"?
+>>> you mean to guard a call to hwp_register_driver() the same way as for
+>>> powernow_register_driver(), and save one stub? ?
+>>
+>> Yes, and perhaps more. Maybe more stubs can be avoided? And
+>> acpi_cpufreq_driver doesn't need registering either, and hence
+>> would presumably be left unreferenced when !INTEL?
+>>
 > 
-> __clear_bit() is even worse, because it forces the bitmap to be spilled
-> to memory.  It hopefully wont when I've given the test/set helpers the
-> same treatment as ffs/fls.
+> {get,set}_hwp_para() can be avoided, as they're being called just once 
+> and may be guarded by IS_ENABLED(CONFIG_INTEL).
+> The same for hwp_cmdline_parse().
+> As for hwp_active() it's being used many times by generic cpufreq code 
+> and even outside of cpufreq, so probably it has to be either a stub, or 
+> be moved outside of hwp.c and become smth, like this:
+> 
+>   bool hwp_active(void)
+>   {
+>      return IS_ENABLED(CONFIG_INTEL) && hwp_in_use;
+>   }
+> 
+> Though I'm not sure such movement would be any better than a stub.
+> 
+> acpi_cpufreq_driver, i.e. the most of code in cpufreq.c file, can 
+> probably be separated into acpi.c and put under CONFIG_INTEL as well. 
+> What you think of this?
 
-Sorry, not directly related here: When you're saying "when I've given"
-does that mean you'd like Oleksii's "xen: introduce generic non-atomic
-test_*bit()" to not go in once at least an Arm ack has arrived?
+Sounds like the direction I think we want to be following.
 
 Jan
 
