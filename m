@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0128C901B71
-	for <lists+xen-devel@lfdr.de>; Mon, 10 Jun 2024 08:54:12 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.736903.1142987 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7D4E2901B73
+	for <lists+xen-devel@lfdr.de>; Mon, 10 Jun 2024 08:54:13 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.736904.1143001 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sGYuj-0002dY-4X; Mon, 10 Jun 2024 06:53:57 +0000
+	id 1sGYul-000368-Hz; Mon, 10 Jun 2024 06:53:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 736903.1142987; Mon, 10 Jun 2024 06:53:57 +0000
+Received: by outflank-mailman (output) from mailman id 736904.1143001; Mon, 10 Jun 2024 06:53:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sGYui-0002ZW-To; Mon, 10 Jun 2024 06:53:56 +0000
-Received: by outflank-mailman (input) for mailman id 736903;
- Mon, 10 Jun 2024 06:53:55 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1sGYul-00033v-BJ; Mon, 10 Jun 2024 06:53:59 +0000
+Received: by outflank-mailman (input) for mailman id 736904;
+ Mon, 10 Jun 2024 06:53:57 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=FMhB=NM=linaro.org=jens.wiklander@srs-se1.protection.inumbo.net>)
- id 1sGYuh-0002SJ-J0
- for xen-devel@lists.xenproject.org; Mon, 10 Jun 2024 06:53:55 +0000
-Received: from mail-ej1-x641.google.com (mail-ej1-x641.google.com
- [2a00:1450:4864:20::641])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 3391d7a6-26f6-11ef-90a2-e314d9c70b13;
- Mon, 10 Jun 2024 08:53:54 +0200 (CEST)
-Received: by mail-ej1-x641.google.com with SMTP id
- a640c23a62f3a-a63359aaaa6so594625266b.2
- for <xen-devel@lists.xenproject.org>; Sun, 09 Jun 2024 23:53:54 -0700 (PDT)
+ id 1sGYuj-0001oX-J5
+ for xen-devel@lists.xenproject.org; Mon, 10 Jun 2024 06:53:57 +0000
+Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
+ [2a00:1450:4864:20::62c])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 34a79980-26f6-11ef-b4bb-af5377834399;
+ Mon, 10 Jun 2024 08:53:56 +0200 (CEST)
+Received: by mail-ej1-x62c.google.com with SMTP id
+ a640c23a62f3a-a62ef52e837so528756866b.3
+ for <xen-devel@lists.xenproject.org>; Sun, 09 Jun 2024 23:53:56 -0700 (PDT)
 Received: from rayden.urgonet (h-217-31-164-171.A175.priv.bahnhof.se.
  [217.31.164.171]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a6f1e6795b9sm107981966b.174.2024.06.09.23.53.51
+ a640c23a62f3a-a6f1e6795b9sm107981966b.174.2024.06.09.23.53.53
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 09 Jun 2024 23:53:52 -0700 (PDT)
+ Sun, 09 Jun 2024 23:53:54 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,212 +45,140 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3391d7a6-26f6-11ef-90a2-e314d9c70b13
+X-Inumbo-ID: 34a79980-26f6-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1718002433; x=1718607233; darn=lists.xenproject.org;
+        d=linaro.org; s=google; t=1718002435; x=1718607235; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=JceofD7RBMGtBhxQJQYStOTtcfNOzjMXKDJSoSIwmug=;
-        b=JaWqYG55WainfdKf+S2kg5CQ07FYmhbpwoj0U4RaPRbWap2Ml+0/l7yejbeTiIxd5O
-         0lsUwdYQ+U7xGeGRiA6/Q+T7TnJLAZL8IqJsREGYbqqtxw4s+Swm9rF7b0yaMZXNY64p
-         CqqSg6Q7pf2X9ICvZRS5rd78KC6j6F8UMmZx7t0a9HZWj7cctJ8oeXwTBuQJBlXpVyEu
-         25wQan0tfVwqUmTQVTOWHdwahyTaezxlaBj0LVNz1lJhI6uQRJxuEycUgPHPJxpWoXoF
-         lgEYCr7sDzCnmwEfhNyl108f70Njx0cAlNLGLwuG4xPVGSnwKvzc2vilpVJFCR/Sf0VE
-         oPJQ==
+        bh=v0XZWV38zo7fRMFW2k6millPwbwyTFNlIqQWXfkZcoE=;
+        b=wm3NVcf0cwmsKRDHMpzk0pUjs8pRNsKotohsW5zAUtAxPqcjiweXaPjV15z2nk83Dn
+         1qe7DYXdaGjoyVZW+UzaKiufbfdrDI5LNPOHPsXhb1k8qDHBisLhPMHi0No75/eizajk
+         Fq4Nz1G6LT+UXrGT1Jf5NOk6jtu0tun/5PObGi/fUJE8eGrOfEYocrSrj7dIUD4zvuGX
+         RTlQW/pyQossoInGJS4gvs71Bhc4XmWN1kBru3mBbGTb5FYtqtsncnIDBgrIC3hwPWNe
+         u7aADhnSGB6vWvFmaHFSZgy+tRPffv2PaLfk0DSp+Z+IqDo8lF3gN2Jma00mEBRmZZBr
+         jnCA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1718002433; x=1718607233;
+        d=1e100.net; s=20230601; t=1718002435; x=1718607235;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=JceofD7RBMGtBhxQJQYStOTtcfNOzjMXKDJSoSIwmug=;
-        b=UNyhsPTOP3G0fgmNM9MD5Kl1Es69F5YMNkH2jrxsMcNQNqpfUvIymnVNkURpUjb269
-         wvVdBvQCARlkVQp5ztZNXfbk0YzrpAASQ1cOBSHSPoSOElFz8KLGU3qfJsRhJuucelWL
-         HZIrPfLh6ts08kTk1kBqtosrV4mR9Wc3oK+FaZUgdDbtRX7ee1K3/UqptxdISRblQrGJ
-         ANaKE4DRy8siHr2R0t0pa7rl/J9KMlWBe1KKv9H71rSVcr87t8Mrpb1Vi+efDGL1DasO
-         AuPEGnfxr0k0iyFjQu1N1gV6OrFh3ggvPJLPcA78g+Lg55/0Y+WNS1Bt5PraeE3CTcDL
-         Mviw==
-X-Gm-Message-State: AOJu0YzfOgGH1k2jZVwKpvmL5DCKU6m26jRI0gl4acXs8eEAKrfV+Bh5
-	q7PXfXMNos6w6dvEt45T5U/uTGW+sU2RzNRODsSmYLcQaMKCmHgm8XONQQj1Dcv5d+Xtg63Pu9n
-	4YUf5wA==
-X-Google-Smtp-Source: AGHT+IENIvSGyjGpOz9XjYX5uB8uPLMvPPR9yA55yF5Sw+1pXuvS4Hh317Vncdxx9CfRgcNU+2A6zw==
-X-Received: by 2002:a17:906:1c87:b0:a6f:1106:5dc7 with SMTP id a640c23a62f3a-a6f11065e29mr239543466b.5.1718002433493;
-        Sun, 09 Jun 2024 23:53:53 -0700 (PDT)
+        bh=v0XZWV38zo7fRMFW2k6millPwbwyTFNlIqQWXfkZcoE=;
+        b=NCfN7gDrafE5mYqYlrA+BE7VSyzLsQyVBuWHz0ICbsDsPNBkOMi+Ah1PJA5skvfKVs
+         k0uDNyFCX3FtMOln7FNy+rV6kJ4h1ZU4ZNrJcspLF2+kBofxVU4jemyHbVqWwC/rzwli
+         fcT6gNw+DfZHxZ7D/Abln4/pZB1kO65b/griFFv35XyGGbMW/L9eGtPrs4BA/yocSvFv
+         je2USAZHaHnuxlOu1O40sHZnsfpiFheK39/Mb6HOUA0MS8ZWIg5hiaDMK/7YecDEx6L2
+         IZvbKRNsh+SgNHKMf0OMaaSSE98+NgOcc0qir/5XcDYBAu2xo5PcXR7bcj+RiSqJBa4y
+         D0Jw==
+X-Gm-Message-State: AOJu0YykQRm73cX6ALs4b44yrUbgH9utKduQ6bftTZGoTIRcbixWS6eX
+	HIuUFqHU8PTPNM2wIodF/90+tCVNjQ98XFF0wBVr0SpYABCScGlqo7/4MEyJAdQ3KEM2HCYXuH3
+	I744=
+X-Google-Smtp-Source: AGHT+IFrqovL90KjjtIWH7ELqoOBQ3DlSigv3se5/sV3vqUZIu9PEL+pc5diOLHr+PJK6s+8Xzun2Q==
+X-Received: by 2002:a17:906:29d5:b0:a6f:1b40:82ab with SMTP id a640c23a62f3a-a6f1b408397mr163610266b.76.1718002434843;
+        Sun, 09 Jun 2024 23:53:54 -0700 (PDT)
 From: Jens Wiklander <jens.wiklander@linaro.org>
 To: xen-devel@lists.xenproject.org
 Cc: patches@linaro.org,
 	Jens Wiklander <jens.wiklander@linaro.org>,
+	Volodymyr Babchuk <volodymyr_babchuk@epam.com>,
 	Stefano Stabellini <sstabellini@kernel.org>,
 	Julien Grall <julien@xen.org>,
 	Bertrand Marquis <bertrand.marquis@arm.com>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	Julien Grall <jgrall@amazon.com>
-Subject: [XEN PATCH v6 4/7] xen/arm: allow dynamically assigned SGI handlers
-Date: Mon, 10 Jun 2024 08:53:40 +0200
-Message-Id: <20240610065343.2594943-5-jens.wiklander@linaro.org>
+	Michal Orzel <michal.orzel@amd.com>
+Subject: [XEN PATCH v6 5/7] xen/arm: add and call init_tee_secondary()
+Date: Mon, 10 Jun 2024 08:53:41 +0200
+Message-Id: <20240610065343.2594943-6-jens.wiklander@linaro.org>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20240610065343.2594943-1-jens.wiklander@linaro.org>
 References: <20240610065343.2594943-1-jens.wiklander@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Updates so request_irq() can be used with a dynamically assigned SGI irq
-as input. This prepares for a later patch where an FF-A schedule
-receiver interrupt handler is installed for an SGI generated by the
-secure world.
-
-From the Arm Base System Architecture v1.0C [1]:
-"The system shall implement at least eight Non-secure SGIs, assigned to
-interrupt IDs 0-7."
-
-gic_route_irq_to_xen() don't gic_set_irq_type() for SGIs since they are
-always edge triggered.
-
-gic_interrupt() is updated to route the dynamically assigned SGIs to
-do_IRQ() instead of do_sgi(). The latter still handles the statically
-assigned SGI handlers like for instance GIC_SGI_CALL_FUNCTION.
-
-[1] https://developer.arm.com/documentation/den0094/
+Add init_tee_secondary() to the TEE mediator framework and call it from
+start_secondary() late enough that per-cpu interrupts can be configured
+on CPUs as they are initialized. This is needed in later patches.
 
 Signed-off-by: Jens Wiklander <jens.wiklander@linaro.org>
-Acked-by: Julien Grall <jgrall@amazon.com>
+Reviewed-by: Bertrand Marquis <bertrand.marquis@arm.com>
 ---
-v3->v4
-- Use IRQ_TYPE_EDGE_RISING instead of DT_IRQ_TYPE_EDGE_RISING
-
-v2->v3
-- Rename GIC_SGI_MAX to GIC_SGI_STATIC_MAX and rename do_sgi() to
-  do_static_sgi()
-- Update comment in setup_irq() to mention that SGI irq_desc is banked
-- Add ASSERT() in do_IRQ() that the irq isn't an SGI before injecting
-  calling vgic_inject_irq()
-- Initialize local_irqs_type[] range for SGIs as IRQ_TYPE_EDGE_RISING
-- Adding link to the Arm Base System Architecture v1.0C
-
-v1->v2
-- Update patch description as requested
+v5->v6:
+- Rename init_tee_interrupt() to init_tee_secondary() as requested
 ---
- xen/arch/arm/gic.c             | 12 +++++++-----
- xen/arch/arm/include/asm/gic.h |  2 +-
- xen/arch/arm/irq.c             | 18 ++++++++++++++----
- 3 files changed, 22 insertions(+), 10 deletions(-)
+ xen/arch/arm/include/asm/tee/tee.h | 8 ++++++++
+ xen/arch/arm/smpboot.c             | 2 ++
+ xen/arch/arm/tee/tee.c             | 6 ++++++
+ 3 files changed, 16 insertions(+)
 
-diff --git a/xen/arch/arm/gic.c b/xen/arch/arm/gic.c
-index b3467a76ae75..3eaf670fd731 100644
---- a/xen/arch/arm/gic.c
-+++ b/xen/arch/arm/gic.c
-@@ -38,7 +38,7 @@ const struct gic_hw_operations *gic_hw_ops;
- static void __init __maybe_unused build_assertions(void)
- {
-     /* Check our enum gic_sgi only covers SGIs */
--    BUILD_BUG_ON(GIC_SGI_MAX > NR_GIC_SGI);
-+    BUILD_BUG_ON(GIC_SGI_STATIC_MAX > NR_GIC_SGI);
+diff --git a/xen/arch/arm/include/asm/tee/tee.h b/xen/arch/arm/include/asm/tee/tee.h
+index da324467e130..6bc13da885b6 100644
+--- a/xen/arch/arm/include/asm/tee/tee.h
++++ b/xen/arch/arm/include/asm/tee/tee.h
+@@ -28,6 +28,9 @@ struct tee_mediator_ops {
+      */
+     bool (*probe)(void);
+ 
++    /* Initialize secondary CPUs */
++    void (*init_secondary)(void);
++
+     /*
+      * Called during domain construction if toolstack requests to enable
+      * TEE support so mediator can inform TEE about new
+@@ -66,6 +69,7 @@ int tee_domain_init(struct domain *d, uint16_t tee_type);
+ int tee_domain_teardown(struct domain *d);
+ int tee_relinquish_resources(struct domain *d);
+ uint16_t tee_get_type(void);
++void init_tee_secondary(void);
+ 
+ #define REGISTER_TEE_MEDIATOR(_name, _namestr, _type, _ops)         \
+ static const struct tee_mediator_desc __tee_desc_##_name __used     \
+@@ -105,6 +109,10 @@ static inline uint16_t tee_get_type(void)
+     return XEN_DOMCTL_CONFIG_TEE_NONE;
  }
  
- void register_gic_ops(const struct gic_hw_operations *ops)
-@@ -117,7 +117,9 @@ void gic_route_irq_to_xen(struct irq_desc *desc, unsigned int priority)
++static inline void init_tee_secondary(void)
++{
++}
++
+ #endif  /* CONFIG_TEE */
  
-     desc->handler = gic_hw_ops->gic_host_irq_type;
+ #endif /* __ARCH_ARM_TEE_TEE_H__ */
+diff --git a/xen/arch/arm/smpboot.c b/xen/arch/arm/smpboot.c
+index 93a10d7721b4..04e363088d60 100644
+--- a/xen/arch/arm/smpboot.c
++++ b/xen/arch/arm/smpboot.c
+@@ -29,6 +29,7 @@
+ #include <asm/procinfo.h>
+ #include <asm/psci.h>
+ #include <asm/acpi.h>
++#include <asm/tee/tee.h>
  
--    gic_set_irq_type(desc, desc->arch.type);
-+    /* SGIs are always edge-triggered, so there is need to set it */
-+    if ( desc->irq >= NR_GIC_SGI)
-+        gic_set_irq_type(desc, desc->arch.type);
-     gic_set_irq_priority(desc, priority);
- }
+ /* Override macros from asm/page.h to make them work with mfn_t */
+ #undef virt_to_mfn
+@@ -401,6 +402,7 @@ void asmlinkage start_secondary(void)
+      */
+     init_maintenance_interrupt();
+     init_timer_interrupt();
++    init_tee_secondary();
  
-@@ -322,7 +324,7 @@ void gic_disable_cpu(void)
-     gic_hw_ops->disable_interface();
- }
+     local_abort_enable();
  
--static void do_sgi(struct cpu_user_regs *regs, enum gic_sgi sgi)
-+static void do_static_sgi(struct cpu_user_regs *regs, enum gic_sgi sgi)
- {
-     struct irq_desc *desc = irq_to_desc(sgi);
+diff --git a/xen/arch/arm/tee/tee.c b/xen/arch/arm/tee/tee.c
+index ddd17506a9ff..9fd1d7495b2e 100644
+--- a/xen/arch/arm/tee/tee.c
++++ b/xen/arch/arm/tee/tee.c
+@@ -96,6 +96,12 @@ static int __init tee_init(void)
  
-@@ -367,7 +369,7 @@ void gic_interrupt(struct cpu_user_regs *regs, int is_fiq)
-         /* Reading IRQ will ACK it */
-         irq = gic_hw_ops->read_irq();
+ __initcall(tee_init);
  
--        if ( likely(irq >= 16 && irq < 1020) )
-+        if ( likely(irq >= GIC_SGI_STATIC_MAX && irq < 1020) )
-         {
-             isb();
-             do_IRQ(regs, irq, is_fiq);
-@@ -379,7 +381,7 @@ void gic_interrupt(struct cpu_user_regs *regs, int is_fiq)
-         }
-         else if ( unlikely(irq < 16) )
-         {
--            do_sgi(regs, irq);
-+            do_static_sgi(regs, irq);
-         }
-         else
-         {
-diff --git a/xen/arch/arm/include/asm/gic.h b/xen/arch/arm/include/asm/gic.h
-index 03f209529b13..541f0eeb808a 100644
---- a/xen/arch/arm/include/asm/gic.h
-+++ b/xen/arch/arm/include/asm/gic.h
-@@ -285,7 +285,7 @@ enum gic_sgi {
-     GIC_SGI_EVENT_CHECK,
-     GIC_SGI_DUMP_STATE,
-     GIC_SGI_CALL_FUNCTION,
--    GIC_SGI_MAX,
-+    GIC_SGI_STATIC_MAX,
- };
- 
- /* SGI irq mode types */
-diff --git a/xen/arch/arm/irq.c b/xen/arch/arm/irq.c
-index e5fb26a3de2d..c60502444ccf 100644
---- a/xen/arch/arm/irq.c
-+++ b/xen/arch/arm/irq.c
-@@ -142,7 +142,13 @@ void __init init_IRQ(void)
- 
-     spin_lock(&local_irqs_type_lock);
-     for ( irq = 0; irq < NR_LOCAL_IRQS; irq++ )
--        local_irqs_type[irq] = IRQ_TYPE_INVALID;
-+    {
-+        /* SGIs are always edge-triggered */
-+        if ( irq < NR_GIC_SGI )
-+            local_irqs_type[irq] = IRQ_TYPE_EDGE_RISING;
-+        else
-+            local_irqs_type[irq] = IRQ_TYPE_INVALID;
-+    }
-     spin_unlock(&local_irqs_type_lock);
- 
-     BUG_ON(init_local_irq_data(smp_processor_id()) < 0);
-@@ -214,9 +220,12 @@ void do_IRQ(struct cpu_user_regs *regs, unsigned int irq, int is_fiq)
- 
-     perfc_incr(irqs);
- 
--    ASSERT(irq >= 16); /* SGIs do not come down this path */
-+    /* Statically assigned SGIs do not come down this path */
-+    ASSERT(irq >= GIC_SGI_STATIC_MAX);
- 
--    if ( irq < 32 )
-+    if ( irq < NR_GIC_SGI )
-+        perfc_incr(ipis);
-+    else if ( irq < NR_GIC_LOCAL_IRQS )
-         perfc_incr(ppis);
-     else
-         perfc_incr(spis);
-@@ -250,6 +259,7 @@ void do_IRQ(struct cpu_user_regs *regs, unsigned int irq, int is_fiq)
-          * The irq cannot be a PPI, we only support delivery of SPIs to
-          * guests.
-          */
-+        ASSERT(irq >= NR_GIC_SGI);
-         vgic_inject_irq(info->d, NULL, info->virq, true);
-         goto out_no_end;
-     }
-@@ -386,7 +396,7 @@ int setup_irq(unsigned int irq, unsigned int irqflags, struct irqaction *new)
-     {
-         gic_route_irq_to_xen(desc, GIC_PRI_IRQ);
-         /* It's fine to use smp_processor_id() because:
--         * For PPI: irq_desc is banked
-+         * For SGI and PPI: irq_desc is banked
-          * For SPI: we don't care for now which CPU will receive the
-          * interrupt
-          * TODO: Handle case where SPI is setup on different CPU than
++void __init init_tee_secondary(void)
++{
++    if ( cur_mediator && cur_mediator->ops->init_secondary )
++        cur_mediator->ops->init_secondary();
++}
++
+ /*
+  * Local variables:
+  * mode: C
 -- 
 2.34.1
 
