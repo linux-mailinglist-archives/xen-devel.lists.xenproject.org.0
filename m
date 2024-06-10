@@ -2,46 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 29D64901F77
-	for <lists+xen-devel@lfdr.de>; Mon, 10 Jun 2024 12:34:19 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.737146.1143309 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 23AAE901F7B
+	for <lists+xen-devel@lfdr.de>; Mon, 10 Jun 2024 12:34:48 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.737150.1143318 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sGcLh-0002FZ-Jg; Mon, 10 Jun 2024 10:34:01 +0000
+	id 1sGcMH-0002iM-Rk; Mon, 10 Jun 2024 10:34:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 737146.1143309; Mon, 10 Jun 2024 10:34:01 +0000
+Received: by outflank-mailman (output) from mailman id 737150.1143318; Mon, 10 Jun 2024 10:34:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sGcLh-0002D9-GQ; Mon, 10 Jun 2024 10:34:01 +0000
-Received: by outflank-mailman (input) for mailman id 737146;
- Mon, 10 Jun 2024 10:33:59 +0000
+	id 1sGcMH-0002g0-Oc; Mon, 10 Jun 2024 10:34:37 +0000
+Received: by outflank-mailman (input) for mailman id 737150;
+ Mon, 10 Jun 2024 10:34:36 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=GtSS=NM=epam.com=prvs=289119432d=sergiy_kibrik@srs-se1.protection.inumbo.net>)
- id 1sGcLf-0002D1-R9
- for xen-devel@lists.xenproject.org; Mon, 10 Jun 2024 10:33:59 +0000
-Received: from mx0b-0039f301.pphosted.com (mx0b-0039f301.pphosted.com
- [148.163.137.242]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f0ffda67-2714-11ef-b4bb-af5377834399;
- Mon, 10 Jun 2024 12:33:57 +0200 (CEST)
-Received: from pps.filterd (m0174680.ppops.net [127.0.0.1])
- by mx0b-0039f301.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 45AAL1hA015120;
- Mon, 10 Jun 2024 10:33:52 GMT
-Received: from eur05-vi1-obe.outbound.protection.outlook.com
- (mail-vi1eur05lp2168.outbound.protection.outlook.com [104.47.17.168])
- by mx0b-0039f301.pphosted.com (PPS) with ESMTPS id 3ynynjg1t3-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 10 Jun 2024 10:33:52 +0000 (GMT)
-Received: from AS8PR03MB9192.eurprd03.prod.outlook.com (2603:10a6:20b:5c0::11)
- by AM9PR03MB7489.eurprd03.prod.outlook.com (2603:10a6:20b:272::12)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7677.17; Mon, 10 Jun
- 2024 10:33:49 +0000
-Received: from AS8PR03MB9192.eurprd03.prod.outlook.com
- ([fe80::baa9:29b3:908:ed7d]) by AS8PR03MB9192.eurprd03.prod.outlook.com
- ([fe80::baa9:29b3:908:ed7d%6]) with mapi id 15.20.7656.012; Mon, 10 Jun 2024
- 10:33:49 +0000
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=7qHj=NM=gmail.com=w1benny@srs-se1.protection.inumbo.net>)
+ id 1sGcMG-0002fq-5e
+ for xen-devel@lists.xenproject.org; Mon, 10 Jun 2024 10:34:36 +0000
+Received: from mail-oi1-x232.google.com (mail-oi1-x232.google.com
+ [2607:f8b0:4864:20::232])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 06ebcd3b-2715-11ef-b4bb-af5377834399;
+ Mon, 10 Jun 2024 12:34:34 +0200 (CEST)
+Received: by mail-oi1-x232.google.com with SMTP id
+ 5614622812f47-3d226c5a157so673649b6e.2
+ for <xen-devel@lists.xenproject.org>; Mon, 10 Jun 2024 03:34:34 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -53,169 +40,143 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f0ffda67-2714-11ef-b4bb-af5377834399
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=EsFpwTm8cxnCnqtJNL0KbuAlWwAwdEw1uF9VgR3D1wmhzQat9EvGdt1zccDqLMr/HKsrBO2mD/g5YuyTPbCNZuFKUQgKfqxycTpzaWv7Vxo5MHejD0VdtNYmkSmMU6+i8HQ+1kCsT0mimTf0Gk0p+TTbQ0gwYNNOwQtRujn5rxpP0Voa+thepv72ni7t02jCJR08snZmfsDWarVpAa0Dak232J4wScwBY9hp8T/L29a+EU2DznAIxq6GBfBigq64KVTlWz6WNHuHiAHxPuiX1sxh6mDU1m1J8i7DTYHfmDr95CMtsOJflb4ZSwpI4pJTq3l1WR4GCCE9Xq/w05ng0w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=cd1moHxhc1xm770fqgTpoNlWwNdQuDUv7YAsKOXFusI=;
- b=G0Q4zyTM42oYWrw2l8Z6fsMpB8mGU6cw7A0Q3Fhc/YrNUmOq4D1ETpC868cC+2o7pt+DHcx+eQuub8vDJGS1P3MyyGBbCjJwFcQMQzbmCiFUsSz3VTD7iSwMt6GLm2TCyfKXjEdHZhGEwM7eHnMdDbp23l3OSPpCcD7arjgZM4aPoMJm5kdGUM7S6qywhq1Ks4KFYI7myHohXcp0D9MmRlkxZkATDtqf/z3koPJ5SWzHbuiOrxB/1p9nC/w3ZKOf6skeDqMH8pUE/rjmYkv39BQZmo5HWlCFKQ62pzRLc5AITLdkuTwC39B5+gztYiwCT4qFvA/Oif4ZPweeCt5L8A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
- dkim=pass header.d=epam.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=cd1moHxhc1xm770fqgTpoNlWwNdQuDUv7YAsKOXFusI=;
- b=oKi0f8sPNNJA4p+AB6jF5/JKo4sC0T91DB94f8T+mT60Fy6HVFpmgIlbQt9zA4o49OxZH/pJIsVEd4NLibMmx32+ENtbX/2TuTxO/EAfnOiR3tJWaEXopTFyqxIsii/NYN+xH/0QXZmiELpyjV6COGcAFUxQpYyG8+ns9SnAYF3aW93+ets9zETQzb4Pz90Ld4atP7q8TYcCDRm/SRJglpO344/xdtocmlPQN0p/5vgCfFelCcXS1t26cW9qTfq577wdQFM00KznMZhS9B3LLXYcAn6wLdjZvGauFGHb+AYywjZ3/8PLh6puoXFciw2ovcpjKDvm/nb002FWjtmBDg==
-Message-ID: <cc33b870-4ada-43b3-aad5-d938a12a970b@epam.com>
-Date: Mon, 10 Jun 2024 13:33:47 +0300
-User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH v3 03/16] x86/p2m: guard altp2m routines
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-        George Dunlap <george.dunlap@citrix.com>,
-        =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
-        Xenia Ragiadakou <xenia.ragiadakou@amd.com>,
-        Tamas K Lengyel <tamas@tklengyel.com>, xen-devel@lists.xenproject.org,
-        Jan Beulich <jbeulich@suse.com>
-References: <cover.1717410850.git.Sergiy_Kibrik@epam.com>
- <acb98c1c52613555a59cd27aad853a24caef0e19.1717410850.git.Sergiy_Kibrik@epam.com>
- <ade6ba3c-5a53-463c-97fd-34f6ec7dacaf@suse.com>
-Content-Language: en-US
-From: Sergiy Kibrik <sergiy_kibrik@epam.com>
-In-Reply-To: <ade6ba3c-5a53-463c-97fd-34f6ec7dacaf@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: WA1P291CA0021.POLP291.PROD.OUTLOOK.COM
- (2603:10a6:1d0:19::21) To AS8PR03MB9192.eurprd03.prod.outlook.com
- (2603:10a6:20b:5c0::11)
+X-Inumbo-ID: 06ebcd3b-2715-11ef-b4bb-af5377834399
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1718015673; x=1718620473; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=g7ZgxAqjXY9AET+7F5hBQjyBy8YsMtzIxOARp//Ut1k=;
+        b=MEFfyxCYmW0lBGEQ8GHXXm3liJNyqDh05Ep9SX9FzAFa2jT4rKJlsOXlJPoZn0pmWl
+         bRH8KReR1tnXgMeC4AEfpZg4vfpVpRWYplp/ffCeCWqZD8UGwVY15CRlmIAEZZG2YAGn
+         Cq8JWGCKEhkGohUxJbaSf3l9J5P3d9UuAfmnoJ0lwSAwFkGimCPiHnUtYFI/oF02v5kE
+         +QEe0xBSJw1167oDmNfhc8ekxzbqVLstb5+AUl3fEb1T1hP3jeOBR9JiQyk8h6KjcK3I
+         vPjI59n7dcTS5WTLJIMjyLNtBbKUrtdpf1z+tzYuHWFPsMpzQMa/pfCwqlDqOHn73vMI
+         +jfA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1718015673; x=1718620473;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=g7ZgxAqjXY9AET+7F5hBQjyBy8YsMtzIxOARp//Ut1k=;
+        b=MlfD71wtTRffmLG9ZL+2rEMzRp5fTNsZTdmEo231fONCgAIGhwVe4WRdJnOHp3pYzm
+         P5kx3OEfF920PpgA9Ed6GUsBMgc7LftXupf/eGWUdPibvYfrZfk+WUmsQsts0dEHs8fi
+         9399/3jbnSywQt3+kyzU9Yo9Xm6PmCE9v27bOpzeRfibMWjibjkQ6+pmhqU3EnZS1WkM
+         UYky02zVOrF52g7pooRpKFhoqIocVmZy6mkEwBnoQQhKdtp/3+UPOjLvSd820lR1cQmy
+         5w4SEtcPlgTidJUrIUbt6R4OwPgEq/MUOZ6mJ8Qode7jotqA8qphbjxXrck/LHmE8XxR
+         CZHA==
+X-Forwarded-Encrypted: i=1; AJvYcCXHwGLajnuaSjkTM49q4lHtu6t6g9uz20Blittd3K1KXAuVbfTYpXuyJ7BAol5Abmix88qLq7OePUbqXIxYsUNvtABl9mabDkAa5u3Z4vE=
+X-Gm-Message-State: AOJu0YwFP6TZBxHVDODGPNvFyo/8aIv4tpaUJhL5bCOFlwNBtn4F86al
+	LXWFCF25S+7zozrGw/DhdvIot6dmU8rAN0fHWse5QdqAwYzV39wP7BiKJKFibzDNEYAuqw7bVo8
+	emfAybwtzBoG4KjL+Y2076XOwj8o=
+X-Google-Smtp-Source: AGHT+IE+UlLNyd1/61vLAoD8Eisrzv+MvwA3XfkK6aJ5nPuZsOV8aV16RayME3zDO8Fy5BiCHA6eVKJ4KPQ3M3Q3nEg=
+X-Received: by 2002:a05:6870:d24c:b0:24f:c0bc:5ac6 with SMTP id
+ 586e51a60fabf-254644514e6mr10170426fac.11.1718015672792; Mon, 10 Jun 2024
+ 03:34:32 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AS8PR03MB9192:EE_|AM9PR03MB7489:EE_
-X-MS-Office365-Filtering-Correlation-Id: e45265c4-9e7c-4e24-9ae1-08dc8938d0e9
-X-LD-Processed: b41b72d0-4e9f-4c26-8a69-f949f367c91d,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230031|1800799015|366007|376005;
-X-Microsoft-Antispam-Message-Info: 
-	=?utf-8?B?dG1SSFF2bTIzUDMrNVVVTHMrdHM4RmgzWlEvMFVYbTBBc0hLSUdmRTNTMzhV?=
- =?utf-8?B?dUVvUEZidFVjZnRuUndCUGk5d1pNRmVxUFV3LzlDbHROdHFKRkFBaURCRXdl?=
- =?utf-8?B?dW4xbVNuZzV0V1l6YXQ5b1MwNDVTbkJRc2VzbE9iNGRDRzhVcU5ZME9heGk3?=
- =?utf-8?B?dU16VXN1Mm9ycExZQnNkRmtWbGVDU0dnV1JRWm1FbUw1bXcrSWlQam4yRUpw?=
- =?utf-8?B?M2MvUGlUcGpnK3pOVVFsbm5LWjZoYzFabHN6aE1IVWFQQUxIK2VjSVF1eG51?=
- =?utf-8?B?US93OElENlVKM1ZxRjJ2YkRNZEdLUVEyekdLWERiTnMvMThCb2R4aGJvT1Ro?=
- =?utf-8?B?SnQxcFlYK0hUcTFoTzhSK01rQ2FKN1BldHNQQk5IWDhvOU5PVytEM1d0b1Vn?=
- =?utf-8?B?aFJEOXZheTFLZlJaN1R4ekVTVmhHTW90TFdCamd6akpPQll1Vm1ObFhNKzZI?=
- =?utf-8?B?TGM5QUpDL1dsZ3pJK2F5cHExNU1CbnZucTBsK2pxK0ZRUndibEtQVmpQTjJ2?=
- =?utf-8?B?QkkrWUsxN3F4QlMrOXBSc3JzVDkyMXg1dXdLaDdKbW55ZkVnRnNEdm1Md3Nh?=
- =?utf-8?B?WXJEVFEyR1hCWTNOSE55ZTNVOFBaRi9TTkxtNlllWGpYN1hhcVV3azY5TmNY?=
- =?utf-8?B?cHB2M3BELzlFWmpIUVpSdEwwTENuYmVkRGh0OWVETDU0S09meWpQdkFaRXBJ?=
- =?utf-8?B?TVZIWU04SVhzNENzeDhVaURoUVQxdTRQd25oMzBmeVRseTRpUW1VRzB1TzNR?=
- =?utf-8?B?TmxVc2habDI3a28yaVhLME53WkQrcEQvRVBoZGhHSDdBSlIrWWVTZlovTXJs?=
- =?utf-8?B?d2lkTHdMWWZwcStZZ3hlSGFFNWRlcVRKOE5nQUNPSDY0Q0Z6SmhiZU42M1E4?=
- =?utf-8?B?TjdpVDV0dlgvMmw2UzNSSzVkVkxycXZFNEpJNjNvT0tld3BTa0NLTzJXUGt5?=
- =?utf-8?B?UG9ybVdrdjRYTEwySWxNeTFoQXlpcjdOU3pZbllBV0RPSGkyU0NJa2dQUExi?=
- =?utf-8?B?QzRvdzJyZWJ2SG8wRzZNMmVGS0RzdWR5Y3ZIRE5nQkxyUXNNRHB0cTNBclBv?=
- =?utf-8?B?bHhQRlJEbHpiQUhTdUx6ejU3UDIxTjlNZkhmbWl0cjlQaWYrZm50T1gyZnds?=
- =?utf-8?B?Z2hnKzQ5ZzVTRjBmbDA2TlZ3UXF1QTNkOFkxdTM0Q0U0U0VjRW8weDIwN0VS?=
- =?utf-8?B?elhNTllFdFl2bEJJdFIrWnAxWTVyQzczWEhzWUpWY09YdjZwTjZyeEg4V0hh?=
- =?utf-8?B?OUtZMFZNYmhRYkJaUDRWbnM4RGI0eXVQLy8rOVlibkVaeXhlRE92ZTkvSmZl?=
- =?utf-8?B?WlBBVDJ6NE5PdFZUQ2pWUXJ3b05td0xkTDUzRnFDRkZXbWhoTHJPcHZSeDY0?=
- =?utf-8?B?ZVJPR0VjTU9qVk9oQ2xOeStOUGZEVk10eTVGZUFWWkpEYjR2Q0hZQTJuQThK?=
- =?utf-8?B?L0xUeDhuT05jZVFabi9aRzVGYkcxODI5MzZnV2hzRkZFZXVYbGY3VTZ5dnIw?=
- =?utf-8?B?M2FVTDZiWXFrVzhobzJNZWhrVURQaGR3MUo3U0hDcEp6ZzJVMVMzTnpQRDJ2?=
- =?utf-8?B?SVc2NHl6ZElHa2N1QlV0aWdyaXRzSjRKL2dKZ0J4L2pnaTJwNnB0dWNkWXFW?=
- =?utf-8?B?djlHMWVGMXg1SzV5L0Vta2RyL2w3VDFwbGFScWNNbkQ4b1hIRkRyMWdjVkkv?=
- =?utf-8?B?dkM0c3dOaXg4UUtCQ1RySmdiUFdaeXBOakF1RnZuRS9JRjVSdGV1TXJvU2xV?=
- =?utf-8?Q?fI9/ilahh37ANtxMoHALSgF6VtcYygTZ1DAQHXl?=
-X-Forefront-Antispam-Report: 
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS8PR03MB9192.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(1800799015)(366007)(376005);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 
-	=?utf-8?B?cXQvdC9OY3pDb0V6M2s3OFZhclBHeDdob1dPL1llTElyRW9JNGFqWHFkZjMx?=
- =?utf-8?B?TFZwak9Xc0RxYlpzb3RVMHozb2lTcDhJTlV1b0NHdzBIMUI3QlpvZUNXQnFC?=
- =?utf-8?B?Y2Rrb01jeGJxM2V5ZGREOHlUNFNRd250SDJtc2JYZWRCTnJjTGhmQmtjS1FZ?=
- =?utf-8?B?d0xLZ0IxSWo1R1BKRzFxTWpaL2U2N0JDQU9IS2c3cHoyNCtreG9kS29ubERh?=
- =?utf-8?B?MkpkamJVa0IzVlNnVkE5MEI1NzBRV1dVVlNOcVBteExJbDBuZTkxTUhZdmQr?=
- =?utf-8?B?WmlqZjZuOExMZzBvanJDT0FUWlNMZzV1Rm5DcFJnTVJzTlRGZ1lDbFBESjRP?=
- =?utf-8?B?WVE4ZVdkbnZFVEV6MXprTk1qZHprMWhnc1dBeVoyV1NiaGZYcjJycW9aYy9Z?=
- =?utf-8?B?a2tNc2lRbzA2ZUw2UExVUk9IYmxKZGpoSDhEcVZNZHFlZ2o1bld4N0Z1TEpN?=
- =?utf-8?B?cmJDdXFzTGRyYnR6RkRFNG4wUnZzZEhJWURYSm1WbjRPUTFqY0E3SnNENnRi?=
- =?utf-8?B?bHF3dEpjMUMxVU1IR3UxcnM2UkFQcUtrK0tpZVFqWkhTRzRYaHFRQ1BraUpT?=
- =?utf-8?B?SndaQnk0YXRUbmlTeEthbkx5aG54NmdKTkdjL3dqdHpTNm5GMk1RMnRlN2pG?=
- =?utf-8?B?MzllUFhvbjhoQk0xUUIrdGFEZU5pbmtPK3VUZXBaQUNHeU1wdllnR3FjZ1NQ?=
- =?utf-8?B?bDNtQ2ZsT2o0RzBHVzdXSER1ZHhMY3lsdDJRdUZYVTU4T0QrSXJQWngvNUVi?=
- =?utf-8?B?OGJVMzNUY2c5TWtDczlPY2FvSTRET1B2dTlCejJmTitmejlIMVRSVVlFcEtl?=
- =?utf-8?B?T3FyUlNQSUVHMEpFS2Q1WmhwanY5VG5YT3dlSGdiWU9UY09XZWFMbitQNWF4?=
- =?utf-8?B?TXdjQU1oOFYrUG9EY2JjYTMxNnlGeGZ2SUthY2ozNE5GOWdnNkJGTnRIWm94?=
- =?utf-8?B?SGR4SDdrRjVNeWExanVXeWU3NTlZUTVpY2I2cy9yNzQzNkxrWTlnbU9ySitn?=
- =?utf-8?B?RnVrb3UvMXM2TVBXN2VSLzY1Vmg0RlZUNHExdTJPUUsxemFwYTFEQld6UDlH?=
- =?utf-8?B?NzJKRXBDUUNtRXorTGljS0lPSng2SytVSjJrRXZlemNYaE9XdlZSbjA0ajZo?=
- =?utf-8?B?bjlMU04wNEhvWHBYNElpdDlncjBYb1hqc3MzNW1kWStJQkJ2NmNJdEdrSjh5?=
- =?utf-8?B?VUp4RWxtak43aEgrVWpJblR0TGRRZDNmRlVtUkNrbldnN3FMY3FXaUNzeXpp?=
- =?utf-8?B?cjBNMWxXQWlpNTcxZGZTNlRyQU0xZCtaanNpMFo3OXBSd2l5SlhZaFVwNlB1?=
- =?utf-8?B?dmNuOEV4OVJxZUlVaEg1ZGpJbDNYcC9GL1cwM29JbGdiRHZqdGs4UndSeTdV?=
- =?utf-8?B?RkNBaWxvTWE2a2hGUUtEMU00bDNzdE5QVEwrUU5VU3g5YnExd0p4aEl3a1Iz?=
- =?utf-8?B?Z2k3NjBobzZXZHZhNldqbWdWVUVlSzRuNFo3T1RvS1hUbHF0WENxNWVxMmdX?=
- =?utf-8?B?UXpyRnhIdUQ5QWIvMmdiTW03RWRYaGRQUTJteFgvMXg5cTdkUmJhamxoRHgv?=
- =?utf-8?B?aWZVSnZxZnRRbnBrb2pScGtjaGVjSFZZek9SV3kvajJBTWlnS015ZDN2djNh?=
- =?utf-8?B?cjJTb2RKSS9uUjNmazhSSUZpeHhhOFpBZ24yZVJxTHE4Wlo4cnpINU5OT01u?=
- =?utf-8?B?MFhzVm1FRTduOU9ibzFTWjZDTFNZKzMrblp3YzlZL1V1ZXQ5VDdOU21jU1Bv?=
- =?utf-8?B?NmkvOUtQS2g0OVhoSkVsVGpEekgxaytSaTdBdThRZFZaenBlRVdIdVpxYkRq?=
- =?utf-8?B?a1lPUE41eHVEQ2FSTWdCM2tJRHZIa2pGRnIvdThjL3IyYmdmalB0YWRxajlt?=
- =?utf-8?B?ZjdPNXFTSkxhSEdUeUxvTi85UlBTeE84WXIvTXRoT0crR1NoWGZaZWxvS3I3?=
- =?utf-8?B?ck1ZWlZqcFZhNW9DR2EyVGUwa241bVpyd3NIa1J4ZzB0M2txT1cxU3NpZWhj?=
- =?utf-8?B?UmpxYlVHZTFvRW1nOG9Fd0s1Y0t5eUlFRlk1UWNtYmdzeFQyeXVZNkhkU0NS?=
- =?utf-8?B?NCttWTlVdFZTZFdlQ0hlb1gxWjA4UnEycVZ3ODAwMVlFUDAvL09sT2M4NTFW?=
- =?utf-8?Q?pS4L7APfWVGMMfcnOPA331nCh?=
-X-OriginatorOrg: epam.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e45265c4-9e7c-4e24-9ae1-08dc8938d0e9
-X-MS-Exchange-CrossTenant-AuthSource: AS8PR03MB9192.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jun 2024 10:33:49.7165
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: dFu8ohnSSI2Tt+3bk7MXP6isqv3P1IT3n6/WsCnHhgmNFVK4jcFBsDUPyYyTnX8lBdgsaz7BgIEntrnaRk9yxQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR03MB7489
-X-Proofpoint-ORIG-GUID: BRopdfu_bHSNrzpGm3nvHzt7pjvt0zn0
-X-Proofpoint-GUID: BRopdfu_bHSNrzpGm3nvHzt7pjvt0zn0
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.28.16
- definitions=2024-06-10_02,2024-06-10_01,2024-05-17_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 priorityscore=1501
- clxscore=1015 bulkscore=0 impostorscore=0 phishscore=0 adultscore=0
- suspectscore=0 spamscore=0 mlxlogscore=999 lowpriorityscore=0 mlxscore=0
- malwarescore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2405170001 definitions=main-2406100080
+References: <cover.1717356829.git.w1benny@gmail.com> <84794f97bc738add96a66790425a3aa5f5084a25.1717356829.git.w1benny@gmail.com>
+ <22eabe14-10c3-4095-91d3-b63911908cb2@suse.com> <CAKBKdXhZ4HOqThPMkwaWB5ZhQOc6gE=xsKzkoL4_h+M6y33dcQ@mail.gmail.com>
+ <f3cd00f2-bdcb-4604-bdc2-fd13eddb8ea0@suse.com> <CAKBKdXje+_dd7kh3+aDJACw84+-1ozXt6N==KbA6Tgm7GeZEnQ@mail.gmail.com>
+ <8961cf72-4eeb-4c47-9723-35da3e47d4d2@suse.com>
+In-Reply-To: <8961cf72-4eeb-4c47-9723-35da3e47d4d2@suse.com>
+From: =?UTF-8?Q?Petr_Bene=C5=A1?= <w1benny@gmail.com>
+Date: Mon, 10 Jun 2024 12:34:22 +0200
+Message-ID: <CAKBKdXiQhFeihx9HeuOv5cFe8K7H2O+GFUXy4ThF1X6ZGjCrig@mail.gmail.com>
+Subject: Re: [PATCH for-4.19? v5 07/10] xen: Make the maximum number of altp2m
+ views configurable for x86
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
+	Bertrand Marquis <bertrand.marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>, 
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, Andrew Cooper <andrew.cooper3@citrix.com>, 
+	George Dunlap <george.dunlap@citrix.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+	Tamas K Lengyel <tamas@tklengyel.com>, Alexandru Isaila <aisaila@bitdefender.com>, 
+	Petre Pircalabu <ppircalabu@bitdefender.com>, xen-devel@lists.xenproject.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-hi Stefano,
+On Mon, Jun 10, 2024 at 12:16=E2=80=AFPM Jan Beulich <jbeulich@suse.com> wr=
+ote:
+>
+> On 10.06.2024 11:10, Petr Bene=C5=A1 wrote:
+> > On Mon, Jun 10, 2024 at 9:30=E2=80=AFAM Jan Beulich <jbeulich@suse.com>=
+ wrote:
+> >>
+> >> On 09.06.2024 01:06, Petr Bene=C5=A1 wrote:
+> >>> On Thu, Jun 6, 2024 at 9:24=E2=80=AFAM Jan Beulich <jbeulich@suse.com=
+> wrote:
+> >>>>> @@ -122,7 +131,12 @@ int p2m_init_altp2m(struct domain *d)
+> >>>>>      struct p2m_domain *hostp2m =3D p2m_get_hostp2m(d);
+> >>>>>
+> >>>>>      mm_lock_init(&d->arch.altp2m_list_lock);
+> >>>>> -    for ( i =3D 0; i < MAX_ALTP2M; i++ )
+> >>>>> +    d->arch.altp2m_p2m =3D xzalloc_array(struct p2m_domain *, d->n=
+r_altp2m);
+> >>>>> +
+> >>>>> +    if ( !d->arch.altp2m_p2m )
+> >>>>> +        return -ENOMEM;
+> >>>>
+> >>>> This isn't really needed, is it? Both ...
+> >>>>
+> >>>>> +    for ( i =3D 0; i < d->nr_altp2m; i++ )
+> >>>>
+> >>>> ... this and ...
+> >>>>
+> >>>>>      {
+> >>>>>          d->arch.altp2m_p2m[i] =3D p2m =3D p2m_init_one(d);
+> >>>>>          if ( p2m =3D=3D NULL )
+> >>>>> @@ -143,7 +157,10 @@ void p2m_teardown_altp2m(struct domain *d)
+> >>>>>      unsigned int i;
+> >>>>>      struct p2m_domain *p2m;
+> >>>>>
+> >>>>> -    for ( i =3D 0; i < MAX_ALTP2M; i++ )
+> >>>>> +    if ( !d->arch.altp2m_p2m )
+> >>>>> +        return;
+> >>
+> >> I'm sorry, the question was meant to be on this if() instead.
+> >>
+> >>>>> +    for ( i =3D 0; i < d->nr_altp2m; i++ )
+> >>>>>      {
+> >>>>>          if ( !d->arch.altp2m_p2m[i] )
+> >>>>>              continue;
+> >>>>> @@ -151,6 +168,8 @@ void p2m_teardown_altp2m(struct domain *d)
+> >>>>>          d->arch.altp2m_p2m[i] =3D NULL;
+> >>>>>          p2m_free_one(p2m);
+> >>>>>      }
+> >>>>> +
+> >>>>> +    XFREE(d->arch.altp2m_p2m);
+> >>>>>  }
+> >>>>
+> >>>> ... this ought to be fine without?
+> >>>
+> >>> Could you, please, elaborate? I honestly don't know what you mean her=
+e
+> >>> (by "this isn't needed").
+> >>
+> >> I hope the above correction is enough?
+> >
+> > I'm sorry, but not really? I feel like I'm blind but I can't see
+> > anything I could remove without causing (or risking) crash.
+>
+> The loop is going to do nothing when d->nr_altp2m =3D=3D 0, and the XFREE=
+() is
+> going to do nothing when d->arch.altp2m_p2m =3D=3D NULL. Hence what does =
+the
+> if() guard against? IOW what possible crashes are you seeing that I don't
+> see?
 
-07.06.24 10:32, Jan Beulich:
-> On 03.06.2024 13:11, Sergiy Kibrik wrote:
->> Initialize and bring down altp2m only when it is supported by the platform,
->> e.g. VMX. Also guard p2m_altp2m_propagate_change().
->> The puspose of that is the possiblity to disable altp2m support and exclude its
->> code from the build completely, when it's not supported by the target platform.
->>
->> Signed-off-by: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
->> Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
-> 
-> Acked-by: Jan Beulich <jbeulich@suse.com>
-> 
-> I question though whether Stefano's R-b was valid to retain with ...
-> 
->> ---
->> changes in v3:
->>   - put hvm_altp2m_supported() first
->>   - rewrite changes to p2m_init() with less code
-> 
-> ... this.
+I see now. I was seeing ghosts - my thinking was that if
+p2m_init_altp2m fails to allocate altp2m_p2m, it will call
+p2m_teardown_altp2m - which, without the if(), would start to iterate
+through an array that is not allocated. It doesn't happen, it just
+returns -ENOMEM.
 
-could you please take a look at this patch once more, after it's been 
-through these modifications? Thank you!
+So to reiterate:
 
-    -Sergiy
+    if ( !d->arch.altp2m_p2m )
+        return;
+
+... are we talking that this condition inside p2m_teardown_altp2m
+isn't needed? Or is there anything else?
+
+P.
 
