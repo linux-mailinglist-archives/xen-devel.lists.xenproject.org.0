@@ -2,37 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id ECD1E901A21
-	for <lists+xen-devel@lfdr.de>; Mon, 10 Jun 2024 07:13:08 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.736846.1142931 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E7C359019A6
+	for <lists+xen-devel@lfdr.de>; Mon, 10 Jun 2024 06:05:00 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.736865.1142900 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sGXK1-0003Gs-G4; Mon, 10 Jun 2024 05:11:57 +0000
+	id 1sGWG2-0000TV-9D; Mon, 10 Jun 2024 04:03:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 736846.1142931; Mon, 10 Jun 2024 05:11:57 +0000
+Received: by outflank-mailman (output) from mailman id 736865.1142900; Mon, 10 Jun 2024 04:03:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sGXK1-0003FL-CY; Mon, 10 Jun 2024 05:11:57 +0000
-Received: by outflank-mailman (input) for mailman id 736846;
- Sun, 09 Jun 2024 18:44:31 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=zSGE=NL=gmail.com=jain.abhinav177@srs-se1.protection.inumbo.net>)
- id 1sGNWp-0001TT-R1
- for xen-devel@lists.xenproject.org; Sun, 09 Jun 2024 18:44:31 +0000
-Received: from mail-pf1-x429.google.com (mail-pf1-x429.google.com
- [2607:f8b0:4864:20::429])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 4db7e3a7-2690-11ef-90a2-e314d9c70b13;
- Sun, 09 Jun 2024 20:44:30 +0200 (CEST)
-Received: by mail-pf1-x429.google.com with SMTP id
- d2e1a72fcca58-704261a1f67so887901b3a.3
- for <xen-devel@lists.xenproject.org>; Sun, 09 Jun 2024 11:44:30 -0700 (PDT)
-Received: from dev0.. ([132.154.51.183]) by smtp.gmail.com with ESMTPSA id
- 41be03b00d2f7-6e2b38167a2sm3714385a12.90.2024.06.09.11.44.24
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 09 Jun 2024 11:44:28 -0700 (PDT)
+	id 1sGWG2-0000Ru-6N; Mon, 10 Jun 2024 04:03:46 +0000
+Received: by outflank-mailman (input) for mailman id 736865;
+ Mon, 10 Jun 2024 04:03:44 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=AMvd=NM=suse.de=osalvador@srs-se1.protection.inumbo.net>)
+ id 1sGWG0-0000Rm-5G
+ for xen-devel@lists.xenproject.org; Mon, 10 Jun 2024 04:03:44 +0000
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 6c75c83e-26de-11ef-b4bb-af5377834399;
+ Mon, 10 Jun 2024 06:03:42 +0200 (CEST)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 48E781F74B;
+ Mon, 10 Jun 2024 04:03:41 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 2ECBB13A85;
+ Mon, 10 Jun 2024 04:03:40 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id K/XmCBx7ZmbzEgAAD6G6ig
+ (envelope-from <osalvador@suse.de>); Mon, 10 Jun 2024 04:03:40 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,115 +51,121 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4db7e3a7-2690-11ef-90a2-e314d9c70b13
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1717958668; x=1718563468; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=QUUN5jvMypW6P+Pp1YvyXgjvxQ678L4ijvc2XJHbh1A=;
-        b=AGN9YmvmorPQ3+LWljXpwdOcvwq0QiuVBdNR2yfO/bOKI10cJC8w1eIXka62kxcsXy
-         GL+bCzQZkqv8Vkfxxmr5O+RAVEkyh0EbK2Cn7zq4aNy1PIFgRgTaHfsOU27JyVAYCKw3
-         0kWHJC0IRy81n0KVTd035PlVtWO2fqPeLgnM+s8o51Cxj6xcHIVkJ+b6R0Z0USOsMd53
-         xtaGJXG3+XwR0Y9LYVnadZHp43oeUChwq3FIpaBh7XO7L109N/z++uJm98DOglmJljWb
-         2OJ2+hkXSbTYoGnQj7wAPSl0aiVQTB6snmXXVd3P+Ir+ootBQzmoFYk6D4fCfcGRqE2k
-         BWTg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1717958668; x=1718563468;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=QUUN5jvMypW6P+Pp1YvyXgjvxQ678L4ijvc2XJHbh1A=;
-        b=KE68/JB9CpjH8QZDIoGXUHs6wyqOVnPdsf2omAhwDg/OMvvfoU93HJNLiO9SP3MZjq
-         1y2PndJKt9nn2n8Hwr3oNoqDtFRUsI/fjEMmZmWH08X9WPfeNdEyo47bboVN3T+sexiX
-         kp3zQvwyfx+G+xhnGfIQ8hIMlY7mW1JXo6YbTHv8ivTSJAVRx0eCpZYANuY5+hiK5N6R
-         P7oLmEVQNPqYPVLPCHO9OXmrVSqxzbqnjuh5ooEo0bvLhnXZagaEle3BJnSs0W2SYy7x
-         IAFTQ7l8ZGx4ehWhLQp51dL10xtE9/FPswLI3wjPltWpBPVs8qFVBA4Y43aMbZm6GbOq
-         Evzw==
-X-Forwarded-Encrypted: i=1; AJvYcCVdtdldg6e0zSpHfVn0efDYe6JiQG+BGyE97S7r9PiT+voLLarS3ETto1RcuVmsfGJvppIbsmefOdP+xZjTfRqk4Swrgn2UAbmF7RktXeI=
-X-Gm-Message-State: AOJu0YwevMZKbXXWSD7iqaL4aFsj8MJ6bSVQhzxv1NSd2W5iihkBSbAe
-	s8dTh+IIHUfKonqYDwWBpeAMq2v1dWpHAtyaqAYy7izB9rPky0Vg
-X-Google-Smtp-Source: AGHT+IHKKiBJNRWQNNKgV62vwr/OlJ+hKJrqkVpM54C1atGqjWvBWdpuEMXjHXRaNIX0ePqrcNmTIg==
-X-Received: by 2002:a05:6a00:17a3:b0:705:96b5:8bf2 with SMTP id d2e1a72fcca58-70596b596a2mr946312b3a.3.1717958668561;
-        Sun, 09 Jun 2024 11:44:28 -0700 (PDT)
-From: Abhinav Jain <jain.abhinav177@gmail.com>
-To: jgross@suse.com,
-	sstabellini@kernel.org,
-	oleksandr_tyshchenko@epam.com,
-	xen-devel@lists.xenproject.org,
-	linux-kernel@vger.kernel.org
-Cc: skhan@linuxfoundation.org,
-	javier.carrasco.cruz@gmail.com,
-	jain.abhinav177@gmail.com
-Subject: [PATCH] xen: xen-pciback: Export a bridge and all its children as per TODO
-Date: Sun,  9 Jun 2024 18:44:10 +0000
-Message-Id: <20240609184410.53500-1-jain.abhinav177@gmail.com>
-X-Mailer: git-send-email 2.34.1
+X-Inumbo-ID: 6c75c83e-26de-11ef-b4bb-af5377834399
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1717992221; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=IYHZUWJMx20LtuFCKKBR+s4SdF/zVxwDIU/zuxJyVpA=;
+	b=ydtYYv4zpnWoA+DOEizDfb0xxwSoFgVJdNwaHwsZ4KNXXr0McZcQoDjm0TnP6modKw7qU/
+	YU6A1x5Wb6Mc5i5eAKt/8AnZNi+ROMDh3WDQz74dIE+RuF5EAw2jT5VaieXlP6Lpkd0vmq
+	E86gqlWw/GGQiz4G8sn557CdigPAhQM=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1717992221;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=IYHZUWJMx20LtuFCKKBR+s4SdF/zVxwDIU/zuxJyVpA=;
+	b=2VfRPhmrW05hUtLnVJUcfs9KMJfRv9vz9QyGoBqjvqYUGpchjhJed480Cqm/I/F3MSoXT2
+	Q9/kUhFsd2NbvbBw==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1717992221; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=IYHZUWJMx20LtuFCKKBR+s4SdF/zVxwDIU/zuxJyVpA=;
+	b=ydtYYv4zpnWoA+DOEizDfb0xxwSoFgVJdNwaHwsZ4KNXXr0McZcQoDjm0TnP6modKw7qU/
+	YU6A1x5Wb6Mc5i5eAKt/8AnZNi+ROMDh3WDQz74dIE+RuF5EAw2jT5VaieXlP6Lpkd0vmq
+	E86gqlWw/GGQiz4G8sn557CdigPAhQM=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1717992221;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=IYHZUWJMx20LtuFCKKBR+s4SdF/zVxwDIU/zuxJyVpA=;
+	b=2VfRPhmrW05hUtLnVJUcfs9KMJfRv9vz9QyGoBqjvqYUGpchjhJed480Cqm/I/F3MSoXT2
+	Q9/kUhFsd2NbvbBw==
+Date: Mon, 10 Jun 2024 06:03:38 +0200
+From: Oscar Salvador <osalvador@suse.de>
+To: David Hildenbrand <david@redhat.com>
+Cc: linux-kernel@vger.kernel.org, linux-mm@kvack.org,
+	linux-hyperv@vger.kernel.org, virtualization@lists.linux.dev,
+	xen-devel@lists.xenproject.org, kasan-dev@googlegroups.com,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	"K. Y. Srinivasan" <kys@microsoft.com>,
+	Haiyang Zhang <haiyangz@microsoft.com>,
+	Wei Liu <wei.liu@kernel.org>, Dexuan Cui <decui@microsoft.com>,
+	"Michael S. Tsirkin" <mst@redhat.com>,
+	Jason Wang <jasowang@redhat.com>,
+	Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
+	Eugenio =?iso-8859-1?Q?P=E9rez?= <eperezma@redhat.com>,
+	Juergen Gross <jgross@suse.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+	Alexander Potapenko <glider@google.com>,
+	Marco Elver <elver@google.com>, Dmitry Vyukov <dvyukov@google.com>
+Subject: Re: [PATCH v1 1/3] mm: pass meminit_context to __free_pages_core()
+Message-ID: <ZmZ7GgwJw4ucPJaM@localhost.localdomain>
+References: <20240607090939.89524-1-david@redhat.com>
+ <20240607090939.89524-2-david@redhat.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20240607090939.89524-2-david@redhat.com>
+X-Spam-Flag: NO
+X-Spam-Score: -4.30
+X-Spam-Level: 
+X-Spamd-Result: default: False [-4.30 / 50.00];
+	BAYES_HAM(-3.00)[99.99%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	MISSING_XM_UA(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[23];
+	RCVD_TLS_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FUZZY_BLOCKED(0.00)[rspamd.com];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo]
 
-Check if the device is a bridge.
-If it is a bridge, iterate over all its child devices and export them.
-Log error if the export fails for any particular device logging details.
-Export error string is split across lines as I could see several
-other such occurrences in the file.
-Please let me know if I should change it in some way.
+On Fri, Jun 07, 2024 at 11:09:36AM +0200, David Hildenbrand wrote:
+> In preparation for further changes, let's teach __free_pages_core()
+> about the differences of memory hotplug handling.
+> 
+> Move the memory hotplug specific handling from generic_online_page() to
+> __free_pages_core(), use adjust_managed_page_count() on the memory
+> hotplug path, and spell out why memory freed via memblock
+> cannot currently use adjust_managed_page_count().
+> 
+> Signed-off-by: David Hildenbrand <david@redhat.com>
 
-Signed-off-by: Abhinav Jain <jain.abhinav177@gmail.com>
----
- drivers/xen/xen-pciback/xenbus.c | 39 +++++++++++++++++++++++++-------
- 1 file changed, 31 insertions(+), 8 deletions(-)
+All looks good but I am puzzled with something.
 
-diff --git a/drivers/xen/xen-pciback/xenbus.c b/drivers/xen/xen-pciback/xenbus.c
-index b11e401f1b1e..d15271d33ad6 100644
---- a/drivers/xen/xen-pciback/xenbus.c
-+++ b/drivers/xen/xen-pciback/xenbus.c
-@@ -258,14 +258,37 @@ static int xen_pcibk_export_device(struct xen_pcibk_device *pdev,
- 		xen_register_device_domain_owner(dev, pdev->xdev->otherend_id);
- 	}
- 
--	/* TODO: It'd be nice to export a bridge and have all of its children
--	 * get exported with it. This may be best done in xend (which will
--	 * have to calculate resource usage anyway) but we probably want to
--	 * put something in here to ensure that if a bridge gets given to a
--	 * driver domain, that all devices under that bridge are not given
--	 * to other driver domains (as he who controls the bridge can disable
--	 * it and stop the other devices from working).
--	 */
-+	/* Check if the device is a bridge and export all its children */
-+	if ((dev->hdr_type && PCI_HEADER_TYPE_MASK) == PCI_HEADER_TYPE_BRIDGE) {
-+		struct pci_dev *child = NULL;
-+
-+		/* Iterate over all the devices in this bridge */
-+		list_for_each_entry(child, &dev->subordinate->devices,
-+				bus_list) {
-+			dev_dbg(&pdev->xdev->dev,
-+				"exporting child device %04x:%02x:%02x.%d\n",
-+				child->domain, child->bus->number,
-+				PCI_SLOT(child->devfn),
-+				PCI_FUNC(child->devfn));
-+
-+			err = xen_pcibk_export_device(pdev,
-+						      child->domain,
-+						      child->bus->number,
-+						      PCI_SLOT(child->devfn),
-+						      PCI_FUNC(child->devfn),
-+						      devid);
-+			if (err) {
-+				dev_err(&pdev->xdev->dev,
-+					"failed to export child device : "
-+					"%04x:%02x:%02x.%d\n",
-+					child->domain,
-+					child->bus->number,
-+					PCI_SLOT(child->devfn),
-+					PCI_FUNC(child->devfn));
-+				goto out;
-+			}
-+		}
-+	}
- out:
- 	return err;
- }
+> +	} else {
+> +		/* memblock adjusts totalram_pages() ahead of time. */
+> +		atomic_long_add(nr_pages, &page_zone(page)->managed_pages);
+> +	}
+
+You say that memblock adjusts totalram_pages ahead of time, and I guess
+you mean in memblock_free_all()
+
+ pages = free_low_memory_core_early()
+ totalram_pages_add(pages);
+
+but that is not ahead, it looks like it is upading __after__ sending
+them to buddy?
+
+
 -- 
-2.34.1
-
+Oscar Salvador
+SUSE Labs
 
