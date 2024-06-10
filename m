@@ -2,33 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 42025902629
-	for <lists+xen-devel@lfdr.de>; Mon, 10 Jun 2024 17:56:03 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.737425.1143733 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E14B390262F
+	for <lists+xen-devel@lfdr.de>; Mon, 10 Jun 2024 17:58:56 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.737434.1143742 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sGhN7-0000RK-4w; Mon, 10 Jun 2024 15:55:49 +0000
+	id 1sGhPt-0001SK-Gf; Mon, 10 Jun 2024 15:58:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 737425.1143733; Mon, 10 Jun 2024 15:55:49 +0000
+Received: by outflank-mailman (output) from mailman id 737434.1143742; Mon, 10 Jun 2024 15:58:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sGhN7-0000Pp-1w; Mon, 10 Jun 2024 15:55:49 +0000
-Received: by outflank-mailman (input) for mailman id 737425;
- Mon, 10 Jun 2024 15:55:47 +0000
+	id 1sGhPt-0001Pz-E4; Mon, 10 Jun 2024 15:58:41 +0000
+Received: by outflank-mailman (input) for mailman id 737434;
+ Mon, 10 Jun 2024 15:58:40 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=oRC9=NM=cloud.com=george.dunlap@srs-se1.protection.inumbo.net>)
- id 1sGhN5-0000Ph-H4
- for xen-devel@lists.xenproject.org; Mon, 10 Jun 2024 15:55:47 +0000
-Received: from mail-oi1-x22a.google.com (mail-oi1-x22a.google.com
- [2607:f8b0:4864:20::22a])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=Mjq2=NM=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1sGhPr-0001P6-VI
+ for xen-devel@lists.xenproject.org; Mon, 10 Jun 2024 15:58:39 +0000
+Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
+ [2a00:1450:4864:20::632])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e61a7610-2741-11ef-90a2-e314d9c70b13;
- Mon, 10 Jun 2024 17:55:46 +0200 (CEST)
-Received: by mail-oi1-x22a.google.com with SMTP id
- 5614622812f47-3d220039bc6so1057186b6e.2
- for <xen-devel@lists.xenproject.org>; Mon, 10 Jun 2024 08:55:46 -0700 (PDT)
+ id 4d179d9e-2742-11ef-90a2-e314d9c70b13;
+ Mon, 10 Jun 2024 17:58:38 +0200 (CEST)
+Received: by mail-ej1-x632.google.com with SMTP id
+ a640c23a62f3a-a6e43dad8ecso495944166b.1
+ for <xen-devel@lists.xenproject.org>; Mon, 10 Jun 2024 08:58:38 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a6c8072ac1fsm653146266b.222.2024.06.10.08.58.37
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 10 Jun 2024 08:58:37 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,114 +45,122 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e61a7610-2741-11ef-90a2-e314d9c70b13
+X-Inumbo-ID: 4d179d9e-2742-11ef-90a2-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1718034945; x=1718639745; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=z2w6PSj8mpMLLY7MVOid/n75KZdOEiDxsszO1eh6e0g=;
-        b=Ql/XYO3+/p47O2QKtUA1Ppok1QrJYjUsGt4OXJhhLdOf+12naZQWgvBGmy8kclERLl
-         PgJ7Mu/cfRK15BqoUgkef4fomjmi85ChBB174+OzW0D07a4R9bMOTHRf0/Op+HztWUQ2
-         zEiEKSuIwLbT2Svsx4KFyFuOj4iAnx83oFrSg=
+        d=suse.com; s=google; t=1718035118; x=1718639918; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=ha3gXWnhYiXnhWqYZL762tgIJAgzO9EIImER1q6mngg=;
+        b=Z5zKb0WZzscSv3hQYZQtV8VzUCpLeFiHKc0fhpeKkyJRu+/lRhAUEWkBtKrptqjfm1
+         L5iH2ycHjDRviK5NwAF+JJWBwvTquWpadlFQ0YryBbtlgRA7Upw68LsFQqo968zzrkeO
+         KxBKI0suW3DVEOFl4g6dxybHI7+pVNB1vU6KcSb80IYhd/eUMy0sSvnDHbPTsE+CX9Jw
+         4F/vQ6wCUm1/85r5wzHkM4xJeXaiKPZNhFK0fh+VJr0pIpH0KLAB4qHSKAMm4QlKhwqW
+         iIdplGZCtY+7xz1+/dee+BvJWa4MCRfyao6vpDeOKy37H94xkCXM3xhUsWVynHRhsx9E
+         lXuA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1718034945; x=1718639745;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=z2w6PSj8mpMLLY7MVOid/n75KZdOEiDxsszO1eh6e0g=;
-        b=hPkpIdbOdZd+0OcgT+tql8dsk9zkDU4W7Ox6Tc2bM2BOx9bSlW47SzVkUPPqEJUIb7
-         W4/pc7XTeqxFbc1gVkwU11KDMuO6SekCQEnUkMSZmTRnSu67eIru+6/ReD61Jx/Qhv1d
-         7YoCH1OW0KQTcrLM3i2inqpXlk33f4Ua2aZFbpYFFs7w7AYUqyYTonI5f04B4uvRo1WK
-         NgPDDDWpDVqBAsg9VomC7kjgvfHyZ+ZqTJhY7qiokc/fJOWUnukputqzRtgUm+3w/kzm
-         eP3phIUXm0NRpTboZ+htuX1rrXV5waG14tFsE5KGaKTWVxLF6LjevQwa4jtzwww8lslk
-         FvnA==
-X-Gm-Message-State: AOJu0YxjV60RRLjXmGEoLxVk2fPiWVAY/5M9dgb/391qXHETPZIxeK6J
-	06+C1W0cB5Mutu6AQHgEI5mmBSpbGPGeYodRX/FV2PGixpcMd/xLDVamZyjAfVe5N84JQPFhYVh
-	KamgLS+mwKiuHbEccaEHX0Nm3GOtmq9iXKHHWbQ==
-X-Google-Smtp-Source: AGHT+IENT19HJ9VMpxwSIhvqeehdG66MzmQ9GZSYhsx1RsJWD1gBssMaOM+lYSnB1G+tQ7LnNq2JFnk9z7VTbWWAqwA=
-X-Received: by 2002:a05:6870:93cb:b0:250:7a8d:1756 with SMTP id
- 586e51a60fabf-25464b78e32mr10900044fac.12.1718034945272; Mon, 10 Jun 2024
- 08:55:45 -0700 (PDT)
+        d=1e100.net; s=20230601; t=1718035118; x=1718639918;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=ha3gXWnhYiXnhWqYZL762tgIJAgzO9EIImER1q6mngg=;
+        b=LiursuIoUQU0ZIQuUmoi6oS5OeJHTTZFbeog4Ajomf1Hd8r37Hn06oKj4br92up0lb
+         4eaGwXPu+NRlm7bVah45bzKiNYt1KKlkUGz8OM51CDq6HhCTkcfUmWMvNn/kbBby3efz
+         J3HTnNcGJhuxigLS27s993ySozx8nX+6af3vRlMLmKJThOUccNfwUL9rRVJQcVWha6fW
+         Z6+ZfEHh8d6boT/gxUUmhjcyUX4bOKFvxgWAAx5MCoKnaNGynytjyUq3D7NbHGUNCvtx
+         FgcehjvoycWtaunUha7LkxDp9GqlBvd5GFpxlICzQVXwpVsCoQ450Tb7ioXxFDyDeTvG
+         445g==
+X-Forwarded-Encrypted: i=1; AJvYcCUKQUSlTCkazVzHAM0NNKfvNmKRuwPGoULxopQP3jSWxvemeZTMe6Vb9YHkrn1+GoCU4Lo162hObOS8RfGV42ZXJClr7DrdxzwwWWE+YB4=
+X-Gm-Message-State: AOJu0Yw0mfq4mjnGkRjMUJHVqoFnvxzZUdJaJiutSD5sLPqQCkQwGfAU
+	Ug/zt03hzpXpCqmQIkR25C9Q9/4s2woFF955jgd/OO++deZf9tYGALzC3WLwhw==
+X-Google-Smtp-Source: AGHT+IGyaqcvnQ6yq7vdbXiphgSd1IzzdXKCjqkWoehW+j4W4UfNztB4kZ5DnnoguNWDZOhlEkijXg==
+X-Received: by 2002:a17:906:1ccb:b0:a6e:542f:b87b with SMTP id a640c23a62f3a-a6f34cf5bf9mr5013666b.19.1718035118184;
+        Mon, 10 Jun 2024 08:58:38 -0700 (PDT)
+Message-ID: <efc35614-561c-4baa-9d94-d17ecb528a4b@suse.com>
+Date: Mon, 10 Jun 2024 17:58:36 +0200
 MIME-Version: 1.0
-References: <20240610085052.8499-1-roger.pau@citrix.com>
-In-Reply-To: <20240610085052.8499-1-roger.pau@citrix.com>
-From: George Dunlap <george.dunlap@cloud.com>
-Date: Mon, 10 Jun 2024 16:55:34 +0100
-Message-ID: <CA+zSX=Z3O_b44Jum3s9rRJ_h+BKjJzd11gAr249wFOxQCcFKEQ@mail.gmail.com>
-Subject: Re: [PATCH for-4.19 v2] x86/pvh: declare PVH dom0 supported with caveats
-To: Roger Pau Monne <roger.pau@citrix.com>
-Cc: xen-devel@lists.xenproject.org, 
-	Oleksii Kurochko <oleksii.kurochko@gmail.com>, 
-	Community Manager <community.manager@xenproject.org>, 
-	Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich <jbeulich@suse.com>, 
-	Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [XEN PATCH v9 2/5] x86/pvh: Allow (un)map_pirq when dom0 is PVH
+To: Jiqian Chen <Jiqian.Chen@amd.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu
+ <wl@xen.org>, George Dunlap <george.dunlap@citrix.com>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ Anthony PERARD <anthony@xenproject.org>, Juergen Gross <jgross@suse.com>,
+ "Daniel P . Smith" <dpsmith@apertussolutions.com>,
+ Stewart Hildebrand <Stewart.Hildebrand@amd.com>,
+ Huang Rui <Ray.Huang@amd.com>, xen-devel@lists.xenproject.org
+References: <20240607081127.126593-1-Jiqian.Chen@amd.com>
+ <20240607081127.126593-3-Jiqian.Chen@amd.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20240607081127.126593-3-Jiqian.Chen@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Mon, Jun 10, 2024 at 9:50=E2=80=AFAM Roger Pau Monne <roger.pau@citrix.c=
-om> wrote:
->
-> PVH dom0 is functionally very similar to PVH domU except for the domain
-> builder and the added set of hypercalls available to it.
->
-> The main concern with declaring it "Supported" is the lack of some featur=
-es
-> when compared to classic PV dom0, hence switch it's status to supported w=
-ith
-> caveats.  List the known missing features, there might be more features m=
-issing
-> or not working as expected apart from the ones listed.
->
-> Note there's some (limited) PVH dom0 testing on both osstest and gitlab.
->
-> Signed-off-by: Roger Pau Monn=C3=A9 <roger.pau@citrix.com>
-> Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> Release-Acked-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-> ---
-> Changes since v1:
->  - Remove boot warning.
-> ---
->  CHANGELOG.md                  |  1 +
->  SUPPORT.md                    | 15 ++++++++++++++-
->  xen/arch/x86/hvm/dom0_build.c |  1 -
->  3 files changed, 15 insertions(+), 2 deletions(-)
->
-> diff --git a/CHANGELOG.md b/CHANGELOG.md
-> index 201478aa1c0e..1778419cae64 100644
-> --- a/CHANGELOG.md
-> +++ b/CHANGELOG.md
-> @@ -14,6 +14,7 @@ The format is based on [Keep a Changelog](https://keepa=
-changelog.com/en/1.0.0/)
->     - HVM PIRQs are disabled by default.
->     - Reduce IOMMU setup time for hardware domain.
->     - Allow HVM/PVH domains to map foreign pages.
-> +   - Declare PVH dom0 supported with caveats.
->   - xl/libxl configures vkb=3D[] for HVM domains with priority over vkb_d=
-evice.
->   - Increase the maximum number of CPUs Xen can be built for from 4095 to
->     16383.
-> diff --git a/SUPPORT.md b/SUPPORT.md
-> index d5d60c62ec11..711aacf34662 100644
-> --- a/SUPPORT.md
-> +++ b/SUPPORT.md
-> @@ -161,7 +161,20 @@ Requires hardware virtualisation support (Intel VMX =
-/ AMD SVM).
->  Dom0 support requires an IOMMU (Intel VT-d / AMD IOMMU).
->
->      Status, domU: Supported
-> -    Status, dom0: Experimental
-> +    Status, dom0: Supported, with caveats
-> +
-> +PVH dom0 hasn't received the same test coverage as PV dom0, so it can ex=
-hibit
-> +unexpected behavior or issues on some hardware.
+On 07.06.2024 10:11, Jiqian Chen wrote:
+> If run Xen with PVH dom0 and hvm domU, hvm will map a pirq for
+> a passthrough device by using gsi, see qemu code
+> xen_pt_realize->xc_physdev_map_pirq and libxl code
+> pci_add_dm_done->xc_physdev_map_pirq. Then xc_physdev_map_pirq
+> will call into Xen, but in hvm_physdev_op, PHYSDEVOP_map_pirq
+> is not allowed because currd is PVH dom0 and PVH has no
+> X86_EMU_USE_PIRQ flag, it will fail at has_pirq check.
+> 
+> So, allow PHYSDEVOP_map_pirq when dom0 is PVH and also allow
+> PHYSDEVOP_unmap_pirq for the failed path to unmap pirq. And
+> add a new check to prevent self map when subject domain has no
+> PIRQ flag.
+> 
+> Signed-off-by: Huang Rui <ray.huang@amd.com>
+> Signed-off-by: Jiqian Chen <Jiqian.Chen@amd.com>
+> Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 
-What's the criteria for removing this paragraph?
+What's imo missing in the description is a clarification / justification of
+why it is going to be a good idea (or at least an acceptable one) to expose
+the concept of PIRQs to PVH. If I'm not mistaken that concept so far has
+been entirely a PV one.
 
-FAOD I'm OK with it being checked in as-is, but I feel like this
-paragraph is somewhat anomalous, and would at least like to have an
-idea what might trigger its removal.
+> --- a/xen/arch/x86/hvm/hypercall.c
+> +++ b/xen/arch/x86/hvm/hypercall.c
+> @@ -71,8 +71,14 @@ long hvm_physdev_op(int cmd, XEN_GUEST_HANDLE_PARAM(void) arg)
+>  
+>      switch ( cmd )
+>      {
+> +    /*
+> +     * Only being permitted for management of other domains.
+> +     * Further restrictions are enforced in do_physdev_op.
+> +     */
+>      case PHYSDEVOP_map_pirq:
+>      case PHYSDEVOP_unmap_pirq:
+> +        break;
 
- -George
+Nit: Imo such a comment ought to be indented like code (statements), not
+like the case labels.
+
+Jan
 
