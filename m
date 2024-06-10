@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E14B390262F
-	for <lists+xen-devel@lfdr.de>; Mon, 10 Jun 2024 17:58:56 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.737434.1143742 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E92A7902644
+	for <lists+xen-devel@lfdr.de>; Mon, 10 Jun 2024 18:05:40 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.737440.1143753 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sGhPt-0001SK-Gf; Mon, 10 Jun 2024 15:58:41 +0000
+	id 1sGhVq-0003y8-6M; Mon, 10 Jun 2024 16:04:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 737434.1143742; Mon, 10 Jun 2024 15:58:41 +0000
+Received: by outflank-mailman (output) from mailman id 737440.1143753; Mon, 10 Jun 2024 16:04:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sGhPt-0001Pz-E4; Mon, 10 Jun 2024 15:58:41 +0000
-Received: by outflank-mailman (input) for mailman id 737434;
- Mon, 10 Jun 2024 15:58:40 +0000
+	id 1sGhVq-0003v9-3W; Mon, 10 Jun 2024 16:04:50 +0000
+Received: by outflank-mailman (input) for mailman id 737440;
+ Mon, 10 Jun 2024 16:04:48 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Mjq2=NM=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sGhPr-0001P6-VI
- for xen-devel@lists.xenproject.org; Mon, 10 Jun 2024 15:58:39 +0000
-Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
- [2a00:1450:4864:20::632])
+ id 1sGhVo-0003v1-05
+ for xen-devel@lists.xenproject.org; Mon, 10 Jun 2024 16:04:48 +0000
+Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
+ [2a00:1450:4864:20::62a])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 4d179d9e-2742-11ef-90a2-e314d9c70b13;
- Mon, 10 Jun 2024 17:58:38 +0200 (CEST)
-Received: by mail-ej1-x632.google.com with SMTP id
- a640c23a62f3a-a6e43dad8ecso495944166b.1
- for <xen-devel@lists.xenproject.org>; Mon, 10 Jun 2024 08:58:38 -0700 (PDT)
+ id 286d05c8-2743-11ef-90a2-e314d9c70b13;
+ Mon, 10 Jun 2024 18:04:46 +0200 (CEST)
+Received: by mail-ej1-x62a.google.com with SMTP id
+ a640c23a62f3a-a6ef46d25efso345702766b.0
+ for <xen-devel@lists.xenproject.org>; Mon, 10 Jun 2024 09:04:46 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a6c8072ac1fsm653146266b.222.2024.06.10.08.58.37
+ a640c23a62f3a-a6f2d3a02dcsm57697066b.106.2024.06.10.09.04.45
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 10 Jun 2024 08:58:37 -0700 (PDT)
+ Mon, 10 Jun 2024 09:04:45 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,43 +45,43 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4d179d9e-2742-11ef-90a2-e314d9c70b13
+X-Inumbo-ID: 286d05c8-2743-11ef-90a2-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1718035118; x=1718639918; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1718035486; x=1718640286; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=ha3gXWnhYiXnhWqYZL762tgIJAgzO9EIImER1q6mngg=;
-        b=Z5zKb0WZzscSv3hQYZQtV8VzUCpLeFiHKc0fhpeKkyJRu+/lRhAUEWkBtKrptqjfm1
-         L5iH2ycHjDRviK5NwAF+JJWBwvTquWpadlFQ0YryBbtlgRA7Upw68LsFQqo968zzrkeO
-         KxBKI0suW3DVEOFl4g6dxybHI7+pVNB1vU6KcSb80IYhd/eUMy0sSvnDHbPTsE+CX9Jw
-         4F/vQ6wCUm1/85r5wzHkM4xJeXaiKPZNhFK0fh+VJr0pIpH0KLAB4qHSKAMm4QlKhwqW
-         iIdplGZCtY+7xz1+/dee+BvJWa4MCRfyao6vpDeOKy37H94xkCXM3xhUsWVynHRhsx9E
-         lXuA==
+        bh=bTWDUdkQF7tsItu6ZwtaKt2W0JOuvyHlIXFHCYV4rEE=;
+        b=at84pYW+lFwAlW0Wd6OOM32nps9RDREyTpuWax82M2gvuV6eGYhjES0iV+sFilOnxN
+         c1ikkqnc0bxJg8g7MSyS4mJUdzwSlqLQTpz8V2oHtJixYC6HNtmBlPqXaIZbssiq1/Tr
+         v1XCFurrSfIm/6+DIifwV7ydtRxGH97EWwfRD3xJHpqRoxpQRISPTTEiYwIXfQGFmMR5
+         WV91OqHUiYuSyqIhWz2iuA6OjMcK/LchuTr124KLbPMD+/2pyynBl3xKWlprZ2hCh/ju
+         mMIaVw2DAiVIk9kKWmS1ZU6uMdaH/VQwDcoQSLS8azgGPIQq01DKxyBANE38GqlD5U4e
+         qy2Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1718035118; x=1718639918;
+        d=1e100.net; s=20230601; t=1718035486; x=1718640286;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=ha3gXWnhYiXnhWqYZL762tgIJAgzO9EIImER1q6mngg=;
-        b=LiursuIoUQU0ZIQuUmoi6oS5OeJHTTZFbeog4Ajomf1Hd8r37Hn06oKj4br92up0lb
-         4eaGwXPu+NRlm7bVah45bzKiNYt1KKlkUGz8OM51CDq6HhCTkcfUmWMvNn/kbBby3efz
-         J3HTnNcGJhuxigLS27s993ySozx8nX+6af3vRlMLmKJThOUccNfwUL9rRVJQcVWha6fW
-         Z6+ZfEHh8d6boT/gxUUmhjcyUX4bOKFvxgWAAx5MCoKnaNGynytjyUq3D7NbHGUNCvtx
-         FgcehjvoycWtaunUha7LkxDp9GqlBvd5GFpxlICzQVXwpVsCoQ450Tb7ioXxFDyDeTvG
-         445g==
-X-Forwarded-Encrypted: i=1; AJvYcCUKQUSlTCkazVzHAM0NNKfvNmKRuwPGoULxopQP3jSWxvemeZTMe6Vb9YHkrn1+GoCU4Lo162hObOS8RfGV42ZXJClr7DrdxzwwWWE+YB4=
-X-Gm-Message-State: AOJu0Yw0mfq4mjnGkRjMUJHVqoFnvxzZUdJaJiutSD5sLPqQCkQwGfAU
-	Ug/zt03hzpXpCqmQIkR25C9Q9/4s2woFF955jgd/OO++deZf9tYGALzC3WLwhw==
-X-Google-Smtp-Source: AGHT+IGyaqcvnQ6yq7vdbXiphgSd1IzzdXKCjqkWoehW+j4W4UfNztB4kZ5DnnoguNWDZOhlEkijXg==
-X-Received: by 2002:a17:906:1ccb:b0:a6e:542f:b87b with SMTP id a640c23a62f3a-a6f34cf5bf9mr5013666b.19.1718035118184;
-        Mon, 10 Jun 2024 08:58:38 -0700 (PDT)
-Message-ID: <efc35614-561c-4baa-9d94-d17ecb528a4b@suse.com>
-Date: Mon, 10 Jun 2024 17:58:36 +0200
+        bh=bTWDUdkQF7tsItu6ZwtaKt2W0JOuvyHlIXFHCYV4rEE=;
+        b=cw7nTeis3CJfbWq/BcJlHFsgcQiGHNfl3LffnGD8AQ/hDjTw4vdCn6VQnjJ/2qUiCz
+         yf1So+HleDa2Lz5nA4jDpbY1+qEmZufDAm6AScGFezxyXa0kJqj6rysJtzwWb1BJV6Nz
+         I6PJVeJ+VhzuC4qzJUd5C0LyRdUf68nR7a28qcAyG6X8H1ilwrjbiTK4m+TGyQU1FaBv
+         GUTSsevW9fAK3/WFwqEg8yubGmwQ7UrB5F2wcUHGTMU5AZ3sM2gLEpplGQAsRgloSIjD
+         d4SIILg6XoxqDepRTQ2zgf3HAxiNQmDjoo43kakeX95y91zpNbKGvs8BKo0V8oCUKbkk
+         kacw==
+X-Forwarded-Encrypted: i=1; AJvYcCU1vF4FrsPqhudDe6yYyue4Zba9/jobj6higt+8nAd/2AwW/ieHadRA/bhorZ8WCjbfkpZFcp8Vrwu+R6wyde7fPjAz1jE+gWkfnKZdEAI=
+X-Gm-Message-State: AOJu0YzVruwaaSJ0RlB3cBs8Uzh4xAtEZCB6enCg3PiSz9HpW/fUVlFC
+	9dNHGsZSQwFFLbGiw68pST5k0DCYUMI6VnFPbRQbZQV7on4XER4mluSAa+vslw==
+X-Google-Smtp-Source: AGHT+IFbP5G4bPHAhpeqdqRbQ1kF8ONmRQvp1jB12XG0rjl+KPNHDNMnktyjJoLYcL2FmOIdTeI+IA==
+X-Received: by 2002:a17:906:6bc8:b0:a6e:c5b0:b64e with SMTP id a640c23a62f3a-a6ec5b0b6e4mr524206766b.9.1718035486164;
+        Mon, 10 Jun 2024 09:04:46 -0700 (PDT)
+Message-ID: <38b5bf96-22fe-444c-824b-b4c2d6e107d0@suse.com>
+Date: Mon, 10 Jun 2024 18:04:44 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH v9 2/5] x86/pvh: Allow (un)map_pirq when dom0 is PVH
+Subject: Re: [XEN PATCH v9 3/5] x86/pvh: Add PHYSDEVOP_setup_gsi for PVH dom0
 To: Jiqian Chen <Jiqian.Chen@amd.com>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu
@@ -92,7 +92,7 @@ Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  Stewart Hildebrand <Stewart.Hildebrand@amd.com>,
  Huang Rui <Ray.Huang@amd.com>, xen-devel@lists.xenproject.org
 References: <20240607081127.126593-1-Jiqian.Chen@amd.com>
- <20240607081127.126593-3-Jiqian.Chen@amd.com>
+ <20240607081127.126593-4-Jiqian.Chen@amd.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -118,49 +118,34 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240607081127.126593-3-Jiqian.Chen@amd.com>
+In-Reply-To: <20240607081127.126593-4-Jiqian.Chen@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 07.06.2024 10:11, Jiqian Chen wrote:
-> If run Xen with PVH dom0 and hvm domU, hvm will map a pirq for
-> a passthrough device by using gsi, see qemu code
-> xen_pt_realize->xc_physdev_map_pirq and libxl code
-> pci_add_dm_done->xc_physdev_map_pirq. Then xc_physdev_map_pirq
-> will call into Xen, but in hvm_physdev_op, PHYSDEVOP_map_pirq
-> is not allowed because currd is PVH dom0 and PVH has no
-> X86_EMU_USE_PIRQ flag, it will fail at has_pirq check.
-> 
-> So, allow PHYSDEVOP_map_pirq when dom0 is PVH and also allow
-> PHYSDEVOP_unmap_pirq for the failed path to unmap pirq. And
-> add a new check to prevent self map when subject domain has no
-> PIRQ flag.
+> On PVH dom0, the gsis don't get registered, but
+> the gsi of a passthrough device must be configured for it to
+> be able to be mapped into a hvm domU.
+> On Linux kernel side, it calles PHYSDEVOP_setup_gsi for
+> passthrough devices to register gsi when dom0 is PVH.
+
+"it calls" implies that ...
+
+> So, add PHYSDEVOP_setup_gsi for above purpose.
 > 
 > Signed-off-by: Huang Rui <ray.huang@amd.com>
 > Signed-off-by: Jiqian Chen <Jiqian.Chen@amd.com>
-> Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+> ---
+> The code link that will call this hypercall on linux kernel side is as follows
+> https://lore.kernel.org/lkml/20240607075109.126277-3-Jiqian.Chen@amd.com/T/#u
 
-What's imo missing in the description is a clarification / justification of
-why it is going to be a good idea (or at least an acceptable one) to expose
-the concept of PIRQs to PVH. If I'm not mistaken that concept so far has
-been entirely a PV one.
+... the code only to be added there would already be upstream. As I think the
+hypervisor change wants to come first, this part of the description will want
+re-wording to along the lines of "will need to" or some such.
 
-> --- a/xen/arch/x86/hvm/hypercall.c
-> +++ b/xen/arch/x86/hvm/hypercall.c
-> @@ -71,8 +71,14 @@ long hvm_physdev_op(int cmd, XEN_GUEST_HANDLE_PARAM(void) arg)
->  
->      switch ( cmd )
->      {
-> +    /*
-> +     * Only being permitted for management of other domains.
-> +     * Further restrictions are enforced in do_physdev_op.
-> +     */
->      case PHYSDEVOP_map_pirq:
->      case PHYSDEVOP_unmap_pirq:
-> +        break;
-
-Nit: Imo such a comment ought to be indented like code (statements), not
-like the case labels.
+As to GSIs not being registered: If that's not a problem for Dom0's own
+operation, I think it'll also want/need explaining why what is sufficient for
+Dom0 alone isn't sufficient when pass-through comes into play.
 
 Jan
 
