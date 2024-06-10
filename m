@@ -2,37 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BC2319028E3
-	for <lists+xen-devel@lfdr.de>; Mon, 10 Jun 2024 20:48:41 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.737549.1143912 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CEDF3902A0A
+	for <lists+xen-devel@lfdr.de>; Mon, 10 Jun 2024 22:39:53 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.737558.1143923 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sGk3E-0003xd-59; Mon, 10 Jun 2024 18:47:28 +0000
+	id 1sGlmh-000836-ER; Mon, 10 Jun 2024 20:38:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 737549.1143912; Mon, 10 Jun 2024 18:47:28 +0000
+Received: by outflank-mailman (output) from mailman id 737558.1143923; Mon, 10 Jun 2024 20:38:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sGk3E-0003vP-2S; Mon, 10 Jun 2024 18:47:28 +0000
-Received: by outflank-mailman (input) for mailman id 737549;
- Mon, 10 Jun 2024 18:47:26 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=7tSL=NM=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
- id 1sGk3C-0003vJ-CC
- for xen-devel@lists.xenproject.org; Mon, 10 Jun 2024 18:47:26 +0000
-Received: from fhigh4-smtp.messagingengine.com
- (fhigh4-smtp.messagingengine.com [103.168.172.155])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ddec8ad8-2759-11ef-b4bb-af5377834399;
- Mon, 10 Jun 2024 20:47:21 +0200 (CEST)
-Received: from compute2.internal (compute2.nyi.internal [10.202.2.46])
- by mailfhigh.nyi.internal (Postfix) with ESMTP id 8914C114014F;
- Mon, 10 Jun 2024 14:47:19 -0400 (EDT)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute2.internal (MEProxy); Mon, 10 Jun 2024 14:47:19 -0400
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 10 Jun 2024 14:47:18 -0400 (EDT)
+	id 1sGlmh-00081L-Aw; Mon, 10 Jun 2024 20:38:31 +0000
+Received: by outflank-mailman (input) for mailman id 737558;
+ Mon, 10 Jun 2024 20:38:29 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1sGlmf-00081D-DM
+ for xen-devel@lists.xenproject.org; Mon, 10 Jun 2024 20:38:29 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1sGlme-0008Lm-97; Mon, 10 Jun 2024 20:38:28 +0000
+Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.1.245])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1sGlme-0005gt-2j; Mon, 10 Jun 2024 20:38:28 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,139 +39,83 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ddec8ad8-2759-11ef-b4bb-af5377834399
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm1; t=1718045239;
-	 x=1718131639; bh=S8SC96e7az8r2HEhWCKxQ+Xgv9my0B/BvfG/6hoXoaA=; b=
-	i89jFrVEKgiBIKq2RW/rgr6CJlH5NvUe22NkAk2FtxgvaxynKYqHGoWCZXa8lac4
-	+wDZgrYJBBdqb/6F7pZr4uzEU0qi777F8ql4j4bQ0BtZ4QftBQqKfB5yvG0fUVQI
-	e/spvA680opHA4BKYUbrhrWE6jPCmTuMYrsMChSTR0rGQ7qtK293+I/wGF6M1EmC
-	FOBDT2l+GLMxQE8Rxx8ZEUMW+rzxJkqwyUb55Ms6vGsAsBYnt2K4dhyNP7Bu5jiS
-	svbkwT/GzsHUDFZ4lHTG2SwC8aUpEAEEWjO7nOHzOZDaCBLruh3ciaLGb+H4tyZy
-	VLtCE2U0N2WuEcnOZRzmTg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
-	fm1; t=1718045239; x=1718131639; bh=S8SC96e7az8r2HEhWCKxQ+Xgv9my
-	0B/BvfG/6hoXoaA=; b=ZULHV3cQPrWPRC4i9H5odOOD7swXVohB8gzu8xq9+YTY
-	woB/daVikxXo3goYJinaicrhHdf/ahxaUiG50NLIT20zifBbg7CDhmOnMV3rg1K0
-	RKz5MtzrtKTdJ+kYZPq5qWbopBGtIG/BvKyLz1Y9QTjJdziTx/ac1Eqmks6Vewy4
-	xQLh4DgBo8pIQvPpO5U+5UDQUEIMzUn6uPoDsiUMd5vlmJ4lN6ccz/Yki6dtOOtu
-	fmEqmzXWBzpJPmyVK6RXDHBfxsHEwov1MAndbGR4De5FO0zRi86u0juH0cPcbFgI
-	tT1hpyAAWLw0MJeAkE8twcKxOHj4PSFvcqM1WGa0Bg==
-X-ME-Sender: <xms:N0pnZqPwGM2EqIW0AqFC8mBIi01Mqpx_bQgfmXc-qrKaLjck3IXJeQ>
-    <xme:N0pnZo8DCzTgpSveFH6TBqjbKR3cEjI4TzzeulGvychTi6zxp1FdNHNzRnu26e0VL
-    tbMfZx9TDMaZA>
-X-ME-Received: <xmr:N0pnZhRWF0-jsE3RkS3qwJKADwlshR0bcIq9e2u2NMnBI4hjU_OYs5pXnwPDEgMToke9xG9m73e20E1Cz2ZhBgKWP-dMEbKspA>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvledrfedutddguddvkecutefuodetggdotefrod
-    ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
-    necuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
-    enucfjughrpeffhffvvefukfhfgggtuggjsehgtderredttdejnecuhfhrohhmpeforghr
-    vghkucforghrtgiihihkohifshhkihdqifpkrhgvtghkihcuoehmrghrmhgrrhgvkhesih
-    hnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpefg
-    udelteefvefhfeehieetleeihfejhfeludevteetkeevtedtvdegueetfeejudenucevlh
-    hushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehmrghrmhgrrhgv
-    khesihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhm
-X-ME-Proxy: <xmx:N0pnZqsKmZtsX_xo1TFo-ZJuPKpvzMJJJa-QsLsHTPl3TKbbwUKjSw>
-    <xmx:N0pnZifxphtFzY_OphCiR4cnSaJqymsGUwt80H2dqcEdCNSlj8IieA>
-    <xmx:N0pnZu1TmGUMAEckhE7RLLKiiDzkcy_NyJZ_sYVlfrrika47JFz4gg>
-    <xmx:N0pnZm87XHS_dvlyZjICQLf8SvoLCdcz9TZ5rukPhyah0JMhIOPGLA>
-    <xmx:N0pnZh4pyiWNssR9fxKrPLDbTvPNQrOkCrnkY88fygPSqQT1CM2wBM5v>
-Feedback-ID: i1568416f:Fastmail
-Date: Mon, 10 Jun 2024 20:47:14 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: xen-devel@lists.xenproject.org,
-	Oleksii Kurochko <oleksii.kurochko@gmail.com>,
-	Doug Goldstein <cardoe@cardoe.com>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: Re: [PATCH for-4.19 v1] automation: add a test for HVM domU on PVH
- dom0
-Message-ID: <ZmdKMthsjw0qejyg@mail-itl>
-References: <20240610133210.724346-1-marmarek@invisiblethingslab.com>
- <67a6fc3a-bcc3-48e8-beb8-b3c05217083c@citrix.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=p2WrA/EEMgK3kjMP30WlqWYMjW3EJ8VqTbsaH2qOaOo=; b=WJ6RySQqUlRPU8iwqPSskKraOZ
+	d/aP30u9AKLtAe14f8VABPah/2HN8QFXpMPpNoandm60eMdpL+BThMNt+H5fgF7kVbwACI5uieuWB
+	w17tiH5o6QQqJxGZ43k0pYbT0hEKx7abE10WmCkX8L8Y9xrGqkzoWxSzPQxkC3rw85BE=;
+Message-ID: <615f1766-253d-43dc-b0f0-f8e2eb7360b5@xen.org>
+Date: Mon, 10 Jun 2024 21:38:26 +0100
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="Z7NtFVrrua97WZbt"
-Content-Disposition: inline
-In-Reply-To: <67a6fc3a-bcc3-48e8-beb8-b3c05217083c@citrix.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [XEN PATCH v6 0/7] FF-A notifications
+To: Bertrand Marquis <Bertrand.Marquis@arm.com>,
+ Jens Wiklander <jens.wiklander@linaro.org>,
+ Oleksii <oleksii.kurochko@gmail.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>,
+ "patches@linaro.org" <patches@linaro.org>,
+ Volodymyr Babchuk <volodymyr_babchuk@epam.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Michal Orzel <michal.orzel@amd.com>
+References: <20240610065343.2594943-1-jens.wiklander@linaro.org>
+ <3C40228F-21AA-4CBF-A4BE-1C42DE6E94EB@arm.com>
+Content-Language: en-GB
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <3C40228F-21AA-4CBF-A4BE-1C42DE6E94EB@arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
+Hi Bertrand,
 
---Z7NtFVrrua97WZbt
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 10 Jun 2024 20:47:14 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: xen-devel@lists.xenproject.org,
-	Oleksii Kurochko <oleksii.kurochko@gmail.com>,
-	Doug Goldstein <cardoe@cardoe.com>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: Re: [PATCH for-4.19 v1] automation: add a test for HVM domU on PVH
- dom0
+On 10/06/2024 16:54, Bertrand Marquis wrote:
+> Hi Jens,
+> 
+>> On 10 Jun 2024, at 08:53, Jens Wiklander <jens.wiklander@linaro.org> wrote:
+>>
+>> Hi,
+>>
+>> This patch set adds support for FF-A notifications. We only support
+>> global notifications, per vCPU notifications remain unsupported.
+>>
+>> The first three patches are further cleanup and can be merged before the
+>> rest if desired.
+>>
+>> A physical SGI is used to make Xen aware of pending FF-A notifications. The
+>> physical SGI is selected by the SPMC in the secure world. Since it must not
+>> already be used by Xen the SPMC is in practice forced to donate one of the
+>> secure SGIs, but that's normally not a problem. The SGI handling in Xen is
+>> updated to support registration of handlers for SGIs that aren't statically
+>> assigned, that is, SGI IDs above GIC_SGI_MAX.
+>>
+>> The patch "xen/arm: add and call init_tee_secondary()" provides a hook for
+>> register the needed per-cpu interrupt handler in "xen/arm: ffa: support
+>> notification".
+>>
+>> The patch "xen/arm: add and call tee_free_domain_ctx()" provides a hook for
+>> later freeing of the TEE context. This hook is used in "xen/arm: ffa:
+>> support notification" and avoids the problem with TEE context being freed
+>> while we need to access it when handling a Schedule Receiver interrupt. It
+>> was suggested as an alternative in [1] that the TEE context could be freed
+>> from complete_domain_destroy().
+>>
+>> [1] https://lore.kernel.org/all/CAHUa44H4YpoxYT7e6WNH5XJFpitZQjqP9Ng4SmTy4eWhyN+F+w@mail.gmail.com/
+>>
+>> Thanks,
+>> Jens
+> 
+> All patches are now reviewed and/or acked so I think they can get in for the release.
 
-On Mon, Jun 10, 2024 at 04:25:01PM +0100, Andrew Cooper wrote:
-> On 10/06/2024 2:32 pm, Marek Marczykowski-G=C3=B3recki wrote:
-> > This tests if QEMU works in PVH dom0. QEMU in dom0 requires enabling TUN
-> > in the kernel, so do that too.
-> >
-> > Add it to both x86 runners, similar to the PVH domU test.
-> >
-> > Signed-off-by: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblething=
-slab.com>
->=20
-> Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
->=20
-> CC Oleksii.
->=20
-> > ---
-> > Requires rebuilding test-artifacts/kernel/6.1.19
->=20
-> Ok.
->=20
-> But on a tangent, shouldn't that move forwards somewhat?
+This would need a release-ack from Oleksii (I can't seem to find already 
+one).
 
-There is already "[PATCH 08/12] automation: update kernel for x86 tests"
-in the stubdom test series. And as noted in the cover letter there, most
-patches can be applied independently, and also they got R-by/A-by from
-Stefano already.
+As we discussed last week, I am fine with the idea to merge the FFA 
+patches as the feature is tech-preview. But there are some changes in 
+the arm generic code. Do you (or Jens) have an assessment of the risk of 
+the changes?
 
-> > I'm actually not sure if there is a sense in testing HVM domU on both
-> > runners, when PVH domU variant is already tested on both. Are there any
-> > differences between Intel and AMD relevant for QEMU in dom0?
->=20
-> It's not just Qemu, it's also HVMLoader, and the particulars of VT-x/SVM
-> VMExit decode information in order to generate ioreqs.
+Cheers,
 
-For just HVM, we have PCI passthrough tests on both - they run HVM (but
-on PV dom0). My question was more about PVH-dom0 specific parts.
-
-> I'd firmly suggest having both.
-
---=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
-
---Z7NtFVrrua97WZbt
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmZnSjIACgkQ24/THMrX
-1yzBsAf/UUWGVzXgyeZ+olY1gl/F4Y5uCzBNhtce04PJLdQBk44152Mo4JqubnHQ
-xjiC7uxhLH+bC2gMkJEBoyOOhaBluUQonzKFtvo2/CNkxati7xxkAI9NxupB+OIn
-lkc9IukpYH6NppjF+2vFUuXfsoED1wJI73dm2vp5kr2O/b1uN0lvWvPWoz3aOWjf
-cTLmX7YaYQo1hSnjNCRs958NQk6CP/u9MFOIrFrPK1iOzSXb2+k93DutKTu4R3HV
-iVn3DcEVrOiURhuUZnpaJ9zcne1ZzGqVszmC83bD/A8RDNC3CIJ2RfudbgMjbroC
-W1Kg8NHyb2BIq43LSFmJy/RiVliMsQ==
-=P3x9
------END PGP SIGNATURE-----
-
---Z7NtFVrrua97WZbt--
+-- 
+Julien Grall
 
