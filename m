@@ -2,37 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9D133903F74
-	for <lists+xen-devel@lfdr.de>; Tue, 11 Jun 2024 17:02:08 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.738498.1145275 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A1D01903FF4
+	for <lists+xen-devel@lfdr.de>; Tue, 11 Jun 2024 17:25:49 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.738519.1145295 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sH30Z-0002Am-Rn; Tue, 11 Jun 2024 15:01:59 +0000
+	id 1sH3N2-0005tX-NC; Tue, 11 Jun 2024 15:25:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 738498.1145275; Tue, 11 Jun 2024 15:01:59 +0000
+Received: by outflank-mailman (output) from mailman id 738519.1145295; Tue, 11 Jun 2024 15:25:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sH30Z-000296-OR; Tue, 11 Jun 2024 15:01:59 +0000
-Received: by outflank-mailman (input) for mailman id 738498;
- Tue, 11 Jun 2024 15:01:58 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1sH3N2-0005rZ-Ke; Tue, 11 Jun 2024 15:25:12 +0000
+Received: by outflank-mailman (input) for mailman id 738519;
+ Tue, 11 Jun 2024 15:25:11 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=H2Xh=NN=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
- id 1sH30Y-00028x-CC
- for xen-devel@lists.xenproject.org; Tue, 11 Jun 2024 15:01:58 +0000
-Received: from fhigh8-smtp.messagingengine.com
- (fhigh8-smtp.messagingengine.com [103.168.172.159])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 8ac7adc1-2803-11ef-90a3-e314d9c70b13;
- Tue, 11 Jun 2024 17:01:56 +0200 (CEST)
-Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
- by mailfhigh.nyi.internal (Postfix) with ESMTP id 71D001140159;
- Tue, 11 Jun 2024 11:01:54 -0400 (EDT)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute1.internal (MEProxy); Tue, 11 Jun 2024 11:01:54 -0400
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 11 Jun 2024 11:01:53 -0400 (EDT)
+ <SRS0=887E=NN=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1sH3N1-0005rT-5F
+ for xen-devel@lists.xenproject.org; Tue, 11 Jun 2024 15:25:11 +0000
+Received: from mail-pj1-x102c.google.com (mail-pj1-x102c.google.com
+ [2607:f8b0:4864:20::102c])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id c911243a-2806-11ef-b4bb-af5377834399;
+ Tue, 11 Jun 2024 17:25:09 +0200 (CEST)
+Received: by mail-pj1-x102c.google.com with SMTP id
+ 98e67ed59e1d1-2bfff08fc29so4920748a91.1
+ for <xen-devel@lists.xenproject.org>; Tue, 11 Jun 2024 08:25:08 -0700 (PDT)
+Received: from [192.168.219.221] ([94.75.70.14])
+ by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-2c2ee465711sm6203613a91.45.2024.06.11.08.25.04
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 11 Jun 2024 08:25:06 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,145 +45,191 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8ac7adc1-2803-11ef-90a3-e314d9c70b13
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm1; t=1718118114;
-	 x=1718204514; bh=8pNd4VEepn/40DLjjsKiqn3jk1h0YICBQP1GZtZNZhc=; b=
-	m5+E0aBTD7N8KJjxggUoYUb1Zhmwm1uhbLDLxZOFQAKBqQSDycz8w9AX+Txrr9b4
-	8N3edq1Dw9I9fsCMuDw156rqwnXYAg0ShJ/sqwj244PPK0MHCyM/aExre04kCv3n
-	+PkJBfMqaINAQEY8KKhem3O+8AHUSj3HG2lVAj5OelN28GVCTjeWfZ7q1a0cbvWl
-	rSKw1YysxGP1KRfruu7ScCHqzkNWTtvo1drfjXqzEy4g6yc3f0gIqPtYMtwqIi+e
-	DSsZ6T4I5femPzXS0WdTtn0UUi9XmuU+2gOJgZjMXvo9/NcbH9phD6+mLuPJMYkw
-	INxS7SIcZudMdY79E8RfYQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
-	fm1; t=1718118114; x=1718204514; bh=8pNd4VEepn/40DLjjsKiqn3jk1h0
-	YICBQP1GZtZNZhc=; b=H3QluBTDcNWAYNvmHjpT51t/zt1hfxQz+6lJodkvqUYD
-	V5uphf+rxSNUx26Y0C0pge62c/jqIKwF9wEh1wKFYxiDvMjw/UtJ40DqOKP9yhvh
-	9PvnYDLDFPjqMpeU9adceBdBTCnE0G5g0RFKe6sq3+WL1DcTpceGNZr6SGE91ehy
-	krTTTn4TjRbnvou5cSz9U1KxPCwTIqAWPHSql1XYov/cILEt25n+sIcNPFZ2POlN
-	9KKmxXCWtkoG8BUP+EGEStFdZAHw6/Kf+LCZ7nBdM8mlekBBB6JT3ThHWqxH3HrZ
-	O2kY5ShR/b7d/BSb1vmflvaYxoFvVhdFN13Hb92s8Q==
-X-ME-Sender: <xms:4mZoZngpctcchugFHjNgSVt20IEK12UaXbdt5M4dOrXa2LzOSzwWXw>
-    <xme:4mZoZkCUc985poPWo7plypDTvuCFpbq_eCtZkAkhBtc16y0tSRyAG0r1zniuFRu66
-    rizRDAhPZMIBg>
-X-ME-Received: <xmr:4mZoZnH3xx0dv5d8_qS8zjYTYgp9H7g3ezmB5lLLYzFf_KVyhMG8dd6lcZGz8YmPknB3o_LXAeqspbkALfTqZdRFrfSSakMkmA>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvledrfeduvddgkeduucetufdoteggodetrfdotf
-    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
-    uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
-    cujfgurhepfffhvfevuffkfhggtggujgesghdtreertddtjeenucfhrhhomhepofgrrhgv
-    khcuofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuceomhgrrhhmrghrvghksehinh
-    hvihhsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecuggftrfgrthhtvghrnhepgfdu
-    leetfeevhfefheeiteeliefhjefhleduveetteekveettddvgeeuteefjedunecuvehluh
-    hsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepmhgrrhhmrghrvghk
-    sehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomh
-X-ME-Proxy: <xmx:4mZoZkRNg7VSjxzL26munKgSdt9RsyKn16s1zpp8WlpaJytxrafnpQ>
-    <xmx:4mZoZkzCRq90wd7mqT0l-dXkRtV-lM7FbWswc9uH_4-_GzwvbYLk-g>
-    <xmx:4mZoZq6ep7rzh6xuzWoL2Zxaesh1bFYE-BJwbNicMWLr3zwT9twq4Q>
-    <xmx:4mZoZpx19LD2cBxbOgrwXYp-TudBv0IcoBHMJF4dwCPzPVvI1zlMxg>
-    <xmx:4mZoZg_s9xGnSWBDfwGCkXU9HovacBlDurs8a4PpRV_EOE4f_O7MDaLm>
-Feedback-ID: i1568416f:Fastmail
-Date: Tue, 11 Jun 2024 17:01:49 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>
-Subject: Re: [PATCH v4 1/2] x86/mm: add API for marking only part of a MMIO
- page read only
-Message-ID: <Zmhm3r8U4Nz7vxhQ@mail-itl>
-References: <cover.68462f37276d69ab6e268be94d049f866a321f73.1716392340.git-series.marmarek@invisiblethingslab.com>
- <30562c807ff2e434731a76d7110d48614a58884b.1716392340.git-series.marmarek@invisiblethingslab.com>
- <ZmgpsZJ4afLd1Fc3@macbook>
- <Zmg3O7zvd9KBC1Fv@mail-itl>
- <ZmhJOjggtJiNccPo@macbook>
- <ZmhN_hNHp7WtyPyD@mail-itl>
- <ZmhaB57Tc6BsknVO@macbook>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="VBToB/jz9xQ1jL61"
-Content-Disposition: inline
-In-Reply-To: <ZmhaB57Tc6BsknVO@macbook>
-
-
---VBToB/jz9xQ1jL61
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
+X-Inumbo-ID: c911243a-2806-11ef-b4bb-af5377834399
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1718119507; x=1718724307; darn=lists.xenproject.org;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=O/lyxeDYB0BtkQX1JRbiTJgbbHqOyGOFegqTxPt6Ejs=;
+        b=IM5eyyBonLQbuiz4kWfU8okWHO/RSt6hZzYzyJTEHJRVLeoeo5j07ky30Yk9T9hhvC
+         nSCr4NPqpJO3TvsboVd8PXb4Z3yMh8R1dCm78nXdN5F/Kgr658wTJ9pOJH241QUoSb7s
+         JFERb5GV11awJboVpXrJhBznCkiuOCvN1vjQf6HwD8G1opfItB8rFDl/2JZMKAi0W+pp
+         S6ZcEeE3Zof6w6JytY3cZNFryXN+u9fHEQB7bsnuLTV0vcI9d0/mWbenY4la/fp/Y7rw
+         SWxWC3MPiaKa9gwEFokyA9c1rWrGrslCgfosU9e+BCWAzYhX4tnZKZlCMZZt0N+/g+dL
+         MFGw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1718119507; x=1718724307;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=O/lyxeDYB0BtkQX1JRbiTJgbbHqOyGOFegqTxPt6Ejs=;
+        b=b2c/S+asu3rUVp2b6XfpckoI4hWU+L7oYpAAwEIqP3gHj3fVzuVF3y8acAExaesbK+
+         +OtdYJJYkxIsislCgFLG/A8xA4O5MOGc9pzi4RZmSwNI5zhVvDvJoggzkPSh+BcWSc/h
+         fIF91/xOLhxKfEjH7ZVbFOgsvHQtAxeXW9QKyF5JIkOSLFlkQ3xYDiZba21vMXnjLE5r
+         gsonAeEbHzJl6edIvtwmhz/NnWNo9bYr0ILrDWpRWzZeeY+ZJeEeOGpjtz6BI4AZdVOT
+         OZev0g4dOTJFrZipnJ8moJRoL0+ZC3VfHlHII7Cdgy/VyMxoEJEvcTrfq3ol0ydHgrSo
+         wedQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWy9GlTUDUp0pB9Uvm1uyh9r0wnh9523bslVkEmN4y7kPGlldbzL/5SZtolHGYxW5Zv2pvonIlzqUKNB2G7N8BG87ulyH24un7vRr1N4w4=
+X-Gm-Message-State: AOJu0Yyj0fLrql6cfqXo2btTBY7gvPGhNVXeiZ0UjjM1V0/HIWKh3K5n
+	QBPVBnAkaFSJn6d3QYGWxTbn1jfPFXxF7A5FL1BntcJg/7B+ZLsZ
+X-Google-Smtp-Source: AGHT+IE30y7NoPBSKIKC0FcjoEDs9Cx3FWO8hRWeqEvhlmlyRA7JBHeCflWG/5LszAA9bkoDLeohgA==
+X-Received: by 2002:a17:90b:188c:b0:2c2:1d86:f785 with SMTP id 98e67ed59e1d1-2c2bcc855cdmr10563511a91.47.1718119507103;
+        Tue, 11 Jun 2024 08:25:07 -0700 (PDT)
+Message-ID: <ff3a6de3c5cb08f4ebf55bc0ab26a02272a57c74.camel@gmail.com>
+Subject: Re: [PATCH v12 5/8] xen/riscv: add minimal stuff to mm.h to build
+ full Xen
+From: "Oleksii K." <oleksii.kurochko@gmail.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>,
+ xen-devel@lists.xenproject.org,  Jan Beulich <jbeulich@suse.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>, Bob Eshleman
+ <bobbyeshleman@gmail.com>, Connor Davis <connojdavis@gmail.com>, George
+ Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>, Stefano
+ Stabellini <sstabellini@kernel.org>
+Date: Tue, 11 Jun 2024 17:25:02 +0200
+In-Reply-To: <70128dba-498f-4d85-8507-bb1621182754@citrix.com>
+References: <cover.1717008161.git.oleksii.kurochko@gmail.com>
+	 <d00b86f41ef2c7d928a28dadd8c34fb845f23d0a.1717008161.git.oleksii.kurochko@gmail.com>
+	 <70128dba-498f-4d85-8507-bb1621182754@citrix.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 11 Jun 2024 17:01:49 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>
-Subject: Re: [PATCH v4 1/2] x86/mm: add API for marking only part of a MMIO
- page read only
+User-Agent: Evolution 3.52.1 (3.52.1-1.fc40) 
+MIME-Version: 1.0
 
-On Tue, Jun 11, 2024 at 04:07:03PM +0200, Roger Pau Monn=C3=A9 wrote:
-> On Tue, Jun 11, 2024 at 03:15:42PM +0200, Marek Marczykowski-G=C3=B3recki=
- wrote:
-> > It's location is discovered at startup
-> > (device presents a linked-list of capabilities in one of its BARs).
-> > The spec talks only about alignment of individual registers, not the
-> > whole group...
+On Thu, 2024-05-30 at 18:23 +0100, Andrew Cooper wrote:
+> On 29/05/2024 8:55 pm, Oleksii Kurochko wrote:
+> > Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+> > Acked-by: Jan Beulich <jbeulich@suse.com>
 >=20
-> Never mind then, I had the expectation we could get away with a single
-> page, but doesn't look to be the case.
+> This patch looks like it can go in independently?=C2=A0 Or does it depend
+> on
+> having bitops.h working in practice?
 >=20
-> I assume the spec doesn't mention anything about the BAR where the
-> capabilities reside having a size <=3D 4KiB.
-
-No, and in fact I see it's a BAR of 64KiB on one of devices...
-
-> > > Maybe worth adding a comment that the logic here intends to deal only
-> > > with the RW bits of a page that's otherwise RO, and that by not
-> > > handling the RO regions the intention is that those are dealt just
-> > > like fully RO pages.
-> >=20
-> > I can extend the comment, but I assumed it's kinda implied already (if
-> > nothing else, by the function name).
+> However, one very strong suggestion...
 >=20
-> Well, at this point we know the write is not going to make it to host
-> memory.  The only reason to not handle the access here is that we want
-> to unify the consequences it has for a guest writing to a RO address.
-
-Yup.
-
-> > > I guess there's some message printed when attempting to write to a RO
-> > > page that you would also like to print here?
-> >=20
-> > If a HVM domain writes to an R/O area, it is crashed, so you will get a
-> > message. This applies to both full page R/O and partial R/O. PV doesn't
-> > go through subpage_mmio_write_accept().
 >=20
-> Oh, crashing the domain is more strict than I was expecting.
+> > diff --git a/xen/arch/riscv/include/asm/mm.h
+> > b/xen/arch/riscv/include/asm/mm.h
+> > index 07c7a0abba..cc4a07a71c 100644
+> > --- a/xen/arch/riscv/include/asm/mm.h
+> > +++ b/xen/arch/riscv/include/asm/mm.h
+> > @@ -3,11 +3,246 @@
+> > <snip>
+> > +/* PDX of the first page in the frame table. */
+> > +extern unsigned long frametable_base_pdx;
+> > +
+> > +/* Convert between machine frame numbers and page-info structures.
+> > */
+> > +#define
+> > mfn_to_page(mfn)=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 \
+> > +=C2=A0=C2=A0=C2=A0 (frame_table + (mfn_to_pdx(mfn) - frametable_base_p=
+dx))
+> > +#define
+> > page_to_mfn(pg)=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 \
+> > +=C2=A0=C2=A0=C2=A0 pdx_to_mfn((unsigned long)((pg) - frame_table) +
+> > frametable_base_pdx)
+>=20
+> Do yourself a favour and not introduce frametable_base_pdx to begin
+> with.
 
-That's how it was before, I'm not really changing it here. It's less
-strict for PV though (it either gets a #PF forwarded back to the guest,
-or is ignored).
+To drop frametable_base_pdx if the following changes will be enough:
+   diff --git a/xen/arch/riscv/include/asm/mm.h
+   b/xen/arch/riscv/include/asm/mm.h
+   index cc4a07a71c..fdac7e0646 100644
+   --- a/xen/arch/riscv/include/asm/mm.h
+   +++ b/xen/arch/riscv/include/asm/mm.h
+   @@ -107,14 +107,11 @@ struct page_info
+   =20
+    #define frame_table ((struct page_info *)FRAMETABLE_VIRT_START)
+   =20
+   -/* PDX of the first page in the frame table. */
+   -extern unsigned long frametable_base_pdx;
+   -
+    /* Convert between machine frame numbers and page-info structures. */
+    #define mfn_to_page(mfn)                                            \
+   -    (frame_table + (mfn_to_pdx(mfn) - frametable_base_pdx))
+   +    (frame_table + mfn - FRAMETABLE_BASE_OFFSET))
+    #define page_to_mfn(pg)                                             \
+   -    pdx_to_mfn((unsigned long)((pg) - frame_table) +
+   frametable_base_pdx)
+   +    ((unsigned long)((pg) - frame_table) + FRAMETABLE_BASE_OFFSET)
+   =20
+    static inline void *page_to_virt(const struct page_info *pg)
+    {
+   diff --git a/xen/arch/riscv/mm.c b/xen/arch/riscv/mm.c
+   index 9c0fd80588..8f6dbdc699 100644
+   --- a/xen/arch/riscv/mm.c
+   +++ b/xen/arch/riscv/mm.c
+   @@ -15,7 +15,7 @@
+    #include <asm/page.h>
+    #include <asm/processor.h>
+   =20
+   -unsigned long __ro_after_init frametable_base_pdx;
+    unsigned long __ro_after_init frametable_virt_end;
+   =20
+    struct mmu_desc {
 
---=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
 
---VBToB/jz9xQ1jL61
-Content-Type: application/pgp-signature; name="signature.asc"
+>=20
+> Every RISC-V board I can find has things starting from 0 in physical
+> address space, with RAM starting immediately after.
+>=20
+> Taking the microchip board as an example, RAM actually starts at
+> 0x8000000, which means that having frametable_base_pdx and assuming
+> it
+> does get set to 0x8000 (which isn't even a certainty, given that I
+> think
+> you'll need struct pages covering the PLICs), then what you are
+> trading
+> off is:
+>=20
+> * Saving 32k of virtual address space only (no need to even allocate
+> memory for this range of the framtable), by
+> * Having an extra memory load and add/sub in every page <-> mfn
+> conversion, which is a screaming hotpath all over Xen.
+Are you referring here to `mfn_to_pdx()` used in `mfn_to_page()` and
+`pdx_to_mfn()` in `page_to_mfn()`?
 
------BEGIN PGP SIGNATURE-----
+My expectation was that when CONFIG_PDX_COMPRESSION is disabled then
+this macros doesn't do anything:
+/* pdx<->pfn =3D=3D identity */
+#define pdx_to_pfn(x) (x)
+#define pfn_to_pdx(x) (x)
 
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmZoZt0ACgkQ24/THMrX
-1yzgNAf+JAlcmZdIC+tvAFE5mJQhSYWRgIUUdiAM7HxzNHGnHDihKmAMVwj39Z1D
-4pL5kSXxEcDiQ71jnlCz/Pkhf8q/ZpKkf1IX/xPjXw63DUx1SKI7QuZUlnRSSPvP
-zxGAL0su3FzMYnSGWHUrDkcO0Aum5pYLrJhIM0rRzFTwTP+nq27T/4NjmD42uDWp
-QdNYPLtPzUr5qEIvyWERQtK9mI36EQ5y9ppySgNR7Ccj93vPa8SbgIQk2cKYddZv
-ZJPGb7DB9ROYM60lBYCVu7cEWMhHymKKN/jKjN8NTOb41Ni25Mm+2B1G+tzDnbly
-G2YrMzgd85RRFdfp5kjsC5lKas0n8w==
-=sF1c
------END PGP SIGNATURE-----
 
---VBToB/jz9xQ1jL61--
+>=20
+> It's a terribly short-sighted tradeoff.
+>=20
+> 32k of VA space might be worth saving in a 32bit build (I personally
+> wouldn't - especially as there's no need to share Xen's VA space with
+> guests, given no PV guests on ARM/RISC-V), but it's absolutely not at
+> all in an a 64bit build with TB of VA space available.
+Why 32k? If RAM is started at 0x8000_0000 then we have to cover 0x80000
+entries, and the size of it is 0x8_0000 =3D 524288 * 64 =3D 33554432, so it
+is 32 Mb.
+Am I confusing something?
+
+P.S.: Should I map this start 32 mb? Or it is enough to have a slide (
+FRAMETABLE_BASE_OFFSET ).
+
+~ Oleksii
+
+>=20
+> Even if we do find a board with the first interesting thing in the
+> frametable starting sufficiently away from 0 that it might be worth
+> considering this slide, then it should still be Kconfig-able in a
+> similar way to PDX_COMPRESSION.
+>=20
+> You don't want to be penalising everyone because of a
+> theoretical/weird
+> corner case.
+>=20
+> ~Andrew
+
 
