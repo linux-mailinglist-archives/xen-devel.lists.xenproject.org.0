@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B8CEC9038BF
-	for <lists+xen-devel@lfdr.de>; Tue, 11 Jun 2024 12:21:02 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.738244.1144934 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 79D3390390D
+	for <lists+xen-devel@lfdr.de>; Tue, 11 Jun 2024 12:38:03 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.738250.1144944 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sGycH-0008Is-9T; Tue, 11 Jun 2024 10:20:37 +0000
+	id 1sGys7-0005o2-Lw; Tue, 11 Jun 2024 10:36:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 738244.1144934; Tue, 11 Jun 2024 10:20:37 +0000
+Received: by outflank-mailman (output) from mailman id 738250.1144944; Tue, 11 Jun 2024 10:36:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sGycH-0008H5-6o; Tue, 11 Jun 2024 10:20:37 +0000
-Received: by outflank-mailman (input) for mailman id 738244;
- Tue, 11 Jun 2024 10:20:36 +0000
+	id 1sGys7-0005lV-JI; Tue, 11 Jun 2024 10:36:59 +0000
+Received: by outflank-mailman (input) for mailman id 738250;
+ Tue, 11 Jun 2024 10:36:57 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=WBrw=NN=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sGycG-0008Gz-8O
- for xen-devel@lists.xenproject.org; Tue, 11 Jun 2024 10:20:36 +0000
-Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
- [2a00:1450:4864:20::62d])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=887E=NN=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1sGys5-0005lP-J4
+ for xen-devel@lists.xenproject.org; Tue, 11 Jun 2024 10:36:57 +0000
+Received: from mail-lj1-x22f.google.com (mail-lj1-x22f.google.com
+ [2a00:1450:4864:20::22f])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 3d8e234a-27dc-11ef-90a3-e314d9c70b13;
- Tue, 11 Jun 2024 12:20:35 +0200 (CEST)
-Received: by mail-ej1-x62d.google.com with SMTP id
- a640c23a62f3a-a6f1da33826so116198666b.0
- for <xen-devel@lists.xenproject.org>; Tue, 11 Jun 2024 03:20:35 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a6f0d20a616sm411470366b.30.2024.06.11.03.20.34
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 11 Jun 2024 03:20:34 -0700 (PDT)
+ id 8650b6c8-27de-11ef-90a3-e314d9c70b13;
+ Tue, 11 Jun 2024 12:36:56 +0200 (CEST)
+Received: by mail-lj1-x22f.google.com with SMTP id
+ 38308e7fff4ca-2ebed33cbafso16313211fa.1
+ for <xen-devel@lists.xenproject.org>; Tue, 11 Jun 2024 03:36:56 -0700 (PDT)
+Received: from [192.168.219.221] ([94.75.70.14])
+ by smtp.gmail.com with ESMTPSA id
+ 38308e7fff4ca-2ebeeedb430sm5839201fa.7.2024.06.11.03.36.54
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 11 Jun 2024 03:36:54 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,150 +45,177 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3d8e234a-27dc-11ef-90a3-e314d9c70b13
+X-Inumbo-ID: 8650b6c8-27de-11ef-90a3-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1718101235; x=1718706035; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=a7M4NIhbu347nb7OvoNmNePCXq7KJFFbaaV9wMmnR7Y=;
-        b=DKYdvYiLHauOvdXuUhWpqEo1El0qzqrgjQEKZWesbdfUXQP+0eZinl3v58SGsPOQPv
-         wc7b3i95LgYOAnr1FjhzT/BdKivZ71y5X8RaefmZDSsVNFUxpBQZ0lA+7D+gdSbkCnyF
-         EXuExp7ildsNkzYCdUNQSz4iUocWWp1OAR6IjtxMk0/9YUkSw6zSbuIOwHh7e9LAQ3cd
-         Ml/DYdv1xMHiSOv5Mo+EtRxjLKJzA2qINoLXIID2c03HHgB9147COyEBcb6tMlPtTBcc
-         E55RHVKkkA9daR4yXJYXQljv4BXQv7wpJArCzMUVZP1GfMCbKkZzDYKVoShisLd4suYQ
-         DpOw==
+        d=gmail.com; s=20230601; t=1718102216; x=1718707016; darn=lists.xenproject.org;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=ua/9tU6WjUgdIb99k8GzdQaIcfyExYSTyUBWc9wYbNs=;
+        b=Q1bWwgF1E2BtklRXg01pSbkjLPM5ajNncu7PtXynaigICD79RimFpjYt+bAAazG2cf
+         YSYL43ZKPuWdar28qVdaPrxqWvxqPhIyybTAH7bMQL8+opCh/rv2xKTKsCUv8N2Cs3eU
+         T3CidGzWfFwDeIe88ohLJE7sx3yGNo2aYqA2gmsvbEWj0xeKRTbBKBJu9jBAR72dWJ4K
+         lj+hgPuC1GGHGA7ehQIRrdyap0tbCBPlnbg1/N8dGCvCdRDJgfwmTSiVrpp91NRIj9ON
+         x3OhHXbanIyjBqa9rMVyU0YZrbX1JDOmFYuJ1MGkE2NtOLlGtGb3DEGmr0/g9A16J2sn
+         ZTNQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1718101235; x=1718706035;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=a7M4NIhbu347nb7OvoNmNePCXq7KJFFbaaV9wMmnR7Y=;
-        b=o0oFv6LqMTeRE5Zzsj5/X5IgtPzLeqh2jsTeIasDArmyrcXZ1VjuzmrMX2sfSRlf41
-         M63THHTrgMvFH0t/6RinFAqVLITs4gwFsBBSNXRwXYZDT5+dfa80QdlcYUfK1ISZSY35
-         oGVlaAjr/i76lFJ4zqFV0qFuas+4M5HhTBFqboDgbV/0VZKSsmbZ+UK4NamufMUc8z5L
-         a3OfhL25r8su6K7d6wFqQCCLxGoZfFCURo6ZsPZ5WBrCs/1UmJMlJdFww/mxGqxsbpkp
-         5vW35PWIgFbM9A+AX/3lMYR0PB2nQ1oShiSJt4mhS69800lffwG7EWaSrwOlN8niU/UG
-         HVlg==
-X-Forwarded-Encrypted: i=1; AJvYcCVrSPhGTUTXRXTFLMe3YDXDBBmLQHNe0G5TkOms4++dysWFkENtekHKbB71rXWLbVk2fZG5RaLBZRfd03oqiswj5OuBs9ylpTHRWUUeGlQ=
-X-Gm-Message-State: AOJu0YzsXsSVN9dGdO8GO1RsHII/WycIf04C4lsN3unaNzvIGbKBbaRZ
-	SGbJj4t2D2RUkUQ30wMW2ENuLJYOelW28unjhoFT7jjkda6tMuzHgF9Jvohzbw==
-X-Google-Smtp-Source: AGHT+IEiG0IN2v4mmTWyppDinQxyQygJB7SAFBygCuWSh3dfPP/JexRCm78SyhxtaMT0WBI00tv7/w==
-X-Received: by 2002:a17:906:16d9:b0:a6f:a54:1598 with SMTP id a640c23a62f3a-a6f0a541702mr646991666b.49.1718101234586;
-        Tue, 11 Jun 2024 03:20:34 -0700 (PDT)
-Message-ID: <b2e8eed9-1df8-442b-ae7e-401c406eaef8@suse.com>
-Date: Tue, 11 Jun 2024 12:20:33 +0200
+        d=1e100.net; s=20230601; t=1718102216; x=1718707016;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=ua/9tU6WjUgdIb99k8GzdQaIcfyExYSTyUBWc9wYbNs=;
+        b=Ch0gF/D/bpAu7SMjga+nI4q7y6TPPCLqPRTV1z3l4hckPPXYH0DRBxqQc3udFgbMqZ
+         O6D2JDIQKbbPGo27MPEKfl215MXKSpgf5kyoLxt9CwE3fBggi3yBAD1lcAxPU5oBv0lF
+         TAKfzfgUE9pofmOTpsKD8wQun+KM/df64YIv+Ad0AfhkLVMzn0sMIdLfhX17voqgdnzc
+         ALlI83fdfdPvUiVTlYj2g86xTWGh16ZkbTj8NE2aryX6PkZio6Cbbp8AonzI7FJBIWl/
+         iJe4EJy6mEVf/I5Tq0ut7W+WHdXrchHp8hAkFLhu7mTY2ZEBqWveoJX8xZEoRKeq31UD
+         g3wA==
+X-Forwarded-Encrypted: i=1; AJvYcCXrlNv/3Jnt04dIrrcbXDGY12DWYoBbK4ufLYqOtIDHXB+zHgw52ZhhjaPKStUO9cdQoBQAa4a06Z5yuQfq5ejlEtCOjK+4q4WmODHdG5s=
+X-Gm-Message-State: AOJu0YwnSsFaAO7hJHKpZzl1LMMHrZ0TOmh6oi3cY96VIQRfmCcKZJwv
+	PYFJX4E/qVW6ltNiSU/bf2aPZHoISK8ePbwRLye9xZJ7NBRb2YWh
+X-Google-Smtp-Source: AGHT+IHYsD+RBewU6TEw3bw/LvCitwcG9YbpIzBPYTeW5cMKahE5cAUAulsxW7/VYoKUAA+2j3L/ug==
+X-Received: by 2002:a2e:9d91:0:b0:2eb:d620:88d2 with SMTP id 38308e7fff4ca-2ebd6208a4fmr44532761fa.5.1718102215160;
+        Tue, 11 Jun 2024 03:36:55 -0700 (PDT)
+Message-ID: <6a255f3dccc609e680659ed05b613c21a33cfb20.camel@gmail.com>
+Subject: Re: [XEN PATCH v6 0/7] FF-A notifications
+From: "Oleksii K." <oleksii.kurochko@gmail.com>
+To: Bertrand Marquis <Bertrand.Marquis@arm.com>, Julien Grall
+ <julien@xen.org>
+Cc: Jens Wiklander <jens.wiklander@linaro.org>, Xen-devel
+ <xen-devel@lists.xenproject.org>, "patches@linaro.org"
+ <patches@linaro.org>,  Volodymyr Babchuk <volodymyr_babchuk@epam.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Michal Orzel
+ <michal.orzel@amd.com>
+Date: Tue, 11 Jun 2024 12:36:54 +0200
+In-Reply-To: <8558AEB5-2F38-4F8C-A017-794E32045068@arm.com>
+References: <20240610065343.2594943-1-jens.wiklander@linaro.org>
+	 <3C40228F-21AA-4CBF-A4BE-1C42DE6E94EB@arm.com>
+	 <615f1766-253d-43dc-b0f0-f8e2eb7360b5@xen.org>
+	 <8558AEB5-2F38-4F8C-A017-794E32045068@arm.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.52.1 (3.52.1-1.fc40) 
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 4/7] x86/irq: restrict CPU movement in
- set_desc_affinity()
-To: Roger Pau Monne <roger.pau@citrix.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
-References: <20240610142043.11924-1-roger.pau@citrix.com>
- <20240610142043.11924-5-roger.pau@citrix.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240610142043.11924-5-roger.pau@citrix.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
-On 10.06.2024 16:20, Roger Pau Monne wrote:
-> If external interrupts are using logical mode it's possible to have an overlap
-> between the current ->arch.cpu_mask and the provided mask (or TARGET_CPUS).  If
-> that's the case avoid assigning a new vector and just move the interrupt to a
-> member of ->arch.cpu_mask that overlaps with the provided mask and is online.
+Hi Bertrand and Julien,
 
-What I'm kind of missing here is an explanation of why what _assign_irq_vector()
-does to avoid unnecessary migration (very first conditional there) isn't
-sufficient.
+On Tue, 2024-06-11 at 07:09 +0000, Bertrand Marquis wrote:
+> Hi Julien and Oleksii,
+>=20
+> @Oleksii: Could we consider having this serie merged for next release
+> ?
+We can consider including it in Xen 4.19 as it has a low impact on
+existing systems and needs to be explicitly activated:
+ Release-Acked-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 
-> --- a/xen/arch/x86/irq.c
-> +++ b/xen/arch/x86/irq.c
-> @@ -837,19 +837,38 @@ void cf_check irq_complete_move(struct irq_desc *desc)
->  
->  unsigned int set_desc_affinity(struct irq_desc *desc, const cpumask_t *mask)
->  {
-> -    int ret;
-> -    unsigned long flags;
->      cpumask_t dest_mask;
->  
->      if ( mask && !cpumask_intersects(mask, &cpu_online_map) )
->          return BAD_APICID;
->  
-> -    spin_lock_irqsave(&vector_lock, flags);
-> -    ret = _assign_irq_vector(desc, mask ?: TARGET_CPUS);
-> -    spin_unlock_irqrestore(&vector_lock, flags);
-> +    /*
-> +     * mask input set can contain CPUs that are not online.  To decide whether
-> +     * the interrupt needs to be migrated restrict the input mask to the CPUs
-> +     * that are online.
-> +     */
-> +    if ( mask )
-> +        cpumask_and(&dest_mask, mask, &cpu_online_map);
-> +    else
-> +        cpumask_copy(&dest_mask, TARGET_CPUS);
+~ Oleksii
 
-Why once &cpu_online_map and once TARGET_CPUS?
+>=20
+> It is a feature that is in tech-preview at the moment and as such
+> should not have any
+> consequences on existing system unless it is activated explicitly in
+> the Xen configuration.
+>=20
+> There are some changes in the arm common code introducing support to
+> register SGI
+> interrupt handlers in drivers. As no drivers appart from FF-A is
+> trying to register such
+> handlers, the risk is minimal for existing systems.
+>=20
+>=20
+> > On 10 Jun 2024, at 22:38, Julien Grall <julien@xen.org> wrote:
+> >=20
+> > Hi Bertrand,
+> >=20
+> > On 10/06/2024 16:54, Bertrand Marquis wrote:
+> > > Hi Jens,
+> > > > On 10 Jun 2024, at 08:53, Jens Wiklander
+> > > > <jens.wiklander@linaro.org> wrote:
+> > > >=20
+> > > > Hi,
+> > > >=20
+> > > > This patch set adds support for FF-A notifications. We only
+> > > > support
+> > > > global notifications, per vCPU notifications remain
+> > > > unsupported.
+> > > >=20
+> > > > The first three patches are further cleanup and can be merged
+> > > > before the
+> > > > rest if desired.
+> > > >=20
+> > > > A physical SGI is used to make Xen aware of pending FF-A
+> > > > notifications. The
+> > > > physical SGI is selected by the SPMC in the secure world. Since
+> > > > it must not
+> > > > already be used by Xen the SPMC is in practice forced to donate
+> > > > one of the
+> > > > secure SGIs, but that's normally not a problem. The SGI
+> > > > handling in Xen is
+> > > > updated to support registration of handlers for SGIs that
+> > > > aren't statically
+> > > > assigned, that is, SGI IDs above GIC_SGI_MAX.
+> > > >=20
+> > > > The patch "xen/arm: add and call init_tee_secondary()" provides
+> > > > a hook for
+> > > > register the needed per-cpu interrupt handler in "xen/arm: ffa:
+> > > > support
+> > > > notification".
+> > > >=20
+> > > > The patch "xen/arm: add and call tee_free_domain_ctx()"
+> > > > provides a hook for
+> > > > later freeing of the TEE context. This hook is used in
+> > > > "xen/arm: ffa:
+> > > > support notification" and avoids the problem with TEE context
+> > > > being freed
+> > > > while we need to access it when handling a Schedule Receiver
+> > > > interrupt. It
+> > > > was suggested as an alternative in [1] that the TEE context
+> > > > could be freed
+> > > > from complete_domain_destroy().
+> > > >=20
+> > > > [1]
+> > > > https://lore.kernel.org/all/CAHUa44H4YpoxYT7e6WNH5XJFpitZQjqP9Ng4Sm=
+Ty4eWhyN+F+w@mail.gmail.com/
+> > > >=20
+> > > > Thanks,
+> > > > Jens
+> > > All patches are now reviewed and/or acked so I think they can get
+> > > in for the release.
+> >=20
+> > This would need a release-ack from Oleksii (I can't seem to find
+> > already one).
+>=20
+> You are right, i do not know why in my mind we already got one.
+>=20
+> >=20
+> > As we discussed last week, I am fine with the idea to merge the FFA
+> > patches as the feature is tech-preview. But there are some changes
+> > in the arm generic code. Do you (or Jens) have an assessment of the
+> > risk of the changes?
+>=20
+> Agree.
+>=20
+> In my view, the changes are changing the behaviour of some internal
+> functions if an interrupt handler is register for SGI but should not
+> have any impact for other kind of interrupts.
+> As there was nothing before the FF-A driver registering such
+> interrupts, the risk of the changes having any impact on existing
+> configurations not activating FF-A is fairly reduced.
+>=20
+> @Jens: do you agree with my analysis.
+>=20
+> I made a text for Oleksii at the beginning of the mail.
+>=20
+> Cheers
+>=20
+> Bertrand
+>=20
+> >=20
+> > Cheers,
+> >=20
+> > --=20
+> > Julien Grall
+>=20
+>=20
 
-> -    if ( ret < 0 )
-> -        return BAD_APICID;
-> +    /*
-> +     * Only move the interrupt if there are no CPUs left in ->arch.cpu_mask
-> +     * that can handle it, otherwise just shuffle it around ->arch.cpu_mask
-> +     * to an available destination.
-> +     */
-
-"an available destination" (singular) gives the impression that it's only
-ever going to be a single CPU. Yet cpu_mask_to_apicid_flat() and
-cpu_mask_to_apicid_x2apic_cluster() can produce sets of multiple CPUs.
-Therefore maybe "an available destination / the (sub)set of available
-destinations"? Or as that's getting longish "(an) available destination(s)"?
-
-> +    if ( !cpumask_intersects(desc->arch.cpu_mask, &dest_mask) )
-> +    {
-> +        int ret;
-> +        unsigned long flags;
-> +
-> +        spin_lock_irqsave(&vector_lock, flags);
-> +        ret = _assign_irq_vector(desc, mask ?: TARGET_CPUS);
-
-Why not pass dest_mask here, as you now calculate that up front? The
-function will skip offline CPUs anyway.
-
-> @@ -862,6 +881,7 @@ unsigned int set_desc_affinity(struct irq_desc *desc, const cpumask_t *mask)
->          cpumask_copy(&dest_mask, desc->arch.cpu_mask);
->      }
->      cpumask_and(&dest_mask, &dest_mask, &cpu_online_map);
-> +    ASSERT(!cpumask_empty(&dest_mask));
->  
->      return cpu_mask_to_apicid(&dest_mask);
-
-I wonder whether the assertion wouldn't better live in cpu_mask_to_apicid()
-itself (the macro, not the backing functions).
-
-Jan
 
