@@ -2,31 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5964B90408E
-	for <lists+xen-devel@lfdr.de>; Tue, 11 Jun 2024 17:54:07 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.738560.1145399 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 40D7090408C
+	for <lists+xen-devel@lfdr.de>; Tue, 11 Jun 2024 17:54:04 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.738561.1145415 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sH3oh-00064o-My; Tue, 11 Jun 2024 15:53:47 +0000
+	id 1sH3oi-0006eD-To; Tue, 11 Jun 2024 15:53:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 738560.1145399; Tue, 11 Jun 2024 15:53:47 +0000
+Received: by outflank-mailman (output) from mailman id 738561.1145415; Tue, 11 Jun 2024 15:53:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sH3oh-0005vr-BO; Tue, 11 Jun 2024 15:53:47 +0000
-Received: by outflank-mailman (input) for mailman id 738560;
- Tue, 11 Jun 2024 15:53:45 +0000
+	id 1sH3oi-0006Yw-M7; Tue, 11 Jun 2024 15:53:48 +0000
+Received: by outflank-mailman (input) for mailman id 738561;
+ Tue, 11 Jun 2024 15:53:46 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=sLxx=NN=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
- id 1sH3of-0004vT-O1
- for xen-devel@lists.xenproject.org; Tue, 11 Jun 2024 15:53:45 +0000
+ id 1sH3og-0004vT-O5
+ for xen-devel@lists.xenproject.org; Tue, 11 Jun 2024 15:53:46 +0000
 Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c7aba4e1-280a-11ef-b4bb-af5377834399;
- Tue, 11 Jun 2024 17:53:43 +0200 (CEST)
+ id c80337eb-280a-11ef-b4bb-af5377834399;
+ Tue, 11 Jun 2024 17:53:44 +0200 (CEST)
 Received: from nico.bugseng.com (unknown [46.228.253.194])
- by support.bugseng.com (Postfix) with ESMTPSA id 1BA284EE0755;
+ by support.bugseng.com (Postfix) with ESMTPSA id A42F54EE0759;
  Tue, 11 Jun 2024 17:53:43 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
@@ -39,7 +39,7 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c7aba4e1-280a-11ef-b4bb-af5377834399
+X-Inumbo-ID: c80337eb-280a-11ef-b4bb-af5377834399
 From: Nicola Vetrini <nicola.vetrini@bugseng.com>
 To: nicola.vetrini@bugseng.com,
 	xen-devel@lists.xenproject.org
@@ -48,12 +48,13 @@ Cc: sstabellini@kernel.org,
 	xenia.ragiadakou@amd.com,
 	ayan.kumar.halder@amd.com,
 	consulting@bugseng.com,
-	Jan Beulich <jbeulich@suse.com>,
 	Andrew Cooper <andrew.cooper3@citrix.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [XEN PATCH 4/6] x86emul: address violations of MISRA C Rule 20.7
-Date: Tue, 11 Jun 2024 17:53:34 +0200
-Message-Id: <0a502d2a9c5ce13be13281d9de49d263313b7852.1718117557.git.nicola.vetrini@bugseng.com>
+	George Dunlap <george.dunlap@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>
+Subject: [XEN PATCH 5/6] x86/irq: address violations of MISRA C Rule 20.7
+Date: Tue, 11 Jun 2024 17:53:35 +0200
+Message-Id: <a34c9483e17d59a79ddb2cc9c74cf5809b8f2e70.1718117557.git.nicola.vetrini@bugseng.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <cover.1718117557.git.nicola.vetrini@bugseng.com>
 References: <cover.1718117557.git.nicola.vetrini@bugseng.com>
@@ -70,35 +71,25 @@ No functional change.
 
 Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
 ---
-These local helpers could in principle be deviated, but the readability
-and functionality are essentially unchanged by complying with the rule,
-so I decided to modify the macro definition as the preferred option.
+Note that the rule does not apply to f because that parameter
+is not used as an expression in the macro, but rather as an identifier.
 ---
- xen/arch/x86/x86_emulate/x86_emulate.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ xen/include/xen/irq.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/xen/arch/x86/x86_emulate/x86_emulate.c b/xen/arch/x86/x86_emulate/x86_emulate.c
-index 2d5c1de8ecc2..9352d341346a 100644
---- a/xen/arch/x86/x86_emulate/x86_emulate.c
-+++ b/xen/arch/x86/x86_emulate/x86_emulate.c
-@@ -2255,7 +2255,7 @@ x86_emulate(
-         switch ( modrm_reg & 7 )
-         {
- #define GRP2(name, ext) \
--        case ext: \
-+        case (ext): \
-             if ( ops->rmw && dst.type == OP_MEM ) \
-                 state->rmw = rmw_##name; \
-             else \
-@@ -8611,7 +8611,7 @@ int x86_emul_rmw(
-             unsigned long dummy;
+diff --git a/xen/include/xen/irq.h b/xen/include/xen/irq.h
+index adf33547d25f..0401f06c4fca 100644
+--- a/xen/include/xen/irq.h
++++ b/xen/include/xen/irq.h
+@@ -178,7 +178,7 @@ extern struct pirq *pirq_get_info(struct domain *d, int pirq);
  
- #define XADD(sz, cst, mod) \
--        case sz: \
-+        case (sz): \
-             asm ( "" \
-                   COND_LOCK(xadd) " %"#mod"[reg], %[mem]; " \
-                   _POST_EFLAGS("[efl]", "[msk]", "[tmp]") \
+ #define pirq_field(d, p, f, def) ({ \
+     const struct pirq *__pi = pirq_info(d, p); \
+-    __pi ? __pi->f : def; \
++    __pi ? __pi->f : (def); \
+ })
+ #define pirq_to_evtchn(d, pirq) pirq_field(d, pirq, evtchn, 0)
+ #define pirq_masked(d, pirq) pirq_field(d, pirq, masked, 0)
 -- 
 2.34.1
 
