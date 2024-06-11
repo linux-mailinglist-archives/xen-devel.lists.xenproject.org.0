@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2A52890408B
-	for <lists+xen-devel@lfdr.de>; Tue, 11 Jun 2024 17:54:04 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.738558.1145391 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CDF0290408F
+	for <lists+xen-devel@lfdr.de>; Tue, 11 Jun 2024 17:54:09 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.738553.1145360 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sH3oh-0005w6-8N; Tue, 11 Jun 2024 15:53:47 +0000
+	id 1sH3of-0005Li-95; Tue, 11 Jun 2024 15:53:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 738558.1145391; Tue, 11 Jun 2024 15:53:47 +0000
+Received: by outflank-mailman (output) from mailman id 738553.1145360; Tue, 11 Jun 2024 15:53:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sH3og-0005qr-RL; Tue, 11 Jun 2024 15:53:46 +0000
-Received: by outflank-mailman (input) for mailman id 738558;
- Tue, 11 Jun 2024 15:53:45 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=sLxx=NN=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
- id 1sH3of-0005DH-BH
- for xen-devel@lists.xenproject.org; Tue, 11 Jun 2024 15:53:45 +0000
-Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c850d614-280a-11ef-90a3-e314d9c70b13;
- Tue, 11 Jun 2024 17:53:44 +0200 (CEST)
-Received: from nico.bugseng.com (unknown [46.228.253.194])
- by support.bugseng.com (Postfix) with ESMTPSA id 3DA734EE075B;
- Tue, 11 Jun 2024 17:53:44 +0200 (CEST)
+	id 1sH3of-0005Gb-4H; Tue, 11 Jun 2024 15:53:45 +0000
+Received: by outflank-mailman (input) for mailman id 738553;
+ Tue, 11 Jun 2024 15:53:42 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1sH3oc-0005DU-UE; Tue, 11 Jun 2024 15:53:42 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1sH3oc-0005UZ-Qm; Tue, 11 Jun 2024 15:53:42 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1sH3oc-0000Iv-F9; Tue, 11 Jun 2024 15:53:42 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1sH3oc-0002gP-Ei; Tue, 11 Jun 2024 15:53:42 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,59 +42,85 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c850d614-280a-11ef-90a3-e314d9c70b13
-From: Nicola Vetrini <nicola.vetrini@bugseng.com>
-To: nicola.vetrini@bugseng.com,
-	xen-devel@lists.xenproject.org
-Cc: sstabellini@kernel.org,
-	michal.orzel@amd.com,
-	xenia.ragiadakou@amd.com,
-	ayan.kumar.halder@amd.com,
-	consulting@bugseng.com,
-	Simone Ballarin <simone.ballarin@bugseng.com>,
-	Doug Goldstein <cardoe@cardoe.com>
-Subject: [XEN PATCH 6/6] automation/eclair_analysis: clean ECLAIR configuration scripts
-Date: Tue, 11 Jun 2024 17:53:36 +0200
-Message-Id: <e5bae94c215d85671ed21c39c5dcc3d67d02bbb0.1718117557.git.nicola.vetrini@bugseng.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <cover.1718117557.git.nicola.vetrini@bugseng.com>
-References: <cover.1718117557.git.nicola.vetrini@bugseng.com>
-MIME-Version: 1.0
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=/Q0CE3FDz5ipRBusi4N2Bn2xINV+93b8m2cLQ8AHMxU=; b=ToPfjJcQamLD+GfB+ZyAVE8tg9
+	NjuR5TlHUYeyI32qamuMPzTN9xYJUPyN8p0Qax9oe7f6vqBY+lL+HXjZwwWjpfZUTKf8D27zaemaU
+	jWa/n5/i9Kb1DzBdouuB/G50rbYkv4GntrCTPADj2uqiICtoxq3TZIoZ+/mjQOU8+7kY=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-186310-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [xen-unstable-smoke test] 186310: tolerable all pass - PUSHED
+X-Osstest-Failures:
+    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=43de96a70f00b631d0f4c658c232204079b2f2b2
+X-Osstest-Versions-That:
+    xen=ea1cb444c28ce3ae7915d9c94c4344f4bf6d87d3
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Tue, 11 Jun 2024 15:53:42 +0000
 
-Remove from the ECLAIR integration scripts an unused option, which
-was already ignored, and make the help texts consistent
-with the rest of the scripts.
+flight 186310 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/186310/
 
-No functional change.
+Failures :-/ but no regressions.
 
-Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
----
- automation/eclair_analysis/ECLAIR/analyze.sh | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
 
-diff --git a/automation/eclair_analysis/ECLAIR/analyze.sh b/automation/eclair_analysis/ECLAIR/analyze.sh
-index 0ea5520c93a6..e96456c3c18d 100755
---- a/automation/eclair_analysis/ECLAIR/analyze.sh
-+++ b/automation/eclair_analysis/ECLAIR/analyze.sh
-@@ -11,7 +11,7 @@ fatal() {
- }
- 
- usage() {
--  fatal "Usage: ${script_name} <ARM64|X86_64> <Set0|Set1|Set2|Set3>"
-+  fatal "Usage: ${script_name} <ARM64|X86_64> <accepted|monitored>"
- }
- 
- if [[ $# -ne 2 ]]; then
-@@ -40,7 +40,6 @@ ECLAIR_REPORT_LOG=${ECLAIR_OUTPUT_DIR}/REPORT.log
- if [[ "$1" = "X86_64" ]]; then
-   export CROSS_COMPILE=
-   export XEN_TARGET_ARCH=x86_64
--  EXTRA_ECLAIR_ENV_OPTIONS=-disable=MC3R1.R20.7
- elif [[ "$1" = "ARM64" ]]; then
-   export CROSS_COMPILE=aarch64-linux-gnu-
-   export XEN_TARGET_ARCH=arm64
--- 
-2.34.1
+version targeted for testing:
+ xen                  43de96a70f00b631d0f4c658c232204079b2f2b2
+baseline version:
+ xen                  ea1cb444c28ce3ae7915d9c94c4344f4bf6d87d3
 
+Last test of basis   186304  2024-06-10 12:04:02 Z    1 days
+Testing same since   186310  2024-06-11 13:02:08 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrew Cooper <andrew.cooper3@citrix.com>
+  Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/xen.git
+   ea1cb444c2..43de96a70f  43de96a70f00b631d0f4c658c232204079b2f2b2 -> smoke
 
