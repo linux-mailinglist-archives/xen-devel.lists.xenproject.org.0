@@ -2,37 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 10440903420
-	for <lists+xen-devel@lfdr.de>; Tue, 11 Jun 2024 09:45:22 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.737971.1144515 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5283F903426
+	for <lists+xen-devel@lfdr.de>; Tue, 11 Jun 2024 09:46:15 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.737978.1144524 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sGwBr-0007sR-Sa; Tue, 11 Jun 2024 07:45:11 +0000
+	id 1sGwCg-0008VJ-7U; Tue, 11 Jun 2024 07:46:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 737971.1144515; Tue, 11 Jun 2024 07:45:11 +0000
+Received: by outflank-mailman (output) from mailman id 737978.1144524; Tue, 11 Jun 2024 07:46:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sGwBr-0007pb-Og; Tue, 11 Jun 2024 07:45:11 +0000
-Received: by outflank-mailman (input) for mailman id 737971;
- Tue, 11 Jun 2024 07:45:11 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=b7dS=NN=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1sGwBr-0007Ml-6R
- for xen-devel@lists.xenproject.org; Tue, 11 Jun 2024 07:45:11 +0000
-Received: from mail-qv1-xf2f.google.com (mail-qv1-xf2f.google.com
- [2607:f8b0:4864:20::f2f])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 87419b1d-27c6-11ef-90a3-e314d9c70b13;
- Tue, 11 Jun 2024 09:45:10 +0200 (CEST)
-Received: by mail-qv1-xf2f.google.com with SMTP id
- 6a1803df08f44-6b0783b6dd5so9547386d6.1
- for <xen-devel@lists.xenproject.org>; Tue, 11 Jun 2024 00:45:10 -0700 (PDT)
-Received: from localhost ([213.195.114.223]) by smtp.gmail.com with ESMTPSA id
- 6a1803df08f44-6b08d97d68csm3702646d6.128.2024.06.11.00.45.08
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 11 Jun 2024 00:45:08 -0700 (PDT)
+	id 1sGwCg-0008St-4t; Tue, 11 Jun 2024 07:46:02 +0000
+Received: by outflank-mailman (input) for mailman id 737978;
+ Tue, 11 Jun 2024 07:46:00 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=UxxS=NN=suse.de=osalvador@srs-se1.protection.inumbo.net>)
+ id 1sGwCe-0008H5-GX
+ for xen-devel@lists.xenproject.org; Tue, 11 Jun 2024 07:46:00 +0000
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id a452a0ab-27c6-11ef-b4bb-af5377834399;
+ Tue, 11 Jun 2024 09:45:58 +0200 (CEST)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 0B24722CCD;
+ Tue, 11 Jun 2024 07:45:57 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id D8AB213A55;
+ Tue, 11 Jun 2024 07:45:55 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id 4MdfMrMAaGYMUQAAD6G6ig
+ (envelope-from <osalvador@suse.de>); Tue, 11 Jun 2024 07:45:55 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,117 +51,145 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 87419b1d-27c6-11ef-90a3-e314d9c70b13
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1718091909; x=1718696709; darn=lists.xenproject.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=v1wRuKc+h3Qi+BV6WCNGLiGZWMBEevyVedTfAwQoAfs=;
-        b=jROWtDxHzHpv0dSNWW1VZRmIF3wG1AddvyqZEUZUMeZ2a31zDcVJtsgcbBD2rR9CbE
-         550VTu9q4xUVOEFvSrn+U2iBVhNOY5gSRn84n9yg1i42TJae8V/QHtzA1ja/yDFxlqwX
-         NGfmZqWUJalHChjuO//1DX2QbGIKButum+21A=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1718091909; x=1718696709;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=v1wRuKc+h3Qi+BV6WCNGLiGZWMBEevyVedTfAwQoAfs=;
-        b=LOVKH1gR3P65QL5fEXAGbptwhsZetJnt4SW0tJJNp2hDyVS1346SfXW2Ov+sSgk1zF
-         ytloDXrIakJUJHguwGP/0q81hvuXeCGM9bVG06E9kG3EOQKjn3/Dd6AYSkWJe3crxLHB
-         2+DNqUTjjlERCVhDrFJKnycU7d0un7ZFZ8uu3GT6n0Feg0lt9G8+pKu7AxFFWtJXopKd
-         Bz3i58wVeyg722htF1s46f44G6G0N6JUnY+4U5DqQ5+dC6iuVlpyXyp+GWRSmodLovoR
-         o/1fPcGSB2x0R7PX90d7Pj4S4kq3XzbT17odrQT9H4B8rLVSTEZxJu0lwhL8w4yVRord
-         Ks2w==
-X-Gm-Message-State: AOJu0YxduKWF/hjaL49fu9umvcLrm35wZZvHrHzpCz2V3hXhPy3WrGLq
-	eDeU8h1NoPv5I1+KkMEbekiOOyXzZfHX1WhDj2EsM5NfN0EfstIPqtUFUAN4DSE/U63v9VGCMPr
-	S
-X-Google-Smtp-Source: AGHT+IGHow0qnZOWhajZutBwKlWIj613DycXRylqVyrt4CX26nRsYL7wHi2Yw+9NWc8Bsp/kodgClg==
-X-Received: by 2002:a05:6214:3389:b0:6ad:75ac:ab35 with SMTP id 6a1803df08f44-6b059b50ba0mr122931386d6.8.1718091909260;
-        Tue, 11 Jun 2024 00:45:09 -0700 (PDT)
-Date: Tue, 11 Jun 2024 09:45:07 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: George Dunlap <george.dunlap@cloud.com>
-Cc: xen-devel@lists.xenproject.org,
-	Oleksii Kurochko <oleksii.kurochko@gmail.com>,
-	Community Manager <community.manager@xenproject.org>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: Re: [PATCH for-4.19 v2] x86/pvh: declare PVH dom0 supported with
- caveats
-Message-ID: <ZmgAg0Io0fSLl6s5@macbook>
-References: <20240610085052.8499-1-roger.pau@citrix.com>
- <CA+zSX=Z3O_b44Jum3s9rRJ_h+BKjJzd11gAr249wFOxQCcFKEQ@mail.gmail.com>
+X-Inumbo-ID: a452a0ab-27c6-11ef-b4bb-af5377834399
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1718091958; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=HVao4QsDP4Z+JAjo5dOzj5sxwVNV/Y4USEllUqua+SQ=;
+	b=u5mEgWuSpunEORDd99KB+qYCCofPeL9U0D+nligMM1u7MVYkAsDQ4tHD3Kx6+UbLLoWb9Q
+	ZKLtpOD0A7zMaX96b5O0y7p1jSfvfiouCBinzY0ukzGsQHISDNnZX5BxP7yYnZl30CXRvD
+	XUtm+fRniwugupRUTF0pqvUJ6aUhHeI=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1718091958;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=HVao4QsDP4Z+JAjo5dOzj5sxwVNV/Y4USEllUqua+SQ=;
+	b=Vs4QnX1RXzMMer0yUJ/gnSrGDlsxSJRsNXNkxuY1DjYdWEK4c26NAw8fho5r6ae0TqbKkl
+	TducIsP3PboEO4DQ==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1718091957; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=HVao4QsDP4Z+JAjo5dOzj5sxwVNV/Y4USEllUqua+SQ=;
+	b=beS+LyS4FBWnwGXe6a5zd/EhBO0SySrgPbqyL6f5aR8KILqXrR2/CI5lDKJ80NRBdN/pSq
+	JbySBQlifQRqEKrIl1R/jcgrzWFcaHlw0Fl6CIKXrfrMDA8Ys0+B7INFr6lrOOFwfTr1iS
+	ef8d3ylhBReZsLmY5KbBBlD/myYBhkQ=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1718091957;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=HVao4QsDP4Z+JAjo5dOzj5sxwVNV/Y4USEllUqua+SQ=;
+	b=blQE/fLATW0heDMQ1LEDrIBV+gvCQOtxZiUyMLRgeESKGRSW5JNnkJ/TCLcUuKPV7v/6M6
+	dbtt7phZc0CzDZBw==
+Date: Tue, 11 Jun 2024 09:45:54 +0200
+From: Oscar Salvador <osalvador@suse.de>
+To: David Hildenbrand <david@redhat.com>
+Cc: linux-kernel@vger.kernel.org, linux-mm@kvack.org,
+	linux-hyperv@vger.kernel.org, virtualization@lists.linux.dev,
+	xen-devel@lists.xenproject.org, kasan-dev@googlegroups.com,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	"K. Y. Srinivasan" <kys@microsoft.com>,
+	Haiyang Zhang <haiyangz@microsoft.com>,
+	Wei Liu <wei.liu@kernel.org>, Dexuan Cui <decui@microsoft.com>,
+	"Michael S. Tsirkin" <mst@redhat.com>,
+	Jason Wang <jasowang@redhat.com>,
+	Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
+	Eugenio =?iso-8859-1?Q?P=E9rez?= <eperezma@redhat.com>,
+	Juergen Gross <jgross@suse.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+	Alexander Potapenko <glider@google.com>,
+	Marco Elver <elver@google.com>, Dmitry Vyukov <dvyukov@google.com>
+Subject: Re: [PATCH v1 2/3] mm/memory_hotplug: initialize memmap of
+ !ZONE_DEVICE with PageOffline() instead of PageReserved()
+Message-ID: <ZmgAsolx7SAHeDW7@localhost.localdomain>
+References: <20240607090939.89524-1-david@redhat.com>
+ <20240607090939.89524-3-david@redhat.com>
+ <ZmZ_3Xc7fdrL1R15@localhost.localdomain>
+ <5d9583e1-3374-437d-8eea-6ab1e1400a30@redhat.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CA+zSX=Z3O_b44Jum3s9rRJ_h+BKjJzd11gAr249wFOxQCcFKEQ@mail.gmail.com>
+In-Reply-To: <5d9583e1-3374-437d-8eea-6ab1e1400a30@redhat.com>
+X-Spam-Level: 
+X-Spamd-Result: default: False [-4.30 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-0.999];
+	MIME_GOOD(-0.10)[text/plain];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	SUBJECT_HAS_EXCLAIM(0.00)[];
+	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	FUZZY_BLOCKED(0.00)[rspamd.com];
+	RCPT_COUNT_TWELVE(0.00)[23];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	TO_DN_SOME(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	MISSING_XM_UA(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo]
+X-Spam-Score: -4.30
+X-Spam-Flag: NO
 
-On Mon, Jun 10, 2024 at 04:55:34PM +0100, George Dunlap wrote:
-> On Mon, Jun 10, 2024 at 9:50 AM Roger Pau Monne <roger.pau@citrix.com> wrote:
-> >
-> > PVH dom0 is functionally very similar to PVH domU except for the domain
-> > builder and the added set of hypercalls available to it.
-> >
-> > The main concern with declaring it "Supported" is the lack of some features
-> > when compared to classic PV dom0, hence switch it's status to supported with
-> > caveats.  List the known missing features, there might be more features missing
-> > or not working as expected apart from the ones listed.
-> >
-> > Note there's some (limited) PVH dom0 testing on both osstest and gitlab.
-> >
-> > Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
-> > Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> > Release-Acked-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-> > ---
-> > Changes since v1:
-> >  - Remove boot warning.
-> > ---
-> >  CHANGELOG.md                  |  1 +
-> >  SUPPORT.md                    | 15 ++++++++++++++-
-> >  xen/arch/x86/hvm/dom0_build.c |  1 -
-> >  3 files changed, 15 insertions(+), 2 deletions(-)
-> >
-> > diff --git a/CHANGELOG.md b/CHANGELOG.md
-> > index 201478aa1c0e..1778419cae64 100644
-> > --- a/CHANGELOG.md
-> > +++ b/CHANGELOG.md
-> > @@ -14,6 +14,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
-> >     - HVM PIRQs are disabled by default.
-> >     - Reduce IOMMU setup time for hardware domain.
-> >     - Allow HVM/PVH domains to map foreign pages.
-> > +   - Declare PVH dom0 supported with caveats.
-> >   - xl/libxl configures vkb=[] for HVM domains with priority over vkb_device.
-> >   - Increase the maximum number of CPUs Xen can be built for from 4095 to
-> >     16383.
-> > diff --git a/SUPPORT.md b/SUPPORT.md
-> > index d5d60c62ec11..711aacf34662 100644
-> > --- a/SUPPORT.md
-> > +++ b/SUPPORT.md
-> > @@ -161,7 +161,20 @@ Requires hardware virtualisation support (Intel VMX / AMD SVM).
-> >  Dom0 support requires an IOMMU (Intel VT-d / AMD IOMMU).
-> >
-> >      Status, domU: Supported
-> > -    Status, dom0: Experimental
-> > +    Status, dom0: Supported, with caveats
-> > +
-> > +PVH dom0 hasn't received the same test coverage as PV dom0, so it can exhibit
-> > +unexpected behavior or issues on some hardware.
+On Mon, Jun 10, 2024 at 10:56:02AM +0200, David Hildenbrand wrote:
+> There are fortunately not that many left.
 > 
-> What's the criteria for removing this paragraph?
+> I'd even say marking them (vmemmap) reserved is more wrong than right: note
+> that ordinary vmemmap pages after memory hotplug are not reserved! Only
+> bootmem should be reserved.
+
+Ok, that is a very good point that I missed.
+I thought that hotplugged-vmemmap pages (not selfhosted) were marked as
+Reserved, that is why I thought this would be inconsistent.
+But then, if that is the case, I think we are safe as kernel can already
+encounter vmemmap pages that are not reserved and it deals with them
+somehow.
+
+> Let's take at the relevant core-mm ones (arch stuff is mostly just for MMIO
+> remapping)
 > 
-> FAOD I'm OK with it being checked in as-is, but I feel like this
-> paragraph is somewhat anomalous, and would at least like to have an
-> idea what might trigger its removal.
+... 
+> Any PageReserved user that I am missing, or why we should handle these
+> vmemmap pages differently than the ones allocated during ordinary memory
+> hotplug?
 
-More testing is the only way this paragraph can be removed IMO.
+No, I cannot think of a reason why normal vmemmap pages should behave
+different than self-hosted.
 
-For example I would be happy to remove it if dom0 PVH works on all
-hardware in the XenRT lab.  So far the Linux dom0 version used by
-XenServer is missing some required fixes for such testing to be
-feasible.
+I was also confused because I thought that after this change
+pfn_to_online_page() would be different for self-hosted vmemmap pages,
+because I thought that somehow we relied on PageOffline(), but it is not
+the case.
 
-Thanks, Roger.
+> In the future, we might want to consider using a dedicated page type for
+> them, so we can stop using a bit that doesn't allow to reliably identify
+> them. (we should mark all vmemmap with that type then)
+
+Yes, a all-vmemmap pages type would be a good thing, so we do not have
+to special case.
+
+Just one last thing.
+Now self-hosted vmemmap pages will have the PageOffline cleared, and that
+will still remain after the memory-block they belong to has gone
+offline, which is ok because those vmemmap pages lay around until the
+chunk of memory gets removed.
+
+Ok, just wanted to convince myself that there will no be surprises.
+
+Thanks David for claryfing.
+ 
+
+-- 
+Oscar Salvador
+SUSE Labs
 
