@@ -2,38 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 983F890400D
-	for <lists+xen-devel@lfdr.de>; Tue, 11 Jun 2024 17:32:41 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.738532.1145314 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 87C0C904054
+	for <lists+xen-devel@lfdr.de>; Tue, 11 Jun 2024 17:44:00 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.738540.1145324 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sH3U0-0008Rd-Jy; Tue, 11 Jun 2024 15:32:24 +0000
+	id 1sH3ep-0002Dt-L7; Tue, 11 Jun 2024 15:43:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 738532.1145314; Tue, 11 Jun 2024 15:32:24 +0000
+Received: by outflank-mailman (output) from mailman id 738540.1145324; Tue, 11 Jun 2024 15:43:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sH3U0-0008Oh-HD; Tue, 11 Jun 2024 15:32:24 +0000
-Received: by outflank-mailman (input) for mailman id 738532;
- Tue, 11 Jun 2024 15:32:22 +0000
+	id 1sH3ep-0002BK-IY; Tue, 11 Jun 2024 15:43:35 +0000
+Received: by outflank-mailman (input) for mailman id 738540;
+ Tue, 11 Jun 2024 15:43:34 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=887E=NN=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1sH3Ty-0008Oa-Nc
- for xen-devel@lists.xenproject.org; Tue, 11 Jun 2024 15:32:22 +0000
-Received: from mail-lf1-x129.google.com (mail-lf1-x129.google.com
- [2a00:1450:4864:20::129])
+ <SRS0=JAKB=NN=redhat.com=stefanha@srs-se1.protection.inumbo.net>)
+ id 1sH3eo-0002BE-N6
+ for xen-devel@lists.xenproject.org; Tue, 11 Jun 2024 15:43:34 +0000
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id cba51557-2807-11ef-90a3-e314d9c70b13;
- Tue, 11 Jun 2024 17:32:21 +0200 (CEST)
-Received: by mail-lf1-x129.google.com with SMTP id
- 2adb3069b0e04-52bc29c79fdso4898539e87.1
- for <xen-devel@lists.xenproject.org>; Tue, 11 Jun 2024 08:32:21 -0700 (PDT)
-Received: from [192.168.219.221] ([94.75.70.14])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-52c899bd9d5sm1118642e87.257.2024.06.11.08.32.20
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 11 Jun 2024 08:32:20 -0700 (PDT)
+ id 5b4ad31f-2809-11ef-90a3-e314d9c70b13;
+ Tue, 11 Jun 2024 17:43:33 +0200 (CEST)
+Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-541-M7gCHZsfNvaRoPk4wQQxjw-1; Tue,
+ 11 Jun 2024 11:43:27 -0400
+Received: from mx-prod-int-02.mail-002.prod.us-west-2.aws.redhat.com
+ (mx-prod-int-02.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.15])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 8414F1956068; Tue, 11 Jun 2024 15:43:15 +0000 (UTC)
+Received: from localhost (unknown [10.39.193.36])
+ by mx-prod-int-02.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP
+ id DD4331954AC1; Tue, 11 Jun 2024 15:43:10 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,93 +52,87 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: cba51557-2807-11ef-90a3-e314d9c70b13
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1718119941; x=1718724741; darn=lists.xenproject.org;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=Tpm0S6fj0bcy9G/8UXbYvcBQjs1Nke37QyJgI25AkUs=;
-        b=gBelceU09e8LsQ5uTaBRI5kjPIu75UK4q7vmodXRV62dz4icMEkzNJBoHl1Co7F5sU
-         PXrFHI/sB4JjbfVJHFNhP0hx4w1WmR3ks+2SY4zaG6vqsqCFrdJrsSTdT6EE4tQDXupV
-         KAxQv/SxV/l86kdhVrqDq6MpVpJ952vJ5lzdaYJ+6hEW78OG3GxOkmPFgRD3b1i6z7Z6
-         Ha7gctxFfeXU9mw3S47phZXKxS976ffMLXopg+Hf0MzKQkLbFImFu21SKgqFT4MuQ6de
-         syJIzAtRfVv5isU+VozsHY/+P5s9K3ki78O/VCgVj4q6cu8BX3v+maEZ/U2+XNizkhKX
-         GROQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1718119941; x=1718724741;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=Tpm0S6fj0bcy9G/8UXbYvcBQjs1Nke37QyJgI25AkUs=;
-        b=L6L6qHnt1ZYMVP8mw3wkrJMB24OxdkFYxo3cZ1UfDqt278QdfpnIqvn+iLys9gRR3V
-         MTp4r3JGmKLkJnNoudVRKFxnDpD+C49YAqN+oh8vTY29TeflSAc6hc4oPXUwYfxdBvba
-         QGijZsXMYwqRxOOpzbTQ222Y9W+dTbH7q08OBaLOoQKsCT4hUlwdwN9kXW+xTdVq7oRz
-         b4v7lPxUNdAwnPc/FUZm4Dwnec48LSxB7sjqF2OS8iOxXgPhVr+fiOR4K1s6cSLOvMBl
-         QiSlHGaBErHJ4iXaaZD9DHBmHRQpW1kAbWs9CI8Rr1YJE2LG20PnW1+FMO0wfI+zLndQ
-         3r0Q==
-X-Forwarded-Encrypted: i=1; AJvYcCWHjzB+6aR+hsFcX1VJECwl/g4kpc8DEsC7uJw+KugaK4xCW/RF8aiakS92/RfsVhTWExwWtSTWf8mR6ILCukP40mMJBBwlwnMhzPCaYLs=
-X-Gm-Message-State: AOJu0YynnK3YaxlcJZEjGo6y/EJeYm7aXulO4W9dLdEsH7m8yFf3iWvC
-	rrjkIVqLfriTQlfBfS2Krr0phlxdHak6L/Bw8NGovPam+aF2f23X
-X-Google-Smtp-Source: AGHT+IEcWsldpicF8KuMr4ItGuSVT86QYhc8Cl644vhCjir/Qm6lEIp3An4+X98cSiqe/apC2CBJrg==
-X-Received: by 2002:a05:6512:404:b0:52b:8ad9:cf0a with SMTP id 2adb3069b0e04-52bb9fc5e89mr8513310e87.51.1718119941142;
-        Tue, 11 Jun 2024 08:32:21 -0700 (PDT)
-Message-ID: <50a2438030c160505603501044bc4045749a769c.camel@gmail.com>
-Subject: Re: [PATCH for-4.19] CI: Update FreeBSD to 13.3
-From: "Oleksii K." <oleksii.kurochko@gmail.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>, Xen-devel
-	 <xen-devel@lists.xenproject.org>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Michal Orzel
-	 <michal.orzel@amd.com>, Roger Pau =?ISO-8859-1?Q?Monn=E9?=
-	 <roger.pau@citrix.com>, Jan Beulich <JBeulich@suse.com>
-Date: Tue, 11 Jun 2024 17:32:20 +0200
-In-Reply-To: <20240611124701.802752-1-andrew.cooper3@citrix.com>
-References: <20240611124701.802752-1-andrew.cooper3@citrix.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.52.1 (3.52.1-1.fc40) 
+X-Inumbo-ID: 5b4ad31f-2809-11ef-90a3-e314d9c70b13
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1718120612;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=m3mVOlE8X03VcFujwgTUstJqoq0FTNeRmucJ5uXzzb4=;
+	b=g3ImpHwFPd3zYDbSo6+DyCmL/sFBqBusrGTGQ+nUJ1Jc3pjC2QGt6IElAywhXBseiygDNC
+	z6Eh48Xu/zfSEPDq602vJsDch/Zk73o2E+gsTG0mWXmfLdGVuBh2n43fjFcUbiwN2993ci
+	LMQuTert1Fi/8EYVt+zdL5AN8obFP8c=
+X-MC-Unique: M7gCHZsfNvaRoPk4wQQxjw-1
+Date: Tue, 11 Jun 2024 11:43:09 -0400
+From: Stefan Hajnoczi <stefanha@redhat.com>
+To: Christoph Hellwig <hch@lst.de>
+Cc: Jens Axboe <axboe@kernel.dk>, Geert Uytterhoeven <geert@linux-m68k.org>,
+	Richard Weinberger <richard@nod.at>,
+	Philipp Reisner <philipp.reisner@linbit.com>,
+	Lars Ellenberg <lars.ellenberg@linbit.com>,
+	Christoph =?iso-8859-1?Q?B=F6hmwalder?= <christoph.boehmwalder@linbit.com>,
+	Josef Bacik <josef@toxicpanda.com>, Ming Lei <ming.lei@redhat.com>,
+	"Michael S. Tsirkin" <mst@redhat.com>,
+	Jason Wang <jasowang@redhat.com>,
+	Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>,
+	Alasdair Kergon <agk@redhat.com>, Mike Snitzer <snitzer@kernel.org>,
+	Mikulas Patocka <mpatocka@redhat.com>, Song Liu <song@kernel.org>,
+	Yu Kuai <yukuai3@huawei.com>,
+	Vineeth Vijayan <vneethv@linux.ibm.com>,
+	"Martin K. Petersen" <martin.petersen@oracle.com>,
+	linux-m68k@lists.linux-m68k.org, linux-um@lists.infradead.org,
+	drbd-dev@lists.linbit.com, nbd@other.debian.org,
+	linuxppc-dev@lists.ozlabs.org, ceph-devel@vger.kernel.org,
+	virtualization@lists.linux.dev, xen-devel@lists.xenproject.org,
+	linux-bcache@vger.kernel.org, dm-devel@lists.linux.dev,
+	linux-raid@vger.kernel.org, linux-mmc@vger.kernel.org,
+	linux-mtd@lists.infradead.org, nvdimm@lists.linux.dev,
+	linux-nvme@lists.infradead.org, linux-s390@vger.kernel.org,
+	linux-scsi@vger.kernel.org, linux-block@vger.kernel.org
+Subject: Re: [PATCH 08/26] virtio_blk: remove virtblk_update_cache_mode
+Message-ID: <20240611154309.GA371660@fedora.redhat.com>
+References: <20240611051929.513387-1-hch@lst.de>
+ <20240611051929.513387-9-hch@lst.de>
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="RRHJimCDVdpqhQ+7"
+Content-Disposition: inline
+In-Reply-To: <20240611051929.513387-9-hch@lst.de>
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.15
 
-On Tue, 2024-06-11 at 13:47 +0100, Andrew Cooper wrote:
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-Release-Acked-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 
-~ Oleksii
+--RRHJimCDVdpqhQ+7
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-
+On Tue, Jun 11, 2024 at 07:19:08AM +0200, Christoph Hellwig wrote:
+> virtblk_update_cache_mode boils down to a single call to
+> blk_queue_write_cache.  Remove it in preparation for moving the cache
+> control flags into the queue_limits.
+>=20
+> Signed-off-by: Christoph Hellwig <hch@lst.de>
 > ---
-> CC: Stefano Stabellini <sstabellini@kernel.org>
-> CC: Michal Orzel <michal.orzel@amd.com>
-> CC: Roger Pau Monn=C3=A9 <roger.pau@citrix.com>
-> CC: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-> CC: Jan Beulich <JBeulich@suse.com>
->=20
-> Updated run:
-> =C2=A0 https://cirrus-ci.com/task/4903594304995328
->=20
-> For 4.19, and for backporting to all trees including security trees.
-> FreeBSD-13.2 isn't available any more:
-> =C2=A0 https://cirrus-ci.com/task/4554831417835520
->=20
-> causing build failures.
-> ---
-> =C2=A0.cirrus.yml | 2 +-
-> =C2=A01 file changed, 1 insertion(+), 1 deletion(-)
->=20
-> diff --git a/.cirrus.yml b/.cirrus.yml
-> index d0a9021a77e4..c431d8d2447d 100644
-> --- a/.cirrus.yml
-> +++ b/.cirrus.yml
-> @@ -17,7 +17,7 @@ freebsd_template: &FREEBSD_TEMPLATE
-> =C2=A0task:
-> =C2=A0=C2=A0 name: 'FreeBSD 13'
-> =C2=A0=C2=A0 freebsd_instance:
-> -=C2=A0=C2=A0=C2=A0 image_family: freebsd-13-2
-> +=C2=A0=C2=A0=C2=A0 image_family: freebsd-13-3
-> =C2=A0=C2=A0 << : *FREEBSD_TEMPLATE
-> =C2=A0
-> =C2=A0task:
->=20
-> base-commit: ea1cb444c28ce3ae7915d9c94c4344f4bf6d87d3
+>  drivers/block/virtio_blk.c | 13 +++----------
+>  1 file changed, 3 insertions(+), 10 deletions(-)
+
+Reviewed-by: Stefan Hajnoczi <stefanha@redhat.com>
+
+--RRHJimCDVdpqhQ+7
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEhpWov9P5fNqsNXdanKSrs4Grc8gFAmZocI0ACgkQnKSrs4Gr
+c8gYxQf+MiHN7lIto5cvBArHuLRaYXdHSqN8WkOxjyk6pKDVJN3zByol4IsQ1or0
+gi3U/1yXaU1lyM8v76HhRI789ZE9OXHiRD8iKWM54w0uldvJLPNzByqsrvapKvmR
+XjYyMxgp/uFJZ4qxg3nonI2Fa2FzSjqA/ct/sTYj8AbXOsOEK/bUZasvnrwUuIhP
+FwODujdCtfIpzMvn4c262LUiz3TOY+p3nH/CSKsYZwR5xiUbbZCf30PKrwN4RcmU
+ti4hIKoOJcLH5gjgeXpfx7jOM/6Qr7eQrEelsDnuMAKYXC9WMj48+O6Cf8mFja4M
+N1txQKX0NepjOjzDmydD5Dx/69S/sg==
+=ehtQ
+-----END PGP SIGNATURE-----
+
+--RRHJimCDVdpqhQ+7--
 
 
