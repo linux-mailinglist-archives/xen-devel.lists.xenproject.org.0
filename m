@@ -2,56 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 63188903C1B
-	for <lists+xen-devel@lfdr.de>; Tue, 11 Jun 2024 14:42:53 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.738343.1145075 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8C04D903C1F
+	for <lists+xen-devel@lfdr.de>; Tue, 11 Jun 2024 14:45:24 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.738350.1145085 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sH0pJ-0006ot-Of; Tue, 11 Jun 2024 12:42:13 +0000
+	id 1sH0sE-0007QG-AH; Tue, 11 Jun 2024 12:45:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 738343.1145075; Tue, 11 Jun 2024 12:42:13 +0000
+Received: by outflank-mailman (output) from mailman id 738350.1145085; Tue, 11 Jun 2024 12:45:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sH0pJ-0006m2-LR; Tue, 11 Jun 2024 12:42:13 +0000
-Received: by outflank-mailman (input) for mailman id 738343;
- Tue, 11 Jun 2024 12:42:12 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=PtoW=NN=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
- id 1sH0pI-0006lw-1s
- for xen-devel@lists.xenproject.org; Tue, 11 Jun 2024 12:42:12 +0000
-Received: from NAM04-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam04on20604.outbound.protection.outlook.com
- [2a01:111:f403:2408::604])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 035d82e6-27f0-11ef-b4bb-af5377834399;
- Tue, 11 Jun 2024 14:42:08 +0200 (CEST)
-Received: from SJ0PR03CA0001.namprd03.prod.outlook.com (2603:10b6:a03:33a::6)
- by SN7PR12MB7978.namprd12.prod.outlook.com (2603:10b6:806:34b::9)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7633.24; Tue, 11 Jun
- 2024 12:42:04 +0000
-Received: from SJ1PEPF00002312.namprd03.prod.outlook.com
- (2603:10b6:a03:33a:cafe::23) by SJ0PR03CA0001.outlook.office365.com
- (2603:10b6:a03:33a::6) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7677.17 via Frontend
- Transport; Tue, 11 Jun 2024 12:42:04 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- SJ1PEPF00002312.mail.protection.outlook.com (10.167.242.166) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7677.15 via Frontend Transport; Tue, 11 Jun 2024 12:42:03 +0000
-Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 11 Jun
- 2024 07:42:03 -0500
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB06.amd.com
- (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 11 Jun
- 2024 07:42:02 -0500
-Received: from [10.252.147.188] (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
- Transport; Tue, 11 Jun 2024 07:42:01 -0500
+	id 1sH0sE-0007Ot-6G; Tue, 11 Jun 2024 12:45:14 +0000
+Received: by outflank-mailman (input) for mailman id 738350;
+ Tue, 11 Jun 2024 12:45:12 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=WBrw=NN=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1sH0sC-0007On-PG
+ for xen-devel@lists.xenproject.org; Tue, 11 Jun 2024 12:45:12 +0000
+Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com
+ [2a00:1450:4864:20::634])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 71141817-27f0-11ef-90a3-e314d9c70b13;
+ Tue, 11 Jun 2024 14:45:11 +0200 (CEST)
+Received: by mail-ej1-x634.google.com with SMTP id
+ a640c23a62f3a-a6269885572so1141650766b.1
+ for <xen-devel@lists.xenproject.org>; Tue, 11 Jun 2024 05:45:11 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a6f0e47b8f7sm411091366b.31.2024.06.11.05.45.10
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 11 Jun 2024 05:45:10 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,175 +45,130 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 035d82e6-27f0-11ef-b4bb-af5377834399
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=L71tS/Rvzgu7J9QoR1Z+8FqAY2wO3Y2nA5/j5uXfqaKjpJS9ySp172B2KKPP7Ph0dwFMmefC/XkeLELfwNu/DWXyWPUPtSanvphzppqTBK4OIRNssvNVMYe8FCfOVD62Ltx4mi9pkYU9zaEI7QHN8ve42tGngDuQ3zwymORWNrHo8QqD1FkMDfkZ1kQeI+NJbow/5gwRh09jo5c3vcaAmk9EWK0B6/rMFN1W0EQ3vsSszHuV/kECQTejR9oTJjyOZglHghZJiuAJ5rbW7d4xxKKZ49/kURvEgzBaQqhhi7zstga19ExyVHVomlFuIopdNzZ9P36UE8T0oBDm5SKtog==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=JwN7sSeMlmS1YUWczykEipW7HhUPiWbqBijU+k3Ruuk=;
- b=Zpp1dJ5AYpzrSGUsfjgbE1CKuUNwvh3gxeqkalAvM9/EwHDgHA/L0TKEo3ykQukkzF9NsNkz9bEs6FpcU1BjmDv66cIJlwQKq9Ym/FKISNLkDm9xXxU0At7152BkO8vIdZmeu9DGct8y5LgRJwOFat35UEz9RSHmAcMwr5PkK3PprU8zq84i6ywjsOR4UeamMOPadlgjnl7jBH1z7ffrtNNQvCGnvauxX7QAegBo/C1NQjEW8BiKdE92wQ8fNjYPDajEtQZEmY4z7eyo+2f2zGFbpcwV2u3ivYzh9TXEXX6HhMcWdiIRCgLm+RYmK9CFTMAOxwwntciqPHwkUux7Kg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=arm.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=JwN7sSeMlmS1YUWczykEipW7HhUPiWbqBijU+k3Ruuk=;
- b=g4xvvApvlFjQCNugxEJ5L6NNWd4wFlCwjNm5Ddi95ubwp1+Y2pBHeHJ+jiLOJeginNrE20AewO1/AFb6M5ZOjkYn2yR3WqBF6TJcRG83qjEPq/sOEz99NAF7wsc1JhL1kkt/gRKVy4h5B4QfPa/8HOdikP+PLX9cjXtjoRrB+yk=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Message-ID: <66e5d584-b326-4197-81d5-ec2b8233a3fa@amd.com>
-Date: Tue, 11 Jun 2024 14:42:00 +0200
+X-Inumbo-ID: 71141817-27f0-11ef-90a3-e314d9c70b13
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1718109911; x=1718714711; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=gErMh05jD6muaAbq6AkdIwJpe5lI8cqV2npPiwbmxvw=;
+        b=CTTyDEE2JPVM7MImABHG5lm3nlmnotKDIIw89/LVEkc0oyq1cxE1fuMf4Yqpn0J+le
+         qxempD4vUkkiH4JAClqPI9i1gpHBV59hh435xJVUw90e21+TOeQhyIMl1dBDsqjab3EB
+         pXJSM33QAoVJhrn6ZCjSTUR1cj0X+Ev8Fek6A8Htotlw4Ffr1x/tHtkhQkA6Z3+svgHY
+         xyTZb5Cod0TiwAP3ZfF1q14mU+C3YvmgnjnNMF3Jj5uwpefnry3n5F5rlxvsaGVjyOaw
+         gb02wZIj4vCdPOgZHyO4Xsgy6ETzG0UTJwXJrVS1FjFcCumsJJMtnRtKW03w/O5+M30V
+         rVig==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1718109911; x=1718714711;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=gErMh05jD6muaAbq6AkdIwJpe5lI8cqV2npPiwbmxvw=;
+        b=lYN3kgLv9r2fJsdFnDJ0uVbmWWa08ZCUiQfU2DWkWQ7kkNWmYcCFJxAje2iWQM74Df
+         7W0EQ+1WT2kdKxdUYhdKJYeywCx0cRqT2T3WPq1vYLOSlbadvy4JnUjlxIeNkW0Cfnx0
+         kW2qUk3mAaexV3JWuY5DR1pQk02iRppcNXlahQStuWkYxcl/jzkzvgxsg6Ytuk5J3DEy
+         ULRHtTGT/Hi5nL1hJFLSeJzu4g2wQ8Is5B/FLnN5CiDfZo+oun17P0aU7G6pCOH7La+H
+         Rgh/ywMSzgOPu6QhIK+VABlPufvtYnMA+YJZOCJHH4Zc0CqULAsu7zdc1tW5V5pXFq2D
+         8rfw==
+X-Forwarded-Encrypted: i=1; AJvYcCVxst752e4zKn0MC0hkqankwHYDyQ5A6oD5NPadU7BQgr5pIvMqloCujEIsM3NrLDiAnm9Kr4ipIK2R4aooWS1wQEIri/JhD08xdrLyUWc=
+X-Gm-Message-State: AOJu0YyeuHmAr1s9xc7DcIKxffVb0hvwrXu8531jOlAdHsSMyL4uibNh
+	nJzJM65wXbojaNw0ouagllhVTHPhnbfQ3wCcAFtp0z6wCZnVciA/6frebcZDHQ==
+X-Google-Smtp-Source: AGHT+IH9st5mdVjW2jsQa9hGOa1pLiBKclRhlA0iSgGJ6tqX7vUU23EOJJjNl0mvldoaEwRrG21eQQ==
+X-Received: by 2002:a17:906:199b:b0:a6f:2380:3a32 with SMTP id a640c23a62f3a-a6f34ceceb5mr166952066b.21.1718109911043;
+        Tue, 11 Jun 2024 05:45:11 -0700 (PDT)
+Message-ID: <66fc06cc-f1f6-4f12-83d4-a3b9788bffba@suse.com>
+Date: Tue, 11 Jun 2024 14:45:09 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 0/7] Static shared memory followup v2 - pt2
-To: Luca Fancellu <Luca.Fancellu@arm.com>, Xen-devel
-	<xen-devel@lists.xenproject.org>
-CC: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
-	<julien@xen.org>, Bertrand Marquis <Bertrand.Marquis@arm.com>, "Volodymyr
- Babchuk" <Volodymyr_Babchuk@epam.com>, Oleksii Kurochko
-	<oleksii.kurochko@gmail.com>
-References: <20240524124055.3871399-1-luca.fancellu@arm.com>
- <3DDAAFF7-5E43-4B92-9D6B-6D8AFBA8496F@arm.com>
+Subject: Re: [PATCH v2 5/7] x86/irq: deal with old_cpu_mask for interrupts in
+ movement in fixup_irqs()
+To: Roger Pau Monne <roger.pau@citrix.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
+References: <20240610142043.11924-1-roger.pau@citrix.com>
+ <20240610142043.11924-6-roger.pau@citrix.com>
 Content-Language: en-US
-From: Michal Orzel <michal.orzel@amd.com>
-In-Reply-To: <3DDAAFF7-5E43-4B92-9D6B-6D8AFBA8496F@arm.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF00002312:EE_|SN7PR12MB7978:EE_
-X-MS-Office365-Filtering-Correlation-Id: 60bb0cf4-e36b-4b9c-cd0e-08dc8a13e58b
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230031|376005|82310400017|1800799015|36860700004;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?TUYzOWp2ekZPM29XcVozZi84M2Y5ZFllNzVGcC9SLzlTaGtkTVNxTkI5Mi9F?=
- =?utf-8?B?S2tJbUNuZHZzb0kvNi9pU2RXbS9FL2x0TDM0UGdnalNQQnBwdmJSbFFKdWdJ?=
- =?utf-8?B?TG9pM2NLOVhUNTlpZ3o0ZCt4eVhWTjVGK1NyZXNTb2l1aFpyZDNVV2JwUlN2?=
- =?utf-8?B?Q282ZXljUnZpMnpIWjJ1dmozRnp4SGpXMjB5UUZZSVJJYjMwUXNNRWYySVRt?=
- =?utf-8?B?VVRQRVVLRFJWTmMxcytnb1l5cTVlWHJlQmJ4b3NCY29tMEdKOVM5aWNBNWla?=
- =?utf-8?B?MEdwUXNKY1ZjeDNBNWpzQXJxV1ZEVitid0FrMXFTV3RkSWQzNTk1ajJlL2Iz?=
- =?utf-8?B?UWJZVXE0SVdkVEtWZmdtMFlrZW9GQ3dMM1hJblQ3NmxhSytJQzdXcXNzODV4?=
- =?utf-8?B?QnpUNnpmZ1hiUFZnenZoM3Q4a2JFSzF6OEpsQ2doNS9FTG10bHRWbW9Xc3RC?=
- =?utf-8?B?NnJLblJNMjF2QlluVEJnTy9KVExSblN1TUp1RjFobHFndWtBekptQnpVUTN1?=
- =?utf-8?B?TGNNbXFSYzVsM3hHOVZhWk11aURRMWhlK3VzTmNsYVFNQ3R1bVdRcEtLMjd4?=
- =?utf-8?B?ZzVOdFNJQUhQbUt4TWNXZGNLWUpNN3U4dWV0NC9Ib0hqVzNVWWV3bFhxTWJ5?=
- =?utf-8?B?MVRxbEhJR1d3b3k4M0hVdXFWcUJKVEhQUTlZU0VKS28xWjZ1bi94QVoyZTJI?=
- =?utf-8?B?UTJ6RTFqUnNNNWJGYmxCOG0vZklzR0d0ZTMvMFd5VUdwcmkxZUlhN0NJanFt?=
- =?utf-8?B?SVc0cnNZcUxJcnplSUlLOW5WK0FpT1RkMGJadGt4Nm9nWlZ2VUlxMDY1NHB3?=
- =?utf-8?B?WTdRUjlFWURTSTJvOXJucndVVXlrKzk3ZzNtUDNHa1JwV05SYzRUNG5VM1Ez?=
- =?utf-8?B?Z3NzdzgrRHNqQmUrUU5vRGZTMm1HbHE4RFp6aFQrWnJMT0kyNmFubzB6QnZW?=
- =?utf-8?B?WkRtUmU4TFBSS21seldhZEZ4QmNSMGxyNlhsdXRMWmhaL2N0Y2RLUFlYMUZT?=
- =?utf-8?B?TFdoWitGTllYazVCZ2tzNDk0ZEVjNDNEM2VJbVFpZlRpd3Z5SHBLM3dMMXh0?=
- =?utf-8?B?YnZlV3hlb1Q3eSttMDRMTjkrbHBqR21zYk5VaTIxN1JMWGVmckVPVEtaUXRm?=
- =?utf-8?B?SThybk01TllwbWRVVi9zRERSc1lRQjQ4TE9jMWRkSlkraHdyOVRqRFJiYXlz?=
- =?utf-8?B?RmFGNEdPWkN5TjYyQjg2K09jWXBWWUdQMUwydFZaN3VXQ1hoV05MMjlzaFJh?=
- =?utf-8?B?bDBZcHRFd05zSk5YRFdFZ1hoTURBN3VoWmpaMGJPazFGTzlrZU54aTVTRDRT?=
- =?utf-8?B?YWZ5ZzZHRTZtalJBNXh2MzNUTFJpU2FhMXdTWUp5ekY5MlJ4dnJmVFF3UUMw?=
- =?utf-8?B?QXNoRXdvQm03b3JJcWNySng0YUxUMDJES0EvZjJWU0toNENTL3dtRlZoV3JV?=
- =?utf-8?B?dGxUUjZ2NFQycEc2WmtEOElvazZTcjNDbHNoK3Rleks4Nm84R0RWZXd5MEQ4?=
- =?utf-8?B?cU8xd0Nnd0VGZEtmbUsxRzV4UnRacUttdjlrTlBUY3ZGSVI0UzgxcXF5eHVm?=
- =?utf-8?B?NzA4VlprYlBHa1ZTNGdnSktxVVVJOTJYNmZNK0NjczV0K1UyK3pGL0hGSmpK?=
- =?utf-8?B?MUR2aUhVRDhvQkIrc2twTGRWdlBEQjF3WjNTK3hMdi95UnZLOG9yd1BIZHBI?=
- =?utf-8?B?WHE5WDgydFNmYWhjenNSRVgzRTc1WTlUcUNienhUYWloMmtCdFFzcno4LzhD?=
- =?utf-8?B?VG93Z0hNMmU1am1kUUlWaEZMTmRnRlBCUU44WlloZDVoZFJjS25vZUs3WWVC?=
- =?utf-8?B?YlRlMDRUMXFSTnhWaE1CSjVnYlRyWit3a2M2S0dycksrbmtRZUdCVHRJc1FS?=
- =?utf-8?B?VUJmUWh1V01zaFFOVkpFV3VWbDJGUk1jdzByQll1K3FlT3c9PQ==?=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(376005)(82310400017)(1800799015)(36860700004);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Jun 2024 12:42:03.8048
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 60bb0cf4-e36b-4b9c-cd0e-08dc8a13e58b
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SJ1PEPF00002312.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7978
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20240610142043.11924-6-roger.pau@citrix.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi,
+On 10.06.2024 16:20, Roger Pau Monne wrote:
+> Given the current logic it's possible for ->arch.old_cpu_mask to get out of
+> sync: if a CPU set in old_cpu_mask is offlined and then onlined
+> again without old_cpu_mask having been updated the data in the mask will no
+> longer be accurate, as when brought back online the CPU will no longer have
+> old_vector configured to handle the old interrupt source.
+> 
+> If there's an interrupt movement in progress, and the to be offlined CPU (which
+> is the call context) is in the old_cpu_mask clear it and update the mask, so it
+> doesn't contain stale data.
 
-On 11/06/2024 14:35, Luca Fancellu wrote:
-> 
-> 
-> + Oleksii
-> 
->> On 24 May 2024, at 13:40, Luca Fancellu <Luca.Fancellu@arm.com> wrote:
->>
->> This serie is a partial rework of this other serie:
->> https://patchwork.kernel.org/project/xen-devel/cover/20231206090623.1932275-1-Penny.Zheng@arm.com/
->>
->> The original serie is addressing an issue of the static shared memory feature
->> that impacts the memory footprint of other component when the feature is
->> enabled, another issue impacts the device tree generation for the guests when
->> the feature is enabled and used and the last one is a missing feature that is
->> the option to have a static shared memory region that is not from the host
->> address space.
->>
->> This serie is handling some comment on the original serie and it is splitting
->> the rework in two part, this first part is addressing the memory footprint issue
->> and the device tree generation and currently is fully merged
->> (https://patchwork.kernel.org/project/xen-devel/cover/20240418073652.3622828-1-luca.fancellu@arm.com/),
->> this serie is addressing the static shared memory allocation from the Xen heap.
->>
->> Luca Fancellu (5):
->>  xen/arm: Lookup bootinfo shm bank during the mapping
->>  xen/arm: Wrap shared memory mapping code in one function
->>  xen/arm: Parse xen,shared-mem when host phys address is not provided
->>  xen/arm: Rework heap page allocation outside allocate_bank_memory
->>  xen/arm: Implement the logic for static shared memory from Xen heap
->>
->> Penny Zheng (2):
->>  xen/p2m: put reference for level 2 superpage
->>  xen/docs: Describe static shared memory when host address is not
->>    provided
->>
->> docs/misc/arm/device-tree/booting.txt   |  52 ++-
->> xen/arch/arm/arm32/mmu/mm.c             |  11 +-
->> xen/arch/arm/dom0less-build.c           |   4 +-
->> xen/arch/arm/domain_build.c             |  84 +++--
->> xen/arch/arm/include/asm/domain_build.h |   9 +-
->> xen/arch/arm/mmu/p2m.c                  |  82 +++--
->> xen/arch/arm/setup.c                    |  14 +-
->> xen/arch/arm/static-shmem.c             | 432 +++++++++++++++++-------
->> 8 files changed, 502 insertions(+), 186 deletions(-)
->>
->> --
->> 2.34.1
->>
->>
-> 
-> Hi,
-> 
-> We would like this serie to be in Xen 4.19, there was a misunderstanding on our side because we thought
-> that since the serie was sent before the last posting date, it could have been a candidate for merging in the
-> new release, instead after speaking with Julien and Oleksii we are now aware that we need to provide a
-> justification for its presence.
-> 
-> Pros to this serie is that we are closing the circle for static shared memory, allowing it to use memory from
-> the host or from Xen, it is also a feature that is not enabled by default, so it should not cause too much
-> disruption in case of any bugs that escaped the review, however we’ve tested many configurations for that
-> with/without enabling the feature if that can be an additional value.
-> 
-> Cons: we are touching some common code related to p2m, but also there the impact should be minimal because
-> the new code is subject to l2 foreign mapping (to be confirmed maybe from a p2m expert like Julien).
-> 
-> The comments on patch 3 of this serie are addressed by this patch:
-> https://patchwork.kernel.org/project/xen-devel/patch/20240528125603.2467640-1-luca.fancellu@arm.com/
-> And the serie is fully reviewed.
-> 
-> So our request is to allow this serie in 4.19, Oleksii, ARM maintainers, do you agree on that?
-As a main reviewer of this series I'm ok to have this series in. It is nicely encapsulated and the feature itself
-is still in unsupported state. I don't foresee any issues with it.
+This imo is too __cpu_disable()-centric. In the code you cover the
+smp_send_stop() case afaict, where it's all _other_ CPUs which are being
+offlined. As we're not meaning to bring CPUs online again in that case,
+dealing with the situation likely isn't needed. Yet the description should
+imo at least make clear that the case was considered.
 
-~Michal
+> @@ -2589,6 +2589,28 @@ void fixup_irqs(const cpumask_t *mask, bool verbose)
+>                                 affinity);
+>          }
+>  
+> +        if ( desc->arch.move_in_progress &&
+> +             !cpumask_test_cpu(cpu, &cpu_online_map) &&
+
+This part of the condition is, afaict, what covers (excludes) the
+smp_send_stop() case. Might be nice to have a brief comment here, thus
+also clarifying ...
+
+> +             cpumask_test_cpu(cpu, desc->arch.old_cpu_mask) )
+> +        {
+> +            /*
+> +             * This CPU is going offline, remove it from ->arch.old_cpu_mask
+> +             * and possibly release the old vector if the old mask becomes
+> +             * empty.
+> +             *
+> +             * Note cleaning ->arch.old_cpu_mask is required if the CPU is
+> +             * brought offline and then online again, as when re-onlined the
+> +             * per-cpu vector table will no longer have ->arch.old_vector
+> +             * setup, and hence ->arch.old_cpu_mask would be stale.
+> +             */
+> +            cpumask_clear_cpu(cpu, desc->arch.old_cpu_mask);
+> +            if ( cpumask_empty(desc->arch.old_cpu_mask) )
+> +            {
+> +                desc->arch.move_in_progress = 0;
+> +                release_old_vec(desc);
+> +            }
+
+... that none of this is really wanted or necessary in that other case.
+Assuming my understanding above is correct, the code change itself is
+once again
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
+yet here I'm uncertain whether to offer on-commit editing, as it's not
+really clear to me whether there's a dependencies on patch 4.
+
+Jan
 
