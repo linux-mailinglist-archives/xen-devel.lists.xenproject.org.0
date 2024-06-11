@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EBAE2903266
-	for <lists+xen-devel@lfdr.de>; Tue, 11 Jun 2024 08:22:54 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.737878.1144375 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A0C789032E4
+	for <lists+xen-devel@lfdr.de>; Tue, 11 Jun 2024 08:41:30 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.737885.1144385 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sGuu0-0003L9-5w; Tue, 11 Jun 2024 06:22:40 +0000
+	id 1sGvBu-0007PJ-Op; Tue, 11 Jun 2024 06:41:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 737878.1144375; Tue, 11 Jun 2024 06:22:40 +0000
+Received: by outflank-mailman (output) from mailman id 737885.1144385; Tue, 11 Jun 2024 06:41:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sGuu0-0003Jd-3H; Tue, 11 Jun 2024 06:22:40 +0000
-Received: by outflank-mailman (input) for mailman id 737878;
- Tue, 11 Jun 2024 06:22:39 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1sGvBu-0007No-Lj; Tue, 11 Jun 2024 06:41:10 +0000
+Received: by outflank-mailman (input) for mailman id 737885;
+ Tue, 11 Jun 2024 06:41:09 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=WBrw=NN=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sGutz-0003JX-0g
- for xen-devel@lists.xenproject.org; Tue, 11 Jun 2024 06:22:39 +0000
-Received: from mail-ed1-x533.google.com (mail-ed1-x533.google.com
- [2a00:1450:4864:20::533])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id feedc4bc-27ba-11ef-b4bb-af5377834399;
- Tue, 11 Jun 2024 08:22:36 +0200 (CEST)
-Received: by mail-ed1-x533.google.com with SMTP id
- 4fb4d7f45d1cf-57a1fe63947so842076a12.1
- for <xen-devel@lists.xenproject.org>; Mon, 10 Jun 2024 23:22:36 -0700 (PDT)
+ id 1sGvBt-0007Nf-64
+ for xen-devel@lists.xenproject.org; Tue, 11 Jun 2024 06:41:09 +0000
+Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
+ [2a00:1450:4864:20::62d])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 94467d27-27bd-11ef-90a3-e314d9c70b13;
+ Tue, 11 Jun 2024 08:41:06 +0200 (CEST)
+Received: by mail-ej1-x62d.google.com with SMTP id
+ a640c23a62f3a-a6265d48ec3so64050266b.0
+ for <xen-devel@lists.xenproject.org>; Mon, 10 Jun 2024 23:41:06 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-57c76740d6asm4203850a12.7.2024.06.10.23.22.35
+ a640c23a62f3a-a6f3672d1efsm61063866b.224.2024.06.10.23.41.04
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 10 Jun 2024 23:22:35 -0700 (PDT)
+ Mon, 10 Jun 2024 23:41:05 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,51 +45,57 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: feedc4bc-27ba-11ef-b4bb-af5377834399
+X-Inumbo-ID: 94467d27-27bd-11ef-90a3-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1718086956; x=1718691756; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1718088066; x=1718692866; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=aI4GPFKJNyMFjrw09qqn9X7Y2hv0LBzHHit4fK5jXa0=;
-        b=Rswky5aKH1t4fTPwkPBXKPZ1+jPJl4p5MZlU+qhYBz0ZTvU6gp55pw23YpAHKhpCFh
-         Qyq6tu2Olr07QZnq7rW/tn+9q15O8ZwVbXTvVbHx9hkbm6V4xFXJ52Xv3kckqaCCaTN4
-         59hr6/uUoXJ51W9UWmGaEpdIHuxUTIxvqhgJsScnoM++kWHrov7WgQiVTAwKDfk2lFRK
-         rdRS1EryPo+3GK7HucdK38hOgc58gZpjN0ORUhtoDJTudheCxZSNf3DIcaKjQDLxscJz
-         ZsJlAc0MZG7fYz7C7BjJpFkQidSeZa9I267eDKKtKA9Snq9POt6jaB8BRyp6e3N+efXC
-         8qDQ==
+        bh=Nu3ax5KVPeqG8BM8VsCcDtpYZL+s3TZJfuanIM6yJKg=;
+        b=E0pheYonal01B20RBPY67zmkmtcDgWDggO6WIJlBmwYDWzIqGLKSptDsMeSN97OUgv
+         3vfXhqObkgrkhNazJhEVy9cA3etoBEab9uzA9iyAJQ9tt3nX5OqD5bAxXL7rK7J6Qd5A
+         B31IudoCjLSPyUeSh47QszOhW5Zwf0M+JyTjI5OyrecjIRTCqZZOpMfvEvEHcoHEtZvS
+         KrYWnFXdHjzTg1xqdzSVLdV+YecZZgRV1/E2w48o5EuDGqZP/OnWuk8/nDFPWW0+Ij8+
+         h/E8cj3RJI3SfGac6pjrpD6nqc0jjjPpJRdUsAZQkHL2jlmsEAduQ8jxbdVu14AEJEt9
+         XBHA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1718086956; x=1718691756;
+        d=1e100.net; s=20230601; t=1718088066; x=1718692866;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=aI4GPFKJNyMFjrw09qqn9X7Y2hv0LBzHHit4fK5jXa0=;
-        b=jOtzXpm8Wuo8HZaWdh9Z05TtiRkVw8tOmXWnMdcw2zykhW5Ak+pphz9J3TtCpPG6m1
-         QgK/SJmzt5YoFZsGY6buRI0yr1WpP1nq1/UiLXHoO9U2pQ+8yZG44zZoVqMZoXw1Topb
-         ZxVKMldAbY74XhLZvLp6sZ2ILT7af9LzDcBEHsHrZHsz8zsj7NRqD7GTvPuRNrl4l2Wj
-         KTmRcOZd9UO2bfh7odvtX5NJJZ4kv8UGV3zaNflq2kxixCsbVCTDtluLyLwyFsz8DaKM
-         siTTiACCYTtCqvUiKZqDXYuwgCbSIpZEqzXqbrtUaPdx3l6DJx6ayL3Q/xDXsf1WyoVV
-         oWlQ==
-X-Gm-Message-State: AOJu0YzrCK2c8yFYdGhLu3KRhGS1zTHQsvw7tuETf7BJxU8tivniq+c5
-	CKPbOb0b6kGFU9RI0LDLd9hkHGLAghoDvY0q/XL0/F11k+80Bv+PR9GvEs8IlQ==
-X-Google-Smtp-Source: AGHT+IHVZnpm8b+Tpaw/kN9ouiaaicpDnRCZJJcKWNiyXafPx+zcktxqZPRO+5ob9g+yMPBMfETD+Q==
-X-Received: by 2002:a50:d6d7:0:b0:57c:60e8:c519 with SMTP id 4fb4d7f45d1cf-57c60e8c5c4mr5160147a12.16.1718086956058;
-        Mon, 10 Jun 2024 23:22:36 -0700 (PDT)
-Message-ID: <f28875ae-1b87-4a83-b4b0-6f42046c03bf@suse.com>
-Date: Tue, 11 Jun 2024 08:22:34 +0200
+        bh=Nu3ax5KVPeqG8BM8VsCcDtpYZL+s3TZJfuanIM6yJKg=;
+        b=YNHblUMCTChHWWo5zVjRN4ix95o//orWEj6ukxKMjUvkarX+n+LRC43u3nKtgR5m8h
+         SwQvGm+D5gUgTTAG01fuy8yG8nqpKpK26FAB+ByvRv2IQHUV5tDU6+WA6rK5QfNg5zKC
+         onVVU7k+CbjVJFDduReJngNXwNyF3ARbihshz/Rc26XEp12UQdpEDwfYdB6V5FsnzLoW
+         OGpc3ofQUe2hfFZ8PJMJ/LEl8fVxrYEBH9gBRWoRy54Yz8FXVSbBBsaH1C4BeWDCtzOL
+         4nWkWltPp7PRB38qxwaeHuu6bZve23ihHx5wqqoe2wXVDeYlJHvZXeRuOfIy5oOdLNKu
+         YfGw==
+X-Forwarded-Encrypted: i=1; AJvYcCXK+ViDsEgvYGA2IV7HdhS8hKuuMJmmcq/GUbzD3xU0j/r61lKQlI+BAV6+E50/DxeKAsjgzjtgDRNrCGthTBlo25UsfFHFSeRnt4vhps8=
+X-Gm-Message-State: AOJu0YwZqVIMTm3f/hkWghBQyaEVZdNTj2Axjq2/sQmkkPUKrWv5ixlf
+	VwmkJedt/AUoBOwLai0XeJapKxulyZG9HMrCKa6WTequXbS3K9KXpXbPHSydYQ==
+X-Google-Smtp-Source: AGHT+IHrH2tqMk1qnEjMwCF/74ZahiYTmfudGevPccfGDqcP01Rl6TQ8pYazhXeDfv84w6hyEIycNw==
+X-Received: by 2002:a17:906:4a4f:b0:a6f:1045:d5dc with SMTP id a640c23a62f3a-a6f1045d63dmr445833366b.6.1718088065655;
+        Mon, 10 Jun 2024 23:41:05 -0700 (PDT)
+Message-ID: <8787608f-f3b0-4fb3-95ee-98050cf95182@suse.com>
+Date: Tue, 11 Jun 2024 08:41:04 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] MAINTAINERS: alter EFI section
-To: Marek Marczykowski <marmarek@invisiblethingslab.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Daniel Smith <dpsmith@apertussolutions.com>,
+Subject: Re: [PATCH for-4.19? v6 3/9] xen: Refactor altp2m options into a
+ structured format
+To: =?UTF-8?Q?Petr_Bene=C5=A1?= <w1benny@gmail.com>
+Cc: Anthony PERARD <anthony@xenproject.org>, Juergen Gross <jgross@suse.com>,
  Andrew Cooper <andrew.cooper3@citrix.com>,
  George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
  Stefano Stabellini <sstabellini@kernel.org>,
- Oleksii Kurochko <oleksii.kurochko@gmail.com>
-References: <5b9d57b4-bd28-4523-bb80-f4a5912eb3e8@suse.com>
- <ZmeIgkFux7tbCZk4@mail-itl>
+ Christian Lindig <christian.lindig@citrix.com>, David Scott
+ <dave@recoil.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Julien Grall <jgrall@amazon.com>, xen-devel@lists.xenproject.org
+References: <cover.1718038855.git.w1benny@gmail.com>
+ <dcf08c40e37072e18e5e878df8778ce459897bdc.1718038855.git.w1benny@gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -115,24 +121,28 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <ZmeIgkFux7tbCZk4@mail-itl>
+In-Reply-To: <dcf08c40e37072e18e5e878df8778ce459897bdc.1718038855.git.w1benny@gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 11.06.2024 01:13, Marek Marczykowski wrote:
-> On Mon, Jun 10, 2024 at 08:38:45AM +0200, Jan Beulich wrote:
->> To get past the recurring friction on the approach to take wrt
->> workarounds needed for various firmware flaws, I'm stepping down as the
->> maintainer of our code interfacing with EFI firmware. Two new
->> maintainers are being introduced in my place.
->>
->> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+On 10.06.2024 19:10, Petr Beneš wrote:
+> From: Petr Beneš <w1benny@gmail.com>
 > 
-> I'm not sure what is the proper tag for cases like this, but:
-> Acked-by: Marek Marczykowski <marmarek@invisiblethingslab.com>
+> Encapsulate the altp2m options within a struct. This change is preparatory
+> and sets the groundwork for introducing additional parameter in subsequent
+> commit.
+> 
+> Signed-off-by: Petr Beneš <w1benny@gmail.com>
+> Acked-by: Julien Grall <jgrall@amazon.com> # arm
+> Reviewed-by: Jan Beulich <jbeulich@suse.com> # hypervisor
 
-Exactly this, afaia. Thanks!
+Looks like you lost Christian's ack for ...
+
+> ---
+>  tools/libs/light/libxl_create.c     | 6 +++---
+>  tools/ocaml/libs/xc/xenctrl_stubs.c | 4 +++-
+
+... the adjustment of this file?
 
 Jan
-
 
