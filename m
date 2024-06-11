@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5CA8890335F
-	for <lists+xen-devel@lfdr.de>; Tue, 11 Jun 2024 09:22:03 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.737912.1144414 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B80A9903378
+	for <lists+xen-devel@lfdr.de>; Tue, 11 Jun 2024 09:25:59 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.737919.1144424 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sGvoe-0006rI-4X; Tue, 11 Jun 2024 07:21:12 +0000
+	id 1sGvsw-0007Yy-LX; Tue, 11 Jun 2024 07:25:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 737912.1144414; Tue, 11 Jun 2024 07:21:12 +0000
+Received: by outflank-mailman (output) from mailman id 737919.1144424; Tue, 11 Jun 2024 07:25:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sGvoe-0006pK-1w; Tue, 11 Jun 2024 07:21:12 +0000
-Received: by outflank-mailman (input) for mailman id 737912;
- Tue, 11 Jun 2024 07:21:10 +0000
+	id 1sGvsw-0007WO-Ix; Tue, 11 Jun 2024 07:25:38 +0000
+Received: by outflank-mailman (input) for mailman id 737919;
+ Tue, 11 Jun 2024 07:25:37 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=7xGt=NN=kernel.org=dlemoal@srs-se1.protection.inumbo.net>)
- id 1sGvoc-0006on-Rm
- for xen-devel@lists.xenproject.org; Tue, 11 Jun 2024 07:21:10 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ id 1sGvsv-0007WI-Dh
+ for xen-devel@lists.xenproject.org; Tue, 11 Jun 2024 07:25:37 +0000
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 28d5b08b-27c3-11ef-b4bb-af5377834399;
- Tue, 11 Jun 2024 09:21:03 +0200 (CEST)
+ id c5be8907-27c3-11ef-b4bb-af5377834399;
+ Tue, 11 Jun 2024 09:25:33 +0200 (CEST)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 5EAFE60C76;
- Tue, 11 Jun 2024 07:21:02 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9B857C2BD10;
- Tue, 11 Jun 2024 07:20:55 +0000 (UTC)
+ by sin.source.kernel.org (Postfix) with ESMTP id B2D1CCE19E4;
+ Tue, 11 Jun 2024 07:25:24 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 80F46C2BD10;
+ Tue, 11 Jun 2024 07:25:19 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,19 +41,19 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 28d5b08b-27c3-11ef-b4bb-af5377834399
+X-Inumbo-ID: c5be8907-27c3-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1718090461;
-	bh=SxGiXC2eXjeuicvqjgmxBbbuRkQDAALVXqGltltCvpM=;
+	s=k20201202; t=1718090724;
+	bh=SKDzpdZjTAHkWp+zsEQwH6Ky8PVIUSEQggaioawXXkU=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=J9t/JghW0gR/ETwdzjpl7VD7KnwAlMW8rRhwZr9kxWhQ6tl8Phg9WjO76NiKxxgu8
-	 fLxeqF9M5t6BVVC5kK/sKL3zR1K2qLPoyVha6i0EJluUzp1kNJ5g2TNKh8g+EJPN33
-	 hrljcXVnUuN8Lr5KlIujiAJZzEJDuCsFcPLl3jPutPmhKf9R0GeNiPNem29bg2OBO7
-	 a1cFWzw0qNt9DSnc6yLqLEresNea8LBs8q7/++QEaUosyu+AjkSi/+C9VElPN9n7PP
-	 XlPsIxsXYvBqYod+WVUBRRvW1FiyVSTv+Mlz8E7DodnwczmTJdbU3tnt32fP5VZhAs
-	 3tDYxoJTsEL7w==
-Message-ID: <6bf90562-0ff9-46b6-8a58-7381332e3beb@kernel.org>
-Date: Tue, 11 Jun 2024 16:20:54 +0900
+	b=UCtiHiiw5QvJYmElyhHUIvI9qZN2kq7wHApTDMzEobrX5tFMllUF7QgwTYv0VDSQe
+	 4AvJZ9Xc1WQTZynkZ5eqZVN35p41xaFCgmlC7UMaLIvvCM36uO+T8E3D8B2kWkrwrw
+	 CxnQ5rfAOwcQk9F3stXF5NyYVqFnlDWOGrsxEQrWt2LCiqL+fvPkUXoNp9aPDrZKK/
+	 Jf1WpJR5Tfo8C4kN4+IDjAFgA3wv+/TYcPyqih/c85wJGX2v2SpjxCABdfzaKWUWw8
+	 mwFNFCAMG5oIrZT1WMKm7NaX1XpI2tHzzzRuvurRNs7Kd2xxeNWyHz9cxkpcbZ5fhc
+	 X7SraO1QML8XQ==
+Message-ID: <92df5033-5df7-4b2a-98ad-a27f8443ee6a@kernel.org>
+Date: Tue, 11 Jun 2024 16:25:18 +0900
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH 02/26] sd: move zone limits setup out of
@@ -83,34 +83,28 @@ Cc: Jens Axboe <axboe@kernel.dk>, Geert Uytterhoeven <geert@linux-m68k.org>,
 References: <20240611051929.513387-1-hch@lst.de>
  <20240611051929.513387-3-hch@lst.de>
  <40ca8052-6ac1-4c1b-8c39-b0a7948839f8@kernel.org>
- <20240611055239.GA3141@lst.de>
+ <20240611055239.GA3141@lst.de> <20240611055405.GA3256@lst.de>
 Content-Language: en-US
 From: Damien Le Moal <dlemoal@kernel.org>
 Organization: Western Digital Research
-In-Reply-To: <20240611055239.GA3141@lst.de>
+In-Reply-To: <20240611055405.GA3256@lst.de>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 6/11/24 2:52 PM, Christoph Hellwig wrote:
-> On Tue, Jun 11, 2024 at 02:51:24PM +0900, Damien Le Moal wrote:
->>> -	if (lim->zoned)
->>> +	if (sdkp->device->type == TYPE_ZBC)
+On 6/11/24 2:54 PM, Christoph Hellwig wrote:
+> On Tue, Jun 11, 2024 at 07:52:39AM +0200, Christoph Hellwig wrote:
+>>> Maybe we should clear the other zone related limits here ? If the drive is
+>>> reformatted/converted from SMR to CMR (FORMAT WITH PRESET), the other zone
+>>> limits may be set already, no ?
 >>
->> Nit: use sd_is_zoned() here ?
+>> blk_validate_zoned_limits already takes care of that.
 > 
-> Yes.
-> 
->>> -	if (!sd_is_zoned(sdkp))
->>> +	if (!sd_is_zoned(sdkp)) {
->>> +		lim->zoned = false;
->>
->> Maybe we should clear the other zone related limits here ? If the drive is
->> reformatted/converted from SMR to CMR (FORMAT WITH PRESET), the other zone
->> limits may be set already, no ?
-> 
-> blk_validate_zoned_limits already takes care of that.
+> Sorry, brainfart.  The integrity code does that, but not the zoned
+> code.  I suspect the core code might be a better place for it,
+> though.
 
-I do not think it does:
+Yes. Just replied to your previous email before seeing this one.
+I think that:
 
 static int blk_validate_zoned_limits(struct queue_limits *lim)
 {
@@ -124,8 +118,23 @@ static int blk_validate_zoned_limits(struct queue_limits *lim)
         }
 	...
 
-So setting lim->zoned to false without clearing the other limits potentially
-will trigger warnings...
+could be changed into:
+
+static int blk_validate_zoned_limits(struct queue_limits *lim)
+{
+	if (!lim->zoned) {
+                lim->max_open_zones = 0;
+		lim->max_active_zones = 0;
+		lim->zone_write_granularity = 0;
+		lim->max_zone_append_sectors = 0
+		return 0;
+	}
+
+But then we would not see "bad" drivers. Could have a small
+
+blk_clear_zoned_limits(struct queue_limits *lim)
+
+helper too.
 
 -- 
 Damien Le Moal
