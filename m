@@ -2,37 +2,41 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 514B0903916
-	for <lists+xen-devel@lfdr.de>; Tue, 11 Jun 2024 12:41:09 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.738265.1144974 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 24DC790394B
+	for <lists+xen-devel@lfdr.de>; Tue, 11 Jun 2024 12:51:03 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.738278.1144985 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sGyvx-0001aH-M9; Tue, 11 Jun 2024 10:40:57 +0000
+	id 1sGz5N-0004tv-On; Tue, 11 Jun 2024 10:50:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 738265.1144974; Tue, 11 Jun 2024 10:40:57 +0000
+Received: by outflank-mailman (output) from mailman id 738278.1144985; Tue, 11 Jun 2024 10:50:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sGyvx-0001Yh-JP; Tue, 11 Jun 2024 10:40:57 +0000
-Received: by outflank-mailman (input) for mailman id 738265;
- Tue, 11 Jun 2024 10:40:55 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1sGz5N-0004sQ-LH; Tue, 11 Jun 2024 10:50:41 +0000
+Received: by outflank-mailman (input) for mailman id 738278;
+ Tue, 11 Jun 2024 10:50:39 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=b7dS=NN=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1sGyvv-0001X2-Oq
- for xen-devel@lists.xenproject.org; Tue, 11 Jun 2024 10:40:55 +0000
-Received: from mail-qk1-x733.google.com (mail-qk1-x733.google.com
- [2607:f8b0:4864:20::733])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 135d08b3-27df-11ef-b4bb-af5377834399;
- Tue, 11 Jun 2024 12:40:53 +0200 (CEST)
-Received: by mail-qk1-x733.google.com with SMTP id
- af79cd13be357-795fb13b256so142144385a.0
- for <xen-devel@lists.xenproject.org>; Tue, 11 Jun 2024 03:40:53 -0700 (PDT)
-Received: from localhost ([213.195.114.223]) by smtp.gmail.com with ESMTPSA id
- 6a1803df08f44-6b0908287f9sm2068136d6.119.2024.06.11.03.40.50
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 11 Jun 2024 03:40:51 -0700 (PDT)
+ <SRS0=3f28=NN=wdc.com=prvs=8854759ac=Johannes.Thumshirn@srs-se1.protection.inumbo.net>)
+ id 1sGz5L-0004r8-NL
+ for xen-devel@lists.xenproject.org; Tue, 11 Jun 2024 10:50:39 +0000
+Received: from esa6.hgst.iphmx.com (esa6.hgst.iphmx.com [216.71.154.45])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 6f95e7d5-27e0-11ef-90a3-e314d9c70b13;
+ Tue, 11 Jun 2024 12:50:38 +0200 (CEST)
+Received: from mail-mw2nam04lp2176.outbound.protection.outlook.com (HELO
+ NAM04-MW2-obe.outbound.protection.outlook.com) ([104.47.73.176])
+ by ob1.hgst.iphmx.com with ESMTP; 11 Jun 2024 18:50:33 +0800
+Received: from PH0PR04MB7416.namprd04.prod.outlook.com (2603:10b6:510:12::17)
+ by BY5PR04MB7105.namprd04.prod.outlook.com (2603:10b6:a03:222::12)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7633.37; Tue, 11 Jun
+ 2024 10:50:30 +0000
+Received: from PH0PR04MB7416.namprd04.prod.outlook.com
+ ([fe80::ee22:5d81:bfcf:7969]) by PH0PR04MB7416.namprd04.prod.outlook.com
+ ([fe80::ee22:5d81:bfcf:7969%4]) with mapi id 15.20.7633.037; Tue, 11 Jun 2024
+ 10:50:30 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,553 +48,185 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 135d08b3-27df-11ef-b4bb-af5377834399
+X-Inumbo-ID: 6f95e7d5-27e0-11ef-90a3-e314d9c70b13
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=wdc.com; i=@wdc.com; q=dns/txt; s=dkim.wdc.com;
+  t=1718103038; x=1749639038;
+  h=from:to:cc:subject:date:message-id:references:
+   in-reply-to:content-id:content-transfer-encoding:
+   mime-version;
+  bh=joufdrNO2/FLdgGzlnaieoHfZ28FYCwNXGhrZ08f24E=;
+  b=cZ9r213nKm9/5PfCMYIqj84dnnnDpNLqTdNOnyhdh2dRpflEUPrHgSXN
+   mLMS+Q7G2KtzgBQCVMaYEduWlAa0bFsnEVlPBUU+q9ri4K8vLgdmo4kFB
+   f+gK4VET/qpW0EVywIpCIZb6ruMrJqJpIRQj5Lqpeb09U0/u+zHOFTsF/
+   CGuSB3JlZEgd1xjnelOktPl3ju6Lko7pDkpnZlUaiTeYJT/tXXfcGaaXA
+   ypH/kDAJqeP78ArvzlXvaqI/y+9UeSfQvOgKeOHCmnPqgy9hfNj5LX4AL
+   iWRhTOAXQUKWq9sgkWnA39C4Qh2nMA2IoAdvGLaq8U/H1vEA/G2/K7h5D
+   Q==;
+X-CSE-ConnectionGUID: XG+0u+qGSs+VPGBVXSu+Jw==
+X-CSE-MsgGUID: lJhORMbQS2qna7/3Ae/3wg==
+X-IronPort-AV: E=Sophos;i="6.08,229,1712592000"; 
+   d="scan'208";a="18778899"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=HUihhz3g+A+tDgcMN9MzwA6oRuJjRvXkvgrDXfFqbucwUirvj3o4xSkgyx7/Rj/q5KYqVvGfl+MuZyw2WSfB/FOlnoegfk8LNyWjQa0iZSTvdNBXsGky/cwBMSpA+qfrxLna97BWmriowlXIEfNQ0/S7e2hLBkhU8jiv6z3k0VpXCdktJn7AhDsBy2MS2YH5/hVluHaYvVUpDWjxk/ih8E9C/GKZCH9W2Gj7nzjHPbzF727uTHGxnSA851e6g2DIzjC+9zAY+aLLUCxD0Yqjpdxyxj8n5bnOZD7PXR5jYsjxV/tHXJ1L4Hmv8Xaj+92bcDp035JOhMRi+1TlbbdsdA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=joufdrNO2/FLdgGzlnaieoHfZ28FYCwNXGhrZ08f24E=;
+ b=XwRa0j5isF/hrxxLzPEzdp44syZkcaRZZMJD677zGfHK+5qyWbaDeTF+ifg9M9J3/Df4M5k2kEzTmC2pG1PdEA2bflM+rzgnT/mgMuC+LJDhyIK/fbkr4yHXgRJQU7AG2IGPeB5buQigXmDKZkfxWyJAaeZ8GNOxD9/NVTKcPFn5EzjIlwZt7tHMri05vwryBTc+/g4Uo/kQan9yzTEPVspq6pSVYWXFjlPxP07d2FB9o1CTKTjAAGA8sezAg29zEEGNYiTKnZ9ZC4hb37FBdxsCfHRIO2bVXJs5MRRI/LVlRQv7H7puYmwyFY7xw0oeGDPM5VH7u/7oqmhBiBCWdA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=wdc.com; dmarc=pass action=none header.from=wdc.com; dkim=pass
+ header.d=wdc.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1718102452; x=1718707252; darn=lists.xenproject.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=r8a1AXtM0wZIJDy65EK2bmDa1peS7KgyN303R6Jr3pM=;
-        b=Huue/vMogZhplHB55ITXaYGVAHg6pLB/Qu9jlxgoa002G5Hwu0BBwgiat12ZUmewhG
-         tR7wtB0bIwYZEaQQBO+jgoyJ3nQtBrVf5bw0iI3mZHBCTJwp9/IfcwSG/NBJtMlrRi7d
-         aBO+3SbtbFTcmqUmaC0saosxu7+n8Deid6Kkg=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1718102452; x=1718707252;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=r8a1AXtM0wZIJDy65EK2bmDa1peS7KgyN303R6Jr3pM=;
-        b=PZAcYs1Vf7a7pAzV4YlsD/Q2kwITuOa+cEr3FnFu3PGnSy7+0yiAwAW2lyesTYlV01
-         VCuBXq3GnNIIcv9tls84WO96ROi4tdt1Hb1QQnlWk23zvlLS2DKcrvpky97T3bslnqYz
-         VSFKJjT/6Hn43MHhtLK1LoQbmh7dMd+hcgCyB3CKHapz2SyvumRbEg4DopT8yDk9cIfT
-         7UFzkKk03dQIyvpCr+6pDKiMEOYw8C6ITbEEqmxhH1ksFHGmYxXgsXC4FIrHnnWfYwK1
-         LnS+D4AQxlQVB16dvZk44dZpkMpfu0XB0K/MHnmcFjLDkrImYXaIzNvfhxMlwnnqSduu
-         NJBQ==
-X-Gm-Message-State: AOJu0YxXV00RIGPxBGI4qcjhrHKn/y88Gp8mtxrWpr+rP6q3e1gAxjPn
-	xpLY15Swgu78J91NrrBDGut4rlr9X0PWe67lUJ2g89yWvVJ8Nz70uXi8s6ikHdc=
-X-Google-Smtp-Source: AGHT+IFUX0JmgVH31R8bjU4n4qqzVICfX2TxGlZjuLmvfGKyDt6fSAfrFLugGhgOwh/lwIs4t+sHMg==
-X-Received: by 2002:a05:6214:3d08:b0:6b0:732f:b91b with SMTP id 6a1803df08f44-6b089f7056dmr46105886d6.26.1718102451611;
-        Tue, 11 Jun 2024 03:40:51 -0700 (PDT)
-Date: Tue, 11 Jun 2024 12:40:49 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>
-Subject: Re: [PATCH v4 1/2] x86/mm: add API for marking only part of a MMIO
- page read only
-Message-ID: <ZmgpsZJ4afLd1Fc3@macbook>
-References: <cover.68462f37276d69ab6e268be94d049f866a321f73.1716392340.git-series.marmarek@invisiblethingslab.com>
- <30562c807ff2e434731a76d7110d48614a58884b.1716392340.git-series.marmarek@invisiblethingslab.com>
+ d=sharedspace.onmicrosoft.com; s=selector2-sharedspace-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=joufdrNO2/FLdgGzlnaieoHfZ28FYCwNXGhrZ08f24E=;
+ b=znrZMK8y8asm9X0HR3CeoUK6jORYAI3cBWQ0FKAOqYtYtrF8+kyZzZ4MHhibIxobwDEu9di1W5sV4XQlZ7emhPRpmehE4lH42iaM9svQFJA4v90WR8PJlsv1J9SsFhleFjFiyG18lzu8XLQlAIT072gkkOa4HR1uwX5WptUX7qg=
+From: Johannes Thumshirn <Johannes.Thumshirn@wdc.com>
+To: Christoph Hellwig <hch@lst.de>, Jens Axboe <axboe@kernel.dk>
+CC: Geert Uytterhoeven <geert@linux-m68k.org>, Richard Weinberger
+	<richard@nod.at>, Philipp Reisner <philipp.reisner@linbit.com>, Lars
+ Ellenberg <lars.ellenberg@linbit.com>,
+	=?utf-8?B?Q2hyaXN0b3BoIELDtmhtd2FsZGVy?= <christoph.boehmwalder@linbit.com>,
+	Josef Bacik <josef@toxicpanda.com>, Ming Lei <ming.lei@redhat.com>, "Michael
+ S. Tsirkin" <mst@redhat.com>, Jason Wang <jasowang@redhat.com>,
+	=?utf-8?B?Um9nZXIgUGF1IE1vbm7DqQ==?= <roger.pau@citrix.com>, Alasdair Kergon
+	<agk@redhat.com>, Mike Snitzer <snitzer@kernel.org>, Mikulas Patocka
+	<mpatocka@redhat.com>, Song Liu <song@kernel.org>, Yu Kuai
+	<yukuai3@huawei.com>, Vineeth Vijayan <vneethv@linux.ibm.com>, "Martin K.
+ Petersen" <martin.petersen@oracle.com>, "linux-m68k@lists.linux-m68k.org"
+	<linux-m68k@lists.linux-m68k.org>, "linux-um@lists.infradead.org"
+	<linux-um@lists.infradead.org>, "drbd-dev@lists.linbit.com"
+	<drbd-dev@lists.linbit.com>, "nbd@other.debian.org" <nbd@other.debian.org>,
+	"linuxppc-dev@lists.ozlabs.org" <linuxppc-dev@lists.ozlabs.org>,
+	"ceph-devel@vger.kernel.org" <ceph-devel@vger.kernel.org>,
+	"virtualization@lists.linux.dev" <virtualization@lists.linux.dev>,
+	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+	"linux-bcache@vger.kernel.org" <linux-bcache@vger.kernel.org>,
+	"dm-devel@lists.linux.dev" <dm-devel@lists.linux.dev>,
+	"linux-raid@vger.kernel.org" <linux-raid@vger.kernel.org>,
+	"linux-mmc@vger.kernel.org" <linux-mmc@vger.kernel.org>,
+	"linux-mtd@lists.infradead.org" <linux-mtd@lists.infradead.org>,
+	"nvdimm@lists.linux.dev" <nvdimm@lists.linux.dev>,
+	"linux-nvme@lists.infradead.org" <linux-nvme@lists.infradead.org>,
+	"linux-s390@vger.kernel.org" <linux-s390@vger.kernel.org>,
+	"linux-scsi@vger.kernel.org" <linux-scsi@vger.kernel.org>,
+	"linux-block@vger.kernel.org" <linux-block@vger.kernel.org>
+Subject: Re: [PATCH 01/26] sd: fix sd_is_zoned
+Thread-Topic: [PATCH 01/26] sd: fix sd_is_zoned
+Thread-Index: AQHau78EzIfqHhndw06EBBro2gSZqbHCYtuA
+Date: Tue, 11 Jun 2024 10:50:30 +0000
+Message-ID: <b9b02f22-6835-4a9c-a1b7-790fa6c0afb5@wdc.com>
+References: <20240611051929.513387-1-hch@lst.de>
+ <20240611051929.513387-2-hch@lst.de>
+In-Reply-To: <20240611051929.513387-2-hch@lst.de>
+Accept-Language: en-GB, en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+user-agent: Mozilla Thunderbird
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=wdc.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: PH0PR04MB7416:EE_|BY5PR04MB7105:EE_
+x-ms-office365-filtering-correlation-id: e237afd1-1a8b-4420-23ed-08dc8a044fef
+wdcipoutbound: EOP-TRUE
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230031|376005|7416005|1800799015|366007|38070700009;
+x-microsoft-antispam-message-info:
+ =?utf-8?B?VUlMbFE1dU1sbTQycXpML2VXUTJBWDk5YTdZNDdrVGVuckQ2YTk1ZTZCQXcw?=
+ =?utf-8?B?Y3daN2hMOWtGbEpkK0NJTVdFMDlGQS9oTUtRbjFCRVJqb3JSdjd2Vk5YQ0Zk?=
+ =?utf-8?B?ZGN2Y3ZUZTVzTEFhVUF6SDFjY1lDU2MveWRpQ3pyTG41bE8xcFFtSGgzc2JW?=
+ =?utf-8?B?WTN2MVE4cHhjOTZtakM5RTRmSDdvRlN5Qk5zTWVPeXFBQlpOUVl5YnJRcFZp?=
+ =?utf-8?B?TTE0Q2VpZkd5djFiSktGR0RFNzNmSHZxdmNaV2UvVEY2QWU4dFNsdzNxUmNt?=
+ =?utf-8?B?M0FIOHhIRmVheGtNZlNSNEgyNzVNOTI0VHJNSDEwcWpaenYyelZ5QThNQWhx?=
+ =?utf-8?B?akJjcy9zeXBZa3hXa2NvN24rOHhSVkkxVUJ3Y3F4amlrVG5EQzlDUW9TY0Nt?=
+ =?utf-8?B?aWJFMEhBRGo0NDFIZmFHWUJPdENTSzN4QXVudXRvTlFnbFU4UkRlRW04ZkRE?=
+ =?utf-8?B?ZkFISTY4SmVtaFhhZTVGWkUwWHFURUJZOVZsWnord2xaS3h3Y0w1M2tERUN5?=
+ =?utf-8?B?elpwekp6cU8rbTgxYXVXNHV2eG5XOTFZVGZqYnJXbjF0cGNLcWwvdXg2dkxX?=
+ =?utf-8?B?aXQ4YXFxczMyOHFkM3lKWXlxZ3lsRHAwakJlVi8zcnRST1NQZlBSeStRNVpk?=
+ =?utf-8?B?UDc1RGsraW0vMktoS2V2S25qRVNOdmhFWHJyLzk0aWFwbFVkYUkwdUt6TUk5?=
+ =?utf-8?B?ZnFXdHY1Uk5scVVhMkx0VTQzZUpXUWlpTUhmOE9yQ0FtenZuU01zWjRlMi9a?=
+ =?utf-8?B?WTl5YzdGczhMR0lhUEtuSUtEZFVrRis0K0cwMkdyVkx2ZzNvNGZ3Z0VKNUY2?=
+ =?utf-8?B?aVRCcjEraG5XV04vZzRxU1FORnBVUE9MTlpleEI5dHJwUFpOZkw4L3dQbjQy?=
+ =?utf-8?B?VzBQNS9rL2NzUjR0NTJ6cWJBSWhCY3JSNUxVZTRyUWpReTJxd25nL000Sm5J?=
+ =?utf-8?B?OGFCNG52ckVJSnR5dklvbU9BQkEvSEtidVJhSUpQcHVlaE54cktLR0tuNkh5?=
+ =?utf-8?B?ck1VNHprSEdmdWRGQndkMFhHb3BacUJvVWhaZCtMOFN6NkhmNWhWT3JNWEd6?=
+ =?utf-8?B?ckJzUWJ0eFArODVza1Bnd1RwbUpJbWRXV3cyWkFRUTg2NldxVFFidDZhcDVC?=
+ =?utf-8?B?a2xrdHkySjEyRVgySCtBMEZEdy9kQ0QrUS9ialIvYTI5a2N1a2lKQjkwbml3?=
+ =?utf-8?B?R2I2REd3ODg2Vkxwa1U4ZnQ4czJRNUdSZTJ5aUxwdG0xd3NOcnR0WHdMTjFv?=
+ =?utf-8?B?UzM1MlJGaVZnWEhMOEd3T0VWTEwrS0U2SWRPT2NtdGwySXBYbkhBTWN2ajYw?=
+ =?utf-8?B?dGVONytuT1BxZ1dMbTRqMVQ5QlU0ZUYra2lhQjJMTnRXZU9TNjlDSUU5NEdu?=
+ =?utf-8?B?WkFEVm5xYzlNWkJlaVJ0dWFrRGYxOHY0UjRVeFhZK05mTnY2MklNUDdxZkJs?=
+ =?utf-8?B?R2ppVHd1emlIOGRJZG9ScVFHT0NtL2ZPUjh6ampyVzM5M0hTL3Q2ZlBJQ3Ji?=
+ =?utf-8?B?SlM2WmJSRGlZTXlHR05ZOVlWRVZDMmtNRXk2K3BnNWJPTS9kMG4yZVpac3hp?=
+ =?utf-8?B?NVQ5ckpkcnFIdUlXZW52TjRkYXZjQ2dNTlM1MmJ5Z3NsZGVUeVo3Tk5hMWFo?=
+ =?utf-8?B?TURUYXNmTVlsZjJPZC90eUNqcGFONUpYSnZrcDJEc1RPWEp6UXl6Y1RTUDlJ?=
+ =?utf-8?B?cDhvSHNRM3B2VjF6OXJkVkF6SytkZS80aDl3d1RwYS9NTUwrelRTNGh5dDNF?=
+ =?utf-8?B?YVFneTlheXdmbVgwUHZnd1FKRk0wVmFjd2NHZ0k0V3E4NVk3ZmZTQ09NU0lY?=
+ =?utf-8?Q?yz/Jix8RL8kb6p4H32wmC4RaO75IJtq1sGJFk=3D?=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR04MB7416.namprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(376005)(7416005)(1800799015)(366007)(38070700009);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?utf-8?B?SytxU2YyN0lwYW1lMW5BdHkrVkJnWGhseUQ0YW5rcEFJODVycHpkMXIwck5o?=
+ =?utf-8?B?YnA4UjV4dnIvZjlJZ0h2Y0FKSElMYkIrUGc0ZlpzTy9YTEdiUVJzL0E4Sm4x?=
+ =?utf-8?B?WkNBeEdVcG9OZGhRZ00wUEhwdm9nZWh6V1lZSHV0UGliejBoT3RRK3cxcVRv?=
+ =?utf-8?B?cERsZkI5VkxFdVpObEowdytneTVrWnlkNTJuaGwzVFlSYlZJZUtxeW54N2dH?=
+ =?utf-8?B?Mjd1T0dYeHMvWWoySDBHNllxUm9SclI1V3JxNjhjanhsQ3FzdTRMNE8wcnhL?=
+ =?utf-8?B?WHJUeEdESW5YRnU3V25TZWYwa0plNnNxQmpBbjdITTYwdmljZzdEWmJDZ1pv?=
+ =?utf-8?B?TnZIZ1dabEtSaHJaVUtnOTBzNHBNOC9STnZrU2EvNjczQXF2WmovdXJVbUpC?=
+ =?utf-8?B?cElGTDZxMWVBeEF2aUI5MHV2MnMyUE42cnBLQkRhY1BVa044ck9xejh4RXE5?=
+ =?utf-8?B?T21iK1M0N01YYTZlc1hFNFhuYlZOMkIwMmsrQkQrZzBlRGVINmJuUnRZSU1w?=
+ =?utf-8?B?UXc5UGs2ZnJ1WXhDbHpnREd5SjRETGNmT3NsUGgwNDdUVVl6MEt5ejA2THBT?=
+ =?utf-8?B?cHhpZkpIOE1MUFhJMFJUSjBNZEVDM0MybGd0ZXVFeGVtLzhJcFRiQnFYOFRu?=
+ =?utf-8?B?YkgwUEdpWFczLzZ3YlZEcG1rdUhKK0N1ZHg5czNaa1BtKzVmZHdFcHpPYWFI?=
+ =?utf-8?B?U3hEaWRjK3dqMksvcEtHYUhqVTg3Sko3cjhtTjlBNmRTS2ZaYkoyMlVUbGpQ?=
+ =?utf-8?B?SE5oSmVxVlBrMW1PVU13aTh2ZDBZYkluVnp2Nlo1M0U3aTU4N1VJbE5SeUZ6?=
+ =?utf-8?B?VTV5V1BkRjZSSmVlVmU3ak43Q0FRQm9NT2RyRUZiMmNDRmhTNzZubjlzQ2ls?=
+ =?utf-8?B?UG81bFUyT2M3YkR2QXI3WWlmdlBvdDRiM080clY0NXg3bldOZEUrbldibU9N?=
+ =?utf-8?B?aHRMeVE1T0pMZ05ybE10YncxWE5ETStpb2t5SWdCNmtRYVFOZ2cyak9Lb3l0?=
+ =?utf-8?B?MHhKRjh4cDBMbGxFbDAxdTFsUUdObTRXSm1MZXRKRFJuWHV2ekdRREU3TTk5?=
+ =?utf-8?B?V1ltaWFDSWRBQ1hIeFcybXMrSW5kenNSbk5mc0tyR2pGMTBEWW1TVTNxQktj?=
+ =?utf-8?B?anMrUXlzYVR6OFB3bGYwS2psSTc2NXczVTRoa3RzNFZURDVlbGVmTVMzRlNw?=
+ =?utf-8?B?amZ6c2k4S09YNjNrTG1OS3hxNms2NERDU3pGazJPVU05VXN3MnlNWS9FVmFC?=
+ =?utf-8?B?d0U1VHNLdmp5bmtmVU1FVE1KUVhJaXlZWTR2ZVQ0bzBvTnMyekU3WisrNitk?=
+ =?utf-8?B?aC9EcmlHcWl1Rm95UHN6UGw5ODV6L3VXUG9hbWZKZk1vYWVzclZCdXR0cURl?=
+ =?utf-8?B?N3UzaTUvL0lPRFQwOTFKWnNydDREbjIwVi9HcTdhYkhhcmJmOVp0OGxoZUl2?=
+ =?utf-8?B?S1hXUnlLbUdJdStVYTdLZXdjaFpiYnBud2tqb0M3VS9HQkFyeGt4aGdOaWIx?=
+ =?utf-8?B?RWZMV3JLVVBNWENyZTY2NzN4ajBveTZPcFc0aGVGbVNaNjM5bUVZU1VzQkxw?=
+ =?utf-8?B?WDNlb1VkY3VTTktOM1NnVjhhZ2hjWC9aNitVU0g5c1VvS1l0MklMUGlKOVBx?=
+ =?utf-8?B?Mzd0T1l3eTR0NFp5V1FrZVBqeGIzcEdNUVZib0ZWOFpFb2d1ZFcrR0QzTGRJ?=
+ =?utf-8?B?TkhmcENNWXRqUDVPcVc3dVhNRDhhL2hheUlWVDl2VFpHQ0k0Y3FFS2pFVDQv?=
+ =?utf-8?B?LzdRRUhPNkVHbGI4ZjBIUVFyY1dhT2pYQVJ4K0o4WjdCR3dtc04xZ3pFQkxK?=
+ =?utf-8?B?NjJkTndla3dsUW5JWDlKNzhHMU1Dd25qTDV4ak5JN2oyZk9FU1dMQWF4UDln?=
+ =?utf-8?B?R2xzclVHczJnaDRSd3pvMStuOXREM0dDZlZ2VHVFQlZUTFVKMU9HeEd0M3ll?=
+ =?utf-8?B?Wmd0UW15cEZ4UE0rWnEvV0psZFBYUDRzSVpuMXJUdHlMQVRIQ3Q2YkQxck1X?=
+ =?utf-8?B?eHBhdmRZK1BTenF6TGdrV1hBN1NSRHlKaUw1TXZEdS9KdjBWRGRsUUlCcjgv?=
+ =?utf-8?B?UGRRZ2RIanpLMDR5N1dnOXkzY01JMStZNWpvMFNtUWFDTnE1OU1TamgwS2Vz?=
+ =?utf-8?B?VUgweXo0Ym5LV2t2bElnMk5nWGZkZWozd2I1MjVyZTNqS056WllNNDR2L0d2?=
+ =?utf-8?B?N2c9PQ==?=
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <050DDD6DB6C2124FA3F8ED9DC37A34A4@namprd04.prod.outlook.com>
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <30562c807ff2e434731a76d7110d48614a58884b.1716392340.git-series.marmarek@invisiblethingslab.com>
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:
+	LfuiCTpDV1XOT4min+jpdGv1cOG53qf/Q7eW4YiZtziNslRG+ShEQZksWk80HEYuizltKxkMxDdRAi92tlukC6fPY08stsD1AFiR8q5dcPaUjfhCVkxTz1GRNMXeAudEibPoIbaIWkYZsSCzYTdjDfc61lgCtjki4/DajHKJCNAizeTL6t1cNq6wiVZasLSVeEHHMzNwuCS2tuli9A8FSCT/jfgm8fqgwdVPMD5FuYDdPEvTH56REV8q59Sz5PCyjlcpZxqePWF4adEtwUM8z3mLnp3mB8GXhnJfb/vV0T0IORhI0HP0y4RW9cjlEh+iu23fRBh5nUesGFph+Xwv56yYa5bScPxAai2sPSNb7j6be1Ua9GBROYt/Q57kmwD7aIZTq9oY37Cl7phWHKxXwZssZWCUreXwzWb1IEZVpsan78HTrIf3H73Cqn/JdNYi8kdj3Af580J05ZSjdeFYFAsVbWar6s/6xFKA2AzvK4phK0+HoW7DKhXB6OrE3Te9tIY3TMs6J0DwvPDKt23P3kZFzvhhkxo4pmNLrNSVKgv8ZbYAIVKmatK7gtF0BwhKcZWZcaARVTecPT7id+s8udrnl6Jbf8PlKnL6eiji048gEWH6MT3gXWC45w4r+2wx
+X-OriginatorOrg: wdc.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: PH0PR04MB7416.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e237afd1-1a8b-4420-23ed-08dc8a044fef
+X-MS-Exchange-CrossTenant-originalarrivaltime: 11 Jun 2024 10:50:30.5035
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: b61c8803-16f3-4c35-9b17-6f65f441df86
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: VchCIwENkr4e2H1VYqeq5y2OZY6ymUDk/J+o1F4FeS5WEBurkzCTAaST9NPyVE7GAux24AcOpdHQLISKmapiuwi1arY6kL+cBMh9dVTsntY=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR04MB7105
 
-On Wed, May 22, 2024 at 05:39:03PM +0200, Marek Marczykowski-Górecki wrote:
-> In some cases, only few registers on a page needs to be write-protected.
-> Examples include USB3 console (64 bytes worth of registers) or MSI-X's
-> PBA table (which doesn't need to span the whole table either), although
-> in the latter case the spec forbids placing other registers on the same
-> page. Current API allows only marking whole pages pages read-only,
-> which sometimes may cover other registers that guest may need to
-> write into.
-> 
-> Currently, when a guest tries to write to an MMIO page on the
-> mmio_ro_ranges, it's either immediately crashed on EPT violation - if
-> that's HVM, or if PV, it gets #PF. In case of Linux PV, if access was
-> from userspace (like, /dev/mem), it will try to fixup by updating page
-> tables (that Xen again will force to read-only) and will hit that #PF
-> again (looping endlessly). Both behaviors are undesirable if guest could
-> actually be allowed the write.
-> 
-> Introduce an API that allows marking part of a page read-only. Since
-> sub-page permissions are not a thing in page tables (they are in EPT,
-> but not granular enough), do this via emulation (or simply page fault
-> handler for PV) that handles writes that are supposed to be allowed.
-> The new subpage_mmio_ro_add() takes a start physical address and the
-> region size in bytes. Both start address and the size need to be 8-byte
-> aligned, as a practical simplification (allows using smaller bitmask,
-> and a smaller granularity isn't really necessary right now).
-> It will internally add relevant pages to mmio_ro_ranges, but if either
-> start or end address is not page-aligned, it additionally adds that page
-> to a list for sub-page R/O handling. The list holds a bitmask which
-> qwords are supposed to be read-only and an address where page is mapped
-> for write emulation - this mapping is done only on the first access. A
-> plain list is used instead of more efficient structure, because there
-> isn't supposed to be many pages needing this precise r/o control.
-> 
-> The mechanism this API is plugged in is slightly different for PV and
-> HVM. For both paths, it's plugged into mmio_ro_emulated_write(). For PV,
-> it's already called for #PF on read-only MMIO page. For HVM however, EPT
-> violation on p2m_mmio_direct page results in a direct domain_crash() for
-> non hardware domains.  To reach mmio_ro_emulated_write(), change how
-> write violations for p2m_mmio_direct are handled - specifically, check
-> if they relate to such partially protected page via
-> subpage_mmio_write_accept() and if so, call hvm_emulate_one_mmio() for
-> them too. This decodes what guest is trying write and finally calls
-> mmio_ro_emulated_write(). The EPT write violation is detected as
-> npfec.write_access and npfec.present both being true (similar to other
-> places), which may cover some other (future?) cases - if that happens,
-> emulator might get involved unnecessarily, but since it's limited to
-> pages marked with subpage_mmio_ro_add() only, the impact is minimal.
-> Both of those paths need an MFN to which guest tried to write (to check
-> which part of the page is supposed to be read-only, and where
-> the page is mapped for writes). This information currently isn't
-> available directly in mmio_ro_emulated_write(), but in both cases it is
-> already resolved somewhere higher in the call tree. Pass it down to
-> mmio_ro_emulated_write() via new mmio_ro_emulate_ctxt.mfn field.
-> 
-> This may give a bit more access to the instruction emulator to HVM
-> guests (the change in hvm_hap_nested_page_fault()), but only for pages
-> explicitly marked with subpage_mmio_ro_add() - so, if the guest has a
-> passed through a device partially used by Xen.
-> As of the next patch, it applies only configuration explicitly
-> documented as not security supported.
-> 
-> The subpage_mmio_ro_add() function cannot be called with overlapping
-> ranges, and on pages already added to mmio_ro_ranges separately.
-> Successful calls would result in correct handling, but error paths may
-> result in incorrect state (like pages removed from mmio_ro_ranges too
-> early). Debug build has asserts for relevant cases.
-> 
-> Signed-off-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
-> ---
-> Shadow mode is not tested, but I don't expect it to work differently than
-> HAP in areas related to this patch.
-> 
-> Changes in v4:
-> - rename SUBPAGE_MMIO_RO_ALIGN to MMIO_RO_SUBPAGE_GRAN
-> - guard subpage_mmio_write_accept with CONFIG_HVM, as it's used only
->   there
-> - rename ro_qwords to ro_elems
-> - use unsigned arguments for subpage_mmio_ro_remove_page()
-> - use volatile for __iomem
-> - do not set mmio_ro_ctxt.mfn for mmcfg case
-> - comment where fields of mmio_ro_ctxt are used
-> - use bool for result of __test_and_set_bit
-> - do not open-code mfn_to_maddr()
-> - remove leftover RCU
-> - mention hvm_hap_nested_page_fault() explicitly in the commit message
-> Changes in v3:
-> - use unsigned int for loop iterators
-> - use __set_bit/__clear_bit when under spinlock
-> - avoid ioremap() under spinlock
-> - do not cast away const
-> - handle unaligned parameters in release build
-> - comment fixes
-> - remove RCU - the add functions are __init and actual usage is only
->   much later after domains are running
-> - add checks overlapping ranges in debug build and document the
->   limitations
-> - change subpage_mmio_ro_add() so the error path doesn't potentially
->   remove pages from mmio_ro_ranges
-> - move printing message to avoid one goto in
->   subpage_mmio_write_emulate()
-> Changes in v2:
-> - Simplify subpage_mmio_ro_add() parameters
-> - add to mmio_ro_ranges from within subpage_mmio_ro_add()
-> - use ioremap() instead of caller-provided fixmap
-> - use 8-bytes granularity (largest supported single write) and a bitmap
->   instead of a rangeset
-> - clarify commit message
-> - change how it's plugged in for HVM domain, to not change the behavior for
->   read-only parts (keep it hitting domain_crash(), instead of ignoring
->   write)
-> - remove unused subpage_mmio_ro_remove()
-> ---
->  xen/arch/x86/hvm/emulate.c      |   2 +-
->  xen/arch/x86/hvm/hvm.c          |   4 +-
->  xen/arch/x86/include/asm/mm.h   |  25 +++-
->  xen/arch/x86/mm.c               | 273 +++++++++++++++++++++++++++++++++-
->  xen/arch/x86/pv/ro-page-fault.c |   6 +-
->  5 files changed, 305 insertions(+), 5 deletions(-)
-> 
-> diff --git a/xen/arch/x86/hvm/emulate.c b/xen/arch/x86/hvm/emulate.c
-> index ab1bc516839a..e98513afc69b 100644
-> --- a/xen/arch/x86/hvm/emulate.c
-> +++ b/xen/arch/x86/hvm/emulate.c
-> @@ -2735,7 +2735,7 @@ int hvm_emulate_one_mmio(unsigned long mfn, unsigned long gla)
->          .write      = mmio_ro_emulated_write,
->          .validate   = hvmemul_validate,
->      };
-> -    struct mmio_ro_emulate_ctxt mmio_ro_ctxt = { .cr2 = gla };
-> +    struct mmio_ro_emulate_ctxt mmio_ro_ctxt = { .cr2 = gla, .mfn = _mfn(mfn) };
->      struct hvm_emulate_ctxt ctxt;
->      const struct x86_emulate_ops *ops;
->      unsigned int seg, bdf;
-> diff --git a/xen/arch/x86/hvm/hvm.c b/xen/arch/x86/hvm/hvm.c
-> index 9594e0a5c530..73bbfe2bdc99 100644
-> --- a/xen/arch/x86/hvm/hvm.c
-> +++ b/xen/arch/x86/hvm/hvm.c
-> @@ -2001,8 +2001,8 @@ int hvm_hap_nested_page_fault(paddr_t gpa, unsigned long gla,
->          goto out_put_gfn;
->      }
->  
-> -    if ( (p2mt == p2m_mmio_direct) && is_hardware_domain(currd) &&
-> -         npfec.write_access && npfec.present &&
-> +    if ( (p2mt == p2m_mmio_direct) && npfec.write_access && npfec.present &&
-> +         (is_hardware_domain(currd) || subpage_mmio_write_accept(mfn, gla)) &&
->           (hvm_emulate_one_mmio(mfn_x(mfn), gla) == X86EMUL_OKAY) )
->      {
->          rc = 1;
-> diff --git a/xen/arch/x86/include/asm/mm.h b/xen/arch/x86/include/asm/mm.h
-> index 98b66edaca5e..d04cf2c4165e 100644
-> --- a/xen/arch/x86/include/asm/mm.h
-> +++ b/xen/arch/x86/include/asm/mm.h
-> @@ -522,9 +522,34 @@ extern struct rangeset *mmio_ro_ranges;
->  void memguard_guard_stack(void *p);
->  void memguard_unguard_stack(void *p);
->  
-> +/*
-> + * Add more precise r/o marking for a MMIO page. Range specified here
-> + * will still be R/O, but the rest of the page (not marked as R/O via another
-> + * call) will have writes passed through.
-> + * The start address and the size must be aligned to MMIO_RO_SUBPAGE_GRAN.
-> + *
-> + * This API cannot be used for overlapping ranges, nor for pages already added
-> + * to mmio_ro_ranges separately.
-> + *
-> + * Since there is currently no subpage_mmio_ro_remove(), relevant device should
-> + * not be hot-unplugged.
-> + *
-> + * Return values:
-> + *  - negative: error
-> + *  - 0: success
-> + */
-> +#define MMIO_RO_SUBPAGE_GRAN 8
-> +int subpage_mmio_ro_add(paddr_t start, size_t size);
-> +#ifdef CONFIG_HVM
-> +bool subpage_mmio_write_accept(mfn_t mfn, unsigned long gla);
-> +#endif
-> +
->  struct mmio_ro_emulate_ctxt {
->          unsigned long cr2;
-> +        /* Used only for mmcfg case */
->          unsigned int seg, bdf;
-> +        /* Used only for non-mmcfg case */
-> +        mfn_t mfn;
->  };
->  
->  int cf_check mmio_ro_emulated_write(
-> diff --git a/xen/arch/x86/mm.c b/xen/arch/x86/mm.c
-> index d968bbbc7315..dab7cc018c3f 100644
-> --- a/xen/arch/x86/mm.c
-> +++ b/xen/arch/x86/mm.c
-> @@ -150,6 +150,17 @@ bool __read_mostly machine_to_phys_mapping_valid;
->  
->  struct rangeset *__read_mostly mmio_ro_ranges;
->  
-> +/* Handling sub-page read-only MMIO regions */
-> +struct subpage_ro_range {
-> +    struct list_head list;
-> +    mfn_t mfn;
-> +    void __iomem *mapped;
-> +    DECLARE_BITMAP(ro_elems, PAGE_SIZE / MMIO_RO_SUBPAGE_GRAN);
-> +};
-> +
-> +static LIST_HEAD(subpage_ro_ranges);
-> +static DEFINE_SPINLOCK(subpage_ro_lock);
-> +
->  static uint32_t base_disallow_mask;
->  /* Global bit is allowed to be set on L1 PTEs. Intended for user mappings. */
->  #define L1_DISALLOW_MASK ((base_disallow_mask | _PAGE_GNTTAB) & ~_PAGE_GLOBAL)
-> @@ -4910,6 +4921,265 @@ long arch_memory_op(unsigned long cmd, XEN_GUEST_HANDLE_PARAM(void) arg)
->      return rc;
->  }
->  
-> +/*
-> + * Mark part of the page as R/O.
-> + * Returns:
-> + * - 0 on success - first range in the page
-> + * - 1 on success - subsequent range in the page
-> + * - <0 on error
-> + *
-> + * This needs subpage_ro_lock already taken.
-> + */
-> +static int __init subpage_mmio_ro_add_page(
-> +    mfn_t mfn, unsigned int offset_s, unsigned int offset_e)
-
-Nit: parameters here seem to be indented differently than below.
-
-> +{
-> +    struct subpage_ro_range *entry = NULL, *iter;
-> +    unsigned int i;
-> +
-> +    list_for_each_entry(iter, &subpage_ro_ranges, list)
-> +    {
-> +        if ( mfn_eq(iter->mfn, mfn) )
-> +        {
-> +            entry = iter;
-> +            break;
-> +        }
-> +    }
-
-AFAICT you could put the search logic into a separate function and use
-it here, plus in subpage_mmio_ro_remove_page(),
-subpage_mmio_write_emulate() and subpage_mmio_write_accept() possibly.
-
-> +    if ( !entry )
-> +    {
-> +        /* iter == NULL marks it was a newly allocated entry */
-> +        iter = NULL;
-> +        entry = xzalloc(struct subpage_ro_range);
-> +        if ( !entry )
-> +            return -ENOMEM;
-> +        entry->mfn = mfn;
-> +    }
-> +
-> +    for ( i = offset_s; i <= offset_e; i += MMIO_RO_SUBPAGE_GRAN )
-> +    {
-> +        bool oldbit = __test_and_set_bit(i / MMIO_RO_SUBPAGE_GRAN,
-> +                                        entry->ro_elems);
-> +        ASSERT(!oldbit);
-> +    }
-> +
-> +    if ( !iter )
-> +        list_add(&entry->list, &subpage_ro_ranges);
-> +
-> +    return iter ? 1 : 0;
-> +}
-> +
-> +/* This needs subpage_ro_lock already taken */
-> +static void __init subpage_mmio_ro_remove_page(
-> +    mfn_t mfn,
-> +    unsigned int offset_s,
-> +    unsigned int offset_e)
-> +{
-> +    struct subpage_ro_range *entry = NULL, *iter;
-> +    unsigned int i;
-> +
-> +    list_for_each_entry(iter, &subpage_ro_ranges, list)
-> +    {
-> +        if ( mfn_eq(iter->mfn, mfn) )
-> +        {
-> +            entry = iter;
-> +            break;
-> +        }
-> +    }
-> +    if ( !entry )
-> +        return;
-> +
-> +    for ( i = offset_s; i <= offset_e; i += MMIO_RO_SUBPAGE_GRAN )
-> +        __clear_bit(i / MMIO_RO_SUBPAGE_GRAN, entry->ro_elems);
-> +
-> +    if ( !bitmap_empty(entry->ro_elems, PAGE_SIZE / MMIO_RO_SUBPAGE_GRAN) )
-> +        return;
-> +
-> +    list_del(&entry->list);
-> +    if ( entry->mapped )
-> +        iounmap(entry->mapped);
-> +    xfree(entry);
-> +}
-> +
-> +int __init subpage_mmio_ro_add(
-> +    paddr_t start,
-> +    size_t size)
-> +{
-> +    mfn_t mfn_start = maddr_to_mfn(start);
-> +    paddr_t end = start + size - 1;
-> +    mfn_t mfn_end = maddr_to_mfn(end);
-> +    unsigned int offset_end = 0;
-> +    int rc;
-> +    bool subpage_start, subpage_end;
-> +
-> +    ASSERT(IS_ALIGNED(start, MMIO_RO_SUBPAGE_GRAN));
-> +    ASSERT(IS_ALIGNED(size, MMIO_RO_SUBPAGE_GRAN));
-> +    if ( !IS_ALIGNED(size, MMIO_RO_SUBPAGE_GRAN) )
-> +        size = ROUNDUP(size, MMIO_RO_SUBPAGE_GRAN);
-> +
-> +    if ( !size )
-> +        return 0;
-> +
-> +    if ( mfn_eq(mfn_start, mfn_end) )
-> +    {
-> +        /* Both starting and ending parts handled at once */
-> +        subpage_start = PAGE_OFFSET(start) || PAGE_OFFSET(end) != PAGE_SIZE - 1;
-> +        subpage_end = false;
-
-Given the intended usage of this, don't we want to limit to only a
-single page?  So that PFN_DOWN(start + size) == PFN_DOWN/(start), as
-that would simplify the logic here?
-
-Mostly asking because I think for the usage of XHCI the registers that
-need to be marked RO are all inside the same page, and hence would
-like to avoid introducing logic to handle multipage ranges if that's
-not tested at all.
-
-> +    }
-> +    else
-> +    {
-> +        subpage_start = PAGE_OFFSET(start);
-> +        subpage_end = PAGE_OFFSET(end) != PAGE_SIZE - 1;
-> +    }
-> +
-> +    spin_lock(&subpage_ro_lock);
-
-Do you really need the lock if modifications can only happen during
-init?  Xen initialization is single threaded, so you can likely avoid
-the lock during boot.
-
-> +
-> +    if ( subpage_start )
-> +    {
-> +        offset_end = mfn_eq(mfn_start, mfn_end) ?
-> +                     PAGE_OFFSET(end) :
-> +                     (PAGE_SIZE - 1);
-> +        rc = subpage_mmio_ro_add_page(mfn_start,
-> +                                      PAGE_OFFSET(start),
-> +                                      offset_end);
-> +        if ( rc < 0 )
-> +            goto err_unlock;
-> +        /* Check if not marking R/W part of a page intended to be fully R/O */
-> +        ASSERT(rc || !rangeset_contains_singleton(mmio_ro_ranges,
-> +                                                  mfn_x(mfn_start)));
-
-I think it would be better if this check was done ahead, and an error
-was returned.  I see no point in delaying the check until the region
-has already been registered.
-
-> +    }
-> +
-> +    if ( subpage_end )
-> +    {
-> +        rc = subpage_mmio_ro_add_page(mfn_end, 0, PAGE_OFFSET(end));
-> +        if ( rc < 0 )
-> +            goto err_unlock_remove;
-> +        /* Check if not marking R/W part of a page intended to be fully R/O */
-> +        ASSERT(rc || !rangeset_contains_singleton(mmio_ro_ranges,
-> +                                                  mfn_x(mfn_end)));
-> +    }
-> +
-> +    spin_unlock(&subpage_ro_lock);
-> +
-> +    rc = rangeset_add_range(mmio_ro_ranges, mfn_x(mfn_start), mfn_x(mfn_end));
-> +    if ( rc )
-> +        goto err_remove;
-> +
-> +    return 0;
-> +
-> + err_remove:
-> +    spin_lock(&subpage_ro_lock);
-> +    if ( subpage_end )
-> +        subpage_mmio_ro_remove_page(mfn_end, 0, PAGE_OFFSET(end));
-> + err_unlock_remove:
-> +    if ( subpage_start )
-> +        subpage_mmio_ro_remove_page(mfn_start, PAGE_OFFSET(start), offset_end);
-> + err_unlock:
-> +    spin_unlock(&subpage_ro_lock);
-> +    return rc;
-> +}
-> +
-> +static void __iomem *subpage_mmio_map_page(
-> +    struct subpage_ro_range *entry)
-> +{
-> +    void __iomem *mapped_page;
-> +
-> +    if ( entry->mapped )
-> +        return entry->mapped;
-> +
-> +    mapped_page = ioremap(mfn_to_maddr(entry->mfn), PAGE_SIZE);
-> +
-> +    spin_lock(&subpage_ro_lock);
-> +    /* Re-check under the lock */
-> +    if ( entry->mapped )
-> +    {
-> +        spin_unlock(&subpage_ro_lock);
-> +        if ( mapped_page )
-> +            iounmap(mapped_page);
-> +        return entry->mapped;
-> +    }
-> +
-> +    entry->mapped = mapped_page;
-> +    spin_unlock(&subpage_ro_lock);
-> +    return entry->mapped;
-> +}
-> +
-> +static void subpage_mmio_write_emulate(
-> +    mfn_t mfn,
-> +    unsigned int offset,
-> +    const void *data,
-> +    unsigned int len)
-> +{
-> +    struct subpage_ro_range *entry;
-> +    volatile void __iomem *addr;
-> +
-> +    list_for_each_entry(entry, &subpage_ro_ranges, list)
-> +    {
-> +        if ( mfn_eq(entry->mfn, mfn) )
-> +        {
-> +            if ( test_bit(offset / MMIO_RO_SUBPAGE_GRAN, entry->ro_elems) )
-> +            {
-> + write_ignored:
-> +                gprintk(XENLOG_WARNING,
-> +                        "ignoring write to R/O MMIO 0x%"PRI_mfn"%03x len %u\n",
-> +                        mfn_x(mfn), offset, len);
-> +                return;
-> +            }
-> +
-> +            addr = subpage_mmio_map_page(entry);
-
-Given the very limited usage of this subpage RO infrastructure, I
-would be tempted to just map the mfn when the page is registered, in
-order to simplify the logic here.  The only use-case we have is XHCI,
-and further usage of this are likely to be limited to similar hardware
-that's shared between Xen and the hardware domain.
-
-> +            if ( !addr )
-> +            {
-> +                gprintk(XENLOG_ERR,
-> +                        "Failed to map page for MMIO write at 0x%"PRI_mfn"%03x\n",
-> +                        mfn_x(mfn), offset);
-> +                return;
-> +            }
-> +
-> +            switch ( len )
-> +            {
-> +            case 1:
-> +                writeb(*(const uint8_t*)data, addr);
-> +                break;
-> +            case 2:
-> +                writew(*(const uint16_t*)data, addr);
-> +                break;
-> +            case 4:
-> +                writel(*(const uint32_t*)data, addr);
-> +                break;
-> +            case 8:
-> +                writeq(*(const uint64_t*)data, addr);
-> +                break;
-> +            default:
-> +                /* mmio_ro_emulated_write() already validated the size */
-> +                ASSERT_UNREACHABLE();
-> +                goto write_ignored;
-> +            }
-> +            return;
-> +        }
-> +    }
-> +    /* Do not print message for pages without any writable parts. */
-> +}
-> +
-> +#ifdef CONFIG_HVM
-> +bool subpage_mmio_write_accept(mfn_t mfn, unsigned long gla)
-> +{
-> +    unsigned int offset = PAGE_OFFSET(gla);
-> +    const struct subpage_ro_range *entry;
-> +
-> +    list_for_each_entry(entry, &subpage_ro_ranges, list)
-> +        if ( mfn_eq(entry->mfn, mfn) &&
-> +             !test_bit(offset / MMIO_RO_SUBPAGE_GRAN, entry->ro_elems) )
-> +        {
-> +            /*
-> +             * We don't know the write size at this point yet, so it could be
-> +             * an unaligned write, but accept it here anyway and deal with it
-> +             * later.
-> +             */
-> +            return true;
-
-For accesses that fall into the RO region, I think you need to accept
-them here and just terminate them?  I see no point in propagating
-them further in hvm_hap_nested_page_fault().
-
-Thanks, Roger.
+TG9va3MgZ29vZCwNClJldmlld2VkLWJ5OiBKb2hhbm5lcyBUaHVtc2hpcm4gPGpvaGFubmVzLnRo
+dW1zaGlybkB3ZGMuY29tPg0K
 
