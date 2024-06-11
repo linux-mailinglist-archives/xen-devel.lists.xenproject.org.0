@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D81AE9037A0
-	for <lists+xen-devel@lfdr.de>; Tue, 11 Jun 2024 11:15:17 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.738184.1144845 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E75969037EA
+	for <lists+xen-devel@lfdr.de>; Tue, 11 Jun 2024 11:34:34 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.738191.1144854 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sGxai-0000wZ-Rt; Tue, 11 Jun 2024 09:14:56 +0000
+	id 1sGxsf-000140-9x; Tue, 11 Jun 2024 09:33:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 738184.1144845; Tue, 11 Jun 2024 09:14:56 +0000
+Received: by outflank-mailman (output) from mailman id 738191.1144854; Tue, 11 Jun 2024 09:33:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sGxai-0000v4-Os; Tue, 11 Jun 2024 09:14:56 +0000
-Received: by outflank-mailman (input) for mailman id 738184;
- Tue, 11 Jun 2024 09:14:54 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1sGxsf-00011E-7F; Tue, 11 Jun 2024 09:33:29 +0000
+Received: by outflank-mailman (input) for mailman id 738191;
+ Tue, 11 Jun 2024 09:33:28 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=WBrw=NN=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sGxag-0000tm-SF
- for xen-devel@lists.xenproject.org; Tue, 11 Jun 2024 09:14:54 +0000
-Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com
- [2a00:1450:4864:20::529])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 0f5088e2-27d3-11ef-b4bb-af5377834399;
- Tue, 11 Jun 2024 11:14:52 +0200 (CEST)
-Received: by mail-ed1-x529.google.com with SMTP id
- 4fb4d7f45d1cf-57c83100bd6so2439141a12.3
- for <xen-devel@lists.xenproject.org>; Tue, 11 Jun 2024 02:14:52 -0700 (PDT)
+ id 1sGxse-00010y-74
+ for xen-devel@lists.xenproject.org; Tue, 11 Jun 2024 09:33:28 +0000
+Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
+ [2a00:1450:4864:20::630])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id a7719f45-27d5-11ef-90a3-e314d9c70b13;
+ Tue, 11 Jun 2024 11:33:26 +0200 (CEST)
+Received: by mail-ej1-x630.google.com with SMTP id
+ a640c23a62f3a-a6f1c4800easo239535566b.3
+ for <xen-devel@lists.xenproject.org>; Tue, 11 Jun 2024 02:33:26 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-57aae2321e0sm8968376a12.88.2024.06.11.02.14.51
+ a640c23a62f3a-a6f392fba29sm50910866b.109.2024.06.11.02.33.25
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 11 Jun 2024 02:14:51 -0700 (PDT)
+ Tue, 11 Jun 2024 02:33:25 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,59 +45,48 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0f5088e2-27d3-11ef-b4bb-af5377834399
+X-Inumbo-ID: a7719f45-27d5-11ef-90a3-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1718097292; x=1718702092; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1718098406; x=1718703206; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=VjiAdgWOVSKYgm8t/BP0TJ5qmzYPqyPBHxotHaIsFnA=;
-        b=HpIlvaZ0ztba/U5RpxVeK80Oo5/rHmrpWyhDfIeAE/VKgDLqyUlh/IyAvWaWVqh3Q4
-         tP/a5uWkusDwmr3Ssez/UZOwExeTFA06XNhRLNdXqDABK8ivS+PzxrAifj34EaAa5439
-         gDWkStXSU/SlKpNN0ogzrVcmMZaGABo2unS/EHLnWCNE54VxwsAx91A5bwnixMzQubDK
-         6iQuBCDDVpWwQJtQuGsE4X4E5tCmxEKqyp3rNgK2oV9amTuZyRhYPLn8zVU1YTJvUwaT
-         hM5gG5dA5ovNcJPtZsg94PWPXxuIGTRHL1VAGETRgtjt8CJ+V/M+UZcKVhgbNNyO3XyW
-         8vJQ==
+        bh=XQFTv1399tZhTTTL6nPwZ82TtAVPVZCA3Jne/9EUPlc=;
+        b=VmUJK4/ixlwMcIgQsEApg95VJv8e6zmFWiqY3xR+z4QPy1QZwnpdAgRtV7rF0zR44N
+         SC2C/cZ8dhKc+zqOD1U8+I6uoCgHhL910f9NblGFcb5d4fGa/Ai9lE0BaHxLTttiISTv
+         iWiTW6dgUY9ZTAN+KzE350FXGa0WZGuAF4TBJRSip6JRRLkSCCkqaGskIDvZH347MWqS
+         l3Vhg1SSvxEr/NAq3GxFTXG4JKTyJ/Cdhs1oqEzKNOklJwEVQxJ1UkmNXAydH3SEKEfM
+         mgZh3Co5bUyM6c//qaFh7FxsHYJ+4kamp1q1qk44McK7Tek425MTkyuve74Mt1PmYU1K
+         DRQw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1718097292; x=1718702092;
+        d=1e100.net; s=20230601; t=1718098406; x=1718703206;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=VjiAdgWOVSKYgm8t/BP0TJ5qmzYPqyPBHxotHaIsFnA=;
-        b=Uo1sxqI27GkkuaZWvtOumXvy+2XLVuzH1SOeKqY7qHCgWd8T2lDsRg4nM97hdU9UQ0
-         CJmvvNWmGZfC8QN5i3qTHeJ28PwyP1Q3TNN9feAlBkl2YPOPnBal1J0WN2X1NrQE4iSI
-         lsqhkTTE1ZPuN0Dh3ZdBQ7Fa02xC3NcBIiqFnqho5FNdtm8F4lgUe1RxKOjKqZaaDmBW
-         8Zm0WHbk/710+aE1v/E8k1wW9SpRggPgmKpE+tBOiCygo+wpna0+B/Vq+nht4LGeSCE/
-         an/W0nJE4LLX4GgsQ7vAeSOJ4ReQnQ4G3HZdXFM30ZbtsOQUE/1nbAUxu+5sTtrolwmR
-         0yMg==
-X-Forwarded-Encrypted: i=1; AJvYcCV4k/L+q4dnNQXklIqCh802pp7QVYmPSUNH3GbEzKtKAWMkJ9JLL0qHWn5jBCof1pvuxoAE+55FfFmmCLH3VN8ZqaulhYJf6qyK+Q4dcOg=
-X-Gm-Message-State: AOJu0YxBXXDyoRuNsTq4zkCLiBVMPBP8hk4Td0nizFUwBMJpAY3ZV/4d
-	XJCz1H5LZGTSYdgV2il7NWbXrXkYbu6A1HIwUiezHYt7EPCgNHZh0s0RC70DVA==
-X-Google-Smtp-Source: AGHT+IHXYDohSIaX+xR7RjJ6ieqlKeJbUF7DVXX6SHgEGlZAKvCndfJQGWMeiN5z+eLNr2rrv6jb4Q==
-X-Received: by 2002:a50:d796:0:b0:57c:6ed2:870c with SMTP id 4fb4d7f45d1cf-57c6ed28bb1mr4686608a12.2.1718097291976;
-        Tue, 11 Jun 2024 02:14:51 -0700 (PDT)
-Message-ID: <217202e9-608f-4788-b689-8140567e4485@suse.com>
-Date: Tue, 11 Jun 2024 11:14:50 +0200
+        bh=XQFTv1399tZhTTTL6nPwZ82TtAVPVZCA3Jne/9EUPlc=;
+        b=BdL8zNu9vayPirbdmwKHdDPZCX4wHDQ5BYFP97CRo0DOBZC9cVkoXiXz/VjRyGZiTv
+         njgCgyaeTQFHn9dKtErzhhF8nJMOsPWxp8jur7raXn3p13eNUblAfkV8vr8ajflbfPE+
+         gySSMEH6InlJlasFerZbr+/HaY93xm2OAMKfRBIVnSlNQDSHK+jz0BkfJsBJLFIOMP6Z
+         /me1CS5vGBWCU44G24lpRmyH9tsrJHKjWYhmAywZc9R2lYcai1nWO6E4wW4DeCxUV36h
+         qvtWTu61hxO8vezooOrQVzCmO315R60YDli5r9b+mltgvP0zz1PqO/ygJs2NkxAP8Vhk
+         wARQ==
+X-Gm-Message-State: AOJu0YwnDHLQ9w2qTsmoVknd8H/TZtGd+rbbKKJ4/MLb8l1LM1KvKTs7
+	Zv7mLdZ3VtPRRai/UBgHFWIoRrZUEeLlEapRyns8OuokvQzy/0JUTNXfKXSeyw==
+X-Google-Smtp-Source: AGHT+IEDx4acLv0WFhFICqx+rLm9ZVsA5KSr0I4BhGZbEEC1P7W/D4E9ZU41kxMS8JHq2SBDVqKrNg==
+X-Received: by 2002:a17:906:1c87:b0:a6f:1106:5dc7 with SMTP id a640c23a62f3a-a6f11065e29mr439712366b.5.1718098405800;
+        Tue, 11 Jun 2024 02:33:25 -0700 (PDT)
+Message-ID: <f171c98a-c78d-41c8-88d8-7d631b80333b@suse.com>
+Date: Tue, 11 Jun 2024 11:33:24 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH for-4.19? v6 3/9] xen: Refactor altp2m options into a
- structured format
-To: =?UTF-8?Q?Petr_Bene=C5=A1?= <w1benny@gmail.com>
-Cc: Anthony PERARD <anthony@xenproject.org>, Juergen Gross <jgross@suse.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Christian Lindig <christian.lindig@citrix.com>, David Scott
- <dave@recoil.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Julien Grall <jgrall@amazon.com>, xen-devel@lists.xenproject.org
-References: <cover.1718038855.git.w1benny@gmail.com>
- <dcf08c40e37072e18e5e878df8778ce459897bdc.1718038855.git.w1benny@gmail.com>
- <8787608f-f3b0-4fb3-95ee-98050cf95182@suse.com>
- <CAKBKdXiiZdz70nWx7kqp2S5RdbRsku+qtn6z9DBk44LZOgp3Qw@mail.gmail.com>
+Subject: Re: [PATCH] x86/EPT: relax iPAT for "invalid" MFNs
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>
+References: <56063a8f-f569-4130-ac25-f0f064e288a1@suse.com>
+ <Zmf_k2meED8iG3H5@macbook> <a11259be-7114-4332-b873-d1b163687a3e@suse.com>
+ <ZmgStGbVRuGaNUD_@macbook>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -123,39 +112,129 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <CAKBKdXiiZdz70nWx7kqp2S5RdbRsku+qtn6z9DBk44LZOgp3Qw@mail.gmail.com>
+In-Reply-To: <ZmgStGbVRuGaNUD_@macbook>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 11.06.2024 10:00, Petr Beneš wrote:
-> On Tue, Jun 11, 2024 at 8:41 AM Jan Beulich <jbeulich@suse.com> wrote:
->>
->> On 10.06.2024 19:10, Petr Beneš wrote:
->>> From: Petr Beneš <w1benny@gmail.com>
+On 11.06.2024 11:02, Roger Pau Monné wrote:
+> On Tue, Jun 11, 2024 at 10:26:32AM +0200, Jan Beulich wrote:
+>> On 11.06.2024 09:41, Roger Pau Monné wrote:
+>>> On Mon, Jun 10, 2024 at 04:58:52PM +0200, Jan Beulich wrote:
+>>>> --- a/xen/arch/x86/mm/p2m-ept.c
+>>>> +++ b/xen/arch/x86/mm/p2m-ept.c
+>>>> @@ -503,7 +503,8 @@ int epte_get_entry_emt(struct domain *d,
+>>>>  
+>>>>      if ( !mfn_valid(mfn) )
+>>>>      {
+>>>> -        *ipat = true;
+>>>> +        *ipat = type != p2m_mmio_direct ||
+>>>> +                (!is_iommu_enabled(d) && !cache_flush_permitted(d));
 >>>
->>> Encapsulate the altp2m options within a struct. This change is preparatory
->>> and sets the groundwork for introducing additional parameter in subsequent
->>> commit.
->>>
->>> Signed-off-by: Petr Beneš <w1benny@gmail.com>
->>> Acked-by: Julien Grall <jgrall@amazon.com> # arm
->>> Reviewed-by: Jan Beulich <jbeulich@suse.com> # hypervisor
+>>> Looking at this, shouldn't the !mfn_valid special case be removed, and
+>>> mfns without a valid page be processed normally, so that the guest
+>>> MTRR values are taken into account, and no iPAT is enforced?
 >>
->> Looks like you lost Christian's ack for ...
+>> Such removal is what, in the post commit message remark, I'm referring to
+>> as "moving to too lax". Doing so might be okay, but will imo be hard to
+>> prove to be correct for all possible cases. Along these lines goes also
+>> that I'm adding the IOMMU-enabled and cache-flush checks: In principle
+>> p2m_mmio_direct should not be used when neither of these return true. Yet
+>> a similar consideration would apply to the immediately subsequent if().
 >>
->>> ---
->>>  tools/libs/light/libxl_create.c     | 6 +++---
->>>  tools/ocaml/libs/xc/xenctrl_stubs.c | 4 +++-
->>
->> ... the adjustment of this file?
+>> Removing this code would, in particular, result in INVALID_MFN getting a
+>> type of WB by way of the subsequent if(), unless the type there would
+>> also be p2m_mmio_direct (which, as said, it ought to never be for non-
+>> pass-through domains). That again _may_ not be a problem as long as such
+>> EPT entries would never be marked present, yet that's again difficult to
+>> prove.
 > 
-> In the cover email, Christian only acked:
-> 
->> tools/ocaml/libs/xc/xenctrl.ml       |   2 +
->> tools/ocaml/libs/xc/xenctrl.mli      |   2 +
->> tools/ocaml/libs/xc/xenctrl_stubs.c  |  40 +++++++---
+> My understanding is that the !mfn_valid() check was a way to detect
+> MMIO regions in order to exit early and set those to UC.  I however
+> don't follow why the guest MTRR settings shouldn't also be applied to
+> those regions.
 
-Right, but above I was talking about the last of these three files.
+It's unclear to me whether the original purpose of he check really was
+(just) MMIO. It could as well also have been to cover the (then not yet
+named that way) case of INVALID_MFN.
+
+As to ignoring guest MTRRs for MMIO: I think that's to be on the safe
+side. We don't want guests to map uncachable memory with a cachable
+memory type. Yet control isn't fine grained enough to prevent just
+that. Hence why we force UC, allowing merely to move to WC via PAT.
+
+> I'm also confused by your comment about "as such EPT entries would
+> never be marked present": non-present EPT entries don't even get into
+> epte_get_entry_emt(), and hence we could assert in epte_get_entry_emt
+> that mfn != INVALID_MFN?
+
+I don't think we can. Especially for the call from ept_set_entry() I
+can't spot anything that would prevent the call for non-present entries.
+This may be a mistake, but I can't do anything about it right here.
+
+>> I was in fact wondering whether to special-case INVALID_MFN in the change
+>> I'm making. Question there is: Are we sure that by now we've indeed got
+>> rid of all arithmetic mistakenly done on MFN variables happening to hold
+>> INVALID_MFN as the value? IOW I fear that there might be code left which
+>> would pass in INVALID_MFN masked down to a 2M or 1G boundary. At which
+>> point checking for just INVALID_MFN would end up insufficient. If we
+>> meant to rely on this (tagging possible leftover issues as bugs we don't
+>> mean to attempt to cover for here anymore), then indeed the mfn_valid()
+>> check could be replaced by a comparison with INVALID_MFN (following a
+>> pattern we've been slowly trying to carry through elsewhere, especially
+>> in shadow code). Yet it could still not be outright dropped imo.
+>>
+>> Furthermore simply dropping (or replacing as per above) that check won't
+>> work either: Further down in the function we use mfn_to_page(), which
+>> requires an up-front mfn_valid() check. That said, this code looks
+>> partly broken to me anyway: For a 1G page mfn_valid() on the start of it
+>> doesn't really imply all parts of it are valid. I guess I need to make a
+>> 2nd patch to address that as well, which may then want to be a prereq
+>> change to the one here (if we decided to go the route you're asking for).
+> 
+> I see, yes, the loop over the special pages array will need to be
+> adjusted to account for mfn_to_page() possibly returning NULL.
+
+Except that NULL will hardly ever come back there. What we need is an
+explicit mfn_valid() check. I already have a patch, but I'd like to
+submit it only once I know how the v2 of the one here is going to look
+like.
+
+> Overall I don't understand the need for this special case for
+> !mfn_valid().  The rest of special cases we have (the special pages
+> and domains without devices or MMIO regions assigned) are performance
+> optimizations which I do understand.  Yet the special casing of
+> !mfn_valid regions bypassing guest MTRR settings seems bogus to me.
+
+As said, it may well be that we can (now) switch to comparison against
+INVALID_MFN there, if we're certain MMIO isn't to be covered by this
+(anymore).
+
+>>> I also think this likely wants a:
+>>>
+>>> Fixes: 81fd0d3ca4b2 ('x86/hvm: simplify 'mmio_direct' check in epte_get_entry_emt()')
+>>
+>> Oh, indeed, I should have dug out when this broke. I didn't because I
+>> knew this mfn_valid() check was there forever, neglecting that it wasn't
+>> always (almost) first.
+>>
+>>> As AFAICT before that commit direct MMIO regions would set iPAT to WB,
+>>> which would result in the correct attributes (albeit guest MTRR was
+>>> still ignored).
+>>
+>> Two corrections here: First iPAT is a boolean; it can't be set to WB.
+>> And then what was happening prior to that change was that for the APIC
+>> access page iPAT was set to true, thus forcing WB there. iPAT was left
+>> set to false for all other p2m_mmio_direct pages, yielding (PAT-
+>> overridable) UC there.
+> 
+> Right, that behavior was still dubious to me, as I would assume those
+> regions would also want to fetch the type from guest MTRRs.
+
+Well, for the APIC access page we want to prevent it becoming UC. It's MMIO
+from the guest's perspective, yet _we_ know it's really ordinary RAM. For
+actual MMIO see above; the only case where we probably ought to respect
+guest MTRRs is when they say WC (following from what I said further up).
+Yet that's again an independent change to (possibly) make.
 
 Jan
 
