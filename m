@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5463F905074
-	for <lists+xen-devel@lfdr.de>; Wed, 12 Jun 2024 12:34:52 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.739148.1146096 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 048F9905083
+	for <lists+xen-devel@lfdr.de>; Wed, 12 Jun 2024 12:37:14 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.739154.1146107 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sHLJC-0001Qe-70; Wed, 12 Jun 2024 10:34:26 +0000
+	id 1sHLLS-00022V-Jm; Wed, 12 Jun 2024 10:36:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 739148.1146096; Wed, 12 Jun 2024 10:34:26 +0000
+Received: by outflank-mailman (output) from mailman id 739154.1146107; Wed, 12 Jun 2024 10:36:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sHLJC-0001OH-3q; Wed, 12 Jun 2024 10:34:26 +0000
-Received: by outflank-mailman (input) for mailman id 739148;
- Wed, 12 Jun 2024 10:34:24 +0000
+	id 1sHLLS-000203-GH; Wed, 12 Jun 2024 10:36:46 +0000
+Received: by outflank-mailman (input) for mailman id 739154;
+ Wed, 12 Jun 2024 10:36:45 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=h1N0=NO=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sHLJA-0001OB-QA
- for xen-devel@lists.xenproject.org; Wed, 12 Jun 2024 10:34:24 +0000
-Received: from mail-ed1-x532.google.com (mail-ed1-x532.google.com
- [2a00:1450:4864:20::532])
+ id 1sHLLR-0001zS-3w
+ for xen-devel@lists.xenproject.org; Wed, 12 Jun 2024 10:36:45 +0000
+Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
+ [2a00:1450:4864:20::62e])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 55748f1b-28a7-11ef-90a3-e314d9c70b13;
- Wed, 12 Jun 2024 12:34:23 +0200 (CEST)
-Received: by mail-ed1-x532.google.com with SMTP id
- 4fb4d7f45d1cf-57c76497cefso4801131a12.1
- for <xen-devel@lists.xenproject.org>; Wed, 12 Jun 2024 03:34:23 -0700 (PDT)
+ id a9bf1503-28a7-11ef-90a3-e314d9c70b13;
+ Wed, 12 Jun 2024 12:36:44 +0200 (CEST)
+Received: by mail-ej1-x62e.google.com with SMTP id
+ a640c23a62f3a-a6f1da33826so283047566b.0
+ for <xen-devel@lists.xenproject.org>; Wed, 12 Jun 2024 03:36:44 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-57ca82877b7sm1133692a12.48.2024.06.12.03.34.21
+ a640c23a62f3a-a6f16427842sm455078866b.100.2024.06.12.03.36.43
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 12 Jun 2024 03:34:22 -0700 (PDT)
+ Wed, 12 Jun 2024 03:36:43 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,58 +45,53 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 55748f1b-28a7-11ef-90a3-e314d9c70b13
+X-Inumbo-ID: a9bf1503-28a7-11ef-90a3-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1718188462; x=1718793262; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1718188604; x=1718793404; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=uKjO2lbOacLKbkepJHdnURZOX2A8rIBxV0nZa0iKZ4k=;
-        b=K6SKP5jFUZeBvv5+ZHMtlpm05ODj7JJ++OS5CQjpXYQGzfkfy63Ah/+RyvhnDsgJ/h
-         Syq+8rHmUEDHRVABmHhSMEgsu4W/qtb60POtKX9pGfwLaaU2pKy+ZPI/XD7OecxO64On
-         zZss+VFFX+MKKH+SrZ85A/Lbi5QKKrz9pKVfD3VJnsyK9ntAIWTPSAISO4gOMM9eASVV
-         O/5+u4fE6NfS/aPVKi11mxS1vnOFYdWaowxD3qtzGNc+lsmW2+Q2ERD86pk2Aj9w/c6g
-         52o0QF88VFM+C4c5+FC7C4bQ9cbe0yIuh4ye1toJ2R/5v9EwEPYJzD0YEhDFamYr4Gui
-         jrcQ==
+        bh=ghMlT45U+M0R4YXPKCzBM3f2z/I7uLceGhZXqbMMbOQ=;
+        b=IQXe57s8McFFJ+iFONEGPBPsBWL19RXdwihSp8sPlLlswiAKE7j1Wl2RuUhZeE9Hfs
+         +cFcy1lgbJ0RzqoeGsHSC/dCi5yXfTBFF/gQHDibdvYprqs/7xKP9xR6Yt0C/h2sl4ft
+         QGZuakiPELMNXhMfTzLJtCxWl9A7BDQ/zwVD4YS669MOZ5YHBNET6hXJsDfUuuBo0LsR
+         sLOFiygYQviK/RKMU24BoyBhN2FQDVCB/S5NnUZZCfD15M/cD5CcDGBVnbeY2JJSXX6J
+         L96THnFmnZgfbnYtBhWq6WQQr2UTeA4pRFPUFJZ5vTiFvfORPjmB3bIJL+UCqfEEc49U
+         5L3g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1718188462; x=1718793262;
+        d=1e100.net; s=20230601; t=1718188604; x=1718793404;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=uKjO2lbOacLKbkepJHdnURZOX2A8rIBxV0nZa0iKZ4k=;
-        b=rfQcuWtMgtor/9nQ81J2gXapBc+AZa7PNlfeN7SIdnHBRj+/LTDTueSJxAQMDNulV9
-         cJXavm+yll5ZjaHTPJTUSWjNFhuiiz59VKtARhl5WOyU/dUsGN6TtPrFW0yev6mjh5V3
-         RK40oapYPfYd0Wit7wChplMDhbCl3cm/XZww0k4dNys2QEJT9xkYtJAjExoPopG4N/oC
-         +9C/aIF96A3cv7XLprATOADM+oP7qHsI8suc3gkPSLA36THkC/yTMbOCvyF1tXsYBrzX
-         PgUo9HfXlh4KO2mre4pt9LEZhwmDBOXocH0bwS71i/poJj8/ATnnbu5XPobbeskIBivy
-         HWzQ==
-X-Forwarded-Encrypted: i=1; AJvYcCXs6sLZ96q40obzZ3yoLhMm7X7ehsmj8t8EnoLUqXc/jW9cPSO2qWrQ5437qGiNGhtRQW1JU96TtD2a0XZ2+WxgpbLxWeqTlEErwqzUbaI=
-X-Gm-Message-State: AOJu0YwmSxFmmwgN8tHmHIpg9gc0SGN01YGmGsmA9SMdBQyRqZJK/A7U
-	felc1QqBvPrMnJXQBmTH+fS1z/nMeUNW+BlScKIBLkiZ7tcmpZm/PYmiG01cRQ==
-X-Google-Smtp-Source: AGHT+IEclVmKgX0GCWA7DQsqIaF7OXVSF4LDq3ufQ+QDn+5v4Hf5yp2bDguG6LnATnT+kLvyHyKgyQ==
-X-Received: by 2002:a50:9e24:0:b0:578:57b7:9f32 with SMTP id 4fb4d7f45d1cf-57caaabf033mr1058344a12.35.1718188462574;
-        Wed, 12 Jun 2024 03:34:22 -0700 (PDT)
-Message-ID: <c2a5b9cd-2a85-4e01-8b8b-31b85726dbd4@suse.com>
-Date: Wed, 12 Jun 2024 12:34:21 +0200
+        bh=ghMlT45U+M0R4YXPKCzBM3f2z/I7uLceGhZXqbMMbOQ=;
+        b=MEJY4K7p7YZ3mieH/RESQdf4HQ/q3xQl67jXPzsR1I5aUiKa24X32CRKgu3h/PF+7k
+         k7nbKwibNK9Ta+HP+DYRu+MvX44CEB35lKmE+h57pC73+bDoNsoH/kAkCLlvm1B82r3U
+         3AMlAS7GR1taPtLJic/Z8Hc8+IHdH6m/Anmkq94DJpPVSDehONj/SBmiOQxJOD5g6gm0
+         lA86ju/VliN97/OR2hTlFdQRjv6M3xscLAk5MxX9rbsPlmKp2VLimo3CGZo27R54EkIX
+         62wSluWq8arntYsxBkiDp9MIZ3GnzrrrIafnx1ss+mVlirUOH4Y0wFYUrjuVERXU9Sbn
+         xVEA==
+X-Forwarded-Encrypted: i=1; AJvYcCVMhJXYxuZvaVYuxY75bAjq1tvckpHyEoLfT6afqTJI+w1X605/0FgawMhpnbupmOIeoSh76CBTtwcaTzlZ4bICnuZlOpXLwwFKKQehP3A=
+X-Gm-Message-State: AOJu0YwvxpcJUIPwok4JJHB0bPxwQJ8haJ99HWFtl6riKiTf/yWbvxEH
+	Ixrb5Mpqcsi1hl4tX1qEkh1EkrNPdwr4BKNqjXIWMo8sdvKBrIwWfgA5FYHZ6A==
+X-Google-Smtp-Source: AGHT+IGuFnNylE/bptuT+c/FeVzA7aLpmi44cGFEyR02p96hc6dXVYElIiYyAccoFaCW+O/GvbJmaw==
+X-Received: by 2002:a17:906:1d55:b0:a6f:2253:d1f7 with SMTP id a640c23a62f3a-a6f480086b4mr110643966b.61.1718188603972;
+        Wed, 12 Jun 2024 03:36:43 -0700 (PDT)
+Message-ID: <c40bcf67-ebdd-4bcf-b6bc-ecec6a1fd7eb@suse.com>
+Date: Wed, 12 Jun 2024 12:36:42 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC XEN PATCH v9 5/5] domctl: Add XEN_DOMCTL_gsi_permission to
- grant gsi
-To: "Chen, Jiqian" <Jiqian.Chen@amd.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu
- <wl@xen.org>, George Dunlap <george.dunlap@citrix.com>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- Anthony PERARD <anthony@xenproject.org>, Juergen Gross <jgross@suse.com>,
- "Hildebrand, Stewart" <Stewart.Hildebrand@amd.com>,
- "Huang, Ray" <Ray.Huang@amd.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- "Daniel P . Smith" <dpsmith@apertussolutions.com>
-References: <20240607081127.126593-1-Jiqian.Chen@amd.com>
- <20240607081127.126593-6-Jiqian.Chen@amd.com>
- <987f5d21-bbb5-4cdb-975b-91949e802921@suse.com>
- <BL1PR12MB5849FF595AEED1112622A98DE7C02@BL1PR12MB5849.namprd12.prod.outlook.com>
+Subject: Re: [XEN PATCH 4/6] x86emul: address violations of MISRA C Rule 20.7
+To: Nicola Vetrini <nicola.vetrini@bugseng.com>
+Cc: sstabellini@kernel.org, michal.orzel@amd.com, xenia.ragiadakou@amd.com,
+ ayan.kumar.halder@amd.com, consulting@bugseng.com,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ xen-devel@lists.xenproject.org
+References: <cover.1718117557.git.nicola.vetrini@bugseng.com>
+ <0a502d2a9c5ce13be13281d9de49d263313b7852.1718117557.git.nicola.vetrini@bugseng.com>
+ <12ce10af-cd36-492e-a73b-2b81b5bf60cc@suse.com>
+ <ac1faf5feded028ce80752ce69983352@bugseng.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -122,114 +117,70 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <BL1PR12MB5849FF595AEED1112622A98DE7C02@BL1PR12MB5849.namprd12.prod.outlook.com>
+In-Reply-To: <ac1faf5feded028ce80752ce69983352@bugseng.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 12.06.2024 12:12, Chen, Jiqian wrote:
-> On 2024/6/11 22:39, Jan Beulich wrote:
->> On 07.06.2024 10:11, Jiqian Chen wrote:
->>> Some type of domain don't have PIRQ, like PVH, it do not do
->>> PHYSDEVOP_map_pirq for each gsi. When passthrough a device
->>> to guest on PVH dom0, callstack
->>> pci_add_dm_done->XEN_DOMCTL_irq_permission will failed at
->>> domain_pirq_to_irq, because PVH has no mapping of gsi, pirq
->>> and irq on Xen side.
+On 12.06.2024 11:52, Nicola Vetrini wrote:
+> On 2024-06-12 11:19, Jan Beulich wrote:
+>> On 11.06.2024 17:53, Nicola Vetrini wrote:
+>>> MISRA C Rule 20.7 states: "Expressions resulting from the expansion
+>>> of macro parameters shall be enclosed in parentheses". Therefore, some
+>>> macro definitions should gain additional parentheses to ensure that 
+>>> all
+>>> current and future users will be safe with respect to expansions that
+>>> can possibly alter the semantics of the passed-in macro parameter.
+>>>
+>>> No functional change.
+>>>
+>>> Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
+>>> ---
+>>> These local helpers could in principle be deviated, but the 
+>>> readability
+>>> and functionality are essentially unchanged by complying with the 
+>>> rule,
+>>> so I decided to modify the macro definition as the preferred option.
 >>
->> All of this is, to me at least, in pretty sharp contradiction to what
->> patch 2 says and does. IOW: Do we want the concept of pIRQ in PVH, or
->> do we want to keep that to PV?
-> It's not contradictory.
-> What I did is not to add the concept of PIRQs for PVH.
-
-After your further explanations on patch 2 - yes, I see now. But in particular
-there it needs making more clear what case it is that is being enabled by the
-changes.
-
->>> Signed-off-by: Huang Rui <ray.huang@amd.com>
->>> Signed-off-by: Jiqian Chen <Jiqian.Chen@amd.com>
+>> Well, yes, but ...
 >>
->> A problem throughout the series as it seems: Who's the author of these
->> patches? There's no From: saying it's not you, but your S-o-b also
->> isn't first.
-> So I need to change to:
-> Signed-off-by: Jiqian Chen <Jiqian.Chen@amd.com> means I am the author.
-> Signed-off-by: Huang Rui <ray.huang@amd.com> means Rui sent them to upstream firstly.
-> Signed-off-by: Jiqian Chen <Jiqian.Chen@amd.com> means I take continue to upstream.
-
-I guess so, yes.
-
->>> --- a/tools/libs/light/libxl_pci.c
->>> +++ b/tools/libs/light/libxl_pci.c
->>> @@ -1412,6 +1412,37 @@ static bool pci_supp_legacy_irq(void)
->>>  #define PCI_SBDF(seg, bus, devfn) \
->>>              ((((uint32_t)(seg)) << 16) | (PCI_DEVID(bus, devfn)))
->>>  
->>> +static int pci_device_set_gsi(libxl_ctx *ctx,
->>> +                              libxl_domid domid,
->>> +                              libxl_device_pci *pci,
->>> +                              bool map,
->>> +                              int *gsi_back)
->>> +{
->>> +    int r, gsi, pirq;
->>> +    uint32_t sbdf;
->>> +
->>> +    sbdf = PCI_SBDF(pci->domain, pci->bus, (PCI_DEVFN(pci->dev, pci->func)));
->>> +    r = xc_physdev_gsi_from_dev(ctx->xch, sbdf);
->>> +    *gsi_back = r;
->>> +    if (r < 0)
->>> +        return r;
->>> +
->>> +    gsi = r;
->>> +    pirq = r;
+>>> --- a/xen/arch/x86/x86_emulate/x86_emulate.c
+>>> +++ b/xen/arch/x86/x86_emulate/x86_emulate.c
+>>> @@ -2255,7 +2255,7 @@ x86_emulate(
+>>>          switch ( modrm_reg & 7 )
+>>>          {
+>>>  #define GRP2(name, ext) \
+>>> -        case ext: \
+>>> +        case (ext): \
+>>>              if ( ops->rmw && dst.type == OP_MEM ) \
+>>>                  state->rmw = rmw_##name; \
+>>>              else \
+>>> @@ -8611,7 +8611,7 @@ int x86_emul_rmw(
+>>>              unsigned long dummy;
+>>>
+>>>  #define XADD(sz, cst, mod) \
+>>> -        case sz: \
+>>> +        case (sz): \
+>>>              asm ( "" \
+>>>                    COND_LOCK(xadd) " %"#mod"[reg], %[mem]; " \
+>>>                    _POST_EFLAGS("[efl]", "[msk]", "[tmp]") \
 >>
->> r is a GSI as per above; why would you store such in a variable named pirq?
->> And how can ...
+>> ... this is really nitpicky of the rule / tool. What halfway realistic
+>> ways do you see to actually misuse these macros? What follows the 
+>> "case"
+>> keyword is just an expression; no precedence related issues are 
+>> possible.
 >>
->>> +    if (map)
->>> +        r = xc_physdev_map_pirq(ctx->xch, domid, gsi, &pirq);
->>> +    else
->>> +        r = xc_physdev_unmap_pirq(ctx->xch, domid, pirq);
->>
->> ... that value be the correct one to pass into here? In fact, the pIRQ number
->> you obtain above in the "map" case isn't handed to the caller, i.e. it is
->> effectively lost. Yet that's what would need passing into such an unmap call.
-> Yes r is GSI and I know pirq will be replaced by xc_physdev_map_pirq.
-> What I do "pirq = r" is for xc_physdev_unmap_pirq, unmap need passing in pirq,
-> and the number of pirq is always equal to gsi.
+> 
+> I do share the view: no real danger is possible in sensible uses. Often 
+> MISRA rules are stricter than necessary to have a simple formulation, by 
+> avoiding too many special cases.
+> 
+> However, if a deviation is formulated, then it needs to be maintained, 
+> for no real readability benefit in this case, in my opinion. I can be 
+> convinced otherwise, of course.
 
-Why would that be? pIRQ is purely a software construct (of Xen's), I
-don't think there's any guarantee whatsoever on the numbering. And even
-if there was (for e.g. non-MSI ones), it would be pIRQ == IRQ. And recall
-that elsewhere I think I meanwhile succeeded in explaining to you that
-IRQ != GSI (in the common case, even if in most cases they match).
-
->>> +    if (r)
->>> +        return r;
->>> +
->>> +    r = xc_domain_gsi_permission(ctx->xch, domid, gsi, map);
->>
->> Looking at the hypervisor side, this will fail for PV Dom0. In which case imo
->> you better would avoid making the call in the first place.
-> Yes, for PV dom0, the errno is EOPNOTSUPP, then it will do below xc_domain_irq_permission.
-
-Hence why call xc_domain_gsi_permission() at all on a PV Dom0?
-
->>> +    if (r && errno == EOPNOTSUPP)
->>
->> Before here you don't really need the pIRQ number; if all it really is needed
->> for is ...
->>
->>> +        r = xc_domain_irq_permission(ctx->xch, domid, pirq, map);
->>
->> ... this, then it probably also should only be obtained when it's needed. Yet
->> overall the intentions here aren't quite clear to me.
-> Adding the function pci_device_set_gsi is for PVH dom0, while also ensuring compatibility with PV dom0.
-> When PVH dom0, it does xc_physdev_map_pirq and xc_domain_gsi_permission(new hypercall for PVH dom0)
-> When PV dom0, it keeps the same actions as before codes, it does xc_physdev_map_pirq and xc_domain_irq_permission.
-
-And why does PVH Dom0 need to call xc_physdev_map_pirq(), when in that case
-the pIRQ isn't used?
+Well, aiui you're thinking of a per-macro deviation here. Whereas I'd be
+thinking of deviating the pattern.
 
 Jan
 
