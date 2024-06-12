@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C33B390537D
-	for <lists+xen-devel@lfdr.de>; Wed, 12 Jun 2024 15:17:26 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.739324.1146337 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B145390537F
+	for <lists+xen-devel@lfdr.de>; Wed, 12 Jun 2024 15:18:05 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.739333.1146347 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sHNqa-0000l0-7y; Wed, 12 Jun 2024 13:17:04 +0000
+	id 1sHNrE-0001Xk-GH; Wed, 12 Jun 2024 13:17:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 739324.1146337; Wed, 12 Jun 2024 13:17:04 +0000
+Received: by outflank-mailman (output) from mailman id 739333.1146347; Wed, 12 Jun 2024 13:17:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sHNqa-0000iv-4v; Wed, 12 Jun 2024 13:17:04 +0000
-Received: by outflank-mailman (input) for mailman id 739324;
- Wed, 12 Jun 2024 13:17:02 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1sHNrE-0001W8-DR; Wed, 12 Jun 2024 13:17:44 +0000
+Received: by outflank-mailman (input) for mailman id 739333;
+ Wed, 12 Jun 2024 13:17:42 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=h1N0=NO=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sHNqY-0000Ir-A4
- for xen-devel@lists.xenproject.org; Wed, 12 Jun 2024 13:17:02 +0000
-Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
- [2a00:1450:4864:20::635])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 0e08868c-28be-11ef-90a3-e314d9c70b13;
- Wed, 12 Jun 2024 15:17:01 +0200 (CEST)
-Received: by mail-ej1-x635.google.com with SMTP id
- a640c23a62f3a-a6e349c0f2bso680882466b.2
- for <xen-devel@lists.xenproject.org>; Wed, 12 Jun 2024 06:17:01 -0700 (PDT)
+ id 1sHNrC-0000uE-LP
+ for xen-devel@lists.xenproject.org; Wed, 12 Jun 2024 13:17:42 +0000
+Received: from mail-ed1-x52b.google.com (mail-ed1-x52b.google.com
+ [2a00:1450:4864:20::52b])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 254f252c-28be-11ef-b4bb-af5377834399;
+ Wed, 12 Jun 2024 15:17:40 +0200 (CEST)
+Received: by mail-ed1-x52b.google.com with SMTP id
+ 4fb4d7f45d1cf-57c6011d75dso2660444a12.3
+ for <xen-devel@lists.xenproject.org>; Wed, 12 Jun 2024 06:17:40 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a6f0ffcbf38sm544927766b.142.2024.06.12.06.17.00
+ 4fb4d7f45d1cf-57cab3f4741sm1100360a12.22.2024.06.12.06.17.39
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 12 Jun 2024 06:17:00 -0700 (PDT)
+ Wed, 12 Jun 2024 06:17:40 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,44 +45,44 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0e08868c-28be-11ef-90a3-e314d9c70b13
+X-Inumbo-ID: 254f252c-28be-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1718198221; x=1718803021; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1718198260; x=1718803060; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=YkdNjBOZ78Xa9HqoWeOu8L3vhUg6jdFS1CUj7DasUQM=;
-        b=NaBF1Vd3LhQtM9NPdUWJtCNV8uRmGIGJEIu63CvWks+wmh2gqUKdzeqha3VuvSzabI
-         Qi514K4khOxJAvsDvDrZBzMu/z7U8/yM2aL02WWwbW/nqT8eP0+9C9BYWwa4WaBie5b2
-         al8cXHxnSVjlOnfv7BciSqL04uUPEvyjKk5oQv53ysj5LYkvVpZsvc+TuA2puxi+SKgm
-         CrRO4Ddj50rFK3iooxHVeDmf2BDXHSrLNpdNQMZhXnt1TmYqNbNtSedury+ozS/Ia4O5
-         6r5eqdBRa3Yw98ui2+FtCMzPMkg2iUYUatfhY1OIWSQXecFjl8SKRIxxxvPqM1LVNPs5
-         zM1g==
+        bh=OE6BxbFhz/GuABFcUaV8g29dJf9tmzpd1oPgGPbHYps=;
+        b=IdT5xownBC46L/4jUwkqJEUgl/IaPfATr8M6Qktcslfs2X6nIHuxs17YgMi6Q3TW53
+         nYBw0Pdag5wunGCTYySK8wZSDPFUpuVnVXRlYjOolCYSJRYNeOlngdOC/o2R8rLme38b
+         75yzHJUJp7FDuirLm6t5Y+pu7ElogOvKScWJDWFVrENlBAuHvyc9BPUmrt0XvM7d2ROH
+         HOs4XAq1itfNuTkxSWrHtq/J78ScZQ1YEkAuEfdMSyfFVBMkU9kQ7yH5uMGe9tq8GTgH
+         U3KkZr4XnIHQzDCKVyHu6/qBWzNDjyA2ch0wYvSYyapERaOHBeN0f6iAtcd8a1nl0n3a
+         xdYg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1718198221; x=1718803021;
+        d=1e100.net; s=20230601; t=1718198260; x=1718803060;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=YkdNjBOZ78Xa9HqoWeOu8L3vhUg6jdFS1CUj7DasUQM=;
-        b=ovsPzmrTegy20117T4lQ8rWC7qbEtUR0/X5eOnJEHefe90+QdlXwJxajW6pHE6aGw2
-         Xixhx/Fe65UPOumIxUY1VAc4ICTIZuAX6nPArjJ/9Lfnmqj+DnclYrBs+GvMLb1LsCff
-         67cDr3uehqX6qwOPCLa8+qIN48DUtWocUAXL0a3DV4BoNWwnPhbhR9p8oGkwZtt3BqQ5
-         lDYhr/IXf+AH7SCvZxS7qbEx3dGIgZRecD0fT10ObCYLsKx5aZ58D0eMLbBtF/IO9Uhg
-         zV3bZ9/lOGwfgrFzIEJlg8IG3yubAIWr+Qn4s86RYXhm/YiYlLoZEWH4Xah2TLiAhL4J
-         nyzA==
-X-Gm-Message-State: AOJu0YzcXq5FRgiwdmTOMgMKNUMXslgsu9PWqAiy1ibOfMf7mmOI2jog
-	DopBcMJ6e4Ii6rXya4I4jFIwPsBwH9tAk2m6zWu7+dvIHfvkOLl6BhWA5gI/8OSJsBqj46i+kKo
+        bh=OE6BxbFhz/GuABFcUaV8g29dJf9tmzpd1oPgGPbHYps=;
+        b=o9uYJJF7IRPbodYg3l2mYdm9EjvpKQguEJJfyCtViYMT6DwiuHupGltAJOOxxd2FEU
+         9pOTlhi3K0DFo61VI7HjpXm8rrODl0SD1wxFJK/AbXOL8QKPZyESzW9VocU+jTHBja69
+         UaKuZ0NbxyosZ+W6wxSwKrsDDKOXyJoNEGCeB+uKtEeJMov5OEfLb3VkWwZG2Tx/MPPH
+         ZQPH0VjOkK69/oaYcOYk9bhD1L2SgvcKwzPWk8KCxPRVIk/K4JuwzCpX//OE37xfYyjm
+         +rRjEcpyK7r70pTH7kNnMIImHpvATDtRQjToj1T5hXEX7eJJ/D/tk6/QypvL3blvgr/r
+         tbqA==
+X-Gm-Message-State: AOJu0Yxu3LmDJRkQspSUlUq8LTkQt370nbN7kxK6IMvT76rl7GC/XAsU
+	xqq30HANwZ6riLSRPZQ/4s241Gns40+MA38S5V4w+Eq7Ug4I8UwSA+DG26OH4mY6Kr0OUoDqOgA
 	=
-X-Google-Smtp-Source: AGHT+IHq2OVHWuKZ/0M/6EvrW0HJ4JL2KtqF1J1urmoia2YhOyNoort1lZ3zhFA/wiaWN+QQ9uI9kA==
-X-Received: by 2002:a17:907:f81:b0:a6f:1972:7fd with SMTP id a640c23a62f3a-a6f480272c3mr110037866b.67.1718198220955;
-        Wed, 12 Jun 2024 06:17:00 -0700 (PDT)
-Message-ID: <d31f0f8e-4eb7-4617-86f6-81f38b5c61aa@suse.com>
-Date: Wed, 12 Jun 2024 15:16:59 +0200
+X-Google-Smtp-Source: AGHT+IGsMdg4tUyavdeBHQOEiXhnoC90DvTKudxzlW25vpQM2p+VKF34nC8unmxL9isU1dg41/8w2w==
+X-Received: by 2002:a50:8acd:0:b0:57c:6f0a:bc57 with SMTP id 4fb4d7f45d1cf-57caaae520bmr1225185a12.36.1718198260234;
+        Wed, 12 Jun 2024 06:17:40 -0700 (PDT)
+Message-ID: <7607c5f7-772a-4c49-b2df-19f32ec2180b@suse.com>
+Date: Wed, 12 Jun 2024 15:17:38 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: [PATCH v2 for-4.19 2/3] x86/EPT: avoid marking non-present entries
- for re-configuring
+Subject: [PATCH v2 for-4.19 3/3] x86/EPT: drop questionable mfn_valid() from
+ epte_get_entry_emt()
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
@@ -117,72 +117,38 @@ In-Reply-To: <2936ffad-5395-45fd-877f-7fb2ca8b9dc8@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-For non-present entries EMT, like most other fields, is meaningless to
-hardware. Make the logic in ept_set_entry() setting the field (and iPAT)
-conditional upon dealing with a present entry, leaving the value at 0
-otherwise. This has two effects for epte_get_entry_emt() which we'll
-want to leverage subsequently:
-1) The call moved here now won't be issued with INVALID_MFN anymore (a
-   respective BUG_ON() is being added).
-2) Neither of the other two calls could now be issued with a truncated
-   form of INVALID_MFN anymore (as long as there's no bug anywhere
-   marking an entry present when that was populated using INVALID_MFN).
+mfn_valid() is RAM-focused; it will often return false for MMIO. Yet
+access to actual MMIO space should not generally be restricted to UC
+only; especially video frame buffer accesses are unduly affected by such
+a restriction.
 
+Since, as of ???????????? ("x86/EPT: avoid marking non-present entries
+for re-configuring"), the function won't be called with INVALID_MFN or,
+worse, truncated forms thereof anymore, we call fully drop that check.
+
+Fixes: 81fd0d3ca4b2 ("x86/hvm: simplify 'mmio_direct' check in epte_get_entry_emt()")
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
+Release-Acked-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 ---
-v2: New.
+Considering that we've just declared PVH Dom0 "supported", this may well
+qualify for 4.19. The issue was specifically very noticeable there.
+---
+v2: Different approach (and hence different title and description).
 
 --- a/xen/arch/x86/mm/p2m-ept.c
 +++ b/xen/arch/x86/mm/p2m-ept.c
-@@ -650,6 +650,8 @@ static int cf_check resolve_misconfig(st
-             if ( e.emt != MTRR_NUM_TYPES )
-                 break;
- 
-+            ASSERT(is_epte_present(&e));
-+
-             if ( level == 0 )
-             {
-                 for ( gfn -= i, i = 0; i < EPT_PAGETABLE_ENTRIES; ++i )
-@@ -915,17 +917,6 @@ ept_set_entry(struct p2m_domain *p2m, gf
- 
-     if ( mfn_valid(mfn) || p2m_allows_invalid_mfn(p2mt) )
-     {
--        bool ipat;
--        int emt = epte_get_entry_emt(p2m->domain, _gfn(gfn), mfn,
--                                     i * EPT_TABLE_ORDER, &ipat,
--                                     p2mt);
--
--        if ( emt >= 0 )
--            new_entry.emt = emt;
--        else /* ept_handle_misconfig() will need to take care of this. */
--            new_entry.emt = MTRR_NUM_TYPES;
--
--        new_entry.ipat = ipat;
-         new_entry.sp = !!i;
-         new_entry.sa_p2mt = p2mt;
-         new_entry.access = p2ma;
-@@ -941,6 +932,22 @@ ept_set_entry(struct p2m_domain *p2m, gf
-             need_modify_vtd_table = 0;
- 
-         ept_p2m_type_to_flags(p2m, &new_entry);
-+
-+        if ( is_epte_present(&new_entry) )
-+        {
-+            bool ipat;
-+            int emt = epte_get_entry_emt(p2m->domain, _gfn(gfn), mfn,
-+                                         i * EPT_TABLE_ORDER, &ipat,
-+                                         p2mt);
-+
-+            BUG_ON(mfn_eq(mfn, INVALID_MFN));
-+
-+            if ( emt >= 0 )
-+                new_entry.emt = emt;
-+            else /* ept_handle_misconfig() will need to take care of this. */
-+                new_entry.emt = MTRR_NUM_TYPES;
-+            new_entry.ipat = ipat;
-+        }
+@@ -501,12 +501,6 @@ int epte_get_entry_emt(struct domain *d,
+         return -1;
      }
  
-     if ( sve != -1 )
+-    if ( !mfn_valid(mfn) )
+-    {
+-        *ipat = true;
+-        return X86_MT_UC;
+-    }
+-
+     /*
+      * Conditional must be kept in sync with the code in
+      * {iomem,ioports}_{permit,deny}_access().
 
 
