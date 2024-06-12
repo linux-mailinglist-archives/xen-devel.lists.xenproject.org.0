@@ -2,35 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C93409051A9
-	for <lists+xen-devel@lfdr.de>; Wed, 12 Jun 2024 13:53:14 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.739253.1146240 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D61BB9051B0
+	for <lists+xen-devel@lfdr.de>; Wed, 12 Jun 2024 13:55:08 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.739268.1146260 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sHMX3-0008FV-Nk; Wed, 12 Jun 2024 11:52:49 +0000
+	id 1sHMYk-0000tI-9W; Wed, 12 Jun 2024 11:54:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 739253.1146240; Wed, 12 Jun 2024 11:52:49 +0000
+Received: by outflank-mailman (output) from mailman id 739268.1146260; Wed, 12 Jun 2024 11:54:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sHMX3-0008Df-Ky; Wed, 12 Jun 2024 11:52:49 +0000
-Received: by outflank-mailman (input) for mailman id 739253;
- Wed, 12 Jun 2024 11:52:47 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1sHMX1-0008DP-Ch; Wed, 12 Jun 2024 11:52:47 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1sHMX1-0005No-Ac; Wed, 12 Jun 2024 11:52:47 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1sHMX0-0000H1-VX; Wed, 12 Jun 2024 11:52:47 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1sHMX0-00088S-V3; Wed, 12 Jun 2024 11:52:46 +0000
+	id 1sHMYk-0000r3-5x; Wed, 12 Jun 2024 11:54:34 +0000
+Received: by outflank-mailman (input) for mailman id 739268;
+ Wed, 12 Jun 2024 11:54:32 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=oKT8=NO=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1sHMYi-0000pT-Qs
+ for xen-devel@lists.xenproject.org; Wed, 12 Jun 2024 11:54:32 +0000
+Received: from mail-qv1-xf2f.google.com (mail-qv1-xf2f.google.com
+ [2607:f8b0:4864:20::f2f])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 86d03da8-28b2-11ef-b4bb-af5377834399;
+ Wed, 12 Jun 2024 13:54:30 +0200 (CEST)
+Received: by mail-qv1-xf2f.google.com with SMTP id
+ 6a1803df08f44-6b08857f3b8so12026446d6.2
+ for <xen-devel@lists.xenproject.org>; Wed, 12 Jun 2024 04:54:31 -0700 (PDT)
+Received: from [10.125.226.166] ([160.101.139.1])
+ by smtp.gmail.com with ESMTPSA id
+ 6a1803df08f44-6b093f3a38bsm8121306d6.138.2024.06.12.04.54.28
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 12 Jun 2024 04:54:29 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,87 +45,151 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=tyRcWju6xGKMNuJ71D6oVlr2FtElMrz+lDenL4m13Ts=; b=yWagQq7oYG8cP1oVU2vCijsvFi
-	r07s53DLxpGRojRaTv77q4x+FAEyfn/Nl3a4b02+hkvKgIkctAnW+fYY7QndZNibc19ArpVpZoxoT
-	qSB0E2y5ZDe+wFsv9GHSIjgrUKZdTSnP6p6bMIcw6RjFUKCce4vnnMJxm2mflfHplfQE=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-186319-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 86d03da8-28b2-11ef-b4bb-af5377834399
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1718193270; x=1718798070; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=3bxY91Y/OFfBPXGRV3EPnTmcgydfN2OXanriSVHk1gs=;
+        b=L2AFqe/j+slL4kq8g9XWE7m9glrwhVRVdrDZUF1UmUsj2+XR6FXrlFKduDYEFCfiKz
+         IdOZJrgaoPQnaQnjAj6Wbf9PYaCHCLbM6JiXGQII1O5DTlOvgDQ2L7jTKYTX77opJ7rY
+         zTbsHiDqqeRFFcMkjGFha1Uy5o8G468X7/kow=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1718193270; x=1718798070;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=3bxY91Y/OFfBPXGRV3EPnTmcgydfN2OXanriSVHk1gs=;
+        b=wdVuw+d6+5PaI52F6YXphXP1S5V1mvN3T9mM+RNVX808B+iqLqfGCssBJYl5O4v1M9
+         4DX82aR7h/G88d2ubhswLR0DxEUjbvlip6JF+kgvPFT0QMlcc1AmkSnPVVb0/ipp1sOJ
+         W46bLLXpqHFQ+sF2dkz67ZvQ0uV0oE5DVF8oDWj1ISZDN9qieKT7hy+GpCM6s+ETVJ3C
+         IJBTvYlSOwGocjkZ4xPfo3EU9E02+t0bIbgyg4/DHQXp8KrrEn/W03E2ufQzKyYvNe5/
+         eJxQ3s5oVRFYIVZZFN/JCi9Z7mmxg0uGkkqL8ssaecD487nrUL2tY4yIiMBBOHApWYGd
+         J+1A==
+X-Forwarded-Encrypted: i=1; AJvYcCURGFPirX93akDXBjrWw2MysDox9v5X/xbHClqNNurgAo4c2mFdLXQ2UxrmdCj1WK+MkJJCNPZrK/mkVmWy/C/JaLiriIKV/CIvz5G63Ig=
+X-Gm-Message-State: AOJu0Yxpgsnqt0jSSFWG5iO09IU3ml3SXv5Kmv84BdYGSceMMsjYVrLY
+	Xtj4JWZnV/Z1OiZAOSO+Ql73rfgZUHY+DSRoal79q8DtYEWhDlQCE+/PyTtoii4=
+X-Google-Smtp-Source: AGHT+IF63grcHPGjkTv5wNaLdMCCfx5MwPhDjVlnHzJCbcsK5Np7aIPGKpELKnYFitlkDzseNa64AA==
+X-Received: by 2002:a05:6214:590b:b0:6b0:623c:15d1 with SMTP id 6a1803df08f44-6b1a7ad46e6mr15856426d6.56.1718193269915;
+        Wed, 12 Jun 2024 04:54:29 -0700 (PDT)
+Message-ID: <a39d06c2-0c1e-41dc-833e-d73c9c45e30f@citrix.com>
+Date: Wed, 12 Jun 2024 12:54:27 +0100
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 186319: tolerable all pass - PUSHED
-X-Osstest-Failures:
-    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=b0e5352c600ce42f109ddb43a4233ac2c9e0abbd
-X-Osstest-Versions-That:
-    xen=5ea7f2c9d7a1334b3b2bd5f67fab4d447b60613d
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Wed, 12 Jun 2024 11:52:46 +0000
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH for-4.19???] x86/physdev: replace physdev_{,un}map_pirq()
+ checking against DOMID_SELF
+To: Jan Beulich <jbeulich@suse.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+ Chen Jiqian <Jiqian.Chen@amd.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <c7d12669-7851-4701-9b2d-0b22f9d32c1d@suse.com>
+ <37ccb940-dfcd-419d-8cea-93800fd2c865@citrix.com>
+ <5f568372-5114-4cd7-92e1-aae5028c923c@suse.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <5f568372-5114-4cd7-92e1-aae5028c923c@suse.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-flight 186319 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/186319/
+On 12/06/2024 12:45 pm, Jan Beulich wrote:
+> On 12.06.2024 13:05, Andrew Cooper wrote:
+>> On 12/06/2024 9:44 am, Jan Beulich wrote:
+>>> It's hardly ever correct to check for just DOMID_SELF, as guests have
+>>> ways to figure out their domain IDs and hence could instead use those as
+>>> inputs to respective hypercalls. Note, however, that for ordinary DomU-s
+>>> the adjustment is relaxing things rather than tightening them, since
+>>> - as a result of XSA-237 - the respective XSM checks would have rejected
+>>> self (un)mapping attempts for other than the control domain.
+>>>
+>>> Since in physdev_map_pirq() handling overall is a little easier this
+>>> way, move obtaining of the domain pointer into the caller. Doing the
+>>> same for physdev_unmap_pirq() is just to keep both consistent in this
+>>> regard. For both this has the advantage that it is now provable (by the
+>>> build not failing) that there are no DOMID_SELF checks left (and none
+>>> could easily be re-added).
+>>>
+>>> Fixes: 0b469cd68708 ("Interrupt remapping to PIRQs in HVM guests")
+>>> Fixes: 9e1a3415b773 ("x86: fixes after emuirq changes")
+>>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+>> I think it is right to perform the domid lookup in do_physdev_op() and
+>> pass d down into physdev_{un,}map_pirq().
+>>
+>> But I don't see what this has to do with the build failing.  You're not
+>> undef-ing DOMID_SELF, so I don't see what kind of provability you've added.
+> I'm talking of provability for the two functions in question. Not
+> globally of course.
 
-Failures :-/ but no regressions.
+I'd suggest simply dropping the sentence.
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+I don't think it adds anything (both functions are trivially short) to
+the overall message, and the "build breaking" part in particular is at
+odds with the change.
 
-version targeted for testing:
- xen                  b0e5352c600ce42f109ddb43a4233ac2c9e0abbd
-baseline version:
- xen                  5ea7f2c9d7a1334b3b2bd5f67fab4d447b60613d
+>>> --- a/xen/arch/x86/physdev.c
+>>> +++ b/xen/arch/x86/physdev.c
+>>> @@ -184,6 +170,8 @@ ret_t do_physdev_op(int cmd, XEN_GUEST_H
+>>>  
+>>>      switch ( cmd )
+>>>      {
+>>> +        struct domain *d;
+>>> +
+>> Please don't introduce any more of these.
+>>
+>> We've discussed several times about wanting to start using trivial
+>> autovar init support, and every one of these additions is going to need
+>> reverting.
+>>
+>> In this case, there's literally no difference having it at function scope.
+> Will do; sorry, habits.
 
-Last test of basis   186312  2024-06-11 17:02:07 Z    0 days
-Testing same since   186319  2024-06-12 09:02:07 Z    0 days    1 attempts
+Thanks.
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Daniel P. Smith <dpsmith@apertussolutions.com>
-  Jan Beulich <jbeulich@suse.com>
-  Juergen Gross <jgross@suse.com>
-  Marek Marczykowski <marmarek@invisiblethingslab.com>
-
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/xen.git
-   5ea7f2c9d7..b0e5352c60  b0e5352c600ce42f109ddb43a4233ac2c9e0abbd -> smoke
+With that, and preferably the adjusted commit message, Reviewed-by:
+Andrew Cooper <andrew.cooper3@citrix.com>
 
