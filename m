@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D3A3C905058
-	for <lists+xen-devel@lfdr.de>; Wed, 12 Jun 2024 12:26:27 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.739139.1146087 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5463F905074
+	for <lists+xen-devel@lfdr.de>; Wed, 12 Jun 2024 12:34:52 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.739148.1146096 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sHLAw-0007Ra-A2; Wed, 12 Jun 2024 10:25:54 +0000
+	id 1sHLJC-0001Qe-70; Wed, 12 Jun 2024 10:34:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 739139.1146087; Wed, 12 Jun 2024 10:25:54 +0000
+Received: by outflank-mailman (output) from mailman id 739148.1146096; Wed, 12 Jun 2024 10:34:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sHLAw-0007Pf-5s; Wed, 12 Jun 2024 10:25:54 +0000
-Received: by outflank-mailman (input) for mailman id 739139;
- Wed, 12 Jun 2024 10:25:52 +0000
+	id 1sHLJC-0001OH-3q; Wed, 12 Jun 2024 10:34:26 +0000
+Received: by outflank-mailman (input) for mailman id 739148;
+ Wed, 12 Jun 2024 10:34:24 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=oKT8=NO=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1sHLAu-0007PZ-Ei
- for xen-devel@lists.xenproject.org; Wed, 12 Jun 2024 10:25:52 +0000
-Received: from mail-qt1-x82d.google.com (mail-qt1-x82d.google.com
- [2607:f8b0:4864:20::82d])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=h1N0=NO=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1sHLJA-0001OB-QA
+ for xen-devel@lists.xenproject.org; Wed, 12 Jun 2024 10:34:24 +0000
+Received: from mail-ed1-x532.google.com (mail-ed1-x532.google.com
+ [2a00:1450:4864:20::532])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 2332f224-28a6-11ef-90a3-e314d9c70b13;
- Wed, 12 Jun 2024 12:25:49 +0200 (CEST)
-Received: by mail-qt1-x82d.google.com with SMTP id
- d75a77b69052e-440655e64bdso19671241cf.0
- for <xen-devel@lists.xenproject.org>; Wed, 12 Jun 2024 03:25:49 -0700 (PDT)
-Received: from [10.125.226.166] ([160.101.139.1])
- by smtp.gmail.com with ESMTPSA id
- d75a77b69052e-4404f5bc3edsm44095061cf.54.2024.06.12.03.25.47
+ id 55748f1b-28a7-11ef-90a3-e314d9c70b13;
+ Wed, 12 Jun 2024 12:34:23 +0200 (CEST)
+Received: by mail-ed1-x532.google.com with SMTP id
+ 4fb4d7f45d1cf-57c76497cefso4801131a12.1
+ for <xen-devel@lists.xenproject.org>; Wed, 12 Jun 2024 03:34:23 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-57ca82877b7sm1133692a12.48.2024.06.12.03.34.21
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 12 Jun 2024 03:25:48 -0700 (PDT)
+ Wed, 12 Jun 2024 03:34:22 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,191 +45,191 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2332f224-28a6-11ef-90a3-e314d9c70b13
+X-Inumbo-ID: 55748f1b-28a7-11ef-90a3-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1718187949; x=1718792749; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1718188462; x=1718793262; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=qtihfR1s1QsEGhiNOU25jC8KetGBf6NK2giC6XWhyZk=;
-        b=vQVQZzV8x1VDehUQp/ixeokeSJqvZITFx1PAHTXGFSX+jrsiC188NSVHWz8LeTn12T
-         jDOTG3m2JQeXJoS9WDxe9ax1/Egtu5qDIz4Ephb7t3de/5iosqlfD51CtGTFDS1W8Okw
-         CmHLwTfH2mVtqTi8QuD9j6t39LdryT7nmT/uM=
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=uKjO2lbOacLKbkepJHdnURZOX2A8rIBxV0nZa0iKZ4k=;
+        b=K6SKP5jFUZeBvv5+ZHMtlpm05ODj7JJ++OS5CQjpXYQGzfkfy63Ah/+RyvhnDsgJ/h
+         Syq+8rHmUEDHRVABmHhSMEgsu4W/qtb60POtKX9pGfwLaaU2pKy+ZPI/XD7OecxO64On
+         zZss+VFFX+MKKH+SrZ85A/Lbi5QKKrz9pKVfD3VJnsyK9ntAIWTPSAISO4gOMM9eASVV
+         O/5+u4fE6NfS/aPVKi11mxS1vnOFYdWaowxD3qtzGNc+lsmW2+Q2ERD86pk2Aj9w/c6g
+         52o0QF88VFM+C4c5+FC7C4bQ9cbe0yIuh4ye1toJ2R/5v9EwEPYJzD0YEhDFamYr4Gui
+         jrcQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1718187949; x=1718792749;
+        d=1e100.net; s=20230601; t=1718188462; x=1718793262;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=qtihfR1s1QsEGhiNOU25jC8KetGBf6NK2giC6XWhyZk=;
-        b=gaLqWGiCnih3pla7oiZXoFwb4tMVm9L6KfFSFY1n5HTuqyAwIYHsI1P5Mc6pROl7yg
-         1LN/dYRNyTvi03l++JrWXR3WIiQms3vy925/bRti2tit43OWbuTOPk2kf1ve0wB+w2pA
-         P38b3UGQ50zUwiy0/lo9MXOBN8O2pzQVZ1I6mOL7wPzNWWuzJzBnJgh+QLhbwIsOZkbL
-         3EAUfUYEUEHiSFBAEHY64hZpgRlruOw/E2QPVbm8LE7FckudnlRh8zsimf8RpFhZeD1a
-         JP2T3anTpU+9jiOMVCbDhoU91FihFiyOTC6QaCz/X5poZqf/GaEv4ePHhAWbjjgp1y9a
-         YlrA==
-X-Forwarded-Encrypted: i=1; AJvYcCXzi3e257jcXr6kEMEj0z9AwAQpgCw1Zu9d2YCD5Xjy2CSk1/I2Vqm+ul5uQAPetlLjBxG/ASx9S9km5HTqtqvhweHz7TYtMdpQDixO/yE=
-X-Gm-Message-State: AOJu0YwjC2cHUk14c6ab+jPqhJkP9YO9jrLoqw+8/VntnWmfEwvg7Skg
-	3CS+JWv7ZdzJC84bAv0xraWYgS2hwE6nVt9GYHKRJtmCpIChAvhpY3sSrptkjKY=
-X-Google-Smtp-Source: AGHT+IFT4OIASyZBSKf/NhczPNuJX6UGmXkr+edVkgfwefBbDOVMFKVS2HOgGVKJvOobyRyYSq/pqA==
-X-Received: by 2002:ac8:5f49:0:b0:441:2998:3e7b with SMTP id d75a77b69052e-4415abeac4bmr17517471cf.30.1718187948555;
-        Wed, 12 Jun 2024 03:25:48 -0700 (PDT)
-Message-ID: <1eaed8c1-981f-4c16-a2f6-e783fa43963f@citrix.com>
-Date: Wed, 12 Jun 2024 11:25:46 +0100
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=uKjO2lbOacLKbkepJHdnURZOX2A8rIBxV0nZa0iKZ4k=;
+        b=rfQcuWtMgtor/9nQ81J2gXapBc+AZa7PNlfeN7SIdnHBRj+/LTDTueSJxAQMDNulV9
+         cJXavm+yll5ZjaHTPJTUSWjNFhuiiz59VKtARhl5WOyU/dUsGN6TtPrFW0yev6mjh5V3
+         RK40oapYPfYd0Wit7wChplMDhbCl3cm/XZww0k4dNys2QEJT9xkYtJAjExoPopG4N/oC
+         +9C/aIF96A3cv7XLprATOADM+oP7qHsI8suc3gkPSLA36THkC/yTMbOCvyF1tXsYBrzX
+         PgUo9HfXlh4KO2mre4pt9LEZhwmDBOXocH0bwS71i/poJj8/ATnnbu5XPobbeskIBivy
+         HWzQ==
+X-Forwarded-Encrypted: i=1; AJvYcCXs6sLZ96q40obzZ3yoLhMm7X7ehsmj8t8EnoLUqXc/jW9cPSO2qWrQ5437qGiNGhtRQW1JU96TtD2a0XZ2+WxgpbLxWeqTlEErwqzUbaI=
+X-Gm-Message-State: AOJu0YwmSxFmmwgN8tHmHIpg9gc0SGN01YGmGsmA9SMdBQyRqZJK/A7U
+	felc1QqBvPrMnJXQBmTH+fS1z/nMeUNW+BlScKIBLkiZ7tcmpZm/PYmiG01cRQ==
+X-Google-Smtp-Source: AGHT+IEclVmKgX0GCWA7DQsqIaF7OXVSF4LDq3ufQ+QDn+5v4Hf5yp2bDguG6LnATnT+kLvyHyKgyQ==
+X-Received: by 2002:a50:9e24:0:b0:578:57b7:9f32 with SMTP id 4fb4d7f45d1cf-57caaabf033mr1058344a12.35.1718188462574;
+        Wed, 12 Jun 2024 03:34:22 -0700 (PDT)
+Message-ID: <c2a5b9cd-2a85-4e01-8b8b-31b85726dbd4@suse.com>
+Date: Wed, 12 Jun 2024 12:34:21 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: BlueIris error on Xen 4.17
-To: Damien Thenot <damien.thenot@vates.tech>, xen-devel@lists.xenproject.org
-References: <ced16fca-3b55-40a1-a7e2-ffadd9707394@vates.tech>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <ced16fca-3b55-40a1-a7e2-ffadd9707394@vates.tech>
+Subject: Re: [RFC XEN PATCH v9 5/5] domctl: Add XEN_DOMCTL_gsi_permission to
+ grant gsi
+To: "Chen, Jiqian" <Jiqian.Chen@amd.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu
+ <wl@xen.org>, George Dunlap <george.dunlap@citrix.com>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ Anthony PERARD <anthony@xenproject.org>, Juergen Gross <jgross@suse.com>,
+ "Hildebrand, Stewart" <Stewart.Hildebrand@amd.com>,
+ "Huang, Ray" <Ray.Huang@amd.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ "Daniel P . Smith" <dpsmith@apertussolutions.com>
+References: <20240607081127.126593-1-Jiqian.Chen@amd.com>
+ <20240607081127.126593-6-Jiqian.Chen@amd.com>
+ <987f5d21-bbb5-4cdb-975b-91949e802921@suse.com>
+ <BL1PR12MB5849FF595AEED1112622A98DE7C02@BL1PR12MB5849.namprd12.prod.outlook.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <BL1PR12MB5849FF595AEED1112622A98DE7C02@BL1PR12MB5849.namprd12.prod.outlook.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 12/06/2024 10:40 am, Damien Thenot wrote:
-> Hello,
->
-> A XCP-ng 8.3 user that use Blue Iris Software encountered a crash with 
-> Xen upgraded to version 4.17.
-> It worked correctly when XCP-ng 8.3 used Xen 4.13.
-> It is happening on Intel Xeon E-2378 CPU @ 2.60GHz CPUs and it seems 
-> more recent Intel CPUs.
-> His guests are Windows with a NVIDIA GPU given to the guest.
->
-> The user added:
->  > On an older box with i9-9900K CPU it does not happen and the VM works 
-> as expected. Also working on an older
->  > Xeon Intel Xeon E-2146G and a E-2276G. Anything newer than that 
-> however the VM will just BSOD.
->
-> You can find more information in the XCP-ng forum post: 
-> https://xcp-ng.org/forum/topic/8873/windows-blue-iris-xcp-ng-8-3
->
-> The user tried enabling `msr-relaxed` following notes in Xen 4.15 
-> documentation.
-> But it didn't change the behavior and the guest still crashes.
->
-> Has someone else observed such behavior?
->
-> Here is a Xen dmesg output with the error that the user was able to obtain:
->
-> ```
->
-> (d1) [  132.028963] xen|BUGCHECK: ====>
-> (d1) [  132.029008] xen|BUGCHECK: SYSTEM_SERVICE_EXCEPTION: 
-> 00000000C0000096 FFFFF80418A21E27 FFFFAC009F27B900 0000000000000000
-> (d1) [  132.029057] xen|BUGCHECK: EXCEPTION (FFFFF80418A21E27):
-> (d1) [  132.029096] xen|BUGCHECK: - Code = 8589320F
-> (d1) [  132.029134] xen|BUGCHECK: - Flags = 000000A8
-> (d1) [  132.029174] xen|BUGCHECK: - Address = 8589320F008EECE9
-> (d1) [  132.029214] xen|BUGCHECK: - Parameter[0] = 0F000001D9B90000
-> (d1) [  132.029255] xen|BUGCHECK: - Parameter[1] = 4166300FFCE08332
-> (d1) [  132.029297] xen|BUGCHECK: - Parameter[2] = 0355000002C881F7
-> (d1) [  132.029338] xen|BUGCHECK: - Parameter[3] = 0002A0818B497B74
-> (d1) [  132.029379] xen|BUGCHECK: - Parameter[4] = 000002A8918B4900
-> (d1) [  132.029421] xen|BUGCHECK: - Parameter[5] = 8B49CA230FC0230F
-> (d1) [  132.029462] xen|BUGCHECK: - Parameter[6] = 918B49000002B081
-> (d1) [  132.029502] xen|BUGCHECK: - Parameter[7] = 0FD0230F000002B8
-> (d1) [  132.029544] xen|BUGCHECK: - Parameter[8] = 0002C8918B49DA23
-> (d1) [  132.029585] xen|BUGCHECK: - Parameter[9] = 230FF0230FC03300
-> (d1) [  132.029626] xen|BUGCHECK: - Parameter[10] = 008AE22504F665FA
-> (d1) [  132.029667] xen|BUGCHECK: - Parameter[11] = 00C2F76639740200
-> (d1) [  132.029709] xen|BUGCHECK: - Parameter[12] = 81342405F7327403
-> (d1) [  132.029753] xen|BUGCHECK: - Parameter[13] = 6626750000000200
-> (d1) [  132.029794] xen|BUGCHECK: - Parameter[14] = C88303740200C2F7
-> (d1) [  132.029835] xen|BUGCHECK: EXCEPTION (0D8B000000AC9589):
-> (d1) [  132.029888] xen|BUGCHECK: CONTEXT (FFFFAC009F27B900):
-> (d1) [  132.029925] xen|BUGCHECK: - GS = 002B
-> (d1) [  132.029959] xen|BUGCHECK: - FS = 0053
-> (d1) [  132.029994] xen|BUGCHECK: - ES = 002B
-> (d1) [  132.030028] xen|BUGCHECK: - DS = 002B
-> (d1) [  132.030056] xen|BUGCHECK: - SS = 0018
-> (d1) [  132.030089] xen|BUGCHECK: - CS = 0010
-> (d1) [  132.030123] xen|BUGCHECK: - EFLAGS = 00040046
-> (d1) [  132.030160] xen|BUGCHECK: - RDI = 00000000000002C4
-> (d1) [  132.030199] xen|BUGCHECK: - RSI = 00000000005FFA48
-> (d1) [  132.030237] xen|BUGCHECK: - RBX = 00000000426ED080
-> (d1) [  132.030275] xen|BUGCHECK: - RDX = 0000000000000000
-> (d1) [  132.030312] xen|BUGCHECK: - RCX = 00000000000001DD
-> (d1) [  132.030349] xen|BUGCHECK: - RAX = 0000000000000000
-> (d1) [  132.030386] xen|BUGCHECK: - RBP = 00000000E4427520
-> (d1) [  132.030424] xen|BUGCHECK: - RIP = 0000000018A21E27
-> (d1) [  132.030463] xen|BUGCHECK: - RSP = 00000000E4427498
-> (d1) [  132.030504] xen|BUGCHECK: - R8 = 0000000000000000
-> (d1) [  132.030543] xen|BUGCHECK: - R9 = 000000009F25A000
-> (d1) [  132.030580] xen|BUGCHECK: - R10 = 00000000000002C4
-> (d1) [  132.030618] xen|BUGCHECK: - R11 = 0000000000000246
-> (d1) [  132.030657] xen|BUGCHECK: - R12 = 0000000002CEB528
-> (d1) [  132.030696] xen|BUGCHECK: - R13 = 00000000A81E3A80
-> (d1) [  132.030735] xen|BUGCHECK: - R14 = 00000000000002C4
-> (d1) [  132.030775] xen|BUGCHECK: - R15 = 0000000000000000
-> (d1) [  132.030812] xen|BUGCHECK: STACK:
-> (d1) [  132.030858] xen|BUGCHECK: 00000000E44274A0: (00000000426ED080 
-> 00000000005FF898 0000000000000000 0000000000000000) ntoskrnl.exe + 
-> 000000000043667A
-> (d1) [  132.030935] xen|BUGCHECK: 00000000005FFA18: (00000000A74AD76E 
-> 0000000000000000 00000000A81E3A80 000000000000000E) 00007FFBA9BFF4D4
-> (d1) [  132.031010] xen|BUGCHECK: 00000000005FFA20: (0000000000000000 
-> 00000000A81E3A80 000000000000000E 0000000000000003) 00007FFBA74AD76E
-> (d1) [  132.031086] xen|BUGCHECK: 00000000005FFA28: (00000000A81E3A80 
-> 000000000000000E 0000000000000003 00000000005FFB10) 0000000000000000
-> (d1) [  132.031151] xen|BUGCHECK: <====
-> (XEN) [  132.040828] memory_map:remove: dom1 gfn=f60c0 mfn=a3080 nr=4
-> (XEN) [  132.040975] memory_map:remove: dom1 gfn=f5000 mfn=a2000 nr=1000
-> (XEN) [  132.041124] memory_map:remove: dom1 gfn=e0000 mfn=4000000 nr=10000
-> (XEN) [  132.041463] memory_map:remove: dom1 gfn=e8000 mfn=4008000 nr=8000
-> (XEN) [  132.041905] memory_map:remove: dom1 gfn=f8000 mfn=4010000 nr=2000
-> (XEN) [  132.042072] ioport_map:remove: dom1 gport=c100 mport=6000 nr=80
-> ```
+On 12.06.2024 12:12, Chen, Jiqian wrote:
+> On 2024/6/11 22:39, Jan Beulich wrote:
+>> On 07.06.2024 10:11, Jiqian Chen wrote:
+>>> Some type of domain don't have PIRQ, like PVH, it do not do
+>>> PHYSDEVOP_map_pirq for each gsi. When passthrough a device
+>>> to guest on PVH dom0, callstack
+>>> pci_add_dm_done->XEN_DOMCTL_irq_permission will failed at
+>>> domain_pirq_to_irq, because PVH has no mapping of gsi, pirq
+>>> and irq on Xen side.
+>>
+>> All of this is, to me at least, in pretty sharp contradiction to what
+>> patch 2 says and does. IOW: Do we want the concept of pIRQ in PVH, or
+>> do we want to keep that to PV?
+> It's not contradictory.
+> What I did is not to add the concept of PIRQs for PVH.
 
-There was a #GP fault accessing MSR 0x1DD
+After your further explanations on patch 2 - yes, I see now. But in particular
+there it needs making more clear what case it is that is being enabled by the
+changes.
 
-You'll need to investigate how that MSR is supposed to behave on real
-hardware, and see if Xen's behaviour matches or not.
+>>> Signed-off-by: Huang Rui <ray.huang@amd.com>
+>>> Signed-off-by: Jiqian Chen <Jiqian.Chen@amd.com>
+>>
+>> A problem throughout the series as it seems: Who's the author of these
+>> patches? There's no From: saying it's not you, but your S-o-b also
+>> isn't first.
+> So I need to change to:
+> Signed-off-by: Jiqian Chen <Jiqian.Chen@amd.com> means I am the author.
+> Signed-off-by: Huang Rui <ray.huang@amd.com> means Rui sent them to upstream firstly.
+> Signed-off-by: Jiqian Chen <Jiqian.Chen@amd.com> means I take continue to upstream.
 
-~Andrew
+I guess so, yes.
+
+>>> --- a/tools/libs/light/libxl_pci.c
+>>> +++ b/tools/libs/light/libxl_pci.c
+>>> @@ -1412,6 +1412,37 @@ static bool pci_supp_legacy_irq(void)
+>>>  #define PCI_SBDF(seg, bus, devfn) \
+>>>              ((((uint32_t)(seg)) << 16) | (PCI_DEVID(bus, devfn)))
+>>>  
+>>> +static int pci_device_set_gsi(libxl_ctx *ctx,
+>>> +                              libxl_domid domid,
+>>> +                              libxl_device_pci *pci,
+>>> +                              bool map,
+>>> +                              int *gsi_back)
+>>> +{
+>>> +    int r, gsi, pirq;
+>>> +    uint32_t sbdf;
+>>> +
+>>> +    sbdf = PCI_SBDF(pci->domain, pci->bus, (PCI_DEVFN(pci->dev, pci->func)));
+>>> +    r = xc_physdev_gsi_from_dev(ctx->xch, sbdf);
+>>> +    *gsi_back = r;
+>>> +    if (r < 0)
+>>> +        return r;
+>>> +
+>>> +    gsi = r;
+>>> +    pirq = r;
+>>
+>> r is a GSI as per above; why would you store such in a variable named pirq?
+>> And how can ...
+>>
+>>> +    if (map)
+>>> +        r = xc_physdev_map_pirq(ctx->xch, domid, gsi, &pirq);
+>>> +    else
+>>> +        r = xc_physdev_unmap_pirq(ctx->xch, domid, pirq);
+>>
+>> ... that value be the correct one to pass into here? In fact, the pIRQ number
+>> you obtain above in the "map" case isn't handed to the caller, i.e. it is
+>> effectively lost. Yet that's what would need passing into such an unmap call.
+> Yes r is GSI and I know pirq will be replaced by xc_physdev_map_pirq.
+> What I do "pirq = r" is for xc_physdev_unmap_pirq, unmap need passing in pirq,
+> and the number of pirq is always equal to gsi.
+
+Why would that be? pIRQ is purely a software construct (of Xen's), I
+don't think there's any guarantee whatsoever on the numbering. And even
+if there was (for e.g. non-MSI ones), it would be pIRQ == IRQ. And recall
+that elsewhere I think I meanwhile succeeded in explaining to you that
+IRQ != GSI (in the common case, even if in most cases they match).
+
+>>> +    if (r)
+>>> +        return r;
+>>> +
+>>> +    r = xc_domain_gsi_permission(ctx->xch, domid, gsi, map);
+>>
+>> Looking at the hypervisor side, this will fail for PV Dom0. In which case imo
+>> you better would avoid making the call in the first place.
+> Yes, for PV dom0, the errno is EOPNOTSUPP, then it will do below xc_domain_irq_permission.
+
+Hence why call xc_domain_gsi_permission() at all on a PV Dom0?
+
+>>> +    if (r && errno == EOPNOTSUPP)
+>>
+>> Before here you don't really need the pIRQ number; if all it really is needed
+>> for is ...
+>>
+>>> +        r = xc_domain_irq_permission(ctx->xch, domid, pirq, map);
+>>
+>> ... this, then it probably also should only be obtained when it's needed. Yet
+>> overall the intentions here aren't quite clear to me.
+> Adding the function pci_device_set_gsi is for PVH dom0, while also ensuring compatibility with PV dom0.
+> When PVH dom0, it does xc_physdev_map_pirq and xc_domain_gsi_permission(new hypercall for PVH dom0)
+> When PV dom0, it keeps the same actions as before codes, it does xc_physdev_map_pirq and xc_domain_irq_permission.
+
+And why does PVH Dom0 need to call xc_physdev_map_pirq(), when in that case
+the pIRQ isn't used?
+
+Jan
 
