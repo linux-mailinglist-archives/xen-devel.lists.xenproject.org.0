@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8C0AA904EE5
-	for <lists+xen-devel@lfdr.de>; Wed, 12 Jun 2024 11:14:08 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.739035.1145946 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1DBEB904F0E
+	for <lists+xen-devel@lfdr.de>; Wed, 12 Jun 2024 11:20:36 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.739045.1145957 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sHK3B-0003C7-26; Wed, 12 Jun 2024 09:13:49 +0000
+	id 1sHK9F-0005Kn-NV; Wed, 12 Jun 2024 09:20:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 739035.1145946; Wed, 12 Jun 2024 09:13:49 +0000
+Received: by outflank-mailman (output) from mailman id 739045.1145957; Wed, 12 Jun 2024 09:20:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sHK3A-00039n-Vb; Wed, 12 Jun 2024 09:13:48 +0000
-Received: by outflank-mailman (input) for mailman id 739035;
- Wed, 12 Jun 2024 09:13:48 +0000
+	id 1sHK9F-0005JQ-JN; Wed, 12 Jun 2024 09:20:05 +0000
+Received: by outflank-mailman (input) for mailman id 739045;
+ Wed, 12 Jun 2024 09:20:04 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=h1N0=NO=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sHK3A-00036N-8M
- for xen-devel@lists.xenproject.org; Wed, 12 Jun 2024 09:13:48 +0000
-Received: from mail-ed1-x532.google.com (mail-ed1-x532.google.com
- [2a00:1450:4864:20::532])
+ id 1sHK9E-00052r-TB
+ for xen-devel@lists.xenproject.org; Wed, 12 Jun 2024 09:20:04 +0000
+Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
+ [2a00:1450:4864:20::62a])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 12c3bf47-289c-11ef-b4bb-af5377834399;
- Wed, 12 Jun 2024 11:13:46 +0200 (CEST)
-Received: by mail-ed1-x532.google.com with SMTP id
- 4fb4d7f45d1cf-57ca8e45a1bso632874a12.0
- for <xen-devel@lists.xenproject.org>; Wed, 12 Jun 2024 02:13:46 -0700 (PDT)
+ id f26bb629-289c-11ef-b4bb-af5377834399;
+ Wed, 12 Jun 2024 11:20:02 +0200 (CEST)
+Received: by mail-ej1-x62a.google.com with SMTP id
+ a640c23a62f3a-a6efae34c83so498022966b.0
+ for <xen-devel@lists.xenproject.org>; Wed, 12 Jun 2024 02:20:02 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-57cab4fe431sm719264a12.61.2024.06.12.02.13.45
+ a640c23a62f3a-a6e98f12e9bsm678174766b.32.2024.06.12.02.20.00
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 12 Jun 2024 02:13:46 -0700 (PDT)
+ Wed, 12 Jun 2024 02:20:01 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,52 +45,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 12c3bf47-289c-11ef-b4bb-af5377834399
+X-Inumbo-ID: f26bb629-289c-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1718183626; x=1718788426; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1718184001; x=1718788801; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=JeHwpJrOKwSwOR/lxPqxf/lKQ8BcNFSutmoLuilAq0I=;
-        b=Nl4143ohJDc6LB6661SzyNWfTh6Rm0ZE9wRt1kcwCQugGvWUgLhJsBtRRnB50tMMD2
-         ak9X9+Lm9yFpmh5DaDjTgW0MxfLRPmTQwyg1C27j4TKyxLE/8R0kWnEG8NQoXbeR95RY
-         MpmWUjLiphG/lgHPtseVNiZDD5vOvYAYvHuihWq856AofHXnxPXqFaJVY0dcG/CovI4C
-         suoIHYlmAA4iUvy0b/qzBf0uwgE7f5L2CD5vfxBYBtC6wGtY+5jT3f5khPLT+xHsXwhJ
-         EyB9nHpRS2XeaAcKyWBzPIYVvEyt6kGWy/n1j9Jzy5IWXI/E6tw+B4QWGxvKne3tvBIR
-         E+9g==
+        bh=ZjPtJtdKfEGZMCprJaHEP/yb+AHta6yT2Oa6Q0eFdWs=;
+        b=VHbwfyDxcxgDDGT1vjtIsOyzEZ9yFOEzVaMhApYBwnpnjakQXt4DzsmcXT0cvLsU/B
+         qM6p27AJ/0dL8JOnyoMh0U5ONfBZG6c6cQhVSEIsLOac31E/qUiiXjQnFGNraHFY9X3e
+         Kq5Phwu+5BXqLbSoD2/jYuIw/Uq5IXH26Z/Y77BRhALzik4bThXU3TZIukVQY9zXJoY+
+         68c9n6wsLHqtMtYrhwk34fRBdqeabd7k0gGwG8mK1F1z/vSfhlKnlbsKsaPQQKyyMxqd
+         ROj5iwRT3Rb0pIaq2/uLrWl77dwIovQ0I64yYtV/jebJPPf+jupck7aVtxLJ6zR5G+Ni
+         EwgQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1718183626; x=1718788426;
+        d=1e100.net; s=20230601; t=1718184001; x=1718788801;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=JeHwpJrOKwSwOR/lxPqxf/lKQ8BcNFSutmoLuilAq0I=;
-        b=r7q+KK4jmWeA3ZS4KczvjsUA5LIpO+X3xl2T2OLvnD+wfY5/oJyLuBwO/NPv971Rlk
-         hkRZal+3btjlA13OZJ7LZfyYRPqzBdF0uOUGblyZFKfpZLNe5RXX5uqTKtcMFVJjgKA/
-         WWRF1ZSqqhFvJ5XOfR1WgcmjhGOnU5ogejBDKFKtTXlrm3iqg0BkWKBwIMWZeJcfOskl
-         ZA8fmOiTeDpdQ8yd6EJg2BzyhybDV8cE70jQohkm94jWYByiQbJsrdvyW3ZWK+ieMouz
-         WN/GsQx3DoThceJbAELk8COrNBmcMsNCsudFEg2QBR2avvzrIpr6n2UoFHS7sFTTb8fC
-         orqw==
-X-Forwarded-Encrypted: i=1; AJvYcCX8xBpXv95hSi1QJcvGxbxdcb4AMOGC640wMf8JcraHs6WQvfo/HiwOio3/R6Adh4JrPrN5b1kSskOEJMKgE2kARh6IIMDXyhV7GVnGwJU=
-X-Gm-Message-State: AOJu0Yx4C2cB4E4VOTisOVk0Fa9ehvUlnElUkYzNRc3Tp0Gd27rCe2Tc
-	PoCSQPmXJs3hDwhfvt1ueIr0T83ZdVwUIEzlFro55Y/ji7ruY2lhRhHNtMX2Gg==
-X-Google-Smtp-Source: AGHT+IHLpflgp4IjhWs5Tlqr/xG++cBBxfZTyQDwrePgzAh128ePS8WSFMQr+mdvuE4amIGOCs8EdQ==
-X-Received: by 2002:a50:9f41:0:b0:57c:9dbc:2b6e with SMTP id 4fb4d7f45d1cf-57caaac753dmr929725a12.42.1718183626264;
-        Wed, 12 Jun 2024 02:13:46 -0700 (PDT)
-Message-ID: <6d392d69-c062-4dd3-a6d6-1ef08b1619f0@suse.com>
-Date: Wed, 12 Jun 2024 11:13:44 +0200
+        bh=ZjPtJtdKfEGZMCprJaHEP/yb+AHta6yT2Oa6Q0eFdWs=;
+        b=aeZvuPU3ifMaBZAEezSOLtQ0IgGaZSxi/pY8Qf9fuKgNSp0oQ5kPgLQ3sgw2I07eao
+         1LGh0WjAQPapko46fNxgkOe0x3wqtZVtNzsqJcHJizzEJqb2ha/noN+0HHUaxTEjbL5+
+         x9QmDzmN1EjNhzDUsIUbzz111uSkXWQVWuBv45VuhutqAExeJ9yf8Jz+HiZxIzX2TSHr
+         CsNba1reQMkUvJWxX9ucYUpaDBC5a6bstiMz1dUPW0scLJhl6gIpODX+TLaMFKm4FNIw
+         yTN4XJQkOS41ymurKOnQ639hMEn42Dadx/RHbU1pDQNO/ozcziziNYnB1U6EEtHJ3RPK
+         T25w==
+X-Forwarded-Encrypted: i=1; AJvYcCWyRNkvK7sZ03jP0S92vUChTp4yLDNbtFQGJzTgFsKtyGC9z2AiucCULArsDsB0zgKo3UEqK8JM5ZuinwShWE500K/EVnpXC0ZguU0hQEM=
+X-Gm-Message-State: AOJu0YyrhYrxm8ONU6Dh5ZWVVjembVmwg5w6t4D7OiMZXbWZG7coJ6DR
+	N+yFKjTR7SWAzAbeXTM5onVeYPvmN3JF50mFHIjYYqwEq24SVabBe8CQdX4w3Q==
+X-Google-Smtp-Source: AGHT+IFFWK9MQfbx7X21PlkLm3NcgcqnjRfqQuEQLYahWkU9M82MIH59IFiU54tY/AizM4h0607fCw==
+X-Received: by 2002:a17:906:d8ae:b0:a6f:4be5:a661 with SMTP id a640c23a62f3a-a6f4be5a7c1mr36197666b.46.1718184001244;
+        Wed, 12 Jun 2024 02:20:01 -0700 (PDT)
+Message-ID: <12ce10af-cd36-492e-a73b-2b81b5bf60cc@suse.com>
+Date: Wed, 12 Jun 2024 11:19:59 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH 3/6] xen/guest_access: address violations of MISRA
- rule 20.7
+Subject: Re: [XEN PATCH 4/6] x86emul: address violations of MISRA C Rule 20.7
 To: Nicola Vetrini <nicola.vetrini@bugseng.com>
 Cc: sstabellini@kernel.org, michal.orzel@amd.com, xenia.ragiadakou@amd.com,
  ayan.kumar.halder@amd.com, consulting@bugseng.com,
  Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  xen-devel@lists.xenproject.org
 References: <cover.1718117557.git.nicola.vetrini@bugseng.com>
- <2dbc4b40261b91de2148e467ce0fdade5cc89c50.1718117557.git.nicola.vetrini@bugseng.com>
+ <0a502d2a9c5ce13be13281d9de49d263313b7852.1718117557.git.nicola.vetrini@bugseng.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -116,7 +115,7 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <2dbc4b40261b91de2148e467ce0fdade5cc89c50.1718117557.git.nicola.vetrini@bugseng.com>
+In-Reply-To: <0a502d2a9c5ce13be13281d9de49d263313b7852.1718117557.git.nicola.vetrini@bugseng.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
@@ -130,8 +129,37 @@ On 11.06.2024 17:53, Nicola Vetrini wrote:
 > No functional change.
 > 
 > Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
+> ---
+> These local helpers could in principle be deviated, but the readability
+> and functionality are essentially unchanged by complying with the rule,
+> so I decided to modify the macro definition as the preferred option.
 
-Acked-by: Jan Beulich <jbeulich@suse.com>
+Well, yes, but ...
 
+> --- a/xen/arch/x86/x86_emulate/x86_emulate.c
+> +++ b/xen/arch/x86/x86_emulate/x86_emulate.c
+> @@ -2255,7 +2255,7 @@ x86_emulate(
+>          switch ( modrm_reg & 7 )
+>          {
+>  #define GRP2(name, ext) \
+> -        case ext: \
+> +        case (ext): \
+>              if ( ops->rmw && dst.type == OP_MEM ) \
+>                  state->rmw = rmw_##name; \
+>              else \
+> @@ -8611,7 +8611,7 @@ int x86_emul_rmw(
+>              unsigned long dummy;
+>  
+>  #define XADD(sz, cst, mod) \
+> -        case sz: \
+> +        case (sz): \
+>              asm ( "" \
+>                    COND_LOCK(xadd) " %"#mod"[reg], %[mem]; " \
+>                    _POST_EFLAGS("[efl]", "[msk]", "[tmp]") \
 
+... this is really nitpicky of the rule / tool. What halfway realistic
+ways do you see to actually misuse these macros? What follows the "case"
+keyword is just an expression; no precedence related issues are possible.
+
+Jan
 
