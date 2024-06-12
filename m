@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E95DE904E84
-	for <lists+xen-devel@lfdr.de>; Wed, 12 Jun 2024 10:54:06 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.738989.1145878 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 61B7D904E99
+	for <lists+xen-devel@lfdr.de>; Wed, 12 Jun 2024 10:56:40 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.738996.1145897 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sHJjh-0004YD-Tl; Wed, 12 Jun 2024 08:53:41 +0000
+	id 1sHJmD-0005B5-DJ; Wed, 12 Jun 2024 08:56:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 738989.1145878; Wed, 12 Jun 2024 08:53:41 +0000
+Received: by outflank-mailman (output) from mailman id 738996.1145897; Wed, 12 Jun 2024 08:56:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sHJjh-0004WT-R8; Wed, 12 Jun 2024 08:53:41 +0000
-Received: by outflank-mailman (input) for mailman id 738989;
- Wed, 12 Jun 2024 08:53:40 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1sHJmD-00059Y-98; Wed, 12 Jun 2024 08:56:17 +0000
+Received: by outflank-mailman (input) for mailman id 738996;
+ Wed, 12 Jun 2024 08:56:16 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=h1N0=NO=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sHJjg-0004WN-S9
- for xen-devel@lists.xenproject.org; Wed, 12 Jun 2024 08:53:40 +0000
-Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
- [2a00:1450:4864:20::62c])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 42d412a4-2899-11ef-b4bb-af5377834399;
- Wed, 12 Jun 2024 10:53:38 +0200 (CEST)
-Received: by mail-ej1-x62c.google.com with SMTP id
- a640c23a62f3a-a6f1dc06298so249070366b.1
- for <xen-devel@lists.xenproject.org>; Wed, 12 Jun 2024 01:53:38 -0700 (PDT)
+ id 1sHJmC-00059S-9Y
+ for xen-devel@lists.xenproject.org; Wed, 12 Jun 2024 08:56:16 +0000
+Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
+ [2a00:1450:4864:20::629])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id a0156058-2899-11ef-90a3-e314d9c70b13;
+ Wed, 12 Jun 2024 10:56:15 +0200 (CEST)
+Received: by mail-ej1-x629.google.com with SMTP id
+ a640c23a62f3a-a6f21ff4e6dso358837866b.3
+ for <xen-devel@lists.xenproject.org>; Wed, 12 Jun 2024 01:56:15 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a6f107adb1esm500989966b.50.2024.06.12.01.53.37
+ a640c23a62f3a-a6f4b691964sm28845666b.71.2024.06.12.01.56.14
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 12 Jun 2024 01:53:38 -0700 (PDT)
+ Wed, 12 Jun 2024 01:56:14 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,57 +45,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 42d412a4-2899-11ef-b4bb-af5377834399
+X-Inumbo-ID: a0156058-2899-11ef-90a3-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1718182418; x=1718787218; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1718182575; x=1718787375; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=hasYh0cGP8cu6FU9agK0WjRPVAcQ9kpJmW7Mb/1Ogvk=;
-        b=cJXz3GflU9uMHUSavwKyVM3WIiBuTePk0t/4t+++beoeeaYYjRIrlIytLOWX4ide3Q
-         cImNldTEoGWLj/tWseJgqXoZYMI8dBLERPU1YX9IDVhkOtg6uV/7cimtwF93SzckxnwW
-         mG33lRJZqxwPYYc89FDDKpGLUYUb+V4kh/8PoQVvFYH/UZjSsACKaC300mVErXbOhtcE
-         SRsYAH7ODfXdP4AnDdgauDIPllB+GjsrnjF8bPa6IGO856y18LhbJ9/Af7rlgK88CB6V
-         oN7+xjhurGGfYXP69Bb4xXUz4mzAzyr4VhlzJVpbNtwGRYDiYIknG02aVulbc7tgkrNS
-         rDCg==
+        bh=feaN8oXIcM5A7obxQ/KqJNLFUb+wYq7HPhGPru0feU0=;
+        b=afUxdYjxUInbcYjYiPtW4Xe9vVPCAuQLx4lCpo7NxeN4m29eDagvFvN+pwy/WS3av6
+         8xPv1C7NI+tthKLv79KFe4fEPHFmscEsZUCWN+37MoykKFaujXVNmD6HC8XHsuZTtVrR
+         a2Yn7qJZZOpiDUNxcYceLP8rV13sQSiyMCZNopFUOn4keVJcVOF2epGmDm57d8aMtwHg
+         CuwraqMnfdB+E16XrYhJkaNLRjed9YVOEkUl+hPqiN151YB7ntoqXvhQj6O8+DAQMcZ3
+         u6ujBHKi2Jxoysndaj1xoLt94wYf2ClyBSvYxhBkhyENmKu07oAZ3wmPAMwEBXGka1e0
+         yCKg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1718182418; x=1718787218;
+        d=1e100.net; s=20230601; t=1718182575; x=1718787375;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=hasYh0cGP8cu6FU9agK0WjRPVAcQ9kpJmW7Mb/1Ogvk=;
-        b=urNAHhUpe2erIv4bcrSYuIt7MUvTtg4puxmwxjuvbgviyvUpE4DdLlLjHCNn78TIKB
-         awSbMG4TS4Mhmn3XljgpOh2fogakh5pM5gos4TC3hNObW136Slw5eXdSyl+2PXhwBasH
-         U03QK2wV+XSeEa6dzFinfDFc101gWQ8801pi7hz95HwxNb8RwH9t8Izfoi1btNiI4V1g
-         sMU3PN3sw2hMgZFtH0gPeQnxJ5OarvwY3a1Zr6hxQsHI27RLWHEOpx0cUUgPjjQt85I+
-         W6rrEaZ4XkdxbCh8bzpWWclx1lH0Dn56+LFjc7jEbBm4N07pa/FyyV7s0soulcud6ulj
-         oYMw==
-X-Forwarded-Encrypted: i=1; AJvYcCWuuOzCrISwF4qoXw1xzDrnSbJarJRByHPSPvEGx8JU7IFqit4TBoaXijP2OMEmUnHUje2Fli/qxJ9joSl7RlIuugY7fTa4G/lsNCrJj8k=
-X-Gm-Message-State: AOJu0YziuZlqVpSoSg/ShdGc/iUS7Mc44R4u9z7z9og1BODeEeJvEAm4
-	n/dwNXzgjmSrG0l7KO2xcku//OfaM7qGqx44w0LbRWhGnCP5mzjVJiATusBNHw==
-X-Google-Smtp-Source: AGHT+IGGBEbfPA3rSVKmZgbYbuUjwb07t5oH5IsxX9ptuFcOfSVBJUoFli+rxKMXCfYZX223gNLy5g==
-X-Received: by 2002:a17:906:cec3:b0:a6f:d7a:d650 with SMTP id a640c23a62f3a-a6f47d3b998mr62605266b.50.1718182418285;
-        Wed, 12 Jun 2024 01:53:38 -0700 (PDT)
-Message-ID: <41905257-e2e6-4bce-b723-516916448dfd@suse.com>
-Date: Wed, 12 Jun 2024 10:53:36 +0200
+        bh=feaN8oXIcM5A7obxQ/KqJNLFUb+wYq7HPhGPru0feU0=;
+        b=UHu9D7RDYWFLVfQLmWzdMCd/meNrotzhIvSJZvBujn2KHaxBHkRWTO++8tGsNHsuI1
+         q5TOaRYg+p5yAVQprTPz8IlVT/wDp+r/883Cg72a8XesFLgQdWpN2oX0m63+d9RFAomc
+         3sPyTk9/zBIvFvMwRO2sxWSHt3a5dGNOAjM06oZfwu1xxBgViSiMzsPhotc/ewNrunDN
+         FGDR83oiE1tUe6vl5zvPHtauDMnnrDA7CQ5lClxRWhubA0f5hchgkBOsidyhk3DiMF6t
+         jSnJVsF44IP4ni45qYTZnXLIgvPuHh03R6fuJWlKVH7jp3Bj5g7WFq36yiv9/63CM6/M
+         IXFg==
+X-Forwarded-Encrypted: i=1; AJvYcCU3Q6/hEE/kpJFYY2qhDIjZePs9GHGf6yP7rEQv86Ng7DxLoVO6ckvWuoPqJ13TcKX5IWJsUzxZ9XxVAjPWov4gUA44wuTmsmQRwwZw4Io=
+X-Gm-Message-State: AOJu0YzFP3JQMbUPfSsEAXhGMyvaOIVi2rvIuF/vlkBDnQWnrT40Lmop
+	zjhAki+cL6ozJkbDXN5MCiuyrYQiYZegXT1AtICE0fOtuppH1+hPdW/P0bW0vw==
+X-Google-Smtp-Source: AGHT+IGyh4fKP1D6C6FfPfUslS7sckZ6ZH+wCx933435WTrpIYswoj2K2oJWkZ7LsOQPG3zvDj2udA==
+X-Received: by 2002:a17:906:234e:b0:a6f:1d19:c0b1 with SMTP id a640c23a62f3a-a6f47d5240bmr61769666b.18.1718182574848;
+        Wed, 12 Jun 2024 01:56:14 -0700 (PDT)
+Message-ID: <92584a2d-6695-4884-ba2e-990842318d8a@suse.com>
+Date: Wed, 12 Jun 2024 10:56:13 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH v9 2/5] x86/pvh: Allow (un)map_pirq when dom0 is PVH
-To: "Chen, Jiqian" <Jiqian.Chen@amd.com>
+Subject: Re: [PATCH v2 1/7] x86/smp: do not use shorthand IPI destinations in
+ CPU hot{,un}plug contexts
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu
- <wl@xen.org>, George Dunlap <george.dunlap@citrix.com>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- Anthony PERARD <anthony@xenproject.org>, Juergen Gross <jgross@suse.com>,
- "Daniel P . Smith" <dpsmith@apertussolutions.com>,
- "Hildebrand, Stewart" <Stewart.Hildebrand@amd.com>,
- "Huang, Ray" <Ray.Huang@amd.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <20240607081127.126593-1-Jiqian.Chen@amd.com>
- <20240607081127.126593-3-Jiqian.Chen@amd.com>
- <efc35614-561c-4baa-9d94-d17ecb528a4b@suse.com>
- <BL1PR12MB5849B1B536BAD641C37A4308E7C02@BL1PR12MB5849.namprd12.prod.outlook.com>
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <20240610142043.11924-1-roger.pau@citrix.com>
+ <20240610142043.11924-2-roger.pau@citrix.com>
+ <615582c8-c153-424d-bce4-eb0c903d28ad@suse.com> <ZmlXve3rV2Vx9bH7@macbook>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -121,45 +115,57 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <BL1PR12MB5849B1B536BAD641C37A4308E7C02@BL1PR12MB5849.namprd12.prod.outlook.com>
+In-Reply-To: <ZmlXve3rV2Vx9bH7@macbook>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 12.06.2024 04:43, Chen, Jiqian wrote:
-> On 2024/6/10 23:58, Jan Beulich wrote:
->> On 07.06.2024 10:11, Jiqian Chen wrote:
->>> If run Xen with PVH dom0 and hvm domU, hvm will map a pirq for
->>> a passthrough device by using gsi, see qemu code
->>> xen_pt_realize->xc_physdev_map_pirq and libxl code
->>> pci_add_dm_done->xc_physdev_map_pirq. Then xc_physdev_map_pirq
->>> will call into Xen, but in hvm_physdev_op, PHYSDEVOP_map_pirq
->>> is not allowed because currd is PVH dom0 and PVH has no
->>> X86_EMU_USE_PIRQ flag, it will fail at has_pirq check.
->>>
->>> So, allow PHYSDEVOP_map_pirq when dom0 is PVH and also allow
->>> PHYSDEVOP_unmap_pirq for the failed path to unmap pirq. And
->>> add a new check to prevent self map when subject domain has no
->>> PIRQ flag.
->>>
->>> Signed-off-by: Huang Rui <ray.huang@amd.com>
->>> Signed-off-by: Jiqian Chen <Jiqian.Chen@amd.com>
->>> Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+On 12.06.2024 10:09, Roger Pau Monné wrote:
+> On Tue, Jun 11, 2024 at 09:42:39AM +0200, Jan Beulich wrote:
+>> On 10.06.2024 16:20, Roger Pau Monne wrote:
+>>> Due to the current rwlock logic, if the CPU calling get_cpu_maps() does so from
+>>> a cpu_hotplug_{begin,done}() region the function will still return success,
+>>> because a CPU taking the rwlock in read mode after having taken it in write
+>>> mode is allowed.  Such behavior however defeats the purpose of get_cpu_maps(),
 >>
->> What's imo missing in the description is a clarification / justification of
->> why it is going to be a good idea (or at least an acceptable one) to expose
->> the concept of PIRQs to PVH. If I'm not mistaken that concept so far has
->> been entirely a PV one.
-> I didn't want to expose the concept of PIRQs to PVH.
-> I did this patch is for HVM that use PIRQs, what I said in commit message is HVM will map a pirq for gsi, not PVH.
-> For the original code, it checks " !has_pirq(currd)", but currd is PVH dom0, so it failed. So I need to allow PHYSDEVOP_map_pirq
-> even currd has no PIRQs, but the subject domain has.
+>> I'm not happy to see you still have this claim here. The behavior may (appear
+>> to) defeat the purpose here, but as expressed previously I don't view that as
+>> being a general pattern.
+> 
+> Right.  What about replacing the paragraph with:
+> 
+> "Due to the current rwlock logic, if the CPU calling get_cpu_maps() does so from
+> a cpu_hotplug_{begin,done}() region the function will still return success,
+> because a CPU taking the rwlock in read mode after having taken it in write
+> mode is allowed.  Such corner case makes using get_cpu_maps() alone
+> not enough to prevent using the shorthand in CPU hotplug regions."
 
-But that's not what you're enforcing in do_physdev_op(). There you only
-prevent self-mapping. If I'm not mistaken all you need to do is drop the
-"d == current->domain" checks from those conditionals.
+Thanks.
 
-Further see also
-https://lists.xen.org/archives/html/xen-devel/2024-06/msg00540.html.
+> I think the rest is of the commit message is not controversial.
+
+Indeed.
+
+>>> --- a/xen/arch/x86/smp.c
+>>> +++ b/xen/arch/x86/smp.c
+>>> @@ -88,7 +88,7 @@ void send_IPI_mask(const cpumask_t *mask, int vector)
+>>>       * the system have been accounted for.
+>>>       */
+>>>      if ( system_state > SYS_STATE_smp_boot &&
+>>> -         !unaccounted_cpus && !disabled_cpus &&
+>>> +         !unaccounted_cpus && !disabled_cpus && !cpu_in_hotplug_context() &&
+>>>           /* NB: get_cpu_maps lock requires enabled interrupts. */
+>>>           local_irq_is_enabled() && (cpus_locked = get_cpu_maps()) &&
+>>>           (park_offline_cpus ||
+>>
+>> Along with changing the condition you also want to update the comment to
+>> reflect the code adjustment.
+> 
+> I've assumed the wording in the commet that says: "no CPU hotplug or
+> unplug operations are taking place" would already cover the addition
+> of the !cpu_in_hotplug_context() check.
+
+Hmm, yes, you're right. Just needs a release-ack then to go in (with the
+description adjustment).
 
 Jan
 
