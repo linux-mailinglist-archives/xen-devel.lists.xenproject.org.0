@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0EBB7905407
-	for <lists+xen-devel@lfdr.de>; Wed, 12 Jun 2024 15:44:07 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.739347.1146357 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AAD44905416
+	for <lists+xen-devel@lfdr.de>; Wed, 12 Jun 2024 15:47:41 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.739356.1146367 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sHOFl-0006QF-DU; Wed, 12 Jun 2024 13:43:05 +0000
+	id 1sHOJk-00071o-0a; Wed, 12 Jun 2024 13:47:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 739347.1146357; Wed, 12 Jun 2024 13:43:05 +0000
+Received: by outflank-mailman (output) from mailman id 739356.1146367; Wed, 12 Jun 2024 13:47:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sHOFl-0006NW-9l; Wed, 12 Jun 2024 13:43:05 +0000
-Received: by outflank-mailman (input) for mailman id 739347;
- Wed, 12 Jun 2024 13:43:03 +0000
+	id 1sHOJj-0006zN-To; Wed, 12 Jun 2024 13:47:11 +0000
+Received: by outflank-mailman (input) for mailman id 739356;
+ Wed, 12 Jun 2024 13:47:10 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=h1N0=NO=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sHOFj-0006NQ-5E
- for xen-devel@lists.xenproject.org; Wed, 12 Jun 2024 13:43:03 +0000
-Received: from mail-ed1-x52f.google.com (mail-ed1-x52f.google.com
- [2a00:1450:4864:20::52f])
+ id 1sHOJi-0006zH-HM
+ for xen-devel@lists.xenproject.org; Wed, 12 Jun 2024 13:47:10 +0000
+Received: from mail-ed1-x52d.google.com (mail-ed1-x52d.google.com
+ [2a00:1450:4864:20::52d])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id af350871-28c1-11ef-b4bb-af5377834399;
- Wed, 12 Jun 2024 15:43:00 +0200 (CEST)
-Received: by mail-ed1-x52f.google.com with SMTP id
- 4fb4d7f45d1cf-57c73a3b3d7so4925294a12.1
- for <xen-devel@lists.xenproject.org>; Wed, 12 Jun 2024 06:43:00 -0700 (PDT)
+ id 42d4299c-28c2-11ef-b4bb-af5377834399;
+ Wed, 12 Jun 2024 15:47:08 +0200 (CEST)
+Received: by mail-ed1-x52d.google.com with SMTP id
+ 4fb4d7f45d1cf-57ca81533d0so1476665a12.0
+ for <xen-devel@lists.xenproject.org>; Wed, 12 Jun 2024 06:47:08 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a6f49c36547sm77869966b.8.2024.06.12.06.42.59
+ a640c23a62f3a-a6f15ffa147sm473861366b.86.2024.06.12.06.47.07
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 12 Jun 2024 06:42:59 -0700 (PDT)
+ Wed, 12 Jun 2024 06:47:07 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: af350871-28c1-11ef-b4bb-af5377834399
+X-Inumbo-ID: 42d4299c-28c2-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1718199780; x=1718804580; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1718200028; x=1718804828; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=gEupkGP7AJGQgCEF5kqRH/ZL9AKYn7qiZMsmBY3mbsE=;
-        b=OA62A5qId8pCSDYWwOW7NxOYwvY3NfSwfCKLaBvCo5BDSoM4YKMy4yj2+ODiXmlHXa
-         kUUQwFtsiOM5wllUiAwANw5ECOikhy3oTtxWX5RuL9tP9cfzI5LWgBE132Vn7F+MBU7Y
-         yVS1+5q+t2GpoxRATWe2x7FHTpEwkhPanshNVTtPPBJQhCf8Y7tgvHolKOI9WaX3VRJC
-         0sm17LKAhrz6HL6mQcdj76hJODMZNREv67WolGak6ER5sIWIujL2u7zQ5g+Pu0n+z4A/
-         XLiOplvYdbZrI4BIXPmVc1eawzYVt3G4nRXrTCG6BdDvvq47I+oyEuPxOB17GJNGJo/B
-         78vg==
+        bh=TwfoME/5wT6WN0woE3J1881dmdAqtMaIqmBYpIhhWBo=;
+        b=YlQJSGsy+Ve/OeEap+I09vX63/VYJpoktw80I3hVr3G8VzolW6/6CVMO62NPvldUVN
+         nOZADt3TQoYHWF4h3KmCpNFmVZspmSDsW+NmcUtXbrRTeKvd3yLXXSuv3kGcuCPIz+Hm
+         +Zh/spmuh6a6RRB8P7TxPP2TSbHAGfyXEZ44W7pA1cYcT118f9V2NHmaGBFi4Q2AzKSW
+         qvOvGC/RErmqlSBFa6liAxR3OheoUxO1eN8vTAY/hIkXtKVsTP6DqM8+aVqjES3PthFA
+         t+hMKFxZzk7EN+7Dlh2FJbkf/HiHdroMaY46LHtGRioTmXwJ/SYAAiQm5jojTN3O7xnT
+         aqpQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1718199780; x=1718804580;
+        d=1e100.net; s=20230601; t=1718200028; x=1718804828;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=gEupkGP7AJGQgCEF5kqRH/ZL9AKYn7qiZMsmBY3mbsE=;
-        b=UitYkLkkSEsmqPOQtMGZfeppIT68erAikkfB5wnFerb/oTKoXtfradR2xqLipMoyw/
-         cHSESclEDC8UXzOLoEkF9B6hO7klq+RMSsLEbPgfSqdfjlda25L5TBNIoT/i2zHe6I+0
-         U2AMrEUYfQcC/ijrFIjCPyQPXgbY9eayPyahvcBpTOACWBn6Rd9QYaujXPKH79ASXkv5
-         FTEaeSozLxdUtrRTxYGJOUwbrtHrzEwVMIYN0pnbRYKUEBJ6RN1nof2spm4X/AwzYvqS
-         6TURbI22XywE+ldN2kWd8rtWL7e+ZCWSJeNS3HVCx2R8VD8cQ4d+nWRS0zsUCPYZiBpL
-         2KKw==
-X-Forwarded-Encrypted: i=1; AJvYcCUEX7uqZNqiNjmBND8rf/ZxW2Lp+x0fBxATz0EPSMpV734cRrsAbKl6DdnjRghPK4xf7MPOtG3yX3kb1ytlgYVr57jvJdBhxnl+4bvo+cM=
-X-Gm-Message-State: AOJu0Yyjm2CZuof9Rr9iN9H/yVJO+IKcSRJsSRXmBKr6kPI0dRTwj3tn
-	C8dVMls0CCGtfEApK83p2mYXP4tOyGxIcA/0eGt9QMOAQuUtl/zF54GwR3XCj1yYp7QjPlGxBDU
+        bh=TwfoME/5wT6WN0woE3J1881dmdAqtMaIqmBYpIhhWBo=;
+        b=OmFlmoawN78UjXTA+CgHpDyfksraHKFrae1ny4CeWcUnhy8NXhvUEozcezmCzZ+Yfx
+         1EAQaPITG00vz749GIx50FsxZTIns1qMFOX6d4c59nxts2ffAEukxjzmF0o5xPtLj5I5
+         2lB+c3Tv1yRzge9ugFqhcjFdgwWkDWmZGwEUcp0o1a4ywUptu+2JbsC+cmdEAU0HMFvU
+         QoCSwyTkbVEIiFPConqktdh+TSEQb+pg+zL7YEVD6kk6CAeZJFbknP+j60dY8yWEn7bt
+         HDKaXQAwUdTlNZm4BxF+sIkntLUMU0LZhWB63ScgUeASl0kihlVyCT0NT5BXzt3kX5EK
+         ZMqg==
+X-Forwarded-Encrypted: i=1; AJvYcCWZ+YL+EytPmN4rq9WY984slhr4C7Y33Yx0+AzN1AvKlgDfk8nxM2+7aAPMuBFzyDa2oZswappBgTgoYgVu6pVy8fgfiuIXHCdMp6gs+BM=
+X-Gm-Message-State: AOJu0YyH6rIR7C9Il31vEubcSjPKeq1ISwC2WPr0y/Z4n3ObpT6Ve0sb
+	hRT5m9klKUMjB6i5iTPSRBu70+OIlORqMl1Nlnv9l4NhJPerOqT8DcQAkV01I8AEZfLoICfq820
 	=
-X-Google-Smtp-Source: AGHT+IGXQ0bzS9dLJCcJ+AYyYjtFeeBFkI3DgVIzx78jTCElWzCpEKevhlO44mzCKzHZWJzz2fHq9g==
-X-Received: by 2002:a17:906:a08:b0:a68:a137:d041 with SMTP id a640c23a62f3a-a6f47d36659mr108265266b.12.1718199780030;
-        Wed, 12 Jun 2024 06:43:00 -0700 (PDT)
-Message-ID: <d5b1d273-913e-4d53-9fb6-9b01525da498@suse.com>
-Date: Wed, 12 Jun 2024 15:42:58 +0200
+X-Google-Smtp-Source: AGHT+IHyjiikrhL6e98blGm4+3UZLiyW3t4W4n1LrrxA8hGkFVa4mnE24Qz/kS5aUgyXNfipb4Cdfg==
+X-Received: by 2002:a17:906:4f0a:b0:a6f:3b3b:b7cb with SMTP id a640c23a62f3a-a6f3b3bb944mr310780166b.7.1718200027835;
+        Wed, 12 Jun 2024 06:47:07 -0700 (PDT)
+Message-ID: <6e4e04b5-7fa3-4109-b222-8e7b7d75d48f@suse.com>
+Date: Wed, 12 Jun 2024 15:47:06 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 6/7] x86/irq: handle moving interrupts in
- _assign_irq_vector()
+Subject: Re: [PATCH v2 7/7] x86/irq: forward pending interrupts to new
+ destination in fixup_irqs()
 To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
 References: <20240610142043.11924-1-roger.pau@citrix.com>
- <20240610142043.11924-7-roger.pau@citrix.com>
- <9de1a9c7-814c-4375-9182-90a2f04806b2@suse.com> <Zml6-ViFPTWI1cUc@macbook>
+ <20240610142043.11924-8-roger.pau@citrix.com>
+ <7e090e00-2061-4ef1-a0a4-b45ac86c5ee6@suse.com> <ZmmFGc7TSoKsCH95@macbook>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -114,158 +114,87 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <Zml6-ViFPTWI1cUc@macbook>
+In-Reply-To: <ZmmFGc7TSoKsCH95@macbook>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 12.06.2024 12:39, Roger Pau Monné wrote:
-> On Tue, Jun 11, 2024 at 03:18:32PM +0200, Jan Beulich wrote:
+On 12.06.2024 13:23, Roger Pau Monné wrote:
+> On Tue, Jun 11, 2024 at 03:50:42PM +0200, Jan Beulich wrote:
 >> On 10.06.2024 16:20, Roger Pau Monne wrote:
->>> Currently there's logic in fixup_irqs() that attempts to prevent
->>> _assign_irq_vector() from failing, as fixup_irqs() is required to evacuate all
->>> interrupts from the CPUs not present in the input mask.  The current logic in
->>> fixup_irqs() is incomplete, as it doesn't deal with interrupts that have
->>> move_cleanup_count > 0 and a non-empty ->arch.old_cpu_mask field.
->>>
->>> Instead of attempting to fixup the interrupt descriptor in fixup_irqs() so that
->>> _assign_irq_vector() cannot fail, introduce logic in _assign_irq_vector()
->>> to deal with interrupts that have either move_{in_progress,cleanup_count} set
->>> and no remaining online CPUs in ->arch.cpu_mask.
->>>
->>> If _assign_irq_vector() is requested to move an interrupt in the state
->>> described above, first attempt to see if ->arch.old_cpu_mask contains any valid
->>> CPUs that could be used as fallback, and if that's the case do move the
->>> interrupt back to the previous destination.  Note this is easier because the
->>> vector hasn't been released yet, so there's no need to allocate and setup a new
->>> vector on the destination.
->>>
->>> Due to the logic in fixup_irqs() that clears offline CPUs from
->>> ->arch.old_cpu_mask (and releases the old vector if the mask becomes empty) it
->>> shouldn't be possible to get into _assign_irq_vector() with
->>> ->arch.move_{in_progress,cleanup_count} set but no online CPUs in
->>> ->arch.old_cpu_mask.
->>>
->>> However if ->arch.move_{in_progress,cleanup_count} is set and the interrupt has
->>> also changed affinity, it's possible the members of ->arch.old_cpu_mask are no
->>> longer part of the affinity set,
->>
->> I'm having trouble relating this (->arch.old_cpu_mask related) to ...
->>
->>> move the interrupt to a different CPU part of
->>> the provided mask
->>
->> ... this (->arch.cpu_mask related).
-> 
-> No, the "provided mask" here is the "mask" parameter, not
-> ->arch.cpu_mask.
-
-Oh, so this describes the case of "hitting" the comment at the very bottom of
-the first hunk then? (I probably was misreading this because I was expecting
-it to describe a code change, rather than the case where original behavior
-needs retaining. IOW - all fine here then.)
-
->>> and keep the current ->arch.old_{cpu_mask,vector} for the
->>> pending interrupt movement to be completed.
->>
->> Right, that's to clean up state from before the initial move. What isn't
->> clear to me is what's to happen with the state of the intermediate
->> placement. Description and code changes leave me with the impression that
->> it's okay to simply abandon, without any cleanup, yet I can't quite figure
->> why that would be an okay thing to do.
-> 
-> There isn't much we can do with the intermediate placement, as the CPU
-> is going offline.  However we can drain any pending interrupts from
-> IRR after the new destination has been set, since setting the
-> destination is done from the CPU that's the current target of the
-> interrupts.  So we can ensure the draining is done strictly after the
-> target has been switched, hence ensuring no further interrupts from
-> this source will be delivered to the current CPU.
-
-Hmm, I'm afraid I still don't follow: I'm specifically in trouble with
-the ...
-
->>> --- a/xen/arch/x86/irq.c
->>> +++ b/xen/arch/x86/irq.c
->>> @@ -544,7 +544,53 @@ static int _assign_irq_vector(struct irq_desc *desc, const cpumask_t *mask)
->>>      }
->>>  
->>>      if ( desc->arch.move_in_progress || desc->arch.move_cleanup_count )
->>> -        return -EAGAIN;
->>> +    {
->>> +        /*
->>> +         * If the current destination is online refuse to shuffle.  Retry after
->>> +         * the in-progress movement has finished.
->>> +         */
->>> +        if ( cpumask_intersects(desc->arch.cpu_mask, &cpu_online_map) )
->>> +            return -EAGAIN;
->>> +
->>> +        /*
->>> +         * Due to the logic in fixup_irqs() that clears offlined CPUs from
->>> +         * ->arch.old_cpu_mask it shouldn't be possible to get here with
->>> +         * ->arch.move_{in_progress,cleanup_count} set and no online CPUs in
->>> +         * ->arch.old_cpu_mask.
->>> +         */
->>> +        ASSERT(valid_irq_vector(desc->arch.old_vector));
->>> +        ASSERT(cpumask_intersects(desc->arch.old_cpu_mask, &cpu_online_map));
->>> +
->>> +        if ( cpumask_intersects(desc->arch.old_cpu_mask, mask) )
->>> +        {
+>>> @@ -2649,6 +2649,25 @@ void fixup_irqs(const cpumask_t *mask, bool verbose)
+>>>               !cpumask_test_cpu(cpu, &cpu_online_map) &&
+>>>               cpumask_test_cpu(cpu, desc->arch.old_cpu_mask) )
+>>>          {
 >>> +            /*
->>> +             * Fallback to the old destination if moving is in progress and the
->>> +             * current destination is to be offlined.  This is only possible if
->>> +             * the CPUs in old_cpu_mask intersect with the affinity mask passed
->>> +             * in the 'mask' parameter.
->>> +             */
->>> +            desc->arch.vector = desc->arch.old_vector;
->>> +            cpumask_and(desc->arch.cpu_mask, desc->arch.old_cpu_mask, mask);
-
-... replacing of vector (and associated mask), without any further accounting.
-
->>> +            /* Undo any possibly done cleanup. */
->>> +            for_each_cpu(cpu, desc->arch.cpu_mask)
->>> +                per_cpu(vector_irq, cpu)[desc->arch.vector] = irq;
->>> +
->>> +            /* Cancel the pending move. */
->>> +            desc->arch.old_vector = IRQ_VECTOR_UNASSIGNED;
->>> +            cpumask_clear(desc->arch.old_cpu_mask);
->>> +            desc->arch.move_in_progress = 0;
->>> +            desc->arch.move_cleanup_count = 0;
->>> +
->>> +            return 0;
->>> +        }
->>
->> In how far is this guaranteed to respect the (new) affinity that was set,
->> presumably having led to the movement in the first place?
-> 
-> The 'mask' parameter should account for the new affinity, hence the
-> cpumask_intersects() check guarantees we are moving to a CPU still in
-> the affinity mask.
-
-Ah, right, I must have been confused.
-
->>> @@ -600,7 +646,17 @@ next:
->>>          current_vector = vector;
->>>          current_offset = offset;
->>>  
->>> -        if ( valid_irq_vector(old_vector) )
->>> +        if ( desc->arch.move_in_progress || desc->arch.move_cleanup_count )
->>> +        {
->>> +            ASSERT(!cpumask_intersects(desc->arch.cpu_mask, &cpu_online_map));
->>> +            /*
->>> +             * Special case when evacuating an interrupt from a CPU to be
->>> +             * offlined and the interrupt was already in the process of being
->>> +             * moved.  Leave ->arch.old_{vector,cpu_mask} as-is and just
->>> +             * replace ->arch.{cpu_mask,vector} with the new destination.
+>>> +             * This to be offlined CPU was the target of an interrupt that's
+>>> +             * been moved, and the new destination target hasn't yet
+>>> +             * acknowledged any interrupt from it.
+>>> +             *
+>>> +             * We know the interrupt is configured to target the new CPU at
+>>> +             * this point, so we can check IRR for any pending vectors and
+>>> +             * forward them to the new destination.
+>>> +             *
+>>> +             * Note the difference between move_in_progress or
+>>> +             * move_cleanup_count being set.  For the later we know the new
+>>> +             * destination has already acked at least one interrupt from this
+>>> +             * source, and hence there's no need to forward any stale
+>>> +             * interrupts.
 >>> +             */
 >>
->> And where's the cleaning up of ->arch.old_* going to be taken care of then?
+>> I'm a little confused by this last paragraph: It talks about a difference,
+>> yet ...
+>>
+>>> +            if ( apic_irr_read(desc->arch.old_vector) )
+>>> +                send_IPI_mask(cpumask_of(cpumask_any(desc->arch.cpu_mask)),
+>>> +                              desc->arch.vector);
+>>
+>> ... in the code being commented there's no difference visible. Hmm, I guess
+>> this is related to the enclosing if(). Maybe this could be worded a little
+>> differently, e.g. starting with "Note that for the other case -
+>> move_cleanup_count being non-zero - we know ..."?
 > 
-> Such cleaning will be handled normally by the interrupt still having
-> ->arch.move_{in_progress,cleanup_count} set.  The CPUs in
-> ->arch.old_cpu_mask must not all be offline, otherwise the logic in
-> fixup_irqs() would have already released the old vector.
+> Hm, I see.  Yes, the difference is that for interrupts that have
+> move_cleanup_count set we don't forward pending interrupts in IRR on
+> this CPU.  I put this here because I think it's more naturally
+> arranged with the rest of the comment.  I can pull the whole comment
+> ahead if the if() if that's better.
 
-Maybe add "Cleanup will be done normally" to the comment?
+I actually agree with you that the placement right now is "more natural".
+I'm really just after making more clear what difference it is that is
+being talked about. Assuming of course ...
+
+>>> +        if ( !cpu_online(cpu) && cpumask_test_cpu(cpu, desc->arch.cpu_mask) )
+>>> +            check_irr = true;
+>>> +
+>>>          if ( desc->handler->set_affinity )
+>>>              desc->handler->set_affinity(desc, affinity);
+>>>          else if ( !(warned++) )
+>>>              set_affinity = false;
+>>>  
+>>> +        if ( check_irr && apic_irr_read(vector) )
+>>> +            /*
+>>> +             * Forward pending interrupt to the new destination, this CPU is
+>>> +             * going offline and otherwise the interrupt would be lost.
+>>> +             */
+>>> +            send_IPI_mask(cpumask_of(cpumask_any(desc->arch.cpu_mask)),
+>>> +                          desc->arch.vector);
+>>> +
+>>>          if ( desc->handler->enable )
+>>>              desc->handler->enable(desc);
+>>>  
+>>
+>> Down from here, after the loop, there's a 1ms window where latched but not
+>> yet delivered interrupts can be received. How's that playing together with
+>> the changes you're making? Aren't we then liable to get two interrupts, one
+>> at the old and one at the new source, in unknown order?
+> 
+> I was mistakenly thinking that clear_local_APIC() would block
+> interrupt delivery, but that's not the case, so yes, interrupts should
+> still be delivered in the window below.
+> 
+> Let me test without this last patch.
+
+... the patch wants / needs retaining in the first place.
 
 Jan
 
