@@ -2,36 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5DF1D904E2E
-	for <lists+xen-devel@lfdr.de>; Wed, 12 Jun 2024 10:32:28 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.738963.1145839 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3E4B6904E47
+	for <lists+xen-devel@lfdr.de>; Wed, 12 Jun 2024 10:37:30 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.738968.1145849 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sHJOq-0007Ob-JR; Wed, 12 Jun 2024 08:32:08 +0000
+	id 1sHJTa-0007zu-40; Wed, 12 Jun 2024 08:37:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 738963.1145839; Wed, 12 Jun 2024 08:32:08 +0000
+Received: by outflank-mailman (output) from mailman id 738968.1145849; Wed, 12 Jun 2024 08:37:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sHJOq-0007M0-Fh; Wed, 12 Jun 2024 08:32:08 +0000
-Received: by outflank-mailman (input) for mailman id 738963;
- Wed, 12 Jun 2024 08:32:06 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1sHJTa-0007xe-0d; Wed, 12 Jun 2024 08:37:02 +0000
+Received: by outflank-mailman (input) for mailman id 738968;
+ Wed, 12 Jun 2024 08:37:00 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=LIwU=NO=bounce.vates.tech=bounce-md_30504962.66695cfe.v1-064d15fccc2f44c2a0ae4ace68583eb4@srs-se1.protection.inumbo.net>)
- id 1sHJOo-0007Lu-Rl
- for xen-devel@lists.xenproject.org; Wed, 12 Jun 2024 08:32:06 +0000
-Received: from mail180-20.suw31.mandrillapp.com
- (mail180-20.suw31.mandrillapp.com [198.2.180.20])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 3f96030e-2896-11ef-90a3-e314d9c70b13;
- Wed, 12 Jun 2024 10:32:06 +0200 (CEST)
-Received: from pmta11.mandrill.prod.suw01.rsglab.com (localhost [127.0.0.1])
- by mail180-20.suw31.mandrillapp.com (Mailchimp) with ESMTP id
- 4Vzf0h2FRnzFCWZ7Y
- for <xen-devel@lists.xenproject.org>; Wed, 12 Jun 2024 08:32:04 +0000 (GMT)
-Received: from [37.26.189.201] by mandrillapp.com id
- 064d15fccc2f44c2a0ae4ace68583eb4; Wed, 12 Jun 2024 08:31:58 +0000
+ <SRS0=kV4F=NO=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1sHJTX-0007xD-UL
+ for xen-devel@lists.xenproject.org; Wed, 12 Jun 2024 08:36:59 +0000
+Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
+ [2a00:1450:4864:20::32a])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id ee71e0e7-2896-11ef-b4bb-af5377834399;
+ Wed, 12 Jun 2024 10:36:58 +0200 (CEST)
+Received: by mail-wm1-x32a.google.com with SMTP id
+ 5b1f17b1804b1-4217f2e3450so36418805e9.1
+ for <xen-devel@lists.xenproject.org>; Wed, 12 Jun 2024 01:36:58 -0700 (PDT)
+Received: from localhost ([213.195.124.163]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-422874de68asm16694835e9.29.2024.06.12.01.36.57
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 12 Jun 2024 01:36:57 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,69 +44,64 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3f96030e-2896-11ef-90a3-e314d9c70b13
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
-	s=mte1; t=1718181124; x=1718441624;
-	bh=1jBDSWnswaV80WNWJr1M+dh0MUU46rLIQXch3TjMFfs=;
-	h=From:Subject:To:Cc:Message-Id:References:In-Reply-To:Feedback-ID:
-	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
-	 Subject:From;
-	b=A3kBiTkesPL8EXf6KhMcht0/7Kfiu3atvcCE5bQfHYbWXXFh/3ti38/3v9CD+zKbf
-	 837H7l/+NDot/y9B5rRGBJvqAoGf5Djl4ugGZ89zCwUutt3MiN0hrtGB3gwMBBWMTH
-	 tCYICCQiu115WH+pAtRwbqqITsqUvrg4ey0CGQW/9ae7tKnPBS+u3xXA8pu9ndEnbZ
-	 AddvCFTX/1441hA07YxjiRLDTugR1sAivMSxF4TRCDaZUL7BqxrkPfLQAE1dM9vbNx
-	 TUAy70/m5FV8LR9MxeoVfDALJkQyxyoyXojjeZO3TP0vFciI+pvunFkuru+Rz2qhsI
-	 x17ZewPyRErcw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
-	t=1718181124; x=1718441624; i=anthony.perard@vates.tech;
-	bh=1jBDSWnswaV80WNWJr1M+dh0MUU46rLIQXch3TjMFfs=;
-	h=From:Subject:To:Cc:Message-Id:References:In-Reply-To:Feedback-ID:
-	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
-	 Subject:From;
-	b=XtbasWmKYevWo8uDVdPxP+FeONkyx9Sdo38eovxWK6vWnB2NT2/vdhZuiSCeMTa/s
-	 p3CGM60BsRnJRq0J6hifHrwK20MmEpnefce2v1hEFGa0tofxW52DlVmU2QidiDOysu
-	 oWnE3gFWxaaD+CESFgzrVvWfWztTvfnPHJL3s6YqoTHvt86RvVaoHtjfbD78uXfHJK
-	 vSiDtg9AsOFEpS2L3ityZX+LVxn0UFUHgD9ogse0yqTiUPQr+NzvBSbnu+wq4LwC8s
-	 V/8Jyy1sfJtcollZnCDdh136vdyEDxK/FHb15w+Z8zPhbBilDtzIHA0+P6jdegCCSc
-	 0q0cy2ZGurXUQ==
-From: Anthony PERARD <anthony.perard@vates.tech>
-Subject: =?utf-8?Q?Re:=20[PATCH=20for-4.19=3F=20v6=207/9]=20tools/libxl:=20Activate=20the=20altp2m=5Fcount=20feature?=
-X-Bm-Disclaimer: Yes
-X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
-X-Bm-Transport-Timestamp: 1718181117933
-To: =?utf-8?Q?Petr=20Bene=C5=A1?= <w1benny@gmail.com>
-Cc: xen-devel@lists.xenproject.org, Juergen Gross <jgross@suse.com>
-Message-Id: <Zmlc/e2cfak0n2f0@l14>
-References: <cover.1718038855.git.w1benny@gmail.com> <ad7aa98a3b0a0493130f1d9a84724e98be766897.1718038855.git.w1benny@gmail.com>
-In-Reply-To: <ad7aa98a3b0a0493130f1d9a84724e98be766897.1718038855.git.w1benny@gmail.com>
-X-Native-Encoded: 1
-X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.064d15fccc2f44c2a0ae4ace68583eb4?=
-X-Mandrill-User: md_30504962
-Feedback-ID: 30504962:30504962.20240612:md
-Date: Wed, 12 Jun 2024 08:31:58 +0000
+X-Inumbo-ID: ee71e0e7-2896-11ef-b4bb-af5377834399
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1718181418; x=1718786218; darn=lists.xenproject.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=bCBnd0K8E9ClUJFrDbRKrnASQruoG/gxzWhvOfVi1q0=;
+        b=gdlagN/qEK1GvI2GIW4wGjuqtTmna9TxFqMvKSb74aQRIL2D80nai2a65+F3IXXG2e
+         dW3Tsdi9xFfmDTBzr8pPzKW98a2tQkEkXKdyObw69m+p3GtV+k6RY7TsBN6sbPFdr4Et
+         UNKd7aDnhIqSY3UUCNzoq1gNZqUYXqjHgDXQw=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1718181418; x=1718786218;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=bCBnd0K8E9ClUJFrDbRKrnASQruoG/gxzWhvOfVi1q0=;
+        b=Aruzrs0EQ42YkySJ7QKKQPucMZQcnKeGj0EKddcfUgx9MrDneDv4OWaMA19f1ZcOpa
+         WLalEYfPbMMl5fwaWRLse7PRg/WkH5AkXrTVTFpaQ/5QOpX2vJDsg4G6NYXSRtnruInl
+         RaN0H+Vxga7cjkF0+sGdOl1duL5sDXSVciZLMhQ7ZKs9Ve/7FIRdNvd/2ZoaCYYvx0IH
+         a9yvQpSZN73psKdvBaUAydH1gERRORC3EbKLhnhrp8tcERbBSa6az/SLuA7GzO9Hbd4F
+         fZ0Md3bwc1h445VI344xwXCgZqZKppK+hN4oDNRWZnNPTDiGZQd5ROqEnGrf+G3Q+rNt
+         Ft7Q==
+X-Forwarded-Encrypted: i=1; AJvYcCUTh0r7OtboRxoHrRZBqFImAP8m04o94O0qGSuHYqmLfMaEhhSHOUAFi3xDoST2w/DC0ZHAbFEbWARppYzUxxqK24yw/ZMsxK5zAPMw2dQ=
+X-Gm-Message-State: AOJu0YwSj/PFRiRz1inMW6He8DrBBDhZPZySGtrfH5y18keRUhjDc8SW
+	3rqUcTi4ZWSdtYveeqXqBBnmOzeCKS3rcK91LRd1vP1q1fhUHKZLHtfO522md8o=
+X-Google-Smtp-Source: AGHT+IFcMsHQuLU9LBXv3M95LM8OVMShZdL8DfYkzJ/ZtDALAYNKxYA1QgVZVj9jULuRT5gBNcW2KA==
+X-Received: by 2002:a05:600c:314d:b0:421:7c1e:5d5d with SMTP id 5b1f17b1804b1-422867bf846mr14811335e9.35.1718181417764;
+        Wed, 12 Jun 2024 01:36:57 -0700 (PDT)
+Date: Wed, 12 Jun 2024 10:36:56 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+	xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v2 5/7] x86/irq: deal with old_cpu_mask for interrupts in
+ movement in fixup_irqs()
+Message-ID: <ZmleKLpdfqqgS8gd@macbook>
+References: <20240610142043.11924-1-roger.pau@citrix.com>
+ <20240610142043.11924-6-roger.pau@citrix.com>
+ <9a7e5fab-7ea7-4196-bbc5-5c9e286cf576@suse.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Disposition: inline
+In-Reply-To: <9a7e5fab-7ea7-4196-bbc5-5c9e286cf576@suse.com>
 
-On Mon, Jun 10, 2024 at 05:10:45PM +0000, Petr Bene=C5=A1 wrote:
-> From: Petr Bene=C5=A1 <w1benny@gmail.com>
+On Tue, Jun 11, 2024 at 03:47:03PM +0200, Jan Beulich wrote:
+> On 10.06.2024 16:20, Roger Pau Monne wrote:
+> > @@ -2589,6 +2589,28 @@ void fixup_irqs(const cpumask_t *mask, bool verbose)
+> >                                 affinity);
+> >          }
+> >  
+> > +        if ( desc->arch.move_in_progress &&
+> > +             !cpumask_test_cpu(cpu, &cpu_online_map) &&
 > 
-> This commit activates the previously introduced altp2m_count parameter,
-> establishing the connection between libxl and Xen.
-> 
-> Signed-off-by: Petr Bene=C5=A1 <w1benny@gmail.com>
+> Btw - any reason you're open-coding !cpu_online() here? I've noticed this
+> in the context of patch 7, where a little further down a !cpu_online() is
+> being added. Those likely all want to be consistent.
 
-Acked-by: Anthony PERARD <anthony.perard@vates.tech>
+No reason really - just me not realizing we had that helper.  Can
+adjust in next version.
 
-Thanks,
-
--- 
-
-
-Anthony Perard | Vates XCP-ng Developer
-
-XCP-ng & Xen Orchestra - Vates solutions
-
-web: https://vates.tech
-
+Thanks, Roger.
 
