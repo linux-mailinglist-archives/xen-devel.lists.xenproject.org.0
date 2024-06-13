@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7A2F8906995
-	for <lists+xen-devel@lfdr.de>; Thu, 13 Jun 2024 12:03:44 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.739753.1146691 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5E6E49069AA
+	for <lists+xen-devel@lfdr.de>; Thu, 13 Jun 2024 12:09:06 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.739758.1146702 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sHhIc-000829-Id; Thu, 13 Jun 2024 10:03:18 +0000
+	id 1sHhO0-0000So-5u; Thu, 13 Jun 2024 10:08:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 739753.1146691; Thu, 13 Jun 2024 10:03:18 +0000
+Received: by outflank-mailman (output) from mailman id 739758.1146702; Thu, 13 Jun 2024 10:08:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sHhIc-00080A-F7; Thu, 13 Jun 2024 10:03:18 +0000
-Received: by outflank-mailman (input) for mailman id 739753;
- Thu, 13 Jun 2024 10:03:17 +0000
+	id 1sHhO0-0000Pu-2n; Thu, 13 Jun 2024 10:08:52 +0000
+Received: by outflank-mailman (input) for mailman id 739758;
+ Thu, 13 Jun 2024 10:08:51 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=mvQ+=NP=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sHhIb-000804-ED
- for xen-devel@lists.xenproject.org; Thu, 13 Jun 2024 10:03:17 +0000
-Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
- [2a00:1450:4864:20::635])
+ id 1sHhNz-0000Po-CY
+ for xen-devel@lists.xenproject.org; Thu, 13 Jun 2024 10:08:51 +0000
+Received: from mail-lf1-x136.google.com (mail-lf1-x136.google.com
+ [2a00:1450:4864:20::136])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 270b997f-296c-11ef-90a3-e314d9c70b13;
- Thu, 13 Jun 2024 12:03:16 +0200 (CEST)
-Received: by mail-ej1-x635.google.com with SMTP id
- a640c23a62f3a-a6f0e153eddso111085966b.0
- for <xen-devel@lists.xenproject.org>; Thu, 13 Jun 2024 03:03:16 -0700 (PDT)
+ id ee2a7115-296c-11ef-90a3-e314d9c70b13;
+ Thu, 13 Jun 2024 12:08:50 +0200 (CEST)
+Received: by mail-lf1-x136.google.com with SMTP id
+ 2adb3069b0e04-52bc29c79fdso1149090e87.1
+ for <xen-devel@lists.xenproject.org>; Thu, 13 Jun 2024 03:08:50 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a6f56da40easm54712366b.26.2024.06.13.03.03.14
+ a640c23a62f3a-a6f5952f85fsm41422066b.11.2024.06.13.03.08.48
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 13 Jun 2024 03:03:15 -0700 (PDT)
+ Thu, 13 Jun 2024 03:08:49 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,44 +45,44 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 270b997f-296c-11ef-90a3-e314d9c70b13
+X-Inumbo-ID: ee2a7115-296c-11ef-90a3-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1718272995; x=1718877795; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1718273329; x=1718878129; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=CHFu7upoFYNR81PQR/MEomtxlSSiAke3/gsmQel2lOU=;
-        b=SNtHZ3Ba5pJoUlBgF3nhoc8mYFBAiGdfWMPbIPHH8yf+JEf73Qf6IMMhs8Q1X94Ebi
-         WKkpIyzcD0dMBBvpfIAiekQubRRrLBlMB/GXeU2v68IrCuJTywl5wxDb1LDCrJf98JPk
-         4kmzP8JXHEVjIFlYpbHczYKdbTX5S3KbZIU9Gjnl+hA2OCwdPR3PcnRNxXLe8vTHD4uN
-         PUfqT8jWmT/QRd21mz6Mc1yPQ0ZfvGdcbUIKbs9UcRsWUCvZo6IVqnXcjzpDDCQSinxs
-         S/NVQCx+4D2RP1FYUk4MEMEVetYGfqImQrSm42vol9IiIQRX0lA6x8dMvvdZLU7r6Dus
-         g1Og==
+        bh=X4dmGxxpXaLEGno/tSpoArXj5CLMuZyTfgyBDtG9zfM=;
+        b=NrtE4v248cp29DLiDKUu0+JsT/cfWXlzKj6rxINFyYnmAyQjXA8a8uHssHs/Q1o2Rk
+         K0oVHDMPNR2b3efe4LPdV6GXft/Q+Dx8LTd4V+PzpE0JzMmwMuO1PNecYLPRf9mw+tv0
+         KikqEYvhSrbTH0k4+VlROycrjmsipryt7oMeZaIPnV4iH2bZmjmpq83jZsAMDCuoqEmD
+         PCH0jIlTTkOYeBUd8wsgxRk/Py8Jc0XmpnIZbzNjR+hw5D3E2E922l4j70cpS5qo4lQT
+         xklzT4kOKAoNGSmGpsswhrhwFwEYT/naLsrwD6XkzzjcUtbTHefOLsGGGRmHR9hyhpVW
+         LL7w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1718272995; x=1718877795;
+        d=1e100.net; s=20230601; t=1718273329; x=1718878129;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=CHFu7upoFYNR81PQR/MEomtxlSSiAke3/gsmQel2lOU=;
-        b=Ix9Jxb6p/Sm29hTNHqdZd5Lr0RjTjKzjJ5Uii1lVNJ/EoG5iWzC+tX6HE5gNjPO+Fg
-         M162DtDKfcN4qd0epeuJAIp1e6CvfWXor2ZtukEHHUUrON7jba2YvQeIVA+Ge+EyB07W
-         5w4hHH3V2awUWoC/SZQJTmhR9lsBGZrM/tYBRwKgKQEpU7MNy2vTJsmN4e92S8Ck+yix
-         mA9JbufMof6FGvEPThRmq6lc1gFLy/gjAD3IImDvTKqjlZGbH42wFIuyu9ZcvcJTxFlu
-         7AZzf20uXKDuPI4AHK3BpDNpoPbA14Vj4q30CVC8mUQLXeKcdtpcpY8e1zakrSpIaPZw
-         uhCg==
-X-Forwarded-Encrypted: i=1; AJvYcCUZxca/6DkO93KvCARfXenCaZq/yNWxj7swTKr1WcQs0Y5o1GJ7rDWOR1nHtlxanjyBGVHNiHveUdrbFxR+Gi4zic379wi/O5QxfDeffuk=
-X-Gm-Message-State: AOJu0Yzgyg+eF9XjJrL1CPwmhz928Zb1KDV6XL6o874fPkUlKeKwzG9x
-	EtkUi/F1/H2U2Y/bTKNusKkhzdbqqVsgCrDhJGVpORcHHKhlz7axodsLVfEL4w==
-X-Google-Smtp-Source: AGHT+IHoyZSgFwmD7LypWrbCqxd9mNYhTrWz7fYI4dqmZyGZ1sgLZ4JhjBnIult8ZC0hNQZuVGnZRw==
-X-Received: by 2002:a17:906:c192:b0:a6d:b66f:7b24 with SMTP id a640c23a62f3a-a6f48028205mr269293166b.75.1718272995524;
-        Thu, 13 Jun 2024 03:03:15 -0700 (PDT)
-Message-ID: <1dd68917-090b-45ab-88a5-157a4afe0f6a@suse.com>
-Date: Thu, 13 Jun 2024 12:03:13 +0200
+        bh=X4dmGxxpXaLEGno/tSpoArXj5CLMuZyTfgyBDtG9zfM=;
+        b=ey5eq0M5ne2PxAHpRP9QCnWVfvBgM29bB0RA3zfgftImrquaKZZgJ6D36qtOHJ3ZPJ
+         6q9mZBdrsT8qPV71h3BGz0NC0PT2AEVhLTplqxq1M0t4Q34bs7gxZuuU7NZiRjIVHx2n
+         kslPcCMHgi6BBq6pgHQpPm8hwizdm8feT7Gk8eiA3LguVciNidBWRaPB3jcKeEh94oNW
+         Iw/5Ak9RcBSouMPVFJX1dUv9sQZX84oq6kQdLYLrkrhfLJASCe7KDOVkrjiyReXq1+JO
+         p6l2vuGicpxJV6P/EObnRMr74dt9ks6rrwReUAm2+veTx3bjQ3L4qEdtCJIz3LkYIRTW
+         vohw==
+X-Forwarded-Encrypted: i=1; AJvYcCXEJP1W/7SnoTh5Bo8duoh3Pp3JPvs6vjSsWTsYaWzU9nA/YId762eBjmJKGj+0VrN+T0K0ex+HlylBOTowUXLBjbCC+v+7riKGkaxnv3w=
+X-Gm-Message-State: AOJu0Yya4EWh1IMO9IOFEaL1lW45H3QjHRXot/ZoGSllnRrWAFojhmym
+	fmkGclEOBoNJVlnF1ygOndsz5X/kNuVK+cb4+6YdkmRj8ckg0qJprqKnFXVxcQ==
+X-Google-Smtp-Source: AGHT+IHJuQxWZwcDvYSvaXnCRzzSLalRxQMVVVKS5m1NW2fsbtmTFOHUGEzYNJX1VMbTyD+xpwUJyw==
+X-Received: by 2002:a05:6512:10cf:b0:52c:8b03:99d1 with SMTP id 2adb3069b0e04-52c9a40301amr4760939e87.48.1718273329548;
+        Thu, 13 Jun 2024 03:08:49 -0700 (PDT)
+Message-ID: <55f46457-4182-4e1b-a792-e94cc6c16864@suse.com>
+Date: Thu, 13 Jun 2024 12:08:48 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH v2] automation/eclair: extend existing deviations of
- MISRA C:2012 Rule 16.3
+Subject: Re: [XEN PATCH] automation/eclair: add deviation for MISRA C Rule
+ 17.7
 To: Federico Serafini <federico.serafini@bugseng.com>
 Cc: consulting@bugseng.com, Simone Ballarin <simone.ballarin@bugseng.com>,
  Doug Goldstein <cardoe@cardoe.com>,
@@ -90,9 +90,7 @@ Cc: consulting@bugseng.com, Simone Ballarin <simone.ballarin@bugseng.com>,
  Andrew Cooper <andrew.cooper3@citrix.com>,
  George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
  xen-devel@lists.xenproject.org
-References: <20c0779f2d749a682758defc06514772e97c9d89.1718260010.git.federico.serafini@bugseng.com>
- <cbd59b32-213b-4b5c-90fb-67906b7ae680@suse.com>
- <81332f64-9bd3-47bb-a6a5-adeecabf9730@bugseng.com>
+References: <a5137c812eefab7e0417670386b0fee35468504d.1718264354.git.federico.serafini@bugseng.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -118,39 +116,31 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <81332f64-9bd3-47bb-a6a5-adeecabf9730@bugseng.com>
+In-Reply-To: <a5137c812eefab7e0417670386b0fee35468504d.1718264354.git.federico.serafini@bugseng.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 13.06.2024 11:02, Federico Serafini wrote:
-> On 13/06/24 10:16, Jan Beulich wrote:
->> On 13.06.2024 08:38, Federico Serafini wrote:
->>> +   * - R16.3
->>> +     - Switch clauses ending with a do-while-false which, in turn, ends with an
->>
->> Maybe more precisely "the body of which"?
-> 
-> Will do.
-> 
->>
->>> +       allowed terminal statement are safe (e.g., PARSE_ERR_RET()).
->>> +       Being ASSERT_UNREACHABLE() a construct that is effective in debug builds
->>> +       only, it is not considered as an allowed terminal statement, despite its
->>> +       definition.
->>
->> DYM despite its name? Its definition is what specifically renders it unsuitable
->> for release builds.
-> 
-> In debug builds, ASSERT_UNREACHABLE() expands to a do-while-false
-> the body of which ends with __builtin_unreachable() which is a builtin
-> marked as "noreturn" and thus considered as one of the "allowed
-> terminal statements".
-> As a result, ASSERT_UNREACHABLE() will be considered as an
-> "allowed terminal statement" as well, which is something we want to
-> avoid.
+On 13.06.2024 11:07, Federico Serafini wrote:
+> --- a/docs/misra/deviations.rst
+> +++ b/docs/misra/deviations.rst
+> @@ -364,6 +364,17 @@ Deviations related to MISRA C:2012 Rules:
+>         by `stdarg.h`.
+>       - Tagged as `deliberate` for ECLAIR.
+>  
+> +   * - R17.7
+> +     - Not using the return value of a function do not endanger safety if it
+> +       coincides with the first actual argument.
+> +     - Tagged as `safe` for ECLAIR. Such functions are:
+> +         - __builtin_memcpy()
+> +         - __builtin_memmove()
+> +         - __builtin_memset()
+> +         - __cpumask_check()
+> +         - strlcat()
+> +         - strlcpy()
 
-Hmm, then maybe add "there" at the end of the sentence, to refer back to
-"debug builds"?
+These last two aren't similar to strcat/strcpy in what they return, so I'm
+not convinced they should be listed here. Certainly not with the "coincides"
+justification.
 
 Jan
 
