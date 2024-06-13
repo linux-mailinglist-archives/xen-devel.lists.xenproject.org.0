@@ -2,65 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 73FE7907314
-	for <lists+xen-devel@lfdr.de>; Thu, 13 Jun 2024 15:03:35 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.739974.1146968 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DBCF6907328
+	for <lists+xen-devel@lfdr.de>; Thu, 13 Jun 2024 15:08:41 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.739978.1146979 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sHk6h-0006ML-Dl; Thu, 13 Jun 2024 13:03:11 +0000
+	id 1sHkB0-0006xQ-VC; Thu, 13 Jun 2024 13:07:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 739974.1146968; Thu, 13 Jun 2024 13:03:11 +0000
+Received: by outflank-mailman (output) from mailman id 739978.1146979; Thu, 13 Jun 2024 13:07:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sHk6h-0006KD-BA; Thu, 13 Jun 2024 13:03:11 +0000
-Received: by outflank-mailman (input) for mailman id 739974;
- Thu, 13 Jun 2024 13:03:09 +0000
+	id 1sHkB0-0006vf-Rz; Thu, 13 Jun 2024 13:07:38 +0000
+Received: by outflank-mailman (input) for mailman id 739978;
+ Thu, 13 Jun 2024 13:07:37 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=9r+0=NP=arm.com=Bertrand.Marquis@srs-se1.protection.inumbo.net>)
- id 1sHk6f-0006K7-07
- for xen-devel@lists.xenproject.org; Thu, 13 Jun 2024 13:03:09 +0000
-Received: from EUR02-AM0-obe.outbound.protection.outlook.com
- (mail-am0eur02on2061b.outbound.protection.outlook.com
- [2a01:111:f403:2606::61b])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=mvQ+=NP=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1sHkAz-0006vZ-Nh
+ for xen-devel@lists.xenproject.org; Thu, 13 Jun 2024 13:07:37 +0000
+Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
+ [2a00:1450:4864:20::62f])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 46d00962-2985-11ef-90a3-e314d9c70b13;
- Thu, 13 Jun 2024 15:03:07 +0200 (CEST)
-Received: from AS4P192CA0038.EURP192.PROD.OUTLOOK.COM (2603:10a6:20b:658::7)
- by DU4PR08MB11174.eurprd08.prod.outlook.com (2603:10a6:10:577::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7633.36; Thu, 13 Jun
- 2024 13:03:04 +0000
-Received: from AM3PEPF0000A78E.eurprd04.prod.outlook.com
- (2603:10a6:20b:658:cafe::52) by AS4P192CA0038.outlook.office365.com
- (2603:10a6:20b:658::7) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7677.24 via Frontend
- Transport; Thu, 13 Jun 2024 13:03:04 +0000
-Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
- AM3PEPF0000A78E.mail.protection.outlook.com (10.167.16.117) with
- Microsoft
- SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.20.7677.15
- via Frontend Transport; Thu, 13 Jun 2024 13:03:03 +0000
-Received: ("Tessian outbound 221fbec6f361:v332");
- Thu, 13 Jun 2024 13:03:03 +0000
-Received: from 940064599862.1
- by 64aa7808-outbound-1.mta.getcheckrecipient.com id
- 7B967D27-3EE2-4E99-9382-AF3B89D923D4.1; 
- Thu, 13 Jun 2024 13:02:56 +0000
-Received: from EUR04-DB3-obe.outbound.protection.outlook.com
- by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id 940064599862.1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
- Thu, 13 Jun 2024 13:02:56 +0000
-Received: from DB9PR08MB6588.eurprd08.prod.outlook.com (2603:10a6:10:25a::24)
- by PAVPR08MB9555.eurprd08.prod.outlook.com (2603:10a6:102:312::19)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7677.24; Thu, 13 Jun
- 2024 13:02:55 +0000
-Received: from DB9PR08MB6588.eurprd08.prod.outlook.com
- ([fe80::a8fc:ea0d:baf1:23a]) by DB9PR08MB6588.eurprd08.prod.outlook.com
- ([fe80::a8fc:ea0d:baf1:23a%5]) with mapi id 15.20.7677.019; Thu, 13 Jun 2024
- 13:02:54 +0000
+ id e75bdb48-2985-11ef-90a3-e314d9c70b13;
+ Thu, 13 Jun 2024 15:07:36 +0200 (CEST)
+Received: by mail-ej1-x62f.google.com with SMTP id
+ a640c23a62f3a-a6f0dc80ab9so163825566b.2
+ for <xen-devel@lists.xenproject.org>; Thu, 13 Jun 2024 06:07:36 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a6f56f416dfsm70921266b.164.2024.06.13.06.07.35
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 13 Jun 2024 06:07:35 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -72,193 +45,239 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 46d00962-2985-11ef-90a3-e314d9c70b13
-ARC-Seal: i=2; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=pass;
- b=I/NU2m9PmsKwwzf3+hVuHttgGQ5kD92te3JwAuJnq1/yD8Lg18B/Ry0M9LCz7483UHA8Z+C2DeDzPdl9eO1Nq3rQcVKeCxpBQ0mOBVEXb78KbBPggFErqX1k/qFi5LmlAQYlpEcq4/XP2qDeoUZa1KoeFcjdUCHzd5dVa0BSQsXjU/vWBScagezjTe+C6/LhhRQEI/euPNZi4iDO0O5peTsUzpqyhc/jGXQCkIZbdRrA5yUXgd25PUBNV2+DxUteFQ1FLcYleFNwYVVfZHYK1QA3S+5w14gGGNDXkGjFrrSQTCSKV5SJaQutH0LyXMNwDL7p3PqoMINd4qJ09r0qtA==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Wit2hO10V1XrX9FpSsEGmKtI8e6EPJiPCcFfRW8Xkb8=;
- b=WIrwas9msiryzxjSico7g+L4NUHN6G2FiCYQDwYxzY8p8wyXISWQIc3dyfoWAZSw1D9WO8b8RmWCYKtRPjF8qBBR2QoBUxqMUHJEM1IzMoyR1hAJJTZJyCuCO6yGrcMPaFRDTZWyLsuO97kSqiWfznx2Pihcpj3nMSsG+B+SguT3oPXQ18UtYntRshpE3PxfkhKYFLQUVaaOTC3F63j/pR+54zMUoXM7+LzmrWNUrSxaJmVMJTsIqDmpmzUGu9HeUq77AbBtXX/gGvlHMaXDP93U3k+3mbIInT60feP7IPJDx1g+m9PyJguHP0oA/c8xQOhk+sk9ylr2VG7WJAcWcA==
-ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
- 63.35.35.123) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=arm.com;
- dmarc=pass (p=none sp=none pct=100) action=none header.from=arm.com;
- dkim=pass (signature was verified) header.d=arm.com; arc=pass (0 oda=1 ltdi=1
- spf=[1,1,smtp.mailfrom=arm.com] dkim=[1,1,header.d=arm.com]
- dmarc=[1,1,header.from=arm.com])
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Wit2hO10V1XrX9FpSsEGmKtI8e6EPJiPCcFfRW8Xkb8=;
- b=P2SOx/jYYSffWVpoduUupvmEIvXOYfDkmLJlJmk54dNYT1sZS4U11sO92Pao+odLf1lHRrUmZu599iLzlPgVDLSaLQj07naeiJp2bV91kkKvoSEIisjCTQ1heVSDMNmmC3E0KiTtOIh9mv274ZqNj/KwIXqnO97jpwjP5Q1kqv8=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
- smtp.mailfrom=arm.com; dkim=pass (signature was verified)
- header.d=arm.com;dmarc=pass action=none header.from=arm.com;
-Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
- 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
- client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
- pr=C
-X-CheckRecipientChecked: true
-X-CR-MTA-CID: 22364ac81a1ca692
-X-CR-MTA-TID: 64aa7808
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=SqHgm4t2P3xR6ViklXnLwlkmY9WbTSAyR3t2QewjbRIQ6ZC3VZusnabsgdopSGI79UIzLQJqNq4D+7mwOIg0zdnoGTHKiA/Wf6w27jznb0ArGXcRRtV0mtb+FDVTSkFMhLOq9gvkOcFfgLX6An4oonsz/kkdDWN9pJz7HOWMoGLtmFitGNwoCilvNBa8Kkgsi1/P+ELFqIBKptu+laJdPNePegHQyVNqk6sIzanqbJzLyITEw/8MzpVqxjhfLiHKe1+sHp1sbLHd9DLZgpwKfRIf5i8cNQYRsxP9n7n3pgcOTkhfnh+A0Ue3O0xRIMVXSqLjCovVn9xMofGFXV6OyA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Wit2hO10V1XrX9FpSsEGmKtI8e6EPJiPCcFfRW8Xkb8=;
- b=kzUZfkjV17tm+TtP1MhwTt+DuERNJv659PXUzTsYsowRrrO9GiRINv4LyxDBPgvGxX6wBcoyFoCHt0fXfXLYhrD40nhhLEZpLXjaEeKD6z/sknGDnGu1NQ2sOwPpUy5+A75SZY0I9L+5Ra4FMEOQ2h6n5bPa7XM5USPGv9GfeMO4oi3YDNASyGxpkTdNN2mZvLUT79dhhdJfpTo34yLQymBPiFFOZQJngXgE5Qj9nL6GEpywVvcTF3ZcHRO3JnVEC+tX0VT+v8wpKkzdQlyaCENrJkIm8cLmmAwYCZBaY+U0+gFg8hfTYXggnkSwQHusTjSfSB1TQacOkh2BDr5Y7w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
- header.d=arm.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Wit2hO10V1XrX9FpSsEGmKtI8e6EPJiPCcFfRW8Xkb8=;
- b=P2SOx/jYYSffWVpoduUupvmEIvXOYfDkmLJlJmk54dNYT1sZS4U11sO92Pao+odLf1lHRrUmZu599iLzlPgVDLSaLQj07naeiJp2bV91kkKvoSEIisjCTQ1heVSDMNmmC3E0KiTtOIh9mv274ZqNj/KwIXqnO97jpwjP5Q1kqv8=
-From: Bertrand Marquis <Bertrand.Marquis@arm.com>
-To: Julien Grall <julien@xen.org>
-CC: Oleksii K. <oleksii.kurochko@gmail.com>, Jens Wiklander
-	<jens.wiklander@linaro.org>, Xen-devel <xen-devel@lists.xenproject.org>,
-	"patches@linaro.org" <patches@linaro.org>, Volodymyr Babchuk
-	<volodymyr_babchuk@epam.com>, Stefano Stabellini <sstabellini@kernel.org>,
-	Michal Orzel <michal.orzel@amd.com>
-Subject: Re: [XEN PATCH v6 0/7] FF-A notifications
-Thread-Topic: [XEN PATCH v6 0/7] FF-A notifications
-Thread-Index:
- AQHauwL3zf/sfUoleE2hXc1GLXTtIrHBJtUAgABPbgCAALAvgIAAOhUAgANIXoCAAAULAA==
-Date: Thu, 13 Jun 2024 13:02:54 +0000
-Message-ID: <DBAF0EF2-0A4D-4F5C-9BD2-C8DEBB54125A@arm.com>
-References: <20240610065343.2594943-1-jens.wiklander@linaro.org>
- <3C40228F-21AA-4CBF-A4BE-1C42DE6E94EB@arm.com>
- <615f1766-253d-43dc-b0f0-f8e2eb7360b5@xen.org>
- <8558AEB5-2F38-4F8C-A017-794E32045068@arm.com>
- <6a255f3dccc609e680659ed05b613c21a33cfb20.camel@gmail.com>
- <fefb0ceb-0713-4520-b9a7-e37aa2f77850@xen.org>
-In-Reply-To: <fefb0ceb-0713-4520-b9a7-e37aa2f77850@xen.org>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-mailer: Apple Mail (2.3774.600.62)
-Authentication-Results-Original: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=arm.com;
-x-ms-traffictypediagnostic:
-	DB9PR08MB6588:EE_|PAVPR08MB9555:EE_|AM3PEPF0000A78E:EE_|DU4PR08MB11174:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3a71c84d-530e-4385-b039-08dc8ba92905
-x-checkrecipientrouted: true
-nodisclaimer: true
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam-Untrusted:
- BCL:0;ARA:13230035|1800799019|366011|376009|38070700013;
-X-Microsoft-Antispam-Message-Info-Original:
- =?us-ascii?Q?Ecf0VlpH76SILhrSVXmJjuBdUy41s1YHM4jYUdw6aJNfJ4o9Q+Okz/i2fjD+?=
- =?us-ascii?Q?O5CzatUW6GaKtS43OXwybTF1EDEVoePgpsyz+rjlhpVhCxKUJGVUR5ntdsSX?=
- =?us-ascii?Q?wcx9bt1hjiCLeVtK7FNoZVpRzudmzEHZu5knLcGND7ylJqXo7NUynBDvVKrS?=
- =?us-ascii?Q?4HLkVnqcqFkV7ABes77DPVQumlmn1QoEjnvBOXygLdLGm9n6jARnHUoFAnrO?=
- =?us-ascii?Q?A+ZgR3/e5B2UNmuwbkkclb9BSDZVPhQn6DtRHGymnolThX5DJ/DbxalK+3yJ?=
- =?us-ascii?Q?gKBmauRZsmSaVd/jzlPXUIWC1WlQNKGvxcdpIlFx3wK0DBSgrCURl/50lyeY?=
- =?us-ascii?Q?Nw7tHAyKJAA0E3RBoGyXbp15MRHFVGUXR3eyXsZdJGKGGozzpeodMUrhM6Fr?=
- =?us-ascii?Q?SWtXITXr5oMec1sxesRxaG+1x+ZmAzLHghiPDZHDWnKPB1rLwfFu7m3gAQ1k?=
- =?us-ascii?Q?m+lOmq0Sm5ldhOyigUQzVVkhxy7c/th4D9LcMnS8PGEeltm64XDlKHLmJT+C?=
- =?us-ascii?Q?PbBvk3BHK0VByMCFnMqGZtSTAz8jxGgJXfQ2gKAL13gFhnO7EhSORHAdq2RT?=
- =?us-ascii?Q?pw7gd0Uni8yQuQ5mD8Pw+wvUtP+SI+hGjHmrO+2hweBjGqpDhE8QIIo6J51I?=
- =?us-ascii?Q?sN4hC68jx6tO3Yo6RRyLkA5Ce0PqERkiZIJWoouqcSffKQk3pkNxA8uKS83u?=
- =?us-ascii?Q?tUoiBBcPhhhllQiFDPwVBG6Uill1KdHBlHQ6YCbB2vk1To6izIisuybzbXA5?=
- =?us-ascii?Q?JfmD5JH2qjkWBBqbnbDJR/svx46ZX50ewOd+dEL9bDUkZkzBeV9pdvcrQhb3?=
- =?us-ascii?Q?4MFiypOQybP6ks9WYwcCj9HDujCxjN22FiOaAinwgZz3oyxPYbDuGvIfTeJA?=
- =?us-ascii?Q?nfuujdZHs7xz67p9IXRMMqxm5gfiCBs2QN9m/K9zTNuO2dLhnguHqcn8+xSY?=
- =?us-ascii?Q?BctWIZEpsOZle5/DcbRNIjOVRiV6ghl8v5tR1k0dWzDSLhlZd9CAWeUMTEdQ?=
- =?us-ascii?Q?e0l5du1uXk0Zibx9wAZKWlq0QyBHZZufKE0gSi2v9gpDSdfalQHVodUP17gT?=
- =?us-ascii?Q?4befilxwMZcAiVRVLqESZnyqzCS2DykxA6zZnyyH3pBC1uCH3e30nHsWgA2S?=
- =?us-ascii?Q?wZUwioY9BNGUWCrzfgr8r+zxBL8bFmrNy8UWdF8lHRDKetFOtUZPwLEEFu9q?=
- =?us-ascii?Q?+nLv6AsoEofgrIoN+W+XWLctxx9ZfSmIdM40tu+K5bK+jov6R8PdB1Cg7JUj?=
- =?us-ascii?Q?e92DcqgSG7lOKwK6bW9mcJFnt7QnrR6gM/EvDKVEzjiY3pjeHeOBQkrzB2dM?=
- =?us-ascii?Q?UsKbzDzytw9W/DMWAqTGcN3dHGsWdhRu0HXBo/fMaDya3UaO4M2DxjwiaS6H?=
- =?us-ascii?Q?dXvTWx8=3D?=
-X-Forefront-Antispam-Report-Untrusted:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DB9PR08MB6588.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230035)(1800799019)(366011)(376009)(38070700013);DIR:OUT;SFP:1101;
-Content-Type: text/plain; charset="us-ascii"
-Content-ID: <80D13C2FD1497040892C6256DCD85AA4@eurprd08.prod.outlook.com>
-Content-Transfer-Encoding: quoted-printable
+X-Inumbo-ID: e75bdb48-2985-11ef-90a3-e314d9c70b13
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1718284056; x=1718888856; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=vE/yhJRg2OuaMGSiE8GwcWt6S2O+bUofmKJ0USws6KU=;
+        b=PwNsTeHEFyyHU02FZlC6wxTTh5Jt3jMUqy3KR72My+A1f7SWTkTBWjbr7C+VRCgGGG
+         cRrCLItUkbyYcB/UUwbWpB5IEA8FmFB7vxrCNpyoxc4IGRG1Kg9W84Q1z3arxBz5/kAC
+         58eW40baQGAfBNOzNDBX8Wiem+s9HyUX2MwMJGf6pdAHQ44Ix0r9rgvLWFgLPaXuW39x
+         uAP+YYh3oJrOYnxVNu3XhRxCzcESZoRFjF/dUuL5SKpId0SSVOFmq8wAKoF+GqS29FZn
+         QSSeBjlhd1y1QQf9fZ1cj2ILvxotVGqbpPL9LbzDibC+BX9gKhwTk1gOcs2zZSCCgWrK
+         0rFA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1718284056; x=1718888856;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=vE/yhJRg2OuaMGSiE8GwcWt6S2O+bUofmKJ0USws6KU=;
+        b=kpejchbv7h1Ywqj+M5anG5830e7vTMl+Tt8qz8naZOZrJdV5L2dgjXGWtMdF8fPjd1
+         1MerbhUFk9mZQ/Hi36ytAi2O120cF3Z6yjsMMWKS0cSL0BgFj8wNcU6up4/XhIpYENIS
+         Tpm2xfRnCcyahHlD1eVD4RDUO6Hgd1P5CyFm2mMoBqsN8XXdE3NotXvZ0P31u8AFHcJj
+         YnrR83rKj8+EW+ODFUvCA6Jr36ZdHEnUUGO37H1PAMer3wltmU9KOxKlWLIBZB5PeK6f
+         dDMzZ0FIOLhoh0fnrCaJLb6rrbknEgaHRGfORA1uz6YWof74XCXVHCuIeFtGBtDvLuQW
+         YBoQ==
+X-Forwarded-Encrypted: i=1; AJvYcCV0yfjP5Pn7Wy87Asmv0P6fBEQ069gBCxt4PPzhh+MfW3VcAuwtTjZQxSrVuxBvp2OBX5RD4PEO7yPu5GMyiXphsRYmSK3swVt/BzbH9mA=
+X-Gm-Message-State: AOJu0YyOTl/SAhSMU6JwdirUsTOsjhvuJFmv8qMZ3i+f3Qh3u0vlp86P
+	sSL+M7XGod9n1o6T8oe0qJcZgUpyycs50eboOrSkxrf69TjCFSO2evhnQ3SRDVQkeCkvFfTe/aI
+	=
+X-Google-Smtp-Source: AGHT+IH68n6+mAuhzYQ9m/AR+2EDepWY9iUfsKhnuM+BlRViNEXHNds2Yx0yuO1kW6hEs/zx/Y4FQQ==
+X-Received: by 2002:a17:906:8411:b0:a6e:f701:384d with SMTP id a640c23a62f3a-a6f47c9ef68mr283846366b.29.1718284055706;
+        Thu, 13 Jun 2024 06:07:35 -0700 (PDT)
+Message-ID: <1f8c1b9d-7503-4ec5-955f-a025fd06f1b8@suse.com>
+Date: Thu, 13 Jun 2024 15:07:34 +0200
 MIME-Version: 1.0
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAVPR08MB9555
-Original-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=arm.com;
-X-EOPAttributedMessage: 0
-X-MS-Exchange-Transport-CrossTenantHeadersStripped:
- AM3PEPF0000A78E.eurprd04.prod.outlook.com
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	d61d2d05-28c4-4c79-b03d-08dc8ba923fe
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230035|36860700008|34020700011|82310400021|1800799019|376009|35042699017;
-X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?DordZGFqFPLUySKNP6DBfpxXR2IrlZH+yGYtKyJvz8gHJUZ5dYmzcGH+dTB7?=
- =?us-ascii?Q?3XB+2h61tEIO7bn5NaPdUIfLe+i941G4vHzutiyFexv/9LJ+GVr/FpQzCQbk?=
- =?us-ascii?Q?v487olANPlQOUjIsjXlKOgU5l7w6EFW2WRjoo7bvIMKPuf32aS77mGA5XKk7?=
- =?us-ascii?Q?suenf57CLiol6hDyUIYKrQEV23dhDXY/Qs6ceZJUYhQxqktG6SFHAOSjhzAi?=
- =?us-ascii?Q?aOqcNbd4m2v63OK204QV4veb1ec61/lnipdtqPM9gEMCpQqqfGvr8Uoi+ibM?=
- =?us-ascii?Q?BoTcEjdkjxSq+OGVKawjMs0rlEI9YhJNTglUkfyNXpxrxqVVUvv7kWxN4D9i?=
- =?us-ascii?Q?6bVa5INEaGe1kYuA8O1M8JTJDNYDERz4T9B+5wJeE4GaYtWeYsU0EXJNRy/R?=
- =?us-ascii?Q?S0DQ2DpBog/qfbXTwnUe+KdBT8SJ1u5ybvSmc+d4dSbdS/Ntpw0KruQb6SvS?=
- =?us-ascii?Q?ZQMtsPgzB9jtdVD4tLLGsJKu+LSZrRhYf6YoUYp6AqpODXykfNdE6Zvp6wsP?=
- =?us-ascii?Q?mYcEq1xh2T6LhdbMJQxwRg6PJROyU7xy5+WMWpSlYIhO1qxshqth+QAxuTtM?=
- =?us-ascii?Q?e0mdezqTFcrBisF0Gjs4uieB+dTb1nfIXW2wWJaeagVIDOhtg2E2c1uobLci?=
- =?us-ascii?Q?SNc3Bd8NF0J0fTOWTcP9rirt659zsnW8Dl1a9OL84lbgupNSgvU6Ul4pSm/4?=
- =?us-ascii?Q?ATd76hMHfZ7xZxrx6DGKQQijZJx6A9TU518VjUDzTA2LtkJnPqApQp5OZYhR?=
- =?us-ascii?Q?FfcTVh/zFCXsbcfCC3XyJ4rqWr/bGnxCPYPbhicJO4SmP6tvLx5ti0OExKqR?=
- =?us-ascii?Q?pj9BIXa1zYbuWRFsNjaBROGOj8wiP8Cgd2nA8sfRR+1v38xLyAgSMRRJoHw4?=
- =?us-ascii?Q?xeKRlvZS6h1/TnbuCmwChPIQITEq5w22C46qLpK/Dw7f0J7RLJDEAzSRlMlU?=
- =?us-ascii?Q?7+puRgM9MFnUMSxveXz0DCfX6uljtwHZxxmX9Ex95gY9SKQ5XwQlH7TzCNEq?=
- =?us-ascii?Q?j9dviyLc54YWPKtxsdXaQD7saI6UK232gbAz20GXyUzgRayL0T5nbOKSLT5k?=
- =?us-ascii?Q?PkDPx8SzSF4XbZcJaCML0Xxz/UrkmEUe2vuioC4ZBySmy7BRSRDuJzikq211?=
- =?us-ascii?Q?lQio+r9gzc62914AB5UMbYeYoArh9aQZ4oRagNxWjHr2JztRQqk4eTQWfbo2?=
- =?us-ascii?Q?OZJSOKphd2KsS11XuteQVTz76t75uR5ElW8SEWjaViU0xGjtThjDY/6snNfz?=
- =?us-ascii?Q?4YsDMjXJQYInEQGK8oo4/1JpcfgwxcrTiGgVNcjhoJlh+/XXYTM1YJtwc6Z3?=
- =?us-ascii?Q?lXVlxe5jvQZKpXbVP0v2VmGsuCrtYC9lYg1QAAPsF4pXN7jBwUd2xjFzUtiK?=
- =?us-ascii?Q?WCvzHj91NbJ8R8xXt2iR6Em4rOUoc2nEW6SRyfAKrZyM/WRBpQ=3D=3D?=
-X-Forefront-Antispam-Report:
-	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(13230035)(36860700008)(34020700011)(82310400021)(1800799019)(376009)(35042699017);DIR:OUT;SFP:1101;
-X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Jun 2024 13:03:03.3115
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3a71c84d-530e-4385-b039-08dc8ba92905
-X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	AM3PEPF0000A78E.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU4PR08MB11174
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 6/7] x86/irq: handle moving interrupts in
+ _assign_irq_vector()
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
+References: <20240610142043.11924-1-roger.pau@citrix.com>
+ <20240610142043.11924-7-roger.pau@citrix.com>
+ <9de1a9c7-814c-4375-9182-90a2f04806b2@suse.com> <Zml6-ViFPTWI1cUc@macbook>
+ <d5b1d273-913e-4d53-9fb6-9b01525da498@suse.com> <ZmnAgSBjjP6N-uJS@macbook>
+ <d45ef203-aa29-4aa6-8b40-0449334a2bf0@suse.com> <ZmrYjv2ljhf-1Ag_@macbook>
+ <f4c51152-e8a0-4715-af75-4b8c7801fa08@suse.com> <ZmrsQ0ncZWD3tXXV@macbook>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <ZmrsQ0ncZWD3tXXV@macbook>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hi Julien,
+On 13.06.2024 14:55, Roger Pau Monné wrote:
+> On Thu, Jun 13, 2024 at 01:36:55PM +0200, Jan Beulich wrote:
+>> On 13.06.2024 13:31, Roger Pau Monné wrote:
+>>> On Thu, Jun 13, 2024 at 10:38:35AM +0200, Jan Beulich wrote:
+>>>> On 12.06.2024 17:36, Roger Pau Monné wrote:
+>>>>> On Wed, Jun 12, 2024 at 03:42:58PM +0200, Jan Beulich wrote:
+>>>>>> On 12.06.2024 12:39, Roger Pau Monné wrote:
+>>>>>>> On Tue, Jun 11, 2024 at 03:18:32PM +0200, Jan Beulich wrote:
+>>>>>>>> On 10.06.2024 16:20, Roger Pau Monne wrote:
+>>>>>>>>> Currently there's logic in fixup_irqs() that attempts to prevent
+>>>>>>>>> _assign_irq_vector() from failing, as fixup_irqs() is required to evacuate all
+>>>>>>>>> interrupts from the CPUs not present in the input mask.  The current logic in
+>>>>>>>>> fixup_irqs() is incomplete, as it doesn't deal with interrupts that have
+>>>>>>>>> move_cleanup_count > 0 and a non-empty ->arch.old_cpu_mask field.
+>>>>>>>>>
+>>>>>>>>> Instead of attempting to fixup the interrupt descriptor in fixup_irqs() so that
+>>>>>>>>> _assign_irq_vector() cannot fail, introduce logic in _assign_irq_vector()
+>>>>>>>>> to deal with interrupts that have either move_{in_progress,cleanup_count} set
+>>>>>>>>> and no remaining online CPUs in ->arch.cpu_mask.
+>>>>>>>>>
+>>>>>>>>> If _assign_irq_vector() is requested to move an interrupt in the state
+>>>>>>>>> described above, first attempt to see if ->arch.old_cpu_mask contains any valid
+>>>>>>>>> CPUs that could be used as fallback, and if that's the case do move the
+>>>>>>>>> interrupt back to the previous destination.  Note this is easier because the
+>>>>>>>>> vector hasn't been released yet, so there's no need to allocate and setup a new
+>>>>>>>>> vector on the destination.
+>>>>>>>>>
+>>>>>>>>> Due to the logic in fixup_irqs() that clears offline CPUs from
+>>>>>>>>> ->arch.old_cpu_mask (and releases the old vector if the mask becomes empty) it
+>>>>>>>>> shouldn't be possible to get into _assign_irq_vector() with
+>>>>>>>>> ->arch.move_{in_progress,cleanup_count} set but no online CPUs in
+>>>>>>>>> ->arch.old_cpu_mask.
+>>>>>>>>>
+>>>>>>>>> However if ->arch.move_{in_progress,cleanup_count} is set and the interrupt has
+>>>>>>>>> also changed affinity, it's possible the members of ->arch.old_cpu_mask are no
+>>>>>>>>> longer part of the affinity set,
+>>>>>>>>
+>>>>>>>> I'm having trouble relating this (->arch.old_cpu_mask related) to ...
+>>>>>>>>
+>>>>>>>>> move the interrupt to a different CPU part of
+>>>>>>>>> the provided mask
+>>>>>>>>
+>>>>>>>> ... this (->arch.cpu_mask related).
+>>>>>>>
+>>>>>>> No, the "provided mask" here is the "mask" parameter, not
+>>>>>>> ->arch.cpu_mask.
+>>>>>>
+>>>>>> Oh, so this describes the case of "hitting" the comment at the very bottom of
+>>>>>> the first hunk then? (I probably was misreading this because I was expecting
+>>>>>> it to describe a code change, rather than the case where original behavior
+>>>>>> needs retaining. IOW - all fine here then.)
+>>>>>>
+>>>>>>>>> and keep the current ->arch.old_{cpu_mask,vector} for the
+>>>>>>>>> pending interrupt movement to be completed.
+>>>>>>>>
+>>>>>>>> Right, that's to clean up state from before the initial move. What isn't
+>>>>>>>> clear to me is what's to happen with the state of the intermediate
+>>>>>>>> placement. Description and code changes leave me with the impression that
+>>>>>>>> it's okay to simply abandon, without any cleanup, yet I can't quite figure
+>>>>>>>> why that would be an okay thing to do.
+>>>>>>>
+>>>>>>> There isn't much we can do with the intermediate placement, as the CPU
+>>>>>>> is going offline.  However we can drain any pending interrupts from
+>>>>>>> IRR after the new destination has been set, since setting the
+>>>>>>> destination is done from the CPU that's the current target of the
+>>>>>>> interrupts.  So we can ensure the draining is done strictly after the
+>>>>>>> target has been switched, hence ensuring no further interrupts from
+>>>>>>> this source will be delivered to the current CPU.
+>>>>>>
+>>>>>> Hmm, I'm afraid I still don't follow: I'm specifically in trouble with
+>>>>>> the ...
+>>>>>>
+>>>>>>>>> --- a/xen/arch/x86/irq.c
+>>>>>>>>> +++ b/xen/arch/x86/irq.c
+>>>>>>>>> @@ -544,7 +544,53 @@ static int _assign_irq_vector(struct irq_desc *desc, const cpumask_t *mask)
+>>>>>>>>>      }
+>>>>>>>>>  
+>>>>>>>>>      if ( desc->arch.move_in_progress || desc->arch.move_cleanup_count )
+>>>>>>>>> -        return -EAGAIN;
+>>>>>>>>> +    {
+>>>>>>>>> +        /*
+>>>>>>>>> +         * If the current destination is online refuse to shuffle.  Retry after
+>>>>>>>>> +         * the in-progress movement has finished.
+>>>>>>>>> +         */
+>>>>>>>>> +        if ( cpumask_intersects(desc->arch.cpu_mask, &cpu_online_map) )
+>>>>>>>>> +            return -EAGAIN;
+>>>>>>>>> +
+>>>>>>>>> +        /*
+>>>>>>>>> +         * Due to the logic in fixup_irqs() that clears offlined CPUs from
+>>>>>>>>> +         * ->arch.old_cpu_mask it shouldn't be possible to get here with
+>>>>>>>>> +         * ->arch.move_{in_progress,cleanup_count} set and no online CPUs in
+>>>>>>>>> +         * ->arch.old_cpu_mask.
+>>>>>>>>> +         */
+>>>>>>>>> +        ASSERT(valid_irq_vector(desc->arch.old_vector));
+>>>>>>>>> +        ASSERT(cpumask_intersects(desc->arch.old_cpu_mask, &cpu_online_map));
+>>>>>>>>> +
+>>>>>>>>> +        if ( cpumask_intersects(desc->arch.old_cpu_mask, mask) )
+>>>>>>>>> +        {
+>>>>>>>>> +            /*
+>>>>>>>>> +             * Fallback to the old destination if moving is in progress and the
+>>>>>>>>> +             * current destination is to be offlined.  This is only possible if
+>>>>>>>>> +             * the CPUs in old_cpu_mask intersect with the affinity mask passed
+>>>>>>>>> +             * in the 'mask' parameter.
+>>>>>>>>> +             */
+>>>>>>>>> +            desc->arch.vector = desc->arch.old_vector;
+>>>>>>>>> +            cpumask_and(desc->arch.cpu_mask, desc->arch.old_cpu_mask, mask);
+>>>>>>
+>>>>>> ... replacing of vector (and associated mask), without any further accounting.
+>>>>>
+>>>>> It's quite likely I'm missing something here, but what further
+>>>>> accounting you would like to do?
+>>>>>
+>>>>> The current target of the interrupt (->arch.cpu_mask previous to
+>>>>> cpumask_and()) is all going offline, so any attempt to set it in
+>>>>> ->arch.old_cpu_mask would just result in a stale (offline) CPU getting
+>>>>> set in ->arch.old_cpu_mask, which previous patches attempted to
+>>>>> solve.
+>>>>>
+>>>>> Maybe by "further accounting" you meant something else not related to
+>>>>> ->arch.old_{cpu_mask,vector}?
+>>>>
+>>>> Indeed. What I'm thinking of is what normally release_old_vec() would
+>>>> do (of which only desc->arch.used_vectors updating would appear to be
+>>>> relevant, seeing the CPU's going offline). The other one I was thinking
+>>>> of, updating vector_irq[], likely is also unnecessary, again because
+>>>> that's per-CPU data of a CPU going down.
+>>>
+>>> I think updating vector_irq[] should be explicitly avoided, as doing
+>>> so would prevent us from correctly draining any pending interrupts
+>>> because the vector -> irq mapping would be broken when the interrupt
+>>> enable window at the bottom of fixup_irqs() is reached.
+>>>
+>>> For used_vectors: we might clean it, I'm a bit worried however that at
+>>> some point we insert a check in do_IRQ() path that ensures the
+>>> vector_irq[] is inline with desc->arch.used_vectors, which would fail
+>>> for interrupts drained at the bottom of fixup_irqs().  Let me attempt
+>>> to clean the currently used vector from ->arch.used_vectors.
+>>
+>> Just to clarify: It may well be that for draining the bit can't be cleared
+>> right here. But it then still needs clearing _somewhere_, or else we
+>> chance ending up with inconsistent state (triggering e.g. an assertion
+>> later on) or the leaking of vectors. My problem here was that I also
+>> couldn't locate any such "somewhere", and commentary also didn't point me
+>> anywhere.
+> 
+> You are correct, there's no such place where the cleanup would happen.
+> 
+> I'm afraid the only option I see to correctly deal with this is to do
+> the cleanup of the old destination in _assign_irq_vector(), and then
+> do the pending interrupt draining from IRR like I had proposed in
+> patch 7/7, thus removing the interrupt enable window at the bottom of
+> fixup_irqs().
+> 
+> Let me know if that seems sensible.
 
-> On 13 Jun 2024, at 14:44, Julien Grall <julien@xen.org> wrote:
->=20
-> Hi,
->=20
-> On 11/06/2024 11:36, Oleksii K. wrote:
->> Hi Bertrand and Julien,
->> On Tue, 2024-06-11 at 07:09 +0000, Bertrand Marquis wrote:
->>> Hi Julien and Oleksii,
->>>=20
->>> @Oleksii: Could we consider having this serie merged for next release
->>> ?
->> We can consider including it in Xen 4.19 as it has a low impact on
->> existing systems and needs to be explicitly activated:
->>  Release-Acked-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
->=20
-> It is now merged.
+I think it does; doing away with that entirely heuristic window would be
+pretty nice anyway.
 
-Great, thanks a lot :-)
-
-Cheers
-Bertrand
-
->=20
-> Cheers,
->=20
-> --=20
-> Julien Grall
-
+Jan
 
