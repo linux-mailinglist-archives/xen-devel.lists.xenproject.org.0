@@ -2,36 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9DFF690744F
-	for <lists+xen-devel@lfdr.de>; Thu, 13 Jun 2024 15:51:12 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.739992.1146988 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B6C3E90749C
+	for <lists+xen-devel@lfdr.de>; Thu, 13 Jun 2024 16:05:44 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.740000.1146998 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sHkqS-0007S3-36; Thu, 13 Jun 2024 13:50:28 +0000
+	id 1sHl4m-0001Ga-CU; Thu, 13 Jun 2024 14:05:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 739992.1146988; Thu, 13 Jun 2024 13:50:28 +0000
+Received: by outflank-mailman (output) from mailman id 740000.1146998; Thu, 13 Jun 2024 14:05:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sHkqS-0007Pb-0R; Thu, 13 Jun 2024 13:50:28 +0000
-Received: by outflank-mailman (input) for mailman id 739992;
- Thu, 13 Jun 2024 13:50:26 +0000
+	id 1sHl4m-0001Dy-9t; Thu, 13 Jun 2024 14:05:16 +0000
+Received: by outflank-mailman (input) for mailman id 740000;
+ Thu, 13 Jun 2024 14:05:14 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=XDAE=NP=bounce.vates.tech=bounce-md_30504962.666af91e.v1-c40a10789c0a4bc7a37d42d048579bcb@srs-se1.protection.inumbo.net>)
- id 1sHkqQ-0007PV-Bp
- for xen-devel@lists.xenproject.org; Thu, 13 Jun 2024 13:50:26 +0000
-Received: from mail177-18.suw61.mandrillapp.com
- (mail177-18.suw61.mandrillapp.com [198.2.177.18])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=Tbfa=NP=lst.de=hch@srs-se1.protection.inumbo.net>)
+ id 1sHl4k-0001Ds-Nl
+ for xen-devel@lists.xenproject.org; Thu, 13 Jun 2024 14:05:14 +0000
+Received: from verein.lst.de (verein.lst.de [213.95.11.211])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e196fc1f-298b-11ef-90a3-e314d9c70b13;
- Thu, 13 Jun 2024 15:50:24 +0200 (CEST)
-Received: from pmta14.mandrill.prod.suw01.rsglab.com (localhost [127.0.0.1])
- by mail177-18.suw61.mandrillapp.com (Mailchimp) with ESMTP id
- 4W0P1V5l3fzCf9KVH
- for <xen-devel@lists.xenproject.org>; Thu, 13 Jun 2024 13:50:22 +0000 (GMT)
-Received: from [37.26.189.201] by mandrillapp.com id
- c40a10789c0a4bc7a37d42d048579bcb; Thu, 13 Jun 2024 13:50:22 +0000
+ id f3a53c03-298d-11ef-90a3-e314d9c70b13;
+ Thu, 13 Jun 2024 16:05:13 +0200 (CEST)
+Received: by verein.lst.de (Postfix, from userid 2407)
+ id C2B2968BEB; Thu, 13 Jun 2024 16:05:08 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,821 +38,185 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e196fc1f-298b-11ef-90a3-e314d9c70b13
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
-	s=mte1; t=1718286622; x=1718547122;
-	bh=yOp6n6ZWWUNSdC8h4VQyGHPUzOnfugZqh72W0IfKJNE=;
-	h=From:Subject:To:Cc:Message-Id:Feedback-ID:Date:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:CC:Date:Subject:From;
-	b=bluulqKV2uhDQ3h6rzdi6g/7DS4FjkAGcgjElY3Q58ME0EcBv0/QSPphXCDKAFh++
-	 dhezZMDMNtebajEQNAIQc8t5vWKBCNsgBDnRJsMbS64hlsB7Gr4pncb4uogYHQ0NJo
-	 C/JoAwxeWWYO4cz3YMgYL9N9L38WdBAOsuwKuJhibWC/Jgtkhqq1ZKavk8R0N2SaYx
-	 Nvmwhy4LvgnDvaPSoS7JJQN74ZZO2DXseJBS/af8RODzff+vgu2hNsP8zcv7qqeTUb
-	 kboK836RIq7aEBjyW/V/B/dtfjZLNmN6kdPA+3J84zx7sss1JQK3Qhlk4JO+jMfC7D
-	 4UOR+E2EM3LSA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
-	t=1718286622; x=1718547122; i=teddy.astie@vates.tech;
-	bh=yOp6n6ZWWUNSdC8h4VQyGHPUzOnfugZqh72W0IfKJNE=;
-	h=From:Subject:To:Cc:Message-Id:Feedback-ID:Date:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:CC:Date:Subject:From;
-	b=LYZGrVAkhwyV/dBB4cixg2j3YKNcjPWpHllqgD+1Gv+j3sTcq7MnrxNQGfusVnntG
-	 pd1nndbX8TudUjijsqS5d9DCof+h9T/rQrysVwpnW4nvcTXcNTqhkFGtt0CT/jTKD2
-	 8g8axTGdyd0TvXWf6kKjp0SU58KKoMBVDUA9XjZnM3K7P0u6VnQLkAFDw8DqL3vZHE
-	 F6XWy0flnjoSUTy+Nr1f6bDEojrN7H1dbI5GEj7aQD9xOls2yfGI+d33r0vgEkoBw9
-	 MAV1DdHC5F22q2Grk8u3MDeQx+RGzC9QYk8BJHf0BHfGKvw9WfTIymp7CG6p4xcQkN
-	 WHR8fhBPhEG9w==
-From: Teddy Astie <teddy.astie@vates.tech>
-Subject: =?utf-8?Q?[RFC=20PATCH]=20iommu/xen:=20Add=20Xen=20PV-IOMMU=20driver?=
-X-Mailer: git-send-email 2.45.2
-X-Bm-Disclaimer: Yes
-X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
-X-Bm-Transport-Timestamp: 1718286620009
-To: xen-devel@lists.xenproject.org, iommu@lists.linux.dev
-Cc: Teddy Astie <teddy.astie@vates.tech>, Juergen Gross <jgross@suse.com>, Stefano Stabellini <sstabellini@kernel.org>, Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>, =?utf-8?Q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-Message-Id: <fe36b8d36ed3bc01c78901bdf7b87a71cb1adaad.1718286176.git.teddy.astie@vates.tech>
-X-Native-Encoded: 1
-X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.c40a10789c0a4bc7a37d42d048579bcb?=
-X-Mandrill-User: md_30504962
-Feedback-ID: 30504962:30504962.20240613:md
-Date: Thu, 13 Jun 2024 13:50:22 +0000
+X-Inumbo-ID: f3a53c03-298d-11ef-90a3-e314d9c70b13
+Date: Thu, 13 Jun 2024 16:05:08 +0200
+From: Christoph Hellwig <hch@lst.de>
+To: Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>
+Cc: Christoph Hellwig <hch@lst.de>, Jens Axboe <axboe@kernel.dk>,
+	Geert Uytterhoeven <geert@linux-m68k.org>,
+	Richard Weinberger <richard@nod.at>,
+	Philipp Reisner <philipp.reisner@linbit.com>,
+	Lars Ellenberg <lars.ellenberg@linbit.com>,
+	Christoph =?iso-8859-1?Q?B=F6hmwalder?= <christoph.boehmwalder@linbit.com>,
+	Josef Bacik <josef@toxicpanda.com>, Ming Lei <ming.lei@redhat.com>,
+	"Michael S. Tsirkin" <mst@redhat.com>,
+	Jason Wang <jasowang@redhat.com>, Alasdair Kergon <agk@redhat.com>,
+	Mike Snitzer <snitzer@kernel.org>,
+	Mikulas Patocka <mpatocka@redhat.com>, Song Liu <song@kernel.org>,
+	Yu Kuai <yukuai3@huawei.com>,
+	Vineeth Vijayan <vneethv@linux.ibm.com>,
+	"Martin K. Petersen" <martin.petersen@oracle.com>,
+	linux-m68k@lists.linux-m68k.org, linux-um@lists.infradead.org,
+	drbd-dev@lists.linbit.com, nbd@other.debian.org,
+	linuxppc-dev@lists.ozlabs.org, ceph-devel@vger.kernel.org,
+	virtualization@lists.linux.dev, xen-devel@lists.xenproject.org,
+	linux-bcache@vger.kernel.org, dm-devel@lists.linux.dev,
+	linux-raid@vger.kernel.org, linux-mmc@vger.kernel.org,
+	linux-mtd@lists.infradead.org, nvdimm@lists.linux.dev,
+	linux-nvme@lists.infradead.org, linux-s390@vger.kernel.org,
+	linux-scsi@vger.kernel.org, linux-block@vger.kernel.org
+Subject: Re: [PATCH 10/26] xen-blkfront: don't disable cache flushes when
+ they fail
+Message-ID: <20240613140508.GA16529@lst.de>
+References: <20240611051929.513387-1-hch@lst.de> <20240611051929.513387-11-hch@lst.de> <ZmlVziizbaboaBSn@macbook> <20240612150030.GA29188@lst.de> <ZmnFH17bTV2Ot_iR@macbook>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <ZmnFH17bTV2Ot_iR@macbook>
+User-Agent: Mutt/1.5.17 (2007-11-01)
 
-In the context of Xen, Linux runs as Dom0 and doesn't have access to the
-machine IOMMU. Although, a IOMMU is mandatory to use some kernel features
-such as VFIO or DMA protection.
+On Wed, Jun 12, 2024 at 05:56:15PM +0200, Roger Pau Monné wrote:
+> Right.  AFAICT advertising "feature-barrier" and/or
+> "feature-flush-cache" could be done based on whether blkback
+> understand those commands, not on whether the underlying storage
+> supports the equivalent of them.
+> 
+> Worst case we can print a warning message once about the underlying
+> storage failing to complete flush/barrier requests, and that data
+> integrity might not be guaranteed going forward, and not propagate the
+> error to the upper layer?
+> 
+> What would be the consequence of propagating a flush error to the
+> upper layers?
 
-In Xen, we added a paravirtualized IOMMU with iommu_op hypercall in order
-to allow Dom0 to implement such feature. This commit introduces a new
-IOMMU driver that uses this new hypercall interface.
+If you propage the error to the upper layer you will generate an
+I/O error there, which usually leads to a file system shutdown.
 
-Signed-off-by Teddy Astie <teddy.astie@vates.tech>
+> Given the description of the feature in the blkif header, I'm afraid
+> we cannot guarantee that seeing the feature exposed implies barrier or
+> flush support, since the request could fail at any time (or even from
+> the start of the disk attachment) and it would still sadly be a correct
+> implementation given the description of the options.
+
+Well, then we could do something like the patch below, which keeps
+the existing behavior, but insolates the block layer from it and
+removes the only user of blk_queue_write_cache from interrupt
+context:
+
 ---
- arch/x86/include/asm/xen/hypercall.h |   6 +
- drivers/iommu/Kconfig                |   9 +
- drivers/iommu/Makefile               |   1 +
- drivers/iommu/xen-iommu.c            | 508 +++++++++++++++++++++++++++
- include/xen/interface/memory.h       |  33 ++
- include/xen/interface/pv-iommu.h     | 114 ++++++
- include/xen/interface/xen.h          |   1 +
- 7 files changed, 672 insertions(+)
- create mode 100644 drivers/iommu/xen-iommu.c
- create mode 100644 include/xen/interface/pv-iommu.h
+From e6e82c769ab209a77302994c3829cf6ff7a595b8 Mon Sep 17 00:00:00 2001
+From: Christoph Hellwig <hch@lst.de>
+Date: Thu, 30 May 2024 08:58:52 +0200
+Subject: xen-blkfront: don't disable cache flushes when they fail
 
-diff --git a/arch/x86/include/asm/xen/hypercall.h b/arch/x86/include/asm/xen/hypercall.h
-index a2dd24947eb8..6b1857f27c14 100644
---- a/arch/x86/include/asm/xen/hypercall.h
-+++ b/arch/x86/include/asm/xen/hypercall.h
-@@ -490,6 +490,12 @@ HYPERVISOR_xenpmu_op(unsigned int op, void *arg)
- 	return _hypercall2(int, xenpmu_op, op, arg);
+blkfront always had a robust negotiation protocol for detecting a write
+cache.  Stop simply disabling cache flushes in the block layer as the
+flags handling is moving to the atomic queue limits API that needs
+user context to freeze the queue for that.  Instead handle the case
+of the feature flags cleared inside of blkfront.  This removes old
+debug code to check for such a mismatch which was previously impossible
+to hit, including the check for passthrough requests that blkfront
+never used to start with.
+
+Signed-off-by: Christoph Hellwig <hch@lst.de>
+---
+ drivers/block/xen-blkfront.c | 44 +++++++++++++++++++-----------------
+ 1 file changed, 23 insertions(+), 21 deletions(-)
+
+diff --git a/drivers/block/xen-blkfront.c b/drivers/block/xen-blkfront.c
+index 9b4ec3e4908cce..e2c92d5095ff17 100644
+--- a/drivers/block/xen-blkfront.c
++++ b/drivers/block/xen-blkfront.c
+@@ -788,6 +788,14 @@ static int blkif_queue_rw_req(struct request *req, struct blkfront_ring_info *ri
+ 			 * A barrier request a superset of FUA, so we can
+ 			 * implement it the same way.  (It's also a FLUSH+FUA,
+ 			 * since it is guaranteed ordered WRT previous writes.)
++			 *
++			 * Note that can end up here with a FUA write and the
++			 * flags cleared.  This happens when the flag was
++			 * run-time disabled and raced with I/O submission in
++			 * the block layer.  We submit it as a normal write
++			 * here.  A pure flush should never end up here with
++			 * the flags cleared as they are completed earlier for
++			 * the !feature_flush case.
+ 			 */
+ 			if (info->feature_flush && info->feature_fua)
+ 				ring_req->operation =
+@@ -795,8 +803,6 @@ static int blkif_queue_rw_req(struct request *req, struct blkfront_ring_info *ri
+ 			else if (info->feature_flush)
+ 				ring_req->operation =
+ 					BLKIF_OP_FLUSH_DISKCACHE;
+-			else
+-				ring_req->operation = 0;
+ 		}
+ 		ring_req->u.rw.nr_segments = num_grant;
+ 		if (unlikely(require_extra_req)) {
+@@ -887,16 +893,6 @@ static inline void flush_requests(struct blkfront_ring_info *rinfo)
+ 		notify_remote_via_irq(rinfo->irq);
  }
  
-+static inline int
-+HYPERVISOR_iommu_op(void *arg)
-+{
-+	return _hypercall1(int, iommu_op, arg);
-+}
-+
- static inline int
- HYPERVISOR_dm_op(
- 	domid_t dom, unsigned int nr_bufs, struct xen_dm_op_buf *bufs)
-diff --git a/drivers/iommu/Kconfig b/drivers/iommu/Kconfig
-index 2b12b583ef4b..8d8a22b91e34 100644
---- a/drivers/iommu/Kconfig
-+++ b/drivers/iommu/Kconfig
-@@ -482,6 +482,15 @@ config VIRTIO_IOMMU
+-static inline bool blkif_request_flush_invalid(struct request *req,
+-					       struct blkfront_info *info)
+-{
+-	return (blk_rq_is_passthrough(req) ||
+-		((req_op(req) == REQ_OP_FLUSH) &&
+-		 !info->feature_flush) ||
+-		((req->cmd_flags & REQ_FUA) &&
+-		 !info->feature_fua));
+-}
+-
+ static blk_status_t blkif_queue_rq(struct blk_mq_hw_ctx *hctx,
+ 			  const struct blk_mq_queue_data *qd)
+ {
+@@ -908,23 +904,30 @@ static blk_status_t blkif_queue_rq(struct blk_mq_hw_ctx *hctx,
+ 	rinfo = get_rinfo(info, qid);
+ 	blk_mq_start_request(qd->rq);
+ 	spin_lock_irqsave(&rinfo->ring_lock, flags);
+-	if (RING_FULL(&rinfo->ring))
+-		goto out_busy;
  
- 	  Say Y here if you intend to run this kernel as a guest.
+-	if (blkif_request_flush_invalid(qd->rq, rinfo->dev_info))
+-		goto out_err;
++	/*
++	 * Check if the backend actually supports flushes.
++	 *
++	 * While the block layer won't send us flushes if we don't claim to
++	 * support them, the Xen protocol allows the backend to revoke support
++	 * at any time.  That is of course a really bad idea and dangerous, but
++	 * has been allowed for 10+ years.  In that case we simply clear the
++	 * flags, and directly return here for an empty flush and ignore the
++	 * FUA flag later on.
++	 */
++	if (unlikely(req_op(qd->rq) == REQ_OP_FLUSH && !info->feature_flush))
++		goto out;
  
-+config XEN_IOMMU
-+	bool "Xen IOMMU driver"
-+	depends on XEN_DOM0
-+	select IOMMU_API
-+	help
-+		Xen PV-IOMMU driver for Dom0.
-+
-+		Say Y here if you intend to run this guest as Xen Dom0.
-+
- config SPRD_IOMMU
- 	tristate "Unisoc IOMMU Support"
- 	depends on ARCH_SPRD || COMPILE_TEST
-diff --git a/drivers/iommu/Makefile b/drivers/iommu/Makefile
-index 769e43d780ce..11fa258d3a04 100644
---- a/drivers/iommu/Makefile
-+++ b/drivers/iommu/Makefile
-@@ -30,3 +30,4 @@ obj-$(CONFIG_VIRTIO_IOMMU) += virtio-iommu.o
- obj-$(CONFIG_IOMMU_SVA) += iommu-sva.o io-pgfault.o
- obj-$(CONFIG_SPRD_IOMMU) += sprd-iommu.o
- obj-$(CONFIG_APPLE_DART) += apple-dart.o
-+obj-$(CONFIG_XEN_IOMMU) += xen-iommu.o
-\ No newline at end of file
-diff --git a/drivers/iommu/xen-iommu.c b/drivers/iommu/xen-iommu.c
-new file mode 100644
-index 000000000000..2c8e42240a6b
---- /dev/null
-+++ b/drivers/iommu/xen-iommu.c
-@@ -0,0 +1,508 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Xen PV-IOMMU driver.
-+ *
-+ * Copyright (C) 2024 Vates SAS
-+ *
-+ * Author: Teddy Astie <teddy.astie@vates.tech>
-+ *
-+ */
-+
-+#define pr_fmt(fmt)	"xen-iommu: " fmt
-+
-+#include <linux/kernel.h>
-+#include <linux/init.h>
-+#include <linux/types.h>
-+#include <linux/iommu.h>
-+#include <linux/dma-map-ops.h>
-+#include <linux/pci.h>
-+#include <linux/list.h>
-+#include <linux/string.h>
-+#include <linux/device/driver.h>
-+#include <linux/slab.h>
-+#include <linux/err.h>
-+#include <linux/printk.h>
-+#include <linux/stddef.h>
-+#include <linux/spinlock.h>
-+#include <linux/minmax.h>
-+#include <linux/string.h>
-+#include <asm/iommu.h>
-+
-+#include <xen/xen.h>
-+#include <xen/page.h>
-+#include <xen/interface/memory.h>
-+#include <xen/interface/physdev.h>
-+#include <xen/interface/pv-iommu.h>
-+#include <asm/xen/hypercall.h>
-+#include <asm/xen/page.h>
-+
-+MODULE_DESCRIPTION("Xen IOMMU driver");
-+MODULE_AUTHOR("Teddy Astie <teddy.astie@vates.tech>");
-+MODULE_LICENSE("GPL");
-+
-+#define MSI_RANGE_START		(0xfee00000)
-+#define MSI_RANGE_END		(0xfeefffff)
-+
-+#define XEN_IOMMU_PGSIZES       (0x1000)
-+
-+struct xen_iommu_domain {
-+	struct iommu_domain domain;
-+
-+	u16 ctx_no; /* Xen PV-IOMMU context number */
-+};
-+
-+static struct iommu_device xen_iommu_device;
-+
-+static uint32_t max_nr_pages;
-+static uint64_t max_iova_addr;
-+
-+static spinlock_t lock;
-+
-+static inline struct xen_iommu_domain *to_xen_iommu_domain(struct iommu_domain *dom)
-+{
-+	return container_of(dom, struct xen_iommu_domain, domain);
-+}
-+
-+static inline u64 addr_to_pfn(u64 addr)
-+{
-+	return addr >> 12;
-+}
-+
-+static inline u64 pfn_to_addr(u64 pfn)
-+{
-+	return pfn << 12;
-+}
-+
-+bool xen_iommu_capable(struct device *dev, enum iommu_cap cap)
-+{
-+	switch (cap) {
-+	case IOMMU_CAP_CACHE_COHERENCY:
-+		return true;
-+
-+	default:
-+		return false;
-+	}
-+}
-+
-+struct iommu_domain *xen_iommu_domain_alloc(unsigned type)
-+{
-+	struct xen_iommu_domain *domain;
-+	u16 ctx_no;
-+	int ret;
-+
-+	if (type & IOMMU_DOMAIN_IDENTITY) {
-+		/* use default domain */
-+		ctx_no = 0;
-+	} else {
-+		struct pv_iommu_op op = {
-+			.ctx_no = 0,
-+			.flags = 0,
-+			.subop_id = IOMMUOP_alloc_context
-+		};
-+
-+		ret = HYPERVISOR_iommu_op(&op);
-+
-+		if (ret) {
-+			pr_err("Unable to create Xen IOMMU context (%d)", ret);
-+			return ERR_PTR(ret);
-+		}
-+
-+		ctx_no = op.ctx_no;
-+	}
-+
-+	domain = kzalloc(sizeof(*domain), GFP_KERNEL);
-+
-+	domain->ctx_no = ctx_no;
-+
-+	domain->domain.geometry.aperture_start = 0;
-+
-+	domain->domain.geometry.aperture_end = max_iova_addr;
-+	domain->domain.geometry.force_aperture = true;
-+
-+	return &domain->domain;
-+}
-+
-+static struct iommu_group *xen_iommu_device_group(struct device *dev)
-+{
-+	if (!dev_is_pci(dev))
-+		return ERR_PTR(-ENODEV);
-+
-+	return pci_device_group(dev);
-+}
-+
-+static struct iommu_device *xen_iommu_probe_device(struct device *dev)
-+{
-+	if (!dev_is_pci(dev))
-+		return ERR_PTR(-ENODEV);
-+
-+	return &xen_iommu_device;
-+}
-+
-+static void xen_iommu_probe_finalize(struct device *dev)
-+{
-+	set_dma_ops(dev, NULL);
-+	iommu_setup_dma_ops(dev, 0, max_iova_addr);
-+}
-+
-+static void xen_iommu_release_device(struct device *dev)
-+{
-+	int ret;
-+	struct pci_dev *pdev;
-+	struct pv_iommu_op op = {
-+		.subop_id = IOMMUOP_reattach_device,
-+		.flags = 0,
-+		.ctx_no = 0 /* reattach device back to default context */
-+	};
-+
-+	if (!dev_is_pci(dev))
-+		return;
-+
-+	pdev = to_pci_dev(dev);
-+
-+	op.reattach_device.dev.seg = pci_domain_nr(pdev->bus);
-+	op.reattach_device.dev.bus = pdev->bus->number;
-+	op.reattach_device.dev.devfn = pdev->devfn;
-+
-+	ret = HYPERVISOR_iommu_op(&op);
-+
-+	if (ret)
-+		pr_warn("Unable to release device %p\n", &op.reattach_device.dev);
-+}
-+
-+static int xen_iommu_map_pages(struct iommu_domain *domain, unsigned long iova,
-+							   phys_addr_t paddr, size_t pgsize, size_t pgcount,
-+							   int prot, gfp_t gfp, size_t *mapped)
-+{
-+	size_t xen_pg_count = (pgsize / XEN_PAGE_SIZE) * pgcount;
-+	struct xen_iommu_domain *dom = to_xen_iommu_domain(domain);
-+	struct pv_iommu_op op = {
-+		.subop_id = IOMMUOP_map_pages,
-+		.flags = 0,
-+		.ctx_no = dom->ctx_no
-+	};
-+	/* NOTE: paddr is actually bound to pfn, not gfn */
-+	uint64_t pfn = addr_to_pfn(paddr);
-+	uint64_t dfn = addr_to_pfn(iova);
-+	int ret = 0;
-+
-+	if (WARN(!dom->ctx_no, "Tried to map page to default context"))
-+		return -EINVAL;
-+
-+	//pr_info("Mapping to %lx %zu %zu paddr %x\n", iova, pgsize, pgcount, paddr);
-+
-+	if (prot & IOMMU_READ)
-+		op.flags |= IOMMU_OP_readable;
-+
-+	if (prot & IOMMU_WRITE)
-+		op.flags |= IOMMU_OP_writeable;
-+
-+	while (xen_pg_count) {
-+		size_t to_map = min(xen_pg_count, max_nr_pages);
-+		uint64_t gfn = pfn_to_gfn(pfn);
-+
-+		//pr_info("Mapping %lx-%lx at %lx-%lx\n", gfn, gfn + to_map - 1, dfn, dfn + to_map - 1);
-+
-+		op.map_pages.gfn = gfn;
-+		op.map_pages.dfn = dfn;
-+
-+		op.map_pages.nr_pages = to_map;
-+
-+		ret = HYPERVISOR_iommu_op(&op);
-+
-+		//pr_info("map_pages.mapped = %u\n", op.map_pages.mapped);
-+
-+		if (mapped)
-+			*mapped += XEN_PAGE_SIZE * op.map_pages.mapped;
-+
-+		if (ret)
-+			break;
-+
-+		xen_pg_count -= to_map;
-+
-+		pfn += to_map;
-+		dfn += to_map;
-+	}
-+
-+	return ret;
-+}
-+
-+static size_t xen_iommu_unmap_pages(struct iommu_domain *domain, unsigned long iova,
-+									size_t pgsize, size_t pgcount,
-+									struct iommu_iotlb_gather *iotlb_gather)
-+{
-+	size_t xen_pg_count = (pgsize / XEN_PAGE_SIZE) * pgcount;
-+	struct xen_iommu_domain *dom = to_xen_iommu_domain(domain);
-+	struct pv_iommu_op op = {
-+		.subop_id = IOMMUOP_unmap_pages,
-+		.ctx_no = dom->ctx_no,
-+		.flags = 0,
-+	};
-+	uint64_t dfn = addr_to_pfn(iova);
-+	int ret = 0;
-+
-+	if (WARN(!dom->ctx_no, "Tried to unmap page to default context"))
-+		return -EINVAL;
-+
-+	while (xen_pg_count) {
-+		size_t to_unmap = min(xen_pg_count, max_nr_pages);
-+
-+		//pr_info("Unmapping %lx-%lx\n", dfn, dfn + to_unmap - 1);
-+
-+		op.unmap_pages.dfn = dfn;
-+		op.unmap_pages.nr_pages = to_unmap;
-+
-+		ret = HYPERVISOR_iommu_op(&op);
-+
-+		if (ret)
-+			pr_warn("Unmap failure (%lx-%lx)\n", dfn, dfn + to_unmap - 1);
-+
-+		xen_pg_count -= to_unmap;
-+
-+		dfn += to_unmap;
-+	}
-+
-+	return pgcount * pgsize;
-+}
-+
-+int xen_iommu_attach_dev(struct iommu_domain *domain, struct device *dev)
-+{
-+	struct pci_dev *pdev;
-+	struct xen_iommu_domain *dom = to_xen_iommu_domain(domain);
-+	struct pv_iommu_op op = {
-+		.subop_id = IOMMUOP_reattach_device,
-+		.flags = 0,
-+		.ctx_no = dom->ctx_no,
-+	};
-+
-+	if (!dev_is_pci(dev))
-+		return -EINVAL;
-+
-+	pdev = to_pci_dev(dev);
-+
-+	op.reattach_device.dev.seg = pci_domain_nr(pdev->bus);
-+	op.reattach_device.dev.bus = pdev->bus->number;
-+	op.reattach_device.dev.devfn = pdev->devfn;
-+
-+	return HYPERVISOR_iommu_op(&op);
-+}
-+
-+static void xen_iommu_free(struct iommu_domain *domain)
-+{
-+	int ret;
-+	struct xen_iommu_domain *dom = to_xen_iommu_domain(domain);
-+
-+	if (dom->ctx_no != 0) {
-+		struct pv_iommu_op op = {
-+			.ctx_no = dom->ctx_no,
-+			.flags = 0,
-+			.subop_id = IOMMUOP_free_context
-+		};
-+
-+		ret = HYPERVISOR_iommu_op(&op);
-+
-+		if (ret)
-+			pr_err("Context %hu destruction failure\n", dom->ctx_no);
-+	}
-+
-+	kfree(domain);
-+}
-+
-+static phys_addr_t xen_iommu_iova_to_phys(struct iommu_domain *domain, dma_addr_t iova)
-+{
-+	int ret;
-+	struct xen_iommu_domain *dom = to_xen_iommu_domain(domain);
-+
-+	struct pv_iommu_op op = {
-+		.ctx_no = dom->ctx_no,
-+		.flags = 0,
-+		.subop_id = IOMMUOP_lookup_page,
-+	};
-+
-+	op.lookup_page.dfn = addr_to_pfn(iova);
-+
-+	ret = HYPERVISOR_iommu_op(&op);
-+
-+	if (ret)
-+		return 0;
-+
-+	phys_addr_t page_addr = pfn_to_addr(gfn_to_pfn(op.lookup_page.gfn));
-+
-+	/* Consider non-aligned iova */
-+	return page_addr + (iova & 0xFFF);
-+}
-+
-+static void xen_iommu_get_resv_regions(struct device *dev, struct list_head *head)
-+{
-+	struct iommu_resv_region *reg;
-+	struct xen_reserved_device_memory *entries;
-+	struct xen_reserved_device_memory_map map;
-+	struct pci_dev *pdev;
-+	int ret, i;
-+
-+	if (!dev_is_pci(dev))
-+		return;
-+
-+	pdev = to_pci_dev(dev);
-+
-+	reg = iommu_alloc_resv_region(MSI_RANGE_START,
-+		MSI_RANGE_END - MSI_RANGE_START + 1,
-+		0, IOMMU_RESV_MSI, GFP_KERNEL);
-+
-+	if (!reg)
-+		return;
-+
-+	list_add_tail(&reg->list, head);
-+
-+	/* Map xen-specific entries */
-+
-+	/* First, get number of entries to map */
-+	map.buffer = NULL;
-+	map.nr_entries = 0;
-+	map.flags = 0;
-+
-+	map.dev.pci.seg = pci_domain_nr(pdev->bus);
-+	map.dev.pci.bus = pdev->bus->number;
-+	map.dev.pci.devfn = pdev->devfn;
-+
-+	ret = HYPERVISOR_memory_op(XENMEM_reserved_device_memory_map, &map);
-+
-+	if (ret == 0)
-+		/* No reserved region, nothing to do */
-+		return;
-+
-+	if (ret != -ENOBUFS) {
-+		pr_err("Unable to get reserved region count (%d)\n", ret);
-+		return;
-+	}
-+
-+	/* Assume a reasonable number of entries, otherwise, something is probably wrong */
-+	if (WARN_ON(map.nr_entries > 256))
-+		pr_warn("Xen reporting many reserved regions (%u)\n", map.nr_entries);
-+
-+	/* And finally get actual mappings */
-+	entries = kcalloc(map.nr_entries, sizeof(struct xen_reserved_device_memory),
-+					  GFP_KERNEL);
-+
-+	if (!entries) {
-+		pr_err("No memory for map entries\n");
-+		return;
-+	}
-+
-+	map.buffer = entries;
-+
-+	ret = HYPERVISOR_memory_op(XENMEM_reserved_device_memory_map, &map);
-+
-+	if (ret != 0) {
-+		pr_err("Unable to get reserved regions (%d)\n", ret);
-+		kfree(entries);
-+		return;
-+	}
-+
-+	for (i = 0; i < map.nr_entries; i++) {
-+		struct xen_reserved_device_memory entry = entries[i];
-+
-+		reg = iommu_alloc_resv_region(pfn_to_addr(entry.start_pfn),
-+									  pfn_to_addr(entry.nr_pages),
-+									  0, IOMMU_RESV_RESERVED, GFP_KERNEL);
-+
-+		if (!reg)
-+			break;
-+
-+		list_add_tail(&reg->list, head);
-+	}
-+
-+	kfree(entries);
-+}
-+
-+static struct iommu_ops xen_iommu_ops = {
-+	.capable = xen_iommu_capable,
-+	.domain_alloc = xen_iommu_domain_alloc,
-+	.probe_device = xen_iommu_probe_device,
-+	.probe_finalize = xen_iommu_probe_finalize,
-+	.device_group = xen_iommu_device_group,
-+	.release_device = xen_iommu_release_device,
-+	.get_resv_regions = xen_iommu_get_resv_regions,
-+	.pgsize_bitmap = XEN_IOMMU_PGSIZES,
-+	.default_domain_ops = &(const struct iommu_domain_ops) {
-+		.map_pages = xen_iommu_map_pages,
-+		.unmap_pages = xen_iommu_unmap_pages,
-+		.attach_dev = xen_iommu_attach_dev,
-+		.iova_to_phys = xen_iommu_iova_to_phys,
-+		.free = xen_iommu_free,
-+	},
-+};
-+
-+int __init xen_iommu_init(void)
-+{
-+	int ret;
-+	struct pv_iommu_op op = {
-+		.subop_id = IOMMUOP_query_capabilities
-+	};
-+
-+	if (!xen_domain())
-+		return -ENODEV;
-+
-+	/* Check if iommu_op is supported */
-+	if (HYPERVISOR_iommu_op(&op) == -ENOSYS)
-+		return -ENODEV; /* No Xen IOMMU hardware */
-+
-+	pr_info("Initialising Xen IOMMU driver\n");
-+	pr_info("max_nr_pages=%d\n", op.cap.max_nr_pages);
-+	pr_info("max_ctx_no=%d\n", op.cap.max_ctx_no);
-+	pr_info("max_iova_addr=%llx\n", op.cap.max_iova_addr);
-+
-+	if (op.cap.max_ctx_no == 0) {
-+		pr_err("Unable to use IOMMU PV driver (no context available)\n");
-+		return -ENOTSUPP; /* Unable to use IOMMU PV ? */
-+	}
-+
-+	if (xen_domain_type == XEN_PV_DOMAIN)
-+		/* TODO: In PV domain, due to the existing pfn-gfn mapping we need to
-+		 * consider that under certains circonstances, we have :
-+		 *   pfn_to_gfn(x + 1) != pfn_to_gfn(x) + 1
-+		 *
-+		 * In these cases, we would want to separate the subop into several calls.
-+		 * (only doing the grouped operation when the mapping is actually contigous)
-+		 * Only map operation would be affected, as unmap actually uses dfn which
-+		 * doesn't have this kind of mapping.
-+		 *
-+		 * Force single-page operations to work arround this issue for now.
-+		 */
-+		max_nr_pages = 1;
-+	else
-+		/* With HVM domains, pfn_to_gfn is identity, there is no issue regarding this. */
-+		max_nr_pages = op.cap.max_nr_pages;
-+
-+	max_iova_addr = op.cap.max_iova_addr;
-+
-+	spin_lock_init(&lock);
-+
-+	ret = iommu_device_sysfs_add(&xen_iommu_device, NULL, NULL, "xen-iommu");
-+	if (ret) {
-+		pr_err("Unable to add Xen IOMMU sysfs\n");
-+		return ret;
-+	}
-+
-+	ret = iommu_device_register(&xen_iommu_device, &xen_iommu_ops, NULL);
-+	if (ret) {
-+		pr_err("Unable to register Xen IOMMU device %d\n", ret);
-+		iommu_device_sysfs_remove(&xen_iommu_device);
-+		return ret;
-+	}
-+
-+	/* swiotlb is redundant when IOMMU is active. */
-+	x86_swiotlb_enable = false;
-+
-+	return 0;
-+}
-+
-+void __exit xen_iommu_fini(void)
-+{
-+	pr_info("Unregistering Xen IOMMU driver\n");
-+
-+	iommu_device_unregister(&xen_iommu_device);
-+	iommu_device_sysfs_remove(&xen_iommu_device);
-+}
-+
-+module_init(xen_iommu_init);
-+module_exit(xen_iommu_fini);
-diff --git a/include/xen/interface/memory.h b/include/xen/interface/memory.h
-index 1a371a825c55..08571add426b 100644
---- a/include/xen/interface/memory.h
-+++ b/include/xen/interface/memory.h
-@@ -10,6 +10,7 @@
- #ifndef __XEN_PUBLIC_MEMORY_H__
- #define __XEN_PUBLIC_MEMORY_H__
++	if (RING_FULL(&rinfo->ring))
++		goto out_busy;
+ 	if (blkif_queue_request(qd->rq, rinfo))
+ 		goto out_busy;
  
-+#include "xen/interface/physdev.h"
- #include <linux/spinlock.h>
+ 	flush_requests(rinfo);
++out:
+ 	spin_unlock_irqrestore(&rinfo->ring_lock, flags);
+ 	return BLK_STS_OK;
  
- /*
-@@ -214,6 +215,38 @@ struct xen_add_to_physmap_range {
- };
- DEFINE_GUEST_HANDLE_STRUCT(xen_add_to_physmap_range);
- 
-+/*
-+ * With some legacy devices, certain guest-physical addresses cannot safely
-+ * be used for other purposes, e.g. to map guest RAM.  This hypercall
-+ * enumerates those regions so the toolstack can avoid using them.
-+ */
-+#define XENMEM_reserved_device_memory_map   27
-+struct xen_reserved_device_memory {
-+    xen_pfn_t start_pfn;
-+    xen_ulong_t nr_pages;
-+};
-+DEFINE_GUEST_HANDLE_STRUCT(xen_reserved_device_memory);
-+
-+struct xen_reserved_device_memory_map {
-+#define XENMEM_RDM_ALL 1 /* Request all regions (ignore dev union). */
-+    /* IN */
-+    uint32_t flags;
-+    /*
-+     * IN/OUT
-+     *
-+     * Gets set to the required number of entries when too low,
-+     * signaled by error code -ERANGE.
-+     */
-+    unsigned int nr_entries;
-+    /* OUT */
-+    GUEST_HANDLE(xen_reserved_device_memory) buffer;
-+    /* IN */
-+    union {
-+        struct physdev_pci_device pci;
-+    } dev;
-+};
-+DEFINE_GUEST_HANDLE_STRUCT(xen_reserved_device_memory_map);
-+
- /*
-  * Returns the pseudo-physical memory map as it was when the domain
-  * was started (specified by XENMEM_set_memory_map).
-diff --git a/include/xen/interface/pv-iommu.h b/include/xen/interface/pv-iommu.h
-new file mode 100644
-index 000000000000..5560609d0e7a
---- /dev/null
-+++ b/include/xen/interface/pv-iommu.h
-@@ -0,0 +1,114 @@
-+/* SPDX-License-Identifier: MIT */
-+/******************************************************************************
-+ * pv-iommu.h
-+ *
-+ * Paravirtualized IOMMU driver interface.
-+ *
-+ * Copyright (c) 2024 Teddy Astie <teddy.astie@vates.tech>
-+ */
-+
-+#ifndef __XEN_PUBLIC_PV_IOMMU_H__
-+#define __XEN_PUBLIC_PV_IOMMU_H__
-+
-+#include "xen.h"
-+#include "physdev.h"
-+
-+#define IOMMU_DEFAULT_CONTEXT (0)
-+
-+/**
-+ * Query PV-IOMMU capabilities for this domain.
-+ */
-+#define IOMMUOP_query_capabilities    1
-+
-+/**
-+ * Allocate an IOMMU context, the new context handle will be written to ctx_no.
-+ */
-+#define IOMMUOP_alloc_context         2
-+
-+/**
-+ * Destroy a IOMMU context.
-+ * All devices attached to this context are reattached to default context.
-+ *
-+ * The default context can't be destroyed (0).
-+ */
-+#define IOMMUOP_free_context          3
-+
-+/**
-+ * Reattach the device to IOMMU context.
-+ */
-+#define IOMMUOP_reattach_device       4
-+
-+#define IOMMUOP_map_pages             5
-+#define IOMMUOP_unmap_pages           6
-+
-+/**
-+ * Get the GFN associated to a specific DFN.
-+ */
-+#define IOMMUOP_lookup_page           7
-+
-+struct pv_iommu_op {
-+    uint16_t subop_id;
-+    uint16_t ctx_no;
-+
-+/**
-+ * Create a context that is cloned from default.
-+ * The new context will be populated with 1:1 mappings covering the entire guest memory.
-+ */
-+#define IOMMU_CREATE_clone (1 << 0)
-+
-+#define IOMMU_OP_readable (1 << 0)
-+#define IOMMU_OP_writeable (1 << 1)
-+    uint32_t flags;
-+
-+    union {
-+        struct {
-+            uint64_t gfn;
-+            uint64_t dfn;
-+            /* Number of pages to map */
-+            uint32_t nr_pages;
-+            /* Number of pages actually mapped after sub-op */
-+            uint32_t mapped;
-+        } map_pages;
-+
-+        struct {
-+            uint64_t dfn;
-+            /* Number of pages to unmap */
-+            uint32_t nr_pages;
-+            /* Number of pages actually unmapped after sub-op */
-+            uint32_t unmapped;
-+        } unmap_pages;
-+
-+        struct {
-+            struct physdev_pci_device dev;
-+        } reattach_device;
-+
-+        struct {
-+            uint64_t gfn;
-+            uint64_t dfn;
-+        } lookup_page;
-+
-+        struct {
-+            /* Maximum number of IOMMU context this domain can use. */
-+            uint16_t max_ctx_no;
-+            /* Maximum number of pages that can be modified in a single map/unmap operation. */
-+            uint32_t max_nr_pages;
-+            /* Maximum device address (iova) that the guest can use for mappings. */
-+            uint64_t max_iova_addr;
-+        } cap;
-+    };
-+};
-+
-+typedef struct pv_iommu_op pv_iommu_op_t;
-+DEFINE_GUEST_HANDLE_STRUCT(pv_iommu_op_t);
-+
-+#endif
-+
-+/*
-+ * Local variables:
-+ * mode: C
-+ * c-file-style: "BSD"
-+ * c-basic-offset: 4
-+ * tab-width: 4
-+ * indent-tabs-mode: nil
-+ * End:
-+ */
-\ No newline at end of file
-diff --git a/include/xen/interface/xen.h b/include/xen/interface/xen.h
-index 0ca23eca2a9c..8b1daf3fecc6 100644
---- a/include/xen/interface/xen.h
-+++ b/include/xen/interface/xen.h
-@@ -65,6 +65,7 @@
- #define __HYPERVISOR_xc_reserved_op       39 /* reserved for XenClient */
- #define __HYPERVISOR_xenpmu_op            40
- #define __HYPERVISOR_dm_op                41
-+#define __HYPERVISOR_iommu_op 					  43
- 
- /* Architecture-specific hypercall definitions. */
- #define __HYPERVISOR_arch_0               48
+-out_err:
+-	spin_unlock_irqrestore(&rinfo->ring_lock, flags);
+-	return BLK_STS_IOERR;
+-
+ out_busy:
+ 	blk_mq_stop_hw_queue(hctx);
+ 	spin_unlock_irqrestore(&rinfo->ring_lock, flags);
+@@ -1627,7 +1630,6 @@ static irqreturn_t blkif_interrupt(int irq, void *dev_id)
+ 					blkif_req(req)->error = BLK_STS_OK;
+ 				info->feature_fua = 0;
+ 				info->feature_flush = 0;
+-				xlvbd_flush(info);
+ 			}
+ 			fallthrough;
+ 		case BLKIF_OP_READ:
 -- 
-2.45.2
+2.43.0
 
-
-
-Teddy Astie | Vates XCP-ng Intern
-
-XCP-ng & Xen Orchestra - Vates solutions
-
-web: https://vates.tech
 
