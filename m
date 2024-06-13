@@ -2,36 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 543009072D3
-	for <lists+xen-devel@lfdr.de>; Thu, 13 Jun 2024 14:51:27 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.739946.1146911 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9384A9072F3
+	for <lists+xen-devel@lfdr.de>; Thu, 13 Jun 2024 14:55:55 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.739955.1146937 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sHjv6-0002Yn-Gu; Thu, 13 Jun 2024 12:51:12 +0000
+	id 1sHjzO-0003IG-60; Thu, 13 Jun 2024 12:55:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 739946.1146911; Thu, 13 Jun 2024 12:51:12 +0000
+Received: by outflank-mailman (output) from mailman id 739955.1146937; Thu, 13 Jun 2024 12:55:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sHjv6-0002Wy-Do; Thu, 13 Jun 2024 12:51:12 +0000
-Received: by outflank-mailman (input) for mailman id 739946;
- Thu, 13 Jun 2024 12:51:11 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1sHjzO-0003Fv-2g; Thu, 13 Jun 2024 12:55:38 +0000
+Received: by outflank-mailman (input) for mailman id 739955;
+ Thu, 13 Jun 2024 12:55:36 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=sySU=NP=bounce.vates.tech=bounce-md_30504962.666aeb39.v1-c2b85fac760e4aaf95af6a4eaa84fc63@srs-se1.protection.inumbo.net>)
- id 1sHjv5-0002Wp-Np
- for xen-devel@lists.xenproject.org; Thu, 13 Jun 2024 12:51:11 +0000
-Received: from mail187-11.suw11.mandrillapp.com
- (mail187-11.suw11.mandrillapp.com [198.2.187.11])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 99c18921-2983-11ef-b4bb-af5377834399;
- Thu, 13 Jun 2024 14:51:07 +0200 (CEST)
-Received: from pmta09.mandrill.prod.suw01.rsglab.com (localhost [127.0.0.1])
- by mail187-11.suw11.mandrillapp.com (Mailchimp) with ESMTP id
- 4W0Mj537XGzLfMRBF
- for <xen-devel@lists.xenproject.org>; Thu, 13 Jun 2024 12:51:05 +0000 (GMT)
-Received: from [37.26.189.201] by mandrillapp.com id
- c2b85fac760e4aaf95af6a4eaa84fc63; Thu, 13 Jun 2024 12:51:05 +0000
+ <SRS0=9y96=NP=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1sHjzM-0003EK-Oq
+ for xen-devel@lists.xenproject.org; Thu, 13 Jun 2024 12:55:36 +0000
+Received: from mail-yb1-xb36.google.com (mail-yb1-xb36.google.com
+ [2607:f8b0:4864:20::b36])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 38ec0fd7-2984-11ef-90a3-e314d9c70b13;
+ Thu, 13 Jun 2024 14:55:34 +0200 (CEST)
+Received: by mail-yb1-xb36.google.com with SMTP id
+ 3f1490d57ef6-dfe71dd22a5so1090605276.2
+ for <xen-devel@lists.xenproject.org>; Thu, 13 Jun 2024 05:55:34 -0700 (PDT)
+Received: from localhost ([213.195.124.163]) by smtp.gmail.com with ESMTPSA id
+ 6a1803df08f44-6b2a5efb07csm6423696d6.134.2024.06.13.05.55.32
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 13 Jun 2024 05:55:33 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,79 +44,210 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 99c18921-2983-11ef-b4bb-af5377834399
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
-	s=mte1; t=1718283065; x=1718543565;
-	bh=H4iqKVTD7LURL26EcQvbtrjH8XxZS+TosojtxE4Ee48=;
-	h=From:Subject:To:Cc:Message-Id:References:In-Reply-To:Feedback-ID:
-	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
-	 Subject:From;
-	b=c08wS/AKcz57wazOW4VwyD1EncMNtY8sgZOsJqRbVDore7HbhEyB57ZEFllCiwjyf
-	 8pn9XGXZLMnvBJlbJK7CKPwawMqEEMUQi7UFkrCwAHVhnhWqN7uvSb6dtuGk3G6jb/
-	 afnX9g/Behp9Hd9Ndmu6fg9zn4dEsTm03WgiD5Niupynsiw65hMFhdfZyiHtxRPkor
-	 0UbQowr8j7/a/5yTG31pEZhcE9OI2NYb4fiyZ+KwFXAviK/kUbE/WNhe7VDLGrg4k1
-	 9V1MMXY7kRDDbafeePHBRsQn85kHybT7Yf7qYHIerxwEbUzqI2SnglJLuz5ELbyxzq
-	 rWWisp75PW/AA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
-	t=1718283065; x=1718543565; i=anthony.perard@vates.tech;
-	bh=H4iqKVTD7LURL26EcQvbtrjH8XxZS+TosojtxE4Ee48=;
-	h=From:Subject:To:Cc:Message-Id:References:In-Reply-To:Feedback-ID:
-	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
-	 Subject:From;
-	b=RhXGyfq95LXceV67VjE3+2f+QTWRJokQf3eow1su+AZajJd7OsW2NdlFSII+c6ytz
-	 PVFhsaiOIE+TyMiLlaOGGMK4MuGZ0IaBAJ1DwcXbz8sY6M93deivd2q2au9WaoSoqM
-	 TFGDrmjGsE1c2Fx4UXNuzv75h5z38mo0l4z79OKDhpjbq5+UEt3MOxJueclDUvDLlb
-	 LsyZqM8Z+yaD5CN/fCDJ95anDG3gyBQpkJiwKCJgCaDGrzR9sBtn6KTN0W3NcqmE6I
-	 oAzkmIihS2fbIkCjXHG7log23VZuLOJ1K7XnXAPWwdkwduQrXYqmzIrQDlT9AT8v1f
-	 7L6SaYPmUaqXQ==
-From: Anthony PERARD <anthony.perard@vates.tech>
-Subject: =?utf-8?Q?Re:=20[RFC=20XEN=20PATCH=20v9=205/5]=20domctl:=20Add=20XEN=5FDOMCTL=5Fgsi=5Fpermission=20to=20grant=20gsi?=
-X-Bm-Disclaimer: Yes
-X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
-X-Bm-Transport-Timestamp: 1718283062766
-To: "Chen, Jiqian" <Jiqian.Chen@amd.com>
-Cc: Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>, =?utf-8?Q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu <wl@xen.org>, George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, Juergen Gross <jgross@suse.com>, "Hildebrand, Stewart" <Stewart.Hildebrand@amd.com>, "Huang, Ray" <Ray.Huang@amd.com>, xen-devel@lists.xenproject.org, "Daniel P . Smith" <dpsmith@apertussolutions.com>
-Message-Id: <ZmrrNvv2sVaOIS5h@l14>
-References: <20240607081127.126593-1-Jiqian.Chen@amd.com> <20240607081127.126593-6-Jiqian.Chen@amd.com> <987f5d21-bbb5-4cdb-975b-91949e802921@suse.com> <BL1PR12MB5849FF595AEED1112622A98DE7C02@BL1PR12MB5849.namprd12.prod.outlook.com> <c2a5b9cd-2a85-4e01-8b8b-31b85726dbd4@suse.com> <BL1PR12MB5849652CE3039C8D17CD7FA6E7C02@BL1PR12MB5849.namprd12.prod.outlook.com>
-In-Reply-To: <BL1PR12MB5849652CE3039C8D17CD7FA6E7C02@BL1PR12MB5849.namprd12.prod.outlook.com>
-X-Native-Encoded: 1
-X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.c2b85fac760e4aaf95af6a4eaa84fc63?=
-X-Mandrill-User: md_30504962
-Feedback-ID: 30504962:30504962.20240613:md
-Date: Thu, 13 Jun 2024 12:51:05 +0000
+X-Inumbo-ID: 38ec0fd7-2984-11ef-90a3-e314d9c70b13
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1718283333; x=1718888133; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=f1Gw1b4WLJzk7K8iju+47E5f7SockjSXaH80GGfWyLk=;
+        b=QMSXEILuou2Ig67AQXMRXIwMTpnqwXdDZeu3wzV0fuYxctKtsgHBIhZy0ANSF+zU3u
+         doLMxXU/et5SZe1qWuvVTuduAB9Vo12vvTu3+Gtp5uGzXIfkEJdpr+mq3AlowCRtBqVC
+         061uIrlFkBs75TeUvVUBU/qpk2hTTCLYg4Pw4=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1718283333; x=1718888133;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=f1Gw1b4WLJzk7K8iju+47E5f7SockjSXaH80GGfWyLk=;
+        b=dZ7y4poCZBzPLwR1aoo+QTw/WrWJ9ys+Q9aF+imFCQGeYbIadtwv+u678JBlvm2+ur
+         VxBiBP3EJBPubNxGPKiDB39/y+Us2TftRw/JDB/QT1L3ZhI8a+/3Eb/rmfXbNlIGUOM0
+         uUEJ+C4m2ghWyp+1pZ/FlvrKzeGeI2Ellb2u7O6cFmhABRBnt2cJAbbeKulr+F6BF/90
+         XqsmJwo/fHxiZVhzaZTn76XiGGPhJuB331pqTOK3CMBTjUntjnBrvGqWP+DiuF7hEXsU
+         pw79goM56fr1oUbTAqPr4Ag0tHdJftRudAVonIMQlh9/M4NPoH0FvETSKt4o6zX6+yv2
+         Tifw==
+X-Forwarded-Encrypted: i=1; AJvYcCWxanKHlQJKpqEmnLzOFKQXu+U2hh1HNKO5DtEBsicfOkYnCKpuvezdA9x+JF27SoXtRJOiPAqpt6c16+9HqwAWDhzs0vIQcSU/uG7qKwg=
+X-Gm-Message-State: AOJu0Yz6noIK7P5nEkYmbTuNxzxYr0nGzDKRa+ZbO52wu0jORFm+c5Iz
+	GUlWdQTg4dhvZLmjyhMs0Hcd6OzqIauAvNDrPu8bs4CyjEZmPFwzHAW35q6D24w=
+X-Google-Smtp-Source: AGHT+IG+tZ1qnBMl2CXeQ0YZLH+yPb6khUYSy4mGnDeP0RSJFvKE64UCMbVpJ1zyWSA4iU3qQguULQ==
+X-Received: by 2002:a05:6902:4e8:b0:dfa:5895:7814 with SMTP id 3f1490d57ef6-dfe67261a4cmr4545010276.36.1718283333475;
+        Thu, 13 Jun 2024 05:55:33 -0700 (PDT)
+Date: Thu, 13 Jun 2024 14:55:31 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+	xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v2 6/7] x86/irq: handle moving interrupts in
+ _assign_irq_vector()
+Message-ID: <ZmrsQ0ncZWD3tXXV@macbook>
+References: <20240610142043.11924-1-roger.pau@citrix.com>
+ <20240610142043.11924-7-roger.pau@citrix.com>
+ <9de1a9c7-814c-4375-9182-90a2f04806b2@suse.com>
+ <Zml6-ViFPTWI1cUc@macbook>
+ <d5b1d273-913e-4d53-9fb6-9b01525da498@suse.com>
+ <ZmnAgSBjjP6N-uJS@macbook>
+ <d45ef203-aa29-4aa6-8b40-0449334a2bf0@suse.com>
+ <ZmrYjv2ljhf-1Ag_@macbook>
+ <f4c51152-e8a0-4715-af75-4b8c7801fa08@suse.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <f4c51152-e8a0-4715-af75-4b8c7801fa08@suse.com>
 
-On Wed, Jun 12, 2024 at 10:55:14AM +0000, Chen, Jiqian wrote:
-> On 2024/6/12 18:34, Jan Beulich wrote:
-> > On 12.06.2024 12:12, Chen, Jiqian wrote:
-> >> On 2024/6/11 22:39, Jan Beulich wrote:
-> >>> On 07.06.2024 10:11, Jiqian Chen wrote:
-> >>>> +    r = xc_domain_gsi_permission(ctx->xch, domid, gsi, map);
+On Thu, Jun 13, 2024 at 01:36:55PM +0200, Jan Beulich wrote:
+> On 13.06.2024 13:31, Roger Pau Monné wrote:
+> > On Thu, Jun 13, 2024 at 10:38:35AM +0200, Jan Beulich wrote:
+> >> On 12.06.2024 17:36, Roger Pau Monné wrote:
+> >>> On Wed, Jun 12, 2024 at 03:42:58PM +0200, Jan Beulich wrote:
+> >>>> On 12.06.2024 12:39, Roger Pau Monné wrote:
+> >>>>> On Tue, Jun 11, 2024 at 03:18:32PM +0200, Jan Beulich wrote:
+> >>>>>> On 10.06.2024 16:20, Roger Pau Monne wrote:
+> >>>>>>> Currently there's logic in fixup_irqs() that attempts to prevent
+> >>>>>>> _assign_irq_vector() from failing, as fixup_irqs() is required to evacuate all
+> >>>>>>> interrupts from the CPUs not present in the input mask.  The current logic in
+> >>>>>>> fixup_irqs() is incomplete, as it doesn't deal with interrupts that have
+> >>>>>>> move_cleanup_count > 0 and a non-empty ->arch.old_cpu_mask field.
+> >>>>>>>
+> >>>>>>> Instead of attempting to fixup the interrupt descriptor in fixup_irqs() so that
+> >>>>>>> _assign_irq_vector() cannot fail, introduce logic in _assign_irq_vector()
+> >>>>>>> to deal with interrupts that have either move_{in_progress,cleanup_count} set
+> >>>>>>> and no remaining online CPUs in ->arch.cpu_mask.
+> >>>>>>>
+> >>>>>>> If _assign_irq_vector() is requested to move an interrupt in the state
+> >>>>>>> described above, first attempt to see if ->arch.old_cpu_mask contains any valid
+> >>>>>>> CPUs that could be used as fallback, and if that's the case do move the
+> >>>>>>> interrupt back to the previous destination.  Note this is easier because the
+> >>>>>>> vector hasn't been released yet, so there's no need to allocate and setup a new
+> >>>>>>> vector on the destination.
+> >>>>>>>
+> >>>>>>> Due to the logic in fixup_irqs() that clears offline CPUs from
+> >>>>>>> ->arch.old_cpu_mask (and releases the old vector if the mask becomes empty) it
+> >>>>>>> shouldn't be possible to get into _assign_irq_vector() with
+> >>>>>>> ->arch.move_{in_progress,cleanup_count} set but no online CPUs in
+> >>>>>>> ->arch.old_cpu_mask.
+> >>>>>>>
+> >>>>>>> However if ->arch.move_{in_progress,cleanup_count} is set and the interrupt has
+> >>>>>>> also changed affinity, it's possible the members of ->arch.old_cpu_mask are no
+> >>>>>>> longer part of the affinity set,
+> >>>>>>
+> >>>>>> I'm having trouble relating this (->arch.old_cpu_mask related) to ...
+> >>>>>>
+> >>>>>>> move the interrupt to a different CPU part of
+> >>>>>>> the provided mask
+> >>>>>>
+> >>>>>> ... this (->arch.cpu_mask related).
+> >>>>>
+> >>>>> No, the "provided mask" here is the "mask" parameter, not
+> >>>>> ->arch.cpu_mask.
+> >>>>
+> >>>> Oh, so this describes the case of "hitting" the comment at the very bottom of
+> >>>> the first hunk then? (I probably was misreading this because I was expecting
+> >>>> it to describe a code change, rather than the case where original behavior
+> >>>> needs retaining. IOW - all fine here then.)
+> >>>>
+> >>>>>>> and keep the current ->arch.old_{cpu_mask,vector} for the
+> >>>>>>> pending interrupt movement to be completed.
+> >>>>>>
+> >>>>>> Right, that's to clean up state from before the initial move. What isn't
+> >>>>>> clear to me is what's to happen with the state of the intermediate
+> >>>>>> placement. Description and code changes leave me with the impression that
+> >>>>>> it's okay to simply abandon, without any cleanup, yet I can't quite figure
+> >>>>>> why that would be an okay thing to do.
+> >>>>>
+> >>>>> There isn't much we can do with the intermediate placement, as the CPU
+> >>>>> is going offline.  However we can drain any pending interrupts from
+> >>>>> IRR after the new destination has been set, since setting the
+> >>>>> destination is done from the CPU that's the current target of the
+> >>>>> interrupts.  So we can ensure the draining is done strictly after the
+> >>>>> target has been switched, hence ensuring no further interrupts from
+> >>>>> this source will be delivered to the current CPU.
+> >>>>
+> >>>> Hmm, I'm afraid I still don't follow: I'm specifically in trouble with
+> >>>> the ...
+> >>>>
+> >>>>>>> --- a/xen/arch/x86/irq.c
+> >>>>>>> +++ b/xen/arch/x86/irq.c
+> >>>>>>> @@ -544,7 +544,53 @@ static int _assign_irq_vector(struct irq_desc *desc, const cpumask_t *mask)
+> >>>>>>>      }
+> >>>>>>>  
+> >>>>>>>      if ( desc->arch.move_in_progress || desc->arch.move_cleanup_count )
+> >>>>>>> -        return -EAGAIN;
+> >>>>>>> +    {
+> >>>>>>> +        /*
+> >>>>>>> +         * If the current destination is online refuse to shuffle.  Retry after
+> >>>>>>> +         * the in-progress movement has finished.
+> >>>>>>> +         */
+> >>>>>>> +        if ( cpumask_intersects(desc->arch.cpu_mask, &cpu_online_map) )
+> >>>>>>> +            return -EAGAIN;
+> >>>>>>> +
+> >>>>>>> +        /*
+> >>>>>>> +         * Due to the logic in fixup_irqs() that clears offlined CPUs from
+> >>>>>>> +         * ->arch.old_cpu_mask it shouldn't be possible to get here with
+> >>>>>>> +         * ->arch.move_{in_progress,cleanup_count} set and no online CPUs in
+> >>>>>>> +         * ->arch.old_cpu_mask.
+> >>>>>>> +         */
+> >>>>>>> +        ASSERT(valid_irq_vector(desc->arch.old_vector));
+> >>>>>>> +        ASSERT(cpumask_intersects(desc->arch.old_cpu_mask, &cpu_online_map));
+> >>>>>>> +
+> >>>>>>> +        if ( cpumask_intersects(desc->arch.old_cpu_mask, mask) )
+> >>>>>>> +        {
+> >>>>>>> +            /*
+> >>>>>>> +             * Fallback to the old destination if moving is in progress and the
+> >>>>>>> +             * current destination is to be offlined.  This is only possible if
+> >>>>>>> +             * the CPUs in old_cpu_mask intersect with the affinity mask passed
+> >>>>>>> +             * in the 'mask' parameter.
+> >>>>>>> +             */
+> >>>>>>> +            desc->arch.vector = desc->arch.old_vector;
+> >>>>>>> +            cpumask_and(desc->arch.cpu_mask, desc->arch.old_cpu_mask, mask);
+> >>>>
+> >>>> ... replacing of vector (and associated mask), without any further accounting.
 > >>>
-> >>> Looking at the hypervisor side, this will fail for PV Dom0. In which case imo
-> >>> you better would avoid making the call in the first place.
-> >> Yes, for PV dom0, the errno is EOPNOTSUPP, then it will do below xc_domain_irq_permission.
+> >>> It's quite likely I'm missing something here, but what further
+> >>> accounting you would like to do?
+> >>>
+> >>> The current target of the interrupt (->arch.cpu_mask previous to
+> >>> cpumask_and()) is all going offline, so any attempt to set it in
+> >>> ->arch.old_cpu_mask would just result in a stale (offline) CPU getting
+> >>> set in ->arch.old_cpu_mask, which previous patches attempted to
+> >>> solve.
+> >>>
+> >>> Maybe by "further accounting" you meant something else not related to
+> >>> ->arch.old_{cpu_mask,vector}?
+> >>
+> >> Indeed. What I'm thinking of is what normally release_old_vec() would
+> >> do (of which only desc->arch.used_vectors updating would appear to be
+> >> relevant, seeing the CPU's going offline). The other one I was thinking
+> >> of, updating vector_irq[], likely is also unnecessary, again because
+> >> that's per-CPU data of a CPU going down.
 > > 
-> > Hence why call xc_domain_gsi_permission() at all on a PV Dom0?
-> Is there a function to distinguish that current dom0 is PV or PVH dom0 in tools/libs?
+> > I think updating vector_irq[] should be explicitly avoided, as doing
+> > so would prevent us from correctly draining any pending interrupts
+> > because the vector -> irq mapping would be broken when the interrupt
+> > enable window at the bottom of fixup_irqs() is reached.
+> > 
+> > For used_vectors: we might clean it, I'm a bit worried however that at
+> > some point we insert a check in do_IRQ() path that ensures the
+> > vector_irq[] is inline with desc->arch.used_vectors, which would fail
+> > for interrupts drained at the bottom of fixup_irqs().  Let me attempt
+> > to clean the currently used vector from ->arch.used_vectors.
+> 
+> Just to clarify: It may well be that for draining the bit can't be cleared
+> right here. But it then still needs clearing _somewhere_, or else we
+> chance ending up with inconsistent state (triggering e.g. an assertion
+> later on) or the leaking of vectors. My problem here was that I also
+> couldn't locate any such "somewhere", and commentary also didn't point me
+> anywhere.
 
-That might have never been needed before, so probably not. There's
-libxl__domain_type() but if that works with dom0 it might return "HVM"
-for PVH dom0. So if xc_domain_getinfo_single() works and give the right
-info about dom0, libxl__domain_type() could be extended to deal with
-dom0 I guess. I don't know if there's a good way to find out which
-flavor of dom0 is running.
+You are correct, there's no such place where the cleanup would happen.
 
-Cheers,
+I'm afraid the only option I see to correctly deal with this is to do
+the cleanup of the old destination in _assign_irq_vector(), and then
+do the pending interrupt draining from IRR like I had proposed in
+patch 7/7, thus removing the interrupt enable window at the bottom of
+fixup_irqs().
 
--- 
+Let me know if that seems sensible.
 
-
-Anthony Perard | Vates XCP-ng Developer
-
-XCP-ng & Xen Orchestra - Vates solutions
-
-web: https://vates.tech
+Thanks, Roger.
 
