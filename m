@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 347CF9083E5
-	for <lists+xen-devel@lfdr.de>; Fri, 14 Jun 2024 08:41:33 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.740414.1147504 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CA8429083F6
+	for <lists+xen-devel@lfdr.de>; Fri, 14 Jun 2024 08:46:49 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.740421.1147514 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sI0ch-0004UU-CM; Fri, 14 Jun 2024 06:41:19 +0000
+	id 1sI0hF-00055c-U0; Fri, 14 Jun 2024 06:46:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 740414.1147504; Fri, 14 Jun 2024 06:41:19 +0000
+Received: by outflank-mailman (output) from mailman id 740421.1147514; Fri, 14 Jun 2024 06:46:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sI0ch-0004RK-9H; Fri, 14 Jun 2024 06:41:19 +0000
-Received: by outflank-mailman (input) for mailman id 740414;
- Fri, 14 Jun 2024 06:41:17 +0000
+	id 1sI0hF-00052e-RC; Fri, 14 Jun 2024 06:46:01 +0000
+Received: by outflank-mailman (input) for mailman id 740421;
+ Fri, 14 Jun 2024 06:46:00 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=5IQt=NQ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sI0cf-0004RE-LT
- for xen-devel@lists.xenproject.org; Fri, 14 Jun 2024 06:41:17 +0000
-Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
- [2a00:1450:4864:20::62a])
+ id 1sI0hE-00052Y-Fd
+ for xen-devel@lists.xenproject.org; Fri, 14 Jun 2024 06:46:00 +0000
+Received: from mail-ed1-x530.google.com (mail-ed1-x530.google.com
+ [2a00:1450:4864:20::530])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 197588c3-2a19-11ef-90a3-e314d9c70b13;
- Fri, 14 Jun 2024 08:41:16 +0200 (CEST)
-Received: by mail-ej1-x62a.google.com with SMTP id
- a640c23a62f3a-a6f176c5c10so216804566b.2
- for <xen-devel@lists.xenproject.org>; Thu, 13 Jun 2024 23:41:16 -0700 (PDT)
+ id c1f93146-2a19-11ef-90a3-e314d9c70b13;
+ Fri, 14 Jun 2024 08:45:59 +0200 (CEST)
+Received: by mail-ed1-x530.google.com with SMTP id
+ 4fb4d7f45d1cf-57a5bcfb2d3so972208a12.3
+ for <xen-devel@lists.xenproject.org>; Thu, 13 Jun 2024 23:45:59 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a6f56f9982asm148447766b.202.2024.06.13.23.41.15
+ 4fb4d7f45d1cf-57cb72da83asm1832865a12.25.2024.06.13.23.45.58
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 13 Jun 2024 23:41:15 -0700 (PDT)
+ Thu, 13 Jun 2024 23:45:58 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,63 +45,52 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 197588c3-2a19-11ef-90a3-e314d9c70b13
+X-Inumbo-ID: c1f93146-2a19-11ef-90a3-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1718347276; x=1718952076; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1718347559; x=1718952359; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=MwZ/lLOCD2cBUb21EwgNs8l6zW8XPvoE717Wle2NtRw=;
-        b=E39CjanTa62udH/SH7uQbEalV38/aNhZhu/3yzoJZ3hMPkEcYBd/JIJ9tZ+WE5dj+T
-         EM7M+275dgi3CcsAeAbcC2OLA+5Hqakt4RI6zAOJHQ/SWEB3RSRTJblpDTaPK3yQuhZ9
-         Vg3X6zo+jUev70VlmybqIGNq+j09hP/8pHJ4I2Awm2MdTPTjHKjsUre6RZPo1VwXWiXY
-         hApHDOKGTQ0/7JS3kapFTfSln5OSQNrK2ukzjOCuRnt34n7XUVkeHYwR8voyRsUmHy5w
-         d0vl3bFksjVKEMQWTaCFweUvbPuuwFncAS6C5gLfgIWOyMzT6d6prMSAPFZ/l4nwISz2
-         0+Kw==
+        bh=PXgLrd85ARxcZJPOzvD6zAvkCTekLQfVFWsxeuf+ouI=;
+        b=UA7IZQKDDyAIbooLVsav7vKmgGtGmEyv7QCAhb9Obt9JlrdgaJc0Ho/zaIK8dB3xNs
+         cCkxYpH1YCYo2IEV3+/l60FIrNDhmi7LeBol7XEHNtKajY0lq0cRNq9II9jKu1Zysnth
+         B8PkXS7aaD7vJGUl0VqrT2OPVcPt5eqnGnzNVr1SnO+qY2XKGpVFHpOoX2t6tiqYYlHm
+         8oyLhuWmmWv5EkWe/fw7TfQ+OBqqLwwP75rbI58ecHu1ECfRcwJWNUQTG1eZZ8aJy4BL
+         YgfGp9lHVu1h16V1YGvsQkS1G1wQp5VN2x08I2l0AZwub4cMCzCqaRqtYVkPRC6cYqmI
+         OVFw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1718347276; x=1718952076;
+        d=1e100.net; s=20230601; t=1718347559; x=1718952359;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=MwZ/lLOCD2cBUb21EwgNs8l6zW8XPvoE717Wle2NtRw=;
-        b=pR0B7mYHeXmBhSUVPDQMWWK1tN1IoWXxsvyV2Mxp2xlM1xLX6dsgDwPnUwMdR2fzgf
-         4n3jUUj8byOZ+TeKysYe5R5xz7YlNxb67gIW0DK3cJlMSkjZPO8WBO9PON5eFlpJRI+m
-         C6x1PSWzK/NGU7qWxzuWdllGNTeqUUjKxWTescJ64zaPQGFrz8jlTi4DhtmV9xcx3Hcu
-         u3vEcQpz9a4mrw+EpsjDuXxHZbHSlCz39kN3VKm0JBq8bPC9enlQQuJB8r3Z4OpOLyFh
-         Va9NLD6VpF9wor4fwegKMAOsZbdBBsfeEoSJ6kngMTzOH863v3QkHYKLJCQ90jfkqb39
-         6n4A==
-X-Forwarded-Encrypted: i=1; AJvYcCXum6VdKAPcPyQIykB8nz/J/DCaHuLvxJrdgqxeTCSm5hKGuuxxfyA6Awb7tiFzM7WRwg9lUQcqkZ01ko4O8tnU2N/1dQdWpUWvjoF+Wyg=
-X-Gm-Message-State: AOJu0YwTeO6oYqCTzJZHybiIGUHCubBZ5jZldEpWcrLMf3DvFBtbQX10
-	wI6hniEIlRsjKLscCt0OWst58QY4EaxVgLL9D2bjUeqrnmfHSqcQ8rIap3qoHA==
-X-Google-Smtp-Source: AGHT+IHxw9dymhwNcdPDIW8z5Ady2yM7Yig0iXHZIjxpnNeDR/cutci+Fp8LeIyC97A+zyRYvo320A==
-X-Received: by 2002:a17:906:3e97:b0:a6f:1590:ab06 with SMTP id a640c23a62f3a-a6f60d298c6mr114262566b.31.1718347276040;
-        Thu, 13 Jun 2024 23:41:16 -0700 (PDT)
-Message-ID: <3fde1817-72a6-484f-9777-567b062c1913@suse.com>
-Date: Fri, 14 Jun 2024 08:41:14 +0200
+        bh=PXgLrd85ARxcZJPOzvD6zAvkCTekLQfVFWsxeuf+ouI=;
+        b=cOhRfBRnQOMeubE7x68ZRs7yP01qe4hwyv48X5izVFyfB3EJKGwJrPQR3x4fVada+C
+         fja0EUKZv2v4H1yYnD/RNvXCyOybLtztkuTgyCfArGGAsd9rbG/0Vz+ZXP0dn73SjKLt
+         fI0kxYmpp4c+MhclPAy+4QbMNu9k/wFrBE3Fk8xuz9ByrtHOWnfYqisBlL+oFYjeR9HQ
+         AcOiEEwLUqSfAz+BMaNTGHdeLT2L/QNzc+N2vqbahodiDghjzKviNg9PO2fUzUcEyV0M
+         68vF9wW0jurTxlilzAK4TPqXW+YaqSd1maNgtOYUOFLvSP4vqfLafTAlS/Co4ZVW98uX
+         FOsA==
+X-Forwarded-Encrypted: i=1; AJvYcCXfE0mRyOCP6sUwKzPrKMy7va5RuqPShczWiP/1Fydwu5rlPv6Oy4k6n3OXD5bG83BTz1P1JxKsZBjnLhZ3BSzZ0KXTp5BQIEK1JY6PAiw=
+X-Gm-Message-State: AOJu0Yz7qaGMKs44XQVPHBZp2wTD/7pE/Np5BXy9YAVIcWUhhkcHpG+r
+	LZ7/OHFbMiqNaq/YWZPmvrg94J7l9zXAif6BDwhX8dkg8W1GTbfOTjjr07jeQA==
+X-Google-Smtp-Source: AGHT+IEuLd6zpPtA1Z4B4oXzHduerSkaHlqsAzYyrUhzcH4XJukV6HFr/baqtZBi36kG6DGFGCTY6A==
+X-Received: by 2002:a50:cd0e:0:b0:57c:a7fe:b155 with SMTP id 4fb4d7f45d1cf-57cbd68487bmr1409480a12.15.1718347558734;
+        Thu, 13 Jun 2024 23:45:58 -0700 (PDT)
+Message-ID: <39020e27-0b25-4b7e-b7d6-6171f4e30c41@suse.com>
+Date: Fri, 14 Jun 2024 08:45:57 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC XEN PATCH v9 5/5] domctl: Add XEN_DOMCTL_gsi_permission to
- grant gsi
-To: "Chen, Jiqian" <Jiqian.Chen@amd.com>,
- Anthony PERARD <anthony.perard@vates.tech>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu
- <wl@xen.org>, George Dunlap <george.dunlap@citrix.com>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- Juergen Gross <jgross@suse.com>,
- "Hildebrand, Stewart" <Stewart.Hildebrand@amd.com>,
- "Huang, Ray" <Ray.Huang@amd.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- "Daniel P . Smith" <dpsmith@apertussolutions.com>
-References: <20240607081127.126593-1-Jiqian.Chen@amd.com>
- <20240607081127.126593-6-Jiqian.Chen@amd.com>
- <987f5d21-bbb5-4cdb-975b-91949e802921@suse.com>
- <BL1PR12MB5849FF595AEED1112622A98DE7C02@BL1PR12MB5849.namprd12.prod.outlook.com>
- <c2a5b9cd-2a85-4e01-8b8b-31b85726dbd4@suse.com>
- <BL1PR12MB5849652CE3039C8D17CD7FA6E7C02@BL1PR12MB5849.namprd12.prod.outlook.com>
- <ZmrrNvv2sVaOIS5h@l14>
- <BL1PR12MB584926B7F6153287479E4CB4E7C22@BL1PR12MB5849.namprd12.prod.outlook.com>
+Subject: Re: [XEN PATCH v2] automation/eclair: add deviation for MISRA C Rule
+ 17.7
+To: Federico Serafini <federico.serafini@bugseng.com>
+Cc: consulting@bugseng.com, Simone Ballarin <simone.ballarin@bugseng.com>,
+ Doug Goldstein <cardoe@cardoe.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ xen-devel@lists.xenproject.org
+References: <5d4294f9a33cd647b6365614d88665b19a89d62b.1718346542.git.federico.serafini@bugseng.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -127,47 +116,43 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <BL1PR12MB584926B7F6153287479E4CB4E7C22@BL1PR12MB5849.namprd12.prod.outlook.com>
+In-Reply-To: <5d4294f9a33cd647b6365614d88665b19a89d62b.1718346542.git.federico.serafini@bugseng.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 14.06.2024 05:11, Chen, Jiqian wrote:
-> On 2024/6/13 20:51, Anthony PERARD wrote:
->> On Wed, Jun 12, 2024 at 10:55:14AM +0000, Chen, Jiqian wrote:
->>> On 2024/6/12 18:34, Jan Beulich wrote:
->>>> On 12.06.2024 12:12, Chen, Jiqian wrote:
->>>>> On 2024/6/11 22:39, Jan Beulich wrote:
->>>>>> On 07.06.2024 10:11, Jiqian Chen wrote:
->>>>>>> +    r = xc_domain_gsi_permission(ctx->xch, domid, gsi, map);
->>>>>>
->>>>>> Looking at the hypervisor side, this will fail for PV Dom0. In which case imo
->>>>>> you better would avoid making the call in the first place.
->>>>> Yes, for PV dom0, the errno is EOPNOTSUPP, then it will do below xc_domain_irq_permission.
->>>>
->>>> Hence why call xc_domain_gsi_permission() at all on a PV Dom0?
->>> Is there a function to distinguish that current dom0 is PV or PVH dom0 in tools/libs?
->>
->> That might have never been needed before, so probably not. There's
->> libxl__domain_type() but if that works with dom0 it might return "HVM"
->> for PVH dom0. So if xc_domain_getinfo_single() works and give the right
->> info about dom0, libxl__domain_type() could be extended to deal with
->> dom0 I guess. I don't know if there's a good way to find out which
->> flavor of dom0 is running.
-> Thanks Anthony!
-> I think here we really need to check is that whether current domain has PIRQ flag(X86_EMU_USE_PIRQ) or not.
-> And it seems xc_domain_gsi_permission already return the information.
+On 14.06.2024 08:31, Federico Serafini wrote:
+> --- a/automation/eclair_analysis/ECLAIR/deviations.ecl
+> +++ b/automation/eclair_analysis/ECLAIR/deviations.ecl
+> @@ -413,6 +413,10 @@ explicit comment indicating the fallthrough intention is present."
+>  -config=MC3R1.R17.1,macros+={hide , "^va_(arg|start|copy|end)$"}
+>  -doc_end
+>  
+> +-doc_begin="Not using the return value of a function do not endanger safety if it coincides with the first actual argument."
+> +-config=MC3R1.R17.7,calls+={safe, "any()", "decl(name(__builtin_memcpy||__builtin_memmove||__builtin_memset||cpumask_check))"}
 
-By way of failing, if I'm not mistaken? As indicated before, I don't
-think you should invoke the function when it's clear it's going to fail.
+While correct here, ...
+
+> --- a/docs/misra/deviations.rst
+> +++ b/docs/misra/deviations.rst
+> @@ -364,6 +364,15 @@ Deviations related to MISRA C:2012 Rules:
+>         by `stdarg.h`.
+>       - Tagged as `deliberate` for ECLAIR.
+>  
+> +   * - R17.7
+> +     - Not using the return value of a function do not endanger safety if it
+> +       coincides with the first actual argument.
+> +     - Tagged as `safe` for ECLAIR. Such functions are:
+> +         - __builtin_memcpy()
+> +         - __builtin_memmove()
+> +         - __builtin_memset()
+> +         - __cpumask_check()
+
+... there are stray leading underscores on the last one here. With that
+adjustment (and perhaps "s/ do / does /") the deviations.rst change would then
+look okay to me, but I don't feel competent to ack deviations.ecl changes.
+
+Still, as another question: Is it really relevant here that the argument in
+question is specifically the 1st one?
 
 Jan
-
-> If current domain has no PIRQs, then I should use xc_domain_gsi_permission to grant permission, otherwise I should
-> keep the original function xc_domain_irq_permission.
-> 
->>
->> Cheers,
->>
-> 
-
 
