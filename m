@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 075E49083BE
-	for <lists+xen-devel@lfdr.de>; Fri, 14 Jun 2024 08:39:24 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.740409.1147493 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 347CF9083E5
+	for <lists+xen-devel@lfdr.de>; Fri, 14 Jun 2024 08:41:33 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.740414.1147504 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sI0aP-00034W-00; Fri, 14 Jun 2024 06:38:57 +0000
+	id 1sI0ch-0004UU-CM; Fri, 14 Jun 2024 06:41:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 740409.1147493; Fri, 14 Jun 2024 06:38:56 +0000
+Received: by outflank-mailman (output) from mailman id 740414.1147504; Fri, 14 Jun 2024 06:41:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sI0aO-00032E-TW; Fri, 14 Jun 2024 06:38:56 +0000
-Received: by outflank-mailman (input) for mailman id 740409;
- Fri, 14 Jun 2024 06:38:55 +0000
+	id 1sI0ch-0004RK-9H; Fri, 14 Jun 2024 06:41:19 +0000
+Received: by outflank-mailman (input) for mailman id 740414;
+ Fri, 14 Jun 2024 06:41:17 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=5IQt=NQ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sI0aN-000328-06
- for xen-devel@lists.xenproject.org; Fri, 14 Jun 2024 06:38:55 +0000
-Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
- [2a00:1450:4864:20::629])
+ id 1sI0cf-0004RE-LT
+ for xen-devel@lists.xenproject.org; Fri, 14 Jun 2024 06:41:17 +0000
+Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
+ [2a00:1450:4864:20::62a])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c45cec3d-2a18-11ef-90a3-e314d9c70b13;
- Fri, 14 Jun 2024 08:38:53 +0200 (CEST)
-Received: by mail-ej1-x629.google.com with SMTP id
- a640c23a62f3a-a6f09eaf420so207322766b.3
- for <xen-devel@lists.xenproject.org>; Thu, 13 Jun 2024 23:38:53 -0700 (PDT)
+ id 197588c3-2a19-11ef-90a3-e314d9c70b13;
+ Fri, 14 Jun 2024 08:41:16 +0200 (CEST)
+Received: by mail-ej1-x62a.google.com with SMTP id
+ a640c23a62f3a-a6f176c5c10so216804566b.2
+ for <xen-devel@lists.xenproject.org>; Thu, 13 Jun 2024 23:41:16 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a6f56db5bafsm149950166b.50.2024.06.13.23.38.52
+ a640c23a62f3a-a6f56f9982asm148447766b.202.2024.06.13.23.41.15
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 13 Jun 2024 23:38:53 -0700 (PDT)
+ Thu, 13 Jun 2024 23:41:15 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,63 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c45cec3d-2a18-11ef-90a3-e314d9c70b13
+X-Inumbo-ID: 197588c3-2a19-11ef-90a3-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1718347133; x=1718951933; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1718347276; x=1718952076; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=LueDS0Sam1tzVyoa6y3TzgSgb4R1TaIjJXTdw5fwPjA=;
-        b=Dc6F1M9TQLzEHHIrweP8qo/qff439XNDsHGXrJdEoetOs3fSmB2pvjPw9u1qWbeEcv
-         UX2dCD43O65O31e1QR83igJQQ/v91wdM3T0jG30wukb9f/SZULmXQqAdvpa5HDBTnssf
-         qQIJW9bD9g6lbEkio0+o7tyXNUpC8NIRa7JluXaNiOhnDECPdeyTznaHyR0Cz5Qjsl5R
-         I/M6CqXxqkzRnEAMHY/CVWz4jl74mWb5y16GjOkUM5Sr7yNO+Q6sKCfIjTmXxSxlTwkl
-         9dkPsap+cLPovJWzv3QXFKOUOv9qnh4UX9MBc6ke5vACiGksO2YhEUYG5mh/ujuxLA4s
-         1w9g==
+        bh=MwZ/lLOCD2cBUb21EwgNs8l6zW8XPvoE717Wle2NtRw=;
+        b=E39CjanTa62udH/SH7uQbEalV38/aNhZhu/3yzoJZ3hMPkEcYBd/JIJ9tZ+WE5dj+T
+         EM7M+275dgi3CcsAeAbcC2OLA+5Hqakt4RI6zAOJHQ/SWEB3RSRTJblpDTaPK3yQuhZ9
+         Vg3X6zo+jUev70VlmybqIGNq+j09hP/8pHJ4I2Awm2MdTPTjHKjsUre6RZPo1VwXWiXY
+         hApHDOKGTQ0/7JS3kapFTfSln5OSQNrK2ukzjOCuRnt34n7XUVkeHYwR8voyRsUmHy5w
+         d0vl3bFksjVKEMQWTaCFweUvbPuuwFncAS6C5gLfgIWOyMzT6d6prMSAPFZ/l4nwISz2
+         0+Kw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1718347133; x=1718951933;
+        d=1e100.net; s=20230601; t=1718347276; x=1718952076;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=LueDS0Sam1tzVyoa6y3TzgSgb4R1TaIjJXTdw5fwPjA=;
-        b=DZGaGMGKQ/rkQZYX3o+vy3zWM0LEge5kvHzrDgAYM1Rs3qXWmN1hOYOy+nvRMF0Zdy
-         Y/pIh2iYUQhRQh+3i1XiBXCUbCPcVWI7XZYrRz+Hbn4ArLzW3wKUHxRe3+N19zU6gCUn
-         J5whTK+SGAXXJIajWO1+CXyWp1EqB5idId34i7q4kuA+geXypUu9c4GltQuKtZPbWfLr
-         Wgtin9L7bl1ekMKINM+j/aoVRBON7LLfqqbvWtjDtKOCEmYoBrvD6BMZ6mCNnKNByk9x
-         Cu0xLF4oSoQ4Z8mH7N6HE+Vsyshsq9r6q9+2dh5VFTTG5gWzceu037Ii7Nizs7cMtNku
-         sLSQ==
-X-Forwarded-Encrypted: i=1; AJvYcCXMBhYgQp8aZ5Mtr7gsV3y1CzlbD7TZTVD7RQ7W26FIXmDF53hQFPDj8//d1gObsO84C0IiqhE/CdWU8a5uBbwb5aOeufjCZX9gXEd5p94=
-X-Gm-Message-State: AOJu0YwO8A7mXJkNYUNQTrXaKSkXf+DZLRAYBPE9l/wYHYNycBcdql0F
-	WkySzdTCtANsdnkfvB3V3y+cst2eFjKdnfa9R+TcKph1UT9G6mhs4ezRkK1AZw==
-X-Google-Smtp-Source: AGHT+IGAb3o1NZEqsL7bUEt8CMjfPNLENDrWdc7Un+HOKJugXowepRoGNhYMf11blZTz2oMnBTh5Pw==
-X-Received: by 2002:a17:906:57c2:b0:a6f:eb8:801a with SMTP id a640c23a62f3a-a6f60dc51c7mr101285166b.56.1718347133292;
-        Thu, 13 Jun 2024 23:38:53 -0700 (PDT)
-Message-ID: <440d6444-3b02-4756-a4fa-02aae3b24b14@suse.com>
-Date: Fri, 14 Jun 2024 08:38:51 +0200
+        bh=MwZ/lLOCD2cBUb21EwgNs8l6zW8XPvoE717Wle2NtRw=;
+        b=pR0B7mYHeXmBhSUVPDQMWWK1tN1IoWXxsvyV2Mxp2xlM1xLX6dsgDwPnUwMdR2fzgf
+         4n3jUUj8byOZ+TeKysYe5R5xz7YlNxb67gIW0DK3cJlMSkjZPO8WBO9PON5eFlpJRI+m
+         C6x1PSWzK/NGU7qWxzuWdllGNTeqUUjKxWTescJ64zaPQGFrz8jlTi4DhtmV9xcx3Hcu
+         u3vEcQpz9a4mrw+EpsjDuXxHZbHSlCz39kN3VKm0JBq8bPC9enlQQuJB8r3Z4OpOLyFh
+         Va9NLD6VpF9wor4fwegKMAOsZbdBBsfeEoSJ6kngMTzOH863v3QkHYKLJCQ90jfkqb39
+         6n4A==
+X-Forwarded-Encrypted: i=1; AJvYcCXum6VdKAPcPyQIykB8nz/J/DCaHuLvxJrdgqxeTCSm5hKGuuxxfyA6Awb7tiFzM7WRwg9lUQcqkZ01ko4O8tnU2N/1dQdWpUWvjoF+Wyg=
+X-Gm-Message-State: AOJu0YwTeO6oYqCTzJZHybiIGUHCubBZ5jZldEpWcrLMf3DvFBtbQX10
+	wI6hniEIlRsjKLscCt0OWst58QY4EaxVgLL9D2bjUeqrnmfHSqcQ8rIap3qoHA==
+X-Google-Smtp-Source: AGHT+IHxw9dymhwNcdPDIW8z5Ady2yM7Yig0iXHZIjxpnNeDR/cutci+Fp8LeIyC97A+zyRYvo320A==
+X-Received: by 2002:a17:906:3e97:b0:a6f:1590:ab06 with SMTP id a640c23a62f3a-a6f60d298c6mr114262566b.31.1718347276040;
+        Thu, 13 Jun 2024 23:41:16 -0700 (PDT)
+Message-ID: <3fde1817-72a6-484f-9777-567b062c1913@suse.com>
+Date: Fri, 14 Jun 2024 08:41:14 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: Design session notes: GPU acceleration in Xen
-To: Demi Marie Obenour <demi@invisiblethingslab.com>
-Cc: Xenia Ragiadakou <burzalodowa@gmail.com>,
- =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>, Ray Huang <ray.huang@amd.com>,
- Xen developer discussion <xen-devel@lists.xenproject.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>
-References: <Zms9tjtg06kKtI_8@itl-email>
+Subject: Re: [RFC XEN PATCH v9 5/5] domctl: Add XEN_DOMCTL_gsi_permission to
+ grant gsi
+To: "Chen, Jiqian" <Jiqian.Chen@amd.com>,
+ Anthony PERARD <anthony.perard@vates.tech>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu
+ <wl@xen.org>, George Dunlap <george.dunlap@citrix.com>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ Juergen Gross <jgross@suse.com>,
+ "Hildebrand, Stewart" <Stewart.Hildebrand@amd.com>,
+ "Huang, Ray" <Ray.Huang@amd.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ "Daniel P . Smith" <dpsmith@apertussolutions.com>
+References: <20240607081127.126593-1-Jiqian.Chen@amd.com>
+ <20240607081127.126593-6-Jiqian.Chen@amd.com>
+ <987f5d21-bbb5-4cdb-975b-91949e802921@suse.com>
+ <BL1PR12MB5849FF595AEED1112622A98DE7C02@BL1PR12MB5849.namprd12.prod.outlook.com>
+ <c2a5b9cd-2a85-4e01-8b8b-31b85726dbd4@suse.com>
+ <BL1PR12MB5849652CE3039C8D17CD7FA6E7C02@BL1PR12MB5849.namprd12.prod.outlook.com>
+ <ZmrrNvv2sVaOIS5h@l14>
+ <BL1PR12MB584926B7F6153287479E4CB4E7C22@BL1PR12MB5849.namprd12.prod.outlook.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -114,91 +127,47 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <Zms9tjtg06kKtI_8@itl-email>
+In-Reply-To: <BL1PR12MB584926B7F6153287479E4CB4E7C22@BL1PR12MB5849.namprd12.prod.outlook.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 13.06.2024 20:43, Demi Marie Obenour wrote:
-> GPU acceleration requires that pageable host memory be able to be mapped
-> into a guest.
+On 14.06.2024 05:11, Chen, Jiqian wrote:
+> On 2024/6/13 20:51, Anthony PERARD wrote:
+>> On Wed, Jun 12, 2024 at 10:55:14AM +0000, Chen, Jiqian wrote:
+>>> On 2024/6/12 18:34, Jan Beulich wrote:
+>>>> On 12.06.2024 12:12, Chen, Jiqian wrote:
+>>>>> On 2024/6/11 22:39, Jan Beulich wrote:
+>>>>>> On 07.06.2024 10:11, Jiqian Chen wrote:
+>>>>>>> +    r = xc_domain_gsi_permission(ctx->xch, domid, gsi, map);
+>>>>>>
+>>>>>> Looking at the hypervisor side, this will fail for PV Dom0. In which case imo
+>>>>>> you better would avoid making the call in the first place.
+>>>>> Yes, for PV dom0, the errno is EOPNOTSUPP, then it will do below xc_domain_irq_permission.
+>>>>
+>>>> Hence why call xc_domain_gsi_permission() at all on a PV Dom0?
+>>> Is there a function to distinguish that current dom0 is PV or PVH dom0 in tools/libs?
+>>
+>> That might have never been needed before, so probably not. There's
+>> libxl__domain_type() but if that works with dom0 it might return "HVM"
+>> for PVH dom0. So if xc_domain_getinfo_single() works and give the right
+>> info about dom0, libxl__domain_type() could be extended to deal with
+>> dom0 I guess. I don't know if there's a good way to find out which
+>> flavor of dom0 is running.
+> Thanks Anthony!
+> I think here we really need to check is that whether current domain has PIRQ flag(X86_EMU_USE_PIRQ) or not.
+> And it seems xc_domain_gsi_permission already return the information.
 
-I'm sure it was explained in the session, which sadly I couldn't attend.
-I've been asking Ray and Xenia the same before, but I'm afraid it still
-hasn't become clear to me why this is a _requirement_. After all that's
-against what we're doing elsewhere (i.e. so far it has always been
-guest memory that's mapped in the host). I can appreciate that it might
-be more difficult to implement, but avoiding to violate this fundamental
-(kind of) rule might be worth the price (and would avoid other
-complexities, of which there may be lurking more than what you enumerate
-below).
-
->  This requires changes to all of the Xen hypervisor, Linux
-> kernel, and userspace device model.
-> 
-> ### Goals
-> 
->  - Allow any userspace pages to be mapped into a guest.
->  - Support deprivileged operation: this API must not be usable for privilege escalation.
->  - Use MMU notifiers to ensure safety with respect to use-after-free.
-> 
-> ### Hypervisor changes
-> 
-> There are at least two Xen changes required:
-> 
-> 1. Add a new flag to IOREQ that means "retry this instruction".
-> 
->    An IOREQ server can set this flag after having successfully handled a
->    page fault.  It is expected that the IOREQ server has successfully
->    mapped a page into the guest at the location of the fault.
->    Otherwise, the same fault will likely happen again.
-
-Were there any thoughts on how to prevent this becoming an infinite loop?
-I.e. how to (a) guarantee forward progress in the guest and (b) deal with
-misbehaving IOREQ servers?
-
-> 2. Add support for `XEN_DOMCTL_memory_mapping` to use system RAM, not
->    just IOMEM.  Mappings made with `XEN_DOMCTL_memory_mapping` are
->    guaranteed to be able to be successfully revoked with
->    `XEN_DOMCTL_memory_mapping`, so all operations that would create
->    extra references to the mapped memory must be forbidden.  These
->    include, but may not be limited to:
-> 
->    1. Granting the pages to the same or other domains.
->    2. Mapping into another domain using `XEN_DOMCTL_memory_mapping`.
->    3. Another domain accessing the pages using the foreign memory APIs,
->       unless it is privileged over the domain that owns the pages.
-
-All of which may call for actually converting the memory to kind-of-MMIO,
-with a means to later convert it back.
+By way of failing, if I'm not mistaken? As indicated before, I don't
+think you should invoke the function when it's clear it's going to fail.
 
 Jan
 
->    Open question: what if the other domain goes away?  Ideally,
->    unmapping would (vacuously) succeed in this case.  Qubes OS doesn't
->    care about domid reuse but others might.
+> If current domain has no PIRQs, then I should use xc_domain_gsi_permission to grant permission, otherwise I should
+> keep the original function xc_domain_irq_permission.
 > 
-> ### Kernel changes
+>>
+>> Cheers,
+>>
 > 
-> Linux will add support for mapping userspace memory into an emulated PCI
-> BAR.  This requires Linux to automatically revoke access when needed.
-> 
-> There will be an IOREQ server that handles page faults.  The discussion
-> assumed that this handling will happen in kernel mode, but if handling
-> in user mode is simpler that is also an option.
-> 
-> There is no async #PF in Xen (yet), so the entire vCPU will be blocked
-> while the fault is handled.  This is not great for performance, but
-> correctness comes first.
-> 
-> There will be a new kernel ioctl to perform the mapping.  A possible C
-> prototype (presented at design session, but not discussed there):
-> 
->     struct xen_linux_register_memory {
->         uint64_t pointer;
->         uint64_t size;
->         uint64_t gpa;
->         uint32_t id;
->         uint32_t guest_domid;
->     };
 
 
