@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id ECEE8908CCC
-	for <lists+xen-devel@lfdr.de>; Fri, 14 Jun 2024 15:57:11 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.740723.1147823 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5B328908D00
+	for <lists+xen-devel@lfdr.de>; Fri, 14 Jun 2024 16:07:25 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.740733.1147833 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sI7QL-0003Hp-KL; Fri, 14 Jun 2024 13:57:01 +0000
+	id 1sI7Zz-0005lL-Ge; Fri, 14 Jun 2024 14:06:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 740723.1147823; Fri, 14 Jun 2024 13:57:01 +0000
+Received: by outflank-mailman (output) from mailman id 740733.1147833; Fri, 14 Jun 2024 14:06:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sI7QL-0003EU-Gs; Fri, 14 Jun 2024 13:57:01 +0000
-Received: by outflank-mailman (input) for mailman id 740723;
- Fri, 14 Jun 2024 13:56:59 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1sI7Zz-0005j0-CS; Fri, 14 Jun 2024 14:06:59 +0000
+Received: by outflank-mailman (input) for mailman id 740733;
+ Fri, 14 Jun 2024 14:06:58 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=J/js=NQ=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1sI7QJ-0003Dt-ME
- for xen-devel@lists.xenproject.org; Fri, 14 Jun 2024 13:56:59 +0000
-Received: from mail-ed1-x532.google.com (mail-ed1-x532.google.com
- [2a00:1450:4864:20::532])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f6f19e8a-2a55-11ef-b4bb-af5377834399;
- Fri, 14 Jun 2024 15:56:57 +0200 (CEST)
-Received: by mail-ed1-x532.google.com with SMTP id
- 4fb4d7f45d1cf-57c6011d75dso2634342a12.3
- for <xen-devel@lists.xenproject.org>; Fri, 14 Jun 2024 06:56:57 -0700 (PDT)
+ id 1sI7Zy-0005iu-4h
+ for xen-devel@lists.xenproject.org; Fri, 14 Jun 2024 14:06:58 +0000
+Received: from mail-lj1-x233.google.com (mail-lj1-x233.google.com
+ [2a00:1450:4864:20::233])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 5bfd33a9-2a57-11ef-90a3-e314d9c70b13;
+ Fri, 14 Jun 2024 16:06:57 +0200 (CEST)
+Received: by mail-lj1-x233.google.com with SMTP id
+ 38308e7fff4ca-2ec002caf3eso36321931fa.1
+ for <xen-devel@lists.xenproject.org>; Fri, 14 Jun 2024 07:06:57 -0700 (PDT)
 Received: from [10.125.226.166] ([160.101.139.1])
  by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-57cb7439606sm2311690a12.90.2024.06.14.06.56.56
+ a640c23a62f3a-a6f56da40f6sm188129666b.43.2024.06.14.07.06.55
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 14 Jun 2024 06:56:56 -0700 (PDT)
+ Fri, 14 Jun 2024 07:06:55 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,47 +45,46 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f6f19e8a-2a55-11ef-b4bb-af5377834399
+X-Inumbo-ID: 5bfd33a9-2a57-11ef-90a3-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1718373417; x=1718978217; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1718374016; x=1718978816; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=TiWABf3QR31YPZBIEqyXpYVGJAdZuRLQ3bCJAb3zXF4=;
-        b=SQ2r+DYy06ePahsmisFSX1ffG8ZG7ehCfpYS1TjZdSqAWkqdAjzexpY1yrxAFw0AeS
-         pj0esoeYsPNECYNoa9Ii9ZFlpezfSIveECWXfKuffO5LAIiNr5uAduKgTBptJSS96CNN
-         uTv1PTB7GXDiIUtB+PE41HXx0gjYr+Vqw2MD4=
+        bh=GG+LmC7JCivuLSPlMRF8/UrM2XQvSMmEr23dsq/XCts=;
+        b=g9D6z41rD55BLBvRk+HvWdPPeguk7ai9cjzqSGZotEHVc98Jyebv17y1Co73+bk813
+         8eAzcu7MBgvYHHYGJN40h4Ody0/1qYXLN3uEQYYMZPHSkxm9+awJblypecVuH4Gzpt5C
+         QMOeRSKjFqcs1CcC3ikPp5l2Q7nu3ukyvRoBE=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1718373417; x=1718978217;
+        d=1e100.net; s=20230601; t=1718374016; x=1718978816;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=TiWABf3QR31YPZBIEqyXpYVGJAdZuRLQ3bCJAb3zXF4=;
-        b=wmWh2fqZdvW9+6PO8CoAiyJroPHhPS88M2BAtE1+lYCHhfgrsUVaTywnxEueJLw5Y3
-         O9n02n+711g4QTro605AAVjzgCjuHM4AyYLM4myqU5M3LIkHANSzlHSRfqn/8LQPXKhs
-         nm+qGUMH8Avck95f6kHOu76N64pyQqIyeeP5fiGFo2TFQrv6GJ3dMiDScCgCjEpn7X4G
-         IcZGHD8Ez0h8OmZEPQr7+f1lesDMD2uCdxviLa7ZitsaMLWa1c4vliDph32hnPERuH4X
-         uYhI0uqEWn4sk9JnrfjXzIctS36LTgWcl6vu8sp/f70BkntL/GV8djLeuPDbHt5QRYSG
-         wD2A==
-X-Forwarded-Encrypted: i=1; AJvYcCXiefsaXrtLC1TBGnbUxo+FeiAUlvq3uUQXwGvEznmdHYgJf9cYzrtcmT5QlNToH55Q03YG8sU3gAcQm1t45NA1cApa/1UiTiqme0ys+Xk=
-X-Gm-Message-State: AOJu0YwV4KbD7IYV7zJx9qzL/CJ2GPOL/AgBcedsGKmAvRDoAB4y9m/t
-	0ais5Dix1qzeDoRhjyV+KFPd23KzinJMus3FWFImBz4xq+rrR27GVnZ1r0A0uc8=
-X-Google-Smtp-Source: AGHT+IHUvLNEtk8+RCwmbFPacJJjegh2Voyl2SEQ9OW97g3s+D0z7azwFwGPhwmvLM1ivNp1PiQ9eQ==
-X-Received: by 2002:a50:96d2:0:b0:57c:5f74:d8ff with SMTP id 4fb4d7f45d1cf-57cbd68e730mr2322462a12.21.1718373417169;
-        Fri, 14 Jun 2024 06:56:57 -0700 (PDT)
-Message-ID: <ef40e586-b1cd-4620-9d64-22fc2786c072@citrix.com>
-Date: Fri, 14 Jun 2024 14:56:56 +0100
+        bh=GG+LmC7JCivuLSPlMRF8/UrM2XQvSMmEr23dsq/XCts=;
+        b=n0cloHCabaCo4t1MgMP7g0OVkz0Bxi9OLZ0j7cQknMyV2bfe83DI3O0e8j220bPniD
+         j61MIUM/tytFxmaHedHRYoyKthD6HLh2vKPemF5LC8w8uqasOgRlXqw8VUIDeRVyEl2o
+         eugUUcwsItBjURguxhROOnS8aZ+l97zITbsJSBkTW4koewzJLBy234rvDAWGRHd90vmj
+         du4esKDqB6iVAcbgFDuT90SnJuj+5nbMcr+QqNNNDbYCce7W2HClpQvJme2Fqs9iJ9Rt
+         FzbxMjVmGYvboaj/4n1YuqHTQUAIhynk5zgo7A7YwV9y7cYF7myzSj2nB5g9LQdcP1jA
+         e2LQ==
+X-Forwarded-Encrypted: i=1; AJvYcCXNnbGDd4WxS7NThVKADfuJ1dx3yjweAJ8+h/jMt40r1/veCIpYBKJIsfw76/Ih/5BadEUcU0qpyagXhDW16GyvyFbQYcc+9D1h1vWu/Aw=
+X-Gm-Message-State: AOJu0YwdWMAKjHPRm14FIGwmv1ceTXlL2wbKYTc1hBW1MWpKVyn4YmD1
+	fprfw72ci4FDu2GTLxKuv1IuattcSdNp0X+xQaW8KBjjL4rkCFRA01jVHQu3NsI=
+X-Google-Smtp-Source: AGHT+IHkmnkjurRVetym/WDZPXA+ZsFtgqHA1M1O5kWuGSQUyXbMYFpjVxVDT40XkMZ6ilPvaHmpXQ==
+X-Received: by 2002:a05:6512:549:b0:521:cc8a:46dd with SMTP id 2adb3069b0e04-52ca6e56e2dmr2216246e87.11.1718374016080;
+        Fri, 14 Jun 2024 07:06:56 -0700 (PDT)
+Message-ID: <49313683-fb34-4f6f-a41c-e02ea6837cfd@citrix.com>
+Date: Fri, 14 Jun 2024 15:06:55 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 4/7] x86/xstate: Rework xstate_ctxt_size() as
- xstate_uncompressed_size()
+Subject: Re: [PATCH 6/7] x86/cpuid: Fix handling of XSAVE dynamic leaves
 To: Jan Beulich <jbeulich@suse.com>
 Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
+ Wei Liu <wl@xen.org>, Xen-devel <xen-devel@lists.xenproject.org>
 References: <20240523111627.28896-1-andrew.cooper3@citrix.com>
- <20240523111627.28896-5-andrew.cooper3@citrix.com>
- <b0d92d89-5ca7-4870-8118-139a47057a88@suse.com>
+ <20240523111627.28896-7-andrew.cooper3@citrix.com>
+ <9e6803c6-3d83-4e5c-a7bd-b8b844eec66d@suse.com>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -131,42 +130,51 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <b0d92d89-5ca7-4870-8118-139a47057a88@suse.com>
+In-Reply-To: <9e6803c6-3d83-4e5c-a7bd-b8b844eec66d@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 23/05/2024 5:09 pm, Jan Beulich wrote:
+On 23/05/2024 5:16 pm, Jan Beulich wrote:
 > On 23.05.2024 13:16, Andrew Cooper wrote:
->> @@ -611,6 +587,40 @@ static bool valid_xcr0(uint64_t xcr0)
->>      return true;
->>  }
->>  
->> +unsigned int xstate_uncompressed_size(uint64_t xcr0)
->> +{
->> +    unsigned int size = XSTATE_AREA_MIN_SIZE, i;
->> +
->> +    ASSERT((xcr0 & ~X86_XCR0_STATES) == 0);
-> I'm puzzled by the combination of this assertion and ...
+>> First, if XSAVE is available in hardware but not visible to the guest, the
+>> dynamic leaves shouldn't be filled in.
+>>
+>> Second, the comment concerning XSS state is wrong.  VT-x doesn't manage
+>> host/guest state automatically, but there is provision for "host only" bits to
+>> be set, so the implications are still accurate.
+>>
+>> Introduce xstate_compressed_size() to mirror the uncompressed one.  Cross
+>> check it at boot.
+>>
+>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> Reviewed-by: Jan Beulich <jbeulich@suse.com>
+
+Thanks.
+
+> Irrespective ...
 >
->> +    if ( xcr0 == xfeature_mask )
->> +        return xsave_cntxt_size;
-> ... this conditional return. Yes, right now we don't support/use any XSS
-> components, but without any comment the assertion looks overly restrictive
-> to me.
+>> v3:
+>>  * Adjust commit message about !XSAVE guests
+>>  * Rebase over boot time cross check
+>>  * Use raw policy
+> ... it should probably have occurred to me earlier on to ask: Why raw policy?
+> Isn't the host one the more appropriate one to use for any kind of internal
+> decisions?
 
-The ASSERT() is to cover a bug I found during testing.
+State information is identical in all policies.  It's the ABI of the
+X{SAVE,RSTOR}* instructions.
 
-It is a hard error to pass in non-XCR0 states.  XSS states do not exist
-in an uncompressed image, and have a base of 0, which ends up hitting a
-later assertion.
+Beyond that, consistency.
 
-This snippet with xfeature_mask is just code motion from
-xstate_ctxt_size(), expressed as an addition because of diff.  It was to
-save a double XCR0 write in a perceived common case.
+xstate_uncompressed_size() does strictly need to be the raw policy,
+because it is used by recalculate_xstate() to calculate the host policy.
 
-But, your AMX series makes both xfeature_mask and xsave_cntxt_size bogus
-by there no longer being a uniform size of the save area, so I can
-probably get away with simply dropping it here.
+xstate_compressed_size() doesn't have the same restriction, but should
+use the same source of data.
+
+Finally, xstate_{un,}compressed_size() aren't really tied to a choice of
+features in the first place.  They shouldn't be limited to the
+host_policy's subset of active features.
 
 ~Andrew
 
