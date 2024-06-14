@@ -2,38 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 59257908B13
-	for <lists+xen-devel@lfdr.de>; Fri, 14 Jun 2024 13:53:52 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.740619.1147725 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 795DF908B83
+	for <lists+xen-devel@lfdr.de>; Fri, 14 Jun 2024 14:19:10 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.740630.1147748 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sI5UN-0004Tl-RJ; Fri, 14 Jun 2024 11:53:03 +0000
+	id 1sI5sk-0008Mq-Hc; Fri, 14 Jun 2024 12:18:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 740619.1147725; Fri, 14 Jun 2024 11:53:03 +0000
+Received: by outflank-mailman (output) from mailman id 740630.1147748; Fri, 14 Jun 2024 12:18:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sI5UN-0004R0-Na; Fri, 14 Jun 2024 11:53:03 +0000
-Received: by outflank-mailman (input) for mailman id 740619;
- Fri, 14 Jun 2024 11:53:02 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1sI5sk-0008EX-EQ; Fri, 14 Jun 2024 12:18:14 +0000
+Received: by outflank-mailman (input) for mailman id 740630;
+ Fri, 14 Jun 2024 12:18:12 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=VLs9=NQ=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1sI5UM-0004Qu-HI
- for xen-devel@lists.xenproject.org; Fri, 14 Jun 2024 11:53:02 +0000
-Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
- [2a00:1450:4864:20::62a])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a6b3d0e5-2a44-11ef-90a3-e314d9c70b13;
- Fri, 14 Jun 2024 13:53:01 +0200 (CEST)
-Received: by mail-ej1-x62a.google.com with SMTP id
- a640c23a62f3a-a6ef8e62935so277906566b.3
- for <xen-devel@lists.xenproject.org>; Fri, 14 Jun 2024 04:53:01 -0700 (PDT)
-Received: from [192.168.219.221] ([94.75.70.14])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a6f56f9c858sm175400266b.206.2024.06.14.04.52.59
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 14 Jun 2024 04:53:00 -0700 (PDT)
+ <SRS0=ENa6=NQ=cloud.com=kelly.choi@srs-se1.protection.inumbo.net>)
+ id 1sI5si-00086k-PC
+ for xen-devel@lists.xenproject.org; Fri, 14 Jun 2024 12:18:12 +0000
+Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
+ [2a00:1450:4864:20::632])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 29bcb582-2a48-11ef-b4bb-af5377834399;
+ Fri, 14 Jun 2024 14:18:10 +0200 (CEST)
+Received: by mail-ej1-x632.google.com with SMTP id
+ a640c23a62f3a-a6f1cf00b3aso331831966b.0
+ for <xen-devel@lists.xenproject.org>; Fri, 14 Jun 2024 05:18:10 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,120 +40,77 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a6b3d0e5-2a44-11ef-90a3-e314d9c70b13
+X-Inumbo-ID: 29bcb582-2a48-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1718365981; x=1718970781; darn=lists.xenproject.org;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+        d=cloud.com; s=cloud; t=1718367489; x=1718972289; darn=lists.xenproject.org;
+        h=to:subject:message-id:date:from:mime-version:from:to:cc:subject
          :date:message-id:reply-to;
-        bh=5Gf2rFrdxxxqYb6NjHSYVD56Yl5jvgrIesjzPVVg/AQ=;
-        b=Q5tPxqZ61Zy/zGvQ1rMWx9GmlIWUE1efzP/eoJBhwnznfwjWMA7gwLrVd9/G2c4NFo
-         VFwYVI3mXIq5cPQWY4+NemqFlTjcDUD2Bi3HD7s0AjlxK6Fdb65FOheMVakbXmlNz39q
-         ti1adhUSGo2shFSrGNM1TU527kkPA074xx8KvCWGeG0fa+Ihcq9XDvgv4EhIsNRvLit+
-         +jjQn7AtM07BEmixOP4U4RWF0ZQr6nWcjGSbiul/zfps4XQ2TrshaPHc/tj586107BUq
-         vufq9g42n6l94YFOKC8+1IgWLFcw058FjOQuJIUR4aPgHG2IUXi6OWZbfytkV2XkWlmf
-         kQhw==
+        bh=gQ7XG3/WqyWP23l3ehKvs/mLQi2UWm2geje26JlAzdw=;
+        b=AxRVbpZRjyalLQfEz4XlAQO+oAcvhfsPOelz5Yn5lNj/rTbhym4ieFM6idFHZqxHSo
+         kSSxKKEBVtHuZZgVDcajT2dDVpDc9muOVDVHb7fyBOD3PpciA+3Dkh+xtSTQ2uOjZbVz
+         1ZPfgsiI4FkuQkspEKiqfRUvHhZQgoe2lafrk=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1718365981; x=1718970781;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
+        d=1e100.net; s=20230601; t=1718367489; x=1718972289;
+        h=to:subject:message-id:date:from:mime-version:x-gm-message-state
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=5Gf2rFrdxxxqYb6NjHSYVD56Yl5jvgrIesjzPVVg/AQ=;
-        b=vFhcgI2NNFLPDIcny0WVMnQsRWJisH17uccC0avbY10aJbblelYMNsepFELS8uwpfc
-         mh4ksUKL/KFAEVbojypBivedPRG8z8oFt0QthEFxkWnnwS7F9++dtE7sSYmmOu01YN9l
-         0YLTVweqKOmME5eiZTqCGQW2Ub71O48W2Oon3UgTonvKsH/LD2UOKe9Z8q9qYChnWmX/
-         6EjMo8/lFGTCBrAm1Z6O/nRlcxSlNA5BRbSSY6E1r7bJ2FVhwhBDUOgTHkJ1kXaE+0JF
-         r0TUCzbbPzmRe4cU169v4BUH1DnXT2ue4d/z6hjwuJMNVbsfOGJ36niTcQSN2+43Tu9j
-         z24Q==
-X-Gm-Message-State: AOJu0Yy3XfzMuCSZye6ttYqvTRU689j1R3e4XZhTANJ6mUlvA7DoBTmY
-	FJhOHl5B7P7mw/1LcmkvKbbhWRAdG3b8mnJFK/Y1GkRuoKKsqTt6
-X-Google-Smtp-Source: AGHT+IHHjxR6DoT1uXy/OZTCzinHPLGLLPkn7w4LVlNVGMGXUxaLfocsxhXsoOeOxeESurrqj5VCdw==
-X-Received: by 2002:a17:906:494c:b0:a6f:2de0:54d with SMTP id a640c23a62f3a-a6f60de60b5mr233061366b.76.1718365980640;
-        Fri, 14 Jun 2024 04:53:00 -0700 (PDT)
-Message-ID: <0aa934d9f4bdc8ebfa832aa56e2fe9659236441d.camel@gmail.com>
-Subject: Re: [PATCH v3 0/3] x86/irq: fixes for CPU hot{,un}plug
-From: "Oleksii K." <oleksii.kurochko@gmail.com>
-To: Roger Pau =?ISO-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>
-Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>, Andrew
- Cooper <andrew.cooper3@citrix.com>
-Date: Fri, 14 Jun 2024 13:52:59 +0200
-In-Reply-To: <ZmvxBDomxxBjOYEK@macbook>
-References: <20240613165617.42538-1-roger.pau@citrix.com>
-	 <ZmvxBDomxxBjOYEK@macbook>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.52.1 (3.52.1-1.fc40) 
+        bh=gQ7XG3/WqyWP23l3ehKvs/mLQi2UWm2geje26JlAzdw=;
+        b=wnqI73BiP1OU3YqJk7A9kaF0dVmAj4wZCORPFTqadqvfkv+P5zZk8ZmQ4C33Za7+D2
+         8zNWvz6z0NgsztvmbE7Jv1SX3xnrKtpxjgRzrSwBTiNcll77EC7t7oiZC9ZN3cfD6v1C
+         U46a5T0KJFGkBx0V5fvm3XzCCakfE6hcl+++feAZxfU38SnqYShAK2NjIJXIG4eeGcMl
+         DX3AN8R5I9+H4yga7rpxhPN2klcZomRj3cJ8sTldyjVeWOk7R4MFaRciSEhjSI0U4oC2
+         m9tVwAhwlVABm5SQ2xG1VOakuzh8azTOMnIjbl0radaEYJvleAVzg1r0zwxQwRjXPDRd
+         tz9w==
+X-Gm-Message-State: AOJu0YzOy70Qw7C5+FISaWDzzvJCt22mk2n8qpranNLky9HQlchZ39sh
+	MShij8q5G7oRbypNEWJ9UcVqfbQ1YsR8JzHoxnXjt2hCrzCHcAl7W+tW3dPJqyfKA1pz9+vHIEF
+	rVX8V2aLC4+4UcuNplq2MvDgaetghJ3sjSWlHBZ4uEbytMF/qfdM=
+X-Google-Smtp-Source: AGHT+IEi8nrtONktmz+LedoCsjvTQRCpwP4l8cBn2ougfq5zge/+4La6TDDUJrUaLT/ppg6VT1vEsudBpmn7INGiNp0=
+X-Received: by 2002:a17:907:a70a:b0:a6f:657a:c9a2 with SMTP id
+ a640c23a62f3a-a6f657acb32mr140515866b.25.1718367489053; Fri, 14 Jun 2024
+ 05:18:09 -0700 (PDT)
 MIME-Version: 1.0
+From: Kelly Choi <kelly.choi@cloud.com>
+Date: Fri, 14 Jun 2024 13:17:33 +0100
+Message-ID: <CAO-mL=xajGrkz7x+SFtz8U=N56TWY81N=2qsSwW0CnJeGJMaUQ@mail.gmail.com>
+Subject: Xen Summit talks live on YouTube
+To: xen-devel <xen-devel@lists.xenproject.org>, xen-users@lists.xenproject.org, 
+	xen-announce@lists.xenproject.org
+Content-Type: multipart/alternative; boundary="000000000000c77ed6061ad89b36"
 
-On Fri, 2024-06-14 at 09:28 +0200, Roger Pau Monn=C3=A9 wrote:
-> Sorry, forgot to add the for-4.19 tag and Cc Oleksii.
->=20
-> Since we have taken the start of the series, we might as well take
-> the
-> remaining patches (if other x86 maintainers agree) and attempt to
-> hopefully fix all the interrupt issues with CPU hotplug/unplug.
->=20
-> FTR: there are further issues when doing CPU hotplug/unplug from a
-> PVH
-> dom0, but those are out of the scope for 4.19, as I haven't even
-> started to diagnose what's going on.
-And this issues were before the current patch series was introduced?
+--000000000000c77ed6061ad89b36
+Content-Type: text/plain; charset="UTF-8"
 
-~ Oleksii
->=20
-> Thanks, Roger.
->=20
-> On Thu, Jun 13, 2024 at 06:56:14PM +0200, Roger Pau Monne wrote:
-> > Hello,
-> >=20
-> > The following series aim to fix interrupt handling when doing CPU
-> > plug/unplug operations.=C2=A0 Without this series running:
-> >=20
-> > cpus=3D`xl info max_cpu_id`
-> > while [ 1 ]; do
-> > =C2=A0=C2=A0=C2=A0 for i in `seq 1 $cpus`; do
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 xen-hptool cpu-offline $i;
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 xen-hptool cpu-online $i;
-> > =C2=A0=C2=A0=C2=A0 done
-> > done
-> >=20
-> > Quite quickly results in interrupts getting lost and "No irq
-> > handler for
-> > vector" messages on the Xen console.=C2=A0 Drivers in dom0 also start
-> > getting
-> > interrupt timeouts and the system becomes unusable.
-> >=20
-> > After applying the series running the loop over night still result
-> > in a
-> > fully usable system, no=C2=A0 "No irq handler for vector" messages at
-> > all, no
-> > interrupt loses reported by dom0.=C2=A0 Test with x2apic-
-> > mode=3D{mixed,cluster}.
-> >=20
-> > I've attempted to document all code as good as I could, interrupt
-> > handling has some unexpected corner cases that are hard to diagnose
-> > and
-> > reason about.
-> >=20
-> > Some XenRT testing is undergoing to ensure no breakages.
-> >=20
-> > Thanks, Roger.
-> >=20
-> > Roger Pau Monne (3):
-> > =C2=A0 x86/irq: deal with old_cpu_mask for interrupts in movement in
-> > =C2=A0=C2=A0=C2=A0 fixup_irqs()
-> > =C2=A0 x86/irq: handle moving interrupts in _assign_irq_vector()
-> > =C2=A0 x86/irq: forward pending interrupts to new destination in
-> > fixup_irqs()
-> >=20
-> > =C2=A0xen/arch/x86/include/asm/apic.h |=C2=A0=C2=A0 5 +
-> > =C2=A0xen/arch/x86/irq.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 163 +++++++++++++++++++++++++---
-> > ----
-> > =C2=A02 files changed, 132 insertions(+), 36 deletions(-)
-> >=20
-> > --=20
-> > 2.45.2
-> >=20
+Hi everyone,
 
+We had a great few days filled with discussions and talks during the Xen
+Summit in Lisbon.
+
+These are now available for you to watch on YouTube!
+https://www.youtube.com/playlist?list=PLQMQQsKgvLntZiKoELFs22Mtk-tBNNOMJ
+
+Many thanks,
+Kelly Choi
+
+Community Manager
+Xen Project
+
+--000000000000c77ed6061ad89b36
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">Hi everyone,<div><br></div><div>We had a great few days fi=
+lled with discussions and talks during the Xen Summit in Lisbon.=C2=A0</div=
+><div><br></div><div>These are now available=C2=A0for you to watch on YouTu=
+be!=C2=A0</div><div><a href=3D"https://www.youtube.com/playlist?list=3DPLQM=
+QQsKgvLntZiKoELFs22Mtk-tBNNOMJ" class=3D"gmail-linkified" target=3D"_blank"=
+ rel=3D"noreferrer noopener" style=3D"box-sizing:border-box;background-imag=
+e:initial;background-position:0px 0px;background-size:initial;background-re=
+peat:initial;background-origin:initial;background-clip:initial;margin-botto=
+m:0px">https://www.youtube.com/playlist?list=3DPLQMQQsKgvLntZiKoELFs22Mtk-t=
+BNNOMJ</a><br></div><div><br></div><div><div><div dir=3D"ltr" class=3D"gmai=
+l_signature" data-smartmail=3D"gmail_signature"><div dir=3D"ltr"><div>Many =
+thanks,</div><div>Kelly Choi</div><div><br></div><div><div style=3D"color:r=
+gb(136,136,136)">Community Manager</div><div style=3D"color:rgb(136,136,136=
+)">Xen Project=C2=A0<br></div></div></div></div></div></div></div>
+
+--000000000000c77ed6061ad89b36--
 
