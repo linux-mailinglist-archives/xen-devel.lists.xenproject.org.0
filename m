@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9DAAE909018
-	for <lists+xen-devel@lfdr.de>; Fri, 14 Jun 2024 18:24:10 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.740822.1147923 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 38C8E9090BA
+	for <lists+xen-devel@lfdr.de>; Fri, 14 Jun 2024 18:45:34 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.740828.1147933 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sI9iM-00007u-Ps; Fri, 14 Jun 2024 16:23:46 +0000
+	id 1sIA2p-0003lh-Az; Fri, 14 Jun 2024 16:44:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 740822.1147923; Fri, 14 Jun 2024 16:23:46 +0000
+Received: by outflank-mailman (output) from mailman id 740828.1147933; Fri, 14 Jun 2024 16:44:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sI9iM-00005u-Mj; Fri, 14 Jun 2024 16:23:46 +0000
-Received: by outflank-mailman (input) for mailman id 740822;
- Fri, 14 Jun 2024 16:23:45 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=tF+V=NQ=kernel.dk=axboe@srs-se1.protection.inumbo.net>)
- id 1sI9iL-00005o-6b
- for xen-devel@lists.xenproject.org; Fri, 14 Jun 2024 16:23:45 +0000
-Received: from mail-pj1-x102d.google.com (mail-pj1-x102d.google.com
- [2607:f8b0:4864:20::102d])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 778ff5f8-2a6a-11ef-90a3-e314d9c70b13;
- Fri, 14 Jun 2024 18:23:44 +0200 (CEST)
-Received: by mail-pj1-x102d.google.com with SMTP id
- 98e67ed59e1d1-2c4b8d8b8e0so399739a91.2
- for <xen-devel@lists.xenproject.org>; Fri, 14 Jun 2024 09:23:44 -0700 (PDT)
-Received: from [127.0.0.1] ([198.8.77.157]) by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-2c4c46701absm4112038a91.40.2024.06.14.09.23.41
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 14 Jun 2024 09:23:42 -0700 (PDT)
+	id 1sIA2p-0003jh-7K; Fri, 14 Jun 2024 16:44:55 +0000
+Received: by outflank-mailman (input) for mailman id 740828;
+ Fri, 14 Jun 2024 16:44:53 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=tuT0=NQ=invisiblethingslab.com=demi@srs-se1.protection.inumbo.net>)
+ id 1sIA2n-0003jb-Is
+ for xen-devel@lists.xenproject.org; Fri, 14 Jun 2024 16:44:53 +0000
+Received: from fhigh6-smtp.messagingengine.com
+ (fhigh6-smtp.messagingengine.com [103.168.172.157])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 69d62ad6-2a6d-11ef-b4bb-af5377834399;
+ Fri, 14 Jun 2024 18:44:49 +0200 (CEST)
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailfhigh.nyi.internal (Postfix) with ESMTP id 2350C1140107;
+ Fri, 14 Jun 2024 12:44:48 -0400 (EDT)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute4.internal (MEProxy); Fri, 14 Jun 2024 12:44:48 -0400
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
+ 14 Jun 2024 12:44:46 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,109 +44,170 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 778ff5f8-2a6a-11ef-90a3-e314d9c70b13
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=kernel-dk.20230601.gappssmtp.com; s=20230601; t=1718382222; x=1718987022; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:date:message-id:subject
-         :references:in-reply-to:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=qOsdq+Rd2jD/oYTlQL4Vcr47c5ELyE1/1jwJx8ny+zc=;
-        b=QRHyidpvoYHPYzOT5jaop4RQQPIbozT0KvgMXZXJ+C557BnVBX0uSfbNhp5FI+J7C1
-         bI7/8umNBaqDdK7VhY/gyyKdCgn5jHIevphVR+CpF0TvL+VjTGAYNiPWEipiD9nFu4ql
-         WHFIuYj+xg4wJKdzbQjJdGresTFoWva/TApleyhTBhZlSt1PAVgTx5B7DaTu/SkrBpUh
-         f96ZKbmUuS/egB/oGCoSfu0koF2F2N4XwlO1fngmxM5a3bCr4WTP6kCT1UwxxeGTUyJ5
-         7QpNOkseoABV+asQNSqmLOi6WWwzrHwdigrKYPteQKLUV1C3zp7fkXQ9lcQ1ym489ApZ
-         oLWg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1718382222; x=1718987022;
-        h=content-transfer-encoding:mime-version:date:message-id:subject
-         :references:in-reply-to:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=qOsdq+Rd2jD/oYTlQL4Vcr47c5ELyE1/1jwJx8ny+zc=;
-        b=wUS+RtlTZ2OPQZia/ih2wbSpXKrgqq53xnoXhHmZd/W8MapG9ijwNbfjEsAJXHcdZv
-         cyhM9T5iwIiiovVl2V1KvdNX/qi49iztFyZfZvXquUxHO4sBnSmRIfvtsK09NNwTN3og
-         CzOqCKMLFK+wtahke39yn+JSf/sXcuruQc72XTEKz88tj7aAPVbcVcWtBFtausaKn5PZ
-         4X26+g0nDxrO4g37WsTW2MeU/EN/nvN0t81IkQk6ecWxoAaB5BAF59bOjK3hoY1gnjGv
-         njN2cqvLzWo7fdyS9ap3oGFMcFLFZejL7gqI8nznSBD+fnSqUHVfnbC0rbYXXu4KcwzH
-         tatw==
-X-Forwarded-Encrypted: i=1; AJvYcCUoEYPS58DAab3ZQafE8yHhEtE7k33Et/bnPTnUUd11SXpIK0N/vuh/Z6F+Wlj+ZtWswQ4CQKD25FXvKrGExOI4WeXauZcvahIOhGmQrtw=
-X-Gm-Message-State: AOJu0YxwdSf5kpyftrtoHdQR2KXPS5s4lc78mly3ZmFAiTqdtDmLf5HZ
-	qCyBAMI7/Xmh8XVciN/N2BPqpD2gyVQmIp82nF45NniFbncu9jqQno88TMUrvg8=
-X-Google-Smtp-Source: AGHT+IFzZlkOeh7ub8gHV6v3rJ7EdBnks7HtbNFvAppAM0NMs6uCGvh3Ey3eFD0Th7n1FGRILE+Uqw==
-X-Received: by 2002:a17:90a:d313:b0:2c4:da09:e29 with SMTP id 98e67ed59e1d1-2c4dbd431cbmr3209949a91.3.1718382222558;
-        Fri, 14 Jun 2024 09:23:42 -0700 (PDT)
-From: Jens Axboe <axboe@kernel.dk>
-To: "Martin K. Petersen" <martin.petersen@oracle.com>, 
- Christoph Hellwig <hch@lst.de>
-Cc: Richard Weinberger <richard@nod.at>, 
- Anton Ivanov <anton.ivanov@cambridgegreys.com>, 
- Johannes Berg <johannes@sipsolutions.net>, 
- Josef Bacik <josef@toxicpanda.com>, Ilya Dryomov <idryomov@gmail.com>, 
- Dongsheng Yang <dongsheng.yang@easystack.cn>, 
- =?utf-8?q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
- linux-um@lists.infradead.org, linux-block@vger.kernel.org, 
- nbd@other.debian.org, ceph-devel@vger.kernel.org, 
- xen-devel@lists.xenproject.org, linux-scsi@vger.kernel.org
-In-Reply-To: <20240531074837.1648501-1-hch@lst.de>
-References: <20240531074837.1648501-1-hch@lst.de>
-Subject: Re: convert the SCSI ULDs to the atomic queue limits API v2
-Message-Id: <171838222101.240089.17677804682941719694.b4-ty@kernel.dk>
-Date: Fri, 14 Jun 2024 10:23:41 -0600
+X-Inumbo-ID: 69d62ad6-2a6d-11ef-b4bb-af5377834399
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1718383488;
+	 x=1718469888; bh=O2BEZck2Ho0YRHHcW7T5XMJ8DmyJB8VHc7Ut7VyrFs4=; b=
+	M3Ttco2IUQ0lHETGVV/LMduBzATwcGM+0A4DKR+gVmtXDd8vlQIVOm02P5DifIWJ
+	eR+/AwuS3Db1fxFdJeCgdIb2Zrjyd4zUIc/rYEDgE7Qx7t+KLZZIat9LgRwx9YQJ
+	/iRl0k2XfgGd39+VaiIIFpzwor81U4PRudAUWNlbFD4Rfq+3Oze2KaG6rlJCmzua
+	cH0L3DJieftNhTbdwIl00C6vYxplcPxuUDcsNHAjExxSpCll8ZkfoyHrb1jYFTmj
+	DrPXULiB6txSMqCPTBleyJT6hwXM3C9qasRkD3VYjKVlGMGav7slSyWTXak5AOGb
+	VXANElysgg9H9SWJQ6s0Jw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+	fm1; t=1718383488; x=1718469888; bh=O2BEZck2Ho0YRHHcW7T5XMJ8DmyJ
+	B8VHc7Ut7VyrFs4=; b=RjyBcaUzGa510Y+gYlMmUuSGbVrcd/G/aLGs1DW5EtVA
+	kB1AWMeaW4gX/Q34ueMSzNUdquhBJ6YyNvkdMXDJM1DT+1Kp6TgvPiOVLm3dzV3m
+	CPSdVyre14GK818k3vEYwIOiu6NMO2u7HqnMsF9Y7ylw97Frm0fGY8ahBKRrQumy
+	diD8wN8MnDdtfkQanr9p136sI3V5ZImn1y7N+c6fq2NAvgONgt4oOoZVZPYOGM44
+	9Tq5DBEOQP7I28DJ+gTINaq/piwpqwl5oVvvM3f2G/S0PGPYt2u4DsZT1ed3ETfU
+	qDfUHOfFPc1cpBDNgz6zhJpJ6We7nD6O1ddhNAznQg==
+X-ME-Sender: <xms:f3NsZoq3CqOY4BULHgydhgb8MR7nQ3gqV0xQ4GbyPmWYtE0xgqUg7A>
+    <xme:f3NsZuo9pDMAA6krABrgWgLmBL2eT7-XIkOXjos8FhV8CzGP4dvcL9IyB7VvYpnli
+    lKYENybq61VGpQ>
+X-ME-Received: <xmr:f3NsZtPwpoNbYh1herJ0fjlvj1ua9oE5H2-BMZJIXNSmT6lVq0mR1PsY8cPG_9ndo2USGmwt_I2LFGw6XEEw8r2hStOatbA4HcX9TB_UkvNG11IS>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvledrfeduledguddtgecutefuodetggdotefrod
+    ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
+    necuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
+    enucfjughrpeffhffvvefukfhfgggtuggjsehgtderredttdejnecuhfhrohhmpeffvghm
+    ihcuofgrrhhivgcuqfgsvghnohhurhcuoeguvghmihesihhnvhhishhisghlvghthhhinh
+    hgshhlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpedvjeetgeekhfetudfhgfetffeg
+    fffguddvgffhffeifeeikeektdehgeetheffleenucevlhhushhtvghrufhiiigvpedtne
+    curfgrrhgrmhepmhgrihhlfhhrohhmpeguvghmihesihhnvhhishhisghlvghthhhinhhg
+    shhlrggsrdgtohhm
+X-ME-Proxy: <xmx:f3NsZv6H2UvWmK2Cvt7b2EiMiwXrbnr6NmSlRsrlbF8X-UWU-47qdQ>
+    <xmx:f3NsZn7fOJpYSd69AtS9upXguXDQ_3j4fF0U6lbrH56y9X4fKRGP4Q>
+    <xmx:f3NsZvj4EJBUK_dewf69S8UXc0sg69mz4M7bEaL53-09NFJi2lvzng>
+    <xmx:f3NsZh5jJp7GqcDvpw7GIEYkYAeOkyQE2B2DFB6OhJv1eVWMPhbJNw>
+    <xmx:gHNsZksTHRE7hWLrCUCAg-N-hElsPgZWd4qZP-7KO-gmnAD5OKnbcjNl>
+Feedback-ID: iac594737:Fastmail
+Date: Fri, 14 Jun 2024 12:44:42 -0400
+From: Demi Marie Obenour <demi@invisiblethingslab.com>
+To: Jan Beulich <jbeulich@suse.com>,
+	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+Cc: Xenia Ragiadakou <burzalodowa@gmail.com>,
+	Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
+	Ray Huang <ray.huang@amd.com>,
+	Xen developer discussion <xen-devel@lists.xenproject.org>,
+	Andrew Cooper <andrew.cooper3@citrix.com>
+Subject: Re: Design session notes: GPU acceleration in Xen
+Message-ID: <Zmxze4a0PZbwcLSb@itl-email>
+References: <Zms9tjtg06kKtI_8@itl-email>
+ <440d6444-3b02-4756-a4fa-02aae3b24b14@suse.com>
+ <ZmvvlF0gpqFB7UC9@macbook>
+ <af1f966b-b28f-4a14-b932-3f1523adeff0@suse.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.14.0-rc0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="yMmMNAtPZdFRNM6Y"
+Content-Disposition: inline
+In-Reply-To: <af1f966b-b28f-4a14-b932-3f1523adeff0@suse.com>
 
 
-On Fri, 31 May 2024 09:47:55 +0200, Christoph Hellwig wrote:
-> this series converts the SCSI upper level drivers to the atomic queue
-> limits API.
-> 
-> The first patch is a bug fix for ubd that later patches depend on and
-> might be worth picking up for 6.10.
-> 
-> The second patch changes the max_sectors calculation to take the optimal
-> I/O size into account so that sd, nbd and rbd don't have to mess with
-> the user max_sector value.  I'd love to see a careful review from the
-> nbd and rbd maintainers for this one!
-> 
-> [...]
+--yMmMNAtPZdFRNM6Y
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 14 Jun 2024 12:44:42 -0400
+From: Demi Marie Obenour <demi@invisiblethingslab.com>
+To: Jan Beulich <jbeulich@suse.com>,
+	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+Cc: Xenia Ragiadakou <burzalodowa@gmail.com>,
+	Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
+	Ray Huang <ray.huang@amd.com>,
+	Xen developer discussion <xen-devel@lists.xenproject.org>,
+	Andrew Cooper <andrew.cooper3@citrix.com>
+Subject: Re: Design session notes: GPU acceleration in Xen
 
-Applied, thanks!
+On Fri, Jun 14, 2024 at 10:12:40AM +0200, Jan Beulich wrote:
+> On 14.06.2024 09:21, Roger Pau Monn=C3=A9 wrote:
+> > On Fri, Jun 14, 2024 at 08:38:51AM +0200, Jan Beulich wrote:
+> >> On 13.06.2024 20:43, Demi Marie Obenour wrote:
+> >>> GPU acceleration requires that pageable host memory be able to be map=
+ped
+> >>> into a guest.
+> >>
+> >> I'm sure it was explained in the session, which sadly I couldn't atten=
+d.
+> >> I've been asking Ray and Xenia the same before, but I'm afraid it still
+> >> hasn't become clear to me why this is a _requirement_. After all that's
+> >> against what we're doing elsewhere (i.e. so far it has always been
+> >> guest memory that's mapped in the host). I can appreciate that it might
+> >> be more difficult to implement, but avoiding to violate this fundament=
+al
+> >> (kind of) rule might be worth the price (and would avoid other
+> >> complexities, of which there may be lurking more than what you enumera=
+te
+> >> below).
+> >=20
+> > My limited understanding (please someone correct me if wrong) is that
+> > the GPU buffer (or context I think it's also called?) is always
+> > allocated from dom0 (the owner of the GPU).  The underling memory
+> > addresses of such buffer needs to be mapped into the guest.  The
+> > buffer backing memory might be GPU MMIO from the device BAR(s) or
+> > system RAM, and such buffer can be paged by the dom0 kernel at any
+> > time (iow: changing the backing memory from MMIO to RAM or vice
+> > versa).  Also, the buffer must be contiguous in physical address
+> > space.
+>=20
+> This last one in particular would of course be a severe restriction.
+> Yet: There's an IOMMU involved, isn't there?
 
-[01/14] ubd: refactor the interrupt handler
-        commit: 5db755fbb1a0de4a4cfd5d5edfaa19853b9c56e6
-[02/14] ubd: untagle discard vs write zeroes not support handling
-        commit: 31ade7d4fdcf382beb8cb229a1f5d77e0f239672
-[03/14] rbd: increase io_opt again
-        commit: a00d4bfce7c6d7fa4712b8133ec195c9bd142ae6
-[04/14] block: take io_opt and io_min into account for max_sectors
-        commit: a23634644afc2f7c1bac98776440a1f3b161819e
-[05/14] sd: simplify the ZBC case in provisioning_mode_store
-        commit: b3491b0db165c0cbe25874da66d97652c03db654
-[06/14] sd: add a sd_disable_discard helper
-        commit: b0dadb86a90bd5a7b723f9d3a6cf69da9b596496
-[07/14] sd: add a sd_disable_write_same helper
-        commit: 9972b8ce0d4ba373901bdd1e15e4de58fcd7f662
-[08/14] sd: simplify the disable case in sd_config_discard
-        commit: d15b9bd42cd3b2077812d4bf32f532a9bd5c4914
-[09/14] sd: factor out a sd_discard_mode helper
-        commit: f1e8185fc12c699c3abf4f39b1ff5d7793da3a95
-[10/14] sd: cleanup zoned queue limits initialization
-        commit: 9c1d339a1bf45f4d3a2e77bbf24b0ec51f02551c
-[11/14] sd: convert to the atomic queue limits API
-        commit: 804e498e0496d889090f32f812b5ce1a4f2aa63e
-[12/14] sr: convert to the atomic queue limits API
-        commit: 969f17e10f5b732c05186ee0126c8a08166d0cda
-[13/14] block: remove unused queue limits API
-        commit: 1652b0bafeaa8281ca9a805d81e13d7647bd2f44
-[14/14] block: add special APIs for run-time disabling of discard and friends
-        commit: 73e3715ed14844067c5c598e72777641004a7f60
+On x86 there is.  On Arm there might or might not be.  There are
+non-embedded systems (such as Apple silicon) where the GPU is not behind
+an IOMMU, for performance reasons IIUC.
 
-Best regards,
--- 
-Jens Axboe
+> > I'm not sure it's possible to ensure that when using system RAM such
+> > memory comes from the guest rather than the host, as it would likely
+> > require some very intrusive hooks into the kernel logic, and
+> > negotiation with the guest to allocate the requested amount of
+> > memory and hand it over to dom0.  If the maximum size of the buffer is
+> > known in advance maybe dom0 can negotiate with the guest to allocate
+> > such a region and grant it access to dom0 at driver attachment time.
+>=20
+> Besides the thought of transiently converting RAM to kind-of-MMIO, this
+> makes me think of another possible option: Could Dom0 transfer ownership
+> of the RAM that wants mapping in the guest (remotely resembling
+> grant-transfer)? Would require the guest to have ballooned down enough
+> first, of course. (In both cases it would certainly need working out how
+> the conversion / transfer back could be made work safely and reasonably
+> cleanly.)
+>=20
+> Jan
 
+The kernel driver needs to be able to reclaim the memory at any time.
+My understanding is that this is used to migrate memory between VRAM and
+system RAM.  It might also be used for other purposes.
 
+--=20
+Sincerely,
+Demi Marie Obenour (she/her/hers)
+Invisible Things Lab
 
+--yMmMNAtPZdFRNM6Y
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCgAdFiEEdodNnxM2uiJZBxxxsoi1X/+cIsEFAmZsc3sACgkQsoi1X/+c
+IsFmlA//aHkzdFRW8EExFchfLYhsYOwY9lIAWxNiDNuNfup2CCsdQjKsY/+9mILv
+PXpUxrhOqYNzTYiV7Rl8CWXIS9VM7BzzmU7qDuZ75cG5AyGGkX/jW2450QIhnsYn
+oOuuBJApysERb5WVRxpQNrsEqPje1VBE/pnC5bZon1tWitN4CsihAtmkB/xZ+o42
+GEr9QPWbA6U2bgr7vDcy2LZ510wGZ6NZsSHpAl4nwby1wrCL1uP7E4QhuRcKju/4
+ovD/LkCzysCmD4T4kWjS11AtUI69vEzEpN2H0EtKQzxNprY3wkLQwtruks0bFCr1
+eN9feAYllXF0nGzjlbxqRiaCUyuWiJXD82gjBKqWKs/4r78IfJ/cYzgYYsW+K8uC
+nNoJTmKzU24/bw0DsoQdIPcWTYDs99kA0yjKgpzh3OHPZh9rzc5DR/PRC4UHs0ag
+/zD4H4iEIPCA5o3fYHbHmspTHbv2cJBRuV8zkDYsnHFDwrMduaA0goRZqADlSUe+
+GbUT/nkWnUvRbMFLG7ScA8UcDNDxnM6rffQWK4hE4Cnce89CKKJv1312qvW63u7T
+0+AF8d2bWtHcDl+oQUVLTYBVqyY3Se52/c56wm5rS7L+svCElXX+QVFingfaY7h1
+GoyNTZOGY47DJaAcuajsiIHKRBL6F8QAveRI4ouFMjthUPVOR6Q=
+=WkhK
+-----END PGP SIGNATURE-----
+
+--yMmMNAtPZdFRNM6Y--
 
