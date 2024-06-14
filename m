@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 216C6909111
-	for <lists+xen-devel@lfdr.de>; Fri, 14 Jun 2024 19:08:15 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.740839.1147942 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9560B90920B
+	for <lists+xen-devel@lfdr.de>; Fri, 14 Jun 2024 19:56:38 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.740851.1147953 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sIAOr-0007Yt-5o; Fri, 14 Jun 2024 17:07:41 +0000
+	id 1sIB96-00078L-Lt; Fri, 14 Jun 2024 17:55:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 740839.1147942; Fri, 14 Jun 2024 17:07:41 +0000
+Received: by outflank-mailman (output) from mailman id 740851.1147953; Fri, 14 Jun 2024 17:55:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sIAOr-0007Ur-36; Fri, 14 Jun 2024 17:07:41 +0000
-Received: by outflank-mailman (input) for mailman id 740839;
- Fri, 14 Jun 2024 17:07:39 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1sIB96-00075q-In; Fri, 14 Jun 2024 17:55:28 +0000
+Received: by outflank-mailman (input) for mailman id 740851;
+ Fri, 14 Jun 2024 17:55:27 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=J/js=NQ=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1sIAOp-0007Uc-0y
- for xen-devel@lists.xenproject.org; Fri, 14 Jun 2024 17:07:39 +0000
-Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
- [2a00:1450:4864:20::62a])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 992297b1-2a70-11ef-b4bb-af5377834399;
- Fri, 14 Jun 2024 19:07:37 +0200 (CEST)
-Received: by mail-ej1-x62a.google.com with SMTP id
- a640c23a62f3a-a68b41ef3f6so281274766b.1
- for <xen-devel@lists.xenproject.org>; Fri, 14 Jun 2024 10:07:37 -0700 (PDT)
-Received: from [10.125.226.166] ([160.101.139.1])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a6f56da32c3sm207057266b.13.2024.06.14.10.07.34
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 14 Jun 2024 10:07:35 -0700 (PDT)
+ <SRS0=tuT0=NQ=invisiblethingslab.com=demi@srs-se1.protection.inumbo.net>)
+ id 1sIB95-00075k-L6
+ for xen-devel@lists.xenproject.org; Fri, 14 Jun 2024 17:55:27 +0000
+Received: from fhigh7-smtp.messagingengine.com
+ (fhigh7-smtp.messagingengine.com [103.168.172.158])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 462b4e70-2a77-11ef-90a3-e314d9c70b13;
+ Fri, 14 Jun 2024 19:55:24 +0200 (CEST)
+Received: from compute2.internal (compute2.nyi.internal [10.202.2.46])
+ by mailfhigh.nyi.internal (Postfix) with ESMTP id 405F9114010A;
+ Fri, 14 Jun 2024 13:55:23 -0400 (EDT)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute2.internal (MEProxy); Fri, 14 Jun 2024 13:55:23 -0400
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
+ 14 Jun 2024 13:55:22 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,176 +44,173 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 992297b1-2a70-11ef-b4bb-af5377834399
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1718384855; x=1718989655; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:autocrypt:subject:from:to
-         :content-language:user-agent:mime-version:date:message-id:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=xWI1hpd63xiNM8gEgVvcx+MNCHuqUWCo1glSOM5ZNN4=;
-        b=RwKXJTOBfGgQfCwgdkvKIJ7VyRTEmWXkBroWIJcmTi4j5bSN4ziHfWNDFSOqV2zgge
-         f0DOQ2Gsma0CoNC61nL7w40huQB+jXeQPMrNJI60t/K1WMQvoGdLvg3LtZlXDIICZOur
-         AjT0dPdR6vCMuDVxdiSud1xgIMpJoW2duue8Q=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1718384855; x=1718989655;
-        h=content-transfer-encoding:cc:autocrypt:subject:from:to
-         :content-language:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=xWI1hpd63xiNM8gEgVvcx+MNCHuqUWCo1glSOM5ZNN4=;
-        b=B9o46qsIC++lQZOIPNTmIVJoQpd8YbG1Dd1Cof23wx43zhU0nVAusS9WUGO0lJdqMQ
-         AExnJ70W9Nir6jSasgrlsDqFAIJ3P5d1fZzTRCouKfIRZx7GtT7cn1C5aGEqOq7m9vNX
-         VK2qVc6rcEG18iYBsbDZc91cKRzQWSP1qgeUwDalHDFGcmKOHzOXBmwPD/oFRwBnOKiy
-         KT7f/sMxneMRrM8xObC5LjOoOAMXWEBdTEv9T4UeuKnD59o+fwISvQUM0SZ2DIYj7ydd
-         DyU8fqz9R+wprVCKj/wOJXxANHw8aCfFvCEJorEthQO8e2hDjitgamzCTe3K0hP6BzD8
-         u5Gw==
-X-Gm-Message-State: AOJu0YxvVGAVcATh3iOiTfHDv1uxC08Gi+ThufanUWpuMRy1jXW+QdgS
-	rPkRV7IyMFiEi9kc6TOLDG6FevQ5D6FhR5W4LejLdUYVYF2QLhihotzIBtMuK0LxWE+GtIe05TE
-	ywXs=
-X-Google-Smtp-Source: AGHT+IF4lCmjQVG0V/v6a78HxywKIWXL9U0EfU4lnYPISoLvyREwf9bpwOZPBTgPznrRyUVbKfOscQ==
-X-Received: by 2002:a17:906:b74c:b0:a68:e161:b765 with SMTP id a640c23a62f3a-a6f60d295eamr206911366b.29.1718384855513;
-        Fri, 14 Jun 2024 10:07:35 -0700 (PDT)
-Message-ID: <46abec6c-ebe9-4426-865e-5513107949be@citrix.com>
-Date: Fri, 14 Jun 2024 18:07:33 +0100
+X-Inumbo-ID: 462b4e70-2a77-11ef-90a3-e314d9c70b13
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1718387723;
+	 x=1718474123; bh=9L2NVQxYD5hYWwvVR+Bo+TDhcY3MpXNKTx8JCGqHKlA=; b=
+	eVbLuIuT/ZecNUm89mQxxpsbkWtZCH7z+la/zQ8tCsACE7/Wsbumt1udJqFyqM0k
+	OkV9hmoytnDEt/cCYL60XJac9kAF2aSl7zYXc3ZCqP304fzaYtY6cd1MT7zFKPRR
+	f+p4JeIRAjgk3hY0cWP2UYysZUSHVBRkvK8+cNhccNeZSWf0bNyRo9WLJZvFuSrA
+	q34LKzHZB2HgX1KvQcF/AEYk4FLjD0wFKwXp7ZvKydcNGDyYSIa0bV8cATopUMKs
+	cZv9pwBx3IeQ084sPHuWI+wZfNlFCwVlraF4f7C5C2ywISTDJu3xyO6vSwHeIiiP
+	RyF8ym8+BMDGHHeAcY807w==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+	fm1; t=1718387723; x=1718474123; bh=9L2NVQxYD5hYWwvVR+Bo+TDhcY3M
+	pXNKTx8JCGqHKlA=; b=S1IGOjHzzWZ+o5FrXoJ5v1wVeHZdGyNHoISFhlSKQCGV
+	Xchgk5vc3PS5iD03rMdCPJdo7/lcVmylEWMSB8B4P1f8nwc1iqG2CCxjmD+bfnPr
+	PPxaaGjS5pPSqD1vi2UR4WEPhM9Ihw+m7gLZCE2T4qT7XKFzjzMHmj3hNh6vMRyP
+	9uG5BO2+bR5rgsLrP0CesLhN8Yw4gPEOX0OXssgrWQPQLh4W0YraJsB45pp44Sv+
+	U7JXjDlBB3enLKPN6dch55FLj5jbyXlWsY3GGjoz92/4dzAIRK2wCU2UN69wwnQQ
+	oEGfEGNvH0/jokU28c1C8uFa8UMdq3CBPl6HnALrdg==
+X-ME-Sender: <xms:CoRsZo5MkbmpcaDn-A3DH9pjx7gup2aF5C4yeQ7rdAdOpGiJzA1Wpw>
+    <xme:CoRsZp5Ig4wcM4QBQdxtZBBP2QkJe4adr_-sxTnK-Nh9-3rcO_3ALwai4lrRpyXZz
+    o1VY8T2RB68tl4>
+X-ME-Received: <xmr:CoRsZnc3LLTtFq3b-J6LzZ67Ebe0-9U2DtFx59xGZ6rHkIBtFtB54JKJS6cp9x13tsPlNqeTVAjjF5I6D64jrNvW5JwVzewy62RIljNOBkCXt_rI>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvledrfeduledguddukecutefuodetggdotefrod
+    ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
+    necuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
+    enucfjughrpeffhffvvefukfhfgggtuggjsehgtderredttdejnecuhfhrohhmpeffvghm
+    ihcuofgrrhhivgcuqfgsvghnohhurhcuoeguvghmihesihhnvhhishhisghlvghthhhinh
+    hgshhlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpedvjeetgeekhfetudfhgfetffeg
+    fffguddvgffhffeifeeikeektdehgeetheffleenucevlhhushhtvghrufhiiigvpedtne
+    curfgrrhgrmhepmhgrihhlfhhrohhmpeguvghmihesihhnvhhishhisghlvghthhhinhhg
+    shhlrggsrdgtohhm
+X-ME-Proxy: <xmx:CoRsZtLzPwliKxfjQOoeX3pqvEHQ74p9SDVtw6cSGOBt0zB5LF1vRA>
+    <xmx:CoRsZsJAJYPWP2ZF0mNNRk-xNhU-3y9RN2tN7aL16z_-pFCV8ccrHQ>
+    <xmx:CoRsZux6yb7qKW-lXW0_lhOj7k84bUhckw0YcFayN0sxY1_nrjHd-g>
+    <xmx:CoRsZgLwZqzImE2teHViE7JCGPhavd4Oai8DCemU8gmthK8SKLwHqg>
+    <xmx:C4RsZk_xQtxZecSN_36VA5hgylEufkRpXI20-awZVlPK7F7ZZ0sMW9Qc>
+Feedback-ID: iac594737:Fastmail
+Date: Fri, 14 Jun 2024 13:55:19 -0400
+From: Demi Marie Obenour <demi@invisiblethingslab.com>
+To: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>
+Cc: Xenia Ragiadakou <burzalodowa@gmail.com>,
+	Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
+	Ray Huang <ray.huang@amd.com>,
+	Xen developer discussion <xen-devel@lists.xenproject.org>,
+	Andrew Cooper <andrew.cooper3@citrix.com>
+Subject: Re: Design session notes: GPU acceleration in Xen
+Message-ID: <ZmyECbWrPxU-rUVv@itl-email>
+References: <Zms9tjtg06kKtI_8@itl-email>
+ <440d6444-3b02-4756-a4fa-02aae3b24b14@suse.com>
+ <ZmvvlF0gpqFB7UC9@macbook>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-GB
-To: xen-devel <xen-devel@lists.xenproject.org>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Subject: for_each_set_bit() clean-up (API RFC)
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-Cc: Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>,
- Julien Grall <julien@xen.org>, Michal Orzel <michal.orzel@amd.com>,
- Bertrand Marquis <Bertrand.Marquis@arm.com>,
- Oleksii Kurochko <oleksii.kurochko@gmail.com>,
- Shawn Anastasio <sanastasio@raptorengineering.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-
-More fallout from looking at the code generation...
-
-for_each_set_bit() forces it's bitmap parameter out into memory.  For an
-arbitrary sized bitmap, this is fine - and likely preferable as it's an
-in-memory to begin with.
-
-However, more than half the current users of for_each_set_bit() are
-operating over an single int/long, and this too is spilled to the
-stack.  Worse, x86 seems to be the only architecture which (tries, but
-not very well) to optimise find_{first,next}_bit() for GPR-sized
-quantities, meaning that for_each_set_bit() hides 2 backing function calls.
-
-The ARM (v)GIC code in particular suffers horribly because of this.
-
-We also have several interesting opencoded forms:
-* evtchn_check_pollers() is a (preprocessor identical) opencoding.
-* hvm_emulate_writeback() is equivalent.
-* for_each_vp() exists just to hardcode a constant and swap the other
-two parameters.
-
-and several others forms which I think could be expressed more cleanly
-as for_each_set_bit().
-
-We also have the while()/ffs() forms which are "just" for_each_set_bit()
-and some even manage to not spill their main variable to memory.
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="Xsnp8/rOO0bVMLnv"
+Content-Disposition: inline
+In-Reply-To: <ZmvvlF0gpqFB7UC9@macbook>
 
 
-I want to get to a position where there is one clear API to use, and
-that the compiler will handle nicely.  Xen's code generation will
-definitely improve as a consequence.
+--Xsnp8/rOO0bVMLnv
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 14 Jun 2024 13:55:19 -0400
+From: Demi Marie Obenour <demi@invisiblethingslab.com>
+To: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>
+Cc: Xenia Ragiadakou <burzalodowa@gmail.com>,
+	Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
+	Ray Huang <ray.huang@amd.com>,
+	Xen developer discussion <xen-devel@lists.xenproject.org>,
+	Andrew Cooper <andrew.cooper3@citrix.com>
+Subject: Re: Design session notes: GPU acceleration in Xen
 
+On Fri, Jun 14, 2024 at 09:21:56AM +0200, Roger Pau Monn=C3=A9 wrote:
+> On Fri, Jun 14, 2024 at 08:38:51AM +0200, Jan Beulich wrote:
+> > On 13.06.2024 20:43, Demi Marie Obenour wrote:
+> > > GPU acceleration requires that pageable host memory be able to be map=
+ped
+> > > into a guest.
+> >=20
+> > I'm sure it was explained in the session, which sadly I couldn't attend.
+> > I've been asking Ray and Xenia the same before, but I'm afraid it still
+> > hasn't become clear to me why this is a _requirement_. After all that's
+> > against what we're doing elsewhere (i.e. so far it has always been
+> > guest memory that's mapped in the host). I can appreciate that it might
+> > be more difficult to implement, but avoiding to violate this fundamental
+> > (kind of) rule might be worth the price (and would avoid other
+> > complexities, of which there may be lurking more than what you enumerate
+> > below).
+>=20
+> My limited understanding (please someone correct me if wrong) is that
+> the GPU buffer (or context I think it's also called?) is always
+> allocated from dom0 (the owner of the GPU).
 
-Sadly, transforming the ideal while()/ffs() form into a for() loop is a
-bit tricky.  This works:
+A GPU context is a GPU address space.  It's the GPU equivalent of a CPU
+process.  I don't believe that the same context can be used by more than
+one userspace process (though I could be wrong), but the same userspace
+process can create and use as many contexts as it wants.
 
-for ( unsigned int v = (val), (bit);
-      v;
-      v &= v - 1 )
-if ( 1 )
-{
-    (bit) = ffs(v) - 1;
-    goto body;
-}
-else
-    body:
+> The underling memory
+> addresses of such buffer needs to be mapped into the guest.  The
+> buffer backing memory might be GPU MMIO from the device BAR(s) or
+> system RAM, and such buffer can be paged by the dom0 kernel at any
+> time (iow: changing the backing memory from MMIO to RAM or vice
+> versa).  Also, the buffer must be contiguous in physical address
+> space.
+>=20
+> I'm not sure it's possible to ensure that when using system RAM such
+> memory comes from the guest rather than the host, as it would likely
+> require some very intrusive hooks into the kernel logic, and
+> negotiation with the guest to allocate the requested amount of
+> memory and hand it over to dom0.  If the maximum size of the buffer is
+> known in advance maybe dom0 can negotiate with the guest to allocate
+> such a region and grant it access to dom0 at driver attachment time.
 
-which is a C metaprogramming trick borrowed from PuTTY to make:
+I don't think there is a useful maximum size known.  There may be a
+limit, but it would be around 4GiB or more, which is far too high to
+reserve physical memory for up front.
 
-for_each_BLAH ( bit, val )
-{
-    // nice loop body
-}
+> One aspect that I'm lacking clarity is better understanding of how the
+> process of allocating and assigning a GPU buffer to a guest is
+> performed (I think this is the key to how GPU VirtIO native contexts
+> work?).
 
-work, while having the ffs() calculated logically within the loop body.
+The buffer is allocated by the GPU driver in response to an ioctl() made
+by the userspace server process.  If the buffer needs to be accessed by
+the guest CPU (not all do), it is mapped into part of an emulated PCI
+BAR for access by the guest.  This mailing list thread is about making
+that possible.
 
-The first issue I expect people to have with the above is the raw 'body'
-label, although with a macro that can be fixed using body_ ## __COUNTER__.
+> Another question I have, are guest expected to have a single GPU
+> buffer, or they can have multiple GPU buffers simultaneously
+> allocated?
 
-A full example is https://godbolt.org/z/oMGfah696 although a real
-example in Xen is going to have to be variadic for at least ffs() and
-ffsl().
+I believe there is only one emulated BAR, but this is very large (GiBs)
+and sparsely populated.  There can be many GPU buffers mapped into the
+BAR.
+--=20
+Sincerely,
+Demi Marie Obenour (she/her/hers)
+Invisible Things Lab
 
+--Xsnp8/rOO0bVMLnv
+Content-Type: application/pgp-signature; name="signature.asc"
 
-Now, from an API point of view, it would be lovely if we could make a
-single for_each_set_bit() which covers both cases, and while I can
-distinguish the two forms by whether there are 2 or 3 args, I expect
-MISRA is going to have a fit at that.  Also there's a difference based
-on the scope of 'bit' and also whether modifications to 'val' in the
-loop body take effect on the loop condition (they don't because a copy
-is taken).
+-----BEGIN PGP SIGNATURE-----
 
-So I expect everyone is going to want a new API to use here.  But what
-to call it?
+iQIzBAEBCgAdFiEEdodNnxM2uiJZBxxxsoi1X/+cIsEFAmZshAgACgkQsoi1X/+c
+IsHPYA/+MEmp9PkinbHFL3NMuwl19VvxMGbayIsrz/jYo350GAAXbTkH3KfZgBue
+H2HeB7uTrmsB/hd0Y1Vzf2DEV9hPmUsRBOgT6ymxahpUIDvkkx+ewPLxDxy3rLjr
+qchWMDcNvFHFPJf45b9CAdmYsMetmpPQiZOJ6FEPJP0/xdB9Ntu6UUEQ2IRZe2z0
+sKjSB+sfHXBIaQv9sFcv0r2K/jvfFPmp8AbTtBnmfPCZ9BrTyL82XTHLwNP9nqk3
+4LfQwg2VrXLhf6+E8hSRpbyRAMakd1X3UTkYatIGcjZc6Ji5g29Xs5qJhwZvy3yS
+UzxsDfFXaduYTWFVkfybLg+X/0GiUBuRcKeAnVgxO7+HIyUUgkKqYSaIYyH2yWNG
+yz/5Cmzc5FQ6pznPk3TAyFYUcZyl2Jxmx4c79B0HqWA21e91mMVX7O4uxHReXP+S
+BTYVSgUAgcCBmx46gDlZUWlqTIqQ0tY5baZJRqDbbuBcvCKlehZUhfVOCtPdxIlP
+iRFPeM1NFb5Jun6G5Pk/knfuw8VJoPIbiJxPFCxlUTqBL4aepqVfV3rsZlVM/RIv
+7Eut6UlkqwUKtAXtRD6q6XpkPg2Rx2iPoLfmT8gDkIWUKLeyXR1DDI67OEzXgZfy
+h2FGQkrzaZB5f1scNTzPIdKvOwgQiZoUmNnSARX11j9WuGGKwkM=
+=3lLp
+-----END PGP SIGNATURE-----
 
-More than half of the callers in Xen really want the GPR form, so we
-could introduce a new bitmap_for_each_set_bit(), move all the callers
-over, then introduce a "new" for_each_set_bit() which is only of the GPR
-form.
-
-Or does anyone want to suggest an alternative name?
-
-Thoughts?
-
-~Andrew
+--Xsnp8/rOO0bVMLnv--
 
