@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D6EC090A756
-	for <lists+xen-devel@lfdr.de>; Mon, 17 Jun 2024 09:35:22 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.741870.1148541 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 81F8A90A7A2
+	for <lists+xen-devel@lfdr.de>; Mon, 17 Jun 2024 09:46:57 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.741877.1148550 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sJ6sC-000706-HG; Mon, 17 Jun 2024 07:33:52 +0000
+	id 1sJ74X-0000Za-Jd; Mon, 17 Jun 2024 07:46:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 741870.1148541; Mon, 17 Jun 2024 07:33:52 +0000
+Received: by outflank-mailman (output) from mailman id 741877.1148550; Mon, 17 Jun 2024 07:46:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sJ6sC-0006yY-EK; Mon, 17 Jun 2024 07:33:52 +0000
-Received: by outflank-mailman (input) for mailman id 741870;
- Mon, 17 Jun 2024 07:33:51 +0000
+	id 1sJ74X-0000X7-Gx; Mon, 17 Jun 2024 07:46:37 +0000
+Received: by outflank-mailman (input) for mailman id 741877;
+ Mon, 17 Jun 2024 07:46:35 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=5eX2=NT=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1sJ6sB-0006yS-K7
- for xen-devel@lists.xenproject.org; Mon, 17 Jun 2024 07:33:51 +0000
-Received: from mail-qv1-xf32.google.com (mail-qv1-xf32.google.com
- [2607:f8b0:4864:20::f32])
+ id 1sJ74V-0000X0-Ox
+ for xen-devel@lists.xenproject.org; Mon, 17 Jun 2024 07:46:35 +0000
+Received: from mail-yb1-xb32.google.com (mail-yb1-xb32.google.com
+ [2607:f8b0:4864:20::b32])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id efdac342-2c7b-11ef-90a3-e314d9c70b13;
- Mon, 17 Jun 2024 09:33:49 +0200 (CEST)
-Received: by mail-qv1-xf32.google.com with SMTP id
- 6a1803df08f44-6ad8243dba8so20663076d6.3
- for <xen-devel@lists.xenproject.org>; Mon, 17 Jun 2024 00:33:49 -0700 (PDT)
+ id b7d2cedb-2c7d-11ef-90a3-e314d9c70b13;
+ Mon, 17 Jun 2024 09:46:34 +0200 (CEST)
+Received: by mail-yb1-xb32.google.com with SMTP id
+ 3f1490d57ef6-dfde5ae0aaeso4206402276.1
+ for <xen-devel@lists.xenproject.org>; Mon, 17 Jun 2024 00:46:34 -0700 (PDT)
 Received: from localhost ([213.195.124.163]) by smtp.gmail.com with ESMTPSA id
- 6a1803df08f44-6b2a5ee0346sm52576626d6.115.2024.06.17.00.33.47
+ 6a1803df08f44-6b2d21f0b56sm14986726d6.46.2024.06.17.00.46.32
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 17 Jun 2024 00:33:47 -0700 (PDT)
+ Mon, 17 Jun 2024 00:46:32 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,120 +44,164 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: efdac342-2c7b-11ef-90a3-e314d9c70b13
+X-Inumbo-ID: b7d2cedb-2c7d-11ef-90a3-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1718609628; x=1719214428; darn=lists.xenproject.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=T09eC7D20hXn+Rq7lSZU/rf2mdJcpGS5V6pgfj1k5hw=;
-        b=jl3UiyG7nWVcGy0qgencj95903YymhxqN9BNt3mkSNUCyHRNKyQ0pZw+BFvSLDZLAA
-         maZI9ilhVq9WVnb3T3oOU71PNob4H6amAnDqNOAxaOxZGdszsG9uARvmwfkSoymuyCGm
-         iiVcGYVLpjWUu2uED1gW4n+mdOiT9kzP6OAzQ=
+        d=citrix.com; s=google; t=1718610393; x=1719215193; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=hxR5Q/aAsURbng3JCie17ZZs34XkIhMPgViBzaUo2nE=;
+        b=LxKcqopwKUEHV+x43yeBMjtamGHIJk4n56VX9RJFcOyS9TjIJjJ8Rln8IxG+1TR0Cg
+         //V93ckH1dCWhGFaxjcwCvYrHO9ynDjTZAvG1r+wAyqx5zJoSu9b1T8oqW79OiF7ljdd
+         PZE4YP5GG5IPvYEz6TGbDWIUXVFevKnDWb9SE=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1718609628; x=1719214428;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=T09eC7D20hXn+Rq7lSZU/rf2mdJcpGS5V6pgfj1k5hw=;
-        b=RVEdnngQTNWMSmOUB8KgpcgLZ90BmjWHtttX/rVZ1achu4upAJV47aYltFjOeTqlIl
-         wB1KgGzhLOPWA3+nfwKM4XKKWgNGhSUvyq1ZX55I2RZwRNMLnEWcIvYlO8QoO9oZONK1
-         /YIjFxJBDfD+v7cLR1Ti6OUgOhJDx5H1ue+gWZn322uCg05EScSKeXWA9EDxCd7i1i4E
-         8KFHQ2dxdPATV50O9S2u18jiNFlashCLzNr9MHLgNoQH4V/g0ud8Amx0Z/XOhtJSM12n
-         Zwd8nquY4MYc8gBsXnMBd1BJnEA7ujLng15fi6GtEdJB46bE0e2gxeVgtXBD6wWcbDIC
-         tH4A==
-X-Forwarded-Encrypted: i=1; AJvYcCWuNTrzmOw5CBgapBjyejTZP2TrK+fdtOaRgoUgnfjPhUz7jGQ3dRAqinuhdSWS2T6MD1KX6wCRoSGTWOokZHgknV141hXOTzjEdHipFTc=
-X-Gm-Message-State: AOJu0YzjsS5FhuzmhsRUZqIyXDnJYnfIWMYh3PXYXSv3ETc9sshkpB5E
-	SVlBO5VFp3HeX0jj+aIENINgKsSK2GIWwnV61q7+XXrgkd684rbhNUs6D4EvGRc=
-X-Google-Smtp-Source: AGHT+IFm1MIuIWK5yQCGkvPUJH+fdVPXSwahtFdf8QCjx0ph9UV26HUskEZhGKFxeKdxYddmaklG2w==
-X-Received: by 2002:a0c:c48b:0:b0:6b2:b05d:aa78 with SMTP id 6a1803df08f44-6b2b05dacddmr94394926d6.9.1718609628256;
-        Mon, 17 Jun 2024 00:33:48 -0700 (PDT)
-Date: Mon, 17 Jun 2024 09:33:42 +0200
+        d=1e100.net; s=20230601; t=1718610393; x=1719215193;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=hxR5Q/aAsURbng3JCie17ZZs34XkIhMPgViBzaUo2nE=;
+        b=dksqoZZBK4KYYZdmfyZdpJ+YLka7437iFAd/7asi16iUG7IQ5IXL/NqYOIVuqATnEI
+         0CVv8Zs8zm/7EutK5wfKc9y0ssil6bQbAp/rSitxcEfjOLxhC/OwnrLkaJYEN6ikLYJI
+         yHiW3Rml2BQgJ0hqi3T3yWX3JLHaK+jjX3SgskSnfJJ5x3rwObkJbzsUKun9kZufnzKP
+         GS/Yi13Doifx7TqGSTshlFtNVezlOQFjjbEqN0f0XCEE1Apzoo1HAYOQjr8TjRJr7Emu
+         FSmW7aBroWyyrkOeaWLogyLB2TJ+zlmUlWJ169IFZqIj1poP4dyGko7HuFzeQsZU2tDN
+         Hg9w==
+X-Forwarded-Encrypted: i=1; AJvYcCV77AiQ2u/DYVLgJUaPOW0vaIDIiDdA58rnxrPt/M3KerSO/A0G4bwCpczu5gDhWbteDauIlRiquGUoM+KU2ZbrEGbfzmuBc+5h+MJN1s0=
+X-Gm-Message-State: AOJu0Yww5rBQT28XV3Q5LSNGc35Q+DFCTPjfl63STirjkrMIuHKNRYIA
+	c3voajaS1VyadT07yXR/F/81dNYll5lFaV0grEZlywNrA+5zpbId3VDAXQ/RiKk=
+X-Google-Smtp-Source: AGHT+IH67by9M8/qsH8Fh5/VKPd8wzAE03X+Kkx644weipILcFFSTwYhcvoMoypbKMPBP7V1s3Bx5g==
+X-Received: by 2002:a25:ab87:0:b0:dfb:42d:bb32 with SMTP id 3f1490d57ef6-dff153ca962mr8554670276.30.1718610393259;
+        Mon, 17 Jun 2024 00:46:33 -0700 (PDT)
+Date: Mon, 17 Jun 2024 09:46:29 +0200
 From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Elias El Yandouzi <eliasely@amazon.com>, julien@xen.org,
-	pdurrant@amazon.com, dwmw@amazon.com,
-	Hongyan Xia <hongyxia@amazon.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Julien Grall <jgrall@amazon.com>, xen-devel@lists.xenproject.org
-Subject: Re: [PATCH V3 (resend) 01/19] x86: Create per-domain mapping of
- guest_root_pt
-Message-ID: <Zm_m1shUlyt_KvBJ@macbook>
-References: <20240513134046.82605-1-eliasely@amazon.com>
- <20240513134046.82605-2-eliasely@amazon.com>
- <dd145c67-8e3e-4b15-94f7-c7cd1f127d45@suse.com>
- <bda3386e-26c5-4efd-b7ad-00f3643523fa@amazon.com>
- <b50d0a83-fab4-4f59-bf4d-5c5593923f34@suse.com>
- <1ad9ccce-c02b-46c0-8fea-10b35b574cb8@amazon.com>
- <71f7b9c8-43f9-4703-b6e3-8b3fe8b740c0@suse.com>
+To: Demi Marie Obenour <demi@invisiblethingslab.com>
+Cc: Jan Beulich <jbeulich@suse.com>,
+	Xenia Ragiadakou <burzalodowa@gmail.com>,
+	Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
+	Ray Huang <ray.huang@amd.com>,
+	Xen developer discussion <xen-devel@lists.xenproject.org>,
+	Andrew Cooper <andrew.cooper3@citrix.com>
+Subject: Re: Design session notes: GPU acceleration in Xen
+Message-ID: <Zm_p1QvoZcjQ4gBa@macbook>
+References: <Zms9tjtg06kKtI_8@itl-email>
+ <440d6444-3b02-4756-a4fa-02aae3b24b14@suse.com>
+ <ZmvvlF0gpqFB7UC9@macbook>
+ <af1f966b-b28f-4a14-b932-3f1523adeff0@suse.com>
+ <ZmwByZnn5vKcVLKI@macbook>
+ <Zm-FidjSK3mOieSC@itl-email>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <71f7b9c8-43f9-4703-b6e3-8b3fe8b740c0@suse.com>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <Zm-FidjSK3mOieSC@itl-email>
 
-On Fri, Jun 14, 2024 at 08:23:30AM +0200, Jan Beulich wrote:
-> On 13.06.2024 18:31, Elias El Yandouzi wrote:
-> > On 16/05/2024 08:17, Jan Beulich wrote:
-> >> On 15.05.2024 20:25, Elias El Yandouzi wrote:
-> >>> However, I noticed quite a weird bug while doing some testing. I may
-> >>> need your expertise to find the root cause.
-> >>
-> >> Looks like you've overflowed the dom0 kernel stack, most likely because
-> >> of recurring nested exceptions.
-> >>
-> >>> In the case where I have more vCPUs than pCPUs (and let's consider we
-> >>> have one pCPU for two vCPUs), I noticed that I would always get a page
-> >>> fault in dom0 kernel (5.10.0-13-amd64) at the exact same location. I did
-> >>> a bit of investigation but I couldn't come to a clear conclusion.
-> >>> Looking at the stack trace [1], I have the feeling the crash occurs in a
-> >>> loop or a recursive call.
-> >>>
-> >>> I tried to identify where the crash occurred using addr2line:
-> >>>
-> >>>   > addr2line -e vmlinux-5.10.0-29-amd64 0xffffffff810218a0
-> >>> debian/build/build_amd64_none_amd64/arch/x86/xen/mmu_pv.c:880
-> >>>
-> >>> It turns out to point on the closing bracket of the function
-> >>> xen_mm_unpin_all()[2].
-> >>>
-> >>> I thought the crash could happen while returning from the function in
-> >>> the assembly epilogue but the output of objdump doesn't even show the
-> >>> address.
-> >>>
-> >>> The only theory I could think of was that because we only have one pCPU,
-> >>> we may never execute one of the two vCPUs, and never setup the mapping
-> >>> to the guest_root_pt in write_ptbase(), hence the page fault. This is
-> >>> just a random theory, I couldn't find any hint suggesting it would be
-> >>> the case though. Any idea how I could debug this?
-> >>
-> >> I guess you want to instrument Xen enough to catch the top level fault (or
-> >> the 2nd from top, depending on where the nesting actually starts) to see
-> >> why that happens. Quite likely some guest mapping isn't set up properly.
-> >>
+On Sun, Jun 16, 2024 at 08:38:19PM -0400, Demi Marie Obenour wrote:
+> On Fri, Jun 14, 2024 at 10:39:37AM +0200, Roger Pau Monné wrote:
+> > On Fri, Jun 14, 2024 at 10:12:40AM +0200, Jan Beulich wrote:
+> > > On 14.06.2024 09:21, Roger Pau Monné wrote:
+> > > > On Fri, Jun 14, 2024 at 08:38:51AM +0200, Jan Beulich wrote:
+> > > >> On 13.06.2024 20:43, Demi Marie Obenour wrote:
+> > > >>> GPU acceleration requires that pageable host memory be able to be mapped
+> > > >>> into a guest.
+> > > >>
+> > > >> I'm sure it was explained in the session, which sadly I couldn't attend.
+> > > >> I've been asking Ray and Xenia the same before, but I'm afraid it still
+> > > >> hasn't become clear to me why this is a _requirement_. After all that's
+> > > >> against what we're doing elsewhere (i.e. so far it has always been
+> > > >> guest memory that's mapped in the host). I can appreciate that it might
+> > > >> be more difficult to implement, but avoiding to violate this fundamental
+> > > >> (kind of) rule might be worth the price (and would avoid other
+> > > >> complexities, of which there may be lurking more than what you enumerate
+> > > >> below).
+> > > > 
+> > > > My limited understanding (please someone correct me if wrong) is that
+> > > > the GPU buffer (or context I think it's also called?) is always
+> > > > allocated from dom0 (the owner of the GPU).  The underling memory
+> > > > addresses of such buffer needs to be mapped into the guest.  The
+> > > > buffer backing memory might be GPU MMIO from the device BAR(s) or
+> > > > system RAM, and such buffer can be paged by the dom0 kernel at any
+> > > > time (iow: changing the backing memory from MMIO to RAM or vice
+> > > > versa).  Also, the buffer must be contiguous in physical address
+> > > > space.
+> > > 
+> > > This last one in particular would of course be a severe restriction.
+> > > Yet: There's an IOMMU involved, isn't there?
 > > 
-> > Julien helped me with this one and I believe we have identified the 
-> > problem.
+> > Yup, IIRC that's why Ray said it was much more easier for them to
+> > support VirtIO GPUs from a PVH dom0 rather than classic PV one.
 > > 
-> > As you've suggested, I wrote the mapping of the guest root PT in our 
-> > per-domain section, root_pt_l1tab, within write_ptbase() function as 
-> > we'd always be in the case v == current plus switch_cr3_cr4() would 
-> > always flush local tlb.
-> > 
-> > However, there exists a path, in toggle_guest_mode(), where we could 
-> > call update_cr3()/make_cr3() without calling write_ptbase() and hence 
-> > not maintain mappings properly. Instead toggle_guest_mode() has a partly 
-> > open-coded version of write_ptbase().
-> > 
-> > Would you rather like to see the mappings written in make_cr3() or in 
-> > toggle_guest_mode() within the pseudo open-coded version of write_ptbase()?
+> > It might be easier to implement from a classic PV dom0 if there's
+> > pv-iommu support, so that dom0 can create it's own contiguous memory
+> > buffers from the device PoV.
 > 
-> Likely the latter, but that's hard to tell without seeing the resulting
-> code.
+> What makes PVH an improvement here?  I thought PV dom0 uses an identity
+> mapping for the IOMMU, while a PVH dom0 uses an IOMMU that mirrors the
+> dom0 second-stage page tables.
 
-There's already a special case for XPTI in toggle_guest_mode() to deal
-exactly with that AFAICT.  Maybe it would be better if write_ptbase()
-could be made suitable to be used in _toggle_guest_pt() instead of
-directly calling write_cr3(), as we could then avoid having to pile
-open-coded bodges in toggle_guest_mode() and/or _toggle_guest_pt().
+Indeed, hence finding a physically contiguous buffer on classic PV is
+way more complicated, because the IOMMU identity maps mfns, and the PV
+address space can be completely scattered.
+
+OTOH, on PVH the IOMMU page tables are the same as the second stage
+translation, and hence the physical address is way more compact (as it
+would be on native).
+
+> In both cases, the device physical
+> addresses are identical to dom0’s physical addresses.
+
+Yes, but a PV dom0 physical address space can be very scattered.
+
+IIRC there's an hypercall to request physically contiguous memory for
+PV, but you don't want to be using that every time you allocate a
+buffer (not sure it would support the sizes needed by the GPU
+anyway).
+
+> PV is terrible for many reasons, so I’m okay with focusing on PVH dom0,
+> but I’d like to know why there is a difference.
+> 
+> > > > I'm not sure it's possible to ensure that when using system RAM such
+> > > > memory comes from the guest rather than the host, as it would likely
+> > > > require some very intrusive hooks into the kernel logic, and
+> > > > negotiation with the guest to allocate the requested amount of
+> > > > memory and hand it over to dom0.  If the maximum size of the buffer is
+> > > > known in advance maybe dom0 can negotiate with the guest to allocate
+> > > > such a region and grant it access to dom0 at driver attachment time.
+> > > 
+> > > Besides the thought of transiently converting RAM to kind-of-MMIO, this
+> > 
+> > As a note here, changing the type to MMIO would likely involve
+> > modifying the EPT/NPT tables to propagate the new type.  On a PVH dom0
+> > this would likely involve shattering superpages in order to set the
+> > correct memory types.
+> > 
+> > Depending on how often and how random those system RAM changes are
+> > necessary this could also create contention on the p2m lock.
+> > 
+> > > makes me think of another possible option: Could Dom0 transfer ownership
+> > > of the RAM that wants mapping in the guest (remotely resembling
+> > > grant-transfer)? Would require the guest to have ballooned down enough
+> > > first, of course. (In both cases it would certainly need working out how
+> > > the conversion / transfer back could be made work safely and reasonably
+> > > cleanly.)
+> > 
+> > Maybe.  The fact the guest needs to balloon down that amount of memory
+> > seems weird to me, as from the guest PoV that mapped memory is
+> > MMIO-like and not system RAM.
+> 
+> I don’t like it either.  Furthermore, this would require changes to the
+> virtio-GPU driver in the guest, which I’d prefer to avoid.
+
+IMO it would be helpful if you (or someone) could write the full
+specification of how VirtIO GPU is supposed to work right now (with
+the KVM model I assume?) as it would be a good starting point to
+provide suggestions about how to make it work (or adapt it) on Xen.
+
+I don't think the high level layers on top of VirtIO GPU are relevant,
+but it's important to understand the protocol between the VirtIO GPU
+front and back ends.
+
+So far I only had scattered conversation about what's needed, but not
+a formal write-up of how this is supposed to work.
 
 Thanks, Roger.
 
