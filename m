@@ -2,35 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2BAD590AEA4
-	for <lists+xen-devel@lfdr.de>; Mon, 17 Jun 2024 15:05:18 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.742261.1149020 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7925D90AEF3
+	for <lists+xen-devel@lfdr.de>; Mon, 17 Jun 2024 15:19:23 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.742272.1149031 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sJC2M-0006c3-Bt; Mon, 17 Jun 2024 13:04:42 +0000
+	id 1sJCG2-0000cR-K1; Mon, 17 Jun 2024 13:18:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 742261.1149020; Mon, 17 Jun 2024 13:04:42 +0000
+Received: by outflank-mailman (output) from mailman id 742272.1149031; Mon, 17 Jun 2024 13:18:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sJC2M-0006ZW-8c; Mon, 17 Jun 2024 13:04:42 +0000
-Received: by outflank-mailman (input) for mailman id 742261;
- Mon, 17 Jun 2024 13:04:41 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1sJCG2-0000ar-GO; Mon, 17 Jun 2024 13:18:50 +0000
+Received: by outflank-mailman (input) for mailman id 742272;
+ Mon, 17 Jun 2024 13:18:48 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1sJC2L-0006ZM-3v; Mon, 17 Jun 2024 13:04:41 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1sJC2K-0006ju-Ma; Mon, 17 Jun 2024 13:04:40 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1sJC2K-0000i9-As; Mon, 17 Jun 2024 13:04:40 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1sJC2K-0003Kd-AM; Mon, 17 Jun 2024 13:04:40 +0000
+ (envelope-from <SRS0=E9YK=NT=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1sJCG0-0000al-Gl
+ for xen-devel@lists.xenproject.org; Mon, 17 Jun 2024 13:18:48 +0000
+Received: from mail-ed1-x535.google.com (mail-ed1-x535.google.com
+ [2a00:1450:4864:20::535])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 1fa33631-2cac-11ef-b4bb-af5377834399;
+ Mon, 17 Jun 2024 15:18:45 +0200 (CEST)
+Received: by mail-ed1-x535.google.com with SMTP id
+ 4fb4d7f45d1cf-57c7681ccf3so5059607a12.2
+ for <xen-devel@lists.xenproject.org>; Mon, 17 Jun 2024 06:18:45 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-57cb72da156sm6378848a12.22.2024.06.17.06.18.43
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 17 Jun 2024 06:18:44 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,468 +45,102 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=7FxdBd7m5UQjr/hapXaVXzVgvEb4J6qdt1PksCJ7xqk=; b=HQlEAqjMPDAhqULfYrNOnlp7ll
-	2CxuKTjsyuZOa3MaA3HzhakPDiXazDs2NMHXKXJ0pvHl2d+NNynCw2kC34q72rQmnriluAGQ6Xui5
-	vqBXfd1WPT79MrE/owXwivOU8E7dfSRFaveBC5C5fBk3u2SY31k6PK5rIc77uG7BEf1g=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-186377-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 1fa33631-2cac-11ef-b4bb-af5377834399
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1718630324; x=1719235124; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=Ty2WRfswxNJCcX/10HNUqpmpOI5m+4BDAmERYC3WGCU=;
+        b=CEQS1FlF/u0z3N66zq5YL6OCJ5pKA6hkFqP/9uYBgSRl5ryR/zEqLaT0LeQkIdOETV
+         1Y+fbUFHg9iWVlAVTTzx6GuhoRJbEXVMguUy+HesPE7pOUwJoDOkjQBAVJPRRSXKcru/
+         NERBdIwF4qTUu6rnFPdD6Le6aaocDAIe7i2MOVMAaqpj+OSi4Ugeuv2iyI0Sasx759Sk
+         Txg1CdEooIpj6ZtFqrE2GcKJ1FeGj2CVO5FhGB8YuJQbxS18OFgCB77muPiOQUG8R+We
+         Gbs758eKaFs2ODwienDJhl6DYUNEt8waaSfcZWfAQs7U3zxYBH4nH45QISMQGbOveLZZ
+         4QvQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1718630324; x=1719235124;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=Ty2WRfswxNJCcX/10HNUqpmpOI5m+4BDAmERYC3WGCU=;
+        b=bJQI1/fvlcYHLUYCq1R2Y1+gmF4h9gIKgZPvsKag1xW2tbfZ+6pAMN8KOXmDi6vO9M
+         lA5ond5piPsvvNJ0gtUfGh0PtsE9J8wxfmnlMXJsbON02vgCsRKtc73gRYdx7MJqLZm4
+         tSkv0weEQigyiKFDe+Jvmtikaz42UXKsBUepdJcE+hcQqNhj1WJNGJcYwbaN/NAh1UtW
+         lhL6TUMxGp4UV5zS1dcOxGSkP24kzcXB1hnhK/SYA/8+yQFVx6LZQVO+eNgXd6LpRh8W
+         aOvg44hiZQIX8BrdAPaxzhuyXlR2jFvOGuCCpLzj+8jBJl1lCgMVtFFITGiY7BlCspvT
+         SFdA==
+X-Forwarded-Encrypted: i=1; AJvYcCUHk58529zAJei/oXocRl/oI8T0I6eReMSZUu17t6jdWrW/y3hSgwoHQA1coi528uxB7shCC/jW71IUGaxk6RRndaAz+ynadPLavJEpXOE=
+X-Gm-Message-State: AOJu0YzOya9G1opM5ahwIyggAZrdZ9LxDodslmHhieVVQhGGnl+rhgUn
+	m9o+02PIT7xE+mtfowFEvVNmynCgjn0kR7eVlnt1QoRupqDuJdio8bT6xfG07w==
+X-Google-Smtp-Source: AGHT+IF30vTGhiqW3bTL2c40ag/cE69HhbA370NHPjO2R6HRjbdIPGak5cF7P/8SiPIk2z/Y0MLo/Q==
+X-Received: by 2002:a50:9348:0:b0:57c:73a7:da08 with SMTP id 4fb4d7f45d1cf-57cbd67e4ebmr6648911a12.21.1718630324406;
+        Mon, 17 Jun 2024 06:18:44 -0700 (PDT)
+Message-ID: <f92fc38b-aba9-4f8f-b95c-4723049523d0@suse.com>
+Date: Mon, 17 Jun 2024 15:18:42 +0200
 MIME-Version: 1.0
-Subject: [linux-linus test] 186377: regressions - FAIL
-X-Osstest-Failures:
-    linux-linus:test-armhf-armhf-xl-qcow2:xen-boot:fail:regression
-    linux-linus:test-armhf-armhf-xl-credit2:xen-boot:fail:nonblocking
-    linux-linus:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
-    linux-linus:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt-qcow2:migrate-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt-raw:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-vhd:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-vhd:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-raw:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-raw:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-libvirt-vhd:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-libvirt-vhd:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    linux=6ba59ff4227927d3a8530fc2973b80e94b54d58f
-X-Osstest-Versions-That:
-    linux=b5beaa44747bddbabb338377340244f56465cd7d
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Mon, 17 Jun 2024 13:04:40 +0000
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 for-4.19 1/3] x86/irq: deal with old_cpu_mask for
+ interrupts in movement in fixup_irqs()
+To: Roger Pau Monne <roger.pau@citrix.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ xen-devel@lists.xenproject.org, Oleksii Kurochko <oleksii.kurochko@gmail.com>
+References: <20240613165617.42538-1-roger.pau@citrix.com>
+ <20240613165617.42538-2-roger.pau@citrix.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20240613165617.42538-2-roger.pau@citrix.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-flight 186377 linux-linus real [real]
-flight 186380 linux-linus real-retest [real]
-http://logs.test-lab.xenproject.org/osstest/logs/186377/
-http://logs.test-lab.xenproject.org/osstest/logs/186380/
+On 13.06.2024 18:56, Roger Pau Monne wrote:
+> Given the current logic it's possible for ->arch.old_cpu_mask to get out of
+> sync: if a CPU set in old_cpu_mask is offlined and then onlined
+> again without old_cpu_mask having been updated the data in the mask will no
+> longer be accurate, as when brought back online the CPU will no longer have
+> old_vector configured to handle the old interrupt source.
+> 
+> If there's an interrupt movement in progress, and the to be offlined CPU (which
+> is the call context) is in the old_cpu_mask clear it and update the mask, so it
+> doesn't contain stale data.
 
-Regressions :-(
+Perhaps a comma before "clear" might further help reading. Happy to
+add while committing.
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- test-armhf-armhf-xl-qcow2     8 xen-boot                 fail REGR. vs. 186372
+> Note that when the system is going down fixup_irqs() will be called by
+> smp_send_stop() from CPU 0 with a mask with only CPU 0 on it, effectively
+> asking to move all interrupts to the current caller (CPU 0) which is the only
+> CPU to remain online.  In that case we don't care to migrate interrupts that
+> are in the process of being moved, as it's likely we won't be able to move all
+> interrupts to CPU 0 due to vector shortage anyway.
+> 
+> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
 
-Tests which did not succeed, but are not blocking:
- test-armhf-armhf-xl-credit2   8 xen-boot                     fail  like 186372
- test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 186372
- test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 186372
- test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 186372
- test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 186372
- test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 186372
- test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 186372
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt-qcow2 14 migrate-support-check        fail never pass
- test-amd64-amd64-libvirt-raw 14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-rtds     15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-rtds     16 saverestore-support-check    fail   never pass
- test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit1  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit1  16 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-vhd      14 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-vhd      15 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-raw      14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-raw      15 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-multivcpu 15 migrate-support-check        fail  never pass
- test-armhf-armhf-xl-multivcpu 16 saverestore-support-check    fail  never pass
- test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-libvirt-vhd 14 migrate-support-check        fail   never pass
- test-armhf-armhf-libvirt-vhd 15 saverestore-support-check    fail   never pass
-
-version targeted for testing:
- linux                6ba59ff4227927d3a8530fc2973b80e94b54d58f
-baseline version:
- linux                b5beaa44747bddbabb338377340244f56465cd7d
-
-Last test of basis   186372  2024-06-16 18:43:40 Z    0 days
-Testing same since   186377  2024-06-17 02:49:50 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Andi Shyti <andi.shyti@kernel.org>
-  Helge Deller <deller@gmx.de>
-  Jarkko Nikula <jarkko.nikula@linux.intel.com>
-  Jean Delvare <jdelvare@suse.de>
-  John David Anglin <dave.anglin@bell.net>
-  John David Anglin <dave@parisc-linux.org>
-  Linus Torvalds <torvalds@linux-foundation.org>
-  Wolfram Sang <wsa+renesas@sang-engineering.com>
-
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-arm64-libvirt                                          pass    
- build-armhf-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl                                          pass    
- test-amd64-coresched-amd64-xl                                pass    
- test-arm64-arm64-xl                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
- test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
- test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
- test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
- test-amd64-amd64-libvirt-xsm                                 pass    
- test-arm64-arm64-libvirt-xsm                                 pass    
- test-amd64-amd64-xl-xsm                                      pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-qemuu-nested-amd                            fail    
- test-amd64-amd64-xl-pvhv2-amd                                pass    
- test-amd64-amd64-dom0pvh-xl-amd                              pass    
- test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
- test-amd64-amd64-qemuu-freebsd12-amd64                       pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-amd64-xl-qemut-win7-amd64                         fail    
- test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
- test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
- test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
- test-armhf-armhf-xl-arndale                                  pass    
- test-amd64-amd64-examine-bios                                pass    
- test-amd64-amd64-xl-credit1                                  pass    
- test-arm64-arm64-xl-credit1                                  pass    
- test-armhf-armhf-xl-credit1                                  pass    
- test-amd64-amd64-xl-credit2                                  pass    
- test-arm64-arm64-xl-credit2                                  pass    
- test-armhf-armhf-xl-credit2                                  fail    
- test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
- test-amd64-amd64-examine                                     pass    
- test-arm64-arm64-examine                                     pass    
- test-armhf-armhf-examine                                     pass    
- test-amd64-amd64-qemuu-nested-intel                          pass    
- test-amd64-amd64-xl-pvhv2-intel                              pass    
- test-amd64-amd64-dom0pvh-xl-intel                            pass    
- test-amd64-amd64-libvirt                                     pass    
- test-armhf-armhf-libvirt                                     pass    
- test-amd64-amd64-xl-multivcpu                                pass    
- test-armhf-armhf-xl-multivcpu                                pass    
- test-amd64-amd64-pair                                        pass    
- test-amd64-amd64-libvirt-pair                                pass    
- test-amd64-amd64-xl-pvshim                                   pass    
- test-amd64-amd64-pygrub                                      pass    
- test-amd64-amd64-libvirt-qcow2                               pass    
- test-amd64-amd64-xl-qcow2                                    pass    
- test-armhf-armhf-xl-qcow2                                    fail    
- test-amd64-amd64-libvirt-raw                                 pass    
- test-arm64-arm64-libvirt-raw                                 pass    
- test-amd64-amd64-xl-raw                                      pass    
- test-armhf-armhf-xl-raw                                      pass    
- test-amd64-amd64-xl-rtds                                     pass    
- test-armhf-armhf-xl-rtds                                     pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
- test-amd64-amd64-xl-shadow                                   pass    
- test-arm64-arm64-xl-thunderx                                 pass    
- test-amd64-amd64-examine-uefi                                pass    
- test-amd64-amd64-libvirt-vhd                                 pass    
- test-armhf-armhf-libvirt-vhd                                 pass    
- test-amd64-amd64-xl-vhd                                      pass    
- test-arm64-arm64-xl-vhd                                      pass    
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-------------------------------------------------------------
-commit 6ba59ff4227927d3a8530fc2973b80e94b54d58f
-Author: Linus Torvalds <torvalds@linux-foundation.org>
-Date:   Sun Jun 16 13:40:16 2024 -0700
-
-    Linux 6.10-rc4
-
-commit 6456c4256d1cf1591634b39e58bced37539d35b1
-Merge: 4301487e6b25 72d95924ee35
-Author: Linus Torvalds <torvalds@linux-foundation.org>
-Date:   Sun Jun 16 11:50:16 2024 -0700
-
-    Merge tag 'parisc-for-6.10-rc4' of git://git.kernel.org/pub/scm/linux/kernel/git/deller/parisc-linux
-    
-    Pull parisc fix from Helge Deller:
-     "On parisc we have suffered since years from random segfaults which
-      seem to have been triggered due to cache inconsistencies. Those
-      segfaults happened more often on machines with PA8800 and PA8900 CPUs,
-      which have much bigger caches than the earlier machines.
-    
-      Dave Anglin has worked over the last few weeks to fix this bug. His
-      patch has been successfully tested by various people on various
-      machines and with various kernels (6.6, 6.8 and 6.9), and the debian
-      buildd servers haven't shown a single random segfault with this patch.
-    
-      Since the cache handling has been reworked, the patch is slightly
-      bigger than I would like in this stage, but the greatly improved
-      stability IMHO justifies the inclusion now"
-    
-    * tag 'parisc-for-6.10-rc4' of git://git.kernel.org/pub/scm/linux/kernel/git/deller/parisc-linux:
-      parisc: Try to fix random segmentation faults in package builds
-
-commit 4301487e6b25276e0270a7547150e0304da2ba78
-Merge: b5beaa44747b 7e9bb0cb50fe
-Author: Linus Torvalds <torvalds@linux-foundation.org>
-Date:   Sun Jun 16 11:37:38 2024 -0700
-
-    Merge tag 'i2c-for-6.10-rc4' of git://git.kernel.org/pub/scm/linux/kernel/git/wsa/linux
-    
-    Pull i2c fixes from Wolfram Sang:
-     "Two fixes to correctly report i2c functionality, ensuring that
-      I2C_FUNC_SLAVE is reported when a device operates solely as a slave
-      interface"
-    
-    * tag 'i2c-for-6.10-rc4' of git://git.kernel.org/pub/scm/linux/kernel/git/wsa/linux:
-      i2c: designware: Fix the functionality flags of the slave-only interface
-      i2c: at91: Fix the functionality flags of the slave-only interface
-
-commit 7e9bb0cb50fec5d287749a58de5bb32220881b46
-Merge: 83a7eefedc9b cbf3fb5b29e9
-Author: Wolfram Sang <wsa+renesas@sang-engineering.com>
-Date:   Sun Jun 16 12:48:30 2024 +0200
-
-    Merge tag 'i2c-host-fixes-6.10-rc4' of git://git.kernel.org/pub/scm/linux/kernel/git/andi.shyti/linux into i2c/for-current
-    
-    Two fixes from Jean aim to correctly report i2c functionality,
-    specifically ensuring that I2C_FUNC_SLAVE is reported when a
-    device operates solely as a slave interface.
-
-commit cbf3fb5b29e99e3689d63a88c3cddbffa1b8de99
-Author: Jean Delvare <jdelvare@suse.de>
-Date:   Fri May 31 11:17:48 2024 +0200
-
-    i2c: designware: Fix the functionality flags of the slave-only interface
-    
-    When an I2C adapter acts only as a slave, it should not claim to
-    support I2C master capabilities.
-    
-    Fixes: 5b6d721b266a ("i2c: designware: enable SLAVE in platform module")
-    Signed-off-by: Jean Delvare <jdelvare@suse.de>
-    Cc: Luis Oliveira <lolivei@synopsys.com>
-    Cc: Jarkko Nikula <jarkko.nikula@linux.intel.com>
-    Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-    Cc: Mika Westerberg <mika.westerberg@linux.intel.com>
-    Cc: Jan Dabros <jsd@semihalf.com>
-    Cc: Andi Shyti <andi.shyti@kernel.org>
-    Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-    Acked-by: Jarkko Nikula <jarkko.nikula@linux.intel.com>
-    Tested-by: Jarkko Nikula <jarkko.nikula@linux.intel.com>
-    Signed-off-by: Andi Shyti <andi.shyti@kernel.org>
-
-commit d6d5645e5fc1233a7ba950de4a72981c394a2557
-Author: Jean Delvare <jdelvare@suse.de>
-Date:   Fri May 31 11:19:14 2024 +0200
-
-    i2c: at91: Fix the functionality flags of the slave-only interface
-    
-    When an I2C adapter acts only as a slave, it should not claim to
-    support I2C master capabilities.
-    
-    Fixes: 9d3ca54b550c ("i2c: at91: added slave mode support")
-    Signed-off-by: Jean Delvare <jdelvare@suse.de>
-    Cc: Juergen Fitschen <me@jue.yt>
-    Cc: Ludovic Desroches <ludovic.desroches@microchip.com>
-    Cc: Codrin Ciubotariu <codrin.ciubotariu@microchip.com>
-    Cc: Andi Shyti <andi.shyti@kernel.org>
-    Cc: Nicolas Ferre <nicolas.ferre@microchip.com>
-    Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>
-    Cc: Claudiu Beznea <claudiu.beznea@tuxon.dev>
-    Signed-off-by: Andi Shyti <andi.shyti@kernel.org>
-
-commit 72d95924ee35c8cd16ef52f912483ee938a34d49
-Author: John David Anglin <dave@parisc-linux.org>
-Date:   Mon Jun 10 18:47:07 2024 +0000
-
-    parisc: Try to fix random segmentation faults in package builds
-    
-    PA-RISC systems with PA8800 and PA8900 processors have had problems
-    with random segmentation faults for many years.  Systems with earlier
-    processors are much more stable.
-    
-    Systems with PA8800 and PA8900 processors have a large L2 cache which
-    needs per page flushing for decent performance when a large range is
-    flushed. The combined cache in these systems is also more sensitive to
-    non-equivalent aliases than the caches in earlier systems.
-    
-    The majority of random segmentation faults that I have looked at
-    appear to be memory corruption in memory allocated using mmap and
-    malloc.
-    
-    My first attempt at fixing the random faults didn't work. On
-    reviewing the cache code, I realized that there were two issues
-    which the existing code didn't handle correctly. Both relate
-    to cache move-in. Another issue is that the present bit in PTEs
-    is racy.
-    
-    1) PA-RISC caches have a mind of their own and they can speculatively
-    load data and instructions for a page as long as there is a entry in
-    the TLB for the page which allows move-in. TLBs are local to each
-    CPU. Thus, the TLB entry for a page must be purged before flushing
-    the page. This is particularly important on SMP systems.
-    
-    In some of the flush routines, the flush routine would be called
-    and then the TLB entry would be purged. This was because the flush
-    routine needed the TLB entry to do the flush.
-    
-    2) My initial approach to trying the fix the random faults was to
-    try and use flush_cache_page_if_present for all flush operations.
-    This actually made things worse and led to a couple of hardware
-    lockups. It finally dawned on me that some lines weren't being
-    flushed because the pte check code was racy. This resulted in
-    random inequivalent mappings to physical pages.
-    
-    The __flush_cache_page tmpalias flush sets up its own TLB entry
-    and it doesn't need the existing TLB entry. As long as we can find
-    the pte pointer for the vm page, we can get the pfn and physical
-    address of the page. We can also purge the TLB entry for the page
-    before doing the flush. Further, __flush_cache_page uses a special
-    TLB entry that inhibits cache move-in.
-    
-    When switching page mappings, we need to ensure that lines are
-    removed from the cache.  It is not sufficient to just flush the
-    lines to memory as they may come back.
-    
-    This made it clear that we needed to implement all the required
-    flush operations using tmpalias routines. This includes flushes
-    for user and kernel pages.
-    
-    After modifying the code to use tmpalias flushes, it became clear
-    that the random segmentation faults were not fully resolved. The
-    frequency of faults was worse on systems with a 64 MB L2 (PA8900)
-    and systems with more CPUs (rp4440).
-    
-    The warning that I added to flush_cache_page_if_present to detect
-    pages that couldn't be flushed triggered frequently on some systems.
-    
-    Helge and I looked at the pages that couldn't be flushed and found
-    that the PTE was either cleared or for a swap page. Ignoring pages
-    that were swapped out seemed okay but pages with cleared PTEs seemed
-    problematic.
-    
-    I looked at routines related to pte_clear and noticed ptep_clear_flush.
-    The default implementation just flushes the TLB entry. However, it was
-    obvious that on parisc we need to flush the cache page as well. If
-    we don't flush the cache page, stale lines will be left in the cache
-    and cause random corruption. Once a PTE is cleared, there is no way
-    to find the physical address associated with the PTE and flush the
-    associated page at a later time.
-    
-    I implemented an updated change with a parisc specific version of
-    ptep_clear_flush. It fixed the random data corruption on Helge's rp4440
-    and rp3440, as well as on my c8000.
-    
-    At this point, I realized that I could restore the code where we only
-    flush in flush_cache_page_if_present if the page has been accessed.
-    However, for this, we also need to flush the cache when the accessed
-    bit is cleared in ptep_clear_flush_young to keep things synchronized.
-    The default implementation only flushes the TLB entry.
-    
-    Other changes in this version are:
-    
-    1) Implement parisc specific version of ptep_get. It's identical to
-    default but needed in arch/parisc/include/asm/pgtable.h.
-    2) Revise parisc implementation of ptep_test_and_clear_young to use
-    ptep_get (READ_ONCE).
-    3) Drop parisc implementation of ptep_get_and_clear. We can use default.
-    4) Revise flush_kernel_vmap_range and invalidate_kernel_vmap_range to
-    use full data cache flush.
-    5) Move flush_cache_vmap and flush_cache_vunmap to cache.c. Handle
-    VM_IOREMAP case in flush_cache_vmap.
-    
-    At this time, I don't know whether it is better to always flush when
-    the PTE present bit is set or when both the accessed and present bits
-    are set. The later saves flushing pages that haven't been accessed,
-    but we need to flush in ptep_clear_flush_young. It also needs a page
-    table lookup to find the PTE pointer. The lpa instruction only needs
-    a page table lookup when the PTE entry isn't in the TLB.
-    
-    We don't atomically handle setting and clearing the _PAGE_ACCESSED bit.
-    If we miss an update, we may miss a flush and the cache may get corrupted.
-    Whether the current code is effectively atomic depends on process control.
-    
-    When CONFIG_FLUSH_PAGE_ACCESSED is set to zero, the page will eventually
-    be flushed when the PTE is cleared or in flush_cache_page_if_present. The
-    _PAGE_ACCESSED bit is not used, so the problem is avoided.
-    
-    The flush method can be selected using the CONFIG_FLUSH_PAGE_ACCESSED
-    define in cache.c. The default is 0. I didn't see a large difference
-    in performance.
-    
-    Signed-off-by: John David Anglin <dave.anglin@bell.net>
-    Cc: <stable@vger.kernel.org> # v6.6+
-    Signed-off-by: Helge Deller <deller@gmx.de>
 
