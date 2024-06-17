@@ -2,37 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AFF6090A7D8
-	for <lists+xen-devel@lfdr.de>; Mon, 17 Jun 2024 09:56:18 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.741884.1148560 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6B91A90A8AC
+	for <lists+xen-devel@lfdr.de>; Mon, 17 Jun 2024 10:40:49 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.741896.1148571 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sJ7DX-0002bp-Bc; Mon, 17 Jun 2024 07:55:55 +0000
+	id 1sJ7ty-0001pQ-KY; Mon, 17 Jun 2024 08:39:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 741884.1148560; Mon, 17 Jun 2024 07:55:55 +0000
+Received: by outflank-mailman (output) from mailman id 741896.1148571; Mon, 17 Jun 2024 08:39:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sJ7DX-0002ZP-97; Mon, 17 Jun 2024 07:55:55 +0000
-Received: by outflank-mailman (input) for mailman id 741884;
- Mon, 17 Jun 2024 07:55:54 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1sJ7ty-0001nt-HZ; Mon, 17 Jun 2024 08:39:46 +0000
+Received: by outflank-mailman (input) for mailman id 741896;
+ Mon, 17 Jun 2024 08:39:44 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=5eX2=NT=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1sJ7DW-0002ZH-62
- for xen-devel@lists.xenproject.org; Mon, 17 Jun 2024 07:55:54 +0000
-Received: from mail-qt1-x833.google.com (mail-qt1-x833.google.com
- [2607:f8b0:4864:20::833])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 04e9f5dd-2c7f-11ef-90a3-e314d9c70b13;
- Mon, 17 Jun 2024 09:55:53 +0200 (CEST)
-Received: by mail-qt1-x833.google.com with SMTP id
- d75a77b69052e-4405743ac19so35246121cf.0
- for <xen-devel@lists.xenproject.org>; Mon, 17 Jun 2024 00:55:53 -0700 (PDT)
-Received: from localhost ([213.195.124.163]) by smtp.gmail.com with ESMTPSA id
- d75a77b69052e-441ef4eefaesm44094171cf.21.2024.06.17.00.55.51
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 17 Jun 2024 00:55:51 -0700 (PDT)
+ <SRS0=Yk4M=NT=cloud.com=christian.lindig@srs-se1.protection.inumbo.net>)
+ id 1sJ7tw-0001nn-HZ
+ for xen-devel@lists.xenproject.org; Mon, 17 Jun 2024 08:39:44 +0000
+Received: from mail-ed1-x52f.google.com (mail-ed1-x52f.google.com
+ [2a00:1450:4864:20::52f])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 225bb6de-2c85-11ef-b4bb-af5377834399;
+ Mon, 17 Jun 2024 10:39:42 +0200 (CEST)
+Received: by mail-ed1-x52f.google.com with SMTP id
+ 4fb4d7f45d1cf-57ccd1111aeso1738480a12.0
+ for <xen-devel@lists.xenproject.org>; Mon, 17 Jun 2024 01:39:39 -0700 (PDT)
+Received: from smtpclient.apple ([160.101.139.1])
+ by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-57cbb05b465sm5550010a12.18.2024.06.17.01.39.37
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Mon, 17 Jun 2024 01:39:38 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,83 +45,108 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 04e9f5dd-2c7f-11ef-90a3-e314d9c70b13
+X-Inumbo-ID: 225bb6de-2c85-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1718610952; x=1719215752; darn=lists.xenproject.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=6I7HjTVD0FYGpGJyzdWr9lYyHGbtAeqv6wNa85E5Tlk=;
-        b=VAY7IA5xPYNIzp6FaeaQ6lDcLUKWwE5y75LHtZcNMNJ8UN5SP6BggRKeYWjslOF12X
-         SSbW1b9SCtVB3w82RZFhoF+IfbznIvhJKHuNW/lwS4guMIYpHQsb6NW+Lyxxi6YKfAQ0
-         ZFBpz94mJFh5eaw6kTiiE+Gm8UeZYlP3sjkf8=
+        d=cloud.com; s=cloud; t=1718613578; x=1719218378; darn=lists.xenproject.org;
+        h=to:references:message-id:content-transfer-encoding:cc:date
+         :in-reply-to:from:subject:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=Mugjmrlf67djGV/fxLe8luEpsefrPNOLtNy50E6bwxg=;
+        b=cKZ1TXy/GZDAICt44p+ehGNhtXB9/laXRcZ04Sq/p4yVLtAf1PsxSiEOVIVeSZ7xbA
+         utd+SE6qcTml7b30/v53PZS3/XjR5lufRDl2GDa67TwcZMpSk1k6aeVMNVDoFBPtgsj+
+         sa4e7bD+SUfczAAwyv98J0iMzRqpT/1z4/RZI=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1718610952; x=1719215752;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=6I7HjTVD0FYGpGJyzdWr9lYyHGbtAeqv6wNa85E5Tlk=;
-        b=RYWZP5/W/hYq7y64YQ9EDc9kfJIkjFyru4QfgZBiv3lFF8UCK058nDGzIcf0sSCRWV
-         ypGFIejLF/vBNvYgZa09aQSYX63Xa0tIJ2xmIaHU3okUKeHlDS99Bbh8zNxshQuWRKmI
-         aNzxzk+jG67rUAj6UPYGq5oRhasIV9bDNLnF3P4rhV0nAqf6/Z1rNxexnof+8DZAh5gG
-         Q0FgBNnazUdM8GVREU0VpNOmksnpo/PzEZVyR3DNJ6EPvUchW2PhquVhUZ+IkIas9dKB
-         ecARA/FgZn/TbBAPWqerZ/fQss5BWNyly83XFxkmpxoGYC78jVe6nwvQLuRTS4o2iAHI
-         Mpng==
-X-Forwarded-Encrypted: i=1; AJvYcCXIosLs4U1Jk+lh6lqzoXNDWNa/h7y/JlAWoIAzZDeZfpc1H+l58PPj9r4Wu9cIKKpX31DBZApFQn1SlLcJWe/qQK+Ol2LmoubMlnH4gL4=
-X-Gm-Message-State: AOJu0YwgNJVUcWXkQJc4q3/DpJrm2KfCxOmUCS6YiXM01JoLE7Uyg174
-	L4nfnHVm0J4sS+Xlf+O9cxZ93srrOux9Axhr87V9b1DCuxnAUiZ/dfIvM/0SZcA=
-X-Google-Smtp-Source: AGHT+IFxBb+fxu+zFP9/mPYH5nZSCdE6S/NGqQ55TdkfvSsNQ6okiuS1Itv2iysUUW0wZGmJIGDYbg==
-X-Received: by 2002:ac8:5e11:0:b0:440:10be:3ecf with SMTP id d75a77b69052e-4417ac402c0mr199666251cf.22.1718610952095;
-        Mon, 17 Jun 2024 00:55:52 -0700 (PDT)
-Date: Mon, 17 Jun 2024 09:55:48 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Christoph Hellwig <hch@lst.de>
-Cc: Jens Axboe <axboe@kernel.dk>, Geert Uytterhoeven <geert@linux-m68k.org>,
-	Richard Weinberger <richard@nod.at>,
-	Philipp Reisner <philipp.reisner@linbit.com>,
-	Lars Ellenberg <lars.ellenberg@linbit.com>,
-	Christoph =?utf-8?Q?B=C3=B6hmwalder?= <christoph.boehmwalder@linbit.com>,
-	Josef Bacik <josef@toxicpanda.com>, Ming Lei <ming.lei@redhat.com>,
-	"Michael S. Tsirkin" <mst@redhat.com>,
-	Jason Wang <jasowang@redhat.com>, Alasdair Kergon <agk@redhat.com>,
-	Mike Snitzer <snitzer@kernel.org>,
-	Mikulas Patocka <mpatocka@redhat.com>, Song Liu <song@kernel.org>,
-	Yu Kuai <yukuai3@huawei.com>,
-	Vineeth Vijayan <vneethv@linux.ibm.com>,
-	"Martin K. Petersen" <martin.petersen@oracle.com>,
-	linux-m68k@lists.linux-m68k.org, linux-um@lists.infradead.org,
-	drbd-dev@lists.linbit.com, nbd@other.debian.org,
-	linuxppc-dev@lists.ozlabs.org, ceph-devel@vger.kernel.org,
-	virtualization@lists.linux.dev, xen-devel@lists.xenproject.org,
-	linux-bcache@vger.kernel.org, dm-devel@lists.linux.dev,
-	linux-raid@vger.kernel.org, linux-mmc@vger.kernel.org,
-	linux-mtd@lists.infradead.org, nvdimm@lists.linux.dev,
-	linux-nvme@lists.infradead.org, linux-s390@vger.kernel.org,
-	linux-scsi@vger.kernel.org, linux-block@vger.kernel.org
-Subject: Re: [PATCH 01/26] xen-blkfront: don't disable cache flushes when
- they fail
-Message-ID: <Zm_sBInagtSkOZtg@macbook>
-References: <20240617060532.127975-1-hch@lst.de>
- <20240617060532.127975-2-hch@lst.de>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20240617060532.127975-2-hch@lst.de>
+        d=1e100.net; s=20230601; t=1718613578; x=1719218378;
+        h=to:references:message-id:content-transfer-encoding:cc:date
+         :in-reply-to:from:subject:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=Mugjmrlf67djGV/fxLe8luEpsefrPNOLtNy50E6bwxg=;
+        b=Vnz4QGZ1rYRhNC9xByUCSoXZC5WioAgIIXO8TK6qLPGV8CTJRUShCupEGIUypZYhLU
+         iVYjy9nvxjvKP8/GQnvIdk64IzU6DOb8SGrzLfZqeKSBChNbpIuB/Gs8LyKxp62mlSwS
+         ATguNgtaXDbsrQN1OpcLF00UuoAR3ZfSz3s8uv519wg+K4o/KomRSgJWzLpFbkI0Q6f3
+         Pv+1/S8r9+pL8YZ4vZu/QxJ6DwMAMZSkrpNTGBCHubovq5kM1WW+jzJ+O95XW5UvRzPL
+         H7HG827nSgcB3GMutWkqkOtJ4oTb0uE7cSPupE4uEWGuRqmFKwwL82v6uKwb3kWxkZcJ
+         LJlw==
+X-Forwarded-Encrypted: i=1; AJvYcCUBhQm62Txto31+JS/q+NyapMJLyNqaa/MDnpdklK33aedw9huPB08z5JPyM/tuG3tfgiqAfshROwPRF8f76fGoJX0zSTO+LXK7uMx19+o=
+X-Gm-Message-State: AOJu0Yzza4nGcTIZiUWVpXm54gwFCty3E0DBegXOa9XwFREPNr++/oDL
+	SosDiqn7n3O5rEH4LiuBsiC5nTIUSXvfl5PRiHi92WHrPDgdJ4TVUe7BDLLT4Rk=
+X-Google-Smtp-Source: AGHT+IE49XWB+Mgt1gTXGnih61wtOUA32pZiLFXyBDTp7KuBSH7u24HdwKdObO7fODBLy5fk8mdS8A==
+X-Received: by 2002:a50:9b18:0:b0:57a:2e93:fe80 with SMTP id 4fb4d7f45d1cf-57cbd66349bmr5800234a12.18.1718613578571;
+        Mon, 17 Jun 2024 01:39:38 -0700 (PDT)
+Content-Type: text/plain;
+	charset=utf-8
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3774.500.171.1.1\))
+Subject: Re: [PATCH for-4.19? v6 3/9] xen: Refactor altp2m options into a
+ structured format
+From: Christian Lindig <christian.lindig@cloud.com>
+In-Reply-To: <217202e9-608f-4788-b689-8140567e4485@suse.com>
+Date: Mon, 17 Jun 2024 09:39:26 +0100
+Cc: =?utf-8?Q?Petr_Bene=C5=A1?= <w1benny@gmail.com>,
+ Anthony PERARD <anthony@xenproject.org>,
+ Juergen Gross <jgross@suse.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>,
+ Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Christian Lindig <christian.lindig@citrix.com>,
+ David Scott <dave@recoil.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ =?utf-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Julien Grall <jgrall@amazon.com>,
+ xen-devel@lists.xenproject.org
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <91079292-EE0F-4A85-A86D-9649CBBF529D@cloud.com>
+References: <cover.1718038855.git.w1benny@gmail.com>
+ <dcf08c40e37072e18e5e878df8778ce459897bdc.1718038855.git.w1benny@gmail.com>
+ <8787608f-f3b0-4fb3-95ee-98050cf95182@suse.com>
+ <CAKBKdXiiZdz70nWx7kqp2S5RdbRsku+qtn6z9DBk44LZOgp3Qw@mail.gmail.com>
+ <217202e9-608f-4788-b689-8140567e4485@suse.com>
+To: Jan Beulich <jbeulich@suse.com>
+X-Mailer: Apple Mail (2.3774.500.171.1.1)
 
-On Mon, Jun 17, 2024 at 08:04:28AM +0200, Christoph Hellwig wrote:
-> blkfront always had a robust negotiation protocol for detecting a write
-> cache.  Stop simply disabling cache flushes in the block layer as the
-> flags handling is moving to the atomic queue limits API that needs
-> user context to freeze the queue for that.  Instead handle the case
-> of the feature flags cleared inside of blkfront.  This removes old
-> debug code to check for such a mismatch which was previously impossible
-> to hit, including the check for passthrough requests that blkfront
-> never used to start with.
-> 
-> Signed-off-by: Christoph Hellwig <hch@lst.de>
 
-Acked-by: Roger Pau Monné <roger.pau@citrix.com>
 
-Thanks, Roger.
+> On 11 Jun 2024, at 10:14, Jan Beulich <jbeulich@suse.com> wrote:
+>=20
+> On 11.06.2024 10:00, Petr Bene=C5=A1 wrote:
+>> On Tue, Jun 11, 2024 at 8:41=E2=80=AFAM Jan Beulich =
+<jbeulich@suse.com> wrote:
+>>>=20
+>>> On 10.06.2024 19:10, Petr Bene=C5=A1 wrote:
+>>>> From: Petr Bene=C5=A1 <w1benny@gmail.com>
+>>>>=20
+>>>> Encapsulate the altp2m options within a struct. This change is =
+preparatory
+>>>> and sets the groundwork for introducing additional parameter in =
+subsequent
+>>>> commit.
+>>>>=20
+>>>> Signed-off-by: Petr Bene=C5=A1 <w1benny@gmail.com>
+>>>> Acked-by: Julien Grall <jgrall@amazon.com> # arm
+>>>> Reviewed-by: Jan Beulich <jbeulich@suse.com> # hypervisor
+>>>=20
+>>> Looks like you lost Christian's ack for ...
+>>>=20
+>>>> ---
+>>>> tools/libs/light/libxl_create.c     | 6 +++---
+>>>> tools/ocaml/libs/xc/xenctrl_stubs.c | 4 +++-
+>>>=20
+>>> ... the adjustment of this file?
+>>=20
+>> In the cover email, Christian only acked:
+>>=20
+>>> tools/ocaml/libs/xc/xenctrl.ml       |   2 +
+>>> tools/ocaml/libs/xc/xenctrl.mli      |   2 +
+>>> tools/ocaml/libs/xc/xenctrl_stubs.c  |  40 +++++++---
+>=20
+> Right, but above I was talking about the last of these three files.
+>=20
+> Jan
+
+Consider all of this Acked by me. I think this email-based workflow when =
+we are going through several iterations are quite a burden.
+
+=E2=80=94 C=
 
