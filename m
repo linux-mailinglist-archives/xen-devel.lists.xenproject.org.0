@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5BB4590B1A8
-	for <lists+xen-devel@lfdr.de>; Mon, 17 Jun 2024 16:22:56 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.742361.1149151 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EF14A90B1CB
+	for <lists+xen-devel@lfdr.de>; Mon, 17 Jun 2024 16:26:05 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.742366.1149161 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sJDFb-0001OQ-Kc; Mon, 17 Jun 2024 14:22:27 +0000
+	id 1sJDIo-0001yL-3F; Mon, 17 Jun 2024 14:25:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 742361.1149151; Mon, 17 Jun 2024 14:22:27 +0000
+Received: by outflank-mailman (output) from mailman id 742366.1149161; Mon, 17 Jun 2024 14:25:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sJDFb-0001M7-H1; Mon, 17 Jun 2024 14:22:27 +0000
-Received: by outflank-mailman (input) for mailman id 742361;
- Mon, 17 Jun 2024 14:22:26 +0000
+	id 1sJDIo-0001vc-01; Mon, 17 Jun 2024 14:25:46 +0000
+Received: by outflank-mailman (input) for mailman id 742366;
+ Mon, 17 Jun 2024 14:25:44 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=E9YK=NT=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sJDFa-0001M1-3C
- for xen-devel@lists.xenproject.org; Mon, 17 Jun 2024 14:22:26 +0000
-Received: from mail-ed1-x52d.google.com (mail-ed1-x52d.google.com
- [2a00:1450:4864:20::52d])
+ id 1sJDIm-0001vW-J7
+ for xen-devel@lists.xenproject.org; Mon, 17 Jun 2024 14:25:44 +0000
+Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
+ [2a00:1450:4864:20::62e])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 04aa5163-2cb5-11ef-90a3-e314d9c70b13;
- Mon, 17 Jun 2024 16:22:25 +0200 (CEST)
-Received: by mail-ed1-x52d.google.com with SMTP id
- 4fb4d7f45d1cf-57cbc66a0a6so475679a12.1
- for <xen-devel@lists.xenproject.org>; Mon, 17 Jun 2024 07:22:25 -0700 (PDT)
+ id 7ae2a795-2cb5-11ef-90a3-e314d9c70b13;
+ Mon, 17 Jun 2024 16:25:43 +0200 (CEST)
+Received: by mail-ej1-x62e.google.com with SMTP id
+ a640c23a62f3a-a63359aaaa6so665460466b.2
+ for <xen-devel@lists.xenproject.org>; Mon, 17 Jun 2024 07:25:43 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-57cf709b49dsm76051a12.49.2024.06.17.07.22.23
+ a640c23a62f3a-a6f8176eea5sm178998766b.88.2024.06.17.07.25.42
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 17 Jun 2024 07:22:24 -0700 (PDT)
+ Mon, 17 Jun 2024 07:25:42 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,51 +45,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 04aa5163-2cb5-11ef-90a3-e314d9c70b13
+X-Inumbo-ID: 7ae2a795-2cb5-11ef-90a3-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1718634145; x=1719238945; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1718634343; x=1719239143; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=RDYlK32PcEbzjDkBUw1Lslht69kdYDtkHTsgamegvR4=;
-        b=QdijaweahB0/Bd8sFP/XpqVj8bgplMplUdYc7ryY2br//8oGuokXielPcFP/Fha6MP
-         eNyWPbN61a6Xj6XR/Gs2oSC/5dd/Qj4MPbzk3D2iP+K4fjjLBW9/lLmt+QIsJcN/5boH
-         sWMZplN5T8V4hrk3WWB0Cm+/nXbzWLBIyTq+nbH9NW0dOkOP+34+vuuc9mV2+FpBoN3w
-         GHtvNxj/+OLiixmnbwUVw/tHyS6AtnIFc5MuX4iHWdaM8uIE4jlrQ0y6QuHnJme2k26F
-         PI1rHPLxrDAvyWQoowwmzHhdXX1iS2wS7XgFzNvIfV2aAzUHkUjikRa1E53FVk6B14PX
-         mq2g==
+        bh=QKUxaFYJiLg9Ph/VfOVu53T0ux5v0DrUMuEEkKaFwe4=;
+        b=Cw+uSzZDw8g7jhIKbeQDP/uSYxPCFWUwD11XxzHzD93h1SBUM2bfhxx7q0+HBQjSmB
+         QSlEXFDACmrFRxUevuoiyPVJsOaVJ9YklHCPFYv5vIBWgDDjvQH+0JGvdTOyaezxfU/k
+         KNcNBXsJ7Z3bu2QYFXBrpiGviU7Fi5g8QglS92hJ6Y58Yfcg1cF/nPQUc8a2oRxQTMcT
+         Zprg9zvT3x7Wgd6LYDuXJASSwTj0jvTf0knWbjHiNRKmthO8ZoX743XygpSQQAdRActy
+         q9fhfrtJDSy19bBsPqFqnlDL3DFsiAEEek/gZvbTygWuNU6z5dy83In5TmNvbzP2fhL9
+         cJAA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1718634145; x=1719238945;
+        d=1e100.net; s=20230601; t=1718634343; x=1719239143;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=RDYlK32PcEbzjDkBUw1Lslht69kdYDtkHTsgamegvR4=;
-        b=h/8bCh8DB+p6rUyo8oJDJ/ozE/vHXUeChmKFjVFoaNo6TwErq9koiTxqQG2e+KzQGF
-         EH8PtwWZK9HrjPQEaJB5zbRkvoXRTqxKw+EM1iXiVFwwx/R/pHI2R27KrkrorbILG3xE
-         kN7sa3HFfni+nR9VlWFE+zQ8x+fpAPKqdGCKgDwykICqybfWwf+vlacnvF0xuJ3AzP6O
-         gHwFr3t5PEtY56FZJ8Z08ix+F47WnC0aogMilYJ/blmzNk4OP8zUGMkxn0PhftRreOTZ
-         X/FIm6Vjuxh6kZ24WA1d1iA0d6B50jLhChP+2oWBptU9fgZ4pXclUSuK2aiwCqK5Kxxf
-         n0lQ==
-X-Forwarded-Encrypted: i=1; AJvYcCWrOpTgsyhe9bU+kA3JPd99Kmg9Duvw3zI5w4x/RYSuNdN64NBdSKBhqYKhpqIZtkTrhvEeWHZpCS2r/Ei0p8yAtq5D9/ps6dRTp6L2q5Q=
-X-Gm-Message-State: AOJu0Yxg6NG5Nwpq1y6CYaJMA7UkyM/puU/S9ItRH4temMLYp5vdwwbj
-	1a2rIBns+ffq/pKRPqen+mgdjdlCuIh3yrSO8A+xYKjeFt5noLqBwHUShyo6Rw==
-X-Google-Smtp-Source: AGHT+IGTdnNmx/lrvgSy2nQrknFrK5oVSLM37bT6s12vjnAcrOUwqPbxH/dj19ONIPn97Cv2O4Ww2A==
-X-Received: by 2002:aa7:cb87:0:b0:57c:a796:ed6e with SMTP id 4fb4d7f45d1cf-57cb4bb0d49mr9430677a12.6.1718634144499;
-        Mon, 17 Jun 2024 07:22:24 -0700 (PDT)
-Message-ID: <2fe6ef97-84f2-4bf4-870b-b0bb580fa38f@suse.com>
-Date: Mon, 17 Jun 2024 16:22:21 +0200
+        bh=QKUxaFYJiLg9Ph/VfOVu53T0ux5v0DrUMuEEkKaFwe4=;
+        b=Zc+IutychFcUxnUQH8a0IB/DYKHcfoJAx0AAFC3wYouxWH5Fe8CJBSc5AutXpBfV5x
+         xiac+kkg5+1ZocgpdfaW184XksKZzBJwFtemIohvNQvyafV1rlJ3kQhcFzM4Cj19c9JS
+         W4kz5hnAHz0ffRXMDUoA2ukiu3NopqfVslOCPEJKH/C1R6HGuF9ys/cZ/PuVJVuO/5jh
+         p7j6VPwqyN2ktxq6HrfPPNkWhqYCJSVbch/47xJkqmRrsGRCv39mWrwwkbMu2t1kNu+5
+         QB47MqUrNwR+/d478xFl2mIRM5b4bnEPVD6Z5E5B7dbY3pxU0r9ylIAHgwZa+Uy+fKcw
+         /VaA==
+X-Gm-Message-State: AOJu0Yxhd2vgEO3FRCo2GCgxv8hMpEMtD8D8j0K1YM4dUswWgziohvKr
+	lwzyVR3WQ9gDTuDC5Opz1CfSJ3KmuHXG6oSYKaS03FmNsPLuw3BPjNJUi2XQJA==
+X-Google-Smtp-Source: AGHT+IGCRyB/yokdEe2X6n7ZLojfXcD6MbiY45JVgMP9N+wJUoaqOs5hTl81gNYNcF3RIn1k8yEKKQ==
+X-Received: by 2002:a17:907:3f03:b0:a6f:5fe2:56e9 with SMTP id a640c23a62f3a-a6f60d2b9a7mr842972766b.17.1718634342984;
+        Mon, 17 Jun 2024 07:25:42 -0700 (PDT)
+Message-ID: <bd2eb947-7fca-4f1a-bf43-addccdda35a0@suse.com>
+Date: Mon, 17 Jun 2024 16:25:41 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/xen/time: Reduce Xen timer tick
-To: Frediano Ziglio <frediano.ziglio@cloud.com>
-Cc: "H. Peter Anvin" <hpa@zytor.com>, x86@kernel.org,
- Dave Hansen <dave.hansen@linux.intel.com>, Borislav Petkov <bp@alien8.de>,
- Ingo Molnar <mingo@redhat.com>, Thomas Gleixner <tglx@linutronix.de>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>, Juergen Gross
- <jgross@suse.com>, xen-devel@lists.xenproject.org,
- linux-kernel@vger.kernel.org
-References: <20240617141303.53857-1-frediano.ziglio@cloud.com>
+Subject: Re: ACPI NVS range conflicting with Dom0 page tables (or kernel
+ image)
+To: =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Juergen Gross <jgross@suse.com>
+References: <a5a8a016-2107-46fb-896b-2baaf66566d4@suse.com>
+ <ZnBCFgHltVqj2FDh@mail-itl>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -115,34 +113,63 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240617141303.53857-1-frediano.ziglio@cloud.com>
+In-Reply-To: <ZnBCFgHltVqj2FDh@mail-itl>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 17.06.2024 16:13, Frediano Ziglio wrote:
-> Current timer tick is causing some deadline to fail.
-> The current high value constant was probably due to an old
-> bug in the Xen timer implementation causing errors if the
-> deadline was in the future.
-> This was fixed in Xen commit:
-> 19c6cbd90965 xen/vcpu: ignore VCPU_SSHOTTMR_future
+On 17.06.2024 16:03, Marek Marczykowski-Górecki wrote:
+> On Mon, Jun 17, 2024 at 01:22:37PM +0200, Jan Beulich wrote:
+>> Hello,
+>>
+>> while it feels like we had a similar situation before, I can't seem to be
+>> able to find traces thereof, or associated (Linux) commits.
+> 
+> Is it some AMD Threadripper system by a chance?
 
-And then newer kernels are no longer reliably usable on Xen older than
-this?
+It's an AMD system in any event, yes. I don't have all the details on it.
 
-> --- a/arch/x86/xen/time.c
-> +++ b/arch/x86/xen/time.c
-> @@ -30,7 +30,7 @@
->  #include "xen-ops.h"
->  
->  /* Minimum amount of time until next clock event fires */
-> -#define TIMER_SLOP	100000
-> +#define TIMER_SLOP	1000
+> Previous thread on this issue:
+> https://lore.kernel.org/xen-devel/CAOCpoWdOH=xGxiQSC1c5Ueb1THxAjH4WiZbCZq-QT+d_KAk3SA@mail.gmail.com/
 
-It may be just the lack of knowledge of mine towards noadays's Linux'es
-time handling, but the change of a value with this name and thus
-commented doesn't directly relate to "timer tick" rate. Could you maybe
-help me see the connection?
+Ah yes, that's probably the one I was vaguely remembering. There it was the
+kernel image E820 conflicted with. Yet ...
+
+>> With
+>>
+>> (XEN)  Dom0 kernel: 64-bit, PAE, lsb, paddr 0x1000000 -> 0x4000000
+>> ...
+>> (XEN)  Dom0 alloc.:   0000000440000000->0000000448000000 (619175 pages to be allocated)
+>> ...
+>> (XEN)  Loaded kernel: ffffffff81000000->ffffffff84000000
+>>
+>> the kernel occupies the space from 16Mb to 64Mb in the initial allocation.
+>> Page tables come (almost) directly above:
+>>
+>> (XEN)  Page tables:   ffffffff84001000->ffffffff84026000
+>>
+>> I.e. they're just above the 64Mb boundary. Yet sadly in the host E820 map
+>> there is
+>>
+>> (XEN)  [0000000004000000, 0000000004009fff] (ACPI NVS)
+>>
+>> i.e. a non-RAM range starting at 64Mb. The kernel (currently) won't tolerate
+>> such an overlap (also if it was overlapping the kernel image, e.g. if on the
+>> machine in question s sufficiently much larger kernel was used). Yet with its
+>> fundamental goal of making its E820 match the host one I'm also in trouble
+>> thinking of possible solutions / workarounds. I certainly do not see Xen
+>> trying to cover for this, as the E820 map re-arrangement is purely a kernel
+>> side decision (forward ported kernels got away without, and what e.g. the
+>> BSDs do is entirely unknown to me).
+> 
+> In Qubes we have worked around the issue by moving the kernel lower
+> (CONFIG_PHYSICAL_START=0x200000):
+> https://github.com/QubesOS/qubes-linux-kernel/commit/3e8be4ac1682370977d4d0dc1d782c428d860282
+> 
+> Far from ideal, but gets it bootable...
+
+... as you say, it's a workaround for particular systems, but not generally
+dealing with the underlying issue. This explains why I couldn't find any
+patch(es), though.
 
 Jan
 
