@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3632990B15E
-	for <lists+xen-devel@lfdr.de>; Mon, 17 Jun 2024 16:17:27 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.742353.1149141 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5BB4590B1A8
+	for <lists+xen-devel@lfdr.de>; Mon, 17 Jun 2024 16:22:56 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.742361.1149151 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sJDAW-0007TM-2u; Mon, 17 Jun 2024 14:17:12 +0000
+	id 1sJDFb-0001OQ-Kc; Mon, 17 Jun 2024 14:22:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 742353.1149141; Mon, 17 Jun 2024 14:17:12 +0000
+Received: by outflank-mailman (output) from mailman id 742361.1149151; Mon, 17 Jun 2024 14:22:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sJDAV-0007Rf-VP; Mon, 17 Jun 2024 14:17:11 +0000
-Received: by outflank-mailman (input) for mailman id 742353;
- Mon, 17 Jun 2024 14:17:10 +0000
+	id 1sJDFb-0001M7-H1; Mon, 17 Jun 2024 14:22:27 +0000
+Received: by outflank-mailman (input) for mailman id 742361;
+ Mon, 17 Jun 2024 14:22:26 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=E9YK=NT=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sJDAU-0007RZ-Jl
- for xen-devel@lists.xenproject.org; Mon, 17 Jun 2024 14:17:10 +0000
-Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
- [2a00:1450:4864:20::630])
+ id 1sJDFa-0001M1-3C
+ for xen-devel@lists.xenproject.org; Mon, 17 Jun 2024 14:22:26 +0000
+Received: from mail-ed1-x52d.google.com (mail-ed1-x52d.google.com
+ [2a00:1450:4864:20::52d])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 487508ba-2cb4-11ef-90a3-e314d9c70b13;
- Mon, 17 Jun 2024 16:17:09 +0200 (CEST)
-Received: by mail-ej1-x630.google.com with SMTP id
- a640c23a62f3a-a689ad8d1f6so542892166b.2
- for <xen-devel@lists.xenproject.org>; Mon, 17 Jun 2024 07:17:09 -0700 (PDT)
+ id 04aa5163-2cb5-11ef-90a3-e314d9c70b13;
+ Mon, 17 Jun 2024 16:22:25 +0200 (CEST)
+Received: by mail-ed1-x52d.google.com with SMTP id
+ 4fb4d7f45d1cf-57cbc66a0a6so475679a12.1
+ for <xen-devel@lists.xenproject.org>; Mon, 17 Jun 2024 07:22:25 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a6f56db6182sm519650166b.51.2024.06.17.07.17.07
+ 4fb4d7f45d1cf-57cf709b49dsm76051a12.49.2024.06.17.07.22.23
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 17 Jun 2024 07:17:08 -0700 (PDT)
+ Mon, 17 Jun 2024 07:22:24 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,54 +45,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 487508ba-2cb4-11ef-90a3-e314d9c70b13
+X-Inumbo-ID: 04aa5163-2cb5-11ef-90a3-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1718633829; x=1719238629; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1718634145; x=1719238945; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=ZPxgaFWrmJdTu1iQU8AcpoZT59Gp9X82wVc51hl10nw=;
-        b=CU/kzgMNC0iZ6BP7azHq5GaegFUXE2zjpPBGgSFqRjhngLvZq8YdaVj0N9IIJxwpjZ
-         nFi5CDvC7A1HM0Sdvfy5BpK0wipD6G3MRbskz2LVWeSuhI/PpCPvIjq/OeAZR2RGajM4
-         7s5eifNbpX50xiVavPYrGT7slqesJQsHmpWcfeG9c2hMrgmF7GqlV4CeE4r78iU4mBiD
-         1jQ/EyUp0GLAm97TQYsw+BWtYh+4F+g3Qey3kJuW9RRgRfYrzbHavuz9nu8/f2z57NAS
-         kRE1vq3htDn0GYWp9yRAVHksSaLQI0Yjf3xwIqzpom6hVw21Y5UmcQw7iC92kdw94VHe
-         cYkg==
+        bh=RDYlK32PcEbzjDkBUw1Lslht69kdYDtkHTsgamegvR4=;
+        b=QdijaweahB0/Bd8sFP/XpqVj8bgplMplUdYc7ryY2br//8oGuokXielPcFP/Fha6MP
+         eNyWPbN61a6Xj6XR/Gs2oSC/5dd/Qj4MPbzk3D2iP+K4fjjLBW9/lLmt+QIsJcN/5boH
+         sWMZplN5T8V4hrk3WWB0Cm+/nXbzWLBIyTq+nbH9NW0dOkOP+34+vuuc9mV2+FpBoN3w
+         GHtvNxj/+OLiixmnbwUVw/tHyS6AtnIFc5MuX4iHWdaM8uIE4jlrQ0y6QuHnJme2k26F
+         PI1rHPLxrDAvyWQoowwmzHhdXX1iS2wS7XgFzNvIfV2aAzUHkUjikRa1E53FVk6B14PX
+         mq2g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1718633829; x=1719238629;
+        d=1e100.net; s=20230601; t=1718634145; x=1719238945;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=ZPxgaFWrmJdTu1iQU8AcpoZT59Gp9X82wVc51hl10nw=;
-        b=lXdIMc8E125doo6IAbqH8/vtQrycI0QXztN2u+M2Nnj5pcI5eoxk9+U1SlOJa2F6wn
-         iDw1r3K01bXnp+Pa0XY2Vico7hgmKRwbeuaUSH76V6/pFCwdHAUGVQm7sdqcxL0QbXUF
-         FSJhZLOheo/esdjKkFNYTNt0zgxywniilNXkR7g/DKanm54WMfTOXeIXe1pAgZ45pxcH
-         +/r6VVORH7vCiLd4RxyctWND+JI7SctqSZhrWBu+DSq4kEt1ui6AGlGID+45titVgzJA
-         ArhSmSsaBaNi5um7dHnT2uXHCCDfZQTSFDer6omiW6L15dNFADsFRuHeg+rpMgERfGgc
-         NFWg==
-X-Forwarded-Encrypted: i=1; AJvYcCW4HOFdstt/P8RQ0mFlBA7FG/1J+th9pKqZ7G1VXvgfbeMxjrttCB/gkYR7G2OYW9AVK+6Q26qdkjHK8Z2swuIWyuAIt5HCuMfure/ON6M=
-X-Gm-Message-State: AOJu0Yw370Ixu749QfT3p+V/X97zzq6aqlHwEREeEa0lCv5c8zgdZlo4
-	VexQYQL/HrZp3a/+m064Z9d5GVGPAIWvpKPYoDhIpaqf0wilqGeLMnwPDGpWuw==
-X-Google-Smtp-Source: AGHT+IHWuQ1nSiZHYXYcpJ0bA4xZaaG0szUD6Ej+x71cUy6b9hWeTTCBudD5sCBJ9b2L9X1SDAQNTg==
-X-Received: by 2002:a17:906:656:b0:a6f:481f:77eb with SMTP id a640c23a62f3a-a6f60d1e0f6mr633010466b.20.1718633828783;
-        Mon, 17 Jun 2024 07:17:08 -0700 (PDT)
-Message-ID: <4e2accc2-e81d-450a-af2d-38884455de9c@suse.com>
-Date: Mon, 17 Jun 2024 16:17:06 +0200
+        bh=RDYlK32PcEbzjDkBUw1Lslht69kdYDtkHTsgamegvR4=;
+        b=h/8bCh8DB+p6rUyo8oJDJ/ozE/vHXUeChmKFjVFoaNo6TwErq9koiTxqQG2e+KzQGF
+         EH8PtwWZK9HrjPQEaJB5zbRkvoXRTqxKw+EM1iXiVFwwx/R/pHI2R27KrkrorbILG3xE
+         kN7sa3HFfni+nR9VlWFE+zQ8x+fpAPKqdGCKgDwykICqybfWwf+vlacnvF0xuJ3AzP6O
+         gHwFr3t5PEtY56FZJ8Z08ix+F47WnC0aogMilYJ/blmzNk4OP8zUGMkxn0PhftRreOTZ
+         X/FIm6Vjuxh6kZ24WA1d1iA0d6B50jLhChP+2oWBptU9fgZ4pXclUSuK2aiwCqK5Kxxf
+         n0lQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWrOpTgsyhe9bU+kA3JPd99Kmg9Duvw3zI5w4x/RYSuNdN64NBdSKBhqYKhpqIZtkTrhvEeWHZpCS2r/Ei0p8yAtq5D9/ps6dRTp6L2q5Q=
+X-Gm-Message-State: AOJu0Yxg6NG5Nwpq1y6CYaJMA7UkyM/puU/S9ItRH4temMLYp5vdwwbj
+	1a2rIBns+ffq/pKRPqen+mgdjdlCuIh3yrSO8A+xYKjeFt5noLqBwHUShyo6Rw==
+X-Google-Smtp-Source: AGHT+IGTdnNmx/lrvgSy2nQrknFrK5oVSLM37bT6s12vjnAcrOUwqPbxH/dj19ONIPn97Cv2O4Ww2A==
+X-Received: by 2002:aa7:cb87:0:b0:57c:a796:ed6e with SMTP id 4fb4d7f45d1cf-57cb4bb0d49mr9430677a12.6.1718634144499;
+        Mon, 17 Jun 2024 07:22:24 -0700 (PDT)
+Message-ID: <2fe6ef97-84f2-4bf4-870b-b0bb580fa38f@suse.com>
+Date: Mon, 17 Jun 2024 16:22:21 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH v10 1/5] xen/vpci: Clear all vpci status of device
-To: Jiqian Chen <Jiqian.Chen@amd.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu
- <wl@xen.org>, George Dunlap <george.dunlap@citrix.com>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- Anthony PERARD <anthony@xenproject.org>, Juergen Gross <jgross@suse.com>,
- "Daniel P . Smith" <dpsmith@apertussolutions.com>,
- Stewart Hildebrand <Stewart.Hildebrand@amd.com>,
- Huang Rui <Ray.Huang@amd.com>, xen-devel@lists.xenproject.org
-References: <20240617090035.839640-1-Jiqian.Chen@amd.com>
- <20240617090035.839640-2-Jiqian.Chen@amd.com>
+Subject: Re: [PATCH] x86/xen/time: Reduce Xen timer tick
+To: Frediano Ziglio <frediano.ziglio@cloud.com>
+Cc: "H. Peter Anvin" <hpa@zytor.com>, x86@kernel.org,
+ Dave Hansen <dave.hansen@linux.intel.com>, Borislav Petkov <bp@alien8.de>,
+ Ingo Molnar <mingo@redhat.com>, Thomas Gleixner <tglx@linutronix.de>,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>, Juergen Gross
+ <jgross@suse.com>, xen-devel@lists.xenproject.org,
+ linux-kernel@vger.kernel.org
+References: <20240617141303.53857-1-frediano.ziglio@cloud.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -118,131 +115,34 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240617090035.839640-2-Jiqian.Chen@amd.com>
+In-Reply-To: <20240617141303.53857-1-frediano.ziglio@cloud.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 17.06.2024 11:00, Jiqian Chen wrote:
-> --- a/xen/drivers/pci/physdev.c
-> +++ b/xen/drivers/pci/physdev.c
-> @@ -2,11 +2,17 @@
->  #include <xen/guest_access.h>
->  #include <xen/hypercall.h>
->  #include <xen/init.h>
-> +#include <xen/vpci.h>
+On 17.06.2024 16:13, Frediano Ziglio wrote:
+> Current timer tick is causing some deadline to fail.
+> The current high value constant was probably due to an old
+> bug in the Xen timer implementation causing errors if the
+> deadline was in the future.
+> This was fixed in Xen commit:
+> 19c6cbd90965 xen/vcpu: ignore VCPU_SSHOTTMR_future
+
+And then newer kernels are no longer reliably usable on Xen older than
+this?
+
+> --- a/arch/x86/xen/time.c
+> +++ b/arch/x86/xen/time.c
+> @@ -30,7 +30,7 @@
+>  #include "xen-ops.h"
 >  
->  #ifndef COMPAT
->  typedef long ret_t;
->  #endif
->  
-> +static const struct pci_device_state_reset_method
-> +                    pci_device_state_reset_methods[] = {
-> +    [ DEVICE_RESET_FLR ].reset_fn = vpci_reset_device_state,
-> +};
+>  /* Minimum amount of time until next clock event fires */
+> -#define TIMER_SLOP	100000
+> +#define TIMER_SLOP	1000
 
-What about the other three DEVICE_RESET_*? In particular ...
-
-> @@ -67,6 +73,43 @@ ret_t pci_physdev_op(int cmd, XEN_GUEST_HANDLE_PARAM(void) arg)
->          break;
->      }
->  
-> +    case PHYSDEVOP_pci_device_state_reset: {
-> +        struct pci_device_state_reset dev_reset;
-> +        struct physdev_pci_device *dev;
-> +        struct pci_dev *pdev;
-> +        pci_sbdf_t sbdf;
-> +
-> +        if ( !is_pci_passthrough_enabled() )
-> +            return -EOPNOTSUPP;
-> +
-> +        ret = -EFAULT;
-> +        if ( copy_from_guest(&dev_reset, arg, 1) != 0 )
-> +            break;
-> +        dev = &dev_reset.dev;
-> +        sbdf = PCI_SBDF(dev->seg, dev->bus, dev->devfn);
-> +
-> +        ret = xsm_resource_setup_pci(XSM_PRIV, sbdf.sbdf);
-> +        if ( ret )
-> +            break;
-> +
-> +        pcidevs_lock();
-> +        pdev = pci_get_pdev(NULL, sbdf);
-> +        if ( !pdev )
-> +        {
-> +            pcidevs_unlock();
-> +            ret = -ENODEV;
-> +            break;
-> +        }
-> +
-> +        write_lock(&pdev->domain->pci_lock);
-> +        pcidevs_unlock();
-> +        ret = pci_device_state_reset_methods[dev_reset.reset_type].reset_fn(pdev);
-
-... you're setting this up for calling NULL. In fact there's also no bounds
-check for the array index.
-
-Also, nit (further up): Opening figure braces for a new scope go onto their
-own line. Then again I notice that apparenly _all_ other instances in this
-file are doing it the wrong way, too.
-
-Finally, is the "dev" local variable really needed? It effectively hides that
-PCI_SBDF() is invoked on the hypercall arguments.
-
-> +        write_unlock(&pdev->domain->pci_lock);
-> +        if ( ret )
-> +            printk(XENLOG_ERR "%pp: failed to reset vPCI device state\n", &sbdf);
-
-Maybe downgrade to dprintk()? The caller ought to handle the error anyway.
-
-> --- a/xen/drivers/vpci/vpci.c
-> +++ b/xen/drivers/vpci/vpci.c
-> @@ -172,6 +172,15 @@ int vpci_assign_device(struct pci_dev *pdev)
->  
->      return rc;
->  }
-> +
-> +int vpci_reset_device_state(struct pci_dev *pdev)
-
-As a target of an indirect call this needs to be annotated cf_check (both
-here and in the declaration, unlike __must_check, which is sufficient to
-have on just the declaration).
-
-> --- a/xen/include/xen/pci.h
-> +++ b/xen/include/xen/pci.h
-> @@ -156,6 +156,22 @@ struct pci_dev {
->      struct vpci *vpci;
->  };
->  
-> +struct pci_device_state_reset_method {
-> +    int (*reset_fn)(struct pci_dev *pdev);
-> +};
-> +
-> +enum pci_device_state_reset_type {
-> +    DEVICE_RESET_FLR,
-> +    DEVICE_RESET_COLD,
-> +    DEVICE_RESET_WARM,
-> +    DEVICE_RESET_HOT,
-> +};
-> +
-> +struct pci_device_state_reset {
-> +    struct physdev_pci_device dev;
-> +    enum pci_device_state_reset_type reset_type;
-> +};
-
-This is the struct to use as hypercall argument. How can it live outside of
-any public header? Also, when moving it there, beware that you should not
-use enum-s there. Only handles and fixed-width types are permitted.
-
-> --- a/xen/include/xen/vpci.h
-> +++ b/xen/include/xen/vpci.h
-> @@ -38,6 +38,7 @@ int __must_check vpci_assign_device(struct pci_dev *pdev);
->  
->  /* Remove all handlers and free vpci related structures. */
->  void vpci_deassign_device(struct pci_dev *pdev);
-> +int __must_check vpci_reset_device_state(struct pci_dev *pdev);
-
-What's the purpose of this __must_check, when the sole caller is calling
-this through a function pointer, which isn't similarly annotated?
+It may be just the lack of knowledge of mine towards noadays's Linux'es
+time handling, but the change of a value with this name and thus
+commented doesn't directly relate to "timer tick" rate. Could you maybe
+help me see the connection?
 
 Jan
 
