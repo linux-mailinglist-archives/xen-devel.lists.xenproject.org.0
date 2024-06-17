@@ -2,37 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0A26990B25B
-	for <lists+xen-devel@lfdr.de>; Mon, 17 Jun 2024 16:38:02 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.742381.1149180 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6B3D190B283
+	for <lists+xen-devel@lfdr.de>; Mon, 17 Jun 2024 16:41:26 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.742386.1149190 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sJDTn-0004y4-9A; Mon, 17 Jun 2024 14:37:07 +0000
+	id 1sJDXg-0007JN-NO; Mon, 17 Jun 2024 14:41:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 742381.1149180; Mon, 17 Jun 2024 14:37:07 +0000
+Received: by outflank-mailman (output) from mailman id 742386.1149190; Mon, 17 Jun 2024 14:41:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sJDTn-0004vt-6R; Mon, 17 Jun 2024 14:37:07 +0000
-Received: by outflank-mailman (input) for mailman id 742381;
- Mon, 17 Jun 2024 14:37:06 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=5eX2=NT=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1sJDTm-0004vn-2S
- for xen-devel@lists.xenproject.org; Mon, 17 Jun 2024 14:37:06 +0000
-Received: from mail-qk1-x72c.google.com (mail-qk1-x72c.google.com
- [2607:f8b0:4864:20::72c])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 10e3588a-2cb7-11ef-90a3-e314d9c70b13;
- Mon, 17 Jun 2024 16:37:05 +0200 (CEST)
-Received: by mail-qk1-x72c.google.com with SMTP id
- af79cd13be357-795502843ccso254935385a.1
- for <xen-devel@lists.xenproject.org>; Mon, 17 Jun 2024 07:37:05 -0700 (PDT)
-Received: from localhost ([213.195.124.163]) by smtp.gmail.com with ESMTPSA id
- af79cd13be357-798abc02e72sm433891885a.96.2024.06.17.07.37.03
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 17 Jun 2024 07:37:03 -0700 (PDT)
+	id 1sJDXg-0007Gh-Km; Mon, 17 Jun 2024 14:41:08 +0000
+Received: by outflank-mailman (input) for mailman id 742386;
+ Mon, 17 Jun 2024 14:41:07 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <anthony@xenproject.org>) id 1sJDXf-0007Gb-K5
+ for xen-devel@lists.xenproject.org; Mon, 17 Jun 2024 14:41:07 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <anthony@xenproject.org>)
+ id 1sJDXf-0000Fc-1u; Mon, 17 Jun 2024 14:41:07 +0000
+Received: from lfbn-gre-1-246-234.w90-112.abo.wanadoo.fr ([90.112.203.234]
+ helo=l14.home) by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <anthony@xenproject.org>)
+ id 1sJDXe-0003hN-NF; Mon, 17 Jun 2024 14:41:06 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,90 +39,156 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 10e3588a-2cb7-11ef-90a3-e314d9c70b13
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1718635024; x=1719239824; darn=lists.xenproject.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=XvP4+t8l416VgzjO1ZXGZmV/a/Zd7bc8WzT6PYRtni8=;
-        b=SlJLXfOAZ35kHqarAP9x+qLWE2vL6+CL+TkHKyerplrPWTLTLazJ8sW1BALQfMkolY
-         2UiHJyMj6GH3wUVG5hQx9K7wdzbcUPeBV6L6FeRI7axkefDB14lkoJ575jJ0zGdrOt5q
-         flwkzDLAJ9SGsmluqIi/updmzSZkvwvxRg3KE=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1718635024; x=1719239824;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=XvP4+t8l416VgzjO1ZXGZmV/a/Zd7bc8WzT6PYRtni8=;
-        b=CE1mYJ439P/EdC2PAIKJZq+Ff/lP31458qr5McYzHoYay+6ZwDQo3uFDOURKhablDD
-         +0t5zvoUp8mlRr27Yn4JYNKXmtXUj3VGRUrC9C1Dutd22bu+VD35XVqZWDqXd6DOtG8c
-         QIAB54ELU0ElvckakGy1xnkqko6tu8VXXHqYEicvvp8K1QYujCNBMgaQwTGiMg9A0itq
-         tSTsF93qlvIsHLmdQCo/t7dtKdXeVcRHZFRlR7uMgxUzE8rUa08UD81fHKw2ehq5598K
-         iRyw9DAuWkpqFUPnU8+Kwdj5YsgHxKqUTsrNu7BEswbF8u6S/mT6Uv26KbIRIBe5cMJE
-         7jHg==
-X-Forwarded-Encrypted: i=1; AJvYcCX0rZ45qXiydFWiDfxZp9D+IAc4JD6UL9KChZiTki6TpTkP5ewBrcVmuvrUvaf5mns6zSBR0tuYHthxu6f2AAXGr40m7+2rhzV5ay74I6w=
-X-Gm-Message-State: AOJu0YxADBaOwSgXPP0rcdluASaA7nFbeZlD+D2YM2wZeMbxikWtj05E
-	Cf0vZtGai9y5ZIq80hHEVoyjnSP5Mp9cyEVHhWREW2cBJKXjy3yP0se2fwEtmwE=
-X-Google-Smtp-Source: AGHT+IHQDMfoJ/LOZJYFoBhJ4TbHf9tXcpQcYRrBKsc6jJQgkvkhyZr/hctT8019B9VlxZwrZ62Uqw==
-X-Received: by 2002:a05:620a:4507:b0:795:4e89:53b2 with SMTP id af79cd13be357-798d26a8ce3mr1215726185a.70.1718635023959;
-        Mon, 17 Jun 2024 07:37:03 -0700 (PDT)
-Date: Mon, 17 Jun 2024 16:37:01 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Frediano Ziglio <frediano.ziglio@cloud.com>,
-	"H. Peter Anvin" <hpa@zytor.com>, x86@kernel.org,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	Borislav Petkov <bp@alien8.de>, Ingo Molnar <mingo@redhat.com>,
-	Thomas Gleixner <tglx@linutronix.de>,
-	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
-	Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] x86/xen/time: Reduce Xen timer tick
-Message-ID: <ZnBKDRWi_2cO6WbA@macbook>
-References: <20240617141303.53857-1-frediano.ziglio@cloud.com>
- <2fe6ef97-84f2-4bf4-870b-b0bb580fa38f@suse.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Content-Transfer-Encoding:MIME-Version:
+	Message-Id:Date:Subject:Cc:To:From;
+	bh=PuC0rrmLqc+ryhwI3RIlUNKMT7nejiT7aD4KbDKVFzk=; b=HSfljoc5uhBLD9x1pLkduKHPQ+
+	gEHWqCYCLOUcKDmamdaIAlAzkRdwGfBa8i7cfm58YwWilPOjNXZk8ZfPSbs7KeNhoEtCM4GJI6PXw
+	uklLIQybxhZGn01WHmJ8+oALmUQZaPEmtdBbpBtU9mHnKcRukXk1Vc/O0dQkyiVMWePU=;
+From: Anthony PERARD <anthony@xenproject.org>
+To: xen-devel@lists.xenproject.org
+Cc: Luca Fancellu <luca.fancellu@arm.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Roger Pau Monne <roger.pau@citrix.com>,
+	Anthony PERARD <anthony.perard@vates.tech>
+Subject: [OSSTEST PATCH] preseed_base: Use "keep" NIC NamePolicy when "force-mac-address"
+Date: Mon, 17 Jun 2024 16:40:51 +0200
+Message-Id: <20240617144051.29547-1-anthony@xenproject.org>
+X-Mailer: git-send-email 2.39.2
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <2fe6ef97-84f2-4bf4-870b-b0bb580fa38f@suse.com>
+Content-Transfer-Encoding: 8bit
 
-On Mon, Jun 17, 2024 at 04:22:21PM +0200, Jan Beulich wrote:
-> On 17.06.2024 16:13, Frediano Ziglio wrote:
-> > Current timer tick is causing some deadline to fail.
-> > The current high value constant was probably due to an old
-> > bug in the Xen timer implementation causing errors if the
-> > deadline was in the future.
-> > This was fixed in Xen commit:
-> > 19c6cbd90965 xen/vcpu: ignore VCPU_SSHOTTMR_future
-> 
-> And then newer kernels are no longer reliably usable on Xen older than
-> this?
+From: Anthony PERARD <anthony.perard@vates.tech>
 
-I think this should reference the Linux commit that removed the usage
-of VCPU_SSHOTTMR_future on Linux itself, not the change that makes Xen
-ignore the flag.
+We have a few machine (arndale-*) that have a nic without mac address,
+so the kernel assign a random one. For those there's a flags
+"force-mac-address" which tells osstest to make it so that the machine
+changes the mac address to a predefined one at boot. This normally
+tells systemd rules to not use the mac address to rename the network
+interface as it a temporary mac, but that doesn't always work.
+(Machine installed by osstest should use the mac namepolicy otherwise,
+since 367166c32329 ("preseed_base, ts-host-install: Change NIC
+NamePolicy to "mac"")).
 
-> > --- a/arch/x86/xen/time.c
-> > +++ b/arch/x86/xen/time.c
-> > @@ -30,7 +30,7 @@
-> >  #include "xen-ops.h"
-> >  
-> >  /* Minimum amount of time until next clock event fires */
-> > -#define TIMER_SLOP	100000
-> > +#define TIMER_SLOP	1000
-> 
-> It may be just the lack of knowledge of mine towards noadays's Linux'es
-> time handling, but the change of a value with this name and thus
-> commented doesn't directly relate to "timer tick" rate. Could you maybe
-> help me see the connection?
+Often, on the branch "linux-linus", so with more recent version of
+Linux, the network interface gets renamed sometime with the "mac"
+namepolicy which break networking. These are the kernel messages when
+the rename happen:
 
-The TIMER_SLOP define is used in min_delta_{ns,ticks} field, and I
-think this is wrong.
+> usb 1-3.2.4: new high-speed USB device number 4 using exynos-ehci
+> asix 1-3.2.4:1.0 (unnamed net_device) (uninitialized): invalid hw address, using random
+> asix 1-3.2.4:1.0 (unnamed net_device) (uninitialized): PHY [usb-001:004:10] driver [Asix Electronics AX88772A] (irq=POLL)
+> asix 1-3.2.4:1.0 eth0: register 'asix' at usb-12110000.usb-3.2.4, ASIX AX88772 USB 2.0 Ethernet, 06:85:e5:95:f0:7c
+> usbcore: registered new device driver onboard-usb-dev
+> usb 1-3.2.4: USB disconnect, device number 4
+> asix 1-3.2.4:1.0 eth0: unregister 'asix' usb-12110000.usb-3.2.4, ASIX AX88772 USB 2.0 Ethernet
+> hub 1-3.2:1.0: USB hub found
+> hub 1-3.2:1.0: 4 ports detected
+> hub 1-3.2:1.0: USB hub found
+> hub 1-3.2:1.0: 4 ports detected
+> usb 1-3.2.4: new high-speed USB device number 5 using exynos-ehci
+> asix 1-3.2.4:1.0 (unnamed net_device) (uninitialized): PHY [usb-001:005:10] driver [Asix Electronics AX88772A] (irq=POLL)
+> Asix Electronics AX88772A usb-001:005:10: attached PHY driver (mii_bus:phy_addr=usb-001:005:10, irq=POLL)
+> asix 1-3.2.4:1.0 eth0: register 'asix' at usb-12110000.usb-3.2.4, ASIX AX88772 USB 2.0 Ethernet, 06:85:e5:95:f0:7c
+> asix 1-3.2.4:1.0 enx0685e595f07c: renamed from eth0
 
-The min_delta_ns for the Xen timer is 1ns.  If Linux needs some
-greater min delta than what the timer interface supports it should be
-handled in the generic timer code, not open coded at the definition of
-possibly each timer implementation.
+The "xenbr0" bridge is setup to use "eth0", because that was the name
+of the nic during setup, so with a new name for the main interface the
+bridge doesn't work.
 
-Thanks, Roger.
+In order to avoid the issue, we will use the NamePolicy "keep" when
+there is a flag "force-mac-address", which keep the original name of
+the interface (eth0). That flags only works if there's a single
+network interface, so we can expect "eth0" to always be the same
+interface.
+
+Even if the problem so far exhibit only at runtime after rebooting
+under Xen (which is fixed by a change in preseed_base()), we will also
+add the policy change to the installer (change in ts-host-install), to
+be future proof.
+
+(The filename of the policy is to have it apply before
+"73-usb-net-by-mac.link" that is installed on the system.)
+
+Signed-off-by: Anthony PERARD <anthony.perard@vates.tech>
+---
+
+Notes:
+    CCing people mostly FYI rather than for review.
+    
+    I would wait until the release of Xen before pushing that as the issue
+    doesn't prevent progress of the xen-unstable branch, it just slow down a
+    bit linux-linus, with maybe unnecessary retry.
+    
+    I did run that, with config which hopefully replicates linux-linus
+    branch and xen-unstable branch:
+    
+    linux-linus:
+        http://logs.test-lab.xenproject.org/osstest/logs/186363/
+        no regression
+    
+    xen-unstable:
+        http://logs.test-lab.xenproject.org/osstest/logs/186366/
+        Just one regression (test-amd64-amd64-qemuu-freebsd12-amd64) but
+        isn't caused by the new patch.
+
+ Osstest/Debian.pm | 14 +++++++++++++-
+ ts-host-install   | 16 +++++++++++++++-
+ 2 files changed, 28 insertions(+), 2 deletions(-)
+
+diff --git a/Osstest/Debian.pm b/Osstest/Debian.pm
+index 3545f3fd..d974fea5 100644
+--- a/Osstest/Debian.pm
++++ b/Osstest/Debian.pm
+@@ -972,7 +972,19 @@ END
+         # is going to be added to dom0's initrd, which is used by some guests
+         # (created with ts-debian-install).
+         preseed_hook_installscript($ho, $sfx,
+-            '/usr/lib/base-installer.d/', '05ifnamepolicy', <<'END');
++            '/usr/lib/base-installer.d/', '05ifnamepolicy',
++            $ho->{Flags}{'force-mac-address'} ? <<'END' : <<'END');
++#!/bin/sh -e
++linkfile=/target/etc/systemd/network/70-eth-keep-policy.link
++mkdir -p `dirname $linkfile`
++cat > $linkfile <<EOF
++[Match]
++Type=ether
++Driver=!vif
++[Link]
++NamePolicy=keep
++EOF
++END
+ #!/bin/sh -e
+ linkfile=/target/etc/systemd/network/90-eth-mac-policy.link
+ mkdir -p `dirname $linkfile`
+diff --git a/ts-host-install b/ts-host-install
+index 0b6aaeea..fbbfeecc 100755
+--- a/ts-host-install
++++ b/ts-host-install
+@@ -248,7 +248,21 @@ END
+     print CANARY "\n# - canary - came via initramfs\n" or die $!;
+     close CANARY or die $!;
+ 
+-    if ($ho->{Suite} !~ m/lenny|squeeze|wheezy|jessie|stretch|buster/) {
++    if ($ho->{Flags}{'force-mac-address'}) {
++        # When we have to set a MAC address, make sure that the interface keep
++        # the original name that the kernel give, "eth0". There should only be
++        # one interface in the ysstem in this case, so no risk of mixup.
++        system_checked(qw(mkdir -p --), "$initrd_overlay.d/lib/systemd/network");
++        file_simple_write_contents
++            ("$initrd_overlay.d/lib/systemd/network/70-eth-keep-policy.link",
++                <<END);
++[Match]
++Type=ether
++Driver=!vif
++[Link]
++NamePolicy=keep
++END
++    } elsif ($ho->{Suite} !~ m/lenny|squeeze|wheezy|jessie|stretch|buster/) {
+         # Switch to more predictale nic name based on mac address, instead of the
+         # policy "onboard" which can try to set the same name ("eno1") to two
+         # differents nic, or "slot". New names are "enx$mac".
+-- 
+Anthony PERARD
+
 
