@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2E8F690AB8F
-	for <lists+xen-devel@lfdr.de>; Mon, 17 Jun 2024 12:41:47 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.742170.1148901 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9B70F90AB95
+	for <lists+xen-devel@lfdr.de>; Mon, 17 Jun 2024 12:42:16 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.742175.1148910 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sJ9nk-0006aB-Rs; Mon, 17 Jun 2024 10:41:28 +0000
+	id 1sJ9oK-00074Y-3X; Mon, 17 Jun 2024 10:42:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 742170.1148901; Mon, 17 Jun 2024 10:41:28 +0000
+Received: by outflank-mailman (output) from mailman id 742175.1148910; Mon, 17 Jun 2024 10:42:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sJ9nk-0006Xb-P1; Mon, 17 Jun 2024 10:41:28 +0000
-Received: by outflank-mailman (input) for mailman id 742170;
- Mon, 17 Jun 2024 10:41:27 +0000
+	id 1sJ9oK-000722-0X; Mon, 17 Jun 2024 10:42:04 +0000
+Received: by outflank-mailman (input) for mailman id 742175;
+ Mon, 17 Jun 2024 10:42:03 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=qWef=NT=suse.de=hare@srs-se1.protection.inumbo.net>)
- id 1sJ9nj-0005nb-5P
- for xen-devel@lists.xenproject.org; Mon, 17 Jun 2024 10:41:27 +0000
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ id 1sJ9oJ-00071w-D5
+ for xen-devel@lists.xenproject.org; Mon, 17 Jun 2024 10:42:03 +0000
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 2543b379-2c96-11ef-b4bb-af5377834399;
- Mon, 17 Jun 2024 12:41:25 +0200 (CEST)
+ id 3ab186dc-2c96-11ef-b4bb-af5377834399;
+ Mon, 17 Jun 2024 12:42:01 +0200 (CEST)
 Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id EDEFF3803D;
- Mon, 17 Jun 2024 10:41:24 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id E7E405FEE9;
+ Mon, 17 Jun 2024 10:42:00 +0000 (UTC)
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 7B5A113AAA;
- Mon, 17 Jun 2024 10:41:24 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 84C9013AAA;
+ Mon, 17 Jun 2024 10:42:00 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id 5susHdQScGauDQAAD6G6ig
- (envelope-from <hare@suse.de>); Mon, 17 Jun 2024 10:41:24 +0000
+ by imap1.dmz-prg2.suse.org with ESMTPSA id bAPLHPgScGbeDQAAD6G6ig
+ (envelope-from <hare@suse.de>); Mon, 17 Jun 2024 10:42:00 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,50 +51,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2543b379-2c96-11ef-b4bb-af5377834399
+X-Inumbo-ID: 3ab186dc-2c96-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1718620885; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1718620921; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=jgtG6m+m1FRqVquXEHPrn3wmZaPvf3OoaYY0kuxzjZY=;
-	b=IeFJAWsH75KCYIyv8/qhBGrl5836YIwBOLXQ3jGs9AGu4tCLccHXdaOiEmZNwYilYVnXvA
-	SRmfeAJG/mJlmng7doCTF2JrMj/j1v1AtSvyaeFMA6zC9Uo8Apn9VwECptdlpKPI1o/2oN
-	26YOZad+Gw/DJeftHbAa4kTM/y28MNI=
+	bh=ei0H6kpwHCrAVar/RhH6iZ8w6j4VD0fXtJ6uoOiivc4=;
+	b=0aaHE0nDv3sFsKVo4RUNdgi1Gj4Z+MuxUZnX8NnbX4LzirK+9YxDEKeKTIvvb3Wd8UZxyQ
+	pL02vk2jca8kXflRM+INPCSpkiMwMWo7zucPCyoXwRKjtHW7Td94vfcVrUznX/Wrnql6uU
+	nbRjt2sHYPvoTYF1vldXy3sMrqyJ5ns=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1718620885;
+	s=susede2_ed25519; t=1718620921;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=jgtG6m+m1FRqVquXEHPrn3wmZaPvf3OoaYY0kuxzjZY=;
-	b=uBuChXRm9UIyUB63kLl7vU6i6aEesxd1N6Ygk5vJm28e2KE/5WoIJeYPC8888eXD55Tt/v
-	dimXmhyYdWeO0iCQ==
-Authentication-Results: smtp-out1.suse.de;
+	bh=ei0H6kpwHCrAVar/RhH6iZ8w6j4VD0fXtJ6uoOiivc4=;
+	b=u/mMPT+20sxE/ovrpfH8HyTUV2cuE+R8tuWdBd19R5MUKmu37GlwIbXmeKfQurMrJvkHuR
+	ct5GSA7YBBDQI5Ag==
+Authentication-Results: smtp-out2.suse.de;
 	none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1718620884; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1718620920; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=jgtG6m+m1FRqVquXEHPrn3wmZaPvf3OoaYY0kuxzjZY=;
-	b=tk56hY7XbD+wgCVvAVC5TAAMNdWYTqZxaVADpw5mpu/Frmc+Y8zzf8x9gaIUWi7pHO5rjZ
-	Tm01WQr3GPaAKNEgrckaVdo8Qm+/hXaj53GmO1gpM2xNwupMPVgSsIQq7PJCLZa0lbR+XN
-	ddtS7T4F7YuLIEsh0v7LCAvj96Hq13s=
+	bh=ei0H6kpwHCrAVar/RhH6iZ8w6j4VD0fXtJ6uoOiivc4=;
+	b=xTEWwfzFhRWHcOXnCi0toiBdIbekgACZlSGjefUOBapq+sr5vsf4vQJQ1gCTgtm0E9xveU
+	accWTuwIKPqiaNL6bALixViV7AYgXFVqL7fo2rJJx59ox9JSCXpgx4591/71uuV/xfscUt
+	sB86pC4PSbMmA80wDdJRXCgbv9+51b4=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1718620884;
+	s=susede2_ed25519; t=1718620920;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=jgtG6m+m1FRqVquXEHPrn3wmZaPvf3OoaYY0kuxzjZY=;
-	b=uAuSy9hbCb4YbUBJdXvIQbCOSketcC7FumfbAwU1hmYHwd+Jx1h140JOgS5gMLtaFdjOqr
-	qYR/OoHcbBQkZAAA==
-Message-ID: <24322288-fd9f-4f49-9a94-e2aaf97bb700@suse.de>
-Date: Mon, 17 Jun 2024 12:41:24 +0200
+	bh=ei0H6kpwHCrAVar/RhH6iZ8w6j4VD0fXtJ6uoOiivc4=;
+	b=qkTWtDj2KUeKlE0sNEFFUQfU+KX8KlrCG6SQVbv5pLDtOUA6x3/nFzgU57ULpz5g8bO5y2
+	Ph8SFQJlrPTNjiAw==
+Message-ID: <c33258a8-6ad2-4b8b-bd38-90c08d366c2c@suse.de>
+Date: Mon, 17 Jun 2024 12:42:00 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 19/26] block: move the nowait flag to queue_limits
+Subject: Re: [PATCH 20/26] block: move the dax flag to queue_limits
 To: Christoph Hellwig <hch@lst.de>, Jens Axboe <axboe@kernel.dk>
 Cc: Geert Uytterhoeven <geert@linux-m68k.org>,
  Richard Weinberger <richard@nod.at>,
@@ -116,16 +116,16 @@ Cc: Geert Uytterhoeven <geert@linux-m68k.org>,
  linux-raid@vger.kernel.org, linux-mmc@vger.kernel.org,
  linux-mtd@lists.infradead.org, nvdimm@lists.linux.dev,
  linux-nvme@lists.infradead.org, linux-s390@vger.kernel.org,
- linux-scsi@vger.kernel.org, linux-block@vger.kernel.org
+ linux-scsi@vger.kernel.org, linux-block@vger.kernel.org,
+ Damien Le Moal <dlemoal@kernel.org>
 References: <20240617060532.127975-1-hch@lst.de>
- <20240617060532.127975-20-hch@lst.de>
+ <20240617060532.127975-21-hch@lst.de>
 Content-Language: en-US
 From: Hannes Reinecke <hare@suse.de>
-In-Reply-To: <20240617060532.127975-20-hch@lst.de>
+In-Reply-To: <20240617060532.127975-21-hch@lst.de>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-8.29 / 50.00];
-	REPLY(-4.00)[];
+X-Spamd-Result: default: False [-4.29 / 50.00];
 	BAYES_HAM(-3.00)[100.00%];
 	NEURAL_HAM_LONG(-1.00)[-1.000];
 	NEURAL_HAM_SHORT(-0.20)[-1.000];
@@ -134,41 +134,35 @@ X-Spamd-Result: default: False [-8.29 / 50.00];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	ARC_NA(0.00)[];
 	RCVD_TLS_ALL(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[38];
 	MIME_TRACE(0.00)[0:+];
 	TO_DN_SOME(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[37];
 	MID_RHS_MATCH_FROM(0.00)[];
 	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
 	FUZZY_BLOCKED(0.00)[rspamd.com];
 	FROM_HAS_DN(0.00)[];
 	R_RATELIMIT(0.00)[to_ip_from(RLex1noz7jcsrkfdtgx8bqesde)];
 	FROM_EQ_ENVFROM(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
 	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,lst.de:email]
+	RCVD_COUNT_TWO(0.00)[2];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lst.de:email,imap1.dmz-prg2.suse.org:helo]
 X-Spam-Flag: NO
-X-Spam-Score: -8.29
+X-Spam-Score: -4.29
 X-Spam-Level: 
 
 On 6/17/24 08:04, Christoph Hellwig wrote:
-> Move the nowait flag into the queue_limits feature field so that it can
-> be set atomically with the queue frozen.
-> 
-> Stacking drivers are simplified in that they now can simply set the
-> flag, and blk_stack_limits will clear it when the features is not
-> supported by any of the underlying devices.
+> Move the dax flag into the queue_limits feature field so that it can be
+> set atomically with the queue frozen.
 > 
 > Signed-off-by: Christoph Hellwig <hch@lst.de>
+> Reviewed-by: Damien Le Moal <dlemoal@kernel.org>
 > ---
->   block/blk-mq-debugfs.c        |  1 -
->   block/blk-mq.c                |  2 +-
->   block/blk-settings.c          |  9 +++++++++
->   drivers/block/brd.c           |  4 ++--
->   drivers/md/dm-table.c         | 18 +++---------------
->   drivers/md/md.c               | 18 +-----------------
->   drivers/nvme/host/multipath.c |  3 +--
->   include/linux/blkdev.h        |  9 +++++----
->   8 files changed, 22 insertions(+), 42 deletions(-)
+>   block/blk-mq-debugfs.c       | 1 -
+>   drivers/md/dm-table.c        | 4 ++--
+>   drivers/nvdimm/pmem.c        | 7 ++-----
+>   drivers/s390/block/dcssblk.c | 2 +-
+>   include/linux/blkdev.h       | 6 ++++--
+>   5 files changed, 9 insertions(+), 11 deletions(-)
 > 
 Reviewed-by: Hannes Reinecke <hare@suse.de>
 
