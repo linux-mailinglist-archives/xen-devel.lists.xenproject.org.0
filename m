@@ -2,45 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5ED0690AB47
-	for <lists+xen-devel@lfdr.de>; Mon, 17 Jun 2024 12:37:02 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.742133.1148850 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3F39E90AB57
+	for <lists+xen-devel@lfdr.de>; Mon, 17 Jun 2024 12:38:45 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.742140.1148861 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sJ9jG-0002aK-CC; Mon, 17 Jun 2024 10:36:50 +0000
+	id 1sJ9kv-0003SP-NQ; Mon, 17 Jun 2024 10:38:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 742133.1148850; Mon, 17 Jun 2024 10:36:50 +0000
+Received: by outflank-mailman (output) from mailman id 742140.1148861; Mon, 17 Jun 2024 10:38:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sJ9jG-0002Xq-9Y; Mon, 17 Jun 2024 10:36:50 +0000
-Received: by outflank-mailman (input) for mailman id 742133;
- Mon, 17 Jun 2024 10:36:49 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1sJ9kv-0003QS-Jf; Mon, 17 Jun 2024 10:38:33 +0000
+Received: by outflank-mailman (input) for mailman id 742140;
+ Mon, 17 Jun 2024 10:38:32 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=qWef=NT=suse.de=hare@srs-se1.protection.inumbo.net>)
- id 1sJ9jF-0002IM-BY
- for xen-devel@lists.xenproject.org; Mon, 17 Jun 2024 10:36:49 +0000
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 801ec71e-2c95-11ef-90a3-e314d9c70b13;
- Mon, 17 Jun 2024 12:36:48 +0200 (CEST)
+ id 1sJ9ku-0003QG-73
+ for xen-devel@lists.xenproject.org; Mon, 17 Jun 2024 10:38:32 +0000
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id bcbcc5d2-2c95-11ef-b4bb-af5377834399;
+ Mon, 17 Jun 2024 12:38:30 +0200 (CEST)
 Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
  [IPv6:2a07:de40:b281:104:10:150:64:97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id CE20A38037;
- Mon, 17 Jun 2024 10:36:47 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id D55E65FCD9;
+ Mon, 17 Jun 2024 10:38:29 +0000 (UTC)
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 34E77139AB;
- Mon, 17 Jun 2024 10:36:47 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 337B2139AB;
+ Mon, 17 Jun 2024 10:38:29 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id oblHDL8RcGZPDAAAD6G6ig
- (envelope-from <hare@suse.de>); Mon, 17 Jun 2024 10:36:47 +0000
+ by imap1.dmz-prg2.suse.org with ESMTPSA id WyrSCyUScGbNDAAAD6G6ig
+ (envelope-from <hare@suse.de>); Mon, 17 Jun 2024 10:38:29 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -52,14 +52,14 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 801ec71e-2c95-11ef-90a3-e314d9c70b13
-Authentication-Results: smtp-out1.suse.de;
+X-Inumbo-ID: bcbcc5d2-2c95-11ef-b4bb-af5377834399
+Authentication-Results: smtp-out2.suse.de;
 	none
-Message-ID: <0f819ed5-9549-4edf-98b3-19eed8558dfe@suse.de>
-Date: Mon, 17 Jun 2024 12:36:46 +0200
+Message-ID: <74df67d6-3d02-4987-becb-eebf60492d26@suse.de>
+Date: Mon, 17 Jun 2024 12:38:28 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 14/26] block: move the nonrot flag to queue_limits
+Subject: Re: [PATCH 15/26] block: move the add_random flag to queue_limits
 To: Christoph Hellwig <hch@lst.de>, Jens Axboe <axboe@kernel.dk>
 Cc: Geert Uytterhoeven <geert@linux-m68k.org>,
  Richard Weinberger <richard@nod.at>,
@@ -84,10 +84,10 @@ Cc: Geert Uytterhoeven <geert@linux-m68k.org>,
  linux-scsi@vger.kernel.org, linux-block@vger.kernel.org,
  Damien Le Moal <dlemoal@kernel.org>
 References: <20240617060532.127975-1-hch@lst.de>
- <20240617060532.127975-15-hch@lst.de>
+ <20240617060532.127975-16-hch@lst.de>
 Content-Language: en-US
 From: Hannes Reinecke <hare@suse.de>
-In-Reply-To: <20240617060532.127975-15-hch@lst.de>
+In-Reply-To: <20240617060532.127975-16-hch@lst.de>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-Rspamd-Pre-Result: action=no action;
@@ -99,34 +99,35 @@ X-Spam-Level:
 X-Rspamd-Pre-Result: action=no action;
 	module=replies;
 	Message is reply to one we originated
-X-Rspamd-Queue-Id: CE20A38037
+X-Rspamd-Queue-Id: D55E65FCD9
 X-Rspamd-Action: no action
 X-Spamd-Result: default: False [-4.00 / 50.00];
 	REPLY(-4.00)[]
 X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
 
 On 6/17/24 08:04, Christoph Hellwig wrote:
-> Move the nonrot flag into the queue_limits feature field so that it can
-> be set atomically with the queue frozen.
+> Move the add_random flag into the queue_limits feature field so that it
+> can be set atomically with the queue frozen.
 > 
-> Use the chance to switch to defaulting to non-rotational and require
-> the driver to opt into rotational, which matches the polarity of the
-> sysfs interface.
-> 
-> For the z2ram, ps3vram, 2x memstick, ubiblock and dcssblk the new
-> rotational flag is not set as they clearly are not rotational despite
-> this being a behavior change.  There are some other drivers that
-> unconditionally set the rotational flag to keep the existing behavior
-> as they arguably can be used on rotational devices even if that is
-> probably not their main use today (e.g. virtio_blk and drbd).
-> 
-> The flag is automatically inherited in blk_stack_limits matching the
-> existing behavior in dm and md.
+> Note that this also removes code from dm to clear the flag based on
+> the underlying devices, which can't be reached as dm devices will
+> always start out without the flag set.
 > 
 > Signed-off-by: Christoph Hellwig <hch@lst.de>
 > Reviewed-by: Damien Le Moal <dlemoal@kernel.org>
 > ---
-
+>   block/blk-mq-debugfs.c            |  1 -
+>   block/blk-sysfs.c                 |  6 +++---
+>   drivers/block/mtip32xx/mtip32xx.c |  1 -
+>   drivers/md/dm-table.c             | 18 ------------------
+>   drivers/mmc/core/queue.c          |  2 --
+>   drivers/mtd/mtd_blkdevs.c         |  3 ---
+>   drivers/s390/block/scm_blk.c      |  4 ----
+>   drivers/scsi/scsi_lib.c           |  3 +--
+>   drivers/scsi/sd.c                 | 11 +++--------
+>   include/linux/blkdev.h            |  5 +++--
+>   10 files changed, 10 insertions(+), 44 deletions(-)
+> 
 Reviewed-by: Hannes Reinecke <hare@suse.de>
 
 Cheers,
