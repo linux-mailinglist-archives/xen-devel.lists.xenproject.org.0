@@ -2,32 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6B3D190B283
-	for <lists+xen-devel@lfdr.de>; Mon, 17 Jun 2024 16:41:26 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.742386.1149190 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9B8FE90B2AE
+	for <lists+xen-devel@lfdr.de>; Mon, 17 Jun 2024 16:45:26 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.742393.1149201 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sJDXg-0007JN-NO; Mon, 17 Jun 2024 14:41:08 +0000
+	id 1sJDbd-0007uu-7Z; Mon, 17 Jun 2024 14:45:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 742386.1149190; Mon, 17 Jun 2024 14:41:08 +0000
+Received: by outflank-mailman (output) from mailman id 742393.1149201; Mon, 17 Jun 2024 14:45:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sJDXg-0007Gh-Km; Mon, 17 Jun 2024 14:41:08 +0000
-Received: by outflank-mailman (input) for mailman id 742386;
- Mon, 17 Jun 2024 14:41:07 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1sJDbd-0007s4-4v; Mon, 17 Jun 2024 14:45:13 +0000
+Received: by outflank-mailman (input) for mailman id 742393;
+ Mon, 17 Jun 2024 14:45:11 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <anthony@xenproject.org>) id 1sJDXf-0007Gb-K5
- for xen-devel@lists.xenproject.org; Mon, 17 Jun 2024 14:41:07 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <anthony@xenproject.org>)
- id 1sJDXf-0000Fc-1u; Mon, 17 Jun 2024 14:41:07 +0000
-Received: from lfbn-gre-1-246-234.w90-112.abo.wanadoo.fr ([90.112.203.234]
- helo=l14.home) by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <anthony@xenproject.org>)
- id 1sJDXe-0003hN-NF; Mon, 17 Jun 2024 14:41:06 +0000
+ (envelope-from <SRS0=E9YK=NT=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1sJDbb-0007ry-Mv
+ for xen-devel@lists.xenproject.org; Mon, 17 Jun 2024 14:45:11 +0000
+Received: from mail-ed1-x52a.google.com (mail-ed1-x52a.google.com
+ [2a00:1450:4864:20::52a])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 3258e1fe-2cb8-11ef-90a3-e314d9c70b13;
+ Mon, 17 Jun 2024 16:45:10 +0200 (CEST)
+Received: by mail-ed1-x52a.google.com with SMTP id
+ 4fb4d7f45d1cf-57cb9a370ddso5012252a12.1
+ for <xen-devel@lists.xenproject.org>; Mon, 17 Jun 2024 07:45:10 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-57cddba1a17sm2242771a12.43.2024.06.17.07.45.05
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 17 Jun 2024 07:45:05 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,156 +45,113 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Content-Transfer-Encoding:MIME-Version:
-	Message-Id:Date:Subject:Cc:To:From;
-	bh=PuC0rrmLqc+ryhwI3RIlUNKMT7nejiT7aD4KbDKVFzk=; b=HSfljoc5uhBLD9x1pLkduKHPQ+
-	gEHWqCYCLOUcKDmamdaIAlAzkRdwGfBa8i7cfm58YwWilPOjNXZk8ZfPSbs7KeNhoEtCM4GJI6PXw
-	uklLIQybxhZGn01WHmJ8+oALmUQZaPEmtdBbpBtU9mHnKcRukXk1Vc/O0dQkyiVMWePU=;
-From: Anthony PERARD <anthony@xenproject.org>
-To: xen-devel@lists.xenproject.org
-Cc: Luca Fancellu <luca.fancellu@arm.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Roger Pau Monne <roger.pau@citrix.com>,
-	Anthony PERARD <anthony.perard@vates.tech>
-Subject: [OSSTEST PATCH] preseed_base: Use "keep" NIC NamePolicy when "force-mac-address"
-Date: Mon, 17 Jun 2024 16:40:51 +0200
-Message-Id: <20240617144051.29547-1-anthony@xenproject.org>
-X-Mailer: git-send-email 2.39.2
+X-Inumbo-ID: 3258e1fe-2cb8-11ef-90a3-e314d9c70b13
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1718635510; x=1719240310; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=Q+2Mxxt+USuoP3e0fzSGmT0itw6+be4kBqbL/ExF9EM=;
+        b=PxvKgy2D5XFI3MgGLGdi5mb14GFJdXeksCQ8c1v0mFSwjIHDkLqHUrTiBVOuCjslTY
+         iCuziWBAtOTLbA9cZe5WnOx9MYXywpkxItTt56tKFjnmNz4iI5O7fBe2dMjiDSSVIoKv
+         v7omOvHP9XJIedHsnaojc2tbMwSCibwFQoXcw+GoNSBRNRv4L8nRWDhuWkNEO6v2ogLZ
+         JlBaizUPNkiX7QPuBA42IG8XBtztTMDK45ke3iTFmocW2HXdgtnWdqSHtL8KFJnJ47sL
+         iarZVmMKQ9ve+8ShmRHOSMa6HVMHBu8EBt+PHD48IMDH5LIaBSHDB+3+UvxoU9N5KM1g
+         ivow==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1718635510; x=1719240310;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=Q+2Mxxt+USuoP3e0fzSGmT0itw6+be4kBqbL/ExF9EM=;
+        b=A5Kg1p6KZt2vfm6wrLAEg09iwbhNllAVTd1H4WcDv4oYKrmHP6MoaUJxeNokvMZM4l
+         qGJasgZjQ5xooYDwYGkReNuZ2+1s9BfOIEoem1vUC5XCdsVsT9ftBOtd8jhMSNMxh1dX
+         hMj7wOLp+7m2iF+lX6HkZAzNzO3e8bg3veUYETRybUbdD3BiyX+zA0UWKgY1je5t9Jrw
+         mJ67P9wzoK7ZxSp1er2V5/0z9ETazYZVS8Hh7rGzie9wXVVWyEB+ZIUGj/+Ryxrha7FN
+         QZ06mlFGe6qnSktJqmTDLesnLXY3QqFa4xj8aoXgQsPxGYWBioPcmdNm3ikD//K4MGhE
+         p0mg==
+X-Forwarded-Encrypted: i=1; AJvYcCV4T5+ehNWwnbK0+uamDNgtp2Ng5DjfsZRMzKdTvnpi/X/EJxM9x7RFQg2TqE87fNYpjGimsl3NdhtoT7kB2eo7eGnGol0pQFAq94fiGeQ=
+X-Gm-Message-State: AOJu0YxkazKlU9DWBIwUVzkwmdFkiYlOsX5EOBivam+9hXoT31sAvuzj
+	oJH2Oky6V5mNMLqf3sWu5Uub1KEv5q6CQRj/hsU/GwAJhxsDc4uaIi5Xnvqq1g==
+X-Google-Smtp-Source: AGHT+IHa4kr1TAl8Ve1dyaQtTALk+ruPgSzgrbBHfwymQyL5eUP+XT9odskuo6BKFD3ebIbEoVp4Mw==
+X-Received: by 2002:a50:cdc2:0:b0:578:649e:e63e with SMTP id 4fb4d7f45d1cf-57cbd66c9bdmr5918321a12.16.1718635506047;
+        Mon, 17 Jun 2024 07:45:06 -0700 (PDT)
+Message-ID: <cb9910cd-7045-4c0d-a7cf-2bcf36e30cb2@suse.com>
+Date: Mon, 17 Jun 2024 16:45:03 +0200
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [XEN PATCH v10 2/5] x86/pvh: Allow (un)map_pirq when dom0 is PVH
+To: Jiqian Chen <Jiqian.Chen@amd.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu
+ <wl@xen.org>, George Dunlap <george.dunlap@citrix.com>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ Anthony PERARD <anthony@xenproject.org>, Juergen Gross <jgross@suse.com>,
+ "Daniel P . Smith" <dpsmith@apertussolutions.com>,
+ Stewart Hildebrand <Stewart.Hildebrand@amd.com>,
+ Huang Rui <Ray.Huang@amd.com>, xen-devel@lists.xenproject.org
+References: <20240617090035.839640-1-Jiqian.Chen@amd.com>
+ <20240617090035.839640-3-Jiqian.Chen@amd.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20240617090035.839640-3-Jiqian.Chen@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-From: Anthony PERARD <anthony.perard@vates.tech>
+On 17.06.2024 11:00, Jiqian Chen wrote:
+> If run Xen with PVH dom0 and hvm domU, hvm will map a pirq for
+> a passthrough device by using gsi, see qemu code
+> xen_pt_realize->xc_physdev_map_pirq and libxl code
+> pci_add_dm_done->xc_physdev_map_pirq. Then xc_physdev_map_pirq
+> will call into Xen, but in hvm_physdev_op, PHYSDEVOP_map_pirq
+> is not allowed because currd is PVH dom0 and PVH has no
+> X86_EMU_USE_PIRQ flag, it will fail at has_pirq check.
+> 
+> So, allow PHYSDEVOP_map_pirq when dom0 is PVH and also allow
+> PHYSDEVOP_unmap_pirq for the failed path to unmap pirq.
 
-We have a few machine (arndale-*) that have a nic without mac address,
-so the kernel assign a random one. For those there's a flags
-"force-mac-address" which tells osstest to make it so that the machine
-changes the mac address to a predefined one at boot. This normally
-tells systemd rules to not use the mac address to rename the network
-interface as it a temporary mac, but that doesn't always work.
-(Machine installed by osstest should use the mac namepolicy otherwise,
-since 367166c32329 ("preseed_base, ts-host-install: Change NIC
-NamePolicy to "mac"")).
+Why "failed path"? Isn't unmapping also part of normal device removal
+from a guest?
 
-Often, on the branch "linux-linus", so with more recent version of
-Linux, the network interface gets renamed sometime with the "mac"
-namepolicy which break networking. These are the kernel messages when
-the rename happen:
+> And
+> add a new check to prevent self map when subject domain has no
+> PIRQ flag.
 
-> usb 1-3.2.4: new high-speed USB device number 4 using exynos-ehci
-> asix 1-3.2.4:1.0 (unnamed net_device) (uninitialized): invalid hw address, using random
-> asix 1-3.2.4:1.0 (unnamed net_device) (uninitialized): PHY [usb-001:004:10] driver [Asix Electronics AX88772A] (irq=POLL)
-> asix 1-3.2.4:1.0 eth0: register 'asix' at usb-12110000.usb-3.2.4, ASIX AX88772 USB 2.0 Ethernet, 06:85:e5:95:f0:7c
-> usbcore: registered new device driver onboard-usb-dev
-> usb 1-3.2.4: USB disconnect, device number 4
-> asix 1-3.2.4:1.0 eth0: unregister 'asix' usb-12110000.usb-3.2.4, ASIX AX88772 USB 2.0 Ethernet
-> hub 1-3.2:1.0: USB hub found
-> hub 1-3.2:1.0: 4 ports detected
-> hub 1-3.2:1.0: USB hub found
-> hub 1-3.2:1.0: 4 ports detected
-> usb 1-3.2.4: new high-speed USB device number 5 using exynos-ehci
-> asix 1-3.2.4:1.0 (unnamed net_device) (uninitialized): PHY [usb-001:005:10] driver [Asix Electronics AX88772A] (irq=POLL)
-> Asix Electronics AX88772A usb-001:005:10: attached PHY driver (mii_bus:phy_addr=usb-001:005:10, irq=POLL)
-> asix 1-3.2.4:1.0 eth0: register 'asix' at usb-12110000.usb-3.2.4, ASIX AX88772 USB 2.0 Ethernet, 06:85:e5:95:f0:7c
-> asix 1-3.2.4:1.0 enx0685e595f07c: renamed from eth0
+You still talk of only self mapping, and the code also still does only
+that. As pointed out before: Why would you allow mapping into a PVH
+DomU? IOW what purpose do the "d == currd" checks have?
 
-The "xenbr0" bridge is setup to use "eth0", because that was the name
-of the nic during setup, so with a new name for the main interface the
-bridge doesn't work.
+> So that domU with PIRQ flag can success to map pirq for
+> passthrough devices even dom0 has no PIRQ flag.
 
-In order to avoid the issue, we will use the NamePolicy "keep" when
-there is a flag "force-mac-address", which keep the original name of
-the interface (eth0). That flags only works if there's a single
-network interface, so we can expect "eth0" to always be the same
-interface.
+There's still a description problem here. Much like the first sentence,
+this last one also says that the guest would itself map the pIRQ. In
+which case there would still not be any reason to expose the sub-
+functions to Dom0.
 
-Even if the problem so far exhibit only at runtime after rebooting
-under Xen (which is fixed by a change in preseed_base()), we will also
-add the policy change to the installer (change in ts-host-install), to
-be future proof.
-
-(The filename of the policy is to have it apply before
-"73-usb-net-by-mac.link" that is installed on the system.)
-
-Signed-off-by: Anthony PERARD <anthony.perard@vates.tech>
----
-
-Notes:
-    CCing people mostly FYI rather than for review.
-    
-    I would wait until the release of Xen before pushing that as the issue
-    doesn't prevent progress of the xen-unstable branch, it just slow down a
-    bit linux-linus, with maybe unnecessary retry.
-    
-    I did run that, with config which hopefully replicates linux-linus
-    branch and xen-unstable branch:
-    
-    linux-linus:
-        http://logs.test-lab.xenproject.org/osstest/logs/186363/
-        no regression
-    
-    xen-unstable:
-        http://logs.test-lab.xenproject.org/osstest/logs/186366/
-        Just one regression (test-amd64-amd64-qemuu-freebsd12-amd64) but
-        isn't caused by the new patch.
-
- Osstest/Debian.pm | 14 +++++++++++++-
- ts-host-install   | 16 +++++++++++++++-
- 2 files changed, 28 insertions(+), 2 deletions(-)
-
-diff --git a/Osstest/Debian.pm b/Osstest/Debian.pm
-index 3545f3fd..d974fea5 100644
---- a/Osstest/Debian.pm
-+++ b/Osstest/Debian.pm
-@@ -972,7 +972,19 @@ END
-         # is going to be added to dom0's initrd, which is used by some guests
-         # (created with ts-debian-install).
-         preseed_hook_installscript($ho, $sfx,
--            '/usr/lib/base-installer.d/', '05ifnamepolicy', <<'END');
-+            '/usr/lib/base-installer.d/', '05ifnamepolicy',
-+            $ho->{Flags}{'force-mac-address'} ? <<'END' : <<'END');
-+#!/bin/sh -e
-+linkfile=/target/etc/systemd/network/70-eth-keep-policy.link
-+mkdir -p `dirname $linkfile`
-+cat > $linkfile <<EOF
-+[Match]
-+Type=ether
-+Driver=!vif
-+[Link]
-+NamePolicy=keep
-+EOF
-+END
- #!/bin/sh -e
- linkfile=/target/etc/systemd/network/90-eth-mac-policy.link
- mkdir -p `dirname $linkfile`
-diff --git a/ts-host-install b/ts-host-install
-index 0b6aaeea..fbbfeecc 100755
---- a/ts-host-install
-+++ b/ts-host-install
-@@ -248,7 +248,21 @@ END
-     print CANARY "\n# - canary - came via initramfs\n" or die $!;
-     close CANARY or die $!;
- 
--    if ($ho->{Suite} !~ m/lenny|squeeze|wheezy|jessie|stretch|buster/) {
-+    if ($ho->{Flags}{'force-mac-address'}) {
-+        # When we have to set a MAC address, make sure that the interface keep
-+        # the original name that the kernel give, "eth0". There should only be
-+        # one interface in the ysstem in this case, so no risk of mixup.
-+        system_checked(qw(mkdir -p --), "$initrd_overlay.d/lib/systemd/network");
-+        file_simple_write_contents
-+            ("$initrd_overlay.d/lib/systemd/network/70-eth-keep-policy.link",
-+                <<END);
-+[Match]
-+Type=ether
-+Driver=!vif
-+[Link]
-+NamePolicy=keep
-+END
-+    } elsif ($ho->{Suite} !~ m/lenny|squeeze|wheezy|jessie|stretch|buster/) {
-         # Switch to more predictale nic name based on mac address, instead of the
-         # policy "onboard" which can try to set the same name ("eno1") to two
-         # differents nic, or "slot". New names are "enx$mac".
--- 
-Anthony PERARD
-
+Jan
 
