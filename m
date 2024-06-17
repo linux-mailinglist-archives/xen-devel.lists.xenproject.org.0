@@ -2,35 +2,46 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CADD090AA98
-	for <lists+xen-devel@lfdr.de>; Mon, 17 Jun 2024 12:02:48 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.742077.1148781 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 25B1F90AAA5
+	for <lists+xen-devel@lfdr.de>; Mon, 17 Jun 2024 12:03:48 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.742086.1148790 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sJ9By-0002Tg-E0; Mon, 17 Jun 2024 10:02:26 +0000
+	id 1sJ9D5-00031U-Nn; Mon, 17 Jun 2024 10:03:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 742077.1148781; Mon, 17 Jun 2024 10:02:26 +0000
+Received: by outflank-mailman (output) from mailman id 742086.1148790; Mon, 17 Jun 2024 10:03:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sJ9By-0002R5-Ar; Mon, 17 Jun 2024 10:02:26 +0000
-Received: by outflank-mailman (input) for mailman id 742077;
- Mon, 17 Jun 2024 10:02:25 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1sJ9D5-0002zD-Ko; Mon, 17 Jun 2024 10:03:35 +0000
+Received: by outflank-mailman (input) for mailman id 742086;
+ Mon, 17 Jun 2024 10:03:34 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1sJ9Bx-0002Qv-5k; Mon, 17 Jun 2024 10:02:25 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1sJ9Bw-0003Vq-Qw; Mon, 17 Jun 2024 10:02:24 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1sJ9Bw-0004t3-Ie; Mon, 17 Jun 2024 10:02:24 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1sJ9Bw-0001Fh-IA; Mon, 17 Jun 2024 10:02:24 +0000
+ (envelope-from <SRS0=qWef=NT=suse.de=hare@srs-se1.protection.inumbo.net>)
+ id 1sJ9D4-0002z7-Hl
+ for xen-devel@lists.xenproject.org; Mon, 17 Jun 2024 10:03:34 +0000
+Received: from smtp-out2.suse.de (smtp-out2.suse.de
+ [2a07:de40:b251:101:10:150:64:2])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id da2858f3-2c90-11ef-b4bb-af5377834399;
+ Mon, 17 Jun 2024 12:03:32 +0200 (CEST)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 71D2B5FE68;
+ Mon, 17 Jun 2024 10:03:31 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id C1D5F139AB;
+ Mon, 17 Jun 2024 10:03:30 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id AoLhLvIJcGaVAQAAD6G6ig
+ (envelope-from <hare@suse.de>); Mon, 17 Jun 2024 10:03:30 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,73 +53,83 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=OWcs7Xfyyl7eA1dCQVjBrpItv2PWDtTeaZfigoRdXqA=; b=NxBk9Uu4MEU3iufA35psJKGIWE
-	lHpF0FbokwsvlGrQk/9IILJwJy0BzAard/n4DPu4OGrIUujhLm2wfwCyhgpyETAdij2XS4OTgeSyI
-	neXO1T1pgA4szfbOXZlNgDRAdv4Jc6eXUxOLoF6He9heMHMgDUnIrysOrLd3yV8NZKHI=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-186378-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: da2858f3-2c90-11ef-b4bb-af5377834399
+Authentication-Results: smtp-out2.suse.de;
+	none
+Message-ID: <9e1764de-0080-4b8f-a705-de4016a55f5a@suse.de>
+Date: Mon, 17 Jun 2024 12:03:30 +0200
 MIME-Version: 1.0
-Subject: [ovmf test] 186378: all pass - PUSHED
-X-Osstest-Versions-This:
-    ovmf=587100a95d7bfddc60bc5699ae0cca45914f1d81
-X-Osstest-Versions-That:
-    ovmf=a7dbd2ac7b359644b4961b027d711893132cdb00
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Mon, 17 Jun 2024 10:02:24 +0000
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 01/26] xen-blkfront: don't disable cache flushes when they
+ fail
+To: Christoph Hellwig <hch@lst.de>, Jens Axboe <axboe@kernel.dk>
+Cc: Geert Uytterhoeven <geert@linux-m68k.org>,
+ Richard Weinberger <richard@nod.at>,
+ Philipp Reisner <philipp.reisner@linbit.com>,
+ Lars Ellenberg <lars.ellenberg@linbit.com>,
+ =?UTF-8?Q?Christoph_B=C3=B6hmwalder?= <christoph.boehmwalder@linbit.com>,
+ Josef Bacik <josef@toxicpanda.com>, Ming Lei <ming.lei@redhat.com>,
+ "Michael S. Tsirkin" <mst@redhat.com>, Jason Wang <jasowang@redhat.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Alasdair Kergon <agk@redhat.com>, Mike Snitzer <snitzer@kernel.org>,
+ Mikulas Patocka <mpatocka@redhat.com>, Song Liu <song@kernel.org>,
+ Yu Kuai <yukuai3@huawei.com>, Vineeth Vijayan <vneethv@linux.ibm.com>,
+ "Martin K. Petersen" <martin.petersen@oracle.com>,
+ linux-m68k@lists.linux-m68k.org, linux-um@lists.infradead.org,
+ drbd-dev@lists.linbit.com, nbd@other.debian.org,
+ linuxppc-dev@lists.ozlabs.org, ceph-devel@vger.kernel.org,
+ virtualization@lists.linux.dev, xen-devel@lists.xenproject.org,
+ linux-bcache@vger.kernel.org, dm-devel@lists.linux.dev,
+ linux-raid@vger.kernel.org, linux-mmc@vger.kernel.org,
+ linux-mtd@lists.infradead.org, nvdimm@lists.linux.dev,
+ linux-nvme@lists.infradead.org, linux-s390@vger.kernel.org,
+ linux-scsi@vger.kernel.org, linux-block@vger.kernel.org
+References: <20240617060532.127975-1-hch@lst.de>
+ <20240617060532.127975-2-hch@lst.de>
+Content-Language: en-US
+From: Hannes Reinecke <hare@suse.de>
+In-Reply-To: <20240617060532.127975-2-hch@lst.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Rspamd-Pre-Result: action=no action;
+	module=replies;
+	Message is reply to one we originated
+X-Spamd-Result: default: False [-4.00 / 50.00];
+	REPLY(-4.00)[]
+X-Rspamd-Queue-Id: 71D2B5FE68
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Pre-Result: action=no action;
+	module=replies;
+	Message is reply to one we originated
+X-Rspamd-Action: no action
+X-Spam-Flag: NO
+X-Spam-Score: -4.00
+X-Spam-Level: 
 
-flight 186378 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/186378/
+On 6/17/24 08:04, Christoph Hellwig wrote:
+> blkfront always had a robust negotiation protocol for detecting a write
+> cache.  Stop simply disabling cache flushes in the block layer as the
+> flags handling is moving to the atomic queue limits API that needs
+> user context to freeze the queue for that.  Instead handle the case
+> of the feature flags cleared inside of blkfront.  This removes old
+> debug code to check for such a mismatch which was previously impossible
+> to hit, including the check for passthrough requests that blkfront
+> never used to start with.
+> 
+> Signed-off-by: Christoph Hellwig <hch@lst.de>
+> ---
+>   drivers/block/xen-blkfront.c | 44 +++++++++++++++++++-----------------
+>   1 file changed, 23 insertions(+), 21 deletions(-)
+> 
+Reviewed-by: Hannes Reinecke <hare@suse.de>
 
-Perfect :-)
-All tests in this flight passed as required
-version targeted for testing:
- ovmf                 587100a95d7bfddc60bc5699ae0cca45914f1d81
-baseline version:
- ovmf                 a7dbd2ac7b359644b4961b027d711893132cdb00
+Cheers,
 
-Last test of basis   186375  2024-06-17 01:41:11 Z    0 days
-Testing same since   186378  2024-06-17 08:14:56 Z    0 days    1 attempts
+Hannes
+-- 
+Dr. Hannes Reinecke                  Kernel Storage Architect
+hare@suse.de                                +49 911 74053 688
+SUSE Software Solutions GmbH, Frankenstr. 146, 90461 Nürnberg
+HRB 36809 (AG Nürnberg), GF: I. Totev, A. McDonald, W. Knoblich
 
-------------------------------------------------------------
-People who touched revisions under test:
-  xieyuanh <yuanhao.xie@intel.com>
-  Yuanhao Xie <yuanhao.xie@intel.com>
-
-jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
-   a7dbd2ac7b..587100a95d  587100a95d7bfddc60bc5699ae0cca45914f1d81 -> xen-tested-master
 
