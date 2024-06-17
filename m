@@ -2,37 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 481EF90B376
-	for <lists+xen-devel@lfdr.de>; Mon, 17 Jun 2024 17:08:37 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.742448.1149262 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5C6B790B387
+	for <lists+xen-devel@lfdr.de>; Mon, 17 Jun 2024 17:10:54 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.742463.1149271 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sJDxV-0006mM-79; Mon, 17 Jun 2024 15:07:49 +0000
+	id 1sJE0E-0000Wj-KY; Mon, 17 Jun 2024 15:10:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 742448.1149262; Mon, 17 Jun 2024 15:07:49 +0000
+Received: by outflank-mailman (output) from mailman id 742463.1149271; Mon, 17 Jun 2024 15:10:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sJDxV-0006jv-4Z; Mon, 17 Jun 2024 15:07:49 +0000
-Received: by outflank-mailman (input) for mailman id 742448;
- Mon, 17 Jun 2024 15:07:47 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=+Jjg=NT=invisiblethingslab.com=demi@srs-se1.protection.inumbo.net>)
- id 1sJDxT-0006jp-Mb
- for xen-devel@lists.xenproject.org; Mon, 17 Jun 2024 15:07:47 +0000
-Received: from fhigh1-smtp.messagingengine.com
- (fhigh1-smtp.messagingengine.com [103.168.172.152])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 5827efd0-2cbb-11ef-b4bb-af5377834399;
- Mon, 17 Jun 2024 17:07:44 +0200 (CEST)
-Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
- by mailfhigh.nyi.internal (Postfix) with ESMTP id 9F21611401D7;
- Mon, 17 Jun 2024 11:07:41 -0400 (EDT)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute5.internal (MEProxy); Mon, 17 Jun 2024 11:07:41 -0400
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 17 Jun 2024 11:07:40 -0400 (EDT)
+	id 1sJE0E-0000UW-HG; Mon, 17 Jun 2024 15:10:38 +0000
+Received: by outflank-mailman (input) for mailman id 742463;
+ Mon, 17 Jun 2024 15:10:36 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=E9YK=NT=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1sJE0C-0000UO-GN
+ for xen-devel@lists.xenproject.org; Mon, 17 Jun 2024 15:10:36 +0000
+Received: from mail-ed1-x52a.google.com (mail-ed1-x52a.google.com
+ [2a00:1450:4864:20::52a])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id bf50c465-2cbb-11ef-90a3-e314d9c70b13;
+ Mon, 17 Jun 2024 17:10:35 +0200 (CEST)
+Received: by mail-ed1-x52a.google.com with SMTP id
+ 4fb4d7f45d1cf-57cbc2a2496so4550625a12.0
+ for <xen-devel@lists.xenproject.org>; Mon, 17 Jun 2024 08:10:35 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-57cb72da790sm6525691a12.35.2024.06.17.08.10.33
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 17 Jun 2024 08:10:34 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,258 +45,186 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5827efd0-2cbb-11ef-b4bb-af5377834399
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm1; t=1718636861;
-	 x=1718723261; bh=zCVsZVjhO+hN9MCUoE86QP37zx9/iqxqHFwDyh/DIpM=; b=
-	FPSHjFNgKZlB7kmpd+SSTxnpPxLhHrkZ3behBc6ElGxpuYJK5oodeXPkhWlblC/f
-	s2Iu8wxWE9088NQw7vF6ATAcaHIjury195Q8x5tBTzuDjaS7kR8IuZ1p1P0jt7pz
-	txQDlA6VLgp8vpq6VL/aszxRRC42/Ml6JCP4e5DVk6M/wp8+Vfhi6f5xnFqQcsb1
-	pzwfnnjyY4SNcfPd3JQsq8JXhRznrta1yiuwyBtDynrFFpOvtz/p3v2Urcn6V2A0
-	fdJn75K1f3Mbps4IYrhwjm+2B4I/diVgPDIPzFguFmCtNFuF6PcK4Isxc68P2OuI
-	H1ErpHl1UpmS5qa8hqCxFg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
-	fm1; t=1718636861; x=1718723261; bh=zCVsZVjhO+hN9MCUoE86QP37zx9/
-	iqxqHFwDyh/DIpM=; b=bYCjz7FTwR1d0I7tJl1/0WO/WVQ1CdApK//MRQjW/Mk3
-	xlFW0QPnjUIsAphW32LsZdaHJ/otc9JgN7rp8aZ+Z3yessZ8chUOnqOGUVmgo9so
-	K6dzVL2BBvNj3lCAFacpW4I0uCeB7b0tggm/jafWA+wQW6cmiXZmlAgwZL1pX2QV
-	nLxqjdcFt6S4OfyEFqlOqfCdAtufzN6jl1aL1jDt5nKmNCgHWOz7EIqE5XisBJnI
-	5Sb0d3RTXyItAreh9p9hAL9TvqBmruaLuXHLSHe4f08kV8p75KbrnelCkpHSrkza
-	Lh6goJiDcXaybW0ZF9ggLr+cvw8lJug398aPqhV31Q==
-X-ME-Sender: <xms:PFFwZjnt_sYQFRQsRe4cmFAyE9-a3nqJFZiIMevSMF5i2awBC6btYw>
-    <xme:PFFwZm1TLiqeVaLRkvkKP4AJZaccdoNvsTQWInOLs9KWjsIu3SXb9fogcpiV8MYH3
-    164pH04SrqMW3s>
-X-ME-Received: <xmr:PFFwZprLifrWvpwLtbvlcQTk8PdHtuYCjMInR7lWHtqzzFsi2Q-0iq8vNbgsBgG0dDoiSv_RVj1_NZpdE1OZXBc_vbYgP1gtshT97OnvFo09QDYk>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvledrfedvhedgkeegucetufdoteggodetrfdotf
-    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
-    uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
-    cujfgurhepfffhvfevuffkfhggtggujgesghdtreertddtjeenucfhrhhomhepffgvmhhi
-    ucforghrihgvucfqsggvnhhouhhruceouggvmhhisehinhhvihhsihgslhgvthhhihhngh
-    hslhgrsgdrtghomheqnecuggftrfgrthhtvghrnhepteekuddvfedtheethedttdfgleet
-    ffeghfduieefffdutdejtddvkeeifefhuddunecuffhomhgrihhnpehorghsihhsqdhoph
-    gvnhdrohhrghenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhr
-    ohhmpeguvghmihesihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhm
-X-ME-Proxy: <xmx:PVFwZrl4c_xZ08tTlAAUICNqQ-c5xvtfB6yhuVMSIvdT-DYQ6PQtUA>
-    <xmx:PVFwZh1hcDAiW7FyrVM_Ey8a58p3dDzG7gf2YS78YorSVU_WLKIv-g>
-    <xmx:PVFwZqsDvMRUgg8xk6orCXMP5WwmAq3wrVoVbJ6g3n4Whdr-H8hTtg>
-    <xmx:PVFwZlXDms1JG9MjR58cDR-wYFM5uTkfCQ7BgakeWr0afcaFIVXvKw>
-    <xmx:PVFwZroS1g22U3UHAJ6VdNsh3KHFWYgwStsbXmQ1r8YrFaHJr3TWLITU>
-Feedback-ID: iac594737:Fastmail
-Date: Mon, 17 Jun 2024 11:07:25 -0400
-From: Demi Marie Obenour <demi@invisiblethingslab.com>
-To: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-Cc: Jan Beulich <jbeulich@suse.com>,
-	Xenia Ragiadakou <burzalodowa@gmail.com>,
-	Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
-	Ray Huang <ray.huang@amd.com>,
-	Xen developer discussion <xen-devel@lists.xenproject.org>,
-	Andrew Cooper <andrew.cooper3@citrix.com>
-Subject: Re: Design session notes: GPU acceleration in Xen
-Message-ID: <ZnBRO7hlCy2_HgwW@itl-email>
-References: <Zms9tjtg06kKtI_8@itl-email>
- <440d6444-3b02-4756-a4fa-02aae3b24b14@suse.com>
- <ZmvvlF0gpqFB7UC9@macbook>
- <af1f966b-b28f-4a14-b932-3f1523adeff0@suse.com>
- <ZmwByZnn5vKcVLKI@macbook>
- <Zm-FidjSK3mOieSC@itl-email>
- <Zm_p1QvoZcjQ4gBa@macbook>
+X-Inumbo-ID: bf50c465-2cbb-11ef-90a3-e314d9c70b13
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1718637035; x=1719241835; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=t2zsxTeXKA4vIeerirtdfv0KCg0uCuxRjr/Gi/36UOE=;
+        b=Uad1Hv1+jE4VnM1cQZxUHG0Nkdiv2pDJI/AishzPk99no1IPD59Ww4Vt0NUXAA1gbp
+         OgRppdTSdBseTWswWeMcK7JXsXBRTwbGPQIMad2clxtV1QA60kz5UTsIPo7JaRQgPJGi
+         8NsZdX1aNmmJP48DcaoOuW8zMXETOlq4zS3AWPw26DqsnjShVbYXPtO48+ySI6WmCy17
+         dR2++nHs/M1b2seAqKO+cvOmjuhYYgmds1RnrVQ2s6yqxOafHIxn1XyUtP16wijUg6Ku
+         4kdYdCJVYfb/10aPENlmKed/sr6+LCBD8yHHQw9tbe/tPCWDjsVlkeJMObvQK4rrNuBb
+         FRYw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1718637035; x=1719241835;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=t2zsxTeXKA4vIeerirtdfv0KCg0uCuxRjr/Gi/36UOE=;
+        b=Hv0xC618DoASaPFPdT7I+sb+UxB94KWi4YIzVo8KqACxppvYM3uDAxoO/D7Uf5n+Os
+         UyG73K7AW9tPzUnMSkOq4R8RjFM6L8fQTxq+0hQTrGq4XixlBLs67uKCA6T+Dl/w9XJ0
+         EJgC3IyLdRgFxb3WVpKwzgi0TKmuht2oE0MPwzWMHrPpWrjDwE1aVplEeNvbDy8XeFIJ
+         ewfD6PSSE/oHvgRudbagaG7jHpdoA17fgndz5V8LfOf20UYQ6bUx7ZCr5n92cHtoaOc0
+         DWQllws+LldoLMXhFE+nCvFzLDdruqMDvqlm60Ea/4+GWKIBS6zIA9nS98dh7T96z791
+         Zx+w==
+X-Forwarded-Encrypted: i=1; AJvYcCXNIK2aHiwW08f6MQcaCjWAXSkRoSNOP9/tsYF4OeJzFkkvfGSgTal4b6xdngklG0pPituA6MfaL6XAmgVFUkJcZFljXO+y5bJ1InKVXyU=
+X-Gm-Message-State: AOJu0YxYBkaEXlV40HiBG46rR1iR9J0so7xgwWzDcI6NUOh6L1cU9hH4
+	t36yfGhrrN2F0WytI3NIQB7vS64PWBK/hBLeCTHb/JODcl2KXB1/5Bge3Q1jGQ==
+X-Google-Smtp-Source: AGHT+IGfEAbpawAR0GiW7E9D6iKEGn4mumolRoVN8odrjpiI4CJZQopL3e7i75xvPYJxOBte7DfFzA==
+X-Received: by 2002:a05:6402:2293:b0:57c:c125:d638 with SMTP id 4fb4d7f45d1cf-57cc125dc2fmr7346644a12.39.1718637034743;
+        Mon, 17 Jun 2024 08:10:34 -0700 (PDT)
+Message-ID: <49563a31-d50e-4015-88ee-e0dab9193cd1@suse.com>
+Date: Mon, 17 Jun 2024 17:10:32 +0200
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="HOhfUfe+b94jgfrk"
-Content-Disposition: inline
-In-Reply-To: <Zm_p1QvoZcjQ4gBa@macbook>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [XEN PATCH v10 4/5] tools: Add new function to get gsi from dev
+To: Jiqian Chen <Jiqian.Chen@amd.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu
+ <wl@xen.org>, George Dunlap <george.dunlap@citrix.com>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ Anthony PERARD <anthony@xenproject.org>, Juergen Gross <jgross@suse.com>,
+ "Daniel P . Smith" <dpsmith@apertussolutions.com>,
+ Stewart Hildebrand <Stewart.Hildebrand@amd.com>,
+ Huang Rui <Ray.Huang@amd.com>, xen-devel@lists.xenproject.org
+References: <20240617090035.839640-1-Jiqian.Chen@amd.com>
+ <20240617090035.839640-5-Jiqian.Chen@amd.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20240617090035.839640-5-Jiqian.Chen@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
+On 17.06.2024 11:00, Jiqian Chen wrote:
+> In PVH dom0, it uses the linux local interrupt mechanism,
+> when it allocs irq for a gsi, it is dynamic, and follow
+> the principle of applying first, distributing first. And
+> irq number is alloced from small to large, but the applying
+> gsi number is not, may gsi 38 comes before gsi 28, that
+> causes the irq number is not equal with the gsi number.
 
---HOhfUfe+b94jgfrk
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 17 Jun 2024 11:07:25 -0400
-From: Demi Marie Obenour <demi@invisiblethingslab.com>
-To: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-Cc: Jan Beulich <jbeulich@suse.com>,
-	Xenia Ragiadakou <burzalodowa@gmail.com>,
-	Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
-	Ray Huang <ray.huang@amd.com>,
-	Xen developer discussion <xen-devel@lists.xenproject.org>,
-	Andrew Cooper <andrew.cooper3@citrix.com>
-Subject: Re: Design session notes: GPU acceleration in Xen
+Hmm, see my earlier explanations on patch 5: GSI and IRQ generally aren't
+the same anyway. Therefore this part of the description, while not wrong,
+is at least at risk of misleading people.
 
-On Mon, Jun 17, 2024 at 09:46:29AM +0200, Roger Pau Monn=C3=A9 wrote:
-> On Sun, Jun 16, 2024 at 08:38:19PM -0400, Demi Marie Obenour wrote:
-> > On Fri, Jun 14, 2024 at 10:39:37AM +0200, Roger Pau Monn=C3=A9 wrote:
-> > > On Fri, Jun 14, 2024 at 10:12:40AM +0200, Jan Beulich wrote:
-> > > > On 14.06.2024 09:21, Roger Pau Monn=C3=A9 wrote:
-> > > > > On Fri, Jun 14, 2024 at 08:38:51AM +0200, Jan Beulich wrote:
-> > > > >> On 13.06.2024 20:43, Demi Marie Obenour wrote:
-> > > > >>> GPU acceleration requires that pageable host memory be able to =
-be mapped
-> > > > >>> into a guest.
-> > > > >>
-> > > > >> I'm sure it was explained in the session, which sadly I couldn't=
- attend.
-> > > > >> I've been asking Ray and Xenia the same before, but I'm afraid i=
-t still
-> > > > >> hasn't become clear to me why this is a _requirement_. After all=
- that's
-> > > > >> against what we're doing elsewhere (i.e. so far it has always be=
-en
-> > > > >> guest memory that's mapped in the host). I can appreciate that i=
-t might
-> > > > >> be more difficult to implement, but avoiding to violate this fun=
-damental
-> > > > >> (kind of) rule might be worth the price (and would avoid other
-> > > > >> complexities, of which there may be lurking more than what you e=
-numerate
-> > > > >> below).
-> > > > >=20
-> > > > > My limited understanding (please someone correct me if wrong) is =
-that
-> > > > > the GPU buffer (or context I think it's also called?) is always
-> > > > > allocated from dom0 (the owner of the GPU).  The underling memory
-> > > > > addresses of such buffer needs to be mapped into the guest.  The
-> > > > > buffer backing memory might be GPU MMIO from the device BAR(s) or
-> > > > > system RAM, and such buffer can be paged by the dom0 kernel at any
-> > > > > time (iow: changing the backing memory from MMIO to RAM or vice
-> > > > > versa).  Also, the buffer must be contiguous in physical address
-> > > > > space.
-> > > >=20
-> > > > This last one in particular would of course be a severe restriction.
-> > > > Yet: There's an IOMMU involved, isn't there?
-> > >=20
-> > > Yup, IIRC that's why Ray said it was much more easier for them to
-> > > support VirtIO GPUs from a PVH dom0 rather than classic PV one.
-> > >=20
-> > > It might be easier to implement from a classic PV dom0 if there's
-> > > pv-iommu support, so that dom0 can create it's own contiguous memory
-> > > buffers from the device PoV.
-> >=20
-> > What makes PVH an improvement here?  I thought PV dom0 uses an identity
-> > mapping for the IOMMU, while a PVH dom0 uses an IOMMU that mirrors the
-> > dom0 second-stage page tables.
->=20
-> Indeed, hence finding a physically contiguous buffer on classic PV is
-> way more complicated, because the IOMMU identity maps mfns, and the PV
-> address space can be completely scattered.
->=20
-> OTOH, on PVH the IOMMU page tables are the same as the second stage
-> translation, and hence the physical address is way more compact (as it
-> would be on native).
+> --- a/tools/include/xen-sys/Linux/privcmd.h
+> +++ b/tools/include/xen-sys/Linux/privcmd.h
+> @@ -95,6 +95,11 @@ typedef struct privcmd_mmap_resource {
+>  	__u64 addr;
+>  } privcmd_mmap_resource_t;
+>  
+> +typedef struct privcmd_gsi_from_dev {
+> +	__u32 sbdf;
 
-Ah, _that_ is what I missed.  I didn't realize that the physical address
-space of PV guests was so scattered.
+That's PCI-centric, without struct and IOCTL names reflecting this fact.
 
-> > In both cases, the device physical
-> > addresses are identical to dom0=E2=80=99s physical addresses.
->=20
-> Yes, but a PV dom0 physical address space can be very scattered.
->=20
-> IIRC there's an hypercall to request physically contiguous memory for
-> PV, but you don't want to be using that every time you allocate a
-> buffer (not sure it would support the sizes needed by the GPU
-> anyway).
+> +	int gsi;
 
-That makes sense, thanks!
+Is "int" legitimate to use here? Doesn't this want to similarly be __u32?
 
-> > PV is terrible for many reasons, so I=E2=80=99m okay with focusing on P=
-VH dom0,
-> > but I=E2=80=99d like to know why there is a difference.
-> >=20
-> > > > > I'm not sure it's possible to ensure that when using system RAM s=
-uch
-> > > > > memory comes from the guest rather than the host, as it would lik=
-ely
-> > > > > require some very intrusive hooks into the kernel logic, and
-> > > > > negotiation with the guest to allocate the requested amount of
-> > > > > memory and hand it over to dom0.  If the maximum size of the buff=
-er is
-> > > > > known in advance maybe dom0 can negotiate with the guest to alloc=
-ate
-> > > > > such a region and grant it access to dom0 at driver attachment ti=
-me.
-> > > >=20
-> > > > Besides the thought of transiently converting RAM to kind-of-MMIO, =
-this
-> > >=20
-> > > As a note here, changing the type to MMIO would likely involve
-> > > modifying the EPT/NPT tables to propagate the new type.  On a PVH dom0
-> > > this would likely involve shattering superpages in order to set the
-> > > correct memory types.
-> > >=20
-> > > Depending on how often and how random those system RAM changes are
-> > > necessary this could also create contention on the p2m lock.
-> > >=20
-> > > > makes me think of another possible option: Could Dom0 transfer owne=
-rship
-> > > > of the RAM that wants mapping in the guest (remotely resembling
-> > > > grant-transfer)? Would require the guest to have ballooned down eno=
-ugh
-> > > > first, of course. (In both cases it would certainly need working ou=
-t how
-> > > > the conversion / transfer back could be made work safely and reason=
-ably
-> > > > cleanly.)
-> > >=20
-> > > Maybe.  The fact the guest needs to balloon down that amount of memory
-> > > seems weird to me, as from the guest PoV that mapped memory is
-> > > MMIO-like and not system RAM.
-> >=20
-> > I don=E2=80=99t like it either.  Furthermore, this would require change=
-s to the
-> > virtio-GPU driver in the guest, which I=E2=80=99d prefer to avoid.
->=20
-> IMO it would be helpful if you (or someone) could write the full
-> specification of how VirtIO GPU is supposed to work right now (with
-> the KVM model I assume?) as it would be a good starting point to
-> provide suggestions about how to make it work (or adapt it) on Xen.
->=20
-> I don't think the high level layers on top of VirtIO GPU are relevant,
-> but it's important to understand the protocol between the VirtIO GPU
-> front and back ends.
+> --- a/tools/include/xencall.h
+> +++ b/tools/include/xencall.h
+> @@ -113,6 +113,8 @@ int xencall5(xencall_handle *xcall, unsigned int op,
+>               uint64_t arg1, uint64_t arg2, uint64_t arg3,
+>               uint64_t arg4, uint64_t arg5);
+>  
+> +int xen_oscall_gsi_from_dev(xencall_handle *xcall, unsigned int sbdf);
 
-virtio-GPU is part of the OASIS VirtIO standard [1].
+Hmm, something (by name at least) OS-specific being in the public header
+and ...
 
-[1]: https://docs.oasis-open.org/virtio/virtio/v1.3/virtio-v1.3.html
+> --- a/tools/libs/call/libxencall.map
+> +++ b/tools/libs/call/libxencall.map
+> @@ -10,6 +10,8 @@ VERS_1.0 {
+>  		xencall4;
+>  		xencall5;
+>  
+> +		xen_oscall_gsi_from_dev;
 
-> So far I only had scattered conversation about what's needed, but not
-> a formal write-up of how this is supposed to work.
+... map file. I'm not sure things are intended to be this way.
 
-My understanding is that mapping GPU buffers into guests ("blob
-resources" in virtio-GPU terms) is the only part of virtio-GPU that
-didn't just work.  Furthermore, any solution that uses Linux's
-kernel-mode GPU driver on the host will have the same requirements.
-I don't consider writing a bespoke GPU driver that uses caller-allocated
-buffers to be a reasonable solution that can support many GPU models.
---=20
-Sincerely,
-Demi Marie Obenour (she/her/hers)
-Invisible Things Lab
+> --- a/tools/libs/light/libxl_pci.c
+> +++ b/tools/libs/light/libxl_pci.c
+> @@ -1406,6 +1406,12 @@ static bool pci_supp_legacy_irq(void)
+>  #endif
+>  }
+>  
+> +#define PCI_DEVID(bus, devfn)\
+> +            ((((uint16_t)(bus)) << 8) | ((devfn) & 0xff))
+> +
+> +#define PCI_SBDF(seg, bus, devfn) \
+> +            ((((uint32_t)(seg)) << 16) | (PCI_DEVID(bus, devfn)))
 
---HOhfUfe+b94jgfrk
-Content-Type: application/pgp-signature; name="signature.asc"
+I'm not a maintainer of this file; if I were, I'd ask that for readability's
+sake all excess parentheses be dropped from these.
 
------BEGIN PGP SIGNATURE-----
+> @@ -1486,6 +1496,18 @@ static void pci_add_dm_done(libxl__egc *egc,
+>          goto out_no_irq;
+>      }
+>      if ((fscanf(f, "%u", &irq) == 1) && irq) {
+> +#ifdef CONFIG_X86
+> +        sbdf = PCI_SBDF(pci->domain, pci->bus,
+> +                        (PCI_DEVFN(pci->dev, pci->func)));
+> +        gsi = xc_physdev_gsi_from_dev(ctx->xch, sbdf);
+> +        /*
+> +         * Old kernel version may not support this function,
 
-iQIzBAEBCgAdFiEEdodNnxM2uiJZBxxxsoi1X/+cIsEFAmZwUToACgkQsoi1X/+c
-IsFx8w//Zb9R/oVB59xhbuzGwRZYVLeY9sIIdo92vOu8ogQ9JesHGLoVL5HIgGEk
-9BYi+u6DehaEdR27/13hd0M1cg88RLkLwQqYRn6DSKpCP2eqhAwX8s2sDSOqULef
-cC8ZsH6Cm2LCIlRiRwX0vy5Tty1EhdBtd09cZx8YAv0EmzTrEKef7sCZIc9QbVWv
-XRgQzRKKPLVNIjwt/u9+cVESe9IvWJhnGMJ3ltv/JJjTZNnqEswwy76e/BlCbtwc
-JFVIVKrt2He5mD1Eg9DyLsDEgt0xFSh7m72bOMGQx1W9NVHAQBWkU8z5q5VK9RlP
-v0nl8ndZb2ylpTswX0iTTSF3mjRsmmbi4VsXQIOPF/Ssme6PgRc0Ax6H6ryy/LHJ
-GETfCE1+VZRKnOfkzi63gw5cx7bzycXOECPzc9ofWzOMkQtUzcSZ3POOBTn5wZWi
-Gw2+yeEvPDHnSZevlO2iz9tRNpwilYNS23CsJ4enkt/oaneCZByLJN08wIpDA5QV
-0iufE78UrRATTclMmEoZGTp5bRpfBUZhux46mG0bOG5mQS/0wVh+zQuolXCKgTAm
-oXKDSByzYInswrS3KoHubCrxIkjvcS+6NhVBmHfTYnGOptIRl5laSjeE5sZ3L9G6
-Qmefux05LGVEAWXwGuiIpRnWBXQQJbJRkkCdrRAINN2GGm5uP/c=
-=6EsX
------END PGP SIGNATURE-----
+Just kernel?
 
---HOhfUfe+b94jgfrk--
+> +         * so if fail, keep using irq; if success, use gsi
+> +         */
+> +        if (gsi > 0) {
+> +            irq = gsi;
+
+I'm still puzzled by this, when by now I think we've sufficiently clarified
+that IRQs and GSIs use two distinct numbering spaces.
+
+Also, as previously indicated, you call this for PV Dom0 as well. Aiui on
+the assumption that it'll fail. What if we decide to make the functionality
+available there, too (if only for informational purposes, or for
+consistency)? Suddenly you're fallback logic wouldn't work anymore, and
+you'd call ...
+
+> +        }
+> +#endif
+>          r = xc_physdev_map_pirq(ctx->xch, domid, irq, &irq);
+
+... the function with a GSI when a pIRQ is meant. Imo, as suggested before,
+you strictly want to avoid the call on PV Dom0.
+
+Also for PVH Dom0: I don't think I've seen changes to the hypercall
+handling, yet. How can that be when GSI and IRQ aren't the same, and hence
+incoming GSI would need translating to IRQ somewhere? I can once again only
+assume all your testing was done with IRQs whose numbers happened to match
+their GSI numbers. (The difference, imo, would also need calling out in the
+public header, where the respective interface struct(s) is/are defined.)
+
+Jan
 
