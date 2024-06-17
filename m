@@ -2,38 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AA87C90B4C1
-	for <lists+xen-devel@lfdr.de>; Mon, 17 Jun 2024 17:40:04 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.742501.1149312 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0C3C290B5AD
+	for <lists+xen-devel@lfdr.de>; Mon, 17 Jun 2024 18:03:39 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.742510.1149322 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sJESA-0007gC-Iy; Mon, 17 Jun 2024 15:39:30 +0000
+	id 1sJEoi-0005Tt-15; Mon, 17 Jun 2024 16:02:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 742501.1149312; Mon, 17 Jun 2024 15:39:30 +0000
+Received: by outflank-mailman (output) from mailman id 742510.1149322; Mon, 17 Jun 2024 16:02:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sJESA-0007eO-Eo; Mon, 17 Jun 2024 15:39:30 +0000
-Received: by outflank-mailman (input) for mailman id 742501;
- Mon, 17 Jun 2024 15:39:29 +0000
+	id 1sJEoh-0005Qk-Ua; Mon, 17 Jun 2024 16:02:47 +0000
+Received: by outflank-mailman (input) for mailman id 742510;
+ Mon, 17 Jun 2024 16:02:46 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=E9YK=NT=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sJES9-0007eI-0p
- for xen-devel@lists.xenproject.org; Mon, 17 Jun 2024 15:39:29 +0000
-Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
- [2a00:1450:4864:20::629])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c7097d10-2cbf-11ef-b4bb-af5377834399;
- Mon, 17 Jun 2024 17:39:26 +0200 (CEST)
-Received: by mail-ej1-x629.google.com with SMTP id
- a640c23a62f3a-a6f1dc06298so540934066b.1
- for <xen-devel@lists.xenproject.org>; Mon, 17 Jun 2024 08:39:26 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a6f56f416dfsm523948266b.164.2024.06.17.08.39.25
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 17 Jun 2024 08:39:25 -0700 (PDT)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=+Jjg=NT=invisiblethingslab.com=demi@srs-se1.protection.inumbo.net>)
+ id 1sJEog-0005Qe-2Y
+ for xen-devel@lists.xenproject.org; Mon, 17 Jun 2024 16:02:46 +0000
+Received: from fout4-smtp.messagingengine.com (fout4-smtp.messagingengine.com
+ [103.168.172.147]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 0771ac38-2cc3-11ef-b4bb-af5377834399;
+ Mon, 17 Jun 2024 18:02:43 +0200 (CEST)
+Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
+ by mailfout.nyi.internal (Postfix) with ESMTP id 2A4EE1380257;
+ Mon, 17 Jun 2024 12:02:42 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute1.internal (MEProxy); Mon, 17 Jun 2024 12:02:42 -0400
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+ 17 Jun 2024 12:02:40 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,120 +43,163 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c7097d10-2cbf-11ef-b4bb-af5377834399
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1718638766; x=1719243566; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=nxjO6maD7OtXVQwEr6cHb5BiQfSIKF4D4k7lDp7g2J4=;
-        b=Rm8Azo7WyXg5/s8fzLbnMRnRcjEjTzFeqm0dtSWOx8FUc/ggDFLID/fzaPvgKVg8mH
-         dWrqzEDFHkyN+7YXEo1YkEmG2eh2/Cj3kfKiqRGCEDJonzUKqGJ88emefIfpfIswikw9
-         L1aAX8FGADdGSZjdN9jxrJdwG2VBcXWkBy9MoaZgNbyX98wkBw9ba7/oYELM96KFiqB/
-         aHn4hTg2r3EmwwMJw3rhbmH2GpEPz/jwpEqVSwEAOLhRjlqUYyK21NBbfzeaky4KzsV1
-         hcjceewvGTkOA2WNMdPXkrHCDZpz6AuHn2YEPs2Z8POa4CeqJXqTsmfv606/E+3qiPLk
-         4nkw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1718638766; x=1719243566;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=nxjO6maD7OtXVQwEr6cHb5BiQfSIKF4D4k7lDp7g2J4=;
-        b=Ax9XF3gOzd7hhRY6QJpEaLEA3NETi7YSgj88CH6O8dpmEnmD9JA3nF9VRXMr2gpThc
-         7MUuywVget0LCHj6uTAbpDe0BZn/AgQV/bWOIETsNd2Drr2P2c/WlEFEtX1Djl8n9py2
-         SlyfRK57I7ZT7xlM6sPezgMrpVHbu1Jmx9E5Jdu+OFYbB5SwXx/b1fIX7KsOpkSb0heP
-         ItJ96gC9uTPSgKPUUtkxGonkhujLvjw7Udmbg4Cqwu055hz1Y97gxnjBh0etN4RiaHyo
-         oQZQL/fYfiPyuJkS1xonHBwmlfIbA0K8OAJ91dulQkv6i2Hi2jcr3zGtTigsbd6cJfOA
-         K+CQ==
-X-Forwarded-Encrypted: i=1; AJvYcCUGM1Ik9jqX5+V/I9YM13qEyDllmr0HTgVdzAr8VsLz0eTOn7s9fDoFvymxn/rSs4mcbltvBSTJg29KB6ib/FoG+wMF3ghQ3MJND6nNlVw=
-X-Gm-Message-State: AOJu0Yy4KbQXuZnIE1NP5wJZ6eeH0ikGCrQP1v2TM88KPn4YzZnu1d9k
-	D7J2l8Eff4svuOFKVGS8ZSjBOIuYautlZJU9zaZ70nJwj0ltMhiQ4MQHtUehSw==
-X-Google-Smtp-Source: AGHT+IEwoljcJ8iwGoaglCl8O6rt85NZ5FdDBP8eiQ+QI9Er+gS5jILL4G/xyvxjAGDIqWdFWL6wVw==
-X-Received: by 2002:a17:907:8b8d:b0:a6f:64cc:ca2e with SMTP id a640c23a62f3a-a6f64cccb75mr854515566b.44.1718638765660;
-        Mon, 17 Jun 2024 08:39:25 -0700 (PDT)
-Message-ID: <acad1669-ceaf-463b-ad1c-4e290ccccb23@suse.com>
-Date: Mon, 17 Jun 2024 17:39:23 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: Design session notes: GPU acceleration in Xen
-To: Demi Marie Obenour <demi@invisiblethingslab.com>
+X-Inumbo-ID: 0771ac38-2cc3-11ef-b4bb-af5377834399
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1718640162;
+	 x=1718726562; bh=Acb1tUk4yc+J2PZ0FemvMFzaNS+v52Y0cg8sMBNp2wE=; b=
+	iSZqrenb4ST6kXzdZzoQwJe0r6xhzP02F9VO1I77btueZcTZ3JKmrq8lwrcbWFKF
+	7OUkl6mDQG/l+jq5qUxfmu/FOPh+RCC1kpDPsNzQuA8VssyCfjNjFjX7OVMOUFHM
+	JSePBxDwHVw5yGiO8uUJeNSULLjMQQ6Eptpcu6Dx0i0/vx7zpG6l00HpU6ndj8Oc
+	osgOQNfKzNFDgNtoos/QUT8aDaXcjhWDTITU3JKW+0JLfxbXlnzZlAS9MW3tpP9d
+	w4jB2dgTPshElOWwSnLGik1E26Egdyf/gU8bFUQu6pX2/Nem4hliDd+YL+r1z2gZ
+	LukpnaEFkN+trw+TPQHzTw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+	fm1; t=1718640162; x=1718726562; bh=Acb1tUk4yc+J2PZ0FemvMFzaNS+v
+	52Y0cg8sMBNp2wE=; b=AAeT6JA9hGrQbWQxtQtBC520Wj4m0rTax5dXp99J89ir
+	fKP9hbHVe7wGdUcMquF0Kvyh705RsB1T2l5OqOuZGdTgE67f/a6Gtc0ICPQlJvhk
+	Styt/FK40++lw+VrjeXdD3MBcIFsmeR7geK8ChW5qrV3jYQoY6d9Ntcfm0zEWIZN
+	+zQvUlPHtpkwy6THbgbC0EJFcR0dawvD8lUh8FF54CfrbQGE0Rk1xNzRJY+OiR1m
+	R2ItP3kTNN900ZTx0er90csTe/HeiLAUq+RLKTRDTv33jD4DI/H4L9PsQq04zxtq
+	oGhriM+S2bAlXyDSz91SUeIrYyWRoKVorm3ZTj+/0g==
+X-ME-Sender: <xms:IV5wZuIKpk1g4YQpQq7CulvfwU0LB9rR8Tgqdy6LVrvbbhRDj6mU-A>
+    <xme:IV5wZmLKx4l0w2ABbNDRB5-WEsBRF1uJmMUVOL3xQBpsuEjQeuhGpZVt-PWd4G5A_
+    3QCzb01ml8Ss6U>
+X-ME-Received: <xmr:IV5wZuuPna_0O4-WLf5JJ6edG1bikaguozK6FGKDpgbmrZqf8oSL8JjDobvzXVvFYWsdZdyjc87chfVLmAbhz0GAqUCtm1TrTZxGL4nPGrLEtBLo>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvledrfedvhedgleeiucetufdoteggodetrfdotf
+    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+    uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+    cujfgurhepfffhvfevuffkfhggtggujgesghdtreertddtjeenucfhrhhomhepffgvmhhi
+    ucforghrihgvucfqsggvnhhouhhruceouggvmhhisehinhhvihhsihgslhgvthhhihhngh
+    hslhgrsgdrtghomheqnecuggftrfgrthhtvghrnhepvdejteegkefhteduhffgteffgeff
+    gfduvdfghfffieefieekkedtheegteehffelnecuvehluhhsthgvrhfuihiivgeptdenuc
+    frrghrrghmpehmrghilhhfrhhomhepuggvmhhisehinhhvihhsihgslhgvthhhihhnghhs
+    lhgrsgdrtghomh
+X-ME-Proxy: <xmx:IV5wZjbV6hC4p2Cj1xMQPrh2zYljeX5gshb79G9WbU8na1TFMMKLSQ>
+    <xmx:IV5wZlYQl82D6IZxyHkbmltMDmT3aSm9hKpaaFIbTqOUnoOW68nuoA>
+    <xmx:IV5wZvDULWZRQkRZslo1UE5HLeX9Mz8_0Qr5ccAJeIaA3mCmRw1K5A>
+    <xmx:IV5wZrbbsI6fuFa7H8k0eQ-OwhpA6y77tr6GLazlQELTIQuqru4l4Q>
+    <xmx:Il5wZqPsE13fmFglEQZXmEK6gtnQZHGULqUbGcgIkxRr9e8Fsl_sIjat>
+Feedback-ID: iac594737:Fastmail
+Date: Mon, 17 Jun 2024 12:02:36 -0400
+From: Demi Marie Obenour <demi@invisiblethingslab.com>
+To: Jan Beulich <jbeulich@suse.com>
 Cc: Xenia Ragiadakou <burzalodowa@gmail.com>,
- =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>, Ray Huang <ray.huang@amd.com>,
- Xen developer discussion <xen-devel@lists.xenproject.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+	Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
+	Ray Huang <ray.huang@amd.com>,
+	Xen developer discussion <xen-devel@lists.xenproject.org>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+Subject: Re: Design session notes: GPU acceleration in Xen
+Message-ID: <ZnBeH_SXvFgwCsEZ@itl-email>
 References: <Zms9tjtg06kKtI_8@itl-email>
- <440d6444-3b02-4756-a4fa-02aae3b24b14@suse.com> <ZmvvlF0gpqFB7UC9@macbook>
- <af1f966b-b28f-4a14-b932-3f1523adeff0@suse.com> <Zmxze4a0PZbwcLSb@itl-email>
- <10c2ab19-e2b7-4f5f-ae73-213e0194bb8e@suse.com> <ZnBTn6FXXOpnBJCb@itl-email>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <ZnBTn6FXXOpnBJCb@itl-email>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+ <440d6444-3b02-4756-a4fa-02aae3b24b14@suse.com>
+ <ZmvvlF0gpqFB7UC9@macbook>
+ <af1f966b-b28f-4a14-b932-3f1523adeff0@suse.com>
+ <Zmxze4a0PZbwcLSb@itl-email>
+ <10c2ab19-e2b7-4f5f-ae73-213e0194bb8e@suse.com>
+ <ZnBTn6FXXOpnBJCb@itl-email>
+ <acad1669-ceaf-463b-ad1c-4e290ccccb23@suse.com>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="eSYgnFjd2QIBSMRA"
+Content-Disposition: inline
+In-Reply-To: <acad1669-ceaf-463b-ad1c-4e290ccccb23@suse.com>
 
-On 17.06.2024 17:17, Demi Marie Obenour wrote:
-> On Mon, Jun 17, 2024 at 11:07:54AM +0200, Jan Beulich wrote:
->> On 14.06.2024 18:44, Demi Marie Obenour wrote:
->>> On Fri, Jun 14, 2024 at 10:12:40AM +0200, Jan Beulich wrote:
->>>> On 14.06.2024 09:21, Roger Pau Monné wrote:
->>>>> I'm not sure it's possible to ensure that when using system RAM such
->>>>> memory comes from the guest rather than the host, as it would likely
->>>>> require some very intrusive hooks into the kernel logic, and
->>>>> negotiation with the guest to allocate the requested amount of
->>>>> memory and hand it over to dom0.  If the maximum size of the buffer is
->>>>> known in advance maybe dom0 can negotiate with the guest to allocate
->>>>> such a region and grant it access to dom0 at driver attachment time.
->>>>
->>>> Besides the thought of transiently converting RAM to kind-of-MMIO, this
->>>> makes me think of another possible option: Could Dom0 transfer ownership
->>>> of the RAM that wants mapping in the guest (remotely resembling
->>>> grant-transfer)? Would require the guest to have ballooned down enough
->>>> first, of course. (In both cases it would certainly need working out how
->>>> the conversion / transfer back could be made work safely and reasonably
->>>> cleanly.)
->>>
->>> The kernel driver needs to be able to reclaim the memory at any time.
->>> My understanding is that this is used to migrate memory between VRAM and
->>> system RAM.  It might also be used for other purposes.
->>
->> Except: How would the kernel driver reclaim the memory when it's mapped
->> by a DomU?
-> 
-> The Xen driver in dom0 will register for MMU notifier callbacks.  When
-> the kernel driver reclaims the memory, the Xen driver will be notified,
-> and it will issue a hypercall that tells Xen to remove the memory from
-> the DomU's address space.  Subsequent accesses to the pages will trigger
-> a stage 2 translation fault that is handled by an IOREQ server.
 
-And such an ioreq server, which I assume isn't going to run in the Dom0
-kernel, will then also need keeping up-to-date on holes in the (virtual)
-BAR. Oh well ...
+--eSYgnFjd2QIBSMRA
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 17 Jun 2024 12:02:36 -0400
+From: Demi Marie Obenour <demi@invisiblethingslab.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Xenia Ragiadakou <burzalodowa@gmail.com>,
+	Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
+	Ray Huang <ray.huang@amd.com>,
+	Xen developer discussion <xen-devel@lists.xenproject.org>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+Subject: Re: Design session notes: GPU acceleration in Xen
 
-Jan
+On Mon, Jun 17, 2024 at 05:39:23PM +0200, Jan Beulich wrote:
+> On 17.06.2024 17:17, Demi Marie Obenour wrote:
+> > On Mon, Jun 17, 2024 at 11:07:54AM +0200, Jan Beulich wrote:
+> >> On 14.06.2024 18:44, Demi Marie Obenour wrote:
+> >>> On Fri, Jun 14, 2024 at 10:12:40AM +0200, Jan Beulich wrote:
+> >>>> On 14.06.2024 09:21, Roger Pau Monn=C3=A9 wrote:
+> >>>>> I'm not sure it's possible to ensure that when using system RAM such
+> >>>>> memory comes from the guest rather than the host, as it would likely
+> >>>>> require some very intrusive hooks into the kernel logic, and
+> >>>>> negotiation with the guest to allocate the requested amount of
+> >>>>> memory and hand it over to dom0.  If the maximum size of the buffer=
+ is
+> >>>>> known in advance maybe dom0 can negotiate with the guest to allocate
+> >>>>> such a region and grant it access to dom0 at driver attachment time.
+> >>>>
+> >>>> Besides the thought of transiently converting RAM to kind-of-MMIO, t=
+his
+> >>>> makes me think of another possible option: Could Dom0 transfer owner=
+ship
+> >>>> of the RAM that wants mapping in the guest (remotely resembling
+> >>>> grant-transfer)? Would require the guest to have ballooned down enou=
+gh
+> >>>> first, of course. (In both cases it would certainly need working out=
+ how
+> >>>> the conversion / transfer back could be made work safely and reasona=
+bly
+> >>>> cleanly.)
+> >>>
+> >>> The kernel driver needs to be able to reclaim the memory at any time.
+> >>> My understanding is that this is used to migrate memory between VRAM =
+and
+> >>> system RAM.  It might also be used for other purposes.
+> >>
+> >> Except: How would the kernel driver reclaim the memory when it's mapped
+> >> by a DomU?
+> >=20
+> > The Xen driver in dom0 will register for MMU notifier callbacks.  When
+> > the kernel driver reclaims the memory, the Xen driver will be notified,
+> > and it will issue a hypercall that tells Xen to remove the memory from
+> > the DomU's address space.  Subsequent accesses to the pages will trigger
+> > a stage 2 translation fault that is handled by an IOREQ server.
+>=20
+> And such an ioreq server, which I assume isn't going to run in the Dom0
+> kernel, will then also need keeping up-to-date on holes in the (virtual)
+> BAR. Oh well ...
+
+My initial plan was that it _would_ run in the dom0 kernel, because this
+results in a cleaner userspace API.  Ultimately I think it is best to go
+with whichever approach keeps the kernel code simpler, but I'm not sure.
+--=20
+Sincerely,
+Demi Marie Obenour (she/her/hers)
+Invisible Things Lab
+
+--eSYgnFjd2QIBSMRA
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCgAdFiEEdodNnxM2uiJZBxxxsoi1X/+cIsEFAmZwXh8ACgkQsoi1X/+c
+IsFHIw/9GlnPySED9eXtWpbMH9pwdE7KxE/VNsD1QMO3KSyTpHlVTahtHhOrWJ+B
+s1le+k6OHjzNap8/c8R9GZMncAvvbhfOhbufnw5Je0nvfOr1XUqIbex22fQZSg8y
+7OosYrMu9F9t8WOQwkca2Oge7/4MMgKDWf+20xFHjHbpujUptofWUXTWRCK6k7jA
++awLoT1Kg71ZFxGLo2n1sTS56gi0H2K7oXPE9MGdk/VGVhRiA/s+6TVYeJx09Oyv
+ueNj00UciYcez3PfWP+5qc2ziAW3XRo1ZKgnIfxgMdzb5t2dorQJGu65ADckDJ+z
+hnfYLy3VSBqgwUhHxacf2na/BsMadFRRJR1Urtb5zWcJ9URJ/YNgX1/Yle5BxpfD
+xhfEdUAx2VeCQ/h2Tjr3KweGvmkeaNZ5QjPE7npiXXl7Yz1h/TUhZSYlQ0vEeW0q
+mM1CRRFRdSkbdTpYXZSjZ2EWiUher+OGkmsT6ylfcnSEMY00jpXsmoKyINmbKv69
+oV7lM0AiJY1l2gQHzxJvnLni8bHHhxkUZD591L6yyKU4hRsbZvRt7L1UM6W3zyg7
+tUuZDGygDDygRCy4Sk89xFrXuLrp2cgjQlhQQpb1iHHrc+2HglqTHVg8hq8mce9y
+YvdcdTNSkwKIUNAnbxa1lLDneJ83xHOnU5IoC2da7bqlypRgneE=
+=OO/s
+-----END PGP SIGNATURE-----
+
+--eSYgnFjd2QIBSMRA--
 
