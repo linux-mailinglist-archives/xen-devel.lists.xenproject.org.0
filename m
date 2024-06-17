@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D5E5490A4E2
-	for <lists+xen-devel@lfdr.de>; Mon, 17 Jun 2024 08:13:56 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.741761.1148492 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6466190A4F5
+	for <lists+xen-devel@lfdr.de>; Mon, 17 Jun 2024 08:14:45 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.741766.1148500 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sJ5ce-0000ua-UI; Mon, 17 Jun 2024 06:13:44 +0000
+	id 1sJ5dO-0001Q4-5w; Mon, 17 Jun 2024 06:14:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 741761.1148492; Mon, 17 Jun 2024 06:13:44 +0000
+Received: by outflank-mailman (output) from mailman id 741766.1148500; Mon, 17 Jun 2024 06:14:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sJ5ce-0000rH-RE; Mon, 17 Jun 2024 06:13:44 +0000
-Received: by outflank-mailman (input) for mailman id 741761;
- Mon, 17 Jun 2024 06:13:44 +0000
+	id 1sJ5dO-0001NW-3P; Mon, 17 Jun 2024 06:14:30 +0000
+Received: by outflank-mailman (input) for mailman id 741766;
+ Mon, 17 Jun 2024 06:14:29 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=sOKI=NT=kernel.org=dlemoal@srs-se1.protection.inumbo.net>)
- id 1sJ5ce-0000rB-7O
- for xen-devel@lists.xenproject.org; Mon, 17 Jun 2024 06:13:44 +0000
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ id 1sJ5dN-0000rB-Ar
+ for xen-devel@lists.xenproject.org; Mon, 17 Jun 2024 06:14:29 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id bc4f4f6d-2c70-11ef-90a3-e314d9c70b13;
- Mon, 17 Jun 2024 08:13:40 +0200 (CEST)
+ id da05dd61-2c70-11ef-90a3-e314d9c70b13;
+ Mon, 17 Jun 2024 08:14:28 +0200 (CEST)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id 79463CE0FD1;
- Mon, 17 Jun 2024 06:13:36 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E26F1C2BD10;
- Mon, 17 Jun 2024 06:13:30 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id E064A61127;
+ Mon, 17 Jun 2024 06:14:26 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EAD93C2BD10;
+ Mon, 17 Jun 2024 06:14:21 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,23 +41,23 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bc4f4f6d-2c70-11ef-90a3-e314d9c70b13
+X-Inumbo-ID: da05dd61-2c70-11ef-90a3-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1718604815;
-	bh=i+c+RpVRjeaE7WIb31u0YOButoWpoMUXbmMH2ED9KM8=;
+	s=k20201202; t=1718604866;
+	bh=0lJUnETFqPY6tW6TrXFvmKZbVynd6dSdhAW9BC6m+kE=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=NGDwf0zXEmzo9+7Yx4d9cGXV793JqUi91piwr9DLQr9gvYLzjssulS3nd0FDXod4o
-	 1NiEaNf9DKv91oATngwE6MlpuTxufePFFAUPAiGTMSZ8Iyqb43pbMY/AWpT0yfgG9x
-	 h7tK/rGWoSYR5lk30x+/zxQfjGaL8mJv2SH7mMjlqBwSC3JpHWjWgqv3xYEnVpUZ3T
-	 GLm2uelJLLxYyxbZLJP4lmiyxvgd2hfNI8V/LV1wIStwKjwJDXjuh7JmDm0LI0dTdZ
-	 pEsb3rbnrZU0AByYnkj2ZCWuHVBzn8LtTQfnCUTAC98K23Vza+t2P0C82aHVfqiJXZ
-	 7lE9UMorz5Ztg==
-Message-ID: <72e2cebc-a748-4e39-8783-440a82cd40c1@kernel.org>
-Date: Mon, 17 Jun 2024 15:13:29 +0900
+	b=KOFdmVOJ7h8N9C7m0i5IH5j0T08893gjt00viGEXx0ITrjnEVSc7/n9x0PQNWhoCT
+	 R0G81HXchAoQj63QO9zRTuNrWvr+9t+JPXFgDrlIxVtX306FULncwLvEYKw7dkrJFz
+	 S6g5cy4QX7ofX49F8f+GhBjuuHoOe+F7NO0rxdIU4Xo0KJqwPt8S0uxmuFJz89cUcE
+	 b/qPpB1pTQXoj1rhBApU3rTIJGnWH/qdRZJ9WOKQ+vU7PAj3CbnFFbcYvIj/VggV6B
+	 QjSaWBl2euqvrvUDeNk514rvS2oC47UJWpHbvgG7uFw1q8j7/c3YYf4Afd7F+Ekvnv
+	 W3vwVHRQv5iRw==
+Message-ID: <d7b45e0b-68a9-4612-861a-7f192fbe6f84@kernel.org>
+Date: Mon, 17 Jun 2024 15:14:21 +0900
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 06/26] loop: regularize upgrading the block size for
- direct I/O
+Subject: Re: [PATCH 07/26] loop: also use the default block size from an
+ underlying block device
 To: Christoph Hellwig <hch@lst.de>, Jens Axboe <axboe@kernel.dk>
 Cc: Geert Uytterhoeven <geert@linux-m68k.org>,
  Richard Weinberger <richard@nod.at>,
@@ -82,25 +82,23 @@ Cc: Geert Uytterhoeven <geert@linux-m68k.org>,
  linux-scsi@vger.kernel.org, linux-block@vger.kernel.org,
  Hannes Reinecke <hare@suse.de>, Bart Van Assche <bvanassche@acm.org>
 References: <20240617060532.127975-1-hch@lst.de>
- <20240617060532.127975-7-hch@lst.de>
+ <20240617060532.127975-8-hch@lst.de>
 From: Damien Le Moal <dlemoal@kernel.org>
 Content-Language: en-US
 Organization: Western Digital Research
-In-Reply-To: <20240617060532.127975-7-hch@lst.de>
+In-Reply-To: <20240617060532.127975-8-hch@lst.de>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 6/17/24 15:04, Christoph Hellwig wrote:
-> The LOOP_CONFIGURE path automatically upgrades the block size to that
-> of the underlying file for O_DIRECT file descriptors, but the
-> LOOP_SET_BLOCK_SIZE path does not.  Fix this by lifting the code to
-> pick the block size into common code.
+> Fix the code in loop_reconfigure_limits to pick a default block size for
+> O_DIRECT file descriptors to also work when the loop device sits on top
+> of a block device and not just on a regular file on a block device based
+> file system.
 > 
 > Signed-off-by: Christoph Hellwig <hch@lst.de>
 > Reviewed-by: Hannes Reinecke <hare@suse.de>
 > Reviewed-by: Bart Van Assche <bvanassche@acm.org>
-
-Looks good to me.
 
 Reviewed-by: Damien Le Moal <dlemoal@kernel.org>
 
