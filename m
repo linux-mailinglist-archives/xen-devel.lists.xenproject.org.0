@@ -2,33 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AFC4490A3B8
-	for <lists+xen-devel@lfdr.de>; Mon, 17 Jun 2024 08:06:24 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.741597.1148237 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 372E690A3BE
+	for <lists+xen-devel@lfdr.de>; Mon, 17 Jun 2024 08:06:26 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.741598.1148245 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sJ5V9-00021y-Rb; Mon, 17 Jun 2024 06:05:59 +0000
+	id 1sJ5VA-0002B2-DS; Mon, 17 Jun 2024 06:06:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 741597.1148237; Mon, 17 Jun 2024 06:05:59 +0000
+Received: by outflank-mailman (output) from mailman id 741598.1148245; Mon, 17 Jun 2024 06:06:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sJ5V9-0001wb-MR; Mon, 17 Jun 2024 06:05:59 +0000
-Received: by outflank-mailman (input) for mailman id 741597;
- Mon, 17 Jun 2024 06:05:58 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1sJ5VA-00025T-71; Mon, 17 Jun 2024 06:06:00 +0000
+Received: by outflank-mailman (input) for mailman id 741598;
+ Mon, 17 Jun 2024 06:05:59 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=JvID=NT=bombadil.srs.infradead.org=BATV+625ba2f6da96caf54eae+7603+infradead.org+hch@srs-se1.protection.inumbo.net>)
- id 1sJ5V8-0001PY-7h
- for xen-devel@lists.xenproject.org; Mon, 17 Jun 2024 06:05:58 +0000
+ id 1sJ5V9-0001Pt-1j
+ for xen-devel@lists.xenproject.org; Mon, 17 Jun 2024 06:05:59 +0000
 Received: from bombadil.infradead.org (bombadil.infradead.org
  [2607:7c80:54:3::133])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a89ce27f-2c6f-11ef-b4bb-af5377834399;
- Mon, 17 Jun 2024 08:05:56 +0200 (CEST)
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id a9e71ddf-2c6f-11ef-90a3-e314d9c70b13;
+ Mon, 17 Jun 2024 08:05:58 +0200 (CEST)
 Received: from [91.187.204.140] (helo=localhost)
  by bombadil.infradead.org with esmtpsa (Exim 4.97.1 #2 (Red Hat Linux))
- id 1sJ5Ut-00000009IDo-122H; Mon, 17 Jun 2024 06:05:43 +0000
+ id 1sJ5Uw-00000009IFz-1jkT; Mon, 17 Jun 2024 06:05:46 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,17 +40,17 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a89ce27f-2c6f-11ef-b4bb-af5377834399
+X-Inumbo-ID: a9e71ddf-2c6f-11ef-90a3-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
 	MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender
 	:Reply-To:Content-Type:Content-ID:Content-Description;
-	bh=/82cXfoepsjrCLF9yDw8vVInGtt4GPJk52iCZL5X8kA=; b=ra+HvJbCl/BtNyU8RdnS7dRs7s
-	O6LBCVDzAMTBjJ+U6/bFUEuKA1u/YpNavXuPiwpaBM2SvFLhrKWKHkSQ1M540dkcyGLo3pmL4QWJT
-	2xSmzNE7W7m4yw0S2HfM7DQTNcHjn8OweF4ejpZoPKnI8CvJqF+ZHuFDHDsv9QS4UHWRRHcXw2kRy
-	z7JVpylVvNbvCmM4EsAoVdSB5CR3lL9qt7ZSteQka766DrvKfN1np9moQ7J819shVf1699J46ehpx
-	PD4BrRSVAZLsmBEWIZpR/Z72M/MhYkKkIRLJsriHO0Q08q8JjUZXaAqIqmk51INY1TifT3fqBt9OT
-	c8ga2Wbw==;
+	bh=cnf/orgh7i7JukB+LIEJmlRlmvoKMDy94ZJrgGiWZn4=; b=oscIs4jcLQ/H/pIAIEcWRH1UuJ
+	5LK/eSZ6W2JZDMCo6nnFviBb4mblJSzVsLNO6B8HAOMmp+qeHzTjN84X8LIW4TpX/7W7LZvbQP5qY
+	KZx1IFTMn4rG9QGAEP/ThwOA5gLnIpjk10jpqIzyjW2xAxk1Q75bvwh2qR37kybtmDDuOl9LWL/2L
+	5iBEGRVoKvGz072Rd8EEYyPo/8bJMPddmN9YCXh6tUKUU6wy9u20KOoHYnVdWP+UVcDmz9hWB2YH9
+	5G7EkdlW/vrVtcRRBnJu/EV4+SB6/p1HGwYyTkPiwfojrOSi/XCbUhunIOn419hT1qlQ33GLsMNSm
+	jEJV60cA==;
 From: Christoph Hellwig <hch@lst.de>
 To: Jens Axboe <axboe@kernel.dk>
 Cc: Geert Uytterhoeven <geert@linux-m68k.org>,
@@ -87,10 +87,13 @@ Cc: Geert Uytterhoeven <geert@linux-m68k.org>,
 	linux-nvme@lists.infradead.org,
 	linux-s390@vger.kernel.org,
 	linux-scsi@vger.kernel.org,
-	linux-block@vger.kernel.org
-Subject: [PATCH 03/26] sd: move zone limits setup out of sd_read_block_characteristics
-Date: Mon, 17 Jun 2024 08:04:30 +0200
-Message-ID: <20240617060532.127975-4-hch@lst.de>
+	linux-block@vger.kernel.org,
+	Damien Le Moal <dlemoal@kernel.org>,
+	Hannes Reinecke <hare@suse.de>,
+	Bart Van Assche <bvanassche@acm.org>
+Subject: [PATCH 04/26] loop: stop using loop_reconfigure_limits in __loop_clr_fd
+Date: Mon, 17 Jun 2024 08:04:31 +0200
+Message-ID: <20240617060532.127975-5-hch@lst.de>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20240617060532.127975-1-hch@lst.de>
 References: <20240617060532.127975-1-hch@lst.de>
@@ -98,70 +101,46 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by bombadil.infradead.org. See http://www.infradead.org/rpr.html
 
-Move a bit of code that sets up the zone flag and the write granularity
-into sd_zbc_read_zones to be with the rest of the zoned limits.
+__loop_clr_fd wants to clear all settings on the device.  Prepare for
+moving more settings into the block limits by open coding
+loop_reconfigure_limits.
 
 Signed-off-by: Christoph Hellwig <hch@lst.de>
+Reviewed-by: Damien Le Moal <dlemoal@kernel.org>
+Reviewed-by: Hannes Reinecke <hare@suse.de>
+Reviewed-by: Bart Van Assche <bvanassche@acm.org>
 ---
- drivers/scsi/sd.c     | 21 +--------------------
- drivers/scsi/sd_zbc.c |  9 +++++++++
- 2 files changed, 10 insertions(+), 20 deletions(-)
+ drivers/block/loop.c | 10 +++++++++-
+ 1 file changed, 9 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/scsi/sd.c b/drivers/scsi/sd.c
-index 664523048ce819..66f7d1e3429c86 100644
---- a/drivers/scsi/sd.c
-+++ b/drivers/scsi/sd.c
-@@ -3312,29 +3312,10 @@ static void sd_read_block_characteristics(struct scsi_disk *sdkp,
- 		blk_queue_flag_clear(QUEUE_FLAG_ADD_RANDOM, q);
- 	}
+diff --git a/drivers/block/loop.c b/drivers/block/loop.c
+index 93780f41646b75..fd671028fa8554 100644
+--- a/drivers/block/loop.c
++++ b/drivers/block/loop.c
+@@ -1133,6 +1133,7 @@ static int loop_configure(struct loop_device *lo, blk_mode_t mode,
  
--
--#ifdef CONFIG_BLK_DEV_ZONED /* sd_probe rejects ZBD devices early otherwise */
--	if (sdkp->device->type == TYPE_ZBC) {
--		lim->zoned = true;
--
--		/*
--		 * Per ZBC and ZAC specifications, writes in sequential write
--		 * required zones of host-managed devices must be aligned to
--		 * the device physical block size.
--		 */
--		lim->zone_write_granularity = sdkp->physical_block_size;
--	} else {
--		/*
--		 * Host-aware devices are treated as conventional.
--		 */
--		lim->zoned = false;
--	}
--#endif /* CONFIG_BLK_DEV_ZONED */
--
- 	if (!sdkp->first_scan)
- 		return;
+ static void __loop_clr_fd(struct loop_device *lo, bool release)
+ {
++	struct queue_limits lim;
+ 	struct file *filp;
+ 	gfp_t gfp = lo->old_gfp_mask;
  
--	if (lim->zoned)
-+	if (sdkp->device->type == TYPE_ZBC)
- 		sd_printk(KERN_NOTICE, sdkp, "Host-managed zoned block device\n");
- 	else if (sdkp->zoned == 1)
- 		sd_printk(KERN_NOTICE, sdkp, "Host-aware SMR disk used as regular disk\n");
-diff --git a/drivers/scsi/sd_zbc.c b/drivers/scsi/sd_zbc.c
-index 8cc9c025017961..360ec980499529 100644
---- a/drivers/scsi/sd_zbc.c
-+++ b/drivers/scsi/sd_zbc.c
-@@ -601,6 +601,15 @@ int sd_zbc_read_zones(struct scsi_disk *sdkp, struct queue_limits *lim,
- 	if (sdkp->device->type != TYPE_ZBC)
- 		return 0;
- 
-+	lim->zoned = true;
+@@ -1156,7 +1157,14 @@ static void __loop_clr_fd(struct loop_device *lo, bool release)
+ 	lo->lo_offset = 0;
+ 	lo->lo_sizelimit = 0;
+ 	memset(lo->lo_file_name, 0, LO_NAME_SIZE);
+-	loop_reconfigure_limits(lo, 512, false);
 +
-+	/*
-+	 * Per ZBC and ZAC specifications, writes in sequential write required
-+	 * zones of host-managed devices must be aligned to the device physical
-+	 * block size.
-+	 */
-+	lim->zone_write_granularity = sdkp->physical_block_size;
++	/* reset the block size to the default */
++	lim = queue_limits_start_update(lo->lo_queue);
++	lim.logical_block_size = SECTOR_SIZE;
++	lim.physical_block_size = SECTOR_SIZE;
++	lim.io_min = SECTOR_SIZE;
++	queue_limits_commit_update(lo->lo_queue, &lim);
 +
- 	/* READ16/WRITE16/SYNC16 is mandatory for ZBC devices */
- 	sdkp->device->use_16_for_rw = 1;
- 	sdkp->device->use_10_for_rw = 0;
+ 	invalidate_disk(lo->lo_disk);
+ 	loop_sysfs_exit(lo);
+ 	/* let user-space know about this change */
 -- 
 2.43.0
 
