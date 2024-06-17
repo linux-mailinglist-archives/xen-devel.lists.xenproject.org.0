@@ -2,33 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CAA3490B843
-	for <lists+xen-devel@lfdr.de>; Mon, 17 Jun 2024 19:39:47 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.742542.1149412 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 507E390B844
+	for <lists+xen-devel@lfdr.de>; Mon, 17 Jun 2024 19:39:48 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.742543.1149419 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sJGKL-0004Yf-VX; Mon, 17 Jun 2024 17:39:33 +0000
+	id 1sJGKM-0004kI-HA; Mon, 17 Jun 2024 17:39:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 742542.1149412; Mon, 17 Jun 2024 17:39:33 +0000
+Received: by outflank-mailman (output) from mailman id 742543.1149419; Mon, 17 Jun 2024 17:39:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sJGKL-0004UF-Ob; Mon, 17 Jun 2024 17:39:33 +0000
-Received: by outflank-mailman (input) for mailman id 742542;
- Mon, 17 Jun 2024 17:39:31 +0000
+	id 1sJGKM-0004az-CS; Mon, 17 Jun 2024 17:39:34 +0000
+Received: by outflank-mailman (input) for mailman id 742543;
+ Mon, 17 Jun 2024 17:39:32 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=gp4O=NT=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1sJGKJ-00036g-LD
- for xen-devel@lists.xenproject.org; Mon, 17 Jun 2024 17:39:31 +0000
-Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com
- [2a00:1450:4864:20::634])
+ id 1sJGKK-00036g-LI
+ for xen-devel@lists.xenproject.org; Mon, 17 Jun 2024 17:39:32 +0000
+Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
+ [2a00:1450:4864:20::629])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 8c77ddd1-2cd0-11ef-b4bb-af5377834399;
- Mon, 17 Jun 2024 19:39:29 +0200 (CEST)
-Received: by mail-ej1-x634.google.com with SMTP id
- a640c23a62f3a-a6f176c5c10so549351266b.2
- for <xen-devel@lists.xenproject.org>; Mon, 17 Jun 2024 10:39:29 -0700 (PDT)
+ id 8cdfb16e-2cd0-11ef-b4bb-af5377834399;
+ Mon, 17 Jun 2024 19:39:30 +0200 (CEST)
+Received: by mail-ej1-x629.google.com with SMTP id
+ a640c23a62f3a-a6f0dc80ab9so704391266b.2
+ for <xen-devel@lists.xenproject.org>; Mon, 17 Jun 2024 10:39:30 -0700 (PDT)
 Received: from andrewcoop.eng.citrite.net ([160.101.139.1])
  by smtp.gmail.com with ESMTPSA id
  a640c23a62f3a-a6f56da4496sm532010666b.8.2024.06.17.10.39.28
@@ -45,34 +45,34 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8c77ddd1-2cd0-11ef-b4bb-af5377834399
+X-Inumbo-ID: 8cdfb16e-2cd0-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1718645968; x=1719250768; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1718645969; x=1719250769; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=iaQNeWXVPJOBqi4Jz3ws3Uw0UDtY4Ak6EMg/xM7DVZo=;
-        b=VrFGtfmSSLW8DVJ5vvTBz2Ob+XtmWvZSEd+RK64X477iC0lyGg6e8MOS/E/x1tFjL8
-         vBZ+VV4H2fmzcDJ3m0IJJic2VpzyGLF4v87hqB8V6gqv7Ke7bWUm9LfLX6H2QBR9sY9K
-         qz0VkGNmcAZox1QtsBWdCcajvFyb5OTTaosdE=
+        bh=91rqmVIJvtgwrFeMK2tOHbISsSTuJ9u05BoupIBlW0Q=;
+        b=dlPLAIWROcYXZC/TEGChqyb2bI0PIbZX5zYiAJg2wLV5M1qOWO+0+Dtzs17Bz4ceVJ
+         GAH7ORlU8qPN0DF3trGnF0CQBHdrVg92sIKoH0OkEmvDT4YUWMij3BKa3t9F+yjQlW+n
+         Kae2NElpdL9uOvbHI3Cla4uvQl9ce0uzYZOlc=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1718645968; x=1719250768;
+        d=1e100.net; s=20230601; t=1718645969; x=1719250769;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=iaQNeWXVPJOBqi4Jz3ws3Uw0UDtY4Ak6EMg/xM7DVZo=;
-        b=lWTsItn18jIuVvLUXWJdvK8FVMNg+abRB24p3G5pyfdFRMXW5Q06JAnF4bZVZ8EdHH
-         UQUf2aNgsjTKorAwnScTsIbLbsxtNugB4aFEjGJJi00LbL7x1Rjd7YWU4imRSug7zDfq
-         k2YkXiPhjvJvYEqIQtkuupXHa1lTTkjViCvmGhM7tRowjuCGzIdhfGPDhFSgL142ue1F
-         A1HX96teIC9qCk83ylPKj4aaJIDpk54dJO6rd4pOH5Qt9WgkeKnG5fsjfR5CIaOE1XmY
-         ZHmMBJTeR8qIo71HnuGMGvYZgoOTXjc1+0TPrSq7DodVVO/nVwEVFhAJZQvXnPaumqio
-         OPMQ==
-X-Gm-Message-State: AOJu0YyVFnU7tWum9jhfb4wyW9VSasNcuyw+y3nRAY9pLwahK+IRMuHV
-	bC8Xn1Knl8SIoluP/2PLel9UzA2SdoaKT8SdJL//QnZpggxlAzyUEQjRYCkYMgl/LIIbwFmWcyW
-	KO1U=
-X-Google-Smtp-Source: AGHT+IGKrdBfI9Nm+aHZ6UkUA5/JNpbfFSVehqAWMLC2Ni5M753x4xlQAZiw4qCHY7guT4Ih8WAYvg==
-X-Received: by 2002:a17:906:2c0d:b0:a64:a091:91f2 with SMTP id a640c23a62f3a-a6f60d40c99mr732397266b.37.1718645968592;
-        Mon, 17 Jun 2024 10:39:28 -0700 (PDT)
+        bh=91rqmVIJvtgwrFeMK2tOHbISsSTuJ9u05BoupIBlW0Q=;
+        b=dBs8nasJTnogFK/JdKecSy5zreTkaJPU2WVFTEV2PobpYsbzOkzO0a7A5JEIV+iooR
+         56sfkGvRJrXswo6OZM0HzdnVUOKAfxPXh1sykjUXOhPC1aFnJSWQFs0ZrhsjtgcEMIKl
+         VWhxCKUO0mU8owFwQba+i3DwDCj14gquxyf4phXFKj0mZPnPmofw6J2spi3JYeP1gH6n
+         A34wYfmAONa9nWUaUX/JDYKZS3jsvQibhr9MGARqknprSz7/aV9b7wzDdKBV0PB1cjMR
+         AQLn/VLBupyft3M2ID4ooWpFi5p1uzaOH8nqQcO7EebjVffJja/ijV/SXtZ6jq6H+TlI
+         /ZEg==
+X-Gm-Message-State: AOJu0Yxl1hj+PztDiRAdiFY40bnT9tDNKYMNfaSZtdAzdBGMQqvQLApm
+	6loSr//tXt4dPCJEw0wq8ZdAy0iU6smW9l7lL5AwqVCqXMw9PvFhNXWgy+d+rSps/fk93GuAqCc
+	76Kk=
+X-Google-Smtp-Source: AGHT+IGzn5ZkK1YZ3Abyw+STSNcbhHiblepXrKhd7oNDvDgw69jiQUs3j43NO0ZVmfS9SARRXyaAxQ==
+X-Received: by 2002:a17:907:d312:b0:a6f:668b:3434 with SMTP id a640c23a62f3a-a6f668b35f7mr806562166b.31.1718645969387;
+        Mon, 17 Jun 2024 10:39:29 -0700 (PDT)
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
@@ -80,9 +80,9 @@ Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
 	Jan Beulich <JBeulich@suse.com>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
 	Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Subject: [PATCH v4 6/7] x86/cpuid: Fix handling of XSAVE dynamic leaves
-Date: Mon, 17 Jun 2024 18:39:20 +0100
-Message-Id: <20240617173921.1755439-7-andrew.cooper3@citrix.com>
+Subject: [PATCH v4 7/7] x86/defns: Clean up X86_{XCR0,XSS}_* constants
+Date: Mon, 17 Jun 2024 18:39:21 +0100
+Message-Id: <20240617173921.1755439-8-andrew.cooper3@citrix.com>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20240617173921.1755439-1-andrew.cooper3@citrix.com>
 References: <20240617173921.1755439-1-andrew.cooper3@citrix.com>
@@ -90,138 +90,195 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-First, if XSAVE is available in hardware but not visible to the guest, the
-dynamic leaves shouldn't be filled in.
+With the exception of one case in read_bndcfgu() which can use ilog2(),
+the *_POS defines are unused.  Drop them.
 
-Second, the comment concerning XSS state is wrong.  VT-x doesn't manage
-host/guest state automatically, but there is provision for "host only" bits to
-be set, so the implications are still accurate.
+X86_XCR0_X87 is the name used by both the SDM and APM, rather than
+X86_XCR0_FP.
 
-Introduce xstate_compressed_size() to mirror the uncompressed one.  Cross
-check it at boot.
+No functional change.
 
 Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
+Acked-by: Jan Beulich <jbeulich@suse.com>
 ---
 CC: Jan Beulich <JBeulich@suse.com>
 CC: Roger Pau Monné <roger.pau@citrix.com>
 CC: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 
 v3:
- * Adjust commit message about !XSAVE guests
- * Rebase over boot time cross check
- * Use raw policy
-v4:
- * Drop the TODO comment.  The CPUID path is always liable to pass 0 here.
- * ASSERT() a nonzero c->size like we do in the uncompressed helper.
+ * New
 ---
- xen/arch/x86/cpuid.c              | 24 +++++++--------------
- xen/arch/x86/include/asm/xstate.h |  1 +
- xen/arch/x86/xstate.c             | 36 +++++++++++++++++++++++++++++++
- 3 files changed, 45 insertions(+), 16 deletions(-)
+ xen/arch/x86/i387.c                  |  2 +-
+ xen/arch/x86/include/asm/x86-defns.h | 32 ++++++++++------------------
+ xen/arch/x86/include/asm/xstate.h    |  4 ++--
+ xen/arch/x86/xstate.c                | 18 ++++++++--------
+ 4 files changed, 23 insertions(+), 33 deletions(-)
 
-diff --git a/xen/arch/x86/cpuid.c b/xen/arch/x86/cpuid.c
-index 7a38e032146a..a822e80c7ea7 100644
---- a/xen/arch/x86/cpuid.c
-+++ b/xen/arch/x86/cpuid.c
-@@ -330,23 +330,15 @@ void guest_cpuid(const struct vcpu *v, uint32_t leaf,
-     case XSTATE_CPUID:
-         switch ( subleaf )
+diff --git a/xen/arch/x86/i387.c b/xen/arch/x86/i387.c
+index 7a4297cc921e..fcdee10a6e69 100644
+--- a/xen/arch/x86/i387.c
++++ b/xen/arch/x86/i387.c
+@@ -369,7 +369,7 @@ void vcpu_setup_fpu(struct vcpu *v, struct xsave_struct *xsave_area,
          {
--        case 1:
--            if ( !p->xstate.xsavec && !p->xstate.xsaves )
--                break;
--
--            /*
--             * TODO: Figure out what to do for XSS state.  VT-x manages host
--             * vs guest MSR_XSS automatically, so as soon as we start
--             * supporting any XSS states, the wrong XSS will be in context.
--             */
--            BUILD_BUG_ON(XSTATE_XSAVES_ONLY != 0);
--            fallthrough;
-         case 0:
--            /*
--             * Read CPUID[0xD,0/1].EBX from hardware.  They vary with enabled
--             * XSTATE, and appropriate XCR0|XSS are in context.
--             */
--            res->b = cpuid_count_ebx(leaf, subleaf);
-+            if ( p->basic.xsave )
-+                res->b = xstate_uncompressed_size(v->arch.xcr0);
-+            break;
-+
-+        case 1:
-+            if ( p->xstate.xsavec )
-+                res->b = xstate_compressed_size(v->arch.xcr0 |
-+                                                v->arch.msrs->xss.raw);
-             break;
+             v->arch.xsave_area->xsave_hdr.xstate_bv &= ~XSTATE_FP_SSE;
+             if ( fcw_default != FCW_DEFAULT )
+-                v->arch.xsave_area->xsave_hdr.xstate_bv |= X86_XCR0_FP;
++                v->arch.xsave_area->xsave_hdr.xstate_bv |= X86_XCR0_X87;
          }
-         break;
+     }
+ 
+diff --git a/xen/arch/x86/include/asm/x86-defns.h b/xen/arch/x86/include/asm/x86-defns.h
+index d7602ab225c4..3bcdbaccd3aa 100644
+--- a/xen/arch/x86/include/asm/x86-defns.h
++++ b/xen/arch/x86/include/asm/x86-defns.h
+@@ -79,25 +79,16 @@
+ /*
+  * XSTATE component flags in XCR0 | MSR_XSS
+  */
+-#define X86_XCR0_FP_POS           0
+-#define X86_XCR0_FP               (1ULL << X86_XCR0_FP_POS)
+-#define X86_XCR0_SSE_POS          1
+-#define X86_XCR0_SSE              (1ULL << X86_XCR0_SSE_POS)
+-#define X86_XCR0_YMM_POS          2
+-#define X86_XCR0_YMM              (1ULL << X86_XCR0_YMM_POS)
+-#define X86_XCR0_BNDREGS_POS      3
+-#define X86_XCR0_BNDREGS          (1ULL << X86_XCR0_BNDREGS_POS)
+-#define X86_XCR0_BNDCSR_POS       4
+-#define X86_XCR0_BNDCSR           (1ULL << X86_XCR0_BNDCSR_POS)
+-#define X86_XCR0_OPMASK_POS       5
+-#define X86_XCR0_OPMASK           (1ULL << X86_XCR0_OPMASK_POS)
+-#define X86_XCR0_ZMM_POS          6
+-#define X86_XCR0_ZMM              (1ULL << X86_XCR0_ZMM_POS)
+-#define X86_XCR0_HI_ZMM_POS       7
+-#define X86_XCR0_HI_ZMM           (1ULL << X86_XCR0_HI_ZMM_POS)
++#define X86_XCR0_X87              (_AC(1, ULL) <<  0)
++#define X86_XCR0_SSE              (_AC(1, ULL) <<  1)
++#define X86_XCR0_YMM              (_AC(1, ULL) <<  2)
++#define X86_XCR0_BNDREGS          (_AC(1, ULL) <<  3)
++#define X86_XCR0_BNDCSR           (_AC(1, ULL) <<  4)
++#define X86_XCR0_OPMASK           (_AC(1, ULL) <<  5)
++#define X86_XCR0_ZMM              (_AC(1, ULL) <<  6)
++#define X86_XCR0_HI_ZMM           (_AC(1, ULL) <<  7)
+ #define X86_XSS_PROC_TRACE        (_AC(1, ULL) <<  8)
+-#define X86_XCR0_PKRU_POS         9
+-#define X86_XCR0_PKRU             (1ULL << X86_XCR0_PKRU_POS)
++#define X86_XCR0_PKRU             (_AC(1, ULL) <<  9)
+ #define X86_XSS_PASID             (_AC(1, ULL) << 10)
+ #define X86_XSS_CET_U             (_AC(1, ULL) << 11)
+ #define X86_XSS_CET_S             (_AC(1, ULL) << 12)
+@@ -107,11 +98,10 @@
+ #define X86_XSS_HWP               (_AC(1, ULL) << 16)
+ #define X86_XCR0_TILE_CFG         (_AC(1, ULL) << 17)
+ #define X86_XCR0_TILE_DATA        (_AC(1, ULL) << 18)
+-#define X86_XCR0_LWP_POS          62
+-#define X86_XCR0_LWP              (1ULL << X86_XCR0_LWP_POS)
++#define X86_XCR0_LWP              (_AC(1, ULL) << 62)
+ 
+ #define X86_XCR0_STATES                                                 \
+-    (X86_XCR0_FP | X86_XCR0_SSE | X86_XCR0_YMM | X86_XCR0_BNDREGS |     \
++    (X86_XCR0_X87 | X86_XCR0_SSE | X86_XCR0_YMM | X86_XCR0_BNDREGS |    \
+      X86_XCR0_BNDCSR | X86_XCR0_OPMASK | X86_XCR0_ZMM |                 \
+      X86_XCR0_HI_ZMM | X86_XCR0_PKRU | X86_XCR0_TILE_CFG |              \
+      X86_XCR0_TILE_DATA |                                               \
 diff --git a/xen/arch/x86/include/asm/xstate.h b/xen/arch/x86/include/asm/xstate.h
-index bfb66dd766b6..da1d89d2f416 100644
+index da1d89d2f416..f4a8e5f814a0 100644
 --- a/xen/arch/x86/include/asm/xstate.h
 +++ b/xen/arch/x86/include/asm/xstate.h
-@@ -109,6 +109,7 @@ void xstate_free_save_area(struct vcpu *v);
- int xstate_alloc_save_area(struct vcpu *v);
- void xstate_init(struct cpuinfo_x86 *c);
- unsigned int xstate_uncompressed_size(uint64_t xcr0);
-+unsigned int xstate_compressed_size(uint64_t xstates);
+@@ -29,8 +29,8 @@ extern uint32_t mxcsr_mask;
+ #define XSAVE_HDR_OFFSET          FXSAVE_SIZE
+ #define XSTATE_AREA_MIN_SIZE      (FXSAVE_SIZE + XSAVE_HDR_SIZE)
  
- static inline uint64_t xgetbv(unsigned int index)
- {
+-#define XSTATE_FP_SSE  (X86_XCR0_FP | X86_XCR0_SSE)
+-#define XCNTXT_MASK    (X86_XCR0_FP | X86_XCR0_SSE | X86_XCR0_YMM | \
++#define XSTATE_FP_SSE  (X86_XCR0_X87 | X86_XCR0_SSE)
++#define XCNTXT_MASK    (X86_XCR0_X87 | X86_XCR0_SSE | X86_XCR0_YMM | \
+                         X86_XCR0_OPMASK | X86_XCR0_ZMM | X86_XCR0_HI_ZMM | \
+                         XSTATE_NONLAZY)
+ 
 diff --git a/xen/arch/x86/xstate.c b/xen/arch/x86/xstate.c
-index 8edc4792a8fd..31bf2dc95f57 100644
+index 31bf2dc95f57..2acd02449dba 100644
 --- a/xen/arch/x86/xstate.c
 +++ b/xen/arch/x86/xstate.c
-@@ -619,6 +619,36 @@ unsigned int xstate_uncompressed_size(uint64_t xcr0)
-     return size;
+@@ -313,7 +313,7 @@ void xsave(struct vcpu *v, uint64_t mask)
+                            "=m" (*ptr), \
+                            "a" (lmask), "d" (hmask), "D" (ptr))
+ 
+-    if ( fip_width == 8 || !(mask & X86_XCR0_FP) )
++    if ( fip_width == 8 || !(mask & X86_XCR0_X87) )
+     {
+         XSAVE("0x48,");
+     }
+@@ -366,7 +366,7 @@ void xsave(struct vcpu *v, uint64_t mask)
+             fip_width = 8;
+     }
+ #undef XSAVE
+-    if ( mask & X86_XCR0_FP )
++    if ( mask & X86_XCR0_X87 )
+         ptr->fpu_sse.x[FPU_WORD_SIZE_OFFSET] = fip_width;
  }
  
-+unsigned int xstate_compressed_size(uint64_t xstates)
-+{
-+    unsigned int i, size = XSTATE_AREA_MIN_SIZE;
-+
-+    if ( xstates == 0 )
-+        return 0;
-+
-+    if ( xstates <= (X86_XCR0_SSE | X86_XCR0_FP) )
-+        return size;
-+
-+    /*
-+     * For the compressed size, every non-legacy component matters.  Some
-+     * componenets require aligning to 64 first.
-+     */
-+    xstates &= ~(X86_XCR0_SSE | X86_XCR0_FP);
-+    for_each_set_bit ( i, &xstates, 63 )
-+    {
-+        const struct xstate_component *c = &raw_cpu_policy.xstate.comp[i];
-+
-+        ASSERT(c->size);
-+
-+        if ( c->align )
-+            size = ROUNDUP(size, 64);
-+
-+        size += c->size;
-+    }
-+
-+    return size;
-+}
-+
- struct xcheck_state {
-     uint64_t states;
-     uint32_t uncomp_size;
-@@ -681,6 +711,12 @@ static void __init check_new_xstate(struct xcheck_state *s, uint64_t new)
-                   s->states, &new, hw_size, s->comp_size);
+@@ -558,7 +558,7 @@ void xstate_free_save_area(struct vcpu *v)
+ static bool valid_xcr0(uint64_t xcr0)
+ {
+     /* FP must be unconditionally set. */
+-    if ( !(xcr0 & X86_XCR0_FP) )
++    if ( !(xcr0 & X86_XCR0_X87) )
+         return false;
  
-         s->comp_size = hw_size;
-+
-+        xen_size = xstate_compressed_size(s->states);
-+
-+        if ( xen_size != hw_size )
-+            panic("XSTATE 0x%016"PRIx64", compressed hw size %#x != xen size %#x\n",
-+                  s->states, hw_size, xen_size);
-     }
-     else if ( hw_size ) /* Compressed size reported, but no XSAVEC ? */
+     /* YMM depends on SSE. */
+@@ -597,7 +597,7 @@ unsigned int xstate_uncompressed_size(uint64_t xcr0)
+     if ( xcr0 == 0 )
+         return 0;
+ 
+-    if ( xcr0 <= (X86_XCR0_SSE | X86_XCR0_FP) )
++    if ( xcr0 <= (X86_XCR0_SSE | X86_XCR0_X87) )
+         return size;
+ 
+     /*
+@@ -605,7 +605,7 @@ unsigned int xstate_uncompressed_size(uint64_t xcr0)
+      * maximum offset+size.  Some states (e.g. LWP, APX_F) are out-of-order
+      * with respect their index.
+      */
+-    xcr0 &= ~(X86_XCR0_SSE | X86_XCR0_FP);
++    xcr0 &= ~(X86_XCR0_SSE | X86_XCR0_X87);
+     for_each_set_bit ( i, &xcr0, 63 )
      {
+         const struct xstate_component *c = &raw_cpu_policy.xstate.comp[i];
+@@ -626,14 +626,14 @@ unsigned int xstate_compressed_size(uint64_t xstates)
+     if ( xstates == 0 )
+         return 0;
+ 
+-    if ( xstates <= (X86_XCR0_SSE | X86_XCR0_FP) )
++    if ( xstates <= (X86_XCR0_SSE | X86_XCR0_X87) )
+         return size;
+ 
+     /*
+      * For the compressed size, every non-legacy component matters.  Some
+      * componenets require aligning to 64 first.
+      */
+-    xstates &= ~(X86_XCR0_SSE | X86_XCR0_FP);
++    xstates &= ~(X86_XCR0_SSE | X86_XCR0_X87);
+     for_each_set_bit ( i, &xstates, 63 )
+     {
+         const struct xstate_component *c = &raw_cpu_policy.xstate.comp[i];
+@@ -756,7 +756,7 @@ static void __init noinline xstate_check_sizes(void)
+      * layout compatibility with Intel and having a knock-on effect on all
+      * subsequent states.
+      */
+-    check_new_xstate(&s, X86_XCR0_SSE | X86_XCR0_FP);
++    check_new_xstate(&s, X86_XCR0_SSE | X86_XCR0_X87);
+ 
+     if ( cpu_has_avx )
+         check_new_xstate(&s, X86_XCR0_YMM);
+@@ -1008,7 +1008,7 @@ uint64_t read_bndcfgu(void)
+               : "=m" (*xstate)
+               : "a" (X86_XCR0_BNDCSR), "d" (0), "D" (xstate) );
+ 
+-        bndcsr = (void *)xstate + xstate_offsets[X86_XCR0_BNDCSR_POS];
++        bndcsr = (void *)xstate + xstate_offsets[ilog2(X86_XCR0_BNDCSR)];
+     }
+ 
+     if ( cr0 & X86_CR0_TS )
 -- 
 2.39.2
 
