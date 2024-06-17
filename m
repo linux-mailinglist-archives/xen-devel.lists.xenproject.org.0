@@ -2,45 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B084D90AB3B
-	for <lists+xen-devel@lfdr.de>; Mon, 17 Jun 2024 12:36:29 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.742127.1148841 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5ED0690AB47
+	for <lists+xen-devel@lfdr.de>; Mon, 17 Jun 2024 12:37:02 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.742133.1148850 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sJ9ib-000259-4w; Mon, 17 Jun 2024 10:36:09 +0000
+	id 1sJ9jG-0002aK-CC; Mon, 17 Jun 2024 10:36:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 742127.1148841; Mon, 17 Jun 2024 10:36:09 +0000
+Received: by outflank-mailman (output) from mailman id 742133.1148850; Mon, 17 Jun 2024 10:36:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sJ9ib-00022g-1g; Mon, 17 Jun 2024 10:36:09 +0000
-Received: by outflank-mailman (input) for mailman id 742127;
- Mon, 17 Jun 2024 10:36:07 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1sJ9jG-0002Xq-9Y; Mon, 17 Jun 2024 10:36:50 +0000
+Received: by outflank-mailman (input) for mailman id 742133;
+ Mon, 17 Jun 2024 10:36:49 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=qWef=NT=suse.de=hare@srs-se1.protection.inumbo.net>)
- id 1sJ9iZ-00022a-Fn
- for xen-devel@lists.xenproject.org; Mon, 17 Jun 2024 10:36:07 +0000
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 65ae90f7-2c95-11ef-b4bb-af5377834399;
- Mon, 17 Jun 2024 12:36:04 +0200 (CEST)
+ id 1sJ9jF-0002IM-BY
+ for xen-devel@lists.xenproject.org; Mon, 17 Jun 2024 10:36:49 +0000
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 801ec71e-2c95-11ef-90a3-e314d9c70b13;
+ Mon, 17 Jun 2024 12:36:48 +0200 (CEST)
 Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
  [IPv6:2a07:de40:b281:104:10:150:64:97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 75F3B5FECC;
- Mon, 17 Jun 2024 10:36:03 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id CE20A38037;
+ Mon, 17 Jun 2024 10:36:47 +0000 (UTC)
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id D6842139AB;
- Mon, 17 Jun 2024 10:36:02 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 34E77139AB;
+ Mon, 17 Jun 2024 10:36:47 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id AHKOMJIRcGYTDAAAD6G6ig
- (envelope-from <hare@suse.de>); Mon, 17 Jun 2024 10:36:02 +0000
+ by imap1.dmz-prg2.suse.org with ESMTPSA id oblHDL8RcGZPDAAAD6G6ig
+ (envelope-from <hare@suse.de>); Mon, 17 Jun 2024 10:36:47 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -52,15 +52,14 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 65ae90f7-2c95-11ef-b4bb-af5377834399
-Authentication-Results: smtp-out2.suse.de;
+X-Inumbo-ID: 801ec71e-2c95-11ef-90a3-e314d9c70b13
+Authentication-Results: smtp-out1.suse.de;
 	none
-Message-ID: <c91d77a0-eec5-4af0-b3dd-bc2724108fc9@suse.de>
-Date: Mon, 17 Jun 2024 12:36:02 +0200
+Message-ID: <0f819ed5-9549-4edf-98b3-19eed8558dfe@suse.de>
+Date: Mon, 17 Jun 2024 12:36:46 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 13/26] block: move cache control settings out of
- queue->flags
+Subject: Re: [PATCH 14/26] block: move the nonrot flag to queue_limits
 To: Christoph Hellwig <hch@lst.de>, Jens Axboe <axboe@kernel.dk>
 Cc: Geert Uytterhoeven <geert@linux-m68k.org>,
  Richard Weinberger <richard@nod.at>,
@@ -83,12 +82,12 @@ Cc: Geert Uytterhoeven <geert@linux-m68k.org>,
  linux-mtd@lists.infradead.org, nvdimm@lists.linux.dev,
  linux-nvme@lists.infradead.org, linux-s390@vger.kernel.org,
  linux-scsi@vger.kernel.org, linux-block@vger.kernel.org,
- Ulf Hansson <ulf.hansson@linaro.org>
+ Damien Le Moal <dlemoal@kernel.org>
 References: <20240617060532.127975-1-hch@lst.de>
- <20240617060532.127975-14-hch@lst.de>
+ <20240617060532.127975-15-hch@lst.de>
 Content-Language: en-US
 From: Hannes Reinecke <hare@suse.de>
-In-Reply-To: <20240617060532.127975-14-hch@lst.de>
+In-Reply-To: <20240617060532.127975-15-hch@lst.de>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-Rspamd-Pre-Result: action=no action;
@@ -100,36 +99,32 @@ X-Spam-Level:
 X-Rspamd-Pre-Result: action=no action;
 	module=replies;
 	Message is reply to one we originated
-X-Rspamd-Queue-Id: 75F3B5FECC
+X-Rspamd-Queue-Id: CE20A38037
 X-Rspamd-Action: no action
 X-Spamd-Result: default: False [-4.00 / 50.00];
 	REPLY(-4.00)[]
 X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
 
 On 6/17/24 08:04, Christoph Hellwig wrote:
-> Move the cache control settings into the queue_limits so that the flags
-> can be set atomically with the device queue frozen.
+> Move the nonrot flag into the queue_limits feature field so that it can
+> be set atomically with the queue frozen.
 > 
-> Add new features and flags field for the driver set flags, and internal
-> (usually sysfs-controlled) flags in the block layer.  Note that we'll
-> eventually remove enough field from queue_limits to bring it back to the
-> previous size.
+> Use the chance to switch to defaulting to non-rotational and require
+> the driver to opt into rotational, which matches the polarity of the
+> sysfs interface.
 > 
-> The disable flag is inverted compared to the previous meaning, which
-> means it now survives a rescan, similar to the max_sectors and
-> max_discard_sectors user limits.
+> For the z2ram, ps3vram, 2x memstick, ubiblock and dcssblk the new
+> rotational flag is not set as they clearly are not rotational despite
+> this being a behavior change.  There are some other drivers that
+> unconditionally set the rotational flag to keep the existing behavior
+> as they arguably can be used on rotational devices even if that is
+> probably not their main use today (e.g. virtio_blk and drbd).
 > 
-> The FLUSH and FUA flags are now inherited by blk_stack_limits, which
-> simplified the code in dm a lot, but also causes a slight behavior
-> change in that dm-switch and dm-unstripe now advertise a write cache
-> despite setting num_flush_bios to 0.  The I/O path will handle this
-> gracefully, but as far as I can tell the lack of num_flush_bios
-> and thus flush support is a pre-existing data integrity bug in those
-> targets that really needs fixing, after which a non-zero num_flush_bios
-> should be required in dm for targets that map to underlying devices.
+> The flag is automatically inherited in blk_stack_limits matching the
+> existing behavior in dm and md.
 > 
 > Signed-off-by: Christoph Hellwig <hch@lst.de>
-> Acked-by: Ulf Hansson <ulf.hansson@linaro.org> [mmc]
+> Reviewed-by: Damien Le Moal <dlemoal@kernel.org>
 > ---
 
 Reviewed-by: Hannes Reinecke <hare@suse.de>
