@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E83C890AFC9
-	for <lists+xen-devel@lfdr.de>; Mon, 17 Jun 2024 15:43:35 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.742305.1149080 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C247990B022
+	for <lists+xen-devel@lfdr.de>; Mon, 17 Jun 2024 15:50:36 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.742317.1149090 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sJCdp-0007FB-E6; Mon, 17 Jun 2024 13:43:25 +0000
+	id 1sJCkI-0000ww-3C; Mon, 17 Jun 2024 13:50:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 742305.1149080; Mon, 17 Jun 2024 13:43:25 +0000
+Received: by outflank-mailman (output) from mailman id 742317.1149090; Mon, 17 Jun 2024 13:50:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sJCdp-0007CF-BH; Mon, 17 Jun 2024 13:43:25 +0000
-Received: by outflank-mailman (input) for mailman id 742305;
- Mon, 17 Jun 2024 13:43:23 +0000
+	id 1sJCkI-0000sy-0X; Mon, 17 Jun 2024 13:50:06 +0000
+Received: by outflank-mailman (input) for mailman id 742317;
+ Mon, 17 Jun 2024 13:50:04 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=E9YK=NT=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sJCdn-0007By-S4
- for xen-devel@lists.xenproject.org; Mon, 17 Jun 2024 13:43:23 +0000
-Received: from mail-ed1-x535.google.com (mail-ed1-x535.google.com
- [2a00:1450:4864:20::535])
+ id 1sJCkG-0000c8-N4
+ for xen-devel@lists.xenproject.org; Mon, 17 Jun 2024 13:50:04 +0000
+Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
+ [2a00:1450:4864:20::633])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 9051e7a2-2caf-11ef-90a3-e314d9c70b13;
- Mon, 17 Jun 2024 15:43:22 +0200 (CEST)
-Received: by mail-ed1-x535.google.com with SMTP id
- 4fb4d7f45d1cf-57c7ec8f1fcso5100269a12.0
- for <xen-devel@lists.xenproject.org>; Mon, 17 Jun 2024 06:43:22 -0700 (PDT)
+ id 7f76c117-2cb0-11ef-90a3-e314d9c70b13;
+ Mon, 17 Jun 2024 15:50:03 +0200 (CEST)
+Received: by mail-ej1-x633.google.com with SMTP id
+ a640c23a62f3a-a6f0c3d0792so506468966b.3
+ for <xen-devel@lists.xenproject.org>; Mon, 17 Jun 2024 06:50:03 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-57cb741e6c8sm6463910a12.77.2024.06.17.06.43.21
+ a640c23a62f3a-a6f8cc20663sm63773266b.190.2024.06.17.06.50.02
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 17 Jun 2024 06:43:21 -0700 (PDT)
+ Mon, 17 Jun 2024 06:50:02 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,56 +45,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9051e7a2-2caf-11ef-90a3-e314d9c70b13
+X-Inumbo-ID: 7f76c117-2cb0-11ef-90a3-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1718631802; x=1719236602; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1718632203; x=1719237003; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=APk91TXp5Ugv3ZDi4Fkr4LxFk9bAvdubbKJ1lckRAt4=;
-        b=CCzrsXjtQABeew0tJwd8epPy+pYtOuwl3rzT0sFsOx42By5Mh2bRRm4DzzGram+nyt
-         HJHIkxtQWWL3VsknWwTajZXoUo9F5sNXnRbDpRZ2tTJ6e4kSVhxRLmXuPDVhO1wsqrZF
-         t5mpQDoon+YBFZijJ8b8TSmXAxKfFD0VhJv/AKMrd60C3vs1ItDyNtflsyraO6p1O/41
-         sXEUcjQCyb3hHKlAuEBlDi0WGlZkygwmlO5JoaqfZKGDiox7ADEyuKgExo6k4yjqoSSi
-         br0o5tu7wVSAK0PUSb9Z0uGfGiQMwnpADjDDPvNmOpkyYfJXMrkfvy8G5xeaarlZs6mL
-         OJ7A==
+        bh=rdJOBROw5bhO0Zz4HbPSKOcX74L1n40vY0872unV42E=;
+        b=LShG6x6WZ6K33izXPML/jh1wcx/lj/fCjYHugWWUzQzMkqPPaMVZh/BhAqBbGY0yeV
+         jNWleDeIxD2XXOMoLPSkqIKdbqN6mPFRNzvS2LiM54E6WuEgDDMSts9G+kRaAWOs71iO
+         qCXWrMr0/0Xq+iHVO3rdkBo/WzJgWcCEQQkDHIZ9AFJf6A0tmW6M3/lAqL+08lv6JRMj
+         Szgnb1GAx5ntrgXLr4zZnL8WePRMpw+pQXxWyQtp9+VEAg1rSOuzeTaA5vG0V+eTx8aB
+         MHAscXUvXp+6OhCHiKTqIO0IAersMb749XZ/JkVgbl3X36GKF5MWNg/Vb55XEYniAuSf
+         TPUw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1718631802; x=1719236602;
+        d=1e100.net; s=20230601; t=1718632203; x=1719237003;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=APk91TXp5Ugv3ZDi4Fkr4LxFk9bAvdubbKJ1lckRAt4=;
-        b=SvUw9bHteMuxqJ/j9/if4YD3siSI423UuwbPERw7yZCD+pMQzJ9DYgl5NC2uC4Y49O
-         lEhviPNk/r8ULnpLN2N2mLoeaUAHuxaM023YkldBhYUjObtOr6yxZ8PssbX2vUa11vEZ
-         /Zslv2wOFz/Itd1sNlsEp5xkdzsunxuAoVkQgCXGWNFO9mcwNoXVex0YeAZijJn6Zfd9
-         dnDEGrL2QBvGn3LbHt3sURCwr8kymhdxXvKloedJ6M47auYFvsJExUmEiYWp/JUukkS4
-         pI7FqNDBwGy6bd/urmYobs+KmaNIofPd1FyLICJZpFvyPtJ3jZ8EPmb+CIR/5x0pNGpP
-         hZAw==
-X-Forwarded-Encrypted: i=1; AJvYcCV6o1SFV5/tlPLepikAVS0taIIZ6UJ6Pd035cTGIuk6pflESrS5/5G4KQLsbepQTKH0KhUFWhtuTURmvOeQRJm+cQRAP451OCRnCv8jRLs=
-X-Gm-Message-State: AOJu0YwXXe8Wx4LU/lFKlNhdS1Rg2MVZeA4NGFZl2jDeBC/ddhSBjAEE
-	6c/I/3kymQ6wU12iWL6mIWUNx8vwW+GAB/5/r4YQOi2sbhmFVTyoirHP33Ohu5VJ47lW61DDnGQ
-	=
-X-Google-Smtp-Source: AGHT+IGDT6FgU1fHBZu/3F+toBLz1JtLYQGomy3PSpECSQUUTJMxPHs+ZBmMyNrLpOhhhJMUu54eAA==
-X-Received: by 2002:a50:9997:0:b0:57a:3273:e648 with SMTP id 4fb4d7f45d1cf-57cbd6767admr5570285a12.18.1718631801918;
-        Mon, 17 Jun 2024 06:43:21 -0700 (PDT)
-Message-ID: <af39bac8-bb0d-415b-8cb3-79f3d5369d9d@suse.com>
-Date: Mon, 17 Jun 2024 15:43:20 +0200
+        bh=rdJOBROw5bhO0Zz4HbPSKOcX74L1n40vY0872unV42E=;
+        b=Y0m715l5c0RDMYpoFkOkLuiNCU9rZg7z2o53uCboodZW/upa/ptllLJ7IDkR1si6/s
+         5Mau769rM4BZ4sOdMlJTjMTt+N+cC+ZoUbq7Cml0bRoFy+2ClI7SM0Qk/pljIcFVnvza
+         2Eehn1ML2xLi3d0/Wa35WiIiHPhQC/1WiWtEIU1oRiPgNZ2su6ncqSsmWW6YTP772gQr
+         GdAL7hmxn2mcNnA9W9W6o3Foi9xjGYvkXP28uJexmSJMghWPUQWm8w8YoFEiVykaLB1a
+         fPDGH6ZgZ0zyC6B0lQPHRrprTVRWMqLrsOczbn19OqSoyVBJ72+HiajzBuBG22V/CeuO
+         aNpg==
+X-Forwarded-Encrypted: i=1; AJvYcCXTvCFgmiP5c+EDYl+PRFuJLIxLyKe9dNKfF8TLSmQbQ3wDnzXMXCS3iy/946XuEmhsj2GrDUM+MtoI9UNu9D9lBPp8/rtsMPMSXmkVXpk=
+X-Gm-Message-State: AOJu0YyHjkt31W9pRX57VAGa7R9TkrQfvP6LU40Vegyh9sw9KbR0OQIj
+	h38qjT2ILXzX0oDkYmNDnKZhCpjQ+rBU6QRG5ND4SXe6ACTo1SbmSXUrWyxcyQ==
+X-Google-Smtp-Source: AGHT+IFMWu4uzYtgWVDz8CbPsWhYEpEuXpOWdPQkpf89U4M+xWQTyv8JSCj/cxCucokftGG71Wgwtg==
+X-Received: by 2002:a17:907:7f26:b0:a6f:50ae:e09 with SMTP id a640c23a62f3a-a6f60cefc4emr914686166b.4.1718632203009;
+        Mon, 17 Jun 2024 06:50:03 -0700 (PDT)
+Message-ID: <7e656934-617d-4385-9da9-658c07aeed69@suse.com>
+Date: Mon, 17 Jun 2024 15:50:01 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH] iommu/xen: Add Xen PV-IOMMU driver
-To: Teddy Astie <teddy.astie@vates.tech>
-Cc: Juergen Gross <jgross@suse.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>,
- Robin Murphy <robin.murphy@arm.com>,
- =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>, xen-devel@lists.xenproject.org,
- iommu@lists.linux.dev
-References: <fe36b8d36ed3bc01c78901bdf7b87a71cb1adaad.1718286176.git.teddy.astie@vates.tech>
- <8b0151a8-2293-409a-8469-d9e73cf561a3@suse.com>
- <eceaa7e7-d07f-4a41-b39a-0b32be6724ae@vates.tech>
+Subject: Re: [PATCH] public/sysctl: address violations of MISRA C: 2012 Rule
+ 7.3
+To: Alessandro Zucchelli <alessandro.zucchelli@bugseng.com>
+Cc: consulting@bugseng.com, Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <a68e796048912c816bc8320416024a60290f33e7.1718290222.git.alessandro.zucchelli@bugseng.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -120,62 +113,23 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <eceaa7e7-d07f-4a41-b39a-0b32be6724ae@vates.tech>
+In-Reply-To: <a68e796048912c816bc8320416024a60290f33e7.1718290222.git.alessandro.zucchelli@bugseng.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 17.06.2024 15:36, Teddy Astie wrote:
-> Le 13/06/2024 à 16:32, Jan Beulich a écrit :
->> On 13.06.2024 15:50, Teddy Astie wrote:
->>> @@ -214,6 +215,38 @@ struct xen_add_to_physmap_range {
->>>   };
->>>   DEFINE_GUEST_HANDLE_STRUCT(xen_add_to_physmap_range);
->>>   
->>> +/*
->>> + * With some legacy devices, certain guest-physical addresses cannot safely
->>> + * be used for other purposes, e.g. to map guest RAM.  This hypercall
->>> + * enumerates those regions so the toolstack can avoid using them.
->>> + */
->>> +#define XENMEM_reserved_device_memory_map   27
->>> +struct xen_reserved_device_memory {
->>> +    xen_pfn_t start_pfn;
->>> +    xen_ulong_t nr_pages;
->>> +};
->>> +DEFINE_GUEST_HANDLE_STRUCT(xen_reserved_device_memory);
->>> +
->>> +struct xen_reserved_device_memory_map {
->>> +#define XENMEM_RDM_ALL 1 /* Request all regions (ignore dev union). */
->>> +    /* IN */
->>> +    uint32_t flags;
->>> +    /*
->>> +     * IN/OUT
->>> +     *
->>> +     * Gets set to the required number of entries when too low,
->>> +     * signaled by error code -ERANGE.
->>> +     */
->>> +    unsigned int nr_entries;
->>> +    /* OUT */
->>> +    GUEST_HANDLE(xen_reserved_device_memory) buffer;
->>> +    /* IN */
->>> +    union {
->>> +        struct physdev_pci_device pci;
->>> +    } dev;
->>> +};
->>> +DEFINE_GUEST_HANDLE_STRUCT(xen_reserved_device_memory_map);
->>
->> This is a tools-only (i.e. unstable) sub-function in Xen; even the comment
->> at the top says "toolstack". It is therefore not suitable for use in a
->> kernel.
->>
-> IMO this comment actually describes how the toolstack uses the 
-> hypercall, but I don't think it is actually reserved for toolstack use.
+On 13.06.2024 16:58, Alessandro Zucchelli wrote:
+> This addresses violations of MISRA C:2012 Rule 7.3 which states as
+> following: The lowercase character `l' shall not be used in a literal
+> suffix.
+> 
+> Changed moreover suffixes 'u' in 'U' for better readability next to
+> the 'L's.
+> 
+> No functional change.
+> 
+> Signed-off-by: Alessandro Zucchelli <alessandro.zucchelli@bugseng.com>
 
-Well, the canonical version of the header is quite explicit about this,
-by having the definition in a __XEN__ || __XEN_TOOLS__ section.
+Acked-by: Jan Beulich <jbeulich@suse.com>
 
-> Or maybe we should allow the kernel to use this hypercall as well.
 
-That's an option to consider.
-
-Jan
 
