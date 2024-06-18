@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4CEBD90C4FC
-	for <lists+xen-devel@lfdr.de>; Tue, 18 Jun 2024 10:39:36 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.742843.1149720 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F19C790C510
+	for <lists+xen-devel@lfdr.de>; Tue, 18 Jun 2024 10:56:41 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.742853.1149729 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sJUMj-0004bt-O9; Tue, 18 Jun 2024 08:38:57 +0000
+	id 1sJUd9-0007qF-50; Tue, 18 Jun 2024 08:55:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 742843.1149720; Tue, 18 Jun 2024 08:38:57 +0000
+Received: by outflank-mailman (output) from mailman id 742853.1149729; Tue, 18 Jun 2024 08:55:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sJUMj-0004Zl-K7; Tue, 18 Jun 2024 08:38:57 +0000
-Received: by outflank-mailman (input) for mailman id 742843;
- Tue, 18 Jun 2024 08:38:56 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1sJUd9-0007nq-2H; Tue, 18 Jun 2024 08:55:55 +0000
+Received: by outflank-mailman (input) for mailman id 742853;
+ Tue, 18 Jun 2024 08:55:53 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=MUlf=NU=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sJUMi-0004Zf-Ai
- for xen-devel@lists.xenproject.org; Tue, 18 Jun 2024 08:38:56 +0000
-Received: from mail-ed1-x530.google.com (mail-ed1-x530.google.com
- [2a00:1450:4864:20::530])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 31f59772-2d4e-11ef-b4bb-af5377834399;
- Tue, 18 Jun 2024 10:38:54 +0200 (CEST)
-Received: by mail-ed1-x530.google.com with SMTP id
- 4fb4d7f45d1cf-57ca578ce8dso5935816a12.2
- for <xen-devel@lists.xenproject.org>; Tue, 18 Jun 2024 01:38:54 -0700 (PDT)
+ id 1sJUd7-0007nk-Ic
+ for xen-devel@lists.xenproject.org; Tue, 18 Jun 2024 08:55:53 +0000
+Received: from mail-ed1-x532.google.com (mail-ed1-x532.google.com
+ [2a00:1450:4864:20::532])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 90cdfadc-2d50-11ef-90a3-e314d9c70b13;
+ Tue, 18 Jun 2024 10:55:52 +0200 (CEST)
+Received: by mail-ed1-x532.google.com with SMTP id
+ 4fb4d7f45d1cf-57cad452f8bso5804702a12.2
+ for <xen-devel@lists.xenproject.org>; Tue, 18 Jun 2024 01:55:52 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a6f56f9806csm598447266b.195.2024.06.18.01.38.52
+ 4fb4d7f45d1cf-57cb7439070sm7547280a12.85.2024.06.18.01.55.50
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 18 Jun 2024 01:38:53 -0700 (PDT)
+ Tue, 18 Jun 2024 01:55:51 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,43 +45,43 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 31f59772-2d4e-11ef-b4bb-af5377834399
+X-Inumbo-ID: 90cdfadc-2d50-11ef-90a3-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1718699934; x=1719304734; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1718700952; x=1719305752; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=AnZWs13gONBrlER4YdTUIiLsTrQi0YoR2Ni4Wt7t7Hs=;
-        b=NznerrHi/GjD8W0HNJ8oTgxM6E+qVHfx/PhgZqrsxB7gdEMFbD4DRADoNFTikaS6zZ
-         jeePtvKIxe55hzmnS4P3JWXxHF22DkDnQT8ob8L98kJYkfrsJWPoKJaKvvg3z2aqgvQ+
-         vV5NPIcV2o+sBJRcw2Au0F/Q3PivwWYEQI7Ocp28HLIiSKNk6pBFMBBct851MEhuz4M5
-         NxEZiAO2SY7+y21dJUJJ8qC3HYZLF6Q8wSd0S+DKUxAcUh1MhTbmSbzlw895vfsGOEQY
-         ON2/sro6e4ID2Bl4BqbUHv6EEN0M00BGghuw4UCcC18ph56qqlDtgFrKV5Mk215s344J
-         nyVQ==
+        bh=EdwxUBMtJqpxDgmXryYAvIazZRX1Hy+h3AFFbKAnUKM=;
+        b=fekdAqaNhi1KC00MJGVkcDL7Jg6dlEc4uZaFwRrJUJehdp2AAP59ehBLjjKI1iHuRY
+         C/KwBbkTsUIHtKnRqSZix6qxcR+AVcb2NYkl0vYZQXozs5t3QMHcmYmj62m1uV3U5QHD
+         bmG1qyQLQTIklN1AdwzqvTL8zJ6XF5s0AsbsVfz0Zn8fjgXNDPtwn316XFa5Fq0Uw2DL
+         mc1x1X19BQ6bWsX7KnEqrg8LZWyjrSvjlaH8dDINIxGVR8JqybHdQZGqsPNLNuzOmh+D
+         7UxZME6X7tj9+1umWtToX2zWsO+Gm5WG/kd+WrUSIf5SpIh/HjgSQXyONtuha6naa09D
+         ubIg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1718699934; x=1719304734;
+        d=1e100.net; s=20230601; t=1718700952; x=1719305752;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=AnZWs13gONBrlER4YdTUIiLsTrQi0YoR2Ni4Wt7t7Hs=;
-        b=UsvDiv4zMcPfaHIwc19XjXqj2nC6u+UoCkQNG6PIekeU6hw7PDgDso5tX/hQyVeu1e
-         I+NihVB3RHiWi5XQ5qxmTnTSPYlNOpxE9iVFgQH6hoShW7KZlH/VyI6Vd3SWu8h3nKpG
-         RZjLG1FHfL06axXX6AEeu3+mhI8z/qm78yZlpsCzyumNma2WIYs5JBgUzbp1iaOXKE/4
-         +Yr+Zzl1xYHWG4vT5UAvPnfcwAbEM60cm/I2iTx0B38jEmrjOvgftMoVTaI0f4ZO9Mf+
-         2ZpS1smXWxf/qyA3N1rgasY6S019YbhrG9odHbJpDj0u6r38c2k5P/p89CkpDxIq5k6U
-         qnUw==
-X-Forwarded-Encrypted: i=1; AJvYcCW+Pp5+fUhf4OwLg3WIFA72ZdLHaSdzbwdUGuXhN+VJyC800eXAM0NUYXxy5P/6kxISXnPsZ3veYPi1V60RzzZPg4+cXiJp/Aas7pe5gcM=
-X-Gm-Message-State: AOJu0YwFKE/miY9gCOPPGRUEHRGTOhP70Xdmi8ICB0GciU67lvVgDR3U
-	W77B3UQ/o2qhb5LtqCmDjQmvqbouTcB8TXKomHt6Rvlk5PbgZP7Sl+Z4FFOsKQ==
-X-Google-Smtp-Source: AGHT+IFg1le6jF5017yZVjJTJvP5H6IzgVTsawT7JR4KZm/VHhY2dFfTNXcUyY+cAOIHNnOzMG7uvQ==
-X-Received: by 2002:a17:907:a64b:b0:a6f:8a1b:9964 with SMTP id a640c23a62f3a-a6f8a1ba21fmr323140766b.57.1718699933558;
-        Tue, 18 Jun 2024 01:38:53 -0700 (PDT)
-Message-ID: <c41031f9-bf3f-472e-82be-c1efea07c343@suse.com>
-Date: Tue, 18 Jun 2024 10:38:51 +0200
+        bh=EdwxUBMtJqpxDgmXryYAvIazZRX1Hy+h3AFFbKAnUKM=;
+        b=YNbm5wDibO6BqJZK6iIyi7X6ip1Gmnx/LXPXVdpZtG9hYlgVR7Mgb8BfoG0BcOq5zb
+         rwYXosCQdMpZyUV51uPnidCOtNwMdsqEJ0hOts2ZBwfJHMERLpUSN8CGqAcbYrELUJml
+         j1O9UhDMRadzFG7ao3cfX5BxQwvmSSlz0SbChNpxoaR6aQaqD8tF5sVzxqfcpn0kL9nx
+         N18rw+YwhS2f13ases9yiZ3hdTVAAdovGOjLfTGUsiTF9/0PIvu+ymE2OU4LXjFc7AaB
+         vwp8FXmaWkATxPkLTiV/xl8jofr0o3IYkqOhpA6CmX0s4jw9uvO7npCYwSy0dByEIY1v
+         uADw==
+X-Forwarded-Encrypted: i=1; AJvYcCXR4DqmBy4TEUCb8fdO9SqHIdcpdIKyvnDbTFYBBerrOzM9XCcyA3wmkaxxHdDRXY0Cu7wa21sCgwKqAsp0+6eu2ZVhXj6sTxTn1F4P714=
+X-Gm-Message-State: AOJu0YwnKbWQTuYSuhKktTmguH3BbVIcZYI76WQJyDLXYlbIj7Uiq9sU
+	2U5OzLttG1WNbQDO5ktan4i0KtyGFtief0+P8nBIvWgd3b+3DE9YiFu46QXyZw==
+X-Google-Smtp-Source: AGHT+IE9l6dW2GadYgqgSFh0k5pgmlZtlxz6ZwK8aMMxQ0wdOzPGNjCWUSeEbjS70dr8oUqb5LrqWg==
+X-Received: by 2002:a50:ed82:0:b0:57c:bf3b:76f5 with SMTP id 4fb4d7f45d1cf-57cbf3b78acmr7326488a12.35.1718700951644;
+        Tue, 18 Jun 2024 01:55:51 -0700 (PDT)
+Message-ID: <b923a32e-3c22-4e7a-8844-b33322ef8ad1@suse.com>
+Date: Tue, 18 Jun 2024 10:55:49 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH v10 2/5] x86/pvh: Allow (un)map_pirq when dom0 is PVH
+Subject: Re: [XEN PATCH v10 3/5] x86/pvh: Add PHYSDEVOP_setup_gsi for PVH dom0
 To: "Chen, Jiqian" <Jiqian.Chen@amd.com>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu
@@ -93,9 +93,9 @@ Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  "Huang, Ray" <Ray.Huang@amd.com>,
  "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 References: <20240617090035.839640-1-Jiqian.Chen@amd.com>
- <20240617090035.839640-3-Jiqian.Chen@amd.com>
- <cb9910cd-7045-4c0d-a7cf-2bcf36e30cb2@suse.com>
- <BL1PR12MB5849FC16D91FADD5B7D30A63E7CE2@BL1PR12MB5849.namprd12.prod.outlook.com>
+ <20240617090035.839640-4-Jiqian.Chen@amd.com>
+ <ed36b376-a5f0-457b-8a1e-61104c26ffce@suse.com>
+ <BL1PR12MB5849FE3A4897DF166159B906E7CE2@BL1PR12MB5849.namprd12.prod.outlook.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -121,69 +121,59 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <BL1PR12MB5849FC16D91FADD5B7D30A63E7CE2@BL1PR12MB5849.namprd12.prod.outlook.com>
+In-Reply-To: <BL1PR12MB5849FE3A4897DF166159B906E7CE2@BL1PR12MB5849.namprd12.prod.outlook.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 18.06.2024 08:49, Chen, Jiqian wrote:
-> On 2024/6/17 22:45, Jan Beulich wrote:
+On 18.06.2024 08:57, Chen, Jiqian wrote:
+> On 2024/6/17 22:52, Jan Beulich wrote:
 >> On 17.06.2024 11:00, Jiqian Chen wrote:
->>> If run Xen with PVH dom0 and hvm domU, hvm will map a pirq for
->>> a passthrough device by using gsi, see qemu code
->>> xen_pt_realize->xc_physdev_map_pirq and libxl code
->>> pci_add_dm_done->xc_physdev_map_pirq. Then xc_physdev_map_pirq
->>> will call into Xen, but in hvm_physdev_op, PHYSDEVOP_map_pirq
->>> is not allowed because currd is PVH dom0 and PVH has no
->>> X86_EMU_USE_PIRQ flag, it will fail at has_pirq check.
+>>> The gsi of a passthrough device must be configured for it to be
+>>> able to be mapped into a hvm domU.
+>>> But When dom0 is PVH, the gsis don't get registered, it causes
+>>> the info of apic, pin and irq not be added into irq_2_pin list,
+>>> and the handler of irq_desc is not set, then when passthrough a
+>>> device, setting ioapic affinity and vector will fail.
 >>>
->>> So, allow PHYSDEVOP_map_pirq when dom0 is PVH and also allow
->>> PHYSDEVOP_unmap_pirq for the failed path to unmap pirq.
+>>> To fix above problem, on Linux kernel side, a new code will
+>>> need to call PHYSDEVOP_setup_gsi for passthrough devices to
+>>> register gsi when dom0 is PVH.
+>>>
+>>> So, add PHYSDEVOP_setup_gsi into hvm_physdev_op for above
+>>> purpose.
+>>>
+>>> Signed-off-by: Jiqian Chen <Jiqian.Chen@amd.com>
+>>> Signed-off-by: Huang Rui <ray.huang@amd.com>
+>>> Signed-off-by: Jiqian Chen <Jiqian.Chen@amd.com>
+>>> ---
+>>> The code link that will call this hypercall on linux kernel side is as follows:
+>>> https://lore.kernel.org/xen-devel/20240607075109.126277-3-Jiqian.Chen@amd.com/
 >>
->> Why "failed path"? Isn't unmapping also part of normal device removal
->> from a guest?
-> Yes, both. I will change to also "allow PHYSDEVOP_unmap_pirq for the device removal path to unmap pirq".
-> 
->>
->>> And
->>> add a new check to prevent self map when subject domain has no
->>> PIRQ flag.
->>
->> You still talk of only self mapping, and the code also still does only
->> that. As pointed out before: Why would you allow mapping into a PVH
->> DomU? IOW what purpose do the "d == currd" checks have?
-> The checking I added has two purpose, first is I need to allow this case:
-> Dom0(without PIRQ) + DomU(with PIRQ), because the original code just do (!has_pirq(currd)) will cause map_pirq fail in this case.
-> Second I need to disallow self-mapping:
-> DomU(without PIRQ) do map_pirq, the "d==currd" means the currd is the subject domain itself.
-> 
-> Emmm, I think I know what's your concern.
-> Do you mean I need to
-> " Prevent map_pirq when currd has no X86_EMU_USE_PIRQ flag "
-> instead of
-> " Prevent self-map when currd has no X86_EMU_USE_PIRQ flag ",
+>> One of my v9 comments was addressed, thanks. Repeating the other, unaddressed
+>> one here:
+>> "As to GSIs not being registered: If that's not a problem for Dom0's own
+>>  operation, I think it'll also want/need explaining why what is sufficient for
+>>  Dom0 alone isn't sufficient when pass-through comes into play."
+> I have modified the commit message to describe why GSIs are not registered can cause passthrough not work, according to this v9 comment.
+> " it causes the info of apic, pin and irq not be added into irq_2_pin list, and the handler of irq_desc is not set, then when passthrough a device, setting ioapic affinity and vector will fail."
+> What description do you want me to add?
 
-No. What I mean is that I continue to fail to see why you mention "currd".
-IOW it would be more like "prevent mapping when the subject domain has no
-X86_EMU_USE_PIRQ" (which, as a specific sub-case, includes self-mapping
-if the caller specifies DOMID_SELF for the subject domain).
-
-> so I need to remove "d==currd", right?
-
-Removing this check is what I'm after, yes. Yet that's not in sync with
-either of the two quoted sentences above.
-
->>> So that domU with PIRQ flag can success to map pirq for
->>> passthrough devices even dom0 has no PIRQ flag.
->>
->> There's still a description problem here. Much like the first sentence,
->> this last one also says that the guest would itself map the pIRQ. In
->> which case there would still not be any reason to expose the sub-
->> functions to Dom0.
-> If change to " So that the interrupt of a passthrough device can success to be mapped to pirq for domU with PIRQ flag when dom0 is PVH.",
-> Is it OK?
-
-Kind of, yes. "can be successfully mapped" is one of the various possibilities
-of making this read a little more smoothly.
+What I'd first like to have clarification on (i.e. before putting it in
+the description one way or another): How come Dom0 alone gets away fine
+without making the call, yet for passthrough-to-DomU it's needed? Is it
+perhaps that it just so happened that for Dom0 things have been working
+on systems where it was tested, but the call should in principle have been
+there in this case, too [1]? That (to me at least) would make quite a
+difference for both this patch's description and us accepting it.
 
 Jan
+
+[1] Alternative e.g. being that because of other actions PVH Dom0 takes,
+like the IO-APIC RTE programming it does for IRQs it wants to use for
+itself, the necessary information is already suitably conveyed to Xen in
+that case. In such a case imo it's relevant to mention in the description.
+Not the least because iirc the pciback driver sets up a fake IRQ handler
+in such cases, which ought to lead to similar IO-APIC RTE programming, at
+which point the question would again arise why the hypercall needs
+exposing.
 
