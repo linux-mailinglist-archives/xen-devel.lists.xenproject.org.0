@@ -2,33 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8641590C4F7
-	for <lists+xen-devel@lfdr.de>; Tue, 18 Jun 2024 10:37:50 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.742836.1149709 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4CEBD90C4FC
+	for <lists+xen-devel@lfdr.de>; Tue, 18 Jun 2024 10:39:36 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.742843.1149720 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sJULP-0003ad-Dr; Tue, 18 Jun 2024 08:37:35 +0000
+	id 1sJUMj-0004bt-O9; Tue, 18 Jun 2024 08:38:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 742836.1149709; Tue, 18 Jun 2024 08:37:35 +0000
+Received: by outflank-mailman (output) from mailman id 742843.1149720; Tue, 18 Jun 2024 08:38:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sJULP-0003Yd-Ab; Tue, 18 Jun 2024 08:37:35 +0000
-Received: by outflank-mailman (input) for mailman id 742836;
- Tue, 18 Jun 2024 08:37:34 +0000
+	id 1sJUMj-0004Zl-K7; Tue, 18 Jun 2024 08:38:57 +0000
+Received: by outflank-mailman (input) for mailman id 742843;
+ Tue, 18 Jun 2024 08:38:56 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=GTcF=NU=cloud.com=frediano.ziglio@srs-se1.protection.inumbo.net>)
- id 1sJULO-0003YX-F1
- for xen-devel@lists.xenproject.org; Tue, 18 Jun 2024 08:37:34 +0000
-Received: from mail-ot1-x334.google.com (mail-ot1-x334.google.com
- [2607:f8b0:4864:20::334])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=MUlf=NU=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1sJUMi-0004Zf-Ai
+ for xen-devel@lists.xenproject.org; Tue, 18 Jun 2024 08:38:56 +0000
+Received: from mail-ed1-x530.google.com (mail-ed1-x530.google.com
+ [2a00:1450:4864:20::530])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 00c6f9a1-2d4e-11ef-b4bb-af5377834399;
- Tue, 18 Jun 2024 10:37:32 +0200 (CEST)
-Received: by mail-ot1-x334.google.com with SMTP id
- 46e09a7af769-6f9fbec4fd9so3000683a34.2
- for <xen-devel@lists.xenproject.org>; Tue, 18 Jun 2024 01:37:32 -0700 (PDT)
+ id 31f59772-2d4e-11ef-b4bb-af5377834399;
+ Tue, 18 Jun 2024 10:38:54 +0200 (CEST)
+Received: by mail-ed1-x530.google.com with SMTP id
+ 4fb4d7f45d1cf-57ca578ce8dso5935816a12.2
+ for <xen-devel@lists.xenproject.org>; Tue, 18 Jun 2024 01:38:54 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a6f56f9806csm598447266b.195.2024.06.18.01.38.52
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 18 Jun 2024 01:38:53 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,109 +45,145 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 00c6f9a1-2d4e-11ef-b4bb-af5377834399
+X-Inumbo-ID: 31f59772-2d4e-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1718699851; x=1719304651; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=eb0RXj6kXsdM0uSSP81X1dIWEztXTh0vf9AdUTcavuo=;
-        b=FGjRBK0IItjBr4lgVSi62Aj8Wm22Qiktp8tQHn26rptUohjopAIHsEKCCqr+zdfdJm
-         aSBY9oaaL+j9UabWS56mzuptc7Yr0UoyCt53ZQM15itl6UN/o8LzCTaVryaKIthIFhMq
-         RPNn05k23uxqR3abv2pQwBJPasS/RQuEAdtbk=
+        d=suse.com; s=google; t=1718699934; x=1719304734; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=AnZWs13gONBrlER4YdTUIiLsTrQi0YoR2Ni4Wt7t7Hs=;
+        b=NznerrHi/GjD8W0HNJ8oTgxM6E+qVHfx/PhgZqrsxB7gdEMFbD4DRADoNFTikaS6zZ
+         jeePtvKIxe55hzmnS4P3JWXxHF22DkDnQT8ob8L98kJYkfrsJWPoKJaKvvg3z2aqgvQ+
+         vV5NPIcV2o+sBJRcw2Au0F/Q3PivwWYEQI7Ocp28HLIiSKNk6pBFMBBct851MEhuz4M5
+         NxEZiAO2SY7+y21dJUJJ8qC3HYZLF6Q8wSd0S+DKUxAcUh1MhTbmSbzlw895vfsGOEQY
+         ON2/sro6e4ID2Bl4BqbUHv6EEN0M00BGghuw4UCcC18ph56qqlDtgFrKV5Mk215s344J
+         nyVQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1718699851; x=1719304651;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=eb0RXj6kXsdM0uSSP81X1dIWEztXTh0vf9AdUTcavuo=;
-        b=g8TY/PNk+nz5CMMiiVz8rhehSdgdM1pGMnwjVo7myAbLEcJwi0OGoYGnSHAyj5LSZc
-         vYXHIReg0E71IEcRN9z+TkJL7BJ6q2/LNxFjWQTpt99wVrewinv81BFclxQ2p5Vx7J+k
-         LhJU1IgJ0TTeGk0OJKUF4CrErOLg8QumejisgMNoAW/JbVJSsrlcLGuceQAwk3s2lxNR
-         JDrGIKXe9j/0KJ8pqEjL4H4VKd2qAjSKwQFcql7wwnR2jOBeO64w/fsGSfySskzHQgtE
-         VxqF10sVAgS2xKrU2CPFUCQYNItWhPqNa8OCEQofN+yh43B6MS0TNjXoHPBUlF5S8Rni
-         YWXA==
-X-Forwarded-Encrypted: i=1; AJvYcCUpMiPSDjB0cM4hVP0L+p+pkSgyrdmk7pSg1h6cEXwprh8itThPKfY1urbhACnSP2585KZeXVVjTTPUMfY+j4kPyTlxtnAbyjqyjbx62y8=
-X-Gm-Message-State: AOJu0YyQEZ2tXRfrDqOR+ErNryXpU4gKdUgWKrekV4R+h7cCeYAXbCD1
-	2dhbL7REd8EQkr9L6pBK9pu4gTcBZUEvKxOIG7NPIQjJYFyo/j5l4LyIkIqP2yBoSoXa098SlZb
-	DaAdBamnaczbiGah6Tzk+y+OlYr9jShhVYpNMvQ==
-X-Google-Smtp-Source: AGHT+IEWkf5j2W5kw2iqzjVXFFr/KNj2UxQ6QnKHSgfx22Hyq9qpLr4BXiXOgbfkFgo2DeJ1XRr/iFXuaj+25RD/LPA=
-X-Received: by 2002:a05:6870:b011:b0:254:a89e:acca with SMTP id
- 586e51a60fabf-2584258a3d9mr12682841fac.0.1718699850938; Tue, 18 Jun 2024
- 01:37:30 -0700 (PDT)
+        d=1e100.net; s=20230601; t=1718699934; x=1719304734;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=AnZWs13gONBrlER4YdTUIiLsTrQi0YoR2Ni4Wt7t7Hs=;
+        b=UsvDiv4zMcPfaHIwc19XjXqj2nC6u+UoCkQNG6PIekeU6hw7PDgDso5tX/hQyVeu1e
+         I+NihVB3RHiWi5XQ5qxmTnTSPYlNOpxE9iVFgQH6hoShW7KZlH/VyI6Vd3SWu8h3nKpG
+         RZjLG1FHfL06axXX6AEeu3+mhI8z/qm78yZlpsCzyumNma2WIYs5JBgUzbp1iaOXKE/4
+         +Yr+Zzl1xYHWG4vT5UAvPnfcwAbEM60cm/I2iTx0B38jEmrjOvgftMoVTaI0f4ZO9Mf+
+         2ZpS1smXWxf/qyA3N1rgasY6S019YbhrG9odHbJpDj0u6r38c2k5P/p89CkpDxIq5k6U
+         qnUw==
+X-Forwarded-Encrypted: i=1; AJvYcCW+Pp5+fUhf4OwLg3WIFA72ZdLHaSdzbwdUGuXhN+VJyC800eXAM0NUYXxy5P/6kxISXnPsZ3veYPi1V60RzzZPg4+cXiJp/Aas7pe5gcM=
+X-Gm-Message-State: AOJu0YwFKE/miY9gCOPPGRUEHRGTOhP70Xdmi8ICB0GciU67lvVgDR3U
+	W77B3UQ/o2qhb5LtqCmDjQmvqbouTcB8TXKomHt6Rvlk5PbgZP7Sl+Z4FFOsKQ==
+X-Google-Smtp-Source: AGHT+IFg1le6jF5017yZVjJTJvP5H6IzgVTsawT7JR4KZm/VHhY2dFfTNXcUyY+cAOIHNnOzMG7uvQ==
+X-Received: by 2002:a17:907:a64b:b0:a6f:8a1b:9964 with SMTP id a640c23a62f3a-a6f8a1ba21fmr323140766b.57.1718699933558;
+        Tue, 18 Jun 2024 01:38:53 -0700 (PDT)
+Message-ID: <c41031f9-bf3f-472e-82be-c1efea07c343@suse.com>
+Date: Tue, 18 Jun 2024 10:38:51 +0200
 MIME-Version: 1.0
-References: <20240617141303.53857-1-frediano.ziglio@cloud.com>
- <2fe6ef97-84f2-4bf4-870b-b0bb580fa38f@suse.com> <ZnBKDRWi_2cO6WbA@macbook>
-In-Reply-To: <ZnBKDRWi_2cO6WbA@macbook>
-From: Frediano Ziglio <frediano.ziglio@cloud.com>
-Date: Tue, 18 Jun 2024 09:37:08 +0100
-Message-ID: <CACHz=Zg4Zoyr4KNeig4yDDNUxvV325beJEyT-L-K0a+FHp7oDg@mail.gmail.com>
-Subject: Re: [PATCH] x86/xen/time: Reduce Xen timer tick
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: Jan Beulich <jbeulich@suse.com>, "H. Peter Anvin" <hpa@zytor.com>, x86@kernel.org, 
-	Dave Hansen <dave.hansen@linux.intel.com>, Borislav Petkov <bp@alien8.de>, 
-	Ingo Molnar <mingo@redhat.com>, Thomas Gleixner <tglx@linutronix.de>, 
-	Boris Ostrovsky <boris.ostrovsky@oracle.com>, Juergen Gross <jgross@suse.com>, 
-	xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [XEN PATCH v10 2/5] x86/pvh: Allow (un)map_pirq when dom0 is PVH
+To: "Chen, Jiqian" <Jiqian.Chen@amd.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu
+ <wl@xen.org>, George Dunlap <george.dunlap@citrix.com>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ Anthony PERARD <anthony@xenproject.org>, Juergen Gross <jgross@suse.com>,
+ "Daniel P . Smith" <dpsmith@apertussolutions.com>,
+ "Hildebrand, Stewart" <Stewart.Hildebrand@amd.com>,
+ "Huang, Ray" <Ray.Huang@amd.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <20240617090035.839640-1-Jiqian.Chen@amd.com>
+ <20240617090035.839640-3-Jiqian.Chen@amd.com>
+ <cb9910cd-7045-4c0d-a7cf-2bcf36e30cb2@suse.com>
+ <BL1PR12MB5849FC16D91FADD5B7D30A63E7CE2@BL1PR12MB5849.namprd12.prod.outlook.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <BL1PR12MB5849FC16D91FADD5B7D30A63E7CE2@BL1PR12MB5849.namprd12.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Mon, Jun 17, 2024 at 3:37=E2=80=AFPM Roger Pau Monn=C3=A9 <roger.pau@cit=
-rix.com> wrote:
->
-> On Mon, Jun 17, 2024 at 04:22:21PM +0200, Jan Beulich wrote:
-> > On 17.06.2024 16:13, Frediano Ziglio wrote:
-> > > Current timer tick is causing some deadline to fail.
-> > > The current high value constant was probably due to an old
-> > > bug in the Xen timer implementation causing errors if the
-> > > deadline was in the future.
-> > > This was fixed in Xen commit:
-> > > 19c6cbd90965 xen/vcpu: ignore VCPU_SSHOTTMR_future
-> >
-> > And then newer kernels are no longer reliably usable on Xen older than
-> > this?
->
-> I think this should reference the Linux commit that removed the usage
-> of VCPU_SSHOTTMR_future on Linux itself, not the change that makes Xen
-> ignore the flag.
->
+On 18.06.2024 08:49, Chen, Jiqian wrote:
+> On 2024/6/17 22:45, Jan Beulich wrote:
+>> On 17.06.2024 11:00, Jiqian Chen wrote:
+>>> If run Xen with PVH dom0 and hvm domU, hvm will map a pirq for
+>>> a passthrough device by using gsi, see qemu code
+>>> xen_pt_realize->xc_physdev_map_pirq and libxl code
+>>> pci_add_dm_done->xc_physdev_map_pirq. Then xc_physdev_map_pirq
+>>> will call into Xen, but in hvm_physdev_op, PHYSDEVOP_map_pirq
+>>> is not allowed because currd is PVH dom0 and PVH has no
+>>> X86_EMU_USE_PIRQ flag, it will fail at has_pirq check.
+>>>
+>>> So, allow PHYSDEVOP_map_pirq when dom0 is PVH and also allow
+>>> PHYSDEVOP_unmap_pirq for the failed path to unmap pirq.
+>>
+>> Why "failed path"? Isn't unmapping also part of normal device removal
+>> from a guest?
+> Yes, both. I will change to also "allow PHYSDEVOP_unmap_pirq for the device removal path to unmap pirq".
+> 
+>>
+>>> And
+>>> add a new check to prevent self map when subject domain has no
+>>> PIRQ flag.
+>>
+>> You still talk of only self mapping, and the code also still does only
+>> that. As pointed out before: Why would you allow mapping into a PVH
+>> DomU? IOW what purpose do the "d == currd" checks have?
+> The checking I added has two purpose, first is I need to allow this case:
+> Dom0(without PIRQ) + DomU(with PIRQ), because the original code just do (!has_pirq(currd)) will cause map_pirq fail in this case.
+> Second I need to disallow self-mapping:
+> DomU(without PIRQ) do map_pirq, the "d==currd" means the currd is the subject domain itself.
+> 
+> Emmm, I think I know what's your concern.
+> Do you mean I need to
+> " Prevent map_pirq when currd has no X86_EMU_USE_PIRQ flag "
+> instead of
+> " Prevent self-map when currd has no X86_EMU_USE_PIRQ flag ",
 
-Yes, Linux kernel stopped using this flag since 2016 with commit
-c06b6d70feb32d28f04ba37aa3df17973fd37b6b, "xen/x86: don't lose event
-interrupts", I'll add it in the commit message.
+No. What I mean is that I continue to fail to see why you mention "currd".
+IOW it would be more like "prevent mapping when the subject domain has no
+X86_EMU_USE_PIRQ" (which, as a specific sub-case, includes self-mapping
+if the caller specifies DOMID_SELF for the subject domain).
 
-> > > --- a/arch/x86/xen/time.c
-> > > +++ b/arch/x86/xen/time.c
-> > > @@ -30,7 +30,7 @@
-> > >  #include "xen-ops.h"
-> > >
-> > >  /* Minimum amount of time until next clock event fires */
-> > > -#define TIMER_SLOP 100000
-> > > +#define TIMER_SLOP 1000
-> >
-> > It may be just the lack of knowledge of mine towards noadays's Linux'es
-> > time handling, but the change of a value with this name and thus
-> > commented doesn't directly relate to "timer tick" rate. Could you maybe
-> > help me see the connection?
->
-> The TIMER_SLOP define is used in min_delta_{ns,ticks} field, and I
-> think this is wrong.
->
-> The min_delta_ns for the Xen timer is 1ns.  If Linux needs some
-> greater min delta than what the timer interface supports it should be
-> handled in the generic timer code, not open coded at the definition of
-> possibly each timer implementation.
->
+> so I need to remove "d==currd", right?
 
-I think this is done to reduce potential event handling frequency, in
-some other part of timer code (in kernel/time/clockevents.c) there's a
-comment "Deltas less than 1usec are pointless noise".
-I think it's hard for a software to get a frequency so high so I
-didn't propose 1ns.
-What are you suggesting? To put 1ns and see what happens? Is there any
-proper test code for this?
+Removing this check is what I'm after, yes. Yet that's not in sync with
+either of the two quoted sentences above.
 
-> Thanks, Roger.
+>>> So that domU with PIRQ flag can success to map pirq for
+>>> passthrough devices even dom0 has no PIRQ flag.
+>>
+>> There's still a description problem here. Much like the first sentence,
+>> this last one also says that the guest would itself map the pIRQ. In
+>> which case there would still not be any reason to expose the sub-
+>> functions to Dom0.
+> If change to " So that the interrupt of a passthrough device can success to be mapped to pirq for domU with PIRQ flag when dom0 is PVH.",
+> Is it OK?
 
-Frediano
+Kind of, yes. "can be successfully mapped" is one of the various possibilities
+of making this read a little more smoothly.
+
+Jan
 
