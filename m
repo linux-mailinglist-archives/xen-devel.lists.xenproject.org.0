@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2F60C90C534
-	for <lists+xen-devel@lfdr.de>; Tue, 18 Jun 2024 11:14:33 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.742892.1149770 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 42D4990C542
+	for <lists+xen-devel@lfdr.de>; Tue, 18 Jun 2024 11:23:27 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.742902.1149780 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sJUui-0004yC-CN; Tue, 18 Jun 2024 09:14:04 +0000
+	id 1sJV3Y-0007Ia-6f; Tue, 18 Jun 2024 09:23:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 742892.1149770; Tue, 18 Jun 2024 09:14:04 +0000
+Received: by outflank-mailman (output) from mailman id 742902.1149780; Tue, 18 Jun 2024 09:23:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sJUui-0004wK-9V; Tue, 18 Jun 2024 09:14:04 +0000
-Received: by outflank-mailman (input) for mailman id 742892;
- Tue, 18 Jun 2024 09:14:03 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1sJV3Y-0007H4-3m; Tue, 18 Jun 2024 09:23:12 +0000
+Received: by outflank-mailman (input) for mailman id 742902;
+ Tue, 18 Jun 2024 09:23:11 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=MUlf=NU=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sJUuh-0004wE-60
- for xen-devel@lists.xenproject.org; Tue, 18 Jun 2024 09:14:03 +0000
-Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
- [2a00:1450:4864:20::536])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 19c59955-2d53-11ef-90a3-e314d9c70b13;
- Tue, 18 Jun 2024 11:14:01 +0200 (CEST)
-Received: by mail-ed1-x536.google.com with SMTP id
- 4fb4d7f45d1cf-57c83100bd6so6350650a12.3
- for <xen-devel@lists.xenproject.org>; Tue, 18 Jun 2024 02:14:01 -0700 (PDT)
+ id 1sJV3X-0007Gy-0O
+ for xen-devel@lists.xenproject.org; Tue, 18 Jun 2024 09:23:11 +0000
+Received: from mail-ed1-x52d.google.com (mail-ed1-x52d.google.com
+ [2a00:1450:4864:20::52d])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 60123bef-2d54-11ef-b4bb-af5377834399;
+ Tue, 18 Jun 2024 11:23:09 +0200 (CEST)
+Received: by mail-ed1-x52d.google.com with SMTP id
+ 4fb4d7f45d1cf-57c83100c5fso5652297a12.3
+ for <xen-devel@lists.xenproject.org>; Tue, 18 Jun 2024 02:23:08 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a6f56ed357asm601906766b.125.2024.06.18.02.13.59
+ a640c23a62f3a-a6f63f7e9d8sm492780866b.182.2024.06.18.02.23.06
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 18 Jun 2024 02:14:00 -0700 (PDT)
+ Tue, 18 Jun 2024 02:23:07 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,43 +45,44 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 19c59955-2d53-11ef-90a3-e314d9c70b13
+X-Inumbo-ID: 60123bef-2d54-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1718702040; x=1719306840; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1718702588; x=1719307388; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=z8kss9qGBQgb51Jq9Iz0lX8khDkUj6+Ajw4D7ZRyHpM=;
-        b=SXXsg+Z8r8BUZOQsGTdBQ8LkijGfmElLZtvxO4cX3akTuuKGLj8VHxuu4vgBRO4e2k
-         KgVh9xptV/U7g7kUqwbgaT+lIl7KAk/sAt5FP6FPV9qs9BmtQPgXd969y2Vdub9H+uuN
-         rvbqGNA90taAyhLHUU05De5mq4mVgNfnisUN7Hp6j3TNvZM2+Z62zzZ6rPYtoqkInzqC
-         HaHcM7S56zrCQ/bkn/zrMZkt1r/Mc9+RJf1oaNO+A5TFTo0UFelV9SLeZ5AXqSgVz4cC
-         Jk/yDt8aBvVqdS8icNF+0gt+uWFjedbfyYno2YECDy39365X4ientmM6zV8gmpsaAaOc
-         VCXw==
+        bh=X2cOGxP+OyaxgX906gQx67pblQNDp8zrUXWHTlRxoMk=;
+        b=gPQXa9wq81PW27PVQRsSxpAZEpRUTuDXQ3kqxW6i9gXYdxkykTkK3iCQdXQSefyLrw
+         985PwbH8uGpFhqIi7Qt8I8elHHxhNaMxkf9i0footZcXGK7FRUaaWcNKnkycVhvh2jMo
+         L+bRjOIeRila8qx+Xtkfv0veuGu0tGrqDmEifdErjFN6ZjOEz1D3IJgODR+nppgqENNc
+         Sk2eOG86O9Rr39wG4/6FChVQrceD28XmdxadWdQPaaz35KzT4lqm6l3OuolIByvkXiBT
+         oT+j95BOMJY7Q90+qsxk99+CZgSmZhY4DyXBOoW3KIw/cxb82f9DGxq08Zl2t0JDKemo
+         x5Xg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1718702040; x=1719306840;
+        d=1e100.net; s=20230601; t=1718702588; x=1719307388;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=z8kss9qGBQgb51Jq9Iz0lX8khDkUj6+Ajw4D7ZRyHpM=;
-        b=vO+dwY/kKe/cGVgTisXjobNkQMP5jzTiziQbiKK0R6fIUsQkDUAc7wBkoQhWUwyjgB
-         95zVOcyARxt+c19mSgsZVR8gFKNw/gKx3RDYu4opAIp2CXVagcCi90hD2MTWakRF71TR
-         iBcJSbssPGWzEi6JJyn6pUODute9LusMp5g/9zWSDlYbd8yMxBXOfrcCWOh08rHKWFtI
-         ZGrFheOyUJ85gEAs/rFVYZR8+Uw+uYhknRIu61YKkUFaQNM5NdJtd9xktRM4z0D/TIrD
-         WPBh5OHKGObnBmXWifnguuPqetosR6+cWfaAsD0iOHirzLFar9LxzBcrC2PrkJynwhmz
-         KSew==
-X-Forwarded-Encrypted: i=1; AJvYcCXkTvBYf4bUcJZVvlRaWNSX5vo5Z1BV47nOczh7eb4+mNU32A7ep9KdcJifi2TFUNY1xQ47WcknGhsGw0nVWo+1lxZDJZ0b9ygkmCWhAN0=
-X-Gm-Message-State: AOJu0Yzc26Do9rdr41K3im+eZJm3qzTvDK/Q06CBzWBaY6yCIzV3+esV
-	FayupMunZ9YXndtnnNOv194ug2RXh6S4oNgNAYwpz1o7YfulZo0pxdllu5fZKA==
-X-Google-Smtp-Source: AGHT+IF9koj9b1SfYi+gReJwPgiOMjOZFRPdDCJuI1FNSfDA1eonowDxUU2QlcuquR88GLJhT9H4oQ==
-X-Received: by 2002:a17:906:37d9:b0:a68:bfd7:b0f3 with SMTP id a640c23a62f3a-a6f60d2975bmr777644966b.21.1718702040414;
-        Tue, 18 Jun 2024 02:14:00 -0700 (PDT)
-Message-ID: <ab99b766-7bec-4046-beb2-f77a2591a911@suse.com>
-Date: Tue, 18 Jun 2024 11:13:58 +0200
+        bh=X2cOGxP+OyaxgX906gQx67pblQNDp8zrUXWHTlRxoMk=;
+        b=wLxxbtSi64Oek448wmpOVUL+LdLOBhoDzmu7HNWlh5P8HEI/vCFp4dC++SSKDloPBz
+         mOOiF6UgVPvwuGkkW/XIEoFzqDsVE1TKtfjWNr5SQR4uAvvr1IAq7vnpwU+QmHLUERmy
+         dKkRNbiK5MYKfJngQsEYZ366RzjKaBcC5tp7D+SyUVakGfEJNG3t+WBmlo+vDYHn6pHn
+         Ee95V/sQcSZqTTpmnCsrihpXmYB7SOUDqjW5zVDvhMZ5F/ECHgmpc4RJD5/gy3f8IaKp
+         DipH/Aky1JKHQTW1NRF2MlU7pyRTE1aeVve+laHrM7Eo1wCDx04cjxiuaY9fiP5Spi1C
+         N98g==
+X-Forwarded-Encrypted: i=1; AJvYcCVP1W66XkgyuC4DnJwKfmHwixul2aasGI+YhG3GR1vovPwNxVSt37OTX71hQTAwTVbQuSd3vpx2uz03WxkL9nkx4gFvsyU4S3cRdWwQwFc=
+X-Gm-Message-State: AOJu0YyH7dG8wLIp2pi+Wu5/oMAgKK1DXLbfzp2aUcy+vbbDHfyXObJ6
+	53U8yyxs13SuXv+FgtG9PXGXUABXEkPw+5t317pWBnhk+Uah9YpE/C2JwJWgFQ==
+X-Google-Smtp-Source: AGHT+IGNSpRQzR/k4AoPEJne+cDcAACxwW6b/CiQ/k1ex8Yt/fwQx+LLgfytepi24DUW4cYisMRmhQ==
+X-Received: by 2002:a17:906:4883:b0:a6f:13f0:c8e9 with SMTP id a640c23a62f3a-a6f60dc54acmr733896766b.53.1718702587876;
+        Tue, 18 Jun 2024 02:23:07 -0700 (PDT)
+Message-ID: <b6beb3f3-9c33-4d4c-a607-ca0eba76f049@suse.com>
+Date: Tue, 18 Jun 2024 11:23:06 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH v10 4/5] tools: Add new function to get gsi from dev
+Subject: Re: [XEN PATCH v10 5/5] domctl: Add XEN_DOMCTL_gsi_permission to
+ grant gsi
 To: "Chen, Jiqian" <Jiqian.Chen@amd.com>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu
@@ -93,9 +94,9 @@ Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  "Huang, Ray" <Ray.Huang@amd.com>,
  "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 References: <20240617090035.839640-1-Jiqian.Chen@amd.com>
- <20240617090035.839640-5-Jiqian.Chen@amd.com>
- <49563a31-d50e-4015-88ee-e0dab9193cd1@suse.com>
- <BL1PR12MB584910D242D9D8B4BA8B15C1E7CE2@BL1PR12MB5849.namprd12.prod.outlook.com>
+ <20240617090035.839640-6-Jiqian.Chen@amd.com>
+ <b4b6cbcd-dd71-44da-aea8-6a4a170d73d5@suse.com>
+ <BL1PR12MB584916579E2C16C6C9F86D1FE7CE2@BL1PR12MB5849.namprd12.prod.outlook.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -121,132 +122,56 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <BL1PR12MB584910D242D9D8B4BA8B15C1E7CE2@BL1PR12MB5849.namprd12.prod.outlook.com>
+In-Reply-To: <BL1PR12MB584916579E2C16C6C9F86D1FE7CE2@BL1PR12MB5849.namprd12.prod.outlook.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 18.06.2024 10:10, Chen, Jiqian wrote:
-> On 2024/6/17 23:10, Jan Beulich wrote:
+On 18.06.2024 10:23, Chen, Jiqian wrote:
+> On 2024/6/17 23:32, Jan Beulich wrote:
 >> On 17.06.2024 11:00, Jiqian Chen wrote:
->>> --- a/tools/include/xen-sys/Linux/privcmd.h
->>> +++ b/tools/include/xen-sys/Linux/privcmd.h
->>> @@ -95,6 +95,11 @@ typedef struct privcmd_mmap_resource {
->>>  	__u64 addr;
->>>  } privcmd_mmap_resource_t;
->>>  
->>> +typedef struct privcmd_gsi_from_dev {
->>> +	__u32 sbdf;
->>
->> That's PCI-centric, without struct and IOCTL names reflecting this fact.
-> So, change to privcmd_gsi_from_pcidev ?
-
-That's what I'd suggest, yes. But remember that it's the kernel maintainers
-who have the ultimate say here, as here you're only making a copy of what
-the canonical header (in the kernel tree) is going to have.
-
->>> +	int gsi;
->>
->> Is "int" legitimate to use here? Doesn't this want to similarly be __u32?
-> I want to set gsi to negative if there is no record of this translation.
-
-There are surely more explicit ways to signal that case?
-
->>> --- a/tools/libs/light/libxl_pci.c
->>> +++ b/tools/libs/light/libxl_pci.c
->>> @@ -1406,6 +1406,12 @@ static bool pci_supp_legacy_irq(void)
->>>  #endif
->>>  }
->>>  
->>> +#define PCI_DEVID(bus, devfn)\
->>> +            ((((uint16_t)(bus)) << 8) | ((devfn) & 0xff))
->>> +
->>> +#define PCI_SBDF(seg, bus, devfn) \
->>> +            ((((uint32_t)(seg)) << 16) | (PCI_DEVID(bus, devfn)))
->>
->> I'm not a maintainer of this file; if I were, I'd ask that for readability's
->> sake all excess parentheses be dropped from these.
-> Isn't it a coding requirement to enclose each element in parentheses in the macro definition?
-> It seems other files also do this. See tools/libs/light/libxl_internal.h
-
-As said, I'm not a maintainer of this code. Yet while I'm aware that libxl
-has its own CODING_STYLE, I can't spot anything towards excessive use of
-parentheses there.
-
->>> @@ -1486,6 +1496,18 @@ static void pci_add_dm_done(libxl__egc *egc,
->>>          goto out_no_irq;
->>>      }
->>>      if ((fscanf(f, "%u", &irq) == 1) && irq) {
+>>> @@ -1516,14 +1519,39 @@ static void pci_add_dm_done(libxl__egc *egc,
+>>>              rc = ERROR_FAIL;
+>>>              goto out;
+>>>          }
+>>> -        r = xc_domain_irq_permission(ctx->xch, domid, irq, 1);
 >>> +#ifdef CONFIG_X86
->>> +        sbdf = PCI_SBDF(pci->domain, pci->bus,
->>> +                        (PCI_DEVFN(pci->dev, pci->func)));
->>> +        gsi = xc_physdev_gsi_from_dev(ctx->xch, sbdf);
->>> +        /*
->>> +         * Old kernel version may not support this function,
+>>> +        /* If dom0 doesn't have PIRQs, need to use xc_domain_gsi_permission */
+>>> +        r = xc_domain_getinfo_single(ctx->xch, 0, &info);
 >>
->> Just kernel?
-> Yes, xc_physdev_gsi_from_dev depends on the function implemented on linux kernel side.
+>> Hard-coded 0 is imposing limitations. Ideally you would use DOMID_SELF, but
+>> I didn't check if that can be used with the underlying hypercall(s). Otherwise
+>> you want to pass the actual domid of the local domain here.
+> But the action of granting permission is from dom0 to domU, what I need to get is the infomation of dom0,
+> The actual domid here is domU's id I think, it is not useful.
 
-Okay, and when the kernel supports it but the underlying hypervisor doesn't
-support what the kernel wants to use in order to fulfill the request, all
-is fine? (See also below for what may be needed in the hypervisor, even if
-this IOCTL would be satisfied by the kernel without needing to interact with
-the hypervisor.)
+Note how I said DOMID_SELF and "local domain". There's no talk of using the
+DomU's domid. But what you apparently neglect is the fact that the hardware
+domain isn't necessarily Dom0 (see CONFIG_LATE_HWDOM in the hypervisor).
+While benign in most cases, this is relevant when it comes to referencing
+the hardware domain by domid. And it is the hardware domain which is going
+to drive the device re-assignment, as that domain is who's in possession of
+all the devices not yet assigned to any DomU.
 
->>> +         * so if fail, keep using irq; if success, use gsi
->>> +         */
->>> +        if (gsi > 0) {
->>> +            irq = gsi;
+>>> @@ -237,6 +238,48 @@ long arch_do_domctl(
+>>>          break;
+>>>      }
+>>>  
+>>> +    case XEN_DOMCTL_gsi_permission:
+>>> +    {
+>>> +        unsigned int gsi = domctl->u.gsi_permission.gsi;
+>>> +        int irq;
+>>> +        bool allow = domctl->u.gsi_permission.allow_access;
 >>
->> I'm still puzzled by this, when by now I think we've sufficiently clarified
->> that IRQs and GSIs use two distinct numbering spaces.
->>
->> Also, as previously indicated, you call this for PV Dom0 as well. Aiui on
->> the assumption that it'll fail. What if we decide to make the functionality
->> available there, too (if only for informational purposes, or for
->> consistency)? Suddenly you're fallback logic wouldn't work anymore, and
->> you'd call ...
->>
->>> +        }
->>> +#endif
->>>          r = xc_physdev_map_pirq(ctx->xch, domid, irq, &irq);
->>
->> ... the function with a GSI when a pIRQ is meant. Imo, as suggested before,
->> you strictly want to avoid the call on PV Dom0.
->>
->> Also for PVH Dom0: I don't think I've seen changes to the hypercall
->> handling, yet. How can that be when GSI and IRQ aren't the same, and hence
->> incoming GSI would need translating to IRQ somewhere? I can once again only
->> assume all your testing was done with IRQs whose numbers happened to match
->> their GSI numbers. (The difference, imo, would also need calling out in the
->> public header, where the respective interface struct(s) is/are defined.)
-> I feel like you missed out on many of the previous discussions.
-> Without my changes, the original codes use irq (read from file /sys/bus/pci/devices/<sbdf>/irq) to do xc_physdev_map_pirq,
-> but xc_physdev_map_pirq require passing into gsi instead of irq, so we need to use gsi whether dom0 is PV or PVH, so for the original codes, they are wrong.
-> Just because by chance, the irq value in the Linux kernel of pv dom0 is equal to the gsi value, so there was no problem with the original pv passthrough.
-> But not when using PVH, so passthrough failed.
-> With my changes, I got gsi through function xc_physdev_gsi_from_dev firstly, and to be compatible with old kernel versions(if the ioctl
-> IOCTL_PRIVCMD_GSI_FROM_DEV is not implemented), I still need to use the irq number, so I need to check the result
-> of gsi, if gsi > 0 means IOCTL_PRIVCMD_GSI_FROM_DEV is implemented I can use the right one gsi, otherwise keep using wrong one irq. 
+>> See my earlier comments on this conversion of 8 bits into just one.
+> Do you mean that I need to check allow_access is >= 0?
+> But allow_access is u8, it can't be negative.
 
-I understand all of this, to a (I think) sufficient degree at least. Yet what
-you're effectively proposing (without explicitly saying so) is that e.g.
-struct physdev_map_pirq's pirq field suddenly may no longer hold a pIRQ
-number, but (when the caller is PVH) a GSI. This may be a necessary adjustment
-to make (simply because the caller may have no way to express things in pIRQ
-terms), but then suitable adjustments to the handling of PHYSDEVOP_map_pirq
-would be necessary. In fact that field is presently marked as "IN or OUT";
-when re-purposed to take a GSI on input, it may end up being necessary to pass
-back the pIRQ (in the subject domain's numbering space). Or alternatively it
-may be necessary to add yet another sub-function so the GSI can be translated
-to the corresponding pIRQ for the domain that's going to use the IRQ, for that
-then to be passed into PHYSDEVOP_map_pirq.
-
-> And regarding to the implementation of ioctl IOCTL_PRIVCMD_GSI_FROM_DEV, it doesn't have any xen heypercall handling changes, all of its processing logic is on the kernel side.
-> I know, so you might want to say, "Then you shouldn't put this in xen's code." But this concern was discussed in previous versions, and since the pci maintainer disallowed to add
-> gsi sysfs on linux kernel side, I had to do so.
-
-Right, but this is a separate aspect (which we simply need to live with on
-the Xen side).
+Right. What I can only re-iterate from earlier commenting is that you
+want to check for 0 or 1 (can be viewed as looking at just the low bit),
+rejecting everything else. It is only this way that down the road we
+could assign meaning to the other bits, without risking to break existing
+callers. That's the same as the requirement to check padding fields to be
+zero.
 
 Jan
 
