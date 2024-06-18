@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id ED3A490C11E
-	for <lists+xen-devel@lfdr.de>; Tue, 18 Jun 2024 03:11:44 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.742633.1149471 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 990F590C132
+	for <lists+xen-devel@lfdr.de>; Tue, 18 Jun 2024 03:17:30 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.742640.1149481 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sJNNd-0004VO-6s; Tue, 18 Jun 2024 01:11:25 +0000
+	id 1sJNTA-00055v-Pj; Tue, 18 Jun 2024 01:17:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 742633.1149471; Tue, 18 Jun 2024 01:11:25 +0000
+Received: by outflank-mailman (output) from mailman id 742640.1149481; Tue, 18 Jun 2024 01:17:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sJNNd-0004TH-4J; Tue, 18 Jun 2024 01:11:25 +0000
-Received: by outflank-mailman (input) for mailman id 742633;
- Tue, 18 Jun 2024 01:11:23 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1sJNTA-00053x-NB; Tue, 18 Jun 2024 01:17:08 +0000
+Received: by outflank-mailman (input) for mailman id 742640;
+ Tue, 18 Jun 2024 01:17:07 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=gCZ4=NU=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1sJNNb-0004TB-OZ
- for xen-devel@lists.xenproject.org; Tue, 18 Jun 2024 01:11:23 +0000
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a7a743e4-2d0f-11ef-90a3-e314d9c70b13;
- Tue, 18 Jun 2024 03:11:19 +0200 (CEST)
+ id 1sJNT9-00053r-0X
+ for xen-devel@lists.xenproject.org; Tue, 18 Jun 2024 01:17:07 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 7821bcfa-2d10-11ef-b4bb-af5377834399;
+ Tue, 18 Jun 2024 03:17:03 +0200 (CEST)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id BBD2FCE1258;
- Tue, 18 Jun 2024 01:11:08 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CCE68C2BD10;
- Tue, 18 Jun 2024 01:11:06 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id 9303961244;
+ Tue, 18 Jun 2024 01:17:02 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D9AA5C2BD10;
+ Tue, 18 Jun 2024 01:17:00 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,69 +41,67 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a7a743e4-2d0f-11ef-90a3-e314d9c70b13
+X-Inumbo-ID: 7821bcfa-2d10-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1718673068;
-	bh=OQ22/uCThoNFdDtdfZSE4e8hGRjjMHUTDSLgy3euapY=;
+	s=k20201202; t=1718673422;
+	bh=eAiEM6R2ju/hh0m68CvMCvF8ojNqOd5VppqdXgBHb+0=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=ZRpIQ7M2hk3uim0382qQiJ/gJ6QL468G0IRq0Ugv7WvJY+Yya4rTO97SgwXPOuaxZ
-	 WmX51j/8KLDwyxmqDkNtVMOiUdOPd5xuy4BbPVWjeNFuq8PkIX8l6asNgeW4v1dSU9
-	 LMqQUQNe4K0Jb5Lzf789ypdM7aJHF46tc3Nsa20qM7XK6D1CgRFXprcfjVPoOOsGqf
-	 gXlIKlScbnez8iKqrjSm/j5Jlohv9fUAOklSyRu++g0NoaoIz9fe8oSwSXps3X2czZ
-	 ots62YI54RNJmhaJyj3xs4vEZVlIIDbWS7WN605TcoFZKtRU3XgmOqQj4fKPKBUaoT
-	 C++EuS3APBjCA==
-Date: Mon, 17 Jun 2024 18:11:05 -0700 (PDT)
+	b=QrBuj16T40GeGBvvtDXXUQhilQHlfywNzzCZDNA8jpOHvaJjvpeHlcTGE1jslDE6J
+	 o9qCf6c5//S4fp7Xl7ZAqjgmjW0ddOLYazcULge62bBH4p9TzDPcbqO0W9pEtCjR+U
+	 7kdZkHSWXCs4jPGqXqJOuVQnPq/3bpctbbD0AfvOQj/tZMdL1TT5h2vwF4eITVL+sZ
+	 oUrf7uv6KjFfgS3AvZeBbPgOAhixV/6q/mvkDse2exKJFOuPUvVdI0WjLsGNflXzUJ
+	 nLaSPOUJb06mhRGHsZ+pkaIf6ZxC/ir446BHAO3v+mbP8GfzXYfVF0JQIeVOgO9JIU
+	 0qKHi5yhfHdtA==
+Date: Mon, 17 Jun 2024 18:16:59 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
 To: Nicola Vetrini <nicola.vetrini@bugseng.com>
-cc: xen-devel@lists.xenproject.org, sstabellini@kernel.org, 
+cc: Jan Beulich <jbeulich@suse.com>, sstabellini@kernel.org, 
     michal.orzel@amd.com, xenia.ragiadakou@amd.com, ayan.kumar.halder@amd.com, 
     consulting@bugseng.com, Simone Ballarin <simone.ballarin@bugseng.com>, 
     Doug Goldstein <cardoe@cardoe.com>, 
-    Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Subject: Re: [XEN PATCH for-4.19 v2 2/3] automation/eclair_analysis: address
- remaining violations of MISRA C Rule 20.12
-In-Reply-To: <4ea119f84e075ebcdfe2669527826c269a454d0e.1717790683.git.nicola.vetrini@bugseng.com>
-Message-ID: <alpine.DEB.2.22.394.2406171810590.2572888@ubuntu-linux-20-04-desktop>
-References: <cover.1717790683.git.nicola.vetrini@bugseng.com> <4ea119f84e075ebcdfe2669527826c269a454d0e.1717790683.git.nicola.vetrini@bugseng.com>
+    Oleksii Kurochko <oleksii.kurochko@gmail.com>, 
+    xen-devel@lists.xenproject.org
+Subject: Re: [XEN PATCH for-4.19 v2 3/3] automation/eclair_analysis: add more
+ clean MISRA guidelines
+In-Reply-To: <e199bad317efee793a995523d6d10eac@bugseng.com>
+Message-ID: <alpine.DEB.2.22.394.2406171816370.2572888@ubuntu-linux-20-04-desktop>
+References: <cover.1717790683.git.nicola.vetrini@bugseng.com> <42645b41cf9d2d8b5ef72f0b171989711edb00a1.1717790683.git.nicola.vetrini@bugseng.com> <0cae0e19-8512-40e0-9ef2-6e91069779ec@suse.com> <e199bad317efee793a995523d6d10eac@bugseng.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
-On Fri, 7 Jun 2024, Nicola Vetrini wrote:
-> The DEFINE macro in asm-offsets.c (for all architectures) still generates
-> violations despite the file(s) being excluded from compliance, due to the
-> fact that in its expansion it sometimes refers entities in non-excluded files.
-> These corner cases are deviated by the configuration.
+On Mon, 10 Jun 2024, Nicola Vetrini wrote:
+> On 2024-06-10 09:43, Jan Beulich wrote:
+> > On 07.06.2024 22:13, Nicola Vetrini wrote:
+> > > Rules 20.9, 20.12 and 14.4 are now clean on ARM and x86, so they are added
+> > > to the list of clean guidelines.
+> > 
+> > Why is 20.9 being mentioned here when ...
+> > 
+> > > --- a/automation/eclair_analysis/ECLAIR/tagging.ecl
+> > > +++ b/automation/eclair_analysis/ECLAIR/tagging.ecl
+> > > @@ -60,6 +60,7 @@ MC3R1.R11.7||
+> > >  MC3R1.R11.9||
+> > >  MC3R1.R12.5||
+> > >  MC3R1.R14.1||
+> > > +MC3R1.R14.4||
+> > >  MC3R1.R16.7||
+> > >  MC3R1.R17.1||
+> > >  MC3R1.R17.3||
+> > > @@ -73,6 +74,7 @@ MC3R1.R20.4||
+> > >  MC3R1.R20.6||
+> > >  MC3R1.R20.9||
+> > >  MC3R1.R20.11||
+> > > +MC3R1.R20.12||
+> > >  MC3R1.R20.13||
+> > >  MC3R1.R20.14||
+> > >  MC3R1.R21.3||
+> > 
+> > ... nothing changes in its regard?
+> > 
 > 
-> No functional change.
-> 
-> Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
+> Right, it should be removed from the message.
 
-Acked-by: Stefano Stabellini <sstabellini@kernel.org>
-
-> ---
->  automation/eclair_analysis/ECLAIR/deviations.ecl | 6 ++++++
->  1 file changed, 6 insertions(+)
-> 
-> diff --git a/automation/eclair_analysis/ECLAIR/deviations.ecl b/automation/eclair_analysis/ECLAIR/deviations.ecl
-> index 447c1e6661d1..e2653f77eb2c 100644
-> --- a/automation/eclair_analysis/ECLAIR/deviations.ecl
-> +++ b/automation/eclair_analysis/ECLAIR/deviations.ecl
-> @@ -483,6 +483,12 @@ leads to a violation of the Rule are deviated."
->  -config=MC3R1.R20.12,macros+={deliberate, "name(GENERATE_CASE)&&loc(file(deliberate_generate_case))"}
->  -doc_end
-> 
-> +-doc_begin="The macro DEFINE is defined and used in excluded files asm-offsets.c.
-> +This may still cause violations if entities outside these files are referred to
-> +in the expansion."
-> +-config=MC3R1.R20.12,macros+={deliberate, "name(DEFINE)&&loc(file(asm_offsets))"}
-> +-doc_end
-> +
->  #
->  # Series 21.
->  #
-> --
-> 2.34.1
-> 
+I fixed the commit message, acked the patch and committed it
 
