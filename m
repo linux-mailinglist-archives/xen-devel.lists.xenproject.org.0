@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3AF7690C5E8
-	for <lists+xen-devel@lfdr.de>; Tue, 18 Jun 2024 12:09:34 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.742952.1149841 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4543490C64A
+	for <lists+xen-devel@lfdr.de>; Tue, 18 Jun 2024 12:18:24 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.742963.1149849 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sJVmD-0000nF-Lx; Tue, 18 Jun 2024 10:09:21 +0000
+	id 1sJVuT-0002g2-IC; Tue, 18 Jun 2024 10:17:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 742952.1149841; Tue, 18 Jun 2024 10:09:21 +0000
+Received: by outflank-mailman (output) from mailman id 742963.1149849; Tue, 18 Jun 2024 10:17:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sJVmD-0000kU-ID; Tue, 18 Jun 2024 10:09:21 +0000
-Received: by outflank-mailman (input) for mailman id 742952;
- Tue, 18 Jun 2024 10:09:20 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1sJVuT-0002dG-FZ; Tue, 18 Jun 2024 10:17:53 +0000
+Received: by outflank-mailman (input) for mailman id 742963;
+ Tue, 18 Jun 2024 10:17:52 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=MUlf=NU=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sJVmC-0000kJ-NE
- for xen-devel@lists.xenproject.org; Tue, 18 Jun 2024 10:09:20 +0000
-Received: from mail-ed1-x534.google.com (mail-ed1-x534.google.com
- [2a00:1450:4864:20::534])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id d318c4d2-2d5a-11ef-b4bb-af5377834399;
- Tue, 18 Jun 2024 12:09:18 +0200 (CEST)
-Received: by mail-ed1-x534.google.com with SMTP id
- 4fb4d7f45d1cf-57cc1c00b97so4077101a12.0
- for <xen-devel@lists.xenproject.org>; Tue, 18 Jun 2024 03:09:18 -0700 (PDT)
+ id 1sJVuS-0002by-Kn
+ for xen-devel@lists.xenproject.org; Tue, 18 Jun 2024 10:17:52 +0000
+Received: from mail-ed1-x532.google.com (mail-ed1-x532.google.com
+ [2a00:1450:4864:20::532])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 04398e3f-2d5c-11ef-90a3-e314d9c70b13;
+ Tue, 18 Jun 2024 12:17:50 +0200 (CEST)
+Received: by mail-ed1-x532.google.com with SMTP id
+ 4fb4d7f45d1cf-57a30dbdb7fso9312296a12.3
+ for <xen-devel@lists.xenproject.org>; Tue, 18 Jun 2024 03:17:50 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a6f56db61a3sm599205466b.85.2024.06.18.03.09.17
+ 4fb4d7f45d1cf-57cbb05b465sm7017004a12.18.2024.06.18.03.17.49
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 18 Jun 2024 03:09:17 -0700 (PDT)
+ Tue, 18 Jun 2024 03:17:49 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d318c4d2-2d5a-11ef-b4bb-af5377834399
+X-Inumbo-ID: 04398e3f-2d5c-11ef-90a3-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1718705358; x=1719310158; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1718705870; x=1719310670; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=/po8wEE6YUYLe87jzJ8jnbUrBoqdLLA+3OtQ8amLD9Y=;
-        b=drKX0aL9DKtQsYIT3UmgSunCmg8ZjD5Cv5Ihze6JJsGSLdqQXtkNWQHIU5DpNLTWxm
-         re6yYtcaMYQqIuzCrKyo4ZMN6Pv86iPknkNB6ZTBiP6WBA7x94ZPTUQRkGQAR+wCqikJ
-         V/kKFAnTx7oox9/2GwVxk02XrZaYHHoCdMh/qT7YZsyCaTbJzdhU7KvZRybjk1erDeDi
-         Gbng1VSxkUyUkbWSPUCzKllTvBT1fXL0ZqlJ0Ob4gO7x5rrG4umhH03bvKmxxf4zBPf+
-         AZaeOeUC2MSh/tej8GcECtqpuBzaihukhzeE6UPaTiJZlR8J9M2+ST4hk9cWw+WejfYf
-         Yqiw==
+        bh=mmse11iwk+dOuhhetfXQZRuoY9UK/MzzpAZaloY4n94=;
+        b=e8+WRRSiu41PWNGVFgG6Zqo4yI7TF9WrqlsZ8nLP9NpCl7rb8ZtTbWRPo10DF/abLE
+         vyqKsViYMdqbXdZUzzxEqAkYWWDtZq7cYQI4YtsfJTGpa0s4Jzs0tOdJ5TUs8Nd9gvDy
+         VU+ikW6jJw0I53eEsAbXD4CPVb2xnFh6j5woCvxgI+XADDQge4EXc1D/YqAGnIL81Nll
+         seRDlqjlTxnX55pb1nTS3TM2Gs69COfJxN58BRJ3f5AVGr/NqY2boleEVWuvCdmaVG/G
+         Wg/X/799UqlgCfoUtzcf8LoJTUVPGfny6cOo2zOSH3JvtctjMD6rfu/SmL8ncoQ4qZF8
+         k0rg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1718705358; x=1719310158;
+        d=1e100.net; s=20230601; t=1718705870; x=1719310670;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=/po8wEE6YUYLe87jzJ8jnbUrBoqdLLA+3OtQ8amLD9Y=;
-        b=MRU9AAiinUMJTNCVEf6M7DgEngLiAh7bJ4/Z5zvZ87wwTIhQce4Gl30r9TrZPnKo32
-         +dvjuf2eBZ3aoYuItJ0IqzP5rsjPzLLG7WBYIBG3u7oGaEQ5HLRLlCB2cC9lAkqTOomV
-         XiGyg6IWCruR393Qt0WKErEo1W8DIS5HEE0MlYvsUR0/gjnBVRWECw5eilMlQYj4N7ot
-         8X9MZBYLZqYEMN14RjD1vyM2taJNTSbDVCCPCYh4iJFpTTwgUm0AQPMN3qyKv+LwCtO/
-         Yi99MJmKnERZRq+iuUict4fPo26jbL4N2fH8bPiHcGgxuQgDIsIXzTj25adXGA+vYgkX
-         byNQ==
-X-Forwarded-Encrypted: i=1; AJvYcCV1Hzs5/kMgMNi7akB/mSMUyX8IbKuyCg3ry91r+LwiCmgqWqZR+BmhUus5cHbIkD5Y/OIxBIZ8+DbPWWRI1zGDpPcmoh6/Tud/BasdS0M=
-X-Gm-Message-State: AOJu0YyOQUbwc5AKrdpomWQv66X8gdujrfNPDVfSftNBOMckba16N0U9
-	AzGELQS7HM1tSXMWOztFbVWVqcNb9NHMsQFMFIh1d7nN7nXRh1mCDmXfv91iziA1t1jRfhXdxcQ
-	=
-X-Google-Smtp-Source: AGHT+IGLl9tZMK/x7+Px3RA8WsGFEHIGZ3NkHoxybOxs0UbfCLse4TMCiqwg8VNzjTnBidpSA4ppeA==
-X-Received: by 2002:a17:906:f2da:b0:a6f:5562:167 with SMTP id a640c23a62f3a-a6f60d42710mr776464666b.38.1718705357939;
-        Tue, 18 Jun 2024 03:09:17 -0700 (PDT)
-Message-ID: <63d11da5-4a5a-4354-ab57-67fbb7110f45@suse.com>
-Date: Tue, 18 Jun 2024 12:09:16 +0200
+        bh=mmse11iwk+dOuhhetfXQZRuoY9UK/MzzpAZaloY4n94=;
+        b=tiyGJ91L1iXoZDnO5e1iaYukocF7A59QShMImVUBHbADNRKYnBZCsxzns21007ER1t
+         jhtBTK3i3K62/aJ1aBqDqgB/X3DJhLwZ/5acpZL7wAVrn+Qtm+8VE7kX0czlQFxZs6ah
+         Tb46+UqIrEfzAtQxXJx641rGHzIzugEhNZ0GhyVIBSUinasU9+L4f6SloFftDTx+kjuz
+         64SvY2WzMrCvwI/9JfkaKghbPdkRP4uNkVjQa1guS3ypX3wGOgyRrsh6NUYVByJKXVga
+         hSTiTs1kRgiaQfzDy3S39/kA/9Vv8Nko63zPiUNA01KPyZVvIVQKuzAtnRtnAIFETZia
+         gF6Q==
+X-Forwarded-Encrypted: i=1; AJvYcCW61txxcIpcbi5aLs0P95H5m+Sk6pvd5UUoWuVBtOuNet0Ol2zaJwsipheVikW/A/2hscholPLcv8E+t2ZVsb0jLlSsUayHrO2oV4A2gxs=
+X-Gm-Message-State: AOJu0YwYDb6Er9V6gjseON5mY7o/QuucjMCQWQvG9abftdX2x6aaVGvL
+	gvh4u3nU0VdOLH93U8bpHbFSKbCmjOqgkXXDODFHdBRHD69qrjvfi8LGMMZpww==
+X-Google-Smtp-Source: AGHT+IHnINw1V0tHbmiq3APKrRqreJIbHSt0C1d2QVxCbPFa79Pygjv5nj5vh0FBWCe+s8dhyOhvMQ==
+X-Received: by 2002:a50:cd01:0:b0:57c:6832:7b2e with SMTP id 4fb4d7f45d1cf-57cbd4d96admr8996861a12.0.1718705869892;
+        Tue, 18 Jun 2024 03:17:49 -0700 (PDT)
+Message-ID: <9c1aa55f-f5e9-45a4-8df1-358db981bdfd@suse.com>
+Date: Tue, 18 Jun 2024 12:17:48 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] automation/eclair_analysis: deviate common/unlzo.c for
- MISRA Rule 7.3
-To: Alessandro Zucchelli <alessandro.zucchelli@bugseng.com>
-Cc: consulting@bugseng.com, Simone Ballarin <simone.ballarin@bugseng.com>,
- Doug Goldstein <cardoe@cardoe.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <20342a68627d5fe7c85c50f64e9300e9a587974b.1718704260.git.alessandro.zucchelli@bugseng.com>
+Subject: Re: [PATCH v4 3/7] x86/boot: Collect the Raw CPU Policy earlier on
+ boot
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20240617173921.1755439-1-andrew.cooper3@citrix.com>
+ <20240617173921.1755439-4-andrew.cooper3@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -114,20 +114,23 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20342a68627d5fe7c85c50f64e9300e9a587974b.1718704260.git.alessandro.zucchelli@bugseng.com>
+In-Reply-To: <20240617173921.1755439-4-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 18.06.2024 11:54, Alessandro Zucchelli wrote:
-> The file contains violations of Rule 7.3 which states as following: The
-> lowercase character `l' shall not be used in a literal suffix.
+On 17.06.2024 19:39, Andrew Cooper wrote:
+> This is a tangle, but it's a small step in the right direction.
 > 
-> This file defines a non-compliant constant used in a macro expanded in a
-> non-excluded file, so this deviation is needed in order to avoid
-> a spurious violation involving both files.
+> In the following change, xstate_init() is going to start using the Raw policy.
+> 
+> calculate_raw_cpu_policy() is sufficiently separate from the other policies to
+> safely move like this.
+> 
+> No functional change.
+> 
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-Imo it would be nice to be specific in such cases: Which constant? And
-which macro expanded in which file?
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
-Jan
+
 
