@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 42D4990C542
-	for <lists+xen-devel@lfdr.de>; Tue, 18 Jun 2024 11:23:27 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.742902.1149780 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1C6D690C574
+	for <lists+xen-devel@lfdr.de>; Tue, 18 Jun 2024 11:43:37 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.742910.1149789 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sJV3Y-0007Ia-6f; Tue, 18 Jun 2024 09:23:12 +0000
+	id 1sJVMV-0002e6-Nm; Tue, 18 Jun 2024 09:42:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 742902.1149780; Tue, 18 Jun 2024 09:23:12 +0000
+Received: by outflank-mailman (output) from mailman id 742910.1149789; Tue, 18 Jun 2024 09:42:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sJV3Y-0007H4-3m; Tue, 18 Jun 2024 09:23:12 +0000
-Received: by outflank-mailman (input) for mailman id 742902;
- Tue, 18 Jun 2024 09:23:11 +0000
+	id 1sJVMV-0002bW-L4; Tue, 18 Jun 2024 09:42:47 +0000
+Received: by outflank-mailman (input) for mailman id 742910;
+ Tue, 18 Jun 2024 09:42:46 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=MUlf=NU=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sJV3X-0007Gy-0O
- for xen-devel@lists.xenproject.org; Tue, 18 Jun 2024 09:23:11 +0000
-Received: from mail-ed1-x52d.google.com (mail-ed1-x52d.google.com
- [2a00:1450:4864:20::52d])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=x1Qc=NU=linaro.org=viresh.kumar@srs-se1.protection.inumbo.net>)
+ id 1sJVMU-0002bQ-6c
+ for xen-devel@lists.xenproject.org; Tue, 18 Jun 2024 09:42:46 +0000
+Received: from mail-ot1-x335.google.com (mail-ot1-x335.google.com
+ [2607:f8b0:4864:20::335])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 60123bef-2d54-11ef-b4bb-af5377834399;
- Tue, 18 Jun 2024 11:23:09 +0200 (CEST)
-Received: by mail-ed1-x52d.google.com with SMTP id
- 4fb4d7f45d1cf-57c83100c5fso5652297a12.3
- for <xen-devel@lists.xenproject.org>; Tue, 18 Jun 2024 02:23:08 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a6f63f7e9d8sm492780866b.182.2024.06.18.02.23.06
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 18 Jun 2024 02:23:07 -0700 (PDT)
+ id 1c6c19f9-2d57-11ef-b4bb-af5377834399;
+ Tue, 18 Jun 2024 11:42:44 +0200 (CEST)
+Received: by mail-ot1-x335.google.com with SMTP id
+ 46e09a7af769-6fb840d8ffdso2493323a34.1
+ for <xen-devel@lists.xenproject.org>; Tue, 18 Jun 2024 02:42:44 -0700 (PDT)
+Received: from localhost ([122.172.82.13]) by smtp.gmail.com with ESMTPSA id
+ 41be03b00d2f7-6fedf0bef16sm7753098a12.43.2024.06.18.02.42.41
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 18 Jun 2024 02:42:42 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,133 +44,175 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 60123bef-2d54-11ef-b4bb-af5377834399
+X-Inumbo-ID: 1c6c19f9-2d57-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1718702588; x=1719307388; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=X2cOGxP+OyaxgX906gQx67pblQNDp8zrUXWHTlRxoMk=;
-        b=gPQXa9wq81PW27PVQRsSxpAZEpRUTuDXQ3kqxW6i9gXYdxkykTkK3iCQdXQSefyLrw
-         985PwbH8uGpFhqIi7Qt8I8elHHxhNaMxkf9i0footZcXGK7FRUaaWcNKnkycVhvh2jMo
-         L+bRjOIeRila8qx+Xtkfv0veuGu0tGrqDmEifdErjFN6ZjOEz1D3IJgODR+nppgqENNc
-         Sk2eOG86O9Rr39wG4/6FChVQrceD28XmdxadWdQPaaz35KzT4lqm6l3OuolIByvkXiBT
-         oT+j95BOMJY7Q90+qsxk99+CZgSmZhY4DyXBOoW3KIw/cxb82f9DGxq08Zl2t0JDKemo
-         x5Xg==
+        d=linaro.org; s=google; t=1718703763; x=1719308563; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=8UALesfbksrHHNtNwGYa4E+DNFkRXivhYiDbx6+KbJc=;
+        b=S+74Pnur6hpPfzhn/qtKmLoZ3J1fVWoLtYJQkVpqpm8Rsz+XPBfu/OiEHwUt81k307
+         nrIWbLVS9z43ZtMP8KPs0fn3a8/dZQsxRZHFxqcbEhSZ1PpMod4j+dqN5BhSFRuppqUu
+         qyCF+v9maudBj38cK1xCcNOXZc2jxb4/7uCfJ7fTF7IIbYarQOSELxqg8BJgwEyvv29a
+         JEvl0pUgEtnn0GdRGE3bYEXxZX5SqQYQEkMNbtZWKQD3SSIpoaXGI+CM9W4Q7ujOw5wl
+         6Rel2CVqsrQYkhESv5kjmhbHIsB15CopEK1xYttYptzOmmE9fVRUP3N4V/1Vm4KLa1Tq
+         NO+Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1718702588; x=1719307388;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=X2cOGxP+OyaxgX906gQx67pblQNDp8zrUXWHTlRxoMk=;
-        b=wLxxbtSi64Oek448wmpOVUL+LdLOBhoDzmu7HNWlh5P8HEI/vCFp4dC++SSKDloPBz
-         mOOiF6UgVPvwuGkkW/XIEoFzqDsVE1TKtfjWNr5SQR4uAvvr1IAq7vnpwU+QmHLUERmy
-         dKkRNbiK5MYKfJngQsEYZ366RzjKaBcC5tp7D+SyUVakGfEJNG3t+WBmlo+vDYHn6pHn
-         Ee95V/sQcSZqTTpmnCsrihpXmYB7SOUDqjW5zVDvhMZ5F/ECHgmpc4RJD5/gy3f8IaKp
-         DipH/Aky1JKHQTW1NRF2MlU7pyRTE1aeVve+laHrM7Eo1wCDx04cjxiuaY9fiP5Spi1C
-         N98g==
-X-Forwarded-Encrypted: i=1; AJvYcCVP1W66XkgyuC4DnJwKfmHwixul2aasGI+YhG3GR1vovPwNxVSt37OTX71hQTAwTVbQuSd3vpx2uz03WxkL9nkx4gFvsyU4S3cRdWwQwFc=
-X-Gm-Message-State: AOJu0YyH7dG8wLIp2pi+Wu5/oMAgKK1DXLbfzp2aUcy+vbbDHfyXObJ6
-	53U8yyxs13SuXv+FgtG9PXGXUABXEkPw+5t317pWBnhk+Uah9YpE/C2JwJWgFQ==
-X-Google-Smtp-Source: AGHT+IGNSpRQzR/k4AoPEJne+cDcAACxwW6b/CiQ/k1ex8Yt/fwQx+LLgfytepi24DUW4cYisMRmhQ==
-X-Received: by 2002:a17:906:4883:b0:a6f:13f0:c8e9 with SMTP id a640c23a62f3a-a6f60dc54acmr733896766b.53.1718702587876;
-        Tue, 18 Jun 2024 02:23:07 -0700 (PDT)
-Message-ID: <b6beb3f3-9c33-4d4c-a607-ca0eba76f049@suse.com>
-Date: Tue, 18 Jun 2024 11:23:06 +0200
+        d=1e100.net; s=20230601; t=1718703763; x=1719308563;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=8UALesfbksrHHNtNwGYa4E+DNFkRXivhYiDbx6+KbJc=;
+        b=UALrsZawBzkdHSuxS+TP/mtYkcV0fei8N7BbkKZMthClE8ULJ7+JgJrQc9kJ8maUEz
+         PNbZ9FDdqEa5YwHgwa2gYnG2G51A2tAOkRCCG6vPbyhC34inDsuQHe9si88JBnclPhvK
+         GkLLXAqObPCz90HlY2/N5tWHMN5Qq4AEQxBJX7x9ITAliRZ46y0DTin71SheaaZPOnWJ
+         7U5wi7BK0y3lAsUaF2loGdRktgok26cnYtMvi1218uesFYg8vEeJmD9DG2iAdhHtvR77
+         mBXZOJFAshFUzv/491AAVHvpuSiVSjL2E78RWe21morCPikomIRXuZzkFdR5y5PZJtRZ
+         buMQ==
+X-Forwarded-Encrypted: i=1; AJvYcCW3byWCaxn3dVyGkdu4ofaKYkEYGKSuNoEDrZ6ikYUMNLMUVUFWdJTg8EmnqzKqkBKrsVCqxB7Gt3wpYV9rC/4pQmMHP07vyvcO5A7sMpY=
+X-Gm-Message-State: AOJu0Yx2Gpe4gbU3hCCaNa4Y0ZSE5ia4qjg6AxbO/YG22VgfPVX0aNr2
+	Q36lXSnQLQRxHwtNL3+/tYlJYJq/wtFcPeE5DER4n3E+txvwMF/CtvLshLnY/GQ=
+X-Google-Smtp-Source: AGHT+IHduV0HGFrVmQSxIvryeJgCIEd+h/riwq126F2u6x4F+za92Uiu45uPCTH4ThXJnQkPLkaziw==
+X-Received: by 2002:a9d:4d91:0:b0:6fa:81b:d4f8 with SMTP id 46e09a7af769-6fb9364ecd9mr12749877a34.1.1718703762611;
+        Tue, 18 Jun 2024 02:42:42 -0700 (PDT)
+From: Viresh Kumar <viresh.kumar@linaro.org>
+To: Juergen Gross <jgross@suse.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+Cc: Viresh Kumar <viresh.kumar@linaro.org>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	=?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>,
+	Manos Pitsidianakis <manos.pitsidianakis@linaro.org>,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	Al Viro <viro@zeniv.linux.org.uk>,
+	xen-devel@lists.xenproject.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 1/2] xen: privcmd: Switch from mutex to spinlock for irqfds
+Date: Tue, 18 Jun 2024 15:12:28 +0530
+Message-Id: <a66d7a7a9001424d432f52a9fc3931a1f345464f.1718703669.git.viresh.kumar@linaro.org>
+X-Mailer: git-send-email 2.31.1.272.g89b43f80a514
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH v10 5/5] domctl: Add XEN_DOMCTL_gsi_permission to
- grant gsi
-To: "Chen, Jiqian" <Jiqian.Chen@amd.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu
- <wl@xen.org>, George Dunlap <george.dunlap@citrix.com>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- Anthony PERARD <anthony@xenproject.org>, Juergen Gross <jgross@suse.com>,
- "Daniel P . Smith" <dpsmith@apertussolutions.com>,
- "Hildebrand, Stewart" <Stewart.Hildebrand@amd.com>,
- "Huang, Ray" <Ray.Huang@amd.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <20240617090035.839640-1-Jiqian.Chen@amd.com>
- <20240617090035.839640-6-Jiqian.Chen@amd.com>
- <b4b6cbcd-dd71-44da-aea8-6a4a170d73d5@suse.com>
- <BL1PR12MB584916579E2C16C6C9F86D1FE7CE2@BL1PR12MB5849.namprd12.prod.outlook.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <BL1PR12MB584916579E2C16C6C9F86D1FE7CE2@BL1PR12MB5849.namprd12.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 18.06.2024 10:23, Chen, Jiqian wrote:
-> On 2024/6/17 23:32, Jan Beulich wrote:
->> On 17.06.2024 11:00, Jiqian Chen wrote:
->>> @@ -1516,14 +1519,39 @@ static void pci_add_dm_done(libxl__egc *egc,
->>>              rc = ERROR_FAIL;
->>>              goto out;
->>>          }
->>> -        r = xc_domain_irq_permission(ctx->xch, domid, irq, 1);
->>> +#ifdef CONFIG_X86
->>> +        /* If dom0 doesn't have PIRQs, need to use xc_domain_gsi_permission */
->>> +        r = xc_domain_getinfo_single(ctx->xch, 0, &info);
->>
->> Hard-coded 0 is imposing limitations. Ideally you would use DOMID_SELF, but
->> I didn't check if that can be used with the underlying hypercall(s). Otherwise
->> you want to pass the actual domid of the local domain here.
-> But the action of granting permission is from dom0 to domU, what I need to get is the infomation of dom0,
-> The actual domid here is domU's id I think, it is not useful.
+irqfd_wakeup() gets EPOLLHUP, when it is called by
+eventfd_release() by way of wake_up_poll(&ctx->wqh, EPOLLHUP), which
+gets called under spin_lock_irqsave(). We can't use a mutex here as it
+will lead to a deadlock.
 
-Note how I said DOMID_SELF and "local domain". There's no talk of using the
-DomU's domid. But what you apparently neglect is the fact that the hardware
-domain isn't necessarily Dom0 (see CONFIG_LATE_HWDOM in the hypervisor).
-While benign in most cases, this is relevant when it comes to referencing
-the hardware domain by domid. And it is the hardware domain which is going
-to drive the device re-assignment, as that domain is who's in possession of
-all the devices not yet assigned to any DomU.
+Fix it by switching over to a spin lock.
 
->>> @@ -237,6 +238,48 @@ long arch_do_domctl(
->>>          break;
->>>      }
->>>  
->>> +    case XEN_DOMCTL_gsi_permission:
->>> +    {
->>> +        unsigned int gsi = domctl->u.gsi_permission.gsi;
->>> +        int irq;
->>> +        bool allow = domctl->u.gsi_permission.allow_access;
->>
->> See my earlier comments on this conversion of 8 bits into just one.
-> Do you mean that I need to check allow_access is >= 0?
-> But allow_access is u8, it can't be negative.
+Reported-by: Al Viro <viro@zeniv.linux.org.uk>
+Signed-off-by: Viresh Kumar <viresh.kumar@linaro.org>
+---
+ drivers/xen/privcmd.c | 26 +++++++++++++++-----------
+ 1 file changed, 15 insertions(+), 11 deletions(-)
 
-Right. What I can only re-iterate from earlier commenting is that you
-want to check for 0 or 1 (can be viewed as looking at just the low bit),
-rejecting everything else. It is only this way that down the road we
-could assign meaning to the other bits, without risking to break existing
-callers. That's the same as the requirement to check padding fields to be
-zero.
+diff --git a/drivers/xen/privcmd.c b/drivers/xen/privcmd.c
+index 67dfa4778864..5ceb6c56cf3e 100644
+--- a/drivers/xen/privcmd.c
++++ b/drivers/xen/privcmd.c
+@@ -13,7 +13,6 @@
+ #include <linux/file.h>
+ #include <linux/kernel.h>
+ #include <linux/module.h>
+-#include <linux/mutex.h>
+ #include <linux/poll.h>
+ #include <linux/sched.h>
+ #include <linux/slab.h>
+@@ -845,7 +844,7 @@ static long privcmd_ioctl_mmap_resource(struct file *file,
+ #ifdef CONFIG_XEN_PRIVCMD_EVENTFD
+ /* Irqfd support */
+ static struct workqueue_struct *irqfd_cleanup_wq;
+-static DEFINE_MUTEX(irqfds_lock);
++static DEFINE_SPINLOCK(irqfds_lock);
+ static LIST_HEAD(irqfds_list);
+ 
+ struct privcmd_kernel_irqfd {
+@@ -909,9 +908,11 @@ irqfd_wakeup(wait_queue_entry_t *wait, unsigned int mode, int sync, void *key)
+ 		irqfd_inject(kirqfd);
+ 
+ 	if (flags & EPOLLHUP) {
+-		mutex_lock(&irqfds_lock);
++		unsigned long flags;
++
++		spin_lock_irqsave(&irqfds_lock, flags);
+ 		irqfd_deactivate(kirqfd);
+-		mutex_unlock(&irqfds_lock);
++		spin_unlock_irqrestore(&irqfds_lock, flags);
+ 	}
+ 
+ 	return 0;
+@@ -929,6 +930,7 @@ irqfd_poll_func(struct file *file, wait_queue_head_t *wqh, poll_table *pt)
+ static int privcmd_irqfd_assign(struct privcmd_irqfd *irqfd)
+ {
+ 	struct privcmd_kernel_irqfd *kirqfd, *tmp;
++	unsigned long flags;
+ 	__poll_t events;
+ 	struct fd f;
+ 	void *dm_op;
+@@ -968,18 +970,18 @@ static int privcmd_irqfd_assign(struct privcmd_irqfd *irqfd)
+ 	init_waitqueue_func_entry(&kirqfd->wait, irqfd_wakeup);
+ 	init_poll_funcptr(&kirqfd->pt, irqfd_poll_func);
+ 
+-	mutex_lock(&irqfds_lock);
++	spin_lock_irqsave(&irqfds_lock, flags);
+ 
+ 	list_for_each_entry(tmp, &irqfds_list, list) {
+ 		if (kirqfd->eventfd == tmp->eventfd) {
+ 			ret = -EBUSY;
+-			mutex_unlock(&irqfds_lock);
++			spin_unlock_irqrestore(&irqfds_lock, flags);
+ 			goto error_eventfd;
+ 		}
+ 	}
+ 
+ 	list_add_tail(&kirqfd->list, &irqfds_list);
+-	mutex_unlock(&irqfds_lock);
++	spin_unlock_irqrestore(&irqfds_lock, flags);
+ 
+ 	/*
+ 	 * Check if there was an event already pending on the eventfd before we
+@@ -1011,12 +1013,13 @@ static int privcmd_irqfd_deassign(struct privcmd_irqfd *irqfd)
+ {
+ 	struct privcmd_kernel_irqfd *kirqfd;
+ 	struct eventfd_ctx *eventfd;
++	unsigned long flags;
+ 
+ 	eventfd = eventfd_ctx_fdget(irqfd->fd);
+ 	if (IS_ERR(eventfd))
+ 		return PTR_ERR(eventfd);
+ 
+-	mutex_lock(&irqfds_lock);
++	spin_lock_irqsave(&irqfds_lock, flags);
+ 
+ 	list_for_each_entry(kirqfd, &irqfds_list, list) {
+ 		if (kirqfd->eventfd == eventfd) {
+@@ -1025,7 +1028,7 @@ static int privcmd_irqfd_deassign(struct privcmd_irqfd *irqfd)
+ 		}
+ 	}
+ 
+-	mutex_unlock(&irqfds_lock);
++	spin_unlock_irqrestore(&irqfds_lock, flags);
+ 
+ 	eventfd_ctx_put(eventfd);
+ 
+@@ -1073,13 +1076,14 @@ static int privcmd_irqfd_init(void)
+ static void privcmd_irqfd_exit(void)
+ {
+ 	struct privcmd_kernel_irqfd *kirqfd, *tmp;
++	unsigned long flags;
+ 
+-	mutex_lock(&irqfds_lock);
++	spin_lock_irqsave(&irqfds_lock, flags);
+ 
+ 	list_for_each_entry_safe(kirqfd, tmp, &irqfds_list, list)
+ 		irqfd_deactivate(kirqfd);
+ 
+-	mutex_unlock(&irqfds_lock);
++	spin_unlock_irqrestore(&irqfds_lock, flags);
+ 
+ 	destroy_workqueue(irqfd_cleanup_wq);
+ }
+-- 
+2.31.1.272.g89b43f80a514
 
-Jan
 
