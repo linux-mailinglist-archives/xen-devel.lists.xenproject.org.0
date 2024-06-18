@@ -2,35 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C90E190C480
-	for <lists+xen-devel@lfdr.de>; Tue, 18 Jun 2024 09:39:45 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.742759.1149620 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8BE3F90C4B3
+	for <lists+xen-devel@lfdr.de>; Tue, 18 Jun 2024 10:07:33 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.742772.1149630 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sJTQT-0006dY-5O; Tue, 18 Jun 2024 07:38:45 +0000
+	id 1sJTrs-0003Ei-Ay; Tue, 18 Jun 2024 08:07:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 742759.1149620; Tue, 18 Jun 2024 07:38:45 +0000
+Received: by outflank-mailman (output) from mailman id 742772.1149630; Tue, 18 Jun 2024 08:07:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sJTQT-0006bZ-26; Tue, 18 Jun 2024 07:38:45 +0000
-Received: by outflank-mailman (input) for mailman id 742759;
- Tue, 18 Jun 2024 07:38:44 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1sJTQS-0006bP-3D; Tue, 18 Jun 2024 07:38:44 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1sJTQR-0002xj-QE; Tue, 18 Jun 2024 07:38:43 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1sJTQR-0008Bi-BQ; Tue, 18 Jun 2024 07:38:43 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1sJTQR-0002Xd-Aw; Tue, 18 Jun 2024 07:38:43 +0000
+	id 1sJTrs-0003CO-7l; Tue, 18 Jun 2024 08:07:04 +0000
+Received: by outflank-mailman (input) for mailman id 742772;
+ Tue, 18 Jun 2024 08:07:03 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=oyK7=NU=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1sJTrr-0003CI-7V
+ for xen-devel@lists.xenproject.org; Tue, 18 Jun 2024 08:07:03 +0000
+Received: from mail-lf1-x131.google.com (mail-lf1-x131.google.com
+ [2a00:1450:4864:20::131])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id be6c9d74-2d49-11ef-90a3-e314d9c70b13;
+ Tue, 18 Jun 2024 10:07:02 +0200 (CEST)
+Received: by mail-lf1-x131.google.com with SMTP id
+ 2adb3069b0e04-52c84a21c62so5735482e87.1
+ for <xen-devel@lists.xenproject.org>; Tue, 18 Jun 2024 01:07:02 -0700 (PDT)
+Received: from [192.168.219.221] ([94.75.70.14])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-52ca2872427sm1455326e87.166.2024.06.18.01.07.01
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 18 Jun 2024 01:07:01 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,72 +45,103 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=Lh67WCtQ02Or1J4BrJFejXEB9U+2B6kU6/wHvKjBJS0=; b=fXGKBq2W97Y0UKgcujhn1LqctZ
-	cEO3GvAiFBhDws9g54H1zdT4pt2HdYhKbHZv4iAyAQmZWN1GsimAchq8vnvZVK+XK7lUxk4cZU2QX
-	uyTonh2hno2tWNCI56JyBqQK/l+341nmtMtcVdbBfxKlPiyQw+0bMgHPL9GejSbBiZzI=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-186391-mainreport@xen.org>
+X-Inumbo-ID: be6c9d74-2d49-11ef-90a3-e314d9c70b13
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1718698022; x=1719302822; darn=lists.xenproject.org;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=oOp5IY/ju+wrRhPM+rZbHzXF+t0glHzY2TCapP0EYd0=;
+        b=NMVjI3htE6xakQ8N4PiOLC0ZVo9qOqe68aHPihL+ytr+aSVlHupY6nj2nTdUEvHre+
+         Z/9VUyrElOCmH6O3LdCOSWDcwF9tkzlw+jN9N75Y4xPtnKh5nMbosnSGvRC7dgNGDlCx
+         NLGDcepwIjZUb4A0WJaeZ5Aes8/fPQL57KJTJHPJQWRQiPorOpk4DCBfcG6eqLTO1/wo
+         TdSzIdD3lxzucrEX7bxW4RhziDrNrn6QtAeRWPnfpr/0RnVKfrgdpVcm541LOU2T0Xto
+         v0N+qzvuR9SmZwt1cd8UVKGKqWX645hoh/+7LGQ5XrXs4FDP23yhwQvrgH7bCBXPJLdo
+         BSwQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1718698022; x=1719302822;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=oOp5IY/ju+wrRhPM+rZbHzXF+t0glHzY2TCapP0EYd0=;
+        b=fGgjXvXLHyPuMkN8Pq7AuEUcGTxASbuoVQ/e+JnkSILUHV3VmGJXPNSctb6EannQ/j
+         DwmNh+yw2tF22Pdp3geaULUhkgFnE9us+9rXQWEh/BmVSc4QTUabxKQiBft1Q7y9+Kxc
+         TYxiN/ilTqbT5VlYDhYFaQuE1TxgyPUEuJZAT4VcVOTGbb6pitJsAa2+q7HKCh8j4I3N
+         guF9DrdG8mdocseaGoy12nRZwSOU8iS7ZVwRK37DwxlhPOsQFtOFzyTnsAPgxPNl5joH
+         q4HY7jqEC6zrRoA0zUGb+k5qk/DPnTBrnDSzyQCVOV/yu6K4RH7KSM8/bVUKhlDTXX0+
+         IM/w==
+X-Forwarded-Encrypted: i=1; AJvYcCWp45drqBhHFuYRXfnTkD1PrLAE5cj5MRnsu3Y67qT1tHsMVMjWch2E5X9hZtxlgP+3jaXXnKvuFo0j24wl36Nb0W0ZAOXa//64a+wY9HI=
+X-Gm-Message-State: AOJu0Yx14c7EhD/R1ODQfl7jECO47dpjAc6oO8YEEdIwOMexyk21awUZ
+	8EVcoWfiuZ6ft6HJYc7ndadkxdkSQw3JWYgyEKF2Ebq/rDT18S/u
+X-Google-Smtp-Source: AGHT+IH/TP0USun3+K1F68eFUQQzP0Z90ED5Ie2Ct3NEpL6pLlhspG8/ky7hgw78zYqAw4DTGYF0iA==
+X-Received: by 2002:a05:6512:2348:b0:52b:bf9c:7e28 with SMTP id 2adb3069b0e04-52ca6e56012mr10412188e87.14.1718698021480;
+        Tue, 18 Jun 2024 01:07:01 -0700 (PDT)
+Message-ID: <69eb7670c15d31cad3d9cac919a69a5e85f04ce0.camel@gmail.com>
+Subject: Re: [PATCH] xen/ubsan: Fix UB in type_descriptor declaration
+From: "Oleksii K." <oleksii.kurochko@gmail.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>, Xen-devel
+	 <xen-devel@lists.xenproject.org>
+Cc: George Dunlap <George.Dunlap@citrix.com>, Jan Beulich
+ <JBeulich@suse.com>,  Stefano Stabellini <sstabellini@kernel.org>, Julien
+ Grall <julien@xen.org>
+Date: Tue, 18 Jun 2024 10:07:00 +0200
+In-Reply-To: <20240617175521.1766698-1-andrew.cooper3@citrix.com>
+References: <20240617175521.1766698-1-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.52.1 (3.52.1-1.fc40) 
 MIME-Version: 1.0
-Subject: [ovmf test] 186391: all pass - PUSHED
-X-Osstest-Versions-This:
-    ovmf=537a81ae81622d65052184b281e8b2754d0b5313
-X-Osstest-Versions-That:
-    ovmf=128513afcdfa77e94c9637e643898e61c8218e34
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Tue, 18 Jun 2024 07:38:43 +0000
 
-flight 186391 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/186391/
+On Mon, 2024-06-17 at 18:55 +0100, Andrew Cooper wrote:
+> struct type_descriptor is arranged with a NUL terminated string
+Should it be NULL instead of NUL?
 
-Perfect :-)
-All tests in this flight passed as required
-version targeted for testing:
- ovmf                 537a81ae81622d65052184b281e8b2754d0b5313
-baseline version:
- ovmf                 128513afcdfa77e94c9637e643898e61c8218e34
+> following the
+> kind/info fields.
+>=20
+> The only reason this doesn't trip UBSAN detection itself (on more
+> modern
+> compilers at least) is because struct type_descriptor is only
+> referenced in
+> suppressed regions.
+>=20
+> Switch the declaration to be a real flexible member.=C2=A0 No functional
+> change.
+>=20
+> Fixes: 00fcf4dd8eb4 ("xen/ubsan: Import ubsan implementation from
+> Linux 4.13")
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+Release-Acked-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 
-Last test of basis   186382  2024-06-17 14:13:00 Z    0 days
-Testing same since   186391  2024-06-18 06:13:04 Z    0 days    1 attempts
+~ Oleksii
+> ---
+> CC: George Dunlap <George.Dunlap@citrix.com>
+> CC: Jan Beulich <JBeulich@suse.com>
+> CC: Stefano Stabellini <sstabellini@kernel.org>
+> CC: Julien Grall <julien@xen.org>
+> CC: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+>=20
+> For 4.19, and for backport to all reasonable versions.=C2=A0 This bug
+> deserves some
+> kind of irony award.
+> ---
+> =C2=A0xen/common/ubsan/ubsan.h | 2 +-
+> =C2=A01 file changed, 1 insertion(+), 1 deletion(-)
+>=20
+> diff --git a/xen/common/ubsan/ubsan.h b/xen/common/ubsan/ubsan.h
+> index a3159040fefb..3db42e75b138 100644
+> --- a/xen/common/ubsan/ubsan.h
+> +++ b/xen/common/ubsan/ubsan.h
+> @@ -10,7 +10,7 @@ enum {
+> =C2=A0struct type_descriptor {
+> =C2=A0	u16 type_kind;
+> =C2=A0	u16 type_info;
+> -	char type_name[1];
+> +	char type_name[];
+> =C2=A0};
+> =C2=A0
+> =C2=A0struct source_location {
+>=20
+> base-commit: 8b4243a9b560c89bb259db5a27832c253d4bebc7
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Paul Grimes <paul.grimes@amd.com>
-
-jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
-   128513afcd..537a81ae81  537a81ae81622d65052184b281e8b2754d0b5313 -> xen-tested-master
 
