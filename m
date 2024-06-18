@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C558190C4ED
-	for <lists+xen-devel@lfdr.de>; Tue, 18 Jun 2024 10:26:36 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.742820.1149690 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E472590C4F4
+	for <lists+xen-devel@lfdr.de>; Tue, 18 Jun 2024 10:33:39 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.742829.1149699 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sJUAW-0000oK-8G; Tue, 18 Jun 2024 08:26:20 +0000
+	id 1sJUH8-0002vg-TM; Tue, 18 Jun 2024 08:33:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 742820.1149690; Tue, 18 Jun 2024 08:26:20 +0000
+Received: by outflank-mailman (output) from mailman id 742829.1149699; Tue, 18 Jun 2024 08:33:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sJUAW-0000lx-4b; Tue, 18 Jun 2024 08:26:20 +0000
-Received: by outflank-mailman (input) for mailman id 742820;
- Tue, 18 Jun 2024 08:26:18 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1sJUH8-0002tm-Qi; Tue, 18 Jun 2024 08:33:10 +0000
+Received: by outflank-mailman (input) for mailman id 742829;
+ Tue, 18 Jun 2024 08:33:09 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=MUlf=NU=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sJUAU-0000lf-5m
- for xen-devel@lists.xenproject.org; Tue, 18 Jun 2024 08:26:18 +0000
-Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
- [2a00:1450:4864:20::62d])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 6eab53ee-2d4c-11ef-90a3-e314d9c70b13;
- Tue, 18 Jun 2024 10:26:17 +0200 (CEST)
-Received: by mail-ej1-x62d.google.com with SMTP id
- a640c23a62f3a-a6e43dad8ecso897936666b.1
- for <xen-devel@lists.xenproject.org>; Tue, 18 Jun 2024 01:26:17 -0700 (PDT)
+ id 1sJUH7-0002tg-TF
+ for xen-devel@lists.xenproject.org; Tue, 18 Jun 2024 08:33:09 +0000
+Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
+ [2a00:1450:4864:20::629])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 633607b1-2d4d-11ef-b4bb-af5377834399;
+ Tue, 18 Jun 2024 10:33:07 +0200 (CEST)
+Received: by mail-ej1-x629.google.com with SMTP id
+ a640c23a62f3a-a6f253a06caso610514366b.1
+ for <xen-devel@lists.xenproject.org>; Tue, 18 Jun 2024 01:33:07 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a6f56da40easm593951966b.26.2024.06.18.01.26.15
+ a640c23a62f3a-a6f56f42801sm593429966b.166.2024.06.18.01.33.05
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 18 Jun 2024 01:26:16 -0700 (PDT)
+ Tue, 18 Jun 2024 01:33:06 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,58 +45,57 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6eab53ee-2d4c-11ef-90a3-e314d9c70b13
+X-Inumbo-ID: 633607b1-2d4d-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1718699176; x=1719303976; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1718699587; x=1719304387; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=CcAq5yeb76TA5G66ic4dihfr2dtGNBChhAibNhJp7Co=;
-        b=Zw5WRQ8+v3XUqq3Ph5NdKq/Dyu8rqW1gqFgClyCaRqbdw61gLbTSJPw0GkBqdTeRKd
-         LjmlGM8gIXuWuiyoipNGxlJ1f0TSTGFSTasKaTtPbuAvtOJaxIiV/LZJG1lfG0PytL/5
-         QxvmiZq9Q+ZlSxSa+Dc6m7RvxiZvS5w4Leb1+q7qRfjeCirVuF9MdTxAfhD9sojYVTa6
-         +x0rNILUuyYxFOma+s2m+eugood0u1ESs0ZyITVQEVRYrPsFXVX5QGzXWqDVbQTzbQ03
-         DDs5hh1bOc0NU0V4a9SN2pZ6RrjXrBIzlW8clfa3WyemQxhljHdawQs8JAttr3UJhX2E
-         7jwg==
+        bh=X4WHF8hc7Sw6TrRc++lpt1ZOAsyYQQFuAPuA7Q3d9iQ=;
+        b=LqcBKJLJdvXNyNn/lXpk169rddFp7fTJfYopfm0IDJ7dd/UTx3P+xUcA83RYDonlKH
+         HW622pLXI2vlJMEQZvKBOW5YCUZ3nZoznJytt7EQLwndSbmmf0HdMUdGyFIRk4UPbMM2
+         kqj5u6qzhdxbp0e8zT8AryAO7IyIouHTQd3qtcSC4jMJeLh4KTziGWHsLXXbs8s/WatI
+         6YEMhUdQq3aZj2ADRbFV5A6wzW/2/9CzcFHHF2fTXkMDzcGMozYbiPxO2LRZj1MB7tP1
+         ryYrKQU6ZJDAQLMqG7lB2vSppVg/vrhHrC0qOxiFerYJlyPdXKDQ5JAcBnSvBZB7rki4
+         4hXA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1718699176; x=1719303976;
+        d=1e100.net; s=20230601; t=1718699587; x=1719304387;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=CcAq5yeb76TA5G66ic4dihfr2dtGNBChhAibNhJp7Co=;
-        b=xT2KqcDBOLyZiSQLCiIC0DiB1DG69gHAymeSdBYrHEGlt/Plu64dIPqJa09tqqf0ce
-         i0WxMHb+wzw5EBig9hUoizAuedqp3Eou5gJxhE8B+QhfTA0aJM3TdB3V0iTfvkFuyx8p
-         t4OZrx3Gdd4nREURlH0DLDNw2q/R2HaTXxnatuf2xMimF0RKgfCZvMYmM+mOXIpDMWNw
-         HSou+7/A435G83xXuFFQsBcnDn69Yja2S4sAmz8CxMZuhV4cSiYmTDJrbe0XUZJZdD7c
-         Rh4BptrvmuNI7c4oeeepc9rmJVfVgYUGu8ZWgCvpU92bF5F3lKiosPJNR7ZIa80xwezM
-         R0sQ==
-X-Forwarded-Encrypted: i=1; AJvYcCXBpV9bIYm7lBn+fvsrfdcbdpjkAFuYHhIhp6CC83gzezje82FpcnopRJGbG+przHcapiuUQ4KqlYomKYUJtDfTssr87cS+VI5QN+8DLLw=
-X-Gm-Message-State: AOJu0Yx/UohjMHzImMk3c/Lz5DW0ifBYFEKq342yEvsUKS5trQcT+tUi
-	HZrcqtRF+l9b46UMW0U27kc8tajPxNzFXMaYTaVoyDZJXGwuE8VpEbA5OKQMpQ==
-X-Google-Smtp-Source: AGHT+IFwFLMRnUo8jgcrzJtZSR/iEbhZ8VfqaBORz9p25rIDdt4JiIQ7mnGF7hEznnrPbfaNwEY0Gw==
-X-Received: by 2002:a17:906:66ce:b0:a6f:1285:5799 with SMTP id a640c23a62f3a-a6f9508d99bmr114658166b.36.1718699176513;
-        Tue, 18 Jun 2024 01:26:16 -0700 (PDT)
-Message-ID: <dfae4cdc-d445-4e1e-83f4-3b1ca790beb7@suse.com>
-Date: Tue, 18 Jun 2024 10:26:14 +0200
+        bh=X4WHF8hc7Sw6TrRc++lpt1ZOAsyYQQFuAPuA7Q3d9iQ=;
+        b=qNiIEVOb1Tr9J4VUSryGzv3dRum/qZkFn2hf62Bl5o4uyqtSbdyZRcA35P3VZO2iZ/
+         oihoF4IJiai+95XHfLRirZCflHrZKcSGYLVh8/tO1aZlw93WXk6QfIJamK87+0w6pPKx
+         ZQoukyNq3XQ4SxASL23X4JaoB6f2p0S/BC6hyaGZfcm1HvCYkDR8XH9I5YcwZVltUhvy
+         q+x1cx9ofPUMHolyWEvCoK1biZ+1oXU3UT+AyJoDkKZIf54fnK8lP2y9vtbuald1RQPK
+         YXkVENoQ2kgsl6Uley0V4OmqK6zpBV6b0yIdOQlst7PT4Lot4hY7dHExkxGVxiS0C/CP
+         TWQQ==
+X-Forwarded-Encrypted: i=1; AJvYcCVmUixykTx0EtZHakH+DduGcpfGL45EYxUxVNvFfLWRyn0v1+ogTiKHG7TtkFAHlRfYB87ZJOQg56+AvkLyrXJPZQ/l2zKli258sEaR+Ac=
+X-Gm-Message-State: AOJu0Yy6BxCTjf+iXTMsTf6KteVQTogZKGjjFMBB8g51nn+s6RzLfmIH
+	9jtmJdij+CYaYnIePKxZwAejLaXSMoCiV5wzU05ZjASC3546DR5sNF/Zi46pmA==
+X-Google-Smtp-Source: AGHT+IErUDur7idyakpyW77bZ1vXRhkTEyn/hKarEnoC3QgFO/z8MPejw9H7Uc+R1hStwXJxCGU9JA==
+X-Received: by 2002:a17:906:1148:b0:a6f:1541:e8d5 with SMTP id a640c23a62f3a-a6f60d37820mr1008414266b.23.1718699586622;
+        Tue, 18 Jun 2024 01:33:06 -0700 (PDT)
+Message-ID: <f8381d8b-0ad2-4766-8a53-d1ee44ea7e05@suse.com>
+Date: Tue, 18 Jun 2024 10:33:04 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v12 5/8] xen/riscv: add minimal stuff to mm.h to build
- full Xen
-To: "Oleksii K." <oleksii.kurochko@gmail.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, George Dunlap <george.dunlap@citrix.com>,
+Subject: Re: [XEN PATCH v10 1/5] xen/vpci: Clear all vpci status of device
+To: "Chen, Jiqian" <Jiqian.Chen@amd.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu
+ <wl@xen.org>, George Dunlap <george.dunlap@citrix.com>,
  Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
-References: <cover.1717008161.git.oleksii.kurochko@gmail.com>
- <d00b86f41ef2c7d928a28dadd8c34fb845f23d0a.1717008161.git.oleksii.kurochko@gmail.com>
- <70128dba-498f-4d85-8507-bb1621182754@citrix.com>
- <7721c1b4eb0ea76cca5460264954d40d639499b7.camel@gmail.com>
- <e80e30c9-6558-4b70-ab2f-18c34c359dae@citrix.com>
- <1b3b389156ad924f00af8af1d173b89fc533050e.camel@gmail.com>
- <fa62c314-424e-4e5b-9046-3a2e1eba654e@citrix.com>
- <0b6350f2d8cfe8f2f8f24f1f2de601f3db529335.camel@gmail.com>
+ Anthony PERARD <anthony@xenproject.org>, Juergen Gross <jgross@suse.com>,
+ "Daniel P . Smith" <dpsmith@apertussolutions.com>,
+ "Hildebrand, Stewart" <Stewart.Hildebrand@amd.com>,
+ "Huang, Ray" <Ray.Huang@amd.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <20240617090035.839640-1-Jiqian.Chen@amd.com>
+ <20240617090035.839640-2-Jiqian.Chen@amd.com>
+ <4e2accc2-e81d-450a-af2d-38884455de9c@suse.com>
+ <BL1PR12MB58499527CFA36446EAD3FCE0E7CE2@BL1PR12MB5849.namprd12.prod.outlook.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -122,65 +121,116 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <0b6350f2d8cfe8f2f8f24f1f2de601f3db529335.camel@gmail.com>
+In-Reply-To: <BL1PR12MB58499527CFA36446EAD3FCE0E7CE2@BL1PR12MB5849.namprd12.prod.outlook.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 18.06.2024 10:21, Oleksii K. wrote:
-> On Fri, 2024-06-14 at 10:47 +0100, Andrew Cooper wrote:
->> On 11/06/2024 7:23 pm, Oleksii K. wrote:
->>> [OPTION 1] If we accepting of loosing 4 Gb of VA then we could
->>> implement mfn_to_page() and page_to_mfn() in the following way:
->>> ```
->>>    diff --git a/xen/arch/riscv/include/asm/mm.h
->>>    b/xen/arch/riscv/include/asm/mm.h
->>>    index cc4a07a71c..fdac7e0646 100644
->>>    --- a/xen/arch/riscv/include/asm/mm.h
->>>    +++ b/xen/arch/riscv/include/asm/mm.h
->>>    @@ -107,14 +107,11 @@ struct page_info
->>>    
->>>     #define frame_table ((struct page_info *)FRAMETABLE_VIRT_START)
->>>    
->>>    -/* PDX of the first page in the frame table. */
->>>    -extern unsigned long frametable_base_pdx;
->>>    -
->>>     /* Convert between machine frame numbers and page-info
->>> structures.
->>> */
->>>     #define
->>> mfn_to_page(mfn)                                          
->>> \
->>>    -    (frame_table + (mfn_to_pdx(mfn) - frametable_base_pdx))
->>>    +    (frame_table + mfn))
->>>     #define
->>> page_to_mfn(pg)                                           
->>> \
->>>    -    pdx_to_mfn((unsigned long)((pg) - frame_table) +
->>>    frametable_base_pdx)
->>>    +    ((unsigned long)((pg) - frame_table))
->>>    
->>>     static inline void *page_to_virt(const struct page_info *pg)
->>>     {
->>>    diff --git a/xen/arch/riscv/mm.c b/xen/arch/riscv/mm.c
->>>    index 9c0fd80588..8f6dbdc699 100644
->>>    --- a/xen/arch/riscv/mm.c
->>>    +++ b/xen/arch/riscv/mm.c
->>>    @@ -15,7 +15,7 @@
->>>     #include <asm/page.h>
->>>     #include <asm/processor.h>
->>>    
->>>    -unsigned long __ro_after_init frametable_base_pdx;
->>>     unsigned long __ro_after_init frametable_virt_end;
->>>    
->>>     struct mmu_desc {
->>> ```
+On 18.06.2024 08:25, Chen, Jiqian wrote:
+> On 2024/6/17 22:17, Jan Beulich wrote:
+>> On 17.06.2024 11:00, Jiqian Chen wrote:
+>>> --- a/xen/drivers/pci/physdev.c
+>>> +++ b/xen/drivers/pci/physdev.c
+>>> @@ -2,11 +2,17 @@
+>>>  #include <xen/guest_access.h>
+>>>  #include <xen/hypercall.h>
+>>>  #include <xen/init.h>
+>>> +#include <xen/vpci.h>
+>>>  
+>>>  #ifndef COMPAT
+>>>  typedef long ret_t;
+>>>  #endif
+>>>  
+>>> +static const struct pci_device_state_reset_method
+>>> +                    pci_device_state_reset_methods[] = {
+>>> +    [ DEVICE_RESET_FLR ].reset_fn = vpci_reset_device_state,
+>>> +};
 >>
->> I firmly recommend option 1, especially at this point.
-> Jan, as you gave your Acked before, don't you mind to define
-> mfn_to_page() and page_to_mfn as mentioned above ( Option 1 )?
+>> What about the other three DEVICE_RESET_*? In particular ...
+> I don't know how to implement the other three types of reset.
+> This is a design form so that corresponding processing functions can be added later if necessary. Do I need to set them to NULL pointers in this array?
 
-No, I don't mind. And please feel free to keep my ack if no other significant
-changes are made.
+No.
+
+> Does this form conform to your previous suggestion of using only one hypercall to handle all types of resets?
+
+Yes, at least in principle. Question here is: To be on the safe side,
+wouldn't we better reset state for all forms of reset, leaving possible
+relaxation of that for later? At which point the function wouldn't need
+calling indirectly, and instead would be passed the reset type as an
+argument.
+
+>> Also, nit (further up): Opening figure braces for a new scope go onto their
+> OK, will change in next version.
+>> own line. Then again I notice that apparenly _all_ other instances in this
+>> file are doing it the wrong way, too.
+> Do I need to change them in this patch?
+
+No.
+
+>>> --- a/xen/drivers/vpci/vpci.c
+>>> +++ b/xen/drivers/vpci/vpci.c
+>>> @@ -172,6 +172,15 @@ int vpci_assign_device(struct pci_dev *pdev)
+>>>  
+>>>      return rc;
+>>>  }
+>>> +
+>>> +int vpci_reset_device_state(struct pci_dev *pdev)
+>>
+>> As a target of an indirect call this needs to be annotated cf_check (both
+>> here and in the declaration, unlike __must_check, which is sufficient to
+>> have on just the declaration).
+> OK, will add cf_check in next version.
+
+Which may not be necessary if you go the route suggested above.
+
+>>> --- a/xen/include/xen/pci.h
+>>> +++ b/xen/include/xen/pci.h
+>>> @@ -156,6 +156,22 @@ struct pci_dev {
+>>>      struct vpci *vpci;
+>>>  };
+>>>  
+>>> +struct pci_device_state_reset_method {
+>>> +    int (*reset_fn)(struct pci_dev *pdev);
+>>> +};
+>>> +
+>>> +enum pci_device_state_reset_type {
+>>> +    DEVICE_RESET_FLR,
+>>> +    DEVICE_RESET_COLD,
+>>> +    DEVICE_RESET_WARM,
+>>> +    DEVICE_RESET_HOT,
+>>> +};
+>>> +
+>>> +struct pci_device_state_reset {
+>>> +    struct physdev_pci_device dev;
+>>> +    enum pci_device_state_reset_type reset_type;
+>>> +};
+>>
+>> This is the struct to use as hypercall argument. How can it live outside of
+>> any public header? Also, when moving it there, beware that you should not
+>> use enum-s there. Only handles and fixed-width types are permitted.t
+> Yes, I put them there before, but enum is not permitted.
+> Then, do you have other suggested type to use to distinguish different types of resets, because enum can't work in the public header?
+
+Do like we do everywhere else: Use a set of #define-s.
+
+>>> --- a/xen/include/xen/vpci.h
+>>> +++ b/xen/include/xen/vpci.h
+>>> @@ -38,6 +38,7 @@ int __must_check vpci_assign_device(struct pci_dev *pdev);
+>>>  
+>>>  /* Remove all handlers and free vpci related structures. */
+>>>  void vpci_deassign_device(struct pci_dev *pdev);
+>>> +int __must_check vpci_reset_device_state(struct pci_dev *pdev);
+>>
+>> What's the purpose of this __must_check, when the sole caller is calling
+>> this through a function pointer, which isn't similarly annotated?
+> This is what I added before introducing function pointers, but after modifying the implementation, it was not taken into account.
+> I will remove __must_check
+
+Why remove? Is it relevant for the return value to be checked? Or if it
+isn't, why would there be a return value?
 
 Jan
+
+> and change to cf_check, according to your above comment.
+
 
