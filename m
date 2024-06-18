@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4E48490CF1A
-	for <lists+xen-devel@lfdr.de>; Tue, 18 Jun 2024 15:24:53 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.743094.1149992 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BBBE490D08E
+	for <lists+xen-devel@lfdr.de>; Tue, 18 Jun 2024 15:34:58 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.743101.1150002 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sJYox-0002DC-3L; Tue, 18 Jun 2024 13:24:23 +0000
+	id 1sJYyp-00040J-US; Tue, 18 Jun 2024 13:34:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 743094.1149992; Tue, 18 Jun 2024 13:24:23 +0000
+Received: by outflank-mailman (output) from mailman id 743101.1150002; Tue, 18 Jun 2024 13:34:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sJYox-0002BX-0L; Tue, 18 Jun 2024 13:24:23 +0000
-Received: by outflank-mailman (input) for mailman id 743094;
- Tue, 18 Jun 2024 13:24:22 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1sJYyp-0003yc-Rj; Tue, 18 Jun 2024 13:34:35 +0000
+Received: by outflank-mailman (input) for mailman id 743101;
+ Tue, 18 Jun 2024 13:34:34 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=An5i=NU=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1sJYow-0002BR-2k
- for xen-devel@lists.xenproject.org; Tue, 18 Jun 2024 13:24:22 +0000
-Received: from mail-qk1-x72c.google.com (mail-qk1-x72c.google.com
- [2607:f8b0:4864:20::72c])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 119eae25-2d76-11ef-90a3-e314d9c70b13;
- Tue, 18 Jun 2024 15:24:21 +0200 (CEST)
-Received: by mail-qk1-x72c.google.com with SMTP id
- af79cd13be357-7955841fddaso442602185a.1
- for <xen-devel@lists.xenproject.org>; Tue, 18 Jun 2024 06:24:21 -0700 (PDT)
+ id 1sJYyo-0003yG-8Q
+ for xen-devel@lists.xenproject.org; Tue, 18 Jun 2024 13:34:34 +0000
+Received: from mail-oo1-xc36.google.com (mail-oo1-xc36.google.com
+ [2607:f8b0:4864:20::c36])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 7e38a50c-2d77-11ef-b4bb-af5377834399;
+ Tue, 18 Jun 2024 15:34:32 +0200 (CEST)
+Received: by mail-oo1-xc36.google.com with SMTP id
+ 006d021491bc7-5b9f9e7176eso2662481eaf.2
+ for <xen-devel@lists.xenproject.org>; Tue, 18 Jun 2024 06:34:32 -0700 (PDT)
 Received: from [10.125.226.166] ([160.101.139.1])
  by smtp.gmail.com with ESMTPSA id
- d75a77b69052e-444a743c42esm20831cf.79.2024.06.18.06.24.17
+ af79cd13be357-79a30cff770sm354577085a.3.2024.06.18.06.34.29
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 18 Jun 2024 06:24:18 -0700 (PDT)
+ Tue, 18 Jun 2024 06:34:30 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,47 +45,47 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 119eae25-2d76-11ef-90a3-e314d9c70b13
+X-Inumbo-ID: 7e38a50c-2d77-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1718717059; x=1719321859; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1718717671; x=1719322471; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=lcFO7b8bjtTpIe4yE5niynAMbFBLfap9jFo4QsJAN/0=;
-        b=rzOnbGrqjYosBIAlchDjBVscsXFLlSmg+99p9OsQ9L6owDYBTJqzMuvT9Qu8F+P2Cp
-         wG4RT55hpo0CzXKsajt9WcllkUUHGq3DflmXu2jysX8dMEjirPBO2nt/jUp+CBwq9nfg
-         JLOt8sK68UEb/7yFLIEzjxyX9FEZu5MIi0dHE=
+        bh=CLnvtNLWT1SPBUo52qyhrmzGb9JB0iifrNjgzCoMNic=;
+        b=en7liiBEy1smoqmgRsHCS2VlJlWtQLIPKM1jR0HfqvcBB1WxGRHw/yEZvMzCZE8Yeh
+         +fsYyYbR5X1cUsGWH4T2CJ1VO+Joe8Cz1uqORtW5G+YhPwgWXtCiNZYHvZ6uqlOxUM4k
+         Hm60cxn/FPQzTThJWahVxboGavsDdNVL/h3Wc=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1718717059; x=1719321859;
+        d=1e100.net; s=20230601; t=1718717671; x=1719322471;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=lcFO7b8bjtTpIe4yE5niynAMbFBLfap9jFo4QsJAN/0=;
-        b=vGfV3eWAKd5Xua4+A0z3ksJTTOTGaI9eivPEmTn+Y/CP2IzZPj0gP6Jop9+Bi55uxO
-         +5oYEh/G3/OQzG1lpOMjhzb5g4gK/Oynt4gWjFLwN3tAzX+BySXc0GfsRXKGxb5EvDIj
-         x5fY5YsEp90xtXEZKEdy7t69ostR7VcBVtJi8ZCIvhOXC8RqGKhkm/hidEtTaNJHLW/l
-         YYPog8X8Pn2BXly1tIyDn4v2mQdwMKVaifR30e+Q78yQ2Px9j0Gryn6JdxXfK03MgiP8
-         wbXLrTS59y3QWNCW3lJ+VaM9xKJ3ebEPtZFK0ckIOk0XwwwCSb/bs119MYhfyYKB4uqz
-         se3A==
-X-Forwarded-Encrypted: i=1; AJvYcCVUIu42eABmLTfMCaayI9vu8zVUkIKmNFrobFFqa1GijiAeadESr+Ma84HpqC7+cX2yV25C05fbWbJV6ZCg/Cfd+yE5+taVGYDSpeaMnIw=
-X-Gm-Message-State: AOJu0YwWcAMTrlX0VZBlD7ZGA5yQbd1KJRMqDWiGuKHlFEknp3u/BVo9
-	I6ALqiwfPYspD3IUq5CR3oEIm4NbrCxajFbHPTTO0YktY1JSk8b1I7c2Qv18ej0=
-X-Google-Smtp-Source: AGHT+IG1BkgppzIm2PDNhGWLdLvFwmDNrCGqrixYYe6BUwlMKwgZsGdfZQfN4SnLjai8q1AtbP6MUg==
-X-Received: by 2002:a05:620a:4507:b0:795:5f15:f9e8 with SMTP id af79cd13be357-79ba7738442mr379307885a.31.1718717059160;
-        Tue, 18 Jun 2024 06:24:19 -0700 (PDT)
-Message-ID: <13a5650d-8623-4fec-9383-ef04023257ff@citrix.com>
-Date: Tue, 18 Jun 2024 14:24:16 +0100
+        bh=CLnvtNLWT1SPBUo52qyhrmzGb9JB0iifrNjgzCoMNic=;
+        b=V+SqG+Sw7ht8gJpc3PRzLdVgDe/dpsVtaI0l0HEPkr02pvVvzqHLVhw+OFYrosVCot
+         oT0OR18XJKPXk4+WA/R2sVeJSC2GJq559yDXvNDejWPdveyEiqks4lgWdr9/yWrJPztI
+         W6u1KayO14g+hJpfLtwUOp9bX9P4CrkUEzSkLISsaXs7CByZhUrRSl5yhOopcvgtRMbR
+         MPN1geoeieId2XIJvGW89AZzWfbec19YAdjoGRyN1lh2oypmSb/vNKNR/qjFi9uBtsBZ
+         0xSotkLdTVNAZmTe6cozBTUu/4fUpDZ+Jo9uyzcW7Tb1DsGyUxeRIvmh3EzWn4Q8mCFT
+         IzBg==
+X-Forwarded-Encrypted: i=1; AJvYcCXuzRsgQSmq1xeGmSqkZfIbnr7HGwMxReBmHbe6qHcC0gjyu7C+e6/rP8vHUVlTC47sSMykQGgLtXkJiEhtuCSmq8OqvzsbPfDfnHQ4TbI=
+X-Gm-Message-State: AOJu0YxQg08rDW29qfF9bTykozbSzK+PvviB0TxQ9axfGpcYYiovCHTE
+	UggEYF8Xg6JrNELEZKTwa1ncwkjBRZWzj8rlXLUoymIqUIcZiyBgyOwARvbqa2E=
+X-Google-Smtp-Source: AGHT+IEM+fSDtrYFlzMy06hw4NwpN+EtOpDDyINpMTDLMyWAHuW6AhqNv3U4PfgW7SAypOtBzu5XIA==
+X-Received: by 2002:a05:6358:5390:b0:19f:4c1b:f0e4 with SMTP id e5c5f4694b2df-19fb500d7a3mr1515333955d.21.1718717670790;
+        Tue, 18 Jun 2024 06:34:30 -0700 (PDT)
+Message-ID: <a14df3e5-4b70-474c-b55a-a06147c18b25@citrix.com>
+Date: Tue, 18 Jun 2024 14:34:28 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH for-4.19] avoid UB in guest handle arithmetic
-To: Jan Beulich <jbeulich@suse.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Oleksii Kurochko <oleksii.kurochko@gmail.com>
-References: <227fbeda-1690-4158-8404-53b4236c0235@suse.com>
+Subject: Re: [PATCH] xen/ubsan: Fix UB in type_descriptor declaration
+To: "Oleksii K." <oleksii.kurochko@gmail.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+Cc: George Dunlap <George.Dunlap@citrix.com>, Jan Beulich
+ <JBeulich@suse.com>, Stefano Stabellini <sstabellini@kernel.org>,
+ Julien Grall <julien@xen.org>
+References: <20240617175521.1766698-1-andrew.cooper3@citrix.com>
+ <69eb7670c15d31cad3d9cac919a69a5e85f04ce0.camel@gmail.com>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -131,48 +131,39 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <227fbeda-1690-4158-8404-53b4236c0235@suse.com>
+In-Reply-To: <69eb7670c15d31cad3d9cac919a69a5e85f04ce0.camel@gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 19/03/2024 1:26 pm, Jan Beulich wrote:
-> At least XENMEM_memory_exchange can have huge values passed in the
-> nr_extents and nr_exchanged fields. Adding such values to pointers can
-> overflow, resulting in UB. Cast respective pointers to "unsigned long"
-> while at the same time making the necessary multiplication explicit.
-> Remaining arithmetic is, despite there possibly being mathematical
-> overflow, okay as per the C99 spec: "A computation involving unsigned
-> operands can never overflow, because a result that cannot be represented
-> by the resulting unsigned integer type is reduced modulo the number that
-> is one greater than the largest value that can be represented by the
-> resulting type." The overflow that we need to guard against is checked
-> for in array_access_ok().
+On 18/06/2024 9:07 am, Oleksii K. wrote:
+> On Mon, 2024-06-17 at 18:55 +0100, Andrew Cooper wrote:
+>> struct type_descriptor is arranged with a NUL terminated string
+> Should it be NULL instead of NUL?
+
+NULL and NUL can be used interchangeably; they're different spellings
+for the same thing.
+
+In the ASCII spec, the character with value 0 is spelt NUL.
+
 >
-> Note that in / down from array_access_ok() the address value is only
-> ever cast to "unsigned long" anyway, which is why in the invocation from
-> guest_handle_subrange_okay() the value doesn't need casting back to
-> pointer type.
->
-> In compat grant table code change two guest_handle_add_offset() to avoid
-> passing in negative offsets.
->
-> Since {,__}clear_guest_offset() need touching anyway, also deal with
-> another (latent) issue there: They were losing the handle type, i.e. the
-> size of the individual objects accessed. Luckily the few users we
-> presently have all pass char or uint8 handles.
->
-> Reported-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+>> following the
+>> kind/info fields.
+>>
+>> The only reason this doesn't trip UBSAN detection itself (on more
+>> modern
+>> compilers at least) is because struct type_descriptor is only
+>> referenced in
+>> suppressed regions.
+>>
+>> Switch the declaration to be a real flexible member.  No functional
+>> change.
+>>
+>> Fixes: 00fcf4dd8eb4 ("xen/ubsan: Import ubsan implementation from
+>> Linux 4.13")
+>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> Release-Acked-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 
-There wants to be a xen: prefix in the subject.
-
-But as for the UB aspect, I've checked that this does resolve the
-failure identified by the XSA-212 XTF test.
-
-Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
-Tested-by: Andrew Cooper <andrew.cooper3@citrix.com>
-
-CC'ing Oleksii as this wants to go into 4.19.
+Thanks.
 
 ~Andrew
 
