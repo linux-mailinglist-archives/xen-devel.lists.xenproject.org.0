@@ -2,38 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2A1B090E458
-	for <lists+xen-devel@lfdr.de>; Wed, 19 Jun 2024 09:25:26 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.743471.1150381 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4577B90E488
+	for <lists+xen-devel@lfdr.de>; Wed, 19 Jun 2024 09:31:52 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.743480.1150391 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sJpga-0003tM-FY; Wed, 19 Jun 2024 07:24:52 +0000
+	id 1sJpn5-0005qy-6U; Wed, 19 Jun 2024 07:31:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 743471.1150381; Wed, 19 Jun 2024 07:24:52 +0000
+Received: by outflank-mailman (output) from mailman id 743480.1150391; Wed, 19 Jun 2024 07:31:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sJpga-0003qX-C6; Wed, 19 Jun 2024 07:24:52 +0000
-Received: by outflank-mailman (input) for mailman id 743471;
- Wed, 19 Jun 2024 07:24:50 +0000
+	id 1sJpn5-0005pC-3a; Wed, 19 Jun 2024 07:31:35 +0000
+Received: by outflank-mailman (input) for mailman id 743480;
+ Wed, 19 Jun 2024 07:31:33 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=YhGR=NV=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sJpgY-0003qR-PQ
- for xen-devel@lists.xenproject.org; Wed, 19 Jun 2024 07:24:50 +0000
-Received: from mail-lj1-x22c.google.com (mail-lj1-x22c.google.com
- [2a00:1450:4864:20::22c])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=tClf=NV=amd.com=Christian.Koenig@srs-se1.protection.inumbo.net>)
+ id 1sJpn3-0005p6-Mg
+ for xen-devel@lists.xenproject.org; Wed, 19 Jun 2024 07:31:33 +0000
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on20630.outbound.protection.outlook.com
+ [2a01:111:f403:2414::630])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 03394b3b-2e0d-11ef-90a3-e314d9c70b13;
- Wed, 19 Jun 2024 09:24:49 +0200 (CEST)
-Received: by mail-lj1-x22c.google.com with SMTP id
- 38308e7fff4ca-2e724bc466fso73619531fa.3
- for <xen-devel@lists.xenproject.org>; Wed, 19 Jun 2024 00:24:49 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-705ccb8d734sm10072805b3a.195.2024.06.19.00.24.46
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 19 Jun 2024 00:24:48 -0700 (PDT)
+ id f29c1b76-2e0d-11ef-90a3-e314d9c70b13;
+ Wed, 19 Jun 2024 09:31:32 +0200 (CEST)
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by CY5PR12MB9056.namprd12.prod.outlook.com (2603:10b6:930:34::5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7698.19; Wed, 19 Jun
+ 2024 07:31:27 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::46fb:96f2:7667:7ca5]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::46fb:96f2:7667:7ca5%5]) with mapi id 15.20.7698.017; Wed, 19 Jun 2024
+ 07:31:26 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,197 +47,210 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 03394b3b-2e0d-11ef-90a3-e314d9c70b13
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1718781889; x=1719386689; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=6zDjIrT0SU8j7+7y3dFEFIMxWNOStvLUqcMxBC2QJ2k=;
-        b=Q9/ryTIFiEBuvuNpSshSwLXkr7SI0k67LNHvIbToJq0VAmmAee4R1RSjAx1M8Aft3w
-         X2RRgY00bYiz3KqlZy5WEBPivcVfXke1E5aITloRvj4sL6awTgxLCVxdWl5MbLev3xhV
-         6ByXViwGE5EqjHYIqZQ7nShjGfqfSyhrViGYv8X/SjqLZtyKv81ZWGmIYrZc0duDa6gM
-         khGO527uDd8+KWpYmp1RUyQHo+tOvycCJpJcGzbTw4Vk+ILojfOpB14F3RQZqKX8q864
-         wUBgtLFF1qNTYhR1es0UVtpwuZAZfTJ1dgbOuML2imw5ziN7tcQYsdY1Ox44E44mKOcK
-         JDzQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1718781889; x=1719386689;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=6zDjIrT0SU8j7+7y3dFEFIMxWNOStvLUqcMxBC2QJ2k=;
-        b=GoetwOjc3IGLmruZL/McGRzIUodGKhDjwAxB7Kw6h1eIaos8SZ6s9X1oWIrnPvIroO
-         Tg4IpPM0uNzSclp23Gpy2l2y1uQLndrCo3mxhSG66IoQvvACG50CiUj7YpFtQpLJXk0B
-         PxWhchvYDTqT3M7crThmZJtb8QuC2Ln1KJyEn3JennC875p+Wbxvgz+EP7x68RGu+vq0
-         36mvHaWVhFwSpwWtlOBNLmsPVL8CAJvBVLFTdNG5d/sev1alGWweLpItqdueZKneLCkv
-         gqdnCtgHAGe3JoD7sRMGyFjK3bw07Pz/S74DWWF/LffDf5NqzaY8Q2cPdcY8suPH+ayp
-         TUkQ==
-X-Forwarded-Encrypted: i=1; AJvYcCUnr/LJmB4rY5tVyzmCWoZhlctZj3vVmPscm4th8QwHj59XPhUiTvicun40940k4KSD4RHpwOtrIJwsCy710La2LqIIdc6khO6Hk9X1wqI=
-X-Gm-Message-State: AOJu0YySbKbRPsGHuFBpj2kAYLZLvhvokypStI8tSeqyZljVhIK0cwTu
-	eeagOVgsdLlhWgqaWD724lfM0OUCWfPoVsyLkOavm+q/cOfjx75UqQk0BCX/Fw==
-X-Google-Smtp-Source: AGHT+IG0Y/3LPmJ6WA8smahMRub1s6Y9hLNtskhW2zaHslxVeoTSk/so7z0gAnHp4IU4r6EmNRhAbQ==
-X-Received: by 2002:a2e:97ca:0:b0:2ec:41a6:9ee with SMTP id 38308e7fff4ca-2ec41a60f70mr1611261fa.30.1718781888929;
-        Wed, 19 Jun 2024 00:24:48 -0700 (PDT)
-Message-ID: <541885b6-fd09-4531-8ae9-8e57e504c1b3@suse.com>
-Date: Wed, 19 Jun 2024 09:24:41 +0200
-MIME-Version: 1.0
+X-Inumbo-ID: f29c1b76-2e0d-11ef-90a3-e314d9c70b13
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=ax0U8SUQOkU4K9AFH5oPHnVNTUAAqxbIbJBFMdsYKu0RepiCra9h9kTkaP71OUlZ6XTkE4SL5wO2F3qNaBjlzFRD7E94ENKcJ+37JgyKQj9N9TidDiZW8eUwtxpjQvmF67j1GJSkAFn88eyjJrT87jgawHjYOZvypC79Bien+pudrJ/EUUB4KkwbqMWFhElnHkXdE82evlZeGFSJ8XzNvBS+z0R1dJvUXDyYuytyMLny1U2Rzjs3vseAIUipnyggpSYr78ip0Sqbi289ly7vpPCbrKCFlAePhJ3sQfKDbAh2HQbPklr4ZwM59TFDgu+DTo0XjcyLNhwzwu6PPkwQ5g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=FvNrR+GTYGF30Y9iOccAGxsRHNyVf6gXTJUZybTO+ww=;
+ b=VOpeJZtqiUy4uWAqPjsDWWMMd5j6rOSNYul5BKZJhlau3oNdK0S67OwQ5qBIlzkFJnbVe5xDkQ83MGaxwmtSuK13IalOdwoT/BGmMwzUjZ8sS0AKf5hieXnkBiVPQdt5Ilgk6ZQlSSwFa0evLf48D6MBHvWnzAu5SkMnLiMH3gUvjARDWKrtdAIctCSlXqiYE8PvW81hX9vi6tFfLlLPCUWrL6CTpWCte6E/tuF43W2Oe+TGy1gaKrgfW3Ufv6dIzOCPs5Jn61PC7h7KrYYKLKfsLz1YvFbOzZhthPrAmVqVCur4KRNUypl5TotgpuiHxoMu7K8/y12ZR9khXXQqnw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=FvNrR+GTYGF30Y9iOccAGxsRHNyVf6gXTJUZybTO+ww=;
+ b=xtIsBF90vw5FRiuQfV2yFJ8ElYCchbW13DlFa3pAj0peYQsX1rFMxhiINQdEx8IlEk3Bo7TDVhqx20JGgoVNTigxpKZwSGGwm+hv63VTZrVygVKEwNMvtVpBQ75Lv+098zYYNid7RbmK+S8dkyEt8nPEWs3DQTXRXQBuq8TJeNs=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Message-ID: <13ee25a3-91ef-48da-a58d-f4b972fe0c4f@amd.com>
+Date: Wed, 19 Jun 2024 09:31:20 +0200
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 3/3] x86/irq: forward pending interrupts to new
- destination in fixup_irqs()
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
-References: <20240613165617.42538-1-roger.pau@citrix.com>
- <20240613165617.42538-4-roger.pau@citrix.com>
- <e3912334-4dbe-40e9-aed4-8b47e1570cc7@suse.com> <ZnFv7b4YNjeRXj6-@macbook>
- <2f388d0a-c9b5-409a-b622-5dfeb3093e82@suse.com> <ZnGerbiI7P9PHPmK@macbook>
- <ba89126f-715d-498e-81e1-2ed105ac2d1c@suse.com> <ZnKDTEX_eGz2sS4K@macbook>
+Subject: Re: Design session notes: GPU acceleration in Xen
+To: Demi Marie Obenour <demi@invisiblethingslab.com>,
+ =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>,
+ "Pelloux-prayer, Pierre-eric" <Pierre-eric.Pelloux-prayer@amd.com>
+Cc: Jan Beulich <jbeulich@suse.com>, Xenia Ragiadakou
+ <burzalodowa@gmail.com>, Ray Huang <ray.huang@amd.com>,
+ Xen developer discussion <xen-devel@lists.xenproject.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Direct Rendering Infrastructure development
+ <dri-devel@lists.freedesktop.org>,
+ Qubes OS Development Mailing List <qubes-devel@googlegroups.com>
+References: <Zms9tjtg06kKtI_8@itl-email>
+ <440d6444-3b02-4756-a4fa-02aae3b24b14@suse.com> <ZmvvlF0gpqFB7UC9@macbook>
+ <af1f966b-b28f-4a14-b932-3f1523adeff0@suse.com> <ZmwByZnn5vKcVLKI@macbook>
+ <Zm-FidjSK3mOieSC@itl-email> <Zm_p1QvoZcjQ4gBa@macbook>
+ <ZnCglhYlXmRPBZXE@mail-itl> <ZnDbaply6KaBUKJb@itl-email>
+ <0b00c8f9-fb79-4b11-ae22-931205653203@amd.com> <ZnGVu9TjHKiEqxsu@itl-email>
 Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <ZnKDTEX_eGz2sS4K@macbook>
-Content-Type: text/plain; charset=UTF-8
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <ZnGVu9TjHKiEqxsu@itl-email>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR4P281CA0433.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:d1::15) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|CY5PR12MB9056:EE_
+X-MS-Office365-Filtering-Correlation-Id: e089b7c7-0750-4ff1-a076-08dc9031d3f9
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230037|366013|376011|1800799021;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?Uk1HSThNSXoveG1XZ0ZRcSs3V0lsNkQ1SXJmems0MEdsWFd6R2dHZ0d0MTJ6?=
+ =?utf-8?B?THpZNktzaHpmUitIYVNFdGpFcVNQbUNISlZKNFZjcnVXZE1VR3p5bk9WTGlh?=
+ =?utf-8?B?c0Y4akRVTTJOSjRRWXJjTlJFOFFKOFR5eGRMU1QxRTUyeFNpQzRIdTNVcm1J?=
+ =?utf-8?B?K3FCbklHdjRlcHNjRnU5c3UzZDhzbnpLV3FGeE8vUkxRU3I2RmpNWkxFbGs0?=
+ =?utf-8?B?a2RwblFaZE1wMGU3YXVxckxiV1RoWDdnTEVJM0hRN0x4RTdzeEZLKzd6Ly9Y?=
+ =?utf-8?B?WjBQNnUyREk5dFB6dHp6cXR1UjdYcHhXRHJiYmdHNXpSTkRsUnhvQ2twb3hZ?=
+ =?utf-8?B?ZHZMYkplUlQ5T2crRnRza0swMEVKYmxJSVpVL2xRV3VLMXRFWXExL2RNbTBl?=
+ =?utf-8?B?bmNRcEY3YUN6azVmUmlDYnpZNk5pZ0s3QkJuSVBZZGt3N3IrYWk0SjgybEt2?=
+ =?utf-8?B?RFIwb2ZuWlBKby9YQmg2a1Y4K3hDOUZ2SC9EMy8zVGxJanV0enJhVHZPRElB?=
+ =?utf-8?B?SjUxUERvSFJxUWppeTh5bEEzbVZ2U2F6M0l2UlJuNHczZTBzNXh6QkRVNFBU?=
+ =?utf-8?B?WGwxMWRML0ZvbUV5ZHVITTdETXFWQWVGTU1UUS9qcTdtTnd2ZVgvaitmYnRs?=
+ =?utf-8?B?aFNFR1BjNkNMWnBRdWQ5RVZTNmtoaGo5clllcXJMR1BxTEZiU2FMUWU1N0U5?=
+ =?utf-8?B?MkhFby9HZXpqQUVONzV6U1pKc0szNmFWR1RkS2NmVVp2Vjg0T3R0UzQ0d2hE?=
+ =?utf-8?B?Y2Z3ajdLQ3grNm81Qk45VjdxUzVXaUJNTWdBeGhJN29XN3FiSFpPR0d2cHhQ?=
+ =?utf-8?B?NzZLZkI4WEY5Vzl1MzZlL0ppSng2QkhFdUVpQXJhYi9xZTdHOFFHZzN5ZTFj?=
+ =?utf-8?B?SHcvaE94di9lMFRXM0lHSHVheVI0OTRZQmRIbndmRzZkMjRLaU9VbVhmMHJI?=
+ =?utf-8?B?TDNMZ2p0REJncTRNTUJXdDZhWk9tUTR3NXdzYjlMRmp0N3ZaN0JRZW5BcHdz?=
+ =?utf-8?B?R2gyNzJhVEx6dXNWb1Q2K1l2ejluOWlGYUdIakxTZzE0SllNVG1jcExiL2ll?=
+ =?utf-8?B?Z1I1bDRLTHFwWUtISnhCYnlGeEZrY05HcS91U240MWpKL292RktZVlBBM0tq?=
+ =?utf-8?B?Q201UlgreFUvV1BJcmlydWdjS2Rqd0I3RWtJVzd5UlJ3Y3MyT3pqdUVCVjdn?=
+ =?utf-8?B?RHg1RU1DSjFWTmxBZDJoOWYwc1VGdkdJMkRNOEN3ZGpOVUJ2Y1VxdUJtdCtS?=
+ =?utf-8?B?VUJBODJiTnVKVVNHdm5yNnVWbUo0VXJKY1VsaTNHcEdwczl6bkYrdDJOZ1hG?=
+ =?utf-8?B?TzRUZjFsdm5vYVEvalhpNWd2QVdMSmppUXg4bkdYZDMzVVljZTFWdlVDUWVP?=
+ =?utf-8?B?anhIRTN0TmYzc1lwSG53bHBpWnQ2Z1JZMGRPLzF4UTkveE43R2VzTjU1L1pm?=
+ =?utf-8?B?Tzg5RFgwVU1ZdTgvN1JxZnFoZnpmTm1YR2NsUjgvdDJVc2FQQlNCSjFDVmRi?=
+ =?utf-8?B?NlpDVlMrLzV5UGVLbVIvekpPeDFsck85aXVoR2hXQ3dlUjdtYTFFVlMxYWti?=
+ =?utf-8?B?MmIzUHBmeTJuc2VtbkdtQno4L1BRMnpaTjRLT3JlUGovaEtTVTRFdEhZalhR?=
+ =?utf-8?B?S21DRVVoVDBxRjBTTzhESUV5TlczUldHZENqdk4xMVhlMFNhOGRNNitIVVZ4?=
+ =?utf-8?B?ckhoVVdVT1FESCtIUTBqUm9UTnZnMUdnbHFuMDVySzJLb0cvcFY2cDBTZWlO?=
+ =?utf-8?Q?soP8u8JF6KOgHOycg0N++6Fp49o5m1E5DjkDsEE?=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5685.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230037)(366013)(376011)(1800799021);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?QzNJTWdPeWhGRTJNYnlSNFlJUy9BVXYwWU1WNGJvY05VOVE3L1l4TEE5UE1F?=
+ =?utf-8?B?M2NuTEZ5Z08xejJMWXFVT1YzcVFROG5BMDNDekJjZmVrN2ZjZWM4TlJVUzNG?=
+ =?utf-8?B?OXlYc1lJVThzaG9jMlo0R2VKOXlBMkxqdjFRM1IzSzBnbzNkSERUWCt6OEF4?=
+ =?utf-8?B?a1RqNGtFdkZPSkZPWlUvTnRwSVZMdDdWZFpoZGpWWlBhU1QxNnNzbVdEV3kx?=
+ =?utf-8?B?dFFabDFBZ09tV2VmYkFWNUlYMWhPakdualdVNExkOW96aUZiWTJWVElrbnBB?=
+ =?utf-8?B?emJETHZUb2pmTnRWeUlMSjBvTEVnNWlwZjY0ZS94VmkwUGxDSkttdjljdXNa?=
+ =?utf-8?B?YklJUExUNFpmNm9hM2hnSXg1QUFwMGpqOUl5eDJPMWlaSFN3Z0lZcXREZzRw?=
+ =?utf-8?B?OWtEVEpiZWNidUdDWGNjVXA0VC9KUlBQZExPOElWWlM2eGdsWUI3eUNxVnZq?=
+ =?utf-8?B?Umo0RjBMbGR1MGQxRlM3cktEeEdKc2M5SCtWM1pFMFRvTm0rKzZ3Q2hTT05U?=
+ =?utf-8?B?QkNkSWdZb0VIS2MzLzN4Qlg4RnhvandNN3dXR0J0RDRhSS96cUl5eWdFMlM2?=
+ =?utf-8?B?TkR0MTFSYzRoMGltVnJPaHI3NUJ0SFZFQXlRZ3cyU2tNc1VPOFFPb2I3QU14?=
+ =?utf-8?B?MGJmY0dNU3o4TUwrUzFkemNCTzNXaXRNYUNoY2tmQkxXQTFBY3BLaGNKbXY4?=
+ =?utf-8?B?UFhENTJyOTJzSFBCcWFZNVNZWFNGTnMwdUw3U0dYVytFYnJRL3V3MENRUzE2?=
+ =?utf-8?B?ZG1lSlMxYWE3a2RJb0I5QktDQWRuUFB0RkpCZnQ5SGtSWFY3Z2NZZEVneDhN?=
+ =?utf-8?B?QU92ajU0WHFGRzdOaGc2VmtmbG1QaGg1eDYvNmI5SWtueGozZjJLRzBkbjNQ?=
+ =?utf-8?B?T2hzajNiTFNDTE1vVnlsS20ySGxWWE5zNjA4SHZWNFhMb2NYQ0V0bGVpNFgw?=
+ =?utf-8?B?SjhiSzFucldoNWJ4NGRUS0llQjYvTTA3RmhBQzNsRGxCcXh4VDBROG9wSzJk?=
+ =?utf-8?B?bWd4RVJHSDBLb0NxOE5MUUtDcHdWdTY3WGNiZERGQUlNSnYxL08zeXExN29I?=
+ =?utf-8?B?UVJURVdoV3hPRXllK24vNVJqbzd3TytFaDVaQlRPcGY0YzBvZUZ4ZXJ0T0RD?=
+ =?utf-8?B?NVdKdkNwUHlVZmcxU2M0NkJlblhxV1dPR3Nmc1FNY3NOQ2luZXZEQVJ1M0Jo?=
+ =?utf-8?B?cGZqOERqSEpoOXBabC92VVhKdDBLU05WYi9tUy9HMXNUcHllak9aSS9XeVF6?=
+ =?utf-8?B?WmphSlI0d21JZCtyQ0x4bXlmL0pXMTNLRnpKUnBwMUxxa2VYeDVPaHFCSm1Z?=
+ =?utf-8?B?SmtEK21OMmhPNUl2ZWdhWEQ2dzE5cGpwNUxNb0xwUFNrRlVQeFBPL0ZlOFd6?=
+ =?utf-8?B?amc5cUNVRXE0SDQ0Q1RoSmJOVlltay9VY0ROVmsyMTFhUU93M2lFTk9UczNQ?=
+ =?utf-8?B?eUZXcGJhZDFEZXhSbGE1dXh0Z1VtVTRRU1VVNkdZR1orWGgwQmZrd2ZNbUNs?=
+ =?utf-8?B?MkNXdUZQaENuQlgyVjRSN3NaYy9BUXN5U1RvaU5UamtqdXB5M3hVNGk1Z0FF?=
+ =?utf-8?B?YWFtMGh2NS9pMnBvUUdmeWxQdkdzaE9vL3VpN2hXR0puMFBiZk1BYVMvNWlv?=
+ =?utf-8?B?WHVnTFVGWTVxckc5ekxLWVdMN0NmcnoyTFNic3JpU0M1UmN5Z0ZWZ0NUUVlO?=
+ =?utf-8?B?R3RzaWlXWWVoekV6blRoRUNFSWZhcTVFOHNuMTNGcnpQdTZKNTdqTE5uRXZB?=
+ =?utf-8?B?amg4VklFOGZYUEtpd1dCZ3d1SWZRRzJBUEhxZG4xakpKZkVYQzdLWGVObGpK?=
+ =?utf-8?B?KzU5UDdmVE8xeHIwL0xINU5KYWwzRUM4RE10enlXdE5ZdWx6QnhCUHJFeW9l?=
+ =?utf-8?B?VDhZQmFoSU1pOGRPVnlkaTlHNU9pN3VManpQMmlUWXBXL2RYanZnRlFjMFVh?=
+ =?utf-8?B?dTFwWStBSkxIR2htdHk1eE5yVm44Q0xyejZYRzBERWNqbkZxQ2xwMkVPeWlV?=
+ =?utf-8?B?M21mMHlscTBld0NDUnU1cUNYNjdkU0l2aG1KOHBoS1ArL2NPRWdMcUIzRnlo?=
+ =?utf-8?B?bWxncVF2by9oaDZBSGZGaStZVGs3U0pneTFZdlhaT3dPWmlHLzlBVVk3WERi?=
+ =?utf-8?Q?dFqQ=3D?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e089b7c7-0750-4ff1-a076-08dc9031d3f9
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Jun 2024 07:31:26.8979
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 3D47eGQRecCqqSP5E4Bz3QnEc0yG4Dq/KLZSJeyv+T6Il29etBPBp8QA6+4Ff4jV
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB9056
 
-On 19.06.2024 09:05, Roger Pau Monné wrote:
-> On Tue, Jun 18, 2024 at 06:30:22PM +0200, Jan Beulich wrote:
->> On 18.06.2024 16:50, Roger Pau Monné wrote:
->>> On Tue, Jun 18, 2024 at 04:34:50PM +0200, Jan Beulich wrote:
->>>> On 18.06.2024 13:30, Roger Pau Monné wrote:
->>>>> On Mon, Jun 17, 2024 at 03:41:12PM +0200, Jan Beulich wrote:
->>>>>> On 13.06.2024 18:56, Roger Pau Monne wrote:
->>>>>>> @@ -2686,11 +2705,27 @@ void fixup_irqs(const cpumask_t *mask, bool verbose)
->>>>>>>          if ( desc->handler->disable )
->>>>>>>              desc->handler->disable(desc);
->>>>>>>  
->>>>>>> +        /*
->>>>>>> +         * If the current CPU is going offline and is (one of) the target(s) of
->>>>>>> +         * the interrupt, signal to check whether there are any pending vectors
->>>>>>> +         * to be handled in the local APIC after the interrupt has been moved.
->>>>>>> +         */
->>>>>>> +        if ( !cpu_online(cpu) && cpumask_test_cpu(cpu, desc->arch.cpu_mask) )
->>>>>>> +            check_irr = true;
->>>>>>> +
->>>>>>>          if ( desc->handler->set_affinity )
->>>>>>>              desc->handler->set_affinity(desc, affinity);
->>>>>>>          else if ( !(warned++) )
->>>>>>>              set_affinity = false;
->>>>>>>  
->>>>>>> +        if ( check_irr && apic_irr_read(vector) )
->>>>>>> +            /*
->>>>>>> +             * Forward pending interrupt to the new destination, this CPU is
->>>>>>> +             * going offline and otherwise the interrupt would be lost.
->>>>>>> +             */
->>>>>>> +            send_IPI_mask(cpumask_of(cpumask_any(desc->arch.cpu_mask)),
->>>>>>> +                          desc->arch.vector);
->>>>>>
->>>>>> Hmm, IRR may become set right after the IRR read (unlike in the other cases,
->>>>>> where new IRQs ought to be surfacing only at the new destination). Doesn't
->>>>>> this want moving ...
->>>>>>
->>>>>>>          if ( desc->handler->enable )
->>>>>>>              desc->handler->enable(desc);
->>>>>>
->>>>>> ... past the actual affinity change?
->>>>>
->>>>> Hm, but the ->enable() hook is just unmasking the interrupt, the
->>>>> actual affinity change is done in ->set_affinity(), and hence after
->>>>> the call to ->set_affinity() no further interrupts should be delivered
->>>>> to the CPU regardless of whether the source is masked?
->>>>>
->>>>> Or is it possible for the device/interrupt controller to not switch to
->>>>> use the new destination until the interrupt is unmasked, and hence
->>>>> could have pending masked interrupts still using the old destination?
->>>>> IIRC For MSI-X it's required that the device updates the destination
->>>>> target once the entry is unmasked.
->>>>
->>>> That's all not relevant here, I think. IRR gets set when an interrupt is
->>>> signaled, no matter whether it's masked.
->>>
->>> I'm kind of lost here, what does signaling mean in this context?
->>>
->>> I would expect the interrupt vector to not get set in IRR if the MSI-X
->>> entry is masked, as at that point the state of the address/data fields
->>> might not be consistent (that's the whole point of masking it right?)
->>>
->>>> It's its handling which the
->>>> masking would prevent, i.e. the "moving" of the set bit from IRR to ISR.
->>>
->>> My understanding was that the masking would prevent the message write to
->>> the APIC from happening, and hence no vector should get set in IRR.
->>
->> Hmm, yes, looks like I was confused. The masking is at the source side
->> (IO-APIC RTE, MSI-X entry, or - if supported - in the MSI capability).
->> So the sole case to worry about is MSI without mask-bit support then.
-> 
-> Yeah, and for MSI without masking bit support we don't care doing the
-> IRR check before or after the ->enable() hook, as that's a no-op in
-> that case.  The write to the MSI address/data fields has already been
-> done, and hence the issue would be exclusively with draining any
-> in-flight writes to the APIC doorbell (what you mention below).
+Am 18.06.24 um 16:12 schrieb Demi Marie Obenour:
+> On Tue, Jun 18, 2024 at 08:33:38AM +0200, Christian König wrote:
+> > Am 18.06.24 um 02:57 schrieb Demi Marie Obenour:
+> >> On Mon, Jun 17, 2024 at 10:46:13PM +0200, Marek Marczykowski-Górecki
+> >> wrote:
+> >>> On Mon, Jun 17, 2024 at 09:46:29AM +0200, Roger Pau Monné wrote:
+> >>>> On Sun, Jun 16, 2024 at 08:38:19PM -0400, Demi Marie Obenour wrote:
+> >>>>> In both cases, the device physical
+> >>>>> addresses are identical to dom0’s physical addresses.
+> >>>>
+> >>>> Yes, but a PV dom0 physical address space can be very scattered.
+> >>>>
+> >>>> IIRC there's an hypercall to request physically contiguous memory for
+> >>>> PV, but you don't want to be using that every time you allocate a
+> >>>> buffer (not sure it would support the sizes needed by the GPU
+> >>>> anyway).
+> >>
+> >>> Indeed that isn't going to fly. In older Qubes versions we had PV
+> >>> sys-net with PCI passthrough for a network card. After some uptime it
+> >>> was basically impossible to restart and still have enough contagious
+> >>> memory for a network driver, and there it was about _much_ smaller
+> >>> buffers, like 2M or 4M. At least not without shutting down a lot more
+> >>> things to free some more memory.
+> >>
+> >> Ouch!  That makes me wonder if all GPU drivers actually need physically
+> >> contiguous buffers, or if it is (as I suspect) driver-specific. CCing
+> >> Christian König who has mentioned issues in this area.
+>
+> > Well GPUs don't need physical contiguous memory to function, but if they
+> > only get 4k pages to work with it means a quite large (up to 30%)
+> > performance penalty.
+>
+> The status quo is "no GPU acceleration at all", so 70% of bare metal
+> performance would be amazing right now.
 
-Except that both here ...
+Well AMD uses native context approach in XEN which which delivers over 
+90% of bare metal performance.
 
->>>> Plus we run with IRQs off here anyway if I'm not mistaken, so no
->>>> interrupt can be delivered to the local CPU. IOW whatever IRR bits it
->>>> has set (including ones becoming set between the IRR read and the actual
->>>> vector change), those would never be serviced. Hence the reading of the
->>>> bit ought to occur after the vector change: It's only then that we know
->>>> the IRR bit corresponding to the old vector can't become set anymore.
->>>
->>> Right, and the vector change happens in ->set_affinity(), not
->>> ->enable().  See for example set_msi_affinity() and the
->>> write_msi_msg(), that's where the vector gets changed.
->>>
->>>> And even then we're assuming that no interrupt signals might still be
->>>> "on their way" from the IO-APIC or a posted MSI message write by a
->>>> device to the LAPIC (I have no idea how to properly fence that, or
->>>> whether there are guarantees for this to never occur).
->>>
->>> Yeah, those I expect would be completed in the window between the
->>> write of the new vector/destination and the reading of IRR.
->>
->> Except we have no idea on the latencies.
-> 
-> There isn't much else we can do? Even the current case where we add
-> the 1ms window at the end of the shuffling could still suffer from
-> this issue because we don't know the latencies.  IOW: I don't think
-> this is any worse than the current approach.
+Pierre-Eric can tell you more, but we certainly have GPU solutions in 
+productions with XEN which would suffer greatly if we see the underlying 
+memory fragmented like this.
 
-... and here, the later we read IRR, the better the chances we don't miss
-anything. Even the no-op ->enable() isn't a no-op execution-wise. In fact
-it (quite pointlessly[1]) is an indirect call to irq_enable_none(). I'm
-actually inclined to suggest that we try to even further delay the IRR
-read, certainly past the cpumask_copy(), maybe even past the spin_unlock()
-(latching CPU and vector into local variables, along with the latching of
-->affinity that's already there).
+>   However, the implementation
+> should not preclude eliminating this performance penalty in the future.
+>
+> What size pages do GPUs need for good performance?  Is it the same as
+> CPU huge pages?
 
-Jan
+2MiB are usually sufficient.
 
-[1] While back when that was written the main goal probably was to avoid
-conditionals on what may be deemed fast paths, I wonder whether nowadays
-the main goal wouldn't be to avoid indirect calls when we (pretty) easily
-can.
+Regards,
+Christian.
+
+>   PV dom0 doesn't get huge pages at all, but PVH and HVM
+> guests do, and the goal is to move away from PV guests as they have lots
+> of unrelated problems.
+>
+> > So scattering memory like you described is probably a very bad idea 
+> if you
+> > want any halve way decent performance.
+>
+> For an initial prototype a 30% performance penalty is acceptable, but
+> it's good to know that memory fragmentation needs to be avoided.
+>
+> > Regards,
+> > Christian
+>
+> Thanks for the prompt response!
+
 
