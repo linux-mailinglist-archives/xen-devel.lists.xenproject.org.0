@@ -2,32 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7026F90E713
-	for <lists+xen-devel@lfdr.de>; Wed, 19 Jun 2024 11:30:10 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.743580.1150501 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8459A90E745
+	for <lists+xen-devel@lfdr.de>; Wed, 19 Jun 2024 11:50:00 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.743592.1150511 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sJrdF-0003UI-QD; Wed, 19 Jun 2024 09:29:33 +0000
+	id 1sJrwS-0006Ym-Ae; Wed, 19 Jun 2024 09:49:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 743580.1150501; Wed, 19 Jun 2024 09:29:33 +0000
+Received: by outflank-mailman (output) from mailman id 743592.1150511; Wed, 19 Jun 2024 09:49:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sJrdF-0003Rc-NY; Wed, 19 Jun 2024 09:29:33 +0000
-Received: by outflank-mailman (input) for mailman id 743580;
- Wed, 19 Jun 2024 09:29:32 +0000
+	id 1sJrwS-0006WS-77; Wed, 19 Jun 2024 09:49:24 +0000
+Received: by outflank-mailman (input) for mailman id 743592;
+ Wed, 19 Jun 2024 09:49:23 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Mh+g=NV=bugseng.com=federico.serafini@srs-se1.protection.inumbo.net>)
- id 1sJrdE-0003RW-L8
- for xen-devel@lists.xenproject.org; Wed, 19 Jun 2024 09:29:32 +0000
-Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=YhGR=NV=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1sJrwR-0006WM-0N
+ for xen-devel@lists.xenproject.org; Wed, 19 Jun 2024 09:49:23 +0000
+Received: from mail-lj1-x234.google.com (mail-lj1-x234.google.com
+ [2a00:1450:4864:20::234])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 6e642c78-2e1e-11ef-90a3-e314d9c70b13;
- Wed, 19 Jun 2024 11:29:31 +0200 (CEST)
-Received: from truciolo.bugseng.com (unknown [37.161.166.217])
- by support.bugseng.com (Postfix) with ESMTPSA id A5CE74EE0738;
- Wed, 19 Jun 2024 11:29:28 +0200 (CEST)
+ id 343c6228-2e21-11ef-90a3-e314d9c70b13;
+ Wed, 19 Jun 2024 11:49:21 +0200 (CEST)
+Received: by mail-lj1-x234.google.com with SMTP id
+ 38308e7fff4ca-2ebe6495aedso60503111fa.0
+ for <xen-devel@lists.xenproject.org>; Wed, 19 Jun 2024 02:49:21 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-1f85cb6bee6sm106183835ad.236.2024.06.19.02.49.15
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 19 Jun 2024 02:49:20 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,471 +45,175 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6e642c78-2e1e-11ef-90a3-e314d9c70b13
-From: Federico Serafini <federico.serafini@bugseng.com>
-To: xen-devel@lists.xenproject.org
-Cc: consulting@bugseng.com,
-	Federico Serafini <federico.serafini@bugseng.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>,
-	Bertrand Marquis <bertrand.marquis@arm.com>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Dario Faggioli <dfaggioli@suse.com>,
-	Juergen Gross <jgross@suse.com>
-Subject: [XEN PATCH v2] xen: add explicit comment to identify notifier patterns
-Date: Wed, 19 Jun 2024 11:29:22 +0200
-Message-Id: <d814434bf73e341f5d35836fa7063a728f7b7de4.1718788908.git.federico.serafini@bugseng.com>
-X-Mailer: git-send-email 2.34.1
+X-Inumbo-ID: 343c6228-2e21-11ef-90a3-e314d9c70b13
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1718790561; x=1719395361; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=rtNnn8Ft8MQG02uPu91AUtrQJbjGZNviWikxdslEuSw=;
+        b=fjHXoBlwCI5v9b193yMKXO8BzreMBUs2+ODi89ic9zlRSdqtxXcwq7yFooEB1pAJGD
+         beHu1UJ4z0+E08xIZljuS8+/Vrkhz8uNb0FzdUPExGyWB4AXYg/FfTC7L0nDNmy4IDQV
+         5zGbxX0JrgSOMI4AfUUV4Ljefgq1BMXIV7VcP8wDqeYNcRjmKCBn8ZT3gXdBW/UbA2DO
+         apFWmHyUQJC2MHaOU64tuTnNzUYd5mE/V3URf555BprXxGZ0sigMrXypQtgGd0UGx+ze
+         iqpZxNLSCpzvyhLc49H3GOLyLKnSuRlkYTS/3Q4LXW+guKCRT0Bad3Ssox9qRjr0GwSq
+         QD6g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1718790561; x=1719395361;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=rtNnn8Ft8MQG02uPu91AUtrQJbjGZNviWikxdslEuSw=;
+        b=vnVeytjCA/GGER3dm1ViBmWI+OtkvUCZqwNmxAE0nvxEGlkt4mQFRF8lZygmplqKSD
+         Jof+6omrxUOI8oKzEJKlo+kmm6Md1bTU519Yd414WNrOrH+sPhUukNg9gwkUVm9NlRqF
+         4M1bGYfR9a7wgXe8QtbQ8sqEMiMknYCeXxzI3WNcQQljtZC936cikZFkkIdEMeKsYoGx
+         4KEVatqIFrKsuUxiqTzoWBE5tPyNSCUVmBffgFxtI7Nw8Xo1EBkvOGwQ9TdIkWds2ijQ
+         zJyIqsnQ42F6La5m6mS5bgJH+Kc6AUOBdEKM055fnXbX+ZU446LIeIp62NCGu/vh4f90
+         f5NQ==
+X-Forwarded-Encrypted: i=1; AJvYcCV/eJeZ3xFeXbNrzx3ZefcKAvjbe6GDT/EDkx9OD0cgB3rp0aG2LCtoKUTS0uoWWMwaWON2csyoi7XtGGCybLw8XZ4kEHZNBMAp9GSQtAw=
+X-Gm-Message-State: AOJu0YyIHDQV7MfIhjAQa/nqmJjz+ya8IiuG96Cksa1OxzB2CMgJBJoi
+	RKHq45ipQ4iwfxcVZmMJY/TvsnnQRWmJrxuSlnefXVxIkagaiWOH+NUyP2blww==
+X-Google-Smtp-Source: AGHT+IGhjndnRL8ngkfd5kAuUGzqXE4sMNe7puxMBdwBG7LU3kH8sKLrNN3ZDqrjs/7fz0dsCQNSCw==
+X-Received: by 2002:a2e:9eda:0:b0:2ec:1682:b4dc with SMTP id 38308e7fff4ca-2ec3ceb70d4mr13702861fa.10.1718790561158;
+        Wed, 19 Jun 2024 02:49:21 -0700 (PDT)
+Message-ID: <c83474d9-8c72-412a-92eb-222088a0bf3a@suse.com>
+Date: Wed, 19 Jun 2024 11:49:11 +0200
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [XEN PATCH v10 3/5] x86/pvh: Add PHYSDEVOP_setup_gsi for PVH dom0
+To: "Chen, Jiqian" <Jiqian.Chen@amd.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu
+ <wl@xen.org>, George Dunlap <george.dunlap@citrix.com>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ Anthony PERARD <anthony@xenproject.org>, Juergen Gross <jgross@suse.com>,
+ "Daniel P . Smith" <dpsmith@apertussolutions.com>,
+ "Hildebrand, Stewart" <Stewart.Hildebrand@amd.com>,
+ "Huang, Ray" <Ray.Huang@amd.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <20240617090035.839640-1-Jiqian.Chen@amd.com>
+ <20240617090035.839640-4-Jiqian.Chen@amd.com>
+ <ed36b376-a5f0-457b-8a1e-61104c26ffce@suse.com>
+ <BL1PR12MB5849FE3A4897DF166159B906E7CE2@BL1PR12MB5849.namprd12.prod.outlook.com>
+ <b923a32e-3c22-4e7a-8844-b33322ef8ad1@suse.com>
+ <BL1PR12MB5849861E424724C6E9DE3859E7CF2@BL1PR12MB5849.namprd12.prod.outlook.com>
+ <ff66c7aa-585f-4d30-9f4f-e520226825bc@suse.com>
+ <BL1PR12MB58498905D185C6A720276D1BE7CF2@BL1PR12MB5849.namprd12.prod.outlook.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <BL1PR12MB58498905D185C6A720276D1BE7CF2@BL1PR12MB5849.namprd12.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-MISRA C Rule 16.4 states that every `switch' statement shall have a
-`default' label" and a statement or a comment prior to the
-terminating break statement.
+On 19.06.2024 10:51, Chen, Jiqian wrote:
+> On 2024/6/19 16:06, Jan Beulich wrote:
+>> On 19.06.2024 09:53, Chen, Jiqian wrote:
+>>> On 2024/6/18 16:55, Jan Beulich wrote:
+>>>> On 18.06.2024 08:57, Chen, Jiqian wrote:
+>>>>> On 2024/6/17 22:52, Jan Beulich wrote:
+>>>>>> On 17.06.2024 11:00, Jiqian Chen wrote:
+>>>>>>> The gsi of a passthrough device must be configured for it to be
+>>>>>>> able to be mapped into a hvm domU.
+>>>>>>> But When dom0 is PVH, the gsis don't get registered, it causes
+>>>>>>> the info of apic, pin and irq not be added into irq_2_pin list,
+>>>>>>> and the handler of irq_desc is not set, then when passthrough a
+>>>>>>> device, setting ioapic affinity and vector will fail.
+>>>>>>>
+>>>>>>> To fix above problem, on Linux kernel side, a new code will
+>>>>>>> need to call PHYSDEVOP_setup_gsi for passthrough devices to
+>>>>>>> register gsi when dom0 is PVH.
+>>>>>>>
+>>>>>>> So, add PHYSDEVOP_setup_gsi into hvm_physdev_op for above
+>>>>>>> purpose.
+>>>>>>>
+>>>>>>> Signed-off-by: Jiqian Chen <Jiqian.Chen@amd.com>
+>>>>>>> Signed-off-by: Huang Rui <ray.huang@amd.com>
+>>>>>>> Signed-off-by: Jiqian Chen <Jiqian.Chen@amd.com>
+>>>>>>> ---
+>>>>>>> The code link that will call this hypercall on linux kernel side is as follows:
+>>>>>>> https://lore.kernel.org/xen-devel/20240607075109.126277-3-Jiqian.Chen@amd.com/
+>>>>>>
+>>>>>> One of my v9 comments was addressed, thanks. Repeating the other, unaddressed
+>>>>>> one here:
+>>>>>> "As to GSIs not being registered: If that's not a problem for Dom0's own
+>>>>>>  operation, I think it'll also want/need explaining why what is sufficient for
+>>>>>>  Dom0 alone isn't sufficient when pass-through comes into play."
+>>>>> I have modified the commit message to describe why GSIs are not registered can cause passthrough not work, according to this v9 comment.
+>>>>> " it causes the info of apic, pin and irq not be added into irq_2_pin list, and the handler of irq_desc is not set, then when passthrough a device, setting ioapic affinity and vector will fail."
+>>>>> What description do you want me to add?
+>>>>
+>>>> What I'd first like to have clarification on (i.e. before putting it in
+>>>> the description one way or another): How come Dom0 alone gets away fine
+>>>> without making the call, yet for passthrough-to-DomU it's needed? Is it
+>>>> perhaps that it just so happened that for Dom0 things have been working
+>>>> on systems where it was tested, but the call should in principle have been
+>>>> there in this case, too [1]? That (to me at least) would make quite a
+>>>> difference for both this patch's description and us accepting it.
+>>> Oh, I think I know what's your concern now. Thanks.
+>>> First question, why gsi of device can work on PVH dom0:
+>>> Because when probe a driver to a normal device, it will call linux kernel side:pci_device_probe-> request_threaded_irq-> irq_startup-> __unmask_ioapic-> io_apic_write, then trap into xen side hvmemul_do_io-> hvm_io_intercept-> hvm_process_io_intercept-> vioapic_write_indirect-> vioapic_hwdom_map_gsi-> mp_register_gsi. So that the gsi can be registered.
+>>> Second question, why gsi of passthrough can't work on PVH dom0:
+>>> Because when assign a device to be passthrough, it uses pciback to probe the device, and it calls pcistub_probe, but in all callstack of pcistub_probe, it doesn't unmask the gsi, and we can see on Xen side, the function vioapic_hwdom_map_gsi-> mp_register_gsi will be called only when the gsi is unmasked, so that the gsi can't work for passthrough device.
+>>
+>> And why exactly would the fake IRQ handler not be set up by pciback? Its
+>> setting up ought to lead to those same IO-APIC RTE writes that Xen
+>> intercepts.
+> Because isr_on is not set, when xen_pcibk_control_isr is called, it will return due to " !dev_data->isr_on". So that fake IRQ handler aren't installed.
 
-This patch addresses some violations of the rule related to the
-"notifier pattern": a frequently-used pattern whereby only a few values
-are handled by the switch statement and nothing should be done for
-others (nothing to do in the default case).
+I'm afraid I don't follow you here. Quoting from the function:
 
-Note that for function mwait_idle_cpu_init() in
-xen/arch/x86/cpu/mwait-idle.c the /* Notifier pattern. */ comment is
-not added: differently from the other functions covered in this patch,
-the default label has a return statement that does not violates Rule 16.4.
+	enable =  dev_data->enable_intx;
 
-No functional change.
+	/* Asked to disable, but ISR isn't runnig */
+	if (!enable && !dev_data->isr_on)
+		return;
 
-Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
----
-Changes in v2:
-as Jan pointed out, in the v1 some patterns were not explicitly identified
-(https://lore.kernel.org/xen-devel/cad05a5c-e2d8-4e5d-af05-30ae6f959184@bugseng.com/).
+I.e. we bail if the request was to _disable_ and there is no ISR.
 
-This version adds the /* Notifier pattern. */ to all the pattern present in
-the Xen codebase except for mwait_idle_cpu_init().
----
- xen/arch/arm/cpuerrata.c                     | 1 +
- xen/arch/arm/gic-v3-lpi.c                    | 4 ++++
- xen/arch/arm/gic.c                           | 1 +
- xen/arch/arm/irq.c                           | 4 ++++
- xen/arch/arm/mmu/p2m.c                       | 1 +
- xen/arch/arm/percpu.c                        | 1 +
- xen/arch/arm/smpboot.c                       | 1 +
- xen/arch/arm/time.c                          | 1 +
- xen/arch/arm/vgic-v3-its.c                   | 2 ++
- xen/arch/x86/acpi/cpu_idle.c                 | 4 ++++
- xen/arch/x86/cpu/mcheck/mce.c                | 4 ++++
- xen/arch/x86/cpu/mcheck/mce_intel.c          | 4 ++++
- xen/arch/x86/genapic/x2apic.c                | 3 +++
- xen/arch/x86/hvm/hvm.c                       | 1 +
- xen/arch/x86/nmi.c                           | 1 +
- xen/arch/x86/percpu.c                        | 3 +++
- xen/arch/x86/psr.c                           | 3 +++
- xen/arch/x86/smpboot.c                       | 3 +++
- xen/common/kexec.c                           | 1 +
- xen/common/rcupdate.c                        | 1 +
- xen/common/sched/core.c                      | 1 +
- xen/common/sched/cpupool.c                   | 1 +
- xen/common/spinlock.c                        | 1 +
- xen/common/tasklet.c                         | 1 +
- xen/common/timer.c                           | 1 +
- xen/drivers/cpufreq/cpufreq.c                | 1 +
- xen/drivers/cpufreq/cpufreq_misc_governors.c | 3 +++
- xen/drivers/passthrough/x86/hvm.c            | 3 +++
- xen/drivers/passthrough/x86/iommu.c          | 3 +++
- 29 files changed, 59 insertions(+)
+I can't exclude though that command_write()'s logic to set ->enable_intx
+is insufficient. But in the common case one would surely expect at least
+one of PCI_COMMAND_MEMORY and PCI_COMMAND_IO to be set first by a guest.
+IOW at some point I'd expect xen_pcibk_control_isr() to be called with
+the second argument 0 and with ->enable_intx set.
 
-diff --git a/xen/arch/arm/cpuerrata.c b/xen/arch/arm/cpuerrata.c
-index 2b7101ea25..69c30aecd8 100644
---- a/xen/arch/arm/cpuerrata.c
-+++ b/xen/arch/arm/cpuerrata.c
-@@ -730,6 +730,7 @@ static int cpu_errata_callback(struct notifier_block *nfb,
-         rc = enable_nonboot_cpu_caps(arm_errata);
-         break;
-     default:
-+        /* Notifier pattern. */
-         break;
-     }
- 
-diff --git a/xen/arch/arm/gic-v3-lpi.c b/xen/arch/arm/gic-v3-lpi.c
-index eb0a5535e4..4c2bd35403 100644
---- a/xen/arch/arm/gic-v3-lpi.c
-+++ b/xen/arch/arm/gic-v3-lpi.c
-@@ -389,6 +389,10 @@ static int cpu_callback(struct notifier_block *nfb, unsigned long action,
-             printk(XENLOG_ERR "Unable to allocate the pendtable for CPU%lu\n",
-                    cpu);
-         break;
-+
-+    default:
-+        /* Notifier pattern. */
-+        break;
-     }
- 
-     return notifier_from_errno(rc);
-diff --git a/xen/arch/arm/gic.c b/xen/arch/arm/gic.c
-index 3eaf670fd7..dc5408a456 100644
---- a/xen/arch/arm/gic.c
-+++ b/xen/arch/arm/gic.c
-@@ -463,6 +463,7 @@ static int cpu_gic_callback(struct notifier_block *nfb,
-         release_irq(gic_hw_ops->info->maintenance_irq, NULL);
-         break;
-     default:
-+        /* Notifier pattern. */
-         break;
-     }
- 
-diff --git a/xen/arch/arm/irq.c b/xen/arch/arm/irq.c
-index c60502444c..61ca6f5b87 100644
---- a/xen/arch/arm/irq.c
-+++ b/xen/arch/arm/irq.c
-@@ -127,6 +127,10 @@ static int cpu_callback(struct notifier_block *nfb, unsigned long action,
-             printk(XENLOG_ERR "Unable to allocate local IRQ for CPU%u\n",
-                    cpu);
-         break;
-+
-+    default:
-+        /* Notifier pattern. */
-+        break;
-     }
- 
-     return notifier_from_errno(rc);
-diff --git a/xen/arch/arm/mmu/p2m.c b/xen/arch/arm/mmu/p2m.c
-index 1725cca649..bf7c66155d 100644
---- a/xen/arch/arm/mmu/p2m.c
-+++ b/xen/arch/arm/mmu/p2m.c
-@@ -1839,6 +1839,7 @@ static int cpu_virt_paging_callback(struct notifier_block *nfb,
-         setup_virt_paging_one(NULL);
-         break;
-     default:
-+        /* Notifier pattern. */
-         break;
-     }
- 
-diff --git a/xen/arch/arm/percpu.c b/xen/arch/arm/percpu.c
-index 87fe960330..81f91f05bb 100644
---- a/xen/arch/arm/percpu.c
-+++ b/xen/arch/arm/percpu.c
-@@ -66,6 +66,7 @@ static int cpu_percpu_callback(
-         free_percpu_area(cpu);
-         break;
-     default:
-+        /* Notifier pattern. */
-         break;
-     }
- 
-diff --git a/xen/arch/arm/smpboot.c b/xen/arch/arm/smpboot.c
-index 04e363088d..3d481e59f9 100644
---- a/xen/arch/arm/smpboot.c
-+++ b/xen/arch/arm/smpboot.c
-@@ -591,6 +591,7 @@ static int cpu_smpboot_callback(struct notifier_block *nfb,
-         remove_cpu_sibling_map(cpu);
-         break;
-     default:
-+        /* Notifier pattern. */
-         break;
-     }
- 
-diff --git a/xen/arch/arm/time.c b/xen/arch/arm/time.c
-index e74d30d258..27cbfae874 100644
---- a/xen/arch/arm/time.c
-+++ b/xen/arch/arm/time.c
-@@ -382,6 +382,7 @@ static int cpu_time_callback(struct notifier_block *nfb,
-         deinit_timer_interrupt();
-         break;
-     default:
-+        /* Notifier pattern. */
-         break;
-     }
- 
-diff --git a/xen/arch/arm/vgic-v3-its.c b/xen/arch/arm/vgic-v3-its.c
-index 70b5aeb822..a33ff64ff2 100644
---- a/xen/arch/arm/vgic-v3-its.c
-+++ b/xen/arch/arm/vgic-v3-its.c
-@@ -1194,6 +1194,7 @@ static void sanitize_its_base_reg(uint64_t *reg)
-         r |= GIC_BASER_InnerShareable << GITS_BASER_SHAREABILITY_SHIFT;
-         break;
-     default:
-+        /* Notifier pattern. */
-         break;
-     }
- 
-@@ -1206,6 +1207,7 @@ static void sanitize_its_base_reg(uint64_t *reg)
-         r |= GIC_BASER_CACHE_RaWb << GITS_BASER_INNER_CACHEABILITY_SHIFT;
-         break;
-     default:
-+        /* Notifier pattern. */
-         break;
-     }
- 
-diff --git a/xen/arch/x86/acpi/cpu_idle.c b/xen/arch/x86/acpi/cpu_idle.c
-index 57ac984790..f0af32e578 100644
---- a/xen/arch/x86/acpi/cpu_idle.c
-+++ b/xen/arch/x86/acpi/cpu_idle.c
-@@ -1661,6 +1661,10 @@ static int cf_check cpu_callback(
-              processor_powers[cpu] )
-             amd_cpuidle_init(processor_powers[cpu]);
-         break;
-+
-+    default:
-+        /* Notifier pattern. */
-+        break;
-     }
- 
-     return notifier_from_errno(rc);
-diff --git a/xen/arch/x86/cpu/mcheck/mce.c b/xen/arch/x86/cpu/mcheck/mce.c
-index 32c1b2756b..222b174bbb 100644
---- a/xen/arch/x86/cpu/mcheck/mce.c
-+++ b/xen/arch/x86/cpu/mcheck/mce.c
-@@ -722,6 +722,10 @@ static int cf_check cpu_callback(
-         if ( park_offline_cpus )
-             cpu_bank_free(cpu);
-         break;
-+
-+    default:
-+        /* Notifier pattern. */
-+        break;
-     }
- 
-     return notifier_from_errno(rc);
-diff --git a/xen/arch/x86/cpu/mcheck/mce_intel.c b/xen/arch/x86/cpu/mcheck/mce_intel.c
-index dd812f4b8a..be82ea4631 100644
---- a/xen/arch/x86/cpu/mcheck/mce_intel.c
-+++ b/xen/arch/x86/cpu/mcheck/mce_intel.c
-@@ -949,6 +949,10 @@ static int cf_check cpu_callback(
-         cpu_mcheck_distribute_cmci();
-         cpu_mcabank_free(cpu);
-         break;
-+
-+    default:
-+        /* Notifier pattern. */
-+        break;
-     }
- 
-     return notifier_from_errno(rc);
-diff --git a/xen/arch/x86/genapic/x2apic.c b/xen/arch/x86/genapic/x2apic.c
-index 371dd100c7..d271102f9f 100644
---- a/xen/arch/x86/genapic/x2apic.c
-+++ b/xen/arch/x86/genapic/x2apic.c
-@@ -238,6 +238,9 @@ static int cf_check update_clusterinfo(
-         }
-         FREE_CPUMASK_VAR(per_cpu(scratch_mask, cpu));
-         break;
-+    default:
-+        /* Notifier pattern. */
-+        break;
-     }
- 
-     return notifier_from_errno(err);
-diff --git a/xen/arch/x86/hvm/hvm.c b/xen/arch/x86/hvm/hvm.c
-index 8334ab1711..00c360cf24 100644
---- a/xen/arch/x86/hvm/hvm.c
-+++ b/xen/arch/x86/hvm/hvm.c
-@@ -123,6 +123,7 @@ static int cf_check cpu_callback(
-         alternative_vcall(hvm_funcs.cpu_dead, cpu);
-         break;
-     default:
-+        /* Notifier pattern. */
-         break;
-     }
- 
-diff --git a/xen/arch/x86/nmi.c b/xen/arch/x86/nmi.c
-index 9793fa2316..105efa5a71 100644
---- a/xen/arch/x86/nmi.c
-+++ b/xen/arch/x86/nmi.c
-@@ -434,6 +434,7 @@ static int cf_check cpu_nmi_callback(
-         kill_timer(&per_cpu(nmi_timer, cpu));
-         break;
-     default:
-+        /* Notifier pattern. */
-         break;
-     }
- 
-diff --git a/xen/arch/x86/percpu.c b/xen/arch/x86/percpu.c
-index 3205eacea6..627b56b9f3 100644
---- a/xen/arch/x86/percpu.c
-+++ b/xen/arch/x86/percpu.c
-@@ -84,6 +84,9 @@ static int cf_check cpu_percpu_callback(
-         if ( park_offline_cpus )
-             free_percpu_area(cpu);
-         break;
-+    default:
-+        /* Notifier pattern. */
-+        break;
-     }
- 
-     return notifier_from_errno(rc);
-diff --git a/xen/arch/x86/psr.c b/xen/arch/x86/psr.c
-index 0b9631ac44..e76b129e6c 100644
---- a/xen/arch/x86/psr.c
-+++ b/xen/arch/x86/psr.c
-@@ -1661,6 +1661,9 @@ static int cf_check cpu_callback(
-     case CPU_DEAD:
-         psr_cpu_fini(cpu);
-         break;
-+    default:
-+        /* Notifier pattern. */
-+        break;
-     }
- 
-     return notifier_from_errno(rc);
-diff --git a/xen/arch/x86/smpboot.c b/xen/arch/x86/smpboot.c
-index 8aa621533f..5b9b196d58 100644
---- a/xen/arch/x86/smpboot.c
-+++ b/xen/arch/x86/smpboot.c
-@@ -1134,6 +1134,9 @@ static int cf_check cpu_smpboot_callback(
-     case CPU_REMOVE:
-         cpu_smpboot_free(cpu, true);
-         break;
-+    default:
-+        /* Notifier pattern. */
-+        break;
-     }
- 
-     return notifier_from_errno(rc);
-diff --git a/xen/common/kexec.c b/xen/common/kexec.c
-index 84fe8c3597..96883cdc70 100644
---- a/xen/common/kexec.c
-+++ b/xen/common/kexec.c
-@@ -549,6 +549,7 @@ static int cf_check cpu_callback(
-         kexec_init_cpu_notes(cpu);
-         break;
-     default:
-+        /* Notifier pattern. */
-         break;
-     }
-     return NOTIFY_DONE;
-diff --git a/xen/common/rcupdate.c b/xen/common/rcupdate.c
-index 212a99acd8..0fe4097544 100644
---- a/xen/common/rcupdate.c
-+++ b/xen/common/rcupdate.c
-@@ -657,6 +657,7 @@ static int cf_check cpu_callback(
-         rcu_offline_cpu(&this_cpu(rcu_data), &rcu_ctrlblk, rdp);
-         break;
-     default:
-+        /* Notifier pattern. */
-         break;
-     }
- 
-diff --git a/xen/common/sched/core.c b/xen/common/sched/core.c
-index d84b65f197..dffa1ef476 100644
---- a/xen/common/sched/core.c
-+++ b/xen/common/sched/core.c
-@@ -2907,6 +2907,7 @@ static int cf_check cpu_schedule_callback(
-         cpu_schedule_down(cpu);
-         break;
-     default:
-+        /* Notifier pattern. */
-         break;
-     }
- 
-diff --git a/xen/common/sched/cpupool.c b/xen/common/sched/cpupool.c
-index ad8f608462..c7117f4243 100644
---- a/xen/common/sched/cpupool.c
-+++ b/xen/common/sched/cpupool.c
-@@ -1073,6 +1073,7 @@ static int cf_check cpu_callback(
-         cpupool_cpu_remove_forced(cpu);
-         break;
-     default:
-+        /* Notifier pattern. */
-         break;
-     }
- 
-diff --git a/xen/common/spinlock.c b/xen/common/spinlock.c
-index 28c6e9d3ac..bf082478db 100644
---- a/xen/common/spinlock.c
-+++ b/xen/common/spinlock.c
-@@ -55,6 +55,7 @@ static int cf_check cpu_lockdebug_callback(struct notifier_block *nfb,
-         break;
- 
-     default:
-+        /* Notifier pattern. */
-         break;
-     }
- 
-diff --git a/xen/common/tasklet.c b/xen/common/tasklet.c
-index 4c8d87a338..879b1f0d80 100644
---- a/xen/common/tasklet.c
-+++ b/xen/common/tasklet.c
-@@ -232,6 +232,7 @@ static int cf_check cpu_callback(
-         migrate_tasklets_from_cpu(cpu, &per_cpu(softirq_tasklet_list, cpu));
-         break;
-     default:
-+        /* Notifier pattern. */
-         break;
-     }
- 
-diff --git a/xen/common/timer.c b/xen/common/timer.c
-index a21798b76f..60e9a1493e 100644
---- a/xen/common/timer.c
-+++ b/xen/common/timer.c
-@@ -677,6 +677,7 @@ static int cf_check cpu_callback(
-         break;
- 
-     default:
-+        /* Notifier pattern. */
-         break;
-     }
- 
-diff --git a/xen/drivers/cpufreq/cpufreq.c b/xen/drivers/cpufreq/cpufreq.c
-index 8659ad3aee..9584b55398 100644
---- a/xen/drivers/cpufreq/cpufreq.c
-+++ b/xen/drivers/cpufreq/cpufreq.c
-@@ -682,6 +682,7 @@ static int cf_check cpu_callback(
-         (void)cpufreq_del_cpu(cpu);
-         break;
-     default:
-+        /* Notifier pattern. */
-         break;
-     }
- 
-diff --git a/xen/drivers/cpufreq/cpufreq_misc_governors.c b/xen/drivers/cpufreq/cpufreq_misc_governors.c
-index 0327fad23b..464b267a17 100644
---- a/xen/drivers/cpufreq/cpufreq_misc_governors.c
-+++ b/xen/drivers/cpufreq/cpufreq_misc_governors.c
-@@ -101,6 +101,9 @@ static int cf_check cpufreq_userspace_cpu_callback(
-     case CPU_UP_PREPARE:
-         per_cpu(cpu_set_freq, cpu) = userspace_cmdline_freq;
-         break;
-+    default:
-+        /* Notifier pattern. */
-+        break;
-     }
- 
-     return NOTIFY_DONE;
-diff --git a/xen/drivers/passthrough/x86/hvm.c b/xen/drivers/passthrough/x86/hvm.c
-index d3627e4af7..e5b6be4794 100644
---- a/xen/drivers/passthrough/x86/hvm.c
-+++ b/xen/drivers/passthrough/x86/hvm.c
-@@ -1122,6 +1122,9 @@ static int cf_check cpu_callback(
-          */
-         ASSERT(list_empty(&per_cpu(dpci_list, cpu)));
-         break;
-+    default:
-+        /* Notifier pattern. */
-+        break;
-     }
- 
-     return NOTIFY_DONE;
-diff --git a/xen/drivers/passthrough/x86/iommu.c b/xen/drivers/passthrough/x86/iommu.c
-index cc0062b027..f0c84eeb85 100644
---- a/xen/drivers/passthrough/x86/iommu.c
-+++ b/xen/drivers/passthrough/x86/iommu.c
-@@ -749,6 +749,9 @@ static int cf_check cpu_callback(
-         if ( !page_list_empty(list) )
-             tasklet_schedule(tasklet);
-         break;
-+    default:
-+        /* Notifier pattern. */
-+        break;
-     }
- 
-     return NOTIFY_DONE;
--- 
-2.34.1
+> And it seems isr_on is set through driver sysfs " irq_handler_state" for a level device that is to be shared with guest and the IRQ is shared with the initial domain.
 
+The sysfs interface is, according to my reading of the description
+of the commit introducing it, merely for debugging / recovery purposes.
+(It also looks to me as if this was partly broken: If one would use it,
+thus clearing ->isr_on, a subsequent disable request would take exactly
+that early bailing path quoted above, with nothing removing the IRQ
+handler.)
+
+That description also talks about both an edge vs level distinction in
+behavior and one for shared vs non-shared, but neither in that commit
+nor in present code I can spot any respective checks. Otherwise I could
+understand that there are cases where the necessary information isn't
+propagated to Xen.
+
+Jan
 
