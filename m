@@ -2,32 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D3D9190EB37
-	for <lists+xen-devel@lfdr.de>; Wed, 19 Jun 2024 14:35:20 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.743789.1150773 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 905A390EB86
+	for <lists+xen-devel@lfdr.de>; Wed, 19 Jun 2024 14:58:19 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.743800.1150782 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sJuW7-0000tH-Qu; Wed, 19 Jun 2024 12:34:23 +0000
+	id 1sJusl-0004eO-Ht; Wed, 19 Jun 2024 12:57:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 743789.1150773; Wed, 19 Jun 2024 12:34:23 +0000
+Received: by outflank-mailman (output) from mailman id 743800.1150782; Wed, 19 Jun 2024 12:57:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sJuW7-0000q9-Nh; Wed, 19 Jun 2024 12:34:23 +0000
-Received: by outflank-mailman (input) for mailman id 743789;
- Wed, 19 Jun 2024 12:34:22 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1sJuW6-0000q3-Ea
- for xen-devel@lists.xenproject.org; Wed, 19 Jun 2024 12:34:22 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1sJuW5-00035u-UX; Wed, 19 Jun 2024 12:34:21 +0000
-Received: from [15.248.3.90] (helo=[10.24.67.26])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1sJuW5-0005Ss-NX; Wed, 19 Jun 2024 12:34:21 +0000
+	id 1sJusl-0004ct-FH; Wed, 19 Jun 2024 12:57:47 +0000
+Received: by outflank-mailman (input) for mailman id 743800;
+ Wed, 19 Jun 2024 12:57:45 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=KjC9=NV=bounce.vates.tech=bounce-md_30504962.6672d5c6.v1-73edaa175ba94638a1fbddc1cbefd527@srs-se1.protection.inumbo.net>)
+ id 1sJusj-0004aL-Cv
+ for xen-devel@lists.xenproject.org; Wed, 19 Jun 2024 12:57:45 +0000
+Received: from mail177-18.suw61.mandrillapp.com
+ (mail177-18.suw61.mandrillapp.com [198.2.177.18])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 8470a2a6-2e3b-11ef-90a3-e314d9c70b13;
+ Wed, 19 Jun 2024 14:57:43 +0200 (CEST)
+Received: from pmta14.mandrill.prod.suw01.rsglab.com (localhost [127.0.0.1])
+ by mail177-18.suw61.mandrillapp.com (Mailchimp) with ESMTP id
+ 4W43Yy46kSzCf9KJW
+ for <xen-devel@lists.xenproject.org>; Wed, 19 Jun 2024 12:57:42 +0000 (GMT)
+Received: from [37.26.189.201] by mandrillapp.com id
+ 73edaa175ba94638a1fbddc1cbefd527; Wed, 19 Jun 2024 12:57:42 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,128 +43,87 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=KgQ6dB12ouTGXDm+tZ/XwVHqmjS9BEjxZMeNYcchX5A=; b=ek1qGwTNyji1AMYiYzYOPy16SM
-	lIKPVf9VtH0+KlhYlR1QVLGeVWxVjqOnXiS+Gj9T0XAnQIMQUzUJ4lvrN3fFAV5GIm4+yyNKgvvDj
-	x1Ch0VpFpvP3GDhvv/0fq5gITW91EEMjP3GaDMfSUUA4ppGo0PvpU5jfF5k4UKXSO91w=;
-Message-ID: <7bffdbeb-0219-4ec7-a70f-a9fa55cd6b5e@xen.org>
-Date: Wed, 19 Jun 2024 13:34:19 +0100
+X-Inumbo-ID: 8470a2a6-2e3b-11ef-90a3-e314d9c70b13
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
+	s=mte1; t=1718801862; x=1719062362;
+	bh=QAebLaPD8+cupYVRUnIU5BBiafDK5MduiHxYSEAK7j8=;
+	h=From:Subject:To:Cc:Message-Id:References:In-Reply-To:Feedback-ID:
+	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
+	 Subject:From;
+	b=1ip7cld0l3PvvJ2DBuacNyUixIU4aHWFy07QAujXMeQ+xNy7dm8iuq6gIlUTTBrgJ
+	 7bWQVPp5bpPSMFipQvRNCnVy+Ry5PR2g5d8wJFNPE3I95lUIxaJF62YNq3BU7KmSdX
+	 kPUxdKNVucWT1mjp9vnPdgvCyb6R4Jr9FAR65Yv1/6l36wPwp4yB/z5oQ6VwhMIaJp
+	 DC7GQ4l8CBFADvFHhhEd6alx17lprVaEdGbICaTafvOV3YJbS2aSd3/tD5UHT3z3l5
+	 frGdoTje0VHn+JSXMviELDu6LZNQnAxPXf0lWD4pwMSStRoi48MPEEuHCAHvpgFk52
+	 NPUt+0YJKtHZg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
+	t=1718801862; x=1719062362; i=anthony.perard@vates.tech;
+	bh=QAebLaPD8+cupYVRUnIU5BBiafDK5MduiHxYSEAK7j8=;
+	h=From:Subject:To:Cc:Message-Id:References:In-Reply-To:Feedback-ID:
+	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
+	 Subject:From;
+	b=UZuO3lvtfRZ6jcWHx2QKFa3whcv/gcM7hkEdh33iINrgD7PTSQguSf6dRxCexpN6B
+	 FJcGiSdHf6Xbsy15ft4lKx7Ak6ieBtcobXXp8VhCu5Yk2Kkej9gVGCl8S4GBkzhD5H
+	 uJptj8AYB8H66ozRePlr5O+TEjByi7zEL0a+eosi4WPZmlZAYqnMxHfiz8Zg9ORftx
+	 u39137D50c5MKiCMMg9DXXIbkdOVTWAk107jxaMhbNxaaYy4VWjCH079yETr7bIQpp
+	 lmCO+T2CF3hG3O1R0LQyB13cx7n1KVKF0Zmn6dDEWNsmPjbhSgM1pUK1kkI7rqvO7p
+	 K2GlVGjbT4J9Q==
+From: Anthony PERARD <anthony.perard@vates.tech>
+Subject: =?utf-8?Q?Re:=20[PATCH]=20tools/libs/light:=20Fix=20nic->vlan=20memory=20allocation?=
+X-Bm-Disclaimer: Yes
+X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
+X-Bm-Transport-Timestamp: 1718801860969
+To: Jason Andryuk <jason.andryuk@amd.com>, Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Cc: Leigh Brown <leigh@solinno.co.uk>, Xen Devel <xen-devel@lists.xenproject.org>, Andrew Cooper <andrew.cooper3@citrix.com>, Jason Andryuk <jandryuk@gmail.com>, Jan Beulich <jbeulich@suse.com>
+Message-Id: <ZnLVxB2XuWL9UKWI@l14>
+References: <20240520164400.15740-1-leigh@solinno.co.uk> <c600e5e8-d169-417c-bc02-d33e84dca0fb@amd.com>
+In-Reply-To: <c600e5e8-d169-417c-bc02-d33e84dca0fb@amd.com>
+X-Native-Encoded: 1
+X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.73edaa175ba94638a1fbddc1cbefd527?=
+X-Mandrill-User: md_30504962
+Feedback-ID: 30504962:30504962.20240619:md
+Date: Wed, 19 Jun 2024 12:57:42 +0000
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH for-4.19] xen/arm: static-shmem: fix "gbase/pbase used
- uninitialized" build failure
-Content-Language: en-GB
-To: Michal Orzel <michal.orzel@amd.com>, xen-devel@lists.xenproject.org
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-References: <20240619064652.18266-1-michal.orzel@amd.com>
- <82790448-dd2f-4299-ae3d-938080ee5e19@xen.org>
- <99fb367a-7ceb-4769-8120-a06474e98fb3@amd.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <99fb367a-7ceb-4769-8120-a06474e98fb3@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: 7bit
 
-
-
-On 19/06/2024 13:06, Michal Orzel wrote:
-> Hi Julien,
+On Mon, May 20, 2024 at 01:08:03PM -0400, Jason Andryuk wrote:
+> On 2024-05-20 12:44, Leigh Brown wrote:
+> > After the following commit:
+> > 3bc14e4fa4b9 ("tools/libs/light: Add vlan field to libxl_device_nic")
+> > xl list -l aborts with a double free error if a domain has at least
+> > one vif defined:
+> > 
+> >    $ sudo xl list -l
+> >    free(): double free detected in tcache 2
+> >    Aborted
+> > 
+> > Orginally, the vlan field was called vid and was defined as an integer.
+> > It was appropriate to call libxl__xs_read_checked() with gc passed as
+> > the string data was copied to a different variable.  However, the final
+> > version uses a string data type and the call should have been changed
+> > to use NOGC instead of gc to allow that data to live past the gc
+> > controlled lifetime, in line with the other string fields.
+> > 
+> > This patch makes the change to pass NOGC instead of gc and moves the
+> > new code to be next to the other string fields (fixing a couple of
+> > errant tabs along the way), as recommended by Jason.
+> > 
+> > Fixes: 3bc14e4fa4b9 ("tools/libs/light: Add vlan field to libxl_device_nic")
+> > Signed-off-by: Leigh Brown <leigh@solinno.co.uk>
 > 
-> On 19/06/2024 13:55, Julien Grall wrote:
->>
->>
->> Hi Michal,
->>
->> On 19/06/2024 07:46, Michal Orzel wrote:
->>> Building Xen with CONFIG_STATIC_SHM=y results in a build failure:
->>>
->>> arch/arm/static-shmem.c: In function 'process_shm':
->>> arch/arm/static-shmem.c:327:41: error: 'gbase' may be used uninitialized [-Werror=maybe-uninitialized]
->>>     327 |         if ( is_domain_direct_mapped(d) && (pbase != gbase) )
->>> arch/arm/static-shmem.c:305:17: note: 'gbase' was declared here
->>>     305 |         paddr_t gbase, pbase, psize;
->>>
->>> This is because the commit cb1ddafdc573 adds a check referencing
->>> gbase/pbase variables which were not yet assigned a value. Fix it.
->>>
->>> Fixes: cb1ddafdc573 ("xen/arm/static-shmem: Static-shmem should be direct-mapped for direct-mapped domains")
->>> Signed-off-by: Michal Orzel <michal.orzel@amd.com>
->>> ---
->>> Rationale for 4.19: this patch fixes a build failure reported by CI:
->>> https://gitlab.com/xen-project/xen/-/jobs/7131807878
->>> ---
->>>    xen/arch/arm/static-shmem.c | 13 +++++++------
->>>    1 file changed, 7 insertions(+), 6 deletions(-)
->>>
->>> diff --git a/xen/arch/arm/static-shmem.c b/xen/arch/arm/static-shmem.c
->>> index c434b96e6204..cd48d2896b7e 100644
->>> --- a/xen/arch/arm/static-shmem.c
->>> +++ b/xen/arch/arm/static-shmem.c
->>> @@ -324,12 +324,6 @@ int __init process_shm(struct domain *d, struct kernel_info *kinfo,
->>>                printk("%pd: static shared memory bank not found: '%s'", d, shm_id);
->>>                return -ENOENT;
->>>            }
->>> -        if ( is_domain_direct_mapped(d) && (pbase != gbase) )
->>> -        {
->>> -            printk("%pd: physical address 0x%"PRIpaddr" and guest address 0x%"PRIpaddr" are not direct-mapped.\n",
->>> -                   d, pbase, gbase);
->>> -            return -EINVAL;
->>> -        }
->>>
->>>            pbase = boot_shm_bank->start;
->>>            psize = boot_shm_bank->size;
->>> @@ -353,6 +347,13 @@ int __init process_shm(struct domain *d, struct kernel_info *kinfo,
->>>                /* guest phys address is after host phys address */
->>>                gbase = dt_read_paddr(cells + addr_cells, addr_cells);
->>>
->>> +            if ( is_domain_direct_mapped(d) && (pbase != gbase) )
->>> +            {
->>> +                printk("%pd: physical address 0x%"PRIpaddr" and guest address 0x%"PRIpaddr" are not direct-mapped.\n",
->>> +                       d, pbase, gbase);
->>> +                return -EINVAL;
->>> +            }
->>> +
->>
->> Before this patch, the check was globally. I guess the intention was it
->> covers the two part of the "if". But now, you only have it in when
->> "paddr" is specified in the DT.
->>
->>   From a brief look at the code, I can't figure out why we don't need a
->> similar check on the else path. Is this because it is guarantee that
->> will be paddr == gaddr?
-> The reason why I added this check only in the first case is due to what doc states.
-> It says that if a domain is 1:1, the shmem should be also 1:1 i.e. pbase == gbase. In the else
-> case the pbase is omitted and thus a user cannot know and has no guarantee what will be the backing physical address.
+> Reviewed-by: Jason Andryuk <jason.andryuk@amd.com>
 
-The property "direct-map" has the following definition:
+Acked-by: Anthony PERARD <anthony.perard@vates.tech>
 
-"- direct-map
-
-     Only available when statically allocated memory is used for the domain.
-     An empty property to request the memory of the domain to be
-     direct-map (guest physical address == physical address).
-"
-
-So I think it would be fair for someone to interpret it as shared memory 
-would also be 1:1 mapped.
-
-> Thus, reading this doc makes me feel that for 1:1 guests user needs to specify pbase == gbase.
-
-See above, I think this is not 100% clear. I am concerned that someone 
-may try to use the version where only the guest address is specified.
-
-It would likely be hard to realize that the extended regions would not 
-work properly. So something needs to be done.
-
-I don't have any preference on how to address. It could simply be a 
-check in Xen to request that both "gaddr" and "paddr" are specified for 
-direct mapped domain.
-
-Cheers,
+Thanks,
 
 -- 
-Julien Grall
+
+
+Anthony Perard | Vates XCP-ng Developer
+
+XCP-ng & Xen Orchestra - Vates solutions
+
+web: https://vates.tech
 
