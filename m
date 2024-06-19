@@ -2,37 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 33CDA90E401
-	for <lists+xen-devel@lfdr.de>; Wed, 19 Jun 2024 09:06:08 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.743447.1150358 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3B86E90E403
+	for <lists+xen-devel@lfdr.de>; Wed, 19 Jun 2024 09:06:47 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.743458.1150368 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sJpOF-0008Gy-NU; Wed, 19 Jun 2024 07:05:55 +0000
+	id 1sJpOt-0000a9-TX; Wed, 19 Jun 2024 07:06:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 743447.1150358; Wed, 19 Jun 2024 07:05:55 +0000
+Received: by outflank-mailman (output) from mailman id 743458.1150368; Wed, 19 Jun 2024 07:06:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sJpOF-0008FE-J5; Wed, 19 Jun 2024 07:05:55 +0000
-Received: by outflank-mailman (input) for mailman id 743447;
- Wed, 19 Jun 2024 07:05:54 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1sJpOt-0000Yb-Qr; Wed, 19 Jun 2024 07:06:35 +0000
+Received: by outflank-mailman (input) for mailman id 743458;
+ Wed, 19 Jun 2024 07:06:35 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ri0R=NV=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1sJpOD-0008EY-Uf
- for xen-devel@lists.xenproject.org; Wed, 19 Jun 2024 07:05:53 +0000
-Received: from mail-vk1-xa2d.google.com (mail-vk1-xa2d.google.com
- [2607:f8b0:4864:20::a2d])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 5d4772aa-2e0a-11ef-90a3-e314d9c70b13;
- Wed, 19 Jun 2024 09:05:52 +0200 (CEST)
-Received: by mail-vk1-xa2d.google.com with SMTP id
- 71dfb90a1353d-4ecf00ea4fbso1665836e0c.3
- for <xen-devel@lists.xenproject.org>; Wed, 19 Jun 2024 00:05:52 -0700 (PDT)
-Received: from localhost ([213.195.124.163]) by smtp.gmail.com with ESMTPSA id
- d75a77b69052e-441eede79basm63233131cf.0.2024.06.19.00.05.50
+ <SRS0=hxBI=NV=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1sJpOt-0007yJ-0f
+ for xen-devel@lists.xenproject.org; Wed, 19 Jun 2024 07:06:35 +0000
+Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
+ [2a00:1450:4864:20::331])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 7589bac6-2e0a-11ef-b4bb-af5377834399;
+ Wed, 19 Jun 2024 09:06:33 +0200 (CEST)
+Received: by mail-wm1-x331.google.com with SMTP id
+ 5b1f17b1804b1-42122ac2f38so3478745e9.1
+ for <xen-devel@lists.xenproject.org>; Wed, 19 Jun 2024 00:06:33 -0700 (PDT)
+Received: from [192.168.219.221] ([94.75.70.14])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-42286fe8fb8sm257346515e9.11.2024.06.19.00.06.31
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 19 Jun 2024 00:05:50 -0700 (PDT)
+ Wed, 19 Jun 2024 00:06:32 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,156 +45,128 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5d4772aa-2e0a-11ef-90a3-e314d9c70b13
+X-Inumbo-ID: 7589bac6-2e0a-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1718780751; x=1719385551; darn=lists.xenproject.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=csUiPWVeVAZ6dD/SGvM5eZ7HmV22urkoGCaDVvk3BVg=;
-        b=Dg6m2ZTvz3W8Mcd7lHVgG0h6kocT4OAo/nFxiTM739vInGkWHMKJAaVuUqpeywah6u
-         bW0WZktOEEB8jJY1x8AOSLpZ6sEC3IiVip1h6OkS79d3VzY3eOUjuqoYsscy1h6CxgIw
-         i7uaObHFB+CY0oiNuWv52ULkya5p4sM9HImrU=
+        d=gmail.com; s=20230601; t=1718780793; x=1719385593; darn=lists.xenproject.org;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=r3h+a2TBSX1go0KsZFGfwtOr49kqMAbh2tBBH01hpMU=;
+        b=lQ9Pc7oqFYJJfjuF0WUyxmg6MyKaNapxdoebxsOSG1SCE1A4z/whh7JjYg9pP0BMoB
+         AbBnHMF7faowDLghnwXcrYgyKppJVSy50clH7JkzOm9PpGBTMbFkc9tFXZ0BvatIgbDa
+         VgxpoPGzwp3QYVGRXm6kv0qvg5/FimWEHzCQzgv47f6UYCapooQI6x3NpJ+R6rbNb+2i
+         8nVyCGKdNKCmUvNi9IJQYpuTHXmo0TMO1dNMNmLNY4TqfsgpeYxcWIStqo7FesB+xKPp
+         HBcN2BVDc6syNSVDWtV65hdT05eSsA6J7GSKkwUNAbF6mk/svRwTqxvpOzygEXLl3BUq
+         TwTg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1718780751; x=1719385551;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=csUiPWVeVAZ6dD/SGvM5eZ7HmV22urkoGCaDVvk3BVg=;
-        b=ZPxWO+qqjDVU9QjSJvWzwTT0pE/7sbNBco82+w4f0wAEPJIuprYG8WGI9dyDGzyp2i
-         Scky8zrXbfAQ1VKUBwqSrFoQmrXO657viSe0P2KL2H1v6udGfYyrifcoV5uFXTqymNKd
-         hVvomL/s7GBo8fXHvlnVvKCYkjWrwmY19D20ntm0nwnd9McvmEEgMiag0+eR/wBJ/O33
-         6raPRgYIccsMvT8s25XqvlLzMkGls9u1dooJcVVTH4HTIjTe2NMUrjUbuUgW5bITjLyp
-         hMASlUFSSOv4jHBcS4lp54jZ4vyjo3ellmK0BiXBBsRegqDkXOSQScIYvQoKMKYfObz1
-         VZ3A==
-X-Forwarded-Encrypted: i=1; AJvYcCX+rtMYadvRHRzXEf8d1BkLNz8o/ajZJqd+51E06zxc2S/pxRwmChdGTTdLRKZPX3aBgNhrt0pvvLcq+JR/uxVsNKC0MvxGBwdrUBBOzzM=
-X-Gm-Message-State: AOJu0Yzrp77EDKetfnGP6xiUhYDkQ0ZDygPSgEzxgQY8WU3sYSgSzKED
-	P50jnxFMZ5F1jyCGAlXAkg0TFtU6daFJFdhf/iAhVcwOFNS2ujAppIncnwFFiQg=
-X-Google-Smtp-Source: AGHT+IFTlVdmtgH+8ATyFC4+KicezDBhKia3tVo65rhh+4KHxa07vvHQdUA+A9OEupcxUq0xaXr97w==
-X-Received: by 2002:a05:6122:8d0:b0:4ed:145:3489 with SMTP id 71dfb90a1353d-4ef277db851mr2222709e0c.13.1718780751460;
-        Wed, 19 Jun 2024 00:05:51 -0700 (PDT)
-Date: Wed, 19 Jun 2024 09:05:48 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v3 3/3] x86/irq: forward pending interrupts to new
- destination in fixup_irqs()
-Message-ID: <ZnKDTEX_eGz2sS4K@macbook>
-References: <20240613165617.42538-1-roger.pau@citrix.com>
- <20240613165617.42538-4-roger.pau@citrix.com>
- <e3912334-4dbe-40e9-aed4-8b47e1570cc7@suse.com>
- <ZnFv7b4YNjeRXj6-@macbook>
- <2f388d0a-c9b5-409a-b622-5dfeb3093e82@suse.com>
- <ZnGerbiI7P9PHPmK@macbook>
- <ba89126f-715d-498e-81e1-2ed105ac2d1c@suse.com>
+        d=1e100.net; s=20230601; t=1718780793; x=1719385593;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=r3h+a2TBSX1go0KsZFGfwtOr49kqMAbh2tBBH01hpMU=;
+        b=RMGbkCPetsAJNB9wOIP/E08lUPxP4iGoKCTnoDoBGp+bGTr08GqP5Lhb8I+bBQ2n6I
+         VwihOylrMlZUdvTx9PsPRCrjbCZFnH27n3DZR8wxACVn1B93ahimXZ16dGxE5xRklxYQ
+         p75UjQh1kdoIrP3jWEJEVZW/2V7CmCnkvoQVdnlZG9EbpQ1O+Tamfi8b90KVY+d8z3Q/
+         8Pv/F9RMzzu4w0xDuwqr/paDGTrMMPa7DgAcXgI4m+463/82V41XVcgwhU8cL1mxL9/b
+         KCpZn1gmSDr2y6beF/UDsa6DbfTp9xtRDW75km5rqNFlznb8hP8B4eWvwwpzl65csIAy
+         DcNg==
+X-Forwarded-Encrypted: i=1; AJvYcCUfCqO7nDP4nSDGVpw6ll9Mgymbka8+lclV4Exp025l/8QPwOQOhAsulmY1bFDI0glLiALQycjLRF4MJXdgxBRE0i3A9UEfkxknHJKEcGU=
+X-Gm-Message-State: AOJu0YyXD+Z1lhBu6YyuHpBo9i2NEEyHFLXBy+oen1wtZwmOJ+Nt9AGX
+	4c/uJk8ENC9uF+Tlt8a4UWoGNV8MLTviZHOSX9BONoQboScreyBP
+X-Google-Smtp-Source: AGHT+IH5u93jnq9ZgwjRl+3DlYlSjlrHAXWLnrWfScUIGDRsQuYiz7pzFseLw5ULbKpSMiRb+b1hcw==
+X-Received: by 2002:a7b:c8cc:0:b0:418:2981:c70f with SMTP id 5b1f17b1804b1-4246fb8e71dmr46621715e9.19.1718780792514;
+        Wed, 19 Jun 2024 00:06:32 -0700 (PDT)
+Message-ID: <72d00f8df6d6682c3b9163108b340e0cdd665151.camel@gmail.com>
+Subject: Re: [PATCH for-4.19] xen/irq: Address MISRA Rule 8.3 violation
+From: "Oleksii K." <oleksii.kurochko@gmail.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>, Xen-devel
+	 <xen-devel@lists.xenproject.org>
+Cc: George Dunlap <George.Dunlap@citrix.com>, Jan Beulich
+ <JBeulich@suse.com>,  Stefano Stabellini <sstabellini@kernel.org>, Julien
+ Grall <julien@xen.org>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
+ Bertrand Marquis <bertrand.marquis@arm.com>, Michal Orzel
+ <michal.orzel@amd.com>, Roberto Bagnara <roberto.bagnara@bugseng.com>,
+ Nicola Vetrini <nicola.vetrini@bugseng.com>,  "consulting @ bugseng . com"
+ <consulting@bugseng.com>
+Date: Wed, 19 Jun 2024 09:06:31 +0200
+In-Reply-To: <20240618130048.1768639-1-andrew.cooper3@citrix.com>
+References: <20240618130048.1768639-1-andrew.cooper3@citrix.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.52.1 (3.52.1-1.fc40) 
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <ba89126f-715d-498e-81e1-2ed105ac2d1c@suse.com>
 
-On Tue, Jun 18, 2024 at 06:30:22PM +0200, Jan Beulich wrote:
-> On 18.06.2024 16:50, Roger Pau Monné wrote:
-> > On Tue, Jun 18, 2024 at 04:34:50PM +0200, Jan Beulich wrote:
-> >> On 18.06.2024 13:30, Roger Pau Monné wrote:
-> >>> On Mon, Jun 17, 2024 at 03:41:12PM +0200, Jan Beulich wrote:
-> >>>> On 13.06.2024 18:56, Roger Pau Monne wrote:
-> >>>>> @@ -2686,11 +2705,27 @@ void fixup_irqs(const cpumask_t *mask, bool verbose)
-> >>>>>          if ( desc->handler->disable )
-> >>>>>              desc->handler->disable(desc);
-> >>>>>  
-> >>>>> +        /*
-> >>>>> +         * If the current CPU is going offline and is (one of) the target(s) of
-> >>>>> +         * the interrupt, signal to check whether there are any pending vectors
-> >>>>> +         * to be handled in the local APIC after the interrupt has been moved.
-> >>>>> +         */
-> >>>>> +        if ( !cpu_online(cpu) && cpumask_test_cpu(cpu, desc->arch.cpu_mask) )
-> >>>>> +            check_irr = true;
-> >>>>> +
-> >>>>>          if ( desc->handler->set_affinity )
-> >>>>>              desc->handler->set_affinity(desc, affinity);
-> >>>>>          else if ( !(warned++) )
-> >>>>>              set_affinity = false;
-> >>>>>  
-> >>>>> +        if ( check_irr && apic_irr_read(vector) )
-> >>>>> +            /*
-> >>>>> +             * Forward pending interrupt to the new destination, this CPU is
-> >>>>> +             * going offline and otherwise the interrupt would be lost.
-> >>>>> +             */
-> >>>>> +            send_IPI_mask(cpumask_of(cpumask_any(desc->arch.cpu_mask)),
-> >>>>> +                          desc->arch.vector);
-> >>>>
-> >>>> Hmm, IRR may become set right after the IRR read (unlike in the other cases,
-> >>>> where new IRQs ought to be surfacing only at the new destination). Doesn't
-> >>>> this want moving ...
-> >>>>
-> >>>>>          if ( desc->handler->enable )
-> >>>>>              desc->handler->enable(desc);
-> >>>>
-> >>>> ... past the actual affinity change?
-> >>>
-> >>> Hm, but the ->enable() hook is just unmasking the interrupt, the
-> >>> actual affinity change is done in ->set_affinity(), and hence after
-> >>> the call to ->set_affinity() no further interrupts should be delivered
-> >>> to the CPU regardless of whether the source is masked?
-> >>>
-> >>> Or is it possible for the device/interrupt controller to not switch to
-> >>> use the new destination until the interrupt is unmasked, and hence
-> >>> could have pending masked interrupts still using the old destination?
-> >>> IIRC For MSI-X it's required that the device updates the destination
-> >>> target once the entry is unmasked.
-> >>
-> >> That's all not relevant here, I think. IRR gets set when an interrupt is
-> >> signaled, no matter whether it's masked.
-> > 
-> > I'm kind of lost here, what does signaling mean in this context?
-> > 
-> > I would expect the interrupt vector to not get set in IRR if the MSI-X
-> > entry is masked, as at that point the state of the address/data fields
-> > might not be consistent (that's the whole point of masking it right?)
-> > 
-> >> It's its handling which the
-> >> masking would prevent, i.e. the "moving" of the set bit from IRR to ISR.
-> > 
-> > My understanding was that the masking would prevent the message write to
-> > the APIC from happening, and hence no vector should get set in IRR.
-> 
-> Hmm, yes, looks like I was confused. The masking is at the source side
-> (IO-APIC RTE, MSI-X entry, or - if supported - in the MSI capability).
-> So the sole case to worry about is MSI without mask-bit support then.
+On Tue, 2024-06-18 at 14:00 +0100, Andrew Cooper wrote:
+> When centralising irq_ack_none(), different architectures had
+> different names
+> for the parameter of irq_ack_none().=C2=A0 As it's type is struct irq_des=
+c
+> *, it
+> should be named desc.=C2=A0 Make this consistent.
+>=20
+> No functional change.
+>=20
+> Fixes: 8aeda4a241ab ("arch/irq: Make irq_ack_none() mandatory")
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+Release-Acked-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 
-Yeah, and for MSI without masking bit support we don't care doing the
-IRR check before or after the ->enable() hook, as that's a no-op in
-that case.  The write to the MSI address/data fields has already been
-done, and hence the issue would be exclusively with draining any
-in-flight writes to the APIC doorbell (what you mention below).
+~ Oleksii
 
-> >> Plus we run with IRQs off here anyway if I'm not mistaken, so no
-> >> interrupt can be delivered to the local CPU. IOW whatever IRR bits it
-> >> has set (including ones becoming set between the IRR read and the actual
-> >> vector change), those would never be serviced. Hence the reading of the
-> >> bit ought to occur after the vector change: It's only then that we know
-> >> the IRR bit corresponding to the old vector can't become set anymore.
-> > 
-> > Right, and the vector change happens in ->set_affinity(), not
-> > ->enable().  See for example set_msi_affinity() and the
-> > write_msi_msg(), that's where the vector gets changed.
-> > 
-> >> And even then we're assuming that no interrupt signals might still be
-> >> "on their way" from the IO-APIC or a posted MSI message write by a
-> >> device to the LAPIC (I have no idea how to properly fence that, or
-> >> whether there are guarantees for this to never occur).
-> > 
-> > Yeah, those I expect would be completed in the window between the
-> > write of the new vector/destination and the reading of IRR.
-> 
-> Except we have no idea on the latencies.
+> ---
+> CC: George Dunlap <George.Dunlap@citrix.com>
+> CC: Jan Beulich <JBeulich@suse.com>
+> CC: Stefano Stabellini <sstabellini@kernel.org>
+> CC: Julien Grall <julien@xen.org>
+> CC: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+> CC: Bertrand Marquis <bertrand.marquis@arm.com>
+> CC: Michal Orzel <michal.orzel@amd.com>
+> CC: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+> CC: Roberto Bagnara <roberto.bagnara@bugseng.com>
+> CC: Nicola Vetrini <nicola.vetrini@bugseng.com>
+> CC: consulting@bugseng.com=C2=A0<consulting@bugseng.com>
+>=20
+> Request for 4.19.=C2=A0 This was an accidental regression in a recent
+> cleanup
+> patch, and the fix is just a rename - its no functional change.
+> ---
+> =C2=A0xen/arch/arm/irq.c=C2=A0=C2=A0=C2=A0 | 4 ++--
+> =C2=A0xen/include/xen/irq.h | 2 +-
+> =C2=A02 files changed, 3 insertions(+), 3 deletions(-)
+>=20
+> diff --git a/xen/arch/arm/irq.c b/xen/arch/arm/irq.c
+> index c60502444ccf..6b89f64fd194 100644
+> --- a/xen/arch/arm/irq.c
+> +++ b/xen/arch/arm/irq.c
+> @@ -31,9 +31,9 @@ struct irq_guest
+> =C2=A0=C2=A0=C2=A0=C2=A0 unsigned int virq;
+> =C2=A0};
+> =C2=A0
+> -void irq_ack_none(struct irq_desc *irq)
+> +void irq_ack_none(struct irq_desc *desc)
+> =C2=A0{
+> -=C2=A0=C2=A0=C2=A0 printk("unexpected IRQ trap at irq %02x\n", irq->irq)=
+;
+> +=C2=A0=C2=A0=C2=A0 printk("unexpected IRQ trap at irq %02x\n", desc->irq=
+);
+> =C2=A0}
+> =C2=A0
+> =C2=A0void irq_end_none(struct irq_desc *irq)
+> diff --git a/xen/include/xen/irq.h b/xen/include/xen/irq.h
+> index adf33547d25f..580ae37e7428 100644
+> --- a/xen/include/xen/irq.h
+> +++ b/xen/include/xen/irq.h
+> @@ -134,7 +134,7 @@ void cf_check irq_actor_none(struct irq_desc
+> *desc);
+> =C2=A0 * irq_ack_none() must be provided by the architecture.
+> =C2=A0 * irq_end_none() is optional, and opted into using a define.
+> =C2=A0 */
+> -void cf_check irq_ack_none(struct irq_desc *irq);
+> +void cf_check irq_ack_none(struct irq_desc *desc);
+> =C2=A0
+> =C2=A0/*
+> =C2=A0 * Per-cpu interrupted context register state - the inner-most
+> interrupt frame
+>=20
+> base-commit: 8b4243a9b560c89bb259db5a27832c253d4bebc7
 
-There isn't much else we can do? Even the current case where we add
-the 1ms window at the end of the shuffling could still suffer from
-this issue because we don't know the latencies.  IOW: I don't think
-this is any worse than the current approach.
-
-Thanks, Roger.
 
