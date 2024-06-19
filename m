@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9505490EA36
-	for <lists+xen-devel@lfdr.de>; Wed, 19 Jun 2024 13:58:19 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.743723.1150683 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 87B2190EA55
+	for <lists+xen-devel@lfdr.de>; Wed, 19 Jun 2024 14:04:52 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.743734.1150693 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sJtx0-0007SV-Hl; Wed, 19 Jun 2024 11:58:06 +0000
+	id 1sJu3J-0001M9-FQ; Wed, 19 Jun 2024 12:04:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 743723.1150683; Wed, 19 Jun 2024 11:58:06 +0000
+Received: by outflank-mailman (output) from mailman id 743734.1150693; Wed, 19 Jun 2024 12:04:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sJtx0-0007Qy-Ee; Wed, 19 Jun 2024 11:58:06 +0000
-Received: by outflank-mailman (input) for mailman id 743723;
- Wed, 19 Jun 2024 11:58:05 +0000
+	id 1sJu3J-0001Kd-Bq; Wed, 19 Jun 2024 12:04:37 +0000
+Received: by outflank-mailman (input) for mailman id 743734;
+ Wed, 19 Jun 2024 12:04:36 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=YhGR=NV=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sJtwz-0007Qs-4Y
- for xen-devel@lists.xenproject.org; Wed, 19 Jun 2024 11:58:05 +0000
-Received: from mail-lj1-x232.google.com (mail-lj1-x232.google.com
- [2a00:1450:4864:20::232])
+ id 1sJu3I-0001KX-1U
+ for xen-devel@lists.xenproject.org; Wed, 19 Jun 2024 12:04:36 +0000
+Received: from mail-lj1-x229.google.com (mail-lj1-x229.google.com
+ [2a00:1450:4864:20::229])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 2e7670d8-2e33-11ef-b4bb-af5377834399;
- Wed, 19 Jun 2024 13:58:03 +0200 (CEST)
-Received: by mail-lj1-x232.google.com with SMTP id
- 38308e7fff4ca-2ebec2f11b7so64178201fa.2
- for <xen-devel@lists.xenproject.org>; Wed, 19 Jun 2024 04:58:03 -0700 (PDT)
+ id 1784952d-2e34-11ef-b4bb-af5377834399;
+ Wed, 19 Jun 2024 14:04:34 +0200 (CEST)
+Received: by mail-lj1-x229.google.com with SMTP id
+ 38308e7fff4ca-2eaae2a6dc1so115193861fa.0
+ for <xen-devel@lists.xenproject.org>; Wed, 19 Jun 2024 05:04:34 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-1f855f0b705sm115017995ad.213.2024.06.19.04.57.58
+ d9443c01a7336-1f855e5be4bsm115284975ad.19.2024.06.19.05.04.30
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 19 Jun 2024 04:58:01 -0700 (PDT)
+ Wed, 19 Jun 2024 05:04:32 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,52 +45,48 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2e7670d8-2e33-11ef-b4bb-af5377834399
+X-Inumbo-ID: 1784952d-2e34-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1718798282; x=1719403082; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1718798673; x=1719403473; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=7js8CSmtozYgUq5gAEvDke0ZuNKLOKBar2LduVigS+U=;
-        b=Z6wWpu1MP1YZaRC5uAhEBfAaK5kff84jzIrppT9GmSS9+dfPd+4BjAqsLL1tU9eZxq
-         PY0GVbbe+UqEwmBoFmrL/BwHd56oiwVUMWYQDvc8N5PfZr1Ssy4FLNlB3L2sgi9VacFD
-         zJTFbVVO5DEX9/lztPuSgYk9OVN9707vzpB9u0bNfOmEyXsVa9gPw+/bC7Ug9paUEZkT
-         tZ7rBzwyv6da+Gz2esJ0yUYpDS5okk7FITJxgsC7wtbA0s/9Pa96aQ71UxQLZxR+CfY0
-         VwpxSyQvB19xNCfgKzgIHabiKFFYy/4bFm4JnMwrvW/aSyUojJLkHNd6L3Z9ukVKQNvA
-         7x2Q==
+        bh=A4ae1nad0OEe4iAybnrKh8rkxZpqVuSSq7udvGtoVcA=;
+        b=A5cWhMA4+x/WnEPB7WN9MyVND+szmzdlb4o9+6WqW6rv8gJ/UP1ctE70Wo8PWLGfbH
+         cpcwxs7z4E3I+ahRGUvmaa04ir0cI/hFUoSlGBindGTNInsU+nmPrwh+3xK9f8jzFOSd
+         BD7buSVnY7AxDnJE3sf9V9NODhackjzMtGETUywzaJoV89v/E+niYW/Y3YHoG6fN6smP
+         jKOnFMpSaRFgfnfCMpbxlXFXri1zR5qKoGClu0dLU7qxqstsk8hw4O5+u431isYB7cI0
+         itnw2d2SGqDz1aBIpbaqARVjYq4jWVhoqSUNbex2NIXM9KrM27zorFqFmPO+M+JYU/Lj
+         h8ig==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1718798282; x=1719403082;
+        d=1e100.net; s=20230601; t=1718798673; x=1719403473;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=7js8CSmtozYgUq5gAEvDke0ZuNKLOKBar2LduVigS+U=;
-        b=Wzp+qNyLn4TlBVmjK94vF5g1ZFBn4zhfeWPYXDY4a02NFliE0ezMEd6hjyvxcSyILb
-         N/YMqlei4nG+D9wTuodxndJJGBvNCGOm05OJCaRzrXTd5pHrkIGFMRx7cwhkGrCiFS2V
-         Ia1pMyikYa8k31wZ7ZoAB8j7mvrF6xCHf9Syg6FV1J6EhO8VOJ8LirUoncbp2wsuxKFC
-         /2FwK0PMIRbohT8sdUqtSzBy82COkFV2KNG5hSCjJqIO4jbz71gDdPfCTltFzrvGWgX8
-         MZKD1Z55fIunxKQVCpLGCCahrbW/JAfRXvjTjIQky9H9Mrv4w1T2HIAe3GSMPZVCRaxp
-         SABA==
-X-Forwarded-Encrypted: i=1; AJvYcCUJJk7EJvaRYyU9kh46r5g426kkLGdNHmVTJzVVZK7ep1UaK5d2L/97ZkGByCBHEnvew6k8tO4u9soig5jL7oPWlZuq9M7G0cxwBe8Dyvo=
-X-Gm-Message-State: AOJu0Yy/rh5estDdE1yBmEJBRUFrPen35108fhJOgYQd11VvpaMZX3I+
-	zdAy+LFdpJl2Un4uBEDTbelJgJSiAMqEQE7t9LK9SNmlr+XOWxaG2WLvLtqOyw==
-X-Google-Smtp-Source: AGHT+IFheFwHv0oYp3HK6+0nVL6YynBxO2mgnmhLzvHXscUefps3jvp3qNsqzpxsnidtjOjL2GHGAw==
-X-Received: by 2002:a2e:b1c2:0:b0:2eb:e47c:6d2a with SMTP id 38308e7fff4ca-2ec3cecc2abmr14668881fa.28.1718798282354;
-        Wed, 19 Jun 2024 04:58:02 -0700 (PDT)
-Message-ID: <a8fd0504-23b7-473a-9056-6b51c20e6468@suse.com>
-Date: Wed, 19 Jun 2024 13:57:54 +0200
+        bh=A4ae1nad0OEe4iAybnrKh8rkxZpqVuSSq7udvGtoVcA=;
+        b=H6kX9iP5ml/zOdhBMEUS1M0XbKW7f2/Fhiod2z8YL3FV6jLoAlDmI7v6+pRIiLW3YB
+         6ys10j+zcGfYwo6/6nDsMtoBIoSfv4yxoghvTOV1X6dG2ipa9BRlI5y5Ec3CXE/acFqY
+         0dKnwFDujIAz7tKDccPH4/vd33ugWFtmPFJZ5eQEHKl0thIsXuEVwzWiV0nCqumLGigf
+         +SCFbvR5yw5p74R6GbtHHId4ylsduqsFk/9p1gJoL9h8v+HGjjmgryMoI2/FxvmFuOTd
+         WsguYt4r3EdnS+YvmD8B4Lrfc7AF2AhDPmdhJGiJ9ZK5CXsq0Id1YRp4JMGgxHdf4ASO
+         0wiw==
+X-Forwarded-Encrypted: i=1; AJvYcCW477F/wQhFFzKUrt0V5ra2droGaWXvbEadMIaLYq4PdjhXXY8VF0t6IY4gY/RIzPTY0JaicAVKXbgLRHV163ZfHCaRf70f8O9KY9hZVWs=
+X-Gm-Message-State: AOJu0YzpV7eSNE1CDWCIg3vUPft2U1tH2cXEfdVxsNcHBAYyyhgmnWnm
+	hteh2nlbrux9uZ0cJbDWNw+3YooyLhIWD2d3+yFK63urJwt2m+AhKG7UCrRmiQ==
+X-Google-Smtp-Source: AGHT+IH/qitZD0GhN2iiMju5DZO40IQT2LZpqLrw94Zh0xhUiP1MRBfJM0jFTzyRN2zFusHNjpIggQ==
+X-Received: by 2002:a2e:87c7:0:b0:2ec:4267:191e with SMTP id 38308e7fff4ca-2ec426722e2mr4311631fa.18.1718798673468;
+        Wed, 19 Jun 2024 05:04:33 -0700 (PDT)
+Message-ID: <14188e5a-a641-4351-80b3-f69969c4ddba@suse.com>
+Date: Wed, 19 Jun 2024 14:04:26 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH for-4.19?] tools/libs/light: Fix nic->vlan memory
- allocation
-To: Leigh Brown <leigh@solinno.co.uk>,
- Oleksii Kurochko <oleksii.kurochko@gmail.com>,
- Anthony Perard <anthony@xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- Jason Andryuk <jandryuk@gmail.com>, Jason Andryuk <jason.andryuk@amd.com>,
- Xen Devel <xen-devel@lists.xenproject.org>
-References: <20240520164400.15740-1-leigh@solinno.co.uk>
- <c600e5e8-d169-417c-bc02-d33e84dca0fb@amd.com>
+Subject: Re: [PATCH] loadpolicy: Verifies memory allocation during policy
+ loading
+To: yskelg@gmail.com, "Daniel P. Smith" <dpsmith@apertussolutions.com>
+Cc: Austin Kim <austindh.kim@gmail.com>, shjy180909@gmail.com,
+ xen-devel@lists.xenproject.org, Anthony PERARD <anthony@xenproject.org>
+References: <20240527125438.66349-1-yskelg@gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -116,42 +112,29 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <c600e5e8-d169-417c-bc02-d33e84dca0fb@amd.com>
+In-Reply-To: <20240527125438.66349-1-yskelg@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 20.05.2024 19:08, Jason Andryuk wrote:
-> On 2024-05-20 12:44, Leigh Brown wrote:
->> After the following commit:
->> 3bc14e4fa4b9 ("tools/libs/light: Add vlan field to libxl_device_nic")
->> xl list -l aborts with a double free error if a domain has at least
->> one vif defined:
->>
->>    $ sudo xl list -l
->>    free(): double free detected in tcache 2
->>    Aborted
->>
->> Orginally, the vlan field was called vid and was defined as an integer.
->> It was appropriate to call libxl__xs_read_checked() with gc passed as
->> the string data was copied to a different variable.  However, the final
->> version uses a string data type and the call should have been changed
->> to use NOGC instead of gc to allow that data to live past the gc
->> controlled lifetime, in line with the other string fields.
->>
->> This patch makes the change to pass NOGC instead of gc and moves the
->> new code to be next to the other string fields (fixing a couple of
->> errant tabs along the way), as recommended by Jason.
->>
->> Fixes: 3bc14e4fa4b9 ("tools/libs/light: Add vlan field to libxl_device_nic")
->> Signed-off-by: Leigh Brown <leigh@solinno.co.uk>
-> 
-> Reviewed-by: Jason Andryuk <jason.andryuk@amd.com>
+On 27.05.2024 14:54, yskelg@gmail.com wrote:
+> --- a/tools/flask/utils/loadpolicy.c
+> +++ b/tools/flask/utils/loadpolicy.c
+> @@ -58,6 +58,11 @@ int main (int argCnt, const char *args[])
+>      }
+>  
+>      polMemCp = malloc(info.st_size);
+> +    if (!polMemCp) {
+> +        fprintf(stderr, "Error occurred allocating %ld bytes\n", info.st_size);
+> +        ret = -ENOMEM;
 
-I notice this wasn't Cc-ed to the maintainer, which likely is the reason
-for there not having been an ack yet. Anthony, any thoughts?
+I don't think -ENOMEM is valid to use here. See neighboring code. Nevertheless
+it is correct that a check should be here.
 
-Further at this point, bug fix or not, it would likely also need a release
-ack. Oleksii, thoughts?
+As to %ld - is that portably usable with an off_t value?
+
+In any event, Daniel, really your turn to review / ack. I'm looking at this
+merely because I found this and another bugfix still sit in waiting-for-ack
+state.
 
 Jan
 
