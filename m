@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DD45C90EA11
-	for <lists+xen-devel@lfdr.de>; Wed, 19 Jun 2024 13:52:08 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.743698.1150645 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9AC5690EA19
+	for <lists+xen-devel@lfdr.de>; Wed, 19 Jun 2024 13:53:46 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.743703.1150655 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sJtqw-0005Xa-Dq; Wed, 19 Jun 2024 11:51:50 +0000
+	id 1sJtsX-000669-OP; Wed, 19 Jun 2024 11:53:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 743698.1150645; Wed, 19 Jun 2024 11:51:50 +0000
+Received: by outflank-mailman (output) from mailman id 743703.1150655; Wed, 19 Jun 2024 11:53:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sJtqw-0005VQ-BD; Wed, 19 Jun 2024 11:51:50 +0000
-Received: by outflank-mailman (input) for mailman id 743698;
- Wed, 19 Jun 2024 11:51:48 +0000
+	id 1sJtsX-00063U-Kv; Wed, 19 Jun 2024 11:53:29 +0000
+Received: by outflank-mailman (input) for mailman id 743703;
+ Wed, 19 Jun 2024 11:53:28 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=YhGR=NV=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sJtqu-0005UZ-U4
- for xen-devel@lists.xenproject.org; Wed, 19 Jun 2024 11:51:48 +0000
-Received: from mail-lj1-x231.google.com (mail-lj1-x231.google.com
- [2a00:1450:4864:20::231])
+ id 1sJtsW-00063N-6T
+ for xen-devel@lists.xenproject.org; Wed, 19 Jun 2024 11:53:28 +0000
+Received: from mail-lj1-x22a.google.com (mail-lj1-x22a.google.com
+ [2a00:1450:4864:20::22a])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 4f184a9a-2e32-11ef-90a3-e314d9c70b13;
- Wed, 19 Jun 2024 13:51:48 +0200 (CEST)
-Received: by mail-lj1-x231.google.com with SMTP id
- 38308e7fff4ca-2ebed33cb65so72884071fa.2
- for <xen-devel@lists.xenproject.org>; Wed, 19 Jun 2024 04:51:48 -0700 (PDT)
+ id 8a1d236e-2e32-11ef-90a3-e314d9c70b13;
+ Wed, 19 Jun 2024 13:53:27 +0200 (CEST)
+Received: by mail-lj1-x22a.google.com with SMTP id
+ 38308e7fff4ca-2ebed33cb65so72898821fa.2
+ for <xen-devel@lists.xenproject.org>; Wed, 19 Jun 2024 04:53:27 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-1f855e7bf76sm114392635ad.105.2024.06.19.04.51.44
+ d9443c01a7336-1f855e6dfb7sm114587185ad.64.2024.06.19.04.53.24
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 19 Jun 2024 04:51:47 -0700 (PDT)
+ Wed, 19 Jun 2024 04:53:26 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,48 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4f184a9a-2e32-11ef-90a3-e314d9c70b13
+X-Inumbo-ID: 8a1d236e-2e32-11ef-90a3-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1718797908; x=1719402708; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1718798007; x=1719402807; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=H+HsZknUf0FqyjXfhHWAcMQ3h/sOvKR89K3syadBBGc=;
-        b=HDLXsUkH9Q+z4ghVpnhrcCPziyIPTfcOxvPowcmEbZdekiSheYeRW8HGOglLGhTlPP
-         r6wcOpd8eg21woEsKlcfSiJhtA+UX4BMNuWWi4YnNsUaUBiPT+Nl8l/Cz3A+uluq1iKR
-         riTqMPl0r3w8qOgm5GfUO+Q0JUbCcboPG0L+Znv23pp4Y5JSUAF22mI0F4rYd3kMkBx7
-         /DQvQN1eiI/yeV4prb/6iXPR2IjRS0z3ihuUCZwmqDGzWDXsryDngYE7nlSZvuonwHZ6
-         d52zb7jbBi9Cgu5LQCrVVGsAHQmstavyU+JEu23p9Vsj65GaidrAa/jlLFoGDnYEKYwD
-         c+AQ==
+        bh=6bJEvoC3DUAVTtWayZw28l8y94R8V/LKRoLGpWRNzeA=;
+        b=MASs2Iffy1ZeVNhhh72L9Tj6zWcrKmDbsMpKfHZ38kJ+k+Y5gtS3MBr51BXw+ERpqG
+         bs5xrer4gSPuyEorxurVczjhwL86F4E1/XWa4sVlAsCnXK9qCve4CDOpgDw/BBHhprGT
+         p8rgk3MYo1VpBJeTRwh4U+Xs0F2/32aVzgdo18TnZ3mc6TapnMOBv4SCq+5eRKXFtQVH
+         biqsGW5rggMd7ORpfP/No9bLJN4LNpyKr0OhpMvo8zPlOIBRI+iR4Fqio2j5zHjktN4i
+         ubt/UntCEeZdShNlVljazZYN728BjhuIrky3oJ3Vt1aPXZVELKM4mPM/wX1TxJ1kd4jT
+         Eb3Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1718797908; x=1719402708;
+        d=1e100.net; s=20230601; t=1718798007; x=1719402807;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=H+HsZknUf0FqyjXfhHWAcMQ3h/sOvKR89K3syadBBGc=;
-        b=DVQ0uvSrEAGEv5nRTMocpVBREGLRn23aBA0K6rHP8Z9YifRrtbEx215GJ+9Xnv1Ocw
-         vnYUrACMfR9eaES1i8aITEcFnLAAxvv887Ty3JiZqnRkumYaB8wOTPPEXZRa0gGshenx
-         ssb+vs3/ezPhSwc8Z/J5Rkeysweds+KIJjSFG3bCd5jnI5EPHTfMMtcxwm5ZYvpv6Ijv
-         FYd2g0ltUMPHXC6zs5wtj09E47O5tFnv05mezYL/bpx73+eIbgkH8t72xUBIrUBo6loi
-         hPrPC0MhEjowYTmrv2nHZhHbnV/hyxIPC5a/U7Id235FwSih0Uqs/oIoUDw2kNHXX96m
-         Duig==
-X-Forwarded-Encrypted: i=1; AJvYcCX7Gqbl9tijrNZPiqbJZob79jfIMZyekDqi9asohx5inn+0UFSioAvvKT8F/kq0F91v7aGO1xvY1XxdsHHJYdE2/ObfcOdVJZbEsPH14UA=
-X-Gm-Message-State: AOJu0YwOn28tW5qxMZ/Sh0MQeXmICCFGjDcgN7OkO/3kUI98SAriXDlj
-	3s2g0pjKhOy+j04UZwW9N/00aqr221jVPWxl/6O8KLvpietcw6qycWSCpzbKlg==
-X-Google-Smtp-Source: AGHT+IE9X96w2hPNyDPa5XqSfMQ1fJ3GKa88BJnFarEpgipsO3lWZrGU47Y9zDiyM840QVDK4eYbxA==
-X-Received: by 2002:a2e:9e05:0:b0:2e1:2169:a5cc with SMTP id 38308e7fff4ca-2ec3cec0576mr17373461fa.15.1718797907683;
-        Wed, 19 Jun 2024 04:51:47 -0700 (PDT)
-Message-ID: <b5767e63-a2ec-4593-b2b1-e6e8aab29b8c@suse.com>
-Date: Wed, 19 Jun 2024 13:51:41 +0200
+        bh=6bJEvoC3DUAVTtWayZw28l8y94R8V/LKRoLGpWRNzeA=;
+        b=pYKxBhJKPFOYkj7Q3t5qgXbb5VQADh3duPN+k9WwkTXbN4PIRvGA5shsVa4BLDGzZG
+         tcYQ/ftG/Nzpdgvl57r4lUivCWHhlGXsO9DsWe4NX13e9wQAFu1BYWUtl3rZNliAsj4e
+         UwpqO6Pa9IIH6WZp8pg6VjOiIh7tN5+uOLkAFZ7Cu6Voi8vI/d9Wr3QSUgQzjP3Ht0mo
+         ukS5GuXNtPRjq4CZHRZUgJ/J7hqC62SLO0M608gftQoxC5wWfmUTVci/dTRQ8qpsue6h
+         O7f17eodFcyJwbMn6yzEVFY2r4JZ2l1IXvYjaKU4BqLvOkAGJ849V3RQVn2lzvOyucs/
+         4bNw==
+X-Forwarded-Encrypted: i=1; AJvYcCW3MPfSLE2SdLEuJFMh7+IW3PKcpvSbYJTQwIbMfse4W8oPUxQ6qMVE6dFp11ImlZ8WggAdbYiRkB9wehj9I1mUJwANxTQmhFgjuoLzq/c=
+X-Gm-Message-State: AOJu0YzXOOjRKJ00aHg3Uq6Ri9vHUo0iyib9KX2SN3IkRtDdZZ0Q2Erd
+	SpndFgVrkliyejRd6eT1HcL2fFt52tD7YqK5N1u8nKbCwQF6/N0K90YJlDRAQA==
+X-Google-Smtp-Source: AGHT+IGL0COs6RQQ7wQ2cAUQqSAKCZ5B+3aE45wZ88NCw/R5cgUeCb0rLRtHiJhvvG7wo3zIzK0GEA==
+X-Received: by 2002:a2e:9c99:0:b0:2ea:df2e:428c with SMTP id 38308e7fff4ca-2ec3cffc542mr15692731fa.49.1718798006769;
+        Wed, 19 Jun 2024 04:53:26 -0700 (PDT)
+Message-ID: <0b54d032-a473-4f3e-8284-b9fe63cbf26a@suse.com>
+Date: Wed, 19 Jun 2024 13:53:20 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH for-4.19 v4.5 2/7] x86/xstate: Cross-check dynamic XSTATE
- sizes at boot
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Oleksii Kurochko <oleksii.kurochko@gmail.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20240617173921.1755439-3-andrew.cooper3@citrix.com>
- <20240619104655.2401441-1-andrew.cooper3@citrix.com>
+Subject: Re: [PATCH for-4.19 v4] x86/irq: forward pending interrupts to new
+ destination in fixup_irqs()
+To: Roger Pau Monne <roger.pau@citrix.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Oleksii Kurochko <oleksii.kurochko@gmail.com>, xen-devel@lists.xenproject.org
+References: <20240619095833.76271-1-roger.pau@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -114,30 +112,33 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240619104655.2401441-1-andrew.cooper3@citrix.com>
+In-Reply-To: <20240619095833.76271-1-roger.pau@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 19.06.2024 12:46, Andrew Cooper wrote:
-> Right now, xstate_ctxt_size() performs a cross-check of size with CPUID in for
-> every call.  This is expensive, being used for domain create/migrate, as well
-> as to service certain guest CPUID instructions.
+On 19.06.2024 11:58, Roger Pau Monne wrote:
+> fixup_irqs() is used to evacuate interrupts from to be offlined CPUs.  Given
+> the CPU is to become offline, the normal migration logic used by Xen where the
+> vector in the previous target(s) is left configured until the interrupt is
+> received on the new destination is not suitable.
 > 
-> Instead, arrange to check the sizes once at boot.  See the code comments for
-> details.  Right now, it just checks hardware against the algorithm
-> expectations.  Later patches will cross-check Xen's XSTATE calculations too.
+> Instead attempt to do as much as possible in order to prevent loosing
+> interrupts.  If fixup_irqs() is called from the CPU to be offlined (as is
+> currently the case for CPU hot unplug) attempt to forward pending vectors when
+> interrupts that target the current CPU are migrated to a different destination.
 > 
-> Introduce more X86_XCR0_* and X86_XSS_* constants CPUID bits.  This is to
-> maximise coverage in the sanity check, even if we don't expect to
-> use/virtualise some of these features any time soon.  Leave HDC and HWP alone
-> for now; we don't have CPUID bits from them stored nicely.
+> Additionally, for interrupts that have already been moved from the current CPU
+> prior to the call to fixup_irqs() but that haven't been delivered to the new
+> destination (iow: interrupts with move_in_progress set and the current CPU set
+> in ->arch.old_cpu_mask) also check whether the previous vector is pending and
+> forward it to the new destination.
 > 
-> Only perform the cross-checks when SELF_TESTS are active.  It's only
-> developers or new hardware liable to trip these checks, and Xen at least
-> tracks "maximum value ever seen in xcr0" for the lifetime of the VM, which we
-> don't want to be tickling in the general case.
+> This allows us to remove the window with interrupts enabled at the bottom of
+> fixup_irqs().  Such window wasn't safe anyway: references to the CPU to become
+> offline are removed from interrupts masks, but the per-CPU vector_irq[] array
+> is not updated to reflect those changes (as the CPU is going offline anyway).
 > 
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
 
 Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
