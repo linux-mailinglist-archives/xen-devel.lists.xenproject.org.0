@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 243C190E3F3
-	for <lists+xen-devel@lfdr.de>; Wed, 19 Jun 2024 09:03:35 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.743438.1150338 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 78A8F90E3FF
+	for <lists+xen-devel@lfdr.de>; Wed, 19 Jun 2024 09:06:02 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.743446.1150348 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sJpLY-0007PO-0h; Wed, 19 Jun 2024 07:03:08 +0000
+	id 1sJpOA-0007zy-Fm; Wed, 19 Jun 2024 07:05:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 743438.1150338; Wed, 19 Jun 2024 07:03:07 +0000
+Received: by outflank-mailman (output) from mailman id 743446.1150348; Wed, 19 Jun 2024 07:05:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sJpLX-0007Mv-TB; Wed, 19 Jun 2024 07:03:07 +0000
-Received: by outflank-mailman (input) for mailman id 743438;
- Wed, 19 Jun 2024 07:03:06 +0000
+	id 1sJpOA-0007yT-Cs; Wed, 19 Jun 2024 07:05:50 +0000
+Received: by outflank-mailman (input) for mailman id 743446;
+ Wed, 19 Jun 2024 07:05:49 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=YhGR=NV=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sJpLW-0007Mp-Gd
- for xen-devel@lists.xenproject.org; Wed, 19 Jun 2024 07:03:06 +0000
-Received: from mail-lj1-x230.google.com (mail-lj1-x230.google.com
- [2a00:1450:4864:20::230])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=hxBI=NV=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1sJpO9-0007yJ-Ix
+ for xen-devel@lists.xenproject.org; Wed, 19 Jun 2024 07:05:49 +0000
+Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
+ [2a00:1450:4864:20::429])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f800e227-2e09-11ef-b4bb-af5377834399;
- Wed, 19 Jun 2024 09:03:02 +0200 (CEST)
-Received: by mail-lj1-x230.google.com with SMTP id
- 38308e7fff4ca-2e72224c395so63492031fa.3
- for <xen-devel@lists.xenproject.org>; Wed, 19 Jun 2024 00:03:02 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-1f855ee6eebsm109306725ad.158.2024.06.19.00.02.56
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 19 Jun 2024 00:03:01 -0700 (PDT)
+ id 5a33ff5c-2e0a-11ef-b4bb-af5377834399;
+ Wed, 19 Jun 2024 09:05:47 +0200 (CEST)
+Received: by mail-wr1-x429.google.com with SMTP id
+ ffacd0b85a97d-3609565a1bdso2501738f8f.1
+ for <xen-devel@lists.xenproject.org>; Wed, 19 Jun 2024 00:05:47 -0700 (PDT)
+Received: from [192.168.219.221] ([94.75.70.14])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-36262f77ad9sm3040467f8f.109.2024.06.19.00.05.45
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 19 Jun 2024 00:05:46 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,177 +45,109 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f800e227-2e09-11ef-b4bb-af5377834399
+X-Inumbo-ID: 5a33ff5c-2e0a-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1718780582; x=1719385382; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=+n3bJ+/wwvNBDF0b+OS1XGT2Hbd4sRyhnquBwVP9Mcs=;
-        b=Xa/d0niKPDnSu9FMEgmlgJTNsOsFjP3fX9rR/Js1iNDvABUxn4GM04xgYloVBiB0jZ
-         /ECWUSLDBc/eEcfUuDewPu3ypxLGgOR7G4Hf/ZM59wbeyrHH3FiVrFTtQGhbvXbkzIHR
-         Gwv5OGRfTSXxkRzhArs/oRx6hJmwGVj5Sn3n1pZmvJtOWhwyCA+cFelxFREiuiMQGOe0
-         Qt9mKJWKfwzFrP67eBMdQFi2YNJ/Ll3X7hD7S7bkvfKzfVDbSp8Xj5Ylr05zAEVM2iKU
-         0JdfODq1P3fH1+92UaMJXq2YY4QEqPsOkTQbrYkVpXfyxLrTbsw+pU1Z5kYFOjLa48ZD
-         kDaw==
+        d=gmail.com; s=20230601; t=1718780747; x=1719385547; darn=lists.xenproject.org;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=FnJcbZR1wadcGo0ka0WGG6S+d48KhFZlkXZKoDcxjHY=;
+        b=fQgfrs4Ybv9PwJ8eJMtyShTPAIxRmCHiUx/3RHGNl/BCIeSf4sOIIHMDVPkWTOJOge
+         3YXZjTRkKovMfF0zShFP3KwPyWkGnm5vpbx0LuSq9lmy8KL1jGuT4p3kKmXnFwLPzX/u
+         RZGm1YbCk6Bg2SBDuer+HQCVBnv2LbuYvODkYn0PPeeUZ8fCuhG5p+qqkYLq7k93xfHp
+         HjHx2K47P39pzA4/bx2hAoiAbHPB+jDIAVx8Di5Im4IAyc4/mlj0bWZ+jId+vwCgvDiw
+         duEHDQdr+uKD9QrKVLom6Oe6BQXM5L3tm4XzakBz24oyBSLGKav2tVuqfRTIB888JsdS
+         c17g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1718780582; x=1719385382;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=+n3bJ+/wwvNBDF0b+OS1XGT2Hbd4sRyhnquBwVP9Mcs=;
-        b=b11sojR/NNBhoInt41sxNICBBObHPyyjkcDxEFZNoVEe3jdOgy1BZmSqKWS+NkGIn1
-         Gw5MKgY8JfRa0FQubD0uvRdhGUNjyWscw22rQm7Zw/v+hPrVYXvTzs9xsAPOXZRAEq9o
-         ArUqi6s4aKzo5PrdAVEFubbhi9BuaEehP84Y19/Jxas6+gUJjZop3uyl89rxPJBPLXTd
-         yndW0gMTtGEdzB/xLzQ/gM+cFqXsf5TdQGeqjVXGWQa+3va3dIY2riObUdLL1ZK+jmJw
-         cf/WR/JVugUppoRYVzhWCf4trrCTuFu6qCMZ3xdc/9n14qFDA9wvdzXHPBjGLRR6iTrl
-         hwtg==
-X-Forwarded-Encrypted: i=1; AJvYcCUJRMVKBDpEHlUSjyZPMF9PjbnXewDHUJNf1MHPYSTmRBKpQJJSEL4os6DsJBiX9f2L6eG4RycNZvwLIaNlh4d9gH3FS1iDTBHYBhhCHdY=
-X-Gm-Message-State: AOJu0YwDYjLQl1ItTIgosSbQd/cZY5vvN6+ht1ROQGLHljjVdHb95L+N
-	AflUmbqsxy401CJcb8dJxkitKkDrQgeVNMtIsg4KpqctdmqhuNMQXvjyNQZUHw==
-X-Google-Smtp-Source: AGHT+IGIBSaVJmgQ0u65W+M1lhucdxYDZotMAN7lah+V1KTJqiWDBfttcSHvkiS1hlx90ouPaZmIrw==
-X-Received: by 2002:a2e:8701:0:b0:2ec:f68:51de with SMTP id 38308e7fff4ca-2ec3cffc8c5mr11140401fa.47.1718780582105;
-        Wed, 19 Jun 2024 00:03:02 -0700 (PDT)
-Message-ID: <896c7cde-4117-47a9-9b23-66876365713c@suse.com>
-Date: Wed, 19 Jun 2024 09:02:52 +0200
+        d=1e100.net; s=20230601; t=1718780747; x=1719385547;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=FnJcbZR1wadcGo0ka0WGG6S+d48KhFZlkXZKoDcxjHY=;
+        b=dLDW65HGRhNSXaDIVB81Y/N2g6dA4DAFePAK7r7MPV9K/Izl5Esm2IFeYyUaW6ZQbk
+         dFlH39kprI59A3TV1Mkoa3/IAzsGdvuLRb0YJUdhCh6BE1K5xvpPyVmjV/famUe98fS0
+         pia8wCATyKq0558w9ygPpkds4qGY9leW4uMF2/5DhwQKMNSxOxTwQ9595UEJejznznsL
+         h7dMer845wpfNsV4nEnx1VQGyXGlakOTabyOCilb1uCi6sP1AkK9Qa8Dnn56hh37SUGA
+         QK79d3AcAG+YBRXDENB96jayw7pQvVI0IBFPmQBRPaoRC1S10eyg8W/98W3Dcz8IfcpT
+         zoNA==
+X-Forwarded-Encrypted: i=1; AJvYcCUw5O/kVfLIBigT6G7ulVTE6LNhvYH/RENrdfhS4o2F43TPEFD7h8uKwcPBEMz4njazQjhYzoC2V9eT+xqYd+Wfii65ypxL9jE4VVbwaS0=
+X-Gm-Message-State: AOJu0YzPRMRDUhwR0pBOB4M0KPMtwap8AzBJ+QHR0lsDXo9td1v1LnnZ
+	qOltFwYLv9yqr2vI0jv9auCfxFI1CAjJpu53uHC2K239teZwjZMM
+X-Google-Smtp-Source: AGHT+IEvlIuV/yjWjqeb0415ez2uvAKwDu1mpzkxvSfuMYRY3iOg7nnQUpCWwhaDVyQF9p38G+pHVw==
+X-Received: by 2002:adf:f48a:0:b0:360:96c5:fdfd with SMTP id ffacd0b85a97d-36317c7ee07mr1159993f8f.30.1718780746606;
+        Wed, 19 Jun 2024 00:05:46 -0700 (PDT)
+Message-ID: <ecc96961b27d45ac6a5ca7a761f4d8c801c26d5e.camel@gmail.com>
+Subject: Re: [PATCH for-4.19] avoid UB in guest handle arithmetic
+From: "Oleksii K." <oleksii.kurochko@gmail.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
+ <jbeulich@suse.com>,  "xen-devel@lists.xenproject.org"
+ <xen-devel@lists.xenproject.org>
+Cc: George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+  Stefano Stabellini <sstabellini@kernel.org>, Roger Pau
+ =?ISO-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>
+Date: Wed, 19 Jun 2024 09:05:45 +0200
+In-Reply-To: <13a5650d-8623-4fec-9383-ef04023257ff@citrix.com>
+References: <227fbeda-1690-4158-8404-53b4236c0235@suse.com>
+	 <13a5650d-8623-4fec-9383-ef04023257ff@citrix.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.52.1 (3.52.1-1.fc40) 
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH v10 1/5] xen/vpci: Clear all vpci status of device
-To: "Chen, Jiqian" <Jiqian.Chen@amd.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu
- <wl@xen.org>, George Dunlap <george.dunlap@citrix.com>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- Anthony PERARD <anthony@xenproject.org>, Juergen Gross <jgross@suse.com>,
- "Daniel P . Smith" <dpsmith@apertussolutions.com>,
- "Hildebrand, Stewart" <Stewart.Hildebrand@amd.com>,
- "Huang, Ray" <Ray.Huang@amd.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <20240617090035.839640-1-Jiqian.Chen@amd.com>
- <20240617090035.839640-2-Jiqian.Chen@amd.com>
- <4e2accc2-e81d-450a-af2d-38884455de9c@suse.com>
- <BL1PR12MB58499527CFA36446EAD3FCE0E7CE2@BL1PR12MB5849.namprd12.prod.outlook.com>
- <f8381d8b-0ad2-4766-8a53-d1ee44ea7e05@suse.com>
- <BL1PR12MB5849E84E58725FB947CCECD8E7CF2@BL1PR12MB5849.namprd12.prod.outlook.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <BL1PR12MB5849E84E58725FB947CCECD8E7CF2@BL1PR12MB5849.namprd12.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
-On 19.06.2024 05:39, Chen, Jiqian wrote:
-> On 2024/6/18 16:33, Jan Beulich wrote:
->> On 18.06.2024 08:25, Chen, Jiqian wrote:
->>> On 2024/6/17 22:17, Jan Beulich wrote:
->>>> On 17.06.2024 11:00, Jiqian Chen wrote:
->>>>> --- a/xen/drivers/pci/physdev.c
->>>>> +++ b/xen/drivers/pci/physdev.c
->>>>> @@ -2,11 +2,17 @@
->>>>>  #include <xen/guest_access.h>
->>>>>  #include <xen/hypercall.h>
->>>>>  #include <xen/init.h>
->>>>> +#include <xen/vpci.h>
->>>>>  
->>>>>  #ifndef COMPAT
->>>>>  typedef long ret_t;
->>>>>  #endif
->>>>>  
->>>>> +static const struct pci_device_state_reset_method
->>>>> +                    pci_device_state_reset_methods[] = {
->>>>> +    [ DEVICE_RESET_FLR ].reset_fn = vpci_reset_device_state,
->>>>> +};
->>>>
->>>> What about the other three DEVICE_RESET_*? In particular ...
->>> I don't know how to implement the other three types of reset.
->>> This is a design form so that corresponding processing functions can be added later if necessary. Do I need to set them to NULL pointers in this array?
->>
->> No.
->>
->>> Does this form conform to your previous suggestion of using only one hypercall to handle all types of resets?
->>
->> Yes, at least in principle. Question here is: To be on the safe side,
->> wouldn't we better reset state for all forms of reset, leaving possible
->> relaxation of that for later? At which point the function wouldn't need
->> calling indirectly, and instead would be passed the reset type as an
->> argument.
-> If I understood correctly, next version should be?
-> Use macros to represent different reset types.
-> Add switch cases in PHYSDEVOP_pci_device_state_reset to handle different reset functions.
-> Add reset_type as a function parameter to vpci_reset_device_state for possible future use.
-> 
-> +    case PHYSDEVOP_pci_device_state_reset:
-> +    {
-> +        struct pci_device_state_reset dev_reset;
-> +        struct pci_dev *pdev;
-> +        pci_sbdf_t sbdf;
-> +
-> +        if ( !is_pci_passthrough_enabled() )
-> +            return -EOPNOTSUPP;
-> +
-> +        ret = -EFAULT;
-> +        if ( copy_from_guest(&dev_reset, arg, 1) != 0 )
-> +            break;
-> +
-> +        sbdf = PCI_SBDF(dev_reset.dev.seg,
-> +                        dev_reset.dev.bus,
-> +                        dev_reset.dev.evfn);
-> +
-> +        ret = xsm_resource_setup_pci(XSM_PRIV, sbdf.sbdf);
-> +        if ( ret )
-> +            break;
-> +
-> +        pcidevs_lock();
-> +        pdev = pci_get_pdev(NULL, sbdf);
-> +        if ( !pdev )
-> +        {
-> +            pcidevs_unlock();
-> +            ret = -ENODEV;
-> +            break;
-> +        }
-> +
-> +        write_lock(&pdev->domain->pci_lock);
-> +        pcidevs_unlock();
-> +        /* Implement FLR, other reset types may be implemented in future */
-> +        switch ( dev_reset.reset_type )
-> +        {
-> +        case PCI_DEVICE_STATE_RESET_COLD:
-> +        case PCI_DEVICE_STATE_RESET_WARM:
-> +        case PCI_DEVICE_STATE_RESET_HOT:
-> +        case PCI_DEVICE_STATE_RESET_FLR:
-> +            ret = vpci_reset_device_state(pdev, dev_reset.reset_type);
-> +            break;
-> +        }
+On Tue, 2024-06-18 at 14:24 +0100, Andrew Cooper wrote:
+> On 19/03/2024 1:26 pm, Jan Beulich wrote:
+> > At least XENMEM_memory_exchange can have huge values passed in the
+> > nr_extents and nr_exchanged fields. Adding such values to pointers
+> > can
+> > overflow, resulting in UB. Cast respective pointers to "unsigned
+> > long"
+> > while at the same time making the necessary multiplication
+> > explicit.
+> > Remaining arithmetic is, despite there possibly being mathematical
+> > overflow, okay as per the C99 spec: "A computation involving
+> > unsigned
+> > operands can never overflow, because a result that cannot be
+> > represented
+> > by the resulting unsigned integer type is reduced modulo the number
+> > that
+> > is one greater than the largest value that can be represented by
+> > the
+> > resulting type." The overflow that we need to guard against is
+> > checked
+> > for in array_access_ok().
+> >=20
+> > Note that in / down from array_access_ok() the address value is
+> > only
+> > ever cast to "unsigned long" anyway, which is why in the invocation
+> > from
+> > guest_handle_subrange_okay() the value doesn't need casting back to
+> > pointer type.
+> >=20
+> > In compat grant table code change two guest_handle_add_offset() to
+> > avoid
+> > passing in negative offsets.
+> >=20
+> > Since {,__}clear_guest_offset() need touching anyway, also deal
+> > with
+> > another (latent) issue there: They were losing the handle type,
+> > i.e. the
+> > size of the individual objects accessed. Luckily the few users we
+> > presently have all pass char or uint8 handles.
+> >=20
+> > Reported-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> > Signed-off-by: Jan Beulich <jbeulich@suse.com>
+>=20
+> There wants to be a xen: prefix in the subject.
+>=20
+> But as for the UB aspect, I've checked that this does resolve the
+> failure identified by the XSA-212 XTF test.
+>=20
+> Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> Tested-by: Andrew Cooper <andrew.cooper3@citrix.com>
+>=20
+> CC'ing Oleksii as this wants to go into 4.19.
+Release-Acked-By: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 
-If you use a switch() here, then there wants to be a default case returning
-e.g. -EOPNOTSUPP or -EINVAL. Else the switch wants dropping. I'm not sure
-which one's better in this specific case, I'm only slightly tending towards
-the former.
+~ Oleksii
 
-In any event the comment (if any) wants to reflect what the actual code does.
-
-Jan
 
