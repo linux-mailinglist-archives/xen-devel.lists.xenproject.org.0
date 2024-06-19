@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6231190E4D1
-	for <lists+xen-devel@lfdr.de>; Wed, 19 Jun 2024 09:46:12 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.743495.1150412 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7CBDB90E4DA
+	for <lists+xen-devel@lfdr.de>; Wed, 19 Jun 2024 09:49:05 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.743503.1150420 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sJq13-0008NW-LL; Wed, 19 Jun 2024 07:46:01 +0000
+	id 1sJq3H-0000o2-VM; Wed, 19 Jun 2024 07:48:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 743495.1150412; Wed, 19 Jun 2024 07:46:01 +0000
+Received: by outflank-mailman (output) from mailman id 743503.1150420; Wed, 19 Jun 2024 07:48:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sJq13-0008L7-HD; Wed, 19 Jun 2024 07:46:01 +0000
-Received: by outflank-mailman (input) for mailman id 743495;
- Wed, 19 Jun 2024 07:45:59 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1sJq3H-0000mS-SS; Wed, 19 Jun 2024 07:48:19 +0000
+Received: by outflank-mailman (input) for mailman id 743503;
+ Wed, 19 Jun 2024 07:48:18 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=YhGR=NV=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sJq11-0008I3-Ss
- for xen-devel@lists.xenproject.org; Wed, 19 Jun 2024 07:45:59 +0000
-Received: from mail-lj1-x231.google.com (mail-lj1-x231.google.com
- [2a00:1450:4864:20::231])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f7ec7549-2e0f-11ef-90a3-e314d9c70b13;
- Wed, 19 Jun 2024 09:45:59 +0200 (CEST)
-Received: by mail-lj1-x231.google.com with SMTP id
- 38308e7fff4ca-2ec0f3b9bb8so45860671fa.1
- for <xen-devel@lists.xenproject.org>; Wed, 19 Jun 2024 00:45:59 -0700 (PDT)
+ id 1sJq3G-0000jd-ND
+ for xen-devel@lists.xenproject.org; Wed, 19 Jun 2024 07:48:18 +0000
+Received: from mail-lj1-x22d.google.com (mail-lj1-x22d.google.com
+ [2a00:1450:4864:20::22d])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 4a1285b0-2e10-11ef-b4bb-af5377834399;
+ Wed, 19 Jun 2024 09:48:17 +0200 (CEST)
+Received: by mail-lj1-x22d.google.com with SMTP id
+ 38308e7fff4ca-2ec0f3b9cfeso58119971fa.0
+ for <xen-devel@lists.xenproject.org>; Wed, 19 Jun 2024 00:48:17 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-1f9a38630basm17964895ad.241.2024.06.19.00.45.55
+ d9443c01a7336-1f855e5ba93sm110589115ad.3.2024.06.19.00.48.14
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 19 Jun 2024 00:45:58 -0700 (PDT)
+ Wed, 19 Jun 2024 00:48:16 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,49 +45,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f7ec7549-2e0f-11ef-90a3-e314d9c70b13
+X-Inumbo-ID: 4a1285b0-2e10-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1718783158; x=1719387958; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=lzLLyw5Kel/bTpyH9ybDnCL6QQy48ent4QQeIdhBcgc=;
-        b=Uw0P0bN0sBS/T4hNkFLtVVvtzp2zTmB6VyHfaIRZPI7NHlPRFj4L0ZKMK8W5r62quE
-         qtwU07FN01awDFWN5ECLsGUW1jU6IrCThePML+GERmI4J9piFBrAQuQQH+oIQiJZxLjf
-         XPL8VgRrc7Wvrw6xWNUga1OsL6EsV9gcNJzuwstpdWNUtzQ/TlAisTVI5j+TE90jmZqy
-         fPs9yQBg2zSQPGbCsK2OtzetJjTqinbR/LuTEmbUvhcCp6LByphaRJxRieSGYW1YoiEv
-         NuSWASCNWmklv/H2fergZtTtM2CSzk/GwbdJY24xNhD8V9dHaLNvwZmS3SnIzAn04O4b
-         xR3w==
+        d=suse.com; s=google; t=1718783296; x=1719388096; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=StLvSMkQR150txbL7SSXc/unofls6wsIRe1r4HbSewc=;
+        b=NPpkVnuZLR4HejQgf0h0KmU5a3XzeoeS9kXIo1N/XI8GP1nxfg7pwWsOC/d7/yhMJj
+         mZWCRjljb8KHlPO8kRSbpzG7ojHB08RNojqR+hhDBS7QEWRVNCJ8d50UqO9xxR0Iw2Wg
+         QBY++9XzLkFsO49591SVqi8CBiaVzny0cVZAKXyatMd8XvzOw2+tarig2PkScybYlUBI
+         9IhTvhEyFj2jUevzKKZC5JqQHfVdE9cvzCkIv5LOgrtZ3yTFfJ1beeAUn3oBv0JxZgge
+         es0tmAkUPKHYxe53keaVq2+uc9JeV8xyk3LiuBujAq1j3zNoJVu6JWv3pqnkg9j6tOgs
+         z2RA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1718783158; x=1719387958;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=lzLLyw5Kel/bTpyH9ybDnCL6QQy48ent4QQeIdhBcgc=;
-        b=MM7w1x1xYxciUJlLwMUMlZgj2/9CcKK5KxbzGZKXAu/JMrGz7+umDtNg1V6M4IkkgE
-         RDoezlKXDxiaD0aLfEcuNB6JmR4gZ3PG2VH6CtDHzQrhm18pr8mlaOly7RJufzE6WfgK
-         U3LMZP01Qt046XlWaKPTxbt6UALa1IVm+E4sji7R+gBubPHVikMULxT2AMG6nKSBev9s
-         LdhdFuYR7ndf9/HcefeWBgFMn2sUkNF8dnnqb6qDnJiDaTW2q+pAjw+p7lVfGVMLuS5O
-         1ajeTA5020hGeJPTpTguVSYL5gI7UMWus+XhAg1MnQLHFtgyncOBLTeIdPgxWcDbvces
-         Phfg==
-X-Forwarded-Encrypted: i=1; AJvYcCUZSZGG/q/xUUvWcP3y/aMwHPNTeR14VeVs9rYQY9/mZDHkl+PFNrKMWyyR9lu7CM9gxDwoVnRh21uODASrYu3hzFaTXIS4heBcredtWd0=
-X-Gm-Message-State: AOJu0YxVU9BTnJ73WaealFc74zBtSvekZ5rLjuRZnSMfVSZ5lGrlsLd7
-	Dlzt84KDdQIa9t9mNC1Ukon8z7J6Q7j3O1vwcx7NCnE+b/Rph4xp78B+FdW+3A==
-X-Google-Smtp-Source: AGHT+IHMM+dSkEp0aK4T+B0BBT8WTz23Gj8jHZIFxnytX6o5aKfY5/uiPjw3dDYivXrT4cy5fM2Ugw==
-X-Received: by 2002:a2e:b0e8:0:b0:2ec:41b3:f0f1 with SMTP id 38308e7fff4ca-2ec41b3f1dcmr1740261fa.39.1718783158579;
-        Wed, 19 Jun 2024 00:45:58 -0700 (PDT)
-Message-ID: <052cccac-8c8f-4555-953c-2bd9de460f2a@suse.com>
-Date: Wed, 19 Jun 2024 09:45:52 +0200
+        d=1e100.net; s=20230601; t=1718783296; x=1719388096;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=StLvSMkQR150txbL7SSXc/unofls6wsIRe1r4HbSewc=;
+        b=B9ASOgkj8CZDa6+Ff94qsBirDXFc+ZilWUAusbamz50MsMhYMjOTz00KE6VPiOXhJt
+         tsjlm+qI2xWsRYiI4ZdANVjfNt89AaFajjckcqqiM34ihC1MqUso7eaitzeCdI+7Vzj5
+         hAbWPhnN90Hyj9Mze7vY+xpNV+pUEL1qk1+7lUCbyKETL7CAtkfmdtyCei9LIAE6L6Xt
+         iKR2iKlaftpttqCuzZDILTIwP5S4VSgIFYgRtwR9+6mt5vd7kXZv8zAactRaBz+XFZ9e
+         F+8Uf12G5pK0k2TpxIQVfjRhYhpMqZ3B+TRqbvK+0N0TBUsXdryWqzAhwgFtNcN5gZCv
+         r7Rw==
+X-Forwarded-Encrypted: i=1; AJvYcCUXU/NQIY/Zh7kD/CQSDE0DG+2EfU0m/JcEZf8zUlDuyY5SM9fFb3+wcRkeyiLGV1hTJQzKKKsf6CoVwdVoRbe3r6hKZkVznExJ5+SnPzs=
+X-Gm-Message-State: AOJu0Yy47YzbJW0XTydmM+JZXwxGSgad9Aej+yW8JrAE4eWSUHXQzvG3
+	oR7eoBkp5HDO5rLrsqqBIlz9z3nO1RKk06sE80H9yPTjPdPTPw76VU0jQa87ThhChWdZHDCUgA4
+	=
+X-Google-Smtp-Source: AGHT+IH/Xr80OVPuSzjIMqke2a4h6TKZ2KeIKHbHPSwGQoKrQ+IWqKZ2THFflevpyrFDwauWNH+J7Q==
+X-Received: by 2002:a2e:9659:0:b0:2eb:850d:a53d with SMTP id 38308e7fff4ca-2ec3ceb6a22mr11558991fa.16.1718783296527;
+        Wed, 19 Jun 2024 00:48:16 -0700 (PDT)
+Message-ID: <4cdd42b7-3751-484c-80c4-4bf321f1bcc0@suse.com>
+Date: Wed, 19 Jun 2024 09:48:10 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH] AMD/IOMMU: Improve register_iommu_exclusion_range()
+From: Jan Beulich <jbeulich@suse.com>
 To: Andrew Cooper <andrew.cooper3@citrix.com>
 Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Xen-devel <xen-devel@lists.xenproject.org>
 References: <20240618183128.1981751-1-andrew.cooper3@citrix.com>
+ <052cccac-8c8f-4555-953c-2bd9de460f2a@suse.com>
 Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -111,74 +113,26 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240618183128.1981751-1-andrew.cooper3@citrix.com>
+In-Reply-To: <052cccac-8c8f-4555-953c-2bd9de460f2a@suse.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 18.06.2024 20:31, Andrew Cooper wrote:
->  * Use 64bit accesses instead of 32bit accesses
->  * Simplify the constant names
->  * Pull base into a local variable to avoid it being reloaded because of the
->    memory clobber in writeq().
+On 19.06.2024 09:45, Jan Beulich wrote:
+> On 18.06.2024 20:31, Andrew Cooper wrote:
+>> I've finally found the bit in the AMD IOMMU spec which says 64bit accesses are
+>> permitted:
+>>
+>>   3.4 IOMMU MMIO Registers:
+>>
+>>   Software access to IOMMU registers may not be larger than 64 bits. Accesses
+>>   must be aligned to the size of the access and the size in bytes must be a
+>>   power of two. Software may use accesses as small as one byte.
 > 
-> No functional change.
-> 
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> ---
-> CC: Jan Beulich <JBeulich@suse.com>
-> CC: Roger Pau Monné <roger.pau@citrix.com>
-> 
-> RFC.  This is my proposed way of cleaning up the whole IOMMU file.  The
-> diffstat speaks for itself.
+> I take it that the use of 32-bit writes was because of the past need
+> also work in a 32-bit hypervisor, not because of perceived restrictions
+> by the spec.
 
-Absolutely.
-
-> I've finally found the bit in the AMD IOMMU spec which says 64bit accesses are
-> permitted:
-> 
->   3.4 IOMMU MMIO Registers:
-> 
->   Software access to IOMMU registers may not be larger than 64 bits. Accesses
->   must be aligned to the size of the access and the size in bytes must be a
->   power of two. Software may use accesses as small as one byte.
-
-I take it that the use of 32-bit writes was because of the past need
-also work in a 32-bit hypervisor, not because of perceived restrictions
-by the spec.
-
-> --- a/xen/drivers/passthrough/amd/iommu-defs.h
-> +++ b/xen/drivers/passthrough/amd/iommu-defs.h
-> @@ -338,22 +338,10 @@ union amd_iommu_control {
->  };
->  
->  /* Exclusion Register */
-> -#define IOMMU_EXCLUSION_BASE_LOW_OFFSET		0x20
-> -#define IOMMU_EXCLUSION_BASE_HIGH_OFFSET	0x24
-> -#define IOMMU_EXCLUSION_LIMIT_LOW_OFFSET	0x28
-> -#define IOMMU_EXCLUSION_LIMIT_HIGH_OFFSET	0x2C
-> -#define IOMMU_EXCLUSION_BASE_LOW_MASK		0xFFFFF000U
-> -#define IOMMU_EXCLUSION_BASE_LOW_SHIFT		12
-> -#define IOMMU_EXCLUSION_BASE_HIGH_MASK		0xFFFFFFFFU
-> -#define IOMMU_EXCLUSION_BASE_HIGH_SHIFT		0
-> -#define IOMMU_EXCLUSION_RANGE_ENABLE_MASK	0x00000001U
-> -#define IOMMU_EXCLUSION_RANGE_ENABLE_SHIFT	0
-> -#define IOMMU_EXCLUSION_ALLOW_ALL_MASK		0x00000002U
-> -#define IOMMU_EXCLUSION_ALLOW_ALL_SHIFT		1
-> -#define IOMMU_EXCLUSION_LIMIT_LOW_MASK		0xFFFFF000U
-> -#define IOMMU_EXCLUSION_LIMIT_LOW_SHIFT		12
-> -#define IOMMU_EXCLUSION_LIMIT_HIGH_MASK		0xFFFFFFFFU
-> -#define IOMMU_EXCLUSION_LIMIT_HIGH_SHIFT	0
-> +#define IOMMU_MMIO_EXCLUSION_BASE           0x20
-> +#define   EXCLUSION_RANGE_ENABLE            (1 << 0)
-> +#define   EXCLUSION_ALLOW_ALL               (1 << 1)
-> +#define IOMMU_MMIO_EXCLUSION_LIMIT          0x28
-
-Just one question here: Previously you suggested we switch to bitfields
-for anything like this, and we've already done so with e.g.
-union amd_iommu_control and union amd_iommu_ext_features. IOW I wonder
-if we wouldn't better strive to be consistent in this regard. Or if not,
-what the (written or unwritten) guidelines are when to use which
-approach.
+In fact it looks like we're already halfway through converting to writeq().
 
 Jan
 
