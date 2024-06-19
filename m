@@ -2,31 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A5E2590F0AF
-	for <lists+xen-devel@lfdr.de>; Wed, 19 Jun 2024 16:32:55 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.743849.1150846 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0A5F090F0B5
+	for <lists+xen-devel@lfdr.de>; Wed, 19 Jun 2024 16:33:40 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.743855.1150855 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sJwMR-000376-7A; Wed, 19 Jun 2024 14:32:31 +0000
+	id 1sJwNK-0003cx-Ga; Wed, 19 Jun 2024 14:33:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 743849.1150846; Wed, 19 Jun 2024 14:32:31 +0000
+Received: by outflank-mailman (output) from mailman id 743855.1150855; Wed, 19 Jun 2024 14:33:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sJwMR-00034m-4V; Wed, 19 Jun 2024 14:32:31 +0000
-Received: by outflank-mailman (input) for mailman id 743849;
- Wed, 19 Jun 2024 14:32:29 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1sJwNK-0003a9-Dh; Wed, 19 Jun 2024 14:33:26 +0000
+Received: by outflank-mailman (input) for mailman id 743855;
+ Wed, 19 Jun 2024 14:33:25 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=krMZ=NV=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
- id 1sJwMP-00034g-Qk
- for xen-devel@lists.xenproject.org; Wed, 19 Jun 2024 14:32:29 +0000
-Received: from sender4-of-o52.zoho.com (sender4-of-o52.zoho.com
- [136.143.188.52]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c00407f1-2e48-11ef-b4bb-af5377834399;
- Wed, 19 Jun 2024 16:32:27 +0200 (CEST)
-Received: by mx.zohomail.com with SMTPS id 1718807536876432.54109202998006;
- Wed, 19 Jun 2024 07:32:16 -0700 (PDT)
+ <SRS0=pMzu=NV=bounce.vates.tech=bounce-md_30504962.6672ec31.v1-db5fcd6941aa43b2ac53c0d0b3e3427f@srs-se1.protection.inumbo.net>)
+ id 1sJwNJ-0003Zi-41
+ for xen-devel@lists.xenproject.org; Wed, 19 Jun 2024 14:33:25 +0000
+Received: from mail187-11.suw11.mandrillapp.com
+ (mail187-11.suw11.mandrillapp.com [198.2.187.11])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id e197545d-2e48-11ef-90a3-e314d9c70b13;
+ Wed, 19 Jun 2024 16:33:23 +0200 (CEST)
+Received: from pmta09.mandrill.prod.suw01.rsglab.com (localhost [127.0.0.1])
+ by mail187-11.suw11.mandrillapp.com (Mailchimp) with ESMTP id
+ 4W45hK710SzLfHHmf
+ for <xen-devel@lists.xenproject.org>; Wed, 19 Jun 2024 14:33:21 +0000 (GMT)
+Received: from [37.26.189.201] by mandrillapp.com id
+ db5fcd6941aa43b2ac53c0d0b3e3427f; Wed, 19 Jun 2024 14:33:21 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,112 +43,95 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c00407f1-2e48-11ef-b4bb-af5377834399
-ARC-Seal: i=1; a=rsa-sha256; t=1718807539; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=dW9sxLzN2jZBL5Q2e63z84lkmyzvH/zzDgw0Zbus7D7kq1KBoqjDeMkH2ofNiph/dukCoj/QoXWv2be9x6OhRI68SZWRBQ4GAXwR2dH+z6N6lFhaIigHr3rxxeyWgR8ByvENgZuC7LosfCZNWuc4avLHT1WKtwq4fgitOvnzjrQ=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1718807539; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=/ohNcDv7EIzpISmKimehjsW0lwQc3YgFkUscaIh9NG0=; 
-	b=IXrdxmx/zcVw0MS8w8dQCyimp2TylwyH0SK96MufFZpraXo76tqDXH2/NTsN29Wos1GecbK8BRjv8w1ZKIBV0AHLfVsLNQ5kj7jLqnHdml/hGlzcmvUcEHtvarTcfnISUUIbQamTwS49iBjo8tfdJv1bsh8zbP9CVl1zZmTUvo0=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=apertussolutions.com;
-	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
-	dmarc=pass header.from=<dpsmith@apertussolutions.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1718807539;
-	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
-	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=/ohNcDv7EIzpISmKimehjsW0lwQc3YgFkUscaIh9NG0=;
-	b=N53pzzj0BXGVZLyIv1cO+doX0zluuVG1xhUXYaGMPKpy7gzu5QGDEEw+MLZXS2Ud
-	zGFTsLXeOznGMoJ0N5j9R6tCAfNRDtysy6crk1tMJFc3aECJjZVBVOBD5KlP8h3HWoO
-	Ll7ppadUtGLroDM8JLBc5IutGgDPqsSTfiPkWDhM=
-Message-ID: <34971a8f-a3ab-42c4-b96a-59a43c62db85@apertussolutions.com>
-Date: Wed, 19 Jun 2024 10:32:14 -0400
+X-Inumbo-ID: e197545d-2e48-11ef-90a3-e314d9c70b13
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
+	s=mte1; t=1718807602; x=1719068102;
+	bh=dhkIawe/P1gt74JqwmytP5ttHEZSPuBPJ9PBNk5H03E=;
+	h=From:Subject:To:Cc:Message-Id:References:In-Reply-To:Feedback-ID:
+	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
+	 Subject:From;
+	b=axTUdQ0IP/1hAyNT/eSXYTwYMckNXZRwBzc044DtL56XKUHNcpliOWSp5Xm6E5qlB
+	 QYiYHzqjGxcIfwrlzbbzlPVa20j+QEYTp/ggCHyL9n17QN7sg43B1PZIpm5TmKW/qG
+	 +hjNaMcmaaIis3i8VialnYSUmQyqmC4nBGuqzP3tDf8TteLJKGcr0zbLWMHrTiZqDO
+	 ahbWhjxwH112V84epMaFOKP5QStHr7K1m1GzPcqB3Lj5N6DRmI4RT9eC22NWD/KNzA
+	 68/IMlxKPc2vK77st2FmHupqzoUYX7i5MAIVUxe887mtLb6pRw7lIP7216v5E6d3YD
+	 yJV8nABZgrp2A==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
+	t=1718807602; x=1719068102; i=anthony.perard@vates.tech;
+	bh=dhkIawe/P1gt74JqwmytP5ttHEZSPuBPJ9PBNk5H03E=;
+	h=From:Subject:To:Cc:Message-Id:References:In-Reply-To:Feedback-ID:
+	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
+	 Subject:From;
+	b=ZNe8OFMfBKO4L3/gmD9sXRiEr3BUYl35tjAg8lD08H0pWnRsz7OqyrsGaPSeUyQ5m
+	 /I5hfivaxPSh/ZFs3h/v9Vk0AJ3dzV8O7FRef/xLYSCoaApi3MOxSxIdOx8wpnD8JO
+	 2XF+5v+iFktBEauHXl3HKfzwrsc8JlZ7H8kGO6a/Tz2b2Bw5f7w+Yf8be23YEeqGcM
+	 LJBHjXGz+zgvdN5ZLNEBWECf9Lk3mhpXwFx9E871vKpu8LLgP4lkyzN/hb4On5YLlC
+	 F+xT9YbWC7U3dP31sli/Yv1sYBCmimrw+vnka1TL1MUleXkLxetWUdK6nV8jmjxUJf
+	 Ve8tzA8Q3P69A==
+From: Anthony PERARD <anthony.perard@vates.tech>
+Subject: =?utf-8?Q?Re:=20[PATCH=20for-4.19]=20hotplug:=20Restore=20block-tap=20phy=20compatibility?=
+X-Bm-Disclaimer: Yes
+X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
+X-Bm-Transport-Timestamp: 1718807600709
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Anthony PERARD <anthony@xenproject.org>, Oleksii Kurochko <oleksii.kurochko@gmail.com>, xen-devel@lists.xenproject.org, Jason Andryuk <jason.andryuk@amd.com>, Jason Andryuk <jandryuk@gmail.com>
+Message-Id: <ZnLsMOQ3zt4W855q@l14>
+References: <20240516022212.5034-1-jandryuk@gmail.com> <64083e01-edf1-4395-a9d7-82e82d220de7@suse.com> <9678073f-82d5-4402-b5a0-e24985c1446b@amd.com> <7de20763-b9bc-4dfc-b250-8f83c42e9e16@suse.com>
+In-Reply-To: <7de20763-b9bc-4dfc-b250-8f83c42e9e16@suse.com>
+X-Native-Encoded: 1
+X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.db5fcd6941aa43b2ac53c0d0b3e3427f?=
+X-Mandrill-User: md_30504962
+Feedback-ID: 30504962:30504962.20240619:md
+Date: Wed, 19 Jun 2024 14:33:21 +0000
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] loadpolicy: Verifies memory allocation during policy
- loading
-Content-Language: en-US
-To: Jan Beulich <jbeulich@suse.com>, yskelg@gmail.com
-Cc: Austin Kim <austindh.kim@gmail.com>, shjy180909@gmail.com,
- xen-devel@lists.xenproject.org, Anthony PERARD <anthony@xenproject.org>
-References: <20240527125438.66349-1-yskelg@gmail.com>
- <14188e5a-a641-4351-80b3-f69969c4ddba@suse.com>
-From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
-Autocrypt: addr=dpsmith@apertussolutions.com; keydata=
- xsJuBFYrueARCACPWL3r2bCSI6TrkIE/aRzj4ksFYPzLkJbWLZGBRlv7HQLvs6i/K4y/b4fs
- JDq5eL4e9BdfdnZm/b+K+Gweyc0Px2poDWwKVTFFRgxKWq9R7McwNnvuZ4nyXJBVn7PTEn/Z
- G7D08iZg94ZsnUdeXfgYdJrqmdiWA6iX9u84ARHUtb0K4r5WpLUMcQ8PVmnv1vVrs/3Wy/Rb
- foxebZNWxgUiSx+d02e3Ad0aEIur1SYXXv71mqKwyi/40CBSHq2jk9eF6zmEhaoFi5+MMMgX
- X0i+fcBkvmT0N88W4yCtHhHQds+RDbTPLGm8NBVJb7R5zbJmuQX7ADBVuNYIU8hx3dF3AQCm
- 601w0oZJ0jGOV1vXQgHqZYJGHg5wuImhzhZJCRESIwf+PJxik7TJOgBicko1hUVOxJBZxoe0
- x+/SO6tn+s8wKlR1Yxy8gYN9ZRqV2I83JsWZbBXMG1kLzV0SAfk/wq0PAppA1VzrQ3JqXg7T
- MZ3tFgxvxkYqUP11tO2vrgys+InkZAfjBVMjqXWHokyQPpihUaW0a8mr40w9Qui6DoJj7+Gg
- DtDWDZ7Zcn2hoyrypuht88rUuh1JuGYD434Q6qwQjUDlY+4lgrUxKdMD8R7JJWt38MNlTWvy
- rMVscvZUNc7gxcmnFUn41NPSKqzp4DDRbmf37Iz/fL7i01y7IGFTXaYaF3nEACyIUTr/xxi+
- MD1FVtEtJncZNkRn7WBcVFGKMAf+NEeaeQdGYQ6mGgk++i/vJZxkrC/a9ZXme7BhWRP485U5
- sXpFoGjdpMn4VlC7TFk2qsnJi3yF0pXCKVRy1ukEls8o+4PF2JiKrtkCrWCimB6jxGPIG3lk
- 3SuKVS/din3RHz+7Sr1lXWFcGYDENmPd/jTwr1A1FiHrSj+u21hnJEHi8eTa9029F1KRfocp
- ig+k0zUEKmFPDabpanI323O5Tahsy7hwf2WOQwTDLvQ+eqQu40wbb6NocmCNFjtRhNZWGKJS
- b5GrGDGu/No5U6w73adighEuNcCSNBsLyUe48CE0uTO7eAL6Vd+2k28ezi6XY4Y0mgASJslb
- NwW54LzSSM0uRGFuaWVsIFAuIFNtaXRoIDxkcHNtaXRoQGFwZXJ0dXNzb2x1dGlvbnMuY29t
- PsJ6BBMRCAAiBQJWK7ngAhsjBgsJCAcDAgYVCAIJCgsEFgIDAQIeAQIXgAAKCRBTc6WbYpR8
- KrQ9AP94+xjtFfJ8gj5c7PVx06Zv9rcmFUqQspZ5wSEkvxOuQQEAg6qEsPYegI7iByLVzNEg
- 7B7fUG7pqWIfMqFwFghYhQzOwU0EViu54BAIAL6MXXNlrJ5tRUf+KMBtVz1LJQZRt/uxWrCb
- T06nZjnbp2UcceuYNbISOVHGXTzu38r55YzpkEA8eURQf+5hjtvlrOiHxvpD+Z6WcpV6rrMB
- kcAKWiZTQihW2HoGgVB3gwG9dCh+n0X5OzliAMiGK2a5iqnIZi3o0SeW6aME94bSkTkuj6/7
- OmH9KAzK8UnlhfkoMg3tXW8L6/5CGn2VyrjbB/rcrbIR4mCQ+yCUlocuOjFCJhBd10AG1IcX
- OXUa/ux+/OAV9S5mkr5Fh3kQxYCTcTRt8RY7+of9RGBk10txi94dXiU2SjPbassvagvu/hEi
- twNHms8rpkSJIeeq0/cAAwUH/jV3tXpaYubwcL2tkk5ggL9Do+/Yo2WPzXmbp8vDiJPCvSJW
- rz2NrYkd/RoX+42DGqjfu8Y04F9XehN1zZAFmCDUqBMa4tEJ7kOT1FKJTqzNVcgeKNBGcT7q
- 27+wsqbAerM4A0X/F/ctjYcKwNtXck1Bmd/T8kiw2IgyeOC+cjyTOSwKJr2gCwZXGi5g+2V8
- NhJ8n72ISPnOh5KCMoAJXmCF+SYaJ6hIIFARmnuessCIGw4ylCRIU/TiXK94soilx5aCqb1z
- ke943EIUts9CmFAHt8cNPYOPRd20pPu4VFNBuT4fv9Ys0iv0XGCEP+sos7/pgJ3gV3pCOric
- p15jV4PCYQQYEQgACQUCViu54AIbDAAKCRBTc6WbYpR8Khu7AP9NJrBUn94C/3PeNbtQlEGZ
- NV46Mx5HF0P27lH3sFpNrwD/dVdZ5PCnHQYBZ287ZxVfVr4Zuxjo5yJbRjT93Hl0vMY=
-In-Reply-To: <14188e5a-a641-4351-80b3-f69969c4ddba@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: 7bit
-X-ZohoMailClient: External
 
-On 6/19/24 08:04, Jan Beulich wrote:
-> On 27.05.2024 14:54, yskelg@gmail.com wrote:
->> --- a/tools/flask/utils/loadpolicy.c
->> +++ b/tools/flask/utils/loadpolicy.c
->> @@ -58,6 +58,11 @@ int main (int argCnt, const char *args[])
->>       }
->>   
->>       polMemCp = malloc(info.st_size);
->> +    if (!polMemCp) {
->> +        fprintf(stderr, "Error occurred allocating %ld bytes\n", info.st_size);
->> +        ret = -ENOMEM;
+On Wed, Jun 19, 2024 at 02:07:04PM +0200, Jan Beulich wrote:
+> On 16.05.2024 15:52, Jason Andryuk wrote:
+> > On 2024-05-16 03:41, Jan Beulich wrote:
+> >> On 16.05.2024 04:22, Jason Andryuk wrote:
+> >>> From: Jason Andryuk <jason.andryuk@amd.com>
+> >>>
+> >>> From: Jason Andryuk <jason.andryuk@amd.com>
+> >>
+> >> Two identical From: (also in another patch of yours, while in yet another one
+> >> you have two _different_ ones, when only one will survive into the eventual
+> >> commit anyway)?
+> > 
+> > Sorry about that.  Since I was sending from my gmail account, I thought 
+> > I needed explicit From: lines to ensure the authorship was listed w/ 
+> > amd.com.  I generated the patches with `git format-patch --from`, to get 
+> > the explicit From: lines, and then sent with `git send-email`.  The 
+> > send-email step then inserted the additional lines.  I guess it added 
+> >  From amd.com since I had changed to that address in .gitconfig.
+> > 
+> >>> backendtype=phy using the blktap kernel module needs to use write_dev,
+> >>> but tapback can't support that.  tapback should perform better, but make
+> >>> the script compatible with the old kernel module again.
+> >>>
+> >>> Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
+> >>
+> >> Should there be a Fixes: tag here?
+> > 
+> > That makes sense.
+> > 
+> > Fixes: 76a484193d ("hotplug: Update block-tap")
 > 
-> I don't think -ENOMEM is valid to use here. See neighboring code. Nevertheless
-> it is correct that a check should be here.
-> 
-> As to %ld - is that portably usable with an off_t value?
-> 
-> In any event, Daniel, really your turn to review / ack. I'm looking at this
-> merely because I found this and another bugfix still sit in waiting-for-ack
-> state.
+> Surely this wants going into 4.19? Thus - Anthony, Oleksii?
 
-I saw this but was on the fence of whether it really required my ack 
-since it was more of a toolstack code fix versus an XSM relevant change.
+Yes, I think so.
 
-With that said, and to expand on Jan's comment regarding ENOMEM, the 
-utility does not currently differentiate main's return code. Unless the 
-tools maintainer wants to start changing this, I would suggest setting 
-ret to -1.
+Acked-by: Anthony PERARD <anthony.perard@vates.tech>
 
-As to the '%ld', aligning with Jan's first comment, perhaps you might 
-consider just reporting `strerror(errno)` similar to the other error 
-handling checks. NB: it is likely errno will be set to -ENOMEM, so by 
-doing this you will end up notifying ENOMEM occurred as you were 
-attempting to do by providing it with `ret`. Additionally, then you 
-won't have to deal with portability concerns over off_t.
+Thanks,
 
-V/r,
-Daniel P. Smith
+-- 
 
 
+Anthony Perard | Vates XCP-ng Developer
+
+XCP-ng & Xen Orchestra - Vates solutions
+
+web: https://vates.tech
 
