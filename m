@@ -2,35 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EDCF590E4CC
-	for <lists+xen-devel@lfdr.de>; Wed, 19 Jun 2024 09:45:50 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.743488.1150400 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6231190E4D1
+	for <lists+xen-devel@lfdr.de>; Wed, 19 Jun 2024 09:46:12 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.743495.1150412 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sJq0M-0007sB-BB; Wed, 19 Jun 2024 07:45:18 +0000
+	id 1sJq13-0008NW-LL; Wed, 19 Jun 2024 07:46:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 743488.1150400; Wed, 19 Jun 2024 07:45:18 +0000
+Received: by outflank-mailman (output) from mailman id 743495.1150412; Wed, 19 Jun 2024 07:46:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sJq0M-0007pk-8S; Wed, 19 Jun 2024 07:45:18 +0000
-Received: by outflank-mailman (input) for mailman id 743488;
- Wed, 19 Jun 2024 07:45:17 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1sJq13-0008L7-HD; Wed, 19 Jun 2024 07:46:01 +0000
+Received: by outflank-mailman (input) for mailman id 743495;
+ Wed, 19 Jun 2024 07:45:59 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1sJq0L-0007pa-Bo; Wed, 19 Jun 2024 07:45:17 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1sJq0L-0005ms-3o; Wed, 19 Jun 2024 07:45:17 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1sJq0K-0002MU-TT; Wed, 19 Jun 2024 07:45:16 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1sJq0K-0003sp-T2; Wed, 19 Jun 2024 07:45:16 +0000
+ (envelope-from <SRS0=YhGR=NV=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1sJq11-0008I3-Ss
+ for xen-devel@lists.xenproject.org; Wed, 19 Jun 2024 07:45:59 +0000
+Received: from mail-lj1-x231.google.com (mail-lj1-x231.google.com
+ [2a00:1450:4864:20::231])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id f7ec7549-2e0f-11ef-90a3-e314d9c70b13;
+ Wed, 19 Jun 2024 09:45:59 +0200 (CEST)
+Received: by mail-lj1-x231.google.com with SMTP id
+ 38308e7fff4ca-2ec0f3b9bb8so45860671fa.1
+ for <xen-devel@lists.xenproject.org>; Wed, 19 Jun 2024 00:45:59 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-1f9a38630basm17964895ad.241.2024.06.19.00.45.55
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 19 Jun 2024 00:45:58 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,73 +45,140 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=tiT3bnPByNWuRwXBI/VDQh6Ee8P0lTXmFKwaSdUNJ/I=; b=N5VhkO2Z6yEn5RNWf4eRAiWmgb
-	W8WmPYonu9ZV4ABz+/L5Do+pbRNCFZMhWt32rmQS72ZRwnh97pL3Fo5gtZ6UoJ1bJw2EThFUeHTei
-	y9PYXDtOPAne3f1iT6eKgeEK0V1a5oQcKPnvgo8ZkSfL13N8Ior8NBIqrwPxm97bBjC0=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-186408-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: f7ec7549-2e0f-11ef-90a3-e314d9c70b13
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1718783158; x=1719387958; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=lzLLyw5Kel/bTpyH9ybDnCL6QQy48ent4QQeIdhBcgc=;
+        b=Uw0P0bN0sBS/T4hNkFLtVVvtzp2zTmB6VyHfaIRZPI7NHlPRFj4L0ZKMK8W5r62quE
+         qtwU07FN01awDFWN5ECLsGUW1jU6IrCThePML+GERmI4J9piFBrAQuQQH+oIQiJZxLjf
+         XPL8VgRrc7Wvrw6xWNUga1OsL6EsV9gcNJzuwstpdWNUtzQ/TlAisTVI5j+TE90jmZqy
+         fPs9yQBg2zSQPGbCsK2OtzetJjTqinbR/LuTEmbUvhcCp6LByphaRJxRieSGYW1YoiEv
+         NuSWASCNWmklv/H2fergZtTtM2CSzk/GwbdJY24xNhD8V9dHaLNvwZmS3SnIzAn04O4b
+         xR3w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1718783158; x=1719387958;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=lzLLyw5Kel/bTpyH9ybDnCL6QQy48ent4QQeIdhBcgc=;
+        b=MM7w1x1xYxciUJlLwMUMlZgj2/9CcKK5KxbzGZKXAu/JMrGz7+umDtNg1V6M4IkkgE
+         RDoezlKXDxiaD0aLfEcuNB6JmR4gZ3PG2VH6CtDHzQrhm18pr8mlaOly7RJufzE6WfgK
+         U3LMZP01Qt046XlWaKPTxbt6UALa1IVm+E4sji7R+gBubPHVikMULxT2AMG6nKSBev9s
+         LdhdFuYR7ndf9/HcefeWBgFMn2sUkNF8dnnqb6qDnJiDaTW2q+pAjw+p7lVfGVMLuS5O
+         1ajeTA5020hGeJPTpTguVSYL5gI7UMWus+XhAg1MnQLHFtgyncOBLTeIdPgxWcDbvces
+         Phfg==
+X-Forwarded-Encrypted: i=1; AJvYcCUZSZGG/q/xUUvWcP3y/aMwHPNTeR14VeVs9rYQY9/mZDHkl+PFNrKMWyyR9lu7CM9gxDwoVnRh21uODASrYu3hzFaTXIS4heBcredtWd0=
+X-Gm-Message-State: AOJu0YxVU9BTnJ73WaealFc74zBtSvekZ5rLjuRZnSMfVSZ5lGrlsLd7
+	Dlzt84KDdQIa9t9mNC1Ukon8z7J6Q7j3O1vwcx7NCnE+b/Rph4xp78B+FdW+3A==
+X-Google-Smtp-Source: AGHT+IHMM+dSkEp0aK4T+B0BBT8WTz23Gj8jHZIFxnytX6o5aKfY5/uiPjw3dDYivXrT4cy5fM2Ugw==
+X-Received: by 2002:a2e:b0e8:0:b0:2ec:41b3:f0f1 with SMTP id 38308e7fff4ca-2ec41b3f1dcmr1740261fa.39.1718783158579;
+        Wed, 19 Jun 2024 00:45:58 -0700 (PDT)
+Message-ID: <052cccac-8c8f-4555-953c-2bd9de460f2a@suse.com>
+Date: Wed, 19 Jun 2024 09:45:52 +0200
 MIME-Version: 1.0
-Subject: [ovmf test] 186408: all pass - PUSHED
-X-Osstest-Versions-This:
-    ovmf=4d4f56992460c039d0cfe48c394c2e07aecf1d22
-X-Osstest-Versions-That:
-    ovmf=26a30abdd0f7fe5a9d2421cba6efe9397185ad98
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Wed, 19 Jun 2024 07:45:16 +0000
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] AMD/IOMMU: Improve register_iommu_exclusion_range()
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20240618183128.1981751-1-andrew.cooper3@citrix.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20240618183128.1981751-1-andrew.cooper3@citrix.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-flight 186408 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/186408/
+On 18.06.2024 20:31, Andrew Cooper wrote:
+>  * Use 64bit accesses instead of 32bit accesses
+>  * Simplify the constant names
+>  * Pull base into a local variable to avoid it being reloaded because of the
+>    memory clobber in writeq().
+> 
+> No functional change.
+> 
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> ---
+> CC: Jan Beulich <JBeulich@suse.com>
+> CC: Roger Pau Monné <roger.pau@citrix.com>
+> 
+> RFC.  This is my proposed way of cleaning up the whole IOMMU file.  The
+> diffstat speaks for itself.
 
-Perfect :-)
-All tests in this flight passed as required
-version targeted for testing:
- ovmf                 4d4f56992460c039d0cfe48c394c2e07aecf1d22
-baseline version:
- ovmf                 26a30abdd0f7fe5a9d2421cba6efe9397185ad98
+Absolutely.
 
-Last test of basis   186405  2024-06-19 01:11:08 Z    0 days
-Testing same since   186408  2024-06-19 05:41:10 Z    0 days    1 attempts
+> I've finally found the bit in the AMD IOMMU spec which says 64bit accesses are
+> permitted:
+> 
+>   3.4 IOMMU MMIO Registers:
+> 
+>   Software access to IOMMU registers may not be larger than 64 bits. Accesses
+>   must be aligned to the size of the access and the size in bytes must be a
+>   power of two. Software may use accesses as small as one byte.
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Dhaval <dhaval@rivosinc.com>
-  Dhaval Sharma <dhaval@rivosinc.com>
+I take it that the use of 32-bit writes was because of the past need
+also work in a 32-bit hypervisor, not because of perceived restrictions
+by the spec.
 
-jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+> --- a/xen/drivers/passthrough/amd/iommu-defs.h
+> +++ b/xen/drivers/passthrough/amd/iommu-defs.h
+> @@ -338,22 +338,10 @@ union amd_iommu_control {
+>  };
+>  
+>  /* Exclusion Register */
+> -#define IOMMU_EXCLUSION_BASE_LOW_OFFSET		0x20
+> -#define IOMMU_EXCLUSION_BASE_HIGH_OFFSET	0x24
+> -#define IOMMU_EXCLUSION_LIMIT_LOW_OFFSET	0x28
+> -#define IOMMU_EXCLUSION_LIMIT_HIGH_OFFSET	0x2C
+> -#define IOMMU_EXCLUSION_BASE_LOW_MASK		0xFFFFF000U
+> -#define IOMMU_EXCLUSION_BASE_LOW_SHIFT		12
+> -#define IOMMU_EXCLUSION_BASE_HIGH_MASK		0xFFFFFFFFU
+> -#define IOMMU_EXCLUSION_BASE_HIGH_SHIFT		0
+> -#define IOMMU_EXCLUSION_RANGE_ENABLE_MASK	0x00000001U
+> -#define IOMMU_EXCLUSION_RANGE_ENABLE_SHIFT	0
+> -#define IOMMU_EXCLUSION_ALLOW_ALL_MASK		0x00000002U
+> -#define IOMMU_EXCLUSION_ALLOW_ALL_SHIFT		1
+> -#define IOMMU_EXCLUSION_LIMIT_LOW_MASK		0xFFFFF000U
+> -#define IOMMU_EXCLUSION_LIMIT_LOW_SHIFT		12
+> -#define IOMMU_EXCLUSION_LIMIT_HIGH_MASK		0xFFFFFFFFU
+> -#define IOMMU_EXCLUSION_LIMIT_HIGH_SHIFT	0
+> +#define IOMMU_MMIO_EXCLUSION_BASE           0x20
+> +#define   EXCLUSION_RANGE_ENABLE            (1 << 0)
+> +#define   EXCLUSION_ALLOW_ALL               (1 << 1)
+> +#define IOMMU_MMIO_EXCLUSION_LIMIT          0x28
 
+Just one question here: Previously you suggested we switch to bitfields
+for anything like this, and we've already done so with e.g.
+union amd_iommu_control and union amd_iommu_ext_features. IOW I wonder
+if we wouldn't better strive to be consistent in this regard. Or if not,
+what the (written or unwritten) guidelines are when to use which
+approach.
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
-   26a30abdd0..4d4f569924  4d4f56992460c039d0cfe48c394c2e07aecf1d22 -> xen-tested-master
+Jan
 
