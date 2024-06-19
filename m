@@ -2,38 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B41C990E929
-	for <lists+xen-devel@lfdr.de>; Wed, 19 Jun 2024 13:20:10 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.743643.1150571 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CC73890E930
+	for <lists+xen-devel@lfdr.de>; Wed, 19 Jun 2024 13:21:37 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.743650.1150580 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sJtM1-0004eb-KU; Wed, 19 Jun 2024 11:19:53 +0000
+	id 1sJtNW-000676-2W; Wed, 19 Jun 2024 11:21:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 743643.1150571; Wed, 19 Jun 2024 11:19:53 +0000
+Received: by outflank-mailman (output) from mailman id 743650.1150580; Wed, 19 Jun 2024 11:21:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sJtM1-0004c9-HG; Wed, 19 Jun 2024 11:19:53 +0000
-Received: by outflank-mailman (input) for mailman id 743643;
- Wed, 19 Jun 2024 11:19:51 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=hxBI=NV=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1sJtLz-0004c3-TB
- for xen-devel@lists.xenproject.org; Wed, 19 Jun 2024 11:19:51 +0000
-Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
- [2a00:1450:4864:20::632])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d8393033-2e2d-11ef-90a3-e314d9c70b13;
- Wed, 19 Jun 2024 13:19:51 +0200 (CEST)
-Received: by mail-ej1-x632.google.com with SMTP id
- a640c23a62f3a-a6fb341a7f2so67405266b.1
- for <xen-devel@lists.xenproject.org>; Wed, 19 Jun 2024 04:19:51 -0700 (PDT)
-Received: from [192.168.219.221] ([94.75.70.14])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a6f56ed3564sm655882566b.104.2024.06.19.04.19.49
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 19 Jun 2024 04:19:49 -0700 (PDT)
+	id 1sJtNV-00064X-W1; Wed, 19 Jun 2024 11:21:25 +0000
+Received: by outflank-mailman (input) for mailman id 743650;
+ Wed, 19 Jun 2024 11:21:25 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1sJtNV-00064P-Ib
+ for xen-devel@lists.xenproject.org; Wed, 19 Jun 2024 11:21:25 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1sJtNU-0001be-T4; Wed, 19 Jun 2024 11:21:24 +0000
+Received: from [15.248.3.90] (helo=[10.24.67.26])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1sJtNU-0000i6-Mi; Wed, 19 Jun 2024 11:21:24 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,109 +39,151 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d8393033-2e2d-11ef-90a3-e314d9c70b13
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1718795990; x=1719400790; darn=lists.xenproject.org;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=Wy8Nw+xYFwxnaJMcrgGgPVXtf+542e3QCucupMXdJrM=;
-        b=mEgAKUlXZtnKNQJPSdzsQjnNkaiK2+K9VlT3vEKkuTdn7i2clewMz7xJ/buJGGI0j+
-         WkxN9v37VFdHyh4uupLFjE6HJzAD9oMSKGOVZL6u5TaI3yBNXO/tOTOgO72pD/BGJeA0
-         Z2WkctyqpF76Q0N9juypTqXBRNYpSnCpM/mZhQEKFMS3bZHndkTlbJDV+bP/dTCUgw2i
-         Lf1/p6UV5y0jBhAFZkYtGb1/GhYjrANIho8qN603XoGBRZ73fymxkZU60JUl9ViIgrlT
-         10bdk8ILLmHIQ7LowL7MpaFxneMMiZRFxr7DcdBBVnz/BfEjBAYKij9Zqfj1IRUlDfFp
-         RNCA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1718795990; x=1719400790;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=Wy8Nw+xYFwxnaJMcrgGgPVXtf+542e3QCucupMXdJrM=;
-        b=A28Rc1V1cTkXI3FGGPpTsMjvenXmn8q26sxyfP4oKQ8Vqq1ZG4kw2OeuOsEOecAIt/
-         xrtY4L/HypozA4OFIpmXrXW/Aqa/Zs/5AJvpiPmPaNl7GBaDNDbIun14Eb7IwULS2bTM
-         nOCwsmm1O6RG73rh0ZwcqcsUkHMLrTEzSooQGBx0ztM6WSf+1nUcXktB+ouEwQ6V2LLS
-         O+LFjIBFcqjTb4qVoGageewmAOzt8kCxSxZ5xCHxmZnQV60cpYTy4dM+z3/wiZ7E8FAr
-         R5woJgkn3uveLHcbVCLR43LyAjYQYifbV2VJEnnau9vQ4lxMuMmR4ALJxdYvHYAdJqqj
-         6zQw==
-X-Gm-Message-State: AOJu0Yytj2Am8urPXqprEjgZ2S53O50K17r1p8A0RB+XnHM+KxjTQwqL
-	wdIDLYMbVirYOFPfZKPzMUhMtyETajZJxPJbzUoK4DC1CTzkJ0TC
-X-Google-Smtp-Source: AGHT+IGROfozAU4rmfYZDBfT4Qq854mddFasaL0W6dRLNiTtakeKHUgrJ0mes0h4kmwUlsjpBiWSug==
-X-Received: by 2002:a17:906:4a82:b0:a6f:9da3:69a1 with SMTP id a640c23a62f3a-a6fab779005mr135733166b.47.1718795990013;
-        Wed, 19 Jun 2024 04:19:50 -0700 (PDT)
-Message-ID: <691f0bebe10e09f8fb46d0816fa20c61a9d9d3aa.camel@gmail.com>
-Subject: Re: [PATCH for-4.19] xen/arm: static-shmem: fix "gbase/pbase used
- uninitialized" build failure
-From: "Oleksii K." <oleksii.kurochko@gmail.com>
-To: Bertrand Marquis <Bertrand.Marquis@arm.com>, Michal Orzel
-	 <michal.orzel@amd.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>, Stefano Stabellini
-	 <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Volodymyr Babchuk
-	 <Volodymyr_Babchuk@epam.com>
-Date: Wed, 19 Jun 2024 13:19:49 +0200
-In-Reply-To: <8C571FCD-3EAF-40B5-8694-625880176F8B@arm.com>
-References: <20240619064652.18266-1-michal.orzel@amd.com>
-	 <8C571FCD-3EAF-40B5-8694-625880176F8B@arm.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: base64
-User-Agent: Evolution 3.52.1 (3.52.1-1.fc40) 
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+	References:Cc:To:From:Subject:MIME-Version:Date:Message-ID;
+	bh=oHKOYPulBdFKe4ZGiYuTL4IDCQS1Zi7HVgsipZMR0XE=; b=F30FsomMYnNVgM0vJkFb6Kb0Az
+	G+wioPVD4PIruzgl1bBDM0YgoyxHTJCIrYvEaRGu4i5WQ4oMDiCQRNXYvJ4s2F+liuXoZVJHgkWlX
+	1TIi1c37fUaCHluuJF5o6JIQayh2xodRYYJ6WkF36rLLdisXLRFScC5B1fVq5ENvEGSI=;
+Message-ID: <1fc8524f-8766-4eee-9b27-0eacd04097d4@xen.org>
+Date: Wed, 19 Jun 2024 12:21:22 +0100
 MIME-Version: 1.0
-
-SGksIApPbiBXZWQsIDIwMjQtMDYtMTkgYXQgMDk6MDIgKzAwMDAsIEJlcnRyYW5kIE1hcnF1aXMg
-d3JvdGU6Cj4gSGksCj4gCj4gQWRkaW5nIE9sZWtzaWkgZm9yIFJlbGVhc2UgYWNrLgo+IAo+IENo
-ZWVycwo+IEJlcnRyYW5kCj4gCj4gPiBPbiAxOSBKdW4gMjAyNCwgYXQgMDg6NDYsIE1pY2hhbCBP
-cnplbCA8bWljaGFsLm9yemVsQGFtZC5jb20+Cj4gPiB3cm90ZToKPiA+IAo+ID4gQnVpbGRpbmcg
-WGVuIHdpdGggQ09ORklHX1NUQVRJQ19TSE09eSByZXN1bHRzIGluIGEgYnVpbGQgZmFpbHVyZToK
-PiA+IAo+ID4gYXJjaC9hcm0vc3RhdGljLXNobWVtLmM6IEluIGZ1bmN0aW9uICdwcm9jZXNzX3No
-bSc6Cj4gPiBhcmNoL2FybS9zdGF0aWMtc2htZW0uYzozMjc6NDE6IGVycm9yOiAnZ2Jhc2UnIG1h
-eSBiZSB1c2VkCj4gPiB1bmluaXRpYWxpemVkIFstV2Vycm9yPW1heWJlLXVuaW5pdGlhbGl6ZWRd
-Cj4gPiDCoDMyNyB8wqDCoMKgwqDCoMKgwqDCoCBpZiAoIGlzX2RvbWFpbl9kaXJlY3RfbWFwcGVk
-KGQpICYmIChwYmFzZSAhPSBnYmFzZSkKPiA+ICkKPiA+IGFyY2gvYXJtL3N0YXRpYy1zaG1lbS5j
-OjMwNToxNzogbm90ZTogJ2diYXNlJyB3YXMgZGVjbGFyZWQgaGVyZQo+ID4gwqAzMDUgfMKgwqDC
-oMKgwqDCoMKgwqAgcGFkZHJfdCBnYmFzZSwgcGJhc2UsIHBzaXplOwo+ID4gCj4gPiBUaGlzIGlz
-IGJlY2F1c2UgdGhlIGNvbW1pdCBjYjFkZGFmZGM1NzMgYWRkcyBhIGNoZWNrIHJlZmVyZW5jaW5n
-Cj4gPiBnYmFzZS9wYmFzZSB2YXJpYWJsZXMgd2hpY2ggd2VyZSBub3QgeWV0IGFzc2lnbmVkIGEg
-dmFsdWUuIEZpeCBpdC4KPiA+IAo+ID4gRml4ZXM6IGNiMWRkYWZkYzU3MyAoInhlbi9hcm0vc3Rh
-dGljLXNobWVtOiBTdGF0aWMtc2htZW0gc2hvdWxkIGJlCj4gPiBkaXJlY3QtbWFwcGVkIGZvciBk
-aXJlY3QtbWFwcGVkIGRvbWFpbnMiKQo+ID4gU2lnbmVkLW9mZi1ieTogTWljaGFsIE9yemVsIDxt
-aWNoYWwub3J6ZWxAYW1kLmNvbT4KUmVsZWFzZS1BY2tlZC1ieTogT2xla3NpaSBLdXJvY2hrbyA8
-b2xla3NpaS5rdXJvY2hrb0BnbWFpbC5jb20+Cgp+IE9sZWtzaWkKPiA+IC0tLQo+ID4gUmF0aW9u
-YWxlIGZvciA0LjE5OiB0aGlzIHBhdGNoIGZpeGVzIGEgYnVpbGQgZmFpbHVyZSByZXBvcnRlZCBi
-eQo+ID4gQ0k6Cj4gPiBodHRwczovL2dpdGxhYi5jb20veGVuLXByb2plY3QveGVuLy0vam9icy83
-MTMxODA3ODc4Cj4gPiAtLS0KPiA+IHhlbi9hcmNoL2FybS9zdGF0aWMtc2htZW0uYyB8IDEzICsr
-KysrKystLS0tLS0KPiA+IDEgZmlsZSBjaGFuZ2VkLCA3IGluc2VydGlvbnMoKyksIDYgZGVsZXRp
-b25zKC0pCj4gPiAKPiA+IGRpZmYgLS1naXQgYS94ZW4vYXJjaC9hcm0vc3RhdGljLXNobWVtLmMg
-Yi94ZW4vYXJjaC9hcm0vc3RhdGljLQo+ID4gc2htZW0uYwo+ID4gaW5kZXggYzQzNGI5NmU2MjA0
-Li5jZDQ4ZDI4OTZiN2UgMTAwNjQ0Cj4gPiAtLS0gYS94ZW4vYXJjaC9hcm0vc3RhdGljLXNobWVt
-LmMKPiA+ICsrKyBiL3hlbi9hcmNoL2FybS9zdGF0aWMtc2htZW0uYwo+ID4gQEAgLTMyNCwxMiAr
-MzI0LDYgQEAgaW50IF9faW5pdCBwcm9jZXNzX3NobShzdHJ1Y3QgZG9tYWluICpkLAo+ID4gc3Ry
-dWN0IGtlcm5lbF9pbmZvICpraW5mbywKPiA+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgcHJpbnRr
-KCIlcGQ6IHN0YXRpYyBzaGFyZWQgbWVtb3J5IGJhbmsgbm90IGZvdW5kOgo+ID4gJyVzJyIsIGQs
-IHNobV9pZCk7Cj4gPiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHJldHVybiAtRU5PRU5UOwo+ID4g
-wqDCoMKgwqDCoMKgwqAgfQo+ID4gLcKgwqDCoMKgwqDCoMKgIGlmICggaXNfZG9tYWluX2RpcmVj
-dF9tYXBwZWQoZCkgJiYgKHBiYXNlICE9IGdiYXNlKSApCj4gPiAtwqDCoMKgwqDCoMKgwqAgewo+
-ID4gLcKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgcHJpbnRrKCIlcGQ6IHBoeXNpY2FsIGFkZHJlc3Mg
-MHglIlBSSXBhZGRyIiBhbmQgZ3Vlc3QKPiA+IGFkZHJlc3MgMHglIlBSSXBhZGRyIiBhcmUgbm90
-IGRpcmVjdC1tYXBwZWQuXG4iLAo+ID4gLcKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoCBkLCBwYmFzZSwgZ2Jhc2UpOwo+ID4gLcKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgcmV0dXJu
-IC1FSU5WQUw7Cj4gPiAtwqDCoMKgwqDCoMKgwqAgfQo+ID4gCj4gPiDCoMKgwqDCoMKgwqDCoCBw
-YmFzZSA9IGJvb3Rfc2htX2JhbmstPnN0YXJ0Owo+ID4gwqDCoMKgwqDCoMKgwqAgcHNpemUgPSBi
-b290X3NobV9iYW5rLT5zaXplOwo+ID4gQEAgLTM1Myw2ICszNDcsMTMgQEAgaW50IF9faW5pdCBw
-cm9jZXNzX3NobShzdHJ1Y3QgZG9tYWluICpkLAo+ID4gc3RydWN0IGtlcm5lbF9pbmZvICpraW5m
-bywKPiA+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgLyogZ3Vlc3QgcGh5cyBhZGRyZXNzIGlzIGFm
-dGVyIGhvc3QgcGh5cyBhZGRyZXNzICovCj4gPiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGdiYXNl
-ID0gZHRfcmVhZF9wYWRkcihjZWxscyArIGFkZHJfY2VsbHMsIGFkZHJfY2VsbHMpOwo+ID4gCj4g
-PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBpZiAoIGlzX2RvbWFpbl9kaXJlY3RfbWFwcGVkKGQp
-ICYmIChwYmFzZSAhPSBnYmFzZSkgKQo+ID4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqAgewo+ID4g
-K8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBwcmludGsoIiVwZDogcGh5c2ljYWwgYWRk
-cmVzcyAweCUiUFJJcGFkZHIiIGFuZAo+ID4gZ3Vlc3QgYWRkcmVzcyAweCUiUFJJcGFkZHIiIGFy
-ZSBub3QgZGlyZWN0LW1hcHBlZC5cbiIsCj4gPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqAgZCwgcGJhc2UsIGdiYXNlKTsKPiA+ICvCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqAgcmV0dXJuIC1FSU5WQUw7Cj4gPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oCB9Cj4gPiArCj4gPiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGZvciAoIGkgPSAwOyBpIDwgUEZO
-X0RPV04ocHNpemUpOyBpKysgKQo+ID4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGlm
-ICggIW1mbl92YWxpZChtZm5fYWRkKG1hZGRyX3RvX21mbihwYmFzZSksIGkpKSApCj4gPiDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgewo+ID4gLS0gCj4gPiAyLjI1LjEKPiA+IAo+IAoK
+User-Agent: Mozilla Thunderbird
+Subject: Re: [XEN PATCH v2] xen: add explicit comment to identify notifier
+ patterns
+Content-Language: en-GB
+From: Julien Grall <julien@xen.org>
+To: Federico Serafini <federico.serafini@bugseng.com>,
+ xen-devel@lists.xenproject.org
+Cc: consulting@bugseng.com, Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Dario Faggioli <dfaggioli@suse.com>, Juergen Gross <jgross@suse.com>
+References: <d814434bf73e341f5d35836fa7063a728f7b7de4.1718788908.git.federico.serafini@bugseng.com>
+ <f7d46c15-ff85-4a6f-afd7-df18649726c8@xen.org>
+In-Reply-To: <f7d46c15-ff85-4a6f-afd7-df18649726c8@xen.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
 
+
+On 19/06/2024 12:17, Julien Grall wrote:
+> Hi Federico,
+> 
+> On 19/06/2024 10:29, Federico Serafini wrote:
+>> MISRA C Rule 16.4 states that every `switch' statement shall have a
+>> `default' label" and a statement or a comment prior to the
+>> terminating break statement.
+>>
+>> This patch addresses some violations of the rule related to the
+>> "notifier pattern": a frequently-used pattern whereby only a few values
+>> are handled by the switch statement and nothing should be done for
+>> others (nothing to do in the default case).
+>>
+>> Note that for function mwait_idle_cpu_init() in
+>> xen/arch/x86/cpu/mwait-idle.c the /* Notifier pattern. */ comment is
+>> not added: differently from the other functions covered in this patch,
+>> the default label has a return statement that does not violates Rule 
+>> 16.4.
+>>
+>> No functional change.
+>>
+>> Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
+>> ---
+>> Changes in v2:
+>> as Jan pointed out, in the v1 some patterns were not explicitly 
+>> identified
+>> (https://lore.kernel.org/xen-devel/cad05a5c-e2d8-4e5d-af05-30ae6f959184@bugseng.com/).
+>>
+>> This version adds the /* Notifier pattern. */ to all the pattern 
+>> present in
+>> the Xen codebase except for mwait_idle_cpu_init().
+>> ---
+>>   xen/arch/arm/cpuerrata.c                     | 1 +
+>>   xen/arch/arm/gic-v3-lpi.c                    | 4 ++++
+>>   xen/arch/arm/gic.c                           | 1 +
+>>   xen/arch/arm/irq.c                           | 4 ++++
+>>   xen/arch/arm/mmu/p2m.c                       | 1 +
+>>   xen/arch/arm/percpu.c                        | 1 +
+>>   xen/arch/arm/smpboot.c                       | 1 +
+>>   xen/arch/arm/time.c                          | 1 +
+>>   xen/arch/arm/vgic-v3-its.c                   | 2 ++
+>>   xen/arch/x86/acpi/cpu_idle.c                 | 4 ++++
+>>   xen/arch/x86/cpu/mcheck/mce.c                | 4 ++++
+>>   xen/arch/x86/cpu/mcheck/mce_intel.c          | 4 ++++
+>>   xen/arch/x86/genapic/x2apic.c                | 3 +++
+>>   xen/arch/x86/hvm/hvm.c                       | 1 +
+>>   xen/arch/x86/nmi.c                           | 1 +
+>>   xen/arch/x86/percpu.c                        | 3 +++
+>>   xen/arch/x86/psr.c                           | 3 +++
+>>   xen/arch/x86/smpboot.c                       | 3 +++
+>>   xen/common/kexec.c                           | 1 +
+>>   xen/common/rcupdate.c                        | 1 +
+>>   xen/common/sched/core.c                      | 1 +
+>>   xen/common/sched/cpupool.c                   | 1 +
+>>   xen/common/spinlock.c                        | 1 +
+>>   xen/common/tasklet.c                         | 1 +
+>>   xen/common/timer.c                           | 1 +
+>>   xen/drivers/cpufreq/cpufreq.c                | 1 +
+>>   xen/drivers/cpufreq/cpufreq_misc_governors.c | 3 +++
+>>   xen/drivers/passthrough/x86/hvm.c            | 3 +++
+>>   xen/drivers/passthrough/x86/iommu.c          | 3 +++
+>>   29 files changed, 59 insertions(+)
+>>
+>> diff --git a/xen/arch/arm/cpuerrata.c b/xen/arch/arm/cpuerrata.c
+>> index 2b7101ea25..69c30aecd8 100644
+>> --- a/xen/arch/arm/cpuerrata.c
+>> +++ b/xen/arch/arm/cpuerrata.c
+>> @@ -730,6 +730,7 @@ static int cpu_errata_callback(struct 
+>> notifier_block *nfb,
+>>           rc = enable_nonboot_cpu_caps(arm_errata);
+>>           break;
+>>       default:
+>> +        /* Notifier pattern. */
+> Without looking at the commit message (which may not be trivial when 
+> committed), it is not clear to me what this is supposed to mean. Will 
+> there be a longer explanation in the MISRA doc? Should this be a SAF-* 
+> comment?
+
+Please ignore this comment. Just found it in the rules.rst.
+
+> 
+>>           break;
+>>       }
+>> diff --git a/xen/arch/arm/gic-v3-lpi.c b/xen/arch/arm/gic-v3-lpi.c
+>> index eb0a5535e4..4c2bd35403 100644
+>> --- a/xen/arch/arm/gic-v3-lpi.c
+>> +++ b/xen/arch/arm/gic-v3-lpi.c
+>> @@ -389,6 +389,10 @@ static int cpu_callback(struct notifier_block 
+>> *nfb, unsigned long action,
+>>               printk(XENLOG_ERR "Unable to allocate the pendtable for 
+>> CPU%lu\n",
+>>                      cpu);
+>>           break;
+>> +
+>> +    default:
+>> +        /* Notifier pattern. */
+>> +        break;
+> 
+> Skimming through v1, it was pointed out that gic-v3-lpi may miss some 
+> cases.
+> 
+> Let me start with that I understand this patch is technically not 
+> changing anything. However, it gives us an opportunity to check the 
+> notifier pattern.
+> 
+> Has anyone done any proper investigation? If so, what was the outcome? 
+> If not, have we identified someone to do it?
+> 
+> The same question will apply for place where you add "default".
+> 
+> Cheers,
+> 
+
+-- 
+Julien Grall
 
