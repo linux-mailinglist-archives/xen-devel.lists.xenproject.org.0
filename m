@@ -2,42 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9A74B90F40B
-	for <lists+xen-devel@lfdr.de>; Wed, 19 Jun 2024 18:30:23 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.743926.1150926 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C953290F40C
+	for <lists+xen-devel@lfdr.de>; Wed, 19 Jun 2024 18:31:18 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.743931.1150936 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sJyCG-0006pH-0E; Wed, 19 Jun 2024 16:30:08 +0000
+	id 1sJyDB-0007Kt-9V; Wed, 19 Jun 2024 16:31:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 743926.1150926; Wed, 19 Jun 2024 16:30:07 +0000
+Received: by outflank-mailman (output) from mailman id 743931.1150936; Wed, 19 Jun 2024 16:31:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sJyCF-0006nX-Tg; Wed, 19 Jun 2024 16:30:07 +0000
-Received: by outflank-mailman (input) for mailman id 743926;
- Wed, 19 Jun 2024 16:30:06 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=ucR9=NV=ziepe.ca=jgg@srs-se1.protection.inumbo.net>)
- id 1sJyCE-0006iH-62
- for xen-devel@lists.xenproject.org; Wed, 19 Jun 2024 16:30:06 +0000
-Received: from mail-qk1-x72d.google.com (mail-qk1-x72d.google.com
- [2607:f8b0:4864:20::72d])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 2e1719ca-2e59-11ef-b4bb-af5377834399;
- Wed, 19 Jun 2024 18:30:03 +0200 (CEST)
-Received: by mail-qk1-x72d.google.com with SMTP id
- af79cd13be357-797f222c9f9so375414385a.3
- for <xen-devel@lists.xenproject.org>; Wed, 19 Jun 2024 09:30:03 -0700 (PDT)
-Received: from ziepe.ca
- (hlfxns017vw-142-68-80-239.dhcp-dynamic.fibreop.ns.bellaliant.net.
- [142.68.80.239]) by smtp.gmail.com with ESMTPSA id
- 6a1803df08f44-6b2a5ee8bc0sm79593276d6.121.2024.06.19.09.30.01
+	id 1sJyDB-0007J2-5z; Wed, 19 Jun 2024 16:31:05 +0000
+Received: by outflank-mailman (input) for mailman id 743931;
+ Wed, 19 Jun 2024 16:31:03 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=RXUT=NV=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1sJyD9-0007IR-Uk
+ for xen-devel@lists.xenproject.org; Wed, 19 Jun 2024 16:31:03 +0000
+Received: from mail-ed1-x535.google.com (mail-ed1-x535.google.com
+ [2a00:1450:4864:20::535])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 51b6ff07-2e59-11ef-90a3-e314d9c70b13;
+ Wed, 19 Jun 2024 18:31:03 +0200 (CEST)
+Received: by mail-ed1-x535.google.com with SMTP id
+ 4fb4d7f45d1cf-57d1782679fso786922a12.0
+ for <xen-devel@lists.xenproject.org>; Wed, 19 Jun 2024 09:31:03 -0700 (PDT)
+Received: from andrewcoop.eng.citrite.net ([160.101.139.1])
+ by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-57cb72cdfc4sm8468996a12.19.2024.06.19.09.31.01
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 19 Jun 2024 09:30:01 -0700 (PDT)
-Received: from jgg by wakko with local (Exim 4.95)
- (envelope-from <jgg@ziepe.ca>) id 1sJyC8-0059Sy-QH;
- Wed, 19 Jun 2024 13:30:00 -0300
+ Wed, 19 Jun 2024 09:31:01 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -49,117 +45,155 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2e1719ca-2e59-11ef-b4bb-af5377834399
+X-Inumbo-ID: 51b6ff07-2e59-11ef-90a3-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ziepe.ca; s=google; t=1718814602; x=1719419402; darn=lists.xenproject.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=3c7XeNS34MogaG1zO0Gxm1rH0neHp06/RmAfCCHTdTs=;
-        b=VxuUqWdULIrVLjBXv76NDuX2GesmZVDlc3xW9WM80HfAJOIhuB7YTWgggl1WJfCcex
-         /7WRTSAcRU7JqKA84Dn5RrnjAcJJdOEeSXFLAJxrm5Jr6EwzV5qUHfd5Wo8Vwha+8y+g
-         cjtPgpYbJFKG32SGRh3gX+ARSyRsWaqTpf7IXXKzla5txjyCiDJcpG2jIlQK0SoxCBbR
-         0Ngqt7ql55nGO7ufO5HQa/3AXh9C140WpeACqsHx0zkZhyKuFltlMmQirkqQsTmE2Wow
-         c0GqWRzaNsZHp/vDH+OQUP5OBS8LQ3TZyD9P+vmRtTTAmxdE9yH8DOIQFW6VWzcZtDry
-         7pvQ==
+        d=citrix.com; s=google; t=1718814662; x=1719419462; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=eNRqIMjqDxOHB6YZkGrW+54h7mw46IrFeNy59xj3dpo=;
+        b=M7hKZOBO7JcfPJIh6JIVbbNZT/XHlGxZGqEhjsY5Y05NfiN/bP0su80St5wX0ZgSGJ
+         +UEFuh0vKLs3KC+jzMKxiQsrQY4q/1Dk9k1JoEM64LGxB9Stg2BmLp9an9834WDesQu5
+         mXncwU7Lv05qo/RzaL4v6qrk3ra1b8ec5CSYI=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1718814602; x=1719419402;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=3c7XeNS34MogaG1zO0Gxm1rH0neHp06/RmAfCCHTdTs=;
-        b=D9PzISYXCvf429oySpuCmdpgPjY9hIe7zMo3arsmaoZ3Vl96R67omh02q0mTG6Jhc+
-         I0Q5zIRb4EQ6kUmT7y0U1hSVEFoJ15FHU8pkqbk8rmOQRsj+LtcbnUXAEBGaeiQiXUwr
-         4impiwQ+bVoOq0ZtI6IQUstsDvypYZMT2D8tQuj0I3vkBWPtySMc2F9Johvtm84L0jXD
-         TxEiR3Zhe++ZNXclSvP6+VZB+mONQqiMxK4u70g4uQOmsMLLip+aXZX0Zj0adzLGp3wy
-         te3QS94VKxtgxfGh7CGNxItNsm9oMaCwSQKvUOzGfA7j3jq4RxLdQ/WCz+0RDHpTmCnu
-         SC4g==
-X-Gm-Message-State: AOJu0YwhJWh5pqdYr+xgtoJBaBDj47zqi/2O6uZW26sOmJGDLLWP1ShI
-	uwU8lEUfjgeazAqpAR7+eonXoUb5xnTUK9lGnTA12XNcJeo53mAAl9ZlMq2emoMvxyAHpYf1Ah+
-	p
-X-Google-Smtp-Source: AGHT+IFNd2KMs9vwOpIBWhDkSpGzT3UnUk3IdJB0sc4eGBGCnxklfZldC9FeJXialSmZ2UnfepoWDA==
-X-Received: by 2002:ad4:4484:0:b0:6b5:6a1:f899 with SMTP id 6a1803df08f44-6b506a1fbf6mr19249466d6.10.1718814602415;
-        Wed, 19 Jun 2024 09:30:02 -0700 (PDT)
-Date: Wed, 19 Jun 2024 13:30:00 -0300
-From: Jason Gunthorpe <jgg@ziepe.ca>
-To: Teddy Astie <teddy.astie@vates.tech>
-Cc: xen-devel@lists.xenproject.org, iommu@lists.linux.dev,
-	Juergen Gross <jgross@suse.com>,
+        d=1e100.net; s=20230601; t=1718814662; x=1719419462;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=eNRqIMjqDxOHB6YZkGrW+54h7mw46IrFeNy59xj3dpo=;
+        b=rYCWVAOVSgoEciYXX5g1H8ce4YdXO+Jl02V+x/khjb/sUAQpRDkkyiypXQP3scWUs3
+         N8GNLUR6qBQWDlakp9i+e3uIaa3aPfaHeMnfJFdXzJ5vBk93LH3ypqvAddn/ygo2k4mb
+         +iJgrRCvqyD5WvYvP0NtUQYI95dfD6jGMKPqaTTUGElh3cbkCyUlHc4CFMA6isNaV2e2
+         V7dPRr1rMbXF4BWMfUVj4PRgkPBTZrr+0Bh44TxmUdEr0vqXCVMJPpWXhXOIkqtXlhAg
+         v9g8VaDErx2+O3YF4K7qq7GZQ27izZS1V/UMz4jSbo12Sc8tX8+C7f8+Cx5PAX1S91iI
+         OyLQ==
+X-Gm-Message-State: AOJu0YyDxy3FqXIlbUGZ35KjiwgCR1mPS9BlMy7O3afIEaJGLnoDRV/u
+	R5xXfIPf1HHn2RSf51qU1gXLKifIE9Ngv3rhY+PDr7htHnkbPzKvhjCuR2siqeRSZYLZ0FzmQI4
+	I+TM=
+X-Google-Smtp-Source: AGHT+IEgA4/HyMhc+2wKZZn6cXI1BIGalLsPk0Gby+OcIz04oDGrUjOq1SQIC2Hlmrzn0Usi6pTxeg==
+X-Received: by 2002:a50:d50a:0:b0:57c:628d:f0eb with SMTP id 4fb4d7f45d1cf-57d07e6f85emr1809324a12.24.1718814661884;
+        Wed, 19 Jun 2024 09:31:01 -0700 (PDT)
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <George.Dunlap@citrix.com>,
+	Jan Beulich <JBeulich@suse.com>,
 	Stefano Stabellini <sstabellini@kernel.org>,
-	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
-	Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>,
-	Robin Murphy <robin.murphy@arm.com>,
-	Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-Subject: Re: [RFC PATCH] iommu/xen: Add Xen PV-IOMMU driver
-Message-ID: <20240619163000.GK791043@ziepe.ca>
-References: <fe36b8d36ed3bc01c78901bdf7b87a71cb1adaad.1718286176.git.teddy.astie@vates.tech>
+	Julien Grall <julien@xen.org>,
+	Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Subject: [PATCH] xen/guest_access: Fix accessors for 32bit builds of Xen
+Date: Wed, 19 Jun 2024 17:31:00 +0100
+Message-Id: <20240619163100.2556555-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.39.2
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <fe36b8d36ed3bc01c78901bdf7b87a71cb1adaad.1718286176.git.teddy.astie@vates.tech>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Thu, Jun 13, 2024 at 01:50:22PM +0000, Teddy Astie wrote:
+Gitlab CI reports an ARM32 randconfig failure as follows:
 
-> +struct iommu_domain *xen_iommu_domain_alloc(unsigned type)
-> +{
-> +	struct xen_iommu_domain *domain;
-> +	u16 ctx_no;
-> +	int ret;
-> +
-> +	if (type & IOMMU_DOMAIN_IDENTITY) {
-> +		/* use default domain */
-> +		ctx_no = 0;
+  In file included from common/livepatch.c:9:
+  common/livepatch.c: In function ‘livepatch_list’:
+  ./include/xen/guest_access.h:130:25: error: cast to pointer from integer of different size [-Werror=int-to-pointer-cast]
+    130 |     __raw_copy_to_guest((void *)(d_ + (off) * sizeof(*_s)), \
+        |                         ^
+  common/livepatch.c:1283:18: note: in expansion of macro ‘__copy_to_guest_offset’
+   1283 |             if ( __copy_to_guest_offset(list->name, name_offset,
+        |                  ^~~~~~~~~~~~~~~~~~~~~~
+  ./include/xen/guest_access.h:130:25: error: cast to pointer from integer of different size [-Werror=int-to-pointer-cast]
+    130 |     __raw_copy_to_guest((void *)(d_ + (off) * sizeof(*_s)), \
+        |                         ^
+  common/livepatch.c:1287:17: note: in expansion of macro ‘__copy_to_guest_offset’
+   1287 |                 __copy_to_guest_offset(list->metadata, metadata_offset,
+        |                 ^~~~~~~~~~~~~~~~~~~~~~
 
-Please use the new ops, domain_alloc_paging and the static identity domain.
+This isn't specific to ARM32; it's LIVEPATCH on any 32bit build of Xen.
 
-> +static struct iommu_group *xen_iommu_device_group(struct device *dev)
-> +{
-> +	if (!dev_is_pci(dev))
-> +		return ERR_PTR(-ENODEV);
-> +
+Both name_offset and metadata_offset are uint64_t, meaning that the
+expression:
 
-device_group is only called after probe_device, since you already
-exclude !pci during probe there is no need for this wrapper, just set
-the op directly to pci_device_group.
+  (d_ + (off) * sizeof(*(hnd).p)
 
-> +static void xen_iommu_release_device(struct device *dev)
-> +{
-> +	int ret;
-> +	struct pci_dev *pdev;
-> +	struct pv_iommu_op op = {
-> +		.subop_id = IOMMUOP_reattach_device,
-> +		.flags = 0,
-> +		.ctx_no = 0 /* reattach device back to default context */
-> +	};
+gets promoted to uint64_t, and is too wide to cast back to a pointer in 32bit
+builds.  The expression needs casting through (unsigned long) before it can be
+cast to (void *).
 
-Consider if you can use release_domain for this, I think this is
-probably a BLOCKED domain behavior.
+Xen has the _p() wrapper to do precisely this.
 
-> +	if (!dev_is_pci(dev))
-> +		return;
+No functional change.
 
-No op is ever called on a non-probed device, remove all these checks.
+Link: https://gitlab.com/xen-project/xen/-/jobs/7136417308
+Fixes: 43d5c5d5f70b ("xen: avoid UB in guest handle arithmetic")
+Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+---
+CC: George Dunlap <George.Dunlap@citrix.com>
+CC: Jan Beulich <JBeulich@suse.com>
+CC: Stefano Stabellini <sstabellini@kernel.org>
+CC: Julien Grall <julien@xen.org>
+CC: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 
-> +static int xen_iommu_map_pages(struct iommu_domain *domain, unsigned long iova,
-> +							   phys_addr_t paddr, size_t pgsize, size_t pgcount,
-> +							   int prot, gfp_t gfp, size_t *mapped)
-> +{
-> +	size_t xen_pg_count = (pgsize / XEN_PAGE_SIZE) * pgcount;
-> +	struct xen_iommu_domain *dom = to_xen_iommu_domain(domain);
-> +	struct pv_iommu_op op = {
-> +		.subop_id = IOMMUOP_map_pages,
-> +		.flags = 0,
-> +		.ctx_no = dom->ctx_no
-> +	};
-> +	/* NOTE: paddr is actually bound to pfn, not gfn */
-> +	uint64_t pfn = addr_to_pfn(paddr);
-> +	uint64_t dfn = addr_to_pfn(iova);
-> +	int ret = 0;
-> +
-> +	if (WARN(!dom->ctx_no, "Tried to map page to default context"))
-> +		return -EINVAL;
+For 4.19, as this was found by CI.
+---
+ xen/include/xen/guest_access.h | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
 
-A paging domain should be the only domain ops that have a populated
-map so this should be made impossible by construction.
+diff --git a/xen/include/xen/guest_access.h b/xen/include/xen/guest_access.h
+index 96dbef2e0251..969813762c25 100644
+--- a/xen/include/xen/guest_access.h
++++ b/xen/include/xen/guest_access.h
+@@ -65,7 +65,7 @@
+     /* Check that the handle is not for a const type */ \
+     void *__maybe_unused _t = (hnd).p;                  \
+     (void)((hnd).p == _s);                              \
+-    raw_copy_to_guest((void *)(d_ + (off) * sizeof(*_s)), \
++    raw_copy_to_guest(_p(d_ + (off) * sizeof(*_s)),     \
+                       _s, (nr) * sizeof(*_s));          \
+ })
+ 
+@@ -75,7 +75,7 @@
+  */
+ #define clear_guest_offset(hnd, off, nr) ({             \
+     unsigned long d_ = (unsigned long)(hnd).p;          \
+-    raw_clear_guest((void *)(d_ + (off) * sizeof(*(hnd).p)), \
++    raw_clear_guest(_p(d_ + (off) * sizeof(*(hnd).p)),  \
+                     (nr) * sizeof(*(hnd).p));           \
+ })
+ 
+@@ -87,7 +87,7 @@
+     unsigned long s_ = (unsigned long)(hnd).p;          \
+     typeof(*(ptr)) *_d = (ptr);                         \
+     raw_copy_from_guest(_d,                             \
+-                        (const void *)(s_ + (off) * sizeof(*_d)), \
++                        _p(s_ + (off) * sizeof(*_d)),   \
+                         (nr) * sizeof(*_d));            \
+ })
+ 
+@@ -127,13 +127,13 @@
+     /* Check that the handle is not for a const type */     \
+     void *__maybe_unused _t = (hnd).p;                      \
+     (void)((hnd).p == _s);                                  \
+-    __raw_copy_to_guest((void *)(d_ + (off) * sizeof(*_s)), \
++    __raw_copy_to_guest(_p(d_ + (off) * sizeof(*_s)),       \
+                       _s, (nr) * sizeof(*_s));              \
+ })
+ 
+ #define __clear_guest_offset(hnd, off, nr) ({               \
+     unsigned long d_ = (unsigned long)(hnd).p;              \
+-    __raw_clear_guest((void *)(d_ + (off) * sizeof(*(hnd).p)), \
++    __raw_clear_guest(_p(d_ + (off) * sizeof(*(hnd).p)),    \
+                       (nr) * sizeof(*(hnd).p));             \
+ })
+ 
+@@ -141,7 +141,7 @@
+     unsigned long s_ = (unsigned long)(hnd).p;                  \
+     typeof(*(ptr)) *_d = (ptr);                                 \
+     __raw_copy_from_guest(_d,                                   \
+-                          (const void *)(s_ + (off) * sizeof(*_d)), \
++                          _p(s_ + (off) * sizeof(*_d)),         \
+                           (nr) * sizeof(*_d));                  \
+ })
+ 
 
-Jason
+base-commit: 43d5c5d5f70b3f5419e7ef30399d23adf6ddfa8e
+-- 
+2.39.2
+
 
