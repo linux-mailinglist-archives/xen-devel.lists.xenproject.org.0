@@ -2,31 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5247D90F05C
-	for <lists+xen-devel@lfdr.de>; Wed, 19 Jun 2024 16:24:00 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.743843.1150836 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A5E2590F0AF
+	for <lists+xen-devel@lfdr.de>; Wed, 19 Jun 2024 16:32:55 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.743849.1150846 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sJwE0-0001Sg-GM; Wed, 19 Jun 2024 14:23:48 +0000
+	id 1sJwMR-000376-7A; Wed, 19 Jun 2024 14:32:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 743843.1150836; Wed, 19 Jun 2024 14:23:48 +0000
+Received: by outflank-mailman (output) from mailman id 743849.1150846; Wed, 19 Jun 2024 14:32:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sJwE0-0001Qx-CT; Wed, 19 Jun 2024 14:23:48 +0000
-Received: by outflank-mailman (input) for mailman id 743843;
- Wed, 19 Jun 2024 14:23:46 +0000
+	id 1sJwMR-00034m-4V; Wed, 19 Jun 2024 14:32:31 +0000
+Received: by outflank-mailman (input) for mailman id 743849;
+ Wed, 19 Jun 2024 14:32:29 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=A3PD=NV=lst.de=hch@srs-se1.protection.inumbo.net>)
- id 1sJwDy-0001QS-L4
- for xen-devel@lists.xenproject.org; Wed, 19 Jun 2024 14:23:46 +0000
-Received: from verein.lst.de (verein.lst.de [213.95.11.211])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 88e9b699-2e47-11ef-b4bb-af5377834399;
- Wed, 19 Jun 2024 16:23:45 +0200 (CEST)
-Received: by verein.lst.de (Postfix, from userid 2407)
- id D67B368AFE; Wed, 19 Jun 2024 16:23:40 +0200 (CEST)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=krMZ=NV=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
+ id 1sJwMP-00034g-Qk
+ for xen-devel@lists.xenproject.org; Wed, 19 Jun 2024 14:32:29 +0000
+Received: from sender4-of-o52.zoho.com (sender4-of-o52.zoho.com
+ [136.143.188.52]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id c00407f1-2e48-11ef-b4bb-af5377834399;
+ Wed, 19 Jun 2024 16:32:27 +0200 (CEST)
+Received: by mx.zohomail.com with SMTPS id 1718807536876432.54109202998006;
+ Wed, 19 Jun 2024 07:32:16 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,54 +38,112 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 88e9b699-2e47-11ef-b4bb-af5377834399
-Date: Wed, 19 Jun 2024 16:23:40 +0200
-From: Christoph Hellwig <hch@lst.de>
-To: Jens Axboe <axboe@kernel.dk>
-Cc: Christoph Hellwig <hch@lst.de>,
-	Geert Uytterhoeven <geert@linux-m68k.org>,
-	Richard Weinberger <richard@nod.at>,
-	Philipp Reisner <philipp.reisner@linbit.com>,
-	Lars Ellenberg <lars.ellenberg@linbit.com>,
-	Christoph =?iso-8859-1?Q?B=F6hmwalder?= <christoph.boehmwalder@linbit.com>,
-	Josef Bacik <josef@toxicpanda.com>, Ming Lei <ming.lei@redhat.com>,
-	"Michael S. Tsirkin" <mst@redhat.com>,
-	Jason Wang <jasowang@redhat.com>,
-	Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>,
-	Alasdair Kergon <agk@redhat.com>, Mike Snitzer <snitzer@kernel.org>,
-	Mikulas Patocka <mpatocka@redhat.com>, Song Liu <song@kernel.org>,
-	Yu Kuai <yukuai3@huawei.com>,
-	Vineeth Vijayan <vneethv@linux.ibm.com>,
-	"Martin K. Petersen" <martin.petersen@oracle.com>,
-	linux-m68k@lists.linux-m68k.org, linux-um@lists.infradead.org,
-	drbd-dev@lists.linbit.com, nbd@other.debian.org,
-	linuxppc-dev@lists.ozlabs.org, ceph-devel@vger.kernel.org,
-	virtualization@lists.linux.dev, xen-devel@lists.xenproject.org,
-	linux-bcache@vger.kernel.org, dm-devel@lists.linux.dev,
-	linux-raid@vger.kernel.org, linux-mmc@vger.kernel.org,
-	linux-mtd@lists.infradead.org, nvdimm@lists.linux.dev,
-	linux-nvme@lists.infradead.org, linux-s390@vger.kernel.org,
-	linux-scsi@vger.kernel.org, linux-block@vger.kernel.org
-Subject: Re: move features flags into queue_limits v2
-Message-ID: <20240619142340.GA32100@lst.de>
-References: <20240617060532.127975-1-hch@lst.de> <171880672048.115609.5962725096227627176.b4-ty@kernel.dk> <e8e718ca-7d3a-4bce-b88a-3bcbe1fa32b0@kernel.dk>
+X-Inumbo-ID: c00407f1-2e48-11ef-b4bb-af5377834399
+ARC-Seal: i=1; a=rsa-sha256; t=1718807539; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=dW9sxLzN2jZBL5Q2e63z84lkmyzvH/zzDgw0Zbus7D7kq1KBoqjDeMkH2ofNiph/dukCoj/QoXWv2be9x6OhRI68SZWRBQ4GAXwR2dH+z6N6lFhaIigHr3rxxeyWgR8ByvENgZuC7LosfCZNWuc4avLHT1WKtwq4fgitOvnzjrQ=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1718807539; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=/ohNcDv7EIzpISmKimehjsW0lwQc3YgFkUscaIh9NG0=; 
+	b=IXrdxmx/zcVw0MS8w8dQCyimp2TylwyH0SK96MufFZpraXo76tqDXH2/NTsN29Wos1GecbK8BRjv8w1ZKIBV0AHLfVsLNQ5kj7jLqnHdml/hGlzcmvUcEHtvarTcfnISUUIbQamTwS49iBjo8tfdJv1bsh8zbP9CVl1zZmTUvo0=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=apertussolutions.com;
+	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
+	dmarc=pass header.from=<dpsmith@apertussolutions.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1718807539;
+	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
+	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+	bh=/ohNcDv7EIzpISmKimehjsW0lwQc3YgFkUscaIh9NG0=;
+	b=N53pzzj0BXGVZLyIv1cO+doX0zluuVG1xhUXYaGMPKpy7gzu5QGDEEw+MLZXS2Ud
+	zGFTsLXeOznGMoJ0N5j9R6tCAfNRDtysy6crk1tMJFc3aECJjZVBVOBD5KlP8h3HWoO
+	Ll7ppadUtGLroDM8JLBc5IutGgDPqsSTfiPkWDhM=
+Message-ID: <34971a8f-a3ab-42c4-b96a-59a43c62db85@apertussolutions.com>
+Date: Wed, 19 Jun 2024 10:32:14 -0400
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <e8e718ca-7d3a-4bce-b88a-3bcbe1fa32b0@kernel.dk>
-User-Agent: Mutt/1.5.17 (2007-11-01)
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] loadpolicy: Verifies memory allocation during policy
+ loading
+Content-Language: en-US
+To: Jan Beulich <jbeulich@suse.com>, yskelg@gmail.com
+Cc: Austin Kim <austindh.kim@gmail.com>, shjy180909@gmail.com,
+ xen-devel@lists.xenproject.org, Anthony PERARD <anthony@xenproject.org>
+References: <20240527125438.66349-1-yskelg@gmail.com>
+ <14188e5a-a641-4351-80b3-f69969c4ddba@suse.com>
+From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
+Autocrypt: addr=dpsmith@apertussolutions.com; keydata=
+ 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
+In-Reply-To: <14188e5a-a641-4351-80b3-f69969c4ddba@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ZohoMailClient: External
 
-On Wed, Jun 19, 2024 at 08:21:14AM -0600, Jens Axboe wrote:
-> Please check for-6.11/block, as I pulled in the changes to the main
-> block branch and that threw some merge conflicts mostly due to Damien's
-> changes in for-6.11/block. While fixing those up, I also came across
-> oddities like:
+On 6/19/24 08:04, Jan Beulich wrote:
+> On 27.05.2024 14:54, yskelg@gmail.com wrote:
+>> --- a/tools/flask/utils/loadpolicy.c
+>> +++ b/tools/flask/utils/loadpolicy.c
+>> @@ -58,6 +58,11 @@ int main (int argCnt, const char *args[])
+>>       }
+>>   
+>>       polMemCp = malloc(info.st_size);
+>> +    if (!polMemCp) {
+>> +        fprintf(stderr, "Error occurred allocating %ld bytes\n", info.st_size);
+>> +        ret = -ENOMEM;
 > 
-> (limits->features & limits->features & BLK_FEAT_ZONED)) {
+> I don't think -ENOMEM is valid to use here. See neighboring code. Nevertheless
+> it is correct that a check should be here.
 > 
-> which don't make much sense and hence I changed them to
+> As to %ld - is that portably usable with an off_t value?
 > 
-> (limits->features & BLK_FEAT_ZONED)) {
+> In any event, Daniel, really your turn to review / ack. I'm looking at this
+> merely because I found this and another bugfix still sit in waiting-for-ack
+> state.
 
-Yeah.  The above is harmless but of course completely pointless.
+I saw this but was on the fence of whether it really required my ack 
+since it was more of a toolstack code fix versus an XSM relevant change.
+
+With that said, and to expand on Jan's comment regarding ENOMEM, the 
+utility does not currently differentiate main's return code. Unless the 
+tools maintainer wants to start changing this, I would suggest setting 
+ret to -1.
+
+As to the '%ld', aligning with Jan's first comment, perhaps you might 
+consider just reporting `strerror(errno)` similar to the other error 
+handling checks. NB: it is likely errno will be set to -ENOMEM, so by 
+doing this you will end up notifying ENOMEM occurred as you were 
+attempting to do by providing it with `ret`. Additionally, then you 
+won't have to deal with portability concerns over off_t.
+
+V/r,
+Daniel P. Smith
+
+
 
