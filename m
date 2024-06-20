@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 98848910D4E
-	for <lists+xen-devel@lfdr.de>; Thu, 20 Jun 2024 18:41:28 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.744847.1151972 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id ED3F9910E39
+	for <lists+xen-devel@lfdr.de>; Thu, 20 Jun 2024 19:15:25 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.744862.1151989 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sKKpb-0002Gj-Py; Thu, 20 Jun 2024 16:40:15 +0000
+	id 1sKLN3-0006vo-Be; Thu, 20 Jun 2024 17:14:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 744847.1151972; Thu, 20 Jun 2024 16:40:15 +0000
+Received: by outflank-mailman (output) from mailman id 744862.1151989; Thu, 20 Jun 2024 17:14:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sKKpb-0002Dz-N0; Thu, 20 Jun 2024 16:40:15 +0000
-Received: by outflank-mailman (input) for mailman id 744847;
- Thu, 20 Jun 2024 16:40:13 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=rnTP=NW=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
- id 1sKKpZ-0002Dt-NH
- for xen-devel@lists.xenproject.org; Thu, 20 Jun 2024 16:40:13 +0000
-Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c35c52c2-2f23-11ef-90a3-e314d9c70b13;
- Thu, 20 Jun 2024 18:40:12 +0200 (CEST)
-Received: from support.bugseng.com (support.bugseng.com [162.55.131.47])
- by support.bugseng.com (Postfix) with ESMTPA id 8ABCA4EE0738;
- Thu, 20 Jun 2024 18:40:11 +0200 (CEST)
+	id 1sKLN3-0006tp-86; Thu, 20 Jun 2024 17:14:49 +0000
+Received: by outflank-mailman (input) for mailman id 744862;
+ Thu, 20 Jun 2024 17:14:47 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1sKLN1-0006td-2X; Thu, 20 Jun 2024 17:14:47 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1sKLN1-00041l-1c; Thu, 20 Jun 2024 17:14:47 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1sKLN0-0001qY-Pt; Thu, 20 Jun 2024 17:14:46 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1sKLN0-0006PR-PO; Thu, 20 Jun 2024 17:14:46 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,72 +42,92 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c35c52c2-2f23-11ef-90a3-e314d9c70b13
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=o3IAdy8ZovLuXZaEXBXLVaQ3NgIdge7byh32p5can1M=; b=WfSX9b4Bkx8EywrivYmcANnFYy
+	kGgkAYfYUeTn3WKva61pW2zfxlBJ/YvAdINCfXq7mfMVvXFk6OmpB6BeO2TT0rvHKl4yn/Kzrzjs4
+	I00e3MzG3XblvmeWHF+rOUbn0rzWHjApg/JDxdh7DFrq6jhSawYffiUYoXOx1xM7BLWw=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-186435-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Date: Thu, 20 Jun 2024 18:40:11 +0200
-From: Nicola Vetrini <nicola.vetrini@bugseng.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Simone Ballarin
- <simone.ballarin@bugseng.com>, Andrew Cooper3 <andrew.cooper3@citrix.com>,
- Roger Pau <roger.pau@citrix.com>, Consulting <consulting@bugseng.com>, Xen
- Devel <xen-devel@lists.xenproject.org>
-Subject: Re: MISRA C Rule 5.3 violation - shadowing in mctelem.c
-In-Reply-To: <f14f15ad-7d16-4bec-9edc-82956ccc7bb4@suse.com>
-References: <f351f904fab43f88396b3ae1b5d64e95@bugseng.com>
- <f14f15ad-7d16-4bec-9edc-82956ccc7bb4@suse.com>
-Message-ID: <93cfbed5db97faf7953a9a79461b669a@bugseng.com>
-X-Sender: nicola.vetrini@bugseng.com
-Organization: BUGSENG s.r.l.
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
-Content-Transfer-Encoding: 7bit
+Subject: [xen-unstable-smoke test] 186435: tolerable all pass - PUSHED
+X-Osstest-Failures:
+    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=62071a1c16c4dbe765491e58e456fd3a19b33298
+X-Osstest-Versions-That:
+    xen=efa6e9f15ba943d154e8d7b29384581915b2aacd
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Thu, 20 Jun 2024 17:14:46 +0000
 
-On 2024-06-19 15:42, Jan Beulich wrote:
-> On 19.06.2024 15:23, Nicola Vetrini wrote:
->> I was looking at the shadowing due to the struct identifier and the
->> local variables "mctctl" in x86/cpu/mcheck/mctelem.c (see [1], the
->> second report). This kind of shadowing seems very intentional, and the
->> initial naive approach I devised was to simply rename the local
->> variables.
->> This, however, results in build breakages, as sometimes the shadowed
->> name seems to be used for accessing the global struct (unless I'm
->> missing something), and as a result changing the name of the locals is
->> not possible, at least not without further modifications to this file,
->> which aren't obvious to me.
->> 
->> It would be really helpful if you could point me to either:
->> - avoid the shadowing in some way that does not occur to me at the
->> moment;
-> 
-> Could you please be more specific about the issues you encountered? I
-> hope you don't expect everyone reading this request of yours to (try 
-> to)
-> redo what you did. The only thing I could vaguely guess is that maybe
-> you went a little too far with the renaming. Plus, just from looking at
-> the grep output, did you try to simply move down the file scope 
-> variable?
-> It looks like all shadowing instances are ahead of any uses of the
-> variable (but I may easily be overlooking an important line 
-> contradicting
-> that pattern).
-> 
+flight 186435 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/186435/
 
-I think I found a way to refactor it without breaking the build, though 
-I'm not sure whether it preserves the semantics of the code. I will send 
-an RFC patch. Sorry for the noise.
+Failures :-/ but no regressions.
 
->> - deviate this file, as many similar files in x86/cpu are already
->> deviated.
-> 
-> I question the presence of these in those files. They were apparently 
-> all
-> added when the files were introduced, and said commit - from Simone, 
-> acked
-> by Stefano - came with no justification at all.
-> 
-> Jan
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
 
--- 
-Nicola Vetrini, BSc
-Software Engineer, BUGSENG srl (https://bugseng.com)
+version targeted for testing:
+ xen                  62071a1c16c4dbe765491e58e456fd3a19b33298
+baseline version:
+ xen                  efa6e9f15ba943d154e8d7b29384581915b2aacd
+
+Last test of basis   186411  2024-06-19 12:00:22 Z    1 days
+Failing since        186412  2024-06-19 15:03:58 Z    1 days    8 attempts
+Testing same since   186435  2024-06-20 14:00:22 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrew Cooper <andrew.cooper3@citrix.com>
+  Anthony PERARD <anthony.perard@vates.tech>
+  Jan Beulich <jbeulich@suse.com>
+  Jason Andryuk <jason.andryuk@amd.com>
+  Julien Grall <jgrall@amazon.com>
+  Leigh Brown <leigh@solinno.co.uk>
+  Roger Pau Monné <roger.pau@citrix.com>
+  Stefano Stabellini <sstabellini@kernel.org>
+
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/xen.git
+   efa6e9f15b..62071a1c16  62071a1c16c4dbe765491e58e456fd3a19b33298 -> smoke
 
