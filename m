@@ -2,35 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id ED3F9910E39
-	for <lists+xen-devel@lfdr.de>; Thu, 20 Jun 2024 19:15:25 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.744862.1151989 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0DE6D910E5C
+	for <lists+xen-devel@lfdr.de>; Thu, 20 Jun 2024 19:22:43 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.744871.1151999 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sKLN3-0006vo-Be; Thu, 20 Jun 2024 17:14:49 +0000
+	id 1sKLUO-00006c-4S; Thu, 20 Jun 2024 17:22:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 744862.1151989; Thu, 20 Jun 2024 17:14:49 +0000
+Received: by outflank-mailman (output) from mailman id 744871.1151999; Thu, 20 Jun 2024 17:22:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sKLN3-0006tp-86; Thu, 20 Jun 2024 17:14:49 +0000
-Received: by outflank-mailman (input) for mailman id 744862;
- Thu, 20 Jun 2024 17:14:47 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1sKLN1-0006td-2X; Thu, 20 Jun 2024 17:14:47 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1sKLN1-00041l-1c; Thu, 20 Jun 2024 17:14:47 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1sKLN0-0001qY-Pt; Thu, 20 Jun 2024 17:14:46 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1sKLN0-0006PR-PO; Thu, 20 Jun 2024 17:14:46 +0000
+	id 1sKLUO-0008VU-0v; Thu, 20 Jun 2024 17:22:24 +0000
+Received: by outflank-mailman (input) for mailman id 744871;
+ Thu, 20 Jun 2024 17:22:23 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=zX/I=NW=raptorengineering.com=sanastasio@srs-se1.protection.inumbo.net>)
+ id 1sKLUN-0008VO-8u
+ for xen-devel@lists.xenproject.org; Thu, 20 Jun 2024 17:22:23 +0000
+Received: from raptorengineering.com (mail.raptorengineering.com
+ [23.155.224.40]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id a5846fa4-2f29-11ef-b4bb-af5377834399;
+ Thu, 20 Jun 2024 19:22:20 +0200 (CEST)
+Received: from localhost (localhost [127.0.0.1])
+ by mail.rptsys.com (Postfix) with ESMTP id 40A378286B5C;
+ Thu, 20 Jun 2024 12:22:18 -0500 (CDT)
+Received: from mail.rptsys.com ([127.0.0.1])
+ by localhost (vali.starlink.edu [127.0.0.1]) (amavisd-new, port 10032)
+ with ESMTP id Z-KWaynxdQCl; Thu, 20 Jun 2024 12:22:17 -0500 (CDT)
+Received: from localhost (localhost [127.0.0.1])
+ by mail.rptsys.com (Postfix) with ESMTP id 8AD7882870EC;
+ Thu, 20 Jun 2024 12:22:17 -0500 (CDT)
+Received: from mail.rptsys.com ([127.0.0.1])
+ by localhost (vali.starlink.edu [127.0.0.1]) (amavisd-new, port 10026)
+ with ESMTP id QB0WaMTuvcmS; Thu, 20 Jun 2024 12:22:17 -0500 (CDT)
+Received: from [10.11.0.2] (5.edge.rptsys.com [23.155.224.38])
+ by mail.rptsys.com (Postfix) with ESMTPSA id 1035F8286B5C;
+ Thu, 20 Jun 2024 12:22:16 -0500 (CDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,92 +51,65 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=o3IAdy8ZovLuXZaEXBXLVaQ3NgIdge7byh32p5can1M=; b=WfSX9b4Bkx8EywrivYmcANnFYy
-	kGgkAYfYUeTn3WKva61pW2zfxlBJ/YvAdINCfXq7mfMVvXFk6OmpB6BeO2TT0rvHKl4yn/Kzrzjs4
-	I00e3MzG3XblvmeWHF+rOUbn0rzWHjApg/JDxdh7DFrq6jhSawYffiUYoXOx1xM7BLWw=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-186435-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: a5846fa4-2f29-11ef-b4bb-af5377834399
+DKIM-Filter: OpenDKIM Filter v2.10.3 mail.rptsys.com 8AD7882870EC
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=raptorengineering.com; s=B8E824E6-0BE2-11E6-931D-288C65937AAD;
+	t=1718904137; bh=xtuUYe8Jk0KeSbFjN2K+KMrzPH6CZWP6yg0zJhSZ/7A=;
+	h=Message-ID:Date:MIME-Version:To:From;
+	b=k3yrrYinYIEnUb954iOytL9//k57bYGflYFw7arGZ+fFMSNlr+UApHaYueTkxRkj/
+	 cF0bfO8h7fz2tZGwt+QJCr/+rZ+tw7Rwj8nZOeLf59q4fSTIGyHCHcVl7jG4UF56tl
+	 92ngIfUj13OziYb9lNYvQS2o4Us8IO5bFqEzDLIc=
+X-Virus-Scanned: amavisd-new at rptsys.com
+Message-ID: <0460ce5d-0fcc-4f9d-9548-6e86bfb8bc4b@raptorengineering.com>
+Date: Thu, 20 Jun 2024 12:22:16 -0500
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 186435: tolerable all pass - PUSHED
-X-Osstest-Failures:
-    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=62071a1c16c4dbe765491e58e456fd3a19b33298
-X-Osstest-Versions-That:
-    xen=efa6e9f15ba943d154e8d7b29384581915b2aacd
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Thu, 20 Jun 2024 17:14:46 +0000
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH for-4.19] xen/arch: Centralise __read_mostly and
+ __ro_after_init
+To: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Jan Beulich <JBeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>,
+ Julien Grall <julien@xen.org>, Volodymyr Babchuk
+ <Volodymyr_Babchuk@epam.com>, Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Oleksii Kurochko <oleksii.kurochko@gmail.com>
+References: <20240614124950.1557058-1-andrew.cooper3@citrix.com>
+Content-Language: en-US
+From: Shawn Anastasio <sanastasio@raptorengineering.com>
+In-Reply-To: <20240614124950.1557058-1-andrew.cooper3@citrix.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-flight 186435 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/186435/
+On 6/14/24 7:49 AM, Andrew Cooper wrote:
+> These being in cache.h is inherited from Linux, but is an inappropriate
+> location to live.
+> 
+> __read_mostly is an optimisation related to data placement in order to avoid
+> having shared data in cachelines that are likely to be written to, but it
+> really is just a section of the linked image separating data by usage
+> patterns; it has nothing to do with cache sizes or flushing logic.
+> 
+> Worse, __ro_after_init was only in xen/cache.h because __read_mostly was in
+> arch/cache.h, and has literally nothing whatsoever to do with caches.
+> 
+> Move the definitions into xen/sections.h, which in paritcular means that
+> RISC-V doesn't need to repeat the problematic pattern.  Take the opportunity
+> to provide a short descriptions of what these are used for.
+> 
+> For now, leave TODO comments next to the other identical definitions.  It
+> turns out that unpicking cache.h is more complicated than it appears because a
+> number of files use it for transitive dependencies.
+> 
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-Failures :-/ but no regressions.
+This seems like a reasonable approach, and removing usage of the old
+cache.h __read_mostly from the PPC tree should be a relatively simple
+follow up patch from my end.
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+Acked-by: Shawn Anastasio <sanastasio@raptorengineering.com>
 
-version targeted for testing:
- xen                  62071a1c16c4dbe765491e58e456fd3a19b33298
-baseline version:
- xen                  efa6e9f15ba943d154e8d7b29384581915b2aacd
-
-Last test of basis   186411  2024-06-19 12:00:22 Z    1 days
-Failing since        186412  2024-06-19 15:03:58 Z    1 days    8 attempts
-Testing same since   186435  2024-06-20 14:00:22 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Andrew Cooper <andrew.cooper3@citrix.com>
-  Anthony PERARD <anthony.perard@vates.tech>
-  Jan Beulich <jbeulich@suse.com>
-  Jason Andryuk <jason.andryuk@amd.com>
-  Julien Grall <jgrall@amazon.com>
-  Leigh Brown <leigh@solinno.co.uk>
-  Roger Pau Monné <roger.pau@citrix.com>
-  Stefano Stabellini <sstabellini@kernel.org>
-
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/xen.git
-   efa6e9f15b..62071a1c16  62071a1c16c4dbe765491e58e456fd3a19b33298 -> smoke
+Thanks,
+Shawn
 
