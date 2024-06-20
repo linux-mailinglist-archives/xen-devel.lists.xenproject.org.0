@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7FC479106C1
+	by mail.lfdr.de (Postfix) with ESMTPS id 84C9F9106C2
 	for <lists+xen-devel@lfdr.de>; Thu, 20 Jun 2024 15:52:23 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.744506.1151551 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.744507.1151556 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sKICk-0008EH-Ja; Thu, 20 Jun 2024 13:51:58 +0000
+	id 1sKICk-0008KD-Qr; Thu, 20 Jun 2024 13:51:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 744506.1151551; Thu, 20 Jun 2024 13:51:58 +0000
+Received: by outflank-mailman (output) from mailman id 744507.1151556; Thu, 20 Jun 2024 13:51:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sKICk-0008CB-Fs; Thu, 20 Jun 2024 13:51:58 +0000
-Received: by outflank-mailman (input) for mailman id 744506;
+	id 1sKICk-0008EJ-NP; Thu, 20 Jun 2024 13:51:58 +0000
+Received: by outflank-mailman (input) for mailman id 744507;
  Thu, 20 Jun 2024 13:51:57 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=fPla=NW=bugseng.com=federico.serafini@srs-se1.protection.inumbo.net>)
- id 1sKICj-0008AK-6R
+ id 1sKICj-0008AK-Rw
  for xen-devel@lists.xenproject.org; Thu, 20 Jun 2024 13:51:57 +0000
 Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 40fe713c-2f0c-11ef-b4bb-af5377834399;
+ id 412d62f4-2f0c-11ef-b4bb-af5377834399;
  Thu, 20 Jun 2024 15:51:55 +0200 (CEST)
 Received: from truciolo.bugseng.com (unknown [78.208.165.219])
- by support.bugseng.com (Postfix) with ESMTPSA id 1B2714EE0738;
- Thu, 20 Jun 2024 15:51:53 +0200 (CEST)
+ by support.bugseng.com (Postfix) with ESMTPSA id A051E4EE073D;
+ Thu, 20 Jun 2024 15:51:54 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,57 +39,45 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 40fe713c-2f0c-11ef-b4bb-af5377834399
+X-Inumbo-ID: 412d62f4-2f0c-11ef-b4bb-af5377834399
 From: Federico Serafini <federico.serafini@bugseng.com>
 To: xen-devel@lists.xenproject.org
 Cc: consulting@bugseng.com,
 	Federico Serafini <federico.serafini@bugseng.com>
-Subject: [XEN PATCH 01/13] automation/eclair: consider also hypened fall-through
-Date: Thu, 20 Jun 2024 15:51:35 +0200
-Message-Id: <10af9145252a2f5c31ea0f13cbb67cbe76a8ba3a.1718890095.git.federico.serafini@bugseng.com>
+Subject: [XEN PATCH 02/13] x86/cpuid: use fallthrough pseudo keyword
+Date: Thu, 20 Jun 2024 15:51:36 +0200
+Message-Id: <23fa8f1061b894d4dd121bc9c2fcaf2c3ad312f3.1718890095.git.federico.serafini@bugseng.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <10af9145252a2f5c31ea0f13cbb67cbe76a8ba3a.1718890095.git.federico.serafini@bugseng.com>
+References: <10af9145252a2f5c31ea0f13cbb67cbe76a8ba3a.1718890095.git.federico.serafini@bugseng.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Update ECLAIR configuration:
-- allow to deviate MISRA C Rule 16.3 using different version of
-  hypened fall-through;
-- search for the comment for 2 lines after the last statement.
+The current comment making explicit the fallthrough intention does
+not follow the agreed syntax: replace it with the pseduo keyword.
+
+No functional change.
 
 Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
 ---
- automation/eclair_analysis/ECLAIR/deviations.ecl | 2 +-
- docs/misra/deviations.rst                        | 4 ++++
- 2 files changed, 5 insertions(+), 1 deletion(-)
+ xen/arch/x86/cpuid.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-diff --git a/automation/eclair_analysis/ECLAIR/deviations.ecl b/automation/eclair_analysis/ECLAIR/deviations.ecl
-index b8f9155267..b99a6b8a92 100644
---- a/automation/eclair_analysis/ECLAIR/deviations.ecl
-+++ b/automation/eclair_analysis/ECLAIR/deviations.ecl
-@@ -400,7 +400,7 @@ safe."
- -doc_end
+diff --git a/xen/arch/x86/cpuid.c b/xen/arch/x86/cpuid.c
+index a822e80c7e..2a777436ee 100644
+--- a/xen/arch/x86/cpuid.c
++++ b/xen/arch/x86/cpuid.c
+@@ -97,9 +97,8 @@ void guest_cpuid(const struct vcpu *v, uint32_t leaf,
+         if ( is_viridian_domain(d) )
+             return cpuid_viridian_leaves(v, leaf, subleaf, res);
  
- -doc_begin="Switch clauses ending with an explicit comment indicating the fallthrough intention are safe."
---config=MC3R1.R16.3,reports+={safe, "any_area(end_loc(any_exp(text(^(?s).*/\\* [fF]all ?through.? \\*/.*$,0..1))))"}
-+-config=MC3R1.R16.3,reports+={safe, "any_area(end_loc(any_exp(text(^(?s).*/\\* [fF]all[ -]?through.? \\*/.*$,0..2))))"}
- -doc_end
- 
- -doc_begin="Switch statements having a controlling expression of enum type deliberately do not have a default case: gcc -Wall enables -Wswitch which warns (and breaks the build as we use -Werror) if one of the enum labels is missing from the switch."
-diff --git a/docs/misra/deviations.rst b/docs/misra/deviations.rst
-index 41cdfbe5f5..411e1fed3d 100644
---- a/docs/misra/deviations.rst
-+++ b/docs/misra/deviations.rst
-@@ -353,6 +353,10 @@ Deviations related to MISRA C:2012 Rules:
-        However, the use of such comments in new code is deprecated:
-        the pseudo-keyword "fallthrough" shall be used.
-      - Tagged as `safe` for ECLAIR. The accepted comments are:
-+         - /\* fall-through \*/
-+         - /\* fall-through. \*/
-+         - /\* Fall-through \*/
-+         - /\* Fall-through. \*/
-          - /\* fall through \*/
-          - /\* fall through. \*/
-          - /\* fallthrough \*/
++        fallthrough;
+         /*
+-         * Fallthrough.
+-         *
+          * Intel reserve up until 0x4fffffff for hypervisor use.  AMD reserve
+          * only until 0x400000ff, but we already use double that.
+          */
 -- 
 2.34.1
 
