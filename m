@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8D3DD9100B9
-	for <lists+xen-devel@lfdr.de>; Thu, 20 Jun 2024 11:47:14 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.744345.1151373 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 86AB59100CA
+	for <lists+xen-devel@lfdr.de>; Thu, 20 Jun 2024 11:50:00 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.744356.1151383 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sKENd-0001Wt-67; Thu, 20 Jun 2024 09:46:57 +0000
+	id 1sKEQL-0002bW-Lp; Thu, 20 Jun 2024 09:49:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 744345.1151373; Thu, 20 Jun 2024 09:46:57 +0000
+Received: by outflank-mailman (output) from mailman id 744356.1151383; Thu, 20 Jun 2024 09:49:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sKENd-0001UR-20; Thu, 20 Jun 2024 09:46:57 +0000
-Received: by outflank-mailman (input) for mailman id 744345;
- Thu, 20 Jun 2024 09:46:55 +0000
+	id 1sKEQL-0002Zh-Ht; Thu, 20 Jun 2024 09:49:45 +0000
+Received: by outflank-mailman (input) for mailman id 744356;
+ Thu, 20 Jun 2024 09:49:43 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=TjK6=NW=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1sKENb-0001UL-DU
- for xen-devel@lists.xenproject.org; Thu, 20 Jun 2024 09:46:55 +0000
-Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com
- [2a00:1450:4864:20::132])
+ id 1sKEQJ-0002ZZ-II
+ for xen-devel@lists.xenproject.org; Thu, 20 Jun 2024 09:49:43 +0000
+Received: from mail-lf1-x12e.google.com (mail-lf1-x12e.google.com
+ [2a00:1450:4864:20::12e])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 06949549-2eea-11ef-90a3-e314d9c70b13;
- Thu, 20 Jun 2024 11:46:54 +0200 (CEST)
-Received: by mail-lf1-x132.google.com with SMTP id
- 2adb3069b0e04-52bc29c79fdso634782e87.1
- for <xen-devel@lists.xenproject.org>; Thu, 20 Jun 2024 02:46:54 -0700 (PDT)
+ id 6b0c861b-2eea-11ef-90a3-e314d9c70b13;
+ Thu, 20 Jun 2024 11:49:42 +0200 (CEST)
+Received: by mail-lf1-x12e.google.com with SMTP id
+ 2adb3069b0e04-52c84a21b8cso622591e87.1
+ for <xen-devel@lists.xenproject.org>; Thu, 20 Jun 2024 02:49:42 -0700 (PDT)
 Received: from [192.168.219.221] ([94.75.70.14])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-52ca2825691sm1974044e87.38.2024.06.20.02.46.52
+ 2adb3069b0e04-52ca2872305sm1993975e87.168.2024.06.20.02.49.41
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 20 Jun 2024 02:46:53 -0700 (PDT)
+ Thu, 20 Jun 2024 02:49:41 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,79 +45,102 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 06949549-2eea-11ef-90a3-e314d9c70b13
+X-Inumbo-ID: 6b0c861b-2eea-11ef-90a3-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1718876813; x=1719481613; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1718876982; x=1719481782; darn=lists.xenproject.org;
         h=mime-version:user-agent:content-transfer-encoding:references
          :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
          :date:message-id:reply-to;
-        bh=IVmOJAJmhlZfiLEh6c/Zy5kvqzQCEEcbE7PFhfaHutA=;
-        b=CajdyX/aG7nWI5bdu7ESnIxAbqZ3eYRJcx2fFy1zEuLj2xpg4BcRSYbKPFZAev2kA0
-         SsaHYpze6ThRpenOFEXd1ecSj0LD33IfUpn20b2G2QS/gTvjYMokiJSbSIBaih6ZZwzm
-         fIL0gVyXiDlI4o+NGIXxZwikFTPuLA/zltSY7pBC7D9gbeJYaP0+c8362bzOf5WPIgGL
-         Z8qUXNls8UCV3P0c9BKrp6C60mAwrmpuDjuC2GTiFP6QN0ES/8idX9M2U/ZrRWtyER1N
-         jXULhDVWm/9TtOTOWVuVQlRisc9tbFCswf3bDPs0TxAzff6EbmzSylQGtE8QdlqnQKei
-         TSuQ==
+        bh=jpwNq3EKrDRG+VWcZwBrJhjWEVq3entQLxkRUn3IUj8=;
+        b=B6OOttWEt9Z6tnvhVHE3gM8+6zKMrYxjZJPwT6Aip2PTpm/rYu4zG902yk7xvZ88qy
+         YkG8WqSpGIN+ytj/rIbWtWDaAgQDaMwyBQhunaqtXk0HexWnfE5x8eWbYlA6Mh0aX18b
+         xgQBJbFeLgobwIfO2G5in/seX0sw0tHuEIOXN6sGZXRiEwpKQ7bN+C8Wd291rBFi4lJp
+         dnL977+tua2Z/tVzD0Q6wvbfnT/EWuVG3TTMNGx2wHrqqv9tqmidjyHNMswdcNCAPZIz
+         XF51wyhBrbw2uf4G/Fsd9e2RRYwxjgDqgRwEFz3DCUcRuTUWlPWv5H9vSQA8wJpjPbuU
+         stVQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1718876813; x=1719481613;
+        d=1e100.net; s=20230601; t=1718876982; x=1719481782;
         h=mime-version:user-agent:content-transfer-encoding:references
          :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=IVmOJAJmhlZfiLEh6c/Zy5kvqzQCEEcbE7PFhfaHutA=;
-        b=B2QJ8SSykeQLjejytY79CVwZxKALrmtxPk0yJ/oveG7j4g+MXme7olCSUV0VZAWKRZ
-         UGWJ+5AayM1k9fwYMolT2cTzTREkupqL7Re+rme85mJZOMF6xF92GJCNgmzXU8YapAmE
-         O3+gTg/LLZAu+kPZyGcYCXzw2J5aTe54QRovlaHWtwqtDUA9ZxLoCCAOPXLeICd1WRPu
-         hQ9j8RVU874dvykeA+V03KaGXctlqoPZiKFXJakzzuGSrwsaSpbZdqfPP/Wy/LnoZY6X
-         s/VmUAWvhZyqt+wGEKwBTxfFKwk00p6f72yqUhltpUcLy4Ikm71AmZzo+RRyf9dE6vcR
-         ej7Q==
-X-Gm-Message-State: AOJu0YwqQpAWnFhVuqHOenyA4eKUmEmaPavf1rGetgO5ZOja8hSPHPYU
-	bZW9wkSIZSa/o5FQWn5A1YpQKuzDUWMaF9UPOHIolEshlasu3jaJ
-X-Google-Smtp-Source: AGHT+IE4mnsB4r42pO+MWOUEopECXY+51GQ6m/hDpFQDF8SZUpNOkuFoNm88259EKINTBNc2VcQnXw==
-X-Received: by 2002:a05:6512:280e:b0:52c:8b69:e039 with SMTP id 2adb3069b0e04-52ccaa2a937mr4288878e87.4.1718876813295;
-        Thu, 20 Jun 2024 02:46:53 -0700 (PDT)
-Message-ID: <e1da057746fe4724659b094cf4cd0bc0cc95c48c.camel@gmail.com>
-Subject: Re: [PATCH for-4.19] livepatch: use appropriate type for buffer
- offset variables
+        bh=jpwNq3EKrDRG+VWcZwBrJhjWEVq3entQLxkRUn3IUj8=;
+        b=uuvWTEdqi/Gtf06ySU6YZ/nN9Bdd3f0hgJq4BtWE0QQispWqD2vhyBHwffMKsALvlZ
+         /bH78WgOGj55UTwfbBxzqLGPFBBmj47dTFBV5VLS67wXt3GFrFwBryA4kTuacN/sJKIS
+         9Neza+TvbQRp+Xs5K4Cqj3i1UCrUSx8Y4mQz9Mn1CK1X05M1yJZMW5Z/OdljxaZ7k9G7
+         7fErQ0FynbLQQl/b7FoGJv8OXhsmT2VCgeJqgKvyHqfqYHBHazQ13qrqu+jqlFseCZYd
+         w+BDb970Yryk6+uU6oi/JtHAWXwtmhTMZaEPGdzmoT1o2LnRZNqIbV/roR2YmfjPus9h
+         bAGg==
+X-Forwarded-Encrypted: i=1; AJvYcCUkWqlbAFHb7aenvtn/pTMIk57LKJG9ceJr66uXLRXXflgJgE1ZIheRWRcRE5dlY9oqd3Mazc2g1AYPtbjh5f58OIatfQcKeLEkLtCtdjM=
+X-Gm-Message-State: AOJu0Yx/YFRtJo7872LUDRWkeuU0R8S7j7/ushiSO3q3FBzseDCEzMlC
+	JddJlBCtWqHEhXUQVGFTzgX04Nf4bYJFBixEpHYAmIxQildvkD0K
+X-Google-Smtp-Source: AGHT+IFVQGy75AgyQKRu+PPqCwD+heHmRJnRnFg8jVCLYmN6muhQ9vZDwxO527BuprsGNF0GdK2cVg==
+X-Received: by 2002:a19:7418:0:b0:52b:c29e:704d with SMTP id 2adb3069b0e04-52cc47ed3f9mr1458619e87.17.1718876981888;
+        Thu, 20 Jun 2024 02:49:41 -0700 (PDT)
+Message-ID: <6f93c9a4e661013ae00581959cdc7445a7c6025a.camel@gmail.com>
+Subject: Re: [PATCH for-4.19] hotplug: Restore block-tap phy compatibility
 From: "Oleksii K." <oleksii.kurochko@gmail.com>
-To: Ross Lagerwall <ross.lagerwall@citrix.com>, Jan Beulich
+To: Anthony PERARD <anthony.perard@vates.tech>, Jan Beulich
  <jbeulich@suse.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
- Roger Pau =?ISO-8859-1?Q?Monn=E9?=
-	 <roger.pau@citrix.com>, Andrew Cooper <andrew.cooper3@citrix.com>
-Date: Thu, 20 Jun 2024 11:46:52 +0200
-In-Reply-To: <CAG7k0ErGHynwYmxWuftUT=yFF0Zrttx0JEAjh3bDzPVzM_MgzA@mail.gmail.com>
-References: <a4d780fd-90c2-405e-be21-c323a22a78c6@suse.com>
-	 <CAG7k0ErGHynwYmxWuftUT=yFF0Zrttx0JEAjh3bDzPVzM_MgzA@mail.gmail.com>
+Cc: Anthony PERARD <anthony@xenproject.org>, xen-devel@lists.xenproject.org,
+  Jason Andryuk <jason.andryuk@amd.com>, Jason Andryuk <jandryuk@gmail.com>
+Date: Thu, 20 Jun 2024 11:49:41 +0200
+In-Reply-To: <ZnLsMOQ3zt4W855q@l14>
+References: <20240516022212.5034-1-jandryuk@gmail.com>
+	 <64083e01-edf1-4395-a9d7-82e82d220de7@suse.com>
+	 <9678073f-82d5-4402-b5a0-e24985c1446b@amd.com>
+	 <7de20763-b9bc-4dfc-b250-8f83c42e9e16@suse.com> <ZnLsMOQ3zt4W855q@l14>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 User-Agent: Evolution 3.52.1 (3.52.1-1.fc40) 
 MIME-Version: 1.0
 
-On Thu, 2024-06-20 at 09:04 +0100, Ross Lagerwall wrote:
-> On Thu, Jun 20, 2024 at 8:16=E2=80=AFAM Jan Beulich <jbeulich@suse.com>
-> wrote:
+On Wed, 2024-06-19 at 14:33 +0000, Anthony PERARD wrote:
+> On Wed, Jun 19, 2024 at 02:07:04PM +0200, Jan Beulich wrote:
+> > On 16.05.2024 15:52, Jason Andryuk wrote:
+> > > On 2024-05-16 03:41, Jan Beulich wrote:
+> > > > On 16.05.2024 04:22, Jason Andryuk wrote:
+> > > > > From: Jason Andryuk <jason.andryuk@amd.com>
+> > > > >=20
+> > > > > From: Jason Andryuk <jason.andryuk@amd.com>
+> > > >=20
+> > > > Two identical From: (also in another patch of yours, while in
+> > > > yet another one
+> > > > you have two _different_ ones, when only one will survive into
+> > > > the eventual
+> > > > commit anyway)?
+> > >=20
+> > > Sorry about that.=C2=A0 Since I was sending from my gmail account, I
+> > > thought=20
+> > > I needed explicit From: lines to ensure the authorship was listed
+> > > w/=20
+> > > amd.com.=C2=A0 I generated the patches with `git format-patch --from`=
+,
+> > > to get=20
+> > > the explicit From: lines, and then sent with `git send-email`.=C2=A0
+> > > The=20
+> > > send-email step then inserted the additional lines.=C2=A0 I guess it
+> > > added=20
+> > > =C2=A0From amd.com since I had changed to that address in .gitconfig.
+> > >=20
+> > > > > backendtype=3Dphy using the blktap kernel module needs to use
+> > > > > write_dev,
+> > > > > but tapback can't support that.=C2=A0 tapback should perform
+> > > > > better, but make
+> > > > > the script compatible with the old kernel module again.
+> > > > >=20
+> > > > > Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
+> > > >=20
+> > > > Should there be a Fixes: tag here?
+> > >=20
+> > > That makes sense.
+> > >=20
+> > > Fixes: 76a484193d ("hotplug: Update block-tap")
 > >=20
-> > As was made noticeable by the last of the commits referenced below,
-> > using a fixed-size type for such purposes is not only against
-> > ./CODING_STYLE, but can lead to actual issues. Switch to using
-> > size_t
-> > instead, thus also allowing calculations to be lighter-weight in
-> > 32-bit
-> > builds.
-> >=20
-> > No functional change for 64-bit builds.
-> >=20
-> > Link: https://gitlab.com/xen-project/xen/-/jobs/7136417308
-> > Fixes: b145b4a39c13 ("livepatch: Handle arbitrary size names with
-> > the list operation")
-> > Fixes: 5083e0ff939d ("livepatch: Add metadata runtime retrieval
-> > mechanism")
-> > Fixes: 43d5c5d5f70b ("xen: avoid UB in guest handle arithmetic")
-> > Reported-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> > Signed-off-by: Jan Beulich <jbeulich@suse.com>
-> >=20
+> > Surely this wants going into 4.19? Thus - Anthony, Oleksii?
 >=20
-> Reviewed-by: Ross Lagerwall <ross.lagerwall@citrix.com>
+> Yes, I think so.
+>=20
+> Acked-by: Anthony PERARD <anthony.perard@vates.tech>
 Release-Acked-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 
 ~ Oleksii
