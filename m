@@ -2,35 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 95B6290FC29
-	for <lists+xen-devel@lfdr.de>; Thu, 20 Jun 2024 07:21:29 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.744146.1151165 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5123890FD39
+	for <lists+xen-devel@lfdr.de>; Thu, 20 Jun 2024 09:01:16 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.744178.1151175 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sKADW-0001jJ-La; Thu, 20 Jun 2024 05:20:14 +0000
+	id 1sKBm9-0003kE-63; Thu, 20 Jun 2024 07:00:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 744146.1151165; Thu, 20 Jun 2024 05:20:14 +0000
+Received: by outflank-mailman (output) from mailman id 744178.1151175; Thu, 20 Jun 2024 07:00:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sKADW-0001hd-Hm; Thu, 20 Jun 2024 05:20:14 +0000
-Received: by outflank-mailman (input) for mailman id 744146;
- Thu, 20 Jun 2024 05:20:13 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1sKBm9-0003gp-3A; Thu, 20 Jun 2024 07:00:05 +0000
+Received: by outflank-mailman (input) for mailman id 744178;
+ Thu, 20 Jun 2024 07:00:03 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1sKADV-0001hT-7w; Thu, 20 Jun 2024 05:20:13 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1sKADU-00078o-UU; Thu, 20 Jun 2024 05:20:12 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1sKADU-0003y2-Mm; Thu, 20 Jun 2024 05:20:12 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1sKADU-0001wz-MD; Thu, 20 Jun 2024 05:20:12 +0000
+ (envelope-from <SRS0=Zqic=NW=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1sKBm7-0003Mg-EZ
+ for xen-devel@lists.xenproject.org; Thu, 20 Jun 2024 07:00:03 +0000
+Received: from mail-lf1-x129.google.com (mail-lf1-x129.google.com
+ [2a00:1450:4864:20::129])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id b68fa577-2ed2-11ef-90a3-e314d9c70b13;
+ Thu, 20 Jun 2024 09:00:01 +0200 (CEST)
+Received: by mail-lf1-x129.google.com with SMTP id
+ 2adb3069b0e04-52bc035a7ccso532680e87.2
+ for <xen-devel@lists.xenproject.org>; Thu, 20 Jun 2024 00:00:01 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ d2e1a72fcca58-7063348ab67sm2306960b3a.66.2024.06.19.23.59.57
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 20 Jun 2024 00:00:00 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,342 +45,122 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=eyNp5aUakBcvM28PFWiFwU+6N10rSxfCYCjhvH/3WCg=; b=M/p6iUSu2XqLN3OXOi7wl1/i5J
-	uuQQj21eiOJ5x5iu+mWveZa5xTaqys7XxnLffqeWpaIeSIc7uGbEFuX7xPYEOYSWrAUI97xFSHKL8
-	GInq0Aev0uNi+TieNq6uRV/SytYWWfZPhnxJ1zNJ2j9D/pCx2O3E5DSRFTlLjfukpQVE=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-186425-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: b68fa577-2ed2-11ef-90a3-e314d9c70b13
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1718866801; x=1719471601; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=Oc9cQ/GcKk5FRUciRDd9D/g4Z2yaCdrLK01VtJraBPc=;
+        b=S1XcTQLY/+zP/nH2VEZbizbFKhhFfVZF+mn5UaHqZSY3AWI/PnOJYTdl4AxnWwhJMZ
+         lmur1Iq2Cms0KOqLsSCNR1gp0OE+sF3dq2p7WSfiJpvZINpFyNy+yNqWHNCtcnzH4guW
+         P24Xudax0dmxXXu50KqRzqaLiU09yi+cRht5BnDlT2/HNHywB77BX8ajCL6llPQQYBRK
+         7VzUcMeNBQp6CjzhEeqQ+u1DtiR+UBmPbfkMyUOP1N9U6nmjp3Hx3QTnhU08AGB8eS17
+         sEuQSWNVpJEIKltkHuTJaZfCoZDd2Kif7T2TjxNsQLKepttgHiBa3nB902xBd1A4iYDt
+         4UZQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1718866801; x=1719471601;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=Oc9cQ/GcKk5FRUciRDd9D/g4Z2yaCdrLK01VtJraBPc=;
+        b=Pb6w5NhO4MLNq6H7sCRCOZasK0xTv2LjZjICsSOj1hDbdyTktCa3y1RqIFuP8nm3Vw
+         pRzrc0u3xGI8/c/KAXPhWjJSV5o9Mbpi+fuhl0Py4mRrK5H+aMCYg4s21i74Oxfo3aio
+         mt6vA6VLfdM7y/Ppro4lSm4iOaTDPaHatbUOlipmusmPzMQtgbt1dt9hNMuZlZac5RqI
+         Uv5ksUrVzqLhCjbB5qLGNNcVR7EnbIbb95H88zLCO6aCLCpSH2SOxyUbUDciCWWoGrme
+         FfhUSB1mcfU4L8OiB+cWjbWEKkwzvUJ0Fr436X+OYeFg4toocVGJx0RdFoEatrMRj3cu
+         DxyQ==
+X-Forwarded-Encrypted: i=1; AJvYcCVi6NgebfhvjBW1eXZsGm8s6ICeq6yBnkwXyWliZ+lTnZlCVlxJKPEeEGhJLP645GoouIovJR2wyzpn2eScl2rFxYpREWgQ0Paj/oCDA00=
+X-Gm-Message-State: AOJu0YyxOqQ3z3yAU6V1u/M/5esJrnK7HW1H954Xd9oAzoFqaaSeBoj2
+	bLLmucvbQn4yYcZsdnT7pAV6sZ+dPjAIF6k71CItoJMD3O/TJLndGhnZvZJdKQ==
+X-Google-Smtp-Source: AGHT+IE0hulWbwf4yVkfW/zSomLOcUZ46NcYQkXOAHHYJhgkCz7K4wVG9rHkNO6iXzsvKoaDs24PWw==
+X-Received: by 2002:a2e:914b:0:b0:2ec:174b:75bf with SMTP id 38308e7fff4ca-2ec3ce9f6c0mr28788051fa.4.1718866800778;
+        Thu, 20 Jun 2024 00:00:00 -0700 (PDT)
+Message-ID: <ac007fbe-3324-4b7a-a7b9-0ff32c3131bc@suse.com>
+Date: Thu, 20 Jun 2024 08:59:54 +0200
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 186425: regressions - FAIL
-X-Osstest-Failures:
-    xen-unstable-smoke:build-armhf:xen-build:fail:regression
-    xen-unstable-smoke:test-armhf-armhf-xl:build-check(1):blocked:nonblocking
-    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=43d5c5d5f70b3f5419e7ef30399d23adf6ddfa8e
-X-Osstest-Versions-That:
-    xen=efa6e9f15ba943d154e8d7b29384581915b2aacd
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Thu, 20 Jun 2024 05:20:12 +0000
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] xen/guest_access: Fix accessors for 32bit builds of Xen
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: George Dunlap <George.Dunlap@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20240619163100.2556555-1-andrew.cooper3@citrix.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20240619163100.2556555-1-andrew.cooper3@citrix.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-flight 186425 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/186425/
+On 19.06.2024 18:31, Andrew Cooper wrote:
+> Gitlab CI reports an ARM32 randconfig failure as follows:
+> 
+>   In file included from common/livepatch.c:9:
+>   common/livepatch.c: In function ‘livepatch_list’:
+>   ./include/xen/guest_access.h:130:25: error: cast to pointer from integer of different size [-Werror=int-to-pointer-cast]
+>     130 |     __raw_copy_to_guest((void *)(d_ + (off) * sizeof(*_s)), \
+>         |                         ^
+>   common/livepatch.c:1283:18: note: in expansion of macro ‘__copy_to_guest_offset’
+>    1283 |             if ( __copy_to_guest_offset(list->name, name_offset,
+>         |                  ^~~~~~~~~~~~~~~~~~~~~~
+>   ./include/xen/guest_access.h:130:25: error: cast to pointer from integer of different size [-Werror=int-to-pointer-cast]
+>     130 |     __raw_copy_to_guest((void *)(d_ + (off) * sizeof(*_s)), \
+>         |                         ^
+>   common/livepatch.c:1287:17: note: in expansion of macro ‘__copy_to_guest_offset’
+>    1287 |                 __copy_to_guest_offset(list->metadata, metadata_offset,
+>         |                 ^~~~~~~~~~~~~~~~~~~~~~
+> 
+> This isn't specific to ARM32; it's LIVEPATCH on any 32bit build of Xen.
+> 
+> Both name_offset and metadata_offset are uint64_t, meaning that the
+> expression:
+> 
+>   (d_ + (off) * sizeof(*(hnd).p)
+> 
+> gets promoted to uint64_t, and is too wide to cast back to a pointer in 32bit
+> builds.  The expression needs casting through (unsigned long) before it can be
+> cast to (void *).
 
-Regressions :-(
+I disagree. Instead I'd like to raise the question why these two local variables
+are uint64_t in the first place. They accumulate buffer size, and hence ought to
+have been size_t from the beginning. I'll make an alternative patch (first making
+sure I test livepatch building not only for x86 and arm64).
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-armhf                   6 xen-build                fail REGR. vs. 186411
+> @@ -65,7 +65,7 @@
+>      /* Check that the handle is not for a const type */ \
+>      void *__maybe_unused _t = (hnd).p;                  \
+>      (void)((hnd).p == _s);                              \
+> -    raw_copy_to_guest((void *)(d_ + (off) * sizeof(*_s)), \
+> +    raw_copy_to_guest(_p(d_ + (off) * sizeof(*_s)),     \
 
-Tests which did not succeed, but are not blocking:
- test-armhf-armhf-xl           1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+It's also from an abstract perspective that I disagree with using _p() like this.
+We'd rather keep this as straightforward as possible, to keep down the risk of
+hiding bugs by excess casting.
 
-version targeted for testing:
- xen                  43d5c5d5f70b3f5419e7ef30399d23adf6ddfa8e
-baseline version:
- xen                  efa6e9f15ba943d154e8d7b29384581915b2aacd
-
-Last test of basis   186411  2024-06-19 12:00:22 Z    0 days
-Testing same since   186412  2024-06-19 15:03:58 Z    0 days    5 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Andrew Cooper <andrew.cooper3@citrix.com>
-  Jan Beulich <jbeulich@suse.com>
-  Julien Grall <jgrall@amazon.com>
-  Stefano Stabellini <sstabellini@kernel.org>
-
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  fail    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          blocked 
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-------------------------------------------------------------
-commit 43d5c5d5f70b3f5419e7ef30399d23adf6ddfa8e
-Author: Jan Beulich <jbeulich@suse.com>
-Date:   Wed Jun 19 14:11:07 2024 +0200
-
-    xen: avoid UB in guest handle arithmetic
-    
-    At least XENMEM_memory_exchange can have huge values passed in the
-    nr_extents and nr_exchanged fields. Adding such values to pointers can
-    overflow, resulting in UB. Cast respective pointers to "unsigned long"
-    while at the same time making the necessary multiplication explicit.
-    Remaining arithmetic is, despite there possibly being mathematical
-    overflow, okay as per the C99 spec: "A computation involving unsigned
-    operands can never overflow, because a result that cannot be represented
-    by the resulting unsigned integer type is reduced modulo the number that
-    is one greater than the largest value that can be represented by the
-    resulting type." The overflow that we need to guard against is checked
-    for in array_access_ok().
-    
-    Note that in / down from array_access_ok() the address value is only
-    ever cast to "unsigned long" anyway, which is why in the invocation from
-    guest_handle_subrange_okay() the value doesn't need casting back to
-    pointer type.
-    
-    In compat grant table code change two guest_handle_add_offset() to avoid
-    passing in negative offsets.
-    
-    Since {,__}clear_guest_offset() need touching anyway, also deal with
-    another (latent) issue there: They were losing the handle type, i.e. the
-    size of the individual objects accessed. Luckily the few users we
-    presently have all pass char or uint8 handles.
-    
-    Reported-by: Andrew Cooper <andrew.cooper3@citrix.com>
-    Signed-off-by: Jan Beulich <jbeulich@suse.com>
-    Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
-    Tested-by: Andrew Cooper <andrew.cooper3@citrix.com>
-    Release-Acked-By: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-
-commit 267122a24c499d26278ab2dbdfb46ebcaaf38474
-Author: Andrew Cooper <andrew.cooper3@citrix.com>
-Date:   Fri Apr 30 16:14:36 2021 +0100
-
-    x86/defns: Clean up X86_{XCR0,XSS}_* constants
-    
-    With the exception of one case in read_bndcfgu() which can use ilog2(),
-    the *_POS defines are unused.  Drop them.
-    
-    X86_XCR0_X87 is the name used by both the SDM and APM, rather than
-    X86_XCR0_FP.
-    
-    No functional change.
-    
-    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-    Acked-by: Jan Beulich <jbeulich@suse.com>
-    Release-Acked-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-
-commit 71cacfb035f4a78ee10970dc38a3baa04d387451
-Author: Andrew Cooper <andrew.cooper3@citrix.com>
-Date:   Fri Apr 30 20:17:55 2021 +0100
-
-    x86/cpuid: Fix handling of XSAVE dynamic leaves
-    
-    First, if XSAVE is available in hardware but not visible to the guest, the
-    dynamic leaves shouldn't be filled in.
-    
-    Second, the comment concerning XSS state is wrong.  VT-x doesn't manage
-    host/guest state automatically, but there is provision for "host only" bits to
-    be set, so the implications are still accurate.
-    
-    Introduce xstate_compressed_size() to mirror the uncompressed one.  Cross
-    check it at boot.
-    
-    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-    Reviewed-by: Jan Beulich <jbeulich@suse.com>
-    Release-Acked-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-
-commit fdb7e77fea4cb1c98dc51dd891a47f7e94612ad4
-Author: Andrew Cooper <andrew.cooper3@citrix.com>
-Date:   Fri Apr 30 20:17:55 2021 +0100
-
-    x86/cpu-policy: Simplify recalculate_xstate()
-    
-    Make use of xstate_uncompressed_size() helper rather than maintaining the
-    running calculation while accumulating feature components.
-    
-    The rest of the CPUID data can come direct from the raw cpu policy.  All
-    per-component data form an ABI through the behaviour of the X{SAVE,RSTOR}*
-    instructions.
-    
-    Use for_each_set_bit() rather than opencoding a slightly awkward version of
-    it.  Mask the attributes in ecx down based on the visible features.  This
-    isn't actually necessary for any components or attributes defined at the time
-    of writing (up to AMX), but is added out of an abundance of caution.
-    
-    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-    Reviewed-by: Jan Beulich <jbeulich@suse.com>
-    Release-Acked-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-
-commit df09dfb94de66f7523837c050616a382aa2c7d17
-Author: Andrew Cooper <andrew.cooper3@citrix.com>
-Date:   Fri Apr 30 20:17:55 2021 +0100
-
-    x86/xstate: Rework xstate_ctxt_size() as xstate_uncompressed_size()
-    
-    We're soon going to need a compressed helper of the same form.
-    
-    The size of the uncompressed image depends on the single element with the
-    largest offset + size.  Sadly this isn't always the element with the largest
-    index.
-    
-    Name the per-xstate-component cpu_policy struture, for legibility of the logic
-    in xstate_uncompressed_size().  Cross-check with hardware during boot, and
-    remove hw_uncompressed_size().
-    
-    This means that the migration paths don't need to mess with XCR0 just to
-    sanity check the buffer size.  It also means we can drop the "fastpath" check
-    against xfeature_mask (there to skip some XCR0 writes); this path is going to
-    be dead logic the moment Xen starts using supervisor states itself.
-    
-    The users of hw_uncompressed_size() in xstate_init() can (and indeed need) to
-    be replaced with CPUID instructions.  They run with feature_mask in XCR0, and
-    prior to setup_xstate_features() on the BSP.
-    
-    No practical change.
-    
-    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-    Reviewed-by: Jan Beulich <jbeulich@suse.com>
-    Release-Acked-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-
-commit a09022a09e1a79b3f9574993993bfad803b32596
-Author: Andrew Cooper <andrew.cooper3@citrix.com>
-Date:   Thu May 23 00:55:34 2024 +0100
-
-    x86/boot: Collect the Raw CPU Policy earlier on boot
-    
-    This is a tangle, but it's a small step in the right direction.
-    
-    In the following change, xstate_init() is going to start using the Raw policy.
-    
-    calculate_raw_cpu_policy() is sufficiently separate from the other policies to
-    safely move like this.
-    
-    No functional change.
-    
-    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-    Reviewed-by: Jan Beulich <jbeulich@suse.com>
-    Release-Acked-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-
-commit d31a111940de5431c8bf465b1d38b89f1130a24b
-Author: Andrew Cooper <andrew.cooper3@citrix.com>
-Date:   Fri Feb 21 17:56:57 2020 +0000
-
-    x86/xstate: Cross-check dynamic XSTATE sizes at boot
-    
-    Right now, xstate_ctxt_size() performs a cross-check of size with CPUID in for
-    every call.  This is expensive, being used for domain create/migrate, as well
-    as to service certain guest CPUID instructions.
-    
-    Instead, arrange to check the sizes once at boot.  See the code comments for
-    details.  Right now, it just checks hardware against the algorithm
-    expectations.  Later patches will cross-check Xen's XSTATE calculations too.
-    
-    Introduce more X86_XCR0_* and X86_XSS_* constants CPUID bits.  This is to
-    maximise coverage in the sanity check, even if we don't expect to
-    use/virtualise some of these features any time soon.  Leave HDC and HWP alone
-    for now; we don't have CPUID bits from them stored nicely.
-    
-    Only perform the cross-checks when SELF_TESTS are active.  It's only
-    developers or new hardware liable to trip these checks, and Xen at least
-    tracks "maximum value ever seen in xcr0" for the lifetime of the VM, which we
-    don't want to be tickling in the general case.
-    
-    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-    Reviewed-by: Jan Beulich <jbeulich@suse.com>
-    Release-Acked-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-
-commit 9e6dbbe8bf400aacb99009ddffa91d2a0c312b39
-Author: Andrew Cooper <andrew.cooper3@citrix.com>
-Date:   Wed May 22 17:23:54 2024 +0100
-
-    x86/xstate: Fix initialisation of XSS cache
-    
-    The clobbering of this_cpu(xcr0) and this_cpu(xss) to architecturally invalid
-    values is to force the subsequent set_xcr0() and set_msr_xss() to reload the
-    hardware register.
-    
-    While XCR0 is reloaded in xstate_init(), MSR_XSS isn't.  This causes
-    get_msr_xss() to return the invalid value, and logic of the form:
-    
-        old = get_msr_xss();
-        set_msr_xss(new);
-        ...
-        set_msr_xss(old);
-    
-    to try and restore said invalid value.
-    
-    The architecturally invalid value must be purged from the cache, meaning the
-    hardware register must be written at least once.  This in turn highlights that
-    the invalid value must only be used in the case that the hardware register is
-    available.
-    
-    Fixes: f7f4a523927f ("x86/xstate: reset cached register values on resume")
-    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-    Reviewed-by: Jan Beulich <jbeulich@suse.com>
-    Release-Acked-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-
-commit aba98c8d671bd290e978ec154d0baf042e093a65
-Author: Andrew Cooper <andrew.cooper3@citrix.com>
-Date:   Fri Jun 14 13:05:40 2024 +0100
-
-    xen/arch: Centralise __read_mostly and __ro_after_init
-    
-    These living in cache.h is inherited from Linux, but cache.h is not a terribly
-    appropriately location for them to live.
-    
-    __read_mostly is an optimisation related to data placement in order to avoid
-    having shared data in cachelines that are likely to be written to, but it
-    really is just a section of the linked image separating data by usage
-    patterns; it has nothing to do with cache sizes or flushing logic.
-    
-    Worse, __ro_after_init was only in xen/cache.h because __read_mostly was in
-    arch/cache.h, and has literally nothing whatsoever to do with caches.
-    
-    Move the definitions into xen/sections.h, which in particular means that
-    RISC-V doesn't need to repeat the problematic pattern.  Take the opportunity
-    to provide a short descriptions of what these are used for.
-    
-    For now, leave TODO comments next to the other identical definitions.  It
-    turns out that unpicking cache.h is more complicated than it appears because a
-    number of files use it for transitive dependencies.
-    
-    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-    Acked-by: Jan Beulich <jbeulich@suse.com>
-    Acked-by: Stefano Stabellini <sstabellini@kernel.org>
-    Release-Acked-By: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-
-commit 82f480944718d9e8340a6ac1af41ece7851115bf
-Author: Andrew Cooper <andrew.cooper3@citrix.com>
-Date:   Tue Jun 18 13:48:35 2024 +0100
-
-    xen/irq: Address MISRA Rule 8.3 violation
-    
-    When centralising irq_ack_none(), different architectures had different names
-    for the parameter.  As it's type is struct irq_desc *, it should be named
-    desc.  Make this consistent.
-    
-    No functional change.
-    
-    Fixes: 8aeda4a241ab ("arch/irq: Make irq_ack_none() mandatory")
-    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-    Reviewed-by: Jan Beulich <jbeulich@suse.com>
-    Acked-by: Julien Grall <jgrall@amazon.com>
-    Release-Acked-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-(qemu changes not included)
+Jan
 
