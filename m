@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2464190FD71
-	for <lists+xen-devel@lfdr.de>; Thu, 20 Jun 2024 09:20:40 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.744214.1151227 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7CBBE90FDA6
+	for <lists+xen-devel@lfdr.de>; Thu, 20 Jun 2024 09:25:58 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.744222.1151237 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sKC5m-00008X-KW; Thu, 20 Jun 2024 07:20:22 +0000
+	id 1sKCAX-0000pG-97; Thu, 20 Jun 2024 07:25:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 744214.1151227; Thu, 20 Jun 2024 07:20:22 +0000
+Received: by outflank-mailman (output) from mailman id 744222.1151237; Thu, 20 Jun 2024 07:25:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sKC5m-00005z-Hi; Thu, 20 Jun 2024 07:20:22 +0000
-Received: by outflank-mailman (input) for mailman id 744214;
- Thu, 20 Jun 2024 07:20:21 +0000
+	id 1sKCAX-0000mC-5y; Thu, 20 Jun 2024 07:25:17 +0000
+Received: by outflank-mailman (input) for mailman id 744222;
+ Thu, 20 Jun 2024 07:25:15 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Zqic=NW=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sKC5l-00005t-8C
- for xen-devel@lists.xenproject.org; Thu, 20 Jun 2024 07:20:21 +0000
-Received: from mail-lj1-x22f.google.com (mail-lj1-x22f.google.com
- [2a00:1450:4864:20::22f])
+ id 1sKCAV-0000m6-GO
+ for xen-devel@lists.xenproject.org; Thu, 20 Jun 2024 07:25:15 +0000
+Received: from mail-lj1-x22d.google.com (mail-lj1-x22d.google.com
+ [2a00:1450:4864:20::22d])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 8c7b77dd-2ed5-11ef-90a3-e314d9c70b13;
- Thu, 20 Jun 2024 09:20:19 +0200 (CEST)
-Received: by mail-lj1-x22f.google.com with SMTP id
- 38308e7fff4ca-2ebe0a81dc8so6131901fa.2
- for <xen-devel@lists.xenproject.org>; Thu, 20 Jun 2024 00:20:19 -0700 (PDT)
+ id 3c487ca3-2ed6-11ef-90a3-e314d9c70b13;
+ Thu, 20 Jun 2024 09:25:14 +0200 (CEST)
+Received: by mail-lj1-x22d.google.com with SMTP id
+ 38308e7fff4ca-2ec002caf3eso7004131fa.1
+ for <xen-devel@lists.xenproject.org>; Thu, 20 Jun 2024 00:25:14 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-1f85c1d44basm124613255ad.76.2024.06.20.00.20.16
+ d2e1a72fcca58-705ccb6b4fasm11749796b3a.150.2024.06.20.00.25.06
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 20 Jun 2024 00:20:18 -0700 (PDT)
+ Thu, 20 Jun 2024 00:25:13 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,49 +45,59 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8c7b77dd-2ed5-11ef-90a3-e314d9c70b13
+X-Inumbo-ID: 3c487ca3-2ed6-11ef-90a3-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1718868019; x=1719472819; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1718868313; x=1719473113; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=gkBlXg8IqU9OAf5pLZvGyigOMLuUb64DYUG3mYOyoA0=;
-        b=C9MgSsEtuzeEP0eU913B5uo/VgEVbBJwH4kZDugD4b62VZXF8cW+gdWarPCwscsKVH
-         k2r+BWfKk0JwgxaxZUjrljoAXa1Sb8mVflsId4qSirRD0/sgTU3RlOK3Zmnza3mFkdjt
-         /6SqqpbXPVyhzfj5+8eFvgFz+QDU22CkpMCIEwyjx8RkXMVFXXbkhxM1AfVsjU4SJYfL
-         N7XKeZF94bHmiQw+JcBl9eKSgcoF1LVpRMeFZ3P6marnI6s9WqPHDC8dIndHTLG0huDy
-         80U+f2ZpL6Y+XtO6h3bv8r/GNFlJHRg0NPHMZki/P5o4XU/kKOoneAvRWZZiEEN6nTFl
-         WKLg==
+        bh=xJ/co182WcYNS1OnFxdpqFtoByqFD684VmQ5KeMq7uQ=;
+        b=MBDX7YklnAci5FAeogeLQ5OvA/3TFuLYN6fwOCixmVAHQMFfuJ9vFdZ95f+SoZ4Puz
+         4AjbLGj6n9QHN9YKnO2XQwq5XFDRJ8D38HBM/yVY6L/DtHGDg2EW9ZlrWWzMYUMfoCz3
+         FOCYGqx1azJPlzq85n1SI3+Gjxh06C+PHSkTVb5q5c2EM+jYbc3foswSL8fHixHfyp+6
+         z0v8tp+dj3nx5+dcATKLxsceST5sNmAsIQ7rllfyFsyER6OPLN7uAIrAfAE7egOYJfgG
+         lfd6qChGniLO0oTaIg9PbRdMeLe4c+wZnC3qNQVUqtroQIWp9KI/bTenqxyIiBHOaV8f
+         mrKg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1718868019; x=1719472819;
+        d=1e100.net; s=20230601; t=1718868313; x=1719473113;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=gkBlXg8IqU9OAf5pLZvGyigOMLuUb64DYUG3mYOyoA0=;
-        b=cUW6xxBl5GgHuMnnkcETQFQFziKSM2TrLt7Er6YZ9qCvhKo4KsB2fZQ6ArvFbeNgbr
-         tucgt9Kf7o7lN25IEL5H5T7xKOM9FIUbeY2V/RfNK07BdoKmRyFkQA/kODDgraYzi6GS
-         7NdIt0VnfRjeEUhZVrC8o6UvLbr1hACwHITUOaSWXISjssa4ava3MpOeaCPBip/q6YrY
-         TVy5eDhpl6ArN8Xri4e0IrXXn58TBO1XmtumKoo9OOEiyazQ0+n6eUHL5YWtAZgZjI2o
-         YNIhMc2zuAdtMRXUZNoLZbEQ4mLDdp9hv1F4FM1FNHYq2TNhWuwzAy/Hzjgb08Hdv6uD
-         wJbg==
-X-Forwarded-Encrypted: i=1; AJvYcCU7+ajY7xJBZl/IK3TSX2fxop2tmqDYpvNSjbJYOImwgYn/Tutlmf+WR/Exh+i7MSHyS5mUp20Z4W7pmoBqoz38qrBHwK5M69/+FQw5U88=
-X-Gm-Message-State: AOJu0YzTtOJbBgTufBzPnFVdQFIuq/iS/iXoQA+psgQpefM2kM51vuFN
-	IwN/g7Y1Px8WQ3Iviq/HzU2BnjcE0NPoTWe+PQ1DrsABCNc9EBLzVoGPYsNa1g==
-X-Google-Smtp-Source: AGHT+IHGVtm/UAErBntgn/h0UvaW/bLLLOCUODlXAoWkP6pKgHWGO/ZWf1srYG0AuN7RSCwkdGT2TQ==
-X-Received: by 2002:a2e:8041:0:b0:2ec:403e:6314 with SMTP id 38308e7fff4ca-2ec403e645emr23634851fa.3.1718868018648;
-        Thu, 20 Jun 2024 00:20:18 -0700 (PDT)
-Message-ID: <3e550b43-38af-4c4f-a0b4-59e7e2fa181c@suse.com>
-Date: Thu, 20 Jun 2024 09:20:12 +0200
+        bh=xJ/co182WcYNS1OnFxdpqFtoByqFD684VmQ5KeMq7uQ=;
+        b=iFfeU0Z5HjSRrN0+KK/RGp18ZijVn7VxvLsTIIda40/ZXFGHYUEbsFZmFSJi79MaVu
+         pHlbpcaDc33Ko+JgHXSL7Orpl/0+wOYBCQiXjJHmOwVstnXG/z2O++WWRuLZ9n/r1D4c
+         GzWQ4XKozHVMt7GByNb3TYPPW7xsbC7LNtHsiLf7syJQ4NMZosbQfv7VA/1xKOXlauXG
+         6mPbUsBeY5GJKcPUW9TexTZuMBkVTZwu8UWaVTQAbqu7WkwaC3g9NGMiXU7ibY3QOQl+
+         i9nhbuhOSrbjIoP+JAGYb/WHDWe+q6/6WpSaLguDRNvStxIIql3V4nXj16hd8hB+Yopb
+         1T2Q==
+X-Forwarded-Encrypted: i=1; AJvYcCUoEoHx4R7Kr2r22jxDKUgDl2tXlzTLXvWam/zhv/GVZzMwyfQW9ZCIhBbRdaYcwetpOni6i4tKx/S06kaTTnRWLrGJLmBt7dDBtgqj8Hw=
+X-Gm-Message-State: AOJu0Ywg7GKuELSF9+JecZkvQYXMOUi0fgzPtFmeLcS/vrpJHGav81BR
+	z6NdNTbWysysYNktD4nS73FvSWVvBm4Aq63bahzWDummWuG2UtjcJ/B8bLNVmQ==
+X-Google-Smtp-Source: AGHT+IFJx7TyLrlGOX0d4JxNqPQTuMz0lvzdHLm0D3lIPxOkj4v4IJZOTPs3KAFSSVH3lG3KBuS+Yw==
+X-Received: by 2002:a2e:95cf:0:b0:2ec:5cf:565e with SMTP id 38308e7fff4ca-2ec3cec04c8mr36576311fa.12.1718868313537;
+        Thu, 20 Jun 2024 00:25:13 -0700 (PDT)
+Message-ID: <4cf14abe-881e-4328-9083-bd04afd6b307@suse.com>
+Date: Thu, 20 Jun 2024 09:25:02 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] AMD/IOMMU: Improve register_iommu_exclusion_range()
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20240618183128.1981751-1-andrew.cooper3@citrix.com>
- <052cccac-8c8f-4555-953c-2bd9de460f2a@suse.com>
- <9186bb9f-384d-426a-b3d3-40c00236be27@citrix.com>
+Subject: Re: [PATCH for-4.19? v6 6/9] xen: Make the maximum number of altp2m
+ views configurable for x86
+To: =?UTF-8?Q?Petr_Bene=C5=A1?= <w1benny@gmail.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+ <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Tamas K Lengyel <tamas@tklengyel.com>,
+ Alexandru Isaila <aisaila@bitdefender.com>,
+ Petre Pircalabu <ppircalabu@bitdefender.com>, xen-devel@lists.xenproject.org
+References: <cover.1718038855.git.w1benny@gmail.com>
+ <fee20e24a94cb29dea81631a6b775933d1151da4.1718038855.git.w1benny@gmail.com>
+ <4a49fe9b-66fd-4a32-ad01-14ed4c5fc34c@suse.com>
+ <CAKBKdXgUKYoJfB1mG+6JSaV=jWpmRmS1UbQ6N4JNZ774rP_PoQ@mail.gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -113,103 +123,91 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <9186bb9f-384d-426a-b3d3-40c00236be27@citrix.com>
+In-Reply-To: <CAKBKdXgUKYoJfB1mG+6JSaV=jWpmRmS1UbQ6N4JNZ774rP_PoQ@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 19.06.2024 18:22, Andrew Cooper wrote:
-> On 19/06/2024 8:45 am, Jan Beulich wrote:
->> On 18.06.2024 20:31, Andrew Cooper wrote:
->>>  * Use 64bit accesses instead of 32bit accesses
->>>  * Simplify the constant names
->>>  * Pull base into a local variable to avoid it being reloaded because of the
->>>    memory clobber in writeq().
+On 19.06.2024 17:46, Petr Beneš wrote:
+> On Thu, Jun 13, 2024 at 2:03 PM Jan Beulich <jbeulich@suse.com> wrote:
+>>> @@ -510,13 +526,13 @@ int p2m_change_altp2m_gfn(struct domain *d, unsigned int idx,
+>>>      mfn_t mfn;
+>>>      int rc = -EINVAL;
 >>>
->>> No functional change.
->>>
->>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
->>> ---
->>> CC: Jan Beulich <JBeulich@suse.com>
->>> CC: Roger Pau Monné <roger.pau@citrix.com>
->>>
->>> RFC.  This is my proposed way of cleaning up the whole IOMMU file.  The
->>> diffstat speaks for itself.
->> Absolutely.
+>>> -    if ( idx >=  min(ARRAY_SIZE(d->arch.altp2m_p2m), MAX_EPTP) ||
+>>> +    if ( idx >= d->nr_altp2m ||
+>>>           d->arch.altp2m_eptp[array_index_nospec(idx, MAX_EPTP)] ==
 >>
->>> I've finally found the bit in the AMD IOMMU spec which says 64bit accesses are
->>> permitted:
->>>
->>>   3.4 IOMMU MMIO Registers:
->>>
->>>   Software access to IOMMU registers may not be larger than 64 bits. Accesses
->>>   must be aligned to the size of the access and the size in bytes must be a
->>>   power of two. Software may use accesses as small as one byte.
->> I take it that the use of 32-bit writes was because of the past need
->> also work in a 32-bit hypervisor, not because of perceived restrictions
->> by the spec.
+>> This ends up being suspicious: The range check is against a value different
+>> from what is passed to array_index_nospec(). The two weren't the same
+>> before either, but there the range check was more strict (which now isn't
+>> visible anymore, even though I think it would still be true). Imo this
+>> wants a comment, or an assertion effectively taking the place of a comment.
 > 
-> I recall having problems getting writeq() acked in the past, even after
-> we'd dropped 32bit.
-
-That's odd, as per my subsequent reply.
-
-> But this is the first time that I've positively found anything in the
-> spec saying that 64bit accesses are ok.
+>> Since they're all "is this slot populated" checks, maybe we want
+>> an is_altp2m_eptp_valid() helper?
 > 
->>> --- a/xen/drivers/passthrough/amd/iommu-defs.h
->>> +++ b/xen/drivers/passthrough/amd/iommu-defs.h
->>> @@ -338,22 +338,10 @@ union amd_iommu_control {
->>>  };
->>>  
->>>  /* Exclusion Register */
->>> -#define IOMMU_EXCLUSION_BASE_LOW_OFFSET		0x20
->>> -#define IOMMU_EXCLUSION_BASE_HIGH_OFFSET	0x24
->>> -#define IOMMU_EXCLUSION_LIMIT_LOW_OFFSET	0x28
->>> -#define IOMMU_EXCLUSION_LIMIT_HIGH_OFFSET	0x2C
->>> -#define IOMMU_EXCLUSION_BASE_LOW_MASK		0xFFFFF000U
->>> -#define IOMMU_EXCLUSION_BASE_LOW_SHIFT		12
->>> -#define IOMMU_EXCLUSION_BASE_HIGH_MASK		0xFFFFFFFFU
->>> -#define IOMMU_EXCLUSION_BASE_HIGH_SHIFT		0
->>> -#define IOMMU_EXCLUSION_RANGE_ENABLE_MASK	0x00000001U
->>> -#define IOMMU_EXCLUSION_RANGE_ENABLE_SHIFT	0
->>> -#define IOMMU_EXCLUSION_ALLOW_ALL_MASK		0x00000002U
->>> -#define IOMMU_EXCLUSION_ALLOW_ALL_SHIFT		1
->>> -#define IOMMU_EXCLUSION_LIMIT_LOW_MASK		0xFFFFF000U
->>> -#define IOMMU_EXCLUSION_LIMIT_LOW_SHIFT		12
->>> -#define IOMMU_EXCLUSION_LIMIT_HIGH_MASK		0xFFFFFFFFU
->>> -#define IOMMU_EXCLUSION_LIMIT_HIGH_SHIFT	0
->>> +#define IOMMU_MMIO_EXCLUSION_BASE           0x20
->>> +#define   EXCLUSION_RANGE_ENABLE            (1 << 0)
->>> +#define   EXCLUSION_ALLOW_ALL               (1 << 1)
->>> +#define IOMMU_MMIO_EXCLUSION_LIMIT          0x28
->> Just one question here: Previously you suggested we switch to bitfields
->> for anything like this, and we've already done so with e.g.
->> union amd_iommu_control and union amd_iommu_ext_features. IOW I wonder
->> if we wouldn't better strive to be consistent in this regard. Or if not,
->> what the (written or unwritten) guidelines are when to use which
->> approach.
+> Let me see if I understand correctly. You're suggesting the condition
+> should be replaced with something like this? (Also, I would suggest
+> altp2m_is_eptp_valid() name, since it's consistent e.g. with
+> p2m_is_altp2m().)
 > 
-> We've got two very different kinds of things here.
+> static inline bool altp2m_is_eptp_valid(const struct domain *d,
+>                                         unsigned int idx)
+> {
+>     /*
+>      * EPTP index is correlated with altp2m index and should not exceed
+>      * d->nr_altp2m.
+>      */
+>     assert(idx < d->nr_altp2m);
 > 
-> The device table/etc are in-memory WB datastructure which we're
-> interpreting and editing routinely.  It's completely full of bits and
-> small fields, and letting the compiler do the hard work there is
-> preferable; certainly in terms of legibility.
+>     return idx < MAX_EPTP &&
+>         d->arch.altp2m_eptp[array_index_nospec(idx, MAX_EPTP)] !=
+>         mfn_x(INVALID_MFN);
+> }
 
-And it was specifically not the DTE I used as example in my reply, ...
+Not exactly. You may not assert on idx. The assertion, if any, wants to
+check d->nr_altp2m against MAX_EPTP.
 
-> This example is an MMIO register (in a bar on the IOMMU PCI device, even
-> though we find the address in the IVRS).  We set it up once at boot and
-> don't touch it afterwards.
+> Note that in the codebase there are also very similar checks, but
+> again without array_index_nospec. For instance, in the
+> p2m_altp2m_propagate_change() function (which is called fairly
+> frequently):
+> 
+> int p2m_altp2m_propagate_change(struct domain *d, gfn_t gfn,
+>                                 mfn_t mfn, unsigned int page_order,
+>                                 p2m_type_t p2mt, p2m_access_t p2ma)
+> {
+>     struct p2m_domain *p2m;
+>     unsigned int i;
+>     unsigned int reset_count = 0;
+>     unsigned int last_reset_idx = ~0;
+>     int ret = 0;
+> 
+>     if ( !altp2m_active(d) )
+>         return 0;
+> 
+>     altp2m_list_lock(d);
+> 
+>     for ( i = 0; i < d->nr_altp2m; i++ )
+>     {
+>         p2m_type_t t;
+>         p2m_access_t a;
+> 
+>         // XXX this could be replaced with altp2m_is_eptp_valid(), but
+> based on previous review remarks,
+>         // it would introduce unnecessary perf. hit. So, should these
+> occurrences left unchanged?
+>         if ( d->arch.altp2m_eptp[i] == mfn_x(INVALID_MFN) )
+>             continue;
+> 
+>        ...
+> 
+> There are more instances of this. Which re-opens again the issue from
+> previous conversation: should I introduce a function which will be
+> used in some cases (where _nospec is used) and not used elsewhere?
 
-... but other MMIO registers.
-
-> So while we could make a struct for it, we'd still need to get it into a
-> form that we can writeq(), and that's more code than the single case
-> were we need to put two metadata bits into an address.
-
-See those other examples, which are usable with writeq() by way of their
-"raw" fields.
+You're again comparing cases where we control the index (in the loop) with
+cases where we don't (hypercall inputs).
 
 Jan
 
