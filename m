@@ -2,38 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7CBBE90FDA6
-	for <lists+xen-devel@lfdr.de>; Thu, 20 Jun 2024 09:25:58 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.744222.1151237 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 152F690FDAB
+	for <lists+xen-devel@lfdr.de>; Thu, 20 Jun 2024 09:26:53 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.744231.1151247 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sKCAX-0000pG-97; Thu, 20 Jun 2024 07:25:17 +0000
+	id 1sKCBq-0001Kj-IE; Thu, 20 Jun 2024 07:26:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 744222.1151237; Thu, 20 Jun 2024 07:25:17 +0000
+Received: by outflank-mailman (output) from mailman id 744231.1151247; Thu, 20 Jun 2024 07:26:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sKCAX-0000mC-5y; Thu, 20 Jun 2024 07:25:17 +0000
-Received: by outflank-mailman (input) for mailman id 744222;
- Thu, 20 Jun 2024 07:25:15 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Zqic=NW=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sKCAV-0000m6-GO
- for xen-devel@lists.xenproject.org; Thu, 20 Jun 2024 07:25:15 +0000
-Received: from mail-lj1-x22d.google.com (mail-lj1-x22d.google.com
- [2a00:1450:4864:20::22d])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 3c487ca3-2ed6-11ef-90a3-e314d9c70b13;
- Thu, 20 Jun 2024 09:25:14 +0200 (CEST)
-Received: by mail-lj1-x22d.google.com with SMTP id
- 38308e7fff4ca-2ec002caf3eso7004131fa.1
- for <xen-devel@lists.xenproject.org>; Thu, 20 Jun 2024 00:25:14 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-705ccb6b4fasm11749796b3a.150.2024.06.20.00.25.06
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 20 Jun 2024 00:25:13 -0700 (PDT)
+	id 1sKCBq-0001IE-FW; Thu, 20 Jun 2024 07:26:38 +0000
+Received: by outflank-mailman (input) for mailman id 744231;
+ Thu, 20 Jun 2024 07:26:37 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=duhU=NW=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
+ id 1sKCBp-0001BS-17
+ for xen-devel@lists.xenproject.org; Thu, 20 Jun 2024 07:26:37 +0000
+Received: from NAM04-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam04on20600.outbound.protection.outlook.com
+ [2a01:111:f403:240a::600])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 6bbbdf00-2ed6-11ef-b4bb-af5377834399;
+ Thu, 20 Jun 2024 09:26:35 +0200 (CEST)
+Received: from BY5PR04CA0014.namprd04.prod.outlook.com (2603:10b6:a03:1d0::24)
+ by PH7PR12MB7017.namprd12.prod.outlook.com (2603:10b6:510:1b7::15)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7698.21; Thu, 20 Jun
+ 2024 07:26:29 +0000
+Received: from CO1PEPF000042AE.namprd03.prod.outlook.com
+ (2603:10b6:a03:1d0:cafe::37) by BY5PR04CA0014.outlook.office365.com
+ (2603:10b6:a03:1d0::24) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7677.33 via Frontend
+ Transport; Thu, 20 Jun 2024 07:26:29 +0000
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CO1PEPF000042AE.mail.protection.outlook.com (10.167.243.43) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7677.15 via Frontend Transport; Thu, 20 Jun 2024 07:26:29 +0000
+Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 20 Jun
+ 2024 02:26:27 -0500
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB05.amd.com
+ (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 20 Jun
+ 2024 02:26:27 -0500
+Received: from [10.252.147.188] (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
+ Transport; Thu, 20 Jun 2024 02:26:26 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,169 +63,202 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3c487ca3-2ed6-11ef-90a3-e314d9c70b13
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1718868313; x=1719473113; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=xJ/co182WcYNS1OnFxdpqFtoByqFD684VmQ5KeMq7uQ=;
-        b=MBDX7YklnAci5FAeogeLQ5OvA/3TFuLYN6fwOCixmVAHQMFfuJ9vFdZ95f+SoZ4Puz
-         4AjbLGj6n9QHN9YKnO2XQwq5XFDRJ8D38HBM/yVY6L/DtHGDg2EW9ZlrWWzMYUMfoCz3
-         FOCYGqx1azJPlzq85n1SI3+Gjxh06C+PHSkTVb5q5c2EM+jYbc3foswSL8fHixHfyp+6
-         z0v8tp+dj3nx5+dcATKLxsceST5sNmAsIQ7rllfyFsyER6OPLN7uAIrAfAE7egOYJfgG
-         lfd6qChGniLO0oTaIg9PbRdMeLe4c+wZnC3qNQVUqtroQIWp9KI/bTenqxyIiBHOaV8f
-         mrKg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1718868313; x=1719473113;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=xJ/co182WcYNS1OnFxdpqFtoByqFD684VmQ5KeMq7uQ=;
-        b=iFfeU0Z5HjSRrN0+KK/RGp18ZijVn7VxvLsTIIda40/ZXFGHYUEbsFZmFSJi79MaVu
-         pHlbpcaDc33Ko+JgHXSL7Orpl/0+wOYBCQiXjJHmOwVstnXG/z2O++WWRuLZ9n/r1D4c
-         GzWQ4XKozHVMt7GByNb3TYPPW7xsbC7LNtHsiLf7syJQ4NMZosbQfv7VA/1xKOXlauXG
-         6mPbUsBeY5GJKcPUW9TexTZuMBkVTZwu8UWaVTQAbqu7WkwaC3g9NGMiXU7ibY3QOQl+
-         i9nhbuhOSrbjIoP+JAGYb/WHDWe+q6/6WpSaLguDRNvStxIIql3V4nXj16hd8hB+Yopb
-         1T2Q==
-X-Forwarded-Encrypted: i=1; AJvYcCUoEoHx4R7Kr2r22jxDKUgDl2tXlzTLXvWam/zhv/GVZzMwyfQW9ZCIhBbRdaYcwetpOni6i4tKx/S06kaTTnRWLrGJLmBt7dDBtgqj8Hw=
-X-Gm-Message-State: AOJu0Ywg7GKuELSF9+JecZkvQYXMOUi0fgzPtFmeLcS/vrpJHGav81BR
-	z6NdNTbWysysYNktD4nS73FvSWVvBm4Aq63bahzWDummWuG2UtjcJ/B8bLNVmQ==
-X-Google-Smtp-Source: AGHT+IFJx7TyLrlGOX0d4JxNqPQTuMz0lvzdHLm0D3lIPxOkj4v4IJZOTPs3KAFSSVH3lG3KBuS+Yw==
-X-Received: by 2002:a2e:95cf:0:b0:2ec:5cf:565e with SMTP id 38308e7fff4ca-2ec3cec04c8mr36576311fa.12.1718868313537;
-        Thu, 20 Jun 2024 00:25:13 -0700 (PDT)
-Message-ID: <4cf14abe-881e-4328-9083-bd04afd6b307@suse.com>
-Date: Thu, 20 Jun 2024 09:25:02 +0200
+X-Inumbo-ID: 6bbbdf00-2ed6-11ef-b4bb-af5377834399
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=TQuGi3Ye/E0+8xrDenrAkHe8l/0o0jiVU/eStu3ZEl5JCp83eVURr0OEKRMmDyRDosQAjkn5Pa8mc0s6FvfLR1wuKm7K948KQQPeq4cQrK4g6GvmQ/IoxY61Lomx8Y2Qin4vIyr7l60wIijs4O2J2YG3JqpWBuZWYVdUJ4tbKGFeafRmkhuqfC3aYln334KTL/M7HT7XqDf9Jpm85td5qHvim2GbuaTWSz5Lc1Bz1l9pH0iPKduGRURbxafrxFDBcsXhzLg/RxKAZcd7qSKKyPHeYVDwsxhJfgr+Fqq0sdazMHFVRPJeo5LGGb8w1TTffujSCOnEQ1sfuRg8mxgQQQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=O4a2PhBrpHCu3XKgwdNkoRXO5cL+e+BTf3xeee/EQow=;
+ b=AV+CckSiCPsCP2fZjTLqGQut2IQWKAlYAfz36ZYaU0i2IwmyUTHoqCZ+cjg9iW8XDsj4F/XXVVhMuvJqiRIx5vYL0o5WP10OVZkh+mKeP1VpKI7VKy04c+lPSRHfrGDvNrXjKzUSqp6L8wC0sKQ9XYoqycJ4iTimSP+gS8NgI7J6r7d1Ti6IGRqtUj7Ws4zdn7gv//XpUuJRrtdyd6Tfv56ueeWOeiLYHgILbSGVV+khNap6OzNIwOb5A6QMq85C8R6Wndozfyf41heCfQIK7JxlUuuxXCGIzPgqv7D7qeM8k/JcBepWFT9u23oSo2blLdYLa8OkOUVNi/T3mvXHlw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=xen.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=O4a2PhBrpHCu3XKgwdNkoRXO5cL+e+BTf3xeee/EQow=;
+ b=C4khkmOA4+iaJyAEv/zNa6eERJ92jGW9rytaHxRVahI2SVomfUkqIWxHQnUUgTTJWD3mu7QK5M9KklPIEhxSNSVUnwb/Lwf/3edIUweJLlqbppqOn8VSNsxNypEvbEdPhAwqmYS8GI8cglx7mSkwPl+VKElp6Fq6cKcgXW9++rI=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Message-ID: <bed9d557-66b7-4711-80f7-a85c28e57f6c@amd.com>
+Date: Thu, 20 Jun 2024 09:26:25 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH for-4.19? v6 6/9] xen: Make the maximum number of altp2m
- views configurable for x86
-To: =?UTF-8?Q?Petr_Bene=C5=A1?= <w1benny@gmail.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
- <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Tamas K Lengyel <tamas@tklengyel.com>,
- Alexandru Isaila <aisaila@bitdefender.com>,
- Petre Pircalabu <ppircalabu@bitdefender.com>, xen-devel@lists.xenproject.org
-References: <cover.1718038855.git.w1benny@gmail.com>
- <fee20e24a94cb29dea81631a6b775933d1151da4.1718038855.git.w1benny@gmail.com>
- <4a49fe9b-66fd-4a32-ad01-14ed4c5fc34c@suse.com>
- <CAKBKdXgUKYoJfB1mG+6JSaV=jWpmRmS1UbQ6N4JNZ774rP_PoQ@mail.gmail.com>
+Subject: Re: [PATCH for-4.19] xen/arm: static-shmem: fix "gbase/pbase used
+ uninitialized" build failure
+To: Julien Grall <julien@xen.org>, <xen-devel@lists.xenproject.org>
+CC: Stefano Stabellini <sstabellini@kernel.org>, Bertrand Marquis
+	<bertrand.marquis@arm.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <20240619064652.18266-1-michal.orzel@amd.com>
+ <82790448-dd2f-4299-ae3d-938080ee5e19@xen.org>
+ <99fb367a-7ceb-4769-8120-a06474e98fb3@amd.com>
+ <7bffdbeb-0219-4ec7-a70f-a9fa55cd6b5e@xen.org>
 Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <CAKBKdXgUKYoJfB1mG+6JSaV=jWpmRmS1UbQ6N4JNZ774rP_PoQ@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+From: Michal Orzel <michal.orzel@amd.com>
+In-Reply-To: <7bffdbeb-0219-4ec7-a70f-a9fa55cd6b5e@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+Received-SPF: None (SATLEXMB05.amd.com: michal.orzel@amd.com does not
+ designate permitted sender hosts)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO1PEPF000042AE:EE_|PH7PR12MB7017:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8924aa85-8cd4-4520-f387-08dc90fa4d51
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230037|1800799021|82310400023|36860700010|376011;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?OEdZOVg4ZGdzOGZzZk9CSnVHc0RBd1Rua3NVSUZZTERkWEFNYUNsaHFzTUZa?=
+ =?utf-8?B?bkUvcm1NMVBtVHhzMndGRkcrTnVaVVVxYzZhcFpRamhBT3p2aXFDNXo2TVBZ?=
+ =?utf-8?B?VTJnd3k2SXBhSUlhT1BXRDdnbGJua0w1OWFBZE9tTU5jNWY2T3V0NUdGWXc1?=
+ =?utf-8?B?aitBNG9vbFNkZllpcUE2S1Zta3Z1eHVLNVBmRjZZK0JoR3RFaFE4UGcxeHhj?=
+ =?utf-8?B?UGc0ellUTGJxWU1zRFpaZ3ZmdTJTOFI3cnY0cjVXNHNsY0dIWVhTYTRnYnY4?=
+ =?utf-8?B?dU92MmoxZmtDSU9jVzJuSFo0QWt2a0pxem90OWUyM3J2Um91OHhaQm5UQ3FY?=
+ =?utf-8?B?U0FOK1FqbXdZMTZlSTQxR2RMWFBTWURxTXpvV0QzeEdnaFBDYWtsOVZyaFUr?=
+ =?utf-8?B?M2ZoU3lHQWc4cS9GQkVySlRuSDhkaXlEQ3p0VFFhVFNvaHJDdjZlTnlwNWkr?=
+ =?utf-8?B?ZlgrV0h5NEtYSnJxeVhXL0xveGsycGFOS0pWVXc3S0RGdjROLzZLVEV0LzJH?=
+ =?utf-8?B?MjFaUFpESC9XQVhJa3B2YVJWMU1TNVdhTTFXN2NIaHNzZTMyY0VRSUIyQUR4?=
+ =?utf-8?B?RE5ja1FkWEY2cWFPdlJicVpHKzBwRTVKZkFVMVI3MVUxQ09GVEQ4QXNQdVVU?=
+ =?utf-8?B?b2dyaDNock5nQSt2T0IrVU5YYWtzd2JORFpRWU5NbE1JMDdYTUpKbkFOK2Zz?=
+ =?utf-8?B?QUd2VnI4R1MwV0FBKzJVT3lrZWx0bWFVREtCNDhrRGMvdko0VnBuYXN4SVgy?=
+ =?utf-8?B?bmZESlcxWlRHZDA5SzM3bWJNVUYxUGhDeC9rbHdsVFVhNVRDQ2JGL2wxWVZi?=
+ =?utf-8?B?QU9vY2NIRE5SU2FOMll4enpWMjFqM3RpVWNSRCs3RUg5MmczK2gyTE5odkQ0?=
+ =?utf-8?B?ajFXWGpsc1NpM1lQYm1mVCtnSVNjNkJhb0ZQR3RsZzBQSzlIKzc2MzV1Sklr?=
+ =?utf-8?B?dFQ1c1d0eWpSYWRoL2Z6NnhPUDE3c0lYVDdVWFJ0ei9SbTJoTTZmREZUUUhm?=
+ =?utf-8?B?N3NhRXZ1VzBwaUVuN1JQdUZDc1VObTY2S0dMN1R4S2V4SEhxQ1h6aUFqTkF4?=
+ =?utf-8?B?WHNvUzFpUEkvQUQ5NE1FMTh5a2pNSHdJazNla0J1ZG81cXZaR1ZrYmp6OHU3?=
+ =?utf-8?B?NmdJcFFEZGN6SDRsNStOck13QlhyTGFUUVRUQWNxc2JpdEJKN2ZtM1dML3Bx?=
+ =?utf-8?B?TFhJWW8xVnZVU0tzclU5MnQ1dC9DdGRkRzh2WFVWblFuNEJpOWlSRHVENlBy?=
+ =?utf-8?B?UEdKRThReXpieWs3cU5zRHMyN2huVy9LZVRYQngyNmV3QllyV1p3aFptRXR6?=
+ =?utf-8?B?aSs1S2swVVhJdWNzZnhSaUZ1cU40b3dRNm9sdzZTYnFVZFZhZ3F6RzFqVlZR?=
+ =?utf-8?B?VE8ybHR4Y0tHbUJYWGVtb2lENzRUWWJRdi9NVXF2dzhiQzJZbWdGd0J4SUwv?=
+ =?utf-8?B?OXp3VU55d2ZHWG40ZDJLbFgzNyswdXd2WDljVHgxajFkUXpTYlRtdmlzZzFZ?=
+ =?utf-8?B?dnFQVmdMQ2Z1NGRZZkVKWlFUNFVZTHVDa3FMUGJqNWpBRUZXWGNhd2ZETlpr?=
+ =?utf-8?B?UkVNejVuZTFKYTFPaU9naTh6OElaSkNuUXdoSkEvZDBYMmIzeFUwNGwweHlG?=
+ =?utf-8?B?QWVEK2tjMjJMYXJaM001eG9LQkU3NVI0NnBzYmF2OERUQzJHTnNrRi96eUpJ?=
+ =?utf-8?B?bWYvd3NsaUdPSm9NdVdlNVZ1SDhMN3lPK1ZVemRBNG5NQWh2SUJldU9QMDRL?=
+ =?utf-8?B?aFI4bloxaUZBUnRpSWNzNVc5emJUODc0RG1JaVloTlVhQytkbVQzUjJOaXdH?=
+ =?utf-8?Q?4+a+zQo8sUsvemujaioGLvHU1MzEA1jkkcuZw=3D?=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230037)(1800799021)(82310400023)(36860700010)(376011);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Jun 2024 07:26:29.1176
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8924aa85-8cd4-4520-f387-08dc90fa4d51
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CO1PEPF000042AE.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7017
 
-On 19.06.2024 17:46, Petr Beneš wrote:
-> On Thu, Jun 13, 2024 at 2:03 PM Jan Beulich <jbeulich@suse.com> wrote:
->>> @@ -510,13 +526,13 @@ int p2m_change_altp2m_gfn(struct domain *d, unsigned int idx,
->>>      mfn_t mfn;
->>>      int rc = -EINVAL;
->>>
->>> -    if ( idx >=  min(ARRAY_SIZE(d->arch.altp2m_p2m), MAX_EPTP) ||
->>> +    if ( idx >= d->nr_altp2m ||
->>>           d->arch.altp2m_eptp[array_index_nospec(idx, MAX_EPTP)] ==
+
+
+On 19/06/2024 14:34, Julien Grall wrote:
+> 
+> 
+> On 19/06/2024 13:06, Michal Orzel wrote:
+>> Hi Julien,
 >>
->> This ends up being suspicious: The range check is against a value different
->> from what is passed to array_index_nospec(). The two weren't the same
->> before either, but there the range check was more strict (which now isn't
->> visible anymore, even though I think it would still be true). Imo this
->> wants a comment, or an assertion effectively taking the place of a comment.
+>> On 19/06/2024 13:55, Julien Grall wrote:
+>>>
+>>>
+>>> Hi Michal,
+>>>
+>>> On 19/06/2024 07:46, Michal Orzel wrote:
+>>>> Building Xen with CONFIG_STATIC_SHM=y results in a build failure:
+>>>>
+>>>> arch/arm/static-shmem.c: In function 'process_shm':
+>>>> arch/arm/static-shmem.c:327:41: error: 'gbase' may be used uninitialized [-Werror=maybe-uninitialized]
+>>>>     327 |         if ( is_domain_direct_mapped(d) && (pbase != gbase) )
+>>>> arch/arm/static-shmem.c:305:17: note: 'gbase' was declared here
+>>>>     305 |         paddr_t gbase, pbase, psize;
+>>>>
+>>>> This is because the commit cb1ddafdc573 adds a check referencing
+>>>> gbase/pbase variables which were not yet assigned a value. Fix it.
+>>>>
+>>>> Fixes: cb1ddafdc573 ("xen/arm/static-shmem: Static-shmem should be direct-mapped for direct-mapped domains")
+>>>> Signed-off-by: Michal Orzel <michal.orzel@amd.com>
+>>>> ---
+>>>> Rationale for 4.19: this patch fixes a build failure reported by CI:
+>>>> https://gitlab.com/xen-project/xen/-/jobs/7131807878
+>>>> ---
+>>>>    xen/arch/arm/static-shmem.c | 13 +++++++------
+>>>>    1 file changed, 7 insertions(+), 6 deletions(-)
+>>>>
+>>>> diff --git a/xen/arch/arm/static-shmem.c b/xen/arch/arm/static-shmem.c
+>>>> index c434b96e6204..cd48d2896b7e 100644
+>>>> --- a/xen/arch/arm/static-shmem.c
+>>>> +++ b/xen/arch/arm/static-shmem.c
+>>>> @@ -324,12 +324,6 @@ int __init process_shm(struct domain *d, struct kernel_info *kinfo,
+>>>>                printk("%pd: static shared memory bank not found: '%s'", d, shm_id);
+>>>>                return -ENOENT;
+>>>>            }
+>>>> -        if ( is_domain_direct_mapped(d) && (pbase != gbase) )
+>>>> -        {
+>>>> -            printk("%pd: physical address 0x%"PRIpaddr" and guest address 0x%"PRIpaddr" are not direct-mapped.\n",
+>>>> -                   d, pbase, gbase);
+>>>> -            return -EINVAL;
+>>>> -        }
+>>>>
+>>>>            pbase = boot_shm_bank->start;
+>>>>            psize = boot_shm_bank->size;
+>>>> @@ -353,6 +347,13 @@ int __init process_shm(struct domain *d, struct kernel_info *kinfo,
+>>>>                /* guest phys address is after host phys address */
+>>>>                gbase = dt_read_paddr(cells + addr_cells, addr_cells);
+>>>>
+>>>> +            if ( is_domain_direct_mapped(d) && (pbase != gbase) )
+>>>> +            {
+>>>> +                printk("%pd: physical address 0x%"PRIpaddr" and guest address 0x%"PRIpaddr" are not direct-mapped.\n",
+>>>> +                       d, pbase, gbase);
+>>>> +                return -EINVAL;
+>>>> +            }
+>>>> +
+>>>
+>>> Before this patch, the check was globally. I guess the intention was it
+>>> covers the two part of the "if". But now, you only have it in when
+>>> "paddr" is specified in the DT.
+>>>
+>>>   From a brief look at the code, I can't figure out why we don't need a
+>>> similar check on the else path. Is this because it is guarantee that
+>>> will be paddr == gaddr?
+>> The reason why I added this check only in the first case is due to what doc states.
+>> It says that if a domain is 1:1, the shmem should be also 1:1 i.e. pbase == gbase. In the else
+>> case the pbase is omitted and thus a user cannot know and has no guarantee what will be the backing physical address.
 > 
->> Since they're all "is this slot populated" checks, maybe we want
->> an is_altp2m_eptp_valid() helper?
+> The property "direct-map" has the following definition:
 > 
-> Let me see if I understand correctly. You're suggesting the condition
-> should be replaced with something like this? (Also, I would suggest
-> altp2m_is_eptp_valid() name, since it's consistent e.g. with
-> p2m_is_altp2m().)
+> "- direct-map
 > 
-> static inline bool altp2m_is_eptp_valid(const struct domain *d,
->                                         unsigned int idx)
-> {
->     /*
->      * EPTP index is correlated with altp2m index and should not exceed
->      * d->nr_altp2m.
->      */
->     assert(idx < d->nr_altp2m);
+>      Only available when statically allocated memory is used for the domain.
+>      An empty property to request the memory of the domain to be
+>      direct-map (guest physical address == physical address).
+> "
 > 
->     return idx < MAX_EPTP &&
->         d->arch.altp2m_eptp[array_index_nospec(idx, MAX_EPTP)] !=
->         mfn_x(INVALID_MFN);
-> }
+> So I think it would be fair for someone to interpret it as shared memory
+> would also be 1:1 mapped.
+> 
+>> Thus, reading this doc makes me feel that for 1:1 guests user needs to specify pbase == gbase.
+> 
+> See above, I think this is not 100% clear. I am concerned that someone
+> may try to use the version where only the guest address is specified.
+> 
+> It would likely be hard to realize that the extended regions would not
+> work properly. So something needs to be done.
+> 
+> I don't have any preference on how to address. It could simply be a
+> check in Xen to request that both "gaddr" and "paddr" are specified for
+> direct mapped domain.
+Fair enough. I can add a check for 1:1 in the else case to return error with a message that
+host and guest physical address must be supplied for direct-mapped domains. Would we consider it for 4.19?
+In my opinion yes as it would remove the possibility of a feature misuse.
 
-Not exactly. You may not assert on idx. The assertion, if any, wants to
-check d->nr_altp2m against MAX_EPTP.
-
-> Note that in the codebase there are also very similar checks, but
-> again without array_index_nospec. For instance, in the
-> p2m_altp2m_propagate_change() function (which is called fairly
-> frequently):
-> 
-> int p2m_altp2m_propagate_change(struct domain *d, gfn_t gfn,
->                                 mfn_t mfn, unsigned int page_order,
->                                 p2m_type_t p2mt, p2m_access_t p2ma)
-> {
->     struct p2m_domain *p2m;
->     unsigned int i;
->     unsigned int reset_count = 0;
->     unsigned int last_reset_idx = ~0;
->     int ret = 0;
-> 
->     if ( !altp2m_active(d) )
->         return 0;
-> 
->     altp2m_list_lock(d);
-> 
->     for ( i = 0; i < d->nr_altp2m; i++ )
->     {
->         p2m_type_t t;
->         p2m_access_t a;
-> 
->         // XXX this could be replaced with altp2m_is_eptp_valid(), but
-> based on previous review remarks,
->         // it would introduce unnecessary perf. hit. So, should these
-> occurrences left unchanged?
->         if ( d->arch.altp2m_eptp[i] == mfn_x(INVALID_MFN) )
->             continue;
-> 
->        ...
-> 
-> There are more instances of this. Which re-opens again the issue from
-> previous conversation: should I introduce a function which will be
-> used in some cases (where _nospec is used) and not used elsewhere?
-
-You're again comparing cases where we control the index (in the loop) with
-cases where we don't (hypercall inputs).
-
-Jan
+~Michal
 
