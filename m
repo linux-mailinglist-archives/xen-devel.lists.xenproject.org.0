@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 86AB59100CA
-	for <lists+xen-devel@lfdr.de>; Thu, 20 Jun 2024 11:50:00 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.744356.1151383 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 80BEC9100E1
+	for <lists+xen-devel@lfdr.de>; Thu, 20 Jun 2024 11:56:06 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.744364.1151392 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sKEQL-0002bW-Lp; Thu, 20 Jun 2024 09:49:45 +0000
+	id 1sKEW6-000454-8C; Thu, 20 Jun 2024 09:55:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 744356.1151383; Thu, 20 Jun 2024 09:49:45 +0000
+Received: by outflank-mailman (output) from mailman id 744364.1151392; Thu, 20 Jun 2024 09:55:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sKEQL-0002Zh-Ht; Thu, 20 Jun 2024 09:49:45 +0000
-Received: by outflank-mailman (input) for mailman id 744356;
- Thu, 20 Jun 2024 09:49:43 +0000
+	id 1sKEW6-00042J-5V; Thu, 20 Jun 2024 09:55:42 +0000
+Received: by outflank-mailman (input) for mailman id 744364;
+ Thu, 20 Jun 2024 09:55:40 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=TjK6=NW=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1sKEQJ-0002ZZ-II
- for xen-devel@lists.xenproject.org; Thu, 20 Jun 2024 09:49:43 +0000
-Received: from mail-lf1-x12e.google.com (mail-lf1-x12e.google.com
- [2a00:1450:4864:20::12e])
+ id 1sKEW4-00042D-LV
+ for xen-devel@lists.xenproject.org; Thu, 20 Jun 2024 09:55:40 +0000
+Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
+ [2a00:1450:4864:20::632])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 6b0c861b-2eea-11ef-90a3-e314d9c70b13;
- Thu, 20 Jun 2024 11:49:42 +0200 (CEST)
-Received: by mail-lf1-x12e.google.com with SMTP id
- 2adb3069b0e04-52c84a21b8cso622591e87.1
- for <xen-devel@lists.xenproject.org>; Thu, 20 Jun 2024 02:49:42 -0700 (PDT)
+ id 3fec0094-2eeb-11ef-90a3-e314d9c70b13;
+ Thu, 20 Jun 2024 11:55:39 +0200 (CEST)
+Received: by mail-ej1-x632.google.com with SMTP id
+ a640c23a62f3a-a6f09b457fdso68171566b.2
+ for <xen-devel@lists.xenproject.org>; Thu, 20 Jun 2024 02:55:39 -0700 (PDT)
 Received: from [192.168.219.221] ([94.75.70.14])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-52ca2872305sm1993975e87.168.2024.06.20.02.49.41
+ a640c23a62f3a-a6f56db5c3dsm751289866b.55.2024.06.20.02.55.37
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 20 Jun 2024 02:49:41 -0700 (PDT)
+ Thu, 20 Jun 2024 02:55:38 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,103 +45,103 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6b0c861b-2eea-11ef-90a3-e314d9c70b13
+X-Inumbo-ID: 3fec0094-2eeb-11ef-90a3-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1718876982; x=1719481782; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1718877339; x=1719482139; darn=lists.xenproject.org;
         h=mime-version:user-agent:content-transfer-encoding:references
          :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
          :date:message-id:reply-to;
-        bh=jpwNq3EKrDRG+VWcZwBrJhjWEVq3entQLxkRUn3IUj8=;
-        b=B6OOttWEt9Z6tnvhVHE3gM8+6zKMrYxjZJPwT6Aip2PTpm/rYu4zG902yk7xvZ88qy
-         YkG8WqSpGIN+ytj/rIbWtWDaAgQDaMwyBQhunaqtXk0HexWnfE5x8eWbYlA6Mh0aX18b
-         xgQBJbFeLgobwIfO2G5in/seX0sw0tHuEIOXN6sGZXRiEwpKQ7bN+C8Wd291rBFi4lJp
-         dnL977+tua2Z/tVzD0Q6wvbfnT/EWuVG3TTMNGx2wHrqqv9tqmidjyHNMswdcNCAPZIz
-         XF51wyhBrbw2uf4G/Fsd9e2RRYwxjgDqgRwEFz3DCUcRuTUWlPWv5H9vSQA8wJpjPbuU
-         stVQ==
+        bh=/Wp4kjnDRYcqsWBVpwT0Uxh7oOecFrkJm7uLP4XBRmk=;
+        b=YoAxv1yGuFk7THVL5gljNIj70dQWJNSN2L4orbmPQvgqrJN8N0t12ZzdhVUPx6R8Ep
+         52x4h8rioNc2XyHwEYMTTTmZLV75MAcm+me0xy/5R8+U3BPw4YPG2HngCmUHLJBQPcm9
+         ay9rJonbzKGqWVY4siVU8pvtu66tIT34nCP1YiC5kEK94lDisOwNcBmFTnRsq4fxCo+E
+         s2C4hW/0wHgtobvqJ1YpM5kTjeqr5Eb2GqdHeqjZmMwUZ/fFP1EJJSR+uZCwDIC82Kgx
+         348S52NAjBJo4fmcFerkHwZsl0enbYZhnizPO+2J8nkJg01FDLnttYdavl2jW9gJ47cL
+         dPzg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1718876982; x=1719481782;
+        d=1e100.net; s=20230601; t=1718877339; x=1719482139;
         h=mime-version:user-agent:content-transfer-encoding:references
          :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=jpwNq3EKrDRG+VWcZwBrJhjWEVq3entQLxkRUn3IUj8=;
-        b=uuvWTEdqi/Gtf06ySU6YZ/nN9Bdd3f0hgJq4BtWE0QQispWqD2vhyBHwffMKsALvlZ
-         /bH78WgOGj55UTwfbBxzqLGPFBBmj47dTFBV5VLS67wXt3GFrFwBryA4kTuacN/sJKIS
-         9Neza+TvbQRp+Xs5K4Cqj3i1UCrUSx8Y4mQz9Mn1CK1X05M1yJZMW5Z/OdljxaZ7k9G7
-         7fErQ0FynbLQQl/b7FoGJv8OXhsmT2VCgeJqgKvyHqfqYHBHazQ13qrqu+jqlFseCZYd
-         w+BDb970Yryk6+uU6oi/JtHAWXwtmhTMZaEPGdzmoT1o2LnRZNqIbV/roR2YmfjPus9h
-         bAGg==
-X-Forwarded-Encrypted: i=1; AJvYcCUkWqlbAFHb7aenvtn/pTMIk57LKJG9ceJr66uXLRXXflgJgE1ZIheRWRcRE5dlY9oqd3Mazc2g1AYPtbjh5f58OIatfQcKeLEkLtCtdjM=
-X-Gm-Message-State: AOJu0Yx/YFRtJo7872LUDRWkeuU0R8S7j7/ushiSO3q3FBzseDCEzMlC
-	JddJlBCtWqHEhXUQVGFTzgX04Nf4bYJFBixEpHYAmIxQildvkD0K
-X-Google-Smtp-Source: AGHT+IFVQGy75AgyQKRu+PPqCwD+heHmRJnRnFg8jVCLYmN6muhQ9vZDwxO527BuprsGNF0GdK2cVg==
-X-Received: by 2002:a19:7418:0:b0:52b:c29e:704d with SMTP id 2adb3069b0e04-52cc47ed3f9mr1458619e87.17.1718876981888;
-        Thu, 20 Jun 2024 02:49:41 -0700 (PDT)
-Message-ID: <6f93c9a4e661013ae00581959cdc7445a7c6025a.camel@gmail.com>
-Subject: Re: [PATCH for-4.19] hotplug: Restore block-tap phy compatibility
+        bh=/Wp4kjnDRYcqsWBVpwT0Uxh7oOecFrkJm7uLP4XBRmk=;
+        b=U/DDf5+TVIvCG3TgarObOEBDvUz7k+sVy433GDCZ7tt2mGmV+Ab4RP6sQfItoNU+0W
+         7ZimScUl1zGhv+zwTdX9CXIl3hxV9OYV4p0V1X5BghtbO5Ve+vTeebaSi4XDcQimM0/u
+         FK/ZoG4r0PfdeUg7+nNtnwINvT97hEE32QYd+L8khRubIihtT0IZIRVaLYQL2yp4Wu+R
+         DZSa3ziztqP8t3sWiBAQi1RdfI5nh3SBZ5y188QZVpIdylxS6Xbe4QWNCiG38cf0xgNS
+         9VD8+GK7+m5D4TbeF0/ckQ4SK2+61Mc5doCW9YD79i1/IJjKnIodd+YPmm3sJLlafLdm
+         wuQg==
+X-Forwarded-Encrypted: i=1; AJvYcCVPXXSmSJlsE89pOS6KGvCxL8o7A23bkTdPt7u4st9l6RYzCywZTkXFTIFQATi7WYZPYFs9XJgrHVR/+pZt0o4GkAxw8cC+EVi0aFTy928=
+X-Gm-Message-State: AOJu0YzTwoX67l5KssHmUHA3K2WbDYk5DyH34HLk6KykfQEdygLCKl8F
+	xUq2NokLZ+PCQ2h0+vD9UJrZ7lzyS+R0QDoipKBde6jU3l0fdK/A4YHMAQ==
+X-Google-Smtp-Source: AGHT+IFBjOvRXMiCaHQhHN5fYmlm9v1h2WC/eUP/667F2pi5Q9ihWG0QiLsPc3YfvnB8NFIXJofr1g==
+X-Received: by 2002:a17:906:2a18:b0:a6f:4de8:f490 with SMTP id a640c23a62f3a-a6fab6184d9mr305731066b.24.1718877339021;
+        Thu, 20 Jun 2024 02:55:39 -0700 (PDT)
+Message-ID: <9bd68869a560cd405cbcce481b5721637671a996.camel@gmail.com>
+Subject: Re: [PATCH for-4.19?] tools/libs/light: Fix nic->vlan memory
+ allocation
 From: "Oleksii K." <oleksii.kurochko@gmail.com>
-To: Anthony PERARD <anthony.perard@vates.tech>, Jan Beulich
- <jbeulich@suse.com>
-Cc: Anthony PERARD <anthony@xenproject.org>, xen-devel@lists.xenproject.org,
-  Jason Andryuk <jason.andryuk@amd.com>, Jason Andryuk <jandryuk@gmail.com>
-Date: Thu, 20 Jun 2024 11:49:41 +0200
-In-Reply-To: <ZnLsMOQ3zt4W855q@l14>
-References: <20240516022212.5034-1-jandryuk@gmail.com>
-	 <64083e01-edf1-4395-a9d7-82e82d220de7@suse.com>
-	 <9678073f-82d5-4402-b5a0-e24985c1446b@amd.com>
-	 <7de20763-b9bc-4dfc-b250-8f83c42e9e16@suse.com> <ZnLsMOQ3zt4W855q@l14>
+To: Jan Beulich <jbeulich@suse.com>, Leigh Brown <leigh@solinno.co.uk>, 
+ Anthony Perard <anthony@xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Jason Andryuk
+	 <jandryuk@gmail.com>, Jason Andryuk <jason.andryuk@amd.com>, Xen Devel
+	 <xen-devel@lists.xenproject.org>
+Date: Thu, 20 Jun 2024 11:55:37 +0200
+In-Reply-To: <a8fd0504-23b7-473a-9056-6b51c20e6468@suse.com>
+References: <20240520164400.15740-1-leigh@solinno.co.uk>
+	 <c600e5e8-d169-417c-bc02-d33e84dca0fb@amd.com>
+	 <a8fd0504-23b7-473a-9056-6b51c20e6468@suse.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 User-Agent: Evolution 3.52.1 (3.52.1-1.fc40) 
 MIME-Version: 1.0
 
-On Wed, 2024-06-19 at 14:33 +0000, Anthony PERARD wrote:
-> On Wed, Jun 19, 2024 at 02:07:04PM +0200, Jan Beulich wrote:
-> > On 16.05.2024 15:52, Jason Andryuk wrote:
-> > > On 2024-05-16 03:41, Jan Beulich wrote:
-> > > > On 16.05.2024 04:22, Jason Andryuk wrote:
-> > > > > From: Jason Andryuk <jason.andryuk@amd.com>
-> > > > >=20
-> > > > > From: Jason Andryuk <jason.andryuk@amd.com>
-> > > >=20
-> > > > Two identical From: (also in another patch of yours, while in
-> > > > yet another one
-> > > > you have two _different_ ones, when only one will survive into
-> > > > the eventual
-> > > > commit anyway)?
+On Wed, 2024-06-19 at 13:57 +0200, Jan Beulich wrote:
+> On 20.05.2024 19:08, Jason Andryuk wrote:
+> > On 2024-05-20 12:44, Leigh Brown wrote:
+> > > After the following commit:
+> > > 3bc14e4fa4b9 ("tools/libs/light: Add vlan field to
+> > > libxl_device_nic")
+> > > xl list -l aborts with a double free error if a domain has at
+> > > least
+> > > one vif defined:
 > > >=20
-> > > Sorry about that.=C2=A0 Since I was sending from my gmail account, I
-> > > thought=20
-> > > I needed explicit From: lines to ensure the authorship was listed
-> > > w/=20
-> > > amd.com.=C2=A0 I generated the patches with `git format-patch --from`=
-,
-> > > to get=20
-> > > the explicit From: lines, and then sent with `git send-email`.=C2=A0
-> > > The=20
-> > > send-email step then inserted the additional lines.=C2=A0 I guess it
-> > > added=20
-> > > =C2=A0From amd.com since I had changed to that address in .gitconfig.
+> > > =C2=A0=C2=A0 $ sudo xl list -l
+> > > =C2=A0=C2=A0 free(): double free detected in tcache 2
+> > > =C2=A0=C2=A0 Aborted
 > > >=20
-> > > > > backendtype=3Dphy using the blktap kernel module needs to use
-> > > > > write_dev,
-> > > > > but tapback can't support that.=C2=A0 tapback should perform
-> > > > > better, but make
-> > > > > the script compatible with the old kernel module again.
-> > > > >=20
-> > > > > Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
-> > > >=20
-> > > > Should there be a Fixes: tag here?
+> > > Orginally, the vlan field was called vid and was defined as an
+> > > integer.
+> > > It was appropriate to call libxl__xs_read_checked() with gc
+> > > passed as
+> > > the string data was copied to a different variable.=C2=A0 However, th=
+e
+> > > final
+> > > version uses a string data type and the call should have been
+> > > changed
+> > > to use NOGC instead of gc to allow that data to live past the gc
+> > > controlled lifetime, in line with the other string fields.
 > > >=20
-> > > That makes sense.
+> > > This patch makes the change to pass NOGC instead of gc and moves
+> > > the
+> > > new code to be next to the other string fields (fixing a couple
+> > > of
+> > > errant tabs along the way), as recommended by Jason.
 > > >=20
-> > > Fixes: 76a484193d ("hotplug: Update block-tap")
+> > > Fixes: 3bc14e4fa4b9 ("tools/libs/light: Add vlan field to
+> > > libxl_device_nic")
+> > > Signed-off-by: Leigh Brown <leigh@solinno.co.uk>
 > >=20
-> > Surely this wants going into 4.19? Thus - Anthony, Oleksii?
+> > Reviewed-by: Jason Andryuk <jason.andryuk@amd.com>
 >=20
-> Yes, I think so.
+> I notice this wasn't Cc-ed to the maintainer, which likely is the
+> reason
+> for there not having been an ack yet. Anthony, any thoughts?
 >=20
-> Acked-by: Anthony PERARD <anthony.perard@vates.tech>
-Release-Acked-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+> Further at this point, bug fix or not, it would likely also need a
+> release
+> ack. Oleksii, thoughts?
+It seems to me it is bug fix, so it should be in release:
+Release-acked-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 
 ~ Oleksii
 
