@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D16BD910747
-	for <lists+xen-devel@lfdr.de>; Thu, 20 Jun 2024 16:02:56 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.744608.1151676 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AE8A091074E
+	for <lists+xen-devel@lfdr.de>; Thu, 20 Jun 2024 16:02:58 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.744609.1151686 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sKIN1-0007rk-Lu; Thu, 20 Jun 2024 14:02:35 +0000
+	id 1sKIN3-00086S-1Y; Thu, 20 Jun 2024 14:02:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 744608.1151676; Thu, 20 Jun 2024 14:02:35 +0000
+Received: by outflank-mailman (output) from mailman id 744609.1151686; Thu, 20 Jun 2024 14:02:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sKIN1-0007pI-IZ; Thu, 20 Jun 2024 14:02:35 +0000
-Received: by outflank-mailman (input) for mailman id 744608;
- Thu, 20 Jun 2024 14:02:34 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1sKIN2-00083n-U6; Thu, 20 Jun 2024 14:02:36 +0000
+Received: by outflank-mailman (input) for mailman id 744609;
+ Thu, 20 Jun 2024 14:02:35 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=fPla=NW=bugseng.com=federico.serafini@srs-se1.protection.inumbo.net>)
- id 1sKIN0-0007p3-Ga
- for xen-devel@lists.xenproject.org; Thu, 20 Jun 2024 14:02:34 +0000
+ id 1sKIN1-0007p2-2p
+ for xen-devel@lists.xenproject.org; Thu, 20 Jun 2024 14:02:35 +0000
 Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id bce82612-2f0d-11ef-b4bb-af5377834399;
- Thu, 20 Jun 2024 16:02:32 +0200 (CEST)
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id bda636d8-2f0d-11ef-90a3-e314d9c70b13;
+ Thu, 20 Jun 2024 16:02:33 +0200 (CEST)
 Received: from truciolo.bugseng.com (unknown [78.208.165.219])
- by support.bugseng.com (Postfix) with ESMTPSA id DC19F4EE0738;
- Thu, 20 Jun 2024 16:02:30 +0200 (CEST)
+ by support.bugseng.com (Postfix) with ESMTPSA id 7F0E14EE0755;
+ Thu, 20 Jun 2024 16:02:32 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,7 +39,7 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bce82612-2f0d-11ef-b4bb-af5377834399
+X-Inumbo-ID: bda636d8-2f0d-11ef-90a3-e314d9c70b13
 From: Federico Serafini <federico.serafini@bugseng.com>
 To: xen-devel@lists.xenproject.org
 Cc: consulting@bugseng.com,
@@ -50,55 +50,54 @@ Cc: consulting@bugseng.com,
 	Andrew Cooper <andrew.cooper3@citrix.com>,
 	George Dunlap <george.dunlap@citrix.com>,
 	Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [XEN PATCH 00/13] x86: address violations of MISRA C Rule 16.3
-Date: Thu, 20 Jun 2024 16:02:11 +0200
-Message-Id: <cover.1718892030.git.federico.serafini@bugseng.com>
+	Julien Grall <julien@xen.org>
+Subject: [XEN PATCH 01/13] automation/eclair: consider also hypened fall-through
+Date: Thu, 20 Jun 2024 16:02:12 +0200
+Message-Id: <10af9145252a2f5c31ea0f13cbb67cbe76a8ba3a.1718892030.git.federico.serafini@bugseng.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <cover.1718892030.git.federico.serafini@bugseng.com>
+References: <cover.1718892030.git.federico.serafini@bugseng.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This patch series addresses violations of MISRA C Rule 16.3 and updates
-the ECLAIR configuration to consider also hypened fall-through comment
-as a deviation to the rule.
+Update ECLAIR configuration to deviate MISRA C Rule 16.3
+using different version of hypened fall-through and search for
+the comment for 2 lines after the last statement.
 
-Federico Serafini (13):
-  automation/eclair: consider also hypened fall-through
-  x86/cpuid: use fallthrough pseudo keyword
-  x86/domctl: add missing break statement
-  x86/vpmu: address violations of MISRA C Rule 16.3
-  x86/traps: use fallthrough pseudo keyword
-  x86/mce: add missing break statements
-  x86/hvm: address violations of MISRA C Rule 16.3
-  x86/vpt: address a violation of MISRA C Rule 16.3
-  x86/mm: add defensive return
-  x86/mpparse: add break statement
-  x86/pmtimer: address a violation of MISRA C Rule 16.3
-  x86/vPIC: address a violation of MISRA C Rule 16.3
-  x86/vlapic: address a violation of MISRA C Rule 16.3
-
+Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
+---
  automation/eclair_analysis/ECLAIR/deviations.ecl | 2 +-
  docs/misra/deviations.rst                        | 4 ++++
- xen/arch/x86/cpu/mcheck/mce_amd.c                | 1 +
- xen/arch/x86/cpu/mcheck/mce_intel.c              | 2 ++
- xen/arch/x86/cpu/vpmu.c                          | 3 +++
- xen/arch/x86/cpu/vpmu_intel.c                    | 1 +
- xen/arch/x86/cpuid.c                             | 3 +--
- xen/arch/x86/domctl.c                            | 1 +
- xen/arch/x86/hvm/emulate.c                       | 3 +++
- xen/arch/x86/hvm/hvm.c                           | 6 ++++++
- xen/arch/x86/hvm/hypercall.c                     | 1 +
- xen/arch/x86/hvm/irq.c                           | 1 +
- xen/arch/x86/hvm/pmtimer.c                       | 1 +
- xen/arch/x86/hvm/vlapic.c                        | 1 +
- xen/arch/x86/hvm/vpic.c                          | 1 +
- xen/arch/x86/hvm/vpt.c                           | 2 ++
- xen/arch/x86/mm.c                                | 1 +
- xen/arch/x86/mpparse.c                           | 1 +
- xen/arch/x86/traps.c                             | 3 +++
- 19 files changed, 35 insertions(+), 3 deletions(-)
+ 2 files changed, 5 insertions(+), 1 deletion(-)
 
+diff --git a/automation/eclair_analysis/ECLAIR/deviations.ecl b/automation/eclair_analysis/ECLAIR/deviations.ecl
+index b8f9155267..b99a6b8a92 100644
+--- a/automation/eclair_analysis/ECLAIR/deviations.ecl
++++ b/automation/eclair_analysis/ECLAIR/deviations.ecl
+@@ -400,7 +400,7 @@ safe."
+ -doc_end
+ 
+ -doc_begin="Switch clauses ending with an explicit comment indicating the fallthrough intention are safe."
+--config=MC3R1.R16.3,reports+={safe, "any_area(end_loc(any_exp(text(^(?s).*/\\* [fF]all ?through.? \\*/.*$,0..1))))"}
++-config=MC3R1.R16.3,reports+={safe, "any_area(end_loc(any_exp(text(^(?s).*/\\* [fF]all[ -]?through.? \\*/.*$,0..2))))"}
+ -doc_end
+ 
+ -doc_begin="Switch statements having a controlling expression of enum type deliberately do not have a default case: gcc -Wall enables -Wswitch which warns (and breaks the build as we use -Werror) if one of the enum labels is missing from the switch."
+diff --git a/docs/misra/deviations.rst b/docs/misra/deviations.rst
+index 41cdfbe5f5..411e1fed3d 100644
+--- a/docs/misra/deviations.rst
++++ b/docs/misra/deviations.rst
+@@ -353,6 +353,10 @@ Deviations related to MISRA C:2012 Rules:
+        However, the use of such comments in new code is deprecated:
+        the pseudo-keyword "fallthrough" shall be used.
+      - Tagged as `safe` for ECLAIR. The accepted comments are:
++         - /\* fall-through \*/
++         - /\* Fall-through. \*/
++         - /\* Fall-through \*/
++         - /\* fall-through. \*/
+          - /\* fall through \*/
+          - /\* fall through. \*/
+          - /\* fallthrough \*/
 -- 
 2.34.1
 
