@@ -2,33 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 079E8910928
-	for <lists+xen-devel@lfdr.de>; Thu, 20 Jun 2024 16:59:18 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.744772.1151883 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9157C910939
+	for <lists+xen-devel@lfdr.de>; Thu, 20 Jun 2024 17:04:18 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.744779.1151893 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sKJFU-000820-17; Thu, 20 Jun 2024 14:58:52 +0000
+	id 1sKJKT-00016u-Js; Thu, 20 Jun 2024 15:04:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 744772.1151883; Thu, 20 Jun 2024 14:58:51 +0000
+Received: by outflank-mailman (output) from mailman id 744779.1151893; Thu, 20 Jun 2024 15:04:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sKJFT-00080F-UA; Thu, 20 Jun 2024 14:58:51 +0000
-Received: by outflank-mailman (input) for mailman id 744772;
- Thu, 20 Jun 2024 14:58:50 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=fPla=NW=bugseng.com=federico.serafini@srs-se1.protection.inumbo.net>)
- id 1sKJFS-000806-II
- for xen-devel@lists.xenproject.org; Thu, 20 Jun 2024 14:58:50 +0000
-Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 99c5e908-2f15-11ef-90a3-e314d9c70b13;
- Thu, 20 Jun 2024 16:58:49 +0200 (CEST)
-Received: from [192.168.1.113] (93-36-220-117.ip62.fastwebnet.it
- [93.36.220.117])
- by support.bugseng.com (Postfix) with ESMTPSA id 8581B4EE0738;
- Thu, 20 Jun 2024 16:58:48 +0200 (CEST)
+	id 1sKJKT-00013o-Gs; Thu, 20 Jun 2024 15:04:01 +0000
+Received: by outflank-mailman (input) for mailman id 744779;
+ Thu, 20 Jun 2024 15:04:00 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1sKJKS-00013e-Cz; Thu, 20 Jun 2024 15:04:00 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1sKJKS-0001EX-1M; Thu, 20 Jun 2024 15:04:00 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1sKJKR-00079d-LD; Thu, 20 Jun 2024 15:03:59 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1sKJKR-00083O-Kh; Thu, 20 Jun 2024 15:03:59 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,87 +42,135 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 99c5e908-2f15-11ef-90a3-e314d9c70b13
-Message-ID: <7f1256d8-6db4-4320-9bd4-c89ab5e68ce6@bugseng.com>
-Date: Thu, 20 Jun 2024 16:58:47 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH 01/13] automation/eclair: consider also hypened
- fall-through
-To: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
-Cc: consulting@bugseng.com, Simone Ballarin <simone.ballarin@bugseng.com>,
- Doug Goldstein <cardoe@cardoe.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>
-References: <cover.1718892030.git.federico.serafini@bugseng.com>
- <10af9145252a2f5c31ea0f13cbb67cbe76a8ba3a.1718892030.git.federico.serafini@bugseng.com>
- <846a944c-13a6-4b38-915a-d29136a90c19@xen.org>
-Content-Language: en-US, it
-From: Federico Serafini <federico.serafini@bugseng.com>
-Organization: BUGSENG
-In-Reply-To: <846a944c-13a6-4b38-915a-d29136a90c19@xen.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=MTc8l+//ia2+OBaWVBZ7ogc10v99L+B+S32bBwUbK6U=; b=j0OBQODjDQUGAXT1R5Mki45MZe
+	AfMp/YWyqzh0GJ9l0VLBM1Ad4TbYFGBQqozlFyoUVgApVgaQDr5E5e5qJ/+A7aEzxrmua7KmIxT9W
+	Q7Qhtv6awjhcp/DqH9fw/fJLcgl4VDzgV3k226fSGmJQHuSw0UvJIVhXRTa3UxY3HqxY=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-186427-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [libvirt test] 186427: tolerable all pass - PUSHED
+X-Osstest-Failures:
+    libvirt:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt:saverestore-support-check:fail:nonblocking
+    libvirt:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt-qcow2:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt-raw:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-qcow2:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-qcow2:saverestore-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
+    libvirt:test-armhf-armhf-libvirt-vhd:migrate-support-check:fail:nonblocking
+    libvirt:test-armhf-armhf-libvirt-vhd:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    libvirt=43d2edc08f5a7b5e1d0c3464580113e069d1efa7
+X-Osstest-Versions-That:
+    libvirt=2b199ad3f1a69bd6de1b2a1fc7d5bd31817dcb11
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Thu, 20 Jun 2024 15:03:59 +0000
 
-On 20/06/24 16:39, Julien Grall wrote:
-> Hi,
-> 
-> On 20/06/2024 15:02, Federico Serafini wrote:
->> Update ECLAIR configuration to deviate MISRA C Rule 16.3
->> using different version of hypened fall-through and search for
->> the comment for 2 lines after the last statement.
->>
->> Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
->> ---
->>   automation/eclair_analysis/ECLAIR/deviations.ecl | 2 +-
->>   docs/misra/deviations.rst                        | 4 ++++
->>   2 files changed, 5 insertions(+), 1 deletion(-)
->>
->> diff --git a/automation/eclair_analysis/ECLAIR/deviations.ecl 
->> b/automation/eclair_analysis/ECLAIR/deviations.ecl
->> index b8f9155267..b99a6b8a92 100644
->> --- a/automation/eclair_analysis/ECLAIR/deviations.ecl
->> +++ b/automation/eclair_analysis/ECLAIR/deviations.ecl
->> @@ -400,7 +400,7 @@ safe."
->>   -doc_end
->>   -doc_begin="Switch clauses ending with an explicit comment 
->> indicating the fallthrough intention are safe."
->> --config=MC3R1.R16.3,reports+={safe, 
->> "any_area(end_loc(any_exp(text(^(?s).*/\\* [fF]all ?through.? 
->> \\*/.*$,0..1))))"}
->> +-config=MC3R1.R16.3,reports+={safe, 
->> "any_area(end_loc(any_exp(text(^(?s).*/\\* [fF]all[ -]?through.? 
->> \\*/.*$,0..2))))"}
->>   -doc_end
->>   -doc_begin="Switch statements having a controlling expression of 
->> enum type deliberately do not have a default case: gcc -Wall enables 
->> -Wswitch which warns (and breaks the build as we use -Werror) if one 
->> of the enum labels is missing from the switch."
->> diff --git a/docs/misra/deviations.rst b/docs/misra/deviations.rst
->> index 41cdfbe5f5..411e1fed3d 100644
->> --- a/docs/misra/deviations.rst
->> +++ b/docs/misra/deviations.rst
->> @@ -353,6 +353,10 @@ Deviations related to MISRA C:2012 Rules:
->>          However, the use of such comments in new code is deprecated:
->>          the pseudo-keyword "fallthrough" shall be used.
->>        - Tagged as `safe` for ECLAIR. The accepted comments are:
->> +         - /\* fall-through \*/
->> +         - /\* Fall-through. \*/
->> +         - /\* Fall-through \*/
->> +         - /\* fall-through. \*/
-> 
-> How many places use the 4 above? The reason I am asking is I am not 
-> particularly happy to add yet another set of variant.
-> 
-> I would rather prefer if we settle down with a single comment and 
-> therefore convert them to the pseudo-keyword.
+flight 186427 libvirt real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/186427/
 
-7 occurrences and 3 of them are in xen/arch/x86/hvm/emulate.c
-PATCH 07/13 modifies emulate.c anyway, so I could remove them in a v2.
+Failures :-/ but no regressions.
 
--- 
-Federico Serafini, M.Sc.
+Tests which did not succeed, but are not blocking:
+ test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 186407
+ test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt     16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-qcow2 14 migrate-support-check        fail never pass
+ test-amd64-amd64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-qcow2 14 migrate-support-check        fail never pass
+ test-arm64-arm64-libvirt-qcow2 15 saverestore-support-check    fail never pass
+ test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
+ test-armhf-armhf-libvirt-vhd 14 migrate-support-check        fail   never pass
+ test-armhf-armhf-libvirt-vhd 15 saverestore-support-check    fail   never pass
 
-Software Engineer, BUGSENG (http://bugseng.com)
+version targeted for testing:
+ libvirt              43d2edc08f5a7b5e1d0c3464580113e069d1efa7
+baseline version:
+ libvirt              2b199ad3f1a69bd6de1b2a1fc7d5bd31817dcb11
+
+Last test of basis   186407  2024-06-19 04:22:27 Z    1 days
+Testing same since   186427  2024-06-20 04:18:46 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Adam Julis <ajulis@redhat.com>
+  Göran Uddeborg <goeran@uddeborg.se>
+  Martin Kletzander <mkletzan@redhat.com>
+  Michal Privoznik <mprivozn@redhat.com>
+  Swapnil Ingle <swapnil.ingle@nutanix.com>
+  Weblate <noreply-mt-weblate@weblate.org>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 pass    
+ test-amd64-amd64-libvirt                                     pass    
+ test-arm64-arm64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     pass    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-amd64-libvirt-qcow2                               pass    
+ test-arm64-arm64-libvirt-qcow2                               pass    
+ test-amd64-amd64-libvirt-raw                                 pass    
+ test-arm64-arm64-libvirt-raw                                 pass    
+ test-amd64-amd64-libvirt-vhd                                 pass    
+ test-armhf-armhf-libvirt-vhd                                 pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/libvirt.git
+   2b199ad3f1..43d2edc08f  43d2edc08f5a7b5e1d0c3464580113e069d1efa7 -> xen-tested-master
 
