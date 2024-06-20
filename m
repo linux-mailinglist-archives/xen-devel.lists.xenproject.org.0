@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 31848910016
-	for <lists+xen-devel@lfdr.de>; Thu, 20 Jun 2024 11:15:57 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.744313.1151333 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4AF4391004A
+	for <lists+xen-devel@lfdr.de>; Thu, 20 Jun 2024 11:27:09 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.744324.1151343 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sKDtN-0003po-5I; Thu, 20 Jun 2024 09:15:41 +0000
+	id 1sKE41-0005jM-5C; Thu, 20 Jun 2024 09:26:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 744313.1151333; Thu, 20 Jun 2024 09:15:41 +0000
+Received: by outflank-mailman (output) from mailman id 744324.1151343; Thu, 20 Jun 2024 09:26:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sKDtN-0003nF-1P; Thu, 20 Jun 2024 09:15:41 +0000
-Received: by outflank-mailman (input) for mailman id 744313;
- Thu, 20 Jun 2024 09:15:39 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1sKE41-0005gw-2T; Thu, 20 Jun 2024 09:26:41 +0000
+Received: by outflank-mailman (input) for mailman id 744324;
+ Thu, 20 Jun 2024 09:26:39 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Zqic=NW=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sKDtL-0003n8-Q8
- for xen-devel@lists.xenproject.org; Thu, 20 Jun 2024 09:15:39 +0000
-Received: from mail-lj1-x22e.google.com (mail-lj1-x22e.google.com
- [2a00:1450:4864:20::22e])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a8d877d6-2ee5-11ef-90a3-e314d9c70b13;
- Thu, 20 Jun 2024 11:15:38 +0200 (CEST)
-Received: by mail-lj1-x22e.google.com with SMTP id
- 38308e7fff4ca-2eaea28868dso7758291fa.3
- for <xen-devel@lists.xenproject.org>; Thu, 20 Jun 2024 02:15:38 -0700 (PDT)
+ id 1sKE3z-0005gq-1t
+ for xen-devel@lists.xenproject.org; Thu, 20 Jun 2024 09:26:39 +0000
+Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
+ [2a00:1450:4864:20::32d])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 30f4e296-2ee7-11ef-b4bb-af5377834399;
+ Thu, 20 Jun 2024 11:26:36 +0200 (CEST)
+Received: by mail-wm1-x32d.google.com with SMTP id
+ 5b1f17b1804b1-42108856c33so10995105e9.1
+ for <xen-devel@lists.xenproject.org>; Thu, 20 Jun 2024 02:26:36 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-1f855e70efdsm132891975ad.89.2024.06.20.02.15.35
+ d2e1a72fcca58-705cc966d12sm12021451b3a.60.2024.06.20.02.26.32
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 20 Jun 2024 02:15:37 -0700 (PDT)
+ Thu, 20 Jun 2024 02:26:35 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a8d877d6-2ee5-11ef-90a3-e314d9c70b13
+X-Inumbo-ID: 30f4e296-2ee7-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1718874938; x=1719479738; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1718875596; x=1719480396; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=ecg+8Do6KBVsgEIgZxE1KcnUiQXqJiCZhnqnv1stNf0=;
-        b=eaWz1UTqOW59e9kyvyFZ5r+ExlUZ7gogr1g4KtoXcZNNspsG8PQutN4sNQHcxJt7YW
-         mt9i+21LzZxt0CfhoCniAQAvKa6mr1UpkumGpXDAV0W3b6x/TRfDN9NmdBeYU5uLC9SF
-         JUmwX2FI52LEwI1J5LEqz4XvyKUEhgqz6WGkX4pV/9wTdzaypeLdV9u6yTH2OStb9WZO
-         Lj+Pr7bd6vUspXzqM+sil7Wn9rKIyfXogewe+ulTx7Eda0FZnlZ1wv9OML/mww3sJIHx
-         s9c6/vVb7hPOeSxIbQFyPXfNNXaoLLTOOzBUbHuDaf1d/bHu2yE45e9SC2+TKGgmbvnS
-         nu9w==
+        bh=ukSYQxV8WYuiBktk/w2rk6jVRIf9YinMQmE2j/ELZuU=;
+        b=XeVueRZCQCUP4NcIPeXecNbAHVSF56StLZAR/JiogGkC1ZKFtXEb8FJZhKcly8ttLh
+         SmyNAbeHk8OwGIAzmtD+Y+IRo7c/eGIti+abNPsaYIrm/gso5YB3qpRjAdPxavwuCwqZ
+         QFrFTHjkrJJMoTB4R6u7jJ5XCGqkD7eX0Y7QntKrfr4QYlHToRITo4yecJYT4BIduP4S
+         QTmBd82m4re18sajBvf/S9QVBBDRXuucTbLYfJfBu2dhRkr6cqxY0BZ45d0arxNLWxNk
+         G5YQ4Oujibsv7g5RrwQLo0ZIHlVoRaAWAo/1EMg8M0SrFkdldHjW9e83jODuQqi0rb1R
+         gpNQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1718874938; x=1719479738;
+        d=1e100.net; s=20230601; t=1718875596; x=1719480396;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=ecg+8Do6KBVsgEIgZxE1KcnUiQXqJiCZhnqnv1stNf0=;
-        b=bHazm15b0Z5sf2yRM7gCJ72tu+m03RBaxNVnbw8vKS8vbiszHYAFaXInyZKZALYGzf
-         LmB4VNpwrgYJBP8sPynLeKDJ1Eu9+3fNiBsAYKnMAOIYItjxXbSTnTnLR8yFY7Vi+Rj/
-         XIrw9ZtcY+H4ybnjxbhn8+KlmMtHMilVZQWJRrXnCFDw1tgsDzURdx88dYHJsq2zNQL3
-         pTjjhcKGguihmP6Y3qUNMKj6ZpUGEe5n4cPWrLHRKCeShdTZjHwqsasPvNp89+UG2YKd
-         C0jzmZUFluU7KMjac3WOdsnkeoJsUt40EQ37b1meKX1h47GaJeqU7joS/KGsxYhZt/CA
-         Go0Q==
-X-Forwarded-Encrypted: i=1; AJvYcCX77Vxu8MSR8V9P4xHlKJc6dD0j0zliQZ3ZO8wUDxoVqgckM1OXtxa5+bFD2HX52Xl1KVrbULKRWjWRMO6n8WSiGNeh19m9wtgkqe0c2Ro=
-X-Gm-Message-State: AOJu0YxSOirohcEgozd9o9rSaFIHauORfm02d5fUU9QiOAaqYFLlCqbJ
-	ygtxnXPcE9No0Cu2IhKChZql3GbLNhLyBPePOJ7qFKsM+xoXv/LpvBy2Qu26tA==
-X-Google-Smtp-Source: AGHT+IEZZTqA4XN1zfyUOX/h0sovw2/SA8OqqPUndSyq639G4VrMUMJKqqMZXb60u3WmG/NROm3muQ==
-X-Received: by 2002:a2e:9e16:0:b0:2ea:e74c:40a2 with SMTP id 38308e7fff4ca-2ec3cec1131mr35950061fa.20.1718874938455;
-        Thu, 20 Jun 2024 02:15:38 -0700 (PDT)
-Message-ID: <4189674e-af5e-4ffd-9558-bf0f1bc3338d@suse.com>
-Date: Thu, 20 Jun 2024 11:15:31 +0200
+        bh=ukSYQxV8WYuiBktk/w2rk6jVRIf9YinMQmE2j/ELZuU=;
+        b=BuVV9QNUZS+rE3DxtPkHrkklX5BgLMFtRI1N/a3PgBMyIzps58Pg2b3BzeWGQln9ib
+         iv3x8Dzp9U0MO41YgVOZgVVooIdzBJJQ9ImZXte2ffn4W2/jnQaCF95/dThrnH+G7RR+
+         14NKCpDwnWKsbtdh5xK+7+YitFX5xz7SQEWScW6CqONt/aR8cuuag2dThNDDAjRhjm8v
+         +TYgajtfbeE3qE3hgAN/99Znv8Ken0Yh8qwyiAg9k0+VByUNhBENZzm9kDUgbmtL2Icw
+         ewO1Ccy9OP+1UD8Mk/RajHmTENEJYxD7QHxFOC/7JpA9jQsSG/O54ZUVPPMKzAsXBJXN
+         6Gng==
+X-Forwarded-Encrypted: i=1; AJvYcCWBuZdk7FOdHMUUeIVffkO8uS6/pFnnH4wJFIwQicdTiA3rGfc5DRUZLC7MQEmIMteVCrokvkLozJKjcaVN9QHG0wZzxDtJPg6EVhncPHY=
+X-Gm-Message-State: AOJu0Yy6F1q5czaWMGAAcDC23XzZLYc8zKID45rNIQM7lX5qYMvZGZNF
+	AIB8swbwaa+mNlpMx/gZf38hfviCXKHKIwapuwKS4IIrZQOIkGWlrwdoBASxjIzmJi+T0rcNdRI
+	=
+X-Google-Smtp-Source: AGHT+IH9m/T7KSOA68Av1ymbJtklP9ULXBtYuXZXXq2GmUiqKeVbMeECEZOtelTXoEkbU2RfjYc9EA==
+X-Received: by 2002:adf:fa81:0:b0:362:4679:b5a with SMTP id ffacd0b85a97d-3624688530emr6014052f8f.16.1718875596051;
+        Thu, 20 Jun 2024 02:26:36 -0700 (PDT)
+Message-ID: <5f486b5a-aba1-41f6-9e24-16ad3acd67bd@suse.com>
+Date: Thu, 20 Jun 2024 11:26:28 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] x86/APIC: address violation of MISRA C Rule 21.2
+Subject: Re: [PATCH] automation/eclair_analysis: deviate and|or|xor for MISRA
+ C Rule 21.2
 To: Alessandro Zucchelli <alessandro.zucchelli@bugseng.com>
-Cc: consulting@bugseng.com, Nicola Vetrini <nicola.vetrini@bugseng.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org
-References: <cover.1718816397.git.alessandro.zucchelli@bugseng.com>
- <4a31cfc5e8d4e2c5e159ca4d67ac477feb000073.1718816397.git.alessandro.zucchelli@bugseng.com>
+Cc: consulting@bugseng.com, Simone Ballarin <simone.ballarin@bugseng.com>,
+ Doug Goldstein <cardoe@cardoe.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <b89e106649e3d0ecb41baadb49dc09c54b7563ec.1718873635.git.alessandro.zucchelli@bugseng.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -114,38 +114,44 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <4a31cfc5e8d4e2c5e159ca4d67ac477feb000073.1718816397.git.alessandro.zucchelli@bugseng.com>
+In-Reply-To: <b89e106649e3d0ecb41baadb49dc09c54b7563ec.1718873635.git.alessandro.zucchelli@bugseng.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 19.06.2024 19:09, Alessandro Zucchelli wrote:
-> From: Nicola Vetrini <nicola.vetrini@bugseng.com>
-> 
-> The rule disallows the usage of an identifier reserved by the C standard.
-> All identfiers starting with '__' are reserved for any use, so the label
-> can be renamed in order to avoid the violation.
-> 
-> No functional change.
-> 
-> Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
+On 20.06.2024 11:07, Alessandro Zucchelli wrote:
+> Rule 21.2 reports identifiers reserved for the C and POSIX standard
+> libraries: or, and and xor are reserved identifiers because they constitute
+> alternate spellings for the corresponding operators; however Xen doesn't
+> use standard library headers, so there is no risk of overlap.
 
-While the code change is certainly okay (with a cosmetic remark below),
-you sending a change Nicola made requires, aiui, you own S-o-b as well.
+This is iso646.h aiui, which imo would be good to mention here, just
+to avoid people needing to go hunt for where this is coming from.
 
-> @@ -941,7 +941,7 @@ void __init init_apic_mappings(void)
->      apic_printk(APIC_VERBOSE, "mapped APIC to %08Lx (%08lx)\n", APIC_BASE,
->                  apic_phys);
+> This addresses violations arising from x86_emulate/x86_emulate.c, where
+> label statements named as or, and and xor appear.
+
+So a deviation purely by present uses, even ...
+
+> --- a/automation/eclair_analysis/ECLAIR/deviations.ecl
+> +++ b/automation/eclair_analysis/ECLAIR/deviations.ecl
+> @@ -498,6 +498,12 @@ still remain available."
+>  -config=MC3R1.R21.2,declarations+={safe, "!^__builtin_.*$"}
+>  -doc_end
 >  
-> -__next:
-> +next:
+> +-doc_begin="or, and and xor are reserved identifiers because they constitute alternate
+> +spellings for the corresponding operators.
+> +However, Xen doesn't use standard library headers, so there is no risk of overlap."
+> +-config=MC3R1.R21.2,reports+={safe, "any_area(stmt(ref(kind(label)&&^(or|and|xor)$)))"}
+> +-doc_end
 
-While touching this (or any) label, can you please also make sure that
-from now on it respects this section of ./CODING_STYLE (part of the
-section "Indentation")?
+... constrained to just labels. Why would we do that? Why can't we deviate
+them all (or at least all that are plausible to potentially use somewhere,
+which imo would include at least "not" as well), and no matter what
+syntactical element they would be used as?
 
-"Due to the behavior of GNU diffutils "diff -p", labels should be
- indented by at least one blank.  Non-case labels inside switch() bodies
- are preferred to be indented the same as the block's case labels."
+Besides, just as a remark: Specifically when used as label names, there's
+no risk at all, I'm inclined to say. If iso646.h existed in Xen and was
+included in such a source file, the compiler would choke on the result.
 
 Jan
 
