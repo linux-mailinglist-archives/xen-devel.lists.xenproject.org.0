@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EFF8690FB28
-	for <lists+xen-devel@lfdr.de>; Thu, 20 Jun 2024 04:02:01 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.744103.1151123 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2A02590FBC3
+	for <lists+xen-devel@lfdr.de>; Thu, 20 Jun 2024 05:47:21 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.744121.1151139 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sK76d-0003h6-Du; Thu, 20 Jun 2024 02:00:55 +0000
+	id 1sK8kK-0006uq-Sn; Thu, 20 Jun 2024 03:46:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 744103.1151123; Thu, 20 Jun 2024 02:00:55 +0000
+Received: by outflank-mailman (output) from mailman id 744121.1151139; Thu, 20 Jun 2024 03:46:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sK76d-0003fb-Ah; Thu, 20 Jun 2024 02:00:55 +0000
-Received: by outflank-mailman (input) for mailman id 744103;
- Thu, 20 Jun 2024 02:00:54 +0000
+	id 1sK8kK-0006sX-Ou; Thu, 20 Jun 2024 03:46:00 +0000
+Received: by outflank-mailman (input) for mailman id 744121;
+ Thu, 20 Jun 2024 03:45:58 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <osstest-admin@xenproject.org>)
- id 1sK76c-0003fR-51; Thu, 20 Jun 2024 02:00:54 +0000
+ id 1sK8kI-0006s4-Jw; Thu, 20 Jun 2024 03:45:58 +0000
 Received: from host146.205.237.98.conversent.net ([205.237.98.146]
  helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <osstest-admin@xenproject.org>)
- id 1sK76b-0002n7-PM; Thu, 20 Jun 2024 02:00:53 +0000
+ id 1sK8kI-0004rK-4p; Thu, 20 Jun 2024 03:45:58 +0000
 Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
  by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <osstest-admin@xenproject.org>)
- id 1sK76b-0005bD-Bz; Thu, 20 Jun 2024 02:00:53 +0000
+ id 1sK8kH-0008FC-RT; Thu, 20 Jun 2024 03:45:57 +0000
 Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
  4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1sK76b-00052Q-Bd; Thu, 20 Jun 2024 02:00:53 +0000
+ id 1sK8kH-0003G4-Qr; Thu, 20 Jun 2024 03:45:57 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,67 +45,225 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
 	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=WKtVsefQ5uQvuHYTWQPr+hwVXuI24rRuw35DnVcArzc=; b=Iw956kl9glPGzcW0KxFyT5gq0g
-	YM1YKlL/aj29gSWwPqb3ngGfgsmrMMnh9rUI4bw/1P68NUm17d/pWaVfO2nYu+gYmKh/a+nDfw9D9
-	PGXGUY4nKy1/PKRgZ/Yu86qR7idCgOM940Oi46kcirp6yvK80iHTpBkh9IsHsy84i8hc=;
+	bh=+Akyi2ebykoqDX5UrGj/H55qpaMFo95gBf9tbup1rek=; b=40iay0Svaqf+pLBx5dzStGKrXz
+	fPga4b4n/cvOeOK4QFKHXFQlIJJ/fofTqlzvCG5KkdpzJJVuxssGPelXx6ag16J5Y/I/Ng6Vbnesi
+	+q3iH8E3cREGJ5vgPD7QliJDSdGNcYdcBCPQd1/LhRnf1TRg3DORfU/8Nl1yC6/OKKgk=;
 To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-186420-mainreport@xen.org>
+Message-ID: <osstest-186413-mainreport@xen.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 186420: regressions - FAIL
+Subject: [linux-linus test] 186413: regressions - FAIL
 X-Osstest-Failures:
-    xen-unstable-smoke:build-armhf:xen-build:fail:regression
-    xen-unstable-smoke:test-armhf-armhf-xl:build-check(1):blocked:nonblocking
-    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-raw:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-libvirt:xen-boot:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-armhf-armhf-examine:reboot:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-qcow2:migrate-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-raw:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-qcow2:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-qcow2:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-vhd:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-vhd:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-libvirt-vhd:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-libvirt-vhd:saverestore-support-check:fail:nonblocking
 X-Osstest-Versions-This:
-    xen=43d5c5d5f70b3f5419e7ef30399d23adf6ddfa8e
+    linux=e5b3efbe1ab1793bb49ae07d56d0973267e65112
 X-Osstest-Versions-That:
-    xen=efa6e9f15ba943d154e8d7b29384581915b2aacd
+    linux=92e5605a199efbaee59fb19e15d6cc2103a04ec2
 From: osstest service owner <osstest-admin@xenproject.org>
-Date: Thu, 20 Jun 2024 02:00:53 +0000
+Date: Thu, 20 Jun 2024 03:45:57 +0000
 
-flight 186420 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/186420/
+flight 186413 linux-linus real [real]
+flight 186424 linux-linus real-retest [real]
+http://logs.test-lab.xenproject.org/osstest/logs/186413/
+http://logs.test-lab.xenproject.org/osstest/logs/186424/
 
 Regressions :-(
 
 Tests which did not succeed and are blocking,
 including tests which could not be run:
- build-armhf                   6 xen-build                fail REGR. vs. 186411
+ test-armhf-armhf-xl-raw       8 xen-boot                 fail REGR. vs. 186406
 
 Tests which did not succeed, but are not blocking:
- test-armhf-armhf-xl           1 build-check(1)               blocked  n/a
+ test-armhf-armhf-libvirt      8 xen-boot                     fail  like 186406
+ test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 186406
+ test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 186406
+ test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 186406
+ test-armhf-armhf-examine      8 reboot                       fail  like 186406
+ test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 186406
+ test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 186406
  test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
  test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
  test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-credit2  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-qcow2 14 migrate-support-check        fail never pass
+ test-amd64-amd64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-credit1  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-qcow2    14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-qcow2    15 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-vhd      14 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-vhd      15 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-rtds     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-rtds     16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-multivcpu 15 migrate-support-check        fail  never pass
+ test-armhf-armhf-xl-multivcpu 16 saverestore-support-check    fail  never pass
+ test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-libvirt-vhd 14 migrate-support-check        fail   never pass
+ test-armhf-armhf-libvirt-vhd 15 saverestore-support-check    fail   never pass
 
 version targeted for testing:
- xen                  43d5c5d5f70b3f5419e7ef30399d23adf6ddfa8e
+ linux                e5b3efbe1ab1793bb49ae07d56d0973267e65112
 baseline version:
- xen                  efa6e9f15ba943d154e8d7b29384581915b2aacd
+ linux                92e5605a199efbaee59fb19e15d6cc2103a04ec2
 
-Last test of basis   186411  2024-06-19 12:00:22 Z    0 days
-Testing same since   186412  2024-06-19 15:03:58 Z    0 days    4 attempts
+Last test of basis   186406  2024-06-19 02:45:48 Z    1 days
+Testing same since   186413  2024-06-19 17:42:05 Z    0 days    1 attempts
 
 ------------------------------------------------------------
 People who touched revisions under test:
-  Andrew Cooper <andrew.cooper3@citrix.com>
-  Jan Beulich <jbeulich@suse.com>
-  Julien Grall <jgrall@amazon.com>
-  Stefano Stabellini <sstabellini@kernel.org>
+  Christian Marangi <ansuelsmth@gmail.com>
+  Florian Fainelli <florian.fainelli@broadcom.com>
+  Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
+  Linus Torvalds <torvalds@linux-foundation.org>
+  Martin Schiller <ms@dev.tdt.de>
+  Masami Hiramatsu (Google) <mhiramat@kernel.org>
+  Thomas Bogendoerfer <tsbogend@alpha.franken.de>
 
 jobs:
+ build-amd64-xsm                                              pass    
  build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
  build-amd64                                                  pass    
- build-armhf                                                  fail    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
  build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          blocked 
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl                                          pass    
+ test-amd64-coresched-amd64-xl                                pass    
+ test-arm64-arm64-xl                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
+ test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 pass    
+ test-amd64-amd64-xl-xsm                                      pass    
  test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-qemuu-nested-amd                            fail    
+ test-amd64-amd64-xl-pvhv2-amd                                pass    
+ test-amd64-amd64-dom0pvh-xl-amd                              pass    
+ test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
  test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
+ test-amd64-amd64-qemuu-freebsd12-amd64                       pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-amd64-xl-qemut-win7-amd64                         fail    
+ test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
+ test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
+ test-armhf-armhf-xl-arndale                                  pass    
+ test-amd64-amd64-examine-bios                                pass    
+ test-amd64-amd64-xl-credit1                                  pass    
+ test-arm64-arm64-xl-credit1                                  pass    
+ test-armhf-armhf-xl-credit1                                  pass    
+ test-amd64-amd64-xl-credit2                                  pass    
+ test-arm64-arm64-xl-credit2                                  pass    
+ test-armhf-armhf-xl-credit2                                  pass    
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
+ test-amd64-amd64-examine                                     pass    
+ test-arm64-arm64-examine                                     pass    
+ test-armhf-armhf-examine                                     fail    
+ test-amd64-amd64-qemuu-nested-intel                          pass    
+ test-amd64-amd64-xl-pvhv2-intel                              pass    
+ test-amd64-amd64-dom0pvh-xl-intel                            pass    
  test-amd64-amd64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     fail    
+ test-amd64-amd64-xl-multivcpu                                pass    
+ test-armhf-armhf-xl-multivcpu                                pass    
+ test-amd64-amd64-pair                                        pass    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-amd64-xl-pvshim                                   pass    
+ test-amd64-amd64-pygrub                                      pass    
+ test-amd64-amd64-libvirt-qcow2                               pass    
+ test-amd64-amd64-xl-qcow2                                    pass    
+ test-armhf-armhf-xl-qcow2                                    pass    
+ test-amd64-amd64-libvirt-raw                                 pass    
+ test-arm64-arm64-libvirt-raw                                 pass    
+ test-amd64-amd64-xl-raw                                      pass    
+ test-armhf-armhf-xl-raw                                      fail    
+ test-amd64-amd64-xl-rtds                                     pass    
+ test-armhf-armhf-xl-rtds                                     pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
+ test-amd64-amd64-xl-shadow                                   pass    
+ test-arm64-arm64-xl-thunderx                                 pass    
+ test-amd64-amd64-examine-uefi                                pass    
+ test-amd64-amd64-libvirt-vhd                                 pass    
+ test-armhf-armhf-libvirt-vhd                                 pass    
+ test-amd64-amd64-xl-vhd                                      pass    
+ test-arm64-arm64-xl-vhd                                      pass    
 
 
 ------------------------------------------------------------
@@ -127,257 +285,194 @@ Test harness code can be found at
 Not pushing.
 
 ------------------------------------------------------------
-commit 43d5c5d5f70b3f5419e7ef30399d23adf6ddfa8e
-Author: Jan Beulich <jbeulich@suse.com>
-Date:   Wed Jun 19 14:11:07 2024 +0200
+commit e5b3efbe1ab1793bb49ae07d56d0973267e65112
+Merge: 6785e3cc09f1 3572bd5689b0
+Author: Linus Torvalds <torvalds@linux-foundation.org>
+Date:   Wed Jun 19 10:29:49 2024 -0700
 
-    xen: avoid UB in guest handle arithmetic
+    Merge tag 'probes-fixes-v6.10-rc4' of git://git.kernel.org/pub/scm/linux/kernel/git/trace/linux-trace
     
-    At least XENMEM_memory_exchange can have huge values passed in the
-    nr_extents and nr_exchanged fields. Adding such values to pointers can
-    overflow, resulting in UB. Cast respective pointers to "unsigned long"
-    while at the same time making the necessary multiplication explicit.
-    Remaining arithmetic is, despite there possibly being mathematical
-    overflow, okay as per the C99 spec: "A computation involving unsigned
-    operands can never overflow, because a result that cannot be represented
-    by the resulting unsigned integer type is reduced modulo the number that
-    is one greater than the largest value that can be represented by the
-    resulting type." The overflow that we need to guard against is checked
-    for in array_access_ok().
+    Pull probes fix from Masami Hiramatsu:
     
-    Note that in / down from array_access_ok() the address value is only
-    ever cast to "unsigned long" anyway, which is why in the invocation from
-    guest_handle_subrange_okay() the value doesn't need casting back to
-    pointer type.
+     - Restrict gen-API tests for synthetic and kprobe events to only be
+       built as modules, as they generate dynamic events that cannot be
+       removed, causing ftracetest and startup selftests to fail
     
-    In compat grant table code change two guest_handle_add_offset() to avoid
-    passing in negative offsets.
-    
-    Since {,__}clear_guest_offset() need touching anyway, also deal with
-    another (latent) issue there: They were losing the handle type, i.e. the
-    size of the individual objects accessed. Luckily the few users we
-    presently have all pass char or uint8 handles.
-    
-    Reported-by: Andrew Cooper <andrew.cooper3@citrix.com>
-    Signed-off-by: Jan Beulich <jbeulich@suse.com>
-    Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
-    Tested-by: Andrew Cooper <andrew.cooper3@citrix.com>
-    Release-Acked-By: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+    * tag 'probes-fixes-v6.10-rc4' of git://git.kernel.org/pub/scm/linux/kernel/git/trace/linux-trace:
+      tracing: Build event generation tests only as modules
 
-commit 267122a24c499d26278ab2dbdfb46ebcaaf38474
-Author: Andrew Cooper <andrew.cooper3@citrix.com>
-Date:   Fri Apr 30 16:14:36 2021 +0100
+commit 6785e3cc09f149c42ce70eb92736d68c0db64684
+Merge: 92e5605a199e 6e5aee08bd25
+Author: Linus Torvalds <torvalds@linux-foundation.org>
+Date:   Wed Jun 19 10:19:41 2024 -0700
 
-    x86/defns: Clean up X86_{XCR0,XSS}_* constants
+    Merge tag 'mips-fixes_6.10_1' of git://git.kernel.org/pub/scm/linux/kernel/git/mips/linux
     
-    With the exception of one case in read_bndcfgu() which can use ilog2(),
-    the *_POS defines are unused.  Drop them.
+    Pull MIPS fixes from Thomas Bogendoerfer:
     
-    X86_XCR0_X87 is the name used by both the SDM and APM, rather than
-    X86_XCR0_FP.
+     - fix for BCM6538 boards
     
-    No functional change.
+     - fix RB532 PCI workaround
     
-    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-    Acked-by: Jan Beulich <jbeulich@suse.com>
-    Release-Acked-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+    * tag 'mips-fixes_6.10_1' of git://git.kernel.org/pub/scm/linux/kernel/git/mips/linux:
+      Revert "MIPS: pci: lantiq: restore reset gpio polarity"
+      mips: bmips: BCM6358: make sure CBR is correctly set
+      MIPS: pci: lantiq: restore reset gpio polarity
+      MIPS: Routerboard 532: Fix vendor retry check code
 
-commit 71cacfb035f4a78ee10970dc38a3baa04d387451
-Author: Andrew Cooper <andrew.cooper3@citrix.com>
-Date:   Fri Apr 30 20:17:55 2021 +0100
+commit 6e5aee08bd2517397c9572243a816664f2ead547
+Author: Thomas Bogendoerfer <tsbogend@alpha.franken.de>
+Date:   Thu Jun 13 10:17:09 2024 +0200
 
-    x86/cpuid: Fix handling of XSAVE dynamic leaves
+    Revert "MIPS: pci: lantiq: restore reset gpio polarity"
     
-    First, if XSAVE is available in hardware but not visible to the guest, the
-    dynamic leaves shouldn't be filled in.
+    This reverts commit 277a0363120276645ae598d8d5fea7265e076ae9.
     
-    Second, the comment concerning XSS state is wrong.  VT-x doesn't manage
-    host/guest state automatically, but there is provision for "host only" bits to
-    be set, so the implications are still accurate.
+    While fixing old boards with broken DTs, this change will break
+    newer ones with correct gpio polarity annotation.
     
-    Introduce xstate_compressed_size() to mirror the uncompressed one.  Cross
-    check it at boot.
-    
-    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-    Reviewed-by: Jan Beulich <jbeulich@suse.com>
-    Release-Acked-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+    Signed-off-by: Thomas Bogendoerfer <tsbogend@alpha.franken.de>
 
-commit fdb7e77fea4cb1c98dc51dd891a47f7e94612ad4
-Author: Andrew Cooper <andrew.cooper3@citrix.com>
-Date:   Fri Apr 30 20:17:55 2021 +0100
+commit 3572bd5689b0812b161b40279e39ca5b66d73e88
+Author: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+Date:   Tue Jun 11 22:30:37 2024 +0900
 
-    x86/cpu-policy: Simplify recalculate_xstate()
+    tracing: Build event generation tests only as modules
     
-    Make use of xstate_uncompressed_size() helper rather than maintaining the
-    running calculation while accumulating feature components.
+    The kprobes and synth event generation test modules add events and lock
+    (get a reference) those event file reference in module init function,
+    and unlock and delete it in module exit function. This is because those
+    are designed for playing as modules.
     
-    The rest of the CPUID data can come direct from the raw cpu policy.  All
-    per-component data form an ABI through the behaviour of the X{SAVE,RSTOR}*
-    instructions.
+    If we make those modules as built-in, those events are left locked in the
+    kernel, and never be removed. This causes kprobe event self-test failure
+    as below.
     
-    Use for_each_set_bit() rather than opencoding a slightly awkward version of
-    it.  Mask the attributes in ecx down based on the visible features.  This
-    isn't actually necessary for any components or attributes defined at the time
-    of writing (up to AMX), but is added out of an abundance of caution.
+    [   97.349708] ------------[ cut here ]------------
+    [   97.353453] WARNING: CPU: 3 PID: 1 at kernel/trace/trace_kprobe.c:2133 kprobe_trace_self_tests_init+0x3f1/0x480
+    [   97.357106] Modules linked in:
+    [   97.358488] CPU: 3 PID: 1 Comm: swapper/0 Not tainted 6.9.0-g699646734ab5-dirty #14
+    [   97.361556] Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.15.0-1 04/01/2014
+    [   97.363880] RIP: 0010:kprobe_trace_self_tests_init+0x3f1/0x480
+    [   97.365538] Code: a8 24 08 82 e9 ae fd ff ff 90 0f 0b 90 48 c7 c7 e5 aa 0b 82 e9 ee fc ff ff 90 0f 0b 90 48 c7 c7 2d 61 06 82 e9 8e fd ff ff 90 <0f> 0b 90 48 c7 c7 33 0b 0c 82 89 c6 e8 6e 03 1f ff 41 ff c7 e9 90
+    [   97.370429] RSP: 0000:ffffc90000013b50 EFLAGS: 00010286
+    [   97.371852] RAX: 00000000fffffff0 RBX: ffff888005919c00 RCX: 0000000000000000
+    [   97.373829] RDX: ffff888003f40000 RSI: ffffffff8236a598 RDI: ffff888003f40a68
+    [   97.375715] RBP: 0000000000000000 R08: 0000000000000001 R09: 0000000000000000
+    [   97.377675] R10: ffffffff811c9ae5 R11: ffffffff8120c4e0 R12: 0000000000000000
+    [   97.379591] R13: 0000000000000001 R14: 0000000000000015 R15: 0000000000000000
+    [   97.381536] FS:  0000000000000000(0000) GS:ffff88807dcc0000(0000) knlGS:0000000000000000
+    [   97.383813] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+    [   97.385449] CR2: 0000000000000000 CR3: 0000000002244000 CR4: 00000000000006b0
+    [   97.387347] DR0: 0000000000000000 DR1: 0000000000000000 DR2: 0000000000000000
+    [   97.389277] DR3: 0000000000000000 DR6: 00000000fffe0ff0 DR7: 0000000000000400
+    [   97.391196] Call Trace:
+    [   97.391967]  <TASK>
+    [   97.392647]  ? __warn+0xcc/0x180
+    [   97.393640]  ? kprobe_trace_self_tests_init+0x3f1/0x480
+    [   97.395181]  ? report_bug+0xbd/0x150
+    [   97.396234]  ? handle_bug+0x3e/0x60
+    [   97.397311]  ? exc_invalid_op+0x1a/0x50
+    [   97.398434]  ? asm_exc_invalid_op+0x1a/0x20
+    [   97.399652]  ? trace_kprobe_is_busy+0x20/0x20
+    [   97.400904]  ? tracing_reset_all_online_cpus+0x15/0x90
+    [   97.402304]  ? kprobe_trace_self_tests_init+0x3f1/0x480
+    [   97.403773]  ? init_kprobe_trace+0x50/0x50
+    [   97.404972]  do_one_initcall+0x112/0x240
+    [   97.406113]  do_initcall_level+0x95/0xb0
+    [   97.407286]  ? kernel_init+0x1a/0x1a0
+    [   97.408401]  do_initcalls+0x3f/0x70
+    [   97.409452]  kernel_init_freeable+0x16f/0x1e0
+    [   97.410662]  ? rest_init+0x1f0/0x1f0
+    [   97.411738]  kernel_init+0x1a/0x1a0
+    [   97.412788]  ret_from_fork+0x39/0x50
+    [   97.413817]  ? rest_init+0x1f0/0x1f0
+    [   97.414844]  ret_from_fork_asm+0x11/0x20
+    [   97.416285]  </TASK>
+    [   97.417134] irq event stamp: 13437323
+    [   97.418376] hardirqs last  enabled at (13437337): [<ffffffff8110bc0c>] console_unlock+0x11c/0x150
+    [   97.421285] hardirqs last disabled at (13437370): [<ffffffff8110bbf1>] console_unlock+0x101/0x150
+    [   97.423838] softirqs last  enabled at (13437366): [<ffffffff8108e17f>] handle_softirqs+0x23f/0x2a0
+    [   97.426450] softirqs last disabled at (13437393): [<ffffffff8108e346>] __irq_exit_rcu+0x66/0xd0
+    [   97.428850] ---[ end trace 0000000000000000 ]---
     
-    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-    Reviewed-by: Jan Beulich <jbeulich@suse.com>
-    Release-Acked-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+    And also, since we can not cleanup dynamic_event file, ftracetest are
+    failed too.
+    
+    To avoid these issues, build these tests only as modules.
+    
+    Link: https://lore.kernel.org/all/171811263754.85078.5877446624311852525.stgit@devnote2/
+    
+    Fixes: 9fe41efaca08 ("tracing: Add synth event generation test module")
+    Fixes: 64836248dda2 ("tracing: Add kprobe event command generation test module")
+    Signed-off-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+    Reviewed-by: Steven Rostedt (Google) <rostedt@goodmis.org>
 
-commit df09dfb94de66f7523837c050616a382aa2c7d17
-Author: Andrew Cooper <andrew.cooper3@citrix.com>
-Date:   Fri Apr 30 20:17:55 2021 +0100
+commit ce5cdd3b05216b704a704f466fb4c2dff3778caf
+Author: Christian Marangi <ansuelsmth@gmail.com>
+Date:   Tue Jun 11 13:35:33 2024 +0200
 
-    x86/xstate: Rework xstate_ctxt_size() as xstate_uncompressed_size()
+    mips: bmips: BCM6358: make sure CBR is correctly set
     
-    We're soon going to need a compressed helper of the same form.
+    It was discovered that some device have CBR address set to 0 causing
+    kernel panic when arch_sync_dma_for_cpu_all is called.
     
-    The size of the uncompressed image depends on the single element with the
-    largest offset + size.  Sadly this isn't always the element with the largest
-    index.
+    This was notice in situation where the system is booted from TP1 and
+    BMIPS_GET_CBR() returns 0 instead of a valid address and
+    !!(read_c0_brcm_cmt_local() & (1 << 31)); not failing.
     
-    Name the per-xstate-component cpu_policy struture, for legibility of the logic
-    in xstate_uncompressed_size().  Cross-check with hardware during boot, and
-    remove hw_uncompressed_size().
+    The current check whether RAC flush should be disabled or not are not
+    enough hence lets check if CBR is a valid address or not.
     
-    This means that the migration paths don't need to mess with XCR0 just to
-    sanity check the buffer size.  It also means we can drop the "fastpath" check
-    against xfeature_mask (there to skip some XCR0 writes); this path is going to
-    be dead logic the moment Xen starts using supervisor states itself.
-    
-    The users of hw_uncompressed_size() in xstate_init() can (and indeed need) to
-    be replaced with CPUID instructions.  They run with feature_mask in XCR0, and
-    prior to setup_xstate_features() on the BSP.
-    
-    No practical change.
-    
-    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-    Reviewed-by: Jan Beulich <jbeulich@suse.com>
-    Release-Acked-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+    Fixes: ab327f8acdf8 ("mips: bmips: BCM6358: disable RAC flush for TP1")
+    Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
+    Acked-by: Florian Fainelli <florian.fainelli@broadcom.com>
+    Signed-off-by: Thomas Bogendoerfer <tsbogend@alpha.franken.de>
 
-commit a09022a09e1a79b3f9574993993bfad803b32596
-Author: Andrew Cooper <andrew.cooper3@citrix.com>
-Date:   Thu May 23 00:55:34 2024 +0100
+commit 277a0363120276645ae598d8d5fea7265e076ae9
+Author: Martin Schiller <ms@dev.tdt.de>
+Date:   Fri Jun 7 11:04:00 2024 +0200
 
-    x86/boot: Collect the Raw CPU Policy earlier on boot
+    MIPS: pci: lantiq: restore reset gpio polarity
     
-    This is a tangle, but it's a small step in the right direction.
+    Commit 90c2d2eb7ab5 ("MIPS: pci: lantiq: switch to using gpiod API") not
+    only switched to the gpiod API, but also inverted / changed the polarity
+    of the GPIO.
     
-    In the following change, xstate_init() is going to start using the Raw policy.
+    According to the PCI specification, the RST# pin is an active-low
+    signal. However, most of the device trees that have been widely used for
+    a long time (mainly in the openWrt project) define this GPIO as
+    active-high and the old driver code inverted the signal internally.
     
-    calculate_raw_cpu_policy() is sufficiently separate from the other policies to
-    safely move like this.
+    Apparently there are actually boards where the reset gpio must be
+    operated inverted. For this reason, we cannot use the GPIOD_OUT_LOW/HIGH
+    flag for initialization. Instead, we must explicitly set the gpio to
+    value 1 in order to take into account any "GPIO_ACTIVE_LOW" flag that
+    may have been set.
     
-    No functional change.
+    In order to remain compatible with all these existing device trees, we
+    should therefore keep the logic as it was before the commit.
     
-    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-    Reviewed-by: Jan Beulich <jbeulich@suse.com>
-    Release-Acked-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+    Fixes: 90c2d2eb7ab5 ("MIPS: pci: lantiq: switch to using gpiod API")
+    Cc: stable@vger.kernel.org
+    Signed-off-by: Martin Schiller <ms@dev.tdt.de>
+    Signed-off-by: Thomas Bogendoerfer <tsbogend@alpha.franken.de>
 
-commit d31a111940de5431c8bf465b1d38b89f1130a24b
-Author: Andrew Cooper <andrew.cooper3@citrix.com>
-Date:   Fri Feb 21 17:56:57 2020 +0000
+commit ae9daffd9028f2500c9ac1517e46d4f2b57efb80
+Author: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
+Date:   Wed May 8 15:07:00 2024 +0300
 
-    x86/xstate: Cross-check dynamic XSTATE sizes at boot
+    MIPS: Routerboard 532: Fix vendor retry check code
     
-    Right now, xstate_ctxt_size() performs a cross-check of size with CPUID in for
-    every call.  This is expensive, being used for domain create/migrate, as well
-    as to service certain guest CPUID instructions.
+    read_config_dword() contains strange condition checking ret for a
+    number of values. The ret variable, however, is always zero because
+    config_access() never returns anything else. Thus, the retry is always
+    taken until number of tries is exceeded.
     
-    Instead, arrange to check the sizes once at boot.  See the code comments for
-    details.  Right now, it just checks hardware against the algorithm
-    expectations.  Later patches will cross-check Xen's XSTATE calculations too.
+    The code looks like it wants to check *val instead of ret to see if the
+    read gave an error response.
     
-    Introduce more X86_XCR0_* and X86_XSS_* constants CPUID bits.  This is to
-    maximise coverage in the sanity check, even if we don't expect to
-    use/virtualise some of these features any time soon.  Leave HDC and HWP alone
-    for now; we don't have CPUID bits from them stored nicely.
-    
-    Only perform the cross-checks when SELF_TESTS are active.  It's only
-    developers or new hardware liable to trip these checks, and Xen at least
-    tracks "maximum value ever seen in xcr0" for the lifetime of the VM, which we
-    don't want to be tickling in the general case.
-    
-    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-    Reviewed-by: Jan Beulich <jbeulich@suse.com>
-    Release-Acked-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-
-commit 9e6dbbe8bf400aacb99009ddffa91d2a0c312b39
-Author: Andrew Cooper <andrew.cooper3@citrix.com>
-Date:   Wed May 22 17:23:54 2024 +0100
-
-    x86/xstate: Fix initialisation of XSS cache
-    
-    The clobbering of this_cpu(xcr0) and this_cpu(xss) to architecturally invalid
-    values is to force the subsequent set_xcr0() and set_msr_xss() to reload the
-    hardware register.
-    
-    While XCR0 is reloaded in xstate_init(), MSR_XSS isn't.  This causes
-    get_msr_xss() to return the invalid value, and logic of the form:
-    
-        old = get_msr_xss();
-        set_msr_xss(new);
-        ...
-        set_msr_xss(old);
-    
-    to try and restore said invalid value.
-    
-    The architecturally invalid value must be purged from the cache, meaning the
-    hardware register must be written at least once.  This in turn highlights that
-    the invalid value must only be used in the case that the hardware register is
-    available.
-    
-    Fixes: f7f4a523927f ("x86/xstate: reset cached register values on resume")
-    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-    Reviewed-by: Jan Beulich <jbeulich@suse.com>
-    Release-Acked-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-
-commit aba98c8d671bd290e978ec154d0baf042e093a65
-Author: Andrew Cooper <andrew.cooper3@citrix.com>
-Date:   Fri Jun 14 13:05:40 2024 +0100
-
-    xen/arch: Centralise __read_mostly and __ro_after_init
-    
-    These living in cache.h is inherited from Linux, but cache.h is not a terribly
-    appropriately location for them to live.
-    
-    __read_mostly is an optimisation related to data placement in order to avoid
-    having shared data in cachelines that are likely to be written to, but it
-    really is just a section of the linked image separating data by usage
-    patterns; it has nothing to do with cache sizes or flushing logic.
-    
-    Worse, __ro_after_init was only in xen/cache.h because __read_mostly was in
-    arch/cache.h, and has literally nothing whatsoever to do with caches.
-    
-    Move the definitions into xen/sections.h, which in particular means that
-    RISC-V doesn't need to repeat the problematic pattern.  Take the opportunity
-    to provide a short descriptions of what these are used for.
-    
-    For now, leave TODO comments next to the other identical definitions.  It
-    turns out that unpicking cache.h is more complicated than it appears because a
-    number of files use it for transitive dependencies.
-    
-    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-    Acked-by: Jan Beulich <jbeulich@suse.com>
-    Acked-by: Stefano Stabellini <sstabellini@kernel.org>
-    Release-Acked-By: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-
-commit 82f480944718d9e8340a6ac1af41ece7851115bf
-Author: Andrew Cooper <andrew.cooper3@citrix.com>
-Date:   Tue Jun 18 13:48:35 2024 +0100
-
-    xen/irq: Address MISRA Rule 8.3 violation
-    
-    When centralising irq_ack_none(), different architectures had different names
-    for the parameter.  As it's type is struct irq_desc *, it should be named
-    desc.  Make this consistent.
-    
-    No functional change.
-    
-    Fixes: 8aeda4a241ab ("arch/irq: Make irq_ack_none() mandatory")
-    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-    Reviewed-by: Jan Beulich <jbeulich@suse.com>
-    Acked-by: Julien Grall <jgrall@amazon.com>
-    Release-Acked-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-(qemu changes not included)
+    Fixes: 73b4390fb234 ("[MIPS] Routerboard 532: Support for base system")
+    Signed-off-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
+    Signed-off-by: Thomas Bogendoerfer <tsbogend@alpha.franken.de>
 
