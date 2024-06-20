@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6211F91079D
-	for <lists+xen-devel@lfdr.de>; Thu, 20 Jun 2024 16:10:46 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.744714.1151817 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8342C9107CB
+	for <lists+xen-devel@lfdr.de>; Thu, 20 Jun 2024 16:16:14 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.744722.1151826 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sKIUj-00080g-Be; Thu, 20 Jun 2024 14:10:33 +0000
+	id 1sKIZs-0000At-To; Thu, 20 Jun 2024 14:15:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 744714.1151817; Thu, 20 Jun 2024 14:10:33 +0000
+Received: by outflank-mailman (output) from mailman id 744722.1151826; Thu, 20 Jun 2024 14:15:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sKIUj-0007yk-8Y; Thu, 20 Jun 2024 14:10:33 +0000
-Received: by outflank-mailman (input) for mailman id 744714;
- Thu, 20 Jun 2024 14:10:31 +0000
+	id 1sKIZs-00008y-QZ; Thu, 20 Jun 2024 14:15:52 +0000
+Received: by outflank-mailman (input) for mailman id 744722;
+ Thu, 20 Jun 2024 14:15:51 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Zqic=NW=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sKIUh-000761-Jv
- for xen-devel@lists.xenproject.org; Thu, 20 Jun 2024 14:10:31 +0000
-Received: from mail-lj1-x231.google.com (mail-lj1-x231.google.com
- [2a00:1450:4864:20::231])
+ id 1sKIZr-00008s-8p
+ for xen-devel@lists.xenproject.org; Thu, 20 Jun 2024 14:15:51 +0000
+Received: from mail-lj1-x230.google.com (mail-lj1-x230.google.com
+ [2a00:1450:4864:20::230])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id d9a0b82b-2f0e-11ef-b4bb-af5377834399;
- Thu, 20 Jun 2024 16:10:30 +0200 (CEST)
-Received: by mail-lj1-x231.google.com with SMTP id
- 38308e7fff4ca-2ec1ac1aed2so10336541fa.3
- for <xen-devel@lists.xenproject.org>; Thu, 20 Jun 2024 07:10:29 -0700 (PDT)
+ id 97fec7b2-2f0f-11ef-b4bb-af5377834399;
+ Thu, 20 Jun 2024 16:15:49 +0200 (CEST)
+Received: by mail-lj1-x230.google.com with SMTP id
+ 38308e7fff4ca-2ec002caeb3so11286991fa.2
+ for <xen-devel@lists.xenproject.org>; Thu, 20 Jun 2024 07:15:49 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-705cc96eb9bsm12374902b3a.81.2024.06.20.07.10.25
+ d2e1a72fcca58-705ccb90a52sm12368294b3a.210.2024.06.20.07.15.44
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 20 Jun 2024 07:10:28 -0700 (PDT)
+ Thu, 20 Jun 2024 07:15:48 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,53 +45,53 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d9a0b82b-2f0e-11ef-b4bb-af5377834399
+X-Inumbo-ID: 97fec7b2-2f0f-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1718892629; x=1719497429; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1718892949; x=1719497749; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=dLibOHro7nMGYz0pO+wN0jLNcwMVfXyUcOvWCE38Pc0=;
-        b=grahzZp34ABYdguIPLdhxEAMVmtJAUFEPyMjwkGxee4w+HbkIOgDitaxtRiCszHc9c
-         hmunpyl5x6+AH3a4znmtmPf1JBsOCBaBzr4HBoi2sxurOZp6z+TeRBsoyA5KNnBllv4F
-         fRqK7zXxwFxZcvQWdBAppxKQgfMInTMJCpXhLXF7NJXXzegv0M9NR7WX1nk5PdhlA/6B
-         S6d9jT/NghSi+h9zIFoTjbV3DljYeglZVf/s5OUAVn3sxvEAlq8gx8UECWZyhucDRPeA
-         HncvLFh9yMUBqfKAYX/git4mhyl+qcl7DRpdMUrx9Juhvl+EntH+uOxsRjtRiwT1LyS4
-         WWsw==
+        bh=gbU2ee9jF4hkOpmKc2Nxm5GvPvRgK+PQP3h7UAYtCUw=;
+        b=Jjt9DRB3i5z/d+oLh9yc3nJPHFnPHh4WaMGUaE0FMNHt2JD7w0E7yIB8IQyeKJkMpc
+         ri1qdQkhFyxpRiWYEu/it9YJ9l7SrmypQqFDJMF9dShSOfeKvUDAgwywvR9nk3WMTXwq
+         nWGkJdaQETemZOFp6jwLeLemZE/6TC36QBWy4WUr/Ka1unigmhB/GxgRmvMIUFngZjAQ
+         THKWqqUhAwLann8Wv494onFN2qGBkWgKkvMm/xbrdqTiJAHh6LOZ8rOzigGfED/h/wjF
+         s0tcsXTG5fGVa4MfuwyE+u9HXL4sIoIvW1eCYVaHLm3OCOoNmMxkvP04JLZLoGO361U6
+         hFYA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1718892629; x=1719497429;
+        d=1e100.net; s=20230601; t=1718892949; x=1719497749;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=dLibOHro7nMGYz0pO+wN0jLNcwMVfXyUcOvWCE38Pc0=;
-        b=oXL+fChY4KNALJX34Sa0wgezWY6meKfdJje4QBM1M2W79sIuRUOBEYjFMxpoot0jr4
-         RsSAwjQ/WChZYUfaSevcscmijzB1SzX7FEh8O3amWzJS18cTCpkWuflmPoEW6Frig839
-         kBGl2OZyZf4PSK4PpWu8ymvW9rT+cpwu3YTKqX13SSn4i991Hw9TSH961p4Dtn0Gtfqw
-         gol3CYZCSeJy/vZ+q3imr8QeUWO4vP+U9Gcu0DtbSJA5s3X1bUGN10CEPaGpBNzioM2/
-         h6skuYCGVrhNQbuLd8DYp016wZ4XfCxMX77HyJb+24mWT5dbJs5r9k0otVayoJYpF6qB
-         Trsw==
-X-Forwarded-Encrypted: i=1; AJvYcCVovUqzTQPp6WMSxL8cru8LZ+ouE5KofaImFjxSHd4QKXbRBnev1rafyzVpHUDZboRcxI9xfTIfydPxj9N3xe+wpv7Fu/uRX6th1rkpFgM=
-X-Gm-Message-State: AOJu0YybrOwUXTLQbMhszyek7h2mFtF0A0jKB3TioAOOqhB3LI8TfGWh
-	U9kYE2MDb8MWMB6ltORG/CnS6alyTf1Qp+R6tbKY0mfNR2EyFfuWhkRSOYM54nMxeT+vY4WEUK8
-	=
-X-Google-Smtp-Source: AGHT+IHEMzVIzcgPw6U1pmHJXoDYZChmalJOuVfmV+Y1WOZbLbi3uQGQeFV3VSlqtkMmgYRmRys6Hw==
-X-Received: by 2002:a05:651c:90:b0:2eb:e329:5508 with SMTP id 38308e7fff4ca-2ec3ced5bd4mr33211951fa.27.1718892629260;
-        Thu, 20 Jun 2024 07:10:29 -0700 (PDT)
-Message-ID: <c6a2fb51-1ffe-4d13-9894-5ca3169c392e@suse.com>
-Date: Thu, 20 Jun 2024 16:10:22 +0200
+        bh=gbU2ee9jF4hkOpmKc2Nxm5GvPvRgK+PQP3h7UAYtCUw=;
+        b=goPBVul9OQFruHYcxPmQDKtFQQPpJ8gCmtHHB8//BIgkKGGdMvjaDv3ZCirFe0+jlT
+         zjxe+V2EdNbuLMCKi4fx5eJE7RI2KjH9wE/meeiOTivtoeP+R9HChLltMNXCr5/mdnpT
+         9BSgx6pFByWWSPXZ+n5rBd8DKo5l+0B66ODRhXtBMoJBFMIhMcJnO6U5sXubXzUMDbfb
+         Kdi1SvLVEKRGDa1r6NE3dCCwsfXQVv9ZC50KIk9ApNbKS3h0rws9+C8qO60ja+pEAPdc
+         PAyykk/r9/tTsMrUlpg5WI8MOL/ea16Pn0mYIAnJJtcEBB5CGoojbqjNO8/NiZE4paWh
+         dp3Q==
+X-Forwarded-Encrypted: i=1; AJvYcCWauhRzHsMVcQguT95WNlO6SUMcdbGfFas7yYoimDsCgODMjXC5O/J2G522kM8Nsjxv82FFuFnQwx2rzkpQgfcdmrV/9U8pt/zH1u9sLBY=
+X-Gm-Message-State: AOJu0YyjYulhrDfITdTeVsF/xfBDkNkOu5TpUoagRY9Sze6ZdX9Fc56K
+	SwjAbYS7CkBwW2p2DZhmr2dyscZsQBVTbXCfsc+Kda7GL+kNxvhkifK73N3PjQ==
+X-Google-Smtp-Source: AGHT+IFQMown054xx4S8PYhqYplypnRCeXdPHxjGhE7O2HwUfzD0YTHbv1q9suBSt2iOabYpiw0Xjg==
+X-Received: by 2002:a2e:8811:0:b0:2eb:e9cf:e179 with SMTP id 38308e7fff4ca-2ec3ce9419fmr38769801fa.21.1718892948758;
+        Thu, 20 Jun 2024 07:15:48 -0700 (PDT)
+Message-ID: <af656be1-3950-45f3-9da9-f377d9e6396c@suse.com>
+Date: Thu, 20 Jun 2024 16:15:39 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] automation/eclair_analysis: deviate common/unlzo.c for
- MISRA Rule 7.3
-To: alessandro.zucchelli@bugseng.com,
- Stefano Stabellini <sstabellini@kernel.org>
+Subject: Re: [XEN PATCH 01/13] automation/eclair: consider also hypened
+ fall-through
+To: Federico Serafini <federico.serafini@bugseng.com>
 Cc: consulting@bugseng.com, Simone Ballarin <simone.ballarin@bugseng.com>,
- Doug Goldstein <cardoe@cardoe.com>, xen-devel@lists.xenproject.org
-References: <20342a68627d5fe7c85c50f64e9300e9a587974b.1718704260.git.alessandro.zucchelli@bugseng.com>
- <63d11da5-4a5a-4354-ab57-67fbb7110f45@suse.com>
- <alpine.DEB.2.22.394.2406191817310.2572888@ubuntu-linux-20-04-desktop>
- <566b0cb9b718b5719a6b497b36e90ab4@bugseng.com>
+ Doug Goldstein <cardoe@cardoe.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ xen-devel@lists.xenproject.org
+References: <cover.1718892030.git.federico.serafini@bugseng.com>
+ <10af9145252a2f5c31ea0f13cbb67cbe76a8ba3a.1718892030.git.federico.serafini@bugseng.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -117,39 +117,38 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <566b0cb9b718b5719a6b497b36e90ab4@bugseng.com>
+In-Reply-To: <10af9145252a2f5c31ea0f13cbb67cbe76a8ba3a.1718892030.git.federico.serafini@bugseng.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 20.06.2024 15:19, Alessandro Zucchelli wrote:
-> On 2024-06-20 03:17, Stefano Stabellini wrote:
->> On Tue, 18 Jun 2024, Jan Beulich wrote:
->>> On 18.06.2024 11:54, Alessandro Zucchelli wrote:
->>>> The file contains violations of Rule 7.3 which states as following: The
->>>> lowercase character `l' shall not be used in a literal suffix.
->>>>
->>>> This file defines a non-compliant constant used in a macro expanded in a
->>>> non-excluded file, so this deviation is needed in order to avoid
->>>> a spurious violation involving both files.
->>>
->>> Imo it would be nice to be specific in such cases: Which constant? And
->>> which macro expanded in which file?
->>
->> Hi Alessandro,
->> if you give me the details, I could add it to the commit message on 
->> commit
-> 
-> The file common/unlzo.c defines the non-compliant constant 
-> LZO_BLOCK_SIZE as
-> "256*1024l" (note the 'l'). This file is excluded from ECLAIR analysis 
-> but
-> as the constant is used in macro xmalloc_bytes, expanded in non-excluded 
-> file
-> include/xen/xmalloc.h, thus these specific violations need this 
-> configuration
-> in order to be excluded.
+On 20.06.2024 16:02, Federico Serafini wrote:
+> --- a/automation/eclair_analysis/ECLAIR/deviations.ecl
+> +++ b/automation/eclair_analysis/ECLAIR/deviations.ecl
+> @@ -400,7 +400,7 @@ safe."
+>  -doc_end
+>  
+>  -doc_begin="Switch clauses ending with an explicit comment indicating the fallthrough intention are safe."
+> --config=MC3R1.R16.3,reports+={safe, "any_area(end_loc(any_exp(text(^(?s).*/\\* [fF]all ?through.? \\*/.*$,0..1))))"}
+> +-config=MC3R1.R16.3,reports+={safe, "any_area(end_loc(any_exp(text(^(?s).*/\\* [fF]all[ -]?through.? \\*/.*$,0..2))))"}
 
-Would it perhaps be easier to swap the l for an L?
+Is is a regex, isn't it? Doesn't the period also need escaping (or enclosing
+in square brackets)? (I realize it was like this before, but still.)
+
+> --- a/docs/misra/deviations.rst
+> +++ b/docs/misra/deviations.rst
+> @@ -353,6 +353,10 @@ Deviations related to MISRA C:2012 Rules:
+>         However, the use of such comments in new code is deprecated:
+>         the pseudo-keyword "fallthrough" shall be used.
+>       - Tagged as `safe` for ECLAIR. The accepted comments are:
+> +         - /\* fall-through \*/
+> +         - /\* Fall-through. \*/
+> +         - /\* Fall-through \*/
+> +         - /\* fall-through. \*/
+>           - /\* fall through \*/
+>           - /\* fall through. \*/
+>           - /\* fallthrough \*/
+
+Nit: Can the capital-F and non-capital-f variants please be next to each other?
 
 Jan
 
