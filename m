@@ -2,38 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A3BA2912B71
-	for <lists+xen-devel@lfdr.de>; Fri, 21 Jun 2024 18:35:15 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.745405.1152535 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B9F41912BEC
+	for <lists+xen-devel@lfdr.de>; Fri, 21 Jun 2024 18:55:53 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.745411.1152545 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sKhDv-0000Pj-Nm; Fri, 21 Jun 2024 16:34:51 +0000
+	id 1sKhXh-0004CA-Aq; Fri, 21 Jun 2024 16:55:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 745405.1152535; Fri, 21 Jun 2024 16:34:51 +0000
+Received: by outflank-mailman (output) from mailman id 745411.1152545; Fri, 21 Jun 2024 16:55:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sKhDv-0000N5-Kv; Fri, 21 Jun 2024 16:34:51 +0000
-Received: by outflank-mailman (input) for mailman id 745405;
- Fri, 21 Jun 2024 16:34:50 +0000
+	id 1sKhXh-00049c-7J; Fri, 21 Jun 2024 16:55:17 +0000
+Received: by outflank-mailman (input) for mailman id 745411;
+ Fri, 21 Jun 2024 16:55:15 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=FH9a=NX=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1sKhDu-0000Mz-At
- for xen-devel@lists.xenproject.org; Fri, 21 Jun 2024 16:34:50 +0000
-Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
- [2a00:1450:4864:20::62e])
+ <SRS0=I8X3=NX=bounce.vates.tech=bounce-md_30504962.6675b06e.v1-4f43be8da03145faae47ee3103af9c23@srs-se1.protection.inumbo.net>)
+ id 1sKhXf-00049W-4Z
+ for xen-devel@lists.xenproject.org; Fri, 21 Jun 2024 16:55:15 +0000
+Received: from mail134-3.atl141.mandrillapp.com
+ (mail134-3.atl141.mandrillapp.com [198.2.134.3])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 2d59e0e6-2fec-11ef-90a3-e314d9c70b13;
- Fri, 21 Jun 2024 18:34:49 +0200 (CEST)
-Received: by mail-ej1-x62e.google.com with SMTP id
- a640c23a62f3a-a6265d3ba8fso235047466b.0
- for <xen-devel@lists.xenproject.org>; Fri, 21 Jun 2024 09:34:49 -0700 (PDT)
-Received: from [10.125.226.166] ([160.101.139.1])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a6fcf48b382sm100461966b.70.2024.06.21.09.34.48
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 21 Jun 2024 09:34:48 -0700 (PDT)
+ id 067fb639-2fef-11ef-90a3-e314d9c70b13;
+ Fri, 21 Jun 2024 18:55:13 +0200 (CEST)
+Received: from pmta10.mandrill.prod.atl01.rsglab.com (localhost [127.0.0.1])
+ by mail134-3.atl141.mandrillapp.com (Mailchimp) with ESMTP id
+ 4W5Nl26b3zzDRJ1XH
+ for <xen-devel@lists.xenproject.org>; Fri, 21 Jun 2024 16:55:10 +0000 (GMT)
+Received: from [37.26.189.201] by mandrillapp.com id
+ 4f43be8da03145faae47ee3103af9c23; Fri, 21 Jun 2024 16:55:10 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,115 +43,113 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2d59e0e6-2fec-11ef-90a3-e314d9c70b13
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1718987688; x=1719592488; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=BH2i7mTf3jz7eyWov8UAQiM1MmKaR0m0M5mJcs+PoGU=;
-        b=lW3nqJL9c1oHp8LEeQRbMGTMBPKmmga4vsTVGnjVjqr8FYI2rF2sb7Ui7ma/eAU4Cz
-         Lrcq+zLfeZXAKZ69VZU+lb3lQWVeyMydaLqhL1Mw7jeHG6DEJfFlb/XOAPsJENqOpXa9
-         Fax8YZCBg0DkY1rbeNYTtUPUZFmv6A9hI5qdI=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1718987688; x=1719592488;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=BH2i7mTf3jz7eyWov8UAQiM1MmKaR0m0M5mJcs+PoGU=;
-        b=DxR8PsinYeHyI7+PSUpxg+HUaGrXEvZc6BMxhUUNfCA5suJ/IFOP8ZgxGR+wZWErDf
-         fwd9SXBguVel2UT3MDkxqIhMsDnmBp5rhVIH5PgPLt+1lFgYg1R4z5EthGOkIKCBT/Fy
-         gGvTb0Z+zuu1EflzDkA6O2WsQRQ76eMkt+L0iB8dPDbJ4rAnIuNCIdCdhVGFva47JtHX
-         4j5EtnPvLT53y6inR4LGK3XPjbTL6dnuDuTSUdWMorjANrYUAKp436U4FsPZeM6at1v+
-         0lmlilWVDT9I0cY01MnWsNT6v/avEWj/+pqsIFaBuie5adtHeh2D2+NucPjn1pZ8pVnR
-         6Big==
-X-Gm-Message-State: AOJu0YzC8RU1Lmz7sq+P+oJxD+qMG12vjEoo9Nu0MHlKi4JEbPOXX9Va
-	Cli0h3HeaaFK0ociZSHqDl2soO61OuMTgJA4FOQuMkQer8Nq59sNXhGkfRk32wrWfMLovWdUtOw
-	jteo=
-X-Google-Smtp-Source: AGHT+IF7NYKCK+VWlO6q/MDpDQ5l2PbTq5IJM+UajUx82fsdp/xW3qdMwiVcH1RsnchD6T2aBgSx6A==
-X-Received: by 2002:a17:907:7ba8:b0:a6f:718f:39b6 with SMTP id a640c23a62f3a-a6fab613430mr547612166b.25.1718987688458;
-        Fri, 21 Jun 2024 09:34:48 -0700 (PDT)
-Message-ID: <dec0441e-c66d-44cd-86cd-7b914320b9c9@citrix.com>
-Date: Fri, 21 Jun 2024 17:34:47 +0100
+X-Inumbo-ID: 067fb639-2fef-11ef-90a3-e314d9c70b13
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
+	s=mte1; t=1718988910; x=1719249410;
+	bh=mZ9ZjnfEi86A0eJMbTo9hmK9z6gDRUUYORm3zdn0tFk=;
+	h=From:Subject:To:Cc:Message-Id:References:In-Reply-To:Feedback-ID:
+	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
+	 Subject:From;
+	b=JoSj4dbolwJDIQXSxBCq5uvT7lkpZ0MRxVFzCJuLm5BDpAFunDDrxYip75FjR1A89
+	 e2kkkRMKwqCDH23ppPYT1dKVjYtmwqP3mwWdhFvmbRn4F475ZCzPSGobEnXOj4RgtK
+	 uMs07SP0+LeEdScyfevMMhKMylogWG4i4QElT6X2bOluJ/YHQBon8HeO0gEsfPMvZ9
+	 F7CjbiOh/GraXO0blPHIkFpkGfYiVSbRknafeN1pX9D7t4XYfi/hTVfwfRoc/Bb1KY
+	 ql899byLzlE91LgZ6kJZZh4aXf91HhyiOsTTpsZA0T7K3Z8lHcopM0+nPNzQFoByeX
+	 Z7TofFl13Uz3w==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
+	t=1718988910; x=1719249410; i=anthony.perard@vates.tech;
+	bh=mZ9ZjnfEi86A0eJMbTo9hmK9z6gDRUUYORm3zdn0tFk=;
+	h=From:Subject:To:Cc:Message-Id:References:In-Reply-To:Feedback-ID:
+	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
+	 Subject:From;
+	b=YTWcOlzewe06vGnvk3lUhdzmR3TPAMzeTHsE67/d3Z2qTG8Zx2NkhGzaRrnNO/e4f
+	 Ba15wbIG7+lyxr5h3jgnEWxSgT31bid+nbYNNAmlyVH5WSbdQgXOSm+ntDJxCi4NsE
+	 uHR+dS2VJ2StkhDqMf9H1K7ohJ/P3OtIo+9jxwr8d07BHVVQ13RliGCs9Yz0jltINb
+	 0Ccto6OBflplaYySoqF3I1EW9hHEpl+NFT462zi7gDdf5gcL8NbD1aJOQvfbSAKFi3
+	 KKquCutTeeA3hpW1uNqZB3c3zHg8nL9lJrQTksALydECSZHHC6O119Q/mPYuqJfLvr
+	 ewc8idELVo7Pg==
+From: Anthony PERARD <anthony.perard@vates.tech>
+Subject: =?utf-8?Q?Re:=20[PATCH=20for-4.19=20v2]=20tools/xl:=20Open=20xldevd.log=20with=20O=5FCLOEXEC?=
+X-Bm-Disclaimer: Yes
+X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
+X-Bm-Transport-Timestamp: 1718988909523
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>, Demi Marie Obenour <demi@invisiblethingslab.com>, Anthony PERARD <anthony@xenproject.org>, Juergen Gross <jgross@suse.com>, =?utf-8?Q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>, Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Message-Id: <ZnWwbJiD6eG85VY9@l14>
+References: <20240621161656.63576-1-andrew.cooper3@citrix.com>
+In-Reply-To: <20240621161656.63576-1-andrew.cooper3@citrix.com>
+X-Native-Encoded: 1
+X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.4f43be8da03145faae47ee3103af9c23?=
+X-Mandrill-User: md_30504962
+Feedback-ID: 30504962:30504962.20240621:md
+Date: Fri, 21 Jun 2024 16:55:10 +0000
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH for-4.19 0/4] xen/xlat: Improvements to compat hypercall
- checking
-To: Xen-devel <xen-devel@lists.xenproject.org>
-Cc: George Dunlap <George.Dunlap@citrix.com>, Jan Beulich
- <JBeulich@suse.com>, Stefano Stabellini <sstabellini@kernel.org>,
- Julien Grall <julien@xen.org>, Oleksii Kurochko <oleksii.kurochko@gmail.com>
-References: <20240415154155.2718064-1-andrew.cooper3@citrix.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <20240415154155.2718064-1-andrew.cooper3@citrix.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On 15/04/2024 4:41 pm, Andrew Cooper wrote:
-> This started off as patch 3, and grew somewhat.
->
-> Patches 1-3 are simple and hopefully non-controversial.
->
-> Patch 4 is an attempt to make the headers less fragile, but came with an
-> unexpected complication.  Details in the patch.
->
-> Andrew Cooper (4):
->   xen/xlat: Sort out whitespace
->   xen/xlat: Sort structs per file
->   xen/gnttab: Perform compat/native gnttab_query_size check
+On Fri, Jun 21, 2024 at 05:16:56PM +0100, Andrew Cooper wrote:
+> `xl devd` has been observed leaking /var/log/xldevd.log into children.
+> 
+> Note this is specifically safe; dup2() leaves O_CLOEXEC disabled on newfd=
+, so
+> after setting up stdout/stderr, it's only the logfile fd which will close=
+ on
+> exec().
+> 
+> Link: https://github.com/QubesOS/qubes-issues/issues/8292
+> Reported-by: Demi Marie Obenour <demi@invisiblethingslab.com>
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> ---
+> CC: Anthony PERARD <anthony@xenproject.org>
+> CC: Juergen Gross <jgross@suse.com>
+> CC: Demi Marie Obenour <demi@invisiblethingslab.com>
+> CC: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblethingslab.com>
+> CC: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+> 
+> Also entirely speculative based on the QubesOS ticket.
+> 
+> v2:
+>  * Extend the commit message to explain why stdout/stderr aren't closed b=
+y
+>    this change
+> 
+> For 4.19.  This bugfix was posted earlier, but fell between the cracks.
+> ---
+>  tools/xl/xl_utils.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/tools/xl/xl_utils.c b/tools/xl/xl_utils.c
+> index 17489d182954..060186db3a59 100644
+> --- a/tools/xl/xl_utils.c
+> +++ b/tools/xl/xl_utils.c
+> @@ -270,7 +270,7 @@ int do_daemonize(const char *name, const char *pidfil=
+e)
+>          exit(-1);
+>      }
+>  
+> -    CHK_SYSCALL(logfile =3D open(fullname, O_WRONLY|O_CREAT|O_APPEND, 06=
+44));
+> +    CHK_SYSCALL(logfile =3D open(fullname, O_WRONLY | O_CREAT | O_APPEND=
+ | O_CLOEXEC, 0644));
 
-I'm timing out waiting for a justification on the whitespace comment.
+Everytime we use O_CLOEXEC, we add in the C file
+    #ifndef O_CLOEXEC
+    #define O_CLOEXEC 0
+    #endif
+we don't need to do that anymore?
+Or I guess we'll see if someone complain when they try to build on an
+ancien version of Linux.
 
-Oleksii: Can I get a release ack on this please?  Patch 3 is the main
-bugfix, which is the insertion of a missing build-time cross-check, so
-it's very low risk for the release.
+Acked-by: Anthony PERARD <anthony.perard@vates.tech>
 
-Patch 4 was always RFC and not intended to go in as-was.
+Thanks,
 
-~Andrew
+-- 
+
+Anthony Perard | Vates XCP-ng Developer
+
+XCP-ng & Xen Orchestra - Vates solutions
+
+web: https://vates.tech
+
 
