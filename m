@@ -2,33 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2E6A7912F24
-	for <lists+xen-devel@lfdr.de>; Fri, 21 Jun 2024 23:04:31 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.745588.1152724 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9A15A912F97
+	for <lists+xen-devel@lfdr.de>; Fri, 21 Jun 2024 23:33:11 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.745599.1152734 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sKlQe-0000Cm-Mp; Fri, 21 Jun 2024 21:04:16 +0000
+	id 1sKlrY-0005E4-PD; Fri, 21 Jun 2024 21:32:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 745588.1152724; Fri, 21 Jun 2024 21:04:16 +0000
+Received: by outflank-mailman (output) from mailman id 745599.1152734; Fri, 21 Jun 2024 21:32:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sKlQe-0000AU-KE; Fri, 21 Jun 2024 21:04:16 +0000
-Received: by outflank-mailman (input) for mailman id 745588;
- Fri, 21 Jun 2024 21:04:15 +0000
+	id 1sKlrY-0005CH-MR; Fri, 21 Jun 2024 21:32:04 +0000
+Received: by outflank-mailman (input) for mailman id 745599;
+ Fri, 21 Jun 2024 21:32:03 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=/NIW=NX=bugseng.com=federico.serafini@srs-se1.protection.inumbo.net>)
- id 1sKlQd-0000AO-9w
- for xen-devel@lists.xenproject.org; Fri, 21 Jun 2024 21:04:15 +0000
-Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
+ <SRS0=B+dc=NX=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1sKlrW-0005CB-Sv
+ for xen-devel@lists.xenproject.org; Fri, 21 Jun 2024 21:32:02 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id cf808892-3011-11ef-b4bb-af5377834399;
- Fri, 21 Jun 2024 23:04:12 +0200 (CEST)
-Received: from [192.168.1.20] (host-87-12-240-97.business.telecomitalia.it
- [87.12.240.97])
- by support.bugseng.com (Postfix) with ESMTPSA id EF2684EE0738;
- Fri, 21 Jun 2024 23:04:11 +0200 (CEST)
+ id b097f025-3015-11ef-b4bb-af5377834399;
+ Fri, 21 Jun 2024 23:31:59 +0200 (CEST)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id 335FD62F9F;
+ Fri, 21 Jun 2024 21:31:58 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AE4E5C2BBFC;
+ Fri, 21 Jun 2024 21:31:56 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,85 +41,74 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: cf808892-3011-11ef-b4bb-af5377834399
-Message-ID: <fd5e03bd-2a56-45a9-8511-496de24569e9@bugseng.com>
-Date: Fri, 21 Jun 2024 23:04:11 +0200
+X-Inumbo-ID: b097f025-3015-11ef-b4bb-af5377834399
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1719005517;
+	bh=2b3yQ/OXCPBmU4nkW1SyGQ0JPBACNpJz2Dc/ulbusNo=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=rltagSZ3JiFAhmjhxrMo2/zi9X0yuEx5aOyzFkY9dYyrO4/oXHKfJM2CwbQ7nlCiq
+	 oLnJ0kUkd334ElyhrBt2BzkGKGuaADFJTyiW1/6KmCMXYvSSEgF7MKplJm08JXl491
+	 v6Jysi1JFCc01tM7q6mV0YhocUNRaYlIG6ygZirZFSEZ8LL/lp70PKQq99T4UN7LNE
+	 I8PJKEO0MYAaL1ycNm8ZQrKH8++jpxwDieQNnJVXpNRXuOY11YMd0XNa3tvCm66uKM
+	 VMFs779lNcTYX9kWTCDyneZpsoM2NnbNf8RL2sQkDHW/O1SgUWQD69UmPIerexIQdX
+	 HiwPMZQP11XYA==
+Date: Fri, 21 Jun 2024 14:31:55 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Alessandro Zucchelli <alessandro.zucchelli@bugseng.com>
+cc: xen-devel@lists.xenproject.org, consulting@bugseng.com, 
+    Andrew Cooper <andrew.cooper3@citrix.com>, 
+    George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>, 
+    Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, 
+    oleksii.kurochko@gmail.com
+Subject: Re: [PATCH v2] common/unlzo: address violation of MISRA C Rule 7.3
+In-Reply-To: <847f9b715b3c8e2ba0637fdd79111f4f828389c6.1718976211.git.alessandro.zucchelli@bugseng.com>
+Message-ID: <alpine.DEB.2.22.394.2406211431210.2572888@ubuntu-linux-20-04-desktop>
+References: <847f9b715b3c8e2ba0637fdd79111f4f828389c6.1718976211.git.alessandro.zucchelli@bugseng.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH v2] common/sched: address a violation of MISRA C Rule
- 8.8
-To: victorm.lira@amd.com, xen-devel@lists.xenproject.org
-Cc: sstabellini@kernel.org, George Dunlap <george.dunlap@cloud.com>,
- George Dunlap <george.dunlap@citrix.com>, Dario Faggioli
- <dfaggioli@suse.com>, Juergen Gross <jgross@suse.com>
-References: <994b423128711b2a912401ff4cb13107ad5c6a9d.1718999221.git.victorm.lira@amd.com>
-Content-Language: en-US, it
-From: Federico Serafini <federico.serafini@bugseng.com>
-Organization: BUGSENG
-In-Reply-To: <994b423128711b2a912401ff4cb13107ad5c6a9d.1718999221.git.victorm.lira@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=US-ASCII
 
-Hi,
-
-On 21/06/24 21:59, victorm.lira@amd.com wrote:
-> From: Victor Lira <victorm.lira@amd.com>
+On Fri, 21 Jun 2024, Alessandro Zucchelli wrote:
+> This addresses violations of MISRA C:2012 Rule 7.3 which states as
+> following: the lowercase character `l' shall not be used in a literal
+> suffix.
 > 
-> Rule 8.8: "The static storage class specifier shall be used in all
-> declarations of objects and functions that have internal linkage"
-
-What you are addressing with this patch seems to be a violation of
-Rule 8.7: "Functions and objects should not be defined with external
-linkage if they are referenced in only one translation unit".
-
+> The file common/unlzo.c defines the non-compliant constant LZO_BLOCK_SIZE with
+> having a lowercase 'l'.
+> It is now defined as '256*1024L'.
 > 
-> This patch fixes this by adding the static specifier.
-> No functional changes.
+> No functional change.
 > 
-> Reported-by: Stewart Hildebrand stewart.hildebrand@amd.com
-> Signed-off-by: Victor Lira <victorm.lira@amd.com>
-> Acked-by: George Dunlap <george.dunlap@cloud.com>
+> Signed-off-by: Alessandro Zucchelli <alessandro.zucchelli@bugseng.com>
+
+Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+
+Asking for a release ack for this trivial change
+
+
 > ---
 > Changes from v1:
-> - adjust indentation and line width.
+> Instead of deviating /common/unlzo.c reports fro Rule 7.3 they are addressed by
+> changing the non-compliant definition of LZO_BLOCK_SIZE.
 > ---
-> Cc: George Dunlap <george.dunlap@citrix.com>
-> Cc: Dario Faggioli <dfaggioli@suse.com>
-> Cc: Juergen Gross <jgross@suse.com>
-> Cc: xen-devel@lists.xenproject.org
-> ---
->   xen/common/sched/credit2.c | 8 ++++----
->   1 file changed, 4 insertions(+), 4 deletions(-)
+>  xen/common/unlzo.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 > 
-> diff --git a/xen/common/sched/credit2.c b/xen/common/sched/credit2.c
-> index 685929c290..b4e03e2a63 100644
-> --- a/xen/common/sched/credit2.c
-> +++ b/xen/common/sched/credit2.c
-> @@ -1476,8 +1476,8 @@ static inline void runq_remove(struct csched2_unit *svc)
->       list_del_init(&svc->runq_elem);
->   }
->   
-> -void burn_credits(struct csched2_runqueue_data *rqd, struct csched2_unit *svc,
-> -                  s_time_t now);
-> +static void burn_credits(struct csched2_runqueue_data *rqd,
-> +                         struct csched2_unit *svc, s_time_t now);
->   
->   static inline void
->   tickle_cpu(unsigned int cpu, struct csched2_runqueue_data *rqd)
-> @@ -1855,8 +1855,8 @@ static void reset_credit(int cpu, s_time_t now, struct csched2_unit *snext)
->       /* No need to resort runqueue, as everyone's order should be the same. */
->   }
->   
-> -void burn_credits(struct csched2_runqueue_data *rqd,
-> -                  struct csched2_unit *svc, s_time_t now)
-> +static void burn_credits(struct csched2_runqueue_data *rqd,
-> +                         struct csched2_unit *svc, s_time_t now)
->   {
->       s_time_t delta;
->   
-
--- 
-Federico Serafini, M.Sc.
-
-Software Engineer, BUGSENG (http://bugseng.com)
+> diff --git a/xen/common/unlzo.c b/xen/common/unlzo.c
+> index bdcefa95b3..acb8dff600 100644
+> --- a/xen/common/unlzo.c
+> +++ b/xen/common/unlzo.c
+> @@ -52,7 +52,7 @@ static inline u32 get_unaligned_be32(const void *p)
+>  static const unsigned char lzop_magic[] = {
+>  	0x89, 0x4c, 0x5a, 0x4f, 0x00, 0x0d, 0x0a, 0x1a, 0x0a };
+>  
+> -#define LZO_BLOCK_SIZE        (256*1024l)
+> +#define LZO_BLOCK_SIZE        (256*1024L)
+>  #define HEADER_HAS_FILTER      0x00000800L
+>  #define HEADER_SIZE_MIN       (9 + 7     + 4 + 8     + 1       + 4)
+>  #define HEADER_SIZE_MAX       (9 + 7 + 1 + 8 + 8 + 4 + 1 + 255 + 4)
+> -- 
+> 2.34.1
+> 
 
