@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EF4D59117D4
-	for <lists+xen-devel@lfdr.de>; Fri, 21 Jun 2024 03:03:25 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.744967.1152091 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 41AD39117D7
+	for <lists+xen-devel@lfdr.de>; Fri, 21 Jun 2024 03:04:58 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.744973.1152101 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sKSg7-0003H9-PY; Fri, 21 Jun 2024 01:02:59 +0000
+	id 1sKShp-0003n4-4I; Fri, 21 Jun 2024 01:04:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 744967.1152091; Fri, 21 Jun 2024 01:02:59 +0000
+Received: by outflank-mailman (output) from mailman id 744973.1152101; Fri, 21 Jun 2024 01:04:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sKSg7-0003Ei-Mp; Fri, 21 Jun 2024 01:02:59 +0000
-Received: by outflank-mailman (input) for mailman id 744967;
- Fri, 21 Jun 2024 01:02:58 +0000
+	id 1sKShp-0003lY-1c; Fri, 21 Jun 2024 01:04:45 +0000
+Received: by outflank-mailman (input) for mailman id 744973;
+ Fri, 21 Jun 2024 01:04:44 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=B+dc=NX=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1sKSg6-0003Ec-Ra
- for xen-devel@lists.xenproject.org; Fri, 21 Jun 2024 01:02:58 +0000
+ id 1sKSho-0003lS-1n
+ for xen-devel@lists.xenproject.org; Fri, 21 Jun 2024 01:04:44 +0000
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id fec733fc-2f69-11ef-90a3-e314d9c70b13;
- Fri, 21 Jun 2024 03:02:57 +0200 (CEST)
+ id 3dcfad8c-2f6a-11ef-90a3-e314d9c70b13;
+ Fri, 21 Jun 2024 03:04:43 +0200 (CEST)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id AD1B062234;
- Fri, 21 Jun 2024 01:02:55 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7056CC4AF07;
- Fri, 21 Jun 2024 01:02:54 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id D61E0620A2;
+ Fri, 21 Jun 2024 01:04:41 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A1C71C2BD10;
+ Fri, 21 Jun 2024 01:04:40 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,84 +41,65 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fec733fc-2f69-11ef-90a3-e314d9c70b13
+X-Inumbo-ID: 3dcfad8c-2f6a-11ef-90a3-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1718931775;
-	bh=DfcSr8Bx1doQEh/9BMVK86RhBRiiqnKnr9/JhJ1hEPA=;
+	s=k20201202; t=1718931881;
+	bh=zlaX0qpCKKW4KMtuMQeR0LBSBDo9WEky2UALNOsvfKg=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=tKlKPKAQE6H9ZATLfTLddhcux/6stgGRerXMc70U4TICqoEbswbXiwTBAIiPlWSoy
-	 E0L01qIBquEAAZ6PgeyRb429YRkQvUDdJIc7cseKwc+5HpJNXsce9g2y09zDvGGoWU
-	 JzVJXE5TBXbCiGaxBNxCeQ/Ye4uep5Ltm1deeNtV7VyViiOus2f83pE0xALiaZVq/J
-	 ayu5Hqwgod9UGRt5ZN46x0jSNuy0OfZ3fhxmnAT/HXxuJZlRuDBIkEJ4kkpz250yOc
-	 KMYdsHHLnnydv9oj5mVSX8NsFFxSV7QwkrP8VJfxqV0v6uqaIGUq4eiboREi0gXtbX
-	 wTR8UM4rpib4w==
-Date: Thu, 20 Jun 2024 18:02:53 -0700 (PDT)
+	b=mO5Jj2Joro3jctAJj3oH6DbBXf7V+jL2gIHnZpcHo433ph2j16B+Y7fTO4o6qPCTs
+	 jnecYdKgE0tqcNdWQzpF0LGZcA5La45J5gUw262/f/qSHo6dYYSdfH7y/1ZAuzHdTi
+	 XwsKk9nnZCzvnDWtvDuth5ANlr26HakBHLs0dNpfJtY1zL4jEA47SSb9BHKMDJbK0f
+	 0qgdDWx9sh24JUYmeMky1ImggeinfLvIPtl9ia3KqP8NCIm4gAt9jB+zCYk9I0Q1x2
+	 uetbVjAkJSu8HM5wQ7jpHPpxN2PLfHhyEq/pwk3SgZBOo78wyGHtsGZeQuF0uiEOYN
+	 YAeMjxuLttz5A==
+Date: Thu, 20 Jun 2024 18:04:39 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
 To: Jan Beulich <jbeulich@suse.com>
-cc: Alessandro Zucchelli <alessandro.zucchelli@bugseng.com>, 
-    consulting@bugseng.com, Simone Ballarin <simone.ballarin@bugseng.com>, 
-    Doug Goldstein <cardoe@cardoe.com>, 
-    Stefano Stabellini <sstabellini@kernel.org>, 
-    xen-devel@lists.xenproject.org
-Subject: Re: [PATCH 1/2] automation/eclair_analysis: deviate MISRA C Rule
- 21.2
-In-Reply-To: <02ee9a03-c5b9-4250-960d-e9a2762605c8@suse.com>
-Message-ID: <alpine.DEB.2.22.394.2406201758490.2572888@ubuntu-linux-20-04-desktop>
-References: <cover.1718816397.git.alessandro.zucchelli@bugseng.com> <5b8364528a9ece8fec9f0e70bee81c2ea94c1820.1718816397.git.alessandro.zucchelli@bugseng.com> <02ee9a03-c5b9-4250-960d-e9a2762605c8@suse.com>
+cc: alessandro.zucchelli@bugseng.com, 
+    Stefano Stabellini <sstabellini@kernel.org>, consulting@bugseng.com, 
+    Simone Ballarin <simone.ballarin@bugseng.com>, 
+    Doug Goldstein <cardoe@cardoe.com>, xen-devel@lists.xenproject.org
+Subject: Re: [PATCH] automation/eclair_analysis: deviate common/unlzo.c for
+ MISRA Rule 7.3
+In-Reply-To: <c6a2fb51-1ffe-4d13-9894-5ca3169c392e@suse.com>
+Message-ID: <alpine.DEB.2.22.394.2406201804350.2572888@ubuntu-linux-20-04-desktop>
+References: <20342a68627d5fe7c85c50f64e9300e9a587974b.1718704260.git.alessandro.zucchelli@bugseng.com> <63d11da5-4a5a-4354-ab57-67fbb7110f45@suse.com> <alpine.DEB.2.22.394.2406191817310.2572888@ubuntu-linux-20-04-desktop> <566b0cb9b718b5719a6b497b36e90ab4@bugseng.com>
+ <c6a2fb51-1ffe-4d13-9894-5ca3169c392e@suse.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
 On Thu, 20 Jun 2024, Jan Beulich wrote:
-> On 19.06.2024 19:09, Alessandro Zucchelli wrote:
-> > Rule 21.2 reports identifiers reserved for the C and POSIX standard
-> > libraries: all xen's translation units are compiled with option
-> > -nostdinc, this guarantees that these libraries are not used, therefore
-> > a justification is provided for allowing uses of such identifiers in
-> > the project.
-> > Builtins starting with "__builtin_" still remain available.
+> On 20.06.2024 15:19, Alessandro Zucchelli wrote:
+> > On 2024-06-20 03:17, Stefano Stabellini wrote:
+> >> On Tue, 18 Jun 2024, Jan Beulich wrote:
+> >>> On 18.06.2024 11:54, Alessandro Zucchelli wrote:
+> >>>> The file contains violations of Rule 7.3 which states as following: The
+> >>>> lowercase character `l' shall not be used in a literal suffix.
+> >>>>
+> >>>> This file defines a non-compliant constant used in a macro expanded in a
+> >>>> non-excluded file, so this deviation is needed in order to avoid
+> >>>> a spurious violation involving both files.
+> >>>
+> >>> Imo it would be nice to be specific in such cases: Which constant? And
+> >>> which macro expanded in which file?
+> >>
+> >> Hi Alessandro,
+> >> if you give me the details, I could add it to the commit message on 
+> >> commit
 > > 
-> > No functional change.
-> > 
-> > Signed-off-by: Alessandro Zucchelli <alessandro.zucchelli@bugseng.com>
-> > ---
-> >  automation/eclair_analysis/ECLAIR/deviations.ecl | 11 +++++++++++
-> >  1 file changed, 11 insertions(+)
-> > 
-> > diff --git a/automation/eclair_analysis/ECLAIR/deviations.ecl b/automation/eclair_analysis/ECLAIR/deviations.ecl
-> > index 447c1e6661..9fa9a7f01c 100644
-> > --- a/automation/eclair_analysis/ECLAIR/deviations.ecl
-> > +++ b/automation/eclair_analysis/ECLAIR/deviations.ecl
-> > @@ -487,6 +487,17 @@ leads to a violation of the Rule are deviated."
-> >  # Series 21.
-> >  #
-> >  
-> > +-doc_begin="Rules 21.1 and 21.2 report identifiers reserved for the C and POSIX
-> > +standard libraries: if these libraries are not used there is no reason to avoid such
-> > +identifiers. All xen's translation units are compiled with option -nostdinc,
-> > +this guarantees that these libraries are not used. Some compilers could perform
-> > +optimization using built-in functions: this risk is partially addressed by
-> > +using the compilation option -fno-builtin. Builtins starting with \"__builtin_\"
-> > +still remain available."
+> > The file common/unlzo.c defines the non-compliant constant 
+> > LZO_BLOCK_SIZE as
+> > "256*1024l" (note the 'l'). This file is excluded from ECLAIR analysis 
+> > but
+> > as the constant is used in macro xmalloc_bytes, expanded in non-excluded 
+> > file
+> > include/xen/xmalloc.h, thus these specific violations need this 
+> > configuration
+> > in order to be excluded.
 > 
-> While the sub-section "Reserved Identifiers" is part of Section 7,
-> "Library", close coordination is needed between the library and the
-> compiler, which only together form an "implementation". Therefore any
-> use of identifiers beginning with two underscores or beginning with an
-> underscore and an upper case letter is at risk of colliding not only
-> with a particular library implementation (which we don't use), but
-> also of such with a particular compiler implementation (which we cannot
-> avoid to use). How can we permit use of such potentially problematic
-> identifiers?
+> Would it perhaps be easier to swap the l for an L?
 
-Alternative question: is there a way we can check if there is clash of
-some sort between a compiler implementation of something and a MACRO or
-identifier we have in Xen? An error or a warning from the compiler for
-instance? That could be an easy way to prove we are safe.
-
-Also, can we use the fact that the compiler we use is the same compiler
-used to compile Linux, and Linux makes extensive use of identifiers and
-macros starting with underscores as one of the reason for being safe
-from clashes?
++1
 
