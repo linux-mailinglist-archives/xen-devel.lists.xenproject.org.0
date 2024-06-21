@@ -2,35 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 336F1913001
-	for <lists+xen-devel@lfdr.de>; Sat, 22 Jun 2024 00:04:49 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.745638.1152784 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C2ECD913010
+	for <lists+xen-devel@lfdr.de>; Sat, 22 Jun 2024 00:07:36 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.745645.1152795 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sKmMn-000475-35; Fri, 21 Jun 2024 22:04:21 +0000
+	id 1sKmPi-0004fY-Gr; Fri, 21 Jun 2024 22:07:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 745638.1152784; Fri, 21 Jun 2024 22:04:21 +0000
+Received: by outflank-mailman (output) from mailman id 745645.1152795; Fri, 21 Jun 2024 22:07:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sKmMn-00044b-0I; Fri, 21 Jun 2024 22:04:21 +0000
-Received: by outflank-mailman (input) for mailman id 745638;
- Fri, 21 Jun 2024 22:04:18 +0000
+	id 1sKmPi-0004cR-EI; Fri, 21 Jun 2024 22:07:22 +0000
+Received: by outflank-mailman (input) for mailman id 745645;
+ Fri, 21 Jun 2024 22:07:21 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=B+dc=NX=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1sKmMk-00044Q-SZ
- for xen-devel@lists.xenproject.org; Fri, 21 Jun 2024 22:04:18 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [2604:1380:4641:c500::1])
+ id 1sKmPh-0004c9-17
+ for xen-devel@lists.xenproject.org; Fri, 21 Jun 2024 22:07:21 +0000
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 32580418-301a-11ef-b4bb-af5377834399;
- Sat, 22 Jun 2024 00:04:15 +0200 (CEST)
+ id 9ed6a4df-301a-11ef-b4bb-af5377834399;
+ Sat, 22 Jun 2024 00:07:19 +0200 (CEST)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id C606362FB6;
- Fri, 21 Jun 2024 22:04:13 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B008EC2BBFC;
- Fri, 21 Jun 2024 22:04:12 +0000 (UTC)
+ by sin.source.kernel.org (Postfix) with ESMTP id 8CEF1CE3D00;
+ Fri, 21 Jun 2024 22:07:12 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7631CC32789;
+ Fri, 21 Jun 2024 22:07:10 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,69 +41,53 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 32580418-301a-11ef-b4bb-af5377834399
+X-Inumbo-ID: 9ed6a4df-301a-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1719007453;
-	bh=dMWh1Luls1b6qBIQ0xU1ayjG7GSZglQmnCDQ7tAZGJo=;
+	s=k20201202; t=1719007631;
+	bh=/4Um76W/pAVbIBbCOir5GbUqrqCWgSMwvcNAGHu+xIY=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=fNQ0KBFQWDHiH/0m3ThZSQaeLNZb+D5ludLK7ykuON0e3xjWYe56tWsDxg4vFXR6+
-	 uBIpCvFjtc167FEd6OP2fYG71adUI33JHyXwZCusXeFp6xkVtPRKtgDT2cq/oQX+xF
-	 YBmteeczG+zfXysoQG1+OR5ydB73LMU9O+5ZPDS3Dv5XaCZYaHB6iCI7tyDv8Nturd
-	 sbNNNBj5YKzmGpJ8Rtis5VFgE7zBP9c7NDE/d5h9pNaOiGUnuIi49y/mCB5Ry+Jq0r
-	 9d4/A6/S38aQS1KoH9b612aKxAUKhBQ+buQg/aCKcB+2tVgE+fxfus4aZvwehA830p
-	 zZiSiZbuvWO5Q==
-Date: Fri, 21 Jun 2024 15:04:11 -0700 (PDT)
+	b=W22bkPAVqv86j3N0rfPSubDhA6Hdc/sc9FCGUGaH8fs/uT0ryHsnkai3uA+hrFoR1
+	 RleVMoBnFF+f/KHwL/2F9cEyZxw7E/atgUQpr8jc4P9HhODuCgcGV6NXR+IdjZpr8A
+	 aRrT6WN+4J8tCFxz3LJdpst9nHoYyb4ve/Mfn6RRQMCg5B3amd3n8R71fFt8CqZWOS
+	 gqAFdYEj2jBqwj1/LOuISVJX+injREYWvKBUWbqB/pzQtmEEp5gaMQnM+jP1hgD25M
+	 mjJJMMjeghhr5T9Ac58L9gm4yxZTfPDxnUFLP/oEtIVElyVPIPJxCT6/p3JW6hGGFl
+	 FS5aSODBArAoQ==
+Date: Fri, 21 Jun 2024 15:07:09 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Alessandro Zucchelli <alessandro.zucchelli@bugseng.com>
-cc: xen-devel@lists.xenproject.org, consulting@bugseng.com, 
+To: Stefano Stabellini <sstabellini@kernel.org>
+cc: Federico Serafini <federico.serafini@bugseng.com>, 
+    xen-devel@lists.xenproject.org, consulting@bugseng.com, 
     Simone Ballarin <simone.ballarin@bugseng.com>, 
     Doug Goldstein <cardoe@cardoe.com>, 
-    Stefano Stabellini <sstabellini@kernel.org>
-Subject: Re: [PATCH v2] automation/eclair_analysis: deviate and|or|xor|not
- for MISRA C Rule 21.2
-In-Reply-To: <7b05a537b094598b98b92d0869d16402648fb6f5.1718964932.git.alessandro.zucchelli@bugseng.com>
-Message-ID: <alpine.DEB.2.22.394.2406211503370.2572888@ubuntu-linux-20-04-desktop>
-References: <7b05a537b094598b98b92d0869d16402648fb6f5.1718964932.git.alessandro.zucchelli@bugseng.com>
+    Andrew Cooper <andrew.cooper3@citrix.com>, 
+    George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>, 
+    Julien Grall <julien@xen.org>, oleksii.kurochko@gmail.com
+Subject: Re: [XEN PATCH] automation/eclair: add deviations of MISRA C Rule
+ 5.5
+In-Reply-To: <alpine.DEB.2.22.394.2406201722100.2572888@ubuntu-linux-20-04-desktop>
+Message-ID: <alpine.DEB.2.22.394.2406211506160.2572888@ubuntu-linux-20-04-desktop>
+References: <dbd34e37b5d757ff7ae2a7318ad12b159970604c.1718887298.git.federico.serafini@bugseng.com> <alpine.DEB.2.22.394.2406201722100.2572888@ubuntu-linux-20-04-desktop>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
-On Fri, 21 Jun 2024, Alessandro Zucchelli wrote:
-> Rule 21.2 reports identifiers reserved for the C and POSIX standard
-> libraries: or, and, not and xor are reserved identifiers because they
-> constitute alternate spellings for the corresponding operators (they are
-> defined as macros by iso646.h); however Xen doesn't use standard library
-> headers, so there is no risk of overlap.
+On Thu, 20 Jun 2024, Stefano Stabellini wrote:
+> On Thu, 20 Jun 2024, Federico Serafini wrote:
+> > MISRA C Rule 5.5 states that "Identifiers shall be distinct from macro
+> > names".
+> > 
+> > Update ECLAIR configuration to deviate:
+> > - macros expanding to their own name;
+> > - clashes between macros and non-callable entities;
+> > - clashes related to the selection of specific implementations of string
+> >   handling functions.
+> > 
+> > Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
 > 
-> This addresses violations arising from x86_emulate/x86_emulate.c, where
-> label statements named as or, and and xor appear.
-> 
-> No functional change.
-> 
-> Signed-off-by: Alessandro Zucchelli <alessandro.zucchelli@bugseng.com>
-> Acked-by: Stefano Stabellini <sstabellini@kernel.org>
-> ---
-> Changes from v1:
-> Added deviation for 'not' identifier.
-> Added explanation of where these identifiers are defined, specifically in the
-> 'iso646.h' file of the Standard Library.
-> ---
->  automation/eclair_analysis/ECLAIR/deviations.ecl | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/automation/eclair_analysis/ECLAIR/deviations.ecl b/automation/eclair_analysis/ECLAIR/deviations.ecl
-> index 069519e380..14c7afb39e 100644
-> --- a/automation/eclair_analysis/ECLAIR/deviations.ecl
-> +++ b/automation/eclair_analysis/ECLAIR/deviations.ecl
-> @@ -501,7 +501,7 @@ still remain available."
->  -doc_begin="or, and and xor are reserved identifiers because they constitute alternate
->  spellings for the corresponding operators (they are defined as macros by iso646.h).
->  However, Xen doesn't use standard library headers, so there is no risk of overlap."
-> --config=MC3R1.R21.2,reports+={safe, "any_area(stmt(ref(kind(label)&&^(or|and|xor)$)))"}
-> +-config=MC3R1.R21.2,reports+={safe, "any_area(stmt(ref(kind(label)&&^(or|and|xor|not)$)))"}
->  -doc_end
+> Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 
-It looks like this patch relies on the previous version to be applied?
-Maybe you forgot to squash your changes with your previous patch?
+I would like to ask for a release-ack as its effect is limited to ECLAIR
+analysis results and rule 5.5 is not blocking anyway (it is allowed to
+fail).
 
