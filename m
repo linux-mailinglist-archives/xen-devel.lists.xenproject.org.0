@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2D2479117CA
-	for <lists+xen-devel@lfdr.de>; Fri, 21 Jun 2024 02:50:27 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.744957.1152081 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EF4D59117D4
+	for <lists+xen-devel@lfdr.de>; Fri, 21 Jun 2024 03:03:25 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.744967.1152091 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sKSTd-0001vD-Jh; Fri, 21 Jun 2024 00:50:05 +0000
+	id 1sKSg7-0003H9-PY; Fri, 21 Jun 2024 01:02:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 744957.1152081; Fri, 21 Jun 2024 00:50:05 +0000
+Received: by outflank-mailman (output) from mailman id 744967.1152091; Fri, 21 Jun 2024 01:02:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sKSTd-0001sO-Gy; Fri, 21 Jun 2024 00:50:05 +0000
-Received: by outflank-mailman (input) for mailman id 744957;
- Fri, 21 Jun 2024 00:50:04 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1sKSg7-0003Ei-Mp; Fri, 21 Jun 2024 01:02:59 +0000
+Received: by outflank-mailman (input) for mailman id 744967;
+ Fri, 21 Jun 2024 01:02:58 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=B+dc=NX=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1sKSTc-0001c8-56
- for xen-devel@lists.xenproject.org; Fri, 21 Jun 2024 00:50:04 +0000
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 2f041a59-2f68-11ef-b4bb-af5377834399;
- Fri, 21 Jun 2024 02:50:01 +0200 (CEST)
+ id 1sKSg6-0003Ec-Ra
+ for xen-devel@lists.xenproject.org; Fri, 21 Jun 2024 01:02:58 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id fec733fc-2f69-11ef-90a3-e314d9c70b13;
+ Fri, 21 Jun 2024 03:02:57 +0200 (CEST)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id 58740CE2345;
- Fri, 21 Jun 2024 00:49:55 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B1E8DC2BD10;
- Fri, 21 Jun 2024 00:49:53 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id AD1B062234;
+ Fri, 21 Jun 2024 01:02:55 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7056CC4AF07;
+ Fri, 21 Jun 2024 01:02:54 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,18 +41,18 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2f041a59-2f68-11ef-b4bb-af5377834399
+X-Inumbo-ID: fec733fc-2f69-11ef-90a3-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1718930994;
-	bh=uXJaFNeEv2qJH37zXRCpN8maT264MuP1N06mzvDgZko=;
+	s=k20201202; t=1718931775;
+	bh=DfcSr8Bx1doQEh/9BMVK86RhBRiiqnKnr9/JhJ1hEPA=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=PNNfFP58Ahs12BFLzcy0N73EtrV6be+MG21opFBB56seWL86yZp9FY5ZIxTwF+cDv
-	 emEo55fFddbzbDZVt3iBWCmYJfuZtoe6FpAsIO/fEeX3JU4SivTSoS4mF6Gbm43lnV
-	 WFMXdIVAzZfUK9j6Jhd02AwIZjjPIA9bkwepKOdM00KN9qVfiF6Zqgbgfw+DIpN+Bv
-	 t8sEOhVMilvKkePeFEBIRkfZYPJu9ptEZHekHHgvnTxxBeI4uXmvzweE99//fo65kh
-	 WKK8aSPoev/nmxTeEkPWg6TfIxatHCw30677r4+q+eQU73f05XC6KoTU0dKyBTChi9
-	 b0Uvrrzneytsg==
-Date: Thu, 20 Jun 2024 17:49:52 -0700 (PDT)
+	b=tKlKPKAQE6H9ZATLfTLddhcux/6stgGRerXMc70U4TICqoEbswbXiwTBAIiPlWSoy
+	 E0L01qIBquEAAZ6PgeyRb429YRkQvUDdJIc7cseKwc+5HpJNXsce9g2y09zDvGGoWU
+	 JzVJXE5TBXbCiGaxBNxCeQ/Ye4uep5Ltm1deeNtV7VyViiOus2f83pE0xALiaZVq/J
+	 ayu5Hqwgod9UGRt5ZN46x0jSNuy0OfZ3fhxmnAT/HXxuJZlRuDBIkEJ4kkpz250yOc
+	 KMYdsHHLnnydv9oj5mVSX8NsFFxSV7QwkrP8VJfxqV0v6uqaIGUq4eiboREi0gXtbX
+	 wTR8UM4rpib4w==
+Date: Thu, 20 Jun 2024 18:02:53 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
 To: Jan Beulich <jbeulich@suse.com>
@@ -61,61 +61,64 @@ cc: Alessandro Zucchelli <alessandro.zucchelli@bugseng.com>,
     Doug Goldstein <cardoe@cardoe.com>, 
     Stefano Stabellini <sstabellini@kernel.org>, 
     xen-devel@lists.xenproject.org
-Subject: Re: [PATCH] automation/eclair_analysis: deviate and|or|xor for MISRA
- C Rule 21.2
-In-Reply-To: <5f486b5a-aba1-41f6-9e24-16ad3acd67bd@suse.com>
-Message-ID: <alpine.DEB.2.22.394.2406201746540.2572888@ubuntu-linux-20-04-desktop>
-References: <b89e106649e3d0ecb41baadb49dc09c54b7563ec.1718873635.git.alessandro.zucchelli@bugseng.com> <5f486b5a-aba1-41f6-9e24-16ad3acd67bd@suse.com>
+Subject: Re: [PATCH 1/2] automation/eclair_analysis: deviate MISRA C Rule
+ 21.2
+In-Reply-To: <02ee9a03-c5b9-4250-960d-e9a2762605c8@suse.com>
+Message-ID: <alpine.DEB.2.22.394.2406201758490.2572888@ubuntu-linux-20-04-desktop>
+References: <cover.1718816397.git.alessandro.zucchelli@bugseng.com> <5b8364528a9ece8fec9f0e70bee81c2ea94c1820.1718816397.git.alessandro.zucchelli@bugseng.com> <02ee9a03-c5b9-4250-960d-e9a2762605c8@suse.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
 On Thu, 20 Jun 2024, Jan Beulich wrote:
-> On 20.06.2024 11:07, Alessandro Zucchelli wrote:
+> On 19.06.2024 19:09, Alessandro Zucchelli wrote:
 > > Rule 21.2 reports identifiers reserved for the C and POSIX standard
-> > libraries: or, and and xor are reserved identifiers because they constitute
-> > alternate spellings for the corresponding operators; however Xen doesn't
-> > use standard library headers, so there is no risk of overlap.
-> 
-> This is iso646.h aiui, which imo would be good to mention here, just
-> to avoid people needing to go hunt for where this is coming from.
-> 
-> > This addresses violations arising from x86_emulate/x86_emulate.c, where
-> > label statements named as or, and and xor appear.
-> 
-> So a deviation purely by present uses, even ...
-> 
+> > libraries: all xen's translation units are compiled with option
+> > -nostdinc, this guarantees that these libraries are not used, therefore
+> > a justification is provided for allowing uses of such identifiers in
+> > the project.
+> > Builtins starting with "__builtin_" still remain available.
+> > 
+> > No functional change.
+> > 
+> > Signed-off-by: Alessandro Zucchelli <alessandro.zucchelli@bugseng.com>
+> > ---
+> >  automation/eclair_analysis/ECLAIR/deviations.ecl | 11 +++++++++++
+> >  1 file changed, 11 insertions(+)
+> > 
+> > diff --git a/automation/eclair_analysis/ECLAIR/deviations.ecl b/automation/eclair_analysis/ECLAIR/deviations.ecl
+> > index 447c1e6661..9fa9a7f01c 100644
 > > --- a/automation/eclair_analysis/ECLAIR/deviations.ecl
 > > +++ b/automation/eclair_analysis/ECLAIR/deviations.ecl
-> > @@ -498,6 +498,12 @@ still remain available."
-> >  -config=MC3R1.R21.2,declarations+={safe, "!^__builtin_.*$"}
-> >  -doc_end
+> > @@ -487,6 +487,17 @@ leads to a violation of the Rule are deviated."
+> >  # Series 21.
+> >  #
 > >  
-> > +-doc_begin="or, and and xor are reserved identifiers because they constitute alternate
-> > +spellings for the corresponding operators.
-> > +However, Xen doesn't use standard library headers, so there is no risk of overlap."
-> > +-config=MC3R1.R21.2,reports+={safe, "any_area(stmt(ref(kind(label)&&^(or|and|xor)$)))"}
-> > +-doc_end
+> > +-doc_begin="Rules 21.1 and 21.2 report identifiers reserved for the C and POSIX
+> > +standard libraries: if these libraries are not used there is no reason to avoid such
+> > +identifiers. All xen's translation units are compiled with option -nostdinc,
+> > +this guarantees that these libraries are not used. Some compilers could perform
+> > +optimization using built-in functions: this risk is partially addressed by
+> > +using the compilation option -fno-builtin. Builtins starting with \"__builtin_\"
+> > +still remain available."
 > 
-> ... constrained to just labels. Why would we do that? Why can't we deviate
-> them all (or at least all that are plausible to potentially use somewhere,
-> which imo would include at least "not" as well), and no matter what
-> syntactical element they would be used as?
-> 
-> Besides, just as a remark: Specifically when used as label names, there's
-> no risk at all, I'm inclined to say. If iso646.h existed in Xen and was
-> included in such a source file, the compiler would choke on the result.
+> While the sub-section "Reserved Identifiers" is part of Section 7,
+> "Library", close coordination is needed between the library and the
+> compiler, which only together form an "implementation". Therefore any
+> use of identifiers beginning with two underscores or beginning with an
+> underscore and an upper case letter is at risk of colliding not only
+> with a particular library implementation (which we don't use), but
+> also of such with a particular compiler implementation (which we cannot
+> avoid to use). How can we permit use of such potentially problematic
+> identifiers?
 
-I agree with Jan with adding "not" and deviate everywhere, but I would
-only deviate for label names. That's because I agree with Jan that when
-used as label names there is no risk. However, in other uses it is less
-clear and I'd prefer to avoid.
+Alternative question: is there a way we can check if there is clash of
+some sort between a compiler implementation of something and a MACRO or
+identifier we have in Xen? An error or a warning from the compiler for
+instance? That could be an easy way to prove we are safe.
 
-Looking at this patch, it is already applying not just to x86_emulate but
-everywhere. So the only improvement would be to add "not" to the list:
-or|and|xor|not
-
-I consider it nice-to-have rather than must-have, so:
-
-Acked-by: Stefano Stabellini <sstabellini@kernel.org>
+Also, can we use the fact that the compiler we use is the same compiler
+used to compile Linux, and Linux makes extensive use of identifiers and
+macros starting with underscores as one of the reason for being safe
+from clashes?
 
