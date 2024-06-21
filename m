@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EDF7191305E
-	for <lists+xen-devel@lfdr.de>; Sat, 22 Jun 2024 00:35:33 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.745664.1152815 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B83A19130D8
+	for <lists+xen-devel@lfdr.de>; Sat, 22 Jun 2024 01:27:57 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.745675.1152825 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sKmq2-00027W-S6; Fri, 21 Jun 2024 22:34:34 +0000
+	id 1sKnf6-0001ZO-HL; Fri, 21 Jun 2024 23:27:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 745664.1152815; Fri, 21 Jun 2024 22:34:34 +0000
+Received: by outflank-mailman (output) from mailman id 745675.1152825; Fri, 21 Jun 2024 23:27:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sKmq2-000261-PI; Fri, 21 Jun 2024 22:34:34 +0000
-Received: by outflank-mailman (input) for mailman id 745664;
- Fri, 21 Jun 2024 22:34:32 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1sKnf6-0001XG-E6; Fri, 21 Jun 2024 23:27:20 +0000
+Received: by outflank-mailman (input) for mailman id 745675;
+ Fri, 21 Jun 2024 23:27:18 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=B+dc=NX=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1sKmq0-00025v-RT
- for xen-devel@lists.xenproject.org; Fri, 21 Jun 2024 22:34:32 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 6cff87a4-301e-11ef-90a3-e314d9c70b13;
- Sat, 22 Jun 2024 00:34:31 +0200 (CEST)
+ id 1sKnf4-0001XA-MF
+ for xen-devel@lists.xenproject.org; Fri, 21 Jun 2024 23:27:18 +0000
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id c903ab96-3025-11ef-b4bb-af5377834399;
+ Sat, 22 Jun 2024 01:27:14 +0200 (CEST)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id D2D3862420;
- Fri, 21 Jun 2024 22:34:28 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C7B96C2BBFC;
- Fri, 21 Jun 2024 22:34:26 +0000 (UTC)
+ by sin.source.kernel.org (Postfix) with ESMTP id 7EC13CE3CD2;
+ Fri, 21 Jun 2024 23:27:08 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8835FC2BBFC;
+ Fri, 21 Jun 2024 23:27:06 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,206 +41,121 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6cff87a4-301e-11ef-90a3-e314d9c70b13
+X-Inumbo-ID: c903ab96-3025-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1719009268;
-	bh=TyZBPDMQXih2WNT7cUG5PFw78FxIHahxXePUGgoWvkM=;
+	s=k20201202; t=1719012427;
+	bh=itEtUME6C4Zc1DxKquhnptxC25JV3Tn3U3n3KJMVXVQ=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=k6DmblBniO7VJiWHndC/1RNZWzERIKtJ6XqnTiZYqtOIwdCBcQNOr6cFIhsjNeFg5
-	 +B+K+Wq35CBsKmNxz+pCkdv9LbgkcH5vNwmQFdyh4X2a9WxhtL5afR2I6WuDr1WC4/
-	 apKKqW1aTViEh0l3kiNBxrWOcOkBTAv7qI0Wd1Zj/cTKCFJb53jimvS6jZpXffiEEA
-	 1RcLWEmbeXoGXj99hX2/Dpxd+ko6V5XZ8CU3+umOZHhIG/WlH2QPDecZKZgLk63YL7
-	 7DjlKx2UPt6vzYKGNx3C0Yi58aiwkNpyTsgUkacl5PjnESHznj0EbIIoOlDTAlWtIK
-	 Qs7JImCNpXbNw==
-Date: Fri, 21 Jun 2024 15:34:25 -0700 (PDT)
+	b=u4pJacmhvUGJ7NZAm2TPdPo2qnFEOX/ZQ0FQHxQU/FPAnx2JvCF+3GVa5eqdzpl8+
+	 8cPBan5dW8tlHABlyvp4hNKrgem5Xc7JEMRPZNhAmOeJDduucjv768zo9yTJzqJdUx
+	 hoVVIdbYVWrVLja/aZfRFUcR3xOC/VeaYJS16Go6VxNbg+BycpZAIAcOwcsQbRGqh3
+	 u+XXGoonGDt6fsZjzJvJ77n5wKP7vLFcBiKsrGPczKZERLvQrBSneDACSye8YAa3tl
+	 DrjMswAgafOV9Ozf9GJw2Vw5tgjsCYNArlUw/46g8yKBYjsZ4mWIlfxTH5IRjHcZXK
+	 2u9r8+OfbRI0w==
+Date: Fri, 21 Jun 2024 16:27:05 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Federico Serafini <federico.serafini@bugseng.com>
-cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
-    xen-devel@lists.xenproject.org, consulting@bugseng.com, 
-    Bertrand Marquis <bertrand.marquis@arm.com>, 
-    Michal Orzel <michal.orzel@amd.com>, 
-    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
-    Andrew Cooper <andrew.cooper3@citrix.com>, 
-    George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>, 
-    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-    Dario Faggioli <dfaggioli@suse.com>, Juergen Gross <jgross@suse.com>
-Subject: Re: [XEN PATCH v2] xen: add explicit comment to identify notifier
- patterns
-In-Reply-To: <bce5eae2-973d-4d69-bee1-09f9f09dd011@bugseng.com>
-Message-ID: <alpine.DEB.2.22.394.2406211529130.2572888@ubuntu-linux-20-04-desktop>
-References: <d814434bf73e341f5d35836fa7063a728f7b7de4.1718788908.git.federico.serafini@bugseng.com> <f7d46c15-ff85-4a6f-afd7-df18649726c8@xen.org> <2072bf59-f125-4789-be77-40ed3641aec4@bugseng.com> <alpine.DEB.2.22.394.2406201811200.2572888@ubuntu-linux-20-04-desktop>
- <bce5eae2-973d-4d69-bee1-09f9f09dd011@bugseng.com>
+To: Jan Beulich <jbeulich@suse.com>
+cc: Stefano Stabellini <sstabellini@kernel.org>, 
+    Alessandro Zucchelli <alessandro.zucchelli@bugseng.com>, 
+    consulting@bugseng.com, Simone Ballarin <simone.ballarin@bugseng.com>, 
+    Doug Goldstein <cardoe@cardoe.com>, xen-devel@lists.xenproject.org
+Subject: Re: [PATCH 1/2] automation/eclair_analysis: deviate MISRA C Rule
+ 21.2
+In-Reply-To: <650b7946-ddb5-4428-b6d9-d8f6e0b0f8b9@suse.com>
+Message-ID: <alpine.DEB.2.22.394.2406211619070.2572888@ubuntu-linux-20-04-desktop>
+References: <cover.1718816397.git.alessandro.zucchelli@bugseng.com> <5b8364528a9ece8fec9f0e70bee81c2ea94c1820.1718816397.git.alessandro.zucchelli@bugseng.com> <02ee9a03-c5b9-4250-960d-e9a2762605c8@suse.com> <alpine.DEB.2.22.394.2406201758490.2572888@ubuntu-linux-20-04-desktop>
+ <650b7946-ddb5-4428-b6d9-d8f6e0b0f8b9@suse.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Type: multipart/mixed; BOUNDARY="8323329-1880117008-1719009152=:2572888"
-Content-ID: <alpine.DEB.2.22.394.2406211532370.2572888@ubuntu-linux-20-04-desktop>
+Content-Type: text/plain; charset=US-ASCII
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
-
---8323329-1880117008-1719009152=:2572888
-Content-Type: text/plain; CHARSET=UTF-8
-Content-Transfer-Encoding: 8BIT
-Content-ID: <alpine.DEB.2.22.394.2406211532371.2572888@ubuntu-linux-20-04-desktop>
-
-On Fri, 21 Jun 2024, Federico Serafini wrote:
-> On 21/06/24 03:13, Stefano Stabellini wrote:
-> > On Thu, 20 Jun 2024, Federico Serafini wrote:
-> > > On 19/06/24 13:17, Julien Grall wrote:
-> > > > Hi Federico,
-> > > > 
-> > > > On 19/06/2024 10:29, Federico Serafini wrote:
-> > > > > MISRA C Rule 16.4 states that every `switch' statement shall have a
-> > > > > `default' label" and a statement or a comment prior to the
-> > > > > terminating break statement.
-> > > > > 
-> > > > > This patch addresses some violations of the rule related to the
-> > > > > "notifier pattern": a frequently-used pattern whereby only a few
-> > > > > values
-> > > > > are handled by the switch statement and nothing should be done for
-> > > > > others (nothing to do in the default case).
-> > > > > 
-> > > > > Note that for function mwait_idle_cpu_init() in
-> > > > > xen/arch/x86/cpu/mwait-idle.c the /* Notifier pattern. */ comment is
-> > > > > not added: differently from the other functions covered in this patch,
-> > > > > the default label has a return statement that does not violates Rule
-> > > > > 16.4.
-> > > > > 
-> > > > > No functional change.
-> > > > > 
-> > > > > Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
-> > > > > ---
-> > > > > Changes in v2:
-> > > > > as Jan pointed out, in the v1 some patterns were not explicitly
-> > > > > identified
-> > > > > (https://lore.kernel.org/xen-devel/cad05a5c-e2d8-4e5d-af05-30ae6f959184@bugseng.com/).
-> > > > > 
-> > > > > This version adds the /* Notifier pattern. */ to all the pattern
-> > > > > present
-> > > > > in
-> > > > > the Xen codebase except for mwait_idle_cpu_init().
-> > > > > ---
-> > > > >    xen/arch/arm/cpuerrata.c                     | 1 +
-> > > > >    xen/arch/arm/gic-v3-lpi.c                    | 4 ++++
-> > > > >    xen/arch/arm/gic.c                           | 1 +
-> > > > >    xen/arch/arm/irq.c                           | 4 ++++
-> > > > >    xen/arch/arm/mmu/p2m.c                       | 1 +
-> > > > >    xen/arch/arm/percpu.c                        | 1 +
-> > > > >    xen/arch/arm/smpboot.c                       | 1 +
-> > > > >    xen/arch/arm/time.c                          | 1 +
-> > > > >    xen/arch/arm/vgic-v3-its.c                   | 2 ++
-> > > > >    xen/arch/x86/acpi/cpu_idle.c                 | 4 ++++
-> > > > >    xen/arch/x86/cpu/mcheck/mce.c                | 4 ++++
-> > > > >    xen/arch/x86/cpu/mcheck/mce_intel.c          | 4 ++++
-> > > > >    xen/arch/x86/genapic/x2apic.c                | 3 +++
-> > > > >    xen/arch/x86/hvm/hvm.c                       | 1 +
-> > > > >    xen/arch/x86/nmi.c                           | 1 +
-> > > > >    xen/arch/x86/percpu.c                        | 3 +++
-> > > > >    xen/arch/x86/psr.c                           | 3 +++
-> > > > >    xen/arch/x86/smpboot.c                       | 3 +++
-> > > > >    xen/common/kexec.c                           | 1 +
-> > > > >    xen/common/rcupdate.c                        | 1 +
-> > > > >    xen/common/sched/core.c                      | 1 +
-> > > > >    xen/common/sched/cpupool.c                   | 1 +
-> > > > >    xen/common/spinlock.c                        | 1 +
-> > > > >    xen/common/tasklet.c                         | 1 +
-> > > > >    xen/common/timer.c                           | 1 +
-> > > > >    xen/drivers/cpufreq/cpufreq.c                | 1 +
-> > > > >    xen/drivers/cpufreq/cpufreq_misc_governors.c | 3 +++
-> > > > >    xen/drivers/passthrough/x86/hvm.c            | 3 +++
-> > > > >    xen/drivers/passthrough/x86/iommu.c          | 3 +++
-> > > > >    29 files changed, 59 insertions(+)
-> > > > > 
-> > > > > diff --git a/xen/arch/arm/cpuerrata.c b/xen/arch/arm/cpuerrata.c
-> > > > > index 2b7101ea25..69c30aecd8 100644
-> > > > > --- a/xen/arch/arm/cpuerrata.c
-> > > > > +++ b/xen/arch/arm/cpuerrata.c
-> > > > > @@ -730,6 +730,7 @@ static int cpu_errata_callback(struct
-> > > > > notifier_block
-> > > > > *nfb,
-> > > > >            rc = enable_nonboot_cpu_caps(arm_errata);
-> > > > >            break;
-> > > > >        default:
-> > > > > +        /* Notifier pattern. */
-> > > > Without looking at the commit message (which may not be trivial when
-> > > > committed), it is not clear to me what this is supposed to mean. Will
-> > > > there
-> > > > be a longer explanation in the MISRA doc? Should this be a SAF-*
-> > > > comment?
-> > > > 
-> > > > >            break;
-> > > > >        }
-> > > > > diff --git a/xen/arch/arm/gic-v3-lpi.c b/xen/arch/arm/gic-v3-lpi.c
-> > > > > index eb0a5535e4..4c2bd35403 100644
-> > > > > --- a/xen/arch/arm/gic-v3-lpi.c
-> > > > > +++ b/xen/arch/arm/gic-v3-lpi.c
-> > > > > @@ -389,6 +389,10 @@ static int cpu_callback(struct notifier_block
-> > > > > *nfb,
-> > > > > unsigned long action,
-> > > > >                printk(XENLOG_ERR "Unable to allocate the pendtable for
-> > > > > CPU%lu\n",
-> > > > >                       cpu);
-> > > > >            break;
-> > > > > +
-> > > > > +    default:
-> > > > > +        /* Notifier pattern. */
-> > > > > +        break;
-> > > > 
-> > > > Skimming through v1, it was pointed out that gic-v3-lpi may miss some
-> > > > cases.
-> > > > 
-> > > > Let me start with that I understand this patch is technically not
-> > > > changing
-> > > > anything. However, it gives us an opportunity to check the notifier
-> > > > pattern.
-> > > > 
-> > > > Has anyone done any proper investigation? If so, what was the outcome?
-> > > > If
-> > > > not, have we identified someone to do it?
-> > > > 
-> > > > The same question will apply for place where you add "default".
-> > > 
-> > > Yes, I also think this could be an opportunity to check the pattern
-> > > but no one has yet been identified to do this.
+On Fri, 21 Jun 2024, Jan Beulich wrote:
+> On 21.06.2024 03:02, Stefano Stabellini wrote:
+> > On Thu, 20 Jun 2024, Jan Beulich wrote:
+> >> On 19.06.2024 19:09, Alessandro Zucchelli wrote:
+> >>> Rule 21.2 reports identifiers reserved for the C and POSIX standard
+> >>> libraries: all xen's translation units are compiled with option
+> >>> -nostdinc, this guarantees that these libraries are not used, therefore
+> >>> a justification is provided for allowing uses of such identifiers in
+> >>> the project.
+> >>> Builtins starting with "__builtin_" still remain available.
+> >>>
+> >>> No functional change.
+> >>>
+> >>> Signed-off-by: Alessandro Zucchelli <alessandro.zucchelli@bugseng.com>
+> >>> ---
+> >>>  automation/eclair_analysis/ECLAIR/deviations.ecl | 11 +++++++++++
+> >>>  1 file changed, 11 insertions(+)
+> >>>
+> >>> diff --git a/automation/eclair_analysis/ECLAIR/deviations.ecl b/automation/eclair_analysis/ECLAIR/deviations.ecl
+> >>> index 447c1e6661..9fa9a7f01c 100644
+> >>> --- a/automation/eclair_analysis/ECLAIR/deviations.ecl
+> >>> +++ b/automation/eclair_analysis/ECLAIR/deviations.ecl
+> >>> @@ -487,6 +487,17 @@ leads to a violation of the Rule are deviated."
+> >>>  # Series 21.
+> >>>  #
+> >>>  
+> >>> +-doc_begin="Rules 21.1 and 21.2 report identifiers reserved for the C and POSIX
+> >>> +standard libraries: if these libraries are not used there is no reason to avoid such
+> >>> +identifiers. All xen's translation units are compiled with option -nostdinc,
+> >>> +this guarantees that these libraries are not used. Some compilers could perform
+> >>> +optimization using built-in functions: this risk is partially addressed by
+> >>> +using the compilation option -fno-builtin. Builtins starting with \"__builtin_\"
+> >>> +still remain available."
+> >>
+> >> While the sub-section "Reserved Identifiers" is part of Section 7,
+> >> "Library", close coordination is needed between the library and the
+> >> compiler, which only together form an "implementation". Therefore any
+> >> use of identifiers beginning with two underscores or beginning with an
+> >> underscore and an upper case letter is at risk of colliding not only
+> >> with a particular library implementation (which we don't use), but
+> >> also of such with a particular compiler implementation (which we cannot
+> >> avoid to use). How can we permit use of such potentially problematic
+> >> identifiers?
 > > 
-> > I don't think I understand Julien's question and/or your answer.
-> > 
-> > Is the question whether someone has done an analysis to make sure this
-> > patch covers all notifier patters in the xen codebase?
+> > Alternative question: is there a way we can check if there is clash of
+> > some sort between a compiler implementation of something and a MACRO or
+> > identifier we have in Xen? An error or a warning from the compiler for
+> > instance? That could be an easy way to prove we are safe.
 > 
-> I think Jan and Julien's concerns are about the fact that my patch
-> takes for granted that all the switch statements are doing the right
-> thing: someone should investigate the notifier patterns to confirm that
-> their are handling the different cases correctly.
+> Well. I think it is the default for the compiler to warn when re-#define-
+> ing a previously #define-d (by the compiler or by us) symbol, so on that
+> side we ought to be safe at any given point in time,
 
-That's really difficult to do, even for the maintainers of the code in
-question.
-
-And by not taking this patch we are exposing ourselves to more safety
-risks because we cannot make R16.4 blocking.
+OK, that's good. It seems to me that this explanation should be part of
+the deviation text.
 
 
-> > If so, I expect that you have done an analysis simply by basing this
-> > patch on the 16.4 violations reported by ECLAIR?
+> yet we're still latently unsafe (as to compilers introducing new
+> pre-defines).
+
+Sure, but we don't need to be safe in relation to future compiler. Right
+now, we are targeting gcc-12.1.0 as written in
+docs/misra/C-language-toolchain.rst. When we decide to enable a new
+compiler in Xen we can fix/change any specific define as needed. Also
+note the large amount of things written in C-language-toolchain.rst that
+need to be checked and verified for a new compiler to make sure we can
+actually use it safely (we make many assumptions).
+
+
+> For built-in declarations, though, there's nothing I'm aware of that
+> would indicate collisions.
+
+For builtins, Alessandro was suggesting -fno-builtin. One question to
+Alessandro is why would -fno-builtin only "partially" address the
+problem.
+
+Another question for Jan and also Alessandro: given that builtins
+starting with __builtin_ remain available, any drawbacks in using
+-fno-builtin in a Xen build?
+
+
+
+> > Also, can we use the fact that the compiler we use is the same compiler
+> > used to compile Linux, and Linux makes extensive use of identifiers and
+> > macros starting with underscores as one of the reason for being safe
+> > from clashes?
 > 
-> The previous version of the patch was based only on the reports of
-> ECLAIR but Jan said "you left out some patterns, why?".
-> 
-> So, this version of the patch adds the comment for all the notifier
-> patterns I found using git grep "struct notifier_block \*"
-> (a superset of the ones reported by ECLAIR because some of them are in
-> files excluded from the analysis or deviated).
-
-I think this patch is a step in the right direction. It doesn't prevent
-anyone in the community from making expert evaluations on whether the
-pattern is implemented correctly.
-
-Honestly, I don't see another way to make progress on this, except for
-maybe deviating project-wide "struct notifier_block". But that's
-conceptually the same thing as this patch.
-
-
-Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
---8323329-1880117008-1719009152=:2572888--
+> I think we could, but I don't think we should.
 
