@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9A15A912F97
-	for <lists+xen-devel@lfdr.de>; Fri, 21 Jun 2024 23:33:11 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.745599.1152734 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 95E06912F98
+	for <lists+xen-devel@lfdr.de>; Fri, 21 Jun 2024 23:33:50 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.745605.1152745 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sKlrY-0005E4-PD; Fri, 21 Jun 2024 21:32:04 +0000
+	id 1sKlt5-0005ky-2W; Fri, 21 Jun 2024 21:33:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 745599.1152734; Fri, 21 Jun 2024 21:32:04 +0000
+Received: by outflank-mailman (output) from mailman id 745605.1152745; Fri, 21 Jun 2024 21:33:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sKlrY-0005CH-MR; Fri, 21 Jun 2024 21:32:04 +0000
-Received: by outflank-mailman (input) for mailman id 745599;
- Fri, 21 Jun 2024 21:32:03 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1sKlt4-0005jQ-Vw; Fri, 21 Jun 2024 21:33:38 +0000
+Received: by outflank-mailman (input) for mailman id 745605;
+ Fri, 21 Jun 2024 21:33:38 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=B+dc=NX=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1sKlrW-0005CB-Sv
- for xen-devel@lists.xenproject.org; Fri, 21 Jun 2024 21:32:02 +0000
+ id 1sKlt4-0005jK-5b
+ for xen-devel@lists.xenproject.org; Fri, 21 Jun 2024 21:33:38 +0000
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b097f025-3015-11ef-b4bb-af5377834399;
- Fri, 21 Jun 2024 23:31:59 +0200 (CEST)
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id ea61e56d-3015-11ef-90a3-e314d9c70b13;
+ Fri, 21 Jun 2024 23:33:37 +0200 (CEST)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 335FD62F9F;
- Fri, 21 Jun 2024 21:31:58 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AE4E5C2BBFC;
- Fri, 21 Jun 2024 21:31:56 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id 5F20B62FA1;
+ Fri, 21 Jun 2024 21:33:35 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 35869C2BBFC;
+ Fri, 21 Jun 2024 21:33:34 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,73 +41,86 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b097f025-3015-11ef-b4bb-af5377834399
+X-Inumbo-ID: ea61e56d-3015-11ef-90a3-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1719005517;
-	bh=2b3yQ/OXCPBmU4nkW1SyGQ0JPBACNpJz2Dc/ulbusNo=;
+	s=k20201202; t=1719005615;
+	bh=l48y11LNjI5XuqxT5ZaEsrDv47R4Kr4/Whk+1TSosxU=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=rltagSZ3JiFAhmjhxrMo2/zi9X0yuEx5aOyzFkY9dYyrO4/oXHKfJM2CwbQ7nlCiq
-	 oLnJ0kUkd334ElyhrBt2BzkGKGuaADFJTyiW1/6KmCMXYvSSEgF7MKplJm08JXl491
-	 v6Jysi1JFCc01tM7q6mV0YhocUNRaYlIG6ygZirZFSEZ8LL/lp70PKQq99T4UN7LNE
-	 I8PJKEO0MYAaL1ycNm8ZQrKH8++jpxwDieQNnJVXpNRXuOY11YMd0XNa3tvCm66uKM
-	 VMFs779lNcTYX9kWTCDyneZpsoM2NnbNf8RL2sQkDHW/O1SgUWQD69UmPIerexIQdX
-	 HiwPMZQP11XYA==
-Date: Fri, 21 Jun 2024 14:31:55 -0700 (PDT)
+	b=GBt9tNICFCug0CfC4IfhkbegYSyVNKwjilJaH7WukO2osnm8N7RoP5HFhoKGQnvVD
+	 kjPpNX+X/obq/cARz/FUsSFEvcOdv6qYu2RMplq1oKtgcSSR4poyXN4yihFuHzHAdh
+	 +C5eYsb337g2DwZaFt6SfyP//msRKPB3fsKMmYSOS/Vvi+ihNHQOSSuzryjWeWuw3K
+	 vpdEhwI377u1XQcCJCN/37jd8xMxTsEPHHxX1zJljsU5xZfdIhXnSdsTRTFtYDQLdx
+	 URFd/kVrvbb/ypAVVLUghaJWcDyvj2ne0aFhFzJ9XVtztwqAT3h7gjonwXaQTarmLX
+	 iaR4kA9/ma4Jw==
+Date: Fri, 21 Jun 2024 14:33:32 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Alessandro Zucchelli <alessandro.zucchelli@bugseng.com>
+To: Federico Serafini <federico.serafini@bugseng.com>
 cc: xen-devel@lists.xenproject.org, consulting@bugseng.com, 
-    Andrew Cooper <andrew.cooper3@citrix.com>, 
-    George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>, 
-    Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, 
-    oleksii.kurochko@gmail.com
-Subject: Re: [PATCH v2] common/unlzo: address violation of MISRA C Rule 7.3
-In-Reply-To: <847f9b715b3c8e2ba0637fdd79111f4f828389c6.1718976211.git.alessandro.zucchelli@bugseng.com>
-Message-ID: <alpine.DEB.2.22.394.2406211431210.2572888@ubuntu-linux-20-04-desktop>
-References: <847f9b715b3c8e2ba0637fdd79111f4f828389c6.1718976211.git.alessandro.zucchelli@bugseng.com>
+    Simone Ballarin <simone.ballarin@bugseng.com>, 
+    Doug Goldstein <cardoe@cardoe.com>, 
+    Stefano Stabellini <sstabellini@kernel.org>, oleksii.kurochko@gmail.com
+Subject: Re: [XEN PATCH] automation/eclair: add more guidelines to the
+ monitored set
+In-Reply-To: <f03398504405689413521de1675a33e50cdbc30b.1718983858.git.federico.serafini@bugseng.com>
+Message-ID: <alpine.DEB.2.22.394.2406211432140.2572888@ubuntu-linux-20-04-desktop>
+References: <f03398504405689413521de1675a33e50cdbc30b.1718983858.git.federico.serafini@bugseng.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
-On Fri, 21 Jun 2024, Alessandro Zucchelli wrote:
-> This addresses violations of MISRA C:2012 Rule 7.3 which states as
-> following: the lowercase character `l' shall not be used in a literal
-> suffix.
+On Fri, 21 Jun 2024, Federico Serafini wrote:
+> Add more accepted guidelines to the monitored set to check them at each
+> commit.
 > 
-> The file common/unlzo.c defines the non-compliant constant LZO_BLOCK_SIZE with
-> having a lowercase 'l'.
-> It is now defined as '256*1024L'.
-> 
-> No functional change.
-> 
-> Signed-off-by: Alessandro Zucchelli <alessandro.zucchelli@bugseng.com>
+> Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
 
-Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+Acked-by: Stefano Stabellini <sstabellini@kernel.org>
 
-Asking for a release ack for this trivial change
+Asking for a release ack: this allows us to see more violations in the
+regular ECLAIR scanning results. But they are not blocking, so they
+won't cause additional new failures in the pipeline. It is just
+informative.
 
 
 > ---
-> Changes from v1:
-> Instead of deviating /common/unlzo.c reports fro Rule 7.3 they are addressed by
-> changing the non-compliant definition of LZO_BLOCK_SIZE.
-> ---
->  xen/common/unlzo.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+>  automation/eclair_analysis/ECLAIR/monitored.ecl | 5 +++++
+>  1 file changed, 5 insertions(+)
 > 
-> diff --git a/xen/common/unlzo.c b/xen/common/unlzo.c
-> index bdcefa95b3..acb8dff600 100644
-> --- a/xen/common/unlzo.c
-> +++ b/xen/common/unlzo.c
-> @@ -52,7 +52,7 @@ static inline u32 get_unaligned_be32(const void *p)
->  static const unsigned char lzop_magic[] = {
->  	0x89, 0x4c, 0x5a, 0x4f, 0x00, 0x0d, 0x0a, 0x1a, 0x0a };
->  
-> -#define LZO_BLOCK_SIZE        (256*1024l)
-> +#define LZO_BLOCK_SIZE        (256*1024L)
->  #define HEADER_HAS_FILTER      0x00000800L
->  #define HEADER_SIZE_MIN       (9 + 7     + 4 + 8     + 1       + 4)
->  #define HEADER_SIZE_MAX       (9 + 7 + 1 + 8 + 8 + 4 + 1 + 255 + 4)
+> diff --git a/automation/eclair_analysis/ECLAIR/monitored.ecl b/automation/eclair_analysis/ECLAIR/monitored.ecl
+> index 4daecb0c83..9ffaebbdc3 100644
+> --- a/automation/eclair_analysis/ECLAIR/monitored.ecl
+> +++ b/automation/eclair_analysis/ECLAIR/monitored.ecl
+> @@ -18,10 +18,13 @@
+>  -enable=MC3R1.R12.5
+>  -enable=MC3R1.R1.3
+>  -enable=MC3R1.R13.6
+> +-enable=MC3R1.R13.1
+>  -enable=MC3R1.R1.4
+>  -enable=MC3R1.R14.1
+>  -enable=MC3R1.R14.4
+>  -enable=MC3R1.R16.2
+> +-enable=MC3R1.R16.3
+> +-enable=MC3R1.R16.4
+>  -enable=MC3R1.R16.6
+>  -enable=MC3R1.R16.7
+>  -enable=MC3R1.R17.1
+> @@ -34,6 +37,7 @@
+>  -enable=MC3R1.R20.13
+>  -enable=MC3R1.R20.14
+>  -enable=MC3R1.R20.4
+> +-enable=MC3R1.R20.7
+>  -enable=MC3R1.R20.9
+>  -enable=MC3R1.R2.1
+>  -enable=MC3R1.R21.10
+> @@ -58,6 +62,7 @@
+>  -enable=MC3R1.R5.2
+>  -enable=MC3R1.R5.3
+>  -enable=MC3R1.R5.4
+> +-enable=MC3R1.R5.5
+>  -enable=MC3R1.R5.6
+>  -enable=MC3R1.R6.1
+>  -enable=MC3R1.R6.2
 > -- 
 > 2.34.1
 > 
