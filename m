@@ -2,35 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 91DAB912D34
-	for <lists+xen-devel@lfdr.de>; Fri, 21 Jun 2024 20:31:53 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.745481.1152615 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 41650912DBF
+	for <lists+xen-devel@lfdr.de>; Fri, 21 Jun 2024 21:15:54 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.745497.1152634 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sKj2g-00069y-NM; Fri, 21 Jun 2024 18:31:22 +0000
+	id 1sKjj1-0004qK-5I; Fri, 21 Jun 2024 19:15:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 745481.1152615; Fri, 21 Jun 2024 18:31:22 +0000
+Received: by outflank-mailman (output) from mailman id 745497.1152634; Fri, 21 Jun 2024 19:15:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sKj2g-000684-JY; Fri, 21 Jun 2024 18:31:22 +0000
-Received: by outflank-mailman (input) for mailman id 745481;
- Fri, 21 Jun 2024 18:31:21 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1sKj2f-00067t-5m; Fri, 21 Jun 2024 18:31:21 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1sKj2f-0007vK-0E; Fri, 21 Jun 2024 18:31:21 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1sKj2e-0007CD-Ja; Fri, 21 Jun 2024 18:31:20 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1sKj2e-0002aw-Ir; Fri, 21 Jun 2024 18:31:20 +0000
+	id 1sKjj1-0004oE-2R; Fri, 21 Jun 2024 19:15:07 +0000
+Received: by outflank-mailman (input) for mailman id 745497;
+ Fri, 21 Jun 2024 19:15:05 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=DyDD=NX=tklengyel.com=tamas@srs-se1.protection.inumbo.net>)
+ id 1sKjiy-0004Zs-V3
+ for xen-devel@lists.xenproject.org; Fri, 21 Jun 2024 19:15:04 +0000
+Received: from sender4-op-o15.zoho.com (sender4-op-o15.zoho.com
+ [136.143.188.15]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 8f6ce7f0-3002-11ef-90a3-e314d9c70b13;
+ Fri, 21 Jun 2024 21:15:04 +0200 (CEST)
+Delivered-To: tamas@tklengyel.com
+Received: by mx.zohomail.com with SMTPS id 1718997294380168.4349606052541;
+ Fri, 21 Jun 2024 12:14:54 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,85 +39,109 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=wNNe8rLpraqpTyBDWxniHIaqw75ygMUPmarzFA3bxvo=; b=ww0AV/5WPYUQFusGc1o0vS2Gne
-	9oU3bswidcfkRoJAVRZVuBif5seXEkk/H7dNdGH3rCbP/8v34ZVV8PNjKWYHvJ87+By+QrrJrt30z
-	1WLCB5Np1y+c5ZSqdOu4nKKZD5upXN2KV/eX58fly94XNVCwP+1IMLuOUZNEoFYeThDY=;
+X-Inumbo-ID: 8f6ce7f0-3002-11ef-90a3-e314d9c70b13
+ARC-Seal: i=1; a=rsa-sha256; t=1718997296; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=f0GGN2wPkxoNdUdauBNAYzKCDO2IKvPkY+1VkdH/SMtHDFTJ3K2MuiB0uF2eTAIajjNn9xoLASUhJkq8tJRQmEKkvoGx5z9kk0ummam/PwRTKSoQ2zBA83irqfUsyUL5W0Z8AwApmu9b4y2k/1bjA8MeuozfWHTCLoYk1eg/9Y4=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1718997296; h=Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=tf78nJzAnYuw/IQmW4aPCL35F7SvB2Dnwn2xVGuwziQ=; 
+	b=EUgMRdN0JwK65zlcVvYPIFoTD1coq0QvIjy3kX+66DzQWqbt+e+jCWlINGdRWLQ6ntb6AtA1hBrIaMhvvGLgRFHGz2NIsiCkrDNpdZOMvuIDpS6Qtd+6ErkBE8VQsIgKswosrK/hnaH3zlaIRgDXBKSOnmcPLEdJvLXbt7sbd+w=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=tklengyel.com;
+	spf=pass  smtp.mailfrom=tamas@tklengyel.com;
+	dmarc=pass header.from=<tamas@tklengyel.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1718997296;
+	s=zmail; d=tklengyel.com; i=tamas@tklengyel.com;
+	h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-Id:Message-Id:MIME-Version:Content-Transfer-Encoding:Reply-To;
+	bh=tf78nJzAnYuw/IQmW4aPCL35F7SvB2Dnwn2xVGuwziQ=;
+	b=i7JzvkFtyJTIkE7UG+R4PD7GRW6ROMuQuH8+KS8ofCPr6Ck9WFN7l5HxPIM17cka
+	+mkQifs7YN2rxkb8Gq26NmCV0epvS4zNDF4dDePw0aioZCK5lA14qE5Lr35UqAdHu9Z
+	0id9QOdRAZe42xoJxo+Z3Q/dTN20pPMe7SK2YltU=
+From: Tamas K Lengyel <tamas@tklengyel.com>
 To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-186447-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+Cc: Tamas K Lengyel <tamas@tklengyel.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Anthony PERARD <anthony@xenproject.org>
+Subject: [PATCH 1/2] Add libfuzzer target to fuzz/x86_instruction_emulator
+Date: Fri, 21 Jun 2024 15:14:33 -0400
+Message-Id: <20240621191434.5046-1-tamas@tklengyel.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 186447: tolerable all pass - PUSHED
-X-Osstest-Failures:
-    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=9e7c26ad8532c3efda174dee5ab8bdbeef1e4f6d
-X-Osstest-Versions-That:
-    xen=62071a1c16c4dbe765491e58e456fd3a19b33298
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 21 Jun 2024 18:31:20 +0000
+Content-Transfer-Encoding: 8bit
 
-flight 186447 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/186447/
+This target enables integration into oss-fuzz.
 
-Failures :-/ but no regressions.
+Signed-off-by: Tamas K Lengyel <tamas@tklengyel.com>
+---
+ tools/fuzz/x86_instruction_emulator/Makefile    | 10 ++++++++--
+ tools/fuzz/x86_instruction_emulator/fuzz-emul.c |  6 ++----
+ 2 files changed, 10 insertions(+), 6 deletions(-)
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+diff --git a/tools/fuzz/x86_instruction_emulator/Makefile b/tools/fuzz/x86_instruction_emulator/Makefile
+index 1e4c6b37f5..de5f1e7e30 100644
+--- a/tools/fuzz/x86_instruction_emulator/Makefile
++++ b/tools/fuzz/x86_instruction_emulator/Makefile
+@@ -3,7 +3,7 @@ include $(XEN_ROOT)/tools/Rules.mk
+ 
+ .PHONY: x86-insn-fuzz-all
+ ifeq ($(CONFIG_X86_64),y)
+-x86-insn-fuzz-all: x86-insn-fuzzer.a fuzz-emul.o afl
++x86-insn-fuzz-all: x86-insn-fuzzer.a fuzz-emul.o afl libfuzzer
+ else
+ x86-insn-fuzz-all:
+ endif
+@@ -58,6 +58,9 @@ afl-harness: afl-harness.o $(OBJS) cpuid.o wrappers.o
+ afl-harness-cov: afl-harness-cov.o $(patsubst %.o,%-cov.o,$(OBJS)) cpuid.o wrappers.o
+ 	$(CC) $(CFLAGS) $(GCOV_FLAGS) $(addprefix -Wl$(comma)--wrap=,$(WRAPPED)) $^ -o $@
+ 
++libfuzzer-harness: $(OBJS) cpuid.o
++	$(CC) $(CFLAGS) $(LIB_FUZZING_ENGINE) -fsanitize=fuzzer $^ -o $@
++
+ # Common targets
+ .PHONY: all
+ all: x86-insn-fuzz-all
+@@ -67,7 +70,7 @@ distclean: clean
+ 
+ .PHONY: clean
+ clean:
+-	rm -f *.a *.o $(DEPS_RM) afl-harness afl-harness-cov *.gcda *.gcno *.gcov
++	rm -f *.a *.o $(DEPS_RM) afl-harness afl-harness-cov *.gcda *.gcno *.gcov libfuzzer-harness
+ 	rm -rf x86_emulate x86-emulate.c x86-emulate.h wrappers.c cpuid.c
+ 
+ .PHONY: install
+@@ -81,4 +84,7 @@ afl: afl-harness
+ .PHONY: afl-cov
+ afl-cov: afl-harness-cov
+ 
++.PHONY: libfuzzer
++libfuzzer: libfuzzer-harness
++
+ -include $(DEPS_INCLUDE)
+diff --git a/tools/fuzz/x86_instruction_emulator/fuzz-emul.c b/tools/fuzz/x86_instruction_emulator/fuzz-emul.c
+index eeeb6931f4..2ba9ca9e0b 100644
+--- a/tools/fuzz/x86_instruction_emulator/fuzz-emul.c
++++ b/tools/fuzz/x86_instruction_emulator/fuzz-emul.c
+@@ -906,14 +906,12 @@ int LLVMFuzzerTestOneInput(const uint8_t *data_p, size_t size)
+ 
+     if ( size <= DATA_OFFSET )
+     {
+-        printf("Input too small\n");
+-        return 1;
++        return -1;
+     }
+ 
+     if ( size > FUZZ_CORPUS_SIZE )
+     {
+-        printf("Input too large\n");
+-        return 1;
++        return -1;
+     }
+ 
+     memcpy(&input, data_p, size);
+-- 
+2.34.1
 
-version targeted for testing:
- xen                  9e7c26ad8532c3efda174dee5ab8bdbeef1e4f6d
-baseline version:
- xen                  62071a1c16c4dbe765491e58e456fd3a19b33298
-
-Last test of basis   186435  2024-06-20 14:00:22 Z    1 days
-Testing same since   186447  2024-06-21 15:04:10 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Jan Beulich <jbeulich@suse.com>
-  Matthew Barnes <matthew.barnes@cloud.com>
-
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/xen.git
-   62071a1c16..9e7c26ad85  9e7c26ad8532c3efda174dee5ab8bdbeef1e4f6d -> smoke
 
