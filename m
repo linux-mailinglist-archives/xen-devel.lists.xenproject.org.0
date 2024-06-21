@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 08788911B50
-	for <lists+xen-devel@lfdr.de>; Fri, 21 Jun 2024 08:18:27 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.745034.1152162 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6FD02911B68
+	for <lists+xen-devel@lfdr.de>; Fri, 21 Jun 2024 08:20:00 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.745040.1152172 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sKXaJ-00017W-GA; Fri, 21 Jun 2024 06:17:19 +0000
+	id 1sKXce-0001fB-Sq; Fri, 21 Jun 2024 06:19:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 745034.1152162; Fri, 21 Jun 2024 06:17:19 +0000
+Received: by outflank-mailman (output) from mailman id 745040.1152172; Fri, 21 Jun 2024 06:19:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sKXaJ-00014f-Cy; Fri, 21 Jun 2024 06:17:19 +0000
-Received: by outflank-mailman (input) for mailman id 745034;
- Fri, 21 Jun 2024 06:17:18 +0000
+	id 1sKXce-0001df-PC; Fri, 21 Jun 2024 06:19:44 +0000
+Received: by outflank-mailman (input) for mailman id 745040;
+ Fri, 21 Jun 2024 06:19:42 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=18Fz=NX=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sKXaI-00014Z-2w
- for xen-devel@lists.xenproject.org; Fri, 21 Jun 2024 06:17:18 +0000
-Received: from mail-lj1-x22d.google.com (mail-lj1-x22d.google.com
- [2a00:1450:4864:20::22d])
+ id 1sKXcc-0001dX-Gy
+ for xen-devel@lists.xenproject.org; Fri, 21 Jun 2024 06:19:42 +0000
+Received: from mail-lj1-x235.google.com (mail-lj1-x235.google.com
+ [2a00:1450:4864:20::235])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e7db64ca-2f95-11ef-90a3-e314d9c70b13;
- Fri, 21 Jun 2024 08:17:16 +0200 (CEST)
-Received: by mail-lj1-x22d.google.com with SMTP id
- 38308e7fff4ca-2ec1620a956so18366861fa.1
- for <xen-devel@lists.xenproject.org>; Thu, 20 Jun 2024 23:17:16 -0700 (PDT)
+ id 3e415274-2f96-11ef-90a3-e314d9c70b13;
+ Fri, 21 Jun 2024 08:19:41 +0200 (CEST)
+Received: by mail-lj1-x235.google.com with SMTP id
+ 38308e7fff4ca-2ec4eefbaf1so1957511fa.1
+ for <xen-devel@lists.xenproject.org>; Thu, 20 Jun 2024 23:19:41 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-706512549f1sm631391b3a.122.2024.06.20.23.17.11
+ d2e1a72fcca58-706511b1be5sm657812b3a.95.2024.06.20.23.19.33
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 20 Jun 2024 23:17:14 -0700 (PDT)
+ Thu, 20 Jun 2024 23:19:39 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,52 +45,58 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e7db64ca-2f95-11ef-90a3-e314d9c70b13
+X-Inumbo-ID: 3e415274-2f96-11ef-90a3-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1718950635; x=1719555435; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1718950780; x=1719555580; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=rqC3zgvUttbWYziRuiKxsu06lEb9STwqNvJSXaDHAIk=;
-        b=NSBQWUi7eB2l3k8+P0/NiqwEXswXaU3dGwETB+GhvS7l38IvhfjR55ldhTc6GF8Slp
-         m1oEpyVjRnR1X1SYa1KuhXhBQo8BXf0IMvO5zKLeL+FB1IU0zaGCqbt66/dWx8npUiz+
-         ucaAJAOq9P9X+KiqRJf29WHVo4YxmIariQuAEKvqip7znAB62YHBdJTtR61T6nZgUPR4
-         PJwdVoD9qALvNXmmxdvmddUI/6bRRSyW2ocYLXPgH708KuYH6XqGVnIs2GTgyv3GVPY5
-         0oQJr0NqCjVJj/S3jcirfcdgmV9tqvECGLzqqVV2q+rnQXt849+bNiRMSiNwCC8vkeBm
-         ZYlA==
+        bh=I+4uXk9pjJydHspDN4TTT8selrL52KkIcp4Wjx8MLnE=;
+        b=TvpwYplXZG44eJoenlgqe6yIx/PDcRTVO4r7ZBW/tHLRVfmLFkpE/Mh5EJAGH9cFSK
+         Zbar2Bc2KbqNMviuKXWbRG9NM6lj4Da2UAJAOXgcJrIbOl5X868/IgtBHy92gvuVC0FG
+         eQDajh7rGwWFCt7pXOQFJFQtTBLGg3wKT7I4YgWy6+0hmGT9mcmIZruVBQvaxTSyyuRr
+         agspCTgmuOKXPVWXMPOQBZTLLfYU0I1+LNKtCvq9VMB2q49QBZ9ZjFn5TUv5vMmXX0Nu
+         tQGEBr/vWQ272J9F2qt+GCNgzsKe1gRdLQUj/SMRQAmdR2+/NBAvTanqpAJO8FinxGjI
+         AhGA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1718950635; x=1719555435;
+        d=1e100.net; s=20230601; t=1718950780; x=1719555580;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=rqC3zgvUttbWYziRuiKxsu06lEb9STwqNvJSXaDHAIk=;
-        b=Zj7Kc105DVvdUsuKsvpyd4SzXry3U7GwhWXRXCddhi7cIJMfSekYzYzoiS6tewPliX
-         KNtL0EqJt68zXjfEvHXEb5ZqWs00GLhSRtPMU6U8tyOfZ0qsrej94LpHE9f2/Gly2YHm
-         DPCPOd0ePuxEw9F8Iw42hIUgEdjW9ZX08l4NPKiDuAuWYMKGGK/BfX9fpBRH658AUg2Q
-         WBnO9Im7W1co+4kGbu7NoW86lJyAgRq95dKCB8zWW2V6Qi8GitOrHxw5a5btqt8aCami
-         q3aGoXIPXPlk7Y9fL7OQ/mCHMTYTi+Ga9Oehf+sjApMfQXvlFTNK02UIX4SGVUcqXIsf
-         GybA==
-X-Forwarded-Encrypted: i=1; AJvYcCVxYeFL9QE7XBQyLgQL9iwkq44H4Sp9ojcR4zygkt+TBkpe6vLjwdqy0Xmz4I9PRMlMjPspx62m/2B5Skzu92+8EuP0xBF8BdW/frJzOYE=
-X-Gm-Message-State: AOJu0Yw28nhkOsOKWlaPLMJKBqJJSR5eit1Vi5WSHozTtUzeholTW8si
-	H6XfcQ69r3z45bA27I4S8qt38Qvbkm+j+Wym4eFJ96XHemEE1WhU8Nu+t2BlWPOHD6ommkSdP/U
-	=
-X-Google-Smtp-Source: AGHT+IHmzxsofj+tqEa9rW41ypM1AckdKzp7Fu/1jdhR/QH4se2eDZPcNk14fEB7o93EDfURJVQ1KQ==
-X-Received: by 2002:a2e:9dc1:0:b0:2ec:4d48:75ec with SMTP id 38308e7fff4ca-2ec4d487811mr5514001fa.22.1718950635238;
-        Thu, 20 Jun 2024 23:17:15 -0700 (PDT)
-Message-ID: <650b7946-ddb5-4428-b6d9-d8f6e0b0f8b9@suse.com>
-Date: Fri, 21 Jun 2024 08:17:07 +0200
+        bh=I+4uXk9pjJydHspDN4TTT8selrL52KkIcp4Wjx8MLnE=;
+        b=w+8iv6gOTVXssyZZMmFjmsz7ehJpn+ndsf4+Ts9WdzWeK3NKXuFQmm6CvvTJdKz7Yx
+         7K85y1bq0zg18ZDLOijR7GQLGpW6v1lEvWIU9v0u2sw3kzKJU3Tsy47GRYA6pZYyofHu
+         UDNNnryzeMmJ/cnMaG9oOe/u4Veoj7qTWi3AtrJPXv1W0MLa2plS1nc5kI0CRPjAOUAA
+         pKVtgASO2E17Eb2oi5cLYP52/LDjovkre6efFV/qswGkLhfg1irgxiSKyatbqIDuJKiJ
+         ebkep2UPE/2oTDgXvpVC0epS4+2dUKDRk+ADFyB7tVwmfsTWIMxZFvvrxr15rN2aumeX
+         lK0g==
+X-Forwarded-Encrypted: i=1; AJvYcCXnKobvtP91KHwFyfua0bgv36d9mknxyXc4Xe2gtBqPs0pVfW+dsrHGdobOoLdf6DAstVKe0OuVRrlYSzLWE4PYvjhtA/X/jr00voSpoMI=
+X-Gm-Message-State: AOJu0Yxcc52uIBtQXVuNOGq4QKoZAin36etnr/BCmSCa2jefesH2Kdwk
+	M1GN5zJMeBWg9Ru3vnMVkzbJKsee2UX1t2d2raQR5O5u2BzrBbN5uQDIX13kyw==
+X-Google-Smtp-Source: AGHT+IHq8CTioOjEVgVaSbuv/pYjO5WJmSeHlxx6adgruOJtTNi5j3X75rwHIgK8h89syuwL0Dr7Yw==
+X-Received: by 2002:a05:651c:1a1e:b0:2ec:3d74:88cc with SMTP id 38308e7fff4ca-2ec3d748a19mr50593391fa.20.1718950780389;
+        Thu, 20 Jun 2024 23:19:40 -0700 (PDT)
+Message-ID: <0e3f33b7-d4ce-4146-86d4-19a9d24ff6a3@suse.com>
+Date: Fri, 21 Jun 2024 08:19:29 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] automation/eclair_analysis: deviate MISRA C Rule 21.2
+Subject: Re: [XEN PATCH] xen: add explicit comment to identify notifier
+ patterns
 To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: Alessandro Zucchelli <alessandro.zucchelli@bugseng.com>,
- consulting@bugseng.com, Simone Ballarin <simone.ballarin@bugseng.com>,
- Doug Goldstein <cardoe@cardoe.com>, xen-devel@lists.xenproject.org
-References: <cover.1718816397.git.alessandro.zucchelli@bugseng.com>
- <5b8364528a9ece8fec9f0e70bee81c2ea94c1820.1718816397.git.alessandro.zucchelli@bugseng.com>
- <02ee9a03-c5b9-4250-960d-e9a2762605c8@suse.com>
- <alpine.DEB.2.22.394.2406201758490.2572888@ubuntu-linux-20-04-desktop>
+Cc: Federico Serafini <federico.serafini@bugseng.com>,
+ consulting@bugseng.com, Julien Grall <julien@xen.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Dario Faggioli <dfaggioli@suse.com>, Juergen Gross <jgross@suse.com>,
+ xen-devel@lists.xenproject.org
+References: <96a1b98d7831154c58d39b85071b9670de94aed0.1718617636.git.federico.serafini@bugseng.com>
+ <058a6cc6-bf84-4140-a3fb-12ec648536b0@suse.com>
+ <alpine.DEB.2.22.394.2406201808190.2572888@ubuntu-linux-20-04-desktop>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -116,71 +122,41 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <alpine.DEB.2.22.394.2406201758490.2572888@ubuntu-linux-20-04-desktop>
+In-Reply-To: <alpine.DEB.2.22.394.2406201808190.2572888@ubuntu-linux-20-04-desktop>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 21.06.2024 03:02, Stefano Stabellini wrote:
-> On Thu, 20 Jun 2024, Jan Beulich wrote:
->> On 19.06.2024 19:09, Alessandro Zucchelli wrote:
->>> Rule 21.2 reports identifiers reserved for the C and POSIX standard
->>> libraries: all xen's translation units are compiled with option
->>> -nostdinc, this guarantees that these libraries are not used, therefore
->>> a justification is provided for allowing uses of such identifiers in
->>> the project.
->>> Builtins starting with "__builtin_" still remain available.
+On 21.06.2024 03:09, Stefano Stabellini wrote:
+> On Mon, 17 Jun 2024, Jan Beulich wrote:
+>> On 17.06.2024 11:49, Federico Serafini wrote:
+>>> MISRA C Rule 16.4 states that every `switch' statement shall have a
+>>> `default' label" and a statement or a comment prior to the
+>>> terminating break statement.
+>>>
+>>> This patch addresses some violations of the rule related to the
+>>> "notifier pattern": a frequently-used pattern whereby only a few values
+>>> are handled by the switch statement and nothing should be done for
+>>> others (nothing to do in the default case).
 >>>
 >>> No functional change.
 >>>
->>> Signed-off-by: Alessandro Zucchelli <alessandro.zucchelli@bugseng.com>
->>> ---
->>>  automation/eclair_analysis/ECLAIR/deviations.ecl | 11 +++++++++++
->>>  1 file changed, 11 insertions(+)
->>>
->>> diff --git a/automation/eclair_analysis/ECLAIR/deviations.ecl b/automation/eclair_analysis/ECLAIR/deviations.ecl
->>> index 447c1e6661..9fa9a7f01c 100644
->>> --- a/automation/eclair_analysis/ECLAIR/deviations.ecl
->>> +++ b/automation/eclair_analysis/ECLAIR/deviations.ecl
->>> @@ -487,6 +487,17 @@ leads to a violation of the Rule are deviated."
->>>  # Series 21.
->>>  #
->>>  
->>> +-doc_begin="Rules 21.1 and 21.2 report identifiers reserved for the C and POSIX
->>> +standard libraries: if these libraries are not used there is no reason to avoid such
->>> +identifiers. All xen's translation units are compiled with option -nostdinc,
->>> +this guarantees that these libraries are not used. Some compilers could perform
->>> +optimization using built-in functions: this risk is partially addressed by
->>> +using the compilation option -fno-builtin. Builtins starting with \"__builtin_\"
->>> +still remain available."
+>>> Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
 >>
->> While the sub-section "Reserved Identifiers" is part of Section 7,
->> "Library", close coordination is needed between the library and the
->> compiler, which only together form an "implementation". Therefore any
->> use of identifiers beginning with two underscores or beginning with an
->> underscore and an upper case letter is at risk of colliding not only
->> with a particular library implementation (which we don't use), but
->> also of such with a particular compiler implementation (which we cannot
->> avoid to use). How can we permit use of such potentially problematic
->> identifiers?
+>> I guess I shouldn't outright NAK this, but I certainly won't ack it. This
+>> is precisely the purely mechanical change that in earlier discussions some
+>> (including me) have indicated isn't going to help safety. However, if
+>> others want to ack something purely mechanical like this, then my minimal
+>> requirement would be that somewhere it is spelled out what falls under
 > 
-> Alternative question: is there a way we can check if there is clash of
-> some sort between a compiler implementation of something and a MACRO or
-> identifier we have in Xen? An error or a warning from the compiler for
-> instance? That could be an easy way to prove we are safe.
+> I know there is a new version of this patch on xen-devel but I just
+> wanted to add that although it is true that this patch taken on its own
+> it does not improve safety, it does improve safety because it enables us
+> to go down to zero violations on rule 16.4 and then make the rule 16.4
+> blocking in the gitlab-ci ECLAIR job.
 
-Well. I think it is the default for the compiler to warn when re-#define-
-ing a previously #define-d (by the compiler or by us) symbol, so on that
-side we ought to be safe at any given point in time, yet we're still
-latently unsafe (as to compilers introducing new pre-defines). For
-built-in declarations, though, there's nothing I'm aware of that would
-indicate collisions.
-
-> Also, can we use the fact that the compiler we use is the same compiler
-> used to compile Linux, and Linux makes extensive use of identifiers and
-> macros starting with underscores as one of the reason for being safe
-> from clashes?
-
-I think we could, but I don't think we should.
+And moving out of everyone's sight (unless specifically grep-ing for the
+pattern) that then there are a certain number of sites where we're not
+really sure.
 
 Jan
 
