@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EAE879143BD
-	for <lists+xen-devel@lfdr.de>; Mon, 24 Jun 2024 09:31:56 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.746111.1153063 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8A7949143E1
+	for <lists+xen-devel@lfdr.de>; Mon, 24 Jun 2024 09:47:15 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.746119.1153073 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sLeAq-0005L0-55; Mon, 24 Jun 2024 07:31:36 +0000
+	id 1sLeP0-000747-Ci; Mon, 24 Jun 2024 07:46:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 746111.1153063; Mon, 24 Jun 2024 07:31:36 +0000
+Received: by outflank-mailman (output) from mailman id 746119.1153073; Mon, 24 Jun 2024 07:46:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sLeAq-0005J3-2G; Mon, 24 Jun 2024 07:31:36 +0000
-Received: by outflank-mailman (input) for mailman id 746111;
- Mon, 24 Jun 2024 07:31:34 +0000
+	id 1sLeP0-000724-9a; Mon, 24 Jun 2024 07:46:14 +0000
+Received: by outflank-mailman (input) for mailman id 746119;
+ Mon, 24 Jun 2024 07:46:12 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=wsRE=N2=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sLeAo-0005Ix-4e
- for xen-devel@lists.xenproject.org; Mon, 24 Jun 2024 07:31:34 +0000
-Received: from mail-lj1-x22c.google.com (mail-lj1-x22c.google.com
- [2a00:1450:4864:20::22c])
+ id 1sLeOy-00071a-JK
+ for xen-devel@lists.xenproject.org; Mon, 24 Jun 2024 07:46:12 +0000
+Received: from mail-lj1-x233.google.com (mail-lj1-x233.google.com
+ [2a00:1450:4864:20::233])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c6edfbf8-31fb-11ef-b4bb-af5377834399;
- Mon, 24 Jun 2024 09:31:31 +0200 (CEST)
-Received: by mail-lj1-x22c.google.com with SMTP id
- 38308e7fff4ca-2eaae2a6dc1so64851311fa.0
- for <xen-devel@lists.xenproject.org>; Mon, 24 Jun 2024 00:31:31 -0700 (PDT)
+ id d306e712-31fd-11ef-b4bb-af5377834399;
+ Mon, 24 Jun 2024 09:46:10 +0200 (CEST)
+Received: by mail-lj1-x233.google.com with SMTP id
+ 38308e7fff4ca-2eaae2a6dc1so65037341fa.0
+ for <xen-devel@lists.xenproject.org>; Mon, 24 Jun 2024 00:46:10 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-1f9eb2f0406sm55888695ad.37.2024.06.24.00.31.27
+ d2e1a72fcca58-7066fcbd3ecsm3093847b3a.207.2024.06.24.00.46.06
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 24 Jun 2024 00:31:30 -0700 (PDT)
+ Mon, 24 Jun 2024 00:46:09 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,54 +45,52 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c6edfbf8-31fb-11ef-b4bb-af5377834399
+X-Inumbo-ID: d306e712-31fd-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1719214291; x=1719819091; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1719215170; x=1719819970; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=XZnbhW7TJOMAeHZnQpiyH347MKdrXnDrOQfYzjkmLkU=;
-        b=K6WbmHqrR4RlhZE4/JGVnsNtcS0DuhIIIkJhSHJLLmTrNxpIz7+N3nH+Wns3Pj4RjS
-         HGNvmMs90JTEvWekuNcTn2ZBJVfJO9KCVg9epkSJk9VRbH1pwl54VIUlOPqPRNjHx631
-         YtRyDA04ZuQ9i7QCl0iBFQk8DtjiBgeT29e/XnQBkxT57Nm2NnsMtd37CylJXfaxkPF5
-         LbHld//ECPURYO2tp7fYaLJ0alMW396BL3rjpC8/X0hRQKsj3cJDqupe2VEePmuAetKn
-         6wuFKIOtjrV37zrAyf+LF9YSW9Bfs48rZ7IU7JQLOQVJDmwM0VVt3BVDMRCY6I1v4DXI
-         uh8A==
+        bh=gK3kglP3CVyQ1tTCGC5HsK/kSpRbybCiwuXxxCoaV5M=;
+        b=gAXsiMmn9BIItiTbqWyt7e/KFE0WQEZ63B3e4UBHWjkBnjZ9kzOcS6iHbpej7rBCL6
+         7lQtTSdiBY1/tox8tDbSKJ6leuLwLOhWqgTDW7bi4T9SRT7xrvgqX3OpFOINcq5vxSu7
+         LGYlsI1lYrztK0yr4ZQO6eXVYeHvwHb8CpiIUYD4QAMEO0HY1csmt1q5MaPeT49wIjGO
+         evRxKUZouDRnKoB781P8Hb6HcLMzQcBJJ4bjbECx/XKC/qSig557cjauoYGsEYsc+m8Z
+         bM4jKxhXUq4kHPS7+URW/iz6ErX1VMo6EUvzTIuJxvjjqnEHtLS0bIAxajQw0ccSibra
+         g/kQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1719214291; x=1719819091;
+        d=1e100.net; s=20230601; t=1719215170; x=1719819970;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=XZnbhW7TJOMAeHZnQpiyH347MKdrXnDrOQfYzjkmLkU=;
-        b=vl97uEnSqaduWYJZOJHzKaH2Gz0pmX6XQOS7NZekq/UA+BhGqcGwBRbLlXKWatVvkq
-         D1rH06t4wuYwQLgAI5sikU9UNjMcIh4S1Oq88JeREBh+sfr4yWjg0RfIdeBlxoeQhgqE
-         GCxi+W0/yT3rRaLjiod0chDlBTp0nqi0AagJsskoRd5eYSjoRK0eh/nlmZ56SDYu9bKN
-         kPUS45UipI8l0UelWEMaQNQxLH9XA2vILJFeI5GIa/eMJ4MAPIXa486X2uMsjG9jkY98
-         CHSEQW69akd0P6ifMtP8822CohKGIffaq0xibIiSWuTxdLxdZN5laWxLa8zWPLCIdcWH
-         45IA==
-X-Forwarded-Encrypted: i=1; AJvYcCWU3fUaDXejcHjaOofn2GgJ+VZuRnay/6YWseg+J6iHIe1IdBDUFsv8k7YTcdOMf8xQrNbu+r+vzN3BgtozQKBqKoppom1yjeRAT4PJf0o=
-X-Gm-Message-State: AOJu0YzqjZYUwgzkx89wvORW+MIBLRDTgMMtBX824d6T6OtfQ+IjjoHC
-	PjpG/hTus8pK9LQXZeGruVOwdvYBp0eHxpiBWEz+XzRwTbBIIELy2pP0m7X0Ebs8mZVpcGdHF10
-	=
-X-Google-Smtp-Source: AGHT+IEOeqv5pjvGX49hWwiGzGGV2HObGsJ93Fq6sl7jownTkJ6A9Nj8NDGsotAt6gN4GjRx/OJOIA==
-X-Received: by 2002:a2e:8954:0:b0:2ea:e1fe:2059 with SMTP id 38308e7fff4ca-2ec5b2e62f4mr30360651fa.27.1719214291093;
-        Mon, 24 Jun 2024 00:31:31 -0700 (PDT)
-Message-ID: <ac46ccb1-9247-4b66-a21d-d9841ee9f1ef@suse.com>
-Date: Mon, 24 Jun 2024 09:31:24 +0200
+        bh=gK3kglP3CVyQ1tTCGC5HsK/kSpRbybCiwuXxxCoaV5M=;
+        b=toeOD8iKYytgSgepDnGSvVu4vU5r7ePLNlj6JTUFtZkUOhZU2ywuNn1bGS58td5Ztx
+         dHHhVKzpmGOSaJRgRB+0ryhiaK3rYNiElKhrAKzLHojAP5/g/bLWWSFV4GsAFNFyl9QG
+         loMxfARE/27mc1QUsGtJ34ed9LEdeYh90R1Q8YyvsNEz8faPHDyeM238MRphgLsp3Z2o
+         DGDHSlYVOXpByJTQRUfwgdOnF68olDsfHIsS7HNCy/O46gMdKiCOiwqL9tHtzEcAaB4P
+         uYIwTaYcDleieRMtfSfTUag++SiPWkUhi5kdUjgYR94jLHXoM5n9x65+VD+FBjaMritI
+         94tQ==
+X-Gm-Message-State: AOJu0Yy8Ef5GJBJnDU+JBol9M280rBUavY8cN0elvVoTQ5oX11N1YKy2
+	2LKGftlTGQgNUTadJqBR0fOZDzkIbf8ZympzCQ8r0lYbkvyU0VwQQsw9gVrAEg==
+X-Google-Smtp-Source: AGHT+IG4bbUmljlZWIIFoBdbhzKj0f514/Idy0G5GEHTsTzuvqAYPkcYWIMA6oCHkNnjikEWdsHGOw==
+X-Received: by 2002:a2e:a17a:0:b0:2ec:4093:ec7 with SMTP id 38308e7fff4ca-2ec5b2e7238mr29272411fa.30.1719215170408;
+        Mon, 24 Jun 2024 00:46:10 -0700 (PDT)
+Message-ID: <43cf9879-c781-4e05-8be4-f7f8ec87d4a3@suse.com>
+Date: Mon, 24 Jun 2024 09:46:03 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] automation/eclair_analysis: deviate MISRA C Rule 21.2
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: Alessandro Zucchelli <alessandro.zucchelli@bugseng.com>,
- consulting@bugseng.com, Simone Ballarin <simone.ballarin@bugseng.com>,
- Doug Goldstein <cardoe@cardoe.com>, xen-devel@lists.xenproject.org
-References: <cover.1718816397.git.alessandro.zucchelli@bugseng.com>
- <5b8364528a9ece8fec9f0e70bee81c2ea94c1820.1718816397.git.alessandro.zucchelli@bugseng.com>
- <02ee9a03-c5b9-4250-960d-e9a2762605c8@suse.com>
- <alpine.DEB.2.22.394.2406201758490.2572888@ubuntu-linux-20-04-desktop>
- <650b7946-ddb5-4428-b6d9-d8f6e0b0f8b9@suse.com>
- <alpine.DEB.2.22.394.2406211619070.2572888@ubuntu-linux-20-04-desktop>
+Subject: Re: [PATCH for-4.19 v2] tools/xl: Open xldevd.log with O_CLOEXEC
+To: Anthony PERARD <anthony.perard@vates.tech>,
+ Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>,
+ Demi Marie Obenour <demi@invisiblethingslab.com>,
+ Anthony PERARD <anthony@xenproject.org>, Juergen Gross <jgross@suse.com>,
+ =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>,
+ Oleksii Kurochko <oleksii.kurochko@gmail.com>
+References: <20240621161656.63576-1-andrew.cooper3@citrix.com>
+ <ZnWwbJiD6eG85VY9@l14>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -118,95 +116,61 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <alpine.DEB.2.22.394.2406211619070.2572888@ubuntu-linux-20-04-desktop>
+In-Reply-To: <ZnWwbJiD6eG85VY9@l14>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 22.06.2024 01:27, Stefano Stabellini wrote:
-> On Fri, 21 Jun 2024, Jan Beulich wrote:
->> On 21.06.2024 03:02, Stefano Stabellini wrote:
->>> On Thu, 20 Jun 2024, Jan Beulich wrote:
->>>> On 19.06.2024 19:09, Alessandro Zucchelli wrote:
->>>>> Rule 21.2 reports identifiers reserved for the C and POSIX standard
->>>>> libraries: all xen's translation units are compiled with option
->>>>> -nostdinc, this guarantees that these libraries are not used, therefore
->>>>> a justification is provided for allowing uses of such identifiers in
->>>>> the project.
->>>>> Builtins starting with "__builtin_" still remain available.
->>>>>
->>>>> No functional change.
->>>>>
->>>>> Signed-off-by: Alessandro Zucchelli <alessandro.zucchelli@bugseng.com>
->>>>> ---
->>>>>  automation/eclair_analysis/ECLAIR/deviations.ecl | 11 +++++++++++
->>>>>  1 file changed, 11 insertions(+)
->>>>>
->>>>> diff --git a/automation/eclair_analysis/ECLAIR/deviations.ecl b/automation/eclair_analysis/ECLAIR/deviations.ecl
->>>>> index 447c1e6661..9fa9a7f01c 100644
->>>>> --- a/automation/eclair_analysis/ECLAIR/deviations.ecl
->>>>> +++ b/automation/eclair_analysis/ECLAIR/deviations.ecl
->>>>> @@ -487,6 +487,17 @@ leads to a violation of the Rule are deviated."
->>>>>  # Series 21.
->>>>>  #
->>>>>  
->>>>> +-doc_begin="Rules 21.1 and 21.2 report identifiers reserved for the C and POSIX
->>>>> +standard libraries: if these libraries are not used there is no reason to avoid such
->>>>> +identifiers. All xen's translation units are compiled with option -nostdinc,
->>>>> +this guarantees that these libraries are not used. Some compilers could perform
->>>>> +optimization using built-in functions: this risk is partially addressed by
->>>>> +using the compilation option -fno-builtin. Builtins starting with \"__builtin_\"
->>>>> +still remain available."
->>>>
->>>> While the sub-section "Reserved Identifiers" is part of Section 7,
->>>> "Library", close coordination is needed between the library and the
->>>> compiler, which only together form an "implementation". Therefore any
->>>> use of identifiers beginning with two underscores or beginning with an
->>>> underscore and an upper case letter is at risk of colliding not only
->>>> with a particular library implementation (which we don't use), but
->>>> also of such with a particular compiler implementation (which we cannot
->>>> avoid to use). How can we permit use of such potentially problematic
->>>> identifiers?
->>>
->>> Alternative question: is there a way we can check if there is clash of
->>> some sort between a compiler implementation of something and a MACRO or
->>> identifier we have in Xen? An error or a warning from the compiler for
->>> instance? That could be an easy way to prove we are safe.
+On 21.06.2024 18:55, Anthony PERARD wrote:
+> On Fri, Jun 21, 2024 at 05:16:56PM +0100, Andrew Cooper wrote:
+>> `xl devd` has been observed leaking /var/log/xldevd.log into children.
 >>
->> Well. I think it is the default for the compiler to warn when re-#define-
->> ing a previously #define-d (by the compiler or by us) symbol, so on that
->> side we ought to be safe at any given point in time,
+>> Note this is specifically safe; dup2() leaves O_CLOEXEC disabled on newfd, so
+>> after setting up stdout/stderr, it's only the logfile fd which will close on
+>> exec().
+>>
+>> Link: https://github.com/QubesOS/qubes-issues/issues/8292
+>> Reported-by: Demi Marie Obenour <demi@invisiblethingslab.com>
+>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+>> ---
+>> CC: Anthony PERARD <anthony@xenproject.org>
+>> CC: Juergen Gross <jgross@suse.com>
+>> CC: Demi Marie Obenour <demi@invisiblethingslab.com>
+>> CC: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+>> CC: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+>>
+>> Also entirely speculative based on the QubesOS ticket.
+>>
+>> v2:
+>>  * Extend the commit message to explain why stdout/stderr aren't closed by
+>>    this change
+>>
+>> For 4.19.  This bugfix was posted earlier, but fell between the cracks.
+>> ---
+>>  tools/xl/xl_utils.c | 2 +-
+>>  1 file changed, 1 insertion(+), 1 deletion(-)
+>>
+>> diff --git a/tools/xl/xl_utils.c b/tools/xl/xl_utils.c
+>> index 17489d182954..060186db3a59 100644
+>> --- a/tools/xl/xl_utils.c
+>> +++ b/tools/xl/xl_utils.c
+>> @@ -270,7 +270,7 @@ int do_daemonize(const char *name, const char *pidfile)
+>>          exit(-1);
+>>      }
+>>  
+>> -    CHK_SYSCALL(logfile = open(fullname, O_WRONLY|O_CREAT|O_APPEND, 0644));
+>> +    CHK_SYSCALL(logfile = open(fullname, O_WRONLY | O_CREAT | O_APPEND | O_CLOEXEC, 0644));
 > 
-> OK, that's good. It seems to me that this explanation should be part of
-> the deviation text.
-> 
-> 
->> yet we're still latently unsafe (as to compilers introducing new
->> pre-defines).
-> 
-> Sure, but we don't need to be safe in relation to future compiler. Right
-> now, we are targeting gcc-12.1.0 as written in
-> docs/misra/C-language-toolchain.rst. When we decide to enable a new
-> compiler in Xen we can fix/change any specific define as needed. Also
-> note the large amount of things written in C-language-toolchain.rst that
-> need to be checked and verified for a new compiler to make sure we can
-> actually use it safely (we make many assumptions).
-> 
-> 
->> For built-in declarations, though, there's nothing I'm aware of that
->> would indicate collisions.
-> 
-> For builtins, Alessandro was suggesting -fno-builtin. One question to
-> Alessandro is why would -fno-builtin only "partially" address the
-> problem.
-> 
-> Another question for Jan and also Alessandro: given that builtins
-> starting with __builtin_ remain available, any drawbacks in using
-> -fno-builtin in a Xen build?
+> Everytime we use O_CLOEXEC, we add in the C file
+>     #ifndef O_CLOEXEC
+>     #define O_CLOEXEC 0
+>     #endif
+> we don't need to do that anymore?
+> Or I guess we'll see if someone complain when they try to build on an
+> ancien version of Linux.
 
-Just to mention it - we're building with -fno-builtin already anyway.
-What I'm puzzled by is that it looks like I was under the wrong
-impression that we're actually building -ffreestanding (which implies
--fno-builtin).
+I'm pretty certain I'll run into that issue on one of my pretty old systems,
+but if the general view is that we don't care about such environments anymore,
+then so be it (and I'll take care of such issues locally).
 
 Jan
 
