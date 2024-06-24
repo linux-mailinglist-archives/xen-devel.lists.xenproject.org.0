@@ -2,31 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 425C19145B8
+	by mail.lfdr.de (Postfix) with ESMTPS id 6E9FF9145BA
 	for <lists+xen-devel@lfdr.de>; Mon, 24 Jun 2024 11:05:01 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.746320.1153344 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.746322.1153362 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sLfd4-0003Em-IK; Mon, 24 Jun 2024 09:04:50 +0000
+	id 1sLfd5-0003h0-Uq; Mon, 24 Jun 2024 09:04:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 746320.1153344; Mon, 24 Jun 2024 09:04:50 +0000
+Received: by outflank-mailman (output) from mailman id 746322.1153362; Mon, 24 Jun 2024 09:04:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sLfd4-0003Bx-BJ; Mon, 24 Jun 2024 09:04:50 +0000
-Received: by outflank-mailman (input) for mailman id 746320;
- Mon, 24 Jun 2024 09:04:48 +0000
+	id 1sLfd5-0003ds-R2; Mon, 24 Jun 2024 09:04:51 +0000
+Received: by outflank-mailman (input) for mailman id 746322;
+ Mon, 24 Jun 2024 09:04:49 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=H9EP=N2=bugseng.com=federico.serafini@srs-se1.protection.inumbo.net>)
- id 1sLfd2-0002wq-Fy
- for xen-devel@lists.xenproject.org; Mon, 24 Jun 2024 09:04:48 +0000
+ id 1sLfd3-0002wq-Dg
+ for xen-devel@lists.xenproject.org; Mon, 24 Jun 2024 09:04:49 +0000
 Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id ce91ff99-3208-11ef-90a3-e314d9c70b13;
+ id cf0ae985-3208-11ef-90a3-e314d9c70b13;
  Mon, 24 Jun 2024 11:04:48 +0200 (CEST)
 Received: from truciolo.bugseng.com (unknown [37.160.55.204])
- by support.bugseng.com (Postfix) with ESMTPSA id 2647F4EE0755;
+ by support.bugseng.com (Postfix) with ESMTPSA id EED224EE073D;
  Mon, 24 Jun 2024 11:04:47 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
@@ -39,7 +39,7 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ce91ff99-3208-11ef-90a3-e314d9c70b13
+X-Inumbo-ID: cf0ae985-3208-11ef-90a3-e314d9c70b13
 From: Federico Serafini <federico.serafini@bugseng.com>
 To: xen-devel@lists.xenproject.org
 Cc: consulting@bugseng.com,
@@ -47,40 +47,38 @@ Cc: consulting@bugseng.com,
 	Jan Beulich <jbeulich@suse.com>,
 	Andrew Cooper <andrew.cooper3@citrix.com>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [XEN PATCH v2 02/13] x86/cpuid: use fallthrough pseudo keyword
-Date: Mon, 24 Jun 2024 11:04:26 +0200
-Message-Id: <58f1ff7e94fd2bd5290a555e44d9de0d2f515eda.1719218291.git.federico.serafini@bugseng.com>
+Subject: [XEN PATCH v2 03/13] x86/domctl: address a violation of MISRA C Rule 16.3
+Date: Mon, 24 Jun 2024 11:04:27 +0200
+Message-Id: <d46b484c99f858d7bfd10c6956a88ba46ac60815.1719218291.git.federico.serafini@bugseng.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <cover.1719218291.git.federico.serafini@bugseng.com>
 References: <cover.1719218291.git.federico.serafini@bugseng.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The current comment making explicit the fallthrough intention does
-not follow the agreed syntax: replace it with the pseduo keyword.
+Add missing break statement to address a violation of
+MISRA C Rule 16.3: "An unconditional `break' statement shall terminate
+every switch-clause".
 
 No functional change.
 
 Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
 ---
- xen/arch/x86/cpuid.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+ xen/arch/x86/domctl.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/xen/arch/x86/cpuid.c b/xen/arch/x86/cpuid.c
-index a822e80c7e..2a777436ee 100644
---- a/xen/arch/x86/cpuid.c
-+++ b/xen/arch/x86/cpuid.c
-@@ -97,9 +97,8 @@ void guest_cpuid(const struct vcpu *v, uint32_t leaf,
-         if ( is_viridian_domain(d) )
-             return cpuid_viridian_leaves(v, leaf, subleaf, res);
+diff --git a/xen/arch/x86/domctl.c b/xen/arch/x86/domctl.c
+index 9190e11faa..68b5b46d1a 100644
+--- a/xen/arch/x86/domctl.c
++++ b/xen/arch/x86/domctl.c
+@@ -517,6 +517,7 @@ long arch_do_domctl(
  
-+        fallthrough;
-         /*
--         * Fallthrough.
--         *
-          * Intel reserve up until 0x4fffffff for hypervisor use.  AMD reserve
-          * only until 0x400000ff, but we already use double that.
-          */
+         default:
+             ret = -ENOSYS;
++            break;
+         }
+         break;
+     }
 -- 
 2.34.1
 
