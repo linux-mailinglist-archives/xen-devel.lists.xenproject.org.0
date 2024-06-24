@@ -2,38 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 66A199147F3
-	for <lists+xen-devel@lfdr.de>; Mon, 24 Jun 2024 12:59:03 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.746497.1153565 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 473E1914819
+	for <lists+xen-devel@lfdr.de>; Mon, 24 Jun 2024 13:09:44 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.746510.1153585 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sLhOW-0008Gc-RP; Mon, 24 Jun 2024 10:57:56 +0000
+	id 1sLhZk-0002iU-1s; Mon, 24 Jun 2024 11:09:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 746497.1153565; Mon, 24 Jun 2024 10:57:56 +0000
+Received: by outflank-mailman (output) from mailman id 746510.1153585; Mon, 24 Jun 2024 11:09:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sLhOW-0008F7-Od; Mon, 24 Jun 2024 10:57:56 +0000
-Received: by outflank-mailman (input) for mailman id 746497;
- Mon, 24 Jun 2024 10:57:55 +0000
+	id 1sLhZj-0002gJ-VY; Mon, 24 Jun 2024 11:09:31 +0000
+Received: by outflank-mailman (input) for mailman id 746510;
+ Mon, 24 Jun 2024 11:09:30 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=wsRE=N2=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sLhOV-0008E5-FB
- for xen-devel@lists.xenproject.org; Mon, 24 Jun 2024 10:57:55 +0000
-Received: from mail-lj1-x22f.google.com (mail-lj1-x22f.google.com
- [2a00:1450:4864:20::22f])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 9b65aabe-3218-11ef-90a3-e314d9c70b13;
- Mon, 24 Jun 2024 12:57:54 +0200 (CEST)
-Received: by mail-lj1-x22f.google.com with SMTP id
- 38308e7fff4ca-2ec52fbb50aso24936051fa.3
- for <xen-devel@lists.xenproject.org>; Mon, 24 Jun 2024 03:57:54 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-1fa3229f936sm23317445ad.85.2024.06.24.03.57.49
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 24 Jun 2024 03:57:52 -0700 (PDT)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=Bblz=N2=arm.com=robin.murphy@srs-se1.protection.inumbo.net>)
+ id 1sLhZi-0002er-8W
+ for xen-devel@lists.xenproject.org; Mon, 24 Jun 2024 11:09:30 +0000
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTP
+ id 38d9cd84-321a-11ef-90a3-e314d9c70b13;
+ Mon, 24 Jun 2024 13:09:28 +0200 (CEST)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 1DB2DDA7;
+ Mon, 24 Jun 2024 04:09:52 -0700 (PDT)
+Received: from [10.57.74.124] (unknown [10.57.74.124])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 4C7383F73B;
+ Mon, 24 Jun 2024 04:09:25 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,89 +42,64 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9b65aabe-3218-11ef-90a3-e314d9c70b13
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1719226673; x=1719831473; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=SuilJMjDDlKDCz8DRJVWH4zo9JVt7ObGMdKoDOJIBYI=;
-        b=HSxCo086w16N2bYqecCNx96v8d1OikWqRO/SmDxTmlAHY139rj8L0djLJtSpTW/9EP
-         vdHptHdAOMM+2/i3pBTWq0IHqxFEjt/ef07CARX0Fut6Q3W2GPC74vI3n2liMxXNzqkn
-         hmWubmJvCxmfkZGIMlAShN7XyOeDYDOsHzhKMySCb6RLA3XPjijuA9pJkFL/NFaiOKNP
-         qIm2zgDWiM1Gh02ZTBmgXTRM+zQnH863cD2eod77wy7krargPRY5t1QbgQH/MrCBOKqu
-         kqwUQf2GWdk/ZsF3LA+VYbcBaggePk8sswKgOtBCpkfgwu1yOLAkPAgbtOTryURl97tF
-         21rA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1719226673; x=1719831473;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=SuilJMjDDlKDCz8DRJVWH4zo9JVt7ObGMdKoDOJIBYI=;
-        b=HyAQg2hf4S1O3F03GQk9zMCpbt6UMhEz+zBEoLPV+DgGGBcjqC1Oh66v4ENKyWE5wJ
-         OukN4mJIlSamLceq8wjHPKB4mdWPMMKyugXhkyh6QEBgQOBF1k8uwgJRnuy9wU1sx8I2
-         ZwnRrafjH5406VUrq8aoYglLaMm4aFkxTAEA0fSE8Mn9IsQRMUI97V5XFkmF41Xhra/p
-         qxGUz3ceAKZiu5dl5ZcfWMy7jM1Xk1SHU3iVLRm+hHTgkhOOL2HxZYzJvm0cCmDTTqlt
-         8HrmpwTuJp7U2KOxTPzRXLJv/FF8bYr9yWx390DZZLtvs4dn8Cf0L3fHwplW4E7r3AuB
-         OsOw==
-X-Forwarded-Encrypted: i=1; AJvYcCVU6vtwIT5ieerg0DXKqY2Oxohsp5Zxujk6U7dJdhJzaKOKbL9swSxcz3nsNZEaYnU2w+svNorzGXApkk+53PZ2nEB99MmuGQu/dndifPw=
-X-Gm-Message-State: AOJu0YyC9NvEfGMXozla/dhuEFEUtYfYMzUyWR6qmTHRC/8O1XBf8cpI
-	v20ex137Juf6F2ufgXqTqG1M9KEZRVRjRfNxNxmjk+MUDAJv0moS0eYEUHhYwJBqZF+wQw5AS+c
-	=
-X-Google-Smtp-Source: AGHT+IHWfIDFZLgcXocOENQh4oTAOERwiaNz64iMpJcrS52F5BQIuj479xipV9V8gWRzXyhz/QhUuQ==
-X-Received: by 2002:a2e:3018:0:b0:2ec:588d:7eb4 with SMTP id 38308e7fff4ca-2ec5b30bd1fmr32544541fa.15.1719226673434;
-        Mon, 24 Jun 2024 03:57:53 -0700 (PDT)
-Message-ID: <1149f3da-480e-4949-924b-6cdf39b1e17f@suse.com>
-Date: Mon, 24 Jun 2024 12:57:46 +0200
+X-Inumbo-ID: 38d9cd84-321a-11ef-90a3-e314d9c70b13
+Message-ID: <4c941977-868a-4bd0-9c57-eb58255d95bf@arm.com>
+Date: Mon, 24 Jun 2024 12:09:23 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH v2 01/13] automation/eclair: fix deviation of MISRA C
- Rule 16.3
-To: Federico Serafini <federico.serafini@bugseng.com>
-Cc: consulting@bugseng.com, Simone Ballarin <simone.ballarin@bugseng.com>,
- Doug Goldstein <cardoe@cardoe.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <cover.1719218291.git.federico.serafini@bugseng.com>
- <c43a32405cc949ef5bf26a2ca1d1cc7ee7f5e664.1719218291.git.federico.serafini@bugseng.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <c43a32405cc949ef5bf26a2ca1d1cc7ee7f5e664.1719218291.git.federico.serafini@bugseng.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Subject: Re: [RFC PATCH] iommu/xen: Add Xen PV-IOMMU driver
+To: Baolu Lu <baolu.lu@linux.intel.com>, Teddy Astie
+ <teddy.astie@vates.tech>, Jason Gunthorpe <jgg@ziepe.ca>
+Cc: xen-devel@lists.xenproject.org, iommu@lists.linux.dev,
+ Juergen Gross <jgross@suse.com>, Stefano Stabellini
+ <sstabellini@kernel.org>,
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>,
+ =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+References: <fe36b8d36ed3bc01c78901bdf7b87a71cb1adaad.1718286176.git.teddy.astie@vates.tech>
+ <20240619163000.GK791043@ziepe.ca>
+ <750967b7-252f-4523-872f-64b79358c97c@vates.tech>
+ <4ba90f86-fd14-4d2a-b7a0-c3eaab243565@linux.intel.com>
+From: Robin Murphy <robin.murphy@arm.com>
+Content-Language: en-GB
+In-Reply-To: <4ba90f86-fd14-4d2a-b7a0-c3eaab243565@linux.intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On 24.06.2024 11:04, Federico Serafini wrote:
-> Escape the final dot of the comment and extend the search of a
-> fallthrough comment up to 2 lines after the last statement.
+On 2024-06-23 4:21 am, Baolu Lu wrote:
+> On 6/21/24 11:09 PM, Teddy Astie wrote:
+>> Le 19/06/2024 à 18:30, Jason Gunthorpe a écrit :
+>>> On Thu, Jun 13, 2024 at 01:50:22PM +0000, Teddy Astie wrote:
+>>>
+>>>> +struct iommu_domain *xen_iommu_domain_alloc(unsigned type)
+>>>> +{
+>>>> +    struct xen_iommu_domain *domain;
+>>>> +    u16 ctx_no;
+>>>> +    int ret;
+>>>> +
+>>>> +    if (type & IOMMU_DOMAIN_IDENTITY) {
+>>>> +        /* use default domain */
+>>>> +        ctx_no = 0;
+>>> Please use the new ops, domain_alloc_paging and the static identity 
+>>> domain.
+>> Yes, in the v2, I will use this newer interface.
+>>
+>> I have a question on this new interface : is it valid to not have a
+>> identity domain (and "default domain" being blocking); well in the
+>> current implementation it doesn't really matter, but at some point, we
+>> may want to allow not having it (thus making this driver mandatory).
 > 
-> Fixes: a128d8da913b21eff6c6d2e2a7d4c54c054b78db "automation/eclair: add deviations for MISRA C:2012 Rule 16.3"
+> It's valid to not have an identity domain if "default domain being
+> blocking" means a paging domain with no mappings.
+> 
+> In the iommu driver's iommu_ops::def_domain_type callback, just always
+> return IOMMU_DOMAIN_DMA, which indicates that the iommu driver doesn't
+> support identity translation.
 
-Nit: Yes, the respective doc says "at least 12 digits", but please also keep
-at that going forward.
+That's not necessary - if neither ops->identity_domain nor 
+ops->domain_alloc(IOMMU_DOMAIN_IDENTITY) gives a valid domain then we 
+fall back to IOMMU_DOMAIN_DMA anyway.
 
-Jan
-
+Thanks,
+Robin.
 
