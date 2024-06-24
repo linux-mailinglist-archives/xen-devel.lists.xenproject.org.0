@@ -2,39 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8D87B9146B3
+	by mail.lfdr.de (Postfix) with ESMTPS id 7DD1F9146B2
 	for <lists+xen-devel@lfdr.de>; Mon, 24 Jun 2024 11:53:18 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.746462.1153515 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.746464.1153526 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sLgNH-00045I-CT; Mon, 24 Jun 2024 09:52:35 +0000
+	id 1sLgNd-0004VC-KC; Mon, 24 Jun 2024 09:52:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 746462.1153515; Mon, 24 Jun 2024 09:52:35 +0000
+Received: by outflank-mailman (output) from mailman id 746464.1153526; Mon, 24 Jun 2024 09:52:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sLgNH-00043S-9s; Mon, 24 Jun 2024 09:52:35 +0000
-Received: by outflank-mailman (input) for mailman id 746462;
- Mon, 24 Jun 2024 09:52:33 +0000
+	id 1sLgNd-0004T1-HO; Mon, 24 Jun 2024 09:52:57 +0000
+Received: by outflank-mailman (input) for mailman id 746464;
+ Mon, 24 Jun 2024 09:52:56 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=jLHn=N2=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1sLgNF-00043I-OY
- for xen-devel@lists.xenproject.org; Mon, 24 Jun 2024 09:52:33 +0000
-Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
- [2a00:1450:4864:20::42e])
+ id 1sLgNc-00043I-Ls
+ for xen-devel@lists.xenproject.org; Mon, 24 Jun 2024 09:52:56 +0000
+Received: from mail-lf1-x133.google.com (mail-lf1-x133.google.com
+ [2a00:1450:4864:20::133])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 78f25733-320f-11ef-b4bb-af5377834399;
- Mon, 24 Jun 2024 11:52:30 +0200 (CEST)
-Received: by mail-wr1-x42e.google.com with SMTP id
- ffacd0b85a97d-3621ac606e1so3003545f8f.1
- for <xen-devel@lists.xenproject.org>; Mon, 24 Jun 2024 02:52:30 -0700 (PDT)
+ id 8776acfa-320f-11ef-b4bb-af5377834399;
+ Mon, 24 Jun 2024 11:52:55 +0200 (CEST)
+Received: by mail-lf1-x133.google.com with SMTP id
+ 2adb3069b0e04-52cdf4bc083so2339847e87.2
+ for <xen-devel@lists.xenproject.org>; Mon, 24 Jun 2024 02:52:55 -0700 (PDT)
 Received: from ?IPV6:2a00:23ee:1630:2367:cdfd:357d:df51:2d81?
  ([2a00:23ee:1630:2367:cdfd:357d:df51:2d81])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-36638f858fbsm9525683f8f.65.2024.06.24.02.52.29
+ 5b1f17b1804b1-424817a9667sm126992315e9.15.2024.06.24.02.52.53
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 24 Jun 2024 02:52:29 -0700 (PDT)
+ Mon, 24 Jun 2024 02:52:54 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,46 +46,45 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 78f25733-320f-11ef-b4bb-af5377834399
+X-Inumbo-ID: 8776acfa-320f-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1719222750; x=1719827550; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1719222774; x=1719827574; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
         bh=qNXLYealRBgzKlV6WSlGJjcUlvXtTicJG46p4JZfpTI=;
-        b=GQXLmWqCYN/Rwi5wP6D1K2vBVL2bwoF+0Aru1GLJRAFWZh4FdDTu4JeEZeKhkblIEP
-         ZPCoZrWE+bXpKTYzqoYBs7TaHYyY89XkQ5TJB2hUNYU6KIM5GsXn/ZXMq/eCvqdzA+Ok
-         WVCW4vlCvIMtnOss3swt71CNge7x9EzpnolVI=
+        b=JfXFOfvRZQ6t4mAYijyUlunGPJWpNxKNHJTL8ByMccC4bkmOCDqg2NEDReqr4LFv0y
+         Kal3zE+YKBsFvZcMIAeTVZII3zrwOWSJCjh+9UxFpqjwqxbifrVM+YCTx3+j0ZrwK5/z
+         zo/qhfksquBd4HlVBLaA2WR04MowBjRQjV594=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1719222750; x=1719827550;
+        d=1e100.net; s=20230601; t=1719222774; x=1719827574;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
         bh=qNXLYealRBgzKlV6WSlGJjcUlvXtTicJG46p4JZfpTI=;
-        b=Z8WbAvLML5GqENAzyTt3AuvJawKetqIIc4gHFvt7b+y8X22Vhezqw/ZbsC7EraJML9
-         jQmkdEGnwr5+cm9nXzst3TwGsKSIFJ6YTLEkBpIvx7U2dKK3+FIvaXnUGVOHtK7jQ4eB
-         rKESYbNolj06zu0vzsc/QhL5yaROGi5t5qm2ZpwKeWBY5AYf0gJID/qDhK0Y8o6STNz3
-         aVgMGstWuG5kcUyNRxnVt/jrsaRk9ZP0s6AwKd+hzsfFZ75GPq3KZjAZh4jjozp7lP7R
-         AubzjEgQgMmbP5lfeyrdQGnes5eiKDSQz58tjfcAp84d9hr1q7uTuRVryDGjwJprxcny
-         HL4Q==
-X-Forwarded-Encrypted: i=1; AJvYcCWCNLH0lIwF2vcCUuwNPLL7A+e+UMgGwquv9H27g5/YdHdz9l33Dm8qbgLj5gdHIdZqkTVkYkoXjr8oXjn5RzKFqWXWXR69dVVYhhuzuMs=
-X-Gm-Message-State: AOJu0YzPFBBbyHiFoZZp9uIbdj98fb0tfBKy7OMrxBGyP5tPGD641PJw
-	WB100eCAJ2Af4hPoDWZBuhemif45C3F5B/SE3q0B7Ay3zL9bCJAphZ9J6H3P6vg9xOz08CusnL8
-	F
-X-Google-Smtp-Source: AGHT+IEcNZZ3IKBnuwzVXbTiRy3rQW7FGUIh82qp0bTrQ17H3HqHlbhlMd6y0ckszudvA6Jri2+pXg==
-X-Received: by 2002:adf:f68c:0:b0:362:23d5:3928 with SMTP id ffacd0b85a97d-366e3293282mr4097244f8f.17.1719222750245;
-        Mon, 24 Jun 2024 02:52:30 -0700 (PDT)
-Message-ID: <ca2cde48-19aa-4832-a3ab-47354ce8a7ed@citrix.com>
-Date: Mon, 24 Jun 2024 10:52:27 +0100
+        b=mX0kxzOEZdxbIVluDu3/4jg/UqlPvaZZY4i/fRmekWlR+LcdazUQ7o0CUS3f7xDuoP
+         B7zXTjfXAabKfG7tlRZ1kWOlBSl6/sILFvnvHaFVq5KycdC803LGZZkAPNBNYOuDwDFo
+         ukCP/91L9Qg9iVlpTFxhOlnH2HziAcSIUYIfi1PZNE2oAyVgM+p4VjpqcD1ZOkKzvitb
+         cJrsxEi0PW9ZNMabshcm0UZUp0B7UESZ2006pjzn4nvGkOWAgEnmi/onK0qnCWxwgUL5
+         dOchn+KHyMvO5YsvMrjl45cWfnnarTrq5yV+uJdHFwuitGkYcy3HIZbxEPgCLSaXzO+3
+         uWOg==
+X-Forwarded-Encrypted: i=1; AJvYcCWPuUazyLIPvRaBv5NH7tO0JEgQr2Q7F5GW7fWfIq3t0t7TvAvGtkeAtHte6A9//YaJkGgWBx1ePFjZan67g0J5iQtFVYpCPZnkbxsyI3c=
+X-Gm-Message-State: AOJu0Yx+yQDQsVp3fCFBNlMLdmWbcA1FNa+zaOONbX2tYpDMIZE4wa3y
+	++6+2m1yjR+dYRHtBiJrugaXPIULYUFT78bx/nkbai0I1PPOUv1C+90UWmECOfA=
+X-Google-Smtp-Source: AGHT+IFpdTGXai69L8ilvJthyMMuxnZ1o8t9qETtl4+UH2+hLaN4iEkqAZgf96k5wTyMy8SOpB+VRw==
+X-Received: by 2002:a19:4310:0:b0:52c:b479:902d with SMTP id 2adb3069b0e04-52ce06105efmr3291262e87.4.1719222774537;
+        Mon, 24 Jun 2024 02:52:54 -0700 (PDT)
+Message-ID: <48460c9b-8593-4a9a-ad10-be2a40bc2eb3@citrix.com>
+Date: Mon, 24 Jun 2024 10:52:52 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH for-4.19 1/2] CHANGELOG.md: Fix indentation of "Removed"
- section
+Subject: Re: [PATCH for-4.19 2/2] CHANGELOG: Add entries related to tracing
 To: George Dunlap <george.dunlap@cloud.com>, xen-devel@lists.xenproject.org
 Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
  Community Manager <community.manager@xenproject.org>
 References: <20240624090411.1867850-1-george.dunlap@cloud.com>
+ <20240624090411.1867850-2-george.dunlap@cloud.com>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -131,7 +130,7 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <20240624090411.1867850-1-george.dunlap@cloud.com>
+In-Reply-To: <20240624090411.1867850-2-george.dunlap@cloud.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
