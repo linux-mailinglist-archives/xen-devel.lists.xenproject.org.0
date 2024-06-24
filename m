@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1C87B9149C9
-	for <lists+xen-devel@lfdr.de>; Mon, 24 Jun 2024 14:27:17 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.746542.1153625 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9E1EE9149D6
+	for <lists+xen-devel@lfdr.de>; Mon, 24 Jun 2024 14:29:22 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.746548.1153635 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sLimZ-00079O-8O; Mon, 24 Jun 2024 12:26:51 +0000
+	id 1sLiol-0007vf-Jm; Mon, 24 Jun 2024 12:29:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 746542.1153625; Mon, 24 Jun 2024 12:26:51 +0000
+Received: by outflank-mailman (output) from mailman id 746548.1153635; Mon, 24 Jun 2024 12:29:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sLimZ-00076j-5l; Mon, 24 Jun 2024 12:26:51 +0000
-Received: by outflank-mailman (input) for mailman id 746542;
- Mon, 24 Jun 2024 12:26:50 +0000
+	id 1sLiol-0007th-Gx; Mon, 24 Jun 2024 12:29:07 +0000
+Received: by outflank-mailman (input) for mailman id 746548;
+ Mon, 24 Jun 2024 12:29:06 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=wsRE=N2=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sLimY-00076d-7d
- for xen-devel@lists.xenproject.org; Mon, 24 Jun 2024 12:26:50 +0000
-Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
- [2a00:1450:4864:20::433])
+ id 1sLiok-0007tZ-DZ
+ for xen-devel@lists.xenproject.org; Mon, 24 Jun 2024 12:29:06 +0000
+Received: from mail-lj1-x232.google.com (mail-lj1-x232.google.com
+ [2a00:1450:4864:20::232])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 06a58c1d-3225-11ef-b4bb-af5377834399;
- Mon, 24 Jun 2024 14:26:48 +0200 (CEST)
-Received: by mail-wr1-x433.google.com with SMTP id
- ffacd0b85a97d-362f62ae4c5so2450019f8f.1
- for <xen-devel@lists.xenproject.org>; Mon, 24 Jun 2024 05:26:48 -0700 (PDT)
+ id 58002706-3225-11ef-b4bb-af5377834399;
+ Mon, 24 Jun 2024 14:29:04 +0200 (CEST)
+Received: by mail-lj1-x232.google.com with SMTP id
+ 38308e7fff4ca-2ec0f3b9cfeso49606561fa.0
+ for <xen-devel@lists.xenproject.org>; Mon, 24 Jun 2024 05:29:04 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-1f9eb3d43f6sm61430295ad.182.2024.06.24.05.26.43
+ d9443c01a7336-1fa2921e21dsm28243335ad.94.2024.06.24.05.28.59
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 24 Jun 2024 05:26:47 -0700 (PDT)
+ Mon, 24 Jun 2024 05:29:03 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,39 +45,39 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 06a58c1d-3225-11ef-b4bb-af5377834399
+X-Inumbo-ID: 58002706-3225-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1719232007; x=1719836807; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1719232144; x=1719836944; darn=lists.xenproject.org;
         h=content-transfer-encoding:autocrypt:subject:from:cc:to
          :content-language:user-agent:mime-version:date:message-id:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=BISiRXI8VY0evOcJTWm+6GCK6MEtQaD4JyxX2gs5bvE=;
-        b=f9yyvnmBApXk9V3Ik3L6CzjXlLm3P+CVNfHslE65/qUkmbPAX7ofbuEUM2QoBtve7Y
-         mNdW7jcB+mO+BBb1svFy5OoY3LCT3zSmuoP6AJ4spsX4OuObn7onAMCcojloqhNCFOJC
-         ZIsWZ32FyzqRzDqZA0LMuC+00wkj9yTR/pfF5glGOtkVo2kNX8VGAeCRvYc4ZQ8PpN1z
-         Wj38cYUftXY+FdAyJMLw0QYWsnonDOXP2JbvTz6oYaOudltFdX+iSn6rddy7akYuFGXg
-         dH+dduTTi8zZLqM9+xKoiyh21zvWv+ys+/2oGOBB8gXyc2fW/UhUEo1xFrGb2veghbQG
-         Uz3w==
+        bh=T49lwRJXT9LLlXuByh3ICxUBFnlr1lvpGV1zsmwF7II=;
+        b=Bm3HaTUYp+Bvpo24AE1Ah8hl2LpEU8tn0swwQYCvLIp0B7J68t/GtDHbvvV2wwuB8J
+         xlsesLTgVJjXUEV5qMiekaE4+/OymUYyO1Q6Uggt10oQ6UNRUWcqG6kUs/sPIP9ChVvy
+         LDjeKr7q6M2h6sPlVlLhr6pOs0oNhrfCUvr6hJpIO0drxxxoBd+upNN2W9XgTFp/rUk7
+         Q8OtOCuZ0Nl2Eq7vbyfwuCZAQ5wnN+8tSBurECM2CPWu4J1zhV51WFrJa+QsUYiTuD8m
+         qEfndjhTm0DsZosy8/TZo02RjhEbRf6ghPyV9eVPqrl7+UgPsO0M+axR78h9Hw5OgdMv
+         jPMg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1719232007; x=1719836807;
+        d=1e100.net; s=20230601; t=1719232144; x=1719836944;
         h=content-transfer-encoding:autocrypt:subject:from:cc:to
          :content-language:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=BISiRXI8VY0evOcJTWm+6GCK6MEtQaD4JyxX2gs5bvE=;
-        b=kAq6m7RYs9FT8xFUGnWwLN09WCFSb7rLZIKmAVY+UoQj4G4JEFBIayiSvpr0DHyyxo
-         17oSG/YehPBv11deJoT6dHSb8r2WXP4nM6xHbxmOY63Tpp2CmrkTmxdkG0yHdCJZIaLz
-         G8FGC3++Sidf46Bfkn1TvyXHEQOvn8cdhkk4eEOr+ivnhb/EHMLVHQYs08OdQV/uVnJl
-         A7/M63+M0ATVcx4dhH547atF96XNJC5N/lg1ZR4124pcl0iT+Fc4QqfmcfTMM2mAZGdG
-         lNj0fqfFkMYnroLvU/474rdbC87EBvgCsxG5WCsJAcqb2lY9P69/1kQgWeaAKW08ydMU
-         JFRw==
-X-Gm-Message-State: AOJu0Yzty2tstTBUg4ze15c1MY2OMPeqr/lAPVf0HP+scQt7j+YAvCtd
-	KgkLsTt9iJ817qPxj3i7Rc5BxoosxVzcmbFyoIkSTlDdzKpn7fVbAIla3vjD21ZFcYiMezP7BRQ
+        bh=T49lwRJXT9LLlXuByh3ICxUBFnlr1lvpGV1zsmwF7II=;
+        b=sTI7Xn07xsjS584MgkRpRW/VHzmuu4+Xn9abSM7OPn8LKFmeuFLGwwmD+sARf1fFiF
+         vCps/McVnr1Y1Dz+W9GJUD1g6O3XuEZCc8GQei1l4jfc19ZYuJbbr8L+JDngJ2rrWej7
+         NKTsePnP4LWUN28i/ysHAMVB6/xmuqor0T5OkKtEyVTfWysd6ulUx2cnIKinQPrQARbZ
+         uT3pIfyOlE74OOAjN2JlWFwvL9Qa/e8iQ9Y303RlWJqb0sb7GCQwItV6PvWeH9MWPFd3
+         gvN3lVGTmupD4HEHnwHdt9fnr3JhBKUA25SOkBJea7pgLBnzP5WtvcCawe/tRecAk+M+
+         zDxQ==
+X-Gm-Message-State: AOJu0Yw1fnwtspyaiC00LrH25hjAmElnCxPBg4zYt2KRucAaQwwl3B1h
+	ydhdhbKQ4BxCiZHYdB2ADBfLHkrd3UatvZpC312lUwvc4pm2ATaN6GHqtfx+3FM5FGEFxSBSh84
 	=
-X-Google-Smtp-Source: AGHT+IH4WPXDI4F+/OfjqRt/A2Ptuyfl1bT8g7viyJLsj3hJChWil4/ltAT2K+MmRrV/fK1LaY9UAQ==
-X-Received: by 2002:adf:f512:0:b0:366:deae:bfac with SMTP id ffacd0b85a97d-366e3269282mr4065130f8f.12.1719232007417;
-        Mon, 24 Jun 2024 05:26:47 -0700 (PDT)
-Message-ID: <6fc55df2-5d92-4f3f-8eb3-69bd89bfea4e@suse.com>
-Date: Mon, 24 Jun 2024 14:26:40 +0200
+X-Google-Smtp-Source: AGHT+IFQy9PeRggWTF/W705bvZkk2NMYDXLGeQ+j+VInT5+eS6MDMGHKHpKBJsqONdI8wByiG7+GDw==
+X-Received: by 2002:a2e:98d6:0:b0:2ec:4d74:8025 with SMTP id 38308e7fff4ca-2ec593d93abmr28361281fa.20.1719232143755;
+        Mon, 24 Jun 2024 05:29:03 -0700 (PDT)
+Message-ID: <d0b9a1e0-5c70-42c5-9c63-2e3af82487b2@suse.com>
+Date: Mon, 24 Jun 2024 14:28:56 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Content-Language: en-US
@@ -87,8 +87,7 @@ Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  Stefano Stabellini <sstabellini@kernel.org>,
  Oleksii Kurochko <oleksii.kurochko@gmail.com>
 From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH for-4.19] xen: re-add type checking to
- {,__}copy_from_guest_offset()
+Subject: [PATCH for-4.19?] xen: avoid UB in guest handle field accessors
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -115,29 +114,90 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-When re-working them to avoid UB on guest address calculations, I failed
-to add explicit type checks in exchange for the implicit ones that until
-then had happened in assignments that were there anyway.
+Much like noted in 43d5c5d5f70b ("xen: avoid UB in guest handle
+arithmetic"), address calculations involved in accessing a struct field
+can overflow, too. Cast respective pointers to "unsigned long" and
+convert type checking accordingly. Remaining arithmetic is, despite
+there possibly being mathematical overflow, okay as per the C99 spec:
+"A computation involving unsigned operands can never overflow, because a
+result that cannot be represented by the resulting unsigned integer type
+is reduced modulo the number that is one greater than the largest value
+that can be represented by the resulting type." The overflow that we
+need to guard against is checked for in array_access_ok().
 
-Fixes: 43d5c5d5f70b ("xen: avoid UB in guest handle arithmetic")
+While there add the missing (see {,__}copy_to_guest_offset()) is-not-
+const checks to {,__}copy_field_to_guest().
+
+Typically, but not always, no change to generated code; code generation
+(register allocation) is different for at least common/grant_table.c.
+
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
+---
+I notice that {,__}copy_field_from_guest() are actually unused, which
+may not be all that surprising: There's perhaps little point in copying
+in just a single field, as then any further input fields of a struct
+would likely also need copying that way (to avoid multi-read issues).
+copy_field_to_guest() has a mere two callers, in x86. All other sites
+use __copy_field_to_guest(). Overall there may hence be room here for
+simplification / reduction of redundancy.
 
---- a/xen/include/xen/guest_access.h
-+++ b/xen/include/xen/guest_access.h
-@@ -86,6 +86,7 @@
- #define copy_from_guest_offset(ptr, hnd, off, nr) ({    \
-     unsigned long s_ = (unsigned long)(hnd).p;          \
-     typeof(*(ptr)) *_d = (ptr);                         \
-+    (void)((hnd).p == _d);                              \
-     raw_copy_from_guest(_d,                             \
-                         (const void *)(s_ + (off) * sizeof(*_d)), \
-                         (nr) * sizeof(*_d));            \
-@@ -140,6 +141,7 @@
- #define __copy_from_guest_offset(ptr, hnd, off, nr) ({          \
-     unsigned long s_ = (unsigned long)(hnd).p;                  \
-     typeof(*(ptr)) *_d = (ptr);                                 \
-+    (void)((hnd).p == _d);                                      \
-     __raw_copy_from_guest(_d,                                   \
-                           (const void *)(s_ + (off) * sizeof(*_d)), \
-                           (nr) * sizeof(*_d));                  \
+--- unstable.orig/xen/include/xen/guest_access.h	2024-06-24 13:48:30.384279937 +0200
++++ unstable/xen/include/xen/guest_access.h	2024-06-24 13:51:35.390248096 +0200
+@@ -95,16 +95,23 @@
+ /* Copy sub-field of a structure to guest context via a guest handle. */
+ #define copy_field_to_guest(hnd, ptr, field) ({         \
+     const typeof(&(ptr)->field) _s = &(ptr)->field;     \
+-    void *_d = &(hnd).p->field;                         \
+-    (void)(&(hnd).p->field == _s);                      \
+-    raw_copy_to_guest(_d, _s, sizeof(*_s));             \
++    unsigned long d_ = (unsigned long)(hnd).p;          \
++    /* Check that the handle is not for a const type */ \
++    void *__maybe_unused _t = (hnd).p;                  \
++    (void)((typeof_field(typeof(*(hnd).p), field) *)NULL == _s); \
++    raw_copy_to_guest((void *)(d_ + offsetof(typeof(*(hnd).p), field)), \
++                      _s, sizeof(*_s));                 \
+ })
+ 
+ /* Copy sub-field of a structure from guest context via a guest handle. */
+ #define copy_field_from_guest(ptr, hnd, field) ({       \
+-    const typeof(&(ptr)->field) _s = &(hnd).p->field;   \
++    unsigned long s_ = (unsigned long)(hnd).p;          \
+     typeof(&(ptr)->field) _d = &(ptr)->field;           \
+-    raw_copy_from_guest(_d, _s, sizeof(*_d));           \
++    (void)((typeof_field(typeof(*(hnd).p), field) *)NULL == _d); \
++    raw_copy_from_guest(_d,                             \
++                        (const void *)(s_ +             \
++                            offsetof(typeof(*(hnd).p), field)), \
++                        sizeof(*_d));                   \
+ })
+ 
+ #define copy_to_guest(hnd, ptr, nr)                     \
+@@ -149,15 +156,22 @@
+ 
+ #define __copy_field_to_guest(hnd, ptr, field) ({       \
+     const typeof(&(ptr)->field) _s = &(ptr)->field;     \
+-    void *_d = &(hnd).p->field;                         \
+-    (void)(&(hnd).p->field == _s);                      \
+-    __raw_copy_to_guest(_d, _s, sizeof(*_s));           \
++    unsigned long d_ = (unsigned long)(hnd).p;          \
++    /* Check that the handle is not for a const type */ \
++    void *__maybe_unused _t = (hnd).p;                  \
++    (void)((typeof_field(typeof(*(hnd).p), field) *)NULL == _s); \
++    __raw_copy_to_guest((void *)(d_ + offsetof(typeof(*(hnd).p), field)), \
++                        _s, sizeof(*_s));               \
+ })
+ 
+ #define __copy_field_from_guest(ptr, hnd, field) ({     \
+-    const typeof(&(ptr)->field) _s = &(hnd).p->field;   \
++    unsigned long s_ = (unsigned long)(hnd).p;          \
+     typeof(&(ptr)->field) _d = &(ptr)->field;           \
+-    __raw_copy_from_guest(_d, _s, sizeof(*_d));         \
++    (void)((typeof_field(typeof(*(hnd).p), field) *)NULL == _d); \
++    __raw_copy_from_guest(_d,                           \
++                          (const void *)(s_ +           \
++                              offsetof(typeof(*(hnd).p), field)), \
++                          sizeof(*_d));                 \
+ })
+ 
+ #define __copy_to_guest(hnd, ptr, nr)                   \
 
