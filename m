@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1331F91455C
-	for <lists+xen-devel@lfdr.de>; Mon, 24 Jun 2024 10:52:28 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.746301.1153303 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 12D40914561
+	for <lists+xen-devel@lfdr.de>; Mon, 24 Jun 2024 10:52:52 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.746305.1153312 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sLfQL-0007pu-JZ; Mon, 24 Jun 2024 08:51:41 +0000
+	id 1sLfRI-0008JK-S6; Mon, 24 Jun 2024 08:52:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 746301.1153303; Mon, 24 Jun 2024 08:51:41 +0000
+Received: by outflank-mailman (output) from mailman id 746305.1153312; Mon, 24 Jun 2024 08:52:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sLfQL-0007nU-GM; Mon, 24 Jun 2024 08:51:41 +0000
-Received: by outflank-mailman (input) for mailman id 746301;
- Mon, 24 Jun 2024 08:51:39 +0000
+	id 1sLfRI-0008Hb-PO; Mon, 24 Jun 2024 08:52:40 +0000
+Received: by outflank-mailman (input) for mailman id 746305;
+ Mon, 24 Jun 2024 08:52:38 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=wsRE=N2=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sLfQJ-0007nO-S7
- for xen-devel@lists.xenproject.org; Mon, 24 Jun 2024 08:51:39 +0000
-Received: from mail-lj1-x22b.google.com (mail-lj1-x22b.google.com
- [2a00:1450:4864:20::22b])
+ id 1sLfRG-0008HP-Tw
+ for xen-devel@lists.xenproject.org; Mon, 24 Jun 2024 08:52:38 +0000
+Received: from mail-lj1-x231.google.com (mail-lj1-x231.google.com
+ [2a00:1450:4864:20::231])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f8229cc5-3206-11ef-90a3-e314d9c70b13;
- Mon, 24 Jun 2024 10:51:38 +0200 (CEST)
-Received: by mail-lj1-x22b.google.com with SMTP id
- 38308e7fff4ca-2ec17eb4493so55113971fa.2
- for <xen-devel@lists.xenproject.org>; Mon, 24 Jun 2024 01:51:38 -0700 (PDT)
+ id 1b8fdd05-3207-11ef-90a3-e314d9c70b13;
+ Mon, 24 Jun 2024 10:52:38 +0200 (CEST)
+Received: by mail-lj1-x231.google.com with SMTP id
+ 38308e7fff4ca-2ec002caeb3so52218141fa.2
+ for <xen-devel@lists.xenproject.org>; Mon, 24 Jun 2024 01:52:38 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-7065129b9edsm5864862b3a.148.2024.06.24.01.51.34
+ d2e1a72fcca58-70662adcf3dsm4272802b3a.54.2024.06.24.01.52.34
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 24 Jun 2024 01:51:37 -0700 (PDT)
+ Mon, 24 Jun 2024 01:52:37 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f8229cc5-3206-11ef-90a3-e314d9c70b13
+X-Inumbo-ID: 1b8fdd05-3207-11ef-90a3-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1719219098; x=1719823898; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1719219158; x=1719823958; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=wi867LupThgb/OSaWtfRwuG/utSAs7BJobFFwJezGqM=;
-        b=Ijq8J7p7+Rxq2YFGtEnt1toC9Ds9phUv7+RPeeyq+MLyeERYKWGhABti6By/ILtE09
-         EgNPUIU5uw7MLXOgaXBXnnbxaRekLreCApGw2ncff7f3dGIQxWSs1KeW9aZgfy8AkbQk
-         bG5i3mr8s7hWyfSCvYXHZE67G30Ub2GsdN24GWEc9cRdS5kMpJWwKTW0Yqsruto+IgoJ
-         af4vV+ToU/QVFPAO+ihJPFIHwdzPAfrIG2nJBjHJ6QYdz7Y3US+TD0ERb/fvggP34+78
-         h00lO91ReJsLGMaty53prXuANkmFV7XSLMoXwjaztU2GtfNv7KrsKvtRX8t94XxTi+LA
-         paPw==
+        bh=kNbPHfaG9z9iBWickqMzV1VuxOuq4Or2qExg/W00VFg=;
+        b=EJq4fTYUrtiSbLxoeTNdh7RxmLVC8dAvqZKUhnEOWf15QKSiRI6eoG/pMK/Z+DMece
+         kgAA1uJ+PBin40vBxydsOzQjJkqnfeCyDplaQWrG12nidxeZqQwJIE+NJyr7n+CgZWXJ
+         q+uG0+VTHLCbQBs8N6PVt6O/gQnbElcSHfYubSIfWJGT4fNNYtKcz/VfWotE5Y/FYVPt
+         OGosiXg+Qe+JlnmLthxxRQypNjeLQArW3AJHqn3TgAMM735F7apyVC0ZNDolru6OQYkS
+         TJz4Sl83Dt8karhA3bHp/cNrxbHM0blPV4jHJuA9vxtOCFfWlkIo+7VHa4jEnW4ykGld
+         auPw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1719219098; x=1719823898;
+        d=1e100.net; s=20230601; t=1719219158; x=1719823958;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=wi867LupThgb/OSaWtfRwuG/utSAs7BJobFFwJezGqM=;
-        b=M4b5gd43HHVjaThUgORal4SZ0IkUdNONoouih4wk95n22STO/SHEXZnAsmwQOzBTMt
-         rNduEQx8P9efvUR6ngiR5DtKmwDpiMob/0Y0RDIwPjdfG6WJHcICLn+YkdGfWhbrYUY0
-         iNQmFcrVYlpJhNJFDN4qo3VhACDrbs7raB9u4jcg1xNuGkMdJ/PZwRJFq34zQBypbrIo
-         1A6btQbK1rc0nl/CkczXm6Qp+fFa9hgBQf3+9T7JBb9v0DauugreHE//5Ig7P/j3aIax
-         mS4W8yjithX/HfG21ZQgy+/6tIRWieduShjxwTJOQuwIIybLkgTu1dn4YUBXYXLTbDkD
-         YV4Q==
-X-Forwarded-Encrypted: i=1; AJvYcCVUHTIqYl7EsN+d1Sujzug1rKYA+nhw9cseYiNnxdrJEGWjzbqUJhh1N+jPnm9gB5rOn8SHyCCDcDvXO5NSDTPpnQHrHwMKcko9F5XWtPE=
-X-Gm-Message-State: AOJu0YzD+rdOVot1Rxmy/9CLXtJq9Tv7wPKtRcZWzx3dFJOa1oTyZSVc
-	GTNfpjXXq2QtFUGQzq5pGKWp3bFOkJVmYFPNuv6eHnL3yFB8QLsM4SrpKDrEFw==
-X-Google-Smtp-Source: AGHT+IHM5btsh82TzUth4CA8j+2Sg93KpL/m0mmpW1Cnv762zXqycm6twnzmCq26SwjOAFHAB92BNQ==
-X-Received: by 2002:a2e:95c8:0:b0:2ec:596c:b637 with SMTP id 38308e7fff4ca-2ec5b339e01mr31829361fa.49.1719219098104;
-        Mon, 24 Jun 2024 01:51:38 -0700 (PDT)
-Message-ID: <dfe1eaf1-35d9-4c42-a6de-ace577313559@suse.com>
-Date: Mon, 24 Jun 2024 10:51:31 +0200
+        bh=kNbPHfaG9z9iBWickqMzV1VuxOuq4Or2qExg/W00VFg=;
+        b=Ftgkt9zCAlYuwsP3UvwfjkfQZrnf3HhWdfI2ZW/9SqR6si2M/p4JpVPOo4GMQdsCjR
+         UbBPPSVP1X2fnU03QDSNNQhfN/KYSlKjcd9n5S9eBFpGQ7iLtWabc0XzR0gcDXsRbVrH
+         ZO0QOg7pZg3Ubs2ZSC8e0QnHhG05myFbxgED765Jw1ViOrY3BoQFOOFIk1EN5DPumHyd
+         skV86KUyzH/jgnvmj6aYIhrXUTtwqLWMgKO4mm8kk6Jc16c5HIYH2Q7zN7eC9pfHbfU/
+         C6mj2uJuJxzVnQWYrEhoNyBu1bU5xq0jpvrbRhE0Xz9YN9uHqcLo58zsLrOQBKrFp6e+
+         nzVw==
+X-Forwarded-Encrypted: i=1; AJvYcCXVow1nq9BS4ZjBa8B9FPQCkF09hGY3eXLnP5OEyv7dk1ZcfysMppkOvnyMWWB0mm/WmNvjijaPLR/NHDuqhszGKRjYdFP79Rt93dDHMCI=
+X-Gm-Message-State: AOJu0YxEFmG3CBxdaIw3fUOUf7IiR37RA46rM9j13MHVoer3mVURD6SK
+	kA1Ix3dJNAvBnj2s+Yq9Z4W8KJGZXIF2r3DrP0eJV0ZqLTW95AKbU6OXpNU67w==
+X-Google-Smtp-Source: AGHT+IHcNQ5FEKF6wIoFzM8zL+N6mRkMpbuEPZMXZ7uqpburqZBgirvdQXyHcqwf7VWyVNj2DIy0Ig==
+X-Received: by 2002:a2e:9bca:0:b0:2eb:e634:fee6 with SMTP id 38308e7fff4ca-2ec5797a56emr33205001fa.18.1719219157643;
+        Mon, 24 Jun 2024 01:52:37 -0700 (PDT)
+Message-ID: <0ca31fc8-fb11-4a13-99c4-2cc77fdf0886@suse.com>
+Date: Mon, 24 Jun 2024 10:52:31 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH for-4.19 v3 2/4] x86/shadow: Introduce sh_trace_gl1e_va()
+Subject: Re: [PATCH for-4.19 v3 3/4] x86/shadow: Rework
+ trace_shadow_emulate_other() as sh_trace_gfn_va()
 To: Andrew Cooper <andrew.cooper3@citrix.com>
 Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  George Dunlap <george.dunlap@citrix.com>,
  Oleksii Kurochko <oleksii.kurochko@gmail.com>,
  Xen-devel <xen-devel@lists.xenproject.org>
 References: <20240621180658.92831-1-andrew.cooper3@citrix.com>
- <20240621180658.92831-3-andrew.cooper3@citrix.com>
+ <20240621180658.92831-4-andrew.cooper3@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -114,13 +115,13 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240621180658.92831-3-andrew.cooper3@citrix.com>
+In-Reply-To: <20240621180658.92831-4-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 21.06.2024 20:06, Andrew Cooper wrote:
-> trace_shadow_fixup() and trace_not_shadow_fault() both write out identical
-> trace records.  Reimplement them in terms of a common sh_trace_gl1e_va().
+> sh_trace_gfn_va() is very similar to sh_trace_gl1e_va(), and a rather shorter
+> name than trace_shadow_emulate_other().
 > 
 > No functional change.
 > 
