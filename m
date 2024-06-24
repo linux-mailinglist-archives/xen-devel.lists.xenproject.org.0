@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 42A0B914452
-	for <lists+xen-devel@lfdr.de>; Mon, 24 Jun 2024 10:13:35 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.746247.1153243 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 35DCB914454
+	for <lists+xen-devel@lfdr.de>; Mon, 24 Jun 2024 10:14:28 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.746253.1153253 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sLepH-0004qn-EN; Mon, 24 Jun 2024 08:13:23 +0000
+	id 1sLeq4-0005LM-Nn; Mon, 24 Jun 2024 08:14:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 746247.1153243; Mon, 24 Jun 2024 08:13:23 +0000
+Received: by outflank-mailman (output) from mailman id 746253.1153253; Mon, 24 Jun 2024 08:14:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sLepH-0004o6-Am; Mon, 24 Jun 2024 08:13:23 +0000
-Received: by outflank-mailman (input) for mailman id 746247;
- Mon, 24 Jun 2024 08:13:21 +0000
+	id 1sLeq4-0005Js-Jn; Mon, 24 Jun 2024 08:14:12 +0000
+Received: by outflank-mailman (input) for mailman id 746253;
+ Mon, 24 Jun 2024 08:14:10 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=wsRE=N2=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sLepF-0004nv-Lt
- for xen-devel@lists.xenproject.org; Mon, 24 Jun 2024 08:13:21 +0000
-Received: from mail-lj1-x22b.google.com (mail-lj1-x22b.google.com
- [2a00:1450:4864:20::22b])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=xeV4=N2=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1sLeq2-0005H5-N0
+ for xen-devel@lists.xenproject.org; Mon, 24 Jun 2024 08:14:10 +0000
+Received: from mail-lf1-x129.google.com (mail-lf1-x129.google.com
+ [2a00:1450:4864:20::129])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 9dc43726-3201-11ef-b4bb-af5377834399;
- Mon, 24 Jun 2024 10:13:19 +0200 (CEST)
-Received: by mail-lj1-x22b.google.com with SMTP id
- 38308e7fff4ca-2ec52fbb50bso20208461fa.2
- for <xen-devel@lists.xenproject.org>; Mon, 24 Jun 2024 01:13:19 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-2c819dd0cf7sm6075553a91.48.2024.06.24.01.13.12
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 24 Jun 2024 01:13:18 -0700 (PDT)
+ id bb4f7687-3201-11ef-b4bb-af5377834399;
+ Mon, 24 Jun 2024 10:14:09 +0200 (CEST)
+Received: by mail-lf1-x129.google.com with SMTP id
+ 2adb3069b0e04-52cd6784aa4so2866927e87.3
+ for <xen-devel@lists.xenproject.org>; Mon, 24 Jun 2024 01:14:09 -0700 (PDT)
+Received: from [192.168.219.191] ([94.75.70.14])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-52cdf448876sm567043e87.237.2024.06.24.01.14.07
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 24 Jun 2024 01:14:08 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,250 +45,108 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9dc43726-3201-11ef-b4bb-af5377834399
+X-Inumbo-ID: bb4f7687-3201-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1719216799; x=1719821599; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=2A1SW8jdK+8EUBTc5ozeq15HGdUgK/PBA7UnUl3OcKU=;
-        b=KeuAHsgbJPUjp3pRL4pRLn9dV6U9jaEzRjM2rQ9ClotYrgKlWo0rLYRBbgziBVKFsy
-         blYOo43oU4Da5qr1zEQEEIn7++hNFCcqqyHXNRgTV2+XSmJ77JR+EKqzXPiFV5kddHI3
-         dzcHXvrmNLDS++ubvNjkcVUdlxKgkhsyM7KDbQL/xEW50ZpV2us5eEcsp/2x3d5piGox
-         gaJJOPtY9KlYDXgYQRA/K/5OgIUPRDsnc1wDNJLz3dRBvNFhas2FWb3rY6/JG1E4lOZb
-         DzyLq3Kxr5wwkvLQfyteMZ0ylWFzdZ6y7NghRrotmQjF/OAGZv+o/+rBhOOGkGcHZvI0
-         VRmA==
+        d=gmail.com; s=20230601; t=1719216849; x=1719821649; darn=lists.xenproject.org;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=KRvuxy5PS3VQnoUzMRuCWmN4qlLW1NkpWhVLeA8R8+g=;
+        b=UKiXcoABnZIdqKomR1TxJk9+NSvRYVSWoeVpbrg1a8z7cSp4Ipcez7Y+PdR5/WqkCb
+         XKv6Uo8RPVBU/KVvbD3uPoR1PP2h89S5DiF4u36E2kYDKsFOwk4vkGI23bkyXXVjEcH1
+         tw6SN68NWZbJeOdhAO+3vtVVIzg7EyQFZDQ/JmIFFPD93eEJX/E0MOGBPJh7iyq3reRB
+         0GPjcB7v90Xjg7xhXqLzdAbpE8RtiLG3YG7rysC+irw4q2bfJx3TsWqr4YmhX73V+EyW
+         S34OSP0kcDyN/UgP+Owg6ShawTbt+4AkzoojIuDX3z9VOob06V9atztvfufWKkkEq/27
+         uIUA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1719216799; x=1719821599;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=2A1SW8jdK+8EUBTc5ozeq15HGdUgK/PBA7UnUl3OcKU=;
-        b=l085FeDH3jTx7gRKTtbqX9GRFCoFDrjNdW+KJduEpp2fcM7ZGW1Vm2L3rNfyDaFaFN
-         lunMSE01WlDtlGFZ30dHmWW2J24CDF9qTLV3h7O1a0Znv++Lc3oiEOtKIhKD049ekUgk
-         XpoTlMpXidRyPF5yppwXT+bhMEuRRyR0O5TA4iOINVIo8eFevPM8qXJip0cKXrAcn6aX
-         zgzd2kegq+seEpQR+vh2kD8pIWepFPqKMzK1/B8n82XnqzW4X0aCqfQHYO4doBn92SCH
-         Z8fJKgPTAfMABhTdyXAtGIV81rM6g9GyKHTUOqnl1CMagMirvw+7RtD1VxjQAgtT0wuX
-         WS7Q==
-X-Forwarded-Encrypted: i=1; AJvYcCUHP1633bb/E1vJoHVI9r9kDVFAfC1zomJkxyL8vKHlC4ftXWnhko+CDIxBN+KhpAcylH0pWimMQ0svT5wqKCt52KgtaU79IAI0aLVlW34=
-X-Gm-Message-State: AOJu0Yy9qtpgegKXIj1BETYg3xgu1NNeMs4fYeU6K8jK9Ckfr+YvQn2j
-	2T6k6BQpr3bdntBJYi2g/6dFdxT3bQK2j5lJEkjsJCaeASyXVcT5KT4fpHQJMn9XdQLGuX1TCe8
-	=
-X-Google-Smtp-Source: AGHT+IHiITpD/ci4SjO8F6vB6NS0sYSmq16RR0vfzBbjoDp3voUEknYoAilxcrVHrnLD+aopQT0QpQ==
-X-Received: by 2002:a2e:9104:0:b0:2ec:57c7:c72c with SMTP id 38308e7fff4ca-2ec5b3d4979mr20616111fa.35.1719216799003;
-        Mon, 24 Jun 2024 01:13:19 -0700 (PDT)
-Message-ID: <a17f568f-5fe3-4331-9592-509e02ae84ea@suse.com>
-Date: Mon, 24 Jun 2024 10:13:08 +0200
+        d=1e100.net; s=20230601; t=1719216849; x=1719821649;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=KRvuxy5PS3VQnoUzMRuCWmN4qlLW1NkpWhVLeA8R8+g=;
+        b=VLI2F72CJMMWGBuzBSDKcWkMdd1I+unABiEQDnFOcF7+fDqh6zP07Ch2TFIgfpOrJl
+         d1XzfCR1wlwAcydUx1megiMdfmCEr3mbpCS3Mz5Z+4Q7v0YPxIJmb1rtqqvWCABhnP++
+         caUKh8ukFMC/q5ydqtbLDF+ZBqqutZVlE/qlks28oJAqU8OtjklknaN6w8LWm45RD1JG
+         Q6TLyE0195nV0JZPoRXVSPWaSo0F1amGYnZkeyUHt+jTxaYwLUDLluoXHvshQL9RDW/b
+         7RC2q9yP5jL1mrlvOzl3sojgruavOZvz4ViUq8M+Hj/ncdlwQIscnA/C4h2Gjc+hD7q6
+         zyYQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWptk3QWKyRCrwppjZpGMtNoT28xB6bTj4I7JL0DVfQTbkUj3PsRqo00N4syF/kHKVLFJLIzXhrA+uXxXZYFmQzy/7XHzrqlV1RfNIVdD8=
+X-Gm-Message-State: AOJu0YyLp+UqIKMlay7zJi1H+g4K4RXFhSf2KYBWH7HHjUM3l8XFl4RX
+	3tyfhlDhf0sc2uhVf5cFK+xJOtzeAl4fmg64xBJzQ/X6Q5SpN/6n
+X-Google-Smtp-Source: AGHT+IHhD4eMDwFLrabWsdxKjRtpE7AH1ZLRCbp3lw+KVOYjBFktFBtEm8K85/YKEYqwypM7iEAzug==
+X-Received: by 2002:a05:6512:4888:b0:52c:a465:c61f with SMTP id 2adb3069b0e04-52ce18647cemr1931218e87.56.1719216848469;
+        Mon, 24 Jun 2024 01:14:08 -0700 (PDT)
+Message-ID: <83247825a45be9effa3dde303ed03942ec2a839c.camel@gmail.com>
+Subject: Re: [PATCH for-4.19 v2] tools/xl: Open xldevd.log with O_CLOEXEC
+From: Oleksii <oleksii.kurochko@gmail.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>, Xen-devel
+	 <xen-devel@lists.xenproject.org>
+Cc: Demi Marie Obenour <demi@invisiblethingslab.com>, Anthony PERARD
+	 <anthony@xenproject.org>, Juergen Gross <jgross@suse.com>, Marek
+ =?ISO-8859-1?Q?Marczykowski-G=F3recki?=
+	 <marmarek@invisiblethingslab.com>
+Date: Mon, 24 Jun 2024 10:14:07 +0200
+In-Reply-To: <20240621161656.63576-1-andrew.cooper3@citrix.com>
+References: <20240621161656.63576-1-andrew.cooper3@citrix.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.52.2 (3.52.2-1.fc40app2) 
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH v10 4/5] tools: Add new function to get gsi from dev
-To: "Chen, Jiqian" <Jiqian.Chen@amd.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu
- <wl@xen.org>, George Dunlap <george.dunlap@citrix.com>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- Anthony PERARD <anthony@xenproject.org>, Juergen Gross <jgross@suse.com>,
- "Daniel P . Smith" <dpsmith@apertussolutions.com>,
- "Hildebrand, Stewart" <Stewart.Hildebrand@amd.com>,
- "Huang, Ray" <Ray.Huang@amd.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <20240617090035.839640-1-Jiqian.Chen@amd.com>
- <20240617090035.839640-5-Jiqian.Chen@amd.com>
- <49563a31-d50e-4015-88ee-e0dab9193cd1@suse.com>
- <BL1PR12MB584910D242D9D8B4BA8B15C1E7CE2@BL1PR12MB5849.namprd12.prod.outlook.com>
- <ab99b766-7bec-4046-beb2-f77a2591a911@suse.com>
- <BL1PR12MB5849ABD858B72505D83678F9E7C82@BL1PR12MB5849.namprd12.prod.outlook.com>
- <099beaac-ed1f-459b-8c2b-42b325f8e4a4@suse.com>
- <BL1PR12MB5849366A442BE6C4C192ABB0E7C82@BL1PR12MB5849.namprd12.prod.outlook.com>
- <3352736b-e7bc-40d0-ac1f-e58de188c93c@suse.com>
- <BL1PR12MB5849D6943FCB12613A844F33E7C92@BL1PR12MB5849.namprd12.prod.outlook.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <BL1PR12MB5849D6943FCB12613A844F33E7C92@BL1PR12MB5849.namprd12.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
-On 21.06.2024 10:15, Chen, Jiqian wrote:
-> On 2024/6/20 18:37, Jan Beulich wrote:
->> On 20.06.2024 12:23, Chen, Jiqian wrote:
->>> On 2024/6/20 15:43, Jan Beulich wrote:
->>>> On 20.06.2024 09:03, Chen, Jiqian wrote:
->>>>> On 2024/6/18 17:13, Jan Beulich wrote:
->>>>>> On 18.06.2024 10:10, Chen, Jiqian wrote:
->>>>>>> On 2024/6/17 23:10, Jan Beulich wrote:
->>>>>>>> On 17.06.2024 11:00, Jiqian Chen wrote:
->>>>>>>>> --- a/tools/libs/light/libxl_pci.c
->>>>>>>>> +++ b/tools/libs/light/libxl_pci.c
->>>>>>>>> @@ -1406,6 +1406,12 @@ static bool pci_supp_legacy_irq(void)
->>>>>>>>>  #endif
->>>>>>>>>  }
->>>>>>>>>  
->>>>>>>>> +#define PCI_DEVID(bus, devfn)\
->>>>>>>>> +            ((((uint16_t)(bus)) << 8) | ((devfn) & 0xff))
->>>>>>>>> +
->>>>>>>>> +#define PCI_SBDF(seg, bus, devfn) \
->>>>>>>>> +            ((((uint32_t)(seg)) << 16) | (PCI_DEVID(bus, devfn)))
->>>>>>>>
->>>>>>>> I'm not a maintainer of this file; if I were, I'd ask that for readability's
->>>>>>>> sake all excess parentheses be dropped from these.
->>>>>>> Isn't it a coding requirement to enclose each element in parentheses in the macro definition?
->>>>>>> It seems other files also do this. See tools/libs/light/libxl_internal.h
->>>>>>
->>>>>> As said, I'm not a maintainer of this code. Yet while I'm aware that libxl
->>>>>> has its own CODING_STYLE, I can't spot anything towards excessive use of
->>>>>> parentheses there.
->>>>> So, which parentheses do you think are excessive use?
->>>>
->>>> #define PCI_DEVID(bus, devfn)\
->>>>             (((uint16_t)(bus) << 8) | ((devfn) & 0xff))
->>>>
->>>> #define PCI_SBDF(seg, bus, devfn) \
->>>>             (((uint32_t)(seg) << 16) | PCI_DEVID(bus, devfn))
->>> Thanks, will change in next version.
->>>
->>>>
->>>>>>>>> @@ -1486,6 +1496,18 @@ static void pci_add_dm_done(libxl__egc *egc,
->>>>>>>>>          goto out_no_irq;
->>>>>>>>>      }
->>>>>>>>>      if ((fscanf(f, "%u", &irq) == 1) && irq) {
->>>>>>>>> +#ifdef CONFIG_X86
->>>>>>>>> +        sbdf = PCI_SBDF(pci->domain, pci->bus,
->>>>>>>>> +                        (PCI_DEVFN(pci->dev, pci->func)));
->>>>>>>>> +        gsi = xc_physdev_gsi_from_dev(ctx->xch, sbdf);
->>>>>>>>> +        /*
->>>>>>>>> +         * Old kernel version may not support this function,
->>>>>>>>
->>>>>>>> Just kernel?
->>>>>>> Yes, xc_physdev_gsi_from_dev depends on the function implemented on linux kernel side.
->>>>>>
->>>>>> Okay, and when the kernel supports it but the underlying hypervisor doesn't
->>>>>> support what the kernel wants to use in order to fulfill the request, all
->>>>> I don't know what things you mentioned hypervisor doesn't support are,
->>>>> because xc_physdev_gsi_from_dev is to get the gsi of pcidev through sbdf information,
->>>>> that relationship can be got only in dom0 instead of Xen hypervisor.
->>>>>
->>>>>> is fine? (See also below for what may be needed in the hypervisor, even if
->>>>> You mean xc_physdev_map_pirq needs gsi?
->>>>
->>>> I'd put it slightly differently: You arrange for that function to now take a
->>>> GSI when the caller is PVH. But yes, the function, when used with
->>>> MAP_PIRQ_TYPE_GSI, clearly expects a GSI as input (see also below).
->>>>
->>>>>> this IOCTL would be satisfied by the kernel without needing to interact with
->>>>>> the hypervisor.)
->>>>>>
->>>>>>>>> +         * so if fail, keep using irq; if success, use gsi
->>>>>>>>> +         */
->>>>>>>>> +        if (gsi > 0) {
->>>>>>>>> +            irq = gsi;
->>>>>>>>
->>>>>>>> I'm still puzzled by this, when by now I think we've sufficiently clarified
->>>>>>>> that IRQs and GSIs use two distinct numbering spaces.
->>>>>>>>
->>>>>>>> Also, as previously indicated, you call this for PV Dom0 as well. Aiui on
->>>>>>>> the assumption that it'll fail. What if we decide to make the functionality
->>>>>>>> available there, too (if only for informational purposes, or for
->>>>>>>> consistency)? Suddenly you're fallback logic wouldn't work anymore, and
->>>>>>>> you'd call ...
->>>>>>>>
->>>>>>>>> +        }
->>>>>>>>> +#endif
->>>>>>>>>          r = xc_physdev_map_pirq(ctx->xch, domid, irq, &irq);
->>>>>>>>
->>>>>>>> ... the function with a GSI when a pIRQ is meant. Imo, as suggested before,
->>>>>>>> you strictly want to avoid the call on PV Dom0.
->>>>>>>>
->>>>>>>> Also for PVH Dom0: I don't think I've seen changes to the hypercall
->>>>>>>> handling, yet. How can that be when GSI and IRQ aren't the same, and hence
->>>>>>>> incoming GSI would need translating to IRQ somewhere? I can once again only
->>>>>>>> assume all your testing was done with IRQs whose numbers happened to match
->>>>>>>> their GSI numbers. (The difference, imo, would also need calling out in the
->>>>>>>> public header, where the respective interface struct(s) is/are defined.)
->>>>>>> I feel like you missed out on many of the previous discussions.
->>>>>>> Without my changes, the original codes use irq (read from file /sys/bus/pci/devices/<sbdf>/irq) to do xc_physdev_map_pirq,
->>>>>>> but xc_physdev_map_pirq require passing into gsi instead of irq, so we need to use gsi whether dom0 is PV or PVH, so for the original codes, they are wrong.
->>>>>>> Just because by chance, the irq value in the Linux kernel of pv dom0 is equal to the gsi value, so there was no problem with the original pv passthrough.
->>>>>>> But not when using PVH, so passthrough failed.
->>>>>>> With my changes, I got gsi through function xc_physdev_gsi_from_dev firstly, and to be compatible with old kernel versions(if the ioctl
->>>>>>> IOCTL_PRIVCMD_GSI_FROM_DEV is not implemented), I still need to use the irq number, so I need to check the result
->>>>>>> of gsi, if gsi > 0 means IOCTL_PRIVCMD_GSI_FROM_DEV is implemented I can use the right one gsi, otherwise keep using wrong one irq. 
->>>>>>
->>>>>> I understand all of this, to a (I think) sufficient degree at least. Yet what
->>>>>> you're effectively proposing (without explicitly saying so) is that e.g.
->>>>>> struct physdev_map_pirq's pirq field suddenly may no longer hold a pIRQ
->>>>>> number, but (when the caller is PVH) a GSI. This may be a necessary adjustment
->>>>>> to make (simply because the caller may have no way to express things in pIRQ
->>>>>> terms), but then suitable adjustments to the handling of PHYSDEVOP_map_pirq
->>>>>> would be necessary. In fact that field is presently marked as "IN or OUT";
->>>>>> when re-purposed to take a GSI on input, it may end up being necessary to pass
->>>>>> back the pIRQ (in the subject domain's numbering space). Or alternatively it
->>>>>> may be necessary to add yet another sub-function so the GSI can be translated
->>>>>> to the corresponding pIRQ for the domain that's going to use the IRQ, for that
->>>>>> then to be passed into PHYSDEVOP_map_pirq.
->>>>> If I understood correctly, your concerns about this patch are two:
->>>>> First, when dom0 is PV, I should not use xc_physdev_gsi_from_dev to get gsi to do xc_physdev_map_pirq, I should keep the original code that use irq.
->>>>
->>>> Yes.
->>> OK, I can change to do this.
->>> But I still have a concern:
->>> Although without my changes, passthrough can work now when dom0 is PV.
->>> And you also agree that: for xc_physdev_map_pirq, when use with MAP_PIRQ_TYPE_GSI, it expects a GSI as input.
->>> Isn't it a wrong for PV dom0 to pass irq in? Why don't we use gsi as it should be used, since we have a function to get gsi now?
->>
->> Indeed this and ...
->>
->>>>> Second, when dom0 is PVH, I get the gsi, but I should not pass gsi as the fourth parameter of xc_physdev_map_pirq, I should create a new local parameter pirq=-1, and pass it in.
->>>>
->>>> I think so, yes. You also may need to record the output value, so you can later
->>>> use it for unmap. xc_physdev_map_pirq() may also need adjusting, as right now
->>>> it wouldn't put a negative incoming *pirq into the .pirq field. 
->>> xc_physdev_map_pirq's logic is if we pass a negative in, it sets *pirq to index(gsi).
->>> Is its logic right? If not how do we change it?
->>
->> ... this matches ...
->>
->>>> I actually wonder if that's even correct right now, i.e. independent of your change.
->>
->> ... the remark here.
-> So, what should I do next step?
-> If assume the logic of function xc_physdev_map_pirq and PHYSDEVOP_map_pirq is right,
-> I think what I did now is right, both PV and PVH dom0 should pass gsi into xc_physdev_map_pirq.
+On Fri, 2024-06-21 at 17:16 +0100, Andrew Cooper wrote:
+> `xl devd` has been observed leaking /var/log/xldevd.log into
+> children.
+>=20
+> Note this is specifically safe; dup2() leaves O_CLOEXEC disabled on
+> newfd, so
+> after setting up stdout/stderr, it's only the logfile fd which will
+> close on
+> exec().
+>=20
+> Link: https://github.com/QubesOS/qubes-issues/issues/8292
+> Reported-by: Demi Marie Obenour <demi@invisiblethingslab.com>
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+Release-Acked-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 
-It may sound unfriendly, and I'm willing to accept other maintainers
-disagreeing with me, but I think before we think of any extensions of
-what we have here, we want to address any issues with what we have.
-Since you're working in the area, and since getting the additions right
-requires properly understanding how things work (and where things may
-not work correctly right now), I view you as being in the best position
-to see about doing that (imo) prereq step.
+~ Oleksii
 
-> By the way, I found xc_physdev_map_pirq didn't support negative pirq is since your commit 934a5253d932b6f67fe40fc48975a2b0117e4cce, do you remember why?
+> ---
+> CC: Anthony PERARD <anthony@xenproject.org>
+> CC: Juergen Gross <jgross@suse.com>
+> CC: Demi Marie Obenour <demi@invisiblethingslab.com>
+> CC: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblethingslab.com>
+> CC: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+>=20
+> Also entirely speculative based on the QubesOS ticket.
+>=20
+> v2:
+> =C2=A0* Extend the commit message to explain why stdout/stderr aren't
+> closed by
+> =C2=A0=C2=A0 this change
+>=20
+> For 4.19.=C2=A0 This bugfix was posted earlier, but fell between the
+> cracks.
+> ---
+> =C2=A0tools/xl/xl_utils.c | 2 +-
+> =C2=A01 file changed, 1 insertion(+), 1 deletion(-)
+>=20
+> diff --git a/tools/xl/xl_utils.c b/tools/xl/xl_utils.c
+> index 17489d182954..060186db3a59 100644
+> --- a/tools/xl/xl_utils.c
+> +++ b/tools/xl/xl_utils.c
+> @@ -270,7 +270,7 @@ int do_daemonize(const char *name, const char
+> *pidfile)
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 exit(-1);
+> =C2=A0=C2=A0=C2=A0=C2=A0 }
+> =C2=A0
+> -=C2=A0=C2=A0=C2=A0 CHK_SYSCALL(logfile =3D open(fullname, O_WRONLY|O_CRE=
+AT|O_APPEND,
+> 0644));
+> +=C2=A0=C2=A0=C2=A0 CHK_SYSCALL(logfile =3D open(fullname, O_WRONLY | O_C=
+REAT |
+> O_APPEND | O_CLOEXEC, 0644));
+> =C2=A0=C2=A0=C2=A0=C2=A0 free(fullname);
+> =C2=A0=C2=A0=C2=A0=C2=A0 assert(logfile >=3D 3);
+> =C2=A0
 
-Counter question: What is a negative pIRQ?
-
-Jan
 
