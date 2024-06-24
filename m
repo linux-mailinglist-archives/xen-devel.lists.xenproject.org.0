@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4480591521A
-	for <lists+xen-devel@lfdr.de>; Mon, 24 Jun 2024 17:21:40 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.746756.1153913 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9C9D0915274
+	for <lists+xen-devel@lfdr.de>; Mon, 24 Jun 2024 17:33:01 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.746767.1153923 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sLlVZ-0000Tg-F1; Mon, 24 Jun 2024 15:21:29 +0000
+	id 1sLlfy-0002et-D4; Mon, 24 Jun 2024 15:32:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 746756.1153913; Mon, 24 Jun 2024 15:21:29 +0000
+Received: by outflank-mailman (output) from mailman id 746767.1153923; Mon, 24 Jun 2024 15:32:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sLlVZ-0000S8-CL; Mon, 24 Jun 2024 15:21:29 +0000
-Received: by outflank-mailman (input) for mailman id 746756;
- Mon, 24 Jun 2024 15:21:27 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1sLlfy-0002ci-AH; Mon, 24 Jun 2024 15:32:14 +0000
+Received: by outflank-mailman (input) for mailman id 746767;
+ Mon, 24 Jun 2024 15:32:13 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=wsRE=N2=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sLlVX-0008Ad-Lz
- for xen-devel@lists.xenproject.org; Mon, 24 Jun 2024 15:21:27 +0000
-Received: from mail-lj1-x230.google.com (mail-lj1-x230.google.com
- [2a00:1450:4864:20::230])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 6c065a50-323d-11ef-b4bb-af5377834399;
- Mon, 24 Jun 2024 17:21:25 +0200 (CEST)
-Received: by mail-lj1-x230.google.com with SMTP id
- 38308e7fff4ca-2ebeefb9a6eso49789121fa.1
- for <xen-devel@lists.xenproject.org>; Mon, 24 Jun 2024 08:21:25 -0700 (PDT)
+ id 1sLlfx-0002cc-2g
+ for xen-devel@lists.xenproject.org; Mon, 24 Jun 2024 15:32:13 +0000
+Received: from mail-lj1-x22a.google.com (mail-lj1-x22a.google.com
+ [2a00:1450:4864:20::22a])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id ecebb559-323e-11ef-90a3-e314d9c70b13;
+ Mon, 24 Jun 2024 17:32:11 +0200 (CEST)
+Received: by mail-lj1-x22a.google.com with SMTP id
+ 38308e7fff4ca-2ec58040f39so20493151fa.2
+ for <xen-devel@lists.xenproject.org>; Mon, 24 Jun 2024 08:32:11 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-2c7e64a1d9esm8927755a91.56.2024.06.24.08.21.21
+ d9443c01a7336-1f9ee4482afsm63472295ad.88.2024.06.24.08.32.07
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 24 Jun 2024 08:21:24 -0700 (PDT)
+ Mon, 24 Jun 2024 08:32:10 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6c065a50-323d-11ef-b4bb-af5377834399
+X-Inumbo-ID: ecebb559-323e-11ef-90a3-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1719242485; x=1719847285; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1719243131; x=1719847931; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=aS+B1yhp0qCZfGxtApIkEhc3D2jaW0lt80uqdGVw9Tc=;
-        b=EXslp+G/zuz1orkun/+CnC9Zvs1+vBFSap0S75eYjLdMqS1OXt+W2hP7wZQRWn4Hk9
-         bxGWZTJX/S9UOdCVngUIIxcHEXm+5oChLEN3pqyaKJiP5T5blityYIBW+F9qoF7ctzVm
-         ouWHAdclZ2gG5eEO7VrI/yHeJ05cg+hbLkxRr8rpo8izSh8hSrs5BYlfvfPxGuI7coII
-         DqKbfMlDZm3koAdzda0woEJ1Kh4Iqg4mLxAaxZgN4KkcLJ7EkQ443oFBl3kdZwi4yfTe
-         FtBYFijAvAnJu8js0yWo4zDJvVe2wEKMXzb5Nq9JPuq0KUgIQGdS8g04XbSFD0FUNekS
-         Q+bg==
+        bh=s25MqQDIQHTV2/jQnH8Za5Ma6ncTSBJrtWWaZb14nYU=;
+        b=ZDnI6e9WbekmlwfZ17yYoc3WK+rcOHR0fqgVNSyVlPmsMc8Mo5I2nG+EdAFWPBe4QX
+         Z8UzvHiwvbOtW2Sbr/tje2aGUVXYwz6RLuUGC2iRScc9xoA/iGMxNlR+MVg2FIrTQD4H
+         MXHM2SfMCTOtZWQH5i7Hi3R/Vaz9762PxnYtj3TCsJohTeEzuNoQ6Mvox334SLqEw0ed
+         9hPr4giDj/K+Q/zK31XtvKmmlGhKfUVUBMXf/mT51N7prMk7clkkjdZi+156uItAkecJ
+         X18uTKy20CSI9s5g5IiX3hyQVinJCpQStZeqJUzZIsl0nKwe3Uw3wde0Z5eUEPHfQjSx
+         VQYg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1719242485; x=1719847285;
+        d=1e100.net; s=20230601; t=1719243131; x=1719847931;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=aS+B1yhp0qCZfGxtApIkEhc3D2jaW0lt80uqdGVw9Tc=;
-        b=IcJCbJH2D0d4nU8yflsnxFdmlqa4Q9UITnN/ca3VgAN81UckRnEGKHh1SAd6gg7PUH
-         gvf/ZH/QdEgtlY7NvOW6pzk/I+IwQ4MLmkkj01GrGDI+GClec16L1N3+saBxXhQdOF98
-         9XRn7RbhF+PPwM+9t69QBSxksMm+5D4257WjEWqQZ8JE7OnH72RjvRYoL2KdcK+lQw8G
-         Ndiq+owF+jYc28uTFE6OVfkWBZ8TRVsp5nJjX8UFJSVA89pPjL8KSiMNp2ELuc0wvVp2
-         9SQfkRqKqeUQoIdeelR+TnZURH0MRTSoxQaaprEFwsHWeMZ3CNOlYBn6WTu0ibysNmcs
-         UlUQ==
-X-Forwarded-Encrypted: i=1; AJvYcCWUDgQUEV3IytuWwSKPz8g2FY6SIWbNak01lRF/5cTquFUgMs352Wo6+CS2EykzMcs9qbNcgF7Ljig+y31GbBPwg36uOynTryTGeES/SIg=
-X-Gm-Message-State: AOJu0YzIAakmrYNqb9yi7Y1dkMks45bnmzEPcg4CbG8n7p4JPDB9p5io
-	s9cNdKHbfa3xAxhoY4GiQCuFuAKQUHhhhIHCUx/QlkcylznTOm9X6iT52dWbUA==
-X-Google-Smtp-Source: AGHT+IHB7tvUHgtTAirTKM/qbCIJk/ExEHgH9bdTl/i8lpzYtaQ5+mkGXF+NCZBk9EjYeAUzboIK6w==
-X-Received: by 2002:a2e:9cd4:0:b0:2ec:520d:f1dd with SMTP id 38308e7fff4ca-2ec593be843mr31018741fa.3.1719242485437;
-        Mon, 24 Jun 2024 08:21:25 -0700 (PDT)
-Message-ID: <e11df888-7bce-42b6-a87f-e14096da9f4b@suse.com>
-Date: Mon, 24 Jun 2024 17:21:18 +0200
+        bh=s25MqQDIQHTV2/jQnH8Za5Ma6ncTSBJrtWWaZb14nYU=;
+        b=pbMjgc0VF80Gn9DJQvyzLxb+ErTIxyClZONae3Cyzbb0rqt7Xs/QCWAO4QY1pU3Zal
+         MSRAieTXgAvpsvZQZRiRlym79w6zTFWSC+hi7W0cnGSo4vOPaQ0ZOX6KWRm0A7ycIDzn
+         AozJcIBj2QPVZR2C/zCekozHLlDpk0l70WSKm5PalnrCQ9UIIj0LbbcERG/thSz0tp6+
+         meJObRZ0G3/v2h83D/fB2+6PNpuEl3gnSqRPdbmFY3lv6uGSR1dfOzZT1HjFb9G6pMza
+         9/GkvVp18e0L2GzRqaf5cJnPPm8q7vH9Yiel56JOR+Rfn/owg5kCjQZbOsBrmiOX23eC
+         V7eA==
+X-Forwarded-Encrypted: i=1; AJvYcCVXjBAtnwM+NvVWuNY6DwGdqI+zRI8RcGI8mj+8R2nTiGCSm1MoW78czb7DILehJQabnjI/DUVLX+oeC0e5zTZvyee6FlpiXevXBp1AZF0=
+X-Gm-Message-State: AOJu0YyX/UQy9C9e8DTxfP+oiASJUYNjS+xZ+JjZHTczurJIxErUJ5T6
+	c9AU8zu3U2kMdOXYDq246GP0qh8lgoxmnZiZOWbZVulNG+eLYJ2/I/pKvgDrUw==
+X-Google-Smtp-Source: AGHT+IGA5iS4PyHG1qyZR3AI4VjvptUpVbYRgqj/l3RBV9gbyZWTPDX1wCBSQzVh7L9xIqPOb+39Tw==
+X-Received: by 2002:a2e:8513:0:b0:2ec:3ca1:e53e with SMTP id 38308e7fff4ca-2ec595876damr31518051fa.51.1719243131118;
+        Mon, 24 Jun 2024 08:32:11 -0700 (PDT)
+Message-ID: <087eb879-b3f6-4d1a-a52e-1e27337620c9@suse.com>
+Date: Mon, 24 Jun 2024 17:32:04 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH v2 06/13] x86/mce: address violations of MISRA C Rule
+Subject: Re: [XEN PATCH v2 07/13] x86/hvm: address violations of MISRA C Rule
  16.3
 To: Federico Serafini <federico.serafini@bugseng.com>
 Cc: consulting@bugseng.com, Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  xen-devel@lists.xenproject.org
 References: <cover.1719218291.git.federico.serafini@bugseng.com>
- <c1015fb8f39d3a44732ccdebb8ba11392dbe4aa8.1719218291.git.federico.serafini@bugseng.com>
+ <a20efca7042ea8f351516ea521edccd89b475929.1719218291.git.federico.serafini@bugseng.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -114,20 +114,91 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <c1015fb8f39d3a44732ccdebb8ba11392dbe4aa8.1719218291.git.federico.serafini@bugseng.com>
+In-Reply-To: <a20efca7042ea8f351516ea521edccd89b475929.1719218291.git.federico.serafini@bugseng.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 24.06.2024 11:04, Federico Serafini wrote:
-> Add missing break statements to address violations of
-> MISRA C Rule 16.3: "An unconditional `break' statement shall terminate
-> every switch-clause".
-> 
-> No functional change.
-> 
-> Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
+> --- a/xen/arch/x86/hvm/emulate.c
+> +++ b/xen/arch/x86/hvm/emulate.c
+> @@ -339,7 +339,7 @@ static int hvmemul_do_io(
+>      }
+>      case X86EMUL_UNIMPLEMENTED:
+>          ASSERT_UNREACHABLE();
+> -        /* Fall-through */
+> +        fallthrough;
+>      default:
+>          BUG();
+>      }
 
-Acked-by: Jan Beulich <jbeulich@suse.com>
+This or very similar comment are replaced elsewhere in this patch. I'm
+sure we have more of them. Hence an alternative would be to deviate those
+variations of what we already deviate. I recall there was a mail from
+Julien asking to avoid extending the set, unless some forms are used
+pretty frequently. Sadly nothing towards judgement between the
+alternatives is said in the description.
 
+> @@ -2674,6 +2674,7 @@ static int _hvm_emulate_one(struct hvm_emulate_ctxt *hvmemul_ctxt,
+>  
+>      default:
+>          ASSERT_UNREACHABLE();
+> +        break;
+>      }
+>  
+>      if ( hvmemul_ctxt->ctxt.retire.singlestep )
+> @@ -2764,6 +2765,7 @@ int hvm_emulate_one_mmio(unsigned long mfn, unsigned long gla)
+>          /* fallthrough */
 
+What about this? It doesn't match anything I see in deviations.rst.
+
+>      default:
+>          hvm_emulate_writeback(&ctxt);
+> +        break;
+>      }
+>  
+>      return rc;
+> @@ -2799,10 +2801,11 @@ void hvm_emulate_one_vm_event(enum emul_kind kind, unsigned int trapnr,
+>          memcpy(hvio->mmio_insn, curr->arch.vm_event->emul.insn.data,
+>                 hvio->mmio_insn_bytes);
+>      }
+> -    /* Fall-through */
+> +    fallthrough;
+>      default:
+>          ctx.set_context = (kind == EMUL_KIND_SET_CONTEXT_DATA);
+>          rc = hvm_emulate_one(&ctx, VIO_no_completion);
+> +        break;
+>      }
+
+While not as much of a problem for the comment, I view a statement like
+this as mis-indented.
+
+> @@ -5283,6 +5287,8 @@ void hvm_get_segment_register(struct vcpu *v, enum x86_segment seg,
+>           * %cs and %tr are unconditionally present.  SVM ignores these present
+>           * bits and will happily run without them set.
+>           */
+> +        fallthrough;
+> +
+>      case x86_seg_cs:
+>          reg->p = 1;
+>          break;
+
+Why the extra blank line here, ...
+
+> --- a/xen/arch/x86/hvm/hypercall.c
+> +++ b/xen/arch/x86/hvm/hypercall.c
+> @@ -111,6 +111,7 @@ int hvm_hypercall(struct cpu_user_regs *regs)
+>      case 8:
+>          eax = regs->rax;
+>          /* Fallthrough to permission check. */
+> +        fallthrough;
+>      case 4:
+>      case 2:
+>          if ( currd->arch.monitor.guest_request_userspace_enabled &&
+
+... when e.g. here there's none? I'm afraid this goes back to an
+unfinished discussion as to whether to have blank lines between blocks
+in fall-through situations. My view is that not having them in these
+cases is helping to make the falling through visually noticeable.
+
+Jan
 
