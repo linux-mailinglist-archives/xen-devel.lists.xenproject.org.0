@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9D4029152D1
-	for <lists+xen-devel@lfdr.de>; Mon, 24 Jun 2024 17:47:59 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.746816.1154020 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 024C09152F7
+	for <lists+xen-devel@lfdr.de>; Mon, 24 Jun 2024 17:56:14 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.746821.1154030 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sLluy-00086a-2d; Mon, 24 Jun 2024 15:47:44 +0000
+	id 1sLm2l-0001xK-Pg; Mon, 24 Jun 2024 15:55:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 746816.1154020; Mon, 24 Jun 2024 15:47:44 +0000
+Received: by outflank-mailman (output) from mailman id 746821.1154030; Mon, 24 Jun 2024 15:55:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sLlux-000848-V4; Mon, 24 Jun 2024 15:47:43 +0000
-Received: by outflank-mailman (input) for mailman id 746816;
- Mon, 24 Jun 2024 15:47:42 +0000
+	id 1sLm2l-0001vp-MV; Mon, 24 Jun 2024 15:55:47 +0000
+Received: by outflank-mailman (input) for mailman id 746821;
+ Mon, 24 Jun 2024 15:55:46 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=wsRE=N2=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sLluw-00083G-Nh
- for xen-devel@lists.xenproject.org; Mon, 24 Jun 2024 15:47:42 +0000
-Received: from mail-lj1-x22b.google.com (mail-lj1-x22b.google.com
- [2a00:1450:4864:20::22b])
+ id 1sLm2k-0001vj-9x
+ for xen-devel@lists.xenproject.org; Mon, 24 Jun 2024 15:55:46 +0000
+Received: from mail-lj1-x236.google.com (mail-lj1-x236.google.com
+ [2a00:1450:4864:20::236])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 16b3b7b0-3241-11ef-b4bb-af5377834399;
- Mon, 24 Jun 2024 17:47:40 +0200 (CEST)
-Received: by mail-lj1-x22b.google.com with SMTP id
- 38308e7fff4ca-2ebec2f11b7so49166511fa.2
- for <xen-devel@lists.xenproject.org>; Mon, 24 Jun 2024 08:47:40 -0700 (PDT)
+ id 36d5bc4d-3242-11ef-b4bb-af5377834399;
+ Mon, 24 Jun 2024 17:55:44 +0200 (CEST)
+Received: by mail-lj1-x236.google.com with SMTP id
+ 38308e7fff4ca-2ec6635aa43so6029721fa.1
+ for <xen-devel@lists.xenproject.org>; Mon, 24 Jun 2024 08:55:44 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-1f9eb2f1187sm64526695ad.56.2024.06.24.08.47.37
+ d9443c01a7336-1f9eb3c6134sm64442865ad.143.2024.06.24.08.55.40
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 24 Jun 2024 08:47:39 -0700 (PDT)
+ Mon, 24 Jun 2024 08:55:43 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,48 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 16b3b7b0-3241-11ef-b4bb-af5377834399
+X-Inumbo-ID: 36d5bc4d-3242-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1719244060; x=1719848860; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1719244543; x=1719849343; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=7JRcrAWp5h3pOTBs7DVDBCcz9m6iqDl9lmBU5DVdBDM=;
-        b=f9JTnjTR+gIJ0Z+dppSgvna5L4Y7N9FITrtV4glHN0m24g+frQ15MgVGz0yrPnR4gA
-         v2fUKgZ0mJOH3n2/39jG4Njw31oL5cAyt889ZdgLM02vFbZJ4P4Tz+gegmv8bYQOQVrq
-         UmlxCrIMw+1zkOiPLQfa3YJ4+Hi3EhhMJVT64QGPVNqTYNVttvu4QsTLJJ1pxGL2x9ho
-         tvLJ2groAsgW1pOjhYyIieHLOkCOvLRuBE+rGhh6aIO/2t43oiUHMjqMauHP7EAKTd6h
-         V4bSKbzFy1WleIwiQCE2k8Focsv3qZ59sJ1x2bxJU0h3kxkIT9YQytVm48ct2LyWsT5/
-         A3ZQ==
+        bh=xy0R9HMMThtrpJAP2JQ4mwYsE+bQSH0PW5wG/ilTG/k=;
+        b=RYjSYU56k4rYev2YRWIy4miLwMS/ZM8Twu0co+Rr1zwfS9Af8noR334Vg65qq54ELi
+         ydu0aLsnOp502qJYHuhxbnlnX4OM958RkA169S7alsZELXmQf24WMEIXxhWopnw3VdGO
+         Nsaauwc1DAhlGM+zI5MCR3IRTSDM4YZd17eNlaJSci5qnBukIuZAHpL01nSprh+fwtcP
+         qrnkHijIbFrs9iRXGVndytx55mMX+O80WWvJQIlwfHBWQ2robH3i8XaBUpEhUxHL6gW0
+         UFjcw+HhMsxYOURl8i4EERmb5LRnkoUcUgdcR3pl/NnefwIKE5pu9rjVfwLBo8pAXIts
+         ubyA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1719244060; x=1719848860;
+        d=1e100.net; s=20230601; t=1719244543; x=1719849343;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=7JRcrAWp5h3pOTBs7DVDBCcz9m6iqDl9lmBU5DVdBDM=;
-        b=uxRMm4mMTrRYq4M7fotTsbhjMUibGf30PeaRFyxmUcqHdjfM+vDL/mGpUBkUo6IZQ7
-         o+3jm48sImczRgAMXDDytowJjRdn48l0e9dPIyJ/PWoay09QxYYaOmm23VleQIwwrsXk
-         fV9lfArTP1yOP/AyT/VtqYMo4mSGc+rSfyZgdLSPmdJLjA7eLDqJqthJix3JAK6v4zf9
-         O55PiVfuzVdliZfy8CWX3C3GPxkvSu63FNrqMG8HwPhZ3pj7Wnm0JOKrI47aQ8zKG9zO
-         RNbolGtFRU9MJv8dESGzfIDcqW9cMiSIx62GPNsFSqDu1Yn8haoq7DUbLUELHCJtWQcL
-         U1CA==
-X-Forwarded-Encrypted: i=1; AJvYcCXJKyvwN8p2N5k29yfzKwTNIaZePY9uPPmbuCQu9/hajfJx99km7/bwe1R8dFZvFTGyos8eLaX+yscepkeLxpYpU67uHlKVRoyTdzvjVtg=
-X-Gm-Message-State: AOJu0Yz1e0LORjNdqfiPd4VOVHTiC31y9q31rhcqc+WAVaAiu3SPx8lR
-	gFOCn/UfK8DROuySalOUv3Kgc8/B2kybsbtfnYFITkJtvVAUHHLESRt8ANM0jA==
-X-Google-Smtp-Source: AGHT+IHERRDc/GJv6QVJ5Koy78QfIpyzuPSlfZxQHStwZXkzMCGDYccvU5DqoRK4AbRBBmgOwY6R1A==
-X-Received: by 2002:a2e:91d5:0:b0:2ec:2b25:3c8e with SMTP id 38308e7fff4ca-2ec5b388402mr29281841fa.39.1719244060239;
-        Mon, 24 Jun 2024 08:47:40 -0700 (PDT)
-Message-ID: <122c0fcd-fdb8-47c0-a6e9-e044d49710c9@suse.com>
-Date: Mon, 24 Jun 2024 17:47:33 +0200
+        bh=xy0R9HMMThtrpJAP2JQ4mwYsE+bQSH0PW5wG/ilTG/k=;
+        b=HvV3wrmzgF7jfZ8LIFK5SsptIrZZjR1h7FNA1mGaivXlFOcJCtMr80ugoUwrRJx+AO
+         aQT4DOIY7u498HR1c7/YdhE7y2CJAgsRpbvqgYR8Jbyjh0i2miJSVa+BVWzm+/dmCbeu
+         31zFtikLJVMNG8FVmTBpUpJWM3/HsvyWgMmyuUtfRyn5OMPylYR4SCsH2FQVwgdsenTz
+         LFs+c6d3jLhY0pJkoy12me2RD/BNKe2C2fQG9jdwgeKFDtq7QU8rFWUWOiL44xR8PozE
+         nC+xgSM4mCMSAshT0lWfUO9BGUE6eAINIm6W7KNbp+vVa5a9KjoX0YVk5UrMUSz8AttY
+         BaZg==
+X-Forwarded-Encrypted: i=1; AJvYcCWeotbvfWksAwUxUZPf6kJwLMS4dRrKyA0e81sY+1YINhijhRnYtwqV4MVjR/5uunSxhwm4p2sA/Ry/KgsUveWHqAyjLO7TtD02uit41pA=
+X-Gm-Message-State: AOJu0YxyyC6mk5hmaJgF5wG9MOKnniL/kICISMQgpLGEO0oTC16OvfN7
+	34Z0auiEfOCC+fEhH8GduvMg82fXc9mVjLJCLb7yYZY/fI3tY3LoQwTPUNEjUA==
+X-Google-Smtp-Source: AGHT+IHH0xNdhs/VsoD0F9On73Wa3NZNtFLUx49qZ8n9YYqpxcfCpfLjBdHHK6k7hQEtLa8WMA+lrA==
+X-Received: by 2002:a2e:8693:0:b0:2ec:4eca:7479 with SMTP id 38308e7fff4ca-2ec579846admr35636921fa.30.1719244543560;
+        Mon, 24 Jun 2024 08:55:43 -0700 (PDT)
+Message-ID: <45c69745-b060-4697-9f6e-b3d2a8860946@suse.com>
+Date: Mon, 24 Jun 2024 17:55:36 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH v2 13/13] x86/vlapic: address a violation of MISRA C
- Rule 16.3
-To: Federico Serafini <federico.serafini@bugseng.com>
-Cc: consulting@bugseng.com, Andrew Cooper <andrew.cooper3@citrix.com>,
+Subject: Re: [PATCH 1/2] Add libfuzzer target to fuzz/x86_instruction_emulator
+To: Tamas K Lengyel <tamas@tklengyel.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org
-References: <cover.1719218291.git.federico.serafini@bugseng.com>
- <0aa39166696e46b6bb45a0f7b5ac06bfd9fdda8e.1719218291.git.federico.serafini@bugseng.com>
+ Anthony PERARD <anthony@xenproject.org>, xen-devel@lists.xenproject.org
+References: <20240621191434.5046-1-tamas@tklengyel.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -114,20 +112,60 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <0aa39166696e46b6bb45a0f7b5ac06bfd9fdda8e.1719218291.git.federico.serafini@bugseng.com>
+In-Reply-To: <20240621191434.5046-1-tamas@tklengyel.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 24.06.2024 11:04, Federico Serafini wrote:
-> Add missing break statement to address a violation of MISRA C
-> Rule 16.3: "An unconditional `break' statement shall terminate every
-> switch-clause".
-> 
-> No functional change.
-> 
-> Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
+On 21.06.2024 21:14, Tamas K Lengyel wrote:
+> @@ -58,6 +58,9 @@ afl-harness: afl-harness.o $(OBJS) cpuid.o wrappers.o
+>  afl-harness-cov: afl-harness-cov.o $(patsubst %.o,%-cov.o,$(OBJS)) cpuid.o wrappers.o
+>  	$(CC) $(CFLAGS) $(GCOV_FLAGS) $(addprefix -Wl$(comma)--wrap=,$(WRAPPED)) $^ -o $@
+>  
+> +libfuzzer-harness: $(OBJS) cpuid.o
+> +	$(CC) $(CFLAGS) $(LIB_FUZZING_ENGINE) -fsanitize=fuzzer $^ -o $@
 
-Acked-by: Jan Beulich <jbeulich@suse.com>
+What is LIB_FUZZING_ENGINE? I don't think we have any use of that in the
+tree anywhere.
 
+I'm further surprised you get away here without wrappers.o.
 
+Finally, despite its base name the lack of an extension suggest to me
+this isn't actually a library. Can you help me bring both aspects together?
+
+> @@ -67,7 +70,7 @@ distclean: clean
+>  
+>  .PHONY: clean
+>  clean:
+> -	rm -f *.a *.o $(DEPS_RM) afl-harness afl-harness-cov *.gcda *.gcno *.gcov
+> +	rm -f *.a *.o $(DEPS_RM) afl-harness afl-harness-cov *.gcda *.gcno *.gcov libfuzzer-harness
+
+I'm inclined to suggest it's time to split this line (e.g. keeping all the
+wildcard patterns together and moving the rest to a new rm invocation).
+
+> --- a/tools/fuzz/x86_instruction_emulator/fuzz-emul.c
+> +++ b/tools/fuzz/x86_instruction_emulator/fuzz-emul.c
+> @@ -906,14 +906,12 @@ int LLVMFuzzerTestOneInput(const uint8_t *data_p, size_t size)
+>  
+>      if ( size <= DATA_OFFSET )
+>      {
+> -        printf("Input too small\n");
+> -        return 1;
+> +        return -1;
+>      }
+>  
+>      if ( size > FUZZ_CORPUS_SIZE )
+>      {
+> -        printf("Input too large\n");
+> -        return 1;
+> +        return -1;
+>      }
+>  
+>      memcpy(&input, data_p, size);
+
+This part of the change clearly needs explaining in the description.
+It's not even clear to me in how far this is related to the purpose
+of the patch here (iow it may want to be a separate change, depending
+on why the change is needed).
+
+Jan
 
