@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6637B914DED
-	for <lists+xen-devel@lfdr.de>; Mon, 24 Jun 2024 15:08:35 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.746610.1153716 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 636BF914E54
+	for <lists+xen-devel@lfdr.de>; Mon, 24 Jun 2024 15:21:32 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.746618.1153726 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sLjQW-0000zn-6R; Mon, 24 Jun 2024 13:08:08 +0000
+	id 1sLjcY-0004Lm-7b; Mon, 24 Jun 2024 13:20:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 746610.1153716; Mon, 24 Jun 2024 13:08:08 +0000
+Received: by outflank-mailman (output) from mailman id 746618.1153726; Mon, 24 Jun 2024 13:20:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sLjQW-0000yI-3j; Mon, 24 Jun 2024 13:08:08 +0000
-Received: by outflank-mailman (input) for mailman id 746610;
- Mon, 24 Jun 2024 13:08:06 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1sLjcY-0004Iy-4E; Mon, 24 Jun 2024 13:20:34 +0000
+Received: by outflank-mailman (input) for mailman id 746618;
+ Mon, 24 Jun 2024 13:20:33 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=SfmV=N2=gmail.com=sherrellbc@srs-se1.protection.inumbo.net>)
- id 1sLjQU-0000yC-J3
- for xen-devel@lists.xenproject.org; Mon, 24 Jun 2024 13:08:06 +0000
-Received: from mail-lf1-x12c.google.com (mail-lf1-x12c.google.com
- [2a00:1450:4864:20::12c])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id cad0cbd6-322a-11ef-b4bb-af5377834399;
- Mon, 24 Jun 2024 15:08:04 +0200 (CEST)
-Received: by mail-lf1-x12c.google.com with SMTP id
- 2adb3069b0e04-52cdb0d816bso2090124e87.1
- for <xen-devel@lists.xenproject.org>; Mon, 24 Jun 2024 06:08:04 -0700 (PDT)
-Received: from smtpclient.apple (ool-44c00bfa.dyn.optonline.net.
- [68.192.11.250]) by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-52cd7079478sm975700e87.153.2024.06.24.06.08.02
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Mon, 24 Jun 2024 06:08:03 -0700 (PDT)
+ <SRS0=jLHn=N2=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1sLjcX-0004Ir-24
+ for xen-devel@lists.xenproject.org; Mon, 24 Jun 2024 13:20:33 +0000
+Received: from mail-yw1-x112f.google.com (mail-yw1-x112f.google.com
+ [2607:f8b0:4864:20::112f])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 87df5836-322c-11ef-90a3-e314d9c70b13;
+ Mon, 24 Jun 2024 15:20:31 +0200 (CEST)
+Received: by mail-yw1-x112f.google.com with SMTP id
+ 00721157ae682-643acefd1afso13200177b3.2
+ for <xen-devel@lists.xenproject.org>; Mon, 24 Jun 2024 06:20:31 -0700 (PDT)
+Received: from [10.125.226.166] ([160.101.139.1])
+ by smtp.gmail.com with ESMTPSA id
+ af79cd13be357-79bce91f16esm312535785a.77.2024.06.24.06.20.28
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 24 Jun 2024 06:20:30 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,137 +45,103 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: cad0cbd6-322a-11ef-b4bb-af5377834399
+X-Inumbo-ID: 87df5836-322c-11ef-90a3-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1719234484; x=1719839284; darn=lists.xenproject.org;
-        h=to:references:message-id:content-transfer-encoding:cc:date
-         :in-reply-to:from:subject:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=NaImPSD+fr5dNaDJYiyxLTEg3pmGswuvprA97nXdlgM=;
-        b=M4Ionv4/aSqLb8M/j6uubIsxxDMTXiHeJ9n7bk04OwO8aCcYrBAacAMRLG3FDrvAJk
-         Knxxq4P2ltaC7f2etqZzyoCduZ1pXT3uWVgLmcbR0A3YuJNhtnbDK36q6gcJS7JAbbKA
-         OIFBw2JxCzYI/TrQy/EuUNn2Sv5+VhLw/VnGmdWzWXMwErPCUKwZe9PiMRUmOst1X5Sv
-         EU3ov2QWZOpvpnEFrynbHkrSGD3Mwpw1LX2JzyWByOAkUk0WeoRlInpSz8AzOrTjk/XL
-         gWnpVn4H3kSm+DgkPeqZvSTG89OgZrsYQyHHx2+WyJbSvOcfYDbXDg/UX6fMlg5rziH3
-         CmMg==
+        d=citrix.com; s=google; t=1719235230; x=1719840030; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=6poGtAm0Yd/OQGMLhi5xp1v4oxLl4Vrx2Yyd5BmKCaY=;
+        b=sD1SnX5u36iNKoG9RSVq8KLibq3eQSeRys4NNiq7uSn38hQvX+QE1gGiaZr/+5wkzv
+         chQONRkFP0sUyb/S8UO/zytUKG679OMeaaGFOwbxyIEozwBciFdIE/ijJcs1Cm8z2bZT
+         RemqPIKa5BwF1cYWMgLuVD6quaExIOa0dPueU=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1719234484; x=1719839284;
-        h=to:references:message-id:content-transfer-encoding:cc:date
-         :in-reply-to:from:subject:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=NaImPSD+fr5dNaDJYiyxLTEg3pmGswuvprA97nXdlgM=;
-        b=q1OX7x/B0Ra0ztcYh8hOVzFOqkaquTvO8NpmUITKUr3Rv/1jRDJlxrGOpJYzKrF07P
-         eTDmYoWisSTubxSqDS9qFGw5i4e/Gmr4/gSAd/6nOIS3mcCabB5DKWnCEJQMd4bO5QKI
-         +Czcay7em6Dgldr90Kh8DDHa8L15U/xzSoX5V2PSIF0QocOfO0ledjZBBh8+jsvgBCYs
-         mLihgKeHyY8YP+2gVXcWC6PMlIGBFFVoRz9dSA/uEMXoRYDzNGdm35VYk+Z/xWZDhqwZ
-         aBEa6T7/vnf9PjSltrNkEgVa2APpjvuIsSu5rgDtHUf1SdtdknA+Iz1ni+calXGzRF5+
-         OQjA==
-X-Forwarded-Encrypted: i=1; AJvYcCWUwcChr/8/BtyEGYo1RuHlukMX27XCxRU/xfVpD13LKyZtHdtwbkNc1Z1Ua9FW4JonhGPZnt9Xu3KPum+uSPCBbh6YieNr/0itsKbEQIY=
-X-Gm-Message-State: AOJu0YxxQaS5adyMq93Jmq2UBjQ4HmudxK5lNGA0j9rjyzwEd0OKiwFy
-	Va9Qd7HQaI4VM3X3jYvceQVhOckHFW+XAFTw1sE3jD56KiHOrBel
-X-Google-Smtp-Source: AGHT+IGWsosdnzZIQKcgPioiBpaOZTG0ngxrR1dqJjGzQOBpuARYuraiwqYhJpdYU2BILaHAWZAdzw==
-X-Received: by 2002:ac2:4a9e:0:b0:52c:a070:944 with SMTP id 2adb3069b0e04-52cdf15afc9mr1599880e87.23.1719234483674;
-        Mon, 24 Jun 2024 06:08:03 -0700 (PDT)
-Content-Type: text/plain;
-	charset=us-ascii
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3731.700.6\))
-Subject: Re: E820 memory allocation issue on Threadripper platforms
-From: Branden Sherrell <sherrellbc@gmail.com>
-In-Reply-To: <36d581a0-f144-4756-b345-8b74ccc25c74@suse.com>
-Date: Mon, 24 Jun 2024 09:07:50 -0400
-Cc: Patrick Plenefisch <simonpatp@gmail.com>,
- xen-devel@lists.xenproject.org,
- Juergen Gross <jgross@suse.com>,
- =?utf-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <70B65B5D-C075-4D8E-8D2B-08A1930EE68B@gmail.com>
-References: <CAOCpoWdOH=xGxiQSC1c5Ueb1THxAjH4WiZbCZq-QT+d_KAk3SA@mail.gmail.com>
- <1708c3d7-662a-44bc-b9b3-4ab9f8642d7b@suse.com>
- <dcaf9d8d-ad5a-4714-936b-79ed0e587f9d@suse.com>
- <CAOCpoWeowZPuQTeBp9nu8p8CDtE=u++wN_UqRoABZtB57D50Qw@mail.gmail.com>
- <ac742d12-ec91-4215-bb42-82a145924b4f@suse.com>
- <CAOCpoWfQmkhN3hms1xuotSUZzVzR99i9cNGGU2r=yD5PjysMiQ@mail.gmail.com>
- <fa23a590-5869-4e11-8998-1d03742c5919@suse.com> <ZaeoWBV8IEZap2mr@macbook>
- <15dcef46-aaa8-4f71-bd5c-355001dd9188@suse.com> <ZafOGEwms01OFaVJ@macbook>
- <7BAC7BB5-C321-4C34-884A-21CC12F761BB@gmail.com>
- <36d581a0-f144-4756-b345-8b74ccc25c74@suse.com>
-To: Jan Beulich <jbeulich@suse.com>
-X-Mailer: Apple Mail (2.3731.700.6)
+        d=1e100.net; s=20230601; t=1719235230; x=1719840030;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=6poGtAm0Yd/OQGMLhi5xp1v4oxLl4Vrx2Yyd5BmKCaY=;
+        b=Lstt8f0s/UvQEVjONN/a4Yv/BzsB11IyZ4ULu2PZX2/NvammLdR1Jq8xMt6/Zy+r0d
+         r1eqQeEeqKtpask3f1CGbtIg5DOXOxROB+389V8ABUyXRNLejWPtuV2nJnSNawe1X5fo
+         +HOpk0J2QUcBQuzdZfZ3sdlvm1o9cLf97r1A4CxfMmm222gIj6MCgoZbxH4dr8Ff8Kg0
+         TgSTWCKUrw6r8s5QPVGsuUhEE/c0XYn/JnC/9OC6xcfI89Q28TWba/K0iaHTrn1MT9vI
+         RooqCxtc3EL9ZiN/Wzx/iBEsiSJ920juApv719pEg/8gAxkffrOaXeGPm3yxkEM4zH7H
+         9Nwg==
+X-Forwarded-Encrypted: i=1; AJvYcCXmCDxVlPFVD4R5x9qO2rWlCpulTZ5d3P3H2/wGre3OrFuRxncPtguEkQAgI6UKysUvEIr4NizpfXOPwlVlwLvxaS+Dgy/z0Cst/0zs18U=
+X-Gm-Message-State: AOJu0YwGVl1YN3s8+UX9oJSY7PpaRmaYNCxBVWF9wYYyIv3Meg1sF1eY
+	4dI4qdn2Ikhx8iCkC2FCnhc8tscMdp+2iS778102vqxfNJcop3Q+Rj5iFVFv2XU=
+X-Google-Smtp-Source: AGHT+IGqbp2Txe3Yef4gqvVN36swGj4ZV3nzOMK7xF2UiTsC+lLtQaJU1URViLk730AtixEi9xz9gg==
+X-Received: by 2002:a05:690c:f14:b0:645:fecc:3233 with SMTP id 00721157ae682-645fecc35acmr11264027b3.7.1719235230477;
+        Mon, 24 Jun 2024 06:20:30 -0700 (PDT)
+Message-ID: <83743273-54ba-4f8b-9548-30dbd763887e@citrix.com>
+Date: Mon, 24 Jun 2024 14:20:27 +0100
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH for-4.19] xen: re-add type checking to
+ {,__}copy_from_guest_offset()
+To: Jan Beulich <jbeulich@suse.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Oleksii Kurochko <oleksii.kurochko@gmail.com>
+References: <6fc55df2-5d92-4f3f-8eb3-69bd89bfea4e@suse.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ xsFNBFLhNn8BEADVhE+Hb8i0GV6mihnnr/uiQQdPF8kUoFzCOPXkf7jQ5sLYeJa0cQi6Penp
+ VtiFYznTairnVsN5J+ujSTIb+OlMSJUWV4opS7WVNnxHbFTPYZVQ3erv7NKc2iVizCRZ2Kxn
+ srM1oPXWRic8BIAdYOKOloF2300SL/bIpeD+x7h3w9B/qez7nOin5NzkxgFoaUeIal12pXSR
+ Q354FKFoy6Vh96gc4VRqte3jw8mPuJQpfws+Pb+swvSf/i1q1+1I4jsRQQh2m6OTADHIqg2E
+ ofTYAEh7R5HfPx0EXoEDMdRjOeKn8+vvkAwhviWXTHlG3R1QkbE5M/oywnZ83udJmi+lxjJ5
+ YhQ5IzomvJ16H0Bq+TLyVLO/VRksp1VR9HxCzItLNCS8PdpYYz5TC204ViycobYU65WMpzWe
+ LFAGn8jSS25XIpqv0Y9k87dLbctKKA14Ifw2kq5OIVu2FuX+3i446JOa2vpCI9GcjCzi3oHV
+ e00bzYiHMIl0FICrNJU0Kjho8pdo0m2uxkn6SYEpogAy9pnatUlO+erL4LqFUO7GXSdBRbw5
+ gNt25XTLdSFuZtMxkY3tq8MFss5QnjhehCVPEpE6y9ZjI4XB8ad1G4oBHVGK5LMsvg22PfMJ
+ ISWFSHoF/B5+lHkCKWkFxZ0gZn33ju5n6/FOdEx4B8cMJt+cWwARAQABzSlBbmRyZXcgQ29v
+ cGVyIDxhbmRyZXcuY29vcGVyM0BjaXRyaXguY29tPsLBegQTAQgAJAIbAwULCQgHAwUVCgkI
+ CwUWAgMBAAIeAQIXgAUCWKD95wIZAQAKCRBlw/kGpdefoHbdD/9AIoR3k6fKl+RFiFpyAhvO
+ 59ttDFI7nIAnlYngev2XUR3acFElJATHSDO0ju+hqWqAb8kVijXLops0gOfqt3VPZq9cuHlh
+ IMDquatGLzAadfFx2eQYIYT+FYuMoPZy/aTUazmJIDVxP7L383grjIkn+7tAv+qeDfE+txL4
+ SAm1UHNvmdfgL2/lcmL3xRh7sub3nJilM93RWX1Pe5LBSDXO45uzCGEdst6uSlzYR/MEr+5Z
+ JQQ32JV64zwvf/aKaagSQSQMYNX9JFgfZ3TKWC1KJQbX5ssoX/5hNLqxMcZV3TN7kU8I3kjK
+ mPec9+1nECOjjJSO/h4P0sBZyIUGfguwzhEeGf4sMCuSEM4xjCnwiBwftR17sr0spYcOpqET
+ ZGcAmyYcNjy6CYadNCnfR40vhhWuCfNCBzWnUW0lFoo12wb0YnzoOLjvfD6OL3JjIUJNOmJy
+ RCsJ5IA/Iz33RhSVRmROu+TztwuThClw63g7+hoyewv7BemKyuU6FTVhjjW+XUWmS/FzknSi
+ dAG+insr0746cTPpSkGl3KAXeWDGJzve7/SBBfyznWCMGaf8E2P1oOdIZRxHgWj0zNr1+ooF
+ /PzgLPiCI4OMUttTlEKChgbUTQ+5o0P080JojqfXwbPAyumbaYcQNiH1/xYbJdOFSiBv9rpt
+ TQTBLzDKXok86M7BTQRS4TZ/ARAAkgqudHsp+hd82UVkvgnlqZjzz2vyrYfz7bkPtXaGb9H4
+ Rfo7mQsEQavEBdWWjbga6eMnDqtu+FC+qeTGYebToxEyp2lKDSoAsvt8w82tIlP/EbmRbDVn
+ 7bhjBlfRcFjVYw8uVDPptT0TV47vpoCVkTwcyb6OltJrvg/QzV9f07DJswuda1JH3/qvYu0p
+ vjPnYvCq4NsqY2XSdAJ02HrdYPFtNyPEntu1n1KK+gJrstjtw7KsZ4ygXYrsm/oCBiVW/OgU
+ g/XIlGErkrxe4vQvJyVwg6YH653YTX5hLLUEL1NS4TCo47RP+wi6y+TnuAL36UtK/uFyEuPy
+ wwrDVcC4cIFhYSfsO0BumEI65yu7a8aHbGfq2lW251UcoU48Z27ZUUZd2Dr6O/n8poQHbaTd
+ 6bJJSjzGGHZVbRP9UQ3lkmkmc0+XCHmj5WhwNNYjgbbmML7y0fsJT5RgvefAIFfHBg7fTY/i
+ kBEimoUsTEQz+N4hbKwo1hULfVxDJStE4sbPhjbsPCrlXf6W9CxSyQ0qmZ2bXsLQYRj2xqd1
+ bpA+1o1j2N4/au1R/uSiUFjewJdT/LX1EklKDcQwpk06Af/N7VZtSfEJeRV04unbsKVXWZAk
+ uAJyDDKN99ziC0Wz5kcPyVD1HNf8bgaqGDzrv3TfYjwqayRFcMf7xJaL9xXedMcAEQEAAcLB
+ XwQYAQgACQUCUuE2fwIbDAAKCRBlw/kGpdefoG4XEACD1Qf/er8EA7g23HMxYWd3FXHThrVQ
+ HgiGdk5Yh632vjOm9L4sd/GCEACVQKjsu98e8o3ysitFlznEns5EAAXEbITrgKWXDDUWGYxd
+ pnjj2u+GkVdsOAGk0kxczX6s+VRBhpbBI2PWnOsRJgU2n10PZ3mZD4Xu9kU2IXYmuW+e5KCA
+ vTArRUdCrAtIa1k01sPipPPw6dfxx2e5asy21YOytzxuWFfJTGnVxZZSCyLUO83sh6OZhJkk
+ b9rxL9wPmpN/t2IPaEKoAc0FTQZS36wAMOXkBh24PQ9gaLJvfPKpNzGD8XWR5HHF0NLIJhgg
+ 4ZlEXQ2fVp3XrtocHqhu4UZR4koCijgB8sB7Tb0GCpwK+C4UePdFLfhKyRdSXuvY3AHJd4CP
+ 4JzW0Bzq/WXY3XMOzUTYApGQpnUpdOmuQSfpV9MQO+/jo7r6yPbxT7CwRS5dcQPzUiuHLK9i
+ nvjREdh84qycnx0/6dDroYhp0DFv4udxuAvt1h4wGwTPRQZerSm4xaYegEFusyhbZrI0U9tJ
+ B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
+ d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
+ 6+ahAA==
+In-Reply-To: <6fc55df2-5d92-4f3f-8eb3-69bd89bfea4e@suse.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-What is the reasoning that this fix be applied only to PVH domains? =
-Taking a look at the fix logic it appears to walk the E820 to find a =
-suitable range of memory to load the kernel into (assuming it can be =
-determined that the kernel is also relocatable). Why can this logic not =
-be applied to dom0 kernel load in general?
+On 24/06/2024 1:26 pm, Jan Beulich wrote:
+> When re-working them to avoid UB on guest address calculations, I failed
+> to add explicit type checks in exchange for the implicit ones that until
+> then had happened in assignments that were there anyway.
+>
+> Fixes: 43d5c5d5f70b ("xen: avoid UB in guest handle arithmetic")
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
-Branden.
-
-> On Jun 24, 2024, at 8:54 AM, Jan Beulich <jbeulich@suse.com> wrote:
->=20
-> On 24.06.2024 14:40, Branden Sherrell wrote:
->> I recently found this mailing list thread when searching for =
-information on a related issue regarding conflicting E820 on a =
-Threadripper platform. For those interested in additional data points, I =
-am using the ASUS WRX80E-SAGE SE Wifi II motherboard that presents the =
-following E820 to Xen:
->>=20
->> (XEN) EFI RAM map:
->> (XEN)  [0000000000000000, 0000000000000fff] (reserved)
->> (XEN)  [0000000000001000, 000000000008ffff] (usable)
->> (XEN)  [0000000000090000, 0000000000090fff] (reserved)
->> (XEN)  [0000000000091000, 000000000009ffff] (usable)
->> (XEN)  [00000000000a0000, 00000000000fffff] (reserved)
->> (XEN)  [0000000000100000, 0000000003ffffff] (usable)
->> (XEN)  [0000000004000000, 0000000004020fff] (ACPI NVS)
->> (XEN)  [0000000004021000, 0000000009df1fff] (usable)
->> (XEN)  [0000000009df2000, 0000000009ffffff] (reserved)
->> (XEN)  [000000000a000000, 00000000b5b04fff] (usable)
->> (XEN)  [00000000b5b05000, 00000000b8cd3fff] (reserved)
->> (XEN)  [00000000b8cd4000, 00000000b9064fff] (ACPI data)
->> (XEN)  [00000000b9065000, 00000000b942afff] (ACPI NVS)
->> (XEN)  [00000000b942b000, 00000000bb1fefff] (reserved)
->> (XEN)  [00000000bb1ff000, 00000000bbffffff] (usable)
->> (XEN)  [00000000bc000000, 00000000bfffffff] (reserved)
->> (XEN)  [00000000c1100000, 00000000c1100fff] (reserved)
->> (XEN)  [00000000e0000000, 00000000efffffff] (reserved)
->> (XEN)  [00000000f1280000, 00000000f1280fff] (reserved)
->> (XEN)  [00000000f2200000, 00000000f22fffff] (reserved)
->> (XEN)  [00000000f2380000, 00000000f2380fff] (reserved)
->> (XEN)  [00000000f2400000, 00000000f24fffff] (reserved)
->> (XEN)  [00000000f3680000, 00000000f3680fff] (reserved)
->> (XEN)  [00000000fea00000, 00000000feafffff] (reserved)
->> (XEN)  [00000000fec00000, 00000000fec00fff] (reserved)
->> (XEN)  [00000000fec10000, 00000000fec10fff] (reserved)
->> (XEN)  [00000000fed00000, 00000000fed00fff] (reserved)
->> (XEN)  [00000000fed40000, 00000000fed44fff] (reserved)
->> (XEN)  [00000000fed80000, 00000000fed8ffff] (reserved)
->> (XEN)  [00000000fedc2000, 00000000fedcffff] (reserved)
->> (XEN)  [00000000fedd4000, 00000000fedd5fff] (reserved)
->> (XEN)  [00000000ff000000, 00000000ffffffff] (reserved)
->> (XEN)  [0000000100000000, 000000703f0fffff] (usable)
->> (XEN)  [000000703f100000, 000000703fffffff] (reserved)
->>=20
->> And of course the default physical link address of the x86_64 kernel =
-is 16MiB which clearly conflicts with the EfiACPIMemoryNVS memory =
-starting at 0x4000000. On latest Debian (12.5.0, bookworm) the =
-decompressed kernel is more than 60MiB, so it obviously overflows into =
-the adjacent region. I can also confirm that loading the Debian kernel =
-at 2MiB also works as expected. Debian is also built with =
-CONFIG_RELOCATABLE=3Dy, so it should be capable of being loaded with =
-this new feature in Xen.=20
->>=20
->> I see the link at this ticket was implemented and committed =
-(dfc9fab0) on April 8, 2024 but it appears to not have made its way into =
-the latest (4.18) Xen release. Though there seem to be more recent =
-commits cherry picked into that branch. When is this fix expected to =
-make it into a release?
->=20
-> It's not tagged as a bugfix, and PVH Dom0 also isn't "supported" in =
-4.18.
-> Hence it wasn't picked into the set of backports. I also doubt it'll =
-help
-> you, as I would guess you're still using PV Dom0.
->=20
-> Jan
-
+Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
