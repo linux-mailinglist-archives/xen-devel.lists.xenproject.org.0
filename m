@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8A7949143E1
-	for <lists+xen-devel@lfdr.de>; Mon, 24 Jun 2024 09:47:15 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.746119.1153073 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D03A29143E3
+	for <lists+xen-devel@lfdr.de>; Mon, 24 Jun 2024 09:48:14 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.746127.1153082 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sLeP0-000747-Ci; Mon, 24 Jun 2024 07:46:14 +0000
+	id 1sLeQi-0007lm-Sl; Mon, 24 Jun 2024 07:48:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 746119.1153073; Mon, 24 Jun 2024 07:46:14 +0000
+Received: by outflank-mailman (output) from mailman id 746127.1153082; Mon, 24 Jun 2024 07:48:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sLeP0-000724-9a; Mon, 24 Jun 2024 07:46:14 +0000
-Received: by outflank-mailman (input) for mailman id 746119;
- Mon, 24 Jun 2024 07:46:12 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1sLeQi-0007jg-Po; Mon, 24 Jun 2024 07:48:00 +0000
+Received: by outflank-mailman (input) for mailman id 746127;
+ Mon, 24 Jun 2024 07:48:00 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=wsRE=N2=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sLeOy-00071a-JK
- for xen-devel@lists.xenproject.org; Mon, 24 Jun 2024 07:46:12 +0000
-Received: from mail-lj1-x233.google.com (mail-lj1-x233.google.com
- [2a00:1450:4864:20::233])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id d306e712-31fd-11ef-b4bb-af5377834399;
- Mon, 24 Jun 2024 09:46:10 +0200 (CEST)
-Received: by mail-lj1-x233.google.com with SMTP id
- 38308e7fff4ca-2eaae2a6dc1so65037341fa.0
- for <xen-devel@lists.xenproject.org>; Mon, 24 Jun 2024 00:46:10 -0700 (PDT)
+ id 1sLeQi-0007jX-0K
+ for xen-devel@lists.xenproject.org; Mon, 24 Jun 2024 07:48:00 +0000
+Received: from mail-lj1-x231.google.com (mail-lj1-x231.google.com
+ [2a00:1450:4864:20::231])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 137904a3-31fe-11ef-90a3-e314d9c70b13;
+ Mon, 24 Jun 2024 09:47:59 +0200 (CEST)
+Received: by mail-lj1-x231.google.com with SMTP id
+ 38308e7fff4ca-2ec1620a956so47667921fa.1
+ for <xen-devel@lists.xenproject.org>; Mon, 24 Jun 2024 00:47:59 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-7066fcbd3ecsm3093847b3a.207.2024.06.24.00.46.06
+ d2e1a72fcca58-7065107c572sm5595165b3a.8.2024.06.24.00.47.53
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 24 Jun 2024 00:46:09 -0700 (PDT)
+ Mon, 24 Jun 2024 00:47:58 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,52 +45,52 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d306e712-31fd-11ef-b4bb-af5377834399
+X-Inumbo-ID: 137904a3-31fe-11ef-90a3-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1719215170; x=1719819970; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1719215278; x=1719820078; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=gK3kglP3CVyQ1tTCGC5HsK/kSpRbybCiwuXxxCoaV5M=;
-        b=gAXsiMmn9BIItiTbqWyt7e/KFE0WQEZ63B3e4UBHWjkBnjZ9kzOcS6iHbpej7rBCL6
-         7lQtTSdiBY1/tox8tDbSKJ6leuLwLOhWqgTDW7bi4T9SRT7xrvgqX3OpFOINcq5vxSu7
-         LGYlsI1lYrztK0yr4ZQO6eXVYeHvwHb8CpiIUYD4QAMEO0HY1csmt1q5MaPeT49wIjGO
-         evRxKUZouDRnKoB781P8Hb6HcLMzQcBJJ4bjbECx/XKC/qSig557cjauoYGsEYsc+m8Z
-         bM4jKxhXUq4kHPS7+URW/iz6ErX1VMo6EUvzTIuJxvjjqnEHtLS0bIAxajQw0ccSibra
-         g/kQ==
+        bh=ZuNzFt7Z/PCMwiYpotfhwBC/Onyl8SYYFRCsdTPRooU=;
+        b=Tp6fba0zjPyznAjVCUSlRzHcMq7BJnnwV8cbAxJVShBQWOKCU9WB9LGFZpGpBEt/HK
+         k/imJxuir6QwZEi11P3lnnTg8Le6l2hsSoV41Eqkk6h4g9bqx0JXg42Ly17OHDwNvGGv
+         FAdP70uSN+aoZQWKHQehBAzoDtxyHQqX4ysgcv/xhDA/sdfkxg6FfkpGv0xt8ZO10HN/
+         1aEYe5elKC17AFH4jzZ7iw7bDNPWoMphex8+pVjMu9vn1Zdb89e2oQH0+jeWubSXPDDO
+         J7LyV18EG0VFc8ZENTLPvq7VMcmLvVTSxqwIEGSevWMJbI+zW082TKBg1VsqQoVnhFdy
+         /tFg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1719215170; x=1719819970;
+        d=1e100.net; s=20230601; t=1719215278; x=1719820078;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=gK3kglP3CVyQ1tTCGC5HsK/kSpRbybCiwuXxxCoaV5M=;
-        b=toeOD8iKYytgSgepDnGSvVu4vU5r7ePLNlj6JTUFtZkUOhZU2ywuNn1bGS58td5Ztx
-         dHHhVKzpmGOSaJRgRB+0ryhiaK3rYNiElKhrAKzLHojAP5/g/bLWWSFV4GsAFNFyl9QG
-         loMxfARE/27mc1QUsGtJ34ed9LEdeYh90R1Q8YyvsNEz8faPHDyeM238MRphgLsp3Z2o
-         DGDHSlYVOXpByJTQRUfwgdOnF68olDsfHIsS7HNCy/O46gMdKiCOiwqL9tHtzEcAaB4P
-         uYIwTaYcDleieRMtfSfTUag++SiPWkUhi5kdUjgYR94jLHXoM5n9x65+VD+FBjaMritI
-         94tQ==
-X-Gm-Message-State: AOJu0Yy8Ef5GJBJnDU+JBol9M280rBUavY8cN0elvVoTQ5oX11N1YKy2
-	2LKGftlTGQgNUTadJqBR0fOZDzkIbf8ZympzCQ8r0lYbkvyU0VwQQsw9gVrAEg==
-X-Google-Smtp-Source: AGHT+IG4bbUmljlZWIIFoBdbhzKj0f514/Idy0G5GEHTsTzuvqAYPkcYWIMA6oCHkNnjikEWdsHGOw==
-X-Received: by 2002:a2e:a17a:0:b0:2ec:4093:ec7 with SMTP id 38308e7fff4ca-2ec5b2e7238mr29272411fa.30.1719215170408;
-        Mon, 24 Jun 2024 00:46:10 -0700 (PDT)
-Message-ID: <43cf9879-c781-4e05-8be4-f7f8ec87d4a3@suse.com>
-Date: Mon, 24 Jun 2024 09:46:03 +0200
+        bh=ZuNzFt7Z/PCMwiYpotfhwBC/Onyl8SYYFRCsdTPRooU=;
+        b=AEr09dbR+f/DggHrReXVxsY0/g30wgf3688mmqBr5wjmaSGNFAVunQTk3uQOaDJw9v
+         8HV1TL3zEy42nKxl7nqFW9iB0NOND2mAF5YVKrFtwEqqXo6X7rqrt6Hk3topBrcsba+5
+         M03Yr3NDi+G12Th+K/QO+W4JLXsvjJgoz0XtTV0mta3otgNIymfDVXQs5I1+/YJMCYkQ
+         0DYZZLHA1PYM+gx7PYcNcpuvanN6AsqpLLwEWY84RxlXL1T2N7NlD2u6veQ4sUSZD2DC
+         57TtmxqpRTwNoY7Qo09LpKYu7OwZFo8rLhP9EumF4u8+iaKLSUjiSdAm/WmSX4epZnGt
+         pCMg==
+X-Gm-Message-State: AOJu0YzInaizG8NH+OUk8DX/eib7AsWNOmon2XpOeJB9c9qT/NlJ4fkt
+	JSCxEyIWuJ+TOGRdcFJTrxCzpOAua3HINstj/QvQukvTJnW/DreXVprOyQRg4Q==
+X-Google-Smtp-Source: AGHT+IEMkmIdhADXho60NWs0vlZX9UapHgj4IS6ZLkdPw0CWUF9xmFMz5sffemGK9fnLCWZNmjgKkg==
+X-Received: by 2002:a05:651c:211d:b0:2ec:5dfc:a64e with SMTP id 38308e7fff4ca-2ec5dfca6demr23504481fa.0.1719215278541;
+        Mon, 24 Jun 2024 00:47:58 -0700 (PDT)
+Message-ID: <7582f9e6-7b31-47e7-b42a-92c0f87effd2@suse.com>
+Date: Mon, 24 Jun 2024 09:47:50 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH for-4.19 v2] tools/xl: Open xldevd.log with O_CLOEXEC
-To: Anthony PERARD <anthony.perard@vates.tech>,
- Andrew Cooper <andrew.cooper3@citrix.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
 Cc: Xen-devel <xen-devel@lists.xenproject.org>,
  Demi Marie Obenour <demi@invisiblethingslab.com>,
  Anthony PERARD <anthony@xenproject.org>, Juergen Gross <jgross@suse.com>,
  =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
  <marmarek@invisiblethingslab.com>,
- Oleksii Kurochko <oleksii.kurochko@gmail.com>
+ Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+ Anthony PERARD <anthony.perard@vates.tech>
 References: <20240621161656.63576-1-andrew.cooper3@citrix.com>
- <ZnWwbJiD6eG85VY9@l14>
+ <ZnWwbJiD6eG85VY9@l14> <e6262049-21b4-4eb7-9f29-6d5983bfb212@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -116,61 +116,69 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <ZnWwbJiD6eG85VY9@l14>
+In-Reply-To: <e6262049-21b4-4eb7-9f29-6d5983bfb212@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 21.06.2024 18:55, Anthony PERARD wrote:
-> On Fri, Jun 21, 2024 at 05:16:56PM +0100, Andrew Cooper wrote:
->> `xl devd` has been observed leaking /var/log/xldevd.log into children.
+On 21.06.2024 18:59, Andrew Cooper wrote:
+> On 21/06/2024 5:55 pm, Anthony PERARD wrote:
+>> On Fri, Jun 21, 2024 at 05:16:56PM +0100, Andrew Cooper wrote:
+>>> `xl devd` has been observed leaking /var/log/xldevd.log into children.
+>>>
+>>> Note this is specifically safe; dup2() leaves O_CLOEXEC disabled on newfd, so
+>>> after setting up stdout/stderr, it's only the logfile fd which will close on
+>>> exec().
+>>>
+>>> Link: https://github.com/QubesOS/qubes-issues/issues/8292
+>>> Reported-by: Demi Marie Obenour <demi@invisiblethingslab.com>
+>>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+>>> ---
+>>> CC: Anthony PERARD <anthony@xenproject.org>
+>>> CC: Juergen Gross <jgross@suse.com>
+>>> CC: Demi Marie Obenour <demi@invisiblethingslab.com>
+>>> CC: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+>>> CC: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+>>>
+>>> Also entirely speculative based on the QubesOS ticket.
+>>>
+>>> v2:
+>>>  * Extend the commit message to explain why stdout/stderr aren't closed by
+>>>    this change
+>>>
+>>> For 4.19.  This bugfix was posted earlier, but fell between the cracks.
+>>> ---
+>>>  tools/xl/xl_utils.c | 2 +-
+>>>  1 file changed, 1 insertion(+), 1 deletion(-)
+>>>
+>>> diff --git a/tools/xl/xl_utils.c b/tools/xl/xl_utils.c
+>>> index 17489d182954..060186db3a59 100644
+>>> --- a/tools/xl/xl_utils.c
+>>> +++ b/tools/xl/xl_utils.c
+>>> @@ -270,7 +270,7 @@ int do_daemonize(const char *name, const char *pidfile)
+>>>          exit(-1);
+>>>      }
+>>>  
+>>> -    CHK_SYSCALL(logfile = open(fullname, O_WRONLY|O_CREAT|O_APPEND, 0644));
+>>> +    CHK_SYSCALL(logfile = open(fullname, O_WRONLY | O_CREAT | O_APPEND | O_CLOEXEC, 0644));
+>> Everytime we use O_CLOEXEC, we add in the C file
+>>     #ifndef O_CLOEXEC
+>>     #define O_CLOEXEC 0
+>>     #endif
+>> we don't need to do that anymore?
+>> Or I guess we'll see if someone complain when they try to build on an
+>> ancien version of Linux.
 >>
->> Note this is specifically safe; dup2() leaves O_CLOEXEC disabled on newfd, so
->> after setting up stdout/stderr, it's only the logfile fd which will close on
->> exec().
->>
->> Link: https://github.com/QubesOS/qubes-issues/issues/8292
->> Reported-by: Demi Marie Obenour <demi@invisiblethingslab.com>
->> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
->> ---
->> CC: Anthony PERARD <anthony@xenproject.org>
->> CC: Juergen Gross <jgross@suse.com>
->> CC: Demi Marie Obenour <demi@invisiblethingslab.com>
->> CC: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
->> CC: Oleksii Kurochko <oleksii.kurochko@gmail.com>
->>
->> Also entirely speculative based on the QubesOS ticket.
->>
->> v2:
->>  * Extend the commit message to explain why stdout/stderr aren't closed by
->>    this change
->>
->> For 4.19.  This bugfix was posted earlier, but fell between the cracks.
->> ---
->>  tools/xl/xl_utils.c | 2 +-
->>  1 file changed, 1 insertion(+), 1 deletion(-)
->>
->> diff --git a/tools/xl/xl_utils.c b/tools/xl/xl_utils.c
->> index 17489d182954..060186db3a59 100644
->> --- a/tools/xl/xl_utils.c
->> +++ b/tools/xl/xl_utils.c
->> @@ -270,7 +270,7 @@ int do_daemonize(const char *name, const char *pidfile)
->>          exit(-1);
->>      }
->>  
->> -    CHK_SYSCALL(logfile = open(fullname, O_WRONLY|O_CREAT|O_APPEND, 0644));
->> +    CHK_SYSCALL(logfile = open(fullname, O_WRONLY | O_CREAT | O_APPEND | O_CLOEXEC, 0644));
+>> Acked-by: Anthony PERARD <anthony.perard@vates.tech>
 > 
-> Everytime we use O_CLOEXEC, we add in the C file
->     #ifndef O_CLOEXEC
->     #define O_CLOEXEC 0
->     #endif
-> we don't need to do that anymore?
-> Or I guess we'll see if someone complain when they try to build on an
-> ancien version of Linux.
+> Thanks.  I did originally have that ifdefary here, but then I noticed
+> that this isn't the first instance like this in xl, and I'm going to be
+> using that as a justification soon to explicitly drop support for Linux
+> < 2.6.23.
 
-I'm pretty certain I'll run into that issue on one of my pretty old systems,
-but if the general view is that we don't care about such environments anymore,
-then so be it (and I'll take care of such issues locally).
+Just to mention that this is a two fold thing: I surely don't try to run
+up-to-date Xen on top of this old a Linux kernel, but what is used for
+building is still what the distro (with a very old kernel) would have put
+there.
 
 Jan
 
