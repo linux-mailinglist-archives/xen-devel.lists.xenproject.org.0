@@ -2,38 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9AE2A914FD3
-	for <lists+xen-devel@lfdr.de>; Mon, 24 Jun 2024 16:24:23 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.746695.1153824 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 00B99914FEB
+	for <lists+xen-devel@lfdr.de>; Mon, 24 Jun 2024 16:29:33 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.746702.1153833 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sLkbF-00031k-Kc; Mon, 24 Jun 2024 14:23:17 +0000
+	id 1sLkh6-0003vV-6F; Mon, 24 Jun 2024 14:29:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 746695.1153824; Mon, 24 Jun 2024 14:23:17 +0000
+Received: by outflank-mailman (output) from mailman id 746702.1153833; Mon, 24 Jun 2024 14:29:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sLkbF-0002z2-Hb; Mon, 24 Jun 2024 14:23:17 +0000
-Received: by outflank-mailman (input) for mailman id 746695;
- Mon, 24 Jun 2024 14:21:29 +0000
+	id 1sLkh6-0003tN-3g; Mon, 24 Jun 2024 14:29:20 +0000
+Received: by outflank-mailman (input) for mailman id 746702;
+ Mon, 24 Jun 2024 14:29:18 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=IYJk=N2=dreamsnake.net=aad@srs-se1.protection.inumbo.net>)
- id 1sLkZV-0002wA-0d
- for xen-devel@lists.xenproject.org; Mon, 24 Jun 2024 14:21:29 +0000
-Received: from mail-qk1-x72b.google.com (mail-qk1-x72b.google.com
- [2607:f8b0:4864:20::72b])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=IpOW=N2=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1sLkh4-0003tH-JQ
+ for xen-devel@lists.xenproject.org; Mon, 24 Jun 2024 14:29:18 +0000
+Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
+ [2a00:1450:4864:20::629])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 0a5c938c-3235-11ef-b4bb-af5377834399;
- Mon, 24 Jun 2024 16:21:26 +0200 (CEST)
-Received: by mail-qk1-x72b.google.com with SMTP id
- af79cd13be357-7954dcf3158so244965985a.3
- for <xen-devel@lists.xenproject.org>; Mon, 24 Jun 2024 07:21:26 -0700 (PDT)
-Received: from smtpclient.apple (pool-100-6-75-225.pitbpa.fios.verizon.net.
- [100.6.75.225]) by smtp.gmail.com with ESMTPSA id
- 6a1803df08f44-6b51ef30ef9sm34454366d6.76.2024.06.24.07.21.24
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Mon, 24 Jun 2024 07:21:24 -0700 (PDT)
+ id 22adce08-3236-11ef-b4bb-af5377834399;
+ Mon, 24 Jun 2024 16:29:16 +0200 (CEST)
+Received: by mail-ej1-x629.google.com with SMTP id
+ a640c23a62f3a-a72477a60fbso158169566b.2
+ for <xen-devel@lists.xenproject.org>; Mon, 24 Jun 2024 07:29:16 -0700 (PDT)
+Received: from ?IPV6:2003:e5:8729:4000:29eb:6d9d:3214:39d2?
+ (p200300e58729400029eb6d9d321439d2.dip0.t-ipconnect.de.
+ [2003:e5:8729:4000:29eb:6d9d:3214:39d2])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a710595adedsm273690766b.214.2024.06.24.07.29.15
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 24 Jun 2024 07:29:15 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,113 +47,108 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0a5c938c-3235-11ef-b4bb-af5377834399
+X-Inumbo-ID: 22adce08-3236-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=dreamsnake-net.20230601.gappssmtp.com; s=20230601; t=1719238885; x=1719843685; darn=lists.xenproject.org;
-        h=references:to:cc:in-reply-to:date:subject:mime-version:message-id
-         :from:from:to:cc:subject:date:message-id:reply-to;
-        bh=vyM7SpnmS6E42kucj9mVuoblNwWj8XmJP/H7ZZM8ROY=;
-        b=hH1JPz2MdKK2PSTD9IpuZfN6ePhQ/M91cinzgAbYbiSG8LaHZ+QHh2SoENzI8HJWW9
-         Rqs1eO4pvAn9sUptCgmdUG4xaQGCdvBPe7sZfbfwvAv7y5YVbGf/+Ctb0H05lUgPxXpb
-         lmTI5fdpooAwbXWHx1PErcFG5VzBsGPCw7svYkgzLIOZvz4Ea7+JGTPmqAuYvrBQUALX
-         FDkztveey6KF+CJmUNBY8cCpnlzAImAX7YhhMHknlCGtL3MWS80rQry6KDKrFmfquQ+u
-         /Q68A0ouUbDN7edujCrjnf3k9er7eeKsrVr7CBWAx9yQwyrUPPcKfaQIvAfUtVAj2n5V
-         ooSQ==
+        d=suse.com; s=google; t=1719239356; x=1719844156; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=m3SdMcYnJ55tPmreppreg/UrG6xInFR5S4Utq0FJfIU=;
+        b=Xr6vNR94N+enxsDNaPKwAItHXfmf3bqdX/und2lhDNkkJG9I3GLtEJ9EtG3Pn1jTUy
+         OhXcUKaJcZ+ntt1n39MTCoiM4xoZRGKYaG6INHi8MUj22JDeBCabO+dvP0zVDbHw6Soq
+         0zV+buG8TgmZg0X8829WqcbbgTSiECpP4dOk6GWb2MOgX9XoqKhyv6Tm/m0Bfw4to//s
+         CM+Yw1Dvm92Bj496yPNjmt+b80eFmfR7Vj9mQ/Pl72sDAEi+tlFmf9x1giZ/3GOHHGdm
+         LNcgUi6gNgoOXeCg5jsjTL9lgr/w5LBbrbmp9A//gHoHF0ygXRqXnraTPL/TkNBv0ndn
+         Ww5A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1719238885; x=1719843685;
-        h=references:to:cc:in-reply-to:date:subject:mime-version:message-id
-         :from:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=vyM7SpnmS6E42kucj9mVuoblNwWj8XmJP/H7ZZM8ROY=;
-        b=FKtbRyTwCtaJrMpOu/RKVpzL1rpTqHokhepdM0LHCv1uz3D77M1mHL6D41dmQU1CTV
-         To2Q3xSSKffE8aK31USdpFvLFB+tQAUueBpPnIvQCuiTmqCLdKwb4oF80IbNZiuopux6
-         6jzM5KxPy7veOD+ZXhiMTuvOVXY2nz9U/MZ4RTO+2Z9rTnaq6N5naze0NWXOuruwvGwm
-         Wh46xN9am1MTONgi2mOZjht1ASILsQPrEf4KJu0rgH5US1ZTCb8Xfl3ywKFxYHkGpwql
-         UO82Clsswleg6T6ZChfqi5xSDL6F4M+8k35faXhqg3rVkj8vjjTmT+tc1RIqKeHVSfxV
-         BfZg==
-X-Forwarded-Encrypted: i=1; AJvYcCX8dN3Zg5pl0WsuUUCcajMRG4gZpirTECBWTsNv60Ux+HCjboZYouaHJBlB1YTPa4i2+Zw6gfR1obz19yHzhIIY4PlMeVasr9vNqqkvSTY=
-X-Gm-Message-State: AOJu0Yy/C1njFaY2NLMCHP5n1LnP6nhBTXDPI2xBTIJ+JwY9sYH0T/ZS
-	fbOzN6robqBXccP/Fmn83SIZYfNJmGcZBa7Ycw0kW2pNssKjVDy8wNTKOFSu
-X-Google-Smtp-Source: AGHT+IHXYJoHqe+lVWeHEvpL31lPzpeMHrumwGR4d2Z3MDIXugyalKxqFS2lKuqDdFuxVAxlh+r7+g==
-X-Received: by 2002:a0c:f594:0:b0:6b5:50ba:42c3 with SMTP id 6a1803df08f44-6b550ba45a4mr31114516d6.43.1719238885298;
-        Mon, 24 Jun 2024 07:21:25 -0700 (PDT)
-From: Anthony D'Atri <aad@dreamsnake.net>
-Message-Id: <1E6AF1FD-5E2B-49D6-B42E-1BEA85BA7E93@dreamsnake.net>
-Content-Type: multipart/alternative;
-	boundary="Apple-Mail=_C8799745-5BE2-4755-A5E5-5C731F6565EF"
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3774.600.62\))
-Subject: Re: [axboe-block:for-next] [block]  bd4a633b6f: fsmark.files_per_sec
- -64.5% regression
-Date: Mon, 24 Jun 2024 10:21:13 -0400
-In-Reply-To: <Znl4lXRmK2ukDB7r@ryzen.lan>
-Cc: Christoph Hellwig <hch@lst.de>,
- kernel test robot <oliver.sang@intel.com>,
- oe-lkp@lists.linux.dev,
- lkp@intel.com,
- Jens Axboe <axboe@kernel.dk>,
- Damien Le Moal <dlemoal@kernel.org>,
- Hannes Reinecke <hare@suse.de>,
- linux-m68k@lists.linux-m68k.org,
- linux-um@lists.infradead.org,
- linux-kernel@vger.kernel.org,
- linux-block@vger.kernel.org,
- drbd-dev@lists.linbit.com,
- nbd@other.debian.org,
- linuxppc-dev@lists.ozlabs.org,
- ceph-devel@vger.kernel.org,
- virtualization@lists.linux.dev,
- xen-devel@lists.xenproject.org,
- linux-bcache@vger.kernel.org,
- dm-devel@lists.linux.dev,
- linux-raid@vger.kernel.org,
- linux-mmc@vger.kernel.org,
- linux-mtd@lists.infradead.org,
- nvdimm@lists.linux.dev,
- linux-nvme@lists.infradead.org,
- linux-s390@vger.kernel.org,
- linux-scsi@vger.kernel.org,
- ying.huang@intel.com,
- feng.tang@intel.com,
- fengwei.yin@intel.com
-To: Niklas Cassel <cassel@kernel.org>
-References: <202406241546.6bbd44a7-oliver.sang@intel.com>
- <20240624083537.GA19941@lst.de> <Znl4lXRmK2ukDB7r@ryzen.lan>
-X-Mailer: Apple Mail (2.3774.600.62)
+        d=1e100.net; s=20230601; t=1719239356; x=1719844156;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=m3SdMcYnJ55tPmreppreg/UrG6xInFR5S4Utq0FJfIU=;
+        b=KKMafrkHDDT+1qvtzXYv4j+4tnV8UFFIgQMcsWl9AHCPRHPPtGardMBGdhWqfUUCLH
+         iOCB803ziIHWrAkZ3iNMbsvMKK4qORKJn1fHn5H3ooaNsFLSQTaI8Lt+j1Jr1npx3cO8
+         tuKdisn+aLv86bo8GxcwoWgLUxcLMuTgKNQdGVwyx3W/lPcAkt84U96bz7zdAc62dzSl
+         noxUGR3BIkT7bK9dT+yG04WrThTZnOwFHRluXyv7gY4EPT+W4BaDb1zGlLiZyc6fDNQo
+         QCgBo28VTyEw0ibVR7rwDg6fJaoAdSmXTgX5L2tt7LEmEW5mz7FmVuEbb1Sumx5w7Fk4
+         PISA==
+X-Forwarded-Encrypted: i=1; AJvYcCXwLQxf8mv3hUwhQxCQjUzchUzINpmb8ZbntEMU2Dy+HJBvd68IXDSRmDmvxvBHOozjBhnAueT4KCAGrzAohApD+YhG1Bi1te1BhXLgMDM=
+X-Gm-Message-State: AOJu0Yz+F7yXVnXPMU8nbNjR94SbbGmA3pzGMM4R4ftC6iYOo4NpwERj
+	KNAi48LYhtbhK7CYBFcHiTRvpzVNGMkyqnHNIujrzur+Gtsqn6YtEsc49EhhP44=
+X-Google-Smtp-Source: AGHT+IH05SxNgarU73bcvncRGWPtcsIEhPhO6HvBZIN9kJzmvPZv7SsGWka+Eygq6+GshEIHdX1QIA==
+X-Received: by 2002:a17:906:6a87:b0:a6f:51d8:1963 with SMTP id a640c23a62f3a-a7245bada5bmr281959966b.43.1719239355865;
+        Mon, 24 Jun 2024 07:29:15 -0700 (PDT)
+Message-ID: <1944dd3f-1ba8-4559-b71a-056b9309ab58@suse.com>
+Date: Mon, 24 Jun 2024 16:29:15 +0200
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: Regression in xen-blkfront regarding sector sizes
+To: =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>, xen-devel <xen-devel@lists.xenproject.org>
+Cc: Christoph Hellwig <hch@lst.de>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, Jens Axboe <axboe@kernel.dk>
+References: <Znl5FYI9CC37jJLX@mail-itl>
+Content-Language: en-US
+From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+In-Reply-To: <Znl5FYI9CC37jJLX@mail-itl>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+
+On 24.06.24 15:48, Marek Marczykowski-Górecki wrote:
+> Hi,
+> 
+> Some Qubes users report a regression in xen-blkfront regarding block
+> size reporting. It works fine on 6.8.8, but appears broken on 6.9.2.
+> 
+> The specific problem is that blkfront reports block size of 512, even for
+> backend devices of 4096. This, for example, fails 512-bytes reads with
+> O_DIRECT, and appears to break mounting a filesystem on such a device
+> (at least xfs one).
+> 
+> For example it looks like this:
+> 
+>      [user@dom0 ~]$ head /sys/block/loop12/queue/*_block_size
+>      ==> /sys/block/loop12/queue/logical_block_size <==
+>      4096
+> 
+>      ==> /sys/block/loop12/queue/physical_block_size <==
+>      4096
+> 
+>      [user@dom0 bin]$ qvm-run -p the-vm 'head /sys/block/xvdi/queue/*_block_size'
+>      ==> /sys/block/xvdi/queue/logical_block_size <==
+>      512
+> 
+>      ==> /sys/block/xvdi/queue/physical_block_size <==
+>      512
+> 
+> and then:
+> 
+>      $ sudo dd if=/dev/xvdi of=/dev/null count=1 status=progress iflag=direct
+>      /usr/bin/dd: error reading '/dev/xvdi': Input/output error
+>      0+0 records in
+>      0+0 records out
+>      0 bytes copied, 0.000170858 s, 0.0 kB/s
+> 
+> and mounting fails like this:
+> 
+>      [   68.055045] SGI XFS with ACLs, security attributes, realtime, scrub, quota, no debug enabled
+>      [   68.057308] I/O error, dev xvdi, sector 0 op 0x0:(READ) flags 0x1000 phys_seg 1 prio class 0
+>      [   68.057333] XFS (xvdi): SB validate failed with error -5.
+> 
+> More details at https://github.com/QubesOS/qubes-issues/issues/9293
+> 
+> Rusty suspects it's related to
+> https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/drivers/block/xen-blkfront.c?id=ba3f67c1163812b5d7ec33705c31edaa30ce6c51,
+> so I'm cc-ing people mentioned there too.
+
+I think the call of blkif_set_queue_limits() in this patch should NOT precede
+setting of info->sector_size and info->physical_sector_size, as those are
+needed by blkif_set_queue_limits().
 
 
---Apple-Mail=_C8799745-5BE2-4755-A5E5-5C731F6565EF
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain;
-	charset=utf-8
-
-S3610 I think.  Be sure to use sst or the chassis vendor=E2=80=99s tool =
-to update the firmware.
-
-> On Jun 24, 2024, at 9:45=E2=80=AFAM, Niklas Cassel <cassel@kernel.org> =
-wrote:
->=20
-> SSDSC2BG012T4
+Juergen
 
 
---Apple-Mail=_C8799745-5BE2-4755-A5E5-5C731F6565EF
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/html;
-	charset=utf-8
+> 
 
-<html><head><meta http-equiv=3D"content-type" content=3D"text/html; =
-charset=3Dutf-8"></head><body style=3D"overflow-wrap: break-word; =
--webkit-nbsp-mode: space; line-break: after-white-space;">S3610 I think. =
-&nbsp;Be sure to use sst or the chassis vendor=E2=80=99s tool to update =
-the firmware.<br id=3D"lineBreakAtBeginningOfMessage"><div><br><blockquote=
- type=3D"cite"><div>On Jun 24, 2024, at 9:45=E2=80=AFAM, Niklas Cassel =
-&lt;cassel@kernel.org&gt; wrote:</div><br =
-class=3D"Apple-interchange-newline"><div><span style=3D"caret-color: =
-rgb(0, 0, 0); font-family: Helvetica; font-size: 18px; font-style: =
-normal; font-variant-caps: normal; font-weight: 400; letter-spacing: =
-normal; text-align: start; text-indent: 0px; text-transform: none; =
-white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none; float: none; display: inline =
-!important;">SSDSC2BG012T4</span></div></blockquote></div><br></body></htm=
-l>=
-
---Apple-Mail=_C8799745-5BE2-4755-A5E5-5C731F6565EF--
 
