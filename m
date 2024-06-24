@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CD3DD91440A
-	for <lists+xen-devel@lfdr.de>; Mon, 24 Jun 2024 09:57:53 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.746180.1153162 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 80F8891440D
+	for <lists+xen-devel@lfdr.de>; Mon, 24 Jun 2024 09:59:02 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.746187.1153172 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sLea7-0004dm-Cd; Mon, 24 Jun 2024 07:57:43 +0000
+	id 1sLebD-0005tl-LM; Mon, 24 Jun 2024 07:58:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 746180.1153162; Mon, 24 Jun 2024 07:57:43 +0000
+Received: by outflank-mailman (output) from mailman id 746187.1153172; Mon, 24 Jun 2024 07:58:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sLea7-0004cG-9f; Mon, 24 Jun 2024 07:57:43 +0000
-Received: by outflank-mailman (input) for mailman id 746180;
- Mon, 24 Jun 2024 07:57:41 +0000
+	id 1sLebD-0005rX-Ik; Mon, 24 Jun 2024 07:58:51 +0000
+Received: by outflank-mailman (input) for mailman id 746187;
+ Mon, 24 Jun 2024 07:58:49 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=xeV4=N2=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1sLea5-0002Wx-UQ
- for xen-devel@lists.xenproject.org; Mon, 24 Jun 2024 07:57:41 +0000
-Received: from mail-lj1-x231.google.com (mail-lj1-x231.google.com
- [2a00:1450:4864:20::231])
+ id 1sLebB-0005rM-Sc
+ for xen-devel@lists.xenproject.org; Mon, 24 Jun 2024 07:58:49 +0000
+Received: from mail-lf1-x12a.google.com (mail-lf1-x12a.google.com
+ [2a00:1450:4864:20::12a])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 6e9d82c5-31ff-11ef-90a3-e314d9c70b13;
- Mon, 24 Jun 2024 09:57:41 +0200 (CEST)
-Received: by mail-lj1-x231.google.com with SMTP id
- 38308e7fff4ca-2eaea28868dso52607311fa.3
- for <xen-devel@lists.xenproject.org>; Mon, 24 Jun 2024 00:57:41 -0700 (PDT)
+ id 96e8dd5c-31ff-11ef-90a3-e314d9c70b13;
+ Mon, 24 Jun 2024 09:58:49 +0200 (CEST)
+Received: by mail-lf1-x12a.google.com with SMTP id
+ 2adb3069b0e04-52cdcd26d61so2090629e87.2
+ for <xen-devel@lists.xenproject.org>; Mon, 24 Jun 2024 00:58:49 -0700 (PDT)
 Received: from [192.168.219.191] ([94.75.70.14])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a725459233csm85895566b.96.2024.06.24.00.57.39
+ 2adb3069b0e04-52cd63cd109sm928601e87.116.2024.06.24.00.58.47
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 24 Jun 2024 00:57:40 -0700 (PDT)
+ Mon, 24 Jun 2024 00:58:48 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,113 +45,99 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6e9d82c5-31ff-11ef-90a3-e314d9c70b13
+X-Inumbo-ID: 96e8dd5c-31ff-11ef-90a3-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1719215861; x=1719820661; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1719215928; x=1719820728; darn=lists.xenproject.org;
         h=mime-version:user-agent:content-transfer-encoding:references
          :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
          :date:message-id:reply-to;
-        bh=MUw2iKVVN6VeYr37kWbNB40ZsEbrYHSv0Bpzc9f3ObA=;
-        b=kPcb+Mrd4Lt8fZ6tbxdJgtETrKxggBzpUMkWvzfiwZtMo6DNIbv2ashTXA4lFYKYdo
-         Mh6Je0I7uloiNr3CjZ9hVPRHG16zRxjVNfc1PESpExsxY8saexrtSFi8YPMWhTUv1/ZO
-         2WdAXvs9mtFLjga5TIeWrjb55AyGsEfHBDWSVC7O+5ksyjJMswtgs0bO83URRt+zhcNl
-         UHBRPtpgv9epIGDRvuGIs91oLHKjm5Y2iESuCRfjCCPBji6xjtwGzPJmGu+JIBrpXnQi
-         N5+JB6UpiSbx7uThJ10bIzywh83dPC8rAkJa8txRPOB+grYEMHZnL7NOLDeatRRrAw8/
-         brew==
+        bh=Bzgh9U0V5X5k4TZc0szT7NP9q6c6SGTdFISDhBH2NvA=;
+        b=Tc9JX/SCwsfFXDT5+N0jrykKsVWb25zIXNUZW6+FL//Ol6xcW2G6kfl3S/zyGgk9PG
+         TtPuoWLVGckC92Ph72ZKuqkLYo/0fG4a9NRq1ylTpccWoogKDWRUFRFbnID+hJkIHIx+
+         DafxqJUg9aZnt2EkssUZkee7oxKsK4KTY+MrcquiA5b7pRvbp3wP/21d2htCBbjk12tg
+         dUl5e2Z0jKzcou2UqA0crqpvXlwZj11dLuqs4ntwZem4lQtO8XGz4Brf8/mj8fXylNOe
+         l9oYVQaswtuQQTWtumYQGu3OCvsMuSBGticGrMPcVCcH5VPnpqCAo/LCGEKoq06+sgGH
+         EI5g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1719215861; x=1719820661;
+        d=1e100.net; s=20230601; t=1719215928; x=1719820728;
         h=mime-version:user-agent:content-transfer-encoding:references
          :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=MUw2iKVVN6VeYr37kWbNB40ZsEbrYHSv0Bpzc9f3ObA=;
-        b=R8lIfdoRJ/M3eyVzRDsakvyu+B98pN1dPYYdzLPBWbpS5iP02RTtU6qwj2k7aiIexU
-         yajAbbpCim32Zth6HPC3/AFvzO7KX1CEYkxQyVFBPfCqgEm9PqOrMNqNeRj+IgHurqEJ
-         mf7G51pRsGwXqtaAL71dHB6BrDEzxgiz9n/yXLbgVOPAf7JEda9OvZCihgLHkCIcjNYl
-         zR3lzaUnBTzTX+Tzu11ShN0YSQl+1NXPRbvmh5HNNDRxeHPLWMwEauKhOCvctEw0LRhY
-         Ms3999nMTd+dZRJGscZyu11t+jOtPDnypToQ4RQ1TBehohx5F1TmoMcVwwJUK19MbLvN
-         sgMQ==
-X-Gm-Message-State: AOJu0Yyw6ONgLlKoJTSL0hp5I+PsdwxtWUEL/zHfjLe25BtVtkVhjM8S
-	d661jFmEfXD7npi7GT1m1SlZ1hQH0W7I/M0L0J6h6Pd75wjCT13WOXh95P/E
-X-Google-Smtp-Source: AGHT+IFTMbAtAhceHtzn1H6AdsiprfPuqdnbgMUeRCjae8kcxJ/ZKAM+5Y9U08BB/l7pWCOSKbNuXg==
-X-Received: by 2002:a2e:8817:0:b0:2ec:5945:62e9 with SMTP id 38308e7fff4ca-2ec5b31d1d5mr27330931fa.32.1719215860669;
-        Mon, 24 Jun 2024 00:57:40 -0700 (PDT)
-Message-ID: <e79fa18334a0bde4dbd1e94ea4037a4bb7ac2bec.camel@gmail.com>
-Subject: Re: [PATCH v2] common/unlzo: address violation of MISRA C Rule 7.3
+        bh=Bzgh9U0V5X5k4TZc0szT7NP9q6c6SGTdFISDhBH2NvA=;
+        b=Vr2qGVsjRKUP4gZn3zzvqCCXQv+d53j0RyfBTZm1iYy99tgvAvwZB4r5upv9IM0GHy
+         eT2Php4INUCshrP6c5AM2pvf+rpppBCzhq9h6WwMhSFtzv28Vn+4jsCzGa+BvL4rApu2
+         oY0aJZPvRTGFtc9ODQp9LzrKPVk6PmHX0LvUZ5VmVqh4udw1y3rHH2m7r0MbPNetZeA2
+         wBMI9ohc9r1dOoNxelmTVnuH2hOFbrXY8mSqdYWoMtKCpakM8oOPH3Cy7iGqaSsibfNw
+         C54hvF6qy7+8fzmpE2W1LykHwmyWUtumjU1LqnlXzBC3bqVFiYVepTDS6LmtKz+lwqcg
+         fhAQ==
+X-Forwarded-Encrypted: i=1; AJvYcCVvC0bOrFOfdnT+v3MVW7lQpMEt/Umes38TX+6jrQAGTEh9J+S27C1jxR5+LNKOnx2RoyW4YGWKLlwrTePu3+cc18s4DpLjZy+EF00MfTk=
+X-Gm-Message-State: AOJu0Yx8D/F2tZZpAVY+cACv+panCZgkaPgnQxuQVzs79+Wv3RZq4Tuf
+	D7H38XPwmJNPhQzquFMYaPnfJbx6MqhyZaY64CH7aqxvWenapubN
+X-Google-Smtp-Source: AGHT+IGUCKHRMlLn7HmONKhovaIf3k6RBKZXkGbaWNgDXCbW8Wa1TfsJOFsNIq1v4Qj5YuoetaJQMQ==
+X-Received: by 2002:a05:6512:607:b0:52c:d84b:93b2 with SMTP id 2adb3069b0e04-52ce18341f9mr1957411e87.15.1719215928317;
+        Mon, 24 Jun 2024 00:58:48 -0700 (PDT)
+Message-ID: <e3bea61f8823deec6f4742fe5ef73ea4291593e6.camel@gmail.com>
+Subject: Re: [PATCH for-4.19? 0/3] xen: build adjustments for
+ __read_mostly/__ro_after_init
 From: Oleksii <oleksii.kurochko@gmail.com>
-To: Stefano Stabellini <sstabellini@kernel.org>, Alessandro Zucchelli
-	 <alessandro.zucchelli@bugseng.com>
-Cc: xen-devel@lists.xenproject.org, consulting@bugseng.com, Andrew Cooper
-	 <andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>, Jan
- Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>
-Date: Mon, 24 Jun 2024 09:57:39 +0200
-In-Reply-To: <alpine.DEB.2.22.394.2406211431210.2572888@ubuntu-linux-20-04-desktop>
-References: 
-	<847f9b715b3c8e2ba0637fdd79111f4f828389c6.1718976211.git.alessandro.zucchelli@bugseng.com>
-	 <alpine.DEB.2.22.394.2406211431210.2572888@ubuntu-linux-20-04-desktop>
+To: Andrew Cooper <andrew.cooper3@citrix.com>, Xen-devel
+	 <xen-devel@lists.xenproject.org>
+Cc: Shawn Anastasio <sanastasio@raptorengineering.com>, George Dunlap
+ <George.Dunlap@citrix.com>, Jan Beulich <JBeulich@suse.com>, Stefano
+ Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>
+Date: Mon, 24 Jun 2024 09:58:47 +0200
+In-Reply-To: <20240621201928.319293-1-andrew.cooper3@citrix.com>
+References: <20240621201928.319293-1-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: base64
 User-Agent: Evolution 3.52.2 (3.52.2-1.fc40app2) 
 MIME-Version: 1.0
 
-On Fri, 2024-06-21 at 14:31 -0700, Stefano Stabellini wrote:
-> On Fri, 21 Jun 2024, Alessandro Zucchelli wrote:
-> > This addresses violations of MISRA C:2012 Rule 7.3 which states as
-> > following: the lowercase character `l' shall not be used in a
-> > literal
-> > suffix.
-> >=20
-> > The file common/unlzo.c defines the non-compliant constant
-> > LZO_BLOCK_SIZE with
-> > having a lowercase 'l'.
-> > It is now defined as '256*1024L'.
-> >=20
-> > No functional change.
-> >=20
-> > Signed-off-by: Alessandro Zucchelli
-> > <alessandro.zucchelli@bugseng.com>
->=20
-> Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
->=20
-> Asking for a release ack for this trivial change
-Release-Acked-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+T24gRnJpLCAyMDI0LTA2LTIxIGF0IDIxOjE5ICswMTAwLCBBbmRyZXcgQ29vcGVyIHdyb3RlOgo+
+IEluIGFpZCBvZiBnZXR0aW5nIHRoZSBSSVNDLVYgYnVpbGQgd29ya2luZyB3aXRob3V0IGludHJv
+ZHVjaW5nIG1vcmUKPiB0ZWNobmljYWwKPiBkZWJ0LsKgIEl0J3MgZG9uZSBieSBtYWtpbmcgUFBD
+IHNoZWQgaXQncyBjb3B5IG9mIHNhaWQgdGVjaG5pY2FsIGRlYnQuCj4gCj4gQnVpbGQgdGVzdGVk
+IHF1aXRlIHRob3JvdWdobHksIGluY2x1ZGluZyBpbiBHaXRsYWIuClJlbGVhc2UtQWNrZWQtYnk6
+IE9sZWtzaWkgS3Vyb2Noa28gPG9sZWtzaWkua3Vyb2Noa29AZ21haWwuY29tPgoKfiBPbGVrc2lp
+Cj4gCj4gQW5kcmV3IENvb3BlciAoMyk6Cj4gwqAgeGVuL3Jpc2N2OiBEcm9wIGxlZ2FjeSBfX3Jv
+X2FmdGVyX2luaXQgZGVmaW5pdGlvbgo+IMKgIHhlbi9wcGM6IEFkanVzdCBwcGM2NF9kZWZjb25m
+aWcKPiDCoCB4ZW4vcHBjOiBBdm9pZCB1c2luZyB0aGUgbGVnYWN5IF9fcmVhZF9tb3N0bHkvX19y
+b19hZnRlcl9pbml0Cj4gwqDCoMKgIGRlZmluaXRpb25zCj4gCj4gwqB4ZW4vYXJjaC9wcGMvY29u
+Zmlncy9wcGM2NF9kZWZjb25maWcgfCA2IC0tLS0tLQo+IMKgeGVuL2FyY2gvcHBjL2luY2x1ZGUv
+YXNtL2NhY2hlLmjCoMKgwqDCoCB8IDMgLS0tCj4gwqB4ZW4vYXJjaC9wcGMvbW0tcmFkaXguY8Kg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHwgMSArCj4gwqB4ZW4vYXJjaC9wcGMvc3R1YnMuY8Kg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHwgNyArKysrKysrCj4gwqB4ZW4vYXJjaC9y
+aXNjdi9tbS5jwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB8IDIgKy0KPiDCoHhl
+bi9jb21tb24vYXJnby5jwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgfCAx
+ICsKPiDCoHhlbi9jb21tb24vY3B1LmPCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgIHwgMSArCj4gwqB4ZW4vY29tbW9uL2RlYnVndHJhY2UuY8KgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgIHwgMSArCj4gwqB4ZW4vY29tbW9uL2RvbWFpbi5jwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoCB8IDEgKwo+IMKgeGVuL2NvbW1vbi9ldmVudF9jaGFubmVsLmPCoMKg
+wqDCoMKgwqDCoMKgwqDCoCB8IDIgKysKPiDCoHhlbi9jb21tb24va2V5aGFuZGxlci5jwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqAgfCAxICsKPiDCoHhlbi9jb21tb24vbWVtb3J5LmPCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHwgMSArCj4gwqB4ZW4vY29tbW9uL3BhZ2VfYWxs
+b2MuY8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHwgMSArCj4gwqB4ZW4vY29tbW9uL3BkeC5j
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB8IDEgKwo+IMKgeGVuL2Nv
+bW1vbi9yYWRpeC10cmVlLmPCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB8IDEgKwo+IMKgeGVu
+L2NvbW1vbi9yYW5kb20uY8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgfCAyICst
+Cj4gwqB4ZW4vY29tbW9uL3JjdXBkYXRlLmPCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAg
+fCAxICsKPiDCoHhlbi9jb21tb24vc2NoZWQvY29yZS5jwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqAgfCAxICsKPiDCoHhlbi9jb21tb24vc2NoZWQvY3B1cG9vbC5jwqDCoMKgwqDCoMKgwqDCoMKg
+wqAgfCAxICsKPiDCoHhlbi9jb21tb24vc2NoZWQvY3JlZGl0LmPCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgIHwgMSArCj4gwqB4ZW4vY29tbW9uL3NjaGVkL2NyZWRpdDIuY8KgwqDCoMKgwqDCoMKgwqDC
+oMKgIHwgMSArCj4gwqB4ZW4vY29tbW9uL3NodXRkb3duLmPCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqAgfCAxICsKPiDCoHhlbi9jb21tb24vc3BpbmxvY2suY8KgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoCB8IDEgKwo+IMKgeGVuL2NvbW1vbi90aW1lci5jwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgIHwgMSArCj4gwqB4ZW4vY29tbW9uL3ZlcnNpb24uY8KgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHwgMyArLS0KPiDCoHhlbi9jb21tb24vdmlydHVh
+bF9yZWdpb24uY8KgwqDCoMKgwqDCoMKgwqDCoCB8IDEgKwo+IMKgeGVuL2NvbW1vbi92bWFwLmPC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB8IDIgKy0KPiDCoHhlbi9kcml2
+ZXJzL2NoYXIvY29uc29sZS5jwqDCoMKgwqDCoMKgwqDCoMKgwqAgfCAxICsKPiDCoHhlbi9kcml2
+ZXJzL2NoYXIvbnMxNjU1MC5jwqDCoMKgwqDCoMKgwqDCoMKgwqAgfCAxICsKPiDCoHhlbi9kcml2
+ZXJzL2NoYXIvc2VyaWFsLmPCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHwgMiArLQo+IMKgeGVuL2lu
+Y2x1ZGUveGVuL2NhY2hlLmjCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB8IDIgKysKPiDCoHhl
+bi9pbmNsdWRlL3hlbi9oeXBmcy5owqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgfCAxICsKPiDC
+oDMyIGZpbGVzIGNoYW5nZWQsIDM4IGluc2VydGlvbnMoKyksIDE1IGRlbGV0aW9ucygtKQo+IAoK
 
-~ Oleksii
-
->=20
->=20
-> > ---
-> > Changes from v1:
-> > Instead of deviating /common/unlzo.c reports fro Rule 7.3 they are
-> > addressed by
-> > changing the non-compliant definition of LZO_BLOCK_SIZE.
-> > ---
-> > =C2=A0xen/common/unlzo.c | 2 +-
-> > =C2=A01 file changed, 1 insertion(+), 1 deletion(-)
-> >=20
-> > diff --git a/xen/common/unlzo.c b/xen/common/unlzo.c
-> > index bdcefa95b3..acb8dff600 100644
-> > --- a/xen/common/unlzo.c
-> > +++ b/xen/common/unlzo.c
-> > @@ -52,7 +52,7 @@ static inline u32 get_unaligned_be32(const void
-> > *p)
-> > =C2=A0static const unsigned char lzop_magic[] =3D {
-> > =C2=A0	0x89, 0x4c, 0x5a, 0x4f, 0x00, 0x0d, 0x0a, 0x1a, 0x0a };
-> > =C2=A0
-> > -#define LZO_BLOCK_SIZE=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 (256*=
-1024l)
-> > +#define LZO_BLOCK_SIZE=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 (256*=
-1024L)
-> > =C2=A0#define HEADER_HAS_FILTER=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 0x0000080=
-0L
-> > =C2=A0#define HEADER_SIZE_MIN=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 (9 + =
-7=C2=A0=C2=A0=C2=A0=C2=A0 + 4 + 8=C2=A0=C2=A0=C2=A0=C2=A0 + 1=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0 +
-> > 4)
-> > =C2=A0#define HEADER_SIZE_MAX=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 (9 + =
-7 + 1 + 8 + 8 + 4 + 1 + 255 +
-> > 4)
-> > --=20
-> > 2.34.1
-> >=20
 
 
