@@ -2,32 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 738F39154DC
-	for <lists+xen-devel@lfdr.de>; Mon, 24 Jun 2024 18:57:36 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.746853.1154070 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0B970915516
+	for <lists+xen-devel@lfdr.de>; Mon, 24 Jun 2024 19:08:46 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.746860.1154084 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sLn01-0006u2-Uo; Mon, 24 Jun 2024 16:57:01 +0000
+	id 1sLnB5-0000rF-TY; Mon, 24 Jun 2024 17:08:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 746853.1154070; Mon, 24 Jun 2024 16:57:01 +0000
+Received: by outflank-mailman (output) from mailman id 746860.1154084; Mon, 24 Jun 2024 17:08:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sLn01-0006ri-RW; Mon, 24 Jun 2024 16:57:01 +0000
-Received: by outflank-mailman (input) for mailman id 746853;
- Mon, 24 Jun 2024 16:57:00 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1sLnB5-0000of-QR; Mon, 24 Jun 2024 17:08:27 +0000
+Received: by outflank-mailman (input) for mailman id 746860;
+ Mon, 24 Jun 2024 17:08:26 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1sLn00-0006rc-4U
- for xen-devel@lists.xenproject.org; Mon, 24 Jun 2024 16:57:00 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1sLmzz-0006HC-P0; Mon, 24 Jun 2024 16:56:59 +0000
-Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.0.211])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1sLmzz-0000JS-GE; Mon, 24 Jun 2024 16:56:59 +0000
+ (envelope-from <SRS0=+LHY=N2=kernel.org=kbusch@srs-se1.protection.inumbo.net>)
+ id 1sLnB4-0000oZ-1J
+ for xen-devel@lists.xenproject.org; Mon, 24 Jun 2024 17:08:26 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 5d5f1c04-324c-11ef-90a3-e314d9c70b13;
+ Mon, 24 Jun 2024 19:08:24 +0200 (CEST)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id 5EF2B60E16;
+ Mon, 24 Jun 2024 17:08:23 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 682D2C2BBFC;
+ Mon, 24 Jun 2024 17:08:19 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,65 +41,58 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=EBg4Gh4deymQ7P0TwRKlDP4Es3l4BgPZ6VwfVzcxJJM=; b=082K1kxM8ridkWGss06gim1/wT
-	Og7DQRdSZDzmzrSt6nPuCVTuDhzp1jm1qAbPIet6TJTRsfqwycJxZxC97ViI2UcuAqjZdc99BtN14
-	7atIuUkATCEiRfNBk3S0ExAmHsY5I5pqbuHx+NQvYknxsKQmV/6ZxUiIsu0yXkOnEtlU=;
-Message-ID: <f17200a6-efb5-4775-964c-21e687890f76@xen.org>
-Date: Mon, 24 Jun 2024 17:56:57 +0100
+X-Inumbo-ID: 5d5f1c04-324c-11ef-90a3-e314d9c70b13
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1719248903;
+	bh=c5IMwi2AkSm61J7nCdd2EBXV6o3vo+7AANeGa2JN45A=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=d8C/s3NgDhBmDzX7X6Z3a8NgLG1XRNWm3AVon41eJewAqY4XNmD50+AdQpjukysaA
+	 0+c9peZEcs8AURzleAxgVmV3zaxrAP0+WMQxnkR3oNoVdRegLrw7QTozLmVentUZPE
+	 P0BMSL1dkoExQoFoaBFFudfcpEmdYCHeKJ0irUoLxUFwgxCKTvfHLKHNHL2RN4iLoh
+	 ki4NFa+liGK52kKToNiMhO53pIJVSGFwHndW7Uw+1UTH4eb3kjlEU/UFxvZz4PM4y3
+	 BbdO/dVn76ts+09ZmrGp9NorxeNYJ2cNYzLcTNejNMPSMmam7/bl5ZZAKhBMTTCFIl
+	 W6hH1Idyq3vZQ==
+Date: Mon, 24 Jun 2024 11:08:16 -0600
+From: Keith Busch <kbusch@kernel.org>
+To: Christoph Hellwig <hch@lst.de>
+Cc: Jens Axboe <axboe@kernel.dk>, Geert Uytterhoeven <geert@linux-m68k.org>,
+	Richard Weinberger <richard@nod.at>,
+	Philipp Reisner <philipp.reisner@linbit.com>,
+	Lars Ellenberg <lars.ellenberg@linbit.com>,
+	Christoph =?iso-8859-1?Q?B=F6hmwalder?= <christoph.boehmwalder@linbit.com>,
+	Josef Bacik <josef@toxicpanda.com>, Ming Lei <ming.lei@redhat.com>,
+	"Michael S. Tsirkin" <mst@redhat.com>,
+	Jason Wang <jasowang@redhat.com>,
+	Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>,
+	Alasdair Kergon <agk@redhat.com>, Mike Snitzer <snitzer@kernel.org>,
+	Mikulas Patocka <mpatocka@redhat.com>, Song Liu <song@kernel.org>,
+	Yu Kuai <yukuai3@huawei.com>,
+	Vineeth Vijayan <vneethv@linux.ibm.com>,
+	"Martin K. Petersen" <martin.petersen@oracle.com>,
+	linux-m68k@lists.linux-m68k.org, linux-um@lists.infradead.org,
+	drbd-dev@lists.linbit.com, nbd@other.debian.org,
+	linuxppc-dev@lists.ozlabs.org, ceph-devel@vger.kernel.org,
+	virtualization@lists.linux.dev, xen-devel@lists.xenproject.org,
+	linux-bcache@vger.kernel.org, dm-devel@lists.linux.dev,
+	linux-raid@vger.kernel.org, linux-mmc@vger.kernel.org,
+	linux-mtd@lists.infradead.org, nvdimm@lists.linux.dev,
+	linux-nvme@lists.infradead.org, linux-s390@vger.kernel.org,
+	linux-scsi@vger.kernel.org, linux-block@vger.kernel.org,
+	Damien Le Moal <dlemoal@kernel.org>
+Subject: Re: [PATCH 14/26] block: move the nonrot flag to queue_limits
+Message-ID: <ZnmoANp0TgpxWuF-@kbusch-mbp.dhcp.thefacebook.com>
+References: <20240617060532.127975-1-hch@lst.de>
+ <20240617060532.127975-15-hch@lst.de>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH for-4.19] xen/arm: static-shmem: request host address to
- be specified for 1:1 domains
-Content-Language: en-GB
-To: Michal Orzel <michal.orzel@amd.com>, xen-devel@lists.xenproject.org
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, oleksii.kurochko@gmail.com
-References: <20240621092205.30602-1-michal.orzel@amd.com>
- <86594fa0-a12d-42fc-ba6c-fe235becf768@xen.org>
- <d69b74ce-13b6-46f1-b2bd-051c913be43a@amd.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <d69b74ce-13b6-46f1-b2bd-051c913be43a@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20240617060532.127975-15-hch@lst.de>
 
+On Mon, Jun 17, 2024 at 08:04:41AM +0200, Christoph Hellwig wrote:
+> -#define blk_queue_nonrot(q)	test_bit(QUEUE_FLAG_NONROT, &(q)->queue_flags)
+> +#define blk_queue_nonrot(q)	((q)->limits.features & BLK_FEAT_ROTATIONAL)
 
+This is inverted. Should be:
 
-On 24/06/2024 11:43, Michal Orzel wrote:
-> Hi Julien,
-> 
-> On 24/06/2024 12:22, Julien Grall wrote:
->>
->>
->> Hi Michal,
->>
->> On 21/06/2024 10:22, Michal Orzel wrote:
->>> As a follow up to commit cb1ddafdc573 ("xen/arm/static-shmem: Static-shmem
->>> should be direct-mapped for direct-mapped domains") add a check to
->>> request that both host and guest physical address must be supplied for
->>> direct mapped domains. Otherwise return an error to prevent unwanted
->>> behavior.
->>>
->>> Signed-off-by: Michal Orzel <michal.orzel@amd.com>
->>
->> I would argue that it should be have a fixes tag:
->>
->> Fixes: 988f1c7e1f40 ("xen/arm: static-shmem: fix "gbase/pbase used
->> uninitialized" build failure")
->>
->> Mainly because while you fixed the build, it was missing the check in
->> the "else" part.
->>
->> I am happy to update it on commit if you are ok with the change.
-> Yes, I'm fine with it.
-
-Committed.
-
-Cheers,
-
--- 
-Julien Grall
+ #define blk_queue_nonrot(q)	(!((q)->limits.features & BLK_FEAT_ROTATIONAL))
 
