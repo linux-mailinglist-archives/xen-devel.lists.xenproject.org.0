@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 80F8891440D
-	for <lists+xen-devel@lfdr.de>; Mon, 24 Jun 2024 09:59:02 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.746187.1153172 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 99C9891441B
+	for <lists+xen-devel@lfdr.de>; Mon, 24 Jun 2024 10:01:48 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.746198.1153182 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sLebD-0005tl-LM; Mon, 24 Jun 2024 07:58:51 +0000
+	id 1sLedo-0007wv-5O; Mon, 24 Jun 2024 08:01:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 746187.1153172; Mon, 24 Jun 2024 07:58:51 +0000
+Received: by outflank-mailman (output) from mailman id 746198.1153182; Mon, 24 Jun 2024 08:01:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sLebD-0005rX-Ik; Mon, 24 Jun 2024 07:58:51 +0000
-Received: by outflank-mailman (input) for mailman id 746187;
- Mon, 24 Jun 2024 07:58:49 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=xeV4=N2=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1sLebB-0005rM-Sc
- for xen-devel@lists.xenproject.org; Mon, 24 Jun 2024 07:58:49 +0000
-Received: from mail-lf1-x12a.google.com (mail-lf1-x12a.google.com
- [2a00:1450:4864:20::12a])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 96e8dd5c-31ff-11ef-90a3-e314d9c70b13;
- Mon, 24 Jun 2024 09:58:49 +0200 (CEST)
-Received: by mail-lf1-x12a.google.com with SMTP id
- 2adb3069b0e04-52cdcd26d61so2090629e87.2
- for <xen-devel@lists.xenproject.org>; Mon, 24 Jun 2024 00:58:49 -0700 (PDT)
-Received: from [192.168.219.191] ([94.75.70.14])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-52cd63cd109sm928601e87.116.2024.06.24.00.58.47
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 24 Jun 2024 00:58:48 -0700 (PDT)
+	id 1sLedo-0007uy-2n; Mon, 24 Jun 2024 08:01:32 +0000
+Received: by outflank-mailman (input) for mailman id 746198;
+ Mon, 24 Jun 2024 08:01:31 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=wsRE=N2=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1sLedn-0007uk-6T
+ for xen-devel@lists.xenproject.org; Mon, 24 Jun 2024 08:01:31 +0000
+Received: from mail-lj1-x233.google.com (mail-lj1-x233.google.com
+ [2a00:1450:4864:20::233])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id f687c70a-31ff-11ef-b4bb-af5377834399;
+ Mon, 24 Jun 2024 10:01:29 +0200 (CEST)
+Received: by mail-lj1-x233.google.com with SMTP id
+ 38308e7fff4ca-2eaa89464a3so46868771fa.3
+ for <xen-devel@lists.xenproject.org>; Mon, 24 Jun 2024 01:01:29 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-2c819a8ef90sm6028890a91.33.2024.06.24.01.01.24
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 24 Jun 2024 01:01:28 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,99 +45,95 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 96e8dd5c-31ff-11ef-90a3-e314d9c70b13
+X-Inumbo-ID: f687c70a-31ff-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1719215928; x=1719820728; darn=lists.xenproject.org;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=Bzgh9U0V5X5k4TZc0szT7NP9q6c6SGTdFISDhBH2NvA=;
-        b=Tc9JX/SCwsfFXDT5+N0jrykKsVWb25zIXNUZW6+FL//Ol6xcW2G6kfl3S/zyGgk9PG
-         TtPuoWLVGckC92Ph72ZKuqkLYo/0fG4a9NRq1ylTpccWoogKDWRUFRFbnID+hJkIHIx+
-         DafxqJUg9aZnt2EkssUZkee7oxKsK4KTY+MrcquiA5b7pRvbp3wP/21d2htCBbjk12tg
-         dUl5e2Z0jKzcou2UqA0crqpvXlwZj11dLuqs4ntwZem4lQtO8XGz4Brf8/mj8fXylNOe
-         l9oYVQaswtuQQTWtumYQGu3OCvsMuSBGticGrMPcVCcH5VPnpqCAo/LCGEKoq06+sgGH
-         EI5g==
+        d=suse.com; s=google; t=1719216089; x=1719820889; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=K2giALUKLzTt8KuTE56gEE0BkU395f+bNN+zD8v16Z0=;
+        b=Ojlc8Ksl64gKL6xsvvPIFElUu2oWJe9F0BfSWpSPYTHm0ivzZhIw4khnz2kPbt/bgp
+         YeNHd0j2mZEYrNCfKxdxhQrfUMJbM2BcuebhcXKl/rYxri+I6oB3YeP9aSGHC2WRJEtd
+         P52SxSbEJ63jGdugKSq6M69J/8wWcsbC7IewDKI3ZCUSsZ7650tymUUgFDekqrXvIK1/
+         ujSaRHGVUHsaO/+h1xOh5wS39iJM2V1ZoPZ10hH9vqqub0h6KUygoqumqhUqMNcyrtk9
+         dCbrbCn8tEXR5UIpeYWMjLr0c9fm8mD9fEnGAXl56tYvNDRy1IhX96GFNug9Cn2RSBQO
+         /32A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1719215928; x=1719820728;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=Bzgh9U0V5X5k4TZc0szT7NP9q6c6SGTdFISDhBH2NvA=;
-        b=Vr2qGVsjRKUP4gZn3zzvqCCXQv+d53j0RyfBTZm1iYy99tgvAvwZB4r5upv9IM0GHy
-         eT2Php4INUCshrP6c5AM2pvf+rpppBCzhq9h6WwMhSFtzv28Vn+4jsCzGa+BvL4rApu2
-         oY0aJZPvRTGFtc9ODQp9LzrKPVk6PmHX0LvUZ5VmVqh4udw1y3rHH2m7r0MbPNetZeA2
-         wBMI9ohc9r1dOoNxelmTVnuH2hOFbrXY8mSqdYWoMtKCpakM8oOPH3Cy7iGqaSsibfNw
-         C54hvF6qy7+8fzmpE2W1LykHwmyWUtumjU1LqnlXzBC3bqVFiYVepTDS6LmtKz+lwqcg
-         fhAQ==
-X-Forwarded-Encrypted: i=1; AJvYcCVvC0bOrFOfdnT+v3MVW7lQpMEt/Umes38TX+6jrQAGTEh9J+S27C1jxR5+LNKOnx2RoyW4YGWKLlwrTePu3+cc18s4DpLjZy+EF00MfTk=
-X-Gm-Message-State: AOJu0Yx8D/F2tZZpAVY+cACv+panCZgkaPgnQxuQVzs79+Wv3RZq4Tuf
-	D7H38XPwmJNPhQzquFMYaPnfJbx6MqhyZaY64CH7aqxvWenapubN
-X-Google-Smtp-Source: AGHT+IGUCKHRMlLn7HmONKhovaIf3k6RBKZXkGbaWNgDXCbW8Wa1TfsJOFsNIq1v4Qj5YuoetaJQMQ==
-X-Received: by 2002:a05:6512:607:b0:52c:d84b:93b2 with SMTP id 2adb3069b0e04-52ce18341f9mr1957411e87.15.1719215928317;
-        Mon, 24 Jun 2024 00:58:48 -0700 (PDT)
-Message-ID: <e3bea61f8823deec6f4742fe5ef73ea4291593e6.camel@gmail.com>
-Subject: Re: [PATCH for-4.19? 0/3] xen: build adjustments for
- __read_mostly/__ro_after_init
-From: Oleksii <oleksii.kurochko@gmail.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>, Xen-devel
-	 <xen-devel@lists.xenproject.org>
-Cc: Shawn Anastasio <sanastasio@raptorengineering.com>, George Dunlap
- <George.Dunlap@citrix.com>, Jan Beulich <JBeulich@suse.com>, Stefano
- Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>
-Date: Mon, 24 Jun 2024 09:58:47 +0200
-In-Reply-To: <20240621201928.319293-1-andrew.cooper3@citrix.com>
-References: <20240621201928.319293-1-andrew.cooper3@citrix.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: base64
-User-Agent: Evolution 3.52.2 (3.52.2-1.fc40app2) 
+        d=1e100.net; s=20230601; t=1719216089; x=1719820889;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=K2giALUKLzTt8KuTE56gEE0BkU395f+bNN+zD8v16Z0=;
+        b=mSuLtIih5NNa/c7fnc61ZQYs72sZnACDB2qFXP+9hwZuaco11+l8XjykDf9D3fM8YX
+         0jrcFen3jDGrQYRYfBaoCK3LKx3lJhaRtfWT/PS2INJiBmiIr2JMJBNUYvPoOOvmjKCq
+         VHaDUew71IMSpfViRmokzO2K4NzqeJqyMre4+NEHMMqXaixGUuwEG1rlpbNlWGIX11cU
+         DWvy4e62AtXN1k9COdvPthc+daYQ17OlwDPKuc8B8q8xk5goy4qOsBUjIbx8W9Y+/vD3
+         OjptUn7C1sZH9vS7oqzB5JiDG5xjgv3CaF3YD5dMEPaRvPkFzGn5zG7xwuOg3DtmV/ex
+         EEtA==
+X-Forwarded-Encrypted: i=1; AJvYcCU39t7bOnxB/FH7a7+dH/AYFZUZ5cUZoB+3PdMocRrYAjvaFafz76ExTJn7stFBsrQj+/NlLiquJK+aqtv+3OS30hwFIu/el+OG2fLf/sE=
+X-Gm-Message-State: AOJu0YwCZQZgcQW0aa1lTqbi1hKlNsmkUIRSwgeDgzJ6GX+nmUBZxO5c
+	Q3/F2Y++T/b95Ljtnf+sIOEYScfNixQCbRR4wT4qHh/ExepKw987peTq7i4LtA==
+X-Google-Smtp-Source: AGHT+IHAsTukawoXywCLA54AzVWWZ+qUo8azIxi2TbGFSzfawk/fR4NHuTPZf6T+CrGC9BWhOzpr6A==
+X-Received: by 2002:a2e:9e82:0:b0:2ec:52da:606e with SMTP id 38308e7fff4ca-2ec579c7702mr29904581fa.40.1719216088971;
+        Mon, 24 Jun 2024 01:01:28 -0700 (PDT)
+Message-ID: <71f97e26-cbb5-4e6b-860a-8c3de1e7e8df@suse.com>
+Date: Mon, 24 Jun 2024 10:01:20 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 3/3] xen/ppc: Avoid using the legacy
+ __read_mostly/__ro_after_init definitions
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Shawn Anastasio <sanastasio@raptorengineering.com>,
+ Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+ George Dunlap <George.Dunlap@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20240621201928.319293-1-andrew.cooper3@citrix.com>
+ <20240621201928.319293-4-andrew.cooper3@citrix.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20240621201928.319293-4-andrew.cooper3@citrix.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-T24gRnJpLCAyMDI0LTA2LTIxIGF0IDIxOjE5ICswMTAwLCBBbmRyZXcgQ29vcGVyIHdyb3RlOgo+
-IEluIGFpZCBvZiBnZXR0aW5nIHRoZSBSSVNDLVYgYnVpbGQgd29ya2luZyB3aXRob3V0IGludHJv
-ZHVjaW5nIG1vcmUKPiB0ZWNobmljYWwKPiBkZWJ0LsKgIEl0J3MgZG9uZSBieSBtYWtpbmcgUFBD
-IHNoZWQgaXQncyBjb3B5IG9mIHNhaWQgdGVjaG5pY2FsIGRlYnQuCj4gCj4gQnVpbGQgdGVzdGVk
-IHF1aXRlIHRob3JvdWdobHksIGluY2x1ZGluZyBpbiBHaXRsYWIuClJlbGVhc2UtQWNrZWQtYnk6
-IE9sZWtzaWkgS3Vyb2Noa28gPG9sZWtzaWkua3Vyb2Noa29AZ21haWwuY29tPgoKfiBPbGVrc2lp
-Cj4gCj4gQW5kcmV3IENvb3BlciAoMyk6Cj4gwqAgeGVuL3Jpc2N2OiBEcm9wIGxlZ2FjeSBfX3Jv
-X2FmdGVyX2luaXQgZGVmaW5pdGlvbgo+IMKgIHhlbi9wcGM6IEFkanVzdCBwcGM2NF9kZWZjb25m
-aWcKPiDCoCB4ZW4vcHBjOiBBdm9pZCB1c2luZyB0aGUgbGVnYWN5IF9fcmVhZF9tb3N0bHkvX19y
-b19hZnRlcl9pbml0Cj4gwqDCoMKgIGRlZmluaXRpb25zCj4gCj4gwqB4ZW4vYXJjaC9wcGMvY29u
-Zmlncy9wcGM2NF9kZWZjb25maWcgfCA2IC0tLS0tLQo+IMKgeGVuL2FyY2gvcHBjL2luY2x1ZGUv
-YXNtL2NhY2hlLmjCoMKgwqDCoCB8IDMgLS0tCj4gwqB4ZW4vYXJjaC9wcGMvbW0tcmFkaXguY8Kg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHwgMSArCj4gwqB4ZW4vYXJjaC9wcGMvc3R1YnMuY8Kg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHwgNyArKysrKysrCj4gwqB4ZW4vYXJjaC9y
-aXNjdi9tbS5jwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB8IDIgKy0KPiDCoHhl
-bi9jb21tb24vYXJnby5jwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgfCAx
-ICsKPiDCoHhlbi9jb21tb24vY3B1LmPCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgIHwgMSArCj4gwqB4ZW4vY29tbW9uL2RlYnVndHJhY2UuY8KgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgIHwgMSArCj4gwqB4ZW4vY29tbW9uL2RvbWFpbi5jwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoCB8IDEgKwo+IMKgeGVuL2NvbW1vbi9ldmVudF9jaGFubmVsLmPCoMKg
-wqDCoMKgwqDCoMKgwqDCoCB8IDIgKysKPiDCoHhlbi9jb21tb24va2V5aGFuZGxlci5jwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqAgfCAxICsKPiDCoHhlbi9jb21tb24vbWVtb3J5LmPCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHwgMSArCj4gwqB4ZW4vY29tbW9uL3BhZ2VfYWxs
-b2MuY8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHwgMSArCj4gwqB4ZW4vY29tbW9uL3BkeC5j
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB8IDEgKwo+IMKgeGVuL2Nv
-bW1vbi9yYWRpeC10cmVlLmPCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB8IDEgKwo+IMKgeGVu
-L2NvbW1vbi9yYW5kb20uY8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgfCAyICst
-Cj4gwqB4ZW4vY29tbW9uL3JjdXBkYXRlLmPCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAg
-fCAxICsKPiDCoHhlbi9jb21tb24vc2NoZWQvY29yZS5jwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqAgfCAxICsKPiDCoHhlbi9jb21tb24vc2NoZWQvY3B1cG9vbC5jwqDCoMKgwqDCoMKgwqDCoMKg
-wqAgfCAxICsKPiDCoHhlbi9jb21tb24vc2NoZWQvY3JlZGl0LmPCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgIHwgMSArCj4gwqB4ZW4vY29tbW9uL3NjaGVkL2NyZWRpdDIuY8KgwqDCoMKgwqDCoMKgwqDC
-oMKgIHwgMSArCj4gwqB4ZW4vY29tbW9uL3NodXRkb3duLmPCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqAgfCAxICsKPiDCoHhlbi9jb21tb24vc3BpbmxvY2suY8KgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoCB8IDEgKwo+IMKgeGVuL2NvbW1vbi90aW1lci5jwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgIHwgMSArCj4gwqB4ZW4vY29tbW9uL3ZlcnNpb24uY8KgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHwgMyArLS0KPiDCoHhlbi9jb21tb24vdmlydHVh
-bF9yZWdpb24uY8KgwqDCoMKgwqDCoMKgwqDCoCB8IDEgKwo+IMKgeGVuL2NvbW1vbi92bWFwLmPC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB8IDIgKy0KPiDCoHhlbi9kcml2
-ZXJzL2NoYXIvY29uc29sZS5jwqDCoMKgwqDCoMKgwqDCoMKgwqAgfCAxICsKPiDCoHhlbi9kcml2
-ZXJzL2NoYXIvbnMxNjU1MC5jwqDCoMKgwqDCoMKgwqDCoMKgwqAgfCAxICsKPiDCoHhlbi9kcml2
-ZXJzL2NoYXIvc2VyaWFsLmPCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHwgMiArLQo+IMKgeGVuL2lu
-Y2x1ZGUveGVuL2NhY2hlLmjCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB8IDIgKysKPiDCoHhl
-bi9pbmNsdWRlL3hlbi9oeXBmcy5owqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgfCAxICsKPiDC
-oDMyIGZpbGVzIGNoYW5nZWQsIDM4IGluc2VydGlvbnMoKyksIDE1IGRlbGV0aW9ucygtKQo+IAoK
+On 21.06.2024 22:19, Andrew Cooper wrote:
+> RISC-V wants to introduce a full build of Xen without using the legacy
+> definitions.  PPC64 has the most minimal full build of Xen right now, so make
+> it compile without the legacy definitions.
+> 
+> Mostly this is just including xen/sections.h in a variety of common files.  In
+> a couple of cases, we can drop an inclusion of {xen,asm}/cache.h, but almost
+> all files get the definitions transitively.
+> 
+> No functional change.
+> 
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+
+Acked-by: Jan Beulich <jbeulich@suse.com>
 
 
 
