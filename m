@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 636BF914E54
-	for <lists+xen-devel@lfdr.de>; Mon, 24 Jun 2024 15:21:32 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.746618.1153726 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4B0E6914EC4
+	for <lists+xen-devel@lfdr.de>; Mon, 24 Jun 2024 15:35:31 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.746624.1153736 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sLjcY-0004Lm-7b; Mon, 24 Jun 2024 13:20:34 +0000
+	id 1sLjqb-0006W4-C7; Mon, 24 Jun 2024 13:35:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 746618.1153726; Mon, 24 Jun 2024 13:20:34 +0000
+Received: by outflank-mailman (output) from mailman id 746624.1153736; Mon, 24 Jun 2024 13:35:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sLjcY-0004Iy-4E; Mon, 24 Jun 2024 13:20:34 +0000
-Received: by outflank-mailman (input) for mailman id 746618;
- Mon, 24 Jun 2024 13:20:33 +0000
+	id 1sLjqb-0006Sx-9K; Mon, 24 Jun 2024 13:35:05 +0000
+Received: by outflank-mailman (input) for mailman id 746624;
+ Mon, 24 Jun 2024 13:35:03 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=jLHn=N2=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1sLjcX-0004Ir-24
- for xen-devel@lists.xenproject.org; Mon, 24 Jun 2024 13:20:33 +0000
-Received: from mail-yw1-x112f.google.com (mail-yw1-x112f.google.com
- [2607:f8b0:4864:20::112f])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=wsRE=N2=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1sLjqZ-0006Sr-ND
+ for xen-devel@lists.xenproject.org; Mon, 24 Jun 2024 13:35:03 +0000
+Received: from mail-lj1-x235.google.com (mail-lj1-x235.google.com
+ [2a00:1450:4864:20::235])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 87df5836-322c-11ef-90a3-e314d9c70b13;
- Mon, 24 Jun 2024 15:20:31 +0200 (CEST)
-Received: by mail-yw1-x112f.google.com with SMTP id
- 00721157ae682-643acefd1afso13200177b3.2
- for <xen-devel@lists.xenproject.org>; Mon, 24 Jun 2024 06:20:31 -0700 (PDT)
-Received: from [10.125.226.166] ([160.101.139.1])
- by smtp.gmail.com with ESMTPSA id
- af79cd13be357-79bce91f16esm312535785a.77.2024.06.24.06.20.28
+ id 8eb575e2-322e-11ef-90a3-e314d9c70b13;
+ Mon, 24 Jun 2024 15:35:01 +0200 (CEST)
+Received: by mail-lj1-x235.google.com with SMTP id
+ 38308e7fff4ca-2ec1ac1aed2so52804951fa.3
+ for <xen-devel@lists.xenproject.org>; Mon, 24 Jun 2024 06:35:01 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ d2e1a72fcca58-70690b37fabsm505209b3a.1.2024.06.24.06.34.58
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 24 Jun 2024 06:20:30 -0700 (PDT)
+ Mon, 24 Jun 2024 06:35:00 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,103 +45,92 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 87df5836-322c-11ef-90a3-e314d9c70b13
+X-Inumbo-ID: 8eb575e2-322e-11ef-90a3-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1719235230; x=1719840030; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=6poGtAm0Yd/OQGMLhi5xp1v4oxLl4Vrx2Yyd5BmKCaY=;
-        b=sD1SnX5u36iNKoG9RSVq8KLibq3eQSeRys4NNiq7uSn38hQvX+QE1gGiaZr/+5wkzv
-         chQONRkFP0sUyb/S8UO/zytUKG679OMeaaGFOwbxyIEozwBciFdIE/ijJcs1Cm8z2bZT
-         RemqPIKa5BwF1cYWMgLuVD6quaExIOa0dPueU=
+        d=suse.com; s=google; t=1719236101; x=1719840901; darn=lists.xenproject.org;
+        h=content-transfer-encoding:autocrypt:subject:from:cc:to
+         :content-language:user-agent:mime-version:date:message-id:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=U019brr9NgH/q5MYR/FzuT2DxJ+abEquW+fZ4qJ26tc=;
+        b=V3Pt+IUfU8Wpf4C1vnByh8gaerH642WJLHkEgvJ62P1S5syYSdSOQ4Jnnf5KX+Kae8
+         OMAJzvgllQxXu76VMkmqypx01SoMMXnlUyX/wDmMM+jrvVJT3ryFRrMvyvikqY5u4WzT
+         QPNm7FtM83BeCYdBMAqAD8UGGosNekuaIZ5dj4zgqmNFH7jV8+Gs5c5BBuWWfoz1scW5
+         WGSHRmvasFqD/l3humCN3yP1kMGLMLxP9gWs/EihimGxoxfOP2fmBuFudeBAmU1nMYcJ
+         7aTwtvvEogXc422zm/7hvs6yICn3TH5l940yq0LjQA1FrtFu4HxyqmXLnE3fkWWJujCW
+         HXow==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1719235230; x=1719840030;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=6poGtAm0Yd/OQGMLhi5xp1v4oxLl4Vrx2Yyd5BmKCaY=;
-        b=Lstt8f0s/UvQEVjONN/a4Yv/BzsB11IyZ4ULu2PZX2/NvammLdR1Jq8xMt6/Zy+r0d
-         r1eqQeEeqKtpask3f1CGbtIg5DOXOxROB+389V8ABUyXRNLejWPtuV2nJnSNawe1X5fo
-         +HOpk0J2QUcBQuzdZfZ3sdlvm1o9cLf97r1A4CxfMmm222gIj6MCgoZbxH4dr8Ff8Kg0
-         TgSTWCKUrw6r8s5QPVGsuUhEE/c0XYn/JnC/9OC6xcfI89Q28TWba/K0iaHTrn1MT9vI
-         RooqCxtc3EL9ZiN/Wzx/iBEsiSJ920juApv719pEg/8gAxkffrOaXeGPm3yxkEM4zH7H
-         9Nwg==
-X-Forwarded-Encrypted: i=1; AJvYcCXmCDxVlPFVD4R5x9qO2rWlCpulTZ5d3P3H2/wGre3OrFuRxncPtguEkQAgI6UKysUvEIr4NizpfXOPwlVlwLvxaS+Dgy/z0Cst/0zs18U=
-X-Gm-Message-State: AOJu0YwGVl1YN3s8+UX9oJSY7PpaRmaYNCxBVWF9wYYyIv3Meg1sF1eY
-	4dI4qdn2Ikhx8iCkC2FCnhc8tscMdp+2iS778102vqxfNJcop3Q+Rj5iFVFv2XU=
-X-Google-Smtp-Source: AGHT+IGqbp2Txe3Yef4gqvVN36swGj4ZV3nzOMK7xF2UiTsC+lLtQaJU1URViLk730AtixEi9xz9gg==
-X-Received: by 2002:a05:690c:f14:b0:645:fecc:3233 with SMTP id 00721157ae682-645fecc35acmr11264027b3.7.1719235230477;
-        Mon, 24 Jun 2024 06:20:30 -0700 (PDT)
-Message-ID: <83743273-54ba-4f8b-9548-30dbd763887e@citrix.com>
-Date: Mon, 24 Jun 2024 14:20:27 +0100
+        d=1e100.net; s=20230601; t=1719236101; x=1719840901;
+        h=content-transfer-encoding:autocrypt:subject:from:cc:to
+         :content-language:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=U019brr9NgH/q5MYR/FzuT2DxJ+abEquW+fZ4qJ26tc=;
+        b=MDLPiF3GrZ8r8e0ed6M1Aauan8rq4kS+khaly6H5w196O0xt5pB17zbybh5Jy1LXfM
+         WGn5YYFcFrhdj6BfLYE6KjamQ2Biw+nu3tE0Ou3UImu8+SW0Q9EODe5ib/e0mVdWOyar
+         /k0GYrzFRK/5e5y+xJ/Qj8SEplsXNd2Pk7s5a4oFq1Icy/5q4NO2aOubVQeJm+PYfQ6g
+         fuEIHR/MUI0SWtH6g01Hjy7ttDaxwnFMzYmb5pm4SDgD2okek2C6n3tjQ0cLd1GiZFWz
+         RpMUE6FzpISHQFlOwZjdb/urYSZecrcX6xtfYzj/zizyNi0UVAIMJN37pttR8uZC7Csr
+         Jbzw==
+X-Forwarded-Encrypted: i=1; AJvYcCXGnSj5Fv62TAU2mqFGypepXrY1vOY7lkcJTX6YG0P8i2+j9KbNg7gYY6NHSEEimf8FN+V5EqvVcfMgZhHlkIB6YukQFBTKnzuWfoJdqHg=
+X-Gm-Message-State: AOJu0YyFrwUi/DdqKX9yidvlRne2O4fhNP7vS71D9l+zjKwyTeYDOyCh
+	vF0dGfhoeHNuGd7UNDQErGzUowMH2ujyJ7hmoTr4bE+ffanVGd9JBbCzSbyFOg==
+X-Google-Smtp-Source: AGHT+IEGwEP1Smx0qT5AMcJSAl8roOthr1MTgaaGJ/0WVFjT+wg4k4ldidCsrjDxqnL1v+6TUT4xRA==
+X-Received: by 2002:a2e:7d15:0:b0:2ec:5a85:66ec with SMTP id 38308e7fff4ca-2ec5b30786cmr28120701fa.48.1719236101145;
+        Mon, 24 Jun 2024 06:35:01 -0700 (PDT)
+Message-ID: <e25f5cd4-9130-488c-8294-22bd9fbd76ff@suse.com>
+Date: Mon, 24 Jun 2024 15:34:53 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH for-4.19] xen: re-add type checking to
- {,__}copy_from_guest_offset()
-To: Jan Beulich <jbeulich@suse.com>,
+Content-Language: en-US
+To: Minios-devel <minios-devel@lists.xenproject.org>
+Cc: Samuel Thibault <samuel.thibault@ens-lyon.org>,
+ Juergen Gross <jgross@suse.com>,
  "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Oleksii Kurochko <oleksii.kurochko@gmail.com>
-References: <6fc55df2-5d92-4f3f-8eb3-69bd89bfea4e@suse.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- xsFNBFLhNn8BEADVhE+Hb8i0GV6mihnnr/uiQQdPF8kUoFzCOPXkf7jQ5sLYeJa0cQi6Penp
- VtiFYznTairnVsN5J+ujSTIb+OlMSJUWV4opS7WVNnxHbFTPYZVQ3erv7NKc2iVizCRZ2Kxn
- srM1oPXWRic8BIAdYOKOloF2300SL/bIpeD+x7h3w9B/qez7nOin5NzkxgFoaUeIal12pXSR
- Q354FKFoy6Vh96gc4VRqte3jw8mPuJQpfws+Pb+swvSf/i1q1+1I4jsRQQh2m6OTADHIqg2E
- ofTYAEh7R5HfPx0EXoEDMdRjOeKn8+vvkAwhviWXTHlG3R1QkbE5M/oywnZ83udJmi+lxjJ5
- YhQ5IzomvJ16H0Bq+TLyVLO/VRksp1VR9HxCzItLNCS8PdpYYz5TC204ViycobYU65WMpzWe
- LFAGn8jSS25XIpqv0Y9k87dLbctKKA14Ifw2kq5OIVu2FuX+3i446JOa2vpCI9GcjCzi3oHV
- e00bzYiHMIl0FICrNJU0Kjho8pdo0m2uxkn6SYEpogAy9pnatUlO+erL4LqFUO7GXSdBRbw5
- gNt25XTLdSFuZtMxkY3tq8MFss5QnjhehCVPEpE6y9ZjI4XB8ad1G4oBHVGK5LMsvg22PfMJ
- ISWFSHoF/B5+lHkCKWkFxZ0gZn33ju5n6/FOdEx4B8cMJt+cWwARAQABzSlBbmRyZXcgQ29v
- cGVyIDxhbmRyZXcuY29vcGVyM0BjaXRyaXguY29tPsLBegQTAQgAJAIbAwULCQgHAwUVCgkI
- CwUWAgMBAAIeAQIXgAUCWKD95wIZAQAKCRBlw/kGpdefoHbdD/9AIoR3k6fKl+RFiFpyAhvO
- 59ttDFI7nIAnlYngev2XUR3acFElJATHSDO0ju+hqWqAb8kVijXLops0gOfqt3VPZq9cuHlh
- IMDquatGLzAadfFx2eQYIYT+FYuMoPZy/aTUazmJIDVxP7L383grjIkn+7tAv+qeDfE+txL4
- SAm1UHNvmdfgL2/lcmL3xRh7sub3nJilM93RWX1Pe5LBSDXO45uzCGEdst6uSlzYR/MEr+5Z
- JQQ32JV64zwvf/aKaagSQSQMYNX9JFgfZ3TKWC1KJQbX5ssoX/5hNLqxMcZV3TN7kU8I3kjK
- mPec9+1nECOjjJSO/h4P0sBZyIUGfguwzhEeGf4sMCuSEM4xjCnwiBwftR17sr0spYcOpqET
- ZGcAmyYcNjy6CYadNCnfR40vhhWuCfNCBzWnUW0lFoo12wb0YnzoOLjvfD6OL3JjIUJNOmJy
- RCsJ5IA/Iz33RhSVRmROu+TztwuThClw63g7+hoyewv7BemKyuU6FTVhjjW+XUWmS/FzknSi
- dAG+insr0746cTPpSkGl3KAXeWDGJzve7/SBBfyznWCMGaf8E2P1oOdIZRxHgWj0zNr1+ooF
- /PzgLPiCI4OMUttTlEKChgbUTQ+5o0P080JojqfXwbPAyumbaYcQNiH1/xYbJdOFSiBv9rpt
- TQTBLzDKXok86M7BTQRS4TZ/ARAAkgqudHsp+hd82UVkvgnlqZjzz2vyrYfz7bkPtXaGb9H4
- Rfo7mQsEQavEBdWWjbga6eMnDqtu+FC+qeTGYebToxEyp2lKDSoAsvt8w82tIlP/EbmRbDVn
- 7bhjBlfRcFjVYw8uVDPptT0TV47vpoCVkTwcyb6OltJrvg/QzV9f07DJswuda1JH3/qvYu0p
- vjPnYvCq4NsqY2XSdAJ02HrdYPFtNyPEntu1n1KK+gJrstjtw7KsZ4ygXYrsm/oCBiVW/OgU
- g/XIlGErkrxe4vQvJyVwg6YH653YTX5hLLUEL1NS4TCo47RP+wi6y+TnuAL36UtK/uFyEuPy
- wwrDVcC4cIFhYSfsO0BumEI65yu7a8aHbGfq2lW251UcoU48Z27ZUUZd2Dr6O/n8poQHbaTd
- 6bJJSjzGGHZVbRP9UQ3lkmkmc0+XCHmj5WhwNNYjgbbmML7y0fsJT5RgvefAIFfHBg7fTY/i
- kBEimoUsTEQz+N4hbKwo1hULfVxDJStE4sbPhjbsPCrlXf6W9CxSyQ0qmZ2bXsLQYRj2xqd1
- bpA+1o1j2N4/au1R/uSiUFjewJdT/LX1EklKDcQwpk06Af/N7VZtSfEJeRV04unbsKVXWZAk
- uAJyDDKN99ziC0Wz5kcPyVD1HNf8bgaqGDzrv3TfYjwqayRFcMf7xJaL9xXedMcAEQEAAcLB
- XwQYAQgACQUCUuE2fwIbDAAKCRBlw/kGpdefoG4XEACD1Qf/er8EA7g23HMxYWd3FXHThrVQ
- HgiGdk5Yh632vjOm9L4sd/GCEACVQKjsu98e8o3ysitFlznEns5EAAXEbITrgKWXDDUWGYxd
- pnjj2u+GkVdsOAGk0kxczX6s+VRBhpbBI2PWnOsRJgU2n10PZ3mZD4Xu9kU2IXYmuW+e5KCA
- vTArRUdCrAtIa1k01sPipPPw6dfxx2e5asy21YOytzxuWFfJTGnVxZZSCyLUO83sh6OZhJkk
- b9rxL9wPmpN/t2IPaEKoAc0FTQZS36wAMOXkBh24PQ9gaLJvfPKpNzGD8XWR5HHF0NLIJhgg
- 4ZlEXQ2fVp3XrtocHqhu4UZR4koCijgB8sB7Tb0GCpwK+C4UePdFLfhKyRdSXuvY3AHJd4CP
- 4JzW0Bzq/WXY3XMOzUTYApGQpnUpdOmuQSfpV9MQO+/jo7r6yPbxT7CwRS5dcQPzUiuHLK9i
- nvjREdh84qycnx0/6dDroYhp0DFv4udxuAvt1h4wGwTPRQZerSm4xaYegEFusyhbZrI0U9tJ
- B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
- d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
- 6+ahAA==
-In-Reply-To: <6fc55df2-5d92-4f3f-8eb3-69bd89bfea4e@suse.com>
+From: Jan Beulich <jbeulich@suse.com>
+Subject: {PATCH mini-os] mman: correct m{,un}lock() definitions
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 24/06/2024 1:26 pm, Jan Beulich wrote:
-> When re-working them to avoid UB on guest address calculations, I failed
-> to add explicit type checks in exchange for the implicit ones that until
-> then had happened in assignments that were there anyway.
->
-> Fixes: 43d5c5d5f70b ("xen: avoid UB in guest handle arithmetic")
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+From: Charles Arnold <carnold@suse.com>
 
-Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+gcc14 no longer (silently) accepts functions with no return type
+specified.
+
+Signed-off-by: Charles Arnold <carnold@suse.com>
+Signed-off-by: Jan Beulich <jbeulich@suse.com>
+
+--- a/include/posix/sys/mman.h
++++ b/include/posix/sys/mman.h
+@@ -16,7 +16,7 @@
+ 
+ void *mmap(void *start, size_t length, int prot, int flags, int fd, off_t offset) asm("mmap64");
+ int munmap(void *start, size_t length);
+-static inline mlock(const void *addr, size_t len) { return 0; }
+-static inline munlock(const void *addr, size_t len) { return 0; }
++static inline int mlock(const void *addr, size_t len) { return 0; }
++static inline int munlock(const void *addr, size_t len) { return 0; }
+ 
+ #endif /* _POSIX_SYS_MMAN_H */
 
