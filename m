@@ -2,38 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A3262914F8C
+	by mail.lfdr.de (Postfix) with ESMTPS id A0334914F8B
 	for <lists+xen-devel@lfdr.de>; Mon, 24 Jun 2024 16:07:26 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.746672.1153793 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.746674.1153804 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sLkL9-00068F-Oj; Mon, 24 Jun 2024 14:06:39 +0000
+	id 1sLkLY-0006WD-W9; Mon, 24 Jun 2024 14:07:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 746672.1153793; Mon, 24 Jun 2024 14:06:39 +0000
+Received: by outflank-mailman (output) from mailman id 746674.1153804; Mon, 24 Jun 2024 14:07:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sLkL9-000667-M9; Mon, 24 Jun 2024 14:06:39 +0000
-Received: by outflank-mailman (input) for mailman id 746672;
- Mon, 24 Jun 2024 14:06:38 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=jLHn=N2=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1sLkL8-000661-5p
- for xen-devel@lists.xenproject.org; Mon, 24 Jun 2024 14:06:38 +0000
-Received: from mail-qv1-xf33.google.com (mail-qv1-xf33.google.com
- [2607:f8b0:4864:20::f33])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f78fd6e6-3232-11ef-b4bb-af5377834399;
- Mon, 24 Jun 2024 16:06:36 +0200 (CEST)
-Received: by mail-qv1-xf33.google.com with SMTP id
- 6a1803df08f44-6b5253ffd24so10609166d6.2
- for <xen-devel@lists.xenproject.org>; Mon, 24 Jun 2024 07:06:36 -0700 (PDT)
-Received: from [10.125.226.166] ([160.101.139.1])
+	id 1sLkLY-0006UB-TQ; Mon, 24 Jun 2024 14:07:04 +0000
+Received: by outflank-mailman (input) for mailman id 746674;
+ Mon, 24 Jun 2024 14:07:03 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=IpOW=N2=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1sLkLX-0006Sp-LL
+ for xen-devel@lists.xenproject.org; Mon, 24 Jun 2024 14:07:03 +0000
+Received: from mail-lj1-x235.google.com (mail-lj1-x235.google.com
+ [2a00:1450:4864:20::235])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 077703b6-3233-11ef-90a3-e314d9c70b13;
+ Mon, 24 Jun 2024 16:07:02 +0200 (CEST)
+Received: by mail-lj1-x235.google.com with SMTP id
+ 38308e7fff4ca-2ec1ac1aed2so53337871fa.3
+ for <xen-devel@lists.xenproject.org>; Mon, 24 Jun 2024 07:07:02 -0700 (PDT)
+Received: from ?IPV6:2003:e5:8729:4000:29eb:6d9d:3214:39d2?
+ (p200300e58729400029eb6d9d321439d2.dip0.t-ipconnect.de.
+ [2003:e5:8729:4000:29eb:6d9d:3214:39d2])
  by smtp.gmail.com with ESMTPSA id
- 6a1803df08f44-6b51ef6e795sm34003766d6.141.2024.06.24.07.06.33
+ 4fb4d7f45d1cf-57d305616dfsm4772996a12.79.2024.06.24.07.07.01
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 24 Jun 2024 07:06:34 -0700 (PDT)
+ Mon, 24 Jun 2024 07:07:01 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,166 +47,117 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f78fd6e6-3232-11ef-b4bb-af5377834399
+X-Inumbo-ID: 077703b6-3233-11ef-90a3-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1719237995; x=1719842795; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=imOiZ7CuJB5aMTBnxc3MrW9G27H52CpIPfYGY0PN8JY=;
-        b=cirvNAHBNCIjw+KlqpGtij3PnxPbz4u8gbYLKN2j0ny/jOQ/kQTu5inyQL4JuVUkxf
-         EgVdw+VytU9Q3eUOBztCUnmqWw0Ru65lod6wrLFiogrhcQIQMIJ5OPGIa3od7tqYpoVB
-         ax0SyqcUDQa6shAeaz+DPNWjYtGfBVPWz8FQ0=
+        d=suse.com; s=google; t=1719238022; x=1719842822; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=0barnV27hwc5UKQU4XJM1KtyxYMRXyRpHupRJPqEnIQ=;
+        b=CtqCJaicL94lLwhKbR64BdSnc2mDMrtmgB5nOlPMpW4HtA5gwESyd+Kgv4VTs32rdX
+         b0mSdW8goE9BxdouwoSoLqvw+a1boh8fdHG3Y4Eefj38zci9LyhQukPaRrpOR+Nn7pwR
+         R2VZHoy8YmMyZ7b4DEoq7uuwURr08Rn4RvRbMnH7GXpsz+bYacswyH9ATbnS/DRO+dpf
+         Ir4gdq05sYArvY6EofbdqCyxMu5lScT07uAtHywKin/tI5QRDlAw39wfwnuyiNGYw11U
+         jgQoAa2B5zUC6/Fq7ckvMc/APKlDv/rDn/LfmX44WXVkCsPsnGBUOXlqFwU5qOE09L9t
+         DHxg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1719237995; x=1719842795;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=imOiZ7CuJB5aMTBnxc3MrW9G27H52CpIPfYGY0PN8JY=;
-        b=Y83DqYXqFzEDF6ES6mNPCdP5hM0ps2AFaKZfgwK/GsKq3+dPFTwrphr8j625dF+1Bk
-         cEoNgsK4fd0Vq3a+PAdCJqVvirQp0ZugNl9ZKl4kBKEcSSYHRoguZzXfNRzi9ujH4izU
-         Sca9GehmHAtEBQNSzK6kPYwQLyS9Y4SgurpT7BoiYotK9dL23ZAsOtKcHLyQ18Us272l
-         Ep1fKmhR3pIobJy32nBqpWbhXfZgzsNy4NgRn+uVuRx8iPCOJ3KhZOtbjTC+POg/B+8A
-         ExrCTK7xlaHFORx/ZBUIbBsNqAF8UQqlUQcuGiTc1v5O/avZ/vS96q2JdwkZbwpMhRKb
-         lB0Q==
-X-Forwarded-Encrypted: i=1; AJvYcCWNnESIsiEiJiMVoLXslpJzObErEPpYSPc1bs8JKAxSApgx0ZddFV1H1SPn8VEWhro8M3Q2/dQKlk0PqBpIQatDKo0RdlZYV0jzalasvNo=
-X-Gm-Message-State: AOJu0YwsdcmDECsCxTnONdI+JzxMr8jtBZvagzcXCeaZBwuApktuNUVI
-	i8OoFltim9HxOKplPB9hCnU4ZYuAJMc4FJP1tLnY2LtiQMQcQqzk+kGhLr2G30Y=
-X-Google-Smtp-Source: AGHT+IE0Lux+2Z+lGwXTmLtrrBF1Fn3tWEl+sNV2yAJiQhnsRn9sF/ZiXuBESXDW6ebSLBVpb2m/PA==
-X-Received: by 2002:a0c:f0d3:0:b0:6b4:f6f6:bf39 with SMTP id 6a1803df08f44-6b53635e007mr58818476d6.2.1719237994931;
-        Mon, 24 Jun 2024 07:06:34 -0700 (PDT)
-Message-ID: <309d5dc1-833c-4f28-8010-b41968942035@citrix.com>
-Date: Mon, 24 Jun 2024 15:06:32 +0100
+        d=1e100.net; s=20230601; t=1719238022; x=1719842822;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=0barnV27hwc5UKQU4XJM1KtyxYMRXyRpHupRJPqEnIQ=;
+        b=ttECZd/DNlGb1bPapRcSJhuUZoFO3Awfl/i/0uSFgZ/nzDqQ0J0N7Pdy5dv+JWTT66
+         kCfZyw4fP8RLSIhhCUR7Yi7mtR4mFhfuX7cR4dw7N43Q517HQ9gW9Pw3xznTDeHQfoKP
+         CNKOZitpdSz0VJoq4bogjPsL06enRYn8yP9IbNNhNcm6mAJnOcdV8bLIo4oGivekZWtw
+         /QwIcw4fuB8hJj+FN/1/i/7I7W60/1YanxX2OZtXxEz+W75cO8gvFxB4GBcWh9Ib2nB3
+         i+9mk1JL7AEgUBdgaWHPvjYnQ+oawyjz8qTEpslcShgdZ6BhmPVNFYfbRvPa1ZGsSnO7
+         TFpg==
+X-Gm-Message-State: AOJu0YxS8urny5lgfDJz0KvC1whjIE3s0U0C90yJeApvYl/xyIxyii+E
+	PLTT8NXjJc4Ihjz/GJc+IsavYnaALfrgYjybphaeEtsDknQM50LMq7gpcKxIbMqUfh3HAGrCWTu
+	B
+X-Google-Smtp-Source: AGHT+IEE50wp9VgUOoKh1JacFeWQ/XJli9PtBBP8RLQC0+E/sms7PNusypFEsXwyRLvWSpkS2ZkdmQ==
+X-Received: by 2002:a2e:9d86:0:b0:2ec:5a0d:b2dd with SMTP id 38308e7fff4ca-2ec5b2f0373mr27918991fa.39.1719238021688;
+        Mon, 24 Jun 2024 07:07:01 -0700 (PDT)
+Message-ID: <d280b6ec-8de2-4917-a453-7b519aa67cfd@suse.com>
+Date: Mon, 24 Jun 2024 16:07:01 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/4] xen/xlat: Sort structs per file
-To: Jan Beulich <jbeulich@suse.com>
-Cc: George Dunlap <George.Dunlap@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Xen-devel <xen-devel@lists.xenproject.org>, Julien Grall <julien@xen.org>
-References: <20240415154155.2718064-1-andrew.cooper3@citrix.com>
- <20240415154155.2718064-3-andrew.cooper3@citrix.com>
- <21436a56-f9e0-4700-8216-3bfa4094cc01@suse.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <21436a56-f9e0-4700-8216-3bfa4094cc01@suse.com>
-Content-Type: text/plain; charset=UTF-8
+Subject: Re: ACPI NVS range conflicting with Dom0 page tables (or kernel
+ image)
+To: Jan Beulich <jbeulich@suse.com>,
+ =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <a5a8a016-2107-46fb-896b-2baaf66566d4@suse.com>
+ <ZnBCFgHltVqj2FDh@mail-itl> <bd2eb947-7fca-4f1a-bf43-addccdda35a0@suse.com>
+Content-Language: en-US
+From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+In-Reply-To: <bd2eb947-7fca-4f1a-bf43-addccdda35a0@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-On 18/04/2024 10:00 am, Jan Beulich wrote:
-> On 15.04.2024 17:41, Andrew Cooper wrote:
->> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> While I don't mind the change as is, "sort" is ambiguous here in one regard.
-> Personally I'd prefer if those parts of the change were dropped, but I can
-> live with the sorting criteria being spelled out in the description:
->
->> @@ -40,13 +40,6 @@
->>  
->>  ?	cpu_offline_action		arch-x86/xen-mca.h
->>  ?	mc				arch-x86/xen-mca.h
->> -?	mcinfo_bank			arch-x86/xen-mca.h
->> -?	mcinfo_common			arch-x86/xen-mca.h
->> -?	mcinfo_extended			arch-x86/xen-mca.h
->> -?	mcinfo_global			arch-x86/xen-mca.h
->> -?	mcinfo_logical_cpu		arch-x86/xen-mca.h
->> -?	mcinfo_msr			arch-x86/xen-mca.h
->> -?	mcinfo_recovery			arch-x86/xen-mca.h
->>  !	mc_fetch			arch-x86/xen-mca.h
->>  ?	mc_info				arch-x86/xen-mca.h
->>  ?	mc_inject_v2			arch-x86/xen-mca.h
->> @@ -54,6 +47,13 @@
->>  ?	mc_msrinject			arch-x86/xen-mca.h
->>  ?	mc_notifydomain			arch-x86/xen-mca.h
->>  !	mc_physcpuinfo			arch-x86/xen-mca.h
->> +?	mcinfo_bank			arch-x86/xen-mca.h
->> +?	mcinfo_common			arch-x86/xen-mca.h
->> +?	mcinfo_extended			arch-x86/xen-mca.h
->> +?	mcinfo_global			arch-x86/xen-mca.h
->> +?	mcinfo_logical_cpu		arch-x86/xen-mca.h
->> +?	mcinfo_msr			arch-x86/xen-mca.h
->> +?	mcinfo_recovery			arch-x86/xen-mca.h
->>  ?	page_offline_action		arch-x86/xen-mca.h
-> Imo this sorting was fine (at least one further instance below): Whether
-> underscore sorts ahead of lower case letters depends on how sorting is done.
-> I take you assume sorting as per the C locale,
+On 17.06.24 16:25, Jan Beulich wrote:
+> On 17.06.2024 16:03, Marek Marczykowski-Górecki wrote:
+>> On Mon, Jun 17, 2024 at 01:22:37PM +0200, Jan Beulich wrote:
+>>> Hello,
+>>>
+>>> while it feels like we had a similar situation before, I can't seem to be
+>>> able to find traces thereof, or associated (Linux) commits.
+>>
+>> Is it some AMD Threadripper system by a chance?
+> 
+> It's an AMD system in any event, yes. I don't have all the details on it.
+> 
+>> Previous thread on this issue:
+>> https://lore.kernel.org/xen-devel/CAOCpoWdOH=xGxiQSC1c5Ueb1THxAjH4WiZbCZq-QT+d_KAk3SA@mail.gmail.com/
+> 
+> Ah yes, that's probably the one I was vaguely remembering. There it was the
+> kernel image E820 conflicted with. Yet ...
+> 
+>>> With
+>>>
+>>> (XEN)  Dom0 kernel: 64-bit, PAE, lsb, paddr 0x1000000 -> 0x4000000
+>>> ...
+>>> (XEN)  Dom0 alloc.:   0000000440000000->0000000448000000 (619175 pages to be allocated)
+>>> ...
+>>> (XEN)  Loaded kernel: ffffffff81000000->ffffffff84000000
+>>>
+>>> the kernel occupies the space from 16Mb to 64Mb in the initial allocation.
+>>> Page tables come (almost) directly above:
+>>>
+>>> (XEN)  Page tables:   ffffffff84001000->ffffffff84026000
+>>>
+>>> I.e. they're just above the 64Mb boundary. Yet sadly in the host E820 map
+>>> there is
+>>>
+>>> (XEN)  [0000000004000000, 0000000004009fff] (ACPI NVS)
+>>>
+>>> i.e. a non-RAM range starting at 64Mb. The kernel (currently) won't tolerate
+>>> such an overlap (also if it was overlapping the kernel image, e.g. if on the
+>>> machine in question s sufficiently much larger kernel was used). Yet with its
+>>> fundamental goal of making its E820 match the host one I'm also in trouble
+>>> thinking of possible solutions / workarounds. I certainly do not see Xen
+>>> trying to cover for this, as the E820 map re-arrangement is purely a kernel
+>>> side decision (forward ported kernels got away without, and what e.g. the
+>>> BSDs do is entirely unknown to me).
+>>
+>> In Qubes we have worked around the issue by moving the kernel lower
+>> (CONFIG_PHYSICAL_START=0x200000):
+>> https://github.com/QubesOS/qubes-linux-kernel/commit/3e8be4ac1682370977d4d0dc1d782c428d860282
+>>
+>> Far from ideal, but gets it bootable...
+> 
+> ... as you say, it's a workaround for particular systems, but not generally
+> dealing with the underlying issue. This explains why I couldn't find any
+> patch(es), though.
 
-Indeed.
+Today the PV dom0 boot only supports to relocate the initrd or the p2m
+map in case of E820 conflicts.
 
-> when the original sorting was
-> considering undercores to be separators, i.e. in a different character class
-> (together with e.g. dash or tilde).
+Relocating the start_info data or the initial page tables should be rather
+simple, but doing the same with the kernel is problematic.
 
-If _ is expected to be a separator, then the correct sorting would be:
-
-mc
-mc_fetch
-mc_info
-mcinfo_bank
-mcinfo_common
-mcinfo_extended
-mcinfo_global
-mcinfo_logical_cpu
-mcinfo_msr
-mcinfo_recovery
-mc_inject_v2
-mc_mceinject
-
-which is definitely not what we want.  This came specifically from
-`sort`, not something I did by hand.
-
-`LANG=C sort` gives the ordering presented in this patch.
+I need to look into this in more detail, maybe I can come up with a solution.
 
 
->
-> When using C local sorting, I think arch-x86/xen-@arch@.h also would need
-> moving past arch-x86/xen.h (whereas right now all separators are deemed
-> equal and hence @ comes ahead of h which in turn is ahead of m).
-
-`sort` agrees, so I'll do this too, and note it in the commit message.
-
-~Andrew
+Juergen
 
