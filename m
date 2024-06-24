@@ -2,38 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9E1EE9149D6
-	for <lists+xen-devel@lfdr.de>; Mon, 24 Jun 2024 14:29:22 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.746548.1153635 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5DC26914A27
+	for <lists+xen-devel@lfdr.de>; Mon, 24 Jun 2024 14:33:33 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.746554.1153646 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sLiol-0007vf-Jm; Mon, 24 Jun 2024 12:29:07 +0000
+	id 1sLiso-0000ww-3o; Mon, 24 Jun 2024 12:33:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 746548.1153635; Mon, 24 Jun 2024 12:29:07 +0000
+Received: by outflank-mailman (output) from mailman id 746554.1153646; Mon, 24 Jun 2024 12:33:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sLiol-0007th-Gx; Mon, 24 Jun 2024 12:29:07 +0000
-Received: by outflank-mailman (input) for mailman id 746548;
- Mon, 24 Jun 2024 12:29:06 +0000
+	id 1sLiso-0000vS-0z; Mon, 24 Jun 2024 12:33:18 +0000
+Received: by outflank-mailman (input) for mailman id 746554;
+ Mon, 24 Jun 2024 12:33:16 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=wsRE=N2=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sLiok-0007tZ-DZ
- for xen-devel@lists.xenproject.org; Mon, 24 Jun 2024 12:29:06 +0000
-Received: from mail-lj1-x232.google.com (mail-lj1-x232.google.com
- [2a00:1450:4864:20::232])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=ZTmZ=N2=bounce.vates.tech=bounce-md_30504962.66796788.v1-d58da3792a2e46e584d132937eda4056@srs-se1.protection.inumbo.net>)
+ id 1sLism-0000vK-Lv
+ for xen-devel@lists.xenproject.org; Mon, 24 Jun 2024 12:33:16 +0000
+Received: from mail134-3.atl141.mandrillapp.com
+ (mail134-3.atl141.mandrillapp.com [198.2.134.3])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 58002706-3225-11ef-b4bb-af5377834399;
- Mon, 24 Jun 2024 14:29:04 +0200 (CEST)
-Received: by mail-lj1-x232.google.com with SMTP id
- 38308e7fff4ca-2ec0f3b9cfeso49606561fa.0
- for <xen-devel@lists.xenproject.org>; Mon, 24 Jun 2024 05:29:04 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-1fa2921e21dsm28243335ad.94.2024.06.24.05.28.59
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 24 Jun 2024 05:29:03 -0700 (PDT)
+ id ec947485-3225-11ef-b4bb-af5377834399;
+ Mon, 24 Jun 2024 14:33:14 +0200 (CEST)
+Received: from pmta10.mandrill.prod.atl01.rsglab.com (localhost [127.0.0.1])
+ by mail134-3.atl141.mandrillapp.com (Mailchimp) with ESMTP id
+ 4W76nN3H6rzDRHxQ8
+ for <xen-devel@lists.xenproject.org>; Mon, 24 Jun 2024 12:33:12 +0000 (GMT)
+Received: from [37.26.189.201] by mandrillapp.com id
+ d58da3792a2e46e584d132937eda4056; Mon, 24 Jun 2024 12:33:12 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,159 +43,94 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 58002706-3225-11ef-b4bb-af5377834399
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1719232144; x=1719836944; darn=lists.xenproject.org;
-        h=content-transfer-encoding:autocrypt:subject:from:cc:to
-         :content-language:user-agent:mime-version:date:message-id:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=T49lwRJXT9LLlXuByh3ICxUBFnlr1lvpGV1zsmwF7II=;
-        b=Bm3HaTUYp+Bvpo24AE1Ah8hl2LpEU8tn0swwQYCvLIp0B7J68t/GtDHbvvV2wwuB8J
-         xlsesLTgVJjXUEV5qMiekaE4+/OymUYyO1Q6Uggt10oQ6UNRUWcqG6kUs/sPIP9ChVvy
-         LDjeKr7q6M2h6sPlVlLhr6pOs0oNhrfCUvr6hJpIO0drxxxoBd+upNN2W9XgTFp/rUk7
-         Q8OtOCuZ0Nl2Eq7vbyfwuCZAQ5wnN+8tSBurECM2CPWu4J1zhV51WFrJa+QsUYiTuD8m
-         qEfndjhTm0DsZosy8/TZo02RjhEbRf6ghPyV9eVPqrl7+UgPsO0M+axR78h9Hw5OgdMv
-         jPMg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1719232144; x=1719836944;
-        h=content-transfer-encoding:autocrypt:subject:from:cc:to
-         :content-language:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=T49lwRJXT9LLlXuByh3ICxUBFnlr1lvpGV1zsmwF7II=;
-        b=sTI7Xn07xsjS584MgkRpRW/VHzmuu4+Xn9abSM7OPn8LKFmeuFLGwwmD+sARf1fFiF
-         vCps/McVnr1Y1Dz+W9GJUD1g6O3XuEZCc8GQei1l4jfc19ZYuJbbr8L+JDngJ2rrWej7
-         NKTsePnP4LWUN28i/ysHAMVB6/xmuqor0T5OkKtEyVTfWysd6ulUx2cnIKinQPrQARbZ
-         uT3pIfyOlE74OOAjN2JlWFwvL9Qa/e8iQ9Y303RlWJqb0sb7GCQwItV6PvWeH9MWPFd3
-         gvN3lVGTmupD4HEHnwHdt9fnr3JhBKUA25SOkBJea7pgLBnzP5WtvcCawe/tRecAk+M+
-         zDxQ==
-X-Gm-Message-State: AOJu0Yw1fnwtspyaiC00LrH25hjAmElnCxPBg4zYt2KRucAaQwwl3B1h
-	ydhdhbKQ4BxCiZHYdB2ADBfLHkrd3UatvZpC312lUwvc4pm2ATaN6GHqtfx+3FM5FGEFxSBSh84
-	=
-X-Google-Smtp-Source: AGHT+IFQy9PeRggWTF/W705bvZkk2NMYDXLGeQ+j+VInT5+eS6MDMGHKHpKBJsqONdI8wByiG7+GDw==
-X-Received: by 2002:a2e:98d6:0:b0:2ec:4d74:8025 with SMTP id 38308e7fff4ca-2ec593d93abmr28361281fa.20.1719232143755;
-        Mon, 24 Jun 2024 05:29:03 -0700 (PDT)
-Message-ID: <d0b9a1e0-5c70-42c5-9c63-2e3af82487b2@suse.com>
-Date: Mon, 24 Jun 2024 14:28:56 +0200
+X-Inumbo-ID: ec947485-3225-11ef-b4bb-af5377834399
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
+	s=mte1; t=1719232392; x=1719492892;
+	bh=pwBR3KA6BhYJX7ge26Cw/EkOnRSGlcYsjSqQ3E5ejtA=;
+	h=From:Subject:To:Cc:Message-Id:References:In-Reply-To:Feedback-ID:
+	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
+	 Subject:From;
+	b=G6WkQZF61bJn0gJol7tuDMU+L9cxVQgBGSvoiQFlaA3/XqXaJRokn06L4skBAvSUY
+	 yLA5N213qoTHoWcgJaaFIqE3ZPTuXgOV+u6OIDjTNCs53EWOZ0EIP2nw8iy4p3tcyz
+	 16vjbKQS/sxE1Km+T86B9t4QrDEriaORHGB5pZ+0ztzcbqjWEJau7ekCgivyOmT9vb
+	 ykstGNw/2peZLPA/V5f0M69+E8+9rqFYv+TVAh/aH74N+Q4OkZLqKHt/CymkW/+m58
+	 yZIHmb29LOZTYbBeXWDceAkoBrTGdpCMGrbnhokmMO6OT6oo8wGIczCj1oBwcNcKH/
+	 tkB96aeC8QWhA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
+	t=1719232392; x=1719492892; i=anthony.perard@vates.tech;
+	bh=pwBR3KA6BhYJX7ge26Cw/EkOnRSGlcYsjSqQ3E5ejtA=;
+	h=From:Subject:To:Cc:Message-Id:References:In-Reply-To:Feedback-ID:
+	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
+	 Subject:From;
+	b=uDS3Y1uDUUE49iLczrV6Vz1I/VsnVhLZfAc1leyDFYux/wYSBTcC1Q2hKCslvLcgI
+	 qqFVS99klr7nCBTbrKdsV3qBXMIBbuXG/b6JQV+zpkgSGJ4RUHRKiJ6HzBNrtoTI+5
+	 P9z5h33NZ1bhZu2ZPCCvnLSxvV4E3DeogIRXQ27nXOcpJiHFrb0C/QugIZtHocfN5e
+	 nCGIi2CeVAzNmkVhS0YCskJuq2srais3S7EQrx4qArqanzpEepRopya89Sk7piiLxV
+	 FR2Cuubs3AGkgivslTF7A+DrllwJTBBMeuhNzOnG7A2oyDcM3skA52mhNoZ1MR6RK3
+	 PwW8AU6/xTr6A==
+From: Anthony PERARD <anthony.perard@vates.tech>
+Subject: =?utf-8?Q?Re:=20[XEN=20PATCH=20v10=205/5]=20domctl:=20Add=20XEN=5FDOMCTL=5Fgsi=5Fpermission=20to=20grant=20gsi?=
+X-Bm-Disclaimer: Yes
+X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
+X-Bm-Transport-Timestamp: 1719232384688
+To: "Chen, Jiqian" <Jiqian.Chen@amd.com>
+Cc: Jan Beulich <jbeulich@suse.com>, Keir Fraser <keir@xensource.com>, Andrew Cooper <andrew.cooper3@citrix.com>, =?utf-8?Q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu <wl@xen.org>, George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, Juergen Gross <jgross@suse.com>, "Daniel P . Smith" <dpsmith@apertussolutions.com>, "Hildebrand, Stewart" <Stewart.Hildebrand@amd.com>, "Huang, Ray" <Ray.Huang@amd.com>, xen-devel@lists.xenproject.org
+Message-Id: <Znlnf2CHxCFadcIX@l14>
+References: <20240617090035.839640-1-Jiqian.Chen@amd.com> <20240617090035.839640-6-Jiqian.Chen@amd.com> <b4b6cbcd-dd71-44da-aea8-6a4a170d73d5@suse.com> <BL1PR12MB584916579E2C16C6C9F86D1FE7CE2@BL1PR12MB5849.namprd12.prod.outlook.com> <b6beb3f3-9c33-4d4c-a607-ca0eba76f049@suse.com> <BL1PR12MB58493479F9EF4E56E9CB814FE7C82@BL1PR12MB5849.namprd12.prod.outlook.com> <96ba4e66-5d33-4c39-b733-790e7996332f@suse.com> <BL1PR12MB58493B55E074243D356B0CAAE7C92@BL1PR12MB5849.namprd12.prod.outlook.com>
+In-Reply-To: <BL1PR12MB58493B55E074243D356B0CAAE7C92@BL1PR12MB5849.namprd12.prod.outlook.com>
+X-Native-Encoded: 1
+X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.d58da3792a2e46e584d132937eda4056?=
+X-Mandrill-User: md_30504962
+Feedback-ID: 30504962:30504962.20240624:md
+Date: Mon, 24 Jun 2024 12:33:12 +0000
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Oleksii Kurochko <oleksii.kurochko@gmail.com>
-From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH for-4.19?] xen: avoid UB in guest handle field accessors
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: 7bit
 
-Much like noted in 43d5c5d5f70b ("xen: avoid UB in guest handle
-arithmetic"), address calculations involved in accessing a struct field
-can overflow, too. Cast respective pointers to "unsigned long" and
-convert type checking accordingly. Remaining arithmetic is, despite
-there possibly being mathematical overflow, okay as per the C99 spec:
-"A computation involving unsigned operands can never overflow, because a
-result that cannot be represented by the resulting unsigned integer type
-is reduced modulo the number that is one greater than the largest value
-that can be represented by the resulting type." The overflow that we
-need to guard against is checked for in array_access_ok().
+On Fri, Jun 21, 2024 at 08:20:55AM +0000, Chen, Jiqian wrote:
+> On 2024/6/20 18:42, Jan Beulich wrote:
+> > On 20.06.2024 11:40, Chen, Jiqian wrote:
+> >> On 2024/6/18 17:23, Jan Beulich wrote:
+> >>> On 18.06.2024 10:23, Chen, Jiqian wrote:
+> >>>> On 2024/6/17 23:32, Jan Beulich wrote:
+> >>>>> On 17.06.2024 11:00, Jiqian Chen wrote:
+> >>>>>> @@ -1516,14 +1519,39 @@ static void pci_add_dm_done(libxl__egc *egc,
+> >>>>>>              rc = ERROR_FAIL;
+> >>>>>>              goto out;
+> >>>>>>          }
+> >>>>>> -        r = xc_domain_irq_permission(ctx->xch, domid, irq, 1);
+> >>>>>> +#ifdef CONFIG_X86
+> >>>>>> +        /* If dom0 doesn't have PIRQs, need to use xc_domain_gsi_permission */
+> >>>>>> +        r = xc_domain_getinfo_single(ctx->xch, 0, &info);
+> >>>>>
+> >>>>> Hard-coded 0 is imposing limitations. Ideally you would use DOMID_SELF, but
+> >>>>> I didn't check if that can be used with the underlying hypercall(s). Otherwise
+> >> From the commit 10ef7a91b5a8cb8c58903c60e2dd16ed490b3bcf, DOMID_SELF is not allowed for XEN_DOMCTL_getdomaininfo.
+> >> And now XEN_DOMCTL_getdomaininfo gets domain through rcu_lock_domain_by_id.
+> >>
+> >>>>> you want to pass the actual domid of the local domain here.
+> >> What is the local domain here?
+> > 
+> > The domain your code is running in.
+> > 
+> >> What is method for me to get its domid?
+> > 
+> > I hope there's an available function in one of the libraries to do that.
+> I didn't find relate function.
+> Hi Anthony, do you know?
 
-While there add the missing (see {,__}copy_to_guest_offset()) is-not-
-const checks to {,__}copy_field_to_guest().
+Yes, I managed to find:
+LIBXL_TOOLSTACK_DOMID
+That's the value you can use instead of "0" do designate dom0.
+(That was harder than necessary to find.)
 
-Typically, but not always, no change to generated code; code generation
-(register allocation) is different for at least common/grant_table.c.
+Cheers,
 
-Signed-off-by: Jan Beulich <jbeulich@suse.com>
----
-I notice that {,__}copy_field_from_guest() are actually unused, which
-may not be all that surprising: There's perhaps little point in copying
-in just a single field, as then any further input fields of a struct
-would likely also need copying that way (to avoid multi-read issues).
-copy_field_to_guest() has a mere two callers, in x86. All other sites
-use __copy_field_to_guest(). Overall there may hence be room here for
-simplification / reduction of redundancy.
+-- 
 
---- unstable.orig/xen/include/xen/guest_access.h	2024-06-24 13:48:30.384279937 +0200
-+++ unstable/xen/include/xen/guest_access.h	2024-06-24 13:51:35.390248096 +0200
-@@ -95,16 +95,23 @@
- /* Copy sub-field of a structure to guest context via a guest handle. */
- #define copy_field_to_guest(hnd, ptr, field) ({         \
-     const typeof(&(ptr)->field) _s = &(ptr)->field;     \
--    void *_d = &(hnd).p->field;                         \
--    (void)(&(hnd).p->field == _s);                      \
--    raw_copy_to_guest(_d, _s, sizeof(*_s));             \
-+    unsigned long d_ = (unsigned long)(hnd).p;          \
-+    /* Check that the handle is not for a const type */ \
-+    void *__maybe_unused _t = (hnd).p;                  \
-+    (void)((typeof_field(typeof(*(hnd).p), field) *)NULL == _s); \
-+    raw_copy_to_guest((void *)(d_ + offsetof(typeof(*(hnd).p), field)), \
-+                      _s, sizeof(*_s));                 \
- })
- 
- /* Copy sub-field of a structure from guest context via a guest handle. */
- #define copy_field_from_guest(ptr, hnd, field) ({       \
--    const typeof(&(ptr)->field) _s = &(hnd).p->field;   \
-+    unsigned long s_ = (unsigned long)(hnd).p;          \
-     typeof(&(ptr)->field) _d = &(ptr)->field;           \
--    raw_copy_from_guest(_d, _s, sizeof(*_d));           \
-+    (void)((typeof_field(typeof(*(hnd).p), field) *)NULL == _d); \
-+    raw_copy_from_guest(_d,                             \
-+                        (const void *)(s_ +             \
-+                            offsetof(typeof(*(hnd).p), field)), \
-+                        sizeof(*_d));                   \
- })
- 
- #define copy_to_guest(hnd, ptr, nr)                     \
-@@ -149,15 +156,22 @@
- 
- #define __copy_field_to_guest(hnd, ptr, field) ({       \
-     const typeof(&(ptr)->field) _s = &(ptr)->field;     \
--    void *_d = &(hnd).p->field;                         \
--    (void)(&(hnd).p->field == _s);                      \
--    __raw_copy_to_guest(_d, _s, sizeof(*_s));           \
-+    unsigned long d_ = (unsigned long)(hnd).p;          \
-+    /* Check that the handle is not for a const type */ \
-+    void *__maybe_unused _t = (hnd).p;                  \
-+    (void)((typeof_field(typeof(*(hnd).p), field) *)NULL == _s); \
-+    __raw_copy_to_guest((void *)(d_ + offsetof(typeof(*(hnd).p), field)), \
-+                        _s, sizeof(*_s));               \
- })
- 
- #define __copy_field_from_guest(ptr, hnd, field) ({     \
--    const typeof(&(ptr)->field) _s = &(hnd).p->field;   \
-+    unsigned long s_ = (unsigned long)(hnd).p;          \
-     typeof(&(ptr)->field) _d = &(ptr)->field;           \
--    __raw_copy_from_guest(_d, _s, sizeof(*_d));         \
-+    (void)((typeof_field(typeof(*(hnd).p), field) *)NULL == _d); \
-+    __raw_copy_from_guest(_d,                           \
-+                          (const void *)(s_ +           \
-+                              offsetof(typeof(*(hnd).p), field)), \
-+                          sizeof(*_d));                 \
- })
- 
- #define __copy_to_guest(hnd, ptr, nr)                   \
+Anthony Perard | Vates XCP-ng Developer
+
+XCP-ng & Xen Orchestra - Vates solutions
+
+web: https://vates.tech
 
