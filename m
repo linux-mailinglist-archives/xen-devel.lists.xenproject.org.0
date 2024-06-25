@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D99B1916141
-	for <lists+xen-devel@lfdr.de>; Tue, 25 Jun 2024 10:31:48 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.747451.1154865 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1D325916156
+	for <lists+xen-devel@lfdr.de>; Tue, 25 Jun 2024 10:33:48 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.747456.1154876 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sM1aL-0002Ui-6A; Tue, 25 Jun 2024 08:31:29 +0000
+	id 1sM1cE-00033D-HW; Tue, 25 Jun 2024 08:33:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 747451.1154865; Tue, 25 Jun 2024 08:31:29 +0000
+Received: by outflank-mailman (output) from mailman id 747456.1154876; Tue, 25 Jun 2024 08:33:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sM1aL-0002S5-3T; Tue, 25 Jun 2024 08:31:29 +0000
-Received: by outflank-mailman (input) for mailman id 747451;
- Tue, 25 Jun 2024 08:31:27 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=sI+y=N3=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1sM1aJ-0002Rz-SY
- for xen-devel@lists.xenproject.org; Tue, 25 Jun 2024 08:31:27 +0000
-Received: from mail-ed1-x533.google.com (mail-ed1-x533.google.com
- [2a00:1450:4864:20::533])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 505c75f3-32cd-11ef-90a3-e314d9c70b13;
- Tue, 25 Jun 2024 10:31:27 +0200 (CEST)
-Received: by mail-ed1-x533.google.com with SMTP id
- 4fb4d7f45d1cf-57cf8880f95so5967009a12.3
- for <xen-devel@lists.xenproject.org>; Tue, 25 Jun 2024 01:31:27 -0700 (PDT)
-Received: from [192.168.219.191] ([94.75.70.14])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a710595adedsm345564866b.214.2024.06.25.01.31.25
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 25 Jun 2024 01:31:26 -0700 (PDT)
+	id 1sM1cE-00030j-E2; Tue, 25 Jun 2024 08:33:26 +0000
+Received: by outflank-mailman (input) for mailman id 747456;
+ Tue, 25 Jun 2024 08:33:25 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=sC98=N3=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1sM1cD-00030b-8k
+ for xen-devel@lists.xenproject.org; Tue, 25 Jun 2024 08:33:25 +0000
+Received: from mail-lj1-x230.google.com (mail-lj1-x230.google.com
+ [2a00:1450:4864:20::230])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 95988d06-32cd-11ef-b4bb-af5377834399;
+ Tue, 25 Jun 2024 10:33:23 +0200 (CEST)
+Received: by mail-lj1-x230.google.com with SMTP id
+ 38308e7fff4ca-2ec408c6d94so60179321fa.3
+ for <xen-devel@lists.xenproject.org>; Tue, 25 Jun 2024 01:33:23 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-1f9eb3c5cf6sm75596155ad.156.2024.06.25.01.33.19
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 25 Jun 2024 01:33:22 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,68 +45,95 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 505c75f3-32cd-11ef-90a3-e314d9c70b13
+X-Inumbo-ID: 95988d06-32cd-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1719304286; x=1719909086; darn=lists.xenproject.org;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=QodbRYMo8xFHcZA86cpi1TjCGnzTTG37nvSuuGeV5lg=;
-        b=ZvPIHToGWm0RhDrHlqXUEWUmpL/tY9foIiIsWEt3oLFuMVl6cBSiq8iyHmjwZ1yGzl
-         t3jIZl3ynp30dbZy33SHaHylrFOo1rZXMM2VE/su1zsk9b+kwfDVMLJYBG7h70xz635v
-         fjIMjMiWkjnLkIxLgFN/g5RdGmy6K+D8eO838AfhJwlAnOlJmhs3t1Mlxf9hXk5x5IUQ
-         PKFhr0825n0fnYgtp7U8GmIjnsGm/Q7vlHgdYYvT4Tz4WVj9qxuZAf3Kw9cIqwgNWNnz
-         wf7BRWE547cEhQOpp/vA4lMfplpgGzxHPijkiCO3r6CDg+2fagDuIcZb0fM04RSAv3Vt
-         UEvQ==
+        d=suse.com; s=google; t=1719304402; x=1719909202; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=qwsCe4VZPuQHqQL6NWMLwuN/4TGL3rAFIhoM7GsDsPE=;
+        b=CU2HtsTktfgQtxWytngO074fNit25qXmJFb97OHJKhdlldHvUwfpTazHfRlzOTdiXd
+         LVplMw7di52eJaaU21CbyrxeOYfRQxMROk1a1tZDFBMTcez2A6rEjkBdUpjcVf7Jhx5p
+         I418WRWNe8Dvm6pEbNuXn/SoBCabBPip6dE9mqQ3r21jkqUF5onZZnePJlPvQ73RYPIv
+         y6bEuMvI3Ex2Qp270t0j+qQG4AFtUNJeDSE2d5KuOQL+GbHZ4hmBRGFd6a0fdoLx2/28
+         an5lGWdDg5qULLEQMFHD5dOuCJBMPRYUo+GiZKD/Xa1Wjvq9bd/Jxd+TQ3KHYfC7KYOq
+         TH5Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1719304286; x=1719909086;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=QodbRYMo8xFHcZA86cpi1TjCGnzTTG37nvSuuGeV5lg=;
-        b=suZ3fK5PQ5E3Z5H4wUuyvr+hhJsVl8S2WuKJYiWWJrrGYfYb9Uhs02ieqFuUBNhgq/
-         rewW41zU4Pn0YdiU59QeOru65AZU5jSnG6aK6IyUzChpi32RygctmkeB5h/xbHgGDwWb
-         /LvjoHmVJpgwAL+C+hJHOdHIDu5x5Tu0/Z+sBlk1miHx3pmQknuKP17N+XOP7h0Jx6Vp
-         c1ujmStoickkAVLfIFBMNehJfWoIsEUDLcAPbQpBcv9DSeHCb5uL26jRIC6dt1M1i+qK
-         D0ak13OXbXaCJbD0OtmkssDDvYeZdlRgRz2JT+BxfBi26I/0mt+X23fKqlBWuhnr2m9Y
-         1B1Q==
-X-Gm-Message-State: AOJu0Yxu/nZop3HVnIC8JI+RM9IsvAWOS3+ZTFekxefEybay6NzTJMrp
-	IqjM7jlKmW72JgNWyjycn/DLS138qtq90d0rEaMbsuPeo3DJt5I0
-X-Google-Smtp-Source: AGHT+IFL9ntSB5sEcwZEDiLIhYt32n6soh/KCkpWzy58VElWLVEaEnYojK2OagUdKzPMAFkcsbL07w==
-X-Received: by 2002:a17:906:99d4:b0:a72:6631:fe94 with SMTP id a640c23a62f3a-a7266320144mr208821466b.59.1719304286204;
-        Tue, 25 Jun 2024 01:31:26 -0700 (PDT)
-Message-ID: <25eb3ecdd1aa33af7b304ad4dd13f8561ab89761.camel@gmail.com>
-Subject: Re: [XEN PATCH] MAINTAINERS: Update my email address again
-From: Oleksii <oleksii.kurochko@gmail.com>
-To: Julien Grall <julien@xen.org>, Stefano Stabellini
- <sstabellini@kernel.org>,  Anthony PERARD <anthony.perard@vates.tech>
-Cc: xen-devel@lists.xenproject.org, Anthony PERARD <anthony@xenproject.org>,
-  Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap
- <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>
-Date: Tue, 25 Jun 2024 10:31:25 +0200
-In-Reply-To: <5238d3a6-c47f-4951-b839-a92c5ee4e571@xen.org>
-References: <20240624094030.41692-1-anthony.perard@vates.tech>
-	 <alpine.DEB.2.22.394.2406240927390.3870429@ubuntu-linux-20-04-desktop>
-	 <5238d3a6-c47f-4951-b839-a92c5ee4e571@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.52.2 (3.52.2-1.fc40app2) 
+        d=1e100.net; s=20230601; t=1719304402; x=1719909202;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=qwsCe4VZPuQHqQL6NWMLwuN/4TGL3rAFIhoM7GsDsPE=;
+        b=FcY/Y24Isxo58LhmZh6UetjULknX9aVxrIUuQDZ8tHPo99c87yszX6kRcZrIqWNd57
+         h9bM/wDh/+76tkqsYuAwQpY4iJoJhgO8Q1mTu9s4czvnRFyE/7iv4uEF/UARUbe1z0rn
+         60AbfkeKy1jJuGWLZpQeIB9dD9gtEc23GlP6mqai8+8Wvg62rJCI8bKpSCgIj3B2k+aQ
+         Bnhr00iNfn1U7v92QAVKNGtR5hM63gmDB3ThK8E1Tg+/dzb9k8N79XX9jpf0M7pwhFVh
+         DOh2XxlNzFwQmAaa7plNHjgplXEfpZf/So2nOxbz0PtVTa1vWIyi7T9B7jX/RxC7kPyw
+         DBIA==
+X-Forwarded-Encrypted: i=1; AJvYcCVDw6uuA+5/ZmVy8NcaokwpsFqneKDWn/HcxYIGL2yd1ILDY4uEiu1qWdekes+LuvJuiJ4pUjtdQ8XZvODXPsnsrkrQSbsKKeqR7Oj7b4s=
+X-Gm-Message-State: AOJu0Yyu4yO7d4IE96Qck/9PzdD4N1fZqtZD7TMdxv+icfT7jScrYqeJ
+	+1cE0lmVuwTQ4vrLHh+I7j+GWWtxdHkKobAqp5BlGo6j0hSXcBICJ1pPmlbrhQ==
+X-Google-Smtp-Source: AGHT+IGE9cL0P4ecJZz8YAKz+DSs7Y5aK8zR97xjYTCG/eB/LcSLA+xH6IIRfFfQ/DaKtijtOsy3Og==
+X-Received: by 2002:a2e:9e59:0:b0:2ec:5518:9550 with SMTP id 38308e7fff4ca-2ec5930fdbcmr54413921fa.10.1719304402646;
+        Tue, 25 Jun 2024 01:33:22 -0700 (PDT)
+Message-ID: <1ed2364d-6960-4bb2-9f3c-ac672a97e74b@suse.com>
+Date: Tue, 25 Jun 2024 10:33:15 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] xen/sched: fix rare error case in cpu_schedule_down()
+To: Juergen Gross <jgross@suse.com>
+Cc: George Dunlap <george.dunlap@citrix.com>,
+ Dario Faggioli <dfaggioli@suse.com>, xen-devel@lists.xenproject.org
+References: <20240625082736.7238-1-jgross@suse.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20240625082736.7238-1-jgross@suse.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Mon, 2024-06-24 at 22:40 +0100, Julien Grall wrote:
-> Hi,
-Hi Julien,
+On 25.06.2024 10:27, Juergen Gross wrote:
+> In case cpu_schedule_up() is failing to allocate memory for struct
+> sched_resource,
 
->=20
-> On 24/06/2024 17:27, Stefano Stabellini wrote:
-> > On Mon, 24 Jun 2024, Anthony PERARD wrote:
-> > > Signed-off-by: Anthony PERARD <anthony.perard@vates.tech>
-> >=20
-> > Acked-by: Stefano Stabellini <sstabellini@kernel.org>
->=20
-> I guess this technically need an ack from the release manager. So CC=20
-> Oleksii.
-Release-Acked-By: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Or (just to mention it again) in case the function isn't called at all
+because some earlier CPU_UP_PREPARE handler fails.
 
-~ Oleksii
+> cpu_schedule_down() will be called with the
+> sched_resource pointer being NULL. This needs to be handled.
+> 
+> Reported-by: Jan Beulich <jbeulich@suse.com>
+> Fixes: 207589dbacd4 ("xen/sched: move per cpu scheduler private data into struct sched_resource")
+> Signed-off-by: Juergen Gross <jgross@suse.com>
+
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
+
+You didn't tag it for 4.19 and you also didn't Cc Oleksii, so I expect you
+deem this minor enough to be delayed until 4.20 opens, despite the Fixes:
+tag?
+
+Jan
 
