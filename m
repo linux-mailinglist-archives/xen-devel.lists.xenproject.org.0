@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D042391665B
-	for <lists+xen-devel@lfdr.de>; Tue, 25 Jun 2024 13:41:04 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.747643.1155102 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 86FBD9166A7
+	for <lists+xen-devel@lfdr.de>; Tue, 25 Jun 2024 13:53:14 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.747650.1155113 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sM4XV-0007vJ-Sx; Tue, 25 Jun 2024 11:40:45 +0000
+	id 1sM4j4-0001OO-Rf; Tue, 25 Jun 2024 11:52:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 747643.1155102; Tue, 25 Jun 2024 11:40:45 +0000
+Received: by outflank-mailman (output) from mailman id 747650.1155113; Tue, 25 Jun 2024 11:52:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sM4XV-0007sn-QN; Tue, 25 Jun 2024 11:40:45 +0000
-Received: by outflank-mailman (input) for mailman id 747643;
- Tue, 25 Jun 2024 11:40:44 +0000
+	id 1sM4j4-0001Lm-OX; Tue, 25 Jun 2024 11:52:42 +0000
+Received: by outflank-mailman (input) for mailman id 747650;
+ Tue, 25 Jun 2024 11:52:41 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=sC98=N3=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sM4XU-0007sh-PZ
- for xen-devel@lists.xenproject.org; Tue, 25 Jun 2024 11:40:44 +0000
-Received: from mail-lj1-x229.google.com (mail-lj1-x229.google.com
- [2a00:1450:4864:20::229])
+ id 1sM4j3-0001Kv-Fu
+ for xen-devel@lists.xenproject.org; Tue, 25 Jun 2024 11:52:41 +0000
+Received: from mail-lj1-x236.google.com (mail-lj1-x236.google.com
+ [2a00:1450:4864:20::236])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c0e4ed2d-32e7-11ef-b4bb-af5377834399;
- Tue, 25 Jun 2024 13:40:42 +0200 (CEST)
-Received: by mail-lj1-x229.google.com with SMTP id
- 38308e7fff4ca-2ec50a5e230so38148721fa.0
- for <xen-devel@lists.xenproject.org>; Tue, 25 Jun 2024 04:40:42 -0700 (PDT)
+ id 6a841cb5-32e9-11ef-b4bb-af5377834399;
+ Tue, 25 Jun 2024 13:52:36 +0200 (CEST)
+Received: by mail-lj1-x236.google.com with SMTP id
+ 38308e7fff4ca-2ec52fbb50bso33101711fa.2
+ for <xen-devel@lists.xenproject.org>; Tue, 25 Jun 2024 04:52:36 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-7069bd69cb1sm976244b3a.209.2024.06.25.04.40.38
+ 98e67ed59e1d1-2c819a7ec09sm8509128a91.16.2024.06.25.04.52.30
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 25 Jun 2024 04:40:41 -0700 (PDT)
+ Tue, 25 Jun 2024 04:52:33 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,51 +45,52 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c0e4ed2d-32e7-11ef-b4bb-af5377834399
+X-Inumbo-ID: 6a841cb5-32e9-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1719315642; x=1719920442; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1719316356; x=1719921156; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=i261D+yE5EgpRdyvVx4mzBPwCU/LNbVIPEKFOJCK/wM=;
-        b=Ifac/9eCjZAgXuaEz+Mr/RaaZH3kz2TnuuZIsPgwCdqVsLn5m3DiLq5B4Zxcq8cBXg
-         hzZy2V5HR5n7Zm4c/EKNZl7OkXnD15J4EE8OufITZVQiXVI7jkUkA3nw4j7U+hbirSB0
-         dsBuBhVZUEMmFMMlkSkJKla4AycSXGSOFKB66CKs5sFM9X4xs+0IXBqGuhf29LYqNet4
-         iUpaFsS953jFABYTlPuikaViAoXyckQTKoD/JBSpW4jDaW6+s2JcBjvyqou2Zfq7Cd2D
-         qkF0qdr9uUknDVu6qopwOs2lB1VQOsHm2LNXp17UcZHwfAUxpHC81rTZUZN0H3qAtFLT
-         swuA==
+        bh=E/hWkwz6wMC7uscVWAZAK3nOTVUYHFC6PfN6JU3Fxzk=;
+        b=BY4CI9t10DTtin9Uv0oUw72PUlyOGXdoTlAv1UcNdh1MiVy+9S4ZpYcu22KcDuG0CE
+         z178+UeiHj0eymCqjqoZHkh2iglOQrqBIRZ7TWgFoWHL2k7+7H2BndsMaWbzQVgUZeTZ
+         qnCmfvCmqF3E6dE2Ov30tz3jaQ3TpC9JCItgUmqnan+TdNo1viq7WrCA3XpcB3zUgJY3
+         8P5hHn6PI2S9mOGrRuAXgtS1BoAsGOeFE3rQLtjubjuklJ01XSGSGjKsazGnT43Pkt6M
+         rZKPka242wjkMwgFXyhqqrj3XrRq+DYVUtJAwbJ7gPUHAO6otAk7kDdq6SS8lYkzUoWs
+         FfFQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1719315642; x=1719920442;
+        d=1e100.net; s=20230601; t=1719316356; x=1719921156;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=i261D+yE5EgpRdyvVx4mzBPwCU/LNbVIPEKFOJCK/wM=;
-        b=DYwC3Ekj8ufMO2PXUpMiBaX859zOXalTugdgrCxhCCglrGqJ87f6a0EgixDSx2skp0
-         3+5L0CotKPf1WOoujdID8mO141zi196571vpxysnq6wfNe7WrsG9CWnWfzyRzj4eZjEr
-         HLzYl32iZy9op7ffiSaZ3W0pWvJA5H1qGtB/cYIuWomf4quCUBTxdQlJhwVR0v04/yY8
-         fLH4iDM6GX+vhtgc9RIFvI9RYfs2G8xH9CCzUGIld6d8snNx+PLJ8WUVtkVOl1cHv4LX
-         cxpgEU/R02j7o+d9ScScRGxnPyeZ2ZFkwFnf6pT7cmi95TNtV2VyaT+EHyyQBeT4IRd0
-         cN6g==
-X-Forwarded-Encrypted: i=1; AJvYcCUq/1gm+VpbWt26xwIamYiJeIiotcoZcfDhO90d6vZRsJs0LOexs33zQ14y9uenn5McUFib9Q320rQZpIQ4OtyvLm/z+MiqDCxfej8oUq8=
-X-Gm-Message-State: AOJu0YxAUWVmRk940k79yzJWU1YoLkEAroDB+6SZ0S+aBLyk6e6mY8Ff
-	16e2W9RkE7if/5VrXxGu4qXd9wz0YFUbStNmZ66y3D10KduKwyAX603Y+DWpUw==
-X-Google-Smtp-Source: AGHT+IH3ch11DZW7w9VwEslSanz9icn01GH+GBa+5owcbfnVev7k17/E8Z+D/NKo1rP+zH0gJZCDfg==
-X-Received: by 2002:a2e:9b96:0:b0:2ec:51b5:27c8 with SMTP id 38308e7fff4ca-2ec5b2dd919mr43863441fa.32.1719315642209;
-        Tue, 25 Jun 2024 04:40:42 -0700 (PDT)
-Message-ID: <b9b84f10-6d41-48d9-996d-069408753e28@suse.com>
-Date: Tue, 25 Jun 2024 13:40:32 +0200
+        bh=E/hWkwz6wMC7uscVWAZAK3nOTVUYHFC6PfN6JU3Fxzk=;
+        b=cl7WpL7nb66QGfVrBuIugJl60D1N5AQy9mG7v8xlIzAyMdWJbRrto1cqliCh2IAaz3
+         DIaTKSNXQjmxy6QqQbVvwM9b3h8pWLfs4Sk4NcewA6FA75JchQAkrIjEwcJWNgHaYCNH
+         99bCTdBkHtac66puTPBwYMkxL21H0HN3PWN9JBYBGagqzUTcaHgq0AE/3ZHG0PRaJeTB
+         aWDe4xg91vBtkDO44IeUlKt5xKtmOfS1cgR2tWu5mSNEEFEZ7oOJqVPMFclmsSTn5+B1
+         ERsVrC52PqWIfUYpzH3Gu/Ez2odmM+9uMWFBz/gs0rBNuX2Lam1wGRVbYBS8jtCEzdsC
+         m77w==
+X-Forwarded-Encrypted: i=1; AJvYcCUiFtFZYVo/xHvH9Me+0BM3YK6gL0a71JEE9ATmAbPRgtFTXulKt2a367HfI3eOm2h9tAlMMFFhP4GbuJB6caHW27GzHn4aseMFvdUIA9E=
+X-Gm-Message-State: AOJu0YwselHtGRDglGWmXeIJ5GfKk78go6DyKicZ2EGyp9+ktisdu9/E
+	h/f2qD3NIWFwFL+YA/7SDOv7Ttof3okGNR4WsTG+YNIrj0F4UW3EDvRFCBd5tQ==
+X-Google-Smtp-Source: AGHT+IEPnOjEXv1XztpKCN6ASu0UsjtmOJCKzkqYn6/9m2TT5U1D+35oOh78/+tOZLrD9XhRsLxjcA==
+X-Received: by 2002:a2e:9ed7:0:b0:2ec:58e8:d7a6 with SMTP id 38308e7fff4ca-2ec5b36b765mr40760541fa.5.1719316353742;
+        Tue, 25 Jun 2024 04:52:33 -0700 (PDT)
+Message-ID: <8d32db90-8bd0-4a8f-82d9-938e36d3f181@suse.com>
+Date: Tue, 25 Jun 2024 13:52:26 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] Add scripts/oss-fuzz/build.sh
+Subject: Re: [PATCH 1/2] Add libfuzzer target to fuzz/x86_instruction_emulator
 To: Tamas K Lengyel <tamas@tklengyel.com>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Anthony PERARD <anthony@xenproject.org>, xen-devel@lists.xenproject.org
 References: <20240621191434.5046-1-tamas@tklengyel.com>
- <20240621191434.5046-2-tamas@tklengyel.com>
- <0a7854e0-e01e-435e-95fe-b262cc4afc1e@suse.com>
- <CABfawhmkhCD-MFgZBrhJ1CwiiseotJ=+MANbgwsjRL_VYsnuTQ@mail.gmail.com>
+ <45c69745-b060-4697-9f6e-b3d2a8860946@suse.com>
+ <CABfawhkyDVw-=nR2d6KiXGYYv=coDgHUr1oXC+BmUxH_ita+iQ@mail.gmail.com>
+ <80d0578d-26c0-4650-9edf-6926c055d415@suse.com>
+ <CABfawhk3RyR-ACq-mBk=F1-SCKJPiiS_yhU1=A_jR8Js3=fQyA@mail.gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -115,55 +116,78 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <CABfawhmkhCD-MFgZBrhJ1CwiiseotJ=+MANbgwsjRL_VYsnuTQ@mail.gmail.com>
+In-Reply-To: <CABfawhk3RyR-ACq-mBk=F1-SCKJPiiS_yhU1=A_jR8Js3=fQyA@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 25.06.2024 13:15, Tamas K Lengyel wrote:
-> On Tue, Jun 25, 2024 at 5:17 AM Jan Beulich <jbeulich@suse.com> wrote:
+On 25.06.2024 13:12, Tamas K Lengyel wrote:
+> On Tue, Jun 25, 2024 at 2:00 AM Jan Beulich <jbeulich@suse.com> wrote:
 >>
->> On 21.06.2024 21:14, Tamas K Lengyel wrote:
->>> --- /dev/null
->>> +++ b/scripts/oss-fuzz/build.sh
->>> @@ -0,0 +1,22 @@
->>> +#!/bin/bash -eu
->>> +# Copyright 2024 Google LLC
->>> +#
->>> +# Licensed under the Apache License, Version 2.0 (the "License");
->>> +# you may not use this file except in compliance with the License.
->>> +# You may obtain a copy of the License at
->>> +#
->>> +#      http://www.apache.org/licenses/LICENSE-2.0
->>> +#
->>> +# Unless required by applicable law or agreed to in writing, software
->>> +# distributed under the License is distributed on an "AS IS" BASIS,
->>> +# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
->>> +# See the License for the specific language governing permissions and
->>> +# limitations under the License.
->>> +#
->>> +################################################################################
+>> On 24.06.2024 23:23, Tamas K Lengyel wrote:
+>>> On Mon, Jun 24, 2024 at 11:55 AM Jan Beulich <jbeulich@suse.com> wrote:
+>>>>
+>>>> On 21.06.2024 21:14, Tamas K Lengyel wrote:
+>>>>> @@ -58,6 +58,9 @@ afl-harness: afl-harness.o $(OBJS) cpuid.o wrappers.o
+>>>>>  afl-harness-cov: afl-harness-cov.o $(patsubst %.o,%-cov.o,$(OBJS)) cpuid.o wrappers.o
+>>>>>       $(CC) $(CFLAGS) $(GCOV_FLAGS) $(addprefix -Wl$(comma)--wrap=,$(WRAPPED)) $^ -o $@
+>>>>>
+>>>>> +libfuzzer-harness: $(OBJS) cpuid.o
+>>>>> +     $(CC) $(CFLAGS) $(LIB_FUZZING_ENGINE) -fsanitize=fuzzer $^ -o $@
+>>>>
+>>>> What is LIB_FUZZING_ENGINE? I don't think we have any use of that in the
+>>>> tree anywhere.
+>>>
+>>> It's used by oss-fuzz, otherwise it's not doing anything.
+>>>
+>>>>
+>>>> I'm further surprised you get away here without wrappers.o.
+>>>
+>>> Wrappers.o was actually breaking the build for oss-fuzz at the linking
+>>> stage. It works just fine without it.
 >>
->> I'm a little concerned here, but maybe I shouldn't be. According to what
->> I'm reading, the Apache 2.0 license is at least not entirely compatible
->> with GPLv2. While apparently the issue is solely with linking in Apache-
->> licensed code, I wonder whether us not having a respective file under
->> ./LICENSES/ (and no pre-cooked SPDX identifier to use) actually has a
->> reason possibly excluding the use of such code in the project.
->>
->>> +cd xen
->>> +./configure clang=y --disable-stubdom --disable-pvshim --disable-docs --disable-xen
->>> +make clang=y -C tools/include
->>> +make clang=y -C tools/fuzz/x86_instruction_emulator libfuzzer-harness
->>> +cp tools/fuzz/x86_instruction_emulator/libfuzzer-harness $OUT/x86_instruction_emulator
->>
->> In addition to what Julien said, I further think that filename / directory
->> name are too generic for a file with this pretty specific contents.
+>> I'm worried here, to be honest. The wrappers serve a pretty important
+>> role, and I'm having a hard time seeing why they shouldn't be needed
+>> here when they're needed both for the test and afl harnesses. Could
+>> you add some more detail on the build issues you encountered?
 > 
-> I don't really get your concern here?
+> With wrappers.o included doing the build in the oss-fuzz docker
+> (ubuntu 20.04 base) fails with:
+> 
+> ...
+> clang -O1 -fno-omit-frame-pointer -gline-tables-only
+> -Wno-error=enum-constexpr-conversion
+> -Wno-error=incompatible-function-pointer-types
+> -Wno-error=int-conversion -Wno-error=deprecated-declarations
+> -Wno-error=implicit-function-declaration -Wno-error=implicit-int
+> -DFUZZING_BUILD_MODE_UNSAFE_FOR_PRODUCTION -fsanitize=address
+> -fsanitize-address-use-after-scope -fsanitize=fuzzer-no-link -m64
+> -DBUILD_ID -fno-strict-aliasing -std=gnu99 -Wall -Wstrict-prototypes
+> -Wno-unused-but-set-variable -Wno-unused-local-typedefs   -g3 -Werror
+> -Og -fno-omit-frame-pointer
+> -D__XEN_INTERFACE_VERSION__=__XEN_LATEST_INTERFACE_VERSION__ -MMD -MP
+> -MF .libfuzzer-harness.d -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE
+> -I/src/xen/tools/fuzz/x86_instruction_emulator/../../../tools/include
+> -D__XEN_TOOLS__ -iquote . -fsanitize=fuzzer -fsanitize=fuzzer
+> -Wl,--wrap=fwrite -Wl,--wrap=memcmp -Wl,--wrap=memcpy
+> -Wl,--wrap=memset -Wl,--wrap=printf -Wl,--wrap=putchar -Wl,--wrap=puts
+> -Wl,--wrap=snprintf -Wl,--wrap=strstr -Wl,--wrap=vprintf
+> -Wl,--wrap=vsnprintf fuzz-emul.o x86-emulate.o x86_emulate/0f01.o
+> x86_emulate/0fae.o x86_emulate/0fc7.o x86_emulate/decode.o
+> x86_emulate/fpu.o cpuid.o wrappers.o -o libfuzzer-harness
+> /usr/bin/ld: /usr/bin/ld: DWARF error: invalid or unhandled FORM value: 0x25
+> /usr/local/lib/clang/18/lib/x86_64-unknown-linux-gnu/libclang_rt.fuzzer.a(fuzzer.o):
+> in function `std::__Fuzzer::__libcpp_snprintf_l(char*, unsigned long,
+> __locale_struct*, char const*, ...)':
+> cxa_noexception.cpp:(.text._ZNSt8__Fuzzer19__libcpp_snprintf_lEPcmP15__locale_structPKcz[_ZNSt8__Fuzzer19__libcpp_snprintf_lEPcmP15__locale_structPKcz]+0x9a):
+> undefined reference to `__wrap_vsnprintf'
+> clang: error: linker command failed with exit code 1 (use -v to see invocation)
+> make: *** [Makefile:62: libfuzzer-harness] Error 1
+> rm x86-emulate.c wrappers.c cpuid.c
+> make: Leaving directory '/src/xen/tools/fuzz/x86_instruction_emulator'
+> ERROR:__main__:Building fuzzers failed.
 
-The thing that is built is specifically a x86 emulator piece of fuzzing
-binary. Neither the directory name nor the file name contain either x86
-or (at least) emul.
+Hmm, yes, means we'll need an actual vsnprintf() wrapper, not just a
+declaration thereof.
 
 Jan
 
