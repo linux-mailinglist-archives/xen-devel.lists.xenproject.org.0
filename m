@@ -2,34 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6EE2C916936
-	for <lists+xen-devel@lfdr.de>; Tue, 25 Jun 2024 15:43:31 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.747719.1155188 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 004F191696C
+	for <lists+xen-devel@lfdr.de>; Tue, 25 Jun 2024 15:52:20 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.747731.1155199 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sM6S8-0004GQ-0v; Tue, 25 Jun 2024 13:43:20 +0000
+	id 1sM6aW-0006er-V8; Tue, 25 Jun 2024 13:52:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 747719.1155188; Tue, 25 Jun 2024 13:43:20 +0000
+Received: by outflank-mailman (output) from mailman id 747731.1155199; Tue, 25 Jun 2024 13:52:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sM6S7-0004EJ-Ua; Tue, 25 Jun 2024 13:43:19 +0000
-Received: by outflank-mailman (input) for mailman id 747719;
- Tue, 25 Jun 2024 13:43:18 +0000
+	id 1sM6aW-0006cn-Rn; Tue, 25 Jun 2024 13:52:00 +0000
+Received: by outflank-mailman (input) for mailman id 747731;
+ Tue, 25 Jun 2024 13:51:59 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=v2rz=N3=tklengyel.com=tamas@srs-se1.protection.inumbo.net>)
- id 1sM6S6-0004EB-Cy
- for xen-devel@lists.xenproject.org; Tue, 25 Jun 2024 13:43:18 +0000
-Received: from sender4-op-o12.zoho.com (sender4-op-o12.zoho.com
- [136.143.188.12]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id dfba6550-32f8-11ef-90a3-e314d9c70b13;
- Tue, 25 Jun 2024 15:43:17 +0200 (CEST)
-Received: by mx.zohomail.com with SMTPS id 1719322991509960.1477680832319;
- Tue, 25 Jun 2024 06:43:11 -0700 (PDT)
-Received: by mail-yb1-f172.google.com with SMTP id
- 3f1490d57ef6-e02b571b0f6so5432398276.0
- for <xen-devel@lists.xenproject.org>; Tue, 25 Jun 2024 06:43:11 -0700 (PDT)
+ <SRS0=sI+y=N3=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1sM6aV-0006cc-7Z
+ for xen-devel@lists.xenproject.org; Tue, 25 Jun 2024 13:51:59 +0000
+Received: from mail-ed1-x531.google.com (mail-ed1-x531.google.com
+ [2a00:1450:4864:20::531])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 16dd2238-32fa-11ef-90a3-e314d9c70b13;
+ Tue, 25 Jun 2024 15:51:58 +0200 (CEST)
+Received: by mail-ed1-x531.google.com with SMTP id
+ 4fb4d7f45d1cf-57d1679ee83so5982545a12.2
+ for <xen-devel@lists.xenproject.org>; Tue, 25 Jun 2024 06:51:57 -0700 (PDT)
+Received: from fedora.. ([94.75.70.14]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a6fcf560627sm521042666b.148.2024.06.25.06.51.55
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 25 Jun 2024 06:51:56 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,138 +44,278 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: dfba6550-32f8-11ef-90a3-e314d9c70b13
-ARC-Seal: i=1; a=rsa-sha256; t=1719322994; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=kskmQ/HkDsXBCo7+k0gw3KG2TQKmF8MfbCEHM/ZbEADlS0ykReAmiLolfZlIr74I16IDVuPV2xM741GWXOvdCcW1Y4WD4QQmMcKItUNxVbh5JQpymPVfLz/nZoNa6nhM7+8wC8rkoAldgzmvyZNhl6So/+gaBghElUcRx6KfG7s=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1719322994; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=pr1odYqS0ZrtCrgBJK30bcPuDVS3ze7cey35TPBpOlY=; 
-	b=Ebvxkclg9ZqNovPIWFi1od8tPyZNaPPJbRVWESOwHJ4lKQGTibbrzsnNLgxpdkHAv88NrheKA6kPs4qV1BjP2oaibqyd3r3eh485gIOtmL1o8nd2jWE0CFhNmdR3fwCBwkfLzwp+67CBn6TxTkU5it5MPbtIWb4qQigxT8hER/4=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=tklengyel.com;
-	spf=pass  smtp.mailfrom=tamas@tklengyel.com;
-	dmarc=pass header.from=<tamas@tklengyel.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1719322994;
-	s=zmail; d=tklengyel.com; i=tamas@tklengyel.com;
-	h=MIME-Version:References:In-Reply-To:From:From:Date:Date:Message-ID:Subject:Subject:To:To:Cc:Cc:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=pr1odYqS0ZrtCrgBJK30bcPuDVS3ze7cey35TPBpOlY=;
-	b=WnixsLCZhpY2BwZEesCNFML/5kjDHGc7xZwu07RFswP5EDbPUEHHOOpgI0qCYnSJ
-	IAWA3tus3y5pkORWUUArE5Q3KGqc9hpbTzy8YRma4CjX7rLcYN6Ce1/1vTYAICYgIEt
-	Pr2uyznvL7M8IL0oHIu6oJxEVg3yKk3eptqus3bY=
-X-Forwarded-Encrypted: i=1; AJvYcCUspalkeHc80f9yhLr4mFs0m8GnVoRWttip/A8zg/a87psGA01DSruG3FSXZcXKFTIKbZ+K0+4Pcwplv8PPBiO9RqcvlcxzeSujcrO1BKU=
-X-Gm-Message-State: AOJu0YwTK9BMqw8stIr5TL5idEgmWHb1jqu7YXRq5gLOSbjsiSBev/LH
-	ccmnEI+WFTnhmnFHLQ69+2n2zi1eUY0+kGARVOvnjKTSaGCdN8Y1xeAK0cPwmyyL/1mvsyJyVWL
-	/CV1HC6H4znBnSLJIRyUjDcD+9dQ=
-X-Google-Smtp-Source: AGHT+IEdGW5iyChpb1JVMDxR3jJ63LbEVe4bAhxc5XoXBCuP+6lSXhBULGr2KGgRCihfdmSCCQjPADmG1B0fQysE0mc=
-X-Received: by 2002:a5b:8c9:0:b0:e02:c434:8b2a with SMTP id
- 3f1490d57ef6-e030402f3cdmr7300676276.54.1719322990668; Tue, 25 Jun 2024
- 06:43:10 -0700 (PDT)
+X-Inumbo-ID: 16dd2238-32fa-11ef-90a3-e314d9c70b13
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1719323517; x=1719928317; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=3NUbKUQs4rp1PGjsnlTng9LwdCaUfLHgJXj7GhVHCDU=;
+        b=ETUWKzq70/P0mCC4BkX1Jso+3KTXy3uD95qfhI7iNxYV2PeGPi0BRSGweZuT77PgjK
+         M1xVFc89/4z9NnekFMcWP3WxMjc84pXcQ6Nc05BeAP9DwV00Iv3ibG/qcgKRNFN3bW9z
+         J2uhhF4OqbNqskj++DU8lo7UWAbzqZX+rVxRfePfcpBdKmVt+BRbzsZjTWffH3FTPdc/
+         ynQDeDK9MhqlFqn7vD1jErM8wFrt5YZGv07kOc9Q6n8pZdlotn75ctpBpD6gDoDN44uR
+         AZ6OilH4OMQIs6rs62zmBSkAs+59xOw6Q5HW8wlYz0gr4SCOO9yy8A8kadn58Imth/9W
+         nXig==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1719323517; x=1719928317;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=3NUbKUQs4rp1PGjsnlTng9LwdCaUfLHgJXj7GhVHCDU=;
+        b=Puf2uHP5ybdtu1Lse+f+25D6YFmSzIHuJOeit1ujj+xBpfBJqkhYwDz08TXea2sP9b
+         koS9pENr5+TXT6dfxV+YIYy7AlKiBmaQUgsx2rsEiwTCko6kfsE4fZo/QH55/3JBdgJP
+         N+hZHzhbpmNXjnyZUzHuyyCuttlmSmVr6uuUVjrgWdWeJlNBZBNZ8ofKJeipKGEnYdrI
+         Z7i4+eVKVDbqXSTZwNo0kLHta5Wrb6fFvI0BX2cGMSN4uroWsqdhllh5aOr7bKDdVl6t
+         ZnaXdd/qnZqhYSGHRhGPy+SrjhnCPaV2spszTpR1wa+PI5Vj+ymiFWwcvsH4qCv+ASb5
+         uoVA==
+X-Gm-Message-State: AOJu0YynEJ7wCOhiruma8/GHKzmgYPFNKV+dHDcDkgXDB8iGudEoH8HR
+	lgjd5NVfmoVow7E8ZcERS3tIjv/3FeKZtWbkFQjFapot5zADRMEKSX1yHQDA
+X-Google-Smtp-Source: AGHT+IE+/gXldzx+kUNYRvRQVl5/JhWBG4srI9Q4L+vosdpzvaK0O9Khle+5/hNoyTw46VrrQ7yf8A==
+X-Received: by 2002:a17:907:a60b:b0:a6f:51d0:d226 with SMTP id a640c23a62f3a-a716519a273mr583338466b.66.1719323516644;
+        Tue, 25 Jun 2024 06:51:56 -0700 (PDT)
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+To: xen-devel@lists.xenproject.org
+Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Julien Grall <julien@xen.org>,
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Shawn Anastasio <sanastasio@raptorengineering.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Alistair Francis <alistair.francis@wdc.com>,
+	Bob Eshleman <bobbyeshleman@gmail.com>,
+	Connor Davis <connojdavis@gmail.com>
+Subject: [PATCH for-4.19? v13 0/10]  Enable build of full Xen for RISC-V
+Date: Tue, 25 Jun 2024 15:51:42 +0200
+Message-ID: <cover.1719319093.git.oleksii.kurochko@gmail.com>
+X-Mailer: git-send-email 2.45.2
 MIME-Version: 1.0
-References: <20240621191434.5046-1-tamas@tklengyel.com> <20240621191434.5046-2-tamas@tklengyel.com>
- <0a7854e0-e01e-435e-95fe-b262cc4afc1e@suse.com> <CABfawhmkhCD-MFgZBrhJ1CwiiseotJ=+MANbgwsjRL_VYsnuTQ@mail.gmail.com>
- <b9b84f10-6d41-48d9-996d-069408753e28@suse.com> <CABfawhkJ0t8FenCWbupGcHD-ZhorbWN7ZjMQVm-jeg_zA1g5iQ@mail.gmail.com>
- <66a7243d-a1a1-4236-832f-f3e1daf11b85@suse.com>
-In-Reply-To: <66a7243d-a1a1-4236-832f-f3e1daf11b85@suse.com>
-From: Tamas K Lengyel <tamas@tklengyel.com>
-Date: Tue, 25 Jun 2024 09:42:34 -0400
-X-Gmail-Original-Message-ID: <CABfawhmAV5+Nr9A_Speh2ai3v9wfJtxmps=R6iTxNU1RFP4xRA@mail.gmail.com>
-Message-ID: <CABfawhmAV5+Nr9A_Speh2ai3v9wfJtxmps=R6iTxNU1RFP4xRA@mail.gmail.com>
-Subject: Re: [PATCH 2/2] Add scripts/oss-fuzz/build.sh
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>, 
-	Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Tue, Jun 25, 2024 at 9:18=E2=80=AFAM Jan Beulich <jbeulich@suse.com> wro=
-te:
->
-> On 25.06.2024 14:39, Tamas K Lengyel wrote:
-> > On Tue, Jun 25, 2024 at 7:40=E2=80=AFAM Jan Beulich <jbeulich@suse.com>=
- wrote:
-> >>
-> >> On 25.06.2024 13:15, Tamas K Lengyel wrote:
-> >>> On Tue, Jun 25, 2024 at 5:17=E2=80=AFAM Jan Beulich <jbeulich@suse.co=
-m> wrote:
-> >>>>
-> >>>> On 21.06.2024 21:14, Tamas K Lengyel wrote:
-> >>>>> --- /dev/null
-> >>>>> +++ b/scripts/oss-fuzz/build.sh
-> >>>>> @@ -0,0 +1,22 @@
-> >>>>> +#!/bin/bash -eu
-> >>>>> +# Copyright 2024 Google LLC
-> >>>>> +#
-> >>>>> +# Licensed under the Apache License, Version 2.0 (the "License");
-> >>>>> +# you may not use this file except in compliance with the License.
-> >>>>> +# You may obtain a copy of the License at
-> >>>>> +#
-> >>>>> +#      http://www.apache.org/licenses/LICENSE-2.0
-> >>>>> +#
-> >>>>> +# Unless required by applicable law or agreed to in writing, softw=
-are
-> >>>>> +# distributed under the License is distributed on an "AS IS" BASIS=
-,
-> >>>>> +# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or =
-implied.
-> >>>>> +# See the License for the specific language governing permissions =
-and
-> >>>>> +# limitations under the License.
-> >>>>> +#
-> >>>>> +##################################################################=
-##############
-> >>>>
-> >>>> I'm a little concerned here, but maybe I shouldn't be. According to =
-what
-> >>>> I'm reading, the Apache 2.0 license is at least not entirely compati=
-ble
-> >>>> with GPLv2. While apparently the issue is solely with linking in Apa=
-che-
-> >>>> licensed code, I wonder whether us not having a respective file unde=
-r
-> >>>> ./LICENSES/ (and no pre-cooked SPDX identifier to use) actually has =
-a
-> >>>> reason possibly excluding the use of such code in the project.
-> >>>>
-> >>>>> +cd xen
-> >>>>> +./configure clang=3Dy --disable-stubdom --disable-pvshim --disable=
--docs --disable-xen
-> >>>>> +make clang=3Dy -C tools/include
-> >>>>> +make clang=3Dy -C tools/fuzz/x86_instruction_emulator libfuzzer-ha=
-rness
-> >>>>> +cp tools/fuzz/x86_instruction_emulator/libfuzzer-harness $OUT/x86_=
-instruction_emulator
-> >>>>
-> >>>> In addition to what Julien said, I further think that filename / dir=
-ectory
-> >>>> name are too generic for a file with this pretty specific contents.
-> >>>
-> >>> I don't really get your concern here?
-> >>
-> >> The thing that is built is specifically a x86 emulator piece of fuzzin=
-g
-> >> binary. Neither the directory name nor the file name contain either x8=
-6
-> >> or (at least) emul.
-> >
-> > Because this build script is not necessarily restricted to build only
-> > this one harness in the future. Right now that's the only one that has
-> > a suitable libfuzzer harness, but the reason this build script is here
-> > is to be easily able to add additional fuzzing binaries without the
-> > need to open PRs on the oss-fuzz repo, which as I understand no one
-> > was willing to do in the xen community due to the CLA. Now that the
-> > integration is going to be in oss-fuzz, the only thing you have to do
-> > in the future is add more stuff to this script to get fuzzed. Anything
-> > that's compiled with libfuzzer and copied to $OUT will be picked up by
-> > oss-fuzz automatically. Makes sense?
->
-> It does, yes. Yet nothing like that was said in the description. How
-> should anyone have known there are future possibilities with this script?
+***
+I think that I need to write a separate email requesting approval for this patch
+series to be included in Xen 4.19. Most of the patches are RISC-V specific,
+so there is a low risk of breaking anything else.
+There is only one patch that touches common or arch-specific files, and it
+doesn't introduce any functional changes.
+Since I can't approve it myself, I am asking for someone else to do so.
+***
 
-Apologies, to me "The build integration script for oss-fuzz targets."
-was sufficiently descriptive but it may require some familiarity with
-oss-fuzz to get. I can certainly add the above text to the commit
-message if that helps.
+This patch series performs all of the additions necessary to drop the
+build overrides for RISCV and enable the full Xen build. Except in cases
+where compatibile implementations already exist (e.g. atomic.h and
+bitops.h), the newly added definitions are simple.
 
-Tamas
+The patch series is based on the following patch series:
+ - [PATCH 3/3] xen/ppc: Avoid using the legacy __read_mostly/__ro_after_init definitions [1]
+
+The link to the branch with rebased patches on top of [1] could be found here:
+  https://gitlab.com/xen-project/people/olkur/xen/-/commits/riscv-full-xen-build-v13
+
+[1] https://lore.kernel.org/xen-devel/20240621201928.319293-4-andrew.cooper3@citrix.com/
+
+---
+Changes in V13:
+ - Patch was merged to staging:
+   - [PATCH v12 ] xen/riscv: Update Kconfig in preparation for a full
+ - Rebase on top of the current staging.
+ - Update cover letter message
+ - It was added 2 new patches ( patches 8 and 9 ) which are not necessary for testing environment we
+   have in CI but they improves compatability with older gcc and binutils.
+ - It was added patch 10 as a clean up of [PATCH v12 2/8] xen: introduce generic non-atomic test_*bit()
+   for x86.
+ - Drop [PATCH v12 4/8] xen/riscv: add definition of __read_mostly as it was defined as generic now
+   for all architectures.
+ - It was added the patch [PATCH v13 07/10] xen/common: fix build issue for common/trace.c
+   to resolve compilation issue for RISC-V after reabsing on top of current staging.
+ - Other changes are specific to specific patches. Please look at changes for
+   specific patch.
+---
+Changes in V12:
+ - Rebase the patch series on top of [1] mentioned above.
+ - Update the cover letter message.
+ - "[PATCH v11 3/9] xen/bitops: implement fls{l}() in common logic" was droped
+   as it is a part of patch series [1] mentioned above.
+ - Other changes are specific to specific patches. Please look at changes for
+   specific patch.
+---
+Changes in V11:
+  - Patch was merged to staging:
+    - [PATCH v10 05/14] xen/riscv: introduce cmpxchg.h
+	  - [PATCH v10 06/14] xen/riscv: introduce atomic.h
+	  - [PATCH v10 07/14] xen/riscv: introduce monitor.h
+	  - [PATCH v10 09/14] xen/riscv: add required things to current.h
+	  - [PATCH v10 11/14] xen/riscv: introduce vm_event_*() functions
+ - Other changes are specific to specific patches. Please look at changes for
+   specific patch.
+---
+Changes in V10:
+  - Patch was merged to staging:
+    - [PATCH v9 04/15] xen/bitops: put __ffs() into linux compatible header
+ - Other changes are specific to specific patches. Please look at changes for
+   specific patch.
+---
+Changes in V9:
+ - Patch was merged to staging:
+    - [PATCH v8 07/17] xen/riscv: introduce io.h
+  	- [PATCH v7 14/19] xen/riscv: add minimal stuff to page.h to build full Xen
+ - Other changes are specific to specific patches. Please look at changes for
+   specific patch.
+---
+Changes in V8:
+ - Patch was merged to staging:
+    - [PATCH v7 01/19] automation: introduce fixed randconfig for RISC-V
+    - [PATCH v7 03/19] xen/riscv: introduce extenstion support check by compiler
+ - Other changes are specific to specific patches. Please look at changes for
+   specific patch.
+ - Update the commit message:
+     - drop the dependency from STATIC_ASSERT_UNREACHABLE() implementation.
+     - Add suggestion to merge arch-specific changes related to __read_mostly.
+---
+Changes in V7:
+ - Patch was merged to staging:
+   [PATCH v6 15/20] xen/riscv: add minimal stuff to processor.h to build full Xen.
+ - Other changes are specific to specific patches. Please look at changes for
+   specific patch.
+---
+Changes in V6:
+ - Update the cover letter message: drop already merged dependecies and add
+   a new one.
+ - Patches were merged to staging:
+   - [PATCH v5 02/23] xen/riscv: use some asm-generic headers ( even v4 was
+     merged to staging branch, I just wasn't apply changes on top of the latest staging branch )
+   - [PATCH v5 03/23] xen/riscv: introduce nospec.h
+   - [PATCH v5 10/23] xen/riscv: introduces acrquire, release and full barriers
+ - Introduce new patches:
+   - xen/riscv: introduce extenstion support check by compiler
+   - xen/bitops: put __ffs() and ffz() into linux compatible header
+   - xen/bitops: implement fls{l}() in common logic
+ - The following patches were dropped:
+   - drop some patches related to bitops operations as they were introduced in another
+     patch series [...]
+   - introduce new version for generic __ffs(), ffz() and fls{l}().
+ - Merge patch from patch series "[PATCH v9 0/7]  Introduce generic headers" to this patch
+   series as only one patch left in the generic headers patch series and it is more about
+   RISC-V.
+ - Other changes are specific to specific patches. please look at specific patch.
+---
+Changes in V5:
+ - Update the cover letter as one of the dependencies were merged to staging.
+ - Was introduced asm-generic for atomic ops and separate patches for asm-generic bit ops
+ - Moved fence.h to separate patch to deal with some patches dependecies on fence.h
+ - Patches were dropped as they were merged to staging:
+   * [PATCH v4 03/30] xen: add support in public/hvm/save.h for PPC and RISC-V
+   * [PATCH v4 04/30] xen/riscv: introduce cpufeature.h
+   * [PATCH v4 05/30] xen/riscv: introduce guest_atomics.h
+   * [PATCH v4 06/30] xen: avoid generation of empty asm/iommu.h
+   * [PATCH v4 08/30] xen/riscv: introduce setup.h
+   * [PATCH v4 10/30] xen/riscv: introduce flushtlb.h
+   * [PATCH v4 11/30] xen/riscv: introduce smp.h
+   * [PATCH v4 15/30] xen/riscv: introduce irq.h
+   * [PATCH v4 16/30] xen/riscv: introduce p2m.h
+   * [PATCH v4 17/30] xen/riscv: introduce regs.h
+   * [PATCH v4 18/30] xen/riscv: introduce time.h
+   * [PATCH v4 19/30] xen/riscv: introduce event.h
+   * [PATCH v4 22/30] xen/riscv: define an address of frame table
+ - Other changes are specific to specific patches. please look at specific patch
+---
+Changes in V4:
+ - Update the cover letter message: new patch series dependencies.
+ - Some patches were merged to staging, so they were dropped in this patch series:
+     [PATCH v3 09/34] xen/riscv: introduce system.h
+     [PATCH v3 18/34] xen/riscv: introduce domain.h
+     [PATCH v3 19/34] xen/riscv: introduce guest_access.h
+ - Was sent out of this patch series:
+     [PATCH v3 16/34] xen/lib: introduce generic find next bit operations
+ - [PATCH v3 17/34] xen/riscv: add compilation of generic find-next-bit.c was
+   droped as CONFIG_GENERIC_FIND_NEXT_BIT was dropped.
+ - All other changes are specific to a specific patch.
+---
+Changes in V3:
+ - Update the cover letter message
+ - The following patches were dropped as they were merged to staging:
+    [PATCH v2 03/39] xen/riscv:introduce asm/byteorder.h
+    [PATCH v2 04/39] xen/riscv: add public arch-riscv.h
+    [PATCH v2 05/39] xen/riscv: introduce spinlock.h
+    [PATCH v2 20/39] xen/riscv: define bug frame tables in xen.lds.S
+    [PATCH v2 34/39] xen: add RISCV support for pmu.h
+    [PATCH v2 35/39] xen: add necessary headers to common to build full Xen for RISC-V
+ - Instead of the following patches were introduced new:
+    [PATCH v2 10/39] xen/riscv: introduce asm/iommu.h
+    [PATCH v2 11/39] xen/riscv: introduce asm/nospec.h
+ - remove "asm/"  for commit messages which start with "xen/riscv:"
+ - code style updates.
+ - add emulation of {cmp}xchg_* for 1 and 2 bytes types.
+ - code style fixes.
+ - add SPDX and footer for the newly added headers.
+ - introduce generic find-next-bit.c.
+ - some other mionor changes. ( details please find in a patch )
+---
+Changes in V2:
+  - Drop the following patches as they are the part of [2]:
+      [PATCH v1 06/57] xen/riscv: introduce paging.h
+      [PATCH v1 08/57] xen/riscv: introduce asm/device.h
+      [PATCH v1 10/57] xen/riscv: introduce asm/grant_table.h
+      [PATCH v1 12/57] xen/riscv: introduce asm/hypercall.h
+      [PATCH v1 13/57] xen/riscv: introduce asm/iocap.h
+      [PATCH v1 15/57] xen/riscv: introduce asm/mem_access.h
+      [PATCH v1 18/57] xen/riscv: introduce asm/random.h
+      [PATCH v1 21/57] xen/riscv: introduce asm/xenoprof.h
+      [PATCH v1 24/57] xen/riscv: introduce asm/percpu.h
+      [PATCH v1 29/57] xen/riscv: introduce asm/hardirq.h
+      [PATCH v1 33/57] xen/riscv: introduce asm/altp2m.h
+      [PATCH v1 38/57] xen/riscv: introduce asm/monitor.h
+      [PATCH v1 39/57] xen/riscv: introduce asm/numa.h
+      [PATCH v1 42/57] xen/riscv: introduce asm/softirq.h
+  - xen/lib.h in most of the cases were changed to xen/bug.h as
+    mostly functionilty of bug.h is used.
+  - align arch-riscv.h with Arm's version of it.
+  - change the Author of commit with introduction of asm/atomic.h.
+  - update some definition from spinlock.h.
+  - code style changes.
+---
+
+
+Oleksii Kurochko (10):
+  xen: introduce generic non-atomic test_*bit()
+  xen/riscv: introduce bitops.h
+  xen/riscv: add minimal stuff to mm.h to build full Xen
+  xen/riscv: add minimal amount of stubs to build full Xen
+  xen/riscv: enable full Xen build
+  xen/README: add compiler and binutils versions for RISC-V64
+  xen/common: fix build issue for common/trace.c
+  xen/riscv: change .insn to .byte in cpu_relax()
+  xen/riscv: introduce ANDN_INSN
+  xen/x86: drop constanst_test_bit() in asm/bitops.h
+
+ README                                 |   3 +
+ xen/arch/arm/include/asm/bitops.h      |  69 ----
+ xen/arch/ppc/include/asm/bitops.h      |  54 ----
+ xen/arch/ppc/include/asm/page.h        |   2 +-
+ xen/arch/ppc/mm-radix.c                |   2 +-
+ xen/arch/riscv/Makefile                |  17 +-
+ xen/arch/riscv/arch.mk                 |   4 -
+ xen/arch/riscv/early_printk.c          | 168 ----------
+ xen/arch/riscv/include/asm/bitops.h    | 137 ++++++++
+ xen/arch/riscv/include/asm/cmpxchg.h   |  16 +-
+ xen/arch/riscv/include/asm/mm.h        | 235 ++++++++++++++
+ xen/arch/riscv/include/asm/processor.h |   2 +-
+ xen/arch/riscv/mm.c                    |  43 ++-
+ xen/arch/riscv/setup.c                 |  10 +-
+ xen/arch/riscv/stubs.c                 | 418 +++++++++++++++++++++++++
+ xen/arch/riscv/traps.c                 |  25 ++
+ xen/arch/x86/include/asm/bitops.h      |  39 +--
+ xen/common/trace.c                     |   1 +
+ xen/include/xen/bitops.h               | 182 +++++++++++
+ 19 files changed, 1096 insertions(+), 331 deletions(-)
+ create mode 100644 xen/arch/riscv/include/asm/bitops.h
+ create mode 100644 xen/arch/riscv/stubs.c
+
+-- 
+2.45.2
+
 
