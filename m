@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D1910916A2C
-	for <lists+xen-devel@lfdr.de>; Tue, 25 Jun 2024 16:24:44 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.747843.1155349 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E3823916A34
+	for <lists+xen-devel@lfdr.de>; Tue, 25 Jun 2024 16:25:46 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.747848.1155358 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sM75r-0005lg-7x; Tue, 25 Jun 2024 14:24:23 +0000
+	id 1sM771-0006Hi-Hy; Tue, 25 Jun 2024 14:25:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 747843.1155349; Tue, 25 Jun 2024 14:24:23 +0000
+Received: by outflank-mailman (output) from mailman id 747848.1155358; Tue, 25 Jun 2024 14:25:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sM75r-0005iW-5G; Tue, 25 Jun 2024 14:24:23 +0000
-Received: by outflank-mailman (input) for mailman id 747843;
- Tue, 25 Jun 2024 14:24:21 +0000
+	id 1sM771-0006Ex-Ew; Tue, 25 Jun 2024 14:25:35 +0000
+Received: by outflank-mailman (input) for mailman id 747848;
+ Tue, 25 Jun 2024 14:25:34 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=sC98=N3=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sM75o-0005iC-VP
- for xen-devel@lists.xenproject.org; Tue, 25 Jun 2024 14:24:20 +0000
-Received: from mail-lj1-x231.google.com (mail-lj1-x231.google.com
- [2a00:1450:4864:20::231])
+ id 1sM770-0006Ep-36
+ for xen-devel@lists.xenproject.org; Tue, 25 Jun 2024 14:25:34 +0000
+Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
+ [2a00:1450:4864:20::434])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 9c6c1728-32fe-11ef-90a3-e314d9c70b13;
- Tue, 25 Jun 2024 16:24:19 +0200 (CEST)
-Received: by mail-lj1-x231.google.com with SMTP id
- 38308e7fff4ca-2e72224c395so62824181fa.3
- for <xen-devel@lists.xenproject.org>; Tue, 25 Jun 2024 07:24:19 -0700 (PDT)
+ id c7f1b4c8-32fe-11ef-90a3-e314d9c70b13;
+ Tue, 25 Jun 2024 16:25:33 +0200 (CEST)
+Received: by mail-wr1-x434.google.com with SMTP id
+ ffacd0b85a97d-3621ac606e1so3954517f8f.1
+ for <xen-devel@lists.xenproject.org>; Tue, 25 Jun 2024 07:25:33 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-1f9eb320b33sm82064345ad.83.2024.06.25.07.24.14
+ d2e1a72fcca58-706953b6b06sm1900144b3a.173.2024.06.25.07.25.29
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 25 Jun 2024 07:24:19 -0700 (PDT)
+ Tue, 25 Jun 2024 07:25:32 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,51 +45,47 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9c6c1728-32fe-11ef-90a3-e314d9c70b13
+X-Inumbo-ID: c7f1b4c8-32fe-11ef-90a3-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1719325459; x=1719930259; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1719325532; x=1719930332; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=OUwAoH1ZShYCC83aNyQ953GlT2vF568xgwpj2nltnoc=;
-        b=DHLFBgFxWTZ1fYdEHp8wh1xl05HhShovWybJgrt41EZdk67OfPObyBV4E4CsibtBja
-         3GcXVH8t1hi2fBLudN3OVmZbWL2XfllwbjT8vwdL45mnz+XezUK96Fvi6dSAsCXLT1fc
-         CBl2Mjak2XyPoZZPwbTZjbT32hiaKkEXwt2eNu7c0F5NR3KKiIgUR0NLta3DHFan/pTy
-         pNfwzWK+raZa1A6c/ORSaHzIDBFhxxmYxwMyhoD0AgJc6J5/ldeRJen3lAUSVV4zXyhw
-         j978/mS2e2j7UXyos50xBXLJsKbdNZ3/ZVjrgvsixmwIgb6zwIlQ2Yf1RW67iHNi+3fs
-         Mp1w==
+        bh=DDqm963lEKq4uY9yYk6vCYrTFvjTQwIhWVOjFVXWAJw=;
+        b=Vq5XdDBlJkVU7BmWrRsikYKw9drCSbBahUP407SkFk2aU6OCU/2XWF/DdbW+okXFyq
+         mQDallh14D6XQ4tLotkieX9BveLvXIvk0/aKpDz7CXDEh523xX5XQv9STOLtasF/wkKI
+         PL/E4kAbbFlmP5FcoNVj7QU7kH+2mMgBoJpwdHUyEo/kWUXrITdTa5DotHKuRlQ6QhEI
+         cIwR0/D+WW90SgmVLJrPnUjBiMgGfsImR2VvipZQwdBQOevFstZUpByi2EdEArVQ6auZ
+         2uHYT0V1u6Rgi0fhTaIKxdbdbMh7zux9IjyviKiBJqJsQGC77nRjeJwSXWkF8CJRXxMN
+         F6cw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1719325459; x=1719930259;
+        d=1e100.net; s=20230601; t=1719325532; x=1719930332;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=OUwAoH1ZShYCC83aNyQ953GlT2vF568xgwpj2nltnoc=;
-        b=ZjMzSU8qlYJeviCv0brGS9oFsLL08gWuTgb9i/agHmV9M2bYSsovtbaOHvMFZXpS5s
-         Z/Za0nl+YLljkVHUAT5Ae6N1j2s+db+vRPJMz52ezFlYm4VYjWmqawLw5V6iR0ZueDYA
-         MXcSTLV/Euc5yRZbSRN2inrzVxRa9cslv46NksyASOM/se1p5MKFEL4YTJduN1qnD3kP
-         iPfxjs5IP8eYGBkRisiBtOIhbuzA7d0z1UleTvZLHkOJ6rKDEvYvZQz0KdHmPlvypvri
-         oR5s5Y0+7HJTIt2qyE4yoWJ5zsP+Mpoikzw0+DnAK/0Xm2oM+t3Ai+BA70hPSBSP61Qs
-         owRA==
-X-Forwarded-Encrypted: i=1; AJvYcCVp806IKE1f9on1UwQ5vKdUuVS3eoEO9TYt8PJBss1fzFNgtM43Ts8hJhqIB8HRW2XcezWyyQKBJVv1/MSWU0Pl4KK5zgnFzKUHz7CQYlA=
-X-Gm-Message-State: AOJu0Yx0ro1hflptmIbrFdaXxUFPfDn744iYzOP8XXtipNZBZ4a1F+Wu
-	lRg+RMVHQ5Sc6cb9GzK5F01JTx7I4W/i2DQDqVWYFmP7/NAZP/FoZ4cjsa0a7w==
-X-Google-Smtp-Source: AGHT+IHOoU1ll2cOMc53LYPIlAzjEb+obs22SLapmiHzb5LCFSQLFWcm/K9JbvmV39a5Xio3BuKXcA==
-X-Received: by 2002:a2e:8792:0:b0:2ec:5699:5e6 with SMTP id 38308e7fff4ca-2ec5b28ba0dmr45475321fa.26.1719325459491;
-        Tue, 25 Jun 2024 07:24:19 -0700 (PDT)
-Message-ID: <10d1f56c-6b27-47ab-bd5e-208a0938c3eb@suse.com>
-Date: Tue, 25 Jun 2024 16:24:11 +0200
+        bh=DDqm963lEKq4uY9yYk6vCYrTFvjTQwIhWVOjFVXWAJw=;
+        b=Ql0zc6PjqpRacKnrDAnCkCGo0P7oDuPKzKqPRKX+/4sEwfDs7J+pC48QIae4Rt2LNT
+         Vx/66zNiE8vspwZwCBVZ+EUWck9m/KTucsWJzlYdOV10VeVkAnaIE9+9eetCF441yEsw
+         X9oxpMX+dhF8F32t9KU68RegkTFDoRTxPdWx/ovhCkwGnldqg4k2tFhwCljtXvDPR99S
+         plSV+mr49EWVkVi3akYJoC7xEaWQqZO6Z/P5nAlo4eQLeoBw37ocIlhURqOPjz/V1X1J
+         cM2M4oy3D8+0B/JWDrzPEo/CR974F3WCFTBcibiFtTLHYxQ7asGDuTW6awuyxik3v3rY
+         Z79Q==
+X-Forwarded-Encrypted: i=1; AJvYcCV2EbPpSx4MOWtl2gDnhcZ0+YkKT56vvuaP0peI7IC6Ze0tuEYdfBeY1buiBFAgJeEGm4E0NM8+z+Kpah9r4DjdI/1KzdqnRjyUwVUQV4w=
+X-Gm-Message-State: AOJu0Yxd8F6mj2RjMunbzUMOwHYfSxIsOKK8XsAzr2eiSfxFOpnqT5sX
+	VAnwMYxyMhhMymoLTHcpb8X62xz3U65mDZhO2fddkQ2XM8CblQ4BDkNotYb7CA==
+X-Google-Smtp-Source: AGHT+IGjEd/2a5pYVE0a6I4TmGqHJr81NWshZlkHv7j03ktAd9HVK2CehVoqx0AIjT2bR6vnha1yFA==
+X-Received: by 2002:a05:6000:1549:b0:366:df35:b64f with SMTP id ffacd0b85a97d-366e325ba7emr9647974f8f.4.1719325532545;
+        Tue, 25 Jun 2024 07:25:32 -0700 (PDT)
+Message-ID: <4a4e37a9-eac7-4e72-8845-6b4bbd7bafe6@suse.com>
+Date: Tue, 25 Jun 2024 16:25:26 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v13 05/10] xen/riscv: enable full Xen build
+Subject: Re: [PATCH v13 07/10] xen/common: fix build issue for common/trace.c
 To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+Cc: George Dunlap <george.dunlap@citrix.com>, xen-devel@lists.xenproject.org
 References: <cover.1719319093.git.oleksii.kurochko@gmail.com>
- <b47a278c89eb436a7b88dc5c0b18a6be09c76472.1719319093.git.oleksii.kurochko@gmail.com>
+ <f14f2c5629a75856f4bafdbff3cc165c373f8dc2.1719319093.git.oleksii.kurochko@gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -115,18 +111,21 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <b47a278c89eb436a7b88dc5c0b18a6be09c76472.1719319093.git.oleksii.kurochko@gmail.com>
+In-Reply-To: <f14f2c5629a75856f4bafdbff3cc165c373f8dc2.1719319093.git.oleksii.kurochko@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 25.06.2024 15:51, Oleksii Kurochko wrote:
+> During Gitlab CI randconfig job for RISC-V failed witn an error:
+>  common/trace.c:57:22: error: expected '=', ',', ';', 'asm' or
+>                               '__attribute__' before '__read_mostly'
+>    57 | static u32 data_size __read_mostly;
+> 
 > Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-> Reviewed-by: Jan Beulich <jbeulich@suse.com>
-> ---
->  Changes in V13:
->   - implement get_upper_mfn_bound() as BUG_ON("unimplemented")
 
-Odd, patch 4 also says this and also does so.
+Acked-by: Jan Beulich <jbeulich@suse.com>
+
+If you give a release-ack, this can go in right away, I think.
 
 Jan
 
