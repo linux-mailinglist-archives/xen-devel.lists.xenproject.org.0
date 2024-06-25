@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D5D75916AE5
-	for <lists+xen-devel@lfdr.de>; Tue, 25 Jun 2024 16:46:57 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.747859.1155369 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6A48E916AF0
+	for <lists+xen-devel@lfdr.de>; Tue, 25 Jun 2024 16:49:38 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.747866.1155378 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sM7Qa-0003RE-4X; Tue, 25 Jun 2024 14:45:48 +0000
+	id 1sM7U6-0004UB-IA; Tue, 25 Jun 2024 14:49:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 747859.1155369; Tue, 25 Jun 2024 14:45:48 +0000
+Received: by outflank-mailman (output) from mailman id 747866.1155378; Tue, 25 Jun 2024 14:49:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sM7Qa-0003O4-13; Tue, 25 Jun 2024 14:45:48 +0000
-Received: by outflank-mailman (input) for mailman id 747859;
- Tue, 25 Jun 2024 14:45:46 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1sM7U6-0004SO-FS; Tue, 25 Jun 2024 14:49:26 +0000
+Received: by outflank-mailman (input) for mailman id 747866;
+ Tue, 25 Jun 2024 14:49:25 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=sC98=N3=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sM7QY-0003Ny-FE
- for xen-devel@lists.xenproject.org; Tue, 25 Jun 2024 14:45:46 +0000
-Received: from mail-lj1-x22c.google.com (mail-lj1-x22c.google.com
- [2a00:1450:4864:20::22c])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 99ececca-3301-11ef-90a3-e314d9c70b13;
- Tue, 25 Jun 2024 16:45:45 +0200 (CEST)
-Received: by mail-lj1-x22c.google.com with SMTP id
- 38308e7fff4ca-2ec408c6d94so64461721fa.3
- for <xen-devel@lists.xenproject.org>; Tue, 25 Jun 2024 07:45:45 -0700 (PDT)
+ id 1sM7U5-0004SI-3B
+ for xen-devel@lists.xenproject.org; Tue, 25 Jun 2024 14:49:25 +0000
+Received: from mail-lj1-x232.google.com (mail-lj1-x232.google.com
+ [2a00:1450:4864:20::232])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 1c4abc4c-3302-11ef-b4bb-af5377834399;
+ Tue, 25 Jun 2024 16:49:23 +0200 (CEST)
+Received: by mail-lj1-x232.google.com with SMTP id
+ 38308e7fff4ca-2ec58040f39so32152631fa.2
+ for <xen-devel@lists.xenproject.org>; Tue, 25 Jun 2024 07:49:23 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-2c819a622f0sm8808593a91.8.2024.06.25.07.45.39
+ d2e1a72fcca58-7068af60b61sm3360514b3a.134.2024.06.25.07.49.18
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 25 Jun 2024 07:45:43 -0700 (PDT)
+ Tue, 25 Jun 2024 07:49:22 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,43 +45,43 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 99ececca-3301-11ef-90a3-e314d9c70b13
+X-Inumbo-ID: 1c4abc4c-3302-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1719326744; x=1719931544; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1719326962; x=1719931762; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=bDWoPZlQxmFrvHpt7YkCMFurjcft02gNTsFmOVmQ+nw=;
-        b=UeXR2bm1QMndE0mvjQWIAg92zkhQ/j8Bx99j5valjsVmqLMO7kgze2whHaR20gXENt
-         bEg9sgwatnmOBJR2dRiG8iOZIEPyprkF6GBHTpdemZTZDvqe8fA9qWN2PmZTZeZVdgcm
-         4zlvXZKTWKNEVotIJMNR840Qgd1lwpa5dBgaRKj3DW62WLciWPiiAKS+CRWlr+bdL+3l
-         aYtAFvSxrO9wVBY4NJgPkJRLHd3xVzpB1OocsujFXFhIDDSDh2Z2z4ezKCn3i8eON8Jg
-         c9qF/Ijz3/F2m7TfcATukOSRY8bhJVcmb86PhWGGGFwnF7cU8a121PSsDl87LjLCJeVx
-         4dmA==
+        bh=Su1fw8OFbAmbG4pvwPw6Bvr3dAWnfrD9VfuzVqzhebU=;
+        b=NGe4OBFfbPCFAJH3xOzAqag1Zt9B2ht50cgg1xZLhKi3zVWg0yW6dHiMDYvItvdu0G
+         /420+oHD9jNGNrDs1tJBfX2ajei6Is4DA43/KBG0L/FvbfujvknW89lJf+pjOBKMpECW
+         j4tKXO3trQN99nYh4h+CCgN9jiSScW8zYTEj0AzQEXKOmhbvqwGkWfai4j3Y8FogKWbt
+         ipI2ekokvDqdnghfA+vnPV0a3ge+SfptTg1USVZu5Zj+hsVJZbndqkpqrNwigfXKpsX0
+         TQJW4LAIHHsfHy/vhepNRoB8oJnlQBLCpCe7gk9z3GopClMNIOzmgwucBdBcK9Uay64T
+         RXMg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1719326744; x=1719931544;
+        d=1e100.net; s=20230601; t=1719326962; x=1719931762;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=bDWoPZlQxmFrvHpt7YkCMFurjcft02gNTsFmOVmQ+nw=;
-        b=qamExB9pwLj+BTrKb/5nGdVlDTwa3eUzRJoyAlscLh9WhfP6rf1s1A4HgNgkGxEkg3
-         H4q9CftZxZJdAgLvxL8/PweYHWxJNM5cEDfo2pV5WaI+Zj/aJ2uLs0v3yj2d7aeWWjMo
-         +RpAGZe4qy7m+zdXE6DajRJxwyJNhOTGGqvfNIoPqhh3WPz9MsVA+RSB7lQ6eEg2jH/V
-         gnUu4z0YskaFlh8R5atkF9Zp5oR0fTB9x63luf2y97nC/r8YiKB2QT2TZ02wvM51eMLM
-         olz9rCiGTNxgjFqrmilL9qDVuMQKSYiF35YENYbpTiEAf6rw2iFpx/5cDb9WixtkocRt
-         kbZw==
-X-Forwarded-Encrypted: i=1; AJvYcCUAq+X7DV4qIndTDRdfjW/e83KuuI57ffSM9H3/k3VqdVDeO5fubnsHW+80RSdPlalF0fKwzNAAC6nezqb/1gdS8b3JsNDDSkAnOrfjKck=
-X-Gm-Message-State: AOJu0Ywo8dx2/7KmBAoJsnobSAnVY9Xvi/4U6/yY60x119xVwHCyhOH+
-	Z1TdB+ZR+YLssNOkQDkntUWhKYCOMXotyfMhc8p7Tj+S2kcLEDZjpxguqUpiNQ==
-X-Google-Smtp-Source: AGHT+IEhkiGAbrctLw046GlK2bH4EE+v86d1kOd1UCNtcpG1EVEdS+sNMMIzk1ryKY2wMzPnce/GlA==
-X-Received: by 2002:a2e:9090:0:b0:2ec:5621:b9f2 with SMTP id 38308e7fff4ca-2ec5936fb3amr62825101fa.41.1719326743736;
-        Tue, 25 Jun 2024 07:45:43 -0700 (PDT)
-Message-ID: <8be2c7c0-0aa0-44e0-b3d3-d422fecc29b6@suse.com>
-Date: Tue, 25 Jun 2024 16:45:35 +0200
+        bh=Su1fw8OFbAmbG4pvwPw6Bvr3dAWnfrD9VfuzVqzhebU=;
+        b=SKSmPPR2iu0IU/rn44V4I7Cz+nDKaUebLGFe/LSkX6qtOCa7SUHXYFy/3VvtHZry6W
+         ShnEtFBNAhJNYfB8S8qgRH7pCQ06X2tSo2pQRN0axY5LGLzxGAHMKs/yoHgM2L9alggC
+         TChkSPc0kiIUJTGedPuwKI7p76Zp5uXXWwjPNhuRX1Ew8V05vpK/SePQcQFsfjyYocs2
+         rY7YWDMepUyG85oSCnj/J75LtLXEMBmhDKUI++3KIgowvllz/tc/vkN3DCQgk4WGezmE
+         +W8ianV4AITFFtpb6NF1GN2AeKx/HOT30D32YeZVIq3CfUGqudPLgIaRdvKh3Q5bykpr
+         TzWg==
+X-Forwarded-Encrypted: i=1; AJvYcCVqXRN0vDoKXYG4O4ljtMXs3bOksv18kilDSm4IzVcTSVq5zCpVv+EFwYIZ4G5TIIynm1YCM1YzAv9VeJ3d/Qi695vrGQWphmVFxeuT+U8=
+X-Gm-Message-State: AOJu0YyrlaYmBX12o5nUOw54NFbtd79LGNzDgZawMrrUL4+yDoUoZgvh
+	wqfXtvPRf6f9dKSiQlE+g4IPwkDhBJ6IpfPPJKSkFltaaCxFg0+x16SriXRDfQ==
+X-Google-Smtp-Source: AGHT+IGZ26yCFTOu30zLwaWfoshB6xJx+fnUGmDwpEleyXzJBvLR1gihOB3AliwO6mARCHouq9A1Vg==
+X-Received: by 2002:a2e:9083:0:b0:2ec:53ad:464 with SMTP id 38308e7fff4ca-2ec594cfa5fmr45957491fa.34.1719326962530;
+        Tue, 25 Jun 2024 07:49:22 -0700 (PDT)
+Message-ID: <95f64eba-13b9-404a-8318-7a3fc77ea560@suse.com>
+Date: Tue, 25 Jun 2024 16:49:14 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v13 08/10] xen/riscv: change .insn to .byte in cpu_relax()
+Subject: Re: [PATCH v13 09/10] xen/riscv: introduce ANDN_INSN
 To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 Cc: Alistair Francis <alistair.francis@wdc.com>,
  Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
@@ -89,7 +89,7 @@ Cc: Alistair Francis <alistair.francis@wdc.com>,
  George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
  Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
 References: <cover.1719319093.git.oleksii.kurochko@gmail.com>
- <b5ccb3850cbfc0c84d2feea35a971351395fa974.1719319093.git.oleksii.kurochko@gmail.com>
+ <b0d2ff2cecf6cb324e43b9c14c87f47f3f199613.1719319093.git.oleksii.kurochko@gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -115,46 +115,38 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <b5ccb3850cbfc0c84d2feea35a971351395fa974.1719319093.git.oleksii.kurochko@gmail.com>
+In-Reply-To: <b0d2ff2cecf6cb324e43b9c14c87f47f3f199613.1719319093.git.oleksii.kurochko@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 25.06.2024 15:51, Oleksii Kurochko wrote:
-> The .insn directive appears to check that the byte pattern is a known
-> extension, where .4byte doesn't.
+> --- a/xen/arch/riscv/include/asm/cmpxchg.h
+> +++ b/xen/arch/riscv/include/asm/cmpxchg.h
+> @@ -18,6 +18,20 @@
+>          : "r" (new) \
+>          : "memory" );
+>  
+> +/*
+> + * Binutils < 2.37 doesn't understand ANDN.  If the toolchain is too
+> +ld, form
 
-Support for specifying "raw" insns was added only in 2.38. Moving away
-from .insn has other downsides (which may or may not matter here, but
-that would want discussing). But: Do we really need to move away? Can't
-you use .insn with operands that the older gas supports, e.g.
+Same question: Why's 2.37 suddenly of interest? Plus, why would age of the
+tool chain matter? What you care about is whether you're permitted to use
+the extension at runtime. Otherwise you could again ...
 
-	.insn r MISC_MEM, 0, 0, x0, x0, x16
+Also something went wrong with line wrapping here.
 
-? I'm sorry, the oldest RISC-V gas I have to hand is 2.39, so I couldn't
-double check that 2.35 would grok this. From checking sources it should,
-though.
+> + * it of a NOT+AND pair
+> + */
+> +#ifdef __riscv_zbb
+> +#define ANDN_INSN(rd, rs1, rs2)                 \
+> +    "andn " rd ", " rs1 ", " rs2 "\n"
+> +#else
+> +#define ANDN_INSN(rd, rs1, rs2)                 \
+> +    "not " rd ", " rs2 "\n"                     \
+> +    "and " rd ", " rs1 ", " rd "\n"
 
-> The following compilation error occurs:
->   ./arch/riscv/include/asm/processor.h: Assembler messages:
->   ./arch/riscv/include/asm/processor.h:70: Error: unrecognized opcode `0x0100000F'
-> In case of the following Binutils:
->   $ riscv64-linux-gnu-as --version
->   GNU assembler (GNU Binutils for Debian) 2.35.2
-
-In patch 6 you say 2.39. Why is 2.35.2 suddenly becoming of interest?
-
-> --- a/xen/arch/riscv/include/asm/processor.h
-> +++ b/xen/arch/riscv/include/asm/processor.h
-> @@ -67,7 +67,7 @@ static inline void cpu_relax(void)
->      __asm__ __volatile__ ( "pause" );
->  #else
->      /* Encoding of the pause instruction */
-> -    __asm__ __volatile__ ( ".insn 0x0100000F" );
-> +    __asm__ __volatile__ ( ".byte 0x0100000F" );
->  #endif
-
-In the description you (correctly) say .4byte; why is it .byte here?
-Does this build at all?
+... resort to .insn.
 
 Jan
 
