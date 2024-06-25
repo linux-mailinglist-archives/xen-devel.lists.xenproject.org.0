@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AF6FD915B17
-	for <lists+xen-devel@lfdr.de>; Tue, 25 Jun 2024 02:46:04 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.747036.1154314 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AD628915B1A
+	for <lists+xen-devel@lfdr.de>; Tue, 25 Jun 2024 02:47:59 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.747044.1154324 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sLuJk-0007wt-35; Tue, 25 Jun 2024 00:45:52 +0000
+	id 1sLuLb-0000CB-EZ; Tue, 25 Jun 2024 00:47:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 747036.1154314; Tue, 25 Jun 2024 00:45:52 +0000
+Received: by outflank-mailman (output) from mailman id 747044.1154324; Tue, 25 Jun 2024 00:47:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sLuJk-0007vA-0K; Tue, 25 Jun 2024 00:45:52 +0000
-Received: by outflank-mailman (input) for mailman id 747036;
- Tue, 25 Jun 2024 00:45:50 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1sLuLb-00009d-Bk; Tue, 25 Jun 2024 00:47:47 +0000
+Received: by outflank-mailman (input) for mailman id 747044;
+ Tue, 25 Jun 2024 00:47:45 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=cmkP=N3=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1sLuJi-0006mj-0W
- for xen-devel@lists.xenproject.org; Tue, 25 Jun 2024 00:45:50 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 43b65cec-328c-11ef-90a3-e314d9c70b13;
- Tue, 25 Jun 2024 02:45:49 +0200 (CEST)
+ id 1sLuLZ-0008VI-5p
+ for xen-devel@lists.xenproject.org; Tue, 25 Jun 2024 00:47:45 +0000
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 86912975-328c-11ef-b4bb-af5377834399;
+ Tue, 25 Jun 2024 02:47:43 +0200 (CEST)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 28C9F6035D;
- Tue, 25 Jun 2024 00:45:48 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C7486C2BBFC;
- Tue, 25 Jun 2024 00:45:46 +0000 (UTC)
+ by sin.source.kernel.org (Postfix) with ESMTP id E3741CE100E;
+ Tue, 25 Jun 2024 00:47:39 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 99AD8C2BBFC;
+ Tue, 25 Jun 2024 00:47:37 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,76 +41,81 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 43b65cec-328c-11ef-90a3-e314d9c70b13
+X-Inumbo-ID: 86912975-328c-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1719276347;
-	bh=aaxf+ji/ptweHJPtDnQS2q/m4wnxpBHymjbwKJ1gOTg=;
+	s=k20201202; t=1719276459;
+	bh=TvSvl6foj/py4SPyiCAX0s204I5R26HuqXoCLChQZqk=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=s1oXxf6snDxBlc80Z6iQ2pYo50e5nSTML37+5/iaj6P5NA2RqMIbGjejezlUrK4FQ
-	 sbi9awcAuF1B4RP7jVQWrw/jC9nxpeSnionGs8YYaaFnH1u3sShRJs0+ocKwzejzth
-	 FJfJA02WYQclq+IvpjlPH1QHfaiKa0zM+hkkHGa5WnRyVUd/6Nnz8EiicxpNAY289s
-	 OxCEJE1KFON2kx8+57BM3nVUj7ynMsqf0S7oSv92RKIHEEG+vpEUxkww1XoTDF6Xmg
-	 9UUEqCV53Pu7qL2mQqIOtVwA+m1CSocxRp+Tn3/X9MG/0/39j0cEm9kuDhjnlO5K/X
-	 M16aYDWIokFfw==
-Date: Mon, 24 Jun 2024 17:45:45 -0700 (PDT)
+	b=CL56zmMmRGyJ1X488Gh+9pE7qMC6zphMvr/zTZLJbmdm3q3Re2aKwsSeH6gELbgbV
+	 lIN8KbznHkQGa9rAtkNuu5bRrsOOAlJj7YbmO9yq9oF6xrAGlcakBDacgAaJOD9Hqi
+	 I5urP5jRrEN+xhtPLBSr5v2kRR+k8OgHLmV69PbmzGsIaMZbQJNWWonpZYgQQC7uQo
+	 y0YRFpmOoXWLwelOMmR32uEGMuyre5oKZGH2p/cDVP/g0rbenxnKvrfUFciAWqFJZB
+	 RPtBPorCL/SDIXUxMK2cZhe7KgI3BlrjnZ8ZzxUUMn8ahlLmuB12VJF92FRhcH3cSe
+	 SUoeuv2fA5hBA==
+Date: Mon, 24 Jun 2024 17:47:36 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
 To: Nicola Vetrini <nicola.vetrini@bugseng.com>
 cc: xen-devel@lists.xenproject.org, sstabellini@kernel.org, 
     michal.orzel@amd.com, xenia.ragiadakou@amd.com, ayan.kumar.halder@amd.com, 
     consulting@bugseng.com, Simone Ballarin <simone.ballarin@bugseng.com>, 
-    Doug Goldstein <cardoe@cardoe.com>
-Subject: Re: [XEN PATCH v2 1/6][RESEND] automation/eclair: address violations
- of MISRA C Rule 20.7
-In-Reply-To: <af4b0512eb52be99e37c9c670f98967ca15c68ac.1718378539.git.nicola.vetrini@bugseng.com>
-Message-ID: <alpine.DEB.2.22.394.2406241745140.3870429@ubuntu-linux-20-04-desktop>
-References: <cover.1718378539.git.nicola.vetrini@bugseng.com> <af4b0512eb52be99e37c9c670f98967ca15c68ac.1718378539.git.nicola.vetrini@bugseng.com>
+    Doug Goldstein <cardoe@cardoe.com>, 
+    Andrew Cooper <andrew.cooper3@citrix.com>, 
+    George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>, 
+    Julien Grall <julien@xen.org>, oleksii.kurochko@gmail.com
+Subject: Re: [XEN PATCH v2 0/6][RESEND] address violations of MISRA C Rule
+ 20.7
+In-Reply-To: <cover.1718378539.git.nicola.vetrini@bugseng.com>
+Message-ID: <alpine.DEB.2.22.394.2406241743480.3870429@ubuntu-linux-20-04-desktop>
+References: <cover.1718378539.git.nicola.vetrini@bugseng.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
+Hi Oleksii,
+
+I would like to ask for a release-ack as the patch series makes very few
+changes outside of the static analysis configuration. The few changes to
+the Xen code are very limited, straightforward and makes the code
+better, see patch #3 and #5.
+
+
 On Mon, 17 Jun 2024, Nicola Vetrini wrote:
-> MISRA C Rule 20.7 states: "Expressions resulting from the expansion
-> of macro parameters shall be enclosed in parentheses".
+> Hi all,
 > 
-> The helper macro bitmap_switch has parameters that cannot be parenthesized
-> in order to comply with the rule, as that would break its functionality.
-> Moreover, the risk of misuse due developer confusion is deemed not
-> substantial enough to warrant a more involved refactor, thus the macro
-> is deviated for this rule.
+> this series addresses several violations of Rule 20.7, as well as a
+> small fix to the ECLAIR integration scripts that do not influence
+> the current behaviour, but were mistakenly part of the upstream
+> configuration.
 > 
-> No functional change.
+> Note that by applying this series the rule has a few leftover violations.
+> Most of those are in x86 code in xen/arch/x86/include/asm/msi.h .
+> I did send a patch [1] to deal with those, limited only to addressing the MISRA
+> violations, but in the end it was dropped in favour of a more general cleanup of
+> the file upon agreement, so this is why those changes are not included here.
 > 
-> Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
-
-I would have preferred a SAF tag instead but it can be done later
-
-Acked-by: Stefano Stabellini <sstabellini@kernel.org>
-
-
-> ---
->  automation/eclair_analysis/ECLAIR/deviations.ecl | 8 ++++++++
->  1 file changed, 8 insertions(+)
+> [1] https://lore.kernel.org/xen-devel/2f2c865f20d0296e623f1d65bed25c083f5dd497.1711700095.git.nicola.vetrini@bugseng.com/
 > 
-> diff --git a/automation/eclair_analysis/ECLAIR/deviations.ecl b/automation/eclair_analysis/ECLAIR/deviations.ecl
-> index 447c1e6661d1..c2698e7074aa 100644
-> --- a/automation/eclair_analysis/ECLAIR/deviations.ecl
-> +++ b/automation/eclair_analysis/ECLAIR/deviations.ecl
-> @@ -463,6 +463,14 @@ of this macro do not lead to developer confusion, and can thus be deviated."
->  -config=MC3R1.R20.7,reports+={safe, "any_area(any_loc(any_exp(macro(^count_args_$))))"}
->  -doc_end
->  
-> +-doc_begin="The arguments of macro bitmap_switch macro can't be parenthesized as
-> +the rule would require, without breaking the functionality of the macro. This is
-> +a specialized local helper macro only used within the bitmap.h header, so it is
-> +less likely to lead to developer confusion and it is deemed better to deviate it."
-> +-file_tag+={xen_bitmap_h, "^xen/include/xen/bitmap\\.h$"}
-> +-config=MC3R1.R20.7,reports+={safe, "any_area(any_loc(any_exp(macro(loc(file(xen_bitmap_h))&&^bitmap_switch$))))"}
-> +-doc_end
-> +
->  -doc_begin="Uses of variadic macros that have one of their arguments defined as
->  a macro and used within the body for both ordinary parameter expansion and as an
->  operand to the # or ## operators have a behavior that is well-understood and
+> Changes in v2:
+> - refactor patch 4 to deviate the pattern, instead of fixing the violations
+> - The series has been resent because I forgot to properly Cc the mailing list
+> 
+> Nicola Vetrini (6):
+>   automation/eclair: address violations of MISRA C Rule 20.7
+>   xen/self-tests: address violations of MISRA rule 20.7
+>   xen/guest_access: address violations of MISRA rule 20.7
+>   automation/eclair_analysis: address violations of MISRA C Rule 20.7
+>   x86/irq: address violations of MISRA C Rule 20.7
+>   automation/eclair_analysis: clean ECLAIR configuration scripts
+> 
+>  automation/eclair_analysis/ECLAIR/analyze.sh     |  3 +--
+>  automation/eclair_analysis/ECLAIR/deviations.ecl | 14 ++++++++++++--
+>  docs/misra/deviations.rst                        |  3 ++-
+>  xen/include/xen/guest_access.h                   |  4 ++--
+>  xen/include/xen/irq.h                            |  2 +-
+>  xen/include/xen/self-tests.h                     |  8 ++++----
+>  6 files changed, 22 insertions(+), 12 deletions(-)
+> 
 > -- 
 > 2.34.1
 > 
