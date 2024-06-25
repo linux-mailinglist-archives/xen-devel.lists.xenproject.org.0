@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EEB42915E90
-	for <lists+xen-devel@lfdr.de>; Tue, 25 Jun 2024 08:01:20 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.747192.1154527 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 03731915ECE
+	for <lists+xen-devel@lfdr.de>; Tue, 25 Jun 2024 08:20:16 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.747205.1154547 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sLzEc-0004Xr-Vw; Tue, 25 Jun 2024 06:00:54 +0000
+	id 1sLzWe-00075P-MV; Tue, 25 Jun 2024 06:19:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 747192.1154527; Tue, 25 Jun 2024 06:00:54 +0000
+Received: by outflank-mailman (output) from mailman id 747205.1154547; Tue, 25 Jun 2024 06:19:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sLzEc-0004Vn-Sb; Tue, 25 Jun 2024 06:00:54 +0000
-Received: by outflank-mailman (input) for mailman id 747192;
- Tue, 25 Jun 2024 06:00:53 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1sLzWe-00073v-JP; Tue, 25 Jun 2024 06:19:32 +0000
+Received: by outflank-mailman (input) for mailman id 747205;
+ Tue, 25 Jun 2024 06:19:31 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=sC98=N3=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sLzEb-0004Vh-48
- for xen-devel@lists.xenproject.org; Tue, 25 Jun 2024 06:00:53 +0000
-Received: from mail-lj1-x236.google.com (mail-lj1-x236.google.com
- [2a00:1450:4864:20::236])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 47086dbd-32b8-11ef-90a3-e314d9c70b13;
- Tue, 25 Jun 2024 08:00:52 +0200 (CEST)
-Received: by mail-lj1-x236.google.com with SMTP id
- 38308e7fff4ca-2ebed33cb65so56328441fa.2
- for <xen-devel@lists.xenproject.org>; Mon, 24 Jun 2024 23:00:52 -0700 (PDT)
+ id 1sLzWd-00073p-Ac
+ for xen-devel@lists.xenproject.org; Tue, 25 Jun 2024 06:19:31 +0000
+Received: from mail-lj1-x231.google.com (mail-lj1-x231.google.com
+ [2a00:1450:4864:20::231])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id e0f28c03-32ba-11ef-b4bb-af5377834399;
+ Tue, 25 Jun 2024 08:19:29 +0200 (CEST)
+Received: by mail-lj1-x231.google.com with SMTP id
+ 38308e7fff4ca-2ebec2f11b7so55613791fa.2
+ for <xen-devel@lists.xenproject.org>; Mon, 24 Jun 2024 23:19:29 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-7069afb8bd8sm403788b3a.145.2024.06.24.23.00.47
+ d9443c01a7336-1f9eb2f02cdsm73133085ad.4.2024.06.24.23.19.24
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 24 Jun 2024 23:00:50 -0700 (PDT)
+ Mon, 24 Jun 2024 23:19:28 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,52 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 47086dbd-32b8-11ef-90a3-e314d9c70b13
+X-Inumbo-ID: e0f28c03-32ba-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1719295251; x=1719900051; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1719296368; x=1719901168; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=QGYTSjuyk5eWZDroKLLfQ8zBgMUfQ/0YGkUFlSNGDdY=;
-        b=JHT4r4J+XvSDTg1d6Hecc+cV1rB9CyI2YkNEm9V09AkO1rpV+abwxA0eeVaKOxuDbA
-         oYSbrJpRFz+QSlDrILg0upHmiUnMA7Xz094AQWXWkZwIwSR3H5NvV3fN8sdCfuqG308E
-         O0YqpXSABnpNi08R7jMhfnBTu+lk36LgZ7PA4nbR5DsZOSmhTf8lVm8WR4vtWF13qPuG
-         rBHrJis/gC7z+vrX25e1ggYc+4qFVI7zR2icvaQjBuF5DURgh2kzzaGkqh/APgjuDfQB
-         I2LLoWNVKWBm6w3VJPhLbJPdkyXx0OrjUxUE2SzIyX6nmeF02yJ+qUfqdaHN3q0ZdgvV
-         kJdQ==
+        bh=a+U644J+OlsI2Sj/9Id2DhqJCpOpqmaT7Dfv7XoFEVo=;
+        b=VcnV9NlSeSQe0uTznzgck0ilzRy/XBmzmgwkSp8NNXvGTnKrP5awutCtNGUh3ZIT7+
+         uAY0eiv9VVqZgTFms28TYJfxCVBzMd7BF/Bkq4CpW6WA8fkvDq9u3HCIwWDgGYsP64PJ
+         ncTCFrFguh86xTEmPgkNq/bezn5jvbVPxypC5yBKkE1gcPuixpJn+A+pADsUCVj4ZreA
+         Bl1fgda4RC9Dw/3wPJ17RNKehlb6K+xpacXgkEEsuqqd8P1D4COnPgpg/+nqW1zmuwyX
+         kL1coGa4ba2f2PQcIeoLv0WcnTjMeDdzQbc0AXQHFqbPnfJthWfsJj8Btn9kFOlAs3G+
+         XmLg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1719295251; x=1719900051;
+        d=1e100.net; s=20230601; t=1719296368; x=1719901168;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=QGYTSjuyk5eWZDroKLLfQ8zBgMUfQ/0YGkUFlSNGDdY=;
-        b=Y5EWtkBFx7V3fr7gZxMIYFR3+53Xt6fcObbH2nQj3B0ohbW06mYvWZEbcZ6MKPRQ7D
-         j5hJodP/7j9F0evrUkOmm4ziN8yZv0vZxLf2g2tYts6Jo6Vr8E7dN6Zgtu56gEQGQlJm
-         +1ebFnhym/YSPMjOqvL/NzXIaVDn5so/CACWHh+FlfQ8TdhIONCwBIGVLJWqmL8xs8Fi
-         xnnRo17tG3a5Puwo028w9B5Yh8ztWi57gLceECiH9Y6Po5nkGf6AEsQZotq1DaZw5SJZ
-         9Ntno/aZ9KwddAhf7f64p3hOpUKyygPRX/xY/CwHN8I9c1fAaY7P5ud9FjNNc9O4JyRw
-         p43w==
-X-Forwarded-Encrypted: i=1; AJvYcCUt+O+H/xA7Y/bUh9rwIOORylwShDBeBrwntzDXnMehijB24zTjNRU1FUF/AP9HtYXQbDWEzw6HIG1DdORfBqcrjQ05NPhEaNh1UgmVDg0=
-X-Gm-Message-State: AOJu0YzFBY/SYenDuLqCBQXkQO1qqiwuLvqiu6yRApDrIlpoa9KOenOv
-	zmwzRffXwuYI7iuHGldEnbKFkMQjZaHPueLeht2Y+QtLVv1AtS1pyGmNugFgcQ==
-X-Google-Smtp-Source: AGHT+IFHPCziqXXYtQLOVV6YdqS2rDgeQmRPUWNbvwHxqhexrUH8yl/yqPxSGUXTK+BddbkVzljhlA==
-X-Received: by 2002:a05:651c:209:b0:2ec:5777:aa61 with SMTP id 38308e7fff4ca-2ec5931002amr50758901fa.3.1719295251404;
-        Mon, 24 Jun 2024 23:00:51 -0700 (PDT)
-Message-ID: <80d0578d-26c0-4650-9edf-6926c055d415@suse.com>
-Date: Tue, 25 Jun 2024 08:00:43 +0200
+        bh=a+U644J+OlsI2Sj/9Id2DhqJCpOpqmaT7Dfv7XoFEVo=;
+        b=PhLe7wnQ0QNGJi8ap4gb7Ln7PX22YGHXjKXt26wYPq+IvGojKkClfcYKqxnnuHhc1r
+         O1YDDCDJ57bRGTeZ7k22PsVc3i8MHz7tud3vbQc9Lj/NdL9yrIfac2rka+z2vb05NK9q
+         Pr5NhyLj8SqFB2wA0j51RungAp4KvIhDySyDZWmDnWe67kueVNhzwkBaU97pf0nHc/Iv
+         G77JPk19qBmm7bsZp63dbfeDTKDfa7RhQcSHNmqRn5tzb59TDjxVSBecBDafs4mCPDw8
+         f2Q70svrEguj61+Sx77nFJgaIM1zTLAW6v96J2lIYvW1SdCngiqOYlDsJmx4p5eNDv0G
+         zdiw==
+X-Gm-Message-State: AOJu0YyMgkfzjBPlR8+k2F7i9WqdNbESXLw5SMhGJmGEwH/roNobyvkd
+	c5ZxX32mUuo2b4Pb17FdHA9FwUYNVmh2ziqx7Tp59XB4bVj8zX361wL5i7VyYQ==
+X-Google-Smtp-Source: AGHT+IGKzcj2ZDoELShQ4lJBfuCotbrFbJ78g2WrODw6jBO7EHOI461qEFAac6+lJKAvP9xpn83cgw==
+X-Received: by 2002:a2e:98c8:0:b0:2ec:5abf:f3ae with SMTP id 38308e7fff4ca-2ec5b338aa1mr36758931fa.19.1719296368565;
+        Mon, 24 Jun 2024 23:19:28 -0700 (PDT)
+Message-ID: <f402157c-0dc2-4e30-820f-ecd319e9ce86@suse.com>
+Date: Tue, 25 Jun 2024 08:19:19 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] Add libfuzzer target to fuzz/x86_instruction_emulator
-To: Tamas K Lengyel <tamas@tklengyel.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Anthony PERARD <anthony@xenproject.org>, xen-devel@lists.xenproject.org
-References: <20240621191434.5046-1-tamas@tklengyel.com>
- <45c69745-b060-4697-9f6e-b3d2a8860946@suse.com>
- <CABfawhkyDVw-=nR2d6KiXGYYv=coDgHUr1oXC+BmUxH_ita+iQ@mail.gmail.com>
+Subject: Re: [XEN PATCH] MAINTAINERS: Update my email address again
+To: Julien Grall <julien@xen.org>
+Cc: xen-devel@lists.xenproject.org, Anthony PERARD <anthony@xenproject.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>,
+ Oleksii <oleksii.kurochko@gmail.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Anthony PERARD <anthony.perard@vates.tech>
+References: <20240624094030.41692-1-anthony.perard@vates.tech>
+ <alpine.DEB.2.22.394.2406240927390.3870429@ubuntu-linux-20-04-desktop>
+ <5238d3a6-c47f-4951-b839-a92c5ee4e571@xen.org>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -114,36 +116,26 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <CABfawhkyDVw-=nR2d6KiXGYYv=coDgHUr1oXC+BmUxH_ita+iQ@mail.gmail.com>
+In-Reply-To: <5238d3a6-c47f-4951-b839-a92c5ee4e571@xen.org>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 24.06.2024 23:23, Tamas K Lengyel wrote:
-> On Mon, Jun 24, 2024 at 11:55 AM Jan Beulich <jbeulich@suse.com> wrote:
+On 24.06.2024 23:40, Julien Grall wrote:
+> On 24/06/2024 17:27, Stefano Stabellini wrote:
+>> On Mon, 24 Jun 2024, Anthony PERARD wrote:
+>>> Signed-off-by: Anthony PERARD <anthony.perard@vates.tech>
 >>
->> On 21.06.2024 21:14, Tamas K Lengyel wrote:
->>> @@ -58,6 +58,9 @@ afl-harness: afl-harness.o $(OBJS) cpuid.o wrappers.o
->>>  afl-harness-cov: afl-harness-cov.o $(patsubst %.o,%-cov.o,$(OBJS)) cpuid.o wrappers.o
->>>       $(CC) $(CFLAGS) $(GCOV_FLAGS) $(addprefix -Wl$(comma)--wrap=,$(WRAPPED)) $^ -o $@
->>>
->>> +libfuzzer-harness: $(OBJS) cpuid.o
->>> +     $(CC) $(CFLAGS) $(LIB_FUZZING_ENGINE) -fsanitize=fuzzer $^ -o $@
->>
->> What is LIB_FUZZING_ENGINE? I don't think we have any use of that in the
->> tree anywhere.
+>> Acked-by: Stefano Stabellini <sstabellini@kernel.org>
 > 
-> It's used by oss-fuzz, otherwise it's not doing anything.
-> 
->>
->> I'm further surprised you get away here without wrappers.o.
-> 
-> Wrappers.o was actually breaking the build for oss-fuzz at the linking
-> stage. It works just fine without it.
+> I guess this technically need an ack from the release manager. So CC 
+> Oleksii.
 
-I'm worried here, to be honest. The wrappers serve a pretty important
-role, and I'm having a hard time seeing why they shouldn't be needed
-here when they're needed both for the test and afl harnesses. Could
-you add some more detail on the build issues you encountered?
+Hmm, that's on the edge, I think. Imo an ack shouldn't be needed here,
+as requiring one would mean that it could also be refused. Yet such
+updates would better go in quickly, so people use up-to-date information.
+I'm sure committers would apply common sense as to avoiding to commit at
+truly "critical" times; typically at such time a commit moratorium is in
+place anyway.
 
 Jan
 
