@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7ED69915F0C
-	for <lists+xen-devel@lfdr.de>; Tue, 25 Jun 2024 08:47:21 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.747259.1154616 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6D109915F16
+	for <lists+xen-devel@lfdr.de>; Tue, 25 Jun 2024 08:53:21 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.747268.1154627 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sLzxN-00065t-F9; Tue, 25 Jun 2024 06:47:09 +0000
+	id 1sM02x-00088k-34; Tue, 25 Jun 2024 06:52:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 747259.1154616; Tue, 25 Jun 2024 06:47:09 +0000
+Received: by outflank-mailman (output) from mailman id 747268.1154627; Tue, 25 Jun 2024 06:52:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sLzxN-00063g-CI; Tue, 25 Jun 2024 06:47:09 +0000
-Received: by outflank-mailman (input) for mailman id 747259;
- Tue, 25 Jun 2024 06:47:08 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1sM02w-00086o-VR; Tue, 25 Jun 2024 06:52:54 +0000
+Received: by outflank-mailman (input) for mailman id 747268;
+ Tue, 25 Jun 2024 06:52:53 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=sQf/=N3=bugseng.com=federico.serafini@srs-se1.protection.inumbo.net>)
- id 1sLzxM-0004zo-MT
- for xen-devel@lists.xenproject.org; Tue, 25 Jun 2024 06:47:08 +0000
+ <SRS0=9u5k=N3=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
+ id 1sM02v-00086i-ES
+ for xen-devel@lists.xenproject.org; Tue, 25 Jun 2024 06:52:53 +0000
 Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id bd340412-32be-11ef-b4bb-af5377834399;
- Tue, 25 Jun 2024 08:47:07 +0200 (CEST)
-Received: from [172.20.10.8] (unknown [37.161.81.3])
- by support.bugseng.com (Postfix) with ESMTPSA id 7FB294EE0738;
- Tue, 25 Jun 2024 08:47:06 +0200 (CEST)
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 8af0402c-32bf-11ef-90a3-e314d9c70b13;
+ Tue, 25 Jun 2024 08:52:52 +0200 (CEST)
+Received: from support.bugseng.com (support.bugseng.com [162.55.131.47])
+ by support.bugseng.com (Postfix) with ESMTPA id EFE704EE0738;
+ Tue, 25 Jun 2024 08:52:51 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,41 +39,91 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bd340412-32be-11ef-b4bb-af5377834399
-Message-ID: <31ed9bcf-dc5b-41d1-9931-e6be70e3fe71@bugseng.com>
-Date: Tue, 25 Jun 2024 08:47:05 +0200
+X-Inumbo-ID: 8af0402c-32bf-11ef-90a3-e314d9c70b13
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH v2 01/13] automation/eclair: fix deviation of MISRA C
- Rule 16.3
-To: Jan Beulich <jbeulich@suse.com>
-Cc: consulting@bugseng.com, Simone Ballarin <simone.ballarin@bugseng.com>,
- Doug Goldstein <cardoe@cardoe.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <cover.1719218291.git.federico.serafini@bugseng.com>
- <c43a32405cc949ef5bf26a2ca1d1cc7ee7f5e664.1719218291.git.federico.serafini@bugseng.com>
- <1149f3da-480e-4949-924b-6cdf39b1e17f@suse.com>
-Content-Language: en-US, it
-From: Federico Serafini <federico.serafini@bugseng.com>
-Organization: BUGSENG
-In-Reply-To: <1149f3da-480e-4949-924b-6cdf39b1e17f@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Date: Tue, 25 Jun 2024 08:52:51 +0200
+From: Nicola Vetrini <nicola.vetrini@bugseng.com>
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: xen-devel@lists.xenproject.org, michal.orzel@amd.com,
+ xenia.ragiadakou@amd.com, ayan.kumar.halder@amd.com, consulting@bugseng.com,
+ Simone Ballarin <simone.ballarin@bugseng.com>, Doug Goldstein
+ <cardoe@cardoe.com>
+Subject: Re: [XEN PATCH v2 1/6][RESEND] automation/eclair: address violations
+ of MISRA C Rule 20.7
+In-Reply-To: <alpine.DEB.2.22.394.2406201718140.2572888@ubuntu-linux-20-04-desktop>
+References: <cover.1718378539.git.nicola.vetrini@bugseng.com>
+ <af4b0512eb52be99e37c9c670f98967ca15c68ac.1718378539.git.nicola.vetrini@bugseng.com>
+ <alpine.DEB.2.22.394.2406201718140.2572888@ubuntu-linux-20-04-desktop>
+Message-ID: <4aa05e0f26f050363d9ed0401855e1bb@bugseng.com>
+X-Sender: nicola.vetrini@bugseng.com
+Organization: BUGSENG s.r.l.
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 24/06/24 12:57, Jan Beulich wrote:
-> On 24.06.2024 11:04, Federico Serafini wrote:
->> Escape the final dot of the comment and extend the search of a
->> fallthrough comment up to 2 lines after the last statement.
->>
->> Fixes: a128d8da913b21eff6c6d2e2a7d4c54c054b78db "automation/eclair: add deviations for MISRA C:2012 Rule 16.3"
+On 2024-06-21 02:18, Stefano Stabellini wrote:
+> On Mon, 16 Jun 2024, Nicola Vetrini wrote:
+>> MISRA C Rule 20.7 states: "Expressions resulting from the expansion
+>> of macro parameters shall be enclosed in parentheses".
+>> 
+>> The helper macro bitmap_switch has parameters that cannot be 
+>> parenthesized
+>> in order to comply with the rule, as that would break its 
+>> functionality.
+>> Moreover, the risk of misuse due developer confusion is deemed not
+>> substantial enough to warrant a more involved refactor, thus the macro
+>> is deviated for this rule.
+>> 
+>> No functional change.
+>> 
+>> Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
 > 
-> Nit: Yes, the respective doc says "at least 12 digits", but please also keep
-> at that going forward.
+> If possible, I would prefer we used a SAF in-code comment deviation. If
+> that doesn't work for any reason this patch is fine and I'd ack it.
+> 
 
-Noted.
+Would that be an improvement for safety in your opinion?
+
+> 
+>> ---
+>>  automation/eclair_analysis/ECLAIR/deviations.ecl | 8 ++++++++
+>>  1 file changed, 8 insertions(+)
+>> 
+>> diff --git a/automation/eclair_analysis/ECLAIR/deviations.ecl 
+>> b/automation/eclair_analysis/ECLAIR/deviations.ecl
+>> index 447c1e6661d1..c2698e7074aa 100644
+>> --- a/automation/eclair_analysis/ECLAIR/deviations.ecl
+>> +++ b/automation/eclair_analysis/ECLAIR/deviations.ecl
+>> @@ -463,6 +463,14 @@ of this macro do not lead to developer confusion, 
+>> and can thus be deviated."
+>>  -config=MC3R1.R20.7,reports+={safe, 
+>> "any_area(any_loc(any_exp(macro(^count_args_$))))"}
+>>  -doc_end
+>> 
+>> +-doc_begin="The arguments of macro bitmap_switch macro can't be 
+>> parenthesized as
+>> +the rule would require, without breaking the functionality of the 
+>> macro. This is
+>> +a specialized local helper macro only used within the bitmap.h 
+>> header, so it is
+>> +less likely to lead to developer confusion and it is deemed better to 
+>> deviate it."
+>> +-file_tag+={xen_bitmap_h, "^xen/include/xen/bitmap\\.h$"}
+>> +-config=MC3R1.R20.7,reports+={safe, 
+>> "any_area(any_loc(any_exp(macro(loc(file(xen_bitmap_h))&&^bitmap_switch$))))"}
+>> +-doc_end
+>> +
+>>  -doc_begin="Uses of variadic macros that have one of their arguments 
+>> defined as
+>>  a macro and used within the body for both ordinary parameter 
+>> expansion and as an
+>>  operand to the # or ## operators have a behavior that is 
+>> well-understood and
+>> --
+>> 2.34.1
+>> 
 
 -- 
-Federico Serafini, M.Sc.
-
-Software Engineer, BUGSENG (http://bugseng.com)
+Nicola Vetrini, BSc
+Software Engineer, BUGSENG srl (https://bugseng.com)
 
