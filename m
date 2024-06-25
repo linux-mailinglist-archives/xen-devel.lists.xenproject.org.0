@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E3823916A34
-	for <lists+xen-devel@lfdr.de>; Tue, 25 Jun 2024 16:25:46 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.747848.1155358 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D5D75916AE5
+	for <lists+xen-devel@lfdr.de>; Tue, 25 Jun 2024 16:46:57 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.747859.1155369 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sM771-0006Hi-Hy; Tue, 25 Jun 2024 14:25:35 +0000
+	id 1sM7Qa-0003RE-4X; Tue, 25 Jun 2024 14:45:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 747848.1155358; Tue, 25 Jun 2024 14:25:35 +0000
+Received: by outflank-mailman (output) from mailman id 747859.1155369; Tue, 25 Jun 2024 14:45:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sM771-0006Ex-Ew; Tue, 25 Jun 2024 14:25:35 +0000
-Received: by outflank-mailman (input) for mailman id 747848;
- Tue, 25 Jun 2024 14:25:34 +0000
+	id 1sM7Qa-0003O4-13; Tue, 25 Jun 2024 14:45:48 +0000
+Received: by outflank-mailman (input) for mailman id 747859;
+ Tue, 25 Jun 2024 14:45:46 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=sC98=N3=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sM770-0006Ep-36
- for xen-devel@lists.xenproject.org; Tue, 25 Jun 2024 14:25:34 +0000
-Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
- [2a00:1450:4864:20::434])
+ id 1sM7QY-0003Ny-FE
+ for xen-devel@lists.xenproject.org; Tue, 25 Jun 2024 14:45:46 +0000
+Received: from mail-lj1-x22c.google.com (mail-lj1-x22c.google.com
+ [2a00:1450:4864:20::22c])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c7f1b4c8-32fe-11ef-90a3-e314d9c70b13;
- Tue, 25 Jun 2024 16:25:33 +0200 (CEST)
-Received: by mail-wr1-x434.google.com with SMTP id
- ffacd0b85a97d-3621ac606e1so3954517f8f.1
- for <xen-devel@lists.xenproject.org>; Tue, 25 Jun 2024 07:25:33 -0700 (PDT)
+ id 99ececca-3301-11ef-90a3-e314d9c70b13;
+ Tue, 25 Jun 2024 16:45:45 +0200 (CEST)
+Received: by mail-lj1-x22c.google.com with SMTP id
+ 38308e7fff4ca-2ec408c6d94so64461721fa.3
+ for <xen-devel@lists.xenproject.org>; Tue, 25 Jun 2024 07:45:45 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-706953b6b06sm1900144b3a.173.2024.06.25.07.25.29
+ 98e67ed59e1d1-2c819a622f0sm8808593a91.8.2024.06.25.07.45.39
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 25 Jun 2024 07:25:32 -0700 (PDT)
+ Tue, 25 Jun 2024 07:45:43 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,47 +45,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c7f1b4c8-32fe-11ef-90a3-e314d9c70b13
+X-Inumbo-ID: 99ececca-3301-11ef-90a3-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1719325532; x=1719930332; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1719326744; x=1719931544; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=DDqm963lEKq4uY9yYk6vCYrTFvjTQwIhWVOjFVXWAJw=;
-        b=Vq5XdDBlJkVU7BmWrRsikYKw9drCSbBahUP407SkFk2aU6OCU/2XWF/DdbW+okXFyq
-         mQDallh14D6XQ4tLotkieX9BveLvXIvk0/aKpDz7CXDEh523xX5XQv9STOLtasF/wkKI
-         PL/E4kAbbFlmP5FcoNVj7QU7kH+2mMgBoJpwdHUyEo/kWUXrITdTa5DotHKuRlQ6QhEI
-         cIwR0/D+WW90SgmVLJrPnUjBiMgGfsImR2VvipZQwdBQOevFstZUpByi2EdEArVQ6auZ
-         2uHYT0V1u6Rgi0fhTaIKxdbdbMh7zux9IjyviKiBJqJsQGC77nRjeJwSXWkF8CJRXxMN
-         F6cw==
+        bh=bDWoPZlQxmFrvHpt7YkCMFurjcft02gNTsFmOVmQ+nw=;
+        b=UeXR2bm1QMndE0mvjQWIAg92zkhQ/j8Bx99j5valjsVmqLMO7kgze2whHaR20gXENt
+         bEg9sgwatnmOBJR2dRiG8iOZIEPyprkF6GBHTpdemZTZDvqe8fA9qWN2PmZTZeZVdgcm
+         4zlvXZKTWKNEVotIJMNR840Qgd1lwpa5dBgaRKj3DW62WLciWPiiAKS+CRWlr+bdL+3l
+         aYtAFvSxrO9wVBY4NJgPkJRLHd3xVzpB1OocsujFXFhIDDSDh2Z2z4ezKCn3i8eON8Jg
+         c9qF/Ijz3/F2m7TfcATukOSRY8bhJVcmb86PhWGGGFwnF7cU8a121PSsDl87LjLCJeVx
+         4dmA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1719325532; x=1719930332;
+        d=1e100.net; s=20230601; t=1719326744; x=1719931544;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=DDqm963lEKq4uY9yYk6vCYrTFvjTQwIhWVOjFVXWAJw=;
-        b=Ql0zc6PjqpRacKnrDAnCkCGo0P7oDuPKzKqPRKX+/4sEwfDs7J+pC48QIae4Rt2LNT
-         Vx/66zNiE8vspwZwCBVZ+EUWck9m/KTucsWJzlYdOV10VeVkAnaIE9+9eetCF441yEsw
-         X9oxpMX+dhF8F32t9KU68RegkTFDoRTxPdWx/ovhCkwGnldqg4k2tFhwCljtXvDPR99S
-         plSV+mr49EWVkVi3akYJoC7xEaWQqZO6Z/P5nAlo4eQLeoBw37ocIlhURqOPjz/V1X1J
-         cM2M4oy3D8+0B/JWDrzPEo/CR974F3WCFTBcibiFtTLHYxQ7asGDuTW6awuyxik3v3rY
-         Z79Q==
-X-Forwarded-Encrypted: i=1; AJvYcCV2EbPpSx4MOWtl2gDnhcZ0+YkKT56vvuaP0peI7IC6Ze0tuEYdfBeY1buiBFAgJeEGm4E0NM8+z+Kpah9r4DjdI/1KzdqnRjyUwVUQV4w=
-X-Gm-Message-State: AOJu0Yxd8F6mj2RjMunbzUMOwHYfSxIsOKK8XsAzr2eiSfxFOpnqT5sX
-	VAnwMYxyMhhMymoLTHcpb8X62xz3U65mDZhO2fddkQ2XM8CblQ4BDkNotYb7CA==
-X-Google-Smtp-Source: AGHT+IGjEd/2a5pYVE0a6I4TmGqHJr81NWshZlkHv7j03ktAd9HVK2CehVoqx0AIjT2bR6vnha1yFA==
-X-Received: by 2002:a05:6000:1549:b0:366:df35:b64f with SMTP id ffacd0b85a97d-366e325ba7emr9647974f8f.4.1719325532545;
-        Tue, 25 Jun 2024 07:25:32 -0700 (PDT)
-Message-ID: <4a4e37a9-eac7-4e72-8845-6b4bbd7bafe6@suse.com>
-Date: Tue, 25 Jun 2024 16:25:26 +0200
+        bh=bDWoPZlQxmFrvHpt7YkCMFurjcft02gNTsFmOVmQ+nw=;
+        b=qamExB9pwLj+BTrKb/5nGdVlDTwa3eUzRJoyAlscLh9WhfP6rf1s1A4HgNgkGxEkg3
+         H4q9CftZxZJdAgLvxL8/PweYHWxJNM5cEDfo2pV5WaI+Zj/aJ2uLs0v3yj2d7aeWWjMo
+         +RpAGZe4qy7m+zdXE6DajRJxwyJNhOTGGqvfNIoPqhh3WPz9MsVA+RSB7lQ6eEg2jH/V
+         gnUu4z0YskaFlh8R5atkF9Zp5oR0fTB9x63luf2y97nC/r8YiKB2QT2TZ02wvM51eMLM
+         olz9rCiGTNxgjFqrmilL9qDVuMQKSYiF35YENYbpTiEAf6rw2iFpx/5cDb9WixtkocRt
+         kbZw==
+X-Forwarded-Encrypted: i=1; AJvYcCUAq+X7DV4qIndTDRdfjW/e83KuuI57ffSM9H3/k3VqdVDeO5fubnsHW+80RSdPlalF0fKwzNAAC6nezqb/1gdS8b3JsNDDSkAnOrfjKck=
+X-Gm-Message-State: AOJu0Ywo8dx2/7KmBAoJsnobSAnVY9Xvi/4U6/yY60x119xVwHCyhOH+
+	Z1TdB+ZR+YLssNOkQDkntUWhKYCOMXotyfMhc8p7Tj+S2kcLEDZjpxguqUpiNQ==
+X-Google-Smtp-Source: AGHT+IEhkiGAbrctLw046GlK2bH4EE+v86d1kOd1UCNtcpG1EVEdS+sNMMIzk1ryKY2wMzPnce/GlA==
+X-Received: by 2002:a2e:9090:0:b0:2ec:5621:b9f2 with SMTP id 38308e7fff4ca-2ec5936fb3amr62825101fa.41.1719326743736;
+        Tue, 25 Jun 2024 07:45:43 -0700 (PDT)
+Message-ID: <8be2c7c0-0aa0-44e0-b3d3-d422fecc29b6@suse.com>
+Date: Tue, 25 Jun 2024 16:45:35 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v13 07/10] xen/common: fix build issue for common/trace.c
+Subject: Re: [PATCH v13 08/10] xen/riscv: change .insn to .byte in cpu_relax()
 To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: George Dunlap <george.dunlap@citrix.com>, xen-devel@lists.xenproject.org
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
 References: <cover.1719319093.git.oleksii.kurochko@gmail.com>
- <f14f2c5629a75856f4bafdbff3cc165c373f8dc2.1719319093.git.oleksii.kurochko@gmail.com>
+ <b5ccb3850cbfc0c84d2feea35a971351395fa974.1719319093.git.oleksii.kurochko@gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -111,21 +115,46 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <f14f2c5629a75856f4bafdbff3cc165c373f8dc2.1719319093.git.oleksii.kurochko@gmail.com>
+In-Reply-To: <b5ccb3850cbfc0c84d2feea35a971351395fa974.1719319093.git.oleksii.kurochko@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 25.06.2024 15:51, Oleksii Kurochko wrote:
-> During Gitlab CI randconfig job for RISC-V failed witn an error:
->  common/trace.c:57:22: error: expected '=', ',', ';', 'asm' or
->                               '__attribute__' before '__read_mostly'
->    57 | static u32 data_size __read_mostly;
-> 
-> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+> The .insn directive appears to check that the byte pattern is a known
+> extension, where .4byte doesn't.
 
-Acked-by: Jan Beulich <jbeulich@suse.com>
+Support for specifying "raw" insns was added only in 2.38. Moving away
+from .insn has other downsides (which may or may not matter here, but
+that would want discussing). But: Do we really need to move away? Can't
+you use .insn with operands that the older gas supports, e.g.
 
-If you give a release-ack, this can go in right away, I think.
+	.insn r MISC_MEM, 0, 0, x0, x0, x16
+
+? I'm sorry, the oldest RISC-V gas I have to hand is 2.39, so I couldn't
+double check that 2.35 would grok this. From checking sources it should,
+though.
+
+> The following compilation error occurs:
+>   ./arch/riscv/include/asm/processor.h: Assembler messages:
+>   ./arch/riscv/include/asm/processor.h:70: Error: unrecognized opcode `0x0100000F'
+> In case of the following Binutils:
+>   $ riscv64-linux-gnu-as --version
+>   GNU assembler (GNU Binutils for Debian) 2.35.2
+
+In patch 6 you say 2.39. Why is 2.35.2 suddenly becoming of interest?
+
+> --- a/xen/arch/riscv/include/asm/processor.h
+> +++ b/xen/arch/riscv/include/asm/processor.h
+> @@ -67,7 +67,7 @@ static inline void cpu_relax(void)
+>      __asm__ __volatile__ ( "pause" );
+>  #else
+>      /* Encoding of the pause instruction */
+> -    __asm__ __volatile__ ( ".insn 0x0100000F" );
+> +    __asm__ __volatile__ ( ".byte 0x0100000F" );
+>  #endif
+
+In the description you (correctly) say .4byte; why is it .byte here?
+Does this build at all?
 
 Jan
 
