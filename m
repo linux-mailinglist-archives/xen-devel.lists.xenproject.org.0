@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 423BE915B15
-	for <lists+xen-devel@lfdr.de>; Tue, 25 Jun 2024 02:45:00 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.747023.1154289 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 40289915B16
+	for <lists+xen-devel@lfdr.de>; Tue, 25 Jun 2024 02:45:26 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.747028.1154303 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sLuIf-0006pR-Ez; Tue, 25 Jun 2024 00:44:45 +0000
+	id 1sLuJ3-0007JU-Ng; Tue, 25 Jun 2024 00:45:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 747023.1154289; Tue, 25 Jun 2024 00:44:45 +0000
+Received: by outflank-mailman (output) from mailman id 747028.1154303; Tue, 25 Jun 2024 00:45:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sLuIf-0006mz-Bi; Tue, 25 Jun 2024 00:44:45 +0000
-Received: by outflank-mailman (input) for mailman id 747023;
- Tue, 25 Jun 2024 00:44:44 +0000
+	id 1sLuJ3-0007Hf-Ks; Tue, 25 Jun 2024 00:45:09 +0000
+Received: by outflank-mailman (input) for mailman id 747028;
+ Tue, 25 Jun 2024 00:45:08 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=cmkP=N3=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1sLuIe-0006mj-7I
- for xen-devel@lists.xenproject.org; Tue, 25 Jun 2024 00:44:44 +0000
-Received: from sin.source.kernel.org (sin.source.kernel.org
- [2604:1380:40e1:4800::1])
+ id 1sLuJ2-0006mj-9K
+ for xen-devel@lists.xenproject.org; Tue, 25 Jun 2024 00:45:08 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [2604:1380:4641:c500::1])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 1b3af71d-328c-11ef-90a3-e314d9c70b13;
- Tue, 25 Jun 2024 02:44:42 +0200 (CEST)
+ id 2ac1d045-328c-11ef-90a3-e314d9c70b13;
+ Tue, 25 Jun 2024 02:45:07 +0200 (CEST)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id 5B937CE100E;
- Tue, 25 Jun 2024 00:44:36 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9C698C2BBFC;
- Tue, 25 Jun 2024 00:44:34 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id 0865D60F80;
+ Tue, 25 Jun 2024 00:45:06 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B91CC32786;
+ Tue, 25 Jun 2024 00:45:04 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,38 +42,46 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1b3af71d-328c-11ef-90a3-e314d9c70b13
+X-Inumbo-ID: 2ac1d045-328c-11ef-90a3-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1719276275;
-	bh=Vtkpy9kOQr6ZNYLWY48gW0OGdAAuqTE3Gsz6e82YGlo=;
+	s=k20201202; t=1719276305;
+	bh=g7R6x5apNxQHB7old6xqfKbgGuO0ogJzumML+KWlAVw=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=Hg7F2epKwAKauKNof0vwehn6NApPxrhq00BZVae16pCdc96H2hiFqPRf96L+9SmoS
-	 si+dS6drD5Jq4SaLVI1/UOt4nI/tZ/jUNHBbitJDGJQhqxq1G8YDBoaVk20PNzAxml
-	 4TEk2u7Ad0mmJALO7DUeieFHhhZn/BXYdRTqJIXvGLhk4mPeT3uChGKneFGltp07T0
-	 o+0SBK5eDRtUD31nmdt+ryRIaYTWus9m2TCnuTOxqcnX91UrOrE/rOxZQN3cy1XSob
-	 nb81Sy71a0j/giwSe9cKfJ00EaD5Q27+mD02p/Wqbh2ZMtLOjUUY0f3e1OnQTaOO5M
-	 U5e/hg45sGbjw==
-Date: Mon, 24 Jun 2024 17:44:33 -0700 (PDT)
+	b=W4p/dkt00RNJEju2ekiUJnywHk9syXAokFV6VIJADdHEYS0ljj0ZmmbgFxCnAALju
+	 4pucPlrt/RkEyZPrnR8KoBsXdEWBZRNoZ8eUuM761U4l1nXrtt98HaP2Qb+kVMups4
+	 seIGGV8zOexLHD59AWPlq7xOkiGfPF0S/vSTh+/J7ePsGnLxRGD1uD1xlL3Pe11HE2
+	 7hZANNWSrFiQajNW51zW7fYJITmr3mNGus+fOYUcFvMwdcqzOlBmS1XrIC6+cDicdu
+	 9wndxpdo/+sLM1y+PVuAZeaakZGNIf5jcw+8bCk9C/IM788GITb+V4T57RWblsnsMS
+	 nqIyk3TucVFAA==
+Date: Mon, 24 Jun 2024 17:45:02 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
 To: Nicola Vetrini <nicola.vetrini@bugseng.com>
 cc: xen-devel@lists.xenproject.org, sstabellini@kernel.org, 
     michal.orzel@amd.com, xenia.ragiadakou@amd.com, ayan.kumar.halder@amd.com, 
     consulting@bugseng.com, Simone Ballarin <simone.ballarin@bugseng.com>, 
-    Doug Goldstein <cardoe@cardoe.com>
-Subject: Re: [XEN PATCH v2 6/6][RESEND] automation/eclair_analysis: clean
- ECLAIR configuration scripts
-In-Reply-To: <120e7e4579b931c08d28d0a96848af1df7a07f7d.1718378539.git.nicola.vetrini@bugseng.com>
-Message-ID: <alpine.DEB.2.22.394.2406241744270.3870429@ubuntu-linux-20-04-desktop>
-References: <cover.1718378539.git.nicola.vetrini@bugseng.com> <120e7e4579b931c08d28d0a96848af1df7a07f7d.1718378539.git.nicola.vetrini@bugseng.com>
+    Doug Goldstein <cardoe@cardoe.com>, 
+    Andrew Cooper <andrew.cooper3@citrix.com>, 
+    George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>, 
+    Julien Grall <julien@xen.org>
+Subject: Re: [XEN PATCH v2 4/6][RESEND] automation/eclair_analysis: address
+ violations of MISRA C Rule 20.7
+In-Reply-To: <dfebde9cc657f2669df60b08ca34352288e082ab.1718378539.git.nicola.vetrini@bugseng.com>
+Message-ID: <alpine.DEB.2.22.394.2406241744540.3870429@ubuntu-linux-20-04-desktop>
+References: <cover.1718378539.git.nicola.vetrini@bugseng.com> <dfebde9cc657f2669df60b08ca34352288e082ab.1718378539.git.nicola.vetrini@bugseng.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
 On Mon, 17 Jun 2024, Nicola Vetrini wrote:
-> Remove from the ECLAIR integration scripts an unused option, which
-> was already ignored, and make the help texts consistent
-> with the rest of the scripts.
+> MISRA C Rule 20.7 states: "Expressions resulting from the expansion
+> of macro parameters shall be enclosed in parentheses".
+> 
+> The local helpers GRP2 and XADD in the x86 emulator use their first
+> argument as the constant expression for a case label. This pattern
+> is deviated project-wide, because it is very unlikely to induce
+> developer confusion and result in the wrong control flow being
+> carried out.
 > 
 > No functional change.
 > 
@@ -83,30 +91,49 @@ Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 
 
 > ---
->  automation/eclair_analysis/ECLAIR/analyze.sh | 3 +--
->  1 file changed, 1 insertion(+), 2 deletions(-)
+> Changes in v2:
+> - Introduce a deviation instead of adding parentheses
+> ---
+>  automation/eclair_analysis/ECLAIR/deviations.ecl | 6 ++++--
+>  docs/misra/deviations.rst                        | 3 ++-
+>  2 files changed, 6 insertions(+), 3 deletions(-)
 > 
-> diff --git a/automation/eclair_analysis/ECLAIR/analyze.sh b/automation/eclair_analysis/ECLAIR/analyze.sh
-> index 0ea5520c93a6..e96456c3c18d 100755
-> --- a/automation/eclair_analysis/ECLAIR/analyze.sh
-> +++ b/automation/eclair_analysis/ECLAIR/analyze.sh
-> @@ -11,7 +11,7 @@ fatal() {
->  }
+> diff --git a/automation/eclair_analysis/ECLAIR/deviations.ecl b/automation/eclair_analysis/ECLAIR/deviations.ecl
+> index c2698e7074aa..fc248641dc78 100644
+> --- a/automation/eclair_analysis/ECLAIR/deviations.ecl
+> +++ b/automation/eclair_analysis/ECLAIR/deviations.ecl
+> @@ -428,13 +428,15 @@ unexpected result when the structure is given as argument to a sizeof() operator
 >  
->  usage() {
-> -  fatal "Usage: ${script_name} <ARM64|X86_64> <Set0|Set1|Set2|Set3>"
-> +  fatal "Usage: ${script_name} <ARM64|X86_64> <accepted|monitored>"
->  }
+>  -doc_begin="Code violating Rule 20.7 is safe when macro parameters are used: (1)
+>  as function arguments; (2) as macro arguments; (3) as array indices; (4) as lhs
+> -in assignments; (5) as initializers, possibly designated, in initalizer lists."
+> +in assignments; (5) as initializers, possibly designated, in initalizer lists;
+> +(6) as the constant expression in a switch clause label."
+>  -config=MC3R1.R20.7,expansion_context=
+>  {safe, "context(__call_expr_arg_contexts)"},
+>  {safe, "left_right(^[(,\\[]$,^[),\\]]$)"},
+>  {safe, "context(skip_to(__expr_non_syntactic_contexts, stmt_child(node(array_subscript_expr), subscript)))"},
+>  {safe, "context(skip_to(__expr_non_syntactic_contexts, stmt_child(operator(assign), lhs)))"},
+> -{safe, "context(skip_to(__expr_non_syntactic_contexts, stmt_child(node(init_list_expr||designated_init_expr), init)))"}
+> +{safe, "context(skip_to(__expr_non_syntactic_contexts, stmt_child(node(init_list_expr||designated_init_expr), init)))"},
+> +{safe, "context(skip_to(__expr_non_syntactic_contexts, stmt_child(node(case_stmt), lower||upper)))"}
+>  -doc_end
 >  
->  if [[ $# -ne 2 ]]; then
-> @@ -40,7 +40,6 @@ ECLAIR_REPORT_LOG=${ECLAIR_OUTPUT_DIR}/REPORT.log
->  if [[ "$1" = "X86_64" ]]; then
->    export CROSS_COMPILE=
->    export XEN_TARGET_ARCH=x86_64
-> -  EXTRA_ECLAIR_ENV_OPTIONS=-disable=MC3R1.R20.7
->  elif [[ "$1" = "ARM64" ]]; then
->    export CROSS_COMPILE=aarch64-linux-gnu-
->    export XEN_TARGET_ARCH=arm64
+>  -doc_begin="Violations involving the __config_enabled macros cannot be fixed without
+> diff --git a/docs/misra/deviations.rst b/docs/misra/deviations.rst
+> index 36959aa44ac9..be2cc6bf03eb 100644
+> --- a/docs/misra/deviations.rst
+> +++ b/docs/misra/deviations.rst
+> @@ -376,7 +376,8 @@ Deviations related to MISRA C:2012 Rules:
+>         (2) as macro arguments;
+>         (3) as array indices;
+>         (4) as lhs in assignments;
+> -       (5) as initializers, possibly designated, in initalizer lists.
+> +       (5) as initializers, possibly designated, in initalizer lists;
+> +       (6) as constant expressions of switch case labels.
+>       - Tagged as `safe` for ECLAIR.
+>  
+>     * - R20.7
 > -- 
 > 2.34.1
 > 
