@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6A48E916AF0
-	for <lists+xen-devel@lfdr.de>; Tue, 25 Jun 2024 16:49:38 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.747866.1155378 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A516A916B0C
+	for <lists+xen-devel@lfdr.de>; Tue, 25 Jun 2024 16:52:13 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.747872.1155389 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sM7U6-0004UB-IA; Tue, 25 Jun 2024 14:49:26 +0000
+	id 1sM7WX-0006SA-Uq; Tue, 25 Jun 2024 14:51:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 747866.1155378; Tue, 25 Jun 2024 14:49:26 +0000
+Received: by outflank-mailman (output) from mailman id 747872.1155389; Tue, 25 Jun 2024 14:51:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sM7U6-0004SO-FS; Tue, 25 Jun 2024 14:49:26 +0000
-Received: by outflank-mailman (input) for mailman id 747866;
- Tue, 25 Jun 2024 14:49:25 +0000
+	id 1sM7WX-0006Pj-RI; Tue, 25 Jun 2024 14:51:57 +0000
+Received: by outflank-mailman (input) for mailman id 747872;
+ Tue, 25 Jun 2024 14:51:55 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=sC98=N3=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sM7U5-0004SI-3B
- for xen-devel@lists.xenproject.org; Tue, 25 Jun 2024 14:49:25 +0000
-Received: from mail-lj1-x232.google.com (mail-lj1-x232.google.com
- [2a00:1450:4864:20::232])
+ id 1sM7WV-0006ON-Rl
+ for xen-devel@lists.xenproject.org; Tue, 25 Jun 2024 14:51:55 +0000
+Received: from mail-lj1-x233.google.com (mail-lj1-x233.google.com
+ [2a00:1450:4864:20::233])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 1c4abc4c-3302-11ef-b4bb-af5377834399;
- Tue, 25 Jun 2024 16:49:23 +0200 (CEST)
-Received: by mail-lj1-x232.google.com with SMTP id
- 38308e7fff4ca-2ec58040f39so32152631fa.2
- for <xen-devel@lists.xenproject.org>; Tue, 25 Jun 2024 07:49:23 -0700 (PDT)
+ id 76456aa2-3302-11ef-b4bb-af5377834399;
+ Tue, 25 Jun 2024 16:51:54 +0200 (CEST)
+Received: by mail-lj1-x233.google.com with SMTP id
+ 38308e7fff4ca-2ec50a5e230so40272671fa.0
+ for <xen-devel@lists.xenproject.org>; Tue, 25 Jun 2024 07:51:54 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-7068af60b61sm3360514b3a.134.2024.06.25.07.49.18
+ 98e67ed59e1d1-2c819dd3d81sm8864053a91.57.2024.06.25.07.51.50
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 25 Jun 2024 07:49:22 -0700 (PDT)
+ Tue, 25 Jun 2024 07:51:52 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,51 +45,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1c4abc4c-3302-11ef-b4bb-af5377834399
+X-Inumbo-ID: 76456aa2-3302-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1719326962; x=1719931762; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1719327113; x=1719931913; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=Su1fw8OFbAmbG4pvwPw6Bvr3dAWnfrD9VfuzVqzhebU=;
-        b=NGe4OBFfbPCFAJH3xOzAqag1Zt9B2ht50cgg1xZLhKi3zVWg0yW6dHiMDYvItvdu0G
-         /420+oHD9jNGNrDs1tJBfX2ajei6Is4DA43/KBG0L/FvbfujvknW89lJf+pjOBKMpECW
-         j4tKXO3trQN99nYh4h+CCgN9jiSScW8zYTEj0AzQEXKOmhbvqwGkWfai4j3Y8FogKWbt
-         ipI2ekokvDqdnghfA+vnPV0a3ge+SfptTg1USVZu5Zj+hsVJZbndqkpqrNwigfXKpsX0
-         TQJW4LAIHHsfHy/vhepNRoB8oJnlQBLCpCe7gk9z3GopClMNIOzmgwucBdBcK9Uay64T
-         RXMg==
+        bh=LF90kDOkU0Kf70tg7SPJ469N2laBq/yRfCpqi6lgIAs=;
+        b=Na0e4cEnFn4mQ1INu+azsajes6ndXg3HnqCemRPtXWb7uCdC5Qtmpjz0qjLo/bufMz
+         NvFr3vyc4minSFIaOx+1ciNSapp1wfuqGMyGAy5saSR3g+V+7P/+cTszXefa0+HrLd+5
+         l7HZ0z6UjUOrKjdt6r8To9JMkHAxooMmE56HocpqtAlAwOoPO2r6LmkRp2rbkxuPdDm2
+         9eQCj1ZXLCr+Lp1gIwy5nRX05E1aY+dOfjPBEXQHdO2mipgi+h3/cbjUmeALR8GeTdW6
+         wVzEyeVO2KyxVbNEYZL4RHq4MzGtgDAiHtp3jsKQqbLhs5cJ57V0ya3yyHNiEJ4xeCMw
+         +Fdw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1719326962; x=1719931762;
+        d=1e100.net; s=20230601; t=1719327113; x=1719931913;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=Su1fw8OFbAmbG4pvwPw6Bvr3dAWnfrD9VfuzVqzhebU=;
-        b=SKSmPPR2iu0IU/rn44V4I7Cz+nDKaUebLGFe/LSkX6qtOCa7SUHXYFy/3VvtHZry6W
-         ShnEtFBNAhJNYfB8S8qgRH7pCQ06X2tSo2pQRN0axY5LGLzxGAHMKs/yoHgM2L9alggC
-         TChkSPc0kiIUJTGedPuwKI7p76Zp5uXXWwjPNhuRX1Ew8V05vpK/SePQcQFsfjyYocs2
-         rY7YWDMepUyG85oSCnj/J75LtLXEMBmhDKUI++3KIgowvllz/tc/vkN3DCQgk4WGezmE
-         +W8ianV4AITFFtpb6NF1GN2AeKx/HOT30D32YeZVIq3CfUGqudPLgIaRdvKh3Q5bykpr
-         TzWg==
-X-Forwarded-Encrypted: i=1; AJvYcCVqXRN0vDoKXYG4O4ljtMXs3bOksv18kilDSm4IzVcTSVq5zCpVv+EFwYIZ4G5TIIynm1YCM1YzAv9VeJ3d/Qi695vrGQWphmVFxeuT+U8=
-X-Gm-Message-State: AOJu0YyrlaYmBX12o5nUOw54NFbtd79LGNzDgZawMrrUL4+yDoUoZgvh
-	wqfXtvPRf6f9dKSiQlE+g4IPwkDhBJ6IpfPPJKSkFltaaCxFg0+x16SriXRDfQ==
-X-Google-Smtp-Source: AGHT+IGZ26yCFTOu30zLwaWfoshB6xJx+fnUGmDwpEleyXzJBvLR1gihOB3AliwO6mARCHouq9A1Vg==
-X-Received: by 2002:a2e:9083:0:b0:2ec:53ad:464 with SMTP id 38308e7fff4ca-2ec594cfa5fmr45957491fa.34.1719326962530;
-        Tue, 25 Jun 2024 07:49:22 -0700 (PDT)
-Message-ID: <95f64eba-13b9-404a-8318-7a3fc77ea560@suse.com>
-Date: Tue, 25 Jun 2024 16:49:14 +0200
+        bh=LF90kDOkU0Kf70tg7SPJ469N2laBq/yRfCpqi6lgIAs=;
+        b=vToBptQWEaWv5ImtTCPQmlXYuh/DGuMrs1qP9/xcskIPRfLap9JsoDrVjkQ51052Em
+         75A/ahU07F8S9Jaedyf0pCYLDF6UcPtt7Q/9IUiFlfyXqQfAYVZca1yenR8RBr7Lf2st
+         cH2lAXtP+AdcEd/RAuvuECG7mIzLxqHyq4uMSCbwMV/iPOKbYVqTamEVI8W2t8cnYFRS
+         QM1Q0TXLdM3R770ZwQZa4G3ij/C16RchGQC2M3DKyx3q4+VmUdEIM8P98hGUIonzrqOu
+         Lmj0CGCEDZe35P9WRT6+b+39uQjfHnwyjPZanh/hhddQ/QuoBTtCpOcoImC/Pl4ExenE
+         fX1A==
+X-Forwarded-Encrypted: i=1; AJvYcCUoE/YDHJzkaPqnG2R1OmJ/n9GcK0OQcWIdaPEm1uzSD/6e9o4g3GN1/OY1rTjLayiRBuqPeDpVDbb0Scfu9qyiAK0Y+CnQcoW5vwY8vYA=
+X-Gm-Message-State: AOJu0YySg30PnspKhwPombAlSOfcHgTBi6hVEEKahIDwj97PrR1ozIKa
+	KKNgUPyM2W7MH5bYSUqwVnrZnafVWDMdxZhe8508EIfAT2b8T6j4GwjrWWWqfA==
+X-Google-Smtp-Source: AGHT+IFlPk7AXVpuY3PgJusTzyodYJsE2Fa179/cn6anaC4zl6tm7uz55qZY2rK0UfcaFDWi7/OxTg==
+X-Received: by 2002:a2e:88c9:0:b0:2ec:556f:3474 with SMTP id 38308e7fff4ca-2ec5b2e94bbmr50039041fa.52.1719327113271;
+        Tue, 25 Jun 2024 07:51:53 -0700 (PDT)
+Message-ID: <301ed888-af55-4445-9944-a1488791e120@suse.com>
+Date: Tue, 25 Jun 2024 16:51:46 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v13 09/10] xen/riscv: introduce ANDN_INSN
+Subject: Re: [PATCH v13 10/10] xen/x86: drop constanst_test_bit() in
+ asm/bitops.h
 To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ xen-devel@lists.xenproject.org
 References: <cover.1719319093.git.oleksii.kurochko@gmail.com>
- <b0d2ff2cecf6cb324e43b9c14c87f47f3f199613.1719319093.git.oleksii.kurochko@gmail.com>
+ <edd341a6e86ceac2717c59680d4e5e7fc3321b5d.1719319093.git.oleksii.kurochko@gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -115,38 +114,18 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <b0d2ff2cecf6cb324e43b9c14c87f47f3f199613.1719319093.git.oleksii.kurochko@gmail.com>
+In-Reply-To: <edd341a6e86ceac2717c59680d4e5e7fc3321b5d.1719319093.git.oleksii.kurochko@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 25.06.2024 15:51, Oleksii Kurochko wrote:
-> --- a/xen/arch/riscv/include/asm/cmpxchg.h
-> +++ b/xen/arch/riscv/include/asm/cmpxchg.h
-> @@ -18,6 +18,20 @@
->          : "r" (new) \
->          : "memory" );
->  
-> +/*
-> + * Binutils < 2.37 doesn't understand ANDN.  If the toolchain is too
-> +ld, form
+> constant_test_bit() is functionally the same as generic_test_bit(),
+> so constant_test_bit() can be dropped and replaced with
+> generic_test_bit().
+> 
+> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 
-Same question: Why's 2.37 suddenly of interest? Plus, why would age of the
-tool chain matter? What you care about is whether you're permitted to use
-the extension at runtime. Otherwise you could again ...
+Acked-by: Jan Beulich <jbeulich@suse.com>
+(Didn't I ask for this to be done, so perhaps also Requested-by or alike?)
 
-Also something went wrong with line wrapping here.
-
-> + * it of a NOT+AND pair
-> + */
-> +#ifdef __riscv_zbb
-> +#define ANDN_INSN(rd, rs1, rs2)                 \
-> +    "andn " rd ", " rs1 ", " rs2 "\n"
-> +#else
-> +#define ANDN_INSN(rd, rs1, rs2)                 \
-> +    "not " rd ", " rs2 "\n"                     \
-> +    "and " rd ", " rs1 ", " rd "\n"
-
-... resort to .insn.
-
-Jan
 
