@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A4C68915EE3
-	for <lists+xen-devel@lfdr.de>; Tue, 25 Jun 2024 08:26:12 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.747212.1154556 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 37D6A915EF6
+	for <lists+xen-devel@lfdr.de>; Tue, 25 Jun 2024 08:36:04 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.747220.1154567 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sLzcr-0000Bs-Ev; Tue, 25 Jun 2024 06:25:57 +0000
+	id 1sLzli-00022W-At; Tue, 25 Jun 2024 06:35:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 747212.1154556; Tue, 25 Jun 2024 06:25:57 +0000
+Received: by outflank-mailman (output) from mailman id 747220.1154567; Tue, 25 Jun 2024 06:35:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sLzcr-00009V-CM; Tue, 25 Jun 2024 06:25:57 +0000
-Received: by outflank-mailman (input) for mailman id 747212;
- Tue, 25 Jun 2024 06:25:55 +0000
+	id 1sLzli-000201-77; Tue, 25 Jun 2024 06:35:06 +0000
+Received: by outflank-mailman (input) for mailman id 747220;
+ Tue, 25 Jun 2024 06:35:04 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=sC98=N3=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sLzcp-00009O-7G
- for xen-devel@lists.xenproject.org; Tue, 25 Jun 2024 06:25:55 +0000
-Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
- [2a00:1450:4864:20::429])
+ id 1sLzlg-0001zv-Pg
+ for xen-devel@lists.xenproject.org; Tue, 25 Jun 2024 06:35:04 +0000
+Received: from mail-lj1-x22d.google.com (mail-lj1-x22d.google.com
+ [2a00:1450:4864:20::22d])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c5e23c48-32bb-11ef-b4bb-af5377834399;
- Tue, 25 Jun 2024 08:25:53 +0200 (CEST)
-Received: by mail-wr1-x429.google.com with SMTP id
- ffacd0b85a97d-35f2c9e23d3so3762407f8f.0
- for <xen-devel@lists.xenproject.org>; Mon, 24 Jun 2024 23:25:53 -0700 (PDT)
+ id 0b9b4bd0-32bd-11ef-b4bb-af5377834399;
+ Tue, 25 Jun 2024 08:34:59 +0200 (CEST)
+Received: by mail-lj1-x22d.google.com with SMTP id
+ 38308e7fff4ca-2ebe785b234so56123651fa.1
+ for <xen-devel@lists.xenproject.org>; Mon, 24 Jun 2024 23:34:59 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-706511b137csm7265112b3a.86.2024.06.24.23.25.46
+ 98e67ed59e1d1-2c819a7a557sm7968555a91.15.2024.06.24.23.34.55
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 24 Jun 2024 23:25:52 -0700 (PDT)
+ Mon, 24 Jun 2024 23:34:58 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,63 +45,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c5e23c48-32bb-11ef-b4bb-af5377834399
+X-Inumbo-ID: 0b9b4bd0-32bd-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1719296753; x=1719901553; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1719297299; x=1719902099; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=Ds7BUmnZ96D/xuLbWD36rYp/G6iSUvUfatH/VCXhgHo=;
-        b=aH2KCo9PnFeHJ2K/iUDfSE8udqWTvP9YlnYCVDuCt3H3QT4gqOQc8tezbq9MJqvNcg
-         ZnuvdyLA57NCLU34kHg18rsjjLGBYmFpW4DIRp+C7+7N9MEdrw4F8ek03sOYe4DvQBki
-         QF6qotZ6JFtDqygIo5lWWPNyUUVrtw/ajYBP2cTRp+8a7T881j3/D5QifzBf37egilut
-         Mb3X+mDqazWWKznVeQdZtliZUW5s4IBNcH5hs7C+3HzjuGeKkaNimvAhL86tbVq10sZW
-         uVz1z9i2ZWpOGfpVNOiCj5tAm042/e5gGcL1Ph+gXjKTPubJDHfX7VH8s/JJqUfegvM1
-         274g==
+        bh=MMmL82UsFNEjpvybl7VhZ0LSIom4J5ANnVyWqMHiS4A=;
+        b=eGDFlvqgDvH3O+1PczuWSwQXhMAUEq8oJeSmdz4TtKgIUtYkY3lrZGTPsxYLWf32gu
+         PUGvLTdXTTSiIVn9GklLWGny4ABKDHEbqQNkM6KilSZkuZ6Ifc/mL4HamlB9o0ci1qaA
+         P1LFgdWMTJRs4TsrURPd2W7x7drpIxg0fo2mzmzwO6Df5HlI3PXJ/qrn5ZfJY+N4PSdS
+         37VzZvqeB4ZgJdxnoLsNIk0M6USykV8tIB55R/Q/6AoPJsI9yrg5usGeFSboUTI7SVaZ
+         1CrrCoyMD4QYhEdQNV3fZDFdYrNtYkOwASLFc/mWf40b8nNioPKqGXmm+v0gegur4Hmk
+         lW6g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1719296753; x=1719901553;
+        d=1e100.net; s=20230601; t=1719297299; x=1719902099;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=Ds7BUmnZ96D/xuLbWD36rYp/G6iSUvUfatH/VCXhgHo=;
-        b=LshaznFhPworaGy3ZT7NLKRCEELwxGWo7OYM9jLBufi6boYpeV/gdwpOa/4Hw3iLeN
-         GYgE6dK8KD8vJAsoNe8qicngTmg/fbeAPQVH4mag+l1LdrQnIocTFoa/MXyMC3KQU4KL
-         WKFExDzZZFIoA21CE0mauFmE2tEfmw5upVuIGjxydMTOMFOVwQbCay14+3CO6KTVIYas
-         Q6gpm/M7TCf3k0m9H4pZJ0enXvYqJUX7fjodKWB4KrtgM16Rxt1P/sESZC1gfKLW8bmB
-         u0HhqaVqULgduVwV4Ga/qQ2Xe7ebduGwcQTiidCsTHbbf6i3NbuvI2xb7DLByLxfvnCU
-         EVhw==
-X-Forwarded-Encrypted: i=1; AJvYcCUSXYlFCkE7OjGMkk8WdH0D8w64mUYQu01Q2YNq5LW46HLJKHAq/ktuZFl16Trp7UWECKURwLRkf0LF1H27xn1QEI0L45TKLVvCJ+EVnkg=
-X-Gm-Message-State: AOJu0YwwSFfNJbZkLoar7HYNjImCUMduGSIbYuLR/H04TWIlHp1Ep/bB
-	qjkFMFghuaGM2TN+DvFcLr7FNHq51XqtP9GyccAurCMJL3k5HYZQ+oANYDnbVw==
-X-Google-Smtp-Source: AGHT+IEErUYMI3plik3w1tw6HvNzk6fvZ7VJ1wXcZ0OwS1Vgy+cpjbigsfRBLFzipuBHVK0NZTrSkQ==
-X-Received: by 2002:adf:9d89:0:b0:366:f976:598b with SMTP id ffacd0b85a97d-366f97659d1mr3076366f8f.8.1719296752761;
-        Mon, 24 Jun 2024 23:25:52 -0700 (PDT)
-Message-ID: <fb06a382-d26a-4973-a681-9bf3fb0f7f9b@suse.com>
-Date: Tue, 25 Jun 2024 08:25:41 +0200
+        bh=MMmL82UsFNEjpvybl7VhZ0LSIom4J5ANnVyWqMHiS4A=;
+        b=dwNN1/E/ZJ/QiLnXxh08WJ5Zr1ma8Xjy7Gd7n4XzLEpnjMSgfbu78+18mjj+C09PqE
+         bzCxpx+iLJaylZ6SQXq83P7iQ0RhxFcCtQ8qosVCNl2gfQCXrh5K3OCRHJzlBe49u1Lu
+         9pF4WH+cft9/hGRJG+9hAI6Bfn02Nh1hV5OQyFAv24fLHYqlESawnZhHABA4EwvbMwRG
+         XBLc06Om68Xsdb3uhdfryIzXuRfbo/BmaeXTC6LFbhFxrOGjanfbhH/6tSqqIuBFpepq
+         cmP3F1fRLQXEhc34qJ83nLr2CpaLv4pCmykLn8zzPAphemz5QwFaTCTbXsGUrK4J5/Vh
+         C7sA==
+X-Forwarded-Encrypted: i=1; AJvYcCXVUoiBT6P0FCYNMWKue8OBID6zBwCwys3IrMRdDrlETxTomyFuGCZ6QMphUFvImB1b079XPPHOadqTxYwKPqW98VCocnUsmQ2I35fWO88=
+X-Gm-Message-State: AOJu0YyGlF5uarxNKnLq4wwobYpBiAnY9lZXKUQqn2zSuQw0O/ezqNTa
+	1S4sW/Xrkto8p6AuiVyrG0EKMVmd2E1ojf5LD8DSKMmMmATWtN9BrauUoLnuOw==
+X-Google-Smtp-Source: AGHT+IGPd+EASAwSjoxRaD3cn5DoyRpG4sErL2WySDyDPY6Y89V2wwFfbX+H/LC62zCYSJiZemtD2g==
+X-Received: by 2002:a2e:9248:0:b0:2e9:8a0a:ea05 with SMTP id 38308e7fff4ca-2ec5931d897mr56846631fa.17.1719297299118;
+        Mon, 24 Jun 2024 23:34:59 -0700 (PDT)
+Message-ID: <0fe07e0f-fe6d-4722-9f89-a78294a8b3a1@suse.com>
+Date: Tue, 25 Jun 2024 08:34:51 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH v2] xen: add explicit comment to identify notifier
- patterns
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: Federico Serafini <federico.serafini@bugseng.com>,
- xen-devel@lists.xenproject.org, consulting@bugseng.com,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+Subject: Re: [XEN PATCH] common/sched: address a violation of MISRA C Rule
+ 17.7
+To: victorm.lira@amd.com
+Cc: George Dunlap <george.dunlap@citrix.com>,
  Dario Faggioli <dfaggioli@suse.com>, Juergen Gross <jgross@suse.com>,
- Julien Grall <julien@xen.org>
-References: <d814434bf73e341f5d35836fa7063a728f7b7de4.1718788908.git.federico.serafini@bugseng.com>
- <f7d46c15-ff85-4a6f-afd7-df18649726c8@xen.org>
- <2072bf59-f125-4789-be77-40ed3641aec4@bugseng.com>
- <alpine.DEB.2.22.394.2406201811200.2572888@ubuntu-linux-20-04-desktop>
- <bce5eae2-973d-4d69-bee1-09f9f09dd011@bugseng.com>
- <alpine.DEB.2.22.394.2406211529130.2572888@ubuntu-linux-20-04-desktop>
- <917533b5-b79c-4e97-917d-9684993bf423@xen.org>
- <alpine.DEB.2.22.394.2406241651400.3870429@ubuntu-linux-20-04-desktop>
+ xen-devel@lists.xenproject.org
+References: <a5f00432063ead8d4ae09315c1b09617a12b22f7.1719274203.git.victorm.lira@amd.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -127,30 +113,64 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <alpine.DEB.2.22.394.2406241651400.3870429@ubuntu-linux-20-04-desktop>
+In-Reply-To: <a5f00432063ead8d4ae09315c1b09617a12b22f7.1719274203.git.victorm.lira@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 25.06.2024 02:14, Stefano Stabellini wrote:
-> I do realize that some of the notifier pattern switches might want to
-> handle all parameters but Bugseng or anyone else looking for simple
-> improvements are not in the position to tell which ones they are. We
-> need to wait for a maintainer or expert in the specific code to spot
-> them. It is not a good idea to cause a delay in handling all the
-> remaining 16.4 more interesting switches (which is also easy) to better
-> handle the notifier pattern (which is hard).
+On 25.06.2024 02:15, victorm.lira@amd.com wrote:
+> From: Victor Lira <victorm.lira@amd.com>
 > 
-> The notifier pattern can be looked at separately later by the relevant
-> maintainer / interested community members by sending case-by-case
-> improvements. They cannot be mechanically resolved. My understanding is
-> that with this patch series committed we would be close to zero
-> violations for 16.4.
+> Rule 17.7: "The value returned by a function having non-void return type
+> shall be used"
+> 
+> This patch fixes this by adding a check to the return value.
+> No functional changes.
+> 
+> Signed-off-by: Victor Lira <victorm.lira@amd.com>
+> ---
+> Cc: George Dunlap <george.dunlap@citrix.com>
+> Cc: Dario Faggioli <dfaggioli@suse.com>
+> Cc: Juergen Gross <jgross@suse.com>
+> Cc: xen-devel@lists.xenproject.org
+> ---
+>  xen/common/sched/core.c | 5 ++++-
+>  1 file changed, 4 insertions(+), 1 deletion(-)
+> 
+> diff --git a/xen/common/sched/core.c b/xen/common/sched/core.c
+> index d84b65f197..e1cd824622 100644
+> --- a/xen/common/sched/core.c
+> +++ b/xen/common/sched/core.c
+> @@ -2789,7 +2789,10 @@ static int cpu_schedule_up(unsigned int cpu)
+>      BUG_ON(cpu >= NR_CPUS);
+>  
+>      if ( idle_vcpu[cpu] == NULL )
+> -        vcpu_create(idle_vcpu[0]->domain, cpu);
+> +    {
+> +        if ( vcpu_create(idle_vcpu[0]->domain, cpu) == NULL )
+> +            return -ENOMEM;
+> +    }
 
-In fact yielding a bogus result, suggesting the tree is in a better state
-than it really is. Putting myself in an assessor's position, I might be
-considering such close to lying at me. IOW the fact that some violations
-cannot be mechanically resolved shouldn't lead to us mechanically papering
-over them.
+First: Two such if()s want folding.
+
+>      else
+>          idle_vcpu[cpu]->sched_unit->res = sr;
+>  
+
+Then: Down from here there is
+
+    if ( idle_vcpu[cpu] == NULL )
+        return -ENOMEM;
+
+which your change is rendering redundant for at least the vcpu_create()
+path.
+
+Finally, as we're touching error handling here (and mayby more a question
+to the maintainers than to you): What about sr in the error case? It's
+being allocated earlier in the function, but not freed upon error. Hmm,
+looks like cpu_schedule_down() is assumed to be taking care of the case,
+yet then I wonder how that can assume that get_sched_res() would return
+non-NULL - afaict it may be called without cpu_schedule_up() having run
+first, or with it having bailed early with -ENOMEM.
 
 Jan
 
