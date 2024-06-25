@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 03731915ECE
-	for <lists+xen-devel@lfdr.de>; Tue, 25 Jun 2024 08:20:16 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.747205.1154547 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A4C68915EE3
+	for <lists+xen-devel@lfdr.de>; Tue, 25 Jun 2024 08:26:12 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.747212.1154556 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sLzWe-00075P-MV; Tue, 25 Jun 2024 06:19:32 +0000
+	id 1sLzcr-0000Bs-Ev; Tue, 25 Jun 2024 06:25:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 747205.1154547; Tue, 25 Jun 2024 06:19:32 +0000
+Received: by outflank-mailman (output) from mailman id 747212.1154556; Tue, 25 Jun 2024 06:25:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sLzWe-00073v-JP; Tue, 25 Jun 2024 06:19:32 +0000
-Received: by outflank-mailman (input) for mailman id 747205;
- Tue, 25 Jun 2024 06:19:31 +0000
+	id 1sLzcr-00009V-CM; Tue, 25 Jun 2024 06:25:57 +0000
+Received: by outflank-mailman (input) for mailman id 747212;
+ Tue, 25 Jun 2024 06:25:55 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=sC98=N3=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sLzWd-00073p-Ac
- for xen-devel@lists.xenproject.org; Tue, 25 Jun 2024 06:19:31 +0000
-Received: from mail-lj1-x231.google.com (mail-lj1-x231.google.com
- [2a00:1450:4864:20::231])
+ id 1sLzcp-00009O-7G
+ for xen-devel@lists.xenproject.org; Tue, 25 Jun 2024 06:25:55 +0000
+Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
+ [2a00:1450:4864:20::429])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id e0f28c03-32ba-11ef-b4bb-af5377834399;
- Tue, 25 Jun 2024 08:19:29 +0200 (CEST)
-Received: by mail-lj1-x231.google.com with SMTP id
- 38308e7fff4ca-2ebec2f11b7so55613791fa.2
- for <xen-devel@lists.xenproject.org>; Mon, 24 Jun 2024 23:19:29 -0700 (PDT)
+ id c5e23c48-32bb-11ef-b4bb-af5377834399;
+ Tue, 25 Jun 2024 08:25:53 +0200 (CEST)
+Received: by mail-wr1-x429.google.com with SMTP id
+ ffacd0b85a97d-35f2c9e23d3so3762407f8f.0
+ for <xen-devel@lists.xenproject.org>; Mon, 24 Jun 2024 23:25:53 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-1f9eb2f02cdsm73133085ad.4.2024.06.24.23.19.24
+ d2e1a72fcca58-706511b137csm7265112b3a.86.2024.06.24.23.25.46
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 24 Jun 2024 23:19:28 -0700 (PDT)
+ Mon, 24 Jun 2024 23:25:52 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,52 +45,63 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e0f28c03-32ba-11ef-b4bb-af5377834399
+X-Inumbo-ID: c5e23c48-32bb-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1719296368; x=1719901168; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1719296753; x=1719901553; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=a+U644J+OlsI2Sj/9Id2DhqJCpOpqmaT7Dfv7XoFEVo=;
-        b=VcnV9NlSeSQe0uTznzgck0ilzRy/XBmzmgwkSp8NNXvGTnKrP5awutCtNGUh3ZIT7+
-         uAY0eiv9VVqZgTFms28TYJfxCVBzMd7BF/Bkq4CpW6WA8fkvDq9u3HCIwWDgGYsP64PJ
-         ncTCFrFguh86xTEmPgkNq/bezn5jvbVPxypC5yBKkE1gcPuixpJn+A+pADsUCVj4ZreA
-         Bl1fgda4RC9Dw/3wPJ17RNKehlb6K+xpacXgkEEsuqqd8P1D4COnPgpg/+nqW1zmuwyX
-         kL1coGa4ba2f2PQcIeoLv0WcnTjMeDdzQbc0AXQHFqbPnfJthWfsJj8Btn9kFOlAs3G+
-         XmLg==
+        bh=Ds7BUmnZ96D/xuLbWD36rYp/G6iSUvUfatH/VCXhgHo=;
+        b=aH2KCo9PnFeHJ2K/iUDfSE8udqWTvP9YlnYCVDuCt3H3QT4gqOQc8tezbq9MJqvNcg
+         ZnuvdyLA57NCLU34kHg18rsjjLGBYmFpW4DIRp+C7+7N9MEdrw4F8ek03sOYe4DvQBki
+         QF6qotZ6JFtDqygIo5lWWPNyUUVrtw/ajYBP2cTRp+8a7T881j3/D5QifzBf37egilut
+         Mb3X+mDqazWWKznVeQdZtliZUW5s4IBNcH5hs7C+3HzjuGeKkaNimvAhL86tbVq10sZW
+         uVz1z9i2ZWpOGfpVNOiCj5tAm042/e5gGcL1Ph+gXjKTPubJDHfX7VH8s/JJqUfegvM1
+         274g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1719296368; x=1719901168;
+        d=1e100.net; s=20230601; t=1719296753; x=1719901553;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=a+U644J+OlsI2Sj/9Id2DhqJCpOpqmaT7Dfv7XoFEVo=;
-        b=PhLe7wnQ0QNGJi8ap4gb7Ln7PX22YGHXjKXt26wYPq+IvGojKkClfcYKqxnnuHhc1r
-         O1YDDCDJ57bRGTeZ7k22PsVc3i8MHz7tud3vbQc9Lj/NdL9yrIfac2rka+z2vb05NK9q
-         Pr5NhyLj8SqFB2wA0j51RungAp4KvIhDySyDZWmDnWe67kueVNhzwkBaU97pf0nHc/Iv
-         G77JPk19qBmm7bsZp63dbfeDTKDfa7RhQcSHNmqRn5tzb59TDjxVSBecBDafs4mCPDw8
-         f2Q70svrEguj61+Sx77nFJgaIM1zTLAW6v96J2lIYvW1SdCngiqOYlDsJmx4p5eNDv0G
-         zdiw==
-X-Gm-Message-State: AOJu0YyMgkfzjBPlR8+k2F7i9WqdNbESXLw5SMhGJmGEwH/roNobyvkd
-	c5ZxX32mUuo2b4Pb17FdHA9FwUYNVmh2ziqx7Tp59XB4bVj8zX361wL5i7VyYQ==
-X-Google-Smtp-Source: AGHT+IGKzcj2ZDoELShQ4lJBfuCotbrFbJ78g2WrODw6jBO7EHOI461qEFAac6+lJKAvP9xpn83cgw==
-X-Received: by 2002:a2e:98c8:0:b0:2ec:5abf:f3ae with SMTP id 38308e7fff4ca-2ec5b338aa1mr36758931fa.19.1719296368565;
-        Mon, 24 Jun 2024 23:19:28 -0700 (PDT)
-Message-ID: <f402157c-0dc2-4e30-820f-ecd319e9ce86@suse.com>
-Date: Tue, 25 Jun 2024 08:19:19 +0200
+        bh=Ds7BUmnZ96D/xuLbWD36rYp/G6iSUvUfatH/VCXhgHo=;
+        b=LshaznFhPworaGy3ZT7NLKRCEELwxGWo7OYM9jLBufi6boYpeV/gdwpOa/4Hw3iLeN
+         GYgE6dK8KD8vJAsoNe8qicngTmg/fbeAPQVH4mag+l1LdrQnIocTFoa/MXyMC3KQU4KL
+         WKFExDzZZFIoA21CE0mauFmE2tEfmw5upVuIGjxydMTOMFOVwQbCay14+3CO6KTVIYas
+         Q6gpm/M7TCf3k0m9H4pZJ0enXvYqJUX7fjodKWB4KrtgM16Rxt1P/sESZC1gfKLW8bmB
+         u0HhqaVqULgduVwV4Ga/qQ2Xe7ebduGwcQTiidCsTHbbf6i3NbuvI2xb7DLByLxfvnCU
+         EVhw==
+X-Forwarded-Encrypted: i=1; AJvYcCUSXYlFCkE7OjGMkk8WdH0D8w64mUYQu01Q2YNq5LW46HLJKHAq/ktuZFl16Trp7UWECKURwLRkf0LF1H27xn1QEI0L45TKLVvCJ+EVnkg=
+X-Gm-Message-State: AOJu0YwwSFfNJbZkLoar7HYNjImCUMduGSIbYuLR/H04TWIlHp1Ep/bB
+	qjkFMFghuaGM2TN+DvFcLr7FNHq51XqtP9GyccAurCMJL3k5HYZQ+oANYDnbVw==
+X-Google-Smtp-Source: AGHT+IEErUYMI3plik3w1tw6HvNzk6fvZ7VJ1wXcZ0OwS1Vgy+cpjbigsfRBLFzipuBHVK0NZTrSkQ==
+X-Received: by 2002:adf:9d89:0:b0:366:f976:598b with SMTP id ffacd0b85a97d-366f97659d1mr3076366f8f.8.1719296752761;
+        Mon, 24 Jun 2024 23:25:52 -0700 (PDT)
+Message-ID: <fb06a382-d26a-4973-a681-9bf3fb0f7f9b@suse.com>
+Date: Tue, 25 Jun 2024 08:25:41 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH] MAINTAINERS: Update my email address again
-To: Julien Grall <julien@xen.org>
-Cc: xen-devel@lists.xenproject.org, Anthony PERARD <anthony@xenproject.org>,
+Subject: Re: [XEN PATCH v2] xen: add explicit comment to identify notifier
+ patterns
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: Federico Serafini <federico.serafini@bugseng.com>,
+ xen-devel@lists.xenproject.org, consulting@bugseng.com,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
  Andrew Cooper <andrew.cooper3@citrix.com>,
  George Dunlap <george.dunlap@citrix.com>,
- Oleksii <oleksii.kurochko@gmail.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Anthony PERARD <anthony.perard@vates.tech>
-References: <20240624094030.41692-1-anthony.perard@vates.tech>
- <alpine.DEB.2.22.394.2406240927390.3870429@ubuntu-linux-20-04-desktop>
- <5238d3a6-c47f-4951-b839-a92c5ee4e571@xen.org>
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Dario Faggioli <dfaggioli@suse.com>, Juergen Gross <jgross@suse.com>,
+ Julien Grall <julien@xen.org>
+References: <d814434bf73e341f5d35836fa7063a728f7b7de4.1718788908.git.federico.serafini@bugseng.com>
+ <f7d46c15-ff85-4a6f-afd7-df18649726c8@xen.org>
+ <2072bf59-f125-4789-be77-40ed3641aec4@bugseng.com>
+ <alpine.DEB.2.22.394.2406201811200.2572888@ubuntu-linux-20-04-desktop>
+ <bce5eae2-973d-4d69-bee1-09f9f09dd011@bugseng.com>
+ <alpine.DEB.2.22.394.2406211529130.2572888@ubuntu-linux-20-04-desktop>
+ <917533b5-b79c-4e97-917d-9684993bf423@xen.org>
+ <alpine.DEB.2.22.394.2406241651400.3870429@ubuntu-linux-20-04-desktop>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -116,26 +127,30 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <5238d3a6-c47f-4951-b839-a92c5ee4e571@xen.org>
+In-Reply-To: <alpine.DEB.2.22.394.2406241651400.3870429@ubuntu-linux-20-04-desktop>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 24.06.2024 23:40, Julien Grall wrote:
-> On 24/06/2024 17:27, Stefano Stabellini wrote:
->> On Mon, 24 Jun 2024, Anthony PERARD wrote:
->>> Signed-off-by: Anthony PERARD <anthony.perard@vates.tech>
->>
->> Acked-by: Stefano Stabellini <sstabellini@kernel.org>
+On 25.06.2024 02:14, Stefano Stabellini wrote:
+> I do realize that some of the notifier pattern switches might want to
+> handle all parameters but Bugseng or anyone else looking for simple
+> improvements are not in the position to tell which ones they are. We
+> need to wait for a maintainer or expert in the specific code to spot
+> them. It is not a good idea to cause a delay in handling all the
+> remaining 16.4 more interesting switches (which is also easy) to better
+> handle the notifier pattern (which is hard).
 > 
-> I guess this technically need an ack from the release manager. So CC 
-> Oleksii.
+> The notifier pattern can be looked at separately later by the relevant
+> maintainer / interested community members by sending case-by-case
+> improvements. They cannot be mechanically resolved. My understanding is
+> that with this patch series committed we would be close to zero
+> violations for 16.4.
 
-Hmm, that's on the edge, I think. Imo an ack shouldn't be needed here,
-as requiring one would mean that it could also be refused. Yet such
-updates would better go in quickly, so people use up-to-date information.
-I'm sure committers would apply common sense as to avoiding to commit at
-truly "critical" times; typically at such time a commit moratorium is in
-place anyway.
+In fact yielding a bogus result, suggesting the tree is in a better state
+than it really is. Putting myself in an assessor's position, I might be
+considering such close to lying at me. IOW the fact that some violations
+cannot be mechanically resolved shouldn't lead to us mechanically papering
+over them.
 
 Jan
 
