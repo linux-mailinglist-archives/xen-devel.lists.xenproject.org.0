@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5406091663A
-	for <lists+xen-devel@lfdr.de>; Tue, 25 Jun 2024 13:31:35 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.747636.1155093 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D042391665B
+	for <lists+xen-devel@lfdr.de>; Tue, 25 Jun 2024 13:41:04 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.747643.1155102 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sM4OF-0005uV-2K; Tue, 25 Jun 2024 11:31:11 +0000
+	id 1sM4XV-0007vJ-Sx; Tue, 25 Jun 2024 11:40:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 747636.1155093; Tue, 25 Jun 2024 11:31:11 +0000
+Received: by outflank-mailman (output) from mailman id 747643.1155102; Tue, 25 Jun 2024 11:40:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sM4OE-0005tL-Vn; Tue, 25 Jun 2024 11:31:10 +0000
-Received: by outflank-mailman (input) for mailman id 747636;
- Tue, 25 Jun 2024 11:31:09 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1sM4XV-0007sn-QN; Tue, 25 Jun 2024 11:40:45 +0000
+Received: by outflank-mailman (input) for mailman id 747643;
+ Tue, 25 Jun 2024 11:40:44 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=sC98=N3=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sM4OD-0005tC-Ke
- for xen-devel@lists.xenproject.org; Tue, 25 Jun 2024 11:31:09 +0000
-Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
- [2a00:1450:4864:20::32a])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 68fded9c-32e6-11ef-90a3-e314d9c70b13;
- Tue, 25 Jun 2024 13:31:05 +0200 (CEST)
-Received: by mail-wm1-x32a.google.com with SMTP id
- 5b1f17b1804b1-42108856c33so37898485e9.1
- for <xen-devel@lists.xenproject.org>; Tue, 25 Jun 2024 04:31:05 -0700 (PDT)
+ id 1sM4XU-0007sh-PZ
+ for xen-devel@lists.xenproject.org; Tue, 25 Jun 2024 11:40:44 +0000
+Received: from mail-lj1-x229.google.com (mail-lj1-x229.google.com
+ [2a00:1450:4864:20::229])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id c0e4ed2d-32e7-11ef-b4bb-af5377834399;
+ Tue, 25 Jun 2024 13:40:42 +0200 (CEST)
+Received: by mail-lj1-x229.google.com with SMTP id
+ 38308e7fff4ca-2ec50a5e230so38148721fa.0
+ for <xen-devel@lists.xenproject.org>; Tue, 25 Jun 2024 04:40:42 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-70679725094sm4381456b3a.166.2024.06.25.04.31.00
+ d2e1a72fcca58-7069bd69cb1sm976244b3a.209.2024.06.25.04.40.38
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 25 Jun 2024 04:31:04 -0700 (PDT)
+ Tue, 25 Jun 2024 04:40:41 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,51 +45,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 68fded9c-32e6-11ef-90a3-e314d9c70b13
+X-Inumbo-ID: c0e4ed2d-32e7-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1719315065; x=1719919865; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1719315642; x=1719920442; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=YEJqKBMI7iM6kUuci281LC4IldotdeomruSBDCskKSc=;
-        b=TeLWVIBRISvW5Xv3jpvKKbGs5sy0FckMUb7syvhR++0m3LRsRCeR/WnCUcC5lOl4lg
-         vhpCjnlNAbyNG/9iBy0L68v5mswt9eTHHtC8fly18Trm2dbecPJTWE0MiU0e8+eUZWQv
-         I+LI5fMSaru49Abfy65iiwgbQjyBo0YokYJwZcuhYr42ZHy/hV83xlz69pOKt5TtZ42q
-         QeLp77YAdDSCMy/sgAGpRNGBC1Q8CTbiSHqU3qMgZJlm30xvLEbVNlK2J/gWwdYOIDAb
-         POW+5C+A6oebcegxXrpD+wFS3yJOiLXkBgBInZIG0xq99AHumvaOft1LkdMptfXwx8UA
-         FSUg==
+        bh=i261D+yE5EgpRdyvVx4mzBPwCU/LNbVIPEKFOJCK/wM=;
+        b=Ifac/9eCjZAgXuaEz+Mr/RaaZH3kz2TnuuZIsPgwCdqVsLn5m3DiLq5B4Zxcq8cBXg
+         hzZy2V5HR5n7Zm4c/EKNZl7OkXnD15J4EE8OufITZVQiXVI7jkUkA3nw4j7U+hbirSB0
+         dsBuBhVZUEMmFMMlkSkJKla4AycSXGSOFKB66CKs5sFM9X4xs+0IXBqGuhf29LYqNet4
+         iUpaFsS953jFABYTlPuikaViAoXyckQTKoD/JBSpW4jDaW6+s2JcBjvyqou2Zfq7Cd2D
+         qkF0qdr9uUknDVu6qopwOs2lB1VQOsHm2LNXp17UcZHwfAUxpHC81rTZUZN0H3qAtFLT
+         swuA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1719315065; x=1719919865;
+        d=1e100.net; s=20230601; t=1719315642; x=1719920442;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=YEJqKBMI7iM6kUuci281LC4IldotdeomruSBDCskKSc=;
-        b=RuHQSBHARUb2oqaCMU3pgvMLHiAJFt40rBggAjaTYIT9LBeYw2XJJmEOFYzoGuBh8M
-         hR9R09jQyUTuH2G3Jhwwosvzl0EgIcYtnf0wWiDnyO20aaoRKbvlVVj6N662L8NIsceS
-         OGo+Io01tvmPmADbkcE4AOw+CBzOw9yBbZlSKXeClQw0CLHBZ/xOP5xjMZoU+SXaudiM
-         wglE1UEH85T1Do/Kb+V7IkTCDFPQUBN3+jk9POtOBl/7wPzijhzI3GisglkxQDBoXNEf
-         xPP3V8zi2dyeX533V+mw59MbjmaHuVi41ckPTiA4MsSCnonensGJEm+TLauP9UaUNLQ1
-         V3sQ==
-X-Forwarded-Encrypted: i=1; AJvYcCU3r6LvPyTrnLMne4YaWJdaVRhlTHhKYEo0+ldtA6apdUWbE5vMnuC+rktYdvAb3BmcV43GEo6E4zrH8LT1dHeeTjicNnnhTC+8fvhergc=
-X-Gm-Message-State: AOJu0YxTfQ38Q/pAgltVBLSyfG3YCH0WCl2/jcPmGowFtvNaU4mgG+/r
-	60v5WC5tdFi5MA/cUQ4fTmdIatrsEzRz9iFymkQgKm49PyYJUVQ8JU48ILHkkg==
-X-Google-Smtp-Source: AGHT+IGROgiWgusoe2eAqyqvBFyGTlPjFSd/rXz78FIJHOZhGPW+vj+5+sIPNtJ89r9eHqDYxh9WNg==
-X-Received: by 2002:adf:eb06:0:b0:35f:204e:bcf0 with SMTP id ffacd0b85a97d-366e32693femr7015737f8f.13.1719315065170;
-        Tue, 25 Jun 2024 04:31:05 -0700 (PDT)
-Message-ID: <0d3cd756-49dd-4c3b-b069-13d554133f1f@suse.com>
-Date: Tue, 25 Jun 2024 13:30:56 +0200
+        bh=i261D+yE5EgpRdyvVx4mzBPwCU/LNbVIPEKFOJCK/wM=;
+        b=DYwC3Ekj8ufMO2PXUpMiBaX859zOXalTugdgrCxhCCglrGqJ87f6a0EgixDSx2skp0
+         3+5L0CotKPf1WOoujdID8mO141zi196571vpxysnq6wfNe7WrsG9CWnWfzyRzj4eZjEr
+         HLzYl32iZy9op7ffiSaZ3W0pWvJA5H1qGtB/cYIuWomf4quCUBTxdQlJhwVR0v04/yY8
+         fLH4iDM6GX+vhtgc9RIFvI9RYfs2G8xH9CCzUGIld6d8snNx+PLJ8WUVtkVOl1cHv4LX
+         cxpgEU/R02j7o+d9ScScRGxnPyeZ2ZFkwFnf6pT7cmi95TNtV2VyaT+EHyyQBeT4IRd0
+         cN6g==
+X-Forwarded-Encrypted: i=1; AJvYcCUq/1gm+VpbWt26xwIamYiJeIiotcoZcfDhO90d6vZRsJs0LOexs33zQ14y9uenn5McUFib9Q320rQZpIQ4OtyvLm/z+MiqDCxfej8oUq8=
+X-Gm-Message-State: AOJu0YxAUWVmRk940k79yzJWU1YoLkEAroDB+6SZ0S+aBLyk6e6mY8Ff
+	16e2W9RkE7if/5VrXxGu4qXd9wz0YFUbStNmZ66y3D10KduKwyAX603Y+DWpUw==
+X-Google-Smtp-Source: AGHT+IH3ch11DZW7w9VwEslSanz9icn01GH+GBa+5owcbfnVev7k17/E8Z+D/NKo1rP+zH0gJZCDfg==
+X-Received: by 2002:a2e:9b96:0:b0:2ec:51b5:27c8 with SMTP id 38308e7fff4ca-2ec5b2dd919mr43863441fa.32.1719315642209;
+        Tue, 25 Jun 2024 04:40:42 -0700 (PDT)
+Message-ID: <b9b84f10-6d41-48d9-996d-069408753e28@suse.com>
+Date: Tue, 25 Jun 2024 13:40:32 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH for-4.19] gnttab: fix compat query-size handling
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Oleksii Kurochko <oleksii.kurochko@gmail.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <00bb4998-d0a7-43dc-8d3c-abb3f66661cc@suse.com>
- <3fa398eb-368a-48dd-9324-a46573c0289c@citrix.com>
+Subject: Re: [PATCH 2/2] Add scripts/oss-fuzz/build.sh
+To: Tamas K Lengyel <tamas@tklengyel.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <20240621191434.5046-1-tamas@tklengyel.com>
+ <20240621191434.5046-2-tamas@tklengyel.com>
+ <0a7854e0-e01e-435e-95fe-b262cc4afc1e@suse.com>
+ <CABfawhmkhCD-MFgZBrhJ1CwiiseotJ=+MANbgwsjRL_VYsnuTQ@mail.gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -115,81 +115,55 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <3fa398eb-368a-48dd-9324-a46573c0289c@citrix.com>
+In-Reply-To: <CABfawhmkhCD-MFgZBrhJ1CwiiseotJ=+MANbgwsjRL_VYsnuTQ@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 25.06.2024 12:43, Andrew Cooper wrote:
-> On 25/06/2024 8:30 am, Jan Beulich wrote:
->> The odd DEFINE_XEN_GUEST_HANDLE(), inconsistent with all other similar
->> constructs, should have caught my attention. Turns out it was needed for
->> the build to succeed merely because the corresponding #ifndef had a
->> typo. That typo in turn broke compat mode guests, by having query-size
->> requests of theirs wire into the domain_crash() at the bottom of the
->> switch().
+On 25.06.2024 13:15, Tamas K Lengyel wrote:
+> On Tue, Jun 25, 2024 at 5:17 AM Jan Beulich <jbeulich@suse.com> wrote:
 >>
->> Fixes: 8c3bb4d8ce3f ("xen/gnttab: Perform compat/native gnttab_query_size check")
->> Signed-off-by: Jan Beulich <jbeulich@suse.com>
->> ---
->> Looks like set-version is similarly missing in the set of structures
->> checked, but I'm pretty sure that we will now want to defer taking care
->> of that until after 4.20 was branched.
+>> On 21.06.2024 21:14, Tamas K Lengyel wrote:
+>>> --- /dev/null
+>>> +++ b/scripts/oss-fuzz/build.sh
+>>> @@ -0,0 +1,22 @@
+>>> +#!/bin/bash -eu
+>>> +# Copyright 2024 Google LLC
+>>> +#
+>>> +# Licensed under the Apache License, Version 2.0 (the "License");
+>>> +# you may not use this file except in compliance with the License.
+>>> +# You may obtain a copy of the License at
+>>> +#
+>>> +#      http://www.apache.org/licenses/LICENSE-2.0
+>>> +#
+>>> +# Unless required by applicable law or agreed to in writing, software
+>>> +# distributed under the License is distributed on an "AS IS" BASIS,
+>>> +# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+>>> +# See the License for the specific language governing permissions and
+>>> +# limitations under the License.
+>>> +#
+>>> +################################################################################
 >>
->> --- a/xen/common/compat/grant_table.c
->> +++ b/xen/common/compat/grant_table.c
->> @@ -33,7 +33,6 @@ CHECK_gnttab_unmap_and_replace;
->>  #define xen_gnttab_query_size gnttab_query_size
->>  CHECK_gnttab_query_size;
->>  #undef xen_gnttab_query_size
->> -DEFINE_XEN_GUEST_HANDLE(gnttab_query_size_compat_t);
->>  
->>  DEFINE_XEN_GUEST_HANDLE(gnttab_setup_table_compat_t);
->>  DEFINE_XEN_GUEST_HANDLE(gnttab_transfer_compat_t);
->> @@ -111,7 +110,7 @@ int compat_grant_table_op(
->>      CASE(copy);
->>  #endif
->>  
->> -#ifndef CHECK_query_size
->> +#ifndef CHECK_gnttab_query_size
->>      CASE(query_size);
->>  #endif
->>  
+>> I'm a little concerned here, but maybe I shouldn't be. According to what
+>> I'm reading, the Apache 2.0 license is at least not entirely compatible
+>> with GPLv2. While apparently the issue is solely with linking in Apache-
+>> licensed code, I wonder whether us not having a respective file under
+>> ./LICENSES/ (and no pre-cooked SPDX identifier to use) actually has a
+>> reason possibly excluding the use of such code in the project.
+>>
+>>> +cd xen
+>>> +./configure clang=y --disable-stubdom --disable-pvshim --disable-docs --disable-xen
+>>> +make clang=y -C tools/include
+>>> +make clang=y -C tools/fuzz/x86_instruction_emulator libfuzzer-harness
+>>> +cp tools/fuzz/x86_instruction_emulator/libfuzzer-harness $OUT/x86_instruction_emulator
+>>
+>> In addition to what Julien said, I further think that filename / directory
+>> name are too generic for a file with this pretty specific contents.
 > 
-> /sigh - I almost rejected your and Stefano's feedback on v1 on the basis
-> that it didn't compile, but then I adjusted it to look like the
-> surrounding logic.  Much fool me.
-> 
-> But, this change *cannot* be correct.  The result is:
-> 
-> $ git grep -C3 CHECK_gnttab_query_size
-> compat/grant_table.c-31-#undef xen_gnttab_unmap_and_replace
-> compat/grant_table.c-32-
-> compat/grant_table.c-33-#define xen_gnttab_query_size gnttab_query_size
-> compat/grant_table.c:34:CHECK_gnttab_query_size;
-> compat/grant_table.c-35-#undef xen_gnttab_query_size
-> compat/grant_table.c-36-
-> compat/grant_table.c-37-DEFINE_XEN_GUEST_HANDLE(gnttab_setup_table_compat_t);
-> --
-> compat/grant_table.c-110-    CASE(copy);
-> compat/grant_table.c-111-#endif
-> compat/grant_table.c-112-
-> compat/grant_table.c:113:#ifndef CHECK_gnttab_query_size
-> compat/grant_table.c-114-    CASE(query_size);
-> compat/grant_table.c-115-#endif
-> compat/grant_table.c-116-
-> 
-> and the second is dead code because CHECK_gnttab_query_size is defined. 
-> It shouldn't be there.
+> I don't really get your concern here?
 
-As said elsewhere, it's there just-in-case (and now consistent with
-sibling gnttab-ops). We can certainly evaluate deleting all of those
-just-in-case constructs. But we want to retain consistency.
-
-> So - my v1 was correct, and your and Stefano's feedback on v1 was incorrect.
-
-I'm sorry, but maybe more a misunderstanding. I notice I had "now" in my
-reply to you when referring to my reply to Stefano, when I think I really
-meant "not". And he never actually replied, afaics.
+The thing that is built is specifically a x86 emulator piece of fuzzing
+binary. Neither the directory name nor the file name contain either x86
+or (at least) emul.
 
 Jan
 
