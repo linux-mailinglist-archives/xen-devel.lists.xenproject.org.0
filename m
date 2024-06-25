@@ -2,32 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1AAC3916CD9
-	for <lists+xen-devel@lfdr.de>; Tue, 25 Jun 2024 17:23:54 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.747916.1155445 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 17D3D916D84
+	for <lists+xen-devel@lfdr.de>; Tue, 25 Jun 2024 17:53:31 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.747937.1155455 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sM81E-0000Zi-CT; Tue, 25 Jun 2024 15:23:40 +0000
+	id 1sM8T2-0007nB-IP; Tue, 25 Jun 2024 15:52:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 747916.1155445; Tue, 25 Jun 2024 15:23:40 +0000
+Received: by outflank-mailman (output) from mailman id 747937.1155455; Tue, 25 Jun 2024 15:52:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sM81E-0000XH-9S; Tue, 25 Jun 2024 15:23:40 +0000
-Received: by outflank-mailman (input) for mailman id 747916;
- Tue, 25 Jun 2024 15:23:38 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1sM8T2-0007kt-Ep; Tue, 25 Jun 2024 15:52:24 +0000
+Received: by outflank-mailman (input) for mailman id 747937;
+ Tue, 25 Jun 2024 15:52:22 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=sQf/=N3=bugseng.com=federico.serafini@srs-se1.protection.inumbo.net>)
- id 1sM81C-0000X8-Qa
- for xen-devel@lists.xenproject.org; Tue, 25 Jun 2024 15:23:38 +0000
-Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e4a5edbf-3306-11ef-90a3-e314d9c70b13;
- Tue, 25 Jun 2024 17:23:37 +0200 (CEST)
-Received: from truciolo.bugseng.com (unknown [37.161.92.237])
- by support.bugseng.com (Postfix) with ESMTPSA id 2F00C4EE0738;
- Tue, 25 Jun 2024 17:23:35 +0200 (CEST)
+ <SRS0=GB9f=N3=cloud.com=matthew.barnes@srs-se1.protection.inumbo.net>)
+ id 1sM8T0-0007je-M9
+ for xen-devel@lists.xenproject.org; Tue, 25 Jun 2024 15:52:22 +0000
+Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
+ [2a00:1450:4864:20::629])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id e7eb4fb5-330a-11ef-b4bb-af5377834399;
+ Tue, 25 Jun 2024 17:52:20 +0200 (CEST)
+Received: by mail-ej1-x629.google.com with SMTP id
+ a640c23a62f3a-a724cd0e9c2so307465466b.3
+ for <xen-devel@lists.xenproject.org>; Tue, 25 Jun 2024 08:52:20 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,299 +40,225 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e4a5edbf-3306-11ef-90a3-e314d9c70b13
-From: Federico Serafini <federico.serafini@bugseng.com>
-To: xen-devel@lists.xenproject.org
-Cc: consulting@bugseng.com,
-	Federico Serafini <federico.serafini@bugseng.com>,
-	Simone Ballarin <simone.ballarin@bugseng.com>,
-	Doug Goldstein <cardoe@cardoe.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>,
-	Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Subject: [XEN PATCH for 4.19] automation/eclair: add deviations agreed in MISRA meetings
-Date: Tue, 25 Jun 2024 17:23:29 +0200
-Message-Id: <4a65e064768ad5ddce96d749f24f0bdae2c3b9da.1719328656.git.federico.serafini@bugseng.com>
-X-Mailer: git-send-email 2.34.1
+X-Inumbo-ID: e7eb4fb5-330a-11ef-b4bb-af5377834399
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cloud.com; s=cloud; t=1719330740; x=1719935540; darn=lists.xenproject.org;
+        h=cc:subject:message-id:date:from:in-reply-to:references:mime-version
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=iMfgPVTpYpWf/KLeazN26NpVkDP/oLtxcqvESr87WVc=;
+        b=Z2lp/MPk4fj0wcM5CEc5CoKL1PCQlj9qrhYn6PFY0x5zaMhxKBK7TEBn8rk5cqu9jo
+         Jgp3TEYT7p8Q6Xa5nDtYsqPK5WaRDknt5J/TF2b95GUfCFoPF+PK/c6xs3zphSl/LUAG
+         eALwMM7slbGil9KRceAyLW2+Bne6E22YlX0Lw=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1719330740; x=1719935540;
+        h=cc:subject:message-id:date:from:in-reply-to:references:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=iMfgPVTpYpWf/KLeazN26NpVkDP/oLtxcqvESr87WVc=;
+        b=Nlk5Z69BiuHjFAZ7fZHMBWqybaquDGAb1PJ0t9XJ0H0idf+XrLGuXo93TJdGqVafwI
+         NabMs7MQc4oNUXmAkXvSBP1Z2Qkqki7KDFyS2fPA1yhZrO4qHmd71OskvOsQpKfuVXt3
+         B1JqirbHgss68wokPa52VTj4X3sIpjL0llnOuX86hAugv7J1/GZ99sH6uzjxSQ2YJOb6
+         a3UlHGbruFzYNniHh+YRjDHAYZUPw4x1p+tTWdEsrs3AnlfUWc+7q833W6toMngdEmkD
+         ijH4pJPYUCTXjAiTfOjwRQaHf5hIIvOqSDiUh+QDouC3Q8qjtZjxRj+CNqKtGTr/VthV
+         tTKw==
+X-Gm-Message-State: AOJu0YyHH0eGQFY104VnOPuIDeTo0KJcrOKKa29xBjPsUgOFqPsk3pLr
+	kijIUlmfw66NxInWXe53GrTj1W6MqDzTmKLgLfzwZ0q4IRM6KmZQDOMgdDGdPGNhW+k7eczkszC
+	9wTEtw9fJog0sz3yoJTaGjGXaTB3riSobQY8ZnvE6c8S7vk23
+X-Received: by 2002:a17:907:c24d:b0:a72:5f9a:159b with SMTP id
+ a640c23a62f3a-a725f9a199bmt342895066b.56.1719330739730; Tue, 25 Jun 2024
+ 08:52:19 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <27f4397093d92b53f89d625d682bd4b7145b65d8.1717426439.git.matthew.barnes@cloud.com>
+ <ZnWee2hUmG42n/W7@l14> <667ae6e4.050a0220.21f03.212f@mx.google.com>
+In-Reply-To: <667ae6e4.050a0220.21f03.212f@mx.google.com>
+From: Matthew Barnes <matthew.barnes@cloud.com>
+Date: Tue, 25 Jun 2024 16:51:58 +0100
+Message-ID: <CAO_hw7wS3mROzA4Q1QYtNuz7iG25A_6F4UE-zrLiZaPQ17dNVw@mail.gmail.com>
+Subject: [XEN PATCH] tools/misc: xen-hvmcrash: Inject #DF instead of
+ overwriting RIP
+Cc: Xen-devel <xen-devel@lists.xenproject.org>, 
+	Andrew Cooper <andrew.cooper3@citrix.com>
+Content-Type: multipart/alternative; boundary="000000000000fec3cb061bb8e107"
 
-Update ECLAIR configuration to take into account the deviations
-agreed during the MISRA meetings.
+--000000000000fec3cb061bb8e107
+Content-Type: text/plain; charset="UTF-8"
 
-While doing this, remove the obsolete "Set [123]" comments.
+On Fri, Jun 21, 2024 at 03:38:36PM +0000, Anthony PERARD wrote:
+> On Mon, Jun 03, 2024 at 03:59:18PM +0100, Matthew Barnes wrote:
+> > diff --git a/tools/misc/xen-hvmcrash.c b/tools/misc/xen-hvmcrash.c
+> > index 1d058fa40a47..8ef1beb388f8 100644
+> > --- a/tools/misc/xen-hvmcrash.c
+> > +++ b/tools/misc/xen-hvmcrash.c
+> > @@ -38,22 +38,21 @@
+> >  #include <sys/stat.h>
+> >  #include <arpa/inet.h>
+> >
+> > +#define XC_WANT_COMPAT_DEVICEMODEL_API
+> >  #include <xenctrl.h>
+> >  #include <xen/xen.h>
+> >  #include <xen/domctl.h>
+> >  #include <xen/hvm/save.h>
+>
+> There's lots of headers that aren't used by the new codes and can be
+> removed. (They were probably way too many headers included when this
+> utility was introduced.)
 
-Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
----
- .../eclair_analysis/ECLAIR/deviations.ecl     | 93 +++++++++++++++++--
- docs/misra/deviations.rst                     | 68 +++++++++++++-
- 2 files changed, 149 insertions(+), 12 deletions(-)
+I will remove the unnecessary headers in patch v2.
 
-diff --git a/automation/eclair_analysis/ECLAIR/deviations.ecl b/automation/eclair_analysis/ECLAIR/deviations.ecl
-index ae2eaf50f7..e6517a9142 100644
---- a/automation/eclair_analysis/ECLAIR/deviations.ecl
-+++ b/automation/eclair_analysis/ECLAIR/deviations.ecl
-@@ -1,5 +1,3 @@
--### Set 1 ###
--
- #
- # Series 2.
- #
-@@ -23,6 +21,11 @@ Constant expressions and unreachable branches of if and switch statements are ex
- -config=MC3R1.R2.1,reports+={deliberate, "any_area(any_loc(any_exp(macro(name(ASSERT_UNREACHABLE||PARSE_ERR_RET||PARSE_ERR||FAIL_MSR||FAIL_CPUID)))))"}
- -doc_end
- 
-+-doc_begin="The asm-offset files are not linked deliberately, since they are used to generate definitions for asm modules."
-+-file_tag+={asm_offsets, "^xen/arch/(arm|x86)/(arm32|arm64|x86_64)/asm-offsets\\.c$"}
-+-config=MC3R1.R2.1,reports+={deliberate, "any_area(any_loc(file(asm_offsets)))"}
-+-doc_end
-+
- -doc_begin="Pure declarations (i.e., declarations without initialization) are
- not executable, and therefore it is safe for them to be unreachable."
- -config=MC3R1.R2.1,ignored_stmts+={"any()", "pure_decl()"}
-@@ -63,6 +66,12 @@ they are not instances of commented-out code."
- -config=MC3R1.D4.3,reports+={disapplied,"!(any_area(any_loc(file(^xen/arch/arm/arm64/.*$))))"}
- -doc_end
- 
-+-doc_begin="The inline asm in 'arm64/lib/bitops.c' is tightly coupled with the surronding C code that acts as a wrapper, so it has been decided not to add an additional encapsulation layer."
-+-file_tag+={arm64_bitops, "^xen/arch/arm/arm64/lib/bitops\\.c$"}
-+-config=MC3R1.D4.3,reports+={deliberate, "all_area(any_loc(file(arm64_bitops)&&any_exp(macro(^(bit|test)op$))))"}
-+-config=MC3R1.D4.3,reports+={deliberate, "any_area(any_loc(file(arm64_bitops))&&context(name(int_clear_mask16)))"}
-+-doc_end
-+
- -doc_begin="This header file is autogenerated or empty, therefore it poses no
- risk if included more than once."
- -file_tag+={empty_header, "^xen/arch/arm/efi/runtime\\.h$"}
-@@ -213,10 +222,25 @@ Therefore the absence of prior declarations is safe."
- -config=MC3R1.R8.4,declarations+={safe, "loc(file(asm_defns))&&^current_stack_pointer$"}
- -doc_end
- 
-+-doc_begin="The function apei_(read|check|clear)_mce are dead code and are excluded from non-debug builds, therefore the absence of prior declarations is safe."
-+-config=MC3R1.R8.4,declarations+={safe, "^apei_(read|check|clear)_mce\\(.*$"}
-+-doc_end
-+
- -doc_begin="asmlinkage is a marker to indicate that the function is only used to interface with asm modules."
- -config=MC3R1.R8.4,declarations+={safe,"loc(text(^(?s).*asmlinkage.*$, -1..0))"}
- -doc_end
- 
-+-doc_begin="Given that bsearch and sort are defined with the attribute 'gnu_inline', it's deliberate not to have a prior declaration.
-+See Section \"6.33.1 Common Function Attributes\" of \"GCC_MANUAL\" for a full explanation of gnu_inline."
-+-file_tag+={bsearch_sort, "^xen/include/xen/(sort|lib)\\.h$"}
-+-config=MC3R1.R8.4,reports+={deliberate, "any_area(any_loc(file(bsearch_sort))&&decl(name(bsearch||sort)))"}
-+-doc_end
-+
-+-doc_begin="first_valid_mfn is defined in this way because the current lack of NUMA support in Arm and PPC requires it."
-+-file_tag+={first_valid_mfn, "^xen/common/page_alloc\\.c$"}
-+-config=MC3R1.R8.4,declarations+={deliberate,"loc(file(first_valid_mfn))"}
-+-doc_end
-+
- -doc_begin="The following variables are compiled in multiple translation units
- belonging to different executables and therefore are safe."
- -config=MC3R1.R8.6,declarations+={safe, "name(current_stack_pointer||bsearch||sort)"}
-@@ -257,8 +281,6 @@ dimension is higher than omitting the dimension."
- -config=MC3R1.R9.5,reports+={deliberate, "any()"}
- -doc_end
- 
--### Set 2 ###
--
- #
- # Series 10.
- #
-@@ -299,7 +321,6 @@ integers arguments on two's complement architectures
- -config=MC3R1.R10.1,reports+={safe, "any_area(any_loc(any_exp(macro(^ISOLATE_LSB$))))"}
- -doc_end
- 
--### Set 3 ###
- -doc_begin="XEN only supports architectures where signed integers are
- representend using two's complement and all the XEN developers are aware of
- this."
-@@ -323,6 +344,49 @@ constant expressions are required.\""
- # Series 11
- #
- 
-+-doc_begin="The conversion from a function pointer to unsigned long or (void *) does not lose any information, provided that the target type has enough bits to store it."
-+-config=MC3R1.R11.1,casts+={safe,
-+  "from(type(canonical(__function_pointer_types)))
-+   &&to(type(canonical(builtin(unsigned long)||pointer(builtin(void)))))
-+   &&relation(definitely_preserves_value)"
-+}
-+-doc_end
-+
-+-doc_begin="The conversion from a function pointer to a boolean has a well-known semantics that do not lead to unexpected behaviour."
-+-config=MC3R1.R11.1,casts+={safe,
-+  "from(type(canonical(__function_pointer_types)))
-+   &&kind(pointer_to_boolean)"
-+}
-+-doc_end
-+
-+-doc_begin="The conversion from a pointer to an incomplete type to unsigned long does not lose any information, provided that the target type has enough bits to store it."
-+-config=MC3R1.R11.2,casts+={safe,
-+  "from(type(any()))
-+   &&to(type(canonical(builtin(unsigned long))))
-+   &&relation(definitely_preserves_value)"
-+}
-+-doc_end
-+
-+-doc_begin="Conversions to object pointers that have a pointee type with a smaller (i.e., less strict) alignment requirement are safe."
-+-config=MC3R1.R11.3,casts+={safe,
-+  "!relation(more_aligned_pointee)"
-+}
-+-doc_end
-+
-+-doc_begin="Conversions from and to integral types are safe, in the assumption that the target type has enough bits to store the value.
-+See also Section \"4.7 Arrays and Pointers\" of \"GCC_MANUAL\""
-+-config=MC3R1.R11.6,casts+={safe,
-+    "(from(type(canonical(integral())))||to(type(canonical(integral()))))
-+     &&relation(definitely_preserves_value)"}
-+-doc_end
-+
-+-doc_begin="The conversion from a pointer to a boolean has a well-known semantics that do not lead to unexpected behaviour."
-+-config=MC3R1.R11.6,casts+={safe,
-+  "from(type(canonical(__pointer_types)))
-+   &&kind(pointer_to_boolean)"
-+}
-+-doc_end
-+
- -doc_begin="Violations caused by container_of are due to pointer arithmetic operations
- with the provided offset. The resulting pointer is then immediately cast back to its
- original type, which preserves the qualifier. This use is deemed safe.
-@@ -354,9 +418,18 @@ activity."
- -config=MC3R1.R14.2,reports+={disapplied,"any()"}
- -doc_end
- 
---doc_begin="The XEN team relies on the fact that invariant conditions of 'if'
--statements are deliberate"
---config=MC3R1.R14.3,statements={deliberate , "wrapped(any(),node(if_stmt))" }
-+-doc_begin="The XEN team relies on the fact that invariant conditions of 'if' statements and conditional operators are deliberate"
-+-config=MC3R1.R14.3,statements+={deliberate , "wrapped(any(),node(if_stmt||conditional_operator||binary_conditional_operator))" }
-+-doc_end
-+
-+-doc_begin="Switches having a 'sizeof' operator as the condition are deliberate and have limited scope."
-+-config=MC3R1.R14.3,statements+={safe , "wrapped(any(),node(switch_stmt)&&child(cond, operator(sizeof)))" }
-+-doc_end
-+
-+-doc_begin="The use of an invariant size argument in {put,get}_unsafe_size and array_access_ok, as defined in arch/x86(_64)?/include/asm/uaccess.h is deliberate and is deemed safe."
-+-file_tag+={x86_uaccess, "^xen/arch/x86(_64)?/include/asm/uaccess\\.h$"}
-+-config=MC3R1.R14.3,reports+={deliberate, "any_area(any_loc(file(x86_uaccess)&&any_exp(macro(^(put|get)_unsafe_size$))))"}
-+-config=MC3R1.R14.3,reports+={deliberate, "any_area(any_loc(file(x86_uaccess)&&any_exp(macro(^array_access_ok$))))"}
- -doc_end
- 
- -doc_begin="A controlling expression of 'if' and iteration statements having integer, character or pointer type has a semantics that is well-known to all Xen developers."
-@@ -527,8 +600,8 @@ falls under the jurisdiction of other MISRA rules."
- # General
- #
- 
---doc_begin="do-while-0 is a well recognized loop idiom by the xen community."
---loop_idioms={do_stmt, "literal(0)"}
-+-doc_begin="do-while-[01] is a well recognized loop idiom by the xen community."
-+-loop_idioms={do_stmt, "literal(0)||literal(1)"}
- -doc_end
- -doc_begin="while-[01] is a well recognized loop idiom by the xen community."
- -loop_idioms+={while_stmt, "literal(0)||literal(1)"}
-diff --git a/docs/misra/deviations.rst b/docs/misra/deviations.rst
-index 16fc345756..0b048dc225 100644
---- a/docs/misra/deviations.rst
-+++ b/docs/misra/deviations.rst
-@@ -63,6 +63,11 @@ Deviations related to MISRA C:2012 Rules:
-        switch statement.
-      - ECLAIR has been configured to ignore those statements.
- 
-+   * - R2.1
-+     - The asm-offset files are not linked deliberately, since they are used to
-+       generate definitions for asm modules.
-+     - Tagged as `deliberate` for ECLAIR.
-+
-    * - R2.2
-      - Proving compliance with respect to Rule 2.2 is generally impossible:
-        see `<https://arxiv.org/abs/2212.13933>`_ for details. Moreover, peer
-@@ -203,6 +208,26 @@ Deviations related to MISRA C:2012 Rules:
-        it.
-      - Tagged as `safe` for ECLAIR.
- 
-+   * - R8.4
-+     - Some functions are excluded from non-debug build, therefore the absence
-+       of declaration is safe.
-+     - Tagged as `safe` for ECLAIR, such functions are:
-+         - apei_read_mce()
-+         - apei_check_mce()
-+         - apei_clear_mce()
-+
-+   * - R8.4
-+     - Given that bsearch and sort are defined with the attribute 'gnu_inline',
-+       it's deliberate not to have a prior declaration.
-+       See Section \"6.33.1 Common Function Attributes\" of \"GCC_MANUAL\" for
-+       a full explanation of gnu_inline.
-+     - Tagged as `deliberate` for ECLAIR.
-+
-+   * - R8.4
-+     - first_valid_mfn is defined in this way because the current lack of NUMA
-+       support in Arm and PPC requires it.
-+     - Tagged as `deliberate` for ECLAIR.
-+
-    * - R8.6
-      - The following variables are compiled in multiple translation units
-        belonging to different executables and therefore are safe.
-@@ -282,6 +307,39 @@ Deviations related to MISRA C:2012 Rules:
-        If no bits are set, 0 is returned.
-      - Tagged as `safe` for ECLAIR.
- 
-+   * - R11.1
-+     - The conversion from a function pointer to unsigned long or (void \*) does
-+       not lose any information, provided that the target type has enough bits
-+       to store it.
-+     - Tagged as `safe` for ECLAIR.
-+
-+   * - R11.1
-+     - The conversion from a function pointer to a boolean has a well-known
-+       semantics that do not lead to unexpected behaviour.
-+     - Tagged as `safe` for ECLAIR.
-+
-+   * - R11.2
-+     - The conversion from a pointer to an incomplete type to unsigned long
-+       does not lose any information, provided that the target type has enough
-+       bits to store it.
-+     - Tagged as `safe` for ECLAIR.
-+
-+   * - R11.3
-+     - Conversions to object pointers that have a pointee type with a smaller
-+       (i.e., less strict) alignment requirement are safe.
-+     - Tagged as `safe` for ECLAIR.
-+
-+   * - R11.6
-+     - Conversions from and to integral types are safe, in the assumption that
-+       the target type has enough bits to store the value.
-+       See also Section \"4.7 Arrays and Pointers\" of \"GCC_MANUAL\"
-+     - Tagged as `safe` for ECLAIR.
-+
-+   * - R11.6
-+     - The conversion from a pointer to a boolean has a well-known semantics
-+       that do not lead to unexpected behaviour.
-+     - Tagged as `safe` for ECLAIR.
-+
-    * - R11.8
-      - Violations caused by container_of are due to pointer arithmetic operations
-        with the provided offset. The resulting pointer is then immediately cast back to its
-@@ -308,8 +366,14 @@ Deviations related to MISRA C:2012 Rules:
- 
-    * - R14.3
-      - The Xen team relies on the fact that invariant conditions of 'if'
--       statements are deliberate.
--     - Project-wide deviation; tagged as `disapplied` for ECLAIR.
-+       statements and conditional operators are deliberate.
-+     - Project-wide deviation; tagged as `deliberate` for ECLAIR.
-+
-+   * - R14.3
-+     - The use of an invariant size argument in {put,get}_unsafe_size and
-+       array_access_ok, as defined in arch/x86(_64)?/include/asm/uaccess.h is
-+       deliberate and is deemed safe.
-+     - Project-wide deviation; tagged as `deliberate` for ECLAIR.
- 
-    * - R14.4
-      - A controlling expression of 'if' and iteration statements having
--- 
-2.34.1
+> > +    for (vcpu_id = 0; vcpu_id <= dominfo.max_vcpu_id; vcpu_id++) {
+> > +        printf("Injecting #DF to vcpu ID #%d...\n", vcpu_id);
+> > +        ret = xc_hvm_inject_trap(xch, domid, vcpu_id,
+> > +                                X86_ABORT_DF,
+>
+> In the definition of xendevicemodel_inject_event(), the comment say to
+> look at "enum x86_event_type" for possible event "type", but there's no
+> "#DF" type, can we add this new one there before using it? (It's going
+> to be something like X86_EVENTTYPE_*)
 
+To my understanding, the event types enum refer to the kind of interrupt
+being handled. In this case, it is a hardware exception, which already
+exists as an entry in the enum definition.
+
+The `vector` parameter describes the kind of exception. I just found
+that exception vector macros are defined in `x86-defns.h`, so I will
+include that and instead use `X86_EXC_DF` in patch v2.
+
+The only other usage of `xc_hvm_inject_trap` is in `xen-access.c`, which
+defines all the required vectors as macros at the top of the source file.
+Hence, I did the same in `xen-hvmcrash.c` for patch v1.
+
+Would it be a good idea to rewrite `xen-access.c` to use `x86-defns.h`
+as well, in a later patch?
+
+> > +                                XEN_DMOP_EVENT_hw_exc, 0,
+> > +                                NULL, NULL);
+>
+> The new code doesn't build, "NULL" aren't integers.
+>
+> > +        if (ret < 0) {
+> > +            fprintf(stderr, "Could not inject #DF to vcpu ID #%d\n",
+vcpu_id);
+> > +            perror("xc_hvm_inject_trap");
+>
+> Are you meant to print two error lines when there's an error? You can
+> also use strerror() to convert an "errno" to a string.
+
+I will use strerror and one print call in patch v2.
+
+> Are you meant to keep inject into other vcpus even if one have failed?
+
+Yes; xen-hvmcrash doesn't have to inject *all* vcpus to cause it to
+crash.
+
+> Should `xen-hvmcrash` return success when it failed to inject the double
+> fault to all vcpus?
+
+I will make xen-hvmcrash yield an error if no vcpus could be injected in
+patch v2.
+
+Matt
+
+--000000000000fec3cb061bb8e107
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div class=3D"gmail_quote">On Fri, Jun 21, 2024 at 03:38:3=
+6PM +0000, Anthony PERARD wrote:<br>
+&gt; On Mon, Jun 03, 2024 at 03:59:18PM +0100, Matthew Barnes wrote:<br>
+&gt; &gt; diff --git a/tools/misc/xen-hvmcrash.c b/tools/misc/xen-hvmcrash.=
+c<br>
+&gt; &gt; index 1d058fa40a47..8ef1beb388f8 100644<br>
+&gt; &gt; --- a/tools/misc/xen-hvmcrash.c<br>
+&gt; &gt; +++ b/tools/misc/xen-hvmcrash.c<br>
+&gt; &gt; @@ -38,22 +38,21 @@<br>
+&gt; &gt;=C2=A0 #include &lt;sys/stat.h&gt;<br>
+&gt; &gt;=C2=A0 #include &lt;arpa/inet.h&gt;<br>
+&gt; &gt;<br>
+&gt; &gt; +#define XC_WANT_COMPAT_DEVICEMODEL_API<br>
+&gt; &gt;=C2=A0 #include &lt;xenctrl.h&gt;<br>
+&gt; &gt;=C2=A0 #include &lt;xen/xen.h&gt;<br>
+&gt; &gt;=C2=A0 #include &lt;xen/domctl.h&gt;<br>
+&gt; &gt;=C2=A0 #include &lt;xen/hvm/save.h&gt;<br>
+&gt; <br>
+&gt; There&#39;s lots of headers that aren&#39;t used by the new codes and =
+can be<br>
+&gt; removed. (They were probably way too many headers included when this<b=
+r>
+&gt; utility was introduced.)<br>
+<br>
+I will remove the unnecessary headers in patch v2.<br>
+<br>
+&gt; &gt; +=C2=A0 =C2=A0 for (vcpu_id =3D 0; vcpu_id &lt;=3D dominfo.max_vc=
+pu_id; vcpu_id++) {<br>
+&gt; &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 printf(&quot;Injecting #DF to vcpu I=
+D #%d...\n&quot;, vcpu_id);<br>
+&gt; &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 ret =3D xc_hvm_inject_trap(xch, domi=
+d, vcpu_id,<br>
+&gt; &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 X86_ABORT_DF,<br>
+&gt; <br>
+&gt; In the definition of xendevicemodel_inject_event(), the comment say to=
+<br>
+&gt; look at &quot;enum x86_event_type&quot; for possible event &quot;type&=
+quot;, but there&#39;s no<br>
+&gt; &quot;#DF&quot; type, can we add this new one there before using it? (=
+It&#39;s going<br>
+&gt; to be something like X86_EVENTTYPE_*)<br>
+<br>
+To my understanding, the event types enum refer to the kind of interrupt<br=
+>
+being handled. In this case, it is a hardware exception, which already<br>
+exists as an entry in the enum definition.<br>
+<br>
+The `vector` parameter describes the kind of exception. I just found<br>
+that exception vector macros are defined in `x86-defns.h`, so I will<br>
+include that and instead use `X86_EXC_DF` in patch v2.<br>
+<br>
+The only other usage of `xc_hvm_inject_trap` is in `xen-access.c`, which<br=
+>
+defines all the required vectors as macros at the top of the source file.<b=
+r>
+Hence, I did the same in `xen-hvmcrash.c` for patch v1.<br>
+<br>
+Would it be a good idea to rewrite `xen-access.c` to use `x86-defns.h`<br>
+as well, in a later patch?<br>
+<br>
+&gt; &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 XEN_DMOP_EVENT_hw_exc, 0,<=
+br>
+&gt; &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 NULL, NULL);<br>
+&gt; <br>
+&gt; The new code doesn&#39;t build, &quot;NULL&quot; aren&#39;t integers.<=
+br>
+&gt; <br>
+&gt; &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 if (ret &lt; 0) {<br>
+&gt; &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 fprintf(stderr, &quot;=
+Could not inject #DF to vcpu ID #%d\n&quot;, vcpu_id);<br>
+&gt; &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 perror(&quot;xc_hvm_in=
+ject_trap&quot;);<br>
+&gt; <br>
+&gt; Are you meant to print two error lines when there&#39;s an error? You =
+can<br>
+&gt; also use strerror() to convert an &quot;errno&quot; to a string.<br>
+<br>
+I will use strerror and one print call in patch v2.<br>
+<br>
+&gt; Are you meant to keep inject into other vcpus even if one have failed?=
+<br>
+<br>
+Yes; xen-hvmcrash doesn&#39;t have to inject *all* vcpus to cause it to<br>
+crash.<br>
+<br>
+&gt; Should `xen-hvmcrash` return success when it failed to inject the doub=
+le<br>
+&gt; fault to all vcpus?<br>
+<br>
+I will make xen-hvmcrash yield an error if no vcpus could be injected in<br=
+>
+patch v2.<br>
+<br>
+Matt<br>
+</div></div>
+
+--000000000000fec3cb061bb8e107--
 
