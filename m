@@ -2,38 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F32849168AD
-	for <lists+xen-devel@lfdr.de>; Tue, 25 Jun 2024 15:18:12 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.747687.1155152 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E51019168D3
+	for <lists+xen-devel@lfdr.de>; Tue, 25 Jun 2024 15:30:11 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.747698.1155163 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sM63b-0006zh-DF; Tue, 25 Jun 2024 13:17:59 +0000
+	id 1sM6F0-0000UY-Gt; Tue, 25 Jun 2024 13:29:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 747687.1155152; Tue, 25 Jun 2024 13:17:59 +0000
+Received: by outflank-mailman (output) from mailman id 747698.1155163; Tue, 25 Jun 2024 13:29:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sM63b-0006xn-Ae; Tue, 25 Jun 2024 13:17:59 +0000
-Received: by outflank-mailman (input) for mailman id 747687;
- Tue, 25 Jun 2024 13:17:58 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1sM6F0-0000Rd-Dy; Tue, 25 Jun 2024 13:29:46 +0000
+Received: by outflank-mailman (input) for mailman id 747698;
+ Tue, 25 Jun 2024 13:29:44 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=sC98=N3=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sM63a-0006xf-7c
- for xen-devel@lists.xenproject.org; Tue, 25 Jun 2024 13:17:58 +0000
-Received: from mail-lj1-x232.google.com (mail-lj1-x232.google.com
- [2a00:1450:4864:20::232])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 55e35275-32f5-11ef-b4bb-af5377834399;
- Tue, 25 Jun 2024 15:17:56 +0200 (CEST)
-Received: by mail-lj1-x232.google.com with SMTP id
- 38308e7fff4ca-2ebe40673d8so62413171fa.3
- for <xen-devel@lists.xenproject.org>; Tue, 25 Jun 2024 06:17:56 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-7068998497esm3452105b3a.15.2024.06.25.06.17.51
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 25 Jun 2024 06:17:55 -0700 (PDT)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1sM6Ey-0000RT-JP; Tue, 25 Jun 2024 13:29:44 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1sM6Ey-0005IF-Dv; Tue, 25 Jun 2024 13:29:44 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1sM6Ex-0005lv-Vf; Tue, 25 Jun 2024 13:29:44 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1sM6Ex-000436-UJ; Tue, 25 Jun 2024 13:29:43 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,144 +42,247 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 55e35275-32f5-11ef-b4bb-af5377834399
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1719321476; x=1719926276; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=bv6zRyWZDi+Xzi9ZgVEmKskG6R6plvviwberHPEumf4=;
-        b=cxgkFZhysg3SEGeEuCU0WlS5laYSFnwU7GNnHalMv/Bte2/kQXrLKK4T/PVItb1Sm/
-         d2+dXXw5D6W2phBBxjYClafT5zaUHohbGMU+43RVF2gLOE8IT0ltH1QcwGcd8SMskgPt
-         mjakfowoW/tkZJW38uLlXRgAreQz9rbc0IkLdypfDhlHAbvs+zhKugmmLPAAj1yfQ/mS
-         UbiqIoglu7WmwfdEsNU9EYURr13HnA/TW+oeHE+R45yueWM2iQFpO5ldvKtbGJLQ9Nd7
-         H23ppu5kcFQWSPRiyhZayqvT4BZ7iyHljKRE8UDDPh17SKXRWlKjiKcaiws4O/v0dTph
-         V8GA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1719321476; x=1719926276;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=bv6zRyWZDi+Xzi9ZgVEmKskG6R6plvviwberHPEumf4=;
-        b=QheSwEQ+yq/14llLuN8gPTqbiaAm915mvm8oKyxQDUDlNFB+DLCDnLugkLR20guhF7
-         2iCl8X9obJbl2v4v83cYiMjdOuUhq3n7XdnjNqnr3jiQweglOlnqVbKjYmDaEWJBT+XW
-         pNQjt1GgxOfhPjEMWjn2OYwbTqggoA63NlhqFoncGIS3HhTk7xjalcsNhx9Cq70cI82Y
-         qyS37UQ4GeaORPLcReQLDwe6EHeUBTuyGyuGkChnEGwdVKSlhxtUQD1HQDUM4T4EYk6P
-         Qjp3Gz8Hv5yVPQTNWnAaOMgXDkFv4GZjrDSEhx2Xk8hET12ijR1zduGQou4GKAU3jyF1
-         Jtsw==
-X-Forwarded-Encrypted: i=1; AJvYcCXiFBuGgho58vWpR84CDhw/qLyk5f22XdUx1cs9DE8v6nfp2Km9YkfH75Xnr9L3s41XuSodWHKkOCqq07BUmPrBXsRTaDrMxCzzTp6oMCQ=
-X-Gm-Message-State: AOJu0YxyydjRuPQrSeXb9y2rRzuvArTa3nyS6/W7bSgk5j30e4OpisZn
-	bYJh/axe0sL9tag7Jk+lses7BFZKgWNpm5c0DPBtOdCG8fK0MwAAYc5Sp+gfsw==
-X-Google-Smtp-Source: AGHT+IGVOOghhqO53d9sReemg2y/BzisVqzszO26bakd0emcnmrpgV9JZcNF09liM71oVr49C4F/NQ==
-X-Received: by 2002:a2e:9516:0:b0:2ec:4eca:7487 with SMTP id 38308e7fff4ca-2ec5b338b5fmr37697011fa.20.1719321475589;
-        Tue, 25 Jun 2024 06:17:55 -0700 (PDT)
-Message-ID: <66a7243d-a1a1-4236-832f-f3e1daf11b85@suse.com>
-Date: Tue, 25 Jun 2024 15:17:47 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] Add scripts/oss-fuzz/build.sh
-To: Tamas K Lengyel <tamas@tklengyel.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <20240621191434.5046-1-tamas@tklengyel.com>
- <20240621191434.5046-2-tamas@tklengyel.com>
- <0a7854e0-e01e-435e-95fe-b262cc4afc1e@suse.com>
- <CABfawhmkhCD-MFgZBrhJ1CwiiseotJ=+MANbgwsjRL_VYsnuTQ@mail.gmail.com>
- <b9b84f10-6d41-48d9-996d-069408753e28@suse.com>
- <CABfawhkJ0t8FenCWbupGcHD-ZhorbWN7ZjMQVm-jeg_zA1g5iQ@mail.gmail.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <CABfawhkJ0t8FenCWbupGcHD-ZhorbWN7ZjMQVm-jeg_zA1g5iQ@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=BonLUIyqgKMG5sbVQPzcMXjLZWEbV7YNPSnETCU7QD0=; b=6iID9MIlEfhBWhbY7jLa4s4ONs
+	m008EN7j5ywiMmlqmTTkdutCwPVFrm76x8B+xQ9+uId2hbq79LJCI6xEt76RZFgm9juXvqJU/iUrx
+	YdumI0itlxtfgL/oVlSdojwOsElB8DJ57WPF8SRGiXHvnbmexUDj0OId0THXD8oHhgOg=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-186475-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [libvirt test] 186475: trouble: broken/pass
+X-Osstest-Failures:
+    libvirt:test-armhf-armhf-libvirt:<job status>:broken:regression
+    libvirt:test-armhf-armhf-libvirt:host-install(5):broken:regression
+    libvirt:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt:saverestore-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt-qcow2:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt-raw:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-qcow2:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-qcow2:saverestore-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
+    libvirt:test-armhf-armhf-libvirt-vhd:migrate-support-check:fail:nonblocking
+    libvirt:test-armhf-armhf-libvirt-vhd:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    libvirt=ba6cd2d5a8dc785cd56a074a4d088316cc1b678b
+X-Osstest-Versions-That:
+    libvirt=43a0881274e632dc44fff9320357dc8bf31e4826
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Tue, 25 Jun 2024 13:29:43 +0000
 
-On 25.06.2024 14:39, Tamas K Lengyel wrote:
-> On Tue, Jun 25, 2024 at 7:40 AM Jan Beulich <jbeulich@suse.com> wrote:
->>
->> On 25.06.2024 13:15, Tamas K Lengyel wrote:
->>> On Tue, Jun 25, 2024 at 5:17 AM Jan Beulich <jbeulich@suse.com> wrote:
->>>>
->>>> On 21.06.2024 21:14, Tamas K Lengyel wrote:
->>>>> --- /dev/null
->>>>> +++ b/scripts/oss-fuzz/build.sh
->>>>> @@ -0,0 +1,22 @@
->>>>> +#!/bin/bash -eu
->>>>> +# Copyright 2024 Google LLC
->>>>> +#
->>>>> +# Licensed under the Apache License, Version 2.0 (the "License");
->>>>> +# you may not use this file except in compliance with the License.
->>>>> +# You may obtain a copy of the License at
->>>>> +#
->>>>> +#      http://www.apache.org/licenses/LICENSE-2.0
->>>>> +#
->>>>> +# Unless required by applicable law or agreed to in writing, software
->>>>> +# distributed under the License is distributed on an "AS IS" BASIS,
->>>>> +# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
->>>>> +# See the License for the specific language governing permissions and
->>>>> +# limitations under the License.
->>>>> +#
->>>>> +################################################################################
->>>>
->>>> I'm a little concerned here, but maybe I shouldn't be. According to what
->>>> I'm reading, the Apache 2.0 license is at least not entirely compatible
->>>> with GPLv2. While apparently the issue is solely with linking in Apache-
->>>> licensed code, I wonder whether us not having a respective file under
->>>> ./LICENSES/ (and no pre-cooked SPDX identifier to use) actually has a
->>>> reason possibly excluding the use of such code in the project.
->>>>
->>>>> +cd xen
->>>>> +./configure clang=y --disable-stubdom --disable-pvshim --disable-docs --disable-xen
->>>>> +make clang=y -C tools/include
->>>>> +make clang=y -C tools/fuzz/x86_instruction_emulator libfuzzer-harness
->>>>> +cp tools/fuzz/x86_instruction_emulator/libfuzzer-harness $OUT/x86_instruction_emulator
->>>>
->>>> In addition to what Julien said, I further think that filename / directory
->>>> name are too generic for a file with this pretty specific contents.
->>>
->>> I don't really get your concern here?
->>
->> The thing that is built is specifically a x86 emulator piece of fuzzing
->> binary. Neither the directory name nor the file name contain either x86
->> or (at least) emul.
-> 
-> Because this build script is not necessarily restricted to build only
-> this one harness in the future. Right now that's the only one that has
-> a suitable libfuzzer harness, but the reason this build script is here
-> is to be easily able to add additional fuzzing binaries without the
-> need to open PRs on the oss-fuzz repo, which as I understand no one
-> was willing to do in the xen community due to the CLA. Now that the
-> integration is going to be in oss-fuzz, the only thing you have to do
-> in the future is add more stuff to this script to get fuzzed. Anything
-> that's compiled with libfuzzer and copied to $OUT will be picked up by
-> oss-fuzz automatically. Makes sense?
+flight 186475 libvirt real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/186475/
 
-It does, yes. Yet nothing like that was said in the description. How
-should anyone have known there are future possibilities with this script?
+Failures and problems with tests :-(
 
-Jan
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ test-armhf-armhf-libvirt        <job status>                 broken
+ test-armhf-armhf-libvirt      5 host-install(5)        broken REGR. vs. 186451
+
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt     16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-qcow2 14 migrate-support-check        fail never pass
+ test-amd64-amd64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-qcow2 14 migrate-support-check        fail never pass
+ test-arm64-arm64-libvirt-qcow2 15 saverestore-support-check    fail never pass
+ test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
+ test-armhf-armhf-libvirt-vhd 14 migrate-support-check        fail   never pass
+ test-armhf-armhf-libvirt-vhd 15 saverestore-support-check    fail   never pass
+
+version targeted for testing:
+ libvirt              ba6cd2d5a8dc785cd56a074a4d088316cc1b678b
+baseline version:
+ libvirt              43a0881274e632dc44fff9320357dc8bf31e4826
+
+Last test of basis   186451  2024-06-22 04:20:26 Z    3 days
+Testing same since   186475  2024-06-25 04:20:38 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Adam Julis <ajulis@redhat.com>
+  Göran Uddeborg <goeran@uddeborg.se>
+  Jonathon Jongsma <jjongsma@redhat.com>
+  Laine Stump <laine@redhat.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 pass    
+ test-amd64-amd64-libvirt                                     pass    
+ test-arm64-arm64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     broken  
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-amd64-libvirt-qcow2                               pass    
+ test-arm64-arm64-libvirt-qcow2                               pass    
+ test-amd64-amd64-libvirt-raw                                 pass    
+ test-arm64-arm64-libvirt-raw                                 pass    
+ test-amd64-amd64-libvirt-vhd                                 pass    
+ test-armhf-armhf-libvirt-vhd                                 pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+broken-job test-armhf-armhf-libvirt broken
+broken-step test-armhf-armhf-libvirt host-install(5)
+
+Not pushing.
+
+------------------------------------------------------------
+commit ba6cd2d5a8dc785cd56a074a4d088316cc1b678b
+Author: Göran Uddeborg <goeran@uddeborg.se>
+Date:   Mon Jun 24 14:47:17 2024 +0200
+
+    Translated using Weblate (Swedish)
+    
+    Currently translated at 77.1% (8062 of 10454 strings)
+    
+    Translation: libvirt/libvirt
+    Translate-URL: https://translate.fedoraproject.org/projects/libvirt/libvirt/sv/
+    
+    Translated using Weblate (Swedish)
+    
+    Currently translated at 76.9% (8042 of 10454 strings)
+    
+    Translation: libvirt/libvirt
+    Translate-URL: https://translate.fedoraproject.org/projects/libvirt/libvirt/sv/
+    
+    Co-authored-by: Göran Uddeborg <goeran@uddeborg.se>
+    Signed-off-by: Göran Uddeborg <goeran@uddeborg.se>
+
+commit af437d2d64cd39dac437e849156592128a8ceb28
+Author: Jonathon Jongsma <jjongsma@redhat.com>
+Date:   Wed Jun 12 12:18:49 2024 -0500
+
+    qemu: Don't specify vfio-pci.ramfb when ramfb is false
+    
+    Commit 7c8e606b64c73ca56d7134cb16d01257f39c53ef attempted to fix
+    the specification of the ramfb property for vfio-pci devices, but it
+    failed when ramfb is explicitly set to 'off'. This is because only the
+    'vfio-pci-nohotplug' device supports the 'ramfb' property. Since we use
+    the base 'vfio-pci' device unless ramfb is enabled, attempting to set
+    the 'ramfb' parameter to 'off' this will result in an error like the
+    following:
+    
+      error: internal error: QEMU unexpectedly closed the monitor
+      (vm='rhel'): 2024-06-06T04:43:22.896795Z qemu-kvm: -device
+      {"driver":"vfio-pci","host":"0000:b1:00.4","id":"hostdev0","display":"on
+      ","ramfb":false,"bus":"pci.7","addr":"0x0"}: Property 'vfio-pci.ramfb'
+      not found.
+    
+    This also more closely matches what is done for mdev devices.
+    
+    Resolves: https://issues.redhat.com/browse/RHEL-28808
+    
+    Signed-off-by: Jonathon Jongsma <jjongsma@redhat.com>
+    Reviewed-by: Michal Privoznik <mprivozn@redhat.com>
+
+commit 397c0f4b01ae1b24806a145ffbd31a9a49126ae3
+Author: Laine Stump <laine@redhat.com>
+Date:   Fri Jun 21 08:17:58 2024 -0400
+
+    network: add more firewall test cases
+    
+    This patch adds some previously missing test cases that test for
+    proper firewall rule creation when the following are included in the
+    network definition:
+    
+    * <forward dev='blah'>
+    * no forward element (an "isolated" network)
+    * nat port range when only ipv4 is nat-ed
+    * nat port range when both ipv4 & ipv6 are nated
+    
+    Reviewed-by: Daniel P. Berrangé <berrange@redhat.com>
+    Signed-off-by: Laine Stump <laine@redhat.com>
+
+commit aabf279ca07d9d5c3d2e6d4efd7d4c5bc2dd471e
+Author: Laine Stump <laine@redhat.com>
+Date:   Wed Jun 12 15:25:46 2024 -0400
+
+    tests: fix broken nftables test data so that individual tests are successful
+    
+    When the chain names and table name used by the nftables firewall
+    backend were changed in commit
+    958aa7f274904eb8e4678a43eac845044f0dcc38, I forgot to change the test
+    data file base.nftables, which has the extra "list" and "add
+    chain/table" commands that are generated for the first test case of
+    networkxml2firewalltest.c. When the full set of tests is run, the
+    first test will be an iptables test case, so those extra commands
+    won't be added to any of the nftables cases, and so the data in
+    base.nftables never matches, and the tests are all successful.
+    
+    However, if the test are limited with, e.g. VIR_TEST_RANGE=2 (test #2
+    will be the nftables version of the 1st test case), then the commands
+    to add nftables table/chains *will* be generated in the test output,
+    and so the test will fail. Because I was only running the entire test
+    series after the initial commits of nftables tests, I didn't notice
+    this. Until now.
+    
+    base.nftables has now been updated to reflect the current names for
+    chains/table, and running individual test cases is once again
+    successful.
+    
+    Fixes: 958aa7f274904eb8e4678a43eac845044f0dcc38
+    Reviewed-by: Michal Privoznik <mprivozn@redhat.com>
+    Reviewed-by: Daniel P. Berrangé <berrange@redhat.com>
+    Signed-off-by: Laine Stump <laine@redhat.com>
+
+commit 3a9095976e1060f95a8a4a985d5e9901e1098547
+Author: Adam Julis <ajulis@redhat.com>
+Date:   Fri Jun 21 18:16:55 2024 +0200
+
+    qemuDomainDiskChangeSupported: Fill in missing check
+    
+    The attribute 'discard_no_unref' of <disk/> is not allowed to be
+    changed while the virtual machine is running.
+    
+    Resolves: https://issues.redhat.com/browse/RHEL-37542
+    Signed-off-by: Adam Julis <ajulis@redhat.com>
+    Reviewed-by: Michal Privoznik <mprivozn@redhat.com>
 
