@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 90564915B1B
-	for <lists+xen-devel@lfdr.de>; Tue, 25 Jun 2024 02:50:15 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.747050.1154333 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 85979915B22
+	for <lists+xen-devel@lfdr.de>; Tue, 25 Jun 2024 02:51:02 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.747055.1154344 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sLuNg-0001DI-PT; Tue, 25 Jun 2024 00:49:56 +0000
+	id 1sLuOZ-0002bR-27; Tue, 25 Jun 2024 00:50:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 747050.1154333; Tue, 25 Jun 2024 00:49:56 +0000
+Received: by outflank-mailman (output) from mailman id 747055.1154344; Tue, 25 Jun 2024 00:50:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sLuNg-0001Bj-Mw; Tue, 25 Jun 2024 00:49:56 +0000
-Received: by outflank-mailman (input) for mailman id 747050;
- Tue, 25 Jun 2024 00:49:55 +0000
+	id 1sLuOY-0002Z1-VG; Tue, 25 Jun 2024 00:50:50 +0000
+Received: by outflank-mailman (input) for mailman id 747055;
+ Tue, 25 Jun 2024 00:50:49 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=cmkP=N3=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1sLuNf-0001Bd-Ek
- for xen-devel@lists.xenproject.org; Tue, 25 Jun 2024 00:49:55 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ id 1sLuOX-0002Yr-RO
+ for xen-devel@lists.xenproject.org; Tue, 25 Jun 2024 00:50:49 +0000
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d5a882dc-328c-11ef-90a3-e314d9c70b13;
- Tue, 25 Jun 2024 02:49:54 +0200 (CEST)
+ id f41574ab-328c-11ef-90a3-e314d9c70b13;
+ Tue, 25 Jun 2024 02:50:48 +0200 (CEST)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 02B6160AE9;
- Tue, 25 Jun 2024 00:49:53 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B628EC32786;
- Tue, 25 Jun 2024 00:49:51 +0000 (UTC)
+ by sin.source.kernel.org (Postfix) with ESMTP id E6EF6CE1688;
+ Tue, 25 Jun 2024 00:50:39 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D1EA4C4AF09;
+ Tue, 25 Jun 2024 00:50:38 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,43 +41,64 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d5a882dc-328c-11ef-90a3-e314d9c70b13
+X-Inumbo-ID: f41574ab-328c-11ef-90a3-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1719276592;
-	bh=c5c/ZQcuHnqkh/VfHe/M6Q5pNg7S+63DmfD3oo9iCE8=;
+	s=k20201202; t=1719276639;
+	bh=g1K4RdYHXaz2V3p1JqSEVDirYJDWLK8jQPlYavoXfxE=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=CBqqpKuT0GNTZtV39nq7VDLGIMqQ3ESkMMd1QyJg03Envf0u+BesrXI5tloDJZNVW
-	 iL7dnqxK4Si5dcQWNmOPfwXVgkbLEB8qwsxOuCtd18DvbjWOjURBuVgfSVaN4Gij8t
-	 3PELo6+EJwQRX9HrUqgWRLiCqh16X0oleX1ZunRko2Zg0YeVkB0D/Ujijh/S0GjEpF
-	 aBvX5mbV1qNS5qqvSe5sjPdX5YGWCKuhmEkFigWfohgu+AldJH2tcrLmEISrvM3ZjB
-	 xrrib/Dm3H4OO6k96iEXFV1Q5m2WGvhw5Wh5zs2z2cISVjBMBgtmwittiskwKKCkjH
-	 M1ZlL8Pg/jp3w==
-Date: Mon, 24 Jun 2024 17:49:50 -0700 (PDT)
+	b=DRDaypmUMX67NCmLbNytnmAOridWyFSKXwjumIqkcB0suAC9cGEaRi/0LZpx0Ukin
+	 lvrrVQaqVQX2kznaFi/dHg6IWSZqdWcu0y1q1Zv2WIEqs2OlZ4UxULb82bPPePFcCU
+	 Eq89cw02Be8H1dG2xpQdChQx/a7Gc8wfKZhAfr9+LoI6j+KtRbXYr6kHiWFNmMVBFJ
+	 bj69EWA9HI4cRyNY6xaovdTmav2RxQKkF+LaiZiQYpMnYKsxK8pm8NZt5xOF0MGs/3
+	 v+lKLvz5WqJQEpUrk4dBn1C6wlHgLIe2f3/UkhQTCzDdY0kRxLPUkiTNfJE0Gskf4B
+	 ob+aneJ6TuaYA==
+Date: Mon, 24 Jun 2024 17:50:37 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
 To: Federico Serafini <federico.serafini@bugseng.com>
 cc: xen-devel@lists.xenproject.org, consulting@bugseng.com, 
-    Simone Ballarin <simone.ballarin@bugseng.com>, 
-    Doug Goldstein <cardoe@cardoe.com>, 
-    Stefano Stabellini <sstabellini@kernel.org>, 
-    Jan Beulich <jbeulich@suse.com>
-Subject: Re: [XEN PATCH v2 01/13] automation/eclair: fix deviation of MISRA
- C Rule 16.3
-In-Reply-To: <c43a32405cc949ef5bf26a2ca1d1cc7ee7f5e664.1719218291.git.federico.serafini@bugseng.com>
-Message-ID: <alpine.DEB.2.22.394.2406241749400.3870429@ubuntu-linux-20-04-desktop>
-References: <cover.1719218291.git.federico.serafini@bugseng.com> <c43a32405cc949ef5bf26a2ca1d1cc7ee7f5e664.1719218291.git.federico.serafini@bugseng.com>
+    Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>, 
+    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Subject: Re: [XEN PATCH v2 02/13] x86/cpuid: use fallthrough pseudo keyword
+In-Reply-To: <58f1ff7e94fd2bd5290a555e44d9de0d2f515eda.1719218291.git.federico.serafini@bugseng.com>
+Message-ID: <alpine.DEB.2.22.394.2406241750320.3870429@ubuntu-linux-20-04-desktop>
+References: <cover.1719218291.git.federico.serafini@bugseng.com> <58f1ff7e94fd2bd5290a555e44d9de0d2f515eda.1719218291.git.federico.serafini@bugseng.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
 On Mon, 24 Jun 2024, Federico Serafini wrote:
-> Escape the final dot of the comment and extend the search of a
-> fallthrough comment up to 2 lines after the last statement.
+> The current comment making explicit the fallthrough intention does
+> not follow the agreed syntax: replace it with the pseduo keyword.
 > 
-> Fixes: a128d8da913b21eff6c6d2e2a7d4c54c054b78db "automation/eclair: add deviations for MISRA C:2012 Rule 16.3"
-> Reported-by: Jan Beulich <jbeulich@suse.com>
+> No functional change.
+> 
 > Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
 
-Acked-by: Stefano Stabellini <sstabellini@kernel.org>
+Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 
+
+> ---
+>  xen/arch/x86/cpuid.c | 3 +--
+>  1 file changed, 1 insertion(+), 2 deletions(-)
+> 
+> diff --git a/xen/arch/x86/cpuid.c b/xen/arch/x86/cpuid.c
+> index a822e80c7e..2a777436ee 100644
+> --- a/xen/arch/x86/cpuid.c
+> +++ b/xen/arch/x86/cpuid.c
+> @@ -97,9 +97,8 @@ void guest_cpuid(const struct vcpu *v, uint32_t leaf,
+>          if ( is_viridian_domain(d) )
+>              return cpuid_viridian_leaves(v, leaf, subleaf, res);
+>  
+> +        fallthrough;
+>          /*
+> -         * Fallthrough.
+> -         *
+>           * Intel reserve up until 0x4fffffff for hypervisor use.  AMD reserve
+>           * only until 0x400000ff, but we already use double that.
+>           */
+> -- 
+> 2.34.1
+> 
+> 
 
