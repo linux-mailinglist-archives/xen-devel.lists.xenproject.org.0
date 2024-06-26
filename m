@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 71662917BA4
-	for <lists+xen-devel@lfdr.de>; Wed, 26 Jun 2024 11:03:06 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.748540.1156279 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 62ED0917BB3
+	for <lists+xen-devel@lfdr.de>; Wed, 26 Jun 2024 11:07:00 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.748545.1156288 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sMOYB-0005iP-Je; Wed, 26 Jun 2024 09:02:47 +0000
+	id 1sMOby-0006GK-2D; Wed, 26 Jun 2024 09:06:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 748540.1156279; Wed, 26 Jun 2024 09:02:47 +0000
+Received: by outflank-mailman (output) from mailman id 748545.1156288; Wed, 26 Jun 2024 09:06:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sMOYB-0005gE-Gz; Wed, 26 Jun 2024 09:02:47 +0000
-Received: by outflank-mailman (input) for mailman id 748540;
- Wed, 26 Jun 2024 09:02:46 +0000
+	id 1sMObx-0006EL-Vn; Wed, 26 Jun 2024 09:06:41 +0000
+Received: by outflank-mailman (input) for mailman id 748545;
+ Wed, 26 Jun 2024 09:06:40 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=WUJr=N4=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sMOYA-0005g8-ME
- for xen-devel@lists.xenproject.org; Wed, 26 Jun 2024 09:02:46 +0000
-Received: from mail-lj1-x231.google.com (mail-lj1-x231.google.com
- [2a00:1450:4864:20::231])
+ id 1sMObw-0006EF-3y
+ for xen-devel@lists.xenproject.org; Wed, 26 Jun 2024 09:06:40 +0000
+Received: from mail-lj1-x235.google.com (mail-lj1-x235.google.com
+ [2a00:1450:4864:20::235])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id d9a5a524-339a-11ef-b4bb-af5377834399;
- Wed, 26 Jun 2024 11:02:44 +0200 (CEST)
-Received: by mail-lj1-x231.google.com with SMTP id
- 38308e7fff4ca-2ec3f875e68so71606041fa.0
- for <xen-devel@lists.xenproject.org>; Wed, 26 Jun 2024 02:02:44 -0700 (PDT)
+ id 64118e2d-339b-11ef-b4bb-af5377834399;
+ Wed, 26 Jun 2024 11:06:36 +0200 (CEST)
+Received: by mail-lj1-x235.google.com with SMTP id
+ 38308e7fff4ca-2ebed33cb65so72292041fa.2
+ for <xen-devel@lists.xenproject.org>; Wed, 26 Jun 2024 02:06:36 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-7066ac98fc9sm7449069b3a.193.2024.06.26.02.02.28
+ d2e1a72fcca58-7069eb83d7fsm2305098b3a.99.2024.06.26.02.06.30
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 26 Jun 2024 02:02:31 -0700 (PDT)
+ Wed, 26 Jun 2024 02:06:35 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,47 +45,53 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d9a5a524-339a-11ef-b4bb-af5377834399
+X-Inumbo-ID: 64118e2d-339b-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1719392564; x=1719997364; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1719392796; x=1719997596; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=bqkMklrYlhAjgUeJ0hm27xKX3s305+zLVUmyJ9bylK4=;
-        b=IuCD+fNtQ0Ow9flEr22SJ/XZz4zydJTRoNOOQ0t9Dagn7iiftoUQi1M7miGnPj2G7F
-         /0iHilM5URUbgUoOYWpzLP5Uohgk9nFgAnmUlhofzRstSsMYfYzzX/txMVTI5dqbdmLT
-         3lbM2Va+7yTAgRaW7kQmtH556VyrrGFaI4M316fhmHn3CQbGbU5tFKX6zPE9+1w/1VaP
-         3vkaHsdM5y8o1GtSEBBiY3nu+y0le1jedRzsHufnBI/n/lFBY4FzrveKN6NzdGACVy3B
-         TlNERRO4NDhOFAV3Axhj6Nn5UeESJYFBp2HtHJRV0YSTJIGrMg6wMrNioLiPnLx63AZT
-         vnhA==
+        bh=/Jeq0n8+gSFVF/a9Kn28ZuDMbwG8/SmVYarkQo66UCU=;
+        b=cPU5+U0LA/Pha0fqnZkLq+kTXtFOG3WGxReIvi9THEX2TnEGTTpYqUUK4ESacRXE9u
+         /W2ffXYvNTlkapeU7H3ZYmWPCGcb/GsHy0zcYC7bKxw7p7FV1BPhN3ZKL/XNkRRhbDQ3
+         3Vlyv1s0ENhC7D6zJx+d8JqkYXPDL0xKPU84BRVjS3w/im4nArvncW8DvICkFw3ezCTi
+         qAOJaF+0S3zWXVaiTRXn6OfzqU8gUk1Rq5xH/Fpig/2dHEJFs90Uy649nDs8UnotOFEi
+         v/WwGnJnyOjaoH5jjs1+FdxR856Y72rKXmPJDiYoQ9lBjGTArvuugqkwatkqVyGjn3Za
+         eMqA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1719392564; x=1719997364;
+        d=1e100.net; s=20230601; t=1719392796; x=1719997596;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=bqkMklrYlhAjgUeJ0hm27xKX3s305+zLVUmyJ9bylK4=;
-        b=ErblMzET/1iGItsGPd4JKY2y2oJy+X+YYIu0Q3jOAK0GcMNN0LKJ40FECsHxhw8uoS
-         OM2soaH3vMhEBmnQlpFB+eW8qDLYcLXXdrSnNRmdE+ZLLHvU4YrYmLl9NI2HVSrkqF5i
-         y0AdKvZyI11EbzUu55e7NRUlJayOAMYNQauPS/zYWVRNQFcpKvi5bcBkDsijkljbuk9h
-         TWjP7pR4atc8VCATvakPzHlAAkS0XT41Gnkl5V18Y8nXN55dsITpejsdzpxI09iF0oYM
-         j8cd3aKOhzuKTSH5sjTUJFFZukf2eIgNFl7xS816cDLYKH/AqeR8sRUMclGqvejKmlUN
-         1xJA==
-X-Forwarded-Encrypted: i=1; AJvYcCWkOsiLbYgANkqXaVByO/iOvcvCRsnYSOFWUnANZmTX5iNKhGP50P/SdJyFttczMoOYjQj2DwIAV5v3RT4nwthsoxig5jKkvbGn6Tr3yRQ=
-X-Gm-Message-State: AOJu0YyzEadqE6rzNfH7uvOiv0z7TV+z8+6kZWXIV92hgEe9QdH56qDy
-	0jBXhVOE8sMVs4JTvG1dIDjGlMBEH9f4OUFkC0frMFq34/EUs1qi5ugj5MLiMQ==
-X-Google-Smtp-Source: AGHT+IEh+m7kn+LNw3HeLiUsYaIsCFmQe2i4nKVtBN1bzhBikCjJi1QZWRFi30GL1kvliMV60tza+w==
-X-Received: by 2002:a2e:7203:0:b0:2ec:2314:3465 with SMTP id 38308e7fff4ca-2ec5b36b959mr54926411fa.11.1719392551651;
-        Wed, 26 Jun 2024 02:02:31 -0700 (PDT)
-Message-ID: <e740e1be-7890-4e8f-879a-87043ac109c5@suse.com>
-Date: Wed, 26 Jun 2024 11:02:23 +0200
+        bh=/Jeq0n8+gSFVF/a9Kn28ZuDMbwG8/SmVYarkQo66UCU=;
+        b=GoJ7y3CWceUPAk4MRs7GbUScZzqkdF7u10qB8rXNfQ5mnyPZQgdh3lWGV6dNDgCQV8
+         eXO0YaG2ekplZ2NOJ85AJaoM+wxjxl8w6Zg63HGt2YICJopCSc+KS1aa/VMsqi4p+ySi
+         OiF412zx1EofnE4WfbcFwe3VqTfXWJ3dhH4X3jgWRDkIfqfI/BbJs+tA2G+OvmwxsEe9
+         NNSWwbY0Uz3rXnbijYoguUdvE/H/czDgChkI31lJ3nbkQWk1rMsqidx31qk+gaT4YRHy
+         /aNJHeylevHHDD6FFPoimKfg7S5Q7kETMxWdzqHBN1D10ao7HJlUkHCjuV+3Ppk6fPIo
+         5Drw==
+X-Forwarded-Encrypted: i=1; AJvYcCX0xBBXjrd/Gzs6qNaijSKxEDFgghE4Vb26gc+LyZVT8TH5LRQuihYOJJwDXxHT7u66qrLxnDv2XvgYHlDUz8+e/unNWQB+Wo97J1jKY5E=
+X-Gm-Message-State: AOJu0YxPxJ8dG3ckG+axa9FGpQl5c4zCIVo9oEXfVUhzxSFxA/hhId3e
+	1rjtYRlFZcfLpYxiCuzSGMx0f/BFwlaz27qbUeb6rEFN3u9s5r8+JA0MGX0hcA==
+X-Google-Smtp-Source: AGHT+IGj8qL12/pe13crY3AWK9qjFSf4Ze8LTduTeAxWSLzdRVvfc9TAegtIFcorjZm+mCYaGCp6nw==
+X-Received: by 2002:a2e:2419:0:b0:2ec:422:126 with SMTP id 38308e7fff4ca-2ec5932a567mr73398921fa.30.1719392795918;
+        Wed, 26 Jun 2024 02:06:35 -0700 (PDT)
+Message-ID: <ec92611e-6762-4b6c-af3e-999b748d1f1b@suse.com>
+Date: Wed, 26 Jun 2024 11:06:26 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] xen/sched: fix error handling in cpu_schedule_up()
-To: Juergen Gross <jgross@suse.com>
-Cc: George Dunlap <george.dunlap@citrix.com>,
- Dario Faggioli <dfaggioli@suse.com>, xen-devel@lists.xenproject.org
-References: <20240626055425.3622-1-jgross@suse.com>
+Subject: Re: [XEN PATCH v3 05/16] xen/x86: address violations of MISRA C:2012
+ Directive 4.10
+To: Nicola Vetrini <nicola.vetrini@bugseng.com>
+Cc: Simone Ballarin <simone.ballarin@bugseng.com>, consulting@bugseng.com,
+ sstabellini@kernel.org, Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu
+ <wl@xen.org>, xen-devel@lists.xenproject.org
+References: <cover.1710145041.git.simone.ballarin@bugseng.com>
+ <dd042e7d17e7833e12a5ff6f28dd560b5ff02cf7.1710145041.git.simone.ballarin@bugseng.com>
+ <dce6c44d-94b7-43bd-858a-9337336a79cf@suse.com>
+ <ef623bad297d016438b35bedc80f091d@bugseng.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -111,66 +117,67 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240626055425.3622-1-jgross@suse.com>
+In-Reply-To: <ef623bad297d016438b35bedc80f091d@bugseng.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 26.06.2024 07:54, Juergen Gross wrote:
-> In case cpu_schedule_up() is failing, it needs to undo all externally
-> visible changes it has done before.
+On 25.06.2024 21:31, Nicola Vetrini wrote:
+> On 2024-03-12 09:16, Jan Beulich wrote:
+>> On 11.03.2024 09:59, Simone Ballarin wrote:
+>>> --- a/xen/arch/x86/Makefile
+>>> +++ b/xen/arch/x86/Makefile
+>>> @@ -258,18 +258,20 @@ $(obj)/asm-macros.i: CFLAGS-y += -P
+>>>  $(objtree)/arch/x86/include/asm/asm-macros.h: $(obj)/asm-macros.i 
+>>> $(src)/Makefile
+>>>  	$(call filechk,asm-macros.h)
+>>>
+>>> +ARCHDIR = $(shell echo $(SRCARCH) | tr a-z A-Z)
+>>
+>> This wants to use :=, I think - there's no reason to invoke the shell 
+>> ...
 > 
-> Reason is that cpu_schedule_callback() won't be called with the
-> CPU_UP_CANCELED notifier in case cpu_schedule_up() did fail.
+> I agree on this
 > 
-> Reported-by: Jan Beulich <jbeulich@suse.com>
-> Fixes: 207589dbacd4 ("xen/sched: move per cpu scheduler private data into struct sched_resource")
-> Signed-off-by: Juergen Gross <jgross@suse.com>
+>>
+>>>  define filechk_asm-macros.h
+>>> +    echo '#ifndef ASM_$(ARCHDIR)_ASM_MACROS_H'; \
+>>> +    echo '#define ASM_$(ARCHDIR)_ASM_MACROS_H'; \
+>>>      echo '#if 0'; \
+>>>      echo '.if 0'; \
+>>>      echo '#endif'; \
+>>> -    echo '#ifndef __ASM_MACROS_H__'; \
+>>> -    echo '#define __ASM_MACROS_H__'; \
+>>>      echo 'asm ( ".include \"$@\"" );'; \
+>>> -    echo '#endif /* __ASM_MACROS_H__ */'; \
+>>>      echo '#if 0'; \
+>>>      echo '.endif'; \
+>>>      cat $<; \
+>>> -    echo '#endif'
+>>> +    echo '#endif'; \
+>>> +    echo '#endif /* ASM_$(ARCHDIR)_ASM_MACROS_H */'
+>>>  endef
+>>
+>> ... three times while expanding this macro. Alternatively (to avoid
+>> an unnecessary shell invocation when this macro is never expanded at
+>> all) a shell variable inside the "define" above would want introducing.
+>> Whether this 2nd approach is better depends on whether we anticipate
+>> further uses of ARCHDIR.
+> 
+> However here I'm not entirely sure about the meaning of this latter 
+> proposal.
+> My proposal is the following:
+> 
+> ARCHDIR := $(shell echo $(SRCARCH) | tr a-z A-Z)
+> 
+> in a suitably generic place (such as Kbuild.include or maybe 
+> xen/Makefile) as you suggested in subsequent patches that reused this 
+> pattern.
 
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
-with two questions, just for my own reassurance:
-
-> --- a/xen/common/sched/core.c
-> +++ b/xen/common/sched/core.c
-> @@ -2755,6 +2755,36 @@ static struct sched_resource *sched_alloc_res(void)
->      return sr;
->  }
->  
-> +static void cf_check sched_res_free(struct rcu_head *head)
-> +{
-> +    struct sched_resource *sr = container_of(head, struct sched_resource, rcu);
-> +
-> +    free_cpumask_var(sr->cpus);
-> +    if ( sr->sched_unit_idle )
-> +        sched_free_unit_mem(sr->sched_unit_idle);
-> +    xfree(sr);
-> +}
-> +
-> +static void cpu_schedule_down(unsigned int cpu)
-> +{
-> +    struct sched_resource *sr;
-> +
-> +    rcu_read_lock(&sched_res_rculock);
-> +
-> +    sr = get_sched_res(cpu);
-> +
-> +    kill_timer(&sr->s_timer);
-> +
-> +    cpumask_clear_cpu(cpu, &sched_res_mask);
-> +    set_sched_res(cpu, NULL);
-> +
-> +    /* Keep idle unit. */
-> +    sr->sched_unit_idle = NULL;
-> +    call_rcu(&sr->rcu, sched_res_free);
-> +
-> +    rcu_read_unlock(&sched_res_rculock);
-> +}
-
-Eyeballing suggests these two functions don't change at all; they're solely
-being moved up?
-
-Also, for the purpose here, use of RCU to effect the freeing isn't strictly
-necessary. It's just that it also doesn't hurt doing it that way, and it
-would be more code to directly free when coming from cpu_schedule_up()?
+If $(ARCHDIR) is going to be used elsewhere, then what you suggest is fine.
+My "whether" in the earlier reply specifically left open for clarification
+what the intentions with the variable are. The alternative I had described
+makes sense only when $(ARCHDIR) would only ever be used inside the
+filechk_asm-macros.h macro.
 
 Jan
 
