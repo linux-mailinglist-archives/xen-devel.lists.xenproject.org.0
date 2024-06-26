@@ -2,38 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3308F917A5B
-	for <lists+xen-devel@lfdr.de>; Wed, 26 Jun 2024 10:02:13 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.748457.1156169 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A6722917A6A
+	for <lists+xen-devel@lfdr.de>; Wed, 26 Jun 2024 10:05:09 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.748462.1156179 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sMNb8-0005VU-PE; Wed, 26 Jun 2024 08:01:46 +0000
+	id 1sMNe7-00064T-6N; Wed, 26 Jun 2024 08:04:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 748457.1156169; Wed, 26 Jun 2024 08:01:46 +0000
+Received: by outflank-mailman (output) from mailman id 748462.1156179; Wed, 26 Jun 2024 08:04:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sMNb8-0005Sl-LX; Wed, 26 Jun 2024 08:01:46 +0000
-Received: by outflank-mailman (input) for mailman id 748457;
- Wed, 26 Jun 2024 08:01:45 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=WUJr=N4=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sMNb7-0005GT-1u
- for xen-devel@lists.xenproject.org; Wed, 26 Jun 2024 08:01:45 +0000
-Received: from mail-lj1-x232.google.com (mail-lj1-x232.google.com
- [2a00:1450:4864:20::232])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 54076330-3392-11ef-90a3-e314d9c70b13;
- Wed, 26 Jun 2024 10:01:44 +0200 (CEST)
-Received: by mail-lj1-x232.google.com with SMTP id
- 38308e7fff4ca-2ec0f3b9cfeso76161651fa.0
- for <xen-devel@lists.xenproject.org>; Wed, 26 Jun 2024 01:01:44 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-7069a42171dsm2617153b3a.191.2024.06.26.01.01.38
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 26 Jun 2024 01:01:42 -0700 (PDT)
+	id 1sMNe7-00061w-2e; Wed, 26 Jun 2024 08:04:51 +0000
+Received: by outflank-mailman (input) for mailman id 748462;
+ Wed, 26 Jun 2024 08:04:50 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=6S0o=N4=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
+ id 1sMNe6-00061q-2L
+ for xen-devel@lists.xenproject.org; Wed, 26 Jun 2024 08:04:50 +0000
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on20601.outbound.protection.outlook.com
+ [2a01:111:f403:2417::601])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id bfbdc8be-3392-11ef-b4bb-af5377834399;
+ Wed, 26 Jun 2024 10:04:45 +0200 (CEST)
+Received: from SN7PR04CA0085.namprd04.prod.outlook.com (2603:10b6:806:121::30)
+ by DM4PR12MB5913.namprd12.prod.outlook.com (2603:10b6:8:66::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7698.32; Wed, 26 Jun
+ 2024 08:04:42 +0000
+Received: from SA2PEPF00003F64.namprd04.prod.outlook.com
+ (2603:10b6:806:121:cafe::a6) by SN7PR04CA0085.outlook.office365.com
+ (2603:10b6:806:121::30) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7719.22 via Frontend
+ Transport; Wed, 26 Jun 2024 08:04:42 +0000
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ SA2PEPF00003F64.mail.protection.outlook.com (10.167.248.39) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7677.15 via Frontend Transport; Wed, 26 Jun 2024 08:04:42 +0000
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 26 Jun
+ 2024 03:04:41 -0500
+Received: from XIR-MICHALO-L1.xilinx.com (10.180.168.240) by
+ SATLEXMB03.amd.com (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.39
+ via Frontend Transport; Wed, 26 Jun 2024 03:04:40 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,148 +59,161 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 54076330-3392-11ef-90a3-e314d9c70b13
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1719388903; x=1719993703; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=xvkmClhPnl9irN7BosyBuUnrhgAEJgG7ZDAN1QohxQw=;
-        b=YUrZoPljgLkrKFDmzxgxcqmhJbLY1y/5NDbgms5rZzmuigS/3WBQTWikhJS82+fnNY
-         8DOHi8WI4d3hj8AjbPmxSjF2oyxFdpeLqlvYZdbIUM+GATQ7bq1oaaWiYIS85vXCr38M
-         03FwjwUjr/E1rVf7pfBwif8HK7c10kG8a4NP0NMJaxAJX6Mmnw03OGcXqA2A2BYiweM2
-         h94VBKWugwF3xhpznLEgQTWP0oTR4iF6jrWa55SbVfsQ3H1pjsLo2bWX0+8YHGrNM7UD
-         CLOWg4Bq3k5Ez/N9J/MbkQ7SN2zUBFFev+PJx7j4hjgL4ZEMVDIr4NE74WXJV6x5iKXv
-         h3DQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1719388903; x=1719993703;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=xvkmClhPnl9irN7BosyBuUnrhgAEJgG7ZDAN1QohxQw=;
-        b=UQ/SIUlyIqtcFfb2VBu5/B0P4Yb0dZbF5m50o77Kfrm8GjTTNZsU0UgQq/xf4XGhxz
-         398y/jqNhDlEl5JUmX3Fbqpy6/4tJZG05ob0nZD+8tJ10kr7N8Vc3gSsxnRAAHNy818m
-         rYjF6cpYwZC27K7rscJAynImvbKiyjFF1uX2xHwTP4+Ix5GKwdk1nRN6FCwR/iK2V7fe
-         L5oWiH3ZYOBdKLZNK/TWfD8laB3BPLgN/iq6iSEqZA5fkwK10gzM0xlQ1LzHGeCglJgX
-         Y8bhDc+s6cUKx1p+HTEBhwF4pgz9jbzkkC2Oarp/leuXnwjFqDG0RyAWFUDA3Dteofjr
-         FSsA==
-X-Forwarded-Encrypted: i=1; AJvYcCXWEFsgA3mLFsbeQVel8CAOzlBrtb3hB2gbms352WJrW/QxMPgt7sskMR0yg5G9BlIVlWWbCS9UhYPGnYa/JFLatrdFYYKZy+hrnwcjTmg=
-X-Gm-Message-State: AOJu0YyDC/XKv/9Ux+ukhHPwGbs7eVKUym7LejHUyFjTsIEKXpAcJ3dJ
-	mDIpwdMVxp0dkadUg2cXMVnkuz+OdBqPIpQbFo+A5wXx7U+6WoqDYUmJtDgLEg==
-X-Google-Smtp-Source: AGHT+IGIrBqhXWrONmt2LE+SRROGEkvIv4XXShQwt8vhfZDNYij3n00PjhKTfKbY4mRB4nJVFKoJtg==
-X-Received: by 2002:a2e:87d3:0:b0:2ec:500c:b2e0 with SMTP id 38308e7fff4ca-2ec593e0cc0mr62623931fa.22.1719388903382;
-        Wed, 26 Jun 2024 01:01:43 -0700 (PDT)
-Message-ID: <237405eb-5e27-42b0-a763-c99c474075cd@suse.com>
-Date: Wed, 26 Jun 2024 10:01:34 +0200
+X-Inumbo-ID: bfbdc8be-3392-11ef-b4bb-af5377834399
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=CG5vA3O1yl86CKJou0Meq900XZ7B9zPP2RP8XYnfMgqL2d5nTAXQCEu1wz8JGRy2UAVEf0voc00PyaJTprv2UVxiYcjDA08XYTdtAHuE0go4uk3VEc6J04LyqO/GsuK+wp6+ULr+aCWcupzEV6DfbMmxyBEjtJThypMKVY7Jm1RO+IoSTsydGW/kCkFCtWDz4/D/52h2T7u/JigS3BurEr9UgTMJ97mdPT7hYd+ZxAdwgXUrQqZbQ/5HRH/8p5Zc+09fxcygwlrz5hyN26WmuAoQCeX9R0miKPfuSH5bZuUuLCTZdkD8akpNHBVtl5iNTV2QCsl2RqUt9d5XBVidDw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=yhiipniAr4aaZAMzuqDcpiRmiIFd3EPblKq1s2aS80I=;
+ b=P+RZCUw4pk5lXsGiyOdp4XngMqGYrK0sO9YDAnuY3icpolpu16kGmcwWk4tvRcM2EFgxPA5kn2cxe4A4s4MBuDIOqjZaj0R0KEgXvqn6+OBFZ8W7/wya/2X2yNOAzqCuxxTPbd26sNeiw4r5d2MC0c1cN9z45HRRlNlgEo4szbzPFLYWRmzpizYym2Pm/vNLUNf1smxlkTTb4IVMR7BqCLRgv2hJFwjVileAxGIaNVnjVqQollL8ethP2xMfeRnvMoChl/5eVk4ywznbjgZ41GQ2giQBEWch0uIhf+qX2NUKUMnh4kcQ5c1i8gKSOW0crDGPWbl5Pik8YH9EtlBxog==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=yhiipniAr4aaZAMzuqDcpiRmiIFd3EPblKq1s2aS80I=;
+ b=y/GCR7IwW5AbczkO4rh4axphh7/ltk7SMomGbiem6cleI5XvEFee9QM6nSK/r1/xcjEsPOvJookN3YBaOILgyW2FSLvbfnZRpV65ZepCI1qzGOaDi+1xyM+wxo17T7dC54WAl6aRlsSngIwRIp1e7Wqfrf7Apq4yzVAvimo+288=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+From: Michal Orzel <michal.orzel@amd.com>
+To: <xen-devel@lists.xenproject.org>
+CC: Michal Orzel <michal.orzel@amd.com>, Stefano Stabellini
+	<sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Bertrand Marquis
+	<bertrand.marquis@arm.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	<oleksii.kurochko@gmail.com>
+Subject: [PATCH for-4.19(?)] xen/arm: bootfdt: Fix device tree memory node probing
+Date: Wed, 26 Jun 2024 10:04:28 +0200
+Message-ID: <20240626080428.18480-1-michal.orzel@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v13 09/10] xen/riscv: introduce ANDN_INSN
-To: Oleksii <oleksii.kurochko@gmail.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, George Dunlap <george.dunlap@citrix.com>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- xen-devel@lists.xenproject.org, Andrew Cooper <andrew.cooper3@citrix.com>
-References: <cover.1719319093.git.oleksii.kurochko@gmail.com>
- <b0d2ff2cecf6cb324e43b9c14c87f47f3f199613.1719319093.git.oleksii.kurochko@gmail.com>
- <95f64eba-13b9-404a-8318-7a3fc77ea560@suse.com>
- <3b2443ad76923afba348304b7cedbb257a6c5313.camel@gmail.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <3b2443ad76923afba348304b7cedbb257a6c5313.camel@gmail.com>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+Received-SPF: None (SATLEXMB04.amd.com: michal.orzel@amd.com does not
+ designate permitted sender hosts)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SA2PEPF00003F64:EE_|DM4PR12MB5913:EE_
+X-MS-Office365-Filtering-Correlation-Id: d49f604e-8aba-47c7-7dee-08dc95b6a27d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230038|376012|1800799022|36860700011|82310400024;
+X-Microsoft-Antispam-Message-Info:
+	=?us-ascii?Q?KUvnWMzpuJANhlvlsKxmXtF6O59CwLvhLbPgXy2jwQgqmz85ra4pe4/Ypcva?=
+ =?us-ascii?Q?HQko81dixeW2ZASD9Ibdi0lILactg0RCaMUhNgwoQuzn6wq2TgWvNkOQDS8p?=
+ =?us-ascii?Q?CcXv35+WWWuQCU8uqlzZmtPCW27Fs9fnsBmgB7G98GXAvD25vROSH22c83KI?=
+ =?us-ascii?Q?qFCjj7YexSPBAkDbtJmZ9lfpGFNa/975jNdfgxPdHaRLWmU+YhNEgb7PhVRr?=
+ =?us-ascii?Q?61SVp4iurnuB/XVHD8rU9gNUfbHEU/NFf5MuK34zeyQrrJvN8DR9/4JckXdB?=
+ =?us-ascii?Q?N6oHx/NEM7+RTBPaapUMSZeoaON5eTFom/B6SXfWIXYZ031xkGxXWlX9HIZa?=
+ =?us-ascii?Q?RKai3yY3tvpQaRQTZo/+9TXivc0j1IxcjIS3znvSSiAQTQ0cwLb4OR9SuGuA?=
+ =?us-ascii?Q?Zkw3UKhPrue8aB3SpngCYyTMHmGOcQf/xtTRap9HPHL3/8wQAqO5f8co6B4P?=
+ =?us-ascii?Q?k66qhLlRdFH+f173cKDPOJYYsSrYmkaMzPtK6Daq4q0wnF6TdaHetJFT9imZ?=
+ =?us-ascii?Q?frdZiDVgGyVnbDXnI3ZQ/7y5qN3L+s/Gd9gva1XZsKuuKeXOAfX+6gffDfV7?=
+ =?us-ascii?Q?4txnh6v3MAi2gDaNYVCQgmlYQMDYJGg0g40R6cK+Iyo9La7sfTgbGV6fVT+I?=
+ =?us-ascii?Q?DWr+/pML/sKlOjwZJKb3JO3B9+AmtLonsgHrpf4aguvdfRUTYm7EFtm8yXL7?=
+ =?us-ascii?Q?Z+5UO+tEjU9UOcWSv71rr42qb1b5btRrwCa0UgKC8si7yfjkh2Vaf3570kc8?=
+ =?us-ascii?Q?/0sFHNu1YDteG7ZkSB3znqWLt2jTi2Lt6RdY3q+OqbnCuzFRv4H5hNpfnvXK?=
+ =?us-ascii?Q?F1RbZ2vMDBadrhZlqdA0/NkmMOH/rWG/I7VYwYeQqsjQHqHX+2Pg8E7h7b4Z?=
+ =?us-ascii?Q?VTcpZkB21UIdgaVSLWWvWk2ZpLdNK6VCbNXfA4MdUjmMqnOGag5lQjVMaLDh?=
+ =?us-ascii?Q?cP17KXsbRWi0TwZxcLuMfDfcBmE2X65t8varyrbPK2GEzQO3WkRusFINf3+A?=
+ =?us-ascii?Q?x52tR3W94AmhHocyIZ42lTXPCkICbiOPK5H23BJp6wPO9GLVbbznllW/cedD?=
+ =?us-ascii?Q?e+eTdXB9MFWdFbNk61PYgtPf1dvUsVuFW7IK8zgSSbXrwbXl5BdnEHYWXAC1?=
+ =?us-ascii?Q?aj9FH8YSAKqUkpV9F7DW1m6R1SPY8dhMirmj8+piSEOhIkDH5QfjMWEDGH9i?=
+ =?us-ascii?Q?Q1q1BCzDQu42JKW8ZsyMEaN2De/+oML6ZfcpxLeKwJYeBHWzQaYFtyc6s4Lp?=
+ =?us-ascii?Q?XZ5k+3SQn+/MgM3VZ/lRUFrt+BVNDlU/oZy2JSltlQnTgSZlbRHPzXjlNhTA?=
+ =?us-ascii?Q?mRwgD1E01ybgZqO/XkJ5IL4TZ1d78R4Jc9Azb9heurZl+Rf98GcEZh098hf/?=
+ =?us-ascii?Q?cM4jSexp7xLrRVAn9DwrEJU2gXrKXG7Nb853OXk3fwcqpk2RyA=3D=3D?=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230038)(376012)(1800799022)(36860700011)(82310400024);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Jun 2024 08:04:42.1550
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: d49f604e-8aba-47c7-7dee-08dc95b6a27d
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SA2PEPF00003F64.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5913
 
-On 25.06.2024 20:26, Oleksii wrote:
-> On Tue, 2024-06-25 at 16:49 +0200, Jan Beulich wrote:
->> On 25.06.2024 15:51, Oleksii Kurochko wrote:
->>> --- a/xen/arch/riscv/include/asm/cmpxchg.h
->>> +++ b/xen/arch/riscv/include/asm/cmpxchg.h
->>> @@ -18,6 +18,20 @@
->>>          : "r" (new) \
->>>          : "memory" );
->>>  
->>> +/*
->>> + * Binutils < 2.37 doesn't understand ANDN.  If the toolchain is
->>> too
->>> +ld, form
->>
->> Same question: Why's 2.37 suddenly of interest?
-> Andrew has (or had) an older version of binutils and started to face
-> the issues mentioned in this patch. As a result, some
-> changes were suggested.
-> 
->> Plus, why would age of the
->> tool chain matter?
-> As it is mentioned in the comment binutils < 2.37 doesn't understand
-> andn instruction.
+Memory node probing is done as part of early_scan_node() that is called
+for each node with depth >= 1 (root node is at depth 0). According to
+Devicetree Specification v0.4, chapter 3.4, /memory node can only exists
+as a top level node. However, Xen incorrectly considers all the nodes with
+unit node name "memory" as RAM. This buggy behavior can result in a
+failure if there are other nodes in the device tree (at depth >= 2) with
+"memory" as unit node name. An example can be a "memory@xxx" node under
+/reserved-memory. Fix it by introducing device_tree_is_memory_node() to
+perform all the required checks to assess if a node is a proper /memory
+node.
 
-But that's not the point. If the tool chain is too old, our logic to
-detect that should arrange for __riscv_zbb to not be set. That's all
-that needed to cover gas not understanding the insn. The rest here
-isn't about the capabilities of the tool chain: Either we make Zbb a
-requirement (at which point .insn can be used to encode ANDN), or we
-don't (at which point the replacement code you have comes into play).
+Fixes: 3e99c95ba1c8 ("arm, device tree: parse the DTB for RAM location and size")
+Signed-off-by: Michal Orzel <michal.orzel@amd.com>
+---
+4.19: This patch is fixing a possible early boot Xen failure (before main
+console is initialized). In my case it results in a warning "Shattering
+superpage is not supported" and panic "Unable to setup the directmap mappings".
 
->> What you care about is whether you're permitted to use
->> the extension at runtime. 
-> At the moment we can't check that at runtime, w/o having an exception,
-> ( there is some option to check when dts parsing will be available in
-> Xen ). I will add the check when dts parsing functionality will be
-> available. Right now the best what we can do it is just mentioned that
-> as requirement in docs.
-> 
->> Otherwise you could again ...
->>
->> Also something went wrong with line wrapping here.
->>
->>> + * it of a NOT+AND pair
->>> + */
->>> +#ifdef __riscv_zbb
->>> +#define ANDN_INSN(rd, rs1, rs2)                 \
->>> +    "andn " rd ", " rs1 ", " rs2 "\n"
->>> +#else
->>> +#define ANDN_INSN(rd, rs1, rs2)                 \
->>> +    "not " rd ", " rs2 "\n"                     \
->>> +    "and " rd ", " rs1 ", " rd "\n"
->>
->> ... resort to .insn.
-> Hmm, good point, it could be an issue.
-> 
-> 
-> If this patch is still needed (Andrew, have you updated your
-> toolchain?), then it should use .insn instead of andn. However, using
-> .insn requires encoding rd, rs1, and rs2 through asm ("some_reg") (?),
-> which seems overly complicated.
+If this is too late for this patch to go in, we can backport it after the tree
+re-opens.
+---
+ xen/arch/arm/bootfdt.c | 28 +++++++++++++++++++++++++++-
+ 1 file changed, 27 insertions(+), 1 deletion(-)
 
-Why? You don't want to use the raw form of .insn (which, as per the
-other sub-thread on this series, is available from gas 2.38 only anyway),
-but the one permitting operands to be spelled out (.insn r ...), along
-the lines of what I suggested for "pause".
+diff --git a/xen/arch/arm/bootfdt.c b/xen/arch/arm/bootfdt.c
+index 6e060111d95b..23c968e6955d 100644
+--- a/xen/arch/arm/bootfdt.c
++++ b/xen/arch/arm/bootfdt.c
+@@ -83,6 +83,32 @@ static bool __init device_tree_node_compatible(const void *fdt, int node,
+     return false;
+ }
+ 
++/*
++ * Check if a node is a proper /memory node according to Devicetree
++ * Specification v0.4, chapter 3.4.
++ */
++static bool __init device_tree_is_memory_node(const void *fdt, int node,
++                                              int depth)
++{
++    const char *type;
++    int len;
++
++    if ( depth != 1 )
++        return false;
++
++    if ( !device_tree_node_matches(fdt, node, "memory") )
++        return false;
++
++    type = fdt_getprop(fdt, node, "device_type", &len);
++    if ( !type )
++        return false;
++
++    if ( (len <= 0) || strcmp(type, "memory") )
++        return false;
++
++    return true;
++}
++
+ void __init device_tree_get_reg(const __be32 **cell, uint32_t address_cells,
+                                 uint32_t size_cells, paddr_t *start,
+                                 paddr_t *size)
+@@ -448,7 +474,7 @@ static int __init early_scan_node(const void *fdt,
+      * populated. So we should skip the parsing.
+      */
+     if ( !efi_enabled(EFI_BOOT) &&
+-         device_tree_node_matches(fdt, node, "memory") )
++         device_tree_is_memory_node(fdt, node, depth) )
+         rc = process_memory_node(fdt, node, name, depth,
+                                  address_cells, size_cells, bootinfo_get_mem());
+     else if ( depth == 1 && !dt_node_cmp(name, "reserved-memory") )
+-- 
+2.25.1
 
-Jan
 
