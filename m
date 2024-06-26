@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 63D39918756
-	for <lists+xen-devel@lfdr.de>; Wed, 26 Jun 2024 18:29:15 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.749268.1157299 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CF38291875C
+	for <lists+xen-devel@lfdr.de>; Wed, 26 Jun 2024 18:29:17 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.749269.1157303 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sMVVk-0005u1-LT; Wed, 26 Jun 2024 16:28:44 +0000
+	id 1sMVVk-0005zK-Tg; Wed, 26 Jun 2024 16:28:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 749268.1157299; Wed, 26 Jun 2024 16:28:44 +0000
+Received: by outflank-mailman (output) from mailman id 749269.1157303; Wed, 26 Jun 2024 16:28:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sMVVk-0005pa-Id; Wed, 26 Jun 2024 16:28:44 +0000
-Received: by outflank-mailman (input) for mailman id 749268;
- Wed, 26 Jun 2024 16:28:42 +0000
+	id 1sMVVk-0005u3-Ps; Wed, 26 Jun 2024 16:28:44 +0000
+Received: by outflank-mailman (input) for mailman id 749269;
+ Wed, 26 Jun 2024 16:28:43 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=m54e=N4=cloud.com=alejandro.vallejo@srs-se1.protection.inumbo.net>)
- id 1sMVVi-0005pK-Am
- for xen-devel@lists.xenproject.org; Wed, 26 Jun 2024 16:28:42 +0000
-Received: from mail-ed1-x52a.google.com (mail-ed1-x52a.google.com
- [2a00:1450:4864:20::52a])
+ id 1sMVVj-0005pK-0r
+ for xen-devel@lists.xenproject.org; Wed, 26 Jun 2024 16:28:43 +0000
+Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
+ [2a00:1450:4864:20::633])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 254ab659-33d9-11ef-b4bb-af5377834399;
+ id 25b93049-33d9-11ef-b4bb-af5377834399;
  Wed, 26 Jun 2024 18:28:40 +0200 (CEST)
-Received: by mail-ed1-x52a.google.com with SMTP id
- 4fb4d7f45d1cf-57d1782679fso678546a12.0
+Received: by mail-ej1-x633.google.com with SMTP id
+ a640c23a62f3a-a725d756d41so135752866b.0
  for <xen-devel@lists.xenproject.org>; Wed, 26 Jun 2024 09:28:40 -0700 (PDT)
 Received: from EMEAENGAAD19049.citrite.net ([160.101.139.1])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a7291af7912sm42791866b.128.2024.06.26.09.28.38
+ a640c23a62f3a-a7291af7912sm42791866b.128.2024.06.26.09.28.39
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 26 Jun 2024 09:28:38 -0700 (PDT)
+ Wed, 26 Jun 2024 09:28:39 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,32 +45,33 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 254ab659-33d9-11ef-b4bb-af5377834399
+X-Inumbo-ID: 25b93049-33d9-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1719419319; x=1720024119; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=1sPDoIaCTvRdlQs7YmztUDubOqOgrOE/wxzEsjyDTHY=;
-        b=O13EYOjas9DsUkn7LnCD1plMulHOP1Y6UceohJzPBJXTvAM1DCBppCNfFogJw5vGWy
-         WzGb9PgVl6KYGmvMSfrVZ0yw9a/nxDUlG9wxFczTrb9U9lpHQgC/GrmHXa+lqAFrDZhJ
-         ppRPoWOrQ37SLnbgQ4dIi4Ugm5SftgrRTKhNE=
+        d=cloud.com; s=cloud; t=1719419320; x=1720024120; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=qAI2lFL9v1i73OxDsNgyfceqLCFm8BlW5RHMtqw9d8k=;
+        b=jgHGJ4ueZG/CuGnBJOPLAneSg22Rrabw8ZB/ZzjAOHEVM8hj2f4wtaRCED7JSl1Adm
+         cB/2ZB5FT2uOP+mUFqx43Z07rXCoQS+l0ZTix6aFQXU5MjY2d6atVb7JiX9oEzmzIkAc
+         9x3DSEJvPDDg293JWYdDO/3JyBsBr3Y8f8mnA=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1719419319; x=1720024119;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=1sPDoIaCTvRdlQs7YmztUDubOqOgrOE/wxzEsjyDTHY=;
-        b=GkIK/trulqTudyyQA8LgkwMicX6psdr23MNDMmJmRp99miRiqG+mYZZzLPKdigG2Ui
-         NSztQP9NHb+WB8Zdi1LPk77bzjdeH+p5aG0wqsl6XjrFg7z5m2ELKr7sKwi1mQZQvGjP
-         RCR/IjOLMr9wB9qwP3S1g6TbfzKkz8KsxqJXfnITC0WI9UwTtvRi4i/23pP+keMMO6sT
-         s5IUrWJOFPwDPUxGA3biIZ660ehiCyQ+AV1Ci85Fx91NDfmLTLOR5stwDYXKh/0FOOU+
-         lt3uDTp5segLTHNRnEeXJ8hfpe9mCev6Q1DivR/f/sYpR439Mut9ZUxNdtmMncE4gxIn
-         wMTA==
-X-Gm-Message-State: AOJu0YxVuOJIpSDwuXl2cJHIBlHTu95d5gM6oyo63tDhmUSFLlkrLx77
-	/3FXi2oeImiESZtZXKFY7puKZiy7y3C5MIgtEd/PhcO+hsUesqyTvEsJcHyCkkn2Xu/++HOzkrL
-	SZeY=
-X-Google-Smtp-Source: AGHT+IHyMx+5M3z3yyidBqq2z9sbM/AGyV/FJNl6iaXybtknLljbmVIQMgyT9fInQnv+i54o6/MXuA==
-X-Received: by 2002:a17:906:bc89:b0:a6f:38:6968 with SMTP id a640c23a62f3a-a7245b64da3mr771698366b.32.1719419319121;
+        d=1e100.net; s=20230601; t=1719419320; x=1720024120;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=qAI2lFL9v1i73OxDsNgyfceqLCFm8BlW5RHMtqw9d8k=;
+        b=m+Nya1iTFScW0Th2IxICSNG2r4vKDkBHm8zB/sAgdp3+WL650KQ6V+aKTUN0Ofpvx7
+         8HUuHhh9Dqrgmi/HJPpib5q9emATwiJ5boG6PwWic9VjxwvuOk5Y6uctURLQkuO/8gL8
+         4LCbfiDibhvIFQkMKQvfQkIwu5dUThjcsIDhgC+XwjETKp6+IhVkWDKReJ0U7Z4gC6dU
+         Qze2Pn7cPlpzBcLHNVWoyqqhsLxMaTkcDFuFR6p7b4aZJBhT02tG/rLQcauB2KJfCURv
+         7qFqIqgWGRoUSjqeJ/1JdBO7VdRFH35CQI/IIygHP9eYVySJMia4+syh0sxGAS87bLp6
+         6NPg==
+X-Gm-Message-State: AOJu0YyzWumUziGGYdJneE1PV+jm1zffnO7IcbBfspr001+mmYdHcY8G
+	sGp/l0Sv/xsKS8/Y91szWqUvOtbWiM5Zc6qotaKWRXmox/fOiWuLaZjgP+697PpSIrLL2l3e8jV
+	lKeg=
+X-Google-Smtp-Source: AGHT+IFL3aOpcUv5tos2lUCPGjcF7zAXhjcAbWgKdPNXb/lpgRWr7CZAG92QA3pbaZvO3I1MjsZLLQ==
+X-Received: by 2002:a17:907:d382:b0:a72:5d7f:dd4a with SMTP id a640c23a62f3a-a7296fa704emr8196066b.25.1719419319978;
         Wed, 26 Jun 2024 09:28:39 -0700 (PDT)
 From: Alejandro Vallejo <alejandro.vallejo@cloud.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
@@ -79,124 +80,92 @@ Cc: Alejandro Vallejo <alejandro.vallejo@cloud.com>,
 	Andrew Cooper <andrew.cooper3@citrix.com>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
 	Anthony PERARD <anthony.perard@vates.tech>,
-	Juergen Gross <jgross@suse.com>,
 	Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Subject: [PATCH for-4.19 v4 00/10] x86: Expose consistent topology to guests
-Date: Wed, 26 Jun 2024 17:28:27 +0100
-Message-Id: <cover.1719416329.git.alejandro.vallejo@cloud.com>
+Subject: [PATCH for 4.19 v4 01/10] tools/hvmloader: Fix non-deterministic cpuid()
+Date: Wed, 26 Jun 2024 17:28:28 +0100
+Message-Id: <f8bfcfeca0a76f28703b164e1e65fb5919325b13.1719416329.git.alejandro.vallejo@cloud.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <cover.1719416329.git.alejandro.vallejo@cloud.com>
+References: <cover.1719416329.git.alejandro.vallejo@cloud.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-I've added the patches most critical to get into 4.19 at the head. They are
-pretty well reviewed already and shouldn't be very contentious anymore.
+hvmloader's cpuid() implementation deviates from Xen's in that the value passed
+on ecx is unspecified. This means that when used on leaves that implement
+subleaves it's unspecified which one you get; though it's more than likely an
+invalid one.
 
-v3 -> v4:
-  * Fixed cpuid() bug in hvmloader, causing UB in v3
-  * Fixed a bogus assert in hvmloader, also causing a crash in v3
-  * Used HVM contexts rather than sync'd algos between Xen and toolstack in
-    order to initialise the per-vCPU LAPIC state.
-  * Formatting asjustments.
+Import Xen's implementation so there are no surprises.
 
-v2 -> v3:
+Signed-off-by: Alejandro Vallejo <alejandro.vallejo@cloud.com>
+---
+This is a fix for a latent bug. Should go into 4.19.
 
-  (v2/patch2 and v2/patch4 are already committed)
+v4
+  * New patch
+---
+ tools/firmware/hvmloader/util.c |  9 ---------
+ tools/firmware/hvmloader/util.h | 27 ++++++++++++++++++++++++---
+ 2 files changed, 24 insertions(+), 12 deletions(-)
 
-  * Moved the vlapic check hook addition to v3/patch1
-    * And created a check hook for the architectural state too for consistency.
-  * Fixed migrations from Xen <= 4.13 by reconstructing the previous topology.
-  * Correctly set the APIC ID after a policy change when vlapic is already in
-    x2APIC mode.
-  * Removed bogus assumption introduced in v1 and v2 on hvmloader about which
-    8bit APIC IDs represent ids > 254. (it's "id % 0xff", not "min(id, 0xff)".
-        * Used an x2apic flag check instead.
-  * Various formatting adjustments.
-
-v1 -> v2:
-
-  * v1/patch 4 replaced by a different strategy (See patches 4 and 5 in v2):
-      * Have hvmloader populate MADT with the real APIC IDs as read by the APs
-        themselves rather than giving it knowledge on how to derive them.
-  * Removed patches 2 and 3 in v1, as no longer relevant.
-  * Split v1/patch6 in two parts ((a) creating the generator and (b) plugging it
-    in) and use the generator in the unit tests of the vcpuid->apicid mapping
-    function. Becomes patches 6 and 8 in v2.
-
-  Patch 1: Same as v1/patch1.
-  Patch 2: Header dependency cleanup in preparation for patch3.
-  Patch 3: Adds vlapic_hidden check for the newly introduced reserved area.
-  Patch 4: [hvmloader] Replaces INIT+SIPI+SIPI sequences with hypercalls.
-  Patch 5: [hvmloader] Retrieve the per-CPU APIC IDs from the APs themselves.
-  Patch 6: Split from v1/patch6.
-  Patch 7: Logically matching v1/patch5, but using v2/patch6 for testing.
-  Patch 8: Split from v1/patch6.
-
-=== Original cover letter ===
-
-Current topology handling is close to non-existent. As things stand, APIC
-IDs are allocated through the apic_id=vcpu_id*2 relation without giving any
-hints to the OS on how to parse the x2APIC ID of a given CPU and assuming
-the guest will assume 2 threads per core.
-
-This series involves bringing x2APIC IDs into the migration stream, so
-older guests keep operating as they used to and enhancing Xen+toolstack so
-new guests get topology information consistent with their x2APIC IDs. As a
-side effect of this, x2APIC IDs are now packed and don't have (unless under
-a pathological case) gaps.
-
-Further work ought to allow combining this topology configurations with
-gang-scheduling of guest hyperthreads into affine physical hyperthreads.
-For the time being it purposefully keeps the configuration of "1 socket" +
-"1 thread per core" + "1 core per vCPU".
-
-Patch 1: Includes x2APIC IDs in the migration stream. This allows Xen to
-         reconstruct the right x2APIC IDs on migrated-in guests, and
-         future-proofs itself in the face of x2APIC ID derivation changes.
-Patch 2: Minor refactor to expose xc_cpu_policy in libxl
-Patch 3: Refactors xen/lib/x86 to work on non-Xen freestanding environments
-         (e.g: hvmloader)
-Patch 4: Remove old assumptions about vcpu_id<->apic_id relationship in hvmloader
-Patch 5: Add logic to derive x2APIC IDs given a CPU policy and vCPU IDs
-Patch 6: Includes a simple topology generator for toolstack so new guests
-         have topologically consistent information in CPUID
-
-
-
-*** BLURB HERE ***
-
-Alejandro Vallejo (10):
-  tools/hvmloader: Fix non-deterministic cpuid()
-  x86/vlapic: Move lapic migration checks to the check hooks
-  xen/x86: Add initial x2APIC ID to the per-vLAPIC save area
-  tools/hvmloader: Retrieve (x2)APIC IDs from the APs themselves
-  xen/x86: Add supporting code for uploading LAPIC contexts during
-    domain create
-  tools/libguest: Make setting MTRR registers unconditional
-  xen/lib: Add topology generator for x86
-  xen/x86: Derive topologically correct x2APIC IDs from the policy
-  xen/x86: Synthesise domain topologies
-  tools/libguest: Set topologically correct x2APIC IDs for each vCPU
-
- tools/firmware/hvmloader/config.h        |   6 +-
- tools/firmware/hvmloader/hvmloader.c     |   4 +-
- tools/firmware/hvmloader/smp.c           |  54 ++++--
- tools/firmware/hvmloader/util.c          |   9 -
- tools/firmware/hvmloader/util.h          |  27 ++-
- tools/include/xen-tools/common-macros.h  |   5 +
- tools/libs/guest/xg_cpuid_x86.c          |  24 ++-
- tools/libs/guest/xg_dom_x86.c            | 114 ++++++++-----
- tools/tests/cpu-policy/test-cpu-policy.c | 201 +++++++++++++++++++++++
- xen/arch/x86/cpu-policy.c                |   9 +-
- xen/arch/x86/cpuid.c                     |  14 +-
- xen/arch/x86/hvm/vlapic.c                | 127 ++++++++++----
- xen/arch/x86/include/asm/hvm/vlapic.h    |   1 +
- xen/include/public/arch-x86/hvm/save.h   |   2 +
- xen/include/xen/lib/x86/cpu-policy.h     |  27 +++
- xen/lib/x86/policy.c                     | 164 ++++++++++++++++++
- xen/lib/x86/private.h                    |   4 +
- 17 files changed, 687 insertions(+), 105 deletions(-)
-
+diff --git a/tools/firmware/hvmloader/util.c b/tools/firmware/hvmloader/util.c
+index c34f077b38e3..d3b3f9038e64 100644
+--- a/tools/firmware/hvmloader/util.c
++++ b/tools/firmware/hvmloader/util.c
+@@ -267,15 +267,6 @@ memcmp(const void *s1, const void *s2, unsigned n)
+     return 0;
+ }
+ 
+-void
+-cpuid(uint32_t idx, uint32_t *eax, uint32_t *ebx, uint32_t *ecx, uint32_t *edx)
+-{
+-    asm volatile (
+-        "cpuid"
+-        : "=a" (*eax), "=b" (*ebx), "=c" (*ecx), "=d" (*edx)
+-        : "0" (idx) );
+-}
+-
+ static const char hex_digits[] = "0123456789abcdef";
+ 
+ /* Write a two-character hex representation of 'byte' to digits[].
+diff --git a/tools/firmware/hvmloader/util.h b/tools/firmware/hvmloader/util.h
+index deb823a892ef..3ad7c4f6d6a2 100644
+--- a/tools/firmware/hvmloader/util.h
++++ b/tools/firmware/hvmloader/util.h
+@@ -184,9 +184,30 @@ int uart_exists(uint16_t uart_base);
+ int lpt_exists(uint16_t lpt_base);
+ int hpet_exists(unsigned long hpet_base);
+ 
+-/* Do cpuid instruction, with operation 'idx' */
+-void cpuid(uint32_t idx, uint32_t *eax, uint32_t *ebx,
+-           uint32_t *ecx, uint32_t *edx);
++/* Some CPUID calls want 'count' to be placed in ecx */
++static inline void cpuid_count(
++    uint32_t op,
++    uint32_t count,
++    uint32_t *eax,
++    uint32_t *ebx,
++    uint32_t *ecx,
++    uint32_t *edx)
++{
++    asm volatile ( "cpuid"
++          : "=a" (*eax), "=b" (*ebx), "=c" (*ecx), "=d" (*edx)
++          : "0" (op), "c" (count) );
++}
++
++/* Generic CPUID function (subleaf 0) */
++static inline void cpuid(
++    uint32_t leaf,
++    uint32_t *eax,
++    uint32_t *ebx,
++    uint32_t *ecx,
++    uint32_t *edx)
++{
++    cpuid_count(leaf, 0, eax, ebx, ecx, edx);
++}
+ 
+ /* Read the TSC register. */
+ static inline uint64_t rdtsc(void)
 -- 
 2.34.1
 
