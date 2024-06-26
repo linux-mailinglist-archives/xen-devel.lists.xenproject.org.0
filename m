@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 58F1D917E05
-	for <lists+xen-devel@lfdr.de>; Wed, 26 Jun 2024 12:32:26 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.748721.1156529 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 70013917EB5
+	for <lists+xen-devel@lfdr.de>; Wed, 26 Jun 2024 12:47:18 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.748727.1156538 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sMPwR-0001dp-7M; Wed, 26 Jun 2024 10:31:55 +0000
+	id 1sMQAw-000433-CM; Wed, 26 Jun 2024 10:46:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 748721.1156529; Wed, 26 Jun 2024 10:31:55 +0000
+Received: by outflank-mailman (output) from mailman id 748727.1156538; Wed, 26 Jun 2024 10:46:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sMPwR-0001bf-3a; Wed, 26 Jun 2024 10:31:55 +0000
-Received: by outflank-mailman (input) for mailman id 748721;
- Wed, 26 Jun 2024 10:31:53 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1sMQAw-00040v-9j; Wed, 26 Jun 2024 10:46:54 +0000
+Received: by outflank-mailman (input) for mailman id 748727;
+ Wed, 26 Jun 2024 10:46:52 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=WUJr=N4=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sMPwP-0001bZ-P6
- for xen-devel@lists.xenproject.org; Wed, 26 Jun 2024 10:31:53 +0000
-Received: from mail-lj1-x22b.google.com (mail-lj1-x22b.google.com
- [2a00:1450:4864:20::22b])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 4d97c9cd-33a7-11ef-90a3-e314d9c70b13;
- Wed, 26 Jun 2024 12:31:52 +0200 (CEST)
-Received: by mail-lj1-x22b.google.com with SMTP id
- 38308e7fff4ca-2ec17eb4493so88407161fa.2
- for <xen-devel@lists.xenproject.org>; Wed, 26 Jun 2024 03:31:52 -0700 (PDT)
+ id 1sMQAu-00040p-PC
+ for xen-devel@lists.xenproject.org; Wed, 26 Jun 2024 10:46:52 +0000
+Received: from mail-lj1-x235.google.com (mail-lj1-x235.google.com
+ [2a00:1450:4864:20::235])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 64df71e4-33a9-11ef-b4bb-af5377834399;
+ Wed, 26 Jun 2024 12:46:50 +0200 (CEST)
+Received: by mail-lj1-x235.google.com with SMTP id
+ 38308e7fff4ca-2ec6635aa43so27032981fa.1
+ for <xen-devel@lists.xenproject.org>; Wed, 26 Jun 2024 03:46:50 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-2c8d7e5c46asm1307206a91.5.2024.06.26.03.31.46
+ d2e1a72fcca58-70677465799sm6300002b3a.62.2024.06.26.03.46.47
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 26 Jun 2024 03:31:51 -0700 (PDT)
+ Wed, 26 Jun 2024 03:46:49 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,59 +45,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4d97c9cd-33a7-11ef-90a3-e314d9c70b13
+X-Inumbo-ID: 64df71e4-33a9-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1719397912; x=1720002712; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1719398810; x=1720003610; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=nfFTNrGHQaG72YKlw5OfVon/okQOPf5apgYkqAlwkGo=;
-        b=Ecwcg/ZQLrsCbS/QXKpokmVD445MXIjvoPLfE5Bmzu08/I6A3L8iT91SZ6Jbf1Bmj4
-         2JZIYwrAuK5NCTlXVVP5p1zmKbH0oghbmS78PNVuriIbjXSJYjwaRN6E/5IL4tTcedr4
-         neXR6nywJlAFt+LobNX5CVeLSJYlMuyYSH1QE8hYxs2v4g/osXBts14KTQ31OmcKkSGp
-         1QgHDoozPJidhVLDMMZBsXEfwmniUsj+w424CHfqwq95PjkKM3us6eZANNHtBEUKauE9
-         dfPG/ej3BIm1+dkRVA/i/LjLa+v+Sbjj8vVchX6QAGhsm0cehfMQcsrL9mC6uN46wipl
-         mr0w==
+        bh=LX8UarjuEjWlLpE+YqB6gP+GvT8ofrUFe1yYiIq57Zk=;
+        b=Wn6UZNHwAww0baPzHJrrpLwKYlPRJAhYw2iC43RQ4Vgnu7OJrphpR3wPD/RdVCu/oW
+         ContYIbtNMEHN2kuvrYA3jC25NANMvA5I8ua5jcoD/+JyGxLHndZ5pw9oB6/tZ0jjb7J
+         JCufNNdVt4Iy1tKEoHh78aUpOvHOB0gNshVjVPdAaJHPJWesgwLhZaaVwIkN0VaOpXmE
+         h6mOtR8nfH3fhZ3AdJiq/9PCcAkmF5Njkb2w3chYfkoSvwFrngOWIFfp+X0TdYffVCRr
+         6OcHz3NmOatZco1G0bVYuybVEBVBYyPrEmSMyWJxk+hJcqdvAlSneLmt/Nygezf5ZKyq
+         FUSA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1719397912; x=1720002712;
+        d=1e100.net; s=20230601; t=1719398810; x=1720003610;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=nfFTNrGHQaG72YKlw5OfVon/okQOPf5apgYkqAlwkGo=;
-        b=Wd8Aj5kl0azmf/eVQotA94XR0NCEZmTMnOhfsaivTb5gNn/IUyWhewi3rhaXGsijhC
-         b3imcZkzj2Lsskzi65tcqfF+XxLmZEArGUFLZdUq4V+AtFupufwq5lO1ryBuijm2xzKY
-         nXTKbRPjX3O7hRaVn4vRONGGgcTk12I2hqu523o62jwHdHb3bbx02SQGPu2I/is37yBK
-         sRBbNCnDUZVHk8j0gJTBg9YnDlPw/jLi+gIHvawyA3cFJncwdWSlMXnm+fvxA3k++5vC
-         hzGPhpc0twyS4uSJQSv0hikbyQymyK4zJ76URFXVPKowSFK3kTB2xl4CcOdi1r3yMHUi
-         pitg==
-X-Forwarded-Encrypted: i=1; AJvYcCV7pxgPEcS8XZNY6iSGCzLG3yiYUYGoonY/q/Nxk+RoXqfKEXSNQQiwSrD+3d4fYTla0MxEu3XINV3ybaMRB3aFf8pidc2eGtdaEG6f9Xs=
-X-Gm-Message-State: AOJu0YwNzwZmyj2BFLV5pK+rGaJ4nQnWiLtwx2/bzi4cE3Zwl3ucoi3d
-	MNkJ4gPlGd9EH15jXfQj2lQ5SF5nRF2HGeWeDaNWOx14Jp39z1wa2DOFz1sIeNxhshhhyRuH/U0
-	=
-X-Google-Smtp-Source: AGHT+IE3K6YDy56oBMe/cCGpZWqrnyLqFvwRJamfk5nFfI/k1CHIpghVTk7rEgAca4AGn/68tVB8rg==
-X-Received: by 2002:a2e:9054:0:b0:2ed:59af:ecb4 with SMTP id 38308e7fff4ca-2ed59afee82mr13382191fa.41.1719397912113;
-        Wed, 26 Jun 2024 03:31:52 -0700 (PDT)
-Message-ID: <0c88d86e-f226-4225-b723-a6662fcd5bef@suse.com>
-Date: Wed, 26 Jun 2024 12:31:42 +0200
+        bh=LX8UarjuEjWlLpE+YqB6gP+GvT8ofrUFe1yYiIq57Zk=;
+        b=ChK+Zx86gTTXetr5poXL7SRvvMI1K+cpnewA7vfmyP/mdfV9LQexUCusFATw+wkZ8h
+         ZACUaRaCbPLQ4wstam4T3Tl2xMLPtmRa3wQWwtFCZI9ZYXH1bzUbEWhjpQjbW4ZUvoNQ
+         3OWEl0raaxDLybwzsFg9BO5hsk/56gs6dJo6FFv1lhON293oo26UZKHbFHk4s4IU4BS3
+         xttzJer9dbRLSkqJgZ6TSOVEH7cbhv02loKWTn2wcwjvu3uYc4hiLRc3ubjluCTEjIwG
+         sW5zzq2m/aj53Knw2AP1M5MGH8Dye3AyZMN1djlliW/uhQ2s7Swy55Rz54lKbGTajA7O
+         KxGA==
+X-Forwarded-Encrypted: i=1; AJvYcCUGyFKYhjPGzlxPToVDOTcezWp0uflRhm5jSFFf2E35m7/rhH7QxGYzlRpwZgciRxDysqWlRtZrMCL13LTQ62Qx5QM+1/u2frTtyTPmtU0=
+X-Gm-Message-State: AOJu0YymQ2vFPKFSQzIauuY3dxKGE4FLvag6p2DFrSvlSkHPKrK4t9vN
+	Mca3lh1nYhI4qrHLb1XXrYl41kNpBrCXjU+Li0MObrnCXvkRsh6ZgszT8S25XA==
+X-Google-Smtp-Source: AGHT+IFJt5LhZmNKG9s9VgdPvey+K00VQWW4fci4js7Y9ufaRnArwS8sxZuqCUZMKSBCY0brrVL/gg==
+X-Received: by 2002:a2e:6a0f:0:b0:2ec:505e:c45b with SMTP id 38308e7fff4ca-2ec579c936fmr61171611fa.35.1719398810178;
+        Wed, 26 Jun 2024 03:46:50 -0700 (PDT)
+Message-ID: <f324a4f3-b64d-4b20-92d0-8cfea050d44a@suse.com>
+Date: Wed, 26 Jun 2024 12:46:42 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH v3 05/16] xen/x86: address violations of MISRA C:2012
- Directive 4.10
-To: Nicola Vetrini <nicola.vetrini@bugseng.com>
-Cc: Simone Ballarin <simone.ballarin@bugseng.com>, consulting@bugseng.com,
- sstabellini@kernel.org, Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu
- <wl@xen.org>, xen-devel@lists.xenproject.org,
- Anthony Perard <anthony@xenproject.org>
-References: <cover.1710145041.git.simone.ballarin@bugseng.com>
- <dd042e7d17e7833e12a5ff6f28dd560b5ff02cf7.1710145041.git.simone.ballarin@bugseng.com>
- <dce6c44d-94b7-43bd-858a-9337336a79cf@suse.com>
- <ef623bad297d016438b35bedc80f091d@bugseng.com>
- <ec92611e-6762-4b6c-af3e-999b748d1f1b@suse.com>
- <797b00049612507d273facc581b2c2c5@bugseng.com>
- <a5009c3e-cba6-4737-aaff-c3b79a11169c@suse.com>
- <e3ae670923fd061986e27b3f95833b88@bugseng.com>
+Subject: Re: [PATCH v13 07/10] xen/common: fix build issue for common/trace.c
+To: Oleksii <oleksii.kurochko@gmail.com>
+Cc: George Dunlap <george.dunlap@citrix.com>, xen-devel@lists.xenproject.org
+References: <cover.1719319093.git.oleksii.kurochko@gmail.com>
+ <f14f2c5629a75856f4bafdbff3cc165c373f8dc2.1719319093.git.oleksii.kurochko@gmail.com>
+ <4a4e37a9-eac7-4e72-8845-6b4bbd7bafe6@suse.com>
+ <c52181a7aca8b56716d7ee354ebda9d32e67816c.camel@gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -123,129 +113,29 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <e3ae670923fd061986e27b3f95833b88@bugseng.com>
+In-Reply-To: <c52181a7aca8b56716d7ee354ebda9d32e67816c.camel@gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 26.06.2024 12:25, Nicola Vetrini wrote:
-> On 2024-06-26 11:26, Jan Beulich wrote:
->> On 26.06.2024 11:20, Nicola Vetrini wrote:
->>> On 2024-06-26 11:06, Jan Beulich wrote:
->>>> On 25.06.2024 21:31, Nicola Vetrini wrote:
->>>>> On 2024-03-12 09:16, Jan Beulich wrote:
->>>>>> On 11.03.2024 09:59, Simone Ballarin wrote:
->>>>>>> --- a/xen/arch/x86/Makefile
->>>>>>> +++ b/xen/arch/x86/Makefile
->>>>>>> @@ -258,18 +258,20 @@ $(obj)/asm-macros.i: CFLAGS-y += -P
->>>>>>>  $(objtree)/arch/x86/include/asm/asm-macros.h: $(obj)/asm-macros.i
->>>>>>> $(src)/Makefile
->>>>>>>  	$(call filechk,asm-macros.h)
->>>>>>>
->>>>>>> +ARCHDIR = $(shell echo $(SRCARCH) | tr a-z A-Z)
->>>>>>
->>>>>> This wants to use :=, I think - there's no reason to invoke the 
->>>>>> shell
->>>>>> ...
->>>>>
->>>>> I agree on this
->>>>>
->>>>>>
->>>>>>>  define filechk_asm-macros.h
->>>>>>> +    echo '#ifndef ASM_$(ARCHDIR)_ASM_MACROS_H'; \
->>>>>>> +    echo '#define ASM_$(ARCHDIR)_ASM_MACROS_H'; \
->>>>>>>      echo '#if 0'; \
->>>>>>>      echo '.if 0'; \
->>>>>>>      echo '#endif'; \
->>>>>>> -    echo '#ifndef __ASM_MACROS_H__'; \
->>>>>>> -    echo '#define __ASM_MACROS_H__'; \
->>>>>>>      echo 'asm ( ".include \"$@\"" );'; \
->>>>>>> -    echo '#endif /* __ASM_MACROS_H__ */'; \
->>>>>>>      echo '#if 0'; \
->>>>>>>      echo '.endif'; \
->>>>>>>      cat $<; \
->>>>>>> -    echo '#endif'
->>>>>>> +    echo '#endif'; \
->>>>>>> +    echo '#endif /* ASM_$(ARCHDIR)_ASM_MACROS_H */'
->>>>>>>  endef
->>>>>>
->>>>>> ... three times while expanding this macro. Alternatively (to avoid
->>>>>> an unnecessary shell invocation when this macro is never expanded 
->>>>>> at
->>>>>> all) a shell variable inside the "define" above would want
->>>>>> introducing.
->>>>>> Whether this 2nd approach is better depends on whether we 
->>>>>> anticipate
->>>>>> further uses of ARCHDIR.
->>>>>
->>>>> However here I'm not entirely sure about the meaning of this latter
->>>>> proposal.
->>>>> My proposal is the following:
->>>>>
->>>>> ARCHDIR := $(shell echo $(SRCARCH) | tr a-z A-Z)
->>>>>
->>>>> in a suitably generic place (such as Kbuild.include or maybe
->>>>> xen/Makefile) as you suggested in subsequent patches that reused 
->>>>> this
->>>>> pattern.
->>>>
->>>> If $(ARCHDIR) is going to be used elsewhere, then what you suggest is
->>>> fine.
->>>> My "whether" in the earlier reply specifically left open for
->>>> clarification
->>>> what the intentions with the variable are. The alternative I had
->>>> described
->>>> makes sense only when $(ARCHDIR) would only ever be used inside the
->>>> filechk_asm-macros.h macro.
+On 25.06.2024 18:23, Oleksii wrote:
+> On Tue, 2024-06-25 at 16:25 +0200, Jan Beulich wrote:
+>> On 25.06.2024 15:51, Oleksii Kurochko wrote:
+>>> During Gitlab CI randconfig job for RISC-V failed witn an error:
+>>>  common/trace.c:57:22: error: expected '=', ',', ';', 'asm' or
+>>>                               '__attribute__' before
+>>> '__read_mostly'
+>>>    57 | static u32 data_size __read_mostly;
 >>>
->>> Yes, the intention is to reuse $(ARCHDIR) in the formation of other
->>> places, as you can tell from the fact that subsequent patches 
->>> replicate
->>> the same pattern. This is going to save some duplication.
->>> The only matter left then is whether xen/Makefile (around line 250, 
->>> just
->>> after setting SRCARCH) would be better, or Kbuild.include. To me the
->>> former place seems more natural, but I'm not totally sure.
+>>> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 >>
->> Depends on where all the intended uses are. If they're all in 
->> xen/Makefile,
->> then having the macro just there is of course sufficient. Whereas when 
->> it's
->> needed elsewhere, instead of exporting putting it in Kbuild.include 
->> would
->> seem more natural / desirable to me.
+>> Acked-by: Jan Beulich <jbeulich@suse.com>
 >>
-> 
-> The places where this would be used are these:
-> file: target (or define)
-> xen/build.mk: arch/$(SRCARCH)/include/asm/asm-offsets.h: asm-offsets.s
-> xen/include/Makefile: define cmd_xlat_h
-> xen/arch/x86/Makefile: define filechk_asm-macros.h
-> 
-> The only issue that comes to my mind (it may not be one at all) is that 
-> SRCARCH is defined and exported in xen/Makefile after including 
-> Kbuild.include, so it would need to be defined after SRCARCH is 
-> assigned:
-> 
-> include scripts/Kbuild.include
-> 
-> # Don't break if the build process wasn't called from the top level
-> # we need XEN_TARGET_ARCH to generate the proper config
-> include $(XEN_ROOT)/Config.mk
-> 
-> # Set ARCH/SRCARCH appropriately.
-> 
-> ARCH := $(XEN_TARGET_ARCH)
-> SRCARCH := $(shell echo $(ARCH) | \
->      sed -e 's/x86.*/x86/' -e 's/arm\(32\|64\)/arm/g' \
->          -e 's/riscv.*/riscv/g' -e 's/ppc.*/ppc/g')
-> export ARCH SRCARCH
-> 
-> Am I missing something?
+>> If you give a release-ack, this can go in right away, I think.
+> Release-Acked-by: Oleksii Kurochko  <oleksii.kurochko@gmail.com>
 
-In that case the alternatives are exporting or using = rather than := in
-Kbuild.include, i.e. other than initially requested. Personally I dislike
-exporting to a fair degree, but I'm not sure which one's better in this
-case. Cc-ing Anthony for possible input.
+Thanks, but actually I was misled by the subject prefix. From a formal
+perspective this really wants an ack from George (and mine doesn't
+count anything at all).
 
 Jan
 
