@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1654E917C74
-	for <lists+xen-devel@lfdr.de>; Wed, 26 Jun 2024 11:28:29 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.748583.1156340 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 319CC917C72
+	for <lists+xen-devel@lfdr.de>; Wed, 26 Jun 2024 11:28:28 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.748585.1156350 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sMOwp-0004o1-QU; Wed, 26 Jun 2024 09:28:15 +0000
+	id 1sMOwq-0004vg-7W; Wed, 26 Jun 2024 09:28:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 748583.1156340; Wed, 26 Jun 2024 09:28:15 +0000
+Received: by outflank-mailman (output) from mailman id 748585.1156350; Wed, 26 Jun 2024 09:28:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sMOwp-0004lH-LB; Wed, 26 Jun 2024 09:28:15 +0000
-Received: by outflank-mailman (input) for mailman id 748583;
+	id 1sMOwq-0004rH-4A; Wed, 26 Jun 2024 09:28:16 +0000
+Received: by outflank-mailman (input) for mailman id 748585;
  Wed, 26 Jun 2024 09:28:14 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=P08s=N4=bugseng.com=federico.serafini@srs-se1.protection.inumbo.net>)
- id 1sMOwo-0004l0-0u
+ id 1sMOwo-0004l0-Mn
  for xen-devel@lists.xenproject.org; Wed, 26 Jun 2024 09:28:14 +0000
 Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 68f45ac6-339e-11ef-90a3-e314d9c70b13;
- Wed, 26 Jun 2024 11:28:13 +0200 (CEST)
+ id 696bcd6f-339e-11ef-90a3-e314d9c70b13;
+ Wed, 26 Jun 2024 11:28:14 +0200 (CEST)
 Received: from truciolo.bugseng.com (unknown [78.209.199.41])
- by support.bugseng.com (Postfix) with ESMTPSA id 5D0344EE0755;
- Wed, 26 Jun 2024 11:28:12 +0200 (CEST)
+ by support.bugseng.com (Postfix) with ESMTPSA id 1C6724EE0756;
+ Wed, 26 Jun 2024 11:28:13 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,54 +39,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 68f45ac6-339e-11ef-90a3-e314d9c70b13
+X-Inumbo-ID: 696bcd6f-339e-11ef-90a3-e314d9c70b13
 From: Federico Serafini <federico.serafini@bugseng.com>
 To: xen-devel@lists.xenproject.org
 Cc: consulting@bugseng.com,
 	Federico Serafini <federico.serafini@bugseng.com>,
-	Simone Ballarin <simone.ballarin@bugseng.com>,
-	Doug Goldstein <cardoe@cardoe.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Jan Beulich <jbeulich@suse.com>
-Subject: [XEN PATCH v3 01/12] automation/eclair: fix deviation of MISRA C Rule 16.3
-Date: Wed, 26 Jun 2024 11:27:54 +0200
-Message-Id: <bcbd654ad6a241f2d98b59fb9a879f75d436276c.1719383180.git.federico.serafini@bugseng.com>
+	Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Stefano Stabellini <sstabellini@kernel.org>
+Subject: [XEN PATCH v3 02/12] x86/cpuid: use fallthrough pseudo keyword
+Date: Wed, 26 Jun 2024 11:27:55 +0200
+Message-Id: <64ecc15337a4d325dda610608f599dc99a6bc7f5.1719383180.git.federico.serafini@bugseng.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <cover.1719383180.git.federico.serafini@bugseng.com>
 References: <cover.1719383180.git.federico.serafini@bugseng.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Escape the final dot of the comment and extend the search of a
-fallthrough comment up to 2 lines after the last statement.
+The current comment making explicit the fallthrough intention does
+not follow the agreed syntax: replace it with the pseduo keyword.
 
-Fixes: a128d8da913b ("automation/eclair: add deviations for MISRA C:2012 Rule 16.3")
-Reported-by: Jan Beulich <jbeulich@suse.com>
+No functional change.
+
 Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
-Acked-by: Stefano Stabellini <sstabellini@kernel.org>
+Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+Acked-by: Jan Beulich <jbeulich@suse.com>
 ---
-Changes in v3:
-- truncate to 12 digits.
+ xen/arch/x86/cpuid.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-Changes in v2:
-- instead of introducing the hypened fallthrough, insert the missing escape.
----
- automation/eclair_analysis/ECLAIR/deviations.ecl | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/automation/eclair_analysis/ECLAIR/deviations.ecl b/automation/eclair_analysis/ECLAIR/deviations.ecl
-index c8bff0e057..9b994be63d 100644
---- a/automation/eclair_analysis/ECLAIR/deviations.ecl
-+++ b/automation/eclair_analysis/ECLAIR/deviations.ecl
-@@ -416,7 +416,7 @@ safe."
- -doc_end
+diff --git a/xen/arch/x86/cpuid.c b/xen/arch/x86/cpuid.c
+index a822e80c7e..2a777436ee 100644
+--- a/xen/arch/x86/cpuid.c
++++ b/xen/arch/x86/cpuid.c
+@@ -97,9 +97,8 @@ void guest_cpuid(const struct vcpu *v, uint32_t leaf,
+         if ( is_viridian_domain(d) )
+             return cpuid_viridian_leaves(v, leaf, subleaf, res);
  
- -doc_begin="Switch clauses ending with an explicit comment indicating the fallthrough intention are safe."
---config=MC3R1.R16.3,reports+={safe, "any_area(end_loc(any_exp(text(^(?s).*/\\* [fF]all ?through.? \\*/.*$,0..1))))"}
-+-config=MC3R1.R16.3,reports+={safe, "any_area(end_loc(any_exp(text(^(?s).*/\\* [fF]all ?through\\.? \\*/.*$,0..2))))"}
- -doc_end
- 
- -doc_begin="Switch statements having a controlling expression of enum type deliberately do not have a default case: gcc -Wall enables -Wswitch which warns (and breaks the build as we use -Werror) if one of the enum labels is missing from the switch."
++        fallthrough;
+         /*
+-         * Fallthrough.
+-         *
+          * Intel reserve up until 0x4fffffff for hypervisor use.  AMD reserve
+          * only until 0x400000ff, but we already use double that.
+          */
 -- 
 2.34.1
 
