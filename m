@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 579FF918382
+	by mail.lfdr.de (Postfix) with ESMTPS id 70BF3918383
 	for <lists+xen-devel@lfdr.de>; Wed, 26 Jun 2024 15:58:27 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.749018.1157071 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.749017.1157065 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sMTA8-0003O2-JL; Wed, 26 Jun 2024 13:58:16 +0000
+	id 1sMTA8-0003I9-0F; Wed, 26 Jun 2024 13:58:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 749018.1157071; Wed, 26 Jun 2024 13:58:16 +0000
+Received: by outflank-mailman (output) from mailman id 749017.1157065; Wed, 26 Jun 2024 13:58:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sMTA8-0003IP-7N; Wed, 26 Jun 2024 13:58:16 +0000
-Received: by outflank-mailman (input) for mailman id 749018;
- Wed, 26 Jun 2024 13:58:14 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1sMTA7-0003BZ-L2; Wed, 26 Jun 2024 13:58:15 +0000
+Received: by outflank-mailman (input) for mailman id 749017;
+ Wed, 26 Jun 2024 13:58:13 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=e1Ku=N4=cloud.com=george.dunlap@srs-se1.protection.inumbo.net>)
- id 1sMTA5-0000af-O4
+ id 1sMTA5-0000aq-LD
  for xen-devel@lists.xenproject.org; Wed, 26 Jun 2024 13:58:13 +0000
-Received: from mail-ot1-x32c.google.com (mail-ot1-x32c.google.com
- [2607:f8b0:4864:20::32c])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 1ffabbd8-33c4-11ef-b4bb-af5377834399;
- Wed, 26 Jun 2024 15:58:12 +0200 (CEST)
-Received: by mail-ot1-x32c.google.com with SMTP id
- 46e09a7af769-6f855b2499cso3591964a34.1
- for <xen-devel@lists.xenproject.org>; Wed, 26 Jun 2024 06:58:12 -0700 (PDT)
+Received: from mail-qk1-x732.google.com (mail-qk1-x732.google.com
+ [2607:f8b0:4864:20::732])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 209e8c70-33c4-11ef-90a3-e314d9c70b13;
+ Wed, 26 Jun 2024 15:58:13 +0200 (CEST)
+Received: by mail-qk1-x732.google.com with SMTP id
+ af79cd13be357-79c0bbff48aso152550085a.1
+ for <xen-devel@lists.xenproject.org>; Wed, 26 Jun 2024 06:58:13 -0700 (PDT)
 Received: from georged-x-u.xenrt.citrite.net ([185.25.67.249])
  by smtp.gmail.com with ESMTPSA id
- af79cd13be357-79bce9318f6sm499371185a.101.2024.06.26.06.58.10
+ af79cd13be357-79bce9318f6sm499371185a.101.2024.06.26.06.58.11
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 26 Jun 2024 06:58:10 -0700 (PDT)
+ Wed, 26 Jun 2024 06:58:11 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,83 +45,84 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1ffabbd8-33c4-11ef-b4bb-af5377834399
+X-Inumbo-ID: 209e8c70-33c4-11ef-90a3-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1719410291; x=1720015091; darn=lists.xenproject.org;
+        d=cloud.com; s=cloud; t=1719410292; x=1720015092; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=aNXebvkx1B3kPnk1v4QIpuUImYj6FwSyktzAJ/iZD9E=;
-        b=GIvlIpDGcvMZSx7J6k2ZpG3O1lpc71ItbHGp24k3C+qUDO3zo3yTOWAHySwzvcLIny
-         fcV+M8CJK+QCEdsUAveSJKMsxYsFpeUCAdcGJbVRoEEuJnbI/KUER3peHuGImo8H5FFg
-         Hd0FTelINn3FQKbjYpBsM9Y5suTiVRmQ+jix4=
+        bh=d3jc/D3oGiKvIBrZUXRabVXNRbnlweDK3F2GwPRZj5o=;
+        b=S5T1oBiY7HpIqqQj5UBrBgDEhVlDzpevKmgYY03agoWjnfE1SslwTzWQzFMPT8SuGW
+         t0vzskujDGvM1SyGKjVZ7jDGsvAPZ5JQFw/ZveCZQKD5FJaSJ9jLgDQJ8WRqtXMD5BoM
+         O3NiGMfTiswm2H8gDsCQJTHEWlUDCC9kKQ03E=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1719410291; x=1720015091;
+        d=1e100.net; s=20230601; t=1719410292; x=1720015092;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=aNXebvkx1B3kPnk1v4QIpuUImYj6FwSyktzAJ/iZD9E=;
-        b=r/lSUiEvrbwuRB5x3sQkF7MERwGcW4KdN4toJK19K65JLR8ZM5Oh7hqw6fIYR32JVS
-         sgF8FPjqjvB5mrCosiaGPCj0zGdQr6oNp9bAr5holgEn0im9mfAbmwDe6wDiQgmZqF7z
-         EgUekczEFMkdRtEUdU426WJkS3R96yMqB0kZGqvM6cLjHpV2ae1CGyouZ1kKEzKf0ttt
-         STwMS2aAgR558mSSQuDsej00ai2n83EZFi+od08YBfLy/EWAyZ1tPSu7Nuc4qqhd49Mo
-         /y3iSrsrzcJVGp6wUr+2UYX+8kyjsBmJM+kLPiBhAbP4p74JdFLkxMp/d4uktKSJN/wq
-         Xm8g==
-X-Gm-Message-State: AOJu0YwkL6DxBzn+g8q7fkiiVD7YR745IxZuKY5jNSUT2OY518IbN/Oa
-	gDolJouFAcxYrseU7y0B775G8vAUX7Lk8M0sa9rrL0CzosSnQaYVe5iML5Yv4Lk0dOe730Zi3CW
-	r6lA=
-X-Google-Smtp-Source: AGHT+IEe5R8IsPa1WFXgoNQbI1tAaCHrwm2edK3lw3vpBp5ucsDlcV6zDqyFqTDgn390po2VCa/vVw==
-X-Received: by 2002:a05:6830:4108:b0:6fa:11aa:e929 with SMTP id 46e09a7af769-700b11d614emr13128067a34.11.1719410290845;
-        Wed, 26 Jun 2024 06:58:10 -0700 (PDT)
+        bh=d3jc/D3oGiKvIBrZUXRabVXNRbnlweDK3F2GwPRZj5o=;
+        b=Cwuq01hezb9SMfqudNFGxW42/0eglrUv/juDhjeErs+81skXHJqXXuh13Rs3I8iLYm
+         Pusjpk0wPiDSEMapKn1/aIRqb7UQI+jKUiNg0H9h69jM7XFFe6zwJYvyCfXGj0hzngVB
+         nWtRr1akFqKlOiRnVXmq3PuJANEgm4QHxPCIfoRhma2zTUhUaqpR4xUa7VmLgpdvBnty
+         EQMQa1JxiJX8DvNjJ9pCHYdJ8i2g6946ywW9PbngoK1Z8cWNGSOuabCgydQyotVyWm1Z
+         q/ei1qzXnU4CH3JwOKX4cegYgkwIyn8i/w941Syp9gxdyjKB/k+a7rdTZCq3WAsRbBNk
+         DL2w==
+X-Gm-Message-State: AOJu0YzP5DI2jfcsnURcVI1KCxElXdiVrxEI1UTIFjqBQ63XiH3V4eEL
+	YakWgf7ryzwiFvopkCH5lLUAE74Om5NHq/OQ2oc6xVgaf4q5f8Ev65X/zrnvwLCvSIiC2g8ihuz
+	k7h4=
+X-Google-Smtp-Source: AGHT+IGot/l4FhRSt0d1zR1K2xibC+CVce1BvKCqj8naOo9yU4mayrW66/FlAJVn8S5u6fG4LZWhRA==
+X-Received: by 2002:a05:620a:3727:b0:798:db85:c999 with SMTP id af79cd13be357-79be6f13d87mr1195903485a.51.1719410291966;
+        Wed, 26 Jun 2024 06:58:11 -0700 (PDT)
 From: George Dunlap <george.dunlap@cloud.com>
 To: xen-devel@lists.xenproject.org
-Cc: George Dunlap <george.dunlap@cloud.com>
-Subject: [PATCH WIP 10/14] xenalyze: Quiet warnings about VMEXIT_IOIO
-Date: Wed, 26 Jun 2024 14:38:49 +0100
-Message-Id: <20240626133853.4150731-11-george.dunlap@cloud.com>
+Cc: George Dunlap <george.dunlap@cloud.com>,
+	Andrew Cooper <andrew.cooper@cloud.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Roger Pau Monne <roger.pau@cloud.com>
+Subject: [PATCH WIP 11/14] x86/trace: Add trace to xsetbv svm/vmx handler path
+Date: Wed, 26 Jun 2024 14:38:50 +0100
+Message-Id: <20240626133853.4150731-12-george.dunlap@cloud.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20240626133853.4150731-1-george.dunlap@cloud.com>
 References: <20240626133853.4150731-1-george.dunlap@cloud.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-There's a general issue with both PIO and MMIO reads (as detailed in
-the comment); do a work-around for now.
+There are already "HVM handler" trace records for writing to XCRs in
+the context of an HVM guest.  This trace is currently taken in
+hvmemul_write_xcr.
+
+However, both VMX and SVM vmexits call hvm_handle_xsetbv as a result
+of an XSETBV vmexit, and hvm_handle_xsetbv calls x86emul_write_xcr
+directly, bypassing the trace, resulting in no "HVM handler" trace
+record for that VMEXIT.
+
+For maximal DRY-ness, we would want hvm_handle_xsetbv to call
+hvmemul_write_xcr; but since the intent seems to be for hvmemul_* to
+be only accesible via hvm_emulate(), just duplicate the trace.
 
 Signed-off-by: George Dunlap <george.dunlap@cloud.com>
 ---
- tools/xentrace/xenalyze.c | 18 ++++++++++++++++++
- 1 file changed, 18 insertions(+)
+CC: Andrew Cooper <andrew.cooper@cloud.com>
+CC: Jan Beulich <jbeulich@suse.com>
+CC: Roger Pau Monne <roger.pau@cloud.com>
+---
+ xen/arch/x86/hvm/hvm.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/tools/xentrace/xenalyze.c b/tools/xentrace/xenalyze.c
-index 19b99dc66d..eb0e60e6ef 100644
---- a/tools/xentrace/xenalyze.c
-+++ b/tools/xentrace/xenalyze.c
-@@ -4650,6 +4650,24 @@ void hvm_generic_postprocess(struct hvm_data *h)
-             case VMEXIT_EXCEPTION_AC:
-             case VMEXIT_EXCEPTION_UD:
-                 return;
-+            case VMEXIT_IOIO:
-+                /*
-+                 * FIXME: Both IO and MMIO reads which have gone out
-+                 * to the emulator and back typically have the
-+                 * [mm]io_assist trace happen on resume, just before
-+                 * the subsequent VMENTRY.
-+                 *
-+                 * However, when a VM has blocked, we call
-+                 * hvm_vmexit_close() when it becomes RUNNABLE again,
-+                 * rather than when it actually runs again; meaning
-+                 * that when hvm_vmexit_close() is called, no HVM
-+                 * handler has been seen.
-+                 *
-+                 * What we really need is some sort of intermediate
-+                 * state for [mm]io reads; but for now just ignore
-+                 * VMEXIT_IOIO exits without a handler.
-+                 */
-+                return;
-             default:
-                 break;
-             }
+diff --git a/xen/arch/x86/hvm/hvm.c b/xen/arch/x86/hvm/hvm.c
+index 0fe2b85b16..628a131399 100644
+--- a/xen/arch/x86/hvm/hvm.c
++++ b/xen/arch/x86/hvm/hvm.c
+@@ -2073,6 +2073,8 @@ int hvm_handle_xsetbv(u32 index, u64 new_bv)
+     if ( index == 0 )
+         hvm_monitor_crX(XCR0, new_bv, current->arch.xcr0);
+ 
++    TRACE(TRC_HVM_XCR_WRITE64, index, new_bv, new_bv >> 32);
++
+     rc = x86emul_write_xcr(index, new_bv, NULL);
+     if ( rc != X86EMUL_OKAY )
+         hvm_inject_hw_exception(X86_EXC_GP, 0);
 -- 
 2.25.1
 
