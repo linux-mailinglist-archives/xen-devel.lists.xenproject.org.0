@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6D67E918757
-	for <lists+xen-devel@lfdr.de>; Wed, 26 Jun 2024 18:29:15 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.749278.1157394 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DB070918776
+	for <lists+xen-devel@lfdr.de>; Wed, 26 Jun 2024 18:33:41 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.749329.1157407 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sMVVt-0008Of-PC; Wed, 26 Jun 2024 16:28:53 +0000
+	id 1sMVaL-0005Lj-5s; Wed, 26 Jun 2024 16:33:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 749278.1157394; Wed, 26 Jun 2024 16:28:53 +0000
+Received: by outflank-mailman (output) from mailman id 749329.1157407; Wed, 26 Jun 2024 16:33:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sMVVt-0008Eb-IF; Wed, 26 Jun 2024 16:28:53 +0000
-Received: by outflank-mailman (input) for mailman id 749278;
- Wed, 26 Jun 2024 16:28:51 +0000
+	id 1sMVaL-0005Jb-36; Wed, 26 Jun 2024 16:33:29 +0000
+Received: by outflank-mailman (input) for mailman id 749329;
+ Wed, 26 Jun 2024 16:33:27 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=m54e=N4=cloud.com=alejandro.vallejo@srs-se1.protection.inumbo.net>)
- id 1sMVVr-0005pK-Dp
- for xen-devel@lists.xenproject.org; Wed, 26 Jun 2024 16:28:51 +0000
-Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
- [2a00:1450:4864:20::62d])
+ id 1sMVaJ-0005JV-St
+ for xen-devel@lists.xenproject.org; Wed, 26 Jun 2024 16:33:27 +0000
+Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
+ [2a00:1450:4864:20::62a])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 2b24fcd9-33d9-11ef-b4bb-af5377834399;
- Wed, 26 Jun 2024 18:28:49 +0200 (CEST)
-Received: by mail-ej1-x62d.google.com with SMTP id
- a640c23a62f3a-a7252bfe773so452804766b.1
- for <xen-devel@lists.xenproject.org>; Wed, 26 Jun 2024 09:28:49 -0700 (PDT)
-Received: from EMEAENGAAD19049.citrite.net ([160.101.139.1])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a7291af7912sm42791866b.128.2024.06.26.09.28.48
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 26 Jun 2024 09:28:48 -0700 (PDT)
+ id cfb3d437-33d9-11ef-b4bb-af5377834399;
+ Wed, 26 Jun 2024 18:33:25 +0200 (CEST)
+Received: by mail-ej1-x62a.google.com with SMTP id
+ a640c23a62f3a-a6fbe639a76so140368166b.1
+ for <xen-devel@lists.xenproject.org>; Wed, 26 Jun 2024 09:33:25 -0700 (PDT)
+Received: from localhost ([160.101.139.1]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a7291af7912sm43112866b.128.2024.06.26.09.33.23
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 26 Jun 2024 09:33:24 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,142 +44,121 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2b24fcd9-33d9-11ef-b4bb-af5377834399
+X-Inumbo-ID: cfb3d437-33d9-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1719419329; x=1720024129; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+        d=cloud.com; s=cloud; t=1719419605; x=1720024405; darn=lists.xenproject.org;
+        h=in-reply-to:references:cc:to:from:subject:message-id:date
+         :content-transfer-encoding:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=FPZPi/1GxgTiDwYl688KIib+0eFv4vArXlISETLlZHk=;
-        b=gSl/22rQ+1SlO8vAi0W5OW3RMsrUXEfN6Hn9ZDF3oy/4SdFlOoUHE0RMijQf0HLwLp
-         Rukh+DtBtFmrVcxTsqIr+/66h4Ued+4j8m2ZNDBhZd0ClegQT2Rn3yv51cjAbhFSFIin
-         j48IyrdMJpXFyEypNQgcjX4NMyUuc2NmWFk18=
+        bh=IK4Sks/gRyZHvoMo5UKRJrAZk736gUoPmC0/JkEO3rE=;
+        b=FgRc1H1GSVcV/ozwYcjDnXNAQpqBD2bhCkf7Xg2IKKkrNhps9LUJ/dHKcUUKkUb8t2
+         5MEkdaUw70DDeTTwXxhmU8b51jMhsRLbiC+VNng9sEslBtGW+c81JXrVXu/q+ZGWiYbo
+         XwKhEeeNKeA1mVwXe4zNKaewTjny691BHKgh8=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1719419329; x=1720024129;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=FPZPi/1GxgTiDwYl688KIib+0eFv4vArXlISETLlZHk=;
-        b=pS5/CqoJCUre+VX3hx+/naMNJIJkWJdT2h83hHTkgNDPyY54NNFy2pBiadqGEFBdPz
-         potJdQOyqwcbYjC5AuXU+NW11+miljfJ1AoRMwMcXP+CjbtmCr0P2elxCESjiKIE1jRK
-         qOJBjyN5nS12oXZgXIh0QaxUhkEKQV5omnRm2X/bL58QEF93mjbnmBPpWMzPZm80SwP0
-         NBgLTFwY/K29j5E3fzzsCGc4Uja4CuY35xMRoZUw6ZGsN11i8AdW2fwhuHYFInBn0tM5
-         M/WM1B7fPXLJQ31qXppQdKve+SGcMdxoacWyajiIl+v9gWoEfQFtgBvQWABgPVoU0NHi
-         UMIA==
-X-Gm-Message-State: AOJu0Yxd+bIAylzpubVBunoqziwOc+GV3MH/MNHZejE2govC9eEJRgrD
-	AEIKhM3KhwX1A6BMsm0QhfN3+oBwL1H0vg1wnal7U5uR+OYbEw/mV89kNvtXPSnCH8nKjIdKnAh
-	qavc=
-X-Google-Smtp-Source: AGHT+IGZnws2mdi+XVnvyuewQ3id60JRRLgyqmqgHjjPNv44XKzzcauz1g5P06nGpalKkaBxSPUShQ==
-X-Received: by 2002:a17:907:8e93:b0:a6e:f62d:bd02 with SMTP id a640c23a62f3a-a7245c84f2emr837266166b.7.1719419329107;
-        Wed, 26 Jun 2024 09:28:49 -0700 (PDT)
-From: Alejandro Vallejo <alejandro.vallejo@cloud.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Alejandro Vallejo <alejandro.vallejo@cloud.com>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Juergen Gross <jgross@suse.com>
-Subject: [PATCH v4 10/10] tools/libguest: Set topologically correct x2APIC IDs for each vCPU
-Date: Wed, 26 Jun 2024 17:28:37 +0100
-Message-Id: <94a6d0ff6ce8d0e5be9546efba7aa50d2a21a2b8.1719416329.git.alejandro.vallejo@cloud.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <cover.1719416329.git.alejandro.vallejo@cloud.com>
-References: <cover.1719416329.git.alejandro.vallejo@cloud.com>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+        d=1e100.net; s=20230601; t=1719419605; x=1720024405;
+        h=in-reply-to:references:cc:to:from:subject:message-id:date
+         :content-transfer-encoding:mime-version:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=IK4Sks/gRyZHvoMo5UKRJrAZk736gUoPmC0/JkEO3rE=;
+        b=Vjb0MjeipzV3ydYjMf7lJOSUBqY8q9Cl+nItRfqkJOlQuPYNryVrl8Lu4F3q5cfymq
+         VvMCDne6Dq4UMPpD3TnFnDAKgdoRRK5KoNbapYsNS1ciXTkNg5YhTqsDYTJ/EaojOku2
+         +MYoaOMwpanr9lfd0BxVQommUT6OZDHjhiFOj4Y2uvnelKxSkqh8ivSh2HvLMXA6yNeF
+         x6ehhKV3JCVgPLQ2C2D2CS909t0dT6tx0dcF2iK3qL8dv515Xl+0tWbFAoenfpiwpfJd
+         Tn2gFfK0uMicB08yawaCBzICXARwVJ7OANtINH5ZURRM2wV8MVRSe6qhbdyv2egTpuX5
+         v4BQ==
+X-Forwarded-Encrypted: i=1; AJvYcCW0Sfq2WKBUXPd8UMyfK6UPe6QtxdDbzOsOCqCSw9TeOeLRM2W2NxZd6p/rEvsKyFZV13ptQoTeXQ418xMvahB9D8wiQAySj14zIWRcahM=
+X-Gm-Message-State: AOJu0YwDa5epK2wBbI4nKH6aPURuEaOmC6VGo3S6buR0aHISqqcu8y31
+	n5+J2S/zc6n511L+gd4dHlEEUluuxPncQnexFpeDyj/pKWAUEXcwY/v2Fva+Yhk=
+X-Google-Smtp-Source: AGHT+IGZ5bpJDmnbPmPn/C5hIk9qm1oDg8DwYWjBY0ilbMCCqVt2cmHcojCbCXLlP74Eo5FqKm8Upw==
+X-Received: by 2002:a17:906:2405:b0:a6f:e3e4:e0b6 with SMTP id a640c23a62f3a-a729701b9camr9483366b.27.1719419605297;
+        Wed, 26 Jun 2024 09:33:25 -0700 (PDT)
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Wed, 26 Jun 2024 17:33:23 +0100
+Message-Id: <D2A3DPAFY4XJ.1HJA60OBU915H@cloud.com>
+Subject: Re: [PATCH v2 (resend) 04/27] acpi: vmap pages in
+ acpi_os_alloc_memory
+From: "Alejandro Vallejo" <alejandro.vallejo@cloud.com>
+To: "Jan Beulich" <jbeulich@suse.com>
+Cc: <julien@xen.org>, <pdurrant@amazon.com>, <dwmw@amazon.com>, "Hongyan
+ Xia" <hongyxia@amazon.com>, "Andrew Cooper" <andrew.cooper3@citrix.com>,
+ "George Dunlap" <george.dunlap@citrix.com>, "Stefano Stabellini"
+ <sstabellini@kernel.org>, "Wei Liu" <wl@xen.org>, "Julien Grall"
+ <jgrall@amazon.com>, "Elias El Yandouzi" <eliasely@amazon.com>,
+ <xen-devel@lists.xenproject.org>
+X-Mailer: aerc 0.17.0
+References: <20240116192611.41112-1-eliasely@amazon.com>
+ <20240116192611.41112-5-eliasely@amazon.com>
+ <D29ZZSXN0QPV.2627WUC2J3NUK@cloud.com>
+ <55717cd6-4819-4935-82df-c04453b9676a@suse.com>
+In-Reply-To: <55717cd6-4819-4935-82df-c04453b9676a@suse.com>
 
-Have toolstack populate the new x2APIC ID in the LAPIC save record with the
-proper IDs intended for each vCPU.
+On Wed Jun 26, 2024 at 4:17 PM BST, Jan Beulich wrote:
+> On 26.06.2024 15:54, Alejandro Vallejo wrote:
+> > I'm late to the party but there's something bothering me a little.
+> >=20
+> > On Tue Jan 16, 2024 at 7:25 PM GMT, Elias El Yandouzi wrote:
+> >> diff --git a/xen/common/vmap.c b/xen/common/vmap.c
+> >> index 171271fae3..966a7e763f 100644
+> >> --- a/xen/common/vmap.c
+> >> +++ b/xen/common/vmap.c
+> >> @@ -245,6 +245,11 @@ void *vmap(const mfn_t *mfn, unsigned int nr)
+> >>      return __vmap(mfn, 1, nr, 1, PAGE_HYPERVISOR, VMAP_DEFAULT);
+> >>  }
+> >> =20
+> >> +void *vmap_contig(mfn_t mfn, unsigned int nr)
+> >> +{
+> >> +    return __vmap(&mfn, nr, 1, 1, PAGE_HYPERVISOR, VMAP_DEFAULT);
+> >> +}
+> >> +
+> >>  unsigned int vmap_size(const void *va)
+> >>  {
+> >>      unsigned int pages =3D vm_size(va, VMAP_DEFAULT);
+> >=20
+> > How is vmap_contig() different from regular vmap()?
+> >=20
+> > vmap() calls map_pages_to_xen() `nr` times, while vmap_contig() calls i=
+t just
+> > once. I'd expect both cases to work fine as they are. What am I missing=
+? What
+> > would make...
+> >=20
+> >> diff --git a/xen/drivers/acpi/osl.c b/xen/drivers/acpi/osl.c
+> >> index 389505f786..ab80d6b2a9 100644
+> >> --- a/xen/drivers/acpi/osl.c
+> >> +++ b/xen/drivers/acpi/osl.c
+> >> @@ -221,7 +221,11 @@ void *__init acpi_os_alloc_memory(size_t sz)
+> >>  	void *ptr;
+> >> =20
+> >>  	if (system_state =3D=3D SYS_STATE_early_boot)
+> >> -		return mfn_to_virt(mfn_x(alloc_boot_pages(PFN_UP(sz), 1)));
+> >> +	{
+> >> +		mfn_t mfn =3D alloc_boot_pages(PFN_UP(sz), 1);
+> >> +
+> >> +		return vmap_contig(mfn, PFN_UP(sz));
+> > ... this statement not operate identically with regular vmap()? Or
+> > probably more interestingly, what would preclude existing calls to vmap=
+() not
+> > operate under vmap_contig() instead?
+>
+> Note how vmap()'s first parameter is "const mfn_t *mfn". This needs to po=
+int
+> to an array of "nr" MFNs. In order to use plain vmap() here, you'd first =
+need
+> to set up a suitably large array, populate if with increasing MFN values,=
+ and
+> then make the call. Possible, but more complicated.
+>
+> Jan
 
-Signed-off-by: Alejandro Vallejo <alejandro.vallejo@cloud.com>
----
-v4:
-  * New patch. Replaced v3's method of letting Xen find out via the same
-    algorithm toolstack uses.
----
- tools/libs/guest/xg_dom_x86.c | 37 ++++++++++++++++++++++++++++++++++-
- 1 file changed, 36 insertions(+), 1 deletion(-)
+I knew I must've been missing something. That pesky pointer... No wonder th=
+e
+loop looked wonky. It was doing something completely different from what I
+expected it to.
 
-diff --git a/tools/libs/guest/xg_dom_x86.c b/tools/libs/guest/xg_dom_x86.c
-index 82ea3e2aab0b..2ae3a779b016 100644
---- a/tools/libs/guest/xg_dom_x86.c
-+++ b/tools/libs/guest/xg_dom_x86.c
-@@ -1004,19 +1004,40 @@ static int vcpu_hvm(struct xc_dom_image *dom)
-         HVM_SAVE_TYPE(HEADER) header;
-         struct hvm_save_descriptor mtrr_d;
-         HVM_SAVE_TYPE(MTRR) mtrr;
-+        struct hvm_save_descriptor lapic_d;
-+        HVM_SAVE_TYPE(LAPIC) lapic;
-         struct hvm_save_descriptor end_d;
-         HVM_SAVE_TYPE(END) end;
-     } vcpu_ctx;
--    /* Context from full_ctx */
-+    /* Contexts from full_ctx */
-     const HVM_SAVE_TYPE(MTRR) *mtrr_record;
-+    const HVM_SAVE_TYPE(LAPIC) *lapic_record;
-     /* Raw context as taken from Xen */
-     uint8_t *full_ctx = NULL;
-+    xc_cpu_policy_t *policy = xc_cpu_policy_init();
-     int rc;
- 
-     DOMPRINTF_CALLED(dom->xch);
- 
-     assert(dom->max_vcpus);
- 
-+    /*
-+     * Fetch the CPU policy of this domain. We need it to determine the APIC IDs
-+     * each of vCPU in a manner consistent with the exported topology.
-+     *
-+     * TODO: It's silly to query a policy we have ourselves created. It should
-+     *       instead be part of xc_dom_image
-+     */
-+
-+    rc = xc_cpu_policy_get_domain(dom->xch, dom->guest_domid, policy);
-+    if ( rc != 0 )
-+    {
-+        xc_dom_panic(dom->xch, XC_INTERNAL_ERROR,
-+                     "%s: unable to fetch cpu policy for dom%u (rc=%d)",
-+                     __func__, dom->guest_domid, rc);
-+        goto out;
-+    }
-+
-     /*
-      * Get the full HVM context in order to have the header, it is not
-      * possible to get the header with getcontext_partial, and crafting one
-@@ -1111,6 +1132,8 @@ static int vcpu_hvm(struct xc_dom_image *dom)
-     vcpu_ctx.mtrr_d.typecode = HVM_SAVE_CODE(MTRR);
-     vcpu_ctx.mtrr_d.length = HVM_SAVE_LENGTH(MTRR);
-     vcpu_ctx.mtrr = *mtrr_record;
-+    vcpu_ctx.lapic_d.typecode = HVM_SAVE_CODE(LAPIC);
-+    vcpu_ctx.lapic_d.length = HVM_SAVE_LENGTH(LAPIC);
-     vcpu_ctx.end_d = bsp_ctx.end_d;
-     vcpu_ctx.end = bsp_ctx.end;
- 
-@@ -1124,6 +1147,17 @@ static int vcpu_hvm(struct xc_dom_image *dom)
-     {
-         vcpu_ctx.mtrr_d.instance = i;
- 
-+        lapic_record = hvm_get_save_record(full_ctx, HVM_SAVE_CODE(LAPIC), i);
-+        if ( !lapic_record )
-+        {
-+            xc_dom_panic(dom->xch, XC_INTERNAL_ERROR,
-+                         "%s: unable to get LAPIC[%d] save record", __func__, i);
-+            goto out;
-+        }
-+        vcpu_ctx.lapic = *lapic_record;
-+        vcpu_ctx.lapic.x2apic_id = x86_x2apic_id_from_vcpu_id(&policy->policy, i);
-+        vcpu_ctx.lapic_d.instance = i;
-+
-         rc = xc_domain_hvm_setcontext(dom->xch, dom->guest_domid,
-                                           (uint8_t *)&vcpu_ctx, sizeof(vcpu_ctx));
-         if ( rc != 0 )
-@@ -1146,6 +1180,7 @@ static int vcpu_hvm(struct xc_dom_image *dom)
- 
-  out:
-     free(full_ctx);
-+    xc_cpu_policy_destroy(policy);
-     return rc;
- }
- 
--- 
-2.34.1
+That clarifies it. Thanks a bunch, Jan.
 
+Cheers,
+Alejandro
 
