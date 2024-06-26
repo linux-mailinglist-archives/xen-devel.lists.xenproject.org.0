@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1301A9178D6
-	for <lists+xen-devel@lfdr.de>; Wed, 26 Jun 2024 08:22:20 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.748382.1156084 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1C48A917954
+	for <lists+xen-devel@lfdr.de>; Wed, 26 Jun 2024 09:08:15 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.748393.1156094 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sMM2c-0000HS-02; Wed, 26 Jun 2024 06:22:02 +0000
+	id 1sMMki-0007fW-7P; Wed, 26 Jun 2024 07:07:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 748382.1156084; Wed, 26 Jun 2024 06:22:01 +0000
+Received: by outflank-mailman (output) from mailman id 748393.1156094; Wed, 26 Jun 2024 07:07:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sMM2b-0000EN-TQ; Wed, 26 Jun 2024 06:22:01 +0000
-Received: by outflank-mailman (input) for mailman id 748382;
- Wed, 26 Jun 2024 06:22:01 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=P08s=N4=bugseng.com=federico.serafini@srs-se1.protection.inumbo.net>)
- id 1sMM2b-0000EH-Be
- for xen-devel@lists.xenproject.org; Wed, 26 Jun 2024 06:22:01 +0000
-Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 64f43833-3384-11ef-b4bb-af5377834399;
- Wed, 26 Jun 2024 08:21:59 +0200 (CEST)
-Received: from [10.176.134.80] (unknown [160.78.253.181])
- by support.bugseng.com (Postfix) with ESMTPSA id C04D24EE0738;
- Wed, 26 Jun 2024 08:21:58 +0200 (CEST)
+	id 1sMMki-0007e2-3b; Wed, 26 Jun 2024 07:07:36 +0000
+Received: by outflank-mailman (input) for mailman id 748393;
+ Wed, 26 Jun 2024 07:07:35 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1sMMkh-0007dZ-B6; Wed, 26 Jun 2024 07:07:35 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1sMMkh-0008St-4S; Wed, 26 Jun 2024 07:07:35 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1sMMkg-0005Et-RP; Wed, 26 Jun 2024 07:07:34 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1sMMkg-0008NI-Qx; Wed, 26 Jun 2024 07:07:34 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,54 +42,72 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 64f43833-3384-11ef-b4bb-af5377834399
-Message-ID: <16db53f9-144b-4cdb-a22d-837b4dae15ef@bugseng.com>
-Date: Wed, 26 Jun 2024 08:21:58 +0200
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=4ujRkh01oVSHrsOP/IFvaETM+7eoew4/dTipxM6M5ig=; b=SLQX7KsM5xUzzdhPK1w/+UGJjb
+	Tie1JkwM1+Rfp6MCfV2kqE81Ag4/jBUm/RRimGrNUYz50VsbRqrmg1mpFoPDkaNyrpuu+0jm6rjq/
+	GFYwYHLkjD3mohILk6+j/o40SQUN/QcBrcp8Gl8OwAstkwm6t/CvTrOZuBDmQgmA/fXU=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-186509-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH for 4.19] automation/eclair: add deviations agreed in
- MISRA meetings
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: xen-devel@lists.xenproject.org, consulting@bugseng.com,
- Simone Ballarin <simone.ballarin@bugseng.com>,
- Doug Goldstein <cardoe@cardoe.com>, Andrew Cooper
- <andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>,
- Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
- Oleksii Kurochko <oleksii.kurochko@gmail.com>
-References: <4a65e064768ad5ddce96d749f24f0bdae2c3b9da.1719328656.git.federico.serafini@bugseng.com>
- <alpine.DEB.2.22.394.2406251850281.3635@ubuntu-linux-20-04-desktop>
-Content-Language: en-US, it
-From: Federico Serafini <federico.serafini@bugseng.com>
-Organization: BUGSENG
-In-Reply-To: <alpine.DEB.2.22.394.2406251850281.3635@ubuntu-linux-20-04-desktop>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Subject: [ovmf test] 186509: all pass - PUSHED
+X-Osstest-Versions-This:
+    ovmf=e21bfae345f9eee1c3f585013ca50ad6ab4f86a1
+X-Osstest-Versions-That:
+    ovmf=0333faf50e49d3b3ea2c624b4d403b405b3107a1
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Wed, 26 Jun 2024 07:07:34 +0000
 
-On 26/06/24 03:59, Stefano Stabellini wrote:
-> On Tue, 25 Jun 2024, Federico Serafini wrote:
->> Update ECLAIR configuration to take into account the deviations
->> agreed during the MISRA meetings.
->>
->> While doing this, remove the obsolete "Set [123]" comments.
->>
->> Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
-> 
-> Thank you! Many of these deviations are really important!
-> 
-> I double-checked everything and it looks good. I have 2 requests for
-> changes below to keep deviations.rst updated. I made few comments about
-> some deviations that could potentially done with SAF in-code comments
-> but given the state of the release I think it is OK.
-> 
-> I would like to ask a release-ack, especially for all the deviations
-> about conversions because those are critical. I think the rest is OK
-> too.
+flight 186509 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/186509/
 
-The new version of the patch:
-https://lists.xenproject.org/archives/html/xen-devel/2024-06/msg01471.html
+Perfect :-)
+All tests in this flight passed as required
+version targeted for testing:
+ ovmf                 e21bfae345f9eee1c3f585013ca50ad6ab4f86a1
+baseline version:
+ ovmf                 0333faf50e49d3b3ea2c624b4d403b405b3107a1
 
--- 
-Federico Serafini, M.Sc.
+Last test of basis   186505  2024-06-26 02:03:04 Z    0 days
+Testing same since   186509  2024-06-26 04:41:07 Z    0 days    1 attempts
 
-Software Engineer, BUGSENG (http://bugseng.com)
+------------------------------------------------------------
+People who touched revisions under test:
+  Wenxing Hou <wenxing.hou@intel.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
+   0333faf50e..e21bfae345  e21bfae345f9eee1c3f585013ca50ad6ab4f86a1 -> xen-tested-master
 
