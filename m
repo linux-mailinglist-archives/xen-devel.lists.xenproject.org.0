@@ -2,35 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AAF19917BF5
-	for <lists+xen-devel@lfdr.de>; Wed, 26 Jun 2024 11:10:49 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.748550.1156299 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7E0CF917C55
+	for <lists+xen-devel@lfdr.de>; Wed, 26 Jun 2024 11:20:30 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.748564.1156308 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sMOfc-0000De-H8; Wed, 26 Jun 2024 09:10:28 +0000
+	id 1sMOoz-0002LP-FI; Wed, 26 Jun 2024 09:20:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 748550.1156299; Wed, 26 Jun 2024 09:10:28 +0000
+Received: by outflank-mailman (output) from mailman id 748564.1156308; Wed, 26 Jun 2024 09:20:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sMOfc-0000BQ-EU; Wed, 26 Jun 2024 09:10:28 +0000
-Received: by outflank-mailman (input) for mailman id 748550;
- Wed, 26 Jun 2024 09:10:26 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1sMOfa-0000BG-PR; Wed, 26 Jun 2024 09:10:26 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1sMOfa-0002qF-Iv; Wed, 26 Jun 2024 09:10:26 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1sMOfa-0001ph-5n; Wed, 26 Jun 2024 09:10:26 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1sMOfa-0007fG-5R; Wed, 26 Jun 2024 09:10:26 +0000
+	id 1sMOoz-0002JJ-Ck; Wed, 26 Jun 2024 09:20:09 +0000
+Received: by outflank-mailman (input) for mailman id 748564;
+ Wed, 26 Jun 2024 09:20:07 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=+tE4=N4=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
+ id 1sMOox-0002HF-5P
+ for xen-devel@lists.xenproject.org; Wed, 26 Jun 2024 09:20:07 +0000
+Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 46a5b478-339d-11ef-90a3-e314d9c70b13;
+ Wed, 26 Jun 2024 11:20:06 +0200 (CEST)
+Received: from support.bugseng.com (support.bugseng.com [162.55.131.47])
+ by support.bugseng.com (Postfix) with ESMTPA id 9E1124EE0738;
+ Wed, 26 Jun 2024 11:20:05 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,72 +39,102 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=Y6tziryg9+GjHtGa+SZ6jsoli3aAaaCTu/WgNkUr+i4=; b=FZLGMgtUU+IpAz8QwkZ5AOGfln
-	u9VBltM0eIRVE3KE7zdHf81rad9SIs9Av5VhmveXIEgtY9jlTwd24GpPzJWyK5EVXiZe0UYMrkF+1
-	vIab0y9MctB0R55hhIO+ZlxiaEP6uEPgMy+0IchoT+ocn6YcK4ZB6lzrGuatHptYt8kc=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-186511-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 46a5b478-339d-11ef-90a3-e314d9c70b13
 MIME-Version: 1.0
-Subject: [ovmf test] 186511: all pass - PUSHED
-X-Osstest-Versions-This:
-    ovmf=78bccfec9ce5082499db035270e7998d5330d75c
-X-Osstest-Versions-That:
-    ovmf=e21bfae345f9eee1c3f585013ca50ad6ab4f86a1
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Wed, 26 Jun 2024 09:10:26 +0000
+Date: Wed, 26 Jun 2024 11:20:05 +0200
+From: Nicola Vetrini <nicola.vetrini@bugseng.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Simone Ballarin <simone.ballarin@bugseng.com>, consulting@bugseng.com,
+ sstabellini@kernel.org, Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu
+ <wl@xen.org>, xen-devel@lists.xenproject.org
+Subject: Re: [XEN PATCH v3 05/16] xen/x86: address violations of MISRA C:2012
+ Directive 4.10
+In-Reply-To: <ec92611e-6762-4b6c-af3e-999b748d1f1b@suse.com>
+References: <cover.1710145041.git.simone.ballarin@bugseng.com>
+ <dd042e7d17e7833e12a5ff6f28dd560b5ff02cf7.1710145041.git.simone.ballarin@bugseng.com>
+ <dce6c44d-94b7-43bd-858a-9337336a79cf@suse.com>
+ <ef623bad297d016438b35bedc80f091d@bugseng.com>
+ <ec92611e-6762-4b6c-af3e-999b748d1f1b@suse.com>
+Message-ID: <797b00049612507d273facc581b2c2c5@bugseng.com>
+X-Sender: nicola.vetrini@bugseng.com
+Organization: BUGSENG s.r.l.
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
+Content-Transfer-Encoding: 7bit
 
-flight 186511 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/186511/
+On 2024-06-26 11:06, Jan Beulich wrote:
+> On 25.06.2024 21:31, Nicola Vetrini wrote:
+>> On 2024-03-12 09:16, Jan Beulich wrote:
+>>> On 11.03.2024 09:59, Simone Ballarin wrote:
+>>>> --- a/xen/arch/x86/Makefile
+>>>> +++ b/xen/arch/x86/Makefile
+>>>> @@ -258,18 +258,20 @@ $(obj)/asm-macros.i: CFLAGS-y += -P
+>>>>  $(objtree)/arch/x86/include/asm/asm-macros.h: $(obj)/asm-macros.i
+>>>> $(src)/Makefile
+>>>>  	$(call filechk,asm-macros.h)
+>>>> 
+>>>> +ARCHDIR = $(shell echo $(SRCARCH) | tr a-z A-Z)
+>>> 
+>>> This wants to use :=, I think - there's no reason to invoke the shell
+>>> ...
+>> 
+>> I agree on this
+>> 
+>>> 
+>>>>  define filechk_asm-macros.h
+>>>> +    echo '#ifndef ASM_$(ARCHDIR)_ASM_MACROS_H'; \
+>>>> +    echo '#define ASM_$(ARCHDIR)_ASM_MACROS_H'; \
+>>>>      echo '#if 0'; \
+>>>>      echo '.if 0'; \
+>>>>      echo '#endif'; \
+>>>> -    echo '#ifndef __ASM_MACROS_H__'; \
+>>>> -    echo '#define __ASM_MACROS_H__'; \
+>>>>      echo 'asm ( ".include \"$@\"" );'; \
+>>>> -    echo '#endif /* __ASM_MACROS_H__ */'; \
+>>>>      echo '#if 0'; \
+>>>>      echo '.endif'; \
+>>>>      cat $<; \
+>>>> -    echo '#endif'
+>>>> +    echo '#endif'; \
+>>>> +    echo '#endif /* ASM_$(ARCHDIR)_ASM_MACROS_H */'
+>>>>  endef
+>>> 
+>>> ... three times while expanding this macro. Alternatively (to avoid
+>>> an unnecessary shell invocation when this macro is never expanded at
+>>> all) a shell variable inside the "define" above would want 
+>>> introducing.
+>>> Whether this 2nd approach is better depends on whether we anticipate
+>>> further uses of ARCHDIR.
+>> 
+>> However here I'm not entirely sure about the meaning of this latter
+>> proposal.
+>> My proposal is the following:
+>> 
+>> ARCHDIR := $(shell echo $(SRCARCH) | tr a-z A-Z)
+>> 
+>> in a suitably generic place (such as Kbuild.include or maybe
+>> xen/Makefile) as you suggested in subsequent patches that reused this
+>> pattern.
+> 
+> If $(ARCHDIR) is going to be used elsewhere, then what you suggest is 
+> fine.
+> My "whether" in the earlier reply specifically left open for 
+> clarification
+> what the intentions with the variable are. The alternative I had 
+> described
+> makes sense only when $(ARCHDIR) would only ever be used inside the
+> filechk_asm-macros.h macro.
+> 
 
-Perfect :-)
-All tests in this flight passed as required
-version targeted for testing:
- ovmf                 78bccfec9ce5082499db035270e7998d5330d75c
-baseline version:
- ovmf                 e21bfae345f9eee1c3f585013ca50ad6ab4f86a1
+Yes, the intention is to reuse $(ARCHDIR) in the formation of other 
+places, as you can tell from the fact that subsequent patches replicate 
+the same pattern. This is going to save some duplication.
+The only matter left then is whether xen/Makefile (around line 250, just 
+after setting SRCARCH) would be better, or Kbuild.include. To me the 
+former place seems more natural, but I'm not totally sure.
 
-Last test of basis   186509  2024-06-26 04:41:07 Z    0 days
-Testing same since   186511  2024-06-26 07:13:01 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Gerd Hoffmann <kraxel@redhat.com>
-
-jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
-   e21bfae345..78bccfec9c  78bccfec9ce5082499db035270e7998d5330d75c -> xen-tested-master
+-- 
+Nicola Vetrini, BSc
+Software Engineer, BUGSENG srl (https://bugseng.com)
 
