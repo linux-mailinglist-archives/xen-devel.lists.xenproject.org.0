@@ -2,37 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id ADDC99187F2
-	for <lists+xen-devel@lfdr.de>; Wed, 26 Jun 2024 18:53:21 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.749373.1157447 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5579C918A15
+	for <lists+xen-devel@lfdr.de>; Wed, 26 Jun 2024 19:28:00 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.749384.1157457 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sMVtH-0004nO-Ds; Wed, 26 Jun 2024 16:53:03 +0000
+	id 1sMWQP-0006dO-Vq; Wed, 26 Jun 2024 17:27:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 749373.1157447; Wed, 26 Jun 2024 16:53:03 +0000
+Received: by outflank-mailman (output) from mailman id 749384.1157457; Wed, 26 Jun 2024 17:27:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sMVtH-0004lj-Ak; Wed, 26 Jun 2024 16:53:03 +0000
-Received: by outflank-mailman (input) for mailman id 749373;
- Wed, 26 Jun 2024 16:53:02 +0000
+	id 1sMWQP-0006au-T3; Wed, 26 Jun 2024 17:27:17 +0000
+Received: by outflank-mailman (input) for mailman id 749384;
+ Wed, 26 Jun 2024 17:27:16 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=m54e=N4=cloud.com=alejandro.vallejo@srs-se1.protection.inumbo.net>)
- id 1sMVtF-0004la-VY
- for xen-devel@lists.xenproject.org; Wed, 26 Jun 2024 16:53:02 +0000
-Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
- [2a00:1450:4864:20::633])
+ <SRS0=evFT=N4=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1sMWQO-0006ao-RG
+ for xen-devel@lists.xenproject.org; Wed, 26 Jun 2024 17:27:16 +0000
+Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
+ [2a00:1450:4864:20::62c])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 8bfb8b94-33dc-11ef-90a3-e314d9c70b13;
- Wed, 26 Jun 2024 18:53:00 +0200 (CEST)
-Received: by mail-ej1-x633.google.com with SMTP id
- a640c23a62f3a-a7245453319so151816866b.1
- for <xen-devel@lists.xenproject.org>; Wed, 26 Jun 2024 09:53:00 -0700 (PDT)
-Received: from localhost ([160.101.139.1]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a6fdafe90b8sm543027766b.71.2024.06.26.09.52.59
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 26 Jun 2024 09:52:59 -0700 (PDT)
+ id 54da9bb3-33e1-11ef-90a3-e314d9c70b13;
+ Wed, 26 Jun 2024 19:27:15 +0200 (CEST)
+Received: by mail-ej1-x62c.google.com with SMTP id
+ a640c23a62f3a-a725ea1a385so415124666b.3
+ for <xen-devel@lists.xenproject.org>; Wed, 26 Jun 2024 10:27:15 -0700 (PDT)
+Received: from [192.168.219.191] ([94.75.70.14])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a72691fe146sm206193566b.1.2024.06.26.10.27.14
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 26 Jun 2024 10:27:14 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,110 +45,111 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8bfb8b94-33dc-11ef-90a3-e314d9c70b13
+X-Inumbo-ID: 54da9bb3-33e1-11ef-90a3-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1719420780; x=1720025580; darn=lists.xenproject.org;
-        h=in-reply-to:references:subject:cc:to:from:message-id:date
-         :content-transfer-encoding:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=n3OYo3MJqPqUKeOzpMmBaxpp/tkM9BYWYQF/CjwfAW0=;
-        b=RaPMR5ZOUDXaNZlIkAXyb+OTcoJEQlxhhraBO5zo2XEweGOL0Kqeob26y7/iS+KHgl
-         L5wpNbIfRESLqVgsiTrEmYOtxaayei6P+tk5NfzocUEOmDuMA7uMrGcgG4GGiVMb5Jwp
-         XoF77Y//l0wFb9SMqI0AgW0/NXavxF3DJ3fcI=
+        d=gmail.com; s=20230601; t=1719422835; x=1720027635; darn=lists.xenproject.org;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=b/mYrX+LFwO1keoNlHptLRaX3DfMNiwUnW9cpuZv18E=;
+        b=FGR4/JT5jMj67Qkkuc7QkLwDQzkhaAz8Y4KcJjJqWSUvDFFnMKsTMEphuSIr7IMlyX
+         Qgx02taVvgZ2ZEbhU+xNydxpfC37gHwfiqfDuy0PIF6hpjK1JwXTuD1c2lyMBmr4APLI
+         m9xX6UryeY88Hn3tNtItm9NAnOQcNlJuqrXCnn9aK0HZQh6UQgXZpxcBUDJzXeDOktCm
+         rz7oSgRwY9f2CcDjeCIL+0Cg1+LWKk2qRdYcnwOzqEuU/q3UsYpBPZD64EBemqAql5Sp
+         EbU5UmswwTiZKXJMfNsUnKQTeVrUCpYkPfpta/0YXiKTGekC79nEt7RMQM6G4eodPYOU
+         FTgA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1719420780; x=1720025580;
-        h=in-reply-to:references:subject:cc:to:from:message-id:date
-         :content-transfer-encoding:mime-version:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=n3OYo3MJqPqUKeOzpMmBaxpp/tkM9BYWYQF/CjwfAW0=;
-        b=RzUOJIdHpQXt9AhGkEP//ELmITpaA1kviz8G4JJeVVkP6Va6GW2FBreNsguqtUxaBw
-         Rmye/t2dTH1Uk6qSw2V+naLz7YWWk9LPsn/9yBd9XhrkqF2+yM4dhUQueQcviwt+Ew0u
-         V/I/BV4ryuw+AYYIxbQORbrbMq0yWQ5vz4qxeqy7bm85VASILb5uaNNP2WsjGjX7mDup
-         3fpZ68e/tk6lbDK01js5C3W7bzmECrR9biZBUgrSaiWp7qW/K+moJeqmBzYRXkrBcB8s
-         mU/7FmVC0MqSWvroa8yZ82mxMTpBe67TTW8Yufvau/sqL6MGZAt0u41Ypkf1xc3wLuQn
-         2Y5A==
-X-Forwarded-Encrypted: i=1; AJvYcCVwqRNaXLyF1Bp6nvldkSfUNsNeHbRdbErwHEYjUajLeYP5OocuCPsKaJs2V+StWYL5sXy0d1afq+ZW6iLodtbCMvOIH+ay6TmpHeHrPJM=
-X-Gm-Message-State: AOJu0YywPqqIspLnka4x65PgSC8FVutW5gXYJsYhqHHszdU3Jj9TrJuy
-	jvdab/DOVQ+8KC9IwWZwlNuZj9/Tis4rK6HGlOTg9ka0dSbYY6A67/K/whTDeMU=
-X-Google-Smtp-Source: AGHT+IErddExJuRl2lMb6QS5JWBOeaxRBsxRCCK1VzYes/DGjLfSSV29ggabO6mN3h6Bsa9fHrz1Ng==
-X-Received: by 2002:a17:906:c2c5:b0:a6f:e069:3b06 with SMTP id a640c23a62f3a-a7296f742fbmr13224466b.21.1719420780149;
-        Wed, 26 Jun 2024 09:53:00 -0700 (PDT)
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 26 Jun 2024 17:52:59 +0100
-Message-Id: <D2A3SPBBBYCT.CYFCF8WCBM10@cloud.com>
-From: "Alejandro Vallejo" <alejandro.vallejo@cloud.com>
-To: "Andrew Cooper" <andrew.cooper3@citrix.com>, "Xen-devel"
- <xen-devel@lists.xenproject.org>
-Cc: "Jan Beulich" <jbeulich@suse.com>, =?utf-8?q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, "Anthony PERARD" <anthony.perard@vates.tech>,
- "Oleksii Kurochko" <oleksii.kurochko@gmail.com>
-Subject: Re: [PATCH for 4.19 v4 01/10] tools/hvmloader: Fix
- non-deterministic cpuid()
-X-Mailer: aerc 0.17.0
-References: <cover.1719416329.git.alejandro.vallejo@cloud.com>
- <f8bfcfeca0a76f28703b164e1e65fb5919325b13.1719416329.git.alejandro.vallejo@cloud.com> <7ecf1b46-c1c2-42b5-b3cb-ab737ab67900@citrix.com>
-In-Reply-To: <7ecf1b46-c1c2-42b5-b3cb-ab737ab67900@citrix.com>
+        d=1e100.net; s=20230601; t=1719422835; x=1720027635;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=b/mYrX+LFwO1keoNlHptLRaX3DfMNiwUnW9cpuZv18E=;
+        b=B3qvhbEiwnWEKZJgb41dnHpxOfxuktN9npYv27Em9jh4nra/AtCHjO3YShQxtff/CI
+         wj8joYCZygnLZqG0Rd+cArRIWOMBiakfXqz3r7JTp8XZy76zpZd+K7ArZ1p43jI7D6i4
+         4+gjGJkv4+4IeOH8m99PDWhB8o2tD4ebIS/uagTvbpWQ/RGQ12EU2Mo3AbMqkc9t+WUY
+         XSQaXDUF4toFC3dpqQJH3Ke5+jKG3DqwYiJI1PkXnrqmy0RgwUaY3tFPdxl/OW4NWnC/
+         o6FRWnck7O5ZIrQNGAMYN2rEWMe7DugEdDXlJXbsCIBVxV5hCVcRzzuitGNfbVfsgJ6S
+         HsJg==
+X-Forwarded-Encrypted: i=1; AJvYcCVMLSVIdtSGqbDmZKHp5yVv9p3NYJSkcoXNS3Np+IJOLovHjqMwqONSlIGXQrF+wAACI2j/czQtsQHK40IyF+BiWL4i74Fc5oSiBH91Du0=
+X-Gm-Message-State: AOJu0Yy9fOcJc4t80vBR2jfeDchKmB46ODdDZAlwzhkbihqOuHk9Lm4Y
+	TvyNHg3MdeAknd9J9QzZSvL5FtoSOJrVrUvdNMcZSQaPMU9ViX32
+X-Google-Smtp-Source: AGHT+IGt6CndDs9e1g8CTUJHx82owA1R8dmFIDmiL7Em/qdN6STADDcXmRSRq0wrUYEYO/y0SGtDZg==
+X-Received: by 2002:a17:907:a605:b0:a72:4bf2:e1a with SMTP id a640c23a62f3a-a724bf20e88mr741997466b.20.1719422834958;
+        Wed, 26 Jun 2024 10:27:14 -0700 (PDT)
+Message-ID: <4c15dd072f08b1161d170608a096dc0851ced588.camel@gmail.com>
+Subject: Re: [PATCH v13 02/10] xen/riscv: introduce bitops.h
+From: oleksii.kurochko@gmail.com
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>, Bob Eshleman
+ <bobbyeshleman@gmail.com>, Connor Davis <connojdavis@gmail.com>, Andrew
+ Cooper <andrew.cooper3@citrix.com>, George Dunlap
+ <george.dunlap@citrix.com>,  Julien Grall <julien@xen.org>, Stefano
+ Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+Date: Wed, 26 Jun 2024 19:27:13 +0200
+In-Reply-To: <bb103587-546d-4613-bcb8-df10f5d05388@suse.com>
+References: <cover.1719319093.git.oleksii.kurochko@gmail.com>
+	 <0e4441eee82b0545e59099e2f62e3a01fa198d08.1719319093.git.oleksii.kurochko@gmail.com>
+	 <bb103587-546d-4613-bcb8-df10f5d05388@suse.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: base64
+User-Agent: Evolution 3.52.2 (3.52.2-1.fc40app2) 
+MIME-Version: 1.0
 
-On Wed Jun 26, 2024 at 5:43 PM BST, Andrew Cooper wrote:
-> On 26/06/2024 5:28 pm, Alejandro Vallejo wrote:
-> > hvmloader's cpuid() implementation deviates from Xen's in that the valu=
-e passed
-> > on ecx is unspecified. This means that when used on leaves that impleme=
-nt
-> > subleaves it's unspecified which one you get; though it's more than lik=
-ely an
-> > invalid one.
-> >
-> > Import Xen's implementation so there are no surprises.
->
-> Fixes: 318ac791f9f9 ("Add utilities needed for SMBIOS generation to
-> hvmloader")
->
-> > Signed-off-by: Alejandro Vallejo <alejandro.vallejo@cloud.com>
-> >
-> >
-> > diff --git a/tools/firmware/hvmloader/util.h b/tools/firmware/hvmloader=
-/util.h
-> > index deb823a892ef..3ad7c4f6d6a2 100644
-> > --- a/tools/firmware/hvmloader/util.h
-> > +++ b/tools/firmware/hvmloader/util.h
-> > @@ -184,9 +184,30 @@ int uart_exists(uint16_t uart_base);
-> >  int lpt_exists(uint16_t lpt_base);
-> >  int hpet_exists(unsigned long hpet_base);
-> > =20
-> > -/* Do cpuid instruction, with operation 'idx' */
-> > -void cpuid(uint32_t idx, uint32_t *eax, uint32_t *ebx,
-> > -           uint32_t *ecx, uint32_t *edx);
-> > +/* Some CPUID calls want 'count' to be placed in ecx */
-> > +static inline void cpuid_count(
-> > +    uint32_t op,
-> > +    uint32_t count,
-> > +    uint32_t *eax,
-> > +    uint32_t *ebx,
-> > +    uint32_t *ecx,
-> > +    uint32_t *edx)
-> > +{
-> > +    asm volatile ( "cpuid"
-> > +          : "=3Da" (*eax), "=3Db" (*ebx), "=3Dc" (*ecx), "=3Dd" (*edx)
-> > +          : "0" (op), "c" (count) );
->
-> "a" to be consistent with "c".
->
-> Also it would be better to name the parameters as leaf and subleaf.
->
-> Both can be fixed on commit.=C2=A0 However, there's no use in HVMLoader
-> tickling this bug right now, so I'm not sure we want to rush this into
-> 4.19 at this point.
->
-> ~Andrew
+T24gV2VkLCAyMDI0LTA2LTI2IGF0IDEwOjMxICswMjAwLCBKYW4gQmV1bGljaCB3cm90ZToKPiBP
+biAyNS4wNi4yMDI0IDE1OjUxLCBPbGVrc2lpIEt1cm9jaGtvIHdyb3RlOgo+ID4gLS0tIC9kZXYv
+bnVsbAo+ID4gKysrIGIveGVuL2FyY2gvcmlzY3YvaW5jbHVkZS9hc20vYml0b3BzLmgKPiA+IEBA
+IC0wLDAgKzEsMTM3IEBACj4gPiArLyogU1BEWC1MaWNlbnNlLUlkZW50aWZpZXI6IEdQTC0yLjAg
+Ki8KPiA+ICsvKiBDb3B5cmlnaHQgKEMpIDIwMTIgUmVnZW50cyBvZiB0aGUgVW5pdmVyc2l0eSBv
+ZiBDYWxpZm9ybmlhICovCj4gPiArCj4gPiArI2lmbmRlZiBfQVNNX1JJU0NWX0JJVE9QU19ICj4g
+PiArI2RlZmluZSBfQVNNX1JJU0NWX0JJVE9QU19ICj4gPiArCj4gPiArI2luY2x1ZGUgPGFzbS9z
+eXN0ZW0uaD4KPiA+ICsKPiA+ICsjaWYgQklUT1BfQklUU19QRVJfV09SRCA9PSA2NAo+ID4gKyNk
+ZWZpbmUgX19BTU8ob3ApwqDCoCAiYW1vIiAjb3AgIi5kIgo+ID4gKyNlbGlmIEJJVE9QX0JJVFNf
+UEVSX1dPUkQgPT0gMzIKPiA+ICsjZGVmaW5lIF9fQU1PKG9wKcKgwqAgImFtbyIgI29wICIudyIK
+PiA+ICsjZWxzZQo+ID4gKyNlcnJvciAiVW5leHBlY3RlZCBCSVRPUF9CSVRTX1BFUl9XT1JEIgo+
+ID4gKyNlbmRpZgo+ID4gKwo+ID4gKy8qIEJhc2VkIG9uIGxpbnV4L2FyY2gvaW5jbHVkZS9hc20v
+Yml0b3BzLmggKi8KPiA+ICsKPiA+ICsvKgo+ID4gKyAqIE5vbi1hdG9taWMgYml0IG1hbmlwdWxh
+dGlvbi4KPiA+ICsgKgo+ID4gKyAqIEltcGxlbWVudGVkIHVzaW5nIGF0b21pY3MgdG8gYmUgaW50
+ZXJydXB0IHNhZmUuIENvdWxkCj4gPiBhbHRlcm5hdGl2ZWx5Cj4gPiArICogaW1wbGVtZW50IHdp
+dGggbG9jYWwgaW50ZXJydXB0IG1hc2tpbmcuCj4gPiArICovCj4gPiArI2RlZmluZSBfX3NldF9i
+aXQobiwgcCnCoMKgwqDCoMKgIHNldF9iaXQobiwgcCkKPiA+ICsjZGVmaW5lIF9fY2xlYXJfYml0
+KG4sIHApwqDCoMKgIGNsZWFyX2JpdChuLCBwKQo+ID4gKwo+ID4gKyNkZWZpbmUgdGVzdF9hbmRf
+b3BfYml0X29yZChvcCwgbW9kLCBuciwgYWRkciwgb3JkKcKgwqDCoMKgIFwKPiA+ICsoe8KgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgXAo+ID4gK8KgwqDC
+oCBiaXRvcF91aW50X3QgcmVzLCBtYXNrO8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIFwKPiA+ICvCoMKgwqAgbWFzayA9IEJJVE9QX01BU0so
+bnIpO8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqAgXAo+ID4gK8KgwqDCoCBhc20gdm9sYXRpbGUgKMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIFwKPiA+
+ICvCoMKgwqDCoMKgwqDCoCBfX0FNTyhvcCkgI29yZCAiICUwLCAlMiwgJTEiwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgXAo+ID4gK8KgwqDCoMKgwqDCoMKgIDogIj1yIiAo
+cmVzKSwgIitBIiAoYWRkcltCSVRPUF9XT1JEKG5yKV0pwqDCoMKgwqDCoMKgIFwKPiA+ICvCoMKg
+wqDCoMKgwqDCoCA6ICJyIiAobW9kKG1hc2spKcKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBcCj4gPiArwqDCoMKgwqDCoMKgwqAgOiAi
+bWVtb3J5Iik7wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBcCj4gPiArwqDCoMKgICgocmVzICYgbWFzaykgIT0gMCk7
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqAgXAo+ID4gK30pCj4gPiArCj4gPiArI2RlZmluZSBvcF9iaXRfb3JkKG9wLCBtb2QsIG5y
+LCBhZGRyLCBvcmQpwqDCoMKgwqDCoCBcCj4gPiArwqDCoMKgIGFzbSB2b2xhdGlsZSAowqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBcCj4g
+PiArwqDCoMKgwqDCoMKgwqAgX19BTU8ob3ApICNvcmQgIiB6ZXJvLCAlMSwgJTAiwqDCoMKgwqDC
+oMKgwqDCoMKgIFwKPiA+ICvCoMKgwqDCoMKgwqDCoCA6ICIrQSIgKGFkZHJbQklUT1BfV09SRChu
+cildKcKgwqDCoMKgwqDCoMKgwqDCoMKgIFwKPiA+ICvCoMKgwqDCoMKgwqDCoCA6ICJyIiAobW9k
+KEJJVE9QX01BU0sobnIpKSnCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgXAo+ID4gK8KgwqDCoMKg
+wqDCoMKgIDogIm1lbW9yeSIpOwo+ID4gKwo+ID4gKyNkZWZpbmUgdGVzdF9hbmRfb3BfYml0KG9w
+LCBtb2QsIG5yLCBhZGRyKcKgwqDCoCBcCj4gPiArwqDCoMKgIHRlc3RfYW5kX29wX2JpdF9vcmQo
+b3AsIG1vZCwgbnIsIGFkZHIsIC5hcXJsKQo+ID4gKyNkZWZpbmUgb3BfYml0KG9wLCBtb2QsIG5y
+LCBhZGRyKSBcCj4gPiArwqDCoMKgIG9wX2JpdF9vcmQob3AsIG1vZCwgbnIsIGFkZHIsICkKPiA+
+ICsKPiA+ICsvKiBCaXRtYXNrIG1vZGlmaWVycyAqLwo+ID4gKyNkZWZpbmUgTk9QKHgpwqDCoMKg
+ICh4KQo+ID4gKyNkZWZpbmUgTk9UKHgpwqDCoMKgICh+KHgpKQo+IAo+IFNpbmNlIGVsc2V3aGVy
+ZSB5b3Ugc2FpZCB3ZSB3b3VsZCB1c2UgWmJiIGluIGJpdG9wcywgSSB3YW50ZWQgdG8gY29tZQo+
+IGJhY2sKPiBvbiB0aGF0OiBVcCB0byBoZXJlIGFsbCB3ZSB1c2UgaXMgQU1PLgo+IAo+IEFuZCBm
+dXJ0aGVyIGRvd24gdGhlcmUncyBubyBhc20oKSBhbnltb3JlLiBXaGF0IHdlcmUgeW91IHJlZmVy
+cmluZwo+IHRvPwpSSVNDLVYgZG9lc24ndCBoYXZlIGEgQ0xaIGluc3RydWN0aW9uIGluIHRoZSBi
+YXNlCklTQS4gIEFzIGEgY29uc2VxdWVuY2UsIF9fYnVpbHRpbl9mZnMoKSBlbWl0cyBhIGxpYnJh
+cnkgY2FsbCB0byBmZnMoKQpvbiBHQ0MsIG9yIGEgZGUgQnJ1aWpuIHNlcXVlbmNlIG9uIENsYW5n
+LgoKVGhlIG9wdGlvbmFsIFpiYiBleHRlbnNpb24gYWRkcyBhIENMWiBpbnN0cnVjdGlvbiwgYWZ0
+ZXIgd2hpY2gKX19idWlsdGluX2ZmcygpIGVtaXRzIGEgdmVyeSBzaW1wbGUgc2VxdWVuY2UuCgp+
+IE9sZWtzaWkK
 
-All sound good to me. For the record, the static inlines are copied verbati=
-m
-from Xen so if you'd like these adjusted you probably also want to make a
-postit to change Xen's too.
-
-Cheers,
-Alejandro
 
