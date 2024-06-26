@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B8976917D2E
-	for <lists+xen-devel@lfdr.de>; Wed, 26 Jun 2024 12:04:24 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.748689.1156489 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AD006917D9E
+	for <lists+xen-devel@lfdr.de>; Wed, 26 Jun 2024 12:18:03 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.748698.1156498 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sMPVR-0002fx-DK; Wed, 26 Jun 2024 10:04:01 +0000
+	id 1sMPiW-0004y8-Gl; Wed, 26 Jun 2024 10:17:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 748689.1156489; Wed, 26 Jun 2024 10:04:01 +0000
+Received: by outflank-mailman (output) from mailman id 748698.1156498; Wed, 26 Jun 2024 10:17:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sMPVR-0002eT-9k; Wed, 26 Jun 2024 10:04:01 +0000
-Received: by outflank-mailman (input) for mailman id 748689;
- Wed, 26 Jun 2024 10:03:59 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1sMPiW-0004we-Dy; Wed, 26 Jun 2024 10:17:32 +0000
+Received: by outflank-mailman (input) for mailman id 748698;
+ Wed, 26 Jun 2024 10:17:31 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=WUJr=N4=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sMPVP-0002eN-Cs
- for xen-devel@lists.xenproject.org; Wed, 26 Jun 2024 10:03:59 +0000
-Received: from mail-lj1-x231.google.com (mail-lj1-x231.google.com
- [2a00:1450:4864:20::231])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 66c76302-33a3-11ef-b4bb-af5377834399;
- Wed, 26 Jun 2024 12:03:57 +0200 (CEST)
-Received: by mail-lj1-x231.google.com with SMTP id
- 38308e7fff4ca-2eaae2a6dc1so101917571fa.0
- for <xen-devel@lists.xenproject.org>; Wed, 26 Jun 2024 03:03:56 -0700 (PDT)
+ id 1sMPiV-0004wI-1O
+ for xen-devel@lists.xenproject.org; Wed, 26 Jun 2024 10:17:31 +0000
+Received: from mail-lj1-x230.google.com (mail-lj1-x230.google.com
+ [2a00:1450:4864:20::230])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 4b3d3757-33a5-11ef-90a3-e314d9c70b13;
+ Wed, 26 Jun 2024 12:17:30 +0200 (CEST)
+Received: by mail-lj1-x230.google.com with SMTP id
+ 38308e7fff4ca-2ec5779b423so43402881fa.0
+ for <xen-devel@lists.xenproject.org>; Wed, 26 Jun 2024 03:17:29 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-1f9eb3d5a87sm95929905ad.203.2024.06.26.03.03.51
+ d2e1a72fcca58-7069e0a78e2sm2466990b3a.186.2024.06.26.03.17.24
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 26 Jun 2024 03:03:55 -0700 (PDT)
+ Wed, 26 Jun 2024 03:17:28 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,44 +45,43 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 66c76302-33a3-11ef-b4bb-af5377834399
+X-Inumbo-ID: 4b3d3757-33a5-11ef-90a3-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1719396236; x=1720001036; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1719397049; x=1720001849; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=ETfSu0w1XQtkfIerrXgTr9QH2vryxpdAr+oK48A+6mg=;
-        b=ZWwdP4P/BFh10XfwiPQA1Spy5UVM1u7ju/JpPwcrGXt3jIPkdV24la0Wq8+8b/xgLr
-         xkNVTI7PGwk2vu5jBoZfqx85XaT6UB/JelNGEsXjkBMVb+I/VMVfZLVB6525Nt7b49PU
-         WyCOkyKDOzWscMEo/rvgLqHWieo3JfYrScYuzHErYOMEu9CgnDjjguQzOOKBLWDBXsj7
-         XP2oFoTfWgic6tv4/Wdfre3NPTVgXEJyhZUs1MJymOCrSSoJs4ehmzo8XRFhmHZuf9KC
-         x/5tTHkolJJJEHYfX7XvnH+1iyBOxUNnjw0sE+XK2L6aM4TEUw8q0nqLFXToEoHlC7h7
-         du5Q==
+        bh=VNVUwNDUsFpGA9TMOS6Vumq0S3nackh6fEFU2xxP9vY=;
+        b=REw7vk6FlxEDi/lTk5EY4D8cls7l2XPGqYBtdcB0VKjUkEbnRvkHaLwPnKUe1YzW7o
+         c6XO8POelwR5yZ4sIoRqaNIfivu55qHi+UdTXKsRgssdCwxQwJBAmzs53cPTuyNkorOh
+         5gwALbwqWD0lBTxQjdTFlc044f8nsYbvqiMclshjHyNyknDpLXwpU9K+wtrfebOxe/R4
+         xN4L3VAd3JVvHFmlOWWxeJKdRvDywPAtjWTB/CFmR4eBK70ZH1+DvUut0g8MVu3sPzmK
+         ahWLlqYRZR9VHXgqRbLUnBeEHqEyTaOlzL9BCI21d4owu4dV0ze5mpQ9R2zaZu5Tf4D2
+         oz9A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1719396236; x=1720001036;
+        d=1e100.net; s=20230601; t=1719397049; x=1720001849;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=ETfSu0w1XQtkfIerrXgTr9QH2vryxpdAr+oK48A+6mg=;
-        b=VZGbdH4VxsTFcHKTt2fFWaMN5PXa1HxBt7wj6aXDZ8A+ST8JK7JDh9IZZ0LQ4QyL/+
-         rwXgSjVoRcavUdmuWWRt5N4I64AgQ+JmTCVGI7QQhIUXbrcLCR30NDO2ltiepznk1w2O
-         OI3IBIeprvk0wzMab+7byLtJVPWf2BlXjxNMEdz76Os2XMDe93MVrMRF26p+khnw8BMx
-         poRUPnMSB+UmJ1nR8bSvqe7s0Qve3CRvZSuz3Qtv2Bor8L+Rw9llBI7sjr3Gx79bxLGb
-         zWHz0uJ33qfSm/WiJSaYripYSWvBRAPWNl3iKH542cQZFQYFE1Mi2QnOxWPaRrXNjJI4
-         MuDg==
-X-Forwarded-Encrypted: i=1; AJvYcCUKdcWtbMIMukBeiqZhONtNo/esd2u1SkZcB32ioNIwOjpKy5b1yWYXnZlq+OJqYwUJ1phuClfMif87SOAU/C/X3kawoMzv3365sG9Mjm4=
-X-Gm-Message-State: AOJu0YzTP2HnXY+NXcAKfqThOfXrHJ9f0X1u38Q55IBYWIypGQcb3s/G
-	PkoyebMWwv7d8YBymBOsEBASs1po3XTkUDHrgMQ9Jqs2WTDQEkPMZOleghzjBA==
-X-Google-Smtp-Source: AGHT+IHzdSQr7S4nzuXGVCRjbs0S+UBeSr9hgbsKBmDePsbXshzjrVXjOPwnJy32Cv2lPwKor9P8TA==
-X-Received: by 2002:a05:651c:22f:b0:2ec:1708:4db5 with SMTP id 38308e7fff4ca-2ec5b339debmr61572191fa.51.1719396236206;
-        Wed, 26 Jun 2024 03:03:56 -0700 (PDT)
-Message-ID: <b04bd8d8-f218-4c95-8014-3fbf9d3a0c91@suse.com>
-Date: Wed, 26 Jun 2024 12:03:46 +0200
+        bh=VNVUwNDUsFpGA9TMOS6Vumq0S3nackh6fEFU2xxP9vY=;
+        b=CQiRZZdIDuvdedgEUjRy7nHI9ZaurJCvqwt37+nDEdctHxnubFb0oUvR90QdPP9RLj
+         RhzHYqK7XcJAaEhZ6ynQ4xh8OlXlL6BXhzEvDhU4cJnWS3Aqoc1r8Pbsm3/JLor/zt6W
+         j+UdDDlm/7n1dTsvN0gEPZC3wlLHjPVUqw8nO7QYU4cizMckoRFo1cq+0daviZPVDW1n
+         L9zwuqwSpEfJbambzM8HNoO7AzWqlw2p7ZO90uReo4twIQE2kKCsF2XouIGtMwhayAec
+         ahqRlPy6RpU+Sjlw5gKi0kD6sLEn2Ehpke+CRhL4w9o8hcuTbTGA4pvB5h21ZIYi9zqm
+         ZTbQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWbU3EKk8c8/W5PGR3CpfsV94+Fx5Dr//L+soHvcQJxPuy1dWxdWtI78k/BRpyIiEC72z9fMo+ogrJcY/OSk5ifMge/TwaK3EDH2SCUvsQ=
+X-Gm-Message-State: AOJu0Yzz7uiPy8pJVk1EJzYpic1f9f9VoBf8q8V9DDaNVFDqlaOb9f9Y
+	e9twbDYbPk+06jtp3pilOpG1HDlQJOTc864mbogdOjVsGZNiNpc9OrGxf1ubyw==
+X-Google-Smtp-Source: AGHT+IFyWGNtOXooXhPnrJW1cU19yjqA5r9VfHb9Ejyi7RLk9ARtyQD2CBk0NvweL3eIUXzO0xINRQ==
+X-Received: by 2002:a2e:8089:0:b0:2ec:2d75:509c with SMTP id 38308e7fff4ca-2ec5938a5cbmr76255111fa.46.1719397049237;
+        Wed, 26 Jun 2024 03:17:29 -0700 (PDT)
+Message-ID: <950da1fb-3df6-4962-b1fe-07e853507e37@suse.com>
+Date: Wed, 26 Jun 2024 12:17:19 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/6] xen/bitops: Rename for_each_set_bit() to
- bitmap_for_each()
+Subject: Re: [PATCH 4/6] xen/bitops: Introduce for_each_set_bit()
 To: Andrew Cooper <andrew.cooper3@citrix.com>
 Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
@@ -92,7 +91,7 @@ Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Oleksii Kurochko <oleksii.kurochko@gmail.com>,
  Xen-devel <xen-devel@lists.xenproject.org>
 References: <20240625190719.788643-1-andrew.cooper3@citrix.com>
- <20240625190719.788643-3-andrew.cooper3@citrix.com>
+ <20240625190719.788643-5-andrew.cooper3@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -118,57 +117,53 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240625190719.788643-3-andrew.cooper3@citrix.com>
+In-Reply-To: <20240625190719.788643-5-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 25.06.2024 21:07, Andrew Cooper wrote:
-> The current implementation wants to take an in-memory bitmap.  However, all
-> ARM callers and all-but-1 x86 callers spill a scalar to the stack in order to
-> use the "generic arbitrary bitmap" helpers under the hood.
+> The prior version (renamed to bitmap_for_each()) was inefficeint when used
+> over a scalar, but this is the more common usage even before accounting for
+> the many opencoded forms.
 > 
-> This functions, but it's far from ideal.
+> Introduce a new version which operates on scalars only and does so without
+> spilling them to memory.  This in turn requires the addition of a type-generic
+> form of ffs().
 > 
-> Rename the construct and move it into bitmap.h, because having an iterator for
-> an arbitrary bitmap is a useful thing.
-> 
-> This will allow us to re-implement for_each_set_bit() to be more appropriate
-> for scalar values.
-> 
-> No functional change.
+> Add testing for the new construct alongside the ffs/fls testing.
 > 
 > Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
 Reviewed-by: Jan Beulich <jbeulich@suse.com>
-with one cosmetic request: While doing the rename, would you mind sorting
-style? Not necessarily uniformly across the entire patch, but at individual
-sites presently using "impossible" formatting. IOW ...
+with two remarks:
 
-> --- a/xen/arch/arm/gic-vgic.c
-> +++ b/xen/arch/arm/gic-vgic.c
-> @@ -111,7 +111,7 @@ static unsigned int gic_find_unused_lr(struct vcpu *v,
->      {
->          unsigned int used_lr;
+> The naming of ffs_g() is taken from the new compiler builtins which are using
+> a g suffix to mean type-generic.
+
+As you say, a g suffix, not a _g one; gcc14 documents __builtin_ffsg().
+(Seeing it exists I wonder whether we wouldn't want to use it when
+available, and only fall back to the macro for older versions.) Any
+specific reason you use _g?
+
+> --- a/xen/include/xen/bitops.h
+> +++ b/xen/include/xen/bitops.h
+> @@ -56,6 +56,16 @@ static always_inline __pure unsigned int ffs64(uint64_t x)
+>          return !x || (uint32_t)x ? ffs(x) : ffs(x >> 32) + 32;
+>  }
 >  
-> -        for_each_set_bit(used_lr, lr_mask, nr_lrs)
-> +        bitmap_for_each(used_lr, lr_mask, nr_lrs)
+> +/*
+> + * A type-generic ffs() which picks the appropriate ffs{,l,64}() based on it's
+> + * argument.
+> + */
+> +#define ffs_g(x)                                        \
+> +    sizeof(x) <= sizeof(int) ? ffs(x) :                 \
+> +        sizeof(x) <= sizeof(long) ? ffsl(x) :           \
+> +        sizeof(x) <= sizeof(uint64_t) ? ffs64(x) :      \
+> +        ({ BUILD_ERROR("ffs_g() Bad input type"); 0; })
 
-... while this one's fine (treating bitmap_for_each as ordinary identifier)
-and while xstate.c is also fine (treating it as pseudo-keyword), ...
+Related to the patch introducing it: I can see how BUILD_ERROR_ON() may
+be deemed sub-optimal here. Nevertheless I think we should be able to
+find some common ground there.
 
-> --- a/xen/arch/arm/vgic.c
-> +++ b/xen/arch/arm/vgic.c
-> @@ -429,7 +429,7 @@ void vgic_set_irqs_pending(struct vcpu *v, uint32_t r, unsigned int rank)
->      /* LPIs will never be set pending via this function */
->      ASSERT(!is_lpi(32 * rank + 31));
->  
-> -    for_each_set_bit( i, &mask, 32 )
-> +    bitmap_for_each( i, &mask, 32 )
->      {
-
-... this isn't possible formatting according to our style: Either there are
-no blanks immediately inside the parentheses, or there also is one ahead of
-the opening one.
-
-Thanks, Jan
+Jan
 
