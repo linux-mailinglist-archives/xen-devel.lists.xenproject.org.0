@@ -2,52 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A6722917A6A
-	for <lists+xen-devel@lfdr.de>; Wed, 26 Jun 2024 10:05:09 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.748462.1156179 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A74E9917A8D
+	for <lists+xen-devel@lfdr.de>; Wed, 26 Jun 2024 10:11:39 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.748470.1156188 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sMNe7-00064T-6N; Wed, 26 Jun 2024 08:04:51 +0000
+	id 1sMNkM-0008QD-Tb; Wed, 26 Jun 2024 08:11:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 748462.1156179; Wed, 26 Jun 2024 08:04:51 +0000
+Received: by outflank-mailman (output) from mailman id 748470.1156188; Wed, 26 Jun 2024 08:11:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sMNe7-00061w-2e; Wed, 26 Jun 2024 08:04:51 +0000
-Received: by outflank-mailman (input) for mailman id 748462;
- Wed, 26 Jun 2024 08:04:50 +0000
+	id 1sMNkM-0008O1-Qr; Wed, 26 Jun 2024 08:11:18 +0000
+Received: by outflank-mailman (input) for mailman id 748470;
+ Wed, 26 Jun 2024 08:11:17 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=6S0o=N4=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
- id 1sMNe6-00061q-2L
- for xen-devel@lists.xenproject.org; Wed, 26 Jun 2024 08:04:50 +0000
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on20601.outbound.protection.outlook.com
- [2a01:111:f403:2417::601])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=WUJr=N4=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1sMNkL-0008Nq-8x
+ for xen-devel@lists.xenproject.org; Wed, 26 Jun 2024 08:11:17 +0000
+Received: from mail-lj1-x22c.google.com (mail-lj1-x22c.google.com
+ [2a00:1450:4864:20::22c])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id bfbdc8be-3392-11ef-b4bb-af5377834399;
- Wed, 26 Jun 2024 10:04:45 +0200 (CEST)
-Received: from SN7PR04CA0085.namprd04.prod.outlook.com (2603:10b6:806:121::30)
- by DM4PR12MB5913.namprd12.prod.outlook.com (2603:10b6:8:66::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7698.32; Wed, 26 Jun
- 2024 08:04:42 +0000
-Received: from SA2PEPF00003F64.namprd04.prod.outlook.com
- (2603:10b6:806:121:cafe::a6) by SN7PR04CA0085.outlook.office365.com
- (2603:10b6:806:121::30) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7719.22 via Frontend
- Transport; Wed, 26 Jun 2024 08:04:42 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- SA2PEPF00003F64.mail.protection.outlook.com (10.167.248.39) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7677.15 via Frontend Transport; Wed, 26 Jun 2024 08:04:42 +0000
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 26 Jun
- 2024 03:04:41 -0500
-Received: from XIR-MICHALO-L1.xilinx.com (10.180.168.240) by
- SATLEXMB03.amd.com (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.39
- via Frontend Transport; Wed, 26 Jun 2024 03:04:40 -0500
+ id a868df1c-3393-11ef-b4bb-af5377834399;
+ Wed, 26 Jun 2024 10:11:15 +0200 (CEST)
+Received: by mail-lj1-x22c.google.com with SMTP id
+ 38308e7fff4ca-2ec61eeed8eso34575001fa.0
+ for <xen-devel@lists.xenproject.org>; Wed, 26 Jun 2024 01:11:15 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-1fa1bbef429sm68348135ad.251.2024.06.26.01.11.10
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 26 Jun 2024 01:11:14 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -59,161 +45,141 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bfbdc8be-3392-11ef-b4bb-af5377834399
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=CG5vA3O1yl86CKJou0Meq900XZ7B9zPP2RP8XYnfMgqL2d5nTAXQCEu1wz8JGRy2UAVEf0voc00PyaJTprv2UVxiYcjDA08XYTdtAHuE0go4uk3VEc6J04LyqO/GsuK+wp6+ULr+aCWcupzEV6DfbMmxyBEjtJThypMKVY7Jm1RO+IoSTsydGW/kCkFCtWDz4/D/52h2T7u/JigS3BurEr9UgTMJ97mdPT7hYd+ZxAdwgXUrQqZbQ/5HRH/8p5Zc+09fxcygwlrz5hyN26WmuAoQCeX9R0miKPfuSH5bZuUuLCTZdkD8akpNHBVtl5iNTV2QCsl2RqUt9d5XBVidDw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=yhiipniAr4aaZAMzuqDcpiRmiIFd3EPblKq1s2aS80I=;
- b=P+RZCUw4pk5lXsGiyOdp4XngMqGYrK0sO9YDAnuY3icpolpu16kGmcwWk4tvRcM2EFgxPA5kn2cxe4A4s4MBuDIOqjZaj0R0KEgXvqn6+OBFZ8W7/wya/2X2yNOAzqCuxxTPbd26sNeiw4r5d2MC0c1cN9z45HRRlNlgEo4szbzPFLYWRmzpizYym2Pm/vNLUNf1smxlkTTb4IVMR7BqCLRgv2hJFwjVileAxGIaNVnjVqQollL8ethP2xMfeRnvMoChl/5eVk4ywznbjgZ41GQ2giQBEWch0uIhf+qX2NUKUMnh4kcQ5c1i8gKSOW0crDGPWbl5Pik8YH9EtlBxog==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=yhiipniAr4aaZAMzuqDcpiRmiIFd3EPblKq1s2aS80I=;
- b=y/GCR7IwW5AbczkO4rh4axphh7/ltk7SMomGbiem6cleI5XvEFee9QM6nSK/r1/xcjEsPOvJookN3YBaOILgyW2FSLvbfnZRpV65ZepCI1qzGOaDi+1xyM+wxo17T7dC54WAl6aRlsSngIwRIp1e7Wqfrf7Apq4yzVAvimo+288=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-From: Michal Orzel <michal.orzel@amd.com>
-To: <xen-devel@lists.xenproject.org>
-CC: Michal Orzel <michal.orzel@amd.com>, Stefano Stabellini
-	<sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Bertrand Marquis
-	<bertrand.marquis@arm.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	<oleksii.kurochko@gmail.com>
-Subject: [PATCH for-4.19(?)] xen/arm: bootfdt: Fix device tree memory node probing
-Date: Wed, 26 Jun 2024 10:04:28 +0200
-Message-ID: <20240626080428.18480-1-michal.orzel@amd.com>
-X-Mailer: git-send-email 2.25.1
+X-Inumbo-ID: a868df1c-3393-11ef-b4bb-af5377834399
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1719389474; x=1719994274; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=11AcoKAhBh6rVhIm012Zwt71yoIGRLv2lXfIw9ttWaY=;
+        b=O9FboZgKG3OR5BWALNeckwfPFopttjhzUXVtp14savwNtTaxXJ0IXpS2Dfl6c/XLg/
+         3aDjSE0Qdp7uRI2WWFfVXTNI4CDLLgFwOG+d0ZZMP0PnA0I05KJJxRsUohUezEikj3zJ
+         0Y41WwYsfDYRSEzunjXIvEgQvqUPXDgdXS6+3FNPVBcEiPohYrIsvNK+/0pzjt37n9O3
+         bwunZSpxLN1IbUM8a7kPQOPeww39QK2yaLUfn51+c/HVs+VKU+uVh+b+MyHFknLI1c08
+         /VDsG+GVIhH/Y3f7KAIpxeAGcyMBcvPItJ6WLaC3/Nr+kZRB0TxzQeSeyg2YGvRd30uj
+         odIw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1719389474; x=1719994274;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=11AcoKAhBh6rVhIm012Zwt71yoIGRLv2lXfIw9ttWaY=;
+        b=fZ60pIROeeNZfBF1aP7cQQJeaIgaTa6+VPqnMDvk+t9yaWHkKAm+Jyfe4B2VkJJsZg
+         W9kauoQobz6s10yCK9np48RW2HGGV0JzIgoRic6hqhy3riJFd6/kfCAvj3BMfFVxdrP+
+         dxywgQnWRunA6sFKRYnjwiHhUg0LLTc0sPkHjEso8OUeGKVL9AXz7rMzB+IwOHRs0fLR
+         TVdZ/oXdhoMQocLem6GpyMV05yZXigOd4Twd18qkiUVXRRKrSv+M66zC8N/3Z3/AiAyD
+         EMgpkIPjKCrASj4nhMEKR2cdPcLq2a2J+AomgnkzlNKbGuLLI1h+HFrrQPa2ru/JaQJn
+         xX4g==
+X-Gm-Message-State: AOJu0Yy5AwiNjBOr828sxdBwwDkDPFzH1wozr+BKeMRx7OSEf+UmC3p2
+	cc0W65Z7bWkZyPdoPTW5QC2X+/DJBMWHGWtaRDr0FDj18iI8qiLAiw+tCWUJQQ==
+X-Google-Smtp-Source: AGHT+IEez0vYVmI/xC05r7gA9e3go7fFxePj8UgymbiGn0uP/3AFGfttd7wOQ3KarOmGAPP4ChKixQ==
+X-Received: by 2002:a2e:9054:0:b0:2ed:59af:ecb7 with SMTP id 38308e7fff4ca-2ed59afeef3mr7269881fa.15.1719389474514;
+        Wed, 26 Jun 2024 01:11:14 -0700 (PDT)
+Message-ID: <6441010f-c2f6-4098-bf23-837955dcf803@suse.com>
+Date: Wed, 26 Jun 2024 10:11:04 +0200
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-Received-SPF: None (SATLEXMB04.amd.com: michal.orzel@amd.com does not
- designate permitted sender hosts)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA2PEPF00003F64:EE_|DM4PR12MB5913:EE_
-X-MS-Office365-Filtering-Correlation-Id: d49f604e-8aba-47c7-7dee-08dc95b6a27d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230038|376012|1800799022|36860700011|82310400024;
-X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?KUvnWMzpuJANhlvlsKxmXtF6O59CwLvhLbPgXy2jwQgqmz85ra4pe4/Ypcva?=
- =?us-ascii?Q?HQko81dixeW2ZASD9Ibdi0lILactg0RCaMUhNgwoQuzn6wq2TgWvNkOQDS8p?=
- =?us-ascii?Q?CcXv35+WWWuQCU8uqlzZmtPCW27Fs9fnsBmgB7G98GXAvD25vROSH22c83KI?=
- =?us-ascii?Q?qFCjj7YexSPBAkDbtJmZ9lfpGFNa/975jNdfgxPdHaRLWmU+YhNEgb7PhVRr?=
- =?us-ascii?Q?61SVp4iurnuB/XVHD8rU9gNUfbHEU/NFf5MuK34zeyQrrJvN8DR9/4JckXdB?=
- =?us-ascii?Q?N6oHx/NEM7+RTBPaapUMSZeoaON5eTFom/B6SXfWIXYZ031xkGxXWlX9HIZa?=
- =?us-ascii?Q?RKai3yY3tvpQaRQTZo/+9TXivc0j1IxcjIS3znvSSiAQTQ0cwLb4OR9SuGuA?=
- =?us-ascii?Q?Zkw3UKhPrue8aB3SpngCYyTMHmGOcQf/xtTRap9HPHL3/8wQAqO5f8co6B4P?=
- =?us-ascii?Q?k66qhLlRdFH+f173cKDPOJYYsSrYmkaMzPtK6Daq4q0wnF6TdaHetJFT9imZ?=
- =?us-ascii?Q?frdZiDVgGyVnbDXnI3ZQ/7y5qN3L+s/Gd9gva1XZsKuuKeXOAfX+6gffDfV7?=
- =?us-ascii?Q?4txnh6v3MAi2gDaNYVCQgmlYQMDYJGg0g40R6cK+Iyo9La7sfTgbGV6fVT+I?=
- =?us-ascii?Q?DWr+/pML/sKlOjwZJKb3JO3B9+AmtLonsgHrpf4aguvdfRUTYm7EFtm8yXL7?=
- =?us-ascii?Q?Z+5UO+tEjU9UOcWSv71rr42qb1b5btRrwCa0UgKC8si7yfjkh2Vaf3570kc8?=
- =?us-ascii?Q?/0sFHNu1YDteG7ZkSB3znqWLt2jTi2Lt6RdY3q+OqbnCuzFRv4H5hNpfnvXK?=
- =?us-ascii?Q?F1RbZ2vMDBadrhZlqdA0/NkmMOH/rWG/I7VYwYeQqsjQHqHX+2Pg8E7h7b4Z?=
- =?us-ascii?Q?VTcpZkB21UIdgaVSLWWvWk2ZpLdNK6VCbNXfA4MdUjmMqnOGag5lQjVMaLDh?=
- =?us-ascii?Q?cP17KXsbRWi0TwZxcLuMfDfcBmE2X65t8varyrbPK2GEzQO3WkRusFINf3+A?=
- =?us-ascii?Q?x52tR3W94AmhHocyIZ42lTXPCkICbiOPK5H23BJp6wPO9GLVbbznllW/cedD?=
- =?us-ascii?Q?e+eTdXB9MFWdFbNk61PYgtPf1dvUsVuFW7IK8zgSSbXrwbXl5BdnEHYWXAC1?=
- =?us-ascii?Q?aj9FH8YSAKqUkpV9F7DW1m6R1SPY8dhMirmj8+piSEOhIkDH5QfjMWEDGH9i?=
- =?us-ascii?Q?Q1q1BCzDQu42JKW8ZsyMEaN2De/+oML6ZfcpxLeKwJYeBHWzQaYFtyc6s4Lp?=
- =?us-ascii?Q?XZ5k+3SQn+/MgM3VZ/lRUFrt+BVNDlU/oZy2JSltlQnTgSZlbRHPzXjlNhTA?=
- =?us-ascii?Q?mRwgD1E01ybgZqO/XkJ5IL4TZ1d78R4Jc9Azb9heurZl+Rf98GcEZh098hf/?=
- =?us-ascii?Q?cM4jSexp7xLrRVAn9DwrEJU2gXrKXG7Nb853OXk3fwcqpk2RyA=3D=3D?=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230038)(376012)(1800799022)(36860700011)(82310400024);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Jun 2024 08:04:42.1550
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d49f604e-8aba-47c7-7dee-08dc95b6a27d
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SA2PEPF00003F64.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5913
+User-Agent: Mozilla Thunderbird
+Subject: Re: [XEN PATCH v2 05/13] x86/traps: address violations of MISRA C
+ Rule 16.3
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: xen-devel@lists.xenproject.org, consulting@bugseng.com,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Federico Serafini <federico.serafini@bugseng.com>
+References: <cover.1719218291.git.federico.serafini@bugseng.com>
+ <4f44a7b021eb4f78ccf1ce69b500b48b75df81c5.1719218291.git.federico.serafini@bugseng.com>
+ <alpine.DEB.2.22.394.2406241753260.3870429@ubuntu-linux-20-04-desktop>
+ <a5b47b7e-9dc0-4108-bd6f-eb34f7cb8c3c@suse.com>
+ <alpine.DEB.2.22.394.2406251808040.3635@ubuntu-linux-20-04-desktop>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <alpine.DEB.2.22.394.2406251808040.3635@ubuntu-linux-20-04-desktop>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Memory node probing is done as part of early_scan_node() that is called
-for each node with depth >= 1 (root node is at depth 0). According to
-Devicetree Specification v0.4, chapter 3.4, /memory node can only exists
-as a top level node. However, Xen incorrectly considers all the nodes with
-unit node name "memory" as RAM. This buggy behavior can result in a
-failure if there are other nodes in the device tree (at depth >= 2) with
-"memory" as unit node name. An example can be a "memory@xxx" node under
-/reserved-memory. Fix it by introducing device_tree_is_memory_node() to
-perform all the required checks to assess if a node is a proper /memory
-node.
+On 26.06.2024 03:11, Stefano Stabellini wrote:
+> On Tue, 25 Jun 2024, Jan Beulich wrote:
+>> On 25.06.2024 02:54, Stefano Stabellini wrote:
+>>> On Mon, 24 Jun 2024, Federico Serafini wrote:
+>>>> Add break or pseudo keyword fallthrough to address violations of
+>>>> MISRA C Rule 16.3: "An unconditional `break' statement shall terminate
+>>>> every switch-clause".
+>>>>
+>>>> No functional change.
+>>>>
+>>>> Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
+>>>> ---
+>>>>  xen/arch/x86/traps.c | 3 +++
+>>>>  1 file changed, 3 insertions(+)
+>>>>
+>>>> diff --git a/xen/arch/x86/traps.c b/xen/arch/x86/traps.c
+>>>> index 9906e874d5..cbcec3fafb 100644
+>>>> --- a/xen/arch/x86/traps.c
+>>>> +++ b/xen/arch/x86/traps.c
+>>>> @@ -1186,6 +1186,7 @@ void cpuid_hypervisor_leaves(const struct vcpu *v, uint32_t leaf,
+>>>>  
+>>>>      default:
+>>>>          ASSERT_UNREACHABLE();
+>>>> +        break;
+>>>
+>>> Please add ASSERT_UNREACHABLE to the list of "unconditional flow control
+>>> statements" that can terminate a case, in addition to break.
+>>
+>> Why? Exactly the opposite is part of the subject of a recent patch, iirc.
+>> Simply because of the rules needing to cover both debug and release builds.
+> 
+> The reason is that ASSERT_UNREACHABLE() might disappear from the release
+> build but it can still be used as a marker during static analysis. In
+> my view, ASSERT_UNREACHABLE() is equivalent to a noreturn function call
+> which has an empty implementation in release builds.
+> 
+> The only reason I can think of to require a break; after an
+> ASSERT_UNREACHABLE() would be if we think the unreachability only apply
+> to debug build, not release build:
+> 
+> - debug build: it is unreachable
+> - release build: it is reachable
+> 
+> I don't think that is meant to be possible so I think we can use
+> ASSERT_UNREACHABLE() as a marker.
 
-Fixes: 3e99c95ba1c8 ("arm, device tree: parse the DTB for RAM location and size")
-Signed-off-by: Michal Orzel <michal.orzel@amd.com>
----
-4.19: This patch is fixing a possible early boot Xen failure (before main
-console is initialized). In my case it results in a warning "Shattering
-superpage is not supported" and panic "Unable to setup the directmap mappings".
+Well. For one such an assumption takes as a prereq that a debug build will
+be run through full coverage testing, i.e. all reachable paths proven to
+be taken. I understand that this prereq is intended to somehow be met,
+even if I'm having difficulty seeing how such a final proof would look
+like: Full coverage would, to me, mean that _every_ line is reachable. Yet
+clearly any ASSERT_UNREACHABLE() must never be reached.
 
-If this is too late for this patch to go in, we can backport it after the tree
-re-opens.
----
- xen/arch/arm/bootfdt.c | 28 +++++++++++++++++++++++++++-
- 1 file changed, 27 insertions(+), 1 deletion(-)
+And then not covering for such cases takes the further assumption that
+debug and release builds are functionally identical. I'm afraid this would
+be a wrong assumption to make:
+1) We may screw up somewhere, with code wrongly enabled only in one of the
+   two build modes.
+2) The compiler may screw up, in particular with optimization.
 
-diff --git a/xen/arch/arm/bootfdt.c b/xen/arch/arm/bootfdt.c
-index 6e060111d95b..23c968e6955d 100644
---- a/xen/arch/arm/bootfdt.c
-+++ b/xen/arch/arm/bootfdt.c
-@@ -83,6 +83,32 @@ static bool __init device_tree_node_compatible(const void *fdt, int node,
-     return false;
- }
- 
-+/*
-+ * Check if a node is a proper /memory node according to Devicetree
-+ * Specification v0.4, chapter 3.4.
-+ */
-+static bool __init device_tree_is_memory_node(const void *fdt, int node,
-+                                              int depth)
-+{
-+    const char *type;
-+    int len;
-+
-+    if ( depth != 1 )
-+        return false;
-+
-+    if ( !device_tree_node_matches(fdt, node, "memory") )
-+        return false;
-+
-+    type = fdt_getprop(fdt, node, "device_type", &len);
-+    if ( !type )
-+        return false;
-+
-+    if ( (len <= 0) || strcmp(type, "memory") )
-+        return false;
-+
-+    return true;
-+}
-+
- void __init device_tree_get_reg(const __be32 **cell, uint32_t address_cells,
-                                 uint32_t size_cells, paddr_t *start,
-                                 paddr_t *size)
-@@ -448,7 +474,7 @@ static int __init early_scan_node(const void *fdt,
-      * populated. So we should skip the parsing.
-      */
-     if ( !efi_enabled(EFI_BOOT) &&
--         device_tree_node_matches(fdt, node, "memory") )
-+         device_tree_is_memory_node(fdt, node, depth) )
-         rc = process_memory_node(fdt, node, name, depth,
-                                  address_cells, size_cells, bootinfo_get_mem());
-     else if ( depth == 1 && !dt_node_cmp(name, "reserved-memory") )
--- 
-2.25.1
-
+Jan
 
