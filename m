@@ -2,35 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 897CE9175F5
-	for <lists+xen-devel@lfdr.de>; Wed, 26 Jun 2024 04:01:00 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.748255.1155874 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A2EF3917606
+	for <lists+xen-devel@lfdr.de>; Wed, 26 Jun 2024 04:09:43 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.748268.1155887 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sMHxN-0001G7-TS; Wed, 26 Jun 2024 02:00:21 +0000
+	id 1sMI63-0002u7-Po; Wed, 26 Jun 2024 02:09:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 748255.1155874; Wed, 26 Jun 2024 02:00:21 +0000
+Received: by outflank-mailman (output) from mailman id 748268.1155887; Wed, 26 Jun 2024 02:09:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sMHxN-0001E2-Q1; Wed, 26 Jun 2024 02:00:21 +0000
-Received: by outflank-mailman (input) for mailman id 748255;
- Wed, 26 Jun 2024 02:00:20 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1sMHxM-0001Ds-HL; Wed, 26 Jun 2024 02:00:20 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1sMHxM-0002QZ-Cr; Wed, 26 Jun 2024 02:00:20 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1sMHxL-0003oJ-W6; Wed, 26 Jun 2024 02:00:20 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1sMHxL-00037P-Ve; Wed, 26 Jun 2024 02:00:19 +0000
+	id 1sMI63-0002rg-Mw; Wed, 26 Jun 2024 02:09:19 +0000
+Received: by outflank-mailman (input) for mailman id 748268;
+ Wed, 26 Jun 2024 02:09:18 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=dBdT=N4=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1sMI62-0002ra-6C
+ for xen-devel@lists.xenproject.org; Wed, 26 Jun 2024 02:09:18 +0000
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 1539a843-3361-11ef-90a3-e314d9c70b13;
+ Wed, 26 Jun 2024 04:09:16 +0200 (CEST)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sin.source.kernel.org (Postfix) with ESMTP id 553DCCE1FF1;
+ Wed, 26 Jun 2024 02:09:10 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3D007C32781;
+ Wed, 26 Jun 2024 02:09:09 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,72 +41,101 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=czpv2KOtZ0Ak2c6IRr1qWOx9Xw6E0SGOJG6ea5TNTNM=; b=WcJUTgdZOuB0oGhfD6X3nh2hDD
-	Q41n79ZQfVx8CX+6rlsKkAX4bjrsnLUALTW2Ub+eAGtUBJp9JHm7AqAYfiJZ+2XTar1ymMReUSavV
-	tZuuaLr65258hBqCzQnqNa2DKYTFIP20cpfbzoEMasLACc1gXHKqyCwaGGEQRTmwX18g=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-186502-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 1539a843-3361-11ef-90a3-e314d9c70b13
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1719367749;
+	bh=ZiQ3Iy25aBjlBx/M4Y26r8sltgMfPN3mtOiGBPcuwJc=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=sVvfDyrcAcZhV2AfHau3Ku/DPXE2nLGggpB9EWAC4RYPQ1fM5hB+bCdKasgjTyLE1
+	 ZJyrGFHGbFTaQ5Y5a838GffnnMSb3iEy2apgKXJc9oO+dgyFoW5Se0GG63P5FT2MAV
+	 KHZeMB5aLNyqQpLU+Ivs26DehC0nwwcousr4nD220v+g0gAE2afgVDdDxaHJJER8HI
+	 LvyqZnFxXg/of7Q/mLXZfgSuC5LUmlAjNHeZ0PVTE9rTYLYooHyf0ghqil/g+bn5hF
+	 UInCFHDClnmonog4Eoqhj5KeKgqs1hJlKqEAtz965ZLORODtLo5sv6Ezems/1pdgrJ
+	 vihMQafCPxrUA==
+Date: Tue, 25 Jun 2024 19:09:07 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Michal Orzel <michal.orzel@amd.com>
+cc: xen-devel@lists.xenproject.org, sstabellini@kernel.org
+Subject: Re: [ImageBuilder] Add support for omitting host paddr for static
+ shmem regions
+In-Reply-To: <20240624075559.15484-1-michal.orzel@amd.com>
+Message-ID: <alpine.DEB.2.22.394.2406251908590.3635@ubuntu-linux-20-04-desktop>
+References: <20240624075559.15484-1-michal.orzel@amd.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Subject: [ovmf test] 186502: all pass - PUSHED
-X-Osstest-Versions-This:
-    ovmf=dc93ff8a5561a3085eeda9d4ac00d40545eb43cd
-X-Osstest-Versions-That:
-    ovmf=84d8eb08e15e455826ef66a4b1f1f61758cb9aba
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Wed, 26 Jun 2024 02:00:19 +0000
+Content-Type: text/plain; charset=US-ASCII
 
-flight 186502 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/186502/
+On Mon, 24 Jun 2024, Michal Orzel wrote:
+> Reflect the latest Xen support to be able to omit the host physical
+> address for static shared memory regions, in which case the address will
+> come from the Xen heap.
+> 
+> Signed-off-by: Michal Orzel <michal.orzel@amd.com>
 
-Perfect :-)
-All tests in this flight passed as required
-version targeted for testing:
- ovmf                 dc93ff8a5561a3085eeda9d4ac00d40545eb43cd
-baseline version:
- ovmf                 84d8eb08e15e455826ef66a4b1f1f61758cb9aba
-
-Last test of basis   186498  2024-06-25 22:11:10 Z    0 days
-Testing same since   186502  2024-06-26 00:13:00 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Sebastian Witt <sebastian.witt@siemens.com>
-
-jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
-   84d8eb08e1..dc93ff8a55  dc93ff8a5561a3085eeda9d4ac00d40545eb43cd -> xen-tested-master
+> ---
+>  README.md                |  7 ++++---
+>  scripts/uboot-script-gen | 19 +++++++++++++------
+>  2 files changed, 17 insertions(+), 9 deletions(-)
+> 
+> diff --git a/README.md b/README.md
+> index 7683492a6f7f..4fcd908c2c2f 100644
+> --- a/README.md
+> +++ b/README.md
+> @@ -199,9 +199,10 @@ Where:
+>  
+>  - DOMU_SHARED_MEM[number]="SHM-ID HPA GPA size"
+>    if specified, indicate SHM-ID represents the unique identifier of the shared
+> -  memory region, the host physical address HPA will get mapped at guest
+> -  address GPA in domU and the memory of size will be reserved to be shared
+> -  memory. The shared memory is used between two dom0less domUs.
+> +  memory region. The host physical address HPA is optional, if specified, will
+> +  get mapped at guest address GPA in domU (otherwise it will come from Xen heap)
+> +  and the memory of size will be reserved to be shared memory. The shared memory
+> +  is used between two dom0less domUs.
+>  
+>    Below is an example:
+>    NUM_DOMUS=2
+> diff --git a/scripts/uboot-script-gen b/scripts/uboot-script-gen
+> index 20cc6ef7f892..8b664e711b10 100755
+> --- a/scripts/uboot-script-gen
+> +++ b/scripts/uboot-script-gen
+> @@ -211,18 +211,25 @@ function add_device_tree_static_shared_mem()
+>      local shared_mem_id=${shared_mem%% *}
+>      local regions="${shared_mem#* }"
+>      local cells=()
+> -    local shared_mem_host=${regions%% *}
+> -
+> -    dt_mknode "${path}" "shared-mem@${shared_mem_host}"
+> +    local node_name=
+>  
+>      for val in ${regions[@]}
+>      do
+>          cells+=("$(split_value $val)")
+>      done
+>  
+> -    dt_set "${path}/shared-mem@${shared_mem_host}" "compatible" "str" "xen,domain-shared-memory-v1"
+> -    dt_set "${path}/shared-mem@${shared_mem_host}" "xen,shm-id" "str" "${shared_mem_id}"
+> -    dt_set "${path}/shared-mem@${shared_mem_host}" "xen,shared-mem" "hex" "${cells[*]}"
+> +    # Less than 3 cells means host address not provided
+> +    if [ ${#cells[@]} -lt 3 ]; then
+> +        node_name="shared-mem-${shared_mem_id}"
+> +    else
+> +        node_name="shared-mem@${regions%% *}"
+> +    fi
+> +
+> +    dt_mknode "${path}" "${node_name}"
+> +
+> +    dt_set "${path}/${node_name}" "compatible" "str" "xen,domain-shared-memory-v1"
+> +    dt_set "${path}/${node_name}" "xen,shm-id" "str" "${shared_mem_id}"
+> +    dt_set "${path}/${node_name}" "xen,shared-mem" "hex" "${cells[*]}"
+>  }
+>  
+>  function add_device_tree_cpupools()
+> -- 
+> 2.25.1
+> 
 
