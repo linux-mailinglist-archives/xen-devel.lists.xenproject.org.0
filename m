@@ -2,34 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6F2FF917565
-	for <lists+xen-devel@lfdr.de>; Wed, 26 Jun 2024 03:01:12 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.748194.1155781 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A69A591756F
+	for <lists+xen-devel@lfdr.de>; Wed, 26 Jun 2024 03:08:17 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.748201.1155791 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sMH11-00030T-Qe; Wed, 26 Jun 2024 01:00:03 +0000
+	id 1sMH8i-0003D5-IJ; Wed, 26 Jun 2024 01:08:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 748194.1155781; Wed, 26 Jun 2024 01:00:03 +0000
+Received: by outflank-mailman (output) from mailman id 748201.1155791; Wed, 26 Jun 2024 01:08:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sMH11-0002vN-Na; Wed, 26 Jun 2024 01:00:03 +0000
-Received: by outflank-mailman (input) for mailman id 748194;
- Wed, 26 Jun 2024 01:00:02 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1sMH8i-0003AV-Eh; Wed, 26 Jun 2024 01:08:00 +0000
+Received: by outflank-mailman (input) for mailman id 748201;
+ Wed, 26 Jun 2024 01:07:59 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=dBdT=N4=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1sMH10-00026G-D7
- for xen-devel@lists.xenproject.org; Wed, 26 Jun 2024 01:00:02 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 695a748a-3357-11ef-b4bb-af5377834399;
- Wed, 26 Jun 2024 03:00:00 +0200 (CEST)
+ id 1sMH8h-000396-Cl
+ for xen-devel@lists.xenproject.org; Wed, 26 Jun 2024 01:07:59 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [2604:1380:4641:c500::1])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 85df33cf-3358-11ef-90a3-e314d9c70b13;
+ Wed, 26 Jun 2024 03:07:57 +0200 (CEST)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id B568F60AC6;
- Wed, 26 Jun 2024 00:59:58 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 47725C32781;
- Wed, 26 Jun 2024 00:59:57 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id 6BC2A60B5A;
+ Wed, 26 Jun 2024 01:07:56 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C17D5C32781;
+ Wed, 26 Jun 2024 01:07:54 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,111 +42,92 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 695a748a-3357-11ef-b4bb-af5377834399
+X-Inumbo-ID: 85df33cf-3358-11ef-90a3-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1719363598;
-	bh=N7/kGkqol1ywjifRFNz7zVHwLE979d0dgMOoiGCd9k4=;
+	s=k20201202; t=1719364076;
+	bh=4SDBa1rGC+JAmFHN8wUJHSYJnttc1J9qCaPA5Zao9Qw=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=mVmkdIjrMLDx11B/MauaRZoYijPQ8yQM+CVhKgNxEU5F9eJyq33/CW03wOBh2lEkC
-	 wdrYT0Z9BsNjOk8nKgmSjDj6Lxelo01n6ymGCKLx33EkB0pPfnlDlYAz4KKQ2+cRBt
-	 +AI25dXJNH6ueyhCMTz+P0+N+tjf0aGgZ95RsSWcHKhm7nID4CqIPGDa8H6eS8H3MC
-	 Mlnx+GI6UvPrKOuHDEaJYTZdzrGaBfDXFDpOcTAyU9cTb/kvLDoIxrPGIZRmIMpqSL
-	 0SLUqOMVzWO6oKA84pOFCzWfXKFkQ7Evo5niD8lNwtkaV4xN3NiPSiAdYeVs9KW85f
-	 c6nvcB6YX6XQw==
-Date: Tue, 25 Jun 2024 17:59:55 -0700 (PDT)
+	b=oIKcu5vqDwddllv63t/JvZMNjMaXF4vtpTM6VKBWZbraRk9KLobxKw3mdFNRQI2od
+	 driqSiI1csITukOtzk6gRxfDU7xHr2AG2qAQhMekpsJqLrVBBfPGbLCu2+5iA00NGT
+	 k5g5im1G2N+nfl47fd+i9AyQtN4KFSJ2li+8OAHhb5fA+UOkxKuQz7dBnzCv1IVuGV
+	 Mq/fM4RH53G5HQGdWh/w8raPwFJgLOCFz75rxaepQVCMGWTpFH+9lC0VKagCSSwCAp
+	 vyPxxHMHhosVurnOenXOVLP9xmjjdcthHu13SJr1EFDMCATDz39InQdwlMrwYpY4ew
+	 mZ16n2K36RDAw==
+Date: Tue, 25 Jun 2024 18:07:53 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Nicola Vetrini <nicola.vetrini@bugseng.com>
-cc: Stefano Stabellini <sstabellini@kernel.org>, 
-    xen-devel@lists.xenproject.org, michal.orzel@amd.com, 
-    xenia.ragiadakou@amd.com, ayan.kumar.halder@amd.com, 
-    consulting@bugseng.com, Simone Ballarin <simone.ballarin@bugseng.com>, 
-    Doug Goldstein <cardoe@cardoe.com>
-Subject: Re: [XEN PATCH v2 1/6][RESEND] automation/eclair: address violations
- of MISRA C Rule 20.7
-In-Reply-To: <4aa05e0f26f050363d9ed0401855e1bb@bugseng.com>
-Message-ID: <alpine.DEB.2.22.394.2406251756010.3635@ubuntu-linux-20-04-desktop>
-References: <cover.1718378539.git.nicola.vetrini@bugseng.com> <af4b0512eb52be99e37c9c670f98967ca15c68ac.1718378539.git.nicola.vetrini@bugseng.com> <alpine.DEB.2.22.394.2406201718140.2572888@ubuntu-linux-20-04-desktop>
- <4aa05e0f26f050363d9ed0401855e1bb@bugseng.com>
+To: Jan Beulich <jbeulich@suse.com>
+cc: Stefano Stabellini <sstabellini@kernel.org>, consulting@bugseng.com, 
+    Simone Ballarin <simone.ballarin@bugseng.com>, 
+    Doug Goldstein <cardoe@cardoe.com>, 
+    Andrew Cooper <andrew.cooper3@citrix.com>, 
+    George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>, 
+    Oleksii Kurochko <oleksii.kurochko@gmail.com>, 
+    Federico Serafini <federico.serafini@bugseng.com>, 
+    xen-devel@lists.xenproject.org
+Subject: Re: [XEN PATCH v4] automation/eclair: extend existing deviations of
+ MISRA C Rule 16.3
+In-Reply-To: <c2098800-2565-4eff-90b5-0d285862bf26@suse.com>
+Message-ID: <alpine.DEB.2.22.394.2406251806240.3635@ubuntu-linux-20-04-desktop>
+References: <90044547484dac6fcb4748ae8758e38234b3261a.1719297249.git.federico.serafini@bugseng.com> <c2098800-2565-4eff-90b5-0d285862bf26@suse.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
-On Tue, 25 Jun 2024, Nicola Vetrini wrote:
-> On 2024-06-21 02:18, Stefano Stabellini wrote:
-> > On Mon, 16 Jun 2024, Nicola Vetrini wrote:
-> > > MISRA C Rule 20.7 states: "Expressions resulting from the expansion
-> > > of macro parameters shall be enclosed in parentheses".
-> > > 
-> > > The helper macro bitmap_switch has parameters that cannot be parenthesized
-> > > in order to comply with the rule, as that would break its functionality.
-> > > Moreover, the risk of misuse due developer confusion is deemed not
-> > > substantial enough to warrant a more involved refactor, thus the macro
-> > > is deviated for this rule.
-> > > 
-> > > No functional change.
-> > > 
-> > > Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
+On Tue, 25 Jun 2024, Jan Beulich wrote:
+> On 25.06.2024 08:46, Federico Serafini wrote:
+> > Update ECLAIR configuration to deviate more cases where an
+> > unintentional fallthrough cannot happen.
 > > 
-> > If possible, I would prefer we used a SAF in-code comment deviation. If
-> > that doesn't work for any reason this patch is fine and I'd ack it.
+> > Tag Rule 16.3 as clean for arm.
 > > 
+> > Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
+> > Acked-by: Stefano Stabellini <sstabellini@kernel.org>
 > 
-> Would that be an improvement for safety in your opinion?
-
-Not for safety, as they both achieve the same result, but for
-maintainability. The deviations under deviations.ecl are project-wide so
-in my opinion should only be used for project-wide global deviations
-from a rule. Specific deviations for functions should be done with SAF.
-Another reason for this is that deviations under deviations.ecl need to
-be manually ported to any other static analyzer one by one while SAF is
-meant to support multiple automatically.
-
-More importantly if we change deviations.ecl, deviations.rst should also
-be changed the same way. I would say that this is required at a minimum
-as deviations.ecl and deviations.rst should be in sync.
-
- 
-> > > ---
-> > >  automation/eclair_analysis/ECLAIR/deviations.ecl | 8 ++++++++
-> > >  1 file changed, 8 insertions(+)
-> > > 
-> > > diff --git a/automation/eclair_analysis/ECLAIR/deviations.ecl
-> > > b/automation/eclair_analysis/ECLAIR/deviations.ecl
-> > > index 447c1e6661d1..c2698e7074aa 100644
-> > > --- a/automation/eclair_analysis/ECLAIR/deviations.ecl
-> > > +++ b/automation/eclair_analysis/ECLAIR/deviations.ecl
-> > > @@ -463,6 +463,14 @@ of this macro do not lead to developer confusion, and
-> > > can thus be deviated."
-> > >  -config=MC3R1.R20.7,reports+={safe,
-> > > "any_area(any_loc(any_exp(macro(^count_args_$))))"}
-> > >  -doc_end
-> > > 
-> > > +-doc_begin="The arguments of macro bitmap_switch macro can't be
-> > > parenthesized as
-> > > +the rule would require, without breaking the functionality of the macro.
-> > > This is
-> > > +a specialized local helper macro only used within the bitmap.h header, so
-> > > it is
-> > > +less likely to lead to developer confusion and it is deemed better to
-> > > deviate it."
-> > > +-file_tag+={xen_bitmap_h, "^xen/include/xen/bitmap\\.h$"}
-> > > +-config=MC3R1.R20.7,reports+={safe,
-> > > "any_area(any_loc(any_exp(macro(loc(file(xen_bitmap_h))&&^bitmap_switch$))))"}
-> > > +-doc_end
-> > > +
-> > >  -doc_begin="Uses of variadic macros that have one of their arguments
-> > > defined as
-> > >  a macro and used within the body for both ordinary parameter expansion
-> > > and as an
-> > >  operand to the # or ## operators have a behavior that is well-understood
-> > > and
-> > > --
-> > > 2.34.1
-> > > 
+> To add to my reply on the other series: As per above you even acked ...
 > 
-> -- 
-> Nicola Vetrini, BSc
-> Software Engineer, BUGSENG srl (https://bugseng.com)
+> > --- a/docs/misra/deviations.rst
+> > +++ b/docs/misra/deviations.rst
+> > @@ -330,12 +330,34 @@ Deviations related to MISRA C:2012 Rules:
+> >       - Tagged as `deliberate` for ECLAIR.
+> >  
+> >     * - R16.3
+> > -     - Switch clauses ending with continue, goto, return statements are safe.
+> > +     - Statements that change the control flow (i.e., break, continue, goto,
+> > +       return) and calls to functions that do not return the control back are
+> > +       \"allowed terminal statements\".
+> >       - Tagged as `safe` for ECLAIR.
+> >  
+> >     * - R16.3
+> > -     - Switch clauses ending with a call to a function that does not give
+> > -       the control back (i.e., a function with attribute noreturn) are safe.
+> > +     - An if-else statement having both branches ending with one of the allowed
+> > +       terminal statemets is itself an allowed terminal statements.
+> > +     - Tagged as `safe` for ECLAIR.
+> > +
+> > +   * - R16.3
+> > +     - An if-else statement having an always true condition and the true
+> > +       branch ending with an allowed terminal statement is itself an allowed
+> > +       terminal statement.
+> > +     - Tagged as `safe` for ECLAIR.
+> > +
+> > +   * - R16.3
+> > +     - A switch clause ending with a statement expression which, in turn, ends
+> > +       with an allowed terminal statement (e.g., the expansion of
+> > +       generate_exception()) is safe.
+> > +     - Tagged as `safe` for ECLAIR.
+> > +
+> > +   * - R16.3
+> > +     - A switch clause ending with a do-while-false the body of which, in turn,
+> > +       ends with an allowed terminal statement (e.g., PARSE_ERR_RET()) is safe.
+> > +       An exception to that is the macro ASSERT_UNREACHABLE() which is
+> > +       effective in debug build only: a switch clause ending with
+> > +       ASSERT_UNREACHABLE() is not considered safe.
+> >       - Tagged as `safe` for ECLAIR.
 > 
+> ... this explicit statement regarding ASSERT_UNREACHABLE().
+
+You are right... I read the statement about ASSERT_UNREACHABLE() only in
+the context of do-while-false. Let's continue the discussion in the
+other email thread.
 
