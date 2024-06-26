@@ -2,38 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2669791807D
-	for <lists+xen-devel@lfdr.de>; Wed, 26 Jun 2024 14:04:55 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.748787.1156646 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C56079180A2
+	for <lists+xen-devel@lfdr.de>; Wed, 26 Jun 2024 14:09:28 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.748793.1156657 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sMRNT-0002kT-KC; Wed, 26 Jun 2024 12:03:55 +0000
+	id 1sMRSb-0003nu-6m; Wed, 26 Jun 2024 12:09:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 748787.1156646; Wed, 26 Jun 2024 12:03:55 +0000
+Received: by outflank-mailman (output) from mailman id 748793.1156657; Wed, 26 Jun 2024 12:09:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sMRNT-0002i8-HU; Wed, 26 Jun 2024 12:03:55 +0000
-Received: by outflank-mailman (input) for mailman id 748787;
- Wed, 26 Jun 2024 12:03:54 +0000
+	id 1sMRSb-0003lC-3m; Wed, 26 Jun 2024 12:09:13 +0000
+Received: by outflank-mailman (input) for mailman id 748793;
+ Wed, 26 Jun 2024 12:09:12 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=WUJr=N4=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sMRNS-0002i2-ME
- for xen-devel@lists.xenproject.org; Wed, 26 Jun 2024 12:03:54 +0000
-Received: from mail-lj1-x233.google.com (mail-lj1-x233.google.com
- [2a00:1450:4864:20::233])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 26e4528e-33b4-11ef-b4bb-af5377834399;
- Wed, 26 Jun 2024 14:03:51 +0200 (CEST)
-Received: by mail-lj1-x233.google.com with SMTP id
- 38308e7fff4ca-2ec6635aa43so27840571fa.1
- for <xen-devel@lists.xenproject.org>; Wed, 26 Jun 2024 05:03:51 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-1fa36cc1d10sm59153625ad.305.2024.06.26.05.03.43
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 26 Jun 2024 05:03:48 -0700 (PDT)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=YERW=N4=arm.com=robin.murphy@srs-se1.protection.inumbo.net>)
+ id 1sMRSa-0003l6-0m
+ for xen-devel@lists.xenproject.org; Wed, 26 Jun 2024 12:09:12 +0000
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTP
+ id e41ebfab-33b4-11ef-b4bb-af5377834399;
+ Wed, 26 Jun 2024 14:09:09 +0200 (CEST)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 217C7339;
+ Wed, 26 Jun 2024 05:09:33 -0700 (PDT)
+Received: from [10.57.74.5] (unknown [10.57.74.5])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id C88973F73B;
+ Wed, 26 Jun 2024 05:09:06 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,120 +42,163 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 26e4528e-33b4-11ef-b4bb-af5377834399
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1719403431; x=1720008231; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=tZO/76Y9olr8ovq6vNDsmdXHtHSiBbUHFWBc3FZmZwE=;
-        b=NZMP5rE35rQuT6BxYD5YqTGKPG2A1SMO4VFd19vRSBnD5xNFXGxi0lfK4DVbDU8fCB
-         7SSj3hjSNKUiKXoru2FR7f419MN6W+im/71KKojGYL0cZGVx9T8qfq/u5I/8Gci906b6
-         89pUrCo1YZTHmjJN5Bt30QYA39pev/D9UpU8OZo43gyhFB6G2iKDmkDiOTeGlQi0zMma
-         p7g++LlgGx4G9nV66BadmzfLl5pKZjSQkIPz/SSMag3fs1yXY4Z4uRtADw3Y/KfUQfhR
-         17ikA74qNehab05VmdIhu14ceLBRO4+E4aDvzjRL3/myaxSVgP1RPQ72MHkI9JoHi9Ql
-         mywg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1719403431; x=1720008231;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=tZO/76Y9olr8ovq6vNDsmdXHtHSiBbUHFWBc3FZmZwE=;
-        b=lpKe57WIGQ0o0ennuRXA3GZLiW5j7ma2mUr2DU4fZfLZOUW7OWvucQfp4CfFuHj/IN
-         k7pEkSiw1kQEC7GCvdRTsoPAEu4Y6eBA5bJ6uScUmPcUfWfqYDD0zA6FoXSr6l9gzL7g
-         kbDoS8aRuL7ohmtyJ1E9K3oivyvFNeDDzBJxm64q7fUNZpbH1Qe2vql/puEZNfra+Cuu
-         ygVBpr1M4arZZrUSMCbAxBgaAmFgzaJvmYv1U7AMZZPFMVKI1addnXqk1UXUJ0SIChsl
-         etrvQcfVF2c2xybSYFDfz7KLqO015Pt4i9Csh9Bu13J5uUiDaeQmciUhzdKM9ntDQrhe
-         Wrug==
-X-Forwarded-Encrypted: i=1; AJvYcCWzMEKWkuXOFfUHlcWp43STEWSa7Xu05P+UKRv/XoebBUdpvqIzdsrehbkX1Ll87WR9KdqZRxhbM/kksWvl9MVwDHd937pqiIIo3OeCb+U=
-X-Gm-Message-State: AOJu0YwXBYR8623+n5tHq9e9E4FVQli+79nl4AasCgbwS9cN9iF6L6tZ
-	B0O8ysI77s+8s2wri01DGMYVKw4mzft3bOy9866CqI8b78o7zhVQWq4KjPwIjA==
-X-Google-Smtp-Source: AGHT+IGko7qA0T0N3eT81HLLZG6/J2IJOHMPen0/SwFxmLKYCReQrqzjm8nIAStrCodP/Ipe+cKWMw==
-X-Received: by 2002:a2e:874f:0:b0:2ec:55fd:f118 with SMTP id 38308e7fff4ca-2ec57967b67mr65020081fa.1.1719403429701;
-        Wed, 26 Jun 2024 05:03:49 -0700 (PDT)
-Message-ID: <38c35f34-a55c-4647-874e-9d88fa899a58@suse.com>
-Date: Wed, 26 Jun 2024 14:03:39 +0200
+X-Inumbo-ID: e41ebfab-33b4-11ef-b4bb-af5377834399
+Message-ID: <c4dc539b-a71b-4323-aa31-b97b39c633a8@arm.com>
+Date: Wed, 26 Jun 2024 13:09:05 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 4/6] xen/bitops: Introduce for_each_set_bit()
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Oleksii Kurochko <oleksii.kurochko@gmail.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20240625190719.788643-1-andrew.cooper3@citrix.com>
- <20240625190719.788643-5-andrew.cooper3@citrix.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240625190719.788643-5-andrew.cooper3@citrix.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Subject: Re: [RFC PATCH v2] iommu/xen: Add Xen PV-IOMMU driver
+To: Teddy Astie <teddy.astie@vates.tech>, xen-devel@lists.xenproject.org,
+ iommu@lists.linux.dev
+Cc: Juergen Gross <jgross@suse.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>,
+ =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+References: <24d7ec005e77e4e0127995ba6f4ad16f33737fa5.1718981216.git.teddy.astie@vates.tech>
+ <da3ec316-b001-4711-b323-70af3e6bb014@arm.com>
+ <a04e169d-b38a-43dc-b783-a8af1e1b0468@vates.tech>
+From: Robin Murphy <robin.murphy@arm.com>
+Content-Language: en-GB
+In-Reply-To: <a04e169d-b38a-43dc-b783-a8af1e1b0468@vates.tech>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On 25.06.2024 21:07, Andrew Cooper wrote:
-> --- a/xen/include/xen/bitops.h
-> +++ b/xen/include/xen/bitops.h
-> @@ -56,6 +56,16 @@ static always_inline __pure unsigned int ffs64(uint64_t x)
->          return !x || (uint32_t)x ? ffs(x) : ffs(x >> 32) + 32;
->  }
->  
-> +/*
-> + * A type-generic ffs() which picks the appropriate ffs{,l,64}() based on it's
-> + * argument.
-> + */
-> +#define ffs_g(x)                                        \
-> +    sizeof(x) <= sizeof(int) ? ffs(x) :                 \
-> +        sizeof(x) <= sizeof(long) ? ffsl(x) :           \
-> +        sizeof(x) <= sizeof(uint64_t) ? ffs64(x) :      \
-> +        ({ BUILD_ERROR("ffs_g() Bad input type"); 0; })
+On 2024-06-24 3:36 pm, Teddy Astie wrote:
+> Hello Robin,
+> Thanks for the thourough review.
+> 
+>>> diff --git a/drivers/iommu/Kconfig b/drivers/iommu/Kconfig
+>>> index 0af39bbbe3a3..242cefac77c9 100644
+>>> --- a/drivers/iommu/Kconfig
+>>> +++ b/drivers/iommu/Kconfig
+>>> @@ -480,6 +480,15 @@ config VIRTIO_IOMMU
+>>>          Say Y here if you intend to run this kernel as a guest.
+>>> +config XEN_IOMMU
+>>> +    bool "Xen IOMMU driver"
+>>> +    depends on XEN_DOM0
+>>
+>> Clearly this depends on X86 as well.
+>>
+> Well, I don't intend this driver to be X86-only, even though the current
+> Xen RFC doesn't support ARM (yet). Unless there is a counter-indication
+> for it ?
 
-I guess the lack of parentheses around the entire construct might be the
-reason for the problems you're seeing, as that ...
+It's purely practical - even if you drop the asm/iommu.h stuff it would 
+still break ARM DOM0 builds due to HYPERVISOR_iommu_op() only being 
+defined for x86. And it's better to add a dependency here to make it 
+clear what's *currently* supported, than to add dummy code to allow it 
+to build for ARM if that's not actually tested or usable yet.
 
-> @@ -92,6 +102,20 @@ static always_inline __pure unsigned int fls64(uint64_t x)
->      }
->  }
->  
-> +/*
-> + * for_each_set_bit() - Iterate over all set bits in a scalar value.
-> + *
-> + * @iter An iterator name.  Scoped is within the loop only.
-> + * @val  A scalar value to iterate over.
-> + *
-> + * A copy of @val is taken internally.
-> + */
-> +#define for_each_set_bit(iter, val)                     \
-> +    for ( typeof(val) __v = (val); __v; )               \
-> +        for ( unsigned int (iter);                      \
-> +              __v && ((iter) = ffs_g(__v) - 1, true);   \
+>>> +bool xen_iommu_capable(struct device *dev, enum iommu_cap cap)
+>>> +{
+>>> +    switch (cap) {
+>>> +    case IOMMU_CAP_CACHE_COHERENCY:
+>>> +        return true;
+>>
+>> Will the PV-IOMMU only ever be exposed on hardware where that really is
+>> always true?
+>>
+> 
+> On the hypervisor side, the PV-IOMMU interface always implicitely flush
+> the IOMMU hardware on map/unmap operation, so at the end of the
+> hypercall, the cache should be always coherent IMO.
 
-... affects what effect the "- 1" here has.
+As Jason already brought up, this is not about TLBs or anything cached 
+by the IOMMU itself, it's about the memory type(s) it can create 
+mappings with. Returning true here says Xen guarantees it can use a 
+cacheable memory type which will let DMA snoop the CPU caches. 
+Furthermore, not explicitly handling IOMMU_CACHE in the map_pages op 
+then also implies that it will *always* do that, so you couldn't 
+actually get an uncached mapping even if you wanted one.
 
-Jan
+>>> +    while (xen_pg_count) {
+>>> +        size_t to_unmap = min(xen_pg_count, max_nr_pages);
+>>> +
+>>> +        //pr_info("Unmapping %lx-%lx\n", dfn, dfn + to_unmap - 1);
+>>> +
+>>> +        op.unmap_pages.dfn = dfn;
+>>> +        op.unmap_pages.nr_pages = to_unmap;
+>>> +
+>>> +        ret = HYPERVISOR_iommu_op(&op);
+>>> +
+>>> +        if (ret)
+>>> +            pr_warn("Unmap failure (%lx-%lx)\n", dfn, dfn + to_unmap
+>>> - 1);
+>>
+>> But then how
+>>> would it ever happen anyway? Unmap is a domain op, so a domain which
+>>> doesn't allow unmapping shouldn't offer it in the first place...
+> 
+> Unmap failing should be exceptionnal, but is possible e.g with
+> transparent superpages (like Xen IOMMU drivers do). Xen drivers folds
+> appropriate contiguous mappings into superpages entries to optimize
+> memory usage and iotlb. However, if you unmap in the middle of a region
+> covered by a superpage entry, this is no longer a valid superpage entry,
+> and you need to allocate and fill the lower levels, which is faillible
+> if lacking memory.
+
+OK, so in the worst case you could potentially have a partial unmap 
+failure if the range crosses a superpage boundary and the end part 
+happens to have been folded, and Xen doesn't detect and prepare that 
+allocation until it's already unmapped up to the boundary. If that is 
+so, does the hypercall interface give any information about partial 
+failure, or can any error only be taken to mean that some or all of the 
+given range may or may not have be unmapped now?
+>> In this case I'd argue that you really *do* want to return short, in the
+>> hope of propagating the error back up and letting the caller know the
+>> address space is now messed up before things start blowing up even more
+>> if they keep going and subsequently try to map new pages into
+>> not-actually-unmapped VAs.
+> 
+> While mapping on top of another mapping is ok for us (it's just going to
+> override the previous mapping), I definetely agree that having the
+> address space messed up is not good.
+
+Oh, indeed, quietly replacing existing PTEs might help paper over errors 
+in this particular instance, but it does then allow *other* cases to go 
+wrong in fun and infuriating ways :)
+
+>>> +static struct iommu_domain default_domain = {
+>>> +    .ops = &(const struct iommu_domain_ops){
+>>> +        .attach_dev = default_domain_attach_dev
+>>> +    }
+>>> +};
+>>
+>> Looks like you could make it a static xen_iommu_domain and just use the
+>> normal attach callback? Either way please name it something less
+>> confusing like xen_iommu_identity_domain - "default" is far too
+>> overloaded round here already...
+>>
+> 
+> Yes, although, if in the future, we can have either this domain as
+> identity or blocking/paging depending on some upper level configuration.
+> Should we have both identity and blocking domains, and only setting the
+> relevant one in iommu_ops, or keep this naming.
+
+That's something that can be considered if and when it does happen. For 
+now, if it's going to be pre-mapped as an identity domain, then let's 
+just treat it as such and keep things straightforward.
+
+>>> +void __exit xen_iommu_fini(void)
+>>> +{
+>>> +    pr_info("Unregistering Xen IOMMU driver\n");
+>>> +
+>>> +    iommu_device_unregister(&xen_iommu_device);
+>>> +    iommu_device_sysfs_remove(&xen_iommu_device);
+>>> +}
+>>
+>> This is dead code since the Kconfig is only "bool". Either allow it to
+>> be an actual module (and make sure that works), or drop the pretence
+>> altogether.
+>>
+> 
+> Ok, I though this function was actually a requirement even if it is not
+> a module.
+
+No, quite the opposite - even code which is modular doesn't have to 
+support removal if it doesn't want to.
+
+Thanks,
+Robin.
 
