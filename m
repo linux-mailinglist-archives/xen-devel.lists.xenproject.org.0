@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 35831917D14
-	for <lists+xen-devel@lfdr.de>; Wed, 26 Jun 2024 11:57:54 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.748684.1156480 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B8976917D2E
+	for <lists+xen-devel@lfdr.de>; Wed, 26 Jun 2024 12:04:24 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.748689.1156489 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sMPP8-0000TR-QU; Wed, 26 Jun 2024 09:57:30 +0000
+	id 1sMPVR-0002fx-DK; Wed, 26 Jun 2024 10:04:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 748684.1156480; Wed, 26 Jun 2024 09:57:30 +0000
+Received: by outflank-mailman (output) from mailman id 748689.1156489; Wed, 26 Jun 2024 10:04:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sMPP8-0000QH-Lf; Wed, 26 Jun 2024 09:57:30 +0000
-Received: by outflank-mailman (input) for mailman id 748684;
- Wed, 26 Jun 2024 09:57:29 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1sMPVR-0002eT-9k; Wed, 26 Jun 2024 10:04:01 +0000
+Received: by outflank-mailman (input) for mailman id 748689;
+ Wed, 26 Jun 2024 10:03:59 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=WUJr=N4=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sMPP7-0000QB-13
- for xen-devel@lists.xenproject.org; Wed, 26 Jun 2024 09:57:29 +0000
-Received: from mail-lj1-x232.google.com (mail-lj1-x232.google.com
- [2a00:1450:4864:20::232])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 7ec9c3e7-33a2-11ef-90a3-e314d9c70b13;
- Wed, 26 Jun 2024 11:57:27 +0200 (CEST)
-Received: by mail-lj1-x232.google.com with SMTP id
- 38308e7fff4ca-2ec3f875e68so72171851fa.0
- for <xen-devel@lists.xenproject.org>; Wed, 26 Jun 2024 02:57:27 -0700 (PDT)
+ id 1sMPVP-0002eN-Cs
+ for xen-devel@lists.xenproject.org; Wed, 26 Jun 2024 10:03:59 +0000
+Received: from mail-lj1-x231.google.com (mail-lj1-x231.google.com
+ [2a00:1450:4864:20::231])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 66c76302-33a3-11ef-b4bb-af5377834399;
+ Wed, 26 Jun 2024 12:03:57 +0200 (CEST)
+Received: by mail-lj1-x231.google.com with SMTP id
+ 38308e7fff4ca-2eaae2a6dc1so101917571fa.0
+ for <xen-devel@lists.xenproject.org>; Wed, 26 Jun 2024 03:03:56 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-2c8d8091dc9sm1230678a91.53.2024.06.26.02.57.22
+ d9443c01a7336-1f9eb3d5a87sm95929905ad.203.2024.06.26.03.03.51
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 26 Jun 2024 02:57:26 -0700 (PDT)
+ Wed, 26 Jun 2024 03:03:55 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,52 +45,54 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7ec9c3e7-33a2-11ef-90a3-e314d9c70b13
+X-Inumbo-ID: 66c76302-33a3-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1719395847; x=1720000647; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1719396236; x=1720001036; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=N3vczh/MDS73IKdcjDeqjM+rc5bYV5Lpeh4SgTSwqY4=;
-        b=b9Gwvsuw+2uiBdHPfYSi3e9Gu4HVqY8thfCQilK4uZ+JV2dY1h9+DtfFq6O4awsyNh
-         nQG4pazhi5ZSjINcJLRNMJwL+rWqZ/of2UnXoMAPkklVVtNnYxFCv+9Cw6lIpU68yT/Q
-         a9N/Dqkc++oT5u77G8I0xcskH/ZJCcSgsZVbH3KuYg5m/GyrCfYU4wzNWXYPvP9O9NPv
-         sO8UQ4VVCo9HRln9PvafaWRfAs/dv327KaND6J12ZvhASvdrMJdMURtuutWQeTEAYMjH
-         rkZZ9lNIaGNLgVMkcagRrVjSklKa1MpgQmyRYOkLn3iBaM8TX7CNYIhHzkcz+znB2rAj
-         MFew==
+        bh=ETfSu0w1XQtkfIerrXgTr9QH2vryxpdAr+oK48A+6mg=;
+        b=ZWwdP4P/BFh10XfwiPQA1Spy5UVM1u7ju/JpPwcrGXt3jIPkdV24la0Wq8+8b/xgLr
+         xkNVTI7PGwk2vu5jBoZfqx85XaT6UB/JelNGEsXjkBMVb+I/VMVfZLVB6525Nt7b49PU
+         WyCOkyKDOzWscMEo/rvgLqHWieo3JfYrScYuzHErYOMEu9CgnDjjguQzOOKBLWDBXsj7
+         XP2oFoTfWgic6tv4/Wdfre3NPTVgXEJyhZUs1MJymOCrSSoJs4ehmzo8XRFhmHZuf9KC
+         x/5tTHkolJJJEHYfX7XvnH+1iyBOxUNnjw0sE+XK2L6aM4TEUw8q0nqLFXToEoHlC7h7
+         du5Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1719395847; x=1720000647;
+        d=1e100.net; s=20230601; t=1719396236; x=1720001036;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=N3vczh/MDS73IKdcjDeqjM+rc5bYV5Lpeh4SgTSwqY4=;
-        b=YTy5LWOGw3ssSA7qcqcKwT2eHPoPwqsDz5/3eKESprhSS5jMW4yWusJkxmlPp9oqdE
-         cqVqvmDB+gk/fYa4xLDsyx9sedtpML6j/Hz4fXuvk4s6oFc5vPRKJsI1NUC1j34UzDuq
-         HuMUcnO2NpPOEB6DG7QCo1N4fdLuCVbMV0rUANq7KT4cNZ3HC+mE0iL0JEbNipv0pYII
-         aPFNgy+phDF2zgn+5t6XSXOBh82tfgg4WSx9Tkm9oEZ3f/oexO3san4/7ln6gR+EE2La
-         /yzF0XM6wIMknmQDqHfTsAQif/QsVs/L7ScTYqJv5zeb+qtUinkR/xuKaqhoAJ/2vZgU
-         k6uA==
-X-Forwarded-Encrypted: i=1; AJvYcCWwSsC8o+9qrrrlk5+VdW7oUmdVyXE785NQld3fOT4OGD81BnSXLjFUT1Lof7tzztJdw+EfXxGbmi2y7ew/NGohM2wR3Ptqxj0jg63mw78=
-X-Gm-Message-State: AOJu0YyTfDcJZPeqAmoM60RQaNtYbIxDf7t+2ylskF4IImiFWoRd/keM
-	JaFUZKTd3jSHGB835I7CCGpK2l6VGQlhy3lCJr5TOjJyopihP3TYYtDI4LQuWA==
-X-Google-Smtp-Source: AGHT+IHhE5FZhWIfWXbrfML61WT5V1pjJGJP7MeitxmwtWhovQIKnHpDGObDPyhqq857DaHTu90vQg==
-X-Received: by 2002:a2e:a17a:0:b0:2ec:42db:96a2 with SMTP id 38308e7fff4ca-2ec5b38b432mr57959711fa.29.1719395847206;
-        Wed, 26 Jun 2024 02:57:27 -0700 (PDT)
-Message-ID: <3899bc21-c6d5-4643-9c6d-4a01af37cfd6@suse.com>
-Date: Wed, 26 Jun 2024 11:57:17 +0200
+        bh=ETfSu0w1XQtkfIerrXgTr9QH2vryxpdAr+oK48A+6mg=;
+        b=VZGbdH4VxsTFcHKTt2fFWaMN5PXa1HxBt7wj6aXDZ8A+ST8JK7JDh9IZZ0LQ4QyL/+
+         rwXgSjVoRcavUdmuWWRt5N4I64AgQ+JmTCVGI7QQhIUXbrcLCR30NDO2ltiepznk1w2O
+         OI3IBIeprvk0wzMab+7byLtJVPWf2BlXjxNMEdz76Os2XMDe93MVrMRF26p+khnw8BMx
+         poRUPnMSB+UmJ1nR8bSvqe7s0Qve3CRvZSuz3Qtv2Bor8L+Rw9llBI7sjr3Gx79bxLGb
+         zWHz0uJ33qfSm/WiJSaYripYSWvBRAPWNl3iKH542cQZFQYFE1Mi2QnOxWPaRrXNjJI4
+         MuDg==
+X-Forwarded-Encrypted: i=1; AJvYcCUKdcWtbMIMukBeiqZhONtNo/esd2u1SkZcB32ioNIwOjpKy5b1yWYXnZlq+OJqYwUJ1phuClfMif87SOAU/C/X3kawoMzv3365sG9Mjm4=
+X-Gm-Message-State: AOJu0YzTP2HnXY+NXcAKfqThOfXrHJ9f0X1u38Q55IBYWIypGQcb3s/G
+	PkoyebMWwv7d8YBymBOsEBASs1po3XTkUDHrgMQ9Jqs2WTDQEkPMZOleghzjBA==
+X-Google-Smtp-Source: AGHT+IHzdSQr7S4nzuXGVCRjbs0S+UBeSr9hgbsKBmDePsbXshzjrVXjOPwnJy32Cv2lPwKor9P8TA==
+X-Received: by 2002:a05:651c:22f:b0:2ec:1708:4db5 with SMTP id 38308e7fff4ca-2ec5b339debmr61572191fa.51.1719396236206;
+        Wed, 26 Jun 2024 03:03:56 -0700 (PDT)
+Message-ID: <b04bd8d8-f218-4c95-8014-3fbf9d3a0c91@suse.com>
+Date: Wed, 26 Jun 2024 12:03:46 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH v3 00/12] x86: address some violations of MISRA C Rule
- 16.3
-To: Federico Serafini <federico.serafini@bugseng.com>
-Cc: consulting@bugseng.com, Simone Ballarin <simone.ballarin@bugseng.com>,
- Doug Goldstein <cardoe@cardoe.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org
-References: <cover.1719383180.git.federico.serafini@bugseng.com>
+Subject: Re: [PATCH 2/6] xen/bitops: Rename for_each_set_bit() to
+ bitmap_for_each()
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20240625190719.788643-1-andrew.cooper3@citrix.com>
+ <20240625190719.788643-3-andrew.cooper3@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -116,39 +118,57 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <cover.1719383180.git.federico.serafini@bugseng.com>
+In-Reply-To: <20240625190719.788643-3-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 26.06.2024 11:27, Federico Serafini wrote:
-> This patch series fixes a missing escape in a deviation and addresses some
-> violations.
+On 25.06.2024 21:07, Andrew Cooper wrote:
+> The current implementation wants to take an in-memory bitmap.  However, all
+> ARM callers and all-but-1 x86 callers spill a scalar to the stack in order to
+> use the "generic arbitrary bitmap" helpers under the hood.
 > 
-> Federico Serafini (12):
->   automation/eclair: fix deviation of MISRA C Rule 16.3
->   x86/cpuid: use fallthrough pseudo keyword
->   x86/domctl: address a violation of MISRA C Rule 16.3
->   x86/vpmu: address violations of MISRA C Rule 16.3
->   x86/traps: address violations of MISRA C Rule 16.3
->   x86/mce: address violations of MISRA C Rule 16.3
->   x86/hvm: address violations of MISRA C Rule 16.3
+> This functions, but it's far from ideal.
+> 
+> Rename the construct and move it into bitmap.h, because having an iterator for
+> an arbitrary bitmap is a useful thing.
+> 
+> This will allow us to re-implement for_each_set_bit() to be more appropriate
+> for scalar values.
+> 
+> No functional change.
+> 
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-Just a remark, no strict request to make further re-arrangements: Looks like
-what was patch 11 in v2 was now folded into this patch. Yet then why were
-other HVM parts left separate:
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
+with one cosmetic request: While doing the rename, would you mind sorting
+style? Not necessarily uniformly across the entire patch, but at individual
+sites presently using "impossible" formatting. IOW ...
 
->   x86/vpt: address a violation of MISRA C Rule 16.3
+> --- a/xen/arch/arm/gic-vgic.c
+> +++ b/xen/arch/arm/gic-vgic.c
+> @@ -111,7 +111,7 @@ static unsigned int gic_find_unused_lr(struct vcpu *v,
+>      {
+>          unsigned int used_lr;
+>  
+> -        for_each_set_bit(used_lr, lr_mask, nr_lrs)
+> +        bitmap_for_each(used_lr, lr_mask, nr_lrs)
 
-This and ...
+... while this one's fine (treating bitmap_for_each as ordinary identifier)
+and while xstate.c is also fine (treating it as pseudo-keyword), ...
 
->   x86/mm: add defensive return
->   x86/mpparse: address a violation of MISRA C Rule 16.3
->   x86/vPIC: address a violation of MISRA C Rule 16.3
->   x86/vlapic: address a violation of MISRA C Rule 16.3
+> --- a/xen/arch/arm/vgic.c
+> +++ b/xen/arch/arm/vgic.c
+> @@ -429,7 +429,7 @@ void vgic_set_irqs_pending(struct vcpu *v, uint32_t r, unsigned int rank)
+>      /* LPIs will never be set pending via this function */
+>      ASSERT(!is_lpi(32 * rank + 31));
+>  
+> -    for_each_set_bit( i, &mask, 32 )
+> +    bitmap_for_each( i, &mask, 32 )
+>      {
 
-... these two. In general I'd expect splitting / keeping together to be
-done consistently within a series, unless of course there's something that
-wants keeping separate for other than purely mechanical reasons.
+... this isn't possible formatting according to our style: Either there are
+no blanks immediately inside the parentheses, or there also is one ahead of
+the opening one.
 
-Jan
+Thanks, Jan
 
