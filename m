@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A74E9917A8D
-	for <lists+xen-devel@lfdr.de>; Wed, 26 Jun 2024 10:11:39 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.748470.1156188 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DA02F917ACA
+	for <lists+xen-devel@lfdr.de>; Wed, 26 Jun 2024 10:21:50 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.748479.1156198 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sMNkM-0008QD-Tb; Wed, 26 Jun 2024 08:11:18 +0000
+	id 1sMNtg-0002Ks-Pd; Wed, 26 Jun 2024 08:20:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 748470.1156188; Wed, 26 Jun 2024 08:11:18 +0000
+Received: by outflank-mailman (output) from mailman id 748479.1156198; Wed, 26 Jun 2024 08:20:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sMNkM-0008O1-Qr; Wed, 26 Jun 2024 08:11:18 +0000
-Received: by outflank-mailman (input) for mailman id 748470;
- Wed, 26 Jun 2024 08:11:17 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1sMNtg-0002I3-MR; Wed, 26 Jun 2024 08:20:56 +0000
+Received: by outflank-mailman (input) for mailman id 748479;
+ Wed, 26 Jun 2024 08:20:55 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=WUJr=N4=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sMNkL-0008Nq-8x
- for xen-devel@lists.xenproject.org; Wed, 26 Jun 2024 08:11:17 +0000
-Received: from mail-lj1-x22c.google.com (mail-lj1-x22c.google.com
- [2a00:1450:4864:20::22c])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a868df1c-3393-11ef-b4bb-af5377834399;
- Wed, 26 Jun 2024 10:11:15 +0200 (CEST)
-Received: by mail-lj1-x22c.google.com with SMTP id
- 38308e7fff4ca-2ec61eeed8eso34575001fa.0
- for <xen-devel@lists.xenproject.org>; Wed, 26 Jun 2024 01:11:15 -0700 (PDT)
+ id 1sMNtf-0002Hx-Ie
+ for xen-devel@lists.xenproject.org; Wed, 26 Jun 2024 08:20:55 +0000
+Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
+ [2a00:1450:4864:20::432])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 019ecb94-3395-11ef-90a3-e314d9c70b13;
+ Wed, 26 Jun 2024 10:20:54 +0200 (CEST)
+Received: by mail-wr1-x432.google.com with SMTP id
+ ffacd0b85a97d-35f2c9e23d3so176527f8f.0
+ for <xen-devel@lists.xenproject.org>; Wed, 26 Jun 2024 01:20:54 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-1fa1bbef429sm68348135ad.251.2024.06.26.01.11.10
+ d9443c01a7336-1f9eb2f0300sm94274645ad.19.2024.06.26.01.20.48
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 26 Jun 2024 01:11:14 -0700 (PDT)
+ Wed, 26 Jun 2024 01:20:53 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,53 +45,53 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a868df1c-3393-11ef-b4bb-af5377834399
+X-Inumbo-ID: 019ecb94-3395-11ef-90a3-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1719389474; x=1719994274; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1719390054; x=1719994854; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=11AcoKAhBh6rVhIm012Zwt71yoIGRLv2lXfIw9ttWaY=;
-        b=O9FboZgKG3OR5BWALNeckwfPFopttjhzUXVtp14savwNtTaxXJ0IXpS2Dfl6c/XLg/
-         3aDjSE0Qdp7uRI2WWFfVXTNI4CDLLgFwOG+d0ZZMP0PnA0I05KJJxRsUohUezEikj3zJ
-         0Y41WwYsfDYRSEzunjXIvEgQvqUPXDgdXS6+3FNPVBcEiPohYrIsvNK+/0pzjt37n9O3
-         bwunZSpxLN1IbUM8a7kPQOPeww39QK2yaLUfn51+c/HVs+VKU+uVh+b+MyHFknLI1c08
-         /VDsG+GVIhH/Y3f7KAIpxeAGcyMBcvPItJ6WLaC3/Nr+kZRB0TxzQeSeyg2YGvRd30uj
-         odIw==
+        bh=EoPPE5nCB6AeZblT4Jgz7cpKnwiTrDzJleH+NBPtUac=;
+        b=M96rt1pefFUBhqLWG+ju+PlimxC3FzQR58hwJa79o0eFvOpuACWN3YiZvyApKPXs6K
+         s4lV/Few9rWKGsuUcC5PM+OgMo5/iirXip9wIBsMz/4s9QGdjbfetFV2rIWSs6LZPWVI
+         PjT8L3g8BCLTDYZkMX8ZfAlEWnjIFx2UdrJKlzqh5bEtflB7ehjSEMrvxXqtfSzGkcWw
+         Z1nM+aYQ4c0dgQPUPE2N4+xBDSjO6bA85qE09bQT3OgHeQYDoaZMiTN1YAAhl0C7q96n
+         gCPimPl/QMEBsqGztG9EIpnIwacZGGogZUwKSpQAy+DHyfuFDzj+f/2SOWie3ppBNXTB
+         jx2g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1719389474; x=1719994274;
+        d=1e100.net; s=20230601; t=1719390054; x=1719994854;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=11AcoKAhBh6rVhIm012Zwt71yoIGRLv2lXfIw9ttWaY=;
-        b=fZ60pIROeeNZfBF1aP7cQQJeaIgaTa6+VPqnMDvk+t9yaWHkKAm+Jyfe4B2VkJJsZg
-         W9kauoQobz6s10yCK9np48RW2HGGV0JzIgoRic6hqhy3riJFd6/kfCAvj3BMfFVxdrP+
-         dxywgQnWRunA6sFKRYnjwiHhUg0LLTc0sPkHjEso8OUeGKVL9AXz7rMzB+IwOHRs0fLR
-         TVdZ/oXdhoMQocLem6GpyMV05yZXigOd4Twd18qkiUVXRRKrSv+M66zC8N/3Z3/AiAyD
-         EMgpkIPjKCrASj4nhMEKR2cdPcLq2a2J+AomgnkzlNKbGuLLI1h+HFrrQPa2ru/JaQJn
-         xX4g==
-X-Gm-Message-State: AOJu0Yy5AwiNjBOr828sxdBwwDkDPFzH1wozr+BKeMRx7OSEf+UmC3p2
-	cc0W65Z7bWkZyPdoPTW5QC2X+/DJBMWHGWtaRDr0FDj18iI8qiLAiw+tCWUJQQ==
-X-Google-Smtp-Source: AGHT+IEez0vYVmI/xC05r7gA9e3go7fFxePj8UgymbiGn0uP/3AFGfttd7wOQ3KarOmGAPP4ChKixQ==
-X-Received: by 2002:a2e:9054:0:b0:2ed:59af:ecb7 with SMTP id 38308e7fff4ca-2ed59afeef3mr7269881fa.15.1719389474514;
-        Wed, 26 Jun 2024 01:11:14 -0700 (PDT)
-Message-ID: <6441010f-c2f6-4098-bf23-837955dcf803@suse.com>
-Date: Wed, 26 Jun 2024 10:11:04 +0200
+        bh=EoPPE5nCB6AeZblT4Jgz7cpKnwiTrDzJleH+NBPtUac=;
+        b=jQsph3rC7PVK9uL/FLMKR3fo61Ch+L8dm1K+bUIyjY1p+7IvufFoBVlpUARdIyAnmF
+         7rQhETPVwjhSNJrU826uWM8Mxak2VfstueC1khHzqe9TwP+oNGcohps7N8+dnSQHJXUK
+         nt9+N3W4PURjcUFnQWl6tP7uDD+BWCfDfdl0UXcaA8jcIUnTNSHGVcXgbZ/hzNFKFI5v
+         BaLjsZ0junXcOpNtIY786sr4MklK2o6RbBE9VAQNMvTydXYsJkLdJrw/ddJ3lzyDZL8i
+         V1yMWC84sETMxLYUNMOBUN2ipwpBgvH9FM8aBEZFUASM3OUepGGpbYIx04IE9xV8UJ6Z
+         p5hA==
+X-Forwarded-Encrypted: i=1; AJvYcCW/uK8bjrY6kQgphev7/ZkVn1Y9VU0pK9q4AgBN3xVFsVWfkra9TwM6Bypb7rDyt1Dgs0S80NRtt58cmIC3G8wwDttYOyh4ef+HAOdWHlc=
+X-Gm-Message-State: AOJu0YzPwwLFtWYIuJMI94xWnhKps73HYziqabhHZj5C63txvh8TU5pT
+	ZhZ7IowWocdeesNa4r0WoF9XG5hup+Y2og31IR7phEVI0vMWOkoJkTTNiyXPyQ==
+X-Google-Smtp-Source: AGHT+IFjCen5At9qmYkefzL45PlLM1Wq/op1nRurE4h+uPEE0X+tPA1A/GgslGeXptFuXfpMP4geqA==
+X-Received: by 2002:a5d:690e:0:b0:365:aec0:e191 with SMTP id ffacd0b85a97d-366e32956e7mr8572740f8f.21.1719390053770;
+        Wed, 26 Jun 2024 01:20:53 -0700 (PDT)
+Message-ID: <25371d03-1c33-41dd-9cdb-12d74fe38d42@suse.com>
+Date: Wed, 26 Jun 2024 10:20:44 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH v2 05/13] x86/traps: address violations of MISRA C
- Rule 16.3
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: xen-devel@lists.xenproject.org, consulting@bugseng.com,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Federico Serafini <federico.serafini@bugseng.com>
-References: <cover.1719218291.git.federico.serafini@bugseng.com>
- <4f44a7b021eb4f78ccf1ce69b500b48b75df81c5.1719218291.git.federico.serafini@bugseng.com>
- <alpine.DEB.2.22.394.2406241753260.3870429@ubuntu-linux-20-04-desktop>
- <a5b47b7e-9dc0-4108-bd6f-eb34f7cb8c3c@suse.com>
- <alpine.DEB.2.22.394.2406251808040.3635@ubuntu-linux-20-04-desktop>
+Subject: Re: [XEN PATCH v3 05/16] xen/x86: address violations of MISRA C:2012
+ Directive 4.10
+To: Nicola Vetrini <nicola.vetrini@bugseng.com>
+Cc: Simone Ballarin <simone.ballarin@bugseng.com>, consulting@bugseng.com,
+ sstabellini@kernel.org, Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu
+ <wl@xen.org>, xen-devel@lists.xenproject.org
+References: <cover.1710145041.git.simone.ballarin@bugseng.com>
+ <dd042e7d17e7833e12a5ff6f28dd560b5ff02cf7.1710145041.git.simone.ballarin@bugseng.com>
+ <dce6c44d-94b7-43bd-858a-9337336a79cf@suse.com>
+ <ef623bad297d016438b35bedc80f091d@bugseng.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -117,69 +117,147 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <alpine.DEB.2.22.394.2406251808040.3635@ubuntu-linux-20-04-desktop>
+In-Reply-To: <ef623bad297d016438b35bedc80f091d@bugseng.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 26.06.2024 03:11, Stefano Stabellini wrote:
-> On Tue, 25 Jun 2024, Jan Beulich wrote:
->> On 25.06.2024 02:54, Stefano Stabellini wrote:
->>> On Mon, 24 Jun 2024, Federico Serafini wrote:
->>>> Add break or pseudo keyword fallthrough to address violations of
->>>> MISRA C Rule 16.3: "An unconditional `break' statement shall terminate
->>>> every switch-clause".
->>>>
->>>> No functional change.
->>>>
->>>> Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
->>>> ---
->>>>  xen/arch/x86/traps.c | 3 +++
->>>>  1 file changed, 3 insertions(+)
->>>>
->>>> diff --git a/xen/arch/x86/traps.c b/xen/arch/x86/traps.c
->>>> index 9906e874d5..cbcec3fafb 100644
->>>> --- a/xen/arch/x86/traps.c
->>>> +++ b/xen/arch/x86/traps.c
->>>> @@ -1186,6 +1186,7 @@ void cpuid_hypervisor_leaves(const struct vcpu *v, uint32_t leaf,
->>>>  
->>>>      default:
->>>>          ASSERT_UNREACHABLE();
->>>> +        break;
+On 25.06.2024 21:31, Nicola Vetrini wrote:
+> On 2024-03-12 09:16, Jan Beulich wrote:
+>> On 11.03.2024 09:59, Simone Ballarin wrote:
+>>> --- a/xen/arch/x86/Makefile
+>>> +++ b/xen/arch/x86/Makefile
+>>> @@ -258,18 +258,20 @@ $(obj)/asm-macros.i: CFLAGS-y += -P
+>>>  $(objtree)/arch/x86/include/asm/asm-macros.h: $(obj)/asm-macros.i 
+>>> $(src)/Makefile
+>>>  	$(call filechk,asm-macros.h)
 >>>
->>> Please add ASSERT_UNREACHABLE to the list of "unconditional flow control
->>> statements" that can terminate a case, in addition to break.
+>>> +ARCHDIR = $(shell echo $(SRCARCH) | tr a-z A-Z)
 >>
->> Why? Exactly the opposite is part of the subject of a recent patch, iirc.
->> Simply because of the rules needing to cover both debug and release builds.
+>> This wants to use :=, I think - there's no reason to invoke the shell 
+>> ...
 > 
-> The reason is that ASSERT_UNREACHABLE() might disappear from the release
-> build but it can still be used as a marker during static analysis. In
-> my view, ASSERT_UNREACHABLE() is equivalent to a noreturn function call
-> which has an empty implementation in release builds.
+> I agree on this
 > 
-> The only reason I can think of to require a break; after an
-> ASSERT_UNREACHABLE() would be if we think the unreachability only apply
-> to debug build, not release build:
+>>
+>>>  define filechk_asm-macros.h
+>>> +    echo '#ifndef ASM_$(ARCHDIR)_ASM_MACROS_H'; \
+>>> +    echo '#define ASM_$(ARCHDIR)_ASM_MACROS_H'; \
+>>>      echo '#if 0'; \
+>>>      echo '.if 0'; \
+>>>      echo '#endif'; \
+>>> -    echo '#ifndef __ASM_MACROS_H__'; \
+>>> -    echo '#define __ASM_MACROS_H__'; \
+>>>      echo 'asm ( ".include \"$@\"" );'; \
+>>> -    echo '#endif /* __ASM_MACROS_H__ */'; \
+>>>      echo '#if 0'; \
+>>>      echo '.endif'; \
+>>>      cat $<; \
+>>> -    echo '#endif'
+>>> +    echo '#endif'; \
+>>> +    echo '#endif /* ASM_$(ARCHDIR)_ASM_MACROS_H */'
+>>>  endef
+>>
+>> ... three times while expanding this macro. Alternatively (to avoid
+>> an unnecessary shell invocation when this macro is never expanded at
+>> all) a shell variable inside the "define" above would want introducing.
+>> Whether this 2nd approach is better depends on whether we anticipate
+>> further uses of ARCHDIR.
 > 
-> - debug build: it is unreachable
-> - release build: it is reachable
+> However here I'm not entirely sure about the meaning of this latter 
+> proposal.
+> My proposal is the following:
 > 
-> I don't think that is meant to be possible so I think we can use
-> ASSERT_UNREACHABLE() as a marker.
+> ARCHDIR := $(shell echo $(SRCARCH) | tr a-z A-Z)
+> 
+> in a suitably generic place (such as Kbuild.include or maybe 
+> xen/Makefile) as you suggested in subsequent patches that reused this 
+> pattern.
+> 
+>>
+>>> --- a/xen/arch/x86/cpu/cpu.h
+>>> +++ b/xen/arch/x86/cpu/cpu.h
+>>> @@ -1,3 +1,6 @@
+>>> +#ifndef XEN_ARCH_X86_CPU_CPU_H
+>>> +#define XEN_ARCH_X86_CPU_CPU_H
+>>> +
+>>>  /* attempt to consolidate cpu attributes */
+>>>  struct cpu_dev {
+>>>  	void		(*c_early_init)(struct cpuinfo_x86 *c);
+>>> @@ -24,3 +27,5 @@ void amd_init_lfence(struct cpuinfo_x86 *c);
+>>>  void amd_init_ssbd(const struct cpuinfo_x86 *c);
+>>>  void amd_init_spectral_chicken(void);
+>>>  void detect_zen2_null_seg_behaviour(void);
+>>> +
+>>> +#endif /* XEN_ARCH_X86_CPU_CPU_H */
+>>
+>> Leaving aside the earlier voiced request to get rid of the XEN_ 
+>> prefixes
+>> here, ...
+>>
+>>> --- a/xen/arch/x86/x86_64/mmconfig.h
+>>> +++ b/xen/arch/x86/x86_64/mmconfig.h
+>>> @@ -5,6 +5,9 @@
+>>>   * Author: Allen Kay <allen.m.kay@intel.com> - adapted from linux
+>>>   */
+>>>
+>>> +#ifndef XEN_ARCH_X86_X86_64_MMCONFIG_H
+>>> +#define XEN_ARCH_X86_X86_64_MMCONFIG_H
+>>> +
+>>>  #define PCI_DEVICE_ID_INTEL_E7520_MCH    0x3590
+>>>  #define PCI_DEVICE_ID_INTEL_82945G_HB    0x2770
+>>>
+>>> @@ -72,3 +75,5 @@ int pci_mmcfg_reserved(uint64_t address, unsigned 
+>>> int segment,
+>>>  int pci_mmcfg_arch_init(void);
+>>>  int pci_mmcfg_arch_enable(unsigned int idx);
+>>>  void pci_mmcfg_arch_disable(unsigned int idx);
+>>> +
+>>> +#endif /* XEN_ARCH_X86_X86_64_MMCONFIG_H */
+>>
+>> ... in a case like this and maybe even ...
+>>
+>>> --- a/xen/arch/x86/x86_emulate/private.h
+>>> +++ b/xen/arch/x86/x86_emulate/private.h
+>>> @@ -6,6 +6,9 @@
+>>>   * Copyright (c) 2005-2007 XenSource Inc.
+>>>   */
+>>>
+>>> +#ifndef XEN_ARCH_X86_X86_EMULATE_PRIVATE_H
+>>> +#define XEN_ARCH_X86_X86_EMULATE_PRIVATE_H
+>>> +
+>>>  #ifdef __XEN__
+>>>
+>>>  # include <xen/bug.h>
+>>> @@ -836,3 +839,5 @@ static inline int read_ulong(enum x86_segment seg,
+>>>      *val = 0;
+>>>      return ops->read(seg, offset, val, bytes, ctxt);
+>>>  }
+>>> +
+>>> +#endif /* XEN_ARCH_X86_X86_EMULATE_PRIVATE_H */
+>>
+>> ... this I wonder whether they are too strictly sticking to the base
+>> scheme (or whether the base scheme itself isn't flexible enough): I'm
+>> not overly happy with the "_X86_X86_" in there. Especially in the
+>> former case, where it's the sub-arch path, like for arm/arm<NN> I'd
+>> like to see that folded to just "_X86_64_" here as well.
+>>
+> 
+> I do agree we should make an exception here: e.g. 
+> XEN_X86_64_EMULATE_PRIVATE_H
+> 
+> I'm ambivalent about the XEN_ prefix: I can't immediately see an issue 
+> with dropping it, but on the other hand there are several headers that 
+> already use it (either it or the __XEN prefix) as far as I can tell 
+> (e.g. x86/cpu/cpu.h), so dropping it from the naming convention would 
+> imply that a fair amount of additional churn may be needed to have an 
+> uniform naming scheme in all the xen/ directory. I'll leave the decision 
+> to the maintainers.
 
-Well. For one such an assumption takes as a prereq that a debug build will
-be run through full coverage testing, i.e. all reachable paths proven to
-be taken. I understand that this prereq is intended to somehow be met,
-even if I'm having difficulty seeing how such a final proof would look
-like: Full coverage would, to me, mean that _every_ line is reachable. Yet
-clearly any ASSERT_UNREACHABLE() must never be reached.
-
-And then not covering for such cases takes the further assumption that
-debug and release builds are functionally identical. I'm afraid this would
-be a wrong assumption to make:
-1) We may screw up somewhere, with code wrongly enabled only in one of the
-   two build modes.
-2) The compiler may screw up, in particular with optimization.
+Hmm, I'm puzzled: The example you point at presently has no guard at all,
+afaics. There'll need to be churn there anyway. If you picked an example,
+I would have expected that to be one where the guard already fully
+matches the proposed scheme. To be honest I'd be surprised if we had many
+files fulfilling this criteria.
 
 Jan
 
