@@ -2,38 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7F2349183B5
-	for <lists+xen-devel@lfdr.de>; Wed, 26 Jun 2024 16:13:31 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.749104.1157128 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 823E79183E8
+	for <lists+xen-devel@lfdr.de>; Wed, 26 Jun 2024 16:24:35 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.749116.1157138 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sMTO0-0005XT-Fn; Wed, 26 Jun 2024 14:12:36 +0000
+	id 1sMTZD-0000Dx-G6; Wed, 26 Jun 2024 14:24:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 749104.1157128; Wed, 26 Jun 2024 14:12:36 +0000
+Received: by outflank-mailman (output) from mailman id 749116.1157138; Wed, 26 Jun 2024 14:24:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sMTO0-0005V8-DE; Wed, 26 Jun 2024 14:12:36 +0000
-Received: by outflank-mailman (input) for mailman id 749104;
- Wed, 26 Jun 2024 14:12:34 +0000
+	id 1sMTZD-0000Bd-Cs; Wed, 26 Jun 2024 14:24:11 +0000
+Received: by outflank-mailman (input) for mailman id 749116;
+ Wed, 26 Jun 2024 14:24:10 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ZmsE=N4=cloud.com=matthew.barnes@srs-se1.protection.inumbo.net>)
- id 1sMTNy-0005V2-RA
- for xen-devel@lists.xenproject.org; Wed, 26 Jun 2024 14:12:34 +0000
-Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
- [2a00:1450:4864:20::631])
+ <SRS0=+tE4=N4=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
+ id 1sMTZC-0000BX-H0
+ for xen-devel@lists.xenproject.org; Wed, 26 Jun 2024 14:24:10 +0000
+Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 21f66a73-33c6-11ef-90a3-e314d9c70b13;
- Wed, 26 Jun 2024 16:12:33 +0200 (CEST)
-Received: by mail-ej1-x631.google.com with SMTP id
- a640c23a62f3a-a725a918edaso262425966b.3
- for <xen-devel@lists.xenproject.org>; Wed, 26 Jun 2024 07:12:33 -0700 (PDT)
-Received: from EMEAENGAAD91498. ([217.156.233.157])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a72598043b2sm286688766b.106.2024.06.26.07.12.32
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 26 Jun 2024 07:12:32 -0700 (PDT)
+ id c059de78-33c7-11ef-90a3-e314d9c70b13;
+ Wed, 26 Jun 2024 16:24:09 +0200 (CEST)
+Received: from support.bugseng.com (support.bugseng.com [162.55.131.47])
+ by support.bugseng.com (Postfix) with ESMTPA id B565A4EE073D;
+ Wed, 26 Jun 2024 16:24:08 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,108 +39,203 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 21f66a73-33c6-11ef-90a3-e314d9c70b13
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1719411153; x=1720015953; darn=lists.xenproject.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:subject:cc:to:from:date:message-id:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=6TuPnQh1fYjjPcjTOWpDI2CCVFOB74b7VZheM9F/dCE=;
-        b=FHPEzb10hjY+tsFDjUKRkNjXkBEMl0bdjIbYvlCrEuYF2SwBWtL/NG1ofi8YhgIbiN
-         nOh+U+C6mFlz6sdMJfyCv65Pjztpk9L0gq/wLRt9ZRD5qJdRV7+mH8kOrvlGNFF7hK5O
-         JkhERnZKeCno37lNHD53ekGYGhhs7PnVBo8mU=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1719411153; x=1720015953;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:subject:cc:to:from:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=6TuPnQh1fYjjPcjTOWpDI2CCVFOB74b7VZheM9F/dCE=;
-        b=saWU6K+sEjW+xFWKSV7wNYiNoGRj3izPLzLpVPxCfcbVnv4kobPQze7AqYuqWwtVby
-         0gnQUi48lnf091FeaLpBITJQoDkFz1uCgV3Mpp9U0WqBsWw1Lcfaz8zcjyXpKVj9V9hF
-         x/G1QsTGVbNICgtP4S2HnHV5DWaQdMpR4dZcWJ5ObNtUCE43vVLtZah2RwJ1oqWf7swe
-         /sx6VnLixagCCOPDsraXhu/l8ivXN5zFzp6d/Oc3VUs878eYseRRsguCIdhVeJXyeTq2
-         Z2bjYzM79eRn//Tx84WaN33IfXEbRJTxlEAbA1tUcHvHEcgXZF/kTtMuxTBNYTB4IVSO
-         WONQ==
-X-Forwarded-Encrypted: i=1; AJvYcCWf/18AF+DQY4FDVUUEvRn1YC1CrQMWMYOfIHCrtSYe0YwzHto5mEVCUGusTRmz3RqeunXaM9nGRWVaJ6Xyy+kfPFLJd4Q+YnT4KtmQlfw=
-X-Gm-Message-State: AOJu0Yy6IDfuc8cTRmhBX85rXCg7bEtEBMVfT0kvKuOERIF+MoPq9IX1
-	reBYo6vlGuv4QE6JARx/ReoTPMg0bBtYLqs0QmXrP2tGnqb8z163zZjOVhQjTHE=
-X-Google-Smtp-Source: AGHT+IGo4K0d1ZXr1EW4mZJdSS7nr2DJAbpFvKOqu947A+qOAG3WalvuVTECr6BxavGcK17I+M8Qcw==
-X-Received: by 2002:a17:906:80c2:b0:a6f:d867:4259 with SMTP id a640c23a62f3a-a7245ba3cb5mr755984966b.26.1719411152983;
-        Wed, 26 Jun 2024 07:12:32 -0700 (PDT)
-Message-ID: <667c21d0.170a0220.bf390.0f32@mx.google.com>
-X-Google-Original-Message-ID: <20240626141220.xkjldl2bjv5c5kvo@EMEAENGAAD91498.>
-Date: Wed, 26 Jun 2024 15:12:20 +0100
-From: Matthew Barnes <matthew.barnes@cloud.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Anthony PERARD <anthony@xenproject.org>,
-	Xen-devel <xen-devel@lists.xenproject.org>
-Subject: Re: [XEN PATCH] tools/misc: xen-hvmcrash: Inject #DF instead of
- overwriting RIP
-References: <27f4397093d92b53f89d625d682bd4b7145b65d8.1717426439.git.matthew.barnes@cloud.com>
- <7ffabe8b-7993-4cc5-97fe-dd1cbd35798e@citrix.com>
+X-Inumbo-ID: c059de78-33c7-11ef-90a3-e314d9c70b13
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <7ffabe8b-7993-4cc5-97fe-dd1cbd35798e@citrix.com>
+Date: Wed, 26 Jun 2024 16:24:08 +0200
+From: Nicola Vetrini <nicola.vetrini@bugseng.com>
+To: Anthony PERARD <anthony.perard@vates.tech>
+Cc: Jan Beulich <jbeulich@suse.com>, Simone Ballarin
+ <simone.ballarin@bugseng.com>, consulting@bugseng.com,
+ sstabellini@kernel.org, Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu
+ <wl@xen.org>, xen-devel@lists.xenproject.org
+Subject: Re: [XEN PATCH v3 05/16] xen/x86: address violations of MISRA C:2012
+ Directive 4.10
+In-Reply-To: <ZnwZycQ3mU21cSpd@l14>
+References: <cover.1710145041.git.simone.ballarin@bugseng.com>
+ <dd042e7d17e7833e12a5ff6f28dd560b5ff02cf7.1710145041.git.simone.ballarin@bugseng.com>
+ <dce6c44d-94b7-43bd-858a-9337336a79cf@suse.com>
+ <ef623bad297d016438b35bedc80f091d@bugseng.com>
+ <ec92611e-6762-4b6c-af3e-999b748d1f1b@suse.com>
+ <797b00049612507d273facc581b2c2c5@bugseng.com>
+ <a5009c3e-cba6-4737-aaff-c3b79a11169c@suse.com>
+ <e3ae670923fd061986e27b3f95833b88@bugseng.com>
+ <0c88d86e-f226-4225-b723-a6662fcd5bef@suse.com> <ZnwZycQ3mU21cSpd@l14>
+Message-ID: <4b9b8c769d65b0f69514ff47fd6a835a@bugseng.com>
+X-Sender: nicola.vetrini@bugseng.com
+Organization: BUGSENG s.r.l.
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Tue, Jun 25, 2024 at 10:02:42PM +0100, Andrew Cooper wrote:
-> On 03/06/2024 3:59 pm, Matthew Barnes wrote:
-> > xen-hvmcrash would previously save records, overwrite the instruction
-> > pointer with a bogus value, and then restore them to crash a domain
-> > just enough to cause the guest OS to memdump.
-> >
-> > This approach is found to be unreliable when tested on a guest running
-> > Windows 10 x64, with some executions doing nothing at all.
-> >
-> > Another approach would be to trigger NMIs. This approach is found to be
-> > unreliable when tested on Linux (Ubuntu 22.04), as Linux will ignore
-> > NMIs if it is not configured to handle such.
-> >
-> > Injecting a double fault abort to all vCPUs is found to be more
-> > reliable at crashing and invoking memdumps from Windows and Linux
-> > domains.
+On 2024-06-26 15:38, Anthony PERARD wrote:
+> On Wed, Jun 26, 2024 at 12:31:42PM +0200, Jan Beulich wrote:
+>> On 26.06.2024 12:25, Nicola Vetrini wrote:
+>> > On 2024-06-26 11:26, Jan Beulich wrote:
+>> >> On 26.06.2024 11:20, Nicola Vetrini wrote:
+>> >>> On 2024-06-26 11:06, Jan Beulich wrote:
+>> >>>> On 25.06.2024 21:31, Nicola Vetrini wrote:
+>> >>>>> On 2024-03-12 09:16, Jan Beulich wrote:
+>> >>>>>> On 11.03.2024 09:59, Simone Ballarin wrote:
+>> >>>>>>> --- a/xen/arch/x86/Makefile
+>> >>>>>>> +++ b/xen/arch/x86/Makefile
+>> >>>>>>> @@ -258,18 +258,20 @@ $(obj)/asm-macros.i: CFLAGS-y += -P
+>> >>>>>>>  $(objtree)/arch/x86/include/asm/asm-macros.h: $(obj)/asm-macros.i
+>> >>>>>>> $(src)/Makefile
+>> >>>>>>>  	$(call filechk,asm-macros.h)
+>> >>>>>>>
+>> >>>>>>> +ARCHDIR = $(shell echo $(SRCARCH) | tr a-z A-Z)
+>> >>>>>>
+>> >>>>>> This wants to use :=, I think - there's no reason to invoke the
+>> >>>>>> shell
+>> >>>>>> ...
+>> >>>>>
+>> >>>>> I agree on this
+>> >>>>>
+>> >>>>>>
+>> >>>>>>>  define filechk_asm-macros.h
+>> >>>>>>> +    echo '#ifndef ASM_$(ARCHDIR)_ASM_MACROS_H'; \
+>> >>>>>>> +    echo '#define ASM_$(ARCHDIR)_ASM_MACROS_H'; \
+>> >>>>>>>      echo '#if 0'; \
+>> >>>>>>>      echo '.if 0'; \
+>> >>>>>>>      echo '#endif'; \
+>> >>>>>>> -    echo '#ifndef __ASM_MACROS_H__'; \
+>> >>>>>>> -    echo '#define __ASM_MACROS_H__'; \
+>> >>>>>>>      echo 'asm ( ".include \"$@\"" );'; \
+>> >>>>>>> -    echo '#endif /* __ASM_MACROS_H__ */'; \
+>> >>>>>>>      echo '#if 0'; \
+>> >>>>>>>      echo '.endif'; \
+>> >>>>>>>      cat $<; \
+>> >>>>>>> -    echo '#endif'
+>> >>>>>>> +    echo '#endif'; \
+>> >>>>>>> +    echo '#endif /* ASM_$(ARCHDIR)_ASM_MACROS_H */'
+>> >>>>>>>  endef
+>> >>>>>>
+>> >>>>>> ... three times while expanding this macro. Alternatively (to avoid
+>> >>>>>> an unnecessary shell invocation when this macro is never expanded
+>> >>>>>> at
+>> >>>>>> all) a shell variable inside the "define" above would want
+>> >>>>>> introducing.
+>> >>>>>> Whether this 2nd approach is better depends on whether we
+>> >>>>>> anticipate
+>> >>>>>> further uses of ARCHDIR.
+>> >>>>>
+>> >>>>> However here I'm not entirely sure about the meaning of this latter
+>> >>>>> proposal.
+>> >>>>> My proposal is the following:
+>> >>>>>
+>> >>>>> ARCHDIR := $(shell echo $(SRCARCH) | tr a-z A-Z)
+>> >>>>>
+>> >>>>> in a suitably generic place (such as Kbuild.include or maybe
+>> >>>>> xen/Makefile) as you suggested in subsequent patches that reused
+>> >>>>> this
+>> >>>>> pattern.
+>> >>>>
+>> >>>> If $(ARCHDIR) is going to be used elsewhere, then what you suggest is
+>> >>>> fine.
+>> >>>> My "whether" in the earlier reply specifically left open for
+>> >>>> clarification
+>> >>>> what the intentions with the variable are. The alternative I had
+>> >>>> described
+>> >>>> makes sense only when $(ARCHDIR) would only ever be used inside the
+>> >>>> filechk_asm-macros.h macro.
+>> >>>
+>> >>> Yes, the intention is to reuse $(ARCHDIR) in the formation of other
+>> >>> places, as you can tell from the fact that subsequent patches
+>> >>> replicate
+>> >>> the same pattern. This is going to save some duplication.
+>> >>> The only matter left then is whether xen/Makefile (around line 250,
+>> >>> just
+>> >>> after setting SRCARCH) would be better, or Kbuild.include. To me the
+>> >>> former place seems more natural, but I'm not totally sure.
+>> >>
+>> >> Depends on where all the intended uses are. If they're all in
+>> >> xen/Makefile,
+>> >> then having the macro just there is of course sufficient. Whereas when
+>> >> it's
+>> >> needed elsewhere, instead of exporting putting it in Kbuild.include
+>> >> would
+>> >> seem more natural / desirable to me.
+>> >>
+>> >
+>> > The places where this would be used are these:
+>> > file: target (or define)
+>> > xen/build.mk: arch/$(SRCARCH)/include/asm/asm-offsets.h: asm-offsets.s
+>> > xen/include/Makefile: define cmd_xlat_h
+>> > xen/arch/x86/Makefile: define filechk_asm-macros.h
+>> >
+>> > The only issue that comes to my mind (it may not be one at all) is that
+>> > SRCARCH is defined and exported in xen/Makefile after including
+>> > Kbuild.include, so it would need to be defined after SRCARCH is
+>> > assigned:
+>> >
+>> > include scripts/Kbuild.include
+>> >
+>> > # Don't break if the build process wasn't called from the top level
+>> > # we need XEN_TARGET_ARCH to generate the proper config
+>> > include $(XEN_ROOT)/Config.mk
+>> >
+>> > # Set ARCH/SRCARCH appropriately.
+>> >
+>> > ARCH := $(XEN_TARGET_ARCH)
+>> > SRCARCH := $(shell echo $(ARCH) | \
+>> >      sed -e 's/x86.*/x86/' -e 's/arm\(32\|64\)/arm/g' \
+>> >          -e 's/riscv.*/riscv/g' -e 's/ppc.*/ppc/g')
+>> > export ARCH SRCARCH
+>> >
+>> > Am I missing something?
+>> 
+>> In that case the alternatives are exporting or using = rather than := 
+>> in
+>> Kbuild.include, i.e. other than initially requested. Personally I 
+>> dislike
+>> exporting to a fair degree, but I'm not sure which one's better in 
+>> this
+>> case. Cc-ing Anthony for possible input.
 > 
-> Why every CPU?
+> None. The name is missleading anyway, it would suggest to me that it
+> contain a directory, but that's wrong.
 > 
-> We never did that before, and I don't see any it ought to be necessary
-> now either.
+> Another thing that suboptimal, use make to call a shell to generate a
+> string that is going to be later use in shell context. How about just
+> doing the work in that later shell context?
+> 
+> Something like:
+> 
+>  define filechk_asm-macros.h
+> +    guard=$$(echo ASM_${SRCARCH}_ASM_MACROS_H | tr a-z A-Z); \
+> +    echo "#ifndef $$guard"; \
+> +    echo "#define $$guard"; \
+>      echo '#if 0'; \
+>      echo '.if 0'; \
+> 
 
-We do: at the moment, xen-hvmcrash iterates through
-hvm_save_descriptors after pausing the domain, overwriting the EIP/RIP of
-each cpu it finds.
+This approach looks ok to me.
 
-Is there a reason not to inject #DF into each domain vCPU? Wouldn't that
-crash the domain more reliably?
+> Or, instead of having to write the name of the file down, we could
+> use a name that is already registered in a variable:
+> 
+>  define filechk_asm-macros.h
+> +    guard=$$(echo $@ | tr a-z/.- A-Z_); \
+> +    echo "#ifndef $$guard"; \
+> +    echo "#define $$guard"; \
+>      echo '#if 0'; \
+>      echo '.if 0'; \
+> 
+> This produces:
+>     #ifndef ARCH_X86_INCLUDE_ASM_ASM_MACROS_H
+>     #define ARCH_X86_INCLUDE_ASM_ASM_MACROS_H
+>     #if 0
+>     .if 0
+> 
+> Cheers,
 
-> > diff --git a/tools/misc/xen-hvmcrash.c b/tools/misc/xen-hvmcrash.c
-> > index 1d058fa40a47..8ef1beb388f8 100644
-> > --- a/tools/misc/xen-hvmcrash.c
-> > +++ b/tools/misc/xen-hvmcrash.c
-> > @@ -38,22 +38,21 @@
-> >  #include <sys/stat.h>
-> >  #include <arpa/inet.h>
-> >  
-> > +#define XC_WANT_COMPAT_DEVICEMODEL_API
-> 
-> Please don't introduce this.  We want to purge it from the codebase, not
-> propagate it.
-> 
-> You want to open and use a libxendevicemodel handle.  (Sadly you also
-> need a xenctrl handle too, until we sort out the userspace ABIs).
-> 
-> >  #include <xenctrl.h>
-> >  #include <xen/xen.h>
-> >  #include <xen/domctl.h>
-> >  #include <xen/hvm/save.h>
-> >  
-> > +#define X86_ABORT_DF 8
-> 
-> #include <xen/asm/x86-defns.h>
-> 
-> and use X86_EXC_DF.
+The issue I see here is that it would in some cases lead to long header 
+guards, which is somewhat against the overall consensus, given that the 
+naming convention should be followed by any file, so it was designed to 
+generate shorter guards, rather than just the path.
 
-Understood: this will be reflected in patch v2.
-
-Matt
+-- 
+Nicola Vetrini, BSc
+Software Engineer, BUGSENG srl (https://bugseng.com)
 
