@@ -2,47 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BCA5D9187D4
-	for <lists+xen-devel@lfdr.de>; Wed, 26 Jun 2024 18:47:09 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.749360.1157429 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1B7F19187DC
+	for <lists+xen-devel@lfdr.de>; Wed, 26 Jun 2024 18:48:01 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.749364.1157438 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sMVnM-0001PV-JP; Wed, 26 Jun 2024 16:46:56 +0000
+	id 1sMVoC-0001zZ-Rd; Wed, 26 Jun 2024 16:47:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 749360.1157429; Wed, 26 Jun 2024 16:46:56 +0000
+Received: by outflank-mailman (output) from mailman id 749364.1157438; Wed, 26 Jun 2024 16:47:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sMVnM-0001Mh-Ft; Wed, 26 Jun 2024 16:46:56 +0000
-Received: by outflank-mailman (input) for mailman id 749360;
- Wed, 26 Jun 2024 16:46:54 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1sMVoC-0001xY-P1; Wed, 26 Jun 2024 16:47:48 +0000
+Received: by outflank-mailman (input) for mailman id 749364;
+ Wed, 26 Jun 2024 16:47:47 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=QuO/=N4=quicinc.com=quic_jjohnson@srs-se1.protection.inumbo.net>)
- id 1sMVnK-0001Mb-Ks
- for xen-devel@lists.xenproject.org; Wed, 26 Jun 2024 16:46:54 +0000
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id af38776b-33db-11ef-90a3-e314d9c70b13;
- Wed, 26 Jun 2024 18:46:51 +0200 (CEST)
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 45QAfTKB003830;
- Wed, 26 Jun 2024 16:46:43 GMT
-Received: from nalasppmta01.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3ywmaf2kdx-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 26 Jun 2024 16:46:42 +0000 (GMT)
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA01.qualcomm.com (8.17.1.19/8.17.1.19) with ESMTPS id
- 45QGkfWO017986
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 26 Jun 2024 16:46:41 GMT
-Received: from [10.48.244.230] (10.49.16.6) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Wed, 26 Jun
- 2024 09:46:41 -0700
+ <SRS0=y3dI=N4=outstep.com=lonnie@srs-se1.protection.inumbo.net>)
+ id 1sMVoB-0001xG-L4
+ for xen-devel@lists.xenproject.org; Wed, 26 Jun 2024 16:47:47 +0000
+Received: from mail.outstep.net (mail.outstep.net [213.136.84.29])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id cfeb67c5-33db-11ef-b4bb-af5377834399;
+ Wed, 26 Jun 2024 18:47:45 +0200 (CEST)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
+ with ESMTPSA id 57610234103E
+ for <xen-devel@lists.xenproject.org>; Wed, 26 Jun 2024 18:47:39 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -54,127 +39,131 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: af38776b-33db-11ef-90a3-e314d9c70b13
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	OJIU8nuIR3yUT+2mBo6yrGaIcXHwca09t9+g53UevcU=; b=N/Eeag+b1CpDisWr
-	lZ/H/0ZKqf3iatNUBdeVEsaYvM29UTTNl3OKmhx0LNVg6BlJHn+OO/tUdHQbtxPd
-	Tp3HWvI0rllXdb3TVEIs4QUwfvgr4au3aQNGVJnpgifoV2wh5wVWs7FHSWq8e1HT
-	8VQ89SXROr9wa3Uv0gmsuvtazCmP/t1vBKAtxIbliDlOF0pIE51pYcQ6RO+cSPio
-	VGAAEFmKUzKbkK1QRpmVkPD8szB7Z3nJzRBN8hqVQh/zhKzvfCz9j26Assw+/NEl
-	t00i6Ws2/ao1PMa7FlwBia25rduEg1yk/oND1b4lGL4EYjaEItLXUniuHlwVTVAU
-	8OsUXQ==
-Message-ID: <2ecfd10e-c8f2-458c-bf07-e4472d22bcfe@quicinc.com>
-Date: Wed, 26 Jun 2024 09:46:41 -0700
+X-Inumbo-ID: cfeb67c5-33db-11ef-b4bb-af5377834399
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outstep.com; s=dkim;
+	t=1719420462; h=from:subject:date:message-id:to:mime-version:content-type:
+	 content-language:autocrypt; bh=x08X/ypKSwkbCNlQgqgo6NU4pKrMrIcRQFTRqQOC1N4=;
+	b=nsRQfg8ByytfBOVNGZwYHHhzhxmoMLXgWo5OZ1LER3ZXfyj7Sj2cBQCh0xY1YIqpXbZIk1
+	JZd6/jP0hpGtx8n95OZ29Upsx4fW7mbHv8M3+m3qEjgII6/6iILz6elaPU3HsS7/BJXpHp
+	hnpjB/SpvC1GDZk2aPq69jG3eTuSzA2TqG+tYSnff7w/d5rpcbhCFsjqQqiDTcaUSJcN/3
+	3MN7x4OSaW+qo5AbY67xtPJ0y97stSDBMT+rTvrm7YaT0zmisi7Hczu8A4UXF2lX0JwEhg
+	9kM5SE2k/AZrroRiJMy4qHLieT3Eh32/q0NGPmUNr0vB3KonjkGv6CSrdaCXyA==
+Content-Type: multipart/alternative;
+ boundary="------------292oU0MEsyLYdgj3qgD92PnY"
+Message-ID: <376f0fe4-4ae8-461d-87f2-0fa2e6913689@outstep.com>
+Date: Wed, 26 Jun 2024 12:47:36 -0400
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] xen: add missing MODULE_DESCRIPTION() macros
+To: xen-devel@lists.xenproject.org
 Content-Language: en-US
-To: Juergen Gross <jgross@suse.com>,
-        Stefano Stabellini
-	<sstabellini@kernel.org>,
-        Oleksandr Tyshchenko
-	<oleksandr_tyshchenko@epam.com>
-CC: <xen-devel@lists.xenproject.org>, <linux-kernel@vger.kernel.org>,
-        <kernel-janitors@vger.kernel.org>
-References: <20240611-md-drivers-xen-v1-1-1eb677364ca6@quicinc.com>
-From: Jeff Johnson <quic_jjohnson@quicinc.com>
-In-Reply-To: <20240611-md-drivers-xen-v1-1-1eb677364ca6@quicinc.com>
-Content-Type: text/plain; charset="UTF-8"
+From: Lonnie Cumberland <lonnie@outstep.com>
+Subject: Disaggregated (Xoar) Dom0 Building
+Autocrypt: addr=lonnie@outstep.com; keydata=
+ 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
+ WujEwGqqyfUF7eo=
+X-Last-TLS-Session-Version: TLSv1.3
+
+This is a multi-part message in MIME format.
+--------------292oU0MEsyLYdgj3qgD92PnY
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.49.16.6]
-X-ClientProxiedBy: nalasex01c.na.qualcomm.com (10.47.97.35) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800 signatures=585085
-X-Proofpoint-ORIG-GUID: M3EHqaZykX8v0ytdD0PLIUxzzkFGah7n
-X-Proofpoint-GUID: M3EHqaZykX8v0ytdD0PLIUxzzkFGah7n
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.28.16
- definitions=2024-06-26_08,2024-06-25_01,2024-05-17_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 impostorscore=0
- suspectscore=0 spamscore=0 bulkscore=0 phishscore=0 malwarescore=0
- clxscore=1015 mlxscore=0 lowpriorityscore=0 priorityscore=1501
- mlxlogscore=999 adultscore=0 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.19.0-2406140001 definitions=main-2406260123
 
-On 6/11/2024 4:54 PM, Jeff Johnson wrote:
-> With ARCH=x86, make allmodconfig && make W=1 C=1 reports:
-> WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/xen/xen-pciback/xen-pciback.o
-> WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/xen/xen-evtchn.o
-> WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/xen/xen-privcmd.o
-> 
-> Add the missing invocations of the MODULE_DESCRIPTION() macro.
-> 
-> Signed-off-by: Jeff Johnson <quic_jjohnson@quicinc.com>
-> ---
-> Corrections to these descriptions are welcomed. I'm not an expert in
-> this code so in most cases I've taken these descriptions directly from
-> code comments, Kconfig descriptions, or git logs.  History has shown
-> that in some cases these are originally wrong due to cut-n-paste
-> errors, and in other cases the drivers have evolved such that the
-> original information is no longer accurate.
-> ---
->  drivers/xen/evtchn.c               | 1 +
->  drivers/xen/privcmd-buf.c          | 1 +
->  drivers/xen/privcmd.c              | 1 +
->  drivers/xen/xen-pciback/pci_stub.c | 1 +
->  4 files changed, 4 insertions(+)
-> 
-> diff --git a/drivers/xen/evtchn.c b/drivers/xen/evtchn.c
-> index f6a2216c2c87..9b7fcc7dbb38 100644
-> --- a/drivers/xen/evtchn.c
-> +++ b/drivers/xen/evtchn.c
-> @@ -729,4 +729,5 @@ static void __exit evtchn_cleanup(void)
->  module_init(evtchn_init);
->  module_exit(evtchn_cleanup);
->  
-> +MODULE_DESCRIPTION("Xen /dev/xen/evtchn device driver");
->  MODULE_LICENSE("GPL");
-> diff --git a/drivers/xen/privcmd-buf.c b/drivers/xen/privcmd-buf.c
-> index 2fa10ca5be14..0f0dad427d7e 100644
-> --- a/drivers/xen/privcmd-buf.c
-> +++ b/drivers/xen/privcmd-buf.c
-> @@ -19,6 +19,7 @@
->  
->  #include "privcmd.h"
->  
-> +MODULE_DESCRIPTION("Xen Mmap of hypercall buffers");
->  MODULE_LICENSE("GPL");
->  
->  struct privcmd_buf_private {
-> diff --git a/drivers/xen/privcmd.c b/drivers/xen/privcmd.c
-> index 67dfa4778864..b9b784633c01 100644
-> --- a/drivers/xen/privcmd.c
-> +++ b/drivers/xen/privcmd.c
-> @@ -48,6 +48,7 @@
->  
->  #include "privcmd.h"
->  
-> +MODULE_DESCRIPTION("Xen hypercall passthrough driver");
->  MODULE_LICENSE("GPL");
->  
->  #define PRIV_VMA_LOCKED ((void *)1)
-> diff --git a/drivers/xen/xen-pciback/pci_stub.c b/drivers/xen/xen-pciback/pci_stub.c
-> index e34b623e4b41..4faebbb84999 100644
-> --- a/drivers/xen/xen-pciback/pci_stub.c
-> +++ b/drivers/xen/xen-pciback/pci_stub.c
-> @@ -1708,5 +1708,6 @@ static void __exit xen_pcibk_cleanup(void)
->  module_init(xen_pcibk_init);
->  module_exit(xen_pcibk_cleanup);
->  
-> +MODULE_DESCRIPTION("Xen PCI-device stub driver");
->  MODULE_LICENSE("Dual BSD/GPL");
->  MODULE_ALIAS("xen-backend:pci");
-> 
-> ---
-> base-commit: 83a7eefedc9b56fe7bfeff13b6c7356688ffa670
-> change-id: 20240611-md-drivers-xen-522fc8e7ef08
-> 
+Hello All,
 
-Following up to see if anything else is needed from me. Hoping to see this in
-linux-next so I can remove it from my tracking spreadsheet :)
+I hope that everyone is doing well today.
 
-/jeff
+Currently, I am investigating and researching the ideas of 
+"Disaggregating" Dom0 and have the Xoar Xen patches ("Breaking Up is 
+Hard to Do: Security and Functionality in a Commodity Hypervisor" 2011) 
+available which were developed against version 22155 of xen-unstable. 
+The Linux patches are against Linux with pvops 2.6.31.13 and developed 
+on a standard Ubuntu 10.04 install. My effort would also be up update 
+these patches.
+
+I have been able to locate the Xen "Dom0 Disaggregation" 
+(https://wiki.xenproject.org/wiki/Dom0_Disaggregation) am reading up on 
+things now but wanted to ask the developers list about any experience 
+you may have had in this area since the research objective is to 
+integrate Xoar with the latest Xen 4.20, if possible, and to take it 
+further to basically eliminate Dom0 all together with individual Mini-OS 
+or Unikernel "Service and Driver VM's" instead that are loaded at UEFI 
+boot time.
+
+
+Any guidance, thoughts, or ideas would be greatly appreciated,
+Thanks and have a great day,
+Lonnie
+--------------292oU0MEsyLYdgj3qgD92PnY
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+<!DOCTYPE html>
+<html>
+  <head>
+
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    <font face="Times New Roman, Times, serif">Hello All,<br>
+      <br>
+      I hope that everyone is doing well today.<br>
+      <br>
+      Currently, I am investigating and researching the ideas of
+      "Disaggregating" Dom0 and have the Xoar Xen patches ("</font>Breaking
+    Up is Hard to Do: Security and Functionality in a
+    Commodity Hypervisor<font face="Times New Roman, Times, serif">"
+      2011) available which were developed against version 22155 of
+      xen-unstable. The Linux patches are against Linux with pvops
+      2.6.31.13 and developed on a standard Ubuntu 10.04 install. My
+      effort would also be up update these patches.<br>
+      <br>
+      I have been able to locate the Xen "Dom0 Disaggregation"
+      (<a class="moz-txt-link-freetext" href="https://wiki.xenproject.org/wiki/Dom0_Disaggregation">https://wiki.xenproject.org/wiki/Dom0_Disaggregation</a>) am reading
+      up on things now but wanted to ask the developers list about any
+      experience you may have had in this area since the research
+      objective is to integrate Xoar with the latest Xen 4.20, if
+      possible, and to take it further to basically eliminate Dom0 all
+      together with individual Mini-OS or Unikernel "Service and Driver
+      VM's" instead that are loaded at UEFI boot time.<br>
+      <br>
+      <br>
+      Any guidance, thoughts, or ideas would be greatly appreciated,<br>
+      Thanks and have a great day,<br>
+      Lonnie<br>
+    </font>
+  </body>
+</html>
+
+--------------292oU0MEsyLYdgj3qgD92PnY--
 
