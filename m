@@ -2,32 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7ED9E917EC6
-	for <lists+xen-devel@lfdr.de>; Wed, 26 Jun 2024 12:48:50 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.748739.1156560 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 300AC917F6E
+	for <lists+xen-devel@lfdr.de>; Wed, 26 Jun 2024 13:18:12 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.748757.1156573 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sMQCd-0005mm-0E; Wed, 26 Jun 2024 10:48:39 +0000
+	id 1sMQeF-0002ML-ER; Wed, 26 Jun 2024 11:17:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 748739.1156560; Wed, 26 Jun 2024 10:48:38 +0000
+Received: by outflank-mailman (output) from mailman id 748757.1156573; Wed, 26 Jun 2024 11:17:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sMQCc-0005k0-SD; Wed, 26 Jun 2024 10:48:38 +0000
-Received: by outflank-mailman (input) for mailman id 748739;
- Wed, 26 Jun 2024 10:48:36 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=+tE4=N4=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
- id 1sMQCa-0005jc-Ow
- for xen-devel@lists.xenproject.org; Wed, 26 Jun 2024 10:48:36 +0000
-Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a3722aee-33a9-11ef-90a3-e314d9c70b13;
- Wed, 26 Jun 2024 12:48:35 +0200 (CEST)
-Received: from nico.bugseng.com (unknown [46.228.253.214])
- by support.bugseng.com (Postfix) with ESMTPSA id 2E3584EE0738;
- Wed, 26 Jun 2024 12:48:34 +0200 (CEST)
+	id 1sMQeF-0002JZ-BB; Wed, 26 Jun 2024 11:17:11 +0000
+Received: by outflank-mailman (input) for mailman id 748757;
+ Wed, 26 Jun 2024 11:17:10 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=t7g0=N4=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1sMQeE-0002JT-72
+ for xen-devel@lists.xenproject.org; Wed, 26 Jun 2024 11:17:10 +0000
+Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
+ [2a00:1450:4864:20::331])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id a0164f47-33ad-11ef-b4bb-af5377834399;
+ Wed, 26 Jun 2024 13:17:08 +0200 (CEST)
+Received: by mail-wm1-x331.google.com with SMTP id
+ 5b1f17b1804b1-4217926991fso55972765e9.3
+ for <xen-devel@lists.xenproject.org>; Wed, 26 Jun 2024 04:17:08 -0700 (PDT)
+Received: from ?IPV6:2003:e5:8729:4000:29eb:6d9d:3214:39d2?
+ (p200300e58729400029eb6d9d321439d2.dip0.t-ipconnect.de.
+ [2003:e5:8729:4000:29eb:6d9d:3214:39d2])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-424c824eef1sm21468545e9.14.2024.06.26.04.17.07
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 26 Jun 2024 04:17:07 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,108 +47,115 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a3722aee-33a9-11ef-90a3-e314d9c70b13
-From: Nicola Vetrini <nicola.vetrini@bugseng.com>
-To: xen-devel@lists.xenproject.org
-Cc: sstabellini@kernel.org,
-	michal.orzel@amd.com,
-	xenia.ragiadakou@amd.com,
-	ayan.kumar.halder@amd.com,
-	consulting@bugseng.com,
-	Alessandro Zucchelli <alessandro.zucchelli@bugseng.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Nicola Vetrini <nicola.vetrini@bugseng.com>
-Subject: [XEN PATCH v2] x86/mctelem: address violations of MISRA C: 2012 Rule 5.3
-Date: Wed, 26 Jun 2024 12:48:31 +0200
-Message-Id: <94752f77597b05ef9b8a387bf29512b11c0d1e15.1719398571.git.nicola.vetrini@bugseng.com>
-X-Mailer: git-send-email 2.34.1
+X-Inumbo-ID: a0164f47-33ad-11ef-b4bb-af5377834399
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1719400627; x=1720005427; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=jirmK4baIZ++d+1+5zn7DaxAv+wTxURz/bjD2mn5TdE=;
+        b=NOtP8cqYWnDf4fVugvgSFaAplsgB1LIw/D1OQXym9y0eHd1GUR1oTRqa1jChHm+YN2
+         Fpopx6pDkb8nvW773DUfHG4rSh/pQM3pDDRF8SUEsU3m8ZmZpCeOdPoKHbcxpwxX6oDU
+         sExU7Os3lyKWUTA/q+nRcFFBjdf6L2ElL8UATnCbTi1kH8ZHhGQRBeeaWC9kR688aW5P
+         noTTgFVpHg5O/iWoyRNvU2cej1QhSRYgYjNUgo3O3q7o3DLBCMXyHcRizKbZPbzuEiD4
+         T3Wtss3c+h5PDlxrcHV4hLIagh7c6w2+IQeU4O4j//uTA7ubyuNocavjm+Ig34kgYJNM
+         46xA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1719400627; x=1720005427;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=jirmK4baIZ++d+1+5zn7DaxAv+wTxURz/bjD2mn5TdE=;
+        b=fYWGP7hgD10VMtt0u5+9uthFlR9plLaEe6o75Gqii4u4TKkMJ/q2SeDiLKywyKj36g
+         VRze/S2PbHQ310FtfcsAudS/g35O6dObiT8+46UEkBQUiMDT7oX4qpjWw6DjvXpu35qO
+         NuFnfIkYRPpYtvrcJpSsejOSXTwK5F2lSne32W8tqGXY5yna5+v7p9auZKxRsUUYj22i
+         BmZ2bwjH6c1Uten/9y8dkUKNipagR/DXXArgLMZQh/7Idw5P41roUULr/9lpDMfKqmV9
+         eS2jweDsk39PKvFnoNYSX2PBNEezAhUFhqwsSoVcc3VbqfN8Em/5KHPO9Pbl+OL6X8H0
+         N9sQ==
+X-Forwarded-Encrypted: i=1; AJvYcCVFOOFAzPQ0FH5Y0wuzcUY8VYViJOqS9Zj8ax2VzmaEvuAFV+yaLBAo10gobDiM+6+kDxFJTjTOFZq6b19Tnv0qBQv03f0dpReaDoDaPGs=
+X-Gm-Message-State: AOJu0Yyb1F+za/QGxsAlRdtTAIbeBxCyIlxVx2wd4y7xDgkQz3mZxoj9
+	iUHes5d+2SR+mYlI5nDIcaO6osMWPKBTiUqcIgb15LLFd797dMDzInnBjTeJHxs=
+X-Google-Smtp-Source: AGHT+IG11Pm/5VIV+typWr36t19hsEj+wM6CKEMbUyV7mflR3wnoTfqDDdw844eu8S0gEuSZiLPl3w==
+X-Received: by 2002:a05:600c:5699:b0:422:384e:4365 with SMTP id 5b1f17b1804b1-4248b936414mr74443695e9.2.1719400627478;
+        Wed, 26 Jun 2024 04:17:07 -0700 (PDT)
+Message-ID: <174c3e25-5d4c-4874-b2c0-a4f962557c19@suse.com>
+Date: Wed, 26 Jun 2024 13:17:06 +0200
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] xen/sched: fix error handling in cpu_schedule_up()
+To: Jan Beulich <jbeulich@suse.com>
+Cc: George Dunlap <george.dunlap@citrix.com>,
+ Dario Faggioli <dfaggioli@suse.com>, xen-devel@lists.xenproject.org
+References: <20240626055425.3622-1-jgross@suse.com>
+ <e740e1be-7890-4e8f-879a-87043ac109c5@suse.com>
+Content-Language: en-US
+From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+In-Reply-To: <e740e1be-7890-4e8f-879a-87043ac109c5@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-From: Alessandro Zucchelli <alessandro.zucchelli@bugseng.com>
+On 26.06.24 11:02, Jan Beulich wrote:
+> On 26.06.2024 07:54, Juergen Gross wrote:
+>> In case cpu_schedule_up() is failing, it needs to undo all externally
+>> visible changes it has done before.
+>>
+>> Reason is that cpu_schedule_callback() won't be called with the
+>> CPU_UP_CANCELED notifier in case cpu_schedule_up() did fail.
+>>
+>> Reported-by: Jan Beulich <jbeulich@suse.com>
+>> Fixes: 207589dbacd4 ("xen/sched: move per cpu scheduler private data into struct sched_resource")
+>> Signed-off-by: Juergen Gross <jgross@suse.com>
+> 
+> Reviewed-by: Jan Beulich <jbeulich@suse.com>
+> with two questions, just for my own reassurance:
+> 
+>> --- a/xen/common/sched/core.c
+>> +++ b/xen/common/sched/core.c
+>> @@ -2755,6 +2755,36 @@ static struct sched_resource *sched_alloc_res(void)
+>>       return sr;
+>>   }
+>>   
+>> +static void cf_check sched_res_free(struct rcu_head *head)
+>> +{
+>> +    struct sched_resource *sr = container_of(head, struct sched_resource, rcu);
+>> +
+>> +    free_cpumask_var(sr->cpus);
+>> +    if ( sr->sched_unit_idle )
+>> +        sched_free_unit_mem(sr->sched_unit_idle);
+>> +    xfree(sr);
+>> +}
+>> +
+>> +static void cpu_schedule_down(unsigned int cpu)
+>> +{
+>> +    struct sched_resource *sr;
+>> +
+>> +    rcu_read_lock(&sched_res_rculock);
+>> +
+>> +    sr = get_sched_res(cpu);
+>> +
+>> +    kill_timer(&sr->s_timer);
+>> +
+>> +    cpumask_clear_cpu(cpu, &sched_res_mask);
+>> +    set_sched_res(cpu, NULL);
+>> +
+>> +    /* Keep idle unit. */
+>> +    sr->sched_unit_idle = NULL;
+>> +    call_rcu(&sr->rcu, sched_res_free);
+>> +
+>> +    rcu_read_unlock(&sched_res_rculock);
+>> +}
+> 
+> Eyeballing suggests these two functions don't change at all; they're solely
+> being moved up?
 
-This addresses violations of MISRA C:2012 Rule 5.3 which states as
-following: An identifier declared in an inner scope shall not hide an
-identifier declared in an outer scope.
+Correct.
 
-In this case the gloabl variable being shadowed is the global static struct
-mctctl in this file, therefore the local variables are renamed to avoid this.
+> Also, for the purpose here, use of RCU to effect the freeing isn't strictly
+> necessary. It's just that it also doesn't hurt doing it that way, and it
+> would be more code to directly free when coming from cpu_schedule_up()?
 
-No functional change.
+Yes.
 
-Signed-off-by: Alessandro Zucchelli <alessandro.zucchelli@bugseng.com>
-Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
----
-Changes in v2:
-- s/mctctl_cpu/ctl/ and amended file comment and commit message
----
- xen/arch/x86/cpu/mcheck/mctelem.c | 26 +++++++++++++-------------
- 1 file changed, 13 insertions(+), 13 deletions(-)
 
-diff --git a/xen/arch/x86/cpu/mcheck/mctelem.c b/xen/arch/x86/cpu/mcheck/mctelem.c
-index b8d0368a7d37..123e4102adca 100644
---- a/xen/arch/x86/cpu/mcheck/mctelem.c
-+++ b/xen/arch/x86/cpu/mcheck/mctelem.c
-@@ -168,28 +168,28 @@ static void mctelem_xchg_head(struct mctelem_ent **headp,
- void mctelem_defer(mctelem_cookie_t cookie, bool lmce)
- {
- 	struct mctelem_ent *tep = COOKIE2MCTE(cookie);
--	struct mc_telem_cpu_ctl *mctctl = &this_cpu(mctctl);
-+	struct mc_telem_cpu_ctl *ctl = &this_cpu(mctctl);
- 
--	ASSERT(mctctl->pending == NULL || mctctl->lmce_pending == NULL);
-+	ASSERT(ctl->pending == NULL || ctl->lmce_pending == NULL);
- 
--	if (mctctl->pending)
--		mctelem_xchg_head(&mctctl->pending, &tep->mcte_next, tep);
-+	if (ctl->pending)
-+		mctelem_xchg_head(&ctl->pending, &tep->mcte_next, tep);
- 	else if (lmce)
--		mctelem_xchg_head(&mctctl->lmce_pending, &tep->mcte_next, tep);
-+		mctelem_xchg_head(&ctl->lmce_pending, &tep->mcte_next, tep);
- 	else {
- 		/*
- 		 * LMCE is supported on Skylake-server and later CPUs, on
- 		 * which mce_broadcast is always true. Therefore, non-empty
--		 * mctctl->lmce_pending in this branch implies a broadcasting
-+		 * ctl->lmce_pending in this branch implies a broadcasting
- 		 * MC# is being handled, every CPU is in the exception
--		 * context, and no one is consuming mctctl->pending at this
-+		 * context, and no one is consuming ctl->pending at this
- 		 * moment. As a result, the following two exchanges together
- 		 * can be treated as atomic.
- 		 */
--		if (mctctl->lmce_pending)
--			mctelem_xchg_head(&mctctl->lmce_pending,
--					  &mctctl->pending, NULL);
--		mctelem_xchg_head(&mctctl->pending, &tep->mcte_next, tep);
-+		if (ctl->lmce_pending)
-+			mctelem_xchg_head(&ctl->lmce_pending,
-+					  &ctl->pending, NULL);
-+		mctelem_xchg_head(&ctl->pending, &tep->mcte_next, tep);
- 	}
- }
- 
-@@ -213,7 +213,7 @@ void mctelem_process_deferred(unsigned int cpu,
- {
- 	struct mctelem_ent *tep;
- 	struct mctelem_ent *head, *prev;
--	struct mc_telem_cpu_ctl *mctctl = &per_cpu(mctctl, cpu);
-+	struct mc_telem_cpu_ctl *ctl = &per_cpu(mctctl, cpu);
- 	int ret;
- 
- 	/*
-@@ -232,7 +232,7 @@ void mctelem_process_deferred(unsigned int cpu,
- 	 * Any MC# occurring after the following atomic exchange will be
- 	 * handled by another round of MCE softirq.
- 	 */
--	mctelem_xchg_head(lmce ? &mctctl->lmce_pending : &mctctl->pending,
-+	mctelem_xchg_head(lmce ? &ctl->lmce_pending : &ctl->pending,
- 			  &this_cpu(mctctl.processing), NULL);
- 
- 	head = this_cpu(mctctl.processing);
--- 
-2.34.1
+Juergen
 
