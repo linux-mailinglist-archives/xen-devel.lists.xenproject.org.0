@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 39A75917CE6
-	for <lists+xen-devel@lfdr.de>; Wed, 26 Jun 2024 11:50:09 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.748676.1156468 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 35831917D14
+	for <lists+xen-devel@lfdr.de>; Wed, 26 Jun 2024 11:57:54 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.748684.1156480 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sMPHa-0007KA-SR; Wed, 26 Jun 2024 09:49:42 +0000
+	id 1sMPP8-0000TR-QU; Wed, 26 Jun 2024 09:57:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 748676.1156468; Wed, 26 Jun 2024 09:49:42 +0000
+Received: by outflank-mailman (output) from mailman id 748684.1156480; Wed, 26 Jun 2024 09:57:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sMPHa-0007Ii-Po; Wed, 26 Jun 2024 09:49:42 +0000
-Received: by outflank-mailman (input) for mailman id 748676;
- Wed, 26 Jun 2024 09:49:41 +0000
+	id 1sMPP8-0000QH-Lf; Wed, 26 Jun 2024 09:57:30 +0000
+Received: by outflank-mailman (input) for mailman id 748684;
+ Wed, 26 Jun 2024 09:57:29 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=WUJr=N4=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sMPHZ-0007Ic-ON
- for xen-devel@lists.xenproject.org; Wed, 26 Jun 2024 09:49:41 +0000
-Received: from mail-lj1-x22f.google.com (mail-lj1-x22f.google.com
- [2a00:1450:4864:20::22f])
+ id 1sMPP7-0000QB-13
+ for xen-devel@lists.xenproject.org; Wed, 26 Jun 2024 09:57:29 +0000
+Received: from mail-lj1-x232.google.com (mail-lj1-x232.google.com
+ [2a00:1450:4864:20::232])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 67c76f26-33a1-11ef-90a3-e314d9c70b13;
- Wed, 26 Jun 2024 11:49:40 +0200 (CEST)
-Received: by mail-lj1-x22f.google.com with SMTP id
- 38308e7fff4ca-2ebec2f11b7so71870591fa.2
- for <xen-devel@lists.xenproject.org>; Wed, 26 Jun 2024 02:49:40 -0700 (PDT)
+ id 7ec9c3e7-33a2-11ef-90a3-e314d9c70b13;
+ Wed, 26 Jun 2024 11:57:27 +0200 (CEST)
+Received: by mail-lj1-x232.google.com with SMTP id
+ 38308e7fff4ca-2ec3f875e68so72171851fa.0
+ for <xen-devel@lists.xenproject.org>; Wed, 26 Jun 2024 02:57:27 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-7066a0d913dsm7549558b3a.112.2024.06.26.02.49.33
+ 98e67ed59e1d1-2c8d8091dc9sm1230678a91.53.2024.06.26.02.57.22
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 26 Jun 2024 02:49:38 -0700 (PDT)
+ Wed, 26 Jun 2024 02:57:26 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,54 +45,52 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 67c76f26-33a1-11ef-90a3-e314d9c70b13
+X-Inumbo-ID: 7ec9c3e7-33a2-11ef-90a3-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1719395379; x=1720000179; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1719395847; x=1720000647; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=hjZ8gZ8VXhpK2mb2cf5pt8UpBO9uKk+k7+sLzgIR+Ew=;
-        b=RCSWj5W2gnRjk2fp1evYXyHe6lDEpYv1peo1rGIYnU2oJgKNui0Z8+Wq/rGClAlXus
-         IJQbYfgRPBmQQvcDJJ+GWq3eZV4ZRZNBqD4SxbeUVUZU5hbqQ3S99jsRaq615Pj6zeUM
-         82NRtJe0Pj6Um2sVomvRITmVLy4Woo389LYtN2bdq+WOKAZgz2GtS+ledR02LC1eg3SJ
-         aHwhIpGIWpcCuRVxd4kijl3Z7fWL7q/FufQJQdDsq0c7x+kugn/PtGGUpyTxLKFVqSdQ
-         SIP1d6e/ZLpQodW0VySWJ5/inLDQwOhF4x4VxTfk2rGkcD3ec+6kbOLy+ZSgav3mchDh
-         NUug==
+        bh=N3vczh/MDS73IKdcjDeqjM+rc5bYV5Lpeh4SgTSwqY4=;
+        b=b9Gwvsuw+2uiBdHPfYSi3e9Gu4HVqY8thfCQilK4uZ+JV2dY1h9+DtfFq6O4awsyNh
+         nQG4pazhi5ZSjINcJLRNMJwL+rWqZ/of2UnXoMAPkklVVtNnYxFCv+9Cw6lIpU68yT/Q
+         a9N/Dqkc++oT5u77G8I0xcskH/ZJCcSgsZVbH3KuYg5m/GyrCfYU4wzNWXYPvP9O9NPv
+         sO8UQ4VVCo9HRln9PvafaWRfAs/dv327KaND6J12ZvhASvdrMJdMURtuutWQeTEAYMjH
+         rkZZ9lNIaGNLgVMkcagRrVjSklKa1MpgQmyRYOkLn3iBaM8TX7CNYIhHzkcz+znB2rAj
+         MFew==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1719395379; x=1720000179;
+        d=1e100.net; s=20230601; t=1719395847; x=1720000647;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=hjZ8gZ8VXhpK2mb2cf5pt8UpBO9uKk+k7+sLzgIR+Ew=;
-        b=QQZDTt9A5w5yPCrGrjiSNvljIzBcgbTuDuwbUXBeH2rYhbCUN5O/c0DU/7ZoUK5kkZ
-         /CGAdXO3MCXL/NlBJm/FsSbeyQaES5RtS3aXZPKpfnlJ+81hKRqVY6UnTvsvdwKvgF1f
-         FTnG2tymVOqolclLL9j8ovh2us6m+S42cUEeQQXqqIdMUgCPSE0SHhNv3T1FdbaTJYpc
-         du0UlJZpdz+1spSw/iiJAOPocNaJPTW1eWakVC+7+5K4640AWXOvYIxZwKsk0JpK0N6q
-         fYfB1Poj2c1wsSpWZET2CYEwLCA4K3h66NLY7s3mPxLuvJ1H8j7x1xFXv3xAFmWwBHuY
-         /ZxA==
-X-Forwarded-Encrypted: i=1; AJvYcCV/sLdq4j6MnvAKZs/q/J+2bKU9SKgHikyD5ciUWLeE0bvJ6bH+eL6Q4PHM+51pTh31QKuarq9HYwFkpWZP8WOx2C+3p9OZVncbYmz3QVQ=
-X-Gm-Message-State: AOJu0Ywm4lrIN4QaAmnv45Sr5aEAa3G+VJsES871sFRPnF8xYhtSxaI+
-	vW2c5eMJaPyiUd4wx8bwFunVFXaoftwlYQ9x2TxwgorMD6vjxq/z69UT3qRAoA==
-X-Google-Smtp-Source: AGHT+IEsZFr2IZgZiVfRy9tm4jrdGJABiS5dlyyiQYcyvfT6uQ+TAQ+HZndfIa+480lNiQQw9OL7rw==
-X-Received: by 2002:a2e:730b:0:b0:2ec:5a25:16e9 with SMTP id 38308e7fff4ca-2ec5b3884b4mr55726391fa.34.1719395379060;
-        Wed, 26 Jun 2024 02:49:39 -0700 (PDT)
-Message-ID: <fc04af37-6ef6-4c91-a625-d541f9f9bfe5@suse.com>
-Date: Wed, 26 Jun 2024 11:49:28 +0200
+        bh=N3vczh/MDS73IKdcjDeqjM+rc5bYV5Lpeh4SgTSwqY4=;
+        b=YTy5LWOGw3ssSA7qcqcKwT2eHPoPwqsDz5/3eKESprhSS5jMW4yWusJkxmlPp9oqdE
+         cqVqvmDB+gk/fYa4xLDsyx9sedtpML6j/Hz4fXuvk4s6oFc5vPRKJsI1NUC1j34UzDuq
+         HuMUcnO2NpPOEB6DG7QCo1N4fdLuCVbMV0rUANq7KT4cNZ3HC+mE0iL0JEbNipv0pYII
+         aPFNgy+phDF2zgn+5t6XSXOBh82tfgg4WSx9Tkm9oEZ3f/oexO3san4/7ln6gR+EE2La
+         /yzF0XM6wIMknmQDqHfTsAQif/QsVs/L7ScTYqJv5zeb+qtUinkR/xuKaqhoAJ/2vZgU
+         k6uA==
+X-Forwarded-Encrypted: i=1; AJvYcCWwSsC8o+9qrrrlk5+VdW7oUmdVyXE785NQld3fOT4OGD81BnSXLjFUT1Lof7tzztJdw+EfXxGbmi2y7ew/NGohM2wR3Ptqxj0jg63mw78=
+X-Gm-Message-State: AOJu0YyTfDcJZPeqAmoM60RQaNtYbIxDf7t+2ylskF4IImiFWoRd/keM
+	JaFUZKTd3jSHGB835I7CCGpK2l6VGQlhy3lCJr5TOjJyopihP3TYYtDI4LQuWA==
+X-Google-Smtp-Source: AGHT+IHhE5FZhWIfWXbrfML61WT5V1pjJGJP7MeitxmwtWhovQIKnHpDGObDPyhqq857DaHTu90vQg==
+X-Received: by 2002:a2e:a17a:0:b0:2ec:42db:96a2 with SMTP id 38308e7fff4ca-2ec5b38b432mr57959711fa.29.1719395847206;
+        Wed, 26 Jun 2024 02:57:27 -0700 (PDT)
+Message-ID: <3899bc21-c6d5-4643-9c6d-4a01af37cfd6@suse.com>
+Date: Wed, 26 Jun 2024 11:57:17 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/6] x86/vmx: Rewrite vmx_sync_pir_to_irr() to be more
- efficient
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Oleksii Kurochko <oleksii.kurochko@gmail.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20240625190719.788643-1-andrew.cooper3@citrix.com>
- <20240625190719.788643-2-andrew.cooper3@citrix.com>
+Subject: Re: [XEN PATCH v3 00/12] x86: address some violations of MISRA C Rule
+ 16.3
+To: Federico Serafini <federico.serafini@bugseng.com>
+Cc: consulting@bugseng.com, Simone Ballarin <simone.ballarin@bugseng.com>,
+ Doug Goldstein <cardoe@cardoe.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ xen-devel@lists.xenproject.org
+References: <cover.1719383180.git.federico.serafini@bugseng.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -118,114 +116,39 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240625190719.788643-2-andrew.cooper3@citrix.com>
+In-Reply-To: <cover.1719383180.git.federico.serafini@bugseng.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 25.06.2024 21:07, Andrew Cooper wrote:
-> There are two issues.  First, pi_test_and_clear_on() pulls the cache-line to
-> the CPU and dirties it even if there's nothing outstanding, but the final
-> for_each_set_bit() is O(256) when O(8) would do, and would avoid multiple
-> atomic updates to the same IRR word.
+On 26.06.2024 11:27, Federico Serafini wrote:
+> This patch series fixes a missing escape in a deviation and addresses some
+> violations.
+> 
+> Federico Serafini (12):
+>   automation/eclair: fix deviation of MISRA C Rule 16.3
+>   x86/cpuid: use fallthrough pseudo keyword
+>   x86/domctl: address a violation of MISRA C Rule 16.3
+>   x86/vpmu: address violations of MISRA C Rule 16.3
+>   x86/traps: address violations of MISRA C Rule 16.3
+>   x86/mce: address violations of MISRA C Rule 16.3
+>   x86/hvm: address violations of MISRA C Rule 16.3
 
-The way it's worded (grammar wise) it appears as if the 2nd issue is missing
-from this description. Perhaps you meant to break the sentence at "but" (and
-re-word a little what follows), which feels a little unmotivated to me (as a
-non-native speaker, i.e. may not mean anything) anyway? Or maybe something
-simply got lost in the middle?
+Just a remark, no strict request to make further re-arrangements: Looks like
+what was patch 11 in v2 was now folded into this patch. Yet then why were
+other HVM parts left separate:
 
-> --- a/xen/arch/x86/hvm/vmx/vmx.c
-> +++ b/xen/arch/x86/hvm/vmx/vmx.c
-> @@ -2321,18 +2321,63 @@ static void cf_check vmx_deliver_posted_intr(struct vcpu *v, u8 vector)
->  
->  static void cf_check vmx_sync_pir_to_irr(struct vcpu *v)
->  {
-> -    struct vlapic *vlapic = vcpu_vlapic(v);
-> -    unsigned int group, i;
-> -    DECLARE_BITMAP(pending_intr, X86_NR_VECTORS);
-> +    struct pi_desc *desc = &v->arch.hvm.vmx.pi_desc;
-> +    union {
-> +        uint64_t _64[X86_NR_VECTORS / (sizeof(uint64_t) * 8)];
-> +        uint32_t _32[X86_NR_VECTORS / (sizeof(uint32_t) * 8)];
-> +    } vec;
-> +    uint32_t *irr;
-> +    bool on;
->  
-> -    if ( !pi_test_and_clear_on(&v->arch.hvm.vmx.pi_desc) )
-> +    /*
-> +     * The PIR is a contended cacheline which bounces between the CPU and
-> +     * IOMMU.  The IOMMU updates the entire PIR atomically, but we can't
-> +     * express the same on the CPU side, so care has to be taken.
-> +     *
-> +     * First, do a plain read of ON.  If the PIR hasn't been modified, this
-> +     * will keep the cacheline Shared and not pull it Excusive on the CPU.
-> +     */
-> +    if ( !pi_test_on(desc) )
->          return;
->  
-> -    for ( group = 0; group < ARRAY_SIZE(pending_intr); group++ )
-> -        pending_intr[group] = pi_get_pir(&v->arch.hvm.vmx.pi_desc, group);
-> +    /*
-> +     * Second, if the plain read said that ON was set, we must clear it with
-> +     * an atomic action.  This will bring the cachline to Exclusive on the
-> +     * CPU.
-> +     *
-> +     * This should always succeed because noone else should be playing with
-> +     * the PIR behind our back, but assert so just in case.
-> +     */
+>   x86/vpt: address a violation of MISRA C Rule 16.3
 
-Isn't "playing with" more strict than what is the case, and what we need
-here? Aiui nothing should _clear this bit_ behind our back, while PIR
-covers more than just this one bit, and the bit may also become reset
-immediately after we cleared it.
+This and ...
 
-> +    on = pi_test_and_clear_on(desc);
-> +    ASSERT(on);
->  
-> -    for_each_set_bit(i, pending_intr, X86_NR_VECTORS)
-> -        vlapic_set_vector(i, &vlapic->regs->data[APIC_IRR]);
-> +    /*
-> +     * The cacheline is now Exclusive on the CPU, and the IOMMU has indicated
-> +     * (via ON being set) thatat least one vector is pending too.
+>   x86/mm: add defensive return
+>   x86/mpparse: address a violation of MISRA C Rule 16.3
+>   x86/vPIC: address a violation of MISRA C Rule 16.3
+>   x86/vlapic: address a violation of MISRA C Rule 16.3
 
-This isn't quite correct aiui, and hence perhaps better not to state it
-exactly like this: While we're ...
-
->  Atomically
-> +     * read and clear the entire pending bitmap as fast as we, to reduce the
-> +     * window that the IOMMU may steal the cacheline back from us.
-> +     *
-> +     * It is a performance concern, but not a correctness concern.  If the
-> +     * IOMMU does steal the cacheline back, we'll just wait to get it back
-> +     * again.
-> +     */
-> +    for ( unsigned int i = 0; i < ARRAY_SIZE(vec._64); ++i )
-> +        vec._64[i] = xchg(&desc->pir[i], 0);
-
-... still ahead of or in this loop, new bits may become set which we then
-may handle right away. The "on" indication on the next entry into this
-logic may then be misleading, as we may not find any set bit.
-
-All the code changes look good to me, otoh.
+... these two. In general I'd expect splitting / keeping together to be
+done consistently within a series, unless of course there's something that
+wants keeping separate for other than purely mechanical reasons.
 
 Jan
-
-> +    /*
-> +     * Finally, merge the pending vectors into IRR.  The IRR register is
-> +     * scattered in memory, so we have to do this 32 bits at a time.
-> +     */
-> +    irr = (uint32_t *)&vcpu_vlapic(v)->regs->data[APIC_IRR];
-> +    for ( unsigned int i = 0; i < ARRAY_SIZE(vec._32); ++i )
-> +    {
-> +        if ( !vec._32[i] )
-> +            continue;
-> +
-> +        asm ( "lock or %[val], %[irr]"
-> +              : [irr] "+m" (irr[i * 0x10])
-> +              : [val] "r" (vec._32[i]) );
-> +    }
->  }
->  
->  static bool cf_check vmx_test_pir(const struct vcpu *v, uint8_t vec)
-
 
