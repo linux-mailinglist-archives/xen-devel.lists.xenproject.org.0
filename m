@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AF61B917579
-	for <lists+xen-devel@lfdr.de>; Wed, 26 Jun 2024 03:13:55 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.748214.1155810 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8475691757B
+	for <lists+xen-devel@lfdr.de>; Wed, 26 Jun 2024 03:17:11 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.748222.1155821 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sMHED-0005Rd-9K; Wed, 26 Jun 2024 01:13:41 +0000
+	id 1sMHHK-0005zq-Ma; Wed, 26 Jun 2024 01:16:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 748214.1155810; Wed, 26 Jun 2024 01:13:41 +0000
+Received: by outflank-mailman (output) from mailman id 748222.1155821; Wed, 26 Jun 2024 01:16:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sMHED-0005PC-6h; Wed, 26 Jun 2024 01:13:41 +0000
-Received: by outflank-mailman (input) for mailman id 748214;
- Wed, 26 Jun 2024 01:13:39 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1sMHHK-0005xk-Js; Wed, 26 Jun 2024 01:16:54 +0000
+Received: by outflank-mailman (input) for mailman id 748222;
+ Wed, 26 Jun 2024 01:16:53 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=dBdT=N4=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1sMHEB-0005P6-Gc
- for xen-devel@lists.xenproject.org; Wed, 26 Jun 2024 01:13:39 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 506fc231-3359-11ef-b4bb-af5377834399;
- Wed, 26 Jun 2024 03:13:37 +0200 (CEST)
+ id 1sMHHJ-0005xc-Jl
+ for xen-devel@lists.xenproject.org; Wed, 26 Jun 2024 01:16:53 +0000
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id c33ba5fe-3359-11ef-90a3-e314d9c70b13;
+ Wed, 26 Jun 2024 03:16:51 +0200 (CEST)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id F1B7260B5A;
- Wed, 26 Jun 2024 01:13:35 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ADD66C32781;
- Wed, 26 Jun 2024 01:13:34 +0000 (UTC)
+ by sin.source.kernel.org (Postfix) with ESMTP id 1F8A4CE1FF3;
+ Wed, 26 Jun 2024 01:16:45 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 60774C32786;
+ Wed, 26 Jun 2024 01:16:43 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,69 +41,47 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 506fc231-3359-11ef-b4bb-af5377834399
+X-Inumbo-ID: c33ba5fe-3359-11ef-90a3-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1719364415;
-	bh=1vDMBFbep/nJ+2OXb3icg5/JJaWp9QD7KY+cPtqHQVg=;
+	s=k20201202; t=1719364604;
+	bh=mYuIZGRRFgZSvymB2gMePHVyb38V4g5zhBo001tFvY4=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=Nw3PQgg0EJsEj2tlW6NeLEdOQXPgeQdho9gHpnuAaIMPe+TjMaWBxnKqCgqi05Qtk
-	 aOIPiYuxSjgYfuhGiD/CIRk+JnxekDITctkEVBMeZMrHE8TqbgM1V5Nr29utb1xld1
-	 tqM+OO1EO6FcZ1GxCzTqB0Yn7xvaYUJkUF/QEIPtN1YailzSIohY+4xbD4UphYIbTf
-	 t+Lk21BuMjLUyzT47Xa6byh9Jam4joMwYJFUHnuPjrjTIDIC07BbWsRcE/3NkX1CMa
-	 Ug17IAV4W2G2PunhF9UTei9LS7ja4nVPVIE0GtkQ1EWX6jAQ0hxuU31++fCXZlcdqO
-	 iFIlbKcvGiQFQ==
-Date: Tue, 25 Jun 2024 18:13:33 -0700 (PDT)
+	b=UnLornJyoV+yChTwX8tIFST9Ny2rE+x/T+O0g05uTmctR/4w25SFrg3zo9tRALEiU
+	 qm4pma2nK4E9Rq6+h3GW6GPSJSjlWBBpNBoeKEwRnhcHhjZw9SCwtIXgiKDGFifco2
+	 NSpeRz5vzdgaXP1dBVUjJV+BWPRaI/9xcUWxpdYY1l+wE/zFAvki5vfGCgswGY6xhP
+	 yHzW0i2k0IzUjBqGkqOin61XwdeY9mOhY60ClGZiKEMwVRS0tZPqn8m0M29at2rBWz
+	 mhKcKO24xrgqFben49S/l5a+snZ3Dc9Z5vJ0jDLHONA9u8RoGnOB3bG8S0kfR3ZtL3
+	 7C8zqb3+4dJVw==
+Date: Tue, 25 Jun 2024 18:16:41 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Jan Beulich <jbeulich@suse.com>
-cc: Alessandro Zucchelli <alessandro.zucchelli@bugseng.com>, 
-    consulting@bugseng.com, Andrew Cooper <andrew.cooper3@citrix.com>, 
-    George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>, 
-    Stefano Stabellini <sstabellini@kernel.org>, 
-    xen-devel@lists.xenproject.org
-Subject: Re: [PATCH 1/3] common/kernel: address violation of MISRA C Rule
- 13.6
-In-Reply-To: <521767cb-ac08-48c5-bd91-b30c1d192331@suse.com>
-Message-ID: <alpine.DEB.2.22.394.2406251812480.3635@ubuntu-linux-20-04-desktop>
-References: <cover.1719308599.git.alessandro.zucchelli@bugseng.com> <54949b0561263b9f18da500255836d89ca8838ba.1719308599.git.alessandro.zucchelli@bugseng.com> <521767cb-ac08-48c5-bd91-b30c1d192331@suse.com>
+To: Alessandro Zucchelli <alessandro.zucchelli@bugseng.com>
+cc: xen-devel@lists.xenproject.org, consulting@bugseng.com, 
+    Andrew Cooper <andrew.cooper3@citrix.com>, 
+    George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>, 
+    Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>
+Subject: Re: [PATCH 2/3] xen/event: address violation of MISRA C Rule 13.6
+In-Reply-To: <d48b73a3c5c569f95da424fe9e14a7690b1c69f8.1719308599.git.alessandro.zucchelli@bugseng.com>
+Message-ID: <alpine.DEB.2.22.394.2406251816350.3635@ubuntu-linux-20-04-desktop>
+References: <cover.1719308599.git.alessandro.zucchelli@bugseng.com> <d48b73a3c5c569f95da424fe9e14a7690b1c69f8.1719308599.git.alessandro.zucchelli@bugseng.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
-On Tue, 25 Jun 2024, Jan Beulich wrote:
-> On 25.06.2024 12:14, Alessandro Zucchelli wrote:
-> > --- a/xen/common/kernel.c
-> > +++ b/xen/common/kernel.c
-> > @@ -660,14 +660,15 @@ long do_xen_version(int cmd, XEN_GUEST_HANDLE_PARAM(void) arg)
-> >  
-> >      case XENVER_guest_handle:
-> >      {
-> > +        struct domain *d = current->domain;
+On Tue, 25 Jun 2024, Alessandro Zucchelli wrote:
+> In the file include/xen/event.h macro set_bit is called with argument
+> current->pause_flags.
+> Once expanded this set_bit's argument is used in sizeof operations
+> and thus 'current', being a macro that expands to a function
+> call with potential side effects, generates a violation.
 > 
-> Can a (new) variable thus initialized please be consistently named currd?
+> To address this violation the value of current is therefore stored in a
+> variable called 'v' before passing it to macro set_bit.
 > 
-> >          xen_domain_handle_t hdl;
-> >  
-> >          if ( deny )
-> >              memset(&hdl, 0, ARRAY_SIZE(hdl));
-> >  
-> > -        BUILD_BUG_ON(ARRAY_SIZE(current->domain->handle) != ARRAY_SIZE(hdl));
-> > +        BUILD_BUG_ON(ARRAY_SIZE(d->handle) != ARRAY_SIZE(hdl));
+> No functional change.
 > 
-> Wasn't there the intention to exclude BUILD_BUG_ON() for specifically this
-> (and any other similar) rule?
+> Signed-off-by: Alessandro Zucchelli <alessandro.zucchelli@bugseng.com>
 
-+1
+Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 
-I think if we could do that it would be ideal because those are the
-difficult cases are only meant are build checks so there is no point in
-applying to MISRA to them.
-
-
-> > -        if ( copy_to_guest(arg, deny ? hdl : current->domain->handle,
-> > +        if ( copy_to_guest(arg, deny ? hdl : d->handle,
-> >                             ARRAY_SIZE(hdl) ) )
-> >              return -EFAULT;
-> >          return 0;
-> 
 
