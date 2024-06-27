@@ -2,31 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0092B91A2BC
-	for <lists+xen-devel@lfdr.de>; Thu, 27 Jun 2024 11:35:13 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.749874.1158096 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E5D0B91A2D5
+	for <lists+xen-devel@lfdr.de>; Thu, 27 Jun 2024 11:42:49 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.749880.1158106 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sMlW2-0002pM-0M; Thu, 27 Jun 2024 09:34:06 +0000
+	id 1sMleC-0004VG-Pl; Thu, 27 Jun 2024 09:42:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 749874.1158096; Thu, 27 Jun 2024 09:34:05 +0000
+Received: by outflank-mailman (output) from mailman id 749880.1158106; Thu, 27 Jun 2024 09:42:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sMlW1-0002np-Tk; Thu, 27 Jun 2024 09:34:05 +0000
-Received: by outflank-mailman (input) for mailman id 749874;
- Thu, 27 Jun 2024 09:34:04 +0000
+	id 1sMleC-0004TK-Md; Thu, 27 Jun 2024 09:42:32 +0000
+Received: by outflank-mailman (input) for mailman id 749880;
+ Thu, 27 Jun 2024 09:42:31 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=h0yt=N5=outstep.com=lonnie@srs-se1.protection.inumbo.net>)
- id 1sMlW0-0002nj-RV
- for xen-devel@lists.xenproject.org; Thu, 27 Jun 2024 09:34:04 +0000
-Received: from mail.outstep.net (mail.outstep.net [213.136.84.29])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=GyZL=N5=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1sMleB-0004TE-Lw
+ for xen-devel@lists.xenproject.org; Thu, 27 Jun 2024 09:42:31 +0000
+Received: from mail-lj1-x236.google.com (mail-lj1-x236.google.com
+ [2a00:1450:4864:20::236])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 6430e5e1-3468-11ef-90a3-e314d9c70b13;
- Thu, 27 Jun 2024 11:34:03 +0200 (CEST)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id E0C37234103E; Thu, 27 Jun 2024 11:33:50 +0200 (CEST)
+ id 9264e58a-3469-11ef-90a3-e314d9c70b13;
+ Thu, 27 Jun 2024 11:42:30 +0200 (CEST)
+Received: by mail-lj1-x236.google.com with SMTP id
+ 38308e7fff4ca-2ec002caeb3so98041111fa.2
+ for <xen-devel@lists.xenproject.org>; Thu, 27 Jun 2024 02:42:30 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-1faac8e06e7sm9226485ad.6.2024.06.27.02.42.26
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 27 Jun 2024 02:42:29 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,239 +45,101 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6430e5e1-3468-11ef-90a3-e314d9c70b13
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outstep.com; s=dkim;
-	t=1719480837; h=from:subject:date:message-id:to:mime-version:content-type:
-	 content-language:in-reply-to:references:autocrypt;
-	bh=2WaVWz1uKoPy7V5jJP8XhvKRNX5ChIzE5XRMe+7TDC0=;
-	b=WxRx7U+StoLNMAdgDycZ7ZqkB35I4QVfRRgx+R7ip7VXWDuKU3Roo9wO6aFGKWtOoLIK7t
-	8EbNaa+x148EM+CUVsiUWnDzmIltnSyXpxRjksx+XK/6SsbvUcvNf5TFeMZNHbq4IrGdtX
-	bZAciksHjXmPPisoq7+tmRbJOVTzEbW+/FAzcLx81ZKxbUrUiLy3nG4wHufB+9NDjtY3u1
-	d+g8MLUmIMaTkihQhtxHZc18wo0zxUys/o3S1IeI/3nNb+oZzdXzzW+kDs9Hj3RGeKtgdh
-	FYnlWB4pY7y8bkon19iI4lbxhFrv/cZEfScpzWu31jlbKdYxMrpK8sm1a0nVpg==
-Content-Type: multipart/alternative;
- boundary="------------QHu000RIvSuCk0jjQNql1ZiU"
-Message-ID: <be292bcf-d77f-44ba-b29a-b1608586647b@outstep.com>
-Date: Thu, 27 Jun 2024 05:33:44 -0400
+X-Inumbo-ID: 9264e58a-3469-11ef-90a3-e314d9c70b13
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1719481350; x=1720086150; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=P/S8BVEh4uCDLugoaFpR3ia2RAVlpPmLeAL81b5KYvc=;
+        b=CTFNibEr/sQO4Yn+cb4fBI/INMuDOU79IRR24gk4bX2JCYm3dc4pzrxnsqX9U+4YHj
+         AtffeNfm8rBOqMGfYrk0SAkSESUqJM8xuxsAJvE1qWi20qzqnig+oswq6tk62M0VPIc4
+         XFRJ25XCS4KsGlXFtgnPcvhAV96R1PJzxglLrvjxZt3g0ZOwxfSF/d2qyss9lev93sWW
+         pGCUwK0RPYV0pV5KWo+V+qsyD8cL2O2NVKZo3TR5K6ug/cmM6LJ7ZVF8lKoEj7k10ov5
+         CfpDkQ8DwDQzq2AYHKrVrtcUO+CnTe3MDCILpc1zVpBvcXNEcKQdYXdnn2P/4RqZEv8p
+         +U/w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1719481350; x=1720086150;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=P/S8BVEh4uCDLugoaFpR3ia2RAVlpPmLeAL81b5KYvc=;
+        b=VHQCLL+CZ1ozYRjMinT3KzzT8FZMgm8utkYCsTy8VI1efvrwkxLhcJFRTgSTX6yTni
+         jNHFHfC+usKInJyepY3r4/ggux+UrepZbKq02WHooygXlRBzR0je54XCVtEjGMLInaM5
+         Yc3uARx6msuUpq/rOTRAcfq0ivMDyxY4H7y5qbHHLFHAZG+78eJro3q3Qn/rx2L0X9L5
+         iSufSqTBpt4CxJVD9srNOZ2+S/xq9LHqrovDoRy2MjjfPOcPfoP8UmnKt+ipAOwX+6k3
+         XmGuykfpgVyudXvl8fTtwrm75c9rMn+Z4ViOfgBVrCkNrkdRCo/1ujZSbV9FXkvIMaRV
+         JAXQ==
+X-Forwarded-Encrypted: i=1; AJvYcCU5YhZdKpEX7i2BPo/iM5NpaoFgrrHQGzmvi404gn2ykfdPx5++iDXYMBJ0/v6mTAz7KlpsfX+wWZckDVSJs05BOnzWoOT0FCczBfY4KCA=
+X-Gm-Message-State: AOJu0Yz1ShZoQwebPnx71X+VPx6+VLJ/8niww9r0xhhvx52PWNQK5+GY
+	N54x+tMoqRTWyd0q0DIX6kN5dLJEq2ijtnP3e7nGt49x+uOzFUhhMVy0ctTirg==
+X-Google-Smtp-Source: AGHT+IGSlcojHbxVy/T92BB0xSExuMdGmuxvJCW31A9UK6LatjIMgU7MEyJDHyC0sifor2vuqrfscQ==
+X-Received: by 2002:a2e:800a:0:b0:2ec:4e59:a3de with SMTP id 38308e7fff4ca-2ec57967be5mr87038181fa.10.1719481349919;
+        Thu, 27 Jun 2024 02:42:29 -0700 (PDT)
+Message-ID: <fe255839-f8ab-4dd1-abe8-8ec834099a8d@suse.com>
+Date: Thu, 27 Jun 2024 11:42:20 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: Disaggregated (Xoar) Dom0 Building
-To: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org
-References: <376f0fe4-4ae8-461d-87f2-0fa2e6913689@outstep.com>
- <59d67a78-14a0-42ac-b0dc-3d75c109f767@suse.com>
+Subject: Re: [PATCH v4 06/10] tools/libguest: Make setting MTRR registers
+ unconditional
+To: Alejandro Vallejo <alejandro.vallejo@cloud.com>
+Cc: Anthony PERARD <anthony.perard@vates.tech>,
+ Juergen Gross <jgross@suse.com>, Xen-devel <xen-devel@lists.xenproject.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+References: <cover.1719416329.git.alejandro.vallejo@cloud.com>
+ <2c55d486bb0c54a3e813abc66d32f321edd28b81.1719416329.git.alejandro.vallejo@cloud.com>
 Content-Language: en-US
-From: Lonnie Cumberland <lonnie@outstep.com>
-Autocrypt: addr=lonnie@outstep.com; keydata=
- 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
- WujEwGqqyfUF7eo=
-In-Reply-To: <59d67a78-14a0-42ac-b0dc-3d75c109f767@suse.com>
-X-Last-TLS-Session-Version: TLSv1.3
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <2c55d486bb0c54a3e813abc66d32f321edd28b81.1719416329.git.alejandro.vallejo@cloud.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-This is a multi-part message in MIME format.
---------------QHu000RIvSuCk0jjQNql1ZiU
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+On 26.06.2024 18:28, Alejandro Vallejo wrote:
+> This greatly simplifies a later patch that makes use of HVM contexts to upload
+> LAPIC data. The idea is to reuse MTRR setting procedure to avoid code
+> duplication. It's currently only used for PVH, but there's no real reason to
+> overcomplicate the toolstack preventing them being set for HVM too when
+> hvmloader will override them anyway.
 
-Thanks for your suggestions and information as I will definitely look 
-into these more.
+Yet then - why set them when hvmloader will do so again? Is it even guaranteed
+to be no change in (guest) behavior to do so?
 
-I have a very brief introduction to Dom0less and it is definitely 
-something of interest for me to  review as well.
+Plus what about a guest which was configured to have the CPUID bit for MTRRs
+clear? I think we ought to document this as not supported for PVH (we may
+actually choose to refuse building such a guest), but in principle the MTRR
+save/load operations should simply fail for a HVM guest in said configuration.
+Making such a change in Xen now would, afaict, be benign to the tool stack.
+After this adjustment it would result in a perceived regression, when there
+shouldn't be any.
 
-On the QubesOS side, I also read up a little on it and while it has a 
-number of similarities to what I am trying to do on the functional side, 
-it seems to be a whole distro release that comes in a 6GB ISO download 
-to install where as the project I am working towards is to have 
-everything as a RAM-based ultra-lightweight thin hypervisor.   I looked 
-over ACRN, the NOVA Microhypervisor (Headron, Beadrock Udo), 
-Rust-Shyper, Bareflank-MicroV, and many other development efforts but it 
-seems that Xen is the most advanced for my purposes here.
+Thinking about it, even for PVH it may make sense to allow CPUID.MTRR=0, as
+long as CPUID.PAT=1, thus forcing it into PAT-only mode. I think we did even
+discuss this possible configuration before.
 
-Thanks again and I will dig into everything much more as well.
-
-Have a great day,
-Lonnie
-
-On 6/27/2024 1:54 AM, Juergen Gross wrote:
-> On 26.06.24 18:47, Lonnie Cumberland wrote:
->> Hello All,
->>
->> I hope that everyone is doing well today.
->>
->> Currently, I am investigating and researching the ideas of 
->> "Disaggregating" Dom0 and have the Xoar Xen patches ("Breaking Up is 
->> Hard to Do: Security and Functionality in a Commodity Hypervisor" 
->> 2011) available which were developed against version 22155 of 
->> xen-unstable. The Linux patches are against Linux with pvops 
->> 2.6.31.13 and developed on a standard Ubuntu 10.04 install. My effort 
->> would also be up update these patches.
->>
->> I have been able to locate the Xen "Dom0 Disaggregation" 
->> (https://wiki.xenproject.org/wiki/Dom0_Disaggregation) am reading up 
->> on things now but wanted to ask the developers list about any 
->> experience you may have had in this area since the research objective 
->> is to integrate Xoar with the latest Xen 4.20, if possible, and to 
->> take it further to basically eliminate Dom0 all together with 
->> individual Mini-OS or Unikernel "Service and Driver VM's" instead 
->> that are loaded at UEFI boot time.
->>
->> Any guidance, thoughts, or ideas would be greatly appreciated,
->
-> Just some pointers, this is not an exhaustive list:
->
-> - you should have a look at dom0less (see 
-> docs/features/dom0less.pandoc in
->   the Xen source tree) and hyperlauch (see 
-> docs/designs/launch/hyperlaunch.rst
->   in the Xen source tree)
->
-> - Xenstore in a stub-domain is working fine, it is the default in 
-> openSUSE and
->   SLE
->
-> - QubesOS has a lot of the disaggregation you are looking for implemented
->
-> - I'm pretty sure only very few changes should be needed for the Linux 
-> kernel,
->   if any.
->
->
-> Juergen
-
---------------QHu000RIvSuCk0jjQNql1ZiU
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body>
-    <font face="Times New Roman, Times, serif">Thanks for your
-      suggestions and information as I will definitely look into these
-      more.<br>
-      <br>
-      I have a very brief introduction to Dom0less and it is definitely
-      something of interest for me to  review as well.<br>
-      <br>
-      On the QubesOS side, I also read up a little on it and while it
-      has a number of similarities to what I am trying to do on the
-      functional side, it seems to be a whole distro release that comes
-      in a 6GB ISO download to install where as the project I am working
-      towards is to have everything as a RAM-based ultra-lightweight
-      thin hypervisor.   I looked over ACRN, the NOVA Microhypervisor
-      (Headron, Beadrock Udo), Rust-Shyper, Bareflank-MicroV, and many
-      other development efforts but it seems that Xen is the most
-      advanced for my purposes here.<br>
-      <br>
-      Thanks again and I will dig into everything much more as well.<br>
-      <br>
-      Have a great day,<br>
-      Lonnie<br>
-    </font><br>
-    <div class="moz-cite-prefix">On 6/27/2024 1:54 AM, Juergen Gross
-      wrote:<br>
-    </div>
-    <blockquote type="cite"
-      cite="mid:59d67a78-14a0-42ac-b0dc-3d75c109f767@suse.com">On
-      26.06.24 18:47, Lonnie Cumberland wrote:
-      <br>
-      <blockquote type="cite">Hello All,
-        <br>
-        <br>
-        I hope that everyone is doing well today.
-        <br>
-        <br>
-        Currently, I am investigating and researching the ideas of
-        "Disaggregating" Dom0 and have the Xoar Xen patches ("Breaking
-        Up is Hard to Do: Security and Functionality in a Commodity
-        Hypervisor" 2011) available which were developed against version
-        22155 of xen-unstable. The Linux patches are against Linux with
-        pvops 2.6.31.13 and developed on a standard Ubuntu 10.04
-        install. My effort would also be up update these patches.
-        <br>
-        <br>
-        I have been able to locate the Xen "Dom0 Disaggregation"
-        (<a class="moz-txt-link-freetext" href="https://wiki.xenproject.org/wiki/Dom0_Disaggregation">https://wiki.xenproject.org/wiki/Dom0_Disaggregation</a>) am
-        reading up on things now but wanted to ask the developers list
-        about any experience you may have had in this area since the
-        research objective is to integrate Xoar with the latest Xen
-        4.20, if possible, and to take it further to basically eliminate
-        Dom0 all together with individual Mini-OS or Unikernel "Service
-        and Driver VM's" instead that are loaded at UEFI boot time.
-        <br>
-        <br>
-        Any guidance, thoughts, or ideas would be greatly appreciated,
-        <br>
-      </blockquote>
-      <br>
-      Just some pointers, this is not an exhaustive list:
-      <br>
-      <br>
-      - you should have a look at dom0less (see
-      docs/features/dom0less.pandoc in
-      <br>
-        the Xen source tree) and hyperlauch (see
-      docs/designs/launch/hyperlaunch.rst
-      <br>
-        in the Xen source tree)
-      <br>
-      <br>
-      - Xenstore in a stub-domain is working fine, it is the default in
-      openSUSE and
-      <br>
-        SLE
-      <br>
-      <br>
-      - QubesOS has a lot of the disaggregation you are looking for
-      implemented
-      <br>
-      <br>
-      - I'm pretty sure only very few changes should be needed for the
-      Linux kernel,
-      <br>
-        if any.
-      <br>
-      <br>
-      <br>
-      Juergen
-      <br>
-    </blockquote>
-    <br>
-  </body>
-</html>
-
---------------QHu000RIvSuCk0jjQNql1ZiU--
+Jan
 
