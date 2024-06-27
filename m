@@ -2,32 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5A63491A3D8
-	for <lists+xen-devel@lfdr.de>; Thu, 27 Jun 2024 12:32:50 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.749950.1158196 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 45D0991A41E
+	for <lists+xen-devel@lfdr.de>; Thu, 27 Jun 2024 12:41:00 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.749956.1158205 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sMmQS-0000D9-JL; Thu, 27 Jun 2024 10:32:24 +0000
+	id 1sMmY1-0002Ef-AP; Thu, 27 Jun 2024 10:40:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 749950.1158196; Thu, 27 Jun 2024 10:32:24 +0000
+Received: by outflank-mailman (output) from mailman id 749956.1158205; Thu, 27 Jun 2024 10:40:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sMmQS-0000B1-Fw; Thu, 27 Jun 2024 10:32:24 +0000
-Received: by outflank-mailman (input) for mailman id 749950;
- Thu, 27 Jun 2024 10:32:22 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1sMmY1-0002Bj-7k; Thu, 27 Jun 2024 10:40:13 +0000
+Received: by outflank-mailman (input) for mailman id 749956;
+ Thu, 27 Jun 2024 10:40:12 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1sMmQQ-0000Au-FO
- for xen-devel@lists.xenproject.org; Thu, 27 Jun 2024 10:32:22 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1sMmQQ-0007fR-2a; Thu, 27 Jun 2024 10:32:22 +0000
-Received: from [15.248.2.25] (helo=[10.24.67.29])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1sMmQP-0004AN-Qp; Thu, 27 Jun 2024 10:32:21 +0000
+ (envelope-from <SRS0=GyZL=N5=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1sMmY0-0002Bd-Lp
+ for xen-devel@lists.xenproject.org; Thu, 27 Jun 2024 10:40:12 +0000
+Received: from mail-lj1-x22a.google.com (mail-lj1-x22a.google.com
+ [2a00:1450:4864:20::22a])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id a0c4726f-3471-11ef-b4bb-af5377834399;
+ Thu, 27 Jun 2024 12:40:10 +0200 (CEST)
+Received: by mail-lj1-x22a.google.com with SMTP id
+ 38308e7fff4ca-2ec5779b423so56863521fa.0
+ for <xen-devel@lists.xenproject.org>; Thu, 27 Jun 2024 03:40:10 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ d2e1a72fcca58-706b48d0d40sm1048497b3a.10.2024.06.27.03.40.04
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 27 Jun 2024 03:40:09 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,139 +45,95 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=Xa4o4u7u8I6QXsWixHCkdQsoG4fvPOsklXckdvOUVJU=; b=OJ0uUzPupBFsNJclQvY+m3l1uo
-	a/cWCRGK9dNQsA0nhKYeensHcbFe7Vvx9oD0wyzQfIxOTNwxcC59yaaPXae8G6IDHVpGcPZ3Y8HR7
-	7FwESsWkz/ZJ1HCzwXw3S7qdY3Fh5Gsp/rElHj9eNxBRbtzi9fP6lNjjVNYuKkBTknic=;
-Message-ID: <ae447b0b-f791-4ca8-8b33-3600ae059b47@xen.org>
-Date: Thu, 27 Jun 2024 11:32:19 +0100
+X-Inumbo-ID: a0c4726f-3471-11ef-b4bb-af5377834399
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1719484810; x=1720089610; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=n70y0PhnhdmR0y0od7jjbLFRwIzTamhdpK5VhI//MbM=;
+        b=KD8nimEdcLH2oNEaZYKMjk3fqARRHJA2lqYOoMz340P12ytfCxV1bc4Y9nQBPpvQzb
+         pnNgk6pUn8CnQAtqKdNvJAp7xqcACaOUVxHELegk/sywXmqmqCsqsgdZ0x7CRu+KINuj
+         SC5/BpdeJYabLxBATC0yOauhaRR/KZOGlWpeO3o6P9V/afGEMAQnilylp1/QW0sgZZTj
+         QVQBjE5v91hPyOhl7d/QNEUjXcbm4ip5LSJ6z0yXbvaqLylEkyWNE6dv8K7PZei3qiA3
+         IbUeSuOjvfbonpBllZrLwuMg9Bt9ieL4K66LY09cTAeURKKZWIhqeW5lzagHn4TDpNtJ
+         WlUQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1719484810; x=1720089610;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=n70y0PhnhdmR0y0od7jjbLFRwIzTamhdpK5VhI//MbM=;
+        b=OFkHds47zErb/L09VrCLK14yiiZfqfpnXc83SGKuz5vVtHD5epIHYErhpzC33DX+xR
+         Q27jb5K0+6hCrOnNTyjbf6O8F2lBK2iDVZmgONHNagivE60qZHLnm+m83UhlTDMoO/5y
+         7rDsClXmEF5KJThtYAGM+dPGJYWflnrdcmCKSOptqpg1BtwIlAZd/rdyWvEg5AS++o5z
+         cnuj7TRVZXm4tnGrg0/P2eQ2JWtsvog3OrA2l7rizUtu7k5alEHeIg2Q0KHOof7+xm+A
+         6qd8IPH+Ewha0Py8j23PCmibDE2pwLQOBSQwOSJGBqi1UMpirPMjiWDwudVgddLdB2h7
+         KWEw==
+X-Gm-Message-State: AOJu0YzEi9ClV3862lSlhfCoXK0isWBaJ232+x0JnzOReXoCtAgV9tgm
+	i0t/9KDp0B/qD68M3JGiBgQkfvalf1QxH/iXPOrS/llR9k73JvApGD7MLd0TVw==
+X-Google-Smtp-Source: AGHT+IHjz3gXw9cnyx3lnTPBkJH93+2IB8jjqjKUAGSCBoYHbf1XUROgt9JFWErViZuQB7rL54LqeQ==
+X-Received: by 2002:a2e:9d14:0:b0:2ee:45f3:1d13 with SMTP id 38308e7fff4ca-2ee45f31ed3mr22693511fa.47.1719484810010;
+        Thu, 27 Jun 2024 03:40:10 -0700 (PDT)
+Message-ID: <5c15f165-bfae-40ef-ab15-59e262b90b81@suse.com>
+Date: Thu, 27 Jun 2024 12:39:59 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH for-4.19(?)] xen/arm: bootfdt: Fix device tree memory node
- probing
-Content-Language: en-GB
-To: Michal Orzel <michal.orzel@amd.com>, xen-devel@lists.xenproject.org
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, oleksii.kurochko@gmail.com
-References: <20240626080428.18480-1-michal.orzel@amd.com>
- <766b260e-204c-423f-b0e1-c21957b6d169@xen.org>
- <b5c861a4-1431-44c5-a1ec-bc859ea011c3@amd.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <b5c861a4-1431-44c5-a1ec-bc859ea011c3@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Subject: Re: [XEN PATCH v2 for-4.20 7/7] x86/traps: address violations of
+ MISRA C Rule 20.7
+To: Nicola Vetrini <nicola.vetrini@bugseng.com>
+Cc: xen-devel@lists.xenproject.org, michal.orzel@amd.com,
+ xenia.ragiadakou@amd.com, ayan.kumar.halder@amd.com, consulting@bugseng.com,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>
+References: <cover.1719407840.git.nicola.vetrini@bugseng.com>
+ <7830b9bfbb0aec272376817eb20bbcbfebdf4044.1719407840.git.nicola.vetrini@bugseng.com>
+ <alpine.DEB.2.22.394.2406261746040.3635@ubuntu-linux-20-04-desktop>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <alpine.DEB.2.22.394.2406261746040.3635@ubuntu-linux-20-04-desktop>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-
-
-On 27/06/2024 08:40, Michal Orzel wrote:
-> Hi Julien,
+On 27.06.2024 02:46, Stefano Stabellini wrote:
+> On Wed, 26 Jun 2024, Nicola Vetrini wrote:
+>> MISRA C Rule 20.7 states: "Expressions resulting from the expansion
+>> of macro parameters shall be enclosed in parentheses". Therefore, some
+>> macro definitions should gain additional parentheses to ensure that all
+>> current and future users will be safe with respect to expansions that
+>> can possibly alter the semantics of the passed-in macro parameter.
+>>
+>> No functional change.
+>>
+>> Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
 > 
-> On 26/06/2024 22:13, Julien Grall wrote:
->>
->>
->> Hi Michal,
->>
->> On 26/06/2024 09:04, Michal Orzel wrote:
->>> Memory node probing is done as part of early_scan_node() that is called
->>> for each node with depth >= 1 (root node is at depth 0). According to
->>> Devicetree Specification v0.4, chapter 3.4, /memory node can only exists
->>> as a top level node. However, Xen incorrectly considers all the nodes with
->>> unit node name "memory" as RAM. This buggy behavior can result in a
->>> failure if there are other nodes in the device tree (at depth >= 2) with
->>> "memory" as unit node name. An example can be a "memory@xxx" node under
->>> /reserved-memory. Fix it by introducing device_tree_is_memory_node() to
->>> perform all the required checks to assess if a node is a proper /memory
->>> node.
->>>
->>> Fixes: 3e99c95ba1c8 ("arm, device tree: parse the DTB for RAM location and size")
->>> Signed-off-by: Michal Orzel <michal.orzel@amd.com>
->>> ---
->>> 4.19: This patch is fixing a possible early boot Xen failure (before main
->>> console is initialized). In my case it results in a warning "Shattering
->>> superpage is not supported" and panic "Unable to setup the directmap mappings".
->>>
->>> If this is too late for this patch to go in, we can backport it after the tree
->>> re-opens.
->>
->> The code looks correct to me, but I am not sure about merging it to 4.19.
->>
->> This is not a new bug (in fact has been there since pretty much Xen on
->> Arm was created) and we haven't seen any report until today. So in some
->> way it would be best to merge it after 4.19 so it can get more testing.
->>
->> In the other hand, I guess this will block you. Is this a new platform?
->> Is it available?
-> Stefano answered this question. Also, IMO this change is quite straightforward
-> and does not introduce any engineering doubt, so I'm not really sure if it needs
-> more testing.
+> Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 
-At this stage of the release we should think whether the bug is critical 
-enough (rather than the risk is low enough) to be merged. IMHO, it is 
-not because this has been there for the past 12 years...
+Acked-by: Jan Beulich <jbeulich@suse.com>
 
-But if we focus on the "riskness". We are rightly changing an interface 
-which possibly someone may have (bogusly) relied on. So there is a 
-lowish risk that you may end up to break use-case late in the release 
-(we are a couple of weeks away) for use-case that never worked in the 
-past 12 years.
-
-We should also think what the worse that can happen if there is a bug in 
-your series. The worse is we would not be able to boot on already 
-supported platform. This would be quite a bad regression this late in 
-the release. For Device-Tree parsing, I don't think it is enough to just 
-test on just a handful of platforms this late in the release.
-
-Which is why to me the answer to "It should be in 4.19" is not 
-straightforward. If we merge post 4.19, then we give the chance to 
-people to test, update & adjust their setup if needed.
-
-Anyway, ultimately this is Oleksii's decision as the release manager.
-
-[...]
-
->>> +/*
->>> + * Check if a node is a proper /memory node according to Devicetree
->>> + * Specification v0.4, chapter 3.4.
->>> + */
->>> +static bool __init device_tree_is_memory_node(const void *fdt, int node,
->>> +                                              int depth)
->>> +{
->>> +    const char *type;
->>> +    int len;
->>> +
->>> +    if ( depth != 1 )
->>> +        return false;
->>> +
->>> +    if ( !device_tree_node_matches(fdt, node, "memory") )
->>> +        return false;
->>> +
->>> +    type = fdt_getprop(fdt, node, "device_type", &len);
->>> +    if ( !type )
->>> +        return false;
->>> +
->>> +    if ( (len <= 0) || strcmp(type, "memory") )
->>
->> I would consider to use strncmp() to avoid relying on the property to be
->> well-formed (i.e. nul-terminated).
-> Are you sure? AFAIR, libfdt returns NULL and -FDT_ERR_TRUNCATED as len if a string is non null terminated.
-
-I can't find such code in path. Do you have any pointer?
-
-> Also, let's suppose it is somehow not terminated. In that case how could libfdt set len to be > 0?
-
-The FDT will store the length of the property otherwise you would not be 
-able to encode property that are just a list of cells (i.e. numbers).
-
-> It needs to know where is the end of the string to calculate the length.
-
-For the name and the description, it is unclear to why would 
-fdt_getprop() would only work for string property.
-
-Cheers,
-
--- 
-Julien Grall
 
