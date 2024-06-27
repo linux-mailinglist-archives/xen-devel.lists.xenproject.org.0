@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D753691A128
-	for <lists+xen-devel@lfdr.de>; Thu, 27 Jun 2024 10:11:52 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.749813.1158055 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6F3A491A176
+	for <lists+xen-devel@lfdr.de>; Thu, 27 Jun 2024 10:29:45 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.749827.1158066 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sMkE4-00077u-El; Thu, 27 Jun 2024 08:11:28 +0000
+	id 1sMkUj-0000xH-SQ; Thu, 27 Jun 2024 08:28:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 749813.1158055; Thu, 27 Jun 2024 08:11:28 +0000
+Received: by outflank-mailman (output) from mailman id 749827.1158066; Thu, 27 Jun 2024 08:28:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sMkE4-00075M-C8; Thu, 27 Jun 2024 08:11:28 +0000
-Received: by outflank-mailman (input) for mailman id 749813;
- Thu, 27 Jun 2024 08:11:26 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1sMkUj-0000up-PN; Thu, 27 Jun 2024 08:28:41 +0000
+Received: by outflank-mailman (input) for mailman id 749827;
+ Thu, 27 Jun 2024 08:28:39 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=GyZL=N5=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sMkE2-00075D-S2
- for xen-devel@lists.xenproject.org; Thu, 27 Jun 2024 08:11:26 +0000
-Received: from mail-lj1-x22a.google.com (mail-lj1-x22a.google.com
- [2a00:1450:4864:20::22a])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id d88f04d6-345c-11ef-b4bb-af5377834399;
- Thu, 27 Jun 2024 10:11:24 +0200 (CEST)
-Received: by mail-lj1-x22a.google.com with SMTP id
- 38308e7fff4ca-2ec5779b423so55300971fa.0
- for <xen-devel@lists.xenproject.org>; Thu, 27 Jun 2024 01:11:24 -0700 (PDT)
+ id 1sMkUh-0000tl-TK
+ for xen-devel@lists.xenproject.org; Thu, 27 Jun 2024 08:28:39 +0000
+Received: from mail-lj1-x234.google.com (mail-lj1-x234.google.com
+ [2a00:1450:4864:20::234])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 40a75380-345f-11ef-90a3-e314d9c70b13;
+ Thu, 27 Jun 2024 10:28:38 +0200 (CEST)
+Received: by mail-lj1-x234.google.com with SMTP id
+ 38308e7fff4ca-2ee4ae13aabso3670961fa.2
+ for <xen-devel@lists.xenproject.org>; Thu, 27 Jun 2024 01:28:38 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-1faac9793a1sm7428555ad.178.2024.06.27.01.11.18
+ d9443c01a7336-1faac9b3a10sm7703645ad.273.2024.06.27.01.28.34
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 27 Jun 2024 01:11:21 -0700 (PDT)
+ Thu, 27 Jun 2024 01:28:37 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,55 +45,52 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d88f04d6-345c-11ef-b4bb-af5377834399
+X-Inumbo-ID: 40a75380-345f-11ef-90a3-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1719475884; x=1720080684; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1719476918; x=1720081718; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=E5J23NZ1segqqhFXXYTwxEvTsF4rIj3ccvQoT6q3rCo=;
-        b=CjXhR82jLroqLgB50FYDT+tPaOs5UAxIAKIeed+BF0bEaV5phucUieIxkVbvlS1Z55
-         IcdMXYLpTja8pC94uL5jZJXu9NpbSYkz9j+YbhOM1R8aDKo4DxKAh0U+GL3OodOFfJyE
-         J2JC6tflGjLpbhWDpbntPfuWEP3EFOJUUSVSztF1JbxGN5bdkbzp+/zoJSJqIbExiaNs
-         48QGL7R5AHOUiIHmKQcfwBT3pvoVKn7UsJB66OfcNqjRmaTYwARJNBQRWJ16/DnbCJs/
-         GVRBKmtWRkXS89choZ6yliNTVm+VZgKmqU5oEt8hNiTZZcEBRamFNRokoor2nHqNOsOF
-         trmg==
+        bh=7mcsX5hsBFiWNWVknJQAFiRNCEEw56g6tSMZ7MNIfAY=;
+        b=W8RGbq1+/HhZr3g1jS/78L+561zHD7p5ZWNHaWA7kjn1FL1HmnNp+TxwrXZ3erjnKD
+         L7Fw400i5SSed3XtY4FzZ2GwVQhs9WMJMvwRkR6Vh0maszGh8laiDWwt3Mhpk8fWZ4bC
+         gKNpXAHZ8gMyWPuyGpeMQrDkYz6j2Kjg01N7qOjPXkkYcEPa75jjDRzZfXjFFPHia9lY
+         JQPIMXDfkJuobIxzf1RDqo3FZOyhT7P+ia/Rtz9ObtknT0U2agRB1wlGKskU40xsiOOk
+         Ewr05LcDoWf/XNncxzpHja78RZfvk+xRsp1Dy+hT99okOgCnprt20GmgzulXCFZHmZpb
+         XSiw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1719475884; x=1720080684;
+        d=1e100.net; s=20230601; t=1719476918; x=1720081718;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=E5J23NZ1segqqhFXXYTwxEvTsF4rIj3ccvQoT6q3rCo=;
-        b=QD9OeqYXh5KwIbfvjaowZRtPsvHue9QQCIS12HBfqYkk6bSAi6ey7zLb/Auol6p8QQ
-         c88JXQAQl3OcfbksmYtW8Fglm8d5Ng6M/G1Q2J/5els/6YMh6rsgipU9v3ZxR1iafEnA
-         Gqy+AkoEy14+/ZOoSetfdcyOnaK1s2xZSty0xC/pP1JJYp8sQvaDJ3A2Xk7G0YYO9Jd2
-         TwDpDe6FF1rH2xseLdUCN9/aeOHsjE+2uMBwaO/7FtVELpIvyhlWrrjxlOWLLuLVQI5q
-         zDzLSSYx+XHN7kFtgUdh6uLEwD9DpBt2HoiHjFZdeliXxN6svR/1fVbLuLcdd6QQfj1n
-         qSkQ==
-X-Gm-Message-State: AOJu0YxL3QB6WYcE069+vCawMhTOLGb6McNGqO3B0UD4g2JsuSuEt7l1
-	2gdjyMUlwNTX2gMDIU1eXed6jo2aexfcr+7LtMtjEHrj4ZbJG10c6HD7BL9Xcw==
-X-Google-Smtp-Source: AGHT+IH/w27rasRrzMJFDIbQmkAtVIUlSQbSFOoy/RDmgPHQaNnKDxvk1u6E+R9LP+76cpuVDhVqgA==
-X-Received: by 2002:a2e:9090:0:b0:2ec:5621:b9f2 with SMTP id 38308e7fff4ca-2ec5936fb3amr95241051fa.41.1719475882128;
-        Thu, 27 Jun 2024 01:11:22 -0700 (PDT)
-Message-ID: <84eb22c8-7737-4e6b-8194-724c792c2d92@suse.com>
-Date: Thu, 27 Jun 2024 10:11:13 +0200
+        bh=7mcsX5hsBFiWNWVknJQAFiRNCEEw56g6tSMZ7MNIfAY=;
+        b=dVn7w+ivvWAoTs3cVSVvreVYxO+y3Tz/KatvMIdzWZHM4Riv8cYSeWt5tK4cUGpE6I
+         Q44uN0eDwWvJakqXFy2IXrRu4cXTJarfdPajfX6CeTwDBztuWMdNYsyDYjMqnqcWxKHr
+         UcAI+qniP3EjYknJWi7jIfhX9fare9Gfzxi7XswBXkCsBHIxzlQwQlrnsA5+Z0aWuTGl
+         N1BcpLCansxri+Ku+uSq1j6DQs85R5mq8nGxPuZ8pFd4vxcaL6jg6FFFywP7lFTupBxX
+         jb9UC+kCqmaIj3s+NjWEAQsv8FXbXsCQ+5xwVGmdoAG5tibLMmABriv1yuapdXV4NC9N
+         3I3Q==
+X-Forwarded-Encrypted: i=1; AJvYcCXEXynaenetXRVVfNoa/pSL6V7MG5bIxGcygZOfgKonC+nuIEe9YbLgJZCdRpAYKIkFaIWzaI9+z7mfjNrw3T/LhU8VPMoheB8X688wVwM=
+X-Gm-Message-State: AOJu0YzXx7TqUtcez0zcEPKMf/Y1yZ1Qx3pUdpbO3P0qIeCleDJD4VDB
+	8TpO0+x88oUJd5EpYG3awxY2NDcyYZUGtT5hxD+sbbm6IK1MhoPxGWEwyF/Gzua83m6auafD8bc
+	=
+X-Google-Smtp-Source: AGHT+IFlqabrGF5vGH+rKcahRGJb+Z0eVr+QuRkJ9jVRzJP8ux0/qAkVkyi9JqDVJxFUsdeetJKmIQ==
+X-Received: by 2002:a2e:96d4:0:b0:2ee:4da5:be67 with SMTP id 38308e7fff4ca-2ee4da5c253mr536801fa.0.1719476917993;
+        Thu, 27 Jun 2024 01:28:37 -0700 (PDT)
+Message-ID: <c4f0e177-3c2c-47bc-a8a1-e69aff1c3bed@suse.com>
+Date: Thu, 27 Jun 2024 10:28:29 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH v2 05/13] x86/traps: address violations of MISRA C
- Rule 16.3
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: xen-devel@lists.xenproject.org, consulting@bugseng.com,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Federico Serafini <federico.serafini@bugseng.com>
-References: <cover.1719218291.git.federico.serafini@bugseng.com>
- <4f44a7b021eb4f78ccf1ce69b500b48b75df81c5.1719218291.git.federico.serafini@bugseng.com>
- <alpine.DEB.2.22.394.2406241753260.3870429@ubuntu-linux-20-04-desktop>
- <a5b47b7e-9dc0-4108-bd6f-eb34f7cb8c3c@suse.com>
- <alpine.DEB.2.22.394.2406251808040.3635@ubuntu-linux-20-04-desktop>
- <6441010f-c2f6-4098-bf23-837955dcf803@suse.com>
- <alpine.DEB.2.22.394.2406261758390.3635@ubuntu-linux-20-04-desktop>
+Subject: Re: [PATCH for-4.19 v2] x86/spec-ctrl: Support for SRSO_US_NO and
+ SRSO_MSR_FIX
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20240619191057.2588693-1-andrew.cooper3@citrix.com>
+ <8510895d-70fb-4fce-adfa-ac5638b4ae3c@suse.com>
+ <b27d4722-a8d0-4134-bc2e-d2d751a88c10@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -119,116 +116,122 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <alpine.DEB.2.22.394.2406261758390.3635@ubuntu-linux-20-04-desktop>
+In-Reply-To: <b27d4722-a8d0-4134-bc2e-d2d751a88c10@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 27.06.2024 03:53, Stefano Stabellini wrote:
-> On Wed, 26 Jun 2024, Jan Beulich wrote:
->> On 26.06.2024 03:11, Stefano Stabellini wrote:
->>> On Tue, 25 Jun 2024, Jan Beulich wrote:
->>>> On 25.06.2024 02:54, Stefano Stabellini wrote:
->>>>> On Mon, 24 Jun 2024, Federico Serafini wrote:
->>>>>> Add break or pseudo keyword fallthrough to address violations of
->>>>>> MISRA C Rule 16.3: "An unconditional `break' statement shall terminate
->>>>>> every switch-clause".
->>>>>>
->>>>>> No functional change.
->>>>>>
->>>>>> Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
->>>>>> ---
->>>>>>  xen/arch/x86/traps.c | 3 +++
->>>>>>  1 file changed, 3 insertions(+)
->>>>>>
->>>>>> diff --git a/xen/arch/x86/traps.c b/xen/arch/x86/traps.c
->>>>>> index 9906e874d5..cbcec3fafb 100644
->>>>>> --- a/xen/arch/x86/traps.c
->>>>>> +++ b/xen/arch/x86/traps.c
->>>>>> @@ -1186,6 +1186,7 @@ void cpuid_hypervisor_leaves(const struct vcpu *v, uint32_t leaf,
->>>>>>  
->>>>>>      default:
->>>>>>          ASSERT_UNREACHABLE();
->>>>>> +        break;
->>>>>
->>>>> Please add ASSERT_UNREACHABLE to the list of "unconditional flow control
->>>>> statements" that can terminate a case, in addition to break.
->>>>
->>>> Why? Exactly the opposite is part of the subject of a recent patch, iirc.
->>>> Simply because of the rules needing to cover both debug and release builds.
->>>
->>> The reason is that ASSERT_UNREACHABLE() might disappear from the release
->>> build but it can still be used as a marker during static analysis. In
->>> my view, ASSERT_UNREACHABLE() is equivalent to a noreturn function call
->>> which has an empty implementation in release builds.
->>>
->>> The only reason I can think of to require a break; after an
->>> ASSERT_UNREACHABLE() would be if we think the unreachability only apply
->>> to debug build, not release build:
->>>
->>> - debug build: it is unreachable
->>> - release build: it is reachable
->>>
->>> I don't think that is meant to be possible so I think we can use
->>> ASSERT_UNREACHABLE() as a marker.
->>
->> Well. For one such an assumption takes as a prereq that a debug build will
->> be run through full coverage testing, i.e. all reachable paths proven to
->> be taken. I understand that this prereq is intended to somehow be met,
->> even if I'm having difficulty seeing how such a final proof would look
->> like: Full coverage would, to me, mean that _every_ line is reachable. Yet
->> clearly any ASSERT_UNREACHABLE() must never be reached.
->>
->> And then not covering for such cases takes the further assumption that
->> debug and release builds are functionally identical. I'm afraid this would
->> be a wrong assumption to make:
->> 1) We may screw up somewhere, with code wrongly enabled only in one of the
->>    two build modes.
->> 2) The compiler may screw up, in particular with optimization.
+On 26.06.2024 22:20, Andrew Cooper wrote:
+> On 20/06/2024 9:39 am, Jan Beulich wrote:
+>> On 19.06.2024 21:10, Andrew Cooper wrote:
+>>> --- a/docs/misc/xen-command-line.pandoc
+>>> +++ b/docs/misc/xen-command-line.pandoc
+>>> @@ -2390,7 +2390,7 @@ By default SSBD will be mitigated at runtime (i.e `ssbd=runtime`).
+>>>  >              {ibrs,ibpb,ssbd,psfd,
+>>>  >              eager-fpu,l1d-flush,branch-harden,srb-lock,
+>>>  >              unpriv-mmio,gds-mit,div-scrub,lock-harden,
+>>> ->              bhi-dis-s}=<bool> ]`
+>>> +>              bhi-dis-s,bp-spec-reduce}=<bool> ]`
+>>>  
+>>>  Controls for speculative execution sidechannel mitigations.  By default, Xen
+>>>  will pick the most appropriate mitigations based on compiled in support,
+>>> @@ -2539,6 +2539,13 @@ boolean can be used to force or prevent Xen from using speculation barriers to
+>>>  protect lock critical regions.  This mitigation won't be engaged by default,
+>>>  and needs to be explicitly enabled on the command line.
+>>>  
+>>> +On hardware supporting SRSO_MSR_FIX, the `bp-spec-reduce=` option can be used
+>>> +to force or prevent Xen from using MSR_BP_CFG.BP_SPEC_REDUCE to mitigate the
+>>> +SRSO (Speculative Return Stack Overflow) vulnerability.
+>> Upon my request to add "... against HVM guests" here you replied "Ok.", yet
+>> then you didn't make the change? Even a changelog entry says you supposedly
+>> added this, so perhaps simply lost in a refresh?
 > 
-> I think there are two different issues here we are discussing.
+> Yes, and later in the thread you (correctly) pointed out that it's not
+> only for HVM guests.
 > 
-> One issue, like you said, has to do with coverage. It is important to
-> mark as "unreachable" any part of the code that is indeed unreachable
-> so that we can account it properly when we do coverage analysis. At the
-> moment the only "unreachable" marker that we have is
-> ASSERT_UNREACHABLE(), and I am hoping we can use it as part of the
-> coverage analysis we'll do.
-> 
-> However, there is a different separate question about what to do in the
-> Xen code after an ASSERT_UNREACHABLE(). E.g.:
-> 
->              default:
->                  ASSERT_UNREACHABLE();
->                  return -EPERM; /* is it better with or without this? */
->              }
-> 
-> Leaving coverage aside, would it be better to be defensive and actually
-> attempt to report errors back after an ASSERT_UNREACHABLE() like in the
-> example? Or is it better to assume the code is actually unreachable
-> hence there is no need to do anything afterwards?
-> 
-> One one hand, being defensive sounds good, on the other hand, any code
-> we add after ASSERT_UNREACHABLE() is dead code which cannot be tested,
-> which is also not good. In this example, there is no way to test the
-> return -EPERM code path. We also need to consider what is the right
-> thing to do if Xen finds itself in an erroneous situation such as being
-> in an unreachable code location.
-> 
-> So, after thinking about it and also talking to the safety manager, I
-> think we should:
-> - implement ASSERT_UNREACHABLE with a warning in release builds
+> The PV aspect, discussed in the following sentence, is very relevant and
+> makes it not specific to HVM guests.
 
-If at all, then controlled by a default-off Kconfig setting. This would,
-after all, raise the question of how ASSERT() should behave then. Imo
-the two should be consistent in this regard, and NDEBUG clearly results
-in the expectation that ASSERT() expands to nothing. Perhaps this is
-finally the time where we need to separate NDEBUG from CONFIG_DEBUG; we
-did discuss doing so before. Then in your release builds, you could
-actually leave assertions active.
+Hmm, yes, sorry, I apparently lost track of that again.
 
-> - have "return -EPERM;" or similar for defensive programming
+>>> --- a/xen/arch/x86/cpu/amd.c
+>>> +++ b/xen/arch/x86/cpu/amd.c
+>>> @@ -1009,16 +1009,33 @@ static void cf_check fam17_disable_c6(void *arg)
+>>>  	wrmsrl(MSR_AMD_CSTATE_CFG, val & mask);
+>>>  }
+>>>  
+>>> -static void amd_check_erratum_1485(void)
+>>> +static void amd_check_bp_cfg(void)
+>>>  {
+>>> -	uint64_t val, chickenbit = (1 << 5);
+>>> +	uint64_t val, new = 0;
+>>>  
+>>> -	if (cpu_has_hypervisor || boot_cpu_data.x86 != 0x19 || !is_zen4_uarch())
+>>> +	/*
+>>> +	 * AMD Erratum #1485.  Set bit 5, as instructed.
+>>> +	 */
+>>> +	if (!cpu_has_hypervisor && boot_cpu_data.x86 == 0x19 && is_zen4_uarch())
+>>> +		new |= (1 << 5);
+>>> +
+>>> +	/*
+>>> +	 * On hardware supporting SRSO_MSR_FIX, activate BP_SPEC_REDUCE by
+>>> +	 * default.  This lets us do two things:
+>>> +         *
+>>> +         * 1) Avoid IBPB-on-entry to mitigate SRSO attacks from HVM guests.
+>>> +         * 2) Lets us advertise SRSO_US_NO to PV guests.
+>>> +	 */
+>>> +	if (boot_cpu_has(X86_FEATURE_SRSO_MSR_FIX) && opt_bp_spec_reduce)
+>>> +		new |= BP_CFG_SPEC_REDUCE;
+>>> +
+>>> +	/* Avoid reading BP_CFG if we don't intend to change anything. */
+>>> +	if (!new)
+>>>  		return;
+>>>  
+>>>  	rdmsrl(MSR_AMD64_BP_CFG, val);
+>>>  
+>>> -	if (val & chickenbit)
+>>> +	if ((val & new) == new)
+>>>  		return;
+>> You explained that you want to avoid making this more complex, upon my
+>> question towards tweaking this to also deal with us possibly clearing
+>> flags. I'm okay with that, but I did ask that you add at least half a
+>> sentence to actually clarify this to future readers (which might include
+>> myself).
+> 
+> "I wrote it this way because it is sufficient and simple, but you can
+> change it in the future if you really need to" is line noise wherever
+> it's written.
+> 
+> It literally goes without saying, for every line the entire codebase.
 
-You don't say how you'd deal with the not-reachable aspect then.
+Well. Elsewhere we go to the lengths of trying to cover for unexpected
+states. So to me this goes beyond "sufficient and simple". But anyway.
+
+>> However, as an unrelated aspect: According to the respective part of the
+>> comment you add to  calculate_pv_max_policy(), do we need the IBPB when
+>> BP_SPEC_REDUCE is active?
+> 
+> To what are you referring?
+
+The fact that for HVM the change to ibpb_calculations() results in no
+entry-IBPB when we have SRSO_MSR_FIX and opt_bp_spec_reduce is true.
+To me the comment you add to calculate_pv_max_policy() suggests a
+sufficient similarity. IOW ...
+
+> SRSO is about Return predictions becoming poisoned by other
+> predictions.  The best way to mount an SRSO attack is with forged
+> near-branch predictions.
+> 
+> For SRSO safety, we use IBPB to flush the Branch *Type* information from
+> the BTB.  Fam17h happened to have this property, but Fam19h needed it
+> retrofitting in a microcode update, with the prior "Indirect Branch
+> Targets only, explicitly retaining the Branch Type information" being
+> retroactively named SBPB.
+> 
+> This does not interact with the use of IBPB for it's
+> architecturally-given purpose.
+
+... why is there an interaction for HVM but not for PV? (Sorry, I'm
+apparently lost here to a certain degree.)
 
 Jan
 
