@@ -2,38 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8F7A991A73F
-	for <lists+xen-devel@lfdr.de>; Thu, 27 Jun 2024 15:02:20 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.750077.1158339 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5A18C91A80B
+	for <lists+xen-devel@lfdr.de>; Thu, 27 Jun 2024 15:39:03 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.750094.1158350 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sMoku-0000nP-2N; Thu, 27 Jun 2024 13:01:40 +0000
+	id 1sMpKQ-0005LC-R7; Thu, 27 Jun 2024 13:38:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 750077.1158339; Thu, 27 Jun 2024 13:01:40 +0000
+Received: by outflank-mailman (output) from mailman id 750094.1158350; Thu, 27 Jun 2024 13:38:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sMokt-0000ky-Vn; Thu, 27 Jun 2024 13:01:39 +0000
-Received: by outflank-mailman (input) for mailman id 750077;
- Thu, 27 Jun 2024 13:01:38 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1sMpKQ-0005I2-O2; Thu, 27 Jun 2024 13:38:22 +0000
+Received: by outflank-mailman (input) for mailman id 750094;
+ Thu, 27 Jun 2024 13:38:20 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=mtIW=N5=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1sMoks-0000ks-Eb
- for xen-devel@lists.xenproject.org; Thu, 27 Jun 2024 13:01:38 +0000
-Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com
- [2a00:1450:4864:20::52e])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 634e4cd6-3485-11ef-90a3-e314d9c70b13;
- Thu, 27 Jun 2024 15:01:37 +0200 (CEST)
-Received: by mail-ed1-x52e.google.com with SMTP id
- 4fb4d7f45d1cf-57a30dbdb7fso1901412a12.3
- for <xen-devel@lists.xenproject.org>; Thu, 27 Jun 2024 06:01:37 -0700 (PDT)
-Received: from andrewcoop.eng.citrite.net ([160.101.139.1])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a729d7c957esm57170966b.197.2024.06.27.06.01.35
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 27 Jun 2024 06:01:35 -0700 (PDT)
+ <SRS0=h0yt=N5=outstep.com=lonnie@srs-se1.protection.inumbo.net>)
+ id 1sMpKO-0005Hq-Ff
+ for xen-devel@lists.xenproject.org; Thu, 27 Jun 2024 13:38:20 +0000
+Received: from mail.outstep.net (mail.outstep.net [213.136.84.29])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 830264aa-348a-11ef-b4bb-af5377834399;
+ Thu, 27 Jun 2024 15:38:18 +0200 (CEST)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
+ with ESMTPA id 6B575234103E; Thu, 27 Jun 2024 15:38:02 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,87 +38,128 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 634e4cd6-3485-11ef-90a3-e314d9c70b13
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1719493296; x=1720098096; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=a+kItBAO12x8RhBAOJkTNenPSO8QMIo1tK5fVas/ZLI=;
-        b=J3UskVdH/TUiwAefh8Upkeclh6YxAaGNuTijZXbhRG+XMJTKdOkhN462kO/VZWN4jL
-         ySTygvoupLif2Ot691GhFa5SVU9QLI3WVVhXEuFte3H9KahfmiNpp7QRAL+qVPRIO8UH
-         zy/RndJST0eRygxt9+uKB+wOUNmTD0HxEHBrU=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1719493296; x=1720098096;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=a+kItBAO12x8RhBAOJkTNenPSO8QMIo1tK5fVas/ZLI=;
-        b=LuxHVCGgXFqCmoGEIDHg3l1167/bME0P6OslTU5YYD4CJHZ6qB3zusNgKuAOWtKaHV
-         /8boMagdbGb7ndy0h0si03nxPPzTuyrLpscZVkZMR3PId9fNfg24ADoga0YkkrX3kEF5
-         hxLAbOrbOew6oVkQju3IlSx13ykrozH+awOCv+wKsQ3J0RpY8UQow+rdl1qGRT5WRAjA
-         HBBltnps0nIlbT+ezqT1ra0pQIhfvMAJxahftznACOFYBzfiPbFUdS4rTgamISH7TpZz
-         UU9Ovv4HmzHgtFXGvDQAPOt4HOJa7r4j0QQ7zYEWN+Y3MPb4X04A3Lm1dt+ZaoKU77y+
-         UH8g==
-X-Gm-Message-State: AOJu0Yxp6h6efBJrPrvL4qH0/VuQn2OdzA1KI62+3bTYFDxXAa4H0V0O
-	6nOIu6gDJfDN/mKaNcea6Bww1mxjx7SuYuUdaC2jqU4LGM3Nj7ZmfEETIjBjvMvwHhSWMEHKZTV
-	e5Dw=
-X-Google-Smtp-Source: AGHT+IGooD6wGGQl3UGCys3ZS9wxE2ty/uX483AoPy48a58JnD9AzLZ7ghUdBjZnC/PwO/ZBhAhOGA==
-X-Received: by 2002:a17:906:c243:b0:a6f:569b:3ff0 with SMTP id a640c23a62f3a-a7242c39c0cmr908875166b.26.1719493296278;
-        Thu, 27 Jun 2024 06:01:36 -0700 (PDT)
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	Anthony PERARD <anthony@xenproject.org>,
-	Juergen Gross <jgross@suse.com>,
-	Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Subject: [PATCH for-4.19] tools/dombuilder: Correct the length calculation in xc_dom_alloc_segment()
-Date: Thu, 27 Jun 2024 14:01:34 +0100
-Message-Id: <20240627130134.1006059-1-andrew.cooper3@citrix.com>
-X-Mailer: git-send-email 2.39.2
+X-Inumbo-ID: 830264aa-348a-11ef-b4bb-af5377834399
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outstep.com; s=dkim;
+	t=1719495495; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to;
+	bh=5W9ntMxDTfwHRffCk9BTmg8ZcDV+azGtDS5fbr1iB6A=;
+	b=ZJhezTfPTe51m/taXqjIWwV8b+MoWj4FXYXm0xlyIzIvnZzgoiHC0XS4rxNJRlQ7MQAfd+
+	6f/vGDkmTo1kqxld5nkN+mV+3SBkdTt7PpDg2yneALGcso/mnxQlHDZoPNQhXVNdYef4C4
+	rkus8rAiEX5O35sqzhtudRXPZ701GXsZ8ef5HwK/raaPC6OqSiKZ3r9CQrCHOVdxvM3mAv
+	hdtNFeJJmEUP12BK59EXvh25cuTAuzgviQ1yQdcoHcIO/xtS6TtoIBx7OdK0euVRLulVeD
+	KGPm/P+ScmwFsLWser3fSH2DSpVsjwJPQxXAqQWt2MNkhwKfbovdVo2BMfN/0w==
+From: "Lonnie" <lonnie@outstep.com>
+In-Reply-To: <364e5058-ce40-482d-acf3-37f70266fdb3@vates.tech>
+Content-Type: text/plain; charset="utf-8"
+Date: Thu, 27 Jun 2024 15:38:02 +0200
+Cc: "Juergen Gross" <jgross@suse.com>, xen-devel@lists.xenproject.org
+To: "Teddy Astie" <teddy.astie@vates.tech>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Message-ID: <48-667d6b00-131-71122080@10350945>
+Subject: =?utf-8?q?Re=3A?= Disaggregated (Xoar) Dom0 Building
+User-Agent: SOGoMail 5.6.0
+Content-Transfer-Encoding: quoted-printable
+X-Last-TLS-Session-Version: None
 
-xc_dom_alloc_segment() is passed a size in bytes, calculates a size in pages
-from it, then fills in the new segment information with a bytes value
-re-calculated from the number of pages.
+Hi Teddy,
 
-This causes the module information given to the guest (MB, or PVH) to have
-incorrect sizes; specifically, sizes rounded up to the next page.
+You are actually on track with what I was thinking in this area which i=
+nitially gave me 2 main ideas:
 
-This in turn is problematic for Xen.  When Xen finds a gzipped module, it
-peeks at the end metadata to judge the decompressed size, which is a -4
-backreference from the reported end of the module.
+1. Take the NOVA Microhypervisor (very small TCB at only 5K LOC) and tr=
+y to get QEMU or Bhyve integrated as the VMM which would require a huge=
+ amount of development time.  The Genode framework has a configuration/=
+compile approach that uses NOVA with a custom VirtualBox, but I did not=
+ want to go that route.
 
-Fill in seg->vend using the correct number of bytes.
+2. Take the Alpine XEN distro as the base and then update the dated Xoa=
+r patches which effectively breaks Dom0 into 9 Service and Driver Mini/=
+Nano VMs for which I was thinking about further setting them up as ultr=
+a-thin Unikernels (MirageOS, IncludeOS, etc.) but still researching.
 
-Fixes: ea7c8a3d0e82 ("libxc: reorganize domain builder guest memory allocator")
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
----
-CC: Anthony PERARD <anthony@xenproject.org>
-CC: Juergen Gross <jgross@suse.com>
-CC: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+My effort is to make a purely Ultra-Thin RAM-Based Xen Hypervisor that =
+boots UEFI for modern systems. Plus a number of other features if all g=
+oes well.
 
-For 4.19: This was discovered when trying to test Daniel's gzip cleanup for
-Hyperlaunch.  It's a subtle bug, hidden inside a second bug which isn't
-appropriate content for 4.20.
----
- tools/libs/guest/xg_dom_core.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Your ideas of QEMU as a Unikernel would probably really work for both X=
+EN and NOVA (with a bit of work on the NOVA side). I actually liked NOV=
+A and experimented with it a while back being able to produce a very li=
+ghtweight Microhypervisor ISO that would boot and do some simple things=
+ and even fire up lightweight Linux instances but with very limited cap=
+abilities, of course, just to see if it worked. Unfortunately, that dir=
+ection although very interesting, would definitely take too much develo=
+pment to make a viable and more complete hypervisor.  I did like that y=
+ou could easily start with no VM and easily start one or more and then =
+use Hot-Keys to flip between consoles. That was pretty cool and is some=
+thing that I would like to see about working into this XEN effort as we=
+ll maybe some config file in the Xen.efi directory for that or somethin=
+g but am still thinking about it.
 
-diff --git a/tools/libs/guest/xg_dom_core.c b/tools/libs/guest/xg_dom_core.c
-index c4f4e7f3e27a..f5521d528be1 100644
---- a/tools/libs/guest/xg_dom_core.c
-+++ b/tools/libs/guest/xg_dom_core.c
-@@ -601,7 +601,7 @@ int xc_dom_alloc_segment(struct xc_dom_image *dom,
-     memset(ptr, 0, pages * page_size);
- 
-     seg->vstart = start;
--    seg->vend = dom->virt_alloc_end;
-+    seg->vend = start + size;
- 
-     DOMPRINTF("%-20s:   %-12s : 0x%" PRIx64 " -> 0x%" PRIx64
-               "  (pfn 0x%" PRIpfn " + 0x%" PRIpfn " pages)",
--- 
-2.39.2
+I think that perhaps the Alpine-XEN-Xoar approach could be benefitual b=
+ut XEN, plus supporting libraries is still a bit larger than I would ha=
+ve hoped although you get more capabilities and more of a solid hypervi=
+sor as well, I think.  Maybe we can chat more about things if you like.
+
+Best,
+Lonnie
+On Thursday, June 27, 2024 14:38 CEST, Teddy Astie <teddy.astie@vates.t=
+ech> wrote:
+
+> Hi Lonnie,
+>=20
+> Le 27/06/2024 =C3=A0 11:33, Lonnie Cumberland a =C3=A9crit=C2=A0:
+> > I am working towards is to have=20
+> > everything as a RAM-based ultra-lightweight thin hypervisor.=C2=A0=C2=
+=A0 I looked=20
+> > over ACRN, the NOVA Microhypervisor (Headron, Beadrock Udo),=20
+> > Rust-Shyper, Bareflank-MicroV, and many other development efforts b=
+ut it=20
+> > seems that Xen is the most advanced for my purposes here.
+> >=20
+>=20
+> You can have a disk-less (or ramdisk based) distro supporting Xen wit=
+h=20
+> Alpine Linux (with Xen flavour). It does still use Dom0 with all its=20
+> responsibilities though.
+>=20
+> >>> Currently, I am investigating and researching the ideas of=20
+> >>> "Disaggregating" Dom0 and have the Xoar Xen patches ("Breaking Up=
+ is=20
+> >>> Hard to Do: Security and Functionality in a Commodity Hypervisor"=20
+> >>> 2011) available which were developed against version 22155 of=20
+> >>> xen-unstable. The Linux patches are against Linux with pvops=20
+> >>> 2.6.31.13 and developed on a standard Ubuntu 10.04 install. My ef=
+fort=20
+> >>> would also be up update these patches.
+> >>>
+> >>> I have been able to locate the Xen "Dom0 Disaggregation"=20
+> >>> (https://wiki.xenproject.org/wiki/Dom0=5FDisaggregation) am readi=
+ng up=20
+> >>> on things now but wanted to ask the developers list about any=20
+> >>> experience you may have had in this area since the research objec=
+tive=20
+> >>> is to integrate Xoar with the latest Xen 4.20, if possible, and t=
+o=20
+> >>> take it further to basically eliminate Dom0 all together with=20
+> >>> individual Mini-OS or Unikernel "Service and Driver VM's" instead=20
+> >>> that are loaded at UEFI boot time.
+>=20
+> The latest stuff going on I have in mind regarding this idea of movin=
+g=20
+> stuff out of Dom0 is QEMU as Unikernel (using Unikraft), there were s=
+ome=20
+> discussions on this in Matrix and at Xen Summit, and it's currently w=
+ork=20
+> in progress from Unikraft side.
+>=20
+> Teddy
+>=20
+>=20
+> Teddy Astie | Vates XCP-ng Intern
+>=20
+> XCP-ng & Xen Orchestra - Vates solutions
+>=20
+> web: https://vates.tech
+>
 
 
