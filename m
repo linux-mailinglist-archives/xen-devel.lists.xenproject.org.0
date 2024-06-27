@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 56B5E91A9E3
-	for <lists+xen-devel@lfdr.de>; Thu, 27 Jun 2024 16:54:04 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.750163.1158408 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5176791AA08
+	for <lists+xen-devel@lfdr.de>; Thu, 27 Jun 2024 16:57:24 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.750173.1158419 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sMqVU-00011D-Aj; Thu, 27 Jun 2024 14:53:52 +0000
+	id 1sMqYb-0001fd-R9; Thu, 27 Jun 2024 14:57:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 750163.1158408; Thu, 27 Jun 2024 14:53:52 +0000
+Received: by outflank-mailman (output) from mailman id 750173.1158419; Thu, 27 Jun 2024 14:57:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sMqVU-0000yi-7t; Thu, 27 Jun 2024 14:53:52 +0000
-Received: by outflank-mailman (input) for mailman id 750163;
- Thu, 27 Jun 2024 14:53:50 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1sMqYb-0001e5-OC; Thu, 27 Jun 2024 14:57:05 +0000
+Received: by outflank-mailman (input) for mailman id 750173;
+ Thu, 27 Jun 2024 14:57:04 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=GyZL=N5=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sMqVS-0000yF-OH
- for xen-devel@lists.xenproject.org; Thu, 27 Jun 2024 14:53:50 +0000
+ id 1sMqYa-0001dd-Fb
+ for xen-devel@lists.xenproject.org; Thu, 27 Jun 2024 14:57:04 +0000
 Received: from mail-lj1-x234.google.com (mail-lj1-x234.google.com
  [2a00:1450:4864:20::234])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 0ff8c5eb-3495-11ef-90a3-e314d9c70b13;
- Thu, 27 Jun 2024 16:53:49 +0200 (CEST)
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 8329fb30-3495-11ef-b4bb-af5377834399;
+ Thu, 27 Jun 2024 16:57:02 +0200 (CEST)
 Received: by mail-lj1-x234.google.com with SMTP id
- 38308e7fff4ca-2e72224c395so92622291fa.3
- for <xen-devel@lists.xenproject.org>; Thu, 27 Jun 2024 07:53:49 -0700 (PDT)
+ 38308e7fff4ca-2ebeefb9a7fso98446781fa.0
+ for <xen-devel@lists.xenproject.org>; Thu, 27 Jun 2024 07:57:02 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-2c8d81d2ab3sm3717860a91.49.2024.06.27.07.53.44
+ d2e1a72fcca58-706b4a58ebfsm1442999b3a.196.2024.06.27.07.56.57
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 27 Jun 2024 07:53:48 -0700 (PDT)
+ Thu, 27 Jun 2024 07:57:01 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,53 +45,57 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0ff8c5eb-3495-11ef-90a3-e314d9c70b13
+X-Inumbo-ID: 8329fb30-3495-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1719500029; x=1720104829; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1719500222; x=1720105022; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=VPRSFFzVa74HeoYnZqoRBtBGb55QUBzKi/PYfDDlIOA=;
-        b=JPcRn5Q8h3WBdFDheXrk+G+Ii7zQv4PRFLW+qvKGr3w+7l05+aCrekaWkMj6cSeB5k
-         x9zKnFOXXhakTNlNmw8bOqGKAReXa6I+x4M1DXcDTM8HCBJQohwB3o3x1rHmA/JieZ2o
-         /4XxeHDxWH9FIgpo1GHFQJtR5qeLpapUQTiC4OZL8kSVR0Lt4UghxsqQYnUgmFCFDPKX
-         KwF+AMikplj1nOmBgVWNI2i17KY/Fo9bXsvQ8W81OvnbpTaQ46lRU8gIOK67KoDj8q5S
-         PXCpc5uj9NXfa+cvLTl+20hgj+Eh4+OKZ2EiadtQfQ1YJq3ctZac45npp2SQToiCzBAY
-         BXow==
+        bh=gn7wnWRU/TzvR/QPwwZ9drO1pbD5OcGHdq1Z/b5IrPg=;
+        b=Nf2BDms+DJM9+Dqwp9eUqByl3HKDNEQpZKSMqLoWLwP1/boY1g0rSA39LSe5bdsWfQ
+         zxIN7B+arzLjroo9LuwPaLS4+jWS9RZYkTR+t53cipWwUh9pjmNaWsTXCPI9DubGExTc
+         DhLqFoGuzz7jJXASuBI5p0PjztdVYccPBaIpW7ShOdI/dRgrCGMsUH1R2NgoyCLTQl/P
+         P4J9BmlRg1VD/PsBOA7cW+1nqdpyjQ/l2C6m+QzRE1tYzD/G4++CInFeDq87BgDNwN+F
+         WDIqe6pQPPst+GG+6aLNa+JE0hNG72s4U7dt3unLiCbALPyyJ7agCvJiYMUIM33JrsMk
+         REhg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1719500029; x=1720104829;
+        d=1e100.net; s=20230601; t=1719500222; x=1720105022;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=VPRSFFzVa74HeoYnZqoRBtBGb55QUBzKi/PYfDDlIOA=;
-        b=e8rO6C//7NKNDRETzlccmSKGAOk/dE3dlShM4sgfYrFeW368TiWc7lXzyX/GDOg8d6
-         CKRV4Ac4CzWGXbB2ys/WDsJvnQDRHAaz/zwEKFMUnsAfVnp3mztH7a3eiauEixjaruYO
-         tk1hNhYwkBUqshFY2L69M81JG6eHOKVV2sAk7pig55aj3xXVUbFVfdQaM87gnxTzAkvp
-         lXcOuJOLyCCPJFBveWE6Md5oGyjAStQ+h1FDFzxeJk9XKYmN8WEgchuYhK4WBG8PmVng
-         //9UllJ8DMi+7AtWPkP+86N5uk6OME/9aWh2+LTx4PIE1VwSliPM9cxtqnnpnSIDOrQr
-         m8RQ==
-X-Forwarded-Encrypted: i=1; AJvYcCUrb0WUgItftheyF/SgYlt0l8sBHHxVYAaKj9wA7UY1pxbO6ilmxsicog3NuRjm5cvrTm4hIRtne4ppuIF3gObXkRQtmZPUPKbPPjdmZWY=
-X-Gm-Message-State: AOJu0YzB9hOaxRfbGJLkV3ppmPR051EwY7x/6eSZDnVTTeRIMTWO/iRD
-	0WbvOHrwG+EETXum36mhpyHskwaj6hFDfhyYEnjOeCKieA+d15qUiDDfZ8/NGw==
-X-Google-Smtp-Source: AGHT+IFgJ+/sbw/6CAZjbA+Sy4kMzf2umTJFbSSRv2cHulIpckICKgwGFCqhOdIukgBFMu/Gxe0p4A==
-X-Received: by 2002:a05:651c:2cc:b0:2ec:5b8f:c792 with SMTP id 38308e7fff4ca-2ec5b8fcc29mr80143561fa.43.1719500028884;
-        Thu, 27 Jun 2024 07:53:48 -0700 (PDT)
-Message-ID: <ab4384f7-572e-4c67-9bbc-a9238d0e0456@suse.com>
-Date: Thu, 27 Jun 2024 16:53:40 +0200
+        bh=gn7wnWRU/TzvR/QPwwZ9drO1pbD5OcGHdq1Z/b5IrPg=;
+        b=A8NOKj5kyKne6O6q79ZXhCbt3n8/vl+xDTiu27QCsCNmhOJrJGG38yfQnrYvAzKzri
+         /x2HSBORm/WWeQEjtI7IP+68ZQHE5H80ZirXsvLTPHNB8bMxLyXC27evNGbKzsAWrMMq
+         Wlqd4Yx/6PRw4WjTRxlwk0QzbRFWUcYyTHoFx7WMTX/yNmZuEVxJpCkVe1pxAtqHw5gh
+         IlSNVi/nFDovkHWM6719yPZtPbv9VXIQyCwFc/aBwiuZ8Xb4bLL6xoQekhKNXSkYzv+a
+         NHMWybkP4lR/Hp4fMMuQ2VIByQ+3K23d3ljssBEaFyHqYOyQCIyc/XNh84538s3adDEv
+         O/qQ==
+X-Forwarded-Encrypted: i=1; AJvYcCUf2uy0WTX41bNK94EEBN9w6/K49TDIHVqCEjFSL1UaBbrOa9UojoASvSGKe7dwxKP6HUdMm/ImEgC2wIV+yWwFKxjV55bNvth4QpD/Xes=
+X-Gm-Message-State: AOJu0Yw6q6Y7zTGl8ZfHersc/vvXqeNvw/g7WiZn9NeQTKhBbmPXs8uC
+	sI1X97zTTh+dhzgcHV2jPv02xntD4KxsfOYPv8L3RLcYNSgRuVshNlE4HRQVNw==
+X-Google-Smtp-Source: AGHT+IEiGkgfPLc6jOnhqUCejSIhj0sGP6Z0LDuUUhzqpaeCIqKGZOWcXLXUJAGFnEXO0KQLuDJLKg==
+X-Received: by 2002:a2e:9cc8:0:b0:2ec:3fb8:6a91 with SMTP id 38308e7fff4ca-2ec5797a562mr96373991fa.19.1719500222205;
+        Thu, 27 Jun 2024 07:57:02 -0700 (PDT)
+Message-ID: <ac245978-e21e-4df7-a071-8b63793f6c8b@suse.com>
+Date: Thu, 27 Jun 2024 16:56:52 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 06/10] tools/libguest: Make setting MTRR registers
- unconditional
-To: Alejandro Vallejo <alejandro.vallejo@cloud.com>
-Cc: Anthony PERARD <anthony.perard@vates.tech>,
- Juergen Gross <jgross@suse.com>, Xen-devel <xen-devel@lists.xenproject.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-References: <cover.1719416329.git.alejandro.vallejo@cloud.com>
- <2c55d486bb0c54a3e813abc66d32f321edd28b81.1719416329.git.alejandro.vallejo@cloud.com>
- <fe255839-f8ab-4dd1-abe8-8ec834099a8d@suse.com>
- <D2AS8XQPR3TS.TDT0A6SPW47G@cloud.com>
+Subject: Re: [PATCH v13 02/10] xen/riscv: introduce bitops.h
+To: oleksii.kurochko@gmail.com
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <cover.1719319093.git.oleksii.kurochko@gmail.com>
+ <0e4441eee82b0545e59099e2f62e3a01fa198d08.1719319093.git.oleksii.kurochko@gmail.com>
+ <bb103587-546d-4613-bcb8-df10f5d05388@suse.com>
+ <4c15dd072f08b1161d170608a096dc0851ced588.camel@gmail.com>
+ <e2d82c37-da44-4a8f-a1f8-76d5ff05b104@suse.com>
+ <f4f3a1550b4809a3cb8b27eb5e7248abf27b3944.camel@gmail.com>
+ <4c71db0d-60a4-4347-b706-a2e06fc9cd63@suse.com>
+ <7bd44b8615eb545b4956008d02c158d5c85e2345.camel@gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -117,46 +121,144 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <D2AS8XQPR3TS.TDT0A6SPW47G@cloud.com>
+In-Reply-To: <7bd44b8615eb545b4956008d02c158d5c85e2345.camel@gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 27.06.2024 14:02, Alejandro Vallejo wrote:
-> On Thu Jun 27, 2024 at 10:42 AM BST, Jan Beulich wrote:
->> Plus what about a guest which was configured to have the CPUID bit for MTRRs
->> clear?
->> I think we ought to document this as not supported for PVH (we may
-> 
-> By "this" do you mean PVH _must_ have MTRR support? I would agree.
-
-That was my first thought, yes. But then further down I adjusted my
-considerations.
-
->> actually choose to refuse building such a guest), but in principle the MTRR
->> save/load operations should simply fail for a HVM guest in said configuration.
-> 
-> What use cases does that cover? With the adjustment I mention at the top that
-> should be sorted. I'm wondering why we allow !mtrr at all.
-
-Not allowing it would open up for a mess in what CPUID bits we allow to
-override and for which ones we'd deny overrides.
-
->> Making such a change in Xen now would, afaict, be benign to the tool stack.
->> After this adjustment it would result in a perceived regression, when there
->> shouldn't be any.
-> 
-> Fair point.
-> 
+On 27.06.2024 14:01, oleksii.kurochko@gmail.com wrote:
+> On Thu, 2024-06-27 at 12:10 +0200, Jan Beulich wrote:
+>> On 27.06.2024 11:58, oleksii.kurochko@gmail.com wrote:
+>>> On Thu, 2024-06-27 at 09:59 +0200, Jan Beulich wrote:
+>>>> On 26.06.2024 19:27, oleksii.kurochko@gmail.com wrote:
+>>>>> On Wed, 2024-06-26 at 10:31 +0200, Jan Beulich wrote:
+>>>>>> On 25.06.2024 15:51, Oleksii Kurochko wrote:
+>>>>>>> --- /dev/null
+>>>>>>> +++ b/xen/arch/riscv/include/asm/bitops.h
+>>>>>>> @@ -0,0 +1,137 @@
+>>>>>>> +/* SPDX-License-Identifier: GPL-2.0 */
+>>>>>>> +/* Copyright (C) 2012 Regents of the University of
+>>>>>>> California
+>>>>>>> */
+>>>>>>> +
+>>>>>>> +#ifndef _ASM_RISCV_BITOPS_H
+>>>>>>> +#define _ASM_RISCV_BITOPS_H
+>>>>>>> +
+>>>>>>> +#include <asm/system.h>
+>>>>>>> +
+>>>>>>> +#if BITOP_BITS_PER_WORD == 64
+>>>>>>> +#define __AMO(op)   "amo" #op ".d"
+>>>>>>> +#elif BITOP_BITS_PER_WORD == 32
+>>>>>>> +#define __AMO(op)   "amo" #op ".w"
+>>>>>>> +#else
+>>>>>>> +#error "Unexpected BITOP_BITS_PER_WORD"
+>>>>>>> +#endif
+>>>>>>> +
+>>>>>>> +/* Based on linux/arch/include/asm/bitops.h */
+>>>>>>> +
+>>>>>>> +/*
+>>>>>>> + * Non-atomic bit manipulation.
+>>>>>>> + *
+>>>>>>> + * Implemented using atomics to be interrupt safe. Could
+>>>>>>> alternatively
+>>>>>>> + * implement with local interrupt masking.
+>>>>>>> + */
+>>>>>>> +#define __set_bit(n, p)      set_bit(n, p)
+>>>>>>> +#define __clear_bit(n, p)    clear_bit(n, p)
+>>>>>>> +
+>>>>>>> +#define test_and_op_bit_ord(op, mod, nr, addr, ord)     \
+>>>>>>> +({                                                      \
+>>>>>>> +    bitop_uint_t res, mask;                             \
+>>>>>>> +    mask = BITOP_MASK(nr);                              \
+>>>>>>> +    asm volatile (                                      \
+>>>>>>> +        __AMO(op) #ord " %0, %2, %1"                    \
+>>>>>>> +        : "=r" (res), "+A" (addr[BITOP_WORD(nr)])       \
+>>>>>>> +        : "r" (mod(mask))                               \
+>>>>>>> +        : "memory");                                    \
+>>>>>>> +    ((res & mask) != 0);                                \
+>>>>>>> +})
+>>>>>>> +
+>>>>>>> +#define op_bit_ord(op, mod, nr, addr, ord)      \
+>>>>>>> +    asm volatile (                              \
+>>>>>>> +        __AMO(op) #ord " zero, %1, %0"          \
+>>>>>>> +        : "+A" (addr[BITOP_WORD(nr)])           \
+>>>>>>> +        : "r" (mod(BITOP_MASK(nr)))             \
+>>>>>>> +        : "memory");
+>>>>>>> +
+>>>>>>> +#define test_and_op_bit(op, mod, nr, addr)    \
+>>>>>>> +    test_and_op_bit_ord(op, mod, nr, addr, .aqrl)
+>>>>>>> +#define op_bit(op, mod, nr, addr) \
+>>>>>>> +    op_bit_ord(op, mod, nr, addr, )
+>>>>>>> +
+>>>>>>> +/* Bitmask modifiers */
+>>>>>>> +#define NOP(x)    (x)
+>>>>>>> +#define NOT(x)    (~(x))
+>>>>>>
+>>>>>> Since elsewhere you said we would use Zbb in bitops, I wanted
+>>>>>> to
+>>>>>> come
+>>>>>> back
+>>>>>> on that: Up to here all we use is AMO.
+>>>>>>
+>>>>>> And further down there's no asm() anymore. What were you
+>>>>>> referring
+>>>>>> to?
+>>>>> RISC-V doesn't have a CLZ instruction in the base
+>>>>> ISA.  As a consequence, __builtin_ffs() emits a library call to
+>>>>> ffs()
+>>>>> on GCC,
+>>>>
+>>>> Oh, so we'd need to implement that libgcc function, along the
+>>>> lines
+>>>> of
+>>>> Arm32 implementing quite a few of them to support shifts on 64-
+>>>> bit
+>>>> quantities as well as division and modulo.
+>>> Why we can't just live with Zbb extension? Zbb extension is
+>>> presented
+>>> on every platform I have in access with hypervisor extension
+>>> support.
 >>
->> Thinking about it, even for PVH it may make sense to allow CPUID.MTRR=0, as
->> long as CPUID.PAT=1, thus forcing it into PAT-only mode. I think we did even
->> discuss this possible configuration before.
+>> I'd be fine that way, but then you don't need to break up ANDN into
+>> NOT
+>> and AND. It is my understanding that Andrew has concerns here, even
+>> if
+>> - iirc - it was him to originally suggest to build upon that
+>> extension
+>> being available. If these concerns are solely about being able to
+>> build
+>> with Zbb-unaware tool chains, then what to do about the build issues
+>> there has already been said.
+> Not much we can do except probably using .insn, as you suggested for
+> the "pause" instruction in cpu_relax(), for every instruction ( at the
+> moment it is only ANDB but who knows which instruction will be used in
+> the future ) from the Zbb extension.
 > 
-> Is PAT-only an existing real HW configuration? Can't say I've seen any.
+> But then we will need to do the same for each possible extension we are
+> going to use, as there is still a small chance that we might encounter
+> an extension-unaware toolchain.
+> 
+> I am a little bit confused about what we should do.
+> 
+> In my opinion, the best approach at the moment is to use .insn for the
+> ANDN and PAUSE instructions
 
-I don't think there are any, but the architecture doesn't preclude it, and
-that's a simpler model overall for an OS to work with. Hence why it was
-discussed (to some degree) before (if my memory doesn't fail me there).
+This would be my preference, but please also consult with Andrew.
+
+> and add an explanation to
+> docs/misc/riscv/booting.txt or create a separate document where such
+> issues are documented (I am not sure that README is the correct place
+> for this).
+> 
+> I am also okay to go with ANDN break up int NOT and AND, but it is
+> needed to come up  with concept which instruction/extenstion should be
+> used and how consistently to deal with such situations.
+> 
+> Furthermore, I don't think these changes should block the merging (
+> doesn't matter in 4.19 or in 4.20 Xen release ) of PATCHes v13 01-07 of
+> this patch series.
+
+This can be looked at different ways. The splitting into NOT+AND was a
+rather late change.
 
 Jan
 
