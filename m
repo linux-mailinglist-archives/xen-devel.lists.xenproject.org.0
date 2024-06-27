@@ -2,38 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5176791AA08
-	for <lists+xen-devel@lfdr.de>; Thu, 27 Jun 2024 16:57:24 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.750173.1158419 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5E52391AA10
+	for <lists+xen-devel@lfdr.de>; Thu, 27 Jun 2024 16:59:34 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.750179.1158429 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sMqYb-0001fd-R9; Thu, 27 Jun 2024 14:57:05 +0000
+	id 1sMqae-0002Yy-6K; Thu, 27 Jun 2024 14:59:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 750173.1158419; Thu, 27 Jun 2024 14:57:05 +0000
+Received: by outflank-mailman (output) from mailman id 750179.1158429; Thu, 27 Jun 2024 14:59:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sMqYb-0001e5-OC; Thu, 27 Jun 2024 14:57:05 +0000
-Received: by outflank-mailman (input) for mailman id 750173;
- Thu, 27 Jun 2024 14:57:04 +0000
+	id 1sMqae-0002Wl-2d; Thu, 27 Jun 2024 14:59:12 +0000
+Received: by outflank-mailman (input) for mailman id 750179;
+ Thu, 27 Jun 2024 14:59:10 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=GyZL=N5=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sMqYa-0001dd-Fb
- for xen-devel@lists.xenproject.org; Thu, 27 Jun 2024 14:57:04 +0000
-Received: from mail-lj1-x234.google.com (mail-lj1-x234.google.com
- [2a00:1450:4864:20::234])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=JfIA=N5=outlook.com=mhklinux@srs-se1.protection.inumbo.net>)
+ id 1sMqac-0002Wf-5v
+ for xen-devel@lists.xenproject.org; Thu, 27 Jun 2024 14:59:10 +0000
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10olkn20820.outbound.protection.outlook.com
+ [2a01:111:f403:2c12::820])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 8329fb30-3495-11ef-b4bb-af5377834399;
- Thu, 27 Jun 2024 16:57:02 +0200 (CEST)
-Received: by mail-lj1-x234.google.com with SMTP id
- 38308e7fff4ca-2ebeefb9a7fso98446781fa.0
- for <xen-devel@lists.xenproject.org>; Thu, 27 Jun 2024 07:57:02 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-706b4a58ebfsm1442999b3a.196.2024.06.27.07.56.57
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 27 Jun 2024 07:57:01 -0700 (PDT)
+ id cd254a45-3495-11ef-b4bb-af5377834399;
+ Thu, 27 Jun 2024 16:59:08 +0200 (CEST)
+Received: from SN6PR02MB4157.namprd02.prod.outlook.com (2603:10b6:805:33::23)
+ by SA6PR02MB10791.namprd02.prod.outlook.com (2603:10b6:806:440::16)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7698.32; Thu, 27 Jun
+ 2024 14:59:03 +0000
+Received: from SN6PR02MB4157.namprd02.prod.outlook.com
+ ([fe80::cedd:1e64:8f61:b9df]) by SN6PR02MB4157.namprd02.prod.outlook.com
+ ([fe80::cedd:1e64:8f61:b9df%2]) with mapi id 15.20.7698.033; Thu, 27 Jun 2024
+ 14:59:03 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,220 +47,116 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8329fb30-3495-11ef-b4bb-af5377834399
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1719500222; x=1720105022; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=gn7wnWRU/TzvR/QPwwZ9drO1pbD5OcGHdq1Z/b5IrPg=;
-        b=Nf2BDms+DJM9+Dqwp9eUqByl3HKDNEQpZKSMqLoWLwP1/boY1g0rSA39LSe5bdsWfQ
-         zxIN7B+arzLjroo9LuwPaLS4+jWS9RZYkTR+t53cipWwUh9pjmNaWsTXCPI9DubGExTc
-         DhLqFoGuzz7jJXASuBI5p0PjztdVYccPBaIpW7ShOdI/dRgrCGMsUH1R2NgoyCLTQl/P
-         P4J9BmlRg1VD/PsBOA7cW+1nqdpyjQ/l2C6m+QzRE1tYzD/G4++CInFeDq87BgDNwN+F
-         WDIqe6pQPPst+GG+6aLNa+JE0hNG72s4U7dt3unLiCbALPyyJ7agCvJiYMUIM33JrsMk
-         REhg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1719500222; x=1720105022;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=gn7wnWRU/TzvR/QPwwZ9drO1pbD5OcGHdq1Z/b5IrPg=;
-        b=A8NOKj5kyKne6O6q79ZXhCbt3n8/vl+xDTiu27QCsCNmhOJrJGG38yfQnrYvAzKzri
-         /x2HSBORm/WWeQEjtI7IP+68ZQHE5H80ZirXsvLTPHNB8bMxLyXC27evNGbKzsAWrMMq
-         Wlqd4Yx/6PRw4WjTRxlwk0QzbRFWUcYyTHoFx7WMTX/yNmZuEVxJpCkVe1pxAtqHw5gh
-         IlSNVi/nFDovkHWM6719yPZtPbv9VXIQyCwFc/aBwiuZ8Xb4bLL6xoQekhKNXSkYzv+a
-         NHMWybkP4lR/Hp4fMMuQ2VIByQ+3K23d3ljssBEaFyHqYOyQCIyc/XNh84538s3adDEv
-         O/qQ==
-X-Forwarded-Encrypted: i=1; AJvYcCUf2uy0WTX41bNK94EEBN9w6/K49TDIHVqCEjFSL1UaBbrOa9UojoASvSGKe7dwxKP6HUdMm/ImEgC2wIV+yWwFKxjV55bNvth4QpD/Xes=
-X-Gm-Message-State: AOJu0Yw6q6Y7zTGl8ZfHersc/vvXqeNvw/g7WiZn9NeQTKhBbmPXs8uC
-	sI1X97zTTh+dhzgcHV2jPv02xntD4KxsfOYPv8L3RLcYNSgRuVshNlE4HRQVNw==
-X-Google-Smtp-Source: AGHT+IEiGkgfPLc6jOnhqUCejSIhj0sGP6Z0LDuUUhzqpaeCIqKGZOWcXLXUJAGFnEXO0KQLuDJLKg==
-X-Received: by 2002:a2e:9cc8:0:b0:2ec:3fb8:6a91 with SMTP id 38308e7fff4ca-2ec5797a562mr96373991fa.19.1719500222205;
-        Thu, 27 Jun 2024 07:57:02 -0700 (PDT)
-Message-ID: <ac245978-e21e-4df7-a071-8b63793f6c8b@suse.com>
-Date: Thu, 27 Jun 2024 16:56:52 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v13 02/10] xen/riscv: introduce bitops.h
-To: oleksii.kurochko@gmail.com
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <cover.1719319093.git.oleksii.kurochko@gmail.com>
- <0e4441eee82b0545e59099e2f62e3a01fa198d08.1719319093.git.oleksii.kurochko@gmail.com>
- <bb103587-546d-4613-bcb8-df10f5d05388@suse.com>
- <4c15dd072f08b1161d170608a096dc0851ced588.camel@gmail.com>
- <e2d82c37-da44-4a8f-a1f8-76d5ff05b104@suse.com>
- <f4f3a1550b4809a3cb8b27eb5e7248abf27b3944.camel@gmail.com>
- <4c71db0d-60a4-4347-b706-a2e06fc9cd63@suse.com>
- <7bd44b8615eb545b4956008d02c158d5c85e2345.camel@gmail.com>
+X-Inumbo-ID: cd254a45-3495-11ef-b4bb-af5377834399
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=kWFRMAIgFA2Z6O/VljRh+SIg7NwvOtQpSPyP18M1JpShlXKqA7R1fdoiIYlIxjy77TQe/bxYd0kWArsCqlZeXzZRRHs1kpE4IbXfNah+Z6bwM+oSGDuCdviMe9LfhmciKeE1JUzsIK1sA0OKd1o5zOzplxKIlLuMXBvW2cDqApI3IPkYhz2LLg15yCHj3ObqQxttYdkRlXXjON9Sro7j1WBP18vmW7yYodB+YFdDbY9bNDNTiF81IAWsWwndcQtWiY6V7iDeM5HTRl0IHsaKtsVldufOYoW6kyy9aGNt+ZyJNFtNwS9ITlbT/wQS6QMpZ7z8JSjdWTmDtr61pH+GZQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=NP/TXAPT9GP0tZ60Pj5MVZ+f2bWwsuKKiNQf1CRtEhY=;
+ b=O49P3pTgQ+Ai9vj8spy0AAeTycXE4XNijAc0V2lnFyvKArWfnse0ywvCVIed8guZ8PBnrAPYh4gmDhD7AQ1sAz/HcwrfWD49zj6BiZwguHh1jkhVno9bOMKSKgBe6QtAhUpvIAImhkaZSxT0qX7qA69Hv2V4vIyQU5KzAGJZMJp3Jey9mDC5gHA01V6Q5gqQ1rDgdvCvZRZXDLi7O+IO4zEbcFdpGJATiL/mbxyHykvJ+p5pU5hGdL1WuwFTsI3d8uZGDE8xvaFOj7/0c5uBeIN8BZeuyRXO0MDjOgDBIcYDyll+I1pzssjkVbeiqn4gB5oegPuPAPW0g705QPN8oQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=NP/TXAPT9GP0tZ60Pj5MVZ+f2bWwsuKKiNQf1CRtEhY=;
+ b=iTF2HFL48PS0A8ss+AnIjxysACbDIMtxftRCX2bAgyrGs8l3AC76x74mJrBHUvBzQQXWINV3t0Y2zopl7H6K28b01W87hY6Cml0YYDYhxzCOeVgaq/yeMb2BGu4Rcn1RWiMEoPNehS+XHYvdauKZ0lbWMO/kWoeHY2WaB7RO9hPMgo2iAhlWboKWQ4pJqXaPe5CdlCKj0U+epZDaz49W5F1vPdNlkaGdETM0AXynaEviGZboVc8IuTaK498fI8QscCyMKkYqOoHndqtgCgeVXjdntMZVhIjC+nzCk52XrC9S8uF0xkC2ZQEToZWowslvvZMWFTBQBmuXejbHP5+TVg==
+From: Michael Kelley <mhklinux@outlook.com>
+To: =?iso-8859-2?Q?Petr_Tesa=F8=EDk?= <petr@tesarici.cz>, "hch@lst.de"
+	<hch@lst.de>
+CC: "robin.murphy@arm.com" <robin.murphy@arm.com>, "joro@8bytes.org"
+	<joro@8bytes.org>, "will@kernel.org" <will@kernel.org>, "jgross@suse.com"
+	<jgross@suse.com>, "sstabellini@kernel.org" <sstabellini@kernel.org>,
+	"oleksandr_tyshchenko@epam.com" <oleksandr_tyshchenko@epam.com>,
+	"m.szyprowski@samsung.com" <m.szyprowski@samsung.com>,
+	"iommu@lists.linux.dev" <iommu@lists.linux.dev>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Subject: RE: [RFC 1/1] swiotlb: Reduce calls to swiotlb_find_pool()
+Thread-Topic: [RFC 1/1] swiotlb: Reduce calls to swiotlb_find_pool()
+Thread-Index: AQHauIjoJBWSrCyO6UWzcncSceBiMLHa1Z9wgABomICAAA3OAIAAhiSg
+Date: Thu, 27 Jun 2024 14:59:03 +0000
+Message-ID:
+ <SN6PR02MB4157E61B49C8435E38AC968DD4D72@SN6PR02MB4157.namprd02.prod.outlook.com>
+References: <20240607031421.182589-1-mhklinux@outlook.com>
+	<SN6PR02MB41577686D72E206DB0084E90D4D62@SN6PR02MB4157.namprd02.prod.outlook.com>
+	<20240627060251.GA15590@lst.de>
+ <20240627085216.556744c1@meshulam.tesarici.cz>
+In-Reply-To: <20240627085216.556744c1@meshulam.tesarici.cz>
+Accept-Language: en-US
 Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <7bd44b8615eb545b4956008d02c158d5c85e2345.camel@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-tmn: [fWtQtpoQhh9P6n6U/S2eCRH68cq78H5Q]
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: SN6PR02MB4157:EE_|SA6PR02MB10791:EE_
+x-ms-office365-filtering-correlation-id: 1ccfd2f8-4b42-48df-fd03-08dc96b9af81
+x-microsoft-antispam:
+ BCL:0;ARA:14566002|461199028|3412199025|440099028|102099032|56899033;
+x-microsoft-antispam-message-info:
+ BsbSx4tOIOspvZwvADszIlAXUTGXaCRozXth+6JQaQPAn0SfTb35w4X4aObwpY1VaEev85FSzl5DeVowJDUqOaPTofrjz3M2pod2Qg3aawudatsOu+BCTLLqz6PDWOQTJeg2OKjZJ34UOeGDSSiAxsSaZFf7iAPB4zdMGePrPuq1nz1xrJKURIl8gTtbdZrI52csjcZcfegKlfLkhO/J7wlZnh4Gqw+oBVf/KEQOp9Bcuxc+bio7bDr7dCLuW0AiItoK8EKxJFN1GYcF/Q3HriCbc43l7GqiQQ1xuHfK6KooDQ4Oi4i+OkEfo/r/Vnzvz4pNREKUw7b73ktipH0y1im1aOcUiT+3scA/Gn+HyVNPGkh0hFKzt+mkdGrVPoEyoDXpmUiro4efeFbqtsTj2I29i2/bz93uh2HJxjT41TSk2xMjjny3AdLyOzXneeXvcCRRqVdSkVwtBaGyniyjf6ntWJpfMeIsSfu8znmCBw7gTKtH42mC6fSTIIq1COCsJq6teNQOrZgk+zH/rjysDM21Y7kCB3c78vKsRfEMvU379jNApn6Z/kIHUqkvYUd4
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?iso-8859-2?Q?CSY1WfSq/A2Pw+DgMzEvZv3FNFIh0U1azGBe4vhVn9kEzRkImY9cEyN3EG?=
+ =?iso-8859-2?Q?3oU9nfVLKvrq1rJeNoeEpzmKZ5+r6MPX5AHc4gqJDjM9hQ4pMDcg7do47T?=
+ =?iso-8859-2?Q?Q0UGPye7s/KFYUCCORn++d9kfXGYA8p/toQk5vG+c2403wQPHxuNvOwjg2?=
+ =?iso-8859-2?Q?7LVvdoI/3jkwBCiMRBxkkkkCPOXp+3Tb0OjxdpHw9WTkoDJermq4tEDfky?=
+ =?iso-8859-2?Q?wj5dV2taBnSYzdcNeXQfS2YyxiyfV0SbX/29m1mML1o+8U5b+jxGFZNfJc?=
+ =?iso-8859-2?Q?UkQH6PppfP/rbutqlg2Zt+rRCsZ73s9PgO6gzie5kjyJmL5WEADtxfv6ZM?=
+ =?iso-8859-2?Q?ejOgxlI6kukqzhmZl1hvogPw5bYXOJh/yDdjH915joRqsE61V8ONazaf0f?=
+ =?iso-8859-2?Q?bSPjvrt2yBIb+83GXEVzpWTc6OYCHshoyFA7JT3F9IoakfaiMuY5y8/gPk?=
+ =?iso-8859-2?Q?qjLZHEnj+q5EX0GEAthRN1GX9u88fkUxKbx9GrMicsWpFNjF9x406d2MdO?=
+ =?iso-8859-2?Q?jafF5Sd550JjIiJKqRNqs6fInVja4buUergL4EL07/xleiKnMgWKm/Lg4z?=
+ =?iso-8859-2?Q?7CFAweA4A/UBjOR2sytWRARLeZf51QKWVG9Shh/IPj79emyuvouDs2/o+e?=
+ =?iso-8859-2?Q?3/MewYMCZF5gVGrZWYRLO+hqsyBMSbVxFI2Vb8T11ILzERnHx9rvOpHTE1?=
+ =?iso-8859-2?Q?1l5zAKxb9Bhu0KaO07uwMocdAihB9XbVMhzsOCav01gpgQa+Na+NRvlM07?=
+ =?iso-8859-2?Q?JECjlfG16pRu2KaSIFAzXLs8uiT+18W11+yd5RlOrPQ9XudkRzGgOBW8fo?=
+ =?iso-8859-2?Q?4OBbnx0miojKb24121y3u3MVgeO1R+OO3TnDalErGIZhFMUGPfYRSOh5Jr?=
+ =?iso-8859-2?Q?QkpIijPDwnX3ZmlTtSvDfz4wNFwRyhKvCyOfxByEIRpCNNCIr0n7Kp32BU?=
+ =?iso-8859-2?Q?CxFJj1YuPBQcqZvzrfdIZAO9JN9m1yjIMr53MRWkxmLxPAay8DF/qnZx61?=
+ =?iso-8859-2?Q?PyJrqO7Vf75dWBP/Me/jOavLh6Am+WOlvbQa4gBzvfmDxIPHw8vVYrFS8J?=
+ =?iso-8859-2?Q?f5nmJ5Dwv6eGA3TdyvKCN2qqOulw91fHMILp1zeH9JP5y4utoqI/hCpEFS?=
+ =?iso-8859-2?Q?oOCL50KWQK9ZsWF3s2lPSuymNsbpAAE6vwkT0+3NtHYzjztDABa4SZxbP9?=
+ =?iso-8859-2?Q?y95Zp69A9WKa5SmXHSqrJgXqWWxzq8rG2uT6EQMjErV7KVd7KfhRLvT1YK?=
+ =?iso-8859-2?Q?qgOSzR0Ypk40tQAJ6W6ZZcm/Z7JGP0L6uQi7X1VWk=3D?=
+Content-Type: text/plain; charset="iso-8859-2"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-OriginatorOrg: outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: SN6PR02MB4157.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1ccfd2f8-4b42-48df-fd03-08dc96b9af81
+X-MS-Exchange-CrossTenant-rms-persistedconsumerorg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-CrossTenant-originalarrivaltime: 27 Jun 2024 14:59:03.7122
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA6PR02MB10791
 
-On 27.06.2024 14:01, oleksii.kurochko@gmail.com wrote:
-> On Thu, 2024-06-27 at 12:10 +0200, Jan Beulich wrote:
->> On 27.06.2024 11:58, oleksii.kurochko@gmail.com wrote:
->>> On Thu, 2024-06-27 at 09:59 +0200, Jan Beulich wrote:
->>>> On 26.06.2024 19:27, oleksii.kurochko@gmail.com wrote:
->>>>> On Wed, 2024-06-26 at 10:31 +0200, Jan Beulich wrote:
->>>>>> On 25.06.2024 15:51, Oleksii Kurochko wrote:
->>>>>>> --- /dev/null
->>>>>>> +++ b/xen/arch/riscv/include/asm/bitops.h
->>>>>>> @@ -0,0 +1,137 @@
->>>>>>> +/* SPDX-License-Identifier: GPL-2.0 */
->>>>>>> +/* Copyright (C) 2012 Regents of the University of
->>>>>>> California
->>>>>>> */
->>>>>>> +
->>>>>>> +#ifndef _ASM_RISCV_BITOPS_H
->>>>>>> +#define _ASM_RISCV_BITOPS_H
->>>>>>> +
->>>>>>> +#include <asm/system.h>
->>>>>>> +
->>>>>>> +#if BITOP_BITS_PER_WORD == 64
->>>>>>> +#define __AMO(op)   "amo" #op ".d"
->>>>>>> +#elif BITOP_BITS_PER_WORD == 32
->>>>>>> +#define __AMO(op)   "amo" #op ".w"
->>>>>>> +#else
->>>>>>> +#error "Unexpected BITOP_BITS_PER_WORD"
->>>>>>> +#endif
->>>>>>> +
->>>>>>> +/* Based on linux/arch/include/asm/bitops.h */
->>>>>>> +
->>>>>>> +/*
->>>>>>> + * Non-atomic bit manipulation.
->>>>>>> + *
->>>>>>> + * Implemented using atomics to be interrupt safe. Could
->>>>>>> alternatively
->>>>>>> + * implement with local interrupt masking.
->>>>>>> + */
->>>>>>> +#define __set_bit(n, p)      set_bit(n, p)
->>>>>>> +#define __clear_bit(n, p)    clear_bit(n, p)
->>>>>>> +
->>>>>>> +#define test_and_op_bit_ord(op, mod, nr, addr, ord)     \
->>>>>>> +({                                                      \
->>>>>>> +    bitop_uint_t res, mask;                             \
->>>>>>> +    mask = BITOP_MASK(nr);                              \
->>>>>>> +    asm volatile (                                      \
->>>>>>> +        __AMO(op) #ord " %0, %2, %1"                    \
->>>>>>> +        : "=r" (res), "+A" (addr[BITOP_WORD(nr)])       \
->>>>>>> +        : "r" (mod(mask))                               \
->>>>>>> +        : "memory");                                    \
->>>>>>> +    ((res & mask) != 0);                                \
->>>>>>> +})
->>>>>>> +
->>>>>>> +#define op_bit_ord(op, mod, nr, addr, ord)      \
->>>>>>> +    asm volatile (                              \
->>>>>>> +        __AMO(op) #ord " zero, %1, %0"          \
->>>>>>> +        : "+A" (addr[BITOP_WORD(nr)])           \
->>>>>>> +        : "r" (mod(BITOP_MASK(nr)))             \
->>>>>>> +        : "memory");
->>>>>>> +
->>>>>>> +#define test_and_op_bit(op, mod, nr, addr)    \
->>>>>>> +    test_and_op_bit_ord(op, mod, nr, addr, .aqrl)
->>>>>>> +#define op_bit(op, mod, nr, addr) \
->>>>>>> +    op_bit_ord(op, mod, nr, addr, )
->>>>>>> +
->>>>>>> +/* Bitmask modifiers */
->>>>>>> +#define NOP(x)    (x)
->>>>>>> +#define NOT(x)    (~(x))
->>>>>>
->>>>>> Since elsewhere you said we would use Zbb in bitops, I wanted
->>>>>> to
->>>>>> come
->>>>>> back
->>>>>> on that: Up to here all we use is AMO.
->>>>>>
->>>>>> And further down there's no asm() anymore. What were you
->>>>>> referring
->>>>>> to?
->>>>> RISC-V doesn't have a CLZ instruction in the base
->>>>> ISA.  As a consequence, __builtin_ffs() emits a library call to
->>>>> ffs()
->>>>> on GCC,
->>>>
->>>> Oh, so we'd need to implement that libgcc function, along the
->>>> lines
->>>> of
->>>> Arm32 implementing quite a few of them to support shifts on 64-
->>>> bit
->>>> quantities as well as division and modulo.
->>> Why we can't just live with Zbb extension? Zbb extension is
->>> presented
->>> on every platform I have in access with hypervisor extension
->>> support.
->>
->> I'd be fine that way, but then you don't need to break up ANDN into
->> NOT
->> and AND. It is my understanding that Andrew has concerns here, even
->> if
->> - iirc - it was him to originally suggest to build upon that
->> extension
->> being available. If these concerns are solely about being able to
->> build
->> with Zbb-unaware tool chains, then what to do about the build issues
->> there has already been said.
-> Not much we can do except probably using .insn, as you suggested for
-> the "pause" instruction in cpu_relax(), for every instruction ( at the
-> moment it is only ANDB but who knows which instruction will be used in
-> the future ) from the Zbb extension.
-> 
-> But then we will need to do the same for each possible extension we are
-> going to use, as there is still a small chance that we might encounter
-> an extension-unaware toolchain.
-> 
-> I am a little bit confused about what we should do.
-> 
-> In my opinion, the best approach at the moment is to use .insn for the
-> ANDN and PAUSE instructions
+From: Petr Tesa=F8=EDk <petr@tesarici.cz> Sent: Wednesday, June 26, 2024 11=
+:52 PM
+>=20
+> Oh, right. The idea is good, but I was not able to reply immediately
+> and then forgot about it.
+>=20
+> For the record, I considered an alternative: Call swiotlb_* functions
+> unconditionally and bail out early if the pool is NULL. But it's no
+> good, because is_swiotlb_buffer() can be inlined, so this approach
+> would replace a quick check with a function call. And then there's also
+> swiotlb_tbl_unmap_single()...
+>=20
+> I have only a very minor suggestion: Could is_swiotlb_buffer() be
+> renamed now that it no longer returns a bool? OTOH I have no good
+> immediate idea myself.
+>
 
-This would be my preference, but please also consult with Andrew.
+Conceptually, it's still being used as a boolean function based on
+whether the return value is NULL.  Renaming it to swiotlb_get_pool()
+more accurately describes the return value, but obscures the
+intent of determining if it is a swiotlb buffer.  I'll think about it.
+Suggestions are welcome.
 
-> and add an explanation to
-> docs/misc/riscv/booting.txt or create a separate document where such
-> issues are documented (I am not sure that README is the correct place
-> for this).
-> 
-> I am also okay to go with ANDN break up int NOT and AND, but it is
-> needed to come up  with concept which instruction/extenstion should be
-> used and how consistently to deal with such situations.
-> 
-> Furthermore, I don't think these changes should block the merging (
-> doesn't matter in 4.19 or in 4.20 Xen release ) of PATCHes v13 01-07 of
-> this patch series.
-
-This can be looked at different ways. The splitting into NOT+AND was a
-rather late change.
-
-Jan
+Michael
 
