@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B61CD91A92F
-	for <lists+xen-devel@lfdr.de>; Thu, 27 Jun 2024 16:27:36 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.750135.1158378 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 81FF791A9A2
+	for <lists+xen-devel@lfdr.de>; Thu, 27 Jun 2024 16:47:53 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.750152.1158388 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sMq4z-0004Sl-Rw; Thu, 27 Jun 2024 14:26:29 +0000
+	id 1sMqP5-0007Ek-En; Thu, 27 Jun 2024 14:47:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 750135.1158378; Thu, 27 Jun 2024 14:26:29 +0000
+Received: by outflank-mailman (output) from mailman id 750152.1158388; Thu, 27 Jun 2024 14:47:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sMq4z-0004Pr-PH; Thu, 27 Jun 2024 14:26:29 +0000
-Received: by outflank-mailman (input) for mailman id 750135;
- Thu, 27 Jun 2024 14:26:28 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=1631=N5=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1sMq4y-0004Pd-CB
- for xen-devel@lists.xenproject.org; Thu, 27 Jun 2024 14:26:28 +0000
-Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
- [2a00:1450:4864:20::62c])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 3d62cf4a-3491-11ef-90a3-e314d9c70b13;
- Thu, 27 Jun 2024 16:26:27 +0200 (CEST)
-Received: by mail-ej1-x62c.google.com with SMTP id
- a640c23a62f3a-a7241b2fe79so686087566b.1
- for <xen-devel@lists.xenproject.org>; Thu, 27 Jun 2024 07:26:27 -0700 (PDT)
-Received: from [192.168.219.191] ([94.75.70.14])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a729d6fdd5bsm66060266b.15.2024.06.27.07.26.26
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 27 Jun 2024 07:26:26 -0700 (PDT)
+	id 1sMqP5-0007DD-C1; Thu, 27 Jun 2024 14:47:15 +0000
+Received: by outflank-mailman (input) for mailman id 750152;
+ Thu, 27 Jun 2024 14:47:13 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=GyZL=N5=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1sMqP3-0007D7-50
+ for xen-devel@lists.xenproject.org; Thu, 27 Jun 2024 14:47:13 +0000
+Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
+ [2a00:1450:4864:20::42c])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 226169a2-3494-11ef-b4bb-af5377834399;
+ Thu, 27 Jun 2024 16:47:11 +0200 (CEST)
+Received: by mail-wr1-x42c.google.com with SMTP id
+ ffacd0b85a97d-36743abace4so460720f8f.1
+ for <xen-devel@lists.xenproject.org>; Thu, 27 Jun 2024 07:47:11 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-1faac9aa593sm14069515ad.250.2024.06.27.07.47.07
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 27 Jun 2024 07:47:09 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,107 +45,163 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3d62cf4a-3491-11ef-90a3-e314d9c70b13
+X-Inumbo-ID: 226169a2-3494-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1719498387; x=1720103187; darn=lists.xenproject.org;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=JymcApNACeekwYC5ujv6uQ3hfIJUzcP4064saO773EQ=;
-        b=g8F/979RC+bglUJINMZyMocQgToQLLL12hnay6jfnVF6uaHL3gbf3nhIL+Z6UO5PTq
-         bcBjdPTNdsTRHQDy0O4TLu18jIVtWHDwbkTTyeQYZhWFloh+ocg0HHpOC36rhmkJqL3v
-         8MHqvk4odlk+1/5I3kOVgyNrT90tMD0/JV36IpkhKkiEUbu8E58dRt7RwcL2rF71Y405
-         XUZ7elI8VzP1kY23oWPKmsxGxCxb2M0zrXN3YUrIir9L7wHkIdLDVHcC0U0RGlE2U6kE
-         UYli69tAzv28izpqGfJPO9TDS87PQB6+WJaGsRXzDZoYyKnmdR2hpyBKkKPtb31QGjyZ
-         l9Pg==
+        d=suse.com; s=google; t=1719499630; x=1720104430; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=ogChDBm2KQHAa6Elu0zQESiuNx1mGrCTNcCeJ40+IdI=;
+        b=BffbzofZVV+COVLDUO2HkYHwpi5uvA8F0pi+PDEhsMtd2C7wDdpNjnZtFwRP4fZYei
+         SKTrSd+yeyf8UclTVDS+ekU2GXs1D/koRGoRBqaFByY8T+YfcjydtkChIozzfGZ99A/M
+         QlqL720CcPJ2ol3XTE81/zp7sseGkEA7x6jgtU1e7XuDM8cEgH3qEDG4gDkYT0uquZaq
+         v7DL/gtTlq7BHDzbPjCzTedJTOzQnlCg8FVdehbfYzDtnTpDHADG2bE17PJmot/CozKI
+         8gCu7U2+vxtFvjr6n77Wgt2Clmfn9AjIWmsvQosjg/3y7Qj5MonSpTV3QvqKkulkxUMe
+         poaA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1719498387; x=1720103187;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=JymcApNACeekwYC5ujv6uQ3hfIJUzcP4064saO773EQ=;
-        b=smAKI5nK1WoXUgg/7Zv/TLAnsRf4fs2YZ0CCN5Z1y5cXThNWWYGpi2KzjmCFfataX+
-         q6V/Osn43b2ajS0QoEKX5GPYhKtwgRwRRg95gDzN4aKeCkS+axT/KTegRsRhB6f4/ioT
-         6UqqYZLLZKewvzqhvD1oR6TQIDl92vQw2TfLJ99NV5jpTz0r8DuXPVV7PAmVuFAWuxHw
-         hMvZG+cgL3Nyq5TARw82sYitbvWQwOQ23r9z8pbFObDlcDPJsXf1rJuPBug9MujqpWdS
-         UnVdl8hjxvucEXOthyY3KF5abG4555b7FC4F9NoJa4+RzarmndIfCDYrB20jqjGtRlhN
-         rzWQ==
-X-Forwarded-Encrypted: i=1; AJvYcCWYjGH7EjtZf4aqutK7McM/NzLuHL8DkuSk3Wpm5cKEaeYFaEPtTc34dmsHszfJgMF++H9FoXOQNN+cMA6DQrCCG+WqkRGXzGohUVrFMaU=
-X-Gm-Message-State: AOJu0Yxn0L8BB9zx9Bd+QsRPRn2wmSvCp/wMTjGLbNTAg2+iLGqmtwj0
-	QmEocL02M4pOS+UYLeUfsayc5CR1l51Njd+yklJywYaEU6HZWmVq
-X-Google-Smtp-Source: AGHT+IFVbpJtPkLeWPxiVyceL0IEXsmM75462yphRJ0z48A1CGTyR4eiy7jgO5F20H52Tj4/MQxWtA==
-X-Received: by 2002:a17:907:cb20:b0:a6f:489a:3a28 with SMTP id a640c23a62f3a-a7242cdb40amr916085266b.61.1719498387019;
-        Thu, 27 Jun 2024 07:26:27 -0700 (PDT)
-Message-ID: <503b6bdd648d74c294301bd396665a7bb1a40814.camel@gmail.com>
-Subject: Re: [PATCH for-4.19] tools/dombuilder: Correct the length
- calculation in xc_dom_alloc_segment()
-From: oleksii.kurochko@gmail.com
-To: Andrew Cooper <andrew.cooper3@citrix.com>, Xen-devel
-	 <xen-devel@lists.xenproject.org>
-Cc: Anthony PERARD <anthony@xenproject.org>, Juergen Gross <jgross@suse.com>
-Date: Thu, 27 Jun 2024 16:26:26 +0200
-In-Reply-To: <20240627130134.1006059-1-andrew.cooper3@citrix.com>
-References: <20240627130134.1006059-1-andrew.cooper3@citrix.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.52.2 (3.52.2-1.fc40app2) 
+        d=1e100.net; s=20230601; t=1719499630; x=1720104430;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=ogChDBm2KQHAa6Elu0zQESiuNx1mGrCTNcCeJ40+IdI=;
+        b=e0qK2Bmt2tnDn7tPczhm0GgVe5KhkvVdRqMfa0y7MlE7koGVve0A7zWbEjGKqKViDR
+         EUXRhmFMsr/3nBwUALBtQ5NaJQkg05nrj0b3Cjifxk3rTcJ2RYDC761Q9+Dy9FYxBdV4
+         4mwJGipLtyAwUJ3Sz74pSbe8qcdGNG5ykWO363r5JXNGwrdJT9dIYEobCnPytC3lZnbW
+         z8YbGc/gesoxo350GkUtoPky/Cy7AOZguQf0D9EH4pT8xDpd7oxW+ub8SIRlUZh/py6Y
+         UkuoSjG+A1EfbU5YTu0ZNRVNrlpRggursJ73UGZEfqSRq07cY43Q7lGIOJHLTluS5psa
+         A1jQ==
+X-Forwarded-Encrypted: i=1; AJvYcCXZok+0MNUVW+KvdXMtACTH9BUNHI9AgA0TPcqRzk/MzDg9BNDmgZXzpLXmdYAuPPTWzKBRs9f2g9zV6dzxQniaj7nMZTXf59Tm19qlT1c=
+X-Gm-Message-State: AOJu0YxgdO3+dKa23pfxDsbllrvdjzQ/EH/fJEuwTk1a40bMNiCM7whf
+	yKbVMb6bQhNWpftGd+rZ+VV/0hOZLNw5+pFOwx+KIesXiJUNJce5adnWlbwndw==
+X-Google-Smtp-Source: AGHT+IH0sIAEWiJIccZ8E2hiss/g1QsA9yS/YsGDxtfQb9gP3OFIDvyqiORaDbbl/f4JYUqmnoBZ7A==
+X-Received: by 2002:a5d:50c5:0:b0:363:1c9d:d853 with SMTP id ffacd0b85a97d-36741930ba8mr1869438f8f.32.1719499630271;
+        Thu, 27 Jun 2024 07:47:10 -0700 (PDT)
+Message-ID: <a5275491-f28c-427c-bd15-34dd27ff8cb9@suse.com>
+Date: Thu, 27 Jun 2024 16:47:03 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC for-4.20 v1 1/1] x86/hvm: Introduce Xen-wide ASID Allocator
+To: Vaishali Thakkar <vaishali.thakkar@vates.tech>
+Cc: andrew.cooper3@citrix.com, roger.pau@citrix.com,
+ george.dunlap@citrix.com, xen-devel@lists.xenproject.org
+References: <cover.1716551380.git.vaishali.thakkar@vates.tech>
+ <f15042aa7953d986b6dbd4dc1512024ba6362420.1716551380.git.vaishali.thakkar@vates.tech>
+ <c18dbed6-07ac-4ce6-a5e4-4a72cbac3e12@suse.com>
+ <2c843753-d27b-43cd-907e-851109890cc3@vates.tech>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <2c843753-d27b-43cd-907e-851109890cc3@vates.tech>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Thu, 2024-06-27 at 14:01 +0100, Andrew Cooper wrote:
-> xc_dom_alloc_segment() is passed a size in bytes, calculates a size
-> in pages
-> from it, then fills in the new segment information with a bytes value
-> re-calculated from the number of pages.
->=20
-> This causes the module information given to the guest (MB, or PVH) to
-> have
-> incorrect sizes; specifically, sizes rounded up to the next page.
->=20
-> This in turn is problematic for Xen.=C2=A0 When Xen finds a gzipped
-> module, it
-> peeks at the end metadata to judge the decompressed size, which is a
-> -4
-> backreference from the reported end of the module.
->=20
-> Fill in seg->vend using the correct number of bytes.
->=20
-> Fixes: ea7c8a3d0e82 ("libxc: reorganize domain builder guest memory
-> allocator")
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> ---
-> CC: Anthony PERARD <anthony@xenproject.org>
-> CC: Juergen Gross <jgross@suse.com>
-> CC: Oleksii Kurochko <oleksii.kurochko@gmail.com>
->=20
-> For 4.19: This was discovered when trying to test Daniel's gzip
-> cleanup for
-> Hyperlaunch.=C2=A0 It's a subtle bug, hidden inside a second bug which
-> isn't
-> appropriate content for 4.20.
-> ---
-Release-Acked-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+On 27.06.2024 15:41, Vaishali Thakkar wrote:
+> On 6/13/24 1:04 PM, Jan Beulich wrote:
+>> On 24.05.2024 14:31, Vaishali Thakkar wrote:
+>>> -void hvm_asid_flush_core(void)
+>>> +void hvm_asid_flush_all(void)
+>>>   {
+>>> -    struct hvm_asid_data *data = &this_cpu(hvm_asid_data);
+>>> +    struct hvm_asid_data *data = &asid_data;
+>>>   
+>>> -    if ( data->disabled )
+>>> +    if ( data->disabled)
+>>>           return;
+>>>   
+>>> -    if ( likely(++data->core_asid_generation != 0) )
+>>> +    if ( likely(++data->asid_generation != 0) )
+>>>           return;
+>>>   
+>>>       /*
+>>> -     * ASID generations are 64 bit.  Overflow of generations never happens.
+>>> -     * For safety, we simply disable ASIDs, so correctness is established; it
+>>> -     * only runs a bit slower.
+>>> -     */
+>>> +    * ASID generations are 64 bit.  Overflow of generations never happens.
+>>> +    * For safety, we simply disable ASIDs, so correctness is established; it
+>>> +    * only runs a bit slower.
+>>> +    */
+>>
+>> Please don't screw up indentation; this comment was well-formed before. What
+>> I question is whether, with the ultimate purpose in mind, the comment actually
+>> will continue to be correct. We can't simply disable ASIDs when we have SEV
+>> VMs running, can we?
+> 
+> You're right about SEV VMs. But wouldn't we still want to have a way to 
+> disable ASIDs when there are no SEV VMs are running?
 
-~ Oleksii
+Possibly. Yet that still would render this comment stale in the common case,
+as the way it's written it suggests simply disabling ASIDs on the fly is an
+okay thing to do.
 
-> =C2=A0tools/libs/guest/xg_dom_core.c | 2 +-
-> =C2=A01 file changed, 1 insertion(+), 1 deletion(-)
->=20
-> diff --git a/tools/libs/guest/xg_dom_core.c
-> b/tools/libs/guest/xg_dom_core.c
-> index c4f4e7f3e27a..f5521d528be1 100644
-> --- a/tools/libs/guest/xg_dom_core.c
-> +++ b/tools/libs/guest/xg_dom_core.c
-> @@ -601,7 +601,7 @@ int xc_dom_alloc_segment(struct xc_dom_image
-> *dom,
-> =C2=A0=C2=A0=C2=A0=C2=A0 memset(ptr, 0, pages * page_size);
-> =C2=A0
-> =C2=A0=C2=A0=C2=A0=C2=A0 seg->vstart =3D start;
-> -=C2=A0=C2=A0=C2=A0 seg->vend =3D dom->virt_alloc_end;
-> +=C2=A0=C2=A0=C2=A0 seg->vend =3D start + size;
-> =C2=A0
-> =C2=A0=C2=A0=C2=A0=C2=A0 DOMPRINTF("%-20s:=C2=A0=C2=A0 %-12s : 0x%" PRIx6=
-4 " -> 0x%" PRIx64
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0 "=C2=A0 (pfn 0x%" PRIpfn " + 0x%" PRIpfn " pages)",
+>>> +        c = &cpu_data[cpu];
+>>> +        /* Check for erratum #170, and leave ASIDs disabled if it's present. */
+>>> +        if ( !cpu_has_amd_erratum(c, AMD_ERRATUM_170) )
+>>> +            nasids += cpuid_ebx(0x8000000aU);
+>>
+>> Why += ? Don't you mean to establish the minimum across all CPUs? Which would
+>> be assuming there might be an asymmetry, which generally we assume there
+>> isn't.
+>> And if you invoke CPUID, you'll need to do so on the very CPU, not many times
+>> in a row on the BSP.
+> 
+> Hmm, I'm not sure if I understand your point completely. Just to clarify, 
+> do you mean even if it's assumed that asymmetry is not there, we should 
+> find and establish min ASID count across all online CPUs and ensure that 
+> CPUID instruction is executed on the respective CPU?
 
+No, I mean that
+- if we assume there may be asymmetry, CPUID will need invoking once on
+  every CPU (including ones later being hot-onlined),
+- if we assume no asymmetry, there's no need for accumulation.
+
+>>> --- a/xen/arch/x86/mm/hap/hap.c
+>>> +++ b/xen/arch/x86/mm/hap/hap.c
+>>> @@ -739,13 +739,13 @@ static bool cf_check flush_tlb(const unsigned long *vcpu_bitmap)
+>>>           if ( !flush_vcpu(v, vcpu_bitmap) )
+>>>               continue;
+>>>   
+>>> -        hvm_asid_flush_vcpu(v);
+>>> -
+>>>           cpu = read_atomic(&v->dirty_cpu);
+>>>           if ( cpu != this_cpu && is_vcpu_dirty_cpu(cpu) && v->is_running )
+>>>               __cpumask_set_cpu(cpu, mask);
+>>>       }
+>>>   
+>>> +    hvm_asid_flush_domain(d);
+>>
+>> Hmm, that's potentially much more flushing than is needed here. There
+>> surely wants to be a wait to flush at a granularity smaller than the
+>> entire domain. (Likely applies elsewhere as well.)
+> 
+> I see, does it mean we still need a way to flush at the vcpu level in the
+> case of HAP?
+
+For correctness it's not really "need", but for performance I'm pretty sure
+it's going to be "want".
+
+Jan
 
