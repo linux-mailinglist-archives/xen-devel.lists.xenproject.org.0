@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D5AC491A108
-	for <lists+xen-devel@lfdr.de>; Thu, 27 Jun 2024 09:59:54 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.749788.1158037 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3592A91A10F
+	for <lists+xen-devel@lfdr.de>; Thu, 27 Jun 2024 10:01:31 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.749798.1158045 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sMk2c-0003Fw-2i; Thu, 27 Jun 2024 07:59:38 +0000
+	id 1sMk4C-0005Dh-Hb; Thu, 27 Jun 2024 08:01:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 749788.1158037; Thu, 27 Jun 2024 07:59:38 +0000
+Received: by outflank-mailman (output) from mailman id 749798.1158045; Thu, 27 Jun 2024 08:01:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sMk2b-0003Cj-W0; Thu, 27 Jun 2024 07:59:37 +0000
-Received: by outflank-mailman (input) for mailman id 749788;
- Thu, 27 Jun 2024 07:59:36 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1sMk4C-0005Bo-Ea; Thu, 27 Jun 2024 08:01:16 +0000
+Received: by outflank-mailman (input) for mailman id 749798;
+ Thu, 27 Jun 2024 08:01:15 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=GyZL=N5=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sMk2a-0003CJ-4U
- for xen-devel@lists.xenproject.org; Thu, 27 Jun 2024 07:59:36 +0000
-Received: from mail-lj1-x22e.google.com (mail-lj1-x22e.google.com
- [2a00:1450:4864:20::22e])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 31a829d6-345b-11ef-90a3-e314d9c70b13;
- Thu, 27 Jun 2024 09:59:35 +0200 (CEST)
-Received: by mail-lj1-x22e.google.com with SMTP id
- 38308e7fff4ca-2ebed33cb65so85922581fa.2
- for <xen-devel@lists.xenproject.org>; Thu, 27 Jun 2024 00:59:35 -0700 (PDT)
+ id 1sMk4B-0005Bf-L8
+ for xen-devel@lists.xenproject.org; Thu, 27 Jun 2024 08:01:15 +0000
+Received: from mail-lf1-x130.google.com (mail-lf1-x130.google.com
+ [2a00:1450:4864:20::130])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 6c6c4cb5-345b-11ef-b4bb-af5377834399;
+ Thu, 27 Jun 2024 10:01:13 +0200 (CEST)
+Received: by mail-lf1-x130.google.com with SMTP id
+ 2adb3069b0e04-52d259dbe3cso2464652e87.0
+ for <xen-devel@lists.xenproject.org>; Thu, 27 Jun 2024 01:01:13 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-1faac9c6141sm7194195ad.306.2024.06.27.00.59.29
+ 41be03b00d2f7-72745d077e7sm601111a12.37.2024.06.27.01.01.07
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 27 Jun 2024 00:59:34 -0700 (PDT)
+ Thu, 27 Jun 2024 01:01:12 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,53 +45,55 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 31a829d6-345b-11ef-90a3-e314d9c70b13
+X-Inumbo-ID: 6c6c4cb5-345b-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1719475175; x=1720079975; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1719475273; x=1720080073; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=8vIo1QuIyyZtc4lMpkM2bWEpnBjFiSmZakRUank75F0=;
-        b=L2n5wnoBHyXVTaNlWfW15GCiExnCSaYRh3NOpSlxINAGshGmBJLtUs5uDogEWjf1Ro
-         c9XvzVZ0+sXsTs4M20maxKtC8sNOB5EsUKR9rxLLxtZVGESOe1prGIp8j3gIYIXdmwMJ
-         Hic8pssQ1qFWukbUP1zH3/l42HlPWj3v4pZWQ+3N5rT8+huqvji3mOx6srzVke/Wfcm6
-         iwCa1/RepG8XTw5s0j4kPZiA6sJNShmzDMQDEO4N/FpCVg8gNSCjgR+gA2KInF0dnFuo
-         r3BGpIyAKb3nM2ZGbx9u0b/lGM7y6rNY9wRqnik6OWsoUKqtSdsAo/ptYGM2p4xqFCrx
-         nERw==
+        bh=ecNue83XO5T68nH08GCvk0yWw6PYIJxula9SXfUI4yo=;
+        b=RJJ5joMnYquztrKNgQE6/yOrqpxH4SemwYDT5gRRNob6NlT3XywpGNVVjshnQPz+1I
+         MwIVW1qKeK05clEnO3/K1Db/3NoMg9XGcOM0xy+FxPYUKr/Xz+DiUcX6jDJCfNAMqgc+
+         KUeIOvBZcLfal9pdYEVuDGuhdrx7UmEQns81dWlZy58YIQSQ2DLXnjEwK6uZEthbFwza
+         hU4TjEsmT2uAxb7JiqAJbEKsHyhzMEAjb6HwPOVoTvQ6uP6s0eVfdkQYPjZ+kPWvKnBo
+         XNYlvgzO5H2JMAMkw5Sn1gQ2z9L6wI2TyCSVe9veo7WtiHFsroufnSEs7LpAXFBj9M3g
+         5qWQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1719475175; x=1720079975;
+        d=1e100.net; s=20230601; t=1719475273; x=1720080073;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=8vIo1QuIyyZtc4lMpkM2bWEpnBjFiSmZakRUank75F0=;
-        b=bdsy0A5sgw+G0so/jgS0Es73GVtXJor2YQ0MOU9OsKY/q5EmSyw0gueW0JzjyoWH8k
-         xsuGJK+YPkrzeQYdmUrfO/ubi+XUaJ+LoDQO3Ww1EHJyROjtI4f6/tnujKv3wBWW1wM7
-         g7t3BjT4wi6bWXAGJsihXTe5Lwy/LV3ifT6AII7ALDYUg95n83meWNV9zfjwOac3hrpF
-         0F4j4XuDPXMSMGmAYY6IyTVNLGCZSe70KsoSjuXGubb+FIjRU6yr11m8EQrfvaGYoe09
-         8zciFnzIC7O5bpJ9Y+hTKLfNLq/Y3c4z3d0CeK6AMyL1X+5E0PCVgiS6HGhmAbBUDbrQ
-         cm8w==
-X-Forwarded-Encrypted: i=1; AJvYcCX5HTwlAC4iXr03xFEE4gNDiY0JiZFv3BOh8yyjolXq3aMlzYQi34o1LDFom6Nc3NPj6i9bt/PbxETnKo0Hj6zkARwTQNb1qIjFO8lGy9Q=
-X-Gm-Message-State: AOJu0Yxpri+wSdap4xucWGdRlRh4RK6SP1PlXMW3NHDRL2+5H5au5kM0
-	xxxNzCe9uLVqfoVBMV3x198oQhse06v0QMc7CoeBqf/rMCC+LomeT+aV0yVE/A==
-X-Google-Smtp-Source: AGHT+IH0kNNTY1OvtCYzPUFGVMj7oiDvu2sE2zScju4oAuMm1L+epDJa7KWbg+NrLLeyu4gqQEEPDw==
-X-Received: by 2002:a2e:9c88:0:b0:2ec:5364:c790 with SMTP id 38308e7fff4ca-2ec5931d8cemr106390271fa.22.1719475174625;
-        Thu, 27 Jun 2024 00:59:34 -0700 (PDT)
-Message-ID: <e2d82c37-da44-4a8f-a1f8-76d5ff05b104@suse.com>
-Date: Thu, 27 Jun 2024 09:59:25 +0200
+        bh=ecNue83XO5T68nH08GCvk0yWw6PYIJxula9SXfUI4yo=;
+        b=qPFJUTo5W30Sewe0t3sG4gvwHts7HCJiqFGlPPaiJOrtxcxPZQ7IzQ5hv2u5cirHqI
+         lB7ud1YLtbPChDabP57is4hzJloxjriGzeS4/bajW3p6QuvTJdE9LVwhkOsdGN2S8wrd
+         +kNQpuphOpt25YaRyuW9FjrRpIYVdAYJp6dKTenToALdG8HpGbZjmrNXHftBKU0WXVQI
+         z6545f3+x447EBJr2IG9otvhWtdT5Dn0usstShthUxvQF41plVezBbe8FEMowdq1Onp9
+         KVqVz2bQvfBtAcCzvWUwAmrv4CEgliMN5FtJE0jXKqS0MMSXfaXqmaEgVue5yplFUFyw
+         +jfg==
+X-Forwarded-Encrypted: i=1; AJvYcCXTXrvkJsq6qqW7AYow1Zbuk4UY0QexdxU2oC1yCDoOpZMg0Tfh12JBIX4sGdDiEdPoECN99JRmy8sUuH9f1q+C3uMYuYJ2lz/uxjjncok=
+X-Gm-Message-State: AOJu0YzNhWwuxqLf1iQRUaSF4Mn+SXEUqWJC19NGr8GJBHC7zMjTPmVl
+	n4esrj7XcUkfSGXiGoASINNOwqoyiuq3UBVTYABa5d2Y7qchlIstWo/C++MUQw==
+X-Google-Smtp-Source: AGHT+IEoqMXKAByh38Y66A01VDwn6Wlt498BsogVjwV0meToi9ptolputQFyajlbCTqPS5YNXCqGkw==
+X-Received: by 2002:a2e:3e13:0:b0:2ec:5685:f05f with SMTP id 38308e7fff4ca-2ec5938a771mr87073551fa.49.1719475273338;
+        Thu, 27 Jun 2024 01:01:13 -0700 (PDT)
+Message-ID: <30c1c508-daf9-40df-b9ae-0a1584eacc0a@suse.com>
+Date: Thu, 27 Jun 2024 10:01:03 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v13 02/10] xen/riscv: introduce bitops.h
-To: oleksii.kurochko@gmail.com
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <cover.1719319093.git.oleksii.kurochko@gmail.com>
- <0e4441eee82b0545e59099e2f62e3a01fa198d08.1719319093.git.oleksii.kurochko@gmail.com>
- <bb103587-546d-4613-bcb8-df10f5d05388@suse.com>
- <4c15dd072f08b1161d170608a096dc0851ced588.camel@gmail.com>
+Subject: Re: [PATCH 6/6] x86/xstate: Switch back to for_each_set_bit()
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20240625190719.788643-1-andrew.cooper3@citrix.com>
+ <20240625190719.788643-7-andrew.cooper3@citrix.com>
+ <59201cf5-9d86-4976-a331-2a7f8bb9635a@suse.com>
+ <961f5371-3616-4476-ae12-e1d91cc56345@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -117,93 +119,57 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <4c15dd072f08b1161d170608a096dc0851ced588.camel@gmail.com>
+In-Reply-To: <961f5371-3616-4476-ae12-e1d91cc56345@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 26.06.2024 19:27, oleksii.kurochko@gmail.com wrote:
-> On Wed, 2024-06-26 at 10:31 +0200, Jan Beulich wrote:
->> On 25.06.2024 15:51, Oleksii Kurochko wrote:
->>> --- /dev/null
->>> +++ b/xen/arch/riscv/include/asm/bitops.h
->>> @@ -0,0 +1,137 @@
->>> +/* SPDX-License-Identifier: GPL-2.0 */
->>> +/* Copyright (C) 2012 Regents of the University of California */
->>> +
->>> +#ifndef _ASM_RISCV_BITOPS_H
->>> +#define _ASM_RISCV_BITOPS_H
->>> +
->>> +#include <asm/system.h>
->>> +
->>> +#if BITOP_BITS_PER_WORD == 64
->>> +#define __AMO(op)   "amo" #op ".d"
->>> +#elif BITOP_BITS_PER_WORD == 32
->>> +#define __AMO(op)   "amo" #op ".w"
->>> +#else
->>> +#error "Unexpected BITOP_BITS_PER_WORD"
->>> +#endif
->>> +
->>> +/* Based on linux/arch/include/asm/bitops.h */
->>> +
->>> +/*
->>> + * Non-atomic bit manipulation.
->>> + *
->>> + * Implemented using atomics to be interrupt safe. Could
->>> alternatively
->>> + * implement with local interrupt masking.
->>> + */
->>> +#define __set_bit(n, p)      set_bit(n, p)
->>> +#define __clear_bit(n, p)    clear_bit(n, p)
->>> +
->>> +#define test_and_op_bit_ord(op, mod, nr, addr, ord)     \
->>> +({                                                      \
->>> +    bitop_uint_t res, mask;                             \
->>> +    mask = BITOP_MASK(nr);                              \
->>> +    asm volatile (                                      \
->>> +        __AMO(op) #ord " %0, %2, %1"                    \
->>> +        : "=r" (res), "+A" (addr[BITOP_WORD(nr)])       \
->>> +        : "r" (mod(mask))                               \
->>> +        : "memory");                                    \
->>> +    ((res & mask) != 0);                                \
->>> +})
->>> +
->>> +#define op_bit_ord(op, mod, nr, addr, ord)      \
->>> +    asm volatile (                              \
->>> +        __AMO(op) #ord " zero, %1, %0"          \
->>> +        : "+A" (addr[BITOP_WORD(nr)])           \
->>> +        : "r" (mod(BITOP_MASK(nr)))             \
->>> +        : "memory");
->>> +
->>> +#define test_and_op_bit(op, mod, nr, addr)    \
->>> +    test_and_op_bit_ord(op, mod, nr, addr, .aqrl)
->>> +#define op_bit(op, mod, nr, addr) \
->>> +    op_bit_ord(op, mod, nr, addr, )
->>> +
->>> +/* Bitmask modifiers */
->>> +#define NOP(x)    (x)
->>> +#define NOT(x)    (~(x))
->>
->> Since elsewhere you said we would use Zbb in bitops, I wanted to come
->> back
->> on that: Up to here all we use is AMO.
->>
->> And further down there's no asm() anymore. What were you referring
->> to?
-> RISC-V doesn't have a CLZ instruction in the base
-> ISA.  As a consequence, __builtin_ffs() emits a library call to ffs()
-> on GCC,
+On 26.06.2024 20:09, Andrew Cooper wrote:
+> On 26/06/2024 11:24 am, Jan Beulich wrote:
+>> On 25.06.2024 21:07, Andrew Cooper wrote:
+>>> In all 3 examples, we're iterating over a scaler.  No caller can pass the
+>>> COMPRESSED flag in, so the upper bound of 63, as opposed to 64, doesn't
+>>> matter.
+>> Not sure, maybe more a language question (for my education): Is "can"
+>> really appropriate here?
+> 
+> It's not the greatest choice, but it's not objectively wrong either.
+> 
+>>  In recalculate_xstate() we calculate the
+>> value ourselves, but in the two other cases the value is incoming to
+>> the functions. Architecturally those value should not have bit 63 set,
+>> but that's weaker than "can" according to my understanding. I'd be
+>> fine with "may", for example.
+> 
+> There's an ASSERT() in xstate_uncompressed_size() which covers the
+> property, but most if the justification comes from the fact that the
+> callers pass in values which are really loaded into hardware registers.
+> 
+> But it is certainly more accurate to say that callers don't pass the
+> flag in.
+> 
+> There isn't an ASSERT() in xstate_compressed_size(), but I suppose I
+> could fold this in:
+> 
+> diff --git a/xen/arch/x86/xstate.c b/xen/arch/x86/xstate.c
+> index 88dbfbeafacd..f72f14626b7d 100644
+> --- a/xen/arch/x86/xstate.c
+> +++ b/xen/arch/x86/xstate.c
+> @@ -623,6 +623,8 @@ unsigned int xstate_compressed_size(uint64_t xstates)
+>  {
+>      unsigned int size = XSTATE_AREA_MIN_SIZE;
+>  
+> +    ASSERT((xstates & ~(X86_XCR0_STATES | X86_XSS_STATES)) == 0);
+> +
+>      if ( xstates == 0 )
+>          return 0;
+>  
+> 
+> which brings it more in line with xstate_uncompressed_size(), and has a
+> side effect of confirming the absence of the COMPRESSED bit.
+> 
+> Thoughts?
 
-Oh, so we'd need to implement that libgcc function, along the lines of
-Arm32 implementing quite a few of them to support shifts on 64-bit
-quantities as well as division and modulo.
+Definitely fine with me.
 
 Jan
-
-> or a de Bruijn sequence on Clang.
-> 
-> The optional Zbb extension adds a CLZ instruction, after which
-> __builtin_ffs() emits a very simple sequence.
-> 
-> ~ Oleksii
-
 
