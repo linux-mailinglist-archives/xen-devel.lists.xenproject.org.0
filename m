@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3592A91A10F
-	for <lists+xen-devel@lfdr.de>; Thu, 27 Jun 2024 10:01:31 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.749798.1158045 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D753691A128
+	for <lists+xen-devel@lfdr.de>; Thu, 27 Jun 2024 10:11:52 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.749813.1158055 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sMk4C-0005Dh-Hb; Thu, 27 Jun 2024 08:01:16 +0000
+	id 1sMkE4-00077u-El; Thu, 27 Jun 2024 08:11:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 749798.1158045; Thu, 27 Jun 2024 08:01:16 +0000
+Received: by outflank-mailman (output) from mailman id 749813.1158055; Thu, 27 Jun 2024 08:11:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sMk4C-0005Bo-Ea; Thu, 27 Jun 2024 08:01:16 +0000
-Received: by outflank-mailman (input) for mailman id 749798;
- Thu, 27 Jun 2024 08:01:15 +0000
+	id 1sMkE4-00075M-C8; Thu, 27 Jun 2024 08:11:28 +0000
+Received: by outflank-mailman (input) for mailman id 749813;
+ Thu, 27 Jun 2024 08:11:26 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=GyZL=N5=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sMk4B-0005Bf-L8
- for xen-devel@lists.xenproject.org; Thu, 27 Jun 2024 08:01:15 +0000
-Received: from mail-lf1-x130.google.com (mail-lf1-x130.google.com
- [2a00:1450:4864:20::130])
+ id 1sMkE2-00075D-S2
+ for xen-devel@lists.xenproject.org; Thu, 27 Jun 2024 08:11:26 +0000
+Received: from mail-lj1-x22a.google.com (mail-lj1-x22a.google.com
+ [2a00:1450:4864:20::22a])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 6c6c4cb5-345b-11ef-b4bb-af5377834399;
- Thu, 27 Jun 2024 10:01:13 +0200 (CEST)
-Received: by mail-lf1-x130.google.com with SMTP id
- 2adb3069b0e04-52d259dbe3cso2464652e87.0
- for <xen-devel@lists.xenproject.org>; Thu, 27 Jun 2024 01:01:13 -0700 (PDT)
+ id d88f04d6-345c-11ef-b4bb-af5377834399;
+ Thu, 27 Jun 2024 10:11:24 +0200 (CEST)
+Received: by mail-lj1-x22a.google.com with SMTP id
+ 38308e7fff4ca-2ec5779b423so55300971fa.0
+ for <xen-devel@lists.xenproject.org>; Thu, 27 Jun 2024 01:11:24 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 41be03b00d2f7-72745d077e7sm601111a12.37.2024.06.27.01.01.07
+ d9443c01a7336-1faac9793a1sm7428555ad.178.2024.06.27.01.11.18
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 27 Jun 2024 01:01:12 -0700 (PDT)
+ Thu, 27 Jun 2024 01:11:21 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,55 +45,55 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6c6c4cb5-345b-11ef-b4bb-af5377834399
+X-Inumbo-ID: d88f04d6-345c-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1719475273; x=1720080073; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1719475884; x=1720080684; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=ecNue83XO5T68nH08GCvk0yWw6PYIJxula9SXfUI4yo=;
-        b=RJJ5joMnYquztrKNgQE6/yOrqpxH4SemwYDT5gRRNob6NlT3XywpGNVVjshnQPz+1I
-         MwIVW1qKeK05clEnO3/K1Db/3NoMg9XGcOM0xy+FxPYUKr/Xz+DiUcX6jDJCfNAMqgc+
-         KUeIOvBZcLfal9pdYEVuDGuhdrx7UmEQns81dWlZy58YIQSQ2DLXnjEwK6uZEthbFwza
-         hU4TjEsmT2uAxb7JiqAJbEKsHyhzMEAjb6HwPOVoTvQ6uP6s0eVfdkQYPjZ+kPWvKnBo
-         XNYlvgzO5H2JMAMkw5Sn1gQ2z9L6wI2TyCSVe9veo7WtiHFsroufnSEs7LpAXFBj9M3g
-         5qWQ==
+        bh=E5J23NZ1segqqhFXXYTwxEvTsF4rIj3ccvQoT6q3rCo=;
+        b=CjXhR82jLroqLgB50FYDT+tPaOs5UAxIAKIeed+BF0bEaV5phucUieIxkVbvlS1Z55
+         IcdMXYLpTja8pC94uL5jZJXu9NpbSYkz9j+YbhOM1R8aDKo4DxKAh0U+GL3OodOFfJyE
+         J2JC6tflGjLpbhWDpbntPfuWEP3EFOJUUSVSztF1JbxGN5bdkbzp+/zoJSJqIbExiaNs
+         48QGL7R5AHOUiIHmKQcfwBT3pvoVKn7UsJB66OfcNqjRmaTYwARJNBQRWJ16/DnbCJs/
+         GVRBKmtWRkXS89choZ6yliNTVm+VZgKmqU5oEt8hNiTZZcEBRamFNRokoor2nHqNOsOF
+         trmg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1719475273; x=1720080073;
+        d=1e100.net; s=20230601; t=1719475884; x=1720080684;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=ecNue83XO5T68nH08GCvk0yWw6PYIJxula9SXfUI4yo=;
-        b=qPFJUTo5W30Sewe0t3sG4gvwHts7HCJiqFGlPPaiJOrtxcxPZQ7IzQ5hv2u5cirHqI
-         lB7ud1YLtbPChDabP57is4hzJloxjriGzeS4/bajW3p6QuvTJdE9LVwhkOsdGN2S8wrd
-         +kNQpuphOpt25YaRyuW9FjrRpIYVdAYJp6dKTenToALdG8HpGbZjmrNXHftBKU0WXVQI
-         z6545f3+x447EBJr2IG9otvhWtdT5Dn0usstShthUxvQF41plVezBbe8FEMowdq1Onp9
-         KVqVz2bQvfBtAcCzvWUwAmrv4CEgliMN5FtJE0jXKqS0MMSXfaXqmaEgVue5yplFUFyw
-         +jfg==
-X-Forwarded-Encrypted: i=1; AJvYcCXTXrvkJsq6qqW7AYow1Zbuk4UY0QexdxU2oC1yCDoOpZMg0Tfh12JBIX4sGdDiEdPoECN99JRmy8sUuH9f1q+C3uMYuYJ2lz/uxjjncok=
-X-Gm-Message-State: AOJu0YzNhWwuxqLf1iQRUaSF4Mn+SXEUqWJC19NGr8GJBHC7zMjTPmVl
-	n4esrj7XcUkfSGXiGoASINNOwqoyiuq3UBVTYABa5d2Y7qchlIstWo/C++MUQw==
-X-Google-Smtp-Source: AGHT+IEoqMXKAByh38Y66A01VDwn6Wlt498BsogVjwV0meToi9ptolputQFyajlbCTqPS5YNXCqGkw==
-X-Received: by 2002:a2e:3e13:0:b0:2ec:5685:f05f with SMTP id 38308e7fff4ca-2ec5938a771mr87073551fa.49.1719475273338;
-        Thu, 27 Jun 2024 01:01:13 -0700 (PDT)
-Message-ID: <30c1c508-daf9-40df-b9ae-0a1584eacc0a@suse.com>
-Date: Thu, 27 Jun 2024 10:01:03 +0200
+        bh=E5J23NZ1segqqhFXXYTwxEvTsF4rIj3ccvQoT6q3rCo=;
+        b=QD9OeqYXh5KwIbfvjaowZRtPsvHue9QQCIS12HBfqYkk6bSAi6ey7zLb/Auol6p8QQ
+         c88JXQAQl3OcfbksmYtW8Fglm8d5Ng6M/G1Q2J/5els/6YMh6rsgipU9v3ZxR1iafEnA
+         Gqy+AkoEy14+/ZOoSetfdcyOnaK1s2xZSty0xC/pP1JJYp8sQvaDJ3A2Xk7G0YYO9Jd2
+         TwDpDe6FF1rH2xseLdUCN9/aeOHsjE+2uMBwaO/7FtVELpIvyhlWrrjxlOWLLuLVQI5q
+         zDzLSSYx+XHN7kFtgUdh6uLEwD9DpBt2HoiHjFZdeliXxN6svR/1fVbLuLcdd6QQfj1n
+         qSkQ==
+X-Gm-Message-State: AOJu0YxL3QB6WYcE069+vCawMhTOLGb6McNGqO3B0UD4g2JsuSuEt7l1
+	2gdjyMUlwNTX2gMDIU1eXed6jo2aexfcr+7LtMtjEHrj4ZbJG10c6HD7BL9Xcw==
+X-Google-Smtp-Source: AGHT+IH/w27rasRrzMJFDIbQmkAtVIUlSQbSFOoy/RDmgPHQaNnKDxvk1u6E+R9LP+76cpuVDhVqgA==
+X-Received: by 2002:a2e:9090:0:b0:2ec:5621:b9f2 with SMTP id 38308e7fff4ca-2ec5936fb3amr95241051fa.41.1719475882128;
+        Thu, 27 Jun 2024 01:11:22 -0700 (PDT)
+Message-ID: <84eb22c8-7737-4e6b-8194-724c792c2d92@suse.com>
+Date: Thu, 27 Jun 2024 10:11:13 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6/6] x86/xstate: Switch back to for_each_set_bit()
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Oleksii Kurochko <oleksii.kurochko@gmail.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20240625190719.788643-1-andrew.cooper3@citrix.com>
- <20240625190719.788643-7-andrew.cooper3@citrix.com>
- <59201cf5-9d86-4976-a331-2a7f8bb9635a@suse.com>
- <961f5371-3616-4476-ae12-e1d91cc56345@citrix.com>
+Subject: Re: [XEN PATCH v2 05/13] x86/traps: address violations of MISRA C
+ Rule 16.3
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: xen-devel@lists.xenproject.org, consulting@bugseng.com,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Federico Serafini <federico.serafini@bugseng.com>
+References: <cover.1719218291.git.federico.serafini@bugseng.com>
+ <4f44a7b021eb4f78ccf1ce69b500b48b75df81c5.1719218291.git.federico.serafini@bugseng.com>
+ <alpine.DEB.2.22.394.2406241753260.3870429@ubuntu-linux-20-04-desktop>
+ <a5b47b7e-9dc0-4108-bd6f-eb34f7cb8c3c@suse.com>
+ <alpine.DEB.2.22.394.2406251808040.3635@ubuntu-linux-20-04-desktop>
+ <6441010f-c2f6-4098-bf23-837955dcf803@suse.com>
+ <alpine.DEB.2.22.394.2406261758390.3635@ubuntu-linux-20-04-desktop>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -119,57 +119,116 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <961f5371-3616-4476-ae12-e1d91cc56345@citrix.com>
+In-Reply-To: <alpine.DEB.2.22.394.2406261758390.3635@ubuntu-linux-20-04-desktop>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 26.06.2024 20:09, Andrew Cooper wrote:
-> On 26/06/2024 11:24 am, Jan Beulich wrote:
->> On 25.06.2024 21:07, Andrew Cooper wrote:
->>> In all 3 examples, we're iterating over a scaler.  No caller can pass the
->>> COMPRESSED flag in, so the upper bound of 63, as opposed to 64, doesn't
->>> matter.
->> Not sure, maybe more a language question (for my education): Is "can"
->> really appropriate here?
+On 27.06.2024 03:53, Stefano Stabellini wrote:
+> On Wed, 26 Jun 2024, Jan Beulich wrote:
+>> On 26.06.2024 03:11, Stefano Stabellini wrote:
+>>> On Tue, 25 Jun 2024, Jan Beulich wrote:
+>>>> On 25.06.2024 02:54, Stefano Stabellini wrote:
+>>>>> On Mon, 24 Jun 2024, Federico Serafini wrote:
+>>>>>> Add break or pseudo keyword fallthrough to address violations of
+>>>>>> MISRA C Rule 16.3: "An unconditional `break' statement shall terminate
+>>>>>> every switch-clause".
+>>>>>>
+>>>>>> No functional change.
+>>>>>>
+>>>>>> Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
+>>>>>> ---
+>>>>>>  xen/arch/x86/traps.c | 3 +++
+>>>>>>  1 file changed, 3 insertions(+)
+>>>>>>
+>>>>>> diff --git a/xen/arch/x86/traps.c b/xen/arch/x86/traps.c
+>>>>>> index 9906e874d5..cbcec3fafb 100644
+>>>>>> --- a/xen/arch/x86/traps.c
+>>>>>> +++ b/xen/arch/x86/traps.c
+>>>>>> @@ -1186,6 +1186,7 @@ void cpuid_hypervisor_leaves(const struct vcpu *v, uint32_t leaf,
+>>>>>>  
+>>>>>>      default:
+>>>>>>          ASSERT_UNREACHABLE();
+>>>>>> +        break;
+>>>>>
+>>>>> Please add ASSERT_UNREACHABLE to the list of "unconditional flow control
+>>>>> statements" that can terminate a case, in addition to break.
+>>>>
+>>>> Why? Exactly the opposite is part of the subject of a recent patch, iirc.
+>>>> Simply because of the rules needing to cover both debug and release builds.
+>>>
+>>> The reason is that ASSERT_UNREACHABLE() might disappear from the release
+>>> build but it can still be used as a marker during static analysis. In
+>>> my view, ASSERT_UNREACHABLE() is equivalent to a noreturn function call
+>>> which has an empty implementation in release builds.
+>>>
+>>> The only reason I can think of to require a break; after an
+>>> ASSERT_UNREACHABLE() would be if we think the unreachability only apply
+>>> to debug build, not release build:
+>>>
+>>> - debug build: it is unreachable
+>>> - release build: it is reachable
+>>>
+>>> I don't think that is meant to be possible so I think we can use
+>>> ASSERT_UNREACHABLE() as a marker.
+>>
+>> Well. For one such an assumption takes as a prereq that a debug build will
+>> be run through full coverage testing, i.e. all reachable paths proven to
+>> be taken. I understand that this prereq is intended to somehow be met,
+>> even if I'm having difficulty seeing how such a final proof would look
+>> like: Full coverage would, to me, mean that _every_ line is reachable. Yet
+>> clearly any ASSERT_UNREACHABLE() must never be reached.
+>>
+>> And then not covering for such cases takes the further assumption that
+>> debug and release builds are functionally identical. I'm afraid this would
+>> be a wrong assumption to make:
+>> 1) We may screw up somewhere, with code wrongly enabled only in one of the
+>>    two build modes.
+>> 2) The compiler may screw up, in particular with optimization.
 > 
-> It's not the greatest choice, but it's not objectively wrong either.
+> I think there are two different issues here we are discussing.
 > 
->>  In recalculate_xstate() we calculate the
->> value ourselves, but in the two other cases the value is incoming to
->> the functions. Architecturally those value should not have bit 63 set,
->> but that's weaker than "can" according to my understanding. I'd be
->> fine with "may", for example.
+> One issue, like you said, has to do with coverage. It is important to
+> mark as "unreachable" any part of the code that is indeed unreachable
+> so that we can account it properly when we do coverage analysis. At the
+> moment the only "unreachable" marker that we have is
+> ASSERT_UNREACHABLE(), and I am hoping we can use it as part of the
+> coverage analysis we'll do.
 > 
-> There's an ASSERT() in xstate_uncompressed_size() which covers the
-> property, but most if the justification comes from the fact that the
-> callers pass in values which are really loaded into hardware registers.
+> However, there is a different separate question about what to do in the
+> Xen code after an ASSERT_UNREACHABLE(). E.g.:
 > 
-> But it is certainly more accurate to say that callers don't pass the
-> flag in.
+>              default:
+>                  ASSERT_UNREACHABLE();
+>                  return -EPERM; /* is it better with or without this? */
+>              }
 > 
-> There isn't an ASSERT() in xstate_compressed_size(), but I suppose I
-> could fold this in:
+> Leaving coverage aside, would it be better to be defensive and actually
+> attempt to report errors back after an ASSERT_UNREACHABLE() like in the
+> example? Or is it better to assume the code is actually unreachable
+> hence there is no need to do anything afterwards?
 > 
-> diff --git a/xen/arch/x86/xstate.c b/xen/arch/x86/xstate.c
-> index 88dbfbeafacd..f72f14626b7d 100644
-> --- a/xen/arch/x86/xstate.c
-> +++ b/xen/arch/x86/xstate.c
-> @@ -623,6 +623,8 @@ unsigned int xstate_compressed_size(uint64_t xstates)
->  {
->      unsigned int size = XSTATE_AREA_MIN_SIZE;
->  
-> +    ASSERT((xstates & ~(X86_XCR0_STATES | X86_XSS_STATES)) == 0);
-> +
->      if ( xstates == 0 )
->          return 0;
->  
+> One one hand, being defensive sounds good, on the other hand, any code
+> we add after ASSERT_UNREACHABLE() is dead code which cannot be tested,
+> which is also not good. In this example, there is no way to test the
+> return -EPERM code path. We also need to consider what is the right
+> thing to do if Xen finds itself in an erroneous situation such as being
+> in an unreachable code location.
 > 
-> which brings it more in line with xstate_uncompressed_size(), and has a
-> side effect of confirming the absence of the COMPRESSED bit.
-> 
-> Thoughts?
+> So, after thinking about it and also talking to the safety manager, I
+> think we should:
+> - implement ASSERT_UNREACHABLE with a warning in release builds
 
-Definitely fine with me.
+If at all, then controlled by a default-off Kconfig setting. This would,
+after all, raise the question of how ASSERT() should behave then. Imo
+the two should be consistent in this regard, and NDEBUG clearly results
+in the expectation that ASSERT() expands to nothing. Perhaps this is
+finally the time where we need to separate NDEBUG from CONFIG_DEBUG; we
+did discuss doing so before. Then in your release builds, you could
+actually leave assertions active.
+
+> - have "return -EPERM;" or similar for defensive programming
+
+You don't say how you'd deal with the not-reachable aspect then.
 
 Jan
 
