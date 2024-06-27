@@ -2,37 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3262F91A051
-	for <lists+xen-devel@lfdr.de>; Thu, 27 Jun 2024 09:22:07 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.749751.1157989 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E092691A093
+	for <lists+xen-devel@lfdr.de>; Thu, 27 Jun 2024 09:40:42 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.749762.1158006 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sMjR9-0005W4-8B; Thu, 27 Jun 2024 07:20:55 +0000
+	id 1sMjjq-0008UN-UO; Thu, 27 Jun 2024 07:40:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 749751.1157989; Thu, 27 Jun 2024 07:20:55 +0000
+Received: by outflank-mailman (output) from mailman id 749762.1158006; Thu, 27 Jun 2024 07:40:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sMjR9-0005Tc-5K; Thu, 27 Jun 2024 07:20:55 +0000
-Received: by outflank-mailman (input) for mailman id 749751;
- Thu, 27 Jun 2024 07:20:53 +0000
+	id 1sMjjq-0008Rz-Rj; Thu, 27 Jun 2024 07:40:14 +0000
+Received: by outflank-mailman (input) for mailman id 749762;
+ Thu, 27 Jun 2024 07:40:13 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=vG3Y=N5=tesarici.cz=petr@srs-se1.protection.inumbo.net>)
- id 1sMjR7-0005TW-1T
- for xen-devel@lists.xenproject.org; Thu, 27 Jun 2024 07:20:53 +0000
-Received: from bee.tesarici.cz (bee.tesarici.cz [37.205.15.56])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=LqiX=N5=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
+ id 1sMjjp-0008Rt-AS
+ for xen-devel@lists.xenproject.org; Thu, 27 Jun 2024 07:40:13 +0000
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on20625.outbound.protection.outlook.com
+ [2a01:111:f403:2412::625])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c7fab65e-3455-11ef-b4bb-af5377834399;
- Thu, 27 Jun 2024 09:20:50 +0200 (CEST)
-Received: from meshulam.tesarici.cz
- (dynamic-2a00-1028-83b8-1e7a-4427-cc85-6706-c595.ipv6.o2.cz
- [IPv6:2a00:1028:83b8:1e7a:4427:cc85:6706:c595])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
- SHA256) (No client certificate requested)
- by bee.tesarici.cz (Postfix) with ESMTPSA id B4DF91D69E7;
- Thu, 27 Jun 2024 09:20:49 +0200 (CEST)
+ id 7b265f15-3458-11ef-b4bb-af5377834399;
+ Thu, 27 Jun 2024 09:40:11 +0200 (CEST)
+Received: from PH7P221CA0006.NAMP221.PROD.OUTLOOK.COM (2603:10b6:510:32a::19)
+ by SA3PR12MB9198.namprd12.prod.outlook.com (2603:10b6:806:39f::10)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7698.32; Thu, 27 Jun
+ 2024 07:40:07 +0000
+Received: from CY4PEPF0000FCBE.namprd03.prod.outlook.com
+ (2603:10b6:510:32a:cafe::dd) by PH7P221CA0006.outlook.office365.com
+ (2603:10b6:510:32a::19) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7719.25 via Frontend
+ Transport; Thu, 27 Jun 2024 07:40:07 +0000
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CY4PEPF0000FCBE.mail.protection.outlook.com (10.167.242.100) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7677.15 via Frontend Transport; Thu, 27 Jun 2024 07:40:06 +0000
+Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 27 Jun
+ 2024 02:40:05 -0500
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB05.amd.com
+ (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 27 Jun
+ 2024 02:40:05 -0500
+Received: from [10.252.147.188] (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
+ Transport; Thu, 27 Jun 2024 02:40:04 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,334 +63,208 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c7fab65e-3455-11ef-b4bb-af5377834399
-Authentication-Results: mail.tesarici.cz; dmarc=fail (p=quarantine dis=none) header.from=tesarici.cz
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tesarici.cz; s=mail;
-	t=1719472849; bh=DTI2vKAaPElhD/HmfPpLCB/eYaiu2AD162KN4TedODc=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=Wy6f4jxCvx2KElFgvo2FeiER2+AWkeP6jmjpKkqw3DKZDFugiJsLOI3l2du2PPKe9
-	 SA0vAxWRN7DHcaCnlWuD/fog4FyFf376PY1FONrJJFz37CstS5k1Kp1N/UrdDtQDK1
-	 lE7AThyFR8O1BtpmNpjbkHNEgMCDMri9S/fW4vT/pK3mlPEsMyVd00wLOoNX5CKz1C
-	 V131ap92UHIUfhKw33g/+OGwxvYTGqjFoy+/2Ntp1lxdxmjc95R3qh6nCzUJshGq/c
-	 VbV7umsqzkHIhWPgeo0flPaFAJRUvhnwB/gYYvfeE9nG1SVCZ+K2dYcj3Kw2vlysRr
-	 vg5aLMmV07ycQ==
-Date: Thu, 27 Jun 2024 09:20:49 +0200
-From: Petr =?UTF-8?B?VGVzYcWZw61r?= <petr@tesarici.cz>
-To: mhkelley58@gmail.com
-Cc: mhklinux@outlook.com, robin.murphy@arm.com, joro@8bytes.org,
- will@kernel.org, jgross@suse.com, sstabellini@kernel.org,
- oleksandr_tyshchenko@epam.com, hch@lst.de, m.szyprowski@samsung.com,
- iommu@lists.linux.dev, linux-kernel@vger.kernel.org,
- xen-devel@lists.xenproject.org
-Subject: Re: [RFC 1/1] swiotlb: Reduce calls to swiotlb_find_pool()
-Message-ID: <20240627092049.1dbec746@meshulam.tesarici.cz>
-In-Reply-To: <20240607031421.182589-1-mhklinux@outlook.com>
-References: <20240607031421.182589-1-mhklinux@outlook.com>
-X-Mailer: Claws Mail 4.3.0 (GTK 3.24.42; x86_64-suse-linux-gnu)
+X-Inumbo-ID: 7b265f15-3458-11ef-b4bb-af5377834399
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Onmf8DuI91XkOmVqFNzI+p9CB+TNG+MqJMyB5F+ifSCIDR9N2L0D4W5/li2zkQ7b03ndGzfpQ5jCia8usjmPRkDIYoB1aSg7DUzqcGKQaGJqc4zX9X8GPROGH1gVuzRqUxMironuDHN0qymB5LLttHrJZoq4Fjy7zJzmJgU0toQ8xyBnM+nJw6i+tJAgblo1FlNkeZUZmVTo5eMsbB2VleV+t4e8SniuSG4eaWgzn6D957tsY4qaBXhrsjmLvtAjP+d6WpGAbfU84GD+EFFQG1g1s/ZYFEA0ZONFE285foyFuCtSUALIYBHqI8i4J2ohNYtp1nZlHcM+2Gez7/EpVQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=mO3uoanngyAgOP1Qo8tbtQnDmt1qO5O1KTAdzeGf6Jg=;
+ b=IFiBqSWQji8xt/6+obj7DbmCY8qfmtZE3dJ7ShsqXwaKerNwGg3lWwBF+5IJTMVewX/TW7l/eIHMp5CY0rSVXEg4fQU6C4o5272aVrjYVEWF1c50KgboG64CfFE8kNH62pmnqJcNRutu7wHWOS5G3P+FCxlCaKF5Eo2BSIVcdyZHTtJgioP98UrBK5dwvivKmBCZvqe6Zr/3z+GPsRUx2JSTYibWubHUWJCDtL6QDmvNki0rrL6LiloUMkOQxkowlAD0ORoTK4KXxN8kX2QRKk8lWQ+JxzDPI9L2l+KgGPH0WLcM8/Q96bKx/pjOruzss+wtLw9gsmnR01G30YjHDw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=xen.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=mO3uoanngyAgOP1Qo8tbtQnDmt1qO5O1KTAdzeGf6Jg=;
+ b=PFwvLpuAZXOYGW4HrspPnm1Fonw9vuaxmD6nkYAijUv1C3nVV7N2iWKR67Dkc01EFGZ4tdtGMpnHJvwD6ToCNcV2Rt9eIEPE2hbgvmsBAjJD34x8/lesYTMdmZTRCf9SlBuWQp31lYzSZEO3qwfXlRH6ezS91kiIhxOCTeCZIiQ=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Message-ID: <b5c861a4-1431-44c5-a1ec-bc859ea011c3@amd.com>
+Date: Thu, 27 Jun 2024 09:40:03 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH for-4.19(?)] xen/arm: bootfdt: Fix device tree memory node
+ probing
+To: Julien Grall <julien@xen.org>, <xen-devel@lists.xenproject.org>
+CC: Stefano Stabellini <sstabellini@kernel.org>, Bertrand Marquis
+	<bertrand.marquis@arm.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	<oleksii.kurochko@gmail.com>
+References: <20240626080428.18480-1-michal.orzel@amd.com>
+ <766b260e-204c-423f-b0e1-c21957b6d169@xen.org>
+Content-Language: en-US
+From: Michal Orzel <michal.orzel@amd.com>
+In-Reply-To: <766b260e-204c-423f-b0e1-c21957b6d169@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
+Received-SPF: None (SATLEXMB05.amd.com: michal.orzel@amd.com does not
+ designate permitted sender hosts)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000FCBE:EE_|SA3PR12MB9198:EE_
+X-MS-Office365-Filtering-Correlation-Id: e21d0555-7fa3-4a55-dad6-08dc967c5d70
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|82310400026|376014|36860700013;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?MlozV01qSUY2MTNWNjFJZVdadnlHRTkwcG5zWDAwWXNaVnphNTYvTlNYclNV?=
+ =?utf-8?B?MHVLdHIxSnZMbmpQNDVlVGlOdWJkR1FMdzRUUS9VWG1CNkx0YjBndm1LOWVN?=
+ =?utf-8?B?MkRiRU1hZS9HZGpBb0YxeGd5eUtYZ3VPWUdmRkRNS2g3djV0eEczTkhpUnMy?=
+ =?utf-8?B?RnZIZWxQR01sdk8xYTQyL3dPek9OOTF3bk8zQUprc0xHbFVZSExHR25qNU9z?=
+ =?utf-8?B?TXhvazBHMzRSYVFGSDBxVVc5RDJIeXh6dlI5OUJnY0ZNUVN5dVdlK1ozYUtO?=
+ =?utf-8?B?eW8wSTNTKzRRL1R4YmlQMmVKRENKNGtveUZYZlhrUmNhKzlmWTNNaExSdUEx?=
+ =?utf-8?B?UFI2TXJhTHh4MXFvMnR5VXlvWFhBd1RNUkRuNU5RdnpWMXNaWEx4RC8rYmpK?=
+ =?utf-8?B?dDl5Tm5BbHlzUDN0WlhMcDdhV3dMVTBiVTBRT2FYRDJuZUk4bGZuT0hHTFpj?=
+ =?utf-8?B?Nyt3VDNyZzA1WWRDRzMxYmpNSXdFZ3E4SG1rMFYzTG4zWVJFUWJnNGFrV0Mv?=
+ =?utf-8?B?K25TTEF4SFFnT24xUkF1VUVwUkRrOGgyZXBKWXBMcStrN3Buc3hVZHZQbHZE?=
+ =?utf-8?B?cGlRY0srUXlNTzU2bzU5Vi9wWWJSRXBHaFNRaCtUN0pXVlp6UnZlbS9ZOEZx?=
+ =?utf-8?B?RU9MVFg4a3hRYjFodTdza0kwQVRFUVVKamZBR2FMSmljTFRlcFNzcjhXQUJX?=
+ =?utf-8?B?Um5tV3BOcVh0TEk5bC94Z1ErREpkU2hTMW1lYSs5YnRoQTZYRVdZd2M0bnUy?=
+ =?utf-8?B?TkVqK0ZCcUJkS2JWOVhlT2pwSkQxRkJRVllRcFoybVl5dGxPMkc3ZVFyTlhQ?=
+ =?utf-8?B?MEJsVnBXWXNkVHAybit5TER6N2dpbkQ0SWZNZTFVcG9jN0xsclhpME1ocnk4?=
+ =?utf-8?B?aE15SVVZT3ZITk9JZ1Z6NjFVL2hGY3lZTU1tSitSYzF6UlNkWjR0NldhbUw4?=
+ =?utf-8?B?T1E5ak9xcFZpYjZLZ3d1YWRQU2dCUkhxRU9xMjYwayt0YkxOMWZDT243RW1H?=
+ =?utf-8?B?UmZiVlNXVGtwU20vb2hHS1A5bUdPL1VjZnJMUXBQdXdtRDk1NUNYY25MYkFE?=
+ =?utf-8?B?Vlh5UDVTY1ZpQTNKNHJSRXU0eFhoVWVzZVB1cG5jc1ltWGhhd3NsRnZod3Rz?=
+ =?utf-8?B?bVlMakRkVlN4UWlzb2tOY2Z0NlI4Vk5VL2pXNWsrUnM5M1ZuV0NPeHZVU29X?=
+ =?utf-8?B?TFBOVXZ6Vkxjakt5Tld5YmYrUVUxaTVEV01Tbm5tVFUzRlIzYkFUVE0zb2dS?=
+ =?utf-8?B?bVUwdHpKWFhQb1ZlRG52QTY5aWRlNm9WL1hXdGJhbDAzZnFvSW9sTENTUElh?=
+ =?utf-8?B?ODc4KzcyR3BaMkdlYWs0ZStENWRyU1hxMDJGTHN2bUkyYktDZSswa0J0UnlB?=
+ =?utf-8?B?MXZORlMxc0lldURBV2NJY2gzNVNTSDhBSm1pMkFZRjVqaXRES1dWSDNiVXdj?=
+ =?utf-8?B?NGpubDJkdDhSZExsSWg5d3lvVTRDWlpoLzVoYkk5WGN5NFZPSm5nQlFWVUJE?=
+ =?utf-8?B?SFNoMExNanlBRjd0UXR5QTE4VzZZbHdlbXFmajZSSDNPcHJIbW8wRHB4SEtK?=
+ =?utf-8?B?VTNQYjhZWkJCZmsvb25PYnRyU01zTlE3Q2tWenh1VS9tQXhCMUdFZFZHTjBZ?=
+ =?utf-8?B?aGMyQ2tVTit2UE9hWXN3RUdMNFQzeGdIMHYvMlBaUVBPRFZTTVhvdGFuNUpi?=
+ =?utf-8?B?ODJtK1F2SVlDTlQ2UzMvanVqUUhKYVhHQ1BLYUY2ZEdrdnhycnpiTmF5ckJC?=
+ =?utf-8?B?STMyTDJnQ0RWTEVIeGdOSDNPMjV5b2hJeFFWRDRqZmdUNXBvLzB3MkZrZnZS?=
+ =?utf-8?B?THB6cTdmYUVGbnA2VzRBVGxVR1psVkdqLzZDbitZemZ1ZmVhdHhuVW1CeTgr?=
+ =?utf-8?B?bkFOVGVBSTROUjJGZzYzcjBkRW1OR3MrUnE3cGpMeDRJUEsxOFBZY0VVVGpn?=
+ =?utf-8?Q?qYmn35So6mDyrrqnvt0TKeOZnvOTo+yx?=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(82310400026)(376014)(36860700013);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Jun 2024 07:40:06.6306
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: e21d0555-7fa3-4a55-dad6-08dc967c5d70
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CY4PEPF0000FCBE.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB9198
 
-On Thu,  6 Jun 2024 20:14:21 -0700
-mhkelley58@gmail.com wrote:
+Hi Julien,
 
-> From: Michael Kelley <mhklinux@outlook.com>
+On 26/06/2024 22:13, Julien Grall wrote:
 > 
-> With CONFIG_SWIOTLB_DYNAMIC enabled, each round-trip map/unmap pair
-> in the swiotlb results in 6 calls to swiotlb_find_pool(). In multiple
-> places, the pool is found and used in one function, and then must
-> found again in the next function that is called because only the
-> tlb_addr is passed as an argument. These are the six call sites:
 > 
-> dma_direct_map_page:
-> 1. swiotlb_map->swiotlb_tbl_map_single->swiotlb_bounce
+> Hi Michal,
 > 
-> dma_direct_unmap_page:
-> 2. dma_direct_sync_single_for_cpu->is_swiotlb_buffer
-> 3. dma_direct_sync_single_for_cpu->swiotlb_sync_single_for_cpu->
-> 	swiotlb_bounce
-> 4. is_swiotlb_buffer
-> 5. swiotlb_tbl_unmap_single->swiotlb_del_transient
-> 6. swiotlb_tbl_unmap_single->swiotlb_release_slots
+> On 26/06/2024 09:04, Michal Orzel wrote:
+>> Memory node probing is done as part of early_scan_node() that is called
+>> for each node with depth >= 1 (root node is at depth 0). According to
+>> Devicetree Specification v0.4, chapter 3.4, /memory node can only exists
+>> as a top level node. However, Xen incorrectly considers all the nodes with
+>> unit node name "memory" as RAM. This buggy behavior can result in a
+>> failure if there are other nodes in the device tree (at depth >= 2) with
+>> "memory" as unit node name. An example can be a "memory@xxx" node under
+>> /reserved-memory. Fix it by introducing device_tree_is_memory_node() to
+>> perform all the required checks to assess if a node is a proper /memory
+>> node.
+>>
+>> Fixes: 3e99c95ba1c8 ("arm, device tree: parse the DTB for RAM location and size")
+>> Signed-off-by: Michal Orzel <michal.orzel@amd.com>
+>> ---
+>> 4.19: This patch is fixing a possible early boot Xen failure (before main
+>> console is initialized). In my case it results in a warning "Shattering
+>> superpage is not supported" and panic "Unable to setup the directmap mappings".
+>>
+>> If this is too late for this patch to go in, we can backport it after the tree
+>> re-opens.
 > 
-> Reduce the number of calls by finding the pool at a higher level, and
-> passing it as an argument instead of searching again. A key change is
-> for is_swiotlb_buffer() to return a pool pointer instead of a boolean,
-> and then pass this pool pointer to subsequent swiotlb functions.
-> With these changes, a round-trip map/unmap pair requires only 2 calls
-> to swiotlb_find_pool():
+> The code looks correct to me, but I am not sure about merging it to 4.19.
 > 
-> dma_direct_unmap_page:
-> 1. dma_direct_sync_single_for_cpu->is_swiotlb_buffer
-> 2. is_swiotlb_buffer
+> This is not a new bug (in fact has been there since pretty much Xen on
+> Arm was created) and we haven't seen any report until today. So in some
+> way it would be best to merge it after 4.19 so it can get more testing.
 > 
-> These changes come from noticing the inefficiencies in a code review,
-> not from performance measurements. With CONFIG_SWIOTLB_DYNAMIC,
-> swiotlb_find_pool() is not trivial, and it uses an RCU read lock,
-> so avoiding the redundant calls helps performance in a hot path.
-> When CONFIG_SWIOTLB_DYNAMIC is *not* set, the code size reduction
-> is minimal and the perf benefits are likely negligible, but no
-> harm is done.
-> 
-> No functional change is intended.
-> 
-> Signed-off-by: Michael Kelley <mhklinux@outlook.com>
-> ---
-> This patch trades off making many of the core swiotlb APIs take
-> an additional argument in order to avoid duplicating calls to
-> swiotlb_find_pool(). The current code seems rather wasteful in
-> making 6 calls per round-trip, but I'm happy to accept others'
-> judgment as to whether getting rid of the waste is worth the
-> additional code complexity.
-> 
->  drivers/iommu/dma-iommu.c | 27 ++++++++++++++------
->  drivers/xen/swiotlb-xen.c | 25 +++++++++++-------
->  include/linux/swiotlb.h   | 54 +++++++++++++++++++++------------------
->  kernel/dma/direct.c       | 12 ++++++---
->  kernel/dma/direct.h       | 18 ++++++++-----
->  kernel/dma/swiotlb.c      | 43 ++++++++++++++++---------------
->  6 files changed, 106 insertions(+), 73 deletions(-)
-> 
-> diff --git a/drivers/iommu/dma-iommu.c b/drivers/iommu/dma-iommu.c
-> index f731e4b2a417..ab6bc37ecf90 100644
-> --- a/drivers/iommu/dma-iommu.c
-> +++ b/drivers/iommu/dma-iommu.c
-> @@ -1073,6 +1073,7 @@ static void iommu_dma_sync_single_for_cpu(struct device *dev,
->  		dma_addr_t dma_handle, size_t size, enum dma_data_direction dir)
->  {
->  	phys_addr_t phys;
-> +	struct io_tlb_pool *pool;
->  
->  	if (dev_is_dma_coherent(dev) && !dev_use_swiotlb(dev, size, dir))
->  		return;
-> @@ -1081,21 +1082,25 @@ static void iommu_dma_sync_single_for_cpu(struct device *dev,
->  	if (!dev_is_dma_coherent(dev))
->  		arch_sync_dma_for_cpu(phys, size, dir);
->  
-> -	if (is_swiotlb_buffer(dev, phys))
-> -		swiotlb_sync_single_for_cpu(dev, phys, size, dir);
-> +	pool = is_swiotlb_buffer(dev, phys);
-> +	if (pool)
-> +		swiotlb_sync_single_for_cpu(dev, phys, size, dir, pool);
->  }
->  
->  static void iommu_dma_sync_single_for_device(struct device *dev,
->  		dma_addr_t dma_handle, size_t size, enum dma_data_direction dir)
->  {
->  	phys_addr_t phys;
-> +	struct io_tlb_pool *pool;
->  
->  	if (dev_is_dma_coherent(dev) && !dev_use_swiotlb(dev, size, dir))
->  		return;
->  
->  	phys = iommu_iova_to_phys(iommu_get_dma_domain(dev), dma_handle);
-> -	if (is_swiotlb_buffer(dev, phys))
-> -		swiotlb_sync_single_for_device(dev, phys, size, dir);
-> +
-> +	pool = is_swiotlb_buffer(dev, phys);
-> +	if (pool)
-> +		swiotlb_sync_single_for_device(dev, phys, size, dir, pool);
->  
->  	if (!dev_is_dma_coherent(dev))
->  		arch_sync_dma_for_device(phys, size, dir);
-> @@ -1189,8 +1194,12 @@ static dma_addr_t iommu_dma_map_page(struct device *dev, struct page *page,
->  		arch_sync_dma_for_device(phys, size, dir);
->  
->  	iova = __iommu_dma_map(dev, phys, size, prot, dma_mask);
-> -	if (iova == DMA_MAPPING_ERROR && is_swiotlb_buffer(dev, phys))
-> -		swiotlb_tbl_unmap_single(dev, phys, size, dir, attrs);
-> +	if (iova == DMA_MAPPING_ERROR) {
-> +		struct io_tlb_pool *pool = is_swiotlb_buffer(dev, phys);
-> +
-> +		if (pool)
-> +			swiotlb_tbl_unmap_single(dev, phys, size, dir, attrs, pool);
-> +	}
->  	return iova;
->  }
->  
-> @@ -1199,6 +1208,7 @@ static void iommu_dma_unmap_page(struct device *dev, dma_addr_t dma_handle,
->  {
->  	struct iommu_domain *domain = iommu_get_dma_domain(dev);
->  	phys_addr_t phys;
-> +	struct io_tlb_pool *pool;
->  
->  	phys = iommu_iova_to_phys(domain, dma_handle);
->  	if (WARN_ON(!phys))
-> @@ -1209,8 +1219,9 @@ static void iommu_dma_unmap_page(struct device *dev, dma_addr_t dma_handle,
->  
->  	__iommu_dma_unmap(dev, dma_handle, size);
->  
-> -	if (unlikely(is_swiotlb_buffer(dev, phys)))
-> -		swiotlb_tbl_unmap_single(dev, phys, size, dir, attrs);
-> +	pool = is_swiotlb_buffer(dev, phys);
-> +	if (unlikely(pool))
-> +		swiotlb_tbl_unmap_single(dev, phys, size, dir, attrs, pool);
->  }
->  
->  /*
-> diff --git a/drivers/xen/swiotlb-xen.c b/drivers/xen/swiotlb-xen.c
-> index 6579ae3f6dac..7af8c8466e1d 100644
-> --- a/drivers/xen/swiotlb-xen.c
-> +++ b/drivers/xen/swiotlb-xen.c
-> @@ -88,7 +88,7 @@ static inline int range_straddles_page_boundary(phys_addr_t p, size_t size)
->  	return 0;
->  }
->  
-> -static int is_xen_swiotlb_buffer(struct device *dev, dma_addr_t dma_addr)
-> +static struct io_tlb_pool *is_xen_swiotlb_buffer(struct device *dev, dma_addr_t dma_addr)
->  {
->  	unsigned long bfn = XEN_PFN_DOWN(dma_to_phys(dev, dma_addr));
->  	unsigned long xen_pfn = bfn_to_local_pfn(bfn);
-> @@ -100,7 +100,7 @@ static int is_xen_swiotlb_buffer(struct device *dev, dma_addr_t dma_addr)
->  	 */
->  	if (pfn_valid(PFN_DOWN(paddr)))
->  		return is_swiotlb_buffer(dev, paddr);
-> -	return 0;
-> +	return NULL;
->  }
->  
->  #ifdef CONFIG_X86
-> @@ -228,7 +228,8 @@ static dma_addr_t xen_swiotlb_map_page(struct device *dev, struct page *page,
->  	 */
->  	if (unlikely(!dma_capable(dev, dev_addr, size, true))) {
->  		swiotlb_tbl_unmap_single(dev, map, size, dir,
-> -				attrs | DMA_ATTR_SKIP_CPU_SYNC);
-> +				attrs | DMA_ATTR_SKIP_CPU_SYNC,
-> +				swiotlb_find_pool(dev, map));
->  		return DMA_MAPPING_ERROR;
->  	}
->  
-> @@ -254,6 +255,7 @@ static void xen_swiotlb_unmap_page(struct device *hwdev, dma_addr_t dev_addr,
->  		size_t size, enum dma_data_direction dir, unsigned long attrs)
->  {
->  	phys_addr_t paddr = xen_dma_to_phys(hwdev, dev_addr);
-> +	struct io_tlb_pool *pool;
->  
->  	BUG_ON(dir == DMA_NONE);
->  
-> @@ -265,8 +267,9 @@ static void xen_swiotlb_unmap_page(struct device *hwdev, dma_addr_t dev_addr,
->  	}
->  
->  	/* NOTE: We use dev_addr here, not paddr! */
-> -	if (is_xen_swiotlb_buffer(hwdev, dev_addr))
-> -		swiotlb_tbl_unmap_single(hwdev, paddr, size, dir, attrs);
-> +	pool = is_xen_swiotlb_buffer(hwdev, dev_addr);
-> +	if (pool)
-> +		swiotlb_tbl_unmap_single(hwdev, paddr, size, dir, attrs, pool);
->  }
->  
->  static void
-> @@ -274,6 +277,7 @@ xen_swiotlb_sync_single_for_cpu(struct device *dev, dma_addr_t dma_addr,
->  		size_t size, enum dma_data_direction dir)
->  {
->  	phys_addr_t paddr = xen_dma_to_phys(dev, dma_addr);
-> +	struct io_tlb_pool *pool;
->  
->  	if (!dev_is_dma_coherent(dev)) {
->  		if (pfn_valid(PFN_DOWN(dma_to_phys(dev, dma_addr))))
-> @@ -282,8 +286,9 @@ xen_swiotlb_sync_single_for_cpu(struct device *dev, dma_addr_t dma_addr,
->  			xen_dma_sync_for_cpu(dev, dma_addr, size, dir);
->  	}
->  
-> -	if (is_xen_swiotlb_buffer(dev, dma_addr))
-> -		swiotlb_sync_single_for_cpu(dev, paddr, size, dir);
-> +	pool = is_xen_swiotlb_buffer(dev, dma_addr);
-> +	if (pool)
-> +		swiotlb_sync_single_for_cpu(dev, paddr, size, dir, pool);
->  }
->  
->  static void
-> @@ -291,9 +296,11 @@ xen_swiotlb_sync_single_for_device(struct device *dev, dma_addr_t dma_addr,
->  		size_t size, enum dma_data_direction dir)
->  {
->  	phys_addr_t paddr = xen_dma_to_phys(dev, dma_addr);
-> +	struct io_tlb_pool *pool;
->  
-> -	if (is_xen_swiotlb_buffer(dev, dma_addr))
-> -		swiotlb_sync_single_for_device(dev, paddr, size, dir);
-> +	pool = is_xen_swiotlb_buffer(dev, dma_addr);
-> +	if (pool)
-> +		swiotlb_sync_single_for_device(dev, paddr, size, dir, pool);
->  
->  	if (!dev_is_dma_coherent(dev)) {
->  		if (pfn_valid(PFN_DOWN(dma_to_phys(dev, dma_addr))))
-> diff --git a/include/linux/swiotlb.h b/include/linux/swiotlb.h
-> index 14bc10c1bb23..ce8651949123 100644
-> --- a/include/linux/swiotlb.h
-> +++ b/include/linux/swiotlb.h
-> @@ -42,24 +42,6 @@ int swiotlb_init_late(size_t size, gfp_t gfp_mask,
->  	int (*remap)(void *tlb, unsigned long nslabs));
->  extern void __init swiotlb_update_mem_attributes(void);
->  
-> -phys_addr_t swiotlb_tbl_map_single(struct device *hwdev, phys_addr_t phys,
-> -		size_t mapping_size,
-> -		unsigned int alloc_aligned_mask, enum dma_data_direction dir,
-> -		unsigned long attrs);
-> -
-> -extern void swiotlb_tbl_unmap_single(struct device *hwdev,
-> -				     phys_addr_t tlb_addr,
-> -				     size_t mapping_size,
-> -				     enum dma_data_direction dir,
-> -				     unsigned long attrs);
-> -
-> -void swiotlb_sync_single_for_device(struct device *dev, phys_addr_t tlb_addr,
-> -		size_t size, enum dma_data_direction dir);
-> -void swiotlb_sync_single_for_cpu(struct device *dev, phys_addr_t tlb_addr,
-> -		size_t size, enum dma_data_direction dir);
-> -dma_addr_t swiotlb_map(struct device *dev, phys_addr_t phys,
-> -		size_t size, enum dma_data_direction dir, unsigned long attrs);
-> -
->  #ifdef CONFIG_SWIOTLB
->  
->  /**
-> @@ -168,12 +150,12 @@ static inline struct io_tlb_pool *swiotlb_find_pool(struct device *dev,
->   * * %true if @paddr points into a bounce buffer
->   * * %false otherwise
->   */
-> -static inline bool is_swiotlb_buffer(struct device *dev, phys_addr_t paddr)
-> +static inline struct io_tlb_pool *is_swiotlb_buffer(struct device *dev, phys_addr_t paddr)
->  {
->  	struct io_tlb_mem *mem = dev->dma_io_tlb_mem;
->  
->  	if (!mem)
-> -		return false;
-> +		return NULL;
->  
->  #ifdef CONFIG_SWIOTLB_DYNAMIC
->  	/*
-> @@ -187,10 +169,13 @@ static inline bool is_swiotlb_buffer(struct device *dev, phys_addr_t paddr)
->  	 * This barrier pairs with smp_mb() in swiotlb_find_slots().
->  	 */
->  	smp_rmb();
-> -	return READ_ONCE(dev->dma_uses_io_tlb) &&
-> -		swiotlb_find_pool(dev, paddr);
-> +	if (READ_ONCE(dev->dma_uses_io_tlb))
-> +		return swiotlb_find_pool(dev, paddr);
-> +	return NULL;
->  #else
-> -	return paddr >= mem->defpool.start && paddr < mem->defpool.end;
-> +	if (paddr >= mem->defpool.start && paddr < mem->defpool.end)
-> +		return &mem->defpool;
+> In the other hand, I guess this will block you. Is this a new platform?
+> Is it available?
+Stefano answered this question. Also, IMO this change is quite straightforward
+and does not introduce any engineering doubt, so I'm not really sure if it needs
+more testing.
 
-Why are we open-coding swiotlb_find_pool() here? It does not make a
-difference now, but if swiotlb_find_pool() were to change, both places
-would have to be updated.
+> 
+>> ---
+>>   xen/arch/arm/bootfdt.c | 28 +++++++++++++++++++++++++++-
+>>   1 file changed, 27 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/xen/arch/arm/bootfdt.c b/xen/arch/arm/bootfdt.c
+>> index 6e060111d95b..23c968e6955d 100644
+>> --- a/xen/arch/arm/bootfdt.c
+>> +++ b/xen/arch/arm/bootfdt.c
+>> @@ -83,6 +83,32 @@ static bool __init device_tree_node_compatible(const void *fdt, int node,
+>>       return false;
+>>   }
+>>
+>> +/*
+>> + * Check if a node is a proper /memory node according to Devicetree
+>> + * Specification v0.4, chapter 3.4.
+>> + */
+>> +static bool __init device_tree_is_memory_node(const void *fdt, int node,
+>> +                                              int depth)
+>> +{
+>> +    const char *type;
+>> +    int len;
+>> +
+>> +    if ( depth != 1 )
+>> +        return false;
+>> +
+>> +    if ( !device_tree_node_matches(fdt, node, "memory") )
+>> +        return false;
+>> +
+>> +    type = fdt_getprop(fdt, node, "device_type", &len);
+>> +    if ( !type )
+>> +        return false;
+>> +
+>> +    if ( (len <= 0) || strcmp(type, "memory") )
+> 
+> I would consider to use strncmp() to avoid relying on the property to be
+> well-formed (i.e. nul-terminated).
+Are you sure? AFAIR, libfdt returns NULL and -FDT_ERR_TRUNCATED as len if a string is non null terminated.
+Also, let's suppose it is somehow not terminated. In that case how could libfdt set len to be > 0?
+It needs to know where is the end of the string to calculate the length.
 
-Does it save a reload from dev->dma_io_tlb_mem? IOW is the compiler
-unable to optimize it away?
+> 
+>> +        return false;
+>> +
+>> +    return true;
+>> +}
+>> +
+>>   void __init device_tree_get_reg(const __be32 **cell, uint32_t address_cells,
+>>                                   uint32_t size_cells, paddr_t *start,
+>>                                   paddr_t *size)
+>> @@ -448,7 +474,7 @@ static int __init early_scan_node(const void *fdt,
+>>        * populated. So we should skip the parsing.
+>>        */
+>>       if ( !efi_enabled(EFI_BOOT) &&
+>> -         device_tree_node_matches(fdt, node, "memory") )
+>> +         device_tree_is_memory_node(fdt, node, depth) )
+>>           rc = process_memory_node(fdt, node, name, depth,
+>>                                    address_cells, size_cells, bootinfo_get_mem());
+>>       else if ( depth == 1 && !dt_node_cmp(name, "reserved-memory") )
+> 
+> Cheers,
+> 
+> --
+> Julien Grall
 
-What about this (functionally identical) variant:
-
-#ifdef CONFIG_SWIOTLB_DYNAMIC
-	smp_rmb();
-	if (!READ_ONCE(dev->dma_uses_io_tlb))
-		return NULL;
-#else
-	if (paddr < mem->defpool.start || paddr >= mem->defpool.end);
-		return NULL;
-#endif
-
-	return swiotlb_find_pool(dev, paddr);
-
-Petr T
+~Michal
 
