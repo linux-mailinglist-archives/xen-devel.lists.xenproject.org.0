@@ -2,49 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 82A5691D1A0
-	for <lists+xen-devel@lfdr.de>; Sun, 30 Jun 2024 14:35:04 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.751118.1159039 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C912691D19F
+	for <lists+xen-devel@lfdr.de>; Sun, 30 Jun 2024 14:35:03 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.751123.1159049 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sNtlK-0000yW-RE; Sun, 30 Jun 2024 12:34:34 +0000
+	id 1sNtlQ-0001aQ-6W; Sun, 30 Jun 2024 12:34:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 751118.1159039; Sun, 30 Jun 2024 12:34:34 +0000
+Received: by outflank-mailman (output) from mailman id 751123.1159049; Sun, 30 Jun 2024 12:34:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sNtlK-0000vR-Me; Sun, 30 Jun 2024 12:34:34 +0000
-Received: by outflank-mailman (input) for mailman id 751118;
- Sun, 30 Jun 2024 12:34:33 +0000
+	id 1sNtlQ-0001Xa-31; Sun, 30 Jun 2024 12:34:40 +0000
+Received: by outflank-mailman (input) for mailman id 751123;
+ Sun, 30 Jun 2024 12:34:38 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=aV4l=OA=amd.com=Jiqian.Chen@srs-se1.protection.inumbo.net>)
- id 1sNtlJ-0007C1-0B
- for xen-devel@lists.xenproject.org; Sun, 30 Jun 2024 12:34:33 +0000
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on20601.outbound.protection.outlook.com
- [2a01:111:f403:2417::601])
+ id 1sNtlO-0007C1-Bb
+ for xen-devel@lists.xenproject.org; Sun, 30 Jun 2024 12:34:38 +0000
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on20602.outbound.protection.outlook.com
+ [2a01:111:f403:2412::602])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 19c09400-36dd-11ef-90a3-e314d9c70b13;
- Sun, 30 Jun 2024 14:34:32 +0200 (CEST)
-Received: from CH2PR03CA0023.namprd03.prod.outlook.com (2603:10b6:610:59::33)
- by DM4PR12MB7575.namprd12.prod.outlook.com (2603:10b6:8:10d::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7719.26; Sun, 30 Jun
- 2024 12:34:27 +0000
-Received: from CH1PEPF0000A34C.namprd04.prod.outlook.com
- (2603:10b6:610:59:cafe::76) by CH2PR03CA0023.outlook.office365.com
- (2603:10b6:610:59::33) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7719.29 via Frontend
- Transport; Sun, 30 Jun 2024 12:34:27 +0000
+ id 1bc5c146-36dd-11ef-90a3-e314d9c70b13;
+ Sun, 30 Jun 2024 14:34:37 +0200 (CEST)
+Received: from CH2PR12CA0010.namprd12.prod.outlook.com (2603:10b6:610:57::20)
+ by CH2PR12MB4039.namprd12.prod.outlook.com (2603:10b6:610:a8::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7719.29; Sun, 30 Jun
+ 2024 12:34:31 +0000
+Received: from CH1PEPF0000A347.namprd04.prod.outlook.com
+ (2603:10b6:610:57:cafe::cb) by CH2PR12CA0010.outlook.office365.com
+ (2603:10b6:610:57::20) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7719.32 via Frontend
+ Transport; Sun, 30 Jun 2024 12:34:31 +0000
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CH1PEPF0000A34C.mail.protection.outlook.com (10.167.244.6) with Microsoft
+ CH1PEPF0000A347.mail.protection.outlook.com (10.167.244.7) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7677.15 via Frontend Transport; Sun, 30 Jun 2024 12:34:27 +0000
+ 15.20.7741.18 via Frontend Transport; Sun, 30 Jun 2024 12:34:31 +0000
 Received: from cjq-desktop.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Sun, 30 Jun
- 2024 07:34:23 -0500
+ 2024 07:34:27 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -56,22 +56,22 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 19c09400-36dd-11ef-90a3-e314d9c70b13
+X-Inumbo-ID: 1bc5c146-36dd-11ef-90a3-e314d9c70b13
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=H3zHZGnV7mTWzDrN1HNBFclinj/tQ6f7o/+mXmQdELpkn3wVD5cpUsdgohcZD096dKbpfsVprLmGTonudpNlNgquQmZ4QoFI/eFCeHz5VE/4BiqQLbHi+YfOklY3FKYyhWgWuVyUNs7wL0TQ1I5QNbgZH9T6I1i6j71CqzA6UAh1E7RgD9UDmqawmhiY0XbrIqHoV12ROT4/QbHs+HqT+eP38BL1wzLtXzsJiR2vZAdNqNSNULfsvTurJLf9LlfTyj08g2fh7Nk7diV1vbzwQUVP8tLF8lVPq/+w/K4canv3Iws8xb3xhzW3nVdC8Ldiwe5GABljV3BpYwbkVt/9Ng==
+ b=fPMjX3ADuJuxQEIZJLzdF0qdthSGLbWHPDachqXk6lY3yE1YMZ/FS/MszuES3tWGvGtzUFISI51rzpNdgGkj780idxFqDEWD2cWRU3GASlfJcm03e+xbIJWIVTfYAPP2cSuAhgLCH8hcu3X4j+9oZU8yc6sMnQUmgGyBldTPt1XBkFBHSzz58qIXsSYaYR1pRhkiKM5jDz3OOMonjcpZGJOxqw+1kD6R8JEgrf30S7/HIVR6hx5qsojSmPha2eSsyigjYHWHHdK61iPSuo6Q0RaZBauT6FUk1hRs9yXRb2UVDHZ95vyGWVxbN6nLjjN50rj6SNtTq/8+AY/JqwMaTA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=AIAxLkWzUDGgwfyYyLpTh1BgohmKm21ZOwTpKfup/7Y=;
- b=XxScAcqkyZif2w6nWwvdQkUHoUQ2KuPlxKCLOBc3fQN7D4OJw0K5bx6/2CpEu8dxj7bzX9NwH5g4HWpaUTHI0zejMl4JxRJ1tq3FRgziWH+A89rweO6qnqhZjveziVRN+IrL90KakvqEDlcEsZBBWi5jbVp1cc5OLhlGJCajBZZxukFaVIE3F+TiKels+sDJjzKMBZGY5Z0oCFKPkyx+ynuKMWisHsQsn226XHlrVCoMW737S+ifVeo4jySyT3CRmtjyUwgkM1s/ZL0C3O2FNE1xhXaaTZBlmQgIdnxFwvF5EOARF8Q9n5fUiTmDGm6Skhte90HvDw9JzlEXVErt8A==
+ bh=Ej4Z4EEVIlK2QxjhAZMN4LHn69U2vtDep4mQfyTjzQU=;
+ b=fI+3PhMMmH+n0iL2sksLwdsF8E2vsERJVVxLEL/sLlEdIJyxG24bicsxkcUyuHaqtEprLTpstI04iiw9c7IYCBy/wVDEMISx/Um1wzRWEEqwlBVz+ISIS08AKAd0hdXdT4l5WLj8lxsVdDcMtHg0R9g29Xnn9akvNka5mI18i75TPOzBa6W/kMa2GSl8/sblzi0YvGRiQAbu9GXc4Snr1wjU6dOn7gFDGtm5MdzdD/MMGP+g/wgZ+4ol4TXY4N8WQB19iuL+atDCGBkhXlxHK59/YEX4NybR8G/0qbWHBarTwig8HSe69sDmTULAHm4FZQMwQ+q6fnnmo7ztZNuWbg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=AIAxLkWzUDGgwfyYyLpTh1BgohmKm21ZOwTpKfup/7Y=;
- b=FVmR+MXuyjslQBtzi9CVXw+uGnjvcjfjbJHcdNL4atPv5Wl9Vg6i5Xv41Zz3LXEBK5hNpwFvpR2qCy8+sTnmF8/Y53QFswZmR3b5/xfk239RF/BS1d7A9ipHsBi7tDMjxlZ15i27I/m70t1xjG67unysz5wfqhAKqZ7Subxn5cs=
+ bh=Ej4Z4EEVIlK2QxjhAZMN4LHn69U2vtDep4mQfyTjzQU=;
+ b=ZdEgydn5QAwFv4uW3mcZ+1a0TIlgkRUTZbeY4pweiuAJy9X1B6eiuiQH4XAKmAZxhmg/JBtzYhXFwEC+qWRc/Hlr+i2ZDC9UXmtkJ7vVbLQzI2Spc29pXE/io0FHVI8ChZYfhUwLCCq6SnoxO7uqWX12ujGVTYiBcNUFjJN/vV4=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -89,9 +89,9 @@ CC: Jan Beulich <jbeulich@suse.com>, Andrew Cooper
 	Stewart Hildebrand <Stewart.Hildebrand@amd.com>, Huang Rui
 	<Ray.Huang@amd.com>, Jiqian Chen <Jiqian.Chen@amd.com>, Huang Rui
 	<ray.huang@amd.com>
-Subject: [RFC XEN PATCH v11 7/8] tools: Add new function to get gsi from dev
-Date: Sun, 30 Jun 2024 20:33:43 +0800
-Message-ID: <20240630123344.20623-8-Jiqian.Chen@amd.com>
+Subject: [RFC XEN PATCH v11 8/8] tools: Add new function to do PIRQ (un)map on PVH dom0
+Date: Sun, 30 Jun 2024 20:33:44 +0800
+Message-ID: <20240630123344.20623-9-Jiqian.Chen@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20240630123344.20623-1-Jiqian.Chen@amd.com>
 References: <20240630123344.20623-1-Jiqian.Chen@amd.com>
@@ -103,62 +103,69 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH1PEPF0000A34C:EE_|DM4PR12MB7575:EE_
-X-MS-Office365-Filtering-Correlation-Id: 48011aa0-bc64-4c6f-a810-08dc9900fb4f
+X-MS-TrafficTypeDiagnostic: CH1PEPF0000A347:EE_|CH2PR12MB4039:EE_
+X-MS-Office365-Filtering-Correlation-Id: cc7a5644-5bfb-4541-e2b2-08dc9900fda0
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|36860700013|1800799024|82310400026|7416014;
+	BCL:0;ARA:13230040|82310400026|36860700013|376014|7416014|1800799024;
 X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?RuEtczyWJEJdY4TXgHYXmk/IUvt3l4xEwgoIH7zzKnmbDq9TXeURxFnUQbbm?=
- =?us-ascii?Q?AwrVuYOj2tFyfB4tvX7nFLdix3i/0gGHZHMpKj80eevTK7c0ABpIqCkW9B9e?=
- =?us-ascii?Q?U7MbcwGLvFshy2udbseeZerCUGChidDMUDUqiggOc9xF5j2Sm0BzG5m76Gdg?=
- =?us-ascii?Q?euqg3XZe5KTNnGki1mxR339YscWzQXmFDwQen8LtpRMhlcApybE2ePvwM6Pa?=
- =?us-ascii?Q?iim6N57LN5dwzhjO7ibahQqwa9ZK93NgSc5Hiqy0RiYzj9ZbX6wZZ7wDBfbr?=
- =?us-ascii?Q?zHY55dwSNfJFZSpBsssCpe63zYvsVyyQJrI2KQo+sZx8xgIOLP2Tqxo2/QQO?=
- =?us-ascii?Q?VzOS47f9RG0vkK/KX9kNeH9OmI1L9wDdhfN+BYaQjHKkhuS/rmrUrr3M5KOo?=
- =?us-ascii?Q?iVJxtLVQaXNVIgdKhVHPucu0yU4QHPMLkNFv7F44vsOfFCz2CRgZfRjgEIfv?=
- =?us-ascii?Q?EriQoq/LqQN40wPp4316xKG21c/4Ka+IWZNFfYq3hwaolg+RfjMCi60BxEMq?=
- =?us-ascii?Q?zv67tQY7JmmcJTQSoKSE1VVjM3xE2pbymZVunnxRC1JM63tMmZ1WLRTiGath?=
- =?us-ascii?Q?suZiTLjNKIjKwjVzrb3nU+CeUI3p+jQDcYrxD+eUREH1LGHEH6GBY9p2Pn1y?=
- =?us-ascii?Q?9T94J63qOw+jHzsFLOY5mz59FLpYtmHjcYc72KEfL/BYQQvsAZxE0vECFpZe?=
- =?us-ascii?Q?q7i1oMS99RUIsSr+3tE8H17idyDBPPzCZ0mq7KrLD16IrIYm+LugoqKI0rh5?=
- =?us-ascii?Q?uzH4lFIvoQCzzCDlqpl178U1JXgQ/i4a3SFeLGCdi09bQhKzUHgBT+b+Kz8+?=
- =?us-ascii?Q?tgxgf1vBTW7RjVzReoZLu5JTq93z0WCud0Jmq/9fxhmkF0KdPA2UHM3RVLzl?=
- =?us-ascii?Q?GU0v6eEIrI4drsMjYvugyWkaGeLg42UbmuE1RssDp+zyGNTRVKRE8XI1TeK2?=
- =?us-ascii?Q?f+Hk0OK+X8/s298aWFr0kSDzW7fpc/5/Q44VO/8kbOMh0EGefy65Scan4L3H?=
- =?us-ascii?Q?e4ArltwAZ4KNeMnqwfKNPxKABvHnjbo5tpQP6YUxZfq84T5/NQKR+bmtTs6d?=
- =?us-ascii?Q?B+/R/pvS38HB73WFOVndPTl2t9EmqsQNDZJJGAWdns1ok19WkojmwlWYpkh6?=
- =?us-ascii?Q?V9I1rXIDRZT595WsvwjgjTqbs1E4tBKdBQ2DbMROLZwDNHhN/KHDu/9ZjwsW?=
- =?us-ascii?Q?IJI+/uYRy/FZRjZAnz1TwJIbLlS3zMiehASZIGSbeL9zKXMWTaAG3OOX32X4?=
- =?us-ascii?Q?D8C3oCw1oQ4g0YinERa8IJdh6BMq7TPU/AlwOIlcs3HiMWHG7ZT9v+YxVjOM?=
- =?us-ascii?Q?BzVr8vLAvl1a3LHGS4uwOE1YUHHUXU33HJ4h9uz3ge9O9rpyCco2xnEaqDqs?=
- =?us-ascii?Q?0b9x/r0u3Immj/g95BElDdmt8mJB0CzQTrxeMMeA+xqFyCqBJg=3D=3D?=
+	=?us-ascii?Q?hdT1+cc/ITsHy0PuY/YRRdSaRYxKbbZ8baBhRYfBvh12J8lWYR31EbUedZOy?=
+ =?us-ascii?Q?3t92zjD/yalASoyjDjwffs1NegQu3eL/XO1EglDAsQZdBhkV/OvtMMKZSNc2?=
+ =?us-ascii?Q?NjltiTPLijmgDZaFDmat4ZIcqKZLdFPtL0aZDvvitVEIRAtLyVMtQPDIi9cN?=
+ =?us-ascii?Q?QCcX+HIgkDDmjIrt2ohv1tusMlc2is1FM/ePVbV/PB9ei2wUxWqLHwnWlRTB?=
+ =?us-ascii?Q?TqgtlhmkyKagZV0yQ+dMzqQP6bQcJdKxaK8XD8RQcvpuLygj15K58mcbmqde?=
+ =?us-ascii?Q?sH4W+X5Tf/xjDsf2JKYUV5EpCNpqOv2ehTXSO3IVoDCGN61R+UjN0kFqv1G+?=
+ =?us-ascii?Q?ZQeVHxu4UMvC7bYGxzjxHoxH/hzcA2AaXTXcqx0uQv1teMqaQkiBhc6nvS0b?=
+ =?us-ascii?Q?VVM15/tUCMe1M8St66wZGKMfSGOiXn5/CVtj7QRg5xlv+XaIJYrYzb0b0hyX?=
+ =?us-ascii?Q?AL6iv2Tfpi5X1oLo2geaZb8zecm/MOfUZI89NFh2UndpgTanprEI99tEoVFn?=
+ =?us-ascii?Q?BbOf3WuiRZRdMfHVtdwAKDFbJM/90k/vV8VVrtWEf7ZQJP5TlwPByLQxosm1?=
+ =?us-ascii?Q?3aMtaJC/u4G0sM6E8yrhcPZn32wHSniQzSlCuyfq+emzmiEiH24VIX/4AODe?=
+ =?us-ascii?Q?Otj4vNrX80zOv7H6ezQsnUzsLoEA034Rt9V+QytbFUx4qIBPa2cWpIqXPHxu?=
+ =?us-ascii?Q?Sb+E0mDRq2Nu4TrC0DgbMFfsgc1+yhKbbHXe3fWSjHgZIfkIXo6V+RxnnfZw?=
+ =?us-ascii?Q?Xorn8VFwm4sAnDDFU2EYeJtAX1+zux+/2SOpwcEYRuSFCgqWVn0SE72E3ghB?=
+ =?us-ascii?Q?E8xhudBGQPQObarkbRBd1oxx0x1NWGcmVffDEDur3dQa7mTtxSGRE02eelbz?=
+ =?us-ascii?Q?h47gYXurwYP1HyY1Lbi+R5gdbhJEd9Ky5Q04FKexLq8I8MgNkYKk7tYvoBsv?=
+ =?us-ascii?Q?SGlFl9QE95p5YsjUTXP9wZxwrJkUyba74+o90gvpFk8WnhmxFUwDehVSv+tJ?=
+ =?us-ascii?Q?R6bLguux9DMLhylTT/LjlNsGssHEpgZkL/Z9DbBZQ0u+A5Qu6ecglYNgx4xB?=
+ =?us-ascii?Q?FCgFM7iTdATHHNMGD42OqHJQUwqYeHoUfPfkIgxlisD7WoJrOK8GcV82GveH?=
+ =?us-ascii?Q?TdNlB5jMDG4F9dlJkU1ON4E1V3OFGLJtwdDkSPNp1ZMJTYAT0Iw40oR1z4N9?=
+ =?us-ascii?Q?G9DjZnUQ8+9valBuuaHwf+nMXfO/IMZ53XoFpvrbe3ziTWO61GVbOgUodidL?=
+ =?us-ascii?Q?hwuZMmIh0eNTdrn1D/3ZoS7E5qYTtY9lo65du8+6bp+LzjOXroaAveehRZ3u?=
+ =?us-ascii?Q?ra8VYPcQ546Fz66qqBNv7/yPGix9fS0n0PlY1IVRf2tgzpK7ygWz5ULxROOd?=
+ =?us-ascii?Q?2Cg9vCz8rP3gWxgexKJz7vz7AtnF?=
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(36860700013)(1800799024)(82310400026)(7416014);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(36860700013)(376014)(7416014)(1800799024);DIR:OUT;SFP:1101;
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Jun 2024 12:34:27.4337
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Jun 2024 12:34:31.3059
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 48011aa0-bc64-4c6f-a810-08dc9900fb4f
+X-MS-Exchange-CrossTenant-Network-Message-Id: cc7a5644-5bfb-4541-e2b2-08dc9900fda0
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	CH1PEPF0000A34C.namprd04.prod.outlook.com
+	CH1PEPF0000A347.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB7575
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4039
 
-When passthrough a device to domU, QEMU and xl tools use its gsi
-number to do pirq mapping, see QEMU code
-xen_pt_realize->xc_physdev_map_pirq, and xl code
-pci_add_dm_done->xc_physdev_map_pirq, but the gsi number is got
-from file /sys/bus/pci/devices/<sbdf>/irq, that is wrong, because
-irq is not equal with gsi, they are in different spaces, so pirq
-mapping fails.
+When dom0 is PVH, and passthrough a device to dumU, xl will
+use the gsi number of device to do a pirq mapping, see
+pci_add_dm_done->xc_physdev_map_pirq, but the gsi number is
+got from file /sys/bus/pci/devices/<sbdf>/irq, that confuses
+irq and gsi, they are in different space and are not equal,
+so it will fail when mapping.
+To solve this issue, use xc_physdev_gsi_from_dev to get the
+real gsi and then to map pirq.
 
-And in current codes, there is no method to get gsi for userspace.
-For above purpose, add new function to get gsi, and the
-corresponding ioctl is implemented on linux kernel side.
+Besides, PVH dom doesn't have PIRQ flag, it doesn't do
+PHYSDEVOP_map_pirq for each gsi. So grant function callstack
+pci_add_dm_done->XEN_DOMCTL_irq_permission will fail at function
+domain_pirq_to_irq. And old hypercall XEN_DOMCTL_irq_permission
+requires passing in pirq, it is not suitable for dom0 that
+doesn't have PIRQs to grant irq permission.
+To solve this issue, use the new hypercall
+XEN_DOMCTL_gsi_permission to grant the permission of irq(
+translate from gsi) to dumU when dom0 has no PIRQs.
 
 Signed-off-by: Jiqian Chen <Jiqian.Chen@amd.com>
 Signed-off-by: Huang Rui <ray.huang@amd.com>
@@ -168,92 +175,263 @@ RFC: it needs to wait for the corresponding third patch on linux kernel side to 
 https://lore.kernel.org/xen-devel/20240607075109.126277-4-Jiqian.Chen@amd.com/
 This patch must be merged after the patch on linux kernel side
 ---
- tools/include/xen-sys/Linux/privcmd.h |  7 ++++++
- tools/include/xenctrl.h               |  2 ++
- tools/libs/ctrl/xc_physdev.c          | 35 +++++++++++++++++++++++++++
- 3 files changed, 44 insertions(+)
+ tools/include/xenctrl.h       |   5 ++
+ tools/libs/ctrl/xc_domain.c   |  15 +++++
+ tools/libs/light/libxl_arch.h |   4 ++
+ tools/libs/light/libxl_arm.c  |  10 +++
+ tools/libs/light/libxl_pci.c  |  17 ++++++
+ tools/libs/light/libxl_x86.c  | 111 ++++++++++++++++++++++++++++++++++
+ 6 files changed, 162 insertions(+)
 
-diff --git a/tools/include/xen-sys/Linux/privcmd.h b/tools/include/xen-sys/Linux/privcmd.h
-index bc60e8fd55eb..4cf719102116 100644
---- a/tools/include/xen-sys/Linux/privcmd.h
-+++ b/tools/include/xen-sys/Linux/privcmd.h
-@@ -95,6 +95,11 @@ typedef struct privcmd_mmap_resource {
- 	__u64 addr;
- } privcmd_mmap_resource_t;
- 
-+typedef struct privcmd_gsi_from_pcidev {
-+	__u32 sbdf;
-+	__u32 gsi;
-+} privcmd_gsi_from_pcidev_t;
-+
- /*
-  * @cmd: IOCTL_PRIVCMD_HYPERCALL
-  * @arg: &privcmd_hypercall_t
-@@ -114,6 +119,8 @@ typedef struct privcmd_mmap_resource {
- 	_IOC(_IOC_NONE, 'P', 6, sizeof(domid_t))
- #define IOCTL_PRIVCMD_MMAP_RESOURCE				\
- 	_IOC(_IOC_NONE, 'P', 7, sizeof(privcmd_mmap_resource_t))
-+#define IOCTL_PRIVCMD_GSI_FROM_PCIDEV				\
-+	_IOC(_IOC_NONE, 'P', 10, sizeof(privcmd_gsi_from_pcidev_t))
- #define IOCTL_PRIVCMD_UNIMPLEMENTED				\
- 	_IOC(_IOC_NONE, 'P', 0xFF, 0)
- 
 diff --git a/tools/include/xenctrl.h b/tools/include/xenctrl.h
-index 9ceca0cffc2f..3720e22b399a 100644
+index 3720e22b399a..33810385535e 100644
 --- a/tools/include/xenctrl.h
 +++ b/tools/include/xenctrl.h
-@@ -1641,6 +1641,8 @@ int xc_physdev_unmap_pirq(xc_interface *xch,
-                           uint32_t domid,
-                           int pirq);
+@@ -1382,6 +1382,11 @@ int xc_domain_irq_permission(xc_interface *xch,
+                              uint32_t pirq,
+                              bool allow_access);
  
-+int xc_physdev_gsi_from_pcidev(xc_interface *xch, uint32_t sbdf);
++int xc_domain_gsi_permission(xc_interface *xch,
++                             uint32_t domid,
++                             uint32_t gsi,
++                             bool allow_access);
 +
- /*
-  *  LOGGING AND ERROR REPORTING
-  */
-diff --git a/tools/libs/ctrl/xc_physdev.c b/tools/libs/ctrl/xc_physdev.c
-index e9fcd755fa62..54edb0f3c0dc 100644
---- a/tools/libs/ctrl/xc_physdev.c
-+++ b/tools/libs/ctrl/xc_physdev.c
-@@ -111,3 +111,38 @@ int xc_physdev_unmap_pirq(xc_interface *xch,
-     return rc;
+ int xc_domain_iomem_permission(xc_interface *xch,
+                                uint32_t domid,
+                                unsigned long first_mfn,
+diff --git a/tools/libs/ctrl/xc_domain.c b/tools/libs/ctrl/xc_domain.c
+index f2d9d14b4d9f..8540e84fda93 100644
+--- a/tools/libs/ctrl/xc_domain.c
++++ b/tools/libs/ctrl/xc_domain.c
+@@ -1394,6 +1394,21 @@ int xc_domain_irq_permission(xc_interface *xch,
+     return do_domctl(xch, &domctl);
  }
  
-+int xc_physdev_gsi_from_pcidev(xc_interface *xch, uint32_t sbdf)
++int xc_domain_gsi_permission(xc_interface *xch,
++                             uint32_t domid,
++                             uint32_t gsi,
++                             bool allow_access)
 +{
-+    int rc = -1;
-+
-+#if defined(__linux__)
-+    int fd;
-+    privcmd_gsi_from_pcidev_t dev_gsi = {
-+        .sbdf = sbdf,
-+        .gsi = 0,
++    struct xen_domctl domctl = {
++        .cmd = XEN_DOMCTL_gsi_permission,
++        .domain = domid,
++        .u.gsi_permission.gsi = gsi,
++        .u.gsi_permission.allow_access = allow_access,
 +    };
 +
-+    fd = open("/dev/xen/privcmd", O_RDWR);
-+
-+    if (fd < 0 && (errno == ENOENT || errno == ENXIO || errno == ENODEV)) {
-+        /* Fallback to /proc/xen/privcmd */
-+        fd = open("/proc/xen/privcmd", O_RDWR);
-+    }
-+
-+    if (fd < 0) {
-+        PERROR("Could not obtain handle on privileged command interface");
-+        return rc;
-+    }
-+
-+    rc = ioctl(fd, IOCTL_PRIVCMD_GSI_FROM_PCIDEV, &dev_gsi);
-+    close(fd);
-+
-+    if (rc) {
-+        PERROR("Failed to get gsi from dev");
-+    } else {
-+        rc = dev_gsi.gsi;
-+    }
-+#endif
-+
-+    return rc;
++    return do_domctl(xch, &domctl);
 +}
++
+ int xc_domain_iomem_permission(xc_interface *xch,
+                                uint32_t domid,
+                                unsigned long first_mfn,
+diff --git a/tools/libs/light/libxl_arch.h b/tools/libs/light/libxl_arch.h
+index f88f11d6de1d..11b736067951 100644
+--- a/tools/libs/light/libxl_arch.h
++++ b/tools/libs/light/libxl_arch.h
+@@ -91,6 +91,10 @@ void libxl__arch_update_domain_config(libxl__gc *gc,
+                                       libxl_domain_config *dst,
+                                       const libxl_domain_config *src);
+ 
++_hidden
++int libxl__arch_hvm_map_gsi(libxl__gc *gc, uint32_t sbdf, uint32_t domid);
++_hidden
++int libxl__arch_hvm_unmap_gsi(libxl__gc *gc, uint32_t sbdf, uint32_t domid);
+ #if defined(__i386__) || defined(__x86_64__)
+ 
+ #define LAPIC_BASE_ADDRESS  0xfee00000
+diff --git a/tools/libs/light/libxl_arm.c b/tools/libs/light/libxl_arm.c
+index a4029e3ac810..d869bbec769e 100644
+--- a/tools/libs/light/libxl_arm.c
++++ b/tools/libs/light/libxl_arm.c
+@@ -1774,6 +1774,16 @@ void libxl__arch_update_domain_config(libxl__gc *gc,
+ {
+ }
+ 
++int libxl__arch_hvm_map_gsi(libxl__gc *gc, uint32_t sbdf, uint32_t domid)
++{
++    return -1;
++}
++
++int libxl__arch_hvm_unmap_gsi(libxl__gc *gc, uint32_t sbdf, uint32_t domid)
++{
++    return -1;
++}
++
+ /*
+  * Local variables:
+  * mode: C
+diff --git a/tools/libs/light/libxl_pci.c b/tools/libs/light/libxl_pci.c
+index 96cb4da0794e..3d25997921cc 100644
+--- a/tools/libs/light/libxl_pci.c
++++ b/tools/libs/light/libxl_pci.c
+@@ -17,6 +17,7 @@
+ #include "libxl_osdeps.h" /* must come before any other headers */
+ 
+ #include "libxl_internal.h"
++#include "libxl_arch.h"
+ 
+ #define PCI_BDF                "%04x:%02x:%02x.%01x"
+ #define PCI_BDF_SHORT          "%02x:%02x.%01x"
+@@ -1478,6 +1479,16 @@ static void pci_add_dm_done(libxl__egc *egc,
+     fclose(f);
+     if (!pci_supp_legacy_irq())
+         goto out_no_irq;
++
++    /*
++     * When dom0 is PVH and mapping a x86 gsi to pirq for domU,
++     * should use gsi to grant irq permission.
++     */
++    if (!libxl__arch_hvm_map_gsi(gc, pci_encode_bdf(pci), domid))
++        goto pci_permissive;
++    else
++        LOGED(WARN, domid, "libxl__arch_hvm_map_gsi failed (err=%d)", errno);
++
+     sysfs_path = GCSPRINTF(SYSFS_PCI_DEV"/"PCI_BDF"/irq", pci->domain,
+                                 pci->bus, pci->dev, pci->func);
+     f = fopen(sysfs_path, "r");
+@@ -1505,6 +1516,7 @@ static void pci_add_dm_done(libxl__egc *egc,
+     }
+     fclose(f);
+ 
++pci_permissive:
+     /* Don't restrict writes to the PCI config space from this VM */
+     if (pci->permissive) {
+         if ( sysfs_write_bdf(gc, SYSFS_PCIBACK_DRIVER"/permissive",
+@@ -2229,6 +2241,11 @@ skip_bar:
+     if (!pci_supp_legacy_irq())
+         goto skip_legacy_irq;
+ 
++    if (!libxl__arch_hvm_unmap_gsi(gc, pci_encode_bdf(pci), domid))
++        goto skip_legacy_irq;
++    else
++        LOGED(WARN, domid, "libxl__arch_hvm_unmap_gsi failed (err=%d)", errno);
++
+     sysfs_path = GCSPRINTF(SYSFS_PCI_DEV"/"PCI_BDF"/irq", pci->domain,
+                            pci->bus, pci->dev, pci->func);
+ 
+diff --git a/tools/libs/light/libxl_x86.c b/tools/libs/light/libxl_x86.c
+index 60643d6f5376..e7756d323cb6 100644
+--- a/tools/libs/light/libxl_x86.c
++++ b/tools/libs/light/libxl_x86.c
+@@ -879,6 +879,117 @@ void libxl__arch_update_domain_config(libxl__gc *gc,
+                                  libxl_defbool_val(src->b_info.u.hvm.pirq));
+ }
+ 
++struct pcidev_map_pirq {
++    uint32_t sbdf;
++    uint32_t pirq;
++    XEN_LIST_ENTRY(struct pcidev_map_pirq) entry;
++};
++
++static pthread_mutex_t pcidev_pirq_mutex = PTHREAD_MUTEX_INITIALIZER;
++static XEN_LIST_HEAD(, struct pcidev_map_pirq) pcidev_pirq_list =
++    XEN_LIST_HEAD_INITIALIZER(pcidev_pirq_list);
++
++int libxl__arch_hvm_map_gsi(libxl__gc *gc, uint32_t sbdf, uint32_t domid)
++{
++    int pirq = -1, gsi, r;
++    xc_domaininfo_t info;
++    struct pcidev_map_pirq *pcidev_pirq;
++    libxl_ctx *ctx = libxl__gc_owner(gc);
++
++    r = xc_domain_getinfo_single(ctx->xch, LIBXL_TOOLSTACK_DOMID, &info);
++    if (r < 0) {
++        LOGED(ERROR, domid, "getdomaininfo failed (error=%d)", errno);
++        return r;
++    }
++    if ((info.flags & XEN_DOMINF_hvm_guest) &&
++        !(info.arch_config.emulation_flags & XEN_X86_EMU_USE_PIRQ)) {
++        gsi = xc_physdev_gsi_from_pcidev(ctx->xch, sbdf);
++        if (gsi < 0) {
++            return ERROR_FAIL;
++        }
++        r = xc_physdev_map_pirq(ctx->xch, domid, gsi, &pirq);
++        if (r < 0) {
++            LOGED(ERROR, domid, "xc_physdev_map_pirq gsi=%d (error=%d)",
++                  gsi, errno);
++            return r;
++        }
++        r = xc_domain_gsi_permission(ctx->xch, domid, gsi, 1);
++        if (r < 0) {
++            LOGED(ERROR, domid, "xc_domain_gsi_permission gsi=%d (error=%d)",
++                  gsi, errno);
++            return r;
++        }
++    } else {
++        return ERROR_FAIL;
++    }
++
++    /* Save the pirq for the usage of unmapping */
++    pcidev_pirq = malloc(sizeof(struct pcidev_map_pirq));
++    if (!pcidev_pirq) {
++        LOGED(ERROR, domid, "no memory for saving pirq of pcidev info");
++        return ERROR_NOMEM;
++    }
++    pcidev_pirq->sbdf = sbdf;
++    pcidev_pirq->pirq = pirq;
++
++    assert(!pthread_mutex_lock(&pcidev_pirq_mutex));
++    XEN_LIST_INSERT_HEAD(&pcidev_pirq_list, pcidev_pirq, entry);
++    assert(!pthread_mutex_unlock(&pcidev_pirq_mutex));
++
++    return 0;
++}
++
++int libxl__arch_hvm_unmap_gsi(libxl__gc *gc, uint32_t sbdf, uint32_t domid)
++{
++    int pirq = -1, gsi, r;
++    xc_domaininfo_t info;
++    struct pcidev_map_pirq *pcidev_pirq;
++    libxl_ctx *ctx = libxl__gc_owner(gc);
++
++    r = xc_domain_getinfo_single(ctx->xch, LIBXL_TOOLSTACK_DOMID, &info);
++    if (r < 0) {
++        LOGED(ERROR, domid, "getdomaininfo failed (error=%d)", errno);
++        return r;
++    }
++    if ((info.flags & XEN_DOMINF_hvm_guest) &&
++        !(info.arch_config.emulation_flags & XEN_X86_EMU_USE_PIRQ)) {
++        gsi = xc_physdev_gsi_from_pcidev(ctx->xch, sbdf);
++        if (gsi < 0) {
++            return ERROR_FAIL;
++        }
++        assert(!pthread_mutex_lock(&pcidev_pirq_mutex));
++        XEN_LIST_FOREACH(pcidev_pirq, &pcidev_pirq_list, entry) {
++            if (pcidev_pirq->sbdf == sbdf) {
++                pirq = pcidev_pirq->pirq;
++                XEN_LIST_REMOVE(pcidev_pirq, entry);
++                free(pcidev_pirq);
++                break;
++            }
++        }
++        assert(!pthread_mutex_unlock(&pcidev_pirq_mutex));
++        if (pirq < 0) {
++            /* pirq has been unmapped, so return directly */
++            return 0;
++        }
++        r = xc_physdev_unmap_pirq(ctx->xch, domid, pirq);
++        if (r < 0) {
++            LOGED(ERROR, domid, "xc_physdev_unmap_pirq pirq=%d (error=%d)",
++                  pirq, errno);
++            return r;
++        }
++        r = xc_domain_gsi_permission(ctx->xch, domid, gsi, 0);
++        if (r < 0) {
++            LOGED(ERROR, domid, "xc_domain_gsi_permission gsi=%d (error=%d)",
++                  gsi, errno);
++            return r;
++        }
++    } else {
++        return ERROR_FAIL;
++    }
++
++    return 0;
++}
++
+ /*
+  * Local variables:
+  * mode: C
 -- 
 2.34.1
 
