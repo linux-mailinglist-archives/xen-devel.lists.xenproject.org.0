@@ -2,38 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4630591DCE5
-	for <lists+xen-devel@lfdr.de>; Mon,  1 Jul 2024 12:41:52 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.751463.1159426 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4ACD691DD97
+	for <lists+xen-devel@lfdr.de>; Mon,  1 Jul 2024 13:11:38 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.751471.1159440 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sOESk-0006Ru-5G; Mon, 01 Jul 2024 10:40:46 +0000
+	id 1sOEw9-0002N8-7v; Mon, 01 Jul 2024 11:11:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 751463.1159426; Mon, 01 Jul 2024 10:40:46 +0000
+Received: by outflank-mailman (output) from mailman id 751471.1159440; Mon, 01 Jul 2024 11:11:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sOESk-0006Px-2M; Mon, 01 Jul 2024 10:40:46 +0000
-Received: by outflank-mailman (input) for mailman id 751463;
- Mon, 01 Jul 2024 10:40:44 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=kQX2=OB=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sOESi-0006Pr-FV
- for xen-devel@lists.xenproject.org; Mon, 01 Jul 2024 10:40:44 +0000
-Received: from mail-lj1-x22c.google.com (mail-lj1-x22c.google.com
- [2a00:1450:4864:20::22c])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 5df03a10-3796-11ef-90a4-e314d9c70b13;
- Mon, 01 Jul 2024 12:40:43 +0200 (CEST)
-Received: by mail-lj1-x22c.google.com with SMTP id
- 38308e7fff4ca-2ebe40673e8so32612261fa.3
- for <xen-devel@lists.xenproject.org>; Mon, 01 Jul 2024 03:40:43 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-708044b0de3sm6373824b3a.179.2024.07.01.03.40.38
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 01 Jul 2024 03:40:41 -0700 (PDT)
+	id 1sOEw9-0002K7-4Q; Mon, 01 Jul 2024 11:11:09 +0000
+Received: by outflank-mailman (input) for mailman id 751471;
+ Mon, 01 Jul 2024 11:11:08 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=FOPt=OB=bugseng.com=alessandro.zucchelli@srs-se1.protection.inumbo.net>)
+ id 1sOEw8-0002K1-DF
+ for xen-devel@lists.xenproject.org; Mon, 01 Jul 2024 11:11:08 +0000
+Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 9c74d8ee-379a-11ef-b4bb-af5377834399;
+ Mon, 01 Jul 2024 13:11:06 +0200 (CEST)
+Received: from delta.bugseng.com.homenet.telecomitalia.it
+ (host-79-60-221-62.business.telecomitalia.it [79.60.221.62])
+ by support.bugseng.com (Postfix) with ESMTPSA id 58E974EE0746;
+ Mon,  1 Jul 2024 13:11:01 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,164 +40,140 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5df03a10-3796-11ef-90a4-e314d9c70b13
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1719830443; x=1720435243; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=qs0G5cPaHeS95sBdCNtXtGqbsyVK4iUJhqx0QMmTsk8=;
-        b=OEwcCEtwGh2lK2pjXFVjmFWkBoHaCceeNjygJ2mwofuo3ZzQ+v0URFg3GgjO/fckhC
-         plWf5kN/E95N1tt4OIHZkoPVtg1mDPLUQz8txRaNGGRoHPtgqwlgP0fRueBKzINCXOKM
-         9WEe4sm3y2WvBGEZz5qMrGbvqxN6iveBC8+Tae9o6OprWJ1021LmpN9QtZpZxLViQKf3
-         vvzKpT9cYO7kwN3J8dsh+h8obMmujfX0+36xGEcdQKqzbQ3pl5dDMIr92GWzksZu3yrr
-         twcDOAWOo0s72smPWLlvVGtY8Q8fra7XYtjqNqQGnCCUEsnJC/dZemuCCvr8SvLSbHL+
-         IMKg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1719830443; x=1720435243;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=qs0G5cPaHeS95sBdCNtXtGqbsyVK4iUJhqx0QMmTsk8=;
-        b=c4wC0QSwfXl+23ahOl3XBMXescHHcjvROMDziDS6J226RbAZSeuXq7kr/JAYyk0Puc
-         utht8APrlIUuSkYuPFYWUDO1fNd5M3Z8s4RtbRBtwLBMwbUbDwk5BqL8UszmjstguP6t
-         6lazsTmIG7YRSvP8G3b/edkdeZ/3/73w9eSV4Em8TFGHj51CZo2hFP5fGfR6AyQqMphe
-         v1kI2VSqlu2VZFDrGVGd5kmJ2oBK5lV/wnDSX77MJuJtCczem5pmu0sVb0jdq5zCmJJG
-         9lOPJB0uU9Oi10ox3uw/2GuD6N43FvW5G2612ve/5/9B5jridAdrCUY/kdBNdwRZUuxH
-         buUg==
-X-Gm-Message-State: AOJu0YxYWzSGlvXYhVz5j/YXtnJAZibFcSbFWf//EjFNuMNgRMZGpxcV
-	wOGQHr4143zU5We7XlSRtAXE7bGbRcan10x8RfBaLOCcSzPCLrUczi2PDIxo/w==
-X-Google-Smtp-Source: AGHT+IGWCBz9q4PdCH4AcnlG6hXPwpH2odmzYlS9YcSA7Y8uQV9lvhjMNqPt5CMDijQDD+N05SdUWg==
-X-Received: by 2002:a2e:3e15:0:b0:2ec:3c55:3056 with SMTP id 38308e7fff4ca-2ee5e6c9951mr28785561fa.44.1719830442576;
-        Mon, 01 Jul 2024 03:40:42 -0700 (PDT)
-Message-ID: <8ab71a85-6056-4c4f-8513-a21c061a176d@suse.com>
-Date: Mon, 1 Jul 2024 12:40:35 +0200
+X-Inumbo-ID: 9c74d8ee-379a-11ef-b4bb-af5377834399
+From: Alessandro Zucchelli <alessandro.zucchelli@bugseng.com>
+To: xen-devel@lists.xenproject.org
+Cc: consulting@bugseng.com,
+	Alessandro Zucchelli <alessandro.zucchelli@bugseng.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Simone Ballarin <simone.ballarin@bugseng.com>,
+	Doug Goldstein <cardoe@cardoe.com>,
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	"Daniel P. Smith" <dpsmith@apertussolutions.com>,
+	=?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+Subject: [PATCH 00/17] xen: address violation of MISRA C:2012 Directive 4.10
+Date: Mon,  1 Jul 2024 13:10:18 +0200
+Message-Id: <cover.1719829101.git.alessandro.zucchelli@bugseng.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 3/3] cmdline: document and enforce "extra_guest_irqs"
- upper bounds
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
-References: <7cb0d24e-2bda-dcda-4874-2c01ba179947@suse.com>
- <3c3a1d0c-06f2-a392-b2f9-381bed5c5e7b@suse.com> <ZoJ9Bd2kg3IQ0Z28@macbook>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <ZoJ9Bd2kg3IQ0Z28@macbook>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 01.07.2024 11:55, Roger Pau Monné wrote:
-> On Thu, Jul 27, 2023 at 09:38:55AM +0200, Jan Beulich wrote:
->> --- a/xen/arch/x86/io_apic.c
->> +++ b/xen/arch/x86/io_apic.c
->> @@ -2663,18 +2663,21 @@ void __init ioapic_init(void)
->>             nr_irqs_gsi, nr_irqs - nr_irqs_gsi);
->>  }
->>  
->> -unsigned int arch_hwdom_irqs(domid_t domid)
->> +unsigned int arch_hwdom_irqs(const struct domain *d)
-> 
-> While at it, should this be __hwdom_init?
+The Xen sources contain violations of MISRA C:2012 Directive 4.10 whose headline states:
+"Precautions shall be taken in order to prevent the contents of a header file
+being included more than once".
 
-It indeed can be, so I've done this for v4.
+Following V2 and V3, here are all the rules that have been applied:
+- private headers -> <dir>_<filename>_H
+- asm-generic headers -> ASM_GENERIC_<filename>_H
+- arch/<architecture>/include/asm/<subdir>/<filename>.h -> ASM_<architecture>_<subdir>_<filename>_H
+- include/generated/<subdir>/<filename>.h-> GENERATED_<subdir>_<filename>_H
+- arch/<architecture>/include/generated/asm/<filename>.h-> <arch>_GENERATED_ASM_<name>_H
 
-> I'm fine with changing the function to take a domain parameter...
-> 
->>  {
->>      unsigned int n = fls(num_present_cpus());
->>  
->> -    if ( !domid )
->> +    if ( is_system_domain(d) )
->> +        return PAGE_SIZE * BITS_PER_BYTE;
-> 
-> ... but why do we need a function call just to get a constant value?
-> Wouldn't this better be a define in a header?
+Links to the discussions:
+https://lists.xenproject.org/archives/html/xen-devel/2023-09/msg01928.html
+https://lists.xenproject.org/archives/html/xen-devel/2023-10/msg01784.html
+https://lists.xenproject.org/archives/html/xen-devel/2023-10/msg02073.html
 
-Would be an option, but would result in parts of the logic living is
-distinct places.
+Furthermore, the violations arising from the autogenerated header files
+include/xen/compile.h and xen/hypercall-defs.h are addressed.
 
->> +
->> +    if ( !d->domain_id )
->>          n = min(n, dom0_max_vcpus());
->>      n = min(nr_irqs_gsi + n * NR_DYNAMIC_VECTORS, nr_irqs);
->>  
->>      /* Bounded by the domain pirq eoi bitmap gfn. */
->>      n = min_t(unsigned int, n, PAGE_SIZE * BITS_PER_BYTE);
-> 
-> So that could also use the same constant here?
-> 
->> -    printk("Dom%d has maximum %u PIRQs\n", domid, n);
->> +    printk("%pd has maximum %u PIRQs\n", d, n);
->>  
->>      return n;
->>  }
->> --- a/xen/common/domain.c
->> +++ b/xen/common/domain.c
->> @@ -693,7 +693,7 @@ struct domain *domain_create(domid_t dom
->>              d->nr_pirqs = nr_static_irqs + extra_domU_irqs;
->>          else
->>              d->nr_pirqs = extra_hwdom_irqs ? nr_static_irqs + extra_hwdom_irqs
->> -                                           : arch_hwdom_irqs(domid);
->> +                                           : arch_hwdom_irqs(d);
->>          d->nr_pirqs = min(d->nr_pirqs, nr_irqs);
->>  
->>          radix_tree_init(&d->pirq_tree);
->> @@ -819,6 +819,24 @@ void __init setup_system_domains(void)
->>      if ( IS_ERR(dom_xen) )
->>          panic("Failed to create d[XEN]: %ld\n", PTR_ERR(dom_xen));
->>  
->> +#ifdef CONFIG_HAS_PIRQ
->> +    /* Bound-check values passed via "extra_guest_irqs=". */
->> +    {
->> +        unsigned int n = max(arch_hwdom_irqs(dom_xen), nr_static_irqs);
->> +
->> +        if ( extra_hwdom_irqs > n - nr_static_irqs )
->> +        {
->> +            extra_hwdom_irqs = n - nr_static_irqs;
->> +            printk(XENLOG_WARNING "hwdom IRQs bounded to %u\n", n);
->> +        }
->> +        if ( extra_domU_irqs > max(32U, n - nr_static_irqs) )
->> +        {
->> +            extra_domU_irqs = n - nr_static_irqs;
->> +            printk(XENLOG_WARNING "domU IRQs bounded to %u\n", n);
->> +        }
->> +    }
->> +#endif
-> 
-> IMO this is kind of a weird placement. Wouldn't this be more naturally
-> handled in parse_extra_guest_irqs()?
+Patch 17/17 adds a new section for CODING_STYLE with the aforementioned naming
+conventions. 
+this is just a draft, please give us a feedback on whether something similar may
+be appreciated. 
 
-Indeed it is and yes it would, but no, it can't. We shouldn't rely on
-the particular behavior of arch_hwdom_irqs(), and in the general case
-we can't call it as early as when command line arguments are parsed. I
-couldn't think of a neater way of doing this, and it not being pretty
-is why I'm saying "(ab)use" in the description.
+Changes in v4:
+ add/amend inclusion guards to address violations of the Directive and the new naming convention.
+ drop teh XEN_ prefix when needed, according to the feedback received.
+ add inclusion guard naming convention section in CODING_STYLE
 
-Jan
+Changes in v3:
+Add/amend inclusion guards to address violations of the Directive and the new naming convention.
+Remove trailing underscores.
+Modify creation rule for asm-offsets.h to conform to the new standard and to not generate conflicting
+guards between architectures (which is a violation of the Directive).
+
+Alessandro Zucchelli (2):
+  xen/build: address violation of MISRA C Directive 4.10
+  CODING_STYLE: Add a section on header guards naming conventions
+
+Maria Celeste Cesario (3):
+  xen/arm: address violations of MISRA C:2012 Directive 4.10
+  xen: address violations of MISRA C:2012 Directive 4.10
+  xen/x86: rename inclusion guards for consistency
+
+Nicola Vetrini (2):
+  xen: add deviations for MISRA C 2012 Dir D4.10
+  xen: add SAF deviation for MISRA C Dir 4.10
+
+Simone Ballarin (10):
+  misra: add deviation for headers that explicitly avoid guards
+  misra: modify deviations for empty and generated headers
+  misra: add deviations for direct inclusion guards
+  xen/arm: address violations of MISRA C:2012 Directive 4.10
+  xen/x86: address violations of MISRA C:2012 Directive 4.10
+  x86/EFI: address violations of MISRA C:2012 Directive 4.10
+  xen/common: address violations of MISRA C:2012 Directive 4.10
+  xen/efi: address violations of MISRA C:2012 Directive 4.10
+  xen: address violations of MISRA C:2012 Directive 4.10
+  x86/asm: address violations of MISRA C:2012 Directive 4.10
+
+ CODING_STYLE                                  | 19 +++++++++
+ .../eclair_analysis/ECLAIR/deviations.ecl     | 12 +++---
+ docs/misra/deviations.rst                     |  7 ++++
+ docs/misra/safe.json                          | 40 +++++++++++++++++++
+ xen/arch/arm/efi/efi-boot.h                   |  6 +++
+ xen/arch/arm/efi/runtime.h                    |  1 +
+ xen/arch/arm/include/asm/domain.h             |  6 +--
+ xen/arch/arm/include/asm/efibind.h            |  5 +++
+ xen/arch/arm/include/asm/event.h              |  6 +--
+ xen/arch/arm/include/asm/grant_table.h        |  6 +--
+ xen/arch/arm/include/asm/hypercall.h          |  1 +
+ xen/arch/arm/include/asm/io.h                 |  6 +--
+ xen/arch/arm/include/asm/irq.h                |  6 +--
+ xen/arch/arm/include/asm/smp.h                |  6 +--
+ xen/arch/arm/include/asm/spinlock.h           |  6 +--
+ xen/arch/arm/include/asm/system.h             |  6 +--
+ xen/arch/x86/Makefile                         |  9 +++--
+ xen/arch/x86/cpu/cpu.h                        |  5 +++
+ xen/arch/x86/efi/efi-boot.h                   |  7 ++++
+ xen/arch/x86/efi/runtime.h                    |  5 +++
+ xen/arch/x86/include/asm/compat.h             |  5 +++
+ xen/arch/x86/include/asm/cpufeatures.h        |  5 +--
+ xen/arch/x86/include/asm/domain.h             |  6 +--
+ xen/arch/x86/include/asm/efibind.h            |  5 +++
+ xen/arch/x86/include/asm/event.h              |  6 +--
+ xen/arch/x86/include/asm/grant_table.h        |  6 +--
+ xen/arch/x86/include/asm/hypercall.h          |  1 +
+ xen/arch/x86/include/asm/io.h                 |  6 +--
+ xen/arch/x86/include/asm/irq.h                |  6 +--
+ xen/arch/x86/include/asm/smp.h                |  6 +--
+ xen/arch/x86/include/asm/spinlock.h           |  6 +--
+ xen/arch/x86/include/asm/system.h             |  6 +--
+ xen/arch/x86/x86_64/mmconfig.h                |  5 +++
+ xen/arch/x86/x86_emulate/private.h            |  5 +++
+ xen/build.mk                                  | 13 ++++--
+ xen/common/decompress.h                       |  5 +++
+ xen/common/efi/efi.h                          |  5 +++
+ xen/common/event_channel.h                    |  5 +++
+ xen/include/Makefile                          | 18 +++++++--
+ xen/include/public/arch-x86/cpufeatureset.h   |  1 +
+ xen/include/public/arch-x86/xen.h             |  1 +
+ xen/include/public/errno.h                    |  1 +
+ xen/include/xen/err.h                         |  8 ++--
+ xen/include/xen/pci_ids.h                     |  5 +++
+ xen/include/xen/softirq.h                     |  8 ++--
+ xen/include/xen/vmap.h                        |  8 ++--
+ xen/scripts/Makefile.asm-generic              |  8 +++-
+ 47 files changed, 244 insertions(+), 81 deletions(-)
+
+-- 
+2.34.1
+
 
