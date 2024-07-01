@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 58F7D91DA19
-	for <lists+xen-devel@lfdr.de>; Mon,  1 Jul 2024 10:37:38 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.751360.1159289 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B2FDB91DA23
+	for <lists+xen-devel@lfdr.de>; Mon,  1 Jul 2024 10:40:37 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.751367.1159299 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sOCX6-0001ZB-H6; Mon, 01 Jul 2024 08:37:08 +0000
+	id 1sOCa3-0003we-4W; Mon, 01 Jul 2024 08:40:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 751360.1159289; Mon, 01 Jul 2024 08:37:08 +0000
+Received: by outflank-mailman (output) from mailman id 751367.1159299; Mon, 01 Jul 2024 08:40:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sOCX6-0001Xd-EG; Mon, 01 Jul 2024 08:37:08 +0000
-Received: by outflank-mailman (input) for mailman id 751360;
- Mon, 01 Jul 2024 08:37:06 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1sOCa3-0003uN-20; Mon, 01 Jul 2024 08:40:11 +0000
+Received: by outflank-mailman (input) for mailman id 751367;
+ Mon, 01 Jul 2024 08:40:10 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=kQX2=OB=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sOCX4-0001XX-U8
- for xen-devel@lists.xenproject.org; Mon, 01 Jul 2024 08:37:06 +0000
-Received: from mail-lj1-x234.google.com (mail-lj1-x234.google.com
- [2a00:1450:4864:20::234])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 18ad9a18-3785-11ef-90a4-e314d9c70b13;
- Mon, 01 Jul 2024 10:37:06 +0200 (CEST)
-Received: by mail-lj1-x234.google.com with SMTP id
- 38308e7fff4ca-2ec10324791so29954291fa.1
- for <xen-devel@lists.xenproject.org>; Mon, 01 Jul 2024 01:37:06 -0700 (PDT)
+ id 1sOCa2-0003uH-5P
+ for xen-devel@lists.xenproject.org; Mon, 01 Jul 2024 08:40:10 +0000
+Received: from mail-lj1-x231.google.com (mail-lj1-x231.google.com
+ [2a00:1450:4864:20::231])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 8561053e-3785-11ef-b4bb-af5377834399;
+ Mon, 01 Jul 2024 10:40:08 +0200 (CEST)
+Received: by mail-lj1-x231.google.com with SMTP id
+ 38308e7fff4ca-2ec50a5e230so26999221fa.0
+ for <xen-devel@lists.xenproject.org>; Mon, 01 Jul 2024 01:40:08 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-1fac10d1b56sm58838335ad.41.2024.07.01.01.37.00
+ d2e1a72fcca58-708043b7100sm6106809b3a.142.2024.07.01.01.40.04
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 01 Jul 2024 01:37:04 -0700 (PDT)
+ Mon, 01 Jul 2024 01:40:06 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,51 +45,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 18ad9a18-3785-11ef-90a4-e314d9c70b13
+X-Inumbo-ID: 8561053e-3785-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1719823025; x=1720427825; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1719823207; x=1720428007; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=rqmjRYPX55NC1VdfXv+gSUiQiNh1rFhMeD27+CCOB7U=;
-        b=G4hdG1KdazuFWK+JiGC8hlHDKVKkVEOhQAxgPKBFjYb9jrwxCt1Dj7ijPDNxyKlnBK
-         o1SL6fO45eLyyvEfKVcbRCNF0a88EktFKR+VfEZXOoozm7ezhNGUoOgbHUpjIkqcKADm
-         2tggxEsBJO9kY94Q7OQd9VqZ9XRjIDgMWpWkwWpXthX2n8CLenJ0NC5Ssmgr2FmJdgiK
-         Dah/WYls5D4MjoKdQVBhzgOLp/RoUKG1Ma8Ejl3aJasawV+UNXQB1HmwPUmgjvdC55bn
-         lelDcudu4YELwO+yKOW+eRS7cfDC9JUhgJepTmulfLe8ERe/nqdYJmnKDjoUGJ17oDD2
-         jsew==
+        bh=T02acu+fGaoZC0noiV85EPLSUSsf1TLhR67ONqWJsMw=;
+        b=fdFQ8njRgoT6jGCQyJGKXXmF6mYuQjG/m35zGy7OKjMJXt+O8CLO5kZz7BQ9P80HTW
+         p+f9woSoDZ9+7+W8YfMeosooKfWkvoTvmqbcQleUR7uI7HsoPYe2hGHnna29jc5EFsRS
+         03lE3pGUxELgjka49ih9Fj2RE0Zv+4BGxU22HynHGZVBSGpzVLOxwPXXCCvqfXjRvtYw
+         lHhhRDzJucBznj0sJqc7/n4gsrGW+8zZ7pXUBMMjQFatTHZm/QoeD/GmkbzURVPYLEni
+         8ck+5ZfZJh00E3qe9QIHh3bJV8vQoNgMkPZGXLGDs3uSxYSd66DhL+97QqKdTN5MKZ2w
+         H7UQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1719823025; x=1720427825;
+        d=1e100.net; s=20230601; t=1719823207; x=1720428007;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=rqmjRYPX55NC1VdfXv+gSUiQiNh1rFhMeD27+CCOB7U=;
-        b=NuOQsoycLBqzx7J5RNDdoxOt8nBoqnxKs2UpIIUiZCYqlQmWeFEWkl2y1js/IEv8jx
-         eMesfzh0JHyqM6ar/752XJmXYXm9k1AAq3uFruMlOKWC99ROK8CvYnleZ02yYnMfigrk
-         KjqYTTuojUQMsp2sAkclMnOXN6jUPPUBMbCvo8ugJkV7NyHpjZvvMfslPr7gZzCY83+k
-         x2psDYUoTGjuFzkygAlUs7FzUUO1FqJ2gD++/mtixVU/ksZhOHHB/rUsm5mroA4d4/Dx
-         EHeG0e/vpcbMri3FuPboTirSgoHS9V63Orh7eM36QHlSU4u2irCRUQrKtmiEhOYa0YFa
-         qhTw==
-X-Forwarded-Encrypted: i=1; AJvYcCUrKrvmkyMDBs1f2zHkxN+6EGWRSEVy5Y8Rz7LCss4iCzrymXuauyubyykStPQ8i5IVaCfq/DEn5y3/WShf0VvA6Q3NDQT9XofLY2UnKdo=
-X-Gm-Message-State: AOJu0YzCMnyJ2OIvAYdgNwlE1RZ13nGdu14BM0Yjf/hFwV2MVLa+VJuY
-	8hNh7+9145jZEBpQzNK6+8tN59gEgbdShxvLvRn7/Cl2eT/6gDTqlUAWzt7ZYg==
-X-Google-Smtp-Source: AGHT+IFSe2/0wjlXeosT6AybjaRDblBBqLYzSTq/pghMZUSFXaoYJaYUUu+wks1Pjo3vEOz64TkZAw==
-X-Received: by 2002:a05:651c:807:b0:2ec:5258:e890 with SMTP id 38308e7fff4ca-2ee5e6cd9f0mr22383351fa.44.1719823025021;
-        Mon, 01 Jul 2024 01:37:05 -0700 (PDT)
-Message-ID: <38b57a6f-187c-440a-b3b4-9e7e124e1802@suse.com>
-Date: Mon, 1 Jul 2024 10:36:59 +0200
+        bh=T02acu+fGaoZC0noiV85EPLSUSsf1TLhR67ONqWJsMw=;
+        b=rcCp1Uh/TZqb6RQQcg6LtoH2qw+lcSQA4+fjpkIbLHPFbtsZHJqhG9d87/19tBLuZ5
+         3+pebKVLpkmdHoJ5EwdMariwLs7Lr1GpfRx1fRlq/nmDHftvVnFiXcEwRTXH9KDeJaYA
+         LktEt1QMp6mPOjxrfKNLi0vjGThuCHbc5cWWfD6NSBl06+sCtpodkMR4QcbBzA46Tkcf
+         23z4yHQAfsfLyx5gnZK49I1vmEQrwV6usINnUQqTRqStcwLq0O/GtturWky1WRlnZIoE
+         0bOKU3ZrJ1SYVeTYaWwc9dlLF7Tn4CeN5xGQfgkd/aHqTYXhI3LMawENo+bag14p6X05
+         5Biw==
+X-Forwarded-Encrypted: i=1; AJvYcCUdhym/Z21CAKyAwTfPL18dfdR9BeaZX/XAgUE4kjAyTr6tDKc4omm4WcPV9XYFXPsPUeK2a62qRyy5n5rR+5KYwAdUmbzVBZfphx3ABHg=
+X-Gm-Message-State: AOJu0YzHq0eerT3+gtwbEvQO5WSN0pGjiVX2V87W3rVcnY0hN/TB8CX/
+	AavDy/adEmSQl8NA4rSAPj7/DeYmyvBcP4CnpYr5ybS5bpxAD1F0HOMtpOF+4g==
+X-Google-Smtp-Source: AGHT+IHj4SyNwMPatOYxONxiSH4xMYA0AxL9VGX8nw14dBHz8ab6fUc4d7hDZ5E9xiHWhl6ZUzEmeQ==
+X-Received: by 2002:a2e:bc19:0:b0:2eb:d924:43fb with SMTP id 38308e7fff4ca-2ee5e6bc6f7mr38313781fa.41.1719823207503;
+        Mon, 01 Jul 2024 01:40:07 -0700 (PDT)
+Message-ID: <ab694645-1c38-43a6-8f4e-1c7a8470b0e7@suse.com>
+Date: Mon, 1 Jul 2024 10:40:02 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH v2] x86: p2m-pod: address violation of MISRA C Rule
- 2.1
-To: Nicola Vetrini <nicola.vetrini@bugseng.com>
-Cc: sstabellini@kernel.org, michal.orzel@amd.com, xenia.ragiadakou@amd.com,
- ayan.kumar.halder@amd.com, consulting@bugseng.com,
- Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
+Subject: Re: [XEN PATCH v3 04/12] x86/vpmu: address violations of MISRA C Rule
+ 16.3
+To: Federico Serafini <federico.serafini@bugseng.com>
+Cc: consulting@bugseng.com, Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  xen-devel@lists.xenproject.org
-References: <43b3a42f9d323cc3f9747c56e8f59f9dffa69321.1719556140.git.nicola.vetrini@bugseng.com>
+References: <cover.1719383180.git.federico.serafini@bugseng.com>
+ <b42004216d547e24f6537450a1c98176a821f704.1719383180.git.federico.serafini@bugseng.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -115,37 +114,20 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <43b3a42f9d323cc3f9747c56e8f59f9dffa69321.1719556140.git.nicola.vetrini@bugseng.com>
+In-Reply-To: <b42004216d547e24f6537450a1c98176a821f704.1719383180.git.federico.serafini@bugseng.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 28.06.2024 08:30, Nicola Vetrini wrote:
-> The label 'out_unmap' is only reachable after ASSERT_UNREACHABLE,
-> so the code below is only executed upon erroneously reaching that
-> program point and calling domain_crash, thus resulting in the
-> for loop after 'out_unmap' to become unreachable in some configurations.
+On 26.06.2024 11:27, Federico Serafini wrote:
+> Add missing break statements to address violations of MISRA C Rule
+> 16.3: "An unconditional `break' statement shall terminate every
+> switch-clause".
+> 
+> No functional change.
+> 
+> Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
 
-First: As you have come to be used to, briefly stating the rule itself
-(rather than just its number, requiring people like me - who have not
-memorized all the rule numbers - to go look up what rule this is) would
-be nice.
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
-This being about unreachable code, why are the domain_crash() not the
-crucial points of "unreachability"? And even if they weren't there, why
-wouldn't it be the goto or ...
 
-> --- a/xen/arch/x86/mm/p2m-pod.c
-> +++ b/xen/arch/x86/mm/p2m-pod.c
-> @@ -1040,6 +1040,7 @@ out_unmap:
->       * Something went wrong, probably crashing the domain.  Unmap
->       * everything and return.
->       */
-> +    /* SAF-8-safe Rule 2.1: defensive programming */
->      for ( i = 0; i < count; i++ )
->          if ( map[i] )
->              unmap_domain_page(map[i]);
-
-... the label (just out of context) where the comment needs to go?
-
-Jan
 
