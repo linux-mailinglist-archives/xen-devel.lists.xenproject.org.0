@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7FE7F91EAED
-	for <lists+xen-devel@lfdr.de>; Tue,  2 Jul 2024 00:45:16 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.751881.1159977 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7691991EAEE
+	for <lists+xen-devel@lfdr.de>; Tue,  2 Jul 2024 00:45:18 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.751882.1159992 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sOPl6-0005TZ-Vq; Mon, 01 Jul 2024 22:44:28 +0000
+	id 1sOPlC-0005v2-AB; Mon, 01 Jul 2024 22:44:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 751881.1159977; Mon, 01 Jul 2024 22:44:28 +0000
+Received: by outflank-mailman (output) from mailman id 751882.1159992; Mon, 01 Jul 2024 22:44:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sOPl6-0005PF-Qn; Mon, 01 Jul 2024 22:44:28 +0000
-Received: by outflank-mailman (input) for mailman id 751881;
- Mon, 01 Jul 2024 22:44:28 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1sOPlC-0005sI-6G; Mon, 01 Jul 2024 22:44:34 +0000
+Received: by outflank-mailman (input) for mailman id 751882;
+ Mon, 01 Jul 2024 22:44:32 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=K0KN=OB=gmail.com=edgar.iglesias@srs-se1.protection.inumbo.net>)
- id 1sOPl6-0005NO-3F
- for xen-devel@lists.xenproject.org; Mon, 01 Jul 2024 22:44:28 +0000
-Received: from mail-lf1-x131.google.com (mail-lf1-x131.google.com
- [2a00:1450:4864:20::131])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 77f84e11-37fb-11ef-958a-bbd156597b9e;
- Tue, 02 Jul 2024 00:44:26 +0200 (CEST)
-Received: by mail-lf1-x131.google.com with SMTP id
- 2adb3069b0e04-52cf4ca8904so5695733e87.3
- for <xen-devel@lists.xenproject.org>; Mon, 01 Jul 2024 15:44:26 -0700 (PDT)
+ id 1sOPlA-0005qM-9u
+ for xen-devel@lists.xenproject.org; Mon, 01 Jul 2024 22:44:32 +0000
+Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
+ [2a00:1450:4864:20::12f])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 79e4c322-37fb-11ef-a59d-41c015c667e1;
+ Tue, 02 Jul 2024 00:44:29 +0200 (CEST)
+Received: by mail-lf1-x12f.google.com with SMTP id
+ 2adb3069b0e04-52caebc6137so2912186e87.0
+ for <xen-devel@lists.xenproject.org>; Mon, 01 Jul 2024 15:44:29 -0700 (PDT)
 Received: from gmail.com (213-67-3-247-no600.tbcn.telia.com. [213.67.3.247])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-52e7ab2776bsm1553637e87.175.2024.07.01.15.44.24
+ 2adb3069b0e04-52e7ab27b8csm1586825e87.139.2024.07.01.15.44.25
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 01 Jul 2024 15:44:24 -0700 (PDT)
+ Mon, 01 Jul 2024 15:44:25 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,37 +45,37 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 77f84e11-37fb-11ef-958a-bbd156597b9e
+X-Inumbo-ID: 79e4c322-37fb-11ef-a59d-41c015c667e1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1719873866; x=1720478666; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1719873869; x=1720478669; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=z7pJOgWYTohoN9bNh+FuLDvV+CzujybNoWiwTHb5R5U=;
-        b=PQgXQD7fdD7RCeeMGCqLpoy/QQjYc3NuSmH79e+MYTy5FiVPu/K4iLR2jrR5SwIZy0
-         b4O0X8jtdNpTg+K/By4TxL855PDL94CvgKECTnoP5znR3kELMCwBW3cFHgZT7TCYn7NV
-         j6febmad97FFeYvjj5p+3Dqwr0nSQBI9QVZi4M2E1I09UuAs3OTQsPMbHPugVhUZQ2xc
-         +LstDIuDUVfsO1Gsw04X8mMYZTHelH9SHreyxepS3UPrJfU7IqwEPGzmKw4+Krj34PVi
-         SSKpvGnPmPKU9/fTeFGrDXK/Pvhg5ipIx/4GiJ8+BBQxaIh+dSLOsZxk8e101M01UKhs
-         yjmg==
+        bh=sf82CyGT2KHh8k/j9sWHzVKPUD8ck5NskBySCFiD0JQ=;
+        b=KK8iPbhwTnLo5zXaeW6u7c8YMHh/MGjizsgbx3F/CAcBiGAzp1k5AyrvA0pUJAEpoI
+         Vs/DUqQ+vQTf+k0SHsQjMYlttBq1SKOVJMMv7Eo4GKcdStrzwu244WouqL+bzMRuHiFe
+         8LVYnmhizL4hH/AOmAB3f3Cmny4CB82rDJGgj0MGomWaHQD3/UhSkCexzk25/ClgSoZ0
+         /eruCY7/Qi892xNL7zGP697XeN3DnG7J5BRhXHG8YLv5x0voRz5RHzCAzeq0cD8xnX3t
+         gNxcfTSmfvw2DqMtFcrQquESi+9ApzuOZqOwl2GPXssz06DIQ3+KYWkaYchk0g79ofjv
+         q8zg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1719873866; x=1720478666;
+        d=1e100.net; s=20230601; t=1719873869; x=1720478669;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=z7pJOgWYTohoN9bNh+FuLDvV+CzujybNoWiwTHb5R5U=;
-        b=d5Vgl88Wg3xJFijYE6KyZh4qf5EkiVktqFQfq6ipRB7CDYP4DPD5upB1WAS7wv1o67
-         hLy5VF20q7Ci6AcvXMM2lyX7zXnejFU9sF3R9kBV6cUSi5EJ6qHquWUSUnvv1EpOHUhp
-         +yrVpIi1Ds/YfrQ14Ce8c+eFSkUhhq0syvtFCcCpXPMeo42CjSmDY9q3lwbgLPKVd+el
-         8qfIoe/QjGBdyNUNRapal4d68EHGoKAFrIDmYz+VS/nvcwrZ8JhWDl+CyEwBzSEBbs2n
-         3Ehf9qlqL7evB8LyUI7j2v1bIAbhioAFCm3uoZZbG4ECZxvRBW84PIBHZLu/KHieupXG
-         rSdw==
-X-Forwarded-Encrypted: i=1; AJvYcCWvjHWcMLtGY6+T6W0ZDHdqPUally8jqpeq7HgUNyNtgxbxp5HHfaHNEd2Kr62A0r2rwxgTWUfNX5U0SE/CkHRYxvPWXqyDw9w2LJFuK9E=
-X-Gm-Message-State: AOJu0YzVKWq71z0IRdmMUJlBizYJnVhEB6nIAHhFTXb4+beElqn61QE4
-	Dx4Lu8KKz5igTZWirsUCk27DGl9V83pA/+ABhFSoO7NAn5cofwFh
-X-Google-Smtp-Source: AGHT+IEVWqn6yL477AvOLH/6tDs+0UcgfhXgHVrF+nz3cT7y9bdDM7hCDuZsRYNQLIieDX2+ijBF8Q==
-X-Received: by 2002:a05:6512:3b29:b0:52c:d9f8:b033 with SMTP id 2adb3069b0e04-52e8264bcb5mr4335217e87.3.1719873865019;
-        Mon, 01 Jul 2024 15:44:25 -0700 (PDT)
+        bh=sf82CyGT2KHh8k/j9sWHzVKPUD8ck5NskBySCFiD0JQ=;
+        b=wLavzjObE7xEpvKrwU2jNWMzNsKo46jaJpbxCzjwJAIaJ+oBRkjED1Y7fuAEVBQWvJ
+         Ofgn7lW6a5G9rwz9BdGRpcHS1RHsL5rpWqzemB7e0E1ED5hRDp/lQRRfJQFloKEwxjPq
+         sTSQbv9mkZLA94LP5Y4D7aQ3j1zounjl9woOjEXikKqb00LVUtwzmxn2XgVQ5c8DUXFX
+         9D6xDl78SDuVjFtN6D2xANtPNQYkoMQTvpnl9R/K0VVatPDXKhhizggsypzJX+k2uTdT
+         HfA6pkKmCbx1+Tq5BvKAvO7Z6RPRuvOG3RmvqyJ3Gs/rPq1mm9zOkdZ+rzIrAVOaHb87
+         k7Qg==
+X-Forwarded-Encrypted: i=1; AJvYcCU/zrQcqfwI0/uaQzw9SbLSZ342MTMFraBG0WpUnyhq6dLmVci6gpcsI0K+FqTK65KFCWHMT58NwP8OroVla7Jvdda8SfO+JQ8mtHIrPYo=
+X-Gm-Message-State: AOJu0Yw2lDE/sw0QzkLh5vIrYGSucN66frzXUVt3j88wASi7hA3Bkws4
+	iNZuUrJBccKSo41+mr49R0xjLUnP1N7+ymn7YQe55HUcDzhX0RbC
+X-Google-Smtp-Source: AGHT+IHWKetgrLPhxdzv9x0e7HCZWLzAzA+Cb1d+CG0m2IxNg7Q00FAe96b6YrkGhExYpUzmQX4I4Q==
+X-Received: by 2002:a05:6512:3b2c:b0:52e:7f16:96b6 with SMTP id 2adb3069b0e04-52e82687e16mr4837805e87.37.1719873867477;
+        Mon, 01 Jul 2024 15:44:27 -0700 (PDT)
 From: "Edgar E. Iglesias" <edgar.iglesias@gmail.com>
 To: qemu-devel@nongnu.org
 Cc: sstabellini@kernel.org,
@@ -83,13 +83,10 @@ Cc: sstabellini@kernel.org,
 	paul@xen.org,
 	edgar.iglesias@amd.com,
 	xen-devel@lists.xenproject.org,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	Peter Xu <peterx@redhat.com>,
-	David Hildenbrand <david@redhat.com>,
-	=?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@linaro.org>
-Subject: [PATCH v1 1/2] physmem: Bail out qemu_ram_block_from_host() for invalid ram addrs
-Date: Tue,  2 Jul 2024 00:44:20 +0200
-Message-ID: <20240701224421.1432654-2-edgar.iglesias@gmail.com>
+	Anthony PERARD <anthony.perard@vates.tech>
+Subject: [PATCH v1 2/2] xen: mapcache: Fix unmapping of first entries in buckets
+Date: Tue,  2 Jul 2024 00:44:21 +0200
+Message-ID: <20240701224421.1432654-3-edgar.iglesias@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20240701224421.1432654-1-edgar.iglesias@gmail.com>
 References: <20240701224421.1432654-1-edgar.iglesias@gmail.com>
@@ -98,30 +95,39 @@ Content-Transfer-Encoding: 8bit
 
 From: "Edgar E. Iglesias" <edgar.iglesias@amd.com>
 
-Bail out in qemu_ram_block_from_host() when
-xen_ram_addr_from_mapcache() does not find an existing
-mapping.
+This fixes the clobbering of the entry->next pointer when
+unmapping the first entry in a bucket of a mapcache.
 
+Fixes: 123acd816d ("xen: mapcache: Unmap first entries in buckets")
+Reported-by: Anthony PERARD <anthony.perard@vates.tech>
 Signed-off-by: Edgar E. Iglesias <edgar.iglesias@amd.com>
 ---
- system/physmem.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ hw/xen/xen-mapcache.c | 12 +++++++++++-
+ 1 file changed, 11 insertions(+), 1 deletion(-)
 
-diff --git a/system/physmem.c b/system/physmem.c
-index 33d09f7571..59d1576c2b 100644
---- a/system/physmem.c
-+++ b/system/physmem.c
-@@ -2277,6 +2277,10 @@ RAMBlock *qemu_ram_block_from_host(void *ptr, bool round_offset,
-         ram_addr_t ram_addr;
-         RCU_READ_LOCK_GUARD();
-         ram_addr = xen_ram_addr_from_mapcache(ptr);
-+        if (ram_addr == RAM_ADDR_INVALID) {
-+            return NULL;
-+        }
-+
-         block = qemu_get_ram_block(ram_addr);
-         if (block) {
-             *offset = ram_addr - block->offset;
+diff --git a/hw/xen/xen-mapcache.c b/hw/xen/xen-mapcache.c
+index 5f23b0adbe..18ba7b1d8f 100644
+--- a/hw/xen/xen-mapcache.c
++++ b/hw/xen/xen-mapcache.c
+@@ -597,7 +597,17 @@ static void xen_invalidate_map_cache_entry_unlocked(MapCache *mc,
+         pentry->next = entry->next;
+         g_free(entry);
+     } else {
+-        memset(entry, 0, sizeof *entry);
++        /*
++         * Invalidate mapping but keep entry->next pointing to the rest
++         * of the list.
++         *
++         * Note that lock is already zero here, otherwise we don't unmap.
++         */
++        entry->paddr_index = 0;
++        entry->vaddr_base = NULL;
++        entry->valid_mapping = NULL;
++        entry->flags = 0;
++        entry->size = 0;
+     }
+ }
+ 
 -- 
 2.43.0
 
