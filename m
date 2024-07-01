@@ -2,34 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7263091E3B0
-	for <lists+xen-devel@lfdr.de>; Mon,  1 Jul 2024 17:16:02 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.751785.1159853 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2E9CA91E3D9
+	for <lists+xen-devel@lfdr.de>; Mon,  1 Jul 2024 17:18:43 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.751797.1159865 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sOIkl-0004bl-8y; Mon, 01 Jul 2024 15:15:39 +0000
+	id 1sOInA-0005Sn-N8; Mon, 01 Jul 2024 15:18:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 751785.1159853; Mon, 01 Jul 2024 15:15:39 +0000
+Received: by outflank-mailman (output) from mailman id 751797.1159865; Mon, 01 Jul 2024 15:18:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sOIkl-0004ZY-6G; Mon, 01 Jul 2024 15:15:39 +0000
-Received: by outflank-mailman (input) for mailman id 751785;
- Mon, 01 Jul 2024 15:15:37 +0000
+	id 1sOInA-0005Qe-Ij; Mon, 01 Jul 2024 15:18:08 +0000
+Received: by outflank-mailman (input) for mailman id 751797;
+ Mon, 01 Jul 2024 15:18:06 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=AicS=OB=aepfle.de=olaf@srs-se1.protection.inumbo.net>)
- id 1sOIkj-0004ZS-2f
- for xen-devel@lists.xenproject.org; Mon, 01 Jul 2024 15:15:37 +0000
-Received: from mo4-p00-ob.smtp.rzone.de (mo4-p00-ob.smtp.rzone.de
- [81.169.146.217]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c36d5e70-37bc-11ef-b4bb-af5377834399;
- Mon, 01 Jul 2024 17:15:34 +0200 (CEST)
-Received: from sender by smtp.strato.de (RZmta 50.5.0 AUTH)
- with ESMTPSA id D05b2e061FFK4IO
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
- (Client did not present a certificate);
- Mon, 1 Jul 2024 17:15:20 +0200 (CEST)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=BFf9=OB=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1sOIn8-0005Ef-I2
+ for xen-devel@lists.xenproject.org; Mon, 01 Jul 2024 15:18:06 +0000
+Received: from mail-yw1-x1132.google.com (mail-yw1-x1132.google.com
+ [2607:f8b0:4864:20::1132])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 1cb4c0f4-37bd-11ef-b4bb-af5377834399;
+ Mon, 01 Jul 2024 17:18:04 +0200 (CEST)
+Received: by mail-yw1-x1132.google.com with SMTP id
+ 00721157ae682-64a6bf15db9so25958507b3.0
+ for <xen-devel@lists.xenproject.org>; Mon, 01 Jul 2024 08:18:04 -0700 (PDT)
+Received: from localhost ([213.195.124.163]) by smtp.gmail.com with ESMTPSA id
+ 00721157ae682-64a9bf316fesm13790607b3.104.2024.07.01.08.18.02
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 01 Jul 2024 08:18:03 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,88 +44,186 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c36d5e70-37bc-11ef-b4bb-af5377834399
-ARC-Seal: i=1; a=rsa-sha256; t=1719846920; cv=none;
-    d=strato.com; s=strato-dkim-0002;
-    b=NfGJEFgOQeMhtW75r6Yt8k5KrZ//HpIhNTPfoUBaU2x2d6F3THxqDF7Qg+oLCo+EDo
-    Byi0ttLXvLKFeayRvF0YKU5laPwL6b23nIf4KIhx3l+kdC/Oswf0BoiaXvpT+NR2gyY6
-    DIzNhUMaHndXWXz1cTD8IxbhowvTLHefSIDynlpaL27AAl618sROoF4cw+xVAWAw7Jcc
-    1D3hBGj1Eapvh3lnumizXOK209jwc+ALnvLT25StYdqbtLRN/2J8GX6TQwK/JWWEwyc1
-    FZZltwZcoyDtGaQN3WH6s3AdyhD4cG8En62Dll8DUct89NPszROk73btDbmcTnYR/4R2
-    Cj1w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1719846920;
-    s=strato-dkim-0002; d=strato.com;
-    h=Message-Id:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
-    bh=uJiBvu+hRQwDsB2UAz0MIQ0TDFuj6+MY2d7PtVNHFqY=;
-    b=U5d/kFXEwklWtu97ubHRQYLhBtiuXNA/IKNmvuNULcBCxluRqbOHJmOXfZWcIHkGgb
-    2qM+I6YH15Cr4YFNtnBFYZOORLp+LcBD4IJPmLHb6GAi/jTQPvjpaqFbqludIbdY8c9B
-    oGU48W7T/TrWtna2ALls2DahUGRaV2AlaI/MHpgQmmQka8GNGuvtFyFQNeX1crvjeQc0
-    zfhPK7W99CXWve29Rpwwu1uQkQqmMlHV6z98o0aa8Zb5fmyu5PBXW0gjInzsx/TJjwlD
-    QfXVtzRXiXKDy5wWNH63LErC/HZPgFCD+Pc3JCCr3qsbQYIzhuZfeKeVNjHY9p+TbP6c
-    mFmQ==
-ARC-Authentication-Results: i=1; strato.com;
-    arc=none;
-    dkim=none
-X-RZG-CLASS-ID: mo00
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1719846920;
-    s=strato-dkim-0002; d=aepfle.de;
-    h=Message-Id:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
-    bh=uJiBvu+hRQwDsB2UAz0MIQ0TDFuj6+MY2d7PtVNHFqY=;
-    b=Q0upiTUXow7iZdpc1B3/r6lMYAyjCiHCh0B7R/BLY2LMTcFp2h5h8ryFkRkrsZ20ic
-    ZVCYASfQqr+82HTfMxI+Y8bReeLgT9JCVvOyqUgQdz1kCa017dxmPNVSKwnPLLjzdJr+
-    4OJ/qjBFudiscVmtbe2y30KTgQqkiyRHq3M916L9p+2L9pF2KE2qXcUl2StomDxkp5GG
-    7fMg98dWTCLbxLcLk8oy6FW5QBGXspdgVRHsl8riFVHhHteUlf3HsX2NIWhBODtH1HRU
-    mWtv+UFnteK2fG/ItDJkXOtI08sBSnDwICz8Ps9fp8taJuh/V2YCfxQ3p9dc6tn602uL
-    WLGQ==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1719846920;
-    s=strato-dkim-0003; d=aepfle.de;
-    h=Message-Id:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
-    bh=uJiBvu+hRQwDsB2UAz0MIQ0TDFuj6+MY2d7PtVNHFqY=;
-    b=YsLoizHoA07OO26J/Dk0ZN+wkqF1i6j6x2n2hygaQuFdEQV1vBvjotB1YPT5BqACVL
-    +/8zXsEZjw/q0qG5K9Dw==
-X-RZG-AUTH: ":P2EQZWCpfu+qG7CngxMFH1J+3q8wa/QXkBR9MXjAuzpIG0mv9coXAg4w9Fn7FJotZZVcwVP8B1Lhzkl9HG5EATJPpni8Vg=="
-From: Olaf Hering <olaf@aepfle.de>
-To: xen-devel@lists.xenproject.org
-Cc: Doug Goldstein <cardoe@cardoe.com>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH v1] automation: add findutils to suse images
-Date: Mon,  1 Jul 2024 17:15:12 +0200
-Message-Id: <20240701151512.10187-1-olaf@aepfle.de>
-X-Mailer: git-send-email 2.35.3
+X-Inumbo-ID: 1cb4c0f4-37bd-11ef-b4bb-af5377834399
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1719847083; x=1720451883; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=PZHPE3JqGjRltPPWv6ZW701bFz8qQubCu87rQyzXOfE=;
+        b=M7uhUxfAjnkNqdvNOvvbYY48gM4305jyx2um0nWe2TdO4TDzLD/bDkpN9dnQK6eDI7
+         EJODr6B/SaqKNRWJUR1NHeeP0KRgmc1a45yISBnxlnV0q7RiXeAdroEe6IxMLx0blET8
+         X6RVUi3XErtJ1znp4vY+EVC70eeHufqqY7C6Y=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1719847083; x=1720451883;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=PZHPE3JqGjRltPPWv6ZW701bFz8qQubCu87rQyzXOfE=;
+        b=PjxgvjewWs+FPBezXtNJy62Z9SnJaAN0ILZVLN7Q0hF/LAovx/hAKy4fcSZTx7sTy8
+         2/a+xFr8BShIq71z9VgEt8pnBfHx4Uej08F6iKdesVqEVlG3uTN11luljoB99UG/hdzL
+         ATdr2aQkiebGuAmJ6cCKBOYjF7EwCS579FRwelTEBlVU43hFUB8ouZ9bll6UvfuZ1Pxr
+         j6qpHCAn532OLee4zzn2ISYQdvype5nYjST9P7a9r7dBfBPog73lzIrhiI9bpcsUPRbR
+         t6lQ6/GIuy9N5Ej3eDMhmBIOmQiwUHVBGUXNgZcHr9Haoi6XEHhJnkejPQS/YWL2sCNO
+         oFRA==
+X-Gm-Message-State: AOJu0YwIKbTrtx4qYWXr2qqOapm19wKgIKj3lSPTmPMQxEwk6MLs8eFG
+	+ziWe0FPsUQgFzJtEhEoGv0ZkYnLSfUgrcbhftA1Hp50W0qKl1+RsRKviq1e1Bc=
+X-Google-Smtp-Source: AGHT+IGwqfanbSMJGubtd6gcIPavyjAnyq83KbOA58g+MHhB8zxb72AUnVOd/w+DpW9bAhIv+2w9hQ==
+X-Received: by 2002:a81:918d:0:b0:61b:33e1:9641 with SMTP id 00721157ae682-64c716190bfmr43765197b3.13.1719847083424;
+        Mon, 01 Jul 2024 08:18:03 -0700 (PDT)
+Date: Mon, 1 Jul 2024 17:17:58 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
+Subject: Re: [PATCH v3 3/3] cmdline: document and enforce "extra_guest_irqs"
+ upper bounds
+Message-ID: <ZoLIpulcC7dqtxYR@macbook>
+References: <7cb0d24e-2bda-dcda-4874-2c01ba179947@suse.com>
+ <3c3a1d0c-06f2-a392-b2f9-381bed5c5e7b@suse.com>
+ <ZoJ9Bd2kg3IQ0Z28@macbook>
+ <8ab71a85-6056-4c4f-8513-a21c061a176d@suse.com>
+ <ZoKvP6StEbMTgjrY@macbook>
+ <938e5bd1-4523-4b49-80fa-1c3331587972@suse.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain; charset="us-ascii"
+In-Reply-To: <938e5bd1-4523-4b49-80fa-1c3331587972@suse.com>
 
-The build system uses find(1). Make sure it is available.
+On Mon, Jul 01, 2024 at 05:07:19PM +0200, Jan Beulich wrote:
+> On 01.07.2024 15:29, Roger Pau Monné wrote:
+> > On Mon, Jul 01, 2024 at 12:40:35PM +0200, Jan Beulich wrote:
+> >> On 01.07.2024 11:55, Roger Pau Monné wrote:
+> >>> On Thu, Jul 27, 2023 at 09:38:55AM +0200, Jan Beulich wrote:
+> >>>> --- a/xen/arch/x86/io_apic.c
+> >>>> +++ b/xen/arch/x86/io_apic.c
+> >>>> @@ -2663,18 +2663,21 @@ void __init ioapic_init(void)
+> >>>>             nr_irqs_gsi, nr_irqs - nr_irqs_gsi);
+> >>>>  }
+> >>>>  
+> >>>> -unsigned int arch_hwdom_irqs(domid_t domid)
+> >>>> +unsigned int arch_hwdom_irqs(const struct domain *d)
+> >>>
+> >>> While at it, should this be __hwdom_init?
+> >>
+> >> It indeed can be, so I've done this for v4.
+> >>
+> >>> I'm fine with changing the function to take a domain parameter...
+> >>>
+> >>>>  {
+> >>>>      unsigned int n = fls(num_present_cpus());
+> >>>>  
+> >>>> -    if ( !domid )
+> >>>> +    if ( is_system_domain(d) )
+> >>>> +        return PAGE_SIZE * BITS_PER_BYTE;
+> >>>
+> >>> ... but why do we need a function call just to get a constant value?
+> >>> Wouldn't this better be a define in a header?
+> >>
+> >> Would be an option, but would result in parts of the logic living is
+> >> distinct places.
+> >>
+> >>>> +
+> >>>> +    if ( !d->domain_id )
+> >>>>          n = min(n, dom0_max_vcpus());
+> >>>>      n = min(nr_irqs_gsi + n * NR_DYNAMIC_VECTORS, nr_irqs);
+> >>>>  
+> >>>>      /* Bounded by the domain pirq eoi bitmap gfn. */
+> >>>>      n = min_t(unsigned int, n, PAGE_SIZE * BITS_PER_BYTE);
+> >>>
+> >>> So that could also use the same constant here?
+> > 
+> > I would have a slight preference for PAGE_SIZE * BITS_PER_BYTE being
+> > defined inside of this function as:
+> > 
+> > /* Bounded by the domain pirq eoi bitmap gfn. */
+> > const unsigned int max_irqs = PAGE_SIZE * BITS_PER_BYTE;
+> > 
+> > Or similar for clarity purposes.
+> 
+> Can do, sure.
+> 
+> > While at it, I've noticed that PHYSDEVOP_pirq_eoi_gmfn_v{1,2} is not
+> > available to HVM guests (not even when exposing PIRQ support) and
+> > hence I wonder if we should special case PVH dom0, but maybe it's best
+> > to deal with this properly rather than hacking something special
+> > just for PVH dom0.  At the end of the day the current limit is high
+> > enough to not cause issues on current systems I would expect.
+> 
+> Oh, so entirely the other way around than mentioned when we talked, once
+> again due to the filtering in hvm/hypercall.h that I keep forgetting. So
+> in principle we could avoid the bounding for HVM. Just that right now
+> extra_domU_irqs covers both PV and HVM, and would hence need splitting
+> first.
 
-Signed-off-by: Olaf Hering <olaf@aepfle.de>
----
- automation/build/suse/opensuse-leap.dockerfile       | 1 +
- automation/build/suse/opensuse-tumbleweed.dockerfile | 1 +
- 2 files changed, 2 insertions(+)
+Yes, we would need to split, that's why I'm OK with what you propose
+here.  We can do the split as a later change.
 
-diff --git a/automation/build/suse/opensuse-leap.dockerfile b/automation/build/suse/opensuse-leap.dockerfile
-index 3ef33458a0..1344cbb0d1 100644
---- a/automation/build/suse/opensuse-leap.dockerfile
-+++ b/automation/build/suse/opensuse-leap.dockerfile
-@@ -20,6 +20,7 @@ RUN zypper install -y --no-recommends \
-         dev86 \
-         diffutils \
-         discount \
-+        findutils \
-         flex \
-         gawk \
-         gcc \
-diff --git a/automation/build/suse/opensuse-tumbleweed.dockerfile b/automation/build/suse/opensuse-tumbleweed.dockerfile
-index a793601c87..2587a3fa4f 100644
---- a/automation/build/suse/opensuse-tumbleweed.dockerfile
-+++ b/automation/build/suse/opensuse-tumbleweed.dockerfile
-@@ -18,6 +18,7 @@ RUN zypper install -y --no-recommends \
-         cmake \
-         diffutils \
-         discount \
-+        findutils \
-         flex \
-         gawk \
-         gcc \
+> >>>> --- a/xen/common/domain.c
+> >>>> +++ b/xen/common/domain.c
+> >>>> @@ -693,7 +693,7 @@ struct domain *domain_create(domid_t dom
+> >>>>              d->nr_pirqs = nr_static_irqs + extra_domU_irqs;
+> >>>>          else
+> >>>>              d->nr_pirqs = extra_hwdom_irqs ? nr_static_irqs + extra_hwdom_irqs
+> >>>> -                                           : arch_hwdom_irqs(domid);
+> >>>> +                                           : arch_hwdom_irqs(d);
+> >>>>          d->nr_pirqs = min(d->nr_pirqs, nr_irqs);
+> >>>>  
+> >>>>          radix_tree_init(&d->pirq_tree);
+> >>>> @@ -819,6 +819,24 @@ void __init setup_system_domains(void)
+> >>>>      if ( IS_ERR(dom_xen) )
+> >>>>          panic("Failed to create d[XEN]: %ld\n", PTR_ERR(dom_xen));
+> >>>>  
+> >>>> +#ifdef CONFIG_HAS_PIRQ
+> >>>> +    /* Bound-check values passed via "extra_guest_irqs=". */
+> >>>> +    {
+> >>>> +        unsigned int n = max(arch_hwdom_irqs(dom_xen), nr_static_irqs);
+> >>>> +
+> >>>> +        if ( extra_hwdom_irqs > n - nr_static_irqs )
+> >>>> +        {
+> >>>> +            extra_hwdom_irqs = n - nr_static_irqs;
+> >>>> +            printk(XENLOG_WARNING "hwdom IRQs bounded to %u\n", n);
+> >>>> +        }
+> >>>> +        if ( extra_domU_irqs > max(32U, n - nr_static_irqs) )
+> >>>> +        {
+> >>>> +            extra_domU_irqs = n - nr_static_irqs;
+> >>>> +            printk(XENLOG_WARNING "domU IRQs bounded to %u\n", n);
+> >>>> +        }
+> >>>> +    }
+> >>>> +#endif
+> >>>
+> >>> IMO this is kind of a weird placement. Wouldn't this be more naturally
+> >>> handled in parse_extra_guest_irqs()?
+> >>
+> >> Indeed it is and yes it would, but no, it can't. We shouldn't rely on
+> >> the particular behavior of arch_hwdom_irqs(), and in the general case
+> >> we can't call it as early as when command line arguments are parsed. I
+> >> couldn't think of a neater way of doing this, and it not being pretty
+> >> is why I'm saying "(ab)use" in the description.
+> > 
+> > I see, nr_static_irqs is an alias of nr_irqs_gsi, which is not properly
+> > set by the time we evaluate command line arguments.
+> > 
+> > My only possible suggestion would be to do it as a presmp initcall,
+> > and define/register such initcall for x86 only, the only benefit would
+> > be that such inicall could be defined in the same translation unit as
+> > arch_hwdom_irqs() then.
+> 
+> Which then would require making extra_{hwdom,domU}_irqs available to
+> x86/io_apic.c, which also wouldn't be very nice. To be honest, I'd prefer
+> to keep the logic where it is, until such time where perhaps we move pIRQ
+> stuff wholesale to x86-only files.
+
+Fine by me.
+
+I think we are in agreement about what needs doing.  I can provide:
+
+Acked-by: Roger Pau Monné <roger.pau@citrix.com>
+
+With the changes we have agreed to arch_hwdom_irqs().
+
+Thanks, Roger.
 
