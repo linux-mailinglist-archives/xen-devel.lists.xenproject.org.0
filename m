@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B4F9991E441
-	for <lists+xen-devel@lfdr.de>; Mon,  1 Jul 2024 17:36:22 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.751821.1159895 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6FAF991E443
+	for <lists+xen-devel@lfdr.de>; Mon,  1 Jul 2024 17:36:41 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.751823.1159903 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sOJ4H-0001sf-Kw; Mon, 01 Jul 2024 15:35:49 +0000
+	id 1sOJ4m-0002IT-U3; Mon, 01 Jul 2024 15:36:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 751821.1159895; Mon, 01 Jul 2024 15:35:49 +0000
+Received: by outflank-mailman (output) from mailman id 751823.1159903; Mon, 01 Jul 2024 15:36:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sOJ4H-0001pV-Hf; Mon, 01 Jul 2024 15:35:49 +0000
-Received: by outflank-mailman (input) for mailman id 751821;
- Mon, 01 Jul 2024 15:35:48 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1sOJ4m-0002F4-QN; Mon, 01 Jul 2024 15:36:20 +0000
+Received: by outflank-mailman (input) for mailman id 751823;
+ Mon, 01 Jul 2024 15:36:19 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Ypwj=OB=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1sOJ4G-0001pP-D2
- for xen-devel@lists.xenproject.org; Mon, 01 Jul 2024 15:35:48 +0000
-Received: from mail-qk1-x731.google.com (mail-qk1-x731.google.com
- [2607:f8b0:4864:20::731])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 95705c37-37bf-11ef-b4bb-af5377834399;
- Mon, 01 Jul 2024 17:35:46 +0200 (CEST)
-Received: by mail-qk1-x731.google.com with SMTP id
- af79cd13be357-79c069554f8so124066485a.3
- for <xen-devel@lists.xenproject.org>; Mon, 01 Jul 2024 08:35:46 -0700 (PDT)
+ id 1sOJ4l-0002DD-3H
+ for xen-devel@lists.xenproject.org; Mon, 01 Jul 2024 15:36:19 +0000
+Received: from mail-qt1-x829.google.com (mail-qt1-x829.google.com
+ [2607:f8b0:4864:20::829])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id a83866e6-37bf-11ef-90a5-e314d9c70b13;
+ Mon, 01 Jul 2024 17:36:17 +0200 (CEST)
+Received: by mail-qt1-x829.google.com with SMTP id
+ d75a77b69052e-446427c5923so30706931cf.0
+ for <xen-devel@lists.xenproject.org>; Mon, 01 Jul 2024 08:36:17 -0700 (PDT)
 Received: from [10.125.226.166] ([160.101.139.1])
  by smtp.gmail.com with ESMTPSA id
- af79cd13be357-79d692f064esm357668085a.89.2024.07.01.08.35.43
+ 6a1803df08f44-6b59e5f26b6sm34101266d6.95.2024.07.01.08.36.15
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 01 Jul 2024 08:35:44 -0700 (PDT)
+ Mon, 01 Jul 2024 08:36:16 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,46 +45,46 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 95705c37-37bf-11ef-b4bb-af5377834399
+X-Inumbo-ID: a83866e6-37bf-11ef-90a5-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1719848145; x=1720452945; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1719848177; x=1720452977; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=/vAiAQO2Cggt3dxwvEwn2y0Wx6GoDzfj8YvIYDi0Z+A=;
-        b=ETA/xwDim93q/NUybuP96YJOVReqJd9u/axCJ9EXq/DYQxVUHAXyiFQeC0pKP3dVly
-         wYb9eBvkAvkSdt4XdeCaYFKEmO2i1pcfG244W7Y6eHfHUSxPQ6UXFO3S0l7Z2rQEI0UK
-         /J8ZSiYwHMZTn9X38g20fnTQ8w8DKRTJvkwvs=
+        bh=Do2HFC7DM3iiayLzVb3+MIhQmUeBgWluU1vXilLnJJ4=;
+        b=f4WbquxHliOEj+GtIybwISTNW8pvIbvrIh0UMi6QSSMvgDziML7lRQLOUv8vToEhnm
+         qDIiVAkuj7vAKE55wbPATXaE7BiLGTMLdaekzv+qZjve0GKtkvYhkIg19V9FSbnUiM1d
+         E34siwVMt8BrL/U2BWbEDAT83WieiLN7KY+Hg=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1719848145; x=1720452945;
+        d=1e100.net; s=20230601; t=1719848177; x=1720452977;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=/vAiAQO2Cggt3dxwvEwn2y0Wx6GoDzfj8YvIYDi0Z+A=;
-        b=sRcnLJfcaHPjHJCOdpk7Q8cx4Ib/jIF5dt0ie6rbuV123Lv5fhXK+NP/ZrdeD0lU3o
-         gcnDsG3AHgsAXcIagYRGdiFEuejJIhImj5d+UMTNMGY9bnD81RpQtybw8w5YaaNeKbpm
-         lYZb6qAlV7gtpHHY5SnA4tfz3qtSXg10HPgG6pbV+P22oB1z2FTrnU4Mba+8j+NX+4lF
-         juCoUqm/BI85yJjE4AcsFoaZ2guRYsATJXLFMk5Uu3oinCrI9sSp1GDRx7FBqexzBRnf
-         RORZorYpG+SOtUTdWGAy0Dc19IYIhiJGhPaQaKlh8+J541dWHHivtNvrhwniO0w5pD84
-         YGPw==
-X-Forwarded-Encrypted: i=1; AJvYcCXtNq4ojHArJYNCVx/hqgJ8lkXMBwBwTSclHY22yhIcUuKV0OxSo4UysmNZ1oi5w9b3gJSXGj0bqG0g2I1teHnXROW491ZFsWH4IJVnbXQ=
-X-Gm-Message-State: AOJu0YyZ0idV0TiHUMOpXOo01HwI5eO8+x/cAXhJIehS/LCsHTocpw/X
-	VZlECayhCKfSq8jcBjjDs1EH2/z0REeKT6waTQ/NnCi0o7BM29+u+uz98zfhgnQ=
-X-Google-Smtp-Source: AGHT+IGPdrbEBV0CeeCZNeTrRgNgJf7aHqaEJBRKpNuH0WmTph6aSccbMzRMxPdK2WuLUOoTdgv8Ig==
-X-Received: by 2002:a05:620a:450c:b0:79d:8000:b2e0 with SMTP id af79cd13be357-79d8000b4dcmr821286485a.6.1719848145257;
-        Mon, 01 Jul 2024 08:35:45 -0700 (PDT)
-Message-ID: <378af810-02ea-4a66-b003-c1303f599e2a@citrix.com>
-Date: Mon, 1 Jul 2024 16:35:42 +0100
+        bh=Do2HFC7DM3iiayLzVb3+MIhQmUeBgWluU1vXilLnJJ4=;
+        b=YHSOCPWIUeHWKxkdG06vSKPmFr6KQGjvpzTexUCIfcFqJDZf81b6rbKxjwWwJsU9x5
+         Rd5IkkeGuKeFzSoDebGfrhpM3KVnOUltpowWl/XidLkPdkLi7M6OstMJFck73IN4t5PA
+         URgs6EzUU+nRlLPtuJz/WXOAFyGfbRY9SPbgTLq29+IUCql4+ApTl4M7gJOZxQvorNSi
+         3+XitEqxfy2ZYZGiRp50iUPKxkWPLBnLwuYEaN31+wty0sd9KjRcopNrahrHM+F8BKLx
+         yOwvAt7a/t60Y4X7jve7tdO9Dfdke+9hkVE5cjrvbQdpZZLZkKtMZQjKhfjDA/nmnH2Z
+         nPeA==
+X-Forwarded-Encrypted: i=1; AJvYcCUfap+ujixzN30SHO5z04TU6RGmh8HGkGJElEz3rRvLn9AagqcCBOsc2LcclnoLLr7NRLgGZsmf00B/I5x7AfUEDlyS/HKvIvAeEM1LUME=
+X-Gm-Message-State: AOJu0YxszI/RPwqk7mnrWiWa2JVvRKO/dZqcI1kAMIImsRpCC8dq8Vn2
+	/wgDi8Tbqd4PyG2uZPOKdTWN2qSHxxDfLQzhh81dHks0vKV7sGSaLMNio4W02+I=
+X-Google-Smtp-Source: AGHT+IFhHCrbWZg3nltlNQ3mUHt3fbWSObZeoxugNA3GTeH8FCyHRkSblPshB5z3KatkblUrkM8+Ng==
+X-Received: by 2002:a05:6214:d83:b0:6b5:9183:b435 with SMTP id 6a1803df08f44-6b5a542f294mr139018426d6.15.1719848176805;
+        Mon, 01 Jul 2024 08:36:16 -0700 (PDT)
+Message-ID: <0ef2392a-0da8-4cf6-b795-7a704e2ff396@citrix.com>
+Date: Mon, 1 Jul 2024 16:36:14 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH for-4.19] x86/entry: don't clear DF when raising #UD for
- lack of syscall handler
+Subject: Re: [PATCH for-4.19?] xen: avoid UB in guest handle field accessors
 To: Jan Beulich <jbeulich@suse.com>,
  "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Oleksii Kurochko <oleksii.kurochko@gmail.com>
-References: <36cf1c15-faa5-4e25-8fdd-9c52076f4ca2@suse.com>
+Cc: George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Oleksii Kurochko <oleksii.kurochko@gmail.com>
+References: <d0b9a1e0-5c70-42c5-9c63-2e3af82487b2@suse.com>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -130,39 +130,29 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <36cf1c15-faa5-4e25-8fdd-9c52076f4ca2@suse.com>
+In-Reply-To: <d0b9a1e0-5c70-42c5-9c63-2e3af82487b2@suse.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 06/03/2024 1:44 pm, Jan Beulich wrote:
-> --- a/xen/arch/x86/x86_64/entry.S
-> +++ b/xen/arch/x86/x86_64/entry.S
-> @@ -47,12 +55,13 @@ UNLIKELY_START(z, syscall_no_callback) /
->          testb $4, X86_EXC_UD * TRAPINFO_sizeof + TRAPINFO_flags(%rdi)
->          setnz %cl
->          lea   TBF_EXCEPTION(, %rcx, TBF_INTERRUPT), %ecx
-> +        or    $~0, %esi                 # don't clear DF
+On 24/06/2024 1:28 pm, Jan Beulich wrote:
+> Much like noted in 43d5c5d5f70b ("xen: avoid UB in guest handle
+> arithmetic"), address calculations involved in accessing a struct field
+> can overflow, too. Cast respective pointers to "unsigned long" and
+> convert type checking accordingly. Remaining arithmetic is, despite
+> there possibly being mathematical overflow, okay as per the C99 spec:
+> "A computation involving unsigned operands can never overflow, because a
+> result that cannot be represented by the resulting unsigned integer type
+> is reduced modulo the number that is one greater than the largest value
+> that can be represented by the resulting type." The overflow that we
+> need to guard against is checked for in array_access_ok().
+>
+> While there add the missing (see {,__}copy_to_guest_offset()) is-not-
+> const checks to {,__}copy_field_to_guest().
+>
+> Typically, but not always, no change to generated code; code generation
+> (register allocation) is different for at least common/grant_table.c.
+>
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
-Our predominant comment style is /* */
-
->  UNLIKELY_END(syscall_no_callback)
->  
->          movq  %rax,TRAPBOUNCE_eip(%rdx)
->          movb  %cl,TRAPBOUNCE_flags(%rdx)
->          call  create_bounce_frame
-> -        andl  $~X86_EFLAGS_DF,UREGS_eflags(%rsp)
-> +        and   %esi, UREGS_eflags(%rsp)
-
-Could we gain a /* Conditionally clear DF */ comment here?
-
-Otherwise, Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
-
-CC Oleksii for 4.19.  This fixes a subtle regression in the PV ABI
-caused by a post-XSA fix a few years ago.
-
-It's a low-risk fix to take; while I still don't have an XTF test
-covering this, the corner case it's changing used to be completely fatal
-to guests, so it's a corner unused in practice.
-
-~Andrew
+Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
