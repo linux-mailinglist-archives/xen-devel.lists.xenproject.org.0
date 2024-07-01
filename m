@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8DFEB91E1F5
-	for <lists+xen-devel@lfdr.de>; Mon,  1 Jul 2024 16:11:47 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.751711.1159744 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 382C191E21E
+	for <lists+xen-devel@lfdr.de>; Mon,  1 Jul 2024 16:16:50 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.751716.1159754 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sOHka-0006c7-BR; Mon, 01 Jul 2024 14:11:24 +0000
+	id 1sOHpT-0007Cq-U2; Mon, 01 Jul 2024 14:16:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 751711.1159744; Mon, 01 Jul 2024 14:11:24 +0000
+Received: by outflank-mailman (output) from mailman id 751716.1159754; Mon, 01 Jul 2024 14:16:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sOHka-0006a2-7v; Mon, 01 Jul 2024 14:11:24 +0000
-Received: by outflank-mailman (input) for mailman id 751711;
- Mon, 01 Jul 2024 14:11:23 +0000
+	id 1sOHpT-0007BC-Pm; Mon, 01 Jul 2024 14:16:27 +0000
+Received: by outflank-mailman (input) for mailman id 751716;
+ Mon, 01 Jul 2024 14:16:26 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=kQX2=OB=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sOHkZ-0006Zw-1I
- for xen-devel@lists.xenproject.org; Mon, 01 Jul 2024 14:11:23 +0000
-Received: from mail-lj1-x230.google.com (mail-lj1-x230.google.com
- [2a00:1450:4864:20::230])
+ id 1sOHpS-0007Ay-JI
+ for xen-devel@lists.xenproject.org; Mon, 01 Jul 2024 14:16:26 +0000
+Received: from mail-lj1-x22d.google.com (mail-lj1-x22d.google.com
+ [2a00:1450:4864:20::22d])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ca71814b-37b3-11ef-b4bb-af5377834399;
- Mon, 01 Jul 2024 16:11:20 +0200 (CEST)
-Received: by mail-lj1-x230.google.com with SMTP id
- 38308e7fff4ca-2ec0f3b9cfeso36243641fa.0
- for <xen-devel@lists.xenproject.org>; Mon, 01 Jul 2024 07:11:20 -0700 (PDT)
+ id 7fb08cc0-37b4-11ef-b4bb-af5377834399;
+ Mon, 01 Jul 2024 16:16:24 +0200 (CEST)
+Received: by mail-lj1-x22d.google.com with SMTP id
+ 38308e7fff4ca-2ec52fbb50aso35922521fa.3
+ for <xen-devel@lists.xenproject.org>; Mon, 01 Jul 2024 07:16:24 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 41be03b00d2f7-73aba14b007sm2856709a12.85.2024.07.01.07.11.15
+ 41be03b00d2f7-743148a5acfsm2201655a12.48.2024.07.01.07.16.18
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 01 Jul 2024 07:11:19 -0700 (PDT)
+ Mon, 01 Jul 2024 07:16:23 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,54 +45,54 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ca71814b-37b3-11ef-b4bb-af5377834399
+X-Inumbo-ID: 7fb08cc0-37b4-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1719843080; x=1720447880; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1719843384; x=1720448184; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=kLLmKrCv/xlyFN0iGWWF1FaWX+anc+UtteN1Vq13fy0=;
-        b=JDv6aQ28EutMUrdFZ93eDgAdQIWyoM22R3RPteQycmF7xAMyXa+dkPupK8k+y3ZMW7
-         5KuxPUoSNRlQWQqezV3BkDKJrdajXI6h0QYcjRY+KLxDTRqnm4qnSUxKRpe2dlC0HUn1
-         W8YOH5LT25dlfgAhUDhgBhghw0Nucj0hi6QIrtO27XysSYY8z9vHsTfRZcgEnjdXvpHc
-         c8czSAbetr23JWIDgGdFtU0jk7wwTv43Fzej2Pdaj3wg8oiQBUJMVCBosSCAR5Q1Aove
-         7WujDobY7GMgTm5R06AUzUYTkbokN7LfyEPGALDOlOkTc9FAgKnwee4HjFd8MaVcPQHQ
-         HT7w==
+        bh=XANTur0bQEROZt2M8ETI6tgbdcdpVr9a8rKqMnJcvBc=;
+        b=OGBUZTGkhgE0FGJ+mBilpeFKdz/3YYi8rSpLXr/IngtgLgAJBOPAQf0n8NaiZNAzx6
+         Nfkpo2Z0gZzWp9XGzwP4BX3BUeI8HTZna2DVo8kZD7p2BFjgi4Xj5VXSeimoHYgNwLYf
+         oN1pJqwRPj4cA+kQHBiBF5T2R2bwN15p3t2aJU1cCucd4rN+LGEG8Shl/4twin9MepXs
+         HcxhoBwQXyzVCr2C021S6lxAVbqR6F/BnueV+xatqRKWGYLnhLTLSaAucQRemX8UoEK0
+         J1GtD/9vE/RNGGppnGFRjdh1baUIL4Uv+pxIB+K14aFHgWDDh6OG/qZsbj2mp3xYInLH
+         8y9g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1719843080; x=1720447880;
+        d=1e100.net; s=20230601; t=1719843384; x=1720448184;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=kLLmKrCv/xlyFN0iGWWF1FaWX+anc+UtteN1Vq13fy0=;
-        b=c7qk0baBPa4hbE4haVlCFRur6273zRon5KPcBPLDFv/iHW8F2YglFXtTv0+zQGRv79
-         iPiVliGP2sWvcAbhPR5rrVcf5oA8QfbCf75fJJ2wU9oMQQOC9nHHxLqgHA1bf/FNjobs
-         blHszmJ3UwE40BSrtW8mWUU96jaCPTUg9Bs4TO6NIfaVzNhQ84coP2ruIf2XW18W6lhO
-         N16p4FnprzG5j5IsVZZv622HD+iu2BwD+kkXRYY+3Iu9Fbv85nD0kUsxa5UE23ioB6m/
-         YVrt5wLSRLutrWBoIDfSlH4OI1N0MF8gPVg1MmES6qBYBIbvLDLNT4Yqh+RyhbSq4llu
-         +CxA==
-X-Forwarded-Encrypted: i=1; AJvYcCXGzGMI0gfPJl7yxVrFVp03PEVL8PhC7yWhtsuhkTyuAotq3J2xjG2XKP7HQWqfXR6RfUNiLJs2IA0CbwxXxcdJYISFQUGBTwpZfgtvKLo=
-X-Gm-Message-State: AOJu0YyKjJV3Ht66MlkFlpkTtyZ7TFHLluMnyVGJQ3pv5V51PsQ5dLWX
-	lljRjt8kto3aT97MP6W5mDNGybh+PukMBgYIuz0Ta92P2SAIu/lGatcpQPWdSQ==
-X-Google-Smtp-Source: AGHT+IGe9Ktv+W+afuwwSj3TxEUHxLAbPG/nCL5BVEs8BGPygXK+7DWLObjawXpvfyybpJhBia6sqw==
-X-Received: by 2002:a05:651c:893:b0:2ee:6277:a888 with SMTP id 38308e7fff4ca-2ee6277a9f3mr35070051fa.38.1719843080056;
-        Mon, 01 Jul 2024 07:11:20 -0700 (PDT)
-Message-ID: <a02442b6-b286-4fda-8814-cb939f29a355@suse.com>
-Date: Mon, 1 Jul 2024 16:11:11 +0200
+        bh=XANTur0bQEROZt2M8ETI6tgbdcdpVr9a8rKqMnJcvBc=;
+        b=pZ/BOJFNJtVyArvOfTGbNuy3DcR3t0tAhaZT8a+Ps55grT2NXb9xidzeKUrc4UYqm3
+         fLHg+3GFo5oOkXggkIAeZsrxdCJDktOMS972fRSozG8TKBfg8XcMLAmU6xdTZ2sWyKUn
+         6ZTF0BBlYRqjExYm+n76v77gk0LVtKRC+OYoMoRJytDdB1hK5oILOxG78QyD+4mWzK63
+         HJ+I7q3QzdMctvB6T+xad8eVcLdA4WSgYAWyXgyAdinrIAN3805xBSMrzZdcR/2Rd7ya
+         EQqB6I2w0lpJlGz3bcNY0Poh4YSVB/sXzGaNrWEgNXxxdOjBOeS3qpg1NvV+mvUJsMX8
+         Ow3Q==
+X-Forwarded-Encrypted: i=1; AJvYcCVmxjHFxQIHU0TQ30JM5M1l4WPR/PzMDwYJAmOzsqKzc5DLsFP4o0Q8uc0z7Yxe4R9w1rZB0g4dISls9lKK5+W+pIYa7ylv+4k6GTNvCJ4=
+X-Gm-Message-State: AOJu0YxfS2AybB/cNKXcZwXbjQ+T1spqrQYz0GiMSk9d2+IyKlwJGx3Q
+	0E2CxQ+jo6NnGTeTDUwAcgcsh5T8IcIUyNsSvYzFjZo12Vd2kJZ/6NLDbNk5Fw==
+X-Google-Smtp-Source: AGHT+IESh34zxs4K0U6uM1j43f0tuzuORlGoFQfLhrFMKekJzegWiHLesPEUQxjlOhvD2KXxdNnsAQ==
+X-Received: by 2002:a2e:be1a:0:b0:2ec:5255:b4d9 with SMTP id 38308e7fff4ca-2ee5e380a0fmr49738561fa.7.1719843384187;
+        Mon, 01 Jul 2024 07:16:24 -0700 (PDT)
+Message-ID: <a9133a97-d874-48ae-8ee4-83d752dcedd7@suse.com>
+Date: Mon, 1 Jul 2024 16:16:15 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 06/17] x86/EFI: address violations of MISRA C:2012
- Directive 4.10
+Subject: Re: [PATCH 03/17] misra: add deviations for direct inclusion guards
 To: Alessandro Zucchelli <alessandro.zucchelli@bugseng.com>
-Cc: nicola.vetrini@bugseng.com, consulting@bugseng.com,
- Simone Ballarin <simone.ballarin@bugseng.com>,
- "Daniel P. Smith" <dpsmith@apertussolutions.com>,
- =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>, Andrew Cooper
- <andrew.cooper3@citrix.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
+Cc: consulting@bugseng.com, Simone Ballarin <simone.ballarin@bugseng.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Nicola Vetrini <nicola.vetrini@bugseng.com>, xen-devel@lists.xenproject.org
 References: <cover.1719829101.git.alessandro.zucchelli@bugseng.com>
- <0267af93ae969b67a77c3a9aca9f4ad6525de1b9.1719829101.git.alessandro.zucchelli@bugseng.com>
+ <64e80abfaa68d87e8cb4fee67bc2624eda4f466a.1719829101.git.alessandro.zucchelli@bugseng.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -118,27 +118,70 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <0267af93ae969b67a77c3a9aca9f4ad6525de1b9.1719829101.git.alessandro.zucchelli@bugseng.com>
+In-Reply-To: <64e80abfaa68d87e8cb4fee67bc2624eda4f466a.1719829101.git.alessandro.zucchelli@bugseng.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 01.07.2024 15:36, Alessandro Zucchelli wrote:
-> --- a/xen/arch/x86/efi/efi-boot.h
-> +++ b/xen/arch/x86/efi/efi-boot.h
-> @@ -3,6 +3,11 @@
->   * is intended to be included by common/efi/boot.c _only_, and
->   * therefore can define arch specific global variables.
->   */
-> +
-> +#ifndef X86_EFI_EFI_BOOT_H
-> +#define X86_EFI_EFI_BOOT_H
-> +
-> +
->  #include <xen/vga.h>
->  #include <asm/e820.h>
->  #include <asm/edd.h>
+On 01.07.2024 13:10, Alessandro Zucchelli wrote:
+> From: Simone Ballarin <simone.ballarin@bugseng.com>
+> 
+> Add deviation comments to address violations of
+> MISRA C:2012 Directive 4.10 ("Precautions shall be taken in order
+> to prevent the contents of a header file being included more than
+> once").
+> 
+> Inclusion guards must appear at the beginning of the headers
+> (comments are permitted anywhere).
+> 
+> This patch adds deviation comments using the format specified
+> in docs/misra/safe.json for headers with just the direct
+> inclusion guard before the inclusion guard since they are
+> safe and not supposed to comply with the directive.
+> 
+> Note that with SAF-9-safe in place, failures to have proper guards later
+> in the header files will not be reported
 
-Nit: No double blank lines please, anywhere.
+Rebasing mistake, seeing that it's ...
+
+> --- a/docs/misra/safe.json
+> +++ b/docs/misra/safe.json
+> @@ -84,6 +84,14 @@
+>          },
+>          {
+>              "id": "SAF-10-safe",
+> +            "analyser": {
+> +                "eclair": "MC3R1.D4.10"
+> +            },
+> +            "name": "Dir 4.10: direct inclusion guard before",
+> +            "text": "Headers with just the direct inclusion guard before the inclusion guard are safe."
+> +        },
+> +        {
+> +            "id": "SAF-11-safe",
+>              "analyser": {},
+>              "name": "Sentinel",
+>              "text": "Next ID to be used"
+
+... SFA-10-safe that's being added and ...
+
+> --- a/xen/arch/arm/include/asm/hypercall.h
+> +++ b/xen/arch/arm/include/asm/hypercall.h
+> @@ -1,3 +1,4 @@
+> +/* SAF-10-safe direct inclusion guard before */
+>  #ifndef __XEN_HYPERCALL_H__
+>  #error "asm/hypercall.h should not be included directly - include xen/hypercall.h instead"
+>  #endif
+> --- a/xen/arch/x86/include/asm/hypercall.h
+> +++ b/xen/arch/x86/include/asm/hypercall.h
+> @@ -2,6 +2,7 @@
+>   * asm-x86/hypercall.h
+>   */
+>  
+> +/* SAF-10-safe direct inclusion guard before */
+>  #ifndef __XEN_HYPERCALL_H__
+>  #error "asm/hypercall.h should not be included directly - include xen/hypercall.h instead"
+>  #endif
+
+... used here?
 
 Jan
 
