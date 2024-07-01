@@ -2,33 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 998A291E3EF
-	for <lists+xen-devel@lfdr.de>; Mon,  1 Jul 2024 17:22:07 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.751809.1159883 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B4F9991E441
+	for <lists+xen-devel@lfdr.de>; Mon,  1 Jul 2024 17:36:22 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.751821.1159895 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sOIqe-0007rA-Du; Mon, 01 Jul 2024 15:21:44 +0000
+	id 1sOJ4H-0001sf-Kw; Mon, 01 Jul 2024 15:35:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 751809.1159883; Mon, 01 Jul 2024 15:21:44 +0000
+Received: by outflank-mailman (output) from mailman id 751821.1159895; Mon, 01 Jul 2024 15:35:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sOIqe-0007oH-B7; Mon, 01 Jul 2024 15:21:44 +0000
-Received: by outflank-mailman (input) for mailman id 751809;
- Mon, 01 Jul 2024 15:21:42 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1sOJ4H-0001pV-Hf; Mon, 01 Jul 2024 15:35:49 +0000
+Received: by outflank-mailman (input) for mailman id 751821;
+ Mon, 01 Jul 2024 15:35:48 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=VHQ6=OB=gmail.com=milandjokic1995@srs-se1.protection.inumbo.net>)
- id 1sOIqc-0007KJ-SK
- for xen-devel@lists.xenproject.org; Mon, 01 Jul 2024 15:21:42 +0000
-Received: from mail-qv1-xf33.google.com (mail-qv1-xf33.google.com
- [2607:f8b0:4864:20::f33])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 9e394008-37bd-11ef-90a5-e314d9c70b13;
- Mon, 01 Jul 2024 17:21:42 +0200 (CEST)
-Received: by mail-qv1-xf33.google.com with SMTP id
- 6a1803df08f44-6b4febddfd3so16766926d6.1
- for <xen-devel@lists.xenproject.org>; Mon, 01 Jul 2024 08:21:42 -0700 (PDT)
+ <SRS0=Ypwj=OB=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1sOJ4G-0001pP-D2
+ for xen-devel@lists.xenproject.org; Mon, 01 Jul 2024 15:35:48 +0000
+Received: from mail-qk1-x731.google.com (mail-qk1-x731.google.com
+ [2607:f8b0:4864:20::731])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 95705c37-37bf-11ef-b4bb-af5377834399;
+ Mon, 01 Jul 2024 17:35:46 +0200 (CEST)
+Received: by mail-qk1-x731.google.com with SMTP id
+ af79cd13be357-79c069554f8so124066485a.3
+ for <xen-devel@lists.xenproject.org>; Mon, 01 Jul 2024 08:35:46 -0700 (PDT)
+Received: from [10.125.226.166] ([160.101.139.1])
+ by smtp.gmail.com with ESMTPSA id
+ af79cd13be357-79d692f064esm357668085a.89.2024.07.01.08.35.43
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 01 Jul 2024 08:35:44 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,235 +45,124 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9e394008-37bd-11ef-90a5-e314d9c70b13
+X-Inumbo-ID: 95705c37-37bf-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1719847301; x=1720452101; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=R3XHp78JCEbA8g/B/rFJ5z9YEOkqtp4W2vM53xBiJrs=;
-        b=nE49cO4ADQ41VH6DplvycccDV3t3m0L3N/8yW6+kAAdxhefe4seJrXJh59fnE4m7ka
-         QO8NN3FPRBnrbNUBRteyAktR4WDx0j8SbL7Ty0Y6bsImS91hTxIUN6ZqVlYqGoPmNFPZ
-         UXY03iR4wa+zT7cuvYp07i2/QUKWNwTrlPrS2r5f7E/25UJTu4ZHUIHF39iiewZcCzY8
-         ehPO4Nkc3MCFEOXgQdKRtjON6b5Yqfs9QjrgByiZu2dByPJQcyJeF5lgu8JuL4WYavSJ
-         7zhomlouKDDgg1VmDKjhsElqGm/bwwwQM69uq3j37wkVLpBCGaAtARK1TpTIzDZrb02v
-         tnoQ==
+        d=citrix.com; s=google; t=1719848145; x=1720452945; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=/vAiAQO2Cggt3dxwvEwn2y0Wx6GoDzfj8YvIYDi0Z+A=;
+        b=ETA/xwDim93q/NUybuP96YJOVReqJd9u/axCJ9EXq/DYQxVUHAXyiFQeC0pKP3dVly
+         wYb9eBvkAvkSdt4XdeCaYFKEmO2i1pcfG244W7Y6eHfHUSxPQ6UXFO3S0l7Z2rQEI0UK
+         /J8ZSiYwHMZTn9X38g20fnTQ8w8DKRTJvkwvs=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1719847301; x=1720452101;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=R3XHp78JCEbA8g/B/rFJ5z9YEOkqtp4W2vM53xBiJrs=;
-        b=j2CJccg4Rabt70iktJlKdGKiZCdPCJn2Cn7GmJdr3w/pgg6KWzKNRFpJ68Nkb4VHHD
-         EALZAZKqptcLA4MW8AlZJPnfAjkOAGW6YgfoNQBuAWewPvDppsKQ962aGso9n4fsYzXP
-         9obYiS8NaIfGRETtIuPyCBYFSKeu1WSNPWStpwmCbUVyhl1Sf41x6bd61kHgQmhp+U+4
-         HYeRoW05j7jv0rL+quH1u5oS77Et0afXi5NFl1OpiCj8J41bg8rzz/ywGNJNYryebOXT
-         55BzLkCzyVj2zbQV/FgKWoW5GOG0qEcpiZVPrOTZK8LWy+G4wszca3U7IaYdNl2LNAn6
-         13ig==
-X-Forwarded-Encrypted: i=1; AJvYcCXmo5RV3k/8aRqCnwLw2bBCf7m1/gi28ELDkalgQ21llaGVKD2RXSKgSSBTNsgnC8auA43CzuGh0thZVV6H4v2QThGIBmcFFFBmkinSCDI=
-X-Gm-Message-State: AOJu0YzciQS/k1NXA+iBe3N+jK25EUNx3pJMvr8ueykil8sW1s406OG7
-	tKfiohudAw233TvG7rgtAa3cyhl9rft0iZNxDgFQsgDWe0MMrc1ZxmTAt4TisLxR+IQMsODi33E
-	AK8hJrpUBtD72RkU3Ks7d3COYz5I=
-X-Google-Smtp-Source: AGHT+IFCJPXCRJpnYEtnF7N5mzx9Ltq3FuLn/g/X+mL02usXSr/CHVH2YDfbFyG+sdRttPEvFGAo9yBqa6Kq5MalmKU=
-X-Received: by 2002:a05:6214:ace:b0:6b0:6400:3b6f with SMTP id
- 6a1803df08f44-6b5b7057b19mr78763396d6.8.1719847300841; Mon, 01 Jul 2024
- 08:21:40 -0700 (PDT)
+        d=1e100.net; s=20230601; t=1719848145; x=1720452945;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=/vAiAQO2Cggt3dxwvEwn2y0Wx6GoDzfj8YvIYDi0Z+A=;
+        b=sRcnLJfcaHPjHJCOdpk7Q8cx4Ib/jIF5dt0ie6rbuV123Lv5fhXK+NP/ZrdeD0lU3o
+         gcnDsG3AHgsAXcIagYRGdiFEuejJIhImj5d+UMTNMGY9bnD81RpQtybw8w5YaaNeKbpm
+         lYZb6qAlV7gtpHHY5SnA4tfz3qtSXg10HPgG6pbV+P22oB1z2FTrnU4Mba+8j+NX+4lF
+         juCoUqm/BI85yJjE4AcsFoaZ2guRYsATJXLFMk5Uu3oinCrI9sSp1GDRx7FBqexzBRnf
+         RORZorYpG+SOtUTdWGAy0Dc19IYIhiJGhPaQaKlh8+J541dWHHivtNvrhwniO0w5pD84
+         YGPw==
+X-Forwarded-Encrypted: i=1; AJvYcCXtNq4ojHArJYNCVx/hqgJ8lkXMBwBwTSclHY22yhIcUuKV0OxSo4UysmNZ1oi5w9b3gJSXGj0bqG0g2I1teHnXROW491ZFsWH4IJVnbXQ=
+X-Gm-Message-State: AOJu0YyZ0idV0TiHUMOpXOo01HwI5eO8+x/cAXhJIehS/LCsHTocpw/X
+	VZlECayhCKfSq8jcBjjDs1EH2/z0REeKT6waTQ/NnCi0o7BM29+u+uz98zfhgnQ=
+X-Google-Smtp-Source: AGHT+IGPdrbEBV0CeeCZNeTrRgNgJf7aHqaEJBRKpNuH0WmTph6aSccbMzRMxPdK2WuLUOoTdgv8Ig==
+X-Received: by 2002:a05:620a:450c:b0:79d:8000:b2e0 with SMTP id af79cd13be357-79d8000b4dcmr821286485a.6.1719848145257;
+        Mon, 01 Jul 2024 08:35:45 -0700 (PDT)
+Message-ID: <378af810-02ea-4a66-b003-c1303f599e2a@citrix.com>
+Date: Mon, 1 Jul 2024 16:35:42 +0100
 MIME-Version: 1.0
-References: <87b5e458498bbff2e54ac011a50ff1f9555c3613.1717354932.git.milan.djokic@rt-rk.com>
- <0e10ee9c215269b577321ba44f5d038a5eb299a7.1718193326.git.milan.djokic@rt-rk.com>
- <8112bee8-efdc-4db9-b0d4-58b160b4e923@suse.com> <DU5PR08MB103973ABF5E6F12853F5D24E1CEC12@DU5PR08MB10397.eurprd08.prod.outlook.com>
- <b508c1b8-1bdd-4378-a76d-7056452406d3@suse.com>
-In-Reply-To: <b508c1b8-1bdd-4378-a76d-7056452406d3@suse.com>
-From: =?UTF-8?B?TWlsYW4gxJBva2nEhw==?= <milandjokic1995@gmail.com>
-Date: Mon, 1 Jul 2024 17:21:30 +0200
-Message-ID: <CAKp59VGq08+wr3D-wJ_9VEGzv-Z0ThAU7TYqY6fcY-jUOh_bzA@mail.gmail.com>
-Subject: Re: [PATCH] xen/riscv: PE/COFF image header for RISC-V target
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Nikola Jelic <nikola.jelic@rt-rk.com>, Alistair Francis <alistair.francis@wdc.com>, 
-	Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis <connojdavis@gmail.com>, 
-	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Andrew Cooper <andrew.cooper3@citrix.com>, 
-	George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>, 
-	Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>, 
-	"milan.djokic" <Milan.Djokic@rt-rk.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH for-4.19] x86/entry: don't clear DF when raising #UD for
+ lack of syscall handler
+To: Jan Beulich <jbeulich@suse.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, Oleksii Kurochko <oleksii.kurochko@gmail.com>
+References: <36cf1c15-faa5-4e25-8fdd-9c52076f4ca2@suse.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <36cf1c15-faa5-4e25-8fdd-9c52076f4ca2@suse.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Thu, Jun 27, 2024 at 10:55=E2=80=AFAM Jan Beulich <jbeulich@suse.com> wr=
-ote:
->
-> On 26.06.2024 18:16, Milan Djokic wrote:
-> >> +config RISCV_EFI
-> >> +     bool "UEFI boot service support"
-> >> +     depends on RISCV_64
-> >> +     default n
-> >
-> > Nit: This line can be omitted (and if I'm not mistaken we generally do =
-omit
-> > such).
-> >
-> > If we remove the default value, EFI header shall be included into xen i=
-mage by default.
->
-> Why's this? Or in other words, what are you deriving this from? Not speci=
-fying
-> a default implicitly means "n", from all I know.
->
-My assumption regarding option value when default is not specified was
-wrong. You're correct, we'll omit the default line.
+On 06/03/2024 1:44 pm, Jan Beulich wrote:
+> --- a/xen/arch/x86/x86_64/entry.S
+> +++ b/xen/arch/x86/x86_64/entry.S
+> @@ -47,12 +55,13 @@ UNLIKELY_START(z, syscall_no_callback) /
+>          testb $4, X86_EXC_UD * TRAPINFO_sizeof + TRAPINFO_flags(%rdi)
+>          setnz %cl
+>          lea   TBF_EXCEPTION(, %rcx, TBF_INTERRUPT), %ecx
+> +        or    $~0, %esi                 # don't clear DF
 
->
-> > Currently PE/COFF header is directly embedded into
-> > head.S for arm/x86
-> >
-> >> +    char     name[8];                /* name or "/12\0" string tbl of=
-fset */
-> >
-> > Why 12?
-> >
-> > Either section name is specified in this field or string table offset i=
-f section name can't fit into 8 bytes, which is the case here.
->
-> Well, yes, I'm certainly aware of that. But the question wasn't about the
-> format, it was specifically about the hardcoded value 12. Why not 11 or 1=
-3?
->
-I've misinterpreted your original question here. I realize now that
-this comment ("name or /12/0") is confusing (and incorrect). It was
-taken over from linux kernel which on the other hand took this over
-from pesign package,  so I assume that pesign had its own string table
-layout and thus hardcoded 12 offset for its specific usecase. Since in
-general we can have different offsets and even more than one (if e.g.
-2 section names exceed 8-byte size) we'll change this comment not to
-contain 12 offset hint.
+Our predominant comment style is /* */
 
->
-> >> + * struct riscv_image_header - riscv xen image header
-> >
-> > You saying "xen": Is there anything Xen-specific in this struct?
-> >
-> > Not really related to xen, this is generic riscv PE image header, comme=
-nt fixed in new version
-> >
-> >> +        .long   0                                       /* LoaderFlag=
-s */
-> >> +        .long   (section_table - .) / 8                 /* NumberOfRv=
-aAndSizes */
-> >> +        .quad   0                                       /* ExportTabl=
-e */
-> >> +        .quad   0                                       /* ImportTabl=
-e */
-> >> +        .quad   0                                       /* ResourceTa=
-ble */
-> >> +        .quad   0                                       /* ExceptionT=
-able */
-> >> +        .quad   0                                       /* Certificat=
-ionTable */
-> >> +        .quad   0                                       /* BaseReloca=
-tionTable */
-> >
-> > Would you mind clarifying on what basis this set of 6 entries was
-> > chosen?
-> >
-> > These fields and their sizes are defined in official PE format, see det=
-ails from specification bellow
-> >
-> > [cid:542690de-3bb0-4708-a447-996a03277578]
->
-> Again, I'm aware of the specification. Yet like the 12 above the 6 here
-> looks arbitrarily chosen. There are more entries in this table which
-> are permitted to be present (and well-defined). There could also be
-> fewer of them; any absent entry is implicitly holding the value 0 afaia.
->
-We can omit all of them since directories are not used at all in this
-case. Even those 6 are set to 0 (which means not used according to
-PE). One more case where we wanted to align with linux kernel / xen
-arm implementation, but it is redundant in our case
+>  UNLIKELY_END(syscall_no_callback)
+>  
+>          movq  %rax,TRAPBOUNCE_eip(%rdx)
+>          movb  %cl,TRAPBOUNCE_flags(%rdx)
+>          call  create_bounce_frame
+> -        andl  $~X86_EFLAGS_DF,UREGS_eflags(%rsp)
+> +        and   %esi, UREGS_eflags(%rsp)
 
-> >> +/* Section table */
-> >> +section_table:
-> >> +        .ascii  ".text\0\0\0"
-> >> +        .long   0
-> >> +        .long   0
-> >> +        .long   0                                       /* SizeOfRawD=
-ata */
-> >> +        .long   0                                       /* PointerToR=
-awData */
-> >> +        .long   0                                       /* PointerToR=
-elocations */
-> >> +        .long   0                                       /* PointerToL=
-ineNumbers */
-> >> +        .short  0                                       /* NumberOfRe=
-locations */
-> >> +        .short  0                                       /* NumberOfLi=
-neNumbers */
-> >> +        .long   IMAGE_SCN_CNT_CODE | \
-> >> +                IMAGE_SCN_MEM_READ | \
-> >> +                IMAGE_SCN_MEM_EXECUTE                   /* Characteri=
-stics */
-> >> +
-> >> +        .ascii  ".data\0\0\0"
-> >> +        .long   _end - xen_start                        /* VirtualSiz=
-e */
-> >> +        .long   xen_start - efi_head                    /* VirtualAdd=
-ress */
-> >> +        .long   __init_end_efi - xen_start              /* SizeOfRawD=
-ata */
-> >> +        .long   xen_start - efi_head                    /* PointerToR=
-awData */
-> >> +        .long   0                                       /* PointerToR=
-elocations */
-> >> +        .long   0                                       /* PointerToL=
-ineNumbers */
-> >> +        .short  0                                       /* NumberOfRe=
-locations */
-> >> +        .short  0                                       /* NumberOfLi=
-neNumbers */
-> >> +        .long   IMAGE_SCN_CNT_INITIALIZED_DATA | \
-> >> +                IMAGE_SCN_MEM_READ | \
-> >> +                IMAGE_SCN_MEM_WRITE                    /* Characteris=
-tics */
-> >
-> > IOW no code and the entire image expressed as data. Interesting.
-> > No matter whether that has a reason or is completely arbitrary, I
-> > think it, too, wants commenting on.
-> >
-> > This is correct, currently we have extended image with PE/COFF (EFI) he=
-ader which allows xen boot from EFI loader (or U-boot) environment. And the=
-se updates are pure data. We are actively working on the implementation of =
-Boot/Runtime services which shall be in the code section part and enable fu=
-ll UEFI compatible xen application for riscv.
->
-> Such a choice, even if transient, needs explaining in the description
-> (or maybe even a code comment) then.
-We'll clarify this part in code directly
+Could we gain a /* Conditionally clear DF */ comment here?
 
->
-> > Why does the blank line disappear? And why is ...
-> >
-> >>      . =3D ALIGN(POINTER_ALIGN);
-> >>      __init_end =3D .;
-> >
-> > ... __init_end not good enough? (I think I can guess the answer, but
-> > then I further think the name of the symbol is misleading. )
-> >
-> > Init_end_efi is used only when EFI sections are included into image.
->
-> Again, my question was different: I asked why a symbol we have already
-> isn't good enough, i.e. why another one needs adding.
->
-Similar as for data directories fields above, _init_end_efi is also
-redundant for RISC-V case, we'll use _init_end directly instead.
+Otherwise, Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-> > We have aligned with arm implementation here, you can take a look also =
-there.
->
-> And yet again, as per above, you need to be able to explain your decision=
-s.
-> You can't just say "it's done this way elsewhere as well". What if that
-> "elsewhere" has an obvious or maybe just subtle bug?
-This is perfectly clear. We'll restructure our changes in the next
-version in that manner.
+CC Oleksii for 4.19.  This fixes a subtle regression in the PV ABI
+caused by a post-XSA fix a few years ago.
 
-BR,
-Milan
+It's a low-risk fix to take; while I still don't have an XTF test
+covering this, the corner case it's changing used to be completely fatal
+to guests, so it's a corner unused in practice.
+
+~Andrew
 
