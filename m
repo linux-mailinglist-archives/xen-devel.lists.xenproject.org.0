@@ -2,33 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EBFD891E1B5
-	for <lists+xen-devel@lfdr.de>; Mon,  1 Jul 2024 16:00:03 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.751697.1159723 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6322391E1E3
+	for <lists+xen-devel@lfdr.de>; Mon,  1 Jul 2024 16:09:49 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.751706.1159734 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sOHYY-0003Ns-Vw; Mon, 01 Jul 2024 13:58:58 +0000
+	id 1sOHiR-0005Cu-WE; Mon, 01 Jul 2024 14:09:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 751697.1159723; Mon, 01 Jul 2024 13:58:58 +0000
+Received: by outflank-mailman (output) from mailman id 751706.1159734; Mon, 01 Jul 2024 14:09:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sOHYY-0003MF-T4; Mon, 01 Jul 2024 13:58:58 +0000
-Received: by outflank-mailman (input) for mailman id 751697;
- Mon, 01 Jul 2024 13:58:57 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1sOHiR-0005AS-Sw; Mon, 01 Jul 2024 14:09:11 +0000
+Received: by outflank-mailman (input) for mailman id 751706;
+ Mon, 01 Jul 2024 14:09:11 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=K0KN=OB=gmail.com=edgar.iglesias@srs-se1.protection.inumbo.net>)
- id 1sOHYX-0003Lq-2m
- for xen-devel@lists.xenproject.org; Mon, 01 Jul 2024 13:58:57 +0000
-Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
- [2a00:1450:4864:20::62c])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 0dba1f1d-37b2-11ef-b4bb-af5377834399;
- Mon, 01 Jul 2024 15:58:54 +0200 (CEST)
-Received: by mail-ej1-x62c.google.com with SMTP id
- a640c23a62f3a-a6cb130027aso165075266b.2
- for <xen-devel@lists.xenproject.org>; Mon, 01 Jul 2024 06:58:54 -0700 (PDT)
+ <SRS0=HDGj=OB=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
+ id 1sOHiQ-0005AM-Ss
+ for xen-devel@lists.xenproject.org; Mon, 01 Jul 2024 14:09:11 +0000
+Received: from fout3-smtp.messagingengine.com (fout3-smtp.messagingengine.com
+ [103.168.172.146]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 7b655ef9-37b3-11ef-90a5-e314d9c70b13;
+ Mon, 01 Jul 2024 16:09:08 +0200 (CEST)
+Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
+ by mailfout.nyi.internal (Postfix) with ESMTP id 71C791380114;
+ Mon,  1 Jul 2024 10:09:07 -0400 (EDT)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute5.internal (MEProxy); Mon, 01 Jul 2024 10:09:07 -0400
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+ 1 Jul 2024 10:09:05 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,286 +43,193 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0dba1f1d-37b2-11ef-b4bb-af5377834399
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1719842334; x=1720447134; darn=lists.xenproject.org;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=2l6Wd4cvO4L+9S28hCH23khCgRnt+TeEyOTCmlDi2/8=;
-        b=ElMtruEeY56HtHngb291Xtud+o1rKLFj1NyE+IPHb8TEkNTBfc42nS/Ktnt3sq51fg
-         Yl5Bt5X8refV0rMEjDkrdiNmJsGoH8SBT2/MM2NN5gdYEgjBK0ze4FWuC2cRdaAapiw2
-         yqRk11W69xG6RuHGzM5cxMQ7iNKdZ1JmFA5ixzX5r9pF0kJJHm4OrbGUuni5bxyY4nzm
-         cRzUQSIX6W3iUcGuQj50iNuVbPbJX735BQhgtlc9xd060ul8TZJgZka4xfeHBhBUx9oV
-         +F4bIoXYgGJ9xCydRB8w7GP89sJna/FR6+TpXstpQm3Dc7gyz7BpkhWaMXsR238g91fY
-         Jo3g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1719842334; x=1720447134;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=2l6Wd4cvO4L+9S28hCH23khCgRnt+TeEyOTCmlDi2/8=;
-        b=iXIrJkENnBXjABTK44rMEx5P+biCuX8/kgwBS/4QeW0D3snZesonGWVitJvdJqGztt
-         uqyM9meK6KDYV1sZsWSRQI3Jb+M+YvikrNiStMBbfoREevh7XF/NWoz37tkwRlF2TSgi
-         wyhjrudn4tvDMXJmM89tKCIgi8Rv30+hMIwYS0/q+kiZ1b3CujSZ6knL4dG38bKqn/7B
-         Lh5I3/WyL6NPrUq3vp0jIwJ0TtlyFQ374gVbCH3L23KhWcffUNN6WfuEE9QHDhu1xBi2
-         s2JdhaSWlUAk/oKqTjS22MOmXvhA3mvL8HnJVQfRdCJPN1WnZMDv6PMBnMxCc4PlmjDd
-         Fs4w==
-X-Forwarded-Encrypted: i=1; AJvYcCUnA8LgDFA+b94ltCnpv56xhOBbx8pLBeEIzn6UIu73nEmCgxjGVdaDa6ahsVocL0p0Dtc/Wxr3zAT6JmeQhnjbwzfC3ReAYk/K8kT3Xkg=
-X-Gm-Message-State: AOJu0YzD5DhE1PTjrB/t73/QOt00EQcESwXAXRGGOyXSUgzeSSkXmJww
-	NQ+mda/bvLysWZ8HUXDxkLYx2eBaXpIsHKjGmivsd9zpJ+lX11fzEyGrHF/aViZ8c0v6CSnmr2A
-	kkCxHaDs147/WN6EhnsnnD8x2OiE=
-X-Google-Smtp-Source: AGHT+IHPkJGi6sKvrK3ZL/jjJi7NohZrE0FEhPTBDfBZ4RV4H+qPLVgghHFMsp/qQP+s7uD7YxRUc87cEK7UFQjhJAE=
-X-Received: by 2002:a05:6402:358a:b0:582:8746:6534 with SMTP id
- 4fb4d7f45d1cf-587a0822baemr4766634a12.28.1719842333548; Mon, 01 Jul 2024
- 06:58:53 -0700 (PDT)
+X-Inumbo-ID: 7b655ef9-37b3-11ef-90a5-e314d9c70b13
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm2; t=1719842947;
+	 x=1719929347; bh=ruUcI0SUdJIg/bv1IEy2C83ssbLeKuWaDkVkPwjnlUs=; b=
+	kTI9tRROY9pna3IZcQIYArNTyzPtQzuDC1xkqfGc1WcHPBMBwvLQsHUF28XP/V2L
+	fjnMl+kKsSj8dJOc58lBkoUIdt6Ybaz4cQlwV00s1i8CWt+FzS+iogKVuElvErRr
+	O+MJQ1PhDpaqF36GHFvge/aLQVHkcq8qLQgHV7C8+TvUcz3YCTB9sHHk2qp39sZI
+	TuR02OMWxvCW7bzifawMedSePrv7qeq09ORU/F1y+H1Hyrd9tMKuuKdAYzVAO1Ov
+	WHR1tDtkaTJ8b4y3wm7DPuQzWyZjxyc4EsoLRXdpcC/pe8x76DTMvUcg8n5zIJIt
+	n4DYrck4L8fRPl2By1x3DA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+	fm2; t=1719842947; x=1719929347; bh=ruUcI0SUdJIg/bv1IEy2C83ssbLe
+	KuWaDkVkPwjnlUs=; b=bZq3Jy7V8oS1+ERm8oIaaY7fo5l1+CngGNaGi8XWl5mJ
+	fTkIEIWWcrdjOanfVSUQbYZv4ElBFVuv4jlX0eQNpLAFNdfiM8g2TTmF50YHxMny
+	/P4aCLMflueWCMrYnWxDwy1g9utDnGa9wGjwiO3VhGaVHU+Vf1NV/QBxQ2FrTe04
+	hnETpK5TLz8cCBrqFHG1B/lM+HD+j8oEqSxjCW4Q5chRV7A1pe1j05wpmGC65W2c
+	dWKb+8tI3zJhqm2E7rqeTeerqtj07oWWcPgg9aN/DbADXslWVaGRejZB4jv5+Jps
+	kvepo4GCXmHDigYuoxsNRoa2UgrkqG0D1xrgSp2ydw==
+X-ME-Sender: <xms:griCZo20l__j8A8f4OIJwoXpyQrMzXazJRjvuIZVpI6Lw8DWxG_xzQ>
+    <xme:griCZjGqwB8jsl6clnbd3EnJYe4tJaU-c6DYXg7ieoqM9cP2q68eb6vvtYrgTNAlJ
+    JcFJ-VdlDntUA>
+X-ME-Received: <xmr:griCZg7VfPhy6INTn0I7tZtwpTcbQE_GT9Tw6boimKriO3e1CYJ_5mxHLs3XYTHOmFlpbtjMMeOp-1g69FYp6oVWjhUrUOx-hg>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeeftddrudefgdejvdcutefuodetggdotefrodftvf
+    curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
+    uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
+    fjughrpeffhffvvefukfhfgggtuggjsehgtderredttdejnecuhfhrohhmpeforghrvghk
+    ucforghrtgiihihkohifshhkihdqifpkrhgvtghkihcuoehmrghrmhgrrhgvkhesihhnvh
+    hishhisghlvghthhhinhhgshhlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpefgudel
+    teefvefhfeehieetleeihfejhfeludevteetkeevtedtvdegueetfeejudenucevlhhush
+    htvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehmrghrmhgrrhgvkhes
+    ihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhm
+X-ME-Proxy: <xmx:griCZh23XMZMaaSRNIe6yzEcgx9s0kUR-EtyG8du7d4KWKl_7OR01w>
+    <xmx:griCZrHJ_fLS5raAKOLylCXbLKpojqLvzbNXSe7guWoMhXUXmRGYbw>
+    <xmx:griCZq-CVmcI6oBK1t11DhN-kcIhKHLXVF8Lw8F8Qj-liAReT9IgDA>
+    <xmx:griCZglwMGdJBU3dgx8uKLmiIeuexGO9WX_fPMDQaFf0r_2M9xyD_A>
+    <xmx:g7iCZhYdYxMYqyCEVnSJUyL3tlMG65FlBXuKngdUIvfJvJ3ZiZod3Ypm>
+Feedback-ID: i1568416f:Fastmail
+Date: Mon, 1 Jul 2024 16:09:03 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Alessandro Zucchelli <alessandro.zucchelli@bugseng.com>
+Cc: xen-devel@lists.xenproject.org, nicola.vetrini@bugseng.com,
+	consulting@bugseng.com,
+	Simone Ballarin <simone.ballarin@bugseng.com>,
+	"Daniel P. Smith" <dpsmith@apertussolutions.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+Subject: Re: [PATCH 06/17] x86/EFI: address violations of MISRA C:2012
+ Directive 4.10
+Message-ID: <ZoK4f8wUdusqW_fA@mail-itl>
+References: <cover.1719829101.git.alessandro.zucchelli@bugseng.com>
+ <0267af93ae969b67a77c3a9aca9f4ad6525de1b9.1719829101.git.alessandro.zucchelli@bugseng.com>
 MIME-Version: 1.0
-References: <20240529140739.1387692-1-edgar.iglesias@gmail.com>
- <20240529140739.1387692-3-edgar.iglesias@gmail.com> <ZoKnQLBwIwh004yy@l14>
-In-Reply-To: <ZoKnQLBwIwh004yy@l14>
-From: "Edgar E. Iglesias" <edgar.iglesias@gmail.com>
-Date: Mon, 1 Jul 2024 15:58:41 +0200
-Message-ID: <CAJy5ezqdxQ_y_sCyP243yTfgOJfLh1COzN9Eg+PxxoaVeOh-mQ@mail.gmail.com>
-Subject: Re: [PATCH v8 2/8] xen: mapcache: Unmap first entries in buckets
-To: Anthony PERARD <anthony.perard@vates.tech>
-Cc: qemu-devel@nongnu.org, sstabellini@kernel.org, jgross@suse.com, 
-	"Edgar E. Iglesias" <edgar.iglesias@amd.com>, Paul Durrant <paul@xen.org>, xen-devel@lists.xenproject.org
-Content-Type: multipart/alternative; boundary="0000000000005c6c64061c2fffef"
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="Jpi0/n/DkIAqI9zs"
+Content-Disposition: inline
+In-Reply-To: <0267af93ae969b67a77c3a9aca9f4ad6525de1b9.1719829101.git.alessandro.zucchelli@bugseng.com>
 
---0000000000005c6c64061c2fffef
-Content-Type: text/plain; charset="UTF-8"
+
+--Jpi0/n/DkIAqI9zs
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
+Date: Mon, 1 Jul 2024 16:09:03 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Alessandro Zucchelli <alessandro.zucchelli@bugseng.com>
+Cc: xen-devel@lists.xenproject.org, nicola.vetrini@bugseng.com,
+	consulting@bugseng.com,
+	Simone Ballarin <simone.ballarin@bugseng.com>,
+	"Daniel P. Smith" <dpsmith@apertussolutions.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+Subject: Re: [PATCH 06/17] x86/EFI: address violations of MISRA C:2012
+ Directive 4.10
 
-On Mon, Jul 1, 2024 at 2:55=E2=80=AFPM Anthony PERARD <anthony.perard@vates=
-.tech>
-wrote:
+On Mon, Jul 01, 2024 at 03:36:01PM +0200, Alessandro Zucchelli wrote:
+> From: Simone Ballarin <simone.ballarin@bugseng.com>
+>=20
+> Add inclusion guard to address violations of
+> MISRA C:2012 Directive 4.10 ("Precautions shall be taken in order
+> to prevent the contents of a header file being included more than
+> once").
+>=20
+> Mechanical change.
+>=20
+> Signed-off-by: Simone Ballarin <simone.ballarin@bugseng.com>
+> Signed-off-by: Maria Celeste Cesario <maria.celeste.cesario@bugseng.com>
+> Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
+> Signed-off-by: Alessandro Zucchelli <alessandro.zucchelli@bugseng.com>
+>=20
+> ---
+> Changes in v4:
+> - Modified inclusion guard.
+> Changes in v3:
+> - remove trailing underscores
+> - change inclusion guard name to adhere to the new standard
+> Changes in v2:
+> - remove changes in "xen/arch/x86/efi/efi-boot.h"
+>=20
+> Note:
+> Changes in efi-boot.h have been removed since the file is
+> intenteded to be included by common/efi/boot.c only. This motivation
+> is not enough to raise a deviation record, so the violation is
+> still present.
 
-> Hi all,
->
-> Following this commit, a test which install Debian in a guest with OVMF
-> as firmware started to fail. QEMU exit with an error when GRUB is
-> running on the freshly installed Debian (I don't know if GRUB is
-> starting Linux or not).
-> The error is:
->     Bad ram offset ffffffffffffffff
->
-> Some logs:
->
-> http://logs.test-lab.xenproject.org/osstest/logs/186611/test-amd64-amd64-=
-xl-qemuu-ovmf-amd64/info.html
->
-> Any idea? Something is trying to do something with the address "-1" when
-> it shouldn't?
->
->
-Hi Anothny,
+I'm confused by this comment. It says changes in efi-boot.h have been
+removed, yet the patch does include them.
 
-Yes, it looks like something is calling qemu_get_ram_block() on something
-that isn't mapped.
-One possible path is in qemu_ram_block_from_host() but there may be others.
+> ---
+>  xen/arch/x86/efi/efi-boot.h | 7 +++++++
+>  xen/arch/x86/efi/runtime.h  | 5 +++++
+>  2 files changed, 12 insertions(+)
+>=20
+> diff --git a/xen/arch/x86/efi/efi-boot.h b/xen/arch/x86/efi/efi-boot.h
+> index f282358435..c6be744f2b 100644
+> --- a/xen/arch/x86/efi/efi-boot.h
+> +++ b/xen/arch/x86/efi/efi-boot.h
+> @@ -3,6 +3,11 @@
+>   * is intended to be included by common/efi/boot.c _only_, and
+>   * therefore can define arch specific global variables.
+>   */
+> +
+> +#ifndef X86_EFI_EFI_BOOT_H
+> +#define X86_EFI_EFI_BOOT_H
+> +
+> +
+>  #include <xen/vga.h>
+>  #include <asm/e820.h>
+>  #include <asm/edd.h>
+> @@ -912,6 +917,8 @@ void asmlinkage __init efi_multiboot2(EFI_HANDLE Imag=
+eHandle,
+>      efi_exit_boot(ImageHandle, SystemTable);
+>  }
+> =20
+> +#endif /* X86_EFI_EFI_BOOT_H */
+> +
+>  /*
+>   * Local variables:
+>   * mode: C
+> diff --git a/xen/arch/x86/efi/runtime.h b/xen/arch/x86/efi/runtime.h
+> index 77866c5f21..88ab5651e9 100644
+> --- a/xen/arch/x86/efi/runtime.h
+> +++ b/xen/arch/x86/efi/runtime.h
+> @@ -1,3 +1,6 @@
+> +#ifndef X86_EFI_RUNTIME_H
+> +#define X86_EFI_RUNTIME_H
+> +
+>  #include <xen/domain_page.h>
+>  #include <xen/mm.h>
+>  #include <asm/atomic.h>
+> @@ -17,3 +20,5 @@ void efi_update_l4_pgtable(unsigned int l4idx, l4_pgent=
+ry_t l4e)
+>      }
+>  }
+>  #endif
+> +
+> +#endif /* X86_EFI_RUNTIME_H */
+> --=20
+> 2.34.1
+>=20
 
-The following patch may help.
-Any chance you could try to get a backtrace from QEMU when it failed?
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
 
-diff --git a/system/physmem.c b/system/physmem.c
-index 33d09f7571..2669c4dbbb 100644
---- a/system/physmem.c
-+++ b/system/physmem.c
-@@ -2277,6 +2277,9 @@ RAMBlock *qemu_ram_block_from_host(void *ptr, bool
-round_offset,
-         ram_addr_t ram_addr;
-         RCU_READ_LOCK_GUARD();
-         ram_addr =3D xen_ram_addr_from_mapcache(ptr);
-+        if (ram_addr =3D=3D RAM_ADDR_INVALID) {
-+            return NULL;
-+        }
-         block =3D qemu_get_ram_block(ram_addr);
-         if (block) {
-             *offset =3D ram_addr - block->offset;
+--Jpi0/n/DkIAqI9zs
+Content-Type: application/pgp-signature; name="signature.asc"
 
+-----BEGIN PGP SIGNATURE-----
 
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmaCuH8ACgkQ24/THMrX
+1yyGQwf/bwmHJM+skKaasqaSPSJwVr/HNjgt1MMLykdqYPSWvgdpav8vZ5qD+nUZ
+rdFMxdPRzi5aMRkDU4VmgtnD1wBb35v5vQjEcBzEfqGMF74pa0H5loli2Hpx04tU
+3NPuHO+XijQuZzT+BWblQTOl8nTRjqVBDbRoNY2do4nTLluuspq4jpy4Sf1KIsRD
+L/KyA3zmejdM9c83O1OnB6Un1DEu26XDBeZ/ngZ5cPunda0vGxKRBehaaRgRUv/P
+H0jZ2jPvWOkjTi0WzGtnzBDy0SoNU9/h/jIcNgmN1CY+nC0X9JSjiFaFAfSnXFKp
+u4oBlX9Kyt4qMa50SOGOvzKX/uw9zw==
+=Qf7P
+-----END PGP SIGNATURE-----
 
-
-
-> Cheers,
->
-> Anthony
->
-> On Wed, May 29, 2024 at 04:07:33PM +0200, Edgar E. Iglesias wrote:
-> > From: "Edgar E. Iglesias" <edgar.iglesias@amd.com>
-> >
-> > When invalidating memory ranges, if we happen to hit the first
-> > entry in a bucket we were never unmapping it. This was harmless
-> > for foreign mappings but now that we're looking to reuse the
-> > mapcache for transient grant mappings, we must unmap entries
-> > when invalidated.
-> >
-> > Signed-off-by: Edgar E. Iglesias <edgar.iglesias@amd.com>
-> > Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
-> > ---
-> >  hw/xen/xen-mapcache.c | 11 ++++++++---
-> >  1 file changed, 8 insertions(+), 3 deletions(-)
-> >
-> > diff --git a/hw/xen/xen-mapcache.c b/hw/xen/xen-mapcache.c
-> > index bc860f4373..ec95445696 100644
-> > --- a/hw/xen/xen-mapcache.c
-> > +++ b/hw/xen/xen-mapcache.c
-> > @@ -491,18 +491,23 @@ static void
-> xen_invalidate_map_cache_entry_unlocked(MapCache *mc,
-> >          return;
-> >      }
-> >      entry->lock--;
-> > -    if (entry->lock > 0 || pentry =3D=3D NULL) {
-> > +    if (entry->lock > 0) {
-> >          return;
-> >      }
-> >
-> > -    pentry->next =3D entry->next;
-> >      ram_block_notify_remove(entry->vaddr_base, entry->size,
-> entry->size);
-> >      if (munmap(entry->vaddr_base, entry->size) !=3D 0) {
-> >          perror("unmap fails");
-> >          exit(-1);
-> >      }
-> > +
-> >      g_free(entry->valid_mapping);
-> > -    g_free(entry);
-> > +    if (pentry) {
-> > +        pentry->next =3D entry->next;
-> > +        g_free(entry);
-> > +    } else {
-> > +        memset(entry, 0, sizeof *entry);
-> > +    }
-> >  }
-> >
-> >  typedef struct XenMapCacheData {
-> > --
-> > 2.40.1
-> >
-> >
-> --
->
-> Anthony Perard | Vates XCP-ng Developer
->
-> XCP-ng & Xen Orchestra - Vates solutions
->
-> web: https://vates.tech
->
-
---0000000000005c6c64061c2fffef
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr">On Mon, Jul 1, 2024 at 2:55=E2=80=AFPM An=
-thony PERARD &lt;anthony.perard@vates.tech&gt; wrote:<br></div><div class=
-=3D"gmail_quote"><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px =
-0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">Hi all,<=
-br>
-<br>
-Following this commit, a test which install Debian in a guest with OVMF<br>
-as firmware started to fail. QEMU exit with an error when GRUB is<br>
-running on the freshly installed Debian (I don&#39;t know if GRUB is<br>
-starting Linux or not).<br>
-The error is:<br>
-=C2=A0 =C2=A0 Bad ram offset ffffffffffffffff<br>
-<br>
-Some logs:<br>
-<a href=3D"http://logs.test-lab.xenproject.org/osstest/logs/186611/test-amd=
-64-amd64-xl-qemuu-ovmf-amd64/info.html" rel=3D"noreferrer" target=3D"_blank=
-">http://logs.test-lab.xenproject.org/osstest/logs/186611/test-amd64-amd64-=
-xl-qemuu-ovmf-amd64/info.html</a><br>
-<br>
-Any idea? Something is trying to do something with the address &quot;-1&quo=
-t; when<br>
-it shouldn&#39;t?<br>
-<br></blockquote><div><br></div><div>Hi Anothny,</div><div><br></div><div>Y=
-es, it looks like something is calling=C2=A0qemu_get_ram_block() on somethi=
-ng that isn&#39;t mapped.</div><div>One possible path is in=C2=A0qemu_ram_b=
-lock_from_host() but there may be others.</div><div><br></div><div>The=C2=
-=A0following patch may help.</div><div>Any chance you could try to get a ba=
-cktrace from QEMU when it failed?</div><div><br></div><div>diff --git a/sys=
-tem/physmem.c b/system/physmem.c<br>index 33d09f7571..2669c4dbbb 100644<br>=
---- a/system/physmem.c<br>+++ b/system/physmem.c<br>@@ -2277,6 +2277,9 @@ R=
-AMBlock *qemu_ram_block_from_host(void *ptr, bool round_offset,<br>=C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0ram_addr_t ram_addr;<br>=C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0RCU_READ_LOCK_GUARD();<br>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0ram_a=
-ddr =3D xen_ram_addr_from_mapcache(ptr);<br>+ =C2=A0 =C2=A0 =C2=A0 =C2=A0if=
- (ram_addr =3D=3D RAM_ADDR_INVALID) {<br>+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0return NULL;<br>+ =C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>=C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0block =3D qemu_get_ram_block(ram_addr);<br>=C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0if (block) {<br>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0*offset =3D ram_addr - block-&gt;offset;<br></div><div><br></d=
-iv><div><br></div><div><br></div><div>=C2=A0</div><blockquote class=3D"gmai=
-l_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,20=
-4,204);padding-left:1ex">
-Cheers,<br>
-<br>
-Anthony<br>
-<br>
-On Wed, May 29, 2024 at 04:07:33PM +0200, Edgar E. Iglesias wrote:<br>
-&gt; From: &quot;Edgar E. Iglesias&quot; &lt;<a href=3D"mailto:edgar.iglesi=
-as@amd.com" target=3D"_blank">edgar.iglesias@amd.com</a>&gt;<br>
-&gt; <br>
-&gt; When invalidating memory ranges, if we happen to hit the first<br>
-&gt; entry in a bucket we were never unmapping it. This was harmless<br>
-&gt; for foreign mappings but now that we&#39;re looking to reuse the<br>
-&gt; mapcache for transient grant mappings, we must unmap entries<br>
-&gt; when invalidated.<br>
-&gt; <br>
-&gt; Signed-off-by: Edgar E. Iglesias &lt;<a href=3D"mailto:edgar.iglesias@=
-amd.com" target=3D"_blank">edgar.iglesias@amd.com</a>&gt;<br>
-&gt; Reviewed-by: Stefano Stabellini &lt;<a href=3D"mailto:sstabellini@kern=
-el.org" target=3D"_blank">sstabellini@kernel.org</a>&gt;<br>
-&gt; ---<br>
-&gt;=C2=A0 hw/xen/xen-mapcache.c | 11 ++++++++---<br>
-&gt;=C2=A0 1 file changed, 8 insertions(+), 3 deletions(-)<br>
-&gt; <br>
-&gt; diff --git a/hw/xen/xen-mapcache.c b/hw/xen/xen-mapcache.c<br>
-&gt; index bc860f4373..ec95445696 100644<br>
-&gt; --- a/hw/xen/xen-mapcache.c<br>
-&gt; +++ b/hw/xen/xen-mapcache.c<br>
-&gt; @@ -491,18 +491,23 @@ static void xen_invalidate_map_cache_entry_unloc=
-ked(MapCache *mc,<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 return;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 }<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 entry-&gt;lock--;<br>
-&gt; -=C2=A0 =C2=A0 if (entry-&gt;lock &gt; 0 || pentry =3D=3D NULL) {<br>
-&gt; +=C2=A0 =C2=A0 if (entry-&gt;lock &gt; 0) {<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 return;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 }<br>
-&gt;=C2=A0 <br>
-&gt; -=C2=A0 =C2=A0 pentry-&gt;next =3D entry-&gt;next;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 ram_block_notify_remove(entry-&gt;vaddr_base, entr=
-y-&gt;size, entry-&gt;size);<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 if (munmap(entry-&gt;vaddr_base, entry-&gt;size) !=
-=3D 0) {<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 perror(&quot;unmap fails&quot;);<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 exit(-1);<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 }<br>
-&gt; +<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 g_free(entry-&gt;valid_mapping);<br>
-&gt; -=C2=A0 =C2=A0 g_free(entry);<br>
-&gt; +=C2=A0 =C2=A0 if (pentry) {<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 pentry-&gt;next =3D entry-&gt;next;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 g_free(entry);<br>
-&gt; +=C2=A0 =C2=A0 } else {<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 memset(entry, 0, sizeof *entry);<br>
-&gt; +=C2=A0 =C2=A0 }<br>
-&gt;=C2=A0 }<br>
-&gt;=C2=A0 <br>
-&gt;=C2=A0 typedef struct XenMapCacheData {<br>
-&gt; -- <br>
-&gt; 2.40.1<br>
-&gt; <br>
-&gt; <br>
--- <br>
-<br>
-Anthony Perard | Vates XCP-ng Developer<br>
-<br>
-XCP-ng &amp; Xen Orchestra - Vates solutions<br>
-<br>
-web: <a href=3D"https://vates.tech" rel=3D"noreferrer" target=3D"_blank">ht=
-tps://vates.tech</a><br>
-</blockquote></div></div>
-
---0000000000005c6c64061c2fffef--
+--Jpi0/n/DkIAqI9zs--
 
