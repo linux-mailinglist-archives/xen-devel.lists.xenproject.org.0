@@ -2,35 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2DF8291D5E7
-	for <lists+xen-devel@lfdr.de>; Mon,  1 Jul 2024 03:57:34 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.751220.1159099 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B61EC91D710
+	for <lists+xen-devel@lfdr.de>; Mon,  1 Jul 2024 06:37:35 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.751231.1159108 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sO6H2-0004cE-8U; Mon, 01 Jul 2024 01:56:08 +0000
+	id 1sO8m5-000483-Sk; Mon, 01 Jul 2024 04:36:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 751220.1159099; Mon, 01 Jul 2024 01:56:08 +0000
+Received: by outflank-mailman (output) from mailman id 751231.1159108; Mon, 01 Jul 2024 04:36:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sO6H2-0004Za-5E; Mon, 01 Jul 2024 01:56:08 +0000
-Received: by outflank-mailman (input) for mailman id 751220;
- Mon, 01 Jul 2024 01:56:06 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1sO8m5-00045P-Q3; Mon, 01 Jul 2024 04:36:21 +0000
+Received: by outflank-mailman (input) for mailman id 751231;
+ Mon, 01 Jul 2024 04:36:20 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1sO6H0-0004ZQ-2W; Mon, 01 Jul 2024 01:56:06 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1sO6H0-0004uN-0t; Mon, 01 Jul 2024 01:56:06 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1sO6Gz-0001Wp-F0; Mon, 01 Jul 2024 01:56:05 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1sO6Gz-0005tg-ES; Mon, 01 Jul 2024 01:56:05 +0000
+ (envelope-from <SRS0=ufHl=OB=lst.de=hch@srs-se1.protection.inumbo.net>)
+ id 1sO8m4-00045J-DT
+ for xen-devel@lists.xenproject.org; Mon, 01 Jul 2024 04:36:20 +0000
+Received: from verein.lst.de (verein.lst.de [213.95.11.211])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 754b86a0-3763-11ef-90a4-e314d9c70b13;
+ Mon, 01 Jul 2024 06:36:18 +0200 (CEST)
+Received: by verein.lst.de (Postfix, from userid 2407)
+ id 86AF568BEB; Mon,  1 Jul 2024 06:36:15 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,72 +38,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=L83rrwp9UnwsoIgk1zaO1tDsvnACnFaaH2tCcBP7WzU=; b=0a5yYLO3SW6D3cSmfMR9J68wb+
-	XA+1oDIddtZLHuq1St3muN0F0XBvY1+VG3XruDSF3ySCxt66YXd7ct0TMFA562025UzDfnxvLSZ+2
-	q4umvuQ8LQvThaPId24W2ksWFJvunKQVnCh+nBKndDYUpoZYzOqHGHaeKENzKasUgc+0=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-186612-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 754b86a0-3763-11ef-90a4-e314d9c70b13
+Date: Mon, 1 Jul 2024 06:36:15 +0200
+From: "hch@lst.de" <hch@lst.de>
+To: Michael Kelley <mhklinux@outlook.com>
+Cc: "hch@lst.de" <hch@lst.de>,
+	Petr =?utf-8?B?VGVzYcWZw61r?= <petr@tesarici.cz>,
+	"robin.murphy@arm.com" <robin.murphy@arm.com>,
+	"joro@8bytes.org" <joro@8bytes.org>,
+	"will@kernel.org" <will@kernel.org>,
+	"jgross@suse.com" <jgross@suse.com>,
+	"sstabellini@kernel.org" <sstabellini@kernel.org>,
+	"oleksandr_tyshchenko@epam.com" <oleksandr_tyshchenko@epam.com>,
+	"m.szyprowski@samsung.com" <m.szyprowski@samsung.com>,
+	"iommu@lists.linux.dev" <iommu@lists.linux.dev>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Subject: Re: [RFC 1/1] swiotlb: Reduce calls to swiotlb_find_pool()
+Message-ID: <20240701043615.GB26372@lst.de>
+References: <20240627060251.GA15590@lst.de> <20240627085216.556744c1@meshulam.tesarici.cz> <SN6PR02MB4157E61B49C8435E38AC968DD4D72@SN6PR02MB4157.namprd02.prod.outlook.com> <20240627152513.GA23497@lst.de> <SN6PR02MB4157D9B1A64FF78461D6A7EDD4D72@SN6PR02MB4157.namprd02.prod.outlook.com> <20240628060129.GA26206@lst.de> <20240628094708.3a454619@meshulam.tesarici.cz> <SN6PR02MB415781789CBD6597142BEC68D4D12@SN6PR02MB4157.namprd02.prod.outlook.com> <20240630055542.GA5379@lst.de> <SN6PR02MB415735CA2F5487AE3FD74FFED4D22@SN6PR02MB4157.namprd02.prod.outlook.com>
 MIME-Version: 1.0
-Subject: [ovmf test] 186612: all pass - PUSHED
-X-Osstest-Versions-This:
-    ovmf=8c09d862bfb034e00b6b3bc37fe37243c866dd3a
-X-Osstest-Versions-That:
-    ovmf=3b2025969e6e8a2f6542996182cd4132868641c6
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Mon, 01 Jul 2024 01:56:05 +0000
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <SN6PR02MB415735CA2F5487AE3FD74FFED4D22@SN6PR02MB4157.namprd02.prod.outlook.com>
+User-Agent: Mutt/1.5.17 (2007-11-01)
 
-flight 186612 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/186612/
+On Sun, Jun 30, 2024 at 02:02:52PM +0000, Michael Kelley wrote:
+> 1) Rename is_swiotlb_buffer() to swiotlb_find_pool(), since it
+> now returns a pool.  A NULL return value indicates that the
+> paddr is not an swiotlb buffer.
+> 
+> 2) Similarly, rename is_xen_swiotlb_buffer() to
+> xen_swiotlb_find_pool()
+> 
+> 3) The existing swiotlb_find_pool() has the same function signature,
+> but it is used only where the paddr is known to be an swiotlb buffer
+> and hence always succeeds. Rename it to __swiotlb_find_pool() as
+> the "internal" version of swiotlb_find_pool().
 
-Perfect :-)
-All tests in this flight passed as required
-version targeted for testing:
- ovmf                 8c09d862bfb034e00b6b3bc37fe37243c866dd3a
-baseline version:
- ovmf                 3b2025969e6e8a2f6542996182cd4132868641c6
+Sounds good.
 
-Last test of basis   186553  2024-06-28 15:11:18 Z    2 days
-Testing same since   186612  2024-07-01 00:11:24 Z    0 days    1 attempts
+> 4) Do you still want is_swiotlb_buffer() as a trivial wrapper around
+> the new swiotlb_find_pool(), for use solely in dma_direct_need_sync()
+> where only a Boolean is needed and not the pool?
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Joey Vagedes <joey.vagedes@gmail.com>
+If there is really just a single caller left we can skip the wrapper,
+otherwise it might be handy.
 
-jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
-   3b2025969e..8c09d862bf  8c09d862bfb034e00b6b3bc37fe37243c866dd3a -> xen-tested-master
 
