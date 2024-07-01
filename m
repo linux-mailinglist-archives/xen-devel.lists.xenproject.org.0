@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B2FDB91DA23
-	for <lists+xen-devel@lfdr.de>; Mon,  1 Jul 2024 10:40:37 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.751367.1159299 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1C7CE91DA3F
+	for <lists+xen-devel@lfdr.de>; Mon,  1 Jul 2024 10:42:25 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.751371.1159309 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sOCa3-0003we-4W; Mon, 01 Jul 2024 08:40:11 +0000
+	id 1sOCbq-0004TZ-GZ; Mon, 01 Jul 2024 08:42:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 751367.1159299; Mon, 01 Jul 2024 08:40:11 +0000
+Received: by outflank-mailman (output) from mailman id 751371.1159309; Mon, 01 Jul 2024 08:42:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sOCa3-0003uN-20; Mon, 01 Jul 2024 08:40:11 +0000
-Received: by outflank-mailman (input) for mailman id 751367;
- Mon, 01 Jul 2024 08:40:10 +0000
+	id 1sOCbq-0004R4-DE; Mon, 01 Jul 2024 08:42:02 +0000
+Received: by outflank-mailman (input) for mailman id 751371;
+ Mon, 01 Jul 2024 08:42:00 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=kQX2=OB=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sOCa2-0003uH-5P
- for xen-devel@lists.xenproject.org; Mon, 01 Jul 2024 08:40:10 +0000
-Received: from mail-lj1-x231.google.com (mail-lj1-x231.google.com
- [2a00:1450:4864:20::231])
+ id 1sOCbo-0004Qy-Ks
+ for xen-devel@lists.xenproject.org; Mon, 01 Jul 2024 08:42:00 +0000
+Received: from mail-lj1-x233.google.com (mail-lj1-x233.google.com
+ [2a00:1450:4864:20::233])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 8561053e-3785-11ef-b4bb-af5377834399;
- Mon, 01 Jul 2024 10:40:08 +0200 (CEST)
-Received: by mail-lj1-x231.google.com with SMTP id
- 38308e7fff4ca-2ec50a5e230so26999221fa.0
- for <xen-devel@lists.xenproject.org>; Mon, 01 Jul 2024 01:40:08 -0700 (PDT)
+ id c75b98fd-3785-11ef-b4bb-af5377834399;
+ Mon, 01 Jul 2024 10:41:58 +0200 (CEST)
+Received: by mail-lj1-x233.google.com with SMTP id
+ 38308e7fff4ca-2eaa89464a3so28482091fa.3
+ for <xen-devel@lists.xenproject.org>; Mon, 01 Jul 2024 01:41:58 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-708043b7100sm6106809b3a.142.2024.07.01.01.40.04
+ d9443c01a7336-1fac15389a8sm59308365ad.176.2024.07.01.01.41.54
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 01 Jul 2024 01:40:06 -0700 (PDT)
+ Mon, 01 Jul 2024 01:41:57 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,52 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8561053e-3785-11ef-b4bb-af5377834399
+X-Inumbo-ID: c75b98fd-3785-11ef-b4bb-af5377834399
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1719823207; x=1720428007; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1719823318; x=1720428118; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=T02acu+fGaoZC0noiV85EPLSUSsf1TLhR67ONqWJsMw=;
-        b=fdFQ8njRgoT6jGCQyJGKXXmF6mYuQjG/m35zGy7OKjMJXt+O8CLO5kZz7BQ9P80HTW
-         p+f9woSoDZ9+7+W8YfMeosooKfWkvoTvmqbcQleUR7uI7HsoPYe2hGHnna29jc5EFsRS
-         03lE3pGUxELgjka49ih9Fj2RE0Zv+4BGxU22HynHGZVBSGpzVLOxwPXXCCvqfXjRvtYw
-         lHhhRDzJucBznj0sJqc7/n4gsrGW+8zZ7pXUBMMjQFatTHZm/QoeD/GmkbzURVPYLEni
-         8ck+5ZfZJh00E3qe9QIHh3bJV8vQoNgMkPZGXLGDs3uSxYSd66DhL+97QqKdTN5MKZ2w
-         H7UQ==
+        bh=MpdFJkUFLFW/PgH6rB/uLN09yl1+avOBdQMVhFfoCXk=;
+        b=U5gKBhqmRnEtY31QNakTRxFjnVsQRJkwd1Hcx9a9Grk7zftJdGlumnOqSbHskW3HqP
+         FT6Xb5uMgdqtY5w0nGRVXQ+UFpZtuY9cKRu7z6MB552vpPvOa9d75J7S7uGNgqHlBdJq
+         iAF8gIowPW7eUOqCtd+J+ZYwsQann/ej4jtbpZPgeGb9G1kmdpkq8KDJ1HOpqJ6rU4yS
+         rIS2hSXTG46o8UuxiZ3ns/szzhiTQlwA2sr84zAyo30TJqThTk1vCy4cWOQ1WYEOMk/c
+         zWI00fSO2Qsu2BQWCnf36HC7AE0o+rqDyZZSZLnWWi9PAwEBE2MhiX0AeZsg/sRzZSWU
+         wfqw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1719823207; x=1720428007;
+        d=1e100.net; s=20230601; t=1719823318; x=1720428118;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=T02acu+fGaoZC0noiV85EPLSUSsf1TLhR67ONqWJsMw=;
-        b=rcCp1Uh/TZqb6RQQcg6LtoH2qw+lcSQA4+fjpkIbLHPFbtsZHJqhG9d87/19tBLuZ5
-         3+pebKVLpkmdHoJ5EwdMariwLs7Lr1GpfRx1fRlq/nmDHftvVnFiXcEwRTXH9KDeJaYA
-         LktEt1QMp6mPOjxrfKNLi0vjGThuCHbc5cWWfD6NSBl06+sCtpodkMR4QcbBzA46Tkcf
-         23z4yHQAfsfLyx5gnZK49I1vmEQrwV6usINnUQqTRqStcwLq0O/GtturWky1WRlnZIoE
-         0bOKU3ZrJ1SYVeTYaWwc9dlLF7Tn4CeN5xGQfgkd/aHqTYXhI3LMawENo+bag14p6X05
-         5Biw==
-X-Forwarded-Encrypted: i=1; AJvYcCUdhym/Z21CAKyAwTfPL18dfdR9BeaZX/XAgUE4kjAyTr6tDKc4omm4WcPV9XYFXPsPUeK2a62qRyy5n5rR+5KYwAdUmbzVBZfphx3ABHg=
-X-Gm-Message-State: AOJu0YzHq0eerT3+gtwbEvQO5WSN0pGjiVX2V87W3rVcnY0hN/TB8CX/
-	AavDy/adEmSQl8NA4rSAPj7/DeYmyvBcP4CnpYr5ybS5bpxAD1F0HOMtpOF+4g==
-X-Google-Smtp-Source: AGHT+IHj4SyNwMPatOYxONxiSH4xMYA0AxL9VGX8nw14dBHz8ab6fUc4d7hDZ5E9xiHWhl6ZUzEmeQ==
-X-Received: by 2002:a2e:bc19:0:b0:2eb:d924:43fb with SMTP id 38308e7fff4ca-2ee5e6bc6f7mr38313781fa.41.1719823207503;
-        Mon, 01 Jul 2024 01:40:07 -0700 (PDT)
-Message-ID: <ab694645-1c38-43a6-8f4e-1c7a8470b0e7@suse.com>
-Date: Mon, 1 Jul 2024 10:40:02 +0200
+        bh=MpdFJkUFLFW/PgH6rB/uLN09yl1+avOBdQMVhFfoCXk=;
+        b=EOs/KSi+QF6Dsaeg+jPfBEt6bJnW/RSnxNvQhWcCgBlssSjEd0cppq6KRjjq858dPp
+         AOJk9ioPW6IsP2A3/Bqto/akzwi1M0ZkFJZynsAuypJpfELJQddlgv/Bj+ACpPF1MfJe
+         5UE0++tMEepqXW/JUDo67Vsz3aJjQ/FTtvPy8/esyMJ4N79kK7IQRv9XJxtecE96kBLJ
+         pG+utxU8PneTu2FaCoEzPAacSuqm5H0jxgBClHYvV/KO9gwFMr+kx9UBa9JpEgJ59nEd
+         dCyXV5SSWdHB3UGQVTnsYAIblMWMVi43kPffb1uUHMMwMfy9k1UgaR7NwAx3FAdcAOfy
+         oTkA==
+X-Gm-Message-State: AOJu0YysdXhGMZo3dbK1547pO1ZIpUan4tHHwX4OE67+/B8i36SNWW4F
+	Ao0U6nK1dKfhMztgBoAai2GrqFe2Jij69i4cyreO/tHiEtKXqw0IDG9P0nyB3QjV0UYGA11zpkY
+	=
+X-Google-Smtp-Source: AGHT+IGOcvpBNc9EXevNoo5ThUmu6uhZTXedeYFaKZAFplmtoycdGzr8bj5IAd6NDJeP0aKPLttkqw==
+X-Received: by 2002:a2e:a605:0:b0:2ec:559d:991 with SMTP id 38308e7fff4ca-2ee5e6f7af0mr26743011fa.50.1719823318236;
+        Mon, 01 Jul 2024 01:41:58 -0700 (PDT)
+Message-ID: <9871db38-0274-4267-a4fd-eb2c6dbdd5ea@suse.com>
+Date: Mon, 1 Jul 2024 10:41:53 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH v3 04/12] x86/vpmu: address violations of MISRA C Rule
- 16.3
-To: Federico Serafini <federico.serafini@bugseng.com>
-Cc: consulting@bugseng.com, Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org
+Subject: Re: [XEN PATCH v3 05/12] x86/traps: address violations of MISRA C
+ Rule 16.3
+To: Stefano Stabellini <sstabellini@kernel.org>,
+ Federico Serafini <federico.serafini@bugseng.com>
+Cc: xen-devel@lists.xenproject.org, consulting@bugseng.com,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
 References: <cover.1719383180.git.federico.serafini@bugseng.com>
- <b42004216d547e24f6537450a1c98176a821f704.1719383180.git.federico.serafini@bugseng.com>
+ <e7aea6bacb9c914a06a929dfe3606f7cc360588f.1719383180.git.federico.serafini@bugseng.com>
+ <alpine.DEB.2.22.394.2406261751370.3635@ubuntu-linux-20-04-desktop>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -114,20 +116,47 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <b42004216d547e24f6537450a1c98176a821f704.1719383180.git.federico.serafini@bugseng.com>
+In-Reply-To: <alpine.DEB.2.22.394.2406261751370.3635@ubuntu-linux-20-04-desktop>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 26.06.2024 11:27, Federico Serafini wrote:
-> Add missing break statements to address violations of MISRA C Rule
-> 16.3: "An unconditional `break' statement shall terminate every
-> switch-clause".
+On 27.06.2024 02:52, Stefano Stabellini wrote:
+> On Wed, 26 Jun 2024, Federico Serafini wrote:
+>> Add break or pseudo keyword fallthrough to address violations of
+>> MISRA C Rule 16.3: "An unconditional `break' statement shall terminate
+>> every switch-clause".
+>>
+>> No functional change.
+>>
+>> Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
+>> ---
+>> Changes in v3:
+>> - use break instead of fallthrough.
+>> ---
+>>  xen/arch/x86/traps.c | 3 +++
+>>  1 file changed, 3 insertions(+)
+>>
+>> diff --git a/xen/arch/x86/traps.c b/xen/arch/x86/traps.c
+>> index 9906e874d5..d62598a4c2 100644
+>> --- a/xen/arch/x86/traps.c
+>> +++ b/xen/arch/x86/traps.c
+>> @@ -1186,6 +1186,7 @@ void cpuid_hypervisor_leaves(const struct vcpu *v, uint32_t leaf,
+>>  
+>>      default:
+>>          ASSERT_UNREACHABLE();
+>> +        break;
 > 
-> No functional change.
+> FYI the ASSERT_UNREACHABLE is still being discussed
+
+Could you clarify what this means for this patch and you R-b? Is it somehow
+conditional upon the outcome of that discussion, and hence you'd rather not
+see this patch go in yet?
+
+> Other than that:
 > 
-> Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
+> Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
+Acked-by: Jan Beulich <jbeulich@suse.com>
 
-
+Jan
 
