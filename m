@@ -2,35 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 06DDC91DE48
-	for <lists+xen-devel@lfdr.de>; Mon,  1 Jul 2024 13:45:25 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.751507.1159490 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1362791DEA4
+	for <lists+xen-devel@lfdr.de>; Mon,  1 Jul 2024 14:02:01 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.751519.1159500 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sOFS2-0008S9-Gn; Mon, 01 Jul 2024 11:44:06 +0000
+	id 1sOFiZ-0002pc-P4; Mon, 01 Jul 2024 12:01:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 751507.1159490; Mon, 01 Jul 2024 11:44:06 +0000
+Received: by outflank-mailman (output) from mailman id 751519.1159500; Mon, 01 Jul 2024 12:01:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sOFS2-0008Ph-Db; Mon, 01 Jul 2024 11:44:06 +0000
-Received: by outflank-mailman (input) for mailman id 751507;
- Mon, 01 Jul 2024 11:44:05 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1sOFS1-0008PX-Dq; Mon, 01 Jul 2024 11:44:05 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1sOFS1-0005EE-A7; Mon, 01 Jul 2024 11:44:05 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1sOFS0-0006Xi-Vs; Mon, 01 Jul 2024 11:44:05 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1sOFS0-00068l-VP; Mon, 01 Jul 2024 11:44:04 +0000
+	id 1sOFiZ-0002mh-Lq; Mon, 01 Jul 2024 12:01:11 +0000
+Received: by outflank-mailman (input) for mailman id 751519;
+ Mon, 01 Jul 2024 12:01:10 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=1OIh=OB=darkstar.site=sakib@srs-se1.protection.inumbo.net>)
+ id 1sOFiY-0002jY-6s
+ for xen-devel@lists.xenproject.org; Mon, 01 Jul 2024 12:01:10 +0000
+Received: from pb-smtp1.pobox.com (pb-smtp1.pobox.com [64.147.108.70])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 98e2c7df-37a1-11ef-90a4-e314d9c70b13;
+ Mon, 01 Jul 2024 14:01:07 +0200 (CEST)
+Received: from pb-smtp1.pobox.com (unknown [127.0.0.1])
+ by pb-smtp1.pobox.com (Postfix) with ESMTP id CFECC3793D;
+ Mon,  1 Jul 2024 08:01:05 -0400 (EDT)
+ (envelope-from sakib@darkstar.site)
+Received: from pb-smtp1.nyi.icgroup.com (unknown [127.0.0.1])
+ by pb-smtp1.pobox.com (Postfix) with ESMTP id ADC1D3793C;
+ Mon,  1 Jul 2024 08:01:05 -0400 (EDT)
+ (envelope-from sakib@darkstar.site)
+Received: from localhost (unknown [46.211.3.74])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by pb-smtp1.pobox.com (Postfix) with ESMTPSA id 06E773793B;
+ Mon,  1 Jul 2024 08:01:04 -0400 (EDT)
+ (envelope-from sakib@darkstar.site)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,72 +50,60 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=U2gBuh7mnSNohsnbJog2zTjiRLaXhaqlofBDW77CBrc=; b=SQMvcchb/gZaaCy5xs7tLXBqUo
-	jj5bWV4NJEWqOnzrwwFbJAgde0VjLklrS1Eg9gosGk98XJjYwrhcEUW1ZQX4SyeDfJ23S1Nk5OOSu
-	HbmJjx+3dI4jw+bErI54v/cT7qPw696alj46+TnSj9oVUC+EwEh8PoC9wkXEv5PIoAFo=;
+X-Inumbo-ID: 98e2c7df-37a1-11ef-90a4-e314d9c70b13
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed; d=pobox.com; h=from:to:cc
+	:subject:date:message-id:mime-version:content-transfer-encoding;
+	 s=sasl; bh=sLFUZ1LCg0ZS7rmyYNp2DcwZHpYfA6VaUqJFXaKesDw=; b=Yd8/
+	qVTFhKXSSC+74FOtBR01ynqjUVJpiIn0fhY6ZIcSg3NnyJdV0vSYIXmylO+4GJ2v
+	1HNgH7o6gzye+V3Y0LXCYpZZGdsAepKLTQ/uRB4ba7zZaXsKsUmqHzr7NVx/tH4D
+	Melb8kfjPXVy5rAaUNqnOCc94hY/OTJ+Bnn2+DI=
+From: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
 To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-186616-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+Cc: Sergiy Kibrik <Sergiy_Kibrik@epam.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Jason Andryuk <jason.andryuk@amd.com>,
+	Stefano Stabellini <sstabellini@kernel.org>
+Subject: [XEN PATCH v2 0/2] x86: separate powernow/hwp/acpi cpufreq code
+Date: Mon,  1 Jul 2024 15:01:00 +0300
+Message-Id: <cover.1719832871.git.Sergiy_Kibrik@epam.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Subject: [ovmf test] 186616: all pass - PUSHED
-X-Osstest-Versions-This:
-    ovmf=8bf27965dbb94ecccc453c60de3270acf238ea3d
-X-Osstest-Versions-That:
-    ovmf=8c09d862bfb034e00b6b3bc37fe37243c866dd3a
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Mon, 01 Jul 2024 11:44:04 +0000
+X-Pobox-Relay-ID:
+ 975D1400-37A1-11EF-A70C-5B6DE52EC81B-90055647!pb-smtp1.pobox.com
+Content-Transfer-Encoding: quoted-printable
 
-flight 186616 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/186616/
+This short series aims to make platform-specific parts of cpufreq optiona=
+l
+and dependant on INTEL & AMD config options. This is to allow for tuning
+the build for either AMD or Intel platform exclusively and hence to drop
+the code that would be left unused.
 
-Perfect :-)
-All tests in this flight passed as required
-version targeted for testing:
- ovmf                 8bf27965dbb94ecccc453c60de3270acf238ea3d
-baseline version:
- ovmf                 8c09d862bfb034e00b6b3bc37fe37243c866dd3a
+The initial v1 patch has been extended to not only cover HWP & Powernow
+drivers, but additionally ACPI driver is moved outside of cpufreq generic=
+ code
+and as Intel-dependant piece is put under CONFIG_INTEL option.
 
-Last test of basis   186612  2024-07-01 00:11:24 Z    0 days
-Testing same since   186616  2024-07-01 09:44:55 Z    0 days    1 attempts
+Patch v1 & related discussion are here:
+https://lore.kernel.org/xen-devel/20240604093406.2448552-1-Sergiy_Kibrik@=
+epam.com/
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Jeshua Smith <jeshuas@nvidia.com>
+Sergiy Kibrik (2):
+  x86/cpufreq: move ACPI cpufreq driver into separate file
+  x86/cpufreq: separate powernow/hwp/acpi cpufreq code
 
-jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ xen/arch/x86/acpi/cpufreq/Makefile  |   5 +-
+ xen/arch/x86/acpi/cpufreq/acpi.c    | 622 ++++++++++++++++++++++++++++
+ xen/arch/x86/acpi/cpufreq/cpufreq.c | 598 +-------------------------
+ xen/drivers/acpi/pmstat.c           |   2 +-
+ xen/drivers/cpufreq/cpufreq.c       |   3 +-
+ xen/drivers/cpufreq/utility.c       |   2 +-
+ xen/include/acpi/cpufreq/cpufreq.h  |  10 +
+ 7 files changed, 644 insertions(+), 598 deletions(-)
+ create mode 100644 xen/arch/x86/acpi/cpufreq/acpi.c
 
+--=20
+2.25.1
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
-   8c09d862bf..8bf27965db  8bf27965dbb94ecccc453c60de3270acf238ea3d -> xen-tested-master
 
