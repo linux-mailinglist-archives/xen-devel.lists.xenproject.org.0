@@ -2,38 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6FAF991E443
-	for <lists+xen-devel@lfdr.de>; Mon,  1 Jul 2024 17:36:41 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.751823.1159903 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D2D6391E538
+	for <lists+xen-devel@lfdr.de>; Mon,  1 Jul 2024 18:22:39 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.751838.1159914 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sOJ4m-0002IT-U3; Mon, 01 Jul 2024 15:36:20 +0000
+	id 1sOJmO-0002m2-AL; Mon, 01 Jul 2024 16:21:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 751823.1159903; Mon, 01 Jul 2024 15:36:20 +0000
+Received: by outflank-mailman (output) from mailman id 751838.1159914; Mon, 01 Jul 2024 16:21:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sOJ4m-0002F4-QN; Mon, 01 Jul 2024 15:36:20 +0000
-Received: by outflank-mailman (input) for mailman id 751823;
- Mon, 01 Jul 2024 15:36:19 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1sOJmO-0002jc-6m; Mon, 01 Jul 2024 16:21:24 +0000
+Received: by outflank-mailman (input) for mailman id 751838;
+ Mon, 01 Jul 2024 16:21:23 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Ypwj=OB=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1sOJ4l-0002DD-3H
- for xen-devel@lists.xenproject.org; Mon, 01 Jul 2024 15:36:19 +0000
-Received: from mail-qt1-x829.google.com (mail-qt1-x829.google.com
- [2607:f8b0:4864:20::829])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a83866e6-37bf-11ef-90a5-e314d9c70b13;
- Mon, 01 Jul 2024 17:36:17 +0200 (CEST)
-Received: by mail-qt1-x829.google.com with SMTP id
- d75a77b69052e-446427c5923so30706931cf.0
- for <xen-devel@lists.xenproject.org>; Mon, 01 Jul 2024 08:36:17 -0700 (PDT)
-Received: from [10.125.226.166] ([160.101.139.1])
- by smtp.gmail.com with ESMTPSA id
- 6a1803df08f44-6b59e5f26b6sm34101266d6.95.2024.07.01.08.36.15
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 01 Jul 2024 08:36:16 -0700 (PDT)
+ <SRS0=geB4=OB=bounce.vates.tech=bounce-md_30504962.6682d77d.v1-0705d1d3cc834a03985c17a25c975ae7@srs-se1.protection.inumbo.net>)
+ id 1sOJmN-0002jW-Dx
+ for xen-devel@lists.xenproject.org; Mon, 01 Jul 2024 16:21:23 +0000
+Received: from mail145-25.atl61.mandrillapp.com
+ (mail145-25.atl61.mandrillapp.com [198.2.145.25])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id f1fd6761-37c5-11ef-b4bb-af5377834399;
+ Mon, 01 Jul 2024 18:21:18 +0200 (CEST)
+Received: from pmta06.mandrill.prod.atl01.rsglab.com (localhost [127.0.0.1])
+ by mail145-25.atl61.mandrillapp.com (Mailchimp) with ESMTP id
+ 4WCWWK2BcMz35hdVW
+ for <xen-devel@lists.xenproject.org>; Mon,  1 Jul 2024 16:21:17 +0000 (GMT)
+Received: from [37.26.189.201] by mandrillapp.com id
+ 0705d1d3cc834a03985c17a25c975ae7; Mon, 01 Jul 2024 16:21:17 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,114 +43,159 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a83866e6-37bf-11ef-90a5-e314d9c70b13
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1719848177; x=1720452977; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=Do2HFC7DM3iiayLzVb3+MIhQmUeBgWluU1vXilLnJJ4=;
-        b=f4WbquxHliOEj+GtIybwISTNW8pvIbvrIh0UMi6QSSMvgDziML7lRQLOUv8vToEhnm
-         qDIiVAkuj7vAKE55wbPATXaE7BiLGTMLdaekzv+qZjve0GKtkvYhkIg19V9FSbnUiM1d
-         E34siwVMt8BrL/U2BWbEDAT83WieiLN7KY+Hg=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1719848177; x=1720452977;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=Do2HFC7DM3iiayLzVb3+MIhQmUeBgWluU1vXilLnJJ4=;
-        b=YHSOCPWIUeHWKxkdG06vSKPmFr6KQGjvpzTexUCIfcFqJDZf81b6rbKxjwWwJsU9x5
-         Rd5IkkeGuKeFzSoDebGfrhpM3KVnOUltpowWl/XidLkPdkLi7M6OstMJFck73IN4t5PA
-         URgs6EzUU+nRlLPtuJz/WXOAFyGfbRY9SPbgTLq29+IUCql4+ApTl4M7gJOZxQvorNSi
-         3+XitEqxfy2ZYZGiRp50iUPKxkWPLBnLwuYEaN31+wty0sd9KjRcopNrahrHM+F8BKLx
-         yOwvAt7a/t60Y4X7jve7tdO9Dfdke+9hkVE5cjrvbQdpZZLZkKtMZQjKhfjDA/nmnH2Z
-         nPeA==
-X-Forwarded-Encrypted: i=1; AJvYcCUfap+ujixzN30SHO5z04TU6RGmh8HGkGJElEz3rRvLn9AagqcCBOsc2LcclnoLLr7NRLgGZsmf00B/I5x7AfUEDlyS/HKvIvAeEM1LUME=
-X-Gm-Message-State: AOJu0YxszI/RPwqk7mnrWiWa2JVvRKO/dZqcI1kAMIImsRpCC8dq8Vn2
-	/wgDi8Tbqd4PyG2uZPOKdTWN2qSHxxDfLQzhh81dHks0vKV7sGSaLMNio4W02+I=
-X-Google-Smtp-Source: AGHT+IFhHCrbWZg3nltlNQ3mUHt3fbWSObZeoxugNA3GTeH8FCyHRkSblPshB5z3KatkblUrkM8+Ng==
-X-Received: by 2002:a05:6214:d83:b0:6b5:9183:b435 with SMTP id 6a1803df08f44-6b5a542f294mr139018426d6.15.1719848176805;
-        Mon, 01 Jul 2024 08:36:16 -0700 (PDT)
-Message-ID: <0ef2392a-0da8-4cf6-b795-7a704e2ff396@citrix.com>
-Date: Mon, 1 Jul 2024 16:36:14 +0100
+X-Inumbo-ID: f1fd6761-37c5-11ef-b4bb-af5377834399
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
+	s=mte1; t=1719850877; x=1720111377;
+	bh=D6Xn07DWPt6RLLyPEmJr9xUKep84FjQeTYDK7N3xyWk=;
+	h=From:Subject:To:Cc:Message-Id:References:In-Reply-To:Feedback-ID:
+	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
+	 Subject:From;
+	b=p5XT8UAkd4rMqJNjeXEC1QbkpFw2fva655dmDQTwIpG273WEj6D/thEMbm0tIfrc3
+	 Qc5/Bl2jTln/8zilENvyOBoYG1CMeg20rmHCTB0pw2mzynItV7hyfD87fQSEBMu0qE
+	 ig2JpTYEdWqiQKpcLb57wJmWbE2asiHBCZ+mJffFR3nDIL1d2GzqofxbZHCLYKiIpw
+	 rGGPq268B1lga0z8cERJsfsTMIKvddDYCf947KcC+0Ovz7HMBvy1j6AENkDDTxKp3C
+	 QJNtNFCM0EcfMAalW61+rvWnj9fXG+O0FQmINrPy5/WfDpD2X2VHpkzN2vD5jtAFqA
+	 NkELdraIt64Gg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
+	t=1719850877; x=1720111377; i=anthony.perard@vates.tech;
+	bh=D6Xn07DWPt6RLLyPEmJr9xUKep84FjQeTYDK7N3xyWk=;
+	h=From:Subject:To:Cc:Message-Id:References:In-Reply-To:Feedback-ID:
+	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
+	 Subject:From;
+	b=O2K7riaI4Y/+QypTIMksg3Fi/e2/kTgDbEM6/AW9qqgZzYLWp6zNCx/qChKvHrCYe
+	 j+iljCTYsekMI5UrFgMMuUXtoFjcj2gb1JjMecXYbNJKgRB1c8kGtRjkTHp4f2Uy8U
+	 ek8i2KOiQQGlTyS/Poc3fib7tAdLfIO//ULsEVG1WB5QdnbFwQG0/8JjZ9zLAh/T+v
+	 RUfrgFfxCxkno0aYBJ7KOzVNeypWpmA6JoE14UZ5ApjzZZshDBOEwFZDD5BnWVoh4M
+	 3fXnX+OnUIu0A2s1icT4g299sjG8ORse9DoJXqqI9WBpTxGraIw3D8Pv3dbzVdt8KL
+	 HFAH9AXm06FwA==
+From: Anthony PERARD <anthony.perard@vates.tech>
+Subject: =?utf-8?Q?Re:=20[PATCH=20v8=202/8]=20xen:=20mapcache:=20Unmap=20first=20entries=20in=20buckets?=
+X-Bm-Disclaimer: Yes
+X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
+X-Bm-Transport-Timestamp: 1719850876152
+To: "Edgar E. Iglesias" <edgar.iglesias@gmail.com>
+Cc: qemu-devel@nongnu.org, sstabellini@kernel.org, jgross@suse.com, "Edgar E. Iglesias" <edgar.iglesias@amd.com>, Paul Durrant <paul@xen.org>, xen-devel@lists.xenproject.org
+Message-Id: <ZoLXe9wjyXCU88Y0@l14>
+References: <20240529140739.1387692-1-edgar.iglesias@gmail.com> <20240529140739.1387692-3-edgar.iglesias@gmail.com> <ZoKnQLBwIwh004yy@l14> <CAJy5ezqdxQ_y_sCyP243yTfgOJfLh1COzN9Eg+PxxoaVeOh-mQ@mail.gmail.com> <CAJy5ezrSs8r=ibTgb_oURdFTDW07sVVBeU6Rw7jsM+iaqPLNgg@mail.gmail.com> <CAJy5ezrPgUR3-gWK3Mfnc7iAgV3MEStSardY+0kkvHB+PHbe4w@mail.gmail.com>
+In-Reply-To: <CAJy5ezrPgUR3-gWK3Mfnc7iAgV3MEStSardY+0kkvHB+PHbe4w@mail.gmail.com>
+X-Native-Encoded: 1
+X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.0705d1d3cc834a03985c17a25c975ae7?=
+X-Mandrill-User: md_30504962
+Feedback-ID: 30504962:30504962.20240701:md
+Date: Mon, 01 Jul 2024 16:21:17 +0000
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH for-4.19?] xen: avoid UB in guest handle field accessors
-To: Jan Beulich <jbeulich@suse.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Oleksii Kurochko <oleksii.kurochko@gmail.com>
-References: <d0b9a1e0-5c70-42c5-9c63-2e3af82487b2@suse.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <d0b9a1e0-5c70-42c5-9c63-2e3af82487b2@suse.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On 24/06/2024 1:28 pm, Jan Beulich wrote:
-> Much like noted in 43d5c5d5f70b ("xen: avoid UB in guest handle
-> arithmetic"), address calculations involved in accessing a struct field
-> can overflow, too. Cast respective pointers to "unsigned long" and
-> convert type checking accordingly. Remaining arithmetic is, despite
-> there possibly being mathematical overflow, okay as per the C99 spec:
-> "A computation involving unsigned operands can never overflow, because a
-> result that cannot be represented by the resulting unsigned integer type
-> is reduced modulo the number that is one greater than the largest value
-> that can be represented by the resulting type." The overflow that we
-> need to guard against is checked for in array_access_ok().
->
-> While there add the missing (see {,__}copy_to_guest_offset()) is-not-
-> const checks to {,__}copy_field_to_guest().
->
-> Typically, but not always, no change to generated code; code generation
-> (register allocation) is different for at least common/grant_table.c.
->
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+On Mon, Jul 01, 2024 at 04:34:53PM +0200, Edgar E. Iglesias wrote:
+> On Mon, Jul 1, 2024 at 4:30=E2=80=AFPM Edgar E. Iglesias <edgar.iglesias@=
+gmail.com>
+> wrote:
+> > On Mon, Jul 1, 2024 at 3:58=E2=80=AFPM Edgar E. Iglesias <edgar.iglesia=
+s@gmail.com>
+> > wrote:
+> >> Any chance you could try to get a backtrace from QEMU when it failed?
 
-Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+Here it is:
+
+
+#3  0x00007fa8762f4472 in __GI_abort () at ./stdlib/abort.c:79
+        save_stage =3D 1
+        act =3D {__sigaction_handler =3D {sa_handler =3D 0x20, sa_sigaction=
+ =3D 0x20}, sa_mask =3D {__val =3D {94603440166168, 18446744073709551615, 9=
+4603406369640, 0, 0, 94603406346720, 94603440166168, 140361486774256, 0, 14=
+0361486773376, 94603401285536, 140361496232688, 94603440166096, 14036148677=
+3456, 94603401289576, 140360849280256}}, sa_flags =3D -1804462896, sa_resto=
+rer =3D 0x748f2d40}
+#4  0x0000560a92230f0d in qemu_get_ram_block (addr=3D18446744073709551615) =
+at ../system/physmem.c:801
+        block =3D 0x0
+#5  0x0000560a922350ab in qemu_ram_block_from_host (ptr=3D0x7fa84e8fcd00, r=
+ound_offset=3Dfalse, offset=3D0x7fa8748f2de8) at ../system/physmem.c:2280
+        ram_addr =3D 18446744073709551615
+        _rcu_read_auto =3D 0x1
+        block =3D 0x0
+        host =3D 0x7fa84e8fcd00 ""
+        _rcu_read_auto =3D 0x7fa8751f8288
+#6  0x0000560a92229669 in memory_region_from_host (ptr=3D0x7fa84e8fcd00, of=
+fset=3D0x7fa8748f2de8) at ../system/memory.c:2440
+        block =3D 0x0
+#7  0x0000560a92237418 in address_space_unmap (as=3D0x560a94b05a20, buffer=
+=3D0x7fa84e8fcd00, len=3D32768, is_write=3Dtrue, access_len=3D32768) at ../=
+system/physmem.c:3246
+        mr =3D 0x0
+        addr1 =3D 0
+        __PRETTY_FUNCTION__ =3D "address_space_unmap"
+#8  0x0000560a91fd6cd3 in dma_memory_unmap (as=3D0x560a94b05a20, buffer=3D0=
+x7fa84e8fcd00, len=3D32768, dir=3DDMA_DIRECTION_FROM_DEVICE, access_len=3D3=
+2768) at /root/build/qemu/include/sysemu/dma.h:236
+#9  0x0000560a91fd763d in dma_blk_unmap (dbs=3D0x560a94d87400) at ../system=
+/dma-helpers.c:93
+        i =3D 1
+#10 0x0000560a91fd76e6 in dma_complete (dbs=3D0x560a94d87400, ret=3D0) at .=
+./system/dma-helpers.c:105
+        __PRETTY_FUNCTION__ =3D "dma_complete"
+#11 0x0000560a91fd781c in dma_blk_cb (opaque=3D0x560a94d87400, ret=3D0) at =
+../system/dma-helpers.c:129
+        dbs =3D 0x560a94d87400
+        ctx =3D 0x560a9448da90
+        cur_addr =3D 0
+        cur_len =3D 0
+        mem =3D 0x0
+        __PRETTY_FUNCTION__ =3D "dma_blk_cb"
+#12 0x0000560a9232e974 in blk_aio_complete (acb=3D0x560a9448d5f0) at ../blo=
+ck/block-backend.c:1555
+#13 0x0000560a9232ebd1 in blk_aio_read_entry (opaque=3D0x560a9448d5f0) at .=
+./block/block-backend.c:1610
+        acb =3D 0x560a9448d5f0
+        rwco =3D 0x560a9448d618
+        qiov =3D 0x560a94d87460
+        __PRETTY_FUNCTION__ =3D "blk_aio_read_entry"
+
+> > One more thing, regarding this specific patch. I don't think we should
+> > clear the
+> > entire entry, the next field should be kept, otherwise we'll disconnect
+> > following
+> > mappings that will never be found again. IIUC, this could very well be
+> > causing the problem you see.
+> >
+> > Does the following make sense?
+> >
+> And here without double-freeing entry->valid_mapping:
+> 
+> diff --git a/hw/xen/xen-mapcache.c b/hw/xen/xen-mapcache.c
+> index 5f23b0adbe..667807b3b6 100644
+> --- a/hw/xen/xen-mapcache.c
+> +++ b/hw/xen/xen-mapcache.c
+> @@ -597,7 +597,13 @@ static void
+> xen_invalidate_map_cache_entry_unlocked(MapCache *mc,
+>          pentry->next =3D entry->next;
+>          g_free(entry);
+>      } else {
+> -        memset(entry, 0, sizeof *entry);
+> +        /* Invalidate mapping.  */
+> +        entry->paddr_index =3D 0;
+> +        entry->vaddr_base =3D NULL;
+> +        entry->size =3D 0;
+> +        entry->valid_mapping =3D NULL;
+> +        entry->flags =3D 0;
+> +        /* Keep entry->next pointing to the rest of the list.  */
+>      }
+>  }
+
+I've tried this patch, and that fix the issue I've seen. I'll run more
+tests on it, just in case, but there's no reason that would break
+something else.
+
+Cheers,
+
+
+-- 
+
+Anthony Perard | Vates XCP-ng Developer
+
+XCP-ng & Xen Orchestra - Vates solutions
+
+web: https://vates.tech
+
 
