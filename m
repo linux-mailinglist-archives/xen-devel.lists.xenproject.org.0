@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5FCAE91D973
-	for <lists+xen-devel@lfdr.de>; Mon,  1 Jul 2024 09:53:02 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.751288.1159189 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8FC6A91D97D
+	for <lists+xen-devel@lfdr.de>; Mon,  1 Jul 2024 09:55:05 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.751293.1159199 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sOBpy-0005zk-TS; Mon, 01 Jul 2024 07:52:34 +0000
+	id 1sOBs3-0006ZA-9i; Mon, 01 Jul 2024 07:54:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 751288.1159189; Mon, 01 Jul 2024 07:52:34 +0000
+Received: by outflank-mailman (output) from mailman id 751293.1159199; Mon, 01 Jul 2024 07:54:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sOBpy-0005x4-Q2; Mon, 01 Jul 2024 07:52:34 +0000
-Received: by outflank-mailman (input) for mailman id 751288;
- Mon, 01 Jul 2024 07:52:33 +0000
+	id 1sOBs3-0006Wh-61; Mon, 01 Jul 2024 07:54:43 +0000
+Received: by outflank-mailman (input) for mailman id 751293;
+ Mon, 01 Jul 2024 07:54:41 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=kQX2=OB=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sOBpx-0005wu-2S
- for xen-devel@lists.xenproject.org; Mon, 01 Jul 2024 07:52:33 +0000
-Received: from mail-lj1-x233.google.com (mail-lj1-x233.google.com
- [2a00:1450:4864:20::233])
+ id 1sOBs1-0006Wb-84
+ for xen-devel@lists.xenproject.org; Mon, 01 Jul 2024 07:54:41 +0000
+Received: from mail-lj1-x22a.google.com (mail-lj1-x22a.google.com
+ [2a00:1450:4864:20::22a])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id dee775d0-377e-11ef-90a4-e314d9c70b13;
- Mon, 01 Jul 2024 09:52:31 +0200 (CEST)
-Received: by mail-lj1-x233.google.com with SMTP id
- 38308e7fff4ca-2eaafda3b5cso25406501fa.3
- for <xen-devel@lists.xenproject.org>; Mon, 01 Jul 2024 00:52:31 -0700 (PDT)
+ id 2b8cf649-377f-11ef-90a4-e314d9c70b13;
+ Mon, 01 Jul 2024 09:54:40 +0200 (CEST)
+Received: by mail-lj1-x22a.google.com with SMTP id
+ 38308e7fff4ca-2ec52fbb50cso26155121fa.2
+ for <xen-devel@lists.xenproject.org>; Mon, 01 Jul 2024 00:54:40 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-2c91ce433c0sm6203883a91.16.2024.07.01.00.52.24
+ d9443c01a7336-1fac1535b6esm57765905ad.156.2024.07.01.00.54.33
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 01 Jul 2024 00:52:30 -0700 (PDT)
+ Mon, 01 Jul 2024 00:54:39 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,43 +45,44 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: dee775d0-377e-11ef-90a4-e314d9c70b13
+X-Inumbo-ID: 2b8cf649-377f-11ef-90a4-e314d9c70b13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1719820351; x=1720425151; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1719820480; x=1720425280; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=gWtsr+5693wwdKq5WM7bTGsLq1SE4caI1ccwLmyEATU=;
-        b=MHrFVQsqDCwwbbm5CUPx6hF00CHFbXz3lT+LojgLy1n7VrIF2ZtYJ5jxihfTNi5Te2
-         uihnV1X8KpT/Y3LWQCaHV7OMfOTDx8G5Ofb3FT8PSiJNrs44L16msnf7A+HX7KglJCNM
-         0dZSHGI+NjJcoOd82kHWcty6/MFzPy+zBvkPmureWF7i/EQWwIR9fEg12MfZVCkHgfaj
-         xZZx2ttuBsoBxy4ht3NBu+m0zLPBeexcpD3gzrbbGElRSrk+L+Aa9VF8fwZ8WKZfpuz5
-         ATRj2kKU5PiB+bIyuvxPu6EPe5lWzHGfhgqlsIPxtXUu+40Aww+Q7cGgu/0Db1xqywza
-         W9nA==
+        bh=NtitmhcGkR4aduE0oddPnCJgC63Dpz8GO10jhuaQeF8=;
+        b=eeb/4eLXP6iM2soupOGEAhaBWXuD+EbawIqH3EoGlp8t/K4X+u2fwXkeppH+voBG/+
+         Q8mTuNdSrMxh01cqKmeVrUhvCW3keNgaqeWCe/QAqAtOwq+5VXbqTFOH/qikt4q6rppL
+         TK1zEUVqi4i10r4TTEOjIidLdICOOXAnXmTgkqi0ZAjYDH+NFw6ZDoASVqNGVAz77w6G
+         OV1JkBrH7A2YLWpSjHFj9AUKpuJgIefkCF+/u1G8pZZLjI9KCmErU1sAPKzT4K10kFuG
+         WICrcnINOEHMxIWO4ExNHsDtaP691V7rf2sv3EgAdzbCobiXTcypFKzokgcf2sjRxRC6
+         xqWw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1719820351; x=1720425151;
+        d=1e100.net; s=20230601; t=1719820480; x=1720425280;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=gWtsr+5693wwdKq5WM7bTGsLq1SE4caI1ccwLmyEATU=;
-        b=mdEClOzAfTLQNz7An7fTSx80dWAWDCJnZVbxWLPhIkQbirKGg+YuWcKLcwltvQglz6
-         OkxwINDRfYVKIzFzZsqlGeS9XuL5Qj3cgfUbkHZa657GoTfFEsKiNHprMHELmvD50XYK
-         1goWilTZ+MLulnR++ji0n2laTzMTwBR1toKqTKUTnXytETX9plYvQVEsPCLlrUOhd7NN
-         eyo35dGFeEs7amu4f+889mJ+KBeN3e2KBIUYVa6r6SA616cYPH4vPbxAe2QVVEOtnn+1
-         4r/tbCK527h7zRxbDOGJtwweH9qNxG57UunuW2mfEB4W47HSOrss3MfhjjKTWNd83j/T
-         EKJQ==
-X-Forwarded-Encrypted: i=1; AJvYcCVpsA25I71m+29lmWTqSHnhahdx24ayYS4Ii29fjrDI52Kl+IYq6TkYDbuaDNlNVKhMyn+mT21UrIHarZYh/jqFTr2gnT1bIfINs+FrpCM=
-X-Gm-Message-State: AOJu0YyCW9XSLGj82X2KXedZ/jrwDq2B4AILRUAnztgjJKOqW88TMU2c
-	fWFJAmYjsLcjUCLoNGLmnOQGw5wpV/adSC++qX2EwEnG2fxmOlP0/3wT7phk2Q==
-X-Google-Smtp-Source: AGHT+IHft7ufbA9oK6MyS2nzRM4US2isPaPXJqjP+B3O5uYzC9+1cpfZ4CgqmgsfdZ4KwIh87Ellzw==
-X-Received: by 2002:a2e:9556:0:b0:2eb:ebcd:fc1c with SMTP id 38308e7fff4ca-2ee5e38d301mr29424891fa.26.1719820351244;
-        Mon, 01 Jul 2024 00:52:31 -0700 (PDT)
-Message-ID: <cdb1890c-a66d-4fa9-9ab6-b678e062e085@suse.com>
-Date: Mon, 1 Jul 2024 09:52:23 +0200
+        bh=NtitmhcGkR4aduE0oddPnCJgC63Dpz8GO10jhuaQeF8=;
+        b=Ra1kaaUiOT33c+cj41h3qmb2AJTcq5z1FrPyChFNwAly1vKmsVgE4Eog1pMI5ZpYMB
+         x1uVNEbizESQihivxnzch5Zeq20jl2/FbtgsdMnnbJzbgrrH1U9UBzS01Mx80T3+pAlW
+         1M8Dea+f3RA5rx47BkGIPCA5wFfNWC1agOqzl59QWmkejzUTH1DomiPe8egoATxcVtB/
+         Re68K4vNAcVyCgL49HAb4bm3Y3ZJzkNyuKoRnMibwLTwmp++XkpYJUquW5pqoCZh6w4U
+         Wap0sECRBx2fS1AtMYQXJaANayOpY83TK5264rDvRYOPAdPLmAo40LIJnn95QiSRE09E
+         x8sg==
+X-Forwarded-Encrypted: i=1; AJvYcCWtNfckrXzJVP1DnTPvZ3KVmkGYx+DqNr5tvLLC8FoAZjI9sG+DcI3HQMuCB55W8cF5gEhkR36MDalCdTGfOmvrNkQnF+87WSkZ78/28H8=
+X-Gm-Message-State: AOJu0YyV25qdfBiJdU/INKbPXSMW4QLht77ja/J4kRvfO4alHNyOO+YC
+	aDaqkcsENS04LdkrDv+RUnAsz4cxfirtkI24f82OWyKKP9tXAzt1KOQt6zsBEA==
+X-Google-Smtp-Source: AGHT+IHPQQLmVXBHQc0Fyib8uD1vDL6tFWxiArIvY+0V9+ggrdM6eyEpoWnOzXCBO5LDCG3O89mx+Q==
+X-Received: by 2002:a05:651c:88a:b0:2ee:6cda:6380 with SMTP id 38308e7fff4ca-2ee6cda6544mr8980571fa.18.1719820479945;
+        Mon, 01 Jul 2024 00:54:39 -0700 (PDT)
+Message-ID: <64af8165-2456-48f4-b784-ed3e6eb2c456@suse.com>
+Date: Mon, 1 Jul 2024 09:54:33 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH v11 3/8] x86/pvh: Add PHYSDEVOP_setup_gsi for PVH dom0
+Subject: Re: [XEN PATCH v11 6/8] tools/libxc: Allow gsi be mapped into a free
+ pirq
 To: Jiqian Chen <Jiqian.Chen@amd.com>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu
@@ -92,7 +93,7 @@ Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  Stewart Hildebrand <Stewart.Hildebrand@amd.com>,
  Huang Rui <Ray.Huang@amd.com>, xen-devel@lists.xenproject.org
 References: <20240630123344.20623-1-Jiqian.Chen@amd.com>
- <20240630123344.20623-4-Jiqian.Chen@amd.com>
+ <20240630123344.20623-7-Jiqian.Chen@amd.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -118,56 +119,45 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240630123344.20623-4-Jiqian.Chen@amd.com>
+In-Reply-To: <20240630123344.20623-7-Jiqian.Chen@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 30.06.2024 14:33, Jiqian Chen wrote:
-> The gsi of a passthrough device must be configured for it to be
-> able to be mapped into a hvm domU.
-> But When dom0 is PVH, the gsis don't get registered, it causes
+> Hypercall PHYSDEVOP_map_pirq support to map a gsi into a specific
+> pirq or a free pirq, it depends on the parameter pirq(>0 or <0).
+> But in current xc_physdev_map_pirq, it set *pirq=index when
+> parameter pirq is <0, it causes to force all cases to be mapped
+> to a specific pirq. That has some problems, one is caller can't
+> get a free pirq value, another is that once the pecific pirq was
+> already mapped to other gsi, then it will fail.
+> 
+> So, change xc_physdev_map_pirq to allow to pass negative parameter
+> in and then get a free pirq.
+> 
+> Signed-off-by: Jiqian Chen <Jiqian.Chen@amd.com>
+> Signed-off-by: Huang Rui <ray.huang@amd.com>
+> Signed-off-by: Jiqian Chen <Jiqian.Chen@amd.com>
+> ---
+>  tools/libs/ctrl/xc_physdev.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/tools/libs/ctrl/xc_physdev.c b/tools/libs/ctrl/xc_physdev.c
+> index 460a8e779ce8..e9fcd755fa62 100644
+> --- a/tools/libs/ctrl/xc_physdev.c
+> +++ b/tools/libs/ctrl/xc_physdev.c
+> @@ -50,7 +50,7 @@ int xc_physdev_map_pirq(xc_interface *xch,
+>      map.domid = domid;
+>      map.type = MAP_PIRQ_TYPE_GSI;
+>      map.index = index;
+> -    map.pirq = *pirq < 0 ? index : *pirq;
+> +    map.pirq = *pirq;
+>  
+>      rc = do_physdev_op(xch, PHYSDEVOP_map_pirq, &map, sizeof(map));
+>  
 
-As per below, it's not "don't" but "may not". As the details don't
-follow right away, you may also want to add something like "(see
-below)".
-
-> the info of apic, pin and irq not be added into irq_2_pin list,
-> and the handler of irq_desc is not set, then when passthrough a
-> device, setting ioapic affinity and vector will fail.
-> 
-> To fix above problem, on Linux kernel side, a new code will
-> need to call PHYSDEVOP_setup_gsi for passthrough devices to
-> register gsi when dom0 is PVH.
-> 
-> So, add PHYSDEVOP_setup_gsi into hvm_physdev_op for above
-> purpose.
-> 
-> Clarify two questions:
-> First, why the gsi of devices belong to PVH dom0 can work?
-> Because when probe a driver to a normal device, it calls(on linux
-> kernel side) pci_device_probe-> request_threaded_irq->
-> irq_startup-> __unmask_ioapic-> io_apic_write, then trap into xen
-> side hvmemul_do_io-> hvm_io_intercept-> hvm_process_io_intercept->
-> vioapic_write_indirect-> vioapic_hwdom_map_gsi-> mp_register_gsi.
-> So that the gsi can be registered.
-> 
-> Second, why the gsi of passthrough device can't work when dom0
-> is PVH?
-> Because when assign a device to passthrough, it uses pciback to
-> probe the device, and it calls pcistub_probe->pcistub_seize->
-> pcistub_init_device-> xen_pcibk_reset_device->
-> xen_pcibk_control_isr->isr_on, but isr_on is not set, so that the
-> fake IRQ handler is not installed, then the gsi isn't unmasked.
-> What's more, we can see on Xen side, the function
-> vioapic_hwdom_map_gsi-> mp_register_gsi will be called only when
-> the gsi is unmasked, so that the gsi can't work for passthrough
-> device.
-
-While this provides the requested detail (thanks), personally I find
-this pretty hard to follow. It would likely be easier if it was
-written to a larger part in English, rather than in call chain
-terminology. But I'm not going to insist, unless others would agree
-with that view of mine.
+This is a functional change to existing callers, without any kind of
+clarification whether this changed behavior is actually okay for them.
 
 Jan
 
