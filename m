@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 60CF8923BF8
-	for <lists+xen-devel@lfdr.de>; Tue,  2 Jul 2024 13:02:36 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.752281.1160464 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D0479923BF3
+	for <lists+xen-devel@lfdr.de>; Tue,  2 Jul 2024 13:02:33 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.752282.1160471 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sObGd-0000i7-0F; Tue, 02 Jul 2024 11:01:47 +0000
+	id 1sObGd-0000ok-8u; Tue, 02 Jul 2024 11:01:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 752281.1160464; Tue, 02 Jul 2024 11:01:46 +0000
+Received: by outflank-mailman (output) from mailman id 752282.1160471; Tue, 02 Jul 2024 11:01:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sObGc-0000c8-Sf; Tue, 02 Jul 2024 11:01:46 +0000
-Received: by outflank-mailman (input) for mailman id 752281;
- Tue, 02 Jul 2024 11:01:45 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1sObGd-0000ig-5j; Tue, 02 Jul 2024 11:01:47 +0000
+Received: by outflank-mailman (input) for mailman id 752282;
+ Tue, 02 Jul 2024 11:01:46 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=/Tas=OC=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1sObGb-0000Yl-8M
- for xen-devel@lists.xenproject.org; Tue, 02 Jul 2024 11:01:45 +0000
-Received: from mail-lf1-x135.google.com (mail-lf1-x135.google.com
- [2a00:1450:4864:20::135])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 778ebf9e-3862-11ef-92e8-0d9d20120eaa;
- Tue, 02 Jul 2024 13:01:43 +0200 (CEST)
-Received: by mail-lf1-x135.google.com with SMTP id
- 2adb3069b0e04-52db11b1d31so5642077e87.0
- for <xen-devel@lists.xenproject.org>; Tue, 02 Jul 2024 04:01:43 -0700 (PDT)
+ id 1sObGc-0000Yf-80
+ for xen-devel@lists.xenproject.org; Tue, 02 Jul 2024 11:01:46 +0000
+Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
+ [2a00:1450:4864:20::630])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 780f8084-3862-11ef-aaf1-7f3abd7486c0;
+ Tue, 02 Jul 2024 13:01:44 +0200 (CEST)
+Received: by mail-ej1-x630.google.com with SMTP id
+ a640c23a62f3a-a724958f118so488316966b.0
+ for <xen-devel@lists.xenproject.org>; Tue, 02 Jul 2024 04:01:44 -0700 (PDT)
 Received: from fedora.. ([94.75.70.14]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a7516310768sm269306866b.218.2024.07.02.04.01.40
+ a640c23a62f3a-a7516310768sm269306866b.218.2024.07.02.04.01.42
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 02 Jul 2024 04:01:41 -0700 (PDT)
+ Tue, 02 Jul 2024 04:01:42 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,667 +44,266 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 778ebf9e-3862-11ef-92e8-0d9d20120eaa
+X-Inumbo-ID: 780f8084-3862-11ef-aaf1-7f3abd7486c0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1719918102; x=1720522902; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1719918103; x=1720522903; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=hqKpyboE7tWF7PWd9CeoA+EhM5ccJlbOY2elCP5bC/s=;
-        b=eDKl2TfKYuNYR3VkgCIG/TlcMlGiaxVmlAffgk233KnErFKiKTAGVWfbsv+1o/Zlcc
-         02X7c1MTsYiAeyahRy3g1twZd9IrbQ0Fpl5xafmJ1e3o0JkKR623pP1lj/QY3/1/En0R
-         KAK4KomBgvSwJdRA692YLGqmRxIma9WWxWs/CCAVPdXh0cMkYpY+OyxlHZpBhpj50SXx
-         tweWqlUTJw6/XitD7ZXGMqLsPu36arUAdNSGGFdZ6VMByjGNivjzGIK1ltYfsltKaaTg
-         I9f3njKTerrzAvFcNemmcwrtOAFa72iDJdWKFijIPyLoVa2RKCIF/WQtWLeTW4BDLoYJ
-         OFtg==
+        bh=it/Xvn+hqYGMFo5+OSvi4mDaWEXL+/Hw4Puvwh6HQxs=;
+        b=J80Cth1BQKohWZL2hBVxC7uPXf/1XdKNoLGz/W2tDTTZBzzlBzUyCcnaONqwa2sS3r
+         QcHHVAqolPUhhn/Q4j2xdbh5Hufmd2yDpyTUylPn4xfnp7qd6fg+PiSFD4Rvmbb+LkE7
+         bqOU3oag8cLkvotUAmsAhe3Q8RRDzHA+Kpf3ctDQAeUMD6RCnjgtUyOn0W2R3dkw2dit
+         d8u18+TpjWpCcQQI50XTRgrE8Mep3EQW6/8V650NG5muuPJ/ONRx5+YGrAu62a3FNCiq
+         2OdtQUhLcYyOAOziGj4vItbETgF2ZFEE3aoO9RGRpwOEITVlvzU6so2njAW3guSBwQSg
+         Q2Lw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1719918102; x=1720522902;
+        d=1e100.net; s=20230601; t=1719918103; x=1720522903;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=hqKpyboE7tWF7PWd9CeoA+EhM5ccJlbOY2elCP5bC/s=;
-        b=uhiFKxnDJLKbDid97eH27qmB1yJemhqFbtAAhnvxzhZb6fE3zNXBSSZH6CDBh2+D1o
-         Xn6WEJJTIa5TMGmJqBMVblxdBFObU8El7ERHsYtXxUlCksMlB66JXFq/GWDi1ehHLX93
-         4wCdfKhOHWzXJ3HeQi8wj6zw8QD747t9wZFzXbf5Eln6zvo532mWAovK/rTeDNj7I5U9
-         jBfIla75MpHG2HBJeh9s6p5icoJMzSF5vTZYuukJkBSQRwj2qJVD0E53E6voIMUOERKd
-         G4bop1mN78fCsmyTkqvchQGKdIdfYKEX15o+iS7WDuiVDdzH6uJ0OCAPVKD1MMRB3pVO
-         iUWQ==
-X-Gm-Message-State: AOJu0YydP7BLoiR9CsofGCbaj+hB2aAsieMyYuTbiWFWd7W4InxY+ZNW
-	nvdQh7n+cFND/EgXemuG3f0NrOeKT6mL+dj9zcavlUEC4Cg9OBPd9nPQY2wu
-X-Google-Smtp-Source: AGHT+IG8tPIWzmPpWKtRBU14f4lxe94t3/47nhTs//yLUzC01QZ4fu+LclromPDoQq9XdS/FnnUnIA==
-X-Received: by 2002:a05:6512:1246:b0:52c:8024:1db with SMTP id 2adb3069b0e04-52e827364d9mr6402711e87.63.1719918101862;
-        Tue, 02 Jul 2024 04:01:41 -0700 (PDT)
+        bh=it/Xvn+hqYGMFo5+OSvi4mDaWEXL+/Hw4Puvwh6HQxs=;
+        b=FeHhaTJZxuPfiPVSYthYcUMmXbt8Gaap6naVokrV9f9ZXdJ2Mnu3tSE4KI1DfXSoPL
+         lpjoy9qpN3c1U7LPIx1IdZVMR+9L+rp2tBElDs/Ho59G8+9oy0s9+89xvySIeoO0hck6
+         ZkuRJrh5MKuuL7HIq4py/fOP2HyNp201C/P+kPZqXVPcd6/zdwA78KdUHkutMvxfM1bl
+         jqRc6VYgWh6Y7AcU59WD2RjEiBKFZukRDnjcfG9NuzpqlGo8lBBzh+77o9ywof0genJJ
+         XzrZOFqByhLFmsuLktgCDueGE2vb0vxaTJxhyhh/bcvl2iah41/BDLqu3dyLPBP0iVC2
+         +7xw==
+X-Gm-Message-State: AOJu0Yw96tRHJt4ttNpfsi+x/ZRuD+BVQLSRXc3nfBfEdFcNaMUFq2Af
+	iYNF4zEHr1oypTrO+dSBM+CnpSVb4VjoHqJ3wdr9IbnK7qkNUbqyaRRtfiov
+X-Google-Smtp-Source: AGHT+IHWCRiSHIPvPndQQbtJ/ceB5BbrBB0wp9NOPR/6NFV3LWM5oXIt2CXY3Zg6cSYFQO6b3Lepuw==
+X-Received: by 2002:a17:906:da85:b0:a6f:33d6:2d49 with SMTP id a640c23a62f3a-a75144bade6mr599775566b.52.1719918102696;
+        Tue, 02 Jul 2024 04:01:42 -0700 (PDT)
 From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 To: xen-devel@lists.xenproject.org
 Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>,
-	Bertrand Marquis <bertrand.marquis@arm.com>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	Alistair Francis <alistair.francis@wdc.com>,
+	Bob Eshleman <bobbyeshleman@gmail.com>,
+	Connor Davis <connojdavis@gmail.com>,
 	Andrew Cooper <andrew.cooper3@citrix.com>,
 	Jan Beulich <jbeulich@suse.com>,
-	Shawn Anastasio <sanastasio@raptorengineering.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [PATCH v14 1/9] xen: introduce generic non-atomic test_*bit()
-Date: Tue,  2 Jul 2024 13:01:28 +0200
-Message-ID: <2f60d1fd7b3ac7d603486ce03a112d58352bf16d.1719917348.git.oleksii.kurochko@gmail.com>
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>
+Subject: [PATCH v14 2/9] xen/riscv: introduce bitops.h
+Date: Tue,  2 Jul 2024 13:01:29 +0200
+Message-ID: <fa98e36d85b5e7408c74310e0896c88fb5652e0f.1719917348.git.oleksii.kurochko@gmail.com>
 X-Mailer: git-send-email 2.45.2
 In-Reply-To: <cover.1719917348.git.oleksii.kurochko@gmail.com>
 References: <cover.1719917348.git.oleksii.kurochko@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The following generic functions were introduced:
-* test_bit
-* generic__test_and_set_bit
-* generic__test_and_clear_bit
-* generic__test_and_change_bit
+Taken from Linux-6.4.0-rc1
 
-These functions and macros can be useful for architectures
-that don't have corresponding arch-specific instructions.
-
-Also, the patch introduces the following generics which are
-used by the functions mentioned above:
-* BITOP_BITS_PER_WORD
-* BITOP_MASK
-* BITOP_WORD
-* BITOP_TYPE
-
-The following approach was chosen for generic*() and arch*() bit
-operation functions:
-If the bit operation function that is going to be generic starts
-with the prefix "__", then the corresponding generic/arch function
-will also contain the "__" prefix. For example:
- * test_bit() will be defined using arch_test_bit() and
-   generic_test_bit().
- * __test_and_set_bit() will be defined using
-   arch__test_and_set_bit() and generic__test_and_set_bit().
+Xen's bitops.h consists of several Linux's headers:
+* linux/arch/include/asm/bitops.h:
+  * The following function were removed as they aren't used in Xen:
+        * test_and_set_bit_lock
+        * clear_bit_unlock
+        * __clear_bit_unlock
+  * The following functions were renamed in the way how they are
+    used by common code:
+        * __test_and_set_bit
+        * __test_and_clear_bit
+  * The declaration and implementation of the following functios
+    were updated to make Xen build happy:
+        * clear_bit
+        * set_bit
+        * __test_and_clear_bit
+        * __test_and_set_bit
 
 Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
+Acked-by: Jan Beulich <jbeulich@suse.com>
 ---
-Changes in V14:
- - Nothing changed. Only Rebase.
----
-Changes in V13:
- - add Reviewed-by: Jan Beulich <jbeulich@suse.com>
----
-Changes in V12:
- - revert change of moving the definition of BITS_PER_BYTE from <arch>/bitops.h to xen/bitops.h.
-   ( a separate patch will be provided to put BITS_PER_BYTE to proper place )
- - drop comments on top of generic_*() functions and update the comments above __test_*() and test_bit().
- - update how static inline __test_*() are defined ( drop pointless fallback #define ) and test_bit().
- - drop the footer after Signed-off-by.
-Changes in V11:
- - fix identation in generic_test_bit() function.
- - move definition of BITS_PER_BYTE from <arch>/bitops.h to xen/bitops.h
- - drop the changes in arm64/livepatch.c.
- - update the the comments on top of functions: generic__test_and_set_bit(), generic__test_and_clear_bit(),  generic__test_and_change_bit(),
-   generic_test_bit().
- - Update footer after Signed-off section.
- - Rebase the patch on top of staging branch, so it can be merged when necessary approves will be given.
- - add Reviewed-by: Jan Beulich <jbeulich@suse.com>.
+Changes in V11-V14:
+ - Nothing changed. Only rebase was done.
 ---
 Changes in V10:
- - update the commit message. ( re-order paragraphs and add explanation usage of prefix "__" in bit
-   operation function names )
- - add  parentheses around the whole expression of bitop_bad_size() macros.
- - move macros bitop_bad_size() above asm/bitops.h as it is not arch-specific anymore and there is
-   no need for overriding it.
- - drop macros check_bitop_size() and use "if ( bitop_bad_size(addr) ) __bitop_bad_size();" implictly
-   where it is needed.
- - in <xen/bitops.h> use 'int' as a first parameter for __test_and_*(), generic__test_and_*() to be
-   consistent with how the mentioned functions were declared in the original per-arch functions.
- - add 'const' to p variable in generic_test_bit().
- - move definition of BITOP_BITS_PER_WORD and bitop_uint_t to xen/bitops.h as we don't allow for arch
-   overrides these definitions anymore.
+ - update the error message BITS_PER_LONG -> BITOP_BITS_PER_WORD
 ---
 Changes in V9:
-  - move up xen/bitops.h in ppc/asm/page.h.
-  - update defintion of arch_check_bitop_size.
-    And drop correspondent macros from x86/asm/bitops.h
-  - drop parentheses in generic__test_and_set_bit() for definition of
-    local variable p.
-  - fix indentation inside #ifndef BITOP_TYPE...#endif
-  - update the commit message.
+ - add Acked-by: Jan Beulich <jbeulich@suse.com>
+ - drop redefinition of bitop_uint_t in asm/types.h as some operation in Xen common code expects
+   to work with 32-bit quantities.
+ - s/BITS_PER_LONG/BITOP_BITS_PER_WORD in asm/bitops.h around __AMO() macros.
 ---
- Changes in V8:
-  - drop __pure for function which uses volatile.
-  - drop unnessary () in generic__test_and_change_bit() for addr casting.
-  - update prototype of generic_test_bit() and test_bit(): now it returns bool
-    instead of int.
-  - update generic_test_bit() to use BITOP_MASK().
-  - Deal with fls{l} changes: it should be in the patch with introduced generic fls{l}.
-  - add a footer with explanation of dependency on an uncommitted patch after Signed-off.
-  - abstract bitop_size().
-  - move BITOP_TYPE define to <xen/types.h>.
+Changes in V8:
+ - define bitop_uint_t in <asm/types.h> after the changes in patch related to introduction of
+   "introduce generic non-atomic test_*bit()".
+ - drop duplicated __set_bit() and __clear_bit().
+ - drop duplicated comment: /* Based on linux/arch/include/asm/bitops.h */.
+ - update type of res and mask in test_and_op_bit_ord(): unsigned long -> bitop_uint_t.
+ - drop 1 padding blank in test_and_op_bit_ord().
+ - update definition of test_and_set_bit(),test_and_clear_bit(),test_and_change_bit:
+   change return type to bool.
+ - change addr argument type of test_and_change_bit(): unsigned long * -> void *.
+ - move test_and_change_bit() closer to other test_and-s function.
+ - Code style fixes: tabs -> space.
+ - s/#undef __op_bit/#undef op_bit.
+ - update the commit message: delete information about generic-non-atomic.h changes as now
+   it is a separate patch.
 ---
- Changes in V7:
-  - move everything to xen/bitops.h to follow the same approach for all generic
-    bit ops.
-  - put together BITOP_BITS_PER_WORD and bitops_uint_t.
-  - make BITOP_MASK more generic.
-  - drop #ifdef ... #endif around BITOP_MASK, BITOP_WORD as they are generic
-    enough.
-  - drop "_" for generic__{test_and_set_bit,...}().
-  - drop " != 0" for functions which return bool.
-  - add volatile during the cast for generic__{...}().
-  - update the commit message.
-  - update arch related code to follow the proposed generic approach.
+Changes in V7:
+ - Update the commit message.
+ - Drop "__" for __op_bit and __op_bit_ord as they are atomic.
+ - add comment above __set_bit and __clear_bit about why they are defined as atomic.
+ - align bitops_uint_t with __AMO().
+ - make changes after  generic non-atomic test_*bit() were changed.
+ - s/__asm__ __volatile__/asm volatile
 ---
- Changes in V6:
-  - Nothing changed ( only rebase )
+Changes in V6:
+ - rebase clean ups were done: drop unused asm-generic includes
 ---
  Changes in V5:
    - new patch
 ---
- xen/arch/arm/include/asm/bitops.h |  69 -----------
- xen/arch/ppc/include/asm/bitops.h |  54 ---------
- xen/arch/ppc/include/asm/page.h   |   2 +-
- xen/arch/ppc/mm-radix.c           |   2 +-
- xen/arch/x86/include/asm/bitops.h |  31 ++---
- xen/include/xen/bitops.h          | 182 ++++++++++++++++++++++++++++++
- 6 files changed, 193 insertions(+), 147 deletions(-)
+ xen/arch/riscv/include/asm/bitops.h | 137 ++++++++++++++++++++++++++++
+ 1 file changed, 137 insertions(+)
+ create mode 100644 xen/arch/riscv/include/asm/bitops.h
 
-diff --git a/xen/arch/arm/include/asm/bitops.h b/xen/arch/arm/include/asm/bitops.h
-index 8f4bdc09d1..db23d7edc3 100644
---- a/xen/arch/arm/include/asm/bitops.h
-+++ b/xen/arch/arm/include/asm/bitops.h
-@@ -22,11 +22,6 @@
- #define __set_bit(n,p)            set_bit(n,p)
- #define __clear_bit(n,p)          clear_bit(n,p)
- 
--#define BITOP_BITS_PER_WORD     32
--#define BITOP_MASK(nr)          (1UL << ((nr) % BITOP_BITS_PER_WORD))
--#define BITOP_WORD(nr)          ((nr) / BITOP_BITS_PER_WORD)
--#define BITS_PER_BYTE           8
--
- #define ADDR (*(volatile int *) addr)
- #define CONST_ADDR (*(const volatile int *) addr)
- 
-@@ -76,70 +71,6 @@ bool test_and_change_bit_timeout(int nr, volatile void *p,
- bool clear_mask16_timeout(uint16_t mask, volatile void *p,
-                           unsigned int max_try);
- 
--/**
-- * __test_and_set_bit - Set a bit and return its old value
-- * @nr: Bit to set
-- * @addr: Address to count from
-- *
-- * This operation is non-atomic and can be reordered.
-- * If two examples of this operation race, one can appear to succeed
-- * but actually fail.  You must protect multiple accesses with a lock.
-- */
--static inline int __test_and_set_bit(int nr, volatile void *addr)
--{
--        unsigned int mask = BITOP_MASK(nr);
--        volatile unsigned int *p =
--                ((volatile unsigned int *)addr) + BITOP_WORD(nr);
--        unsigned int old = *p;
--
--        *p = old | mask;
--        return (old & mask) != 0;
--}
--
--/**
-- * __test_and_clear_bit - Clear a bit and return its old value
-- * @nr: Bit to clear
-- * @addr: Address to count from
-- *
-- * This operation is non-atomic and can be reordered.
-- * If two examples of this operation race, one can appear to succeed
-- * but actually fail.  You must protect multiple accesses with a lock.
-- */
--static inline int __test_and_clear_bit(int nr, volatile void *addr)
--{
--        unsigned int mask = BITOP_MASK(nr);
--        volatile unsigned int *p =
--                ((volatile unsigned int *)addr) + BITOP_WORD(nr);
--        unsigned int old = *p;
--
--        *p = old & ~mask;
--        return (old & mask) != 0;
--}
--
--/* WARNING: non atomic and it can be reordered! */
--static inline int __test_and_change_bit(int nr,
--                                            volatile void *addr)
--{
--        unsigned int mask = BITOP_MASK(nr);
--        volatile unsigned int *p =
--                ((volatile unsigned int *)addr) + BITOP_WORD(nr);
--        unsigned int old = *p;
--
--        *p = old ^ mask;
--        return (old & mask) != 0;
--}
--
--/**
-- * test_bit - Determine whether a bit is set
-- * @nr: bit number to test
-- * @addr: Address to start counting from
-- */
--static inline int test_bit(int nr, const volatile void *addr)
--{
--        const volatile unsigned int *p = (const volatile unsigned int *)addr;
--        return 1UL & (p[BITOP_WORD(nr)] >> (nr & (BITOP_BITS_PER_WORD-1)));
--}
--
- #define arch_ffs(x)  ((x) ? 1 + __builtin_ctz(x) : 0)
- #define arch_ffsl(x) ((x) ? 1 + __builtin_ctzl(x) : 0)
- #define arch_fls(x)  ((x) ? 32 - __builtin_clz(x) : 0)
-diff --git a/xen/arch/ppc/include/asm/bitops.h b/xen/arch/ppc/include/asm/bitops.h
-index 8119b5ace8..ee0e58e2e8 100644
---- a/xen/arch/ppc/include/asm/bitops.h
-+++ b/xen/arch/ppc/include/asm/bitops.h
-@@ -15,11 +15,6 @@
- #define __set_bit(n, p)         set_bit(n, p)
- #define __clear_bit(n, p)       clear_bit(n, p)
- 
--#define BITOP_BITS_PER_WORD     32
--#define BITOP_MASK(nr)          (1U << ((nr) % BITOP_BITS_PER_WORD))
--#define BITOP_WORD(nr)          ((nr) / BITOP_BITS_PER_WORD)
--#define BITS_PER_BYTE           8
--
- /* PPC bit number conversion */
- #define PPC_BITLSHIFT(be)    (BITS_PER_LONG - 1 - (be))
- #define PPC_BIT(bit)         (1UL << PPC_BITLSHIFT(bit))
-@@ -69,17 +64,6 @@ static inline void clear_bit(int nr, volatile void *addr)
-     clear_bits(BITOP_MASK(nr), (volatile unsigned int *)addr + BITOP_WORD(nr));
- }
- 
--/**
-- * test_bit - Determine whether a bit is set
-- * @nr: bit number to test
-- * @addr: Address to start counting from
-- */
--static inline int test_bit(int nr, const volatile void *addr)
--{
--    const volatile unsigned int *p = addr;
--    return 1 & (p[BITOP_WORD(nr)] >> (nr & (BITOP_BITS_PER_WORD - 1)));
--}
--
- static inline unsigned int test_and_clear_bits(
-     unsigned int mask,
-     volatile unsigned int *p)
-@@ -133,44 +117,6 @@ static inline int test_and_set_bit(unsigned int nr, volatile void *addr)
-         (volatile unsigned int *)addr + BITOP_WORD(nr)) != 0;
- }
- 
--/**
-- * __test_and_set_bit - Set a bit and return its old value
-- * @nr: Bit to set
-- * @addr: Address to count from
-- *
-- * This operation is non-atomic and can be reordered.
-- * If two examples of this operation race, one can appear to succeed
-- * but actually fail.  You must protect multiple accesses with a lock.
-- */
--static inline int __test_and_set_bit(int nr, volatile void *addr)
--{
--    unsigned int mask = BITOP_MASK(nr);
--    volatile unsigned int *p = (volatile unsigned int *)addr + BITOP_WORD(nr);
--    unsigned int old = *p;
--
--    *p = old | mask;
--    return (old & mask) != 0;
--}
--
--/**
-- * __test_and_clear_bit - Clear a bit and return its old value
-- * @nr: Bit to clear
-- * @addr: Address to count from
-- *
-- * This operation is non-atomic and can be reordered.
-- * If two examples of this operation race, one can appear to succeed
-- * but actually fail.  You must protect multiple accesses with a lock.
-- */
--static inline int __test_and_clear_bit(int nr, volatile void *addr)
--{
--    unsigned int mask = BITOP_MASK(nr);
--    volatile unsigned int *p = (volatile unsigned int *)addr + BITOP_WORD(nr);
--    unsigned int old = *p;
--
--    *p = old & ~mask;
--    return (old & mask) != 0;
--}
--
- #define arch_ffs(x)  ((x) ? 1 + __builtin_ctz(x) : 0)
- #define arch_ffsl(x) ((x) ? 1 + __builtin_ctzl(x) : 0)
- #define arch_fls(x)  ((x) ? 32 - __builtin_clz(x) : 0)
-diff --git a/xen/arch/ppc/include/asm/page.h b/xen/arch/ppc/include/asm/page.h
-index 890e285051..6d4cd2611c 100644
---- a/xen/arch/ppc/include/asm/page.h
-+++ b/xen/arch/ppc/include/asm/page.h
-@@ -2,9 +2,9 @@
- #ifndef _ASM_PPC_PAGE_H
- #define _ASM_PPC_PAGE_H
- 
-+#include <xen/bitops.h>
- #include <xen/types.h>
- 
--#include <asm/bitops.h>
- #include <asm/byteorder.h>
- 
- #define PDE_VALID     PPC_BIT(0)
-diff --git a/xen/arch/ppc/mm-radix.c b/xen/arch/ppc/mm-radix.c
-index ab5a10695c..9055730997 100644
---- a/xen/arch/ppc/mm-radix.c
-+++ b/xen/arch/ppc/mm-radix.c
-@@ -1,11 +1,11 @@
- /* SPDX-License-Identifier: GPL-2.0-or-later */
-+#include <xen/bitops.h>
- #include <xen/init.h>
- #include <xen/kernel.h>
- #include <xen/mm.h>
- #include <xen/types.h>
- #include <xen/lib.h>
- 
--#include <asm/bitops.h>
- #include <asm/byteorder.h>
- #include <asm/early_printk.h>
- #include <asm/page.h>
-diff --git a/xen/arch/x86/include/asm/bitops.h b/xen/arch/x86/include/asm/bitops.h
-index aa71542e7b..f9aa60111f 100644
---- a/xen/arch/x86/include/asm/bitops.h
-+++ b/xen/arch/x86/include/asm/bitops.h
-@@ -19,9 +19,6 @@
- #define ADDR (*(volatile int *) addr)
- #define CONST_ADDR (*(const volatile int *) addr)
- 
--extern void __bitop_bad_size(void);
--#define bitop_bad_size(addr) (sizeof(*(addr)) < 4)
--
- /**
-  * set_bit - Atomically set a bit in memory
-  * @nr: the bit to set
-@@ -175,7 +172,7 @@ static inline int test_and_set_bit(int nr, volatile void *addr)
- })
- 
- /**
-- * __test_and_set_bit - Set a bit and return its old value
-+ * arch__test_and_set_bit - Set a bit and return its old value
-  * @nr: Bit to set
-  * @addr: Address to count from
-  *
-@@ -183,7 +180,7 @@ static inline int test_and_set_bit(int nr, volatile void *addr)
-  * If two examples of this operation race, one can appear to succeed
-  * but actually fail.  You must protect multiple accesses with a lock.
-  */
--static inline int __test_and_set_bit(int nr, void *addr)
-+static inline int arch__test_and_set_bit(int nr, volatile void *addr)
- {
-     int oldbit;
- 
-@@ -194,10 +191,7 @@ static inline int __test_and_set_bit(int nr, void *addr)
- 
-     return oldbit;
- }
--#define __test_and_set_bit(nr, addr) ({                 \
--    if ( bitop_bad_size(addr) ) __bitop_bad_size();     \
--    __test_and_set_bit(nr, addr);                       \
--})
-+#define arch__test_and_set_bit arch__test_and_set_bit
- 
- /**
-  * test_and_clear_bit - Clear a bit and return its old value
-@@ -224,7 +218,7 @@ static inline int test_and_clear_bit(int nr, volatile void *addr)
- })
- 
- /**
-- * __test_and_clear_bit - Clear a bit and return its old value
-+ * arch__test_and_clear_bit - Clear a bit and return its old value
-  * @nr: Bit to set
-  * @addr: Address to count from
-  *
-@@ -232,7 +226,7 @@ static inline int test_and_clear_bit(int nr, volatile void *addr)
-  * If two examples of this operation race, one can appear to succeed
-  * but actually fail.  You must protect multiple accesses with a lock.
-  */
--static inline int __test_and_clear_bit(int nr, void *addr)
-+static inline int arch__test_and_clear_bit(int nr, volatile void *addr)
- {
-     int oldbit;
- 
-@@ -243,13 +237,10 @@ static inline int __test_and_clear_bit(int nr, void *addr)
- 
-     return oldbit;
- }
--#define __test_and_clear_bit(nr, addr) ({               \
--    if ( bitop_bad_size(addr) ) __bitop_bad_size();     \
--    __test_and_clear_bit(nr, addr);                     \
--})
-+#define arch__test_and_clear_bit arch__test_and_clear_bit
- 
- /* WARNING: non atomic and it can be reordered! */
--static inline int __test_and_change_bit(int nr, void *addr)
-+static inline int arch__test_and_change_bit(int nr, volatile void *addr)
- {
-     int oldbit;
- 
-@@ -260,10 +251,7 @@ static inline int __test_and_change_bit(int nr, void *addr)
- 
-     return oldbit;
- }
--#define __test_and_change_bit(nr, addr) ({              \
--    if ( bitop_bad_size(addr) ) __bitop_bad_size();     \
--    __test_and_change_bit(nr, addr);                    \
--})
-+#define arch__test_and_change_bit arch__test_and_change_bit
- 
- /**
-  * test_and_change_bit - Change a bit and return its new value
-@@ -307,8 +295,7 @@ static inline int variable_test_bit(int nr, const volatile void *addr)
-     return oldbit;
- }
- 
--#define test_bit(nr, addr) ({                           \
--    if ( bitop_bad_size(addr) ) __bitop_bad_size();     \
-+#define arch_test_bit(nr, addr) ({                      \
-     __builtin_constant_p(nr) ?                          \
-         constant_test_bit(nr, addr) :                   \
-         variable_test_bit(nr, addr);                    \
-diff --git a/xen/include/xen/bitops.h b/xen/include/xen/bitops.h
-index 6a5e28730a..cc09d273c9 100644
---- a/xen/include/xen/bitops.h
-+++ b/xen/include/xen/bitops.h
-@@ -4,6 +4,19 @@
- #include <xen/compiler.h>
- #include <xen/types.h>
- 
-+#define BITOP_BITS_PER_WORD 32
-+typedef uint32_t bitop_uint_t;
+diff --git a/xen/arch/riscv/include/asm/bitops.h b/xen/arch/riscv/include/asm/bitops.h
+new file mode 100644
+index 0000000000..7f7af3fda1
+--- /dev/null
++++ b/xen/arch/riscv/include/asm/bitops.h
+@@ -0,0 +1,137 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++/* Copyright (C) 2012 Regents of the University of California */
 +
-+#define BITOP_MASK(nr)  ((bitop_uint_t)1 << ((nr) % BITOP_BITS_PER_WORD))
++#ifndef _ASM_RISCV_BITOPS_H
++#define _ASM_RISCV_BITOPS_H
 +
-+#define BITOP_WORD(nr)  ((nr) / BITOP_BITS_PER_WORD)
++#include <asm/system.h>
 +
-+#define BITS_PER_BYTE 8
++#if BITOP_BITS_PER_WORD == 64
++#define __AMO(op)   "amo" #op ".d"
++#elif BITOP_BITS_PER_WORD == 32
++#define __AMO(op)   "amo" #op ".w"
++#else
++#error "Unexpected BITOP_BITS_PER_WORD"
++#endif
 +
-+extern void __bitop_bad_size(void);
++/* Based on linux/arch/include/asm/bitops.h */
 +
-+#define bitop_bad_size(addr) (sizeof(*(addr)) < sizeof(bitop_uint_t))
++/*
++ * Non-atomic bit manipulation.
++ *
++ * Implemented using atomics to be interrupt safe. Could alternatively
++ * implement with local interrupt masking.
++ */
++#define __set_bit(n, p)      set_bit(n, p)
++#define __clear_bit(n, p)    clear_bit(n, p)
 +
- #include <asm/bitops.h>
- 
- /*
-@@ -24,6 +37,175 @@
- unsigned int __pure generic_ffsl(unsigned long x);
- unsigned int __pure generic_flsl(unsigned long x);
- 
++#define test_and_op_bit_ord(op, mod, nr, addr, ord)     \
++({                                                      \
++    bitop_uint_t res, mask;                             \
++    mask = BITOP_MASK(nr);                              \
++    asm volatile (                                      \
++        __AMO(op) #ord " %0, %2, %1"                    \
++        : "=r" (res), "+A" (addr[BITOP_WORD(nr)])       \
++        : "r" (mod(mask))                               \
++        : "memory");                                    \
++    ((res & mask) != 0);                                \
++})
++
++#define op_bit_ord(op, mod, nr, addr, ord)      \
++    asm volatile (                              \
++        __AMO(op) #ord " zero, %1, %0"          \
++        : "+A" (addr[BITOP_WORD(nr)])           \
++        : "r" (mod(BITOP_MASK(nr)))             \
++        : "memory");
++
++#define test_and_op_bit(op, mod, nr, addr)    \
++    test_and_op_bit_ord(op, mod, nr, addr, .aqrl)
++#define op_bit(op, mod, nr, addr) \
++    op_bit_ord(op, mod, nr, addr, )
++
++/* Bitmask modifiers */
++#define NOP(x)    (x)
++#define NOT(x)    (~(x))
++
 +/**
-+ * generic__test_and_set_bit - Set a bit and return its old value
++ * test_and_set_bit - Set a bit and return its old value
 + * @nr: Bit to set
 + * @addr: Address to count from
-+ *
-+ * This operation is non-atomic and can be reordered.
-+ * If two examples of this operation race, one can appear to succeed
-+ * but actually fail.  You must protect multiple accesses with a lock.
 + */
-+static always_inline bool
-+generic__test_and_set_bit(int nr, volatile void *addr)
++static inline bool test_and_set_bit(int nr, volatile void *p)
 +{
-+    bitop_uint_t mask = BITOP_MASK(nr);
-+    volatile bitop_uint_t *p = (volatile bitop_uint_t *)addr + BITOP_WORD(nr);
-+    bitop_uint_t old = *p;
++    volatile bitop_uint_t *addr = p;
 +
-+    *p = old | mask;
-+    return (old & mask);
++    return test_and_op_bit(or, NOP, nr, addr);
 +}
 +
 +/**
-+ * generic__test_and_clear_bit - Clear a bit and return its old value
++ * test_and_clear_bit - Clear a bit and return its old value
 + * @nr: Bit to clear
 + * @addr: Address to count from
-+ *
-+ * This operation is non-atomic and can be reordered.
-+ * If two examples of this operation race, one can appear to succeed
-+ * but actually fail.  You must protect multiple accesses with a lock.
 + */
-+static always_inline bool
-+generic__test_and_clear_bit(int nr, volatile void *addr)
++static inline bool test_and_clear_bit(int nr, volatile void *p)
 +{
-+    bitop_uint_t mask = BITOP_MASK(nr);
-+    volatile bitop_uint_t *p = (volatile bitop_uint_t *)addr + BITOP_WORD(nr);
-+    bitop_uint_t old = *p;
++    volatile bitop_uint_t *addr = p;
 +
-+    *p = old & ~mask;
-+    return (old & mask);
++    return test_and_op_bit(and, NOT, nr, addr);
 +}
 +
 +/**
-+ * generic__test_and_change_bit - Change a bit and return its old value
++ * test_and_change_bit - Toggle (change) a bit and return its old value
 + * @nr: Bit to change
 + * @addr: Address to count from
 + *
-+ * This operation is non-atomic and can be reordered.
-+ * If two examples of this operation race, one can appear to succeed
-+ * but actually fail.  You must protect multiple accesses with a lock.
++ * This operation is atomic and cannot be reordered.
++ * It also implies a memory barrier.
 + */
-+static always_inline bool
-+generic__test_and_change_bit(int nr, volatile void *addr)
++static inline bool test_and_change_bit(int nr, volatile void *p)
 +{
-+    bitop_uint_t mask = BITOP_MASK(nr);
-+    volatile bitop_uint_t *p = (volatile bitop_uint_t *)addr + BITOP_WORD(nr);
-+    bitop_uint_t old = *p;
++    volatile bitop_uint_t *addr = p;
 +
-+    *p = old ^ mask;
-+    return (old & mask);
++    return test_and_op_bit(xor, NOP, nr, addr);
 +}
 +
 +/**
-+ * generic_test_bit - Determine whether a bit is set
-+ * @nr: bit number to test
-+ * @addr: Address to start counting from
++ * set_bit - Atomically set a bit in memory
++ * @nr: the bit to set
++ * @addr: the address to start counting from
 + *
-+ * This operation is non-atomic and can be reordered.
-+ * If two examples of this operation race, one can appear to succeed
-+ * but actually fail.  You must protect multiple accesses with a lock.
++ * Note that @nr may be almost arbitrarily large; this function is not
++ * restricted to acting on a single-word quantity.
 + */
-+static always_inline bool generic_test_bit(int nr, const volatile void *addr)
++static inline void set_bit(int nr, volatile void *p)
 +{
-+    bitop_uint_t mask = BITOP_MASK(nr);
-+    const volatile bitop_uint_t *p =
-+        (const volatile bitop_uint_t *)addr + BITOP_WORD(nr);
++    volatile bitop_uint_t *addr = p;
 +
-+    return (*p & mask);
++    op_bit(or, NOP, nr, addr);
 +}
 +
 +/**
-+ * __test_and_set_bit - Set a bit and return its old value
-+ * @nr: Bit to set
-+ * @addr: Address to count from
-+ *
-+ * This operation is non-atomic and can be reordered.
-+ * If two examples of this operation race, one can appear to succeed
-+ * but actually fail.  You must protect multiple accesses with a lock.
-+ */
-+static always_inline bool
-+__test_and_set_bit(int nr, volatile void *addr)
-+{
-+#ifndef arch__test_and_set_bit
-+#define arch__test_and_set_bit generic__test_and_set_bit
-+#endif
-+
-+    return arch__test_and_set_bit(nr, addr);
-+}
-+#define __test_and_set_bit(nr, addr) ({             \
-+    if ( bitop_bad_size(addr) ) __bitop_bad_size(); \
-+    __test_and_set_bit(nr, addr);                   \
-+})
-+
-+/**
-+ * __test_and_clear_bit - Clear a bit and return its old value
++ * clear_bit - Clears a bit in memory
 + * @nr: Bit to clear
-+ * @addr: Address to count from
-+ *
-+ * This operation is non-atomic and can be reordered.
-+ * If two examples of this operation race, one can appear to succeed
-+ * but actually fail.  You must protect multiple accesses with a lock.
-+ */
-+static always_inline bool
-+__test_and_clear_bit(int nr, volatile void *addr)
-+{
-+#ifndef arch__test_and_clear_bit
-+#define arch__test_and_clear_bit generic__test_and_clear_bit
-+#endif
-+
-+    return arch__test_and_clear_bit(nr, addr);
-+}
-+#define __test_and_clear_bit(nr, addr) ({           \
-+    if ( bitop_bad_size(addr) ) __bitop_bad_size(); \
-+    __test_and_clear_bit(nr, addr);                 \
-+})
-+
-+/**
-+ * __test_and_change_bit - Change a bit and return its old value
-+ * @nr: Bit to change
-+ * @addr: Address to count from
-+ *
-+ * This operation is non-atomic and can be reordered.
-+ * If two examples of this operation race, one can appear to succeed
-+ * but actually fail.  You must protect multiple accesses with a lock.
-+ */
-+static always_inline bool
-+__test_and_change_bit(int nr, volatile void *addr)
-+{
-+#ifndef arch__test_and_change_bit
-+#define arch__test_and_change_bit generic__test_and_change_bit
-+#endif
-+
-+    return arch__test_and_change_bit(nr, addr);
-+}
-+#define __test_and_change_bit(nr, addr) ({              \
-+    if ( bitop_bad_size(addr) ) __bitop_bad_size();     \
-+    __test_and_change_bit(nr, addr);                    \
-+})
-+
-+/**
-+ * test_bit - Determine whether a bit is set
-+ * @nr: bit number to test
 + * @addr: Address to start counting from
-+ *
-+ * This operation is non-atomic and can be reordered.
-+ * If two examples of this operation race, one can appear to succeed
-+ * but actually fail.  You must protect multiple accesses with a lock.
 + */
-+static always_inline bool test_bit(int nr, const volatile void *addr)
++static inline void clear_bit(int nr, volatile void *p)
 +{
-+#ifndef arch_test_bit
-+#define arch_test_bit generic_test_bit
-+#endif
++    volatile bitop_uint_t *addr = p;
 +
-+    return arch_test_bit(nr, addr);
++    op_bit(and, NOT, nr, addr);
 +}
-+#define test_bit(nr, addr) ({                           \
-+    if ( bitop_bad_size(addr) ) __bitop_bad_size();     \
-+    test_bit(nr, addr);                                 \
-+})
 +
- static always_inline __pure unsigned int ffs(unsigned int x)
- {
-     if ( __builtin_constant_p(x) )
++#undef test_and_op_bit
++#undef op_bit
++#undef NOP
++#undef NOT
++#undef __AMO
++
++#endif /* _ASM_RISCV_BITOPS_H */
++
++/*
++ * Local variables:
++ * mode: C
++ * c-file-style: "BSD"
++ * c-basic-offset: 4
++ * indent-tabs-mode: nil
++ * End:
++ */
 -- 
 2.45.2
 
