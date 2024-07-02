@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CB9D19238EC
-	for <lists+xen-devel@lfdr.de>; Tue,  2 Jul 2024 10:53:56 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.752085.1160216 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7BDDC9238E6
+	for <lists+xen-devel@lfdr.de>; Tue,  2 Jul 2024 10:53:26 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.752092.1160226 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sOZ86-0000vi-AF; Tue, 02 Jul 2024 08:44:50 +0000
+	id 1sOZ8q-0001TH-LH; Tue, 02 Jul 2024 08:45:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 752085.1160216; Tue, 02 Jul 2024 08:44:50 +0000
+Received: by outflank-mailman (output) from mailman id 752092.1160226; Tue, 02 Jul 2024 08:45:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sOZ86-0000tP-6h; Tue, 02 Jul 2024 08:44:50 +0000
-Received: by outflank-mailman (input) for mailman id 752085;
- Tue, 02 Jul 2024 08:44:48 +0000
+	id 1sOZ8q-0001RE-IU; Tue, 02 Jul 2024 08:45:36 +0000
+Received: by outflank-mailman (input) for mailman id 752092;
+ Tue, 02 Jul 2024 08:45:34 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=WXFQ=OC=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sOZ84-0000tJ-9x
- for xen-devel@lists.xenproject.org; Tue, 02 Jul 2024 08:44:48 +0000
-Received: from mail-lj1-x229.google.com (mail-lj1-x229.google.com
- [2a00:1450:4864:20::229])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=IzxX=OC=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1sOZ8o-0000tJ-Rq
+ for xen-devel@lists.xenproject.org; Tue, 02 Jul 2024 08:45:34 +0000
+Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
+ [2a00:1450:4864:20::42e])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 559916f0-384f-11ef-a59d-41c015c667e1;
- Tue, 02 Jul 2024 10:44:46 +0200 (CEST)
-Received: by mail-lj1-x229.google.com with SMTP id
- 38308e7fff4ca-2eaae2a6dc1so51287991fa.0
- for <xen-devel@lists.xenproject.org>; Tue, 02 Jul 2024 01:44:46 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-1fad58f5f1dsm65612565ad.54.2024.07.02.01.44.40
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 02 Jul 2024 01:44:45 -0700 (PDT)
+ id 716fbe1a-384f-11ef-a59d-41c015c667e1;
+ Tue, 02 Jul 2024 10:45:33 +0200 (CEST)
+Received: by mail-wr1-x42e.google.com with SMTP id
+ ffacd0b85a97d-366e70d0330so2461735f8f.1
+ for <xen-devel@lists.xenproject.org>; Tue, 02 Jul 2024 01:45:33 -0700 (PDT)
+Received: from localhost ([213.195.124.163]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-3675a103e5esm12509189f8f.108.2024.07.02.01.45.31
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 02 Jul 2024 01:45:31 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,186 +44,134 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 559916f0-384f-11ef-a59d-41c015c667e1
+X-Inumbo-ID: 716fbe1a-384f-11ef-a59d-41c015c667e1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1719909886; x=1720514686; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=Uxjq6ObVcuKBDxQRvpbX/yQKx09IVAzZODL5DefPg9g=;
-        b=ab7ZTT1SfvR38U9K/8SgxbN4rAolvHBenDXFikkKCkUlztkZe3TLMLjpYoWshNBn+z
-         KVqUmO9/LZhe4kULH66ABxCQXFzwR9uiVFEvHIxc8NFPC3jLIaaAgbiwfQkGYCWLmmjd
-         +hzBv/OUk+rU8WrFGpUZrdqYtOlEp3mXegkCwSXchS79ofyon8hEAVE1I0QQ7mWVWz2Y
-         UBGGuoHkvzzMgK4bQTbG+qjR+EjIzQ4alDSO0GMbg2t0HM5Y38VIV9+fXNT01R2udVVY
-         1yDEdyn8cf4h1008mOICQG1qz0ROJGXIWK4R/TIWGEhCPG8eomi496XKexhIrGiN76WP
-         huKQ==
+        d=citrix.com; s=google; t=1719909932; x=1720514732; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=OJv3H9wfwWYfqvs89ZyOnJSbY2pxhP8diuBe6G8tqO4=;
+        b=Mz8kMYuSpj3RZ42zm7GR1DW0Uc34MT4Wz9lPDqgbdw4qftdl+c1Y3eauyRxFpipq9l
+         gqxvhMPhJVcRlOQGY2PMj1bBrl+Hq1CTzPCPv1SWCoGmb2jEBSPKczMgfohsGEIvWaT9
+         gDs3NVMlr33yN7VSjRtyPt6n2sJLtJ8jwIvKk=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1719909886; x=1720514686;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=Uxjq6ObVcuKBDxQRvpbX/yQKx09IVAzZODL5DefPg9g=;
-        b=OZ2fGv7kaeQF4UMM6jRR+bWugF35CsO91ZuOk1oXYzrEqhWnZNigYZSR9BTnCERzXy
-         0hqc986+t8GKknmziA9Vjfuuq73PzK/zoyBTS8PwN1X/lyID7tO8SR4kBaD3eS1fji0X
-         bTZygFbVdUv/88ceg8qgk3AaqjZTflaFAb9PQbdarspZFhwReMXAY4bGBsMwlGmL6DqO
-         hzHqaJcGUMseU9tu5fCPEUedGsUo5Qr9BGZAJwBqI6K9UKgwbiqDqnaQ2B04uiaMHLkT
-         Yz6n4ikqC9qHXcPbSPrUpOFYI0ogeUjfvePi+ZGKMz/DmJHXyCqln9iJzRPIgNqJHoIs
-         7yTA==
-X-Forwarded-Encrypted: i=1; AJvYcCXG3GbeJ7U6cECQDwgDrGaUvx6olS7g+G71zbULoDKUbq+/V4xjXNYqrHnIXSamkNlxO1d7qewRiViFaXdM0SK4sURs+IJxFEZpmUwUjJ4=
-X-Gm-Message-State: AOJu0Yyxj8AIxUC5FpTJrnqGA0AomJo/qmMNwdWfurg34kBp0vPvXjDm
-	YtFO9r2AXvOB+IGYwJqkB1LI8mIuVWA3JVseoC0grJL1kyS+estJL/GWnwALfQ==
-X-Google-Smtp-Source: AGHT+IE7Uy08cpVdCW2nMjUoNB0Hq23JbGEC81eA8OVHFavR5+uKS5aK5neX5Si5mNskIvxfyj7fyA==
-X-Received: by 2002:a2e:a418:0:b0:2ec:557b:f895 with SMTP id 38308e7fff4ca-2ee5e4b91cdmr65157301fa.31.1719909885596;
-        Tue, 02 Jul 2024 01:44:45 -0700 (PDT)
-Message-ID: <d1b22fa7-870e-4968-ba5d-c5d6fccb0af7@suse.com>
-Date: Tue, 2 Jul 2024 10:44:35 +0200
+        d=1e100.net; s=20230601; t=1719909932; x=1720514732;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=OJv3H9wfwWYfqvs89ZyOnJSbY2pxhP8diuBe6G8tqO4=;
+        b=mOfkewf8yCPm3ddhrakRLqvVZyqXhfBNvRvrTuxdB7A5AM7N56DfbcaZ8AGfufhfwB
+         AbN2g30AE2AMoVA8/mcN93D9lVAD4Xm9W3tGoP7ErWBLavx5u3gvsKEXttRhMEoOtXej
+         8MyGr2cTWbObDVH/1ceTkJZFB3C/Dyhje+f4YaiDpxtuy5U8i1byBkvk+ecfGXRAXys/
+         e1UAf+MJ42m4OwXWlc/yEU8CU9FA9/Mjp8/1iLqhJDYVidxBJzZtwxn417i+1CTJsngW
+         T864sVICOrJNkk3nlwU6JlbWD21SwAYgPIsLFwK0YgJ22gx9VadbBX2+qEUW7OX+hOrk
+         iFxA==
+X-Gm-Message-State: AOJu0Yw8bIVsgReJd4ykh4U/7X9CV4mvUAkAL7ynJIn+mhakZ6c281h0
+	LCqMZZ8R2sRYe0kxABvhylx/qaW0sVq+kcGYz0XTlaraOvVXYZBMXI+sad8y/pc=
+X-Google-Smtp-Source: AGHT+IFY2g9wy4Q/S3fuqe2cM2KISazdEdxhZhWoK9lPBWLQJs87FSt4k2SLrVbOeJswsfE3pggY8w==
+X-Received: by 2002:adf:f98a:0:b0:35f:b03:bf45 with SMTP id ffacd0b85a97d-367756adf42mr5398950f8f.24.1719909932128;
+        Tue, 02 Jul 2024 01:45:32 -0700 (PDT)
+Date: Tue, 2 Jul 2024 10:45:31 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
+Subject: Re: [PATCH v3 3/3] cmdline: document and enforce "extra_guest_irqs"
+ upper bounds
+Message-ID: <ZoO-K9ll9XW2gFFM@macbook>
+References: <7cb0d24e-2bda-dcda-4874-2c01ba179947@suse.com>
+ <3c3a1d0c-06f2-a392-b2f9-381bed5c5e7b@suse.com>
+ <ZoJ9Bd2kg3IQ0Z28@macbook>
+ <8ab71a85-6056-4c4f-8513-a21c061a176d@suse.com>
+ <ZoKvP6StEbMTgjrY@macbook>
+ <938e5bd1-4523-4b49-80fa-1c3331587972@suse.com>
+ <ZoLIpulcC7dqtxYR@macbook>
+ <a7df11bc-ab68-4ee2-9b96-53f3890a9803@suse.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH v11 2/8] x86/pvh: Allow (un)map_pirq when dom0 is PVH
-To: "Chen, Jiqian" <Jiqian.Chen@amd.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu
- <wl@xen.org>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Anthony PERARD <anthony@xenproject.org>, Juergen Gross <jgross@suse.com>,
- "Daniel P . Smith" <dpsmith@apertussolutions.com>,
- "Hildebrand, Stewart" <Stewart.Hildebrand@amd.com>,
- "Huang, Ray" <Ray.Huang@amd.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <20240630123344.20623-1-Jiqian.Chen@amd.com>
- <20240630123344.20623-3-Jiqian.Chen@amd.com>
- <9a311ee0-dcf2-4609-aced-7f57b322da5f@suse.com>
- <BL1PR12MB5849C3882D31620ADAC55ADAE7DC2@BL1PR12MB5849.namprd12.prod.outlook.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <BL1PR12MB5849C3882D31620ADAC55ADAE7DC2@BL1PR12MB5849.namprd12.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <a7df11bc-ab68-4ee2-9b96-53f3890a9803@suse.com>
 
-On 02.07.2024 05:15, Chen, Jiqian wrote:
-> On 2024/7/1 15:44, Jan Beulich wrote:
->> On 30.06.2024 14:33, Jiqian Chen wrote:
->>> If run Xen with PVH dom0 and hvm domU, hvm will map a pirq for
->>> a passthrough device by using gsi, see qemu code
->>> xen_pt_realize->xc_physdev_map_pirq and libxl code
->>> pci_add_dm_done->xc_physdev_map_pirq. Then xc_physdev_map_pirq
->>> will call into Xen, but in hvm_physdev_op, PHYSDEVOP_map_pirq
->>> is not allowed because currd is PVH dom0 and PVH has no
->>> X86_EMU_USE_PIRQ flag, it will fail at has_pirq check.
->>>
->>> So, allow PHYSDEVOP_map_pirq when dom0 is PVH and also allow
->>> PHYSDEVOP_unmap_pirq for the removal device path to unmap pirq.
->>> And add a new check to prevent (un)map when the subject domain
->>> has no X86_EMU_USE_PIRQ flag.
->>>
->>> So that the interrupt of a passthrough device can be
->>> successfully mapped to pirq for domU with X86_EMU_USE_PIRQ flag
->>> when dom0 is PVH
->>>
->>> Signed-off-by: Jiqian Chen <Jiqian.Chen@amd.com>
->>> Signed-off-by: Huang Rui <ray.huang@amd.com>
->>> Signed-off-by: Jiqian Chen <Jiqian.Chen@amd.com>
->>> Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
->>
->> You keep carrying this R-b, despite making functional changes. This can't be
->> quite right.
-> Will remove in next version.
+On Tue, Jul 02, 2024 at 10:30:03AM +0200, Jan Beulich wrote:
+> On 01.07.2024 17:17, Roger Pau Monné wrote:
+> > On Mon, Jul 01, 2024 at 05:07:19PM +0200, Jan Beulich wrote:
+> >> On 01.07.2024 15:29, Roger Pau Monné wrote:
+> >>> On Mon, Jul 01, 2024 at 12:40:35PM +0200, Jan Beulich wrote:
+> >>>> On 01.07.2024 11:55, Roger Pau Monné wrote:
+> >>>>> On Thu, Jul 27, 2023 at 09:38:55AM +0200, Jan Beulich wrote:
+> >>>>>> --- a/xen/common/domain.c
+> >>>>>> +++ b/xen/common/domain.c
+> >>>>>> @@ -693,7 +693,7 @@ struct domain *domain_create(domid_t dom
+> >>>>>>              d->nr_pirqs = nr_static_irqs + extra_domU_irqs;
+> >>>>>>          else
+> >>>>>>              d->nr_pirqs = extra_hwdom_irqs ? nr_static_irqs + extra_hwdom_irqs
+> >>>>>> -                                           : arch_hwdom_irqs(domid);
+> >>>>>> +                                           : arch_hwdom_irqs(d);
+> >>>>>>          d->nr_pirqs = min(d->nr_pirqs, nr_irqs);
+> >>>>>>  
+> >>>>>>          radix_tree_init(&d->pirq_tree);
+> >>>>>> @@ -819,6 +819,24 @@ void __init setup_system_domains(void)
+> >>>>>>      if ( IS_ERR(dom_xen) )
+> >>>>>>          panic("Failed to create d[XEN]: %ld\n", PTR_ERR(dom_xen));
+> >>>>>>  
+> >>>>>> +#ifdef CONFIG_HAS_PIRQ
+> >>>>>> +    /* Bound-check values passed via "extra_guest_irqs=". */
+> >>>>>> +    {
+> >>>>>> +        unsigned int n = max(arch_hwdom_irqs(dom_xen), nr_static_irqs);
+> >>>>>> +
+> >>>>>> +        if ( extra_hwdom_irqs > n - nr_static_irqs )
+> >>>>>> +        {
+> >>>>>> +            extra_hwdom_irqs = n - nr_static_irqs;
+> >>>>>> +            printk(XENLOG_WARNING "hwdom IRQs bounded to %u\n", n);
+> >>>>>> +        }
+> >>>>>> +        if ( extra_domU_irqs > max(32U, n - nr_static_irqs) )
+> >>>>>> +        {
+> >>>>>> +            extra_domU_irqs = n - nr_static_irqs;
+> >>>>>> +            printk(XENLOG_WARNING "domU IRQs bounded to %u\n", n);
+> >>>>>> +        }
+> >>>>>> +    }
+> >>>>>> +#endif
+> >>>>>
+> >>>>> IMO this is kind of a weird placement. Wouldn't this be more naturally
+> >>>>> handled in parse_extra_guest_irqs()?
+> >>>>
+> >>>> Indeed it is and yes it would, but no, it can't. We shouldn't rely on
+> >>>> the particular behavior of arch_hwdom_irqs(), and in the general case
+> >>>> we can't call it as early as when command line arguments are parsed. I
+> >>>> couldn't think of a neater way of doing this, and it not being pretty
+> >>>> is why I'm saying "(ab)use" in the description.
+> >>>
+> >>> I see, nr_static_irqs is an alias of nr_irqs_gsi, which is not properly
+> >>> set by the time we evaluate command line arguments.
+> >>>
+> >>> My only possible suggestion would be to do it as a presmp initcall,
+> >>> and define/register such initcall for x86 only, the only benefit would
+> >>> be that such inicall could be defined in the same translation unit as
+> >>> arch_hwdom_irqs() then.
+> >>
+> >> Which then would require making extra_{hwdom,domU}_irqs available to
+> >> x86/io_apic.c, which also wouldn't be very nice. To be honest, I'd prefer
+> >> to keep the logic where it is, until such time where perhaps we move pIRQ
+> >> stuff wholesale to x86-only files.
+> > 
+> > Fine by me.
+> > 
+> > I think we are in agreement about what needs doing.
 > 
->>
->> While functionally I'm now okay with the change, I still have a code structure
->> concern:
->>
->>> --- a/xen/arch/x86/physdev.c
->>> +++ b/xen/arch/x86/physdev.c
->>> @@ -323,6 +323,13 @@ ret_t do_physdev_op(int cmd, XEN_GUEST_HANDLE_PARAM(void) arg)
->>>          if ( !d )
->>>              break;
->>>  
->>> +        /* Prevent mapping when the subject domain has no X86_EMU_USE_PIRQ */
->>> +        if ( is_hvm_domain(d) && !has_pirq(d) )
->>> +        {
->>> +            rcu_unlock_domain(d);
->>> +            return -EOPNOTSUPP;
->>> +        }
->>> +
->>>          ret = physdev_map_pirq(d, map.type, &map.index, &map.pirq, &msi);
->>>  
->>>          rcu_unlock_domain(d);
->>> @@ -346,6 +353,13 @@ ret_t do_physdev_op(int cmd, XEN_GUEST_HANDLE_PARAM(void) arg)
->>>          if ( !d )
->>>              break;
->>>  
->>> +        /* Prevent unmapping when the subject domain has no X86_EMU_USE_PIRQ */
->>> +        if ( is_hvm_domain(d) && !has_pirq(d) )
->>> +        {
->>> +            rcu_unlock_domain(d);
->>> +            return -EOPNOTSUPP;
->>> +        }
->>> +
->>>          ret = physdev_unmap_pirq(d, unmap.pirq);
->>>  
->>>          rcu_unlock_domain(d);
->>
->> If you did go look, you will have noticed that we use "return" in the middle
->> of this function only very sparingly (when alternatives would result in more
->> complicated code elsewhere). I think you want to avoid "return" here, too,
->> and probably go even further and avoid the extra rcu_unlock_domain() as well.
->> That's easily possible to arrange for (taking the latter case as example):
->>
->>         /* Prevent unmapping when the subject domain has no X86_EMU_USE_PIRQ */
->>         if ( !is_hvm_domain(d) || has_pirq(d) )
->>             ret = physdev_unmap_pirq(d, unmap.pirq);
->>         else
->>             ret = -EOPNOTSUPP;
->>
->>         rcu_unlock_domain(d);
->>
->> Personally I would even use a conditional operator here, but I believe
->> others might dislike its use in situations like this one.
->>
->> The re-arrangement make a little more noticeable though that the comment
->> isn't quite right either: PV domains necessarily have no
->> X86_EMU_USE_PIRQ. Maybe "... has no notion of pIRQ"?
-> 
-> Or just like below?
-> 
->         /*
->          * Prevent unmapping when the subject hvm domain has no
->          * X86_EMU_USE_PIRQ
->          */
->         if ( is_hvm_domain(d) && !has_pirq(d) )
->             ret = -EOPNOTSUPP;
->         else
->             ret = physdev_unmap_pirq(d, unmap.pirq);
+> Hmm, after further thinking I'm not sure splitting would be the way to go.
+> We should rather properly remove the concept of pIRQ from PVH, i.e. not
+> only not have them visible to the kernel, but also not use e.g. ->nr_pirqs
+> and ->pirq_tree internally. Then we could presumably drop the constraining
+> via this command line option (documenting it as inapplicable to PVH).
 
-No objection to the slightly changed comment. The code alternative you
-present is of course functionally identical, yet personally I prefer to
-have the "good" case on the "if" branch and the "bad" one following
-"else". I wouldn't insist, though.
+Removing it from PVH would also imply removing from HVM AFAICT (unless
+it's HVM with explicitly pIRQ support).  I think the main issue there
+would be dealing with the change in all the interfaces that currently
+take pIRQ parameters, albeit I could be wrong.  Seems like a
+worthwhile improvement.
 
-Jan
+Thanks, Roger.
 
