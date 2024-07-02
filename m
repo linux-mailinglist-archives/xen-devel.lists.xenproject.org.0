@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4DCDC924041
-	for <lists+xen-devel@lfdr.de>; Tue,  2 Jul 2024 16:16:30 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.752512.1160735 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6FB0B924042
+	for <lists+xen-devel@lfdr.de>; Tue,  2 Jul 2024 16:16:49 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.752514.1160746 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sOeIh-0004cs-JI; Tue, 02 Jul 2024 14:16:07 +0000
+	id 1sOeJ4-00051B-Re; Tue, 02 Jul 2024 14:16:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 752512.1160735; Tue, 02 Jul 2024 14:16:07 +0000
+Received: by outflank-mailman (output) from mailman id 752514.1160746; Tue, 02 Jul 2024 14:16:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sOeIh-0004a8-GE; Tue, 02 Jul 2024 14:16:07 +0000
-Received: by outflank-mailman (input) for mailman id 752512;
- Tue, 02 Jul 2024 14:16:06 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=jWIE=OC=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1sOeIg-0004a0-4I
- for xen-devel@lists.xenproject.org; Tue, 02 Jul 2024 14:16:06 +0000
-Received: from mail-qt1-x82a.google.com (mail-qt1-x82a.google.com
- [2607:f8b0:4864:20::82a])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 9c2a8a91-387d-11ef-92e8-0d9d20120eaa;
- Tue, 02 Jul 2024 16:16:02 +0200 (CEST)
-Received: by mail-qt1-x82a.google.com with SMTP id
- d75a77b69052e-4466884aadfso12508231cf.2
- for <xen-devel@lists.xenproject.org>; Tue, 02 Jul 2024 07:16:02 -0700 (PDT)
-Received: from [10.125.226.166] ([160.101.139.1])
- by smtp.gmail.com with ESMTPSA id
- d75a77b69052e-4465144505esm41570971cf.56.2024.07.02.07.15.59
+	id 1sOeJ4-0004yg-ND; Tue, 02 Jul 2024 14:16:30 +0000
+Received: by outflank-mailman (input) for mailman id 752514;
+ Tue, 02 Jul 2024 14:16:28 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=WXFQ=OC=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1sOeJ2-0004wm-Kf
+ for xen-devel@lists.xenproject.org; Tue, 02 Jul 2024 14:16:28 +0000
+Received: from mail-lj1-x22a.google.com (mail-lj1-x22a.google.com
+ [2a00:1450:4864:20::22a])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id ab1a42f1-387d-11ef-aaf1-7f3abd7486c0;
+ Tue, 02 Jul 2024 16:16:26 +0200 (CEST)
+Received: by mail-lj1-x22a.google.com with SMTP id
+ 38308e7fff4ca-2ebe6495aedso45768491fa.0
+ for <xen-devel@lists.xenproject.org>; Tue, 02 Jul 2024 07:16:26 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-1fb0e3326f7sm1132955ad.105.2024.07.02.07.16.21
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 02 Jul 2024 07:16:00 -0700 (PDT)
+ Tue, 02 Jul 2024 07:16:25 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,120 +45,144 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9c2a8a91-387d-11ef-92e8-0d9d20120eaa
+X-Inumbo-ID: ab1a42f1-387d-11ef-aaf1-7f3abd7486c0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1719929761; x=1720534561; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1719929786; x=1720534586; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=jNsPV/tq7eAyprZ6ckvBHQT0Gv/qBLe0Z2hyPTDnYtk=;
-        b=NBSMSCPuUiAp766daC+pVRk5hKHk2Fy7rSWyKaWmxHvdlLqyPGodIBN4D+VW6SA+KM
-         vj+AykRFbGE5sQpL6vvLdT2bxDPlO46TxXU6Hn+sD253kqrkhPIaNMcWLSjvw0b5CK/m
-         Lk+3mIQBU6n53eT5o2mVk3fcJow+i7C3iSr2M=
+        bh=WjHVNV/Z3Z6hFdefiRUGPfdlh8VnrTiKVM95SieSxcQ=;
+        b=fG3/eNAXoBbUalp34m4GmcXP7586sd+7gpcyp5mwNOKu/fuprw7YtJjdOuCSaDwDi5
+         IU/g8OnnDbjwR7pSMff7FGzytE6CLO8byC/GGx44oBvCr/1VSOlVa5GKzp+T/9Eoolg2
+         +zuUxRYRpUNRiRLr8lm1HIjwdox/xGPtyvEVdR+mZUebIi8d1ahRAAqg3ev/f0gF+Oq9
+         Eq3Xvr8SeAiWEf/rdiaArh0hZT/Vt3fzj57EG6eXgPDhJ07icczJVWi9L3m+IuXcxOJ5
+         4MgKAFeXo1qbATR+wpFiuReAhYAc5O8xtleVIR1Z3vFTUM9ZFyyXvVh/vTG5GFf++BQp
+         nwCA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1719929761; x=1720534561;
+        d=1e100.net; s=20230601; t=1719929786; x=1720534586;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=jNsPV/tq7eAyprZ6ckvBHQT0Gv/qBLe0Z2hyPTDnYtk=;
-        b=OIFtqiEF13a3XOruklBUtBemgFAqIFDMjIg8h1iENrKeuer2erbGTm3J9RcBlPtmj4
-         QXSNo2JVtl0b4FbxrhDon1zaYkV+XvSu1Qr9nVM2XH4J2R+8LR1a8mBV5A+VWMD5kVt6
-         C8NgJ3Uo1IvHVRdFN+f4wZq0V6mTWdPFpmp7QimXeZQoZlXp2EqsU57axhPgXACEWrEx
-         MdhIuPpWFYk4Z5QJjyXojzAdgPpo4YSkRvPjqHMPcpSGuya5IKcYv3PjsM9dE7CQPgNB
-         ks+T8gP9WbUbdChwt2lGKkLa6cW9HkslY0+od+IAF29Zm1pJks78gN9QaftJxiLDF/rb
-         +SMg==
-X-Forwarded-Encrypted: i=1; AJvYcCX9xsQxaWdINza54Rio4HpuW38LRU0zYlRH86JaBSRU6mBSRpgSUwJVSbiwqV3uDOWWNkdMRK/BiXZMAaDO8RiS28i1nUy2IAtEbwKKn5c=
-X-Gm-Message-State: AOJu0Ywgf2IlsT66pG3MHzezGegL0LgUl5CS7+pdakEzavIjrko+YTfg
-	8FhPDyDhhxu3YUgTFsilIuXgr4vFYr8Zq65PngPo4QHVHDgGrM5UxOsJREEazuw=
-X-Google-Smtp-Source: AGHT+IGmcUXuN87O7rzl0P07YI77grmybtgDRGona7eTEv0k/X997SzRaTwCBC1fi2dXEMAcwnhYEg==
-X-Received: by 2002:a05:622a:7b89:b0:446:63e9:dc81 with SMTP id d75a77b69052e-44663e9dd9amr116273371cf.63.1719929760834;
-        Tue, 02 Jul 2024 07:16:00 -0700 (PDT)
-Message-ID: <0f719364-4125-46bb-bcea-35ad3b4a0f32@citrix.com>
-Date: Tue, 2 Jul 2024 15:15:58 +0100
+        bh=WjHVNV/Z3Z6hFdefiRUGPfdlh8VnrTiKVM95SieSxcQ=;
+        b=IVdgJmDJ9DAa+9su2ElceYGn5inJrkFfeQynqPKW5vapE1zBeaw3wSv3uaimLAmC3q
+         gtSeM2CyOa9YySb1UKr/hfK9gcmYzrpfkVrWBQR90POhZVUDhCwlZpeDcjVBUxg1Q1WN
+         kObWVvi5QoGwRoF1weB0On3wKYPlyhpdiLmGrCi/M8ePQGEY0hmCZUsijwUDY2IdX4MR
+         BwX1MSfB13jWNc2W6X13ZVxaubj6FuXJ6afL59giR1RCpuPaeANlLt/9nMzvBncGKsDN
+         XptzCdV6FQKAVnm5LKVGmdVKsftj4i1BK+1jtg9VNWelmjRxuWPxVaNF0JS8F5RxyyQ0
+         jCdw==
+X-Forwarded-Encrypted: i=1; AJvYcCWPWZWeknpNuGjuSINeqjtL7T5k7G5mkrGmi1qDTa+E5iH2Mk0jKBM9/Y9DubhtrCm6XYbX2Gqf5KbgCWReSA1lhWR4jQxBeGR69P+k3Vo=
+X-Gm-Message-State: AOJu0YxR1ajRDoyIqFvjBuyqyecZnalRdTyUdOBbSW692DSQ7k3Cgilh
+	xmxr1CeqTqGTtuJx3URbMbjw/jETogveZWptguqYplTnDu/3IBRqhDx+DbPn0w==
+X-Google-Smtp-Source: AGHT+IGtu6zHCV6++NlrrhOY18SUMpI3cGi2m20b2MTgudO3noR7Pdbe5Z4iR8iQJ13LetJYM3rH9A==
+X-Received: by 2002:a05:651c:54a:b0:2ec:5172:dbbc with SMTP id 38308e7fff4ca-2ee5e37e7acmr74742771fa.5.1719929785931;
+        Tue, 02 Jul 2024 07:16:25 -0700 (PDT)
+Message-ID: <2e284cad-d5de-467a-9d5a-19a1a31615cf@suse.com>
+Date: Tue, 2 Jul 2024 16:16:18 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH for-4.19] xen: Fix XEN_EXTRAVERSION after 4.19-rc1
-To: Jan Beulich <jbeulich@suse.com>
+Subject: Re: [PATCH v14 1/9] xen: introduce generic non-atomic test_*bit()
+To: Michal Orzel <michal.orzel@amd.com>,
+ Oleksii Kurochko <oleksii.kurochko@gmail.com>
 Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
- <julien@xen.org>, Oleksii Kurochko <oleksii.kurochko@gmail.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20240702134310.1307657-1-andrew.cooper3@citrix.com>
- <643ada7e-b265-4283-9c52-f6cf6239fe26@suse.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <643ada7e-b265-4283-9c52-f6cf6239fe26@suse.com>
+ <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Shawn Anastasio <sanastasio@raptorengineering.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ xen-devel@lists.xenproject.org
+References: <cover.1719917348.git.oleksii.kurochko@gmail.com>
+ <2f60d1fd7b3ac7d603486ce03a112d58352bf16d.1719917348.git.oleksii.kurochko@gmail.com>
+ <baae2108-675a-4e83-84b3-c791e57c3509@amd.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <baae2108-675a-4e83-84b3-c791e57c3509@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 02/07/2024 3:14 pm, Jan Beulich wrote:
-> On 02.07.2024 15:43, Andrew Cooper wrote:
->> EXTRAVERSION needs a . separator for numbers.
-> Not exactly. It needs the 0 dropped, if we follow what we've done in the
-> past. Then ...
->
->>  Currently, the banner reports:
+On 02.07.2024 15:11, Michal Orzel wrote:
+> Hi Oleksii,
+> 
+> On 02/07/2024 13:01, Oleksii Kurochko wrote:
 >>
->>   __  __            _  _    _  ___   ___
->>   \ \/ /___ _ __   | || |  / |/ _ \ / _ \    _ __ ___
->>    \  // _ \ '_ \  | || |_ | | (_) | | | |__| '__/ __|
->>    /  \  __/ | | | |__   _|| |\__, | |_| |__| | | (__
->>   /_/\_\___|_| |_|    |_|(_)_|  /_/ \___/   |_|  \___|
 >>
->> and xl reports:
+>> The following generic functions were introduced:
+>> * test_bit
+>> * generic__test_and_set_bit
+>> * generic__test_and_clear_bit
+>> * generic__test_and_change_bit
 >>
->>   # xl info xen_version
->>   4.190-rc
+>> These functions and macros can be useful for architectures
+>> that don't have corresponding arch-specific instructions.
 >>
->> Fixes: 4a73eb4c205d ("Update Xen version to 4.19-rc")
->> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> Acked-by: Jan Beulich <jbeulich@suse.com>
+>> Also, the patch introduces the following generics which are
+>> used by the functions mentioned above:
+>> * BITOP_BITS_PER_WORD
+>> * BITOP_MASK
+>> * BITOP_WORD
+>> * BITOP_TYPE
+>>
+>> The following approach was chosen for generic*() and arch*() bit
+>> operation functions:
+>> If the bit operation function that is going to be generic starts
+>> with the prefix "__", then the corresponding generic/arch function
+>> will also contain the "__" prefix. For example:
+>>  * test_bit() will be defined using arch_test_bit() and
+>>    generic_test_bit().
+>>  * __test_and_set_bit() will be defined using
+>>    arch__test_and_set_bit() and generic__test_and_set_bit().
+>>
+>> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+>> Reviewed-by: Jan Beulich <jbeulich@suse.com>
+> Reviewed-by: Michal Orzel <michal.orzel@amd.com>
+> 
+> with one question...
+> 
+> [...]
+> 
+>> diff --git a/xen/include/xen/bitops.h b/xen/include/xen/bitops.h
+>> index 6a5e28730a..cc09d273c9 100644
+>> --- a/xen/include/xen/bitops.h
+>> +++ b/xen/include/xen/bitops.h
+>> @@ -4,6 +4,19 @@
+>>  #include <xen/compiler.h>
+>>  #include <xen/types.h>
+>>
+>> +#define BITOP_BITS_PER_WORD 32
+>> +typedef uint32_t bitop_uint_t;
+>> +
+>> +#define BITOP_MASK(nr)  ((bitop_uint_t)1 << ((nr) % BITOP_BITS_PER_WORD))
+>> +
+>> +#define BITOP_WORD(nr)  ((nr) / BITOP_BITS_PER_WORD)
+>> +
+>> +#define BITS_PER_BYTE 8
+> Shouldn't you remove the same macros from riscv and x86 config.h ?
 
-I'm happy either way, but it definitely needs changing from what is here
-now.
+Oh, good that you spotted that: This wasn't supposed to be here anymore.
+Iirc we settled on this specifically wanting setting by each arch.
 
-~Andrew
+Jan
 
