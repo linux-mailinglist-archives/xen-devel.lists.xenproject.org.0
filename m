@@ -2,37 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0551E924199
-	for <lists+xen-devel@lfdr.de>; Tue,  2 Jul 2024 16:59:43 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.752544.1160759 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7A94F924227
+	for <lists+xen-devel@lfdr.de>; Tue,  2 Jul 2024 17:18:16 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.752552.1160769 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sOeyC-0003N0-2k; Tue, 02 Jul 2024 14:59:00 +0000
+	id 1sOfFe-0006Zx-H6; Tue, 02 Jul 2024 15:17:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 752544.1160759; Tue, 02 Jul 2024 14:59:00 +0000
+Received: by outflank-mailman (output) from mailman id 752552.1160769; Tue, 02 Jul 2024 15:17:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sOeyB-0003Kd-Vv; Tue, 02 Jul 2024 14:58:59 +0000
-Received: by outflank-mailman (input) for mailman id 752544;
- Tue, 02 Jul 2024 14:58:58 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1sOfFe-0006XM-DP; Tue, 02 Jul 2024 15:17:02 +0000
+Received: by outflank-mailman (input) for mailman id 752552;
+ Tue, 02 Jul 2024 15:17:00 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Fm4M=OC=kernel.dk=axboe@srs-se1.protection.inumbo.net>)
- id 1sOey9-0003KX-Th
- for xen-devel@lists.xenproject.org; Tue, 02 Jul 2024 14:58:58 +0000
-Received: from mail-oi1-x22f.google.com (mail-oi1-x22f.google.com
- [2607:f8b0:4864:20::22f])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 99e9ce44-3883-11ef-aaf1-7f3abd7486c0;
- Tue, 02 Jul 2024 16:58:55 +0200 (CEST)
-Received: by mail-oi1-x22f.google.com with SMTP id
- 5614622812f47-3d5b2963b04so232129b6e.3
- for <xen-devel@lists.xenproject.org>; Tue, 02 Jul 2024 07:58:55 -0700 (PDT)
-Received: from [127.0.0.1] ([96.43.243.2]) by smtp.gmail.com with ESMTPSA id
- 5614622812f47-3d62fb48ab1sm1698965b6e.54.2024.07.02.07.58.52
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 02 Jul 2024 07:58:53 -0700 (PDT)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1sOfFc-0006XC-BP; Tue, 02 Jul 2024 15:17:00 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1sOfFc-0001Gp-5m; Tue, 02 Jul 2024 15:17:00 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1sOfFb-0006O4-PX; Tue, 02 Jul 2024 15:16:59 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1sOfFb-0000QR-P6; Tue, 02 Jul 2024 15:16:59 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,73 +42,72 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 99e9ce44-3883-11ef-aaf1-7f3abd7486c0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=kernel-dk.20230601.gappssmtp.com; s=20230601; t=1719932334; x=1720537134; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:date:message-id:subject
-         :references:in-reply-to:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=YLJvrCKp8MLcu/+RMIXBzlT9gAnXUofdIoGhevdTams=;
-        b=FvBvBmK0z6peR6NEAkdlU/OUOWjnKEKccP9SgOC5UsBsjq4YtAe7qrmDZLSHah6w1a
-         RcElviB4LRig7RKQFQTsvU+UPnYZtIwa/dgtjKgR8Tbfa/CSfGmPVo91XQF9nADAdkL8
-         2OnOkh206oJ8huiBlm6qT95t4l0ZANBgRa5aQKjjYgofaeCUkf9yoa/U3Ulz3mUfiw9S
-         vDBK3ikh4vp5zmtAtMglwVOauXNKydnL8rN//rcyV/Dcdu8fXtgPhVBBgl0RAZn2t2RK
-         f0iOngNx2s2BqjYa3npX4651SeKcUTgxN6gmM+u0W7LIeso/EbcPkm4gSGvnkl/6pIU1
-         VsjA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1719932334; x=1720537134;
-        h=content-transfer-encoding:mime-version:date:message-id:subject
-         :references:in-reply-to:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=YLJvrCKp8MLcu/+RMIXBzlT9gAnXUofdIoGhevdTams=;
-        b=LRAmIO22ucxF5RMZ8aUhqyaZTtKSNOzqYaYstRGts6BaSiB49+aR3TBGSMZlkKy/R8
-         y2IplzJFJuLJ6NmRm5y90QvBLxsvEYlBM662Rg+wPMuYxazQuC9oqbMQI61GPDPj7yre
-         YOYJrje68NvZa1xJF2ShPgcYVduRaNMcZCS0wZ6bAiCXOj/T8JA6mhkc0to0NaY8s/xz
-         z/fo3cQwAtEAvCYKnTyrO/TwD7rWbPd+fccDqnLO8iCWZiEd3KCt75YDCrHEpWL4vxLU
-         4WJ4WTfPMRpGLxQYscetQ51krujDgzW+uRvmt1+CmQbYJnStxwSdGysy4Us9SG0HidFc
-         gyFQ==
-X-Forwarded-Encrypted: i=1; AJvYcCUbQH2fdB0F2SjGQ1KtCTM7U91Sx8VcvufqPZY7QIksqKmZVrlfsJE5DAQbm1ARM2l6+Ct1cBuP824vZ3HL0jCkRtvbZHATeHvOwG0NvgM=
-X-Gm-Message-State: AOJu0YyTK5r6ODcHAMsD30a2gwjDJ8A8sODh3IhR7GqCGqDlBJWQnqip
-	6d+9WoZmV/OrocVDmNIJELJa/PTbB0SM6zoAYR4gjwhjSQzE3WwaWBBQvE3TGMo=
-X-Google-Smtp-Source: AGHT+IEyS9oKtRMN8bwuH7h258UqecHYDZYqumNvgtOD1xV0BYd67tKCeRFF+kfE9D14plOte1qhsw==
-X-Received: by 2002:a05:6808:210c:b0:3d6:303f:5989 with SMTP id 5614622812f47-3d6afcbd885mr9690375b6e.0.1719932334045;
-        Tue, 02 Jul 2024 07:58:54 -0700 (PDT)
-From: Jens Axboe <axboe@kernel.dk>
-To: roger.pau@citrix.com, Christoph Hellwig <hch@lst.de>
-Cc: jgross@suse.com, marmarek@invisiblethingslab.com, 
- xen-devel@lists.xenproject.org, linux-block@vger.kernel.org, 
- Rusty Bird <rustybird@net-c.com>
-In-Reply-To: <20240625055238.7934-1-hch@lst.de>
-References: <20240625055238.7934-1-hch@lst.de>
-Subject: Re: [PATCH] xen-blkfront: fix sector_size propagation to the block
- layer
-Message-Id: <171993233260.107674.762169022819526197.b4-ty@kernel.dk>
-Date: Tue, 02 Jul 2024 08:58:52 -0600
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=DTrOXwNA6DLz8dL0QXKK98yAV7Y/5X20TcfSV7qfio8=; b=YJlDFRu9SmATb+aTgzOdcj7dV8
+	QjPEYYY1YKLMlNRQSOJ/ruC5EKOFKBRHeP7ardTKERTFh+3h3orIdJnz55spct7MCbbjX+pY1KMVV
+	CamSBcoA9pMOxN6X4c0rC+pHzyU8dyjfzzS7T4YzyPnesKQbAFd/PLNKyw+K1WRVhE5Q=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-186630-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-X-Mailer: b4 0.14.0
+MIME-Version: 1.0
+Subject: [ovmf test] 186630: all pass - PUSHED
+X-Osstest-Versions-This:
+    ovmf=b2216427ca7b0d31a36616e2876d362629de926d
+X-Osstest-Versions-That:
+    ovmf=e939ecf6c19f932535d073e383d016e8bf2e8ee7
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Tue, 02 Jul 2024 15:16:59 +0000
+
+flight 186630 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/186630/
+
+Perfect :-)
+All tests in this flight passed as required
+version targeted for testing:
+ ovmf                 b2216427ca7b0d31a36616e2876d362629de926d
+baseline version:
+ ovmf                 e939ecf6c19f932535d073e383d016e8bf2e8ee7
+
+Last test of basis   186624  2024-07-02 03:41:13 Z    0 days
+Testing same since   186630  2024-07-02 13:11:12 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Leif Lindholm <quic_llindhol@quicinc.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
 
 
-On Tue, 25 Jun 2024 07:52:38 +0200, Christoph Hellwig wrote:
-> Ensure that info->sector_size and info->physical_sector_size are set
-> before the call to blkif_set_queue_limits by doing away with the
-> local variables and arguments that propagate them.
-> 
-> Thanks to Marek Marczykowski-Górecki and Jürgen Groß for root causing
-> the issue.
-> 
-> [...]
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-Applied, thanks!
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
-[1/1] xen-blkfront: fix sector_size propagation to the block layer
-      commit: 98d34c087249d39838874b83e17671e7d5eb1ca7
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
-Best regards,
--- 
-Jens Axboe
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
 
+Pushing revision :
 
+To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
+   e939ecf6c1..b2216427ca  b2216427ca7b0d31a36616e2876d362629de926d -> xen-tested-master
 
