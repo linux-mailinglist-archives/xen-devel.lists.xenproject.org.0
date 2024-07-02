@@ -2,52 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E0733923E7C
-	for <lists+xen-devel@lfdr.de>; Tue,  2 Jul 2024 15:11:45 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.752455.1160670 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4E975923EE0
+	for <lists+xen-devel@lfdr.de>; Tue,  2 Jul 2024 15:26:02 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.752462.1160681 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sOdI1-0001Rs-Vp; Tue, 02 Jul 2024 13:11:21 +0000
+	id 1sOdVe-0003Qs-5n; Tue, 02 Jul 2024 13:25:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 752455.1160670; Tue, 02 Jul 2024 13:11:21 +0000
+Received: by outflank-mailman (output) from mailman id 752462.1160681; Tue, 02 Jul 2024 13:25:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sOdI1-0001Pb-Ss; Tue, 02 Jul 2024 13:11:21 +0000
-Received: by outflank-mailman (input) for mailman id 752455;
- Tue, 02 Jul 2024 13:11:20 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1sOdVe-0003Nm-2Y; Tue, 02 Jul 2024 13:25:26 +0000
+Received: by outflank-mailman (input) for mailman id 752462;
+ Tue, 02 Jul 2024 13:25:24 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=A3J5=OC=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
- id 1sOdI0-0001PT-FC
- for xen-devel@lists.xenproject.org; Tue, 02 Jul 2024 13:11:20 +0000
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on20607.outbound.protection.outlook.com
- [2a01:111:f403:2414::607])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 916ce287-3874-11ef-92e8-0d9d20120eaa;
- Tue, 02 Jul 2024 15:11:18 +0200 (CEST)
-Received: from SN4PR0501CA0061.namprd05.prod.outlook.com
- (2603:10b6:803:41::38) by DS0PR12MB7875.namprd12.prod.outlook.com
- (2603:10b6:8:14d::7) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7719.32; Tue, 2 Jul
- 2024 13:11:11 +0000
-Received: from SN1PEPF000252A0.namprd05.prod.outlook.com
- (2603:10b6:803:41:cafe::49) by SN4PR0501CA0061.outlook.office365.com
- (2603:10b6:803:41::38) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7741.21 via Frontend
- Transport; Tue, 2 Jul 2024 13:11:11 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- SN1PEPF000252A0.mail.protection.outlook.com (10.167.242.7) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7741.18 via Frontend Transport; Tue, 2 Jul 2024 13:11:11 +0000
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 2 Jul
- 2024 08:11:07 -0500
-Received: from [10.252.147.188] (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
- Transport; Tue, 2 Jul 2024 08:11:06 -0500
+ <SRS0=jWIE=OC=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1sOdVc-0003Nf-Gj
+ for xen-devel@lists.xenproject.org; Tue, 02 Jul 2024 13:25:24 +0000
+Received: from mail-qk1-x735.google.com (mail-qk1-x735.google.com
+ [2607:f8b0:4864:20::735])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 888268a5-3876-11ef-aaf1-7f3abd7486c0;
+ Tue, 02 Jul 2024 15:25:22 +0200 (CEST)
+Received: by mail-qk1-x735.google.com with SMTP id
+ af79cd13be357-79c06c08149so270126285a.3
+ for <xen-devel@lists.xenproject.org>; Tue, 02 Jul 2024 06:25:22 -0700 (PDT)
+Received: from [10.125.226.166] ([160.101.139.1])
+ by smtp.gmail.com with ESMTPSA id
+ af79cd13be357-79d69303cf7sm456346985a.110.2024.07.02.06.25.20
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 02 Jul 2024 06:25:20 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -59,163 +45,111 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 916ce287-3874-11ef-92e8-0d9d20120eaa
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=cUK7oA9iSOfv6ozm9mUpeEzjo1AHxx9sHtzqmcKA6MxMu3H2UYbZYGR9g4ZTL7EdbXT78iQ3p0Es8GRCFtHzlfYgLPMQ6RIWHVn7UcWXvuhdPNOThKjy3nmfUdxKr2rfcxDIoCNAdB+4IT2WzPPTwqLjXYO2qR0pCKUaYxexCrNVKgTyXpLXvuhZIgrw+7pLiSumYBZe3kWGJ6I4EQmW/uSXMIvpDq5ApOY31QCUtbcrsu9/dAubH9pSx8O9Qkix3INLF+jARj1BAIE8UJ0iaRFD7iXp1ytjbO1Le3QoRkK2wZLJvfQwKoxY3U5W9zg+4+vRG9v04yPLNvVsDHzt+w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=PeWdMwVCY3f6tmMWnRqlf2QOlbDIcDm8kK0e0AHA6s4=;
- b=UClKFA4ceThDIMMc21fo/nPbeXpGJz7ZuKF/C+tVb4MT9PQoaobdfWIIifGBTZwcVJtO1tHgLSMO/gcXMz6FCX9+qcyTsN8Vcx2WbgQRyerS4laXE3E4DWyBBzCRwbhaO0lKUHJ7LsSHfYijcBvLS/Z3vuen8TRCSbbY92kPSrof9k9LY77IQdPLhGboxEjOyyl9XhcFkdh8187xr0vzWaI93yGvLwnVSCjgV8iaBl9r71QcXEMr+XsB/Z+eNI/6jXfTpuu7kzYveb+i4RogkzLH7i8YEGmSQF0iiOmBmho4JRiNYw+lF/uLTAKiauhZhlHO3jjkRs8k0PcXJ3lqvw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=gmail.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=PeWdMwVCY3f6tmMWnRqlf2QOlbDIcDm8kK0e0AHA6s4=;
- b=WsAZfKVAgmmr8rGl3r+uz17v7OJ+ICAyv6VNH0ZBRg2u+06hwxuAzb20Oc3ETzbhRiupyroxxS4wZ7ZZgFM5QPHkHZ4QVAHtfKZJOCGOgFwZfQDbpg6dWkhzjNwg2Y5GlU7GTrmd5M2M7VLC3NGJbKES8ML9iRxpLUGQxpesinI=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Message-ID: <baae2108-675a-4e83-84b3-c791e57c3509@amd.com>
-Date: Tue, 2 Jul 2024 15:11:05 +0200
+X-Inumbo-ID: 888268a5-3876-11ef-aaf1-7f3abd7486c0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1719926721; x=1720531521; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=fArfLueTogK3CnphpQLna5oeSDXaai+pwnV3ZqaAasg=;
+        b=fx3ed9kxXcOtCx95/U+lMUF+6qa6MF2QI5fn823S8rIs+LUvEjkmlUd3apj8sqgO2U
+         zCZXwUOjCcNnF3vymw8pn3p+HoxNh86O0JvQz9KAE8naoX3karmYwENZcPY5Santicta
+         x0X9DeHhAJ7gk7TcPgK/5eGnSYZ/cGHlmqHn4=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1719926721; x=1720531521;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=fArfLueTogK3CnphpQLna5oeSDXaai+pwnV3ZqaAasg=;
+        b=bGXjReRG1C+tPcQfE6uvBxJtSwWZv25lwTEy281l5G2HV/FdcIniuJzsG87z57cMyZ
+         haYvIAoFKhpQsdAESoHFrwxW6qEfdmMrha5RvbuLgErALD7qKvVHgu6l5NCyyiBCDNuF
+         hHK9RvlFMvl3uJ41KIShx93i5MD48/EG3+zoJ31Pcee/ZoIq6a/XxJ+tdIZJvGfAEK9B
+         os8yd9AlucojZm8vQjXKr3DYbCYBKF1Nu1FDqWqNrSlnU7V8K73SwIs+1yRqANDue577
+         Crrd4dCHlC+pTH++ecwDXY0zM5CGaIO1kTgATlw/O60HMB3rA19LIS5Ujum/Ftb9ENll
+         EBYg==
+X-Forwarded-Encrypted: i=1; AJvYcCUuo6xlAbRoiPBou22g95f7zhS8h0cgk9bNcMpG5xO2dWahO1Vj0y+rLe2q0TGymgoZceIh0H6xlhd6vzoYA6JNsbEP12Mij+5wjwBGkDo=
+X-Gm-Message-State: AOJu0YytGpIsNNEz7dizRxW8AxpNWMa8l9ZGpAAcX2H8ybX3gd/2Vzf1
+	0eh/UnEUesZt+ZZp9JXWCrr3XZEnELiL47OsxjqhA/hfd4a5Vp2fEBEOq0o91cI=
+X-Google-Smtp-Source: AGHT+IEZ/3UNFEq1xhlrvA2FfrJK9nsjYsr6gUMJtWd6Dyljw7qI8XR4Rs53Q9fKOoX8mSkisyxcMQ==
+X-Received: by 2002:a05:620a:1359:b0:79d:5b4c:7bce with SMTP id af79cd13be357-79d7ba14a08mr996092785a.43.1719926721474;
+        Tue, 02 Jul 2024 06:25:21 -0700 (PDT)
+Message-ID: <a94ddb39-0bb1-42a6-9cf4-8c05f92a5cb0@citrix.com>
+Date: Tue, 2 Jul 2024 14:25:18 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v14 1/9] xen: introduce generic non-atomic test_*bit()
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
-	<xen-devel@lists.xenproject.org>
-CC: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
-	<julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>, Volodymyr
- Babchuk <Volodymyr_Babchuk@epam.com>, Andrew Cooper
-	<andrew.cooper3@citrix.com>, Jan Beulich <jbeulich@suse.com>, Shawn Anastasio
-	<sanastasio@raptorengineering.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
-	<roger.pau@citrix.com>
-References: <cover.1719917348.git.oleksii.kurochko@gmail.com>
- <2f60d1fd7b3ac7d603486ce03a112d58352bf16d.1719917348.git.oleksii.kurochko@gmail.com>
-Content-Language: en-US
-From: Michal Orzel <michal.orzel@amd.com>
-In-Reply-To: <2f60d1fd7b3ac7d603486ce03a112d58352bf16d.1719917348.git.oleksii.kurochko@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-Received-SPF: None (SATLEXMB04.amd.com: michal.orzel@amd.com does not
- designate permitted sender hosts)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN1PEPF000252A0:EE_|DS0PR12MB7875:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9f2bdfd8-7dfe-4d7e-aec1-08dc9a9871da
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|36860700013|376014|7416014|82310400026;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?QWhET21tWXl6VlFSb2x5Y3FCWFNkZS9nT1d4cmJVb1NuY0dXQmJ2b0FFcy9X?=
- =?utf-8?B?d1lmeW5wV3NVNUpldjJPSWE3WUdhYjYxVlg3YnJiRVRIRVNPSzErTzJZa1lG?=
- =?utf-8?B?NDZ6LzlLVFExN2o0dHB2THdVUDJGcXBNREZOZDdPekZYUkEwdDhkbmZDUTl2?=
- =?utf-8?B?bW5IRVJRN1A4ZG9WUXFXRWdmMW5hQkVhNlQwS2p5S3owbE9tdGVKMTlWakR0?=
- =?utf-8?B?T20xZ3RZUlJiYmV4dHdsQkd5VWtueXorY1JQOWt6ekZjV1dxNitJbFJMRzBj?=
- =?utf-8?B?Z3JqWEpXM29VeVR5cDlXV0Nld2tBVTVkYUNXdUMvaXk3T3VhZlpLaXMwODRy?=
- =?utf-8?B?TkxXdkRjeEtuN1NPaFpIM3NCZEoydGJYT3JhR0NwY1JqcytPdzZZU2FVaXUv?=
- =?utf-8?B?cXduV1VSd0s4QzZKaGloNVVGOVN1aWQwMEt2d3BUNkt2L0ovaDNZSERMdExP?=
- =?utf-8?B?Zzh0R3VON0ZqOVUvN1ZBWk5JSUZNMDRrOFo0VkFURWxxMmlaTnlCVGZKOUp4?=
- =?utf-8?B?NmJFc1NyZXZQeHE1cVJKMDRtWm1lR1h0Q21HRFVuY0tseERpYUlsM1NUOG43?=
- =?utf-8?B?clJmVzFHWURLTTRmWjNZUWQrU3lQS1lSSWZsVldJOEcrVWdJc3dHUVlWTlRy?=
- =?utf-8?B?bFhEOThpaUl5OEhKMllTSTVQQ1FUL0RGSUkyNWNudVJIWEN4QmtDM0FQbzlV?=
- =?utf-8?B?T1FCQWpFMDYraDYzYmswME5XS3RLdEVtbzdabE11SFNuQTY0WWJlWFMxWitH?=
- =?utf-8?B?bjRKdkZhV2ZmS1h5a20rYStCSXFhZnRCVFQzamE5anVJaUx5NTNsNDZ6T0Yz?=
- =?utf-8?B?VkEyQVFMT1V1Z0dpS2ppS0FjQmxmWmJkVHpueVBtT2Z2ZnZvRSs5cFc3NkMv?=
- =?utf-8?B?L1VwKzc4Vit4UnFOeDNicmhlWUVYNXRta0tFZGdKNUpIME9tR0VEYWRpSUkv?=
- =?utf-8?B?RTVvL1B2ZldHMlJBaGIvTDJNNytTbW1QYU4rbzNZTjAyWXpFTzhsUG1LYUdS?=
- =?utf-8?B?eVpPK01EYklZWXE2Wm82dEZMZkxMemhiUUFIeUhRREQrZ2JMS1RaTDM4V1h0?=
- =?utf-8?B?TkZWMGZ0RkZyL21kb25hdHlqTXN1RU51ZHNQQXhUT0FFY0VYOGVHT2txOVZy?=
- =?utf-8?B?aFJ2TUdBUldYeVJJb3ZCOUhkMEY2NXJOMUJ3TE5YSFpJa3NHRVlydHlVRHlL?=
- =?utf-8?B?VXBlcXBaYXNVdFJUZHArZ1M2dU5YK2ZGR25VY3M1Ymc5R29sQUtYb0l5Mito?=
- =?utf-8?B?SE0vME44aXhQTEZjU2lOTEhPVXNTY2JDVHRncXYvaWZFK2xRVm0zMVVPcy8r?=
- =?utf-8?B?a1Z0QXNhTmZTQmdHMDI0LzZEYXZJQkx5Z2tBSWkrRERjMkthU1B1aWhmT2Fp?=
- =?utf-8?B?SXVXM3ZKR1B3cThsZmprZUNHL1k1M2t1bUMzTWh3UG1SaDNuTzZraW1CendJ?=
- =?utf-8?B?U005M0QwcWJTT0Z3QXFJWktNRzcrbitKSmpmLzFjNC8xVEpPU0NaTk91T2Ns?=
- =?utf-8?B?NGU0REdMcEVIVGFiWU9sWjA0ZFVsbFQyZ041YUxhMWt6Qm9PZnB6b3UzeVJQ?=
- =?utf-8?B?ZE16TFpHZzhIK0lZZTZyZTRERG5JSm5NN2p3anVnajZFL01xbWNaMVFPRnVF?=
- =?utf-8?B?WUoybEd6b3A4b1ArNUtGaXprM1pFclFjRFkyZ3JZSVFBbnUwTlZ6bmdNTzB1?=
- =?utf-8?B?RURSNjdEMWZIaksrV3h1ZnowK1hJN1Y1ZHR6TjVEb0dNbUQwMmtwK0o3Zlg3?=
- =?utf-8?B?ZHliNzVOS3FVL0d2Yk8zT0x1VzBwNERHTkh0K21QSU1FUTExWkYwMytGd1ZS?=
- =?utf-8?B?N2pUZStYMmJLRFF1YndDaXZHN0toeC9rN3N1VTFDWlFTMFVrdlpuYzJaOE53?=
- =?utf-8?B?VmtMRk5GdVBKWVNhQTFSR0pjR2Q0SndMakhyT01uZ1FPNmV3dGltc3ZqUVdt?=
- =?utf-8?Q?sI68pEFu/j44/kzt3NSbots4E0H54Op0?=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(36860700013)(376014)(7416014)(82310400026);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Jul 2024 13:11:11.4850
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9f2bdfd8-7dfe-4d7e-aec1-08dc9a9871da
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SN1PEPF000252A0.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB7875
+Subject: Re: [PATCH v1] automation: add findutils to suse images
+To: Olaf Hering <olaf@aepfle.de>
+Cc: Oleksii <oleksii.kurochko@gmail.com>, xen-devel@lists.xenproject.org,
+ Doug Goldstein <cardoe@cardoe.com>,
+ Stefano Stabellini <sstabellini@kernel.org>
+References: <20240701151512.10187-1-olaf@aepfle.de>
+ <6231910f-b4c9-4604-83dc-c53e53d30409@citrix.com>
+ <0551e31b19bbdad8aeacb6c76e7651abe1b8ca4d.camel@gmail.com>
+ <b6f3001f-6ad9-4833-a0cd-3742df49acb7@citrix.com>
+ <20240702121129.201a677f.olaf@aepfle.de>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <20240702121129.201a677f.olaf@aepfle.de>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hi Oleksii,
+On 02/07/2024 11:11 am, Olaf Hering wrote:
+> Tue, 2 Jul 2024 11:02:00 +0100 Andrew Cooper <andrew.cooper3@citrix.com>:
+>
+>> This patch is about keeping Gitlab CI running smoothly.  It's not
+>> related to Xen 4.19, except by chance.
+> It seems the automation/build directory needs to be purged from
+> non-staging branches, to make it obvious that images need to be
+> rebuilt from the staging branch only.
 
-On 02/07/2024 13:01, Oleksii Kurochko wrote:
-> 
-> 
-> The following generic functions were introduced:
-> * test_bit
-> * generic__test_and_set_bit
-> * generic__test_and_clear_bit
-> * generic__test_and_change_bit
-> 
-> These functions and macros can be useful for architectures
-> that don't have corresponding arch-specific instructions.
-> 
-> Also, the patch introduces the following generics which are
-> used by the functions mentioned above:
-> * BITOP_BITS_PER_WORD
-> * BITOP_MASK
-> * BITOP_WORD
-> * BITOP_TYPE
-> 
-> The following approach was chosen for generic*() and arch*() bit
-> operation functions:
-> If the bit operation function that is going to be generic starts
-> with the prefix "__", then the corresponding generic/arch function
-> will also contain the "__" prefix. For example:
->  * test_bit() will be defined using arch_test_bit() and
->    generic_test_bit().
->  * __test_and_set_bit() will be defined using
->    arch__test_and_set_bit() and generic__test_and_set_bit().
-> 
-> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-> Reviewed-by: Jan Beulich <jbeulich@suse.com>
-Reviewed-by: Michal Orzel <michal.orzel@amd.com>
+In an ideal world, yes.  Sadly there's one problem.
 
-with one question...
+It breaks the use of ./automation/scripts/containerize locally in the
+older branches.
 
-[...]
-
-> diff --git a/xen/include/xen/bitops.h b/xen/include/xen/bitops.h
-> index 6a5e28730a..cc09d273c9 100644
-> --- a/xen/include/xen/bitops.h
-> +++ b/xen/include/xen/bitops.h
-> @@ -4,6 +4,19 @@
->  #include <xen/compiler.h>
->  #include <xen/types.h>
-> 
-> +#define BITOP_BITS_PER_WORD 32
-> +typedef uint32_t bitop_uint_t;
-> +
-> +#define BITOP_MASK(nr)  ((bitop_uint_t)1 << ((nr) % BITOP_BITS_PER_WORD))
-> +
-> +#define BITOP_WORD(nr)  ((nr) / BITOP_BITS_PER_WORD)
-> +
-> +#define BITS_PER_BYTE 8
-Shouldn't you remove the same macros from riscv and x86 config.h ?
-
-~Michal
-
+~Andrew
 
