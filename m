@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4E975923EE0
-	for <lists+xen-devel@lfdr.de>; Tue,  2 Jul 2024 15:26:02 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.752462.1160681 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 50956923F43
+	for <lists+xen-devel@lfdr.de>; Tue,  2 Jul 2024 15:44:01 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.752471.1160691 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sOdVe-0003Qs-5n; Tue, 02 Jul 2024 13:25:26 +0000
+	id 1sOdmu-0006jl-Jq; Tue, 02 Jul 2024 13:43:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 752462.1160681; Tue, 02 Jul 2024 13:25:26 +0000
+Received: by outflank-mailman (output) from mailman id 752471.1160691; Tue, 02 Jul 2024 13:43:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sOdVe-0003Nm-2Y; Tue, 02 Jul 2024 13:25:26 +0000
-Received: by outflank-mailman (input) for mailman id 752462;
- Tue, 02 Jul 2024 13:25:24 +0000
+	id 1sOdmu-0006hx-Gz; Tue, 02 Jul 2024 13:43:16 +0000
+Received: by outflank-mailman (input) for mailman id 752471;
+ Tue, 02 Jul 2024 13:43:15 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=jWIE=OC=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1sOdVc-0003Nf-Gj
- for xen-devel@lists.xenproject.org; Tue, 02 Jul 2024 13:25:24 +0000
-Received: from mail-qk1-x735.google.com (mail-qk1-x735.google.com
- [2607:f8b0:4864:20::735])
+ id 1sOdmt-0006hr-OH
+ for xen-devel@lists.xenproject.org; Tue, 02 Jul 2024 13:43:15 +0000
+Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
+ [2a00:1450:4864:20::62e])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 888268a5-3876-11ef-aaf1-7f3abd7486c0;
- Tue, 02 Jul 2024 15:25:22 +0200 (CEST)
-Received: by mail-qk1-x735.google.com with SMTP id
- af79cd13be357-79c06c08149so270126285a.3
- for <xen-devel@lists.xenproject.org>; Tue, 02 Jul 2024 06:25:22 -0700 (PDT)
-Received: from [10.125.226.166] ([160.101.139.1])
+ id 072a1644-3879-11ef-aaf1-7f3abd7486c0;
+ Tue, 02 Jul 2024 15:43:13 +0200 (CEST)
+Received: by mail-ej1-x62e.google.com with SMTP id
+ a640c23a62f3a-a751ed17b1eso436799666b.1
+ for <xen-devel@lists.xenproject.org>; Tue, 02 Jul 2024 06:43:13 -0700 (PDT)
+Received: from andrewcoop.eng.citrite.net ([160.101.139.1])
  by smtp.gmail.com with ESMTPSA id
- af79cd13be357-79d69303cf7sm456346985a.110.2024.07.02.06.25.20
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 02 Jul 2024 06:25:20 -0700 (PDT)
+ a640c23a62f3a-a72aaf61f69sm422119666b.67.2024.07.02.06.43.11
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 02 Jul 2024 06:43:12 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,111 +45,89 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 888268a5-3876-11ef-aaf1-7f3abd7486c0
+X-Inumbo-ID: 072a1644-3879-11ef-aaf1-7f3abd7486c0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1719926721; x=1720531521; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=fArfLueTogK3CnphpQLna5oeSDXaai+pwnV3ZqaAasg=;
-        b=fx3ed9kxXcOtCx95/U+lMUF+6qa6MF2QI5fn823S8rIs+LUvEjkmlUd3apj8sqgO2U
-         zCZXwUOjCcNnF3vymw8pn3p+HoxNh86O0JvQz9KAE8naoX3karmYwENZcPY5Santicta
-         x0X9DeHhAJ7gk7TcPgK/5eGnSYZ/cGHlmqHn4=
+        d=citrix.com; s=google; t=1719927792; x=1720532592; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=4ysxzaW7zBA0aHmVDbuDm4bmqYBDZxIKNlD/R+YAdNs=;
+        b=ejkdTrtxkN/5TBE3MfUVplt/+h+5x+9tF5lpQsK86uvdiiOmk2f2qJOTMx0ubTh4D1
+         FaEQahPt6ph854xdofICmYWr1BpgZ3AfFuo9BObz6b42Bm4NXHVi5XZsXGeQtguQHxAy
+         mh57f6L8SjC0EG2LO/jZOdueHVQbudZOPeUqU=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1719926721; x=1720531521;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=fArfLueTogK3CnphpQLna5oeSDXaai+pwnV3ZqaAasg=;
-        b=bGXjReRG1C+tPcQfE6uvBxJtSwWZv25lwTEy281l5G2HV/FdcIniuJzsG87z57cMyZ
-         haYvIAoFKhpQsdAESoHFrwxW6qEfdmMrha5RvbuLgErALD7qKvVHgu6l5NCyyiBCDNuF
-         hHK9RvlFMvl3uJ41KIShx93i5MD48/EG3+zoJ31Pcee/ZoIq6a/XxJ+tdIZJvGfAEK9B
-         os8yd9AlucojZm8vQjXKr3DYbCYBKF1Nu1FDqWqNrSlnU7V8K73SwIs+1yRqANDue577
-         Crrd4dCHlC+pTH++ecwDXY0zM5CGaIO1kTgATlw/O60HMB3rA19LIS5Ujum/Ftb9ENll
-         EBYg==
-X-Forwarded-Encrypted: i=1; AJvYcCUuo6xlAbRoiPBou22g95f7zhS8h0cgk9bNcMpG5xO2dWahO1Vj0y+rLe2q0TGymgoZceIh0H6xlhd6vzoYA6JNsbEP12Mij+5wjwBGkDo=
-X-Gm-Message-State: AOJu0YytGpIsNNEz7dizRxW8AxpNWMa8l9ZGpAAcX2H8ybX3gd/2Vzf1
-	0eh/UnEUesZt+ZZp9JXWCrr3XZEnELiL47OsxjqhA/hfd4a5Vp2fEBEOq0o91cI=
-X-Google-Smtp-Source: AGHT+IEZ/3UNFEq1xhlrvA2FfrJK9nsjYsr6gUMJtWd6Dyljw7qI8XR4Rs53Q9fKOoX8mSkisyxcMQ==
-X-Received: by 2002:a05:620a:1359:b0:79d:5b4c:7bce with SMTP id af79cd13be357-79d7ba14a08mr996092785a.43.1719926721474;
-        Tue, 02 Jul 2024 06:25:21 -0700 (PDT)
-Message-ID: <a94ddb39-0bb1-42a6-9cf4-8c05f92a5cb0@citrix.com>
-Date: Tue, 2 Jul 2024 14:25:18 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1] automation: add findutils to suse images
-To: Olaf Hering <olaf@aepfle.de>
-Cc: Oleksii <oleksii.kurochko@gmail.com>, xen-devel@lists.xenproject.org,
- Doug Goldstein <cardoe@cardoe.com>,
- Stefano Stabellini <sstabellini@kernel.org>
-References: <20240701151512.10187-1-olaf@aepfle.de>
- <6231910f-b4c9-4604-83dc-c53e53d30409@citrix.com>
- <0551e31b19bbdad8aeacb6c76e7651abe1b8ca4d.camel@gmail.com>
- <b6f3001f-6ad9-4833-a0cd-3742df49acb7@citrix.com>
- <20240702121129.201a677f.olaf@aepfle.de>
-Content-Language: en-GB
+        d=1e100.net; s=20230601; t=1719927792; x=1720532592;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=4ysxzaW7zBA0aHmVDbuDm4bmqYBDZxIKNlD/R+YAdNs=;
+        b=s845HGSfoh4T6qMTj4uR2+vHqa0C6LCaOPvGzMz7wTNPbj8wvkbWXmY3lS27zAkEj2
+         JYOzRmHmuE9Y3ppKJAgQKNkblEoHTBwy0k22KNgormB1ZQxoDLSkaPw22ocOz95UG6Va
+         g1dJjaCYC7gII/+X5gIuBRvHTeqEePUB/8M6CCyaCQdOT3VZ8AxVZL3Hxz0Yj9XvV05v
+         TwYS+lpA0bRvyrGJnVvf4FGj9+dmLBKT1TGEo6FPZQebIC6oj9jSqyHS4Szb1Uu7mORi
+         9+IclfXOMewpGqp2YYOIcV8WFXArw6M1MezXGtIBaOg6WLhrNk4pVZtlsL5oX4c8Yqu2
+         /5oQ==
+X-Gm-Message-State: AOJu0Yx5HCXCjchZMJ++1Cr5MN9f7tCM+igySxaWvX29c4OLTw47BBtA
+	9Hp6L0TzHWXUQx9uZma7GTRrAHwdHa42GRHmcIjRJqYjU2KfdOjmog4WxXoI1uKpQk8iKCmmRSC
+	N7UA=
+X-Google-Smtp-Source: AGHT+IGjUA7IDqvAHJg26XAb4ugBXlO7C9RYCvYxQJtZWs0ayNYOeo4donIXYwowBNvbZREsBJSuBA==
+X-Received: by 2002:a17:906:c1c2:b0:a6f:9643:e8b8 with SMTP id a640c23a62f3a-a7513953c11mr662493866b.32.1719927792391;
+        Tue, 02 Jul 2024 06:43:12 -0700 (PDT)
 From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <20240702121129.201a677f.olaf@aepfle.de>
-Content-Type: text/plain; charset=UTF-8
+To: Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+	Jan Beulich <JBeulich@suse.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Julien Grall <julien@xen.org>,
+	Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Subject: [PATCH] xen: Fix XEN_EXTRAVERSION after 4.19-rc1
+Date: Tue,  2 Jul 2024 14:43:10 +0100
+Message-Id: <20240702134310.1307657-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.39.2
+MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On 02/07/2024 11:11 am, Olaf Hering wrote:
-> Tue, 2 Jul 2024 11:02:00 +0100 Andrew Cooper <andrew.cooper3@citrix.com>:
->
->> This patch is about keeping Gitlab CI running smoothly.  It's not
->> related to Xen 4.19, except by chance.
-> It seems the automation/build directory needs to be purged from
-> non-staging branches, to make it obvious that images need to be
-> rebuilt from the staging branch only.
+EXTRAVERSION needs a . separator for numbers.  Currently, the banner reports:
 
-In an ideal world, yes.  Sadly there's one problem.
+  __  __            _  _    _  ___   ___
+  \ \/ /___ _ __   | || |  / |/ _ \ / _ \    _ __ ___
+   \  // _ \ '_ \  | || |_ | | (_) | | | |__| '__/ __|
+   /  \  __/ | | | |__   _|| |\__, | |_| |__| | | (__
+  /_/\_\___|_| |_|    |_|(_)_|  /_/ \___/   |_|  \___|
 
-It breaks the use of ./automation/scripts/containerize locally in the
-older branches.
+and xl reports:
 
-~Andrew
+  # xl info xen_version
+  4.190-rc
+
+Fixes: 4a73eb4c205d ("Update Xen version to 4.19-rc")
+Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+---
+CC: Jan Beulich <JBeulich@suse.com>
+CC: Stefano Stabellini <sstabellini@kernel.org>
+CC: Julien Grall <julien@xen.org>
+CC: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+
+For 4.19.  This is a minor mistake when creating Xen-4.19-rc1.
+---
+ xen/Makefile | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/xen/Makefile b/xen/Makefile
+index 58ce6e468eab..037c49f83d39 100644
+--- a/xen/Makefile
++++ b/xen/Makefile
+@@ -6,7 +6,7 @@ this-makefile := $(call lastword,$(MAKEFILE_LIST))
+ # All other places this is stored (eg. compile.h) should be autogenerated.
+ export XEN_VERSION       = 4
+ export XEN_SUBVERSION    = 19
+-export XEN_EXTRAVERSION ?= 0-rc$(XEN_VENDORVERSION)
++export XEN_EXTRAVERSION ?= .0-rc$(XEN_VENDORVERSION)
+ export XEN_FULLVERSION   = $(XEN_VERSION).$(XEN_SUBVERSION)$(XEN_EXTRAVERSION)
+ -include xen-version
+ 
+
+base-commit: 08daa72cdcb660c2f0aef52ee76a3704e2dd1b5b
+-- 
+2.39.2
+
 
