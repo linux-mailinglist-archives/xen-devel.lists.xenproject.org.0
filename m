@@ -2,42 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AE606924009
-	for <lists+xen-devel@lfdr.de>; Tue,  2 Jul 2024 16:12:48 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.752500.1160714 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 48444924035
+	for <lists+xen-devel@lfdr.de>; Tue,  2 Jul 2024 16:15:18 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.752506.1160725 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sOeEX-0003WO-TL; Tue, 02 Jul 2024 14:11:49 +0000
+	id 1sOeHT-000461-A9; Tue, 02 Jul 2024 14:14:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 752500.1160714; Tue, 02 Jul 2024 14:11:49 +0000
+Received: by outflank-mailman (output) from mailman id 752506.1160725; Tue, 02 Jul 2024 14:14:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sOeEX-0003Uu-Qk; Tue, 02 Jul 2024 14:11:49 +0000
-Received: by outflank-mailman (input) for mailman id 752500;
- Tue, 02 Jul 2024 14:11:48 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1sOeHT-000443-6w; Tue, 02 Jul 2024 14:14:51 +0000
+Received: by outflank-mailman (input) for mailman id 752506;
+ Tue, 02 Jul 2024 14:14:49 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=a6qz=OC=redhat.com=mst@srs-se1.protection.inumbo.net>)
- id 1sOeEW-0003Uo-QQ
- for xen-devel@lists.xenproject.org; Tue, 02 Jul 2024 14:11:48 +0000
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 047ff95b-387d-11ef-92e8-0d9d20120eaa;
- Tue, 02 Jul 2024 16:11:47 +0200 (CEST)
-Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
- [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-77-99-dBIGcNRKfi_jPvfNpRg-1; Tue, 02 Jul 2024 10:11:44 -0400
-Received: by mail-wm1-f71.google.com with SMTP id
- 5b1f17b1804b1-4248fa5daacso29582955e9.0
- for <xen-devel@lists.xenproject.org>; Tue, 02 Jul 2024 07:11:44 -0700 (PDT)
-Received: from redhat.com ([2a02:14f:1f5:eadd:8c31:db01:9d01:7604])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4256b061006sm197706495e9.22.2024.07.02.07.11.41
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 02 Jul 2024 07:11:42 -0700 (PDT)
+ (envelope-from <SRS0=WXFQ=OC=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1sOeHR-00043v-TP
+ for xen-devel@lists.xenproject.org; Tue, 02 Jul 2024 14:14:49 +0000
+Received: from mail-lj1-x235.google.com (mail-lj1-x235.google.com
+ [2a00:1450:4864:20::235])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 7018ffc4-387d-11ef-aaf1-7f3abd7486c0;
+ Tue, 02 Jul 2024 16:14:47 +0200 (CEST)
+Received: by mail-lj1-x235.google.com with SMTP id
+ 38308e7fff4ca-2ed5ac077f5so51182301fa.1
+ for <xen-devel@lists.xenproject.org>; Tue, 02 Jul 2024 07:14:47 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 41be03b00d2f7-72c6a31f5dfsm6618314a12.23.2024.07.02.07.14.43
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 02 Jul 2024 07:14:46 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -49,144 +45,126 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 047ff95b-387d-11ef-92e8-0d9d20120eaa
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1719929506;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=bN0cTm8m+n/A4V5Tgbpm0TUAfWebEt6LcyWQbTcpz4g=;
-	b=GRmGD+wLttvKEcDK7gCieolbWjxD+zUWycmfkcBcVvwe8kY8lCjOrH70g627MdoGRxVz14
-	UqkQ64K91XfN2gY7dps7uu3kBmEtjB36AvphOseBIrij0fBute3MKSXSkaqVy1rTlmLzw2
-	reU6FDAIK77hFJtxIMCc156HuTbMLUc=
-X-MC-Unique: 99-dBIGcNRKfi_jPvfNpRg-1
+X-Inumbo-ID: 7018ffc4-387d-11ef-aaf1-7f3abd7486c0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1719929687; x=1720534487; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=r+UJLD5ndf6sP6FlphP9ppBld82PXJa+rDdTT6dNg18=;
+        b=QoZeSxoSZ0LrvJuO84AzH/yXcQtenmhaT/ssbdt2wLUIBeDgnbVOmvNmHmK9E08Q/5
+         +b8OU94sPyHsR7xDz9F273WlqXYFlCTPqL5aNyEi/BcgLGMf1wj+0MrK39qhn1sescPb
+         brf4dre1jmXC7n8tk++Re84dNuZ+wEoJoQh56n/4zeyT17M2fb65R6PJIwQDQkmNQelP
+         kJVBCw37QX32GFYG4EpPxR3YPjssG2yxson7w3L1MUtb5C7OQlBtqnxfZoEuioWXkPlf
+         VVpNLvn9dKkFLH1U1Pl9PXvxPSpa4xP2OqaQp5o0GOLDYh/LBwJZSaOmAUL5stXuyPxA
+         iM5g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1719929503; x=1720534303;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20230601; t=1719929687; x=1720534487;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=bN0cTm8m+n/A4V5Tgbpm0TUAfWebEt6LcyWQbTcpz4g=;
-        b=dMB3AF3gzCkt9kZ+ROp55HNmixEukSI6KzB9TSY4tmXr5JBL/BTPTumgc6PZxLY78G
-         K7bIs+KPEkcISi9aJrCjqZk3x6e7WBcAPxDrKzU6juEUm5UuHpQijjE1bC42kyWQDenf
-         3Nqku+aoSs5tQ/Q5VsM6kRHYXqpLBnumhdIscSVr4xB7Gg2YCFHEI+CeGqXYVpJWaxiR
-         MMfDHJwNZlCHqKagmW5Y2Z46MYZ7i8T+EFVFkAbRhxgGsgPvM3i8I5C4ANDz7dxHkZLT
-         g5B7f8/P6B0jtmteiy54sJxOBy9UQ1dLYOlAQv5dCW1xrN7iIE0rPBhlPwHqguflQFin
-         xJ5A==
-X-Forwarded-Encrypted: i=1; AJvYcCXe5lm+GeLJrSN8jG7JX/NIamHwOKN6xTkKGrzAuzkwdKSNnsiPr4caV5cJlv/HhP+lG1QdhEZWT5YoW4Ax5CARfKnn3MS4BbVw+py3b00=
-X-Gm-Message-State: AOJu0Yw16xGXqf28o2nP0KhTjlXwz3DZrHnl0lrx0gqu2pvx+qs9DITU
-	HrmCR/nqUjXueELObSRh9RV0WiZy13tylIBQ6sCXfWUzID7sJ6mo9P8ClqeudP4w7JSBDOKGYCy
-	nu+2QHHHePoBarMA+C1v2yo6n+14XBoekc5o/FpQhamYJcCWznpWc8zsbTYPTkYtl
-X-Received: by 2002:a05:600c:47cf:b0:425:7c18:df9f with SMTP id 5b1f17b1804b1-4257c18e0dfmr38909155e9.40.1719929503643;
-        Tue, 02 Jul 2024 07:11:43 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IEF+bg8BPn83l1dihyVUeV27Pe6P0ZNHE/VD3ClUbZT2uoj6UcFuruOQIL6CEMxWRsrxnjA+g==
-X-Received: by 2002:a05:600c:47cf:b0:425:7c18:df9f with SMTP id 5b1f17b1804b1-4257c18e0dfmr38908905e9.40.1719929503038;
-        Tue, 02 Jul 2024 07:11:43 -0700 (PDT)
-Date: Tue, 2 Jul 2024 10:11:40 -0400
-From: "Michael S. Tsirkin" <mst@redhat.com>
-To: qemu-devel@nongnu.org
-Cc: Peter Maydell <peter.maydell@linaro.org>,
-	Akihiko Odaki <akihiko.odaki@daynix.com>,
-	Markus Armbruster <armbru@redhat.com>,
-	Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Anthony PERARD <anthony@xenproject.org>,
-	Paul Durrant <paul@xen.org>, xen-devel@lists.xenproject.org
-Subject: [PULL 91/91] hw/pci: Replace -1 with UINT32_MAX for romsize
-Message-ID: <a323ad3c8a8f12ee180d0582d7fffa8098b1a962.1719929191.git.mst@redhat.com>
-References: <cover.1719929191.git.mst@redhat.com>
+        bh=r+UJLD5ndf6sP6FlphP9ppBld82PXJa+rDdTT6dNg18=;
+        b=AUDK7l6p3MKPXwgLPxvW81DNFBVhMxGK8NZg86fFcwGSqTLoEB7nHzwocU5JH/DYyf
+         5N6OFDSdf7mf3bIw4Tf8UTzJUJVA653NNAN6ZUbQcJuwUXq9C3XLTsS9p4vlq7Rns5Ku
+         cIKd7AIpaq2zEZ6PNfmDmgygFPJ1JoNf+yd7eBQrZptM959IatyGGepZNee/imfN7OE4
+         uCGoc2lwSkl3BzKs63Ik4ZoY/awhR/qSZH1Pj1lke8XR9LQZCksYD6Ohuwi8x+HCLGiy
+         ItCoN6+vJz18GQzpIqONepXZ7F+kvD01d8TgtSXp7TQyUkod7x8D8KbwPywlSHmhaimu
+         GJnw==
+X-Forwarded-Encrypted: i=1; AJvYcCUbDNEuEqncYsTzkjw5pcuPxMVsBQQy/Z/tPJIQS3lVobjlnx4JJSdhswZ/v8Eokq796Diztq0Kg9x9EJfeN3Igta0QEMNew4/70lzrWo4=
+X-Gm-Message-State: AOJu0Yzn74KeRZqmJccHa0UPdhmFTJGb06Rh1QGedmRGsKtyx2EZN/2B
+	J7FTxLZHoI5rnTknNWXFJqvkPomcjGYvmgpRrINUXD3pRYJCmbTF4FIZ0Mecag==
+X-Google-Smtp-Source: AGHT+IEyj41OQ9cMD40hd9Xec8lwsR1QvVpygObFL6tXFfSfCa7hmJyL4wUDxJphod8/oTynEHP72w==
+X-Received: by 2002:a2e:b889:0:b0:2ec:1042:fb04 with SMTP id 38308e7fff4ca-2ee5e6cd745mr59871621fa.35.1719929686959;
+        Tue, 02 Jul 2024 07:14:46 -0700 (PDT)
+Message-ID: <643ada7e-b265-4283-9c52-f6cf6239fe26@suse.com>
+Date: Tue, 2 Jul 2024 16:14:39 +0200
 MIME-Version: 1.0
-In-Reply-To: <cover.1719929191.git.mst@redhat.com>
-X-Mailer: git-send-email 2.27.0.106.g8ac3dc51b1
-X-Mutt-Fcc: =sent
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH for-4.19] xen: Fix XEN_EXTRAVERSION after 4.19-rc1
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+ <julien@xen.org>, Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20240702134310.1307657-1-andrew.cooper3@citrix.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20240702134310.1307657-1-andrew.cooper3@citrix.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-From: Akihiko Odaki <akihiko.odaki@daynix.com>
+On 02.07.2024 15:43, Andrew Cooper wrote:
+> EXTRAVERSION needs a . separator for numbers.
 
-romsize is an uint32_t variable. Specifying -1 as an uint32_t value is
-obscure way to denote UINT32_MAX.
+Not exactly. It needs the 0 dropped, if we follow what we've done in the
+past. Then ...
 
-Worse, if int is wider than 32-bit, it will change the behavior of a
-construct like the following:
-romsize = -1;
-if (romsize != -1) {
-    ...
-}
+>  Currently, the banner reports:
+> 
+>   __  __            _  _    _  ___   ___
+>   \ \/ /___ _ __   | || |  / |/ _ \ / _ \    _ __ ___
+>    \  // _ \ '_ \  | || |_ | | (_) | | | |__| '__/ __|
+>    /  \  __/ | | | |__   _|| |\__, | |_| |__| | | (__
+>   /_/\_\___|_| |_|    |_|(_)_|  /_/ \___/   |_|  \___|
+> 
+> and xl reports:
+> 
+>   # xl info xen_version
+>   4.190-rc
+> 
+> Fixes: 4a73eb4c205d ("Update Xen version to 4.19-rc")
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-When -1 is assigned to romsize, -1 will be implicitly casted into
-uint32_t, resulting in UINT32_MAX. On contrary, when evaluating
-romsize != -1, romsize will be casted into int, and it will be a
-comparison of UINT32_MAX and -1, and result in false.
+Acked-by: Jan Beulich <jbeulich@suse.com>
 
-Replace -1 with UINT32_MAX for statements involving the variable to
-clarify the intent and prevent potential breakage.
-
-Signed-off-by: Akihiko Odaki <akihiko.odaki@daynix.com>
-Reviewed-by: Markus Armbruster <armbru@redhat.com>
-Message-Id: <20240627-reuse-v10-10-7ca0b8ed3d9f@daynix.com>
-Reviewed-by: Michael S. Tsirkin <mst@redhat.com>
-Signed-off-by: Michael S. Tsirkin <mst@redhat.com>
----
- hw/pci/pci.c             | 8 ++++----
- hw/xen/xen_pt_load_rom.c | 2 +-
- 2 files changed, 5 insertions(+), 5 deletions(-)
-
-diff --git a/hw/pci/pci.c b/hw/pci/pci.c
-index fa85f87b1c..4c7be52951 100644
---- a/hw/pci/pci.c
-+++ b/hw/pci/pci.c
-@@ -70,7 +70,7 @@ static bool pcie_has_upstream_port(PCIDevice *dev);
- static Property pci_props[] = {
-     DEFINE_PROP_PCI_DEVFN("addr", PCIDevice, devfn, -1),
-     DEFINE_PROP_STRING("romfile", PCIDevice, romfile),
--    DEFINE_PROP_UINT32("romsize", PCIDevice, romsize, -1),
-+    DEFINE_PROP_UINT32("romsize", PCIDevice, romsize, UINT32_MAX),
-     DEFINE_PROP_UINT32("rombar",  PCIDevice, rom_bar, 1),
-     DEFINE_PROP_BIT("multifunction", PCIDevice, cap_present,
-                     QEMU_PCI_CAP_MULTIFUNCTION_BITNR, false),
-@@ -2073,7 +2073,7 @@ static void pci_qdev_realize(DeviceState *qdev, Error **errp)
-                                  g_cmp_uint32, NULL);
-     }
- 
--    if (pci_dev->romsize != -1 && !is_power_of_2(pci_dev->romsize)) {
-+    if (pci_dev->romsize != UINT32_MAX && !is_power_of_2(pci_dev->romsize)) {
-         error_setg(errp, "ROM size %u is not a power of two", pci_dev->romsize);
-         return;
-     }
-@@ -2359,7 +2359,7 @@ static void pci_add_option_rom(PCIDevice *pdev, bool is_default_rom,
-         return;
-     }
- 
--    if (load_file || pdev->romsize == -1) {
-+    if (load_file || pdev->romsize == UINT32_MAX) {
-         path = qemu_find_file(QEMU_FILE_TYPE_BIOS, pdev->romfile);
-         if (path == NULL) {
-             path = g_strdup(pdev->romfile);
-@@ -2378,7 +2378,7 @@ static void pci_add_option_rom(PCIDevice *pdev, bool is_default_rom,
-                        pdev->romfile);
-             return;
-         }
--        if (pdev->romsize != -1) {
-+        if (pdev->romsize != UINT_MAX) {
-             if (size > pdev->romsize) {
-                 error_setg(errp, "romfile \"%s\" (%u bytes) "
-                            "is too large for ROM size %u",
-diff --git a/hw/xen/xen_pt_load_rom.c b/hw/xen/xen_pt_load_rom.c
-index 03422a8a71..6bc64acd33 100644
---- a/hw/xen/xen_pt_load_rom.c
-+++ b/hw/xen/xen_pt_load_rom.c
-@@ -53,7 +53,7 @@ void *pci_assign_dev_load_option_rom(PCIDevice *dev,
-     }
-     fseek(fp, 0, SEEK_SET);
- 
--    if (dev->romsize != -1) {
-+    if (dev->romsize != UINT_MAX) {
-         if (st.st_size > dev->romsize) {
-             error_report("ROM BAR \"%s\" (%ld bytes) is too large for ROM size %u",
-                          rom_file, (long) st.st_size, dev->romsize);
--- 
-MST
+> ---
+> CC: Jan Beulich <JBeulich@suse.com>
+> CC: Stefano Stabellini <sstabellini@kernel.org>
+> CC: Julien Grall <julien@xen.org>
+> CC: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+> 
+> For 4.19.  This is a minor mistake when creating Xen-4.19-rc1.
+> ---
+>  xen/Makefile | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/xen/Makefile b/xen/Makefile
+> index 58ce6e468eab..037c49f83d39 100644
+> --- a/xen/Makefile
+> +++ b/xen/Makefile
+> @@ -6,7 +6,7 @@ this-makefile := $(call lastword,$(MAKEFILE_LIST))
+>  # All other places this is stored (eg. compile.h) should be autogenerated.
+>  export XEN_VERSION       = 4
+>  export XEN_SUBVERSION    = 19
+> -export XEN_EXTRAVERSION ?= 0-rc$(XEN_VENDORVERSION)
+> +export XEN_EXTRAVERSION ?= .0-rc$(XEN_VENDORVERSION)
+>  export XEN_FULLVERSION   = $(XEN_VERSION).$(XEN_SUBVERSION)$(XEN_EXTRAVERSION)
+>  -include xen-version
+>  
+> 
+> base-commit: 08daa72cdcb660c2f0aef52ee76a3704e2dd1b5b
 
 
