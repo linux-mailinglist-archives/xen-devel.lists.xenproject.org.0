@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2654E92644E
-	for <lists+xen-devel@lfdr.de>; Wed,  3 Jul 2024 17:07:49 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.753186.1161476 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 62E79926471
+	for <lists+xen-devel@lfdr.de>; Wed,  3 Jul 2024 17:10:26 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.753191.1161487 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sP1Zs-0001Z4-NB; Wed, 03 Jul 2024 15:07:24 +0000
+	id 1sP1cL-0002Ai-3I; Wed, 03 Jul 2024 15:09:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 753186.1161476; Wed, 03 Jul 2024 15:07:24 +0000
+Received: by outflank-mailman (output) from mailman id 753191.1161487; Wed, 03 Jul 2024 15:09:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sP1Zs-0001Ws-KZ; Wed, 03 Jul 2024 15:07:24 +0000
-Received: by outflank-mailman (input) for mailman id 753186;
- Wed, 03 Jul 2024 15:07:23 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=NzTd=OD=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sP1Zr-0001Wm-6P
- for xen-devel@lists.xenproject.org; Wed, 03 Jul 2024 15:07:23 +0000
-Received: from mail-lj1-x22b.google.com (mail-lj1-x22b.google.com
- [2a00:1450:4864:20::22b])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f2e4d8b6-394d-11ef-bbf9-fd08da9f4363;
- Wed, 03 Jul 2024 17:07:22 +0200 (CEST)
-Received: by mail-lj1-x22b.google.com with SMTP id
- 38308e7fff4ca-2ec1ac1aed2so65229911fa.3
- for <xen-devel@lists.xenproject.org>; Wed, 03 Jul 2024 08:07:22 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 41be03b00d2f7-753c2f79474sm2568226a12.44.2024.07.03.08.07.18
+	id 1sP1cK-000294-Vx; Wed, 03 Jul 2024 15:09:56 +0000
+Received: by outflank-mailman (input) for mailman id 753191;
+ Wed, 03 Jul 2024 15:09:55 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=i9qc=OD=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1sP1cJ-00028y-AO
+ for xen-devel@lists.xenproject.org; Wed, 03 Jul 2024 15:09:55 +0000
+Received: from mail-qv1-xf2a.google.com (mail-qv1-xf2a.google.com
+ [2607:f8b0:4864:20::f2a])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 4c9db59d-394e-11ef-8776-851b0ebba9a2;
+ Wed, 03 Jul 2024 17:09:53 +0200 (CEST)
+Received: by mail-qv1-xf2a.google.com with SMTP id
+ 6a1803df08f44-6b4fced5999so25169626d6.2
+ for <xen-devel@lists.xenproject.org>; Wed, 03 Jul 2024 08:09:53 -0700 (PDT)
+Received: from [10.125.226.166] ([185.25.67.249])
+ by smtp.gmail.com with ESMTPSA id
+ 6a1803df08f44-6b5dd211482sm11258236d6.103.2024.07.03.08.09.50
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 03 Jul 2024 08:07:21 -0700 (PDT)
+ Wed, 03 Jul 2024 08:09:51 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,126 +45,169 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f2e4d8b6-394d-11ef-bbf9-fd08da9f4363
+X-Inumbo-ID: 4c9db59d-394e-11ef-8776-851b0ebba9a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1720019242; x=1720624042; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1720019392; x=1720624192; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=UrcB9AB+XlFI1B1hsgVUbIM3kgiMsC2mWiMD5eSt+hI=;
-        b=YCWV1EXC+6lZ7g716q0Ls55t3jUF7HJWoAd0wYJZxk9KE7HkBRPk0u3VDNmqlOyCI5
-         HX8kXz/3GtmLe/T7rTl10sWqejm5jA4raZBBTPo39Pr6ZJjp7TsIoapto5Yx2iUJyuJk
-         wC30XgfKJHhpfsEVOHEOB2Ip4YS2mdN1npseTShnvvgL9ngnWG1+XFcSPURPvSaNggSh
-         Hgg5NzXwoWMhmBiWKb9V5LeSv4IqvrePonar2VN+3IvVDbRgnBpbKSezkag//D0M8t4u
-         yZ6DU27FcYouNmDn5KdyH4dAPGrMW3eu/SEHPrxcnOkja/DT9oig3JaiCU7LLedrjFWr
-         IXKQ==
+        bh=yK65ezmHxIY1GHr6MrXhbA9wVpwufgowh9NaOjJJJbI=;
+        b=t3pvnJFbCPGlyIvLgFrguJx/D/8S5YGyw+nVqFP2vf8gaWr+PtgPUxQIycZg6yEOzC
+         UU7G+Afruj3QNkdHS1ZZq1qg7SiKz92G6Fx0nhw8tV2GMqYBSzl5IpWiieGpdSbkbbLu
+         X/AAImhsOYMd+M0UXfssxlpdjMuxTW1mthCHQ=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1720019242; x=1720624042;
+        d=1e100.net; s=20230601; t=1720019392; x=1720624192;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=UrcB9AB+XlFI1B1hsgVUbIM3kgiMsC2mWiMD5eSt+hI=;
-        b=Soh7/ROCX8bmsJY+15r9/sLFhJqlkbSGht6IswXYWBY/NqL8hsc9EhxbhlvKUq9djU
-         rvKW6b8Gc9DMyeD0HFL4GLgguaho/WYEDt8BwnmRyEgW5lJ5uTX+DH0obFuGRdVmTFnR
-         G4dFbsFnmcplJ9RHRQAAEoNeaWiUN6EZ7JTLaTVeQZEIwX7qiH9Q1TyLzUYL3EzZgYbD
-         rOJEmVYzBXpFzu/tUi92lkAj3yBLgVa95WjHJRulNtC3QTJJ90UDoQLP6kAml4VlUoiB
-         znonuJy3hotbyooytwwBSvNVo8Oa/Xs4H50gNP0Sm4GLdWone9IfnV746MbYAW09ZH2d
-         dVEA==
-X-Forwarded-Encrypted: i=1; AJvYcCUHNA9/k3+7pb0hATuuw7D0/sezgSoHMS9/ZJJWuwfHtHr4OnczcBoScH8sP9X3U7BNrQFuEb9+WEzEA4z6pbtneYzg66JmVKsbOK1p6XQ=
-X-Gm-Message-State: AOJu0YyAAHlC7rfLQhT5tOoC7ykcW6IEp4RMxY56S3s5EQeBMGGLjK4g
-	ziVNHcAruYSEz0eRYnO6++0hrfr3IRXoPKA2oX7zlZrfPr6MQ8cPj58MQglGNQ==
-X-Google-Smtp-Source: AGHT+IEEkse3/CFRrR8yE7PdeVYpA5Dwaniutvuq9TWjOBUqLeowr+5wa9BSxC5S8BkSeIIwpJh9WQ==
-X-Received: by 2002:a2e:8687:0:b0:2ec:4d48:75f3 with SMTP id 38308e7fff4ca-2ee5e6f4bb6mr67590391fa.45.1720019241630;
-        Wed, 03 Jul 2024 08:07:21 -0700 (PDT)
-Message-ID: <0f883617-f4c0-43af-895f-3f70d4143a34@suse.com>
-Date: Wed, 3 Jul 2024 17:07:11 +0200
+        bh=yK65ezmHxIY1GHr6MrXhbA9wVpwufgowh9NaOjJJJbI=;
+        b=qCBrNPB7PH8xDnV2/vMQHjZzv912CARSZga9ggbJ8HMGP4UGLEYpuUrHV2OENBozyh
+         TP7tgkSHxUJsSSylJ5DmCAoplujNJnANQTMX/ntq285nxbDlx9/exI3iK4Q8PoyAsFAE
+         dsU1+TNvQYhWd4yCBhY5iSpqFBFGQjTKYOMwQt4Yca6mcGsp6TKxQCw+yRTJWaK+lTm4
+         DzXu2WnNrs2HK47Xw70DwGOUqdhj5+8qk+P9YSk1HnI3H1xZ1IuVeC/g7JbB/CLszRSZ
+         XYcq5e5oWXy4gF6AYNBZPaARMYK2KMpha7X8LO5sW5XDA3VxKllAF/w5GXdRa1t9MeKY
+         NYrg==
+X-Gm-Message-State: AOJu0YzhZfQZKBIA2R+oXxFx6aB7Ei0YahxGsb6ltbfXgYDlGplo4/wR
+	0+pc42sDe3WVd/0gvQhR9UKWjhW9m7RLax2u77CGnoS9E4PK7xQRLjB3uIT+hxk=
+X-Google-Smtp-Source: AGHT+IFz2tdlqXADkfHdv1B1Bxgvb3kLvCXt7eGqWh4SU+5YVMNtRflkzKIl5qXBGEBF/yGcOREt2g==
+X-Received: by 2002:a05:6214:518c:b0:6b0:6d7c:da02 with SMTP id 6a1803df08f44-6b5b707fff9mr143945796d6.11.1720019391983;
+        Wed, 03 Jul 2024 08:09:51 -0700 (PDT)
+Message-ID: <b10061e7-1bf7-4bac-83d9-fe621cbad65a@citrix.com>
+Date: Wed, 3 Jul 2024 16:09:48 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH v2 1/2] x86/cpufreq: move ACPI cpufreq driver into
- separate file
-To: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <cover.1719832871.git.Sergiy_Kibrik@epam.com>
- <d8a13eb8c53d8cde99d7fa1d8e4fce2a597f02fd.1719832871.git.Sergiy_Kibrik@epam.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <d8a13eb8c53d8cde99d7fa1d8e4fce2a597f02fd.1719832871.git.Sergiy_Kibrik@epam.com>
+Subject: Re: [PATCH for-4.19 4/4] CI: Rework the CentOS7 container
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Doug Goldstein <cardoe@cardoe.com>,
+ Oleksii Kurochko <oleksii.kurochko@gmail.com>
+References: <20240703142002.1662874-1-andrew.cooper3@citrix.com>
+ <20240703142002.1662874-5-andrew.cooper3@citrix.com>
+ <ZoVmSWt9bwxDNMuF@macbook.local>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <ZoVmSWt9bwxDNMuF@macbook.local>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 01.07.2024 14:03, Sergiy Kibrik wrote:
-> Separate ACPI driver from generic initialization cpufreq code.
-> This way acpi-cpufreq can become optional in the future and be disabled
-> from non-Intel builds.
-> 
-> Other than acpi_register_driver() helper added and clean up a list of
-> included headers no changes to code were introduced.
+On 03/07/2024 3:55 pm, Roger Pau Monné wrote:
+> On Wed, Jul 03, 2024 at 03:20:02PM +0100, Andrew Cooper wrote:
+>> CentOS 7 is fully End-of-life as of 2024-06-30, and the Yum repo configuration
+>> points at URLs which have become non-existent.
+>>
+>> First, start by using a heredoc RUN for legibility.  It's important to use
+>> `set -e` to offset the fact that we're no longer chaining every command
+>> together with an &&.
+>>
+>> Also, because we're using a single RUN command to perform all RPM operations,
+>> we no longer need to work around the OverlayFS bug.
+>>
+>> Adjust the CentOS-*.repo files to point at vault.centos.org.
+>>
+>> Take the opportunity to split the Xen deps from Tools deps, and to adjust the
+>> other packages we use:
+>>
+>>  * We need bzip2-devel for the dombuilder, not just bzip2.
+>>  * zstd-devel is another optional dependency since the last time this package
+>>    list was refreshed.
+>>  * openssl-devel hasn't been a dependency since Xen 4.6.
+>>  * We long ago ceased being able to build Qemu and SeaBIOS in this container,
+>>    so drop their dependencies too.
+>>
+>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> Acked-by: Roger Pau Monné <roiger.pau@citrix.com>
 
-And perhaps that's okay despite the many style violations that you move
-around. However, acpi_register_driver() is too generic a name. How
-about acpi_cpufreq_register() (not not have it grow overly long)? Plus
+Thanks.
 
-> --- /dev/null
-> +++ b/xen/arch/x86/acpi/cpufreq/acpi.c
-> @@ -0,0 +1,622 @@
-> +/*
-> + *  cpufreq.c - ACPI Processor P-States Driver ($Revision: 1.4 $)
-> + *
-> + *  Copyright (C) 2001, 2002 Andy Grover <andrew.grover@intel.com>
-> + *  Copyright (C) 2001, 2002 Paul Diefenbaugh <paul.s.diefenbaugh@intel.com>
-> + *  Copyright (C) 2002 - 2004 Dominik Brodowski <linux@brodo.de>
-> + *  Copyright (C) 2006        Denis Sadykov <denis.m.sadykov@intel.com>
-> + *
-> + *  Feb 2008 - Liu Jinsong <jinsong.liu@intel.com>
-> + *      porting acpi-cpufreq.c from Linux 2.6.23 to Xen hypervisor
-> + *
-> + * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-> + *
-> + *  This program is free software; you can redistribute it and/or modify
-> + *  it under the terms of the GNU General Public License as published by
-> + *  the Free Software Foundation; either version 2 of the License, or (at
-> + *  your option) any later version.
-> + *
-> + *  This program is distributed in the hope that it will be useful, but
-> + *  WITHOUT ANY WARRANTY; without even the implied warranty of
-> + *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-> + *  General Public License for more details.
-> + *
-> + *  You should have received a copy of the GNU General Public License along
-> + *  with this program; If not, see <http://www.gnu.org/licenses/>.
-> + *
-> + * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-> + */
+>
+>> ---
+>> CC: Anthony PERARD <anthony.perard@vates.tech>
+>> CC: Stefano Stabellini <sstabellini@kernel.org>
+>> CC: Doug Goldstein <cardoe@cardoe.com>
+>> CC: Roger Pau Monné <roger.pau@citrix.com>
+>> CC: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+>> ---
+>>  automation/build/centos/7.dockerfile | 70 +++++++++++++++-------------
+>>  1 file changed, 37 insertions(+), 33 deletions(-)
+>>
+>> diff --git a/automation/build/centos/7.dockerfile b/automation/build/centos/7.dockerfile
+>> index 657550f308bb..9e66d72a5bd5 100644
+>> --- a/automation/build/centos/7.dockerfile
+>> +++ b/automation/build/centos/7.dockerfile
+>> @@ -6,44 +6,48 @@ LABEL maintainer.name="The Xen Project" \
+>>  RUN mkdir /build
+>>  WORKDIR /build
+>>  
+>> -# work around https://github.com/moby/moby/issues/10180
+>> -# and add EPEL for dev86
+>> -RUN rpm --rebuilddb && \
+>> -    yum -y install \
+>> -        yum-plugin-ovl \
+>> -        epel-release \
+>> -    && yum clean all && \
+>> -    rm -rf /var/cache/yum
+>> +RUN <<EOF
+>> +    set -e
+>> +
+>> +    # Fix up Yum config now that mirror.centos.org doesn't exist
+>> +    sed -e 's/mirror.centos.org/vault.centos.org/g' \
+>> +        -e 's/^#.*baseurl=https\?/baseurl=https/g' \
+>> +        -e 's/^mirrorlist=https\?/#mirrorlist=https/g' \
+> Why do you also need to uncomment baseurl and comment mirrorlist?
+> Isn't baseurl already enabled, and having extra mirrorlist won't harm
+> as it's just extra location to search for packages? (IOW: even if they
+> don't exist it shouldn't be an issue).
 
-... I expect this should be transformed into an SPDX line. I expect the
-one in cpufreq.c wasn't picked up when the conversion was done because
-it doesn't fully match whatever pattern was looked for at the time.
+It appears that having an uncontactable mirror list, as opposed to no
+mirror list, is fatal.
 
-Jan
+I didn't end up with this because I like the look of the sed expression.
+
+~Andrew
 
