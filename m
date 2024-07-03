@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8C5069255B7
-	for <lists+xen-devel@lfdr.de>; Wed,  3 Jul 2024 10:46:08 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.752806.1161045 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 812219255C6
+	for <lists+xen-devel@lfdr.de>; Wed,  3 Jul 2024 10:48:06 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.752819.1161055 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sOvcd-0007kZ-1V; Wed, 03 Jul 2024 08:45:51 +0000
+	id 1sOveU-0008QA-DT; Wed, 03 Jul 2024 08:47:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 752806.1161045; Wed, 03 Jul 2024 08:45:51 +0000
+Received: by outflank-mailman (output) from mailman id 752819.1161055; Wed, 03 Jul 2024 08:47:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sOvcc-0007iB-Um; Wed, 03 Jul 2024 08:45:50 +0000
-Received: by outflank-mailman (input) for mailman id 752806;
- Wed, 03 Jul 2024 08:45:49 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1sOveU-0008O1-Af; Wed, 03 Jul 2024 08:47:46 +0000
+Received: by outflank-mailman (input) for mailman id 752819;
+ Wed, 03 Jul 2024 08:47:45 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=NzTd=OD=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sOvcb-00078r-Iw
- for xen-devel@lists.xenproject.org; Wed, 03 Jul 2024 08:45:49 +0000
-Received: from mail-lj1-x22b.google.com (mail-lj1-x22b.google.com
- [2a00:1450:4864:20::22b])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a562c64e-3918-11ef-bbf9-fd08da9f4363;
- Wed, 03 Jul 2024 10:45:48 +0200 (CEST)
-Received: by mail-lj1-x22b.google.com with SMTP id
- 38308e7fff4ca-2ec3f875e68so57024141fa.0
- for <xen-devel@lists.xenproject.org>; Wed, 03 Jul 2024 01:45:49 -0700 (PDT)
+ id 1sOveT-0008Nv-K1
+ for xen-devel@lists.xenproject.org; Wed, 03 Jul 2024 08:47:45 +0000
+Received: from mail-lj1-x22c.google.com (mail-lj1-x22c.google.com
+ [2a00:1450:4864:20::22c])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id e9b5e098-3918-11ef-8776-851b0ebba9a2;
+ Wed, 03 Jul 2024 10:47:43 +0200 (CEST)
+Received: by mail-lj1-x22c.google.com with SMTP id
+ 38308e7fff4ca-2eabd22d3f4so51247271fa.1
+ for <xen-devel@lists.xenproject.org>; Wed, 03 Jul 2024 01:47:43 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-1fac1598cfbsm97873805ad.250.2024.07.03.01.45.44
+ d9443c01a7336-1fac10d20c1sm97649595ad.30.2024.07.03.01.47.39
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 03 Jul 2024 01:45:48 -0700 (PDT)
+ Wed, 03 Jul 2024 01:47:42 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,44 +45,44 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a562c64e-3918-11ef-bbf9-fd08da9f4363
+X-Inumbo-ID: e9b5e098-3918-11ef-8776-851b0ebba9a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1719996348; x=1720601148; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1719996463; x=1720601263; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=EcfcQ+bs+vIY1uuTMe6ACJLGBx+6P+7pissTcD0vBvA=;
-        b=WyFiO969rwhEPZulsGDHL1rQpuclQyvtyvnHPuPOVmdg7mX1dNAwLk6IY6wnYkaOeq
-         T53Pa7Tm8huBQhEYPYHNDG7Za+eTLp4fTRg2tJ2LG7u+HlX2QHcuDPPd6Stbg2pI27I7
-         q7yScyYq5jLJW4aOHeAC5+w71Vh6XivKxb7rL/XZukN+cgEzOWv8pMXwq3gHiWHlyMwZ
-         evHWloottmdTPtvFuEhQ+SGBDiODzOvBFqV4w93Nz8FJLWIRvUBzyqfPHL6mHlzrC65H
-         j0Ms/w1x/LxORUhGmcsUO9KT7WvxJB6o4+jiCOY/36VWuP3YHpJ3b7MArvy4xvBLdogr
-         0doQ==
+        bh=TXPVmiae5JlIZDhZS6lJxRwLBbSAAG6pDUgsS72qZek=;
+        b=SXu34zf/oIcCJNS/9Hr2FPC25tSbF4gQQFjDQJbpJQ+f2Guz6z+GydGbDBhiDJbHC7
+         9aaiKTZEpWKINb3XTw/f1yM1wZbpw7i7XurB5KQ+auAtZUANfpYej66JijcVgbnHzKZw
+         7rgec+Gb2uMvKCePCgH5QBYZTchDol08AOqnRIzwVwir8BWt1+vRgu/PxJPU1geVQPXv
+         6hro6/2sB4+32aDkttV6DD3ubl8HC9Q7bNnuiEKbqur0PZ8SPXBHWVb/5K4SxtjU00NF
+         iSl2zAAS5FVoCOGW/wWH8zxr4WE0DQYnK3LmDreWHafkXrtQpr3s4ZxvFbbBVsCQEY5W
+         UKjg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1719996348; x=1720601148;
+        d=1e100.net; s=20230601; t=1719996463; x=1720601263;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=EcfcQ+bs+vIY1uuTMe6ACJLGBx+6P+7pissTcD0vBvA=;
-        b=pl+yytNZAPbY4rMBsQcerqOVMbYX4/k0HrlljbqCx+8eavdnfZzGmtsGfIeRqjeBK6
-         BjB1MT6BV/4YPnfOjYQYI/gTagk75fTClA0FQlvXWjCTwoCvHleA+5u0ci47sPpiCfYk
-         6m1KStrup7fohQV8d4Gd902v/qqdj1FP0jCSS574DqCuqg81eC8RzLzEA6r9zwEa7orz
-         BwaPdKhZm1pqNJ56M1i0dkQf2PrIQSBRXD+QSzl0+rJvaIMyhVe0U2DFQJp4NRWQOhDx
-         tzWKrHOvKHG8TxYtvnzAfJ6MAnKxZGiWLJdoP1I9qpKsV5LHvWJTUtdztDrLkPy6Vk9E
-         QlHg==
-X-Gm-Message-State: AOJu0YyKtYpwDFn1OGqMRvSSN4wce3KCoOcduCfwuG0BpJsOErFDVI4K
-	Dr1XMx1WGtdKTND9RxhrWxZWbcM9+8J95vH89UPE6lxiXVzLHLU6otOi+mzeSuBJrnKLHnpAbrI
+        bh=TXPVmiae5JlIZDhZS6lJxRwLBbSAAG6pDUgsS72qZek=;
+        b=aKrXZ7F3oDqoTCQysQSKxu+ImOUQtT+VdYaE/w9AdCazJLD9lHVuASlRTtkgOTuqil
+         /eIBap9gAT2HyhJ9jVZYDt07kusPCWoQXxdBgRsRlvs6rXCRzgSNKGZczYmoHdZFUXFT
+         ncj+A1JFU7wJyTy5DLZ9YYhQ26bq15P8H9pvjR+uhqooHxLu53Xt2sy68Hljw8JxTS4/
+         9gkmI7JP2qZZEgR4ZkDa7HRB9WufS7Fs1v5aFGhPtH6//mpu2V0AEyxUA77xM9KQyzhs
+         mecCJMQfeFGMew1HHlKHaOvKiuLsN4h8G36ma18VWGm+Jx0vrjiDQCfKDTyYBupJ5iGq
+         F2ow==
+X-Gm-Message-State: AOJu0YxrGbXtUnscVRF2A6OyiEPhxEA46wFPEyQryJ0n6SRqAHoTCVXd
+	zkQIEaWuq26VH+I+l2N3tyPD5W4ixmiw8KDJMOCByqp4ByFz0RcjRqqkxbeFS71YbniXQJtAkvQ
 	=
-X-Google-Smtp-Source: AGHT+IH6KfGmXMpNReMTfMlwQy8KMoTvARYUf9ANCuVa5uDQa0xWUqbHuISwmiGfR0RRf0AW/X+4YQ==
-X-Received: by 2002:a2e:be9b:0:b0:2ec:3dd4:75f7 with SMTP id 38308e7fff4ca-2ee5e6c9a24mr75032071fa.47.1719996348594;
-        Wed, 03 Jul 2024 01:45:48 -0700 (PDT)
-Message-ID: <de22beee-bd51-4169-b84d-88f4b452473a@suse.com>
-Date: Wed, 3 Jul 2024 10:45:41 +0200
+X-Google-Smtp-Source: AGHT+IEa+A69UTkkpvxJCGfR9GWDmolgynmzYM6cj2/wSRoRphL7ueaSV2iNB5njrGFjSni3cb9efw==
+X-Received: by 2002:a2e:240a:0:b0:2ec:1708:4daf with SMTP id 38308e7fff4ca-2ee5e6f542emr61016051fa.47.1719996463066;
+        Wed, 03 Jul 2024 01:47:43 -0700 (PDT)
+Message-ID: <0d0eb666-fc0b-4775-99ce-61f74b6c584b@suse.com>
+Date: Wed, 3 Jul 2024 10:47:36 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: [PATCH v5 for-4.19? 2/2] cmdline: "extra_guest_irqs" is inapplicable
- to PVH
+Subject: Re: [PATCH v5 for-4.19? 1/2] amend 'cmdline: document and enforce
+ "extra_guest_irqs" upper bounds'
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
@@ -90,6 +90,7 @@ Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Oleksii Kurochko <oleksii.kurochko@gmail.com>
 References: <789d567b-db3a-4c4d-9eac-f73232777244@suse.com>
+ <37f1a5b8-9b54-42f1-845f-dddcf0b0401e@suse.com>
 Content-Language: en-US
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -114,45 +115,22 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <789d567b-db3a-4c4d-9eac-f73232777244@suse.com>
+In-Reply-To: <37f1a5b8-9b54-42f1-845f-dddcf0b0401e@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-PVH in particular has no (externally visible) notion of pIRQ-s. Mention
-that in the description of the respective command line option and have
-arch_hwdom_irqs() also reflect this (thus suppressing the log message
-there as well, as being pretty meaningless in this case anyway).
+On 03.07.2024 10:44, Jan Beulich wrote:
+> Address late review comments for what is now commit 17f6d398f765:
+> - bound max_irqs right away against nr_irqs
+> - introduce a #define for a constant used twice
+> 
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
-Suggested-by: Roger Pau Monné <roger.pau@citrix.com>
-Signed-off-by: Jan Beulich <jbeulich@suse.com>
----
-v5: Remove has_pirq() check; update comment accordingly.
-v4: New.
+Actually should also have added
 
---- a/docs/misc/xen-command-line.pandoc
-+++ b/docs/misc/xen-command-line.pandoc
-@@ -1183,7 +1183,8 @@ versa.  For example to change dom0 witho
- hardware domain is architecture dependent.  The upper limit for both values on
- x86 is such that the resulting total number of IRQs can't be higher than 32768.
- Note that specifying zero as domU value means zero, while for dom0 it means
--to use the default.
-+to use the default.  Note further that the Dom0 setting has no useful meaning
-+for the PVH case; use of the option may have an adverse effect there, though.
- 
- ### ext_regions (Arm)
- > `= <boolean>`
---- a/xen/arch/x86/io_apic.c
-+++ b/xen/arch/x86/io_apic.c
-@@ -2670,6 +2670,10 @@ unsigned int __hwdom_init arch_hwdom_irq
-     if ( is_system_domain(d) )
-         return max_irqs;
- 
-+    /* PVH (generally: HVM) can't use PHYSDEVOP_pirq_eoi_gmfn_v{1,2}. */
-+    if ( is_hvm_domain(d) )
-+        return nr_irqs;
-+
-     if ( !d->domain_id )
-         n = min(n, dom0_max_vcpus());
-     n = min(nr_irqs_gsi + n * NR_DYNAMIC_VECTORS, max_irqs);
+Requested-by: Roger Pau Monné <roger.pau@citrix.com>
 
+above the S-o-b.
+
+Jan
 
