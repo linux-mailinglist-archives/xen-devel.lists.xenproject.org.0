@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8EB699261C3
-	for <lists+xen-devel@lfdr.de>; Wed,  3 Jul 2024 15:27:08 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.753041.1161303 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D9C519261E6
+	for <lists+xen-devel@lfdr.de>; Wed,  3 Jul 2024 15:33:17 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.753048.1161313 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sP00V-0001mo-LW; Wed, 03 Jul 2024 13:26:47 +0000
+	id 1sP06P-0003ma-8k; Wed, 03 Jul 2024 13:32:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 753041.1161303; Wed, 03 Jul 2024 13:26:47 +0000
+Received: by outflank-mailman (output) from mailman id 753048.1161313; Wed, 03 Jul 2024 13:32:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sP00V-0001kg-IR; Wed, 03 Jul 2024 13:26:47 +0000
-Received: by outflank-mailman (input) for mailman id 753041;
- Wed, 03 Jul 2024 13:26:45 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1sP06P-0003l6-66; Wed, 03 Jul 2024 13:32:53 +0000
+Received: by outflank-mailman (input) for mailman id 753048;
+ Wed, 03 Jul 2024 13:32:51 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=NzTd=OD=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sP00T-0001kY-Mw
- for xen-devel@lists.xenproject.org; Wed, 03 Jul 2024 13:26:45 +0000
-Received: from mail-lj1-x22c.google.com (mail-lj1-x22c.google.com
- [2a00:1450:4864:20::22c])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e41d488f-393f-11ef-bbf9-fd08da9f4363;
- Wed, 03 Jul 2024 15:26:44 +0200 (CEST)
-Received: by mail-lj1-x22c.google.com with SMTP id
- 38308e7fff4ca-2ec1ac1aed2so63853041fa.3
- for <xen-devel@lists.xenproject.org>; Wed, 03 Jul 2024 06:26:44 -0700 (PDT)
+ id 1sP06N-0003l0-Pl
+ for xen-devel@lists.xenproject.org; Wed, 03 Jul 2024 13:32:51 +0000
+Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com
+ [2a00:1450:4864:20::132])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id bd8ecc7d-3940-11ef-8776-851b0ebba9a2;
+ Wed, 03 Jul 2024 15:32:49 +0200 (CEST)
+Received: by mail-lf1-x132.google.com with SMTP id
+ 2adb3069b0e04-52cdc4d221eso6026332e87.3
+ for <xen-devel@lists.xenproject.org>; Wed, 03 Jul 2024 06:32:49 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-2c91ce4526esm10718900a91.20.2024.07.03.06.26.39
+ d2e1a72fcca58-708044adc38sm10733327b3a.170.2024.07.03.06.32.45
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 03 Jul 2024 06:26:43 -0700 (PDT)
+ Wed, 03 Jul 2024 06:32:48 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,51 +45,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e41d488f-393f-11ef-bbf9-fd08da9f4363
+X-Inumbo-ID: bd8ecc7d-3940-11ef-8776-851b0ebba9a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1720013204; x=1720618004; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1720013569; x=1720618369; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=BTgp217jkGxA3qd5eePlwnG7B0Q2D097KFwdsCIW5oc=;
-        b=S6Sbjco2ck5ISVnm16P8mgyj72RGCwFgjKqOAoabXwI34hXVX+WYOUEZZderCYvwRF
-         727OsZ9Pc2eWS3uUjUExjJOYCcfYzCcIZqzIoyT8g/Tp7mhXj9g5K+i9wlPSZ/+IoE/N
-         vHOn7UcAWdsjki4lPI1lmEwvXwpwdK8X3fppkK58V8ztIzCONK7hj2+at1IZidrqN4w5
-         Wg7AR+CuQDyn+YfJFPObs0U6LMQ1DUfpIs1ZUMYfmyhUbNXtTAMtpI1sjDZoqdiCwN8X
-         qzQledpCysOTjXzY9UA6HmkqW+v1JV4gKID566A2dFOtaAvkry88Eat/eE4q/zzMC2xQ
-         xcGA==
+        bh=SR95aC3yCJp/ZP5AJgIu1r9QKXGg4iWOks4t3pW9ZCI=;
+        b=eMDPI1O7AvcseXhwJ//4VY1kC8xaEtHbur0UGkiEVjQBpIY7ecYmIN4pn+bs1Tkjfb
+         QQemtd53SStpN/Yn8tmP9Cm6Pe78II/R+d9AH4200a4B7iJhfe6xCAU7F+H8md82g3w4
+         lSGUMYijns2X2h7b3IF7ImQEjPfSlJNNKF/VOzm6Tnnf+sF8DyK+PVQOtJMZYFSufeFw
+         bBpV96dYycHYOoMPOTgWOMRnhs0PmE4bZU29tZPQY76NdrkAVM97GrRBdzx0SgEy5XAO
+         gXz4jJ90AU9ziwrO+1FC72Bsrt7WRwO9PpwxZAPLWO4PQBFrjUQhbQFYuSNOW3sbBU7u
+         Eilw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1720013204; x=1720618004;
+        d=1e100.net; s=20230601; t=1720013569; x=1720618369;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=BTgp217jkGxA3qd5eePlwnG7B0Q2D097KFwdsCIW5oc=;
-        b=QCBHgTgQcM0aXIFLa2GSehDZrKzkyPxZp4dU9s4M6RrpKG5q13ySN0YPP2E59iSJEM
-         X731CMU+EZSX/YczhdMlwBBJJfd6slUbBVloruCzCngBU6uUf6i72+N09BUzh0fq/4Jh
-         MHjzW2SuttVona+q0TUoZpzBYIKJuM/jLMrm0z5fPSto/TDdEwVeCf+2JHk1YbiyHYiD
-         CJLlYoBrxSNUuX13+KnGSMKmgEcs16PkY5JwCuW98zMWobxtLkQhidJMvY9oqCE0kMp2
-         nZ1H03dlmO8mJMPRdoz20xnKWlD6Ah37kkrJ30GFuzNowGIzonUtZF5HED+N9eW2QAv1
-         dxfg==
-X-Forwarded-Encrypted: i=1; AJvYcCX6EBwG2ip6jQhVB1uXvJ5tyhqxJv4Q+6aV+FU/YiK+AnWKnn/yPd3UfzqRmX+Q56XlZcQKfNMGIvr27bv+K+ZH2/4cSY05iuV98wIlt+g=
-X-Gm-Message-State: AOJu0YxaXJbW7MokI8p+lVbUyAMEJr6zqjfZvTqLhXH2CDQyeWfGjmO6
-	snufVD3ciWMfqMeD6DHxSoDmqTMKCE5ERxVq3JNh5IRg1cqyS+wKHphka5ACyA==
-X-Google-Smtp-Source: AGHT+IHHMFYk2h7UOwxq6emDfddnW6gy6VFgDR7jwLUJRtotVVQtnl/yk3kMBR91K08pG7Uk/VaURg==
-X-Received: by 2002:a2e:240a:0:b0:2ec:1708:4daf with SMTP id 38308e7fff4ca-2ee5e6f542emr64729991fa.47.1720013203938;
-        Wed, 03 Jul 2024 06:26:43 -0700 (PDT)
-Message-ID: <031bc8af-99cc-45fb-84db-eb9429f00083@suse.com>
-Date: Wed, 3 Jul 2024 15:26:36 +0200
+        bh=SR95aC3yCJp/ZP5AJgIu1r9QKXGg4iWOks4t3pW9ZCI=;
+        b=ZoxDp8g9nANkFnF1AHDCUZP5bPZbRQIeatKEMdjDBtKQ+01k50DrtyA2H3BlmEuQ6y
+         69jMWrrjrAxIAr5jwZCrVIbhVeLD1jSXZg5Zp+LxIDcjceUVV/CGVvb7WBsZ0nPVwsa0
+         WXOq23qSgMU7r3SbFYx1QR7xp/4azixCD0rMrMGiUzN0ROJ2zNLCw/XPgjtJl/7Onufr
+         BIQomLpWi4PZ+DvwmyXoPbDCH6n+LMcNuxQ1c/kCy7flXuV4BlAkoWhayvWJ4jqeJpgQ
+         lcVMcTR/JP76ULHBuQro2GpXB3j4460m5ztn9HY0tLzeZP043VPyHF/w9SAFWmtHb8va
+         uOQQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWRT2QDxeX3DwgInw7O9UNDzASsSXkrU1bFDZk6JpaNjbT1sSaZqYI5RPyDNRJviCqDUTZbcHYmx79VqGykERs7QvbyCHTRaRjO1bSIeYA=
+X-Gm-Message-State: AOJu0Yy35e82uE2TYGYkY5JYFdBvFLsMszQsYRdWjwzQq2MRLfEIjeJk
+	oIQ8D6Z6KiGZvPJEam4SJWlZmhe09CMWGpV7d5w+ruX6k4EX0rx2jLWBi5xeog==
+X-Google-Smtp-Source: AGHT+IEIWNfK93Y/yHb39tqSx214dxaHw3/JuvysntnLhaOM7j9qdjdWq09xdagbLFPixLVbk4kz1A==
+X-Received: by 2002:a05:6512:3083:b0:52c:e19c:ed90 with SMTP id 2adb3069b0e04-52e826fac53mr8196826e87.46.1720013568768;
+        Wed, 03 Jul 2024 06:32:48 -0700 (PDT)
+Message-ID: <d9f94662-92b7-492b-84cd-a7e6b1ab68b6@suse.com>
+Date: Wed, 3 Jul 2024 15:32:41 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 15/17] xen/x86: rename inclusion guards for consistency
+Subject: Re: [PATCH 16/17] xen/build: address violation of MISRA C Directive
+ 4.10
 To: Alessandro Zucchelli <alessandro.zucchelli@bugseng.com>
-Cc: nicola.vetrini@bugseng.com, consulting@bugseng.com,
- Maria Celeste Cesario <maria.celeste.cesario@bugseng.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+Cc: consulting@bugseng.com, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ xen-devel@lists.xenproject.org
 References: <cover.1719829101.git.alessandro.zucchelli@bugseng.com>
- <cc0189e1db211ae73aa419f4bc956872220d8d3c.1719829101.git.alessandro.zucchelli@bugseng.com>
+ <c3d0eb70d894a1dc0ddd53cacd6a525bc10577ce.1719829101.git.alessandro.zucchelli@bugseng.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -115,19 +114,27 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <cc0189e1db211ae73aa419f4bc956872220d8d3c.1719829101.git.alessandro.zucchelli@bugseng.com>
+In-Reply-To: <c3d0eb70d894a1dc0ddd53cacd6a525bc10577ce.1719829101.git.alessandro.zucchelli@bugseng.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 01.07.2024 15:46, Alessandro Zucchelli wrote:
-> From: Maria Celeste Cesario <maria.celeste.cesario@bugseng.com>
-> 
-> Edit inclusion guards in order to make them consistent with the
-> estabilished naming conventions.
+> --- a/xen/build.mk
+> +++ b/xen/build.mk
+> @@ -18,6 +18,8 @@ quiet_cmd_compile.h = UPD     $@
+>  define cmd_compile.h
+>      if [ ! -r $@ -o -O $@ ]; then \
+>  	cat .banner; \
+> +	echo '#ifndef INCLUDE_XEN_COMPILE_H' >> $(dot-target).tmp; \
 
-The code changes all look okay to me, but as before: Where did those
-"established naming conventions" go? Grep-ing for "guard" under
-docs/misra/ yields only a single hit, which is unrelated.
+Leaving aside the question on the INCLUDE_ prefix (see earlier comments
+on another patch in this series), I wonder what good a guard does here
+in the first place. But anyway, I expect this again gets us into "we
+need to mechanically and slavishly follow the rules" territory.
+
+However, shouldn't this first "echo" use > in place of >>, to prevent
+surprises when e.g. an earlier build was interrupted at exactly the
+"right" point?
 
 Jan
 
