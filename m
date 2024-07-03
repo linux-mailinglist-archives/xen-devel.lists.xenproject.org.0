@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B5257925F64
-	for <lists+xen-devel@lfdr.de>; Wed,  3 Jul 2024 13:58:46 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.752975.1161224 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E994C926057
+	for <lists+xen-devel@lfdr.de>; Wed,  3 Jul 2024 14:31:03 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.752994.1161243 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sOycy-0002nT-2Z; Wed, 03 Jul 2024 11:58:24 +0000
+	id 1sOz81-00006Z-HI; Wed, 03 Jul 2024 12:30:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 752975.1161224; Wed, 03 Jul 2024 11:58:24 +0000
+Received: by outflank-mailman (output) from mailman id 752994.1161243; Wed, 03 Jul 2024 12:30:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sOycx-0002kf-WC; Wed, 03 Jul 2024 11:58:24 +0000
-Received: by outflank-mailman (input) for mailman id 752975;
- Wed, 03 Jul 2024 11:58:23 +0000
+	id 1sOz81-0008WM-Ef; Wed, 03 Jul 2024 12:30:29 +0000
+Received: by outflank-mailman (input) for mailman id 752994;
+ Wed, 03 Jul 2024 12:30:28 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=NzTd=OD=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sOycx-0002kV-5e
- for xen-devel@lists.xenproject.org; Wed, 03 Jul 2024 11:58:23 +0000
+ id 1sOz80-0008WG-1k
+ for xen-devel@lists.xenproject.org; Wed, 03 Jul 2024 12:30:28 +0000
 Received: from mail-lj1-x22a.google.com (mail-lj1-x22a.google.com
  [2a00:1450:4864:20::22a])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 8b9ac926-3933-11ef-bbf9-fd08da9f4363;
- Wed, 03 Jul 2024 13:58:22 +0200 (CEST)
+ id 06b632ea-3938-11ef-bbf9-fd08da9f4363;
+ Wed, 03 Jul 2024 14:30:26 +0200 (CEST)
 Received: by mail-lj1-x22a.google.com with SMTP id
- 38308e7fff4ca-2ee7885aa5fso18591271fa.1
- for <xen-devel@lists.xenproject.org>; Wed, 03 Jul 2024 04:58:22 -0700 (PDT)
+ 38308e7fff4ca-2ee794ebffbso24191101fa.1
+ for <xen-devel@lists.xenproject.org>; Wed, 03 Jul 2024 05:30:26 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-2c977b2b7c9sm1278106a91.15.2024.07.03.04.58.18
+ d2e1a72fcca58-708043b703fsm10626228b3a.145.2024.07.03.05.30.21
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 03 Jul 2024 04:58:21 -0700 (PDT)
+ Wed, 03 Jul 2024 05:30:25 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,49 +45,52 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8b9ac926-3933-11ef-bbf9-fd08da9f4363
+X-Inumbo-ID: 06b632ea-3938-11ef-bbf9-fd08da9f4363
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1720007901; x=1720612701; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1720009826; x=1720614626; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=u3fw+/JTUfjvs3NsaRJjuadFFvjc3DRk9BEIaj/5iSE=;
-        b=R+Duo2ttNb3qWo23zK3lYJP6gFB98c/gXXsRZlHG6B0IfMomtnLUkIZ9dF40IurQ/I
-         bqa3cg2PdUIeczFQocuFlrTjXaN8FWWKyVwyUWPLKsYpwk7jS4/XwIUa8SZNw/qSNvYw
-         ++VJZuNWwI2E5vbzBulxBD9IRz88I9vBBexHUqvsBC+6dDH78ToXrOHQtgmscMbPkmIN
-         8Is5m3e0UxjceOUQPYDy5wTtu7PvFZf2MqhwE/qyUUNYpnX853m9FUb8ojokP4PkBjxf
-         JqC9Cwfr1fWFILyrzh6Hf2a5db7njg2rh0JbS55v3Vvc8MxrMcPN7/ORwLhZyrc71XJZ
-         C6+g==
+        bh=jIs/RD86rfiEWfOtxTqw8StoW+1prqpqUXKoTVtcBZY=;
+        b=Gm2inqs7FOyhnNvz9bMnYFiV+qECeGVknSdUCDpMvn1XAUZyDJhJf22kKy+D6jBf4N
+         59jyR9NBw3S+Ta+yTU0YFjeSfuu3itAydo+wsb1P+NCcZXIdgfXv8XBSnLyz3UclWaLI
+         QnEJBQGo5DEmlsJy+wIK2+xB6kDSJ1Zlh73F8uw1bGhDI2fNjNRrC11dWa9C59LySjqW
+         Tw9AAR+YSPjIxGwai0cTEN+ghclyu3vuDreHhasDUGsis/eGNWf/b0LLRKFu9miB8X0D
+         qHy7I8U9O5M7ZI+lN8veEigkFNILwNNkpHwr6j+vRbpSQiT6BeoMKLSWycQK8/F4a6aI
+         n6ig==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1720007901; x=1720612701;
+        d=1e100.net; s=20230601; t=1720009826; x=1720614626;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=u3fw+/JTUfjvs3NsaRJjuadFFvjc3DRk9BEIaj/5iSE=;
-        b=cNkpqBxGkoKmTezo7otQqSnd7h+6vlkBYxFCyeiJ8acXgc/RfrpJrbkQPwXYOodN4C
-         I6x9qhnN4hrE77jDGiJ6rk7P3nmUZV09GVaGQ+lw7207IsINn1Rz+Dias28S1cLJ2FC4
-         vdKtWEHxR00XEw2giUizJAJUAOp2YSVW6Y4EndA5yM2Kryfg7Ic6KsTawlfUf9Z05kUQ
-         BcgOUFO9OHVBXmIma7pQc7YjAQozh8hxz1Jhkoq13GkJTUZ9inQUvgEcHxrJ18dWKrQM
-         LimX5rk9szhSqwjcLUBBGUL0TWNEqG/7C8k71OQc4Haysg1mGqev1jvKJlFNOmH2/Lr2
-         kzEQ==
-X-Forwarded-Encrypted: i=1; AJvYcCVsvqpDQc/U+spVDX76qhoRjkYSi5xByaYNXZ0bOTWxGc6z2Q8tYJUsf5mClvnxTTF+ctEBHYn2xJq3NCL7u0V9aH97CyHRE9oidJxzyRo=
-X-Gm-Message-State: AOJu0YwScSq7aBRsK0bhiAKDAV4nwygXPxQlPseyrzPZPz7Apk+SM8r0
-	3p0fCJxup6UfkMXjNOS5OjkFFOrZwCMT+gFcS8JUaN4Cj6Si9uIRNevtzCCV+Q==
-X-Google-Smtp-Source: AGHT+IEYiaasGinwAJKK4F/8VMO2DUDmqZHYM0D31Z5ZDlgLg8NQsohvlz7HGX1sUc4CXKiDSqcaEg==
-X-Received: by 2002:a2e:a1c5:0:b0:2ec:4eda:6b55 with SMTP id 38308e7fff4ca-2ee5e6d74c4mr68932401fa.50.1720007901589;
-        Wed, 03 Jul 2024 04:58:21 -0700 (PDT)
-Message-ID: <7772dc9e-b9e2-4af7-af43-fa5cbe651488@suse.com>
-Date: Wed, 3 Jul 2024 13:58:13 +0200
+        bh=jIs/RD86rfiEWfOtxTqw8StoW+1prqpqUXKoTVtcBZY=;
+        b=jmkUk5/5DogtIXXMGHenTDpz2MZKVUezkwBpU8wcrjvXrDiaSpl6NvmD77aF54j5RC
+         UGmNV/+aQMkx163LL+lBdSxDh0f+Udi0ejglfPR+z+kSWvrFl1ovbpolExRVrzMHp7Tb
+         hpI/J4t6UwwVzGYOna/f4qL+GJ5poswxbGRVIBn31WOJQ86/BtJ4OkJ1fNzr9Cb6JlpK
+         jlAeWNYfWBtnor226JG+bqBxcmVFDHxNq900t16ZmaQQ89V7q6BVxdmz9joP9s5gzPmJ
+         nDGYmjleSvEjVzzjqZqDicC2FhV52gMaEqA4st2WLSvrZnGlORE0ZLeL7hihmXRJEddj
+         qe4g==
+X-Forwarded-Encrypted: i=1; AJvYcCUqymjdDqJHOKFBvjQH65uN2tT24Ol2tPwaMdGjLfRrmcITo1rxadCCUlGFKtIY+RNj2Ze7jajnTGeldBqk2eXFJvXWoATz8Rp6aP56vf8=
+X-Gm-Message-State: AOJu0YwcdaEaEwbzlGhQt+95aj13d27/QePdQtNvnhirvngtxrQk9Qs4
+	XhGXkzCxd7Fo6UifZDQa6imYN/uRlOPgSiDUkuBo3rfN2W6RqD6pEFl2TvpejA==
+X-Google-Smtp-Source: AGHT+IGL/jzsUxno5yOuxoOWN5UDyggTx7dZS7tAzY9YM3TdlmKG4hQOtW5clDzewpQxuFJ0GqCoQQ==
+X-Received: by 2002:a05:651c:549:b0:2ec:1e6e:13f9 with SMTP id 38308e7fff4ca-2ee5e707c78mr94189351fa.52.1720009826194;
+        Wed, 03 Jul 2024 05:30:26 -0700 (PDT)
+Message-ID: <5f31aa96-52a8-413a-8c10-0ad01d095be9@suse.com>
+Date: Wed, 3 Jul 2024 14:30:17 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH for-4.19 v2] xen/vmap: Document the vmap header
-To: Alejandro Vallejo <alejandro.vallejo@cloud.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Oleksii Kurochko <oleksii.kurochko@gmail.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <f8bcfe757b45ce59e1a1203c2675a4266cc15f20.1720005327.git.alejandro.vallejo@cloud.com>
+Subject: Re: [PATCH 09/17] xen: address violations of MISRA C:2012 Directive
+ 4.10
+To: Alessandro Zucchelli <alessandro.zucchelli@bugseng.com>
+Cc: nicola.vetrini@bugseng.com, consulting@bugseng.com,
+ Simone Ballarin <simone.ballarin@bugseng.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+ <jgrall@amazon.com>, xen-devel@lists.xenproject.org
+References: <cover.1719829101.git.alessandro.zucchelli@bugseng.com>
+ <76caa62c49a7aa02e43892f9edd72d90e9f39243.1719829101.git.alessandro.zucchelli@bugseng.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -113,55 +116,94 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <f8bcfe757b45ce59e1a1203c2675a4266cc15f20.1720005327.git.alejandro.vallejo@cloud.com>
+In-Reply-To: <76caa62c49a7aa02e43892f9edd72d90e9f39243.1719829101.git.alessandro.zucchelli@bugseng.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 03.07.2024 13:19, Alejandro Vallejo wrote:
-> +/*
-> + * Unmaps a range of virtually contiguous memory from one of the vmap regions
-> + *
-> + * The system remembers internally how wide the mapping is and unmaps it all.
+On 01.07.2024 15:36, Alessandro Zucchelli wrote:
+> --- a/xen/include/xen/err.h
+> +++ b/xen/include/xen/err.h
+> @@ -1,5 +1,6 @@
+> -#if !defined(__XEN_ERR_H__) && !defined(__ASSEMBLY__)
+> -#define __XEN_ERR_H__
+> +#ifndef INCLUDE_XEN_ERR_H
+> +#define INCLUDE_XEN_ERR_H
 
-Seeing this is still taken verbatim ...
-
-> + * It also can determine the vmap region type from the `va`.
-> + *
-> + * @param va Virtual base address of the range to unmap
-> + */
->  void vunmap(const void *va);
->  
-> +/*
-> + * Allocate `size` octets of possibly non-contiguous physical memory and map
-> + * them contiguously in the VMAP_DEFAULT vmap region
-> + *
-> + * @param size Pointer to the base of an array of mfns
-> + * @return Pointer to the mapped area on success; NULL otherwise.
-> + */
->  void *vmalloc(size_t size);
-> +
-> +/* Same as vmalloc(), but for the VMAP_XEN vmap region. */
->  void *vmalloc_xen(size_t size);
->  
-> +/* Same as vmalloc(), but set the contents to zero before returning */
->  void *vzalloc(size_t size);
-> +
-> +/*
-> + * Unmap and free memory from vmalloc(), vmalloc_xen() or vzalloc()
-> + *
-> + * The system remembers internally how wide the mapping is and unmaps it all.
-> + *
-> + * @param va Virtual base address of the range to free and unmap
-> + */
->  void vfree(void *va);
-
-... here (just moved to the proper place now), I further wonder: Why just
-"mapping" and "unmap". The function is also (one might even say primarily)
-about freeing. IOW perhaps "how wide the allocation is and unmaps/frees it
-all"?
-
-Happy to adjust while committing, at which point:
-Acked-by: Jan Beulich <jbeulich@suse.com>
+There once was a document (or was it a patch description) describing the
+naming system for these guards. Where did that go? With include files
+typically living under include/, seeing INCLUDE_ as a prefix is, well,
+odd and unnecessary baggage. I also don't recall there having been
+agreement to use names like the ones presented here.
 
 Jan
+
+> +#ifndef __ASSEMBLY__
+>  
+>  #include <xen/compiler.h>
+>  #include <xen/errno.h>
+> @@ -41,4 +42,5 @@ static inline int __must_check PTR_RET(const void *ptr)
+>  	return IS_ERR(ptr) ? PTR_ERR(ptr) : 0;
+>  }
+>  
+> -#endif /* __XEN_ERR_H__ */
+> +#endif /* __ASSEMBLY__ */
+> +#endif /* INCLUDE_XEN_ERR_H */
+> diff --git a/xen/include/xen/pci_ids.h b/xen/include/xen/pci_ids.h
+> index e798477a7e..8e40c78db7 100644
+> --- a/xen/include/xen/pci_ids.h
+> +++ b/xen/include/xen/pci_ids.h
+> @@ -1,3 +1,6 @@
+> +#ifndef INCLUDE_XEN_PCI_IDS_H
+> +#define INCLUDE_XEN_PCI_IDS_H
+> +
+>  #define PCI_VENDOR_ID_AMD                0x1022
+>  
+>  #define PCI_VENDOR_ID_NVIDIA             0x10de
+> @@ -11,3 +14,5 @@
+>  #define PCI_VENDOR_ID_BROADCOM           0x14e4
+>  
+>  #define PCI_VENDOR_ID_INTEL              0x8086
+> +
+> +#endif /* INCLUDE_XEN_PCI_IDS_H */
+> diff --git a/xen/include/xen/softirq.h b/xen/include/xen/softirq.h
+> index 33d6f2ecd2..90d4875df7 100644
+> --- a/xen/include/xen/softirq.h
+> +++ b/xen/include/xen/softirq.h
+> @@ -1,5 +1,6 @@
+> -#if !defined(__XEN_SOFTIRQ_H__) && !defined(__ASSEMBLY__)
+> -#define __XEN_SOFTIRQ_H__
+> +#ifndef INCLUDE_XEN_SOFTIRQ_H
+> +#define INCLUDE_XEN_SOFTIRQ_H
+> +#ifndef __ASSEMBLY__
+>  
+>  /* Low-latency softirqs come first in the following list. */
+>  enum {
+> @@ -40,4 +41,5 @@ void cpu_raise_softirq_batch_finish(void);
+>   */
+>  void process_pending_softirqs(void);
+>  
+> -#endif /* __XEN_SOFTIRQ_H__ */
+> +#endif /* __ASSEMBLY__ */
+> +#endif /* INCLUDE_XEN_SOFTIRQ_H */
+> diff --git a/xen/include/xen/vmap.h b/xen/include/xen/vmap.h
+> index 0c16baa85f..ec1b6b05e9 100644
+> --- a/xen/include/xen/vmap.h
+> +++ b/xen/include/xen/vmap.h
+> @@ -1,5 +1,6 @@
+> -#if !defined(__XEN_VMAP_H__) && defined(VMAP_VIRT_START)
+> -#define __XEN_VMAP_H__
+> +#ifndef INCLUDE_XEN_VMAP_H
+> +#define INCLUDE_XEN_VMAP_H
+> +#ifdef VMAP_VIRT_START
+>  
+>  #include <xen/mm-frame.h>
+>  #include <xen/page-size.h>
+> @@ -42,4 +43,5 @@ static inline void vm_init(void)
+>      vm_init_type(VMAP_DEFAULT, (void *)VMAP_VIRT_START, arch_vmap_virt_end());
+>  }
+>  
+> -#endif /* __XEN_VMAP_H__ */
+> +#endif /* VMAP_VIRT_START */
+> +#endif /* INCLUDE_XEN_VMAP_H */
+
 
