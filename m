@@ -2,37 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3DD999256A1
-	for <lists+xen-devel@lfdr.de>; Wed,  3 Jul 2024 11:23:31 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.752847.1161095 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6FB359257A2
+	for <lists+xen-devel@lfdr.de>; Wed,  3 Jul 2024 12:01:01 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.752867.1161105 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sOwCl-0007zS-MC; Wed, 03 Jul 2024 09:23:11 +0000
+	id 1sOwmi-000630-Bv; Wed, 03 Jul 2024 10:00:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 752847.1161095; Wed, 03 Jul 2024 09:23:11 +0000
+Received: by outflank-mailman (output) from mailman id 752867.1161105; Wed, 03 Jul 2024 10:00:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sOwCl-0007wR-Je; Wed, 03 Jul 2024 09:23:11 +0000
-Received: by outflank-mailman (input) for mailman id 752847;
- Wed, 03 Jul 2024 09:23:10 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=znpO=OD=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1sOwCk-0007QS-1G
- for xen-devel@lists.xenproject.org; Wed, 03 Jul 2024 09:23:10 +0000
-Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com
- [2a00:1450:4864:20::132])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id dc36b51f-391d-11ef-8776-851b0ebba9a2;
- Wed, 03 Jul 2024 11:23:08 +0200 (CEST)
-Received: by mail-lf1-x132.google.com with SMTP id
- 2adb3069b0e04-52e98087e32so498312e87.2
- for <xen-devel@lists.xenproject.org>; Wed, 03 Jul 2024 02:23:08 -0700 (PDT)
-Received: from localhost ([213.195.124.163]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-42577a0d108sm98628925e9.0.2024.07.03.02.23.07
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 03 Jul 2024 02:23:07 -0700 (PDT)
+	id 1sOwmi-00060j-92; Wed, 03 Jul 2024 10:00:20 +0000
+Received: by outflank-mailman (input) for mailman id 752867;
+ Wed, 03 Jul 2024 10:00:18 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1sOwmg-00060Z-Sy; Wed, 03 Jul 2024 10:00:18 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1sOwmg-0001fm-Q4; Wed, 03 Jul 2024 10:00:18 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1sOwmg-00069F-Cs; Wed, 03 Jul 2024 10:00:18 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1sOwmg-0006HO-CM; Wed, 03 Jul 2024 10:00:18 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,62 +42,131 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: dc36b51f-391d-11ef-8776-851b0ebba9a2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1719998588; x=1720603388; darn=lists.xenproject.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=DQkPuqWcqS+mGrFDKfkCK3gbYauNjQZNcgpdAfZlNjI=;
-        b=EWNB0mg35PsD+i3tTR5fUmCV0rvViSWPb69ulHwNkVdaRkmeXWwmDA6TivAz8TAgQU
-         N1/HMsWKVtig/bNTB1MtMv0CRfHxuDKN4+6e+brd76NMDB7lyPM//II7ruE9aKwhKuom
-         lUIRtkBBc/cHf5poqn+7TAhUNS7k0z6LuHKAo=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1719998588; x=1720603388;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=DQkPuqWcqS+mGrFDKfkCK3gbYauNjQZNcgpdAfZlNjI=;
-        b=A+Ord5uCiZ7n+J6I43JW9vOURPrECtaSaIpO2gkxftrF9hiUwR623cEld6mSbDCPZF
-         7gkz9dpEP1dMeayVM990jaQPKSkrYxobLQB+Vwf4s9QrBOSKnU0pO99WW5xfxWthOskK
-         RBX1lFeaytrUQB8ocNMjZdVBMmyHK5GFGSbp/AjjumjPZqKbKzzvz3zKHyj550otszAV
-         tdfqrQujJlsjIg0+z/HVnC5BAL2fbTRf9uf6A9yON4wgnwDPk+w4CeFyBvU1H5jz4Pb5
-         tZhAXQPR3Dt2J0funla8rVoSykgyRVBak8zXP7StdfbsElx6VetMyRTSAHMgN6jQpqsV
-         fOcw==
-X-Gm-Message-State: AOJu0Yym+anF3FvtpDqTXP5wsp67zb26bhgvbfIUGvGQU6g1FGN3UD+x
-	Ceub9ujZyuLwrSHlq7/6xjnY7m2KbRlg0duGlyAP2JGu0MajMhRB52+Frn/WBwk=
-X-Google-Smtp-Source: AGHT+IHw5aYhrzOVfBPOW91zy+SthZP3ew1+Tn14XYrgQ3epd/iyuyB1+lvEa7R7EoVZv/LzjMzZzQ==
-X-Received: by 2002:a05:6512:10ce:b0:52e:93d1:57a6 with SMTP id 2adb3069b0e04-52e93d15965mr1642572e87.6.1719998587626;
-        Wed, 03 Jul 2024 02:23:07 -0700 (PDT)
-Date: Wed, 3 Jul 2024 11:23:06 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
-	Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Subject: Re: [PATCH v5 for-4.19? 2/2] cmdline: "extra_guest_irqs" is
- inapplicable to PVH
-Message-ID: <ZoUYej0joXn2-8r3@macbook.local>
-References: <789d567b-db3a-4c4d-9eac-f73232777244@suse.com>
- <de22beee-bd51-4169-b84d-88f4b452473a@suse.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=LUEL+9Xt6r4l3x7W/sb6s3xJVeDyy3UszU5QwrU9AS8=; b=f+cRl2KgZa/Wm4upktym4tNK0z
+	kS2L+ux6ZoDB4NawPhP2qVDOPFIW9cDiBHtW1avT6g7/woN0Znxm5BDpNGdp1QLJV9zIJp7Vg9S2P
+	iB2nG5SQy2CohHoH+YTUvbgMSGnhx5M9LIx9XwLnu1ThgSeZMTTL6T91uzxx7xa4e8UI=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-186637-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <de22beee-bd51-4169-b84d-88f4b452473a@suse.com>
+MIME-Version: 1.0
+Subject: [libvirt test] 186637: tolerable all pass - PUSHED
+X-Osstest-Failures:
+    libvirt:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt:saverestore-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt-qcow2:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt-raw:migrate-support-check:fail:nonblocking
+    libvirt:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-qcow2:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-qcow2:saverestore-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
+    libvirt:test-armhf-armhf-libvirt-vhd:migrate-support-check:fail:nonblocking
+    libvirt:test-armhf-armhf-libvirt-vhd:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    libvirt=738b201aad48dd0f1af8465adbda0d056213d521
+X-Osstest-Versions-That:
+    libvirt=5eebe58f9e8d6c2901fc6fc8911b6bf2d9a08a92
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Wed, 03 Jul 2024 10:00:18 +0000
 
-On Wed, Jul 03, 2024 at 10:45:41AM +0200, Jan Beulich wrote:
-> PVH in particular has no (externally visible) notion of pIRQ-s. Mention
-> that in the description of the respective command line option and have
-> arch_hwdom_irqs() also reflect this (thus suppressing the log message
-> there as well, as being pretty meaningless in this case anyway).
-> 
-> Suggested-by: Roger Pau Monné <roger.pau@citrix.com>
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+flight 186637 libvirt real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/186637/
 
-Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
+Failures :-/ but no regressions.
 
-Thanks, Roger.
+Tests which did not succeed, but are not blocking:
+ test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 186625
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-arm64-arm64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt     16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-qcow2 14 migrate-support-check        fail never pass
+ test-amd64-amd64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-qcow2 14 migrate-support-check        fail never pass
+ test-arm64-arm64-libvirt-qcow2 15 saverestore-support-check    fail never pass
+ test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
+ test-armhf-armhf-libvirt-vhd 14 migrate-support-check        fail   never pass
+ test-armhf-armhf-libvirt-vhd 15 saverestore-support-check    fail   never pass
+
+version targeted for testing:
+ libvirt              738b201aad48dd0f1af8465adbda0d056213d521
+baseline version:
+ libvirt              5eebe58f9e8d6c2901fc6fc8911b6bf2d9a08a92
+
+Last test of basis   186625  2024-07-02 04:18:42 Z    1 days
+Testing same since   186637  2024-07-03 04:20:27 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  John Levon <john.levon@nutanix.com>
+  Michal Privoznik <mprivozn@redhat.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 pass    
+ test-amd64-amd64-libvirt                                     pass    
+ test-arm64-arm64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     pass    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-amd64-libvirt-qcow2                               pass    
+ test-arm64-arm64-libvirt-qcow2                               pass    
+ test-amd64-amd64-libvirt-raw                                 pass    
+ test-arm64-arm64-libvirt-raw                                 pass    
+ test-amd64-amd64-libvirt-vhd                                 pass    
+ test-armhf-armhf-libvirt-vhd                                 pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/libvirt.git
+   5eebe58f9e..738b201aad  738b201aad48dd0f1af8465adbda0d056213d521 -> xen-tested-master
 
