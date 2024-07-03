@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F07E29260DA
-	for <lists+xen-devel@lfdr.de>; Wed,  3 Jul 2024 14:50:20 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.753008.1161263 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8242E9260EA
+	for <lists+xen-devel@lfdr.de>; Wed,  3 Jul 2024 14:52:30 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.753014.1161273 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sOzQs-0002oP-AB; Wed, 03 Jul 2024 12:49:58 +0000
+	id 1sOzSx-0004CK-L1; Wed, 03 Jul 2024 12:52:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 753008.1161263; Wed, 03 Jul 2024 12:49:58 +0000
+Received: by outflank-mailman (output) from mailman id 753014.1161273; Wed, 03 Jul 2024 12:52:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sOzQs-0002lM-6r; Wed, 03 Jul 2024 12:49:58 +0000
-Received: by outflank-mailman (input) for mailman id 753008;
- Wed, 03 Jul 2024 12:49:56 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1sOzSx-0004Aq-Hc; Wed, 03 Jul 2024 12:52:07 +0000
+Received: by outflank-mailman (input) for mailman id 753014;
+ Wed, 03 Jul 2024 12:52:06 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=NzTd=OD=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sOzQq-0002lG-D3
- for xen-devel@lists.xenproject.org; Wed, 03 Jul 2024 12:49:56 +0000
-Received: from mail-lj1-x22f.google.com (mail-lj1-x22f.google.com
- [2a00:1450:4864:20::22f])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id becfc5eb-393a-11ef-8776-851b0ebba9a2;
- Wed, 03 Jul 2024 14:49:54 +0200 (CEST)
-Received: by mail-lj1-x22f.google.com with SMTP id
- 38308e7fff4ca-2ebec2f11b7so60780091fa.2
- for <xen-devel@lists.xenproject.org>; Wed, 03 Jul 2024 05:49:54 -0700 (PDT)
+ id 1sOzSw-0004Ai-HG
+ for xen-devel@lists.xenproject.org; Wed, 03 Jul 2024 12:52:06 +0000
+Received: from mail-lj1-x22e.google.com (mail-lj1-x22e.google.com
+ [2a00:1450:4864:20::22e])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 0cb9e5bb-393b-11ef-bbf9-fd08da9f4363;
+ Wed, 03 Jul 2024 14:52:05 +0200 (CEST)
+Received: by mail-lj1-x22e.google.com with SMTP id
+ 38308e7fff4ca-2ebed33cb65so59822511fa.2
+ for <xen-devel@lists.xenproject.org>; Wed, 03 Jul 2024 05:52:05 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-2c91ce43303sm10639293a91.17.2024.07.03.05.49.47
+ d9443c01a7336-1fac1598d35sm102457675ad.285.2024.07.03.05.52.00
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 03 Jul 2024 05:49:52 -0700 (PDT)
+ Wed, 03 Jul 2024 05:52:04 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,55 +45,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: becfc5eb-393a-11ef-8776-851b0ebba9a2
+X-Inumbo-ID: 0cb9e5bb-393b-11ef-bbf9-fd08da9f4363
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1720010994; x=1720615794; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1720011125; x=1720615925; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=9yd5C9Xr32LXKl0cflASgwZpvQP4LBEFfFgrl2/EHUY=;
-        b=ThlW4buDGMqcnLF9bhBhLTZVDtPivipSqK6xYarm/YvYM7NXpQ3blN3VW5du9rS8eq
-         oveNmZ9l3BKYChVXFR7TbLlN01akJ2LolOSKK6Y2oAoBc4Tw2pKvE8ehaVpU/U+MN7Ms
-         BTvwbAZKcNglTVuSjCzXib4gxVrRvGExlxibYeLpjm1A0bcBcmG/+A0GnEQ9JqrngrLy
-         D6O3c4R3T6DFTkrqkP+wEeeXXbuA0mdeuoX1SO8h6e/g5S0U+dwH5zfhTLI4ury7iRY1
-         eeruPQrAHdFZYWuPVU4lyLSuRIZ0Ku5k/xvw+Xs1VTJW/L4FXxNJoum7rkg7pBV8WVar
-         zykw==
+        bh=yWJft89OUvjJ2DNfmsxFb/6eIYWoRUGx9ZU0U7exwxY=;
+        b=A+zEEUJFJ2FHrtDVAjRLFRmVoJW5pqMo2w8yZlplkVyU/Q4EFpCfvDeMRVA69T8epu
+         hTYCRm+2+ITE8Dq5pYkzxv+KjmwBA+Khjums7S+ben6Mx7JW6NDRv/nqtK5ydhbNDwW5
+         GoW7gxzTdVuyIwN6H9c+o/10WETWooLnw9+pW5M8AsH5GD376plmO2x+DtzikPaB7oci
+         5L+YBU5ZO3sjEK5Cn6Jo+EzGAezjyE+XH5mXBV4er84BfuYh34i+nEpryrDeXu472tvt
+         N9LdlR/TSg3JieXiWA7tsZUPPpg4/uonwd083oTKp+48jYUpV5D+Fixt71h/kpJ++b5c
+         QdXg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1720010994; x=1720615794;
+        d=1e100.net; s=20230601; t=1720011125; x=1720615925;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=9yd5C9Xr32LXKl0cflASgwZpvQP4LBEFfFgrl2/EHUY=;
-        b=gnc5/VWxzZ9gkqIfDX8JAEtn0nShg1Zk1LbBB1aYtG/h+TnHSYyAIku7fR3y+dK2fE
-         Z5Ifzb1ZczEEM38LIASKvJvcpJqR27JDrNVjiITaC1sEOCHt8ylidYFL04Tn41kWjMU4
-         Px3RwYgjuQcJDFKcFbqwB/PG3dRAP+8fdSJ7gNrB2502pJFBdN0FxMED0oEgSU6IHENy
-         bZ86r1WM6b5nR9stJSZsy4y+AnaCyKbm/c+MPq8OqsSa6M79cbkKk3pORSdk9FcZdE68
-         y9fxQtbIgq+lS3r5xjmIpmLRBOaR3YpusRlMIt06aBtu7xgBYA65yaGxk1a8WufOj1lB
-         97aA==
-X-Forwarded-Encrypted: i=1; AJvYcCV6fVynXhK7KVe4T+8VFTJVQX6pPijNABVgAwvisuKX2CsZRkn7GcT+1E9qWtPYRVV+un5wqYi28M35yhcuGPGAbuzOuKkfps8a1jrB8sk=
-X-Gm-Message-State: AOJu0Yw1pC7vVKyqIpkonXTNpdYmkLO/koGzNDWNz3fna/O2Q1kq2zpE
-	v+v2T0+9RIwzE0BYRxLbjv8hcU3mVz3Vc0GbTUu/Pp4LuubU7y0ndUpTpXe4eQ==
-X-Google-Smtp-Source: AGHT+IGxsNEXcCpTuwFPPtdwYIWmf1FliweBaJR1t6KPozXApI+rpdx25tBggVnkeuc7PwmjF3St3A==
-X-Received: by 2002:a05:651c:1308:b0:2ee:8407:2f58 with SMTP id 38308e7fff4ca-2ee84073000mr9646441fa.17.1720010992898;
-        Wed, 03 Jul 2024 05:49:52 -0700 (PDT)
-Message-ID: <8a0c0cec-c168-471f-88ad-228ddcdd4f0a@suse.com>
-Date: Wed, 3 Jul 2024 14:49:43 +0200
+        bh=yWJft89OUvjJ2DNfmsxFb/6eIYWoRUGx9ZU0U7exwxY=;
+        b=KdlZx7kLGHEyt016Xr1Jwmbs2uYnx8oa5tTD2yo99dj3mgWR6pjtayG/kUOtV3Yn+k
+         HPRNvL+dqkxzRSIvwpAFUbfXCaATeJZD4kUj6aiOjPs5MLemplf0KtGwLX2FhHMPFT1U
+         uEcafLKJCrtCSisljEqwfD+T9rni3O40N0g9MaxaSO2GOv2iHIEfCVxg5dgLk810jcH7
+         iQfLZZp203i95Ob1um2O2dyV9B6kC3zzyGt9Oh9jFbvMYNGfc2aYfQVPkrkW/UrFcilm
+         Jw+UIIThjNsE2GZ1dHpXdMv79cZHnC3k2Z5oMDfCfJQoc5wo0xop8RJiI1lPfUsY5BWL
+         H03g==
+X-Forwarded-Encrypted: i=1; AJvYcCUvaigcrHPtXSgfsT0AD6JjI5+FcrfPZ19Q90DuBR4q192ari4uGEGTf/iuwJOZReCy6+IAABemdkDxVeg+tM/QoufNYkdRXe4/jAr6grQ=
+X-Gm-Message-State: AOJu0YxHEV9mLr165CTHOAmkAZJ0K1odpfhpkKzv74QjcGheth+bBoIo
+	IuMpLl/wa1fzC3V9HSxGM8brRu/VDyFWbGiP7yPDrjtghyl3W63R8sYzLcp3AA==
+X-Google-Smtp-Source: AGHT+IEzCFzbCG7gi8Lxa38rtXXEzepGJetetKRQemHeAoiIjTGgdp9NNr7hHPXZNZZgvrCp7EGuzg==
+X-Received: by 2002:a2e:a549:0:b0:2ee:4a63:e927 with SMTP id 38308e7fff4ca-2ee5e6f2be5mr94450961fa.39.1720011124772;
+        Wed, 03 Jul 2024 05:52:04 -0700 (PDT)
+Message-ID: <ac3885eb-ae04-4362-b94d-117694fbdaac@suse.com>
+Date: Wed, 3 Jul 2024 14:51:57 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 10/17] x86/asm: address violations of MISRA C:2012
- Directive 4.10
+Subject: Re: [PATCH 12/17] xen: address violations of MISRA C:2012 Directive
+ 4.10
 To: Alessandro Zucchelli <alessandro.zucchelli@bugseng.com>
 Cc: nicola.vetrini@bugseng.com, consulting@bugseng.com,
- Simone Ballarin <simone.ballarin@bugseng.com>,
+ Maria Celeste Cesario <maria.celeste.cesario@bugseng.com>,
  Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- "Daniel P. Smith" <dpsmith@apertussolutions.com>,
- =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>, xen-devel@lists.xenproject.org
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
 References: <cover.1719829101.git.alessandro.zucchelli@bugseng.com>
- <efb272c9eaad24875f34b396a75fed9577dedbda.1719829101.git.alessandro.zucchelli@bugseng.com>
+ <8305a914d1f1ee01d1b0b83cb86c2a48a2a2be0b.1719829101.git.alessandro.zucchelli@bugseng.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -119,56 +115,57 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <efb272c9eaad24875f34b396a75fed9577dedbda.1719829101.git.alessandro.zucchelli@bugseng.com>
+In-Reply-To: <8305a914d1f1ee01d1b0b83cb86c2a48a2a2be0b.1719829101.git.alessandro.zucchelli@bugseng.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 01.07.2024 15:36, Alessandro Zucchelli wrote:
-> --- a/docs/misra/safe.json
-> +++ b/docs/misra/safe.json
-> @@ -90,6 +90,14 @@
->              "name": "Dir 4.10: direct inclusion guard before",
->              "text": "Headers with just the direct inclusion guard before the inclusion guard are safe."
->          },
-> +        {
-> +            "id": "SAF-11-safe",
-> +            "analyser": {
-> +                "eclair": "MC3R1.D4.10"
-> +            },
-> +            "name": "Dir 4.10: file intended for multiple inclusion",
-> +            "text": "Files intended for multiple inclusion are not supposed to comply with D4.10."
-> +        },
->          {
->              "id": "SAF-11-safe",
-
-This can't be right; the sentinel must have its number changed.
-
-> --- a/xen/include/Makefile
-> +++ b/xen/include/Makefile
-> @@ -104,10 +104,17 @@ $(obj)/compat/.xlat/%.lst: $(srcdir)/xlat.lst FORCE
->  xlat-y := $(shell sed -ne 's,@arch@,$(compat-arch-y),g' -re 's,^[?!][[:blank:]]+[^[:blank:]]+[[:blank:]]+,,p' $(srcdir)/xlat.lst | uniq)
->  xlat-y := $(filter $(patsubst compat/%,%,$(headers-y)),$(xlat-y))
+On 01.07.2024 15:43, Alessandro Zucchelli wrote:
+> From: Maria Celeste Cesario <maria.celeste.cesario@bugseng.com>
+> 
+> Modify creation rule for asm-offsets.h to conform to
+> the new standard and to not generate conflicting guards
+> between architectures (which is a violation of the directive).
+> Modify generic-y creation rule to generate code without violations
+> and to conform to the new standard.
+> 
+> Mechanical change.
+> ---
+> Changes in v4:
+> - improve inclusion guard generation
+> 
+> Signed-off-by: Maria Celeste Cesario  <maria.celeste.cesario@bugseng.com>
+> Signed-off-by: Simone Ballarin  <simone.ballarin@bugseng.com>
+> Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
+> Signed-off-by: Alessandro Zucchelli <alessandro.zucchelli@bugseng.com>
+> 
+> ---
+>  xen/build.mk                     | 7 ++++---
+>  xen/scripts/Makefile.asm-generic | 8 +++++++-
+>  2 files changed, 11 insertions(+), 4 deletions(-)
+> 
+> diff --git a/xen/build.mk b/xen/build.mk
+> index 0f490ca71b..bbd4c2970f 100644
+> --- a/xen/build.mk
+> +++ b/xen/build.mk
+> @@ -47,6 +47,7 @@ asm-offsets.s: arch/$(SRCARCH)/$(ARCH)/asm-offsets.c
 >  
-> +ARCHDIR = $(shell echo $(SRCARCH) | tr a-z A-Z)
+>  arch/$(SRCARCH)/include/asm/asm-offsets.h: asm-offsets.s
+>  	@(set -e; \
+> +	  guard=$$(echo ASM_${SRCARCH}_ASM_OFFSETS_H | tr a-z A-Z); \
 
-Why is this being added here? It's not used ...
+Was this and ...
 
->  quiet_cmd_xlat_h = GEN     $@
-> -cmd_xlat_h = \
-> -	cat $(filter %.h,$^) >$@.new; \
-> +define cmd_xlat_h
-> +	guard=$$(echo ASM_${SRCARCH}_COMPAT_XLAT_H | tr a-z A-Z); \
-> +	echo "#ifndef $$guard" > $@.new; \
-> +	echo "#define $$guard" >> $@.new; \
-> +	cat $(filter %.h,$^) >> $@.new; \
-> +	echo "#endif /* $$guard */" >> $@.new; \
->  	mv -f $@.new $@
-> +endef
+> --- a/xen/scripts/Makefile.asm-generic
+> +++ b/xen/scripts/Makefile.asm-generic
+> @@ -32,7 +32,13 @@ old-headers := $(wildcard $(obj)/*.h)
+>  unwanted    := $(filter-out $(generic-y) $(generated-y),$(old-headers))
 >  
->  $(obj)/compat/xlat.h: $(addprefix $(obj)/compat/.xlat/,$(xlat-y)) FORCE
->  	$(call if_changed,xlat_h)
+>  quiet_cmd_wrap = WRAP    $@
+> -      cmd_wrap = echo "\#include <asm-generic/$*.h>" > $@
+> +cmd_wrap = \
+> +    guard=$$(echo ASM_GENERIC_${SRCARCH}_$*_H | tr a-z A-Z); \
 
-... anywhere. Did you mean to use it in place of ${SRCARCH}?
+... this mean to be using $(ARCHDIR) as well then?
 
 Jan
 
