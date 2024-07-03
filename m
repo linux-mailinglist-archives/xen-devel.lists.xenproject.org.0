@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D9C519261E6
-	for <lists+xen-devel@lfdr.de>; Wed,  3 Jul 2024 15:33:17 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.753048.1161313 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7938592622D
+	for <lists+xen-devel@lfdr.de>; Wed,  3 Jul 2024 15:49:49 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.753059.1161326 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sP06P-0003ma-8k; Wed, 03 Jul 2024 13:32:53 +0000
+	id 1sP0MA-00064s-Kh; Wed, 03 Jul 2024 13:49:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 753048.1161313; Wed, 03 Jul 2024 13:32:53 +0000
+Received: by outflank-mailman (output) from mailman id 753059.1161326; Wed, 03 Jul 2024 13:49:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sP06P-0003l6-66; Wed, 03 Jul 2024 13:32:53 +0000
-Received: by outflank-mailman (input) for mailman id 753048;
- Wed, 03 Jul 2024 13:32:51 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1sP0MA-00062j-I3; Wed, 03 Jul 2024 13:49:10 +0000
+Received: by outflank-mailman (input) for mailman id 753059;
+ Wed, 03 Jul 2024 13:49:09 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=NzTd=OD=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sP06N-0003l0-Pl
- for xen-devel@lists.xenproject.org; Wed, 03 Jul 2024 13:32:51 +0000
-Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com
- [2a00:1450:4864:20::132])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id bd8ecc7d-3940-11ef-8776-851b0ebba9a2;
- Wed, 03 Jul 2024 15:32:49 +0200 (CEST)
-Received: by mail-lf1-x132.google.com with SMTP id
- 2adb3069b0e04-52cdc4d221eso6026332e87.3
- for <xen-devel@lists.xenproject.org>; Wed, 03 Jul 2024 06:32:49 -0700 (PDT)
+ id 1sP0M9-00062d-Mq
+ for xen-devel@lists.xenproject.org; Wed, 03 Jul 2024 13:49:09 +0000
+Received: from mail-lj1-x229.google.com (mail-lj1-x229.google.com
+ [2a00:1450:4864:20::229])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 0507f6a6-3943-11ef-bbf9-fd08da9f4363;
+ Wed, 03 Jul 2024 15:49:08 +0200 (CEST)
+Received: by mail-lj1-x229.google.com with SMTP id
+ 38308e7fff4ca-2ec4eefbaf1so58059161fa.1
+ for <xen-devel@lists.xenproject.org>; Wed, 03 Jul 2024 06:49:08 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-708044adc38sm10733327b3a.170.2024.07.03.06.32.45
+ 41be03b00d2f7-754b5cda258sm2215226a12.16.2024.07.03.06.49.03
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 03 Jul 2024 06:32:48 -0700 (PDT)
+ Wed, 03 Jul 2024 06:49:06 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bd8ecc7d-3940-11ef-8776-851b0ebba9a2
+X-Inumbo-ID: 0507f6a6-3943-11ef-bbf9-fd08da9f4363
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1720013569; x=1720618369; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1720014548; x=1720619348; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=SR95aC3yCJp/ZP5AJgIu1r9QKXGg4iWOks4t3pW9ZCI=;
-        b=eMDPI1O7AvcseXhwJ//4VY1kC8xaEtHbur0UGkiEVjQBpIY7ecYmIN4pn+bs1Tkjfb
-         QQemtd53SStpN/Yn8tmP9Cm6Pe78II/R+d9AH4200a4B7iJhfe6xCAU7F+H8md82g3w4
-         lSGUMYijns2X2h7b3IF7ImQEjPfSlJNNKF/VOzm6Tnnf+sF8DyK+PVQOtJMZYFSufeFw
-         bBpV96dYycHYOoMPOTgWOMRnhs0PmE4bZU29tZPQY76NdrkAVM97GrRBdzx0SgEy5XAO
-         gXz4jJ90AU9ziwrO+1FC72Bsrt7WRwO9PpwxZAPLWO4PQBFrjUQhbQFYuSNOW3sbBU7u
-         Eilw==
+        bh=H2MRtvs6Q+T29lDr2TcZ175P/dLKJDWyZ7JT+WcGmtM=;
+        b=hDv5HjchkLcqP8Bk8oxoejuQaLwp+3nMc428eF0RCHwnR/bugKAnaaQkul49fMIYSH
+         yehIR1VPDDmNeFLyPEHmyF15nSNIfAvQTvP++ssVOAXPS/yjKs+E45a1AcLs6XemIpQc
+         nu2ETrm9YliSWo7eTS52SUD/42yWHNRdz5UfjvhxJq+eS/aXA03eSb4T8kuojM+xXsZz
+         0bCbovC7xj+hFpkOSG5kxxNfvdB3ip4s7AEz5WDLxsqTyfc8uIxl9lPIinFoDeLz2AEf
+         zMiz38viDI4Ol9+6za2z56r0TYBCmLnll450E7hzGIMJvoJrlzIrIOV4r275+Z9hej/o
+         DyJQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1720013569; x=1720618369;
+        d=1e100.net; s=20230601; t=1720014548; x=1720619348;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=SR95aC3yCJp/ZP5AJgIu1r9QKXGg4iWOks4t3pW9ZCI=;
-        b=ZoxDp8g9nANkFnF1AHDCUZP5bPZbRQIeatKEMdjDBtKQ+01k50DrtyA2H3BlmEuQ6y
-         69jMWrrjrAxIAr5jwZCrVIbhVeLD1jSXZg5Zp+LxIDcjceUVV/CGVvb7WBsZ0nPVwsa0
-         WXOq23qSgMU7r3SbFYx1QR7xp/4azixCD0rMrMGiUzN0ROJ2zNLCw/XPgjtJl/7Onufr
-         BIQomLpWi4PZ+DvwmyXoPbDCH6n+LMcNuxQ1c/kCy7flXuV4BlAkoWhayvWJ4jqeJpgQ
-         lcVMcTR/JP76ULHBuQro2GpXB3j4460m5ztn9HY0tLzeZP043VPyHF/w9SAFWmtHb8va
-         uOQQ==
-X-Forwarded-Encrypted: i=1; AJvYcCWRT2QDxeX3DwgInw7O9UNDzASsSXkrU1bFDZk6JpaNjbT1sSaZqYI5RPyDNRJviCqDUTZbcHYmx79VqGykERs7QvbyCHTRaRjO1bSIeYA=
-X-Gm-Message-State: AOJu0Yy35e82uE2TYGYkY5JYFdBvFLsMszQsYRdWjwzQq2MRLfEIjeJk
-	oIQ8D6Z6KiGZvPJEam4SJWlZmhe09CMWGpV7d5w+ruX6k4EX0rx2jLWBi5xeog==
-X-Google-Smtp-Source: AGHT+IEIWNfK93Y/yHb39tqSx214dxaHw3/JuvysntnLhaOM7j9qdjdWq09xdagbLFPixLVbk4kz1A==
-X-Received: by 2002:a05:6512:3083:b0:52c:e19c:ed90 with SMTP id 2adb3069b0e04-52e826fac53mr8196826e87.46.1720013568768;
-        Wed, 03 Jul 2024 06:32:48 -0700 (PDT)
-Message-ID: <d9f94662-92b7-492b-84cd-a7e6b1ab68b6@suse.com>
-Date: Wed, 3 Jul 2024 15:32:41 +0200
+        bh=H2MRtvs6Q+T29lDr2TcZ175P/dLKJDWyZ7JT+WcGmtM=;
+        b=xKLgiOhsswB6KlCIxrl2fI0nu+JtFwHSq7imxln1IEYAwvf+tMEcGi9Ut80//PU1as
+         rJv9DYTVZ5v7hONir1YpNVzAXm+1gShCm/6D9buX2FjqC2FShC7N9fsxJzWirHnNe++d
+         fdzsK07DnW+BBw607nouunIvubiv/gQ4Q70c5Gf+KIp00wNgfdF2Wq+DPJH5TzhnD94T
+         WoSFRABcYWNLgY/+bvgf+LGXKkiS6e8WuKRis2f12pQnYjgLhO/O3Fqxd/nXTXILv+Dk
+         53/eKzdro5R8gRp3wW0YfwaY5jL1TDk+CqSd/hLbvR5S28WJRbhMqy6Oep7A5Mea2/OI
+         ucAA==
+X-Forwarded-Encrypted: i=1; AJvYcCXbqvp3Hlo3ts63jARc0XYs72OcAZaR9Rt3X807o5Bl5QmqN6c0T5qzxQF//KFigoSjVG/FWYGCyIOiPZulfdneJK9dvAGTt95VjdR6MO0=
+X-Gm-Message-State: AOJu0Yz5UWl8b3aMLrPF+NlK9Qhq7VFU/gjL6mLDGyeSd4qHH+UttwjI
+	/bLGVDORMBg6ro20vWVNWci2S3bK5JayrhcG/yb6i5bG8Y4bq2k/2rXWALD0Vw==
+X-Google-Smtp-Source: AGHT+IGcKfhMIFw5LJV6m8bq1DHLmSpc6J1hs+1e/aNULySiK8QyuqF8M8Ia5Kk5EawzLECsmL52Gw==
+X-Received: by 2002:a2e:bcc2:0:b0:2ee:7caf:db5d with SMTP id 38308e7fff4ca-2ee7cafdc57mr19579171fa.51.1720014547696;
+        Wed, 03 Jul 2024 06:49:07 -0700 (PDT)
+Message-ID: <375074a0-0db7-40ba-9c9f-590b0cbe2409@suse.com>
+Date: Wed, 3 Jul 2024 15:48:59 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 16/17] xen/build: address violation of MISRA C Directive
- 4.10
+Subject: Re: [RFC PATCH 17/17] CODING_STYLE: Add a section on header guards
+ naming conventions
 To: Alessandro Zucchelli <alessandro.zucchelli@bugseng.com>
 Cc: consulting@bugseng.com, Andrew Cooper <andrew.cooper3@citrix.com>,
  Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
  xen-devel@lists.xenproject.org
 References: <cover.1719829101.git.alessandro.zucchelli@bugseng.com>
- <c3d0eb70d894a1dc0ddd53cacd6a525bc10577ce.1719829101.git.alessandro.zucchelli@bugseng.com>
+ <fdb3811e00b9d6708c18d349a5a5043bb1b49cec.1719829101.git.alessandro.zucchelli@bugseng.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -114,27 +114,72 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <c3d0eb70d894a1dc0ddd53cacd6a525bc10577ce.1719829101.git.alessandro.zucchelli@bugseng.com>
+In-Reply-To: <fdb3811e00b9d6708c18d349a5a5043bb1b49cec.1719829101.git.alessandro.zucchelli@bugseng.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 01.07.2024 15:46, Alessandro Zucchelli wrote:
-> --- a/xen/build.mk
-> +++ b/xen/build.mk
-> @@ -18,6 +18,8 @@ quiet_cmd_compile.h = UPD     $@
->  define cmd_compile.h
->      if [ ! -r $@ -o -O $@ ]; then \
->  	cat .banner; \
-> +	echo '#ifndef INCLUDE_XEN_COMPILE_H' >> $(dot-target).tmp; \
+> This section explains which format should be followed by header
+> inclusion guards via a drop-down list of rules.
 
-Leaving aside the question on the INCLUDE_ prefix (see earlier comments
-on another patch in this series), I wonder what good a guard does here
-in the first place. But anyway, I expect this again gets us into "we
-need to mechanically and slavishly follow the rules" territory.
+Ah, so this answers my earlier question regarding where the naming
+rules are spelled out. Yet why is this not much earlier in the series,
+/before/ anything trying to follow these rules?
 
-However, shouldn't this first "echo" use > in place of >>, to prevent
-surprises when e.g. an earlier build was interrupted at exactly the
-"right" point?
+> --- a/CODING_STYLE
+> +++ b/CODING_STYLE
+> @@ -167,3 +167,22 @@ the end of files.  It should be:
+>   * indent-tabs-mode: nil
+>   * End:
+>   */
+
+This footer is not just an example; it also serves that function here.
+While not strictly needed in this file, I think it should still remain
+last.
+
+> +
+> +Header inclusion guards
+> +-----------------------
+> +
+> +Unless differently specified all header files should have proper inclusion
+> +guards in order to avoid being included multiple times.
+> +The following naming conventions have been devised:
+> +- private headers -> <dir>_<filename>_H
+> +- asm-generic headers -> ASM_GENERIC_<filename>_H
+> +    - #ifndef ASM_GENERIC_X86_PERCPU_H
+> +      #define ASM_GENERIC_X86_PERCPU_H
+> +      //...
+> +      #endif /* ASM_GENERIC_X86_PERCPU_H */
+
+GENERIC contradicts X86. Please try to avoid giving confusing / possibly
+misleading examples.
+
+> +- arch/<architecture>/include/asm/<subdir>/<filename>.h -> ASM_<architecture>_<subdir>_<filename>_H
+> +    - #ifndef ASM_X86_DOMAIN_H
+> +      #define ASM_X86_DOMAIN_H
+> +      //...
+> +      #endif /* ASM_X86_DOMAIN_H */
+
+I'm afraid I can't connect the example to the filename pattern given:
+The example has 4 components separated by 3 underscores, when the
+pattern suggests 5 and 4 respectively.
+
+> +
+
+Please avoid empty lines at the bottom of files.
+
+Having reached the end, I don't see common headers (the ones under
+xen/include/ in the tree) covered. I can only conclude that the odd
+INCLUDE_ prefixes I had asked about were derived from the "private
+headers" rule. Yet what's in xen/include/ aren't private headers.
+
+I further have to note that, as indicated during the earlier discussion,
+I still cannot see how occasional ambiguity is going to be dealt with.
+IOW from the rules above two different headers could still end up with
+the same guard identifier.
+
+Finally, it shouldn't be silently assumed that all name components are
+to be converted to upper case; everything wants spelling out imo.
 
 Jan
 
