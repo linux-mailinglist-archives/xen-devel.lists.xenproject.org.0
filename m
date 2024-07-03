@@ -2,38 +2,46 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 28F6E925C97
-	for <lists+xen-devel@lfdr.de>; Wed,  3 Jul 2024 13:20:11 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.752954.1161205 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A2722925F56
+	for <lists+xen-devel@lfdr.de>; Wed,  3 Jul 2024 13:57:38 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.752970.1161215 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sOy1L-0004lL-Sh; Wed, 03 Jul 2024 11:19:31 +0000
+	id 1sOyb4-0001vc-OR; Wed, 03 Jul 2024 11:56:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 752954.1161205; Wed, 03 Jul 2024 11:19:31 +0000
+Received: by outflank-mailman (output) from mailman id 752970.1161215; Wed, 03 Jul 2024 11:56:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sOy1L-0004iA-Pj; Wed, 03 Jul 2024 11:19:31 +0000
-Received: by outflank-mailman (input) for mailman id 752954;
- Wed, 03 Jul 2024 11:19:29 +0000
+	id 1sOyb4-0001u8-LM; Wed, 03 Jul 2024 11:56:26 +0000
+Received: by outflank-mailman (input) for mailman id 752970;
+ Wed, 03 Jul 2024 11:56:25 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Xq3e=OD=cloud.com=alejandro.vallejo@srs-se1.protection.inumbo.net>)
- id 1sOy1J-0004i4-Qd
- for xen-devel@lists.xenproject.org; Wed, 03 Jul 2024 11:19:29 +0000
-Received: from mail-ed1-x531.google.com (mail-ed1-x531.google.com
- [2a00:1450:4864:20::531])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=huvW=OD=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1sOyb3-0001u2-C4
+ for xen-devel@lists.xenproject.org; Wed, 03 Jul 2024 11:56:25 +0000
+Received: from smtp-out1.suse.de (smtp-out1.suse.de
+ [2a07:de40:b251:101:10:150:64:1])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 1cc225af-392e-11ef-bbf9-fd08da9f4363;
- Wed, 03 Jul 2024 13:19:28 +0200 (CEST)
-Received: by mail-ed1-x531.google.com with SMTP id
- 4fb4d7f45d1cf-58bac81f419so2368152a12.0
- for <xen-devel@lists.xenproject.org>; Wed, 03 Jul 2024 04:19:28 -0700 (PDT)
-Received: from EMEAENGAAD19049.citrite.net ([185.25.67.249])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a72ab08cf7csm501651566b.155.2024.07.03.04.19.26
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 03 Jul 2024 04:19:27 -0700 (PDT)
+ id 44cfcbae-3933-11ef-bbf9-fd08da9f4363;
+ Wed, 03 Jul 2024 13:56:23 +0200 (CEST)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id CF0AD21BBA;
+ Wed,  3 Jul 2024 11:56:22 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 6DB5013974;
+ Wed,  3 Jul 2024 11:56:22 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id F36yGGY8hWYhDwAAD6G6ig
+ (envelope-from <jgross@suse.com>); Wed, 03 Jul 2024 11:56:22 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,215 +53,286 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1cc225af-392e-11ef-bbf9-fd08da9f4363
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1720005568; x=1720610368; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=pP+GzuzwiUPFuVA4wabuMu0yHI34+ezkA5qv9mNcZfc=;
-        b=lpho/iVyzVwndaxKphnwZjnFamQ2RCZjYc2elbZtVQqHleqY3zWuLAbn7sQ/BzwnUa
-         vCRaH5HfkMcsEWiRuDp6DuegTcMfo4sDzJxIIlK8n0ZMGzIfN75jXfauTz5sS+m/ENuK
-         YJc3fiWSP+KIkCARxGDCbEzRIdJeYjEkKArrA=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1720005568; x=1720610368;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=pP+GzuzwiUPFuVA4wabuMu0yHI34+ezkA5qv9mNcZfc=;
-        b=IWxxZq5r/Pcgnk/FxsYAF7XjkjCtHi+48drGmgZeHi4IJbnxnuAZI8qoQ6nrjzrDUN
-         75dpew5rDJ6QD+Esr8O0Gs1lbFcx3lLfPRVfQLqFWe3i8wMhdOfqLdky4CNQJfJxxPK2
-         zIdx3okMlW98/Wo8cROQMP5ls4lRtfLqRI6E0JyMzYOAMu8bSwKeCPYndX9LfBQ1cwxJ
-         CgTxwAQYa8qBPzfZPX2B3pcF6f09taP0DDokPD3D+eYQgH9WoLTwJk/fxIHGmLiOt7kt
-         l7jVpk+S8gw5lZEaA2urpS3dHIcX4zQ3aV4wnS3/3lQ8WTpq9nuadbH3vvdH3NgAi7sr
-         61UA==
-X-Gm-Message-State: AOJu0YwvF0gVq0PyIQqwYx2nAxtGg+xtJl+B/Fog20ptv7Ini4xBGEO1
-	2RaAFeuWh2fWigkSRCAvBEBQeg1FcJR0iN+aH/dXdvZ9t5y80SEMBhI+R/rHMalwHRPDPvlOxKN
-	olyA=
-X-Google-Smtp-Source: AGHT+IHjdpnXQmKNDKCj+3CegtCwTs2s51KNawg8qs47brVRkxkOtOmo0SzUxSkAtndGjQh1i7CSlw==
-X-Received: by 2002:a17:906:3ac2:b0:a72:b26c:7792 with SMTP id a640c23a62f3a-a751445f854mr661760066b.69.1720005567604;
-        Wed, 03 Jul 2024 04:19:27 -0700 (PDT)
-From: Alejandro Vallejo <alejandro.vallejo@cloud.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Alejandro Vallejo <alejandro.vallejo@cloud.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Subject: [PATCH for-4.19 v2] xen/vmap: Document the vmap header
-Date: Wed,  3 Jul 2024 12:19:17 +0100
-Message-Id: <f8bcfe757b45ce59e1a1203c2675a4266cc15f20.1720005327.git.alejandro.vallejo@cloud.com>
-X-Mailer: git-send-email 2.34.1
+X-Inumbo-ID: 44cfcbae-3933-11ef-bbf9-fd08da9f4363
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1720007783; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=XzAsO4d1d00dRfQB1nR62M6eaIXlE3bQZcqYbGriBsU=;
+	b=pTQzAAcDqJmole7r5v4jQwXVeryo/tA+4yahr8+LZeJKq92VIczvqcR4lYyept6nG6F0lI
+	Yw1uVagsZEAwIs5o81m7zCPE3xXMvNIwNPMoHzV53/vGS9pwD1l5UUspEGdWHoNfH/yFjE
+	djQY6ETiNJmhdqrLUniSW6PwTDCrmkk=
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.com header.s=susede1 header.b=Kr3j+wlE
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1720007782; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=XzAsO4d1d00dRfQB1nR62M6eaIXlE3bQZcqYbGriBsU=;
+	b=Kr3j+wlE/+h4wDKMXy1ATwP3RAF2pXLjM6KGxWF76GHX2hAEZL6sRt3OX1hXS56Sjpcu29
+	dCg7CL686RjZX9Ru6p9TCp5oaBz+YLuuNGCfv5WRCyOVGa4SyAfJI7ne6SrSyK2S5xdqkL
+	8nHe7UhQdvW9Ii/buZXo1O5djP8Mge8=
+From: Juergen Gross <jgross@suse.com>
+To: linux-kernel@vger.kernel.org,
+	x86@kernel.org,
+	linux-doc@vger.kernel.org
+Cc: Juergen Gross <jgross@suse.com>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+	Thomas Gleixner <tglx@linutronix.de>,
+	Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	xen-devel@lists.xenproject.org
+Subject: [PATCH] xen: make multicall debug boot time selectable
+Date: Wed,  3 Jul 2024 13:56:20 +0200
+Message-Id: <20240703115620.25772-1-jgross@suse.com>
+X-Mailer: git-send-email 2.35.3
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Spamd-Result: default: False [-3.01 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_MISSING_CHARSET(0.50)[];
+	R_DKIM_ALLOW(-0.20)[suse.com:s=susede1];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	MIME_TRACE(0.00)[0:+];
+	RCPT_COUNT_TWELVE(0.00)[12];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FUZZY_BLOCKED(0.00)[rspamd.com];
+	ARC_NA(0.00)[];
+	DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	DKIM_SIGNED(0.00)[suse.com:s=susede1];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.com:email,suse.com:dkim];
+	RCVD_COUNT_TWO(0.00)[2];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_TRACE(0.00)[suse.com:+]
+X-Rspamd-Action: no action
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Queue-Id: CF0AD21BBA
+X-Spam-Flag: NO
+X-Spam-Score: -3.01
+X-Spam-Level: 
 
-In it's current form it's rather cryptic for uninitiated, so this patch
-documents everything in there to make it more palatable.
+Today Xen multicall debugging needs to be enabled via modifying a
+define in a source file for getting debug data of multicall errors
+encountered by users.
 
-No functional change.
+Switch multicall debugging to depend on a boot parameter "xen_mc_debug"
+instead, enabling affected users to boot with the new parameter set in
+order to get better diagnostics.
 
-Signed-off-by: Alejandro Vallejo <alejandro.vallejo@cloud.com>
+Add printing all arguments of a single call for better diagnostics.
+
+Signed-off-by: Juergen Gross <jgross@suse.com>
 ---
-v2:
-  * Removed Doxygen-style markers on comments.
-  * Added some missing documentations for the return types of __vmap().
-  * s/range of ranges/set of ranges/ in __vmap()
-  * Removed rationale from vmap_contig()
-  * Fixed "arrray" typo.
-  * Moved misplaced comment to vfree()
----
- xen/include/xen/vmap.h | 101 +++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 101 insertions(+)
+ .../admin-guide/kernel-parameters.txt         |   6 +
+ arch/x86/xen/multicalls.c                     | 120 ++++++++++++++----
+ 2 files changed, 99 insertions(+), 27 deletions(-)
 
-diff --git a/xen/include/xen/vmap.h b/xen/include/xen/vmap.h
-index 0c16baa85f31..1864e1ccfe82 100644
---- a/xen/include/xen/vmap.h
-+++ b/xen/include/xen/vmap.h
-@@ -1,34 +1,132 @@
-+/*
-+ * Interface to map physical memory onto contiguous virtual memory areas.
-+ *
-+ * Two ranges of linear address space are reserved for this purpose: A general
-+ * purpose area (VMAP_DEFAULT) and a livepatch-specific area (VMAP_XEN). The
-+ * latter is used when loading livepatches and the former for everything else.
-+ */
- #if !defined(__XEN_VMAP_H__) && defined(VMAP_VIRT_START)
- #define __XEN_VMAP_H__
+diff --git a/Documentation/admin-guide/kernel-parameters.txt b/Documentation/admin-guide/kernel-parameters.txt
+index 27ec49af1bf2..b33d048e01d8 100644
+--- a/Documentation/admin-guide/kernel-parameters.txt
++++ b/Documentation/admin-guide/kernel-parameters.txt
+@@ -7427,6 +7427,12 @@
+ 			Crash from Xen panic notifier, without executing late
+ 			panic() code such as dumping handler.
  
- #include <xen/mm-frame.h>
- #include <xen/page-size.h>
++	xen_mc_debug	[X86,XEN,EARLY]
++			Enable multicall debugging when running as a Xen PV guest.
++			Enabling this feature will reduce performance a little
++			bit, so it should only be enabled for obtaining extended
++			debug data in case of multicall errors.
++
+ 	xen_msr_safe=	[X86,XEN,EARLY]
+ 			Format: <bool>
+ 			Select whether to always use non-faulting (safe) MSR
+diff --git a/arch/x86/xen/multicalls.c b/arch/x86/xen/multicalls.c
+index 07054572297f..abea216f07f4 100644
+--- a/arch/x86/xen/multicalls.c
++++ b/arch/x86/xen/multicalls.c
+@@ -23,6 +23,8 @@
+ #include <linux/percpu.h>
+ #include <linux/hardirq.h>
+ #include <linux/debugfs.h>
++#include <linux/jump_label.h>
++#include <linux/printk.h>
  
-+/* Identifiers for the linear ranges tracked by vmap */
- enum vmap_region {
-+    /*
-+     * Region used for general purpose RW mappings. Mapping/allocating memory
-+     * here can induce extra allocations for the supporting page tables.
-+     */
-     VMAP_DEFAULT,
-+    /*
-+     * Region used for loading livepatches. Can't use VMAP_DEFAULT because it
-+     * must live close to the running Xen image. The caller also ensures all
-+     * page tables are already in place with adequate PTE flags.
-+     */
-     VMAP_XEN,
-+    /* Sentinel value for bounds checking */
-     VMAP_REGION_NR,
+ #include <asm/xen/hypercall.h>
+ 
+@@ -31,18 +33,12 @@
+ 
+ #define MC_BATCH	32
+ 
+-#define MC_DEBUG	0
+-
+ #define MC_ARGS		(MC_BATCH * 16)
+ 
+ 
+ struct mc_buffer {
+ 	unsigned mcidx, argidx, cbidx;
+ 	struct multicall_entry entries[MC_BATCH];
+-#if MC_DEBUG
+-	struct multicall_entry debug[MC_BATCH];
+-	void *caller[MC_BATCH];
+-#endif
+ 	unsigned char args[MC_ARGS];
+ 	struct callback {
+ 		void (*fn)(void *);
+@@ -50,13 +46,84 @@ struct mc_buffer {
+ 	} callbacks[MC_BATCH];
  };
  
-+/*
-+ * Runtime initialiser for each vmap region type
-+ *
-+ * Must only be called once per vmap region type.
-+ *
-+ * @param type  Designation of the region to initialise.
-+ * @param start Start address of the `type` region.
-+ * @param end   End address (not inclusive) of the `type` region
-+ */
- void vm_init_type(enum vmap_region type, void *start, void *end);
- 
-+/*
-+ * Maps a set of physical ranges onto a single virtual range
-+ *
-+ * `mfn` is an array of `nr` physical ranges, each of which is `granularity`
-+ * pages wide. `type` defines which vmap region to use for the mapping and
-+ * `flags` is the PTE flags the page table leaves are meant to have.
-+ *
-+ * Typically used via the vmap() and vmap_contig() helpers.
-+ *
-+ * @param mfn          Array of mfns
-+ * @param granularity  Number of contiguous pages each mfn represents
-+ * @param nr           Number of mfns in the `mfn` array
-+ * @param align        Alignment of the virtual area to map
-+ * @param flags        PTE flags for the leaves of the PT tree.
-+ * @param type         Which region to create the mappings on
-+ * @return Pointer to the mapped area on success; NULL otherwise.
-+ */
- void *__vmap(const mfn_t *mfn, unsigned int granularity, unsigned int nr,
-              unsigned int align, unsigned int flags, enum vmap_region type);
++struct mc_debug_data {
++	struct multicall_entry debug[MC_BATCH];
++	void *caller[MC_BATCH];
++	size_t argsz[MC_BATCH];
++};
 +
-+/*
-+ * Map an array of pages contiguously into the VMAP_DEFAULT vmap region
-+ *
-+ * @param[in] mfn Pointer to the base of an array of mfns
-+ * @param[in] nr  Number of mfns in the array
-+ * @return Pointer to the mapped area on success; NULL otherwise.
-+ */
- void *vmap(const mfn_t *mfn, unsigned int nr);
+ static DEFINE_PER_CPU(struct mc_buffer, mc_buffer);
++static struct mc_debug_data __percpu *mc_debug_data;
++static struct mc_debug_data mc_debug_data_early __initdata;
+ DEFINE_PER_CPU(unsigned long, xen_mc_irq_flags);
+ 
++static struct static_key mc_debug __ro_after_init;
++static bool mc_debug_enabled __initdata;
 +
-+/*
-+ * Maps physically contiguous pages onto the VMAP_DEFAULT vmap region
-+ *
-+ * @param mfn Base mfn of the physical region
-+ * @param nr  Number of mfns in the physical region
-+ * @return Pointer to the mapped area on success; NULL otherwise.
-+ */
- void *vmap_contig(mfn_t mfn, unsigned int nr);
++static int __init xen_parse_mc_debug(char *arg)
++{
++	mc_debug_enabled = true;
++	static_key_slow_inc(&mc_debug);
 +
-+/*
-+ * Unmaps a range of virtually contiguous memory from one of the vmap regions
-+ *
-+ * The system remembers internally how wide the mapping is and unmaps it all.
-+ * It also can determine the vmap region type from the `va`.
-+ *
-+ * @param va Virtual base address of the range to unmap
-+ */
- void vunmap(const void *va);
- 
-+/*
-+ * Allocate `size` octets of possibly non-contiguous physical memory and map
-+ * them contiguously in the VMAP_DEFAULT vmap region
-+ *
-+ * @param size Pointer to the base of an array of mfns
-+ * @return Pointer to the mapped area on success; NULL otherwise.
-+ */
- void *vmalloc(size_t size);
++	return 0;
++}
++early_param("xen_mc_debug", xen_parse_mc_debug);
 +
-+/* Same as vmalloc(), but for the VMAP_XEN vmap region. */
- void *vmalloc_xen(size_t size);
- 
-+/* Same as vmalloc(), but set the contents to zero before returning */
- void *vzalloc(size_t size);
++static int __init mc_debug_enable(void)
++{
++	struct mc_debug_data __percpu *mcdb;
++	unsigned long flags;
 +
-+/*
-+ * Unmap and free memory from vmalloc(), vmalloc_xen() or vzalloc()
-+ *
-+ * The system remembers internally how wide the mapping is and unmaps it all.
-+ *
-+ * @param va Virtual base address of the range to free and unmap
-+ */
- void vfree(void *va);
- 
-+/*
-+ * Analogous to vmap_contig(), but for IO memory
-+ *
-+ * Unlike vmap_contig(), it ensures architecturally correct cacheability
-+ * settings are set for the mapped IO memory.
-+ *
-+ * @param pa  Physical base address of the MMIO region.
-+ * @param len Length of the MMIO region in octets.
-+ * @return Pointer to the mapped area on success; NULL otherwise.
-+ */
- void __iomem *ioremap(paddr_t pa, size_t len);
- 
- /* Return the number of pages in the mapping starting at address 'va' */
- unsigned int vmap_size(const void *va);
- 
-+/* Analogous to vunmap(), but for IO memory mapped via ioremap() */
- static inline void iounmap(void __iomem *va)
++	if (!mc_debug_enabled)
++		return 0;
++
++	mcdb = alloc_percpu(struct mc_debug_data);
++	if (!mcdb) {
++		pr_err("xen_mc_debug inactive\n");
++		static_key_slow_dec(&mc_debug);
++		return -ENOMEM;
++	}
++
++	/* Be careful when switching to percpu debug data. */
++	local_irq_save(flags);
++	xen_mc_flush();
++	mc_debug_data = mcdb;
++	local_irq_restore(flags);
++
++	pr_info("xen_mc_debug active\n");
++
++	return 0;
++}
++early_initcall(mc_debug_enable);
++
++static void print_debug_data(struct mc_buffer *b, struct mc_debug_data *mcdb,
++			     int idx)
++{
++	unsigned int arg;
++
++	pr_err("  call %2d: op=%lu result=%ld caller=%pS", idx + 1,
++	       mcdb->debug[idx].op, b->entries[idx].result, mcdb->caller[idx]);
++	if (mcdb->argsz[idx]) {
++		pr_cont(" args=");
++		for (arg = 0; arg < mcdb->argsz[idx] / 8; arg++)
++			pr_cont("%lx ", mcdb->debug[idx].args[arg]);
++	}
++	pr_cont("\n");
++}
++
++static struct mc_debug_data * __ref get_mc_debug_ptr(void)
++{
++	if (likely(mc_debug_data))
++		return this_cpu_ptr(mc_debug_data);
++
++	return &mc_debug_data_early;
++}
++
+ void xen_mc_flush(void)
  {
-     unsigned long addr = (unsigned long)(void __force *)va;
-@@ -36,7 +134,10 @@ static inline void iounmap(void __iomem *va)
-     vunmap((void *)(addr & PAGE_MASK));
- }
+ 	struct mc_buffer *b = this_cpu_ptr(&mc_buffer);
+ 	struct multicall_entry *mc;
++	struct mc_debug_data *mcdb = NULL;
+ 	int ret = 0;
+ 	unsigned long flags;
+ 	int i;
+@@ -69,10 +136,11 @@ void xen_mc_flush(void)
  
-+/* Pointer to 1 octet past the end of the VMAP_DEFAULT virtual area */
- void *arch_vmap_virt_end(void);
+ 	trace_xen_mc_flush(b->mcidx, b->argidx, b->cbidx);
+ 
+-#if MC_DEBUG
+-	memcpy(b->debug, b->entries,
+-	       b->mcidx * sizeof(struct multicall_entry));
+-#endif
++	if (static_key_false(&mc_debug)) {
++		mcdb = get_mc_debug_ptr();
++		memcpy(mcdb->debug, b->entries,
++		       b->mcidx * sizeof(struct multicall_entry));
++	}
+ 
+ 	switch (b->mcidx) {
+ 	case 0:
+@@ -104,20 +172,15 @@ void xen_mc_flush(void)
+ 		       ret, b->mcidx, smp_processor_id());
+ 		for (i = 0; i < b->mcidx; i++) {
+ 			if (b->entries[i].result < 0) {
+-#if MC_DEBUG
+-				pr_err("  call %2d: op=%lu arg=[%lx] result=%ld\t%pS\n",
+-				       i + 1,
+-				       b->debug[i].op,
+-				       b->debug[i].args[0],
+-				       b->entries[i].result,
+-				       b->caller[i]);
+-#else
+-				pr_err("  call %2d: op=%lu arg=[%lx] result=%ld\n",
+-				       i + 1,
+-				       b->entries[i].op,
+-				       b->entries[i].args[0],
+-				       b->entries[i].result);
+-#endif
++				if (static_key_false(&mc_debug)) {
++					print_debug_data(b, mcdb, i);
++				} else {
++					pr_err("  call %2d: op=%lu arg=[%lx] result=%ld\n",
++					       i + 1,
++					       b->entries[i].op,
++					       b->entries[i].args[0],
++					       b->entries[i].result);
++				}
+ 			}
+ 		}
+ 	}
+@@ -155,9 +218,12 @@ struct multicall_space __xen_mc_entry(size_t args)
+ 	}
+ 
+ 	ret.mc = &b->entries[b->mcidx];
+-#if MC_DEBUG
+-	b->caller[b->mcidx] = __builtin_return_address(0);
+-#endif
++	if (static_key_false(&mc_debug)) {
++		struct mc_debug_data *mcdb = get_mc_debug_ptr();
 +
-+/* Initialises the VMAP_DEFAULT virtual range */
- static inline void vm_init(void)
- {
-     vm_init_type(VMAP_DEFAULT, (void *)VMAP_VIRT_START, arch_vmap_virt_end());
++		mcdb->caller[b->mcidx] = __builtin_return_address(0);
++		mcdb->argsz[b->mcidx] = args;
++	}
+ 	b->mcidx++;
+ 	ret.args = &b->args[argidx];
+ 	b->argidx = argidx + args;
 -- 
-2.34.1
+2.35.3
 
 
