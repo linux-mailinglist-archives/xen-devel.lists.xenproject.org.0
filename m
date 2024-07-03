@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 55435926418
-	for <lists+xen-devel@lfdr.de>; Wed,  3 Jul 2024 16:59:13 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.753178.1161466 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2654E92644E
+	for <lists+xen-devel@lfdr.de>; Wed,  3 Jul 2024 17:07:49 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.753186.1161476 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sP1RU-00082U-Tq; Wed, 03 Jul 2024 14:58:44 +0000
+	id 1sP1Zs-0001Z4-NB; Wed, 03 Jul 2024 15:07:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 753178.1161466; Wed, 03 Jul 2024 14:58:44 +0000
+Received: by outflank-mailman (output) from mailman id 753186.1161476; Wed, 03 Jul 2024 15:07:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sP1RU-00080E-RL; Wed, 03 Jul 2024 14:58:44 +0000
-Received: by outflank-mailman (input) for mailman id 753178;
- Wed, 03 Jul 2024 14:58:44 +0000
+	id 1sP1Zs-0001Ws-KZ; Wed, 03 Jul 2024 15:07:24 +0000
+Received: by outflank-mailman (input) for mailman id 753186;
+ Wed, 03 Jul 2024 15:07:23 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=NzTd=OD=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sP1RU-0007ys-87
- for xen-devel@lists.xenproject.org; Wed, 03 Jul 2024 14:58:44 +0000
-Received: from mail-lj1-x232.google.com (mail-lj1-x232.google.com
- [2a00:1450:4864:20::232])
+ id 1sP1Zr-0001Wm-6P
+ for xen-devel@lists.xenproject.org; Wed, 03 Jul 2024 15:07:23 +0000
+Received: from mail-lj1-x22b.google.com (mail-lj1-x22b.google.com
+ [2a00:1450:4864:20::22b])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id bd8717bc-394c-11ef-bbf9-fd08da9f4363;
- Wed, 03 Jul 2024 16:58:43 +0200 (CEST)
-Received: by mail-lj1-x232.google.com with SMTP id
- 38308e7fff4ca-2ec5fad1984so75482631fa.0
- for <xen-devel@lists.xenproject.org>; Wed, 03 Jul 2024 07:58:43 -0700 (PDT)
+ id f2e4d8b6-394d-11ef-bbf9-fd08da9f4363;
+ Wed, 03 Jul 2024 17:07:22 +0200 (CEST)
+Received: by mail-lj1-x22b.google.com with SMTP id
+ 38308e7fff4ca-2ec1ac1aed2so65229911fa.3
+ for <xen-devel@lists.xenproject.org>; Wed, 03 Jul 2024 08:07:22 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-1fac15693e8sm104327845ad.217.2024.07.03.07.58.39
+ 41be03b00d2f7-753c2f79474sm2568226a12.44.2024.07.03.08.07.18
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 03 Jul 2024 07:58:42 -0700 (PDT)
+ Wed, 03 Jul 2024 08:07:21 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,47 +45,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bd8717bc-394c-11ef-bbf9-fd08da9f4363
+X-Inumbo-ID: f2e4d8b6-394d-11ef-bbf9-fd08da9f4363
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1720018723; x=1720623523; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1720019242; x=1720624042; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=kRw9znZlnI6jm8th1Pv0UU9ORD6y2czHbelRNdjt9HU=;
-        b=ZtJwzKMhG/E8H1HRA8JO4ZZlbaMc7W1YXWAJrPbx/9gARYYgr3phyktrPwiP4s1mB1
-         hQPLHeZXcHEkiN/bdpnx1xVtkY8KMLbKsv1cgz7lFmJ84R9mSb159pY6/ZJ1yKsnZJNW
-         ph/Q3S+aZKoT21hGC7wA5ULBM+Onf9OTlVyFrT+v+i8bFucGsL8m26Pzz4tvCygn0Exp
-         iud3uO1HtIdZWP0rGbbnP4T5OpC+/UcHnjXbrdfK+aN7gYsbWX6JtPZ5mn/T2Tm9VeK7
-         5n4mTLo9FsJeey2SojyOSu4xwOyQGW5FBfYs3jt9Jstc1zWaHonwJiBtFI9LeIKOUUAR
-         S80A==
+        bh=UrcB9AB+XlFI1B1hsgVUbIM3kgiMsC2mWiMD5eSt+hI=;
+        b=YCWV1EXC+6lZ7g716q0Ls55t3jUF7HJWoAd0wYJZxk9KE7HkBRPk0u3VDNmqlOyCI5
+         HX8kXz/3GtmLe/T7rTl10sWqejm5jA4raZBBTPo39Pr6ZJjp7TsIoapto5Yx2iUJyuJk
+         wC30XgfKJHhpfsEVOHEOB2Ip4YS2mdN1npseTShnvvgL9ngnWG1+XFcSPURPvSaNggSh
+         Hgg5NzXwoWMhmBiWKb9V5LeSv4IqvrePonar2VN+3IvVDbRgnBpbKSezkag//D0M8t4u
+         yZ6DU27FcYouNmDn5KdyH4dAPGrMW3eu/SEHPrxcnOkja/DT9oig3JaiCU7LLedrjFWr
+         IXKQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1720018723; x=1720623523;
+        d=1e100.net; s=20230601; t=1720019242; x=1720624042;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=kRw9znZlnI6jm8th1Pv0UU9ORD6y2czHbelRNdjt9HU=;
-        b=sVNh1b121o4pwvBIPuXFfDnkLL/hiYnk3LCEG+EKU37W+nHOIWSDaq50ywVa0PSSEP
-         M+AVsmV4ZPD4BD7+6pPz99qs/nUOjY3f5O2wDk3QSjuSM1W+HJB2Q/07dFP+NH92NiUn
-         gO+46EyzJ8kfSodaULB7mIRrpwxOcLWpYniLb/D6q08TOus6Sv4CjjZFxT05wIYtDFlP
-         ck3GPo8Evm+xiaopiDRu3th21L2gVgf1bBRx4VcCzNi2/go7kS48ZIyYMmTTxY8jgw0F
-         r3ylUyezy2k1awIaJ464DsrdhVv0+zEzT3DDZUIyASJlLZ6nKxXPWy3iUOPp1iVaV7dz
-         6tmw==
-X-Forwarded-Encrypted: i=1; AJvYcCXF4FS+gIgMWWuD4folX8nHlTSZxBGd3St/FUbTndCB9Gbb2GB07lpVOJk+15fxWS88/JulG6oYtdmcVvfnU2AS2Qlc/jqnoMVdmU+h004=
-X-Gm-Message-State: AOJu0YzNggLGHF4mjm1ZF2jJ4dUNPIWS0uOoCrwiGjuQS18raPX/qZwS
-	p7aGhAYpGPl3K+osIxQVOMUd0yLjLPV3fmKYg9fod0mUzShUE3pbFq7t4rC2RQ==
-X-Google-Smtp-Source: AGHT+IHMVPNS+DrQEvs7sPXifZKblKy/TMKczmf9s7RZLjkkAtwJ8HkERLwZE/GTH294ddEaIqdxfQ==
-X-Received: by 2002:a2e:a5c4:0:b0:2ee:5ec1:1838 with SMTP id 38308e7fff4ca-2ee5ec11928mr103850441fa.30.1720018722726;
-        Wed, 03 Jul 2024 07:58:42 -0700 (PDT)
-Message-ID: <08a33c85-419c-45c9-a54e-1198304fc6a1@suse.com>
-Date: Wed, 3 Jul 2024 16:58:36 +0200
+        bh=UrcB9AB+XlFI1B1hsgVUbIM3kgiMsC2mWiMD5eSt+hI=;
+        b=Soh7/ROCX8bmsJY+15r9/sLFhJqlkbSGht6IswXYWBY/NqL8hsc9EhxbhlvKUq9djU
+         rvKW6b8Gc9DMyeD0HFL4GLgguaho/WYEDt8BwnmRyEgW5lJ5uTX+DH0obFuGRdVmTFnR
+         G4dFbsFnmcplJ9RHRQAAEoNeaWiUN6EZ7JTLaTVeQZEIwX7qiH9Q1TyLzUYL3EzZgYbD
+         rOJEmVYzBXpFzu/tUi92lkAj3yBLgVa95WjHJRulNtC3QTJJ90UDoQLP6kAml4VlUoiB
+         znonuJy3hotbyooytwwBSvNVo8Oa/Xs4H50gNP0Sm4GLdWone9IfnV746MbYAW09ZH2d
+         dVEA==
+X-Forwarded-Encrypted: i=1; AJvYcCUHNA9/k3+7pb0hATuuw7D0/sezgSoHMS9/ZJJWuwfHtHr4OnczcBoScH8sP9X3U7BNrQFuEb9+WEzEA4z6pbtneYzg66JmVKsbOK1p6XQ=
+X-Gm-Message-State: AOJu0YyAAHlC7rfLQhT5tOoC7ykcW6IEp4RMxY56S3s5EQeBMGGLjK4g
+	ziVNHcAruYSEz0eRYnO6++0hrfr3IRXoPKA2oX7zlZrfPr6MQ8cPj58MQglGNQ==
+X-Google-Smtp-Source: AGHT+IEEkse3/CFRrR8yE7PdeVYpA5Dwaniutvuq9TWjOBUqLeowr+5wa9BSxC5S8BkSeIIwpJh9WQ==
+X-Received: by 2002:a2e:8687:0:b0:2ec:4d48:75f3 with SMTP id 38308e7fff4ca-2ee5e6f4bb6mr67590391fa.45.1720019241630;
+        Wed, 03 Jul 2024 08:07:21 -0700 (PDT)
+Message-ID: <0f883617-f4c0-43af-895f-3f70d4143a34@suse.com>
+Date: Wed, 3 Jul 2024 17:07:11 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH v2] x86/intel: optional build of TSX support
+Subject: Re: [XEN PATCH v2 1/2] x86/cpufreq: move ACPI cpufreq driver into
+ separate file
 To: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
-References: <20240701082506.190941-1-Sergiy_Kibrik@epam.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <cover.1719832871.git.Sergiy_Kibrik@epam.com>
+ <d8a13eb8c53d8cde99d7fa1d8e4fce2a597f02fd.1719832871.git.Sergiy_Kibrik@epam.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -111,27 +114,57 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240701082506.190941-1-Sergiy_Kibrik@epam.com>
+In-Reply-To: <d8a13eb8c53d8cde99d7fa1d8e4fce2a597f02fd.1719832871.git.Sergiy_Kibrik@epam.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 01.07.2024 10:25, Sergiy Kibrik wrote:
-> Transactional Synchronization Extensions are supported on certain Intel's
-> CPUs only, hence can be put under CONFIG_INTEL build option.
+On 01.07.2024 14:03, Sergiy Kibrik wrote:
+> Separate ACPI driver from generic initialization cpufreq code.
+> This way acpi-cpufreq can become optional in the future and be disabled
+> from non-Intel builds.
 > 
-> The whole TSX support, even if supported by CPU, may need to be disabled via
-> options, by microcode or through spec-ctrl, depending on a set of specific
-> conditions. To make sure nothing gets accidentally runtime-broken all
-> modifications of global TSX configuration variables is secured by #ifdef's,
-> while variables themselves redefined to 0, so that ones can't mistakenly be
-> written to.
-> 
-> Signed-off-by: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
+> Other than acpi_register_driver() helper added and clean up a list of
+> included headers no changes to code were introduced.
 
-Acked-by: Jan Beulich <jbeulich@suse.com>
+And perhaps that's okay despite the many style violations that you move
+around. However, acpi_register_driver() is too generic a name. How
+about acpi_cpufreq_register() (not not have it grow overly long)? Plus
 
-Btw - any reason you didn't Cc Roger?
+> --- /dev/null
+> +++ b/xen/arch/x86/acpi/cpufreq/acpi.c
+> @@ -0,0 +1,622 @@
+> +/*
+> + *  cpufreq.c - ACPI Processor P-States Driver ($Revision: 1.4 $)
+> + *
+> + *  Copyright (C) 2001, 2002 Andy Grover <andrew.grover@intel.com>
+> + *  Copyright (C) 2001, 2002 Paul Diefenbaugh <paul.s.diefenbaugh@intel.com>
+> + *  Copyright (C) 2002 - 2004 Dominik Brodowski <linux@brodo.de>
+> + *  Copyright (C) 2006        Denis Sadykov <denis.m.sadykov@intel.com>
+> + *
+> + *  Feb 2008 - Liu Jinsong <jinsong.liu@intel.com>
+> + *      porting acpi-cpufreq.c from Linux 2.6.23 to Xen hypervisor
+> + *
+> + * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+> + *
+> + *  This program is free software; you can redistribute it and/or modify
+> + *  it under the terms of the GNU General Public License as published by
+> + *  the Free Software Foundation; either version 2 of the License, or (at
+> + *  your option) any later version.
+> + *
+> + *  This program is distributed in the hope that it will be useful, but
+> + *  WITHOUT ANY WARRANTY; without even the implied warranty of
+> + *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+> + *  General Public License for more details.
+> + *
+> + *  You should have received a copy of the GNU General Public License along
+> + *  with this program; If not, see <http://www.gnu.org/licenses/>.
+> + *
+> + * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+> + */
+
+... I expect this should be transformed into an SPDX line. I expect the
+one in cpufreq.c wasn't picked up when the conversion was done because
+it doesn't fully match whatever pattern was looked for at the time.
 
 Jan
-
 
