@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E994C926057
-	for <lists+xen-devel@lfdr.de>; Wed,  3 Jul 2024 14:31:03 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.752994.1161243 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E3BFF9260CA
+	for <lists+xen-devel@lfdr.de>; Wed,  3 Jul 2024 14:47:56 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.753003.1161252 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sOz81-00006Z-HI; Wed, 03 Jul 2024 12:30:29 +0000
+	id 1sOzO8-0001yl-Su; Wed, 03 Jul 2024 12:47:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 752994.1161243; Wed, 03 Jul 2024 12:30:29 +0000
+Received: by outflank-mailman (output) from mailman id 753003.1161252; Wed, 03 Jul 2024 12:47:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sOz81-0008WM-Ef; Wed, 03 Jul 2024 12:30:29 +0000
-Received: by outflank-mailman (input) for mailman id 752994;
- Wed, 03 Jul 2024 12:30:28 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1sOzO8-0001wZ-QB; Wed, 03 Jul 2024 12:47:08 +0000
+Received: by outflank-mailman (input) for mailman id 753003;
+ Wed, 03 Jul 2024 12:47:07 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=NzTd=OD=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sOz80-0008WG-1k
- for xen-devel@lists.xenproject.org; Wed, 03 Jul 2024 12:30:28 +0000
-Received: from mail-lj1-x22a.google.com (mail-lj1-x22a.google.com
- [2a00:1450:4864:20::22a])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 06b632ea-3938-11ef-bbf9-fd08da9f4363;
- Wed, 03 Jul 2024 14:30:26 +0200 (CEST)
-Received: by mail-lj1-x22a.google.com with SMTP id
- 38308e7fff4ca-2ee794ebffbso24191101fa.1
- for <xen-devel@lists.xenproject.org>; Wed, 03 Jul 2024 05:30:26 -0700 (PDT)
+ id 1sOzO7-0001wT-1K
+ for xen-devel@lists.xenproject.org; Wed, 03 Jul 2024 12:47:07 +0000
+Received: from mail-lj1-x230.google.com (mail-lj1-x230.google.com
+ [2a00:1450:4864:20::230])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 59a324bb-393a-11ef-8776-851b0ebba9a2;
+ Wed, 03 Jul 2024 14:47:04 +0200 (CEST)
+Received: by mail-lj1-x230.google.com with SMTP id
+ 38308e7fff4ca-2ebe40673d8so70673361fa.3
+ for <xen-devel@lists.xenproject.org>; Wed, 03 Jul 2024 05:47:04 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-708043b703fsm10626228b3a.145.2024.07.03.05.30.21
+ d9443c01a7336-1fac10e3832sm105380515ad.91.2024.07.03.05.46.59
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 03 Jul 2024 05:30:25 -0700 (PDT)
+ Wed, 03 Jul 2024 05:47:03 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,52 +45,52 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 06b632ea-3938-11ef-bbf9-fd08da9f4363
+X-Inumbo-ID: 59a324bb-393a-11ef-8776-851b0ebba9a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1720009826; x=1720614626; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1720010824; x=1720615624; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=jIs/RD86rfiEWfOtxTqw8StoW+1prqpqUXKoTVtcBZY=;
-        b=Gm2inqs7FOyhnNvz9bMnYFiV+qECeGVknSdUCDpMvn1XAUZyDJhJf22kKy+D6jBf4N
-         59jyR9NBw3S+Ta+yTU0YFjeSfuu3itAydo+wsb1P+NCcZXIdgfXv8XBSnLyz3UclWaLI
-         QnEJBQGo5DEmlsJy+wIK2+xB6kDSJ1Zlh73F8uw1bGhDI2fNjNRrC11dWa9C59LySjqW
-         Tw9AAR+YSPjIxGwai0cTEN+ghclyu3vuDreHhasDUGsis/eGNWf/b0LLRKFu9miB8X0D
-         qHy7I8U9O5M7ZI+lN8veEigkFNILwNNkpHwr6j+vRbpSQiT6BeoMKLSWycQK8/F4a6aI
-         n6ig==
+        bh=G8etuKWEHdiOjpRweShg+hHTVGpxKEHBN9I0fSPl9GI=;
+        b=bHUM5XsgzdCLn1R0hbFogC5XgY/s227IvynZAXg+8Ov7wcu/e07k9nrFragX1p+8wT
+         JE/zysfKmdu5ayekgO7ruI20YZRwDpK1IrfBdJKtviYZOi8FDmiPIhpjpJDhp4miDSAU
+         5A+m+pmF/xTA1555FwgeEU6D7t2XQP4DRYe929OgGO02D3gaVqi39jd062QrNJNZtP36
+         okWSoeepPjZm2WDmkK+oF99yuQAnXzLeVl60pGgBLhaQjLh/sZtl1uURaj8pX1bNiwTg
+         MiWFKqUmzz8UTrVrTSo8ZL7DQ7hwvdo+svvccbQeKAZFUhmPw6xPXzA8EOocT18iiVEa
+         JoHg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1720009826; x=1720614626;
+        d=1e100.net; s=20230601; t=1720010824; x=1720615624;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=jIs/RD86rfiEWfOtxTqw8StoW+1prqpqUXKoTVtcBZY=;
-        b=jmkUk5/5DogtIXXMGHenTDpz2MZKVUezkwBpU8wcrjvXrDiaSpl6NvmD77aF54j5RC
-         UGmNV/+aQMkx163LL+lBdSxDh0f+Udi0ejglfPR+z+kSWvrFl1ovbpolExRVrzMHp7Tb
-         hpI/J4t6UwwVzGYOna/f4qL+GJ5poswxbGRVIBn31WOJQ86/BtJ4OkJ1fNzr9Cb6JlpK
-         jlAeWNYfWBtnor226JG+bqBxcmVFDHxNq900t16ZmaQQ89V7q6BVxdmz9joP9s5gzPmJ
-         nDGYmjleSvEjVzzjqZqDicC2FhV52gMaEqA4st2WLSvrZnGlORE0ZLeL7hihmXRJEddj
-         qe4g==
-X-Forwarded-Encrypted: i=1; AJvYcCUqymjdDqJHOKFBvjQH65uN2tT24Ol2tPwaMdGjLfRrmcITo1rxadCCUlGFKtIY+RNj2Ze7jajnTGeldBqk2eXFJvXWoATz8Rp6aP56vf8=
-X-Gm-Message-State: AOJu0YwcdaEaEwbzlGhQt+95aj13d27/QePdQtNvnhirvngtxrQk9Qs4
-	XhGXkzCxd7Fo6UifZDQa6imYN/uRlOPgSiDUkuBo3rfN2W6RqD6pEFl2TvpejA==
-X-Google-Smtp-Source: AGHT+IGL/jzsUxno5yOuxoOWN5UDyggTx7dZS7tAzY9YM3TdlmKG4hQOtW5clDzewpQxuFJ0GqCoQQ==
-X-Received: by 2002:a05:651c:549:b0:2ec:1e6e:13f9 with SMTP id 38308e7fff4ca-2ee5e707c78mr94189351fa.52.1720009826194;
-        Wed, 03 Jul 2024 05:30:26 -0700 (PDT)
-Message-ID: <5f31aa96-52a8-413a-8c10-0ad01d095be9@suse.com>
-Date: Wed, 3 Jul 2024 14:30:17 +0200
+        bh=G8etuKWEHdiOjpRweShg+hHTVGpxKEHBN9I0fSPl9GI=;
+        b=EmRcfPnpI4VUusic2ILxoaETuAyuET5aejsk13DmK6uORmqAPKuY8SpEk4WFeNFiQ0
+         Ybjel1fcL5MFfd2dC0w9fW69YTiMub23HyoCU+ba0tUs/6Pj4wNvscRDOueh0PYoRC7z
+         PdF7bOegOPKx5dsWxKkigF0NpzwsSrdZzs/QrUS+CFcc9aqSB1YNgeESsCePAToCOE4d
+         9U+i6/nJUDZikioEw+nI3On9GnPbyveN0GMBY00dR9ffPAO45rXA+lBQ2wV1Q3MnCGNS
+         UUWXvcbQNmcHsPtQMJLyrzQduv/Q/Lk9AiWuoAauO7nK+NfRHW+uwL70/tMTAZpuWSMa
+         rMIQ==
+X-Forwarded-Encrypted: i=1; AJvYcCV4ytuFM5yacSoi0lD01JZ6U8XvVQ35Nx+R+o4NdVd3kjbLaLpL5MfZ2hVKEo8K7piHMkCK0FO+60ns8rwVU6loJmbVCpivoWYLyeHDZy0=
+X-Gm-Message-State: AOJu0YzjTlWArxq38gq02MXpQAzE7A5gNNa+pprtxiqBkLTJn6KFDCjq
+	9X5RUgJg65TfpKG8F59onwfk2e3X7drJnj8A2tE84ygirIip3dR7SrbTmHXbow==
+X-Google-Smtp-Source: AGHT+IESFPwtIc6Pj/u24obY3+aN+2gmZjPgl2bJuGN+/MX2zcWrgbsRPLZkVmWsHzg4gUr8xhgRfg==
+X-Received: by 2002:a2e:be03:0:b0:2ec:5abf:f3ae with SMTP id 38308e7fff4ca-2ee5e35902bmr95162981fa.19.1720010824178;
+        Wed, 03 Jul 2024 05:47:04 -0700 (PDT)
+Message-ID: <2d8d87dc-a364-4230-85c4-3aa803d01c71@suse.com>
+Date: Wed, 3 Jul 2024 14:46:55 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 09/17] xen: address violations of MISRA C:2012 Directive
- 4.10
+Subject: Re: [PATCH 01/17] misra: add deviation for headers that explicitly
+ avoid guards
 To: Alessandro Zucchelli <alessandro.zucchelli@bugseng.com>
-Cc: nicola.vetrini@bugseng.com, consulting@bugseng.com,
- Simone Ballarin <simone.ballarin@bugseng.com>,
+Cc: consulting@bugseng.com, Simone Ballarin <simone.ballarin@bugseng.com>,
  Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
- <jgrall@amazon.com>, xen-devel@lists.xenproject.org
+ Stefano Stabellini <sstabellini@kernel.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Nicola Vetrini <nicola.vetrini@bugseng.com>, xen-devel@lists.xenproject.org
 References: <cover.1719829101.git.alessandro.zucchelli@bugseng.com>
- <76caa62c49a7aa02e43892f9edd72d90e9f39243.1719829101.git.alessandro.zucchelli@bugseng.com>
+ <e7e61b4486c025a1014ad09aa774dfd392f858b8.1719829101.git.alessandro.zucchelli@bugseng.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -116,94 +116,61 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <76caa62c49a7aa02e43892f9edd72d90e9f39243.1719829101.git.alessandro.zucchelli@bugseng.com>
+In-Reply-To: <e7e61b4486c025a1014ad09aa774dfd392f858b8.1719829101.git.alessandro.zucchelli@bugseng.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 01.07.2024 15:36, Alessandro Zucchelli wrote:
-> --- a/xen/include/xen/err.h
-> +++ b/xen/include/xen/err.h
-> @@ -1,5 +1,6 @@
-> -#if !defined(__XEN_ERR_H__) && !defined(__ASSEMBLY__)
-> -#define __XEN_ERR_H__
-> +#ifndef INCLUDE_XEN_ERR_H
-> +#define INCLUDE_XEN_ERR_H
+On 01.07.2024 13:10, Alessandro Zucchelli wrote:
+> --- a/docs/misra/safe.json
+> +++ b/docs/misra/safe.json
+> @@ -68,6 +68,14 @@
+>          },
+>          {
+>              "id": "SAF-8-safe",
+> +            "analyser": {
+> +                "eclair": "MC3R1.D4.10"
+> +            },
+> +            "name": "Dir 4.10: headers that leave it up to the caller to include them correctly",
+> +            "text": "Headers that deliberatively avoid inclusion guards explicitly leaving responsibility to the caller are allowed."
+> +        },
+> +        {
+> +            "id": "SAF-9-safe",
+>              "analyser": {},
+>              "name": "Sentinel",
+>              "text": "Next ID to be used"
 
-There once was a document (or was it a patch description) describing the
-naming system for these guards. Where did that go? With include files
-typically living under include/, seeing INCLUDE_ as a prefix is, well,
-odd and unnecessary baggage. I also don't recall there having been
-agreement to use names like the ones presented here.
+Patch 10 adds another entry here, targeted at headers which are intended to be
+possible to include more than once. Both headers here also fit that criteria,
+even if right now they aren't used that way (iirc). Do we really need two
+SAF-* markers for effectively all the same kind of headers?
+
+> --- a/xen/include/public/arch-x86/cpufeatureset.h
+> +++ b/xen/include/public/arch-x86/cpufeatureset.h
+> @@ -23,6 +23,7 @@
+>   * their XEN_CPUFEATURE() being appropriate in the included context.
+>   */
+>  
+> +/* SAF-8-safe omitted inclusion guard */
+>  #ifndef XEN_CPUFEATURE
+>  
+>  /*
+> diff --git a/xen/include/public/errno.h b/xen/include/public/errno.h
+> index 5a78a7607c..ccd5023c3a 100644
+> --- a/xen/include/public/errno.h
+> +++ b/xen/include/public/errno.h
+> @@ -17,6 +17,7 @@
+>   * will unilaterally #undef XEN_ERRNO().
+>   */
+>  
+> +/* SAF-8-safe omitted inclusion guard */
+>  #ifndef XEN_ERRNO
+>  
+>  /*
+
+Further both of these headers have guards (to cover the default case), so
+"omitted" certainly isn't correct. Much like the "name" line in the SAF
+entry also isn't quite correct, as in the common case it's not left to
+the use sites.
 
 Jan
-
-> +#ifndef __ASSEMBLY__
->  
->  #include <xen/compiler.h>
->  #include <xen/errno.h>
-> @@ -41,4 +42,5 @@ static inline int __must_check PTR_RET(const void *ptr)
->  	return IS_ERR(ptr) ? PTR_ERR(ptr) : 0;
->  }
->  
-> -#endif /* __XEN_ERR_H__ */
-> +#endif /* __ASSEMBLY__ */
-> +#endif /* INCLUDE_XEN_ERR_H */
-> diff --git a/xen/include/xen/pci_ids.h b/xen/include/xen/pci_ids.h
-> index e798477a7e..8e40c78db7 100644
-> --- a/xen/include/xen/pci_ids.h
-> +++ b/xen/include/xen/pci_ids.h
-> @@ -1,3 +1,6 @@
-> +#ifndef INCLUDE_XEN_PCI_IDS_H
-> +#define INCLUDE_XEN_PCI_IDS_H
-> +
->  #define PCI_VENDOR_ID_AMD                0x1022
->  
->  #define PCI_VENDOR_ID_NVIDIA             0x10de
-> @@ -11,3 +14,5 @@
->  #define PCI_VENDOR_ID_BROADCOM           0x14e4
->  
->  #define PCI_VENDOR_ID_INTEL              0x8086
-> +
-> +#endif /* INCLUDE_XEN_PCI_IDS_H */
-> diff --git a/xen/include/xen/softirq.h b/xen/include/xen/softirq.h
-> index 33d6f2ecd2..90d4875df7 100644
-> --- a/xen/include/xen/softirq.h
-> +++ b/xen/include/xen/softirq.h
-> @@ -1,5 +1,6 @@
-> -#if !defined(__XEN_SOFTIRQ_H__) && !defined(__ASSEMBLY__)
-> -#define __XEN_SOFTIRQ_H__
-> +#ifndef INCLUDE_XEN_SOFTIRQ_H
-> +#define INCLUDE_XEN_SOFTIRQ_H
-> +#ifndef __ASSEMBLY__
->  
->  /* Low-latency softirqs come first in the following list. */
->  enum {
-> @@ -40,4 +41,5 @@ void cpu_raise_softirq_batch_finish(void);
->   */
->  void process_pending_softirqs(void);
->  
-> -#endif /* __XEN_SOFTIRQ_H__ */
-> +#endif /* __ASSEMBLY__ */
-> +#endif /* INCLUDE_XEN_SOFTIRQ_H */
-> diff --git a/xen/include/xen/vmap.h b/xen/include/xen/vmap.h
-> index 0c16baa85f..ec1b6b05e9 100644
-> --- a/xen/include/xen/vmap.h
-> +++ b/xen/include/xen/vmap.h
-> @@ -1,5 +1,6 @@
-> -#if !defined(__XEN_VMAP_H__) && defined(VMAP_VIRT_START)
-> -#define __XEN_VMAP_H__
-> +#ifndef INCLUDE_XEN_VMAP_H
-> +#define INCLUDE_XEN_VMAP_H
-> +#ifdef VMAP_VIRT_START
->  
->  #include <xen/mm-frame.h>
->  #include <xen/page-size.h>
-> @@ -42,4 +43,5 @@ static inline void vm_init(void)
->      vm_init_type(VMAP_DEFAULT, (void *)VMAP_VIRT_START, arch_vmap_virt_end());
->  }
->  
-> -#endif /* __XEN_VMAP_H__ */
-> +#endif /* VMAP_VIRT_START */
-> +#endif /* INCLUDE_XEN_VMAP_H */
-
 
