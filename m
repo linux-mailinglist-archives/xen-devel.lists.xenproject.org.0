@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id ED9169261BB
-	for <lists+xen-devel@lfdr.de>; Wed,  3 Jul 2024 15:24:23 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.753036.1161294 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8EB699261C3
+	for <lists+xen-devel@lfdr.de>; Wed,  3 Jul 2024 15:27:08 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.753041.1161303 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sOzx6-0001Fy-9R; Wed, 03 Jul 2024 13:23:16 +0000
+	id 1sP00V-0001mo-LW; Wed, 03 Jul 2024 13:26:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 753036.1161294; Wed, 03 Jul 2024 13:23:16 +0000
+Received: by outflank-mailman (output) from mailman id 753041.1161303; Wed, 03 Jul 2024 13:26:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sOzx6-0001Dt-4t; Wed, 03 Jul 2024 13:23:16 +0000
-Received: by outflank-mailman (input) for mailman id 753036;
- Wed, 03 Jul 2024 13:23:14 +0000
+	id 1sP00V-0001kg-IR; Wed, 03 Jul 2024 13:26:47 +0000
+Received: by outflank-mailman (input) for mailman id 753041;
+ Wed, 03 Jul 2024 13:26:45 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=NzTd=OD=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sOzx4-0001Dn-RJ
- for xen-devel@lists.xenproject.org; Wed, 03 Jul 2024 13:23:14 +0000
-Received: from mail-lf1-x133.google.com (mail-lf1-x133.google.com
- [2a00:1450:4864:20::133])
+ id 1sP00T-0001kY-Mw
+ for xen-devel@lists.xenproject.org; Wed, 03 Jul 2024 13:26:45 +0000
+Received: from mail-lj1-x22c.google.com (mail-lj1-x22c.google.com
+ [2a00:1450:4864:20::22c])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 6666077f-393f-11ef-bbf9-fd08da9f4363;
- Wed, 03 Jul 2024 15:23:13 +0200 (CEST)
-Received: by mail-lf1-x133.google.com with SMTP id
- 2adb3069b0e04-52cdcd26d61so6020015e87.2
- for <xen-devel@lists.xenproject.org>; Wed, 03 Jul 2024 06:23:13 -0700 (PDT)
+ id e41d488f-393f-11ef-bbf9-fd08da9f4363;
+ Wed, 03 Jul 2024 15:26:44 +0200 (CEST)
+Received: by mail-lj1-x22c.google.com with SMTP id
+ 38308e7fff4ca-2ec1ac1aed2so63853041fa.3
+ for <xen-devel@lists.xenproject.org>; Wed, 03 Jul 2024 06:26:44 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-70801e57aa0sm10381702b3a.28.2024.07.03.06.23.08
+ 98e67ed59e1d1-2c91ce4526esm10718900a91.20.2024.07.03.06.26.39
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 03 Jul 2024 06:23:12 -0700 (PDT)
+ Wed, 03 Jul 2024 06:26:43 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,51 +45,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6666077f-393f-11ef-bbf9-fd08da9f4363
+X-Inumbo-ID: e41d488f-393f-11ef-bbf9-fd08da9f4363
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1720012993; x=1720617793; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1720013204; x=1720618004; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=2quV5rnAfwvDcfKhpQJUfAoP6PfhuasR6/ZGEPFV34w=;
-        b=fmLEG/H2ro3T+rXQau6I6CDeewKZIHGlFSwL9aExooCEwBDCO94bEtlGyV7IKoaPPT
-         4tdikn2cwev2/nL1/vErbIpypSeuJ0CN8xtpt0gTJmemIjVNKWWWczYZVllAiPrls7sE
-         hsM7/dqa6C43J0fCAved8GFp6BgVhSTJXllHDp4ZRRzje1/5grAopQa2J/+5Gkpk9o3l
-         AwmrOcnLcD4gAxZSgMCyKnsYsZBWckrgOn6xL4NDhq/sGB48WNcga1VCHevv7ukkglUU
-         Pr1iyq1FjB7sVP8MVauJqx7B3Pr+F+r4BmJ2Po9VN/2DV4TPhiuQewNNYGZb2hGyyWwe
-         WtAw==
+        bh=BTgp217jkGxA3qd5eePlwnG7B0Q2D097KFwdsCIW5oc=;
+        b=S6Sbjco2ck5ISVnm16P8mgyj72RGCwFgjKqOAoabXwI34hXVX+WYOUEZZderCYvwRF
+         727OsZ9Pc2eWS3uUjUExjJOYCcfYzCcIZqzIoyT8g/Tp7mhXj9g5K+i9wlPSZ/+IoE/N
+         vHOn7UcAWdsjki4lPI1lmEwvXwpwdK8X3fppkK58V8ztIzCONK7hj2+at1IZidrqN4w5
+         Wg7AR+CuQDyn+YfJFPObs0U6LMQ1DUfpIs1ZUMYfmyhUbNXtTAMtpI1sjDZoqdiCwN8X
+         qzQledpCysOTjXzY9UA6HmkqW+v1JV4gKID566A2dFOtaAvkry88Eat/eE4q/zzMC2xQ
+         xcGA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1720012993; x=1720617793;
+        d=1e100.net; s=20230601; t=1720013204; x=1720618004;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=2quV5rnAfwvDcfKhpQJUfAoP6PfhuasR6/ZGEPFV34w=;
-        b=NbHhma93KuKgHDlRendozuqLwgemWqhy6SDsTkkzpynlzNXiGdphmhv4P+nUuVZopf
-         mg0CQxa8OXCqWk8PQdsjqLoa+aHO+hNxa0jCT4aRRxgP1E3BpHaWT+gnj6nLvCed4WTJ
-         E5KI4HGxAGgn2AUm5OfI+exqTNVoKmYbzW7XFwBswvknq+gDdciCo+aE6kxfqwSGx0RL
-         BhQrJXa+mZcUZmJy9AzfEYnaF24CCK1pGDH/XdyHVvHAXl0B1/RL4lKVe/jHVioJnUak
-         /uwCugtoK9sAka/Q+qFoyh5P4rDzUGcdjQhBk335RlvpRGtocSnQaCliwrUrrNoGihDd
-         gb0Q==
-X-Forwarded-Encrypted: i=1; AJvYcCUFP1N6QtZYVMJn9nPc1RZVTBSeFRPmS0Y+vH0+mZKOKV4kX8Qo2ew9M/AQszdWDxzzeoCu0TUqKOZnSP2zRy6w9DMPHr1+JSXqEBAqrWo=
-X-Gm-Message-State: AOJu0Yx4s0ZmTas7mdCIApdb1CcdOCACu4DIGPp5ywSBNT6PXDDvG9Fn
-	T+0+LxVqzbTeGzKeveRU1FZ+2GdKpfIl3zoGYyxFEOe0jFOaDwN3ld6mORtnVQ==
-X-Google-Smtp-Source: AGHT+IGRSel4F7Ys2tiBoTN95mTZZx1ntPydssNNV2TDLn9XiyHytjb283rx1/Di+wKhJc2U4/cczw==
-X-Received: by 2002:a05:6512:318e:b0:52e:7542:f471 with SMTP id 2adb3069b0e04-52e82686a97mr8344599e87.29.1720012993027;
-        Wed, 03 Jul 2024 06:23:13 -0700 (PDT)
-Message-ID: <d6c313e5-19c6-4775-8d9c-0742a37032b4@suse.com>
-Date: Wed, 3 Jul 2024 15:23:05 +0200
+        bh=BTgp217jkGxA3qd5eePlwnG7B0Q2D097KFwdsCIW5oc=;
+        b=QCBHgTgQcM0aXIFLa2GSehDZrKzkyPxZp4dU9s4M6RrpKG5q13ySN0YPP2E59iSJEM
+         X731CMU+EZSX/YczhdMlwBBJJfd6slUbBVloruCzCngBU6uUf6i72+N09BUzh0fq/4Jh
+         MHjzW2SuttVona+q0TUoZpzBYIKJuM/jLMrm0z5fPSto/TDdEwVeCf+2JHk1YbiyHYiD
+         CJLlYoBrxSNUuX13+KnGSMKmgEcs16PkY5JwCuW98zMWobxtLkQhidJMvY9oqCE0kMp2
+         nZ1H03dlmO8mJMPRdoz20xnKWlD6Ah37kkrJ30GFuzNowGIzonUtZF5HED+N9eW2QAv1
+         dxfg==
+X-Forwarded-Encrypted: i=1; AJvYcCX6EBwG2ip6jQhVB1uXvJ5tyhqxJv4Q+6aV+FU/YiK+AnWKnn/yPd3UfzqRmX+Q56XlZcQKfNMGIvr27bv+K+ZH2/4cSY05iuV98wIlt+g=
+X-Gm-Message-State: AOJu0YxaXJbW7MokI8p+lVbUyAMEJr6zqjfZvTqLhXH2CDQyeWfGjmO6
+	snufVD3ciWMfqMeD6DHxSoDmqTMKCE5ERxVq3JNh5IRg1cqyS+wKHphka5ACyA==
+X-Google-Smtp-Source: AGHT+IHHMFYk2h7UOwxq6emDfddnW6gy6VFgDR7jwLUJRtotVVQtnl/yk3kMBR91K08pG7Uk/VaURg==
+X-Received: by 2002:a2e:240a:0:b0:2ec:1708:4daf with SMTP id 38308e7fff4ca-2ee5e6f542emr64729991fa.47.1720013203938;
+        Wed, 03 Jul 2024 06:26:43 -0700 (PDT)
+Message-ID: <031bc8af-99cc-45fb-84db-eb9429f00083@suse.com>
+Date: Wed, 3 Jul 2024 15:26:36 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 14/17] xen: add SAF deviation for MISRA C Dir 4.10
+Subject: Re: [PATCH 15/17] xen/x86: rename inclusion guards for consistency
 To: Alessandro Zucchelli <alessandro.zucchelli@bugseng.com>
-Cc: consulting@bugseng.com, Nicola Vetrini <nicola.vetrini@bugseng.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
+Cc: nicola.vetrini@bugseng.com, consulting@bugseng.com,
+ Maria Celeste Cesario <maria.celeste.cesario@bugseng.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
 References: <cover.1719829101.git.alessandro.zucchelli@bugseng.com>
- <b64a6b53de8bcf14c91a1534bb57b001efc12cce.1719829101.git.alessandro.zucchelli@bugseng.com>
+ <cc0189e1db211ae73aa419f4bc956872220d8d3c.1719829101.git.alessandro.zucchelli@bugseng.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -115,102 +115,19 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <b64a6b53de8bcf14c91a1534bb57b001efc12cce.1719829101.git.alessandro.zucchelli@bugseng.com>
+In-Reply-To: <cc0189e1db211ae73aa419f4bc956872220d8d3c.1719829101.git.alessandro.zucchelli@bugseng.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 01.07.2024 15:45, Alessandro Zucchelli wrote:
-> From: Nicola Vetrini <nicola.vetrini@bugseng.com>
+On 01.07.2024 15:46, Alessandro Zucchelli wrote:
+> From: Maria Celeste Cesario <maria.celeste.cesario@bugseng.com>
 > 
-> Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
-> Signed-off-by: Alessandro Zucchelli <alessandro.zucchelli@bugseng.com>
+> Edit inclusion guards in order to make them consistent with the
+> estabilished naming conventions.
 
-So no description at all for a somewhat unobvious issue with, I think,
-a pretty obvious (but entirely different) solution? And that (obvious)
-alternative not even being mentioned, together with why it was not
-possible to use? Neither ...
-
-> --- a/docs/misra/safe.json
-> +++ b/docs/misra/safe.json
-> @@ -99,7 +99,15 @@
->              "text": "Files intended for multiple inclusion are not supposed to comply with D4.10."
->          },
->          {
-> -            "id": "SAF-11-safe",
-> +            "id": "SAF-12-safe",
-> +            "analyser": {
-> +                "eclair": "MC3R1.D4.10"
-> +            },
-> +            "name": "Dir 4.10: arch-x86/xen.h include before guard",
-> +            "text": "This file needs to start with #include ../xen.h to generate preprocessed code in the correct order."
-
-... here nor ...
-
-> +        },
-> +        {
-> +            "id": "SAF-13-safe",
->              "analyser": {},
->              "name": "Sentinel",
->              "text": "Next ID to be used"
-> --- a/xen/include/public/arch-x86/xen.h
-> +++ b/xen/include/public/arch-x86/xen.h
-> @@ -7,6 +7,7 @@
->   * Copyright (c) 2004-2006, K A Fraser
->   */
->  
-> +/* SAF-12-safe include before guard needed for correct code generation */
->  #include "../xen.h"
->  
->  #ifndef __XEN_PUBLIC_ARCH_X86_XEN_H__
-
-... here is really becomes clear what "correct" is, or what breaks if this
-was moved. However, thinking of moving as the first obvious alternative I
-checked other arch-specific headers. None includes ../xen.h (really just
-xen.h, as the others all live right in public/) like this. Which made me
-conclude that maybe there's something wrong with the x86 header doing so.
-And indeed, according to my build testing the #include can simple be
-dropped, with just one further change elsewhere; see below.
+The code changes all look okay to me, but as before: Where did those
+"established naming conventions" go? Grep-ing for "guard" under
+docs/misra/ yields only a single hit, which is unrelated.
 
 Jan
-
-public/x86: don't include common xen.h from arch-specific one
-
-No other arch-*.h does so, and arch-x86/xen.h really just takes the role
-of arch-x86_32.h and arch-x86_64.h (by those two forwarding there). With
-xen.h itself including the per-arch headers, doing so is also kind of
-backwards anyway, and just calling for problems. There's exactly one
-place where arch-x86/xen.h is included when really xen.h is meant (for
-wanting XEN_GUEST_HANDLE_64() to be made available, the default
-definition of which lives in the common xen.h).
-
-This then addresses a violation of Misra C:2012 Directive 4.10
-("Precautions shall be taken in order to prevent the contents of a
-header file being included more than once").
-
-Reported-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
-Signed-off-by: Jan Beulich <jbeulich@suse.com>
-
---- a/xen/include/public/arch-x86/xen.h
-+++ b/xen/include/public/arch-x86/xen.h
-@@ -7,8 +7,6 @@
-  * Copyright (c) 2004-2006, K A Fraser
-  */
- 
--#include "../xen.h"
--
- #ifndef __XEN_PUBLIC_ARCH_X86_XEN_H__
- #define __XEN_PUBLIC_ARCH_X86_XEN_H__
- 
---- a/xen/include/xen/lib/x86/cpu-policy.h
-+++ b/xen/include/xen/lib/x86/cpu-policy.h
-@@ -525,7 +525,7 @@ void x86_cpu_policy_bound_max_leaves(str
- void x86_cpu_policy_shrink_max_leaves(struct cpu_policy *p);
- 
- #ifdef __XEN__
--#include <public/arch-x86/xen.h>
-+#include <public/xen.h>
- typedef XEN_GUEST_HANDLE_64(xen_cpuid_leaf_t) cpuid_leaf_buffer_t;
- typedef XEN_GUEST_HANDLE_64(xen_msr_entry_t) msr_entry_buffer_t;
- #else
-
 
