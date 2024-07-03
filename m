@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 19BF29255B0
-	for <lists+xen-devel@lfdr.de>; Wed,  3 Jul 2024 10:45:30 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.752799.1161035 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8C5069255B7
+	for <lists+xen-devel@lfdr.de>; Wed,  3 Jul 2024 10:46:08 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.752806.1161045 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sOvbu-0007Bu-LU; Wed, 03 Jul 2024 08:45:06 +0000
+	id 1sOvcd-0007kZ-1V; Wed, 03 Jul 2024 08:45:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 752799.1161035; Wed, 03 Jul 2024 08:45:06 +0000
+Received: by outflank-mailman (output) from mailman id 752806.1161045; Wed, 03 Jul 2024 08:45:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sOvbu-00078x-Ht; Wed, 03 Jul 2024 08:45:06 +0000
-Received: by outflank-mailman (input) for mailman id 752799;
- Wed, 03 Jul 2024 08:45:05 +0000
+	id 1sOvcc-0007iB-Um; Wed, 03 Jul 2024 08:45:50 +0000
+Received: by outflank-mailman (input) for mailman id 752806;
+ Wed, 03 Jul 2024 08:45:49 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=NzTd=OD=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sOvbt-00078r-Am
- for xen-devel@lists.xenproject.org; Wed, 03 Jul 2024 08:45:05 +0000
-Received: from mail-lj1-x22f.google.com (mail-lj1-x22f.google.com
- [2a00:1450:4864:20::22f])
+ id 1sOvcb-00078r-Iw
+ for xen-devel@lists.xenproject.org; Wed, 03 Jul 2024 08:45:49 +0000
+Received: from mail-lj1-x22b.google.com (mail-lj1-x22b.google.com
+ [2a00:1450:4864:20::22b])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 8ab25bf8-3918-11ef-bbf9-fd08da9f4363;
- Wed, 03 Jul 2024 10:45:04 +0200 (CEST)
-Received: by mail-lj1-x22f.google.com with SMTP id
- 38308e7fff4ca-2ebeefb9a7fso57136661fa.0
- for <xen-devel@lists.xenproject.org>; Wed, 03 Jul 2024 01:45:04 -0700 (PDT)
+ id a562c64e-3918-11ef-bbf9-fd08da9f4363;
+ Wed, 03 Jul 2024 10:45:48 +0200 (CEST)
+Received: by mail-lj1-x22b.google.com with SMTP id
+ 38308e7fff4ca-2ec3f875e68so57024141fa.0
+ for <xen-devel@lists.xenproject.org>; Wed, 03 Jul 2024 01:45:49 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-2c91ce6ec5fsm10147186a91.26.2024.07.03.01.44.59
+ d9443c01a7336-1fac1598cfbsm97873805ad.250.2024.07.03.01.45.44
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 03 Jul 2024 01:45:03 -0700 (PDT)
+ Wed, 03 Jul 2024 01:45:48 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,44 +45,44 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8ab25bf8-3918-11ef-bbf9-fd08da9f4363
+X-Inumbo-ID: a562c64e-3918-11ef-bbf9-fd08da9f4363
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1719996304; x=1720601104; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1719996348; x=1720601148; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=BDCTqSs87S2kysd0+eBbmLOryx1PJ7tmmOJyFjEQ740=;
-        b=XlWxVrO8JmUSAFvmQvsQm8kel0r2S34ibosBiZh43NjhzBboM1Kj6lVEQIMFW6GdM2
-         19dFEgU29C6Ms0V41E42lFFUYDwKP6tOx96NlFUZAFSqsv+4ngkw3oXBlXgll/0lOd+m
-         RkVfSUEU0+EgNiZFHzl0IXfATdtr6PPcwnwuS9zFpt26khUPJI6IIVGn3BNU1jnpCqcZ
-         bHdRhyGtDWxi+fuerlZIQXltvfko59WSqCv5dVdVowheyOhTABSQtAQNMIEEbxlx/giA
-         VKJaKB+EEJIYLn+biCFXv2FSiE2G+hNR8Hnyh2SCNyOvNOwmqhhlclb6Q7jUDUNOSaSD
-         7Fpg==
+        bh=EcfcQ+bs+vIY1uuTMe6ACJLGBx+6P+7pissTcD0vBvA=;
+        b=WyFiO969rwhEPZulsGDHL1rQpuclQyvtyvnHPuPOVmdg7mX1dNAwLk6IY6wnYkaOeq
+         T53Pa7Tm8huBQhEYPYHNDG7Za+eTLp4fTRg2tJ2LG7u+HlX2QHcuDPPd6Stbg2pI27I7
+         q7yScyYq5jLJW4aOHeAC5+w71Vh6XivKxb7rL/XZukN+cgEzOWv8pMXwq3gHiWHlyMwZ
+         evHWloottmdTPtvFuEhQ+SGBDiODzOvBFqV4w93Nz8FJLWIRvUBzyqfPHL6mHlzrC65H
+         j0Ms/w1x/LxORUhGmcsUO9KT7WvxJB6o4+jiCOY/36VWuP3YHpJ3b7MArvy4xvBLdogr
+         0doQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1719996304; x=1720601104;
+        d=1e100.net; s=20230601; t=1719996348; x=1720601148;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=BDCTqSs87S2kysd0+eBbmLOryx1PJ7tmmOJyFjEQ740=;
-        b=ZCkomMZJCoHIpNzXQv7kW+nFQFlY8UjUm/K5af6WNe1BgdVfZllHowzR8Zaeaw01Yj
-         zwVtDqI1Y0k+EnPlkUYguF0uR39C4V0QxwKzWBEYfih2xpBUjjYCDxvNqh9IE+GJ9kUa
-         +vRoHNoDG7wjZu+Rl0HZj1w9HS1CVCcQ+6fmoex61xGXDfTCLEyH/SNpvBupiVJr7gmH
-         rees7cjIoMKNtiEN1Q+6YopiCGuGAbbciCgiimfFx6wvRlmgh0UE8vdQsYGhOp959dwR
-         mU1MIlISBVzICZwaF64sWRY8VqzqoSaw4/U/vdv/aifphl9q1ye9AW0VOOV1eXERamZV
-         2FIw==
-X-Gm-Message-State: AOJu0Yz+qaaTvr8xmpxh7zIa0ZZW1GLT3k7zsy+0lVJ0LbOM+J6us3Fx
-	7jDk0q0XpsSAXRtDmkZmMue6TGxtejilHI55vmaFsMvuBEMEUOuKlZ22mrRubwtxjYNZ5ms++/4
+        bh=EcfcQ+bs+vIY1uuTMe6ACJLGBx+6P+7pissTcD0vBvA=;
+        b=pl+yytNZAPbY4rMBsQcerqOVMbYX4/k0HrlljbqCx+8eavdnfZzGmtsGfIeRqjeBK6
+         BjB1MT6BV/4YPnfOjYQYI/gTagk75fTClA0FQlvXWjCTwoCvHleA+5u0ci47sPpiCfYk
+         6m1KStrup7fohQV8d4Gd902v/qqdj1FP0jCSS574DqCuqg81eC8RzLzEA6r9zwEa7orz
+         BwaPdKhZm1pqNJ56M1i0dkQf2PrIQSBRXD+QSzl0+rJvaIMyhVe0U2DFQJp4NRWQOhDx
+         tzWKrHOvKHG8TxYtvnzAfJ6MAnKxZGiWLJdoP1I9qpKsV5LHvWJTUtdztDrLkPy6Vk9E
+         QlHg==
+X-Gm-Message-State: AOJu0YyKtYpwDFn1OGqMRvSSN4wce3KCoOcduCfwuG0BpJsOErFDVI4K
+	Dr1XMx1WGtdKTND9RxhrWxZWbcM9+8J95vH89UPE6lxiXVzLHLU6otOi+mzeSuBJrnKLHnpAbrI
 	=
-X-Google-Smtp-Source: AGHT+IFEwk7u3df4uuhAhO2F1q0i6rVdNomzjaSGpN+BulGdnLpCKVFksGcn1z6S/PSl9XdwtVmyEQ==
-X-Received: by 2002:a2e:ab1b:0:b0:2ee:7a54:3b08 with SMTP id 38308e7fff4ca-2ee7a543b70mr19006461fa.3.1719996303772;
-        Wed, 03 Jul 2024 01:45:03 -0700 (PDT)
-Message-ID: <37f1a5b8-9b54-42f1-845f-dddcf0b0401e@suse.com>
-Date: Wed, 3 Jul 2024 10:44:56 +0200
+X-Google-Smtp-Source: AGHT+IH6KfGmXMpNReMTfMlwQy8KMoTvARYUf9ANCuVa5uDQa0xWUqbHuISwmiGfR0RRf0AW/X+4YQ==
+X-Received: by 2002:a2e:be9b:0:b0:2ec:3dd4:75f7 with SMTP id 38308e7fff4ca-2ee5e6c9a24mr75032071fa.47.1719996348594;
+        Wed, 03 Jul 2024 01:45:48 -0700 (PDT)
+Message-ID: <de22beee-bd51-4169-b84d-88f4b452473a@suse.com>
+Date: Wed, 3 Jul 2024 10:45:41 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: [PATCH v5 for-4.19? 1/2] amend 'cmdline: document and enforce
- "extra_guest_irqs" upper bounds'
+Subject: [PATCH v5 for-4.19? 2/2] cmdline: "extra_guest_irqs" is inapplicable
+ to PVH
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
@@ -116,59 +116,43 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
 In-Reply-To: <789d567b-db3a-4c4d-9eac-f73232777244@suse.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-Address late review comments for what is now commit 17f6d398f765:
-- bound max_irqs right away against nr_irqs
-- introduce a #define for a constant used twice
+PVH in particular has no (externally visible) notion of pIRQ-s. Mention
+that in the description of the respective command line option and have
+arch_hwdom_irqs() also reflect this (thus suppressing the log message
+there as well, as being pretty meaningless in this case anyway).
 
+Suggested-by: Roger Pau Monné <roger.pau@citrix.com>
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
 ---
-v5: New.
+v5: Remove has_pirq() check; update comment accordingly.
+v4: New.
 
+--- a/docs/misc/xen-command-line.pandoc
++++ b/docs/misc/xen-command-line.pandoc
+@@ -1183,7 +1183,8 @@ versa.  For example to change dom0 witho
+ hardware domain is architecture dependent.  The upper limit for both values on
+ x86 is such that the resulting total number of IRQs can't be higher than 32768.
+ Note that specifying zero as domU value means zero, while for dom0 it means
+-to use the default.
++to use the default.  Note further that the Dom0 setting has no useful meaning
++for the PVH case; use of the option may have an adverse effect there, though.
+ 
+ ### ext_regions (Arm)
+ > `= <boolean>`
 --- a/xen/arch/x86/io_apic.c
 +++ b/xen/arch/x86/io_apic.c
-@@ -2663,15 +2663,16 @@ void __init ioapic_init(void)
- unsigned int __hwdom_init arch_hwdom_irqs(const struct domain *d)
- {
-     unsigned int n = fls(num_present_cpus());
--    /* Bounded by the domain pirq EOI bitmap gfn. */
--    const unsigned int max_irqs = PAGE_SIZE * BITS_PER_BYTE;
-+    /* Bounding by the domain pirq EOI bitmap capacity. */
-+    const unsigned int max_irqs = min_t(unsigned int, nr_irqs,
-+                                        PAGE_SIZE * BITS_PER_BYTE);
- 
+@@ -2670,6 +2670,10 @@ unsigned int __hwdom_init arch_hwdom_irq
      if ( is_system_domain(d) )
          return max_irqs;
  
++    /* PVH (generally: HVM) can't use PHYSDEVOP_pirq_eoi_gmfn_v{1,2}. */
++    if ( is_hvm_domain(d) )
++        return nr_irqs;
++
      if ( !d->domain_id )
          n = min(n, dom0_max_vcpus());
--    n = min(nr_irqs_gsi + n * NR_DYNAMIC_VECTORS, min(nr_irqs, max_irqs));
-+    n = min(nr_irqs_gsi + n * NR_DYNAMIC_VECTORS, max_irqs);
- 
-     printk("%pd has maximum %u PIRQs\n", d, n);
- 
---- a/xen/common/domain.c
-+++ b/xen/common/domain.c
-@@ -353,7 +353,8 @@ static int late_hwdom_init(struct domain
- #ifdef CONFIG_HAS_PIRQ
- 
- static unsigned int __read_mostly extra_hwdom_irqs;
--static unsigned int __read_mostly extra_domU_irqs = 32;
-+#define DEFAULT_EXTRA_DOMU_IRQS 32U
-+static unsigned int __read_mostly extra_domU_irqs = DEFAULT_EXTRA_DOMU_IRQS;
- 
- static int __init cf_check parse_extra_guest_irqs(const char *s)
- {
-@@ -839,7 +840,8 @@ void __init setup_system_domains(void)
-             extra_hwdom_irqs = n - nr_static_irqs;
-             printk(XENLOG_WARNING "hwdom IRQs bounded to %u\n", n);
-         }
--        if ( extra_domU_irqs > max(32U, n - nr_static_irqs) )
-+        if ( extra_domU_irqs >
-+             max(DEFAULT_EXTRA_DOMU_IRQS, n - nr_static_irqs) )
-         {
-             extra_domU_irqs = n - nr_static_irqs;
-             printk(XENLOG_WARNING "domU IRQs bounded to %u\n", n);
+     n = min(nr_irqs_gsi + n * NR_DYNAMIC_VECTORS, max_irqs);
 
 
