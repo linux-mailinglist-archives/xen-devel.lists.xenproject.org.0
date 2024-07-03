@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E3BFF9260CA
-	for <lists+xen-devel@lfdr.de>; Wed,  3 Jul 2024 14:47:56 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.753003.1161252 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F07E29260DA
+	for <lists+xen-devel@lfdr.de>; Wed,  3 Jul 2024 14:50:20 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.753008.1161263 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sOzO8-0001yl-Su; Wed, 03 Jul 2024 12:47:08 +0000
+	id 1sOzQs-0002oP-AB; Wed, 03 Jul 2024 12:49:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 753003.1161252; Wed, 03 Jul 2024 12:47:08 +0000
+Received: by outflank-mailman (output) from mailman id 753008.1161263; Wed, 03 Jul 2024 12:49:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sOzO8-0001wZ-QB; Wed, 03 Jul 2024 12:47:08 +0000
-Received: by outflank-mailman (input) for mailman id 753003;
- Wed, 03 Jul 2024 12:47:07 +0000
+	id 1sOzQs-0002lM-6r; Wed, 03 Jul 2024 12:49:58 +0000
+Received: by outflank-mailman (input) for mailman id 753008;
+ Wed, 03 Jul 2024 12:49:56 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=NzTd=OD=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sOzO7-0001wT-1K
- for xen-devel@lists.xenproject.org; Wed, 03 Jul 2024 12:47:07 +0000
-Received: from mail-lj1-x230.google.com (mail-lj1-x230.google.com
- [2a00:1450:4864:20::230])
+ id 1sOzQq-0002lG-D3
+ for xen-devel@lists.xenproject.org; Wed, 03 Jul 2024 12:49:56 +0000
+Received: from mail-lj1-x22f.google.com (mail-lj1-x22f.google.com
+ [2a00:1450:4864:20::22f])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 59a324bb-393a-11ef-8776-851b0ebba9a2;
- Wed, 03 Jul 2024 14:47:04 +0200 (CEST)
-Received: by mail-lj1-x230.google.com with SMTP id
- 38308e7fff4ca-2ebe40673d8so70673361fa.3
- for <xen-devel@lists.xenproject.org>; Wed, 03 Jul 2024 05:47:04 -0700 (PDT)
+ id becfc5eb-393a-11ef-8776-851b0ebba9a2;
+ Wed, 03 Jul 2024 14:49:54 +0200 (CEST)
+Received: by mail-lj1-x22f.google.com with SMTP id
+ 38308e7fff4ca-2ebec2f11b7so60780091fa.2
+ for <xen-devel@lists.xenproject.org>; Wed, 03 Jul 2024 05:49:54 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-1fac10e3832sm105380515ad.91.2024.07.03.05.46.59
+ 98e67ed59e1d1-2c91ce43303sm10639293a91.17.2024.07.03.05.49.47
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 03 Jul 2024 05:47:03 -0700 (PDT)
+ Wed, 03 Jul 2024 05:49:52 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,52 +45,55 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 59a324bb-393a-11ef-8776-851b0ebba9a2
+X-Inumbo-ID: becfc5eb-393a-11ef-8776-851b0ebba9a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1720010824; x=1720615624; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1720010994; x=1720615794; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=G8etuKWEHdiOjpRweShg+hHTVGpxKEHBN9I0fSPl9GI=;
-        b=bHUM5XsgzdCLn1R0hbFogC5XgY/s227IvynZAXg+8Ov7wcu/e07k9nrFragX1p+8wT
-         JE/zysfKmdu5ayekgO7ruI20YZRwDpK1IrfBdJKtviYZOi8FDmiPIhpjpJDhp4miDSAU
-         5A+m+pmF/xTA1555FwgeEU6D7t2XQP4DRYe929OgGO02D3gaVqi39jd062QrNJNZtP36
-         okWSoeepPjZm2WDmkK+oF99yuQAnXzLeVl60pGgBLhaQjLh/sZtl1uURaj8pX1bNiwTg
-         MiWFKqUmzz8UTrVrTSo8ZL7DQ7hwvdo+svvccbQeKAZFUhmPw6xPXzA8EOocT18iiVEa
-         JoHg==
+        bh=9yd5C9Xr32LXKl0cflASgwZpvQP4LBEFfFgrl2/EHUY=;
+        b=ThlW4buDGMqcnLF9bhBhLTZVDtPivipSqK6xYarm/YvYM7NXpQ3blN3VW5du9rS8eq
+         oveNmZ9l3BKYChVXFR7TbLlN01akJ2LolOSKK6Y2oAoBc4Tw2pKvE8ehaVpU/U+MN7Ms
+         BTvwbAZKcNglTVuSjCzXib4gxVrRvGExlxibYeLpjm1A0bcBcmG/+A0GnEQ9JqrngrLy
+         D6O3c4R3T6DFTkrqkP+wEeeXXbuA0mdeuoX1SO8h6e/g5S0U+dwH5zfhTLI4ury7iRY1
+         eeruPQrAHdFZYWuPVU4lyLSuRIZ0Ku5k/xvw+Xs1VTJW/L4FXxNJoum7rkg7pBV8WVar
+         zykw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1720010824; x=1720615624;
+        d=1e100.net; s=20230601; t=1720010994; x=1720615794;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=G8etuKWEHdiOjpRweShg+hHTVGpxKEHBN9I0fSPl9GI=;
-        b=EmRcfPnpI4VUusic2ILxoaETuAyuET5aejsk13DmK6uORmqAPKuY8SpEk4WFeNFiQ0
-         Ybjel1fcL5MFfd2dC0w9fW69YTiMub23HyoCU+ba0tUs/6Pj4wNvscRDOueh0PYoRC7z
-         PdF7bOegOPKx5dsWxKkigF0NpzwsSrdZzs/QrUS+CFcc9aqSB1YNgeESsCePAToCOE4d
-         9U+i6/nJUDZikioEw+nI3On9GnPbyveN0GMBY00dR9ffPAO45rXA+lBQ2wV1Q3MnCGNS
-         UUWXvcbQNmcHsPtQMJLyrzQduv/Q/Lk9AiWuoAauO7nK+NfRHW+uwL70/tMTAZpuWSMa
-         rMIQ==
-X-Forwarded-Encrypted: i=1; AJvYcCV4ytuFM5yacSoi0lD01JZ6U8XvVQ35Nx+R+o4NdVd3kjbLaLpL5MfZ2hVKEo8K7piHMkCK0FO+60ns8rwVU6loJmbVCpivoWYLyeHDZy0=
-X-Gm-Message-State: AOJu0YzjTlWArxq38gq02MXpQAzE7A5gNNa+pprtxiqBkLTJn6KFDCjq
-	9X5RUgJg65TfpKG8F59onwfk2e3X7drJnj8A2tE84ygirIip3dR7SrbTmHXbow==
-X-Google-Smtp-Source: AGHT+IESFPwtIc6Pj/u24obY3+aN+2gmZjPgl2bJuGN+/MX2zcWrgbsRPLZkVmWsHzg4gUr8xhgRfg==
-X-Received: by 2002:a2e:be03:0:b0:2ec:5abf:f3ae with SMTP id 38308e7fff4ca-2ee5e35902bmr95162981fa.19.1720010824178;
-        Wed, 03 Jul 2024 05:47:04 -0700 (PDT)
-Message-ID: <2d8d87dc-a364-4230-85c4-3aa803d01c71@suse.com>
-Date: Wed, 3 Jul 2024 14:46:55 +0200
+        bh=9yd5C9Xr32LXKl0cflASgwZpvQP4LBEFfFgrl2/EHUY=;
+        b=gnc5/VWxzZ9gkqIfDX8JAEtn0nShg1Zk1LbBB1aYtG/h+TnHSYyAIku7fR3y+dK2fE
+         Z5Ifzb1ZczEEM38LIASKvJvcpJqR27JDrNVjiITaC1sEOCHt8ylidYFL04Tn41kWjMU4
+         Px3RwYgjuQcJDFKcFbqwB/PG3dRAP+8fdSJ7gNrB2502pJFBdN0FxMED0oEgSU6IHENy
+         bZ86r1WM6b5nR9stJSZsy4y+AnaCyKbm/c+MPq8OqsSa6M79cbkKk3pORSdk9FcZdE68
+         y9fxQtbIgq+lS3r5xjmIpmLRBOaR3YpusRlMIt06aBtu7xgBYA65yaGxk1a8WufOj1lB
+         97aA==
+X-Forwarded-Encrypted: i=1; AJvYcCV6fVynXhK7KVe4T+8VFTJVQX6pPijNABVgAwvisuKX2CsZRkn7GcT+1E9qWtPYRVV+un5wqYi28M35yhcuGPGAbuzOuKkfps8a1jrB8sk=
+X-Gm-Message-State: AOJu0Yw1pC7vVKyqIpkonXTNpdYmkLO/koGzNDWNz3fna/O2Q1kq2zpE
+	v+v2T0+9RIwzE0BYRxLbjv8hcU3mVz3Vc0GbTUu/Pp4LuubU7y0ndUpTpXe4eQ==
+X-Google-Smtp-Source: AGHT+IGxsNEXcCpTuwFPPtdwYIWmf1FliweBaJR1t6KPozXApI+rpdx25tBggVnkeuc7PwmjF3St3A==
+X-Received: by 2002:a05:651c:1308:b0:2ee:8407:2f58 with SMTP id 38308e7fff4ca-2ee84073000mr9646441fa.17.1720010992898;
+        Wed, 03 Jul 2024 05:49:52 -0700 (PDT)
+Message-ID: <8a0c0cec-c168-471f-88ad-228ddcdd4f0a@suse.com>
+Date: Wed, 3 Jul 2024 14:49:43 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 01/17] misra: add deviation for headers that explicitly
- avoid guards
+Subject: Re: [PATCH 10/17] x86/asm: address violations of MISRA C:2012
+ Directive 4.10
 To: Alessandro Zucchelli <alessandro.zucchelli@bugseng.com>
-Cc: consulting@bugseng.com, Simone Ballarin <simone.ballarin@bugseng.com>,
+Cc: nicola.vetrini@bugseng.com, consulting@bugseng.com,
+ Simone Ballarin <simone.ballarin@bugseng.com>,
  Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
  Stefano Stabellini <sstabellini@kernel.org>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Nicola Vetrini <nicola.vetrini@bugseng.com>, xen-devel@lists.xenproject.org
+ "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+ =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>, xen-devel@lists.xenproject.org
 References: <cover.1719829101.git.alessandro.zucchelli@bugseng.com>
- <e7e61b4486c025a1014ad09aa774dfd392f858b8.1719829101.git.alessandro.zucchelli@bugseng.com>
+ <efb272c9eaad24875f34b396a75fed9577dedbda.1719829101.git.alessandro.zucchelli@bugseng.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -116,61 +119,56 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <e7e61b4486c025a1014ad09aa774dfd392f858b8.1719829101.git.alessandro.zucchelli@bugseng.com>
+In-Reply-To: <efb272c9eaad24875f34b396a75fed9577dedbda.1719829101.git.alessandro.zucchelli@bugseng.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 01.07.2024 13:10, Alessandro Zucchelli wrote:
+On 01.07.2024 15:36, Alessandro Zucchelli wrote:
 > --- a/docs/misra/safe.json
 > +++ b/docs/misra/safe.json
-> @@ -68,6 +68,14 @@
+> @@ -90,6 +90,14 @@
+>              "name": "Dir 4.10: direct inclusion guard before",
+>              "text": "Headers with just the direct inclusion guard before the inclusion guard are safe."
 >          },
->          {
->              "id": "SAF-8-safe",
+> +        {
+> +            "id": "SAF-11-safe",
 > +            "analyser": {
 > +                "eclair": "MC3R1.D4.10"
 > +            },
-> +            "name": "Dir 4.10: headers that leave it up to the caller to include them correctly",
-> +            "text": "Headers that deliberatively avoid inclusion guards explicitly leaving responsibility to the caller are allowed."
+> +            "name": "Dir 4.10: file intended for multiple inclusion",
+> +            "text": "Files intended for multiple inclusion are not supposed to comply with D4.10."
 > +        },
-> +        {
-> +            "id": "SAF-9-safe",
->              "analyser": {},
->              "name": "Sentinel",
->              "text": "Next ID to be used"
+>          {
+>              "id": "SAF-11-safe",
 
-Patch 10 adds another entry here, targeted at headers which are intended to be
-possible to include more than once. Both headers here also fit that criteria,
-even if right now they aren't used that way (iirc). Do we really need two
-SAF-* markers for effectively all the same kind of headers?
+This can't be right; the sentinel must have its number changed.
 
-> --- a/xen/include/public/arch-x86/cpufeatureset.h
-> +++ b/xen/include/public/arch-x86/cpufeatureset.h
-> @@ -23,6 +23,7 @@
->   * their XEN_CPUFEATURE() being appropriate in the included context.
->   */
+> --- a/xen/include/Makefile
+> +++ b/xen/include/Makefile
+> @@ -104,10 +104,17 @@ $(obj)/compat/.xlat/%.lst: $(srcdir)/xlat.lst FORCE
+>  xlat-y := $(shell sed -ne 's,@arch@,$(compat-arch-y),g' -re 's,^[?!][[:blank:]]+[^[:blank:]]+[[:blank:]]+,,p' $(srcdir)/xlat.lst | uniq)
+>  xlat-y := $(filter $(patsubst compat/%,%,$(headers-y)),$(xlat-y))
 >  
-> +/* SAF-8-safe omitted inclusion guard */
->  #ifndef XEN_CPUFEATURE
->  
->  /*
-> diff --git a/xen/include/public/errno.h b/xen/include/public/errno.h
-> index 5a78a7607c..ccd5023c3a 100644
-> --- a/xen/include/public/errno.h
-> +++ b/xen/include/public/errno.h
-> @@ -17,6 +17,7 @@
->   * will unilaterally #undef XEN_ERRNO().
->   */
->  
-> +/* SAF-8-safe omitted inclusion guard */
->  #ifndef XEN_ERRNO
->  
->  /*
+> +ARCHDIR = $(shell echo $(SRCARCH) | tr a-z A-Z)
 
-Further both of these headers have guards (to cover the default case), so
-"omitted" certainly isn't correct. Much like the "name" line in the SAF
-entry also isn't quite correct, as in the common case it's not left to
-the use sites.
+Why is this being added here? It's not used ...
+
+>  quiet_cmd_xlat_h = GEN     $@
+> -cmd_xlat_h = \
+> -	cat $(filter %.h,$^) >$@.new; \
+> +define cmd_xlat_h
+> +	guard=$$(echo ASM_${SRCARCH}_COMPAT_XLAT_H | tr a-z A-Z); \
+> +	echo "#ifndef $$guard" > $@.new; \
+> +	echo "#define $$guard" >> $@.new; \
+> +	cat $(filter %.h,$^) >> $@.new; \
+> +	echo "#endif /* $$guard */" >> $@.new; \
+>  	mv -f $@.new $@
+> +endef
+>  
+>  $(obj)/compat/xlat.h: $(addprefix $(obj)/compat/.xlat/,$(xlat-y)) FORCE
+>  	$(call if_changed,xlat_h)
+
+... anywhere. Did you mean to use it in place of ${SRCARCH}?
 
 Jan
 
