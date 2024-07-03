@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 109D192623F
-	for <lists+xen-devel@lfdr.de>; Wed,  3 Jul 2024 15:52:17 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.753066.1161336 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9BA0E926340
+	for <lists+xen-devel@lfdr.de>; Wed,  3 Jul 2024 16:20:43 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.753082.1161347 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sP0Or-0007hk-3u; Wed, 03 Jul 2024 13:51:57 +0000
+	id 1sP0qB-0004Ag-8V; Wed, 03 Jul 2024 14:20:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 753066.1161336; Wed, 03 Jul 2024 13:51:57 +0000
+Received: by outflank-mailman (output) from mailman id 753082.1161347; Wed, 03 Jul 2024 14:20:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sP0Or-0007fl-1I; Wed, 03 Jul 2024 13:51:57 +0000
-Received: by outflank-mailman (input) for mailman id 753066;
- Wed, 03 Jul 2024 13:51:56 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1sP0qB-000484-5N; Wed, 03 Jul 2024 14:20:11 +0000
+Received: by outflank-mailman (input) for mailman id 753082;
+ Wed, 03 Jul 2024 14:20:10 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=mAj5=OD=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1sP0Oq-0007ff-6V
- for xen-devel@lists.xenproject.org; Wed, 03 Jul 2024 13:51:56 +0000
-Received: from mail-lj1-x230.google.com (mail-lj1-x230.google.com
- [2a00:1450:4864:20::230])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 6891a001-3943-11ef-bbf9-fd08da9f4363;
- Wed, 03 Jul 2024 15:51:55 +0200 (CEST)
-Received: by mail-lj1-x230.google.com with SMTP id
- 38308e7fff4ca-2ebeefb9a7fso60556541fa.0
- for <xen-devel@lists.xenproject.org>; Wed, 03 Jul 2024 06:51:55 -0700 (PDT)
-Received: from [192.168.219.191] ([94.75.70.14])
+ <SRS0=i9qc=OD=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1sP0q9-00047s-V9
+ for xen-devel@lists.xenproject.org; Wed, 03 Jul 2024 14:20:09 +0000
+Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com
+ [2a00:1450:4864:20::52e])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 593e2ae7-3947-11ef-8776-851b0ebba9a2;
+ Wed, 03 Jul 2024 16:20:07 +0200 (CEST)
+Received: by mail-ed1-x52e.google.com with SMTP id
+ 4fb4d7f45d1cf-57cb9a370ddso3866843a12.1
+ for <xen-devel@lists.xenproject.org>; Wed, 03 Jul 2024 07:20:07 -0700 (PDT)
+Received: from andrewcoop.eng.citrite.net ([185.25.67.249])
  by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-58bce1922c8sm1907140a12.13.2024.07.03.06.51.53
+ 4fb4d7f45d1cf-5861324f036sm7114707a12.34.2024.07.03.07.20.05
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 03 Jul 2024 06:51:54 -0700 (PDT)
+ Wed, 03 Jul 2024 07:20:05 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,111 +45,100 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6891a001-3943-11ef-bbf9-fd08da9f4363
+X-Inumbo-ID: 593e2ae7-3947-11ef-8776-851b0ebba9a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1720014715; x=1720619515; darn=lists.xenproject.org;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=zY0LbkTabeUXU+vUQ/HHe6zEIYM+kDyKmdN+gjlg7/s=;
-        b=S9cw9Sw7MfAlKmHBq01o14C2kJTT64rvmCrCiapnUhRVD6b4osyhK6LMUmVEGq6cMI
-         8PTsD4+QSAtwueU4lrdkll2MqUIP7yHQzXMJEmAD7N3QgtyMt5bgH7GxcW2Pf3+XJ70d
-         sttYIf7blVwzOz8UgN2FgFUcBBQF/gTJjVft47gXPsW/d1QR/617/5gdTkxRDWNwYnkS
-         HXZE2k7eFDbUAILVVCC8P7zN4yEIPGzmVDgW9J+l/8ky2QxsAjVccNmDasEAYQRoI4XF
-         Rsb0fkhZFu7JvR6xT2/rhyjZxKVzljuJ+zSq9Zd02q8y2qvX5+Vd9klJYnyUYW5/59/I
-         9yqQ==
+        d=citrix.com; s=google; t=1720016407; x=1720621207; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=N0VPZpVmpbFI8i8fQpd8fSbKeeEW0XdlJBIH/+k/nGY=;
+        b=sQ6OoXGGncudnuBcNXo5vh6wD6O8/FdCam1nni1HPlmB14jRAt6kNLkSrZ2cJpirtt
+         9jv+9P7dXdbsKnX2u1cKaar496vv8t3w46lGYlDIddXfEe2cssAO7oF5d85Gw9ir0qxq
+         CVP5HKDBVYlqmDGZqP4W9SFAxQJMhNC0xVozM=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1720014715; x=1720619515;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=zY0LbkTabeUXU+vUQ/HHe6zEIYM+kDyKmdN+gjlg7/s=;
-        b=QwybgAmP7gDPYiJoBVbjOQy4rkM8o4uVMSsknMjUF0C7shOiVS7jt1Yl3Jg0g1yGm0
-         pbM2NosxBCFwYPwLiXRPw29MMXeOIBRTWIrX49lXNmTk24z5SMQateuRS9UncW58a+nJ
-         MMXsRcf7QeQnDc91MLHHIdmBpkL+0b8UR93o1+6nEWuTDmzAQKcDF7dvagmflLerXG48
-         ned3aUZnd6ZCB25ugJ+VqZzk2Ek0jNvJM//hlJx2dQr9C6hFNziXR7yosAYjk3nV+3F0
-         ZXITIrjQ/odYEJIUKjVCuN052Mj6HInHFJ2W+9nzVzUmrxbsX12Tj0EHJsMLQ2eGCAQr
-         g8Yw==
-X-Forwarded-Encrypted: i=1; AJvYcCX4EuaD9vDA3jQJYzOEhrfjBKa75PFODJgnqrKQsyRd46ho2W5GM6nrV1hWx7Sgt6mEQ7huNMO0Io66DojKsfdHu16bPCTQWdcmeNL/Jk8=
-X-Gm-Message-State: AOJu0Ywmy+Nh92Tvjwg+MxnXzGnyZUotuUdYmWQspIzk3mo6FdCMM3rx
-	cJ62EOH1/hla3xikgk5pMwQCqYR19nOZd3prX9bbnzlAg32xRzL43o1XRV5E
-X-Google-Smtp-Source: AGHT+IHDNwc2+kUcVlhem1MQ4CSUDzoaupwqLaMKMXIL5kUBEKVIY/4N3V+MPd/5TCBEUupHm7gh/A==
-X-Received: by 2002:a05:651c:b0b:b0:2ec:5c94:3d99 with SMTP id 38308e7fff4ca-2ee5e3810b7mr78832801fa.2.1720014714455;
-        Wed, 03 Jul 2024 06:51:54 -0700 (PDT)
-Message-ID: <45983cc81600dd0bcc804504f61a582cf709c9a5.camel@gmail.com>
-Subject: Re: [PATCH for-4.19 v2] xen/vmap: Document the vmap header
-From: Oleksii <oleksii.kurochko@gmail.com>
-To: Jan Beulich <jbeulich@suse.com>, Alejandro Vallejo
-	 <alejandro.vallejo@cloud.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall
- <julien@xen.org>,  Stefano Stabellini <sstabellini@kernel.org>, Xen-devel
- <xen-devel@lists.xenproject.org>
-Date: Wed, 03 Jul 2024 15:51:53 +0200
-In-Reply-To: <7772dc9e-b9e2-4af7-af43-fa5cbe651488@suse.com>
-References: 
-	<f8bcfe757b45ce59e1a1203c2675a4266cc15f20.1720005327.git.alejandro.vallejo@cloud.com>
-	 <7772dc9e-b9e2-4af7-af43-fa5cbe651488@suse.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.52.2 (3.52.2-1.fc40app2) 
+        d=1e100.net; s=20230601; t=1720016407; x=1720621207;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=N0VPZpVmpbFI8i8fQpd8fSbKeeEW0XdlJBIH/+k/nGY=;
+        b=L2i71x2vlSR/PuG7ZwiGYwiQGavDPK+PD3FK294sx0b2/5HcVclF5yNQhDw1cK/w5U
+         x4rvTDyZWh+nKC7ZKrGWtPYtMOgBA4+HJ7gcfEZ37zZmPqovWw4Zd+6i53XOkd/G5akh
+         uTs8g40QR7EHUxF0Ygn3e5mnRAt4fs3olQtD3HbKnudy6Qsd1ukIyxTWzWKejaFrtiFg
+         UtTQAzGoBgetq5S1z0mJ+4HwyxMITt/WLUg9Jkk0OBFePv2HIJHaUlaxRgj1evi+ZXcR
+         TqrkXizME52a+wrCI4Yyhcby7NJlePa/Yk+ArexlBknQLaU2kzChXuyuAeRJADPA4HNp
+         WhrA==
+X-Gm-Message-State: AOJu0YytclWWI2+ijBn4Udfr8vF0nqeqFckBfN4HX+YfXTSK8nZzGEd7
+	eTcC/L8Visql7W3fpQtR9dMdqbxDZvWgXxgoBHo+qSHP/IDm6tJOka61pfmuTnUrXhIu+h5CKBe
+	6yx8=
+X-Google-Smtp-Source: AGHT+IFOanZmtiSFWG6jY3SSfUHrS9vuuPcdeHtZhMzHNrwCy5NGkv6Eo1A4TxSxkE07aXDEwzxqoA==
+X-Received: by 2002:a05:6402:2109:b0:58c:ccc1:17ec with SMTP id 4fb4d7f45d1cf-58cccc11b43mr1335063a12.13.1720016406443;
+        Wed, 03 Jul 2024 07:20:06 -0700 (PDT)
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Doug Goldstein <cardoe@cardoe.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Subject: [PATCH for-4.19 0/4] CI: Fixes, part 1
+Date: Wed,  3 Jul 2024 15:19:58 +0100
+Message-Id: <20240703142002.1662874-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.39.2
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Wed, 2024-07-03 at 13:58 +0200, Jan Beulich wrote:
-> On 03.07.2024 13:19, Alejandro Vallejo wrote:
-> > +/*
-> > + * Unmaps a range of virtually contiguous memory from one of the
-> > vmap regions
-> > + *
-> > + * The system remembers internally how wide the mapping is and
-> > unmaps it all.
->=20
-> Seeing this is still taken verbatim ...
->=20
-> > + * It also can determine the vmap region type from the `va`.
-> > + *
-> > + * @param va Virtual base address of the range to unmap
-> > + */
-> > =C2=A0void vunmap(const void *va);
-> > =C2=A0
-> > +/*
-> > + * Allocate `size` octets of possibly non-contiguous physical
-> > memory and map
-> > + * them contiguously in the VMAP_DEFAULT vmap region
-> > + *
-> > + * @param size Pointer to the base of an array of mfns
-> > + * @return Pointer to the mapped area on success; NULL otherwise.
-> > + */
-> > =C2=A0void *vmalloc(size_t size);
-> > +
-> > +/* Same as vmalloc(), but for the VMAP_XEN vmap region. */
-> > =C2=A0void *vmalloc_xen(size_t size);
-> > =C2=A0
-> > +/* Same as vmalloc(), but set the contents to zero before
-> > returning */
-> > =C2=A0void *vzalloc(size_t size);
-> > +
-> > +/*
-> > + * Unmap and free memory from vmalloc(), vmalloc_xen() or
-> > vzalloc()
-> > + *
-> > + * The system remembers internally how wide the mapping is and
-> > unmaps it all.
-> > + *
-> > + * @param va Virtual base address of the range to free and unmap
-> > + */
-> > =C2=A0void vfree(void *va);
->=20
-> ... here (just moved to the proper place now), I further wonder: Why
-> just
-> "mapping" and "unmap". The function is also (one might even say
-> primarily)
-> about freeing. IOW perhaps "how wide the allocation is and
-> unmaps/frees it
-> all"?
->=20
-> Happy to adjust while committing, at which point:
-> Acked-by: Jan Beulich <jbeulich@suse.com>
-Release-Acked-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Minimum fixes to rebuild the containers, following the HEREDOC problems.
 
-~ Oleskii
+Unrelated to the HEREDOC problems, Archlinux and CentOS 7 need aditional
+chagnes to rebuild.
+
+There will be subsequent work to make some improvements to CI for 4.19, so in
+particular we're testing with up-to-date LTS distros.
+
+Andrew Cooper (4):
+  CI: Formalise the use of heredocs
+  CI: Adjust the usage of inline files
+  CI: Drop bin86/dev86 from archlinux container
+  CI: Rework the CentOS7 container
+
+ automation/build/README.md                    | 10 ++-
+ .../build/alpine/3.18-arm64v8.dockerfile      |  1 +
+ automation/build/alpine/3.18.dockerfile       |  1 +
+ .../archlinux/current-riscv64.dockerfile      |  1 +
+ automation/build/archlinux/current.dockerfile |  3 +-
+ automation/build/centos/7.dockerfile          | 71 ++++++++++---------
+ .../bookworm-arm64v8-arm32-gcc.dockerfile     |  1 +
+ .../build/debian/bookworm-arm64v8.dockerfile  |  1 +
+ .../build/debian/bookworm-cppcheck.dockerfile |  1 +
+ .../build/debian/bookworm-i386.dockerfile     |  1 +
+ automation/build/debian/bookworm.dockerfile   |  1 +
+ .../build/debian/bullseye-ppc64le.dockerfile  |  1 +
+ .../build/debian/buster-gcc-ibt.dockerfile    |  1 +
+ .../build/debian/jessie-i386.dockerfile       |  3 +-
+ automation/build/debian/jessie.dockerfile     |  3 +-
+ .../build/debian/stretch-i386.dockerfile      |  3 +-
+ automation/build/debian/stretch.dockerfile    |  3 +-
+ automation/build/fedora/29.dockerfile         |  1 +
+ .../build/suse/opensuse-leap.dockerfile       |  1 +
+ .../build/suse/opensuse-tumbleweed.dockerfile |  1 +
+ automation/build/ubuntu/bionic.dockerfile     |  1 +
+ automation/build/ubuntu/focal.dockerfile      |  1 +
+ automation/build/ubuntu/trusty.dockerfile     |  1 +
+ .../build/ubuntu/xenial-xilinx.dockerfile     |  1 +
+ automation/build/ubuntu/xenial.dockerfile     |  1 +
+ automation/build/yocto/yocto.dockerfile.in    |  2 +
+ .../alpine/3.18-arm64v8.dockerfile            |  1 +
+ .../tests-artifacts/alpine/3.18.dockerfile    |  1 +
+ .../kernel/5.19-arm64v8.dockerfile            |  1 +
+ .../tests-artifacts/kernel/6.1.19.dockerfile  |  1 +
+ .../6.0.0-arm64v8.dockerfile                  |  1 +
+ .../qemu-system-ppc64/8.1.0-ppc64.dockerfile  |  1 +
+ 32 files changed, 82 insertions(+), 40 deletions(-)
+
+
+base-commit: fb76e08a8f7a61dfbc07d0f335f1623bca650d7f
+-- 
+2.39.2
+
 
