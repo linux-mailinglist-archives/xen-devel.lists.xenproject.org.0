@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 815CE92783B
-	for <lists+xen-devel@lfdr.de>; Thu,  4 Jul 2024 16:24:24 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.753844.1162124 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 15162927957
+	for <lists+xen-devel@lfdr.de>; Thu,  4 Jul 2024 16:56:49 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.753862.1162134 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sPNNC-0006i9-IX; Thu, 04 Jul 2024 14:23:46 +0000
+	id 1sPNs5-0002Rt-0p; Thu, 04 Jul 2024 14:55:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 753844.1162124; Thu, 04 Jul 2024 14:23:46 +0000
+Received: by outflank-mailman (output) from mailman id 753862.1162134; Thu, 04 Jul 2024 14:55:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sPNNC-0006gf-Ev; Thu, 04 Jul 2024 14:23:46 +0000
-Received: by outflank-mailman (input) for mailman id 753844;
- Thu, 04 Jul 2024 14:23:45 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=OMPH=OE=bounce.vates.tech=bounce-md_30504962.6686b06d.v1-69c81d6661b648e2ba70a77e14f739b9@srs-se1.protection.inumbo.net>)
- id 1sPNNB-0006gZ-FL
- for xen-devel@lists.xenproject.org; Thu, 04 Jul 2024 14:23:45 +0000
-Received: from mail186-1.suw21.mandrillapp.com
- (mail186-1.suw21.mandrillapp.com [198.2.186.1])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 03af0b9b-3a11-11ef-8776-851b0ebba9a2;
- Thu, 04 Jul 2024 16:23:43 +0200 (CEST)
-Received: from pmta10.mandrill.prod.suw01.rsglab.com (localhost [127.0.0.1])
- by mail186-1.suw21.mandrillapp.com (Mailchimp) with ESMTP id 4WFJmF458TzBsTtc2
- for <xen-devel@lists.xenproject.org>; Thu,  4 Jul 2024 14:23:41 +0000 (GMT)
-Received: from [37.26.189.201] by mandrillapp.com id
- 69c81d6661b648e2ba70a77e14f739b9; Thu, 04 Jul 2024 14:23:41 +0000
+	id 1sPNs4-0002QX-TU; Thu, 04 Jul 2024 14:55:40 +0000
+Received: by outflank-mailman (input) for mailman id 753862;
+ Thu, 04 Jul 2024 14:55:39 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1sPNs3-0002QN-Hu; Thu, 04 Jul 2024 14:55:39 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1sPNs3-0004Uj-FF; Thu, 04 Jul 2024 14:55:39 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1sPNs3-0001jy-1H; Thu, 04 Jul 2024 14:55:39 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1sPNs2-0001qv-Uz; Thu, 04 Jul 2024 14:55:38 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,97 +42,72 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 03af0b9b-3a11-11ef-8776-851b0ebba9a2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
-	s=mte1; t=1720103021; x=1720363521;
-	bh=Y8SexkBRBt7YwEfELRilHLlo5h8DYOLSv0Svo/E0N60=;
-	h=From:Subject:To:Cc:Message-Id:References:In-Reply-To:Feedback-ID:
-	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
-	 Subject:From;
-	b=KygdiHlOYa3v+a6qwoVGZDP96JHS0jnjtCuygaTUX9Gxu7RvMRO8F9yLbTl+M9hil
-	 fTeIWWo/fz2Ow1kqw/FF6oFbK6hXn0RfFW8MZ5nCTQfLQtV+7bsjz8rS+PZMrYizF/
-	 PGr9y5MRitoxApjhfCgFUoBoVBCv3PqrjKD6kCScASXfHDe9SUB5qaj25SB3guxRUV
-	 kWkWPHZudNLAVkG4FP2wWf4fU8HCoFuQnpd3k3XGjAeFwJPczxP0knqFHqBkHXPdq1
-	 I4dvdhbRxli4U91zBG9v4ik/dCyGYgp8+73FAHXKGlmrKwBuaWv9Qr+PgNiBoc1YpO
-	 Lux/n3ruTtFtA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
-	t=1720103021; x=1720363521; i=anthony.perard@vates.tech;
-	bh=Y8SexkBRBt7YwEfELRilHLlo5h8DYOLSv0Svo/E0N60=;
-	h=From:Subject:To:Cc:Message-Id:References:In-Reply-To:Feedback-ID:
-	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
-	 Subject:From;
-	b=GczBzefL/OH+ljVSeZt928hgYLlZIjylT2YalqBsYQEKcCCgrOzbh2HAi4aT1vR9N
-	 5upkmX/65T1MSi1tuOcTqZ3ENumFiDd4gUdfzXvNscm8L4mdZyWC8jrx7Ip1W/y0yY
-	 0xiqniT5eao2HhecBg0mypoxtKg3Rdh357o9sjAcOrU+BWQWNmCmUWyT/8ATBNgi1o
-	 g/rAj4NGgNlhOkS6eppMNqreK7YRzEeMc4gL9qcvDm2/IXLvlQU/v3mhzrWWyFhZai
-	 v4yD8ff2axqMt90/6fKN8fGg3HtwsHhIuheDBP0DyhW/2+xKYhZW1EIQ7WpZGnHh/c
-	 C0OlyrfPVIoMA==
-From: Anthony PERARD <anthony.perard@vates.tech>
-Subject: =?utf-8?Q?Re:=20[PATCH=20v1=202/2]=20xen:=20mapcache:=20Fix=20unmapping=20of=20first=20entries=20in=20buckets?=
-X-Bm-Disclaimer: Yes
-X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
-X-Bm-Transport-Timestamp: 1720103020458
-To: "Edgar E. Iglesias" <edgar.iglesias@gmail.com>
-Cc: qemu-devel@nongnu.org, sstabellini@kernel.org, paul@xen.org, edgar.iglesias@amd.com, xen-devel@lists.xenproject.org
-Message-Id: <ZoawbAnukIBkYWCw@l14>
-References: <20240701224421.1432654-1-edgar.iglesias@gmail.com> <20240701224421.1432654-3-edgar.iglesias@gmail.com>
-In-Reply-To: <20240701224421.1432654-3-edgar.iglesias@gmail.com>
-X-Native-Encoded: 1
-X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.69c81d6661b648e2ba70a77e14f739b9?=
-X-Mandrill-User: md_30504962
-Feedback-ID: 30504962:30504962.20240704:md
-Date: Thu, 04 Jul 2024 14:23:41 +0000
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=4Whd/cIuZwec4eBpQ/eRbLLsd8/JGlwmfdX4wegiW3Y=; b=U/tBd6lA32hEqpbFgIdw5yjsMB
+	qGbqL2i8VQM+xOgi/NAkvMhxdh8yLgGnh9hskEh5Zj2HKmybp4Jf7IT4DhobJemS99sfz4Lk340vc
+	3Ojqac3M+NYTiYpF/DPlr12RpyjGkaHuqyo/75dZQmXBH+mukworYu0eBOnDHrnSPHWE=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-186656-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 7bit
+Subject: [ovmf test] 186656: all pass - PUSHED
+X-Osstest-Versions-This:
+    ovmf=6b9307192bf590b3136e690a07196d4255051fdc
+X-Osstest-Versions-That:
+    ovmf=592725d2291b9844cfd9187111e904c6383e2000
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Thu, 04 Jul 2024 14:55:38 +0000
 
-On Tue, Jul 02, 2024 at 12:44:21AM +0200, Edgar E. Iglesias wrote:
-> From: "Edgar E. Iglesias" <edgar.iglesias@amd.com>
-> 
-> This fixes the clobbering of the entry->next pointer when
-> unmapping the first entry in a bucket of a mapcache.
-> 
-> Fixes: 123acd816d ("xen: mapcache: Unmap first entries in buckets")
-> Reported-by: Anthony PERARD <anthony.perard@vates.tech>
-> Signed-off-by: Edgar E. Iglesias <edgar.iglesias@amd.com>
-> ---
->  hw/xen/xen-mapcache.c | 12 +++++++++++-
->  1 file changed, 11 insertions(+), 1 deletion(-)
-> 
-> diff --git a/hw/xen/xen-mapcache.c b/hw/xen/xen-mapcache.c
-> index 5f23b0adbe..18ba7b1d8f 100644
-> --- a/hw/xen/xen-mapcache.c
-> +++ b/hw/xen/xen-mapcache.c
-> @@ -597,7 +597,17 @@ static void xen_invalidate_map_cache_entry_unlocked(MapCache *mc,
->          pentry->next = entry->next;
->          g_free(entry);
->      } else {
-> -        memset(entry, 0, sizeof *entry);
-> +        /*
-> +         * Invalidate mapping but keep entry->next pointing to the rest
-> +         * of the list.
-> +         *
-> +         * Note that lock is already zero here, otherwise we don't unmap.
-> +         */
-> +        entry->paddr_index = 0;
-> +        entry->vaddr_base = NULL;
-> +        entry->valid_mapping = NULL;
-> +        entry->flags = 0;
-> +        entry->size = 0;
+flight 186656 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/186656/
 
-This kind of feels like mc->entry should be an array of pointer rather
-than an array of MapCacheEntry but that seems to work well enough and
-not the first time entries are been cleared like that.
+Perfect :-)
+All tests in this flight passed as required
+version targeted for testing:
+ ovmf                 6b9307192bf590b3136e690a07196d4255051fdc
+baseline version:
+ ovmf                 592725d2291b9844cfd9187111e904c6383e2000
 
-Reviewed-by: Anthony PERARD <anthony.perard@vates.tech>
+Last test of basis   186652  2024-07-04 08:13:09 Z    0 days
+Testing same since   186656  2024-07-04 12:41:11 Z    0 days    1 attempts
 
-Thanks,
+------------------------------------------------------------
+People who touched revisions under test:
+  Joey Vagedes <Joey.Vagedes@gmail.com>
 
--- 
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
 
-Anthony Perard | Vates XCP-ng Developer
 
-XCP-ng & Xen Orchestra - Vates solutions
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-web: https://vates.tech
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
+   592725d229..6b9307192b  6b9307192bf590b3136e690a07196d4255051fdc -> xen-tested-master
 
