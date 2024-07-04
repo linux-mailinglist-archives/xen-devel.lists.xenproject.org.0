@@ -2,33 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 39E7A927558
-	for <lists+xen-devel@lfdr.de>; Thu,  4 Jul 2024 13:43:15 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.753731.1161936 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 725BB92756A
+	for <lists+xen-devel@lfdr.de>; Thu,  4 Jul 2024 13:46:35 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.753738.1161947 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sPKrJ-0000hc-UT; Thu, 04 Jul 2024 11:42:41 +0000
+	id 1sPKug-0001JD-DW; Thu, 04 Jul 2024 11:46:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 753731.1161936; Thu, 04 Jul 2024 11:42:41 +0000
+Received: by outflank-mailman (output) from mailman id 753738.1161947; Thu, 04 Jul 2024 11:46:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sPKrJ-0000g6-R7; Thu, 04 Jul 2024 11:42:41 +0000
-Received: by outflank-mailman (input) for mailman id 753731;
- Thu, 04 Jul 2024 11:42:41 +0000
+	id 1sPKug-0001G3-Ab; Thu, 04 Jul 2024 11:46:10 +0000
+Received: by outflank-mailman (input) for mailman id 753738;
+ Thu, 04 Jul 2024 11:46:08 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=VMFS=OE=gmail.com=edgar.iglesias@srs-se1.protection.inumbo.net>)
- id 1sPKrI-0000g0-UF
- for xen-devel@lists.xenproject.org; Thu, 04 Jul 2024 11:42:40 +0000
-Received: from mail-ed1-x530.google.com (mail-ed1-x530.google.com
- [2a00:1450:4864:20::530])
+ <SRS0=EPo+=OE=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1sPKue-0001Fu-K3
+ for xen-devel@lists.xenproject.org; Thu, 04 Jul 2024 11:46:08 +0000
+Received: from mail-lf1-x134.google.com (mail-lf1-x134.google.com
+ [2a00:1450:4864:20::134])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 83b513d0-39fa-11ef-8776-851b0ebba9a2;
- Thu, 04 Jul 2024 13:42:38 +0200 (CEST)
-Received: by mail-ed1-x530.google.com with SMTP id
- 4fb4d7f45d1cf-58ba3e38028so730479a12.0
- for <xen-devel@lists.xenproject.org>; Thu, 04 Jul 2024 04:42:38 -0700 (PDT)
+ id ffa78cd6-39fa-11ef-8776-851b0ebba9a2;
+ Thu, 04 Jul 2024 13:46:06 +0200 (CEST)
+Received: by mail-lf1-x134.google.com with SMTP id
+ 2adb3069b0e04-52e97e5a84bso745028e87.2
+ for <xen-devel@lists.xenproject.org>; Thu, 04 Jul 2024 04:46:06 -0700 (PDT)
+Received: from [192.168.219.191] ([94.75.70.14])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a72ab08cf7csm592555366b.155.2024.07.04.04.46.05
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 04 Jul 2024 04:46:05 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,170 +45,128 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 83b513d0-39fa-11ef-8776-851b0ebba9a2
+X-Inumbo-ID: ffa78cd6-39fa-11ef-8776-851b0ebba9a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1720093358; x=1720698158; darn=lists.xenproject.org;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=HzfFhpY9wpDm0aoDe9W7snDRqUECUqFzPYV35L92RvU=;
-        b=OQMa9iS5BclEo0Y+BeUWfy5wuBJn89DbSJDbf4+cZY1RNs+gtLF6kMinTKJ3nrmdDv
-         Xui0I++EnzIblhwRn07ClDSbsODHP9kX/NlaJmZf6JcDDK9FWR2XBMxO3TMysQGlomjE
-         0YjAN6qkJRFK/OZehnqC+ao0CHMPFowcLL5q6d/StUH9YQX/6lSmT+ilDYsuleAINpld
-         Cm2rFoLH4EZesLuEAvGOcDLJn/1/CvI/d9CZ6o3jaWid66WkCDrF1Xf43qLwVSJCWgcP
-         r3XJ5tfGg4Ic/Eeo0Iz/tDqIqo/w3I3mzzpvCAIZeH0ZRkKTj5qXddj4W8qPmGJYkvxS
-         rlcw==
+        d=gmail.com; s=20230601; t=1720093566; x=1720698366; darn=lists.xenproject.org;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=ycLgS7NlynHELHJt6cPJK/WunF/Q/Fyf49pSd1USCzE=;
+        b=O0auDqdDvuskqShK7+mx3NNME8NhKHxt7zDGBq5MikDwOae7ggVynFmkwj3HfMuV6a
+         D0+HNPYhnovTuAj/VicPYqrJm3WRXJoXs2Vsq0LhGtl3v3R2oFlMc6Tt3VXp5+BC37c4
+         2K3iFHMfmzgv3zuMH6lhL6OA7cyxXtrhq1v5oEZ2o9BpAUvs54g7ZrPgF3zpkV1+bVUs
+         0ZWV8QAxUKVVAAFVCoM46h7GqZPajP8Xu1/8t0zcYfq7klMmR5Ppeb9xb0VvKMkVMNIj
+         d46mkCPPuMmCfQqojAo79/EPlRqpTJ/xRTdjjUZ2r7GsXkJqRzz1px6a0JoU3ENu7ptV
+         giFQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1720093358; x=1720698158;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=HzfFhpY9wpDm0aoDe9W7snDRqUECUqFzPYV35L92RvU=;
-        b=GBRNP8IaYF0FShZ6UlgFBPjWJrz05YGJIMiIPr514QNFDUsXcvVZJZOG7BYauhJbKM
-         kKDYtn/1W6zVYYDENnoKSJaO7JIBwBtkKF3WnLuEpq9djkB228HuYMH9y+cAuEnNM+Hr
-         dAnqY7ESaw1ZUXZYvumljcSq+mP2i3tb5e9zFdt8+DWjUd/+Y/sfkBAcXA3b6ER/agJ2
-         i/N5E5BtgOmrIPlmG2ZBD6EJ0Uj9iYZISLoiNmlxcsMCxHrVaToA/oQD+7LZ2sCYXiLx
-         FcAkg1b1R+m9S4PWtImWLqEZnzvm/rRISTs7xkFII0s0Cyf2Cs+IUm+yCvsQDJv216wA
-         bxZQ==
-X-Forwarded-Encrypted: i=1; AJvYcCVdxn6OsZLXHhnvixBUG/DTL2bkiuQShuBj3a/1QEMQ2iVvsRdlIpldvNED1uClFSVOo4j4VIJrFTVELLZ6IavVTplaPK5fPtPcErhcG08=
-X-Gm-Message-State: AOJu0Yw9gFu4r55doaLoMo9ukVd8g5j+m3gnPxZwEApy2SbMTi80yFfY
-	OozABbJ/Ce2t9kDKdPDEWr1o/SAM7dK/hCXJZ9OlYb/FA3XkB0clrx+drJudD7ONBWknNiGGf1H
-	zk+Q133oGx1QXFk4dDlWkowmCtrQ=
-X-Google-Smtp-Source: AGHT+IHasBEGIlgvaru77AmnEamynOyBIUI9Gcvx3G8Hln78yqQw9r5HACJZLDYiclHUBv3xStP7OftQm8aV8lp5t9E=
-X-Received: by 2002:a05:6402:34c2:b0:58d:e458:1310 with SMTP id
- 4fb4d7f45d1cf-58e5acd87ccmr827965a12.13.1720093357631; Thu, 04 Jul 2024
- 04:42:37 -0700 (PDT)
-MIME-Version: 1.0
-References: <20240701224421.1432654-1-edgar.iglesias@gmail.com>
- <20240701224421.1432654-2-edgar.iglesias@gmail.com> <87ikxlo3lx.fsf@draig.linaro.org>
-In-Reply-To: <87ikxlo3lx.fsf@draig.linaro.org>
-From: "Edgar E. Iglesias" <edgar.iglesias@gmail.com>
-Date: Thu, 4 Jul 2024 14:42:25 +0300
-Message-ID: <CAJy5ezpD6i3Fc9K-i58=V0e1uxrB-VZ2sd+gtoOc4TnbkWHSZQ@mail.gmail.com>
-Subject: Re: [PATCH v1 1/2] physmem: Bail out qemu_ram_block_from_host() for
- invalid ram addrs
-To: =?UTF-8?B?QWxleCBCZW5uw6ll?= <alex.bennee@linaro.org>
-Cc: qemu-devel@nongnu.org, sstabellini@kernel.org, anthony@xenproject.org, 
-	paul@xen.org, edgar.iglesias@amd.com, xen-devel@lists.xenproject.org, 
-	Paolo Bonzini <pbonzini@redhat.com>, Peter Xu <peterx@redhat.com>, 
-	David Hildenbrand <david@redhat.com>, =?UTF-8?Q?Philippe_Mathieu=2DDaud=C3=A9?= <philmd@linaro.org>
-Content-Type: multipart/alternative; boundary="0000000000008fef90061c6a7180"
-
---0000000000008fef90061c6a7180
+        d=1e100.net; s=20230601; t=1720093566; x=1720698366;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=ycLgS7NlynHELHJt6cPJK/WunF/Q/Fyf49pSd1USCzE=;
+        b=tUyapJiqCLsW9sEq1l4N6V5cqBywK4FbZhnxGnKMSug9QcwbzZxG1KbVso8JG4GOVV
+         Mj4RJM8hHl0IN1PJoyctNylnc8AtIyNvQIDR2ABH5ZVVLv4df5D2AH9mLllbygGT/hRf
+         tc/HoexSrkIcgyos4bYeqOdlH93huurXzzdz73eAk00vFU4SSAFSnQukWSCK78eQAUGQ
+         6ntOOS5pszvr4it7U0mqvCURKrrCWsZz4sHrbXluc1/bGt0DW7hobCO7y5bpcq7FYCf5
+         2TDAFr8atbbddRD4aEe0DZ845r96W8AeKv/TR1X7i+TNxrORRsXOyVkv96tY0Bqf4bsU
+         f9Qg==
+X-Forwarded-Encrypted: i=1; AJvYcCWerozxghC5FedZini/vfNJP2hi5lE3XiVTIu1VIDFJbW9Npz6YomYUcoBZ1Qfx6Bsh7Vk7N6Y2rehBEXIKZVD2Wf1p3fPAAhYzXzY5iII=
+X-Gm-Message-State: AOJu0YxVCCsea4VpfklNSHxFnT4HnLdN/UGw3GeY+pDxdLmBifM3L+qK
+	o1xuBAcqhYT/GI/c+VdQNw4WLvF9BqCnpdsm2br1W0UcJTBhGNfe
+X-Google-Smtp-Source: AGHT+IH5S4NR1PbUyXZGAJgd5it52SracPMtFOjllkbfJsO2iDz9+uo+eZyBZJiQ17gE4pYdM9fQmg==
+X-Received: by 2002:a19:8c04:0:b0:52c:9ae0:beed with SMTP id 2adb3069b0e04-52ea06a5995mr1151177e87.52.1720093565722;
+        Thu, 04 Jul 2024 04:46:05 -0700 (PDT)
+Message-ID: <7dce3f2175bed81ddc3ffb373e7c001422c7e5ce.camel@gmail.com>
+Subject: Re: [PATCH for-4.19 4/4] CI: Rework the CentOS7 container
+From: Oleksii <oleksii.kurochko@gmail.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>, Xen-devel
+	 <xen-devel@lists.xenproject.org>
+Cc: Anthony PERARD <anthony.perard@vates.tech>, Stefano Stabellini
+	 <sstabellini@kernel.org>, Doug Goldstein <cardoe@cardoe.com>, Roger Pau
+ =?ISO-8859-1?Q?Monn=E9?=
+	 <roger.pau@citrix.com>
+Date: Thu, 04 Jul 2024 13:46:04 +0200
+In-Reply-To: <20240703142002.1662874-5-andrew.cooper3@citrix.com>
+References: <20240703142002.1662874-1-andrew.cooper3@citrix.com>
+	 <20240703142002.1662874-5-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: base64
+User-Agent: Evolution 3.52.2 (3.52.2-1.fc40app2) 
+MIME-Version: 1.0
 
-On Thu, Jul 4, 2024 at 1:26=E2=80=AFPM Alex Benn=C3=A9e <alex.bennee@linaro=
-.org> wrote:
+T24gV2VkLCAyMDI0LTA3LTAzIGF0IDE1OjIwICswMTAwLCBBbmRyZXcgQ29vcGVyIHdyb3RlOgo+
+IENlbnRPUyA3IGlzIGZ1bGx5IEVuZC1vZi1saWZlIGFzIG9mIDIwMjQtMDYtMzAsIGFuZCB0aGUg
+WXVtIHJlcG8KPiBjb25maWd1cmF0aW9uCj4gcG9pbnRzIGF0IFVSTHMgd2hpY2ggaGF2ZSBiZWNv
+bWUgbm9uLWV4aXN0ZW50Lgo+IAo+IEZpcnN0LCBzdGFydCBieSB1c2luZyBhIGhlcmVkb2MgUlVO
+IGZvciBsZWdpYmlsaXR5LsKgIEl0J3MgaW1wb3J0YW50Cj4gdG8gdXNlCj4gYHNldCAtZWAgdG8g
+b2Zmc2V0IHRoZSBmYWN0IHRoYXQgd2UncmUgbm8gbG9uZ2VyIGNoYWluaW5nIGV2ZXJ5Cj4gY29t
+bWFuZAo+IHRvZ2V0aGVyIHdpdGggYW4gJiYuCj4gCj4gQWxzbywgYmVjYXVzZSB3ZSdyZSB1c2lu
+ZyBhIHNpbmdsZSBSVU4gY29tbWFuZCB0byBwZXJmb3JtIGFsbCBSUE0KPiBvcGVyYXRpb25zLAo+
+IHdlIG5vIGxvbmdlciBuZWVkIHRvIHdvcmsgYXJvdW5kIHRoZSBPdmVybGF5RlMgYnVnLgo+IAo+
+IEFkanVzdCB0aGUgQ2VudE9TLSoucmVwbyBmaWxlcyB0byBwb2ludCBhdCB2YXVsdC5jZW50b3Mu
+b3JnLgo+IAo+IFRha2UgdGhlIG9wcG9ydHVuaXR5IHRvIHNwbGl0IHRoZSBYZW4gZGVwcyBmcm9t
+IFRvb2xzIGRlcHMsIGFuZCB0bwo+IGFkanVzdCB0aGUKPiBvdGhlciBwYWNrYWdlcyB3ZSB1c2U6
+Cj4gCj4gwqAqIFdlIG5lZWQgYnppcDItZGV2ZWwgZm9yIHRoZSBkb21idWlsZGVyLCBub3QganVz
+dCBiemlwMi4KPiDCoCogenN0ZC1kZXZlbCBpcyBhbm90aGVyIG9wdGlvbmFsIGRlcGVuZGVuY3kg
+c2luY2UgdGhlIGxhc3QgdGltZSB0aGlzCj4gcGFja2FnZQo+IMKgwqAgbGlzdCB3YXMgcmVmcmVz
+aGVkLgo+IMKgKiBvcGVuc3NsLWRldmVsIGhhc24ndCBiZWVuIGEgZGVwZW5kZW5jeSBzaW5jZSBY
+ZW4gNC42Lgo+IMKgKiBXZSBsb25nIGFnbyBjZWFzZWQgYmVpbmcgYWJsZSB0byBidWlsZCBRZW11
+IGFuZCBTZWFCSU9TIGluIHRoaXMKPiBjb250YWluZXIsCj4gwqDCoCBzbyBkcm9wIHRoZWlyIGRl
+cGVuZGVuY2llcyB0b28uCj4gCj4gU2lnbmVkLW9mZi1ieTogQW5kcmV3IENvb3BlciA8YW5kcmV3
+LmNvb3BlcjNAY2l0cml4LmNvbT4KPiAtLS0KPiBDQzogQW50aG9ueSBQRVJBUkQgPGFudGhvbnku
+cGVyYXJkQHZhdGVzLnRlY2g+Cj4gQ0M6IFN0ZWZhbm8gU3RhYmVsbGluaSA8c3N0YWJlbGxpbmlA
+a2VybmVsLm9yZz4KPiBDQzogRG91ZyBHb2xkc3RlaW4gPGNhcmRvZUBjYXJkb2UuY29tPgo+IEND
+OiBSb2dlciBQYXUgTW9ubsOpIDxyb2dlci5wYXVAY2l0cml4LmNvbT4KPiBDQzogT2xla3NpaSBL
+dXJvY2hrbyA8b2xla3NpaS5rdXJvY2hrb0BnbWFpbC5jb20+ClJlbGVhc2UtQWNrZWQtYnk6IE9s
+ZWtzaWkgS3Vyb2Noa28gPG9sZWtzaWkua3Vyb2Noa29AZ21haWwuY29tPgoKfiBPbGVrc2lpCgo+
+IC0tLQo+IMKgYXV0b21hdGlvbi9idWlsZC9jZW50b3MvNy5kb2NrZXJmaWxlIHwgNzAgKysrKysr
+KysrKysrKysrLS0tLS0tLS0tLS0KPiAtLQo+IMKgMSBmaWxlIGNoYW5nZWQsIDM3IGluc2VydGlv
+bnMoKyksIDMzIGRlbGV0aW9ucygtKQo+IAo+IGRpZmYgLS1naXQgYS9hdXRvbWF0aW9uL2J1aWxk
+L2NlbnRvcy83LmRvY2tlcmZpbGUKPiBiL2F1dG9tYXRpb24vYnVpbGQvY2VudG9zLzcuZG9ja2Vy
+ZmlsZQo+IGluZGV4IDY1NzU1MGYzMDhiYi4uOWU2NmQ3MmE1YmQ1IDEwMDY0NAo+IC0tLSBhL2F1
+dG9tYXRpb24vYnVpbGQvY2VudG9zLzcuZG9ja2VyZmlsZQo+ICsrKyBiL2F1dG9tYXRpb24vYnVp
+bGQvY2VudG9zLzcuZG9ja2VyZmlsZQo+IEBAIC02LDQ0ICs2LDQ4IEBAIExBQkVMIG1haW50YWlu
+ZXIubmFtZT0iVGhlIFhlbiBQcm9qZWN0IiBcCj4gwqBSVU4gbWtkaXIgL2J1aWxkCj4gwqBXT1JL
+RElSIC9idWlsZAo+IMKgCj4gLSMgd29yayBhcm91bmQgaHR0cHM6Ly9naXRodWIuY29tL21vYnkv
+bW9ieS9pc3N1ZXMvMTAxODAKPiAtIyBhbmQgYWRkIEVQRUwgZm9yIGRldjg2Cj4gLVJVTiBycG0g
+LS1yZWJ1aWxkZGIgJiYgXAo+IC3CoMKgwqAgeXVtIC15IGluc3RhbGwgXAo+IC3CoMKgwqDCoMKg
+wqDCoCB5dW0tcGx1Z2luLW92bCBcCj4gLcKgwqDCoMKgwqDCoMKgIGVwZWwtcmVsZWFzZSBcCj4g
+LcKgwqDCoCAmJiB5dW0gY2xlYW4gYWxsICYmIFwKPiAtwqDCoMKgIHJtIC1yZiAvdmFyL2NhY2hl
+L3l1bQo+ICtSVU4gPDxFT0YKPiArwqDCoMKgIHNldCAtZQo+ICsKPiArwqDCoMKgICMgRml4IHVw
+IFl1bSBjb25maWcgbm93IHRoYXQgbWlycm9yLmNlbnRvcy5vcmcgZG9lc24ndCBleGlzdAo+ICvC
+oMKgwqAgc2VkIC1lICdzL21pcnJvci5jZW50b3Mub3JnL3ZhdWx0LmNlbnRvcy5vcmcvZycgXAo+
+ICvCoMKgwqDCoMKgwqDCoCAtZSAncy9eIy4qYmFzZXVybD1odHRwc1w/L2Jhc2V1cmw9aHR0cHMv
+ZycgXAo+ICvCoMKgwqDCoMKgwqDCoCAtZSAncy9ebWlycm9ybGlzdD1odHRwc1w/LyNtaXJyb3Js
+aXN0PWh0dHBzL2cnIFwKPiArwqDCoMKgwqDCoMKgwqAgLWkgL2V0Yy95dW0ucmVwb3MuZC8qLnJl
+cG8KPiArCj4gK8KgwqDCoCAjIEFkZCB0aGUgRVBFTCByZXBvIHRvIGdldCBkZXY4Ngo+ICvCoMKg
+wqAgeXVtIC15IGluc3RhbGwgZXBlbC1yZWxlYXNlCj4gKwo+ICvCoMKgwqAgeXVtIC15IHVwZGF0
+ZQo+IMKgCj4gLSMgaW5zdGFsbCBYZW4gZGVwZW5kcwo+IC1SVU4geXVtIC15IHVwZGF0ZSBcCj4g
+LcKgwqDCoCAmJiB5dW0gLXkgaW5zdGFsbCBcCj4gK8KgwqDCoCAjIFhlbiBkZXBzCj4gK8KgwqDC
+oCB5dW0gLXkgaW5zdGFsbCBcCj4gK8KgwqDCoMKgwqDCoMKgIGJpc29uIFwKPiArwqDCoMKgwqDC
+oMKgwqAgYmludXRpbHMgXAo+ICvCoMKgwqDCoMKgwqDCoCBjaGVja3BvbGljeSBcCj4gK8KgwqDC
+oMKgwqDCoMKgIGZsZXggXAo+IMKgwqDCoMKgwqDCoMKgwqAgZ2NjIFwKPiArwqDCoMKgwqDCoMKg
+wqAgbWFrZSBcCj4gKwo+ICvCoMKgwqAgIyBUb29scy9zdHViZG9tL2RvY3MgZGVwcwo+ICvCoMKg
+wqAgeXVtIC15IGluc3RhbGwgXAo+ICvCoMKgwqDCoMKgwqDCoCBhY3BpY2EtdG9vbHMgXAo+ICvC
+oMKgwqDCoMKgwqDCoCBiemlwMi1kZXZlbCBcCj4gK8KgwqDCoMKgwqDCoMKgIGRldjg2IFwKPiDC
+oMKgwqDCoMKgwqDCoMKgIGdjYy1jKysgXAo+IC3CoMKgwqDCoMKgwqDCoCBuY3Vyc2VzLWRldmVs
+IFwKPiAtwqDCoMKgwqDCoMKgwqAgemxpYi1kZXZlbCBcCj4gLcKgwqDCoMKgwqDCoMKgIG9wZW5z
+c2wtZGV2ZWwgXAo+IC3CoMKgwqDCoMKgwqDCoCBweXRob24tZGV2ZWwgXAo+ICvCoMKgwqDCoMKg
+wqDCoCBnaXQgXAo+IMKgwqDCoMKgwqDCoMKgwqAgbGlidXVpZC1kZXZlbCBcCj4gK8KgwqDCoMKg
+wqDCoMKgIG5jdXJzZXMtZGV2ZWwgXAo+ICvCoMKgwqDCoMKgwqDCoCBwYXRjaCBcCj4gwqDCoMKg
+wqDCoMKgwqDCoCBwa2djb25maWcgXAo+IC3CoMKgwqDCoMKgwqDCoCBmbGV4IFwKPiAtwqDCoMKg
+wqDCoMKgwqAgYmlzb24gXAo+IC3CoMKgwqDCoMKgwqDCoCBsaWJhaW8tZGV2ZWwgXAo+IC3CoMKg
+wqDCoMKgwqDCoCBnbGliMi1kZXZlbCBcCj4gLcKgwqDCoMKgwqDCoMKgIHlhamwtZGV2ZWwgXAo+
+IC3CoMKgwqDCoMKgwqDCoCBwaXhtYW4tZGV2ZWwgXAo+IC3CoMKgwqDCoMKgwqDCoCBnbGliYy1k
+ZXZlbCBcCj4gLcKgwqDCoMKgwqDCoMKgIG1ha2UgXAo+IC3CoMKgwqDCoMKgwqDCoCBiaW51dGls
+cyBcCj4gLcKgwqDCoMKgwqDCoMKgIGdpdCBcCj4gLcKgwqDCoMKgwqDCoMKgIHdnZXQgXAo+IC3C
+oMKgwqDCoMKgwqDCoCBhY3BpY2EtdG9vbHMgXAo+ICvCoMKgwqDCoMKgwqDCoCBweXRob24tZGV2
+ZWwgXAo+IMKgwqDCoMKgwqDCoMKgwqAgcHl0aG9uLW1hcmtkb3duIFwKPiAtwqDCoMKgwqDCoMKg
+wqAgcGF0Y2ggXAo+IC3CoMKgwqDCoMKgwqDCoCBjaGVja3BvbGljeSBcCj4gLcKgwqDCoMKgwqDC
+oMKgIGRldjg2IFwKPiArwqDCoMKgwqDCoMKgwqAgd2dldCBcCj4gwqDCoMKgwqDCoMKgwqDCoCB4
+ei1kZXZlbCBcCj4gLcKgwqDCoMKgwqDCoMKgIGJ6aXAyIFwKPiAtwqDCoMKgwqDCoMKgwqAgbmFz
+bSBcCj4gLcKgwqDCoCAmJiB5dW0gY2xlYW4gYWxsICYmIFwKPiArwqDCoMKgwqDCoMKgwqAgeWFq
+bC1kZXZlbCBcCj4gK8KgwqDCoMKgwqDCoMKgIHpsaWItZGV2ZWwgXAo+ICvCoMKgwqDCoMKgwqDC
+oCB6c3RkLWRldmVsIFwKPiArCj4gK8KgwqDCoCB5dW0gY2xlYW4gYWxsCj4gwqDCoMKgwqAgcm0g
+LXJmIC92YXIvY2FjaGUveXVtCj4gK0VPRgoK
 
-> "Edgar E. Iglesias" <edgar.iglesias@gmail.com> writes:
->
-> > From: "Edgar E. Iglesias" <edgar.iglesias@amd.com>
-> >
-> > Bail out in qemu_ram_block_from_host() when
-> > xen_ram_addr_from_mapcache() does not find an existing
-> > mapping.
-> >
-> > Signed-off-by: Edgar E. Iglesias <edgar.iglesias@amd.com>
-> > ---
-> >  system/physmem.c | 4 ++++
-> >  1 file changed, 4 insertions(+)
-> >
-> > diff --git a/system/physmem.c b/system/physmem.c
-> > index 33d09f7571..59d1576c2b 100644
-> > --- a/system/physmem.c
-> > +++ b/system/physmem.c
-> > @@ -2277,6 +2277,10 @@ RAMBlock *qemu_ram_block_from_host(void *ptr,
-> bool round_offset,
-> >          ram_addr_t ram_addr;
-> >          RCU_READ_LOCK_GUARD();
-> >          ram_addr =3D xen_ram_addr_from_mapcache(ptr);
-> > +        if (ram_addr =3D=3D RAM_ADDR_INVALID) {
-> > +            return NULL;
-> > +        }
-> > +
->
-> Isn't this indicative of a failure? Should there at least be a trace
-> point for failed mappings?
->
->
-Yes but there are already trace points for the failure cases inside
-xen_ram_addr_from_mapcache().
-Do those address your concerns or do you think we need additional trace
-points?
-
-Cheers,
-Edgar
-
-
-> >          block =3D qemu_get_ram_block(ram_addr);
-> >          if (block) {
-> >              *offset =3D ram_addr - block->offset;
->
-> --
-> Alex Benn=C3=A9e
-> Virtualisation Tech Lead @ Linaro
->
-
---0000000000008fef90061c6a7180
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr">On Thu, Jul 4, 2024 at 1:26=E2=80=AFPM Al=
-ex Benn=C3=A9e &lt;<a href=3D"mailto:alex.bennee@linaro.org">alex.bennee@li=
-naro.org</a>&gt; wrote:<br></div><div class=3D"gmail_quote"><blockquote cla=
-ss=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid =
-rgb(204,204,204);padding-left:1ex">&quot;Edgar E. Iglesias&quot; &lt;<a hre=
-f=3D"mailto:edgar.iglesias@gmail.com" target=3D"_blank">edgar.iglesias@gmai=
-l.com</a>&gt; writes:<br>
-<br>
-&gt; From: &quot;Edgar E. Iglesias&quot; &lt;<a href=3D"mailto:edgar.iglesi=
-as@amd.com" target=3D"_blank">edgar.iglesias@amd.com</a>&gt;<br>
-&gt;<br>
-&gt; Bail out in qemu_ram_block_from_host() when<br>
-&gt; xen_ram_addr_from_mapcache() does not find an existing<br>
-&gt; mapping.<br>
-&gt;<br>
-&gt; Signed-off-by: Edgar E. Iglesias &lt;<a href=3D"mailto:edgar.iglesias@=
-amd.com" target=3D"_blank">edgar.iglesias@amd.com</a>&gt;<br>
-&gt; ---<br>
-&gt;=C2=A0 system/physmem.c | 4 ++++<br>
-&gt;=C2=A0 1 file changed, 4 insertions(+)<br>
-&gt;<br>
-&gt; diff --git a/system/physmem.c b/system/physmem.c<br>
-&gt; index 33d09f7571..59d1576c2b 100644<br>
-&gt; --- a/system/physmem.c<br>
-&gt; +++ b/system/physmem.c<br>
-&gt; @@ -2277,6 +2277,10 @@ RAMBlock *qemu_ram_block_from_host(void *ptr, b=
-ool round_offset,<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 ram_addr_t ram_addr;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 RCU_READ_LOCK_GUARD();<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 ram_addr =3D xen_ram_addr_from_mapca=
-che(ptr);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 if (ram_addr =3D=3D RAM_ADDR_INVALID) {<b=
-r>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 return NULL;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 }<br>
-&gt; +<br>
-<br>
-Isn&#39;t this indicative of a failure? Should there at least be a trace<br=
->
-point for failed mappings?<br>
-<br></blockquote><div><br></div><div>Yes but there are already trace points=
- for the failure cases inside xen_ram_addr_from_mapcache().</div><div>Do th=
-ose address your concerns or do you think we need additional trace points?<=
-/div><div><br></div><div>Cheers,</div><div>Edgar</div><div>=C2=A0</div><blo=
-ckquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left=
-:1px solid rgb(204,204,204);padding-left:1ex">
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 block =3D qemu_get_ram_block(ram_add=
-r);<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 if (block) {<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 *offset =3D ram_addr -=
- block-&gt;offset;<br>
-<br>
--- <br>
-Alex Benn=C3=A9e<br>
-Virtualisation Tech Lead @ Linaro<br>
-</blockquote></div></div>
-
---0000000000008fef90061c6a7180--
 
