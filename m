@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 791F4928B4F
-	for <lists+xen-devel@lfdr.de>; Fri,  5 Jul 2024 17:11:41 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.754357.1162772 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C4D9F928B56
+	for <lists+xen-devel@lfdr.de>; Fri,  5 Jul 2024 17:13:15 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.754367.1162782 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sPkac-00064p-08; Fri, 05 Jul 2024 15:11:10 +0000
+	id 1sPkcF-0006cY-AO; Fri, 05 Jul 2024 15:12:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 754357.1162772; Fri, 05 Jul 2024 15:11:09 +0000
+Received: by outflank-mailman (output) from mailman id 754367.1162782; Fri, 05 Jul 2024 15:12:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sPkab-00062p-Te; Fri, 05 Jul 2024 15:11:09 +0000
-Received: by outflank-mailman (input) for mailman id 754357;
- Fri, 05 Jul 2024 15:11:09 +0000
+	id 1sPkcF-0006b6-7S; Fri, 05 Jul 2024 15:12:51 +0000
+Received: by outflank-mailman (input) for mailman id 754367;
+ Fri, 05 Jul 2024 15:12:49 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=A4R/=OF=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1sPkab-00062j-4F
- for xen-devel@lists.xenproject.org; Fri, 05 Jul 2024 15:11:09 +0000
-Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com
- [2a00:1450:4864:20::634])
+ id 1sPkcD-0006ay-Nv
+ for xen-devel@lists.xenproject.org; Fri, 05 Jul 2024 15:12:49 +0000
+Received: from mail-lf1-x12e.google.com (mail-lf1-x12e.google.com
+ [2a00:1450:4864:20::12e])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id cab22d53-3ae0-11ef-bbfb-fd08da9f4363;
- Fri, 05 Jul 2024 17:11:02 +0200 (CEST)
-Received: by mail-ej1-x634.google.com with SMTP id
- a640c23a62f3a-a77c25beae1so170183766b.2
- for <xen-devel@lists.xenproject.org>; Fri, 05 Jul 2024 08:11:02 -0700 (PDT)
+ id 0a602571-3ae1-11ef-bbfb-fd08da9f4363;
+ Fri, 05 Jul 2024 17:12:48 +0200 (CEST)
+Received: by mail-lf1-x12e.google.com with SMTP id
+ 2adb3069b0e04-52ea79e689eso841832e87.1
+ for <xen-devel@lists.xenproject.org>; Fri, 05 Jul 2024 08:12:48 -0700 (PDT)
 Received: from [10.125.226.166] ([185.25.67.249])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a77c25b6b47sm113204366b.199.2024.07.05.08.11.00
+ a640c23a62f3a-a77dcf8bf36sm15835766b.36.2024.07.05.08.12.46
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 05 Jul 2024 08:11:00 -0700 (PDT)
+ Fri, 05 Jul 2024 08:12:47 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,46 +45,46 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: cab22d53-3ae0-11ef-bbfb-fd08da9f4363
+X-Inumbo-ID: 0a602571-3ae1-11ef-bbfb-fd08da9f4363
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1720192261; x=1720797061; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1720192368; x=1720797168; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=vJCoI00qKpGiXUWXQaU13hgbroPoQtqjygJFwTXmzLA=;
-        b=Mo27UdH6yYC6feAQUN2Qpe51Ae+EkePklCwBEWFuOToWd7Q+L3ObHbET0LYGPmWxzA
-         9uYmGVCSNIcl5iGmjRxpt+Gke9lvh+Qrnd4Ta1fI59H5Zj6cAxx8Ax3PabXNNoZRVwNI
-         rNsaoN1j2NXS7NEN4REyHwsClECTCk3I4BC/8=
+        bh=7f3XTOhjIawPb6ry/kr/tnwracst8D7eEzUxFQNkOx0=;
+        b=EuR/if1iFnAAjbK4Fds3tRb88UZD5UIMUhHYuCWRen1AvC/NcJaXTmZfQAmR+5xQ7E
+         JQhEzx76SMaNXGFvigGsxLLyAjCSewpxf7/f7kNNzlKFssWQtJM24sY6a10PjMIviH8G
+         QosvRtnsj35LBji92Y/9WArVSurX72gEvNL7s=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1720192261; x=1720797061;
+        d=1e100.net; s=20230601; t=1720192368; x=1720797168;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=vJCoI00qKpGiXUWXQaU13hgbroPoQtqjygJFwTXmzLA=;
-        b=D50NhGg6QqFh/vc4JarN923yyOOTLFDmRJBI6EiF8VWngyGDPTMLgQbK4OYYR66k11
-         DNFJyUEeKgHQ7AYUgx4RUVIPAW4pA7YQ41+oKvdbOC3645wU2X7JTBNNntsNqh62EcbH
-         Q6yJuPuHGfZuIRzr6q/mAdphNElXLReb1utd3n92JIKoxKuJbixNpT7xVLRQdKZ0AyiO
-         rCAGaVmNLRwruxmMb17CxX94rzHfg3SYhcbnvYI95+WI4C0b+vDyYzsROPlRAqZ3Ow9F
-         4nWu6pAoOoTJxdWN7sWRnlbE0f726E8QOTLR5RaC0EGUbK3Omr00MO9jZfL92tS5JRRj
-         yLTQ==
-X-Forwarded-Encrypted: i=1; AJvYcCWGBoRB/vGe1FKjtz4WcSyZC2oXKehziRPOglyid5C66zQyj6rE/lIreSdjtjhmfcWnfnHWHQGGTWE96G9NRBBtHgVAP26U/rWBuSgNZ/Q=
-X-Gm-Message-State: AOJu0YwLpAzHsfrBVv0It3grKvfO/SaiBpr76BePK6BLdlEfbHM09Yi9
-	bSUjM0gR8sFbNxSAIK8TIkK7TzRJzZdwbrfPchaqk3bbOovfmZRMFtWMdNaA7eDRhoYQTsmODFg
-	j
-X-Google-Smtp-Source: AGHT+IHFvFms7ROglKvWq0wMse4Y6nZBCkzOTw/5bAvU0KmEBu0Fx5JLqUoWgbldSBz0wUxHwNJkKA==
-X-Received: by 2002:a17:906:ae97:b0:a77:b516:3026 with SMTP id a640c23a62f3a-a77ba44c954mr311289866b.3.1720192261553;
-        Fri, 05 Jul 2024 08:11:01 -0700 (PDT)
-Message-ID: <ad8d81a4-4a99-466b-a37e-c4b57e2c7802@citrix.com>
-Date: Fri, 5 Jul 2024 16:10:58 +0100
+        bh=7f3XTOhjIawPb6ry/kr/tnwracst8D7eEzUxFQNkOx0=;
+        b=wa+RbC4jkOLXzdtItsSHQmpCz3HyRv1Jl9koujdAGwbM4ocFQzV5+lRfzuEnVgygHh
+         WBifFuMiIFUuaet/5NrzxM6qJIi5kVP8qIixpyTSXCG8bUN860uxd2unTZzSUavcNQ2r
+         dWYSGW1HJETZQwtemXkVIfCMfzGbQG+hXtY7DcfKEdDa7WAYhLWU5V8Wuwhv8tiuiCay
+         r0xJ/vBN0CYKAtG/0uAF3FmsZ9KbLSsYMFVdxp5CM6Py30fHabchIcBEJnzSJOLD3sDi
+         00lxNdOL1H1jfYNz2bHzqmsflYketbisTEt2/w6wWxM+NRFkIfEnDyl/TK32abgVdU13
+         bnfg==
+X-Forwarded-Encrypted: i=1; AJvYcCViB2tWW7rdzggZWNfzlrRoyDFcTErIyYIOofipqcfKm326WVDnqMQv/kLNiZne0AJn5x3rn/IDiuK7dw6VVZGnUkocIhwS4g21OfCPX0E=
+X-Gm-Message-State: AOJu0YxUiUd69O4cq2TojrVSubbDHnnmfmVFicCzDpRq7ua49VL9/jel
+	QRITCt6tyUxwt1N/F/c9z91dcTdwY4TLmoc3OB5GJQ+Ei5acl+8hjABFnQvaKgEIeylhnBSOJnW
+	n
+X-Google-Smtp-Source: AGHT+IGevJrkE7CVV5Kh94zdGWg1KaOtWMd7npUnX85+9nhbYm7bjP/mIXu+3LZsEb5/bnNp6DOSSA==
+X-Received: by 2002:a19:5510:0:b0:52c:ab21:7c05 with SMTP id 2adb3069b0e04-52ea06c9576mr3961113e87.67.1720192368336;
+        Fri, 05 Jul 2024 08:12:48 -0700 (PDT)
+Message-ID: <95f3aafe-a534-4001-adcc-b82b78881d84@citrix.com>
+Date: Fri, 5 Jul 2024 16:12:44 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH for-4.19?] tools/libs/store: add missing USE_PTHREAD to
- target .o
-To: Andrei Stan <andreistan2003@gmail.com>, xen-devel@lists.xenproject.org
-Cc: Juergen Gross <jgross@suse.com>, Julien Grall <julien@xen.org>,
- Anthony PERARD <anthony.perard@vates.tech>
-References: <20240705145910.32736-3-andreistan2003@gmail.com>
+Subject: Re: [XEN PATCH v3] tools/misc: xen-hvmcrash: Inject #DF instead of
+ overwriting RIP
+To: Matthew Barnes <matthew.barnes@cloud.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Anthony PERARD <anthony@xenproject.org>
+References: <280d24e233d040ab8d647aeed4026083e2f370bf.1720190714.git.matthew.barnes@cloud.com>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -130,41 +130,32 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <20240705145910.32736-3-andreistan2003@gmail.com>
+In-Reply-To: <280d24e233d040ab8d647aeed4026083e2f370bf.1720190714.git.matthew.barnes@cloud.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 05/07/2024 3:59 pm, Andrei Stan wrote:
-> Currently only shared libraries build with USE_PTHREAD enabled.
+On 05/07/2024 4:05 pm, Matthew Barnes wrote:
+> xen-hvmcrash would previously save records, overwrite the instruction
+> pointer with a bogus value, and then restore them to crash a domain
+> just enough to cause the guest OS to memdump.
 >
-> This patch adds the macro also to xs.o.
+> This approach is found to be unreliable when tested on a guest running
+> Windows 10 x64, with some executions doing nothing at all.
 >
-> Backport: 4.18+ # maybe older
-> Signed-off-by: Andrei Stan <andreistan2003@gmail.com>
-> ---
->  tools/libs/store/Makefile | 1 +
->  1 file changed, 1 insertion(+)
+> Another approach would be to trigger NMIs. This approach is found to be
+> unreliable when tested on Linux (Ubuntu 22.04), as Linux will ignore
+> NMIs if it is not configured to handle such.
 >
-> diff --git a/tools/libs/store/Makefile b/tools/libs/store/Makefile
-> index 0649cf8307..c6f147c72f 100644
-> --- a/tools/libs/store/Makefile
-> +++ b/tools/libs/store/Makefile
-> @@ -20,6 +20,7 @@ CFLAGS += -include $(XEN_ROOT)/tools/config.h
->  CFLAGS += $(CFLAGS_libxentoolcore)
->  
->  xs.opic: CFLAGS += -DUSE_PTHREAD
-> +xs.o: CFLAGS += -DUSE_PTHREAD
->  ifeq ($(CONFIG_Linux),y)
->  xs.opic: CFLAGS += -DUSE_DLSYM
->  endif
+> Injecting a double fault abort to all vCPUs is found to be more
+> reliable at crashing and invoking memdumps from Windows and Linux
+> domains.
+>
+> This patch modifies the xen-hvmcrash tool to inject #DF to all vCPUs
+> belonging to the specified domain, instead of overwriting RIP.
+>
+> Signed-off-by: Matthew Barnes <matthew.barnes@cloud.com>
 
-Funnily enough, I did wonder whether that mattered recently.  I guess it
-does.
+Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-CC Oleksii for a view to 4.19.
-
-Also, we should transform the Backport: tag into a Fixes: tag if there's
-a suitable one to pick.
-
-~Andrew
+I'll queue this in my for-4.20 branch in due course.
 
