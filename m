@@ -2,35 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 76963928B03
-	for <lists+xen-devel@lfdr.de>; Fri,  5 Jul 2024 16:55:46 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.754336.1162739 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BC96F928B3F
+	for <lists+xen-devel@lfdr.de>; Fri,  5 Jul 2024 17:07:50 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.754345.1162762 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sPkKs-00028T-5u; Fri, 05 Jul 2024 14:54:54 +0000
+	id 1sPkX3-0004NC-ID; Fri, 05 Jul 2024 15:07:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 754336.1162739; Fri, 05 Jul 2024 14:54:54 +0000
+Received: by outflank-mailman (output) from mailman id 754345.1162762; Fri, 05 Jul 2024 15:07:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sPkKs-00025v-2i; Fri, 05 Jul 2024 14:54:54 +0000
-Received: by outflank-mailman (input) for mailman id 754336;
- Fri, 05 Jul 2024 14:54:52 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1sPkKq-00025l-Ho; Fri, 05 Jul 2024 14:54:52 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1sPkKq-0002TO-8w; Fri, 05 Jul 2024 14:54:52 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1sPkKq-0006me-1n; Fri, 05 Jul 2024 14:54:52 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1sPkKq-0008Ma-1F; Fri, 05 Jul 2024 14:54:52 +0000
+	id 1sPkX3-0004Le-FM; Fri, 05 Jul 2024 15:07:29 +0000
+Received: by outflank-mailman (input) for mailman id 754345;
+ Fri, 05 Jul 2024 15:00:01 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=Mps8=OF=gmail.com=andreistan2003@srs-se1.protection.inumbo.net>)
+ id 1sPkPp-0002rJ-Cm
+ for xen-devel@lists.xenproject.org; Fri, 05 Jul 2024 15:00:01 +0000
+Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
+ [2a00:1450:4864:20::32b])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 3f9a2963-3adf-11ef-8776-851b0ebba9a2;
+ Fri, 05 Jul 2024 16:59:59 +0200 (CEST)
+Received: by mail-wm1-x32b.google.com with SMTP id
+ 5b1f17b1804b1-42562a984d3so11713575e9.3
+ for <xen-devel@lists.xenproject.org>; Fri, 05 Jul 2024 07:59:59 -0700 (PDT)
+Received: from andrei-desktop.. ([79.114.140.114])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4264a1d509asm65915415e9.8.2024.07.05.07.59.57
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 05 Jul 2024 07:59:58 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,72 +45,71 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=+QCOK21NZMrCZpPbf3DUIr82Rmo7aTA7aiOSkj8oUjM=; b=nqtgK9IbQDeepvzQeXu7Cg/Ahe
-	CSPoBUTlxK815b/Sq8zI4VMP2Am9PdrWez4TeP1XkFr539/BVPHMfpHByPjdpukHIXkoN3B3MwVlJ
-	d2xxauL9Cy2rQ3OADaC3duaEjXW+XxG764Oiw2ifEKrelBV+tuJfXifh6DY59o+RSNt4=;
+X-Inumbo-ID: 3f9a2963-3adf-11ef-8776-851b0ebba9a2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1720191599; x=1720796399; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=V0om5ShG7hBp9wOatFKjTiKLatOhOHjXqUbegYtq+Ik=;
+        b=WSE80Cy/8A4mrJYAppkMiCuxKix6vFQP2PWHwQyIgiiS80gF7LSFpu1TVaybzGcKx6
+         SJa0iMvqDlKDfohheR/jXrYQ0CXP5F5mXpFol9IGld1XZOkWtRga5ohL2tZJLpq/YAs/
+         QgQR5dAjz7gXzK9/KQ3TJ/tMr7TsX+n7qbJarpnWkkfGBYFDNa1reMuXmNx4+b3ERPZ/
+         lW8BWLq+ObrT3TJW15kFy4OZj73oaYYHWVMk6CdU7QQujWY/jS5AHTcGhK2SlelwpVga
+         aTFtisrwV//bQFrCT4MZ3LBqqKmxsY6B+vR0xWtLxssh9liWDAovb9BgAvXZM4XB/Kdc
+         Yq3g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1720191599; x=1720796399;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=V0om5ShG7hBp9wOatFKjTiKLatOhOHjXqUbegYtq+Ik=;
+        b=IEU7UdLNkXlrp7+7YGmZDgYx7XlZBQudvDwe7MP5Z2gAfQ0Ow1nlVyDmhzBs3TcZRi
+         pNTbp0kmm8EbiK32UrfhJfpLDWAk/rv2XR7xdoklGia1wygjD3PRN6cXuuW4s1w4vhlz
+         yT0aS73x7Ww3LPFv6Fz+bXZOvvaTURLY9xMU+ShnxsbMEWD8KNDLA7FE6tKjGRfY7Wd9
+         avLyTfmDLeDsGvB/O+pmu4B9ECU4hc5bz/evKb9HaS8+a8oFldsm1NF+NM0DmGhBtCyV
+         Dm1KuAItbtCY615MTqk7VLcb7S4jP3i+HwdIB12ItSS6O3jMqDosb7KBH8dmFTRDt6oc
+         +D3A==
+X-Gm-Message-State: AOJu0YzMWlOtFmDuhOYupmRsYFqRRyS9F0GZhEHRgeJMTRJ3qpZ3ZquT
+	cQbYSqeWf2Ia2Jc7aHCixb6LFumn5xyFRDnFglpsbVmZ3DnxvJf2YkwvtKQR
+X-Google-Smtp-Source: AGHT+IG1v/TIiXFmdrooh4+OvKuZhrO122uKdfXnMEvWYcp+H9c0N4Fzi1hw8MsElJXkozkkIyrj9Q==
+X-Received: by 2002:a05:600c:3544:b0:424:aa41:4c15 with SMTP id 5b1f17b1804b1-4264a3dc0f4mr32459485e9.22.1720191598421;
+        Fri, 05 Jul 2024 07:59:58 -0700 (PDT)
+From: Andrei Stan <andreistan2003@gmail.com>
 To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-186701-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+Cc: Andrei Stan <andreistan2003@gmail.com>,
+	Juergen Gross <jgross@suse.com>,
+	Julien Grall <julien@xen.org>,
+	Anthony PERARD <anthony.perard@vates.tech>
+Subject: [PATCH] tools/libs/store: add missing USE_PTHREAD to target .o
+Date: Fri,  5 Jul 2024 17:59:12 +0300
+Message-ID: <20240705145910.32736-3-andreistan2003@gmail.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Subject: [ovmf test] 186701: all pass - PUSHED
-X-Osstest-Versions-This:
-    ovmf=051c7bb434f9f6b908aac2a0b00368192aa616ec
-X-Osstest-Versions-That:
-    ovmf=bef0d333dc4fccdfc75e4be31e067b467a9a4093
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 05 Jul 2024 14:54:52 +0000
+Content-Transfer-Encoding: 8bit
 
-flight 186701 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/186701/
+Currently only shared libraries build with USE_PTHREAD enabled.
 
-Perfect :-)
-All tests in this flight passed as required
-version targeted for testing:
- ovmf                 051c7bb434f9f6b908aac2a0b00368192aa616ec
-baseline version:
- ovmf                 bef0d333dc4fccdfc75e4be31e067b467a9a4093
+This patch adds the macro also to xs.o.
 
-Last test of basis   186694  2024-07-05 08:41:11 Z    0 days
-Testing same since   186701  2024-07-05 13:11:10 Z    0 days    1 attempts
+Backport: 4.18+ # maybe older
+Signed-off-by: Andrei Stan <andreistan2003@gmail.com>
+---
+ tools/libs/store/Makefile | 1 +
+ 1 file changed, 1 insertion(+)
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Michael Kubacki <michael.kubacki@microsoft.com>
+diff --git a/tools/libs/store/Makefile b/tools/libs/store/Makefile
+index 0649cf8307..c6f147c72f 100644
+--- a/tools/libs/store/Makefile
++++ b/tools/libs/store/Makefile
+@@ -20,6 +20,7 @@ CFLAGS += -include $(XEN_ROOT)/tools/config.h
+ CFLAGS += $(CFLAGS_libxentoolcore)
+ 
+ xs.opic: CFLAGS += -DUSE_PTHREAD
++xs.o: CFLAGS += -DUSE_PTHREAD
+ ifeq ($(CONFIG_Linux),y)
+ xs.opic: CFLAGS += -DUSE_DLSYM
+ endif
+-- 
+2.43.0
 
-jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
-   bef0d333dc..051c7bb434  051c7bb434f9f6b908aac2a0b00368192aa616ec -> xen-tested-master
 
