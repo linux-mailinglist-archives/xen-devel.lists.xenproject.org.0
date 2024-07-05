@@ -2,32 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CB17192892F
-	for <lists+xen-devel@lfdr.de>; Fri,  5 Jul 2024 15:03:57 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.754287.1162635 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9383E9289F3
+	for <lists+xen-devel@lfdr.de>; Fri,  5 Jul 2024 15:42:43 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.754296.1162645 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sPiam-0003RM-1d; Fri, 05 Jul 2024 13:03:12 +0000
+	id 1sPjBu-0000KX-Qn; Fri, 05 Jul 2024 13:41:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 754287.1162635; Fri, 05 Jul 2024 13:03:12 +0000
+Received: by outflank-mailman (output) from mailman id 754296.1162645; Fri, 05 Jul 2024 13:41:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sPial-0003Pq-Uu; Fri, 05 Jul 2024 13:03:11 +0000
-Received: by outflank-mailman (input) for mailman id 754287;
- Fri, 05 Jul 2024 13:03:09 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1sPiaj-0003Pj-MA
- for xen-devel@lists.xenproject.org; Fri, 05 Jul 2024 13:03:09 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1sPiaj-000084-BX; Fri, 05 Jul 2024 13:03:09 +0000
-Received: from buscust21-202.static.cytanet.com.cy ([87.228.190.202]
- helo=[10.10.49.222]) by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1sPiaj-0003hu-0G; Fri, 05 Jul 2024 13:03:09 +0000
+	id 1sPjBu-0000Ik-OA; Fri, 05 Jul 2024 13:41:34 +0000
+Received: by outflank-mailman (input) for mailman id 754296;
+ Fri, 05 Jul 2024 13:41:33 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=vKH+=OF=cloud.com=kelly.choi@srs-se1.protection.inumbo.net>)
+ id 1sPjBt-0000Ie-Jv
+ for xen-devel@lists.xenproject.org; Fri, 05 Jul 2024 13:41:33 +0000
+Received: from mail-ed1-x52a.google.com (mail-ed1-x52a.google.com
+ [2a00:1450:4864:20::52a])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 4830a660-3ad4-11ef-8776-851b0ebba9a2;
+ Fri, 05 Jul 2024 15:41:29 +0200 (CEST)
+Received: by mail-ed1-x52a.google.com with SMTP id
+ 4fb4d7f45d1cf-58b0dddab8cso2748417a12.0
+ for <xen-devel@lists.xenproject.org>; Fri, 05 Jul 2024 06:41:29 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,62 +40,73 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=Qq6EdX3jfW92V25UQy9hu8Bbls2yO7YDgIOnZ93aAbU=; b=WQePbqYY/tbAV3fybP9XdurcbH
-	I8p+Lxuivi6M5JbiUketPB8HU0eMey/5QZQdQznv9WXLCd0D7tIhaAIM6spPz2RuK7WVAQWPb8bjR
-	hOvDH0gk/s2uiAEXR/GpU4qk3R4dkJkOQjvOprzHmf2mGWlXjlFeFAeLLoiAVlDaIURI=;
-Message-ID: <7f426aab-bccb-4255-994f-2d1613f2342b@xen.org>
-Date: Fri, 5 Jul 2024 16:03:06 +0300
+X-Inumbo-ID: 4830a660-3ad4-11ef-8776-851b0ebba9a2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cloud.com; s=cloud; t=1720186888; x=1720791688; darn=lists.xenproject.org;
+        h=to:subject:message-id:date:from:mime-version:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=aex0E2jcu20sLLA0UR2Uzw5SPRTn13mJ04TL7pHoBJE=;
+        b=gzBiJYAM58YPQdHsQ/htzrcw8OWJW351uoYPkMoD73pwFM6/CXwzajMlH+AmWIwt/h
+         JVab4JpU6r72Oodr0AazwFFhIOtYOFn4rtdq4jSBK32Yw1TFLoxFsHjPVcRNsgdZD5st
+         MhkjCR5Uyb14U8UyyPAfgpP4A+9rG3/fl6nB0=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1720186888; x=1720791688;
+        h=to:subject:message-id:date:from:mime-version:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=aex0E2jcu20sLLA0UR2Uzw5SPRTn13mJ04TL7pHoBJE=;
+        b=XxwHHsM12e4h40v2wozBL2z4xrnJZni+7+EZp9e6vxMG3s2ts4i5Xwib+UpQ2Lpmj+
+         SZkQdyRVpMqmj7tVZyRGtBCWDWKnuG/qLOEgdZ6gwGx+7sl/mRv8MLUgc03B19rXqthQ
+         0IBFpnILuHGgbWq7yGXuCLkxU2YguZC0Cf1JUGMRlthWVrv9J6gusO77eECg94cFUWhc
+         6kK8n4ll0bnucOBpCv9T6Bc02rwsMPnSd0pIZLY8ysSErF0HAejuR0UfWVmSXiDhQewq
+         cSBF0TS/xickElHPk98zv6+qzBgD3O7q1xWOPhh8csUcQtYymT1IHlOu9MIyZKfaQ2Mm
+         dMpA==
+X-Gm-Message-State: AOJu0YwU3v+04YjAHrSKFOheS6ze5jBsK+6l4kccSoQKe/bBBUpz+txq
+	IQ4w6j/zKsaecmRGa46H15kJHtvsKMel97UPCeDrrWLsXnyZ1hJjdVz067nhy6uvrMY1H1Wcl+x
+	6Sse6TNcvxdCu198QYG8P7tepy1892JfF1cw4EmJcCgNvizSFbavy/A==
+X-Google-Smtp-Source: AGHT+IHslhLODQfxOjekxITHHpy1GHPaK9IyVSg3y1J0GAyXcuZ9fVRRGt/QlbeaSKKUq5mcw6rI6zWo8Km84e1ONG0=
+X-Received: by 2002:a05:6402:1d4e:b0:57c:5fcf:b570 with SMTP id
+ 4fb4d7f45d1cf-58e5aecb1d7mr3354129a12.32.1720186887979; Fri, 05 Jul 2024
+ 06:41:27 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH for-4.20] xen/arm: dom0less: Add #redistributor-regions
- property to GICv3 node
-Content-Language: en-GB
-To: Luca Fancellu <Luca.Fancellu@arm.com>, Michal Orzel <michal.orzel@amd.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <Bertrand.Marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-References: <20240704075419.34966-1-michal.orzel@amd.com>
- <19A039ED-1B56-4C16-B1D0-72F28AA123C5@arm.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <19A039ED-1B56-4C16-B1D0-72F28AA123C5@arm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+From: Kelly Choi <kelly.choi@cloud.com>
+Date: Fri, 5 Jul 2024 14:40:52 +0100
+Message-ID: <CAO-mL=zEr=ade54O5LpFwKcZ3oQRgBN1zj8oREmDs3USZK+drw@mail.gmail.com>
+Subject: [Job posting] Lead Software Engineer - Hypervisor
+To: xen-devel <xen-devel@lists.xenproject.org>
+Content-Type: multipart/alternative; boundary="00000000000067ed9d061c8038b1"
 
-Hi,
+--00000000000067ed9d061c8038b1
+Content-Type: text/plain; charset="UTF-8"
 
-On 04/07/2024 11:39, Luca Fancellu wrote:
-> 
-> 
->> On 4 Jul 2024, at 08:54, Michal Orzel <michal.orzel@amd.com> wrote:
->>
->> Dom0less domain using host memory layout may use more than one
->> re-distributor region (d->arch.vgic.nr_regions > 1). In that case Xen
->> will add them in a "reg" property of a GICv3 domU node. Guest needs to
->> know how many regions to search for, and therefore the GICv3 dt binding
->> [1] specifies that "#redistributor-regions" property is required if more
->> than one redistributor region is present. However, Xen does not add this
->> property which makes guest believe, there is just one such region. This
->> can lead to guest boot failure when doing GIC SMP initialization. Fix it
->> by adding this property, which matches what we do for hwdom.
->>
->> [1] Linux: Documentation/devicetree/bindings/interrupt-controller/arm,gic-v3.yaml
->>
->> Fixes: 4809f9ec7d71 ("xen/arm: if direct-map domain use native addresses for GICv3")
->> Signed-off-by: Michal Orzel <michal.orzel@amd.com>
->> ---
-> 
-> Looks good to me!
-> 
-> Reviewed-by: Luca Fancellu <luca.fancellu@arm.com>
+Hi Xen Community,
 
-Acked-by: Julien Grall <jgrall@amazon.com>
+Are you looking for a new challenge or know someone who you think will fit?
 
-Cheers,
+We have a job posting for a Lead Software Engineer - hypervisor
+Location: Cambridge, UK.
 
--- 
-Julien Grall
+More details: https://xenproject.org/about-us/community-jobs/
+
+Many thanks,
+Kelly Choi
+
+Community Manager
+Xen Project
+
+--00000000000067ed9d061c8038b1
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">Hi Xen Community,<div><br><div>Are you looking for a new c=
+hallenge or know someone who you think will fit?</div><div><br>We have a jo=
+b posting for a Lead Software Engineer - hypervisor<br>Location: Cambridge,=
+ UK.</div><div><br>More details: <a href=3D"https://xenproject.org/about-us=
+/community-jobs/">https://xenproject.org/about-us/community-jobs/</a><br></=
+div><div><br></div><div><div><div dir=3D"ltr" class=3D"gmail_signature" dat=
+a-smartmail=3D"gmail_signature"><div dir=3D"ltr"><div>Many thanks,</div><di=
+v>Kelly Choi</div><div><br></div><div><div style=3D"color:rgb(136,136,136)"=
+>Community Manager</div><div style=3D"color:rgb(136,136,136)">Xen Project=
+=C2=A0<br></div></div></div></div></div></div></div></div>
+
+--00000000000067ed9d061c8038b1--
 
