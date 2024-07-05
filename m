@@ -2,40 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4D2A0928B94
-	for <lists+xen-devel@lfdr.de>; Fri,  5 Jul 2024 17:23:05 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.754409.1162862 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B2B1C928C12
+	for <lists+xen-devel@lfdr.de>; Fri,  5 Jul 2024 18:06:36 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.754442.1162876 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sPklo-0003ta-Vo; Fri, 05 Jul 2024 15:22:44 +0000
+	id 1sPlRA-0003hi-4R; Fri, 05 Jul 2024 16:05:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 754409.1162862; Fri, 05 Jul 2024 15:22:44 +0000
+Received: by outflank-mailman (output) from mailman id 754442.1162876; Fri, 05 Jul 2024 16:05:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sPklo-0003rJ-Sr; Fri, 05 Jul 2024 15:22:44 +0000
-Received: by outflank-mailman (input) for mailman id 754409;
- Fri, 05 Jul 2024 15:22:43 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=XwCH=OF=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1sPkln-0003bk-8g
- for xen-devel@lists.xenproject.org; Fri, 05 Jul 2024 15:22:43 +0000
-Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
- [2a00:1450:4864:20::632])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 6c15d25b-3ae2-11ef-bbfb-fd08da9f4363;
- Fri, 05 Jul 2024 17:22:42 +0200 (CEST)
-Received: by mail-ej1-x632.google.com with SMTP id
- a640c23a62f3a-a77c2d89af8so163622366b.2
- for <xen-devel@lists.xenproject.org>; Fri, 05 Jul 2024 08:22:42 -0700 (PDT)
-Received: from ?IPV6:2003:e5:8729:4000:29eb:6d9d:3214:39d2?
- (p200300e58729400029eb6d9d321439d2.dip0.t-ipconnect.de.
- [2003:e5:8729:4000:29eb:6d9d:3214:39d2])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a77c9925463sm74555066b.69.2024.07.05.08.22.41
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 05 Jul 2024 08:22:41 -0700 (PDT)
+	id 1sPlRA-0003fx-0W; Fri, 05 Jul 2024 16:05:28 +0000
+Received: by outflank-mailman (input) for mailman id 754442;
+ Fri, 05 Jul 2024 16:05:27 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=Mps8=OF=gmail.com=andreistan2003@srs-se1.protection.inumbo.net>)
+ id 1sPlR9-0003fr-4N
+ for xen-devel@lists.xenproject.org; Fri, 05 Jul 2024 16:05:27 +0000
+Received: from mail-qt1-x831.google.com (mail-qt1-x831.google.com
+ [2607:f8b0:4864:20::831])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 61d10dd6-3ae8-11ef-8776-851b0ebba9a2;
+ Fri, 05 Jul 2024 18:05:22 +0200 (CEST)
+Received: by mail-qt1-x831.google.com with SMTP id
+ d75a77b69052e-445e1f933e0so8250451cf.0
+ for <xen-devel@lists.xenproject.org>; Fri, 05 Jul 2024 09:05:22 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,83 +40,103 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6c15d25b-3ae2-11ef-bbfb-fd08da9f4363
+X-Inumbo-ID: 61d10dd6-3ae8-11ef-8776-851b0ebba9a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1720192962; x=1720797762; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=Gx82JRugbBZFJqvXyfDeEFnrGg8wk6oy2FrBYJAu6Yo=;
-        b=OCBx+P6VI3T243DkjjOAoP3sz43KGOvQ+Lmc+L0euzVvlTFY1/02bAwapnX5fnKbxU
-         wPssQVTMDz8U0m7O/LpUgqRGizZp3z/IRlHUt5/x2C/NF3uJjGRQUm5JZKoIkXL+bh2w
-         SJ9vPmD94uzVvSPSVWK3bYHEoKEMBK6Xy0AVenfcyPqXlNfARveUM7P2BW6A7i+6dy2R
-         kg///EJR9YMUUIGqr1K6QyCnApI3YXRsk6y7b4cWbDxZ204n5rNP7dF1LrSYGItjpH9T
-         p4Lx9LvDKKZMnvD9Iv32QBIs7XI6LDOn0Vaj0wPFdtQfWnfHEHvOe6x08hpbTL68jvnD
-         xP4g==
+        d=gmail.com; s=20230601; t=1720195521; x=1720800321; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=idjXXqvgasy6zJw0NvplHHzfSXjgrv3fy3NK6/GxX4c=;
+        b=GSLkoTdQEwrqE+ftUU7bcIcCOpRbt2L/61KYPHvS7FPxxFlCQttNClfeCHyjyaFb73
+         W8KibvIRc0pctEU4VyNpveyb5FcU6xTiBWiYghY7BqMGPAA1bnyFl/BFkT89LjSLDw7a
+         1e52wPPIgt8giq41j8QrwhTGrJltQB1Hlhq4Jk9Me0ocC1tEAFnovT78LnexPRp3L5XY
+         dev2YhMgyVAJlr9fzlgxraT8YMaU6PPBcp3tmVPB0kKCiQkkhxZa9dzj9KNvyZTktxSu
+         8yfkbMyzHJUFJPFIjXWPwsGOETAfpNMBsY1KG0x5gA2OcMwk2PmEQgch0GGmtziwSFLH
+         FaHA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1720192962; x=1720797762;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=Gx82JRugbBZFJqvXyfDeEFnrGg8wk6oy2FrBYJAu6Yo=;
-        b=QlmrgRA2CiIiN0yT9FafsNt8lThg+liFRytBqWL4wpH0kTsiaVWIxNuGmSqae9G3Kq
-         Q8Vci1CiHe2rOZmLOHeiLiCSwqhWz4b/8IVYfiQNCfdCmXxdKSz0wZW9NvvFZlpeCcZW
-         f4m6pxyKQtr6ooz4InL8eUX+YnHriNvciGHXLzM71gxurfJZmcHEvH6rtEvdbK2viWLM
-         vPtEPgK15RvfE+UEVAER0dHG3ThEv93MMkVaxTEdjKTlAN9DsVABhrGSrboGQ/d6es6P
-         O+WnhSsff5KDwb8nt4AUEwflDNIBwOWZUKIW8xMKzJpjbYStpTPRwWoLFy6+zHYN3hhH
-         IABA==
-X-Forwarded-Encrypted: i=1; AJvYcCWgxSzygIN1IDLpNK+aV6PGMCtbxFuUDPv1LH2zCwIKWLDXIrIRA+1BvTJpo1WW8tkp2oTBU57T66YVFQmc9/qT2HA7/OXsxuK9l7iK+AE=
-X-Gm-Message-State: AOJu0YzladjYXNZaI3K2fjFejBoXTq8Yad3i5IsJ8ehllLOVg2pYpp4I
-	FKI+dViiUau76VesMnKGN1n7tW4+oKXMdRlGi2RA2tlXayw9Li00ge+TeF5XkkYj9I/Hmahxdpy
-	6
-X-Google-Smtp-Source: AGHT+IFi+Nv1DpU/3POkqycbBMkQpbLuIb4mybWNK1ktmemCBgsHmaDyPT5JFTTgs90xu5vj8DMCEQ==
-X-Received: by 2002:a17:907:969e:b0:a75:110d:fa53 with SMTP id a640c23a62f3a-a77ba70baf4mr423629666b.49.1720192961840;
-        Fri, 05 Jul 2024 08:22:41 -0700 (PDT)
-Message-ID: <36ad6b62-9186-41e3-bfa7-7a6d81d9efe1@suse.com>
-Date: Fri, 5 Jul 2024 17:22:40 +0200
+        d=1e100.net; s=20230601; t=1720195521; x=1720800321;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=idjXXqvgasy6zJw0NvplHHzfSXjgrv3fy3NK6/GxX4c=;
+        b=dJUbmyhTUN5qhhhPz5NZNr/gs8JhhruIBUp7fSlBJlODzuM5q7BvuUXfZaXpunaMMA
+         TboMtmrDPWAD/xesbQXMOF/IquQJgn232Mn+g2Y2SvMYGABa5shEVau3vLOJWqbypS+D
+         M53PqMWinnPkS3SGZiTj8PDaY006KmiYwjLHuG2n1zN5vlFFVRoAc6rxBZb7L0Lu8Coz
+         wHzHcEihy8zurU8li29Oo6MyH3ifn8MkaLnbQaezrR99cvM8mHjToAsIhur9X+EEFkkr
+         N6zq8QP2ZH0YzUjwiOncsj644+q4mGx0j4/iPjUHOHdW766KqiRAE3vo1iMMC31CAx/u
+         HyUA==
+X-Forwarded-Encrypted: i=1; AJvYcCUbz1mNlA4yrxrRTQINl3fDDoVba740uAeB95BVjv6brhqosrENZ3Lr7mvo81gzIcl3MbK5zLKP12Hx+7cLJKEysfPqcHsQF8a/etpY/Eo=
+X-Gm-Message-State: AOJu0Yz+kn8bRmMGgVuZwoNS8Rh0KsgBvzhSXLxA9PW9uMgcxAqoAkAS
+	MCoa/GO2BaS+tugoBP0+K9Kn/tYmEA6ycOTybIRH13vwk9G9nuPxYfo29yTYYX/zz0W/v05ntLp
+	2i2GQ9g/ZkNHWKTD76K7xezX2iuA=
+X-Google-Smtp-Source: AGHT+IGyz/vODStqwszR7Wf19fR5jf37KNSPrLsPZpFfGbom639FauyYHW/teu5r4SG/CqN4bOaQRl9IvvkR3RV3jH4=
+X-Received: by 2002:a05:622a:45:b0:440:6345:257f with SMTP id
+ d75a77b69052e-447cbf9c277mr62283141cf.60.1720195521161; Fri, 05 Jul 2024
+ 09:05:21 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
+References: <20240705145910.32736-3-andreistan2003@gmail.com> <36ad6b62-9186-41e3-bfa7-7a6d81d9efe1@suse.com>
+In-Reply-To: <36ad6b62-9186-41e3-bfa7-7a6d81d9efe1@suse.com>
+From: Andrei Stan <andreistan2003@gmail.com>
+Date: Fri, 5 Jul 2024 19:05:08 +0300
+Message-ID: <CAH=Ecdj8PThEpMckjbciHhxK6H4K0qeympJvd5uQ=pX_G6rOFQ@mail.gmail.com>
 Subject: Re: [PATCH] tools/libs/store: add missing USE_PTHREAD to target .o
-To: Andrei Stan <andreistan2003@gmail.com>, xen-devel@lists.xenproject.org
+To: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>, 
+	xen-devel@lists.xenproject.org
 Cc: Julien Grall <julien@xen.org>, Anthony PERARD <anthony.perard@vates.tech>
-References: <20240705145910.32736-3-andreistan2003@gmail.com>
-Content-Language: en-US
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-In-Reply-To: <20240705145910.32736-3-andreistan2003@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 05.07.24 16:59, Andrei Stan wrote:
-> Currently only shared libraries build with USE_PTHREAD enabled.
-> 
-> This patch adds the macro also to xs.o.
-> 
-> Backport: 4.18+ # maybe older
-> Signed-off-by: Andrei Stan <andreistan2003@gmail.com>
-
-Commit dde3e02b7068 did that explicitly, stating that phtreads are
-not compatible with static linking.
-
-Was that reasoning wrong?
-
-
-Juergen
-
+On Fri, Jul 5, 2024 at 6:22=E2=80=AFPM J=C3=BCrgen Gro=C3=9F <jgross@suse.c=
+om> wrote:
+>
+> On 05.07.24 16:59, Andrei Stan wrote:
+> > Currently only shared libraries build with USE_PTHREAD enabled.
+> >
+> > This patch adds the macro also to xs.o.
+> >
+> > Backport: 4.18+ # maybe older
+> > Signed-off-by: Andrei Stan <andreistan2003@gmail.com>
+>
+> Commit dde3e02b7068 did that explicitly, stating that phtreads are
+> not compatible with static linking.
+>
+> Was that reasoning wrong?
+>
+> Juergen
 > ---
->   tools/libs/store/Makefile | 1 +
->   1 file changed, 1 insertion(+)
-> 
-> diff --git a/tools/libs/store/Makefile b/tools/libs/store/Makefile
-> index 0649cf8307..c6f147c72f 100644
-> --- a/tools/libs/store/Makefile
-> +++ b/tools/libs/store/Makefile
-> @@ -20,6 +20,7 @@ CFLAGS += -include $(XEN_ROOT)/tools/config.h
->   CFLAGS += $(CFLAGS_libxentoolcore)
->   
->   xs.opic: CFLAGS += -DUSE_PTHREAD
-> +xs.o: CFLAGS += -DUSE_PTHREAD
->   ifeq ($(CONFIG_Linux),y)
->   xs.opic: CFLAGS += -DUSE_DLSYM
->   endif
+> > ---
+> >   tools/libs/store/Makefile | 1 +
+> >   1 file changed, 1 insertion(+)
+> >
+> > diff --git a/tools/libs/store/Makefile b/tools/libs/store/Makefile
+> > index 0649cf8307..c6f147c72f 100644
+> > --- a/tools/libs/store/Makefile
+> > +++ b/tools/libs/store/Makefile
+> > @@ -20,6 +20,7 @@ CFLAGS +=3D -include $(XEN_ROOT)/tools/config.h
+> >   CFLAGS +=3D $(CFLAGS_libxentoolcore)
+> >
+> >   xs.opic: CFLAGS +=3D -DUSE_PTHREAD
+> > +xs.o: CFLAGS +=3D -DUSE_PTHREAD
+> >   ifeq ($(CONFIG_Linux),y)
+> >   xs.opic: CFLAGS +=3D -DUSE_DLSYM
+> >   endif
 
+It was a pretty nasty situation, giving some context, this is for a Go base=
+d CLI
+tool and some things in there are multithreaded, but i don't think
+calling in the
+bindings happens anywhere in parallel. Without this patch there would be
+some sort of race conditions (or so I assume from the debugging i've done)
+happening withing the xen/tools code, making it impossible to start a domai=
+n.
+
+In this case there were no issues in linking pthreads statically. I was not=
+ even
+aware of that being a possible issue. Is it really?
+
+Also I am not too sure how much that code path is actually tested, probably=
+ the
+majority of the testing is done with dynamic builds.
+
+Andrei
 
