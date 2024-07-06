@@ -2,35 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1244C928F9A
-	for <lists+xen-devel@lfdr.de>; Sat,  6 Jul 2024 01:59:18 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.754556.1163014 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A32A992912E
+	for <lists+xen-devel@lfdr.de>; Sat,  6 Jul 2024 07:51:12 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.754568.1163024 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sPsoZ-0007b9-KN; Fri, 05 Jul 2024 23:58:07 +0000
+	id 1sPyJ4-0001HS-Vt; Sat, 06 Jul 2024 05:49:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 754556.1163014; Fri, 05 Jul 2024 23:58:07 +0000
+Received: by outflank-mailman (output) from mailman id 754568.1163024; Sat, 06 Jul 2024 05:49:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sPsoZ-0007Z4-GL; Fri, 05 Jul 2024 23:58:07 +0000
-Received: by outflank-mailman (input) for mailman id 754556;
- Fri, 05 Jul 2024 23:58:05 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1sPsoX-0007Yu-TJ; Fri, 05 Jul 2024 23:58:05 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1sPsoX-00049y-RN; Fri, 05 Jul 2024 23:58:05 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1sPsoX-0007DG-H2; Fri, 05 Jul 2024 23:58:05 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1sPsoX-0006Jj-Ga; Fri, 05 Jul 2024 23:58:05 +0000
+	id 1sPyJ4-0001F1-TB; Sat, 06 Jul 2024 05:49:58 +0000
+Received: by outflank-mailman (input) for mailman id 754568;
+ Sat, 06 Jul 2024 02:22:47 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=v1aR=OG=netbsd.org=riastradh@srs-se1.protection.inumbo.net>)
+ id 1sPv4Z-0003H3-3n
+ for xen-devel@lists.xenproject.org; Sat, 06 Jul 2024 02:22:47 +0000
+Received: from mail.netbsd.org (mail.netbsd.org [199.233.217.200])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id a061d999-3b3e-11ef-bbfb-fd08da9f4363;
+ Sat, 06 Jul 2024 04:22:45 +0200 (CEST)
+Received: by mail.netbsd.org (Postfix, from userid 1457)
+ id 3238584D44; Sat,  6 Jul 2024 02:22:42 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,132 +38,56 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=qZOJtD7WEGp0uZ+JCeQDdqcXRXA5vioLIwg844DAgbw=; b=YE7U+yzpGVzQSH2qUCe7idHWeK
-	DOoqxvbiYiM4xGB8UHZi3VVYBnrtJhlQVZkZfrpv1jg6wODRqE8I6oGWDleO9MAc+vu+9KZPQuwAD
-	f7YO+JdytuScVu1lRm4yTnxAH5FvFqqYr4Zzo+qpijn+8EGjMst7D7J16SLtawOyxMtk=;
+X-Inumbo-ID: a061d999-3b3e-11ef-bbfb-fd08da9f4363
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=netbsd.org;
+	s=20240131; t=1720232562;
+	bh=mI0qwY2cgup+mnxCC6WbO1Fxx97Sbm0J56W2YH+EQt8=;
+	h=To:Subject:Date:From;
+	b=HhPqiIeIVM8kXH/NnTZrK1ThXugtzh/mTYeKcp7iMbUvjJuYc1TUq9qzFVvIt5N9+
+	 pMFVkz+LJfHqotyvD8e8oRImGVJdcTjs8clIjVXbO6li9E1Pxqmj8GWfSGFDUrwR72
+	 92iko/U5g+7luOGt5/kC26ycb2SHN+hX6+0aSkcc=
 To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-186684-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+Subject: GNTTABOP_setup_table yields -1 PFNs
+Date: Sat, 6 Jul 2024 02:22:40 +0000
+From: Taylor R Campbell <riastradh-xen-devel@NetBSD.org>
 MIME-Version: 1.0
-Subject: [libvirt test] 186684: tolerable all pass - PUSHED
-X-Osstest-Failures:
-    libvirt:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
-    libvirt:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    libvirt:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
-    libvirt:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt:saverestore-support-check:fail:nonblocking
-    libvirt:test-amd64-amd64-libvirt-qcow2:migrate-support-check:fail:nonblocking
-    libvirt:test-amd64-amd64-libvirt-raw:migrate-support-check:fail:nonblocking
-    libvirt:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
-    libvirt:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-qcow2:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-qcow2:saverestore-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
-    libvirt:test-armhf-armhf-libvirt-vhd:migrate-support-check:fail:nonblocking
-    libvirt:test-armhf-armhf-libvirt-vhd:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    libvirt=95591306930833eb28993d5c0dc7408466c38e71
-X-Osstest-Versions-That:
-    libvirt=f67b12ba35e7a59c64163c41943ab37a00f052f0
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 05 Jul 2024 23:58:05 +0000
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
+Message-Id: <20240706022242.3238584D44@mail.netbsd.org>
 
-flight 186684 libvirt real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/186684/
-
-Failures :-/ but no regressions.
-
-Tests which did not succeed, but are not blocking:
- test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 186648
- test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-arm64-arm64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt     16 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt-qcow2 14 migrate-support-check        fail never pass
- test-amd64-amd64-libvirt-raw 14 migrate-support-check        fail   never pass
- test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-qcow2 14 migrate-support-check        fail never pass
- test-arm64-arm64-libvirt-qcow2 15 saverestore-support-check    fail never pass
- test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
- test-armhf-armhf-libvirt-vhd 14 migrate-support-check        fail   never pass
- test-armhf-armhf-libvirt-vhd 15 saverestore-support-check    fail   never pass
-
-version targeted for testing:
- libvirt              95591306930833eb28993d5c0dc7408466c38e71
-baseline version:
- libvirt              f67b12ba35e7a59c64163c41943ab37a00f052f0
-
-Last test of basis   186648  2024-07-04 04:18:45 Z    1 days
-Testing same since   186684  2024-07-05 04:18:44 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  John Levon <john.levon@nutanix.com>
-  Michal Privoznik <mprivozn@redhat.com>
-  Rayhan Faizel <rayhan.faizel@gmail.com>
-
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-arm64-libvirt                                          pass    
- build-armhf-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
- test-amd64-amd64-libvirt-xsm                                 pass    
- test-arm64-arm64-libvirt-xsm                                 pass    
- test-amd64-amd64-libvirt                                     pass    
- test-arm64-arm64-libvirt                                     pass    
- test-armhf-armhf-libvirt                                     pass    
- test-amd64-amd64-libvirt-pair                                pass    
- test-amd64-amd64-libvirt-qcow2                               pass    
- test-arm64-arm64-libvirt-qcow2                               pass    
- test-amd64-amd64-libvirt-raw                                 pass    
- test-arm64-arm64-libvirt-raw                                 pass    
- test-amd64-amd64-libvirt-vhd                                 pass    
- test-armhf-armhf-libvirt-vhd                                 pass    
+[I asked on IRC and Andrew Cooper suggested posting the question here.
+I'm not subscribed to xen-devel@, so please cc me in replies.]
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+On a Xen 4.14 host (with extraversion=.0.88.g1d1d1f53), with version 1
+grant tables, where GNTTABOP_query_size initially returns nr_frames=32
+max_nr_frames=64, a NetBSD guest repeatedly queries
+GNTTABOP_setup_table for successively larger nr_frames from 1 up.
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+The guest initially gets arrays of valid-looking PFNs.  But then at
+nr_frames=33, the PFNs [0] through [31] in the resulting array are
+valid but PFN [32] is -1, i.e., all bits set.
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+GNTTABOP_setup_table returned 0 and op.status = GNTST_okay, so it
+didn't fail -- it just returned an invalid PFN.  And _after_
+GNTTABOP_setup_table yields -1 as a PFN, GNTTABOP_query_size returns
+nr_frames=33 max_nr_frames=64, so the host thinks it has successfully
+allocated more frames.
 
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+What could cause the host to return a PFN -1?  Is there anything the
+guest does that could provoke this?  Are there any diagnostics that
+the guest could print to help track this down?  (I don't control the
+host.)  Should a guest just check for -1 and stop as if it had hit
+max_nr_frames?
 
 
-Pushing revision :
 
-To xenbits.xen.org:/home/xen/git/libvirt.git
-   f67b12ba35..9559130693  95591306930833eb28993d5c0dc7408466c38e71 -> xen-tested-master
+(NetBSD then passes the PFN -1 on to HYPERVISOR_mmu_update, which
+fails with EINVAL, at which point NetBSD crashes;
+<https://gnats.NetBSD.org/58395>.  If I make NetBSD pretend the host
+had advertised max_nr_frames=32, everything works fine.
+
+I'm guessing non-NetBSD guests will eventually crash when they see -1,
+but NetBSD sees it at boot while maybe it takes very heavy I/O load on
+Linux to make it reach nr_frames=33 in this setup.)
 
