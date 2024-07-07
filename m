@@ -2,31 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7E4A99296D4
-	for <lists+xen-devel@lfdr.de>; Sun,  7 Jul 2024 08:37:46 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.754853.1163161 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 33ABA92972A
+	for <lists+xen-devel@lfdr.de>; Sun,  7 Jul 2024 10:47:27 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.754872.1163170 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sQLVa-0007UO-EI; Sun, 07 Jul 2024 06:36:26 +0000
+	id 1sQNX2-0004p1-FY; Sun, 07 Jul 2024 08:46:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 754853.1163161; Sun, 07 Jul 2024 06:36:26 +0000
+Received: by outflank-mailman (output) from mailman id 754872.1163170; Sun, 07 Jul 2024 08:46:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sQLVa-0007RE-Av; Sun, 07 Jul 2024 06:36:26 +0000
-Received: by outflank-mailman (input) for mailman id 754853;
- Sun, 07 Jul 2024 06:36:25 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=qAAL=OH=lst.de=hch@srs-se1.protection.inumbo.net>)
- id 1sQLVY-0007R8-VH
- for xen-devel@lists.xenproject.org; Sun, 07 Jul 2024 06:36:24 +0000
-Received: from verein.lst.de (verein.lst.de [213.95.11.211])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 39d98ff9-3c2b-11ef-bbfb-fd08da9f4363;
- Sun, 07 Jul 2024 08:36:23 +0200 (CEST)
-Received: by verein.lst.de (Postfix, from userid 2407)
- id A847E68AFE; Sun,  7 Jul 2024 08:36:19 +0200 (CEST)
+	id 1sQNX2-0004mW-CO; Sun, 07 Jul 2024 08:46:04 +0000
+Received: by outflank-mailman (input) for mailman id 754872;
+ Sun, 07 Jul 2024 08:46:02 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=5rRf=OH=linaro.org=alex.bennee@srs-se1.protection.inumbo.net>)
+ id 1sQNX0-0004mQ-JG
+ for xen-devel@lists.xenproject.org; Sun, 07 Jul 2024 08:46:02 +0000
+Received: from mail-ed1-x535.google.com (mail-ed1-x535.google.com
+ [2a00:1450:4864:20::535])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 5572eb2a-3c3d-11ef-8776-851b0ebba9a2;
+ Sun, 07 Jul 2024 10:45:59 +0200 (CEST)
+Received: by mail-ed1-x535.google.com with SMTP id
+ 4fb4d7f45d1cf-58b966b41fbso3737669a12.1
+ for <xen-devel@lists.xenproject.org>; Sun, 07 Jul 2024 01:45:59 -0700 (PDT)
+Received: from draig.lan ([85.9.250.243]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a77df7949fasm139779566b.32.2024.07.07.01.45.57
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 07 Jul 2024 01:45:58 -0700 (PDT)
+Received: from draig (localhost [IPv6:::1])
+ by draig.lan (Postfix) with ESMTP id 337BE5F8E9;
+ Sun,  7 Jul 2024 09:45:57 +0100 (BST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,79 +47,147 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 39d98ff9-3c2b-11ef-bbfb-fd08da9f4363
-Date: Sun, 7 Jul 2024 08:36:19 +0200
-From: Christoph Hellwig <hch@lst.de>
-To: Michael Kelley <mhklinux@outlook.com>
-Cc: Christoph Hellwig <hch@lst.de>,
-	"robin.murphy@arm.com" <robin.murphy@arm.com>,
-	"joro@8bytes.org" <joro@8bytes.org>,
-	"will@kernel.org" <will@kernel.org>,
-	"jgross@suse.com" <jgross@suse.com>,
-	"sstabellini@kernel.org" <sstabellini@kernel.org>,
-	"oleksandr_tyshchenko@epam.com" <oleksandr_tyshchenko@epam.com>,
-	"m.szyprowski@samsung.com" <m.szyprowski@samsung.com>,
-	"petr@tesarici.cz" <petr@tesarici.cz>,
-	"iommu@lists.linux.dev" <iommu@lists.linux.dev>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Subject: Re: [PATCH v2 1/1] swiotlb: Reduce swiotlb pool lookups
-Message-ID: <20240707063619.GA387@lst.de>
-References: <20240701165746.1358-1-mhklinux@outlook.com> <20240706055019.GA13280@lst.de> <SN6PR02MB4157141FBF8252BDEAD831C1D4D92@SN6PR02MB4157.namprd02.prod.outlook.com>
+X-Inumbo-ID: 5572eb2a-3c3d-11ef-8776-851b0ebba9a2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1720341959; x=1720946759; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:references
+         :in-reply-to:subject:cc:to:from:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=fEYHd1sh+EjPz8zS4wuHhYUp/x5fvS6WFSYzRfKIK4Y=;
+        b=orohLGhZO10iyL/uBR760Z3bLwCvHKHoTyDQiq90Dv3eL9SqIdFgH954HXXKsdUwvn
+         bDYOYwJZSQAhLGW8TK73I5T05dQ5n8e8iaNJhBt1MKJR+86DaOqYIa34XdM5Dkn2/ABq
+         JvnUnfIXNbL+sqw5O/kdt2/qHj37WkClo5bai80naTWoWFURN76sJyDi9zvlEcuKknJL
+         G01MzYiuZe7ck5nXk/eBNz+HlVtsW+WuhEQitjbAMyA2rtLbhyCCKe3QVAYG4n/YkLqn
+         t4VlshGxmqu5EOHIIacyLsOLLt8Qr0Ru2fEmOqjDcaJre4+3bt1R1N2Ie4eX7Ug8VlP1
+         oRXQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1720341959; x=1720946759;
+        h=content-transfer-encoding:mime-version:message-id:date:references
+         :in-reply-to:subject:cc:to:from:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=fEYHd1sh+EjPz8zS4wuHhYUp/x5fvS6WFSYzRfKIK4Y=;
+        b=txNaGu/nBoIrOVzYxYadw47bnb27nzMzAXQsHSbxAiPGg0XEUoKObf2d3HIA2BKRsH
+         jgTGMPL5G/x1Dx5nSYgOVBNdGEckpFuUO3uzuzLm+uuzFosJp1in9jaDqv8/C4tyNOCl
+         u3RHnwqAJTO4/ESI46k+HfhXVi2Y8bXvayyy5VnJtsaz6FRUOTMxsbOuvUhZUQ+4mkCu
+         IAZHEVpiM3FhSyhsxtTCS5juFFun/tvU9tua60wqVLlXvQmblTaWMkAEumfFOV93uvjR
+         /zqblwfiwk8juzUy2GdFutmjSCOr/Xh9nDPFmuABcfJvIzQEeDCLoOKYYDBLi502Uhja
+         ldAQ==
+X-Forwarded-Encrypted: i=1; AJvYcCUoTtjNN1uZ2q2gUjhAdCPSPcBxT61ZZNZSDHNdTQ2WCyblecoAZgBtRna4hjp75BQcLIG5dCzOTVb9KLzmgxJjhfh4TdG4SiVKnAlkWWQ=
+X-Gm-Message-State: AOJu0Yyqu3B/pGM3EAaKYiL2o8dxvYusCqCEtrqxj/K7NmK227jAcKRx
+	N09XF2C8/7sMNSdmNjYc9oh29ClTUt0XCffLXASCThst4Ftkyq9pTRfEDtLxVMQ=
+X-Google-Smtp-Source: AGHT+IEqTxgIjYAHeGxiTC62iXRay9Io+j73bhmKVTdLgG9WgBBopxUNhDuGb0w9phOZilXybXRtCA==
+X-Received: by 2002:a17:906:ae47:b0:a72:6fc3:9946 with SMTP id a640c23a62f3a-a77ba4604d6mr535188166b.16.1720341958831;
+        Sun, 07 Jul 2024 01:45:58 -0700 (PDT)
+From: =?utf-8?Q?Alex_Benn=C3=A9e?= <alex.bennee@linaro.org>
+To: "Edgar E. Iglesias" <edgar.iglesias@gmail.com>
+Cc: "Edgar E. Iglesias" <edgar.iglesias@amd.com>,  Anthony PERARD
+ <anthony.perard@vates.tech>,  qemu-devel@nongnu.org,
+  sstabellini@kernel.org,  paul@xen.org,  xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v1 2/2] xen: mapcache: Fix unmapping of first entries in
+ buckets
+In-Reply-To: <CAJy5ezrfbAzwPWg_YABLy5NwCUiNa31FFR1nAZzy-WC3vXrMhg@mail.gmail.com>
+	(Edgar E. Iglesias's message of "Sat, 6 Jul 2024 09:27:43 +0300")
+References: <20240701224421.1432654-1-edgar.iglesias@gmail.com>
+	<20240701224421.1432654-3-edgar.iglesias@gmail.com>
+	<ZoawbAnukIBkYWCw@l14> <87wmm1m7i3.fsf@draig.linaro.org>
+	<ZobuhcLHqUEy_bQs@toto>
+	<CAJy5ezrfbAzwPWg_YABLy5NwCUiNa31FFR1nAZzy-WC3vXrMhg@mail.gmail.com>
+Date: Sun, 07 Jul 2024 09:45:57 +0100
+Message-ID: <87jzhxd1yy.fsf@draig.linaro.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <SN6PR02MB4157141FBF8252BDEAD831C1D4D92@SN6PR02MB4157.namprd02.prod.outlook.com>
-User-Agent: Mutt/1.5.17 (2007-11-01)
+Content-Transfer-Encoding: quoted-printable
 
-On Sun, Jul 07, 2024 at 02:11:48AM +0000, Michael Kelley wrote:
-> This works pretty well. It certainly avoids the messiness of declaring
-> a "pool" local variable and needing a separate assignment before the
-> "if" statement, in each of the 9 call sites. The small downside is that
-> it looks like a swiotlb function is called every time, even though
-> there's usually an inline bailout. But that pattern occurs throughout
-> the kernel, so not a big deal.
-> 
-> I initially coded this change as a separate patch that goes first. But
-> the second patch ends up changing about 20 lines that are changed
-> by the first patch. It's hard to cleanly tease them apart. So I've gone
-> back to a single unified patch. But let me know if you think it's worth
-> the extra churn to break them apart.
+"Edgar E. Iglesias" <edgar.iglesias@gmail.com> writes:
 
-I think it's perfectly fine to keep one big patch.
+> On Thu, Jul 4, 2024 at 9:48=E2=80=AFPM Edgar E. Iglesias <edgar.iglesias@=
+amd.com> wrote:
+>
+>  On Thu, Jul 04, 2024 at 05:44:52PM +0100, Alex Benn=C3=A9e wrote:
+>  > Anthony PERARD <anthony.perard@vates.tech> writes:
+>  >=20
+>  > > On Tue, Jul 02, 2024 at 12:44:21AM +0200, Edgar E. Iglesias wrote:
+>  > >> From: "Edgar E. Iglesias" <edgar.iglesias@amd.com>
+>  > >>=20
+>  > >> This fixes the clobbering of the entry->next pointer when
+>  > >> unmapping the first entry in a bucket of a mapcache.
+>  > >>=20
+>  > >> Fixes: 123acd816d ("xen: mapcache: Unmap first entries in buckets")
+>  > >> Reported-by: Anthony PERARD <anthony.perard@vates.tech>
+>  > >> Signed-off-by: Edgar E. Iglesias <edgar.iglesias@amd.com>
+>  > >> ---
+>  > >>  hw/xen/xen-mapcache.c | 12 +++++++++++-
+>  > >>  1 file changed, 11 insertions(+), 1 deletion(-)
+>  > >>=20
+>  > >> diff --git a/hw/xen/xen-mapcache.c b/hw/xen/xen-mapcache.c
+>  > >> index 5f23b0adbe..18ba7b1d8f 100644
+>  > >> --- a/hw/xen/xen-mapcache.c
+>  > >> +++ b/hw/xen/xen-mapcache.c
+>  > >> @@ -597,7 +597,17 @@ static void xen_invalidate_map_cache_entry_unl=
+ocked(MapCache *mc,
+>  > >>          pentry->next =3D entry->next;
+>  > >>          g_free(entry);
+>  > >>      } else {
+>  > >> -        memset(entry, 0, sizeof *entry);
+>  > >> +        /*
+>  > >> +         * Invalidate mapping but keep entry->next pointing to the=
+ rest
+>  > >> +         * of the list.
+>  > >> +         *
+>  > >> +         * Note that lock is already zero here, otherwise we don't=
+ unmap.
+>  > >> +         */
+>  > >> +        entry->paddr_index =3D 0;
+>  > >> +        entry->vaddr_base =3D NULL;
+>  > >> +        entry->valid_mapping =3D NULL;
+>  > >> +        entry->flags =3D 0;
+>  > >> +        entry->size =3D 0;
+>  > >
+>  > > This kind of feels like mc->entry should be an array of pointer rath=
+er
+>  > > than an array of MapCacheEntry but that seems to work well enough and
+>  > > not the first time entries are been cleared like that.
+>  >=20
+>  > The use of a hand rolled list is a bit of a concern considering QEMU a=
+nd
+>  > Glib both provide various abstractions used around the rest of the code
+>  > base. The original patch that introduces the mapcache doesn't tell me
+>  > much about access patterns for the cache, just that it is trying to
+>  > solve memory exhaustion issues with lots of dynamic small mappings.
+>  >=20
+>  > Maybe a simpler structure is desirable?
+>  >=20
+>  > We also have an interval tree implementation ("qemu/interval-tree.h") =
+if
+>  > what we really want is a sorted tree of memory that can be iterated
+>  > locklessly.
+>  >=20
+>
+>  Yes, it would be interesting to benchmark other options.
+>  I agree that we should at minimum reuse existing lists/hash tables.
+>
+>  We've also had some discussions around removing it partially or alltoget=
+her but
+>  there are some concerns around that. We're going to need something to
+>  keep track of grants. For 32-bit hosts, it's a problem to exhaust virtual
+>  address-space if mapping all of the guest (are folks still using 32-bit =
+hosts?).
+>  There may be other issues aswell.
+>
+>  Some benefits are that we'll remove some of the complexity and latency f=
+or mapping
+>  and unmapping stuff continously.
+>
+> One more thing I forgot to add is that IMO, these larger longer term
+> changes should not block this tiny bugfix...
 
-> Yes, this works as long as the declarations for the __swiotlb_foo
-> functions are *not* under CONFIG_SWIOTLB. But when compiling with
-> !CONFIG_SWIOTLB on arm64 with gcc-8.5.0, two tangentially related
-> compile errors occur. iommu_dma_map_page() references
-> swiotlb_tlb_map_single(). The declaration for the latter is under
-> CONFIG_SWIOTLB. A similar problem occurs with dma_direct_map_page()
-> and swiotlb_map(). Do later versions of gcc not complain when the
-> reference is in dead code? Or are these just bugs that occurred because
-> !CONFIG_SWIOTLB is rare? If the latter, I can submit a separate patch to
-> move the declarations out from under CONFIG_SWIOTLB.
+Agreed.
 
-A reference to dead code is fine as long as the condition is a compile
-time one.  I think your next mail sugests you've sorted this out, but
-if not let me know or just shared your current work in progress patch.
+>
+> Cheers,
+> Edgar=20
 
-> > 	if (IS_ENABLED(CONFIG_SWIOTLB_DYNAMIC)) {
-> 
-> The "IS_ENABLED" doesn't work because the dma_uses_io_tlb
-> field in struct dev is under CONFIG_SWIOTLB_DYNAMIC. I guess
-> it could be moved out, but that's going further afield. So I'm back
-> to using #ifdef.
-
-Yes, we'd need the field definition.
-
-> Petr Tesařík had commented [1] on my original RFC suggesting that
-> __swiotlb_find_pool() be used here instead of open coding it. With
-> the changes you suggest, __swiotlb_find_pool() is needed only in
-> the CONFIG_SWIOTLB_DYNAMIC case, and I would be fine with just
-> open coding the address of defpool here. Petr -- are you OK with
-> removing __swiotlb_find_pool when !CONFIG_SWIOTLB_DYNAMIC,
-> since this is the only place it would be used?
-
-Yes.  That was indeed the intent behind the suggstion.
+--=20
+Alex Benn=C3=A9e
+Virtualisation Tech Lead @ Linaro
 
