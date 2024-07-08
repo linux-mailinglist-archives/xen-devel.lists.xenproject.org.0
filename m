@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3CEB1929C57
-	for <lists+xen-devel@lfdr.de>; Mon,  8 Jul 2024 08:40:14 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.755011.1163269 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7F6EF929C78
+	for <lists+xen-devel@lfdr.de>; Mon,  8 Jul 2024 08:50:33 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.755017.1163279 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sQi25-0000ah-Qi; Mon, 08 Jul 2024 06:39:29 +0000
+	id 1sQiCE-0002Ei-MI; Mon, 08 Jul 2024 06:49:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 755011.1163269; Mon, 08 Jul 2024 06:39:29 +0000
+Received: by outflank-mailman (output) from mailman id 755017.1163279; Mon, 08 Jul 2024 06:49:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sQi25-0000Yg-Nk; Mon, 08 Jul 2024 06:39:29 +0000
-Received: by outflank-mailman (input) for mailman id 755011;
- Mon, 08 Jul 2024 06:39:29 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1sQiCE-0002CX-JY; Mon, 08 Jul 2024 06:49:58 +0000
+Received: by outflank-mailman (input) for mailman id 755017;
+ Mon, 08 Jul 2024 06:49:57 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=suqh=OI=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sQi25-0000Ya-8a
- for xen-devel@lists.xenproject.org; Mon, 08 Jul 2024 06:39:29 +0000
-Received: from mail-lj1-x22f.google.com (mail-lj1-x22f.google.com
- [2a00:1450:4864:20::22f])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d2453c95-3cf4-11ef-bbfb-fd08da9f4363;
- Mon, 08 Jul 2024 08:39:28 +0200 (CEST)
-Received: by mail-lj1-x22f.google.com with SMTP id
- 38308e7fff4ca-2ee88c4443eso37984261fa.3
- for <xen-devel@lists.xenproject.org>; Sun, 07 Jul 2024 23:39:27 -0700 (PDT)
+ id 1sQiCD-0002CR-Mf
+ for xen-devel@lists.xenproject.org; Mon, 08 Jul 2024 06:49:57 +0000
+Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
+ [2a00:1450:4864:20::432])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 47815059-3cf6-11ef-8776-851b0ebba9a2;
+ Mon, 08 Jul 2024 08:49:53 +0200 (CEST)
+Received: by mail-wr1-x432.google.com with SMTP id
+ ffacd0b85a97d-3679f806223so1976535f8f.0
+ for <xen-devel@lists.xenproject.org>; Sun, 07 Jul 2024 23:49:55 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-1fb23449a01sm81586195ad.31.2024.07.07.23.39.22
+ 98e67ed59e1d1-2c99a986eaasm7368847a91.24.2024.07.07.23.49.50
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sun, 07 Jul 2024 23:39:25 -0700 (PDT)
+ Sun, 07 Jul 2024 23:49:54 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,44 +45,43 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d2453c95-3cf4-11ef-bbfb-fd08da9f4363
+X-Inumbo-ID: 47815059-3cf6-11ef-8776-851b0ebba9a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1720420766; x=1721025566; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1720421395; x=1721026195; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=/u0ogVO21DuZlx6G6Sv/5ormPTwErC0lrtMPCyrl0+s=;
-        b=MbGIvLL+pXj4VSfzePydwzleYGILI3EsPDe0gTTXfjfaakaoOqQGzzcOEvkUHlGqDt
-         R7apDhZWM7DymRd6vuO1EzF3t1AODTQLOmo0m199Lv5qLhhv6OlQbHyIrNQ1fqreZqI5
-         mgxRYSbqS6IdbTo9nUBf7bZ1tDmEvY7zEXPqCb/WNdGwzCJP0JSJhVW2v0V+eq0fkwWj
-         ELylht0pjb3Ks9uIvOfVd3VuLLY7BCM8NCMApUK1iuShuH0e+w4ya7DksWf0Tg1wmH1O
-         cwWb79rZvG6py5eYti14w8i4FGlFAoIlvt/pYA8uG6uP3V6c6kWMiUfiQ4uMQ66P9Eu6
-         wETA==
+        bh=a0Um+B3sCwAo8M7Y2RPDnPexSgyOaOLPcSfiYZJoOlM=;
+        b=dnBmnrqTN3CUiEqcPsIZDvaNvKnAgYtPzdxXARn0z74ngKhoCtFFK1bvaXeZ3+zaBJ
+         CXoWuRWGm8dEqtTTM7TaSSLzpCzjsBBMa8fLsl9nMAgu3L8CZa/5NfQELYJEgrV0MdBz
+         TgO1gRb/IOW+8rpOz2A25hxJz1TyZbzvhMF8o2hRyN7Gv4Mp/JhSzmblTGJ40PSrIr0d
+         hJAyxKPdd3mwrQnOEstuzTpdzbh0geZ5BjxtYK3jaQofLK3Irgd+5AjMdqOKBOSqtjeG
+         +EJ04Er99YK5UjYPp5sgO/6vmC3JtUbAetUguE/dABXutGMklxehgeEng4MShTa+Hcuv
+         ehTg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1720420766; x=1721025566;
+        d=1e100.net; s=20230601; t=1720421395; x=1721026195;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=/u0ogVO21DuZlx6G6Sv/5ormPTwErC0lrtMPCyrl0+s=;
-        b=HO5Xwn0vNeXHprB5ETg5e7ono1P59GGWN9RKCS2h6fMEP0ZYV4Nx58ek5NPFZb9Kkx
-         pD9k5sM9IOJjK3hcFjrW6MoxWzYIiDIKuHr0jHp7KQErmidLn5bxEEFOAqF+ZCa+IB8k
-         pr88Xwa0wuprjOPVOopxTxJxNnkU79AtvNKzrVhCTESxGgGvHxeapVipiCuS0SNXrzZv
-         gbrXsfzfvLGjDB6u9+hzedAP847iAL4Ql81alRCgpORqmqz8XL2hC0+b7vp0Gv+iRoo0
-         PlxS5ESKCvsH/4ICWqRzjS+1RhGoCBlsxoNhxKHz6kQwgfPHbCtPnMiXtKBln74vuZXj
-         S5Hw==
-X-Forwarded-Encrypted: i=1; AJvYcCWXClDFAvBwItkcbTG3+n0Os+g1aq+fVJBVyX4QcLN3+wlrpQUiSMuuPYQ4tn6NI/BJJlIoEl2qOXjcGwucPkunmgz3SlE+7ldJ3FCA3Vg=
-X-Gm-Message-State: AOJu0YynK7N+0H5Rd5CpsFGeYq7VhAMp5L2McHTsk5bWOqg3PxtDG0+o
-	CPbeDPCMn8gHkXQBnU7fUIWO6iQPnRCTVSE1E/7jAegSJiHJ3uJfEBJHE9DhTA==
-X-Google-Smtp-Source: AGHT+IEDj6gh8a4qb1eV17iymh0j1sMl10HcyD8UKXdOTqt9Q8lbl+TtxsL82O4o8reFnfDCN98jMA==
-X-Received: by 2002:a2e:b166:0:b0:2ec:403e:6314 with SMTP id 38308e7fff4ca-2ee8ed69b03mr72974811fa.3.1720420766442;
-        Sun, 07 Jul 2024 23:39:26 -0700 (PDT)
-Message-ID: <e09619e6-a483-4e68-80f6-6ff158fb9c30@suse.com>
-Date: Mon, 8 Jul 2024 08:39:21 +0200
+        bh=a0Um+B3sCwAo8M7Y2RPDnPexSgyOaOLPcSfiYZJoOlM=;
+        b=Z+tEM8C5L5JONvfg5YY+ituK6r3ReMD6gvBnr2VRw59/HEzdjkS+Uxlp9eKQ0AJC84
+         xSyG70lpEjrBDy36CWJb8SgpSlqQEoBSfwD7ak2VM4U7Eba5a72eXTf7x3WqpjGIOG8e
+         EtudAQgfrOW1Z5Sqid5dW3Jdd9yFOR0e6/Y3+6Pk73k5heYWQRK9Bp7FXOv7p/FMRdhu
+         v1a9cFn26BPFZV3s4+8go3B1BJ67cCyl7XILEcKN0PzdAGFLlceCasHJPlsyaMj3juvl
+         gQr/AbN0OLKZsoCD5TmOdcX9LENhacNpDWIKEVuThDzG7aSfgLm4hW848FnLxciInxTi
+         fonA==
+X-Forwarded-Encrypted: i=1; AJvYcCUoTMaW7fBjfrCkJFE1/UIuTfVaUU9g7hGdsrwPvoJI6TkMvyzToKXBO4weoTYCTm8omFhyyeMZyo/4o6HjtGQqVDve0qv0K5l/UD9I0cw=
+X-Gm-Message-State: AOJu0YzRF6GcszRXcRCfrkBMBYXn7nV4/DjPHN/dksd1N++lIDXFTB36
+	kLo3Oasy7tsmYeccx8GnaxdFhMN4oZn9NrdJ/OfzH9y+ye8xwg3AVqUpmPS96A==
+X-Google-Smtp-Source: AGHT+IGUQI367CMEGTRNjk3ocmH4dDPigDqOhLHxy4m9H6ytWBQ99NCQOQkgkdbFQz44IkL2fH9wdg==
+X-Received: by 2002:a05:6000:1e98:b0:366:df58:1fd9 with SMTP id ffacd0b85a97d-3679f75c598mr8469027f8f.24.1720421394859;
+        Sun, 07 Jul 2024 23:49:54 -0700 (PDT)
+Message-ID: <afec5c5c-8de8-4795-b470-ec78339f982e@suse.com>
+Date: Mon, 8 Jul 2024 08:49:49 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH for-4.19 2/6] build: Fix the version of python checked for
- by ./configure
+Subject: Re: [PATCH for-4.19 6/6] build: Drop xorg-x11 as a build dependency
 To: Andrew Cooper <andrew.cooper3@citrix.com>
 Cc: Anthony PERARD <anthony.perard@vates.tech>,
  Juergen Gross <jgross@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
@@ -90,7 +89,7 @@ Cc: Anthony PERARD <anthony.perard@vates.tech>,
  Julien Grall <julien@xen.org>, Oleksii Kurochko
  <oleksii.kurochko@gmail.com>, Xen-devel <xen-devel@lists.xenproject.org>
 References: <20240705152037.1920276-1-andrew.cooper3@citrix.com>
- <20240705152037.1920276-3-andrew.cooper3@citrix.com>
+ <20240705152037.1920276-7-andrew.cooper3@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -116,71 +115,33 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240705152037.1920276-3-andrew.cooper3@citrix.com>
+In-Reply-To: <20240705152037.1920276-7-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
 On 05.07.2024 17:20, Andrew Cooper wrote:
-> We previously upped the minimum python version to 2.6, but neglected to
-> reflect this in ./configure
+> The history on this one is complicated.  The note to README was added in
+> commit 1f95747a4f16 ("Add openssl-dev and xorg-x11-dev to README") in 2007.
 > 
-> Fixes: 2a353c048c68 ("tools: Don't use distutils in configure or Makefile")
+> At the time, there was a vendered version of Qemu in xen.git with a local
+> modification using <X11/keysymdef.h> to access the monitor console over VNC.
+> 
+> The final reference to keysymdef.h was dropped in commit 85896a7c4dc7 ("build:
+> add autoconf to replace custom checks in tools/check") in 2012.  The next
+> prior mention was in 2009 with commit a8ccb671c377 ("tools: fix x11 check")
+> noting that x11 was not a direct dependcy of Xen; it was transitive through
+> SDL for Qemu for source-based distros.
+> 
+> These days its only the Debian based dockerfiles which install xorg-x11, and
+> Qemu builds fine in these and others without x11.
+> 
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-Judging from the description of that earlier patch and from what you're
-actually changing, s/2.6/2.7/ above?
+There may be one more past dependency, but I'm not sure since I don't know
+the package split in the distros you touch files for. In unmodified_drivers/
+(removed in 4.14) there was a use of the lndir utility coming (on SUSE
+distros) in xorg-x11-util-devel. Then again unmodified_drivers/ may never
+have been of any interest to gitlab-CI.
 
 Jan
-
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> ---
-> CC: Anthony PERARD <anthony.perard@vates.tech>
-> CC: Juergen Gross <jgross@suse.com>
-> CC: Roger Pau Monné <roger.pau@citrix.com>
-> CC: Jan Beulich <JBeulich@suse.com>
-> CC: Stefano Stabellini <sstabellini@kernel.org>
-> CC: Julien Grall <julien@xen.org>
-> CC: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-> ---
->  tools/configure    | 8 ++++----
->  tools/configure.ac | 2 +-
->  2 files changed, 5 insertions(+), 5 deletions(-)
-> 
-> diff --git a/tools/configure b/tools/configure
-> index 6c1084b7b28a..d160ca296202 100755
-> --- a/tools/configure
-> +++ b/tools/configure
-> @@ -8298,15 +8298,15 @@ if test x"${PYTHONPATH}" = x"no"
->  then
->      as_fn_error $? "Unable to find $PYTHON, please install $PYTHON" "$LINENO" 5
->  fi
-> -{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for python version >= 2.6 " >&5
-> -printf %s "checking for python version >= 2.6 ... " >&6; }
-> -`$PYTHON -c 'import sys; sys.exit(eval("sys.version_info < (2, 6)"))'`
-> +{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for python version >= 2.7 " >&5
-> +printf %s "checking for python version >= 2.7 ... " >&6; }
-> +`$PYTHON -c 'import sys; sys.exit(eval("sys.version_info < (2, 7)"))'`
->  if test "$?" != "0"
->  then
->      python_version=`$PYTHON -V 2>&1`
->      { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: no" >&5
->  printf "%s\n" "no" >&6; }
-> -    as_fn_error $? "$python_version is too old, minimum required version is 2.6" "$LINENO" 5
-> +    as_fn_error $? "$python_version is too old, minimum required version is 2.7" "$LINENO" 5
->  else
->      { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: yes" >&5
->  printf "%s\n" "yes" >&6; }
-> diff --git a/tools/configure.ac b/tools/configure.ac
-> index ac0fdc4314c4..be58f06be450 100644
-> --- a/tools/configure.ac
-> +++ b/tools/configure.ac
-> @@ -385,7 +385,7 @@ PYTHONPATH=$PYTHON
->  PYTHON=`basename $PYTHONPATH`
->  
->  AX_PATH_PROG_OR_FAIL([PYTHONPATH], [$PYTHON])
-> -AX_CHECK_PYTHON_VERSION([2], [6])
-> +AX_CHECK_PYTHON_VERSION([2], [7])
->  
->  AS_IF([test "$cross_compiling" != yes], [
->      AX_CHECK_PYTHON_DEVEL()
-
 
