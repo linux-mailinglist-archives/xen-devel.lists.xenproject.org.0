@@ -2,34 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 152BB92AA3A
-	for <lists+xen-devel@lfdr.de>; Mon,  8 Jul 2024 21:58:06 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.755598.1164016 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7CCE992AAC2
+	for <lists+xen-devel@lfdr.de>; Mon,  8 Jul 2024 22:49:42 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.755621.1164026 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sQuUO-0004k0-8S; Mon, 08 Jul 2024 19:57:32 +0000
+	id 1sQvHf-0003BC-VR; Mon, 08 Jul 2024 20:48:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 755598.1164016; Mon, 08 Jul 2024 19:57:32 +0000
+Received: by outflank-mailman (output) from mailman id 755621.1164026; Mon, 08 Jul 2024 20:48:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sQuUO-0004i0-5a; Mon, 08 Jul 2024 19:57:32 +0000
-Received: by outflank-mailman (input) for mailman id 755598;
- Mon, 08 Jul 2024 19:57:30 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=EgpN=OI=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1sQuUM-0004ZL-Lg
- for xen-devel@lists.xenproject.org; Mon, 08 Jul 2024 19:57:30 +0000
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 4b491391-3d64-11ef-bbfb-fd08da9f4363;
- Mon, 08 Jul 2024 21:57:27 +0200 (CEST)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id 476D0CE0F08;
- Mon,  8 Jul 2024 19:57:21 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 90549C116B1;
- Mon,  8 Jul 2024 19:57:19 +0000 (UTC)
+	id 1sQvHf-00038e-SP; Mon, 08 Jul 2024 20:48:27 +0000
+Received: by outflank-mailman (input) for mailman id 755621;
+ Mon, 08 Jul 2024 20:48:26 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1sQvHe-00038U-Ld; Mon, 08 Jul 2024 20:48:26 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1sQvHe-0005tq-K0; Mon, 08 Jul 2024 20:48:26 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1sQvHe-0005f0-9x; Mon, 08 Jul 2024 20:48:26 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1sQvHe-0001nQ-9d; Mon, 08 Jul 2024 20:48:26 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,57 +42,84 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4b491391-3d64-11ef-bbfb-fd08da9f4363
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1720468640;
-	bh=vk8qUoPKpAVrK7exPxJCI1y8r71oNkMKkVp76PWQMx0=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=jV/AuaB9sTgRCAKIQsFGqYS9JR8M6uNgYI9Z2k8hB7gbmPG8dTSythUFXEkhvM1Qi
-	 cNu/5dPe7B6cwh91IXo38J2f8dZtVoJWK3kOISRJyEg2Xv82ypXlKMZDHOSaKB44ow
-	 OJR/pikdr2KmtheovIKJ+qjyYi5AnFTlNGZJ4QutdN46yDYebM2JjcaiR1XNap0Fea
-	 QQuo1Op0xVLI5XraR1MBwPufYjqGRwC8qq8XJknKYDrLmdi88ZLLGb8ZvDhbuseut1
-	 2cICXiWdzYAIh77GANBuikDo96rSTbljDdp/dm+vl3peKuKrRlClooMFAkUt2uHBRw
-	 u5zoqJiVpN0Og==
-Date: Mon, 8 Jul 2024 12:57:18 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Kelly Choi <kelly.choi@cloud.com>
-cc: xen-devel <xen-devel@lists.xenproject.org>, 
-    "xen-api@lists.xenproject.org" <xen-api@lists.xenproject.org>, 
-    win-pv-devel@lists.xenproject.org, committers@xenproject.org, 
-    minios-devel@lists.xenproject.org, mirageos-devel@lists.xenproject.org, 
-    Roger Pau Monne <roger.pau@cloud.com>
-Subject: Re: [Vote] Xen Project Code of Conduct Team Member
-In-Reply-To: <CAO-mL=xEEdCjUWN3oqJEBjktH+dsJDXrQ2uHWD80bJJ32q3_pw@mail.gmail.com>
-Message-ID: <alpine.DEB.2.22.394.2407081257020.3635@ubuntu-linux-20-04-desktop>
-References: <CAO-mL=xEEdCjUWN3oqJEBjktH+dsJDXrQ2uHWD80bJJ32q3_pw@mail.gmail.com>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=atsGqdVXhLUMJK3UYL4QIeEL4O/Nm1mctnWip4bRvNs=; b=NXuOC7UdPu3lS/IkwKjDq9clgK
+	Y3bkwxBl4ikr/zf6026fhYijzXGkvjZVDkkvDe8DMTQxL3G7rrrNAljCYj74i5B0eP1UTmbz1z6Bx
+	9A1/plrQy9ZIy5bhacgQFEKOsnJH272iGU+QINYpGvmMcKf6z0+ZBqQZIsCWF65KB5lM=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-186732-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323329-1861991062-1720468640=:3635"
+Subject: [xen-unstable-smoke test] 186732: tolerable all pass - PUSHED
+X-Osstest-Failures:
+    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=c4ebeb79d10a25e8d48a71cdd381898265267e67
+X-Osstest-Versions-That:
+    xen=64cee188376e52a154475a86a9d2adc85f029870
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Mon, 08 Jul 2024 20:48:26 +0000
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
+flight 186732 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/186732/
 
---8323329-1861991062-1720468640=:3635
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8BIT
+Failures :-/ but no regressions.
 
-On Mon, 8 Jul 2024, Kelly Choi wrote:
-> Hi all, 
-> As you are aware, George Dunlap has recently stepped down from the Xen Project as a committer, but he was also a part of the Code of
-> Conduct team.
-> 
-> As a result, Stefano will be the only member remaining on the CoC team. @Roger Pau Monne has volunteered to join the team, so that there
-> are at least two members.
-> 
-> In accordance with https://xenproject.org/developers/governance/, I need the leadership teams of the three mature projects: the Hypervisor,
-> the XAPI project, and the Windows PV Driver project to vote on this proposal.
-> 
-> The specific voting rules, in this case, are outlined in the section: https://www.xenproject.org/governance.html#project-decisions
-> I propose to tally the votes after July 31st, 2024. You can reply via email in public or private:
-> +1: for proposal
-> -1: against proposal
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
 
-+1
---8323329-1861991062-1720468640=:3635--
+version targeted for testing:
+ xen                  c4ebeb79d10a25e8d48a71cdd381898265267e67
+baseline version:
+ xen                  64cee188376e52a154475a86a9d2adc85f029870
+
+Last test of basis   186730  2024-07-08 15:02:14 Z    0 days
+Testing same since   186732  2024-07-08 18:00:22 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrew Cooper <andrew.cooper3@citrix.com>
+
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/xen.git
+   64cee18837..c4ebeb79d1  c4ebeb79d10a25e8d48a71cdd381898265267e67 -> smoke
 
