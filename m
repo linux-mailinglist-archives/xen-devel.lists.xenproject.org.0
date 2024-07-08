@@ -2,40 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C33C192A597
-	for <lists+xen-devel@lfdr.de>; Mon,  8 Jul 2024 17:26:42 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.755501.1163879 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BE98D92A5EB
+	for <lists+xen-devel@lfdr.de>; Mon,  8 Jul 2024 17:43:13 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.755511.1163899 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sQqFs-000623-4K; Mon, 08 Jul 2024 15:26:16 +0000
+	id 1sQqVw-0001Fj-Nz; Mon, 08 Jul 2024 15:42:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 755501.1163879; Mon, 08 Jul 2024 15:26:16 +0000
+Received: by outflank-mailman (output) from mailman id 755511.1163899; Mon, 08 Jul 2024 15:42:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sQqFs-0005z5-10; Mon, 08 Jul 2024 15:26:16 +0000
-Received: by outflank-mailman (input) for mailman id 755501;
- Mon, 08 Jul 2024 15:26:14 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Jnsg=OI=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1sQqFq-0005yz-JW
- for xen-devel@lists.xenproject.org; Mon, 08 Jul 2024 15:26:14 +0000
-Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
- [2a00:1450:4864:20::12f])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 69270859-3d3e-11ef-bbfb-fd08da9f4363;
- Mon, 08 Jul 2024 17:26:13 +0200 (CEST)
-Received: by mail-lf1-x12f.google.com with SMTP id
- 2adb3069b0e04-52e9b9fb3dcso4860140e87.1
- for <xen-devel@lists.xenproject.org>; Mon, 08 Jul 2024 08:26:13 -0700 (PDT)
-Received: from ?IPV6:2003:e5:8729:4000:29eb:6d9d:3214:39d2?
- (p200300e58729400029eb6d9d321439d2.dip0.t-ipconnect.de.
- [2003:e5:8729:4000:29eb:6d9d:3214:39d2])
+	id 1sQqVw-0001E7-KK; Mon, 08 Jul 2024 15:42:52 +0000
+Received: by outflank-mailman (input) for mailman id 755511;
+ Mon, 08 Jul 2024 15:42:52 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=z6vo=OI=cloud.com=matthew.barnes@srs-se1.protection.inumbo.net>)
+ id 1sQqVw-0001Dn-0y
+ for xen-devel@lists.xenproject.org; Mon, 08 Jul 2024 15:42:52 +0000
+Received: from mail-lf1-x12a.google.com (mail-lf1-x12a.google.com
+ [2a00:1450:4864:20::12a])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id bafb261c-3d40-11ef-8776-851b0ebba9a2;
+ Mon, 08 Jul 2024 17:42:49 +0200 (CEST)
+Received: by mail-lf1-x12a.google.com with SMTP id
+ 2adb3069b0e04-52ea929ea56so4375486e87.0
+ for <xen-devel@lists.xenproject.org>; Mon, 08 Jul 2024 08:42:49 -0700 (PDT)
+Received: from EMEAENGAAD91498.citrite.net ([217.156.233.154])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a780a6dc55asm3691866b.50.2024.07.08.08.26.12
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 08 Jul 2024 08:26:12 -0700 (PDT)
+ a640c23a62f3a-a780a6de0a2sm4779866b.54.2024.07.08.08.42.48
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 08 Jul 2024 08:42:48 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,83 +45,110 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 69270859-3d3e-11ef-bbfb-fd08da9f4363
+X-Inumbo-ID: bafb261c-3d40-11ef-8776-851b0ebba9a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1720452373; x=1721057173; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=GAnfqi2cra/5r9skPbe4FgfCluiThPs3tUmMhe5MyKM=;
-        b=HFBddgT9pDQhRlinJaUZqmzdeAehzDvRHdi0BgIiT+b4nNQQwqZ2AC2GWhkwm5n7sB
-         ClB7l/ZzCeiurxGBCwZCK16DXFB6cJr/WbJQ3Wt/NVN5qQ6RUNHw1cv/Q1cAL5AzAi8v
-         tpXHijanS8JjXxQ1Ym77ttP7+plIMFXEsAxCogI8I+NYfRdDwv13TlbOhSCGQKFe6Eho
-         ARt1pFze9EXoFgub+yl8MZ5pUSXZV+8BNsasOkqyu/gamXnSVhMIZy2GwdSrRqmTJDQ3
-         sPxGEJUhg40tTFdFD8ZquFt+cq0bLvp2DlKGsqIYxnIwEtF06zgfmD3662yhmv4Ca2FM
-         BxIQ==
+        d=cloud.com; s=cloud; t=1720453369; x=1721058169; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=eOWHHJ/WLKag5d4dSpmArbqSpx+lbCaXcUbRJTR2rAE=;
+        b=L7v7OPNrTX0vg8//+yxfd2/aF83omDwurZRO9bKetPlGoSSL+Rde4BXC3CPvypmc1t
+         laoUfLbI737vkZxli/1gkOOjSo3S3GadBL31ZSy5840fDrKfjqDncf/idZCTlxxNewmk
+         Q1Bgs6oxblUF2ZSv9cqyom3MuQQKGb3acjS/c=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1720452373; x=1721057173;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=GAnfqi2cra/5r9skPbe4FgfCluiThPs3tUmMhe5MyKM=;
-        b=XyarYK15qamom2Iw0zfdGnNhffqjbU37hZQPXOYJMwpHa3JiSlixc/kATuefgkE7Yu
-         tbBLujNWUwDfDaiiHTxnjGxv4Deol7xxiQQD70IK0H9gcq2ASgjskOxjT9HM64/jpIkZ
-         G1paSWt7HJYZvdJNDNl0L9Oswbo7ZdV3zzcTO3WLNTBzN+oaFz0qdpdap9Yn5L4zY51x
-         iRgr7WAWpzwie+SNkX7H6TbfAt1E5qLpUnw0G9wmIKSEQeMHOgGMThLSEUteZYrm+kCu
-         MiRmUq/f0h/XFzgke0n0iUWFPqoQq7qQF9xceySzSsUJdEjhjk5JN/36jwcIB331dUa8
-         7HBw==
-X-Forwarded-Encrypted: i=1; AJvYcCV69dhpalWQNjZQvT/yLxQsBE/waaIIwxwyoqHtuGl7jm4RrcsNLtJL90sOsSyZaL0MGg+rEeUueXmvP+IYv/89CNzjBh1QjylXhJ2w0e0=
-X-Gm-Message-State: AOJu0YyiSvshLlNIzoJAN0BqZEfhD1p77UuTUA9FrPaqhwZHpVNGsi6J
-	SH3r6enTBkPOLEUYrMtw1V3O6oeYliss8V7JIUyDArUmxkqPSsascVhGbOhCAsI=
-X-Google-Smtp-Source: AGHT+IGl87z+WsFqE3Kjuw0OIOd84dS+R6fPXBjw1LaNur/plN6juqSsNRuCF5WzkCCumDzhzaHpfA==
-X-Received: by 2002:ac2:59cd:0:b0:52c:892e:2b26 with SMTP id 2adb3069b0e04-52ea061f5fcmr7213897e87.2.1720452372775;
-        Mon, 08 Jul 2024 08:26:12 -0700 (PDT)
-Message-ID: <23f8b3a5-67ed-4a84-af70-600337677e33@suse.com>
-Date: Mon, 8 Jul 2024 17:26:11 +0200
+        d=1e100.net; s=20230601; t=1720453369; x=1721058169;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=eOWHHJ/WLKag5d4dSpmArbqSpx+lbCaXcUbRJTR2rAE=;
+        b=lgZezHlXKQfZHZggPVCx0basBKfTXruu+e2OhOGMYKHcNpbEnxhDC9OrK5I+DSnRak
+         9+9KSy1V4fT+iMCh+mueGIbya395hrSduXCZxr7teYsWpVw7i+feNYDvuSUJh24+XhlD
+         +Wtwk1T4NwqlAGkOfGBK6gR5bJP2WmXNHkDaTSEXRkccsjppEqYs/NP4cjWrWYoct3Cn
+         zNzFzvXwXMfOuSmLGMFf5VclqhjLoD2RocdBu1ydKQF3V3j8kBG4ATI6vRaP8Z82cqh+
+         sZNq+1CEV3umTvrKEWiLvoIacGivuTMR1DeNGZsEWJR7XctZBXaQTigRpCKwR1syobj5
+         rvYg==
+X-Gm-Message-State: AOJu0YyXWFCT+0Dr8bDtU3ae9cIyq10tRDe9ieriajLpTXr0H2Luo/BL
+	CHamWvLeKzabMoPPNtTOwdhI8Ox56fDMMP8aW0A2UUZg3jJkM6io9DsfeyyZWyYck87LsCyD38D
+	b
+X-Google-Smtp-Source: AGHT+IG2j6nH3diUoKAqvmeMFvNGrWzan3uyQjw6FifmbxYBEG1krlL42i0VBZH38zG2YGLgyT/0xw==
+X-Received: by 2002:ac2:5e6c:0:b0:52e:9f1b:517 with SMTP id 2adb3069b0e04-52ea0622d10mr9929242e87.25.1720453368568;
+        Mon, 08 Jul 2024 08:42:48 -0700 (PDT)
+From: Matthew Barnes <matthew.barnes@cloud.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Matthew Barnes <matthew.barnes@cloud.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Alejandro Vallejo <alejandro.vallejo@cloud.com>
+Subject: [RFC XEN PATCH] x86/cpuid: Expose max_vcpus field in HVM hypervisor leaf
+Date: Mon,  8 Jul 2024 16:42:21 +0100
+Message-Id: <c0a9f52107e22957daaa5b1b0e05e4160db5f064.1720452354.git.matthew.barnes@cloud.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH for-4.19] tools/libxs: Fix fcntl() invocation in
- set_cloexec()
-To: Andrew Cooper <andrew.cooper3@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Ross Lagerwall <ross.lagerwall@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Oleksii Kurochko <oleksii.kurochko@gmail.com>,
- Jan Beulich <JBeulich@suse.com>
-References: <20240708151522.2176290-1-andrew.cooper3@citrix.com>
-Content-Language: en-US
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-In-Reply-To: <20240708151522.2176290-1-andrew.cooper3@citrix.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 08.07.24 17:15, Andrew Cooper wrote:
-> set_cloexec() had a bit too much copy&pate from setnonblock(), and
-> insufficient testing on ancient versions of Linux...
-> 
-> As written (emulating ancient linux by undef'ing O_CLOEXEC), strace shows:
-> 
->    open("/dev/xen/xenbus", O_RDWR)         = 3
->    fcntl(3, F_GETFL)                       = 0x8002 (flags O_RDWR|O_LARGEFILE)
->    fcntl(3, 0x8003 /* F_??? */, 0x7ffe4a771d90) = -1 EINVAL (Invalid argument)
->    close(3)                                = 0
-> 
-> which is obviously nonsense.
-> 
-> Switch F_GETFL -> F_GETFD, and fix the second invocation to use F_SETFD.  With
-> this, strace is rather happer:
-> 
->    open("/dev/xen/xenbus", O_RDWR)         = 3
->    fcntl(3, F_GETFD)                       = 0
->    fcntl(3, F_SETFD, FD_CLOEXEC)           = 0
-> 
-> Fixes: bf7c1464706a ("tools/libxs: Fix CLOEXEC handling in get_dev()")
-> Reported-by: Ross Lagerwall <ross.lagerwall@citrix.com>
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+Currently, OVMF is hard-coded to set up a maximum of 64 vCPUs on
+startup.
 
-Reviewed-by: Juergen Gross <jgross@suse.com>
+There are efforts to support a maximum of 128 vCPUs, which would involve
+bumping the OVMF constant from 64 to 128.
 
+However, it would be more future-proof for OVMF to access the maximum
+number of vCPUs for a domain and set itself up appropriately at
+run-time.
 
-Juergen
+For OVMF to access the maximum vCPU count, Xen will have to expose this
+property via cpuid.
+
+This patch exposes the max_vcpus field via cpuid on the HVM hypervisor
+leaf in edx.
+
+Tested on HVM guests running Ubuntu 22.04 LTS and Windows 10 x64.
+
+GitLab ticket: https://gitlab.com/xen-project/xen/-/issues/191
+
+Signed-off-by: Matthew Barnes <matthew.barnes@cloud.com>
+---
+ xen/arch/x86/traps.c                | 4 ++++
+ xen/include/public/arch-x86/cpuid.h | 3 +++
+ 2 files changed, 7 insertions(+)
+
+diff --git a/xen/arch/x86/traps.c b/xen/arch/x86/traps.c
+index ee91fc56b125..b439ee94f562 100644
+--- a/xen/arch/x86/traps.c
++++ b/xen/arch/x86/traps.c
+@@ -1169,6 +1169,10 @@ void cpuid_hypervisor_leaves(const struct vcpu *v, uint32_t leaf,
+         res->a |= XEN_HVM_CPUID_DOMID_PRESENT;
+         res->c = d->domain_id;
+ 
++        /* Indicate presence of max vcpus and set it in edx */
++        res->a |= XEN_HVM_CPUID_MAX_VCPUS_PRESENT;
++        res->d = d->max_vcpus;
++
+         /*
+          * Per-vCPU event channel upcalls are implemented and work
+          * correctly with PIRQs routed over event channels.
+diff --git a/xen/include/public/arch-x86/cpuid.h b/xen/include/public/arch-x86/cpuid.h
+index 3bb0dd249ff9..a11c9b684308 100644
+--- a/xen/include/public/arch-x86/cpuid.h
++++ b/xen/include/public/arch-x86/cpuid.h
+@@ -87,6 +87,7 @@
+  * Sub-leaf 0: EAX: Features
+  * Sub-leaf 0: EBX: vcpu id (iff EAX has XEN_HVM_CPUID_VCPU_ID_PRESENT flag)
+  * Sub-leaf 0: ECX: domain id (iff EAX has XEN_HVM_CPUID_DOMID_PRESENT flag)
++ * Sub-leaf 0: EDX: max vcpus (iff EAX has XEN_HVM_CPUID_MAX_VCPUS_PRESENT flag)
+  */
+ #define XEN_HVM_CPUID_APIC_ACCESS_VIRT (1u << 0) /* Virtualized APIC registers */
+ #define XEN_HVM_CPUID_X2APIC_VIRT      (1u << 1) /* Virtualized x2APIC accesses */
+@@ -107,6 +108,8 @@
+  */
+ #define XEN_HVM_CPUID_UPCALL_VECTOR    (1u << 6)
+ 
++#define XEN_HVM_CPUID_MAX_VCPUS_PRESENT (1u << 7) /* max vpcus is present in EDX */
++
+ /*
+  * Leaf 6 (0x40000x05)
+  * PV-specific parameters
+-- 
+2.34.1
 
 
