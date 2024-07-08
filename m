@@ -2,33 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4096692A589
-	for <lists+xen-devel@lfdr.de>; Mon,  8 Jul 2024 17:23:04 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.755495.1163868 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C33C192A597
+	for <lists+xen-devel@lfdr.de>; Mon,  8 Jul 2024 17:26:42 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.755501.1163879 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sQqCQ-0005T0-Kl; Mon, 08 Jul 2024 15:22:42 +0000
+	id 1sQqFs-000623-4K; Mon, 08 Jul 2024 15:26:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 755495.1163868; Mon, 08 Jul 2024 15:22:42 +0000
+Received: by outflank-mailman (output) from mailman id 755501.1163879; Mon, 08 Jul 2024 15:26:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sQqCQ-0005Qo-IA; Mon, 08 Jul 2024 15:22:42 +0000
-Received: by outflank-mailman (input) for mailman id 755495;
- Mon, 08 Jul 2024 15:22:41 +0000
+	id 1sQqFs-0005z5-10; Mon, 08 Jul 2024 15:26:16 +0000
+Received: by outflank-mailman (input) for mailman id 755501;
+ Mon, 08 Jul 2024 15:26:14 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=39nG=OI=cloud.com=ross.lagerwall@srs-se1.protection.inumbo.net>)
- id 1sQqCP-0005Qi-Ir
- for xen-devel@lists.xenproject.org; Mon, 08 Jul 2024 15:22:41 +0000
-Received: from mail-pf1-x434.google.com (mail-pf1-x434.google.com
- [2607:f8b0:4864:20::434])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=Jnsg=OI=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1sQqFq-0005yz-JW
+ for xen-devel@lists.xenproject.org; Mon, 08 Jul 2024 15:26:14 +0000
+Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
+ [2a00:1450:4864:20::12f])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e9cd50a2-3d3d-11ef-bbfb-fd08da9f4363;
- Mon, 08 Jul 2024 17:22:40 +0200 (CEST)
-Received: by mail-pf1-x434.google.com with SMTP id
- d2e1a72fcca58-70b3c0a00f2so413816b3a.3
- for <xen-devel@lists.xenproject.org>; Mon, 08 Jul 2024 08:22:40 -0700 (PDT)
+ id 69270859-3d3e-11ef-bbfb-fd08da9f4363;
+ Mon, 08 Jul 2024 17:26:13 +0200 (CEST)
+Received: by mail-lf1-x12f.google.com with SMTP id
+ 2adb3069b0e04-52e9b9fb3dcso4860140e87.1
+ for <xen-devel@lists.xenproject.org>; Mon, 08 Jul 2024 08:26:13 -0700 (PDT)
+Received: from ?IPV6:2003:e5:8729:4000:29eb:6d9d:3214:39d2?
+ (p200300e58729400029eb6d9d321439d2.dip0.t-ipconnect.de.
+ [2003:e5:8729:4000:29eb:6d9d:3214:39d2])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a780a6dc55asm3691866b.50.2024.07.08.08.26.12
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 08 Jul 2024 08:26:12 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,80 +47,83 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e9cd50a2-3d3d-11ef-bbfb-fd08da9f4363
+X-Inumbo-ID: 69270859-3d3e-11ef-bbfb-fd08da9f4363
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1720452159; x=1721056959; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=uBqnkywXTLI/c9/Y7Ffx/rFVkky9hIJjCo6ULp0cp3g=;
-        b=L7kOSDIQRT+UA7ke4igE4cPVEyZGKzXh5TpVoDVu+bAHIho8xLFC22vafLBJuJsX4f
-         +2bq9a+krzZUNgSi333AZ1TrDO0R+SNQ2N/RabWnn5oNqaa68XzyuScyaH4FJ0xLiCJW
-         /TBC33oognygoeEbl/stYimGewVP8r6a6tsPg=
+        d=suse.com; s=google; t=1720452373; x=1721057173; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=GAnfqi2cra/5r9skPbe4FgfCluiThPs3tUmMhe5MyKM=;
+        b=HFBddgT9pDQhRlinJaUZqmzdeAehzDvRHdi0BgIiT+b4nNQQwqZ2AC2GWhkwm5n7sB
+         ClB7l/ZzCeiurxGBCwZCK16DXFB6cJr/WbJQ3Wt/NVN5qQ6RUNHw1cv/Q1cAL5AzAi8v
+         tpXHijanS8JjXxQ1Ym77ttP7+plIMFXEsAxCogI8I+NYfRdDwv13TlbOhSCGQKFe6Eho
+         ARt1pFze9EXoFgub+yl8MZ5pUSXZV+8BNsasOkqyu/gamXnSVhMIZy2GwdSrRqmTJDQ3
+         sPxGEJUhg40tTFdFD8ZquFt+cq0bLvp2DlKGsqIYxnIwEtF06zgfmD3662yhmv4Ca2FM
+         BxIQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1720452159; x=1721056959;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=uBqnkywXTLI/c9/Y7Ffx/rFVkky9hIJjCo6ULp0cp3g=;
-        b=R7N3KFZITTf8wR0jhDTB3aJMadHJ6K94vrGEmOxoadXnV6zdElFMyjyoJX3MZX3MUG
-         T/fMGdQPmbIau4a8WjNJaR3l+V0fbDWjpuD7PCp182WFOZN9Co5aiEPI9qZ5+USYD5Me
-         fSv5oxKVLSQwA7KGA22sdFmTROZig74ODBJvTOxR3D7WreaQtWGPUp//ixzKcYYGEMKr
-         kyTGX0W/D0gu/Zn/VDSrhe+WATcZOC7t8kOoapXMm1C8i/6ISPg8gL0+QhSUzMfKpRf8
-         l8UiW3c7VnBSbjqSaYFVKI4nZpoxLGodaZtaTWT7qIfReGZp+JNTc7uiFXI4kKA7rtjq
-         8Gjw==
-X-Gm-Message-State: AOJu0Yyuk9rMDcptwJv/36NLhnTAe7+2lz48m/AEFuqHriQ+l+iu6Ytu
-	Ka68jfe9evsNFOYLehzHJRG8020d4+r0tIcL1WmCLxNNAbqS4Z4hP5l07f9vbVW72LvD3FVzvmg
-	17zCDZDoJq1s/BAJqqHxPhI5vFB4Rj+iBGuox
-X-Google-Smtp-Source: AGHT+IHymjI8vbM5cy6a+sjFQiFO3PHqqNbiIy91u+lamEFma4jfGa5DUVijsl6822L5md0Kr9Bcgj7Z+KlXqtteMoM=
-X-Received: by 2002:aa7:88d6:0:b0:705:b0c0:d7d7 with SMTP id
- d2e1a72fcca58-70b434f63fcmr71820b3a.7.1720452158907; Mon, 08 Jul 2024
- 08:22:38 -0700 (PDT)
+        d=1e100.net; s=20230601; t=1720452373; x=1721057173;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=GAnfqi2cra/5r9skPbe4FgfCluiThPs3tUmMhe5MyKM=;
+        b=XyarYK15qamom2Iw0zfdGnNhffqjbU37hZQPXOYJMwpHa3JiSlixc/kATuefgkE7Yu
+         tbBLujNWUwDfDaiiHTxnjGxv4Deol7xxiQQD70IK0H9gcq2ASgjskOxjT9HM64/jpIkZ
+         G1paSWt7HJYZvdJNDNl0L9Oswbo7ZdV3zzcTO3WLNTBzN+oaFz0qdpdap9Yn5L4zY51x
+         iRgr7WAWpzwie+SNkX7H6TbfAt1E5qLpUnw0G9wmIKSEQeMHOgGMThLSEUteZYrm+kCu
+         MiRmUq/f0h/XFzgke0n0iUWFPqoQq7qQF9xceySzSsUJdEjhjk5JN/36jwcIB331dUa8
+         7HBw==
+X-Forwarded-Encrypted: i=1; AJvYcCV69dhpalWQNjZQvT/yLxQsBE/waaIIwxwyoqHtuGl7jm4RrcsNLtJL90sOsSyZaL0MGg+rEeUueXmvP+IYv/89CNzjBh1QjylXhJ2w0e0=
+X-Gm-Message-State: AOJu0YyiSvshLlNIzoJAN0BqZEfhD1p77UuTUA9FrPaqhwZHpVNGsi6J
+	SH3r6enTBkPOLEUYrMtw1V3O6oeYliss8V7JIUyDArUmxkqPSsascVhGbOhCAsI=
+X-Google-Smtp-Source: AGHT+IGl87z+WsFqE3Kjuw0OIOd84dS+R6fPXBjw1LaNur/plN6juqSsNRuCF5WzkCCumDzhzaHpfA==
+X-Received: by 2002:ac2:59cd:0:b0:52c:892e:2b26 with SMTP id 2adb3069b0e04-52ea061f5fcmr7213897e87.2.1720452372775;
+        Mon, 08 Jul 2024 08:26:12 -0700 (PDT)
+Message-ID: <23f8b3a5-67ed-4a84-af70-600337677e33@suse.com>
+Date: Mon, 8 Jul 2024 17:26:11 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH for-4.19] tools/libxs: Fix fcntl() invocation in
+ set_cloexec()
+To: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Ross Lagerwall <ross.lagerwall@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+ Jan Beulich <JBeulich@suse.com>
 References: <20240708151522.2176290-1-andrew.cooper3@citrix.com>
+Content-Language: en-US
+From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
 In-Reply-To: <20240708151522.2176290-1-andrew.cooper3@citrix.com>
-From: Ross Lagerwall <ross.lagerwall@citrix.com>
-Date: Mon, 8 Jul 2024 16:22:26 +0100
-Message-ID: <CAG7k0EqsJcwsevdPWahpTrO49U4rXzQvckbzYLccckpY=wu-TA@mail.gmail.com>
-Subject: Re: [PATCH for-4.19] tools/libxs: Fix fcntl() invocation in set_cloexec()
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>, 
-	Anthony PERARD <anthony.perard@vates.tech>, Juergen Gross <jgross@suse.com>, 
-	Oleksii Kurochko <oleksii.kurochko@gmail.com>, Jan Beulich <JBeulich@suse.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Mon, Jul 8, 2024 at 4:15=E2=80=AFPM Andrew Cooper <andrew.cooper3@citrix=
-.com> wrote:
->
+On 08.07.24 17:15, Andrew Cooper wrote:
 > set_cloexec() had a bit too much copy&pate from setnonblock(), and
 > insufficient testing on ancient versions of Linux...
->
-> As written (emulating ancient linux by undef'ing O_CLOEXEC), strace shows=
-:
->
->   open("/dev/xen/xenbus", O_RDWR)         =3D 3
->   fcntl(3, F_GETFL)                       =3D 0x8002 (flags O_RDWR|O_LARG=
-EFILE)
->   fcntl(3, 0x8003 /* F_??? */, 0x7ffe4a771d90) =3D -1 EINVAL (Invalid arg=
-ument)
->   close(3)                                =3D 0
->
+> 
+> As written (emulating ancient linux by undef'ing O_CLOEXEC), strace shows:
+> 
+>    open("/dev/xen/xenbus", O_RDWR)         = 3
+>    fcntl(3, F_GETFL)                       = 0x8002 (flags O_RDWR|O_LARGEFILE)
+>    fcntl(3, 0x8003 /* F_??? */, 0x7ffe4a771d90) = -1 EINVAL (Invalid argument)
+>    close(3)                                = 0
+> 
 > which is obviously nonsense.
->
-> Switch F_GETFL -> F_GETFD, and fix the second invocation to use F_SETFD. =
- With
+> 
+> Switch F_GETFL -> F_GETFD, and fix the second invocation to use F_SETFD.  With
 > this, strace is rather happer:
->
->   open("/dev/xen/xenbus", O_RDWR)         =3D 3
->   fcntl(3, F_GETFD)                       =3D 0
->   fcntl(3, F_SETFD, FD_CLOEXEC)           =3D 0
->
+> 
+>    open("/dev/xen/xenbus", O_RDWR)         = 3
+>    fcntl(3, F_GETFD)                       = 0
+>    fcntl(3, F_SETFD, FD_CLOEXEC)           = 0
+> 
 > Fixes: bf7c1464706a ("tools/libxs: Fix CLOEXEC handling in get_dev()")
 > Reported-by: Ross Lagerwall <ross.lagerwall@citrix.com>
 > Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-Reviewed-by: Ross Lagerwall <ross.lagerwall@citrix.com>
+Reviewed-by: Juergen Gross <jgross@suse.com>
 
-Thanks
+
+Juergen
+
 
