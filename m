@@ -2,40 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C0D96929AC4
-	for <lists+xen-devel@lfdr.de>; Mon,  8 Jul 2024 04:28:42 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.754973.1163230 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 89F9B929B3F
+	for <lists+xen-devel@lfdr.de>; Mon,  8 Jul 2024 06:11:36 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.754981.1163239 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sQe71-0004H2-5b; Mon, 08 Jul 2024 02:28:19 +0000
+	id 1sQfhp-0000Lm-5l; Mon, 08 Jul 2024 04:10:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 754973.1163230; Mon, 08 Jul 2024 02:28:19 +0000
+Received: by outflank-mailman (output) from mailman id 754981.1163239; Mon, 08 Jul 2024 04:10:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sQe71-0004Ed-2b; Mon, 08 Jul 2024 02:28:19 +0000
-Received: by outflank-mailman (input) for mailman id 754973;
- Mon, 08 Jul 2024 02:28:17 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=tfao=OI=amd.com=Jiqian.Chen@srs-se1.protection.inumbo.net>)
- id 1sQe6z-0004EX-Lb
- for xen-devel@lists.xenproject.org; Mon, 08 Jul 2024 02:28:17 +0000
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on20600.outbound.protection.outlook.com
- [2a01:111:f403:2416::600])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id ba861ae3-3cd1-11ef-bbfb-fd08da9f4363;
- Mon, 08 Jul 2024 04:28:16 +0200 (CEST)
-Received: from BL1PR12MB5849.namprd12.prod.outlook.com (2603:10b6:208:384::18)
- by CY5PR12MB6226.namprd12.prod.outlook.com (2603:10b6:930:22::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7741.35; Mon, 8 Jul
- 2024 02:28:11 +0000
-Received: from BL1PR12MB5849.namprd12.prod.outlook.com
- ([fe80::b77f:9333:3a5a:d285]) by BL1PR12MB5849.namprd12.prod.outlook.com
- ([fe80::b77f:9333:3a5a:d285%3]) with mapi id 15.20.7741.033; Mon, 8 Jul 2024
- 02:28:11 +0000
+	id 1sQfhp-0000J8-35; Mon, 08 Jul 2024 04:10:25 +0000
+Received: by outflank-mailman (input) for mailman id 754981;
+ Mon, 08 Jul 2024 04:10:23 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1sQfhn-0000Iw-5L; Mon, 08 Jul 2024 04:10:23 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1sQfhm-0006lD-VK; Mon, 08 Jul 2024 04:10:23 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1sQfhm-0000RR-8r; Mon, 08 Jul 2024 04:10:22 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1sQfhm-00061V-7l; Mon, 08 Jul 2024 04:10:22 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,200 +42,467 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ba861ae3-3cd1-11ef-bbfb-fd08da9f4363
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=S9xAoDcWZ/dwcyvm2pai29bNH2xSAnuH8xQX5m+OHCg1xPrYhsr8PPsYlgjmpF5SyajTHw2sr2ZMiuSSjarlciTlNC6kWRXoR9VSK1SjMDr6bP6kfU+c07dCl9gsJt3jwb2b4PAwO93z16pYeeDxwdPzA4uSbcVH5eyv9nUuH3E9Ba+MEqZAxaNhzbOD2Z6m44gd8Uyo0IMGzLgL7Fgp1EkkuBxYdzpqZgihYxn21b6dJk8Ww6G+/+M/R/bqXFk/BYxbHc0W+PNcYTNLgA8LtYdCdmEL8PSj/RhbHAT4iMlJPjz1MsJrFcbdQYzwixmROsmHN+Hkc/XI/VhAaeBBew==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=i7kOH/f8zIGlZ74zLRBOOpvH0VSBERzgYfBjAtmOQFA=;
- b=klYajPPVMcYYBtb1BvhOARFeWFbfTaq/ECT9GRPBAUK8XWvK3WKxFgdgSkdJ3wXrScN64kNkIFUsqkf7jDT08mLcdCq9mKsUWur3pOMcAjaLzCe4mm7O4zpOtDCi5FfzFptHna6XPqqZvN0LrJDjecRyfgbniStjm/8x4+m3mN49zPEbEOCkR8A1dx6FF/KYICKTCuxAQM7gHN94GkeSZQw+VGCh81Uz6Qb63h81318spLS0KJhmuCBu7h2TufsHJsk+Q0O074ffUjoAbM2UGxRNNrQbNCDRCquDp1yY+S6sFepa+rRl4li3PxdpCx6kjCOYKMoN1TqNBJGhgsC8UA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=i7kOH/f8zIGlZ74zLRBOOpvH0VSBERzgYfBjAtmOQFA=;
- b=DsY8bhmaU6j8dMl5uv7iJf9Y0UuC606hkvHHjrrsjiQg+tmhwxrtUR4YeAy0uqn+1m+mxzezDVQAKau4xcZ3+v9Sd7ybc7xj4V9/2af59QjwyxZAxYUPTr9upBDhDszw+nwLOAoqySfTkEnIM0rAhCmM/mw9z6y0LnMDkE7th0Y=
-From: "Chen, Jiqian" <Jiqian.Chen@amd.com>
-To: Jan Beulich <jbeulich@suse.com>
-CC: Andrew Cooper <andrew.cooper3@citrix.com>,
-	=?utf-8?B?Um9nZXIgUGF1IE1vbm7DqQ==?= <roger.pau@citrix.com>, Wei Liu
-	<wl@xen.org>, Julien Grall <julien@xen.org>, Stefano Stabellini
-	<sstabellini@kernel.org>, Anthony PERARD <anthony@xenproject.org>, Juergen
- Gross <jgross@suse.com>, "Daniel P . Smith" <dpsmith@apertussolutions.com>,
-	"Hildebrand, Stewart" <Stewart.Hildebrand@amd.com>, "Huang, Ray"
-	<Ray.Huang@amd.com>, "xen-devel@lists.xenproject.org"
-	<xen-devel@lists.xenproject.org>, "Chen, Jiqian" <Jiqian.Chen@amd.com>
-Subject: Re: [XEN PATCH v11 5/8] x86/domctl: Add XEN_DOMCTL_gsi_permission to
- grant gsi
-Thread-Topic: [XEN PATCH v11 5/8] x86/domctl: Add XEN_DOMCTL_gsi_permission to
- grant gsi
-Thread-Index: AQHayunXeOD/UI5IqEOcc1Zu6HQmVrHml5KAgAYS6IA=
-Date: Mon, 8 Jul 2024 02:28:11 +0000
-Message-ID:
- <BL1PR12MB5849DC624AE25635C4BFC417E7DA2@BL1PR12MB5849.namprd12.prod.outlook.com>
-References: <20240630123344.20623-1-Jiqian.Chen@amd.com>
- <20240630123344.20623-6-Jiqian.Chen@amd.com>
- <a02cea93-b04b-484c-b3e0-dd5f6823196e@suse.com>
-In-Reply-To: <a02cea93-b04b-484c-b3e0-dd5f6823196e@suse.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-ms-exchange-imapappendstamp: BL1PR12MB5849.namprd12.prod.outlook.com
- (15.20.7741.016)
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-exchange-messagesentrepresentingtype: 1
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: BL1PR12MB5849:EE_|CY5PR12MB6226:EE_
-x-ms-office365-filtering-correlation-id: 26e4f521-9432-4bc5-d866-08dc9ef59ca9
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|1800799024|376014|7416014|366016|38070700018;
-x-microsoft-antispam-message-info:
- =?utf-8?B?S0NreElTSVNQK1lIZUFZVDBUNWV3K3hWb3Bzb1R6ZjZlRHc4SHdyZnlQbWRF?=
- =?utf-8?B?bGFzMDA3VERldDlEM2lNUDk4VzMxNXh6eEoxb094WXhjYUJjOU1ucy9wQlQz?=
- =?utf-8?B?cjJKNVJkRHJ0UUZKWFMyaXk2WHhPZ1N5cVVvaXJaK05hQ0poT3cyWTBhNlkw?=
- =?utf-8?B?eXl6clhWYVlreEFKOENEcW4yNVdlZDdBZnkvY2ZDSXlNOGVCVFp4ciswcTB5?=
- =?utf-8?B?aDRiY1MwcmQwa2pOazJQS2NwU0s1TzVqN0xLR1pDSERsQUc1dEp0VFBCNXN2?=
- =?utf-8?B?UkhZYks4djEydXdZZmxiRFg1VUFoUUhudHMrWGJ1aEJoSGtSOHJVdkp3Vm5z?=
- =?utf-8?B?aGQ0NnlqV2ozajcwam84MFllZDVNUU8xS2VBblo0MTFib3FMOVZpc2pDM0J3?=
- =?utf-8?B?eGkzd1p1QldkazdjQlF6RVB5R05zVGtuOFZOUTZyL2xTMnpxTXFoQW1xWUZQ?=
- =?utf-8?B?cGtvQUp4NWlILzUzNmVzNy80SkFDRFp0allkTW1xc1Fqb0JlcUxTWkZsSG1u?=
- =?utf-8?B?dWFMZURjYlhMQ0dqQVp0ZG1tbVUrajc4V2FyRjd4S2VldUtVVU1TaGZMc1hH?=
- =?utf-8?B?R20yY3NiTWVvMzJ2R1RXeUtiL01VK3BJVjA5YkN3cXBXSng1VDU3Q3VJNS9R?=
- =?utf-8?B?c1hBUWpKa2hJRUtEWi9NMG16NEtTQ3BvM0dKN21PaDVvbHczbUluQndNVU5R?=
- =?utf-8?B?Q2lCaDh5WFc2VThKZERDWnI3eUVUb09UTXdIRnMrTCtMUUtndGcwdXdKZnFa?=
- =?utf-8?B?ZHVwY29uQ1Q5aGNkaFdUWVFramloV0NrMjlOS2dXYW9iRGc1OHF4V29qcStw?=
- =?utf-8?B?VGJHczRrL3MreWZualA4a1ZkbGVxV1BaRWlHMzU4N2ZIdDBjVmJVQlF1bW1M?=
- =?utf-8?B?YlhNSzdsS3dtSjJGUGRYYWRraFhrQ2Fjb05pbkVtS2tjWGxDRDlJQitFS3p0?=
- =?utf-8?B?eEt6UWF4b2hteGo3cEtpMWIvekI1ZnBpaWx0aTluZVAwZGRsRzU2NlQxelRY?=
- =?utf-8?B?VGVQUEN4YTBuRGNNWkVvRzdxVFVmY3psYm93SEhIUnF0RStRV1dLbXhPNkdS?=
- =?utf-8?B?SWpZN3VVM3FMU3d4d0dJN3h3eVhjOG9yU0xmOUdSd1Q2TnJzMjg5T0lMdHZZ?=
- =?utf-8?B?YWdsQ1V4MjNrTVFPL05GVWFZWUVzeHdYcTBGanJvQVg2dFVBU2dRbU81bWpE?=
- =?utf-8?B?OS9HclBDVTN5Vk05UzdwdDkyY3JNVk1seGJDM2ttc0hOYjNFVnNoRm9vQjBu?=
- =?utf-8?B?bjBuV2ttOWMyUjIrNFJSS09BRk1odGtRSC82bzBxWEgxbWMwSlNQOTFjbk1V?=
- =?utf-8?B?QTA5RTkwelRpRlZCYXVkR0Jhc203RzR3MnJMcU84RC85cGJYWUsrWmE1Zllv?=
- =?utf-8?B?Qk00VmNNNXR0V21xTHVrY2l2VVpiY25kQVJDSXJHYWU1bTRjM3U5bkl3bkRU?=
- =?utf-8?B?SzArUC8zZDk5b0UzVFJvM2NZLzV1SXpoak9UQzNyWHc3UE05blRWb1BVTjBs?=
- =?utf-8?B?bEZRKys2SjhCRzBELzF2emlwSzMyUHRBcHNKa3lmOGZsTjlBajNkeDZQcS9i?=
- =?utf-8?B?M3FCOWpIblMveHNxTWdJNWVHd0NvQzFFZUJFaVkxdWNvS0c1MWw4Nm8wSE5C?=
- =?utf-8?B?K0p6NFBrUEw3dW1SWnhkaytIcFVIR3ladnpWTlFoaUU4R0J1MW5qNXVhUFpl?=
- =?utf-8?B?ZTZybFkxd2x3Wmc5bVRhT0szSzRwcVNqUjRsc25zam90ZUZ2bHVWRTh0SVdY?=
- =?utf-8?B?YVk3bTF6Q1BXZDZPbWIrSG1hdzQyUlFTSytkdVVkY0VLTHY1OGNQNjdLbkpG?=
- =?utf-8?B?WmtLWkxwNlVZemJqMEFsdVVieHlTY0V6aWd3WFdPL0k4THFJdjRvUFNZdFQx?=
- =?utf-8?B?dHpNNU53d2pHdk5CbXNrbzB5aUpCb3pLY204UmNENSszRGc9PQ==?=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BL1PR12MB5849.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(7416014)(366016)(38070700018);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?SHZJUFNuUFZ6Z3BOR0ZwUlMxdmpsMncycThSdlg1aDNvUFpyS1BOTDkzcW9D?=
- =?utf-8?B?bmp6N3dNc2gzUUNUa1g0cHhXSmFmbjFxNkhvMVZyRmtVK0JZR2p5QkNKKzd2?=
- =?utf-8?B?ZWg3UnBoZUtaenFSbG9qeUpGcDJ4ZUI3cHNjbHVwc2xyMnpzeEtYWjRIS1dZ?=
- =?utf-8?B?MzM2bnd6ajRWUWFtOHp1bklwQlVYWDVCenEyRFpua2ttaFdyVzRaM2lmcnlX?=
- =?utf-8?B?dzU0ZXRCRWtHU2JUZkgreHVqSE1Ea1dWeHpKYVRmZ3hYUDlPUmYwM1ZLekR6?=
- =?utf-8?B?MlhIQjhVVHVGUU0zejU1NGpoeTE4eThydHlKQm15VzBtZFNmcVA2MFNoclJ1?=
- =?utf-8?B?ekNTZUlOdEd0ZGRVL0s4clZkaVdsREJwZkNzdHBhVHlFeXBidmVQd2xLaEo3?=
- =?utf-8?B?UHlPblM0L2xCeXNsN1J6ZHhoVzVPN0dackRpRDg0RlNyWjFmVFNCYmtWMWZV?=
- =?utf-8?B?VGxQNlRJRXZ1cGs0YWFLT2tmbFJmbDZ0U29xbkVWdEhnRE5meGt5M3diMVRY?=
- =?utf-8?B?dXBaRFBzNHVTdnQxOVE0dnNGUEt2VVZ5M0hqVXZtdFBoYXE3bWFLOEN1WHUx?=
- =?utf-8?B?ajg0SCtScnJUK0czN3RVa0FISWt3RUpVOXY4MVdUN1Mya1N5RFZGbTNFbll6?=
- =?utf-8?B?amo2THlyMDA4S0dpZXdva3dTQUYyVU42b3hyRVpmZ3l1V1A1R1ZUTkt6S2V5?=
- =?utf-8?B?MSsvOGthbkQ5SjFtZGRLdmZDZzFRNDJRd2xuTnR5ZEQ2Zm9rWTdHVGlrM1dk?=
- =?utf-8?B?RGZKajJYcFd3N3NBR2NVT3NvQXArbTk5M2srVGNOOE5XbWVqbU9tZlp6L2pM?=
- =?utf-8?B?OFk1UVAxNEs4WklnZ1ZXck4zR1cyNmtiSmJhL3F1bFowcHZZTXhVMFI0VUU5?=
- =?utf-8?B?V2p6M0FHY3dxbHhyaDBuM0x1d2FwaVlzcmVqMStxQitHVmtEQTBzakVNVmw1?=
- =?utf-8?B?RjYrbFg5VDlqTDFITnlUSlpXellEckFDNTE0eCtYYkN5VDBhSUh0Nit4czFB?=
- =?utf-8?B?OEczVmZIMFBvZ3Y4YTh4ekJ1OWxHRHBuWlJxd1BQWjcvek52UFZjL1ljcGNz?=
- =?utf-8?B?akpZRVRadXR5dy9XR0hWeWdSZzYwdS9GMXQvZVFXY3NnTGZSSXFCN2dDQ2RO?=
- =?utf-8?B?VGlaQXR2N0l6Q084bi8ycDQvakRkb0orQ3NJakVKM0Q1K0dpd0tQL0pWRXNJ?=
- =?utf-8?B?d3R2OUszTHliZ1NVUTJ1SHI3dmR2N1RRZjNwSlRRZU1ON0FTZUhVRlZXMG1S?=
- =?utf-8?B?YnN2WVFvUWVLRkpINHgzaEFaSVRQMHkxN0pYZ0lFTDhlUjZoUGo5K3BXeHR6?=
- =?utf-8?B?ODBPQ0ZsdnIyNENZcG5VWHV4SDVHT0RoZmJ2a3J2ZnIwRGhOVDhqZ3lXbmFu?=
- =?utf-8?B?dCtOREhFOGFQUWtPYlFNMXc2b3AydDR6dmVrMEFPVWpkS0JzSTdPdkE5aE5q?=
- =?utf-8?B?MFNmREUxZHplRDgvNSs1S21nOGZ1TEVoNUxQM2VMRUFuelNxSHdya2N4QlZr?=
- =?utf-8?B?eTBHdGlrRnVLL3oyR3lsVjk1Ulh3cWs1eVkzZUx3dzkwaG5saEZQZzV0S3Jj?=
- =?utf-8?B?OGV5L1BhWmRYUDg0djZmaU1FY0N2N3BydmpGRDZKOXVCZlJOVGdYWWxlaVNC?=
- =?utf-8?B?VGs5VXhJb2Q4V1dVRmp2UEFxUFQreXNZRWZBZXhaRENnT0ZEakYrUExISUFC?=
- =?utf-8?B?NVZqeHRMTFk3NmpDcjQ1OVdWdHhDd3pRU3d1YVVGblBIU3ZzSmR3LzNWK3lu?=
- =?utf-8?B?ZVdVSWh1L0NsQXlWRmtZa2cvTFg2ckY3Q3dRd280M0poaVFtUEJEYlUvZFJk?=
- =?utf-8?B?TGNsdlR6UFpEQStZMVdpOVNibWVNcS9yZmJXbUhqbHVRZ01LY3lNSWVkem85?=
- =?utf-8?B?aFdlQklXRGtxQ3NDVG5oZHArQm5kWS9ybUtUVkcyM0htNklxdEJCenRzUWlV?=
- =?utf-8?B?aTFZbXU5anlwcHJVUUFzRnVXQzdCdmYvdjZwYzV4WFFQWmNxWmxCMVhSVUIv?=
- =?utf-8?B?VEVTNDdHQXI2bG45aUdmaGJ6dTNNNHR3dFZoOGo2VmhGZi9JZzRZMjNXRUxq?=
- =?utf-8?B?anZOdkQ3ODN0MktXRTRyNTJVa21PRTFBUTlKYkpSVTNYNHUvTU1rTC9BTEk0?=
- =?utf-8?Q?PJA8=3D?=
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <ECC6FA85A557024FBF5836FF98DC9F88@amdcloud.onmicrosoft.com>
-Content-Transfer-Encoding: base64
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=Bv0Vg623jSGV3M4nUosnnKsWPRRS0f2XN4XM1yb7nAo=; b=7IlEDavqpg+Y4tmO6ypixk6uTF
+	gIyCITRbKCu5UyWxA9nIiGh0hWNWY/zQVCKLmGFIpxWkJqdAmiwca/ZfIlL+GeABQPMPJVQ8Wljdr
+	3Z98UlRvb4N5tNfdww1HkGpnjOyXk5eRyiGCQ5JA29qWkU0YYpRTg7nw/3ptxNPnDoFE=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-186724-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5849.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 26e4f521-9432-4bc5-d866-08dc9ef59ca9
-X-MS-Exchange-CrossTenant-originalarrivaltime: 08 Jul 2024 02:28:11.1740
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 2OgiVHMEkAwEA+Rke4OsED86wUuapHPX1nG4ErWViYSQGbalciIWwLtIPKKoHOaQqiVAWbPuEgtEPI6i3+1I+w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6226
+Subject: [linux-linus test] 186724: regressions - FAIL
+X-Osstest-Failures:
+    linux-linus:test-armhf-armhf-xl-credit2:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-xl-credit1:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-libvirt:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-libvirt-vhd:xen-boot:fail:heisenbug
+    linux-linus:test-armhf-armhf-libvirt-vhd:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-libvirt-vhd:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-examine:reboot:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-qcow2:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-raw:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-vhd:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-vhd:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-raw:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-raw:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-qcow2:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-qcow2:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    linux=5a4bd506ddad75f1f2711cfbcf7551a5504e3f1e
+X-Osstest-Versions-That:
+    linux=c6653f49e4fd3b0d52c12a1fc814d6c5b234ea15
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Mon, 08 Jul 2024 04:10:22 +0000
 
-T24gMjAyNC83LzQgMjE6MzMsIEphbiBCZXVsaWNoIHdyb3RlOg0KPiBPbiAzMC4wNi4yMDI0IDE0
-OjMzLCBKaXFpYW4gQ2hlbiB3cm90ZToNCj4+IEBAIC0yMzcsNiArMjM4LDM4IEBAIGxvbmcgYXJj
-aF9kb19kb21jdGwoDQo+PiAgICAgICAgICBicmVhazsNCj4+ICAgICAgfQ0KPj4gIA0KPj4gKyAg
-ICBjYXNlIFhFTl9ET01DVExfZ3NpX3Blcm1pc3Npb246DQo+PiArICAgIHsNCj4+ICsgICAgICAg
-IGludCBpcnE7DQo+PiArICAgICAgICB1aW50OF90IG1hc2sgPSAxOw0KPj4gKyAgICAgICAgdW5z
-aWduZWQgaW50IGdzaSA9IGRvbWN0bC0+dS5nc2lfcGVybWlzc2lvbi5nc2k7DQo+PiArICAgICAg
-ICBib29sIGFsbG93ID0gZG9tY3RsLT51LmdzaV9wZXJtaXNzaW9uLmFsbG93X2FjY2VzczsNCj4+
-ICsNCj4+ICsgICAgICAgIC8qIENoZWNrIGFsbCBiaXRzIGFuZCBwYWRzIGFyZSB6ZXJvIGV4Y2Vw
-dCBsb3dlc3QgYml0ICovDQo+PiArICAgICAgICByZXQgPSAtRUlOVkFMOw0KPj4gKyAgICAgICAg
-aWYgKCBkb21jdGwtPnUuZ3NpX3Blcm1pc3Npb24uYWxsb3dfYWNjZXNzICYgKCAhbWFzayApICkN
-Cj4+ICsgICAgICAgICAgICBnb3RvIGdzaV9wZXJtaXNzaW9uX291dDsNCj4gDQo+IEknbSBwcmV0
-dHkgc3VyZSB0aGF0IGlmIHlvdSBoYWQsIGFzIHdvdWxkIGhhdmUgYmVlbiBleHBlY3RlZCwgYWRk
-ZWQgYQ0KPiAjZGVmaW5lIHRvIHRoZSBwdWJsaWMgaGVhZGVyIGZvciBqdXN0IHRoZSBsb3cgYml0
-IHlvdSBhc3NpZ24gbWVhbmluZyB0bywNCj4geW91IHdvdWxkbid0IGhhdmUgY2F1c2VkIHlvdXJz
-ZWxmIHByb2JsZW1zIGhlcmUuIEZvciBvbmUsIHRoZQ0KPiBpbml0aWFsaXplciBmb3IgImFsbG93
-IiB3aWxsIGJlIGVhc3kgdG8gbWlzcyBpZiBtZWFuaW5nIGlzIGFzc2lnbmVkIHRvDQo+IGFub3Ro
-ZXIgb2YgdGhlIGJpdHMuIEl0IHNhZGx5IF9zdGlsbF8gdGFrZXMgdGhlIGZ1bGwgOCBiaXRzIGFu
-ZA0KPiBjb252ZXJ0cyB0aG9zZSB0byBhIGJvb2xlYW4uIEFuZCB0aGVuIHRoZSBjaGVjayBoZXJl
-IHdvbid0IHdvcmsgZWl0aGVyLg0KPiBJIGRvbid0IHNlZSB3aGF0IHVzZSB0aGUgbG9jYWwgdmFy
-aWFibGUgIm1hc2siIGlzLCBidXQgYXQgdGhlIHZlcnkNCj4gbGVhc3QgSSBleHBlY3QgaW4gcGxh
-Y2Ugb2YgISB5b3UgbWVhbiB+IHJlYWxseS4NCj4gDQo+PiArICAgICAgICBmb3IgKCBpID0gMDsg
-aSA8IEFSUkFZX1NJWkUoZG9tY3RsLT51LmdzaV9wZXJtaXNzaW9uLnBhZCk7ICsraSApDQo+PiAr
-ICAgICAgICAgICAgaWYgKCBkb21jdGwtPnUuZ3NpX3Blcm1pc3Npb24ucGFkW2ldICkNCj4+ICsg
-ICAgICAgICAgICAgICAgZ290byBnc2lfcGVybWlzc2lvbl9vdXQ7DQo+PiArDQo+PiArICAgICAg
-ICBpZiAoIGdzaSA+PSBucl9pcnFzX2dzaSB8fCAoIGlycSA9IGdzaV8yX2lycShnc2kpICkgPCAw
-ICkNCj4gDQo+IG5yX2lycXNfZ3NpIGlzIHRoZSB1cHBlciBib3VuZCBvbiBJUlFzIHJlcHJlc2Vu
-dGluZyBhIEdTSTsgYXMgc2FpZCBiZWZvcmUsDQo+IEdTSXMgYW5kIElSUXMgYXJlIGRpZmZlcmVu
-dCBudW1iZXIgc3BhY2VzLCBhbmQgaGVuY2UgeW91IGNhbid0IGNvbXBhcmUNCj4gZ3NpIGFnYWlu
-c3QgbnJfaXJxc19nc2kuIFRoZSAoaW5jbHVzaXZlKSB1cHBlciBib3VuZCBvbiAodmFsaWQpIEdT
-SXMgaXMNCj4gbXBfaW9hcGljX3JvdXRpbmdbbnJfaW9hcGljcyAtIDFdLmdzaV9lbmQsIG9yIHRo
-ZSByZXR1cm4gdmFsdWUgb2YNCj4gaGlnaGVzdF9nc2koKS4NCldpbGwgY2hhbmdlIHRvIGhpZ2hl
-c3RfZ3NpIGluIG5leHQgdmVyc2lvbi4NCg0KPiANCj4gQWxzbywgc3R5bGUgbml0OiBCbGFua3Mg
-YmVsb25nIGltbWVkaWF0ZWx5IGluc2lkZSBwYXJlbnRoZXNlcyBvbmx5IGZvciB0aGUNCj4gb3V0
-ZXIgcGFpciBvZiBjb250cm9sIHN0YXRlbWVudHM7IG5vIGlubmVyIGV4cHJlc3Npb25zIHNob3Vs
-ZCBoYXZlIHRoZW0gdGhpcw0KPiB3YXkuDQo+IA0KPiBGaW5hbGx5IEknZCBsaWtlIHRvIGFzayB0
-aGF0IHlvdSB1c2UgIjw9IDAiLCBhcyB3ZSBkbyBpbiB2YXJpb3VzIHBsYWNlcw0KPiBlbHNld2hl
-cmUuIElSUTAgaXMgdGhlIHRpbWVyIGludGVycnVwdDsgd2UgbmV2ZXIgd2FudCB0byBoYXZlIHRo
-YXQgdXNlZCBieQ0KPiBhbnkgZW50aXR5IG91dHNpZGUgb2YgWGVuIGl0c2VsZi4NCj4gDQo+PiAt
-LS0gYS94ZW4vaW5jbHVkZS9wdWJsaWMvZG9tY3RsLmgNCj4+ICsrKyBiL3hlbi9pbmNsdWRlL3B1
-YmxpYy9kb21jdGwuaA0KPj4gQEAgLTQ2NCw2ICs0NjQsMTIgQEAgc3RydWN0IHhlbl9kb21jdGxf
-aXJxX3Blcm1pc3Npb24gew0KPj4gICAgICB1aW50OF90IHBhZFszXTsNCj4+ICB9Ow0KPj4gIA0K
-Pj4gKy8qIFhFTl9ET01DVExfZ3NpX3Blcm1pc3Npb24gKi8NCj4+ICtzdHJ1Y3QgeGVuX2RvbWN0
-bF9nc2lfcGVybWlzc2lvbiB7DQo+PiArICAgIHVpbnQzMl90IGdzaTsNCj4+ICsgICAgdWludDhf
-dCBhbGxvd19hY2Nlc3M7ICAgIC8qIGZsYWcgdG8gc3BlY2lmeSBlbmFibGUvZGlzYWJsZSBvZiB4
-ODYgZ3NpIGFjY2VzcyAqLw0KPiANCj4gU2VlIGFib3ZlLiBJdCdzIG5vdCB0aGUgZmllbGQgdGhh
-dCBzZXJ2ZXMgYXMgYSBmbGFnIGZvciB0aGUgcHVycG9zZSB5b3UNCj4gc3RhdGUsIGJ1dCBqdXN0
-IHRoZSBsb3cgYml0LiBZb3Ugd2FudCB0byByZW5hbWUgdGhlIGZpZWxkIChmbGFncz8pIGFuZA0K
-PiAjZGVmaW5lIGEgc3VpdGFibGUgY29uc3RhbnQuDQoNCllvdSBtZWFuPw0KDQpzdHJ1Y3QgeGVu
-X2RvbWN0bF9nc2lfcGVybWlzc2lvbiB7DQogICAgdWludDMyX3QgZ3NpOw0KI2RlZmluZSBHU0lf
-UEVSTUlTU0lPTl9NQVNLICAgIDENCiNkZWZpbmUgR1NJX1BFUk1JU1NJT05fRElTQUJMRSAwDQoj
-ZGVmaW5lIEdTSV9QRVJNSVNTSU9OX0VOQUJMRSAgMQ0KICAgIHVpbnQ4X3QgYWNjZXNzX2ZsYWc7
-ICAgIC8qIGZsYWcgdG8gc3BlY2lmeSBlbmFibGUvZGlzYWJsZSBvZiB4ODYgZ3NpIGFjY2VzcyAq
-Lw0KICAgIHVpbnQ4X3QgcGFkWzNdOw0KfTsNCg0KPiANCj4gSmFuDQoNCi0tIA0KQmVzdCByZWdh
-cmRzLA0KSmlxaWFuIENoZW4uDQo=
+flight 186724 linux-linus real [real]
+flight 186725 linux-linus real-retest [real]
+http://logs.test-lab.xenproject.org/osstest/logs/186724/
+http://logs.test-lab.xenproject.org/osstest/logs/186725/
+
+Regressions :-(
+
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ test-armhf-armhf-xl-credit2   8 xen-boot                 fail REGR. vs. 186720
+ test-armhf-armhf-xl-credit1   8 xen-boot                 fail REGR. vs. 186720
+ test-armhf-armhf-libvirt      8 xen-boot                 fail REGR. vs. 186720
+
+Tests which are failing intermittently (not blocking):
+ test-armhf-armhf-libvirt-vhd  8 xen-boot            fail pass in 186725-retest
+
+Tests which did not succeed, but are not blocking:
+ test-armhf-armhf-libvirt-vhd 14 migrate-support-check fail in 186725 never pass
+ test-armhf-armhf-libvirt-vhd 15 saverestore-support-check fail in 186725 never pass
+ test-armhf-armhf-examine      8 reboot                       fail  like 186720
+ test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 186720
+ test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 186720
+ test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 186720
+ test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 186720
+ test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 186720
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-qcow2 14 migrate-support-check        fail never pass
+ test-armhf-armhf-xl-rtds     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-rtds     16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-vhd      14 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-vhd      15 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-raw      14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-raw      15 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-multivcpu 15 migrate-support-check        fail  never pass
+ test-armhf-armhf-xl-multivcpu 16 saverestore-support-check    fail  never pass
+ test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-qcow2    14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-qcow2    15 saverestore-support-check    fail   never pass
+
+version targeted for testing:
+ linux                5a4bd506ddad75f1f2711cfbcf7551a5504e3f1e
+baseline version:
+ linux                c6653f49e4fd3b0d52c12a1fc814d6c5b234ea15
+
+Last test of basis   186720  2024-07-07 04:19:59 Z    0 days
+Testing same since   186724  2024-07-07 18:42:19 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Bjorn Andersson <andersson@kernel.org>
+  Chen-Yu Tsai <wens@csie.org>
+  Frank Oltmanns <frank@oltmanns.dev>
+  Gabor Juhos <j4g8y7@gmail.com>
+  Konrad Dybcio <konrad.dybcio@linaro.org>
+  Linus Torvalds <torvalds@linux-foundation.org>
+  Luca Weiss <luca.weiss@fairphone.com>
+  Md Sadre Alam <quic_mdalam@quicinc.com>
+  Pin-yen Lin <treapking@chromium.org>
+  Robert J. Pafford <pafford.9@buckeyemail.osu.edu>
+  Stephen Boyd <sboyd@kernel.org>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl                                          pass    
+ test-amd64-coresched-amd64-xl                                pass    
+ test-arm64-arm64-xl                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
+ test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 pass    
+ test-amd64-amd64-xl-xsm                                      pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-qemuu-nested-amd                            fail    
+ test-amd64-amd64-xl-pvhv2-amd                                pass    
+ test-amd64-amd64-dom0pvh-xl-amd                              pass    
+ test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
+ test-amd64-amd64-qemuu-freebsd12-amd64                       pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-amd64-xl-qemut-win7-amd64                         fail    
+ test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
+ test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
+ test-armhf-armhf-xl-arndale                                  pass    
+ test-amd64-amd64-examine-bios                                pass    
+ test-amd64-amd64-xl-credit1                                  pass    
+ test-arm64-arm64-xl-credit1                                  pass    
+ test-armhf-armhf-xl-credit1                                  fail    
+ test-amd64-amd64-xl-credit2                                  pass    
+ test-arm64-arm64-xl-credit2                                  pass    
+ test-armhf-armhf-xl-credit2                                  fail    
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
+ test-amd64-amd64-examine                                     pass    
+ test-arm64-arm64-examine                                     pass    
+ test-armhf-armhf-examine                                     fail    
+ test-amd64-amd64-qemuu-nested-intel                          pass    
+ test-amd64-amd64-xl-pvhv2-intel                              pass    
+ test-amd64-amd64-dom0pvh-xl-intel                            pass    
+ test-amd64-amd64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     fail    
+ test-amd64-amd64-xl-multivcpu                                pass    
+ test-armhf-armhf-xl-multivcpu                                pass    
+ test-amd64-amd64-pair                                        pass    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-amd64-xl-pvshim                                   pass    
+ test-amd64-amd64-pygrub                                      pass    
+ test-amd64-amd64-libvirt-qcow2                               pass    
+ test-amd64-amd64-xl-qcow2                                    pass    
+ test-armhf-armhf-xl-qcow2                                    pass    
+ test-amd64-amd64-libvirt-raw                                 pass    
+ test-arm64-arm64-libvirt-raw                                 pass    
+ test-amd64-amd64-xl-raw                                      pass    
+ test-armhf-armhf-xl-raw                                      pass    
+ test-amd64-amd64-xl-rtds                                     pass    
+ test-armhf-armhf-xl-rtds                                     pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
+ test-amd64-amd64-xl-shadow                                   pass    
+ test-arm64-arm64-xl-thunderx                                 pass    
+ test-amd64-amd64-examine-uefi                                pass    
+ test-amd64-amd64-libvirt-vhd                                 pass    
+ test-armhf-armhf-libvirt-vhd                                 fail    
+ test-amd64-amd64-xl-vhd                                      pass    
+ test-arm64-arm64-xl-vhd                                      pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+------------------------------------------------------------
+commit 5a4bd506ddad75f1f2711cfbcf7551a5504e3f1e
+Merge: c6653f49e4fd 10f84de27bd0
+Author: Linus Torvalds <torvalds@linux-foundation.org>
+Date:   Sun Jul 7 10:59:38 2024 -0700
+
+    Merge tag 'clk-fixes-for-linus' of git://git.kernel.org/pub/scm/linux/kernel/git/clk/linux
+    
+    Pull clk fixes from Stephen Boyd:
+     "A set of clk fixes for the Qualcomm, Mediatek, and Allwinner drivers:
+    
+       - Fix the Qualcomm Stromer Plus PLL set_rate() clk_op to explicitly
+         set the alpha enable bit and not set bits that don't exist
+    
+       - Mark Qualcomm IPQ9574 crypto clks as voted to avoid stuck clk
+         warnings
+    
+       - Fix the parent of some PLLs on Qualcomm sm6530 so their rate is
+         correct
+    
+       - Fix the min/max rate clamping logic in the Allwinner driver that
+         got broken in v6.9
+    
+       - Limit runtime PM enabling in the Mediatek driver to only
+         mt8183-mfgcfg so that system wide resume doesn't break on other
+         Mediatek SoCs"
+    
+    * tag 'clk-fixes-for-linus' of git://git.kernel.org/pub/scm/linux/kernel/git/clk/linux:
+      clk: mediatek: mt8183: Only enable runtime PM on mt8183-mfgcfg
+      clk: sunxi-ng: common: Don't call hw_to_ccu_common on hw without common
+      clk: qcom: gcc-ipq9574: Add BRANCH_HALT_VOTED flag
+      clk: qcom: apss-ipq-pll: remove 'config_ctl_hi_val' from Stromer pll configs
+      clk: qcom: clk-alpha-pll: set ALPHA_EN bit for Stromer Plus PLLs
+      clk: qcom: gcc-sm6350: Fix gpll6* & gpll7 parents
+
+commit 10f84de27bd05bd2648512975d085dbe0a1e71c3
+Merge: 878e845d8db0 72ceafb587a5
+Author: Stephen Boyd <sboyd@kernel.org>
+Date:   Tue Jul 2 12:03:15 2024 -0700
+
+    Merge tag 'qcom-clk-fixes-for-6.10' of https://git.kernel.org/pub/scm/linux/kernel/git/qcom/linux into clk-fixes
+    
+    Pull Qualcomm clk driver fixes from Bjorn Andersson:
+    
+     - Correct the Stromer Plus PLL set_rate to explicitly set ALPHA_EN bit and
+       remove unnecessary upper parts of CONFIG_CTL values.
+     - Mark the recently added IPQ9574 GCC crypto clocks BRANCH_HALT_VOTED, to
+       address stuck clock warnings.
+     - Fix the GPLL6 and GPLL7 parents on SM6350 to avoid issues with these
+       reportedly running at ~25GHz.
+    
+    * tag 'qcom-clk-fixes-for-6.10' of https://git.kernel.org/pub/scm/linux/kernel/git/qcom/linux:
+      clk: qcom: gcc-ipq9574: Add BRANCH_HALT_VOTED flag
+      clk: qcom: apss-ipq-pll: remove 'config_ctl_hi_val' from Stromer pll configs
+      clk: qcom: clk-alpha-pll: set ALPHA_EN bit for Stromer Plus PLLs
+      clk: qcom: gcc-sm6350: Fix gpll6* & gpll7 parents
+
+commit 878e845d8db04df9ff3bbbaac09d335b24153704
+Author: Pin-yen Lin <treapking@chromium.org>
+Date:   Thu Jun 13 20:02:28 2024 +0800
+
+    clk: mediatek: mt8183: Only enable runtime PM on mt8183-mfgcfg
+    
+    Commit 2f7b1d8b5505 ("clk: mediatek: Do a runtime PM get on controllers
+    during probe") enabled runtime PM for all mediatek clock controllers,
+    but this introduced an issue on the resume path.
+    
+    If a device resumes earlier than the clock controller and calls
+    clk_prepare() when runtime PM is enabled on the controller, it will end
+    up calling clk_pm_runtime_get(). But the subsequent
+    pm_runtime_resume_and_get() call will fail because the runtime PM is
+    temporarily disabled during suspend.
+    
+    To workaround this, introduce a need_runtime_pm flag and only enable it
+    on mt8183-mfgcfg, which is the driver that observed deadlock previously.
+    Hopefully mt8183-cfgcfg won't run into the issue at the resume stage
+    because the GPU should have stopped rendering before the system calls
+    suspend.
+    
+    Fixes: 2f7b1d8b5505 ("clk: mediatek: Do a runtime PM get on controllers during probe")
+    Signed-off-by: Pin-yen Lin <treapking@chromium.org>
+    Link: https://lore.kernel.org/r/20240613120357.1043342-1-treapking@chromium.org
+    Signed-off-by: Stephen Boyd <sboyd@kernel.org>
+
+commit f7275fdf945cc91217dfba75d8c9e984c1dab05c
+Merge: 2607133196c3 ea977d742507
+Author: Stephen Boyd <sboyd@kernel.org>
+Date:   Mon Jul 1 13:18:29 2024 -0700
+
+    Merge tag 'sunxi-clk-fixes-for-6.10' of https://git.kernel.org/pub/scm/linux/kernel/git/sunxi/linux into clk-fixes
+    
+    Pull one Allwinner SoC clk driver fix for 6.10
+    
+     - Fix min/max rate clamping that caused a regression back in 6.9
+    
+    * tag 'sunxi-clk-fixes-for-6.10' of https://git.kernel.org/pub/scm/linux/kernel/git/sunxi/linux:
+      clk: sunxi-ng: common: Don't call hw_to_ccu_common on hw without common
+
+commit ea977d742507e534d9fe4f4d74256f6b7f589338
+Author: Frank Oltmanns <frank@oltmanns.dev>
+Date:   Sun Jun 23 10:45:58 2024 +0200
+
+    clk: sunxi-ng: common: Don't call hw_to_ccu_common on hw without common
+    
+    In order to set the rate range of a hw sunxi_ccu_probe calls
+    hw_to_ccu_common() assuming all entries in desc->ccu_clks are contained
+    in a ccu_common struct. This assumption is incorrect and, in
+    consequence, causes invalid pointer de-references.
+    
+    Remove the faulty call. Instead, add one more loop that iterates over
+    the ccu_clks and sets the rate range, if required.
+    
+    Fixes: b914ec33b391 ("clk: sunxi-ng: common: Support minimum and maximum rate")
+    Reported-by: Robert J. Pafford <pafford.9@buckeyemail.osu.edu>
+    Closes: https://lore.kernel.org/lkml/DM6PR01MB58047C810DDD5D0AE397CADFF7C22@DM6PR01MB5804.prod.exchangelabs.com/
+    Cc: stable@vger.kernel.org
+    Signed-off-by: Frank Oltmanns <frank@oltmanns.dev>
+    Tested-by: Robert J. Pafford <pafford.9@buckeyemail.osu.edu>
+    Link: https://lore.kernel.org/r/20240623-sunxi-ng_fix_common_probe-v1-1-7c97e32824a1@oltmanns.dev
+    Signed-off-by: Chen-Yu Tsai <wens@csie.org>
+
+commit 72ceafb587a56e26c905472418c7dc2033c294d3
+Author: Md Sadre Alam <quic_mdalam@quicinc.com>
+Date:   Thu May 9 16:24:05 2024 +0530
+
+    clk: qcom: gcc-ipq9574: Add BRANCH_HALT_VOTED flag
+    
+    The crypto_ahb and crypto_axi clks are hardware voteable.
+    This means that the halt bit isn't reliable because some
+    other voter in the system, e.g. TrustZone, could be keeping
+    the clk enabled when the kernel turns it off from clk_disable().
+    Make these clks use voting mode by changing the halt check to
+    BRANCH_HALT_VOTED and toggle the voting bit in the voting register
+    instead of directly controlling the branch by writing to the branch
+    register. This fixes stuck clk warnings seen on ipq9574 and saves
+    power by actually turning the clk off.
+    
+    Also changes the CRYPTO_AHB_CLK_ENA & CRYPTO_AXI_CLK_ENA
+    offset to 0xb004 from 0x16014.
+    
+    Cc: stable@vger.kernel.org
+    Fixes: f6b2bd9cb29a ("clk: qcom: gcc-ipq9574: Enable crypto clocks")
+    Signed-off-by: Md Sadre Alam <quic_mdalam@quicinc.com>
+    Link: https://lore.kernel.org/r/20240509105405.1262369-1-quic_mdalam@quicinc.com
+    Signed-off-by: Bjorn Andersson <andersson@kernel.org>
+
+commit 2ba8425678af422da37b6c9b50e9ce66f0f55cae
+Author: Gabor Juhos <j4g8y7@gmail.com>
+Date:   Thu May 9 10:08:04 2024 +0200
+
+    clk: qcom: apss-ipq-pll: remove 'config_ctl_hi_val' from Stromer pll configs
+    
+    Since the CONFIG_CTL register is only 32 bits wide in the Stromer
+    and Stromer Plus PLLs , the 'config_ctl_hi_val' values from the
+    IPQ5018 and IPQ5332 configurations are not used so remove those.
+    
+    No functional changes.
+    
+    Signed-off-by: Gabor Juhos <j4g8y7@gmail.com>
+    Reviewed-by: Kathiravan Thirumoorthy <quic_kathirav@quicinc.com>
+    Acked-by: Konrad Dybcio <konrad.dybcio@linaro.org>
+    Link: https://lore.kernel.org/r/20240509-stromer-config-ctl-v1-1-6034e17b28d5@gmail.com
+    Signed-off-by: Bjorn Andersson <andersson@kernel.org>
+
+commit 5a33a64524e6381c399e5e42571d9363ffc0bed4
+Author: Gabor Juhos <j4g8y7@gmail.com>
+Date:   Wed May 8 22:34:14 2024 +0200
+
+    clk: qcom: clk-alpha-pll: set ALPHA_EN bit for Stromer Plus PLLs
+    
+    The clk_alpha_pll_stromer_plus_set_rate() function does not
+    sets the ALPHA_EN bit in the USER_CTL register, so setting
+    rates which requires using alpha mode works only if the bit
+    gets set already prior calling the function.
+    
+    Extend the function to set the ALPHA_EN bit in order to allow
+    using fractional rates regardless whether the bit gets set
+    previously or not.
+    
+    Fixes: 84da48921a97 ("clk: qcom: clk-alpha-pll: introduce stromer plus ops")
+    Signed-off-by: Gabor Juhos <j4g8y7@gmail.com>
+    Link: https://lore.kernel.org/r/20240508-stromer-plus-alpha-en-v1-1-6639ce01ca5b@gmail.com
+    Signed-off-by: Bjorn Andersson <andersson@kernel.org>
+
+commit 3414f41a13eb41db15c558fbc695466203dca4fa
+Author: Luca Weiss <luca.weiss@fairphone.com>
+Date:   Wed May 8 10:12:53 2024 +0200
+
+    clk: qcom: gcc-sm6350: Fix gpll6* & gpll7 parents
+    
+    Both gpll6 and gpll7 are parented to CXO at 19.2 MHz and not to GPLL0
+    which runs at 600 MHz. Also gpll6_out_even should have the parent gpll6
+    and not gpll0.
+    
+    Adjust the parents of these clocks to make Linux report the correct rate
+    and not absurd numbers like gpll7 at ~25 GHz or gpll6 at 24 GHz.
+    
+    Corrected rates are the following:
+    
+      gpll7              807999902 Hz
+      gpll6              768000000 Hz
+         gpll6_out_even  384000000 Hz
+      gpll0              600000000 Hz
+         gpll0_out_odd   200000000 Hz
+         gpll0_out_even  300000000 Hz
+    
+    And because gpll6 is the parent of gcc_sdcc2_apps_clk_src (at 202 MHz)
+    that clock also reports the correct rate now and avoids this warning:
+    
+      [    5.984062] mmc0: Card appears overclocked; req 202000000 Hz, actual 6312499237 Hz
+    
+    Fixes: 131abae905df ("clk: qcom: Add SM6350 GCC driver")
+    Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
+    Link: https://lore.kernel.org/r/20240508-sm6350-gpll-fix-v1-1-e4ea34284a6d@fairphone.com
+    Signed-off-by: Bjorn Andersson <andersson@kernel.org>
 
