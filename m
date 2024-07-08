@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D2D8A929EEC
-	for <lists+xen-devel@lfdr.de>; Mon,  8 Jul 2024 11:19:44 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.755236.1163543 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 53E73929F01
+	for <lists+xen-devel@lfdr.de>; Mon,  8 Jul 2024 11:26:28 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.755240.1163553 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sQkWm-0002sc-BZ; Mon, 08 Jul 2024 09:19:20 +0000
+	id 1sQkdE-0004K2-Sm; Mon, 08 Jul 2024 09:26:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 755236.1163543; Mon, 08 Jul 2024 09:19:20 +0000
+Received: by outflank-mailman (output) from mailman id 755240.1163553; Mon, 08 Jul 2024 09:26:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sQkWm-0002pS-8C; Mon, 08 Jul 2024 09:19:20 +0000
-Received: by outflank-mailman (input) for mailman id 755236;
- Mon, 08 Jul 2024 09:19:18 +0000
+	id 1sQkdE-0004IY-Pv; Mon, 08 Jul 2024 09:26:00 +0000
+Received: by outflank-mailman (input) for mailman id 755240;
+ Mon, 08 Jul 2024 09:25:59 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=xFgZ=OI=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1sQkWk-0002pM-J2
- for xen-devel@lists.xenproject.org; Mon, 08 Jul 2024 09:19:18 +0000
-Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
- [2a00:1450:4864:20::42d])
+ id 1sQkdC-0004IS-Vh
+ for xen-devel@lists.xenproject.org; Mon, 08 Jul 2024 09:25:58 +0000
+Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
+ [2a00:1450:4864:20::332])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 265f625e-3d0b-11ef-bbfb-fd08da9f4363;
- Mon, 08 Jul 2024 11:19:17 +0200 (CEST)
-Received: by mail-wr1-x42d.google.com with SMTP id
- ffacd0b85a97d-367a3d1a378so2366572f8f.1
- for <xen-devel@lists.xenproject.org>; Mon, 08 Jul 2024 02:19:17 -0700 (PDT)
+ id 154d52e7-3d0c-11ef-bbfb-fd08da9f4363;
+ Mon, 08 Jul 2024 11:25:57 +0200 (CEST)
+Received: by mail-wm1-x332.google.com with SMTP id
+ 5b1f17b1804b1-426602e8050so10860565e9.2
+ for <xen-devel@lists.xenproject.org>; Mon, 08 Jul 2024 02:25:57 -0700 (PDT)
 Received: from localhost ([213.195.124.163]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3679224d11dsm13187822f8f.12.2024.07.08.02.19.15
+ 5b1f17b1804b1-4264a1d6d22sm156286695e9.20.2024.07.08.02.25.56
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 08 Jul 2024 02:19:16 -0700 (PDT)
+ Mon, 08 Jul 2024 02:25:56 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,34 +44,34 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 265f625e-3d0b-11ef-bbfb-fd08da9f4363
+X-Inumbo-ID: 154d52e7-3d0c-11ef-bbfb-fd08da9f4363
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1720430356; x=1721035156; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1720430757; x=1721035557; darn=lists.xenproject.org;
         h=in-reply-to:content-transfer-encoding:content-disposition
          :mime-version:references:message-id:subject:cc:to:from:date:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=907Z54S6UmXau4ii5jNisVYSLnOO4pEEBgrS4WQYryg=;
-        b=VXax0YWVXWOKppS/PwdtaPztPQCjsq5YyHvO4ZSVZgTAM6l6MM3uxT0su9coUm0xJp
-         r41hSxHbCiMs9BMZUGoIAruCViLHq9nWRFVHE8HITMZJ7pqzOtd4h+2os6//hqX504Uh
-         W7z53AbFKx0CYRE07lxxibd+xGTzuhhO5uOag=
+        bh=dKpc0ssgEF1V/rF5N8+UfHi6IMT7n5OJswh7gYygKA0=;
+        b=MeQJYU/j0NAGn2Rk0kkATxRHFPHgiksfJvZg9RQPccZI3WdwmSLqiSqHGXZlHvZZ+R
+         6QoXaZ+lGpgSUmTnKYEol09xH9LNI4qTvXIrCz8DcK93NBhCqvxgY24L7AzBUmz2rt17
+         1bokbTgS9Ln9b+5FT0EW1DVTF+K4pb5IOkFOQ=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1720430356; x=1721035156;
+        d=1e100.net; s=20230601; t=1720430757; x=1721035557;
         h=in-reply-to:content-transfer-encoding:content-disposition
          :mime-version:references:message-id:subject:cc:to:from:date
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=907Z54S6UmXau4ii5jNisVYSLnOO4pEEBgrS4WQYryg=;
-        b=u74cnTUXDNgXsU4K9d7iEQakisHnL2NilMJn4iXUulC7TihvX218iMMGCYz3tvp/YG
-         zs80oB8ausnLoSSL5bas11iJXQ8f0QcwsSp3lD2GYIty2uAsZqmS3BP1HwP0bXWz1BqS
-         Ebo1I7jKmPMctQ0orSfdb90TeoBxJXQXgoYdAMp5LrInSmMdagnB+P5zSY96T9QU776b
-         ibxykHGdkLeaIpxdLDSRoj6HYJHGPqYz8CjFdBSVoW8PeZv/yoN0PeFWxDtnp++F8UIy
-         r8jpl3LNpa/6QY3d2d4GaOivM12XcZGUwoRQvQkVD1MuCrzGCvsgenWkB31/ee1z51el
-         UqVQ==
-X-Gm-Message-State: AOJu0YzpjxKNIb6WH1pJxvDj74HxoTyB4AicUcnxv3u30uX3krJLT4Px
-	rtqULo67yktSKTHdMFZLuuiwEuI4bxqNvAgG/1ywq/VCS0uak0OLYkO9HI5a1qo=
-X-Google-Smtp-Source: AGHT+IGkYFRkMCvl6ax5KT/7nsH+F/d/0agvfZ2Y+bv+VMbrXvdDB7jO2EyfMuAHQ07wT/0KLbKSwA==
-X-Received: by 2002:a05:6000:1a47:b0:367:4d9d:56a1 with SMTP id ffacd0b85a97d-3679dd656aemr7813724f8f.45.1720430356425;
-        Mon, 08 Jul 2024 02:19:16 -0700 (PDT)
-Date: Mon, 8 Jul 2024 11:19:15 +0200
+        bh=dKpc0ssgEF1V/rF5N8+UfHi6IMT7n5OJswh7gYygKA0=;
+        b=tbwKovhiXrcqmYIKwCK5adpzTkwD7FmbWcxG6FH0a7meWGPoTFssjBAFnxWN1pixFS
+         r7XIa8xKDlyy8Pzl66Xr0KlgRryoARsWjUW3oDRAjqJL+9iHVXK3edSOOMbieDbO1hBy
+         2nRrnssnVN5nA1w9TCbE4JhAhIXYwiQHFKkNasTEk51aNNH4F7SYG95D2m7Tl6e45cAy
+         yED9TqYbJvdbk3e3hs+vqKEQDIo2r2/XDAVcayUFMYW5pm4RASOgLuJ+bIwKQegshddd
+         +zAUJ/jpJAoyXTDX9sm6xc3OK1x1He7gzvJFLSsy+FgKAf2kAV/vG8GGx5quCvvnZaR3
+         RPgw==
+X-Gm-Message-State: AOJu0YxAPJ6OetjKwk8wV1EeDdCdJvFUMy1TF+pzvbee3bPYT5/4POs/
+	aiKl1DNDqThgk8om8tJP4W70jR5cQOoFOaED9KVcVP+mJ5uynCudR8R9AH71Bkk=
+X-Google-Smtp-Source: AGHT+IHOFIGPVu5tSLPGQMuwfzfYglJpwRErMN/5HTDdkbUmD2AZEetLBBIRwdSd3DUQtSjLmZJjnQ==
+X-Received: by 2002:a05:600c:4f95:b0:426:6416:aa7a with SMTP id 5b1f17b1804b1-4266416acbcmr31572545e9.34.1720430757230;
+        Mon, 08 Jul 2024 02:25:57 -0700 (PDT)
+Date: Mon, 8 Jul 2024 11:25:56 +0200
 From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
 To: Andrew Cooper <andrew.cooper3@citrix.com>
 Cc: Xen-devel <xen-devel@lists.xenproject.org>,
@@ -80,23 +80,32 @@ Cc: Xen-devel <xen-devel@lists.xenproject.org>,
 	Stefano Stabellini <sstabellini@kernel.org>,
 	Julien Grall <julien@xen.org>,
 	Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Subject: Re: [PATCH for-4.19 5/6] build: Drop libiconv as a build dependecy
-Message-ID: <ZouvE-sjmSv54aRc@macbook.local>
+Subject: Re: [PATCH for-4.19 6/6] build: Drop xorg-x11 as a build dependency
+Message-ID: <ZouwpBfS713joyCn@macbook.local>
 References: <20240705152037.1920276-1-andrew.cooper3@citrix.com>
- <20240705152037.1920276-6-andrew.cooper3@citrix.com>
+ <20240705152037.1920276-7-andrew.cooper3@citrix.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20240705152037.1920276-6-andrew.cooper3@citrix.com>
+In-Reply-To: <20240705152037.1920276-7-andrew.cooper3@citrix.com>
 
-On Fri, Jul 05, 2024 at 04:20:36PM +0100, Andrew Cooper wrote:
-> The final user was blktap2, removed in Xen 4.13.
+On Fri, Jul 05, 2024 at 04:20:37PM +0100, Andrew Cooper wrote:
+> The history on this one is complicated.  The note to README was added in
+> commit 1f95747a4f16 ("Add openssl-dev and xorg-x11-dev to README") in 2007.
 > 
-> Strip out the ./configure check for it, and stop explicitly installing it in
-> the FreeBSD testing.
+> At the time, there was a vendered version of Qemu in xen.git with a local
+> modification using <X11/keysymdef.h> to access the monitor console over VNC.
 > 
-> Fixes: 2a556b63a22d ("Drop blktap2")
+> The final reference to keysymdef.h was dropped in commit 85896a7c4dc7 ("build:
+> add autoconf to replace custom checks in tools/check") in 2012.  The next
+> prior mention was in 2009 with commit a8ccb671c377 ("tools: fix x11 check")
+> noting that x11 was not a direct dependcy of Xen; it was transitive through
+> SDL for Qemu for source-based distros.
+> 
+> These days its only the Debian based dockerfiles which install xorg-x11, and
+> Qemu builds fine in these and others without x11.
+> 
 > Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
 Acked-by: Roger Pau Monné <roger.pau@citrix.com>
