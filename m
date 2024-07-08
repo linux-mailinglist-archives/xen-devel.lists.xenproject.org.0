@@ -2,37 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B9B1E929EAC
-	for <lists+xen-devel@lfdr.de>; Mon,  8 Jul 2024 11:09:21 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.755189.1163462 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F1134929EAD
+	for <lists+xen-devel@lfdr.de>; Mon,  8 Jul 2024 11:09:45 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.755193.1163473 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sQkMM-0005Di-PO; Mon, 08 Jul 2024 09:08:34 +0000
+	id 1sQkNE-0005hl-3Z; Mon, 08 Jul 2024 09:09:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 755189.1163462; Mon, 08 Jul 2024 09:08:34 +0000
+Received: by outflank-mailman (output) from mailman id 755193.1163473; Mon, 08 Jul 2024 09:09:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sQkMM-0005BC-Mo; Mon, 08 Jul 2024 09:08:34 +0000
-Received: by outflank-mailman (input) for mailman id 755189;
- Mon, 08 Jul 2024 09:08:33 +0000
+	id 1sQkNE-0005fK-02; Mon, 08 Jul 2024 09:09:28 +0000
+Received: by outflank-mailman (input) for mailman id 755193;
+ Mon, 08 Jul 2024 09:09:27 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=xFgZ=OI=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1sQkML-0005B6-RQ
- for xen-devel@lists.xenproject.org; Mon, 08 Jul 2024 09:08:33 +0000
-Received: from mail-lf1-x129.google.com (mail-lf1-x129.google.com
- [2a00:1450:4864:20::129])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=suqh=OI=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1sQkND-0005fC-0j
+ for xen-devel@lists.xenproject.org; Mon, 08 Jul 2024 09:09:27 +0000
+Received: from mail-lj1-x236.google.com (mail-lj1-x236.google.com
+ [2a00:1450:4864:20::236])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a649f455-3d09-11ef-bbfb-fd08da9f4363;
- Mon, 08 Jul 2024 11:08:32 +0200 (CEST)
-Received: by mail-lf1-x129.google.com with SMTP id
- 2adb3069b0e04-52ccc40e72eso2006834e87.3
- for <xen-devel@lists.xenproject.org>; Mon, 08 Jul 2024 02:08:32 -0700 (PDT)
-Received: from localhost ([213.195.124.163]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-367960deabdsm12331131f8f.24.2024.07.08.02.08.31
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 08 Jul 2024 02:08:31 -0700 (PDT)
+ id c5fb4fa5-3d09-11ef-bbfb-fd08da9f4363;
+ Mon, 08 Jul 2024 11:09:25 +0200 (CEST)
+Received: by mail-lj1-x236.google.com with SMTP id
+ 38308e7fff4ca-2ee92f7137bso29456931fa.1
+ for <xen-devel@lists.xenproject.org>; Mon, 08 Jul 2024 02:09:25 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-1fb717bc129sm33567285ad.263.2024.07.08.02.09.23
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 08 Jul 2024 02:09:24 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,120 +45,197 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a649f455-3d09-11ef-bbfb-fd08da9f4363
+X-Inumbo-ID: c5fb4fa5-3d09-11ef-bbfb-fd08da9f4363
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1720429712; x=1721034512; darn=lists.xenproject.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=fvuJUQX81KBl0J8VWW4TsRBecxF+LQVa0Tw/R5s080A=;
-        b=lPcba13lg9Lb2TpiOSpA08Q8Wo6SrNsVsBQweBx7fzj01xsf2BO6JyHB3ve2wK51Bg
-         2DKOg+MIb44v20iQOPgq6t9QFnRuG9qd7FuZzz1w6yrNzmeOoCsPQhgin7BEi/5KnMdM
-         MG7iC+++hwxZKjFfzz/bwLqNNYU8iDWpOb2gE=
+        d=suse.com; s=google; t=1720429765; x=1721034565; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:cc
+         :content-language:references:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=0nKUeIdbdCUGNmYqPshJCqwXDjCi4FUnQTJEQONoPEc=;
+        b=Qlvi+rThdDOPPvosB1bX4lt714iXJAtZ3QVjDaNy1uWY+o+LnryOpwkg2+A3Ar/3kJ
+         RUhEkKZFLnCdZeT81WxkbzlbizfwxKZFSDaiCeAKN8PwUayyTSEjsjMpp2YWmW4KKj7b
+         Ll41Go+D6iYPdtmU0m2AIjuV1MPtQt1Dc3qZoKE8HnAF2g3jjlcTvPczc84QXkfRzctl
+         QLFdChy1jap23bMVuiVeqTVuhrD5Z1JuGeg5+yzPeDJg7NXD7Bq3aYt8KIX2pKJJStqu
+         iKmDjYXRk+W8vEn+YhV132U5+Cg9aQJRk+rMFak91OJGEdIP2+V1VdldTU+yz+raQ5vb
+         rPfw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1720429712; x=1721034512;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=fvuJUQX81KBl0J8VWW4TsRBecxF+LQVa0Tw/R5s080A=;
-        b=HG2hoqj5Nqr0Q7Cf9CBaetcmUFYmiVmDo44yPVvm9LVfhFZ+9H8QrHH/ZmFD4vrlcY
-         CNT1h1/7EUEIxTtfOu34HdFKBb6kdeTbb9n8XkkJ94CJc+DkOYgHe7UMyV53moHwszMl
-         mw6jPM/eLnFfWOScQtVmCwX9OnOTbpjZwM8Hx/wPxTum1UAZjWTobDzE/NMYVD08gYuZ
-         bNjxCxE5nmFiXfrsQ9IS9w2CcNy4XUM1ybGOmaqHy7Ce5EvG7IyEzczaz6lQfWeqjhXP
-         iE2Mpd1fAH4GkR+A/G0idfSoY/sVqSnd8GSPt1NN+RXTU8sJZj+msc7E79EzQk3rSR4z
-         SInA==
-X-Forwarded-Encrypted: i=1; AJvYcCW8AqRopEHViU4E8qZ45bFg9vTna72ovoi7h3yjSkz4YBjOJ14NtSXK3P7vjpTFxnyZTBZM+89/UCopMP32TS5H8ekPigV4yaEk4Vcx9vk=
-X-Gm-Message-State: AOJu0YwHsUlHcj+UTEiGxYbj5NK91ZSc+j2RicBfU7LWYo31gT8kmAnI
-	YlZvPbnk2BVHX03IlmaOZfRhzVygqnQFfNz9caRhVmKSjT82VUAjigk49uHuwMzCbq0D65VfP/V
-	L
-X-Google-Smtp-Source: AGHT+IHwgCIyXWOzb/B5eu9AeMpyElJOnKEVh4bDtkL/1IrUu8EzOsYBISroqTjK2yG9CB8I9CWChw==
-X-Received: by 2002:ac2:5924:0:b0:52c:d20b:22c8 with SMTP id 2adb3069b0e04-52ea06cf08cmr8005932e87.64.1720429711866;
-        Mon, 08 Jul 2024 02:08:31 -0700 (PDT)
-Date: Mon, 8 Jul 2024 11:08:30 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: =?utf-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>,
-	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Subject: Re: Problems in PV dom0 on recent x86 hardware
-Message-ID: <ZousjqOAFJgO6681@macbook.local>
-References: <baade0a7-e204-4743-bda1-282df74e5f89@suse.com>
- <d379a900-fd1c-42ca-bc31-071f7fd80d0b@suse.com>
+        d=1e100.net; s=20230601; t=1720429765; x=1721034565;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:cc
+         :content-language:references:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=0nKUeIdbdCUGNmYqPshJCqwXDjCi4FUnQTJEQONoPEc=;
+        b=Kx8RZTZYeSTg4kddQ82iOM1/mXFuuFy+o/FHeAKEYebfMnxcyrbXLZvkoeV+uadbeb
+         /Z8subwkI8jQs45VBv1+zXoFJ/cU7T5ECJS2O4y9NISp+ynyQKzY+ruNVuvlUFpXDYvr
+         uYVsDENgRx2owUaEld8fa9+aQlKvUYqQulsa1o5yusREOgXi1isb+uKEt10aiGN6dQNO
+         yu42gWo+HJ/T0Tcli+xpFydLQVC19q8l8coa6R+AJE4VKY47kJXQtmdTB8u8KS5CIdBr
+         MU4WbAjKrYLBs/XXezWgEIhm5M7hCtjNBqv7kO4bbjjn0sAlnLNWR43zKiiRrawWha+g
+         rF1Q==
+X-Gm-Message-State: AOJu0YyLM3wK53X8An/dD93ABYe9Y/m9yrxhvHCAbNd4ynYuI75ybgbh
+	eQ2dOWhukp/C9uaOT8AA5dehrMNjmVaz7ctHINSNif1LM8YFvEislwygThKAQw==
+X-Google-Smtp-Source: AGHT+IHNVfCp2CSZqnCMI+3oOOf8CCQaxf2AyTlsmQIGfeXpVvJ8zlkq09yqgXQIWjnEokmiUqzNtQ==
+X-Received: by 2002:a2e:9684:0:b0:2ee:893e:4efc with SMTP id 38308e7fff4ca-2ee8ed69c50mr96106941fa.10.1720429765250;
+        Mon, 08 Jul 2024 02:09:25 -0700 (PDT)
+Message-ID: <9d3d1e2e-738e-4ed8-a771-ca541fde9002@suse.com>
+Date: Mon, 8 Jul 2024 11:09:21 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <d379a900-fd1c-42ca-bc31-071f7fd80d0b@suse.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: GNTTABOP_setup_table yields -1 PFNs
+To: Taylor R Campbell <riastradh-xen-devel@NetBSD.org>
+References: <20240706022242.3238584D44@mail.netbsd.org>
+Content-Language: en-US
+Cc: xen-devel@lists.xenproject.org
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20240706022242.3238584D44@mail.netbsd.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Mon, Jul 08, 2024 at 10:37:22AM +0200, Jan Beulich wrote:
-> On 08.07.2024 10:15, Jürgen Groß wrote:
-> > I've got an internal report about failures in dom0 when booting with
-> > Xen on a Thinkpad P14s Gen 3 AMD (kernel 6.9).
-> > 
-> > With some debugging I've found that the UCSI driver seems to fail to
-> > map MFN feec2 as iomem, as the hypervisor is denying this mapping due
-> > to being part of the MSI space. The mapping attempt seems to be the
-> > result of an ACPI call of the UCSI driver:
-> > 
-> > [   44.575345] RIP: e030:xen_mc_flush+0x1e8/0x2b0
-> > [   44.575418]  xen_leave_lazy_mmu+0x15/0x60
-> > [   44.575425]  vmap_range_noflush+0x408/0x6f0
-> > [   44.575438]  __ioremap_caller+0x20d/0x350
-> > [   44.575450]  acpi_os_map_iomem+0x1a3/0x1c0
-> > [   44.575454]  acpi_ex_system_memory_space_handler+0x229/0x3f0
-> > [   44.575464]  acpi_ev_address_space_dispatch+0x17e/0x4c0
-> > [   44.575474]  acpi_ex_access_region+0x28a/0x510
-> > [   44.575479]  acpi_ex_field_datum_io+0x95/0x5c0
-> > [   44.575482]  acpi_ex_extract_from_field+0x36b/0x4e0
-> > [   44.575490]  acpi_ex_read_data_from_field+0xcb/0x430
-> > [   44.575493]  acpi_ex_resolve_node_to_value+0x2e0/0x530
-> > [   44.575496]  acpi_ex_resolve_to_value+0x1e7/0x550
-> > [   44.575499]  acpi_ds_evaluate_name_path+0x107/0x170
-> > [   44.575505]  acpi_ds_exec_end_op+0x392/0x860
-> > [   44.575508]  acpi_ps_parse_loop+0x268/0xa30
-> > [   44.575515]  acpi_ps_parse_aml+0x221/0x5e0
-> > [   44.575518]  acpi_ps_execute_method+0x171/0x3e0
-> > [   44.575522]  acpi_ns_evaluate+0x174/0x5d0
-> > [   44.575525]  acpi_evaluate_object+0x167/0x440
-> > [   44.575529]  acpi_evaluate_dsm+0xb6/0x130
-> > [   44.575541]  ucsi_acpi_dsm+0x53/0x80
-> > [   44.575546]  ucsi_acpi_read+0x2e/0x60
-> > [   44.575550]  ucsi_register+0x24/0xa0
-> > [   44.575555]  ucsi_acpi_probe+0x162/0x1e3
-> > [   44.575559]  platform_probe+0x48/0x90
-> > [   44.575567]  really_probe+0xde/0x340
-> > [   44.575579]  __driver_probe_device+0x78/0x110
-> > [   44.575581]  driver_probe_device+0x1f/0x90
-> > [   44.575584]  __driver_attach+0xd2/0x1c0
-> > [   44.575587]  bus_for_each_dev+0x77/0xc0
-> > [   44.575590]  bus_add_driver+0x112/0x1f0
-> > [   44.575593]  driver_register+0x72/0xd0
-> > [   44.575600]  do_one_initcall+0x48/0x300
-> > [   44.575607]  do_init_module+0x60/0x220
-> > [   44.575615]  __do_sys_init_module+0x17f/0x1b0
-> > [   44.575623]  do_syscall_64+0x82/0x170
-> > [   44.575685] 1 of 1 multicall(s) failed: cpu 4
-> > [   44.575695]   call  1: op=1 result=-1 caller=xen_extend_mmu_update+0x4e/0xd0 
-> > pars=ffff888267e25ad0 1 0 7ff0 args=9ba37a678 80000000feec2073
-> > 
-> > The pte value of the mmu_update call is 80000000feec2073, which is rejected by
-> > the hypervisor with -EPERM.
-> > 
-> > Before diving deep into the UCSI internals, is it possible that the hypervisor
-> > needs some update (IOW: could it be the mapping attempt should rather be
-> > honored, as there might be an I/O resources at this position which dom0 needs
-> > to access for using the related hardware?)
+On 06.07.2024 04:22, Taylor R Campbell wrote:
+> On a Xen 4.14 host (with extraversion=.0.88.g1d1d1f53), with version 1
+> grant tables, where GNTTABOP_query_size initially returns nr_frames=32
+> max_nr_frames=64, a NetBSD guest repeatedly queries
+> GNTTABOP_setup_table for successively larger nr_frames from 1 up.
+
+First question: Is there some earlier GNTTABOP_setup_table that you invoke?
+I'd expect (and also observe) nr_frames=1 initially.
+
+Second: The version you name is pretty unclear from an upstream perspective.
+Leaving aside that 4.14 is out of support, it's entirely unclear whether you
+at least have all bug fixes in place that we have upstream (4.14.6). Without
+that it's hard to see what you're asking for.
+
+> The guest initially gets arrays of valid-looking PFNs.  But then at
+> nr_frames=33, the PFNs [0] through [31] in the resulting array are
+> valid but PFN [32] is -1, i.e., all bits set.
 > 
-> Adding to Andrew's reply: Is there any BAR in the system covering that address?
-> Or is it rather ACPI "making up" that address (which would remind me of IO-APIC
-> space being accessed by certain incarnations of ACPI, resulting in similar
-> issues)?
+> GNTTABOP_setup_table returned 0 and op.status = GNTST_okay, so it
+> didn't fail -- it just returned an invalid PFN.  And _after_
+> GNTTABOP_setup_table yields -1 as a PFN, GNTTABOP_query_size returns
+> nr_frames=33 max_nr_frames=64, so the host thinks it has successfully
+> allocated more frames.
+> 
+> What could cause the host to return a PFN -1?  Is there anything the
+> guest does that could provoke this?  Are there any diagnostics that
+> the guest could print to help track this down?  (I don't control the
+> host.)  Should a guest just check for -1 and stop as if it had hit
+> max_nr_frames?
 
-So you think ACPI is using some kind of backdoor to access the local
-APIC registers?
+I'm afraid for the moment, from just the information provided, I can't
+reproduce this using a simple patch on top of XTF's self-test (see below).
+Neither with a 64-bit PV guest, nor with a 32-bit one. I've been doing
+this with a pretty recent 4.19 Xen, though.
 
-It's my understanding the local APIC registers are all located in the
-first page of the range (0xfee00).  It would also be weird because
-ACPI doesn't know whether the APIC is in x2APIC mode.
+Jan
 
-Roger.
+--- a/include/xen/grant_table.h
++++ b/include/xen/grant_table.h
+@@ -275,6 +275,23 @@ struct gnttab_setup_table
+ };
+ 
+ /*
++ * GNTTABOP_query_size: Query the current and maximum sizes of the shared
++ * grant table.
++ * NOTES:
++ *  1. <dom> may be specified as DOMID_SELF.
++ *  2. Only a sufficiently-privileged domain may specify <dom> != DOMID_SELF.
++ */
++#define GNTTABOP_query_size           6
++struct gnttab_query_size {
++    /* IN parameters. */
++    domid_t  dom;
++    /* OUT parameters. */
++    uint32_t nr_frames;
++    uint32_t max_nr_frames;
++    int16_t  status;              /* => enum grant_status */
++};
++
++/*
+  * GNTTABOP_unmap_and_replace: Destroy one or more grant-reference mappings
+  * tracked by <handle> but atomically replace the page table entry with one
+  * pointing to the machine address under <new_addr>.  <new_addr> will be
+--- a/tests/selftest/main.c
++++ b/tests/selftest/main.c
+@@ -230,6 +230,57 @@ static void test_driver_init(void)
+     if ( rc )
+         xtf_failure("Fail: xtf_init_grant_table(1) returned %d\n", rc);
+ 
++    struct gnttab_query_size query = { .dom = DOMID_SELF };
++    rc = hypercall_grant_table_op(GNTTABOP_query_size, &query, 1);
++    if ( rc )
++        xtf_failure("Fail: GNTTABOP_query_size returned %d\n", rc);
++    if ( query.status != GNTST_okay )
++        xtf_failure("Fail: GNTTABOP_query_size status %d\n", query.status);
++    printk("gnttab: nr=%u max=%u\n", query.nr_frames, query.max_nr_frames);
++
++    unsigned long frame_list[36], prev[ARRAY_SIZE(frame_list)];
++    if ( query.max_nr_frames > ARRAY_SIZE(frame_list) )
++        query.max_nr_frames = ARRAY_SIZE(frame_list);
++
++    if ( query.max_nr_frames > 32 )
++    {
++        struct gnttab_setup_table setup = {
++            .dom = DOMID_SELF,
++            .nr_frames = 32,
++            .frame_list = frame_list,
++        };
++
++        rc = hypercall_grant_table_op(GNTTABOP_setup_table, &setup, 1);
++        if ( rc )
++            xtf_failure("Fail: GNTTABOP_setup_table(%u) returned %d (%u)\n",
++                        setup.nr_frames, rc, query.max_nr_frames);
++        if ( setup.status != GNTST_okay )
++            xtf_failure("Fail: GNTTABOP_setup_table(%u) status %d (%u)\n",
++                        setup.nr_frames, setup.status, query.max_nr_frames);
++        printk("gnttab: tbl[%u] @ %lx\n",
++               setup.nr_frames - 1, frame_list[setup.nr_frames - 1]);
++    }
++
++    for ( unsigned int n = 1; n <= query.max_nr_frames; ++n )
++    {
++        struct gnttab_setup_table setup = {
++            .dom = DOMID_SELF,
++            .nr_frames = n,
++            .frame_list = frame_list,
++        };
++
++        rc = hypercall_grant_table_op(GNTTABOP_setup_table, &setup, 1);
++        if ( rc )
++            xtf_failure("Fail: GNTTABOP_setup_table(%u) returned %d\n", n, rc);
++        if ( setup.status != GNTST_okay )
++            xtf_failure("Fail: GNTTABOP_setup_table(%u) status %d\n", n, setup.status);
++        printk("gnttab: tbl[%u] @ %lx\n", n - 1, frame_list[n - 1]);
++        for ( unsigned int i = 0; i < n - 1; ++i )
++            if ( frame_list[i] != prev[i] )
++                printk("gnttab: %lx != %lx\n", frame_list[i], prev[i]);
++        memcpy(prev, frame_list, n * sizeof(*frame_list));
++    }
++
+     rc = xtf_init_grant_table(2);
+     if ( rc && rc != -ENODEV )
+         xtf_failure("Fail: xtf_init_grant_table(2) returned %d\n", rc);
+
+
 
