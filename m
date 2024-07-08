@@ -2,35 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7CCE992AAC2
-	for <lists+xen-devel@lfdr.de>; Mon,  8 Jul 2024 22:49:42 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.755621.1164026 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E765292AB1B
+	for <lists+xen-devel@lfdr.de>; Mon,  8 Jul 2024 23:22:08 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.755629.1164035 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sQvHf-0003BC-VR; Mon, 08 Jul 2024 20:48:27 +0000
+	id 1sQvnV-0007tJ-DD; Mon, 08 Jul 2024 21:21:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 755621.1164026; Mon, 08 Jul 2024 20:48:27 +0000
+Received: by outflank-mailman (output) from mailman id 755629.1164035; Mon, 08 Jul 2024 21:21:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sQvHf-00038e-SP; Mon, 08 Jul 2024 20:48:27 +0000
-Received: by outflank-mailman (input) for mailman id 755621;
- Mon, 08 Jul 2024 20:48:26 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1sQvHe-00038U-Ld; Mon, 08 Jul 2024 20:48:26 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1sQvHe-0005tq-K0; Mon, 08 Jul 2024 20:48:26 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1sQvHe-0005f0-9x; Mon, 08 Jul 2024 20:48:26 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1sQvHe-0001nQ-9d; Mon, 08 Jul 2024 20:48:26 +0000
+	id 1sQvnV-0007qg-Ae; Mon, 08 Jul 2024 21:21:21 +0000
+Received: by outflank-mailman (input) for mailman id 755629;
+ Mon, 08 Jul 2024 21:21:20 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=uJ/s=OI=raptorengineering.com=sanastasio@srs-se1.protection.inumbo.net>)
+ id 1sQvnU-0007qa-0p
+ for xen-devel@lists.xenproject.org; Mon, 08 Jul 2024 21:21:20 +0000
+Received: from raptorengineering.com (mail.raptorengineering.com
+ [23.155.224.40]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 026fbee2-3d70-11ef-bbfb-fd08da9f4363;
+ Mon, 08 Jul 2024 23:21:18 +0200 (CEST)
+Received: from localhost (localhost [127.0.0.1])
+ by mail.rptsys.com (Postfix) with ESMTP id 697A68287291;
+ Mon,  8 Jul 2024 16:21:15 -0500 (CDT)
+Received: from mail.rptsys.com ([127.0.0.1])
+ by localhost (vali.starlink.edu [127.0.0.1]) (amavisd-new, port 10032)
+ with ESMTP id Dg_taPyFb3Vm; Mon,  8 Jul 2024 16:21:09 -0500 (CDT)
+Received: from localhost (localhost [127.0.0.1])
+ by mail.rptsys.com (Postfix) with ESMTP id C95D0828714A;
+ Mon,  8 Jul 2024 16:21:09 -0500 (CDT)
+Received: from mail.rptsys.com ([127.0.0.1])
+ by localhost (vali.starlink.edu [127.0.0.1]) (amavisd-new, port 10026)
+ with ESMTP id r9A20hLIWohC; Mon,  8 Jul 2024 16:21:09 -0500 (CDT)
+Received: from [10.11.0.2] (5.edge.rptsys.com [23.155.224.38])
+ by mail.rptsys.com (Postfix) with ESMTPSA id 66FCB8286B32;
+ Mon,  8 Jul 2024 16:21:09 -0500 (CDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,84 +51,105 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=atsGqdVXhLUMJK3UYL4QIeEL4O/Nm1mctnWip4bRvNs=; b=NXuOC7UdPu3lS/IkwKjDq9clgK
-	Y3bkwxBl4ikr/zf6026fhYijzXGkvjZVDkkvDe8DMTQxL3G7rrrNAljCYj74i5B0eP1UTmbz1z6Bx
-	9A1/plrQy9ZIy5bhacgQFEKOsnJH272iGU+QINYpGvmMcKf6z0+ZBqQZIsCWF65KB5lM=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-186732-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 026fbee2-3d70-11ef-bbfb-fd08da9f4363
+DKIM-Filter: OpenDKIM Filter v2.10.3 mail.rptsys.com C95D0828714A
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=raptorengineering.com; s=B8E824E6-0BE2-11E6-931D-288C65937AAD;
+	t=1720473669; bh=r7q49DSuNl/UAjFL3ztd3akz3yYTJXQ75erudh7cW3k=;
+	h=Message-ID:Date:MIME-Version:To:From;
+	b=X9RkFbghc3w8udBalc+1IyzX1Hh5ViVXlTwJgVpLDb72gcME0djtkR0qeplZ/e9+W
+	 CkAEWTi1ufzZqHbrzF0OtOtLkb98c5eVCaCDLhxAY6nJXhW17RPkpYZTOhxZnoxNnp
+	 9pXkoCJD4Lcn6kcnOcHeBbO2gLTHn+iU37CrjTgE=
+X-Virus-Scanned: amavisd-new at rptsys.com
+Message-ID: <f3bad5a8-077e-40e7-abff-7a2cc0027d2b@raptorengineering.com>
+Date: Mon, 8 Jul 2024 16:21:08 -0500
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 186732: tolerable all pass - PUSHED
-X-Osstest-Failures:
-    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=c4ebeb79d10a25e8d48a71cdd381898265267e67
-X-Osstest-Versions-That:
-    xen=64cee188376e52a154475a86a9d2adc85f029870
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Mon, 08 Jul 2024 20:48:26 +0000
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/2] ppc/shutdown: Implement machine_{halt,restart}()
+To: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+ Jan Beulich <JBeulich@suse.com>, Stefano Stabellini
+ <sstabellini@kernel.org>, Julien Grall <julien@xen.org>
+References: <20240705182311.1968790-1-andrew.cooper3@citrix.com>
+ <20240705182311.1968790-3-andrew.cooper3@citrix.com>
+Content-Language: en-US
+From: Shawn Anastasio <sanastasio@raptorengineering.com>
+In-Reply-To: <20240705182311.1968790-3-andrew.cooper3@citrix.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-flight 186732 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/186732/
+Hi Andrew,
 
-Failures :-/ but no regressions.
+Overall this looks good, I just have one comment.
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+On 7/5/24 1:23 PM, Andrew Cooper wrote:
+> diff --git a/xen/arch/ppc/shutdown.c b/xen/arch/ppc/shutdown.c
+> new file mode 100644
+> index 000000000000..c4b00e57b13a
+> --- /dev/null
+> +++ b/xen/arch/ppc/shutdown.c
+> @@ -0,0 +1,43 @@
+> +/* SPDX-License-Identifier: GPL-2.0-or-later */
+> +#include <xen/shutdown.h>
+> +
+> +#include <asm/opal-api.h>
+> +
+> +int64_t opal_cec_power_down(uint64_t request);
+> +int64_t opal_cec_reboot(void);
+> +int64_t opal_poll_events(uint64_t *outstanding_event_mask);
+> +
+> +void machine_halt(void)
+> +{
+> +    int rc;
+> +
 
-version targeted for testing:
- xen                  c4ebeb79d10a25e8d48a71cdd381898265267e67
-baseline version:
- xen                  64cee188376e52a154475a86a9d2adc85f029870
+Before the opal_cec_{power_down,reboot} calls are made, any interupts
+reserved for OPAL to handle need to be masked off.
 
-Last test of basis   186730  2024-07-08 15:02:14 Z    0 days
-Testing same since   186732  2024-07-08 18:00:22 Z    0 days    1 attempts
+Since we don't have any set up at this point, I would just add a TODO
+comment like:
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Andrew Cooper <andrew.cooper3@citrix.com>
+/* TODO: mask any OPAL IRQs before shutting down */
 
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
+> +    do {
+> +        rc = opal_cec_power_down(0);
+> +
+> +        if ( rc == OPAL_BUSY_EVENT )
+> +            opal_poll_events(NULL);
+> +
+> +    } while ( rc == OPAL_BUSY || rc == OPAL_BUSY_EVENT );
+> +
+> +    for ( ;; )
+> +        opal_poll_events(NULL);
+> +}
+> +
+> +void machine_restart(unsigned int delay_millisecs)
+> +{
+> +    int rc;
+> +
+> +    /* TODO: mdelay(delay_millisecs); */
+> +
 
+Ditto.
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+> +    do {
+> +        rc = opal_cec_reboot();
+> +
+> +        if ( rc == OPAL_BUSY_EVENT )
+> +            opal_poll_events(NULL);
+> +
+> +    } while ( rc == OPAL_BUSY || rc == OPAL_BUSY_EVENT );
+> +
+> +    for ( ;; )
+> +        opal_poll_events(NULL);
+> +}
+> +
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+Other than that, looks great.
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+Reviewed-by: Shawn Anastasio <sanastasio@raptorengineering.com>
 
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/xen.git
-   64cee18837..c4ebeb79d1  c4ebeb79d10a25e8d48a71cdd381898265267e67 -> smoke
+Thanks,
+Shawn
 
