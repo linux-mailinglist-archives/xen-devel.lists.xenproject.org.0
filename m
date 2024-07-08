@@ -2,38 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id ED0E592A396
-	for <lists+xen-devel@lfdr.de>; Mon,  8 Jul 2024 15:25:52 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.755412.1163773 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2DBA192A39B
+	for <lists+xen-devel@lfdr.de>; Mon,  8 Jul 2024 15:27:34 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.755423.1163782 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sQoN3-0001y0-OH; Mon, 08 Jul 2024 13:25:33 +0000
+	id 1sQoOg-0002vD-53; Mon, 08 Jul 2024 13:27:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 755412.1163773; Mon, 08 Jul 2024 13:25:33 +0000
+Received: by outflank-mailman (output) from mailman id 755423.1163782; Mon, 08 Jul 2024 13:27:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sQoN3-0001vP-Kr; Mon, 08 Jul 2024 13:25:33 +0000
-Received: by outflank-mailman (input) for mailman id 755412;
- Mon, 08 Jul 2024 13:25:32 +0000
+	id 1sQoOg-0002sq-1x; Mon, 08 Jul 2024 13:27:14 +0000
+Received: by outflank-mailman (input) for mailman id 755423;
+ Mon, 08 Jul 2024 13:27:12 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=m90j=OI=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1sQoN2-0001vH-GQ
- for xen-devel@lists.xenproject.org; Mon, 08 Jul 2024 13:25:32 +0000
-Received: from mail-lf1-x131.google.com (mail-lf1-x131.google.com
- [2a00:1450:4864:20::131])
+ <SRS0=B806=OI=bounce.vates.tech=bounce-md_30504962.668be92d.v1-494f96f395654904a47aff0113bb610d@srs-se1.protection.inumbo.net>)
+ id 1sQoOe-0002si-K2
+ for xen-devel@lists.xenproject.org; Mon, 08 Jul 2024 13:27:12 +0000
+Received: from mail179-23.suw41.mandrillapp.com
+ (mail179-23.suw41.mandrillapp.com [198.2.179.23])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 8bf30b3a-3d2d-11ef-8776-851b0ebba9a2;
- Mon, 08 Jul 2024 15:25:30 +0200 (CEST)
-Received: by mail-lf1-x131.google.com with SMTP id
- 2adb3069b0e04-52e97e5a84bso5908392e87.2
- for <xen-devel@lists.xenproject.org>; Mon, 08 Jul 2024 06:25:30 -0700 (PDT)
-Received: from [192.168.219.191] ([94.75.70.14])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-52eb10e1968sm358417e87.14.2024.07.08.06.25.28
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 08 Jul 2024 06:25:28 -0700 (PDT)
+ id c72b0e57-3d2d-11ef-8776-851b0ebba9a2;
+ Mon, 08 Jul 2024 15:27:10 +0200 (CEST)
+Received: from pmta12.mandrill.prod.suw01.rsglab.com (localhost [127.0.0.1])
+ by mail179-23.suw41.mandrillapp.com (Mailchimp) with ESMTP id
+ 4WHlK91XYkz35hj2x
+ for <xen-devel@lists.xenproject.org>; Mon,  8 Jul 2024 13:27:09 +0000 (GMT)
+Received: from [37.26.189.201] by mandrillapp.com id
+ 494f96f395654904a47aff0113bb610d; Mon, 08 Jul 2024 13:27:09 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,98 +43,102 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8bf30b3a-3d2d-11ef-8776-851b0ebba9a2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1720445130; x=1721049930; darn=lists.xenproject.org;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=OovDwmgF+/rYtrAQOHh2/HmyE/etjMJJQFPhY+PiEtA=;
-        b=DkGzZO3Id/EyB2k1NQy0t0WiD/h4Vu5Kl3uSyqrpMuBiUh8UU8mcXpBSSanxOuzaek
-         GdtCnwefJS1EncrAxTk715eNSF9s3CByp63qBYg5UWRuYAruL4yhjKsCQ8mo8+3ySsew
-         dbR4wa6rDs43lnO2PRWDS9mcQfEVG0wcwu67P5TIQjiAm8RA5qX+b0pRZF7qqPiZa9HC
-         8GKEwCXOrpVrRP5HxIjVkt2CBZrHt5Y7sBjQAzeOYISZC/mz52W2i2ZozL7XC5EMyjC/
-         +Foi5dMB5+xmpuBUUYBd0y+sMuT5t+EJpL6aoP6yFcpGERbj2PxSLTkKOepyLyoLKEY8
-         4DRA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1720445130; x=1721049930;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=OovDwmgF+/rYtrAQOHh2/HmyE/etjMJJQFPhY+PiEtA=;
-        b=WGDyf915wpKpPWzIuv9NBvvfz22NnC8c+oB7DkK1zr2vcOwYl/HMJsbYxpi1BarFOs
-         jpp2hz4KjssGhFozK3ABHwzdpTyfCLGp2rbNOy3htFjWF7CaVM2xqr+v5YBs8vcVaRkg
-         7jT3A5RjFC7/aGjCZ8WID3HXt27d2/JkV2Mm2YhLTnFvRyfxuXhb7X6RUrc2aCEN5S1u
-         5QFZVLtzo9gQ78x2FPA4sYaZXo+cz+ECiuLnb/Kl4bXTk+PKlRthu34WrPK82q5miB0K
-         j1gYYsrQ1OAQshdBKGQYhCk65JO13PDQ3m0DfhlxSKPzwV4RCr1f18cTJF3LJVMdklnb
-         pCJg==
-X-Forwarded-Encrypted: i=1; AJvYcCVuIe3VyEEFgA9b2SsgDr/2GBPk5fNT6fk3pDBC1H6P9E/D7lK2bAcRyQ6QuHxeNSo8qmP5DSNxZXwOeEIbV1465MAThKGrE3KS2UH49jI=
-X-Gm-Message-State: AOJu0Yw65wA6s2FMrcE6WiZUmcHfnMInESoQuuyqjQjXF7balOTLVar6
-	t7gfpMUJz8fNzCejwtyfPyNhQV5YM4C6uiClDmjM+6C8b1YNqRD7
-X-Google-Smtp-Source: AGHT+IGhxr7EIoQk7ugcX6LZ9yTQwtI3z3yUtnLZZdVKzckcYnIlEqFgfW0rZlkgEVNy2bJ+NWBBaQ==
-X-Received: by 2002:a19:434c:0:b0:52e:9921:6dff with SMTP id 2adb3069b0e04-52ea0622fc8mr9732729e87.26.1720445128784;
-        Mon, 08 Jul 2024 06:25:28 -0700 (PDT)
-Message-ID: <195e9718ed2c69d362bcd8ca856631ac3aea980f.camel@gmail.com>
-Subject: Re: [PATCH for-4.19 0/6] CI: Fixes, part 2
-From: Oleksii <oleksii.kurochko@gmail.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>, Xen-devel
-	 <xen-devel@lists.xenproject.org>
-Cc: Anthony PERARD <anthony.perard@vates.tech>, Juergen Gross
- <jgross@suse.com>,  Roger Pau =?ISO-8859-1?Q?Monn=E9?=
- <roger.pau@citrix.com>, Jan Beulich <JBeulich@suse.com>, Stefano Stabellini
- <sstabellini@kernel.org>, Julien Grall <julien@xen.org>
-Date: Mon, 08 Jul 2024 15:25:27 +0200
-In-Reply-To: <20240705152037.1920276-1-andrew.cooper3@citrix.com>
-References: <20240705152037.1920276-1-andrew.cooper3@citrix.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: base64
-User-Agent: Evolution 3.52.2 (3.52.2-1.fc40app2) 
+X-Inumbo-ID: c72b0e57-3d2d-11ef-8776-851b0ebba9a2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
+	s=mte1; t=1720445229; x=1720705729;
+	bh=oFmoLPEXzn98QnGemcNqcRRcKv4zR3DgUEv5buJilHY=;
+	h=From:Subject:To:Cc:Message-Id:References:In-Reply-To:Feedback-ID:
+	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
+	 Subject:From;
+	b=cDAhcZAJ1aFCCcfQNghaQKuXT5EmSABJiol5veabm3B4hSVWq6dkRushM3y/2G2bg
+	 3FWdvKFA7whNNlYSZAgt6Cv8C/8SnDOQNKRh+mejcBonTu0sVfUQuajEvqrTHMi6rF
+	 3WGXJZhqVH547cahgrwwWX6r+bORsn/Pbh7eVqJVMqu5+BV7+aQn3AEQ4hLdpCAPFG
+	 MW3Q35JK1kqwGEf1L+atPsYGjlWb3ZpbcqWas3XlZwz4QJxKfkyn3ozhJR1XTkI9F6
+	 uDAzpg38QAt+Uh8Tt/pfplv99vpwcBLYxJL2IS4ji4cd9udbzFgdXMbcr9HBtyjoU2
+	 uNsvz7jS8pqZQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
+	t=1720445229; x=1720705729; i=anthony.perard@vates.tech;
+	bh=oFmoLPEXzn98QnGemcNqcRRcKv4zR3DgUEv5buJilHY=;
+	h=From:Subject:To:Cc:Message-Id:References:In-Reply-To:Feedback-ID:
+	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
+	 Subject:From;
+	b=j55suZBY/BMT/dznVyJGphLe69JEJPttKVJCpRnYG2JlV3Fgepn8KZfytXEO2Zr8J
+	 OGWII96VXGcKlyHmFuHH+5K42KNe3zDs9hLXAteAbWxe63lm+bP0dCypIbcOLdNqo7
+	 YQop7aNR3Kpso/taPuK56fQxl+B6rnKOG8Y/jgfb7sdvmim8LZxi+Hnz0r6g3jqvSr
+	 TdVbn1qMKqZQoGdiOcSmcupqOdUDoz3+u8CEHOuoxc7xAQ+jEs1gum50SV3WFbrTdt
+	 +ApWMNe938t/cGtliOmPPK+OmPSY6zl/qbxi0dCBTgnJmJJb3MiVlUyE63APdZIEZX
+	 yR8A7KBReb5RQ==
+From: Anthony PERARD <anthony.perard@vates.tech>
+Subject: =?utf-8?Q?Re:=20[RFC=20XEN=20PATCH=20v12=206/7]=20tools:=20Add=20new=20function=20to=20get=20gsi=20from=20dev?=
+X-Bm-Disclaimer: Yes
+X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
+X-Bm-Transport-Timestamp: 1720445227146
+To: Jiqian Chen <Jiqian.Chen@amd.com>
+Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>, =?utf-8?Q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu <wl@xen.org>, George Dunlap <gwd@xenproject.org>, Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, Juergen Gross <jgross@suse.com>, "Daniel P . Smith" <dpsmith@apertussolutions.com>, Stewart Hildebrand <Stewart.Hildebrand@amd.com>, Huang Rui <ray.huang@amd.com>
+Message-Id: <ZovpKmmoabIvy135@l14>
+References: <20240708114124.407797-1-Jiqian.Chen@amd.com> <20240708114124.407797-7-Jiqian.Chen@amd.com>
+In-Reply-To: <20240708114124.407797-7-Jiqian.Chen@amd.com>
+X-Native-Encoded: 1
+X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.494f96f395654904a47aff0113bb610d?=
+X-Mandrill-User: md_30504962
+Feedback-ID: 30504962:30504962.20240708:md
+Date: Mon, 08 Jul 2024 13:27:09 +0000
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
 
-T24gRnJpLCAyMDI0LTA3LTA1IGF0IDE2OjIwICswMTAwLCBBbmRyZXcgQ29vcGVyIHdyb3RlOgo+
-IFdvcmsgdG8gZml4IGEgZmV3IGJ1aWxkIHN5c3RlbSBjaGVja3MsIGFuZCB0byBzdHJpcCB0aGUg
-b2Jzb2xldGUKPiBjb250ZW50cyBvZgo+IHRoZSBidWlsZCBjb250YWluZXJzLCBwcmlvciB0byBh
-ZGRpbmcgbmV3IGNvbnRhaW5lcnMgKHdpbGwgYmUgcGFydAo+IDMpLgo+IAo+IEFuZHJldyBDb29w
-ZXIgKDYpOgo+IMKgIGJ1aWxkOiBSZWdlbmVyYXRlIC4vY29uZmlndXJlIHdpdGggQXV0b2NvbmYg
-Mi43MQo+IMKgIGJ1aWxkOiBGaXggdGhlIHZlcnNpb24gb2YgcHl0aG9uIGNoZWNrZWQgZm9yIGJ5
-IC4vY29uZmlndXJlCj4gwqAgQ0k6IFJlZnJlc2ggdGhlIENvdmVyaXR5IEdpdGh1YiBBY3Rpb24g
-Y29uZmlndXJhdGlvbgo+IMKgIGJ1aWxkOiBEcm9wIG9wZW5zc2wgYXMgYSBidWlsZCBkZXBlbmRl
-bmN5Cj4gwqAgYnVpbGQ6IERyb3AgbGliaWNvbnYgYXMgYSBidWlsZCBkZXBlbmRlY3kKPiDCoCBi
-dWlsZDogRHJvcCB4b3JnLXgxMSBhcyBhIGJ1aWxkIGRlcGVuZGVuY3kKPiAKPiDCoC5jaXJydXMu
-eW1swqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqAgfMKgwqDCoCAyICstCj4gwqAuZ2l0aHViL3dvcmtmbG93cy9jb3Zlcml0
-eS55bWzCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgfMKgwqAgMzYgKy0KPiDCoFJFQURN
-RcKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB8wqDCoMKgIDIgLQo+IMKgLi4uL2J1aWxkL2RlYmlhbi9i
-b29rd29ybS1hcm02NHY4LmRvY2tlcmZpbGXCoCB8wqDCoMKgIDIgLQo+IMKgLi4uL2J1aWxkL2Rl
-Ymlhbi9ib29rd29ybS1pMzg2LmRvY2tlcmZpbGXCoMKgwqDCoCB8wqDCoMKgIDIgLQo+IMKgYXV0
-b21hdGlvbi9idWlsZC9kZWJpYW4vYm9va3dvcm0uZG9ja2VyZmlsZcKgwqAgfMKgwqDCoCAyIC0K
-PiDCoC4uLi9idWlsZC9kZWJpYW4vamVzc2llLWkzODYuZG9ja2VyZmlsZcKgwqDCoMKgwqDCoCB8
-wqDCoMKgIDIgLQo+IMKgYXV0b21hdGlvbi9idWlsZC9kZWJpYW4vamVzc2llLmRvY2tlcmZpbGXC
-oMKgwqDCoCB8wqDCoMKgIDIgLQo+IMKgLi4uL2J1aWxkL2RlYmlhbi9zdHJldGNoLWkzODYuZG9j
-a2VyZmlsZcKgwqDCoMKgwqAgfMKgwqDCoCAyIC0KPiDCoGF1dG9tYXRpb24vYnVpbGQvZGViaWFu
-L3N0cmV0Y2guZG9ja2VyZmlsZcKgwqDCoCB8wqDCoMKgIDIgLQo+IMKgYXV0b21hdGlvbi9idWls
-ZC9mZWRvcmEvMjkuZG9ja2VyZmlsZcKgwqDCoMKgwqDCoMKgwqAgfMKgwqDCoCAxIC0KPiDCoGF1
-dG9tYXRpb24vYnVpbGQvdWJ1bnR1L2Jpb25pYy5kb2NrZXJmaWxlwqDCoMKgwqAgfMKgwqDCoCAy
-IC0KPiDCoGF1dG9tYXRpb24vYnVpbGQvdWJ1bnR1L2ZvY2FsLmRvY2tlcmZpbGXCoMKgwqDCoMKg
-IHzCoMKgwqAgMiAtCj4gwqBhdXRvbWF0aW9uL2J1aWxkL3VidW50dS90cnVzdHkuZG9ja2VyZmls
-ZcKgwqDCoMKgIHzCoMKgwqAgMiAtCj4gwqBhdXRvbWF0aW9uL2J1aWxkL3VidW50dS94ZW5pYWwu
-ZG9ja2VyZmlsZcKgwqDCoMKgIHzCoMKgwqAgMiAtCj4gwqAuLi4va2VybmVsLzUuMTktYXJtNjR2
-OC5kb2NrZXJmaWxlwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB8wqDCoMKgIDEgLQo+IMKgLi4uL3Rl
-c3RzLWFydGlmYWN0cy9rZXJuZWwvNi4xLjE5LmRvY2tlcmZpbGXCoCB8wqDCoMKgIDEgLQo+IMKg
-Y29uZmlnL1Rvb2xzLm1rLmluwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgIHzCoMKgwqAgMSAtCj4gwqBjb25maWd1cmXCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAg
-fCAxMDA2ICstLQo+IMKgZG9jcy9jb25maWd1cmXCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB8wqAgOTkwICstLQo+IMKgc3R1YmRv
-bS9jb25maWd1cmXCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoCB8IDIyOTMgKysrKy0tCj4gwqB0b29scy9jb25maWcuaC5pbsKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHzCoMKgIDE1ICst
-Cj4gwqB0b29scy9jb25maWd1cmXCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgfCA2Mzk3ICsrKysrKysrKy0tLS0tLQo+IC0tCj4gwqB0
-b29scy9jb25maWd1cmUuYWPCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqAgfMKgwqDCoCA0ICstCj4gwqAyNCBmaWxlcyBjaGFuZ2VkLCA2MTM2IGlu
-c2VydGlvbnMoKyksIDQ2MzUgZGVsZXRpb25zKC0pCj4gCgpSZWxlYXNlLUFja2VkLWJ5OiBPbGVr
-c2lpIEt1cm9jaGtvIDxvbGVrc2lpLmt1cm9jaGtvQGdtYWlsLmNvbT4KCn4gT2xla3NpaQoK
+On Mon, Jul 08, 2024 at 07:41:23PM +0800, Jiqian Chen wrote:
+> diff --git a/tools/libs/ctrl/xc_physdev.c b/tools/libs/ctrl/xc_physdev.c
+> index e9fcd755fa62..54edb0f3c0dc 100644
+> --- a/tools/libs/ctrl/xc_physdev.c
+> +++ b/tools/libs/ctrl/xc_physdev.c
+> @@ -111,3 +111,38 @@ int xc_physdev_unmap_pirq(xc_interface *xch,
+>      return rc;
+>  }
+>  
+> +int xc_physdev_gsi_from_pcidev(xc_interface *xch, uint32_t sbdf)
+> +{
+> +    int rc = -1;
+> +
+> +#if defined(__linux__)
+> +    int fd;
+> +    privcmd_gsi_from_pcidev_t dev_gsi = {
+> +        .sbdf = sbdf,
+> +        .gsi = 0,
+> +    };
+> +
+> +    fd = open("/dev/xen/privcmd", O_RDWR);
 
+
+You could reuse the already opened fd from libxencall:
+    xencall_fd(xch->xcall)
+
+> +
+> +    if (fd < 0 && (errno == ENOENT || errno == ENXIO || errno == ENODEV)) {
+> +        /* Fallback to /proc/xen/privcmd */
+> +        fd = open("/proc/xen/privcmd", O_RDWR);
+> +    }
+> +
+> +    if (fd < 0) {
+> +        PERROR("Could not obtain handle on privileged command interface");
+> +        return rc;
+> +    }
+> +
+> +    rc = ioctl(fd, IOCTL_PRIVCMD_GSI_FROM_PCIDEV, &dev_gsi);
+
+I think this would be better implemented in Linux only C file instead of
+using #define. There's already "xc_linux.c" which is probably good
+enough to be used here.
+
+Implementation for other OS would just set errno to ENOSYS and
+return -1.
+
+
+-- 
+
+Anthony Perard | Vates XCP-ng Developer
+
+XCP-ng & Xen Orchestra - Vates solutions
+
+web: https://vates.tech
 
