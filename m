@@ -2,49 +2,41 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D414D929DF7
-	for <lists+xen-devel@lfdr.de>; Mon,  8 Jul 2024 10:08:21 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.755134.1163388 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 13B94929E24
+	for <lists+xen-devel@lfdr.de>; Mon,  8 Jul 2024 10:16:19 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.755139.1163399 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sQjOd-0000cS-5N; Mon, 08 Jul 2024 08:06:51 +0000
+	id 1sQjXN-0002O7-P8; Mon, 08 Jul 2024 08:15:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 755134.1163388; Mon, 08 Jul 2024 08:06:51 +0000
+Received: by outflank-mailman (output) from mailman id 755139.1163399; Mon, 08 Jul 2024 08:15:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sQjOc-0000Zz-VG; Mon, 08 Jul 2024 08:06:50 +0000
-Received: by outflank-mailman (input) for mailman id 755134;
- Mon, 08 Jul 2024 08:06:49 +0000
+	id 1sQjXN-0002Mb-MT; Mon, 08 Jul 2024 08:15:53 +0000
+Received: by outflank-mailman (input) for mailman id 755139;
+ Mon, 08 Jul 2024 08:15:52 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=tfao=OI=amd.com=Jiqian.Chen@srs-se1.protection.inumbo.net>)
- id 1sQjOb-0000IK-8A
- for xen-devel@lists.xenproject.org; Mon, 08 Jul 2024 08:06:49 +0000
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on20601.outbound.protection.outlook.com
- [2a01:111:f403:2417::601])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=Jnsg=OI=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1sQjXM-0002MT-Kl
+ for xen-devel@lists.xenproject.org; Mon, 08 Jul 2024 08:15:52 +0000
+Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com
+ [2a00:1450:4864:20::132])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id cfe3614a-3d00-11ef-bbfb-fd08da9f4363;
- Mon, 08 Jul 2024 10:05:18 +0200 (CEST)
-Received: from CY5PR15CA0109.namprd15.prod.outlook.com (2603:10b6:930:7::14)
- by PH7PR12MB9126.namprd12.prod.outlook.com (2603:10b6:510:2f0::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7741.35; Mon, 8 Jul
- 2024 08:05:14 +0000
-Received: from CY4PEPF0000EE39.namprd03.prod.outlook.com
- (2603:10b6:930:7:cafe::61) by CY5PR15CA0109.outlook.office365.com
- (2603:10b6:930:7::14) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7741.36 via Frontend
- Transport; Mon, 8 Jul 2024 08:05:14 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CY4PEPF0000EE39.mail.protection.outlook.com (10.167.242.11) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7762.17 via Frontend Transport; Mon, 8 Jul 2024 08:05:14 +0000
-Received: from cjq-desktop.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 8 Jul
- 2024 03:05:09 -0500
+ id 49dc1299-3d02-11ef-bbfb-fd08da9f4363;
+ Mon, 08 Jul 2024 10:15:51 +0200 (CEST)
+Received: by mail-lf1-x132.google.com with SMTP id
+ 2adb3069b0e04-52ea2f58448so4397809e87.1
+ for <xen-devel@lists.xenproject.org>; Mon, 08 Jul 2024 01:15:51 -0700 (PDT)
+Received: from ?IPV6:2003:e5:8729:4000:29eb:6d9d:3214:39d2?
+ (p200300e58729400029eb6d9d321439d2.dip0.t-ipconnect.de.
+ [2003:e5:8729:4000:29eb:6d9d:3214:39d2])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4266c3650f4sm14674445e9.1.2024.07.08.01.15.50
+ for <xen-devel@lists.xenproject.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 08 Jul 2024 01:15:50 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -56,122 +48,105 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: cfe3614a-3d00-11ef-bbfb-fd08da9f4363
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Vhp9a6kUBXdin96p8c8sVnGQMURpHco1/TWZuB9biUOGp8kR4Sb5tiVzZ7RTPU9GG5sHB2VHY/jDRQ+0VkMhNLKHRzo8EfvErC7vqIejUpELk041Aya+79ABH7g3ETRagdBd/hjcgAJPAwt/hWcMR2MeEG4zPVTU6XL54ZhwyDRei4bdbjX1Or0s0eby/OP8QBOVfWSHDF0DAP1evyD1cj6Dkem1gkh4w3wuapzNy5JP6UWaGYVGKZlW4TtncLID8chbCyVl4Km+y0/8+qSl8oGM6TyAk6rWvq0Sw59JC6pyaiwvUCoNrq0XvAuizZRNhKhxZDO2L/QemDjynHWDEQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=bHdGyPwdZzpTLwihyTmeTsp1sAiOoMkd/UMlFggw7b8=;
- b=E/Umm9qAiwRf7LPpYfPkjLxdEI8IcrH1yQ5yA1Fa+ERL4pkOMwdC/zNYP2WuYTH4cgQw5BK6/3f+hW9iY6so+RGQys/WpK+dXcWLijcCeqXfMFHLvyOrikhWpjgfd8gcI4pDnQk1lokD1welmI6uTXTpFTsgMbrtEnTT9pqhTaedDGbPJp8O8OBibB9MyEuRV/Dvl/pScXu1w8+n03dEzVp5HwSybftwwflpoogey05X8WoJ2o9xhaD0d7EGzZC8RE9Pol3RjDWcr3R/6qp1UrlzBukZeQoWwWWZdZpp1bkjP+YUlI59QMMSrImoQ4KG+XppJt8YFJwTajSZYb5w5Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=bHdGyPwdZzpTLwihyTmeTsp1sAiOoMkd/UMlFggw7b8=;
- b=ieBkMdMSOXW2PT38VgXAExHN14xejVpBBVjxr4e8jsmXYzpEzCXDnvYSReEXFtMYwhvaI15Nk5bE2ZLRkf2PWbWW2i2e3EGAm5n9bAdBAONKlgro2rKMrvmvkYKMGOmYHCWsslmAx3ARmO3Whhkx2ZVrHV/GxbdV/Pig0IK5liQ=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-From: Jiqian Chen <Jiqian.Chen@amd.com>
-To: <xen-devel@lists.xenproject.org>
-CC: Jan Beulich <jbeulich@suse.com>, Andrew Cooper
-	<andrew.cooper3@citrix.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
-	<roger.pau@citrix.com>, Oleksii Kurochko <oleksii.kurochko@gmail.com>,
-	"Jiqian Chen" <Jiqian.Chen@amd.com>, Huang Rui <ray.huang@amd.com>
-Subject: [PATCH for-4.19 v2] x86/physdev: Return pirq that irq was already mapped to
-Date: Mon, 8 Jul 2024 16:04:56 +0800
-Message-ID: <20240708080456.401764-1-Jiqian.Chen@amd.com>
-X-Mailer: git-send-email 2.34.1
+X-Inumbo-ID: 49dc1299-3d02-11ef-bbfb-fd08da9f4363
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1720426550; x=1721031350; darn=lists.xenproject.org;
+        h=content-transfer-encoding:subject:from:to:content-language
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=q0PmZbE58TcaC2n1hmm/HVpvSJXSTp9dGOYpPIBbQQc=;
+        b=J3tY2f4LanAIyYIrSVIxKUOzlowfRqkb8bW52T8llkeIeSfgN18j+Q+yF5agDY2NNR
+         wR4XpFCSTpXa+Zo4/gRxWm1XIOfPhZSqKv28JjF0jiAbpc3ASA1Qi/cAP/aD3VwzWXv6
+         H6KaRj8t0tXh/U1McnGHLl6/1HFytxNDlPZzmLvdUHF5q/iA17ziBASTPwtjgO7a+e8E
+         wUZVy/5sbk7zaxXI3WpQFDTXpB/ZsdGcWpjfLnGeAPD5ndUYy3DB4CIIuui3dn3KZU2Z
+         IlOR/64vi0276Kz8wGYz3JDDjd4kBgHNTFoPFP7n+I1/+FBgrMR3kpZNu2V3QnCM54U2
+         tAOw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1720426550; x=1721031350;
+        h=content-transfer-encoding:subject:from:to:content-language
+         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=q0PmZbE58TcaC2n1hmm/HVpvSJXSTp9dGOYpPIBbQQc=;
+        b=M3q8rjMR0Mtvo/N5GyR+4hnmbghv0aEcprxfPgdv2AWIphBVFw3hyI02UYDVUNM+zA
+         x9K/cpPq0a9qwiwydNqG+fufhTAlBGU5/lYJXq+bXtLJGVvk2aVQaaT30WbhQozbrNTg
+         cYCUiLLV56D2sQvihHNyrIt5BDLGx+31MhtLh9pW1vhYm7q+D2vif2gIjO5N32wpVnoc
+         sUePDq1VLw4obD31HxosnDm4wCaXhWbuw/jJHjk75tyeQrT1HXaLr+SdmaccyRL1ZYvb
+         h2N/9RrC8+TDeqgi0dJozi/q77xjw2nyTKrgj923znAEPaTiOBcg32lC+2zDzEzS1bfB
+         rnJA==
+X-Gm-Message-State: AOJu0Yz0kR2LyIAN1HvENzR/y7kxblFUE8V2SH7Z3vdPAJxjS2ZMobh6
+	Tjd9TjRWcRkHajjkNAvNJs8C+QBvnSJsm2gEERdVykeG4ujmNQGEF6OlpT1KnI6BFM3Sp057jVi
+	7
+X-Google-Smtp-Source: AGHT+IEX37lQWKkdJq/CJpfgf/8Wu7Y0RdmLTi5amiTphGzrOOx/4bxJglXFexcs8L9rArfqhcMG5Q==
+X-Received: by 2002:ac2:5e2a:0:b0:52c:e112:4b0c with SMTP id 2adb3069b0e04-52ea06133f1mr5880432e87.9.1720426550482;
+        Mon, 08 Jul 2024 01:15:50 -0700 (PDT)
+Message-ID: <baade0a7-e204-4743-bda1-282df74e5f89@suse.com>
+Date: Mon, 8 Jul 2024 10:15:49 +0200
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000EE39:EE_|PH7PR12MB9126:EE_
-X-MS-Office365-Filtering-Correlation-Id: 142f9d9f-77bd-4ef3-0e88-08dc9f24b2a5
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|1800799024|36860700013|82310400026;
-X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?iL44YbgYZ4czpFw6Rzk38hR/JXPzVtsockRUq9MLRrKsThzUWn8RfdPb8MIz?=
- =?us-ascii?Q?1IPPK89+o0Yiw65EwwkeHuyA6uG7Qp3gGTrQJmXI65fromXmA84elguguzwR?=
- =?us-ascii?Q?t3XF7O81bsYOPPcNE2HzG9AabtNgM3Wjf34wWZZVIJYQ0pdPJEeQD29P8sb0?=
- =?us-ascii?Q?Zcv3AND+WaM6oykZO3qour9+7Lodzlr/fm1Xx17hZ65Bk5lmMFtIYxoa+ohX?=
- =?us-ascii?Q?YPtvVGedLDSiDBznv/kzSogHakV3U5pIgSP+rPVQBb7J+R0TPh3ZHd4UEs4+?=
- =?us-ascii?Q?rp09uCWvGLxbykXpTPaVDT55iqbu0/ePG+++69CE8hrkJvznkhJlG7hwnPS+?=
- =?us-ascii?Q?ZIv1Nge3AVPCef5vRstsn6+z8HplzTXTWr4vRbAlpucINursEtIbD5tTn7b3?=
- =?us-ascii?Q?Nii8mp9Gdm6sIcMVebnSm97H9ywjIMnMhmADhTLh+sFqQt8IQ+bqSjI7Wq1B?=
- =?us-ascii?Q?3yhWhcOxiAKB2t3CQxf/5P99dLTY9lacD21g0uh4XpuEYU9AByWztAcn2rlG?=
- =?us-ascii?Q?9AQplwVGAYaZnDAI6e8edjg9uCfSfQmk3pF9UkDNOan6smXGVpVg1aAfHEXx?=
- =?us-ascii?Q?Lc1SPBYyeRgqvD4MyHHRjdwupwLsMdY1wwtlQAwn85X6FjscAT6vbTM5ph1L?=
- =?us-ascii?Q?9xkemTbkjy7/SlB1Y5KuV+GvGV4wEKkN0r73UpZU9krtT3F6KdkSeocgKL0I?=
- =?us-ascii?Q?1fPlVWDIkFQoKV52lomkEOVKDdhLqZy2jQO769jJ62X9qd2WmlGC2qc0oedF?=
- =?us-ascii?Q?RLGZUx7C9ucUjFhrtmzWEFjgKJDr057SxoffGngwOZ+aN1VNjvabKpKq5KFZ?=
- =?us-ascii?Q?3oOXIgKftKGVTV0qsoI/RsnFB5CoBNG38f65JHMJqSQ5RQfPL7O4gmMq0a55?=
- =?us-ascii?Q?SvbrvSUmQnjCCYfClpg0Qob8h1+KL+KQp+0hjXg2woueaQWRgFgXrs5Ju7ln?=
- =?us-ascii?Q?26aEvPA5WTWEiZI0/IQUqD4yU8t3cjUWhpw/VN+EpH+MSutRxfw1ooMl7Di7?=
- =?us-ascii?Q?duBE1biuxocZ2NHnZyykpJd2nNEomyQX06awjfY79Xyr+hY9slpewlfh4RRy?=
- =?us-ascii?Q?RtIIoqdrmQJ2G2k4QmogcXG8QTMh88CLFW8QYF8xkf8gdMLhOXFNvP9Xj3Ob?=
- =?us-ascii?Q?iq2LzSGUud7Tx0XgkS8Ia9QekUWGSItn3D5ph61BcovSiXWEwBQuuhgbKhZM?=
- =?us-ascii?Q?WzSn8+FYxAYJc6kawY6hs3LwEH29TpM/tIGiUxBjv7f+3B7vFQ3gM8WXirds?=
- =?us-ascii?Q?qakUAOlrc5LuE8Rh8OEsX8E68aElWjQQt28BYAN4RPVtEO5VSv6RqOgLqLSR?=
- =?us-ascii?Q?rG2j9HJUlNL75PlSjU6yR+IRD5WtV5vNpvY5JCyFRm81/llu+SSIjf+xSq8O?=
- =?us-ascii?Q?OcKF99uaJIAuVlLw5KhOzTglOdEAvy5iWKcnlz2i/peh7XOfkCrX8Zt1prl9?=
- =?us-ascii?Q?AW4DG2JfZMZsX7IGlnthXMzfq/0TnYBm?=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(1800799024)(36860700013)(82310400026);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Jul 2024 08:05:14.3318
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 142f9d9f-77bd-4ef3-0e88-08dc9f24b2a5
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CY4PEPF0000EE39.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB9126
+User-Agent: Mozilla Thunderbird
+Content-Language: en-US
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+Subject: Problems in PV dom0 on recent x86 hardware
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Fix bug introduced by 0762e2502f1f ("x86/physdev: factor out the code to allocate and
-map a pirq"). After that re-factoring, when pirq<0 and current_pirq>0, it means
-caller want to allocate a free pirq for irq but irq already has a mapped pirq, then
-it returns the negative pirq, so it fails. However, the logic before that
-re-factoring is different, it should return the current_pirq that irq was already
-mapped to and make the call success.
+I've got an internal report about failures in dom0 when booting with
+Xen on a Thinkpad P14s Gen 3 AMD (kernel 6.9).
 
-Fixes: 0762e2502f1f ("x86/physdev: factor out the code to allocate and map a pirq")
+With some debugging I've found that the UCSI driver seems to fail to
+map MFN feec2 as iomem, as the hypervisor is denying this mapping due
+to being part of the MSI space. The mapping attempt seems to be the
+result of an ACPI call of the UCSI driver:
 
-Signed-off-by: Jiqian Chen <Jiqian.Chen@amd.com>
-Signed-off-by: Huang Rui <ray.huang@amd.com>
-Signed-off-by: Jiqian Chen <Jiqian.Chen@amd.com>
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
----
- xen/arch/x86/irq.c | 1 +
- 1 file changed, 1 insertion(+)
+[   44.575345] RIP: e030:xen_mc_flush+0x1e8/0x2b0
+[   44.575418]  xen_leave_lazy_mmu+0x15/0x60
+[   44.575425]  vmap_range_noflush+0x408/0x6f0
+[   44.575438]  __ioremap_caller+0x20d/0x350
+[   44.575450]  acpi_os_map_iomem+0x1a3/0x1c0
+[   44.575454]  acpi_ex_system_memory_space_handler+0x229/0x3f0
+[   44.575464]  acpi_ev_address_space_dispatch+0x17e/0x4c0
+[   44.575474]  acpi_ex_access_region+0x28a/0x510
+[   44.575479]  acpi_ex_field_datum_io+0x95/0x5c0
+[   44.575482]  acpi_ex_extract_from_field+0x36b/0x4e0
+[   44.575490]  acpi_ex_read_data_from_field+0xcb/0x430
+[   44.575493]  acpi_ex_resolve_node_to_value+0x2e0/0x530
+[   44.575496]  acpi_ex_resolve_to_value+0x1e7/0x550
+[   44.575499]  acpi_ds_evaluate_name_path+0x107/0x170
+[   44.575505]  acpi_ds_exec_end_op+0x392/0x860
+[   44.575508]  acpi_ps_parse_loop+0x268/0xa30
+[   44.575515]  acpi_ps_parse_aml+0x221/0x5e0
+[   44.575518]  acpi_ps_execute_method+0x171/0x3e0
+[   44.575522]  acpi_ns_evaluate+0x174/0x5d0
+[   44.575525]  acpi_evaluate_object+0x167/0x440
+[   44.575529]  acpi_evaluate_dsm+0xb6/0x130
+[   44.575541]  ucsi_acpi_dsm+0x53/0x80
+[   44.575546]  ucsi_acpi_read+0x2e/0x60
+[   44.575550]  ucsi_register+0x24/0xa0
+[   44.575555]  ucsi_acpi_probe+0x162/0x1e3
+[   44.575559]  platform_probe+0x48/0x90
+[   44.575567]  really_probe+0xde/0x340
+[   44.575579]  __driver_probe_device+0x78/0x110
+[   44.575581]  driver_probe_device+0x1f/0x90
+[   44.575584]  __driver_attach+0xd2/0x1c0
+[   44.575587]  bus_for_each_dev+0x77/0xc0
+[   44.575590]  bus_add_driver+0x112/0x1f0
+[   44.575593]  driver_register+0x72/0xd0
+[   44.575600]  do_one_initcall+0x48/0x300
+[   44.575607]  do_init_module+0x60/0x220
+[   44.575615]  __do_sys_init_module+0x17f/0x1b0
+[   44.575623]  do_syscall_64+0x82/0x170
+[   44.575685] 1 of 1 multicall(s) failed: cpu 4
+[   44.575695]   call  1: op=1 result=-1 caller=xen_extend_mmu_update+0x4e/0xd0 
+pars=ffff888267e25ad0 1 0 7ff0 args=9ba37a678 80000000feec2073
 
-diff --git a/xen/arch/x86/irq.c b/xen/arch/x86/irq.c
-index 017a94e31155..47477d88171b 100644
---- a/xen/arch/x86/irq.c
-+++ b/xen/arch/x86/irq.c
-@@ -2898,6 +2898,7 @@ static int allocate_pirq(struct domain *d, int index, int pirq, int irq,
-                     d->domain_id, index, pirq, current_pirq);
-             if ( current_pirq < 0 )
-                 return -EBUSY;
-+            pirq = current_pirq;
-         }
-         else if ( type == MAP_PIRQ_TYPE_MULTI_MSI )
-         {
--- 
-2.34.1
+The pte value of the mmu_update call is 80000000feec2073, which is rejected by
+the hypervisor with -EPERM.
 
+Before diving deep into the UCSI internals, is it possible that the hypervisor
+needs some update (IOW: could it be the mapping attempt should rather be
+honored, as there might be an I/O resources at this position which dom0 needs
+to access for using the related hardware?)
+
+
+Juergen
 
