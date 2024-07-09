@@ -2,38 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2CDFA92BE1D
-	for <lists+xen-devel@lfdr.de>; Tue,  9 Jul 2024 17:21:22 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.756346.1164933 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E044F92BE84
+	for <lists+xen-devel@lfdr.de>; Tue,  9 Jul 2024 17:35:07 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.756355.1164943 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sRCeT-0005Ix-Ca; Tue, 09 Jul 2024 15:21:09 +0000
+	id 1sRCrN-0007Fb-Eh; Tue, 09 Jul 2024 15:34:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 756346.1164933; Tue, 09 Jul 2024 15:21:09 +0000
+Received: by outflank-mailman (output) from mailman id 756355.1164943; Tue, 09 Jul 2024 15:34:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sRCeT-0005HE-8u; Tue, 09 Jul 2024 15:21:09 +0000
-Received: by outflank-mailman (input) for mailman id 756346;
- Tue, 09 Jul 2024 15:21:08 +0000
+	id 1sRCrN-0007D8-Bk; Tue, 09 Jul 2024 15:34:29 +0000
+Received: by outflank-mailman (input) for mailman id 756355;
+ Tue, 09 Jul 2024 15:34:28 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=u1XU=OJ=suse.com=carnold@srs-se1.protection.inumbo.net>)
- id 1sRCeS-0005H8-C9
- for xen-devel@lists.xenproject.org; Tue, 09 Jul 2024 15:21:08 +0000
-Received: from mail-lj1-x233.google.com (mail-lj1-x233.google.com
- [2a00:1450:4864:20::233])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=WrzE=OJ=bounce.vates.tech=bounce-md_30504962.668d587f.v1-3754c977cdcf4829aad8fd604c15bbf4@srs-se1.protection.inumbo.net>)
+ id 1sRCrL-0007Cj-UZ
+ for xen-devel@lists.xenproject.org; Tue, 09 Jul 2024 15:34:28 +0000
+Received: from mail186-1.suw21.mandrillapp.com
+ (mail186-1.suw21.mandrillapp.com [198.2.186.1])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id dc5c1ad4-3e06-11ef-8776-851b0ebba9a2;
- Tue, 09 Jul 2024 17:21:06 +0200 (CEST)
-Received: by mail-lj1-x233.google.com with SMTP id
- 38308e7fff4ca-2eaa89464a3so55823771fa.3
- for <xen-devel@lists.xenproject.org>; Tue, 09 Jul 2024 08:21:06 -0700 (PDT)
-Received: from [172.16.0.12] (c-76-140-71-54.hsd1.ut.comcast.net.
- [76.140.71.54]) by smtp.gmail.com with ESMTPSA id
- e9e14a558f8ab-38a49555913sm4587145ab.25.2024.07.09.08.21.04
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 09 Jul 2024 08:21:04 -0700 (PDT)
+ id b86ea81f-3e08-11ef-8776-851b0ebba9a2;
+ Tue, 09 Jul 2024 17:34:25 +0200 (CEST)
+Received: from pmta10.mandrill.prod.suw01.rsglab.com (localhost [127.0.0.1])
+ by mail186-1.suw21.mandrillapp.com (Mailchimp) with ESMTP id 4WJQ5X0VWwzBsThV7
+ for <xen-devel@lists.xenproject.org>; Tue,  9 Jul 2024 15:34:24 +0000 (GMT)
+Received: from [37.26.189.201] by mandrillapp.com id
+ 3754c977cdcf4829aad8fd604c15bbf4; Tue, 09 Jul 2024 15:34:23 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,120 +42,148 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: dc5c1ad4-3e06-11ef-8776-851b0ebba9a2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1720538465; x=1721143265; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=AdXh7hURo3GfaojHqgajUmu19rwMkfoV3XNvh/xNQb0=;
-        b=dmIlPucbOM67QQlaEHbeQIAiwnHXqRgOWNvyHXqT6nPf06B00QxrqBFq5JpjMqeU7T
-         5tLdJQkqrUDujqDRrvDMS9hDP2e4faNiLv+yLPnWkzIQJjdcWio40BkgPK1LZFeeRJ03
-         Ap495Uq7zIiyYlYQM+aPXsM5OE60okQPOU/nd7yZL+GDLbReODNPBzkavOcP1VI/K04q
-         QzoxyzP0fffYTWc2e19xETg2FuES8mbW8R5TDYun9Lf9ATogLJHW63pKcH7BJAGI4kYQ
-         20ZUrut8ahGEF9mbIEkRPHUXuk5qePCY+LasHowgEFONqEPewBiY+5iAQXbsaafIktO5
-         ntgg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1720538465; x=1721143265;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=AdXh7hURo3GfaojHqgajUmu19rwMkfoV3XNvh/xNQb0=;
-        b=rzVOkAGZhaiRBIoltRdqeG5GLws1H7lWC7jOifan5iJbZmoauv2/eEQv/+sUidhrd9
-         +Ve8PYcg3J9eArTU+z29mMj2C9mRlYD4IBbMbVtwL1AjgabjEhD787hY15TxZ7X09TYc
-         WgvJSUF/JPeYWjZRFi+wDMc04ysvBQUkEX1HTO/kxYQ+Jj/gDSlB4+pa415CzYhw50+s
-         wwFcxd8J+GWddGtqjuv1gTge1PlU7zSxfglY61KWihCJF1xdFRqoDoQUStOAaROUWcEn
-         Xw10BR86/JRIdKTA8cZ1IE3bjNL71q4ud2GodvzUaWZ0wdNshUYP/RxvNlCVbaS27zcU
-         1+Rw==
-X-Forwarded-Encrypted: i=1; AJvYcCWm5jnxQ5mjNiv73pnQ9m52jKfrwNLmHdqYw9QhZHOCTUOhW2JZCQHzITsvKcgssshnRTVQNGJXqK5uIQe8xV1srZDMVE/cAPCOO3G59Fo=
-X-Gm-Message-State: AOJu0YyEMqo/b1VRj4aZ23RZM1Yj1QJryprxa5NQ+/K5CO4kgBPIFFlV
-	eHKv8r018T4jTeNwtbzuJzprDPZOE3n3l24r879oGfdvUVaKjLnKGm4nNLUs3vg=
-X-Google-Smtp-Source: AGHT+IF/Wa3VhyqMeLwurPEMgPpkhSUg2/uYJOumUjpXYSTmf9SYkIikinZnR5pUOEephQSGcRr3ew==
-X-Received: by 2002:a05:651c:1a0a:b0:2ec:5f6e:65ea with SMTP id 38308e7fff4ca-2eeb3188ccamr24222771fa.38.1720538465427;
-        Tue, 09 Jul 2024 08:21:05 -0700 (PDT)
-Message-ID: <4e7028a3-b513-4a97-adef-dfc25d9607b9@suse.com>
-Date: Tue, 9 Jul 2024 09:21:10 -0600
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: Build system mess in stubdom
-Content-Language: en-US
-To: Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
- <julien@xen.org>, Juergen Gross <jgross@suse.com>,
- xen-devel <xen-devel@lists.xenproject.org>,
- Anthony Perard <anthony@xenproject.org>
+X-Inumbo-ID: b86ea81f-3e08-11ef-8776-851b0ebba9a2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
+	s=mte1; t=1720539264; x=1720799764;
+	bh=W2Yco3DeBSmvqyLPaqhipGEiiVTOQWY9vKFEEvqxBXE=;
+	h=From:Subject:To:Cc:Message-Id:References:In-Reply-To:Feedback-ID:
+	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
+	 Subject:From;
+	b=zsensLUv+3XsRVDzhjZDhXrZUL0bH2jv1CwzqRX5ch4J+t/vxSvXhECfJ5mYyBuXL
+	 T68ePV9kvVK9bo25os5KK+aUVa3q0a6/EqQZzFelRfXhUVeG9n4XASvC+2GvLOjJhb
+	 UzQpXN37QdfhkLmaWSdh/zYc9JFsrMp9AIIiPLO9GZhKSs9a74yFQNw5eZfQ81Eb5P
+	 Hdgktfaaauz4AXUs4rkx4TpLrCXzzdCJJ5dlRWAUhAfCnyfPYWj79CBi+5mjIPFUtf
+	 /qDMMfeH9rDR83aiMn6A56xvfsHk9BMsLB3GkR3uQnUDNMZODUpsf2NIj1TaSBZa2z
+	 vyim4zid/GA5A==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
+	t=1720539264; x=1720799764; i=anthony.perard@vates.tech;
+	bh=W2Yco3DeBSmvqyLPaqhipGEiiVTOQWY9vKFEEvqxBXE=;
+	h=From:Subject:To:Cc:Message-Id:References:In-Reply-To:Feedback-ID:
+	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
+	 Subject:From;
+	b=NXcPh26uhxhcC5FaldrE6LoTLZ2vvrAPuQHMDm7TPoHP856tjyg4wiUBJvEFihLw6
+	 m6v3HbxmbuuRIbQ6sXFhg9LsibIZT+HX3rXjJ4bhQffXYotlJrs81s/h99wjsaTUdQ
+	 4PnIhgPaD/tkIb4u6I2VfIdLDrzeKXcpBMh1GTdjchI5KMj/oGAtsEmd5tLtCjP+YK
+	 QGiWAZf4KaQFkL6LMw6Mh0GvkLLQ+Gu3urzQROJ9G6w0/lSz+1wPwcQSkEduNvZoty
+	 avQVYoTEu1B57zZywYh1ut/6eVhCWR6wbCrOrnjSJXCkJBUSgkUS/ZUQYLTYj4y6E/
+	 mGKyw/pE3RzzA==
+From: Anthony PERARD <anthony.perard@vates.tech>
+Subject: =?utf-8?Q?Re:=20Build=20system=20mess=20in=20stubdom?=
+X-Bm-Disclaimer: Yes
+X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
+X-Bm-Transport-Timestamp: 1720539255227
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: xen-devel <xen-devel@lists.xenproject.org>, Jan Beulich <jbeulich@suse.com>, Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Juergen Gross <jgross@suse.com>
+Message-Id: <Zo1YdgWj7E4doGEU@l14>
 References: <44679adf-e657-4d38-b1e3-2bebb34f57a0@citrix.com>
- <ad9b8dab-3f1c-4f26-845b-af88f96ee1ee@suse.com>
-From: Charles Arnold <carnold@suse.com>
-In-Reply-To: <ad9b8dab-3f1c-4f26-845b-af88f96ee1ee@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <44679adf-e657-4d38-b1e3-2bebb34f57a0@citrix.com>
+X-Native-Encoded: 1
+X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.3754c977cdcf4829aad8fd604c15bbf4?=
+X-Mandrill-User: md_30504962
+Feedback-ID: 30504962:30504962.20240709:md
+Date: Tue, 09 Jul 2024 15:34:23 +0000
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On 7/9/24 8:55 AM, Jan Beulich wrote:
-> On 09.07.2024 15:49, Andrew Cooper wrote:
->> I'm trying to investigate why stubdom/ is fatally failing now with a
->> rebuilt ArchLinux container (GCC 14).
->>
->> It is ultimately:
->>
->>> ../../../../../newlib-1.16.0/newlib/libc/reent/signalr.c:61:14: error:
->>> implicit declaration of function ‘kill’; did you mean ‘_kill’?
->>> [-Wimplicit-function-declaration]
->>>     61 |   if ((ret = _kill (pid, sig)) == -1 && errno != 0)
->>>        |              ^~~~~
->>> make[7]: *** [Makefile:483: lib_a-signalr.o] Error 1
->> which doesn't make sense, but is a consequence of the ifdefary in
->> newlib/libc/include/_syslist.h
-> Charles, who is looking after our Xen packages, had run into exactly this.
-> His workaround patch (added to the list of patches applied on top of
-> newlib by stubdom/Makefile) is below, but in the given form I didn't expect
-> it would be upstreamable. The diagnostics by the compiler may be a little
-> misleading ...
+On Tue, Jul 09, 2024 at 02:49:57PM +0100, Andrew Cooper wrote:
+> Hello,
+> 
+> I'm trying to investigate why stubdom/ is fatally failing now with a
+> rebuilt ArchLinux container (GCC 14).
+> 
+> It is ultimately:
+> 
+> > ../../../../../newlib-1.16.0/newlib/libc/reent/signalr.c:61:14: error:
+> > implicit declaration of function =E2=80=98kill=E2=80=99; did you mean =
+=E2=80=98_kill=E2=80=99?
+> > [-Wimplicit-function-declaration]
+> > =C2=A0=C2=A0 61 |=C2=A0=C2=A0 if ((ret =3D _kill (pid, sig)) =3D=3D -1 =
+&& errno !=3D 0)
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ^~~~~
+> > make[7]: *** [Makefile:483: lib_a-signalr.o] Error 1
+> 
+> which doesn't make sense, but is a consequence of the ifdefary in
+> newlib/libc/include/_syslist.h
+> 
+> However, we've got problems ahead of that.
+> 
+> First of all, with:
+> 
+> [user@89aef714763e build]$ ./configure --disable-xen --disable-tools
+> --disable-docs
+> <snip>
+> Will build the following stub domains:
+> =C2=A0 xenstore-stubdom
+> =C2=A0 xenstorepvh-stubdom
+> configure: creating ./config.status
+> config.status: creating ../config/Stubdom.mk
+> 
+> both a top level `make` and `make stubdom` end up building all of tools,
+> contrary to comments in the makefile.
 
-This problem showed up only with gcc14 when it began treating what was 
-previously a warning as an error.
+:-(, I never noticed that but yeah, that rules is what end up building
+the tools:
 
-Charles
+    install-stubdom: mini-os-dir install-tools
 
->
-> Jan
->
-> --- newlib-1.16.0/newlib/libc/stdlib/wcstoull.c
-> +++ newlib-1.16.0/newlib/libc/stdlib/wcstoull.c
-> @@ -127,6 +127,10 @@ PORTABILITY
->
->   #ifndef _REENT_ONLY
->
-> +#if __GNUC__ >= 14
-> +#pragma GCC diagnostic ignored "-Wimplicit-function-declaration"
-> +#endif
-> +
->   unsigned long long
->   _DEFUN (wcstoull, (s, ptr, base),
->   	_CONST wchar_t *s _AND
-> --- newlib-1.16.0/newlib/libc/reent/signalr.c
-> +++ newlib-1.16.0/newlib/libc/reent/signalr.c
-> @@ -49,6 +49,10 @@ DESCRIPTION
->   	<<errno>>.
->   */
->
-> +#if __GNUC__ >= 14
-> +#pragma GCC diagnostic ignored "-Wimplicit-function-declaration"
-> +#endif
-> +
->   int
->   _DEFUN (_kill_r, (ptr, pid, sig),
->        struct _reent *ptr _AND
-> --- newlib-1.16.0/newlib/doc/makedoc.c
-> +++ newlib-1.16.0/newlib/doc/makedoc.c
-> @@ -798,6 +798,7 @@ DEFUN( iscommand,(ptr, idx),
->   }
->
->
-> +static unsigned int
->   DEFUN(copy_past_newline,(ptr, idx, dst),
->         string_type *ptr AND
->         unsigned int idx AND
->
+So unless you use one of the build targets, the top makefile end-up
+wanting to also install (or dist) the tools. I don't think we can change
+that:
+    dc497635d93f ("build system: make install-stubdom depend on install-too=
+ls again")
+
+> `make build-stubdom` does (AFAICT) only build stubdom.
+
+How do you make that works with `./configure --disable-tools` ? I've got
+this:
+    $ make build-stubdom
+    <snip>
+    make -C tools/include build
+    ....tools/include/../../tools/Rules.mk:212: *** You have to run ./confi=
+gure before building or installing the tools.  Stop.
+    make: *** [Makefile:44: build-tools-public-headers] Error 2
+
+> However, building just the xenstore stubdoms recursively builds all of
+> tools/libs/ even though only some are needed.=C2=A0 This includes libxl w=
+hich
+> then recurses further to get tools/libacpi, and libxenguest which
+> recurses further to get libelf from Xen.
+
+libxl? how? Did you run `make -C stubdom xenstore-stubdom`? Or maybe you
+used ./configure to select only "xenstore-stubdom"? In that later case
+only the build* targets will only build stubdom, the default target as
+well as dist* and install* targets will want to "install-tools" as seen
+above.
+
+> What I can't figure out is why xenstore ends up pulling in all of newlib.
+
+I think it's because of these in stubdom/Makefile:
+    xenstore: $(CROSS_ROOT) xenstore-minios-config.mk
+    $(CROSS_ROOT): cross-newlib cross-zlib cross-libpci
+
+> Semi-irrespective, there's no way we can keep on bodging newlib to
+> compile with newer compilers.=C2=A0 There's a whole bunch of other warnin=
+gs
+> (strict-prototypes, dangling-else, maybe-uninitialized, unused-function,
+> pointer-sign, unused-variable) primed ready to cause breakage in any
+> environment which makes these error by default.
+> 
+> I'm going to be making ArchLinux non-blocking because it is a rolling
+> distro, but we also can't do nothing here.
+
+I guess we could try to update newlib, 1.16 is from 2007 apparently, and
+there's now 4.4 from last year.
+
+Cheers,
+
+-- 
+
+Anthony Perard | Vates XCP-ng Developer
+
+XCP-ng & Xen Orchestra - Vates solutions
+
+web: https://vates.tech
 
 
