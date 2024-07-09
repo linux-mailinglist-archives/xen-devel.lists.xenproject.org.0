@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0894092BED6
-	for <lists+xen-devel@lfdr.de>; Tue,  9 Jul 2024 17:52:54 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.756379.1164993 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B776792BED7
+	for <lists+xen-devel@lfdr.de>; Tue,  9 Jul 2024 17:52:56 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.756381.1165013 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sRD8q-0003Vt-W1; Tue, 09 Jul 2024 15:52:32 +0000
+	id 1sRD8t-00042M-Ki; Tue, 09 Jul 2024 15:52:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 756379.1164993; Tue, 09 Jul 2024 15:52:32 +0000
+Received: by outflank-mailman (output) from mailman id 756381.1165013; Tue, 09 Jul 2024 15:52:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sRD8q-0003SV-SJ; Tue, 09 Jul 2024 15:52:32 +0000
-Received: by outflank-mailman (input) for mailman id 756379;
- Tue, 09 Jul 2024 15:52:31 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1sRD8t-0003zl-Gr; Tue, 09 Jul 2024 15:52:35 +0000
+Received: by outflank-mailman (input) for mailman id 756381;
+ Tue, 09 Jul 2024 15:52:33 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=XjVV=OJ=cloud.com=alejandro.vallejo@srs-se1.protection.inumbo.net>)
- id 1sRD8p-0002zS-St
- for xen-devel@lists.xenproject.org; Tue, 09 Jul 2024 15:52:31 +0000
-Received: from mail-ed1-x52f.google.com (mail-ed1-x52f.google.com
- [2a00:1450:4864:20::52f])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 3fe300e7-3e0b-11ef-bbfb-fd08da9f4363;
+ id 1sRD8r-0002zY-Bh
+ for xen-devel@lists.xenproject.org; Tue, 09 Jul 2024 15:52:33 +0000
+Received: from mail-ed1-x530.google.com (mail-ed1-x530.google.com
+ [2a00:1450:4864:20::530])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 403eb1a2-3e0b-11ef-8776-851b0ebba9a2;
  Tue, 09 Jul 2024 17:52:31 +0200 (CEST)
-Received: by mail-ed1-x52f.google.com with SMTP id
- 4fb4d7f45d1cf-58ba3e37feeso7225709a12.3
+Received: by mail-ed1-x530.google.com with SMTP id
+ 4fb4d7f45d1cf-58ef19aa69dso5770798a12.3
  for <xen-devel@lists.xenproject.org>; Tue, 09 Jul 2024 08:52:31 -0700 (PDT)
 Received: from EMEAENGAAD19049.citrite.net ([185.25.67.249])
  by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-594bd459e1esm1181254a12.73.2024.07.09.08.52.29
+ 4fb4d7f45d1cf-594bd459e1esm1181254a12.73.2024.07.09.08.52.30
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 09 Jul 2024 08:52:29 -0700 (PDT)
+ Tue, 09 Jul 2024 08:52:30 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,266 +45,227 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3fe300e7-3e0b-11ef-bbfb-fd08da9f4363
+X-Inumbo-ID: 403eb1a2-3e0b-11ef-8776-851b0ebba9a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1720540350; x=1721145150; darn=lists.xenproject.org;
+        d=cloud.com; s=cloud; t=1720540351; x=1721145151; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=fWsRWH1vBUU8PY9863f2q978DGRF3ndAJZtagMPujW8=;
-        b=cd5fEXJ8+Yfl43n/gMsVTghtIL4NzOmIQfRJgeSxpnp9qX0EwB+7KrAkypkLRirqsk
-         7PuslQWqJwF3OCxNmCmFhVnU4CQEi04quVKXWf8dL86THSGMW3MpHUNKZYRaWxobMRjH
-         J/ljh+cOJk+jNw4f0XHqXobZBn7A4hHUDxALI=
+        bh=hNkmBJzEXcz2KBPKDeUXYjkt3AnZqwx9CjUlb8rUPSk=;
+        b=cNRC02mPsgCxTMSIftyD7WmM3tRiO/JjJvtuazvKd+V89U64qUKalgXJxPWcsKW12v
+         MqAejNNS2uVTsPlEJ+zPhDont9Xadayg+U644LD82fsykXMFbplBqdBiJYC/ZRW0ROJR
+         yZUhk3HOUbWuBSEzT5tohI8s5hXNkT/iN8Uj8=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1720540350; x=1721145150;
+        d=1e100.net; s=20230601; t=1720540351; x=1721145151;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=fWsRWH1vBUU8PY9863f2q978DGRF3ndAJZtagMPujW8=;
-        b=osg4fs1tUqACe2HWwgGSNJXuxDYRj9wfhs25ZwySn876fweNlbisUi57ZIkQqOsHND
-         2n70+RvTdSh8POW37i8UnYL53YbyJElHdh2oiosSyu0kvmu031vMpHORAQWHqSMCsReF
-         hIRlybNO3OXZyrIODozOtmER34W/xKErT4NeAlUekSMzCJQS+75IpJP8osEbpVzLLLQT
-         ZTlgbEyhXf1gA4nBjWFAxwjZIW2hrfFNYAWxB49IkvLa5iUtpnW7SZLutD4gBB43RVDW
-         zfZ98mbwe3lLr7cyXzZKsgntx4Zzo60Ca9XpekU90GO1P7hJ05FjKaKUwMKxwIheqFVk
-         xq9Q==
-X-Gm-Message-State: AOJu0Yx/pi5kyuwF04XPdJgz+20u/9fnPWeJa0/3Zla6h32K3quXyIsP
-	LlXUWSTRgX4SDjILoLGG6JOom+MH4RnFJSiNCR/5Pq8q+7k7WydtmrK4uMXUYnLnKR+cZh+qPyH
-	f
-X-Google-Smtp-Source: AGHT+IGiDjOeE2XeQCRIoRoTOZoUr4X0fKpLKKmQWb89gzG8uuLngQvB6yywAAXBdSkiAHvXYVC4Xg==
-X-Received: by 2002:a05:6402:1d54:b0:58c:6edf:d5d2 with SMTP id 4fb4d7f45d1cf-594baf9147bmr2446089a12.15.1720540349906;
-        Tue, 09 Jul 2024 08:52:29 -0700 (PDT)
+        bh=hNkmBJzEXcz2KBPKDeUXYjkt3AnZqwx9CjUlb8rUPSk=;
+        b=Wm42QZQKYS/98zEVpTUxAMQmf+9CPifGxjbCoLLFgVifyVfd/24ZUMKdhwPua/v31T
+         7gFhDT4qd/ukdt+NcdyHwtr/IFJmi0lt4RJ/y8/En0AGixzELDfzUcK079LBs8H5oMc5
+         wYKETca1wQfc7z+m7XWzhaH5chmpQdOHZFD0y40R6DhySJM3NLNcLw5Nuv8Ha/1pKvKB
+         2DWz1Setz5eT3Rdr4HMuPczJMXd73e+R1hYeZs4+8GuWaLPBgSivuZHCkJIa2EvkvM4P
+         oiDOco5a4vxUZUQRLSFEgzNFyEcKDQnl22FPesqe7VVoaraGN4pZZsa0fjM3RJ2DwfyR
+         Eweg==
+X-Gm-Message-State: AOJu0YyfTKNzljICbWLvGjF26xg+T7Q7s7aC1ekdkFvWembHHJDUneSy
+	qVQGgmaQH1IoD9fnCZrEOqBxYWnrJw27cVHh1pl0SmwW06w/7rh7+7CwAJF6hNioBMLVKpjF25P
+	A
+X-Google-Smtp-Source: AGHT+IExzK2GEXIrMlan9uaEtW4BhXbWTYYP9wHO4l3cjDaACOrct0xZK0SpUV1xuDHRRGbXmAK44g==
+X-Received: by 2002:a50:ee85:0:b0:57d:619:7721 with SMTP id 4fb4d7f45d1cf-594bb5807c7mr1792406a12.21.1720540350701;
+        Tue, 09 Jul 2024 08:52:30 -0700 (PDT)
 From: Alejandro Vallejo <alejandro.vallejo@cloud.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
 Cc: Alejandro Vallejo <alejandro.vallejo@cloud.com>,
 	Jan Beulich <jbeulich@suse.com>,
 	Andrew Cooper <andrew.cooper3@citrix.com>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [PATCH for-4.20 3/4] x86/fpu: Combine fpu_ctxt and xsave_area in arch_vcpu
-Date: Tue,  9 Jul 2024 16:52:22 +0100
-Message-Id: <170c78f39dfef620d9060be3f1b31313673f09b9.1720538832.git.alejandro.vallejo@cloud.com>
+Subject: [PATCH for-4.20 4/4] x86/fpu: Split fpu_setup_fpu() in two
+Date: Tue,  9 Jul 2024 16:52:23 +0100
+Message-Id: <da30dedcfa68d7c30375b96c85424e13ec6d458b.1720538832.git.alejandro.vallejo@cloud.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <cover.1720538832.git.alejandro.vallejo@cloud.com>
 References: <cover.1720538832.git.alejandro.vallejo@cloud.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-fpu_ctxt is either a pointer to the legacy x87/SSE save area (used by FXSAVE) or
-a pointer aliased with xsave_area that points to its fpu_sse subfield. Such
-subfield is at the base and is identical in size and layout to the legacy
-buffer.
+It's doing too many things at once and there's no clear way of defining what
+it's meant to do. This patch splits the function in two.
 
-This patch merges the 2 pointers in the arch_vcpu into a single XSAVE area. In
-the very rare case in which the host doesn't support XSAVE all we're doing is
-wasting a tiny amount of memory and trading those for a lot more simplicity in
-the code.
+  1. A reset function, parameterized by the FCW value. FCW_RESET means to reset
+     the state to power-on reset values, while FCW_DEFAULT means to reset to the
+     default values present during vCPU creation.
+  2. A x87/SSE state loader (equivalent to the old function when it took a data
+     pointer).
 
 Signed-off-by: Alejandro Vallejo <alejandro.vallejo@cloud.com>
 ---
- xen/arch/x86/domctl.c             |  3 ++-
- xen/arch/x86/hvm/emulate.c        |  4 +--
- xen/arch/x86/hvm/hvm.c            |  3 ++-
- xen/arch/x86/i387.c               | 45 +++++--------------------------
- xen/arch/x86/include/asm/domain.h |  7 +----
- xen/arch/x86/x86_emulate/blk.c    |  3 ++-
- xen/arch/x86/xstate.c             | 13 ++++++---
- 7 files changed, 25 insertions(+), 53 deletions(-)
+I'm still not sure what the old function tries to do. The state we start vCPUs
+in is _similar_ to the after-finit, but it's not quite (`ftw` is not -1). I went
+for the "let's not deviate too much from previous behaviour", but maybe we did
+intend for vCPUs to start as if `finit` had just been executed?
+---
+ xen/arch/x86/domain.c           |  7 +++--
+ xen/arch/x86/hvm/hvm.c          | 19 ++++++++-----
+ xen/arch/x86/i387.c             | 50 +++++++++++----------------------
+ xen/arch/x86/include/asm/i387.h | 27 +++++++++++++++---
+ 4 files changed, 56 insertions(+), 47 deletions(-)
 
-diff --git a/xen/arch/x86/domctl.c b/xen/arch/x86/domctl.c
-index 9190e11faaa3..7b04b584c540 100644
---- a/xen/arch/x86/domctl.c
-+++ b/xen/arch/x86/domctl.c
-@@ -1343,7 +1343,8 @@ void arch_get_info_guest(struct vcpu *v, vcpu_guest_context_u c)
- #define c(fld) (c.nat->fld)
- #endif
+diff --git a/xen/arch/x86/domain.c b/xen/arch/x86/domain.c
+index ccadfe0c9e70..245899cc792f 100644
+--- a/xen/arch/x86/domain.c
++++ b/xen/arch/x86/domain.c
+@@ -1198,9 +1198,10 @@ int arch_set_info_guest(
+          is_pv_64bit_domain(d) )
+         v->arch.flags &= ~TF_kernel_mode;
  
--    memcpy(&c.nat->fpu_ctxt, v->arch.fpu_ctxt, sizeof(c.nat->fpu_ctxt));
-+    memcpy(&c.nat->fpu_ctxt, &v->arch.xsave_area->fpu_sse,
-+           sizeof(c.nat->fpu_ctxt));
-     if ( is_pv_domain(d) )
-         c(flags = v->arch.pv.vgc_flags & ~(VGCF_i387_valid|VGCF_in_kernel));
-     else
-diff --git a/xen/arch/x86/hvm/emulate.c b/xen/arch/x86/hvm/emulate.c
-index 65ee70ce67db..72a8136a9bbf 100644
---- a/xen/arch/x86/hvm/emulate.c
-+++ b/xen/arch/x86/hvm/emulate.c
-@@ -2364,7 +2364,7 @@ static int cf_check hvmemul_get_fpu(
-         alternative_vcall(hvm_funcs.fpu_dirty_intercept);
-     else if ( type == X86EMUL_FPU_fpu )
+-    vcpu_setup_fpu(v, v->arch.xsave_area,
+-                   flags & VGCF_I387_VALID ? &c.nat->fpu_ctxt : NULL,
+-                   FCW_DEFAULT);
++    if ( flags & VGCF_I387_VALID )
++        vcpu_setup_fpu(v, &c.nat->fpu_ctxt);
++    else
++        vcpu_reset_fpu(v, FCW_DEFAULT);
+ 
+     if ( !compat )
      {
--        const fpusse_t *fpu_ctxt = curr->arch.fpu_ctxt;
-+        const fpusse_t *fpu_ctxt = &curr->arch.xsave_area->fpu_sse;
- 
-         /*
-          * Latch current register state so that we can back out changes
-@@ -2404,7 +2404,7 @@ static void cf_check hvmemul_put_fpu(
- 
-     if ( aux )
-     {
--        fpusse_t *fpu_ctxt = curr->arch.fpu_ctxt;
-+        fpusse_t *fpu_ctxt = &curr->arch.xsave_area->fpu_sse;
-         bool dval = aux->dval;
-         int mode = hvm_guest_x86_mode(curr);
- 
 diff --git a/xen/arch/x86/hvm/hvm.c b/xen/arch/x86/hvm/hvm.c
-index 7f4b627b1f5f..09b1426ee314 100644
+index 09b1426ee314..bedbd2a0b888 100644
 --- a/xen/arch/x86/hvm/hvm.c
 +++ b/xen/arch/x86/hvm/hvm.c
-@@ -916,7 +916,8 @@ static int cf_check hvm_save_cpu_ctxt(struct vcpu *v, hvm_domain_context_t *h)
+@@ -1162,10 +1162,17 @@ static int cf_check hvm_load_cpu_ctxt(struct domain *d, hvm_domain_context_t *h)
+     seg.attr = ctxt.ldtr_arbytes;
+     hvm_set_segment_register(v, x86_seg_ldtr, &seg);
  
-     if ( v->fpu_initialised )
-     {
--        memcpy(ctxt.fpu_regs, v->arch.fpu_ctxt, sizeof(ctxt.fpu_regs));
-+        memcpy(ctxt.fpu_regs, &v->arch.xsave_area->fpu_sse,
-+               sizeof(ctxt.fpu_regs));
-         ctxt.flags = XEN_X86_FPU_INITIALISED;
+-    /* Cover xsave-absent save file restoration on xsave-capable host. */
+-    vcpu_setup_fpu(v, xsave_enabled(v) ? NULL : v->arch.xsave_area,
+-                   ctxt.flags & XEN_X86_FPU_INITIALISED ? ctxt.fpu_regs : NULL,
+-                   FCW_RESET);
++    /*
++     * On Xen 4.1 and later the FPU state is restored on a later HVM context, so
++     * what we're doing here is initialising the FPU state for guests from even
++     * older versions of Xen. In general such guests only use legacy x87/SSE
++     * state, and if they did use XSAVE then our best-effort strategy is to make
++     * an XSAVE header for x87 and SSE hoping that's good enough.
++     */
++    if ( ctxt.flags & XEN_X86_FPU_INITIALISED )
++        vcpu_setup_fpu(v, &ctxt.fpu_regs);
++    else
++        vcpu_reset_fpu(v, FCW_RESET);
+ 
+     v->arch.user_regs.rax = ctxt.rax;
+     v->arch.user_regs.rbx = ctxt.rbx;
+@@ -4005,9 +4012,7 @@ void hvm_vcpu_reset_state(struct vcpu *v, uint16_t cs, uint16_t ip)
+         v->arch.guest_table = pagetable_null();
      }
  
+-    if ( v->arch.xsave_area )
+-        v->arch.xsave_area->xsave_hdr.xstate_bv = 0;
+-    vcpu_setup_fpu(v, v->arch.xsave_area, NULL, FCW_RESET);
++    vcpu_reset_fpu(v, FCW_RESET);
+ 
+     arch_vcpu_regs_init(v);
+     v->arch.user_regs.rip = ip;
 diff --git a/xen/arch/x86/i387.c b/xen/arch/x86/i387.c
-index 89804435b659..a964b84757ec 100644
+index a964b84757ec..7851f1b3f6e4 100644
 --- a/xen/arch/x86/i387.c
 +++ b/xen/arch/x86/i387.c
-@@ -39,7 +39,7 @@ static inline void fpu_xrstor(struct vcpu *v, uint64_t mask)
- /* Restore x87 FPU, MMX, SSE and SSE2 state */
- static inline void fpu_fxrstor(struct vcpu *v)
- {
--    const fpusse_t *fpu_ctxt = v->arch.fpu_ctxt;
-+    const fpusse_t *fpu_ctxt = &v->arch.xsave_area->fpu_sse;
+@@ -310,41 +310,25 @@ int vcpu_init_fpu(struct vcpu *v)
+     return xstate_alloc_save_area(v);
+ }
  
-     /*
-      * Some CPUs don't save/restore FDP/FIP/FOP unless an exception
-@@ -152,7 +152,7 @@ static inline void fpu_xsave(struct vcpu *v)
- /* Save x87 FPU, MMX, SSE and SSE2 state */
- static inline void fpu_fxsave(struct vcpu *v)
+-void vcpu_setup_fpu(struct vcpu *v, struct xsave_struct *xsave_area,
+-                    const void *data, unsigned int fcw_default)
++void vcpu_reset_fpu(struct vcpu *v, uint16_t fcw)
  {
--    fpusse_t *fpu_ctxt = v->arch.fpu_ctxt;
-+    fpusse_t *fpu_ctxt = &v->arch.xsave_area->fpu_sse;
-     unsigned int fip_width = v->domain->arch.x87_fip_width;
- 
-     if ( fip_width != 4 )
-@@ -219,7 +219,7 @@ void vcpu_restore_fpu_nonlazy(struct vcpu *v, bool need_stts)
-      * above) we also need to restore full state, to prevent subsequently
-      * saving state belonging to another vCPU.
-      */
--    if ( v->arch.fully_eager_fpu || (v->arch.xsave_area && xstate_all(v)) )
-+    if ( v->arch.fully_eager_fpu || xstate_all(v) )
-     {
-         if ( cpu_has_xsave )
-             fpu_xrstor(v, XSTATE_ALL);
-@@ -306,44 +306,14 @@ void save_fpu_enable(void)
- /* Initialize FPU's context save area */
- int vcpu_init_fpu(struct vcpu *v)
- {
--    int rc;
+-    fpusse_t *fpu_sse = &v->arch.xsave_area->fpu_sse;
 -
-     v->arch.fully_eager_fpu = opt_eager_fpu;
+-    ASSERT(!xsave_area || xsave_area == v->arch.xsave_area);
 -
--    if ( (rc = xstate_alloc_save_area(v)) != 0 )
--        return rc;
+-    v->fpu_initialised = !!data;
 -
--    if ( v->arch.xsave_area )
--        v->arch.fpu_ctxt = &v->arch.xsave_area->fpu_sse;
+-    if ( data )
+-    {
+-        memcpy(fpu_sse, data, sizeof(*fpu_sse));
+-        if ( xsave_area )
+-            xsave_area->xsave_hdr.xstate_bv = XSTATE_FP_SSE;
+-    }
+-    else if ( xsave_area && fcw_default == FCW_DEFAULT )
+-    {
+-        xsave_area->xsave_hdr.xstate_bv = 0;
+-        fpu_sse->mxcsr = MXCSR_DEFAULT;
+-    }
 -    else
 -    {
--        BUILD_BUG_ON(__alignof(v->arch.xsave_area->fpu_sse) < 16);
--        v->arch.fpu_ctxt = _xzalloc(sizeof(v->arch.xsave_area->fpu_sse),
--                                    __alignof(v->arch.xsave_area->fpu_sse));
--        if ( v->arch.fpu_ctxt )
+-        memset(fpu_sse, 0, sizeof(*fpu_sse));
+-        fpu_sse->fcw = fcw_default;
+-        fpu_sse->mxcsr = MXCSR_DEFAULT;
+-        if ( v->arch.xsave_area )
 -        {
--            fpusse_t *fpu_sse = v->arch.fpu_ctxt;
--
--            fpu_sse->fcw = FCW_DEFAULT;
--            fpu_sse->mxcsr = MXCSR_DEFAULT;
+-            v->arch.xsave_area->xsave_hdr.xstate_bv &= ~XSTATE_FP_SSE;
+-            if ( fcw_default != FCW_DEFAULT )
+-                v->arch.xsave_area->xsave_hdr.xstate_bv |= X86_XCR0_X87;
 -        }
--        else
--            rc = -ENOMEM;
 -    }
--
--    return rc;
-+    return xstate_alloc_save_area(v);
++    v->fpu_initialised = false;
++    *v->arch.xsave_area = (struct xsave_struct) {
++        .fpu_sse = {
++            .mxcsr = MXCSR_DEFAULT,
++            .fcw = fcw,
++        },
++        .xsave_hdr.xstate_bv = fcw == FCW_RESET ? X86_XCR0_X87 : 0,
++    };
++}
+ 
+-    if ( xsave_area )
+-        xsave_area->xsave_hdr.xcomp_bv = 0;
++void vcpu_setup_fpu(struct vcpu *v, const void *data)
++{
++    v->fpu_initialised = true;
++    *v->arch.xsave_area = (struct xsave_struct) {
++        .fpu_sse = *(fpusse_t*)data,
++        .xsave_hdr.xstate_bv = XSTATE_FP_SSE,
++    };
  }
  
- void vcpu_setup_fpu(struct vcpu *v, struct xsave_struct *xsave_area,
-                     const void *data, unsigned int fcw_default)
- {
--    /*
--     * For the entire function please note that vcpu_init_fpu() (above) points
--     * v->arch.fpu_ctxt into v->arch.xsave_area when XSAVE is available. Hence
--     * accesses through both pointers alias one another, and the shorter form
--     * is used here.
--     */
--    fpusse_t *fpu_sse = v->arch.fpu_ctxt;
-+    fpusse_t *fpu_sse = &v->arch.xsave_area->fpu_sse;
- 
-     ASSERT(!xsave_area || xsave_area == v->arch.xsave_area);
- 
-@@ -380,10 +350,7 @@ void vcpu_setup_fpu(struct vcpu *v, struct xsave_struct *xsave_area,
  /* Free FPU's context save area */
- void vcpu_destroy_fpu(struct vcpu *v)
- {
--    if ( v->arch.xsave_area )
--        xstate_free_save_area(v);
--    else
--        xfree(v->arch.fpu_ctxt);
-+    xstate_free_save_area(v);
- }
- 
- /*
-diff --git a/xen/arch/x86/include/asm/domain.h b/xen/arch/x86/include/asm/domain.h
-index f5daeb182baa..4740a1244fbb 100644
---- a/xen/arch/x86/include/asm/domain.h
-+++ b/xen/arch/x86/include/asm/domain.h
-@@ -591,12 +591,7 @@ struct pv_vcpu
- 
- struct arch_vcpu
- {
--    /*
--     * guest context (mirroring struct vcpu_guest_context) common
--     * between pv and hvm guests
--     */
+diff --git a/xen/arch/x86/include/asm/i387.h b/xen/arch/x86/include/asm/i387.h
+index a783549db991..ce699fc66663 100644
+--- a/xen/arch/x86/include/asm/i387.h
++++ b/xen/arch/x86/include/asm/i387.h
+@@ -31,10 +31,29 @@ void vcpu_restore_fpu_nonlazy(struct vcpu *v, bool need_stts);
+ void vcpu_restore_fpu_lazy(struct vcpu *v);
+ void vcpu_save_fpu(struct vcpu *v);
+ void save_fpu_enable(void);
 -
--    void              *fpu_ctxt;
-+    /* Fixed point registers */
-     struct cpu_user_regs user_regs;
- 
-     /* Debug registers. */
-diff --git a/xen/arch/x86/x86_emulate/blk.c b/xen/arch/x86/x86_emulate/blk.c
-index e790f4f90056..8160da07295b 100644
---- a/xen/arch/x86/x86_emulate/blk.c
-+++ b/xen/arch/x86/x86_emulate/blk.c
-@@ -11,7 +11,8 @@
-     !defined(X86EMUL_NO_SIMD)
- # ifdef __XEN__
- #  include <asm/xstate.h>
--#  define FXSAVE_AREA current->arch.fpu_ctxt
-+#  define FXSAVE_AREA ((struct x86_fxsr *) \
-+                           (void*)&current->arch.xsave_area->fpu_sse)
- # else
- #  define FXSAVE_AREA get_fpu_save_area()
- # endif
-diff --git a/xen/arch/x86/xstate.c b/xen/arch/x86/xstate.c
-index 5c4144d55e89..850ee31bd18c 100644
---- a/xen/arch/x86/xstate.c
-+++ b/xen/arch/x86/xstate.c
-@@ -507,9 +507,16 @@ int xstate_alloc_save_area(struct vcpu *v)
-     unsigned int size;
- 
-     if ( !cpu_has_xsave )
--        return 0;
--
--    if ( !is_idle_vcpu(v) || !cpu_has_xsavec )
-+    {
-+        /*
-+         * This is bigger than FXSAVE_SIZE by 64 bytes, but it helps treating
-+         * the FPU state uniformly as an XSAVE buffer even if XSAVE is not
-+         * available in the host. Note the alignment restriction of the XSAVE
-+         * area are stricter than those of the FXSAVE area.
-+         */
-+        size = XSTATE_AREA_MIN_SIZE;
-+    }
-+    else if ( !is_idle_vcpu(v) || !cpu_has_xsavec )
-     {
-         size = xsave_cntxt_size;
-         BUG_ON(size < XSTATE_AREA_MIN_SIZE);
+ int vcpu_init_fpu(struct vcpu *v);
+-struct xsave_struct;
+-void vcpu_setup_fpu(struct vcpu *v, struct xsave_struct *xsave_area,
+-                    const void *data, unsigned int fcw_default);
+ void vcpu_destroy_fpu(struct vcpu *v);
++
++/*
++ * Restore `v`'s FPU to known values
++ *
++ * If fcw == FCW_RESET, then the reset state is power-on RESET.
++ *
++ * Otherwise `mxcsr` is set to `MXCSR_DEFAULT`, `fcw` is overriden with the
++ * `fcw` argument and everything else is zeroed out.
++ *
++ * @param v   vCPU containing the FPU
++ * @param fcw Intended FPU Control Word
++ */
++void vcpu_reset_fpu(struct vcpu *v, uint16_t fcw);
++
++/*
++ * Load x87/SSE state into `v`'s FPU
++ *
++ * Overrides the XSAVE header to set the state components to be x87 and SSE.
++ *
++ * @param v    vCPU containing the FPU
++ * @param data 512-octet blob for x87/SSE state
++ */
++void vcpu_setup_fpu(struct vcpu *v, const void *data);
+ #endif /* __ASM_I386_I387_H */
 -- 
 2.34.1
 
