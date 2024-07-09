@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 50F4192B595
-	for <lists+xen-devel@lfdr.de>; Tue,  9 Jul 2024 12:44:09 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.756096.1164661 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1FF6F92B5EF
+	for <lists+xen-devel@lfdr.de>; Tue,  9 Jul 2024 12:53:20 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.756171.1164695 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sR8K1-0001Xt-AU; Tue, 09 Jul 2024 10:43:45 +0000
+	id 1sR8Sk-0004Bi-FP; Tue, 09 Jul 2024 10:52:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 756096.1164661; Tue, 09 Jul 2024 10:43:45 +0000
+Received: by outflank-mailman (output) from mailman id 756171.1164695; Tue, 09 Jul 2024 10:52:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sR8K1-0001VQ-7M; Tue, 09 Jul 2024 10:43:45 +0000
-Received: by outflank-mailman (input) for mailman id 756096;
- Tue, 09 Jul 2024 10:43:43 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=uARp=OJ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sR8Jz-0001QH-UI
- for xen-devel@lists.xenproject.org; Tue, 09 Jul 2024 10:43:43 +0000
-Received: from mail-lf1-x12a.google.com (mail-lf1-x12a.google.com
- [2a00:1450:4864:20::12a])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 1bb72522-3de0-11ef-8776-851b0ebba9a2;
- Tue, 09 Jul 2024 12:43:41 +0200 (CEST)
-Received: by mail-lf1-x12a.google.com with SMTP id
- 2adb3069b0e04-52e98087e32so5496735e87.2
- for <xen-devel@lists.xenproject.org>; Tue, 09 Jul 2024 03:43:41 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-70b4396841esm1464148b3a.132.2024.07.09.03.43.35
+	id 1sR8Sk-00049E-CS; Tue, 09 Jul 2024 10:52:46 +0000
+Received: by outflank-mailman (input) for mailman id 756171;
+ Tue, 09 Jul 2024 10:52:45 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=cUMd=OJ=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1sR8Sj-000498-0e
+ for xen-devel@lists.xenproject.org; Tue, 09 Jul 2024 10:52:45 +0000
+Received: from mail-qt1-x831.google.com (mail-qt1-x831.google.com
+ [2607:f8b0:4864:20::831])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 5e605df0-3de1-11ef-bbfb-fd08da9f4363;
+ Tue, 09 Jul 2024 12:52:43 +0200 (CEST)
+Received: by mail-qt1-x831.google.com with SMTP id
+ d75a77b69052e-447f2f5891cso9553861cf.2
+ for <xen-devel@lists.xenproject.org>; Tue, 09 Jul 2024 03:52:43 -0700 (PDT)
+Received: from [10.125.226.166] ([185.25.67.249])
+ by smtp.gmail.com with ESMTPSA id
+ d75a77b69052e-447f9bf4317sm8971451cf.93.2024.07.09.03.52.41
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 09 Jul 2024 03:43:40 -0700 (PDT)
+ Tue, 09 Jul 2024 03:52:42 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,260 +45,116 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1bb72522-3de0-11ef-8776-851b0ebba9a2
+X-Inumbo-ID: 5e605df0-3de1-11ef-bbfb-fd08da9f4363
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1720521821; x=1721126621; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1720522363; x=1721127163; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=mirLwL4UoXhP3xDr8NEgWhE6Ppxd3/vNLNbEQ8mWpjs=;
-        b=gh1sIfscOsMcKczjg40MJeZTZYPyinAedW3rmrVy15T0eK0k50hWabRCKjg9PynOxu
-         mIAZUutryOrqfMqdPIbGRxzqqG05NI3nbYVUIz1q88gG0OM1QqcseN25kqyf1kiWoDzM
-         hZReyP/Nvx51OfhDuu0EqWsnooBjHjgebBgmCuxCztEwLCC74+4AbmjL/4H6YNynDaXu
-         v1s/lM7oSZTCw91TYNTNyHd14PQ1lAayKNtpJnmiSWEcljX9px+JvFr/51WyjCEO4gv0
-         LyU/Co+v+LL6ADSerpHFLtiBg2u2HrDWm255u4IjkxU481pvApnvO2xIufPts7NWNkGx
-         ny9A==
+        bh=rkEqfGYJGpPzhfQt/2efXrN3UR+BKrwJd7jWOFgGeTs=;
+        b=lGylmwEXsVf0FiTUHomBgFYzhMUP2NIJqzYs7oJZV1MhGe5EZjfkJ/qxAOIn1hCp9q
+         +deuwO+YXptcwYQ0NpOgJYVoUkZQW1yPqn2gOX+xwjZ1C4Kl4stVSmTyVqGCTy5kQvzv
+         TsjwPRV7+1ZlGeZOmxxJnCIhTJtulAX7gTsXI=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1720521821; x=1721126621;
+        d=1e100.net; s=20230601; t=1720522363; x=1721127163;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=mirLwL4UoXhP3xDr8NEgWhE6Ppxd3/vNLNbEQ8mWpjs=;
-        b=OtSXD+PgDaW+F82Rx0HfbBXX0C+SiQXD+OWoWLhezYpB8GblBeQxameF8KZRZgZ1tD
-         ee/KqJaJCWapHtIORhSZCtgy2TdEn4EGjIxirRzxBmseeGC+eLJ4pdDmhHtAAW9ibYXX
-         GuZ/RcXfoGaB9D1wsYe63g5MOFyiuLjhoFw7+t455QE6lQMmFkvt15zyd/szT4d/zsoz
-         jAEy+VqbLmsAsiUd6BoFZBZMgMZFShgfgROrLfDkqfWjRnY7TM1lyofE1ANHXWKcL5eS
-         MLsfvYj9hoaD01kkIzQ4XCJyNdzdJOUswbEyNH6xLnOegMdHrMcAKsc5udzH+79g28X8
-         j9Uw==
-X-Forwarded-Encrypted: i=1; AJvYcCWBQhbA9BEu2NwTZnwpr+I1PFB23eM2ISNblJmAuKdBtcuU2S+xPc916MYtFB/NxRsCKyBykjQRZik+5RW2ed4Ql9+ZOlkJqt8LgbpHXKc=
-X-Gm-Message-State: AOJu0YwXTlqtAPZT+HG8AUbj5BKJRHJzbSOQsN+phWQr0Udqb8fCncgl
-	Kg+Uae18JaVVwbVNbAHQHN0cvEiJYElG5sBlDHCGprvjz64b1IWqo/bY181Vuw==
-X-Google-Smtp-Source: AGHT+IEM8Pqgh1j6+N24XH+IHe9urTGNhpDIs0spaQTDvIt/oTCfmdfucF32GeZECoyPU56GfNO5iA==
-X-Received: by 2002:a19:6458:0:b0:52c:d84b:eee6 with SMTP id 2adb3069b0e04-52eb999a689mr1073878e87.38.1720521821243;
-        Tue, 09 Jul 2024 03:43:41 -0700 (PDT)
-Message-ID: <b6eb8756-368b-4ef7-ac4f-17ba7d9f111f@suse.com>
-Date: Tue, 9 Jul 2024 12:43:31 +0200
+        bh=rkEqfGYJGpPzhfQt/2efXrN3UR+BKrwJd7jWOFgGeTs=;
+        b=BmZu6ZZhF6++Pq05fSEjD9NXzDW31WG/7TfkReD0IZpMuS+68nkfcqf9g+WfEW5556
+         QSMNqokgZmpv775fB38rCiD9G+RiwIEJJckhQliGLV2xm0KyOLgX6On5E8oDU3aNup3F
+         +A3Ozsf9CmCzpXdLeoYid9I0bgof1SWx0/WIMIoAvpLDeyQxkU+x3C9NFNGoT+36GKSi
+         gDYpTaf2NX/tdsVTYT8GwU1lbLSLDarhVjBAEK3A5+G+t+UrSR6V/CQ6eJ48aX77JDvC
+         ZIWzR39RzOw7SWK9Hrvom4D1rzVPwwN+PEIv5quIdXBHajBCLa6Yr1iSAMiLFAA/thwW
+         6K5w==
+X-Forwarded-Encrypted: i=1; AJvYcCU5WJJND5tXeRXke+dfvfusmRUjhArF/1Acr1lPIPTOW3xrVU0va4eXXPj+XnjCL9Ier8cl0maVos2Ek7o9p4l1kxZN1zWuR62FTd/f7Bc=
+X-Gm-Message-State: AOJu0YyPxF9X1H9gOWcCKgrQzS3ypqOoOk15Awu8f6w4aEsXdpGHAW6O
+	3dNiKdvpKUbWdMdbwTxlt6+J8zoW+s2/YB5jn9o2oIIx+CFd0u2WZ9FWB+ddzKUN4Vq9kuDEXZ0
+	M
+X-Google-Smtp-Source: AGHT+IHQaJNBcwVVYyENLmeZjSQ9DUo9wZyxUcJkbN7td5H8gqqgQYNMa9cKk1YILnjegaOnSgShpA==
+X-Received: by 2002:a05:622a:1ba2:b0:446:55f1:bc66 with SMTP id d75a77b69052e-447faa627e3mr28742431cf.68.1720522362732;
+        Tue, 09 Jul 2024 03:52:42 -0700 (PDT)
+Message-ID: <5ee79ef2-6c68-477b-a3f9-3a190f99ca0e@citrix.com>
+Date: Tue, 9 Jul 2024 11:52:38 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH for-4.19] xen/bitmap: amend MISRA C deviation for Rule
- 20.7
-To: Nicola Vetrini <nicola.vetrini@bugseng.com>, sstabellini@kernel.org
-Cc: michal.orzel@amd.com, xenia.ragiadakou@amd.com,
- ayan.kumar.halder@amd.com, consulting@bugseng.com,
- Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
- Oleksii Kurochko <oleksii.kurochko@gmail.com>, xen-devel@lists.xenproject.org
-References: <794724e70c4e45224916576af01070e8aebe9aab.1720517398.git.nicola.vetrini@bugseng.com>
- <ecfef639-11ed-4f7c-81de-d1a6c230c465@suse.com>
- <2ff60858147e1dd501ec59c38a7a41b4@bugseng.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <2ff60858147e1dd501ec59c38a7a41b4@bugseng.com>
+Subject: Re: [PATCH 2/2] ppc/shutdown: Implement machine_{halt,restart}()
+To: Shawn Anastasio <sanastasio@raptorengineering.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+ Jan Beulich <JBeulich@suse.com>, Stefano Stabellini
+ <sstabellini@kernel.org>, Julien Grall <julien@xen.org>
+References: <20240705182311.1968790-1-andrew.cooper3@citrix.com>
+ <20240705182311.1968790-3-andrew.cooper3@citrix.com>
+ <f3bad5a8-077e-40e7-abff-7a2cc0027d2b@raptorengineering.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ xsFNBFLhNn8BEADVhE+Hb8i0GV6mihnnr/uiQQdPF8kUoFzCOPXkf7jQ5sLYeJa0cQi6Penp
+ VtiFYznTairnVsN5J+ujSTIb+OlMSJUWV4opS7WVNnxHbFTPYZVQ3erv7NKc2iVizCRZ2Kxn
+ srM1oPXWRic8BIAdYOKOloF2300SL/bIpeD+x7h3w9B/qez7nOin5NzkxgFoaUeIal12pXSR
+ Q354FKFoy6Vh96gc4VRqte3jw8mPuJQpfws+Pb+swvSf/i1q1+1I4jsRQQh2m6OTADHIqg2E
+ ofTYAEh7R5HfPx0EXoEDMdRjOeKn8+vvkAwhviWXTHlG3R1QkbE5M/oywnZ83udJmi+lxjJ5
+ YhQ5IzomvJ16H0Bq+TLyVLO/VRksp1VR9HxCzItLNCS8PdpYYz5TC204ViycobYU65WMpzWe
+ LFAGn8jSS25XIpqv0Y9k87dLbctKKA14Ifw2kq5OIVu2FuX+3i446JOa2vpCI9GcjCzi3oHV
+ e00bzYiHMIl0FICrNJU0Kjho8pdo0m2uxkn6SYEpogAy9pnatUlO+erL4LqFUO7GXSdBRbw5
+ gNt25XTLdSFuZtMxkY3tq8MFss5QnjhehCVPEpE6y9ZjI4XB8ad1G4oBHVGK5LMsvg22PfMJ
+ ISWFSHoF/B5+lHkCKWkFxZ0gZn33ju5n6/FOdEx4B8cMJt+cWwARAQABzSlBbmRyZXcgQ29v
+ cGVyIDxhbmRyZXcuY29vcGVyM0BjaXRyaXguY29tPsLBegQTAQgAJAIbAwULCQgHAwUVCgkI
+ CwUWAgMBAAIeAQIXgAUCWKD95wIZAQAKCRBlw/kGpdefoHbdD/9AIoR3k6fKl+RFiFpyAhvO
+ 59ttDFI7nIAnlYngev2XUR3acFElJATHSDO0ju+hqWqAb8kVijXLops0gOfqt3VPZq9cuHlh
+ IMDquatGLzAadfFx2eQYIYT+FYuMoPZy/aTUazmJIDVxP7L383grjIkn+7tAv+qeDfE+txL4
+ SAm1UHNvmdfgL2/lcmL3xRh7sub3nJilM93RWX1Pe5LBSDXO45uzCGEdst6uSlzYR/MEr+5Z
+ JQQ32JV64zwvf/aKaagSQSQMYNX9JFgfZ3TKWC1KJQbX5ssoX/5hNLqxMcZV3TN7kU8I3kjK
+ mPec9+1nECOjjJSO/h4P0sBZyIUGfguwzhEeGf4sMCuSEM4xjCnwiBwftR17sr0spYcOpqET
+ ZGcAmyYcNjy6CYadNCnfR40vhhWuCfNCBzWnUW0lFoo12wb0YnzoOLjvfD6OL3JjIUJNOmJy
+ RCsJ5IA/Iz33RhSVRmROu+TztwuThClw63g7+hoyewv7BemKyuU6FTVhjjW+XUWmS/FzknSi
+ dAG+insr0746cTPpSkGl3KAXeWDGJzve7/SBBfyznWCMGaf8E2P1oOdIZRxHgWj0zNr1+ooF
+ /PzgLPiCI4OMUttTlEKChgbUTQ+5o0P080JojqfXwbPAyumbaYcQNiH1/xYbJdOFSiBv9rpt
+ TQTBLzDKXok86M7BTQRS4TZ/ARAAkgqudHsp+hd82UVkvgnlqZjzz2vyrYfz7bkPtXaGb9H4
+ Rfo7mQsEQavEBdWWjbga6eMnDqtu+FC+qeTGYebToxEyp2lKDSoAsvt8w82tIlP/EbmRbDVn
+ 7bhjBlfRcFjVYw8uVDPptT0TV47vpoCVkTwcyb6OltJrvg/QzV9f07DJswuda1JH3/qvYu0p
+ vjPnYvCq4NsqY2XSdAJ02HrdYPFtNyPEntu1n1KK+gJrstjtw7KsZ4ygXYrsm/oCBiVW/OgU
+ g/XIlGErkrxe4vQvJyVwg6YH653YTX5hLLUEL1NS4TCo47RP+wi6y+TnuAL36UtK/uFyEuPy
+ wwrDVcC4cIFhYSfsO0BumEI65yu7a8aHbGfq2lW251UcoU48Z27ZUUZd2Dr6O/n8poQHbaTd
+ 6bJJSjzGGHZVbRP9UQ3lkmkmc0+XCHmj5WhwNNYjgbbmML7y0fsJT5RgvefAIFfHBg7fTY/i
+ kBEimoUsTEQz+N4hbKwo1hULfVxDJStE4sbPhjbsPCrlXf6W9CxSyQ0qmZ2bXsLQYRj2xqd1
+ bpA+1o1j2N4/au1R/uSiUFjewJdT/LX1EklKDcQwpk06Af/N7VZtSfEJeRV04unbsKVXWZAk
+ uAJyDDKN99ziC0Wz5kcPyVD1HNf8bgaqGDzrv3TfYjwqayRFcMf7xJaL9xXedMcAEQEAAcLB
+ XwQYAQgACQUCUuE2fwIbDAAKCRBlw/kGpdefoG4XEACD1Qf/er8EA7g23HMxYWd3FXHThrVQ
+ HgiGdk5Yh632vjOm9L4sd/GCEACVQKjsu98e8o3ysitFlznEns5EAAXEbITrgKWXDDUWGYxd
+ pnjj2u+GkVdsOAGk0kxczX6s+VRBhpbBI2PWnOsRJgU2n10PZ3mZD4Xu9kU2IXYmuW+e5KCA
+ vTArRUdCrAtIa1k01sPipPPw6dfxx2e5asy21YOytzxuWFfJTGnVxZZSCyLUO83sh6OZhJkk
+ b9rxL9wPmpN/t2IPaEKoAc0FTQZS36wAMOXkBh24PQ9gaLJvfPKpNzGD8XWR5HHF0NLIJhgg
+ 4ZlEXQ2fVp3XrtocHqhu4UZR4koCijgB8sB7Tb0GCpwK+C4UePdFLfhKyRdSXuvY3AHJd4CP
+ 4JzW0Bzq/WXY3XMOzUTYApGQpnUpdOmuQSfpV9MQO+/jo7r6yPbxT7CwRS5dcQPzUiuHLK9i
+ nvjREdh84qycnx0/6dDroYhp0DFv4udxuAvt1h4wGwTPRQZerSm4xaYegEFusyhbZrI0U9tJ
+ B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
+ d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
+ 6+ahAA==
+In-Reply-To: <f3bad5a8-077e-40e7-abff-7a2cc0027d2b@raptorengineering.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 09.07.2024 12:15, Nicola Vetrini wrote:
-> On 2024-07-09 11:40, Jan Beulich wrote:
->> On 09.07.2024 11:34, Nicola Vetrini wrote:
->>> As noticed in the gitlab analyses, deviating bitmap_switch
->>> for Rule 20.7 in this way does not work for ECLAIR.
->>>
->>> Instead, the deviation should be put in the macro invocation.
->>
->> Why is this? I ask in particular because ...
->>
->>> --- a/xen/include/xen/bitmap.h
->>> +++ b/xen/include/xen/bitmap.h
->>> @@ -103,18 +103,16 @@ extern int bitmap_allocate_region(unsigned long 
->>> *bitmap, int pos, int order);
->>>  #define bitmap_switch(nbits, zero, small, large)			  \
->>>  	unsigned int n__ = (nbits);					  \
->>>  	if (__builtin_constant_p(nbits) && !n__) {			  \
->>> -		/* SAF-7-safe Rule 20.7 non-parenthesized macro argument */ \
->>>  		zero;							  \
->>>  	} else if (__builtin_constant_p(nbits) && n__ <= BITS_PER_LONG) { \
->>> -		/* SAF-7-safe Rule 20.7 non-parenthesized macro argument */ \
->>>  		small;							  \
->>>  	} else {							  \
->>> -		/* SAF-7-safe Rule 20.7 non-parenthesized macro argument */ \
->>>  		large;							  \
->>>  	}
->>>
->>>  static inline void bitmap_zero(unsigned long *dst, unsigned int 
->>> nbits)
->>>  {
->>> +	/* SAF-7-safe Rule 20.7 non-parenthesized macro argument */
->>>  	bitmap_switch(nbits,,
->>>  		*dst = 0UL,
->>>  		memset(dst, 0, bitmap_bytes(nbits)));
->>> @@ -139,6 +137,7 @@ static inline void bitmap_fill(unsigned long *dst, 
->>> unsigned int nbits)
->>>  static inline void bitmap_copy(unsigned long *dst, const unsigned 
->>> long *src,
->>>  			unsigned int nbits)
->>>  {
->>> +        /* SAF-7-safe Rule 20.7 non-parenthesized macro argument */
->>>  	bitmap_switch(nbits,,
->>>  		*dst = *src,
->>>  		memcpy(dst, src, bitmap_bytes(nbits)));
->>> @@ -147,6 +146,7 @@ static inline void bitmap_copy(unsigned long *dst, 
->>> const unsigned long *src,
->>>  static inline void bitmap_and(unsigned long *dst, const unsigned long 
->>> *src1,
->>>  			const unsigned long *src2, unsigned int nbits)
->>>  {
->>> +	/* SAF-7-safe Rule 20.7 non-parenthesized macro argument */
->>>  	bitmap_switch(nbits,,
->>>  		*dst = *src1 & *src2,
->>>  		__bitmap_and(dst, src1, src2, nbits));
->>> @@ -155,6 +155,7 @@ static inline void bitmap_and(unsigned long *dst, 
->>> const unsigned long *src1,
->>>  static inline void bitmap_or(unsigned long *dst, const unsigned long 
->>> *src1,
->>>  			const unsigned long *src2, unsigned int nbits)
->>>  {
->>> +	/* SAF-7-safe Rule 20.7 non-parenthesized macro argument */
->>>  	bitmap_switch(nbits,,
->>>  		*dst = *src1 | *src2,
->>>  		__bitmap_or(dst, src1, src2, nbits));
->>> @@ -163,6 +164,7 @@ static inline void bitmap_or(unsigned long *dst, 
->>> const unsigned long *src1,
->>>  static inline void bitmap_xor(unsigned long *dst, const unsigned long 
->>> *src1,
->>>  			const unsigned long *src2, unsigned int nbits)
->>>  {
->>> +	/* SAF-7-safe Rule 20.7 non-parenthesized macro argument */
->>>  	bitmap_switch(nbits,,
->>>  		*dst = *src1 ^ *src2,
->>>  		__bitmap_xor(dst, src1, src2, nbits));
->>> @@ -171,6 +173,7 @@ static inline void bitmap_xor(unsigned long *dst, 
->>> const unsigned long *src1,
->>>  static inline void bitmap_andnot(unsigned long *dst, const unsigned 
->>> long *src1,
->>>  			const unsigned long *src2, unsigned int nbits)
->>>  {
->>> +	/* SAF-7-safe Rule 20.7 non-parenthesized macro argument */
->>>  	bitmap_switch(nbits,,
->>>  		*dst = *src1 & ~*src2,
->>>  		__bitmap_andnot(dst, src1, src2, nbits));
->>> @@ -179,6 +182,7 @@ static inline void bitmap_andnot(unsigned long 
->>> *dst, const unsigned long *src1,
->>>  static inline void bitmap_complement(unsigned long *dst, const 
->>> unsigned long *src,
->>>  			unsigned int nbits)
->>>  {
->>> +	/* SAF-7-safe Rule 20.7 non-parenthesized macro argument */
->>>  	bitmap_switch(nbits,,
->>>  		*dst = ~*src & BITMAP_LAST_WORD_MASK(nbits),
->>>  		__bitmap_complement(dst, src, nbits));
->>> @@ -187,6 +191,7 @@ static inline void bitmap_complement(unsigned long 
->>> *dst, const unsigned long *sr
->>>  static inline int bitmap_equal(const unsigned long *src1,
->>>  			const unsigned long *src2, unsigned int nbits)
->>>  {
->>> +	/* SAF-7-safe Rule 20.7 non-parenthesized macro argument */
->>>  	bitmap_switch(nbits,
->>>  		return -1,
->>>  		return !((*src1 ^ *src2) & BITMAP_LAST_WORD_MASK(nbits)),
->>> @@ -196,6 +201,7 @@ static inline int bitmap_equal(const unsigned long 
->>> *src1,
->>>  static inline int bitmap_intersects(const unsigned long *src1,
->>>  			const unsigned long *src2, unsigned int nbits)
->>>  {
->>> +	/* SAF-7-safe Rule 20.7 non-parenthesized macro argument */
->>>  	bitmap_switch(nbits,
->>>  		return -1,
->>>  		return ((*src1 & *src2) & BITMAP_LAST_WORD_MASK(nbits)) != 0,
->>> @@ -205,6 +211,7 @@ static inline int bitmap_intersects(const unsigned 
->>> long *src1,
->>>  static inline int bitmap_subset(const unsigned long *src1,
->>>  			const unsigned long *src2, unsigned int nbits)
->>>  {
->>> +	/* SAF-7-safe Rule 20.7 non-parenthesized macro argument */
->>>  	bitmap_switch(nbits,
->>>  		return -1,
->>>  		return !((*src1 & ~*src2) & BITMAP_LAST_WORD_MASK(nbits)),
->>> @@ -213,6 +220,7 @@ static inline int bitmap_subset(const unsigned 
->>> long *src1,
->>>
->>>  static inline int bitmap_empty(const unsigned long *src, unsigned int 
->>> nbits)
->>>  {
->>> +	/* SAF-7-safe Rule 20.7 non-parenthesized macro argument */
->>>  	bitmap_switch(nbits,
->>>  		return -1,
->>>  		return !(*src & BITMAP_LAST_WORD_MASK(nbits)),
->>> @@ -221,6 +229,7 @@ static inline int bitmap_empty(const unsigned long 
->>> *src, unsigned int nbits)
->>>
->>>  static inline int bitmap_full(const unsigned long *src, unsigned int 
->>> nbits)
->>>  {
->>> +	/* SAF-7-safe Rule 20.7 non-parenthesized macro argument */
->>>  	bitmap_switch(nbits,
->>>  		return -1,
->>>  		return !(~*src & BITMAP_LAST_WORD_MASK(nbits)),
->>
->> ... having the same comment on every invocation is naturally quite a 
->> bit
->> less desirable. So far I was under the impression that macro-specific
->> deviations can be dealt with by marking the macro definition 
->> accordingly.
-> 
-> Not with a comment-based one, but one based on ECL.
-> As stated under the cut:
-> An alternative approach would be to use an ecl configuration, but that
-> would be tool-specific.
+On 08/07/2024 10:21 pm, Shawn Anastasio wrote:
+>> +    do {
+>> +        rc = opal_cec_reboot();
+>> +
+>> +        if ( rc == OPAL_BUSY_EVENT )
+>> +            opal_poll_events(NULL);
+>> +
+>> +    } while ( rc == OPAL_BUSY || rc == OPAL_BUSY_EVENT );
+>> +
+>> +    for ( ;; )
+>> +        opal_poll_events(NULL);
+>> +}
+>> +
+> Other than that, looks great.
+>
+> Reviewed-by: Shawn Anastasio <sanastasio@raptorengineering.com>
 
-I read that, yes, but it's orthogonal to the point I made.
+Thanks.  Fixed up, and queued for 4.20 when the tree opens.
 
-> Stefano had a preference for a tool-agnostic SAF comment, so that's what 
-> I used.
-
-I second this; I wonder though if e.g. for cppcheck the new placement
-would have any effect.
-
->> I've been assuming this is a general pattern. If it isn't, would you
->> please first clarify what Eclair's specific requirements are for a SAF
->> marker to take effect when involving a macro?
-> 
-> it should be put directly above macro invocations.
-
-That's then contrary to what was communicated before. Stefano, can we
-please put this on the agenda of the call later in the day?
-
-> ECLAIR has a 
-> tool-specific comment-based deviation that essentially deviates a range 
-> of lines, but that is not supported by the SAF framework, so I avoided 
-> that.
-> 
-> Is it safe to say that the uses of bitmap_switch will likely not change 
-> much over time?
-
-Pretty much so, yes.
-
-Jan
+~Andrew
 
