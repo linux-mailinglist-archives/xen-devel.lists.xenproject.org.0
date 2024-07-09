@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6B2AE92B88F
-	for <lists+xen-devel@lfdr.de>; Tue,  9 Jul 2024 13:42:17 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.756205.1164745 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2A32092B8AF
+	for <lists+xen-devel@lfdr.de>; Tue,  9 Jul 2024 13:43:52 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.756211.1164754 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sR9Dd-0006Je-Lg; Tue, 09 Jul 2024 11:41:13 +0000
+	id 1sR9G0-0006uM-5i; Tue, 09 Jul 2024 11:43:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 756205.1164745; Tue, 09 Jul 2024 11:41:13 +0000
+Received: by outflank-mailman (output) from mailman id 756211.1164754; Tue, 09 Jul 2024 11:43:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sR9Dd-0006GW-Ih; Tue, 09 Jul 2024 11:41:13 +0000
-Received: by outflank-mailman (input) for mailman id 756205;
- Tue, 09 Jul 2024 11:41:11 +0000
+	id 1sR9G0-0006ss-38; Tue, 09 Jul 2024 11:43:40 +0000
+Received: by outflank-mailman (input) for mailman id 756211;
+ Tue, 09 Jul 2024 11:43:38 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=uARp=OJ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sR9Db-0006GQ-LV
- for xen-devel@lists.xenproject.org; Tue, 09 Jul 2024 11:41:11 +0000
-Received: from mail-lj1-x22f.google.com (mail-lj1-x22f.google.com
- [2a00:1450:4864:20::22f])
+ id 1sR9Fy-0006sk-IM
+ for xen-devel@lists.xenproject.org; Tue, 09 Jul 2024 11:43:38 +0000
+Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
+ [2a00:1450:4864:20::42a])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 21dfb946-3de8-11ef-bbfb-fd08da9f4363;
- Tue, 09 Jul 2024 13:41:08 +0200 (CEST)
-Received: by mail-lj1-x22f.google.com with SMTP id
- 38308e7fff4ca-2ee9b098bd5so42957451fa.0
- for <xen-devel@lists.xenproject.org>; Tue, 09 Jul 2024 04:41:08 -0700 (PDT)
+ id 7ad86ba6-3de8-11ef-bbfb-fd08da9f4363;
+ Tue, 09 Jul 2024 13:43:37 +0200 (CEST)
+Received: by mail-wr1-x42a.google.com with SMTP id
+ ffacd0b85a97d-3679df4cb4cso3076171f8f.0
+ for <xen-devel@lists.xenproject.org>; Tue, 09 Jul 2024 04:43:37 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-2ca34e6a583sm1696600a91.17.2024.07.09.04.41.02
+ d2e1a72fcca58-70b43967345sm1589396b3a.112.2024.07.09.04.43.33
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 09 Jul 2024 04:41:06 -0700 (PDT)
+ Tue, 09 Jul 2024 04:43:36 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,52 +45,52 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 21dfb946-3de8-11ef-bbfb-fd08da9f4363
+X-Inumbo-ID: 7ad86ba6-3de8-11ef-bbfb-fd08da9f4363
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1720525268; x=1721130068; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1720525417; x=1721130217; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=1DflZ0Naq4r0LPN/np7peLyersVhp8qXKUkUz7jyC/s=;
-        b=brMLOpUPXKOPWul7NwRY/UZTnP+GsqcLQGP+RN37/85uXotOuHjh8h0Rv48ODENBbj
-         1PwoNDYKZNEpMqTgpOzINKWRWxhd9lQDuAeks9GLwYrI0iAkm6W6Oog4L+jcVZ/QaRKK
-         yrPTcqj2q+XzOG0PJWpq13yJR4RnhCjdfv1UfH77NT9mZY6tL92uwXK9M8WmD4WYAB1+
-         HmOrCyxhkHalgq02C9yvd2IY9+MGrYx8VycBio95CRZZ5IMJ6WgOtHfBSmxts3S+DQAe
-         0JjhceTlxwuu9+3jUuwRcoP/4d8guIr/YocfqZ2DQ8AzjcPlC0izxYgkBAN9c3hRdRip
-         WQaA==
+        bh=7u26yw/8x8iuye2JcguQ6wlemP77U9t/sOaudZYZ2f8=;
+        b=CE26bQmNSLCMHI5balvc0FEFsv5bI+ohHh32RVyVGCLRkckWLBHQWyzMRHlAuxFe9I
+         xdCx6NwOQH8UaKZVBQBGL4tcAVV4A5TmKJjLwXQFt2GKh5CMFhkA/qRo7WERWo4wWmHB
+         w6xGi+t1GJne8xDeAeAzsoGXeoq2rqQ/ZIt3NfB9wuk/b5Cvkltk5t3aurKI3TWrKAen
+         RXQ9W0jBWuxog918RULMvA1sinT98MmcKxM1xX2rkXMssHphzWbCH8d4Yq4J2ZmPpa9J
+         V7xi1w8fttTzGJoFGRq8zg9qLRKijGUKtAoxXQWJKaNSu48w18oEj84hkI0IJJtxOeXB
+         695Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1720525268; x=1721130068;
+        d=1e100.net; s=20230601; t=1720525417; x=1721130217;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=1DflZ0Naq4r0LPN/np7peLyersVhp8qXKUkUz7jyC/s=;
-        b=VjtUrOAfL8Kgp/SrXNOPRAdMZ2xBw990QaeO6xWBuM532VL5Mxv0D1RHGsuC5cHFwO
-         jyEnbQU6XyTLcOIDoMaFvjLfk6jBnJp1MTxu2cfeYSWhCO5a57pgNw1VvW/FboTM8jO6
-         +ZEImsigZpHyzB/RuDcjDT1KfUDpP8UR0DrcfXlR/PQK76rOProX7lEVk+4A/cYjkr8z
-         1uVtlm+E+H4dC9Dh7TGc/zwQV7/Xif9MseVj1R1uciYfjSOkTqHvNdibFyhnYIO/0fkw
-         jXfHrrHsoKMRNmFHK3D9GUFPUjPgK4eFndnMjrbB9T9Czx/wUOMfcEK8EpvXWzLJ1o9B
-         fewQ==
-X-Forwarded-Encrypted: i=1; AJvYcCUgzSs3mNwHVkMTXn9VwY94m7AbuNgQ95S8xV37WDooHCIrdoiSzDMrYUmBM745FxvGy+f3wTy/ML9g9+SdccpEHYnKVhYWYGd6Z703PfA=
-X-Gm-Message-State: AOJu0YwMq+bFV6oNIqTvBe4TCQelY2McwVTrHw5759YmiMh3ZowvUUtJ
-	BdfLmbvGLVB3APpZbT3o++em4/+5qF5gGgzv0Fxaqn6mlMQgLcZYVwF4HtVlyQ==
-X-Google-Smtp-Source: AGHT+IEeFwBzK+hNvLsDIVQSx/BNZSQp/9qYE44qfIAh38PfTIesVadGDoTRU/YaBbS8T/UFCz1sLw==
-X-Received: by 2002:a2e:c4a:0:b0:2ec:3d74:88c8 with SMTP id 38308e7fff4ca-2eeb30e3a81mr18785641fa.18.1720525266719;
-        Tue, 09 Jul 2024 04:41:06 -0700 (PDT)
-Message-ID: <1536da44-fd30-4363-b716-802e0c009d44@suse.com>
-Date: Tue, 9 Jul 2024 13:40:57 +0200
+        bh=7u26yw/8x8iuye2JcguQ6wlemP77U9t/sOaudZYZ2f8=;
+        b=m7/HsIlTJ8uwroMVN2i39mE64glzCbJkLu8Qe7Qk8R5UWGF40SGnzXZaCmk1sCz0yN
+         +pmSDnJ+K5Ua2fxTadUR3AAxzNzaKqQgqqf2rtXoRKGPoKibsxMzKBDMKSZjETRA9aqp
+         EF0q3ljSVPJsUwS3xULWG+rrv5M1BAimGPEWYlj7vUSjSZDlUMLkmQC8pUFrWsWjqjFv
+         y+l78IJj9y1g/H70kCTDOhXuCqGTA5pAKc51qBdvLuX+qdFoiEm19PHLFQk+WxFHq3NM
+         BS1Nr0XGVwKdKeQU3eUWmnEJ+3YIGbq08Zk2Ubf+Ld4tjq7EloG/ROM+CqUtVNsTwze5
+         leOg==
+X-Forwarded-Encrypted: i=1; AJvYcCWuUEtSeLDBy69dBuxB2riyk/Go9lvpESDkuumHNjjCx0t6Rf2dEDH1pIDCGxLPvnolGYU3HJQSveOOriTHWUhvdkSSCdxyj9KuacCksZU=
+X-Gm-Message-State: AOJu0YxymgCnnHbkNHBjSh95kCrl7ybkGo83mcQqZLxPrCGPFBe9qTDI
+	uTjU04SdaNEGFxbXcx5tCER6Yb8aovtPirj4nqejyF5Guj3hupMnfeJ81U1EOw==
+X-Google-Smtp-Source: AGHT+IE+N2OIa0/De/AR/cXvNNNcQ/TAKjzj8eVedZKAtPv3HliYzWBbWLwK8jReJAS6wU6u1FjiiA==
+X-Received: by 2002:a05:6000:2c5:b0:367:9268:bfca with SMTP id ffacd0b85a97d-367d2e687a6mr2323873f8f.22.1720525416970;
+        Tue, 09 Jul 2024 04:43:36 -0700 (PDT)
+Message-ID: <a85777f7-b892-4363-9e65-f7e9f0516682@suse.com>
+Date: Tue, 9 Jul 2024 13:43:30 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH v3 09/12] x86/mm: add defensive return
-To: Alejandro Vallejo <alejandro.vallejo@cloud.com>,
- Federico Serafini <federico.serafini@bugseng.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: consulting@bugseng.com, xen-devel@lists.xenproject.org
-References: <cover.1719383180.git.federico.serafini@bugseng.com>
- <acb26329a980809dda100825f52b05d0cc295315.1719383180.git.federico.serafini@bugseng.com>
- <4cc9a5c7-df57-4a90-8164-cf3002596870@suse.com>
- <D2KYW63EJC2X.2BK8GEXKZW2N@cloud.com>
+Subject: Re: [RFC XEN PATCH] x86/cpuid: Expose max_vcpus field in HVM
+ hypervisor leaf
+To: Alejandro Vallejo <alejandro.vallejo@cloud.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>,
+ Matthew Barnes <matthew.barnes@cloud.com>
+References: <c0a9f52107e22957daaa5b1b0e05e4160db5f064.1720452354.git.matthew.barnes@cloud.com>
+ <103d60b6-001b-43f0-bbff-a0806cebda73@suse.com>
+ <D2KYO4GHH7VR.1XBQKN2LWF54P@cloud.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -116,36 +116,66 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <D2KYW63EJC2X.2BK8GEXKZW2N@cloud.com>
+In-Reply-To: <D2KYO4GHH7VR.1XBQKN2LWF54P@cloud.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 09.07.2024 13:21, Alejandro Vallejo wrote:
-> On Mon Jul 1, 2024 at 9:57 AM BST, Jan Beulich wrote:
->> On 26.06.2024 11:28, Federico Serafini wrote:
->>> --- a/xen/arch/x86/mm.c
->>> +++ b/xen/arch/x86/mm.c
->>> @@ -916,6 +916,7 @@ get_page_from_l1e(
->>>                  return 0;
->>>              default:
->>>                  ASSERT_UNREACHABLE();
->>> +                return -EPERM;
->>>              }
->>>          }
->>>          else if ( l1f & _PAGE_RW )
->>
->> I don't like the use of -EPERM here very much, but I understand that there's
->> no really suitable errno value. I wonder though whether something far more
->> "exotic" wouldn't be better in such a case, say -EBADMSG or -EADDRNOTAVAIL.
->> Just to mention it: -EPERM is what failed XSM checks would typically yield,
->> so from that perspective alone even switching to -EACCES might be a little
->> bit better.
+On 09.07.2024 13:11, Alejandro Vallejo wrote:
+> I'll pitch in, seeing as I created the GitLab ticket.
 > 
-> fwiw: EACCES, being typically used for interface version mismatches, would
-> confuse me a lot.
+> On Tue Jul 9, 2024 at 7:40 AM BST, Jan Beulich wrote:
+>> On 08.07.2024 17:42, Matthew Barnes wrote:
+>>> Currently, OVMF is hard-coded to set up a maximum of 64 vCPUs on
+>>> startup.
+>>>
+>>> There are efforts to support a maximum of 128 vCPUs, which would involve
+>>> bumping the OVMF constant from 64 to 128.
+>>>
+>>> However, it would be more future-proof for OVMF to access the maximum
+>>> number of vCPUs for a domain and set itself up appropriately at
+>>> run-time.
+>>>
+>>> For OVMF to access the maximum vCPU count, Xen will have to expose this
+>>> property via cpuid.
+>>
+>> Why "have to"? The information is available from xenstore, isn't it?
+> 
+> That would create an avoidable dependency between OVMF and xenstore, precluding
+> xenstoreless UEFI-enabled domUs.
 
-There's no interface version check anywhere in hypercalls involving
-get_page_from_l1e(), I don't think. So I see little room for confusion.
+Right, but that's a desirable thing, so still not "have to".
+
+>>> This patch exposes the max_vcpus field via cpuid on the HVM hypervisor
+>>> leaf in edx.
+>>
+>> If exposing via CPUID, why only for HVM?
+>>
+>>> --- a/xen/include/public/arch-x86/cpuid.h
+>>> +++ b/xen/include/public/arch-x86/cpuid.h
+>>> @@ -87,6 +87,7 @@
+>>>   * Sub-leaf 0: EAX: Features
+>>>   * Sub-leaf 0: EBX: vcpu id (iff EAX has XEN_HVM_CPUID_VCPU_ID_PRESENT flag)
+>>>   * Sub-leaf 0: ECX: domain id (iff EAX has XEN_HVM_CPUID_DOMID_PRESENT flag)
+>>> + * Sub-leaf 0: EDX: max vcpus (iff EAX has XEN_HVM_CPUID_MAX_VCPUS_PRESENT flag)
+>>>   */
+>>
+>> Unlike EBX and ECX, the proposed value for EDX cannot be zero. I'm therefore
+>> not entirely convinced that we need a qualifying flag. Things would be
+>> different if the field was "highest possible vCPU ID", which certainly would
+>> be the better approach if the field wasn't occupying the entire register.
+>> Even with it being 32 bits, I'd still suggest switching its meaning this way.
+> 
+> Using max_vcpu_id instead of max_vcpus is also fine, but the flag is important
+> as otherwise it's impossible to retroactively change the meaning of EDX (i.e: to
+> stop advertising this datum, or repurpose EDX altogether)
+
+Hmm, re-purposing. Very interesting thought. I don't think we should ever do
+that.
+
+> We could also reserve only the lower 16bits of EDX rather than the whole thing;
+> but we have plenty of subleafs for growth, so I'm not sure it's worth it.
+
+And I was only mentioning it, without meaning to suggest to shrink.
 
 Jan
 
