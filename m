@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 265F192B0EC
-	for <lists+xen-devel@lfdr.de>; Tue,  9 Jul 2024 09:15:15 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.755907.1164434 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0A14392B0ED
+	for <lists+xen-devel@lfdr.de>; Tue,  9 Jul 2024 09:16:09 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.755912.1164445 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sR540-0000Hf-4V; Tue, 09 Jul 2024 07:15:00 +0000
+	id 1sR54v-0000oB-FO; Tue, 09 Jul 2024 07:15:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 755907.1164434; Tue, 09 Jul 2024 07:15:00 +0000
+Received: by outflank-mailman (output) from mailman id 755912.1164445; Tue, 09 Jul 2024 07:15:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sR540-0000F8-1y; Tue, 09 Jul 2024 07:15:00 +0000
-Received: by outflank-mailman (input) for mailman id 755907;
- Tue, 09 Jul 2024 07:14:58 +0000
+	id 1sR54v-0000lS-As; Tue, 09 Jul 2024 07:15:57 +0000
+Received: by outflank-mailman (input) for mailman id 755912;
+ Tue, 09 Jul 2024 07:15:56 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=uARp=OJ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sR53y-0000F0-79
- for xen-devel@lists.xenproject.org; Tue, 09 Jul 2024 07:14:58 +0000
-Received: from mail-lf1-x136.google.com (mail-lf1-x136.google.com
- [2a00:1450:4864:20::136])
+ id 1sR54u-0000lK-1Y
+ for xen-devel@lists.xenproject.org; Tue, 09 Jul 2024 07:15:56 +0000
+Received: from mail-lj1-x22d.google.com (mail-lj1-x22d.google.com
+ [2a00:1450:4864:20::22d])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f18cb08a-3dc2-11ef-8776-851b0ebba9a2;
- Tue, 09 Jul 2024 09:14:55 +0200 (CEST)
-Received: by mail-lf1-x136.google.com with SMTP id
- 2adb3069b0e04-52ea0f18500so4558668e87.3
- for <xen-devel@lists.xenproject.org>; Tue, 09 Jul 2024 00:14:55 -0700 (PDT)
+ id 14442bed-3dc3-11ef-8776-851b0ebba9a2;
+ Tue, 09 Jul 2024 09:15:54 +0200 (CEST)
+Received: by mail-lj1-x22d.google.com with SMTP id
+ 38308e7fff4ca-2eaae2a6dc1so69318421fa.0
+ for <xen-devel@lists.xenproject.org>; Tue, 09 Jul 2024 00:15:54 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-1fbb6a2c0dasm9427605ad.108.2024.07.09.00.14.51
+ d9443c01a7336-1fbb6a11cc9sm9440875ad.42.2024.07.09.00.15.49
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 09 Jul 2024 00:14:54 -0700 (PDT)
+ Tue, 09 Jul 2024 00:15:53 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,51 +45,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f18cb08a-3dc2-11ef-8776-851b0ebba9a2
+X-Inumbo-ID: 14442bed-3dc3-11ef-8776-851b0ebba9a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1720509295; x=1721114095; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1720509353; x=1721114153; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=V/SQKJYss2l964rLciIHt3srkRZoXhpQW3glmoxY3qc=;
-        b=ToxTCbGdp1p2ggjwTDFyksLD9Exb80/CYg+nsxvFViQ5xFNjRE0N4n68wXaNpCyx1Y
-         07b81Iy3DxjzMikA1WuHX8fN/E3GBFrTMRgfAgLlM7csML36hOwHrYMfXEj8/6zXYiq0
-         okQdioTPJ1alkN12oJw15I2Nir6MYgRNIwn0R+SJPaVdugKLdZwKiqufCIzrE53vFChF
-         224GfR3c9op2AMiiFIIsT9iK9A/U2OfJ46A2CNWJmC4bHl5rhr0axO5V9yFqMKZmWENY
-         A1AAzKRgQDFxjU146P6n/NbKE0plL/pV7qxs9h9infzhw+wa5eexwNa01e2X2pfPVzfV
-         BXxQ==
+        bh=fAX4vBa1qp6KH0nUEHX4salbu7iaiDu5iHBJpEYadnA=;
+        b=GPn/0U/b2zdm+TUL3JV/HAk697AYO77vDx/3uK0cuS/sZlkoax+REF2ziVjRfmEA89
+         6Q2G/r+Vsjo07wu28976ES78V7X/6SP/K2H9zTzh/ILmS9ay3VZXZAT3ct9VTYPaM0C9
+         nwyKjoyUMZMVtU7vLg7Y2SrfDQurTqcDqOUgjMfqw0LUNLDxPvV18jNEm4/NFWP8WCLO
+         6C0kl258cUoUgwBtuK9SvF6xQLVIrBv9r2+bdV6cWaA074pPLzAralWYC/tscDzm7Bh0
+         nWe1ptlsSmsJVXNbdeKljxwTHg1PIUn0XwksbiXtO8xpQ9W3d+4VV0j8vkc65cBiJlgD
+         2pSw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1720509295; x=1721114095;
+        d=1e100.net; s=20230601; t=1720509353; x=1721114153;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=V/SQKJYss2l964rLciIHt3srkRZoXhpQW3glmoxY3qc=;
-        b=BRiVfBbxmqHvpum1fv7WMwDexNK6N7TrQ2FuJIDp/p07s1B5e2jR8xLNmbm7WyMpLE
-         M2dS7HIE9BNjipK2+Zi+rAKUpPkR13+MxWe1gTtYnFjdxiqNX+TWb8EgsmphT+Y/Tuys
-         o8r9ssOhwB9aPjvaELjMf6jdj8+KvIAAOzZWsiN3eFjGyf/8yccyjb7q2bKWkCkanIYd
-         QqxYQonFlh3kXVOtz3LwLkXhYRVqSB66h/EOkJhpjg49PiDHyPApbM3zQld2IRnS13Q7
-         AS6KuKjHb8QsUFNukdC3pkLV7DhoeWVNvWT6954N1HN9XhIqLCAMXtkcg4hV2x0+u/jF
-         ldjg==
-X-Forwarded-Encrypted: i=1; AJvYcCUKE8G5i8ugoM9XjzlFTezY7NMWou9V3yOewLVguos165XiZgkkNBAvNbcsOc9biNXwWw0Hec9OphWYGTuumTKN3SLEkn8krYqoHDMVFIk=
-X-Gm-Message-State: AOJu0Yxti4/btHzcqLerPo+U4sQNMAzoj0UbCk0gqR9VQPxNzZ4MyIdL
-	+o6SmTBYL78UblU3fHRihJMz3+qluYfVl8xPd0QL/CzWnG8nhPx+lH3OWC4Gzw==
-X-Google-Smtp-Source: AGHT+IGOgcF/ZdRoyFS3w7OYYous1V1K8HletW2d9CjC1R31WhHdwSE2HQhntpQGNNrDy94fDj9aUw==
-X-Received: by 2002:a05:6512:ea2:b0:52d:b1c9:34e with SMTP id 2adb3069b0e04-52eb99942c8mr968909e87.21.1720509295267;
-        Tue, 09 Jul 2024 00:14:55 -0700 (PDT)
-Message-ID: <f5e4e95b-ad3b-4686-b42e-a4986ba896ec@suse.com>
-Date: Tue, 9 Jul 2024 09:14:46 +0200
+        bh=fAX4vBa1qp6KH0nUEHX4salbu7iaiDu5iHBJpEYadnA=;
+        b=BgVnOK4dFXkk8xJaixOI3HXFQ90xx8IWzNU2RjIzT7w8PNj2UWnDzrolytPL3NEGYP
+         iPJi3Qnc2epIJLMqWw7NGufpmQxRYuJKibJPutFe2Ud7L0mhPmjGtYymYnk3SYwW45BF
+         zQau4ud6B/YlYQO4awI7HVBc6ZNbnYWIV/3/zcQVfqSNaPhFrJaTu4KToBY/Mb3VklWv
+         L6OTvV8zzPO9PefVQ1jCODggJ3nH9GfCdP0hNPPZGWs5H3Uer7TtAKHaNsA5NdOulQTb
+         7YuHsefJ5+y3eYqVxIUYUGkdcR8RqI6NLNRx7/ZDTJtKSUgraEdmAodFjmIt/HKmncYz
+         SuTg==
+X-Forwarded-Encrypted: i=1; AJvYcCWCL/RpTwmuzCaenGCCnZlCfeS8nV0o0CVCFg/21cP9gwVvRC4ka4+M58+abhLkcvATpJ5YGbm+2YJ5KjBXr5gp03Zr1oYkxffIDxJEpug=
+X-Gm-Message-State: AOJu0YxhUep7knJrutvJYoOQODW6VZ+yrVCdcAMlym9ROvxBEIScJp+a
+	CvFIMtJOCXpWqHaOsh94NjjrVnHAUKgFHmzPP9A9pUc0EU+LeFJqUz3jjQlDBw==
+X-Google-Smtp-Source: AGHT+IEWvT+IFk9r/M2kgSqoNkLrwrnS6TxoMTwPrJ22vRZXK89AYEG4ydNtEiGMB0asCMBJhg1nEA==
+X-Received: by 2002:a05:651c:102f:b0:2ee:87e9:3194 with SMTP id 38308e7fff4ca-2eeb3189212mr12873181fa.47.1720509353684;
+        Tue, 09 Jul 2024 00:15:53 -0700 (PDT)
+Message-ID: <87607815-86bb-4d21-8473-e3c5ca42a746@suse.com>
+Date: Tue, 9 Jul 2024 09:15:45 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH v4 04/14] x86: introduce CONFIG_ALTP2M Kconfig option
+Subject: Re: [XEN PATCH v4 05/14] x86: introduce using_{svm,vmx}() helpers
 To: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Stefano Stabellini <sstabellini@kernel.org>,
- Xenia Ragiadakou <xenia.ragiadakou@amd.com>,
- Tamas K Lengyel <tamas@tklengyel.com>, xen-devel@lists.xenproject.org
+ Xenia Ragiadakou <xenia.ragiadakou@amd.com>, xen-devel@lists.xenproject.org
 References: <cover.1720501197.git.Sergiy_Kibrik@epam.com>
- <914561d1ae92aa84d22785f959a73434a491bdd6.1720501197.git.Sergiy_Kibrik@epam.com>
+ <d730b06b851d5c502850509d4cf868ed618d10d8.1720501197.git.Sergiy_Kibrik@epam.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -115,24 +114,27 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <914561d1ae92aa84d22785f959a73434a491bdd6.1720501197.git.Sergiy_Kibrik@epam.com>
+In-Reply-To: <d730b06b851d5c502850509d4cf868ed618d10d8.1720501197.git.Sergiy_Kibrik@epam.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 09.07.2024 07:52, Sergiy Kibrik wrote:
-> Add new option to make altp2m code inclusion optional.
-> Currently altp2m implemented for Intel EPT only, so option is dependant on VMX.
-> Also the prompt itself depends on EXPERT=y, so that option is available
-> for fine-tuning, if one want to play around with it.
+On 09.07.2024 07:54, Sergiy Kibrik wrote:
+> As we now have SVM/VMX config options for enabling/disabling these features
+> completely in the build, we need some build-time checks to ensure that vmx/svm
+> code can be used and things compile. Macros cpu_has_{svm,vmx} used to be doing
+> such checks at runtime, however they do not check if SVM/VMX support is
+> enabled in the build.
 > 
-> Use this option instead of more generic CONFIG_HVM option.
-> That implies the possibility to build hvm code without altp2m support,
-> hence we need to declare altp2m routines for hvm code to compile successfully
-> (altp2m_vcpu_initialise(), altp2m_vcpu_destroy(), altp2m_vcpu_enable_ve())
+> Also cpu_has_{svm,vmx} can potentially be called from non-{VMX,SVM} build
+> yet running on {VMX,SVM}-enabled CPU, so would correctly indicate that VMX/SVM
+> is indeed supported by CPU, but code to drive it can't be used.
 > 
-> Also guard altp2m routines, so that they can be disabled completely in the
-> build -- when target platform does not actually support altp2m
-> (AMD-V & ARM as of now).
+> New routines using_{vmx,svm}() indicate that both CPU _and_ build provide
+> corresponding technology support, while cpu_has_{vmx,svm} still remains for
+> informational runtime purpose, just as their naming suggests.
+> 
+> These new helpers are used right away in several sites, namely guard calls to
+> start_nested_{svm,vmx} and start_{svm,vmx} to fix a build when VMX=n or SVM=n.
 > 
 > Signed-off-by: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
 
