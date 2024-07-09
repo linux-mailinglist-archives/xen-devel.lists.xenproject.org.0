@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0A14392B0ED
-	for <lists+xen-devel@lfdr.de>; Tue,  9 Jul 2024 09:16:09 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.755912.1164445 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 515E292B0F6
+	for <lists+xen-devel@lfdr.de>; Tue,  9 Jul 2024 09:19:55 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.755923.1164455 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sR54v-0000oB-FO; Tue, 09 Jul 2024 07:15:57 +0000
+	id 1sR58T-0002Lw-0c; Tue, 09 Jul 2024 07:19:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 755912.1164445; Tue, 09 Jul 2024 07:15:57 +0000
+Received: by outflank-mailman (output) from mailman id 755923.1164455; Tue, 09 Jul 2024 07:19:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sR54v-0000lS-As; Tue, 09 Jul 2024 07:15:57 +0000
-Received: by outflank-mailman (input) for mailman id 755912;
- Tue, 09 Jul 2024 07:15:56 +0000
+	id 1sR58S-0002JJ-Td; Tue, 09 Jul 2024 07:19:36 +0000
+Received: by outflank-mailman (input) for mailman id 755923;
+ Tue, 09 Jul 2024 07:19:35 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=uARp=OJ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sR54u-0000lK-1Y
- for xen-devel@lists.xenproject.org; Tue, 09 Jul 2024 07:15:56 +0000
-Received: from mail-lj1-x22d.google.com (mail-lj1-x22d.google.com
- [2a00:1450:4864:20::22d])
+ id 1sR58R-0002JD-N9
+ for xen-devel@lists.xenproject.org; Tue, 09 Jul 2024 07:19:35 +0000
+Received: from mail-lj1-x235.google.com (mail-lj1-x235.google.com
+ [2a00:1450:4864:20::235])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 14442bed-3dc3-11ef-8776-851b0ebba9a2;
- Tue, 09 Jul 2024 09:15:54 +0200 (CEST)
-Received: by mail-lj1-x22d.google.com with SMTP id
- 38308e7fff4ca-2eaae2a6dc1so69318421fa.0
- for <xen-devel@lists.xenproject.org>; Tue, 09 Jul 2024 00:15:54 -0700 (PDT)
+ id 97195975-3dc3-11ef-8776-851b0ebba9a2;
+ Tue, 09 Jul 2024 09:19:33 +0200 (CEST)
+Received: by mail-lj1-x235.google.com with SMTP id
+ 38308e7fff4ca-2eeb1ba040aso13124581fa.1
+ for <xen-devel@lists.xenproject.org>; Tue, 09 Jul 2024 00:19:33 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-1fbb6a11cc9sm9440875ad.42.2024.07.09.00.15.49
+ 98e67ed59e1d1-2c99aa61e30sm9276845a91.45.2024.07.09.00.19.28
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 09 Jul 2024 00:15:53 -0700 (PDT)
+ Tue, 09 Jul 2024 00:19:32 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,52 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 14442bed-3dc3-11ef-8776-851b0ebba9a2
+X-Inumbo-ID: 97195975-3dc3-11ef-8776-851b0ebba9a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1720509353; x=1721114153; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1720509573; x=1721114373; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=fAX4vBa1qp6KH0nUEHX4salbu7iaiDu5iHBJpEYadnA=;
-        b=GPn/0U/b2zdm+TUL3JV/HAk697AYO77vDx/3uK0cuS/sZlkoax+REF2ziVjRfmEA89
-         6Q2G/r+Vsjo07wu28976ES78V7X/6SP/K2H9zTzh/ILmS9ay3VZXZAT3ct9VTYPaM0C9
-         nwyKjoyUMZMVtU7vLg7Y2SrfDQurTqcDqOUgjMfqw0LUNLDxPvV18jNEm4/NFWP8WCLO
-         6C0kl258cUoUgwBtuK9SvF6xQLVIrBv9r2+bdV6cWaA074pPLzAralWYC/tscDzm7Bh0
-         nWe1ptlsSmsJVXNbdeKljxwTHg1PIUn0XwksbiXtO8xpQ9W3d+4VV0j8vkc65cBiJlgD
-         2pSw==
+        bh=4H9wGFIuYR7jB8hkzA3fInmn8enjWh99zCNGhiek+wU=;
+        b=GDy+mME9jfXKdkz2IUu6WKc43gVRo1tplC24rmIkfzp55IVLww4fJ0yzWlGJ3CIBya
+         kD4mYmrEzuiWaCYHNv2yVjgjC89NeGxBi34hC9qBSC2eUHcVAZwTfu2zKAf/OHKzN9J7
+         ymd4kNV3CfpJWXm0/a3AcvYf1oIX85+yB0uu+22I5fiU5MzcyOuT5exI3sjOIlhxYzvE
+         rrsCIwWdLRjq1QvmFGSU3hlpKfmchoTHpiWHdaKhmhT8rnB4X12sBKPINtkIrbdtiGzC
+         vn/LZ8X+OW9x58Bbfm5kCey92hrM3FBje6ktbqmNIfyZfqo9sSBsc1v4vEoXEB3lXHtC
+         5xBw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1720509353; x=1721114153;
+        d=1e100.net; s=20230601; t=1720509573; x=1721114373;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=fAX4vBa1qp6KH0nUEHX4salbu7iaiDu5iHBJpEYadnA=;
-        b=BgVnOK4dFXkk8xJaixOI3HXFQ90xx8IWzNU2RjIzT7w8PNj2UWnDzrolytPL3NEGYP
-         iPJi3Qnc2epIJLMqWw7NGufpmQxRYuJKibJPutFe2Ud7L0mhPmjGtYymYnk3SYwW45BF
-         zQau4ud6B/YlYQO4awI7HVBc6ZNbnYWIV/3/zcQVfqSNaPhFrJaTu4KToBY/Mb3VklWv
-         L6OTvV8zzPO9PefVQ1jCODggJ3nH9GfCdP0hNPPZGWs5H3Uer7TtAKHaNsA5NdOulQTb
-         7YuHsefJ5+y3eYqVxIUYUGkdcR8RqI6NLNRx7/ZDTJtKSUgraEdmAodFjmIt/HKmncYz
-         SuTg==
-X-Forwarded-Encrypted: i=1; AJvYcCWCL/RpTwmuzCaenGCCnZlCfeS8nV0o0CVCFg/21cP9gwVvRC4ka4+M58+abhLkcvATpJ5YGbm+2YJ5KjBXr5gp03Zr1oYkxffIDxJEpug=
-X-Gm-Message-State: AOJu0YxhUep7knJrutvJYoOQODW6VZ+yrVCdcAMlym9ROvxBEIScJp+a
-	CvFIMtJOCXpWqHaOsh94NjjrVnHAUKgFHmzPP9A9pUc0EU+LeFJqUz3jjQlDBw==
-X-Google-Smtp-Source: AGHT+IEWvT+IFk9r/M2kgSqoNkLrwrnS6TxoMTwPrJ22vRZXK89AYEG4ydNtEiGMB0asCMBJhg1nEA==
-X-Received: by 2002:a05:651c:102f:b0:2ee:87e9:3194 with SMTP id 38308e7fff4ca-2eeb3189212mr12873181fa.47.1720509353684;
-        Tue, 09 Jul 2024 00:15:53 -0700 (PDT)
-Message-ID: <87607815-86bb-4d21-8473-e3c5ca42a746@suse.com>
-Date: Tue, 9 Jul 2024 09:15:45 +0200
+        bh=4H9wGFIuYR7jB8hkzA3fInmn8enjWh99zCNGhiek+wU=;
+        b=whuzloiAQru0h7hw3bZii19TI7l/SWOR0ohERuw2vAgzP0h+MqtEubprBzuIKaMdS0
+         wjRur4k5NpjizVQKc+UGZ4lXuQqiOSz6oMx/16e+A8U0hgVECNpfL+7xbUJPdsH0q1Kn
+         4IGQIPKQxvlHIwwunCiotDx5HtzhodZF1DpdP3sttnVXxN/cIvW/2qlrdxRKCzVDNEfO
+         dfbNQMRA8oNKlEIpBfabt1/lUqWobZ89b9wBF+Q+01szR8GmPYX9XCO5Q0Per3C4pSN5
+         xK+xztGuMzdWQA0CgRFaKVRdZ9fbE44QS6M/1m8W1+zXObD970n7s/Cd28IZhVhR4vks
+         jJaA==
+X-Forwarded-Encrypted: i=1; AJvYcCWnb26TnuZoK6++h/rZ4caGPxKckhr+O+IpdCYkqnwjjrmG//M0kV8nFSZPuytWuwcPB9033A15HOUWslJyYuRzobfxUn2aFlPsFo4DhVM=
+X-Gm-Message-State: AOJu0Yyc1pL1mBrwyC/Kqwo1GxK4fK4reWsezqKTRHZ28oUzLHVBh0+r
+	mrmLtdPPkHnz1lEV95QxsaxTtLC4sPynnjufD6ljihvpYwVZlk6qEgnOJDGhxQ==
+X-Google-Smtp-Source: AGHT+IFf7w3BWNp+P9IhAYXBr2dnemB6ko9eDe+AUeiin2hJ95y8qgQpO+E+E8y/hcxw8WvaZbxl8Q==
+X-Received: by 2002:a2e:8086:0:b0:2eb:fc08:5d83 with SMTP id 38308e7fff4ca-2eeb31972f0mr11118281fa.44.1720509573070;
+        Tue, 09 Jul 2024 00:19:33 -0700 (PDT)
+Message-ID: <c2dbe72d-130e-4bdc-8331-d87ce1588a85@suse.com>
+Date: Tue, 9 Jul 2024 09:19:24 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH v4 05/14] x86: introduce using_{svm,vmx}() helpers
+Subject: Re: [XEN PATCH v4 06/14] x86/p2m: guard EPT functions with
+ using_vmx() check
 To: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+Cc: Xenia Ragiadakou <burzalodowa@gmail.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Stefano Stabellini <sstabellini@kernel.org>,
  Xenia Ragiadakou <xenia.ragiadakou@amd.com>, xen-devel@lists.xenproject.org
 References: <cover.1720501197.git.Sergiy_Kibrik@epam.com>
- <d730b06b851d5c502850509d4cf868ed618d10d8.1720501197.git.Sergiy_Kibrik@epam.com>
+ <d51ae897890ec01de70c44d15450e888f84d34c4.1720501197.git.Sergiy_Kibrik@epam.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -114,31 +116,41 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <d730b06b851d5c502850509d4cf868ed618d10d8.1720501197.git.Sergiy_Kibrik@epam.com>
+In-Reply-To: <d51ae897890ec01de70c44d15450e888f84d34c4.1720501197.git.Sergiy_Kibrik@epam.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 09.07.2024 07:54, Sergiy Kibrik wrote:
-> As we now have SVM/VMX config options for enabling/disabling these features
-> completely in the build, we need some build-time checks to ensure that vmx/svm
-> code can be used and things compile. Macros cpu_has_{svm,vmx} used to be doing
-> such checks at runtime, however they do not check if SVM/VMX support is
-> enabled in the build.
+On 09.07.2024 07:56, Sergiy Kibrik wrote:
+> From: Xenia Ragiadakou <burzalodowa@gmail.com>
 > 
-> Also cpu_has_{svm,vmx} can potentially be called from non-{VMX,SVM} build
-> yet running on {VMX,SVM}-enabled CPU, so would correctly indicate that VMX/SVM
-> is indeed supported by CPU, but code to drive it can't be used.
-> 
-> New routines using_{vmx,svm}() indicate that both CPU _and_ build provide
-> corresponding technology support, while cpu_has_{vmx,svm} still remains for
-> informational runtime purpose, just as their naming suggests.
-> 
-> These new helpers are used right away in several sites, namely guard calls to
-> start_nested_{svm,vmx} and start_{svm,vmx} to fix a build when VMX=n or SVM=n.
-> 
-> Signed-off-by: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
+> Replace cpu_has_vmx check with using_vmx(), so that we do check if functions
+> ept_p2m_init() and ept_p2m_uninit() can be called.
 
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
+I still find this an odd way of putting it. Source code ...
 
+> --- a/xen/arch/x86/mm/p2m-basic.c
+> +++ b/xen/arch/x86/mm/p2m-basic.c
+> @@ -40,7 +40,7 @@ static int p2m_initialise(struct domain *d, struct p2m_domain *p2m)
+>      p2m_pod_init(p2m);
+>      p2m_nestedp2m_init(p2m);
+>  
+> -    if ( hap_enabled(d) && cpu_has_vmx )
+> +    if ( hap_enabled(d) && using_vmx() )
+>          ret = ept_p2m_init(p2m);
+>      else
+>          p2m_pt_init(p2m);
+> @@ -72,7 +72,7 @@ struct p2m_domain *p2m_init_one(struct domain *d)
+>  void p2m_free_one(struct p2m_domain *p2m)
+>  {
+>      p2m_free_logdirty(p2m);
+> -    if ( hap_enabled(p2m->domain) && cpu_has_vmx )
+> +    if ( hap_enabled(p2m->domain) && using_vmx() )
+>          ept_p2m_uninit(p2m);
+>      free_cpumask_var(p2m->dirty_cpumask);
+>      xfree(p2m);
 
+... is very clear about them being called. What you're after is the compiler
+DCEing the calls in generated code.
+
+Jan
 
