@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5FE9892B0E2
-	for <lists+xen-devel@lfdr.de>; Tue,  9 Jul 2024 09:12:25 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.755898.1164414 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B0F9592B0E3
+	for <lists+xen-devel@lfdr.de>; Tue,  9 Jul 2024 09:13:22 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.755903.1164424 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sR51H-0007cE-Gq; Tue, 09 Jul 2024 07:12:11 +0000
+	id 1sR529-00089v-P6; Tue, 09 Jul 2024 07:13:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 755898.1164414; Tue, 09 Jul 2024 07:12:11 +0000
+Received: by outflank-mailman (output) from mailman id 755903.1164424; Tue, 09 Jul 2024 07:13:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sR51H-0007aP-E2; Tue, 09 Jul 2024 07:12:11 +0000
-Received: by outflank-mailman (input) for mailman id 755898;
- Tue, 09 Jul 2024 07:12:10 +0000
+	id 1sR529-00087h-MF; Tue, 09 Jul 2024 07:13:05 +0000
+Received: by outflank-mailman (input) for mailman id 755903;
+ Tue, 09 Jul 2024 07:13:04 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=uARp=OJ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sR51G-0007aJ-Dy
- for xen-devel@lists.xenproject.org; Tue, 09 Jul 2024 07:12:10 +0000
-Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
- [2a00:1450:4864:20::42f])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=/YBx=OJ=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1sR528-00083F-I0
+ for xen-devel@lists.xenproject.org; Tue, 09 Jul 2024 07:13:04 +0000
+Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
+ [2a00:1450:4864:20::42e])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 8db9c3c5-3dc2-11ef-8776-851b0ebba9a2;
- Tue, 09 Jul 2024 09:12:08 +0200 (CEST)
-Received: by mail-wr1-x42f.google.com with SMTP id
- ffacd0b85a97d-3678aa359b7so3588493f8f.1
- for <xen-devel@lists.xenproject.org>; Tue, 09 Jul 2024 00:12:08 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-2ca34e94493sm1137991a91.33.2024.07.09.00.12.03
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 09 Jul 2024 00:12:07 -0700 (PDT)
+ id ae0dda03-3dc2-11ef-8776-851b0ebba9a2;
+ Tue, 09 Jul 2024 09:13:02 +0200 (CEST)
+Received: by mail-wr1-x42e.google.com with SMTP id
+ ffacd0b85a97d-367a183df54so2943508f8f.2
+ for <xen-devel@lists.xenproject.org>; Tue, 09 Jul 2024 00:13:02 -0700 (PDT)
+Received: from localhost ([213.195.124.163]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-367cde89133sm1661554f8f.54.2024.07.09.00.13.01
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 09 Jul 2024 00:13:01 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,115 +44,172 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8db9c3c5-3dc2-11ef-8776-851b0ebba9a2
+X-Inumbo-ID: ae0dda03-3dc2-11ef-8776-851b0ebba9a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1720509128; x=1721113928; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=w7VhF5t5zSQZ3MxiMI90gy4vwELFzEWqV6BtXSXK6zo=;
-        b=VSgmgB/3V1aRnhoHg9+VnkZyRm5DHcVW9PCDo2w2ibbNEiPYxJkQQlxkaXXUe/tzst
-         iqOth90V4pySbwnBysrSV/eeus6K1U2Lk8vF9hv6+H4RZ16rAo8ALPB273wuwJmgQAis
-         yXgaCd55Xs6iWC1qHdxaoxRGJevjlEgczhrAGfCe2Nvb2f6dwXnq11Zfs60ERlo9T08c
-         eHFT17suvCXE8SFCO6Tutq3TGCG8kykQ0XxgDQzAzsFE5BcB0t+uisR8pLJhOPxN9IJs
-         lTrVV3RCyKw6A45BmTpxCitifE8BE5j2ls9MEhWlbLFUcPSqmgX05Z+E1MdQA/J/sc6P
-         4jHQ==
+        d=citrix.com; s=google; t=1720509182; x=1721113982; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=uvgNUAUrzsCYlo5sn05uFO2ZrXzH7/S2QV0Ym7DA/Hs=;
+        b=qSuPjFNs44wiPe3hSj9Br5hVJ/YymRCTHoBIw+m5UA539EMwnEH0CHEmMQIiOgyTdb
+         go+fED7Qi3vAW97LFiTVh4dXG9vzCzdgrWR2loUHdchSQlCrFLeiO3ePomYYEjHMNsZQ
+         jrSuVb7+ttPNJpL76hbRmwenyqwJa7k4l3nHo=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1720509128; x=1721113928;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=w7VhF5t5zSQZ3MxiMI90gy4vwELFzEWqV6BtXSXK6zo=;
-        b=CEePFpqMfzcw8eOI7W84r3Vwqxj9TPI3ySjzeFd87caMcXpMBJfwjeVpKVtYPt1O6Y
-         s/cXAQzmv6pVNJtFWgdPBpQJ0nTz96o0zK0LqjPB8T7VJcGAlv3F4Ug5aYm/1Rwyot9T
-         fso4SPGO+BNYxBICyxVPhJpUkcVPCR0hbyrxuT14EuuNzydJSf3ZgT8s77T97D4HLJ3j
-         boU40X9MGBk0JDcxtPu143NLg9OxNyF/hLFpYyGFQQztO0teFoFV3RrcgNX24j+jXqiW
-         1JF7i6mqR5dB8/Rbl2WTgZ1Aamkt7yJA7lNBer679k5AAdSZK35oY5dSC5zbYhVVvErz
-         7K0g==
-X-Forwarded-Encrypted: i=1; AJvYcCVKUh+npwi4xv61teztVbtSlGYjcv3NKaj2SVa8SU3u6rIgPG07ohrVQVPkk871+Ma+Ae6LMP6KOHEeF+1rnEmUj9NKA+/HZbV1ArHAvOc=
-X-Gm-Message-State: AOJu0YwWfabJQOnUTZk+/spTvM2Q8hVp3JmUsIgjHDV51B+CxOwaMqVB
-	Nkz5YUghsfW1cD1RKQSP+Ic8TrAezr/Np6aWiAy3mCVpCz5iPOEECZ028l3X2A==
-X-Google-Smtp-Source: AGHT+IGLl6qCmRyuJ2U5Gl7CXq1eDR5nrMzz7WJs5rNR4Tfg4rd+u50KKWtH/PEdsPmq2iNKPJGprA==
-X-Received: by 2002:a5d:548b:0:b0:362:23d5:3928 with SMTP id ffacd0b85a97d-367d2b534c3mr1072182f8f.17.1720509127787;
-        Tue, 09 Jul 2024 00:12:07 -0700 (PDT)
-Message-ID: <1d3476db-019f-4e5e-ad5f-381fe1e5b1c6@suse.com>
-Date: Tue, 9 Jul 2024 09:11:59 +0200
+        d=1e100.net; s=20230601; t=1720509182; x=1721113982;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=uvgNUAUrzsCYlo5sn05uFO2ZrXzH7/S2QV0Ym7DA/Hs=;
+        b=tNH04E2ZJ+i7Bl0WV/2UuJBvOmz47pERExagnWYs8OOuTjC0I1nj/7xiLA9EVYyaCB
+         uuDdCPwsHdZpwEPLmMbgxM4q5J6te2dL/GS7vRAzcodJe97PlDqSyTAESJw3R584Kd1S
+         9BCUx9TbdXMlP5YC1eh89X8uwLxX5Sx1v1OepmaSeEJH3st9mu7CSQSKphlMDPxmiUI2
+         llD+TdvUnRMyxJtGQGLPlK4BwsYx4kkHuMjBm9gOQJysNboKFuRQPGFNGNki+f5OHnae
+         8x2vgKQxlgo5Q3JRnvBLOoWuX+w+/ZjNApGVdrFfR1Nvrl95m9hF8rFo+QDn8TdfRXbk
+         z7tQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWkIQBNIcpMRzqvSkwyJTzHG1EN++b2H/JnB1OgJ1zzVhaSBsb+Z0jXGcQ1CK4czEkqoVY4I5wQIxZMReACvzphK7C8KUFB9pScmLz9JE4=
+X-Gm-Message-State: AOJu0YzLLPa3tCuB5/dTeCGuhJ67aXApJi6uROrnsTvHAci19HXzlnrC
+	X9ay2Iu5+MqeJSdcOiWOdZvv0Nx22QRt6ym6K76zdNSXpz0w7IKOCGG1//yEKPQ=
+X-Google-Smtp-Source: AGHT+IFghBQdqK8rcUi2fvUsO9ChDjcJNgijMvLFBPMVg2HVY8nnM0KMc5Z6S8qim35qicO93tAk+g==
+X-Received: by 2002:adf:ef01:0:b0:367:979c:bedb with SMTP id ffacd0b85a97d-367cea7352amr1140495f8f.23.1720509181820;
+        Tue, 09 Jul 2024 00:13:01 -0700 (PDT)
+Date: Tue, 9 Jul 2024 09:13:00 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Jason Andryuk <jason.andryuk@amd.com>,
+	=?utf-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>,
+	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Subject: Re: Problems in PV dom0 on recent x86 hardware
+Message-ID: <Zozi_ExY_JjnjvRZ@macbook.local>
+References: <baade0a7-e204-4743-bda1-282df74e5f89@suse.com>
+ <d379a900-fd1c-42ca-bc31-071f7fd80d0b@suse.com>
+ <ZousjqOAFJgO6681@macbook.local>
+ <6101999a-6f88-46cb-b850-af43b364f299@suse.com>
+ <7a0a8b1c-69e0-435d-b4f4-7a9d784eab29@amd.com>
+ <1f96a355-b0d2-4cc9-a2ae-6d3ab750136d@suse.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH v4 01/14] x86: introduce AMD-V and Intel VT-x Kconfig
- options
-To: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
-Cc: Xenia Ragiadakou <burzalodowa@gmail.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Xenia Ragiadakou <xenia.ragiadakou@amd.com>, xen-devel@lists.xenproject.org
-References: <cover.1720501197.git.Sergiy_Kibrik@epam.com>
- <f6bfed3cd9e9fff25cbe0c5e16d8d88541be212f.1720501197.git.Sergiy_Kibrik@epam.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <f6bfed3cd9e9fff25cbe0c5e16d8d88541be212f.1720501197.git.Sergiy_Kibrik@epam.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <1f96a355-b0d2-4cc9-a2ae-6d3ab750136d@suse.com>
 
-On 09.07.2024 07:45, Sergiy Kibrik wrote:
-> From: Xenia Ragiadakou <burzalodowa@gmail.com>
+On Tue, Jul 09, 2024 at 08:24:20AM +0200, Jan Beulich wrote:
+> On 08.07.2024 23:30, Jason Andryuk wrote:
+> > On 2024-07-08 05:12, Jan Beulich wrote:
+> >> On 08.07.2024 11:08, Roger Pau Monné wrote:
+> >>> On Mon, Jul 08, 2024 at 10:37:22AM +0200, Jan Beulich wrote:
+> >>>> On 08.07.2024 10:15, Jürgen Groß wrote:
+> >>>>> I've got an internal report about failures in dom0 when booting with
+> >>>>> Xen on a Thinkpad P14s Gen 3 AMD (kernel 6.9).
+> >>>>>
+> >>>>> With some debugging I've found that the UCSI driver seems to fail to
+> >>>>> map MFN feec2 as iomem, as the hypervisor is denying this mapping due
+> >>>>> to being part of the MSI space. The mapping attempt seems to be the
+> >>>>> result of an ACPI call of the UCSI driver:
+> >>>>>
+> >>>>> [   44.575345] RIP: e030:xen_mc_flush+0x1e8/0x2b0
+> >>>>> [   44.575418]  xen_leave_lazy_mmu+0x15/0x60
+> >>>>> [   44.575425]  vmap_range_noflush+0x408/0x6f0
+> >>>>> [   44.575438]  __ioremap_caller+0x20d/0x350
+> >>>>> [   44.575450]  acpi_os_map_iomem+0x1a3/0x1c0
+> >>>>> [   44.575454]  acpi_ex_system_memory_space_handler+0x229/0x3f0
+> >>>>> [   44.575464]  acpi_ev_address_space_dispatch+0x17e/0x4c0
+> >>>>> [   44.575474]  acpi_ex_access_region+0x28a/0x510
+> >>>>> [   44.575479]  acpi_ex_field_datum_io+0x95/0x5c0
+> >>>>> [   44.575482]  acpi_ex_extract_from_field+0x36b/0x4e0
+> >>>>> [   44.575490]  acpi_ex_read_data_from_field+0xcb/0x430
+> >>>>> [   44.575493]  acpi_ex_resolve_node_to_value+0x2e0/0x530
+> >>>>> [   44.575496]  acpi_ex_resolve_to_value+0x1e7/0x550
+> >>>>> [   44.575499]  acpi_ds_evaluate_name_path+0x107/0x170
+> >>>>> [   44.575505]  acpi_ds_exec_end_op+0x392/0x860
+> >>>>> [   44.575508]  acpi_ps_parse_loop+0x268/0xa30
+> >>>>> [   44.575515]  acpi_ps_parse_aml+0x221/0x5e0
+> >>>>> [   44.575518]  acpi_ps_execute_method+0x171/0x3e0
+> >>>>> [   44.575522]  acpi_ns_evaluate+0x174/0x5d0
+> >>>>> [   44.575525]  acpi_evaluate_object+0x167/0x440
+> >>>>> [   44.575529]  acpi_evaluate_dsm+0xb6/0x130
+> >>>>> [   44.575541]  ucsi_acpi_dsm+0x53/0x80
+> >>>>> [   44.575546]  ucsi_acpi_read+0x2e/0x60
+> >>>>> [   44.575550]  ucsi_register+0x24/0xa0
+> >>>>> [   44.575555]  ucsi_acpi_probe+0x162/0x1e3
+> >>>>> [   44.575559]  platform_probe+0x48/0x90
+> >>>>> [   44.575567]  really_probe+0xde/0x340
+> >>>>> [   44.575579]  __driver_probe_device+0x78/0x110
+> >>>>> [   44.575581]  driver_probe_device+0x1f/0x90
+> >>>>> [   44.575584]  __driver_attach+0xd2/0x1c0
+> >>>>> [   44.575587]  bus_for_each_dev+0x77/0xc0
+> >>>>> [   44.575590]  bus_add_driver+0x112/0x1f0
+> >>>>> [   44.575593]  driver_register+0x72/0xd0
+> >>>>> [   44.575600]  do_one_initcall+0x48/0x300
+> >>>>> [   44.575607]  do_init_module+0x60/0x220
+> >>>>> [   44.575615]  __do_sys_init_module+0x17f/0x1b0
+> >>>>> [   44.575623]  do_syscall_64+0x82/0x170
+> >>>>> [   44.575685] 1 of 1 multicall(s) failed: cpu 4
+> >>>>> [   44.575695]   call  1: op=1 result=-1 caller=xen_extend_mmu_update+0x4e/0xd0
+> >>>>> pars=ffff888267e25ad0 1 0 7ff0 args=9ba37a678 80000000feec2073
+> >>>>>
+> >>>>> The pte value of the mmu_update call is 80000000feec2073, which is rejected by
+> >>>>> the hypervisor with -EPERM.
+> >>>>>
+> >>>>> Before diving deep into the UCSI internals, is it possible that the hypervisor
+> >>>>> needs some update (IOW: could it be the mapping attempt should rather be
+> >>>>> honored, as there might be an I/O resources at this position which dom0 needs
+> >>>>> to access for using the related hardware?)
+> >>>>
+> >>>> Adding to Andrew's reply: Is there any BAR in the system covering that address?
+> >>>> Or is it rather ACPI "making up" that address (which would remind me of IO-APIC
+> >>>> space being accessed by certain incarnations of ACPI, resulting in similar
+> >>>> issues)?
+> >>>
+> >>> So you think ACPI is using some kind of backdoor to access the local
+> >>> APIC registers?
+> >>
+> >> No, I'm wondering if they're trying to access *something*. As it stands we
+> >> don't even know what kind of access is intended; all we know is that they're
+> >> trying to map that page (and maybe adjacent ones).
+> > 
+> >  From the backtrace, it looks like the immediate case is just trying to 
+> > read a 4-byte version:
+> > 
+> >  >>>> [   44.575541]  ucsi_acpi_dsm+0x53/0x80
+> >  >>>> [   44.575546]  ucsi_acpi_read+0x2e/0x60
+> >  >>>> [   44.575550]  ucsi_register+0x24/0xa0
+> >  >>>> [   44.575555]  ucsi_acpi_probe+0x162/0x1e3
+> > 
+> > int ucsi_register(struct ucsi *ucsi)
+> > {
+> >          int ret;
+> > 
+> >          ret = ucsi->ops->read(ucsi, UCSI_VERSION, &ucsi->version,
+> >                                sizeof(ucsi->version));
+> > 
+> > ->read being ucsi_acpi_read()
+> > 
+> > However, the driver also appears write to adjacent addresses.
 > 
-> Introduce two new Kconfig options, SVM and VMX, to allow code
-> specific to each virtualization technology to be separated and, when not
-> required, stripped.
-> CONFIG_SVM will be used to enable virtual machine extensions on platforms that
-> implement the AMD Virtualization Technology (AMD-V).
-> CONFIG_VMX will be used to enable virtual machine extensions on platforms that
-> implement the Intel Virtualization Technology (Intel VT-x).
+> There are also corresponding write functions in the driver, yes, but
+> ucsi_acpi_async_write() (used directly or indirectly) similarly calls
+> ucsi_acpi_dsm(), which wires through to acpi_evaluate_dsm(). That's
+> ACPI object evaluation, which isn't obvious without seeing the
+> involved AML whether it might write said memory region. The writing
+> done in the write function(s) looks to be
 > 
-> Both features depend on HVM support.
+> 	memcpy(ua->base + offset, val, val_len);
 > 
-> Since, at this point, disabling any of them would cause Xen to not compile,
-> the options are enabled by default if HVM and are not selectable by the user.
+> with their read counterpart being
 > 
-> No functional change intended.
+> 	memcpy(val, ua->base + offset, val_len);
 > 
-> Signed-off-by: Xenia Ragiadakou <burzalodowa@gmail.com>
-> Signed-off-by: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
-> ---
-> changes in v3:
->  - tag added
+> where ua->base may well be an entirely different address (looks like
+> it's the first of the BARs as per ucsi_acpi_probe()).
+> 
+> If acpi_evaluate_dsm() would only ever read the region, an option (if
+> all else fails) might be to similarly (to what we do for IO-APICs)
+> permit read accesses / mappings (by inserting the range into
+> mmio_ro_ranges). Yet of course first we need to better understand
+> what's actually going on here.
 
-And then removed again in v4? My prior ack stands, but - as before - conditional
-upon us being certain that we want to go with the ambiguous ...
+When accessing from the CPU, what's in this range apart from the first
+page (0xfee00) being the APIC MMIO window in xAPIC mode?
 
-> changes in v2:
->  - simplify kconfig expression to def_bool HVM
->  - keep file list in Makefile in alphabetical order
-> changes in v1:
->  - change kconfig option name AMD_SVM/INTEL_VMX -> SVM/VMX
-
-... result of this change (firmly ambiguous for SVM, latently for VMX).
-
-Jan
+Regards, Roger.
 
