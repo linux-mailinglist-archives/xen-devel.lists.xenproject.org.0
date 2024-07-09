@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3AB4992BBD9
-	for <lists+xen-devel@lfdr.de>; Tue,  9 Jul 2024 15:50:47 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.756295.1164855 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 350CD92BC08
+	for <lists+xen-devel@lfdr.de>; Tue,  9 Jul 2024 15:53:56 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.756303.1164865 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sRBEO-0005xH-O7; Tue, 09 Jul 2024 13:50:08 +0000
+	id 1sRBHq-0006az-9V; Tue, 09 Jul 2024 13:53:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 756295.1164855; Tue, 09 Jul 2024 13:50:08 +0000
+Received: by outflank-mailman (output) from mailman id 756303.1164865; Tue, 09 Jul 2024 13:53:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sRBEO-0005v6-KW; Tue, 09 Jul 2024 13:50:08 +0000
-Received: by outflank-mailman (input) for mailman id 756295;
- Tue, 09 Jul 2024 13:50:06 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1sRBHq-0006ZU-5o; Tue, 09 Jul 2024 13:53:42 +0000
+Received: by outflank-mailman (input) for mailman id 756303;
+ Tue, 09 Jul 2024 13:53:41 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=cUMd=OJ=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1sRBEM-0005sR-CC
- for xen-devel@lists.xenproject.org; Tue, 09 Jul 2024 13:50:06 +0000
-Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
- [2a00:1450:4864:20::635])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 24ea687e-3dfa-11ef-8776-851b0ebba9a2;
- Tue, 09 Jul 2024 15:50:04 +0200 (CEST)
-Received: by mail-ej1-x635.google.com with SMTP id
- a640c23a62f3a-a77c25beae1so548361666b.2
- for <xen-devel@lists.xenproject.org>; Tue, 09 Jul 2024 06:50:04 -0700 (PDT)
+ id 1sRBHp-0006ZO-91
+ for xen-devel@lists.xenproject.org; Tue, 09 Jul 2024 13:53:41 +0000
+Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
+ [2a00:1450:4864:20::62b])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id a5ba6548-3dfa-11ef-bbfb-fd08da9f4363;
+ Tue, 09 Jul 2024 15:53:40 +0200 (CEST)
+Received: by mail-ej1-x62b.google.com with SMTP id
+ a640c23a62f3a-a77d85f7fa3so593597666b.0
+ for <xen-devel@lists.xenproject.org>; Tue, 09 Jul 2024 06:53:40 -0700 (PDT)
 Received: from [10.125.226.166] ([185.25.67.249])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a780a6e058esm79719566b.88.2024.07.09.06.50.00
+ a640c23a62f3a-a780a871f2fsm78517966b.202.2024.07.09.06.53.36
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 09 Jul 2024 06:50:00 -0700 (PDT)
+ Tue, 09 Jul 2024 06:53:36 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,45 +45,47 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 24ea687e-3dfa-11ef-8776-851b0ebba9a2
+X-Inumbo-ID: a5ba6548-3dfa-11ef-bbfb-fd08da9f4363
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1720533001; x=1721137801; darn=lists.xenproject.org;
-        h=content-transfer-encoding:autocrypt:subject:from:cc:to
-         :content-language:user-agent:mime-version:date:message-id:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=xpx6L+QT74SUTADoSZM5ZEX2SzQOE8dqA+BPYdgsUW0=;
-        b=hP1nySedWS7LE/NHWqQUIf/LbIocphJhyBDfgytP+u3pLs/i0oz8H+R0WVgOkon3V9
-         /dLyXfEZuw66hMYBGRD3XX3MUAZHk172YBMjf/AoJV0VYLbtKWB/l9WTOXbnppGUOvGT
-         SXeuJU2ATWmpg6KXSyoRlegFlvlqGkDTQ4T6w=
+        d=citrix.com; s=google; t=1720533218; x=1721138018; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=7dwwlRXl0cvTZL1YuMHfrHnXplLvHYfBLjFy+BKMfGE=;
+        b=vWGGzWvP94dRjGZdHzpWuboICPbsc+9jcf18ZiBZ6hSPEKX5Xrx1jSiob7eAgnto1+
+         veIwXZKfSuhdZvwdAO/HY5YrM2WAH4nl/otd8z+FmeXA5oDNxmeIrX6w0Xyr8Iy+whuV
+         s6U3qeWh5tJaJx7n/hkSoZYdfbhr+Pl13+d44=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1720533001; x=1721137801;
-        h=content-transfer-encoding:autocrypt:subject:from:cc:to
-         :content-language:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=xpx6L+QT74SUTADoSZM5ZEX2SzQOE8dqA+BPYdgsUW0=;
-        b=Osjm+3CPhUhOOQXM7ClC/DTsvmAU7lp42TPjLvXXFLTCcqZ+5AZiunNG5qktqd09IV
-         E9BvDmnc+b8OnFKkH11Y2EaJfoBURZN6/jkTr0BMCKUAIjsQQ5a1UxfjVRRBIp2ZApXI
-         fQYmwYGQpZJLHA9rgwidWDPHqdHxw8CA+hG5/dyDVOMftCpX/iRnC0G6Q0j0IjSGQys7
-         Tj2aPVEI4qGtXvGnyVM4rRWCaJ0n7YnKFK5esLFyHuBX50VXEc9I2/XwJrNekG1Ln7Jv
-         KOU2rQHnl0cV7ayWiJoEGrAoEwGWMUQgcpXCn1VjWHx/gARSyXyzDProLZD7tbAX6evs
-         8ghg==
-X-Gm-Message-State: AOJu0YyMNH9zPgzmtgk5frXpmudjIk7qGIPf8ejKeErdtIRYwJHugPcI
-	I5pUgdXqat9WgRVh39JcCYoxiCwDXZKKddGKQvLh9sdK9F0Q/bbkunBkP5nGB5m2ElKCViTI0TQ
-	t
-X-Google-Smtp-Source: AGHT+IF39RC5wH16GFysr3EfMM15BSVUwBEU8a8u7gRiwNJIILzmaSOqYlss0AdaCxM+fHKfuSxm/g==
-X-Received: by 2002:a17:906:e8c:b0:a77:da14:83fe with SMTP id a640c23a62f3a-a780b89c995mr144075166b.64.1720533001358;
-        Tue, 09 Jul 2024 06:50:01 -0700 (PDT)
-Message-ID: <44679adf-e657-4d38-b1e3-2bebb34f57a0@citrix.com>
-Date: Tue, 9 Jul 2024 14:49:57 +0100
+        d=1e100.net; s=20230601; t=1720533218; x=1721138018;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=7dwwlRXl0cvTZL1YuMHfrHnXplLvHYfBLjFy+BKMfGE=;
+        b=ChD86NBlek0tzip4Fvsa5RNPBpAjXsEDDzsKBQ/w3z8c1XWMpvLskynPKei6c1qmRx
+         g1EWx8ugxGFzXuj2CNxTL9arcsej3EyO4AyfxRjrnNsWPgFpF4rUC1M35+ZSa4VymNGT
+         l6Tur1ZjrNeARNTX+8ArehO6g2JhinG4hgIhfq/Vsegub6msc2Ffb2Yequj+0OtRFp4+
+         Wn98tEkV+4/mv1Ih5A6FlTaM7bwlGoffZpVeO/Df+sE7C4W8KQnetZhSxyhl06xpGQYB
+         eIL603QoHFSFHmtk4FbWvBybiXXzG4PmdrH/LIOL4R1bAwwk1KiiJGfkTHRD2DTD/e1c
+         TEUg==
+X-Gm-Message-State: AOJu0Yx6CLUir4V3cdtgak0li1DONkp899QdMuEiaT6R9dAd605cEWF2
+	6m/yurXOs87wgPhyKINdobdrXxAABjChHtChbgAMrgWUkkrTvFioK3CZe4DIdyJA4P6luMDPlcs
+	E
+X-Google-Smtp-Source: AGHT+IFHsVuIAjNQqVJGue3GE09l8z/EPmOE/RAy+8A1lBkRKR6UUVNs1gw1zDTm2s38a1AMteOboA==
+X-Received: by 2002:a17:907:d94:b0:a77:e6dd:7f35 with SMTP id a640c23a62f3a-a780d22e38bmr228179966b.13.1720533218114;
+        Tue, 09 Jul 2024 06:53:38 -0700 (PDT)
+Message-ID: <594eaeab-20d4-4531-a0e2-3e5b317dc21d@citrix.com>
+Date: Tue, 9 Jul 2024 14:53:34 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Content-Language: en-GB
+Subject: Re: Build system mess in stubdom
+From: Andrew Cooper <andrew.cooper3@citrix.com>
 To: xen-devel <xen-devel@lists.xenproject.org>
 Cc: Jan Beulich <jbeulich@suse.com>,
  Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Anthony PERARD <anthony.perard@citrix.com>, Juergen Gross <jgross@suse.com>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Subject: Build system mess in stubdom
+ Juergen Gross <jgross@suse.com>, Anthony PERARD <anthony.perard@vates.tech>
+References: <44679adf-e657-4d38-b1e3-2bebb34f57a0@citrix.com>
+Content-Language: en-GB
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  xsFNBFLhNn8BEADVhE+Hb8i0GV6mihnnr/uiQQdPF8kUoFzCOPXkf7jQ5sLYeJa0cQi6Penp
  VtiFYznTairnVsN5J+ujSTIb+OlMSJUWV4opS7WVNnxHbFTPYZVQ3erv7NKc2iVizCRZ2Kxn
@@ -127,59 +129,65 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
+In-Reply-To: <44679adf-e657-4d38-b1e3-2bebb34f57a0@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Hello,
-
-I'm trying to investigate why stubdom/ is fatally failing now with a
-rebuilt ArchLinux container (GCC 14).
-
-It is ultimately:
-
-> ../../../../../newlib-1.16.0/newlib/libc/reent/signalr.c:61:14: error:
-> implicit declaration of function ‘kill’; did you mean ‘_kill’?
-> [-Wimplicit-function-declaration]
->    61 |   if ((ret = _kill (pid, sig)) == -1 && errno != 0)
->       |              ^~~~~
-> make[7]: *** [Makefile:483: lib_a-signalr.o] Error 1
-
-which doesn't make sense, but is a consequence of the ifdefary in
-newlib/libc/include/_syslist.h
-
-However, we've got problems ahead of that.
-
-First of all, with:
-
-[user@89aef714763e build]$ ./configure --disable-xen --disable-tools
---disable-docs
-<snip>
-Will build the following stub domains:
-  xenstore-stubdom
-  xenstorepvh-stubdom
-configure: creating ./config.status
-config.status: creating ../config/Stubdom.mk
-
-both a top level `make` and `make stubdom` end up building all of tools,
-contrary to comments in the makefile.
-
-`make build-stubdom` does (AFAICT) only build stubdom.
-
-However, building just the xenstore stubdoms recursively builds all of
-tools/libs/ even though only some are needed.  This includes libxl which
-then recurses further to get tools/libacpi, and libxenguest which
-recurses further to get libelf from Xen.
-
-What I can't figure out is why xenstore ends up pulling in all of newlib.
-
-Semi-irrespective, there's no way we can keep on bodging newlib to
-compile with newer compilers.  There's a whole bunch of other warnings
-(strict-prototypes, dangling-else, maybe-uninitialized, unused-function,
-pointer-sign, unused-variable) primed ready to cause breakage in any
-environment which makes these error by default.
-
-I'm going to be making ArchLinux non-blocking because it is a rolling
-distro, but we also can't do nothing here.
+[Correct Anthony's email]
 
 ~Andrew
+
+On 09/07/2024 2:49 pm, Andrew Cooper wrote:
+> Hello,
+>
+> I'm trying to investigate why stubdom/ is fatally failing now with a
+> rebuilt ArchLinux container (GCC 14).
+>
+> It is ultimately:
+>
+>> ../../../../../newlib-1.16.0/newlib/libc/reent/signalr.c:61:14: error:
+>> implicit declaration of function ‘kill’; did you mean ‘_kill’?
+>> [-Wimplicit-function-declaration]
+>>    61 |   if ((ret = _kill (pid, sig)) == -1 && errno != 0)
+>>       |              ^~~~~
+>> make[7]: *** [Makefile:483: lib_a-signalr.o] Error 1
+> which doesn't make sense, but is a consequence of the ifdefary in
+> newlib/libc/include/_syslist.h
+>
+> However, we've got problems ahead of that.
+>
+> First of all, with:
+>
+> [user@89aef714763e build]$ ./configure --disable-xen --disable-tools
+> --disable-docs
+> <snip>
+> Will build the following stub domains:
+>   xenstore-stubdom
+>   xenstorepvh-stubdom
+> configure: creating ./config.status
+> config.status: creating ../config/Stubdom.mk
+>
+> both a top level `make` and `make stubdom` end up building all of tools,
+> contrary to comments in the makefile.
+>
+> `make build-stubdom` does (AFAICT) only build stubdom.
+>
+> However, building just the xenstore stubdoms recursively builds all of
+> tools/libs/ even though only some are needed.  This includes libxl which
+> then recurses further to get tools/libacpi, and libxenguest which
+> recurses further to get libelf from Xen.
+>
+> What I can't figure out is why xenstore ends up pulling in all of newlib.
+>
+> Semi-irrespective, there's no way we can keep on bodging newlib to
+> compile with newer compilers.  There's a whole bunch of other warnings
+> (strict-prototypes, dangling-else, maybe-uninitialized, unused-function,
+> pointer-sign, unused-variable) primed ready to cause breakage in any
+> environment which makes these error by default.
+>
+> I'm going to be making ArchLinux non-blocking because it is a rolling
+> distro, but we also can't do nothing here.
+>
+> ~Andrew
+
 
