@@ -2,32 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1BD2D92B3F5
-	for <lists+xen-devel@lfdr.de>; Tue,  9 Jul 2024 11:36:17 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.756014.1164564 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D178B92B400
+	for <lists+xen-devel@lfdr.de>; Tue,  9 Jul 2024 11:37:53 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.756021.1164574 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sR7GE-0000yN-JD; Tue, 09 Jul 2024 09:35:46 +0000
+	id 1sR7Hc-0001jl-S9; Tue, 09 Jul 2024 09:37:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 756014.1164564; Tue, 09 Jul 2024 09:35:46 +0000
+Received: by outflank-mailman (output) from mailman id 756021.1164574; Tue, 09 Jul 2024 09:37:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sR7GE-0000w2-Gc; Tue, 09 Jul 2024 09:35:46 +0000
-Received: by outflank-mailman (input) for mailman id 756014;
- Tue, 09 Jul 2024 09:35:45 +0000
+	id 1sR7Hc-0001i3-PX; Tue, 09 Jul 2024 09:37:12 +0000
+Received: by outflank-mailman (input) for mailman id 756021;
+ Tue, 09 Jul 2024 09:37:11 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=/VCn=OJ=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
- id 1sR7GD-0000vw-K6
- for xen-devel@lists.xenproject.org; Tue, 09 Jul 2024 09:35:45 +0000
-Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=7TZB=OJ=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1sR7Hb-0001gl-GL
+ for xen-devel@lists.xenproject.org; Tue, 09 Jul 2024 09:37:11 +0000
+Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
+ [2a00:1450:4864:20::629])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 9ca0f651-3dd6-11ef-8776-851b0ebba9a2;
- Tue, 09 Jul 2024 11:35:43 +0200 (CEST)
-Received: from nico.bugseng.com (unknown [46.228.253.214])
- by support.bugseng.com (Postfix) with ESMTPSA id 3B49C4EE0742;
- Tue,  9 Jul 2024 11:35:41 +0200 (CEST)
+ id cff29d7e-3dd6-11ef-8776-851b0ebba9a2;
+ Tue, 09 Jul 2024 11:37:09 +0200 (CEST)
+Received: by mail-ej1-x629.google.com with SMTP id
+ a640c23a62f3a-a77c9c5d68bso461054966b.2
+ for <xen-devel@lists.xenproject.org>; Tue, 09 Jul 2024 02:37:09 -0700 (PDT)
+Received: from ?IPV6:2003:e5:8729:4000:29eb:6d9d:3214:39d2?
+ (p200300e58729400029eb6d9d321439d2.dip0.t-ipconnect.de.
+ [2003:e5:8729:4000:29eb:6d9d:3214:39d2])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a780a856214sm62769266b.178.2024.07.09.02.37.08
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 09 Jul 2024 02:37:08 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,157 +47,111 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9ca0f651-3dd6-11ef-8776-851b0ebba9a2
-From: Nicola Vetrini <nicola.vetrini@bugseng.com>
-To: xen-devel@lists.xenproject.org
-Cc: sstabellini@kernel.org,
-	michal.orzel@amd.com,
-	xenia.ragiadakou@amd.com,
-	ayan.kumar.halder@amd.com,
-	consulting@bugseng.com,
-	Nicola Vetrini <nicola.vetrini@bugseng.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>,
-	Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Subject: [XEN PATCH for-4.19] xen/bitmap: amend MISRA C deviation for Rule 20.7
-Date: Tue,  9 Jul 2024 11:34:20 +0200
-Message-Id: <794724e70c4e45224916576af01070e8aebe9aab.1720517398.git.nicola.vetrini@bugseng.com>
-X-Mailer: git-send-email 2.34.1
+X-Inumbo-ID: cff29d7e-3dd6-11ef-8776-851b0ebba9a2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1720517829; x=1721122629; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:to:subject:user-agent:mime-version:date:message-id:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=Q9jVKtxYal/pEfgfae25sYtZwucxvOrzUJXxQY0LCeY=;
+        b=dD6Evt+yWrg5Iy9qXFf2yHWBG9VlkrVatw1jWPKcztPXy7vkOLjh1ml17hChcl7YYh
+         V2+k1oc3bmE/L0J0DVYnhCZYAGVjeXKAUBjfAAy6wA6KFog+o1ZFDgPxgY22EYZXMY2D
+         THDMwqxSQR4q5qWpeq8S5KyVBcWtioc1TVpkeqHimhZIIkoZb3swA6HuAtP8r4/yGIZ0
+         +ex499wcGDBor1F/l803T4MmPxv1EaLdgnqTDPgDi7THl5xqqNM7vYKXVh+j3BHp/mRV
+         Zn1j+uQCVPPvU7cwyYHOQsrx5oMKh3X9HQD6WQNu8VFbMmiRvo0g+6bvY8KVLDgIkT75
+         GSsA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1720517829; x=1721122629;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=Q9jVKtxYal/pEfgfae25sYtZwucxvOrzUJXxQY0LCeY=;
+        b=MAWAYZPIa4DFE/ToYYkEk2JvtNzh6Zzeul2LbXirrB78nP7pwzCCajxKZtzxP1rBFI
+         Np6IRawbJQh9sGupSyT306BMe79LLRN2YR6aj5Zxu5COrK4XYca8SfwsObK4wIvGsxYo
+         T0e192/Vx6UKpSt7nfqoqNPPiCf00zMj4QOCE7wLZS9Feci5x25Ktb6F6MGb8C3obmdJ
+         ed/rrdi0PZH82Ukm9R4qQgzf3P6VBdlF+vhTQSRD4fdIkJ5BuOEcfNu1NlMWePSVO3YV
+         JOrZtk3y+jyyyMTcxH8Im8yCENjPE/+zd7LMZE/8IHuptsJJevEFn5i94HhozlwBnWmc
+         JdUw==
+X-Forwarded-Encrypted: i=1; AJvYcCWBaly2GcTXOpQiyPaVHhIhpswMpP1hyrBhuXsbmyz4+40TB2GbvcT14afajJseY9U/15tviaZYdmHoxsLsCKjBvDR7YwHiuxm2nBMj3gU=
+X-Gm-Message-State: AOJu0Yzc9nDnCKJtH9JHOdtxmIlyidc/Z3OMtj2nnMax9HQCOE7nORKg
+	mfNriQUl9Pzf2tRtPf630abKAKsKP8+elsXmL/g6/6MfsN4cdsjqnbme/2zGqdk=
+X-Google-Smtp-Source: AGHT+IG7KL+Jdzf18uMETDY/HtJzPsIQ6hH8eMakDFIVjeCorWRU3SEuPoKc+yRTey7pie2uEX80+g==
+X-Received: by 2002:a17:906:c154:b0:a6f:dc17:500a with SMTP id a640c23a62f3a-a780b6b3a86mr171507366b.23.1720517828785;
+        Tue, 09 Jul 2024 02:37:08 -0700 (PDT)
+Message-ID: <352bba40-27fc-416b-985f-20e66c0c4b72@suse.com>
+Date: Tue, 9 Jul 2024 11:37:07 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: AMD EPYC virtual network performances
+To: Andrei Semenov <andrei.semenov@vates.tech>,
+ xen-devel@lists.xenproject.org, Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+References: <959bbf84-24da-4da3-a059-dc1aa32b27ef@vates.tech>
+Content-Language: en-US
+From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+In-Reply-To: <959bbf84-24da-4da3-a059-dc1aa32b27ef@vates.tech>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-As noticed in the gitlab analyses, deviating bitmap_switch
-for Rule 20.7 in this way does not work for ECLAIR.
+On 09.07.24 10:36, Andrei Semenov wrote:
+> Hello,
+> 
+> As been reported by David Morel (mail 4 Jan 2024), our customers experience a
+> very poor virtual network performances in HVM guests on AMD EPYC platforms.
+> 
+> After some investigations we notices a huge performances drop (perfs divided by
+> factor of 5) starting from 5.10.88 Linux kernel version on the AMD EPYC
+> platforms. The patch introduced in this kernel version that allows to pinpoint
+> the buggy behavior is :
+> 
+>   “xen/netfront: harden netfront against event channel storms”
+> d31b3379179d64724d3bbfa87bd4ada94e3237de
+> 
+> The patch basically binds the network frontend to the `xen_lateeoi_chip`
+> irq_chip (insead of `xen_dynamic_chip`) which allows to its clients to inform
+> the chip if spurious interrupts are detected and so the delay in interrupt
+> treatment is introduced by the chip.
+> 
+> We tried to measure how much spurious interrupts (no work to do by the driver)
+> are raised. We used `iperf2` to bench the network bandwidth on the AMD EPYC 7262
+> 8-core).
+> 
+> Dom0 > iperf -s
+> 
+> DomU> iperf -c $DOM0_IP_ADDRESS
+> 
+> It appears from our observations that we have approximatively 1 spurious
+> interrupt for 1 “useful” interrupt (frontend TX interrupts) for HVM guests.
+> 
+> We run the same bench on the same platform with PV and PVH and the interrupts
+> spurious/useful ratio was quite lower: 1 to 20 (so the network performances are
+> much better).
+> 
+> We also run this bench on the Intel platform (Intel Xeon Bronze 3106 CPU). The
+> interrupts spurious/useful ratio was about 1 to 30 for HVM guests.
+> 
+> So this make us think that this buggy behavior is related to abnormal amount of
+> spurious interrupts. This spurious/useful interrupts ratio is particularly
+> elevated in HVM guests on AMD platforms, so virtual network bandwidth is heavily
+> penalized – in our particular bench we have 1,5Gbps bandwidth instead of 7 Gbps
+> (when slowdown isn’t introduced by the irq_chip).
+> 
+> Does anybody notice this behavior on his side?  Can we do something about it?
 
-Instead, the deviation should be put in the macro invocation.
+In the guest you could raise the spurious event threshold via writing a
+higher number to /sys/devices/vif-0/xenbus/spurious_threshold (default
+is 1).
 
-No functional change.
+There is a similar file on the backend side, which might be interesting to
+raise the value.
 
-Fixes: 0dca0f2b9a7e ("automation/eclair: address violations of MISRA C Rule 20.7")
-Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
----
-An alternative approach would be to use an ecl configuration, but that
-would be tool-specific.
+In both directories you can see the number of spurious events by looking
+into the spurious_events file.
 
-As this is purely an improvement to the CI, I'd like to ask for a release ack.
----
- xen/include/xen/bitmap.h | 15 ++++++++++++---
- 1 file changed, 12 insertions(+), 3 deletions(-)
+In the end the question is why so many spurious events are happening. Finding
+the reason might be hard, though.
 
-diff --git a/xen/include/xen/bitmap.h b/xen/include/xen/bitmap.h
-index 6ee39aa35ac6..f8ef85541a84 100644
---- a/xen/include/xen/bitmap.h
-+++ b/xen/include/xen/bitmap.h
-@@ -103,18 +103,16 @@ extern int bitmap_allocate_region(unsigned long *bitmap, int pos, int order);
- #define bitmap_switch(nbits, zero, small, large)			  \
- 	unsigned int n__ = (nbits);					  \
- 	if (__builtin_constant_p(nbits) && !n__) {			  \
--		/* SAF-7-safe Rule 20.7 non-parenthesized macro argument */ \
- 		zero;							  \
- 	} else if (__builtin_constant_p(nbits) && n__ <= BITS_PER_LONG) { \
--		/* SAF-7-safe Rule 20.7 non-parenthesized macro argument */ \
- 		small;							  \
- 	} else {							  \
--		/* SAF-7-safe Rule 20.7 non-parenthesized macro argument */ \
- 		large;							  \
- 	}
- 
- static inline void bitmap_zero(unsigned long *dst, unsigned int nbits)
- {
-+	/* SAF-7-safe Rule 20.7 non-parenthesized macro argument */
- 	bitmap_switch(nbits,,
- 		*dst = 0UL,
- 		memset(dst, 0, bitmap_bytes(nbits)));
-@@ -139,6 +137,7 @@ static inline void bitmap_fill(unsigned long *dst, unsigned int nbits)
- static inline void bitmap_copy(unsigned long *dst, const unsigned long *src,
- 			unsigned int nbits)
- {
-+        /* SAF-7-safe Rule 20.7 non-parenthesized macro argument */
- 	bitmap_switch(nbits,,
- 		*dst = *src,
- 		memcpy(dst, src, bitmap_bytes(nbits)));
-@@ -147,6 +146,7 @@ static inline void bitmap_copy(unsigned long *dst, const unsigned long *src,
- static inline void bitmap_and(unsigned long *dst, const unsigned long *src1,
- 			const unsigned long *src2, unsigned int nbits)
- {
-+	/* SAF-7-safe Rule 20.7 non-parenthesized macro argument */
- 	bitmap_switch(nbits,,
- 		*dst = *src1 & *src2,
- 		__bitmap_and(dst, src1, src2, nbits));
-@@ -155,6 +155,7 @@ static inline void bitmap_and(unsigned long *dst, const unsigned long *src1,
- static inline void bitmap_or(unsigned long *dst, const unsigned long *src1,
- 			const unsigned long *src2, unsigned int nbits)
- {
-+	/* SAF-7-safe Rule 20.7 non-parenthesized macro argument */
- 	bitmap_switch(nbits,,
- 		*dst = *src1 | *src2,
- 		__bitmap_or(dst, src1, src2, nbits));
-@@ -163,6 +164,7 @@ static inline void bitmap_or(unsigned long *dst, const unsigned long *src1,
- static inline void bitmap_xor(unsigned long *dst, const unsigned long *src1,
- 			const unsigned long *src2, unsigned int nbits)
- {
-+	/* SAF-7-safe Rule 20.7 non-parenthesized macro argument */
- 	bitmap_switch(nbits,,
- 		*dst = *src1 ^ *src2,
- 		__bitmap_xor(dst, src1, src2, nbits));
-@@ -171,6 +173,7 @@ static inline void bitmap_xor(unsigned long *dst, const unsigned long *src1,
- static inline void bitmap_andnot(unsigned long *dst, const unsigned long *src1,
- 			const unsigned long *src2, unsigned int nbits)
- {
-+	/* SAF-7-safe Rule 20.7 non-parenthesized macro argument */
- 	bitmap_switch(nbits,,
- 		*dst = *src1 & ~*src2,
- 		__bitmap_andnot(dst, src1, src2, nbits));
-@@ -179,6 +182,7 @@ static inline void bitmap_andnot(unsigned long *dst, const unsigned long *src1,
- static inline void bitmap_complement(unsigned long *dst, const unsigned long *src,
- 			unsigned int nbits)
- {
-+	/* SAF-7-safe Rule 20.7 non-parenthesized macro argument */
- 	bitmap_switch(nbits,,
- 		*dst = ~*src & BITMAP_LAST_WORD_MASK(nbits),
- 		__bitmap_complement(dst, src, nbits));
-@@ -187,6 +191,7 @@ static inline void bitmap_complement(unsigned long *dst, const unsigned long *sr
- static inline int bitmap_equal(const unsigned long *src1,
- 			const unsigned long *src2, unsigned int nbits)
- {
-+	/* SAF-7-safe Rule 20.7 non-parenthesized macro argument */
- 	bitmap_switch(nbits,
- 		return -1,
- 		return !((*src1 ^ *src2) & BITMAP_LAST_WORD_MASK(nbits)),
-@@ -196,6 +201,7 @@ static inline int bitmap_equal(const unsigned long *src1,
- static inline int bitmap_intersects(const unsigned long *src1,
- 			const unsigned long *src2, unsigned int nbits)
- {
-+	/* SAF-7-safe Rule 20.7 non-parenthesized macro argument */
- 	bitmap_switch(nbits,
- 		return -1,
- 		return ((*src1 & *src2) & BITMAP_LAST_WORD_MASK(nbits)) != 0,
-@@ -205,6 +211,7 @@ static inline int bitmap_intersects(const unsigned long *src1,
- static inline int bitmap_subset(const unsigned long *src1,
- 			const unsigned long *src2, unsigned int nbits)
- {
-+	/* SAF-7-safe Rule 20.7 non-parenthesized macro argument */
- 	bitmap_switch(nbits,
- 		return -1,
- 		return !((*src1 & ~*src2) & BITMAP_LAST_WORD_MASK(nbits)),
-@@ -213,6 +220,7 @@ static inline int bitmap_subset(const unsigned long *src1,
- 
- static inline int bitmap_empty(const unsigned long *src, unsigned int nbits)
- {
-+	/* SAF-7-safe Rule 20.7 non-parenthesized macro argument */
- 	bitmap_switch(nbits,
- 		return -1,
- 		return !(*src & BITMAP_LAST_WORD_MASK(nbits)),
-@@ -221,6 +229,7 @@ static inline int bitmap_empty(const unsigned long *src, unsigned int nbits)
- 
- static inline int bitmap_full(const unsigned long *src, unsigned int nbits)
- {
-+	/* SAF-7-safe Rule 20.7 non-parenthesized macro argument */
- 	bitmap_switch(nbits,
- 		return -1,
- 		return !(~*src & BITMAP_LAST_WORD_MASK(nbits)),
--- 
-2.34.1
+
+Juergen
 
 
