@@ -2,35 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C6ACB92B57C
-	for <lists+xen-devel@lfdr.de>; Tue,  9 Jul 2024 12:38:45 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.756067.1164634 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 50F4192B595
+	for <lists+xen-devel@lfdr.de>; Tue,  9 Jul 2024 12:44:09 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.756096.1164661 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sR8ET-0008ER-Dp; Tue, 09 Jul 2024 10:38:01 +0000
+	id 1sR8K1-0001Xt-AU; Tue, 09 Jul 2024 10:43:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 756067.1164634; Tue, 09 Jul 2024 10:38:01 +0000
+Received: by outflank-mailman (output) from mailman id 756096.1164661; Tue, 09 Jul 2024 10:43:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sR8ET-0008CK-BD; Tue, 09 Jul 2024 10:38:01 +0000
-Received: by outflank-mailman (input) for mailman id 756067;
- Tue, 09 Jul 2024 10:37:59 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1sR8K1-0001VQ-7M; Tue, 09 Jul 2024 10:43:45 +0000
+Received: by outflank-mailman (input) for mailman id 756096;
+ Tue, 09 Jul 2024 10:43:43 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1sR8ER-0008CA-HZ; Tue, 09 Jul 2024 10:37:59 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1sR8ER-0000zo-Co; Tue, 09 Jul 2024 10:37:59 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1sR8EQ-0003GM-UK; Tue, 09 Jul 2024 10:37:59 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1sR8EQ-00058I-Ti; Tue, 09 Jul 2024 10:37:58 +0000
+ (envelope-from <SRS0=uARp=OJ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1sR8Jz-0001QH-UI
+ for xen-devel@lists.xenproject.org; Tue, 09 Jul 2024 10:43:43 +0000
+Received: from mail-lf1-x12a.google.com (mail-lf1-x12a.google.com
+ [2a00:1450:4864:20::12a])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 1bb72522-3de0-11ef-8776-851b0ebba9a2;
+ Tue, 09 Jul 2024 12:43:41 +0200 (CEST)
+Received: by mail-lf1-x12a.google.com with SMTP id
+ 2adb3069b0e04-52e98087e32so5496735e87.2
+ for <xen-devel@lists.xenproject.org>; Tue, 09 Jul 2024 03:43:41 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ d2e1a72fcca58-70b4396841esm1464148b3a.132.2024.07.09.03.43.35
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 09 Jul 2024 03:43:40 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,249 +45,260 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=H03iuif5ttWO24Yrics4AnaN9Wl9IP1EPEyZ/pLGOqo=; b=p8CJPDhU9x4pQ67bfLyAWVaFY+
-	PmIsaGRcPNRsMNXEI0Xn1SHmL9gf9jlnDjqQZptZygdFozCeT++0MtJbXPaQcd6O4tfnrZFtexuhD
-	HaF1oIRMJ04Ec41xXF+jVc/1FxfyBm6VIWRX0tTByW+xSXQcIL3xXx7eFNQhKQGaoyjA=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-186735-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 1bb72522-3de0-11ef-8776-851b0ebba9a2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1720521821; x=1721126621; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=mirLwL4UoXhP3xDr8NEgWhE6Ppxd3/vNLNbEQ8mWpjs=;
+        b=gh1sIfscOsMcKczjg40MJeZTZYPyinAedW3rmrVy15T0eK0k50hWabRCKjg9PynOxu
+         mIAZUutryOrqfMqdPIbGRxzqqG05NI3nbYVUIz1q88gG0OM1QqcseN25kqyf1kiWoDzM
+         hZReyP/Nvx51OfhDuu0EqWsnooBjHjgebBgmCuxCztEwLCC74+4AbmjL/4H6YNynDaXu
+         v1s/lM7oSZTCw91TYNTNyHd14PQ1lAayKNtpJnmiSWEcljX9px+JvFr/51WyjCEO4gv0
+         LyU/Co+v+LL6ADSerpHFLtiBg2u2HrDWm255u4IjkxU481pvApnvO2xIufPts7NWNkGx
+         ny9A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1720521821; x=1721126621;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=mirLwL4UoXhP3xDr8NEgWhE6Ppxd3/vNLNbEQ8mWpjs=;
+        b=OtSXD+PgDaW+F82Rx0HfbBXX0C+SiQXD+OWoWLhezYpB8GblBeQxameF8KZRZgZ1tD
+         ee/KqJaJCWapHtIORhSZCtgy2TdEn4EGjIxirRzxBmseeGC+eLJ4pdDmhHtAAW9ibYXX
+         GuZ/RcXfoGaB9D1wsYe63g5MOFyiuLjhoFw7+t455QE6lQMmFkvt15zyd/szT4d/zsoz
+         jAEy+VqbLmsAsiUd6BoFZBZMgMZFShgfgROrLfDkqfWjRnY7TM1lyofE1ANHXWKcL5eS
+         MLsfvYj9hoaD01kkIzQ4XCJyNdzdJOUswbEyNH6xLnOegMdHrMcAKsc5udzH+79g28X8
+         j9Uw==
+X-Forwarded-Encrypted: i=1; AJvYcCWBQhbA9BEu2NwTZnwpr+I1PFB23eM2ISNblJmAuKdBtcuU2S+xPc916MYtFB/NxRsCKyBykjQRZik+5RW2ed4Ql9+ZOlkJqt8LgbpHXKc=
+X-Gm-Message-State: AOJu0YwXTlqtAPZT+HG8AUbj5BKJRHJzbSOQsN+phWQr0Udqb8fCncgl
+	Kg+Uae18JaVVwbVNbAHQHN0cvEiJYElG5sBlDHCGprvjz64b1IWqo/bY181Vuw==
+X-Google-Smtp-Source: AGHT+IEM8Pqgh1j6+N24XH+IHe9urTGNhpDIs0spaQTDvIt/oTCfmdfucF32GeZECoyPU56GfNO5iA==
+X-Received: by 2002:a19:6458:0:b0:52c:d84b:eee6 with SMTP id 2adb3069b0e04-52eb999a689mr1073878e87.38.1720521821243;
+        Tue, 09 Jul 2024 03:43:41 -0700 (PDT)
+Message-ID: <b6eb8756-368b-4ef7-ac4f-17ba7d9f111f@suse.com>
+Date: Tue, 9 Jul 2024 12:43:31 +0200
 MIME-Version: 1.0
-Subject: [xen-unstable test] 186735: tolerable FAIL - PUSHED
-X-Osstest-Failures:
-    xen-unstable:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
-    xen-unstable:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
-    xen-unstable:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
-    xen-unstable:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
-    xen-unstable:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
-    xen-unstable:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-amd64-amd64-libvirt-qcow2:migrate-support-check:fail:nonblocking
-    xen-unstable:test-amd64-amd64-libvirt-raw:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-vhd:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-vhd:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-raw:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-raw:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-qcow2:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-qcow2:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-libvirt-vhd:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-libvirt-vhd:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=c4ebeb79d10a25e8d48a71cdd381898265267e67
-X-Osstest-Versions-That:
-    xen=64cee188376e52a154475a86a9d2adc85f029870
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Tue, 09 Jul 2024 10:37:58 +0000
+User-Agent: Mozilla Thunderbird
+Subject: Re: [XEN PATCH for-4.19] xen/bitmap: amend MISRA C deviation for Rule
+ 20.7
+To: Nicola Vetrini <nicola.vetrini@bugseng.com>, sstabellini@kernel.org
+Cc: michal.orzel@amd.com, xenia.ragiadakou@amd.com,
+ ayan.kumar.halder@amd.com, consulting@bugseng.com,
+ Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
+ Oleksii Kurochko <oleksii.kurochko@gmail.com>, xen-devel@lists.xenproject.org
+References: <794724e70c4e45224916576af01070e8aebe9aab.1720517398.git.nicola.vetrini@bugseng.com>
+ <ecfef639-11ed-4f7c-81de-d1a6c230c465@suse.com>
+ <2ff60858147e1dd501ec59c38a7a41b4@bugseng.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <2ff60858147e1dd501ec59c38a7a41b4@bugseng.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-flight 186735 xen-unstable real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/186735/
+On 09.07.2024 12:15, Nicola Vetrini wrote:
+> On 2024-07-09 11:40, Jan Beulich wrote:
+>> On 09.07.2024 11:34, Nicola Vetrini wrote:
+>>> As noticed in the gitlab analyses, deviating bitmap_switch
+>>> for Rule 20.7 in this way does not work for ECLAIR.
+>>>
+>>> Instead, the deviation should be put in the macro invocation.
+>>
+>> Why is this? I ask in particular because ...
+>>
+>>> --- a/xen/include/xen/bitmap.h
+>>> +++ b/xen/include/xen/bitmap.h
+>>> @@ -103,18 +103,16 @@ extern int bitmap_allocate_region(unsigned long 
+>>> *bitmap, int pos, int order);
+>>>  #define bitmap_switch(nbits, zero, small, large)			  \
+>>>  	unsigned int n__ = (nbits);					  \
+>>>  	if (__builtin_constant_p(nbits) && !n__) {			  \
+>>> -		/* SAF-7-safe Rule 20.7 non-parenthesized macro argument */ \
+>>>  		zero;							  \
+>>>  	} else if (__builtin_constant_p(nbits) && n__ <= BITS_PER_LONG) { \
+>>> -		/* SAF-7-safe Rule 20.7 non-parenthesized macro argument */ \
+>>>  		small;							  \
+>>>  	} else {							  \
+>>> -		/* SAF-7-safe Rule 20.7 non-parenthesized macro argument */ \
+>>>  		large;							  \
+>>>  	}
+>>>
+>>>  static inline void bitmap_zero(unsigned long *dst, unsigned int 
+>>> nbits)
+>>>  {
+>>> +	/* SAF-7-safe Rule 20.7 non-parenthesized macro argument */
+>>>  	bitmap_switch(nbits,,
+>>>  		*dst = 0UL,
+>>>  		memset(dst, 0, bitmap_bytes(nbits)));
+>>> @@ -139,6 +137,7 @@ static inline void bitmap_fill(unsigned long *dst, 
+>>> unsigned int nbits)
+>>>  static inline void bitmap_copy(unsigned long *dst, const unsigned 
+>>> long *src,
+>>>  			unsigned int nbits)
+>>>  {
+>>> +        /* SAF-7-safe Rule 20.7 non-parenthesized macro argument */
+>>>  	bitmap_switch(nbits,,
+>>>  		*dst = *src,
+>>>  		memcpy(dst, src, bitmap_bytes(nbits)));
+>>> @@ -147,6 +146,7 @@ static inline void bitmap_copy(unsigned long *dst, 
+>>> const unsigned long *src,
+>>>  static inline void bitmap_and(unsigned long *dst, const unsigned long 
+>>> *src1,
+>>>  			const unsigned long *src2, unsigned int nbits)
+>>>  {
+>>> +	/* SAF-7-safe Rule 20.7 non-parenthesized macro argument */
+>>>  	bitmap_switch(nbits,,
+>>>  		*dst = *src1 & *src2,
+>>>  		__bitmap_and(dst, src1, src2, nbits));
+>>> @@ -155,6 +155,7 @@ static inline void bitmap_and(unsigned long *dst, 
+>>> const unsigned long *src1,
+>>>  static inline void bitmap_or(unsigned long *dst, const unsigned long 
+>>> *src1,
+>>>  			const unsigned long *src2, unsigned int nbits)
+>>>  {
+>>> +	/* SAF-7-safe Rule 20.7 non-parenthesized macro argument */
+>>>  	bitmap_switch(nbits,,
+>>>  		*dst = *src1 | *src2,
+>>>  		__bitmap_or(dst, src1, src2, nbits));
+>>> @@ -163,6 +164,7 @@ static inline void bitmap_or(unsigned long *dst, 
+>>> const unsigned long *src1,
+>>>  static inline void bitmap_xor(unsigned long *dst, const unsigned long 
+>>> *src1,
+>>>  			const unsigned long *src2, unsigned int nbits)
+>>>  {
+>>> +	/* SAF-7-safe Rule 20.7 non-parenthesized macro argument */
+>>>  	bitmap_switch(nbits,,
+>>>  		*dst = *src1 ^ *src2,
+>>>  		__bitmap_xor(dst, src1, src2, nbits));
+>>> @@ -171,6 +173,7 @@ static inline void bitmap_xor(unsigned long *dst, 
+>>> const unsigned long *src1,
+>>>  static inline void bitmap_andnot(unsigned long *dst, const unsigned 
+>>> long *src1,
+>>>  			const unsigned long *src2, unsigned int nbits)
+>>>  {
+>>> +	/* SAF-7-safe Rule 20.7 non-parenthesized macro argument */
+>>>  	bitmap_switch(nbits,,
+>>>  		*dst = *src1 & ~*src2,
+>>>  		__bitmap_andnot(dst, src1, src2, nbits));
+>>> @@ -179,6 +182,7 @@ static inline void bitmap_andnot(unsigned long 
+>>> *dst, const unsigned long *src1,
+>>>  static inline void bitmap_complement(unsigned long *dst, const 
+>>> unsigned long *src,
+>>>  			unsigned int nbits)
+>>>  {
+>>> +	/* SAF-7-safe Rule 20.7 non-parenthesized macro argument */
+>>>  	bitmap_switch(nbits,,
+>>>  		*dst = ~*src & BITMAP_LAST_WORD_MASK(nbits),
+>>>  		__bitmap_complement(dst, src, nbits));
+>>> @@ -187,6 +191,7 @@ static inline void bitmap_complement(unsigned long 
+>>> *dst, const unsigned long *sr
+>>>  static inline int bitmap_equal(const unsigned long *src1,
+>>>  			const unsigned long *src2, unsigned int nbits)
+>>>  {
+>>> +	/* SAF-7-safe Rule 20.7 non-parenthesized macro argument */
+>>>  	bitmap_switch(nbits,
+>>>  		return -1,
+>>>  		return !((*src1 ^ *src2) & BITMAP_LAST_WORD_MASK(nbits)),
+>>> @@ -196,6 +201,7 @@ static inline int bitmap_equal(const unsigned long 
+>>> *src1,
+>>>  static inline int bitmap_intersects(const unsigned long *src1,
+>>>  			const unsigned long *src2, unsigned int nbits)
+>>>  {
+>>> +	/* SAF-7-safe Rule 20.7 non-parenthesized macro argument */
+>>>  	bitmap_switch(nbits,
+>>>  		return -1,
+>>>  		return ((*src1 & *src2) & BITMAP_LAST_WORD_MASK(nbits)) != 0,
+>>> @@ -205,6 +211,7 @@ static inline int bitmap_intersects(const unsigned 
+>>> long *src1,
+>>>  static inline int bitmap_subset(const unsigned long *src1,
+>>>  			const unsigned long *src2, unsigned int nbits)
+>>>  {
+>>> +	/* SAF-7-safe Rule 20.7 non-parenthesized macro argument */
+>>>  	bitmap_switch(nbits,
+>>>  		return -1,
+>>>  		return !((*src1 & ~*src2) & BITMAP_LAST_WORD_MASK(nbits)),
+>>> @@ -213,6 +220,7 @@ static inline int bitmap_subset(const unsigned 
+>>> long *src1,
+>>>
+>>>  static inline int bitmap_empty(const unsigned long *src, unsigned int 
+>>> nbits)
+>>>  {
+>>> +	/* SAF-7-safe Rule 20.7 non-parenthesized macro argument */
+>>>  	bitmap_switch(nbits,
+>>>  		return -1,
+>>>  		return !(*src & BITMAP_LAST_WORD_MASK(nbits)),
+>>> @@ -221,6 +229,7 @@ static inline int bitmap_empty(const unsigned long 
+>>> *src, unsigned int nbits)
+>>>
+>>>  static inline int bitmap_full(const unsigned long *src, unsigned int 
+>>> nbits)
+>>>  {
+>>> +	/* SAF-7-safe Rule 20.7 non-parenthesized macro argument */
+>>>  	bitmap_switch(nbits,
+>>>  		return -1,
+>>>  		return !(~*src & BITMAP_LAST_WORD_MASK(nbits)),
+>>
+>> ... having the same comment on every invocation is naturally quite a 
+>> bit
+>> less desirable. So far I was under the impression that macro-specific
+>> deviations can be dealt with by marking the macro definition 
+>> accordingly.
+> 
+> Not with a comment-based one, but one based on ECL.
+> As stated under the cut:
+> An alternative approach would be to use an ecl configuration, but that
+> would be tool-specific.
 
-Failures :-/ but no regressions.
+I read that, yes, but it's orthogonal to the point I made.
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 186733
- test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 186733
- test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 186733
- test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 186733
- test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 186733
- test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 186733
- test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-credit2  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit2  16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt-qcow2 14 migrate-support-check        fail never pass
- test-amd64-amd64-libvirt-raw 14 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-multivcpu 15 migrate-support-check        fail  never pass
- test-armhf-armhf-xl-multivcpu 16 saverestore-support-check    fail  never pass
- test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
- test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-vhd      14 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-vhd      15 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-raw      14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-raw      15 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-credit1  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit1  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-rtds     15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-rtds     16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-qcow2    14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-qcow2    15 saverestore-support-check    fail   never pass
- test-armhf-armhf-libvirt-vhd 14 migrate-support-check        fail   never pass
- test-armhf-armhf-libvirt-vhd 15 saverestore-support-check    fail   never pass
+> Stefano had a preference for a tool-agnostic SAF comment, so that's what 
+> I used.
 
-version targeted for testing:
- xen                  c4ebeb79d10a25e8d48a71cdd381898265267e67
-baseline version:
- xen                  64cee188376e52a154475a86a9d2adc85f029870
+I second this; I wonder though if e.g. for cppcheck the new placement
+would have any effect.
 
-Last test of basis   186733  2024-07-08 18:06:59 Z    0 days
-Testing same since   186735  2024-07-09 01:41:51 Z    0 days    1 attempts
+>> I've been assuming this is a general pattern. If it isn't, would you
+>> please first clarify what Eclair's specific requirements are for a SAF
+>> marker to take effect when involving a macro?
+> 
+> it should be put directly above macro invocations.
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Andrew Cooper <andrew.cooper3@citrix.com>
+That's then contrary to what was communicated before. Stefano, can we
+please put this on the agenda of the call later in the day?
 
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64-xtf                                              pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-arm64-libvirt                                          pass    
- build-armhf-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-prev                                             pass    
- build-i386-prev                                              pass    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-xtf-amd64-amd64-1                                       pass    
- test-xtf-amd64-amd64-2                                       pass    
- test-xtf-amd64-amd64-3                                       pass    
- test-xtf-amd64-amd64-4                                       pass    
- test-xtf-amd64-amd64-5                                       pass    
- test-amd64-amd64-xl                                          pass    
- test-amd64-coresched-amd64-xl                                pass    
- test-arm64-arm64-xl                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
- test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
- test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
- test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
- test-amd64-amd64-libvirt-xsm                                 pass    
- test-arm64-arm64-libvirt-xsm                                 pass    
- test-amd64-amd64-xl-xsm                                      pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-qemuu-nested-amd                            fail    
- test-amd64-amd64-xl-pvhv2-amd                                pass    
- test-amd64-amd64-dom0pvh-xl-amd                              pass    
- test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
- test-amd64-amd64-qemuu-freebsd12-amd64                       pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-amd64-xl-qemut-win7-amd64                         fail    
- test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
- test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
- test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
- test-armhf-armhf-xl-arndale                                  pass    
- test-amd64-amd64-examine-bios                                pass    
- test-amd64-amd64-xl-credit1                                  pass    
- test-arm64-arm64-xl-credit1                                  pass    
- test-armhf-armhf-xl-credit1                                  pass    
- test-amd64-amd64-xl-credit2                                  pass    
- test-arm64-arm64-xl-credit2                                  pass    
- test-armhf-armhf-xl-credit2                                  pass    
- test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
- test-amd64-amd64-examine                                     pass    
- test-arm64-arm64-examine                                     pass    
- test-armhf-armhf-examine                                     pass    
- test-amd64-amd64-qemuu-nested-intel                          pass    
- test-amd64-amd64-xl-pvhv2-intel                              pass    
- test-amd64-amd64-dom0pvh-xl-intel                            pass    
- test-amd64-amd64-libvirt                                     pass    
- test-armhf-armhf-libvirt                                     pass    
- test-amd64-amd64-livepatch                                   pass    
- test-amd64-amd64-migrupgrade                                 pass    
- test-amd64-amd64-xl-multivcpu                                pass    
- test-armhf-armhf-xl-multivcpu                                pass    
- test-amd64-amd64-pair                                        pass    
- test-amd64-amd64-libvirt-pair                                pass    
- test-amd64-amd64-xl-pvshim                                   pass    
- test-amd64-amd64-pygrub                                      pass    
- test-amd64-amd64-libvirt-qcow2                               pass    
- test-amd64-amd64-xl-qcow2                                    pass    
- test-armhf-armhf-xl-qcow2                                    pass    
- test-amd64-amd64-libvirt-raw                                 pass    
- test-arm64-arm64-libvirt-raw                                 pass    
- test-amd64-amd64-xl-raw                                      pass    
- test-armhf-armhf-xl-raw                                      pass    
- test-amd64-amd64-xl-rtds                                     pass    
- test-armhf-armhf-xl-rtds                                     pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
- test-amd64-amd64-xl-shadow                                   pass    
- test-arm64-arm64-xl-thunderx                                 pass    
- test-amd64-amd64-examine-uefi                                pass    
- test-amd64-amd64-libvirt-vhd                                 pass    
- test-armhf-armhf-libvirt-vhd                                 pass    
- test-amd64-amd64-xl-vhd                                      pass    
- test-arm64-arm64-xl-vhd                                      pass    
+> ECLAIR has a 
+> tool-specific comment-based deviation that essentially deviates a range 
+> of lines, but that is not supported by the SAF framework, so I avoided 
+> that.
+> 
+> Is it safe to say that the uses of bitmap_switch will likely not change 
+> much over time?
 
+Pretty much so, yes.
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/xen.git
-   64cee18837..c4ebeb79d1  c4ebeb79d10a25e8d48a71cdd381898265267e67 -> master
+Jan
 
