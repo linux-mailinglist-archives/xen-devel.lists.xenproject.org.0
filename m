@@ -2,35 +2,47 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3BE3992C421
-	for <lists+xen-devel@lfdr.de>; Tue,  9 Jul 2024 21:52:52 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.756459.1165095 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A0DC792C445
+	for <lists+xen-devel@lfdr.de>; Tue,  9 Jul 2024 22:01:47 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.756466.1165105 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sRGsp-0006kh-EV; Tue, 09 Jul 2024 19:52:15 +0000
+	id 1sRH1j-0008RL-B0; Tue, 09 Jul 2024 20:01:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 756459.1165095; Tue, 09 Jul 2024 19:52:15 +0000
+Received: by outflank-mailman (output) from mailman id 756466.1165105; Tue, 09 Jul 2024 20:01:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sRGsp-0006jD-BX; Tue, 09 Jul 2024 19:52:15 +0000
-Received: by outflank-mailman (input) for mailman id 756459;
- Tue, 09 Jul 2024 19:52:14 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1sRGso-0006j3-C4; Tue, 09 Jul 2024 19:52:14 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1sRGso-00037W-9L; Tue, 09 Jul 2024 19:52:14 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1sRGsn-0001op-VA; Tue, 09 Jul 2024 19:52:14 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1sRGsn-0000pU-Uh; Tue, 09 Jul 2024 19:52:13 +0000
+	id 1sRH1j-0008Of-76; Tue, 09 Jul 2024 20:01:27 +0000
+Received: by outflank-mailman (input) for mailman id 756466;
+ Tue, 09 Jul 2024 20:01:25 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=ilAK=OJ=quicinc.com=quic_jjohnson@srs-se1.protection.inumbo.net>)
+ id 1sRH1h-0008OT-NI
+ for xen-devel@lists.xenproject.org; Tue, 09 Jul 2024 20:01:25 +0000
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 0223d8ce-3e2e-11ef-8776-851b0ebba9a2;
+ Tue, 09 Jul 2024 22:01:21 +0200 (CEST)
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 469HIKnV025500;
+ Tue, 9 Jul 2024 20:01:18 GMT
+Received: from nalasppmta04.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4091jdhrug-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 09 Jul 2024 20:01:15 +0000 (GMT)
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA04.qualcomm.com (8.17.1.19/8.17.1.19) with ESMTPS id
+ 469K1CP5027914
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 9 Jul 2024 20:01:12 GMT
+Received: from [10.48.245.228] (10.49.16.6) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Tue, 9 Jul 2024
+ 13:01:12 -0700
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,73 +54,77 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=UzsBm0nggS67nSBqjxXzrEXS8VmUAulg8QLYwy0Ni1k=; b=EFR54kfNglE+7KlrhHYvJ+GpWB
-	5/OO9MJfja2IB9U7nLuydmyAIYdFHPJUtR8R2exLe0XgR395f/5gUQ2oUEsDA/gXPsi5Wm1u4TMP5
-	JCbePPlSIL6ZTe62CO6CwWHl8EgQKlNuW4D0NbO3f0AvcNwkhNt5xNH9AyjQsQiWz0Ig=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-186744-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 0223d8ce-3e2e-11ef-8776-851b0ebba9a2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	GcIxVMV/I96Q8u9kb1BertF27XdbTkbl/r6HZpwgBjk=; b=peqAZqEswwHg1OkP
+	ajznx7SRbJTRxC0AH7n+tyIHyJDW8oPAafJ/A9zQK7O2ezPh7RAKlSmK0ieGwtR7
+	Ml5+34Qeso4SVdplxo2IW1Z7BYy9ajeGuh5P+2gFgyZX60zgbqLOXROvSeu5xQuX
+	zAM+TTMLkUIjfkFTWMrLyNRcssEDDHFRJssoyY9pOPR0BvBIidWxRrHKLSce+yY4
+	xxwK9AdzmZN8PWcUHWySU00o5X3HStQ3yubfxJCnbqwQg+2n1iGMgSvO/qaHm+hN
+	raKrtccHVpTVhzt9C977xl5uHO9rl+882Oikvzhz0IEQZYhiTMsRpWWSxQsqD36E
+	ipOdJA==
+Message-ID: <42b70860-e06f-40b7-9bda-6a512ed1dd9d@quicinc.com>
+Date: Tue, 9 Jul 2024 13:01:12 -0700
 MIME-Version: 1.0
-Subject: [ovmf test] 186744: all pass - PUSHED
-X-Osstest-Versions-This:
-    ovmf=7aaee521a1966e71a51b71b73f5e3bbddb6faa31
-X-Osstest-Versions-That:
-    ovmf=426b69830efff788f2c17a4b920a84d6e08739c8
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Tue, 09 Jul 2024 19:52:13 +0000
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] xen/blkback: add missing MODULE_DESCRIPTION() macro
+Content-Language: en-US
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+        Jens Axboe
+	<axboe@kernel.dk>
+CC: <xen-devel@lists.xenproject.org>, <linux-block@vger.kernel.org>,
+        <linux-kernel@vger.kernel.org>, <kernel-janitors@vger.kernel.org>
+References: <20240602-md-block-xen-blkback-v1-1-6ff5b58bdee1@quicinc.com>
+From: Jeff Johnson <quic_jjohnson@quicinc.com>
+In-Reply-To: <20240602-md-block-xen-blkback-v1-1-6ff5b58bdee1@quicinc.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.49.16.6]
+X-ClientProxiedBy: nalasex01c.na.qualcomm.com (10.47.97.35) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800 signatures=585085
+X-Proofpoint-GUID: 6Gy7EWo_B31q2FiCLW-SkcytPttdadMb
+X-Proofpoint-ORIG-GUID: 6Gy7EWo_B31q2FiCLW-SkcytPttdadMb
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.28.16
+ definitions=2024-07-09_08,2024-07-09_01,2024-05-17_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 suspectscore=0 bulkscore=0
+ lowpriorityscore=0 adultscore=0 spamscore=0 malwarescore=0 mlxlogscore=999
+ mlxscore=0 priorityscore=1501 phishscore=0 clxscore=1011 impostorscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.19.0-2406140001
+ definitions=main-2407090135
 
-flight 186744 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/186744/
+On 6/2/2024 5:37 PM, Jeff Johnson wrote:
+> make allmodconfig && make W=1 C=1 reports:
+> WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/block/xen-blkback/xen-blkback.o
+> 
+> Add the missing invocation of the MODULE_DESCRIPTION() macro.
+> 
+> Signed-off-by: Jeff Johnson <quic_jjohnson@quicinc.com>
+> ---
+>  drivers/block/xen-blkback/blkback.c | 1 +
+>  1 file changed, 1 insertion(+)
+> 
+> diff --git a/drivers/block/xen-blkback/blkback.c b/drivers/block/xen-blkback/blkback.c
+> index 944576d582fb..838064593f62 100644
+> --- a/drivers/block/xen-blkback/blkback.c
+> +++ b/drivers/block/xen-blkback/blkback.c
+> @@ -1563,5 +1563,6 @@ static void __exit xen_blkif_fini(void)
+>  
+>  module_exit(xen_blkif_fini);
+>  
+> +MODULE_DESCRIPTION("Virtual block device back-end driver");
+>  MODULE_LICENSE("Dual BSD/GPL");
+>  MODULE_ALIAS("xen-backend:vbd");
+> 
+> ---
+> base-commit: a693b9c95abd4947c2d06e05733de5d470ab6586
+> change-id: 20240602-md-block-xen-blkback-0db494d277af
 
-Perfect :-)
-All tests in this flight passed as required
-version targeted for testing:
- ovmf                 7aaee521a1966e71a51b71b73f5e3bbddb6faa31
-baseline version:
- ovmf                 426b69830efff788f2c17a4b920a84d6e08739c8
+I don't see this in linux-next yet so following up to see if anything else is
+needed to get this merged.
 
-Last test of basis   186740  2024-07-09 13:43:04 Z    0 days
-Testing same since   186744  2024-07-09 18:11:13 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Thamballi Sreelalitha <quic_sreelali@quicinc.com>
-  Vishal Oliyil Kunnil <quic_vishalo@quicinc.com>
-
-jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
-   426b69830e..7aaee521a1  7aaee521a1966e71a51b71b73f5e3bbddb6faa31 -> xen-tested-master
 
