@@ -2,38 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2A32092B8AF
-	for <lists+xen-devel@lfdr.de>; Tue,  9 Jul 2024 13:43:52 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.756211.1164754 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7EAEE92B8C1
+	for <lists+xen-devel@lfdr.de>; Tue,  9 Jul 2024 13:48:38 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.756219.1164765 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sR9G0-0006uM-5i; Tue, 09 Jul 2024 11:43:40 +0000
+	id 1sR9KR-00085N-MP; Tue, 09 Jul 2024 11:48:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 756211.1164754; Tue, 09 Jul 2024 11:43:40 +0000
+Received: by outflank-mailman (output) from mailman id 756219.1164765; Tue, 09 Jul 2024 11:48:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sR9G0-0006ss-38; Tue, 09 Jul 2024 11:43:40 +0000
-Received: by outflank-mailman (input) for mailman id 756211;
- Tue, 09 Jul 2024 11:43:38 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=uARp=OJ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sR9Fy-0006sk-IM
- for xen-devel@lists.xenproject.org; Tue, 09 Jul 2024 11:43:38 +0000
-Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
- [2a00:1450:4864:20::42a])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 7ad86ba6-3de8-11ef-bbfb-fd08da9f4363;
- Tue, 09 Jul 2024 13:43:37 +0200 (CEST)
-Received: by mail-wr1-x42a.google.com with SMTP id
- ffacd0b85a97d-3679df4cb4cso3076171f8f.0
- for <xen-devel@lists.xenproject.org>; Tue, 09 Jul 2024 04:43:37 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-70b43967345sm1589396b3a.112.2024.07.09.04.43.33
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 09 Jul 2024 04:43:36 -0700 (PDT)
+	id 1sR9KR-00083N-JN; Tue, 09 Jul 2024 11:48:15 +0000
+Received: by outflank-mailman (input) for mailman id 756219;
+ Tue, 09 Jul 2024 11:48:14 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=7aM/=OJ=outlook.com=mhklinux@srs-se1.protection.inumbo.net>)
+ id 1sR9KP-00083H-VI
+ for xen-devel@lists.xenproject.org; Tue, 09 Jul 2024 11:48:14 +0000
+Received: from BL0PR05CU006.outbound.protection.outlook.com
+ (mail-eastusazolkn190110000.outbound.protection.outlook.com
+ [2a01:111:f403:d100::])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 1dfed094-3de9-11ef-8776-851b0ebba9a2;
+ Tue, 09 Jul 2024 13:48:12 +0200 (CEST)
+Received: from SN6PR02MB4157.namprd02.prod.outlook.com (2603:10b6:805:33::23)
+ by MN2PR02MB6816.namprd02.prod.outlook.com (2603:10b6:208:1d9::14)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7741.36; Tue, 9 Jul
+ 2024 11:48:08 +0000
+Received: from SN6PR02MB4157.namprd02.prod.outlook.com
+ ([fe80::cedd:1e64:8f61:b9df]) by SN6PR02MB4157.namprd02.prod.outlook.com
+ ([fe80::cedd:1e64:8f61:b9df%5]) with mapi id 15.20.7741.033; Tue, 9 Jul 2024
+ 11:48:08 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,137 +47,115 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7ad86ba6-3de8-11ef-bbfb-fd08da9f4363
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1720525417; x=1721130217; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=7u26yw/8x8iuye2JcguQ6wlemP77U9t/sOaudZYZ2f8=;
-        b=CE26bQmNSLCMHI5balvc0FEFsv5bI+ohHh32RVyVGCLRkckWLBHQWyzMRHlAuxFe9I
-         xdCx6NwOQH8UaKZVBQBGL4tcAVV4A5TmKJjLwXQFt2GKh5CMFhkA/qRo7WERWo4wWmHB
-         w6xGi+t1GJne8xDeAeAzsoGXeoq2rqQ/ZIt3NfB9wuk/b5Cvkltk5t3aurKI3TWrKAen
-         RXQ9W0jBWuxog918RULMvA1sinT98MmcKxM1xX2rkXMssHphzWbCH8d4Yq4J2ZmPpa9J
-         V7xi1w8fttTzGJoFGRq8zg9qLRKijGUKtAoxXQWJKaNSu48w18oEj84hkI0IJJtxOeXB
-         695Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1720525417; x=1721130217;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=7u26yw/8x8iuye2JcguQ6wlemP77U9t/sOaudZYZ2f8=;
-        b=m7/HsIlTJ8uwroMVN2i39mE64glzCbJkLu8Qe7Qk8R5UWGF40SGnzXZaCmk1sCz0yN
-         +pmSDnJ+K5Ua2fxTadUR3AAxzNzaKqQgqqf2rtXoRKGPoKibsxMzKBDMKSZjETRA9aqp
-         EF0q3ljSVPJsUwS3xULWG+rrv5M1BAimGPEWYlj7vUSjSZDlUMLkmQC8pUFrWsWjqjFv
-         y+l78IJj9y1g/H70kCTDOhXuCqGTA5pAKc51qBdvLuX+qdFoiEm19PHLFQk+WxFHq3NM
-         BS1Nr0XGVwKdKeQU3eUWmnEJ+3YIGbq08Zk2Ubf+Ld4tjq7EloG/ROM+CqUtVNsTwze5
-         leOg==
-X-Forwarded-Encrypted: i=1; AJvYcCWuUEtSeLDBy69dBuxB2riyk/Go9lvpESDkuumHNjjCx0t6Rf2dEDH1pIDCGxLPvnolGYU3HJQSveOOriTHWUhvdkSSCdxyj9KuacCksZU=
-X-Gm-Message-State: AOJu0YxymgCnnHbkNHBjSh95kCrl7ybkGo83mcQqZLxPrCGPFBe9qTDI
-	uTjU04SdaNEGFxbXcx5tCER6Yb8aovtPirj4nqejyF5Guj3hupMnfeJ81U1EOw==
-X-Google-Smtp-Source: AGHT+IE+N2OIa0/De/AR/cXvNNNcQ/TAKjzj8eVedZKAtPv3HliYzWBbWLwK8jReJAS6wU6u1FjiiA==
-X-Received: by 2002:a05:6000:2c5:b0:367:9268:bfca with SMTP id ffacd0b85a97d-367d2e687a6mr2323873f8f.22.1720525416970;
-        Tue, 09 Jul 2024 04:43:36 -0700 (PDT)
-Message-ID: <a85777f7-b892-4363-9e65-f7e9f0516682@suse.com>
-Date: Tue, 9 Jul 2024 13:43:30 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC XEN PATCH] x86/cpuid: Expose max_vcpus field in HVM
- hypervisor leaf
-To: Alejandro Vallejo <alejandro.vallejo@cloud.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>,
- Matthew Barnes <matthew.barnes@cloud.com>
-References: <c0a9f52107e22957daaa5b1b0e05e4160db5f064.1720452354.git.matthew.barnes@cloud.com>
- <103d60b6-001b-43f0-bbff-a0806cebda73@suse.com>
- <D2KYO4GHH7VR.1XBQKN2LWF54P@cloud.com>
+X-Inumbo-ID: 1dfed094-3de9-11ef-8776-851b0ebba9a2
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Xy8oFcyiAPOtVf9ex4in9ZEyq0saxjlgk3qxw+XXOAvroybMaSwgFMsgjnxcUromWLUygSkLlevIlK4S0qsEBs7lESLHdr23hAWxOsudoq1rycbvMCLuF5/rSpi7J2Flmd+dQ/+KuXkk5j8SFV8ZcrSHF7K8lLXV9WpOV+VHZvMuMqTS0KXLDVjPu9QCtzPR68rqexTn03kHELrR85E8FrexxKdO5DV1wrU7LJ3/bqwrwe6hN7i/Ib4iWZuQ6PQXYIhwq42kKw0BWEDIUHz+/btpAO8MKNR54qZI2Iijbzizux9iTf/e2BN43UssuINI5xJ4u9exY/OtkzY0cRpIQg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=W6GtlEgdUutsu9B8/TLjEoU4TBoxmCXMqCs2HKNbgq8=;
+ b=E4ibLt3OhB8lfjTwEvfS3LZX5+rFTw0w4ObEV7+d8nDbxEErua2R5CbHeqLZBoQhGY89SqEJhJg7t5Q3ZpB4xARYb4IfewPne8PMU8GqDKDkZq9A5vKKq9Gp6AHR+mjN6RTkvHf/l4YlsfG1pYAnFZ3iAJPCLYWU9/rntbRVFZ6N1O/1ES6YfErLmJwK0gXsaNSwflFS66UgH1/ks+AocmD/nqStELPmYdvlKFXuUDzh20y1ZiJ+0ku7vbTdc2BHc+aK11er5iAafjg5PEA/6D5VWucxPJ6nRCXZg9lRHB2q0PjcYYaAQrsyTxFj7Z49sS1PTV1a8IiYqCgIfWgOVA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=W6GtlEgdUutsu9B8/TLjEoU4TBoxmCXMqCs2HKNbgq8=;
+ b=lfF07HEUitjC1WBH/bschFn2zkiMPMG6RLllqMYEPwdBkZrNgwSeUJoZ0uYPhbzjy/9YdF7mCX91bWm0nTNWfsdj/L+Rlm6QMXhWFrM4fXSQePR7waBzwX3XJ3o9nsufIaX2WRQ0QlfKTfDl2QR59DX3YZ/y1uwaSNWa59O4hBvOWKbotEeGs8wa3bGNbxGtfN/fOhb2jrSxqmy5SMWMY22hAAFLgL0iEwS6kvpbdI/ezXJhZvVWas1QHIOeH7VifI7NZ0F+bC1YDUDISW8fXxf6M3EtpSTXlGSACGmj/FDhBosoZpjCD7x0FMEP208dePpp1jXk7sp34wFbVI1C6Q==
+From: Michael Kelley <mhklinux@outlook.com>
+To: Christoph Hellwig <hch@lst.de>
+CC: "robin.murphy@arm.com" <robin.murphy@arm.com>, "joro@8bytes.org"
+	<joro@8bytes.org>, "will@kernel.org" <will@kernel.org>, "jgross@suse.com"
+	<jgross@suse.com>, "sstabellini@kernel.org" <sstabellini@kernel.org>,
+	"oleksandr_tyshchenko@epam.com" <oleksandr_tyshchenko@epam.com>,
+	"m.szyprowski@samsung.com" <m.szyprowski@samsung.com>, "petr@tesarici.cz"
+	<petr@tesarici.cz>, "iommu@lists.linux.dev" <iommu@lists.linux.dev>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Subject: RE: [PATCH v3 1/1] swiotlb: Reduce swiotlb pool lookups
+Thread-Topic: [PATCH v3 1/1] swiotlb: Reduce swiotlb pool lookups
+Thread-Index: AQHa0W7SFxxRPYjEqkS2vOXnJ50UvLHt7teAgABXtOA=
+Date: Tue, 9 Jul 2024 11:48:08 +0000
+Message-ID:
+ <SN6PR02MB41571D61C2DE0D914D8B0923D4DB2@SN6PR02MB4157.namprd02.prod.outlook.com>
+References: <20240708194100.1531-1-mhklinux@outlook.com>
+ <20240709062555.GB16797@lst.de>
+In-Reply-To: <20240709062555.GB16797@lst.de>
+Accept-Language: en-US
 Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <D2KYO4GHH7VR.1XBQKN2LWF54P@cloud.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-tmn: [HVTDK+uCEaeHZgfZn7MwsYzJS7qXaDgz]
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: SN6PR02MB4157:EE_|MN2PR02MB6816:EE_
+x-ms-office365-filtering-correlation-id: 6080a5e0-45ff-4c50-4210-08dca00d00b6
+x-microsoft-antispam:
+ BCL:0;ARA:14566002|8060799006|19110799003|461199028|3412199025|440099028|102099032;
+x-microsoft-antispam-message-info:
+ vo7tbdZjjqEoerB0jtj9RnHvA+bLylOEahcBKDanFMeYxpDfmYrmHnvvU/XrNxve2JJgNRIZu9Q3Kl6VDyPjGBTsh43v5lOBhE09NJEiMW5oUWwT/Sb69QMCUJqAYz3jV1zq+tjGk17kLTr0td3/S3H1s9JC9c+lxZQD09AnxYwKDGRw5OcPaOT6aYPCjchVrYxgXEshQtreBJQcyrLZFnXEqNA6qAjypAMy6H8qu0dfgoEvaV4vLwelSyZcArjsn/j5zunRuqeaMN3KsqpUp5wQG6PolDkEMtQMJUi54OWOKYw9c18EIlCOoQg78Dd1yhlPNg2pCps8PvFRQtMr3pBMAkQVOnsEAMYz9OGjAZQ0tFE2V304P124gBOLciMQiJ3Ht0pTIN3Cfissq0vFing7jDmofhVE6qU1ZDUTfEOZEOU//Iw3JLBdSFgK1rVD2sbHOoCLOJAfZ3Uyxb4qD83xxng7NRYGqj9dbqGBTiGz4qb9f4FOZp8it51RimEkoOZ55o6T0rkbib4GUw2DDmI6RE5EsrAIQAd9byLBVxigLBlaJLfIQ5GJJoW54YA4v9AJFZPS1F+57qMMZr7oOPBp0m9enT7G6r5Wl3wfEeQMyKPLMFzhLkDZg3d+Y6iWPdc/RdoMzlWYp2clLEjyaA==
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?IxKq7bLAfKKaosF7QxAVSz56hBFpDS4KVcL2FUhg0lKWptL8tw11srjR7nCs?=
+ =?us-ascii?Q?h9UfYnpK92LqF0hztu9yxMDE8jjHTk1cSyLhJViw4lAnnOe/XNEgQtOjzAcw?=
+ =?us-ascii?Q?YQ9Y4p5XMgVT4YDNeiHVNBTBwJyry/QPQT/f+O84bawXyC4av4XFLViWscJl?=
+ =?us-ascii?Q?Pw/mm3+IDQV7k/g8IQVrkXxjqbTAEM0Um/cYWeo7HWq6Qb16bKcN1Hqarnc4?=
+ =?us-ascii?Q?vuOUP8cx5LVtPdQCzZvaa5y35VpGWET4bH74qpmWvnuxyAVb1mB+nbAhobb6?=
+ =?us-ascii?Q?VshQuTJU/JqQmuCF7FIpaW2hEwVGKDsSKxjqkYgiuTbCtTAX2O9Hbi6xNyhG?=
+ =?us-ascii?Q?TJJWtkNkghh9mgIzOr+rfB2lVwDlBJ1WMR0xdJZT3ZW1W+qB9q3om434+fZF?=
+ =?us-ascii?Q?hqwHq7yIg9h0xi2Cx3I3AR8GlPE6L05RZdLOh2VRASAJtOgo3zlOWJ+w24hY?=
+ =?us-ascii?Q?CxR068/UC6IJGPJgjIEGDovbvFfwICLVq71jGPNyeebuhMPOsSQhFahwfco3?=
+ =?us-ascii?Q?nqe3judH+dP83HFfdvZTAIvdnpAfGmh8frcJ3IqMDUAL3u+GAi8Xyw3GJtXp?=
+ =?us-ascii?Q?/aIIVcr3lo5dkbXf5hdJwpfejkk02UmcQInGYh6jfOeAyCPj3oT/5RFFRHwI?=
+ =?us-ascii?Q?QsWhJdNZGe5HL0Dv4T9SMnZMoFsJ19ZTpbmvqQ6QcZ7sfBna4htWbeeHMdMT?=
+ =?us-ascii?Q?70g0PAkJqbpmaK3utF4rUIFuta2q+E1TZ276aS+Ek/waac4c33+zvuzGvhvh?=
+ =?us-ascii?Q?gnJDAWtR5bZK8SmCDYeipqCKCkeA9lgCTn9yClcsukxZINwWLPQoyk3I6tHh?=
+ =?us-ascii?Q?beV9TJleEP21agKDP++CEwsTTa3LDHBu4wH4dV07hH9gclZC4+X1boeuftj0?=
+ =?us-ascii?Q?QbEUcQ5m1KDFUQKk7Tn6Xh+Yv+tAaDRNF7Wel2A9lT5J3lLOqs/grgB4mA0q?=
+ =?us-ascii?Q?xySRTDAflmikhKKodl3o10ykQWfxOda4ixJ/cihFbRjerjLSOlw/ZcnZivwL?=
+ =?us-ascii?Q?z1ExBOj/BGRkHgITAeAbQgLW6klD6jt/DwL0DM2eBmi0mW7wfV6TM5tKuub6?=
+ =?us-ascii?Q?E8GLaRvjD5BxsHSZVlM/OVlMmDtNRnS8g5B+GL6rYgwe18+cFTewKcduL3rU?=
+ =?us-ascii?Q?fCJhbsLblS5AfySC7wapIMhnx43mzdXqzCdHeBRRscCF5ixb3ZRiChJGnSo7?=
+ =?us-ascii?Q?c1QUjBMn6XUoSFXegFzKQnuKOhiy0vtnZ1xKoWY7Uxhp4ObDMnMo4iPIGug?=
+ =?us-ascii?Q?=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-OriginatorOrg: outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: SN6PR02MB4157.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6080a5e0-45ff-4c50-4210-08dca00d00b6
+X-MS-Exchange-CrossTenant-rms-persistedconsumerorg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-CrossTenant-originalarrivaltime: 09 Jul 2024 11:48:08.6511
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR02MB6816
 
-On 09.07.2024 13:11, Alejandro Vallejo wrote:
-> I'll pitch in, seeing as I created the GitLab ticket.
-> 
-> On Tue Jul 9, 2024 at 7:40 AM BST, Jan Beulich wrote:
->> On 08.07.2024 17:42, Matthew Barnes wrote:
->>> Currently, OVMF is hard-coded to set up a maximum of 64 vCPUs on
->>> startup.
->>>
->>> There are efforts to support a maximum of 128 vCPUs, which would involve
->>> bumping the OVMF constant from 64 to 128.
->>>
->>> However, it would be more future-proof for OVMF to access the maximum
->>> number of vCPUs for a domain and set itself up appropriately at
->>> run-time.
->>>
->>> For OVMF to access the maximum vCPU count, Xen will have to expose this
->>> property via cpuid.
->>
->> Why "have to"? The information is available from xenstore, isn't it?
-> 
-> That would create an avoidable dependency between OVMF and xenstore, precluding
-> xenstoreless UEFI-enabled domUs.
+From: Christoph Hellwig <hch@lst.de> Sent: Monday, July 8, 2024 11:26 PM
+>=20
+> Hi Michael,
+>=20
+> I've applied this, but I've made a few changes before that directly as
+> we're getting close to the end of the merge window.
+>=20
+> Most of it is very slight formatting tweaks, but I've also kept the
+> dma_uses_io_tlb field under ifdef CONFIG_SWIOTLB_DYNAMIC as I
+> don't want to touch the device structure layout.
+>=20
+> Let me me know if this is ok for you.  If I can get reviews today
+> or tomorrow I'd also love to add them, but given that all this has
+> been extensively discussed I went ahead with applying it.
+>=20
+> Thanks for all your work!
 
-Right, but that's a desirable thing, so still not "have to".
+Your tweaks look fine to me. Evidently I misunderstood your
+preference in our previous exchange about #ifdef vs. IS_ENABLED()
+in swiotlb_find_pool(), and the effect on dma_uses_io_tlb.
+Reverting to the #ifdef version and leaving dma_uses_io_tlb
+unchanged is my preference as well. The #ifdef version also had
+#ifdef CONFIG_SWIOTLB_DYNAMIC around the declaration of
+__swiotlb_find_pool(), but that doesn't really matter either way.
 
->>> This patch exposes the max_vcpus field via cpuid on the HVM hypervisor
->>> leaf in edx.
->>
->> If exposing via CPUID, why only for HVM?
->>
->>> --- a/xen/include/public/arch-x86/cpuid.h
->>> +++ b/xen/include/public/arch-x86/cpuid.h
->>> @@ -87,6 +87,7 @@
->>>   * Sub-leaf 0: EAX: Features
->>>   * Sub-leaf 0: EBX: vcpu id (iff EAX has XEN_HVM_CPUID_VCPU_ID_PRESENT flag)
->>>   * Sub-leaf 0: ECX: domain id (iff EAX has XEN_HVM_CPUID_DOMID_PRESENT flag)
->>> + * Sub-leaf 0: EDX: max vcpus (iff EAX has XEN_HVM_CPUID_MAX_VCPUS_PRESENT flag)
->>>   */
->>
->> Unlike EBX and ECX, the proposed value for EDX cannot be zero. I'm therefore
->> not entirely convinced that we need a qualifying flag. Things would be
->> different if the field was "highest possible vCPU ID", which certainly would
->> be the better approach if the field wasn't occupying the entire register.
->> Even with it being 32 bits, I'd still suggest switching its meaning this way.
-> 
-> Using max_vcpu_id instead of max_vcpus is also fine, but the flag is important
-> as otherwise it's impossible to retroactively change the meaning of EDX (i.e: to
-> stop advertising this datum, or repurpose EDX altogether)
-
-Hmm, re-purposing. Very interesting thought. I don't think we should ever do
-that.
-
-> We could also reserve only the lower 16bits of EDX rather than the whole thing;
-> but we have plenty of subleafs for growth, so I'm not sure it's worth it.
-
-And I was only mentioning it, without meaning to suggest to shrink.
-
-Jan
+Michael
 
