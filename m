@@ -2,38 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DDD6192BC87
-	for <lists+xen-devel@lfdr.de>; Tue,  9 Jul 2024 16:11:30 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.756309.1164875 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9821F92BCA9
+	for <lists+xen-devel@lfdr.de>; Tue,  9 Jul 2024 16:16:57 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.756315.1164885 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sRBY9-0001k7-Db; Tue, 09 Jul 2024 14:10:33 +0000
+	id 1sRBe6-0002PH-1Y; Tue, 09 Jul 2024 14:16:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 756309.1164875; Tue, 09 Jul 2024 14:10:33 +0000
+Received: by outflank-mailman (output) from mailman id 756315.1164885; Tue, 09 Jul 2024 14:16:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sRBY9-0001hf-9p; Tue, 09 Jul 2024 14:10:33 +0000
-Received: by outflank-mailman (input) for mailman id 756309;
- Tue, 09 Jul 2024 14:10:32 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ELTS=OJ=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1sRBY8-0001hZ-90
- for xen-devel@lists.xenproject.org; Tue, 09 Jul 2024 14:10:32 +0000
-Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com
- [2a00:1450:4864:20::636])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ff874be1-3dfc-11ef-8776-851b0ebba9a2;
- Tue, 09 Jul 2024 16:10:30 +0200 (CEST)
-Received: by mail-ej1-x636.google.com with SMTP id
- a640c23a62f3a-a77c349bb81so459274066b.3
- for <xen-devel@lists.xenproject.org>; Tue, 09 Jul 2024 07:10:30 -0700 (PDT)
-Received: from [192.168.219.191] ([94.75.70.14])
+	id 1sRBe5-0002NH-UA; Tue, 09 Jul 2024 14:16:41 +0000
+Received: by outflank-mailman (input) for mailman id 756315;
+ Tue, 09 Jul 2024 14:16:41 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=7TZB=OJ=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1sRBe5-0002NB-26
+ for xen-devel@lists.xenproject.org; Tue, 09 Jul 2024 14:16:41 +0000
+Received: from mail-lj1-x230.google.com (mail-lj1-x230.google.com
+ [2a00:1450:4864:20::230])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id dbd36e3f-3dfd-11ef-bbfb-fd08da9f4363;
+ Tue, 09 Jul 2024 16:16:39 +0200 (CEST)
+Received: by mail-lj1-x230.google.com with SMTP id
+ 38308e7fff4ca-2eaae2a6dc1so75581401fa.0
+ for <xen-devel@lists.xenproject.org>; Tue, 09 Jul 2024 07:16:39 -0700 (PDT)
+Received: from ?IPV6:2003:e5:8729:4000:29eb:6d9d:3214:39d2?
+ (p200300e58729400029eb6d9d321439d2.dip0.t-ipconnect.de.
+ [2003:e5:8729:4000:29eb:6d9d:3214:39d2])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a780a73039fsm80822466b.96.2024.07.09.07.10.28
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 09 Jul 2024 07:10:29 -0700 (PDT)
+ 5b1f17b1804b1-4266f736939sm43643785e9.37.2024.07.09.07.16.38
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 09 Jul 2024 07:16:38 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,89 +47,58 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ff874be1-3dfc-11ef-8776-851b0ebba9a2
+X-Inumbo-ID: dbd36e3f-3dfd-11ef-bbfb-fd08da9f4363
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1720534229; x=1721139029; darn=lists.xenproject.org;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=Dc50ud25/1CssaRGBd85ngjcalVklR1C8UxKfKGDLt4=;
-        b=kqqsxXIz3GGqnv5CXfkAd3avk7F3YufFWnNExBtyTfb+W/hdnC3gvlhRQFz+LJcYoI
-         jXf76oLw9sTPdmIBC5phhn2XirooOlBqY/6z9ztuA0pvOm5R+E8ZzpHy4XZRA8cXogM2
-         iqYeP4YnKS6BwrYugVwwvgIvUnQlRdBLmYZn6U2P03h1VYxc1mxkczbJabUyFaLEV4U1
-         aED/NkQqJxd9NY+93ODjvYa56+lz+3ybsvXg+q3awF+TtHPuZByguSaplLzRpBmXpnws
-         NzgZAL/sMG6lLTqhk0mvTjwufxLg6S/0GJJ+lHJH6RsAD0s2ByCYlMXM65licXam6+T5
-         1U8g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1720534229; x=1721139029;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
+        d=suse.com; s=google; t=1720534599; x=1721139399; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=Dc50ud25/1CssaRGBd85ngjcalVklR1C8UxKfKGDLt4=;
-        b=HHOt1iogzmTgBm5LfweYSo6WhSCpNawxxwNvDT/R3elrwFE4xc9WOIoAKDqOykwEPT
-         LBUysKKP4pNxvTbqT2tOdyRRHtIUYPx11ziLUqMCXIxNwKm6Za55QASMDofXM2JJBeEF
-         g+gLthXrAPGL+iy4E6pmjQhJKMsKfbTMoX97GxGtzyovlPMVEZmDXMBqqcCXnqs1tf3Y
-         vqaNwU1jx3C5b3guNEs43Jl2hMoqYMae/cmx5A+ToOIfTtiLV7OQwQg90MwtLxWmaJ3c
-         QdBzSQ/CWe0rLT+ZUnzklBqYK5RcoZIloPEmaTiKpmEdPA/ZU5GnRSi7UHZ5zx2/crxS
-         n5zQ==
-X-Forwarded-Encrypted: i=1; AJvYcCVlxVytvtfCDGRWMdOwf9rXqJzc2ZQpphOYYzWZ8bHrY+IpRW0IFu65lSExVXb03M0gaIlKfK8rglRZYfeml2U8UDS5yNIw1p+4IPl0RGk=
-X-Gm-Message-State: AOJu0Yz1MjYCrpyPjup66A2OakVgF5SSz8ASnatqemyNFLYhNRXNlpsY
-	vAttagEj/ZBj7ewMfK5UtipS0kKsf4Cmt5uZ59GceITf8t8UasjB
-X-Google-Smtp-Source: AGHT+IGIoOrr5n3tA1aA/pyAJA8sqocf3OoMYH+99sllXpHD7BSt2DrS3GTz1KET73sujcgrnEAyrg==
-X-Received: by 2002:a17:906:c08e:b0:a77:c827:2cb2 with SMTP id a640c23a62f3a-a780b7053a8mr143002066b.44.1720534229366;
-        Tue, 09 Jul 2024 07:10:29 -0700 (PDT)
-Message-ID: <82b2047ac7d1221eb73f65e55e1771ad21cdf043.camel@gmail.com>
-Subject: Re: [PATCH for-4.19?] stubdom: Remove more leftovers of caml-stubdom
-From: Oleksii <oleksii.kurochko@gmail.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>, Xen-devel
-	 <xen-devel@lists.xenproject.org>
-Cc: Juergen Gross <jgross@suse.com>
-Date: Tue, 09 Jul 2024 16:10:28 +0200
-In-Reply-To: <20240709123907.2400138-1-andrew.cooper3@citrix.com>
-References: <20240709123907.2400138-1-andrew.cooper3@citrix.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.52.2 (3.52.2-1.fc40app2) 
+        bh=lvEGfOFFHNrrKM0QkQGSTaQxFAfHL0jf/PrpM9vaCfU=;
+        b=NXDYFBqy+ak0Jo5iKUADVCp0n9EFpvVOw1Y9UUe+faY3MnCVQVojBrlsabO0EZTQ3u
+         H3vNy7c5qJaClzY947M06Z/UXsCet0DKGnc2eCQjtRJiuj1mBxTEyBi0xOiflhISoBnr
+         KNGXtIy7IWr6Ktv6opWQqlKDp1Egs/lZGIYEPu66b3iv63WuN4qStgXgP8xiofzwGocG
+         TeUPZrcxuzZFs2WvTJZnzAp5YhDICj5M3N6jdFMjLZEFQGL6HTMBadwP+BBmuKjpLSTT
+         T7xNlPn1esZ1jGWs01GZqUB48is062/4oCPzPoiMNOmwpXbo8iPmD88vV4InN/uRI6ok
+         jSNA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1720534599; x=1721139399;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=lvEGfOFFHNrrKM0QkQGSTaQxFAfHL0jf/PrpM9vaCfU=;
+        b=FiotrMhfvzUipRjJaSu0KbIIXAdcsDO+sMdqJOZq4yNoD4Uxscvxeq0MPVgU5J70Bs
+         G1SByHHW9nPOBUct5cDAzn/woshCLjv38+vySkt2+xz4sJrT6JTkKXJ/N2QphQKYa/ge
+         981Q4ozujtgorsy7/+O2TkIZ6L++vhxLkHvyrDizECEEYAgTpeFvitH32Zh2eHUSfXj9
+         zmTf6oEvTDmRZJFMkNE+nrXzNUrFGV2immfErWVPKS4i8WIccKpXkdNpvdAYGA3vNSVx
+         sBSDTxym6po2nnP4ro8QT6/DShuL/sfKRXd26cbAi4mR74MjfV91FyAhL7RfWMV0RXA/
+         sn5g==
+X-Forwarded-Encrypted: i=1; AJvYcCXLNcYgsZwLNzCaF54MvVvzK8M6TkLbpR1tb/kqIX9rE36nHVp83ZoMs+N7R1eyIZlj0XRINegy1JjG9p2130mzQ9R6rPueZlMuqIL9FSc=
+X-Gm-Message-State: AOJu0Yz83Dk+Z8xODhrcBcslz0w0RFIAscvgiyQgQEcQ+5PKRFfJXyRz
+	SIOs+TBSCU6O/NkOLsd84rgPM57ivO/OQqNlysHTKkOy5utG4/PsC2G2gU60sjQ=
+X-Google-Smtp-Source: AGHT+IGpr9knB4AbdAVZZyCyZkoeyI+5+/BqzPGWUigUXq5xHrOtDZJtXgN6ohL8SC0uabT3J3MtMg==
+X-Received: by 2002:a05:651c:23b:b0:2ec:56b9:258b with SMTP id 38308e7fff4ca-2eeb316b00amr23444721fa.33.1720534599107;
+        Tue, 09 Jul 2024 07:16:39 -0700 (PDT)
+Message-ID: <e1d345fc-cb88-4aed-9d57-7cad4647d161@suse.com>
+Date: Tue, 9 Jul 2024 16:16:38 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH for-4.19?] stubdom: Remove more leftovers of caml-stubdom
+To: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+References: <20240709123907.2400138-1-andrew.cooper3@citrix.com>
+Content-Language: en-US
+From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+In-Reply-To: <20240709123907.2400138-1-andrew.cooper3@citrix.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Tue, 2024-07-09 at 13:39 +0100, Andrew Cooper wrote:
+On 09.07.24 14:39, Andrew Cooper wrote:
 > Fixes: e536a497545f ("stubdom: Remove caml-stubdom")
 > Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> ---
-> CC: Juergen Gross <jgross@suse.com>
-> CC: Oleksii Kurochko <oleksii.kurochko@gmail.com>
->=20
-> For 4.19.=C2=A0 This is additional tidying to a removal in 4.19, which
-> will
-> otherwise need backporting if it misses 4.19.
-Release-Acked-By: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 
-~ Oleksii
-> ---
-> =C2=A0config/Stubdom.mk.in | 3 ---
-> =C2=A01 file changed, 3 deletions(-)
->=20
-> diff --git a/config/Stubdom.mk.in b/config/Stubdom.mk.in
-> index 5990fc4e04f9..b399d77740e8 100644
-> --- a/config/Stubdom.mk.in
-> +++ b/config/Stubdom.mk.in
-> @@ -26,9 +26,6 @@ LWIP_URL=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0 :=3D @LWIP_URL@
-> =C2=A0GRUB_VERSION=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 :=3D @GRUB_V=
-ERSION@
-> =C2=A0GRUB_URL=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0 :=3D @GRUB_URL@
-> =C2=A0
-> -OCAML_VERSION=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 :=3D @OCAML_VERSION@
-> -OCAML_URL=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 :=
-=3D @OCAML_URL@
-> -
-> =C2=A0GMP_VERSION=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 :=3D @G=
-MP_VERSION@
-> =C2=A0GMP_URL=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0 :=3D @GMP_URL@
-> =C2=A0
->=20
-> base-commit: c4ebeb79d10a25e8d48a71cdd381898265267e67
+Reviewed-by: Juergen Gross <jgross@suse.com>
 
+
+Juergen
 
