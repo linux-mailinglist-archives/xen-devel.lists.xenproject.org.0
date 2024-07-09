@@ -2,38 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1FF6F92B5EF
-	for <lists+xen-devel@lfdr.de>; Tue,  9 Jul 2024 12:53:20 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.756171.1164695 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AE4C092B60C
+	for <lists+xen-devel@lfdr.de>; Tue,  9 Jul 2024 12:57:19 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.756176.1164705 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sR8Sk-0004Bi-FP; Tue, 09 Jul 2024 10:52:46 +0000
+	id 1sR8Wr-0004yL-Vp; Tue, 09 Jul 2024 10:57:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 756171.1164695; Tue, 09 Jul 2024 10:52:46 +0000
+Received: by outflank-mailman (output) from mailman id 756176.1164705; Tue, 09 Jul 2024 10:57:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sR8Sk-00049E-CS; Tue, 09 Jul 2024 10:52:46 +0000
-Received: by outflank-mailman (input) for mailman id 756171;
- Tue, 09 Jul 2024 10:52:45 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=cUMd=OJ=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1sR8Sj-000498-0e
- for xen-devel@lists.xenproject.org; Tue, 09 Jul 2024 10:52:45 +0000
-Received: from mail-qt1-x831.google.com (mail-qt1-x831.google.com
- [2607:f8b0:4864:20::831])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 5e605df0-3de1-11ef-bbfb-fd08da9f4363;
- Tue, 09 Jul 2024 12:52:43 +0200 (CEST)
-Received: by mail-qt1-x831.google.com with SMTP id
- d75a77b69052e-447f2f5891cso9553861cf.2
- for <xen-devel@lists.xenproject.org>; Tue, 09 Jul 2024 03:52:43 -0700 (PDT)
-Received: from [10.125.226.166] ([185.25.67.249])
+	id 1sR8Wr-0004w5-Sg; Tue, 09 Jul 2024 10:57:01 +0000
+Received: by outflank-mailman (input) for mailman id 756176;
+ Tue, 09 Jul 2024 10:57:00 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=7TZB=OJ=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1sR8Wq-0004vz-S0
+ for xen-devel@lists.xenproject.org; Tue, 09 Jul 2024 10:57:00 +0000
+Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
+ [2a00:1450:4864:20::330])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id f6a87aa5-3de1-11ef-8776-851b0ebba9a2;
+ Tue, 09 Jul 2024 12:56:58 +0200 (CEST)
+Received: by mail-wm1-x330.google.com with SMTP id
+ 5b1f17b1804b1-4265b7514fcso20436205e9.1
+ for <xen-devel@lists.xenproject.org>; Tue, 09 Jul 2024 03:56:58 -0700 (PDT)
+Received: from ?IPV6:2003:e5:8729:4000:29eb:6d9d:3214:39d2?
+ (p200300e58729400029eb6d9d321439d2.dip0.t-ipconnect.de.
+ [2003:e5:8729:4000:29eb:6d9d:3214:39d2])
  by smtp.gmail.com with ESMTPSA id
- d75a77b69052e-447f9bf4317sm8971451cf.93.2024.07.09.03.52.41
+ 5b1f17b1804b1-427265d6ebasm9190805e9.41.2024.07.09.03.56.57
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 09 Jul 2024 03:52:42 -0700 (PDT)
+ Tue, 09 Jul 2024 03:56:58 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,116 +47,96 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5e605df0-3de1-11ef-bbfb-fd08da9f4363
+X-Inumbo-ID: f6a87aa5-3de1-11ef-8776-851b0ebba9a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1720522363; x=1721127163; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=rkEqfGYJGpPzhfQt/2efXrN3UR+BKrwJd7jWOFgGeTs=;
-        b=lGylmwEXsVf0FiTUHomBgFYzhMUP2NIJqzYs7oJZV1MhGe5EZjfkJ/qxAOIn1hCp9q
-         +deuwO+YXptcwYQ0NpOgJYVoUkZQW1yPqn2gOX+xwjZ1C4Kl4stVSmTyVqGCTy5kQvzv
-         TsjwPRV7+1ZlGeZOmxxJnCIhTJtulAX7gTsXI=
+        d=suse.com; s=google; t=1720522618; x=1721127418; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=Klx7LL74vI+ro2X+0F2FCKOwfRQmfK+bzqc5UOyXUfI=;
+        b=JmEOfTLdgx6WCs4haHieb9AmN+WdSER3FhqLSy8EOZK8gEmdBSAq9A4xvlDOtQ0N0W
+         LcczH1AVePaiyKs4PbbG5dkMNjoSGIiHR4EjWWK5RYqxdkGwusiWT7S4uZW5SkwTap6i
+         Q3l6Pc04MZuFDwdSeocIfw9LJ55VKDe102nnUC3G9+ITbG59YLEtpyiz9JAqTeTetDqa
+         I+Q0uZsGyvIlLx7gtfv1r+jY8IIE0vu4R6TzK92hXAkAvoU9EkQ3Z5WhzjlnieENk1ay
+         p8qiuFirHaBjiNCIZkAr1dFD46joCMRxlBiSFRbfq3V6rP0Ugs2byFjdGEZC6i/HUvJU
+         L0SQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1720522363; x=1721127163;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=rkEqfGYJGpPzhfQt/2efXrN3UR+BKrwJd7jWOFgGeTs=;
-        b=BmZu6ZZhF6++Pq05fSEjD9NXzDW31WG/7TfkReD0IZpMuS+68nkfcqf9g+WfEW5556
-         QSMNqokgZmpv775fB38rCiD9G+RiwIEJJckhQliGLV2xm0KyOLgX6On5E8oDU3aNup3F
-         +A3Ozsf9CmCzpXdLeoYid9I0bgof1SWx0/WIMIoAvpLDeyQxkU+x3C9NFNGoT+36GKSi
-         gDYpTaf2NX/tdsVTYT8GwU1lbLSLDarhVjBAEK3A5+G+t+UrSR6V/CQ6eJ48aX77JDvC
-         ZIWzR39RzOw7SWK9Hrvom4D1rzVPwwN+PEIv5quIdXBHajBCLa6Yr1iSAMiLFAA/thwW
-         6K5w==
-X-Forwarded-Encrypted: i=1; AJvYcCU5WJJND5tXeRXke+dfvfusmRUjhArF/1Acr1lPIPTOW3xrVU0va4eXXPj+XnjCL9Ier8cl0maVos2Ek7o9p4l1kxZN1zWuR62FTd/f7Bc=
-X-Gm-Message-State: AOJu0YyPxF9X1H9gOWcCKgrQzS3ypqOoOk15Awu8f6w4aEsXdpGHAW6O
-	3dNiKdvpKUbWdMdbwTxlt6+J8zoW+s2/YB5jn9o2oIIx+CFd0u2WZ9FWB+ddzKUN4Vq9kuDEXZ0
-	M
-X-Google-Smtp-Source: AGHT+IHQaJNBcwVVYyENLmeZjSQ9DUo9wZyxUcJkbN7td5H8gqqgQYNMa9cKk1YILnjegaOnSgShpA==
-X-Received: by 2002:a05:622a:1ba2:b0:446:55f1:bc66 with SMTP id d75a77b69052e-447faa627e3mr28742431cf.68.1720522362732;
-        Tue, 09 Jul 2024 03:52:42 -0700 (PDT)
-Message-ID: <5ee79ef2-6c68-477b-a3f9-3a190f99ca0e@citrix.com>
-Date: Tue, 9 Jul 2024 11:52:38 +0100
+        d=1e100.net; s=20230601; t=1720522618; x=1721127418;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=Klx7LL74vI+ro2X+0F2FCKOwfRQmfK+bzqc5UOyXUfI=;
+        b=If+0PD85d8LoCPKezW772eVdRZ4UBVjv1too/a/HN2EXZT6G923lBondWJy1g5uXcK
+         F72vH/Fj6jVOz1At4t2sdM3yEFyaqfysFNnoJBbpgc8PIAxgQneXSDDAegCdSrORwmC7
+         uOKwvzW3YAhJ/6gmw3FbuNhZVxAPpN8GeIK28vszgU9blv7gDNsAaWLXuYqLzzNgmBUY
+         enL5FqZoxr8jNRKMs0+gRgitHL0e2w+pBZjNDdiUOPI0L82cW4ClWxjl8q90riFBgnOy
+         RC7jJPADiYKaN6N/SZtMmR9PooQVt27CEiyhh56xzuNLVZGTmk5mJRnmFKubKCgqNRff
+         kQnA==
+X-Gm-Message-State: AOJu0YycsJZtMEZNASxP8nsLVtf2ndYb6/EmhOG1H5K4C8TJ2cv/v6P2
+	+MdRSs0ehvlfr1wKBrWjHcwuShc521jHNVpRklGaUm3mbYSjgITOOvoLyy43m7Y=
+X-Google-Smtp-Source: AGHT+IFsjfGVW0Vm93shA9/aWzaB+WbQjyYo3fTFdFeWdBc/0sYXDfKHQCMzls18ALDQXyYu8dpDUw==
+X-Received: by 2002:a05:600c:44c6:b0:426:5fa7:b495 with SMTP id 5b1f17b1804b1-42672305df7mr15805555e9.15.1720522618313;
+        Tue, 09 Jul 2024 03:56:58 -0700 (PDT)
+Message-ID: <88db3cb6-2b7e-48b2-9bf4-d871067325a0@suse.com>
+Date: Tue, 9 Jul 2024 12:56:57 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] ppc/shutdown: Implement machine_{halt,restart}()
-To: Shawn Anastasio <sanastasio@raptorengineering.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
- Jan Beulich <JBeulich@suse.com>, Stefano Stabellini
- <sstabellini@kernel.org>, Julien Grall <julien@xen.org>
-References: <20240705182311.1968790-1-andrew.cooper3@citrix.com>
- <20240705182311.1968790-3-andrew.cooper3@citrix.com>
- <f3bad5a8-077e-40e7-abff-7a2cc0027d2b@raptorengineering.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <f3bad5a8-077e-40e7-abff-7a2cc0027d2b@raptorengineering.com>
-Content-Type: text/plain; charset=UTF-8
+Subject: Re: Problems in PV dom0 on recent x86 hardware
+To: Jan Beulich <jbeulich@suse.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Jason Andryuk <jason.andryuk@amd.com>
+References: <baade0a7-e204-4743-bda1-282df74e5f89@suse.com>
+ <d379a900-fd1c-42ca-bc31-071f7fd80d0b@suse.com>
+ <ZousjqOAFJgO6681@macbook.local>
+ <6101999a-6f88-46cb-b850-af43b364f299@suse.com>
+ <7a0a8b1c-69e0-435d-b4f4-7a9d784eab29@amd.com>
+ <1f96a355-b0d2-4cc9-a2ae-6d3ab750136d@suse.com>
+ <89d7b5a6-e971-4cd0-85df-0dd599d0ba1b@suse.com>
+ <7d207d6c-d025-4fbb-8649-9c42224097f5@suse.com>
+Content-Language: en-US
+From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+In-Reply-To: <7d207d6c-d025-4fbb-8649-9c42224097f5@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-On 08/07/2024 10:21 pm, Shawn Anastasio wrote:
->> +    do {
->> +        rc = opal_cec_reboot();
->> +
->> +        if ( rc == OPAL_BUSY_EVENT )
->> +            opal_poll_events(NULL);
->> +
->> +    } while ( rc == OPAL_BUSY || rc == OPAL_BUSY_EVENT );
->> +
->> +    for ( ;; )
->> +        opal_poll_events(NULL);
->> +}
->> +
-> Other than that, looks great.
->
-> Reviewed-by: Shawn Anastasio <sanastasio@raptorengineering.com>
+On 09.07.24 09:01, Jan Beulich wrote:
+> On 09.07.2024 08:36, Jürgen Groß wrote:
+>> On 09.07.24 08:24, Jan Beulich wrote:
+>>> On 08.07.2024 23:30, Jason Andryuk wrote:
+>>>>    From the backtrace, it looks like the immediate case is just trying to
+>>>> read a 4-byte version:
+>>>>
+>>>>    >>>> [   44.575541]  ucsi_acpi_dsm+0x53/0x80
+>>>>    >>>> [   44.575546]  ucsi_acpi_read+0x2e/0x60
+>>>>    >>>> [   44.575550]  ucsi_register+0x24/0xa0
+>>>>    >>>> [   44.575555]  ucsi_acpi_probe+0x162/0x1e3
+>>>>
+>>>> int ucsi_register(struct ucsi *ucsi)
+>>>> {
+>>>>            int ret;
+>>>>
+>>>>            ret = ucsi->ops->read(ucsi, UCSI_VERSION, &ucsi->version,
+>>>>                                  sizeof(ucsi->version));
+>>>>
+>>>> ->read being ucsi_acpi_read()
+>>>>
+>>>> However, the driver also appears write to adjacent addresses.
+>>>
+>>> There are also corresponding write functions in the driver, yes, but
+>>> ucsi_acpi_async_write() (used directly or indirectly) similarly calls
+>>> ucsi_acpi_dsm(), which wires through to acpi_evaluate_dsm(). That's
+>>> ACPI object evaluation, which isn't obvious without seeing the
+>>> involved AML whether it might write said memory region.
+>>
+>> I guess an ACPI dump would help here?
+> 
+> Perhaps, yes.
 
-Thanks.  Fixed up, and queued for 4.20 when the tree opens.
+It is available in the bug report:
 
-~Andrew
+https://bugzilla.opensuse.org/show_bug.cgi?id=1227301
+
+
+Juergen
 
