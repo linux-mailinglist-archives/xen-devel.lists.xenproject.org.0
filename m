@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E88E992B05E
-	for <lists+xen-devel@lfdr.de>; Tue,  9 Jul 2024 08:40:49 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.755871.1164375 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DA16B92B0C1
+	for <lists+xen-devel@lfdr.de>; Tue,  9 Jul 2024 09:02:47 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.755879.1164384 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sR4Wc-00051q-Hp; Tue, 09 Jul 2024 06:40:30 +0000
+	id 1sR4rC-0002jX-36; Tue, 09 Jul 2024 07:01:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 755871.1164375; Tue, 09 Jul 2024 06:40:30 +0000
+Received: by outflank-mailman (output) from mailman id 755879.1164384; Tue, 09 Jul 2024 07:01:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sR4Wc-0004yf-Ev; Tue, 09 Jul 2024 06:40:30 +0000
-Received: by outflank-mailman (input) for mailman id 755871;
- Tue, 09 Jul 2024 06:40:29 +0000
+	id 1sR4rC-0002h6-0W; Tue, 09 Jul 2024 07:01:46 +0000
+Received: by outflank-mailman (input) for mailman id 755879;
+ Tue, 09 Jul 2024 07:01:44 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=uARp=OJ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sR4Wa-0004yT-W8
- for xen-devel@lists.xenproject.org; Tue, 09 Jul 2024 06:40:29 +0000
-Received: from mail-lj1-x22a.google.com (mail-lj1-x22a.google.com
- [2a00:1450:4864:20::22a])
+ id 1sR4rA-0002fo-4E
+ for xen-devel@lists.xenproject.org; Tue, 09 Jul 2024 07:01:44 +0000
+Received: from mail-lf1-x129.google.com (mail-lf1-x129.google.com
+ [2a00:1450:4864:20::129])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 203e6be2-3dbe-11ef-8776-851b0ebba9a2;
- Tue, 09 Jul 2024 08:40:26 +0200 (CEST)
-Received: by mail-lj1-x22a.google.com with SMTP id
- 38308e7fff4ca-2ee91d9cb71so44759251fa.0
- for <xen-devel@lists.xenproject.org>; Mon, 08 Jul 2024 23:40:26 -0700 (PDT)
+ id 1835fd7d-3dc1-11ef-8776-851b0ebba9a2;
+ Tue, 09 Jul 2024 09:01:41 +0200 (CEST)
+Received: by mail-lf1-x129.google.com with SMTP id
+ 2adb3069b0e04-52ea1a69624so5527060e87.1
+ for <xen-devel@lists.xenproject.org>; Tue, 09 Jul 2024 00:01:41 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-2c99a92a430sm9380919a91.4.2024.07.08.23.40.22
+ d2e1a72fcca58-70b439b9555sm1035661b3a.198.2024.07.09.00.01.37
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 08 Jul 2024 23:40:25 -0700 (PDT)
+ Tue, 09 Jul 2024 00:01:39 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,53 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 203e6be2-3dbe-11ef-8776-851b0ebba9a2
+X-Inumbo-ID: 1835fd7d-3dc1-11ef-8776-851b0ebba9a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1720507226; x=1721112026; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1720508501; x=1721113301; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=7GHixLYQ2ebze7nShu37lQqC/dPJuIAaOjuzoELZjBI=;
-        b=IYZW+VsCmwpFGOWvbKr+7TexhLPZbD+70Va4HbwLupyAQadQqqX2hHwhvPaIBZ7Vfr
-         kcl9YgilsAqZtcYnZUfqxbZvVbbL33Owrv2FPRhgoqOF+mMOsGDcg0QhH92ckX+iViyI
-         AWmSKvHJMVKmLNm8B9zRGfz7WQRVop15AUnr05N7NvKX13LPAmZekjSwIBRs8ld+UmmD
-         qdiHBGDAJsej+tgnSJ89Qt7twxPNK5fM9L1y5Nq1SzY7Io1EOJLpMQdsr+L19/DzbVNL
-         K5+ya+g9ikV8qr09+Zvw156ljgPiLd7B3TGrEGfwaOzpCseNJI2FTCREn5hqiNG0TvSy
-         LesA==
+        bh=dA98gXcCDPIk/pF33kneDy6d1TV3YJuGmg68ii6L554=;
+        b=VjRvQi+w/KXLsJkN1AIw3S9MiIwk6YfrrqozLMBFyOfVojpSj78FpiHpVUT7oa7A2e
+         /ZOX8DYzo1RE5BUZVKwairXyPbWVtxLgN7CjhNAfB9p2sUwlYKT0W1SdeVT/9QnsNIL2
+         DdKKFw293C3Fq8vStKT+94fDvpi9Oo3JfwBxyAOx0lCYGZKVIl9RAEhJQVzfBVeec2M/
+         6/1DwHU+OVbjMkghThjZ3HvmIsxZ6ahh8rLle/YF2SB0OC36n6al/lmeZc01LJK3VUF6
+         tIqtLV4qbZprqaybHS64V0ZmU6dVHw7NSVP03sTZ7xkFCongA5pMQJPo/GaQ+ppXlfeg
+         n0rg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1720507226; x=1721112026;
+        d=1e100.net; s=20230601; t=1720508501; x=1721113301;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=7GHixLYQ2ebze7nShu37lQqC/dPJuIAaOjuzoELZjBI=;
-        b=TPm1jFmEchWVQFaBvLY05JqQxvboxPHVPnao1WtR+o+d7Tdzp2waHhoN/u3vAngX1c
-         IEMjqt2fgga+U8XesoinYsA3LjKCKPijJ8U0NF/XcaeMlep2Z8b4lsgb/7NeuiXDgnex
-         pZ1r9H049CWsSRGKSz9uExPWys92h4C9aigKuSQ/JaXam6I/hhtpYhgPAx+YFQLRM9oh
-         gENAgw/MGzr72k5y20vkKkq6HQHERO1aPVe45IP0WrMJxvx+DKLYQbw8PC6CzGrXMTue
-         XcrHrbK8BNSVx1cIpbZKR96HjRWR5OsbiDowLj6gFBBcUvBuDzAoKNmbkLORibrucPf5
-         /CTA==
-X-Forwarded-Encrypted: i=1; AJvYcCWgnDME9Ppzr0yxPOV/ypYN+fMwlBWbN3hb6f3nEJ4w62Mw1J5ROkKzXXhGS6oO7i2fHBv1qzTSRBXM44izW0L90gyKq2EfHXg6UlUDWMM=
-X-Gm-Message-State: AOJu0YxZUgZrz088tPjcErBE3ExWF1w7Q9SkDXPhnakLZfttBMMhAhM0
-	zEW4UsFeEl/ePE3HV6hG/wFj93YKRlfY0FYU1OMi6J/io0/Qr9lIE8j+B4OCFQ==
-X-Google-Smtp-Source: AGHT+IEOec8ZrfQ+RmQE/NvvJ1AmbK9Q7mm4TcXeb4XxqFJy+95b8cN+ny5Rqn6KWlcaOzYbVuG5iA==
-X-Received: by 2002:a2e:9ed4:0:b0:2ec:5759:bf2f with SMTP id 38308e7fff4ca-2eeb30bc32emr10645091fa.7.1720507226019;
-        Mon, 08 Jul 2024 23:40:26 -0700 (PDT)
-Message-ID: <103d60b6-001b-43f0-bbff-a0806cebda73@suse.com>
-Date: Tue, 9 Jul 2024 08:40:18 +0200
+        bh=dA98gXcCDPIk/pF33kneDy6d1TV3YJuGmg68ii6L554=;
+        b=ETbvA5HkRmJ6YzZuqf+PUlMecWsLwI6t6G6A8P+/x18L7HZhPzsluIPXnHnPERdQqq
+         mvkanAwD2e4B2w+SSIcXHCW6SRr+/Gpa6pGqXJPN6x6VwEjbXoAfCA0rzMAn4gTY8Rcw
+         MuCAG5j1M3q4FvhIQLEzv+15ppdwPtg6kfV+mF4dDEsmHkCyPAaxZIz0itFwMFNcQBUc
+         dcoAgrmrQTLl8rH5LQoJzWJAoGd7ock3PKDJDFiskq3TKAiA5b2TTJuwbS7yGPOLL+6Z
+         rXodmEPLoDYECV8jyvnVRryRF/My131ylW+V7+WPYkoXiLZf+Z9vf7WbGLTsYwwh+OVn
+         C/7A==
+X-Gm-Message-State: AOJu0YwUenX/h7nVQhuYt5/xRPg9HMMWYcXRdiyUBaxZAmklXhZntT/x
+	jiQvUj8XZyl4xQsyFJEK3ZVxXmJ1MOeXik1WfxLXYWYX/7usUHaj3qfCpWdtEQ==
+X-Google-Smtp-Source: AGHT+IEL54TMW8b71IGlM8jeUFVPdxKa9h5epEXjCT9fbZ+B3TKMfO+Jw+32ulA7Z8YqzOju+gdL1g==
+X-Received: by 2002:a05:6512:688:b0:52c:df51:20bc with SMTP id 2adb3069b0e04-52eb99942b2mr944933e87.16.1720508500091;
+        Tue, 09 Jul 2024 00:01:40 -0700 (PDT)
+Message-ID: <7d207d6c-d025-4fbb-8649-9c42224097f5@suse.com>
+Date: Tue, 9 Jul 2024 09:01:33 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC XEN PATCH] x86/cpuid: Expose max_vcpus field in HVM
- hypervisor leaf
-To: Matthew Barnes <matthew.barnes@cloud.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+Subject: Re: Problems in PV dom0 on recent x86 hardware
+To: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Alejandro Vallejo <alejandro.vallejo@cloud.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <c0a9f52107e22957daaa5b1b0e05e4160db5f064.1720452354.git.matthew.barnes@cloud.com>
+ Jason Andryuk <jason.andryuk@amd.com>
+References: <baade0a7-e204-4743-bda1-282df74e5f89@suse.com>
+ <d379a900-fd1c-42ca-bc31-071f7fd80d0b@suse.com>
+ <ZousjqOAFJgO6681@macbook.local>
+ <6101999a-6f88-46cb-b850-af43b364f299@suse.com>
+ <7a0a8b1c-69e0-435d-b4f4-7a9d784eab29@amd.com>
+ <1f96a355-b0d2-4cc9-a2ae-6d3ab750136d@suse.com>
+ <89d7b5a6-e971-4cd0-85df-0dd599d0ba1b@suse.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -114,45 +117,93 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <c0a9f52107e22957daaa5b1b0e05e4160db5f064.1720452354.git.matthew.barnes@cloud.com>
+In-Reply-To: <89d7b5a6-e971-4cd0-85df-0dd599d0ba1b@suse.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 08.07.2024 17:42, Matthew Barnes wrote:
-> Currently, OVMF is hard-coded to set up a maximum of 64 vCPUs on
-> startup.
+On 09.07.2024 08:36, Jürgen Groß wrote:
+> On 09.07.24 08:24, Jan Beulich wrote:
+>> On 08.07.2024 23:30, Jason Andryuk wrote:
+>>>   From the backtrace, it looks like the immediate case is just trying to
+>>> read a 4-byte version:
+>>>
+>>>   >>>> [   44.575541]  ucsi_acpi_dsm+0x53/0x80
+>>>   >>>> [   44.575546]  ucsi_acpi_read+0x2e/0x60
+>>>   >>>> [   44.575550]  ucsi_register+0x24/0xa0
+>>>   >>>> [   44.575555]  ucsi_acpi_probe+0x162/0x1e3
+>>>
+>>> int ucsi_register(struct ucsi *ucsi)
+>>> {
+>>>           int ret;
+>>>
+>>>           ret = ucsi->ops->read(ucsi, UCSI_VERSION, &ucsi->version,
+>>>                                 sizeof(ucsi->version));
+>>>
+>>> ->read being ucsi_acpi_read()
+>>>
+>>> However, the driver also appears write to adjacent addresses.
+>>
+>> There are also corresponding write functions in the driver, yes, but
+>> ucsi_acpi_async_write() (used directly or indirectly) similarly calls
+>> ucsi_acpi_dsm(), which wires through to acpi_evaluate_dsm(). That's
+>> ACPI object evaluation, which isn't obvious without seeing the
+>> involved AML whether it might write said memory region.
 > 
-> There are efforts to support a maximum of 128 vCPUs, which would involve
-> bumping the OVMF constant from 64 to 128.
+> I guess an ACPI dump would help here?
+
+Perhaps, yes.
+
+>> The writing
+>> done in the write function(s) looks to be
+>>
+>> 	memcpy(ua->base + offset, val, val_len);
+>>
+>> with their read counterpart being
+>>
+>> 	memcpy(val, ua->base + offset, val_len);
+>>
+>> where ua->base may well be an entirely different address (looks like
+>> it's the first of the BARs as per ucsi_acpi_probe()).
 > 
-> However, it would be more future-proof for OVMF to access the maximum
-> number of vCPUs for a domain and set itself up appropriately at
-> run-time.
+> According to the lspci -v output there are no BARs in the MSI space:
 > 
-> For OVMF to access the maximum vCPU count, Xen will have to expose this
-> property via cpuid.
+> 66:00.6 USB controller: Advanced Micro Devices, Inc. [AMD] Pink Sardine 
+> USB4/Thunderbolt NHI controller #2 (prog-if 40 [USB4 Host Interface])
+> 	Subsystem: Lenovo Device 50d9
+> 	Flags: bus master, fast devsel, latency 0, IRQ 71
+> 	Memory at 78a00000 (64-bit, non-prefetchable) [size=512K]
+> 	Capabilities: [48] Vendor Specific Information: Len=08 <?>
+> 	Capabilities: [50] Power Management version 3
+> 	Capabilities: [64] Express Endpoint, MSI 00
+> 	Capabilities: [a0] MSI: Enable- Count=1/16 Maskable- 64bit+
+> 	Capabilities: [c0] MSI-X: Enable+ Count=16 Masked-
+> 	Capabilities: [100] Vendor Specific Information: ID=0001 Rev=1 Len=010 <?>
+> 	Capabilities: [2a0] Access Control Services
+> 	Kernel driver in use: thunderbolt
+> 	Kernel modules: thunderbolt
 
-Why "have to"? The information is available from xenstore, isn't it?
+Right, this matches what I was vaguely guessing from reading the code in
+the driver. My present understanding is that the object evaluation
+actually triggers the read/write operation to produce/consume data inside
+that single BAR's space.
 
-> This patch exposes the max_vcpus field via cpuid on the HVM hypervisor
-> leaf in edx.
+>> If acpi_evaluate_dsm() would only ever read the region, an option (if
+>> all else fails) might be to similarly (to what we do for IO-APICs)
+>> permit read accesses / mappings (by inserting the range into
+>> mmio_ro_ranges). Yet of course first we need to better understand
+>> what's actually going on here.
+> 
+> As the mapping is currently trying to allow write access, too, the kernel
+> would need some modification as well.
 
-If exposing via CPUID, why only for HVM?
-
-> --- a/xen/include/public/arch-x86/cpuid.h
-> +++ b/xen/include/public/arch-x86/cpuid.h
-> @@ -87,6 +87,7 @@
->   * Sub-leaf 0: EAX: Features
->   * Sub-leaf 0: EBX: vcpu id (iff EAX has XEN_HVM_CPUID_VCPU_ID_PRESENT flag)
->   * Sub-leaf 0: ECX: domain id (iff EAX has XEN_HVM_CPUID_DOMID_PRESENT flag)
-> + * Sub-leaf 0: EDX: max vcpus (iff EAX has XEN_HVM_CPUID_MAX_VCPUS_PRESENT flag)
->   */
-
-Unlike EBX and ECX, the proposed value for EDX cannot be zero. I'm therefore
-not entirely convinced that we need a qualifying flag. Things would be
-different if the field was "highest possible vCPU ID", which certainly would
-be the better approach if the field wasn't occupying the entire register.
-Even with it being 32 bits, I'd still suggest switching its meaning this way.
+Not really, no. It would be better if the kernel didn't ask for write
+access, but get_page_from_l1e() simply tells its caller to remove the
+W bit from the PTE in case a page is recorded in mmio_ro_ranges. That's
+also why for the IO-APIC case we got away without needing to alter the
+kernel (which would likely be pretty ugly, as acpi_os_map_iomem() sits
+very far away from the place where we would have a way to know that a
+mapping is sufficient to be r/o; the function itself takes only
+address and size right now, no permissions or cachability or anything).
 
 Jan
 
