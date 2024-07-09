@@ -2,37 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3535592BA35
-	for <lists+xen-devel@lfdr.de>; Tue,  9 Jul 2024 15:00:22 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.756255.1164805 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5450C92BA9E
+	for <lists+xen-devel@lfdr.de>; Tue,  9 Jul 2024 15:08:37 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.756263.1164816 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sRAR8-0003ca-5i; Tue, 09 Jul 2024 12:59:14 +0000
+	id 1sRAZt-0005X0-17; Tue, 09 Jul 2024 13:08:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 756255.1164805; Tue, 09 Jul 2024 12:59:14 +0000
+Received: by outflank-mailman (output) from mailman id 756263.1164816; Tue, 09 Jul 2024 13:08:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sRAR8-0003aM-2o; Tue, 09 Jul 2024 12:59:14 +0000
-Received: by outflank-mailman (input) for mailman id 756255;
- Tue, 09 Jul 2024 12:59:12 +0000
+	id 1sRAZs-0005Tq-UQ; Tue, 09 Jul 2024 13:08:16 +0000
+Received: by outflank-mailman (input) for mailman id 756263;
+ Tue, 09 Jul 2024 13:08:15 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=XjVV=OJ=cloud.com=alejandro.vallejo@srs-se1.protection.inumbo.net>)
- id 1sRAR5-0003aG-TG
- for xen-devel@lists.xenproject.org; Tue, 09 Jul 2024 12:59:11 +0000
-Received: from mail-ed1-x52a.google.com (mail-ed1-x52a.google.com
- [2a00:1450:4864:20::52a])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=uARp=OJ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1sRAZr-0005Tk-PF
+ for xen-devel@lists.xenproject.org; Tue, 09 Jul 2024 13:08:15 +0000
+Received: from mail-lj1-x22b.google.com (mail-lj1-x22b.google.com
+ [2a00:1450:4864:20::22b])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 08c565e6-3df3-11ef-bbfb-fd08da9f4363;
- Tue, 09 Jul 2024 14:59:10 +0200 (CEST)
-Received: by mail-ed1-x52a.google.com with SMTP id
- 4fb4d7f45d1cf-58b5f7bf3edso3178765a12.0
- for <xen-devel@lists.xenproject.org>; Tue, 09 Jul 2024 05:59:10 -0700 (PDT)
-Received: from localhost ([185.25.67.249]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-594bba548f3sm1044895a12.10.2024.07.09.05.59.09
+ id 4d31a602-3df4-11ef-bbfb-fd08da9f4363;
+ Tue, 09 Jul 2024 15:08:14 +0200 (CEST)
+Received: by mail-lj1-x22b.google.com with SMTP id
+ 38308e7fff4ca-2ee9b098bd5so44171201fa.0
+ for <xen-devel@lists.xenproject.org>; Tue, 09 Jul 2024 06:08:14 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-1fbb6ab6c48sm15594885ad.152.2024.07.09.06.08.08
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 09 Jul 2024 05:59:09 -0700 (PDT)
+ Tue, 09 Jul 2024 06:08:13 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,162 +45,116 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 08c565e6-3df3-11ef-bbfb-fd08da9f4363
+X-Inumbo-ID: 4d31a602-3df4-11ef-bbfb-fd08da9f4363
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1720529950; x=1721134750; darn=lists.xenproject.org;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-transfer-encoding:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=BG18fm06j50PrqXn/TzPqWy99jWqJaEaljHVn90LuGk=;
-        b=WEyEfulH2XcWsvbv5lUYsF+HhX67aEa3rxkkyYN+T0pt/Wm9SHb+nAwsfkyDXWiD/D
-         rkf/I0SqjGE6tYS8sxABGc5Y7J9CvmpWa7jlkyh9A3ZK2jl7R9CqdleOgnas1gCGhZXp
-         BmxlF2I9XjsGakleGdmsum//1tduHQCLeMa0k=
+        d=suse.com; s=google; t=1720530494; x=1721135294; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=NSYGY4y3m6QD1Xst4sVYikiWogvvrkFCMWfzJfKumiw=;
+        b=f+2UquWcA8qYDMacgLsvHearXNxNUhiAmrUTKmyitmOiZO6edr0c/z0nq7jibF10JI
+         j5cs/9FP3L7/1mCmVhbog0ViKmGsjW3fTvw6iaEPNatSECfZLXRu89oeZ7YesCKmhthf
+         RxzCB4+haCDgAq37S6iAtibiFyfsBh4KfFpZ59bUAxh70GwC6bT+gKvr+q/hy6wyUdPS
+         JiNPtVvNE6LkNAzPvF3eYcjtVJutX/q1iOLbUPD4s3QDK7MFYI1iiWfsLLZuRB1J2Buf
+         bkzHW2YGzD77xkto5BqTiTgQhsnlWKdPcA/AIOQie3YEdIn5tDbqVQSQ/DhLPMWTZelo
+         UiwQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1720529950; x=1721134750;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-transfer-encoding:mime-version:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=BG18fm06j50PrqXn/TzPqWy99jWqJaEaljHVn90LuGk=;
-        b=DJBjXRoSym1fBUfnXzaosHabFNahscOmgtgMs9YrQCMQF4Incly6EA8wxoEQaLYq9p
-         2cFz6nCVLJyZ4JstXRMCFamCaHaffldfC/KwBN50eg8fWOW+kW+qlpRuDT74r3932lBn
-         X0ED1WMpDkXdXblTrUqHH9S5tvJsW+viLn+K2Ne3Wooxoh0rYJ9xfrkSb+qQVL40Drr/
-         WwVYqPccS2+0h+CjMD93AC7NyQFm9+A+txoO1N7fANWaqTEW0UyK+ZHOD4EFicSKrlog
-         /2V0lRfdmyq/Q2MG0VGVJfru/ckGNce8/pm//hk/SppHkdeflRjFNnyRxDWScQg/Jdwn
-         qpuQ==
-X-Forwarded-Encrypted: i=1; AJvYcCW95uUgEvKWeZIQMXBt9glVfXT/RQnCe5xp/BaIXnDbwlnmZjwC8E3UV2RwadmakpZEAufbtH2sTS0uXSUgJ02Gc+J6q/TjJerPriuk7jg=
-X-Gm-Message-State: AOJu0Yw6SNFmjY+ZHguXHxneQUdO6hynCte6WQY1qpzKtHvJtrz2sB8G
-	DsZiPe+BhoUuD+VbmgR2z8lxtEZMJfGreyMxGiwvKF9vpm6xJMC4cf3MAOxViJuwnepcT9T2kyi
-	G
-X-Google-Smtp-Source: AGHT+IEBq2+ttsamhEI5Z7cIdXXIQZN1J8lnnr6mp7OjYlPXCPf/9G/cAf6eh5wmFYKOQPR7EwTPsw==
-X-Received: by 2002:a50:fb0b:0:b0:57d:42f6:63fe with SMTP id 4fb4d7f45d1cf-594bb773f1bmr1986162a12.22.1720529950043;
-        Tue, 09 Jul 2024 05:59:10 -0700 (PDT)
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
+        d=1e100.net; s=20230601; t=1720530494; x=1721135294;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=NSYGY4y3m6QD1Xst4sVYikiWogvvrkFCMWfzJfKumiw=;
+        b=JWgObLVguG0Ho3eZt4EOYw/kOcXMCbZiVnBwVLQPl8P9CPZ0/0kt1vLV4veQRgOFYf
+         eZmL1KrIbgZSQddi2vwaEuFvFKNYFEzRtX08vHSeU6e1KrcDZiF7edA/xeplD8rR1hTs
+         FYURPwYbaT3BG5nEzjUoehPxnePXQ3Y7HhYMd6X/MPKu2TGvhTYzc6q5yxrmvtDhUdoh
+         4i05ZPWOsGlYLIYtI6pZlzZX1MSIPYo7afbFrOQJY2RC9iDYySEracZehGhF2AqaejqD
+         akPJYk5bku6e39QYf2V3uipqBzfsiEXr0ctfhr411I9ww3G4oQJoPIWSS0RBYlr2v9jd
+         L32A==
+X-Forwarded-Encrypted: i=1; AJvYcCXHtCnWVDFOx4McDRzOVyfeccmcv/8UNhGM7nKCo1TP+BB1lyirxEOc7Utiwnw+gEA77PI18FRwu00lDMjeZXl76mprNpnMNG7uOGZZnnc=
+X-Gm-Message-State: AOJu0YwlZ+tsnGpP2mXoZkm1OBGSAcrX9aDTkMYsyMjgguKh+RZjhXWq
+	Oh6cJx2p7rXV2ZOqRq9gVc1/TWwQkySJLq/XP0RKU5NNeaNK1T12AOF7sbv6Qg==
+X-Google-Smtp-Source: AGHT+IF6PF1m5ncIDnm5hMsmnjK3gYeTj+YhkAwY7WIrjDLyjJKXzrOcm2hE2rES1uB0ZIGyHCFJWA==
+X-Received: by 2002:a05:6512:3c81:b0:52e:8141:1b27 with SMTP id 2adb3069b0e04-52eb99d219amr2472536e87.43.1720530494156;
+        Tue, 09 Jul 2024 06:08:14 -0700 (PDT)
+Message-ID: <e350fbb3-edfb-407d-aa69-ae995889b262@suse.com>
+Date: Tue, 9 Jul 2024 15:08:04 +0200
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [XEN PATCH v12 4/7] x86/domctl: Add hypercall to set the access
+ of x86 gsi
+To: Jiqian Chen <Jiqian.Chen@amd.com>,
+ "Daniel P . Smith" <dpsmith@apertussolutions.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu
+ <wl@xen.org>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Anthony PERARD <anthony@xenproject.org>, Juergen Gross <jgross@suse.com>,
+ Stewart Hildebrand <Stewart.Hildebrand@amd.com>,
+ Huang Rui <ray.huang@amd.com>, xen-devel@lists.xenproject.org
+References: <20240708114124.407797-1-Jiqian.Chen@amd.com>
+ <20240708114124.407797-5-Jiqian.Chen@amd.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20240708114124.407797-5-Jiqian.Chen@amd.com>
 Content-Type: text/plain; charset=UTF-8
-Date: Tue, 09 Jul 2024 13:59:08 +0100
-Message-Id: <D2L0YQOMMQ3G.GLD8N5NQ50JS@cloud.com>
-Cc: "Doug Goldstein" <cardoe@cardoe.com>, "Stefano Stabellini"
- <sstabellini@kernel.org>
-Subject: Re: [PATCH for-4.20] automation: Use a different ImageBuilder
- repository URL
-From: "Alejandro Vallejo" <alejandro.vallejo@cloud.com>
-To: "Michal Orzel" <michal.orzel@amd.com>, <xen-devel@lists.xenproject.org>
-X-Mailer: aerc 0.17.0
-References: <20240709122117.48051-1-michal.orzel@amd.com>
-In-Reply-To: <20240709122117.48051-1-michal.orzel@amd.com>
+Content-Transfer-Encoding: 7bit
 
-On Tue Jul 9, 2024 at 1:21 PM BST, Michal Orzel wrote:
-> Switch to using https://gitlab.com/xen-project/imagebuilder.git which
-> should be considered official ImageBuilder repo.
->
-> Signed-off-by: Michal Orzel <michal.orzel@amd.com>
+On 08.07.2024 13:41, Jiqian Chen wrote:
+> Some type of domains don't have PIRQs, like PVH, it doesn't do
+> PHYSDEVOP_map_pirq for each gsi. When passthrough a device
+> to guest base on PVH dom0, callstack
+> pci_add_dm_done->XEN_DOMCTL_irq_permission will fail at function
+> domain_pirq_to_irq, because PVH has no mapping of gsi, pirq and
+> irq on Xen side.
+> What's more, current hypercall XEN_DOMCTL_irq_permission requires
+> passing in pirq to set the access of irq, it is not suitable for
+> dom0 that doesn't have PIRQs.
+> 
+> So, add a new hypercall XEN_DOMCTL_gsi_permission to grant/deny
+> the permission of irq(translate from x86 gsi) to dumU when dom0
+> has no PIRQs.
+> 
+> Signed-off-by: Jiqian Chen <Jiqian.Chen@amd.com>
+> Signed-off-by: Huang Rui <ray.huang@amd.com>
+> Signed-off-by: Jiqian Chen <Jiqian.Chen@amd.com>
 > ---
->  automation/scripts/qemu-smoke-dom0-arm32.sh       | 2 +-
->  automation/scripts/qemu-smoke-dom0-arm64.sh       | 2 +-
->  automation/scripts/qemu-smoke-dom0less-arm32.sh   | 2 +-
->  automation/scripts/qemu-smoke-dom0less-arm64.sh   | 2 +-
->  automation/scripts/qemu-xtf-dom0less-arm64.sh     | 2 +-
->  automation/scripts/xilinx-smoke-dom0less-arm64.sh | 2 +-
->  6 files changed, 6 insertions(+), 6 deletions(-)
->
-> diff --git a/automation/scripts/qemu-smoke-dom0-arm32.sh b/automation/scr=
-ipts/qemu-smoke-dom0-arm32.sh
-> index d91648905669..5b62e3f691f1 100755
-> --- a/automation/scripts/qemu-smoke-dom0-arm32.sh
-> +++ b/automation/scripts/qemu-smoke-dom0-arm32.sh
-> @@ -73,7 +73,7 @@ UBOOT_SOURCE=3D"boot.source"
->  UBOOT_SCRIPT=3D"boot.scr"' > config
-> =20
->  rm -rf imagebuilder
-> -git clone https://gitlab.com/ViryaOS/imagebuilder
-> +git clone https://gitlab.com/xen-project/imagebuilder.git
+> CC: Daniel P . Smith <dpsmith@apertussolutions.com>
+> Remaining comment @Daniel P . Smith:
+> +        ret = -EPERM;
+> +        if ( !irq_access_permitted(currd, irq) ||
+> +             xsm_irq_permission(XSM_HOOK, d, irq, access_flag) )
+> +            goto gsi_permission_out;
+> Is it okay to issue the XSM check using the translated value, 
+> not the one that was originally passed into the hypercall?
 
-For this clone and all others:
+As long as the answer to this is going to be "Yes":
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
-You probably want "git clone --depth 1 <url>" to pull the tip of the repo a=
-nd
-not its history.
+Daniel, awaiting your input.
 
->  bash imagebuilder/scripts/uboot-script-gen -t tftp -d . -c config
-> =20
->  rm -f ${serial_log}
-> diff --git a/automation/scripts/qemu-smoke-dom0-arm64.sh b/automation/scr=
-ipts/qemu-smoke-dom0-arm64.sh
-> index e0bb37af3610..ca59bdec1b2b 100755
-> --- a/automation/scripts/qemu-smoke-dom0-arm64.sh
-> +++ b/automation/scripts/qemu-smoke-dom0-arm64.sh
-> @@ -87,7 +87,7 @@ LOAD_CMD=3D"tftpb"
->  UBOOT_SOURCE=3D"boot.source"
->  UBOOT_SCRIPT=3D"boot.scr"' > binaries/config
->  rm -rf imagebuilder
-> -git clone https://gitlab.com/ViryaOS/imagebuilder
-> +git clone https://gitlab.com/xen-project/imagebuilder.git
->  bash imagebuilder/scripts/uboot-script-gen -t tftp -d binaries/ -c binar=
-ies/config
-> =20
-> =20
-> diff --git a/automation/scripts/qemu-smoke-dom0less-arm32.sh b/automation=
-/scripts/qemu-smoke-dom0less-arm32.sh
-> index 1e2b939aadf7..11804cbd729f 100755
-> --- a/automation/scripts/qemu-smoke-dom0less-arm32.sh
-> +++ b/automation/scripts/qemu-smoke-dom0less-arm32.sh
-> @@ -125,7 +125,7 @@ if [[ "${test_variant}" =3D=3D "without-dom0" ]]; the=
-n
->  fi
-> =20
->  rm -rf imagebuilder
-> -git clone https://gitlab.com/ViryaOS/imagebuilder
-> +git clone https://gitlab.com/xen-project/imagebuilder.git
->  bash imagebuilder/scripts/uboot-script-gen -t tftp -d . -c config
-> =20
->  # Run the test
-> diff --git a/automation/scripts/qemu-smoke-dom0less-arm64.sh b/automation=
-/scripts/qemu-smoke-dom0less-arm64.sh
-> index 292c38a56147..4b548d1f8e54 100755
-> --- a/automation/scripts/qemu-smoke-dom0less-arm64.sh
-> +++ b/automation/scripts/qemu-smoke-dom0less-arm64.sh
-> @@ -198,7 +198,7 @@ NUM_CPUPOOLS=3D1' >> binaries/config
->  fi
-> =20
->  rm -rf imagebuilder
-> -git clone https://gitlab.com/ViryaOS/imagebuilder
-> +git clone https://gitlab.com/xen-project/imagebuilder.git
->  bash imagebuilder/scripts/uboot-script-gen -t tftp -d binaries/ -c binar=
-ies/config
-> =20
-> =20
-> diff --git a/automation/scripts/qemu-xtf-dom0less-arm64.sh b/automation/s=
-cripts/qemu-xtf-dom0less-arm64.sh
-> index a667e0412c92..59f926d35fb9 100755
-> --- a/automation/scripts/qemu-xtf-dom0less-arm64.sh
-> +++ b/automation/scripts/qemu-xtf-dom0less-arm64.sh
-> @@ -45,7 +45,7 @@ UBOOT_SOURCE=3D"boot.source"
->  UBOOT_SCRIPT=3D"boot.scr"' > binaries/config
-> =20
->  rm -rf imagebuilder
-> -git clone https://gitlab.com/ViryaOS/imagebuilder
-> +git clone https://gitlab.com/xen-project/imagebuilder.git
->  bash imagebuilder/scripts/uboot-script-gen -t tftp -d binaries/ -c binar=
-ies/config
-> =20
->  # Run the test
-> diff --git a/automation/scripts/xilinx-smoke-dom0less-arm64.sh b/automati=
-on/scripts/xilinx-smoke-dom0less-arm64.sh
-> index 4a071c6ef148..e3f7648d5031 100755
-> --- a/automation/scripts/xilinx-smoke-dom0less-arm64.sh
-> +++ b/automation/scripts/xilinx-smoke-dom0less-arm64.sh
-> @@ -122,7 +122,7 @@ if [[ "${test_variant}" =3D=3D "gem-passthrough" ]]; =
-then
->  fi
-> =20
->  rm -rf imagebuilder
-> -git clone https://gitlab.com/ViryaOS/imagebuilder
-> +git clone https://gitlab.com/xen-project/imagebuilder.git
->  bash imagebuilder/scripts/uboot-script-gen -t tftp -d $TFTP/ -c $TFTP/co=
-nfig
-> =20
->  # restart the board
-
-Cheers,
-Alejandro
+Jan
 
