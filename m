@@ -2,35 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A11E992CEAB
-	for <lists+xen-devel@lfdr.de>; Wed, 10 Jul 2024 11:58:38 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.756715.1165426 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A826B92CEBC
+	for <lists+xen-devel@lfdr.de>; Wed, 10 Jul 2024 12:01:36 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.756722.1165437 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sRU5X-0002oG-TT; Wed, 10 Jul 2024 09:58:15 +0000
+	id 1sRU8U-0004cD-Bg; Wed, 10 Jul 2024 10:01:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 756715.1165426; Wed, 10 Jul 2024 09:58:15 +0000
+Received: by outflank-mailman (output) from mailman id 756722.1165437; Wed, 10 Jul 2024 10:01:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sRU5X-0002mE-Qh; Wed, 10 Jul 2024 09:58:15 +0000
-Received: by outflank-mailman (input) for mailman id 756715;
- Wed, 10 Jul 2024 09:58:14 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1sRU8U-0004ZC-8N; Wed, 10 Jul 2024 10:01:18 +0000
+Received: by outflank-mailman (input) for mailman id 756722;
+ Wed, 10 Jul 2024 10:01:16 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1sRU5W-0002m4-Ju; Wed, 10 Jul 2024 09:58:14 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1sRU5W-0006hd-GA; Wed, 10 Jul 2024 09:58:14 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1sRU5W-0007bu-6w; Wed, 10 Jul 2024 09:58:14 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1sRU5W-0003Go-6I; Wed, 10 Jul 2024 09:58:14 +0000
+ (envelope-from <SRS0=Spoc=OK=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1sRU8S-0004Z6-To
+ for xen-devel@lists.xenproject.org; Wed, 10 Jul 2024 10:01:16 +0000
+Received: from mail-lj1-x22e.google.com (mail-lj1-x22e.google.com
+ [2a00:1450:4864:20::22e])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 57e76163-3ea3-11ef-8776-851b0ebba9a2;
+ Wed, 10 Jul 2024 12:01:14 +0200 (CEST)
+Received: by mail-lj1-x22e.google.com with SMTP id
+ 38308e7fff4ca-2eaa89464a3so64259541fa.3
+ for <xen-devel@lists.xenproject.org>; Wed, 10 Jul 2024 03:01:14 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ d2e1a72fcca58-70b54ec730fsm868185b3a.173.2024.07.10.03.01.07
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 10 Jul 2024 03:01:11 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,73 +45,161 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=sXxPeq1dvLRHZukPBaNvjwkPC5swd06Vv2oMaf0J9L0=; b=HYnTE3ZAX8CRqamyffZdTT8txS
-	nuf5nbA0zt9WEB1xu6GESj1yWow+lKWvmoTEwu5blrFpvIAGPxz92fc/lYfTvAGH7aVPOt+WdC1tG
-	PYAoj6fIDTw9uU8PeXkkzZXoaseVuRTJpfVFZhwjkUPjzUYdQiLwF784JmOFqhTQc2T4=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-186751-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 57e76163-3ea3-11ef-8776-851b0ebba9a2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1720605674; x=1721210474; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=NIa8MX1cMLGDqXEKBQ3cvHlOcOao6eY0qmi6NjpyPSs=;
+        b=Rc5/lQ/Bj4udGkXzS07sgHTUprGOISVyUhTrz9rgOI081zoKhNd+5z+5614rRC2Rz/
+         Xw4LET7lHMe8zGRkfUgjStavo/zG/Pb2MV+AraifkAxrH336sWP2bYR+EculWMHrpwSc
+         8sruNJtybm/4tTagx2svV1NF1l9MfDXAcS08RSokRpcOE8ljEM9+YJlM1jZMbwoKdf0W
+         oOVlF0knRclvaoGfZ4V/3yO7ghtcBTR+PXCo15wIlzvwQa3D9bnAUk43elEMe0T+pb9t
+         yzYkPWJz1fwByf7PZsLjOgkIMLDgVXee0H5pQU6hwDoWqtxwDxVg5RAZ3yrVPYfZcMBI
+         0xHw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1720605674; x=1721210474;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=NIa8MX1cMLGDqXEKBQ3cvHlOcOao6eY0qmi6NjpyPSs=;
+        b=tQkNgq4KVLz6KCN+1abz6rnDAkk248K2ntiUMpRrtt4Qz+EazCXRPRn+pyJCwd77E3
+         HmvGFt7ZWJKj/BZ+RzGpDfCiMGuZMPdz6ktCjsXJ7rAxCU4U0xnc1Q3uYV5+k2ZYApoj
+         /LurfGTDbcEojwYiqdT5ME2iU8hsZnvFI1/7hTjXLYc3GsntQci1RjVWfbCDGkWpr5vh
+         P7PKaGgJseIV+ogOAFHGkMfIDDHKE+/uwnrUsIWvBu/A39QQHHIebjliE1GANpN53wH4
+         AqhAQnFyEzQgujmwjZMZ9sfjucAlzrvesmIF4VlfHV9SuRG9r/B7YwrSVdLi/pzLDRNL
+         PzJQ==
+X-Forwarded-Encrypted: i=1; AJvYcCVdCFHsjLkUHz/7QBBhm9uMadYVsFNokwTdn5SmS5JdTHWrmC1KeOUAG0c2MkIPjUz0iCujeg7gK/+FILCxnCB5z60lyY+u/SiXbhF8PHE=
+X-Gm-Message-State: AOJu0YwLTGhj2NvhZvySLblBmVshY++qKaCrj0MI83IVISHCt9KWtXlF
+	NZNARR0EXeFmmQMyiIyqTzP4zpVGv8l9TNol79Znih+z326S5MrLCXaHFJ5n1z4F4OktF3k3xLY
+	=
+X-Google-Smtp-Source: AGHT+IFNdEjKYx9fVk5Y06UriIlyQZU5ZT5QGOPdNzvI45o3yC9sm+bE8dueS8T49uvaFDHwh0D0KA==
+X-Received: by 2002:a2e:a581:0:b0:2ee:8453:5164 with SMTP id 38308e7fff4ca-2eeb304eec9mr43206421fa.0.1720605671789;
+        Wed, 10 Jul 2024 03:01:11 -0700 (PDT)
+Message-ID: <ca373d42-22f1-41a2-bdbb-4733145c635a@suse.com>
+Date: Wed, 10 Jul 2024 12:01:03 +0200
 MIME-Version: 1.0
-Subject: [ovmf test] 186751: all pass - PUSHED
-X-Osstest-Versions-This:
-    ovmf=497766f70975b9c1f88df42228c79095198f2b4e
-X-Osstest-Versions-That:
-    ovmf=f91211049c1522f7db2ae8f7a509ac270868d0e9
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Wed, 10 Jul 2024 09:58:14 +0000
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v9 4/5] xen/riscv: enable GENERIC_BUG_FRAME
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ xen-devel@lists.xenproject.org
+References: <cover.1719918148.git.oleksii.kurochko@gmail.com>
+ <c51c485bac43b7589961aabec8af1b82d4673b94.1719918148.git.oleksii.kurochko@gmail.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <c51c485bac43b7589961aabec8af1b82d4673b94.1719918148.git.oleksii.kurochko@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-flight 186751 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/186751/
+On 02.07.2024 13:23, Oleksii Kurochko wrote:
+> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+> ---
+>  xen/arch/riscv/Kconfig |  1 +
+>  xen/arch/riscv/traps.c | 31 +++++++++++++++++++++++++++++++
+>  xen/common/bug.c       |  1 +
+>  3 files changed, 33 insertions(+)
+> 
+> diff --git a/xen/arch/riscv/Kconfig b/xen/arch/riscv/Kconfig
+> index b4b354a778..74ad019fe7 100644
+> --- a/xen/arch/riscv/Kconfig
+> +++ b/xen/arch/riscv/Kconfig
+> @@ -5,6 +5,7 @@ config RISCV
+>  config RISCV_64
+>  	def_bool y
+>  	select 64BIT
+> +	select GENERIC_BUG_FRAME
 
-Perfect :-)
-All tests in this flight passed as required
-version targeted for testing:
- ovmf                 497766f70975b9c1f88df42228c79095198f2b4e
-baseline version:
- ovmf                 f91211049c1522f7db2ae8f7a509ac270868d0e9
+Any particular reason to put this here, and not higher up with RISCV?
 
-Last test of basis   186746  2024-07-10 02:12:55 Z    0 days
-Testing same since   186751  2024-07-10 06:43:17 Z    0 days    1 attempts
+> @@ -101,8 +102,38 @@ static void do_unexpected_trap(const struct cpu_user_regs *regs)
+>      die();
+>  }
+>  
+> +static bool is_valid_bug_insn(uint32_t insn)
+> +{
+> +    return insn == BUG_INSN_32 ||
+> +           (insn & COMPRESSED_INSN_MASK) == BUG_INSN_16;
+> +}
+> +
+> +/* Should be used only on Xen code */
+> +static uint32_t read_instr(unsigned long pc)
+> +{
+> +    uint16_t instr16 = *(uint16_t *)pc;
+> +
+> +    ASSERT(is_kernel_text(pc + 1) || is_kernel_inittext(pc + 1));
+> +
+> +    if ( GET_INSN_LENGTH(instr16) == 2 )
+> +        return instr16;
+> +
+> +    ASSERT(is_kernel_text(pc + 3) || is_kernel_inittext(pc + 3));
+> +
+> +    return *(uint32_t *)pc;
+> +}
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Sam Kaynor <Sam.Kaynor@arm.com>
-  Stuart Yoder <stuart.yoder@arm.com>
+Related to the point made further down: If either of these assertions fails,
+won't we come back again right here? If either of the is_kernel_*text()
+wasn't working quite right, wouldn't we be at risk of entering an infinite
+loop (presumably not quite infinite because of the stack overflowing at some
+point)?
 
-jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+>  void do_trap(struct cpu_user_regs *cpu_regs)
+>  {
+> +    register_t pc = cpu_regs->sepc;
+> +    uint32_t instr = read_instr(pc);
+> +
+> +    if ( ( is_valid_bug_insn(instr) ) && ( do_bug_frame(cpu_regs, pc) >= 0 ) )
 
+No consideration of the kind of exception? I'd expect it is one very
+specific one which the BUG insn would raise, and then there's no point
+fetching the insn when it's a different kind of exception.
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+Further, nit: Certainly no need for the parentheses on the lhs of the &&.
+Having them on the rhs is a matter of taste, so okay, but then the
+blanks immediately inside will want dropping.
 
 
-Pushing revision :
+> --- a/xen/common/bug.c
+> +++ b/xen/common/bug.c
+> @@ -1,6 +1,7 @@
+>  #include <xen/bug.h>
+>  #include <xen/errno.h>
+>  #include <xen/kernel.h>
+> +#include <xen/lib.h>
+>  #include <xen/livepatch.h>
+>  #include <xen/string.h>
+>  #include <xen/types.h>
 
-To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
-   f91211049c..497766f709  497766f70975b9c1f88df42228c79095198f2b4e -> xen-tested-master
+Unrelated change? Or did you simply forget to mention in the description
+why it's needed?
+
+Jan
 
