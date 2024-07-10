@@ -2,44 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 143E092CE4D
-	for <lists+xen-devel@lfdr.de>; Wed, 10 Jul 2024 11:37:49 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.756662.1165366 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 82A6392CE53
+	for <lists+xen-devel@lfdr.de>; Wed, 10 Jul 2024 11:38:23 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.756675.1165377 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sRTlZ-0004Ef-3e; Wed, 10 Jul 2024 09:37:37 +0000
+	id 1sRTm7-0005Co-Fs; Wed, 10 Jul 2024 09:38:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 756662.1165366; Wed, 10 Jul 2024 09:37:37 +0000
+Received: by outflank-mailman (output) from mailman id 756675.1165377; Wed, 10 Jul 2024 09:38:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sRTlZ-0004D9-0k; Wed, 10 Jul 2024 09:37:37 +0000
-Received: by outflank-mailman (input) for mailman id 756662;
- Wed, 10 Jul 2024 09:37:35 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=5pAY=OK=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1sRTlX-0003ZP-Lo
- for xen-devel@lists.xenproject.org; Wed, 10 Jul 2024 09:37:35 +0000
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 093e37f6-3ea0-11ef-bbfb-fd08da9f4363;
- Wed, 10 Jul 2024 11:37:34 +0200 (CEST)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 08F9E21BB7;
- Wed, 10 Jul 2024 09:37:34 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 9B445137D2;
- Wed, 10 Jul 2024 09:37:33 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id nvZiJF1WjmanWwAAD6G6ig
- (envelope-from <jgross@suse.com>); Wed, 10 Jul 2024 09:37:33 +0000
+	id 1sRTm7-0005Ad-Bn; Wed, 10 Jul 2024 09:38:11 +0000
+Received: by outflank-mailman (input) for mailman id 756675;
+ Wed, 10 Jul 2024 09:38:09 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=drOD=OK=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
+ id 1sRTm5-0003T0-SW
+ for xen-devel@lists.xenproject.org; Wed, 10 Jul 2024 09:38:09 +0000
+Received: from NAM04-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam04on20622.outbound.protection.outlook.com
+ [2a01:111:f403:2408::622])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 1cf2a40d-3ea0-11ef-8776-851b0ebba9a2;
+ Wed, 10 Jul 2024 11:38:07 +0200 (CEST)
+Received: from MW2PR2101CA0027.namprd21.prod.outlook.com (2603:10b6:302:1::40)
+ by PH8PR12MB7111.namprd12.prod.outlook.com (2603:10b6:510:22d::8)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7741.29; Wed, 10 Jul
+ 2024 09:38:03 +0000
+Received: from CO1PEPF000075F4.namprd03.prod.outlook.com
+ (2603:10b6:302:1:cafe::9a) by MW2PR2101CA0027.outlook.office365.com
+ (2603:10b6:302:1::40) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7762.11 via Frontend
+ Transport; Wed, 10 Jul 2024 09:38:03 +0000
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ CO1PEPF000075F4.mail.protection.outlook.com (10.167.249.43) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7762.17 via Frontend Transport; Wed, 10 Jul 2024 09:38:02 +0000
+Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 10 Jul
+ 2024 04:38:01 -0500
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB05.amd.com
+ (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 10 Jul
+ 2024 04:38:01 -0500
+Received: from XIR-MICHALO-L1.xilinx.com (10.180.168.240) by
+ SATLEXMB03.amd.com (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.39
+ via Frontend Transport; Wed, 10 Jul 2024 04:38:00 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,721 +63,187 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 093e37f6-3ea0-11ef-bbfb-fd08da9f4363
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1720604254; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=4+HykxxQ5Ex73mNnrONMwaT76JhSipo1EPy0jxTFYc8=;
-	b=OEz9xvgNl1dKu7zT6xepNByeSGWlDteYDDlg5yBwcd1XV0Is9E6n0BwhwhfQDZy7fdmeAk
-	D4DzwN2VNWZs/JVFevwffqj0SEPKHtOzQlb5LKGtDR37TWc/qa1Jum1ZV27w7xU5odgu95
-	MJHVkzyy23eyGoBKer6u59o+6d0PQv8=
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1720604254; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=4+HykxxQ5Ex73mNnrONMwaT76JhSipo1EPy0jxTFYc8=;
-	b=OEz9xvgNl1dKu7zT6xepNByeSGWlDteYDDlg5yBwcd1XV0Is9E6n0BwhwhfQDZy7fdmeAk
-	D4DzwN2VNWZs/JVFevwffqj0SEPKHtOzQlb5LKGtDR37TWc/qa1Jum1ZV27w7xU5odgu95
-	MJHVkzyy23eyGoBKer6u59o+6d0PQv8=
-From: Juergen Gross <jgross@suse.com>
-To: linux-kernel@vger.kernel.org,
-	x86@kernel.org
-Cc: Juergen Gross <jgross@suse.com>,
-	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
-	Thomas Gleixner <tglx@linutronix.de>,
-	Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
-	xen-devel@lists.xenproject.org
-Subject: [PATCH 2/2] x86/xen: eliminate some private header files
-Date: Wed, 10 Jul 2024 11:37:18 +0200
-Message-ID: <20240710093718.14552-3-jgross@suse.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20240710093718.14552-1-jgross@suse.com>
-References: <20240710093718.14552-1-jgross@suse.com>
+X-Inumbo-ID: 1cf2a40d-3ea0-11ef-8776-851b0ebba9a2
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=loZDxAxO1eMQD+6g2ZnSPEG1TYehSx0G7lcSDzizhzs+BgHdfj0KtbXnLYGaT9ww1ZxUhDmDYRn1U/MdrToHGc0QzRjfcJYTuGm5V5T/nQ19WKrXUY+NtdLoJ6Q2CyxzCoEYJIOSyzcwyvhF1qh7FuLra9mnlpIyWvKOYtZRKvxEbV+XzxUJ5ZYW2twwSxJEDXoUZMt4Sb4YBQPUwYqA8pxX03Bm7zEReP/4tSiZFt1FydwY90tZjtribv2rPwxGKkSZZ0LwLuooZ6p37mqirnMijcCh8NydusWIXMoA3RmIz6ESEHXIkFDIsLJU4rWdUpmfVr34ZfDlOTDOdVTlew==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=/nu466F27GBCKOIfte4vaJfFLdDQKHsp54cfXurZ5O8=;
+ b=Er5QBO0e8JIgPGV+wVP0UOp2rVqt5PvA6NXJ74RsXJs3hp6MKZabLBvkbym0cotbv/DEVf6a/obN2DHQ3fB0y3N/MzMFpgZYOEycXo+Da8lkQdz2EsiUXY07Ubpm4Jv2pYFKYea1R6ACdn77Up/XhIlU4Rxs+OMMwdl7iCBzMpw639syWJaOXyfn7G7tepTrk0PGZykec3egWbvXyRs7guQ7gS5CF/IkCrDVVmlquGA8ufucrPPywUJ/c9TQZKVRZ9B/C4zZnjWAZmQGw4c//Y/CE2lLIQbH9+aLd/Is6TZvX3Gt/36PenD/aylhP+HSE/vip7XAnoAo+JUndr/XdA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=/nu466F27GBCKOIfte4vaJfFLdDQKHsp54cfXurZ5O8=;
+ b=ejnF0rLwdJYdQVaWm5O2Ir9q6ZnhZpehbK1crD9TFpy+91t04nzn6mVGoNLUu1R3re7bm+5OSzqecj4ErvRlsgDAk97c52VMGkxN/+TYb0KdHCJwxyqJozh6W0l2PaBtS44EGYZ3JPoeLRRgky0Q9GxPNccYiJobIzeq93kf8+M=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+From: Michal Orzel <michal.orzel@amd.com>
+To: <xen-devel@lists.xenproject.org>
+CC: Michal Orzel <michal.orzel@amd.com>, Doug Goldstein <cardoe@cardoe.com>,
+	Stefano Stabellini <sstabellini@kernel.org>
+Subject: [PATCH for-4.20 v2] automation: Use a different ImageBuilder repository URL
+Date: Wed, 10 Jul 2024 11:37:51 +0200
+Message-ID: <20240710093751.25154-1-michal.orzel@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-6.80 / 50.00];
-	REPLY(-4.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_CONTAINS_FROM(1.00)[];
-	R_MISSING_CHARSET(0.50)[];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MIME_TRACE(0.00)[0:+];
-	RCPT_COUNT_TWELVE(0.00)[12];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	ARC_NA(0.00)[];
-	DKIM_SIGNED(0.00)[suse.com:s=susede1];
-	FUZZY_BLOCKED(0.00)[rspamd.com];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,imap1.dmz-prg2.suse.org:helo];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	RCVD_TLS_ALL(0.00)[]
-X-Spam-Flag: NO
-X-Spam-Score: -6.80
-X-Spam-Level: 
+Content-Type: text/plain
+Received-SPF: None (SATLEXMB05.amd.com: michal.orzel@amd.com does not
+ designate permitted sender hosts)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO1PEPF000075F4:EE_|PH8PR12MB7111:EE_
+X-MS-Office365-Filtering-Correlation-Id: ee7d8c9e-0450-4aa8-d9c6-08dca0c3fec4
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|1800799024|376014|36860700013;
+X-Microsoft-Antispam-Message-Info:
+	=?us-ascii?Q?6OBO/McF07D20mHt8JqEkRHLUnnZj0bYn7JRDUUqq0tFRi1K+i1kpubmo4pu?=
+ =?us-ascii?Q?EXMg7ee5sjMfV8xj7NlGl7OyO9HsYEQgcl/ugi3YH6eWYNgEgOum6HDDuhVu?=
+ =?us-ascii?Q?7/ErNYZhKqRqo3GUC+fr1EfEpZtM7cs6Puwsf4y9ZqOxgNCpmRvPHF3Fv5hM?=
+ =?us-ascii?Q?ksvvQEDe9s7xrVlVUJ3+ueT6fqMnHy9PHfQ4s1qrBk2FqoDABaD7yB8R5VDn?=
+ =?us-ascii?Q?33vuiXUdlpNGX7Kr3jNoZrE2/9S4sslPeHRYLlvkUvTPd6C7uzYG0rKyj9az?=
+ =?us-ascii?Q?9MV2Sn3Sl/GNYFyKwvHHXdVkGoglLSKHodSboSlTOyQgeLJ1OP7EDbZZee/K?=
+ =?us-ascii?Q?HJixZXZJw6YOL36RYLnIX/6y+OXY9LGflTnemE29dDo/70dwogajPNTfFqN+?=
+ =?us-ascii?Q?mjKhMIHDo0OHw014ijc0w9RhsxK+grDvgMH4Ye+eP61AMwEUZi+KXpzTjz1X?=
+ =?us-ascii?Q?95VS9iJIj2LtIv4UeadE4xueKacLPH0kEdj+rwTsza4NvkjVfPacqTpLjJIw?=
+ =?us-ascii?Q?SmYTm6QhogvBXIdPDelJfWb6GOmrO+843FOIlnoWvPBogTC2DW62aN0XEWbw?=
+ =?us-ascii?Q?awfQ40DB4zi33pwC91/8bEGDjZXnm1Ln50wRBodMKVxZ1NdG3WCOVZmsZN+x?=
+ =?us-ascii?Q?gKNOu00Hvwz4QLUgtsn58XhBl+wTmwbT/lyRkSvZTwYLcBE/QBtlEIoytDHf?=
+ =?us-ascii?Q?D9GmPpyBVDQRICvoh0zL4Dq0JgaYEsoo1XzeFpPel+29ea9EYWncWURhBhJP?=
+ =?us-ascii?Q?vGYBy/QpzW3/EqkKv/vcA9UWBu8gkl6zLOfSLwJY/zkV8VqTMGwA8UfcNyHk?=
+ =?us-ascii?Q?qhtqIBmDDRQHgV9ionQiR2UE8HMmNbAl5CwYCHbHj4jD1CslF2NYGXjAyKl/?=
+ =?us-ascii?Q?dJ3rCLzzGeCaNuWQ8clcJXKyUobC/2uWt3Ri8kWUbedafRwzVeZ1vOww09YZ?=
+ =?us-ascii?Q?zlBQhOy5RhDxoJVuC+UBLLcNQBFepFqHQn5CmCeWVMX4V6pAUntViIlYTJzU?=
+ =?us-ascii?Q?CaMJfkaJWY591LNBxOfcLBICths27zM6pbFkL5RM6ryiVh4I1T2oMEpgcZ1N?=
+ =?us-ascii?Q?MjthUbessGd3KeAR6knh+EReJ0CdLiyIyMHsyuJaBqyRdlamiqeaSdbQKQ4z?=
+ =?us-ascii?Q?bXU9duWZco8EIFOXeB7reUy3fMm7O2RmJoi0g5Ja/KvALVa70SPv/ZCHHw2T?=
+ =?us-ascii?Q?ubCJsp7PcdLxNoUav4bfbQd5KvP56P3ZVKBbPHRy6aeVCFJ3yrWybEiCDSCI?=
+ =?us-ascii?Q?tt6VQDp6AlNyoRFkdj6jXM8fjIDk7RQWbR9Ai+3fPGZxJqYUuW8tsgiYDFSq?=
+ =?us-ascii?Q?mYFHbIiZDTmYJJK7ZgV8VNDZ2T4P7NpH78U38g5EBd3ZVCVZuQg79pMe/M1z?=
+ =?us-ascii?Q?l8HJP0q3R8HYwYPvO+TUZr520Ol0o04rao2AZsF/UJI81vS/HA=3D=3D?=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(1800799024)(376014)(36860700013);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jul 2024 09:38:02.9867
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: ee7d8c9e-0450-4aa8-d9c6-08dca0c3fec4
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CO1PEPF000075F4.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB7111
 
-Under arch/x86/xen there is one large private header file xen-ops.h
-containing most of the Xen-private x86 related declarations, and then
-there are several small headers with a handful of declarations each.
+Switch to using https://gitlab.com/xen-project/imagebuilder.git which
+should be considered official ImageBuilder repo.
 
-Merge the small headers into xen-ops.h.
+Take the opportunity to truncate the git history when cloning using
+--depth 1.
 
-While doing that, move the declaration of xen_fifo_events from
-xen-ops.h into include/xen/events.h where it should have been from the
-beginning.
-
-Signed-off-by: Juergen Gross <jgross@suse.com>
+Signed-off-by: Michal Orzel <michal.orzel@amd.com>
+Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 ---
- arch/x86/xen/apic.c          |   2 -
- arch/x86/xen/debugfs.c       |   2 +-
- arch/x86/xen/debugfs.h       |   7 --
- arch/x86/xen/enlighten.c     |   2 -
- arch/x86/xen/enlighten_hvm.c |   2 -
- arch/x86/xen/enlighten_pv.c  |   4 -
- arch/x86/xen/mmu.c           |   3 +-
- arch/x86/xen/mmu.h           |  24 ------
- arch/x86/xen/mmu_hvm.c       |   2 +-
- arch/x86/xen/mmu_pv.c        |   4 +-
- arch/x86/xen/multicalls.c    |   3 +-
- arch/x86/xen/multicalls.h    |  69 ----------------
- arch/x86/xen/p2m.c           |   2 -
- arch/x86/xen/pmu.c           |   1 -
- arch/x86/xen/pmu.h           |  22 ------
- arch/x86/xen/setup.c         |   1 -
- arch/x86/xen/smp.c           |   1 -
- arch/x86/xen/smp.h           |  51 ------------
- arch/x86/xen/smp_hvm.c       |   2 -
- arch/x86/xen/smp_pv.c        |   3 -
- arch/x86/xen/suspend.c       |   2 -
- arch/x86/xen/xen-ops.h       | 147 ++++++++++++++++++++++++++++++++++-
- include/xen/events.h         |   2 +
- 23 files changed, 152 insertions(+), 206 deletions(-)
- delete mode 100644 arch/x86/xen/debugfs.h
- delete mode 100644 arch/x86/xen/mmu.h
- delete mode 100644 arch/x86/xen/multicalls.h
- delete mode 100644 arch/x86/xen/pmu.h
- delete mode 100644 arch/x86/xen/smp.h
+Changes in v2:
+ - truncate history when cloning
+---
+ automation/scripts/qemu-smoke-dom0-arm32.sh       | 2 +-
+ automation/scripts/qemu-smoke-dom0-arm64.sh       | 2 +-
+ automation/scripts/qemu-smoke-dom0less-arm32.sh   | 2 +-
+ automation/scripts/qemu-smoke-dom0less-arm64.sh   | 2 +-
+ automation/scripts/qemu-xtf-dom0less-arm64.sh     | 2 +-
+ automation/scripts/xilinx-smoke-dom0less-arm64.sh | 2 +-
+ 6 files changed, 6 insertions(+), 6 deletions(-)
 
-diff --git a/arch/x86/xen/apic.c b/arch/x86/xen/apic.c
-index 8b045dd25196..bb0f3f368446 100644
---- a/arch/x86/xen/apic.c
-+++ b/arch/x86/xen/apic.c
-@@ -10,8 +10,6 @@
- #include <xen/xen.h>
- #include <xen/interface/physdev.h>
- #include "xen-ops.h"
--#include "pmu.h"
--#include "smp.h"
+diff --git a/automation/scripts/qemu-smoke-dom0-arm32.sh b/automation/scripts/qemu-smoke-dom0-arm32.sh
+index d91648905669..31c05cc840e5 100755
+--- a/automation/scripts/qemu-smoke-dom0-arm32.sh
++++ b/automation/scripts/qemu-smoke-dom0-arm32.sh
+@@ -73,7 +73,7 @@ UBOOT_SOURCE="boot.source"
+ UBOOT_SCRIPT="boot.scr"' > config
  
- static unsigned int xen_io_apic_read(unsigned apic, unsigned reg)
- {
-diff --git a/arch/x86/xen/debugfs.c b/arch/x86/xen/debugfs.c
-index 532410998684..b8c9f2a7d9b6 100644
---- a/arch/x86/xen/debugfs.c
-+++ b/arch/x86/xen/debugfs.c
-@@ -3,7 +3,7 @@
- #include <linux/debugfs.h>
- #include <linux/slab.h>
+ rm -rf imagebuilder
+-git clone https://gitlab.com/ViryaOS/imagebuilder
++git clone --depth 1 https://gitlab.com/xen-project/imagebuilder.git
+ bash imagebuilder/scripts/uboot-script-gen -t tftp -d . -c config
  
--#include "debugfs.h"
-+#include "xen-ops.h"
+ rm -f ${serial_log}
+diff --git a/automation/scripts/qemu-smoke-dom0-arm64.sh b/automation/scripts/qemu-smoke-dom0-arm64.sh
+index e0bb37af3610..352963a741ce 100755
+--- a/automation/scripts/qemu-smoke-dom0-arm64.sh
++++ b/automation/scripts/qemu-smoke-dom0-arm64.sh
+@@ -87,7 +87,7 @@ LOAD_CMD="tftpb"
+ UBOOT_SOURCE="boot.source"
+ UBOOT_SCRIPT="boot.scr"' > binaries/config
+ rm -rf imagebuilder
+-git clone https://gitlab.com/ViryaOS/imagebuilder
++git clone --depth 1 https://gitlab.com/xen-project/imagebuilder.git
+ bash imagebuilder/scripts/uboot-script-gen -t tftp -d binaries/ -c binaries/config
  
- static struct dentry *d_xen_debug;
  
-diff --git a/arch/x86/xen/debugfs.h b/arch/x86/xen/debugfs.h
-deleted file mode 100644
-index 6b813ad1091c..000000000000
---- a/arch/x86/xen/debugfs.h
-+++ /dev/null
-@@ -1,7 +0,0 @@
--/* SPDX-License-Identifier: GPL-2.0 */
--#ifndef _XEN_DEBUGFS_H
--#define _XEN_DEBUGFS_H
--
--struct dentry * __init xen_init_debugfs(void);
--
--#endif /* _XEN_DEBUGFS_H */
-diff --git a/arch/x86/xen/enlighten.c b/arch/x86/xen/enlighten.c
-index 0305485edcd3..84e5adbd0925 100644
---- a/arch/x86/xen/enlighten.c
-+++ b/arch/x86/xen/enlighten.c
-@@ -20,8 +20,6 @@
- #include <asm/setup.h>
+diff --git a/automation/scripts/qemu-smoke-dom0less-arm32.sh b/automation/scripts/qemu-smoke-dom0less-arm32.sh
+index 1e2b939aadf7..c027c8c5c823 100755
+--- a/automation/scripts/qemu-smoke-dom0less-arm32.sh
++++ b/automation/scripts/qemu-smoke-dom0less-arm32.sh
+@@ -125,7 +125,7 @@ if [[ "${test_variant}" == "without-dom0" ]]; then
+ fi
  
- #include "xen-ops.h"
--#include "smp.h"
--#include "pmu.h"
+ rm -rf imagebuilder
+-git clone https://gitlab.com/ViryaOS/imagebuilder
++git clone --depth 1 https://gitlab.com/xen-project/imagebuilder.git
+ bash imagebuilder/scripts/uboot-script-gen -t tftp -d . -c config
  
- EXPORT_SYMBOL_GPL(hypercall_page);
+ # Run the test
+diff --git a/automation/scripts/qemu-smoke-dom0less-arm64.sh b/automation/scripts/qemu-smoke-dom0less-arm64.sh
+index 292c38a56147..15258692d58c 100755
+--- a/automation/scripts/qemu-smoke-dom0less-arm64.sh
++++ b/automation/scripts/qemu-smoke-dom0less-arm64.sh
+@@ -198,7 +198,7 @@ NUM_CPUPOOLS=1' >> binaries/config
+ fi
  
-diff --git a/arch/x86/xen/enlighten_hvm.c b/arch/x86/xen/enlighten_hvm.c
-index c001a2296582..24d2957a4726 100644
---- a/arch/x86/xen/enlighten_hvm.c
-+++ b/arch/x86/xen/enlighten_hvm.c
-@@ -28,8 +28,6 @@
- #include <asm/xen/page.h>
+ rm -rf imagebuilder
+-git clone https://gitlab.com/ViryaOS/imagebuilder
++git clone --depth 1 https://gitlab.com/xen-project/imagebuilder.git
+ bash imagebuilder/scripts/uboot-script-gen -t tftp -d binaries/ -c binaries/config
  
- #include "xen-ops.h"
--#include "mmu.h"
--#include "smp.h"
  
- static unsigned long shared_info_pfn;
+diff --git a/automation/scripts/qemu-xtf-dom0less-arm64.sh b/automation/scripts/qemu-xtf-dom0less-arm64.sh
+index a667e0412c92..b08c2d44fb4f 100755
+--- a/automation/scripts/qemu-xtf-dom0less-arm64.sh
++++ b/automation/scripts/qemu-xtf-dom0less-arm64.sh
+@@ -45,7 +45,7 @@ UBOOT_SOURCE="boot.source"
+ UBOOT_SCRIPT="boot.scr"' > binaries/config
  
-diff --git a/arch/x86/xen/enlighten_pv.c b/arch/x86/xen/enlighten_pv.c
-index 9ba53814ed6a..2c12ae42dc8b 100644
---- a/arch/x86/xen/enlighten_pv.c
-+++ b/arch/x86/xen/enlighten_pv.c
-@@ -85,10 +85,6 @@
- #endif
+ rm -rf imagebuilder
+-git clone https://gitlab.com/ViryaOS/imagebuilder
++git clone --depth 1 https://gitlab.com/xen-project/imagebuilder.git
+ bash imagebuilder/scripts/uboot-script-gen -t tftp -d binaries/ -c binaries/config
  
- #include "xen-ops.h"
--#include "mmu.h"
--#include "smp.h"
--#include "multicalls.h"
--#include "pmu.h"
+ # Run the test
+diff --git a/automation/scripts/xilinx-smoke-dom0less-arm64.sh b/automation/scripts/xilinx-smoke-dom0less-arm64.sh
+index 4a071c6ef148..666411d6a065 100755
+--- a/automation/scripts/xilinx-smoke-dom0less-arm64.sh
++++ b/automation/scripts/xilinx-smoke-dom0less-arm64.sh
+@@ -122,7 +122,7 @@ if [[ "${test_variant}" == "gem-passthrough" ]]; then
+ fi
  
- #include "../kernel/cpu/cpu.h" /* get_cpu_cap() */
+ rm -rf imagebuilder
+-git clone https://gitlab.com/ViryaOS/imagebuilder
++git clone --depth 1 https://gitlab.com/xen-project/imagebuilder.git
+ bash imagebuilder/scripts/uboot-script-gen -t tftp -d $TFTP/ -c $TFTP/config
  
-diff --git a/arch/x86/xen/mmu.c b/arch/x86/xen/mmu.c
-index 60e9c37fd79f..c4c479373249 100644
---- a/arch/x86/xen/mmu.c
-+++ b/arch/x86/xen/mmu.c
-@@ -5,8 +5,7 @@
- #include <asm/xen/hypercall.h>
- #include <xen/interface/memory.h>
- 
--#include "multicalls.h"
--#include "mmu.h"
-+#include "xen-ops.h"
- 
- unsigned long arbitrary_virt_to_mfn(void *vaddr)
- {
-diff --git a/arch/x86/xen/mmu.h b/arch/x86/xen/mmu.h
-deleted file mode 100644
-index 11fa577af6b4..000000000000
---- a/arch/x86/xen/mmu.h
-+++ /dev/null
-@@ -1,24 +0,0 @@
--/* SPDX-License-Identifier: GPL-2.0 */
--#ifndef _XEN_MMU_H
--
--#include <linux/linkage.h>
--#include <asm/page.h>
--
--enum pt_level {
--	PT_PGD,
--	PT_P4D,
--	PT_PUD,
--	PT_PMD,
--	PT_PTE
--};
--
--
--bool __set_phys_to_machine(unsigned long pfn, unsigned long mfn);
--
--void set_pte_mfn(unsigned long vaddr, unsigned long pfn, pgprot_t flags);
--
--unsigned long xen_read_cr2_direct(void);
--
--extern void xen_init_mmu_ops(void);
--extern void xen_hvm_init_mmu_ops(void);
--#endif	/* _XEN_MMU_H */
-diff --git a/arch/x86/xen/mmu_hvm.c b/arch/x86/xen/mmu_hvm.c
-index 509bdee3ab90..337955652202 100644
---- a/arch/x86/xen/mmu_hvm.c
-+++ b/arch/x86/xen/mmu_hvm.c
-@@ -5,7 +5,7 @@
- #include <xen/interface/xen.h>
- #include <xen/hvm.h>
- 
--#include "mmu.h"
-+#include "xen-ops.h"
- 
- #ifdef CONFIG_PROC_VMCORE
- /*
-diff --git a/arch/x86/xen/mmu_pv.c b/arch/x86/xen/mmu_pv.c
-index 8924129e284c..f1ce39d6d32c 100644
---- a/arch/x86/xen/mmu_pv.c
-+++ b/arch/x86/xen/mmu_pv.c
-@@ -82,9 +82,7 @@
- #include <xen/hvc-console.h>
- #include <xen/swiotlb-xen.h>
- 
--#include "multicalls.h"
--#include "mmu.h"
--#include "debugfs.h"
-+#include "xen-ops.h"
- 
- /*
-  * Prototypes for functions called via PV_CALLEE_SAVE_REGS_THUNK() in order
-diff --git a/arch/x86/xen/multicalls.c b/arch/x86/xen/multicalls.c
-index a8d699687d5c..d4cefd8a9af4 100644
---- a/arch/x86/xen/multicalls.c
-+++ b/arch/x86/xen/multicalls.c
-@@ -28,8 +28,7 @@
- 
- #include <asm/xen/hypercall.h>
- 
--#include "multicalls.h"
--#include "debugfs.h"
-+#include "xen-ops.h"
- 
- #define MC_BATCH	32
- 
-diff --git a/arch/x86/xen/multicalls.h b/arch/x86/xen/multicalls.h
-deleted file mode 100644
-index c3867b585e0d..000000000000
---- a/arch/x86/xen/multicalls.h
-+++ /dev/null
-@@ -1,69 +0,0 @@
--/* SPDX-License-Identifier: GPL-2.0 */
--#ifndef _XEN_MULTICALLS_H
--#define _XEN_MULTICALLS_H
--
--#include <trace/events/xen.h>
--
--#include "xen-ops.h"
--
--/* Multicalls */
--struct multicall_space
--{
--	struct multicall_entry *mc;
--	void *args;
--};
--
--/* Allocate room for a multicall and its args */
--struct multicall_space __xen_mc_entry(size_t args);
--
--DECLARE_PER_CPU(unsigned long, xen_mc_irq_flags);
--
--/* Call to start a batch of multiple __xen_mc_entry()s.  Must be
--   paired with xen_mc_issue() */
--static inline void xen_mc_batch(void)
--{
--	unsigned long flags;
--
--	/* need to disable interrupts until this entry is complete */
--	local_irq_save(flags);
--	trace_xen_mc_batch(xen_get_lazy_mode());
--	__this_cpu_write(xen_mc_irq_flags, flags);
--}
--
--static inline struct multicall_space xen_mc_entry(size_t args)
--{
--	xen_mc_batch();
--	return __xen_mc_entry(args);
--}
--
--/* Flush all pending multicalls */
--void xen_mc_flush(void);
--
--/* Issue a multicall if we're not in a lazy mode */
--static inline void xen_mc_issue(unsigned mode)
--{
--	trace_xen_mc_issue(mode);
--
--	if ((xen_get_lazy_mode() & mode) == 0)
--		xen_mc_flush();
--
--	/* restore flags saved in xen_mc_batch */
--	local_irq_restore(this_cpu_read(xen_mc_irq_flags));
--}
--
--/* Set up a callback to be called when the current batch is flushed */
--void xen_mc_callback(void (*fn)(void *), void *data);
--
--/*
-- * Try to extend the arguments of the previous multicall command.  The
-- * previous command's op must match.  If it does, then it attempts to
-- * extend the argument space allocated to the multicall entry by
-- * arg_size bytes.
-- *
-- * The returned multicall_space will return with mc pointing to the
-- * command on success, or NULL on failure, and args pointing to the
-- * newly allocated space.
-- */
--struct multicall_space xen_mc_extend_args(unsigned long op, size_t arg_size);
--
--#endif /* _XEN_MULTICALLS_H */
-diff --git a/arch/x86/xen/p2m.c b/arch/x86/xen/p2m.c
-index 99918beccd80..3c4c20db7e39 100644
---- a/arch/x86/xen/p2m.c
-+++ b/arch/x86/xen/p2m.c
-@@ -81,7 +81,6 @@
- #include <xen/balloon.h>
- #include <xen/grant_table.h>
- 
--#include "multicalls.h"
- #include "xen-ops.h"
- 
- #define P2M_MID_PER_PAGE	(PAGE_SIZE / sizeof(unsigned long *))
-@@ -795,7 +794,6 @@ int clear_foreign_p2m_mapping(struct gnttab_unmap_grant_ref *unmap_ops,
- 
- #ifdef CONFIG_XEN_DEBUG_FS
- #include <linux/debugfs.h>
--#include "debugfs.h"
- static int p2m_dump_show(struct seq_file *m, void *v)
- {
- 	static const char * const type_name[] = {
-diff --git a/arch/x86/xen/pmu.c b/arch/x86/xen/pmu.c
-index 246d67dab510..f06987b0efc3 100644
---- a/arch/x86/xen/pmu.c
-+++ b/arch/x86/xen/pmu.c
-@@ -10,7 +10,6 @@
- #include <xen/interface/xenpmu.h>
- 
- #include "xen-ops.h"
--#include "pmu.h"
- 
- /* x86_pmu.handle_irq definition */
- #include "../events/perf_event.h"
-diff --git a/arch/x86/xen/pmu.h b/arch/x86/xen/pmu.h
-deleted file mode 100644
-index 65c58894fc79..000000000000
---- a/arch/x86/xen/pmu.h
-+++ /dev/null
-@@ -1,22 +0,0 @@
--/* SPDX-License-Identifier: GPL-2.0 */
--#ifndef __XEN_PMU_H
--#define __XEN_PMU_H
--
--#include <xen/interface/xenpmu.h>
--
--extern bool is_xen_pmu;
--
--irqreturn_t xen_pmu_irq_handler(int irq, void *dev_id);
--#ifdef CONFIG_XEN_HAVE_VPMU
--void xen_pmu_init(int cpu);
--void xen_pmu_finish(int cpu);
--#else
--static inline void xen_pmu_init(int cpu) {}
--static inline void xen_pmu_finish(int cpu) {}
--#endif
--bool pmu_msr_read(unsigned int msr, uint64_t *val, int *err);
--bool pmu_msr_write(unsigned int msr, uint32_t low, uint32_t high, int *err);
--int pmu_apic_update(uint32_t reg);
--unsigned long long xen_read_pmc(int counter);
--
--#endif /* __XEN_PMU_H */
-diff --git a/arch/x86/xen/setup.c b/arch/x86/xen/setup.c
-index 380591028cb8..a0c3e77e3d5b 100644
---- a/arch/x86/xen/setup.c
-+++ b/arch/x86/xen/setup.c
-@@ -34,7 +34,6 @@
- #include <xen/features.h>
- #include <xen/hvc-console.h>
- #include "xen-ops.h"
--#include "mmu.h"
- 
- #define GB(x) ((uint64_t)(x) * 1024 * 1024 * 1024)
- 
-diff --git a/arch/x86/xen/smp.c b/arch/x86/xen/smp.c
-index 935771726f9c..05f92c812ac8 100644
---- a/arch/x86/xen/smp.c
-+++ b/arch/x86/xen/smp.c
-@@ -9,7 +9,6 @@
- 
- #include <xen/hvc-console.h>
- #include "xen-ops.h"
--#include "smp.h"
- 
- static DEFINE_PER_CPU(struct xen_common_irq, xen_resched_irq) = { .irq = -1 };
- static DEFINE_PER_CPU(struct xen_common_irq, xen_callfunc_irq) = { .irq = -1 };
-diff --git a/arch/x86/xen/smp.h b/arch/x86/xen/smp.h
-deleted file mode 100644
-index b8efdbc693f7..000000000000
---- a/arch/x86/xen/smp.h
-+++ /dev/null
-@@ -1,51 +0,0 @@
--/* SPDX-License-Identifier: GPL-2.0 */
--#ifndef _XEN_SMP_H
--
--#ifdef CONFIG_SMP
--
--void asm_cpu_bringup_and_idle(void);
--asmlinkage void cpu_bringup_and_idle(void);
--
--extern void xen_send_IPI_mask(const struct cpumask *mask,
--			      int vector);
--extern void xen_send_IPI_mask_allbutself(const struct cpumask *mask,
--				int vector);
--extern void xen_send_IPI_allbutself(int vector);
--extern void xen_send_IPI_all(int vector);
--extern void xen_send_IPI_self(int vector);
--
--extern int xen_smp_intr_init(unsigned int cpu);
--extern void xen_smp_intr_free(unsigned int cpu);
--int xen_smp_intr_init_pv(unsigned int cpu);
--void xen_smp_intr_free_pv(unsigned int cpu);
--
--void xen_smp_count_cpus(void);
--void xen_smp_cpus_done(unsigned int max_cpus);
--
--void xen_smp_send_reschedule(int cpu);
--void xen_smp_send_call_function_ipi(const struct cpumask *mask);
--void xen_smp_send_call_function_single_ipi(int cpu);
--
--void __noreturn xen_cpu_bringup_again(unsigned long stack);
--
--struct xen_common_irq {
--	int irq;
--	char *name;
--};
--#else /* CONFIG_SMP */
--
--static inline int xen_smp_intr_init(unsigned int cpu)
--{
--	return 0;
--}
--static inline void xen_smp_intr_free(unsigned int cpu) {}
--
--static inline int xen_smp_intr_init_pv(unsigned int cpu)
--{
--	return 0;
--}
--static inline void xen_smp_intr_free_pv(unsigned int cpu) {}
--static inline void xen_smp_count_cpus(void) { }
--#endif /* CONFIG_SMP */
--
--#endif
-diff --git a/arch/x86/xen/smp_hvm.c b/arch/x86/xen/smp_hvm.c
-index ac95d1981cc0..485c1d8804f7 100644
---- a/arch/x86/xen/smp_hvm.c
-+++ b/arch/x86/xen/smp_hvm.c
-@@ -5,8 +5,6 @@
- #include <xen/events.h>
- 
- #include "xen-ops.h"
--#include "smp.h"
--
- 
- static void __init xen_hvm_smp_prepare_boot_cpu(void)
- {
-diff --git a/arch/x86/xen/smp_pv.c b/arch/x86/xen/smp_pv.c
-index ac41d83b38d3..7ea57f728b89 100644
---- a/arch/x86/xen/smp_pv.c
-+++ b/arch/x86/xen/smp_pv.c
-@@ -46,9 +46,6 @@
- 
- #include <xen/hvc-console.h>
- #include "xen-ops.h"
--#include "mmu.h"
--#include "smp.h"
--#include "pmu.h"
- 
- cpumask_var_t xen_cpu_initialized_map;
- 
-diff --git a/arch/x86/xen/suspend.c b/arch/x86/xen/suspend.c
-index 1d83152c761b..77a6ea1c60e4 100644
---- a/arch/x86/xen/suspend.c
-+++ b/arch/x86/xen/suspend.c
-@@ -15,8 +15,6 @@
- #include <asm/fixmap.h>
- 
- #include "xen-ops.h"
--#include "mmu.h"
--#include "pmu.h"
- 
- static DEFINE_PER_CPU(u64, spec_ctrl);
- 
-diff --git a/arch/x86/xen/xen-ops.h b/arch/x86/xen/xen-ops.h
-index 9f29229e25b8..e7775dff9452 100644
---- a/arch/x86/xen/xen-ops.h
-+++ b/arch/x86/xen/xen-ops.h
-@@ -5,8 +5,15 @@
- #include <linux/init.h>
- #include <linux/clocksource.h>
- #include <linux/irqreturn.h>
-+#include <linux/linkage.h>
-+
-+#include <xen/interface/xenpmu.h>
- #include <xen/xen-ops.h>
- 
-+#include <asm/page.h>
-+
-+#include <trace/events/xen.h>
-+
- /* These are code, but not functions.  Defined in entry.S */
- extern const char xen_failsafe_callback[];
- 
-@@ -28,8 +35,6 @@ extern struct start_info *xen_start_info;
- extern struct shared_info xen_dummy_shared_info;
- extern struct shared_info *HYPERVISOR_shared_info;
- 
--extern bool xen_fifo_events;
--
- void xen_setup_mfn_list_list(void);
- void xen_build_mfn_list_list(void);
- void xen_setup_machphys_mapping(void);
-@@ -176,4 +181,142 @@ static inline void xen_hvm_post_suspend(int suspend_cancelled) {}
- 
- void xen_add_extra_mem(unsigned long start_pfn, unsigned long n_pfns);
- 
-+struct dentry * __init xen_init_debugfs(void);
-+
-+enum pt_level {
-+	PT_PGD,
-+	PT_P4D,
-+	PT_PUD,
-+	PT_PMD,
-+	PT_PTE
-+};
-+
-+bool __set_phys_to_machine(unsigned long pfn, unsigned long mfn);
-+void set_pte_mfn(unsigned long vaddr, unsigned long pfn, pgprot_t flags);
-+unsigned long xen_read_cr2_direct(void);
-+void xen_init_mmu_ops(void);
-+void xen_hvm_init_mmu_ops(void);
-+
-+/* Multicalls */
-+struct multicall_space
-+{
-+	struct multicall_entry *mc;
-+	void *args;
-+};
-+
-+/* Allocate room for a multicall and its args */
-+struct multicall_space __xen_mc_entry(size_t args);
-+
-+DECLARE_PER_CPU(unsigned long, xen_mc_irq_flags);
-+
-+/* Call to start a batch of multiple __xen_mc_entry()s.  Must be
-+   paired with xen_mc_issue() */
-+static inline void xen_mc_batch(void)
-+{
-+	unsigned long flags;
-+
-+	/* need to disable interrupts until this entry is complete */
-+	local_irq_save(flags);
-+	trace_xen_mc_batch(xen_get_lazy_mode());
-+	__this_cpu_write(xen_mc_irq_flags, flags);
-+}
-+
-+static inline struct multicall_space xen_mc_entry(size_t args)
-+{
-+	xen_mc_batch();
-+	return __xen_mc_entry(args);
-+}
-+
-+/* Flush all pending multicalls */
-+void xen_mc_flush(void);
-+
-+/* Issue a multicall if we're not in a lazy mode */
-+static inline void xen_mc_issue(unsigned mode)
-+{
-+	trace_xen_mc_issue(mode);
-+
-+	if ((xen_get_lazy_mode() & mode) == 0)
-+		xen_mc_flush();
-+
-+	/* restore flags saved in xen_mc_batch */
-+	local_irq_restore(this_cpu_read(xen_mc_irq_flags));
-+}
-+
-+/* Set up a callback to be called when the current batch is flushed */
-+void xen_mc_callback(void (*fn)(void *), void *data);
-+
-+/*
-+ * Try to extend the arguments of the previous multicall command.  The
-+ * previous command's op must match.  If it does, then it attempts to
-+ * extend the argument space allocated to the multicall entry by
-+ * arg_size bytes.
-+ *
-+ * The returned multicall_space will return with mc pointing to the
-+ * command on success, or NULL on failure, and args pointing to the
-+ * newly allocated space.
-+ */
-+struct multicall_space xen_mc_extend_args(unsigned long op, size_t arg_size);
-+
-+extern bool is_xen_pmu;
-+
-+irqreturn_t xen_pmu_irq_handler(int irq, void *dev_id);
-+#ifdef CONFIG_XEN_HAVE_VPMU
-+void xen_pmu_init(int cpu);
-+void xen_pmu_finish(int cpu);
-+#else
-+static inline void xen_pmu_init(int cpu) {}
-+static inline void xen_pmu_finish(int cpu) {}
-+#endif
-+bool pmu_msr_read(unsigned int msr, uint64_t *val, int *err);
-+bool pmu_msr_write(unsigned int msr, uint32_t low, uint32_t high, int *err);
-+int pmu_apic_update(uint32_t reg);
-+unsigned long long xen_read_pmc(int counter);
-+
-+#ifdef CONFIG_SMP
-+
-+void asm_cpu_bringup_and_idle(void);
-+asmlinkage void cpu_bringup_and_idle(void);
-+
-+extern void xen_send_IPI_mask(const struct cpumask *mask,
-+			      int vector);
-+extern void xen_send_IPI_mask_allbutself(const struct cpumask *mask,
-+				int vector);
-+extern void xen_send_IPI_allbutself(int vector);
-+extern void xen_send_IPI_all(int vector);
-+extern void xen_send_IPI_self(int vector);
-+
-+extern int xen_smp_intr_init(unsigned int cpu);
-+extern void xen_smp_intr_free(unsigned int cpu);
-+int xen_smp_intr_init_pv(unsigned int cpu);
-+void xen_smp_intr_free_pv(unsigned int cpu);
-+
-+void xen_smp_count_cpus(void);
-+void xen_smp_cpus_done(unsigned int max_cpus);
-+
-+void xen_smp_send_reschedule(int cpu);
-+void xen_smp_send_call_function_ipi(const struct cpumask *mask);
-+void xen_smp_send_call_function_single_ipi(int cpu);
-+
-+void __noreturn xen_cpu_bringup_again(unsigned long stack);
-+
-+struct xen_common_irq {
-+	int irq;
-+	char *name;
-+};
-+#else /* CONFIG_SMP */
-+
-+static inline int xen_smp_intr_init(unsigned int cpu)
-+{
-+	return 0;
-+}
-+static inline void xen_smp_intr_free(unsigned int cpu) {}
-+
-+static inline int xen_smp_intr_init_pv(unsigned int cpu)
-+{
-+	return 0;
-+}
-+static inline void xen_smp_intr_free_pv(unsigned int cpu) {}
-+static inline void xen_smp_count_cpus(void) { }
-+#endif /* CONFIG_SMP */
-+
- #endif /* XEN_OPS_H */
-diff --git a/include/xen/events.h b/include/xen/events.h
-index 3b07409f8032..de5da58a0205 100644
---- a/include/xen/events.h
-+++ b/include/xen/events.h
-@@ -144,4 +144,6 @@ static inline void xen_evtchn_close(evtchn_port_t port)
- 		BUG();
- }
- 
-+extern bool xen_fifo_events;
-+
- #endif	/* _XEN_EVENTS_H */
+ # restart the board
 -- 
-2.43.0
+2.25.1
 
 
