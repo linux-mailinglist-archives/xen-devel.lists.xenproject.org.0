@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D206692CEF7
-	for <lists+xen-devel@lfdr.de>; Wed, 10 Jul 2024 12:25:54 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.756769.1165506 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BE75792CF0B
+	for <lists+xen-devel@lfdr.de>; Wed, 10 Jul 2024 12:29:13 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.756775.1165516 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sRUW4-0003aZ-K8; Wed, 10 Jul 2024 10:25:40 +0000
+	id 1sRUZA-000585-0o; Wed, 10 Jul 2024 10:28:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 756769.1165506; Wed, 10 Jul 2024 10:25:40 +0000
+Received: by outflank-mailman (output) from mailman id 756775.1165516; Wed, 10 Jul 2024 10:28:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sRUW4-0003YG-Hc; Wed, 10 Jul 2024 10:25:40 +0000
-Received: by outflank-mailman (input) for mailman id 756769;
- Wed, 10 Jul 2024 10:25:38 +0000
+	id 1sRUZ9-00055s-UM; Wed, 10 Jul 2024 10:28:51 +0000
+Received: by outflank-mailman (input) for mailman id 756775;
+ Wed, 10 Jul 2024 10:28:50 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Spoc=OK=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sRUW2-0003Xp-Qn
- for xen-devel@lists.xenproject.org; Wed, 10 Jul 2024 10:25:38 +0000
-Received: from mail-lj1-x22f.google.com (mail-lj1-x22f.google.com
- [2a00:1450:4864:20::22f])
+ id 1sRUZ8-00055m-Tz
+ for xen-devel@lists.xenproject.org; Wed, 10 Jul 2024 10:28:50 +0000
+Received: from mail-lj1-x22e.google.com (mail-lj1-x22e.google.com
+ [2a00:1450:4864:20::22e])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c006ae45-3ea6-11ef-bbfb-fd08da9f4363;
- Wed, 10 Jul 2024 12:25:38 +0200 (CEST)
-Received: by mail-lj1-x22f.google.com with SMTP id
- 38308e7fff4ca-2ee88c4443eso65067811fa.3
- for <xen-devel@lists.xenproject.org>; Wed, 10 Jul 2024 03:25:38 -0700 (PDT)
+ id 3280465a-3ea7-11ef-bbfb-fd08da9f4363;
+ Wed, 10 Jul 2024 12:28:50 +0200 (CEST)
+Received: by mail-lj1-x22e.google.com with SMTP id
+ 38308e7fff4ca-2eea8ea8bb0so52898721fa.1
+ for <xen-devel@lists.xenproject.org>; Wed, 10 Jul 2024 03:28:50 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-1fbb6a2bef3sm30486915ad.105.2024.07.10.03.25.33
+ d2e1a72fcca58-70b439674c4sm3402389b3a.102.2024.07.10.03.28.46
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 10 Jul 2024 03:25:36 -0700 (PDT)
+ Wed, 10 Jul 2024 03:28:49 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,51 +45,53 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c006ae45-3ea6-11ef-bbfb-fd08da9f4363
+X-Inumbo-ID: 3280465a-3ea7-11ef-bbfb-fd08da9f4363
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1720607137; x=1721211937; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1720607329; x=1721212129; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=XfFAVwE1AnNZi74uKj6V1t67baMbe7aXEPN55MLloo8=;
-        b=JAaGoiCxLoObZFgvB17DZFrct+30LOMquGfchsNbbnn+PhdVEdrc/AcKzf6w7Z2Q+3
-         JRg1e2o0CzVQUCyzEB4602P9pyTWJVovcX1t30E1thS8l+uN5ulmiLOeY3HBkHCWfxy8
-         mc+gLzdIhocyZrX6l7l1jKVRuKpIvXyBh7qxIuBOpAFWwbV3tRkLPIdTz6ytaqekf4EY
-         0UbaFNUFn7yL27LzXteSwr2JlBKt4/k6NSyVEEieqh+3yB0LoDMu8cpo5uF9M1aDb/WB
-         oYvsqFkSTU3sBhGcF+CwzdaZngypXW62qRe3mAHZytJtD6kz1J1A2iQ9JfSowRVFB18a
-         OkEg==
+        bh=h8xlqPPZfKKdWIUa5dRl7Fg7OaS8SuI4tDXjvPfjFDc=;
+        b=MB3+raX73yDR9MRwdEndfj4NW99Zb0e1eRmBOxHULIz/cPx9GTQc4ujUc4TGuvveUO
+         LjP6Jl7mukp1n/ZXXA7STrf+5wL2CFQdCHj/QSP4hb75wgZzBwe3k1U3DGFtu0hrAWhK
+         Z2qihlwb5RZzZ9PkFJwSOiwcEaQ0K1GKSnHS/MvxN+AQUDSh1RI/M/hfgQrV7/RCQSPA
+         QsTRXzO6nUj7mGToRB05hSwhnmWipCmqAdI4542XeVmG1Eo6cCAYC2eF7fMcrM1TUxmE
+         h5KNtCfXxubllYLxSWluFaHnPrdIBWKFZmB4DZ2juF4VjFSngW56y7e/eOP969sFPaJ0
+         4Heg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1720607137; x=1721211937;
+        d=1e100.net; s=20230601; t=1720607329; x=1721212129;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=XfFAVwE1AnNZi74uKj6V1t67baMbe7aXEPN55MLloo8=;
-        b=mEt2+rIqekQPX21hHcjLKaiM1+y9w+yTgQMSQ1Z8LHvj+1NPuxLbH+XWW5c+za9S6m
-         5trR2vadttWTlZy3s5CyXEgXk24vEOMsbaSTza5RfvC3hhbTSW/JHXldHHNBsm5dh/PZ
-         0dERSPNcq2OTX7RihwHl52tJ+TmPl0IxwULqlS6fHufsQoC//aQF72R2xvmzvbvZdzc/
-         wGG3giDhKgpPnnwCyfYrymg5St+9FJiXrUn4RbQHaN/JXMwObahbrr6KAdBwmgBPRYve
-         8TA4NCqxs4xmg2x30FNv5hgjhdxlavoj9CEF5kOsYuF0HIsRymqxJO544wICw2OMtGEQ
-         3CvQ==
-X-Forwarded-Encrypted: i=1; AJvYcCXRv8ArttCJLq2VES4NQYAW5VRUtLu3FKP8VdeeL4Twz7viGczYcmupxfL/E6+2p2+PoaJMMkZBBvMJyTZmkDOitJXJX+etdK6HtuoKCPs=
-X-Gm-Message-State: AOJu0YxpRAl78iVoSsB7aeJR6TfR/pspKr5i3EGxXx5rZzPcwjFN4msx
-	K1U2AeWa1wx6tuv4ESRy+yQQzwn0VNViGBzer2GKaaFfxC36rsChyT4PSdvcLg==
-X-Google-Smtp-Source: AGHT+IG+7GL3Wt8eL6pJs2AZSHxm59AMcAGcv18CSXvLBvMrOPQoi64oqa2LQ7liFraWQhkPkAWIEw==
-X-Received: by 2002:a2e:97d3:0:b0:2ec:558d:4e0a with SMTP id 38308e7fff4ca-2eeb30e39a5mr42816701fa.19.1720607137444;
-        Wed, 10 Jul 2024 03:25:37 -0700 (PDT)
-Message-ID: <235880b4-de39-440c-90be-815b37a4ae76@suse.com>
-Date: Wed, 10 Jul 2024 12:25:30 +0200
+        bh=h8xlqPPZfKKdWIUa5dRl7Fg7OaS8SuI4tDXjvPfjFDc=;
+        b=AeRKbii49ObSjFYvc8LVVFY+m6VHtD7YPdLFX0/LRkKoh2GgDAjWYeHSzaUT43Dlr0
+         M3MnFXwFS710NZk6TOJWo6Ct4KkuNGY9C8dO523bwPkIkImHHCqsRysgWa4JQJ7q0JJU
+         1bd1OBSjKMAK1xF9jZI6w+4iklksfFrWhbiMeG8SEsKmaw8gllNOYtb8UJ9M3EzvFM6g
+         LO4ZD93ISmFHh5jtT+wvK30J81xUauF/8ySvb5QXFkA82CcN6rKx14zwNZkT2MW+SRLK
+         KxNrqFiChqyQEogsVScs/kkD0WpYGu+DuLUcfxJMDF1qYAtBqp5djSr2UW4EBnj5Mce6
+         ZuyA==
+X-Forwarded-Encrypted: i=1; AJvYcCUx8c8FgnS5gE/1uE8Kz7pEKwZRQ/zh1obfgMlWPGWcZZFgXasJ7e02jaVSa+BhJcwOKmRuSEwyGpLi/YpgwinFXbROBATQaz+AxPY7Gqg=
+X-Gm-Message-State: AOJu0YyKZU8KhOzWyZ8WBUaR7DXsZDaOgTaBj7Wo7/oIUDYX5VoOvhV/
+	yhel8r2Yyn7OH1XP6MRfL+ABWo8X/nGQYqmhG0Por/iEPVgQRAClAsQFzsLhvg==
+X-Google-Smtp-Source: AGHT+IGSIuZdg2Wn6benSMARRLRxEYsZ1nzDtBdMFVCedSaS9AcprcgawxJnwg01dAer9C0kMldR7Q==
+X-Received: by 2002:a2e:99c8:0:b0:2ec:a022:880c with SMTP id 38308e7fff4ca-2eeb30e4669mr43967001fa.22.1720607329533;
+        Wed, 10 Jul 2024 03:28:49 -0700 (PDT)
+Message-ID: <02e9e65c-0fa0-467f-aa60-159524dafaaa@suse.com>
+Date: Wed, 10 Jul 2024 12:28:42 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 3/5] xen/riscv: enable CONFIG_HAS_DEVICE_TREE
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- xen-devel@lists.xenproject.org
-References: <cover.1720002425.git.oleksii.kurochko@gmail.com>
- <8861be6624f50c927a8dadbcf056aff2dc0576ab.1720002425.git.oleksii.kurochko@gmail.com>
+Subject: Re: [XEN PATCH v4 01/14] x86: introduce AMD-V and Intel VT-x Kconfig
+ options
+To: Sergiy Kibrik <sergiy_kibrik@epam.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Xenia Ragiadakou <xenia.ragiadakou@amd.com>, xen-devel@lists.xenproject.org
+References: <cover.1720501197.git.Sergiy_Kibrik@epam.com>
+ <f6bfed3cd9e9fff25cbe0c5e16d8d88541be212f.1720501197.git.Sergiy_Kibrik@epam.com>
+ <1d3476db-019f-4e5e-ad5f-381fe1e5b1c6@suse.com>
+ <7051c9cd-4db5-4f99-91f2-eebe480ec4b4@epam.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -115,27 +117,53 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <8861be6624f50c927a8dadbcf056aff2dc0576ab.1720002425.git.oleksii.kurochko@gmail.com>
+In-Reply-To: <7051c9cd-4db5-4f99-91f2-eebe480ec4b4@epam.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 03.07.2024 12:42, Oleksii Kurochko wrote:
+On 10.07.2024 12:21, Sergiy Kibrik wrote:
+> 09.07.24 10:11, Jan Beulich:
+>> On 09.07.2024 07:45, Sergiy Kibrik wrote:
+>>> From: Xenia Ragiadakou <burzalodowa@gmail.com>
+>>>
+>>> Introduce two new Kconfig options, SVM and VMX, to allow code
+>>> specific to each virtualization technology to be separated and, when not
+>>> required, stripped.
+>>> CONFIG_SVM will be used to enable virtual machine extensions on platforms that
+>>> implement the AMD Virtualization Technology (AMD-V).
+>>> CONFIG_VMX will be used to enable virtual machine extensions on platforms that
+>>> implement the Intel Virtualization Technology (Intel VT-x).
+>>>
+>>> Both features depend on HVM support.
+>>>
+>>> Since, at this point, disabling any of them would cause Xen to not compile,
+>>> the options are enabled by default if HVM and are not selectable by the user.
+>>>
+>>> No functional change intended.
+>>>
+>>> Signed-off-by: Xenia Ragiadakou <burzalodowa@gmail.com>
+>>> Signed-off-by: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
+>>> ---
+>>> changes in v3:
+>>>   - tag added
+>>
+>> And then removed again in v4? My prior ack stands, but - as before - conditional
+>> upon us being certain that we want to go with the ambiguous ...
+>>
+>>> changes in v2:
+>>>   - simplify kconfig expression to def_bool HVM
+>>>   - keep file list in Makefile in alphabetical order
+>>> changes in v1:
+>>>   - change kconfig option name AMD_SVM/INTEL_VMX -> SVM/VMX
+>>
+>> ... result of this change (firmly ambiguous for SVM, latently for VMX).
+> 
+> I've put my thoughts about naming in the series' cover letter, however 
+> I'm not strongly preferring current naming and if it finds no advocates 
+> I'll rename it in next series.
 
-> --- a/xen/arch/riscv/Kconfig
-> +++ b/xen/arch/riscv/Kconfig
-> @@ -5,6 +5,7 @@ config RISCV
->  config RISCV_64
->  	def_bool y
->  	select 64BIT
-> +	select HAS_DEVICE_TREE
->  	select GENERIC_BUG_FRAME
->  
->  config ARCH_DEFCONFIG
-
-Same question here as for a change in the earlier series: Why here and not
-for RISCV?
-
-Plus, nit: Please keep the list of selects sorted alphabetically.
+Just to clarify: Did anyone ask for the name change done in v1? If so,
+maybe that request cam with some justification?
 
 Jan
 
