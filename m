@@ -2,34 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F352592DA55
-	for <lists+xen-devel@lfdr.de>; Wed, 10 Jul 2024 22:43:35 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.757066.1165803 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1C7E692DA92
+	for <lists+xen-devel@lfdr.de>; Wed, 10 Jul 2024 23:11:52 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.757071.1165813 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sRe9E-00024O-BJ; Wed, 10 Jul 2024 20:42:44 +0000
+	id 1sReaq-0005oT-FP; Wed, 10 Jul 2024 21:11:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 757066.1165803; Wed, 10 Jul 2024 20:42:44 +0000
+Received: by outflank-mailman (output) from mailman id 757071.1165813; Wed, 10 Jul 2024 21:11:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sRe9E-00021g-8C; Wed, 10 Jul 2024 20:42:44 +0000
-Received: by outflank-mailman (input) for mailman id 757066;
- Wed, 10 Jul 2024 20:42:42 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=I4IA=OK=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1sRe9C-00021a-Do
- for xen-devel@lists.xenproject.org; Wed, 10 Jul 2024 20:42:42 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f3140e0c-3efc-11ef-bbfb-fd08da9f4363;
- Wed, 10 Jul 2024 22:42:41 +0200 (CEST)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 8608F61B7F;
- Wed, 10 Jul 2024 20:42:39 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6E28AC32781;
- Wed, 10 Jul 2024 20:42:38 +0000 (UTC)
+	id 1sReaq-0005mx-Bp; Wed, 10 Jul 2024 21:11:16 +0000
+Received: by outflank-mailman (input) for mailman id 757071;
+ Wed, 10 Jul 2024 21:11:14 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1sReao-0005mr-MD
+ for xen-devel@lists.xenproject.org; Wed, 10 Jul 2024 21:11:14 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1sReao-00033l-Cf; Wed, 10 Jul 2024 21:11:14 +0000
+Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.1.244])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1sReao-00024U-4H; Wed, 10 Jul 2024 21:11:14 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,49 +39,53 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f3140e0c-3efc-11ef-bbfb-fd08da9f4363
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1720644159;
-	bh=MjSbbbHRCUsNfUWPTBBjGVSKYc/kETWAsAYExl+jHxs=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=J0l+f4kYBQfKeIgfnSe2X+39G+tepYDYPDefJhI37/7xBSJ/nHRt3JcC8SS05uvpA
-	 AaNZifdJQtT/3ZVrPE7/rGS8T36u2HTMMvMrNKpoVYzo6WlktNiVe60oI8PeZfGACL
-	 w6RvcFqblpwOVABO/A32k7LlqjRXhEhob9AXyPupbqCwefse+jwPDK/rYE5EPM0fRZ
-	 k3KdB2VCOT6oXB+LaGFJD2e3YVrVsnZ7FMDl3Xz/orvaS0PeyNpXII5JEsq9ZMBRuT
-	 6QYiuBJ+pQvLtKVQfWTk/nkHXw2z81qHjzAFTtLnXNMvD/UW1XQSNs033SWl05RoWN
-	 JjiQ1XHOJPWLw==
-Date: Wed, 10 Jul 2024 13:42:37 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-cc: Michal Orzel <michal.orzel@amd.com>, xen-devel@lists.xenproject.org, 
-    Doug Goldstein <cardoe@cardoe.com>, 
-    Stefano Stabellini <sstabellini@kernel.org>, 
-    Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Subject: Re: [PATCH for-4.20 v2] automation: Use a different ImageBuilder
- repository URL
-In-Reply-To: <98fecf96-ab8e-4514-a3e9-a1f0b15519c1@citrix.com>
-Message-ID: <alpine.DEB.2.22.394.2407101342260.3635@ubuntu-linux-20-04-desktop>
-References: <20240710093751.25154-1-michal.orzel@amd.com> <98fecf96-ab8e-4514-a3e9-a1f0b15519c1@citrix.com>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=X13c+zlDac+jnoTeWNzQUt384paskS0Qs+uy9MQTbyY=; b=FukWb39G5fzbOkL6913IAYRCVS
+	Wcz/LWOpHoSYfv2hMvvDEoI9AanO2ZMpgi8NVBxHMgWqdEc4NJ1J2n7EPPJFjlbcU2A7KD6z8qnVX
+	F4CbuwbVlnu+j0hazPOuqWJ9Zc6BVhmwD6niUpuPUL1BBMSh0Koel63YVJpKNDIkr2Vk=;
+Message-ID: <08ba090b-c7a6-4aaa-8bda-f7bce6389f86@xen.org>
+Date: Wed, 10 Jul 2024 22:11:12 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH for-4.20 v2] xen/arm: bootfdt: Fix device tree memory node
+ probing
+To: Michal Orzel <michal.orzel@amd.com>, xen-devel@lists.xenproject.org
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Luca Fancellu <luca.fancellu@arm.com>
+References: <20240710112204.33542-1-michal.orzel@amd.com>
+Content-Language: en-GB
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <20240710112204.33542-1-michal.orzel@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Wed, 10 Jul 2024, Andrew Cooper wrote:
-> On 10/07/2024 10:37 am, Michal Orzel wrote:
-> > Switch to using https://gitlab.com/xen-project/imagebuilder.git which
-> > should be considered official ImageBuilder repo.
-> >
-> > Take the opportunity to truncate the git history when cloning using
-> > --depth 1.
-> >
-> > Signed-off-by: Michal Orzel <michal.orzel@amd.com>
-> > Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
-> 
-> Given the current overhaul I'm (still) doing for CI in 4.19, I'd suggest
-> taking this.
-> 
-> It will mean an 8-month improvement in switching over fully.
+Hi,
 
-Agreed
+On 10/07/2024 12:22, Michal Orzel wrote:
+> Memory node probing is done as part of early_scan_node() that is called
+> for each node with depth >= 1 (root node is at depth 0). According to
+> Devicetree Specification v0.4, chapter 3.4, /memory node can only exists
+> as a top level node. However, Xen incorrectly considers all the nodes with
+> unit node name "memory" as RAM. This buggy behavior can result in a
+> failure if there are other nodes in the device tree (at depth >= 2) with
+> "memory" as unit node name. An example can be a "memory@xxx" node under
+> /reserved-memory. Fix it by introducing device_tree_is_memory_node() to
+> perform all the required checks to assess if a node is a proper /memory
+> node.
+> 
+> Fixes: 3e99c95ba1c8 ("arm, device tree: parse the DTB for RAM location and size")
+> Signed-off-by: Michal Orzel <michal.orzel@amd.com>
+> Reviewed-by: Luca Fancellu <luca.fancellu@arm.com>
+> Tested-by: Luca Fancellu <luca.fancellu@arm.com>
+
+Reviewed-by: Julien Grall <julien@xen.org>
+
+Cheers,
+
+-- 
+Julien Grall
 
