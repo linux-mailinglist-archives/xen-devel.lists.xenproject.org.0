@@ -2,38 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C818D92CE45
-	for <lists+xen-devel@lfdr.de>; Wed, 10 Jul 2024 11:37:09 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.756656.1165336 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3FC8B92CE4B
+	for <lists+xen-devel@lfdr.de>; Wed, 10 Jul 2024 11:37:40 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.756660.1165348 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sRTkk-0002zc-Bp; Wed, 10 Jul 2024 09:36:46 +0000
+	id 1sRTlO-0003h5-LG; Wed, 10 Jul 2024 09:37:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 756656.1165336; Wed, 10 Jul 2024 09:36:46 +0000
+Received: by outflank-mailman (output) from mailman id 756660.1165348; Wed, 10 Jul 2024 09:37:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sRTkk-0002xr-8x; Wed, 10 Jul 2024 09:36:46 +0000
-Received: by outflank-mailman (input) for mailman id 756656;
- Wed, 10 Jul 2024 09:36:44 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=7Omq=OK=gmail.com=xadimgnik@srs-se1.protection.inumbo.net>)
- id 1sRTki-0002o7-Fg
- for xen-devel@lists.xenproject.org; Wed, 10 Jul 2024 09:36:44 +0000
-Received: from mail-lj1-x231.google.com (mail-lj1-x231.google.com
- [2a00:1450:4864:20::231])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id eb2d9232-3e9f-11ef-bbfb-fd08da9f4363;
- Wed, 10 Jul 2024 11:36:43 +0200 (CEST)
-Received: by mail-lj1-x231.google.com with SMTP id
- 38308e7fff4ca-2ebed33cb65so75485191fa.2
- for <xen-devel@lists.xenproject.org>; Wed, 10 Jul 2024 02:36:43 -0700 (PDT)
-Received: from [192.168.14.50] (54-240-197-234.amazon.com. [54.240.197.234])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-367cde89108sm4822568f8f.55.2024.07.10.02.36.41
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 10 Jul 2024 02:36:42 -0700 (PDT)
+	id 1sRTlO-0003e1-Ht; Wed, 10 Jul 2024 09:37:26 +0000
+Received: by outflank-mailman (input) for mailman id 756660;
+ Wed, 10 Jul 2024 09:37:25 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=5pAY=OK=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1sRTlN-0003T0-57
+ for xen-devel@lists.xenproject.org; Wed, 10 Jul 2024 09:37:25 +0000
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 02ae37cb-3ea0-11ef-8776-851b0ebba9a2;
+ Wed, 10 Jul 2024 11:37:23 +0200 (CEST)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 7994F21A3D;
+ Wed, 10 Jul 2024 09:37:22 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 1A8E6137D2;
+ Wed, 10 Jul 2024 09:37:22 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id kd4CBVJWjmaSWwAAD6G6ig
+ (envelope-from <jgross@suse.com>); Wed, 10 Jul 2024 09:37:22 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,92 +51,104 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: eb2d9232-3e9f-11ef-bbfb-fd08da9f4363
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1720604203; x=1721209003; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:organization:content-language
-         :references:cc:to:subject:reply-to:user-agent:mime-version:date
-         :message-id:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=Vfw6I0ttUhq40nWTXLtLOdxIbCy05jSinljrXQf7waY=;
-        b=fud3+UkmL/FlYoO10TjzkaiELj3oE8IBV1gWG8On8Y8Ep4CrTEWSzo1Rbfq2Z8hFg7
-         ZIhjUgmo6VQ/76RA4XploaTCPbEbWnkBIUvMNHcrSBV/T6rphp8BJmLfrVyw7O0KcvWW
-         3EfALY8J3epfTNYe+Ph5ovsrrxMG0zdgFqCNExydrmMzcx4ywM0EIQ9WjsATxK839KMq
-         8nyTFdHHeC/gYsPb+V73HM1pVM6G9/vtnRKz02yfTtuOimmQWGGv/e2AJLHPT51kC9HO
-         qKVhHk8LUajf37VPeoa/pqe2wXa3HI2B6VlWvnx7k4QVUPNIADF9Qz1cbdxqM4rzEdPC
-         CDkA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1720604203; x=1721209003;
-        h=content-transfer-encoding:in-reply-to:organization:content-language
-         :references:cc:to:subject:reply-to:user-agent:mime-version:date
-         :message-id:from:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=Vfw6I0ttUhq40nWTXLtLOdxIbCy05jSinljrXQf7waY=;
-        b=j4FS/52KlQHi9+vR6pTQdjrld8IGTbp76SfgrWYUNkrYI9GTdmsJG2XPjrrO2e11Nl
-         68/m67x3z/2W39TmSGyrUiVxyRfIwYG4W0v2jaFNUsajJKA0fuqzTq9Zxijz/Y5Gf789
-         wrHszr27L8+CoXXpi+iZ2r9ZCS8kjlBHyIPkucXXTk950tidQM8If2vyvRxtAADHzEsj
-         MfjizQMK0jZ8boRerMZ6JG5eVKABLKJQIEtr7oPqCqcLgV2k4mtz7hFzCENB5Hmjkog5
-         PpXAjevvBe2NFUYKTN5rNhmsqYCPQRmbPBDUFfnSvFjzYhpoT84f0xSoSrskz95FExjv
-         LPkg==
-X-Forwarded-Encrypted: i=1; AJvYcCVyV2QE/0CEgtWnKBpZeqnWjdNI7P714/MFfpgTwXdbc9SohKnd58Uq37WaLtrMLKSHdp1WYejgvZUx6vpcFifYUem8GaeS7+O6siK2+eo=
-X-Gm-Message-State: AOJu0YzdH8qnysfkhm+8cH0d0w0kU6Clem7rfZ3QK2LYDTHDRoKfsjKR
-	asNPCWxTbZaand2ja2FvyWWj2CJmkWPY7bndFEdYZ+udW6b0mnI7
-X-Google-Smtp-Source: AGHT+IHQsx2aK31RT5t93WyMQ3zjqVCmQA0gQzAyZtc5vQ47WsY6QKkTQ36vzs3hzHSaGRxFIQUleA==
-X-Received: by 2002:a2e:9786:0:b0:2ec:56ce:d51f with SMTP id 38308e7fff4ca-2eeb30db364mr28598491fa.20.1720604202976;
-        Wed, 10 Jul 2024 02:36:42 -0700 (PDT)
-From: Paul Durrant <xadimgnik@gmail.com>
-X-Google-Original-From: Paul Durrant <paul@xen.org>
-Message-ID: <39617ea9-a41c-455b-81e2-b94eaba4cdcb@xen.org>
-Date: Wed, 10 Jul 2024 11:36:40 +0200
+X-Inumbo-ID: 02ae37cb-3ea0-11ef-8776-851b0ebba9a2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1720604242; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=AdPWVWbyk6GilbYgK6r8iH+eFHHYovKHeB/OAj0wy+c=;
+	b=TZgdKOkhaj2jtwz2NuipEolNP1N5iaIqhW57xSDfdyghpruaSDvJYRDBh+398qPw1ob0SU
+	/8L/yz79SPP5MAh823rx9yeTwc7NxgX3jxjnCJ/nq58S/tWfHgCrWE4esgVTqOTEWt1VX0
+	d6C008hp4RiWebINz4In+RFulGEDglw=
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1720604242; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=AdPWVWbyk6GilbYgK6r8iH+eFHHYovKHeB/OAj0wy+c=;
+	b=TZgdKOkhaj2jtwz2NuipEolNP1N5iaIqhW57xSDfdyghpruaSDvJYRDBh+398qPw1ob0SU
+	/8L/yz79SPP5MAh823rx9yeTwc7NxgX3jxjnCJ/nq58S/tWfHgCrWE4esgVTqOTEWt1VX0
+	d6C008hp4RiWebINz4In+RFulGEDglw=
+From: Juergen Gross <jgross@suse.com>
+To: linux-kernel@vger.kernel.org,
+	x86@kernel.org
+Cc: Juergen Gross <jgross@suse.com>,
+	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+	Thomas Gleixner <tglx@linutronix.de>,
+	Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	xen-devel@lists.xenproject.org,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+Subject: [PATCH 0/2] x86/xen: cleanup of xen private headers
+Date: Wed, 10 Jul 2024 11:37:16 +0200
+Message-ID: <20240710093718.14552-1-jgross@suse.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Reply-To: paul@xen.org
-Subject: Re: [XEN PATCH v4 10/14] x86/vmx: guard access to cpu_has_vmx_* in
- common code
-To: Sergiy Kibrik <Sergiy_Kibrik@epam.com>, xen-devel@lists.xenproject.org
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Jan Beulich <jbeulich@suse.com>, Stefano Stabellini
- <sstabellini@kernel.org>, Xenia Ragiadakou <xenia.ragiadakou@amd.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>
-References: <cover.1720501197.git.Sergiy_Kibrik@epam.com>
- <668355271f01681070cb15f67af1538104bfc651.1720501197.git.Sergiy_Kibrik@epam.com>
-Content-Language: en-US
-Organization: Xen Project
-In-Reply-To: <668355271f01681070cb15f67af1538104bfc651.1720501197.git.Sergiy_Kibrik@epam.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-Spamd-Result: default: False [-2.60 / 50.00];
+	BAYES_HAM(-2.80)[99.13%];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_MISSING_CHARSET(0.50)[];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_COUNT_TWO(0.00)[2];
+	RCPT_COUNT_TWELVE(0.00)[12];
+	DKIM_SIGNED(0.00)[suse.com:s=susede1];
+	FUZZY_BLOCKED(0.00)[rspamd.com];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	TO_DN_SOME(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo]
+X-Spam-Flag: NO
+X-Spam-Score: -2.60
+X-Spam-Level: 
 
-On 09/07/2024 08:05, Sergiy Kibrik wrote:
-> There're several places in common code, outside of arch/x86/hvm/vmx,
-> where cpu_has_vmx_* get accessed without checking whether VMX supported first.
-> These macros rely on global variables defined in vmx code, so when VMX support
-> is disabled accesses to these variables turn into build failures.
-> 
-> To overcome these failures, build-time check is done before accessing global
-> variables, so that DCE would remove these variables.
-> 
-> Signed-off-by: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
-> CC: Andrew Cooper <andrew.cooper3@citrix.com>
-> CC: Jan Beulich <jbeulich@suse.com>
-> ---
-> changes in v4:
->   - use IS_ENABLED(CONFIG_VMX) instead of using_vmx
-> changes in v3:
->   - using_vmx instead of cpu_has_vmx
->   - clarify description on why this change needed
-> changes in v2:
->   - do not touch SVM code and macros
->   - drop vmx_ctrl_has_feature()
->   - guard cpu_has_vmx_* macros in common code instead
-> ---
->   xen/arch/x86/hvm/hvm.c                  |  2 +-
->   xen/arch/x86/hvm/viridian/viridian.c    |  4 ++--
->   xen/arch/x86/include/asm/hvm/vmx/vmcs.h | 17 +++++++++++------
->   xen/arch/x86/traps.c                    |  5 +++--
->   4 files changed, 17 insertions(+), 11 deletions(-)
-> 
+Cleanup the private header files in arch/x86/xen by merging them into
+one file and by removing unneeded stuff.
 
-Viridian changes...
+Juergen Gross (2):
+  x86/xen: make some functions static
+  x86/xen: eliminate some private header files
 
-Acked-by: Paul Durrant <paul@xen.org>
+ arch/x86/xen/apic.c          |   2 -
+ arch/x86/xen/debugfs.c       |   2 +-
+ arch/x86/xen/debugfs.h       |   7 --
+ arch/x86/xen/enlighten.c     |   2 -
+ arch/x86/xen/enlighten_hvm.c |   2 -
+ arch/x86/xen/enlighten_pv.c  |   4 -
+ arch/x86/xen/mmu.c           |   3 +-
+ arch/x86/xen/mmu.h           |  28 -------
+ arch/x86/xen/mmu_hvm.c       |   2 +-
+ arch/x86/xen/mmu_pv.c        |  15 ++--
+ arch/x86/xen/multicalls.c    |   3 +-
+ arch/x86/xen/multicalls.h    |  69 ----------------
+ arch/x86/xen/p2m.c           |   2 -
+ arch/x86/xen/pmu.c           |   1 -
+ arch/x86/xen/pmu.h           |  22 ------
+ arch/x86/xen/setup.c         |   1 -
+ arch/x86/xen/smp.c           |   1 -
+ arch/x86/xen/smp.h           |  51 ------------
+ arch/x86/xen/smp_hvm.c       |   2 -
+ arch/x86/xen/smp_pv.c        |   3 -
+ arch/x86/xen/suspend.c       |   2 -
+ arch/x86/xen/xen-ops.h       | 148 ++++++++++++++++++++++++++++++++++-
+ include/xen/events.h         |   2 +
+ 23 files changed, 158 insertions(+), 216 deletions(-)
+ delete mode 100644 arch/x86/xen/debugfs.h
+ delete mode 100644 arch/x86/xen/mmu.h
+ delete mode 100644 arch/x86/xen/multicalls.h
+ delete mode 100644 arch/x86/xen/pmu.h
+ delete mode 100644 arch/x86/xen/smp.h
+
+-- 
+2.43.0
 
 
