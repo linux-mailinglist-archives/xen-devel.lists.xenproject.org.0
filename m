@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1AB0D92C803
-	for <lists+xen-devel@lfdr.de>; Wed, 10 Jul 2024 03:43:41 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.756503.1165145 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B0B5792C972
+	for <lists+xen-devel@lfdr.de>; Wed, 10 Jul 2024 05:54:25 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.756514.1165155 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sRMM1-0008Hi-DE; Wed, 10 Jul 2024 01:42:45 +0000
+	id 1sROOB-0005Wo-2t; Wed, 10 Jul 2024 03:53:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 756503.1165145; Wed, 10 Jul 2024 01:42:45 +0000
+Received: by outflank-mailman (output) from mailman id 756514.1165155; Wed, 10 Jul 2024 03:53:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sRMM1-0008Fw-9s; Wed, 10 Jul 2024 01:42:45 +0000
-Received: by outflank-mailman (input) for mailman id 756503;
- Wed, 10 Jul 2024 01:42:44 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=y5s2=OK=iscas.ac.cn=nichen@srs-se1.protection.inumbo.net>)
- id 1sRMM0-0008Fq-4z
- for xen-devel@lists.xenproject.org; Wed, 10 Jul 2024 01:42:44 +0000
-Received: from cstnet.cn (smtp84.cstnet.cn [159.226.251.84])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ae256408-3e5d-11ef-8776-851b0ebba9a2;
- Wed, 10 Jul 2024 03:42:39 +0200 (CEST)
-Received: from localhost (unknown [124.16.138.129])
- by APP-05 (Coremail) with SMTP id zQCowACXneX_5o1m4DN7Ag--.42650S2;
- Wed, 10 Jul 2024 09:42:24 +0800 (CST)
+	id 1sROOA-0005Ub-Vx; Wed, 10 Jul 2024 03:53:06 +0000
+Received: by outflank-mailman (input) for mailman id 756514;
+ Wed, 10 Jul 2024 03:53:05 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1sROO9-0005UL-Gn; Wed, 10 Jul 2024 03:53:05 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1sROO9-0007W6-Dp; Wed, 10 Jul 2024 03:53:05 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1sROO9-0000WD-0S; Wed, 10 Jul 2024 03:53:05 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1sROO8-0003GH-VH; Wed, 10 Jul 2024 03:53:04 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,60 +42,73 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ae256408-3e5d-11ef-8776-851b0ebba9a2
-From: Chen Ni <nichen@iscas.ac.cn>
-To: sstabellini@kernel.org,
-	linux@armlinux.org.uk
-Cc: xen-devel@lists.xenproject.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Chen Ni <nichen@iscas.ac.cn>
-Subject: [PATCH] xen/arm: Convert comma to semicolon
-Date: Wed, 10 Jul 2024 09:42:08 +0800
-Message-Id: <20240710014208.1719662-1-nichen@iscas.ac.cn>
-X-Mailer: git-send-email 2.25.1
-MIME-Version: 1.0
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=Y4yktUeJNrjt1L8hk8SD424JSLRbVlBKyhJGK5d/um4=; b=f06XPrbnbjtszBGzcXTvpOL4m/
+	KK5SVuWSe6hS0vem0qwVAiM5O79U5g+D4vMqoSC0Hi8tKANy3idIv0jfYcYf62KWnlIWSxxtk7k9X
+	AVz/8IqeaBA+IAuKDkULbDbcxlsgL/rvLQNGBQJ2D8/l2MRJBWw4d+j16d1ZKGBsX6tY=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-186746-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowACXneX_5o1m4DN7Ag--.42650S2
-X-Coremail-Antispam: 1UD129KBjvdXoW7Jw4UZF15Zr47JFWDWw47twb_yoW3Gwc_tF
-	n7ta48Ww1rArs09Fyjy3s5AF1xt3yDXrZrW3W8uF1DJa45XF4Durs2krn7Jr1UKr1akr1f
-	u392yrZ5W3WjgjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUIcSsGvfJTRUUUbc8FF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2IYs7xG
-	6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
-	A2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr0_
-	Cr1l84ACjcxK6I8E87Iv67AKxVWxJVW8Jr1l84ACjcxK6I8E87Iv6xkF7I0E14v26r4UJV
-	WxJr1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
-	2Ix0cI8IcVAFwI0_Jw0_WrylYx0Ex4A2jsIE14v26F4j6r4UJwAm72CE4IkC6x0Yz7v_Jr
-	0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7MxkIecxEwVAFwVWk
-	MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr
-	0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCIc40Y0x0E
-	wIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJV
-	W8JwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAI
-	cVC2z280aVCY1x0267AKxVWUJVW8JbIYCTnIWIevJa73UjIFyTuYvjfUO_M3DUUUU
-X-Originating-IP: [124.16.138.129]
-X-CM-SenderInfo: xqlfxv3q6l2u1dvotugofq/
+MIME-Version: 1.0
+Subject: [ovmf test] 186746: all pass - PUSHED
+X-Osstest-Versions-This:
+    ovmf=f91211049c1522f7db2ae8f7a509ac270868d0e9
+X-Osstest-Versions-That:
+    ovmf=7aaee521a1966e71a51b71b73f5e3bbddb6faa31
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Wed, 10 Jul 2024 03:53:04 +0000
 
-Replace a comma between expression statements by a semicolon.
+flight 186746 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/186746/
 
-Signed-off-by: Chen Ni <nichen@iscas.ac.cn>
----
- arch/arm/xen/p2m.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Perfect :-)
+All tests in this flight passed as required
+version targeted for testing:
+ ovmf                 f91211049c1522f7db2ae8f7a509ac270868d0e9
+baseline version:
+ ovmf                 7aaee521a1966e71a51b71b73f5e3bbddb6faa31
 
-diff --git a/arch/arm/xen/p2m.c b/arch/arm/xen/p2m.c
-index 309648c17f48..9da57a5b81c7 100644
---- a/arch/arm/xen/p2m.c
-+++ b/arch/arm/xen/p2m.c
-@@ -109,7 +109,7 @@ int set_foreign_p2m_mapping(struct gnttab_map_grant_ref *map_ops,
- 		 * immediate unmapping.
- 		 */
- 		map_ops[i].status = GNTST_general_error;
--		unmap.host_addr = map_ops[i].host_addr,
-+		unmap.host_addr = map_ops[i].host_addr;
- 		unmap.handle = map_ops[i].handle;
- 		map_ops[i].handle = INVALID_GRANT_HANDLE;
- 		if (map_ops[i].flags & GNTMAP_device_map)
--- 
-2.25.1
+Last test of basis   186744  2024-07-09 18:11:13 Z    0 days
+Testing same since   186746  2024-07-10 02:12:55 Z    0 days    1 attempts
 
+------------------------------------------------------------
+People who touched revisions under test:
+  Kun Qin <kuqin@microsoft.com>
+  Michael Kubacki <michael.kubacki@microsoft.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
+   7aaee521a1..f91211049c  f91211049c1522f7db2ae8f7a509ac270868d0e9 -> xen-tested-master
 
