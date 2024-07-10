@@ -2,36 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 96A2E92D8F8
-	for <lists+xen-devel@lfdr.de>; Wed, 10 Jul 2024 21:20:40 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.757051.1165782 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8CAB492D9E8
+	for <lists+xen-devel@lfdr.de>; Wed, 10 Jul 2024 22:15:02 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.757058.1165793 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sRcql-0000Kt-Co; Wed, 10 Jul 2024 19:19:35 +0000
+	id 1sRdhj-0006vk-8p; Wed, 10 Jul 2024 20:14:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 757051.1165782; Wed, 10 Jul 2024 19:19:35 +0000
+Received: by outflank-mailman (output) from mailman id 757058.1165793; Wed, 10 Jul 2024 20:14:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sRcql-0000JP-AJ; Wed, 10 Jul 2024 19:19:35 +0000
-Received: by outflank-mailman (input) for mailman id 757051;
- Wed, 10 Jul 2024 19:19:34 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1sRdhj-0006uC-63; Wed, 10 Jul 2024 20:14:19 +0000
+Received: by outflank-mailman (input) for mailman id 757058;
+ Wed, 10 Jul 2024 20:14:17 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=NRb1=OK=m5p.com=ehem@srs-se1.protection.inumbo.net>)
- id 1sRcqk-0000JJ-BI
- for xen-devel@lists.xenproject.org; Wed, 10 Jul 2024 19:19:34 +0000
-Received: from mailhost.m5p.com (mailhost.m5p.com [74.104.188.4])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 557c0ff8-3ef1-11ef-8776-851b0ebba9a2;
- Wed, 10 Jul 2024 21:19:32 +0200 (CEST)
-Received: from m5p.com (mailhost.m5p.com [IPv6:2001:470:8ac4:0:0:0:0:f7])
- by mailhost.m5p.com (8.18.1/8.17.1) with ESMTPS id 46AJJLh3032175
- (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NO);
- Wed, 10 Jul 2024 15:19:27 -0400 (EDT) (envelope-from ehem@m5p.com)
-Received: (from ehem@localhost)
- by m5p.com (8.18.1/8.15.2/Submit) id 46AJJK2k032174;
- Wed, 10 Jul 2024 12:19:20 -0700 (PDT) (envelope-from ehem)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1sRdhh-0006u2-B1; Wed, 10 Jul 2024 20:14:17 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1sRdhh-00026O-6M; Wed, 10 Jul 2024 20:14:17 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1sRdhg-00021p-UT; Wed, 10 Jul 2024 20:14:17 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1sRdhg-00077V-Tw; Wed, 10 Jul 2024 20:14:16 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,46 +42,72 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 557c0ff8-3ef1-11ef-8776-851b0ebba9a2
-Date: Wed, 10 Jul 2024 12:19:20 -0700
-From: Elliott Mitchell <ehem+xen@m5p.com>
-To: Andrei Semenov <andrei.semenov@vates.tech>
-Cc: xen-devel@lists.xenproject.org, Andrew Cooper <andrew.cooper3@citrix.com>,
-        Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>,
-        jgross@suse.com
-Subject: Re: AMD EPYC virtual network performances
-Message-ID: <Zo7euOa87jCNvjV8@mattapan.m5p.com>
-References: <959bbf84-24da-4da3-a059-dc1aa32b27ef@vates.tech>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=QJTGxyxGUD2PYQSs6i+u2f0NnFRudiTYQOYnbAVSS7g=; b=V17xqigQxAGCmJgNVR3GTjtTgy
+	v5z3XIT4pNwQEmOyMtFRTCGFqmZKJdVk4e4JVbY8e+G8O5lDfzZDljJmcBrvo/TqcsAvea7Nvh2Ox
+	jcWU+k0klfQtnexDsyjJftp0MbAA69fMcwe1bvykM07R5CrKk4kTLx2qzkWrpbHSis/U=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-186755-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <959bbf84-24da-4da3-a059-dc1aa32b27ef@vates.tech>
+MIME-Version: 1.0
+Subject: [ovmf test] 186755: all pass - PUSHED
+X-Osstest-Versions-This:
+    ovmf=0f45be16336035e69bb30761f8cd20ba3b0a3f39
+X-Osstest-Versions-That:
+    ovmf=6c061c4715325494b8b25453158166f9032e0335
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Wed, 10 Jul 2024 20:14:16 +0000
 
-On Tue, Jul 09, 2024 at 08:36:18AM +0000, Andrei Semenov wrote:
-> 
-> Does anybody notice this behavior on his side?  Can we do something 
-> about it?
+flight 186755 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/186755/
 
-I hadn't previously noticed this manifestation, but now that I know where
-to look seems I'm also seeing the issue.
+Perfect :-)
+All tests in this flight passed as required
+version targeted for testing:
+ ovmf                 0f45be16336035e69bb30761f8cd20ba3b0a3f39
+baseline version:
+ ovmf                 6c061c4715325494b8b25453158166f9032e0335
 
-It also effects other lines of AMD's offerings.
+Last test of basis   186754  2024-07-10 15:43:05 Z    0 days
+Testing same since   186755  2024-07-10 18:14:44 Z    0 days    1 attempts
 
-It also effects PVH domains, but may not have as much impact.
+------------------------------------------------------------
+People who touched revisions under test:
+  Leif Lindholm <quic_llindhol@quicinc.com>
 
-It also effects virtual block devices.
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
 
 
-Right now I consider this highly speculative, but I am now wondering
-whether the software RAID1 issue is related to this.
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
 
--- 
-(\___(\___(\______          --=> 8-) EHM <=--          ______/)___/)___/)
- \BS (    |         ehem+sigmsg@m5p.com  PGP 87145445         |    )   /
-  \_CS\   |  _____  -O #include <stddisclaimer.h> O-   _____  |   /  _/
-8A19\___\_|_/58D2 7E3D DDF4 7BA6 <-PGP-> 41D1 B375 37D0 8714\_|_/___/5445
+Pushing revision :
 
-
+To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
+   6c061c4715..0f45be1633  0f45be16336035e69bb30761f8cd20ba3b0a3f39 -> xen-tested-master
 
