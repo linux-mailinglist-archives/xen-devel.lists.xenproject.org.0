@@ -2,34 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 966F192C6BF
-	for <lists+xen-devel@lfdr.de>; Wed, 10 Jul 2024 01:47:25 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.756495.1165135 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1AB0D92C803
+	for <lists+xen-devel@lfdr.de>; Wed, 10 Jul 2024 03:43:41 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.756503.1165145 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sRKXE-0000G4-VI; Tue, 09 Jul 2024 23:46:12 +0000
+	id 1sRMM1-0008Hi-DE; Wed, 10 Jul 2024 01:42:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 756495.1165135; Tue, 09 Jul 2024 23:46:12 +0000
+Received: by outflank-mailman (output) from mailman id 756503.1165145; Wed, 10 Jul 2024 01:42:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sRKXE-0000Df-Ro; Tue, 09 Jul 2024 23:46:12 +0000
-Received: by outflank-mailman (input) for mailman id 756495;
- Tue, 09 Jul 2024 23:46:11 +0000
+	id 1sRMM1-0008Fw-9s; Wed, 10 Jul 2024 01:42:45 +0000
+Received: by outflank-mailman (input) for mailman id 756503;
+ Wed, 10 Jul 2024 01:42:44 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=v1mn=OJ=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1sRKXD-0000DH-BA
- for xen-devel@lists.xenproject.org; Tue, 09 Jul 2024 23:46:11 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ <SRS0=y5s2=OK=iscas.ac.cn=nichen@srs-se1.protection.inumbo.net>)
+ id 1sRMM0-0008Fq-4z
+ for xen-devel@lists.xenproject.org; Wed, 10 Jul 2024 01:42:44 +0000
+Received: from cstnet.cn (smtp84.cstnet.cn [159.226.251.84])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 68a85896-3e4d-11ef-8776-851b0ebba9a2;
- Wed, 10 Jul 2024 01:46:07 +0200 (CEST)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 822DE6172C;
- Tue,  9 Jul 2024 23:46:05 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8BF98C32786;
- Tue,  9 Jul 2024 23:46:04 +0000 (UTC)
+ id ae256408-3e5d-11ef-8776-851b0ebba9a2;
+ Wed, 10 Jul 2024 03:42:39 +0200 (CEST)
+Received: from localhost (unknown [124.16.138.129])
+ by APP-05 (Coremail) with SMTP id zQCowACXneX_5o1m4DN7Ag--.42650S2;
+ Wed, 10 Jul 2024 09:42:24 +0800 (CST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,139 +39,60 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 68a85896-3e4d-11ef-8776-851b0ebba9a2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1720568765;
-	bh=DPmGonOws0osxhHvBdy+UQQJhsLrDiJr/gIuBbQSIok=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=iujAxdqjxu83ZPpV/65FjvUEfIzp0NCxPAPyJQ92cijbyoXPfAninjT3VuxPQVsYF
-	 VVJ4wV9BLc4JhDGq6X61NdMvPw/QXBbxkNw4PSSenEK077EQPCrTkfBb56D+9BFVhc
-	 mJrCLuutKFsDjyfU71PgrzsHuuyULBJ7K/nxeMlz9ikMwPQ9dvZz0Xm1mIGavl7m2k
-	 Y0nx28DAGqXSsIgkT3RfLtQRK78Z5OPC9e79WWEUjCbDXDB1mtcfDOq1ariB6FwI3R
-	 sWWYxhJhyKywz2tmmOBjgJ9mUc5BfHgsnx5vXhaeNtnR/PR3iz1Dl9wMH4ADNYA8o3
-	 VLiouzhwUbszA==
-Date: Tue, 9 Jul 2024 16:46:03 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Alejandro Vallejo <alejandro.vallejo@cloud.com>
-cc: Michal Orzel <michal.orzel@amd.com>, xen-devel@lists.xenproject.org, 
-    Doug Goldstein <cardoe@cardoe.com>, 
-    Stefano Stabellini <sstabellini@kernel.org>
-Subject: Re: [PATCH for-4.20] automation: Use a different ImageBuilder
- repository URL
-In-Reply-To: <D2L0YQOMMQ3G.GLD8N5NQ50JS@cloud.com>
-Message-ID: <alpine.DEB.2.22.394.2407091645320.3635@ubuntu-linux-20-04-desktop>
-References: <20240709122117.48051-1-michal.orzel@amd.com> <D2L0YQOMMQ3G.GLD8N5NQ50JS@cloud.com>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+X-Inumbo-ID: ae256408-3e5d-11ef-8776-851b0ebba9a2
+From: Chen Ni <nichen@iscas.ac.cn>
+To: sstabellini@kernel.org,
+	linux@armlinux.org.uk
+Cc: xen-devel@lists.xenproject.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Chen Ni <nichen@iscas.ac.cn>
+Subject: [PATCH] xen/arm: Convert comma to semicolon
+Date: Wed, 10 Jul 2024 09:42:08 +0800
+Message-Id: <20240710014208.1719662-1-nichen@iscas.ac.cn>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zQCowACXneX_5o1m4DN7Ag--.42650S2
+X-Coremail-Antispam: 1UD129KBjvdXoW7Jw4UZF15Zr47JFWDWw47twb_yoW3Gwc_tF
+	n7ta48Ww1rArs09Fyjy3s5AF1xt3yDXrZrW3W8uF1DJa45XF4Durs2krn7Jr1UKr1akr1f
+	u392yrZ5W3WjgjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUIcSsGvfJTRUUUbc8FF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2IYs7xG
+	6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
+	A2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr0_
+	Cr1l84ACjcxK6I8E87Iv67AKxVWxJVW8Jr1l84ACjcxK6I8E87Iv6xkF7I0E14v26r4UJV
+	WxJr1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
+	2Ix0cI8IcVAFwI0_Jw0_WrylYx0Ex4A2jsIE14v26F4j6r4UJwAm72CE4IkC6x0Yz7v_Jr
+	0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7MxkIecxEwVAFwVWk
+	MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr
+	0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCIc40Y0x0E
+	wIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJV
+	W8JwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAI
+	cVC2z280aVCY1x0267AKxVWUJVW8JbIYCTnIWIevJa73UjIFyTuYvjfUO_M3DUUUU
+X-Originating-IP: [124.16.138.129]
+X-CM-SenderInfo: xqlfxv3q6l2u1dvotugofq/
 
-On Tue, 9 Jul 2024, Alejandro Vallejo wrote:
-> On Tue Jul 9, 2024 at 1:21 PM BST, Michal Orzel wrote:
-> > Switch to using https://gitlab.com/xen-project/imagebuilder.git which
-> > should be considered official ImageBuilder repo.
-> >
-> > Signed-off-by: Michal Orzel <michal.orzel@amd.com>
-> > ---
-> >  automation/scripts/qemu-smoke-dom0-arm32.sh       | 2 +-
-> >  automation/scripts/qemu-smoke-dom0-arm64.sh       | 2 +-
-> >  automation/scripts/qemu-smoke-dom0less-arm32.sh   | 2 +-
-> >  automation/scripts/qemu-smoke-dom0less-arm64.sh   | 2 +-
-> >  automation/scripts/qemu-xtf-dom0less-arm64.sh     | 2 +-
-> >  automation/scripts/xilinx-smoke-dom0less-arm64.sh | 2 +-
-> >  6 files changed, 6 insertions(+), 6 deletions(-)
-> >
-> > diff --git a/automation/scripts/qemu-smoke-dom0-arm32.sh b/automation/scripts/qemu-smoke-dom0-arm32.sh
-> > index d91648905669..5b62e3f691f1 100755
-> > --- a/automation/scripts/qemu-smoke-dom0-arm32.sh
-> > +++ b/automation/scripts/qemu-smoke-dom0-arm32.sh
-> > @@ -73,7 +73,7 @@ UBOOT_SOURCE="boot.source"
-> >  UBOOT_SCRIPT="boot.scr"' > config
-> >  
-> >  rm -rf imagebuilder
-> > -git clone https://gitlab.com/ViryaOS/imagebuilder
-> > +git clone https://gitlab.com/xen-project/imagebuilder.git
-> 
-> For this clone and all others:
-> 
-> You probably want "git clone --depth 1 <url>" to pull the tip of the repo and
-> not its history.
+Replace a comma between expression statements by a semicolon.
 
-That's a good idea. You can add my
+Signed-off-by: Chen Ni <nichen@iscas.ac.cn>
+---
+ arch/arm/xen/p2m.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+diff --git a/arch/arm/xen/p2m.c b/arch/arm/xen/p2m.c
+index 309648c17f48..9da57a5b81c7 100644
+--- a/arch/arm/xen/p2m.c
++++ b/arch/arm/xen/p2m.c
+@@ -109,7 +109,7 @@ int set_foreign_p2m_mapping(struct gnttab_map_grant_ref *map_ops,
+ 		 * immediate unmapping.
+ 		 */
+ 		map_ops[i].status = GNTST_general_error;
+-		unmap.host_addr = map_ops[i].host_addr,
++		unmap.host_addr = map_ops[i].host_addr;
+ 		unmap.handle = map_ops[i].handle;
+ 		map_ops[i].handle = INVALID_GRANT_HANDLE;
+ 		if (map_ops[i].flags & GNTMAP_device_map)
+-- 
+2.25.1
 
-
-> >  bash imagebuilder/scripts/uboot-script-gen -t tftp -d . -c config
-> >  
-> >  rm -f ${serial_log}
-> > diff --git a/automation/scripts/qemu-smoke-dom0-arm64.sh b/automation/scripts/qemu-smoke-dom0-arm64.sh
-> > index e0bb37af3610..ca59bdec1b2b 100755
-> > --- a/automation/scripts/qemu-smoke-dom0-arm64.sh
-> > +++ b/automation/scripts/qemu-smoke-dom0-arm64.sh
-> > @@ -87,7 +87,7 @@ LOAD_CMD="tftpb"
-> >  UBOOT_SOURCE="boot.source"
-> >  UBOOT_SCRIPT="boot.scr"' > binaries/config
-> >  rm -rf imagebuilder
-> > -git clone https://gitlab.com/ViryaOS/imagebuilder
-> > +git clone https://gitlab.com/xen-project/imagebuilder.git
-> >  bash imagebuilder/scripts/uboot-script-gen -t tftp -d binaries/ -c binaries/config
-> >  
-> >  
-> > diff --git a/automation/scripts/qemu-smoke-dom0less-arm32.sh b/automation/scripts/qemu-smoke-dom0less-arm32.sh
-> > index 1e2b939aadf7..11804cbd729f 100755
-> > --- a/automation/scripts/qemu-smoke-dom0less-arm32.sh
-> > +++ b/automation/scripts/qemu-smoke-dom0less-arm32.sh
-> > @@ -125,7 +125,7 @@ if [[ "${test_variant}" == "without-dom0" ]]; then
-> >  fi
-> >  
-> >  rm -rf imagebuilder
-> > -git clone https://gitlab.com/ViryaOS/imagebuilder
-> > +git clone https://gitlab.com/xen-project/imagebuilder.git
-> >  bash imagebuilder/scripts/uboot-script-gen -t tftp -d . -c config
-> >  
-> >  # Run the test
-> > diff --git a/automation/scripts/qemu-smoke-dom0less-arm64.sh b/automation/scripts/qemu-smoke-dom0less-arm64.sh
-> > index 292c38a56147..4b548d1f8e54 100755
-> > --- a/automation/scripts/qemu-smoke-dom0less-arm64.sh
-> > +++ b/automation/scripts/qemu-smoke-dom0less-arm64.sh
-> > @@ -198,7 +198,7 @@ NUM_CPUPOOLS=1' >> binaries/config
-> >  fi
-> >  
-> >  rm -rf imagebuilder
-> > -git clone https://gitlab.com/ViryaOS/imagebuilder
-> > +git clone https://gitlab.com/xen-project/imagebuilder.git
-> >  bash imagebuilder/scripts/uboot-script-gen -t tftp -d binaries/ -c binaries/config
-> >  
-> >  
-> > diff --git a/automation/scripts/qemu-xtf-dom0less-arm64.sh b/automation/scripts/qemu-xtf-dom0less-arm64.sh
-> > index a667e0412c92..59f926d35fb9 100755
-> > --- a/automation/scripts/qemu-xtf-dom0less-arm64.sh
-> > +++ b/automation/scripts/qemu-xtf-dom0less-arm64.sh
-> > @@ -45,7 +45,7 @@ UBOOT_SOURCE="boot.source"
-> >  UBOOT_SCRIPT="boot.scr"' > binaries/config
-> >  
-> >  rm -rf imagebuilder
-> > -git clone https://gitlab.com/ViryaOS/imagebuilder
-> > +git clone https://gitlab.com/xen-project/imagebuilder.git
-> >  bash imagebuilder/scripts/uboot-script-gen -t tftp -d binaries/ -c binaries/config
-> >  
-> >  # Run the test
-> > diff --git a/automation/scripts/xilinx-smoke-dom0less-arm64.sh b/automation/scripts/xilinx-smoke-dom0less-arm64.sh
-> > index 4a071c6ef148..e3f7648d5031 100755
-> > --- a/automation/scripts/xilinx-smoke-dom0less-arm64.sh
-> > +++ b/automation/scripts/xilinx-smoke-dom0less-arm64.sh
-> > @@ -122,7 +122,7 @@ if [[ "${test_variant}" == "gem-passthrough" ]]; then
-> >  fi
-> >  
-> >  rm -rf imagebuilder
-> > -git clone https://gitlab.com/ViryaOS/imagebuilder
-> > +git clone https://gitlab.com/xen-project/imagebuilder.git
-> >  bash imagebuilder/scripts/uboot-script-gen -t tftp -d $TFTP/ -c $TFTP/config
-> >  
-> >  # restart the board
-> 
-> Cheers,
-> Alejandro
-> 
 
