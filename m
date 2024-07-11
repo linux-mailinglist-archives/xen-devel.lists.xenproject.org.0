@@ -2,32 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 40F2E92E879
-	for <lists+xen-devel@lfdr.de>; Thu, 11 Jul 2024 14:44:46 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.757440.1166359 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 056B192E894
+	for <lists+xen-devel@lfdr.de>; Thu, 11 Jul 2024 14:55:17 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.757447.1166369 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sRt9t-0004IP-82; Thu, 11 Jul 2024 12:44:25 +0000
+	id 1sRtJz-0006MX-64; Thu, 11 Jul 2024 12:54:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 757440.1166359; Thu, 11 Jul 2024 12:44:25 +0000
+Received: by outflank-mailman (output) from mailman id 757447.1166369; Thu, 11 Jul 2024 12:54:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sRt9t-0004Gf-5W; Thu, 11 Jul 2024 12:44:25 +0000
-Received: by outflank-mailman (input) for mailman id 757440;
- Thu, 11 Jul 2024 12:44:23 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1sRt9r-0004GZ-Ej
- for xen-devel@lists.xenproject.org; Thu, 11 Jul 2024 12:44:23 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1sRt9p-00010l-Di; Thu, 11 Jul 2024 12:44:21 +0000
-Received: from [15.248.3.91] (helo=[10.24.67.27])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1sRt9p-000218-4e; Thu, 11 Jul 2024 12:44:21 +0000
+	id 1sRtJz-0006L0-33; Thu, 11 Jul 2024 12:54:51 +0000
+Received: by outflank-mailman (input) for mailman id 757447;
+ Thu, 11 Jul 2024 12:54:49 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=fcyN=OL=bounce.vates.tech=bounce-md_30504962.668fd616.v1-556f190b2d6b43f09a54b9e014007646@srs-se1.protection.inumbo.net>)
+ id 1sRtJx-0006Ku-Gf
+ for xen-devel@lists.xenproject.org; Thu, 11 Jul 2024 12:54:49 +0000
+Received: from mail186-27.suw21.mandrillapp.com
+ (mail186-27.suw21.mandrillapp.com [198.2.186.27])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id c0c3dad3-3f84-11ef-bbfb-fd08da9f4363;
+ Thu, 11 Jul 2024 14:54:48 +0200 (CEST)
+Received: from pmta10.mandrill.prod.suw01.rsglab.com (localhost [127.0.0.1])
+ by mail186-27.suw21.mandrillapp.com (Mailchimp) with ESMTP id
+ 4WKZSQ6PbCz6CQ3pX
+ for <xen-devel@lists.xenproject.org>; Thu, 11 Jul 2024 12:54:46 +0000 (GMT)
+Received: from [37.26.189.201] by mandrillapp.com id
+ 556f190b2d6b43f09a54b9e014007646; Thu, 11 Jul 2024 12:54:46 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,116 +43,72 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=JVUd8+2S+TWxH1oy8NbKiUj81nTRD5fRSh9U/d5TrkA=; b=faYF5HTyY7kCBolcOa28AvZ3rP
-	++em/Gs9lqOTESdhChM496oIciDkr1x5YOgL+Z9IZH2FmcSs10ZmscT+muL2y1W3SKrsaiO/5M2Il
-	0qBpOgW8wGr1Tsh6tYXPRtvHis/yq0Kq4ZUJHGUGuTlRYQmyeNjGsYmgZuFs7/w2fc1o=;
-Message-ID: <5de15734-29eb-42e0-b6c9-f6d734222b59@xen.org>
-Date: Thu, 11 Jul 2024 13:44:19 +0100
+X-Inumbo-ID: c0c3dad3-3f84-11ef-bbfb-fd08da9f4363
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
+	s=mte1; t=1720702486; x=1720962986;
+	bh=QT7Nyr/C+R4jjSf5+6fGFGCoMGbBcAFFa43DxFSxuLc=;
+	h=From:Subject:To:Cc:Message-Id:References:In-Reply-To:Feedback-ID:
+	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
+	 Subject:From;
+	b=nebNAdRGZYycjcI5Im9TZqAkzqBsnJxrvw6+2bstR3Lyfie9/FAvQLhYcowsf3VM7
+	 J7seCf3XctwB75S7/pVm3M8DjTw/laqSck/RNykF33iiNLXx/Y2a/KtVJqfHxJaJEH
+	 Aat4fS+vdltOMSYXCqlycaKjwyCMUUZe4sEbYb0yVMkxbunw13SMadIntXxchut9ST
+	 z2oWKuhzFb+BYvzYussuoKDha7E/MEbbJlL9NHH/wX3y5VUdugm9v27Bqe4m44fmSo
+	 y8pwQGW4Sz//zIiI92H9/+dJ0KDnxUCc9IszJPWB5h0O9hys5OiNNA/0RoQcDUTOpa
+	 0OihJ3lXgO4rA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
+	t=1720702486; x=1720962986; i=anthony.perard@vates.tech;
+	bh=QT7Nyr/C+R4jjSf5+6fGFGCoMGbBcAFFa43DxFSxuLc=;
+	h=From:Subject:To:Cc:Message-Id:References:In-Reply-To:Feedback-ID:
+	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
+	 Subject:From;
+	b=Dyxb6AWvTaDUR/ZtjG++K0uRE2gM5cdwxEXIgDx/0cnEovckjrITl5A0Vv5kMiQq/
+	 IIMPuLOcNLS0PBai1s7sxgjvHvkjK9cNm28onCZZK6Q4xBPQICz3GW5txYlefKV5t9
+	 I76CdAhxB7boKEh4cnuxIsxaxbJxpGJtSRmkmBh9DMd9e8rmvxZ40NlJmlhVQBjKTL
+	 pdFMPDZ8JsPq+ku0O2RK8I1IYRycjxc7d54VDsDlvtkYJg8co8LyYqm4rFUm4O+2iM
+	 IlQ2nVJdUwA/zBrDDr5q9n1NYKoy1vL2AP/YhwiIU3gU+oZj95vNu7jM4UABa9Wjw7
+	 GgSbNVi8MYqgw==
+From: Anthony PERARD <anthony.perard@vates.tech>
+Subject: =?utf-8?Q?Re:=20[PATCH=2001/12]=20CI:=20Fix=20CONTAINER=5FUID0=3D1=20scripts/containerize?=
+X-Bm-Disclaimer: Yes
+X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
+X-Bm-Transport-Timestamp: 1720702485185
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>, Juergen Gross <jgross@suse.com>, =?utf-8?Q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>, Jan Beulich <JBeulich@suse.com>, Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Oleksii Kurochko <oleksii.kurochko@gmail.com>, Shawn Anastasio <sanastasio@raptorengineering.com>
+Message-Id: <Zo/WFAS3LFKG3LJf@l14>
+References: <20240711111517.3064810-1-andrew.cooper3@citrix.com> <20240711111517.3064810-2-andrew.cooper3@citrix.com>
+In-Reply-To: <20240711111517.3064810-2-andrew.cooper3@citrix.com>
+X-Native-Encoded: 1
+X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.556f190b2d6b43f09a54b9e014007646?=
+X-Mandrill-User: md_30504962
+Feedback-ID: 30504962:30504962.20240711:md
+Date: Thu, 11 Jul 2024 12:54:46 +0000
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 5/5] xen/riscv: map FDT
-Content-Language: en-GB
-To: Oleksii <oleksii.kurochko@gmail.com>, Jan Beulich <jbeulich@suse.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <cover.1720002425.git.oleksii.kurochko@gmail.com>
- <7e492df051c949744755a221c0448c740d2c681b.1720002425.git.oleksii.kurochko@gmail.com>
- <3afd94c0-25f4-4ed8-83d2-6f261b8a64b3@suse.com>
- <021d29540f8e9abec118e9ca9dcd9675310eda84.camel@gmail.com>
- <9592e857-bf1c-4e26-acd7-dfb5bb12103e@suse.com>
- <fda966116ce17b9be0b1a467bd31436a6b5ad225.camel@gmail.com>
- <e58a9128-efdd-4bff-9562-08d5605d0a13@suse.com>
- <040e6b1d9b8bbe2b316e0e5b891c2564df28335d.camel@gmail.com>
- <5c6fbbbf-f6bf-43b3-9628-a92c69e3adb1@xen.org>
- <80864cdf9b6deb31b6e745c45a54a73c9a86ef65.camel@gmail.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <80864cdf9b6deb31b6e745c45a54a73c9a86ef65.camel@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: 7bit
 
-Hi Oleksii,
-
-On 11/07/2024 13:29, Oleksii wrote:
-> On Thu, 2024-07-11 at 12:54 +0100, Julien Grall wrote:
->> Hi,
->>
->> On 11/07/2024 12:28, Oleksii wrote:
->>> Add Julien as he asked basically the same question in another
->>> thread.
->>
->> Thanks!
->>
->>>
->>> On Thu, 2024-07-11 at 12:50 +0200, Jan Beulich wrote:
->>>> On 11.07.2024 12:26, Oleksii wrote:
->>>>> On Thu, 2024-07-11 at 11:54 +0200, Jan Beulich wrote:
->>>>>> On 11.07.2024 11:40, Oleksii wrote:
->>>>>>> On Wed, 2024-07-10 at 14:38 +0200, Jan Beulich wrote:
->>>>>>>> On 03.07.2024 12:42, Oleksii Kurochko wrote:
->>>>> Does it make sense now?
->>>>
->>>> I think so, yet at the same time it only changes the question:
->>>> Why is
->>>> it
->>>> that you absolutely need to use setup_initial_mapping()?
->>> There is no strict requirement to use setup_initial_mapping(). That
->>> function is available to me at the moment, and I haven't found a
->>> better
->>> option other than reusing what I currently have.
->>
->> I am not very familiar with the code base for RISC-V, but looking at
->> the
->> context in the patch, it seems you will still have the identity
->> mapping
->> mapped until start_xen().
-> We have identity mapping only for a small piece of .text section:
->          . = ALIGN(IDENT_AREA_SIZE);
->          _ident_start = .;
->          *(.text.ident)
->          _ident_end = .;
+On Thu, Jul 11, 2024 at 12:15:06PM +0100, Andrew Cooper wrote:
+> Right now, most build containers use root.  Archlinux, Fedora and Yocto set up
+> a regular user called `user`.
 > 
-> All other will be identically mapped only in case of linker address is
-> equal to load address.
+> For those containers, trying to containerize as root fails, because
+> CONTAINER_UID0=1 does nothing, whereas CONTAINER_UID0=0 forces the user away
+> from root.
 > 
->>
->> I assume we don't exactly know where the loader will put Xen in
->> memory.
->> Which means that the region may clash with your defined runtime
->> regions
->> (such as the FDT). Did I misunderstand anything?
-> I am not really get what is the issue here.
+> To make CONTAINER_UID0=1 work reliably, force to root if requested.
 > 
-> If we are speaking about physical regions then loader will guarantee
-> that Xen and FDT regions don't overlap.
+> Fixes: 17fbe6504dfd ("automation: introduce a new variable to control container user")
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-Sure. But I was referring to...
+Reviewed-by: Anthony PERARD <anthony.perard@vates.tech>
 
-> 
-> If we are speaking about virtual regions then Xen will check that
-> nothing is overlaped. 
-
-... this part. The more regions you mapped with MMU off, the more work 
-you have to do to ensure nothing will clash.
-
-> And the virtual regions are mapped so high so I
-> am not sure that loader will put something there. ( FDT in Xen is
-> mapped to 0xffffffffc0200000 )
-Never say never :). On Arm, some 64-bit HW (such as ADLink AVA platform) 
-has the RAM starting very high and load Xen around 8TB. For Arm, we 
-still decided to put a limit (10TB) where Xen can be loaded but this is 
-mainly done for convenience (otherwise it is a bit more complicated to 
-get off the identity mapping).
-
-We still have a check in place to ensure that Xen is not loaded above 
-10TB. If you map the FDT within the same L1.
-
-Cheers,
+Thanks,
 
 -- 
-Julien Grall
+
+Anthony Perard | Vates XCP-ng Developer
+
+XCP-ng & Xen Orchestra - Vates solutions
+
+web: https://vates.tech
 
