@@ -2,37 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DFAAD92EF90
-	for <lists+xen-devel@lfdr.de>; Thu, 11 Jul 2024 21:22:03 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.757675.1166782 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9CBAA92F044
+	for <lists+xen-devel@lfdr.de>; Thu, 11 Jul 2024 22:24:47 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.757684.1166791 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sRzLh-0007A2-CR; Thu, 11 Jul 2024 19:21:01 +0000
+	id 1sS0KS-0005tm-QF; Thu, 11 Jul 2024 20:23:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 757675.1166782; Thu, 11 Jul 2024 19:21:01 +0000
+Received: by outflank-mailman (output) from mailman id 757684.1166791; Thu, 11 Jul 2024 20:23:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sRzLh-000772-89; Thu, 11 Jul 2024 19:21:01 +0000
-Received: by outflank-mailman (input) for mailman id 757675;
- Thu, 11 Jul 2024 19:21:00 +0000
+	id 1sS0KS-0005rT-Mj; Thu, 11 Jul 2024 20:23:48 +0000
+Received: by outflank-mailman (input) for mailman id 757684;
+ Thu, 11 Jul 2024 20:23:46 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=hOEV=OL=cloud.com=alejandro.vallejo@srs-se1.protection.inumbo.net>)
- id 1sRzLg-00076c-92
- for xen-devel@lists.xenproject.org; Thu, 11 Jul 2024 19:21:00 +0000
-Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com
- [2a00:1450:4864:20::634])
+ <SRS0=PZf6=OL=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1sS0KQ-0005rN-Ko
+ for xen-devel@lists.xenproject.org; Thu, 11 Jul 2024 20:23:46 +0000
+Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
+ [2a00:1450:4864:20::62b])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b245b080-3fba-11ef-8776-851b0ebba9a2;
- Thu, 11 Jul 2024 21:20:56 +0200 (CEST)
-Received: by mail-ej1-x634.google.com with SMTP id
- a640c23a62f3a-a77e85cb9b4so171772166b.0
- for <xen-devel@lists.xenproject.org>; Thu, 11 Jul 2024 12:20:56 -0700 (PDT)
-Received: from localhost ([185.25.67.249]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a780a872e0dsm278320166b.215.2024.07.11.12.20.54
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 11 Jul 2024 12:20:54 -0700 (PDT)
+ id 774a605c-3fc3-11ef-8776-851b0ebba9a2;
+ Thu, 11 Jul 2024 22:23:42 +0200 (CEST)
+Received: by mail-ej1-x62b.google.com with SMTP id
+ a640c23a62f3a-a77d9217e6fso176226866b.2
+ for <xen-devel@lists.xenproject.org>; Thu, 11 Jul 2024 13:23:42 -0700 (PDT)
+Received: from andrewcoop.eng.citrite.net ([185.25.67.249])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a780a6dfb19sm284302966b.66.2024.07.11.13.23.40
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 11 Jul 2024 13:23:40 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,699 +45,357 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b245b080-3fba-11ef-8776-851b0ebba9a2
+X-Inumbo-ID: 774a605c-3fc3-11ef-8776-851b0ebba9a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1720725655; x=1721330455; darn=lists.xenproject.org;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-transfer-encoding:mime-version:from:to:cc:subject:date
+        d=citrix.com; s=google; t=1720729421; x=1721334221; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=yt+9J24bLbrNFdi7uERiynvKx90ubDvShMDwuacdRpQ=;
-        b=OHp871hVHXHjqePI3IC+YUJStF9JVcGrkn8DZk60sfA/x/vv267B/HXk9cIWgKa+LX
-         Qb/mb9Hs7w7upw7v/r+92gGu2TnFCc8SZba8l8yJbubNQl4bXp91m3WNWqRQRsKSIvZ6
-         I5/I59Rph3YTjngOYUTW1qmnoMCXlLpocRuWg=
+        bh=IpVMbtAPh/d/2PPbAwt7r6y7YPmwonQerNDnIDQpg6I=;
+        b=N7+fOPIYefy1KC59GTFPIKgk0ZYX5vae+kY8LsynKgqmuXBt01Whv9ZOix8k8KezGU
+         B5EnMDoZsmr159vNRXPEfyXglinojjmIbPJLpTq9lcEWU4o1kq5wgrX7RaWDyaT257ab
+         JbFyAYTjb8I/Rgls+3vLPWgZtu5bmZPexWisM=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1720725655; x=1721330455;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-transfer-encoding:mime-version:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=yt+9J24bLbrNFdi7uERiynvKx90ubDvShMDwuacdRpQ=;
-        b=Cr4nJ1jBJ15pfx/9YlnrI8eJkRGd18GLAPxwl1QuNL6wDJ8D5V9mAO/CYyzecbeN/c
-         lvLF5ehei0Sqj+FOmGKALNjznqO5nUBdFDHEFoxDeiQixawIy3mLoU/emnhzTKbOcL5Z
-         ySOT6eYFMiMxkYn9GHYg34pGfPcgOcIn5Kpy3Ox2a9YuKZgkjdVMOf7RSigv+HJzvxip
-         KX9VaNEMapiqF3XzHZ1u4LzV2h3PjHbbqfyl0XAWfSlChblWSAZT6nJBiuYlX7NMAwsq
-         7LHB2Xgf0EPivQukuM3rcBa/k5G835Eotcl4c0Ssb6jj+1EMmi1IjRaDnLIGdfyvsf8H
-         DA6w==
-X-Forwarded-Encrypted: i=1; AJvYcCVhr47frmzj409w+bnYJ63SpLp30cwING8CiPHX8WCpvz3DsRmTb83ozd4FIALGH/4qo0e++EcSapXvMdsRNffu658oi5DbOIjHBUaUPfg=
-X-Gm-Message-State: AOJu0Yy3xWRKKSUE7sgN9kS1GVE0FcLRfEDc36F94YyV55AyRs5+H0jp
-	4vtjCWwnahqYb/aDFdlgPHL6Kg/hYzsv83Yi6df4eeC7HoUlh+WLgSIgqVwnbOA=
-X-Google-Smtp-Source: AGHT+IGhcJfDzfbY9BTF7RWaTIae9tZpZ1Iutn7UiF6fe7lgHK/Jm8M3HTf5T5Kbgq7p4q09ieIzdw==
-X-Received: by 2002:a17:906:e56:b0:a77:e7b9:fda0 with SMTP id a640c23a62f3a-a780b68a231mr561851166b.14.1720725655277;
-        Thu, 11 Jul 2024 12:20:55 -0700 (PDT)
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
+        d=1e100.net; s=20230601; t=1720729421; x=1721334221;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=IpVMbtAPh/d/2PPbAwt7r6y7YPmwonQerNDnIDQpg6I=;
+        b=A0IMk1WPLvj6dNw5mTC7+cPOjP0dR6SUFZOK8Azo6zMrH3CzvM8lIfEjktn3CBVpRd
+         o+rBWm4y76g9MelibTVF8GybGbp0MW/QNHpqZ3087u4PuxSIRndeXivr+mWIgZslf7ll
+         0xKJ+yGnBJiVFgdJVh35z0OAemsNxyrHmEMUxokx2X14YOLgPZUGq2ESShVujYGgtrjo
+         jwHTy9187qwp4InLCduf9PmwM42F8LvrIANDqoDwFT/QCgWsnEn9bIp6MJ5gBSMZ3BQz
+         QeLsv17PEtjiMDublN66qecbNTXLDLkJHPa9dfuFwxFGkKBvPFMEFSopwf99F6dtRpo9
+         8ZZw==
+X-Gm-Message-State: AOJu0Yw9ZaYVtP4dxc1Ia/lLNBcEtMducTN55aQpeMTSHtO516bTJJNZ
+	4d/yHp7ykgBwGibLzOjQ/OuVPS5aQTgCRw/GFyUjbyI2xkedmIuKkTrSrLMh03wnn4OWr3ffH4O
+	h
+X-Google-Smtp-Source: AGHT+IH88DM9Q4+KiHpA5R5Wpx11Z3bFn+wtvU/J/FuiR8zygZ3LCnYQIX0arYYtaqDGyqaKVcS8ug==
+X-Received: by 2002:a17:906:39d6:b0:a72:9963:eb8e with SMTP id a640c23a62f3a-a780b6b307emr492899766b.28.1720729421544;
+        Thu, 11 Jul 2024 13:23:41 -0700 (PDT)
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Juergen Gross <jgross@suse.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Jan Beulich <JBeulich@suse.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Julien Grall <julien@xen.org>,
+	Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+	Shawn Anastasio <sanastasio@raptorengineering.com>,
+	Olaf Hering <olaf@aepfle.de>
+Subject: [PATCH 13/12] CI: Refresh OpenSUSE Tumbleweed container
+Date: Thu, 11 Jul 2024 21:23:37 +0100
+Message-Id: <20240711202337.3128473-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.39.2
+In-Reply-To: <20240711111517.3064810-1-andrew.cooper3@citrix.com>
+References: <20240711111517.3064810-1-andrew.cooper3@citrix.com>
+MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
-Date: Thu, 11 Jul 2024 20:20:53 +0100
-Message-Id: <D2MYC4AEBUQZ.3DNOIV8LEE7F9@cloud.com>
-Cc: "Andrew Cooper" <andrew.cooper3@citrix.com>, "Jan Beulich"
- <jbeulich@suse.com>, "Julien Grall" <julien@xen.org>, "Stefano Stabellini"
- <sstabellini@kernel.org>, =?utf-8?q?Marek_Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>
-Subject: Re: [RFC XEN PATCH v3 5/5] xen/public: Introduce PV-IOMMU hypercall
- interface
-From: "Alejandro Vallejo" <alejandro.vallejo@cloud.com>
-To: "Teddy Astie" <teddy.astie@vates.tech>, <xen-devel@lists.xenproject.org>
-X-Mailer: aerc 0.17.0
-References: <cover.1720703078.git.teddy.astie@vates.tech>
- <f9ae663df38acc0d330b7582dfaa7ac199746aca.1720703078.git.teddy.astie@vates.tech>
-In-Reply-To: <f9ae663df38acc0d330b7582dfaa7ac199746aca.1720703078.git.teddy.astie@vates.tech>
+Content-Transfer-Encoding: 8bit
 
-On Thu Jul 11, 2024 at 3:04 PM BST, Teddy Astie wrote:
-> Introduce a new pv interface to manage the underlying IOMMU and manage co=
-ntexts
-> and devices. This interface allows creation of new contexts from Dom0 and
-> addition of IOMMU mappings using guest PoV.
->
-> This interface doesn't allow creation of mapping to other domains.
->
-> Signed-off-by Teddy Astie <teddy.astie@vates.tech>
-> ---
-> Changed in V2:
-> * formatting
->
-> Changed in V3:
-> * prevent IOMMU operations on dying contexts
-> ---
->  xen/common/Makefile           |   1 +
->  xen/common/pv-iommu.c         | 328 ++++++++++++++++++++++++++++++++++
->  xen/include/hypercall-defs.c  |   6 +
->  xen/include/public/pv-iommu.h | 114 ++++++++++++
->  xen/include/public/xen.h      |   1 +
->  5 files changed, 450 insertions(+)
->  create mode 100644 xen/common/pv-iommu.c
->  create mode 100644 xen/include/public/pv-iommu.h
->
-> diff --git a/xen/common/Makefile b/xen/common/Makefile
-> index f12a474d40..52ada89888 100644
-> --- a/xen/common/Makefile
-> +++ b/xen/common/Makefile
-> @@ -58,6 +58,7 @@ obj-y +=3D wait.o
->  obj-bin-y +=3D warning.init.o
->  obj-$(CONFIG_XENOPROF) +=3D xenoprof.o
->  obj-y +=3D xmalloc_tlsf.o
-> +obj-y +=3D pv-iommu.o
-> =20
->  obj-bin-$(CONFIG_X86) +=3D $(foreach n,decompress bunzip2 unxz unlzma lz=
-o unlzo unlz4 unzstd earlycpio,$(n).init.o)
-> =20
-> diff --git a/xen/common/pv-iommu.c b/xen/common/pv-iommu.c
-> new file mode 100644
-> index 0000000000..a94c0f1e1a
-> --- /dev/null
-> +++ b/xen/common/pv-iommu.c
-> @@ -0,0 +1,328 @@
-> +/* SPDX-License-Identifier: GPL-2.0 */
-> +/*
-> + * xen/common/pv_iommu.c
-> + *
-> + * PV-IOMMU hypercall interface.
-> + */
-> +
-> +#include <xen/mm.h>
-> +#include <xen/lib.h>
-> +#include <xen/iommu.h>
-> +#include <xen/sched.h>
-> +#include <xen/pci.h>
-> +#include <xen/guest_access.h>
-> +#include <asm/p2m.h>
-> +#include <asm/event.h>
-> +#include <public/pv-iommu.h>
-> +
-> +#define PVIOMMU_PREFIX "[PV-IOMMU] "
-> +
-> +#define PVIOMMU_MAX_PAGES 256 /* Move to Kconfig ? */
+Existing as suse:opensuse-tumbleweed is a historical quirk, and adjusted for
+consistency with all the other containers.
 
-It probably wants to be a cmdline argument, I think.
+Make it non-root, use heredocs for legibility, and use the zypper long names
+for the benefit of those wondering what was being referenced or duplicated.
 
-> +
-> +/* Allowed masks for each sub-operation */
-> +#define ALLOC_OP_FLAGS_MASK (0)
-> +#define FREE_OP_FLAGS_MASK (IOMMU_TEARDOWN_REATTACH_DEFAULT)
-> +
-> +static int get_paged_frame(struct domain *d, gfn_t gfn, mfn_t *mfn,
-> +                           struct page_info **page, int readonly)
-> +{
-> +    p2m_type_t p2mt;
-> +
-> +    *page =3D get_page_from_gfn(d, gfn_x(gfn), &p2mt,
-> +                             (readonly) ? P2M_ALLOC : P2M_UNSHARE);
-> +
-> +    if ( !(*page) )
-> +    {
-> +        *mfn =3D INVALID_MFN;
-> +        if ( p2m_is_shared(p2mt) )
-> +            return -EINVAL;
-> +        if ( p2m_is_paging(p2mt) )
-> +        {
-> +            p2m_mem_paging_populate(d, gfn);
-> +            return -EIO;
-> +        }
-> +
-> +        return -EPERM;
+Trim the dependencies substantially.  Testing docs isn't very interesting and
+saves a lot of space (pandoc pulls in all of Haskel).  Other savings come from
+removing a huge pile of optional QEMU dependencies (QEMU just needs to build
+the Xen parts to be useful here, not have a full GUI environment).
 
-This is ambiguous with the other usage of EPERM.
+Finally, there where some packages such as bc, libssh2-devel, libtasn1-devel
+and nasm that I'm not aware of any reason to have had, even historically.
 
-> +    }
-> +
-> +    *mfn =3D page_to_mfn(*page);
-> +
-> +    return 0;
-> +}
-> +
-> +static int can_use_iommu_check(struct domain *d)
-> +{
-> +    if ( !iommu_enabled )
-> +    {
-> +        printk(PVIOMMU_PREFIX "IOMMU is not enabled\n");
-> +        return 0;
-> +    }
-> +
-> +    if ( !is_hardware_domain(d) )
-> +    {
-> +        printk(PVIOMMU_PREFIX "Non-hardware domain\n");
-> +        return 0;
-> +    }
-> +
-> +    if ( !is_iommu_enabled(d) )
-> +    {
-> +        printk(PVIOMMU_PREFIX "IOMMU disabled for this domain\n");
-> +        return 0;
-> +    }
-> +
-> +    return 1;
-> +}
-> +
-> +static long query_cap_op(struct pv_iommu_op *op, struct domain *d)
-> +{
-> +    op->cap.max_ctx_no =3D d->iommu.other_contexts.count;
-> +    op->cap.max_nr_pages =3D PVIOMMU_MAX_PAGES;
-> +    op->cap.max_iova_addr =3D (1LLU << 39) - 1; /* TODO: hardcoded 39-bi=
-ts */
-> +
-> +    return 0;
-> +}
-> +
-> +static long alloc_context_op(struct pv_iommu_op *op, struct domain *d)
-> +{
-> +    u16 ctx_no =3D 0;
-> +    int status =3D 0;
-> +
-> +    status =3D iommu_context_alloc(d, &ctx_no, op->flags & ALLOC_OP_FLAG=
-S_MASK);
-> +
-> +    if (status < 0)
-> +        return status;
-> +
-> +    printk("Created context %hu\n", ctx_no);
-> +
-> +    op->ctx_no =3D ctx_no;
-> +    return 0;
-> +}
-> +
-> +static long free_context_op(struct pv_iommu_op *op, struct domain *d)
-> +{
-> +    return iommu_context_free(d, op->ctx_no,
-> +                              IOMMU_TEARDOWN_PREEMPT | (op->flags & FREE=
-_OP_FLAGS_MASK));
-> +}
-> +
-> +static long reattach_device_op(struct pv_iommu_op *op, struct domain *d)
-> +{
-> +    struct physdev_pci_device dev =3D op->reattach_device.dev;
-> +    device_t *pdev;
-> +
-> +    pdev =3D pci_get_pdev(d, PCI_SBDF(dev.seg, dev.bus, dev.devfn));
-> +
-> +    if ( !pdev )
-> +        return -ENOENT;
-> +
-> +    return iommu_reattach_context(d, d, pdev, op->ctx_no);
-> +}
-> +
-> +static long map_pages_op(struct pv_iommu_op *op, struct domain *d)
-> +{
-> +    int ret =3D 0, flush_ret;
-> +    struct page_info *page =3D NULL;
-> +    mfn_t mfn;
-> +    unsigned int flags;
-> +    unsigned int flush_flags =3D 0;
-> +    size_t i =3D 0;
-> +
-> +    if ( op->map_pages.nr_pages > PVIOMMU_MAX_PAGES )
-> +        return -E2BIG;
-> +
-> +    if ( !iommu_check_context(d, op->ctx_no) )
-> +        return -EINVAL;
-> +
-> +    //printk("Mapping gfn:%lx-%lx to dfn:%lx-%lx on %hu\n",
-> +    //       op->map_pages.gfn, op->map_pages.gfn + op->map_pages.nr_pag=
-es - 1,
-> +    //       op->map_pages.dfn, op->map_pages.dfn + op->map_pages.nr_pag=
-es - 1,
-> +    //       op->ctx_no);
-> +
-> +    flags =3D 0;
-> +
-> +    if ( op->flags & IOMMU_OP_readable )
-> +        flags |=3D IOMMUF_readable;
-> +
-> +    if ( op->flags & IOMMU_OP_writeable )
-> +        flags |=3D IOMMUF_writable;
-> +
-> +    spin_lock(&dom_iommu(d)->lock);
-> +
-> +    for (i =3D 0; i < op->map_pages.nr_pages; i++)
+This shaves 1G off the size of the container:
 
-This loop (and the unmap one) want to be bound by MIN(nr_pages, FOO), where=
-  FOO
-is some upper bound to the number of hypercalls we're willing to do in a si=
-ngle
-continuation. If case of reaching that high number, we should create a new
-continuation and allow something else to run.
+  registry.gitlab.com/xen-project/xen/opensuse  tumbleweed-x86_64      1.39GB
+  registry.gitlab.com/xen-project/xen/suse      opensuse-tumbleweed    2.35GB
 
-> +    {
-> +        gfn_t gfn =3D _gfn(op->map_pages.gfn + i);
-> +        dfn_t dfn =3D _dfn(op->map_pages.dfn + i);
-> +
-> +        /* Lookup pages struct backing gfn */
-> +        ret =3D get_paged_frame(d, gfn, &mfn, &page, 0);
-> +
-> +        if ( ret )
-> +            break;
-> +
-> +        /* Check for conflict with existing mappings */
-> +        if ( !_iommu_lookup_page(d, dfn, &mfn, &flags, op->ctx_no) )
-> +        {
-> +            put_page(page);
-> +            ret =3D -EADDRINUSE;
-> +            break;
-> +        }
-> +
-> +        ret =3D _iommu_map(d, dfn, mfn, 1, flags, &flush_flags, op->ctx_=
-no);
-> +
-> +        if ( ret )
-> +            break;
-> +    }
-> +
-> +    flush_ret =3D _iommu_iotlb_flush(d, _dfn(op->map_pages.dfn),
-> +                                   op->map_pages.nr_pages, flush_flags,
-> +                                   op->ctx_no);
-> +
-> +    spin_unlock(&dom_iommu(d)->lock);
-> +
-> +    op->map_pages.mapped =3D i;
-> +
-> +    if ( flush_ret )
-> +        printk("Flush operation failed (%d)\n", flush_ret);
+Furthermore, identify which components of the build use which dependencies,
+which will help managing them in the future.
 
-I haven't looked at _iommu_iotlb_flush(), but a printk isn't good enough he=
-re.
-We want to set up a continuation to retry later, I think.
+Thanks to Olaf Hering for dependency fixes that have been subsumed into this
+total overhaul.
 
-What might cause the error?
+Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+---
+CC: Anthony PERARD <anthony.perard@vates.tech>
+CC: Juergen Gross <jgross@suse.com>
+CC: Roger Pau Monné <roger.pau@citrix.com>
+CC: Jan Beulich <JBeulich@suse.com>
+CC: Stefano Stabellini <sstabellini@kernel.org>
+CC: Julien Grall <julien@xen.org>
+CC: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+CC: Shawn Anastasio <sanastasio@raptorengineering.com>
+CC: Olaf Hering <olaf@aepfle.de>
 
-> +
-> +    return ret;
-> +}
-> +
-> +static long unmap_pages_op(struct pv_iommu_op *op, struct domain *d)
-> +{
-> +    mfn_t mfn;
-> +    int ret =3D 0, flush_ret;
-> +    unsigned int flags;
-> +    unsigned int flush_flags =3D 0;
-> +    size_t i =3D 0;
-> +
-> +    if ( op->unmap_pages.nr_pages > PVIOMMU_MAX_PAGES )
-> +        return -E2BIG;
-> +
-> +    if ( !iommu_check_context(d, op->ctx_no) )
-> +        return -EINVAL;
-> +
-> +    //printk("Unmapping dfn:%lx-%lx on %hu\n",
-> +    //       op->unmap_pages.dfn, op->unmap_pages.dfn + op->unmap_pages.=
-nr_pages - 1,
-> +    //       op->ctx_no);
-> +
-> +    spin_lock(&dom_iommu(d)->lock);
-> +
-> +    for (i =3D 0; i < op->unmap_pages.nr_pages; i++)
-> +    {
-> +        dfn_t dfn =3D _dfn(op->unmap_pages.dfn + i);
-> +
-> +        /* Check if there is a valid mapping for this domain */
-> +        if ( _iommu_lookup_page(d, dfn, &mfn, &flags, op->ctx_no) ) {
-> +            ret =3D -ENOENT;
-> +            break;
-> +        }
-> +
-> +        ret =3D _iommu_unmap(d, dfn, 1, 0, &flush_flags, op->ctx_no);
-> +
-> +        if (ret)
-> +            break;
-> +
-> +        /* Decrement reference counter */
-> +        put_page(mfn_to_page(mfn));
-> +    }
-> +
-> +    flush_ret =3D _iommu_iotlb_flush(d, _dfn(op->unmap_pages.dfn),
-> +                                   op->unmap_pages.nr_pages, flush_flags=
-,
-> +                                   op->ctx_no);
-> +
-> +    spin_unlock(&dom_iommu(d)->lock);
-> +
-> +    op->unmap_pages.unmapped =3D i;
-> +
-> +    if ( flush_ret )
-> +        printk("Flush operation failed (%d)\n", flush_ret);
+This includes both of Olaf's recent changes, python3-packaging (now required
+for a rebuilt container), and findutils (not required yet; still gets pulled
+in transitively), but added for good measure.
 
-Same as above.
+In terms of package delta, newly included are:
 
-> +
-> +    return ret;
-> +}
-> +
-> +static long lookup_page_op(struct pv_iommu_op *op, struct domain *d)
-> +{
-> +    mfn_t mfn;
-> +    gfn_t gfn;
-> +    unsigned int flags =3D 0;
-> +
-> +    if ( !iommu_check_context(d, op->ctx_no) )
-> +        return -EINVAL;
-> +
-> +    /* Check if there is a valid BFN mapping for this domain */
-> +    if ( iommu_lookup_page(d, _dfn(op->lookup_page.dfn), &mfn, &flags, o=
-p->ctx_no) )
-> +        return -ENOENT;
-> +
-> +    gfn =3D mfn_to_gfn(d, mfn);
-> +    BUG_ON(gfn_eq(gfn, INVALID_GFN));
-> +
-> +    op->lookup_page.gfn =3D gfn_x(gfn);
-> +
-> +    return 0;
-> +}
-> +
-> +long do_iommu_sub_op(struct pv_iommu_op *op)
-> +{
-> +    struct domain *d =3D current->domain;
-> +
-> +    if ( !can_use_iommu_check(d) )
-> +        return -EPERM;
+  findutils            # As suggested
+  ocaml-findlib        # Replaces ocaml-findlib-devel
+  perl                 # Transitive previously
+  python3              # Transitive previously
+  python3-packaging    # As suggested
 
-This checks should be split, imo.
+while removed are:
 
-```
-    if ( !iommu_enabled || !is_iommu_enabled(d) )
-        return -ENOTSUP;
-    if ( !is_hardware_domain(d) )
-        return -EPERM;
-```
+  bc                   # ?
+  cmake                # vtpm stubdom, optional
+  discount             # docs
+  ghostscript          # docs
+  glibc-devel          # Not really optional, given a toolchain
+  hostname             # Optional, not interesting
+  libaio-devel         # Xen < 4.13, perhaps Qemu still but optional
+  libext2fs-devel      # Libfsimage, off by default, optional
+  libgnutls-devel      # Qemu ?
+  libjpeg62-devel      # Qemu ?
+  libnl3-devel         # Libxl COLO(?), option
+  libnuma-devel        # ?
+  libpng16-devel       # Qemu ?
+  libssh2-devel        # ?
+  libtasn1-devel       # ?
+  nasm                 # ?
+  ocaml-findlib-devel  # Swapped for non-devel
+  ocaml-ocamlbuild     # ?
+  ocaml-ocamldoc       # ?
+  pandoc               # docs
+  'pkgconfig(libpci)'  # Qemu
+  'pkgconfig(sdl)'     # Qemu
+  'pkgconfig(sdl2)'    # Qemu
+  systemd-devel        # Xen < 4.19, optional
+  transfig             # docs
+  valgrind-devel       # really only for developers
+  which                # Xen < 4.17
 
-For the second, we probably want an XSM hook as well (or instead of, not su=
-re).
+I've tested this on staging-4.17 and staging, both of which build fine.
+staging-4.16 does not, because of SeaBIOS which we've decided not to fix,
+hence it's safe to drop `which`.
+---
+ .../opensuse/tumbleweed-x86_64.dockerfile     | 76 +++++++++++++++++++
+ .../build/suse/opensuse-tumbleweed.dockerfile | 74 ------------------
+ automation/gitlab-ci/build.yaml               |  8 +-
+ automation/scripts/containerize               |  2 +-
+ 4 files changed, 81 insertions(+), 79 deletions(-)
+ create mode 100644 automation/build/opensuse/tumbleweed-x86_64.dockerfile
+ delete mode 100644 automation/build/suse/opensuse-tumbleweed.dockerfile
 
-> +
-> +    switch ( op->subop_id )
-> +    {
-> +        case 0:
-> +            return 0;
-
-IOMMUOP_noop?
-
-> +
-> +        case IOMMUOP_query_capabilities:
-> +            return query_cap_op(op, d);
-> +
-> +        case IOMMUOP_alloc_context:
-> +            return alloc_context_op(op, d);
-> +
-> +        case IOMMUOP_free_context:
-> +            return free_context_op(op, d);
-> +
-> +        case IOMMUOP_reattach_device:
-> +            return reattach_device_op(op, d);
-> +
-> +        case IOMMUOP_map_pages:
-> +            return map_pages_op(op, d);
-> +
-> +        case IOMMUOP_unmap_pages:
-> +            return unmap_pages_op(op, d);
-> +
-> +        case IOMMUOP_lookup_page:
-> +            return lookup_page_op(op, d);
-> +
-> +        default:
-> +            return -EINVAL;
-> +    }
-> +}
-> +
-> +long do_iommu_op(XEN_GUEST_HANDLE_PARAM(void) arg)
-> +{
-> +    long ret =3D 0;
-> +    struct pv_iommu_op op;
-> +
-> +    if ( unlikely(copy_from_guest(&op, arg, 1)) )
-> +        return -EFAULT;
-> +
-> +    ret =3D do_iommu_sub_op(&op);
-> +
-> +    if ( ret =3D=3D -ERESTART )
-> +        return hypercall_create_continuation(__HYPERVISOR_iommu_op, "h",=
- arg);
-> +
-> +    if ( unlikely(copy_to_guest(arg, &op, 1)) )
-> +        return -EFAULT;
-> +
-> +    return ret;
-> +}
-> +
-> +/*
-> + * Local variables:
-> + * mode: C
-> + * c-file-style: "BSD"
-> + * c-basic-offset: 4
-> + * tab-width: 4
-> + * indent-tabs-mode: nil
-> + * End:
-> + */
-> diff --git a/xen/include/hypercall-defs.c b/xen/include/hypercall-defs.c
-> index 47c093acc8..4ba4480867 100644
-> --- a/xen/include/hypercall-defs.c
-> +++ b/xen/include/hypercall-defs.c
-> @@ -209,6 +209,9 @@ hypfs_op(unsigned int cmd, const char *arg1, unsigned=
- long arg2, void *arg3, uns
->  #ifdef CONFIG_X86
->  xenpmu_op(unsigned int op, xen_pmu_params_t *arg)
->  #endif
-> +#ifdef CONFIG_HAS_PASSTHROUGH
-> +iommu_op(void *arg)
-> +#endif
-> =20
->  #ifdef CONFIG_PV
->  caller: pv64
-> @@ -295,5 +298,8 @@ mca                                do       do       =
--        -        -
->  #ifndef CONFIG_PV_SHIM_EXCLUSIVE
->  paging_domctl_cont                 do       do       do       do       -
->  #endif
-> +#ifdef CONFIG_HAS_PASSTHROUGH
-> +iommu_op                           do       do       do       do       -
-> +#endif
-> =20
->  #endif /* !CPPCHECK */
-> diff --git a/xen/include/public/pv-iommu.h b/xen/include/public/pv-iommu.=
-h
-> new file mode 100644
-> index 0000000000..45f9c44eb1
-> --- /dev/null
-> +++ b/xen/include/public/pv-iommu.h
-> @@ -0,0 +1,114 @@
-> +/* SPDX-License-Identifier: MIT */
-> +/***********************************************************************=
-*******
-> + * pv-iommu.h
-> + *
-> + * Paravirtualized IOMMU driver interface.
-> + *
-> + * Copyright (c) 2024 Teddy Astie <teddy.astie@vates.tech>
-> + */
-> +
-> +#ifndef __XEN_PUBLIC_PV_IOMMU_H__
-> +#define __XEN_PUBLIC_PV_IOMMU_H__
-> +
-> +#include "xen.h"
-> +#include "physdev.h"
-> +
-> +#define IOMMU_DEFAULT_CONTEXT (0)
-> +
-
-From the code, seems like "#define IOMMUOP_noop 0" is missing
-
-> +/**
-> + * Query PV-IOMMU capabilities for this domain.
-> + */
-> +#define IOMMUOP_query_capabilities    1
-> +
-> +/**
-> + * Allocate an IOMMU context, the new context handle will be written to =
-ctx_no.
-> + */
-> +#define IOMMUOP_alloc_context         2
-
-Please, don't write to the header. It's an absolute pain to Rust-ify and hi=
-ghly
-unexpected when absolutely everything else will take that as an input param=
-eter.
-
-Provide the output as a dedicated OUT field in the alloc_context struct
-instead.
-
-> +
-> +/**
-> + * Destroy a IOMMU context.
-> + * All devices attached to this context are reattached to default contex=
-t.
-> + *
-> + * The default context can't be destroyed (0).
-> + */
-> +#define IOMMUOP_free_context          3
-> +
-> +/**
-> + * Reattach the device to IOMMU context.
-> + */
-> +#define IOMMUOP_reattach_device       4
-> +
-> +#define IOMMUOP_map_pages             5
-> +#define IOMMUOP_unmap_pages           6
-> +
-> +/**
-> + * Get the GFN associated to a specific DFN.
-> + */
-> +#define IOMMUOP_lookup_page           7
-> +
-> +struct pv_iommu_op {
-> +    uint16_t subop_id;
-> +    uint16_t ctx_no;
-
-Seeing how there's no polymorphism going on, why not put these on each stru=
-ct?
-Then each handler can take a pointer to each substruct and everything is a =
-lot
-safer.
-
-> +
-> +/**
-> + * Create a context that is cloned from default.
-> + * The new context will be populated with 1:1 mappings covering the enti=
-re guest memory.
-> + */
-> +#define IOMMU_CREATE_clone (1 << 0)
-> +
-> +#define IOMMU_OP_readable (1 << 0)
-> +#define IOMMU_OP_writeable (1 << 1)
-> +    uint32_t flags;
-
-This bitmap is used for different things in different subops, which highly
-suggests it should be per-struct instead.
-
-> +
-> +    union {
-> +        struct {
-
-Can you move these out to be first-class structs rather than anon? In prett=
-y
-much the same way of the other major hypercall groups. I'd like to be able =
-to
-generate them from IDL like I intend to do with all others.
-
-> +            uint64_t gfn;
-> +            uint64_t dfn;
-
-(a) I'd rather see descriptions in the missing gfn/dfn in various fields, a=
-nd
-more specifically IN/OUT tags everywhere (i.e: as in /* IN: Number of pages=
- to
-map */).
-
-(b) Any 64bit numbers in the external ABI must be uint64_aligned_t so the
-alignment is 8 on 32bit architectures. I know this instance (and the others=
-)
-happen to be aligned in both cases, but still.
-
-That said, either these are 32bit frame numbers or otherwise we're better o=
-ff
-using addresses instead.  It'd also be less confusing on systems with sever=
-al
-page sizes, and it'd be specially less confusing if an additional parameter=
- of
-"order" or "page size" was added here.
-
-> +            /* Number of pages to map */
-> +            uint32_t nr_pages;
-> +            /* Number of pages actually mapped after sub-op */
-> +            uint32_t mapped;
-
-A more helpful output might some kind of err_addr with the offending page. =
-Then
-the caller doesn't have to do arithmetic to print the error somewhere.
-
-Furthermore, seeing how this is something that should not happen I'd be tem=
-pted
-to amend the spec to somehow roll back whatever we just did, but that could=
- be
-tricky with big numbers in `nr_pages`.
-
-> +        } map_pages;
-> +
-> +        struct {
-> +            uint64_t dfn;
-> +            /* Number of pages to unmap */
-> +            uint32_t nr_pages;
-> +            /* Number of pages actually unmapped after sub-op */
-> +            uint32_t unmapped;
-> +        } unmap_pages;
-> +
-> +        struct {
-> +            struct physdev_pci_device dev;
-> +        } reattach_device;
-> +
-> +        struct {
-> +            uint64_t gfn;
-> +            uint64_t dfn;
-> +        } lookup_page;
-> +
-> +        struct {
-> +            /* Maximum number of IOMMU context this domain can use. */
-> +            uint16_t max_ctx_no;
-> +            /* Maximum number of pages that can be modified in a single =
-map/unmap operation. */
-> +            uint32_t max_nr_pages;
-> +            /* Maximum device address (iova) that the guest can use for =
-mappings. */
-> +            uint64_t max_iova_addr;
-> +        } cap;
-> +    };
-> +};
-> +
-> +typedef struct pv_iommu_op pv_iommu_op_t;
-> +DEFINE_XEN_GUEST_HANDLE(pv_iommu_op_t);
-> +
-> +#endif
-> +
-> +/*
-> + * Local variables:
-> + * mode: C
-> + * c-file-style: "BSD"
-> + * c-basic-offset: 4
-> + * tab-width: 4
-> + * indent-tabs-mode: nil
-> + * End:
-> + */
-> \ No newline at end of file
-> diff --git a/xen/include/public/xen.h b/xen/include/public/xen.h
-> index b47d48d0e2..28ab815ebc 100644
-> --- a/xen/include/public/xen.h
-> +++ b/xen/include/public/xen.h
-> @@ -118,6 +118,7 @@ DEFINE_XEN_GUEST_HANDLE(xen_ulong_t);
->  #define __HYPERVISOR_xenpmu_op            40
->  #define __HYPERVISOR_dm_op                41
->  #define __HYPERVISOR_hypfs_op             42
-> +#define __HYPERVISOR_iommu_op             43
-> =20
->  /* Architecture-specific hypercall definitions. */
->  #define __HYPERVISOR_arch_0               48
+diff --git a/automation/build/opensuse/tumbleweed-x86_64.dockerfile b/automation/build/opensuse/tumbleweed-x86_64.dockerfile
+new file mode 100644
+index 000000000000..8c5ff56cdc88
+--- /dev/null
++++ b/automation/build/opensuse/tumbleweed-x86_64.dockerfile
+@@ -0,0 +1,76 @@
++# syntax=docker/dockerfile:1
++FROM --platform=linux/amd64 opensuse/tumbleweed
++LABEL maintainer.name="The Xen Project"
++LABEL maintainer.email="xen-devel@lists.xenproject.org"
++
++ENV XEN_TARGET_ARCH=x86_64
++
++RUN <<EOF
++#!/bin/bash
++    set -e
++
++    useradd --create-home user
++
++    zypper refresh
++    zypper dist-upgrade -y --no-recommends
++
++    DEPS=(
++        # Xen
++        bison
++        checkpolicy
++        clang
++        diffutils
++        findutils
++        flex
++        gawk
++        gcc
++        make
++        python3
++
++        # Tools (general)
++        git
++        gzip
++        patch
++        perl
++        pkg-config
++        wget
++        # libxenguest dombuilder
++        libbz2-devel
++        libzstd-devel
++        lzo-devel
++        xz-devel
++        zlib-devel
++        # libacpi
++        acpica
++        # libxl
++        libuuid-devel
++        libyajl-devel
++        # Header Check
++        gcc-c++
++        # xentop
++        ncurses-devel
++        # Python bindings
++        python3-devel
++        python3-setuptools
++        # Ocaml bindings/oxenstored
++        ocaml
++        ocaml-findlib
++
++        # Stubdom (download/extract)
++        bzip2
++        tar
++
++        # Qemu build
++        glib2-devel
++        libpixman-1-0-devel
++        meson
++        ninja
++        python3-packaging
++    )
++
++    zypper install -y --no-recommends "${DEPS[@]}"
++    zypper clean -a
++EOF
++
++USER user
++WORKDIR /build
+diff --git a/automation/build/suse/opensuse-tumbleweed.dockerfile b/automation/build/suse/opensuse-tumbleweed.dockerfile
+deleted file mode 100644
+index 077fed22260c..000000000000
+--- a/automation/build/suse/opensuse-tumbleweed.dockerfile
++++ /dev/null
+@@ -1,74 +0,0 @@
+-# syntax=docker/dockerfile:1
+-FROM --platform=linux/amd64 opensuse/tumbleweed
+-LABEL maintainer.name="The Xen Project" \
+-      maintainer.email="xen-devel@lists.xenproject.org"
+-
+-ENV USER root
+-
+-RUN mkdir /build
+-WORKDIR /build
+-
+-RUN zypper ref && zypper dup -y --no-recommends
+-RUN zypper install -y --no-recommends \
+-        acpica \
+-        bc \
+-        bison \
+-        bzip2 \
+-        checkpolicy \
+-        clang \
+-        cmake \
+-        diffutils \
+-        discount \
+-        flex \
+-        gawk \
+-        gcc \
+-        gcc-c++ \
+-        git \
+-        ghostscript \
+-        glib2-devel \
+-        glibc-devel \
+-        gzip \
+-        hostname \
+-        libaio-devel \
+-        libbz2-devel \
+-        libext2fs-devel \
+-        libgnutls-devel \
+-        libjpeg62-devel \
+-        libnl3-devel \
+-        libnuma-devel \
+-        libpixman-1-0-devel \
+-        libpng16-devel \
+-        libssh2-devel \
+-        libtasn1-devel \
+-        libuuid-devel \
+-        libyajl-devel \
+-        libzstd-devel \
+-        lzo-devel \
+-        make \
+-        meson \
+-        nasm \
+-        ncurses-devel \
+-        ninja \
+-        ocaml \
+-        ocaml-findlib-devel \
+-        ocaml-ocamlbuild \
+-        ocaml-ocamldoc \
+-        pandoc \
+-        patch \
+-        pkg-config \
+-        'pkgconfig(libpci)' \
+-        'pkgconfig(sdl)' \
+-        'pkgconfig(sdl2)' \
+-        python3-devel \
+-        python3-setuptools \
+-        # systemd-devel for Xen < 4.19
+-        systemd-devel \
+-        tar \
+-        transfig \
+-        valgrind-devel \
+-        wget \
+-        which \
+-        xz-devel \
+-        zlib-devel \
+-        && \
+-        zypper clean -a
+diff --git a/automation/gitlab-ci/build.yaml b/automation/gitlab-ci/build.yaml
+index b4139414bc8e..fd6ca1270e4e 100644
+--- a/automation/gitlab-ci/build.yaml
++++ b/automation/gitlab-ci/build.yaml
+@@ -668,25 +668,25 @@ opensuse-leap-gcc-debug:
+ opensuse-tumbleweed-clang:
+   extends: .clang-x86-64-build
+   variables:
+-    CONTAINER: suse:opensuse-tumbleweed
++    CONTAINER: opensuse:tumbleweed-x86_64
+   allow_failure: true
+ 
+ opensuse-tumbleweed-clang-debug:
+   extends: .clang-x86-64-build-debug
+   variables:
+-    CONTAINER: suse:opensuse-tumbleweed
++    CONTAINER: opensuse:tumbleweed-x86_64
+   allow_failure: true
+ 
+ opensuse-tumbleweed-gcc:
+   extends: .gcc-x86-64-build
+   variables:
+-    CONTAINER: suse:opensuse-tumbleweed
++    CONTAINER: opensuse:tumbleweed-x86_64
+   allow_failure: true
+ 
+ opensuse-tumbleweed-gcc-debug:
+   extends: .gcc-x86-64-build-debug
+   variables:
+-    CONTAINER: suse:opensuse-tumbleweed
++    CONTAINER: opensuse:tumbleweed-x86_64
+   allow_failure: true
+ 
+ # PowerPC builds (x86 cross)
+diff --git a/automation/scripts/containerize b/automation/scripts/containerize
+index 4d5669c5ad01..c4f013702122 100755
+--- a/automation/scripts/containerize
++++ b/automation/scripts/containerize
+@@ -43,7 +43,7 @@ case "_${CONTAINER}" in
+     _bionic) CONTAINER="${BASE}/ubuntu:bionic" ;;
+     _xenial) CONTAINER="${BASE}/ubuntu:xenial" ;;
+     _opensuse-leap|_leap) CONTAINER="${BASE}/suse:opensuse-leap" ;;
+-    _opensuse-tumbleweed|_tumbleweed) CONTAINER="${BASE}/suse:opensuse-tumbleweed" ;;
++    _opensuse-tumbleweed|_tumbleweed) CONTAINER="${BASE}/opensuse:tumbleweed-x86_64" ;;
+ esac
+ 
+ # Use this variable to control whether root should be used
+-- 
+2.39.2
 
 
