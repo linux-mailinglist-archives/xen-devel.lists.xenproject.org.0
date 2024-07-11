@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E394E92EBFA
-	for <lists+xen-devel@lfdr.de>; Thu, 11 Jul 2024 17:51:26 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.757613.1166655 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9FCEA92EC36
+	for <lists+xen-devel@lfdr.de>; Thu, 11 Jul 2024 18:04:11 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.757620.1166664 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sRw4f-0008VQ-QA; Thu, 11 Jul 2024 15:51:13 +0000
+	id 1sRwGr-0002ez-Ql; Thu, 11 Jul 2024 16:03:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 757613.1166655; Thu, 11 Jul 2024 15:51:13 +0000
+Received: by outflank-mailman (output) from mailman id 757620.1166664; Thu, 11 Jul 2024 16:03:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sRw4f-0008Tm-MG; Thu, 11 Jul 2024 15:51:13 +0000
-Received: by outflank-mailman (input) for mailman id 757613;
- Thu, 11 Jul 2024 15:51:12 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1sRwGr-0002cn-O9; Thu, 11 Jul 2024 16:03:49 +0000
+Received: by outflank-mailman (input) for mailman id 757620;
+ Thu, 11 Jul 2024 16:03:49 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=PZf6=OL=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1sRw4e-0008TM-7j
- for xen-devel@lists.xenproject.org; Thu, 11 Jul 2024 15:51:12 +0000
-Received: from mail-ed1-x52a.google.com (mail-ed1-x52a.google.com
- [2a00:1450:4864:20::52a])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 5fb72c23-3f9d-11ef-bbfb-fd08da9f4363;
- Thu, 11 Jul 2024 17:51:02 +0200 (CEST)
-Received: by mail-ed1-x52a.google.com with SMTP id
- 4fb4d7f45d1cf-57d05e0017aso1428807a12.1
- for <xen-devel@lists.xenproject.org>; Thu, 11 Jul 2024 08:51:02 -0700 (PDT)
+ id 1sRwGr-0002ch-0S
+ for xen-devel@lists.xenproject.org; Thu, 11 Jul 2024 16:03:49 +0000
+Received: from mail-ed1-x535.google.com (mail-ed1-x535.google.com
+ [2a00:1450:4864:20::535])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 27811dab-3f9f-11ef-8776-851b0ebba9a2;
+ Thu, 11 Jul 2024 18:03:46 +0200 (CEST)
+Received: by mail-ed1-x535.google.com with SMTP id
+ 4fb4d7f45d1cf-58b447c513aso1354387a12.2
+ for <xen-devel@lists.xenproject.org>; Thu, 11 Jul 2024 09:03:46 -0700 (PDT)
 Received: from [10.125.226.166] ([185.25.67.249])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a780a6bc7c9sm265779966b.42.2024.07.11.08.51.00
+ 4fb4d7f45d1cf-594bba548d2sm3609289a12.7.2024.07.11.09.03.45
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 11 Jul 2024 08:51:01 -0700 (PDT)
+ Thu, 11 Jul 2024 09:03:45 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,39 +45,39 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5fb72c23-3f9d-11ef-bbfb-fd08da9f4363
+X-Inumbo-ID: 27811dab-3f9f-11ef-8776-851b0ebba9a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1720713061; x=1721317861; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1720713826; x=1721318626; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=0PYEQ99sKgEQ0mb0O21JgbNmYcAk+GYhxdqveZYQNNo=;
-        b=dRaDFMGQQaOgauOk+HFmW5rnqZbgBMyx9HcH0NcIZrXaGaBG6T7YGo9m8KVR+i1VKo
-         e4v4Gg8NdF0BVFfLdlhgE4+doRUPszkyeylumnJ1iZouLm+frRRgQuLMAncU/+57Rq6j
-         B8JfZ1uJOo6fbuM+iTBPwaw1kkNn1VimUjqkY=
+        bh=UaOtfoc/+ticPkkRgaCxlXqpziNhZF4poOhU3l6UhCA=;
+        b=XxcT31nnQasu1qbJMWEBXL3LcGDrlnpRTtFWIibTGDXvDrD1MrAFUEkRnSsUpR62Sj
+         I3mdF1HScVquVQLuDvVXrZe+fY///8TW/cR+1aV8La2fpeybVL8fw6XxepY3Lz7ei621
+         /HiCdI6Q8HBd5Zdt3tuT3t+M0El6S2ExAxfKE=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1720713061; x=1721317861;
+        d=1e100.net; s=20230601; t=1720713826; x=1721318626;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=0PYEQ99sKgEQ0mb0O21JgbNmYcAk+GYhxdqveZYQNNo=;
-        b=Ul53jNHr61MIdAFjIoM2rQNM9X45wB34RbhuvyDx7/3s5adhWi6mtzUIFUuDpDdudS
-         Se52BWG3bjuTvQFCFpZ4DRI7i6GMmZUNOP+gsRrcspDXsKSchYK1SHhdEdW9nv2km1AS
-         GYTRWbfgl8cDFGFxTazET74OXrZOLj5o1xFHC3OBvgZV0R079RFolBfkF3qwBf1p3pGU
-         OnJVVEZ2bUQVcfVRxe6B54WdQ3HYap9IdmKqhQjEtRWqPk+A9zsFqzqv9+0x0Wj8s0u1
-         c3XJEkG3fOFnTW3FspR5Ya7OBTHQrCGb50GwTje0Vcx2CVLZuRquwjk43/4TuL4KCzjj
-         uEsQ==
-X-Gm-Message-State: AOJu0YyBaUu12AZSwhFeR8U5ZY0R4+pgVP6qXVPQkREuxnp6zULzTQUe
-	dgnqaRAnstJXOByanPTHSS2vCku03NDIirVxmO4ZUF1XifMuBryM2Z5cHJiSFCk=
-X-Google-Smtp-Source: AGHT+IF+bdkRhqUmqzXkxmqxcAUu1meFNvpCwcXF65xVBbmfQ3N8S4d6IhmiAmj7Q6WefhhDxVFJ0g==
-X-Received: by 2002:a17:907:944f:b0:a77:db36:1ccf with SMTP id a640c23a62f3a-a780b70528emr832371866b.42.1720713061545;
-        Thu, 11 Jul 2024 08:51:01 -0700 (PDT)
-Message-ID: <d4fee591-711e-4557-a6fc-f59a4d2e9a27@citrix.com>
-Date: Thu, 11 Jul 2024 16:50:59 +0100
+        bh=UaOtfoc/+ticPkkRgaCxlXqpziNhZF4poOhU3l6UhCA=;
+        b=G6alpM1pY/5h8CsqYTL817LaqHPjTRUhwU7wLgPCpsH3276WPjB0tgDO/j8z7i7nrN
+         pD501Rih2aUEx23T3eLUWfQCDbz+O5sCEejzF1R18CMFuvK4lQRFPih+5fatQCu2dywu
+         Pq6RvIe14sU+/KfOw95Urbny0Szzjd4/ZIQfHnHvNclTq4dkcLA+P2e/PNOvG/uDDerC
+         ks+koiSpPRZck62TR1OOTlgga9/C1rCec88VATRqgUMVD6u+9LRlIlBRAGBcUPte6VHd
+         vMfiOqZDsvSG3kqLSVfXXGjGdUMnauRBbmrDmT2EhtpCOTDIUwJ7JsO/oxDeEyl8bXkp
+         cX7g==
+X-Gm-Message-State: AOJu0YzQC5QH2U1G8tHHpiYpYCpT88a8WUKzTH8nShLX9iQ/vomFVXVu
+	OSOc1TmLlvRdvp1XMB/iq2By4jicEelDRUP+LYCYsW6kYWvkPWCh5zU6O+xdfb8=
+X-Google-Smtp-Source: AGHT+IGm2YUwIDUH248OuRLPx9qOh3YHIE6OUSa6ZzkPQEeCqUJU958l/vhQBh9ry1koWLypWlfC5g==
+X-Received: by 2002:a17:907:6d26:b0:a72:8d40:52b8 with SMTP id a640c23a62f3a-a780b68a34cmr725144666b.3.1720713826199;
+        Thu, 11 Jul 2024 09:03:46 -0700 (PDT)
+Message-ID: <e761035b-c931-445a-8688-bfbf54e6cddd@citrix.com>
+Date: Thu, 11 Jul 2024 17:03:44 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 07/12] CI: Introduce a debian:12-ppc64le container
+Subject: Re: [PATCH 02/12] CI: Remove useless/misleading randconfig jobs
 To: Anthony PERARD <anthony.perard@vates.tech>
 Cc: Xen-devel <xen-devel@lists.xenproject.org>,
  Juergen Gross <jgross@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
@@ -86,7 +86,8 @@ Cc: Xen-devel <xen-devel@lists.xenproject.org>,
  Oleksii Kurochko <oleksii.kurochko@gmail.com>,
  Shawn Anastasio <sanastasio@raptorengineering.com>
 References: <20240711111517.3064810-1-andrew.cooper3@citrix.com>
- <20240711111517.3064810-8-andrew.cooper3@citrix.com> <Zo/vKR2YuDJdFLq+@l14>
+ <20240711111517.3064810-3-andrew.cooper3@citrix.com> <Zo/ZdG8pt5FIledD@l14>
+ <5eb4de29-edd3-447a-845a-57d20ad8462b@citrix.com> <Zo//Ndhe9pNFb3Of@l14>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -132,94 +133,29 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <Zo/vKR2YuDJdFLq+@l14>
+In-Reply-To: <Zo//Ndhe9pNFb3Of@l14>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 11/07/2024 3:41 pm, Anthony PERARD wrote:
-> On Thu, Jul 11, 2024 at 12:15:12PM +0100, Andrew Cooper wrote:
->> diff --git a/automation/build/debian/12-ppc64le.dockerfile b/automation/build/debian/12-ppc64le.dockerfile
->> new file mode 100644
->> index 000000000000..3b311e675ef5
->> --- /dev/null
->> +++ b/automation/build/debian/12-ppc64le.dockerfile
->> @@ -0,0 +1,36 @@
-> ...
->> +ENV CROSS_COMPILE=powerpc64le-linux-gnu-
->> +ENV XEN_TARGET_ARCH=ppc64
-> I don't really like these two envvars. The second one is already set in
-> the env by gitlab, the first one could in theory also come from
-> gitlab-ci.
+On 11/07/2024 4:50 pm, Anthony PERARD wrote:
+> On Thu, Jul 11, 2024 at 04:16:29PM +0100, Andrew Cooper wrote:
+>> On 11/07/2024 2:09 pm, Anthony PERARD wrote:
+>>> We already have "parallel: 2" on the whole pipeline, give or take, but
+>>> those are quick jobs so it might be worth it to run them a few more time
+>>> on a pipeline.
+>> I'm afraid I don't follow.
+> Sorry, I just meant that the whole test suite is run twice, once in
+> https://gitlab.com/xen-project/hardware/xen/-/pipelines
+> and once in
+> https://gitlab.com/xen-project/xen/-/pipelines
+> (with just a few tests that are differents)
 
-The first one is pre-existing.  (It shows as new because enough of the
-file changed for it not to be deemed a rename).
+And the rest.  Every time I re-sync my tree, and probably the same for
+the other maintainers.
 
-The second is something I added, for improved usability.
-
-> But I guess that comment comes from the fact that I don't really know
-> why we would want a second bookworm containers with only a few packages.
-
-Right now (for better or worse) - we have single purpose containers for
-a single arch.
-
-For PPC and RISCV, where we're only doing a cross-build of the
-hypervisor, the dependencies are almost identical.  But the moment we
-start doing userspace, it will diverge quickly.
-
-Part of the work I'm doing is trimming the containers down.  Container
-size is a relevant factor for how long the CI tests take.  Also, with
-smaller containers, the "oops, out of disk space, delete everything"
-logic on various runners will trigger less frequently, so we get better
-cache utilisation.
-
-We do not IMO want to have containers with a union of all deps of all
-architectures.  They'd be giant.
-
-So while we do have single-purpose containers, these ENV vars are
-~mandatory for using the container for it's intended purpose, and it's
-far more usable for a human when you can just enter the container and
-type `make`.
->> +
->> +RUN <<EOF
->> +#!/bin/bash
->> +    set -e
->> +
->> +    useradd --create-home user
->> +
->> +    apt-get -y update
->> +
->> +    DEPS=(
->> +        # Xen
->> +        bison
->> +        build-essential
->> +        checkpolicy
->> +        flex
->> +        gcc-powerpc64le-linux-gnu
->> +        python3-minimal
->> +
->> +        # Qemu for test phase
->> +        qemu-system-ppc
->> +    )
->> +
->> +    apt-get -y --no-install-recommends install "${DEPS[@]}"
->> +    rm -rf /var/lib/apt/lists/*
-> Other containers do also `apt-get clean` is this not needed? Or maybe
-> the original containers is setup to not save packages?
->
-> /me looking into /var/cache
->
-> Looks empty enough, so I guess `apt-get clean` is optional.
-
-https://docs.docker.com/build/building/best-practices/ notes that the
-official Debian and Ubuntu images automatically clean themselves, so you
-don't need to do it manually.
-
-https://github.com/moby/moby/blob/03e2923e42446dbb830c654d0eec323a0b4ef02a/contrib/mkimage/debootstrap#L82-L105
-
-> Changes looks good enough, so:
-> Reviewed-by: Anthony PERARD <anthony.perard@vates.tech>
-
-Thanks.
+However, these have nothing on the overhead from patchew, which would be
+far more palatable if we didn't essentially throw away the result by not
+sending it anywhere useful.
 
 ~Andrew
 
