@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9C54992E5C1
+	by mail.lfdr.de (Postfix) with ESMTPS id 6C7C992E5BE
 	for <lists+xen-devel@lfdr.de>; Thu, 11 Jul 2024 13:15:43 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.757325.1166183 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.757324.1166177 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sRrlp-0008Kb-KH; Thu, 11 Jul 2024 11:15:29 +0000
+	id 1sRrlp-0008Fi-CH; Thu, 11 Jul 2024 11:15:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 757325.1166183; Thu, 11 Jul 2024 11:15:29 +0000
+Received: by outflank-mailman (output) from mailman id 757324.1166177; Thu, 11 Jul 2024 11:15:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sRrlp-0008E7-E3; Thu, 11 Jul 2024 11:15:29 +0000
-Received: by outflank-mailman (input) for mailman id 757325;
+	id 1sRrlp-00088k-4a; Thu, 11 Jul 2024 11:15:29 +0000
+Received: by outflank-mailman (input) for mailman id 757324;
  Thu, 11 Jul 2024 11:15:28 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=PZf6=OL=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1sRrlo-0007rJ-G8
+ id 1sRrlo-0007rD-35
  for xen-devel@lists.xenproject.org; Thu, 11 Jul 2024 11:15:28 +0000
-Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
- [2a00:1450:4864:20::536])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id e0005c60-3f76-11ef-8776-851b0ebba9a2;
+Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
+ [2a00:1450:4864:20::62f])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id e045db34-3f76-11ef-bbfb-fd08da9f4363;
  Thu, 11 Jul 2024 13:15:27 +0200 (CEST)
-Received: by mail-ed1-x536.google.com with SMTP id
- 4fb4d7f45d1cf-58b447c5112so1028030a12.3
+Received: by mail-ej1-x62f.google.com with SMTP id
+ a640c23a62f3a-a77e2f51496so112808166b.0
  for <xen-devel@lists.xenproject.org>; Thu, 11 Jul 2024 04:15:27 -0700 (PDT)
 Received: from andrewcoop.eng.citrite.net ([185.25.67.249])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a780a7ff7d5sm246386666b.142.2024.07.11.04.15.23
+ a640c23a62f3a-a780a7ff7d5sm246386666b.142.2024.07.11.04.15.25
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 11 Jul 2024 04:15:23 -0700 (PDT)
+ Thu, 11 Jul 2024 04:15:25 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,33 +45,33 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e0005c60-3f76-11ef-8776-851b0ebba9a2
+X-Inumbo-ID: e045db34-3f76-11ef-bbfb-fd08da9f4363
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1720696525; x=1721301325; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1720696526; x=1721301326; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=QMdgJvw5BoA7Ynpn9dLAYsAUignCSQSLKykSZf64/SM=;
-        b=jmMpoewFmF/AFx9Ygiex+EMmbg2sQXkFrGOh3Dz0gSSBgYgo/xAldIJkIDKedhj8N3
-         +Wf6mDfusnQLxXLmtSWVsZ1rCkbOzWCnAFZGuStCe8F8LanSJVa4xWGSjLQovLbobOeN
-         OlkYx1DA+y5MCZO5nLSKRVvCfEJBup5Au8+hA=
+        bh=L/meM4LOF0SLC51tAEKjDtfLnz5/szauziEh2ia+Hxk=;
+        b=aATb1H4JT4ybYjxTIs4zH2AibqoNQRrqvSAWBrynD9P91ngi3GKIvsSuuSPcLuH7wG
+         qbbyfxgvmvzZUGkGy/OeoDhcikJlj0152Qy13wxx2eFIm9KuD/1c3S8nl+b31+xs+vI5
+         km8vSlN2wVZFYEtmLLfOwiwQacF2nCxE0/rE4=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1720696525; x=1721301325;
+        d=1e100.net; s=20230601; t=1720696526; x=1721301326;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=QMdgJvw5BoA7Ynpn9dLAYsAUignCSQSLKykSZf64/SM=;
-        b=S1MJifeTx7fAOwjseITv63l2jqdWP4uUACeSDl3XEjIaz4MoptG20LU3wzU4CNWNig
-         KQl2DpXstDZvzL1oDqBScnAo8klu0qLTj3S4DXTxDZmJf5hONtKf/rG5uu015Skd5yk6
-         ZgIgPaD7cGLHofzEi5dvW+m2ioId3PGRgf8FoxHANZuCx6yHJuEnuGW42TnY/0s+oQUc
-         arkluWhXHvNCJR3ofAByTe3U1uzE24mpavxB7mo7Qx/oW+Z9UBGS2Qwy+08gk49nHSVX
-         ANcZbZKuTp6NrbdHLEfkanGwm3jHbSngCoZo6yPnZvyTXZ+JaMgfExCGv6iomTDuYx7y
-         X5BQ==
-X-Gm-Message-State: AOJu0YwKeCH9hSIRt//ofNdvwSKYNesVCVeT44bPKHi/phDv4QZEn7o6
-	KQHrtnSaZ7AmUiwYov9Q+NQ66Rh6peprDaqlTIo5r0sbU49ZMoB2LoXeAtHGHHb26x3awcigCx6
-	T
-X-Google-Smtp-Source: AGHT+IHD3EHDyWvqIB6M7adyUPfxyLF5B36e8K5nWoAWp1Uc7hCbjfs8JXlEgfRiNZLawBZKHB2TLA==
-X-Received: by 2002:a17:907:7247:b0:a77:e2e3:3546 with SMTP id a640c23a62f3a-a780b68a8d1mr755354766b.9.1720696525147;
+        bh=L/meM4LOF0SLC51tAEKjDtfLnz5/szauziEh2ia+Hxk=;
+        b=rr+qHBFUy/sj+LcyiBCUtbWJc7dRmM2o2kSu8eBHeG7prdkGhJINcXybsEMDJvEtKf
+         xfxV/VAOQCIjvNCd2eLAALQzM7Ih5rHjCUdUUKzyZxFSHyYDcewJReCquGX+Qm0XIrl8
+         Xe+5bdUUTd+A45SO8MOcyA+02C1yA9btNXFLAoAWoIt6UIimG190Uu3CTTFTi4TcWiO9
+         A1PixG39Cc+irXD+r+duFg1tGpJwdXOQYjy57zLviSR654WyFmXygP9OEuWBCMhZrjWZ
+         UYH5LUBrpVVOvlqEWWEO3A0yHoWEfjvYqMEmgejQzbfE+uOLmqhEtv76gpRVe6Xd7RT5
+         hYIg==
+X-Gm-Message-State: AOJu0Yz2PVWvIPE4TQpZ5Sj9/1EmhRPIj2hdNQsB/7MM7O6LkLhstYfg
+	SD1oCY2eookHdbjrlHg7ThcTegZhFLahfCfDSw2/JfUXcw3iDtJuHz8LLagu1GyoUtvaAnxez+2
+	h
+X-Google-Smtp-Source: AGHT+IHHDkvg4Tc1JebNvajW43vBdtx3XCYg8dIoey6SD94uRNl0Hcmzz+XWpyqp5Wn4XnW/oUbhnQ==
+X-Received: by 2002:a17:906:2342:b0:a77:e1fb:7dec with SMTP id a640c23a62f3a-a780b6b316dmr486049266b.17.1720696525947;
         Thu, 11 Jul 2024 04:15:25 -0700 (PDT)
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
@@ -84,9 +84,9 @@ Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
 	Julien Grall <julien@xen.org>,
 	Oleksii Kurochko <oleksii.kurochko@gmail.com>,
 	Shawn Anastasio <sanastasio@raptorengineering.com>
-Subject: [PATCH 02/12] CI: Remove useless/misleading randconfig jobs
-Date: Thu, 11 Jul 2024 12:15:07 +0100
-Message-Id: <20240711111517.3064810-3-andrew.cooper3@citrix.com>
+Subject: [PATCH 03/12] CI: Drop Debian Jessie dockerfiles
+Date: Thu, 11 Jul 2024 12:15:08 +0100
+Message-Id: <20240711111517.3064810-4-andrew.cooper3@citrix.com>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20240711111517.3064810-1-andrew.cooper3@citrix.com>
 References: <20240711111517.3064810-1-andrew.cooper3@citrix.com>
@@ -94,23 +94,9 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Randconfig builds pick CONFIG_DEBUG with 50% probability.  Therefore
-$foo{,-debug}-randconfig are two identical jobs with misleading names.
+These were removed from testing in Xen 4.18.
 
-Furthermore, arm64 has a randconfig jobs for both the alpine and bookworm
-build environments.  Both use GCC 12.2, so we have 4 identical jobs.  Delete 3
-of them.
-
-This leaves us with 4 primary randconfig jobs:
-
-  gitlab-ci/build.yaml:381:debian-bookworm-gcc-arm32-randconfig:
-  gitlab-ci/build.yaml:429:alpine-3.18-gcc-arm64-randconfig:
-  gitlab-ci/build.yaml:495:archlinux-current-gcc-riscv64-randconfig:
-  gitlab-ci/build.yaml:640:debian-bookworm-gcc-randconfig:
-
-as PPC64 doesn't want randconfig right now, and buster-gcc-ibt is a special
-job with a custom compiler.
-
+Fixes: 3817e3c1b4b8 ("automation: Remove testing on Debian Jessie")
 Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 ---
 CC: Anthony PERARD <anthony.perard@vates.tech>
@@ -121,101 +107,146 @@ CC: Stefano Stabellini <sstabellini@kernel.org>
 CC: Julien Grall <julien@xen.org>
 CC: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 CC: Shawn Anastasio <sanastasio@raptorengineering.com>
-
-Here is an example debug-randconfig with a release builds:
-  https://gitlab.com/xen-project/people/andyhhp/xen/-/jobs/7312848876
-
-If we want to run multiple identical randconfig jobs, that's spelt
-
-  parallel: 5
-
-in the configuration, and here is an example of what such a run looks like:
-  https://gitlab.com/xen-project/people/andyhhp/xen/-/pipelines/1368824041
-
-Notice the randconfig jobs have a 5 in place of a retry button, and show a
-submenu when clicked on.
 ---
- automation/gitlab-ci/build.yaml | 39 ---------------------------------
- 1 file changed, 39 deletions(-)
+ .../build/debian/jessie-i386.dockerfile       | 55 -------------------
+ automation/build/debian/jessie.dockerfile     | 52 ------------------
+ automation/scripts/containerize               |  2 -
+ 3 files changed, 109 deletions(-)
+ delete mode 100644 automation/build/debian/jessie-i386.dockerfile
+ delete mode 100644 automation/build/debian/jessie.dockerfile
 
-diff --git a/automation/gitlab-ci/build.yaml b/automation/gitlab-ci/build.yaml
-index ff5c9055d1f0..da7b8885aa30 100644
---- a/automation/gitlab-ci/build.yaml
-+++ b/automation/gitlab-ci/build.yaml
-@@ -385,13 +385,6 @@ debian-bookworm-gcc-arm32-randconfig:
-     HYPERVISOR_ONLY: y
-     RANDCONFIG: y
- 
--debian-bookworm-gcc-arm32-debug-randconfig:
--  extends: .gcc-arm32-cross-build-debug
--  variables:
--    CONTAINER: debian:bookworm-arm64v8-arm32-gcc
--    HYPERVISOR_ONLY: y
--    RANDCONFIG: y
+diff --git a/automation/build/debian/jessie-i386.dockerfile b/automation/build/debian/jessie-i386.dockerfile
+deleted file mode 100644
+index dfa6dae06cb8..000000000000
+--- a/automation/build/debian/jessie-i386.dockerfile
++++ /dev/null
+@@ -1,55 +0,0 @@
+-# syntax=docker/dockerfile:1
+-FROM --platform=linux/i386 debian/eol:jessie
+-LABEL maintainer.name="The Xen Project" \
+-      maintainer.email="xen-devel@lists.xenproject.org"
 -
- debian-bookworm-gcc-arm32-debug-staticmem:
-   extends: .gcc-arm32-cross-build-debug
-   variables:
-@@ -423,18 +416,6 @@ debian-bookworm-gcc-debug-arm64:
-   variables:
-     CONTAINER: debian:bookworm-arm64v8
- 
--debian-bookworm-gcc-arm64-randconfig:
--  extends: .gcc-arm64-build
--  variables:
--    CONTAINER: debian:bookworm-arm64v8
--    RANDCONFIG: y
+-ENV DEBIAN_FRONTEND=noninteractive
+-ENV USER root
 -
--debian-bookworm-gcc-debug-arm64-randconfig:
--  extends: .gcc-arm64-build-debug
--  variables:
--    CONTAINER: debian:bookworm-arm64v8
--    RANDCONFIG: y
+-RUN mkdir /build
+-WORKDIR /build
 -
- alpine-3.18-gcc-arm64:
-   extends: .gcc-arm64-build
-   variables:
-@@ -451,12 +432,6 @@ alpine-3.18-gcc-arm64-randconfig:
-     CONTAINER: alpine:3.18-arm64v8
-     RANDCONFIG: y
- 
--alpine-3.18-gcc-debug-arm64-randconfig:
--  extends: .gcc-arm64-build-debug
--  variables:
--    CONTAINER: alpine:3.18-arm64v8
--    RANDCONFIG: y
+-ENTRYPOINT ["linux32"]
 -
- alpine-3.18-gcc-debug-arm64-staticmem:
-   extends: .gcc-arm64-build-debug
-   variables:
-@@ -525,14 +500,6 @@ archlinux-current-gcc-riscv64-randconfig:
-     RANDCONFIG: y
-     <<: *riscv-fixed-randconfig
- 
--archlinux-current-gcc-riscv64-debug-randconfig:
--  extends: .gcc-riscv64-cross-build-debug
--  variables:
--    CONTAINER: archlinux:current-riscv64
--    KBUILD_DEFCONFIG: tiny64_defconfig
--    RANDCONFIG: y
--    <<: *riscv-fixed-randconfig
+-# replace repos in archive as release is EOL
+-COPY <<"END" /etc/apt/sources.list
+-deb http://archive.debian.org/debian/ jessie main contrib non-free
+-deb http://archive.debian.org/debian/ jessie-backports main contrib non-free
+-deb http://archive.debian.org/debian-security/ jessie/updates main contrib non-free
+-END
 -
- # Power cross-build
- debian-bullseye-gcc-ppc64le:
-   extends: .gcc-ppc64le-cross-build
-@@ -676,12 +643,6 @@ debian-bookworm-gcc-randconfig:
-     CONTAINER: debian:bookworm
-     RANDCONFIG: y
- 
--debian-bookworm-gcc-debug-randconfig:
--  extends: .gcc-x86-64-build-debug
--  variables:
--    CONTAINER: debian:bookworm
--    RANDCONFIG: y
+-# build depends
+-RUN apt-get update && \
+-    apt-get --quiet --yes install \
+-        build-essential \
+-        zlib1g-dev \
+-        libncurses5-dev \
+-        python-dev \
+-        uuid-dev \
+-        libyajl-dev \
+-        libaio-dev \
+-        libglib2.0-dev \
+-        clang \
+-        libpixman-1-dev \
+-        pkg-config \
+-        flex \
+-        bison \
+-        acpica-tools \
+-        bin86 \
+-        bcc \
+-        liblzma-dev \
+-        libc6-dev \
+-        libnl-3-dev \
+-        ocaml-nox \
+-        libfindlib-ocaml-dev \
+-        markdown \
+-        transfig \
+-        pandoc \
+-        checkpolicy \
+-        wget \
+-        git \
+-        nasm \
+-        && \
+-        apt-get autoremove -y && \
+-        apt-get clean && \
+-        rm -rf /var/lib/apt/lists* /tmp/* /var/tmp/*
+diff --git a/automation/build/debian/jessie.dockerfile b/automation/build/debian/jessie.dockerfile
+deleted file mode 100644
+index 82dae9ec70c4..000000000000
+--- a/automation/build/debian/jessie.dockerfile
++++ /dev/null
+@@ -1,52 +0,0 @@
+-# syntax=docker/dockerfile:1
+-FROM --platform=linux/amd64 debian/eol:jessie
+-LABEL maintainer.name="The Xen Project" \
+-      maintainer.email="xen-devel@lists.xenproject.org"
 -
- debian-bookworm-32-clang-debug:
-   extends: .clang-x86-32-build-debug
-   variables:
+-ENV DEBIAN_FRONTEND=noninteractive
+-ENV USER root
+-
+-RUN mkdir /build
+-WORKDIR /build
+-
+-# replace repos in archive as release is EOL
+-COPY <<"END" /etc/apt/sources.list
+-deb http://archive.debian.org/debian/ jessie main contrib non-free
+-deb http://archive.debian.org/debian/ jessie-backports main contrib non-free
+-deb http://archive.debian.org/debian-security/ jessie/updates main contrib non-free
+-END
+-
+-# build depends
+-RUN apt-get update && \
+-    apt-get --quiet --yes install \
+-        build-essential \
+-        zlib1g-dev \
+-        libncurses5-dev \
+-        python-dev \
+-        uuid-dev \
+-        libyajl-dev \
+-        libaio-dev \
+-        libglib2.0-dev \
+-        clang \
+-        libpixman-1-dev \
+-        pkg-config \
+-        flex \
+-        bison \
+-        acpica-tools \
+-        bin86 \
+-        bcc \
+-        liblzma-dev \
+-        libnl-3-dev \
+-        ocaml-nox \
+-        libfindlib-ocaml-dev \
+-        markdown \
+-        transfig \
+-        pandoc \
+-        checkpolicy \
+-        wget \
+-        git \
+-        nasm \
+-        && \
+-        apt-get autoremove -y && \
+-        apt-get clean && \
+-        rm -rf /var/lib/apt/lists* /tmp/* /var/tmp/*
+diff --git a/automation/scripts/containerize b/automation/scripts/containerize
+index 03bc4837350c..57db42d10cb5 100755
+--- a/automation/scripts/containerize
++++ b/automation/scripts/containerize
+@@ -31,8 +31,6 @@ case "_${CONTAINER}" in
+     _centos7) CONTAINER="${BASE}/centos:7" ;;
+     _fedora) CONTAINER="${BASE}/fedora:29";;
+     _focal) CONTAINER="${BASE}/ubuntu:focal" ;;
+-    _jessie) CONTAINER="${BASE}/debian:jessie" ;;
+-    _jessie-i386) CONTAINER="${BASE}/debian:jessie-i386" ;;
+     _bullseye-ppc64le) CONTAINER="${BASE}/debian:bullseye-ppc64le" ;;
+     _stretch|_) CONTAINER="${BASE}/debian:stretch" ;;
+     _stretch-i386) CONTAINER="${BASE}/debian:stretch-i386" ;;
 -- 
 2.39.2
 
