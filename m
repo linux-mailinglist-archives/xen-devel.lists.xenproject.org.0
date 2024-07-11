@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BFB6B92EA28
-	for <lists+xen-devel@lfdr.de>; Thu, 11 Jul 2024 16:04:38 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.757523.1166511 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2A60592EA2A
+	for <lists+xen-devel@lfdr.de>; Thu, 11 Jul 2024 16:04:41 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.757524.1166522 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sRuPB-0008DX-7a; Thu, 11 Jul 2024 14:04:17 +0000
+	id 1sRuPF-0008St-FQ; Thu, 11 Jul 2024 14:04:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 757523.1166511; Thu, 11 Jul 2024 14:04:17 +0000
+Received: by outflank-mailman (output) from mailman id 757524.1166522; Thu, 11 Jul 2024 14:04:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sRuPB-0008BZ-4x; Thu, 11 Jul 2024 14:04:17 +0000
-Received: by outflank-mailman (input) for mailman id 757523;
- Thu, 11 Jul 2024 14:04:15 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1sRuPF-0008QM-CI; Thu, 11 Jul 2024 14:04:21 +0000
+Received: by outflank-mailman (input) for mailman id 757524;
+ Thu, 11 Jul 2024 14:04:20 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=cDUu=OL=bounce.vates.tech=bounce-md_30504962.668fe65b.v1-71c57759c31047c8a919f94a61e8dac0@srs-se1.protection.inumbo.net>)
- id 1sRuP9-0008BT-Iv
- for xen-devel@lists.xenproject.org; Thu, 11 Jul 2024 14:04:15 +0000
+ <SRS0=e9v5=OL=bounce.vates.tech=bounce-md_30504962.668fe661.v1-c803a8b4a206474e936fd8f909deda69@srs-se1.protection.inumbo.net>)
+ id 1sRuPD-0008Pw-Vu
+ for xen-devel@lists.xenproject.org; Thu, 11 Jul 2024 14:04:19 +0000
 Received: from mail186-27.suw21.mandrillapp.com
  (mail186-27.suw21.mandrillapp.com [198.2.186.27])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 731bc81b-3f8e-11ef-8776-851b0ebba9a2;
- Thu, 11 Jul 2024 16:04:12 +0200 (CEST)
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 76689ded-3f8e-11ef-bbfb-fd08da9f4363;
+ Thu, 11 Jul 2024 16:04:18 +0200 (CEST)
 Received: from pmta10.mandrill.prod.suw01.rsglab.com (localhost [127.0.0.1])
  by mail186-27.suw21.mandrillapp.com (Mailchimp) with ESMTP id
- 4WKc0W41Q6z6CQ2dP
- for <xen-devel@lists.xenproject.org>; Thu, 11 Jul 2024 14:04:11 +0000 (GMT)
+ 4WKc0d2z2mz6CQ4yx
+ for <xen-devel@lists.xenproject.org>; Thu, 11 Jul 2024 14:04:17 +0000 (GMT)
 Received: from [37.26.189.201] by mandrillapp.com id
- 71c57759c31047c8a919f94a61e8dac0; Thu, 11 Jul 2024 14:04:11 +0000
+ c803a8b4a206474e936fd8f909deda69; Thu, 11 Jul 2024 14:04:17 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,126 +43,172 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 731bc81b-3f8e-11ef-8776-851b0ebba9a2
+X-Inumbo-ID: 76689ded-3f8e-11ef-bbfb-fd08da9f4363
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
-	s=mte1; t=1720706651; x=1720967151;
-	bh=OO478PqU3r70xVXwjD0fZgEZDEQGLcHFOLvp5rg+Dm0=;
-	h=From:Subject:To:Cc:Message-Id:Feedback-ID:Date:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:CC:Date:Subject:From;
-	b=fYhZNTSOp5K1RGb5atPs2IsPtbZk2lU9jXxAiWPqq9AvEfKiZpNWk4hTXiR6d09sA
-	 Q20EIJQoFuvfmRvERwE9A9Z7+Dk+8+Tt/It9mOoC8ore86oNGebEWtSlwUEC+Y/Oxh
-	 DB6byYlTlhq/NDeYR8kALobyTB9fPvX04ccZs6XhDeemGEkb9DzNYu1g8dAZq9qGeT
-	 mBVj63p3atk2yjZgDeKRK3Sj59UgKsz8O6cEv8W0GTPh8tln88oNHjMehSa+Qyj5hq
-	 AwIaNWSLD1jkwMCX29eHAcPHiColazgm+wJr8Is3LFVV+YxJzQN11ZMJZ1GOqVIkTq
-	 Vhlhm8jwNU0Yw==
+	s=mte1; t=1720706657; x=1720967157;
+	bh=Si1H+0tUp3aV0kgXlGZ06VpmpP6WpGI1yiw22kocZDk=;
+	h=From:Subject:To:Cc:Message-Id:In-Reply-To:References:Feedback-ID:
+	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
+	 Subject:From;
+	b=G9DtnQsHe9s1/gZSzEsJj0hk55LyVwel6kLd85d/lN7G8m7Xk3aMAzPMxVQPWp4PF
+	 VF5qnI1qp8OqfOVeZjDDU56EQtGTMSFzNjGbkgwPm20u/wLynxgYDK3g+Xxbz3PtJr
+	 8dwNrxiNAM6BzUibqGeipmpqdEUeAj01Xn7wTnCsVEQYkhmes+gMw/xPhXO9rVMGtA
+	 /aDB8SFvO8Qgbie3Cmmuwsl1aYq7r0UusrXPpGJdLEIu26faTz5ODCvhpNPimcPIoS
+	 kqf0979B7J81wzL5wec1XYX/HLfqsd6V/y+5Y6qEKu9dWEWSsBpYsrnESbe4TrDBol
+	 m87BrRQLgpPtw==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
-	t=1720706651; x=1720967151; i=teddy.astie@vates.tech;
-	bh=OO478PqU3r70xVXwjD0fZgEZDEQGLcHFOLvp5rg+Dm0=;
-	h=From:Subject:To:Cc:Message-Id:Feedback-ID:Date:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:CC:Date:Subject:From;
-	b=NSQCPvyXeQdd3OmpeWfH6xTDqyES7g4ExQtfKeeDYOOC/FDG4IzYv4j3L5rX8iPZ5
-	 Y4UyDzAYFGxgthgMyLwVo2ZZ3hqOFF0aB31jFRv5znWGThQL8fVHwUYlFbgrvr66S+
-	 gsgD20R+3fDW17a3ldV2nLl/vvMmqdFpQmPdqeKroKKr0ARIIiJva/1gyekHvRxjd7
-	 AbzLCrRdjrB42FRTZ6++fDlwVLNUgUnA66xmDPBcY0X4UIwEcwOiFCyGfouwP33i53
-	 xjeONqBR6H6aOMdfCch27EWli2lCWYBAIKSDZKZb6G5tqN9ugev+xLU4NU3rvb0V+A
-	 xphoEXH5q41Vg==
+	t=1720706657; x=1720967157; i=teddy.astie@vates.tech;
+	bh=Si1H+0tUp3aV0kgXlGZ06VpmpP6WpGI1yiw22kocZDk=;
+	h=From:Subject:To:Cc:Message-Id:In-Reply-To:References:Feedback-ID:
+	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
+	 Subject:From;
+	b=nTIeoiFjdu8ClEDZDB4mGkozDcmz1tfckZdyXUXHEPPU00T1c6ufItlO+9j+VxV0Q
+	 NNT/Fdn08h88mp00hc0HCw7kGUzuuiqPB45mo3YRL/f5A6b4MXFKoVFo1IV6sGSywW
+	 bdofQqOEjeNX1c+w3V/7B2ige2sIevlBYFx+2RReXkCxWQPGNSR8iK9NMpP5lW3fPp
+	 t+jnSHNjZkQgudXnGv6vjnqhVWRfPWdROQlwSyiR59Gf2u8eGEW5cDYiiuzFRhp4N1
+	 rIavZ2bqbeJgoSe7j53y9xSjrFQlMIUOFeV+eVD81WgcuGOYrQHNry972zLt0StISS
+	 1c4QIAxqRewcA==
 From: Teddy Astie <teddy.astie@vates.tech>
-Subject: =?utf-8?Q?[RFC=20XEN=20PATCH=20v3=200/5]=20IOMMU=20subsystem=20redesign=20and=20PV-IOMMU=20interface?=
+Subject: =?utf-8?Q?[RFC=20XEN=20PATCH=20v3=201/5]=20docs/designs:=20Add=20a=20design=20document=20for=20PV-IOMMU?=
 X-Mailer: git-send-email 2.45.2
 X-Bm-Disclaimer: Yes
 X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
-X-Bm-Transport-Timestamp: 1720706648754
+X-Bm-Transport-Timestamp: 1720706655293
 To: xen-devel@lists.xenproject.org
-Cc: Teddy Astie <teddy.astie@vates.tech>, Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, =?utf-8?Q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>, Lukasz Hawrylko <lukasz@hawrylko.pl>, "Daniel P. Smith" <dpsmith@apertussolutions.com>, =?utf-8?Q?Mateusz=20M=C3=B3wka?= <mateusz.mowka@intel.com>, =?utf-8?Q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-Message-Id: <cover.1720703078.git.teddy.astie@vates.tech>
+Cc: Teddy Astie <teddy.astie@vates.tech>, Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, =?utf-8?Q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+Message-Id: <cf749c46f9d3d91bc116c96ee2fd1869164fbe5b.1720703078.git.teddy.astie@vates.tech>
+In-Reply-To: <cover.1720703078.git.teddy.astie@vates.tech>
+References: <cover.1720703078.git.teddy.astie@vates.tech>
 X-Native-Encoded: 1
-X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.71c57759c31047c8a919f94a61e8dac0?=
+X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.c803a8b4a206474e936fd8f909deda69?=
 X-Mandrill-User: md_30504962
 Feedback-ID: 30504962:30504962.20240711:md
-Date: Thu, 11 Jul 2024 14:04:11 +0000
+Date: Thu, 11 Jul 2024 14:04:17 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: 7bit
 
-This work has been presented at Xen Summit 2024 during the
-  IOMMU paravirtualization and Xen IOMMU subsystem rework
-design session.
+Some operating systems want to use IOMMU to implement various features (e.g
+VFIO) or DMA protection.
+This patch introduce a proposal for IOMMU paravirtualization for Dom0.
 
-Operating systems may want to have access to a IOMMU in order to do DMA
-protection or implement certain features (e.g VFIO on Linux).
-
-VFIO support is mandatory for framework such as SPDK, which can be useful to
-implement an alternative storage backend for virtual machines [1].
-
-In this patch series, we introduce in Xen the ability to manage several
-contexts per domain and provide a new hypercall interface to allow guests
-to manage IOMMU contexts.
-
-The VT-d driver is updated to support these new features.
-
-[1] Using SPDK with the Xen hypervisor - FOSDEM 2023
-
+Signed-off-by Teddy Astie <teddy.astie@vates.tech>
 ---
-Changed in v2 :
-* fixed Xen crash when dumping IOMMU contexts (using X debug key)
-with DomUs without IOMMU
-* s/dettach/detach/
-* removed some unused includes
-* fix dangling devices in contexts with detach
-
-Changed in v3 :
-* lock entirely map/unmap in hypercall
-* prevent IOMMU operations on dying contexts (fix race condition)
-* iommu_check_context+iommu_get_context -> iommu_get_context and check for NULL
-
-Teddy Astie (5):
-  docs/designs: Add a design document for PV-IOMMU
-  docs/designs: Add a design document for IOMMU subsystem redesign
-  IOMMU: Introduce redesigned IOMMU subsystem
-  VT-d: Port IOMMU driver to new subsystem
-  xen/public: Introduce PV-IOMMU hypercall interface
----
-
- docs/designs/iommu-contexts.md       |  398 +++++++
- docs/designs/pv-iommu.md             |  105 ++
- xen/arch/x86/domain.c                |    2 +-
- xen/arch/x86/include/asm/arena.h     |   54 +
- xen/arch/x86/include/asm/iommu.h     |   44 +-
- xen/arch/x86/include/asm/pci.h       |   17 -
- xen/arch/x86/mm/p2m-ept.c            |    2 +-
- xen/arch/x86/pv/dom0_build.c         |    4 +-
- xen/arch/x86/tboot.c                 |    4 +-
- xen/common/Makefile                  |    1 +
- xen/common/memory.c                  |    4 +-
- xen/common/pv-iommu.c                |  328 ++++++
- xen/drivers/passthrough/Kconfig      |   14 +
- xen/drivers/passthrough/Makefile     |    3 +
- xen/drivers/passthrough/context.c    |  649 +++++++++++
- xen/drivers/passthrough/iommu.c      |  337 ++----
- xen/drivers/passthrough/pci.c        |   49 +-
- xen/drivers/passthrough/quarantine.c |   49 +
- xen/drivers/passthrough/vtd/Makefile |    2 +-
- xen/drivers/passthrough/vtd/extern.h |   14 +-
- xen/drivers/passthrough/vtd/iommu.c  | 1557 +++++++++++---------------
- xen/drivers/passthrough/vtd/quirks.c |   21 +-
- xen/drivers/passthrough/x86/Makefile |    1 +
- xen/drivers/passthrough/x86/arena.c  |  157 +++
- xen/drivers/passthrough/x86/iommu.c  |  104 +-
- xen/include/hypercall-defs.c         |    6 +
- xen/include/public/pv-iommu.h        |  114 ++
- xen/include/public/xen.h             |    1 +
- xen/include/xen/iommu.h              |  120 +-
- xen/include/xen/pci.h                |    3 +
- 30 files changed, 2855 insertions(+), 1309 deletions(-)
- create mode 100644 docs/designs/iommu-contexts.md
+ docs/designs/pv-iommu.md | 105 +++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 105 insertions(+)
  create mode 100644 docs/designs/pv-iommu.md
- create mode 100644 xen/arch/x86/include/asm/arena.h
- create mode 100644 xen/common/pv-iommu.c
- create mode 100644 xen/drivers/passthrough/context.c
- create mode 100644 xen/drivers/passthrough/quarantine.c
- create mode 100644 xen/drivers/passthrough/x86/arena.c
- create mode 100644 xen/include/public/pv-iommu.h
 
+diff --git a/docs/designs/pv-iommu.md b/docs/designs/pv-iommu.md
+new file mode 100644
+index 0000000000..c01062a3ad
+--- /dev/null
++++ b/docs/designs/pv-iommu.md
+@@ -0,0 +1,105 @@
++# IOMMU paravirtualization for Dom0
++
++Status: Experimental
++
++# Background
++
++By default, Xen only uses the IOMMU for itself, either to make device adress
++space coherent with guest adress space (x86 HVM/PVH) or to prevent devices
++from doing DMA outside it's expected memory regions including the hypervisor
++(x86 PV).
++
++A limitation is that guests (especially privildged ones) may want to use
++IOMMU hardware in order to implement features such as DMA protection and
++VFIO [1] as IOMMU functionality is not available outside of the hypervisor
++currently.
++
++[1] VFIO - "Virtual Function I/O" - https://www.kernel.org/doc/html/latest/driver-api/vfio.html
++
++# Design
++
++The operating system may want to have access to various IOMMU features such as
++context management and DMA remapping. We can create a new hypercall that allows
++the guest to have access to a new paravirtualized IOMMU interface.
++
++This feature is only meant to be available for the Dom0, as DomU have some
++emulated devices that can't be managed on Xen side and are not hardware, we
++can't rely on the hardware IOMMU to enforce DMA remapping.
++
++This interface is exposed under the `iommu_op` hypercall.
++
++In addition, Xen domains are modified in order to allow existence of several
++IOMMU context including a default one that implement default behavior (e.g
++hardware assisted paging) and can't be modified by guest. DomU cannot have
++contexts, and therefore act as if they only have the default domain.
++
++Each IOMMU context within a Xen domain is identified using a domain-specific
++context number that is used in the Xen IOMMU subsystem and the hypercall
++interface.
++
++The number of IOMMU context a domain can use is predetermined at domain creation
++and is configurable through `dom0-iommu=nb-ctx=N` xen cmdline.
++
++# IOMMU operations
++
++## Alloc context
++
++Create a new IOMMU context for the guest and return the context number to the
++guest.
++Fail if the IOMMU context limit of the guest is reached.
++
++A flag can be specified to create a identity mapping.
++
++## Free context
++
++Destroy a IOMMU context created previously.
++It is not possible to free the default context.
++
++Reattach context devices to default context if specified by the guest.
++
++Fail if there is a device in the context and reattach-to-default flag is not
++specified.
++
++## Reattach device
++
++Reattach a device to another IOMMU context (including the default one).
++The target IOMMU context number must be valid and the context allocated.
++
++The guest needs to specify a PCI SBDF of a device he has access to.
++
++## Map/unmap page
++
++Map/unmap a page on a context.
++The guest needs to specify a gfn and target dfn to map.
++
++Refuse to create the mapping if one already exist for the same dfn.
++
++## Lookup page
++
++Get the gfn mapped by a specific dfn.
++
++# Implementation considerations
++
++## Hypercall batching
++
++In order to prevent unneeded hypercalls and IOMMU flushing, it is advisable to
++be able to batch some critical IOMMU operations (e.g map/unmap multiple pages).
++
++## Hardware without IOMMU support
++
++Operating system needs to be aware on PV-IOMMU capability, and whether it is
++able to make contexts. However, some operating system may critically fail in
++case they are able to make a new IOMMU context. Which is supposed to happen
++if no IOMMU hardware is available.
++
++The hypercall interface needs a interface to advertise the ability to create
++and manage IOMMU contexts including the amount of context the guest is able
++to use. Using these informations, the Dom0 may decide whether to use or not
++the PV-IOMMU interface.
++
++## Page pool for contexts
++
++In order to prevent unexpected starving on the hypervisor memory with a
++buggy Dom0. We can preallocate the pages the contexts will use and make
++map/unmap use these pages instead of allocating them dynamically.
++
 -- 
 2.45.2
 
