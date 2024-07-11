@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D8E9992EE65
-	for <lists+xen-devel@lfdr.de>; Thu, 11 Jul 2024 20:09:34 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.757659.1166749 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E3B8592EEDA
+	for <lists+xen-devel@lfdr.de>; Thu, 11 Jul 2024 20:26:47 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.757665.1166758 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sRyDU-0005N6-Rl; Thu, 11 Jul 2024 18:08:28 +0000
+	id 1sRyUp-000850-8z; Thu, 11 Jul 2024 18:26:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 757659.1166749; Thu, 11 Jul 2024 18:08:28 +0000
+Received: by outflank-mailman (output) from mailman id 757665.1166758; Thu, 11 Jul 2024 18:26:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sRyDU-0005LA-On; Thu, 11 Jul 2024 18:08:28 +0000
-Received: by outflank-mailman (input) for mailman id 757659;
- Thu, 11 Jul 2024 18:08:27 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1sRyUp-00082x-5k; Thu, 11 Jul 2024 18:26:23 +0000
+Received: by outflank-mailman (input) for mailman id 757665;
+ Thu, 11 Jul 2024 18:26:21 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=PZf6=OL=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1sRyDT-0005L2-Jw
- for xen-devel@lists.xenproject.org; Thu, 11 Jul 2024 18:08:27 +0000
-Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com
- [2a00:1450:4864:20::52c])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 90e83f67-3fb0-11ef-8776-851b0ebba9a2;
- Thu, 11 Jul 2024 20:08:25 +0200 (CEST)
-Received: by mail-ed1-x52c.google.com with SMTP id
- 4fb4d7f45d1cf-58b0dddab63so2036775a12.3
- for <xen-devel@lists.xenproject.org>; Thu, 11 Jul 2024 11:08:25 -0700 (PDT)
-Received: from [10.125.226.166] ([185.25.67.249])
- by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-594bd459ddasm3685148a12.64.2024.07.11.11.08.23
+ <SRS0=hOEV=OL=cloud.com=alejandro.vallejo@srs-se1.protection.inumbo.net>)
+ id 1sRyUn-00082r-Il
+ for xen-devel@lists.xenproject.org; Thu, 11 Jul 2024 18:26:21 +0000
+Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
+ [2a00:1450:4864:20::62b])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 11b312b0-3fb3-11ef-bbfb-fd08da9f4363;
+ Thu, 11 Jul 2024 20:26:20 +0200 (CEST)
+Received: by mail-ej1-x62b.google.com with SMTP id
+ a640c23a62f3a-a77e85cb9b4so165198166b.0
+ for <xen-devel@lists.xenproject.org>; Thu, 11 Jul 2024 11:26:20 -0700 (PDT)
+Received: from localhost ([185.25.67.249]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a7985483a9bsm137094966b.109.2024.07.11.11.26.18
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 11 Jul 2024 11:08:23 -0700 (PDT)
+ Thu, 11 Jul 2024 11:26:19 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,137 +44,255 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 90e83f67-3fb0-11ef-8776-851b0ebba9a2
+X-Inumbo-ID: 11b312b0-3fb3-11ef-bbfb-fd08da9f4363
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1720721304; x=1721326104; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=J9Y9CY5j90NlbVfp4AXy9lKa/k+b9i/SUimeWlOurD8=;
-        b=BAWvIDbju3FS1UzWIAEibyquVZNylDdXnFG6pjovjD4G9CCdX+WnWBNquU+3o2Ktln
-         PjuKBusNpaJiulYJLYNSrBGoFcnX2VaK/q1Hr43rzzjOCDR4VVfJ4V0WDjHwo+7LiAHx
-         qsqGlEgIwjl63azjkkojbvdtJtjkITIuU/TM4=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1720721304; x=1721326104;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+        d=cloud.com; s=cloud; t=1720722379; x=1721327179; darn=lists.xenproject.org;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-transfer-encoding:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=J9Y9CY5j90NlbVfp4AXy9lKa/k+b9i/SUimeWlOurD8=;
-        b=iuHSTogF+RucLhOPDpX4hhJ/hsCO0TrpGg6NlwfRQcFKzn01r/PXnEeHA0OR4hVqCl
-         t68wK1z7tip+937cvJhatnawaBnq41pu4asRab4iVmIYgwc6YUlagTUhX8LBWazEXmSk
-         Ouv1Z2KT4IyU/uncjY0uIBpOTqXx3ySGfFJuDsmNtrvc5QOZs0mGF2Df5FnxUeqIN+Pa
-         5I+l+i8Vtm9X3uU2vn7+tJ9BB9JgaLCeEn3M0tn8IcvYxjIz/D78G97F4bxoD/vr1Nhr
-         ENmRt1ZG8k0KXFMobth7nAmUzAjNy4hWyxcnZh8Hpi8HwL3Rd2rsIVAnibIyOF/Euyn4
-         QphQ==
-X-Gm-Message-State: AOJu0Yz9iO5gAkLVDNN/L7Sugxw8jVDBcEyV5R5zb7UwbyCStFZjG83r
-	dCfNN2/0ipWwTBKRXWHKQyYd74rpcZwCdHYaC3H4Rz5z6cCbc4eusg5/wN2eFwrOAoqEYZFFBSi
-	k
-X-Google-Smtp-Source: AGHT+IGR/uyZiB3XN88t4aeiLkiAI16U8PRv4Q7dv3C55B17H97mMVFUv7W8SrSZE3Y3pUCICgfIfg==
-X-Received: by 2002:a05:6402:234b:b0:58c:909f:3d46 with SMTP id 4fb4d7f45d1cf-594ba0cbe63mr7406496a12.10.1720721304522;
-        Thu, 11 Jul 2024 11:08:24 -0700 (PDT)
-Message-ID: <5c2f914d-bc69-4e34-b7d1-e455f5715b24@citrix.com>
-Date: Thu, 11 Jul 2024 19:08:22 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 08/12] CI: Use debian:12-ppc64le for both build and test
-To: Anthony PERARD <anthony.perard@vates.tech>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>,
- Juergen Gross <jgross@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Jan Beulich <JBeulich@suse.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Oleksii Kurochko <oleksii.kurochko@gmail.com>,
- Shawn Anastasio <sanastasio@raptorengineering.com>
-References: <20240711111517.3064810-1-andrew.cooper3@citrix.com>
- <20240711111517.3064810-9-andrew.cooper3@citrix.com> <ZpAGv4J+GWzNfz6F@l14>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <ZpAGv4J+GWzNfz6F@l14>
+        bh=je0/Bkll77NiKCHV4lqS5GAkdrrYNzHbF5T9RvLsqXE=;
+        b=QiJaFUZstUAOfsesqUBWW/gWZL2i52xQol2u8kGVx3nJoOey+FSyFIEXAI8U3MD2r/
+         LRSXvKypJqsAcUCYhcR5ZSct0cWTGC86h04KyI6AW17InOx8y0zyfcInKVEeOejgwvOS
+         i2X16hkni/T6dLFyGAnPfMkMl1kCpoWr7S/kc=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1720722379; x=1721327179;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-transfer-encoding:mime-version:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=je0/Bkll77NiKCHV4lqS5GAkdrrYNzHbF5T9RvLsqXE=;
+        b=MDDSkLxxvFo+8DY7050W787DpmmrePjo+uyNKf0//VXWe00oln+z4tW10gSyr0jVFg
+         2aLCBNQfcgRJAPGDit7zNrNnTHi0PdOFOwW8UtyFs/eg0h/c0+D1pAuH8Bk5k/fgVzqH
+         ZuN4cJXZteoGX4IOO4fmqDS8nowFUPct3Mtg/xqIg4AHW7zFvAT/fkIskEsJlYdq1eBa
+         qglLCyv3RCiTlyt3P/DCz1D9YZ6Wv5XfoXNibO2hhV/l+dgcO/8seYjBHXKe74fk2wH7
+         NbgvepQc65XZHfnWtPiQL5kQpPRFz85un3I2F5cGVO34UYS0Tgx0911vC3LvA7h7r8Rk
+         n/2g==
+X-Forwarded-Encrypted: i=1; AJvYcCXnyxpFZ8bs2qo4I95U0rzKhLzmIjs5u+hxacPSOudGaBwJ/PykErqIf+GnStwFvjwafV8lAfnZbk8DLwRBqpm+jFKBsLRv6UJqwGI/wv0=
+X-Gm-Message-State: AOJu0Yz1FrHTo4xUS9l2PtAcDJlu8uLNXVwduN8DBd/S5alkr1J3e51n
+	oY4a5jhoaDlpozreY5IIo3ctkC/9uH6o0W65Y+mGBrrpitLQoQ8pPubMT/V7FSA=
+X-Google-Smtp-Source: AGHT+IE6eDccAacDHiPyTo3vtaJj+9V3xvLQqnp1N1FTINIAaJhRRbJtOlc7TISo5hKDZQgFOwv3MQ==
+X-Received: by 2002:a17:906:2a14:b0:a77:e48d:bae with SMTP id a640c23a62f3a-a780b6b2f4dmr484782866b.28.1720722379492;
+        Thu, 11 Jul 2024 11:26:19 -0700 (PDT)
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Date: Thu, 11 Jul 2024 19:26:17 +0100
+Message-Id: <D2MX6BEZAYQG.27FQPQ45OAEHA@cloud.com>
+Cc: "Andrew Cooper" <andrew.cooper3@citrix.com>, "Jan Beulich"
+ <jbeulich@suse.com>, "Julien Grall" <julien@xen.org>, "Stefano Stabellini"
+ <sstabellini@kernel.org>, =?utf-8?q?Marek_Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>
+Subject: Re: [RFC XEN PATCH v3 1/5] docs/designs: Add a design document for
+ PV-IOMMU
+From: "Alejandro Vallejo" <alejandro.vallejo@cloud.com>
+To: "Teddy Astie" <teddy.astie@vates.tech>, <xen-devel@lists.xenproject.org>
+X-Mailer: aerc 0.17.0
+References: <cover.1720703078.git.teddy.astie@vates.tech>
+ <cf749c46f9d3d91bc116c96ee2fd1869164fbe5b.1720703078.git.teddy.astie@vates.tech>
+In-Reply-To: <cf749c46f9d3d91bc116c96ee2fd1869164fbe5b.1720703078.git.teddy.astie@vates.tech>
 
-On 11/07/2024 5:22 pm, Anthony PERARD wrote:
-> On Thu, Jul 11, 2024 at 12:15:13PM +0100, Andrew Cooper wrote:
->> qemu-system-ppc64/8.1.0-ppc64 was added because bullseye's Qemu didn't
-> QEMU is normally spelled "QEMU" unless we are in camel case context, or
-> lower case context.
+Disclaimer: I haven't looked at the code yet.
+
+On Thu Jul 11, 2024 at 3:04 PM BST, Teddy Astie wrote:
+> Some operating systems want to use IOMMU to implement various features (e=
+.g
+> VFIO) or DMA protection.
+> This patch introduce a proposal for IOMMU paravirtualization for Dom0.
 >
->> understand the powernv9 machine.
->>
->> However, bookworm's Qemu does, and this is preforable to maintaining a random
-> "preforable", that's an intended mispell right? :-)
-
-Yes.  both fixed.
-
+> Signed-off-by Teddy Astie <teddy.astie@vates.tech>
+> ---
+>  docs/designs/pv-iommu.md | 105 +++++++++++++++++++++++++++++++++++++++
+>  1 file changed, 105 insertions(+)
+>  create mode 100644 docs/designs/pv-iommu.md
 >
->> build of Qemu ourselves.
->>
->> Add bookworm builds, and retain bullseye to keep our lower-bound toolchain
->> testing.
->>
->> Rename the jobs to follow to sort coherently ($DISTRO-$VERSION-$ARCH-*) and
-> There's no renamed jobs in this patch, but the new jobs does follow the
-> new naming schema.
+> diff --git a/docs/designs/pv-iommu.md b/docs/designs/pv-iommu.md
+> new file mode 100644
+> index 0000000000..c01062a3ad
+> --- /dev/null
+> +++ b/docs/designs/pv-iommu.md
+> @@ -0,0 +1,105 @@
+> +# IOMMU paravirtualization for Dom0
+> +
+> +Status: Experimental
+> +
+> +# Background
+> +
+> +By default, Xen only uses the IOMMU for itself, either to make device ad=
+ress
+> +space coherent with guest adress space (x86 HVM/PVH) or to prevent devic=
+es
+> +from doing DMA outside it's expected memory regions including the hyperv=
+isor
+> +(x86 PV).
 
-Oh - good point.  I'll tweak the wording.
+"By default...": Do you mean "currently"?
 
+> +
+> +A limitation is that guests (especially privildged ones) may want to use
+> +IOMMU hardware in order to implement features such as DMA protection and
+> +VFIO [1] as IOMMU functionality is not available outside of the hypervis=
+or
+> +currently.
 
->  Did you intend to rename both
-> "debian-bullseye-gcc-ppc64le*" jobs?
+s/privildged/privileged/
 
-No - that's done in the following patch.
+> +
+> +[1] VFIO - "Virtual Function I/O" - https://www.kernel.org/doc/html/late=
+st/driver-api/vfio.html
+> +
+> +# Design
+> +
+> +The operating system may want to have access to various IOMMU features s=
+uch as
+> +context management and DMA remapping. We can create a new hypercall that=
+ allows
+> +the guest to have access to a new paravirtualized IOMMU interface.
+> +
+> +This feature is only meant to be available for the Dom0, as DomU have so=
+me
+> +emulated devices that can't be managed on Xen side and are not hardware,=
+ we
+> +can't rely on the hardware IOMMU to enforce DMA remapping.
 
->
->> reposition the jobs to optimise starting the smoke test.
->>
->> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> Patch is mostly ok, so:
-> Reviewed-by: Anthony PERARD <anthony.perard@vates.tech>
+Is that the reason though? While it's true we can't mix emulated and real
+devices under the same emulated PCI bus covered by an IOMMU, nothing preven=
+ts us
+from stating "the IOMMU(s) configured via PV-IOMMU cover from busN to busM"=
+.
 
-Thanks.
+AFAIK, that already happens on systems with several IOMMUs, where they migh=
+t
+affect partially disjoint devices. But I admit I'm no expert on this.
 
-~Andrew
+I can definitely see a lot of interesting use cases for a PV-IOMMU interfac=
+e
+exposed to domUs (it'd be a subset of that of dom0, obviously); that'd
+allow them to use the IOMMU without resorting to 2-stage translation, which=
+ has
+terrible IOTLB miss costs.
+
+> +
+> +This interface is exposed under the `iommu_op` hypercall.
+> +
+> +In addition, Xen domains are modified in order to allow existence of sev=
+eral
+> +IOMMU context including a default one that implement default behavior (e=
+.g
+> +hardware assisted paging) and can't be modified by guest. DomU cannot ha=
+ve
+> +contexts, and therefore act as if they only have the default domain.
+> +
+> +Each IOMMU context within a Xen domain is identified using a domain-spec=
+ific
+> +context number that is used in the Xen IOMMU subsystem and the hypercall
+> +interface.
+> +
+> +The number of IOMMU context a domain can use is predetermined at domain =
+creation
+> +and is configurable through `dom0-iommu=3Dnb-ctx=3DN` xen cmdline.
+
+nit: I think it's more typical within Xen to see "nr" rather than "nb"
+
+> +
+> +# IOMMU operations
+> +
+> +## Alloc context
+> +
+> +Create a new IOMMU context for the guest and return the context number t=
+o the
+> +guest.
+> +Fail if the IOMMU context limit of the guest is reached.
+
+or -ENOMEM, I guess.
+
+I'm guessing from this dom0 takes care of the contexts for guests? Or are t=
+hese
+contexts for use within dom0 exclusively?
+
+> +
+> +A flag can be specified to create a identity mapping.
+> +
+> +## Free context
+> +
+> +Destroy a IOMMU context created previously.
+> +It is not possible to free the default context.
+> +
+> +Reattach context devices to default context if specified by the guest.
+> +
+> +Fail if there is a device in the context and reattach-to-default flag is=
+ not
+> +specified.
+> +
+> +## Reattach device
+> +
+> +Reattach a device to another IOMMU context (including the default one).
+> +The target IOMMU context number must be valid and the context allocated.
+> +
+> +The guest needs to specify a PCI SBDF of a device he has access to.
+> +
+> +## Map/unmap page
+> +
+> +Map/unmap a page on a context.
+> +The guest needs to specify a gfn and target dfn to map.
+
+And an "order", I hope; to enable superpages and hugepages without having t=
+o
+find out after the fact that the mappings are in fact mergeable and the lea=
+f PTs
+can go away.
+
+> +
+> +Refuse to create the mapping if one already exist for the same dfn.
+> +
+> +## Lookup page
+> +
+> +Get the gfn mapped by a specific dfn.
+> +
+> +# Implementation considerations
+> +
+> +## Hypercall batching
+> +
+> +In order to prevent unneeded hypercalls and IOMMU flushing, it is advisa=
+ble to
+> +be able to batch some critical IOMMU operations (e.g map/unmap multiple =
+pages).
+
+See above for an additional way of reducing the load.
+
+> +
+> +## Hardware without IOMMU support
+> +
+> +Operating system needs to be aware on PV-IOMMU capability, and whether i=
+t is
+> +able to make contexts. However, some operating system may critically fai=
+l in
+> +case they are able to make a new IOMMU context. Which is supposed to hap=
+pen
+> +if no IOMMU hardware is available.
+> +
+> +The hypercall interface needs a interface to advertise the ability to cr=
+eate
+> +and manage IOMMU contexts including the amount of context the guest is a=
+ble
+> +to use. Using these informations, the Dom0 may decide whether to use or =
+not
+> +the PV-IOMMU interface.
+
+We could just return -ENOTSUPP when there's no IOMMU, then encapsulate a ra=
+ndom
+lookup with pv_iommu_is_present() and return true or false depending on rc.
+
+> +
+> +## Page pool for contexts
+> +
+> +In order to prevent unexpected starving on the hypervisor memory with a
+> +buggy Dom0. We can preallocate the pages the contexts will use and make
+> +map/unmap use these pages instead of allocating them dynamically.
+> +
+
+That seems dangerous should we need to shatter a superpage asynchronously (=
+i.e:
+due to HW misbehaving and requiring it) and have no more pages in the pool.
+
+Cheers,
+Alejandro
 
