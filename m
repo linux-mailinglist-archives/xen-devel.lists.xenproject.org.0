@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E4D8492E3A1
-	for <lists+xen-devel@lfdr.de>; Thu, 11 Jul 2024 11:42:09 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.757236.1166025 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C535592E3BE
+	for <lists+xen-devel@lfdr.de>; Thu, 11 Jul 2024 11:51:03 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.757246.1166035 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sRqJK-0003w2-1e; Thu, 11 Jul 2024 09:41:58 +0000
+	id 1sRqRk-0005mz-Rp; Thu, 11 Jul 2024 09:50:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 757236.1166025; Thu, 11 Jul 2024 09:41:58 +0000
+Received: by outflank-mailman (output) from mailman id 757246.1166035; Thu, 11 Jul 2024 09:50:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sRqJJ-0003tp-VM; Thu, 11 Jul 2024 09:41:57 +0000
-Received: by outflank-mailman (input) for mailman id 757236;
- Thu, 11 Jul 2024 09:41:56 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=xIkU=OL=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1sRqJI-0003tj-Az
- for xen-devel@lists.xenproject.org; Thu, 11 Jul 2024 09:41:56 +0000
-Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
- [2a00:1450:4864:20::635])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ceb04af9-3f69-11ef-8776-851b0ebba9a2;
- Thu, 11 Jul 2024 11:41:54 +0200 (CEST)
-Received: by mail-ej1-x635.google.com with SMTP id
- a640c23a62f3a-a77e6dd7f72so81042966b.3
- for <xen-devel@lists.xenproject.org>; Thu, 11 Jul 2024 02:41:54 -0700 (PDT)
-Received: from [192.168.219.191] ([94.75.70.14])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a7985483a9bsm101025266b.109.2024.07.11.02.41.53
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 11 Jul 2024 02:41:53 -0700 (PDT)
+	id 1sRqRk-0005ky-PH; Thu, 11 Jul 2024 09:50:40 +0000
+Received: by outflank-mailman (input) for mailman id 757246;
+ Thu, 11 Jul 2024 09:50:40 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=n1Hg=OL=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1sRqRk-0005ks-2q
+ for xen-devel@lists.xenproject.org; Thu, 11 Jul 2024 09:50:40 +0000
+Received: from mail-lj1-x232.google.com (mail-lj1-x232.google.com
+ [2a00:1450:4864:20::232])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 073c592c-3f6b-11ef-bbfb-fd08da9f4363;
+ Thu, 11 Jul 2024 11:50:38 +0200 (CEST)
+Received: by mail-lj1-x232.google.com with SMTP id
+ 38308e7fff4ca-2eeb1ba0468so6947151fa.0
+ for <xen-devel@lists.xenproject.org>; Thu, 11 Jul 2024 02:50:39 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-1fbb6ad5af6sm46619185ad.288.2024.07.11.02.50.34
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 11 Jul 2024 02:50:37 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,160 +45,154 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ceb04af9-3f69-11ef-8776-851b0ebba9a2
+X-Inumbo-ID: 073c592c-3f6b-11ef-bbfb-fd08da9f4363
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1720690914; x=1721295714; darn=lists.xenproject.org;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=U4WxI0+QsJ290d4ck/Bl8pUCYOeiMnbr0rArZs+hpa4=;
-        b=bhiDjeh18g6rvR+wxA59ND43zxqJV7tsDow4VuMjp+6iRlwuYb44+0NDRk3RsrI6gh
-         G35cu8eWLuC4MAbNpzyrUZFCMeIvvyYDmRqXXl/fpPlSD+AggcAQ6P+js0j06XCarQTC
-         oxrbRrXB9HGITy3ANj9d7zWsUdSz6d1SBAaUNdC2dlA42Yk12MKp47iu4yPBOWLMuqaq
-         S6fZAVsgsNKFpTep6nAdRXEYBwwokSe3su7UbYj5OCFW4xaYHxn9VXNZZWE/g/u1KFuz
-         m3EmHWCh3uTwSqtDVBP4nVFhxR1mIwEZtC6aozNjzQ75wjrLfVuotzr2F+XQqgpYKaDN
-         oGLw==
+        d=suse.com; s=google; t=1720691438; x=1721296238; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=d2v0rIS9sJtQfattGPiy04YQGflp7Gjr6UGI3CrWeKI=;
+        b=AxoEzxEREUntj0rMSFdDUEkwXhFyD4uQVCFVmb7ZFUOFWpypNgwSYSn6uJkWCkUOpF
+         nzKQRoA3uIpSLqJqMX/u36Jlk2pJS9djPQSIXOc/i9Tn8C8lGRZYS7O0qMYIAbk60PEB
+         ZbEtlAljyr7bEYxf87dyxikbK/4nO+Hoh5lAiuD3/rjdhVfphAUrgvEy5J1q+s+Ida9f
+         aDFm9tIS1KdVWP2c9RTcmhOS3RwFENhyNM49tZCKJ3i7EgnsE3spG+c3icN7nyQrDPSE
+         v1t4J6Jup9lqr7aoMLgW8PHCZ71HDiqnalo/d5AL4nS7CcuK7B9Ev6zQxbWv0KZTmuCL
+         4L/g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1720690914; x=1721295714;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=U4WxI0+QsJ290d4ck/Bl8pUCYOeiMnbr0rArZs+hpa4=;
-        b=ulNjylj5v88VGk8P2/GrSH2SF4jt9W+p8xh3bSTRwUWAxDkKvCHnXKLkzyrojk0bTg
-         ITf4rn6W65s9EU5B8eZMfp39VOuLD9wHm7a6RltpSDiAYosyPHm1yMERbaHLdNUpwPHB
-         1eEQT2IdQm8cbE/QwO7jz0tqcMJUthXqVwvS9PpJyWDAcgdzaiPhrLBo/+PV2dPCEfQN
-         aJ4cF4wTr3ghH9rUy5CMBVVyP+4ZZ8ZOc2J34lpFI1oCsnx4wzoXgIp4IKVqmeZ30gjR
-         NoLko/q80a6FcKCB0YR6sBefLf0UnUP4h9kxkP/1dCdtk3q9+1oO0UeTJ103bcS4D4zf
-         JX3g==
-X-Forwarded-Encrypted: i=1; AJvYcCWspB6TVct4YK0ahpCne5ZTNqnM0F0s0bY3VQ6bf0hKM5Dq+NLuugKbDR2q7A2oT8x+KFWz/whqXBlv7wVOvBhG7Lmvr9xT5TbO6ydUVjk=
-X-Gm-Message-State: AOJu0YyFps5aP6pSXIRNGwBTG4g7McM2iKE3PxoC0LCANY7dbw6FWpWd
-	2nIt+SE0qZzSvHjLbkaEuNmDo1snE+yGGK4n8Kp/BdkfQJP6SkXn
-X-Google-Smtp-Source: AGHT+IG4gK1LIbfa3BVOQAYPscAc+jT6mrpXMdyyOhuUH9RDDLqq3kvCLrVqS3FEGZXoJxQpkFeZ0w==
-X-Received: by 2002:a17:906:f189:b0:a77:cca9:b216 with SMTP id a640c23a62f3a-a780b6fd816mr505858866b.33.1720690913869;
-        Thu, 11 Jul 2024 02:41:53 -0700 (PDT)
-Message-ID: <6777e78ac090c78a5f6778804b0527f39347dec3.camel@gmail.com>
-Subject: Re: [PATCH v1 1/5] xen/device-tree: Move Arm's setup.c bootinfo
- functions to common
-From: Oleksii <oleksii.kurochko@gmail.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Shawn Anastasio <sanastasio@raptorengineering.com>, Andrew Cooper
- <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>, Stefano
- Stabellini <sstabellini@kernel.org>, Bertrand Marquis
- <bertrand.marquis@arm.com>,  Michal Orzel <michal.orzel@amd.com>, Volodymyr
- Babchuk <Volodymyr_Babchuk@epam.com>, "Daniel P. Smith"
- <dpsmith@apertussolutions.com>, xen-devel@lists.xenproject.org
-Date: Thu, 11 Jul 2024 11:41:52 +0200
-In-Reply-To: <600ad88a-8880-485b-be1e-43942a1b8615@suse.com>
-References: <cover.1720002425.git.oleksii.kurochko@gmail.com>
-	 <c656f0d08d4c4b515c99848b84db4171ab132f19.1720002425.git.oleksii.kurochko@gmail.com>
-	 <b3c5b6d3-561d-46d0-bc1b-1b2e3cbeeba2@suse.com>
-	 <d3b9070442e0ebca82ce0dd5257fe91eef4755cf.camel@gmail.com>
-	 <600ad88a-8880-485b-be1e-43942a1b8615@suse.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.52.2 (3.52.2-1.fc40app2) 
+        d=1e100.net; s=20230601; t=1720691438; x=1721296238;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=d2v0rIS9sJtQfattGPiy04YQGflp7Gjr6UGI3CrWeKI=;
+        b=MWBqB16P2gaNZfHbQ+5uaCUgYZcj1DDgyspFpA7dSxGvx2c5LQWkTAs3cZQu9SwK5c
+         2g9FKGSaFg4yO2FIfrwcJemZ+EQSI4tyPuut33D4CaPflIhcNlYOU/L2cvLBvZWOzsb1
+         0p98Ad4rOAgO9XdITAjJ7J91e62HVetO8y/1PJ24TFXOIMBcYyYcDzL2JN5Xjlgb5GDd
+         seoPDFOT1zgB+xMCY6TYqyrUt368PAsh/xSOoOrSuRFmwx01bcaLuLecdRTBrjLHiLgn
+         2WJqPlLg3piCXzTeB5vKQd6wg+0ogxq6Sl841jDAaZpBhtPMxnqSa30MOulKVetRg477
+         s9eg==
+X-Forwarded-Encrypted: i=1; AJvYcCUOvVNHpUHm+O4751ozs0m1l/pS+O8H5JlbqTX26Vu5yVPPpdMZc2AmNQ+BG/f6FuztNWP+ph8eYSpssmWqMCDdqdMmhxkDV6PNECkNdtI=
+X-Gm-Message-State: AOJu0YxdkGVSp5m8xjSZG5sC53AyimAHk2z13Jy3Vj8oSoR6URvmI95W
+	/EBY1dJZh0QGPHJkHwcjrOtZXP/OnLZTGHysGBPELCcS1Q+eCSyCrn9BOXDnRw==
+X-Google-Smtp-Source: AGHT+IHsbDYBdxaX2UJsZAIFlUBb6fT6z78nta/kDFA8wjLCiYfGcyGNJP5ZcAP66+cuUEfClfOKCA==
+X-Received: by 2002:a2e:a78b:0:b0:2ee:6b86:b0aa with SMTP id 38308e7fff4ca-2eeb30e3693mr64592991fa.17.1720691438420;
+        Thu, 11 Jul 2024 02:50:38 -0700 (PDT)
+Message-ID: <6802e970-f013-419c-a83e-3adc16541afd@suse.com>
+Date: Thu, 11 Jul 2024 11:50:30 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1 4/5] xen/riscv: introduce device tree maping function
+To: Oleksii <oleksii.kurochko@gmail.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ xen-devel@lists.xenproject.org
+References: <cover.1720002425.git.oleksii.kurochko@gmail.com>
+ <efd3e6a8c526d227f8db06779c65ffda42a695d6.1720002425.git.oleksii.kurochko@gmail.com>
+ <91e1ff5e-a27a-4c59-b5b0-88414d504694@suse.com>
+ <31b8683537e5dd9df1d64178f752bae56daad633.camel@gmail.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <31b8683537e5dd9df1d64178f752bae56daad633.camel@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Thu, 2024-07-11 at 11:21 +0200, Jan Beulich wrote:
-> On 11.07.2024 11:00, Oleksii wrote:
-> > On Wed, 2024-07-10 at 12:23 +0200, Jan Beulich wrote:
-> > > On 03.07.2024 12:42, Oleksii Kurochko wrote:
-> > > > From: Shawn Anastasio <sanastasio@raptorengineering.com>
-> > > >=20
-> > > > Arm's setup.c contains a collection of functions for parsing
-> > > > memory
-> > > > map
-> > > > and other boot information from a device tree. Since these
-> > > > routines
-> > > > are
-> > > > generally useful on any architecture that supports device tree
-> > > > booting,
-> > > > move them into xen/common/device-tree.
-> > > >=20
-> > > > Suggested-by: Julien Grall <julien@xen.org>
-> > > > Signed-off-by: Shawn Anastasio
-> > > > <sanastasio@raptorengineering.com>
-> > > > Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-> > > > ---
-> > > > Changes in V5:
-> > > > =C2=A0- add xen/include/xen/bootfdt.h to MAINTAINERS file.
-> > > > =C2=A0- drop message "Early device tree parsing and".
-> > > > =C2=A0- After rebase on top of the current staging the following
-> > > > changes
-> > > > were done:
-> > > > =C2=A0=C2=A0 - init bootinfo variable in <common/device-tree/bootin=
-fo.c>
-> > > > with
-> > > > BOOTINFO_INIT;
-> > > > =C2=A0=C2=A0 - update the code of dt_unreserved_regions():
-> > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 CONFIG_STATIC_SHM related chan=
-ges and getting of
-> > > > reserved_mem
-> > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 bootinfo_get_shmem() ??
-> > > > =C2=A0=C2=A0 - update the code of meminfo_overlap_check():
-> > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 add check ( INVALID_PADDR =3D=
-=3D bank_start ) to if case.
-> > > > =C2=A0=C2=A0 - update the code of check_reserved_regions_overlap():
-> > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 CONFIG_STATIC_SHM related chan=
-ges.
-> > > > =C2=A0=C2=A0 - struct bootinfo was updated ( CONFIG_STATIC_SHM chan=
-ges )
-> > > > =C2=A0=C2=A0 - add shared_meminfo ( because of CONFIG_STATIC_SHM )
-> > > > =C2=A0=C2=A0 - struct struct membanks was update with __struct grou=
-p so
-> > > > <xen/kernel> is
-> > > > =C2=A0=C2=A0=C2=A0=C2=A0 neeeded to be included in bootfdt.h
-> > > > =C2=A0=C2=A0 - move BOOTINFO_ACPI_INIT, BOOTINFO_SHMEM_INIT,
-> > > > BOOTINFO_INIT to
-> > > > generic bootfdt.h
-> > > > =C2=A0=C2=A0 - bootinfo_get_reserved_mem(), bootinfo_get_mem(),
-> > > > bootinfo_get_acpi(),
-> > > > =C2=A0=C2=A0=C2=A0=C2=A0 bootinfo_get_shmem() and bootinfo_get_shme=
-m_extra() were
-> > > > moved
-> > > > to xen/bootfdt.h
-> > > > =C2=A0- s/arm32/CONFIG_SEPARATE_XENHEAP/
-> > > > =C2=A0- add inclusion of <xen/macros.h> because there are function
-> > > > in
-> > > > <xen/bootfdt.h> which
-> > > > =C2=A0=C2=A0 are using container_of().
-> > >=20
-> > > Just to mention it: This is confusing. The series is tagged "v1".
-> > > I
-> > > understand
-> > > you took Shawn's work, which had already undergone revisions. But
-> > > then imo you
-> > > want to at least clarify how your v1 relates to his v4 or v5,
-> > > i.e.
-> > > then making
-> > > clear to the reader whether all of the changes above were
-> > > actually
-> > > done by you
-> > > on top of an earlier v4, or whether you took the earlier v5
-> > > verbatim.
-> > That is why I wrote "Changes in v5" to show that these changes were
-> > done on top of v4 version of Shawn's series, so what is mentioned
-> > in v5
-> > here it is what was done by me.
->=20
-> Except that what you sent is v1, not v5.
->=20
-> > I'll reword that and probably I shouldn't drop "Changes in
-> > v4,3,2,1"
-> > from Shawn's patch.
->=20
-> I don't think you should drop anything. You want to clarify
-> relationship
-> of the version of your series with that of Shawn's earlier one. Or
-> you'd
-> want to continue numbering from what the previous series had, yet
-> that
-> may then also end up confusing if Shawn resumed work there.
-Oh, I understood now what you meant. The Patch should be with the name:
-[PATCH *v5* 1/5] xen/device-tree: Move Arm's setup.c bootinfo functions
-to common
+On 11.07.2024 11:31, Oleksii wrote:
+> On Wed, 2024-07-10 at 12:38 +0200, Jan Beulich wrote:
+>> On 03.07.2024 12:42, Oleksii Kurochko wrote:
+>>> --- a/xen/arch/riscv/include/asm/config.h
+>>> +++ b/xen/arch/riscv/include/asm/config.h
+>>> @@ -74,6 +74,9 @@
+>>>  #error "unsupported RV_STAGE1_MODE"
+>>>  #endif
+>>>  
+>>> +#define XEN_SIZE                MB(2)
+>>> +#define XEN_VIRT_END            (XEN_VIRT_START + XEN_SIZE)
+>>
+>> Probably wants accompanying by an assertion in the linker script. Or
+>> else
+>> how would one notice when Xen grows bigger than this?
+> I use XEN_SIZE in the linker script here:
+>  ASSERT(_end - _start <= MB(2), "Xen too large for early-boot
+> assumptions")
 
-I will update that. Thanks.
+And that's the problem: You want to switch to using XEN_SIZE there. There
+should never be two separate constant that need updating at the same time.
+Keep such to a single place.
 
-~ Oleksii
+>>> @@ -99,6 +102,9 @@
+>>>  #define VMAP_VIRT_START         SLOTN(VMAP_SLOT_START)
+>>>  #define VMAP_VIRT_SIZE          GB(1)
+>>>  
+>>> +#define BOOT_FDT_VIRT_START     XEN_VIRT_END
+>>> +#define BOOT_FDT_VIRT_SIZE      MB(4)
+>>
+>> Is the 4 selected arbitrarily, or derived from something?
+> Yes, it was chosen arbitrarily. I just checked that I don't have any
+> DTBs larger than 2 MB, but decided to add a little extra space and
+> doubled it to an additional 2 MB.
+
+Code comment then, please, or at the very least mention of this in the
+description.
+
+>>> @@ -39,9 +42,11 @@ static unsigned long __ro_after_init
+>>> phys_offset;
+>>>   * isn't 2 MB aligned.
+>>>   *
+>>>   * CONFIG_PAGING_LEVELS page tables are needed for the identity
+>>> mapping,
+>>> - * except that the root page table is shared with the initial
+>>> mapping
+>>> + * except that the root page table is shared with the initial
+>>> mapping.
+>>> + *
+>>> + * CONFIG_PAGING_LEVELS page tables are needed for device tree
+>>> mapping.
+>>>   */
+>>> -#define PGTBL_INITIAL_COUNT ((CONFIG_PAGING_LEVELS - 1) * 2 + 1)
+>>> +#define PGTBL_INITIAL_COUNT ((CONFIG_PAGING_LEVELS - 1) * 3 + 1 +
+>>> 1)
+>>
+>> Considering what would happen if two or three more of such
+>> requirements
+>> were added, maybe better
+>>
+>> #define PGTBL_INITIAL_COUNT (CONFIG_PAGING_LEVELS * 3 - 1)
+>>
+>> ? However, why is it CONFIG_PAGING_LEVELS that's needed, and not
+>> CONFIG_PAGING_LEVELS - 1? The top level table is the same as the
+>> identity map's, isn't it?
+> The top level table is the same, but I just wanted to be sure that if
+> DTB size is bigger then 2Mb then we need 2xL0 page tables.
+
+Makes sense, but then needs expressing that way (by using
+BOOT_FDT_VIRT_SIZE). Otherwise (see also above) think of what will
+happen if BOOT_FDT_VIRT_SIZE is updated without touching this
+expression.
+
+Jan
 
