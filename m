@@ -2,32 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BE72692E4E8
-	for <lists+xen-devel@lfdr.de>; Thu, 11 Jul 2024 12:39:16 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.757288.1166099 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A216192E4FF
+	for <lists+xen-devel@lfdr.de>; Thu, 11 Jul 2024 12:45:46 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.757292.1166110 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sRrCO-0007O6-M1; Thu, 11 Jul 2024 10:38:52 +0000
+	id 1sRrIj-0000WW-At; Thu, 11 Jul 2024 10:45:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 757288.1166099; Thu, 11 Jul 2024 10:38:52 +0000
+Received: by outflank-mailman (output) from mailman id 757292.1166110; Thu, 11 Jul 2024 10:45:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sRrCO-0007Lz-JS; Thu, 11 Jul 2024 10:38:52 +0000
-Received: by outflank-mailman (input) for mailman id 757288;
- Thu, 11 Jul 2024 10:38:51 +0000
+	id 1sRrIj-0000UI-7t; Thu, 11 Jul 2024 10:45:25 +0000
+Received: by outflank-mailman (input) for mailman id 757292;
+ Thu, 11 Jul 2024 10:45:24 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=NKZT=OL=inria.fr=fonyuy-asheri.caleb@srs-se1.protection.inumbo.net>)
- id 1sRrCN-0007Lt-8L
- for xen-devel@lists.xenproject.org; Thu, 11 Jul 2024 10:38:51 +0000
-Received: from mail2-relais-roc.national.inria.fr
- (mail2-relais-roc.national.inria.fr [192.134.164.83])
+ <SRS0=PZf6=OL=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1sRrIh-0000UB-Td
+ for xen-devel@lists.xenproject.org; Thu, 11 Jul 2024 10:45:23 +0000
+Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
+ [2a00:1450:4864:20::62f])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c1913c4c-3f71-11ef-8776-851b0ebba9a2;
- Thu, 11 Jul 2024 12:38:48 +0200 (CEST)
-Received: from zcs2-store8.inria.fr ([128.93.142.6])
- by mail2-relais-roc.national.inria.fr with ESMTP; 11 Jul 2024 12:38:48 +0200
+ id ac150b98-3f72-11ef-8776-851b0ebba9a2;
+ Thu, 11 Jul 2024 12:45:21 +0200 (CEST)
+Received: by mail-ej1-x62f.google.com with SMTP id
+ a640c23a62f3a-a77d85f7fa3so112254066b.0
+ for <xen-devel@lists.xenproject.org>; Thu, 11 Jul 2024 03:45:21 -0700 (PDT)
+Received: from [10.125.226.166] ([185.25.67.249])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a780a8720f9sm243479566b.220.2024.07.11.03.45.20
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 11 Jul 2024 03:45:20 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,139 +45,135 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c1913c4c-3f71-11ef-8776-851b0ebba9a2
+X-Inumbo-ID: ac150b98-3f72-11ef-8776-851b0ebba9a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=inria.fr; s=dc;
-  h=date:from:to:message-id:subject:mime-version;
-  bh=UVLk+RUdqghV62y8NC2Zv98pz7e4czl94Qe5q9x3OrI=;
-  b=sLXEOEqk20LSlKsvnG9QjPtABGXGs4AgUcdp6CT7LblppSk+Q0CrbY5u
-   q5kcA53pX+0vmThJYv6xTtoVYlntj7K4THHSb3tzDtf7xZI7XnNEZoCTL
-   IyTNlZWkwOCsUO9mzwzUXpxtLx3YuTwGGObgXK4sPAPssajlwZQhpS0/3
-   k=;
-Authentication-Results: mail2-relais-roc.national.inria.fr; dkim=none (message not signed) header.i=none; spf=Pass smtp.mailfrom=fonyuy-asheri.caleb@inria.fr; spf=None smtp.helo=postmaster@zcs2-store8.inria.fr
-Received-SPF: Pass (mail2-relais-roc.national.inria.fr: domain of
-  fonyuy-asheri.caleb@inria.fr designates 128.93.142.6 as
-  permitted sender) identity=mailfrom; client-ip=128.93.142.6;
-  receiver=mail2-relais-roc.national.inria.fr;
-  envelope-from="fonyuy-asheri.caleb@inria.fr";
-  x-sender="fonyuy-asheri.caleb@inria.fr";
-  x-conformance=spf_only; x-record-type="v=spf1";
-  x-record-text="v=spf1 include:mailout.safebrands.com
-  a:basic-mail.safebrands.com a:basic-mail01.safebrands.com
-  a:basic-mail02.safebrands.com ip4:128.93.142.0/24
-  ip4:192.134.164.0/24 ip4:128.93.162.160 ip4:89.107.174.7 mx
-  ~all"
-Received-SPF: None (mail2-relais-roc.national.inria.fr: no sender
-  authenticity information available from domain of
-  postmaster@zcs2-store8.inria.fr) identity=helo;
-  client-ip=128.93.142.6;
-  receiver=mail2-relais-roc.national.inria.fr;
-  envelope-from="fonyuy-asheri.caleb@inria.fr";
-  x-sender="postmaster@zcs2-store8.inria.fr";
-  x-conformance=spf_only
-X-IronPort-AV: E=Sophos;i="6.09,199,1716242400"; 
-   d="scan'208,217";a="175023717"
-X-MGA-submission: =?us-ascii?q?MDFsHK2G5J0TejETsfJH9kAeozKkXVfwoHn7qW?=
- =?us-ascii?q?Jk423uRDTrQja8LFbQwGvPFaXskSb9Cf7d3Af5R85Da6KOvL7FxbPaxK?=
- =?us-ascii?q?C2h79rYWDoFcsTyJmFsD9cT0FzhQVVGqrZcmyFqi0S/YJBOcYjOizij6?=
- =?us-ascii?q?+aVI6kGsPNMgLX1J5OZoWFgw=3D=3D?=
-Date: Thu, 11 Jul 2024 12:38:47 +0200 (CEST)
-From: Fonyuy-Asheri Caleb <fonyuy-asheri.caleb@inria.fr>
-To: xen-devel <xen-devel@lists.xenproject.org>
-Message-ID: <60751777.2038091.1720694327760.JavaMail.zimbra@inria.fr>
-Subject: Help with Understanding vcpu xstate restore error during vm
- migration
+        d=citrix.com; s=google; t=1720694721; x=1721299521; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=wikxxdCb9UCsdQjqlshXnpsF/3EIayZ/9SmNUo1kJbo=;
+        b=IY4becxGMK5cSCEnr5mk1NcaG3HxQWlR7DDw9lViwLdlhihysMC3bSeV4KPDGZ9HQe
+         hloE1p3Q//JZ4qdMAKimr3Vi6m8ip2xKSamvSHKpqGV3cjVtZlIMORnE7Bkpqy+MBt0r
+         +PhwlgEHYn7XXSDoP2X96dm/xFagAM9yMBhkM=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1720694721; x=1721299521;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=wikxxdCb9UCsdQjqlshXnpsF/3EIayZ/9SmNUo1kJbo=;
+        b=lFbXxszZFwMDr8J3cK5+dq64vC9k6H/7VDicM4M+Ud/DSFPsBcrbUxhbLNzlpC4qKd
+         Cgsr1KtHTWWDgZmiyhmRjRl1Da1iX6l2r5rCFWqP7DgkFt2XXIBMIHb6IfnKZrw63FlZ
+         PCha56D8HmLrTVp8AOEUin+snF/yXnfXaHd4N5ZJOsuVgxmJuulE5suU6+hxh6j5Bbxi
+         7r0PKDPweLa0rmeCHAkf5UtSUgpgWdMhHm9WvkfuNTDkgTMuxybGyxf/hiNZH3njnG2Z
+         Z4gAJJ4O8Al0coitKqy5ct+e725Lifj13ax2lese2Ksh3cjQW4YH54WWEvtejz80PjmD
+         /4Aw==
+X-Forwarded-Encrypted: i=1; AJvYcCXXBbJByWaaJW5zymfjJr4v8ZdE/jUcA7vXro1WEooT9L8yxcxT8hQmA6ImqqdoLuUyVh/2wkqUYXjt+Q27/2Pw4IvV1eSBXfR1Swt9RRY=
+X-Gm-Message-State: AOJu0YzD7GcaFrCgmHo7iH7hnhVbLtELWSdr7OHb59+cUJacTqrAHLr8
+	Q1X19nbVj+4wmsLBXDThEfM0SLTr5E+8rhQji6aZreWtV6OX/2Gppr7tLw8G5QZt2ipdhQV/gFg
+	U
+X-Google-Smtp-Source: AGHT+IHFPxc443TVJPtML3CXLnW2sd4exU+dp5p1EkEp++Hf2WaULk1Nz9gJYtUC7aVMRKd4ZYiAGw==
+X-Received: by 2002:a17:906:d19a:b0:a72:8c53:1798 with SMTP id a640c23a62f3a-a798a487a73mr166563166b.30.1720694721231;
+        Thu, 11 Jul 2024 03:45:21 -0700 (PDT)
+Message-ID: <94e94a94-14f2-4fa6-bc3b-6c64c1b84b59@citrix.com>
+Date: Thu, 11 Jul 2024 11:45:18 +0100
 MIME-Version: 1.0
-Content-Type: multipart/alternative; 
-	boundary="=_33499ccc-f973-4df0-b362-0e8b93f78783"
-X-Originating-IP: [131.254.23.3]
-X-Mailer: Zimbra 10.0.8_GA_4611 (ZimbraWebClient - GC126 (Linux)/10.0.8_GA_4611)
-Thread-Index: tAJcECRjqaJf3FM7DVWxG1PgmKGLCA==
-Thread-Topic: Help with Understanding vcpu xstate restore error during vm migration
+User-Agent: Mozilla Thunderbird
+Subject: Re: Help with Understanding vcpu xstate restore error during vm
+ migration
+To: Fonyuy-Asheri Caleb <fonyuy-asheri.caleb@inria.fr>,
+ xen-devel <xen-devel@lists.xenproject.org>
+References: <60751777.2038091.1720694327760.JavaMail.zimbra@inria.fr>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ xsFNBFLhNn8BEADVhE+Hb8i0GV6mihnnr/uiQQdPF8kUoFzCOPXkf7jQ5sLYeJa0cQi6Penp
+ VtiFYznTairnVsN5J+ujSTIb+OlMSJUWV4opS7WVNnxHbFTPYZVQ3erv7NKc2iVizCRZ2Kxn
+ srM1oPXWRic8BIAdYOKOloF2300SL/bIpeD+x7h3w9B/qez7nOin5NzkxgFoaUeIal12pXSR
+ Q354FKFoy6Vh96gc4VRqte3jw8mPuJQpfws+Pb+swvSf/i1q1+1I4jsRQQh2m6OTADHIqg2E
+ ofTYAEh7R5HfPx0EXoEDMdRjOeKn8+vvkAwhviWXTHlG3R1QkbE5M/oywnZ83udJmi+lxjJ5
+ YhQ5IzomvJ16H0Bq+TLyVLO/VRksp1VR9HxCzItLNCS8PdpYYz5TC204ViycobYU65WMpzWe
+ LFAGn8jSS25XIpqv0Y9k87dLbctKKA14Ifw2kq5OIVu2FuX+3i446JOa2vpCI9GcjCzi3oHV
+ e00bzYiHMIl0FICrNJU0Kjho8pdo0m2uxkn6SYEpogAy9pnatUlO+erL4LqFUO7GXSdBRbw5
+ gNt25XTLdSFuZtMxkY3tq8MFss5QnjhehCVPEpE6y9ZjI4XB8ad1G4oBHVGK5LMsvg22PfMJ
+ ISWFSHoF/B5+lHkCKWkFxZ0gZn33ju5n6/FOdEx4B8cMJt+cWwARAQABzSlBbmRyZXcgQ29v
+ cGVyIDxhbmRyZXcuY29vcGVyM0BjaXRyaXguY29tPsLBegQTAQgAJAIbAwULCQgHAwUVCgkI
+ CwUWAgMBAAIeAQIXgAUCWKD95wIZAQAKCRBlw/kGpdefoHbdD/9AIoR3k6fKl+RFiFpyAhvO
+ 59ttDFI7nIAnlYngev2XUR3acFElJATHSDO0ju+hqWqAb8kVijXLops0gOfqt3VPZq9cuHlh
+ IMDquatGLzAadfFx2eQYIYT+FYuMoPZy/aTUazmJIDVxP7L383grjIkn+7tAv+qeDfE+txL4
+ SAm1UHNvmdfgL2/lcmL3xRh7sub3nJilM93RWX1Pe5LBSDXO45uzCGEdst6uSlzYR/MEr+5Z
+ JQQ32JV64zwvf/aKaagSQSQMYNX9JFgfZ3TKWC1KJQbX5ssoX/5hNLqxMcZV3TN7kU8I3kjK
+ mPec9+1nECOjjJSO/h4P0sBZyIUGfguwzhEeGf4sMCuSEM4xjCnwiBwftR17sr0spYcOpqET
+ ZGcAmyYcNjy6CYadNCnfR40vhhWuCfNCBzWnUW0lFoo12wb0YnzoOLjvfD6OL3JjIUJNOmJy
+ RCsJ5IA/Iz33RhSVRmROu+TztwuThClw63g7+hoyewv7BemKyuU6FTVhjjW+XUWmS/FzknSi
+ dAG+insr0746cTPpSkGl3KAXeWDGJzve7/SBBfyznWCMGaf8E2P1oOdIZRxHgWj0zNr1+ooF
+ /PzgLPiCI4OMUttTlEKChgbUTQ+5o0P080JojqfXwbPAyumbaYcQNiH1/xYbJdOFSiBv9rpt
+ TQTBLzDKXok86M7BTQRS4TZ/ARAAkgqudHsp+hd82UVkvgnlqZjzz2vyrYfz7bkPtXaGb9H4
+ Rfo7mQsEQavEBdWWjbga6eMnDqtu+FC+qeTGYebToxEyp2lKDSoAsvt8w82tIlP/EbmRbDVn
+ 7bhjBlfRcFjVYw8uVDPptT0TV47vpoCVkTwcyb6OltJrvg/QzV9f07DJswuda1JH3/qvYu0p
+ vjPnYvCq4NsqY2XSdAJ02HrdYPFtNyPEntu1n1KK+gJrstjtw7KsZ4ygXYrsm/oCBiVW/OgU
+ g/XIlGErkrxe4vQvJyVwg6YH653YTX5hLLUEL1NS4TCo47RP+wi6y+TnuAL36UtK/uFyEuPy
+ wwrDVcC4cIFhYSfsO0BumEI65yu7a8aHbGfq2lW251UcoU48Z27ZUUZd2Dr6O/n8poQHbaTd
+ 6bJJSjzGGHZVbRP9UQ3lkmkmc0+XCHmj5WhwNNYjgbbmML7y0fsJT5RgvefAIFfHBg7fTY/i
+ kBEimoUsTEQz+N4hbKwo1hULfVxDJStE4sbPhjbsPCrlXf6W9CxSyQ0qmZ2bXsLQYRj2xqd1
+ bpA+1o1j2N4/au1R/uSiUFjewJdT/LX1EklKDcQwpk06Af/N7VZtSfEJeRV04unbsKVXWZAk
+ uAJyDDKN99ziC0Wz5kcPyVD1HNf8bgaqGDzrv3TfYjwqayRFcMf7xJaL9xXedMcAEQEAAcLB
+ XwQYAQgACQUCUuE2fwIbDAAKCRBlw/kGpdefoG4XEACD1Qf/er8EA7g23HMxYWd3FXHThrVQ
+ HgiGdk5Yh632vjOm9L4sd/GCEACVQKjsu98e8o3ysitFlznEns5EAAXEbITrgKWXDDUWGYxd
+ pnjj2u+GkVdsOAGk0kxczX6s+VRBhpbBI2PWnOsRJgU2n10PZ3mZD4Xu9kU2IXYmuW+e5KCA
+ vTArRUdCrAtIa1k01sPipPPw6dfxx2e5asy21YOytzxuWFfJTGnVxZZSCyLUO83sh6OZhJkk
+ b9rxL9wPmpN/t2IPaEKoAc0FTQZS36wAMOXkBh24PQ9gaLJvfPKpNzGD8XWR5HHF0NLIJhgg
+ 4ZlEXQ2fVp3XrtocHqhu4UZR4koCijgB8sB7Tb0GCpwK+C4UePdFLfhKyRdSXuvY3AHJd4CP
+ 4JzW0Bzq/WXY3XMOzUTYApGQpnUpdOmuQSfpV9MQO+/jo7r6yPbxT7CwRS5dcQPzUiuHLK9i
+ nvjREdh84qycnx0/6dDroYhp0DFv4udxuAvt1h4wGwTPRQZerSm4xaYegEFusyhbZrI0U9tJ
+ B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
+ d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
+ 6+ahAA==
+In-Reply-To: <60751777.2038091.1720694327760.JavaMail.zimbra@inria.fr>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
---=_33499ccc-f973-4df0-b362-0e8b93f78783
-Content-Type: text/plain; charset=ISO-8859-1
-Content-Transfer-Encoding: 7bit
+On 11/07/2024 11:38 am, Fonyuy-Asheri Caleb wrote:
+> Hello, 
+> 
+> I am trying to understand the causes of the vcpu xstate restore error
+> during live migration.
+> I get the following error during live migration: 
+> 
+> xc: error: Failed to set vcpu0's xsave info (22 = Invalid argument):
+> Internal error
+> 
+> I was able to locate the failure point to the file
+> xen/arch/x86/domctl.c  with the following check.
+> 
+> if( evc->size<PV_XSAVE_HDR_SIZE||
+> evc->size>PV_XSAVE_SIZE(xfeature_mask) )
+> gotovcpuextstate_out;
+> 
+> I know this is related to the number of xstates handled by the source
+> server. Please can 
+> someone explain to me how these states are computed? 
+> 
+> I earlier thought it was simply the number xsave dependent features on
+> the CPU but it seems
+> to be more than that. 
+> 
+> Thanks in advance.
 
-Hello, 
+It is certainly more complicated than that.
 
-I am trying to understand the causes of the vcpu xstate restore error during live migration. 
-I get the following error during live migration: 
+What that's saying is that Xen doesn't think that the size of the blob
+matches expectations.  That said - I'm in the middle of rewriting this
+logic because lots of it is subtly wrong.
 
-xc: error: Failed to set vcpu0's xsave info (22 = Invalid argument): Internal error 
+To start with, which version (or versions?) of Xen, and what hardware?
 
-I was able to locate the failure point to the file xen/arch/x86/domctl.c with the following check. 
+Are you able to capture `xen-cpuid -p` on the source and destination, as
+well as `xen-cpuid -p $domid` of the VM running on the source?
 
-if ( evc -> size < PV_XSAVE_HDR_SIZE || 
-evc -> size > PV_XSAVE_SIZE ( xfeature_mask ) ) 
-goto vcpuextstate_out ; 
+Do you have any CPUID overrides in the VM config file?
 
-I know this is related to the number of xstates handled by the source server. Please can 
-someone explain to me how these states are computed? 
+Thanks,
 
-I earlier thought it was simply the number xsave dependent features on the CPU but it seems 
-to be more than that. 
-
-Thanks in advance. 
-
-Caleb 
-
-
---=_33499ccc-f973-4df0-b362-0e8b93f78783
-Content-Type: text/html; charset=ISO-8859-1
-Content-Transfer-Encoding: quoted-printable
-
-<html><body><div style=3D"font-family: arial, helvetica, sans-serif; font-s=
-ize: 12pt; color: #000000"><div>Hello,&nbsp;</div><div><br data-mce-bogus=
-=3D"1"></div><div>I am trying to understand the causes of the vcpu xstate r=
-estore error during live migration.</div><div>I get the following error dur=
-ing live migration:&nbsp;</div><div><br data-mce-bogus=3D"1"></div><div>xc:=
- error: Failed to set vcpu0's xsave info (22 =3D Invalid argument): Interna=
-l error<br data-mce-bogus=3D"1"></div><div><br data-mce-bogus=3D"1"></div><=
-div>I was able to locate the failure point to the file xen/arch/x86/domctl.=
-c&nbsp; with the following check.</div><div><div style=3D"color: #cccccc; b=
-ackground-color: #1f1f1f; font-family: 'Droid Sans Mono', 'monospace', mono=
-space; font-weight: normal; font-size: 14px; line-height: 19px; white-space=
-: pre;" data-mce-style=3D"color: #cccccc; background-color: #1f1f1f; font-f=
-amily: 'Droid Sans Mono', 'monospace', monospace; font-weight: normal; font=
--size: 14px; line-height: 19px; white-space: pre;"><div><br></div><div><spa=
-n style=3D"color: #cccccc;" data-mce-style=3D"color: #cccccc;"> </span><spa=
-n style=3D"color: #c586c0;" data-mce-style=3D"color: #c586c0;">if</span><sp=
-an style=3D"color: #cccccc;" data-mce-style=3D"color: #cccccc;"> ( </span><=
-span style=3D"color: #9cdcfe;" data-mce-style=3D"color: #9cdcfe;">evc</span=
-><span style=3D"color: #cccccc;" data-mce-style=3D"color: #cccccc;">-&gt;</=
-span><span style=3D"color: #9cdcfe;" data-mce-style=3D"color: #9cdcfe;">siz=
-e</span><span style=3D"color: #cccccc;" data-mce-style=3D"color: #cccccc;">=
- </span><span style=3D"color: #d4d4d4;" data-mce-style=3D"color: #d4d4d4;">=
-&lt;</span><span style=3D"color: #cccccc;" data-mce-style=3D"color: #cccccc=
-;"> </span><span style=3D"color: #569cd6;" data-mce-style=3D"color: #569cd6=
-;">PV_XSAVE_HDR_SIZE</span><span style=3D"color: #cccccc;" data-mce-style=
-=3D"color: #cccccc;"> </span><span style=3D"color: #d4d4d4;" data-mce-style=
-=3D"color: #d4d4d4;">||</span></div><div><span style=3D"color: #cccccc;" da=
-ta-mce-style=3D"color: #cccccc;"> </span><span style=3D"color: #9cdcfe;" da=
-ta-mce-style=3D"color: #9cdcfe;">evc</span><span style=3D"color: #cccccc;" =
-data-mce-style=3D"color: #cccccc;">-&gt;</span><span style=3D"color: #9cdcf=
-e;" data-mce-style=3D"color: #9cdcfe;">size</span><span style=3D"color: #cc=
-cccc;" data-mce-style=3D"color: #cccccc;"> </span><span style=3D"color: #d4=
-d4d4;" data-mce-style=3D"color: #d4d4d4;">&gt;</span><span style=3D"color: =
-#cccccc;" data-mce-style=3D"color: #cccccc;"> </span><span style=3D"color: =
-#569cd6;" data-mce-style=3D"color: #569cd6;">PV_XSAVE_SIZE</span><span styl=
-e=3D"color: #cccccc;" data-mce-style=3D"color: #cccccc;">(</span><span styl=
-e=3D"color: #9cdcfe;" data-mce-style=3D"color: #9cdcfe;">xfeature_mask</spa=
-n><span style=3D"color: #cccccc;" data-mce-style=3D"color: #cccccc;">) )</s=
-pan></div><div><span style=3D"color: #cccccc;" data-mce-style=3D"color: #cc=
-cccc;"> </span><span style=3D"color: #c586c0;" data-mce-style=3D"color: #c5=
-86c0;">goto</span><span style=3D"color: #cccccc;" data-mce-style=3D"color: =
-#cccccc;"> </span><span style=3D"color: #c8c8c8;" data-mce-style=3D"color: =
-#c8c8c8;">vcpuextstate_out</span><span style=3D"color: #cccccc;" data-mce-s=
-tyle=3D"color: #cccccc;">;</span></div></div></div><div><br data-mce-bogus=
-=3D"1"></div><div>I know this is related to the number of xstates handled b=
-y the source server. Please can&nbsp;</div><div>someone explain to me how t=
-hese states are computed?&nbsp;</div><div><br data-mce-bogus=3D"1"></div><d=
-iv>I earlier thought it was simply the number xsave dependent features on t=
-he CPU but it seems</div><div>to be more than that.&nbsp;</div><div><br dat=
-a-mce-bogus=3D"1"></div><div>Thanks in advance.&nbsp;</div><div><br data-mc=
-e-bogus=3D"1"></div><div>Caleb</div><div data-marker=3D"__SIG_PRE__"><div><=
-br data-mce-bogus=3D"1"></div></div></div></body></html>
---=_33499ccc-f973-4df0-b362-0e8b93f78783--
+~Andrew
 
