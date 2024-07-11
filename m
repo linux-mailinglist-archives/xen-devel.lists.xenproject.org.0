@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8F83E92E35E
-	for <lists+xen-devel@lfdr.de>; Thu, 11 Jul 2024 11:22:42 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.757213.1165985 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 699FB92E363
+	for <lists+xen-devel@lfdr.de>; Thu, 11 Jul 2024 11:26:31 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.757217.1165995 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sRq00-0007Q5-Rb; Thu, 11 Jul 2024 09:22:00 +0000
+	id 1sRq42-00080Z-AW; Thu, 11 Jul 2024 09:26:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 757213.1165985; Thu, 11 Jul 2024 09:22:00 +0000
+Received: by outflank-mailman (output) from mailman id 757217.1165995; Thu, 11 Jul 2024 09:26:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sRq00-0007OT-Ot; Thu, 11 Jul 2024 09:22:00 +0000
-Received: by outflank-mailman (input) for mailman id 757213;
- Thu, 11 Jul 2024 09:21:59 +0000
+	id 1sRq42-0007yQ-7o; Thu, 11 Jul 2024 09:26:10 +0000
+Received: by outflank-mailman (input) for mailman id 757217;
+ Thu, 11 Jul 2024 09:26:09 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=n1Hg=OL=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sRpzz-0007Ny-B9
- for xen-devel@lists.xenproject.org; Thu, 11 Jul 2024 09:21:59 +0000
-Received: from mail-ed1-x531.google.com (mail-ed1-x531.google.com
- [2a00:1450:4864:20::531])
+ id 1sRq40-0007yK-Vi
+ for xen-devel@lists.xenproject.org; Thu, 11 Jul 2024 09:26:08 +0000
+Received: from mail-ed1-x52d.google.com (mail-ed1-x52d.google.com
+ [2a00:1450:4864:20::52d])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 05aeabac-3f67-11ef-bbfb-fd08da9f4363;
- Thu, 11 Jul 2024 11:21:58 +0200 (CEST)
-Received: by mail-ed1-x531.google.com with SMTP id
- 4fb4d7f45d1cf-58f9874aeb4so902050a12.0
- for <xen-devel@lists.xenproject.org>; Thu, 11 Jul 2024 02:21:58 -0700 (PDT)
+ id 9a66ece2-3f67-11ef-bbfb-fd08da9f4363;
+ Thu, 11 Jul 2024 11:26:07 +0200 (CEST)
+Received: by mail-ed1-x52d.google.com with SMTP id
+ 4fb4d7f45d1cf-58b447c51bfso739321a12.2
+ for <xen-devel@lists.xenproject.org>; Thu, 11 Jul 2024 02:26:07 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 41be03b00d2f7-77d621c6300sm4086468a12.51.2024.07.11.02.21.52
+ 98e67ed59e1d1-2ca34e89eefsm5175265a91.31.2024.07.11.02.26.03
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 11 Jul 2024 02:21:57 -0700 (PDT)
+ Thu, 11 Jul 2024 02:26:06 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,57 +45,53 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 05aeabac-3f67-11ef-bbfb-fd08da9f4363
+X-Inumbo-ID: 9a66ece2-3f67-11ef-bbfb-fd08da9f4363
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1720689718; x=1721294518; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1720689967; x=1721294767; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=/dUfiMbDjZy3PrH3x4GeRrQ4b2iAnCiTMoZ+/S19jLk=;
-        b=XiQ7JZmOPnnm4nhTa+16BVfz3WK7AqWy7IMilsNmUbiHKQdP3ewfzyGzq53e8UWPzv
-         ImGk8pFZq4gE/8eLRra8o2BnW+as9SWamMZek5FkiA4sYjQafC2vdm56h83ruEIdxrSv
-         ZAPZ+czjkNfB1j5RDvHg1hQJAKq9OSLyMnCn1j45HSq36NU1CAG6JRPgDb5pCYaLWzmy
-         Wr/CTBHsbXvKRNb1+tySegEjNQKRz9gDMDXXYot1y/1ZzLjwuK06BgtgW/2WrPMdXaTp
-         u5OYZBCUyRGjYG843iihxRkohTQfK2Gx3wWkNit2BtDnsScSJ8/RUghM2ixLc72eKYvl
-         rQCg==
+        bh=36B1OmI3mUY03WUHSxrGe4AwhodhCfas6L3RbhjZ9gk=;
+        b=I850sg9UNmWwyfThpgJHvucHRYuAFXiW4xSlcG+HE1uKqMN9qUinNufizeJQ31r8ze
+         Z3HjkJ2UtbFgiGVkgzqPA+L4WZFemgVLrBypn11ytO6MZG5J1A5raA7QicS/rEZOtIKN
+         VTNKQft/uTfk7Nx4xDTshMuLmv1yPL+hvLVXy6+L00YzZiBqR/hGdNzUfTAZG7g4rwPo
+         2TJm9pUWyoz+S69q5TY2hgvp6ODufoiz/8IPnNOC+MiJkpkPn8OXkUJcZ2Dq0m0mKa88
+         tDsYwVLN0ykSzB9wu0HZBBHChGHhPVj7JkgxN4tohCeZ7pUc5qy7Qo8NAS6kHvcPIdPu
+         XOiQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1720689718; x=1721294518;
+        d=1e100.net; s=20230601; t=1720689967; x=1721294767;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=/dUfiMbDjZy3PrH3x4GeRrQ4b2iAnCiTMoZ+/S19jLk=;
-        b=mg1z6tRVwh0pldpcURDZcFYlD1eBrYs+CqN2NDR5+uEeCvGbZ//zAute/ib102wn51
-         o8XjmUcdTbkNbPpTZZfdL8UCs9b2DNSAOn+J3X0FUv0w05aMkj1e3mmKC7HTn4EUEiP9
-         7knKS9njW/sHwTH7ezi/aNhfJrzsMahWumhp9wBijAcsZaHTd1OvkbFya8WhYJGP+Hxh
-         6eihEWnSyOKNE8Ml6dGakt+39M/4pqA9Kbgb2AnmZpJek6ZgYYmVz3b6eZTHOL5YHcD+
-         HWT6+TF0edyZFUFRzQyiZQaqXqq73z5KkO9KnpzuxZu0HfPxQXXZlViVzcXsDmffel+d
-         v9OA==
-X-Forwarded-Encrypted: i=1; AJvYcCV71Lw9aUnyOslCZpn3dbXvTGEn72TACjeS0z5eKSGVYzMsqPcouXFQZPPgfWEq2BufFtKB2v8tfaNsBFYH7HJSOzkGIxkrM3CqHO/9R58=
-X-Gm-Message-State: AOJu0YyGqeS3IL0YpA5thDxMXui6p92cRCLUtn/2pWWOE13MTpjLZNgO
-	OWm/R+5GMYXFJO9OaD91O6mGCcyCown3vjf53b/ZqZo9ibJeR2wlbnSrExA7kA==
-X-Google-Smtp-Source: AGHT+IHXZyTEgFCd0oJcdscYbj/DHK0u5UFMOwXXDhR9hg4rV3BWZ+qLA9cZ/2QSWVXnWSVMl5deiA==
-X-Received: by 2002:a17:906:1cd6:b0:a77:c364:c4f0 with SMTP id a640c23a62f3a-a780b70548amr447132866b.36.1720689717818;
-        Thu, 11 Jul 2024 02:21:57 -0700 (PDT)
-Message-ID: <600ad88a-8880-485b-be1e-43942a1b8615@suse.com>
-Date: Thu, 11 Jul 2024 11:21:48 +0200
+        bh=36B1OmI3mUY03WUHSxrGe4AwhodhCfas6L3RbhjZ9gk=;
+        b=pvsbYwBdrwFWC0a3qsxGB9KMsqwBmVqaS4/sYu6W+l9vHjjdwBGs8RQT/xdEigccbY
+         ogUvpDXRfkYRNhNMubLnUjXuMKnhONnVn3OijatLPASlXidq+71suTcnNl3BWPnqRcv9
+         UINFgI9IKqhb6uDousXrcZksoDDlGzALO7Se+RdbZ942Jqrmi6NCO67j/AJpNjm6HUzm
+         MC6R56ctJ9kJWCF/lKRye6h2Ct24UN+awhc1qFakLdRgTXswS5Fv+VV+Hm8ymTqiG8Ii
+         tqPrnnMLq37z2I+2+X+FodpV36vdN6xSRxGR7ZFSdvJf348SV+9Bq3hXCf+mWNyYB3NH
+         hQ7g==
+X-Forwarded-Encrypted: i=1; AJvYcCUF/ZbXCLMygKVNe6m1Tqhlak9JYKONlzuPR0CJBvBhqH5IL41+jVsw+R7p8SY0kVkRzmuej6RMMARYAs2TuDx52y74UCyezuAR7IsgBEk=
+X-Gm-Message-State: AOJu0YzA+4cOtc39GYvyDg53X9dj1d2PT0LlZNiULbAHEPgz2aIZFG8v
+	RygKteXqmopAOS8j2ewkR49Vm/qVY76LQqUcBXFs0gILYhc9VOlITyANlTamOA==
+X-Google-Smtp-Source: AGHT+IF8lFgYKqSgkaOZ6H866ywqAgCNjCN7OF030pYn7jIpi1Kt+uF78p1c5tdckmVREC6/rhg3Dg==
+X-Received: by 2002:a05:6402:33ce:b0:58e:dbd:65cd with SMTP id 4fb4d7f45d1cf-594bc7c7e1amr4818506a12.26.1720689967334;
+        Thu, 11 Jul 2024 02:26:07 -0700 (PDT)
+Message-ID: <bff4f1e4-9242-4a1c-bbca-ba3d609db03f@suse.com>
+Date: Thu, 11 Jul 2024 11:25:59 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 1/5] xen/device-tree: Move Arm's setup.c bootinfo
- functions to common
+Subject: Re: [PATCH v9 4/5] xen/riscv: enable GENERIC_BUG_FRAME
 To: Oleksii <oleksii.kurochko@gmail.com>
-Cc: Shawn Anastasio <sanastasio@raptorengineering.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
  xen-devel@lists.xenproject.org
-References: <cover.1720002425.git.oleksii.kurochko@gmail.com>
- <c656f0d08d4c4b515c99848b84db4171ab132f19.1720002425.git.oleksii.kurochko@gmail.com>
- <b3c5b6d3-561d-46d0-bc1b-1b2e3cbeeba2@suse.com>
- <d3b9070442e0ebca82ce0dd5257fe91eef4755cf.camel@gmail.com>
+References: <cover.1719918148.git.oleksii.kurochko@gmail.com>
+ <c51c485bac43b7589961aabec8af1b82d4673b94.1719918148.git.oleksii.kurochko@gmail.com>
+ <ca373d42-22f1-41a2-bdbb-4733145c635a@suse.com>
+ <a1224198ef6845f8f81baaaebe1d436726460c0e.camel@gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -121,80 +117,73 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <d3b9070442e0ebca82ce0dd5257fe91eef4755cf.camel@gmail.com>
+In-Reply-To: <a1224198ef6845f8f81baaaebe1d436726460c0e.camel@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 11.07.2024 11:00, Oleksii wrote:
-> On Wed, 2024-07-10 at 12:23 +0200, Jan Beulich wrote:
->> On 03.07.2024 12:42, Oleksii Kurochko wrote:
->>> From: Shawn Anastasio <sanastasio@raptorengineering.com>
->>>
->>> Arm's setup.c contains a collection of functions for parsing memory
->>> map
->>> and other boot information from a device tree. Since these routines
->>> are
->>> generally useful on any architecture that supports device tree
->>> booting,
->>> move them into xen/common/device-tree.
->>>
->>> Suggested-by: Julien Grall <julien@xen.org>
->>> Signed-off-by: Shawn Anastasio <sanastasio@raptorengineering.com>
->>> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
->>> ---
->>> Changes in V5:
->>>  - add xen/include/xen/bootfdt.h to MAINTAINERS file.
->>>  - drop message "Early device tree parsing and".
->>>  - After rebase on top of the current staging the following changes
->>> were done:
->>>    - init bootinfo variable in <common/device-tree/bootinfo.c> with
->>> BOOTINFO_INIT;
->>>    - update the code of dt_unreserved_regions():
->>>        CONFIG_STATIC_SHM related changes and getting of
->>> reserved_mem
->>>        bootinfo_get_shmem() ??
->>>    - update the code of meminfo_overlap_check():
->>>        add check ( INVALID_PADDR == bank_start ) to if case.
->>>    - update the code of check_reserved_regions_overlap():
->>>        CONFIG_STATIC_SHM related changes.
->>>    - struct bootinfo was updated ( CONFIG_STATIC_SHM changes )
->>>    - add shared_meminfo ( because of CONFIG_STATIC_SHM )
->>>    - struct struct membanks was update with __struct group so
->>> <xen/kernel> is
->>>      neeeded to be included in bootfdt.h
->>>    - move BOOTINFO_ACPI_INIT, BOOTINFO_SHMEM_INIT, BOOTINFO_INIT to
->>> generic bootfdt.h
->>>    - bootinfo_get_reserved_mem(), bootinfo_get_mem(),
->>> bootinfo_get_acpi(),
->>>      bootinfo_get_shmem() and bootinfo_get_shmem_extra() were moved
->>> to xen/bootfdt.h
->>>  - s/arm32/CONFIG_SEPARATE_XENHEAP/
->>>  - add inclusion of <xen/macros.h> because there are function in
->>> <xen/bootfdt.h> which
->>>    are using container_of().
+On 11.07.2024 10:50, Oleksii wrote:
+> On Wed, 2024-07-10 at 12:01 +0200, Jan Beulich wrote:
+>> On 02.07.2024 13:23, Oleksii Kurochko wrote:
+>>> @@ -101,8 +102,38 @@ static void do_unexpected_trap(const struct
+>>> cpu_user_regs *regs)
+>>>      die();
+>>>  }
+>>>  
+>>> +static bool is_valid_bug_insn(uint32_t insn)
+>>> +{
+>>> +    return insn == BUG_INSN_32 ||
+>>> +           (insn & COMPRESSED_INSN_MASK) == BUG_INSN_16;
+>>> +}
+>>> +
+>>> +/* Should be used only on Xen code */
+>>> +static uint32_t read_instr(unsigned long pc)
+>>> +{
+>>> +    uint16_t instr16 = *(uint16_t *)pc;
+>>> +
+>>> +    ASSERT(is_kernel_text(pc + 1) || is_kernel_inittext(pc + 1));
+>>> +
+>>> +    if ( GET_INSN_LENGTH(instr16) == 2 )
+>>> +        return instr16;
+>>> +
+>>> +    ASSERT(is_kernel_text(pc + 3) || is_kernel_inittext(pc + 3));
+>>> +
+>>> +    return *(uint32_t *)pc;
+>>> +}
 >>
->> Just to mention it: This is confusing. The series is tagged "v1". I
->> understand
->> you took Shawn's work, which had already undergone revisions. But
->> then imo you
->> want to at least clarify how your v1 relates to his v4 or v5, i.e.
->> then making
->> clear to the reader whether all of the changes above were actually
->> done by you
->> on top of an earlier v4, or whether you took the earlier v5 verbatim.
-> That is why I wrote "Changes in v5" to show that these changes were
-> done on top of v4 version of Shawn's series, so what is mentioned in v5
-> here it is what was done by me.
+>> Related to the point made further down: If either of these assertions
+>> fails,
+>> won't we come back again right here? If either of the
+>> is_kernel_*text()
+>> wasn't working quite right, wouldn't we be at risk of entering an
+>> infinite
+>> loop (presumably not quite infinite because of the stack overflowing
+>> at some
+>> point)?
+> It is really possible to have infinite loop here so it should be better
+> to use 'if' with die() or panic().
+> 
+>>
+>>>  void do_trap(struct cpu_user_regs *cpu_regs)
+>>>  {
+>>> +    register_t pc = cpu_regs->sepc;
+>>> +    uint32_t instr = read_instr(pc);
+>>> +
+>>> +    if ( ( is_valid_bug_insn(instr) ) && ( do_bug_frame(cpu_regs,
+>>> pc) >= 0 ) )
+>>
+>> No consideration of the kind of exception? I'd expect it is one very
+>> specific one which the BUG insn would raise, and then there's no
+>> point
+>> fetching the insn when it's a different kind of exception.
+> Good point.
+> 
+> We should have 0x3 ( breakpoint exception ) in scause register. We can
+> just check that without reading instruction and then also
+> is_valid_bug_insn could be dropped too.
 
-Except that what you sent is v1, not v5.
-
-> I'll reword that and probably I shouldn't drop "Changes in v4,3,2,1"
-> from Shawn's patch.
-
-I don't think you should drop anything. You want to clarify relationship
-of the version of your series with that of Shawn's earlier one. Or you'd
-want to continue numbering from what the previous series had, yet that
-may then also end up confusing if Shawn resumed work there.
+Just that then you'll also lose the is_kernel_*text() checking, which I
+understand is there to remind you/us that one this becomes reachable
+from non-Xen code, adjustments are going to be needed.
 
 Jan
 
