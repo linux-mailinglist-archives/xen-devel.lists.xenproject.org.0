@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D9C1B92E3DE
-	for <lists+xen-devel@lfdr.de>; Thu, 11 Jul 2024 11:55:18 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.757255.1166055 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4FDBE92E3E7
+	for <lists+xen-devel@lfdr.de>; Thu, 11 Jul 2024 11:57:29 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.757261.1166065 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sRqW3-0006wh-P1; Thu, 11 Jul 2024 09:55:07 +0000
+	id 1sRqXy-0007fl-46; Thu, 11 Jul 2024 09:57:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 757255.1166055; Thu, 11 Jul 2024 09:55:07 +0000
+Received: by outflank-mailman (output) from mailman id 757261.1166065; Thu, 11 Jul 2024 09:57:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sRqW3-0006tX-Lu; Thu, 11 Jul 2024 09:55:07 +0000
-Received: by outflank-mailman (input) for mailman id 757255;
- Thu, 11 Jul 2024 09:55:06 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1sRqXy-0007dE-1P; Thu, 11 Jul 2024 09:57:06 +0000
+Received: by outflank-mailman (input) for mailman id 757261;
+ Thu, 11 Jul 2024 09:57:04 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=PZf6=OL=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1sRqW2-0006Kd-7y
- for xen-devel@lists.xenproject.org; Thu, 11 Jul 2024 09:55:06 +0000
-Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com
- [2a00:1450:4864:20::636])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a5a514bc-3f6b-11ef-8776-851b0ebba9a2;
- Thu, 11 Jul 2024 11:55:04 +0200 (CEST)
-Received: by mail-ej1-x636.google.com with SMTP id
- a640c23a62f3a-a77c0b42a8fso267876166b.1
- for <xen-devel@lists.xenproject.org>; Thu, 11 Jul 2024 02:55:04 -0700 (PDT)
+ id 1sRqXw-0007d8-GN
+ for xen-devel@lists.xenproject.org; Thu, 11 Jul 2024 09:57:04 +0000
+Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com
+ [2a00:1450:4864:20::634])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id ec7751fa-3f6b-11ef-bbfb-fd08da9f4363;
+ Thu, 11 Jul 2024 11:57:03 +0200 (CEST)
+Received: by mail-ej1-x634.google.com with SMTP id
+ a640c23a62f3a-a77c0b42a8fso268185166b.1
+ for <xen-devel@lists.xenproject.org>; Thu, 11 Jul 2024 02:57:03 -0700 (PDT)
 Received: from [10.125.226.166] ([185.25.67.249])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a780a8542dfsm238664666b.150.2024.07.11.02.55.03
+ 4fb4d7f45d1cf-594bbe2cf60sm3262158a12.26.2024.07.11.02.57.01
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 11 Jul 2024 02:55:03 -0700 (PDT)
+ Thu, 11 Jul 2024 02:57:01 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,42 +45,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a5a514bc-3f6b-11ef-8776-851b0ebba9a2
+X-Inumbo-ID: ec7751fa-3f6b-11ef-bbfb-fd08da9f4363
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1720691704; x=1721296504; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:autocrypt:subject:from:to
-         :content-language:user-agent:mime-version:date:message-id:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=neYNViyhVsf3lU8uxdFkkl5GW3h1aL2JLq0NyBQIp3E=;
-        b=qrI1sH8Az/KP4pKPa6EzWAhJeexeItH69D6wHZy+MeGFcKaIarlDFHS9jWS7Y9UgFa
-         5LK4IfQWxp7r+EWEPPnvtvLiusDK2Q26wbKW4D5r/Wmy+Fx2h3mTPC6qjb36+VYjT46C
-         Y0MmyXCEUh6iNYvDX4jUNa2llCMSuzsrN/gr0=
+        d=citrix.com; s=google; t=1720691822; x=1721296622; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=fADVl2ZbJJqU2NKCC3x8ukvBzdGwNakoSCLkV/AdIVY=;
+        b=ap1qLhYty4ar30AGjxVHBTXgX5AOcnWjKDyxTdBPW+7VR53M4LAOWwLdgPgu+tiC0V
+         8zlRxV+EYN/aqqGMNnDV9JgRIWYEnhwY7JbvyBA/3P2GGzasoEu8iXWx/5Q0c7jjwH6Z
+         yTNMZBRQ8m27cEaVJxKCAQRY6/xZQ2L1B8JQA=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1720691704; x=1721296504;
-        h=content-transfer-encoding:cc:autocrypt:subject:from:to
-         :content-language:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=neYNViyhVsf3lU8uxdFkkl5GW3h1aL2JLq0NyBQIp3E=;
-        b=jXw0UTvJs9PQ2Wu6HX+tKT+00A9auTYwgdWjARXwA7jsXz8FwGjUeo2XlAq0E/XtL6
-         N9osNKO4j560z37MOQmOSeZ1b00aMCCYDYx0P1NtOJCvI6NXjnvueI9+yxcSFePPztiK
-         CV4JZ4R2xFcfojXGpdygNJAza2vffMSdbR90LU3jUShL6v6AsB6rqSeC5Cf0NDIuMEKq
-         x+m3vDfeIz2XIRApUy8Q2pG3jIhcCpoKm7FGDXww82dM/bxKOl3E/vOOccFGe5bjCQ/K
-         R2SRFeMM/rAgVEHZlS+8Idr2LyRnbk3jXp5WKtZnQuPTD4Pch9tqKndh8eZoCP90lRJE
-         H5dg==
-X-Gm-Message-State: AOJu0Yy/2AIVCqh3p/XvmBXkfaISmHyNLEfQms5mh6sYHCYksfx25+Pk
-	ssV//SWv5VTX3uVCMrw7HCHFKf36WaCjTHqugYJ+LimLVwcqlp48bp3Tc6UghXl6o4ZgN0leUj2
-	O
-X-Google-Smtp-Source: AGHT+IFcRhgsZNzcuHYjdQKAzaObzV4/JLC3Z4qJS/7IRvQlaTRwvDdkHB/2isa1+zV8T4ErSbLOqg==
-X-Received: by 2002:a17:907:3f9e:b0:a77:ca3b:996c with SMTP id a640c23a62f3a-a799216da74mr107976966b.16.1720691703696;
-        Thu, 11 Jul 2024 02:55:03 -0700 (PDT)
-Message-ID: <73ac0930-828c-4873-a65e-e7c5ad2fbc9d@citrix.com>
-Date: Thu, 11 Jul 2024 10:55:00 +0100
+        d=1e100.net; s=20230601; t=1720691822; x=1721296622;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=fADVl2ZbJJqU2NKCC3x8ukvBzdGwNakoSCLkV/AdIVY=;
+        b=qCZ1jpJVbEpwbGv1prjNgL6AFQdPgBbfGvIHK468MWsxoWzrH0Lytk8SnL/5S+kgOE
+         noPRKXx9Ud6zVIEmaTCzQd9g4PQG4y+Guq1YSDpu0DyqR5xuD42tAlgjmKCmDOB/ZGGH
+         M9LaPYM8v5n4kO35+CpBuJC5sU7/9holC+FCfkQWd0G2KQYi0aM0mB+e9+SkmkM9MW6Y
+         uja6nVmxTupVFCmA7LpV6xTBdOeRgXwH6xF997s6s/hWGEpMMZF2EGte92KIbZYL/pP0
+         wpuKQDkWfdYj+4JeTGbqpAsONIHR7F8eC3mTX4InH+xUU5UA9JJyVJ98TBiqqJZWtM8B
+         E62w==
+X-Gm-Message-State: AOJu0YwpjdmdrIQKyeWm0Qml79Rnw8GJK815jKP9UxPnCctEPZkwJOPo
+	aOYzN/MJyRrfp0Lh38EBKPSgBazQnK1ZxXNC4cf8dTTfSwq4kHkViZpQ4KNAccIM7iaNfI9yE1k
+	6
+X-Google-Smtp-Source: AGHT+IGlXLYsUvg7zJZs5rNe9OhwJneMH2wPcUYiCqCZ3gBT8kHB4tQp7Fh40Ffbn1ab7KrxY+qa1w==
+X-Received: by 2002:a17:907:7b9e:b0:a77:cd4f:e4f1 with SMTP id a640c23a62f3a-a798a486724mr193863266b.27.1720691822218;
+        Thu, 11 Jul 2024 02:57:02 -0700 (PDT)
+Message-ID: <d1aab887-95d7-4597-8c34-1d78e8029d70@citrix.com>
+Date: Thu, 11 Jul 2024 10:57:00 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Content-Language: en-GB
-To: xen-devel <xen-devel@lists.xenproject.org>
+Subject: Re: [bug] Xen build doesn't fail when required tools are missing
 From: Andrew Cooper <andrew.cooper3@citrix.com>
-Subject: [bug] Xen build doesn't fail when required tools are missing
+To: xen-devel <xen-devel@lists.xenproject.org>
+Cc: Jan Beulich <jbeulich@suse.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+ <jgrall@amazon.com>, Juergen Gross <jgross@suse.com>,
+ Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+ Anthony PERARD <anthony.perard@vates.tech>
+References: <73ac0930-828c-4873-a65e-e7c5ad2fbc9d@citrix.com>
+Content-Language: en-GB
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  xsFNBFLhNn8BEADVhE+Hb8i0GV6mihnnr/uiQQdPF8kUoFzCOPXkf7jQ5sLYeJa0cQi6Penp
  VtiFYznTairnVsN5J+ujSTIb+OlMSJUWV4opS7WVNnxHbFTPYZVQ3erv7NKc2iVizCRZ2Kxn
@@ -124,39 +131,41 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-Cc: Anthony PERARD <anthony.perard@citrix.com>,
- Jan Beulich <jbeulich@suse.com>, Stefano Stabellini
- <sstabellini@kernel.org>, Julien Grall <jgrall@amazon.com>,
- Juergen Gross <jgross@suse.com>,
- Oleksii Kurochko <oleksii.kurochko@gmail.com>
+In-Reply-To: <73ac0930-828c-4873-a65e-e7c5ad2fbc9d@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-So I was playing with rebuilding the OpenSUSE Tumbleweed container from
-scratch.  (I've ~halfed it's size by correcting the dependencies).
+Bah - correcting Anthony's email (again).
 
-When diffutils is missing (package containing the `cmp` utility), a
-build of Xen proceeds as:
+(I clearly need to purge my address book more thoroughly.)
 
-make: Entering directory '/build/xen'
-make: hostname: No such file or directory
-  UPD     include/xen/compile.h
- Xen 4.19-rc
-/bin/sh: line 1: cmp: command not found
-  UPD     include/compat/.xlat/xen.lst
-/bin/sh: line 1: cmp: command not found
-  UPD     include/compat/.xlat/arch-x86/pmu.lst
-/bin/sh: line 1: cmp: command not found
-/bin/sh: line 1: cmp: command not found
+On 11/07/2024 10:55 am, Andrew Cooper wrote:
+> So I was playing with rebuilding the OpenSUSE Tumbleweed container from
+> scratch.  (I've ~halfed it's size by correcting the dependencies).
+>
+> When diffutils is missing (package containing the `cmp` utility), a
+> build of Xen proceeds as:
+>
+> make: Entering directory '/build/xen'
+> make: hostname: No such file or directory
+>   UPD     include/xen/compile.h
+>  Xen 4.19-rc
+> /bin/sh: line 1: cmp: command not found
+>   UPD     include/compat/.xlat/xen.lst
+> /bin/sh: line 1: cmp: command not found
+>   UPD     include/compat/.xlat/arch-x86/pmu.lst
+> /bin/sh: line 1: cmp: command not found
+> /bin/sh: line 1: cmp: command not found
+>
+> without failing.
+>
+> I assert this is a bad thing and we should see about fixing it.
+>
+> A separate problem is that none of our docs mention diffutils, and
+> OpenSUSE is the only distro I've found where they're not pulled in
+> transitively.  However, I'm planning a large rewrite to README when I've
+> finished the Gitlab CI cleanup.
+>
+> ~Andrew
 
-without failing.
-
-I assert this is a bad thing and we should see about fixing it.
-
-A separate problem is that none of our docs mention diffutils, and
-OpenSUSE is the only distro I've found where they're not pulled in
-transitively.  However, I'm planning a large rewrite to README when I've
-finished the Gitlab CI cleanup.
-
-~Andrew
 
