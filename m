@@ -2,38 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9CBAA92F044
-	for <lists+xen-devel@lfdr.de>; Thu, 11 Jul 2024 22:24:47 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.757684.1166791 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B26CC92F07C
+	for <lists+xen-devel@lfdr.de>; Thu, 11 Jul 2024 22:56:13 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.757691.1166800 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sS0KS-0005tm-QF; Thu, 11 Jul 2024 20:23:48 +0000
+	id 1sS0pD-0001Vi-9U; Thu, 11 Jul 2024 20:55:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 757684.1166791; Thu, 11 Jul 2024 20:23:48 +0000
+Received: by outflank-mailman (output) from mailman id 757691.1166800; Thu, 11 Jul 2024 20:55:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sS0KS-0005rT-Mj; Thu, 11 Jul 2024 20:23:48 +0000
-Received: by outflank-mailman (input) for mailman id 757684;
- Thu, 11 Jul 2024 20:23:46 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=PZf6=OL=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1sS0KQ-0005rN-Ko
- for xen-devel@lists.xenproject.org; Thu, 11 Jul 2024 20:23:46 +0000
-Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
- [2a00:1450:4864:20::62b])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 774a605c-3fc3-11ef-8776-851b0ebba9a2;
- Thu, 11 Jul 2024 22:23:42 +0200 (CEST)
-Received: by mail-ej1-x62b.google.com with SMTP id
- a640c23a62f3a-a77d9217e6fso176226866b.2
- for <xen-devel@lists.xenproject.org>; Thu, 11 Jul 2024 13:23:42 -0700 (PDT)
-Received: from andrewcoop.eng.citrite.net ([185.25.67.249])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a780a6dfb19sm284302966b.66.2024.07.11.13.23.40
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 11 Jul 2024 13:23:40 -0700 (PDT)
+	id 1sS0pD-0001UC-6R; Thu, 11 Jul 2024 20:55:35 +0000
+Received: by outflank-mailman (input) for mailman id 757691;
+ Thu, 11 Jul 2024 20:55:34 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1sS0pB-0001U2-W6; Thu, 11 Jul 2024 20:55:34 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1sS0pB-0004rD-RW; Thu, 11 Jul 2024 20:55:33 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1sS0pB-0007c8-DM; Thu, 11 Jul 2024 20:55:33 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1sS0pB-0005ZV-Cn; Thu, 11 Jul 2024 20:55:33 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,357 +42,411 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 774a605c-3fc3-11ef-8776-851b0ebba9a2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1720729421; x=1721334221; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=IpVMbtAPh/d/2PPbAwt7r6y7YPmwonQerNDnIDQpg6I=;
-        b=N7+fOPIYefy1KC59GTFPIKgk0ZYX5vae+kY8LsynKgqmuXBt01Whv9ZOix8k8KezGU
-         B5EnMDoZsmr159vNRXPEfyXglinojjmIbPJLpTq9lcEWU4o1kq5wgrX7RaWDyaT257ab
-         JbFyAYTjb8I/Rgls+3vLPWgZtu5bmZPexWisM=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1720729421; x=1721334221;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=IpVMbtAPh/d/2PPbAwt7r6y7YPmwonQerNDnIDQpg6I=;
-        b=A0IMk1WPLvj6dNw5mTC7+cPOjP0dR6SUFZOK8Azo6zMrH3CzvM8lIfEjktn3CBVpRd
-         o+rBWm4y76g9MelibTVF8GybGbp0MW/QNHpqZ3087u4PuxSIRndeXivr+mWIgZslf7ll
-         0xKJ+yGnBJiVFgdJVh35z0OAemsNxyrHmEMUxokx2X14YOLgPZUGq2ESShVujYGgtrjo
-         jwHTy9187qwp4InLCduf9PmwM42F8LvrIANDqoDwFT/QCgWsnEn9bIp6MJ5gBSMZ3BQz
-         QeLsv17PEtjiMDublN66qecbNTXLDLkJHPa9dfuFwxFGkKBvPFMEFSopwf99F6dtRpo9
-         8ZZw==
-X-Gm-Message-State: AOJu0Yw9ZaYVtP4dxc1Ia/lLNBcEtMducTN55aQpeMTSHtO516bTJJNZ
-	4d/yHp7ykgBwGibLzOjQ/OuVPS5aQTgCRw/GFyUjbyI2xkedmIuKkTrSrLMh03wnn4OWr3ffH4O
-	h
-X-Google-Smtp-Source: AGHT+IH88DM9Q4+KiHpA5R5Wpx11Z3bFn+wtvU/J/FuiR8zygZ3LCnYQIX0arYYtaqDGyqaKVcS8ug==
-X-Received: by 2002:a17:906:39d6:b0:a72:9963:eb8e with SMTP id a640c23a62f3a-a780b6b307emr492899766b.28.1720729421544;
-        Thu, 11 Jul 2024 13:23:41 -0700 (PDT)
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Juergen Gross <jgross@suse.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Jan Beulich <JBeulich@suse.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>,
-	Oleksii Kurochko <oleksii.kurochko@gmail.com>,
-	Shawn Anastasio <sanastasio@raptorengineering.com>,
-	Olaf Hering <olaf@aepfle.de>
-Subject: [PATCH 13/12] CI: Refresh OpenSUSE Tumbleweed container
-Date: Thu, 11 Jul 2024 21:23:37 +0100
-Message-Id: <20240711202337.3128473-1-andrew.cooper3@citrix.com>
-X-Mailer: git-send-email 2.39.2
-In-Reply-To: <20240711111517.3064810-1-andrew.cooper3@citrix.com>
-References: <20240711111517.3064810-1-andrew.cooper3@citrix.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=5bz9njl8qGqLNdjTZZR5YplrHosNNesajzZfFJCDGRY=; b=KCufPqUCW1z6qsYZE3kc8RjSav
+	+6Ex55UecDxo17awGH62uGBF5fYendnoGvPWJ0LmFMyDzrTEWoabTPptwP/TT9yrGZ5DM97dcifC6
+	KMsPqLeQ2MZZQZl5NmnbVRT18RInXpo/J5C1ui7Srz9nvrDQIJ/4qA2XlKaX3UkrYsYw=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-186763-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [linux-6.1 test] 186763: tolerable FAIL - PUSHED
+X-Osstest-Failures:
+    linux-6.1:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
+    linux-6.1:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    linux-6.1:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    linux-6.1:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
+    linux-6.1:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
+    linux-6.1:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
+    linux-6.1:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    linux-6.1:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    linux-6.1:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    linux-6.1:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
+    linux-6.1:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    linux-6.1:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
+    linux-6.1:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
+    linux-6.1:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    linux-6.1:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    linux-6.1:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
+    linux-6.1:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
+    linux-6.1:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
+    linux-6.1:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
+    linux-6.1:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    linux-6.1:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
+    linux-6.1:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+    linux-6.1:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
+    linux-6.1:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
+    linux-6.1:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
+    linux-6.1:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
+    linux-6.1:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
+    linux-6.1:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
+    linux-6.1:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
+    linux-6.1:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
+    linux-6.1:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
+    linux-6.1:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
+    linux-6.1:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
+    linux-6.1:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
+    linux-6.1:test-amd64-amd64-libvirt-qcow2:migrate-support-check:fail:nonblocking
+    linux-6.1:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
+    linux-6.1:test-amd64-amd64-libvirt-raw:migrate-support-check:fail:nonblocking
+    linux-6.1:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
+    linux-6.1:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
+    linux-6.1:test-armhf-armhf-xl-qcow2:migrate-support-check:fail:nonblocking
+    linux-6.1:test-armhf-armhf-xl-qcow2:saverestore-support-check:fail:nonblocking
+    linux-6.1:test-arm64-arm64-xl-vhd:migrate-support-check:fail:nonblocking
+    linux-6.1:test-arm64-arm64-xl-vhd:saverestore-support-check:fail:nonblocking
+    linux-6.1:test-armhf-armhf-xl-raw:migrate-support-check:fail:nonblocking
+    linux-6.1:test-armhf-armhf-xl-raw:saverestore-support-check:fail:nonblocking
+    linux-6.1:test-armhf-armhf-libvirt-vhd:migrate-support-check:fail:nonblocking
+    linux-6.1:test-armhf-armhf-libvirt-vhd:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    linux=266ee8e06d5baa186a0b5b8727eb99ae2d00dc9c
+X-Osstest-Versions-That:
+    linux=7753af06eebfb56b44673bbfcb0b78d73a54ede9
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Thu, 11 Jul 2024 20:55:33 +0000
 
-Existing as suse:opensuse-tumbleweed is a historical quirk, and adjusted for
-consistency with all the other containers.
+flight 186763 linux-6.1 real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/186763/
 
-Make it non-root, use heredocs for legibility, and use the zypper long names
-for the benefit of those wondering what was being referenced or duplicated.
+Failures :-/ but no regressions.
 
-Trim the dependencies substantially.  Testing docs isn't very interesting and
-saves a lot of space (pandoc pulls in all of Haskel).  Other savings come from
-removing a huge pile of optional QEMU dependencies (QEMU just needs to build
-the Xen parts to be useful here, not have a full GUI environment).
+Tests which did not succeed, but are not blocking:
+ test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 186712
+ test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 186712
+ test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 186712
+ test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 186712
+ test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 186712
+ test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 186712
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-multivcpu 15 migrate-support-check        fail  never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-multivcpu 16 saverestore-support-check    fail  never pass
+ test-armhf-armhf-xl-rtds     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-rtds     16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit2  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit1  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-qcow2 14 migrate-support-check        fail never pass
+ test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-qcow2    14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-qcow2    15 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-vhd      14 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-vhd      15 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-raw      14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-raw      15 saverestore-support-check    fail   never pass
+ test-armhf-armhf-libvirt-vhd 14 migrate-support-check        fail   never pass
+ test-armhf-armhf-libvirt-vhd 15 saverestore-support-check    fail   never pass
 
-Finally, there where some packages such as bc, libssh2-devel, libtasn1-devel
-and nasm that I'm not aware of any reason to have had, even historically.
+version targeted for testing:
+ linux                266ee8e06d5baa186a0b5b8727eb99ae2d00dc9c
+baseline version:
+ linux                7753af06eebfb56b44673bbfcb0b78d73a54ede9
 
-This shaves 1G off the size of the container:
+Last test of basis   186712  2024-07-06 07:09:54 Z    5 days
+Testing same since   186763  2024-07-11 11:12:22 Z    0 days    1 attempts
 
-  registry.gitlab.com/xen-project/xen/opensuse  tumbleweed-x86_64      1.39GB
-  registry.gitlab.com/xen-project/xen/suse      opensuse-tumbleweed    2.35GB
+------------------------------------------------------------
+People who touched revisions under test:
+  Ajay Singh <ajay.kathat@microchip.com>
+  Aleksandr Mishin <amishin@t-argos.ru>
+  Alex Deucher <alexander.deucher@amd.com>
+  Alex Hung <alex.hung@amd.com>
+  Alexander Gordeev <agordeev@linux.ibm.com>
+  Alexis Lothoré <alexis.lothore@bootlin.com>
+  Andi Shyti <andi.shyti@kernel.org>
+  Andrew Morton <akpm@linux-foundation.org>
+  Andrii Nakryiko <andrii@kernel.org>
+  AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+  Armin Wolf <W_Armin@gmx.de>
+  Bjorn Andersson <andersson@kernel.org>
+  Chao Yu <chao@kernel.org>
+  Chenghai Huang <huangchenghai2@huawei.com>
+  Chris Mi <cmi@nvidia.com>
+  Christian Borntraeger <borntraeger@linux.ibm.com>
+  Christian Brauner <brauner@kernel.org>
+  Christian König <christian.koenig@amd.com>
+  Christoph Hellwig <hch@lst.de>
+  Corinna Vinschen <vinschen@redhat.com>
+  Damien Le Moal <dlemoal@kernel.org>
+  Dave Jiang <dave.jiang@intel.com>
+  David S. Miller <davem@davemloft.net>
+  David Sterba <dsterba@suse.com>
+  Diederik de Haas <didi.debian@cknow.org>
+  Dima Ruinskiy <dima.ruinskiy@intel.com>
+  Dmitry Antipov <dmantipov@yandex.ru>
+  Dmitry Torokhov <dmitry.torokhov@gmail.com>
+  Dragan Simic <dsimic@manjaro.org>
+  Edward Adam Davis <eadavis@qq.com>
+  Eric Dumazet <edumazet@google.com>
+  Erick Archer <erick.archer@outlook.com>
+  Erico Nunes <nunes.erico@gmail.com>
+  Fedor Pchelkin <pchelkin@ispras.ru>
+  Felix Fietkau <nbd@nbd.name>
+  Florian Westphal <fw@strlen.de>
+  Gautam Menghani <gautam@linux.ibm.com>
+  George Stark <gnstark@salutedevices.com>
+  Ghadi Elie Rahme <ghadi.rahme@canonical.com>
+  Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+  Greg Kurz <groug@kaod.org>
+  Guangwu Zhang <guazhang@redhat.com>
+  GUO Zihua <guozihua@huawei.com>
+  Hailey Mothershead <hailmo@amazon.com>
+  Hamza Mahfooz <hamza.mahfooz@amd.com>
+  Hans de Goede <hdegoede@redhat.com>
+  Hans Verkuil <hverkuil-cisco@xs4all.nl>
+  Heiko Carstens <hca@linux.ibm.com>
+  Heiko Stuebner <heiko@sntech.de>
+  Heiner Kallweit <hkallweit1@gmail.com>
+  Herbert Xu <herbert@gondor.apana.org.au>
+  hmtheboy154 <buingoc67@gmail.com>
+  Holger Dengler <dengler@linux.ibm.com>
+  Jaegeuk Kim <jaegeuk@kernel.org>
+  Jakub Kicinski <kuba@kernel.org>
+  Jan Kara <jack@suse.cz>
+  Jay Vosburgh <jay.vosburgh@canonical.com>
+  Jean Delvare <jdelvare@suse.de>
+  Jeff Layton <jlayton@kernel.org>
+  Jens Axboe <axboe@kernel.dk>
+  Jerry Dai <jerry.dai@intel.com>
+  Jian-Hong Pan <jhp@endlessos.org>
+  Jianbo Liu <jianbol@nvidia.com>
+  Jim Wylder <jwylder@google.com>
+  Jimmy Assarsson <extja@kvaser.com>
+  Jinliang Zheng <alexjlzheng@tencent.com>
+  John Johansen <john.johansen@canonical.com>
+  John Meneghini <jmeneghi@redhat.com>
+  John Schoenick <johns@valvesoftware.com>
+  Jon Hunter <jonathanh@nvidia.com>
+  Jose E. Marchesi <jose.marchesi@oracle.com>
+  Jozef Hopko <jozef.hopko@altana.com>
+  Justin Stitt <justinstitt@google.com>
+  Kalle Valo <kvalo@kernel.org>
+  Keith Busch <kbusch@kernel.org>
+  Kelsey Steele <kelseysteele@linux.microsoft.com>
+  kemal <kmal@cock.li>
+  kernelci.org bot <bot@kernelci.org>
+  Konstantin Komarov <almaz.alexandrovich@paragon-software.com>
+  Kundan Kumar <kundan.kumar@samsung.com>
+  Lee Jones <lee@kernel.org>
+  Len Brown <len.brown@intel.com>
+  Leon Romanovsky <leon@kernel.org>
+  Lu Yao <yaolu@kylinos.cn>
+  Luca Weiss <luca.weiss@fairphone.com>
+  Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
+  Lyude Paul <lyude@redhat.com>
+  Ma Jun <Jun.Ma2@amd.com>
+  Ma Ke <make24@iscas.ac.cn>
+  Mahesh Salgaonkar <mahesh@linux.ibm.com>
+  Marc Kleine-Budde <mkl@pengutronix.de>
+  Mark Brown <broonie@kernel.org>
+  Martin K. Petersen <martin.petersen@oracle.com>
+  Masahiro Yamada <masahiroy@kernel.org>
+  Mathias Nyman <mathias.nyman@linux.intel.com>
+  Matthew Schwartz <mattschwartz@gwu.edu>
+  Matthias Schiffer <matthias.schiffer@ew.tq-group.com>
+  Mauro Carvalho Chehab <mchehab@kernel.org>
+  Michael Bunk <micha@freedict.org>
+  Michael Ellerman <mpe@ellerman.id.au>
+  Michael Guralnik <michaelgur@nvidia.com>
+  Michael Krummsdorf <michael.krummsdorf@tq-group.com>
+  Michal Hocko <mhocko@suse.com>
+  Mickaël Salaün <mic@digikod.net>
+  Mike Marshall <hubcap@omnibond.com>
+  Miles Chen <miles.chen@mediatek.com>
+  Mingming Su <mingming.su@mediatek.com>
+  Miquel Raynal <miquel.raynal@bootlin.com>
+  Naama Meir <naamax.meir@linux.intel.com>
+  Naohiro Aota <naohiro.aota@wdc.com>
+  Nathan Chancellor <nathan@kernel.org>
+  Neal Cardwell <ncardwell@google.com>
+  Nicholas Piggin <npiggin@gmail.com>
+  Niklas Neronin <niklas.neronin@linux.intel.com>
+  Nilay Shroff <nilay@linux.ibm.com>
+  Pablo Neira Ayuso <pablo@netfilter.org>
+  Palmer Dabbelt <palmer@rivosinc.com>
+  Paolo Abeni <pabeni@redhat.com>
+  Paul Moore <paul@paul-moore.com>
+  Pavel Machek (CIP) <pavel@denx.de>
+  Phillip Potter <phil@philpotter.co.uk>
+  Pin-yen Lin <treapking@chromium.org>
+  Piotr Wojtaszczyk <piotr.wojtaszczyk@timesys.com>
+  Qiang Yu <yuq825@gmail.com>
+  Ricardo Ribalda <ribalda@chromium.org>
+  Richard Weinberger <richard@nod.at>
+  Roberto Sassu <roberto.sassu@huawei.com>
+  Robin Murphy <robin.murphy@arm.com>
+  Ron Economos <re@w6rz.net>
+  Ryusuke Konishi <konishi.ryusuke@gmail.com>
+  Sagi Grimberg <sagi@grimberg.me>
+  Salvatore Bonaccorso <carnil@debian.org>
+  Sam Sun <samsun1006219@gmail.com>
+  Sascha Hauer <s.hauer@pengutronix.de>
+  Sasha Levin <sashal@kernel.org>
+  Sasha Neftin <sasha.neftin@intel.com>
+  Sathya Prakash Veerichetty <sathya.prakash@broadcom.com>
+  Saurav Kashyap <skashyap@marvell.com>
+  SeongJae Park <sj@kernel.org>
+  Shigeru Yoshida <syoshida@redhat.com>
+  Shirisha Ganta <shirisha@linux.ibm.com>
+  Shuah Khan <skhan@linuxfoundation.org>
+  Simon Horman <horms@kernel.org>
+  Song Shuai <songshuaishuai@tinylab.org>
+  Sourabh Jain <sourabhjain@linux.ibm.com>
+  Stefan Schmidt <stefan@datenfreihafen.org>
+  Stephen Boyd <sboyd@kernel.org>
+  Takashi Iwai <tiwai@suse.de>
+  Tariq Toukan <tariqt@nvidia.com>
+  Tim Huang <Tim.Huang@amd.com>
+  Tomas Henzl <thenzl@redhat.com>
+  Tony Nguyen <anthony.l.nguyen@intel.com>
+  Val Packett <val@packett.cool>
+  Vinicius Costa Gomes <vinicius.gomes@intel.com>
+  Vitaly Lifshits <vitaly.lifshits@intel.com>
+  Waiman Long <longman@redhat.com>
+  Wang Yong <wang.yong12@zte.com.cn>
+  Wayne Lin <wayne.lin@amd.com>
+  Witold Sadowski <wsadowski@marvell.com>
+  Wren Turkal <wt@penguintechs.org>
+  Xiaochun Lu <xiaochun.lu@bytedance.com>
+  Xin Long <lucien.xin@gmail.com>
+  Yann Sionneau <ysionneau@kalrayinc.com>
+  Yuchung Cheng <ycheng@google.com>
+  Yue Sun <samsun1006219@gmail.com>
+  Zijian Zhang <zijianzhang@bytedance.com>
+  Zijun Hu <quic_zijuhu@quicinc.com>
 
-Furthermore, identify which components of the build use which dependencies,
-which will help managing them in the future.
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl                                          pass    
+ test-amd64-coresched-amd64-xl                                pass    
+ test-arm64-arm64-xl                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
+ test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 pass    
+ test-amd64-amd64-xl-xsm                                      pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-qemuu-nested-amd                            fail    
+ test-amd64-amd64-xl-pvhv2-amd                                pass    
+ test-amd64-amd64-dom0pvh-xl-amd                              pass    
+ test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
+ test-amd64-amd64-qemuu-freebsd12-amd64                       pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-amd64-xl-qemut-win7-amd64                         fail    
+ test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
+ test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
+ test-armhf-armhf-xl-arndale                                  pass    
+ test-amd64-amd64-examine-bios                                pass    
+ test-amd64-amd64-xl-credit1                                  pass    
+ test-arm64-arm64-xl-credit1                                  pass    
+ test-armhf-armhf-xl-credit1                                  pass    
+ test-amd64-amd64-xl-credit2                                  pass    
+ test-arm64-arm64-xl-credit2                                  pass    
+ test-armhf-armhf-xl-credit2                                  pass    
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
+ test-amd64-amd64-examine                                     pass    
+ test-arm64-arm64-examine                                     pass    
+ test-armhf-armhf-examine                                     pass    
+ test-amd64-amd64-qemuu-nested-intel                          pass    
+ test-amd64-amd64-xl-pvhv2-intel                              pass    
+ test-amd64-amd64-dom0pvh-xl-intel                            pass    
+ test-amd64-amd64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     pass    
+ test-amd64-amd64-xl-multivcpu                                pass    
+ test-armhf-armhf-xl-multivcpu                                pass    
+ test-amd64-amd64-pair                                        pass    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-amd64-xl-pvshim                                   pass    
+ test-amd64-amd64-pygrub                                      pass    
+ test-amd64-amd64-libvirt-qcow2                               pass    
+ test-amd64-amd64-xl-qcow2                                    pass    
+ test-armhf-armhf-xl-qcow2                                    pass    
+ test-amd64-amd64-libvirt-raw                                 pass    
+ test-arm64-arm64-libvirt-raw                                 pass    
+ test-amd64-amd64-xl-raw                                      pass    
+ test-armhf-armhf-xl-raw                                      pass    
+ test-amd64-amd64-xl-rtds                                     pass    
+ test-armhf-armhf-xl-rtds                                     pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
+ test-amd64-amd64-xl-shadow                                   pass    
+ test-arm64-arm64-xl-thunderx                                 pass    
+ test-amd64-amd64-examine-uefi                                pass    
+ test-amd64-amd64-libvirt-vhd                                 pass    
+ test-armhf-armhf-libvirt-vhd                                 pass    
+ test-amd64-amd64-xl-vhd                                      pass    
+ test-arm64-arm64-xl-vhd                                      pass    
 
-Thanks to Olaf Hering for dependency fixes that have been subsumed into this
-total overhaul.
 
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
----
-CC: Anthony PERARD <anthony.perard@vates.tech>
-CC: Juergen Gross <jgross@suse.com>
-CC: Roger Pau Monné <roger.pau@citrix.com>
-CC: Jan Beulich <JBeulich@suse.com>
-CC: Stefano Stabellini <sstabellini@kernel.org>
-CC: Julien Grall <julien@xen.org>
-CC: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-CC: Shawn Anastasio <sanastasio@raptorengineering.com>
-CC: Olaf Hering <olaf@aepfle.de>
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-This includes both of Olaf's recent changes, python3-packaging (now required
-for a rebuilt container), and findutils (not required yet; still gets pulled
-in transitively), but added for good measure.
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
-In terms of package delta, newly included are:
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
-  findutils            # As suggested
-  ocaml-findlib        # Replaces ocaml-findlib-devel
-  perl                 # Transitive previously
-  python3              # Transitive previously
-  python3-packaging    # As suggested
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
-while removed are:
 
-  bc                   # ?
-  cmake                # vtpm stubdom, optional
-  discount             # docs
-  ghostscript          # docs
-  glibc-devel          # Not really optional, given a toolchain
-  hostname             # Optional, not interesting
-  libaio-devel         # Xen < 4.13, perhaps Qemu still but optional
-  libext2fs-devel      # Libfsimage, off by default, optional
-  libgnutls-devel      # Qemu ?
-  libjpeg62-devel      # Qemu ?
-  libnl3-devel         # Libxl COLO(?), option
-  libnuma-devel        # ?
-  libpng16-devel       # Qemu ?
-  libssh2-devel        # ?
-  libtasn1-devel       # ?
-  nasm                 # ?
-  ocaml-findlib-devel  # Swapped for non-devel
-  ocaml-ocamlbuild     # ?
-  ocaml-ocamldoc       # ?
-  pandoc               # docs
-  'pkgconfig(libpci)'  # Qemu
-  'pkgconfig(sdl)'     # Qemu
-  'pkgconfig(sdl2)'    # Qemu
-  systemd-devel        # Xen < 4.19, optional
-  transfig             # docs
-  valgrind-devel       # really only for developers
-  which                # Xen < 4.17
+Pushing revision :
 
-I've tested this on staging-4.17 and staging, both of which build fine.
-staging-4.16 does not, because of SeaBIOS which we've decided not to fix,
-hence it's safe to drop `which`.
----
- .../opensuse/tumbleweed-x86_64.dockerfile     | 76 +++++++++++++++++++
- .../build/suse/opensuse-tumbleweed.dockerfile | 74 ------------------
- automation/gitlab-ci/build.yaml               |  8 +-
- automation/scripts/containerize               |  2 +-
- 4 files changed, 81 insertions(+), 79 deletions(-)
- create mode 100644 automation/build/opensuse/tumbleweed-x86_64.dockerfile
- delete mode 100644 automation/build/suse/opensuse-tumbleweed.dockerfile
-
-diff --git a/automation/build/opensuse/tumbleweed-x86_64.dockerfile b/automation/build/opensuse/tumbleweed-x86_64.dockerfile
-new file mode 100644
-index 000000000000..8c5ff56cdc88
---- /dev/null
-+++ b/automation/build/opensuse/tumbleweed-x86_64.dockerfile
-@@ -0,0 +1,76 @@
-+# syntax=docker/dockerfile:1
-+FROM --platform=linux/amd64 opensuse/tumbleweed
-+LABEL maintainer.name="The Xen Project"
-+LABEL maintainer.email="xen-devel@lists.xenproject.org"
-+
-+ENV XEN_TARGET_ARCH=x86_64
-+
-+RUN <<EOF
-+#!/bin/bash
-+    set -e
-+
-+    useradd --create-home user
-+
-+    zypper refresh
-+    zypper dist-upgrade -y --no-recommends
-+
-+    DEPS=(
-+        # Xen
-+        bison
-+        checkpolicy
-+        clang
-+        diffutils
-+        findutils
-+        flex
-+        gawk
-+        gcc
-+        make
-+        python3
-+
-+        # Tools (general)
-+        git
-+        gzip
-+        patch
-+        perl
-+        pkg-config
-+        wget
-+        # libxenguest dombuilder
-+        libbz2-devel
-+        libzstd-devel
-+        lzo-devel
-+        xz-devel
-+        zlib-devel
-+        # libacpi
-+        acpica
-+        # libxl
-+        libuuid-devel
-+        libyajl-devel
-+        # Header Check
-+        gcc-c++
-+        # xentop
-+        ncurses-devel
-+        # Python bindings
-+        python3-devel
-+        python3-setuptools
-+        # Ocaml bindings/oxenstored
-+        ocaml
-+        ocaml-findlib
-+
-+        # Stubdom (download/extract)
-+        bzip2
-+        tar
-+
-+        # Qemu build
-+        glib2-devel
-+        libpixman-1-0-devel
-+        meson
-+        ninja
-+        python3-packaging
-+    )
-+
-+    zypper install -y --no-recommends "${DEPS[@]}"
-+    zypper clean -a
-+EOF
-+
-+USER user
-+WORKDIR /build
-diff --git a/automation/build/suse/opensuse-tumbleweed.dockerfile b/automation/build/suse/opensuse-tumbleweed.dockerfile
-deleted file mode 100644
-index 077fed22260c..000000000000
---- a/automation/build/suse/opensuse-tumbleweed.dockerfile
-+++ /dev/null
-@@ -1,74 +0,0 @@
--# syntax=docker/dockerfile:1
--FROM --platform=linux/amd64 opensuse/tumbleweed
--LABEL maintainer.name="The Xen Project" \
--      maintainer.email="xen-devel@lists.xenproject.org"
--
--ENV USER root
--
--RUN mkdir /build
--WORKDIR /build
--
--RUN zypper ref && zypper dup -y --no-recommends
--RUN zypper install -y --no-recommends \
--        acpica \
--        bc \
--        bison \
--        bzip2 \
--        checkpolicy \
--        clang \
--        cmake \
--        diffutils \
--        discount \
--        flex \
--        gawk \
--        gcc \
--        gcc-c++ \
--        git \
--        ghostscript \
--        glib2-devel \
--        glibc-devel \
--        gzip \
--        hostname \
--        libaio-devel \
--        libbz2-devel \
--        libext2fs-devel \
--        libgnutls-devel \
--        libjpeg62-devel \
--        libnl3-devel \
--        libnuma-devel \
--        libpixman-1-0-devel \
--        libpng16-devel \
--        libssh2-devel \
--        libtasn1-devel \
--        libuuid-devel \
--        libyajl-devel \
--        libzstd-devel \
--        lzo-devel \
--        make \
--        meson \
--        nasm \
--        ncurses-devel \
--        ninja \
--        ocaml \
--        ocaml-findlib-devel \
--        ocaml-ocamlbuild \
--        ocaml-ocamldoc \
--        pandoc \
--        patch \
--        pkg-config \
--        'pkgconfig(libpci)' \
--        'pkgconfig(sdl)' \
--        'pkgconfig(sdl2)' \
--        python3-devel \
--        python3-setuptools \
--        # systemd-devel for Xen < 4.19
--        systemd-devel \
--        tar \
--        transfig \
--        valgrind-devel \
--        wget \
--        which \
--        xz-devel \
--        zlib-devel \
--        && \
--        zypper clean -a
-diff --git a/automation/gitlab-ci/build.yaml b/automation/gitlab-ci/build.yaml
-index b4139414bc8e..fd6ca1270e4e 100644
---- a/automation/gitlab-ci/build.yaml
-+++ b/automation/gitlab-ci/build.yaml
-@@ -668,25 +668,25 @@ opensuse-leap-gcc-debug:
- opensuse-tumbleweed-clang:
-   extends: .clang-x86-64-build
-   variables:
--    CONTAINER: suse:opensuse-tumbleweed
-+    CONTAINER: opensuse:tumbleweed-x86_64
-   allow_failure: true
- 
- opensuse-tumbleweed-clang-debug:
-   extends: .clang-x86-64-build-debug
-   variables:
--    CONTAINER: suse:opensuse-tumbleweed
-+    CONTAINER: opensuse:tumbleweed-x86_64
-   allow_failure: true
- 
- opensuse-tumbleweed-gcc:
-   extends: .gcc-x86-64-build
-   variables:
--    CONTAINER: suse:opensuse-tumbleweed
-+    CONTAINER: opensuse:tumbleweed-x86_64
-   allow_failure: true
- 
- opensuse-tumbleweed-gcc-debug:
-   extends: .gcc-x86-64-build-debug
-   variables:
--    CONTAINER: suse:opensuse-tumbleweed
-+    CONTAINER: opensuse:tumbleweed-x86_64
-   allow_failure: true
- 
- # PowerPC builds (x86 cross)
-diff --git a/automation/scripts/containerize b/automation/scripts/containerize
-index 4d5669c5ad01..c4f013702122 100755
---- a/automation/scripts/containerize
-+++ b/automation/scripts/containerize
-@@ -43,7 +43,7 @@ case "_${CONTAINER}" in
-     _bionic) CONTAINER="${BASE}/ubuntu:bionic" ;;
-     _xenial) CONTAINER="${BASE}/ubuntu:xenial" ;;
-     _opensuse-leap|_leap) CONTAINER="${BASE}/suse:opensuse-leap" ;;
--    _opensuse-tumbleweed|_tumbleweed) CONTAINER="${BASE}/suse:opensuse-tumbleweed" ;;
-+    _opensuse-tumbleweed|_tumbleweed) CONTAINER="${BASE}/opensuse:tumbleweed-x86_64" ;;
- esac
- 
- # Use this variable to control whether root should be used
--- 
-2.39.2
-
+hint: The 'hooks/update' hook was ignored because it's not set as executable.
+hint: You can disable this warning with `git config advice.ignoredHook false`.
+hint: The 'hooks/post-receive' hook was ignored because it's not set as executable.
+hint: You can disable this warning with `git config advice.ignoredHook false`.
+hint: The 'hooks/post-update' hook was ignored because it's not set as executable.
+hint: You can disable this warning with `git config advice.ignoredHook false`.
+To xenbits.xen.org:/home/xen/git/linux-pvops.git
+   7753af06eebf..266ee8e06d5b  266ee8e06d5baa186a0b5b8727eb99ae2d00dc9c -> tested/linux-6.1
 
