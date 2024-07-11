@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 12AD092EB73
-	for <lists+xen-devel@lfdr.de>; Thu, 11 Jul 2024 17:17:09 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.757581.1166602 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9A4ED92EB9A
+	for <lists+xen-devel@lfdr.de>; Thu, 11 Jul 2024 17:24:50 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.757590.1166612 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sRvX8-0000EX-4b; Thu, 11 Jul 2024 15:16:34 +0000
+	id 1sRves-0002B6-W2; Thu, 11 Jul 2024 15:24:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 757581.1166602; Thu, 11 Jul 2024 15:16:34 +0000
+Received: by outflank-mailman (output) from mailman id 757590.1166612; Thu, 11 Jul 2024 15:24:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sRvX8-0000D1-1d; Thu, 11 Jul 2024 15:16:34 +0000
-Received: by outflank-mailman (input) for mailman id 757581;
- Thu, 11 Jul 2024 15:16:33 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1sRves-00029f-SP; Thu, 11 Jul 2024 15:24:34 +0000
+Received: by outflank-mailman (input) for mailman id 757590;
+ Thu, 11 Jul 2024 15:24:33 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=PZf6=OL=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1sRvX7-0000Cv-FX
- for xen-devel@lists.xenproject.org; Thu, 11 Jul 2024 15:16:33 +0000
-Received: from mail-ed1-x534.google.com (mail-ed1-x534.google.com
- [2a00:1450:4864:20::534])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 8e0b8e35-3f98-11ef-bbfb-fd08da9f4363;
- Thu, 11 Jul 2024 17:16:32 +0200 (CEST)
-Received: by mail-ed1-x534.google.com with SMTP id
- 4fb4d7f45d1cf-58ef19aa69dso1332615a12.3
- for <xen-devel@lists.xenproject.org>; Thu, 11 Jul 2024 08:16:32 -0700 (PDT)
+ id 1sRver-00029Z-AN
+ for xen-devel@lists.xenproject.org; Thu, 11 Jul 2024 15:24:33 +0000
+Received: from mail-ed1-x535.google.com (mail-ed1-x535.google.com
+ [2a00:1450:4864:20::535])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id aa50bf2b-3f99-11ef-8776-851b0ebba9a2;
+ Thu, 11 Jul 2024 17:24:29 +0200 (CEST)
+Received: by mail-ed1-x535.google.com with SMTP id
+ 4fb4d7f45d1cf-58f9874aeb4so1425992a12.0
+ for <xen-devel@lists.xenproject.org>; Thu, 11 Jul 2024 08:24:29 -0700 (PDT)
 Received: from [10.125.226.166] ([185.25.67.249])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a780a6e1742sm259545066b.70.2024.07.11.08.16.31
+ a640c23a62f3a-a780a6e37ffsm261266066b.76.2024.07.11.08.24.28
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 11 Jul 2024 08:16:31 -0700 (PDT)
+ Thu, 11 Jul 2024 08:24:28 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,39 +45,39 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8e0b8e35-3f98-11ef-bbfb-fd08da9f4363
+X-Inumbo-ID: aa50bf2b-3f99-11ef-8776-851b0ebba9a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1720710992; x=1721315792; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1720711469; x=1721316269; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=tnPB3qftd3vvj7nZ0A4tQ6LT0BW77BDW/tokRA8p4N8=;
-        b=M4YsfEVVQ09PxP/Md7ZHYKKis6o8az2fKJ2Lg71v9Yn1r/i3RctXKll3/wHuG0c0R9
-         wEi0MAfoIE11ihLD+uRD9Jb3TwkXkndgRCllKws8AcROEVbPfAI+npmLFH2GcTHzvZ2W
-         tlgo+VhiULSIWJo2BAUoMk45EkkYQi+e4sRxg=
+        bh=L0pID39C586cv2tz/qyg/E3lVYfL5a4bkucs6I4x0Fw=;
+        b=ffbVKTv6B/S3v4aySgGVPguL78WbuIkRY6AoAbcssZQVeB7l1+Ztu0sMkD/uxq5X7A
+         mTLk02QEPGZqVyKUGR2cq4hROAaELaFURkW05zDMA65uZxiOBkLvHBX15WCM/hbHPB0O
+         Zi5AgfazUC25m4G/sjxSDBjIpGLkNAS3pX178=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1720710992; x=1721315792;
+        d=1e100.net; s=20230601; t=1720711469; x=1721316269;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=tnPB3qftd3vvj7nZ0A4tQ6LT0BW77BDW/tokRA8p4N8=;
-        b=gNF38u6zw61ybf/VmtR6/wB+5uJlSFAPye6xuiLTCsSfvIGrq6b0+5TGpX1tE57Q5b
-         EuVGXLlaNFPYrCvE4fWZ0TJ9Cy/Gp53osukRzH3jgqd/qbBKoqDUhiJ6eHZKL08WZM/K
-         tHMAuS7MNfQV46MKwvyurjPw1MnO88s2NKR2w9r+wvckOQMDHqG3p10yVIlHInrRmWkU
-         tC8u0peKAlLvSGOV95WBrC/DLdoozBr1dtoSORJagcsfvioyXefyYHCxWyLiFCBfQqLj
-         q4S3jKaHEMTnKKVXLqxfQZ8LocB+uwhhoKXjV14H11cJ5DFDCZrmXFbdJxtbA2SXW23x
-         okLA==
-X-Gm-Message-State: AOJu0YyN2hOSl35FGD1lHjQSSsrU7dHJOt6+8mZanPIEqzI/O0FcJ7f1
-	6VSOK/Y1qY4eLWggvoSY+ypN9xErvflTH0+CqENyovhm45DWVF9fWXxqldBDQhI=
-X-Google-Smtp-Source: AGHT+IEFCS+n1qmG64ndRkSMvJq6C7dUY+95piaeO7uisZ/gjR9WXMlexO563ET4dhIZelP0D+c7fg==
-X-Received: by 2002:a17:907:3f1a:b0:a79:82c1:a5b2 with SMTP id a640c23a62f3a-a7982c1a956mr447560866b.9.1720710991756;
-        Thu, 11 Jul 2024 08:16:31 -0700 (PDT)
-Message-ID: <5eb4de29-edd3-447a-845a-57d20ad8462b@citrix.com>
-Date: Thu, 11 Jul 2024 16:16:29 +0100
+        bh=L0pID39C586cv2tz/qyg/E3lVYfL5a4bkucs6I4x0Fw=;
+        b=q+gl+zVbm87zc/TDT+tm5rtjGGBwnCAxRF3ZqCWqR20NLwEmzSAUeElh3kGmth4p34
+         hcRHqYM9qgcQVFXeNfZ+IzAdXSYG95ZlIt9VvglS20gn0kt53P6Jsrg5jGKHSS04Dp15
+         oL4jfzAdmWZcC6v8YfkAlr17jtvbnfGnBHK1s8wMcHfMrFiS2jDSUNrx0hzttJd08Ms/
+         V0ofVAiEyxoIMP0aN915pEM5b7/oRQQ6pW4lsZLq2jROFJRlVCXjUny+hy5Dw3ZN1vwN
+         6Nuy10YGBGGPssJlp0pGzqLYhJLMByPEJrdYs4Fk6uS9WJhOijKYpwT0Ljl1VjZd6bEj
+         xJUQ==
+X-Gm-Message-State: AOJu0YyxgZ4Qy5izmb7YM+DmX7V8SBys4M78dY+afILlk+freIoJrLDR
+	Yr0woxRf4u1VvNgWLFAVw90GH3CjPLVKxiI0OZAOmeYO+Nc5s8gbhQhYp7MVYaM=
+X-Google-Smtp-Source: AGHT+IG+DiMj1eOcTXCsWZgkzdAf2DsyuKO4I/sth3MMdBlo0j1XF1xtR6pvPK1FAFDAnqVQkCXbFg==
+X-Received: by 2002:a17:907:9687:b0:a79:81a4:faff with SMTP id a640c23a62f3a-a7981a4fd08mr403426066b.66.1720711468751;
+        Thu, 11 Jul 2024 08:24:28 -0700 (PDT)
+Message-ID: <b3be200d-a6b9-4413-ba1b-3fdc09be3c3b@citrix.com>
+Date: Thu, 11 Jul 2024 16:24:26 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 02/12] CI: Remove useless/misleading randconfig jobs
+Subject: Re: [PATCH 06/12] CI: Mark Archlinux/x86 as allowing failures
 To: Anthony PERARD <anthony.perard@vates.tech>
 Cc: Xen-devel <xen-devel@lists.xenproject.org>,
  Juergen Gross <jgross@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
@@ -86,7 +86,7 @@ Cc: Xen-devel <xen-devel@lists.xenproject.org>,
  Oleksii Kurochko <oleksii.kurochko@gmail.com>,
  Shawn Anastasio <sanastasio@raptorengineering.com>
 References: <20240711111517.3064810-1-andrew.cooper3@citrix.com>
- <20240711111517.3064810-3-andrew.cooper3@citrix.com> <Zo/ZdG8pt5FIledD@l14>
+ <20240711111517.3064810-7-andrew.cooper3@citrix.com> <Zo/gHsMSXR6hEtsS@l14>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -132,61 +132,41 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <Zo/ZdG8pt5FIledD@l14>
+In-Reply-To: <Zo/gHsMSXR6hEtsS@l14>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 11/07/2024 2:09 pm, Anthony PERARD wrote:
-> On Thu, Jul 11, 2024 at 12:15:07PM +0100, Andrew Cooper wrote:
->> Randconfig builds pick CONFIG_DEBUG with 50% probability.  Therefore
->> $foo{,-debug}-randconfig are two identical jobs with misleading names.
->>
->> Furthermore, arm64 has a randconfig jobs for both the alpine and bookworm
->> build environments.  Both use GCC 12.2, so we have 4 identical jobs.  Delete 3
->> of them.
->>
->> This leaves us with 4 primary randconfig jobs:
->>
->>   gitlab-ci/build.yaml:381:debian-bookworm-gcc-arm32-randconfig:
->>   gitlab-ci/build.yaml:429:alpine-3.18-gcc-arm64-randconfig:
->>   gitlab-ci/build.yaml:495:archlinux-current-gcc-riscv64-randconfig:
->>   gitlab-ci/build.yaml:640:debian-bookworm-gcc-randconfig:
->>
->> as PPC64 doesn't want randconfig right now, and buster-gcc-ibt is a special
->> job with a custom compiler.
->>
+On 11/07/2024 2:37 pm, Anthony PERARD wrote:
+> On Thu, Jul 11, 2024 at 12:15:11PM +0100, Andrew Cooper wrote:
+>> Archlinux is a rolling distro, and is subject to arbitrary changes as the
+>> container is rebuilt.
+> I disagree about the changes been arbitrary, it is just new version of
+> software. :-)
+>
+> But I guess "arbirary changes" could be a description for package been
+> removed from the main/official archive, and left for the users to build
+> themselfs.
+
+Specifically, rebuilding the container for staging has a side effect of
+jumping the toolchain version under all stable trees.
+
+I'll see about tweaking the wording.
+
+
+>
 >> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> Anyway:
 > Reviewed-by: Anthony PERARD <anthony.perard@vates.tech>
 
 Thanks.
 
->
-> Thanks,
->
->> If we want to run multiple identical randconfig jobs, that's spelt
->>
->>   parallel: 5
->>
->> in the configuration, and here is an example of what such a run looks like:
->>   https://gitlab.com/xen-project/people/andyhhp/xen/-/pipelines/1368824041
->>
->> Notice the randconfig jobs have a 5 in place of a retry button, and show a
->> submenu when clicked on.
-> We already have "parallel: 2" on the whole pipeline, give or take, but
-> those are quick jobs so it might be worth it to run them a few more time
-> on a pipeline.
+> (Next, automatically rebuild the container every month, I could probably
+> revive my old patch series doing that)
 
-I'm afraid I don't follow.
-
-The runners themselves are set up to run concurrent jobs.  I could well
-believe that's spelt parallel: in the runner config files.
-
-Here, its really jobs:parallel which is the way of saying "I want 5
-copies of this job to run in the pipeline".
-
-Obviously, 5 is arbitrary.  I was thinking of having a scheduled (once
-per day, at 3AM or whenever) running randconfig only with a parallel:20
-or so, so we can make good use of otherwise-idle time.
+That's also on the list, but not for 4.19.  Qemu rebuild their
+containers as the first pipeline stage, and while I think that's
+overkill, I was going to see if I could turn it into a weekly(?)
+scheduled job.
 
 ~Andrew
 
