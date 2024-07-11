@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 915CF92E6B1
-	for <lists+xen-devel@lfdr.de>; Thu, 11 Jul 2024 13:31:13 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.757392.1166300 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C07E992E6B5
+	for <lists+xen-devel@lfdr.de>; Thu, 11 Jul 2024 13:31:45 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.757395.1166310 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sRs0o-0002up-K8; Thu, 11 Jul 2024 11:30:58 +0000
+	id 1sRs1Q-0003Mv-0f; Thu, 11 Jul 2024 11:31:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 757392.1166300; Thu, 11 Jul 2024 11:30:58 +0000
+Received: by outflank-mailman (output) from mailman id 757395.1166310; Thu, 11 Jul 2024 11:31:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sRs0o-0002rv-H4; Thu, 11 Jul 2024 11:30:58 +0000
-Received: by outflank-mailman (input) for mailman id 757392;
- Thu, 11 Jul 2024 11:30:57 +0000
+	id 1sRs1P-0003K3-Ty; Thu, 11 Jul 2024 11:31:35 +0000
+Received: by outflank-mailman (input) for mailman id 757395;
+ Thu, 11 Jul 2024 11:31:34 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=PZf6=OL=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1sRs0n-0002rp-4f
- for xen-devel@lists.xenproject.org; Thu, 11 Jul 2024 11:30:57 +0000
-Received: from mail-ed1-x531.google.com (mail-ed1-x531.google.com
- [2a00:1450:4864:20::531])
+ <SRS0=xIkU=OL=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1sRs1O-0002rp-RB
+ for xen-devel@lists.xenproject.org; Thu, 11 Jul 2024 11:31:34 +0000
+Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
+ [2a00:1450:4864:20::631])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 09d3bd4f-3f79-11ef-bbfb-fd08da9f4363;
- Thu, 11 Jul 2024 13:30:56 +0200 (CEST)
-Received: by mail-ed1-x531.google.com with SMTP id
- 4fb4d7f45d1cf-58b447c519eso1035772a12.3
- for <xen-devel@lists.xenproject.org>; Thu, 11 Jul 2024 04:30:56 -0700 (PDT)
-Received: from [10.125.226.166] ([185.25.67.249])
+ id 20871211-3f79-11ef-bbfb-fd08da9f4363;
+ Thu, 11 Jul 2024 13:31:34 +0200 (CEST)
+Received: by mail-ej1-x631.google.com with SMTP id
+ a640c23a62f3a-a6fd513f18bso103004866b.3
+ for <xen-devel@lists.xenproject.org>; Thu, 11 Jul 2024 04:31:34 -0700 (PDT)
+Received: from [192.168.219.191] ([94.75.70.14])
  by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-594bda30a24sm3364739a12.86.2024.07.11.04.30.55
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 11 Jul 2024 04:30:55 -0700 (PDT)
+ a640c23a62f3a-a780a6e58fasm245601866b.71.2024.07.11.04.31.32
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 11 Jul 2024 04:31:33 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,164 +45,112 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 09d3bd4f-3f79-11ef-bbfb-fd08da9f4363
+X-Inumbo-ID: 20871211-3f79-11ef-bbfb-fd08da9f4363
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1720697456; x=1721302256; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=rrfCwx32lgECMEE6wZyprTGjDEyQrDE0dJq6TARcQXU=;
-        b=kgaCYSnlmU4JdgwtyaaJsT32eZmLqtBb72Lu+TCH8cqQ8G7o0Ye975ZpYAqtQb0VlM
-         9Qn7V9b1TU+qpsx7aGydf1LNAksd9ElhtfTd/kvxPNo5KCF3NC/L6UNAK2evbme53RdU
-         +ENRajYnQaPI8SiJMoHXLECjvPMyfUakIC1OA=
+        d=gmail.com; s=20230601; t=1720697494; x=1721302294; darn=lists.xenproject.org;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=XVWFypspqZbwXhEAyE6wz9nfMnqjMMjBTQbws6Ueq2o=;
+        b=KBL8shdPhlPdbzD5RfNf5yjH3f4Deb2tpUYejygOo8+j9Z0DwaUHNwNBmXfV6K5bUt
+         qq8Sb+qbXPBo8wNEyElqmBB4DEqN16K3cq0rrrgRL8R4GXv+jJ6RGxZ7ZqpdU82CrP3/
+         xCrHkImiAMBx9Dv1OKIrgpWVpl0P+I9kkHZSwqt8vjGxcO4R9m+Oq4sbJHbYrnNwALcx
+         c2Id60WpwmWP8PF4PpLzDG999bKuyWX9wkUG4coJjbikMJb12qIZ8S8YfIvkU3vSwmu1
+         kY+KIro04T+lM74wXX2NTTsTIoWcu185yNIyqRbrRGmxaJQGLTprtPbpWAngvs5b/PDy
+         4HqQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1720697456; x=1721302256;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=rrfCwx32lgECMEE6wZyprTGjDEyQrDE0dJq6TARcQXU=;
-        b=Mb4zpjOIlVf6SmosqzGbYDLPLu4NlSQxUDZ9d1ly9us0kM8hB49umtepIqPn7Hmir3
-         ccqww5uolPrTiUY9fKKKSHvLu8HGXDNNVp2mppSEqFiwXtd7nCO0RqWB4e6n/sHQes0j
-         /xAPoBuAQb8oqLOWnoMlQR6iRf5dWdPavVu7bLw62cepj481wplGWyDd4ToUqkMVQ+QC
-         45T2eHsFNYiJnKoKd9BGRou2aAjH4kwKZ3kzyg25eiHTsTOTDJu2tgijD26yrvJFOhzK
-         9AP7EsaLtWCKWFRjrz0W03PNEGr2u9GvlJG7Q2gEbvuI+XrrC+EjzYZG8+XcvHKmu90K
-         1JLQ==
-X-Gm-Message-State: AOJu0YzYbkBaum+utWdOT/KUAu03vPBoW1K0iwlSkZLG2QCr2WsnpRYq
-	X6qLdkPdSkxles530ZZBtSdFygJGqH2pvCuyEum+yurnwn33l9a90EdcX3K4KEM=
-X-Google-Smtp-Source: AGHT+IGxQk0DVltCMGOZQdWc2D9dQw0FT+b/Jw2WGclTEQN9pWmSuGurNB0ijFRhZ4oCAq0PwfoD8A==
-X-Received: by 2002:a05:6402:28a5:b0:58c:804a:6f0a with SMTP id 4fb4d7f45d1cf-594ba59f87emr4877619a12.19.1720697455615;
-        Thu, 11 Jul 2024 04:30:55 -0700 (PDT)
-Message-ID: <f0bdd5ca-3f85-4998-9476-18e768352bec@citrix.com>
-Date: Thu, 11 Jul 2024 12:30:53 +0100
+        d=1e100.net; s=20230601; t=1720697494; x=1721302294;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=XVWFypspqZbwXhEAyE6wz9nfMnqjMMjBTQbws6Ueq2o=;
+        b=wqSQeyEB1spgkTgjjeT3rAzXoVLsGgmD4XkTRk1K3HeYieRrD5ZxLetTsSKBzeiL01
+         dfU6YtKrNL+qSe8gLrmTD7YTj2LF/H0uqPdvC19J7PR4u3kMyA5MTjaE7BqkMDx9t+XJ
+         G9paOlnYgG+HsQHHU+nVw/tY2Ikjfs4S1dTX6rinwtQgDnROkcdSdtLSbthxvDufgoGk
+         3CyMdwqh58o0X6k1XHwDktmI2TCk/E+AXGxVyE+ePLBujR6wH8lmvhcF6oDH3u7/pCRA
+         4PvZliYQv0tcFpZ+XOMSbhOr8cJ+BCIpDgb2CttvKrVjhRTXeLROq5e/qM6wMNcO8WbC
+         QCwQ==
+X-Forwarded-Encrypted: i=1; AJvYcCUfmP6LEUooro0yGI2Y5/NZgq15lIQeNaHkXaNr/wHRwG6DpE8SemYGDSlZRpEgWjTP3xaUPnNXMuqKaS4JedojaZn+XcBDfMpPNTn9ltM=
+X-Gm-Message-State: AOJu0YzVvmRoZF/yBECfKfNNPxvMKDIvbswBZs+yAbXZbZhaCNO7zGZB
+	CuWTSakqYTXPbiubJuy/UzOPB9MSL8L7BMFiOi9CFNoBbz0Q1lXv
+X-Google-Smtp-Source: AGHT+IEVP7P3ByMyvbKr6WCMBrEaCWv3OrBQ1fGHLtncXDmMJJxzio3FM55Vr7/QxM/MBIL7nvu5sg==
+X-Received: by 2002:a17:906:2bc5:b0:a77:aebc:8fb1 with SMTP id a640c23a62f3a-a780b6b1befmr505339566b.17.1720697493462;
+        Thu, 11 Jul 2024 04:31:33 -0700 (PDT)
+Message-ID: <e93e2deca92c64b71cfff83eac49efa834d4733b.camel@gmail.com>
+Subject: Re: [PATCH v1 5/5] xen/riscv: map FDT
+From: Oleksii <oleksii.kurochko@gmail.com>
+To: Julien Grall <julien@xen.org>, Jan Beulich <jbeulich@suse.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>, Bob Eshleman
+ <bobbyeshleman@gmail.com>, Connor Davis <connojdavis@gmail.com>, Andrew
+ Cooper <andrew.cooper3@citrix.com>, Stefano Stabellini
+ <sstabellini@kernel.org>,  xen-devel@lists.xenproject.org
+Date: Thu, 11 Jul 2024 13:31:32 +0200
+In-Reply-To: <5b97113d-12f7-4051-88da-f08bb9cb3a70@xen.org>
+References: <cover.1720002425.git.oleksii.kurochko@gmail.com>
+	 <7e492df051c949744755a221c0448c740d2c681b.1720002425.git.oleksii.kurochko@gmail.com>
+	 <3afd94c0-25f4-4ed8-83d2-6f261b8a64b3@suse.com>
+	 <021d29540f8e9abec118e9ca9dcd9675310eda84.camel@gmail.com>
+	 <5b97113d-12f7-4051-88da-f08bb9cb3a70@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.52.2 (3.52.2-1.fc40app2) 
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: Help with Understanding vcpu xstate restore error during vm
- migration
-To: Fonyuy-Asheri Caleb <fonyuy-asheri.caleb@inria.fr>
-Cc: xen-devel <xen-devel@lists.xenproject.org>,
- Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>
-References: <60751777.2038091.1720694327760.JavaMail.zimbra@inria.fr>
- <94e94a94-14f2-4fa6-bc3b-6c64c1b84b59@citrix.com>
- <1546743760.2065506.1720696161057.JavaMail.zimbra@inria.fr>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- xsFNBFLhNn8BEADVhE+Hb8i0GV6mihnnr/uiQQdPF8kUoFzCOPXkf7jQ5sLYeJa0cQi6Penp
- VtiFYznTairnVsN5J+ujSTIb+OlMSJUWV4opS7WVNnxHbFTPYZVQ3erv7NKc2iVizCRZ2Kxn
- srM1oPXWRic8BIAdYOKOloF2300SL/bIpeD+x7h3w9B/qez7nOin5NzkxgFoaUeIal12pXSR
- Q354FKFoy6Vh96gc4VRqte3jw8mPuJQpfws+Pb+swvSf/i1q1+1I4jsRQQh2m6OTADHIqg2E
- ofTYAEh7R5HfPx0EXoEDMdRjOeKn8+vvkAwhviWXTHlG3R1QkbE5M/oywnZ83udJmi+lxjJ5
- YhQ5IzomvJ16H0Bq+TLyVLO/VRksp1VR9HxCzItLNCS8PdpYYz5TC204ViycobYU65WMpzWe
- LFAGn8jSS25XIpqv0Y9k87dLbctKKA14Ifw2kq5OIVu2FuX+3i446JOa2vpCI9GcjCzi3oHV
- e00bzYiHMIl0FICrNJU0Kjho8pdo0m2uxkn6SYEpogAy9pnatUlO+erL4LqFUO7GXSdBRbw5
- gNt25XTLdSFuZtMxkY3tq8MFss5QnjhehCVPEpE6y9ZjI4XB8ad1G4oBHVGK5LMsvg22PfMJ
- ISWFSHoF/B5+lHkCKWkFxZ0gZn33ju5n6/FOdEx4B8cMJt+cWwARAQABzSlBbmRyZXcgQ29v
- cGVyIDxhbmRyZXcuY29vcGVyM0BjaXRyaXguY29tPsLBegQTAQgAJAIbAwULCQgHAwUVCgkI
- CwUWAgMBAAIeAQIXgAUCWKD95wIZAQAKCRBlw/kGpdefoHbdD/9AIoR3k6fKl+RFiFpyAhvO
- 59ttDFI7nIAnlYngev2XUR3acFElJATHSDO0ju+hqWqAb8kVijXLops0gOfqt3VPZq9cuHlh
- IMDquatGLzAadfFx2eQYIYT+FYuMoPZy/aTUazmJIDVxP7L383grjIkn+7tAv+qeDfE+txL4
- SAm1UHNvmdfgL2/lcmL3xRh7sub3nJilM93RWX1Pe5LBSDXO45uzCGEdst6uSlzYR/MEr+5Z
- JQQ32JV64zwvf/aKaagSQSQMYNX9JFgfZ3TKWC1KJQbX5ssoX/5hNLqxMcZV3TN7kU8I3kjK
- mPec9+1nECOjjJSO/h4P0sBZyIUGfguwzhEeGf4sMCuSEM4xjCnwiBwftR17sr0spYcOpqET
- ZGcAmyYcNjy6CYadNCnfR40vhhWuCfNCBzWnUW0lFoo12wb0YnzoOLjvfD6OL3JjIUJNOmJy
- RCsJ5IA/Iz33RhSVRmROu+TztwuThClw63g7+hoyewv7BemKyuU6FTVhjjW+XUWmS/FzknSi
- dAG+insr0746cTPpSkGl3KAXeWDGJzve7/SBBfyznWCMGaf8E2P1oOdIZRxHgWj0zNr1+ooF
- /PzgLPiCI4OMUttTlEKChgbUTQ+5o0P080JojqfXwbPAyumbaYcQNiH1/xYbJdOFSiBv9rpt
- TQTBLzDKXok86M7BTQRS4TZ/ARAAkgqudHsp+hd82UVkvgnlqZjzz2vyrYfz7bkPtXaGb9H4
- Rfo7mQsEQavEBdWWjbga6eMnDqtu+FC+qeTGYebToxEyp2lKDSoAsvt8w82tIlP/EbmRbDVn
- 7bhjBlfRcFjVYw8uVDPptT0TV47vpoCVkTwcyb6OltJrvg/QzV9f07DJswuda1JH3/qvYu0p
- vjPnYvCq4NsqY2XSdAJ02HrdYPFtNyPEntu1n1KK+gJrstjtw7KsZ4ygXYrsm/oCBiVW/OgU
- g/XIlGErkrxe4vQvJyVwg6YH653YTX5hLLUEL1NS4TCo47RP+wi6y+TnuAL36UtK/uFyEuPy
- wwrDVcC4cIFhYSfsO0BumEI65yu7a8aHbGfq2lW251UcoU48Z27ZUUZd2Dr6O/n8poQHbaTd
- 6bJJSjzGGHZVbRP9UQ3lkmkmc0+XCHmj5WhwNNYjgbbmML7y0fsJT5RgvefAIFfHBg7fTY/i
- kBEimoUsTEQz+N4hbKwo1hULfVxDJStE4sbPhjbsPCrlXf6W9CxSyQ0qmZ2bXsLQYRj2xqd1
- bpA+1o1j2N4/au1R/uSiUFjewJdT/LX1EklKDcQwpk06Af/N7VZtSfEJeRV04unbsKVXWZAk
- uAJyDDKN99ziC0Wz5kcPyVD1HNf8bgaqGDzrv3TfYjwqayRFcMf7xJaL9xXedMcAEQEAAcLB
- XwQYAQgACQUCUuE2fwIbDAAKCRBlw/kGpdefoG4XEACD1Qf/er8EA7g23HMxYWd3FXHThrVQ
- HgiGdk5Yh632vjOm9L4sd/GCEACVQKjsu98e8o3ysitFlznEns5EAAXEbITrgKWXDDUWGYxd
- pnjj2u+GkVdsOAGk0kxczX6s+VRBhpbBI2PWnOsRJgU2n10PZ3mZD4Xu9kU2IXYmuW+e5KCA
- vTArRUdCrAtIa1k01sPipPPw6dfxx2e5asy21YOytzxuWFfJTGnVxZZSCyLUO83sh6OZhJkk
- b9rxL9wPmpN/t2IPaEKoAc0FTQZS36wAMOXkBh24PQ9gaLJvfPKpNzGD8XWR5HHF0NLIJhgg
- 4ZlEXQ2fVp3XrtocHqhu4UZR4koCijgB8sB7Tb0GCpwK+C4UePdFLfhKyRdSXuvY3AHJd4CP
- 4JzW0Bzq/WXY3XMOzUTYApGQpnUpdOmuQSfpV9MQO+/jo7r6yPbxT7CwRS5dcQPzUiuHLK9i
- nvjREdh84qycnx0/6dDroYhp0DFv4udxuAvt1h4wGwTPRQZerSm4xaYegEFusyhbZrI0U9tJ
- B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
- d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
- 6+ahAA==
-In-Reply-To: <1546743760.2065506.1720696161057.JavaMail.zimbra@inria.fr>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
 
-On 11/07/2024 12:09 pm, Fonyuy-Asheri Caleb wrote:
-> ----- Original Message -----
->> From: "Andrew Cooper" <andrew.cooper3@citrix.com>
->> To: "Fonyuy-Asheri Caleb" <fonyuy-asheri.caleb@inria.fr>, "xen-devel" <xen-devel@lists.xenproject.org>
->> Sent: Thursday, July 11, 2024 12:45:18 PM
->> Subject: Re: Help with Understanding vcpu xstate restore error during vm migration
->> On 11/07/2024 11:38 am, Fonyuy-Asheri Caleb wrote:
->>> Hello,
->>>
->>> I am trying to understand the causes of the vcpu xstate restore error
->>> during live migration.
->>> I get the following error during live migration:
->>>
->>> xc: error: Failed to set vcpu0's xsave info (22 = Invalid argument):
->>> Internal error
->>>
->>> I was able to locate the failure point to the file
->>> xen/arch/x86/domctl.c  with the following check.
->>>
->>> if( evc->size<PV_XSAVE_HDR_SIZE||
->>> evc->size>PV_XSAVE_SIZE(xfeature_mask) )
->>> gotovcpuextstate_out;
->>>
->>> I know this is related to the number of xstates handled by the source
->>> server. Please can
->>> someone explain to me how these states are computed?
->>>
->>> I earlier thought it was simply the number xsave dependent features on
->>> the CPU but it seems
->>> to be more than that.
->>>
->>> Thanks in advance.
->> It is certainly more complicated than that.
->>
->> What that's saying is that Xen doesn't think that the size of the blob
->> matches expectations.  That said - I'm in the middle of rewriting this
->> logic because lots of it is subtly wrong.
-> Please do you mind giving me more insight on the logic currently implemented 
-> and maybe what is wrong with it? It will be important for me since what I'm 
-> doing is research work.
+On Thu, 2024-07-11 at 11:50 +0100, Julien Grall wrote:
+> Hi,
+Hi Julien,
 
-See 9e6dbbe8bf40^..267122a24c49
+>=20
+> On 11/07/2024 10:40, Oleksii wrote:
+> > On Wed, 2024-07-10 at 14:38 +0200, Jan Beulich wrote:
+> > > On 03.07.2024 12:42, Oleksii Kurochko wrote:
+> > > > Except mapping of FDT, it is also printing command line passed
+> > > > by
+> > > > a DTB and initialize bootinfo from a DTB.
+> > >=20
+> > > I'm glad the description isn't empty here. However, ...
+> > >=20
+> > > > --- a/xen/arch/riscv/riscv64/head.S
+> > > > +++ b/xen/arch/riscv/riscv64/head.S
+> > > > @@ -41,6 +41,9 @@ FUNC(start)
+> > > > =C2=A0=20
+> > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 jal=C2=A0=C2=
+=A0=C2=A0=C2=A0 setup_initial_pagetables
+> > > > =C2=A0=20
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 mv=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0 a0, s1
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 jal=C2=A0=C2=A0=C2=A0=
+=C2=A0 fdt_map
+> > > > +
+> > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /* Calculate=
+ proper VA after jump from 1:1 mapping */
+> > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 la=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0 a0, .L_primary_switched
+> > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 sub=C2=A0=C2=
+=A0=C2=A0=C2=A0 a0, a0, s2
+> > >=20
+> > > ... it could do with clarifying why this needs calling from
+> > > assembly
+> > > code. Mapping the FDT clearly looks like something that wants
+> > > doing
+> > > from start_xen(), i.e. from C code.
+> > fdt_map() expected to work while MMU is off as it is using
+> > setup_initial_mapping() which is working with physical address.
+>=20
+> Somewhat related to what Jan is asking. You only seem to part the FDT
+> in=20
+> start_xen(). So why do you need to call fdt_map() that early?
+Let's continue our discussion in another thread ( I added you there ).
 
-> How do the values evc->size and xfeature_mask relate to the source and target
-> processor xstates (or xstate management)?
+But the answer on your question is here:
+https://lore.kernel.org/xen-devel/cover.1720002425.git.oleksii.kurochko@gma=
+il.com/T/#m2890200a53c6ea2101e0f9e9ea77f589bd187e26
 
-The lower bounds check is for normal reasons, while the upper bounds
-check is a sanity "does this image appear to have more states active
-than the current system".
+And
+here:https://lore.kernel.org/xen-devel/cover.1720002425.git.oleksii.kurochk=
+o@gmail.com/T/#m4e20792121b97465db7081cc4c1e27bdb15cdd51
 
-The upper bound is bogus, because "what this VM has" has no true
-relationship to "what Xen decided to turn on by default at boot".
->> To start with, which version (or versions?) of Xen, and what hardware?
-> Xen version 4.18.3-pre
+Let me know if the link above answers your question.
 
-As you're not on a specific tag, exact changeset?
-
-Not that it likely matters - there shouldn't be anything relevant in
-staging-4.18 since RELEASE-4.18.2 as far as this goes.
-
-There are backports of 2 of bugfixes, but in a way that should be
-practical change on 4.18.
-
-> My CPU is : Intel(R) Xeon(R) CPU E5-2630 v3 @ 2.40GHz
-
-Ok, so Haswell.
-
-Let me stare at the CPUID dumps and see if anything stands out.
-
-~Andrew
+~ Oleksii
 
