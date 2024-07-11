@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 713E592ECE5
-	for <lists+xen-devel@lfdr.de>; Thu, 11 Jul 2024 18:38:04 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.757642.1166705 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6E45392ECFA
+	for <lists+xen-devel@lfdr.de>; Thu, 11 Jul 2024 18:43:08 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.757647.1166714 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sRwni-0000oE-1k; Thu, 11 Jul 2024 16:37:46 +0000
+	id 1sRwse-0002Io-Ip; Thu, 11 Jul 2024 16:42:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 757642.1166705; Thu, 11 Jul 2024 16:37:46 +0000
+Received: by outflank-mailman (output) from mailman id 757647.1166714; Thu, 11 Jul 2024 16:42:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sRwnh-0000mR-U6; Thu, 11 Jul 2024 16:37:45 +0000
-Received: by outflank-mailman (input) for mailman id 757642;
- Thu, 11 Jul 2024 16:37:45 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1sRwse-0002G9-GA; Thu, 11 Jul 2024 16:42:52 +0000
+Received: by outflank-mailman (input) for mailman id 757647;
+ Thu, 11 Jul 2024 16:42:51 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=sMyr=OL=bounce.vates.tech=bounce-md_30504962.66900a57.v1-dc0647c5c21d4c2b8c86e460f83e5a4b@srs-se1.protection.inumbo.net>)
- id 1sRwnh-0000mL-1S
- for xen-devel@lists.xenproject.org; Thu, 11 Jul 2024 16:37:45 +0000
-Received: from mail186-27.suw21.mandrillapp.com
- (mail186-27.suw21.mandrillapp.com [198.2.186.27])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e5799fbd-3fa3-11ef-bbfb-fd08da9f4363;
- Thu, 11 Jul 2024 18:37:44 +0200 (CEST)
-Received: from pmta10.mandrill.prod.suw01.rsglab.com (localhost [127.0.0.1])
- by mail186-27.suw21.mandrillapp.com (Mailchimp) with ESMTP id
- 4WKgPg1Kq0z6CQ3ny
- for <xen-devel@lists.xenproject.org>; Thu, 11 Jul 2024 16:37:43 +0000 (GMT)
+ <SRS0=Jxuc=OL=bounce.vates.tech=bounce-md_30504962.66900b88.v1-43623664dd02461398a2b2ebac11d0c7@srs-se1.protection.inumbo.net>)
+ id 1sRwsd-0002G3-DF
+ for xen-devel@lists.xenproject.org; Thu, 11 Jul 2024 16:42:51 +0000
+Received: from mail136-18.atl41.mandrillapp.com
+ (mail136-18.atl41.mandrillapp.com [198.2.136.18])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 9b8efa27-3fa4-11ef-8776-851b0ebba9a2;
+ Thu, 11 Jul 2024 18:42:49 +0200 (CEST)
+Received: from pmta11.mandrill.prod.atl01.rsglab.com (localhost [127.0.0.1])
+ by mail136-18.atl41.mandrillapp.com (Mailchimp) with ESMTP id
+ 4WKgWX1qWKzB5p8b5
+ for <xen-devel@lists.xenproject.org>; Thu, 11 Jul 2024 16:42:48 +0000 (GMT)
 Received: from [37.26.189.201] by mandrillapp.com id
- dc0647c5c21d4c2b8c86e460f83e5a4b; Thu, 11 Jul 2024 16:37:43 +0000
+ 43623664dd02461398a2b2ebac11d0c7; Thu, 11 Jul 2024 16:42:48 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,56 +43,53 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e5799fbd-3fa3-11ef-bbfb-fd08da9f4363
+X-Inumbo-ID: 9b8efa27-3fa4-11ef-8776-851b0ebba9a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
-	s=mte1; t=1720715863; x=1720976363;
-	bh=XzqzJLY87M4ZYLRo3AYCtT9uBYsqsNa71UbiJ5+Kel0=;
+	s=mte1; t=1720716168; x=1720976668;
+	bh=bynxZK2homNllH9R4jLqjU7kZXnvPx41cnDtNtpcWm8=;
 	h=From:Subject:To:Cc:Message-Id:References:In-Reply-To:Feedback-ID:
 	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
 	 Subject:From;
-	b=Ycsg6kCaN4fmrInzetJSxVEvwQ1OO4VzCdKaxAFGdIttTZHh0rlGUtxH09sW9ZV0y
-	 /m103sdeq56n9ex29ALCPmljHmpzZ6rzCKaGmPXkdWZAU2cEVVDClUCAUBDhsNxoOH
-	 QKroFd8ASgo9y6XHO1gWKsRNopRV4J4FS1z2sHkDGpma5/sV07ovOei6PKLZCCO7be
-	 PJei7JZPJOpYG00XTCbx3veFke0CPRL4VaaNt3Y1c5HA3JwWrj7sGa9p5YXh7sX76Q
-	 hwXJ2CcCO9mb3S3HP+dIDc2NdJfTZqVjLXUXq/ISBhFr7NYUXkKnBkpUAWZ8y04H0e
-	 lNfn9G0ErByqw==
+	b=hvBOZNbRvtZvUALRuU7+tr0iuQyMS5oAH3WY5G4Ul3SN9LRlg0UQU+aINw6BiwDv6
+	 nAMBU83WfNJODjXbcQQ6gr8+2LT97BHm1MW/Tq+U4toekRjagKmz+ZTeWQmG0DB2UX
+	 +O/ZB6aB1oMyE3g+PJX6WL9PTz/GcXY9HVjA8wCSfkkkrXJpIS3y3KnybEtUMyvq+R
+	 c8FSVIi6RU2dtmlbBMk4J56jxZsMXKfWNIlQk1X8rRFhYQJ99K8zdS2G7qsIZ+KhcE
+	 y06LeaWwOQins/NU8R3wmB6jYrH0ULnpwcsFRrjHdoGqesrOTiqwZPiwpubkvWPFnA
+	 vkw/3swDmq3gg==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
-	t=1720715863; x=1720976363; i=anthony.perard@vates.tech;
-	bh=XzqzJLY87M4ZYLRo3AYCtT9uBYsqsNa71UbiJ5+Kel0=;
+	t=1720716168; x=1720976668; i=anthony.perard@vates.tech;
+	bh=bynxZK2homNllH9R4jLqjU7kZXnvPx41cnDtNtpcWm8=;
 	h=From:Subject:To:Cc:Message-Id:References:In-Reply-To:Feedback-ID:
 	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
 	 Subject:From;
-	b=PW8xMBZsgHIfWB0OotNDbi60mDGUIxxErmXyXzr5EbKSW3nq0LV2ljzehpNfKA2qD
-	 ANRicEm3PORQTI5TKk0QZRFCFE/xuOU2rFythFyPH6EonCIOy+sr9TepIEj4bb97Y2
-	 aZW263SZK9g88k5jbF+ikHf4QGrTzvcvdyq95g7xHzRnxwKNDZAB1YSVb0gQ7KyKMg
-	 XzLDwjPsSdqaJaggQIbZ91K3puq4mKZBFEtkMFF9TRS5+Qs4glKmkgJBLI2GPYDTfv
-	 mrNZ/lorGFFr6u0OtqLK924aQbeq3Xx9A7QI60mgS6KmByH7YHOBUOiiIFrGgIMR7I
-	 f4MgvVaL2frNg==
+	b=zDso/dsOa4dLFbAgIngRC/X0Kq3tz9ygPeLdxNXsWHJsSbdZCbxODvEvW/gQWdp6K
+	 X3U/ey1UOoaJNDY9jq/9Vh1w3APtrPQep0ONVDaIylfiLUCYyPcaKiPp8wq8hq4Qxv
+	 OdYnx1cUQTiECLZLD6qXiL+h1K9JOroGkVL+RP0lcoEBhSvxGMBv/9xSPH+00lGe9k
+	 pSyiuA6BWWKDPh0mfuewUl3WVHpd3cScBe4oalZl+0YMvx7MmdsB4Al8/yHHearfEd
+	 7re4FFHZ7Axy1EEFpxkzj92f/gvTcPPytTjjpeYmENFSwZonfhBU0+1DWDuEIk9zI1
+	 j7HbEzhHVrcXg==
 From: Anthony PERARD <anthony.perard@vates.tech>
-Subject: =?utf-8?Q?Re:=20[PATCH=2011/12]=20CI:=20Swap=20to=20debian=20for=20riscv64=20build=20and=20test?=
+Subject: =?utf-8?Q?Re:=20[PATCH=2012/12]=20CI:=20Refresh=20and=20upgrade=20the=20GCC-IBT=20container?=
 X-Bm-Disclaimer: Yes
 X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
-X-Bm-Transport-Timestamp: 1720715861959
+X-Bm-Transport-Timestamp: 1720716166694
 To: Andrew Cooper <andrew.cooper3@citrix.com>
 Cc: Xen-devel <xen-devel@lists.xenproject.org>, Juergen Gross <jgross@suse.com>, =?utf-8?Q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>, Jan Beulich <JBeulich@suse.com>, Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Oleksii Kurochko <oleksii.kurochko@gmail.com>, Shawn Anastasio <sanastasio@raptorengineering.com>
-Message-Id: <ZpAKVX1B+jAxnNmI@l14>
-References: <20240711111517.3064810-1-andrew.cooper3@citrix.com> <20240711111517.3064810-12-andrew.cooper3@citrix.com>
-In-Reply-To: <20240711111517.3064810-12-andrew.cooper3@citrix.com>
+Message-Id: <ZpALhn9Rq41N8Qv9@l14>
+References: <20240711111517.3064810-1-andrew.cooper3@citrix.com> <20240711111517.3064810-13-andrew.cooper3@citrix.com>
+In-Reply-To: <20240711111517.3064810-13-andrew.cooper3@citrix.com>
 X-Native-Encoded: 1
-X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.dc0647c5c21d4c2b8c86e460f83e5a4b?=
+X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.43623664dd02461398a2b2ebac11d0c7?=
 X-Mandrill-User: md_30504962
 Feedback-ID: 30504962:30504962.20240711:md
-Date: Thu, 11 Jul 2024 16:37:43 +0000
+Date: Thu, 11 Jul 2024 16:42:48 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: 7bit
 
-On Thu, Jul 11, 2024 at 12:15:16PM +0100, Andrew Cooper wrote:
-> The containers are both much smaller, with stable toolchains over time, and
-> this at least means we're not doing all testing with a single compiler.
-> 
-> Rename the jobs to follow to sort coherently ($DISTRO-$VERSION-$ARCH-*) and
-> reposition the jobs to optimise starting the smoke test.
+On Thu, Jul 11, 2024 at 12:15:17PM +0100, Andrew Cooper wrote:
+> Upgrade from Debian buster to bookworm, GCC 11.3 to 11.4 and to be a non-root
+> container.
 > 
 > Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
