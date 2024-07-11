@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1963792E5BD
+	by mail.lfdr.de (Postfix) with ESMTPS id 9C54992E5C1
 	for <lists+xen-devel@lfdr.de>; Thu, 11 Jul 2024 13:15:43 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.757322.1166159 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.757325.1166183 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sRrln-0007tc-M0; Thu, 11 Jul 2024 11:15:27 +0000
+	id 1sRrlp-0008Kb-KH; Thu, 11 Jul 2024 11:15:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 757322.1166159; Thu, 11 Jul 2024 11:15:27 +0000
+Received: by outflank-mailman (output) from mailman id 757325.1166183; Thu, 11 Jul 2024 11:15:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sRrln-0007rP-JA; Thu, 11 Jul 2024 11:15:27 +0000
-Received: by outflank-mailman (input) for mailman id 757322;
- Thu, 11 Jul 2024 11:15:25 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1sRrlp-0008E7-E3; Thu, 11 Jul 2024 11:15:29 +0000
+Received: by outflank-mailman (input) for mailman id 757325;
+ Thu, 11 Jul 2024 11:15:28 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=PZf6=OL=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1sRrll-0007rD-Jq
- for xen-devel@lists.xenproject.org; Thu, 11 Jul 2024 11:15:25 +0000
-Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
- [2a00:1450:4864:20::62d])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id de964e90-3f76-11ef-bbfb-fd08da9f4363;
- Thu, 11 Jul 2024 13:15:24 +0200 (CEST)
-Received: by mail-ej1-x62d.google.com with SMTP id
- a640c23a62f3a-a6265d3ba8fso93857966b.0
- for <xen-devel@lists.xenproject.org>; Thu, 11 Jul 2024 04:15:24 -0700 (PDT)
+ id 1sRrlo-0007rJ-G8
+ for xen-devel@lists.xenproject.org; Thu, 11 Jul 2024 11:15:28 +0000
+Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
+ [2a00:1450:4864:20::536])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id e0005c60-3f76-11ef-8776-851b0ebba9a2;
+ Thu, 11 Jul 2024 13:15:27 +0200 (CEST)
+Received: by mail-ed1-x536.google.com with SMTP id
+ 4fb4d7f45d1cf-58b447c5112so1028030a12.3
+ for <xen-devel@lists.xenproject.org>; Thu, 11 Jul 2024 04:15:27 -0700 (PDT)
 Received: from andrewcoop.eng.citrite.net ([185.25.67.249])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a780a7ff7d5sm246386666b.142.2024.07.11.04.15.22
+ a640c23a62f3a-a780a7ff7d5sm246386666b.142.2024.07.11.04.15.23
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
  Thu, 11 Jul 2024 04:15:23 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
@@ -45,34 +45,34 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: de964e90-3f76-11ef-bbfb-fd08da9f4363
+X-Inumbo-ID: e0005c60-3f76-11ef-8776-851b0ebba9a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1720696523; x=1721301323; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1720696525; x=1721301325; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=gf25M9zoO5vZznMm7cYwnz+XBjUsPdeo20Axydvsm8w=;
-        b=Fvan6j243CBQumJCIKFhAsXIZ5XZc2Z+bsKFmxHc4Wdq5MehiHeWWfjpT+/AWtGuOX
-         bWpYBBhc4GSB8my4Zc8n+17nIGdjxYJJUM2u75S0d75CzYEoZYkLO+mmpU4O6YzwrubS
-         W7w7Mp7I6Lj0ISC87BW5ThrrxAtkxaPY9kq6o=
+        bh=QMdgJvw5BoA7Ynpn9dLAYsAUignCSQSLKykSZf64/SM=;
+        b=jmMpoewFmF/AFx9Ygiex+EMmbg2sQXkFrGOh3Dz0gSSBgYgo/xAldIJkIDKedhj8N3
+         +Wf6mDfusnQLxXLmtSWVsZ1rCkbOzWCnAFZGuStCe8F8LanSJVa4xWGSjLQovLbobOeN
+         OlkYx1DA+y5MCZO5nLSKRVvCfEJBup5Au8+hA=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1720696523; x=1721301323;
+        d=1e100.net; s=20230601; t=1720696525; x=1721301325;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=gf25M9zoO5vZznMm7cYwnz+XBjUsPdeo20Axydvsm8w=;
-        b=JIy4kUB4/wxpLwcA+l9YG72lzEscfrvXtQMb/DbveX+6zRPcIj2Tc9mem3LLqId2EM
-         fVfRGvPuULPkpEiFMLfBk1ud0zh6sa70bYbtbe/YaaCErVPXZRLHD7S/tboLgam3SJTp
-         CxrwhD/VJo3WyMBdb7CZlG6flm0fKlXbsjTZJwYiqBrV45NnlehTjqu7LIwhRE+nBWDF
-         k9t/d0owNoPWNk7cvsl6QpWevh/NMc4ZIYbe1oRzttK4/Ph8qdvk1kmZkP2ANU+pEOEV
-         TngXQehSV9bZ70UwzWlaKlHIpxfjCuHhEsakeWF7ZK5SlGeTIPckzMdwu+MhlmYpTjjg
-         P2iQ==
-X-Gm-Message-State: AOJu0YzlBrLZ+JjEhUDBfki9nhIPRhdY4V2efv0lCBYqIcHxrU308cVz
-	gF4JUHSgrBIFB77qIF936Zuzjs4/uM/7t+sq+wBxwZACmIuqCFoWMnp6Qw85asq963G9h6fswSC
-	R
-X-Google-Smtp-Source: AGHT+IFTvR+hMp9nnt7D5X0BPm5D4ydWq3OZMDWx6U0p0uhGHSb64/n7Z/D/sb6yAfV92dmqH/P1mA==
-X-Received: by 2002:a17:906:c309:b0:a77:e55a:9e91 with SMTP id a640c23a62f3a-a780b6b0e59mr547319266b.19.1720696523503;
-        Thu, 11 Jul 2024 04:15:23 -0700 (PDT)
+        bh=QMdgJvw5BoA7Ynpn9dLAYsAUignCSQSLKykSZf64/SM=;
+        b=S1MJifeTx7fAOwjseITv63l2jqdWP4uUACeSDl3XEjIaz4MoptG20LU3wzU4CNWNig
+         KQl2DpXstDZvzL1oDqBScnAo8klu0qLTj3S4DXTxDZmJf5hONtKf/rG5uu015Skd5yk6
+         ZgIgPaD7cGLHofzEi5dvW+m2ioId3PGRgf8FoxHANZuCx6yHJuEnuGW42TnY/0s+oQUc
+         arkluWhXHvNCJR3ofAByTe3U1uzE24mpavxB7mo7Qx/oW+Z9UBGS2Qwy+08gk49nHSVX
+         ANcZbZKuTp6NrbdHLEfkanGwm3jHbSngCoZo6yPnZvyTXZ+JaMgfExCGv6iomTDuYx7y
+         X5BQ==
+X-Gm-Message-State: AOJu0YwKeCH9hSIRt//ofNdvwSKYNesVCVeT44bPKHi/phDv4QZEn7o6
+	KQHrtnSaZ7AmUiwYov9Q+NQ66Rh6peprDaqlTIo5r0sbU49ZMoB2LoXeAtHGHHb26x3awcigCx6
+	T
+X-Google-Smtp-Source: AGHT+IHD3EHDyWvqIB6M7adyUPfxyLF5B36e8K5nWoAWp1Uc7hCbjfs8JXlEgfRiNZLawBZKHB2TLA==
+X-Received: by 2002:a17:907:7247:b0:a77:e2e3:3546 with SMTP id a640c23a62f3a-a780b68a8d1mr755354766b.9.1720696525147;
+        Thu, 11 Jul 2024 04:15:25 -0700 (PDT)
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
@@ -84,9 +84,9 @@ Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
 	Julien Grall <julien@xen.org>,
 	Oleksii Kurochko <oleksii.kurochko@gmail.com>,
 	Shawn Anastasio <sanastasio@raptorengineering.com>
-Subject: [PATCH 01/12] CI: Fix CONTAINER_UID0=1 scripts/containerize
-Date: Thu, 11 Jul 2024 12:15:06 +0100
-Message-Id: <20240711111517.3064810-2-andrew.cooper3@citrix.com>
+Subject: [PATCH 02/12] CI: Remove useless/misleading randconfig jobs
+Date: Thu, 11 Jul 2024 12:15:07 +0100
+Message-Id: <20240711111517.3064810-3-andrew.cooper3@citrix.com>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20240711111517.3064810-1-andrew.cooper3@citrix.com>
 References: <20240711111517.3064810-1-andrew.cooper3@citrix.com>
@@ -94,16 +94,23 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Right now, most build containers use root.  Archlinux, Fedora and Yocto set up
-a regular user called `user`.
+Randconfig builds pick CONFIG_DEBUG with 50% probability.  Therefore
+$foo{,-debug}-randconfig are two identical jobs with misleading names.
 
-For those containers, trying to containerize as root fails, because
-CONTAINER_UID0=1 does nothing, whereas CONTAINER_UID0=0 forces the user away
-from root.
+Furthermore, arm64 has a randconfig jobs for both the alpine and bookworm
+build environments.  Both use GCC 12.2, so we have 4 identical jobs.  Delete 3
+of them.
 
-To make CONTAINER_UID0=1 work reliably, force to root if requested.
+This leaves us with 4 primary randconfig jobs:
 
-Fixes: 17fbe6504dfd ("automation: introduce a new variable to control container user")
+  gitlab-ci/build.yaml:381:debian-bookworm-gcc-arm32-randconfig:
+  gitlab-ci/build.yaml:429:alpine-3.18-gcc-arm64-randconfig:
+  gitlab-ci/build.yaml:495:archlinux-current-gcc-riscv64-randconfig:
+  gitlab-ci/build.yaml:640:debian-bookworm-gcc-randconfig:
+
+as PPC64 doesn't want randconfig right now, and buster-gcc-ibt is a special
+job with a custom compiler.
+
 Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 ---
 CC: Anthony PERARD <anthony.perard@vates.tech>
@@ -115,25 +122,100 @@ CC: Julien Grall <julien@xen.org>
 CC: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 CC: Shawn Anastasio <sanastasio@raptorengineering.com>
 
-v2:
- * Add fixes tag
----
- automation/scripts/containerize | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Here is an example debug-randconfig with a release builds:
+  https://gitlab.com/xen-project/people/andyhhp/xen/-/jobs/7312848876
 
-diff --git a/automation/scripts/containerize b/automation/scripts/containerize
-index acdef1b54813..03bc4837350c 100755
---- a/automation/scripts/containerize
-+++ b/automation/scripts/containerize
-@@ -51,7 +51,7 @@ esac
+If we want to run multiple identical randconfig jobs, that's spelt
+
+  parallel: 5
+
+in the configuration, and here is an example of what such a run looks like:
+  https://gitlab.com/xen-project/people/andyhhp/xen/-/pipelines/1368824041
+
+Notice the randconfig jobs have a 5 in place of a retry button, and show a
+submenu when clicked on.
+---
+ automation/gitlab-ci/build.yaml | 39 ---------------------------------
+ 1 file changed, 39 deletions(-)
+
+diff --git a/automation/gitlab-ci/build.yaml b/automation/gitlab-ci/build.yaml
+index ff5c9055d1f0..da7b8885aa30 100644
+--- a/automation/gitlab-ci/build.yaml
++++ b/automation/gitlab-ci/build.yaml
+@@ -385,13 +385,6 @@ debian-bookworm-gcc-arm32-randconfig:
+     HYPERVISOR_ONLY: y
+     RANDCONFIG: y
  
- # Use this variable to control whether root should be used
- case "_${CONTAINER_UID0}" in
--    _1)   userarg= ;;
-+    _1)   userarg="-u 0" ;;
-     _0|_) userarg="-u $(id -u) $userns_podman" ;;
- esac
+-debian-bookworm-gcc-arm32-debug-randconfig:
+-  extends: .gcc-arm32-cross-build-debug
+-  variables:
+-    CONTAINER: debian:bookworm-arm64v8-arm32-gcc
+-    HYPERVISOR_ONLY: y
+-    RANDCONFIG: y
+-
+ debian-bookworm-gcc-arm32-debug-staticmem:
+   extends: .gcc-arm32-cross-build-debug
+   variables:
+@@ -423,18 +416,6 @@ debian-bookworm-gcc-debug-arm64:
+   variables:
+     CONTAINER: debian:bookworm-arm64v8
  
+-debian-bookworm-gcc-arm64-randconfig:
+-  extends: .gcc-arm64-build
+-  variables:
+-    CONTAINER: debian:bookworm-arm64v8
+-    RANDCONFIG: y
+-
+-debian-bookworm-gcc-debug-arm64-randconfig:
+-  extends: .gcc-arm64-build-debug
+-  variables:
+-    CONTAINER: debian:bookworm-arm64v8
+-    RANDCONFIG: y
+-
+ alpine-3.18-gcc-arm64:
+   extends: .gcc-arm64-build
+   variables:
+@@ -451,12 +432,6 @@ alpine-3.18-gcc-arm64-randconfig:
+     CONTAINER: alpine:3.18-arm64v8
+     RANDCONFIG: y
+ 
+-alpine-3.18-gcc-debug-arm64-randconfig:
+-  extends: .gcc-arm64-build-debug
+-  variables:
+-    CONTAINER: alpine:3.18-arm64v8
+-    RANDCONFIG: y
+-
+ alpine-3.18-gcc-debug-arm64-staticmem:
+   extends: .gcc-arm64-build-debug
+   variables:
+@@ -525,14 +500,6 @@ archlinux-current-gcc-riscv64-randconfig:
+     RANDCONFIG: y
+     <<: *riscv-fixed-randconfig
+ 
+-archlinux-current-gcc-riscv64-debug-randconfig:
+-  extends: .gcc-riscv64-cross-build-debug
+-  variables:
+-    CONTAINER: archlinux:current-riscv64
+-    KBUILD_DEFCONFIG: tiny64_defconfig
+-    RANDCONFIG: y
+-    <<: *riscv-fixed-randconfig
+-
+ # Power cross-build
+ debian-bullseye-gcc-ppc64le:
+   extends: .gcc-ppc64le-cross-build
+@@ -676,12 +643,6 @@ debian-bookworm-gcc-randconfig:
+     CONTAINER: debian:bookworm
+     RANDCONFIG: y
+ 
+-debian-bookworm-gcc-debug-randconfig:
+-  extends: .gcc-x86-64-build-debug
+-  variables:
+-    CONTAINER: debian:bookworm
+-    RANDCONFIG: y
+-
+ debian-bookworm-32-clang-debug:
+   extends: .clang-x86-32-build-debug
+   variables:
 -- 
 2.39.2
 
