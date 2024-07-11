@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9CEF792E5CC
-	for <lists+xen-devel@lfdr.de>; Thu, 11 Jul 2024 13:15:54 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.757334.1166279 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 599DB92E6A6
+	for <lists+xen-devel@lfdr.de>; Thu, 11 Jul 2024 13:29:40 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.757378.1166290 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sRrm4-00031S-6C; Thu, 11 Jul 2024 11:15:44 +0000
+	id 1sRryn-00010x-7Q; Thu, 11 Jul 2024 11:28:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 757334.1166279; Thu, 11 Jul 2024 11:15:44 +0000
+Received: by outflank-mailman (output) from mailman id 757378.1166290; Thu, 11 Jul 2024 11:28:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sRrm4-0002vV-0k; Thu, 11 Jul 2024 11:15:44 +0000
-Received: by outflank-mailman (input) for mailman id 757334;
- Thu, 11 Jul 2024 11:15:42 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1sRryn-0000yj-4V; Thu, 11 Jul 2024 11:28:53 +0000
+Received: by outflank-mailman (input) for mailman id 757378;
+ Thu, 11 Jul 2024 11:28:51 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=PZf6=OL=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1sRrm2-0007rJ-1b
- for xen-devel@lists.xenproject.org; Thu, 11 Jul 2024 11:15:42 +0000
-Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
- [2a00:1450:4864:20::629])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id e80b69f7-3f76-11ef-8776-851b0ebba9a2;
- Thu, 11 Jul 2024 13:15:40 +0200 (CEST)
-Received: by mail-ej1-x629.google.com with SMTP id
- a640c23a62f3a-a77d9217e6fso99243166b.2
- for <xen-devel@lists.xenproject.org>; Thu, 11 Jul 2024 04:15:40 -0700 (PDT)
-Received: from andrewcoop.eng.citrite.net ([185.25.67.249])
+ <SRS0=xIkU=OL=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1sRryl-0000yd-IJ
+ for xen-devel@lists.xenproject.org; Thu, 11 Jul 2024 11:28:51 +0000
+Received: from mail-lj1-x234.google.com (mail-lj1-x234.google.com
+ [2a00:1450:4864:20::234])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id be93e7a2-3f78-11ef-bbfb-fd08da9f4363;
+ Thu, 11 Jul 2024 13:28:49 +0200 (CEST)
+Received: by mail-lj1-x234.google.com with SMTP id
+ 38308e7fff4ca-2eea7e2b073so8901551fa.0
+ for <xen-devel@lists.xenproject.org>; Thu, 11 Jul 2024 04:28:50 -0700 (PDT)
+Received: from [192.168.219.191] ([94.75.70.14])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a780a7ff7d5sm246386666b.142.2024.07.11.04.15.38
+ 4fb4d7f45d1cf-594bbe2cd9csm3360214a12.28.2024.07.11.04.28.48
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 11 Jul 2024 04:15:38 -0700 (PDT)
+ Thu, 11 Jul 2024 04:28:48 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,218 +45,196 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e80b69f7-3f76-11ef-8776-851b0ebba9a2
+X-Inumbo-ID: be93e7a2-3f78-11ef-bbfb-fd08da9f4363
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1720696539; x=1721301339; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=OC0NczTz0Vex9AArMEqFVcwewes4uJlfc6tJ7aYcqpE=;
-        b=Qwip5gJKIFj5a7PCdx2YUUyuphZttosFqHo8Oq8w3jYuqh3hOS0NDdpgJQpenqtRFw
-         D+6wn8H5T4i++F9s2ddXaC4dy0EijbBzsn/6yJ6D18Vga70ADHjBSHJcuOEPNQP6eTzu
-         l+YHHvXal1suty3DfqhVbOaP/a4OjE+5PiEDU=
+        d=gmail.com; s=20230601; t=1720697329; x=1721302129; darn=lists.xenproject.org;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=j2Aeeb3VOojpqupTXRa2Ktuj14z0yQzrWrpsT65IUYo=;
+        b=d4H532RioxH/KNIUIxxlKZCZGoakEAZjIPWakQv1wwycrnfOs5zhfjT0u+rn7OEapS
+         KZFYB8bQl9d+i+OYJI+ZgnftiVKOBYzS38bApd6JrmTSJMq38ojNNdNkh9ITi981TDAF
+         VZ3PUQQkNox4iPKqX7lUXPWoeo6UwnX75n71uHFvLhgHzGCrF8S5PG/xbA4FN7f4EtRG
+         ztFzsM45fUn8YYGIhW1k/DXr47hmbu6FInJTOYpRsBiXtODKISBRB0e96uN29Z1u7RKN
+         AM69XDZ7X7Y6DOBKHWPoL+Br9hahkar2rBGgLqlstJSIFyyNCuDNfGzPawZqMSUh5j5w
+         UdtQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1720696539; x=1721301339;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=OC0NczTz0Vex9AArMEqFVcwewes4uJlfc6tJ7aYcqpE=;
-        b=YWBddFxmx/gRaCi1JFEf8hy+D/lD6QWzgmChSp0Mc5JVT4q2MN1sQHK2JM2ESEukvs
-         u42vhsPiIbvANKWdgJv1tX/qK17F8sOgStmqBsqxjD3L88DcwI7lqLEeRMIMowGGEb9n
-         /1ZySENz3ePul7vnLPHEXJoS4RWkMN/77kaTg+9P4+NMsLvfOW03qxPExIV5FNyB7ejf
-         9B6X/i0tKwAIjYeKVAWalYP8c8tFv4sDPLfvzQwO169BXUJmw0llR5D4hIlEIC5QtO+j
-         7+kjOtkO/KJs0nnDuJ7geVVCPE6xkSrOcW88vRmh9URowSrwwXE4A1g9UAd+ick1Ro/g
-         4+EQ==
-X-Gm-Message-State: AOJu0Yzl6lEfZ2FtIoHzNBlK7p346NweODaXPF4M9YO6NXwZfDgddirq
-	efF645hjmn51rJd4902dAegKL3xY1G/K1HoGSrDHC8qQdjdiUXw0x0sQVEjczhEATwEBUVk/Oa3
-	Q
-X-Google-Smtp-Source: AGHT+IGzueVYQrd+84hpYvuyG/HPwMgW2Wl89zcTITEe9G0q0UUak58I4GmnP+NOvk9hpoUxDiq4RQ==
-X-Received: by 2002:a17:906:a848:b0:a77:e2e3:355f with SMTP id a640c23a62f3a-a780b7051f2mr465011966b.41.1720696539578;
-        Thu, 11 Jul 2024 04:15:39 -0700 (PDT)
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Juergen Gross <jgross@suse.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Jan Beulich <JBeulich@suse.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>,
-	Oleksii Kurochko <oleksii.kurochko@gmail.com>,
-	Shawn Anastasio <sanastasio@raptorengineering.com>
-Subject: [PATCH 12/12] CI: Refresh and upgrade the GCC-IBT container
-Date: Thu, 11 Jul 2024 12:15:17 +0100
-Message-Id: <20240711111517.3064810-13-andrew.cooper3@citrix.com>
-X-Mailer: git-send-email 2.39.2
-In-Reply-To: <20240711111517.3064810-1-andrew.cooper3@citrix.com>
-References: <20240711111517.3064810-1-andrew.cooper3@citrix.com>
+        d=1e100.net; s=20230601; t=1720697329; x=1721302129;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=j2Aeeb3VOojpqupTXRa2Ktuj14z0yQzrWrpsT65IUYo=;
+        b=cXhFURx802wDRgGYYegUAgN+XNF6h/SoRAEtTSsQWgFtPdpzOHpn5b57xJqQ8NNSnI
+         soBoiQPyZHI1oiTu9gWsiQYTeNfwPxpMMKSbxydgVetxB1v48dINHeYlpmDvBsxGgO49
+         bbQnempbM4EWHXpb1RUymIckhbJVULHO4PiufK/n4EKeddfkUpuQfno7NM1B1EX843eO
+         iVxug//B6A71bll8JZNkISfwthuwJrf8viP4CvKQ6VzowzDYCW6SaNgq433P0GtxIT09
+         ULk8qgmDyMOG4FrRGIlZPAMJctehmNAGwe8N6iW8jlCIkppd+zPIrxKDKp6NewcD7agP
+         U3+w==
+X-Forwarded-Encrypted: i=1; AJvYcCVAPdD9hyWr4EusdHEIVyIwOMcXRimWCWO6/iebX0GYt1hkE8wC99r/PUgwhswJcGzv2JaCUlJvgvIj7Id2/euQHiCjT+2ElQU4ZvUSSz4=
+X-Gm-Message-State: AOJu0YzPrbXlNAxPXELD96oNfgzJF1UM5ivV0UeNm7Feo93NQbMq4VSl
+	H2BJrjzqh76aPg8Gp4eYZb0TJPyd6nm7Vh87G9oetQ+sUvU5LUS9
+X-Google-Smtp-Source: AGHT+IF/tOpVNbKRZtVMKvoCbgV5SqKogGrNO5TRVliMmnkoP5ApDVfNVi1aL5R6XhLVyrubqA62cA==
+X-Received: by 2002:a2e:9b89:0:b0:2ee:81eb:6bd6 with SMTP id 38308e7fff4ca-2eeb30fd3ebmr47324001fa.23.1720697329021;
+        Thu, 11 Jul 2024 04:28:49 -0700 (PDT)
+Message-ID: <040e6b1d9b8bbe2b316e0e5b891c2564df28335d.camel@gmail.com>
+Subject: Re: [PATCH v1 5/5] xen/riscv: map FDT
+From: Oleksii <oleksii.kurochko@gmail.com>
+To: Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>
+Cc: Alistair Francis <alistair.francis@wdc.com>, Bob Eshleman
+ <bobbyeshleman@gmail.com>, Connor Davis <connojdavis@gmail.com>, Andrew
+ Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>, Stefano
+ Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+Date: Thu, 11 Jul 2024 13:28:47 +0200
+In-Reply-To: <e58a9128-efdd-4bff-9562-08d5605d0a13@suse.com>
+References: <cover.1720002425.git.oleksii.kurochko@gmail.com>
+	 <7e492df051c949744755a221c0448c740d2c681b.1720002425.git.oleksii.kurochko@gmail.com>
+	 <3afd94c0-25f4-4ed8-83d2-6f261b8a64b3@suse.com>
+	 <021d29540f8e9abec118e9ca9dcd9675310eda84.camel@gmail.com>
+	 <9592e857-bf1c-4e26-acd7-dfb5bb12103e@suse.com>
+	 <fda966116ce17b9be0b1a467bd31436a6b5ad225.camel@gmail.com>
+	 <e58a9128-efdd-4bff-9562-08d5605d0a13@suse.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: base64
+User-Agent: Evolution 3.52.2 (3.52.2-1.fc40app2) 
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
 
-Upgrade from Debian buster to bookworm, GCC 11.3 to 11.4 and to be a non-root
-container.
-
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
----
-CC: Anthony PERARD <anthony.perard@vates.tech>
-CC: Juergen Gross <jgross@suse.com>
-CC: Roger Pau Monné <roger.pau@citrix.com>
-CC: Jan Beulich <JBeulich@suse.com>
-CC: Stefano Stabellini <sstabellini@kernel.org>
-CC: Julien Grall <julien@xen.org>
-CC: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-CC: Shawn Anastasio <sanastasio@raptorengineering.com>
----
- ...ockerfile => 12-x86_64-gcc-ibt.dockerfile} | 81 +++++++++++--------
- automation/gitlab-ci/build.yaml               |  4 +-
- automation/scripts/containerize               |  2 +-
- 3 files changed, 49 insertions(+), 38 deletions(-)
- rename automation/build/debian/{buster-gcc-ibt.dockerfile => 12-x86_64-gcc-ibt.dockerfile} (50%)
-
-diff --git a/automation/build/debian/buster-gcc-ibt.dockerfile b/automation/build/debian/12-x86_64-gcc-ibt.dockerfile
-similarity index 50%
-rename from automation/build/debian/buster-gcc-ibt.dockerfile
-rename to automation/build/debian/12-x86_64-gcc-ibt.dockerfile
-index ed9367aafbec..3ce60e7d9466 100644
---- a/automation/build/debian/buster-gcc-ibt.dockerfile
-+++ b/automation/build/debian/12-x86_64-gcc-ibt.dockerfile
-@@ -1,28 +1,33 @@
- # syntax=docker/dockerfile:1
--FROM --platform=linux/amd64 debian:buster-slim AS builder
-+FROM --platform=linux/amd64 debian:bookworm-slim AS builder
- 
- ENV DEBIAN_FRONTEND=noninteractive
--ENV USER root
- 
--RUN apt-get update && \
--    apt-get --quiet --yes --no-install-recommends install \
--        bison \
--        build-essential \
--        ca-certificates \
--        flex \
--        g++-multilib \
--        libc6-dev-i386 \
--        libgmp-dev \
--        libisl-dev \
--        libmpc-dev \
--        libmpfr-dev \
--        patch \
-+RUN <<EOF
-+#!/bin/bash
-+    set -e
-+    apt-get -y update
-+
-+    DEPS=(
-+        bison
-+        build-essential
-+        ca-certificates
-+        flex
-+        g++-multilib
-+        libc6-dev-i386
-+        libgmp-dev
-+        libisl-dev
-+        libmpc-dev
-+        libmpfr-dev
-+        patch
-         wget
-+    )
- 
--RUN mkdir /build
--WORKDIR /build
-+    apt-get -y --no-install-recommends install "${DEPS[@]}"
-+    rm -rf /var/lib/apt/lists/*
-+EOF
- 
--RUN wget -q https://ftp.gnu.org/gnu/gcc/gcc-11.3.0/gcc-11.3.0.tar.xz -O - | tar xJ --strip=1
-+RUN wget -q https://ftp.gnu.org/gnu/gcc/gcc-11.4.0/gcc-11.4.0.tar.xz -O - | tar xJ --strip=1
- RUN wget -q https://xenbits.xen.org/people/andrewcoop/gcc-11.2-Add-fcf-check-attribute-yes-no.patch -O - | patch -p1
- RUN ./configure \
-         --prefix=/opt/gcc-11-ibt \
-@@ -42,29 +47,35 @@ RUN ./configure \
- RUN make -j`nproc` && make -j`nproc` install
- 
- 
--FROM --platform=linux/amd64 debian:buster-slim
-+FROM --platform=linux/amd64 debian:bookworm-slim
- COPY --from=builder /opt/gcc-11-ibt /opt/gcc-11-ibt
- 
- LABEL maintainer.name="The Xen Project" \
-       maintainer.email="xen-devel@lists.xenproject.org"
- 
- ENV DEBIAN_FRONTEND=noninteractive
--ENV USER root
- ENV PATH="/opt/gcc-11-ibt/bin:${PATH}"
- 
--RUN mkdir /build
--WORKDIR /build
-+RUN <<EOF
-+#!/bin/bash
-+    set -e
-+
-+    useradd --create-home user
- 
--RUN apt-get update && \
--    apt-get --quiet --yes --no-install-recommends install \
--        bison \
--        build-essential \
--        checkpolicy \
--        flex \
--        gawk \
--        make \
--        python3-minimal \
--        && \
--        apt-get autoremove -y && \
--        apt-get clean && \
--        rm -rf /var/lib/apt/lists* /tmp/* /var/tmp/*
-+    apt-get -y update
-+
-+    DEPS=(
-+        # Xen
-+        bison
-+        build-essential
-+        checkpolicy
-+        flex
-+        python3-minimal
-+    )
-+
-+    apt-get -y --no-install-recommends install "${DEPS[@]}"
-+    rm -rf /var/lib/apt/lists/*
-+EOF
-+
-+USER user
-+WORKDIR /build
-diff --git a/automation/gitlab-ci/build.yaml b/automation/gitlab-ci/build.yaml
-index 4b9d80cc5632..b4139414bc8e 100644
---- a/automation/gitlab-ci/build.yaml
-+++ b/automation/gitlab-ci/build.yaml
-@@ -541,10 +541,10 @@ centos-7-gcc-debug:
-   variables:
-     CONTAINER: centos:7
- 
--debian-buster-gcc-ibt:
-+debian-12-x86_64-gcc-ibt:
-   extends: .gcc-x86-64-build
-   variables:
--    CONTAINER: debian:buster-gcc-ibt
-+    CONTAINER: debian:12-x86_64-gcc-ibt
-     RANDCONFIG: y
-     EXTRA_FIXED_RANDCONFIG: |
-       CONFIG_XEN_IBT=y
-diff --git a/automation/scripts/containerize b/automation/scripts/containerize
-index 6dbf55c8f89a..4d5669c5ad01 100755
---- a/automation/scripts/containerize
-+++ b/automation/scripts/containerize
-@@ -34,7 +34,7 @@ case "_${CONTAINER}" in
-     _bookworm-ppc64le) CONTAINER="${BASE}/debian:12-ppc64le" ;;
-     _bullseye-riscv64) CONTAINER="${BASE}/debian:11-riscv64" ;;
-     _bookworm-riscv64) CONTAINER="${BASE}/debian:12-riscv64" ;;
--    _buster-gcc-ibt) CONTAINER="${BASE}/debian:buster-gcc-ibt" ;;
-+    _bookworm-x86_64-gcc-ibt) CONTAINER="${BASE}/debian:12-x86_64-gcc-ibt" ;;
-     _bookworm|_) CONTAINER="${BASE}/debian:bookworm" ;;
-     _bookworm-i386) CONTAINER="${BASE}/debian:bookworm-i386" ;;
-     _bookworm-arm64v8-arm32-gcc) CONTAINER="${BASE}/debian:bookworm-arm64v8-arm32-gcc" ;;
--- 
-2.39.2
+QWRkIEp1bGllbiBhcyBoZSBhc2tlZCBiYXNpY2FsbHkgdGhlIHNhbWUgcXVlc3Rpb24gaW4gYW5v
+dGhlciB0aHJlYWQuCgpPbiBUaHUsIDIwMjQtMDctMTEgYXQgMTI6NTAgKzAyMDAsIEphbiBCZXVs
+aWNoIHdyb3RlOgo+IE9uIDExLjA3LjIwMjQgMTI6MjYsIE9sZWtzaWkgd3JvdGU6Cj4gPiBPbiBU
+aHUsIDIwMjQtMDctMTEgYXQgMTE6NTQgKzAyMDAsIEphbiBCZXVsaWNoIHdyb3RlOgo+ID4gPiBP
+biAxMS4wNy4yMDI0IDExOjQwLCBPbGVrc2lpIHdyb3RlOgo+ID4gPiA+IE9uIFdlZCwgMjAyNC0w
+Ny0xMCBhdCAxNDozOCArMDIwMCwgSmFuIEJldWxpY2ggd3JvdGU6Cj4gPiA+ID4gPiBPbiAwMy4w
+Ny4yMDI0IDEyOjQyLCBPbGVrc2lpIEt1cm9jaGtvIHdyb3RlOgo+ID4gPiA+ID4gPiBFeGNlcHQg
+bWFwcGluZyBvZiBGRFQsIGl0IGlzIGFsc28gcHJpbnRpbmcgY29tbWFuZCBsaW5lCj4gPiA+ID4g
+PiA+IHBhc3NlZAo+ID4gPiA+ID4gPiBieQo+ID4gPiA+ID4gPiBhIERUQiBhbmQgaW5pdGlhbGl6
+ZSBib290aW5mbyBmcm9tIGEgRFRCLgo+ID4gPiA+ID4gCj4gPiA+ID4gPiBJJ20gZ2xhZCB0aGUg
+ZGVzY3JpcHRpb24gaXNuJ3QgZW1wdHkgaGVyZS4gSG93ZXZlciwgLi4uCj4gPiA+ID4gPiAKPiA+
+ID4gPiA+ID4gLS0tIGEveGVuL2FyY2gvcmlzY3YvcmlzY3Y2NC9oZWFkLlMKPiA+ID4gPiA+ID4g
+KysrIGIveGVuL2FyY2gvcmlzY3YvcmlzY3Y2NC9oZWFkLlMKPiA+ID4gPiA+ID4gQEAgLTQxLDYg
+KzQxLDkgQEAgRlVOQyhzdGFydCkKPiA+ID4gPiA+ID4gwqAKPiA+ID4gPiA+ID4gwqDCoMKgwqDC
+oMKgwqDCoCBqYWzCoMKgwqDCoCBzZXR1cF9pbml0aWFsX3BhZ2V0YWJsZXMKPiA+ID4gPiA+ID4g
+wqAKPiA+ID4gPiA+ID4gK8KgwqDCoMKgwqDCoMKgIG12wqDCoMKgwqDCoCBhMCwgczEKPiA+ID4g
+PiA+ID4gK8KgwqDCoMKgwqDCoMKgIGphbMKgwqDCoMKgIGZkdF9tYXAKPiA+ID4gPiA+ID4gKwo+
+ID4gPiA+ID4gPiDCoMKgwqDCoMKgwqDCoMKgIC8qIENhbGN1bGF0ZSBwcm9wZXIgVkEgYWZ0ZXIg
+anVtcCBmcm9tIDE6MSBtYXBwaW5nCj4gPiA+ID4gPiA+ICovCj4gPiA+ID4gPiA+IMKgwqDCoMKg
+wqDCoMKgwqAgbGHCoMKgwqDCoMKgIGEwLCAuTF9wcmltYXJ5X3N3aXRjaGVkCj4gPiA+ID4gPiA+
+IMKgwqDCoMKgwqDCoMKgwqAgc3ViwqDCoMKgwqAgYTAsIGEwLCBzMgo+ID4gPiA+ID4gCj4gPiA+
+ID4gPiAuLi4gaXQgY291bGQgZG8gd2l0aCBjbGFyaWZ5aW5nIHdoeSB0aGlzIG5lZWRzIGNhbGxp
+bmcgZnJvbQo+ID4gPiA+ID4gYXNzZW1ibHkKPiA+ID4gPiA+IGNvZGUuIE1hcHBpbmcgdGhlIEZE
+VCBjbGVhcmx5IGxvb2tzIGxpa2Ugc29tZXRoaW5nIHRoYXQgd2FudHMKPiA+ID4gPiA+IGRvaW5n
+Cj4gPiA+ID4gPiBmcm9tIHN0YXJ0X3hlbigpLCBpLmUuIGZyb20gQyBjb2RlLgo+ID4gPiA+IGZk
+dF9tYXAoKSBleHBlY3RlZCB0byB3b3JrIHdoaWxlIE1NVSBpcyBvZmYgYXMgaXQgaXMgdXNpbmcK
+PiA+ID4gPiBzZXR1cF9pbml0aWFsX21hcHBpbmcoKSB3aGljaCBpcyB3b3JraW5nIHdpdGggcGh5
+c2ljYWwgYWRkcmVzcy4KPiA+ID4gCj4gPiA+IEhtbSwgaW50ZXJlc3RpbmcuIFdoZW4gdGhlIE1N
+VSBpcyBvZmYsIHdoYXQgZG9lcyAibWFwIiBtZWFuPyBZZXQKPiA+ID4gdGhlbgo+ID4gPiBpdCBm
+ZWVscyBJJ20gbWlzdW5kZXJzdGFuZGluZyB3aGF0IHlvdSdyZSBtZWFuaW5nIHRvIHRlbGwgbWUg
+Li4uCj4gPiBMZXQncyBsb29rIGF0IGV4YW1wbGVzIG9mIHRoZSBjb2RlOgo+ID4gMS4gVGhlIGZp
+cnN0IHRoaW5nIGlzc3VlIHdpbGwgYmUgaGVyZToKPiA+IMKgwqAgdm9pZCogX19pbml0IGVhcmx5
+X2ZkdF9tYXAocGFkZHJfdCBmZHRfcGFkZHIpCj4gPiDCoMKgIHsKPiA+IMKgwqDCoMKgwqDCoCB1
+bnNpZ25lZCBsb25nIGR0X3BoeXNfYmFzZSA9IGZkdF9wYWRkcjsKPiA+IMKgwqDCoMKgwqDCoCB1
+bnNpZ25lZCBsb25nIGR0X3ZpcnRfYmFzZTsKPiA+IMKgwqDCoMKgwqDCoCB1bnNpZ25lZCBsb25n
+IGR0X3ZpcnRfc2l6ZTsKPiA+IMKgwqAgCj4gPiDCoMKgwqDCoMKgwqAgQlVJTERfQlVHX09OKE1J
+Tl9GRFRfQUxJR04gPCA4KTsKPiA+IMKgwqDCoMKgwqDCoCBpZiAoICFmZHRfcGFkZHIgfHwgZmR0
+X3BhZGRyICUgTUlOX0ZEVF9BTElHTiB8fCBmZHRfcGFkZHIgJQo+ID4gU1pfMk0gCj4gPiDCoMKg
+IHx8Cj4gPiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgZmR0X3RvdGFsc2l6ZShmZHRfcGFkZHIp
+ID4gQk9PVF9GRFRfVklSVF9TSVpFICkKPiA+IE1NVSBkb2Vzbid0IG5vdyBhYm91dCB2aXJ0dWFs
+IGFkZHJlc3Mgb2YgZmR0X3BhZGRyIGFzIGZkdF9wYWRkcgo+ID4gd2Fzbid0Cj4gPiBtYXBwZWQu
+Cj4gPiAKPiA+IDIuIEluIHNldHVwX2luaXRpYWxfbWFwcGluZygpIHdlIGhhdmUgSEFORExFX1BH
+VEJMKCkgd2hlcmUgcGd0YmwgaXMKPiA+IGEKPiA+IHBvaW50ZXIgdG8gcGh5c2ljYWwgYWRkcmVz
+cyAoIHdoaWNoIGFsc2/CoCBzaG91bGQgYmUgbWFwcGVkIGluIE1NVQo+ID4gaWYgd2UKPiA+IHdh
+bnQgdG8gYWNjZXNzIGl0IGFmdGVyIE1NVSBpcyBlbmFibGVkICk6Cj4gPiDCoMKgICNkZWZpbmUK
+PiA+IEhBTkRMRV9QR1RCTChjdXJyX2x2bF9udW0pwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCAKPiA+IMKgwqAgXAo+
+ID4gwqDCoMKgwqDCoMKgIGluZGV4ID0gcHRfaW5kZXgoY3Vycl9sdmxfbnVtLAo+ID4gcGFnZV9h
+ZGRyKTvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIAo+ID4g
+wqDCoCBcCj4gPiDCoMKgwqDCoMKgwqAgaWYgKCBwdGVfaXNfdmFsaWQocGd0YmxbaW5kZXhdKQo+
+ID4gKcKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqAgCj4gPiDCoMKgIFwKPiA+IMKgwqDCoMKgwqDCoAo+ID4ge8KgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgIAo+ID4gwqDCoCBcCj4gPiDCoMKgwqDCoMKgwqDCoMKgwqDCoCAvKiBGaW5kIEx7IDAtMyB9
+IHRhYmxlCj4gPiAqL8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCAKPiA+IMKgwqAgXAo+ID4gwqDCoMKgwqDCoMKg
+wqDCoMKgwqAgcGd0YmwgPSAocHRlX3QKPiA+ICopcHRlX3RvX3BhZGRyKHBndGJsW2luZGV4XSk7
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCAKPiA+IMKgwqAgXAo+ID4gwqDCoMKg
+wqDCoMKgCj4gPiB9wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgCj4gPiDCoMKgIFwKPiA+IMKgwqDCoMKgwqDCoAo+
+ID4gZWxzZcKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgIAo+ID4gwqDCoCBcCj4gPiDCoMKgwqDCoMKgwqAKPiA+IHvCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoCAKPiA+IMKgwqAgXAo+ID4gwqDCoMKgwqDCoMKgwqDCoMKgwqAgLyogQWxsb2NhdGUg
+bmV3IEx7MC0zfSBwYWdlIHRhYmxlCj4gPiAqL8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgIAo+ID4gwqDCoCBcCj4gPiDCoMKgwqDCoMKgwqDCoMKgwqDC
+oCBpZiAoIG1tdV9kZXNjLT5wZ3RibF9jb3VudCA9PSBQR1RCTF9JTklUSUFMX0NPVU5UCj4gPiAp
+wqDCoMKgwqDCoMKgwqDCoMKgwqAgCj4gPiDCoMKgIFwKPiA+IMKgwqDCoMKgwqDCoMKgwqDCoMKg
+Cj4gPiB7wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgIAo+ID4gwqDCoCBcCj4gPiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+IGVhcmx5X3ByaW50aygiKFhFTikgTm8gaW5pdGlhbCB0YWJsZQo+ID4gYXZhaWxhYmxlXG4iKTvC
+oMKgwqDCoMKgwqAgCj4gPiDCoMKgIFwKPiA+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAg
+LyogcGFuaWMoKSwgQlVHKCkgb3IgQVNTRVJUKCkgYXJlbid0IHJlYWR5IG5vdy4KPiA+ICovwqDC
+oMKgwqDCoMKgwqAgCj4gPiDCoMKgIFwKPiA+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAK
+PiA+IGRpZSgpO8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCAK
+PiA+IMKgwqAgXAo+ID4gwqDCoMKgwqDCoMKgwqDCoMKgwqAKPiA+IH3CoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgCj4gPiDCoMKg
+IFwKPiA+IMKgwqDCoMKgwqDCoMKgwqDCoMKgIG1tdV9kZXNjLQo+ID4gPnBndGJsX2NvdW50Kys7
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqAgCj4gPiDCoMKgIFwKPiA+IMKgwqDCoMKgwqDCoMKgwqDCoMKgIHBn
+dGJsW2luZGV4XSA9IHBhZGRyX3RvX3B0ZSgodW5zaWduZWQgbG9uZyltbXVfZGVzYy0KPiA+IMKg
+wqAgPm5leHRfcGd0YmwswqDCoMKgIFwKPiA+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAKPiA+IFBURV9W
+QUxJRCk7wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgCj4gPiDC
+oMKgIFwKPiA+IMKgwqDCoMKgwqDCoMKgwqDCoMKgIHBndGJsID0gbW11X2Rlc2MtCj4gPiA+bmV4
+dF9wZ3RibDvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgIAo+ID4gwqDCoCBcCj4gPiDCoMKgwqDCoMKgwqDCoMKgwqDCoCBtbXVf
+ZGVzYy0+bmV4dF9wZ3RibCArPQo+ID4gUEFHRVRBQkxFX0VOVFJJRVM7wqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgCj4gPiDCoMKgIFwKPiA+IMKgwqDCoMKgwqDCoCB9Cj4g
+PiDCoMKgIAo+ID4gU28gd2UgY2FuJ3QgdXNlIHNldHVwX2luaXRpYWxfbWFwcGluZygpIHdoZW4g
+TU1VIGlzIGVuYWJsZWQgYXMKPiA+IHRoZXJlIGlzCj4gPiBhIHBhcnQgb2YgdGhlIGNvZGUgd2hp
+Y2ggdXNlcyBwaHlzaWNhbCBhZGRyZXNzIHdoaWNoIGFyZSBub3QKPiA+IG1hcHBlZC4KPiA+IAo+
+ID4gV2UgaGF2ZSBvbmx5IG1hcHBpbmcgZm9yIGZvciBsaW5lcl9zdGFydCA8LT4gbG9hZF9zdGFy
+dCBhbmQgdGhlCj4gPiBzbWFsbAo+ID4gcGllY2Ugb2YgY29kZSBpbiB0ZXh0IHNlY3Rpb24gKCBf
+aWRlbnRfc3RhcnQgKToKPiA+IMKgwqDCoCBzZXR1cF9pbml0aWFsX21hcHBpbmcoJm1tdV9kZXNj
+LAo+ID4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAg
+bGlua2VyX3N0YXJ0LAo+ID4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqAgbGlua2VyX2VuZCwKPiA+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgIGxvYWRfc3RhcnQpOwo+ID4gCj4gPiDCoMKgwqAgaWYgKCBs
+aW5rZXJfc3RhcnQgPT0gbG9hZF9zdGFydCApCj4gPiDCoMKgwqDCoMKgwqDCoCByZXR1cm47Cj4g
+PiAKPiA+IMKgwqDCoCBpZGVudF9zdGFydCA9ICh1bnNpZ25lZCBsb25nKXR1cm5fb25fbW11Cj4g
+PiAmWEVOX1BUX0xFVkVMX01BUF9NQVNLKDApOwo+ID4gwqDCoMKgIGlkZW50X2VuZCA9IGlkZW50
+X3N0YXJ0ICsgUEFHRV9TSVpFOwo+ID4gCj4gPiDCoMKgwqAgc2V0dXBfaW5pdGlhbF9tYXBwaW5n
+KCZtbXVfZGVzYywKPiA+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgIGlkZW50X3N0YXJ0LAo+ID4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqAgaWRlbnRfZW5kLAo+ID4gwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgaWRlbnRfc3RhcnQpOwo+ID4gCj4gPiBXZSBj
+YW4gdXNlIHNldHVwX2luaXRpYWxfbWFwcGluZygpIHdoZW4gTU1VIGlzIGVuYWJsZWQgb25seSBp
+biBjYXNlCj4gPiB3aGVuIGxpbmtlcl9zdGFydCBpcyBlcXVhbCB0byBsb2FkX3N0YXJ0Lgo+ID4g
+Cj4gPiBBcyBhbiBvcHRpb24gd2UgY2FuIGNvbnNpZGVyIGZvciBhcyBhIGNhbmRpZGF0ZSBmb3Ig
+aWRlbnRhdHkKPiA+IG1hcHBpbmcKPiA+IGFsc28gc2VjdGlvbiAuYnNzLnBhZ2VfYWxpZ25lZCB3
+aGVyZSByb290IGFuZCBub25yb290IHBhZ2UgdGFibGVzCj4gPiBhcmUKPiA+IGxvY2F0ZWQuCj4g
+PiAKPiA+IERvZXMgaXQgbWFrZSBzZW5zZSBub3c/Cj4gCj4gSSB0aGluayBzbywgeWV0IGF0IHRo
+ZSBzYW1lIHRpbWUgaXQgb25seSBjaGFuZ2VzIHRoZSBxdWVzdGlvbjogV2h5IGlzCj4gaXQKPiB0
+aGF0IHlvdSBhYnNvbHV0ZWx5IG5lZWQgdG8gdXNlIHNldHVwX2luaXRpYWxfbWFwcGluZygpPwpU
+aGVyZSBpcyBubyBzdHJpY3QgcmVxdWlyZW1lbnQgdG8gdXNlIHNldHVwX2luaXRpYWxfbWFwcGlu
+ZygpLiBUaGF0CmZ1bmN0aW9uIGlzIGF2YWlsYWJsZSB0byBtZSBhdCB0aGUgbW9tZW50LCBhbmQg
+SSBoYXZlbid0IGZvdW5kIGEgYmV0dGVyCm9wdGlvbiBvdGhlciB0aGFuIHJldXNpbmcgd2hhdCBJ
+IGN1cnJlbnRseSBoYXZlLgoKSWYgbm90IHRvIHVzZSBzZXR1cF9pbml0aWFsX21hcHBpbmcoKSB0
+aGVuIGl0IGlzIG5lZWRlZCB0byBpbnRyb2R1Y2UKeGVuX3t1bn1tYXBfdGFibGUoKSwgY3JlYXRl
+X3hlbl90YWJsZSgpLCB4ZW5fcHRfbmV4dF9sZXZlbCgpLAp4ZW5fcHRfdXBkYXRle19lbnRyeX0o
+KSwgbWFwX3BhZ2VzX3RvX3hlbigpLiBXaGF0IEkgZGlkIGEgbGl0dGxlIGJpdApsYXRlciBoZXJl
+OgpodHRwczovL2dpdGxhYi5jb20veGVuLXByb2plY3QvcGVvcGxlL29sa3VyL3hlbi8tL2NvbW1p
+dC9hNDYxOWQwOTAyZTBhMDEyYWMyZjcwOWQzMTYyMWE4ZDQ5OWJjYTk3CkFtIEkgY29uZnVzaW5n
+IHNvbWV0aGluZz8KCkNvdWxkIHlvdSBwbGVhc2UgcmVjb21tZW5kIG1lIGhvdyB0byBiZXR0ZXI/
+CgoKCj4gU3VyZWx5IGRvd24gdGhlCj4gcm9hZCB0aGVyZSBhcmUgZ29pbmcgdG8gYmUgbW9yZSB0
+aGluZyB0aGF0IG5lZWQgbWFwcGluZyByZWxhdGl2ZWx5Cj4gZWFybHksCj4gYnV0IGFmdGVyIHRo
+ZSBNTVUgd2FzIGVuYWJsZWQuCkZvciBzdXJlLCBidXQgZm9yIG1hcHBpbmcgb3RoZXIgdGhpbmdz
+IGl0IHdvdWxkIGJlIGludHJvZHVjZWQKc2V0dXBfbW0oKSBhbmQgbmVjZXNzYXJ5IGZ1bmN0aW9u
+cyB0byBpbXBsZW1lbnRpbml0aWFsaXphdGlvbiBhbmQKaGFuZGxpbmcgb2YgbW0uCgp+IE9sZWtz
+aWkK
 
 
