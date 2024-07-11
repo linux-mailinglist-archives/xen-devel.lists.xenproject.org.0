@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2BC8E92E513
-	for <lists+xen-devel@lfdr.de>; Thu, 11 Jul 2024 12:51:00 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.757306.1166141 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1478492E57A
+	for <lists+xen-devel@lfdr.de>; Thu, 11 Jul 2024 13:10:27 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.757316.1166151 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sRrNx-0003UY-Fp; Thu, 11 Jul 2024 10:50:49 +0000
+	id 1sRrfw-0006N9-Vq; Thu, 11 Jul 2024 11:09:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 757306.1166141; Thu, 11 Jul 2024 10:50:49 +0000
+Received: by outflank-mailman (output) from mailman id 757316.1166151; Thu, 11 Jul 2024 11:09:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sRrNx-0003Q8-Cb; Thu, 11 Jul 2024 10:50:49 +0000
-Received: by outflank-mailman (input) for mailman id 757306;
- Thu, 11 Jul 2024 10:50:48 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1sRrNw-0003Pw-Cp
- for xen-devel@lists.xenproject.org; Thu, 11 Jul 2024 10:50:48 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1sRrNu-0007LT-Ji; Thu, 11 Jul 2024 10:50:46 +0000
-Received: from [15.248.3.91] (helo=[10.24.67.27])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1sRrNu-0000pa-Cn; Thu, 11 Jul 2024 10:50:46 +0000
+	id 1sRrfw-0006Jz-Sc; Thu, 11 Jul 2024 11:09:24 +0000
+Received: by outflank-mailman (input) for mailman id 757316;
+ Thu, 11 Jul 2024 11:09:23 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=NKZT=OL=inria.fr=fonyuy-asheri.caleb@srs-se1.protection.inumbo.net>)
+ id 1sRrfv-0006Jt-Qc
+ for xen-devel@lists.xenproject.org; Thu, 11 Jul 2024 11:09:23 +0000
+Received: from mail2-relais-roc.national.inria.fr
+ (mail2-relais-roc.national.inria.fr [192.134.164.83])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 062b7a2b-3f76-11ef-bbfb-fd08da9f4363;
+ Thu, 11 Jul 2024 13:09:21 +0200 (CEST)
+Received: from zcs2-store8.inria.fr ([128.93.142.6])
+ by mail2-relais-roc.national.inria.fr with ESMTP; 11 Jul 2024 13:09:21 +0200
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,66 +39,536 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=7VTSPuu60BNhuuXJ/4jzz0eTkvHWFK4E7NHMG8d/698=; b=b0JWoLN8voKhNi/Nb43JwtIkps
-	uw+WRBDcGfI0GLMAay8dKYgA0i1IyBZkyzpLE3HoCL9Dceo3GxwrPHyxpSH7MLsaLK0O/ePllymi+
-	saPdWK4NVpN5OrqoQ8QlWT2C3mUfZ+Iqgfxg4D9Ndtk1WNK3eDBP5f08/MfLh1lAgh2U=;
-Message-ID: <5b97113d-12f7-4051-88da-f08bb9cb3a70@xen.org>
-Date: Thu, 11 Jul 2024 11:50:44 +0100
+X-Inumbo-ID: 062b7a2b-3f76-11ef-bbfb-fd08da9f4363
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+  d=inria.fr; s=dc;
+  h=date:from:to:cc:message-id:in-reply-to:references:
+   subject:mime-version:content-transfer-encoding;
+  bh=S2HdkFbFD7wnfEN6HnVlrMYRbR1IT9gLAECQbZlIVto=;
+  b=ryJyj5L9dNISO4LzQyfAS4KvAMg9tVXIrgwNKbCSrsHQIyT4CE3dWXRb
+   MKdZwsUSAYL3gKbhqqIhP666RYdYfUkjSJSV9e+AdJ7v8LHCRILwXKviA
+   z+fKu4/jIgriPrQFwyjpZaiKoP521tcPC7vatQZXWAab3vxlB6LVlJ9WJ
+   8=;
+Authentication-Results: mail2-relais-roc.national.inria.fr; dkim=none (message not signed) header.i=none; spf=Pass smtp.mailfrom=fonyuy-asheri.caleb@inria.fr; spf=None smtp.helo=postmaster@zcs2-store8.inria.fr
+Received-SPF: Pass (mail2-relais-roc.national.inria.fr: domain of
+  fonyuy-asheri.caleb@inria.fr designates 128.93.142.6 as
+  permitted sender) identity=mailfrom; client-ip=128.93.142.6;
+  receiver=mail2-relais-roc.national.inria.fr;
+  envelope-from="fonyuy-asheri.caleb@inria.fr";
+  x-sender="fonyuy-asheri.caleb@inria.fr";
+  x-conformance=spf_only; x-record-type="v=spf1";
+  x-record-text="v=spf1 include:mailout.safebrands.com
+  a:basic-mail.safebrands.com a:basic-mail01.safebrands.com
+  a:basic-mail02.safebrands.com ip4:128.93.142.0/24
+  ip4:192.134.164.0/24 ip4:128.93.162.160 ip4:89.107.174.7 mx
+  ~all"
+Received-SPF: None (mail2-relais-roc.national.inria.fr: no sender
+  authenticity information available from domain of
+  postmaster@zcs2-store8.inria.fr) identity=helo;
+  client-ip=128.93.142.6;
+  receiver=mail2-relais-roc.national.inria.fr;
+  envelope-from="fonyuy-asheri.caleb@inria.fr";
+  x-sender="postmaster@zcs2-store8.inria.fr";
+  x-conformance=spf_only
+X-IronPort-AV: E=Sophos;i="6.09,199,1716242400"; 
+   d="scan'208";a="175028459"
+X-MGA-submission: =?us-ascii?q?MDF240wNCIvGXHl7897QCBOme+honuvp2W8ZL9?=
+ =?us-ascii?q?CtnrBAcGkboX72z7fsEOCKqqvq8+611VVxNCqMkoAvgJ0eXFodWTFwnC?=
+ =?us-ascii?q?+osDYlDJZEDts0hqoirI+1sl/bwJqsU4B8pu9B6pp/FV832ybAwA3qap?=
+ =?us-ascii?q?xp6637WLF22tIal0LmZhCLig=3D=3D?=
+Date: Thu, 11 Jul 2024 13:09:21 +0200 (CEST)
+From: Fonyuy-Asheri Caleb <fonyuy-asheri.caleb@inria.fr>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: xen-devel <xen-devel@lists.xenproject.org>
+Message-ID: <1546743760.2065506.1720696161057.JavaMail.zimbra@inria.fr>
+In-Reply-To: <94e94a94-14f2-4fa6-bc3b-6c64c1b84b59@citrix.com>
+References: <60751777.2038091.1720694327760.JavaMail.zimbra@inria.fr> <94e94a94-14f2-4fa6-bc3b-6c64c1b84b59@citrix.com>
+Subject: Re: Help with Understanding vcpu xstate restore error during vm
+ migration
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 5/5] xen/riscv: map FDT
-Content-Language: en-GB
-To: Oleksii <oleksii.kurochko@gmail.com>, Jan Beulich <jbeulich@suse.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <cover.1720002425.git.oleksii.kurochko@gmail.com>
- <7e492df051c949744755a221c0448c740d2c681b.1720002425.git.oleksii.kurochko@gmail.com>
- <3afd94c0-25f4-4ed8-83d2-6f261b8a64b3@suse.com>
- <021d29540f8e9abec118e9ca9dcd9675310eda84.camel@gmail.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <021d29540f8e9abec118e9ca9dcd9675310eda84.camel@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=ISO-8859-1
+Content-Transfer-Encoding: quoted-printable
+X-Originating-IP: [131.254.23.3]
+X-Mailer: Zimbra 10.0.8_GA_4611 (ZimbraWebClient - GC126 (Linux)/10.0.8_GA_4611)
+Thread-Topic: Help with Understanding vcpu xstate restore error during vm migration
+Thread-Index: NtGeBqBI0GKISyK3hG+rkfeLuSUJew==
 
-Hi,
+----- Original Message -----
+> From: "Andrew Cooper" <andrew.cooper3@citrix.com>
+> To: "Fonyuy-Asheri Caleb" <fonyuy-asheri.caleb@inria.fr>, "xen-devel" <xe=
+n-devel@lists.xenproject.org>
+> Sent: Thursday, July 11, 2024 12:45:18 PM
+> Subject: Re: Help with Understanding vcpu xstate restore error during vm =
+migration
 
-On 11/07/2024 10:40, Oleksii wrote:
-> On Wed, 2024-07-10 at 14:38 +0200, Jan Beulich wrote:
->> On 03.07.2024 12:42, Oleksii Kurochko wrote:
->>> Except mapping of FDT, it is also printing command line passed by
->>> a DTB and initialize bootinfo from a DTB.
->>
->> I'm glad the description isn't empty here. However, ...
->>
->>> --- a/xen/arch/riscv/riscv64/head.S
->>> +++ b/xen/arch/riscv/riscv64/head.S
->>> @@ -41,6 +41,9 @@ FUNC(start)
->>>   
->>>           jal     setup_initial_pagetables
->>>   
->>> +        mv      a0, s1
->>> +        jal     fdt_map
->>> +
->>>           /* Calculate proper VA after jump from 1:1 mapping */
->>>           la      a0, .L_primary_switched
->>>           sub     a0, a0, s2
->>
->> ... it could do with clarifying why this needs calling from assembly
->> code. Mapping the FDT clearly looks like something that wants doing
->> from start_xen(), i.e. from C code.
-> fdt_map() expected to work while MMU is off as it is using
-> setup_initial_mapping() which is working with physical address.
+> On 11/07/2024 11:38 am, Fonyuy-Asheri Caleb wrote:
+>> Hello,
+>>=20
+>> I am trying to understand the causes of the vcpu xstate restore error
+>> during live migration.
+>> I get the following error during live migration:
+>>=20
+>> xc: error: Failed to set vcpu0's xsave info (22 =3D Invalid argument):
+>> Internal error
+>>=20
+>> I was able to locate the failure point to the file
+>> xen/arch/x86/domctl.c=A0 with the following check.
+>>=20
+>> if( evc->size<PV_XSAVE_HDR_SIZE||
+>> evc->size>PV_XSAVE_SIZE(xfeature_mask) )
+>> gotovcpuextstate_out;
+>>=20
+>> I know this is related to the number of xstates handled by the source
+>> server. Please can
+>> someone explain to me how these states are computed?
+>>=20
+>> I earlier thought it was simply the number xsave dependent features on
+>> the CPU but it seems
+>> to be more than that.
+>>=20
+>> Thanks in advance.
+>=20
+> It is certainly more complicated than that.
+>=20
+> What that's saying is that Xen doesn't think that the size of the blob
+> matches expectations.  That said - I'm in the middle of rewriting this
+> logic because lots of it is subtly wrong.
 
-Somewhat related to what Jan is asking. You only seem to part the FDT in 
-start_xen(). So why do you need to call fdt_map() that early?
+Please do you mind giving me more insight on the logic currently implemente=
+d=20
+and maybe what is wrong with it? It will be important for me since what I'm=
+=20
+doing is research work.=20
 
-Cheers,
+How do the values evc->size and xfeature_mask relate to the source and targ=
+et
+processor xstates (or xstate management)?=20
 
--- 
-Julien Grall
+>=20
+> To start with, which version (or versions?) of Xen, and what hardware?
+
+Xen version 4.18.3-pre
+My CPU is : Intel(R) Xeon(R) CPU E5-2630 v3 @ 2.40GHz
+I'm running Ubuntu 20.04.=20
+>=20
+> Are you able to capture `xen-cpuid -p` on the source and destination, as
+> well as `xen-cpuid -p $domid` of the VM running on the source?
+Yes I am able to capture them. You can find them below.=20
+>=20
+> Do you have any CPUID overrides in the VM config file?
+
+I don't have any CPUID overrides. I just let the guest (Ubuntu server) use
+whatever xen gives.=20
+>=20
+> Thanks,
+>=20
+> ~Andrew
+
+Caleb
+
+
+
+
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D
+Source server xen-cpuid -p
+---------------------------------------------------------------------------=
+------------------------------
+
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D
+Xen reports there are maximum 120 leaves and 2 MSRs
+Raw policy: 32 leaves, 2 MSRs
+ CPUID:
+  leaf     subleaf  -> eax      ebx      ecx      edx    =20
+  00000000:ffffffff -> 0000000f:756e6547:6c65746e:49656e69
+  00000001:ffffffff -> 000306f2:00100800:7ffefbff:bfebfbff
+  00000002:ffffffff -> 76036301:00f0b5ff:00000000:00c10000
+  00000004:00000000 -> 1c004121:01c0003f:0000003f:00000000
+  00000004:00000001 -> 1c004122:01c0003f:0000003f:00000000
+  00000004:00000002 -> 1c004143:01c0003f:000001ff:00000000
+  00000004:00000003 -> 1c03c163:04c0003f:00003fff:00000006
+  00000005:ffffffff -> 00000040:00000040:00000003:00002120
+  00000006:ffffffff -> 00000077:00000002:00000009:00000000
+  00000007:00000000 -> 00000000:000037ab:00000000:9c000400
+  00000009:ffffffff -> 00000001:00000000:00000000:00000000
+  0000000a:ffffffff -> 07300403:00000000:00000000:00000603
+  0000000b:00000000 -> 00000001:00000002:00000100:00000000
+  0000000b:00000001 -> 00000004:00000010:00000201:00000000
+  0000000d:00000000 -> 00000007:00000000:00000340:00000000
+  0000000d:00000001 -> 00000001:00000000:00000000:00000000
+  0000000d:00000002 -> 00000100:00000240:00000000:00000000
+  80000000:ffffffff -> 80000008:00000000:00000000:00000000
+  80000001:ffffffff -> 00000000:00000000:00000021:2c100800
+  80000002:ffffffff -> 65746e49:2952286c:6f655820:2952286e
+  80000003:ffffffff -> 55504320:2d354520:30333632:20337620
+  80000004:ffffffff -> 2e322040:48473034:0000007a:00000000
+  80000006:ffffffff -> 00000000:00000000:01006040:00000000
+  80000007:ffffffff -> 00000000:00000000:00000000:00000100
+  80000008:ffffffff -> 0000302e:00000000:00000000:00000000
+ MSRs:
+  index    -> value          =20
+  000000ce -> 0000000080000000
+  0000010a -> 0000000000000000
+Host policy: 31 leaves, 2 MSRs
+ CPUID:
+  leaf     subleaf  -> eax      ebx      ecx      edx    =20
+  00000000:ffffffff -> 0000000d:756e6547:6c65746e:49656e69
+  00000001:ffffffff -> 000306f2:00100800:77fef3ff:bfebfbff
+  00000002:ffffffff -> 76036301:00f0b5ff:00000000:00c10000
+  00000004:00000000 -> 1c004121:01c0003f:0000003f:00000000
+  00000004:00000001 -> 1c004122:01c0003f:0000003f:00000000
+  00000004:00000002 -> 1c004143:01c0003f:000001ff:00000000
+  00000004:00000003 -> 1c03c163:04c0003f:00003fff:00000006
+  00000007:00000000 -> 00000000:000037ab:00000000:9c000400
+  0000000d:00000000 -> 00000007:00000000:00000340:00000000
+  0000000d:00000001 -> 00000001:00000000:00000000:00000000
+  0000000d:00000002 -> 00000100:00000240:00000000:00000000
+  80000000:ffffffff -> 80000008:00000000:00000000:00000000
+  80000001:ffffffff -> 00000000:00000000:00000021:2c100800
+  80000002:ffffffff -> 65746e49:2952286c:6f655820:2952286e
+  80000003:ffffffff -> 55504320:2d354520:30333632:20337620
+  80000004:ffffffff -> 2e322040:48473034:0000007a:00000000
+  80000006:ffffffff -> 00000000:00000000:01006040:00000000
+  80000007:ffffffff -> 00000000:00000000:00000000:00000100
+  80000008:ffffffff -> 0000302e:00000000:00000000:00000000
+ MSRs:
+  index    -> value          =20
+  000000ce -> 0000000080000000
+  0000010a -> 000000000c000000
+PV Max policy: 33 leaves, 2 MSRs
+ CPUID:
+  leaf     subleaf  -> eax      ebx      ecx      edx    =20
+  00000000:ffffffff -> 0000000d:756e6547:6c65746e:49656e69
+  00000001:ffffffff -> 000306f2:00100800:f6f83203:1fc9cbf5
+  00000002:ffffffff -> 76036301:00f0b5ff:00000000:00c10000
+  00000004:00000000 -> 1c004121:01c0003f:0000003f:00000000
+  00000004:00000001 -> 1c004122:01c0003f:0000003f:00000000
+  00000004:00000002 -> 1c004143:01c0003f:000001ff:00000000
+  00000004:00000003 -> 1c03c163:04c0003f:00003fff:00000006
+  00000007:00000000 -> 00000002:00000329:00000000:ac000400
+  0000000d:00000000 -> 00000007:00000000:00000340:00000000
+  0000000d:00000001 -> 00000001:00000000:00000000:00000000
+  0000000d:00000002 -> 00000100:00000240:00000000:00000000
+  80000000:ffffffff -> 80000008:00000000:00000000:00000000
+  80000001:ffffffff -> 00000000:00000000:00000023:28100800
+  80000002:ffffffff -> 65746e49:2952286c:6f655820:2952286e
+  80000003:ffffffff -> 55504320:2d354520:30333632:20337620
+  80000004:ffffffff -> 2e322040:48473034:0000007a:00000000
+  80000006:ffffffff -> 00000000:00000000:01006040:00000000
+  80000007:ffffffff -> 00000000:00000000:00000000:00000100
+  80000008:ffffffff -> 0000302e:00001000:00000000:00000000
+ MSRs:
+  index    -> value          =20
+  000000ce -> 0000000080000000
+  0000010a -> 000000001c020004
+HVM Max policy: 33 leaves, 2 MSRs
+ CPUID:
+  leaf     subleaf  -> eax      ebx      ecx      edx    =20
+  00000000:ffffffff -> 0000000d:756e6547:6c65746e:49656e69
+  00000001:ffffffff -> 000306f2:00100800:f7fa3223:1fcbfbff
+  00000002:ffffffff -> 76036301:00f0b5ff:00000000:00c10000
+  00000004:00000000 -> 1c004121:01c0003f:0000003f:00000000
+  00000004:00000001 -> 1c004122:01c0003f:0000003f:00000000
+  00000004:00000002 -> 1c004143:01c0003f:000001ff:00000000
+  00000004:00000003 -> 1c03c163:04c0003f:00003fff:00000006
+  00000007:00000000 -> 00000002:000007ab:00000000:bc000400
+  0000000d:00000000 -> 00000007:00000000:00000340:00000000
+  0000000d:00000001 -> 00000001:00000000:00000000:00000000
+  0000000d:00000002 -> 00000100:00000240:00000000:00000000
+  80000000:ffffffff -> 80000008:00000000:00000000:00000000
+  80000001:ffffffff -> 00000000:00000000:00000023:2c100800
+  80000002:ffffffff -> 65746e49:2952286c:6f655820:2952286e
+  80000003:ffffffff -> 55504320:2d354520:30333632:20337620
+  80000004:ffffffff -> 2e322040:48473034:0000007a:00000000
+  80000006:ffffffff -> 00000000:00000000:01006040:00000000
+  80000007:ffffffff -> 00000000:00000000:00000000:00000100
+  80000008:ffffffff -> 0000302e:00101000:00000000:00000000
+ MSRs:
+  index    -> value          =20
+  000000ce -> 0000000080000000
+  0000010a -> 000000001c020004
+PV Default policy: 31 leaves, 2 MSRs
+ CPUID:
+  leaf     subleaf  -> eax      ebx      ecx      edx    =20
+  00000000:ffffffff -> 0000000d:756e6547:6c65746e:49656e69
+  00000001:ffffffff -> 000306f2:00100800:f6d83203:1fc9cbf5
+  00000002:ffffffff -> 76036301:00f0b5ff:00000000:00c10000
+  00000004:00000000 -> 1c004121:01c0003f:0000003f:00000000
+  00000004:00000001 -> 1c004122:01c0003f:0000003f:00000000
+  00000004:00000002 -> 1c004143:01c0003f:000001ff:00000000
+  00000004:00000003 -> 1c03c163:04c0003f:00003fff:00000006
+  00000007:00000000 -> 00000000:00000329:00000000:ac000400
+  0000000d:00000000 -> 00000007:00000000:00000340:00000000
+  0000000d:00000001 -> 00000001:00000000:00000000:00000000
+  0000000d:00000002 -> 00000100:00000240:00000000:00000000
+  80000000:ffffffff -> 80000008:00000000:00000000:00000000
+  80000001:ffffffff -> 00000000:00000000:00000021:28100800
+  80000002:ffffffff -> 65746e49:2952286c:6f655820:2952286e
+  80000003:ffffffff -> 55504320:2d354520:30333632:20337620
+  80000004:ffffffff -> 2e322040:48473034:0000007a:00000000
+  80000006:ffffffff -> 00000000:00000000:01006040:00000000
+  80000008:ffffffff -> 0000302e:00001000:00000000:00000000
+ MSRs:
+  index    -> value          =20
+  000000ce -> 0000000080000000
+  0000010a -> 000000000c000000
+HVM Default policy: 31 leaves, 2 MSRs
+ CPUID:
+  leaf     subleaf  -> eax      ebx      ecx      edx    =20
+  00000000:ffffffff -> 0000000d:756e6547:6c65746e:49656e69
+  00000001:ffffffff -> 000306f2:00100800:f7fa3203:1fcbfbff
+  00000002:ffffffff -> 76036301:00f0b5ff:00000000:00c10000
+  00000004:00000000 -> 1c004121:01c0003f:0000003f:00000000
+  00000004:00000001 -> 1c004122:01c0003f:0000003f:00000000
+  00000004:00000002 -> 1c004143:01c0003f:000001ff:00000000
+  00000004:00000003 -> 1c03c163:04c0003f:00003fff:00000006
+  00000007:00000000 -> 00000000:000007ab:00000000:bc000400
+  0000000d:00000000 -> 00000007:00000000:00000340:00000000
+  0000000d:00000001 -> 00000001:00000000:00000000:00000000
+  0000000d:00000002 -> 00000100:00000240:00000000:00000000
+  80000000:ffffffff -> 80000008:00000000:00000000:00000000
+  80000001:ffffffff -> 00000000:00000000:00000021:2c100800
+  80000002:ffffffff -> 65746e49:2952286c:6f655820:2952286e
+  80000003:ffffffff -> 55504320:2d354520:30333632:20337620
+  80000004:ffffffff -> 2e322040:48473034:0000007a:00000000
+  80000006:ffffffff -> 00000000:00000000:01006040:00000000
+  80000008:ffffffff -> 0000302e:00101000:00000000:00000000
+ MSRs:
+  index    -> value          =20
+  000000ce -> 0000000080000000
+  0000010a -> 000000000c000000
+
+
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D
+Target server xen-cpuid -p
+---------------------------------------------------------------------------=
+------------------------------
+
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D
+Xen reports there are maximum 120 leaves and 2 MSRs
+Raw policy: 39 leaves, 2 MSRs
+ CPUID:
+  leaf     subleaf  -> eax      ebx      ecx      edx    =20
+  00000000:ffffffff -> 00000016:756e6547:6c65746e:49656e69
+  00000001:ffffffff -> 00050654:00200800:7ffefbff:bfebfbff
+  00000002:ffffffff -> 76036301:00f0b5ff:00000000:00c30000
+  00000004:00000000 -> 3c004121:01c0003f:0000003f:00000000
+  00000004:00000001 -> 3c004122:01c0003f:0000003f:00000000
+  00000004:00000002 -> 3c004143:03c0003f:000003ff:00000000
+  00000004:00000003 -> 3c07c163:0280003f:00004fff:00000004
+  00000005:ffffffff -> 00000040:00000040:00000003:00002020
+  00000006:ffffffff -> 00000ef7:00000002:00000009:00000000
+  00000007:00000000 -> 00000000:d39ffffb:00000018:bc002400
+  0000000a:ffffffff -> 07300404:00000000:00000000:00000603
+  0000000b:00000000 -> 00000001:00000002:00000100:00000000
+  0000000b:00000001 -> 00000005:00000014:00000201:00000000
+  0000000d:00000000 -> 000002ff:00000000:00000a88:00000000
+  0000000d:00000001 -> 0000000f:00000000:00000100:00000000
+  0000000d:00000002 -> 00000100:00000240:00000000:00000000
+  0000000d:00000003 -> 00000040:000003c0:00000000:00000000
+  0000000d:00000004 -> 00000040:00000400:00000000:00000000
+  0000000d:00000005 -> 00000040:00000440:00000000:00000000
+  0000000d:00000006 -> 00000200:00000480:00000000:00000000
+  0000000d:00000007 -> 00000400:00000680:00000000:00000000
+  0000000d:00000008 -> 00000080:00000000:00000001:00000000
+  0000000d:00000009 -> 00000008:00000a80:00000000:00000000
+  80000000:ffffffff -> 80000008:00000000:00000000:00000000
+  80000001:ffffffff -> 00000000:00000000:00000121:2c100800
+  80000002:ffffffff -> 65746e49:2952286c:6f655820:2952286e
+  80000003:ffffffff -> 6c695320:20726576:34313134:55504320
+  80000004:ffffffff -> 32204020:4730322e:00007a48:00000000
+  80000006:ffffffff -> 00000000:00000000:01006040:00000000
+  80000007:ffffffff -> 00000000:00000000:00000000:00000100
+  80000008:ffffffff -> 0000302e:00000000:00000000:00000000
+ MSRs:
+  index    -> value          =20
+  000000ce -> 0000000080000000
+  0000010a -> 0000000000000c04
+Host policy: 38 leaves, 2 MSRs
+ CPUID:
+  leaf     subleaf  -> eax      ebx      ecx      edx    =20
+  00000000:ffffffff -> 0000000d:756e6547:6c65746e:49656e69
+  00000001:ffffffff -> 00050654:00200800:47fee3ff:bfebfbff
+  00000002:ffffffff -> 76036301:00f0b5ff:00000000:00c30000
+  00000004:00000000 -> 3c004121:01c0003f:0000003f:00000000
+  00000004:00000001 -> 3c004122:01c0003f:0000003f:00000000
+  00000004:00000002 -> 3c004143:03c0003f:000003ff:00000000
+  00000004:00000003 -> 3c07c163:0280003f:00004fff:00000004
+  00000007:00000000 -> 00000000:029cffdb:00000008:bc002400
+  0000000d:00000000 -> 0000021b:00000000:00000a88:00000000
+  0000000d:00000001 -> 0000000f:00000000:00000000:00000000
+  0000000d:00000003 -> 00000040:000003c0:00000000:00000000
+  0000000d:00000004 -> 00000040:00000400:00000000:00000000
+  0000000d:00000009 -> 00000008:00000a80:00000000:00000000
+  80000000:ffffffff -> 80000008:00000000:00000000:00000000
+  80000001:ffffffff -> 00000000:00000000:00000121:2c100800
+  80000002:ffffffff -> 65746e49:2952286c:6f655820:2952286e
+  80000003:ffffffff -> 6c695320:20726576:34313134:55504320
+  80000004:ffffffff -> 32204020:4730322e:00007a48:00000000
+  80000006:ffffffff -> 00000000:00000000:01006040:00000000
+  80000007:ffffffff -> 00000000:00000000:00000000:00000100
+  80000008:ffffffff -> 0000302e:00000000:00000000:00000000
+ MSRs:
+  index    -> value          =20
+  000000ce -> 0000000080000000
+  0000010a -> 0000000008000c04
+PV Max policy: 32 leaves, 2 MSRs
+ CPUID:
+  leaf     subleaf  -> eax      ebx      ecx      edx    =20
+  00000000:ffffffff -> 0000000d:756e6547:6c65746e:49656e69
+  00000001:ffffffff -> 00050654:00200800:c6f82203:1fc9cbf5
+  00000002:ffffffff -> 76036301:00f0b5ff:00000000:00c30000
+  00000004:00000000 -> 3c004121:01c0003f:0000003f:00000000
+  00000004:00000001 -> 3c004122:01c0003f:0000003f:00000000
+  00000004:00000002 -> 3c004143:03c0003f:000003ff:00000000
+  00000004:00000003 -> 3c07c163:0280003f:00004fff:00000004
+  00000007:00000000 -> 00000002:018c0b19:00000000:ac000c00
+  0000000d:00000000 -> 00000003:00000000:00000240:00000000
+  0000000d:00000001 -> 00000007:00000000:00000000:00000000
+  80000000:ffffffff -> 80000008:00000000:00000000:00000000
+  80000001:ffffffff -> 00000000:00000000:00000123:28100800
+  80000002:ffffffff -> 65746e49:2952286c:6f655820:2952286e
+  80000003:ffffffff -> 6c695320:20726576:34313134:55504320
+  80000004:ffffffff -> 32204020:4730322e:00007a48:00000000
+  80000006:ffffffff -> 00000000:00000000:01006040:00000000
+  80000007:ffffffff -> 00000000:00000000:00000000:00000100
+  80000008:ffffffff -> 0000302e:00001000:00000000:00000000
+ MSRs:
+  index    -> value          =20
+  000000ce -> 0000000080000000
+  0000010a -> 0000000018020004
+HVM Max policy: 40 leaves, 2 MSRs
+ CPUID:
+  leaf     subleaf  -> eax      ebx      ecx      edx    =20
+  00000000:ffffffff -> 0000000d:756e6547:6c65746e:49656e69
+  00000001:ffffffff -> 00050654:00200800:c7fa2223:1fcbfbff
+  00000002:ffffffff -> 76036301:00f0b5ff:00000000:00c30000
+  00000004:00000000 -> 3c004121:01c0003f:0000003f:00000000
+  00000004:00000001 -> 3c004122:01c0003f:0000003f:00000000
+  00000004:00000002 -> 3c004143:03c0003f:000003ff:00000000
+  00000004:00000003 -> 3c07c163:0280003f:00004fff:00000004
+  00000007:00000000 -> 00000002:019c4f9b:00000008:bc000c00
+  0000000d:00000000 -> 0000021b:00000000:00000a88:00000000
+  0000000d:00000001 -> 0000000f:00000000:00000000:00000000
+  0000000d:00000003 -> 00000040:000003c0:00000000:00000000
+  0000000d:00000004 -> 00000040:00000400:00000000:00000000
+  0000000d:00000009 -> 00000008:00000a80:00000000:00000000
+  80000000:ffffffff -> 80000008:00000000:00000000:00000000
+  80000001:ffffffff -> 00000000:00000000:00000123:2c100800
+  80000002:ffffffff -> 65746e49:2952286c:6f655820:2952286e
+  80000003:ffffffff -> 6c695320:20726576:34313134:55504320
+  80000004:ffffffff -> 32204020:4730322e:00007a48:00000000
+  80000006:ffffffff -> 00000000:00000000:01006040:00000000
+  80000007:ffffffff -> 00000000:00000000:00000000:00000100
+  80000008:ffffffff -> 0000302e:00101000:00000000:00000000
+ MSRs:
+  index    -> value          =20
+  000000ce -> 0000000080000000
+  0000010a -> 0000000018020004
+PV Default policy: 30 leaves, 2 MSRs
+ CPUID:
+  leaf     subleaf  -> eax      ebx      ecx      edx    =20
+  00000000:ffffffff -> 0000000d:756e6547:6c65746e:49656e69
+  00000001:ffffffff -> 00050654:00200800:c6d82203:1fc9cbf5
+  00000002:ffffffff -> 76036301:00f0b5ff:00000000:00c30000
+  00000004:00000000 -> 3c004121:01c0003f:0000003f:00000000
+  00000004:00000001 -> 3c004122:01c0003f:0000003f:00000000
+  00000004:00000002 -> 3c004143:03c0003f:000003ff:00000000
+  00000004:00000003 -> 3c07c163:0280003f:00004fff:00000004
+  00000007:00000000 -> 00000000:008c0b09:00000000:ac000400
+  0000000d:00000000 -> 00000003:00000000:00000240:00000000
+  0000000d:00000001 -> 00000007:00000000:00000000:00000000
+  80000000:ffffffff -> 80000008:00000000:00000000:00000000
+  80000001:ffffffff -> 00000000:00000000:00000121:28100800
+  80000002:ffffffff -> 65746e49:2952286c:6f655820:2952286e
+  80000003:ffffffff -> 6c695320:20726576:34313134:55504320
+  80000004:ffffffff -> 32204020:4730322e:00007a48:00000000
+  80000006:ffffffff -> 00000000:00000000:01006040:00000000
+  80000008:ffffffff -> 0000302e:00001000:00000000:00000000
+ MSRs:
+  index    -> value          =20
+  000000ce -> 0000000080000000
+  0000010a -> 0000000008000004
+HVM Default policy: 38 leaves, 2 MSRs
+ CPUID:
+  leaf     subleaf  -> eax      ebx      ecx      edx    =20
+  00000000:ffffffff -> 0000000d:756e6547:6c65746e:49656e69
+  00000001:ffffffff -> 00050654:00200800:c7fa2203:1fcbfbff
+  00000002:ffffffff -> 76036301:00f0b5ff:00000000:00c30000
+  00000004:00000000 -> 3c004121:01c0003f:0000003f:00000000
+  00000004:00000001 -> 3c004122:01c0003f:0000003f:00000000
+  00000004:00000002 -> 3c004143:03c0003f:000003ff:00000000
+  00000004:00000003 -> 3c07c163:0280003f:00004fff:00000004
+  00000007:00000000 -> 00000000:009c0f8b:00000008:bc000400
+  0000000d:00000000 -> 00000203:00000000:00000a88:00000000
+  0000000d:00000001 -> 0000000f:00000000:00000000:00000000
+  0000000d:00000009 -> 00000008:00000a80:00000000:00000000
+  80000000:ffffffff -> 80000008:00000000:00000000:00000000
+  80000001:ffffffff -> 00000000:00000000:00000121:2c100800
+  80000002:ffffffff -> 65746e49:2952286c:6f655820:2952286e
+  80000003:ffffffff -> 6c695320:20726576:34313134:55504320
+  80000004:ffffffff -> 32204020:4730322e:00007a48:00000000
+  80000006:ffffffff -> 00000000:00000000:01006040:00000000
+  80000008:ffffffff -> 0000302e:00101000:00000000:00000000
+ MSRs:
+  index    -> value          =20
+  000000ce -> 0000000080000000
+  0000010a -> 0000000008000004
+
+
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D
+VM xen-cpuid -p $domid
+---------------------------------------------------------------------------=
+------------------------------
+Domain 3 policy: 31 leaves, 2 MSRs
+ CPUID:
+  leaf     subleaf  -> eax      ebx      ecx      edx    =20
+  00000000:ffffffff -> 0000000d:756e6547:6c65746e:49656e69
+  00000001:ffffffff -> 000306f2:00100800:f6d83203:1fc9cbf5
+  00000002:ffffffff -> 76036301:00f0b5ff:00000000:00c10000
+  00000004:00000000 -> 1c004121:01c0003f:0000003f:00000000
+  00000004:00000001 -> 1c004122:01c0003f:0000003f:00000000
+  00000004:00000002 -> 1c004143:01c0003f:000001ff:00000000
+  00000004:00000003 -> 1c03c163:04c0003f:00003fff:00000006
+  00000007:00000000 -> 00000000:00002329:00000000:ac000400
+  0000000d:00000000 -> 00000007:00000000:00000340:00000000
+  0000000d:00000001 -> 00000001:00000000:00000000:00000000
+  0000000d:00000002 -> 00000100:00000240:00000000:00000000
+  80000000:ffffffff -> 80000008:00000000:00000000:00000000
+  80000001:ffffffff -> 00000000:00000000:00000021:28100800
+  80000002:ffffffff -> 65746e49:2952286c:6f655820:2952286e
+  80000003:ffffffff -> 55504320:2d354520:30333632:20337620
+  80000004:ffffffff -> 2e322040:48473034:0000007a:00000000
+  80000006:ffffffff -> 00000000:00000000:01006040:00000000
+  80000008:ffffffff -> 0000302e:00001000:00000000:00000000
+ MSRs:
+  index    -> value          =20
+  000000ce -> 0000000080000000
+  0000010a -> 000000000c000000
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D
+
+
 
