@@ -2,36 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E04EA92EA29
-	for <lists+xen-devel@lfdr.de>; Thu, 11 Jul 2024 16:04:38 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.757527.1166552 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C556692EAD5
+	for <lists+xen-devel@lfdr.de>; Thu, 11 Jul 2024 16:34:42 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.757558.1166572 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sRuPJ-0000ok-PV; Thu, 11 Jul 2024 14:04:25 +0000
+	id 1sRura-0000MZ-Fr; Thu, 11 Jul 2024 14:33:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 757527.1166552; Thu, 11 Jul 2024 14:04:25 +0000
+Received: by outflank-mailman (output) from mailman id 757558.1166572; Thu, 11 Jul 2024 14:33:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sRuPJ-0000lX-MD; Thu, 11 Jul 2024 14:04:25 +0000
-Received: by outflank-mailman (input) for mailman id 757527;
- Thu, 11 Jul 2024 14:04:24 +0000
+	id 1sRura-0000KU-C0; Thu, 11 Jul 2024 14:33:38 +0000
+Received: by outflank-mailman (input) for mailman id 757558;
+ Thu, 11 Jul 2024 14:33:36 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=XHCp=OL=bounce.vates.tech=bounce-md_30504962.668fe664.v1-d61770e47a4c4aaf88d960323ac73369@srs-se1.protection.inumbo.net>)
- id 1sRuPH-0008Pw-TB
- for xen-devel@lists.xenproject.org; Thu, 11 Jul 2024 14:04:24 +0000
-Received: from mail186-27.suw21.mandrillapp.com
- (mail186-27.suw21.mandrillapp.com [198.2.186.27])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=n1Hg=OL=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1sRurY-0000KE-RU
+ for xen-devel@lists.xenproject.org; Thu, 11 Jul 2024 14:33:36 +0000
+Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
+ [2a00:1450:4864:20::32f])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 798547ed-3f8e-11ef-bbfb-fd08da9f4363;
- Thu, 11 Jul 2024 16:04:22 +0200 (CEST)
-Received: from pmta10.mandrill.prod.suw01.rsglab.com (localhost [127.0.0.1])
- by mail186-27.suw21.mandrillapp.com (Mailchimp) with ESMTP id
- 4WKc0j0CPMz6CQ50L
- for <xen-devel@lists.xenproject.org>; Thu, 11 Jul 2024 14:04:21 +0000 (GMT)
-Received: from [37.26.189.201] by mandrillapp.com id
- d61770e47a4c4aaf88d960323ac73369; Thu, 11 Jul 2024 14:04:20 +0000
+ id 8dc017b6-3f92-11ef-bbfb-fd08da9f4363;
+ Thu, 11 Jul 2024 16:33:35 +0200 (CEST)
+Received: by mail-wm1-x32f.google.com with SMTP id
+ 5b1f17b1804b1-42565670e20so12472155e9.0
+ for <xen-devel@lists.xenproject.org>; Thu, 11 Jul 2024 07:33:35 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-1fbb6a122a1sm52486145ad.45.2024.07.11.07.33.30
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 11 Jul 2024 07:33:33 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,584 +45,170 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 798547ed-3f8e-11ef-bbfb-fd08da9f4363
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
-	s=mte1; t=1720706661; x=1720967161;
-	bh=Q/O9cr6CBssIHXO8r7oS6ys6nHh5XJshkIKzcRx9Qco=;
-	h=From:Subject:To:Cc:Message-Id:In-Reply-To:References:Feedback-ID:
-	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
-	 Subject:From;
-	b=n6n+bRXyB9jF3N0ATkmoRJXGXkdbMsG9wUlaJoIEI3yg+fg0B4mrAtcj/fVBPbJnv
-	 olXfw2ce74/rMFfADLN6WnUruUx4YveoQUTQR+h/2W+GG5g4ObIccUCHXAMWGSrBZL
-	 pcKNYE7blXtyjcpqXFPzKFUgzcDCTn2CKLlR3WpOnx0J5KmCKdY6o/MQw20GbXgjB9
-	 XxOkHVJUFVSbJRW6zsD/usFIEk0+IZCUvqooHnAf5khcCayJ5UAVvKmzwO88UYvYye
-	 tPKUaTGOyN94esWy0jh6WaReV0HOIrsIpOLHuCFX89HDcqVbsNRE7L2azMccnhqEao
-	 Jjn/9S4qcylrg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
-	t=1720706661; x=1720967161; i=teddy.astie@vates.tech;
-	bh=Q/O9cr6CBssIHXO8r7oS6ys6nHh5XJshkIKzcRx9Qco=;
-	h=From:Subject:To:Cc:Message-Id:In-Reply-To:References:Feedback-ID:
-	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
-	 Subject:From;
-	b=y0OZp01OneB9KSYYqlyke3Gp5E92/mdLfWpQZWmiZPv+1exzf/k2obruHMz92BEgq
-	 ucam/IAsQCSQ5orXjqnypwsaNY47TgT687aaJIBFIys1WGpR2aaxOBIDakzaGNoKMa
-	 hwA7xcelZuORON6YvObpyWnFQShN6pwH2QgmyxKJm6GaEWmGxtvqRqRrThJSljyu/Z
-	 2h0COO2og5YYqfGSXEsLr/vFC6CNdFg5GKu1lsaTQb5XzJCuAW46Vkxxx89vrrb7Gl
-	 +3clGLIdGrWznFiXWZoTWB3HobTYEzsnq1i7MKR+rHkoWXrgQbmypQKYkqioNYbQus
-	 TBe58N76NNYrw==
-From: Teddy Astie <teddy.astie@vates.tech>
-Subject: =?utf-8?Q?[RFC=20XEN=20PATCH=20v3=205/5]=20xen/public:=20Introduce=20PV-IOMMU=20hypercall=20interface?=
-X-Mailer: git-send-email 2.45.2
-X-Bm-Disclaimer: Yes
-X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
-X-Bm-Transport-Timestamp: 1720706659900
-To: xen-devel@lists.xenproject.org
-Cc: Teddy Astie <teddy.astie@vates.tech>, Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, =?utf-8?Q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-Message-Id: <f9ae663df38acc0d330b7582dfaa7ac199746aca.1720703078.git.teddy.astie@vates.tech>
-In-Reply-To: <cover.1720703078.git.teddy.astie@vates.tech>
-References: <cover.1720703078.git.teddy.astie@vates.tech>
-X-Native-Encoded: 1
-X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.d61770e47a4c4aaf88d960323ac73369?=
-X-Mandrill-User: md_30504962
-Feedback-ID: 30504962:30504962.20240711:md
-Date: Thu, 11 Jul 2024 14:04:20 +0000
+X-Inumbo-ID: 8dc017b6-3f92-11ef-bbfb-fd08da9f4363
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1720708414; x=1721313214; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=BMwvlBZnkRRQ3eaqzdsDt1wDXDNWJ3MWLuDF6WvDsxc=;
+        b=E7B1fxJm3M9TRX1deXcs5IMQ3h1YJMvsqu5u0vDuyPXFFzTe1EXTV3hjxszrt0KDeY
+         uW2zioRFRX7H1YqwHLO5p8t57aVk10QAk+t10PiSDS/2PDWGvPKmo1B+kl8Uv1Pk/itZ
+         ssilVRDZ8cUDEvEtEYKTPuWgYzY/8tYSKP6UUQlcRfEZ12exGW8d6XKOAZUs2bXkS0mX
+         br56XwI2je5dVhHHC4KNKGbbRpKWITLiMCVTkrg8VYe5YsVW6f2Vr8EY3t6bRa4nHHkh
+         QqzJ7BXXX4/7TSTxMslhcRD5sN6XWQ1K5OIi2o3sQkeSlpHo3ni3Sd3UsU1f6yJGve+V
+         MZxA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1720708414; x=1721313214;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=BMwvlBZnkRRQ3eaqzdsDt1wDXDNWJ3MWLuDF6WvDsxc=;
+        b=Vc2ZAQqkTSxZPEXFOapJ7CKWCeoWiCplD/rgWDxAgLEr57t496ZNsOYkO96fLGpZhT
+         ekbEBg3UUYBeudxbqI3WPAUshYFcq2hiUtjOzRE03PnakMP5+i5Dyadk9p7Lw9Y5Zrx0
+         vPCBIUbe/2Q/0O7l8m5AsygRMCdhmZrAU4++h7PpovcjVZmUkvCGH42Ev1TXrR+zhXLY
+         7oVfT9IcWXNKlG2plwiEtVj6L501L8AUdw42NwSFnRxuZnCDeDIv3V4klqt08chihkty
+         80Yd+5BMfE4FcMF7qFWxieTYolA1nt1SzQLmN+i41lSSUhQjOiLTcetMvTluzhfYuOYa
+         3XGw==
+X-Forwarded-Encrypted: i=1; AJvYcCV9YGywuhxL8U9H0qfciQ4mvn9Ysz06qIwsOWb8ywKyTFGN2FbIVTWZDTUYSbk3q9C8ogCmLDBIGZS8K09DRFpYYUF0NvNe3jOTY5oCT/I=
+X-Gm-Message-State: AOJu0YxgeIHnKc+Yv83pwqdJIZXNvqzFH1tFWRBSfOOTy9a/zNw7SN15
+	2HhW/oHZ+lQzFzUpOdKcJaQKoGIHW5ZAVkySPJQ8CHoc6j/nknBAnYe7C3zrKA==
+X-Google-Smtp-Source: AGHT+IEMBO0FPp+bdz60j1RxNvI76hvrZ+Ox9bzM+VXK7fjhZJe2Mfj9pA+lELZWo1q3Fhm37BaUgw==
+X-Received: by 2002:adf:f386:0:b0:361:e909:60c3 with SMTP id ffacd0b85a97d-367f04ca2c1mr2808318f8f.9.1720708414349;
+        Thu, 11 Jul 2024 07:33:34 -0700 (PDT)
+Message-ID: <95ab6441-5aad-4536-ae1b-034dcd1a69ea@suse.com>
+Date: Thu, 11 Jul 2024 16:33:25 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 7bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v9 4/5] xen/riscv: enable GENERIC_BUG_FRAME
+To: Oleksii <oleksii.kurochko@gmail.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ xen-devel@lists.xenproject.org
+References: <cover.1719918148.git.oleksii.kurochko@gmail.com>
+ <c51c485bac43b7589961aabec8af1b82d4673b94.1719918148.git.oleksii.kurochko@gmail.com>
+ <ca373d42-22f1-41a2-bdbb-4733145c635a@suse.com>
+ <a1224198ef6845f8f81baaaebe1d436726460c0e.camel@gmail.com>
+ <bff4f1e4-9242-4a1c-bbca-ba3d609db03f@suse.com>
+ <df82de5d4dcf5224f58d8595ff5ad03429e9cad9.camel@gmail.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <df82de5d4dcf5224f58d8595ff5ad03429e9cad9.camel@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Introduce a new pv interface to manage the underlying IOMMU and manage contexts
-and devices. This interface allows creation of new contexts from Dom0 and
-addition of IOMMU mappings using guest PoV.
+On 11.07.2024 14:14, Oleksii wrote:
+> On Thu, 2024-07-11 at 11:25 +0200, Jan Beulich wrote:
+>> On 11.07.2024 10:50, Oleksii wrote:
+>>> On Wed, 2024-07-10 at 12:01 +0200, Jan Beulich wrote:
+>>>> On 02.07.2024 13:23, Oleksii Kurochko wrote:
+>>>>> @@ -101,8 +102,38 @@ static void do_unexpected_trap(const
+>>>>> struct
+>>>>> cpu_user_regs *regs)
+>>>>>      die();
+>>>>>  }
+>>>>>  
+>>>>> +static bool is_valid_bug_insn(uint32_t insn)
+>>>>> +{
+>>>>> +    return insn == BUG_INSN_32 ||
+>>>>> +           (insn & COMPRESSED_INSN_MASK) == BUG_INSN_16;
+>>>>> +}
+>>>>> +
+>>>>> +/* Should be used only on Xen code */
+>>>>> +static uint32_t read_instr(unsigned long pc)
+>>>>> +{
+>>>>> +    uint16_t instr16 = *(uint16_t *)pc;
+>>>>> +
+>>>>> +    ASSERT(is_kernel_text(pc + 1) || is_kernel_inittext(pc +
+>>>>> 1));
+>>>>> +
+>>>>> +    if ( GET_INSN_LENGTH(instr16) == 2 )
+>>>>> +        return instr16;
+>>>>> +
+>>>>> +    ASSERT(is_kernel_text(pc + 3) || is_kernel_inittext(pc +
+>>>>> 3));
+>>>>> +
+>>>>> +    return *(uint32_t *)pc;
+>>>>> +}
+>>>>
+>>>> Related to the point made further down: If either of these
+>>>> assertions
+>>>> fails,
+>>>> won't we come back again right here? If either of the
+>>>> is_kernel_*text()
+>>>> wasn't working quite right, wouldn't we be at risk of entering an
+>>>> infinite
+>>>> loop (presumably not quite infinite because of the stack
+>>>> overflowing
+>>>> at some
+>>>> point)?
+>>> It is really possible to have infinite loop here so it should be
+>>> better
+>>> to use 'if' with die() or panic().
+>>>
+>>>>
+>>>>>  void do_trap(struct cpu_user_regs *cpu_regs)
+>>>>>  {
+>>>>> +    register_t pc = cpu_regs->sepc;
+>>>>> +    uint32_t instr = read_instr(pc);
+>>>>> +
+>>>>> +    if ( ( is_valid_bug_insn(instr) ) && (
+>>>>> do_bug_frame(cpu_regs,
+>>>>> pc) >= 0 ) )
+>>>>
+>>>> No consideration of the kind of exception? I'd expect it is one
+>>>> very
+>>>> specific one which the BUG insn would raise, and then there's no
+>>>> point
+>>>> fetching the insn when it's a different kind of exception.
+>>> Good point.
+>>>
+>>> We should have 0x3 ( breakpoint exception ) in scause register. We
+>>> can
+>>> just check that without reading instruction and then also
+>>> is_valid_bug_insn could be dropped too.
+>>
+>> Just that then you'll also lose the is_kernel_*text() checking, which
+>> I
+>> understand is there to remind you/us that one this becomes reachable
+>> from non-Xen code, adjustments are going to be needed.
+> One thing I wrote incorrectly is that we still need fetch instruction
+> or at least 16 bits to identify the length of instruction to set proper
+> sepc:
+>     cpu_regs->sepc += GET_INSN_LENGTH(instr);
+> 
+> We could write that in the following way:
+>     cpu_regs->sepc += GET_INSN_LENGTH(*(uint16_t *)pc);
+> Would it be okay?
 
-This interface doesn't allow creation of mapping to other domains.
+I think so, as long as you retain the assertion in some way, ahead of the
+deref of pc.
 
-Signed-off-by Teddy Astie <teddy.astie@vates.tech>
----
-Changed in V2:
-* formatting
-
-Changed in V3:
-* prevent IOMMU operations on dying contexts
----
- xen/common/Makefile           |   1 +
- xen/common/pv-iommu.c         | 328 ++++++++++++++++++++++++++++++++++
- xen/include/hypercall-defs.c  |   6 +
- xen/include/public/pv-iommu.h | 114 ++++++++++++
- xen/include/public/xen.h      |   1 +
- 5 files changed, 450 insertions(+)
- create mode 100644 xen/common/pv-iommu.c
- create mode 100644 xen/include/public/pv-iommu.h
-
-diff --git a/xen/common/Makefile b/xen/common/Makefile
-index f12a474d40..52ada89888 100644
---- a/xen/common/Makefile
-+++ b/xen/common/Makefile
-@@ -58,6 +58,7 @@ obj-y += wait.o
- obj-bin-y += warning.init.o
- obj-$(CONFIG_XENOPROF) += xenoprof.o
- obj-y += xmalloc_tlsf.o
-+obj-y += pv-iommu.o
- 
- obj-bin-$(CONFIG_X86) += $(foreach n,decompress bunzip2 unxz unlzma lzo unlzo unlz4 unzstd earlycpio,$(n).init.o)
- 
-diff --git a/xen/common/pv-iommu.c b/xen/common/pv-iommu.c
-new file mode 100644
-index 0000000000..a94c0f1e1a
---- /dev/null
-+++ b/xen/common/pv-iommu.c
-@@ -0,0 +1,328 @@
-+/* SPDX-License-Identifier: GPL-2.0 */
-+/*
-+ * xen/common/pv_iommu.c
-+ *
-+ * PV-IOMMU hypercall interface.
-+ */
-+
-+#include <xen/mm.h>
-+#include <xen/lib.h>
-+#include <xen/iommu.h>
-+#include <xen/sched.h>
-+#include <xen/pci.h>
-+#include <xen/guest_access.h>
-+#include <asm/p2m.h>
-+#include <asm/event.h>
-+#include <public/pv-iommu.h>
-+
-+#define PVIOMMU_PREFIX "[PV-IOMMU] "
-+
-+#define PVIOMMU_MAX_PAGES 256 /* Move to Kconfig ? */
-+
-+/* Allowed masks for each sub-operation */
-+#define ALLOC_OP_FLAGS_MASK (0)
-+#define FREE_OP_FLAGS_MASK (IOMMU_TEARDOWN_REATTACH_DEFAULT)
-+
-+static int get_paged_frame(struct domain *d, gfn_t gfn, mfn_t *mfn,
-+                           struct page_info **page, int readonly)
-+{
-+    p2m_type_t p2mt;
-+
-+    *page = get_page_from_gfn(d, gfn_x(gfn), &p2mt,
-+                             (readonly) ? P2M_ALLOC : P2M_UNSHARE);
-+
-+    if ( !(*page) )
-+    {
-+        *mfn = INVALID_MFN;
-+        if ( p2m_is_shared(p2mt) )
-+            return -EINVAL;
-+        if ( p2m_is_paging(p2mt) )
-+        {
-+            p2m_mem_paging_populate(d, gfn);
-+            return -EIO;
-+        }
-+
-+        return -EPERM;
-+    }
-+
-+    *mfn = page_to_mfn(*page);
-+
-+    return 0;
-+}
-+
-+static int can_use_iommu_check(struct domain *d)
-+{
-+    if ( !iommu_enabled )
-+    {
-+        printk(PVIOMMU_PREFIX "IOMMU is not enabled\n");
-+        return 0;
-+    }
-+
-+    if ( !is_hardware_domain(d) )
-+    {
-+        printk(PVIOMMU_PREFIX "Non-hardware domain\n");
-+        return 0;
-+    }
-+
-+    if ( !is_iommu_enabled(d) )
-+    {
-+        printk(PVIOMMU_PREFIX "IOMMU disabled for this domain\n");
-+        return 0;
-+    }
-+
-+    return 1;
-+}
-+
-+static long query_cap_op(struct pv_iommu_op *op, struct domain *d)
-+{
-+    op->cap.max_ctx_no = d->iommu.other_contexts.count;
-+    op->cap.max_nr_pages = PVIOMMU_MAX_PAGES;
-+    op->cap.max_iova_addr = (1LLU << 39) - 1; /* TODO: hardcoded 39-bits */
-+
-+    return 0;
-+}
-+
-+static long alloc_context_op(struct pv_iommu_op *op, struct domain *d)
-+{
-+    u16 ctx_no = 0;
-+    int status = 0;
-+
-+    status = iommu_context_alloc(d, &ctx_no, op->flags & ALLOC_OP_FLAGS_MASK);
-+
-+    if (status < 0)
-+        return status;
-+
-+    printk("Created context %hu\n", ctx_no);
-+
-+    op->ctx_no = ctx_no;
-+    return 0;
-+}
-+
-+static long free_context_op(struct pv_iommu_op *op, struct domain *d)
-+{
-+    return iommu_context_free(d, op->ctx_no,
-+                              IOMMU_TEARDOWN_PREEMPT | (op->flags & FREE_OP_FLAGS_MASK));
-+}
-+
-+static long reattach_device_op(struct pv_iommu_op *op, struct domain *d)
-+{
-+    struct physdev_pci_device dev = op->reattach_device.dev;
-+    device_t *pdev;
-+
-+    pdev = pci_get_pdev(d, PCI_SBDF(dev.seg, dev.bus, dev.devfn));
-+
-+    if ( !pdev )
-+        return -ENOENT;
-+
-+    return iommu_reattach_context(d, d, pdev, op->ctx_no);
-+}
-+
-+static long map_pages_op(struct pv_iommu_op *op, struct domain *d)
-+{
-+    int ret = 0, flush_ret;
-+    struct page_info *page = NULL;
-+    mfn_t mfn;
-+    unsigned int flags;
-+    unsigned int flush_flags = 0;
-+    size_t i = 0;
-+
-+    if ( op->map_pages.nr_pages > PVIOMMU_MAX_PAGES )
-+        return -E2BIG;
-+
-+    if ( !iommu_check_context(d, op->ctx_no) )
-+        return -EINVAL;
-+
-+    //printk("Mapping gfn:%lx-%lx to dfn:%lx-%lx on %hu\n",
-+    //       op->map_pages.gfn, op->map_pages.gfn + op->map_pages.nr_pages - 1,
-+    //       op->map_pages.dfn, op->map_pages.dfn + op->map_pages.nr_pages - 1,
-+    //       op->ctx_no);
-+
-+    flags = 0;
-+
-+    if ( op->flags & IOMMU_OP_readable )
-+        flags |= IOMMUF_readable;
-+
-+    if ( op->flags & IOMMU_OP_writeable )
-+        flags |= IOMMUF_writable;
-+
-+    spin_lock(&dom_iommu(d)->lock);
-+
-+    for (i = 0; i < op->map_pages.nr_pages; i++)
-+    {
-+        gfn_t gfn = _gfn(op->map_pages.gfn + i);
-+        dfn_t dfn = _dfn(op->map_pages.dfn + i);
-+
-+        /* Lookup pages struct backing gfn */
-+        ret = get_paged_frame(d, gfn, &mfn, &page, 0);
-+
-+        if ( ret )
-+            break;
-+
-+        /* Check for conflict with existing mappings */
-+        if ( !_iommu_lookup_page(d, dfn, &mfn, &flags, op->ctx_no) )
-+        {
-+            put_page(page);
-+            ret = -EADDRINUSE;
-+            break;
-+        }
-+
-+        ret = _iommu_map(d, dfn, mfn, 1, flags, &flush_flags, op->ctx_no);
-+
-+        if ( ret )
-+            break;
-+    }
-+
-+    flush_ret = _iommu_iotlb_flush(d, _dfn(op->map_pages.dfn),
-+                                   op->map_pages.nr_pages, flush_flags,
-+                                   op->ctx_no);
-+
-+    spin_unlock(&dom_iommu(d)->lock);
-+
-+    op->map_pages.mapped = i;
-+
-+    if ( flush_ret )
-+        printk("Flush operation failed (%d)\n", flush_ret);
-+
-+    return ret;
-+}
-+
-+static long unmap_pages_op(struct pv_iommu_op *op, struct domain *d)
-+{
-+    mfn_t mfn;
-+    int ret = 0, flush_ret;
-+    unsigned int flags;
-+    unsigned int flush_flags = 0;
-+    size_t i = 0;
-+
-+    if ( op->unmap_pages.nr_pages > PVIOMMU_MAX_PAGES )
-+        return -E2BIG;
-+
-+    if ( !iommu_check_context(d, op->ctx_no) )
-+        return -EINVAL;
-+
-+    //printk("Unmapping dfn:%lx-%lx on %hu\n",
-+    //       op->unmap_pages.dfn, op->unmap_pages.dfn + op->unmap_pages.nr_pages - 1,
-+    //       op->ctx_no);
-+
-+    spin_lock(&dom_iommu(d)->lock);
-+
-+    for (i = 0; i < op->unmap_pages.nr_pages; i++)
-+    {
-+        dfn_t dfn = _dfn(op->unmap_pages.dfn + i);
-+
-+        /* Check if there is a valid mapping for this domain */
-+        if ( _iommu_lookup_page(d, dfn, &mfn, &flags, op->ctx_no) ) {
-+            ret = -ENOENT;
-+            break;
-+        }
-+
-+        ret = _iommu_unmap(d, dfn, 1, 0, &flush_flags, op->ctx_no);
-+
-+        if (ret)
-+            break;
-+
-+        /* Decrement reference counter */
-+        put_page(mfn_to_page(mfn));
-+    }
-+
-+    flush_ret = _iommu_iotlb_flush(d, _dfn(op->unmap_pages.dfn),
-+                                   op->unmap_pages.nr_pages, flush_flags,
-+                                   op->ctx_no);
-+
-+    spin_unlock(&dom_iommu(d)->lock);
-+
-+    op->unmap_pages.unmapped = i;
-+
-+    if ( flush_ret )
-+        printk("Flush operation failed (%d)\n", flush_ret);
-+
-+    return ret;
-+}
-+
-+static long lookup_page_op(struct pv_iommu_op *op, struct domain *d)
-+{
-+    mfn_t mfn;
-+    gfn_t gfn;
-+    unsigned int flags = 0;
-+
-+    if ( !iommu_check_context(d, op->ctx_no) )
-+        return -EINVAL;
-+
-+    /* Check if there is a valid BFN mapping for this domain */
-+    if ( iommu_lookup_page(d, _dfn(op->lookup_page.dfn), &mfn, &flags, op->ctx_no) )
-+        return -ENOENT;
-+
-+    gfn = mfn_to_gfn(d, mfn);
-+    BUG_ON(gfn_eq(gfn, INVALID_GFN));
-+
-+    op->lookup_page.gfn = gfn_x(gfn);
-+
-+    return 0;
-+}
-+
-+long do_iommu_sub_op(struct pv_iommu_op *op)
-+{
-+    struct domain *d = current->domain;
-+
-+    if ( !can_use_iommu_check(d) )
-+        return -EPERM;
-+
-+    switch ( op->subop_id )
-+    {
-+        case 0:
-+            return 0;
-+
-+        case IOMMUOP_query_capabilities:
-+            return query_cap_op(op, d);
-+
-+        case IOMMUOP_alloc_context:
-+            return alloc_context_op(op, d);
-+
-+        case IOMMUOP_free_context:
-+            return free_context_op(op, d);
-+
-+        case IOMMUOP_reattach_device:
-+            return reattach_device_op(op, d);
-+
-+        case IOMMUOP_map_pages:
-+            return map_pages_op(op, d);
-+
-+        case IOMMUOP_unmap_pages:
-+            return unmap_pages_op(op, d);
-+
-+        case IOMMUOP_lookup_page:
-+            return lookup_page_op(op, d);
-+
-+        default:
-+            return -EINVAL;
-+    }
-+}
-+
-+long do_iommu_op(XEN_GUEST_HANDLE_PARAM(void) arg)
-+{
-+    long ret = 0;
-+    struct pv_iommu_op op;
-+
-+    if ( unlikely(copy_from_guest(&op, arg, 1)) )
-+        return -EFAULT;
-+
-+    ret = do_iommu_sub_op(&op);
-+
-+    if ( ret == -ERESTART )
-+        return hypercall_create_continuation(__HYPERVISOR_iommu_op, "h", arg);
-+
-+    if ( unlikely(copy_to_guest(arg, &op, 1)) )
-+        return -EFAULT;
-+
-+    return ret;
-+}
-+
-+/*
-+ * Local variables:
-+ * mode: C
-+ * c-file-style: "BSD"
-+ * c-basic-offset: 4
-+ * tab-width: 4
-+ * indent-tabs-mode: nil
-+ * End:
-+ */
-diff --git a/xen/include/hypercall-defs.c b/xen/include/hypercall-defs.c
-index 47c093acc8..4ba4480867 100644
---- a/xen/include/hypercall-defs.c
-+++ b/xen/include/hypercall-defs.c
-@@ -209,6 +209,9 @@ hypfs_op(unsigned int cmd, const char *arg1, unsigned long arg2, void *arg3, uns
- #ifdef CONFIG_X86
- xenpmu_op(unsigned int op, xen_pmu_params_t *arg)
- #endif
-+#ifdef CONFIG_HAS_PASSTHROUGH
-+iommu_op(void *arg)
-+#endif
- 
- #ifdef CONFIG_PV
- caller: pv64
-@@ -295,5 +298,8 @@ mca                                do       do       -        -        -
- #ifndef CONFIG_PV_SHIM_EXCLUSIVE
- paging_domctl_cont                 do       do       do       do       -
- #endif
-+#ifdef CONFIG_HAS_PASSTHROUGH
-+iommu_op                           do       do       do       do       -
-+#endif
- 
- #endif /* !CPPCHECK */
-diff --git a/xen/include/public/pv-iommu.h b/xen/include/public/pv-iommu.h
-new file mode 100644
-index 0000000000..45f9c44eb1
---- /dev/null
-+++ b/xen/include/public/pv-iommu.h
-@@ -0,0 +1,114 @@
-+/* SPDX-License-Identifier: MIT */
-+/******************************************************************************
-+ * pv-iommu.h
-+ *
-+ * Paravirtualized IOMMU driver interface.
-+ *
-+ * Copyright (c) 2024 Teddy Astie <teddy.astie@vates.tech>
-+ */
-+
-+#ifndef __XEN_PUBLIC_PV_IOMMU_H__
-+#define __XEN_PUBLIC_PV_IOMMU_H__
-+
-+#include "xen.h"
-+#include "physdev.h"
-+
-+#define IOMMU_DEFAULT_CONTEXT (0)
-+
-+/**
-+ * Query PV-IOMMU capabilities for this domain.
-+ */
-+#define IOMMUOP_query_capabilities    1
-+
-+/**
-+ * Allocate an IOMMU context, the new context handle will be written to ctx_no.
-+ */
-+#define IOMMUOP_alloc_context         2
-+
-+/**
-+ * Destroy a IOMMU context.
-+ * All devices attached to this context are reattached to default context.
-+ *
-+ * The default context can't be destroyed (0).
-+ */
-+#define IOMMUOP_free_context          3
-+
-+/**
-+ * Reattach the device to IOMMU context.
-+ */
-+#define IOMMUOP_reattach_device       4
-+
-+#define IOMMUOP_map_pages             5
-+#define IOMMUOP_unmap_pages           6
-+
-+/**
-+ * Get the GFN associated to a specific DFN.
-+ */
-+#define IOMMUOP_lookup_page           7
-+
-+struct pv_iommu_op {
-+    uint16_t subop_id;
-+    uint16_t ctx_no;
-+
-+/**
-+ * Create a context that is cloned from default.
-+ * The new context will be populated with 1:1 mappings covering the entire guest memory.
-+ */
-+#define IOMMU_CREATE_clone (1 << 0)
-+
-+#define IOMMU_OP_readable (1 << 0)
-+#define IOMMU_OP_writeable (1 << 1)
-+    uint32_t flags;
-+
-+    union {
-+        struct {
-+            uint64_t gfn;
-+            uint64_t dfn;
-+            /* Number of pages to map */
-+            uint32_t nr_pages;
-+            /* Number of pages actually mapped after sub-op */
-+            uint32_t mapped;
-+        } map_pages;
-+
-+        struct {
-+            uint64_t dfn;
-+            /* Number of pages to unmap */
-+            uint32_t nr_pages;
-+            /* Number of pages actually unmapped after sub-op */
-+            uint32_t unmapped;
-+        } unmap_pages;
-+
-+        struct {
-+            struct physdev_pci_device dev;
-+        } reattach_device;
-+
-+        struct {
-+            uint64_t gfn;
-+            uint64_t dfn;
-+        } lookup_page;
-+
-+        struct {
-+            /* Maximum number of IOMMU context this domain can use. */
-+            uint16_t max_ctx_no;
-+            /* Maximum number of pages that can be modified in a single map/unmap operation. */
-+            uint32_t max_nr_pages;
-+            /* Maximum device address (iova) that the guest can use for mappings. */
-+            uint64_t max_iova_addr;
-+        } cap;
-+    };
-+};
-+
-+typedef struct pv_iommu_op pv_iommu_op_t;
-+DEFINE_XEN_GUEST_HANDLE(pv_iommu_op_t);
-+
-+#endif
-+
-+/*
-+ * Local variables:
-+ * mode: C
-+ * c-file-style: "BSD"
-+ * c-basic-offset: 4
-+ * tab-width: 4
-+ * indent-tabs-mode: nil
-+ * End:
-+ */
-\ No newline at end of file
-diff --git a/xen/include/public/xen.h b/xen/include/public/xen.h
-index b47d48d0e2..28ab815ebc 100644
---- a/xen/include/public/xen.h
-+++ b/xen/include/public/xen.h
-@@ -118,6 +118,7 @@ DEFINE_XEN_GUEST_HANDLE(xen_ulong_t);
- #define __HYPERVISOR_xenpmu_op            40
- #define __HYPERVISOR_dm_op                41
- #define __HYPERVISOR_hypfs_op             42
-+#define __HYPERVISOR_iommu_op             43
- 
- /* Architecture-specific hypercall definitions. */
- #define __HYPERVISOR_arch_0               48
--- 
-2.45.2
-
-
-
-Teddy Astie | Vates XCP-ng Intern
-
-XCP-ng & Xen Orchestra - Vates solutions
-
-web: https://vates.tech
+Jan
 
