@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8EAAE92F921
-	for <lists+xen-devel@lfdr.de>; Fri, 12 Jul 2024 12:46:51 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.757872.1167020 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 54DD192F922
+	for <lists+xen-devel@lfdr.de>; Fri, 12 Jul 2024 12:48:50 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.757877.1167029 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sSDnR-0005Fl-BJ; Fri, 12 Jul 2024 10:46:37 +0000
+	id 1sSDpM-0005s7-MC; Fri, 12 Jul 2024 10:48:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 757872.1167020; Fri, 12 Jul 2024 10:46:37 +0000
+Received: by outflank-mailman (output) from mailman id 757877.1167029; Fri, 12 Jul 2024 10:48:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sSDnR-0005Dr-8U; Fri, 12 Jul 2024 10:46:37 +0000
-Received: by outflank-mailman (input) for mailman id 757872;
- Fri, 12 Jul 2024 10:46:35 +0000
+	id 1sSDpM-0005q9-JO; Fri, 12 Jul 2024 10:48:36 +0000
+Received: by outflank-mailman (input) for mailman id 757877;
+ Fri, 12 Jul 2024 10:48:35 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=cZP0=OM=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sSDnP-0005Dj-Cn
- for xen-devel@lists.xenproject.org; Fri, 12 Jul 2024 10:46:35 +0000
-Received: from mail-lj1-x22a.google.com (mail-lj1-x22a.google.com
- [2a00:1450:4864:20::22a])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=ZSin=OM=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1sSDpL-0005q3-Lq
+ for xen-devel@lists.xenproject.org; Fri, 12 Jul 2024 10:48:35 +0000
+Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
+ [2a00:1450:4864:20::536])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 0198004e-403c-11ef-bbfb-fd08da9f4363;
- Fri, 12 Jul 2024 12:46:34 +0200 (CEST)
-Received: by mail-lj1-x22a.google.com with SMTP id
- 38308e7fff4ca-2eecd2c6432so24047211fa.3
- for <xen-devel@lists.xenproject.org>; Fri, 12 Jul 2024 03:46:34 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-70b4397f321sm7137131b3a.158.2024.07.12.03.46.29
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 12 Jul 2024 03:46:33 -0700 (PDT)
+ id 49478e4b-403c-11ef-bbfb-fd08da9f4363;
+ Fri, 12 Jul 2024 12:48:34 +0200 (CEST)
+Received: by mail-ed1-x536.google.com with SMTP id
+ 4fb4d7f45d1cf-58b447c5112so2591394a12.3
+ for <xen-devel@lists.xenproject.org>; Fri, 12 Jul 2024 03:48:34 -0700 (PDT)
+Received: from andrewcoop.eng.citrite.net ([185.25.67.249])
+ by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-594bc4e819bsm4445410a12.51.2024.07.12.03.48.32
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 12 Jul 2024 03:48:32 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,114 +45,267 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0198004e-403c-11ef-bbfb-fd08da9f4363
+X-Inumbo-ID: 49478e4b-403c-11ef-bbfb-fd08da9f4363
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1720781193; x=1721385993; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=TvFkJmFpqrWqiVA0+tVWlgCP7010HtzBhZ7BslVSaq0=;
-        b=gSBWoMCcoW+P9zn9MbGDAjZ+7KZ4PpQNVsNiM2QwzdBkTowGLSqmnpJBf4cmIZRcOx
-         JaJ3zbVxd/4oMVO00LBioctK4Nve2NHAQOuiROUXUbUT5yWikHkgj8FMABdlgiwhRHfF
-         8RfD84T810OnSko5HHK7v5ZV2ZQ8AH58Lv73OCJ98CMKkqCpHv89KXYvFrJGrA36Vms0
-         90oZ3/FfTJooRsM4KxJU7nl0CxS48LJeNqD0ZU1f0roM1SHMx0GQJAl6IdoaI2IgWdKh
-         X1KEXj+O+zT1rLYWmz0VpDnicw+oZjmQuVJ7IbXo4KXsNlD5vDqa5zF3thVfpJrzF4M0
-         5qUQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1720781194; x=1721385994;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+        d=citrix.com; s=google; t=1720781313; x=1721386113; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=TvFkJmFpqrWqiVA0+tVWlgCP7010HtzBhZ7BslVSaq0=;
-        b=OV9sdIKi4svNQuTVar3kv2HrBH6qBdMYj+WqnFR32TAB7RIZ7G3jIEKEcDaMlOVaYg
-         Y5OmfhgFhBZfGbIKkEvegkpO/ISM7O+kHhn72Qujz/eEUZk4Lck0RAF8k7wtTakdWF1M
-         TfoPxl+2ftRo5p0EpLXzpvYYM2yDKyYaev4VlNtGSImjs5fC0cZVRQCgSrROJ3oJXf+Q
-         /0ZSVExsp0dKRdGNIXxTJkbAVs5qhw+8jDcG4vo18GYuX0CQNbv3sbcK50KOl2Ph6jjG
-         KZKajfpl9AaeTznZ9t1hsklB8h8haqtYbJmguL4wqPsMvFDTF1nl0ANuRTqKQsYpbdQU
-         Woew==
-X-Forwarded-Encrypted: i=1; AJvYcCVvSIfZSmo0laoYJ3EwDx2OYZiPjg6p+VYJG7l235aDfJaeai2y79KiW4e46o523AS0REnmLcBE714ebRhwCdJ/63aOUkzcFf0Hn/OKI+w=
-X-Gm-Message-State: AOJu0YyDvurxBXPyV466BLfxn5gb/Gh2ztWUiepN5ewLbIIShFyy5sEC
-	bqIjch2GTnLcIEnfny229S9vlpp6+/0UbYxQw3VdpFOr3uZa8iSWnagpkexWnw==
-X-Google-Smtp-Source: AGHT+IGQSQN+BwPYhJsZewTb88PLXT9jdnzguNVjgF6fh4uuOwtA2zIkRVpDX9rKVhD80cU4vwl17A==
-X-Received: by 2002:a2e:978d:0:b0:2ea:ec52:f594 with SMTP id 38308e7fff4ca-2eeb30ff032mr92353121fa.29.1720781193594;
-        Fri, 12 Jul 2024 03:46:33 -0700 (PDT)
-Message-ID: <1ece7ecb-7f35-4a1c-93f8-ee4191560275@suse.com>
-Date: Fri, 12 Jul 2024 12:46:25 +0200
+        bh=j3Y1QM2aDjAbMbU+9PSSN+1sK9TzRRFdE1CnKXuZCwU=;
+        b=TzXx48jMJngvqtaEoXO82TWDdmRcDbviyPXT90DTABeMS1ij9JV8YG8SqEVtIZYZ9/
+         wJGYtr03pWSBKkP7+gH5smNPw//6qm3JILtos+Md2ht1Vhg7SccM+7KgdfbFdK0NsNqg
+         N/cDztxZkqzV6RC9+pTqh4GdCY7DutEBVGPRU=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1720781313; x=1721386113;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=j3Y1QM2aDjAbMbU+9PSSN+1sK9TzRRFdE1CnKXuZCwU=;
+        b=ojAItrotV8uFI8gaY9o9yckZa8Zi2DzurLH2zWoSb+4UIfk6hhIIaLQLMK3oYoJBHA
+         D8TZPh3+9rGVbop+BYRkIT06yaY0jkZeBljEKIZ9DlMFr0V13NuGCVoBsZcHYumUyh0G
+         LObLJYP6t6zKrDds0YADE7pgtxUYJqy2sV/zOmpLTlZZSAc6s210K8LXM88HTZgCngn/
+         0g0xSAbHcJjhp+CU9yfEqRXwYo+BKmMOB81pISc/9w1OutHInlW55BaT5d2gx4wgHfXx
+         nBbWGyxalkWIEHzoCVIYXxxfwtDHxrjgTtzaSajcCVfYBJTv0SgVzGOPC6FAHh3/VLeS
+         lDwQ==
+X-Gm-Message-State: AOJu0YypxVFL6UVFbeGN/M06HhNsJamBAD0+uGbTVKXZa8FPTARPcUS5
+	hNo+Y25ISOywJUvqbkfR40zsmvCLbqV0WXfsxWbwDw/NqWsvQNACAqTGdOH9dQ3j2ldTL4AuS5q
+	B
+X-Google-Smtp-Source: AGHT+IFsK+GY3xofEr9bwn9DrDj8vHf0xZ7YawxDEqfYmH0MNyrIQQ1Jm0x+o4KOBZwXmjxJvpIg8Q==
+X-Received: by 2002:a05:6402:2791:b0:58d:115c:f529 with SMTP id 4fb4d7f45d1cf-594ba997550mr9016601a12.7.1720781312942;
+        Fri, 12 Jul 2024 03:48:32 -0700 (PDT)
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Juergen Gross <jgross@suse.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Jan Beulich <JBeulich@suse.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Julien Grall <julien@xen.org>,
+	Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+	Shawn Anastasio <sanastasio@raptorengineering.com>
+Subject: [PATCH 15/12] CI: Refresh Ubuntu Xenial container as 16.04-x86_64
+Date: Fri, 12 Jul 2024 11:48:29 +0100
+Message-Id: <20240712104829.3237296-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.39.2
+In-Reply-To: <20240711111517.3064810-1-andrew.cooper3@citrix.com>
+References: <20240711111517.3064810-1-andrew.cooper3@citrix.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC XEN PATCH v3 5/5] xen/public: Introduce PV-IOMMU hypercall
- interface
-To: Alejandro Vallejo <alejandro.vallejo@cloud.com>,
- Teddy Astie <teddy.astie@vates.tech>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>, xen-devel@lists.xenproject.org
-References: <cover.1720703078.git.teddy.astie@vates.tech>
- <f9ae663df38acc0d330b7582dfaa7ac199746aca.1720703078.git.teddy.astie@vates.tech>
- <D2MYC4AEBUQZ.3DNOIV8LEE7F9@cloud.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <D2MYC4AEBUQZ.3DNOIV8LEE7F9@cloud.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 11.07.2024 21:20, Alejandro Vallejo wrote:
-> On Thu Jul 11, 2024 at 3:04 PM BST, Teddy Astie wrote:
->> --- /dev/null
->> +++ b/xen/common/pv-iommu.c
->> @@ -0,0 +1,328 @@
->> +/* SPDX-License-Identifier: GPL-2.0 */
->> +/*
->> + * xen/common/pv_iommu.c
->> + *
->> + * PV-IOMMU hypercall interface.
->> + */
->> +
->> +#include <xen/mm.h>
->> +#include <xen/lib.h>
->> +#include <xen/iommu.h>
->> +#include <xen/sched.h>
->> +#include <xen/pci.h>
->> +#include <xen/guest_access.h>
->> +#include <asm/p2m.h>
->> +#include <asm/event.h>
->> +#include <public/pv-iommu.h>
->> +
->> +#define PVIOMMU_PREFIX "[PV-IOMMU] "
->> +
->> +#define PVIOMMU_MAX_PAGES 256 /* Move to Kconfig ? */
-> 
-> It probably wants to be a cmdline argument, I think.
+Rework the container to be non-root, use heredocs for legibility, and use use
+apt-get --no-install-recommends to keep the size down.
 
-For Dom0. For DomU-s it wants to be a guest config setting, I suppose. Then
-again I wonder if I understand the purpose of this correctly: The number looks
-surprisingly small if it was something the guest may use for arranging its
-mappings.
+Ubuntu Xenial has no ninja-build package, so can't build the QEMU referenced
+by Xen 4.16.  Therefore, drop the dependencies too.
 
-Jan
+This saves ~500M:
+
+  registry.gitlab.com/xen-project/xen/ubuntu    16.04-x86_64           700MB
+  registry.gitlab.com/xen-project/xen/ubuntu    xenial                 1.21GB
+
+Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+---
+CC: Anthony PERARD <anthony.perard@vates.tech>
+CC: Juergen Gross <jgross@suse.com>
+CC: Roger Pau Monné <roger.pau@citrix.com>
+CC: Jan Beulich <JBeulich@suse.com>
+CC: Stefano Stabellini <sstabellini@kernel.org>
+CC: Julien Grall <julien@xen.org>
+CC: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+CC: Shawn Anastasio <sanastasio@raptorengineering.com>
+
+Runs with the new container:
+
+  4.16: https://gitlab.com/xen-project/people/andyhhp/xen/-/jobs/7323548805
+  4.19: https://gitlab.com/xen-project/people/andyhhp/xen/-/jobs/7323548805
+---
+ .../build/ubuntu/16.04-x86_64.dockerfile      | 65 +++++++++++++++++++
+ automation/build/ubuntu/xenial.dockerfile     | 46 -------------
+ automation/gitlab-ci/build.yaml               | 16 ++---
+ automation/scripts/containerize               |  2 +-
+ 4 files changed, 74 insertions(+), 55 deletions(-)
+ create mode 100644 automation/build/ubuntu/16.04-x86_64.dockerfile
+ delete mode 100644 automation/build/ubuntu/xenial.dockerfile
+
+diff --git a/automation/build/ubuntu/16.04-x86_64.dockerfile b/automation/build/ubuntu/16.04-x86_64.dockerfile
+new file mode 100644
+index 000000000000..11e878050b83
+--- /dev/null
++++ b/automation/build/ubuntu/16.04-x86_64.dockerfile
+@@ -0,0 +1,65 @@
++# syntax=docker/dockerfile:1
++FROM --platform=linux/amd64 ubuntu:16.04
++LABEL maintainer.name="The Xen Project"
++LABEL maintainer.email="xen-devel@lists.xenproject.org"
++
++ENV DEBIAN_FRONTEND=noninteractive
++
++RUN <<EOF
++#!/bin/bash
++    set -e
++
++    useradd --create-home user
++
++    apt-get -y update
++
++    DEPS=(
++        # Xen
++        bison
++        build-essential
++        checkpolicy
++        clang
++        flex
++        python3-minimal
++
++        # Tools (general)
++        ca-certificates
++        git-core
++        gzip
++        patch
++        perl
++        pkg-config
++        wget
++        # libxenguest dombuilder
++        libbz2-dev
++        libzstd-dev
++        liblzo2-dev
++        liblzma-dev
++        zlib1g-dev
++        # libacpi
++        acpica-tools
++        # libxl
++        uuid-dev
++        libyajl-dev
++        # RomBIOS
++        bcc
++        bin86
++        # xentop
++        libncurses5-dev
++        # Python bindings
++        python3-dev
++        python3-setuptools
++        # Ocaml bindings/oxenstored
++        ocaml-nox
++        ocaml-findlib
++
++        # Stubdom download/extract
++        bzip2
++    )
++
++    apt-get -y --no-install-recommends install "${DEPS[@]}"
++    rm -rf /var/lib/apt/lists/*
++EOF
++
++USER user
++WORKDIR /build
+diff --git a/automation/build/ubuntu/xenial.dockerfile b/automation/build/ubuntu/xenial.dockerfile
+deleted file mode 100644
+index aa8f560286b6..000000000000
+--- a/automation/build/ubuntu/xenial.dockerfile
++++ /dev/null
+@@ -1,46 +0,0 @@
+-# syntax=docker/dockerfile:1
+-FROM --platform=linux/amd64 ubuntu:16.04
+-LABEL maintainer.name="The Xen Project " \
+-      maintainer.email="xen-devel@lists.xenproject.org"
+-
+-ENV DEBIAN_FRONTEND=noninteractive
+-ENV USER root
+-
+-RUN mkdir /build
+-WORKDIR /build
+-
+-# build depends
+-RUN apt-get update && \
+-    apt-get --quiet --yes install \
+-        build-essential \
+-        zlib1g-dev \
+-        libncurses5-dev \
+-        python-dev \
+-        python3-dev \
+-        uuid-dev \
+-        libyajl-dev \
+-        libaio-dev \
+-        libglib2.0-dev \
+-        clang \
+-        libpixman-1-dev \
+-        pkg-config \
+-        flex \
+-        bison \
+-        acpica-tools \
+-        bin86 \
+-        bcc \
+-        liblzma-dev \
+-        libnl-3-dev \
+-        ocaml-nox \
+-        libfindlib-ocaml-dev \
+-        markdown \
+-        transfig \
+-        pandoc \
+-        checkpolicy \
+-        wget \
+-        git \
+-        nasm \
+-        && \
+-        apt-get autoremove -y && \
+-        apt-get clean && \
+-        rm -rf /var/lib/apt/lists* /tmp/* /var/tmp/*
+diff --git a/automation/gitlab-ci/build.yaml b/automation/gitlab-ci/build.yaml
+index 2216392a8414..a2e6815f30b3 100644
+--- a/automation/gitlab-ci/build.yaml
++++ b/automation/gitlab-ci/build.yaml
+@@ -588,25 +588,25 @@ fedora-gcc-debug:
+   variables:
+     CONTAINER: fedora:29
+ 
+-ubuntu-xenial-clang:
++ubuntu-16.04-x86_64-clang:
+   extends: .clang-x86-64-build
+   variables:
+-    CONTAINER: ubuntu:xenial
++    CONTAINER: ubuntu:16.04-x86_64
+ 
+-ubuntu-xenial-clang-debug:
++ubuntu-16.04-x86_64-clang-debug:
+   extends: .clang-x86-64-build-debug
+   variables:
+-    CONTAINER: ubuntu:xenial
++    CONTAINER: ubuntu:16.04-x86_64
+ 
+-ubuntu-xenial-gcc:
++ubuntu-16.04-x86_64-gcc:
+   extends: .gcc-x86-64-build
+   variables:
+-    CONTAINER: ubuntu:xenial
++    CONTAINER: ubuntu:16.04-x86_64
+ 
+-ubuntu-xenial-gcc-debug:
++ubuntu-16.04-x86_64-gcc-debug:
+   extends: .gcc-x86-64-build-debug
+   variables:
+-    CONTAINER: ubuntu:xenial
++    CONTAINER: ubuntu:16.04-x86_64
+ 
+ ubuntu-bionic-clang:
+   extends: .clang-x86-64-build
+diff --git a/automation/scripts/containerize b/automation/scripts/containerize
+index 0ff53b6fe4e1..5fc41c36a27c 100755
+--- a/automation/scripts/containerize
++++ b/automation/scripts/containerize
+@@ -52,9 +52,9 @@ case "_${CONTAINER}" in
+     _bookworm-arm64v8) CONTAINER="${BASE}/debian:bookworm-arm64v8" ;;
+     _bookworm-cppcheck) CONTAINER="${BASE}/debian:bookworm-cppcheck" ;;
+     _bionic) CONTAINER="${BASE}/ubuntu:bionic" ;;
+-    _xenial) CONTAINER="${BASE}/ubuntu:xenial" ;;
+     _opensuse-leap|_leap) CONTAINER="${BASE}/opensuse:leap-15.6-x86_64" ;;
+     _opensuse-tumbleweed|_tumbleweed) CONTAINER="${BASE}/opensuse:tumbleweed-x86_64" ;;
++    _xenial) CONTAINER="${BASE}/ubuntu:16.04-x86_64" ;;
+ 
+     *) guess_container ;;
+ esac
+-- 
+2.39.2
+
 
