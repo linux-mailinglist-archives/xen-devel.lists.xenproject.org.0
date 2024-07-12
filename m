@@ -2,35 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F09B59301BB
-	for <lists+xen-devel@lfdr.de>; Fri, 12 Jul 2024 23:50:45 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.758297.1167720 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E3EB19301E6
+	for <lists+xen-devel@lfdr.de>; Sat, 13 Jul 2024 00:01:06 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.758306.1167730 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sSO9E-0008GL-MG; Fri, 12 Jul 2024 21:49:48 +0000
+	id 1sSOJZ-0002O1-Kc; Fri, 12 Jul 2024 22:00:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 758297.1167720; Fri, 12 Jul 2024 21:49:48 +0000
+Received: by outflank-mailman (output) from mailman id 758306.1167730; Fri, 12 Jul 2024 22:00:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sSO9E-0008E6-Jc; Fri, 12 Jul 2024 21:49:48 +0000
-Received: by outflank-mailman (input) for mailman id 758297;
- Fri, 12 Jul 2024 21:49:47 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1sSO9D-0008Dw-5H; Fri, 12 Jul 2024 21:49:47 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1sSO9D-00056m-1b; Fri, 12 Jul 2024 21:49:47 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1sSO9C-0006oy-NK; Fri, 12 Jul 2024 21:49:46 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1sSO9C-00042x-Md; Fri, 12 Jul 2024 21:49:46 +0000
+	id 1sSOJZ-0002Ma-Hx; Fri, 12 Jul 2024 22:00:29 +0000
+Received: by outflank-mailman (input) for mailman id 758306;
+ Fri, 12 Jul 2024 22:00:28 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=ilSY=OM=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1sSOJY-0002MU-0i
+ for xen-devel@lists.xenproject.org; Fri, 12 Jul 2024 22:00:28 +0000
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 23d2e020-409a-11ef-bbfb-fd08da9f4363;
+ Sat, 13 Jul 2024 00:00:25 +0200 (CEST)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sin.source.kernel.org (Postfix) with ESMTP id B2AA7CE13CF;
+ Fri, 12 Jul 2024 22:00:19 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 67D2CC32782;
+ Fri, 12 Jul 2024 22:00:17 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,84 +41,108 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=nsgYZ5ii+VntgiwgBegs2UElgVqjMAQv5gxK/17Eezc=; b=OsY81xQ70NtGVObnOM1N/Tsbx7
-	Zh1/9WDsAvpoMWm6JZm8ezukI0lUZxNV32XBoyH76wpf2aKmBV4UZKy/CTvUrHOSDD+cqicbPmhhI
-	l65oe5WUtvYM0ehLxCg3J9Mx1+xX4uLwYlIGLxtYGvJWNiHeC6ozqXub7IsB1FHyIwd0=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-186783-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 23d2e020-409a-11ef-bbfb-fd08da9f4363
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1720821619;
+	bh=Yu+33vDlvfcMRATj6+pT5vELXsbar+dkgtyJQyIHPP8=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=bUNYl51TVXsY+oFnJbrH2nIqKZYSX42qJ1NYzsc9q+qEZyR3T5c/ujC6usJ1wCr3z
+	 3jraFkbyj/5AhPXEKHKUDS+069bC+GRH+rTpRwp8M7a0rMflq3ktXd4+A0J1h7MDgb
+	 LgxtpJRAhmyASZWmC1GBaMEx+ukoaEQYFcqDiXhJehmvCH+ncSC6LGe63sMo1xe5Y6
+	 cYxHJ9fSUjJbpIbNiCLYkXjWG9cK1WiB4m17Uyb0ehyyIx9rPWH2CS7+QWI9lSI3jg
+	 drxeRtHVA0YDM4QnUnwFp3zChIyx+d1v/OixNdtMqXVvZbLG9VhODGOi7m6qGFIQ7v
+	 fmIUuMO6c2Wgw==
+Date: Fri, 12 Jul 2024 15:00:16 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Jan Beulich <jbeulich@suse.com>
+cc: Alessandro Zucchelli <alessandro.zucchelli@bugseng.com>, 
+    consulting@bugseng.com, Simone Ballarin <simone.ballarin@bugseng.com>, 
+    Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>, 
+    Stefano Stabellini <sstabellini@kernel.org>, 
+    Bertrand Marquis <bertrand.marquis@arm.com>, 
+    Michal Orzel <michal.orzel@amd.com>, 
+    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
+    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+    Nicola Vetrini <nicola.vetrini@bugseng.com>, 
+    xen-devel@lists.xenproject.org
+Subject: Re: [PATCH 03/17] misra: add deviations for direct inclusion
+ guards
+In-Reply-To: <a9133a97-d874-48ae-8ee4-83d752dcedd7@suse.com>
+Message-ID: <alpine.DEB.2.22.394.2407121459590.3635@ubuntu-linux-20-04-desktop>
+References: <cover.1719829101.git.alessandro.zucchelli@bugseng.com> <64e80abfaa68d87e8cb4fee67bc2624eda4f466a.1719829101.git.alessandro.zucchelli@bugseng.com> <a9133a97-d874-48ae-8ee4-83d752dcedd7@suse.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 186783: tolerable all pass - PUSHED
-X-Osstest-Failures:
-    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=e85ff1f1af8c298f3f25f226698e670600eff905
-X-Osstest-Versions-That:
-    xen=1e66e188069532eb50bb48e01709b89d5f8718e9
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 12 Jul 2024 21:49:46 +0000
+Content-Type: text/plain; charset=US-ASCII
 
-flight 186783 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/186783/
+On Mon, 1 Jul 2024, Jan Beulich wrote:
+> On 01.07.2024 13:10, Alessandro Zucchelli wrote:
+> > From: Simone Ballarin <simone.ballarin@bugseng.com>
+> > 
+> > Add deviation comments to address violations of
+> > MISRA C:2012 Directive 4.10 ("Precautions shall be taken in order
+> > to prevent the contents of a header file being included more than
+> > once").
+> > 
+> > Inclusion guards must appear at the beginning of the headers
+> > (comments are permitted anywhere).
+> > 
+> > This patch adds deviation comments using the format specified
+> > in docs/misra/safe.json for headers with just the direct
+> > inclusion guard before the inclusion guard since they are
+> > safe and not supposed to comply with the directive.
+> > 
+> > Note that with SAF-9-safe in place, failures to have proper guards later
+> > in the header files will not be reported
+> 
+> Rebasing mistake, seeing that it's ...
 
-Failures :-/ but no regressions.
+Yes with "SAF-9-safe" changed to SAF-10-safe in the commit message:
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
-
-version targeted for testing:
- xen                  e85ff1f1af8c298f3f25f226698e670600eff905
-baseline version:
- xen                  1e66e188069532eb50bb48e01709b89d5f8718e9
-
-Last test of basis   186780  2024-07-12 16:03:59 Z    0 days
-Testing same since   186783  2024-07-12 19:00:22 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Andrew Cooper <andrew.cooper3@citrix.com>
-
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
+Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/xen.git
-   1e66e18806..e85ff1f1af  e85ff1f1af8c298f3f25f226698e670600eff905 -> smoke
+> > --- a/docs/misra/safe.json
+> > +++ b/docs/misra/safe.json
+> > @@ -84,6 +84,14 @@
+> >          },
+> >          {
+> >              "id": "SAF-10-safe",
+> > +            "analyser": {
+> > +                "eclair": "MC3R1.D4.10"
+> > +            },
+> > +            "name": "Dir 4.10: direct inclusion guard before",
+> > +            "text": "Headers with just the direct inclusion guard before the inclusion guard are safe."
+> > +        },
+> > +        {
+> > +            "id": "SAF-11-safe",
+> >              "analyser": {},
+> >              "name": "Sentinel",
+> >              "text": "Next ID to be used"
+> 
+> ... SFA-10-safe that's being added and ...
+> 
+> > --- a/xen/arch/arm/include/asm/hypercall.h
+> > +++ b/xen/arch/arm/include/asm/hypercall.h
+> > @@ -1,3 +1,4 @@
+> > +/* SAF-10-safe direct inclusion guard before */
+> >  #ifndef __XEN_HYPERCALL_H__
+> >  #error "asm/hypercall.h should not be included directly - include xen/hypercall.h instead"
+> >  #endif
+> > --- a/xen/arch/x86/include/asm/hypercall.h
+> > +++ b/xen/arch/x86/include/asm/hypercall.h
+> > @@ -2,6 +2,7 @@
+> >   * asm-x86/hypercall.h
+> >   */
+> >  
+> > +/* SAF-10-safe direct inclusion guard before */
+> >  #ifndef __XEN_HYPERCALL_H__
+> >  #error "asm/hypercall.h should not be included directly - include xen/hypercall.h instead"
+> >  #endif
+> 
+> ... used here?
+> 
+> Jan
+> 
 
