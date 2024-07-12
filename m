@@ -2,36 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 89DF692FA9A
-	for <lists+xen-devel@lfdr.de>; Fri, 12 Jul 2024 14:47:19 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.757987.1167170 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 01DA892FAA3
+	for <lists+xen-devel@lfdr.de>; Fri, 12 Jul 2024 14:48:45 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.757991.1167180 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sSFfS-0006p0-4o; Fri, 12 Jul 2024 12:46:30 +0000
+	id 1sSFhH-0007n4-FC; Fri, 12 Jul 2024 12:48:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 757987.1167170; Fri, 12 Jul 2024 12:46:30 +0000
+Received: by outflank-mailman (output) from mailman id 757991.1167180; Fri, 12 Jul 2024 12:48:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sSFfS-0006nJ-1y; Fri, 12 Jul 2024 12:46:30 +0000
-Received: by outflank-mailman (input) for mailman id 757987;
- Fri, 12 Jul 2024 12:46:29 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1sSFhH-0007l4-CO; Fri, 12 Jul 2024 12:48:23 +0000
+Received: by outflank-mailman (input) for mailman id 757991;
+ Fri, 12 Jul 2024 12:48:22 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=c/ql=OM=bounce.vates.tech=bounce-md_30504962.669125a1.v1-2cb22e772bfe49859d68f731a127e561@srs-se1.protection.inumbo.net>)
- id 1sSFfR-0006nD-22
- for xen-devel@lists.xenproject.org; Fri, 12 Jul 2024 12:46:29 +0000
-Received: from mail186-27.suw21.mandrillapp.com
- (mail186-27.suw21.mandrillapp.com [198.2.186.27])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c05bb003-404c-11ef-8776-851b0ebba9a2;
- Fri, 12 Jul 2024 14:46:26 +0200 (CEST)
-Received: from pmta10.mandrill.prod.suw01.rsglab.com (localhost [127.0.0.1])
- by mail186-27.suw21.mandrillapp.com (Mailchimp) with ESMTP id
- 4WLBDK34c0z6CQ87q
- for <xen-devel@lists.xenproject.org>; Fri, 12 Jul 2024 12:46:25 +0000 (GMT)
-Received: from [37.26.189.201] by mandrillapp.com id
- 2cb22e772bfe49859d68f731a127e561; Fri, 12 Jul 2024 12:46:25 +0000
+ <SRS0=ZSin=OM=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1sSFhG-0007kw-57
+ for xen-devel@lists.xenproject.org; Fri, 12 Jul 2024 12:48:22 +0000
+Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
+ [2a00:1450:4864:20::62e])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 04df44d2-404d-11ef-bbfb-fd08da9f4363;
+ Fri, 12 Jul 2024 14:48:21 +0200 (CEST)
+Received: by mail-ej1-x62e.google.com with SMTP id
+ a640c23a62f3a-a77cc73d35fso540427666b.0
+ for <xen-devel@lists.xenproject.org>; Fri, 12 Jul 2024 05:48:21 -0700 (PDT)
+Received: from [10.125.226.166] ([185.25.67.249])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a797e3b160dsm227489066b.204.2024.07.12.05.48.19
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 12 Jul 2024 05:48:20 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,108 +45,143 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c05bb003-404c-11ef-8776-851b0ebba9a2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
-	s=mte1; t=1720788385; x=1721048885;
-	bh=3LBjJClDAIcqsde3xIA1xFT0TmLR0+p0bPdSdYZmOIs=;
-	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
-	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
-	 Subject:From;
-	b=hqWLGlALMBs2dGbgBw3CDgpmR2nzXGZmkj77QCVrRk/WxQ29QNxrLkdrGpcBogs1j
-	 5FbKWDON0EgwVK090d6uOPQJWGBowCMHGUWKlY99GsT5U2CfmZB2/CJOffujyWeW+g
-	 e0m0szrKMcuztv0FXiZIIWjoPotxb4UaXGIwuAqlEh4u74xM7cGh6uzRQegU5RDg+r
-	 DBCGHz8bT0jzynS5p501MuzYuAY9itAYdClzD26mIN5sYu7mci0AslT1ygfLbax3px
-	 zFPhJMt/JfIECBgDESmSoO7aHxD40mYN268cEimCyEH2rB+WsUDw0cn53r/OesiCMd
-	 8m7AXXPfT/lZQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
-	t=1720788385; x=1721048885; i=teddy.astie@vates.tech;
-	bh=3LBjJClDAIcqsde3xIA1xFT0TmLR0+p0bPdSdYZmOIs=;
-	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
-	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
-	 Subject:From;
-	b=hL32fuymSPV4CsBgOvxQGPoEbssLNjZbdp8vNSHbOFkq8AStrIVRnRiMZyTPXxTx3
-	 sEi1Vlt9TgTS7r3w59bxwVXLMM+OE9pG0HLjexBHmUlaU0lhDXuT0+Gr9vQ5jH2mCe
-	 UeOkXtIeBYTYy2Y+ahXb0Sva+Q/i05JkfEauUz4drP8tEPOCgqn0vw1wAsFNaSpWjc
-	 DaME5VQ4ibIeU4cNLaDlkur7SeODDEBoz+PTKobDjf3ITR8AQMjNX0BQ0MSOTsmbhy
-	 AksOO1uUpmNVpCSTzKRqSdIdFFbl3Uuhg3pnDeHrtHgH175QAM3VsEQhwP7F/eazG9
-	 oH6LHh/OwvZnA==
-From: Teddy Astie <teddy.astie@vates.tech>
-Subject: =?utf-8?Q?Re:=20[RFC=20XEN=20PATCH=20v3=205/5]=20xen/public:=20Introduce=20PV-IOMMU=20hypercall=20interface?=
-X-Bm-Disclaimer: Yes
-X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
-X-Bm-Transport-Timestamp: 1720788384180
-Message-Id: <46ba77ce-1b32-45cb-bfbb-70c6c0a21b0c@vates.tech>
-To: Jan Beulich <jbeulich@suse.com>, Alejandro Vallejo <alejandro.vallejo@cloud.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, =?utf-8?Q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>, xen-devel@lists.xenproject.org
-References: <cover.1720703078.git.teddy.astie@vates.tech> <f9ae663df38acc0d330b7582dfaa7ac199746aca.1720703078.git.teddy.astie@vates.tech> <D2MYC4AEBUQZ.3DNOIV8LEE7F9@cloud.com> <1ece7ecb-7f35-4a1c-93f8-ee4191560275@suse.com>
-In-Reply-To: <1ece7ecb-7f35-4a1c-93f8-ee4191560275@suse.com>
-X-Native-Encoded: 1
-X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.2cb22e772bfe49859d68f731a127e561?=
-X-Mandrill-User: md_30504962
-Feedback-ID: 30504962:30504962.20240712:md
-Date: Fri, 12 Jul 2024 12:46:25 +0000
+X-Inumbo-ID: 04df44d2-404d-11ef-bbfb-fd08da9f4363
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1720788500; x=1721393300; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=RjpXW8d13afgSnR5rZsBHgb32a2vMv4dDmCxluepMpk=;
+        b=LxY/HCxJIl3D7xS2FrW95zH2gV1g4DvmbpiPph+5bco65qX19bNLtJYrRahvCWNJIK
+         KnBE/ETRzvPRloxpr5MTFyHtnmT+hfJpu+3HoozdnFys2cP0ierY/9w3nUZ4525+nmMI
+         tQ7Hs1PLEUjO1wVEVWX6Fi5grAQ14CUjedhGY=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1720788500; x=1721393300;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=RjpXW8d13afgSnR5rZsBHgb32a2vMv4dDmCxluepMpk=;
+        b=EIeAz+FddvKNfBUsR5rmngEubTns0ZGFfpnV8KEBz62O6hIPMnlQZoexT0NYrSf6Rp
+         C+Mp0jjsyL3TCDM9JALcxJ9FMSv3oOtanyGMG6Df7koap9Qilk1m+g9pWPG5F3IexaGq
+         j4XWS17sjfjFttfRONnYCYrKcRDG+chca922Cq2ewx6wbY5GiD4P+j/RfdAbUhZtyYeX
+         ywpr9W1zqb3lnnw9Mv9jwtPwHLmpKqDrw9L7vDBp4qinZ5QRc4HoRGAoy2wWB83ED7Dm
+         VJs+aJALhvi5dpxfIyAb5dGnravJbvWgwp0x2MF44Y5kx33wwcTeUTgSQZNYhFX12ufj
+         RzUA==
+X-Gm-Message-State: AOJu0YxWbsqpM+bB3qyJh2rc6rzip28LNJSFHQoeTtCuyaxfT9nMFYcd
+	8EiBHpSoVDYe+isu9yFZBWgLpoqGeBq2VXbB0gKlmdmYAo7qLzfAHtZTBAo2O4o=
+X-Google-Smtp-Source: AGHT+IGval/HeK+q+su1UzR+JukYhhcwezEW2a48y6VbEWoIdyNXVbSiAYBkJZo+yTWUSeuFKuvTvA==
+X-Received: by 2002:a17:906:591:b0:a77:ab9e:9202 with SMTP id a640c23a62f3a-a799cc28646mr184837666b.4.1720788500517;
+        Fri, 12 Jul 2024 05:48:20 -0700 (PDT)
+Message-ID: <f3ebf546-64b2-4e35-a679-ae53865cfa78@citrix.com>
+Date: Fri, 12 Jul 2024 13:48:18 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 13/12] CI: Refresh OpenSUSE Tumbleweed container
+To: Anthony PERARD <anthony.perard@vates.tech>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>,
+ Juergen Gross <jgross@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, Jan Beulich <JBeulich@suse.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+ Shawn Anastasio <sanastasio@raptorengineering.com>,
+ Olaf Hering <olaf@aepfle.de>
+References: <20240711202337.3128473-1-andrew.cooper3@citrix.com>
+ <20240712111426.3244115-1-andrew.cooper3@citrix.com> <ZpEiqM7XWlzb4q+z@l14>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <ZpEiqM7XWlzb4q+z@l14>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hello Jan,
-
-Le 12/07/2024 =C3=A0 12:46, Jan Beulich a =C3=A9crit=C2=A0:
-> On 11.07.2024 21:20, Alejandro Vallejo wrote:
->> On Thu Jul 11, 2024 at 3:04 PM BST, Teddy Astie wrote:
->>> --- /dev/null
->>> +++ b/xen/common/pv-iommu.c
->>> @@ -0,0 +1,328 @@
->>> +/* SPDX-License-Identifier: GPL-2.0 */
->>> +/*
->>> + * xen/common/pv_iommu.c
->>> + *
->>> + * PV-IOMMU hypercall interface.
->>> + */
->>> +
->>> +#include <xen/mm.h>
->>> +#include <xen/lib.h>
->>> +#include <xen/iommu.h>
->>> +#include <xen/sched.h>
->>> +#include <xen/pci.h>
->>> +#include <xen/guest_access.h>
->>> +#include <asm/p2m.h>
->>> +#include <asm/event.h>
->>> +#include <public/pv-iommu.h>
->>> +
->>> +#define PVIOMMU_PREFIX "[PV-IOMMU] "
->>> +
->>> +#define PVIOMMU_MAX_PAGES 256 /* Move to Kconfig ? */
+On 12/07/2024 1:33 pm, Anthony PERARD wrote:
+> On Fri, Jul 12, 2024 at 12:14:26PM +0100, Andrew Cooper wrote:
+>> while removed are:
 >>
->> It probably wants to be a cmdline argument, I think.
-> 
-> For Dom0. For DomU-s it wants to be a guest config setting, I suppose. Th=
-en
-> again I wonder if I understand the purpose of this correctly: The number =
-looks
-> surprisingly small if it was something the guest may use for arranging it=
-s
-> mappings.
-> 
-> Jan
+>>   bc                   # ?
+> I don't know why, but this one is also installed by osstest. The commit
+> adding it doesn't say why it was needed.
+>
+> Also, looks like many QEMU containers are installing `bc`, but I can't
+> find a single use. Maybe historic.
 
-Makes sense to be a guest setting for DomUs. I don't think this limit is 
-too small, actually it means that we can can map up to 1M of contiguous 
-memory in a single hypercall, in the guest case (e.g Linux), it very 
-rarely goes beyond this limit.
+Part of the reason why our containers are so massive is because
+dependencies only ever accumulate...
 
-I put this limit to prevent the guest from trying to map millions of 
-pages, which is going to take a while (and may cause stability issues). 
-And to actually give a chance for Xen to preempt the guest (and keep the 
-ability to shut it down between 2 hypercalls).
+But yes - this one is especially odd.
+>>   nasm                 # ?
+> 'nasm' is used to build OVMF.
+>
+>
+> If we don't want to build OVMF in our GitLab CI, which I don't think
+> would be useful to do anyway (no dependency on xen.git)
 
-Teddy
+Oh, interesting.
+
+I'd assumed (by virtue of the jobs succeeding) that we were building
+OVMF by default, but we're clearly not.
+
+./configure says:
+
+  --enable-ovmf           Enable OVMF (default is DISABLED)
+
+so it's really just a simple opt-in, which our build script does not.
 
 
-Teddy Astie | Vates XCP-ng Intern
+In the longer term, we will want OVMF in Gitlab CI, but we'd want to
+pull it in as a separate artefact and use
+--with-system-ovmf=/path/to/artefact
 
-XCP-ng & Xen Orchestra - Vates solutions
+So I agree we don't need to build OVMF inside this container.
 
-web: https://vates.tech
+> , then:
+>
+> Reviewed-by: Anthony PERARD <anthony.perard@vates.tech>
 
+Thanks.
+
+~Andrew
 
