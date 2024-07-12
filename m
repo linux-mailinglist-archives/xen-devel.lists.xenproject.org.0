@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4C38592FE65
-	for <lists+xen-devel@lfdr.de>; Fri, 12 Jul 2024 18:23:23 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.758173.1167580 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5E09792FE60
+	for <lists+xen-devel@lfdr.de>; Fri, 12 Jul 2024 18:23:20 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.758172.1167574 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sSJ38-00014R-KE; Fri, 12 Jul 2024 16:23:10 +0000
+	id 1sSJ38-0000ud-4I; Fri, 12 Jul 2024 16:23:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 758173.1167580; Fri, 12 Jul 2024 16:23:10 +0000
+Received: by outflank-mailman (output) from mailman id 758172.1167574; Fri, 12 Jul 2024 16:23:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sSJ38-0000v4-AO; Fri, 12 Jul 2024 16:23:10 +0000
-Received: by outflank-mailman (input) for mailman id 758173;
- Fri, 12 Jul 2024 16:23:09 +0000
+	id 1sSJ37-0000lD-RD; Fri, 12 Jul 2024 16:23:09 +0000
+Received: by outflank-mailman (input) for mailman id 758172;
+ Fri, 12 Jul 2024 16:23:08 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=1Ov5=OM=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1sSJ36-00088h-PV
+ id 1sSJ36-00088h-2K
  for xen-devel@lists.xenproject.org; Fri, 12 Jul 2024 16:23:08 +0000
-Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
- [2a00:1450:4864:20::629])
+Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
+ [2a00:1450:4864:20::62d])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 05fd12a3-406b-11ef-bbfb-fd08da9f4363;
+ id 05ac88bb-406b-11ef-bbfb-fd08da9f4363;
  Fri, 12 Jul 2024 18:23:07 +0200 (CEST)
-Received: by mail-ej1-x629.google.com with SMTP id
- a640c23a62f3a-a77cb7c106dso279992566b.1
+Received: by mail-ej1-x62d.google.com with SMTP id
+ a640c23a62f3a-a77b60cafecso282126166b.1
  for <xen-devel@lists.xenproject.org>; Fri, 12 Jul 2024 09:23:07 -0700 (PDT)
 Received: from fedora.. ([94.75.70.14]) by smtp.gmail.com with ESMTPSA id
  a640c23a62f3a-a780a7ffa13sm358464966b.129.2024.07.12.09.23.05
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 12 Jul 2024 09:23:05 -0700 (PDT)
+ Fri, 12 Jul 2024 09:23:06 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,590 +44,345 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 05fd12a3-406b-11ef-bbfb-fd08da9f4363
+X-Inumbo-ID: 05ac88bb-406b-11ef-bbfb-fd08da9f4363
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1720801387; x=1721406187; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1720801386; x=1721406186; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=QWR9u/DFztx4X5hMN6i8BpIu/Ck9lY/W4gNwlahQKjY=;
-        b=IbGpmWA7GNrxKblnL522RZP4bMPWRYFjCFvrKYy5iElG5mCndPXe+xmiDOV1I1aVu3
-         Arf9BuotPRj/3c4KF0bmDpWcmNuCbcmDCzGeGgm4G+I9CROPrqOUSgyg3gwTWfz9QkHJ
-         fb7kTc35QtJmEcqhDWV7LhvhV79yJauPUjZmH/zJpuIxWrrOzVHuYAyoeuzk7/6cLzfc
-         JcS85kB/9jD1HBSbe/frzgZte8MqCfbcrUZVdj9qNf6La2vX2hmpD5F7IzIz9xiTjBGD
-         8Wz8fAu/CG//ZEf5u6Sb0aMnpDsMvUncvPhga0PLNGa90x6CGR1xNGylbrlOBS8gZiM6
-         7Ytg==
+        bh=2tAQCFotTkzWpbcCEY17RKs5ihbwYU4L2egMLjkuPzI=;
+        b=H+A6xc54tUQNbpqPZeM7AdGrfphiLrLQVF9BT7H/0nAH0jLarXksyIVJCf1i48qSVh
+         W+JtYYQ1v7wy6MRPdP0UOK1sP0pjI5wpyLa5B3v1xBQxYynDH8/IXbrnVuuj7Bt5Jag4
+         F687IlSJSy8z38NhHxUeR8AvhVCOLc5hEdmAtfGg7tADhgrU6z1RqqsOW2akKMRXwZwB
+         ZsilAFfqEZarRxF+WRantTPUbVmT1V6UOdK6qi3E9xybYSxHJF4+qLR7Pf+qNZheEwV2
+         h7ZIxewEoFoHHItI2G/5kN7OOeOXj/VgkKqtU1qrAI6Dq/13Afv5RnvUiceodpmhRAkH
+         Efiw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1720801387; x=1721406187;
+        d=1e100.net; s=20230601; t=1720801386; x=1721406186;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=QWR9u/DFztx4X5hMN6i8BpIu/Ck9lY/W4gNwlahQKjY=;
-        b=AzcbEazI6Ftrm18j1D6eCygRjCr/+xyGuoGTmUij2zT0zgzTPdPhL/uFEK8WpR6gbS
-         edbCPrvlYWuzGR6SqHc7mmQLYcaK6tb/6/V/diLK+/9eSxVuoc3+Nl6BBn+rX936tHJd
-         gj7ncEqMx/Ee1mrLdFcbeE26U6sxS+8DyNHDts2Fv7dVEicPi6Bh7BnATRtNRPtZUuUi
-         mrUc0K8xUZCVlNnCfWrE7iGrEwAea1sNPeIa0NTKWbJj4Wm55KhQu6oW6etRuWA+YvU0
-         n1gT7f6gERFbhbHi/251MZrD7PTdJztdJgg1G8eka6UUQAK6IB99WBVxLZk0cbv4Sjoa
-         hqAQ==
-X-Gm-Message-State: AOJu0YyJPhGl+Jzmqrgsr4pFu5JUTAzi3iHZvQ6TmbnQBgfRBzHiDUW2
-	FXHPZXRGtoNuu/tPDEt19nnWFcXMaJ0QCEnJggqeKfcf4x/SuCQT1T5gfO5r
-X-Google-Smtp-Source: AGHT+IEngSyXRFQLz0VWoMksFEQJXVAngrEfZ9SU/Ck1cjg53Eo85Fox/gBvL/miOp9/VkauMcJ5rQ==
-X-Received: by 2002:a17:906:f588:b0:a77:c364:c4f3 with SMTP id a640c23a62f3a-a780b8855dcmr1076082166b.55.1720801385801;
-        Fri, 12 Jul 2024 09:23:05 -0700 (PDT)
+        bh=2tAQCFotTkzWpbcCEY17RKs5ihbwYU4L2egMLjkuPzI=;
+        b=vlZaCNbHrZBsVLuswV9AaBUzomjvcWgBZ2PXdKOcLrcmhCvKb/2XrmWESSfAxL2BfS
+         GUgWnl2rr5yM0bVv8RsISNfPlNd92QuT/v9jD0xs+ahZWQ3EwCkt9AiXlvqFo4bt1VNT
+         3ZxqbiS9lyahQa7TJlFwM/GFlNa1G9ttNtOCN+HUEoixPO7cy6zEULibhbewZL51JinP
+         Lv10HHrVwfhP455F9I2azibq75pu/kqkZde82fkPXa5b0hb9C7cAy5M/vMd4KD8KO392
+         fd1EH8Z1H6w9JiSY9IAwQuaYz/0p4MsQgRYyjzT+bRuQP2nMUWIT5+11dQ4JNtQJzrKP
+         1OXg==
+X-Gm-Message-State: AOJu0YxcsZgf5JrNpPqnsRFuIQU/fbtAlS9K+sZEyZnkHQxqM+WFsfxa
+	YVoN18/SSMD9POY4dPObMRIGK/UyWD5mLwpCvig3fGRVRgysIp0ZDOxiETXN
+X-Google-Smtp-Source: AGHT+IGU0EVtnlXSs7iV0mEKpEinafKa+k0K4nCPdZBW+AYcPo7BKPJxYX3zuqg01vri+w90KvZMEg==
+X-Received: by 2002:a17:906:4119:b0:a72:46f3:ffc4 with SMTP id a640c23a62f3a-a780b6b196emr762454166b.26.1720801386586;
+        Fri, 12 Jul 2024 09:23:06 -0700 (PDT)
 From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 To: xen-devel@lists.xenproject.org
 Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+	Alistair Francis <alistair.francis@wdc.com>,
+	Bob Eshleman <bobbyeshleman@gmail.com>,
+	Connor Davis <connojdavis@gmail.com>,
 	Andrew Cooper <andrew.cooper3@citrix.com>,
 	Jan Beulich <jbeulich@suse.com>,
 	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Bertrand Marquis <bertrand.marquis@arm.com>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: [PATCH v2 6/8] xen/riscv: introduce generic Xen page table handling
-Date: Fri, 12 Jul 2024 18:22:55 +0200
-Message-ID: <f2d7f538edb7db8990bf26b791df9da3d390bf05.1720799926.git.oleksii.kurochko@gmail.com>
+	Stefano Stabellini <sstabellini@kernel.org>
+Subject: [PATCH v2 7/8] xen/riscv: select CONFIG_GENREIC_PT
+Date: Fri, 12 Jul 2024 18:22:56 +0200
+Message-ID: <e6406b4eeb9a0efea607427109602cdd4094a7de.1720799926.git.oleksii.kurochko@gmail.com>
 X-Mailer: git-send-email 2.45.2
 In-Reply-To: <cover.1720799925.git.oleksii.kurochko@gmail.com>
 References: <cover.1720799925.git.oleksii.kurochko@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-At least, between Arm and RISC-V most of the code related to Xen page
-table handling are common.
-
-This GENERIC_PT code is based on Arm's arm/mmu/pt.c except some minor
-changes such as introduction of the following functions:
-  * get_root_page()
-  * xen_pt_check_contig()
-  * set_pte_table_bit()
-  * sanity_arch_specific_pte_checks()
-  * get_contig_bit()
-  * set_pte_permissions()
-  * flush_xen_tlb_range_va()
-It was done because not every functions has the generic pte_flags and
-it could be a different positions of the PTE bits in a PTE.
+Enable GENERIC_PT functionalities for RISC-V and also introduce some
+RISC-V specific functions necessary to make the GENERIC_PT code
+work and compilable.
 
 Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 ---
 Changes in V2:
  - newly introduced patch
 ---
- xen/common/Kconfig   |   5 +
- xen/common/Makefile  |   1 +
- xen/common/mmu/pt.c  | 441 +++++++++++++++++++++++++++++++++++++++++++
- xen/include/xen/mm.h |  24 +++
- 4 files changed, 471 insertions(+)
- create mode 100644 xen/common/mmu/pt.c
+ xen/arch/riscv/Kconfig                 |  1 +
+ xen/arch/riscv/include/asm/mm.h        |  9 ++++
+ xen/arch/riscv/include/asm/page-bits.h | 45 ++++++++++++++++
+ xen/arch/riscv/include/asm/page.h      | 73 +++++++++++++++++++++++++-
+ xen/arch/riscv/mm.c                    | 63 +++++++++++++++++++---
+ 5 files changed, 184 insertions(+), 7 deletions(-)
 
-diff --git a/xen/common/Kconfig b/xen/common/Kconfig
-index 565ceda741..6534b77cc9 100644
---- a/xen/common/Kconfig
-+++ b/xen/common/Kconfig
-@@ -47,6 +47,11 @@ config ARCH_MAP_DOMAIN_PAGE
- config GENERIC_BUG_FRAME
- 	bool
+diff --git a/xen/arch/riscv/Kconfig b/xen/arch/riscv/Kconfig
+index 0112aa8778..9827a12d34 100644
+--- a/xen/arch/riscv/Kconfig
++++ b/xen/arch/riscv/Kconfig
+@@ -2,6 +2,7 @@ config RISCV
+ 	def_bool y
+ 	select FUNCTION_ALIGNMENT_16B
+ 	select GENERIC_BUG_FRAME
++	select GENERIC_PT
+ 	select HAS_DEVICE_TREE
+ 	select HAS_PMAP
  
-+config GENERIC_PT
-+	bool
-+	help
-+	  Introduces common function to work with page table when MMU is enabled.
-+
- config HAS_ALTERNATIVE
- 	bool
+diff --git a/xen/arch/riscv/include/asm/mm.h b/xen/arch/riscv/include/asm/mm.h
+index a0bdc2bc3a..c54546c275 100644
+--- a/xen/arch/riscv/include/asm/mm.h
++++ b/xen/arch/riscv/include/asm/mm.h
+@@ -42,6 +42,8 @@ static inline void *maddr_to_virt(paddr_t ma)
+ #define virt_to_mfn(va)     __virt_to_mfn(va)
+ #define mfn_to_virt(mfn)    __mfn_to_virt(mfn)
  
-diff --git a/xen/common/Makefile b/xen/common/Makefile
-index 21359bab02..e1fb6a5fe8 100644
---- a/xen/common/Makefile
-+++ b/xen/common/Makefile
-@@ -2,6 +2,7 @@ obj-$(CONFIG_ARGO) += argo.o
- obj-y += bitmap.o
- obj-bin-$(CONFIG_SELF_TESTS) += bitops.init.o
- obj-$(CONFIG_GENERIC_BUG_FRAME) += bug.o
-+obj-$(CONFIG_GENERIC_PT) += mmu/pt.o
- obj-$(CONFIG_HYPFS_CONFIG) += config_data.o
- obj-$(CONFIG_CORE_PARKING) += core_parking.o
- obj-y += cpu.o
-diff --git a/xen/common/mmu/pt.c b/xen/common/mmu/pt.c
-new file mode 100644
-index 0000000000..7e488eba24
---- /dev/null
-+++ b/xen/common/mmu/pt.c
-@@ -0,0 +1,441 @@
-+#include <xen/bug.h>
-+#include <xen/domain_page.h>
-+#include <xen/errno.h>
-+#include <xen/mm.h>
-+#include <xen/mm-frame.h>
-+#include <xen/pmap.h>
-+#include <xen/spinlock.h>
++#define pte_get_mfn(pte) maddr_to_mfn(pte_to_paddr(pte))
 +
-+/* Sanity check of the entry */
-+static bool xen_pt_check_entry(pte_t entry, mfn_t mfn, unsigned int level,
-+                               unsigned int flags)
+ struct page_info
+ {
+     /* Each frame can be threaded onto a doubly-linked list. */
+@@ -238,6 +240,13 @@ static inline bool arch_mfns_in_directmap(unsigned long mfn, unsigned long nr)
+ 
+ #define PFN_ORDER(pg) ((pg)->v.free.order)
+ 
++/*
++ *  Generic code that works with page tables expects the page table
++ *  levels to be numbered in the order L0 -> L1 -> ...;
++ *  RISC-V uses the opposite enumeration: Lx -> L1 -> L0
++ */
++#define convert_level(level) (HYP_PT_ROOT_LEVEL - level)
++
+ extern unsigned char cpu0_boot_stack[];
+ 
+ void setup_initial_pagetables(void);
+diff --git a/xen/arch/riscv/include/asm/page-bits.h b/xen/arch/riscv/include/asm/page-bits.h
+index 8f1f474371..1d3a0adda6 100644
+--- a/xen/arch/riscv/include/asm/page-bits.h
++++ b/xen/arch/riscv/include/asm/page-bits.h
+@@ -3,6 +3,51 @@
+ #ifndef __RISCV_PAGE_BITS_H__
+ #define __RISCV_PAGE_BITS_H__
+ 
++/*
++ * PTE format:
++ * | XLEN-1  10 | 9             8 | 7 | 6 | 5 | 4 | 3 | 2 | 1 | 0
++ *       PFN      reserved for SW   D   A   G   U   X   W   R   V
++ */
++
++#define _PAGE_PRESENT   BIT(0, UL)
++#define _PAGE_READ      BIT(1, UL)    /* Readable */
++#define _PAGE_WRITE     BIT(2, UL)    /* Writable */
++#define _PAGE_EXEC      BIT(3, UL)    /* Executable */
++#define _PAGE_USER      BIT(4, UL)    /* User */
++#define _PAGE_GLOBAL    BIT(5, UL)    /* Global */
++#define _PAGE_ACCESSED  BIT(6, UL)    /* Set by hardware on any access */
++#define _PAGE_DIRTY     BIT(7, UL)    /* Set by hardware on any write */
++#define _PAGE_SOFT      BIT(8, UL)    /* Reserved for software */
++
++/*
++ * There is no such bits in PTE format for RISC-V.
++ * Most of the definition below are just to make PT generic code happy,
++ * except _PAGE_BLOCK which is used to map 2 MB page table entries.
++ */
++#define _PAGE_BLOCK         BIT(9, UL)
++#define _PAGE_CONTIG        BIT(10, UL)
++#define _PAGE_POPULATE      BIT(11, UL)
++#define MT_NORMAL           BIT(12, UL)
++
++/* Set of bits to preserve across pte_modify() */
++#define _PAGE_CHG_MASK  (~(unsigned long)(_PAGE_PRESENT | _PAGE_READ |  \
++                         _PAGE_WRITE | _PAGE_EXEC | \
++                         _PAGE_USER | _PAGE_GLOBAL))
++
++#define PAGE_AI_MASK(x) ((x) & _PAGE_CHG_MASK)
++
++#define _PAGE_W_BIT     2
++#define _PAGE_XN_BIT    3
++#define _PAGE_RO_BIT    1
++
++/* TODO: move to somewhere generic part/header ? */
++#define _PAGE_XN        (1U << _PAGE_XN_BIT)
++#define _PAGE_RO        (1U << _PAGE_RO_BIT)
++#define _PAGE_W         (1U << _PAGE_W_BIT)
++#define PAGE_XN_MASK(x) (((x) >> _PAGE_XN_BIT) & 0x1U)
++#define PAGE_RO_MASK(x) (((x) >> _PAGE_RO_BIT) & 0x1U)
++#define PAGE_W_MASK(x)  (((x) >> _PAGE_W_BIT) & 0x1U)
++
+ #define PAGE_SHIFT              12 /* 4 KiB Pages */
+ #define PADDR_BITS              56 /* 44-bit PPN */
+ 
+diff --git a/xen/arch/riscv/include/asm/page.h b/xen/arch/riscv/include/asm/page.h
+index 339074d502..bb2da05693 100644
+--- a/xen/arch/riscv/include/asm/page.h
++++ b/xen/arch/riscv/include/asm/page.h
+@@ -33,6 +33,7 @@
+ #define PTE_LEAF_DEFAULT            (PTE_VALID | PTE_READABLE | PTE_WRITABLE)
+ #define PTE_TABLE                   (PTE_VALID)
+ 
++#define PAGE_HYPERVISOR_RO          (PTE_VALID | PTE_READABLE)
+ #define PAGE_HYPERVISOR_RW          (PTE_VALID | PTE_READABLE | PTE_WRITABLE)
+ 
+ #define PAGE_HYPERVISOR             PAGE_HYPERVISOR_RW
+@@ -42,13 +43,68 @@
+ 
+ #define pt_index(lvl, va) (pt_linear_offset((lvl), (va)) & VPN_MASK)
+ 
+-/* Page Table entry */
++#define FIRST_SIZE (XEN_PT_LEVEL_SIZE(2))
++
++#define TABLE_OFFSET(offs) (_AT(unsigned int, offs) & ((_AC(1, U) << PAGETABLE_ORDER) - 1))
++
++#if RV_STAGE1_MODE > SATP_MODE_SV48
++#error "need to to update DECLARE_OFFSETS macros"
++#else
++
++#define l0_table_offset(va) TABLE_OFFSET(pt_linear_offset(0, va))
++#define l1_table_offset(va) TABLE_OFFSET(pt_linear_offset(1, va))
++#define l2_table_offset(va) TABLE_OFFSET(pt_linear_offset(2, va))
++#define l3_table_offset(va) TABLE_OFFSET(pt_linear_offset(3, va))
++
++/* Generate an array @var containing the offset for each level from @addr */
++#define DECLARE_OFFSETS(var, addr)          \
++    const unsigned int var[4] = {           \
++        l0_table_offset(addr),              \
++        l1_table_offset(addr),              \
++        l2_table_offset(addr),              \
++        l3_table_offset(addr)               \
++    }
++
++#endif
++
+ typedef struct {
++    unsigned long v:1;
++    unsigned long r:1;
++    unsigned long w:1;
++    unsigned long x:1;
++    unsigned long u:1;
++    unsigned long g:1;
++    unsigned long a:1;
++    unsigned long d:1;
++    unsigned long rsw:2;
++#if RV_STAGE1_MODE == SATP_MODE_SV39
++    unsigned long ppn0:9;
++    unsigned long ppn1:9;
++    unsigned long ppn2:26;
++    unsigned long rsw2:7;
++    unsigned long pbmt:2;
++    unsigned long n:1;
++#elif RV_STAGE1_MODE == SATP_MODE_SV48
++    unsigned long ppn0:9;
++    unsigned long ppn1:9;
++    unsigned long ppn2:9;
++    unsigned long ppn3:17;
++    unsigned long rsw2:7;
++    unsigned long pbmt:2;
++    unsigned long n:1;
++#else
++#error "Add proper bits for SATP_MODE"
++#endif
++} pt_t;
++
++/* Page Table entry */
++typedef union {
+ #ifdef CONFIG_RISCV_64
+     uint64_t pte;
+ #else
+     uint32_t pte;
+ #endif
++pt_t bits;
+ } pte_t;
+ 
+ pte_t mfn_to_xen_entry(mfn_t mfn, unsigned int attr);
+@@ -69,6 +125,21 @@ static inline bool pte_is_valid(pte_t p)
+     return p.pte & PTE_VALID;
+ }
+ 
++inline bool pte_is_table(const pte_t p, unsigned int level)
 +{
-+    /* Sanity check when modifying an entry. */
-+    if ( (flags & _PAGE_PRESENT) && mfn_eq(mfn, INVALID_MFN) )
-+    {
-+        /* We don't allow modifying an invalid entry. */
-+        if ( !pte_is_valid(entry) )
-+        {
-+            printk("Modifying invalid entry is not allowed.\n");
-+            return false;
-+        }
++    (void) level;
 +
-+        /* We don't allow modifying a table entry */
-+        if ( !pte_is_mapping(entry, level) )
-+        {
-+            printk("Modifying a table entry is not allowed.\n");
-+            return false;
-+        }
++    return (((p.pte) & (PTE_VALID
++                       | PTE_READABLE
++                       | PTE_WRITABLE
++                       | PTE_EXECUTABLE)) == PTE_VALID);
++}
 +
-+        if ( !sanity_arch_specific_pte_checks(entry) )
-+        {
-+            printk("sanity check failed\n");
-+            return false;
-+        }
-+    }
-+    /* Sanity check when inserting a mapping */
-+    else if ( flags & _PAGE_PRESENT )
-+    {
-+        /* We should be here with a valid MFN. */
-+        ASSERT(!mfn_eq(mfn, INVALID_MFN));
++static inline bool pte_is_mapping(const pte_t pte, unsigned int level)
++{
++    return !pte_is_table(pte, level);
++}
 +
-+        /*
-+         * We don't allow replacing any valid entry.
-+         *
-+         * Note that the function xen_pt_update() relies on this
-+         * assumption and will skip the TLB flush. The function will need
-+         * to be updated if the check is relaxed.
-+         */
-+        if ( pte_is_valid(entry) )
-+        {
-+            if ( pte_is_mapping(entry, level) )
-+                printk("Changing MFN for a valid entry is not allowed (%#"PRI_mfn" -> %#"PRI_mfn").\n",
-+                          mfn_x(pte_get_mfn(entry)), mfn_x(mfn));
-+            else
-+                printk("Trying to replace a table with a mapping.\n");
-+            return false;
-+        }
-+    }
-+    /* Sanity check when removing a mapping. */
-+    else if ( (flags & (_PAGE_PRESENT|_PAGE_POPULATE)) == 0 )
-+    {
-+        /* We should be here with an invalid MFN. */
-+        ASSERT(mfn_eq(mfn, INVALID_MFN));
+ static inline void invalidate_icache(void)
+ {
+     BUG_ON("unimplemented");
+diff --git a/xen/arch/riscv/mm.c b/xen/arch/riscv/mm.c
+index 445319af08..44f36359c8 100644
+--- a/xen/arch/riscv/mm.c
++++ b/xen/arch/riscv/mm.c
+@@ -362,13 +362,64 @@ int destroy_xen_mappings(unsigned long s, unsigned long e)
+     return -1;
+ }
+ 
+-int map_pages_to_xen(unsigned long virt,
+-                     mfn_t mfn,
+-                     unsigned long nr_mfns,
+-                     unsigned int flags)
++const mfn_t get_root_page(void)
+ {
+-    BUG_ON("unimplemented");
+-    return -1;
++    unsigned long root_maddr = csr_read(CSR_SATP) << PAGE_SHIFT;
 +
-+        /* We don't allow removing a table */
-+        if ( pte_is_table(entry, level) )
-+        {
-+            printk("Removing a table is not allowed.\n");
-+            return false;
-+        }
++    return maddr_to_mfn(root_maddr);
++}
 +
-+        if ( get_contig_bit(entry) )
-+        {
-+            printk("Removing entry with contiguous bit set is not allowed.\n");
-+            return false;
-+        }
-+    }
-+    /* Sanity check when populating the page-table. No check so far. */
-+    else
-+    {
-+        ASSERT(flags & _PAGE_POPULATE);
-+        /* We should be here with an invalid MFN */
-+        ASSERT(mfn_eq(mfn, INVALID_MFN));
-+    }
++/*
++ * Check whether the contiguous bit can be set. Return the number of
++ * contiguous entry allowed. If not allowed, return 1.
++ */
++unsigned int xen_pt_check_contig(unsigned long vfn, mfn_t mfn,
++                                 unsigned int level, unsigned long left,
++                                 unsigned int flags)
++{
++    /* there is no contig bit in RISC-V */
++    return 1;
++}
 +
++void set_pte_table_bit(pte_t *pte, unsigned int tbl_bit_val)
++{
++    /* table bit for RISC-V is always equal to PTE_TABLE */
++    (void) tbl_bit_val;
++
++    pte->pte |= PTE_TABLE;
++}
++
++bool sanity_arch_specific_pte_checks(pte_t entry)
++{
++    /* there is no RISC-V specific PTE checks */
 +    return true;
 +}
 +
-+static pte_t *xen_map_table(mfn_t mfn)
++unsigned int get_contig_bit(pte_t entry)
 +{
-+    /*
-+     * During early boot, map_domain_page() may be unusable. Use the
-+     * PMAP to map temporarily a page-table.
-+     */
-+    if ( system_state == SYS_STATE_early_boot )
-+        return pmap_map(mfn);
-+
-+    return map_domain_page(mfn);
-+}
-+
-+static void xen_unmap_table(const pte_t *table)
-+{
-+    /*
-+     * During early boot, xen_map_table() will not use map_domain_page()
-+     * but the PMAP.
-+     */
-+    if ( system_state == SYS_STATE_early_boot )
-+        pmap_unmap(table);
-+    else
-+        unmap_domain_page(table);
-+}
-+
-+static int create_xen_table(pte_t *entry)
-+{
-+    mfn_t mfn;
-+    void *p;
-+    pte_t pte;
-+
-+    if ( system_state != SYS_STATE_early_boot )
-+    {
-+        struct page_info *pg = alloc_domheap_page(NULL, 0);
-+
-+        if ( pg == NULL )
-+            return -ENOMEM;
-+
-+        mfn = page_to_mfn(pg);
-+    }
-+    else
-+        mfn = alloc_boot_pages(1, 1);
-+
-+    p = xen_map_table(mfn);
-+    clear_page(p);
-+    xen_unmap_table(p);
-+
-+    pte = mfn_to_xen_entry(mfn, MT_NORMAL);
-+
-+    set_pte_table_bit(&pte, 1);
-+
-+    write_pte(entry, pte);
++    /* there is no contig bit */
++    (void) entry;
 +
 +    return 0;
 +}
 +
-+#define XEN_TABLE_MAP_FAILED 0
-+#define XEN_TABLE_SUPER_PAGE 1
-+#define XEN_TABLE_NORMAL_PAGE 2
-+
-+/*
-+ * Take the currently mapped table, find the corresponding entry,
-+ * and map the next table, if available.
-+ *
-+ * The read_only parameters indicates whether intermediate tables should
-+ * be allocated when not present.
-+ *
-+ * Return values:
-+ *  XEN_TABLE_MAP_FAILED: Either read_only was set and the entry
-+ *  was empty, or allocating a new page failed.
-+ *  XEN_TABLE_NORMAL_PAGE: next level mapped normally
-+ *  XEN_TABLE_SUPER_PAGE: The next entry points to a superpage.
-+ */
-+static int xen_pt_next_level(bool read_only, unsigned int level,
-+                             pte_t **table, unsigned int offset)
++void set_pte_permissions(pte_t *pte, unsigned int flags)
 +{
-+    pte_t *entry;
-+    int ret;
-+    mfn_t mfn;
++    pte->bits.r = PAGE_RO_MASK(flags);
++    pte->bits.x = ~PAGE_XN_MASK(flags);
++    pte->bits.w = PAGE_W_MASK(flags);
 +
-+    entry = *table + offset;
-+
-+    if ( !pte_is_valid(*entry) )
-+    {
-+        if ( read_only )
-+            return XEN_TABLE_MAP_FAILED;
-+
-+        ret = create_xen_table(entry);
-+        if ( ret )
-+            return XEN_TABLE_MAP_FAILED;
-+    }
-+
-+    if ( pte_is_mapping(*entry, level) )
-+    {
-+        return XEN_TABLE_SUPER_PAGE;
-+    }
-+
-+    mfn = pte_get_mfn(*entry);
-+
-+    xen_unmap_table(*table);
-+    *table = xen_map_table(mfn);
-+
-+    return XEN_TABLE_NORMAL_PAGE;
++    pte->pte |= PTE_ACCESSED | PTE_DIRTY;
 +}
 +
-+/* Update an entry at the level @target. */
-+static int xen_pt_update_entry(mfn_t root, unsigned long virt,
-+                               mfn_t mfn, unsigned int arch_target,
-+                               unsigned int flags)
++inline void flush_xen_tlb_range_va(vaddr_t va,
++                                   unsigned long size)
 +{
-+    int rc;
-+    unsigned int level = convert_level(HYP_PT_ROOT_LEVEL);
-+    unsigned int arch_level = convert_level(level);
-+    unsigned int target = convert_level(arch_target);
-+    pte_t *table;
-+    /*
-+     * The intermediate page tables are read-only when the MFN is not valid
-+     * and we are not populating page table.
-+     * This means we either modify permissions or remove an entry.
-+     */
-+    bool read_only = mfn_eq(mfn, INVALID_MFN) && !(flags & _PAGE_POPULATE);
-+    pte_t pte, *entry;
++    /* TODO: implement  flush of specific range va */
++    (void) va;
++    (void) size;
 +
-+    /* convenience aliases */
-+    DECLARE_OFFSETS(offsets, (paddr_t)virt);
-+
-+    /* _PAGE_POPULATE and _PAGE_PRESENT should never be set together. */
-+    ASSERT((flags & (_PAGE_POPULATE|_PAGE_PRESENT)) != (_PAGE_POPULATE|_PAGE_PRESENT));
-+
-+    table = xen_map_table(root);
-+    for ( ; level < target; level++, arch_level = convert_level(level) )
-+    {
-+        rc = xen_pt_next_level(read_only, arch_level, &table, offsets[arch_level]);
-+        if ( rc == XEN_TABLE_MAP_FAILED )
-+        {
-+            /*
-+             * We are here because xen_pt_next_level has failed to map
-+             * the intermediate page table (e.g the table does not exist
-+             * and the pt is read-only). It is a valid case when
-+             * removing a mapping as it may not exist in the page table.
-+             * In this case, just ignore it.
-+             */
-+            if ( flags & (_PAGE_PRESENT | _PAGE_POPULATE) )
-+            {
-+                printk("%s: Unable to map level %u\n", __func__, arch_level);
-+                rc = -ENOENT;
-+                goto out;
-+            }
-+            else
-+            {
-+                rc = 0;
-+                goto out;
-+            }
-+        }
-+        else if ( rc != XEN_TABLE_NORMAL_PAGE ) {
-+            break;
-+        }
-+    }
-+
-+    if ( arch_level != arch_target )
-+    {
-+        printk("%s: Shattering superpage is not supported\n", __func__);
-+        rc = -EOPNOTSUPP;
-+        goto out;
-+    }
-+
-+    entry = table + offsets[arch_level];
-+
-+    rc = -EINVAL;
-+    if ( !xen_pt_check_entry(*entry, mfn, arch_level, flags) )
-+        goto out;
-+
-+    /* If we are only populating page-table, then we are done. */
-+    rc = 0;
-+    if ( flags & _PAGE_POPULATE )
-+        goto out;
-+
-+    /* We are removing the page */
-+    if ( !(flags & _PAGE_PRESENT) )
-+        memset(&pte, 0x00, sizeof(pte));
-+    else
-+    {
-+        /* We are inserting a mapping => Create new pte. */
-+        if ( !mfn_eq(mfn, INVALID_MFN) )
-+        {
-+            pte = mfn_to_xen_entry(mfn, PAGE_AI_MASK(flags));
-+
-+            set_pte_table_bit(&pte, (arch_level == 3));
-+        }
-+        else /* We are updating the permission => Copy the current pte. */
-+            pte = *entry;
-+
-+        set_pte_permissions(&pte, flags);
-+    }
-+
-+    write_pte(entry, pte);
-+
-+    rc = 0;
-+
-+out:
-+    xen_unmap_table(table);
-+
-+    return rc;
-+}
-+
-+static DEFINE_SPINLOCK(xen_pt_lock);
-+
-+/* Return the level where mapping should be done */
-+int xen_pt_mapping_level(unsigned long vfn, mfn_t mfn, unsigned long nr,
-+                                unsigned int flags)
-+{
-+    unsigned int level = 0;
-+    unsigned long mask;
-+    unsigned int i = 0;
-+
-+    /*
-+     * Don't take into account the MFN when removing mapping (i.e
-+     * MFN_INVALID) to calculate the correct target order.
-+     *
-+     * Per the Arm Arm, `vfn` and `mfn` must be both superpage aligned.
-+     * They are or-ed together and then checked against the size of
-+     * each level.
-+     *
-+     * `left` is not included and checked separately to allow
-+     * superpage mapping even if it is not properly aligned (the
-+     * user may have asked to map 2MB + 4k).
-+     */
-+    mask = !mfn_eq(mfn, INVALID_MFN) ? mfn_x(mfn) : 0;
-+    mask |= vfn;
-+
-+    /*
-+    * Always use level 3 mapping unless the caller request block
-+    * mapping.
-+    */
-+    if ( likely(!(flags & _PAGE_BLOCK)) )
-+        return level;
-+
-+    for ( i = 0; i < CONFIG_PAGING_LEVELS; i++ )
-+    {
-+        if ( !(mask & (BIT(XEN_PT_LEVEL_ORDER(convert_level(i)), UL) - 1)) &&
-+            (nr >= BIT(XEN_PT_LEVEL_ORDER(convert_level(i)), UL)) )
-+        {
-+            level = convert_level(i);
-+            break;
-+        }
-+    }
-+
-+    return level;
-+}
-+
-+static int xen_pt_update(unsigned long virt,
-+                         mfn_t mfn,
-+                         /* const on purpose as it is used for TLB flush */
-+                         const unsigned long nr_mfns,
-+                         unsigned int flags)
-+{
-+    int rc = 0;
-+    unsigned long vfn = virt >> PAGE_SHIFT;
-+    unsigned long left = nr_mfns;
-+
-+    /*
-+     * For arm32, page-tables are different on each CPUs. Yet, they share
-+     * some common mappings. It is assumed that only common mappings
-+     * will be modified with this function.
-+     *
-+     * XXX: Add a check.
-+     */
-+    const mfn_t root = get_root_page();
-+
-+    /*
-+     * The hardware was configured to forbid mapping both writeable and
-+     * executable.
-+     * When modifying/creating mapping (i.e _PAGE_PRESENT is set),
-+     * prevent any update if this happen.
-+     */
-+    if ( (flags & _PAGE_PRESENT) && !PAGE_RO_MASK(flags) &&
-+         !PAGE_XN_MASK(flags) )
-+    {
-+        printk("Mappings should not be both Writeable and Executable.\n");
-+        return -EINVAL;
-+    }
-+
-+    if ( flags & _PAGE_CONTIG )
-+    {
-+        printk("_PAGE_CONTIG is an internal only flag.\n");
-+        return -EINVAL;
-+    }
-+
-+    if ( !IS_ALIGNED(virt, PAGE_SIZE) )
-+    {
-+        printk("The virtual address is not aligned to the page-size.\n");
-+        return -EINVAL;
-+    }
-+
-+    spin_lock(&xen_pt_lock);
-+
-+    while ( left )
-+    {
-+        unsigned int order, level, nr_contig, new_flags;
-+
-+        level = xen_pt_mapping_level(vfn, mfn, left, flags);
-+        order = XEN_PT_LEVEL_ORDER(level);
-+
-+        ASSERT(left >= BIT(order, UL));
-+
-+        /*
-+         * Check if we can set the contiguous mapping and update the
-+         * flags accordingly.
-+         */
-+        nr_contig = xen_pt_check_contig(vfn, mfn, level, left, flags);
-+        new_flags = flags | ((nr_contig > 1) ? _PAGE_CONTIG : 0);
-+
-+        for ( ; nr_contig > 0; nr_contig-- )
-+        {
-+            rc = xen_pt_update_entry(root, vfn << PAGE_SHIFT, mfn, level,
-+                                     new_flags);
-+            if ( rc )
-+                break;
-+
-+            vfn += 1U << order;
-+            if ( !mfn_eq(mfn, INVALID_MFN) )
-+                mfn = mfn_add(mfn, 1U << order);
-+
-+            left -= (1U << order);
-+        }
-+
-+        if ( rc )
-+            break;
-+    }
-+
-+    /*
-+     * The TLBs flush can be safely skipped when a mapping is inserted
-+     * as we don't allow mapping replacement (see xen_pt_check_entry()).
-+     *
-+     * For all the other cases, the TLBs will be flushed unconditionally
-+     * even if the mapping has failed. This is because we may have
-+     * partially modified the PT. This will prevent any unexpected
-+     * behavior afterwards.
-+     */
-+    if ( !((flags & _PAGE_PRESENT) && !mfn_eq(mfn, INVALID_MFN)) )
-+        flush_xen_tlb_range_va(virt, PAGE_SIZE * nr_mfns);
-+
-+    spin_unlock(&xen_pt_lock);
-+
-+    return rc;
-+}
-+
-+int map_pages_to_xen(unsigned long virt,
-+                     mfn_t mfn,
-+                     unsigned long nr_mfns,
-+                     unsigned int flags)
-+{
-+    return xen_pt_update(virt, mfn, nr_mfns, flags);
-+}
-diff --git a/xen/include/xen/mm.h b/xen/include/xen/mm.h
-index 7561297a75..47cd5326da 100644
---- a/xen/include/xen/mm.h
-+++ b/xen/include/xen/mm.h
-@@ -648,4 +648,28 @@ static inline void put_page_alloc_ref(struct page_info *page)
-     }
++    asm volatile("sfence.vma");
  }
  
-+#ifdef CONFIG_GENERIC_PT
-+
-+/* is needed because of pte_t. */
-+#include <asm/page.h>
-+
-+const mfn_t get_root_page(void);
-+
-+unsigned int xen_pt_check_contig(unsigned long vfn, mfn_t mfn,
-+                                 unsigned int level, unsigned long left,
-+                                 unsigned int flags);
-+
-+void set_pte_table_bit(pte_t *pte, unsigned int tbl_bit_val);
-+
-+bool sanity_arch_specific_pte_checks(pte_t entry);
-+
-+unsigned int get_contig_bit(pte_t entry);
-+
-+void set_pte_permissions(pte_t *pte, unsigned int flags);
-+
-+void flush_xen_tlb_range_va(vaddr_t va,
-+                            unsigned long size);
-+
-+#endif /* CONFIG_GENERIC_PT */
-+
- #endif /* __XEN_MM_H__ */
+ static inline pte_t mfn_to_pte(mfn_t mfn)
 -- 
 2.45.2
 
