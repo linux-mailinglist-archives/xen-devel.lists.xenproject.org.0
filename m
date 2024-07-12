@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 54DD192F922
-	for <lists+xen-devel@lfdr.de>; Fri, 12 Jul 2024 12:48:50 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.757877.1167029 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 84D0292F923
+	for <lists+xen-devel@lfdr.de>; Fri, 12 Jul 2024 12:49:03 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.757878.1167040 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sSDpM-0005s7-MC; Fri, 12 Jul 2024 10:48:36 +0000
+	id 1sSDpb-0006C5-UO; Fri, 12 Jul 2024 10:48:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 757877.1167029; Fri, 12 Jul 2024 10:48:36 +0000
+Received: by outflank-mailman (output) from mailman id 757878.1167040; Fri, 12 Jul 2024 10:48:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sSDpM-0005q9-JO; Fri, 12 Jul 2024 10:48:36 +0000
-Received: by outflank-mailman (input) for mailman id 757877;
- Fri, 12 Jul 2024 10:48:35 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1sSDpb-00069j-RG; Fri, 12 Jul 2024 10:48:51 +0000
+Received: by outflank-mailman (input) for mailman id 757878;
+ Fri, 12 Jul 2024 10:48:51 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=ZSin=OM=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1sSDpL-0005q3-Lq
- for xen-devel@lists.xenproject.org; Fri, 12 Jul 2024 10:48:35 +0000
-Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
- [2a00:1450:4864:20::536])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 49478e4b-403c-11ef-bbfb-fd08da9f4363;
- Fri, 12 Jul 2024 12:48:34 +0200 (CEST)
-Received: by mail-ed1-x536.google.com with SMTP id
- 4fb4d7f45d1cf-58b447c5112so2591394a12.3
- for <xen-devel@lists.xenproject.org>; Fri, 12 Jul 2024 03:48:34 -0700 (PDT)
+ id 1sSDpb-00069W-4J
+ for xen-devel@lists.xenproject.org; Fri, 12 Jul 2024 10:48:51 +0000
+Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
+ [2a00:1450:4864:20::62b])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 51fe03b8-403c-11ef-8776-851b0ebba9a2;
+ Fri, 12 Jul 2024 12:48:49 +0200 (CEST)
+Received: by mail-ej1-x62b.google.com with SMTP id
+ a640c23a62f3a-a77e7a6cfa7so237708266b.1
+ for <xen-devel@lists.xenproject.org>; Fri, 12 Jul 2024 03:48:49 -0700 (PDT)
 Received: from andrewcoop.eng.citrite.net ([185.25.67.249])
  by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-594bc4e819bsm4445410a12.51.2024.07.12.03.48.32
+ a640c23a62f3a-a780a6bd010sm336551666b.18.2024.07.12.03.48.47
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 12 Jul 2024 03:48:32 -0700 (PDT)
+ Fri, 12 Jul 2024 03:48:47 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,34 +45,34 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 49478e4b-403c-11ef-bbfb-fd08da9f4363
+X-Inumbo-ID: 51fe03b8-403c-11ef-8776-851b0ebba9a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1720781313; x=1721386113; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1720781328; x=1721386128; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=j3Y1QM2aDjAbMbU+9PSSN+1sK9TzRRFdE1CnKXuZCwU=;
-        b=TzXx48jMJngvqtaEoXO82TWDdmRcDbviyPXT90DTABeMS1ij9JV8YG8SqEVtIZYZ9/
-         wJGYtr03pWSBKkP7+gH5smNPw//6qm3JILtos+Md2ht1Vhg7SccM+7KgdfbFdK0NsNqg
-         N/cDztxZkqzV6RC9+pTqh4GdCY7DutEBVGPRU=
+        bh=PZsyhlKpPKwJu0K89EuDjhZnuB3yQi1RNCGVeTYU+Wk=;
+        b=fgcQi2ph05D19wLseN4UGtkoN3Qb1NIKZPlFO0scVa+0y3x6MvjXo43/k6HcQCsxni
+         WzUi8K0GgmtG4dTGk140HbJqGJYxdYpqfLQE73ukI30KVdwMq7seGXvzDPwfG/qounE+
+         dsKSNWbyfeppY+BEJkQSkSRl3QqrJNtXNGIxc=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1720781313; x=1721386113;
+        d=1e100.net; s=20230601; t=1720781328; x=1721386128;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=j3Y1QM2aDjAbMbU+9PSSN+1sK9TzRRFdE1CnKXuZCwU=;
-        b=ojAItrotV8uFI8gaY9o9yckZa8Zi2DzurLH2zWoSb+4UIfk6hhIIaLQLMK3oYoJBHA
-         D8TZPh3+9rGVbop+BYRkIT06yaY0jkZeBljEKIZ9DlMFr0V13NuGCVoBsZcHYumUyh0G
-         LObLJYP6t6zKrDds0YADE7pgtxUYJqy2sV/zOmpLTlZZSAc6s210K8LXM88HTZgCngn/
-         0g0xSAbHcJjhp+CU9yfEqRXwYo+BKmMOB81pISc/9w1OutHInlW55BaT5d2gx4wgHfXx
-         nBbWGyxalkWIEHzoCVIYXxxfwtDHxrjgTtzaSajcCVfYBJTv0SgVzGOPC6FAHh3/VLeS
-         lDwQ==
-X-Gm-Message-State: AOJu0YypxVFL6UVFbeGN/M06HhNsJamBAD0+uGbTVKXZa8FPTARPcUS5
-	hNo+Y25ISOywJUvqbkfR40zsmvCLbqV0WXfsxWbwDw/NqWsvQNACAqTGdOH9dQ3j2ldTL4AuS5q
-	B
-X-Google-Smtp-Source: AGHT+IFsK+GY3xofEr9bwn9DrDj8vHf0xZ7YawxDEqfYmH0MNyrIQQ1Jm0x+o4KOBZwXmjxJvpIg8Q==
-X-Received: by 2002:a05:6402:2791:b0:58d:115c:f529 with SMTP id 4fb4d7f45d1cf-594ba997550mr9016601a12.7.1720781312942;
-        Fri, 12 Jul 2024 03:48:32 -0700 (PDT)
+        bh=PZsyhlKpPKwJu0K89EuDjhZnuB3yQi1RNCGVeTYU+Wk=;
+        b=K3gjQyFGgmcqy+83f6XxeASx+jN2h6s9v82JLb7+MzAi1nV1rzt3MomOXnhsg1o5hQ
+         8JNFuG84Wja7Pcsvlrv0v8vDpvALxdj/Krb6bxWrbToGdp+eBWKjr7z0lQ1KFF943/D/
+         Fs5hkXACO3FqOgEgBQ+/PSpTPVomylcyia0/K1gkKNA6K3wE7VwTXgGn4lnG/iwg8BiN
+         vJv2yXy/aRTdMpkG/msAo4HE7VqjNWs+GBGQrwRc1l3GLvZxrqaq1nhzsZGeLSwx/+Tz
+         jBVToV+fBKb5UOgXB9vAGzAJJ9nBuJoKp+qJA/oW2UUcDq6AuS9YKJj6rQ1niCG3Vyun
+         gYIQ==
+X-Gm-Message-State: AOJu0YxLxnN+PTtxopl6g3S52GiXZfJmj5lO7um17SH8uj6N5HMX1bBu
+	LiORJOqD7iyWrXkK5DSKzgpHLvleKh/9sZkF2PJCUoHpJ9QxCFBpDEGV4dQLPM1OF2FKgRHcCdz
+	R
+X-Google-Smtp-Source: AGHT+IE84WOvQj/BbutiRZNfCyOMp5XwqX7/KWYvuUB7Z1IRk7FsrRzQ6AHXAkvFvcVHfEOY1VPtPA==
+X-Received: by 2002:a17:906:c110:b0:a72:b055:3de0 with SMTP id a640c23a62f3a-a780b68a358mr973345566b.6.1720781328144;
+        Fri, 12 Jul 2024 03:48:48 -0700 (PDT)
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
@@ -84,9 +84,9 @@ Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
 	Julien Grall <julien@xen.org>,
 	Oleksii Kurochko <oleksii.kurochko@gmail.com>,
 	Shawn Anastasio <sanastasio@raptorengineering.com>
-Subject: [PATCH 15/12] CI: Refresh Ubuntu Xenial container as 16.04-x86_64
-Date: Fri, 12 Jul 2024 11:48:29 +0100
-Message-Id: <20240712104829.3237296-1-andrew.cooper3@citrix.com>
+Subject: [PATCH 16/12] CI: Refresh Ubuntu Bionic container as 18.04-x86_64
+Date: Fri, 12 Jul 2024 11:48:42 +0100
+Message-Id: <20240712104842.3237603-1-andrew.cooper3@citrix.com>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20240711111517.3064810-1-andrew.cooper3@citrix.com>
 References: <20240711111517.3064810-1-andrew.cooper3@citrix.com>
@@ -94,16 +94,13 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Rework the container to be non-root, use heredocs for legibility, and use use
-apt-get --no-install-recommends to keep the size down.
+As with 16.04 (Focal), except that ninja-build is available so QEMU can be
+built.
 
-Ubuntu Xenial has no ninja-build package, so can't build the QEMU referenced
-by Xen 4.16.  Therefore, drop the dependencies too.
+This halves the size of the container:
 
-This saves ~500M:
-
-  registry.gitlab.com/xen-project/xen/ubuntu    16.04-x86_64           700MB
-  registry.gitlab.com/xen-project/xen/ubuntu    xenial                 1.21GB
+  registry.gitlab.com/xen-project/xen/ubuntu    18.04-x86_64           860MB
+  registry.gitlab.com/xen-project/xen/ubuntu    bionic                 1.44GB
 
 Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 ---
@@ -118,25 +115,25 @@ CC: Shawn Anastasio <sanastasio@raptorengineering.com>
 
 Runs with the new container:
 
-  4.16: https://gitlab.com/xen-project/people/andyhhp/xen/-/jobs/7323548805
-  4.19: https://gitlab.com/xen-project/people/andyhhp/xen/-/jobs/7323548805
+  4.16: https://gitlab.com/xen-project/people/andyhhp/xen/-/jobs/7323548809
+  4.19: https://gitlab.com/xen-project/people/andyhhp/xen/-/jobs/7323516970
 ---
- .../build/ubuntu/16.04-x86_64.dockerfile      | 65 +++++++++++++++++++
- automation/build/ubuntu/xenial.dockerfile     | 46 -------------
+ .../build/ubuntu/18.04-x86_64.dockerfile      | 72 +++++++++++++++++++
+ automation/build/ubuntu/bionic.dockerfile     | 48 -------------
  automation/gitlab-ci/build.yaml               | 16 ++---
  automation/scripts/containerize               |  2 +-
- 4 files changed, 74 insertions(+), 55 deletions(-)
- create mode 100644 automation/build/ubuntu/16.04-x86_64.dockerfile
- delete mode 100644 automation/build/ubuntu/xenial.dockerfile
+ 4 files changed, 81 insertions(+), 57 deletions(-)
+ create mode 100644 automation/build/ubuntu/18.04-x86_64.dockerfile
+ delete mode 100644 automation/build/ubuntu/bionic.dockerfile
 
-diff --git a/automation/build/ubuntu/16.04-x86_64.dockerfile b/automation/build/ubuntu/16.04-x86_64.dockerfile
+diff --git a/automation/build/ubuntu/18.04-x86_64.dockerfile b/automation/build/ubuntu/18.04-x86_64.dockerfile
 new file mode 100644
-index 000000000000..11e878050b83
+index 000000000000..24047e8f6ab2
 --- /dev/null
-+++ b/automation/build/ubuntu/16.04-x86_64.dockerfile
-@@ -0,0 +1,65 @@
++++ b/automation/build/ubuntu/18.04-x86_64.dockerfile
+@@ -0,0 +1,72 @@
 +# syntax=docker/dockerfile:1
-+FROM --platform=linux/amd64 ubuntu:16.04
++FROM --platform=linux/amd64 ubuntu:18.04
 +LABEL maintainer.name="The Xen Project"
 +LABEL maintainer.email="xen-devel@lists.xenproject.org"
 +
@@ -192,6 +189,13 @@ index 000000000000..11e878050b83
 +
 +        # Stubdom download/extract
 +        bzip2
++
++        # Qemu build
++        libglib2.0-dev
++        libpixman-1-dev
++        meson
++        ninja-build
++        python3-packaging
 +    )
 +
 +    apt-get -y --no-install-recommends install "${DEPS[@]}"
@@ -200,14 +204,14 @@ index 000000000000..11e878050b83
 +
 +USER user
 +WORKDIR /build
-diff --git a/automation/build/ubuntu/xenial.dockerfile b/automation/build/ubuntu/xenial.dockerfile
+diff --git a/automation/build/ubuntu/bionic.dockerfile b/automation/build/ubuntu/bionic.dockerfile
 deleted file mode 100644
-index aa8f560286b6..000000000000
---- a/automation/build/ubuntu/xenial.dockerfile
+index c1effc725e17..000000000000
+--- a/automation/build/ubuntu/bionic.dockerfile
 +++ /dev/null
-@@ -1,46 +0,0 @@
+@@ -1,48 +0,0 @@
 -# syntax=docker/dockerfile:1
--FROM --platform=linux/amd64 ubuntu:16.04
+-FROM --platform=linux/amd64 ubuntu:18.04
 -LABEL maintainer.name="The Xen Project " \
 -      maintainer.email="xen-devel@lists.xenproject.org"
 -
@@ -248,60 +252,63 @@ index aa8f560286b6..000000000000
 -        wget \
 -        git \
 -        nasm \
+-        # QEMU
+-        ninja-build \
 -        && \
 -        apt-get autoremove -y && \
 -        apt-get clean && \
 -        rm -rf /var/lib/apt/lists* /tmp/* /var/tmp/*
 diff --git a/automation/gitlab-ci/build.yaml b/automation/gitlab-ci/build.yaml
-index 2216392a8414..a2e6815f30b3 100644
+index a2e6815f30b3..c6f6a1ced7dc 100644
 --- a/automation/gitlab-ci/build.yaml
 +++ b/automation/gitlab-ci/build.yaml
-@@ -588,25 +588,25 @@ fedora-gcc-debug:
+@@ -608,25 +608,25 @@ ubuntu-16.04-x86_64-gcc-debug:
    variables:
-     CONTAINER: fedora:29
+     CONTAINER: ubuntu:16.04-x86_64
  
--ubuntu-xenial-clang:
-+ubuntu-16.04-x86_64-clang:
+-ubuntu-bionic-clang:
++ubuntu-18.04-x86_64-clang:
    extends: .clang-x86-64-build
    variables:
--    CONTAINER: ubuntu:xenial
-+    CONTAINER: ubuntu:16.04-x86_64
+-    CONTAINER: ubuntu:bionic
++    CONTAINER: ubuntu:18.04-x86_64
  
--ubuntu-xenial-clang-debug:
-+ubuntu-16.04-x86_64-clang-debug:
+-ubuntu-bionic-clang-debug:
++ubuntu-18.04-x86_64-clang-debug:
    extends: .clang-x86-64-build-debug
    variables:
--    CONTAINER: ubuntu:xenial
-+    CONTAINER: ubuntu:16.04-x86_64
+-    CONTAINER: ubuntu:bionic
++    CONTAINER: ubuntu:18.04-x86_64
  
--ubuntu-xenial-gcc:
-+ubuntu-16.04-x86_64-gcc:
+-ubuntu-bionic-gcc:
++ubuntu-18.04-x86_64-gcc:
    extends: .gcc-x86-64-build
    variables:
--    CONTAINER: ubuntu:xenial
-+    CONTAINER: ubuntu:16.04-x86_64
+-    CONTAINER: ubuntu:bionic
++    CONTAINER: ubuntu:18.04-x86_64
  
--ubuntu-xenial-gcc-debug:
-+ubuntu-16.04-x86_64-gcc-debug:
+-ubuntu-bionic-gcc-debug:
++ubuntu-18.04-x86_64-gcc-debug:
    extends: .gcc-x86-64-build-debug
    variables:
--    CONTAINER: ubuntu:xenial
-+    CONTAINER: ubuntu:16.04-x86_64
+-    CONTAINER: ubuntu:bionic
++    CONTAINER: ubuntu:18.04-x86_64
  
- ubuntu-bionic-clang:
-   extends: .clang-x86-64-build
+ ubuntu-focal-gcc:
+   extends: .gcc-x86-64-build
 diff --git a/automation/scripts/containerize b/automation/scripts/containerize
-index 0ff53b6fe4e1..5fc41c36a27c 100755
+index 5fc41c36a27c..d6132b4d22af 100755
 --- a/automation/scripts/containerize
 +++ b/automation/scripts/containerize
-@@ -52,9 +52,9 @@ case "_${CONTAINER}" in
+@@ -51,10 +51,10 @@ case "_${CONTAINER}" in
+     _bookworm-arm64v8-arm32-gcc) CONTAINER="${BASE}/debian:bookworm-arm64v8-arm32-gcc" ;;
      _bookworm-arm64v8) CONTAINER="${BASE}/debian:bookworm-arm64v8" ;;
      _bookworm-cppcheck) CONTAINER="${BASE}/debian:bookworm-cppcheck" ;;
-     _bionic) CONTAINER="${BASE}/ubuntu:bionic" ;;
--    _xenial) CONTAINER="${BASE}/ubuntu:xenial" ;;
+-    _bionic) CONTAINER="${BASE}/ubuntu:bionic" ;;
      _opensuse-leap|_leap) CONTAINER="${BASE}/opensuse:leap-15.6-x86_64" ;;
      _opensuse-tumbleweed|_tumbleweed) CONTAINER="${BASE}/opensuse:tumbleweed-x86_64" ;;
-+    _xenial) CONTAINER="${BASE}/ubuntu:16.04-x86_64" ;;
+     _xenial) CONTAINER="${BASE}/ubuntu:16.04-x86_64" ;;
++    _bionic) CONTAINER="${BASE}/ubuntu:18.04-x86_64" ;;
  
      *) guess_container ;;
  esac
