@@ -2,38 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 270EF92FA4D
-	for <lists+xen-devel@lfdr.de>; Fri, 12 Jul 2024 14:31:10 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.757977.1167150 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4C52792FA56
+	for <lists+xen-devel@lfdr.de>; Fri, 12 Jul 2024 14:34:03 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.757980.1167159 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sSFPy-00040a-M2; Fri, 12 Jul 2024 12:30:30 +0000
+	id 1sSFTE-0004Z4-36; Fri, 12 Jul 2024 12:33:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 757977.1167150; Fri, 12 Jul 2024 12:30:30 +0000
+Received: by outflank-mailman (output) from mailman id 757980.1167159; Fri, 12 Jul 2024 12:33:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sSFPy-0003yL-IP; Fri, 12 Jul 2024 12:30:30 +0000
-Received: by outflank-mailman (input) for mailman id 757977;
- Fri, 12 Jul 2024 12:30:28 +0000
+	id 1sSFTE-0004Xa-0Q; Fri, 12 Jul 2024 12:33:52 +0000
+Received: by outflank-mailman (input) for mailman id 757980;
+ Fri, 12 Jul 2024 12:33:51 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ZSin=OM=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1sSFPw-0003yF-L0
- for xen-devel@lists.xenproject.org; Fri, 12 Jul 2024 12:30:28 +0000
-Received: from mail-ed1-x52b.google.com (mail-ed1-x52b.google.com
- [2a00:1450:4864:20::52b])
+ <SRS0=3tlf=OM=bounce.vates.tech=bounce-md_30504962.669122aa.v1-cb88003a0e0a4a599e05df2331f4a31f@srs-se1.protection.inumbo.net>)
+ id 1sSFTD-0004XU-Eh
+ for xen-devel@lists.xenproject.org; Fri, 12 Jul 2024 12:33:51 +0000
+Received: from mail136-18.atl41.mandrillapp.com
+ (mail136-18.atl41.mandrillapp.com [198.2.136.18])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 8405476f-404a-11ef-8776-851b0ebba9a2;
- Fri, 12 Jul 2024 14:30:26 +0200 (CEST)
-Received: by mail-ed1-x52b.google.com with SMTP id
- 4fb4d7f45d1cf-58b447c5112so2736543a12.3
- for <xen-devel@lists.xenproject.org>; Fri, 12 Jul 2024 05:30:25 -0700 (PDT)
-Received: from [10.125.226.166] ([185.25.67.249])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a797e3b160dsm226129766b.204.2024.07.12.05.30.24
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 12 Jul 2024 05:30:24 -0700 (PDT)
+ id fcb27918-404a-11ef-8776-851b0ebba9a2;
+ Fri, 12 Jul 2024 14:33:49 +0200 (CEST)
+Received: from pmta11.mandrill.prod.atl01.rsglab.com (localhost [127.0.0.1])
+ by mail136-18.atl41.mandrillapp.com (Mailchimp) with ESMTP id
+ 4WL9xl09CHzB5p8Z8
+ for <xen-devel@lists.xenproject.org>; Fri, 12 Jul 2024 12:33:47 +0000 (GMT)
+Received: from [37.26.189.201] by mandrillapp.com id
+ cb88003a0e0a4a599e05df2331f4a31f; Fri, 12 Jul 2024 12:33:46 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,127 +43,99 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8405476f-404a-11ef-8776-851b0ebba9a2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1720787425; x=1721392225; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=RMGzBZ2FYnEocLI6MTMFGJ5274FNlLpPC+Q6ZIUTLrM=;
-        b=DMoBHVUl67F4t+hADhwLa6ucxc+5hEOfHufnjTkJTcSW+vFuyI0SYTIDGszax6+dnn
-         PULKwVhvGzSnMuLJZBk0RBEZXbDueI5C9oZZCss03WPC7AHhhyyEgJZRTCgvK7DcK6/V
-         vSKcSUrsgw5ssuQtSs2saQHV3dQ0dQwzJ8ibY=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1720787425; x=1721392225;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=RMGzBZ2FYnEocLI6MTMFGJ5274FNlLpPC+Q6ZIUTLrM=;
-        b=njPWGmD98gsk6xF4HKhhrZqDM9+24Gw2DGMixSwNMEy5R0/5K6rgIBA5lANC/S0jZp
-         I2KOrmo4xUARUlm1IiLmnFiwBLKj6MRSiCiy/QvLn75QyJpIsDZukSsuggArS11d1aLR
-         /abOG1QaLMc1H011EtLM2lskdn1wt9MNlVIMOKJtPIrS8CGYo4GMPp/KapjL7NAvdGvW
-         iPxWWXkp74etg0IxV+5580iFclODevw/memE44b83RvmmSp49uiQoPe8xv2OiXevdsp5
-         N9kR/oFOM7dcELX2U0kC4XSrINawD2D7FfQZ6UGtIdyIBb8lsQS3fZSISgFrDyqcTVdf
-         83Fg==
-X-Forwarded-Encrypted: i=1; AJvYcCWEQ7uAdpvmNCzomPWoc1b3xdVCkkAPUWqCEEw/t5tdbXYBDejh1DZSvQGrlRujLZkgLi/d7i1zMkBdqORbIjYzLfP8tp/Erqrpjxo80Po=
-X-Gm-Message-State: AOJu0YwoQ2JVr5ysWbmplTpwcpbnAskyAHzf2D7yTH+YQfkKYtT9Pddu
-	AcQUm8Y+YA21ewt6HxhW8tfmtzoAjzgm52Sns8g3a+hKn4DC1edrG9gRWIuDRWo=
-X-Google-Smtp-Source: AGHT+IFaTR/1ZFJjGzsu6R1Rb6JPFPahjppWal+UG5MOxqtJ9BTr9aIMdqs/Vtl5TVU8g17nEdhIzA==
-X-Received: by 2002:a17:907:e9f:b0:a77:cb7d:f362 with SMTP id a640c23a62f3a-a780b705276mr973906166b.40.1720787425419;
-        Fri, 12 Jul 2024 05:30:25 -0700 (PDT)
-Message-ID: <0c03dff1-e68c-4660-b2cb-471958708daa@citrix.com>
-Date: Fri, 12 Jul 2024 13:30:23 +0100
+X-Inumbo-ID: fcb27918-404a-11ef-8776-851b0ebba9a2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
+	s=mte1; t=1720787627; x=1721048127;
+	bh=qsLAa8oE2og9iv3HjDhMbDDLOHpOYucu2hYO7m1bzS4=;
+	h=From:Subject:To:Cc:Message-Id:References:In-Reply-To:Feedback-ID:
+	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
+	 Subject:From;
+	b=VlLNltFtMWZEQFyRyj9hBzXJe5fuq7jsmc5KkrbDAofdacPDdzO2cAGJ8oRi66BUZ
+	 dZVtApHTDFcSaoLqz59suF3hx62ji5ltxoGVUsP2UOWSaKvE6KJPqptrW7OzVYiP27
+	 ylm/3+NUGb90MRI3C7snO3fXWwEfyyTVzXNfX8DHSi2XhNy0dZa4tsBNYGj07cQH8f
+	 ++ksUxWixsbyIHsZe14JArrSG2+czL3DCePOGUdJnO+weEnedhYUEV3lBrcZpW6Ze1
+	 wNKZ0p/TslQK2jyfDi47fn24EdtgBXw3tlZAv9rocnxXE7Z/JtnPvye8HxyM4xqz41
+	 D6XFsa1mr8UvA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
+	t=1720787627; x=1721048127; i=anthony.perard@vates.tech;
+	bh=qsLAa8oE2og9iv3HjDhMbDDLOHpOYucu2hYO7m1bzS4=;
+	h=From:Subject:To:Cc:Message-Id:References:In-Reply-To:Feedback-ID:
+	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
+	 Subject:From;
+	b=j9ekYZ6I4CJ+VbweQy7KjMl2nnCwOqna64l8GTxXPQHS3KcG6e7i5ISBZqu2tKuvZ
+	 6z5Z0A+uypUgHqzLmCOZA4tYwCDkDgRu578nKmY6KWI5i9VzYuY2X9Fu4eLxd3npit
+	 61nQAY5XLc3Cl67DmPsXU1OUPEC80G3nMcWrR7paUzoQqDfubBz0ngQ0GoaT1QcVxO
+	 N1qerPML8myD3nTQiaZHx7lh+jyMNDk6+RyDlJX24Et1s7IokNEYhHt9n8G8StOkNd
+	 WBZBGUizwShFDXJ4TivWoqcv4QAD2bI2rBPX7RZyflWGY2FDPk+yGKq/Rd7JcsbKwT
+	 O34n07h5QMXBA==
+From: Anthony PERARD <anthony.perard@vates.tech>
+Subject: =?utf-8?Q?Re:=20[PATCH=20v2=2013/12]=20CI:=20Refresh=20OpenSUSE=20Tumbleweed=20container?=
+X-Bm-Disclaimer: Yes
+X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
+X-Bm-Transport-Timestamp: 1720787625411
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>, Juergen Gross <jgross@suse.com>, =?utf-8?Q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>, Jan Beulich <JBeulich@suse.com>, Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Oleksii Kurochko <oleksii.kurochko@gmail.com>, Shawn Anastasio <sanastasio@raptorengineering.com>, Olaf Hering <olaf@aepfle.de>
+Message-Id: <ZpEiqM7XWlzb4q+z@l14>
+References: <20240711202337.3128473-1-andrew.cooper3@citrix.com> <20240712111426.3244115-1-andrew.cooper3@citrix.com>
+In-Reply-To: <20240712111426.3244115-1-andrew.cooper3@citrix.com>
+X-Native-Encoded: 1
+X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.cb88003a0e0a4a599e05df2331f4a31f?=
+X-Mandrill-User: md_30504962
+Feedback-ID: 30504962:30504962.20240712:md
+Date: Fri, 12 Jul 2024 12:33:46 +0000
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 10/12] CI: Introduce debian:11/12-riscv64 containers
-To: Oleksii <oleksii.kurochko@gmail.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Anthony PERARD <anthony.perard@vates.tech>,
- Juergen Gross <jgross@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Jan Beulich <JBeulich@suse.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Shawn Anastasio <sanastasio@raptorengineering.com>
-References: <20240711111517.3064810-1-andrew.cooper3@citrix.com>
- <20240711111517.3064810-11-andrew.cooper3@citrix.com>
- <1b6c7e57ea331d3ea9aeea7fafc9a0733f6e9147.camel@gmail.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <1b6c7e57ea331d3ea9aeea7fafc9a0733f6e9147.camel@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
 
-On 12/07/2024 12:39 pm, Oleksii wrote:
-> On Thu, 2024-07-11 at 12:15 +0100, Andrew Cooper wrote:
->> For starters, they're slightly smaller:
->>
->>   $ docker image list <snip>
->>   registry.gitlab.com/xen-project/xen/debian      12-riscv64        
->> 772MB
->>   registry.gitlab.com/xen-project/xen/debian      11-riscv64        
->> 422MB
-> Do we really need both 11-riscv64 and 12-riscv64?
+On Fri, Jul 12, 2024 at 12:14:26PM +0100, Andrew Cooper wrote:
+> while removed are:
+> 
+>   bc                   # ?
 
-Need? No, not strictly.
+I don't know why, but this one is also installed by osstest. The commit
+adding it doesn't say why it was needed.
 
-Want? Yes, absolutely.
+Also, looks like many QEMU containers are installing `bc`, but I can't
+find a single use. Maybe historic.
 
-You always want at least 2 different toolchains worth of testing, or
-what you will find happens is that you end up accidentally depending on
-a quirk of the single compiler your using, and that you discover this at
-some point in the future, rather than now(ish) when CI says no.
+>   libnl3-devel         # Libxl COLO(?), option
 
-At the moment, the RISC-V builds are very trivial and quick, so it makes
-a lot of sense to have a second toolchain.  Before too much longer,
-you'll want to get Clang working too.
+Yes.
 
-> Generally this patch LGTM: Reviewed-by: Oleksii Kurochko
-> <oleksii.kurochko@gmail.com>
+>   libnuma-devel        # ?
 
-Thanks.
+There's some mention of it in QEMU.
 
-~Andrew
+>   libpng16-devel       # Qemu ?
+
+It's added to a few QEMU containers, but I can't find any use.
+
+>   libssh2-devel        # ?
+
+It seems like it was used by QEMU at some point, but they switch to
+'libssh'. Probably optional, like many QEMU deps.
+
+>   libtasn1-devel       # ?
+
+QEMU, and it seems to be only used in tests.
+
+>   nasm                 # ?
+
+'nasm' is used to build OVMF.
+
+
+If we don't want to build OVMF in our GitLab CI, which I don't think
+would be useful to do anyway (no dependency on xen.git), then:
+
+Reviewed-by: Anthony PERARD <anthony.perard@vates.tech>
+
+Thanks,
+
+-- 
+
+Anthony Perard | Vates XCP-ng Developer
+
+XCP-ng & Xen Orchestra - Vates solutions
+
+web: https://vates.tech
 
