@@ -2,38 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 82FE593014F
-	for <lists+xen-devel@lfdr.de>; Fri, 12 Jul 2024 22:35:10 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.758281.1167701 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5AEEF930193
+	for <lists+xen-devel@lfdr.de>; Fri, 12 Jul 2024 23:26:47 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.758290.1167710 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sSMxy-0007ad-4g; Fri, 12 Jul 2024 20:34:06 +0000
+	id 1sSNmL-0005Eu-TL; Fri, 12 Jul 2024 21:26:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 758281.1167701; Fri, 12 Jul 2024 20:34:06 +0000
+Received: by outflank-mailman (output) from mailman id 758290.1167710; Fri, 12 Jul 2024 21:26:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sSMxy-0007Y2-0V; Fri, 12 Jul 2024 20:34:06 +0000
-Received: by outflank-mailman (input) for mailman id 758281;
- Fri, 12 Jul 2024 20:34:04 +0000
+	id 1sSNmL-0005DQ-Qc; Fri, 12 Jul 2024 21:26:09 +0000
+Received: by outflank-mailman (input) for mailman id 758290;
+ Fri, 12 Jul 2024 21:26:08 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ZSin=OM=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1sSMxw-0007Xw-8s
- for xen-devel@lists.xenproject.org; Fri, 12 Jul 2024 20:34:04 +0000
-Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com
- [2a00:1450:4864:20::52e])
+ <SRS0=ilSY=OM=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1sSNmK-0005DK-3I
+ for xen-devel@lists.xenproject.org; Fri, 12 Jul 2024 21:26:08 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 1350882b-408e-11ef-bbfb-fd08da9f4363;
- Fri, 12 Jul 2024 22:34:02 +0200 (CEST)
-Received: by mail-ed1-x52e.google.com with SMTP id
- 4fb4d7f45d1cf-58bac81f3f9so2906804a12.2
- for <xen-devel@lists.xenproject.org>; Fri, 12 Jul 2024 13:34:02 -0700 (PDT)
-Received: from [10.125.226.166] ([185.25.67.249])
- by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-594bda284a5sm4913836a12.85.2024.07.12.13.34.00
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 12 Jul 2024 13:34:01 -0700 (PDT)
+ id 58c4ccee-4095-11ef-bbfb-fd08da9f4363;
+ Fri, 12 Jul 2024 23:26:06 +0200 (CEST)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id F3220619B0;
+ Fri, 12 Jul 2024 21:26:04 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5EEA2C32782;
+ Fri, 12 Jul 2024 21:26:03 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,106 +41,110 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1350882b-408e-11ef-bbfb-fd08da9f4363
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1720816442; x=1721421242; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=N8RuazpBANdACm8JOvJxuas6L7j07qZaoqT3yR9LXvg=;
-        b=dGUDcEYCbQZX2GOIEL/glmBZE1ziT/rPPh2h2laROyd9H/2MvQ8HwPeoDX1U4Mf+HZ
-         PGiVmtrSrhXPUuDhr+khY06sUplilXRRk3ib3fTq7NEa19Nvr8svkvc630RHrU5BVq//
-         tih5+dhzt+3PKwaiWBV+D72Mwe8f/oVBxHC8o=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1720816442; x=1721421242;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=N8RuazpBANdACm8JOvJxuas6L7j07qZaoqT3yR9LXvg=;
-        b=rNad+mJg7WblzVwB8iT7fIUjkbG0Rkpa4F/8kB+eP/aHSSpiuiv83F3BS2Ht1h9XLH
-         OLX7uiYy1MH2aErOrybFvSHlCjhfBQPUsNHGG9Hu4cLFE7SiX9C6cXGVCxfd+kR8Yoqp
-         fOTrSDyGNjI3914ntct8Rs17XtxCNF/9WChibeq9EizqSKsv0F9hR5VKM2YsKY18kRPm
-         bAobR7gRFybkcfHvDorP2UBRUVG3m7I6C5xGnSfXcHQq+7Nwsq2tr8zk0Say1LpcUQCZ
-         pvGHTlpvzvnpv8aMoH6DiCCd4nZ8DyCWFFU0IKCa4xsvQ64BWr88mc3fLXSUV6XAk429
-         7IOg==
-X-Forwarded-Encrypted: i=1; AJvYcCX09/4515/J6ApYnBbuJ3VqhFgfU+ZrXYtw17PUBmg1qgrMMp6Ef/ygrxJnPyZx3u/OnIIOlTBh4XUvlza/kxqcDyxg21IsUOh3MBKjA0I=
-X-Gm-Message-State: AOJu0YzFxTdkbRVC+UDHrg9fSRDKenYjKC6sxNnIlACmM8q3EKv7Dyi7
-	mSER59ASqizgEKRplg9tt9hPUqQb1VnZ++bfva8KCnIYXEnYFT11TngH7cgiFQTQSwMBygdFFyU
-	X
-X-Google-Smtp-Source: AGHT+IH06QPaeRpZ11R4B0/Pkw6HwPphNU4XQtMhiUut7c5Xfm4YJmfTs8eVnGWFEedpwZqLCF6OMg==
-X-Received: by 2002:a05:6402:51d3:b0:582:7c35:8736 with SMTP id 4fb4d7f45d1cf-594b9ee1106mr10525744a12.12.1720816442000;
-        Fri, 12 Jul 2024 13:34:02 -0700 (PDT)
-Message-ID: <ab51e15e-c1b0-40de-9265-361e6239664e@citrix.com>
-Date: Fri, 12 Jul 2024 21:33:59 +0100
+X-Inumbo-ID: 58c4ccee-4095-11ef-bbfb-fd08da9f4363
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1720819564;
+	bh=RQVAI8y49fNOQT9OYLcMnI1li4cYbWDJrVdVruw1Qn0=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=DSUltBVfFg/PJGXthdCp2tQncxccT/F9djRVO98wf8d5eSh1ljKC28cbHVPdBM3XL
+	 SSMzaNcu/qgm40VQA1XFoxDiQYe79gmj3cNgUA+x8Urjrt9Le5dggQUKclay+omF8s
+	 AovSqTMssoWtPaMYIxkqx/SwonX5Ti7s3LogSgfQN8yALbyrmAFMQCywvyCi897kcO
+	 q6bR+BDCU+avTwT43TmV+iZFMl+rQ2Aahb1w19qsJ+IzINy6cCXfQ+nVXreiIty2qY
+	 02H8TKeg1lWWdTZtdoIAEynCO2cNp/YBiTEnLUKahA/J0Gs4F8uOesTOCpMRsqpLz6
+	 Dv5LmDGkMUFJQ==
+Date: Fri, 12 Jul 2024 14:26:02 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Jan Beulich <jbeulich@suse.com>
+cc: Nicola Vetrini <nicola.vetrini@bugseng.com>, sstabellini@kernel.org, 
+    michal.orzel@amd.com, xenia.ragiadakou@amd.com, ayan.kumar.halder@amd.com, 
+    consulting@bugseng.com, Andrew Cooper <andrew.cooper3@citrix.com>, 
+    Julien Grall <julien@xen.org>, 
+    Oleksii Kurochko <oleksii.kurochko@gmail.com>, 
+    xen-devel@lists.xenproject.org
+Subject: Re: [XEN PATCH for-4.19] xen/bitmap: amend MISRA C deviation for
+ Rule 20.7
+In-Reply-To: <5ff40947-5672-4497-83e7-53ea370b5f58@suse.com>
+Message-ID: <alpine.DEB.2.22.394.2407121423590.3635@ubuntu-linux-20-04-desktop>
+References: <794724e70c4e45224916576af01070e8aebe9aab.1720517398.git.nicola.vetrini@bugseng.com> <5ff40947-5672-4497-83e7-53ea370b5f58@suse.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] docs/misra: rules for mass adoption
-To: Stefano Stabellini <stefano.stabellini@amd.com>,
- xen-devel@lists.xenproject.org
-Cc: jbeulich@suse.com, sstabellini@kernel.org, julien@xen.org,
- michal.orzel@amd.com, bertrand.marquis@arm.com, roger.pau@citrix.com
-References: <20240626013922.92089-1-stefano.stabellini@amd.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <20240626013922.92089-1-stefano.stabellini@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=US-ASCII
 
-On 26/06/2024 2:39 am, Stefano Stabellini wrote:
-> From: Stefano Stabellini <sstabellini@kernel.org>
->
-> This patch adds a bunch of rules to rules.rst that are uncontroversial
-> and have zero violations in Xen. As such, they have been approved for
-> adoption.
->
-> All the ones that regard the standard library have the link to the
-> existing footnote in the notes.
->
-> Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
+On Tue, 9 Jul 2024, Jan Beulich wrote:
+> On 09.07.2024 11:34, Nicola Vetrini wrote:
+> > --- a/xen/include/xen/bitmap.h
+> > +++ b/xen/include/xen/bitmap.h
+> > @@ -103,18 +103,16 @@ extern int bitmap_allocate_region(unsigned long *bitmap, int pos, int order);
+> >  #define bitmap_switch(nbits, zero, small, large)			  \
+> >  	unsigned int n__ = (nbits);					  \
+> >  	if (__builtin_constant_p(nbits) && !n__) {			  \
+> > -		/* SAF-7-safe Rule 20.7 non-parenthesized macro argument */ \
+> >  		zero;							  \
+> >  	} else if (__builtin_constant_p(nbits) && n__ <= BITS_PER_LONG) { \
+> > -		/* SAF-7-safe Rule 20.7 non-parenthesized macro argument */ \
+> >  		small;							  \
+> >  	} else {							  \
+> > -		/* SAF-7-safe Rule 20.7 non-parenthesized macro argument */ \
+> >  		large;							  \
+> >  	}
+> 
+> An observation I made only while discussing this on the meeting is that by
+> going from this form to ...
+> 
+> >  static inline void bitmap_zero(unsigned long *dst, unsigned int nbits)
+> >  {
+> > +	/* SAF-7-safe Rule 20.7 non-parenthesized macro argument */
+> >  	bitmap_switch(nbits,,
+> >  		*dst = 0UL,
+> >  		memset(dst, 0, bitmap_bytes(nbits)));
+> 
+> ... this form, you actually widen what the deviation covers to the entire
+> macro, which is too much. We don't want to deviate the rule for all of the
+> arguments, after all.
+> 
+> However, it further occurred to me that the reason for needing the deviation
+> looks to merely be that in some cases (like the one above) we pass empty
+> macro arguments. That's getting in the way of parenthesizing the use sites.
+> We could avoid this, though, by adding e.g.
+> 
+> #define nothing ((void)0)
+> 
+> near the definition of bitmap_switch() and then using that in place of the
+> empty arguments. Provided of course this is the only obstacle to
+> parenthesization. At which point no deviation ought to be needed in the
+> first place.
 
-Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+
+Roberto suggested in another email thread:
+
+ 
+> The problem comes from macro arguments that are expressions, in some cases,
+> and statements, in other cases, as it happens for bitmap_{switch,zero}.
+> 
+> Possible solutions include:
+> - wrap the arguments that are statements in a do-while-false;
+> - add a ';' after the arguments that are statements.
+> 
+> But what we recommend is to add a deviation for the cases where an argument,
+> after the expansion, is surrounded by the following tokens: '{' '}' ';'.
+> This will address all violations related to bitmap_{switch,zero} and requires
+> only a modification of the ECLAIR configuration which will look like this:
+> 
+> -doc_begin="The expansion of an argument between tokens '{', '}' and ';' is safe."
+> -config=MC3R1.R20.7,expansion_context+={safe, "left_right(^[\\{;]$,^[;\\}]$)"}
+> -doc_end
+> 
+> With this, all the remaining 71 violations in x86 code concerns msi.h, which we were
+> requested not to touch, and the 2 violations in arm code can be easily resolved
+> with a patch adding parentheses, for which a patch was already submitted by
+> Nicola and rejected by Jan.
+
+
+I think this is a good way forward because it is a simple deviation that
+makes sense to have, and makes sense as project wide deviation (it is
+not a deviation by name, e.g. deviating anything called
+"bitmap_switch").
+
+I like Roberto's suggestion. Jan, are you OK with it?
 
