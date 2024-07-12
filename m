@@ -2,35 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D20EA92FACD
-	for <lists+xen-devel@lfdr.de>; Fri, 12 Jul 2024 14:59:22 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.758010.1167213 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2AFC492FADA
+	for <lists+xen-devel@lfdr.de>; Fri, 12 Jul 2024 15:03:10 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.758020.1167223 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sSFrf-0002o7-2f; Fri, 12 Jul 2024 12:59:07 +0000
+	id 1sSFv5-0004Je-HX; Fri, 12 Jul 2024 13:02:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 758010.1167213; Fri, 12 Jul 2024 12:59:07 +0000
+Received: by outflank-mailman (output) from mailman id 758020.1167223; Fri, 12 Jul 2024 13:02:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sSFre-0002mD-VW; Fri, 12 Jul 2024 12:59:06 +0000
-Received: by outflank-mailman (input) for mailman id 758010;
- Fri, 12 Jul 2024 12:59:06 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1sSFrd-0002m3-VI; Fri, 12 Jul 2024 12:59:05 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1sSFrd-0002sC-UD; Fri, 12 Jul 2024 12:59:05 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1sSFrd-0008Qw-F7; Fri, 12 Jul 2024 12:59:05 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1sSFrd-0005cM-ET; Fri, 12 Jul 2024 12:59:05 +0000
+	id 1sSFv5-0004H1-Eh; Fri, 12 Jul 2024 13:02:39 +0000
+Received: by outflank-mailman (input) for mailman id 758020;
+ Fri, 12 Jul 2024 13:02:38 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=9lvJ=OM=bounce.vates.tech=bounce-md_30504962.6691296b.v1-2350af86716246c1b8839ef21358bd15@srs-se1.protection.inumbo.net>)
+ id 1sSFv4-0004Gv-B9
+ for xen-devel@lists.xenproject.org; Fri, 12 Jul 2024 13:02:38 +0000
+Received: from mail186-27.suw21.mandrillapp.com
+ (mail186-27.suw21.mandrillapp.com [198.2.186.27])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 02c89ac9-404f-11ef-bbfb-fd08da9f4363;
+ Fri, 12 Jul 2024 15:02:37 +0200 (CEST)
+Received: from pmta10.mandrill.prod.suw01.rsglab.com (localhost [127.0.0.1])
+ by mail186-27.suw21.mandrillapp.com (Mailchimp) with ESMTP id
+ 4WLBZz6tmLz6CQ50G
+ for <xen-devel@lists.xenproject.org>; Fri, 12 Jul 2024 13:02:35 +0000 (GMT)
+Received: from [37.26.189.201] by mandrillapp.com id
+ 2350af86716246c1b8839ef21358bd15; Fri, 12 Jul 2024 13:02:35 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,73 +43,76 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=nIgtAhW9MhJju1se/Kmwzj49ni356GQiUroAEBJrFPE=; b=0jfOFss3YwoGc9nC+amOFmhg7R
-	vTVUV5nvGOR/KznCK7wsHM168uT/fPXS2FctSa/KEsMgCnbRAVyVxUU9lqbWpxBI0lvZf9SaNl/oX
-	J0Bw0ZenwBsbzY53HowIMQ2d7FTs7jDflEQ/OBKZmnzF10Kvo+KpHYbkW/LtdliFoM68=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-186778-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 02c89ac9-404f-11ef-bbfb-fd08da9f4363
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
+	s=mte1; t=1720789356; x=1721049856;
+	bh=J2eajCKSO+EbMlbYqikWZk4lLpbB5rVDfYdGE1afar4=;
+	h=From:Subject:To:Cc:Message-Id:References:In-Reply-To:Feedback-ID:
+	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
+	 Subject:From;
+	b=UZyjciQ0delnl/do8WSKrJQsu0lJ0DSR8El1FjLQQL8UVewOFTo9q8mRaxb/7Pse5
+	 YTEBTPDaGTRdz9zesOgJfcrA3+2rSF5+/YSxUwZU5YpckNcG2g484fGTUFaPNY5KhU
+	 Fsc7KYrONltdUcEN7fOm3tmgOQzvaJ5KdTRDLx72qQ1jVtnIVrckc08ZQ8DMVurI8s
+	 MSTXGlLlNM8kzm6IMl0ww+BRKO1EpTNQqkkV6XLboS/1AK+gYAy6tkgHU8AOnHSqN3
+	 szA9gOMFjPw3mq+522GBo/wlpa9h/hJJGyjlRmqeba7MM20gyFeH9nWKOASyNxzilt
+	 q/DqFLQBog5ig==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
+	t=1720789356; x=1721049856; i=anthony.perard@vates.tech;
+	bh=J2eajCKSO+EbMlbYqikWZk4lLpbB5rVDfYdGE1afar4=;
+	h=From:Subject:To:Cc:Message-Id:References:In-Reply-To:Feedback-ID:
+	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
+	 Subject:From;
+	b=vEFRIZPkMRZpQXhQBDHq2YBYE0OSeSOhAA3TLGqMsh4NhVu/U2sh+UB4SGy0pSI1u
+	 W9IHqW6hH/XS9M9dpgS2AQNyt4FplP/Ipx4koZkl2mG80jCruTcGxMl75S/YzCGx+g
+	 mgSlDj1yYS5KchAUJtJ9kbp8TO1Rp5hAWywTmkk5aLo3Ug5LH672iXR43+cwqk/OuT
+	 Doajzave127KSDYJXrdu09VviPjbljRJMisH5Kc0VfloQBatbt9YVDG8W1GmzERBO1
+	 rQKMRL4fblG4/LebPUSU53Y/i/XekZiKQlNwIJGppGyWMObsUnOgwukms2JRHXfm6i
+	 Z1UYyuIP2tQLw==
+From: Anthony PERARD <anthony.perard@vates.tech>
+Subject: =?utf-8?Q?Re:=20[PATCH=20v2=2014/12]=20CI:=20Refresh=20OpenSUSE=20Leap=20container?=
+X-Bm-Disclaimer: Yes
+X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
+X-Bm-Transport-Timestamp: 1720789354475
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>, Juergen Gross <jgross@suse.com>, =?utf-8?Q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>, Jan Beulich <JBeulich@suse.com>, Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Oleksii Kurochko <oleksii.kurochko@gmail.com>, Shawn Anastasio <sanastasio@raptorengineering.com>, Olaf Hering <olaf@aepfle.de>
+Message-Id: <ZpEpaVCC7KHvkIwK@l14>
+References: <20240711210534.3141725-1-andrew.cooper3@citrix.com> <20240712125538.3246947-1-andrew.cooper3@citrix.com>
+In-Reply-To: <20240712125538.3246947-1-andrew.cooper3@citrix.com>
+X-Native-Encoded: 1
+X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.2350af86716246c1b8839ef21358bd15?=
+X-Mandrill-User: md_30504962
+Feedback-ID: 30504962:30504962.20240712:md
+Date: Fri, 12 Jul 2024 13:02:35 +0000
 MIME-Version: 1.0
-Subject: [ovmf test] 186778: all pass - PUSHED
-X-Osstest-Versions-This:
-    ovmf=807ab61359061003c154174799b1e184cb089b46
-X-Osstest-Versions-That:
-    ovmf=2b6d0eb43439891e641750cd5054b1bc3fb40e72
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 12 Jul 2024 12:59:05 +0000
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
 
-flight 186778 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/186778/
+On Fri, Jul 12, 2024 at 01:55:38PM +0100, Andrew Cooper wrote:
+> See prior patch for most discussion.
+> 
+> Despite appearing to be a fixed release (and therefore not marked as permitted
+> failure), the dockerfile references the `leap` tag which is rolling in
+> practice.  Switch to 15.6 explicitly, for better test stability.
+> 
+> Vs tumbleweed, use `zypper update` rather than dist-upgrade, and retain the
+> RomBIOS dependencies; bin86 and dev86.
+> 
+> In terms of size, this saves ~700M:
+> 
+>   registry.gitlab.com/xen-project/xen/opensuse  leap-15.6-x86_64       1.33GB
+>   registry.gitlab.com/xen-project/xen/suse      opensuse-leap          2.05GB
+> 
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-Perfect :-)
-All tests in this flight passed as required
-version targeted for testing:
- ovmf                 807ab61359061003c154174799b1e184cb089b46
-baseline version:
- ovmf                 2b6d0eb43439891e641750cd5054b1bc3fb40e72
+Reviewed-by: Anthony PERARD <anthony.perard@vates.tech>
 
-Last test of basis   186777  2024-07-12 08:41:11 Z    0 days
-Testing same since   186778  2024-07-12 11:12:54 Z    0 days    1 attempts
+Thanks,
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Chao Li <lichao@loongson.cn>
-  KasimX Liu <kasimx.liu@intel.com>
+-- 
 
-jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+Anthony Perard | Vates XCP-ng Developer
 
+XCP-ng & Xen Orchestra - Vates solutions
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
-   2b6d0eb434..807ab61359  807ab61359061003c154174799b1e184cb089b46 -> xen-tested-master
+web: https://vates.tech
 
