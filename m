@@ -2,35 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E0474930356
-	for <lists+xen-devel@lfdr.de>; Sat, 13 Jul 2024 04:25:38 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.758372.1167841 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2EB9D930361
+	for <lists+xen-devel@lfdr.de>; Sat, 13 Jul 2024 04:46:03 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.758380.1167851 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sSSQy-0001wH-BS; Sat, 13 Jul 2024 02:24:24 +0000
+	id 1sSSlV-0004UG-1X; Sat, 13 Jul 2024 02:45:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 758372.1167841; Sat, 13 Jul 2024 02:24:24 +0000
+Received: by outflank-mailman (output) from mailman id 758380.1167851; Sat, 13 Jul 2024 02:45:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sSSQy-0001th-8h; Sat, 13 Jul 2024 02:24:24 +0000
-Received: by outflank-mailman (input) for mailman id 758372;
- Sat, 13 Jul 2024 02:24:23 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1sSSQx-0001tX-If; Sat, 13 Jul 2024 02:24:23 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1sSSQx-00051c-Fc; Sat, 13 Jul 2024 02:24:23 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1sSSQx-0001bz-2Y; Sat, 13 Jul 2024 02:24:23 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1sSSQx-0002wf-23; Sat, 13 Jul 2024 02:24:23 +0000
+	id 1sSSlU-0004Rg-UF; Sat, 13 Jul 2024 02:45:36 +0000
+Received: by outflank-mailman (input) for mailman id 758380;
+ Sat, 13 Jul 2024 02:45:35 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=PEx+=ON=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
+ id 1sSSlT-0004Ra-9X
+ for xen-devel@lists.xenproject.org; Sat, 13 Jul 2024 02:45:35 +0000
+Received: from fhigh2-smtp.messagingengine.com
+ (fhigh2-smtp.messagingengine.com [103.168.172.153])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id f8b897c7-40c1-11ef-8776-851b0ebba9a2;
+ Sat, 13 Jul 2024 04:45:32 +0200 (CEST)
+Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
+ by mailfhigh.nyi.internal (Postfix) with ESMTP id 254161140F6E
+ for <xen-devel@lists.xenproject.org>; Fri, 12 Jul 2024 22:45:31 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute5.internal (MEProxy); Fri, 12 Jul 2024 22:45:31 -0400
+Received: by mail.messagingengine.com (Postfix) with ESMTPA for
+ <xen-devel@lists.xenproject.org>; Fri, 12 Jul 2024 22:45:29 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,84 +44,104 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=MxzFE3Nlv4meKH1QYyDrrZ/v6huOcIF9zd1jGN3DiGw=; b=I0TInD9jCpQHQSab3CR9xrtKNz
-	0V/IMlTMefyF3h0OPuTM+clGAat7tyBqq+S8GFzXZ7C2i1d90KXdGqJAJkLA33jMLGGdny3VOqo3J
-	pdLGee3wcw2FdEkWr5uhc3QN5Sd2ErgUhpJZWJQzECprDKNqgzmPo56kx1w6G47VQ1zU=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-186786-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: f8b897c7-40c1-11ef-8776-851b0ebba9a2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:content-type:content-type:date:date
+	:from:from:in-reply-to:message-id:mime-version:reply-to:subject
+	:subject:to:to; s=fm2; t=1720838731; x=1720925131; bh=RTzINzHHk4
+	QcHsd7cEbTPB8Y6T0eHxc0HxvJyt1EJPA=; b=Qikc5g3YM+j346rmJ+l8Gn/9g4
+	TE0aqjWI1/njLLmJPZU6uzM4xm03sVQP2h1cUmSk6ZFqt/vu1TEThKyRC9FLM60y
+	vjOFFdGliQx1uoobnKFPC9HlarzUtsj6txl7cuU1r95Hqkj+G1iUscNe0BWn1IdQ
+	NHyeb5UlSsOkunvT34qRfdMmsODG3agUFNBW5neShJqcK1bI6JcDzvJzMW5padzE
+	REks/hR0FXwG2hoSiCr4MzDP7detPWSymC092BjGltLlTVZmAhUdVJxylrwvREvh
+	WE9BUh60fa/DMyIaG4SlbR6jOSrUpt8kVK0ACpbU3r63ocFNpTxNX7qKTjyA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:message-id
+	:mime-version:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
+	1720838731; x=1720925131; bh=RTzINzHHk4QcHsd7cEbTPB8Y6T0eHxc0Hxv
+	Jyt1EJPA=; b=W+oVvrT3YsF2JpVaTm3j4DGBg6ETtgTDqH4hj7XJlivH7jJ4w1d
+	l635XHnzZh5npyyU98CAsDN8/S3eXidQO81ovnS93LQVv/D7ZrwHIsRWmqAd+3aA
+	u7JukHikPo4v8z12dNnWwXpK1kYcN3HoZTa3ynIQ2Gtgb+IIhS4aXFdqufNBYIoF
+	icEyrzhBoJB9rSDrAbyLndh+y4rU4DG02mL4JZmim0DNoyiJrd0VdJywdxutbLVr
+	hoKnjfXO9dHd1ygwHNhCqL26Dt+M2mGGX9yZddc0jUb8viMDqezfW01bDoiqD5Qt
+	xGiyRhJV7TgVCZ6h7w77g+S3MwbIJrvTXFQ==
+X-ME-Sender: <xms:SeqRZvDFZecMp3znPo1HaHou9Y-He9U9RcKc70ksbtnJmkemVVZO3Q>
+    <xme:SeqRZlgDYddDqhlDZRhZfhxcTxBslNIU8Iy0GCa5n6l2VN6arYxNfeEOBRfGghG6r
+    5Z0SsHUtAVLlg>
+X-ME-Received: <xmr:SeqRZqnUzzloXHusvtNaLpklh2je_fWjyPVkunHxnncc3hki_WaApSU>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeeftddrfeejgdeigecutefuodetggdotefrodftvf
+    curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
+    uegrihhlohhuthemuceftddtnecunecujfgurhepfffhvffukfggtggusehgtderredttd
+    ejnecuhfhrohhmpeforghrvghkucforghrtgiihihkohifshhkihdqifpkrhgvtghkihcu
+    oehmrghrmhgrrhgvkhesihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhmqeenuc
+    ggtffrrghtthgvrhhnpedtudfgteduveduieevvefgteeujeelgffggffhhffhhedtffef
+    fefgudeugeefhfenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfh
+    hrohhmpehmrghrmhgrrhgvkhesihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhm
+X-ME-Proxy: <xmx:SeqRZhzOPDUUrrlRNSTWufCK_p-dSntgDhTxytHbPSBffb20iwsEuQ>
+    <xmx:SeqRZkSuJNLg5cDLjmqSYNeoZgby6HNlfLdXn2OFwD5cj7qHmnEn4Q>
+    <xmx:SeqRZkbnxY0pAbNSKolPgo3DtsbP41AM7RTSuZGNMCbzFWyl-JZ9SA>
+    <xmx:SeqRZlTuMYaobXOT70uuFrOByIaH_7IlUfhXuJU0fKm96HgmW4zUiw>
+    <xmx:S-qRZt59mWTZHd_A453gRVNpDNymPOFIpvilibUy6Sg_XH0vjKTz3iPm>
+Feedback-ID: i1568416f:Fastmail
+Date: Sat, 13 Jul 2024 04:45:23 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: xen-devel <xen-devel@lists.xenproject.org>
+Subject: systemd units are not installed in 4.19.0-rc2 anymore
+Message-ID: <ZpHqR4e3VaFAXC3m@mail-itl>
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 186786: tolerable all pass - PUSHED
-X-Osstest-Failures:
-    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=1ddc8c1bad93aa6cbfe616dd72333460c47f96c9
-X-Osstest-Versions-That:
-    xen=e85ff1f1af8c298f3f25f226698e670600eff905
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Sat, 13 Jul 2024 02:24:23 +0000
-
-flight 186786 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/186786/
-
-Failures :-/ but no regressions.
-
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
-
-version targeted for testing:
- xen                  1ddc8c1bad93aa6cbfe616dd72333460c47f96c9
-baseline version:
- xen                  e85ff1f1af8c298f3f25f226698e670600eff905
-
-Last test of basis   186783  2024-07-12 19:00:22 Z    0 days
-Testing same since   186786  2024-07-12 22:02:08 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Andrew Cooper <andrew.cooper3@citrix.com>
-
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="rfShu3Sxzvplo84j"
+Content-Disposition: inline
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+--rfShu3Sxzvplo84j
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Sat, 13 Jul 2024 04:45:23 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: xen-devel <xen-devel@lists.xenproject.org>
+Subject: systemd units are not installed in 4.19.0-rc2 anymore
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+Hi,
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+Something has changed between -rc1 and -rc2 that systemd units are not
+installed anymore by default.
 
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+Reproducer:=20
 
+    ./configure --prefix=3D/usr
+    make dist-tools
+    ls dist/install/usr/lib/systemd/system
 
-Pushing revision :
+It does work, if I pass --enable-systemd to ./configure.
 
-To xenbits.xen.org:/home/xen/git/xen.git
-   e85ff1f1af..1ddc8c1bad  1ddc8c1bad93aa6cbfe616dd72333460c47f96c9 -> smoke
+My guess is the actual change is earlier, specifically 6ef4fa1e7fe7
+"tools: (Actually) drop libsystemd as a dependency", but configure was
+regenerated only later. But TBH, I don't fully understand interaction
+between those m4 macros...
+
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
+
+--rfShu3Sxzvplo84j
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmaR6kcACgkQ24/THMrX
+1yxCjAgAhFb2fu9P0SHcjyq1Ae5+ZviVlqo2furBPu7gizpjTYXoGXN19el3X7im
+bWxQfsVeUQhtp4qsJgs6aSSVY46mPL7FbtgSFibsB+U3sjtzKXcrHn4uyz01c/Qp
+p2c1RpXXE7cLKCcXC71/IsuvYXWht0VvXeh/+An56zqIAz4lpPUZ+pbvIX8K6E7L
+na9bT8zAaIMsoNOySo973dyGJv1a4v8k7y9U8Rwxh6gTVe7dOagq7ouZXwzwHM5w
+e4uq4ZlW64/NYWZpxb0gHV3gsmL3j1R2xQSDzmxS0f19uSDLeOS6o96qxC2fOXeM
+EWLso1oEnbDtLFJ0xd33T8xmNceQag==
+=ACfB
+-----END PGP SIGNATURE-----
+
+--rfShu3Sxzvplo84j--
 
