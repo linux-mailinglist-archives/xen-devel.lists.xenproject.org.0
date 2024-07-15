@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8B98A9318D1
+	by mail.lfdr.de (Postfix) with ESMTPS id A5CB89318D2
 	for <lists+xen-devel@lfdr.de>; Mon, 15 Jul 2024 18:49:31 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.759092.1168740 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.759093.1168751 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sTOt4-0004as-OK; Mon, 15 Jul 2024 16:49:18 +0000
+	id 1sTOt6-0004te-Vh; Mon, 15 Jul 2024 16:49:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 759092.1168740; Mon, 15 Jul 2024 16:49:18 +0000
+Received: by outflank-mailman (output) from mailman id 759093.1168751; Mon, 15 Jul 2024 16:49:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sTOt4-0004Y6-Jk; Mon, 15 Jul 2024 16:49:18 +0000
-Received: by outflank-mailman (input) for mailman id 759092;
- Mon, 15 Jul 2024 16:49:17 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1sTOt6-0004rf-Rr; Mon, 15 Jul 2024 16:49:20 +0000
+Received: by outflank-mailman (input) for mailman id 759093;
+ Mon, 15 Jul 2024 16:49:19 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=f3wo=OP=bugseng.com=federico.serafini@srs-se1.protection.inumbo.net>)
- id 1sTOt3-0003ly-5C
- for xen-devel@lists.xenproject.org; Mon, 15 Jul 2024 16:49:17 +0000
+ id 1sTOt5-0003ll-BU
+ for xen-devel@lists.xenproject.org; Mon, 15 Jul 2024 16:49:19 +0000
 Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 2c45da4f-42ca-11ef-bbfb-fd08da9f4363;
- Mon, 15 Jul 2024 18:49:16 +0200 (CEST)
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 2cfaf44d-42ca-11ef-8776-851b0ebba9a2;
+ Mon, 15 Jul 2024 18:49:17 +0200 (CEST)
 Received: from truciolo.bugseng.com (unknown [37.163.111.28])
- by support.bugseng.com (Postfix) with ESMTPSA id 2B4124EE073E;
- Mon, 15 Jul 2024 18:49:14 +0200 (CEST)
+ by support.bugseng.com (Postfix) with ESMTPSA id C7E9A4EE0745;
+ Mon, 15 Jul 2024 18:49:16 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,7 +39,7 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2c45da4f-42ca-11ef-bbfb-fd08da9f4363
+X-Inumbo-ID: 2cfaf44d-42ca-11ef-8776-851b0ebba9a2
 From: Federico Serafini <federico.serafini@bugseng.com>
 To: xen-devel@lists.xenproject.org
 Cc: consulting@bugseng.com,
@@ -48,40 +48,69 @@ Cc: consulting@bugseng.com,
 	Andrew Cooper <andrew.cooper3@citrix.com>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
 	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [XEN PATCH v4 3/9] x86/domctl: address a violation of MISRA C Rule 16.3
-Date: Mon, 15 Jul 2024 18:48:54 +0200
-Message-Id: <759ef52606d90ec0efed9fc6d87fd432a42f7cc4.1721050709.git.federico.serafini@bugseng.com>
+Subject: [XEN PATCH v4 4/9] x86/vpmu: address violations of MISRA C Rule 16.3
+Date: Mon, 15 Jul 2024 18:48:55 +0200
+Message-Id: <67c30f4ef05846f8c3b371eb5fb2de4bd42eb5f1.1721050709.git.federico.serafini@bugseng.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <cover.1721050709.git.federico.serafini@bugseng.com>
 References: <cover.1721050709.git.federico.serafini@bugseng.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add missing break statement to address a violation of
-MISRA C Rule 16.3: "An unconditional `break' statement shall terminate
-every switch-clause".
+Add missing break statements to address violations of MISRA C Rule
+16.3: "An unconditional `break' statement shall terminate every
+switch-clause".
 
 No functional change.
 
 Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
 Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
-Acked-by: Jan Beulich <jbeulich@suse.com>
 ---
- xen/arch/x86/domctl.c | 1 +
- 1 file changed, 1 insertion(+)
+ xen/arch/x86/cpu/vpmu.c       | 3 +++
+ xen/arch/x86/cpu/vpmu_intel.c | 2 ++
+ 2 files changed, 5 insertions(+)
 
-diff --git a/xen/arch/x86/domctl.c b/xen/arch/x86/domctl.c
-index 9190e11faa..68b5b46d1a 100644
---- a/xen/arch/x86/domctl.c
-+++ b/xen/arch/x86/domctl.c
-@@ -517,6 +517,7 @@ long arch_do_domctl(
+diff --git a/xen/arch/x86/cpu/vpmu.c b/xen/arch/x86/cpu/vpmu.c
+index a7bc0cd1fc..b2ba999412 100644
+--- a/xen/arch/x86/cpu/vpmu.c
++++ b/xen/arch/x86/cpu/vpmu.c
+@@ -663,6 +663,8 @@ long do_xenpmu_op(
  
+         if ( pmu_params.version.maj != XENPMU_VER_MAJ )
+             return -EINVAL;
++
++        break;
+     }
+ 
+     switch ( op )
+@@ -776,6 +778,7 @@ long do_xenpmu_op(
+ 
+     default:
+         ret = -EINVAL;
++        break;
+     }
+ 
+     return ret;
+diff --git a/xen/arch/x86/cpu/vpmu_intel.c b/xen/arch/x86/cpu/vpmu_intel.c
+index cd414165df..26dd3a9358 100644
+--- a/xen/arch/x86/cpu/vpmu_intel.c
++++ b/xen/arch/x86/cpu/vpmu_intel.c
+@@ -666,6 +666,7 @@ static int cf_check core2_vpmu_do_wrmsr(unsigned int msr, uint64_t msr_content)
+ 
+             xen_pmu_cntr_pair[tmp].control = msr_content;
+         }
++        break;
+     }
+ 
+     if ( type != MSR_TYPE_GLOBAL )
+@@ -713,6 +714,7 @@ static int cf_check core2_vpmu_do_rdmsr(unsigned int msr, uint64_t *msr_content)
+             break;
          default:
-             ret = -ENOSYS;
+             rdmsrl(msr, *msr_content);
 +            break;
          }
-         break;
      }
+     else if ( msr == MSR_IA32_MISC_ENABLE )
 -- 
 2.34.1
 
