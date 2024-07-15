@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A8BE29318C4
+	by mail.lfdr.de (Postfix) with ESMTPS id 994359318C3
 	for <lists+xen-devel@lfdr.de>; Mon, 15 Jul 2024 18:47:49 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.759062.1168620 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.759063.1168631 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sTOrR-0007CV-20; Mon, 15 Jul 2024 16:47:37 +0000
+	id 1sTOrS-0007Ra-F5; Mon, 15 Jul 2024 16:47:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 759062.1168620; Mon, 15 Jul 2024 16:47:37 +0000
+Received: by outflank-mailman (output) from mailman id 759063.1168631; Mon, 15 Jul 2024 16:47:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sTOrQ-00079m-UK; Mon, 15 Jul 2024 16:47:36 +0000
-Received: by outflank-mailman (input) for mailman id 759062;
+	id 1sTOrS-0007Ph-AH; Mon, 15 Jul 2024 16:47:38 +0000
+Received: by outflank-mailman (input) for mailman id 759063;
  Mon, 15 Jul 2024 16:47:36 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=f3wo=OP=bugseng.com=federico.serafini@srs-se1.protection.inumbo.net>)
- id 1sTOrP-000798-WD
+ id 1sTOrQ-000798-Kh
  for xen-devel@lists.xenproject.org; Mon, 15 Jul 2024 16:47:36 +0000
 Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id eead601a-42c9-11ef-bbfb-fd08da9f4363;
- Mon, 15 Jul 2024 18:47:33 +0200 (CEST)
+ id ef64baa8-42c9-11ef-bbfb-fd08da9f4363;
+ Mon, 15 Jul 2024 18:47:34 +0200 (CEST)
 Received: from truciolo.bugseng.com (unknown [37.163.111.28])
- by support.bugseng.com (Postfix) with ESMTPSA id 9E7074EE073E;
- Mon, 15 Jul 2024 18:47:31 +0200 (CEST)
+ by support.bugseng.com (Postfix) with ESMTPSA id 494CF4EE073F;
+ Mon, 15 Jul 2024 18:47:33 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,46 +39,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: eead601a-42c9-11ef-bbfb-fd08da9f4363
+X-Inumbo-ID: ef64baa8-42c9-11ef-bbfb-fd08da9f4363
 From: Federico Serafini <federico.serafini@bugseng.com>
 To: xen-devel@lists.xenproject.org
 Cc: consulting@bugseng.com,
 	Federico Serafini <federico.serafini@bugseng.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [XEN PATCH v4 1/9] automation/eclair: fix deviation of MISRA C Rule 16.3
-Date: Mon, 15 Jul 2024 18:47:14 +0200
-Message-Id: <490e1a84b1b4b8d983dc41af147191f79506cdbd.1721050709.git.federico.serafini@bugseng.com>
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Jan Beulich <jbeulich@suse.com>
+Subject: [XEN PATCH v4 2/9] x86/cpuid: use fallthrough pseudo keyword
+Date: Mon, 15 Jul 2024 18:47:15 +0200
+Message-Id: <a7c697fc2cac00a2598a8b904adb9dfc3e0d40f3.1721050709.git.federico.serafini@bugseng.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <cover.1721050709.git.federico.serafini@bugseng.com>
 References: <cover.1721050709.git.federico.serafini@bugseng.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Escape the final dot of the comment and extend the search of a
-fallthrough comment up to 2 lines after the last statement.
+The current comment making explicit the fallthrough intention does
+not follow the agreed syntax: replace it with the pseduo keyword.
 
-Fixes: Fixes: a128d8da91 ("automation/eclair: add deviations for MISRA C:2012 Rule 16.3")
-Reported-by: Jan Beulich <jbeulich@suse.com>
+No functional change.
+
 Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
-Acked-by: Stefano Stabellini <sstabellini@kernel.org>
+Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+Acked-by: Jan Beulich <jbeulich@suse.com>
 ---
- automation/eclair_analysis/ECLAIR/deviations.ecl | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ xen/arch/x86/cpuid.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-diff --git a/automation/eclair_analysis/ECLAIR/deviations.ecl b/automation/eclair_analysis/ECLAIR/deviations.ecl
-index 0d94635275..e95554acae 100644
---- a/automation/eclair_analysis/ECLAIR/deviations.ecl
-+++ b/automation/eclair_analysis/ECLAIR/deviations.ecl
-@@ -499,7 +499,7 @@ safe."
- -doc_end
+diff --git a/xen/arch/x86/cpuid.c b/xen/arch/x86/cpuid.c
+index a822e80c7e..2a777436ee 100644
+--- a/xen/arch/x86/cpuid.c
++++ b/xen/arch/x86/cpuid.c
+@@ -97,9 +97,8 @@ void guest_cpuid(const struct vcpu *v, uint32_t leaf,
+         if ( is_viridian_domain(d) )
+             return cpuid_viridian_leaves(v, leaf, subleaf, res);
  
- -doc_begin="Switch clauses ending with an explicit comment indicating the fallthrough intention are safe."
---config=MC3R1.R16.3,reports+={safe, "any_area(end_loc(any_exp(text(^(?s).*/\\* [fF]all ?through.? \\*/.*$,0..1))))"}
-+-config=MC3R1.R16.3,reports+={safe, "any_area(end_loc(any_exp(text(^(?s).*/\\* [fF]all ?through\\.? \\*/.*$,0..2))))"}
- -doc_end
- 
- -doc_begin="Switch statements having a controlling expression of enum type deliberately do not have a default case: gcc -Wall enables -Wswitch which warns (and breaks the build as we use -Werror) if one of the enum labels is missing from the switch."
++        fallthrough;
+         /*
+-         * Fallthrough.
+-         *
+          * Intel reserve up until 0x4fffffff for hypervisor use.  AMD reserve
+          * only until 0x400000ff, but we already use double that.
+          */
 -- 
 2.34.1
 
