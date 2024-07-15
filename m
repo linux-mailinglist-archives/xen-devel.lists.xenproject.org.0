@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A29E5930FEB
-	for <lists+xen-devel@lfdr.de>; Mon, 15 Jul 2024 10:37:42 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.758735.1168186 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A2D0F931018
+	for <lists+xen-devel@lfdr.de>; Mon, 15 Jul 2024 10:40:43 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.758741.1168197 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sTHCp-000874-T8; Mon, 15 Jul 2024 08:37:11 +0000
+	id 1sTHFu-0001SW-FI; Mon, 15 Jul 2024 08:40:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 758735.1168186; Mon, 15 Jul 2024 08:37:11 +0000
+Received: by outflank-mailman (output) from mailman id 758741.1168197; Mon, 15 Jul 2024 08:40:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sTHCp-00084p-QO; Mon, 15 Jul 2024 08:37:11 +0000
-Received: by outflank-mailman (input) for mailman id 758735;
- Mon, 15 Jul 2024 08:37:10 +0000
+	id 1sTHFu-0001Pl-CT; Mon, 15 Jul 2024 08:40:22 +0000
+Received: by outflank-mailman (input) for mailman id 758741;
+ Mon, 15 Jul 2024 08:40:20 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=FSyp=OP=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sTHCo-00084j-Rs
- for xen-devel@lists.xenproject.org; Mon, 15 Jul 2024 08:37:10 +0000
-Received: from mail-lj1-x22a.google.com (mail-lj1-x22a.google.com
- [2a00:1450:4864:20::22a])
+ id 1sTHFs-0001Pf-CV
+ for xen-devel@lists.xenproject.org; Mon, 15 Jul 2024 08:40:20 +0000
+Received: from mail-lj1-x231.google.com (mail-lj1-x231.google.com
+ [2a00:1450:4864:20::231])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 6cf671e5-4285-11ef-bbfb-fd08da9f4363;
- Mon, 15 Jul 2024 10:37:10 +0200 (CEST)
-Received: by mail-lj1-x22a.google.com with SMTP id
- 38308e7fff4ca-2eea8ea8bb0so73026921fa.1
- for <xen-devel@lists.xenproject.org>; Mon, 15 Jul 2024 01:37:10 -0700 (PDT)
+ id de147de5-4285-11ef-bbfb-fd08da9f4363;
+ Mon, 15 Jul 2024 10:40:19 +0200 (CEST)
+Received: by mail-lj1-x231.google.com with SMTP id
+ 38308e7fff4ca-2eec7e431d9so50751631fa.2
+ for <xen-devel@lists.xenproject.org>; Mon, 15 Jul 2024 01:40:19 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-1fc0bc516c3sm35338505ad.286.2024.07.15.01.37.01
+ d9443c01a7336-1fc0bc274f8sm35580575ad.171.2024.07.15.01.40.12
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 15 Jul 2024 01:37:06 -0700 (PDT)
+ Mon, 15 Jul 2024 01:40:17 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,55 +45,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6cf671e5-4285-11ef-bbfb-fd08da9f4363
+X-Inumbo-ID: de147de5-4285-11ef-bbfb-fd08da9f4363
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1721032629; x=1721637429; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1721032819; x=1721637619; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=1C7evJHk+L/WlisahsOiTlHIUSZyQgJDiA5zgmTs108=;
-        b=MxAFNEz8zIvK7Uf4oTDKY448QngOXlcBmVahGAxqnLialkW13IoHuxO0iHqIz0sQCS
-         tD4e9phntc3wOn/I75bp2ltHh4o7S6XoI9lflQAVsav/8GLX3xriQJCJoB8pWWco5C6l
-         za1qGAbtW46oQhNntGn4wIOfikthvGA/FndP9ekCbG/vj1t8B1WNCAkKxuPZw7nEd6hY
-         XP0Z1fZ7/T0RqNVTIRQh81bQU3wFBR0rdQ5hfrC0fBcrrUFv3D1iiImGbhkJJErEW2CB
-         TdqdOkEOHK1FPQEc8/nyAhhqhV9d+TgjvaLWgT1CW96suG/ImfP9tMRwtBSfp/cBPSQH
-         avIg==
+        bh=kFEtVMNZ/oVx6FNuevfVHmDDH6vhf1JvsPGPChekxGM=;
+        b=Ag7Hx0DBl/MYszOzcMpD7sQmENdgckVnZRKNrub/HT+7XZYb2Yi8uzDVYdDBPCNmuU
+         XJetxCd3smkI7vLt2eYW0XTzioMk9B1V4UfwcGveMAWUqhCFd+Q/Ym80fFCwra6lTO15
+         uEH7Yf5GuuXnUUhC4mmQJbv4zl99g7T8V08kHV2c/dLlLl7+haJobJaiajaaPHLXIT8B
+         vzftAVP3XP+SdzqToBKfMg3NxmmC4zEb9133YxUuCAosCbfoYjjmbDljv0VDUppBmQiO
+         qWM+cufXZ9hWcY8jTHm+LFUZ3jQMYsusPH9kEnYY2GxumK3az4XtBiiqJGZMPI3qF/Po
+         rjNQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1721032629; x=1721637429;
+        d=1e100.net; s=20230601; t=1721032819; x=1721637619;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=1C7evJHk+L/WlisahsOiTlHIUSZyQgJDiA5zgmTs108=;
-        b=GOXUw+9a8a1NX0iussVlHBbEc75BnNN75R+c/FV+Wx2Jqojn7LEdAC4/fWBEwvmiwO
-         EAjUP9ckYM+/jzPF4A6oOXrcx20bZx4Z9dCqWdpG2SbdoeFii/x4lx+ssjp/rOMf3OW3
-         /3GTFV35lB0Y1ikl0cZxz6T2HUvWrrnD/85+TB4U+jAIQuXmBbrJ0uk/zLpmJ9GSCV2K
-         oqWswIWtTkWo3+oZ/PgqfTgMzwP11Ibtdypi2P/OegJpQ8du6w2AMbzVmfwhe2qabfRg
-         Mw6EW3jcRJDVVOsIzhqsJ0t8X3s5/Qf+BuV5ed2g7nyrB5Lj3wEwrH+54lQqC9B+xrjZ
-         14tg==
-X-Forwarded-Encrypted: i=1; AJvYcCWlQo9vP1u4GdD98DsGM25JZws+m3XW4A6/IhreeVPCEo1WW/PiwCz1c5Htb6olyzcqyg5wgG86pYOwK1FJPyROFagqp4Z3NzfS8MhyM7M=
-X-Gm-Message-State: AOJu0YxCaWlgF+DTWhrbqpKU22tXZJrUpDZCR22mJQDBPkXuHQPHq+RW
-	vI3HswyjGcmn6W6xk/u73O/VHyRTstTix9TkjxtkX5IjMx+AffR7Ex842EX0Ow==
-X-Google-Smtp-Source: AGHT+IESBr0RupiyZgx+Cg0opf413Kv3Gsdpc7qjfp/YMA7b3rPLyb06fT/ayvZ+84ltDdGhQJ4g8Q==
-X-Received: by 2002:a05:651c:a09:b0:2ec:4d8a:785a with SMTP id 38308e7fff4ca-2eeb30ba739mr186443751fa.4.1721032627271;
-        Mon, 15 Jul 2024 01:37:07 -0700 (PDT)
-Message-ID: <4876111b-8782-4b54-ad04-0a970cc8b4e7@suse.com>
-Date: Mon, 15 Jul 2024 10:36:57 +0200
+        bh=kFEtVMNZ/oVx6FNuevfVHmDDH6vhf1JvsPGPChekxGM=;
+        b=cDGxbExbAAmRAteOhzgPWOJqiRuRPRCCnMOBoF3PGA+PtFvczKGTZviZ/3WDX7N6Yz
+         mVkE8RldrmAydax1xAg7OZAsUHi26sHjoWwXjdcHTqbIQ9z7g+vkruJ4s724V0W6y6nt
+         TaU+PlzY7iBG7dpGRLumnOCLjJreqddX1CL9LA1E0BhA3Gcp7nEavbXJezDcMdMnl3Y6
+         DGvwWo/5uBCPX/o0uLWDJO+Qht4ZiMIXxPCSx0TWHmjWuu/W3Tp8zkk9rWkYTLHDZUyO
+         vq6tonheGaoSMoHn3PM97/b1BZAD1QplhTFeQyBaO+j9Dh4YFOn+X6S6Dq2xx68bdjp8
+         FIYA==
+X-Forwarded-Encrypted: i=1; AJvYcCVeuIxciSVzaP74syubH1mf7gNKcaJwmi5bH75xD84973D+kw1Xvg7B9ZEvFNzd5invL7u96Lb9acPWq9/BrShSNr312S/GqdFe7hsJqO8=
+X-Gm-Message-State: AOJu0YylwHYMHkrUPXJtmo8Yl+of++zF4rcsDpp5z5OUhNkiQW4zNeb/
+	BNiPKSQQgrPxxqeSseLbO9Cb23WDxsT0A9f+khxw6sBQXxvxuoWX0cQ1hk923w==
+X-Google-Smtp-Source: AGHT+IEmu2e/dTmOi0vYyC3rQ+FmcV5aCEgBhXENF9viRTBXtczU7BiwRNJM6Twb5jRjW8Eu1c/BjA==
+X-Received: by 2002:a2e:b178:0:b0:2ee:44f7:cc74 with SMTP id 38308e7fff4ca-2eeb30b9a36mr120980421fa.6.1721032818214;
+        Mon, 15 Jul 2024 01:40:18 -0700 (PDT)
+Message-ID: <17bdf7bf-6e13-4f58-93c6-5412276e2798@suse.com>
+Date: Mon, 15 Jul 2024 10:40:09 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 1/8] xen/device-tree: Move Arm's setup.c bootinfo
- functions to common
+Subject: Re: [PATCH v2 3/8] xen/riscv: enable CONFIG_HAS_DEVICE_TREE
 To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: Shawn Anastasio <sanastasio@raptorengineering.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
  xen-devel@lists.xenproject.org
 References: <cover.1720799925.git.oleksii.kurochko@gmail.com>
- <cb2348393294b8910d794d9d11fff28ff0e6996b.1720799926.git.oleksii.kurochko@gmail.com>
+ <5229417cbee0aace3b9dccdac8c0157b4facf948.1720799926.git.oleksii.kurochko@gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -119,30 +115,30 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <cb2348393294b8910d794d9d11fff28ff0e6996b.1720799926.git.oleksii.kurochko@gmail.com>
+In-Reply-To: <5229417cbee0aace3b9dccdac8c0157b4facf948.1720799926.git.oleksii.kurochko@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 12.07.2024 18:22, Oleksii Kurochko wrote:> --- a/xen/common/Makefile
-> +++ b/xen/common/Makefile
-> @@ -77,6 +77,7 @@ obj-$(CONFIG_UBSAN) += ubsan/
->  
->  obj-$(CONFIG_NEEDS_LIBELF) += libelf/
->  obj-$(CONFIG_HAS_DEVICE_TREE) += libfdt/
-> +obj-$(CONFIG_HAS_DEVICE_TREE) += device-tree/
->  
->  CONF_FILE := $(if $(patsubst /%,,$(KCONFIG_CONFIG)),$(objtree)/)$(KCONFIG_CONFIG)
->  $(obj)/config.gz: $(CONF_FILE)
+On 12.07.2024 18:22, Oleksii Kurochko wrote:
+> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 
-I think it would be nice for the bad placement of the two lib*/ entries
-to not lead to further bad placements. Imo your addition wants to go
-ahead of the
+Acked-by: Jan Beulich <jbeulich@suse.com>
 
-obj-$(CONFIG_HAS_DEVICE_TREE) += device_tree.o
-
-line. (Eventually I expect common/device_tree.c would then also want to
-move there, probably at the same time renaming it.)
+Albeit a little reluctantly, seeing the once again entirely missing
+description. Please can you get used to not leaving that out, unless
+the title really says _all_ that's wanted / needed?
 
 Jan
+
+> --- a/xen/arch/riscv/Kconfig
+> +++ b/xen/arch/riscv/Kconfig
+> @@ -2,6 +2,7 @@ config RISCV
+>  	def_bool y
+>  	select FUNCTION_ALIGNMENT_16B
+>  	select GENERIC_BUG_FRAME
+> +	select HAS_DEVICE_TREE
+>  
+>  config RISCV_64
+>  	def_bool y
 
 
