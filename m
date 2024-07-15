@@ -2,45 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DCC8F930DB3
-	for <lists+xen-devel@lfdr.de>; Mon, 15 Jul 2024 07:49:06 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.758656.1168067 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 36640930DDB
+	for <lists+xen-devel@lfdr.de>; Mon, 15 Jul 2024 08:17:14 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.758662.1168077 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sTEYk-00065i-HV; Mon, 15 Jul 2024 05:47:38 +0000
+	id 1sTF0q-0001YO-Nd; Mon, 15 Jul 2024 06:16:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 758656.1168067; Mon, 15 Jul 2024 05:47:38 +0000
+Received: by outflank-mailman (output) from mailman id 758662.1168077; Mon, 15 Jul 2024 06:16:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sTEYk-00063M-EQ; Mon, 15 Jul 2024 05:47:38 +0000
-Received: by outflank-mailman (input) for mailman id 758656;
- Mon, 15 Jul 2024 05:47:36 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1sTF0q-0001Wg-Jt; Mon, 15 Jul 2024 06:16:40 +0000
+Received: by outflank-mailman (input) for mailman id 758662;
+ Mon, 15 Jul 2024 06:16:39 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=nlhD=OP=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1sTEYi-00063G-Rf
- for xen-devel@lists.xenproject.org; Mon, 15 Jul 2024 05:47:36 +0000
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id bb99f81f-426d-11ef-8776-851b0ebba9a2;
- Mon, 15 Jul 2024 07:47:34 +0200 (CEST)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 52C2C21B34;
- Mon, 15 Jul 2024 05:47:33 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 1D74013686;
- Mon, 15 Jul 2024 05:47:33 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id jhETBfW3lGZjSwAAD6G6ig
- (envelope-from <jgross@suse.com>); Mon, 15 Jul 2024 05:47:33 +0000
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1sTF0p-0001WW-9Y; Mon, 15 Jul 2024 06:16:39 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1sTF0p-000684-1K; Mon, 15 Jul 2024 06:16:39 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1sTF0o-0006eS-EE; Mon, 15 Jul 2024 06:16:38 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1sTF0o-0004v4-Cr; Mon, 15 Jul 2024 06:16:38 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -52,141 +42,73 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bb99f81f-426d-11ef-8776-851b0ebba9a2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1721022453; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=J+GqE3zqQG29fe01QvbOYJpv81BAnAV5DjIOqhm9FCg=;
-	b=Gyd6ytwoPxlYStNOG4uxRoKG4Ae9aUO2b4WvlDdQ3kUafMozj8kLjj3FmpbEwah0pNLc6V
-	F8UwY/FtRwuxsDz2eGxqcDKyfyzurkCJirfrYTM0sJPhRj0BeA4AMBUumoQ/rkJiUX0v+H
-	0TKe1+JNSyA7Q9N4JDhnFVlEdZbpRaw=
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.com header.s=susede1 header.b=Gyd6ytwo
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1721022453; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=J+GqE3zqQG29fe01QvbOYJpv81BAnAV5DjIOqhm9FCg=;
-	b=Gyd6ytwoPxlYStNOG4uxRoKG4Ae9aUO2b4WvlDdQ3kUafMozj8kLjj3FmpbEwah0pNLc6V
-	F8UwY/FtRwuxsDz2eGxqcDKyfyzurkCJirfrYTM0sJPhRj0BeA4AMBUumoQ/rkJiUX0v+H
-	0TKe1+JNSyA7Q9N4JDhnFVlEdZbpRaw=
-From: Juergen Gross <jgross@suse.com>
-To: torvalds@linux-foundation.org
-Cc: linux-kernel@vger.kernel.org,
-	xen-devel@lists.xenproject.org,
-	sstabellini@kernel.org
-Subject: [GIT PULL] xen: branch for v6.11-rc1
-Date: Mon, 15 Jul 2024 07:47:32 +0200
-Message-ID: <20240715054732.7508-1-jgross@suse.com>
-X-Mailer: git-send-email 2.43.0
-MIME-Version: 1.0
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=qD7IHnElEBDxlyngSd89TuWYurWxVqjjcRgOmm8M3LI=; b=Du9y4G1N0DcPGD58Wb+ha431f6
+	xFNsEp3Y2x6jleLvjet6xEgrdVOLM9waVJJxVoW/c58+An8hca788CVGc4mn5DbZpPK7qcFD8bGn3
+	t7QPNJXGF2Wb3PizJIqQTyC/V9ItO0NgmYFJqhoV5D4ftYv3SYa0jaWBIjFrslbPaXZc=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-186801-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-X-Rspamd-Queue-Id: 52C2C21B34
-X-Spam-Flag: NO
-X-Spam-Score: 0.99
-X-Rspamd-Action: no action
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Spamd-Result: default: False [0.99 / 50.00];
-	MID_CONTAINS_FROM(1.00)[];
-	R_MISSING_CHARSET(0.50)[];
-	R_DKIM_ALLOW(-0.20)[suse.com:s=susede1];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	FUZZY_BLOCKED(0.00)[rspamd.com];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.com:dkim];
-	DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from,2a07:de40:b281:106:10:150:64:167:received];
-	DKIM_SIGNED(0.00)[suse.com:s=susede1];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_THREE(0.00)[4];
-	RCVD_TLS_ALL(0.00)[];
-	TO_DN_NONE(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_TRACE(0.00)[suse.com:+]
-X-Spam-Level: 
-X-Spamd-Bar: /
+MIME-Version: 1.0
+Subject: [ovmf test] 186801: all pass - PUSHED
+X-Osstest-Versions-This:
+    ovmf=91226e1eecacac832e5091d6a1867dc52666ee85
+X-Osstest-Versions-That:
+    ovmf=d4dbe5e101dcb86974f8dce3505b38343b83b432
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Mon, 15 Jul 2024 06:16:38 +0000
 
-Linus,
+flight 186801 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/186801/
 
-Please git pull the following tag:
+Perfect :-)
+All tests in this flight passed as required
+version targeted for testing:
+ ovmf                 91226e1eecacac832e5091d6a1867dc52666ee85
+baseline version:
+ ovmf                 d4dbe5e101dcb86974f8dce3505b38343b83b432
 
- git://git.kernel.org/pub/scm/linux/kernel/git/xen/tip.git for-linus-6.11-rc1-tag
+Last test of basis   186781  2024-07-12 16:11:08 Z    2 days
+Testing same since   186801  2024-07-15 04:13:14 Z    0 days    1 attempts
 
-xen: branch for v6.11-rc1
+------------------------------------------------------------
+People who touched revisions under test:
+  Dhaval <dhaval@rivosinc.com>
+  Dhaval Sharma <dhaval@rivosinc.com>
 
-It contains the following patches:
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
 
-- some trivial cleanups
-- a fix for the Xen timer
-- a patch for adding boot time selectable debug capability to the Xen multicall
-  handling
-- two fixes for the recently added  Xen irqfd handling
 
-Thanks.
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-Juergen
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
- Documentation/admin-guide/kernel-parameters.txt |  11 +-
- arch/arm/xen/p2m.c                              |   2 +-
- arch/x86/xen/apic.c                             |   2 -
- arch/x86/xen/debugfs.c                          |   2 +-
- arch/x86/xen/debugfs.h                          |   7 --
- arch/x86/xen/enlighten.c                        |   2 -
- arch/x86/xen/enlighten_hvm.c                    |   2 -
- arch/x86/xen/enlighten_pv.c                     |   4 -
- arch/x86/xen/mmu.c                              |   3 +-
- arch/x86/xen/mmu.h                              |  28 -----
- arch/x86/xen/mmu_hvm.c                          |   2 +-
- arch/x86/xen/mmu_pv.c                           |  15 ++-
- arch/x86/xen/multicalls.c                       | 128 ++++++++++++++++----
- arch/x86/xen/multicalls.h                       |  69 -----------
- arch/x86/xen/p2m.c                              |   6 +-
- arch/x86/xen/pmu.c                              |   1 -
- arch/x86/xen/pmu.h                              |  22 ----
- arch/x86/xen/setup.c                            |   1 -
- arch/x86/xen/smp.c                              |   1 -
- arch/x86/xen/smp.h                              |  51 --------
- arch/x86/xen/smp_hvm.c                          |   2 -
- arch/x86/xen/smp_pv.c                           |   3 -
- arch/x86/xen/spinlock.c                         |  20 +---
- arch/x86/xen/suspend.c                          |   2 -
- arch/x86/xen/time.c                             |   2 +-
- arch/x86/xen/xen-ops.h                          | 148 +++++++++++++++++++++++-
- drivers/xen/evtchn.c                            |   1 +
- drivers/xen/manage.c                            |   2 +-
- drivers/xen/privcmd-buf.c                       |   1 +
- drivers/xen/privcmd.c                           |  36 ++++--
- drivers/xen/xen-pciback/pci_stub.c              |   1 +
- include/xen/events.h                            |   2 +
- kernel/locking/qspinlock.c                      |   2 +-
- 33 files changed, 305 insertions(+), 276 deletions(-)
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
-Chen Ni (2):
-      x86/xen: Convert comma to semicolon
-      xen/arm: Convert comma to semicolon
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
-Christophe JAILLET (1):
-      xen/manage: Constify struct shutdown_handler
 
-Frediano Ziglio (1):
-      x86/xen/time: Reduce Xen timer tick
+Pushing revision :
 
-Jeff Johnson (1):
-      xen: add missing MODULE_DESCRIPTION() macros
-
-Juergen Gross (4):
-      xen: make multicall debug boot time selectable
-      x86/xen: make some functions static
-      x86/xen: eliminate some private header files
-      x86/xen: remove deprecated xen_nopvspin boot parameter
-
-Viresh Kumar (2):
-      xen: privcmd: Switch from mutex to spinlock for irqfds
-      xen: privcmd: Fix possible access to a freed kirqfd instance
+To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
+   d4dbe5e101..91226e1eec  91226e1eecacac832e5091d6a1867dc52666ee85 -> xen-tested-master
 
