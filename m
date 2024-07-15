@@ -2,35 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0D594931B81
-	for <lists+xen-devel@lfdr.de>; Mon, 15 Jul 2024 22:07:27 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.759251.1168890 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 59DC3931BC3
+	for <lists+xen-devel@lfdr.de>; Mon, 15 Jul 2024 22:25:18 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.759259.1168901 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sTRyO-0006c5-TE; Mon, 15 Jul 2024 20:07:00 +0000
+	id 1sTSFa-0000sf-Bz; Mon, 15 Jul 2024 20:24:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 759251.1168890; Mon, 15 Jul 2024 20:07:00 +0000
+Received: by outflank-mailman (output) from mailman id 759259.1168901; Mon, 15 Jul 2024 20:24:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sTRyO-0006aM-Qh; Mon, 15 Jul 2024 20:07:00 +0000
-Received: by outflank-mailman (input) for mailman id 759251;
- Mon, 15 Jul 2024 20:06:59 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1sTRyN-0006aC-Iq; Mon, 15 Jul 2024 20:06:59 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1sTRyN-0006B8-Dz; Mon, 15 Jul 2024 20:06:59 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1sTRyN-0006Um-13; Mon, 15 Jul 2024 20:06:59 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1sTRyN-0007Nr-0d; Mon, 15 Jul 2024 20:06:59 +0000
+	id 1sTSFa-0000qQ-8A; Mon, 15 Jul 2024 20:24:46 +0000
+Received: by outflank-mailman (input) for mailman id 759259;
+ Mon, 15 Jul 2024 20:24:44 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=Q8vP=OP=wanadoo.fr=christophe.jaillet@srs-se1.protection.inumbo.net>)
+ id 1sTSFY-0000qK-DZ
+ for xen-devel@lists.xenproject.org; Mon, 15 Jul 2024 20:24:44 +0000
+Received: from smtp.smtpout.orange.fr (smtp-16.smtpout.orange.fr
+ [80.12.242.16]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 44b6acb0-42e8-11ef-bbfb-fd08da9f4363;
+ Mon, 15 Jul 2024 22:24:42 +0200 (CEST)
+Received: from [192.168.1.37] ([90.11.132.44]) by smtp.orange.fr with ESMTPA
+ id TSFTskNDCj4pfTSFTsXq55; Mon, 15 Jul 2024 22:24:42 +0200
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,73 +38,61 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=yDO735SY/PbmTAhGpItVJ2fL50FAhgsBm+1nxp6uNpY=; b=rlLsm/cASOPosa2taQpPzH2gF2
-	yx6tDDnHrS9TKx4LsdOehPppUg7HO9MROVSdkBe2cUPjFOySuDB2y7lI0yhTzn4KUA6TWghl8Q2h1
-	NoR9RV8AVdmlqswYWIXED/Smr1r6GNliygiLgr/uzgFQ+f4pxO5zVv94BeIefpvnQiF8=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-186810-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 44b6acb0-42e8-11ef-bbfb-fd08da9f4363
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=wanadoo.fr;
+	s=t20230301; t=1721075082;
+	bh=he6gmmUMbwqSQvrMV8Ht1aTxpX0j3zxi5MrnSEMUtK4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:From;
+	b=Uw2tFpXR0tt0oeSW7GCyQ4KbPzTV1U03xlQVSUohBFjERXVY/VyzYpNkxkOflO47/
+	 S9OW4zOii+LNuEWk+KIFMOTK7oMVoRZQc/MIOQ36wNBLq8b/PpCi/d5zGHQONMpLhU
+	 DNHkW9VEU/k4yiF6CmGRfxDJmwtONicerc3g6o06U8EE4qBmnPBLN5uf8amKg4ejXi
+	 w1Z4reb1ppUjvcDdaLrHomrr/aCkBhevHMGpw2biRNQdUnclfa/yBbSz1KzlARjB8k
+	 w9IE7w+CKpcgx/sKHa3A5j4YORzeD9qUnqxSn2a5zOiW8pBgvG5mmb6loPtA22oKjG
+	 wJnekI47YlphA==
+X-ME-Helo: [192.168.1.37]
+X-ME-Auth: bWFyaW9uLmphaWxsZXRAd2FuYWRvby5mcg==
+X-ME-Date: Mon, 15 Jul 2024 22:24:42 +0200
+X-ME-IP: 90.11.132.44
+Message-ID: <b3fa592d-91d7-45f0-9ca2-824feb610df8@wanadoo.fr>
+Date: Mon, 15 Jul 2024 22:24:39 +0200
 MIME-Version: 1.0
-Subject: [ovmf test] 186810: all pass - PUSHED
-X-Osstest-Versions-This:
-    ovmf=8e6ba0dcae40bfd4c191b2cd47e08f38186513d1
-X-Osstest-Versions-That:
-    ovmf=5366def8d01d141163a727aeaef61318180deb98
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Mon, 15 Jul 2024 20:06:59 +0000
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] xen-netback: Use seq_putc() in xenvif_dump_hash_info()
+To: Jakub Kicinski <kuba@kernel.org>
+Cc: xen-devel@lists.xenproject.org, netdev@vger.kernel.org,
+ kernel-janitors@vger.kernel.org, "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>,
+ Paul Durrant <paul@xen.org>, Wei Liu <wei.liu@kernel.org>,
+ LKML <linux-kernel@vger.kernel.org>, Markus Elfring <Markus.Elfring@web.de>
+References: <add2bb00-4ac1-485d-839a-55670e2c7915@web.de>
+ <20240715090143.6b6303a2@kernel.org>
+Content-Language: en-US, fr-FR
+From: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+In-Reply-To: <20240715090143.6b6303a2@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-flight 186810 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/186810/
+Le 15/07/2024 à 18:01, Jakub Kicinski a écrit :
+> On Sat, 13 Jul 2024 15:18:42 +0200 Markus Elfring wrote:
+>> Single characters (line breaks) should be put into a sequence.
+>> Thus use the corresponding function “seq_putc”.
+>>
+>> This issue was transformed by using the Coccinelle software.
+> 
+> I prefer to only merge trivial changes like this if maintainer
+> indicates their support by acking them. Since the merge window
+> has opened we can't wait and see so I'm marking this patch and
+> your pktgen patch as deferred.
+> 
+> 
 
-Perfect :-)
-All tests in this flight passed as required
-version targeted for testing:
- ovmf                 8e6ba0dcae40bfd4c191b2cd47e08f38186513d1
-baseline version:
- ovmf                 5366def8d01d141163a727aeaef61318180deb98
+Hi Jakub,
 
-Last test of basis   186808  2024-07-15 13:43:04 Z    0 days
-Testing same since   186810  2024-07-15 17:12:53 Z    0 days    1 attempts
+Most of the time, this kind of modification is useless because it is 
+already done by the compiler, see [1].
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Aaron Pop <aaronpop@microsoft.com>
-  v-bhavanisu <144935558+v-bhavanisu@users.noreply.github.com>
+CJ
 
-jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
-   5366def8d0..8e6ba0dcae  8e6ba0dcae40bfd4c191b2cd47e08f38186513d1 -> xen-tested-master
+[1]: 
+https://elixir.bootlin.com/linux/v6.10-rc7/source/include/linux/seq_file.h#L123
 
