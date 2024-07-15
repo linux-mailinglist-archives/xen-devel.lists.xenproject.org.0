@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C745A930F7B
-	for <lists+xen-devel@lfdr.de>; Mon, 15 Jul 2024 10:22:47 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.758718.1168167 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 97486930FD9
+	for <lists+xen-devel@lfdr.de>; Mon, 15 Jul 2024 10:32:30 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.758729.1168176 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sTGyb-00052h-GW; Mon, 15 Jul 2024 08:22:29 +0000
+	id 1sTH7r-0007Fl-BB; Mon, 15 Jul 2024 08:32:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 758718.1168167; Mon, 15 Jul 2024 08:22:29 +0000
+Received: by outflank-mailman (output) from mailman id 758729.1168176; Mon, 15 Jul 2024 08:32:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sTGyb-00050z-DW; Mon, 15 Jul 2024 08:22:29 +0000
-Received: by outflank-mailman (input) for mailman id 758718;
- Mon, 15 Jul 2024 08:22:28 +0000
+	id 1sTH7r-0007E2-8V; Mon, 15 Jul 2024 08:32:03 +0000
+Received: by outflank-mailman (input) for mailman id 758729;
+ Mon, 15 Jul 2024 08:32:01 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=FSyp=OP=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sTGya-00050m-Kt
- for xen-devel@lists.xenproject.org; Mon, 15 Jul 2024 08:22:28 +0000
-Received: from mail-lj1-x229.google.com (mail-lj1-x229.google.com
- [2a00:1450:4864:20::229])
+ id 1sTH7p-0007Dw-Q6
+ for xen-devel@lists.xenproject.org; Mon, 15 Jul 2024 08:32:01 +0000
+Received: from mail-lj1-x231.google.com (mail-lj1-x231.google.com
+ [2a00:1450:4864:20::231])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 5ea38827-4283-11ef-bbfb-fd08da9f4363;
- Mon, 15 Jul 2024 10:22:27 +0200 (CEST)
-Received: by mail-lj1-x229.google.com with SMTP id
- 38308e7fff4ca-2eebc76119aso45047711fa.2
- for <xen-devel@lists.xenproject.org>; Mon, 15 Jul 2024 01:22:27 -0700 (PDT)
+ id b4a37693-4284-11ef-bbfb-fd08da9f4363;
+ Mon, 15 Jul 2024 10:32:00 +0200 (CEST)
+Received: by mail-lj1-x231.google.com with SMTP id
+ 38308e7fff4ca-2eede876fcbso19528371fa.2
+ for <xen-devel@lists.xenproject.org>; Mon, 15 Jul 2024 01:32:00 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-1fc0bc5c79fsm35217055ad.301.2024.07.15.01.22.20
+ d9443c01a7336-1fc0bc382dbsm35244505ad.197.2024.07.15.01.31.57
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 15 Jul 2024 01:22:23 -0700 (PDT)
+ Mon, 15 Jul 2024 01:31:59 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,48 +45,53 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5ea38827-4283-11ef-bbfb-fd08da9f4363
+X-Inumbo-ID: b4a37693-4284-11ef-bbfb-fd08da9f4363
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1721031746; x=1721636546; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1721032320; x=1721637120; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=58S0xE3QiRDkchyUaM82K/KWNSY6hXOeB1/Q0nY/GEA=;
-        b=YLRuu34Z97/4+37XU33gGSRVVpvUvtZrJRVS6wpAdKuot8EzGSijDszYCQFIfr+y7n
-         ojnGYZsUv5UXZHufcinZl2KXIOKDvLTDl6SbIZpA2m3bRWh2aaj02hiY2hjZcw7myUKw
-         T0gAKb5F6w1XIixwrSzeKxbqP+mL8nBmlqo93P0cUvMRQBwWGcPschGeZz7HWnKjE8Vu
-         UMD2Hg2T903PZ/YD6SZyQCtWYxz0l1TLv87yYWXn63RsZxZzuCatIHeYLwv3tkvBGUlf
-         9TJuxw1kn3Np2CWfYp5o0RNOVf0+awBP99ztSzeUCVhKBjUaYYkAGgNptuLiGWEZMNr/
-         amnw==
+        bh=Xn40UtTy8TdvPeqSr1c9H7imK3anLhvikuJDipCqnCM=;
+        b=LviQ2tWIDyWKxpSV8zie1v9vOZZdezqSlESx2HKK5ffumlTnShqYOJopuLDBAivfhc
+         mPTAi3baDVUSTQSaV8RaxLVXpC2DIZJUai5PXWZm1EjOvVknc945X3mtcRwY4BbophY3
+         l2EdAvpa1bL7vEFNNLEdlyAy3V5fiOPvZouS39FkMM0+gxbt1GcgEopbBrrfd1V9FYhc
+         KmmOBtqTtiFpaQS6frea7R5tNLOT0ntdptM0ClblTYg1j2quXWqi1XwRmcdv8gYphVr5
+         GwFKf0YdHPWYvPLg112huBl2SGyW2nB2iLm1qbf1T8BNvAuLgTXqryIrPvDcxnQB/Sfi
+         d8jw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1721031746; x=1721636546;
+        d=1e100.net; s=20230601; t=1721032320; x=1721637120;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=58S0xE3QiRDkchyUaM82K/KWNSY6hXOeB1/Q0nY/GEA=;
-        b=lYTCuu9G30+nP9cP/t5jFZvUrK9H/tH7DFmDu0FNr0hG46psfyxTz6Fh/iTi/VRSu9
-         VvJocARbm740Qd0pcflU1xbcznbgm31XDVGYc4B0CW0zIiWA6kOpqy15TrOgdZ2aUFmH
-         DHXvJRh9i8A5TEaemGn8Zb0/4v5SWak3rzO42OeW2tD0mkZ2tfJDWbzolg76b6B5WI2k
-         6FKGW1IU+i5LyGrc8K1paJpfM+4Be8Lhy/EXsqXrxbQ27wjjbnxcrXhDvMBwl3MkKoPX
-         0jxTsXvZSJ4GVFiuF0dozVrEJGCVzMEnsiFM+TL3qonlj8z/WoO92OJeu0XegdXfoHCH
-         yeDQ==
-X-Forwarded-Encrypted: i=1; AJvYcCXyzrXbG8HXEhkRRCNQFIWAdOqSYqyt7l5qe/T9QXojY/bAsI30v8TpLzQi8MTZDUuRfPvIbnPpJLzS+twE2eJTxRqDbmgkEIxlQTKG6us=
-X-Gm-Message-State: AOJu0YwzJugKBNiUS/gWK9LRPoQNwA0RAIeo2OzKNbRe7b3jUV7s/vK8
-	yuZFWsNAXNnIuFI9n8zAauwAZEIPdR59nh5RH51PavvL9ov7heG0xOjEVmJelA==
-X-Google-Smtp-Source: AGHT+IHHstzH/gO4c0qjDQOJ381DpcziQiVitdHE0Zba/m3tyCTNrZDkeuCPMF5TT2Pw6dZxDpjJJg==
-X-Received: by 2002:a2e:9695:0:b0:2eb:d924:43fb with SMTP id 38308e7fff4ca-2eeb31716f8mr118990911fa.41.1721031744267;
-        Mon, 15 Jul 2024 01:22:24 -0700 (PDT)
-Message-ID: <985b012b-1088-4bef-8cc7-2973c3e3296a@suse.com>
-Date: Mon, 15 Jul 2024 10:22:16 +0200
+        bh=Xn40UtTy8TdvPeqSr1c9H7imK3anLhvikuJDipCqnCM=;
+        b=a9Iok/4eSY68urVORKDPp3meEIzz1KvLHO8vyjWmRosbJnaVBU5bUuzm54tMD6XXvX
+         QxCxp5q9daco8KVS32zGX9wYixg2ql8Yn1ybPSJMDvM9JFvesq7B9wnE8jj0NPVqbU97
+         ODkNTLxjnwa7revHLPtQU8/A2jJIpKGeWu0+kJGLODgQIWAmr3bPQq6ZODA7//jf+Rpj
+         Y5Oz2aDRIxngC3uy5t+KET+VvQPntvXSHKplBFGSB6+hmyub0TRFrlywl4HR3Z6KfgG9
+         Nh3L1lLNv3paYiBMk0ULzccCL56FNb/S+S3rFgc39S+SSqt4iRgbDgfuuEd+4YUtfIlq
+         sPLA==
+X-Gm-Message-State: AOJu0Yy5HzJMy5ym2mq96cqDP11i4R2uQi6V//i5uwaQ1+0NXiUouK2W
+	QaVpFchQ592Sd7qweM4cHMzHlq6VFwOLX4NsNnCjYTyd6QzuDjHeNaEBJi31fQ==
+X-Google-Smtp-Source: AGHT+IHiHx7EnG8/hoztHPo/OQPdyc2l11AClgEv9gJf0+Bn2TcfSP7Awr2g4KhgiBMlnx70piDb8A==
+X-Received: by 2002:a2e:a78b:0:b0:2ee:6b86:b0aa with SMTP id 38308e7fff4ca-2eeb30e3693mr154897071fa.17.1721032320054;
+        Mon, 15 Jul 2024 01:32:00 -0700 (PDT)
+Message-ID: <61d717fd-62e3-434c-a326-687b649148c2@suse.com>
+Date: Mon, 15 Jul 2024 10:31:53 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] docs/misra: add rule 12.2
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: andrew.cooper3@citrix.com, julien@xen.org, michal.orzel@amd.com,
- bertrand.marquis@arm.com, roger.pau@citrix.com,
- xen-devel@lists.xenproject.org
-References: <alpine.DEB.2.22.394.2407121543250.3635@ubuntu-linux-20-04-desktop>
+Subject: Re: Help with Understanding vcpu xstate restore error during vm
+ migration
+To: Fonyuy-Asheri Caleb <fonyuy-asheri.caleb@inria.fr>
+Cc: xen-devel <xen-devel@lists.xenproject.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>
+References: <60751777.2038091.1720694327760.JavaMail.zimbra@inria.fr>
+ <94e94a94-14f2-4fa6-bc3b-6c64c1b84b59@citrix.com>
+ <1546743760.2065506.1720696161057.JavaMail.zimbra@inria.fr>
+ <8f8dac21-92fe-4760-8578-2fbfde2f2c14@citrix.com>
+ <1557490999.4048664.1721029086794.JavaMail.zimbra@inria.fr>
+ <77f1ff6e-a7dd-45c8-b706-429674b559f2@suse.com>
+ <1423184950.4133169.1721031727075.JavaMail.zimbra@inria.fr>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -112,36 +117,41 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <alpine.DEB.2.22.394.2407121543250.3635@ubuntu-linux-20-04-desktop>
+In-Reply-To: <1423184950.4133169.1721031727075.JavaMail.zimbra@inria.fr>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 13.07.2024 00:45, Stefano Stabellini wrote:
-> As discussed during the last MISRA C meeting, add Rule 12.2 to the list
-> of MISRA C rules we accept, together with an explanation that we use gcc
-> -fsanitize=undefined alone to check for violations.
+On 15.07.2024 10:22, Fonyuy-Asheri Caleb wrote:
+> ----- Original Message -----
+>> From: "Jan Beulich" <jbeulich@suse.com>
+>> To: "Fonyuy-Asheri Caleb" <fonyuy-asheri.caleb@inria.fr>
+>> Cc: "xen-devel" <xen-devel@lists.xenproject.org>, "Andrew Cooper" <andrew.cooper3@citrix.com>
+>> Sent: Monday, July 15, 2024 10:16:07 AM
+>> Subject: Re: Help with Understanding vcpu xstate restore error during vm migration
+> 
+>> On 15.07.2024 09:38, Fonyuy-Asheri Caleb wrote:
+>>>> Perhaps the more important question, are you booting the skylake with
+>>>> cpuid=no-avx on the command line by any chance?
+>>>
+>>> No. I didn't boot any of the machines with any cpuid modification whatsoever.
+>>
+>> Yet is there perhaps "Mitigating GDS by disabling AVX" in the boot log of
+>> the hypervisor (which sadly so far you didn't supply anywhere afaics)?
+> 
+> I didn't notice that. Unfortunately I no longer have access to the logs to check since I was 
+> working on resources I reserved for a limited period.
+> 
+> However, do you mind telling me what this would mean for my environment?
 
-Neither the "alone" here nor ...
-
-> --- a/docs/misra/rules.rst
-> +++ b/docs/misra/rules.rst
-> @@ -443,6 +443,14 @@ maintainers if you want to suggest a change.
->       - The macro NULL shall be the only permitted form of null pointer constant
->       -
->  
-> +   * - `Rule 12.2 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_12_02.c>`_
-> +     - Required
-> +     - The right hand operand of a shift operator shall lie in the range
-> +       zero to one less than the width in bits of the essential type of
-> +       the left hand operand
-> +     - We rely exclusively on gcc -fsanitize=undefined to check for
-> +       dangerious violations to this rule and to ensure compliance
-
-... the "exclusively" here look quite right to me. That's true for shift
-counts which aren't build-time constant. For those which are we leverage
-ordinary compiler diagnostics. Preferably with a respective adjustment:
-
-Acked-by: Jan Beulich <jbeulich@suse.com>
+Hard to tell, depending on what exactly you use that environment for. If
+I'm not mistaken (Andrew will surely correct me if I'm wrong), the best
+you can do is have such systems run with up-to-date microcode. Which of
+course requires you have control over the physical system (to update
+firmware) or at least the hypervisor (to hand it a microcode blob to load
+while booting). If you had control over only the command line, you could
+also choose to ignore the vulnerability and request AVX not to be turned
+off ("spec-ctrl=no-gds-mit"). Yet of course you wouldn't want to do this
+if you were running any not fully trusted guests.
 
 Jan
 
