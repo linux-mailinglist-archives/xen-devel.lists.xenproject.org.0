@@ -2,38 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7F6D69311F7
-	for <lists+xen-devel@lfdr.de>; Mon, 15 Jul 2024 12:08:37 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.758812.1168307 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5F9E3931217
+	for <lists+xen-devel@lfdr.de>; Mon, 15 Jul 2024 12:15:50 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.758817.1168316 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sTIcW-0004Xm-2i; Mon, 15 Jul 2024 10:07:48 +0000
+	id 1sTIjo-0006HJ-Qv; Mon, 15 Jul 2024 10:15:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 758812.1168307; Mon, 15 Jul 2024 10:07:48 +0000
+Received: by outflank-mailman (output) from mailman id 758817.1168316; Mon, 15 Jul 2024 10:15:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sTIcV-0004Vn-Vi; Mon, 15 Jul 2024 10:07:47 +0000
-Received: by outflank-mailman (input) for mailman id 758812;
- Mon, 15 Jul 2024 10:07:46 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1sTIjo-0006EF-OB; Mon, 15 Jul 2024 10:15:20 +0000
+Received: by outflank-mailman (input) for mailman id 758817;
+ Mon, 15 Jul 2024 10:15:19 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=kjrg=OP=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1sTIcU-0004Vg-E4
- for xen-devel@lists.xenproject.org; Mon, 15 Jul 2024 10:07:46 +0000
-Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
- [2a00:1450:4864:20::633])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 149ef05e-4292-11ef-bbfb-fd08da9f4363;
- Mon, 15 Jul 2024 12:07:45 +0200 (CEST)
-Received: by mail-ej1-x633.google.com with SMTP id
- a640c23a62f3a-a77cc73d35fso883233966b.0
- for <xen-devel@lists.xenproject.org>; Mon, 15 Jul 2024 03:07:45 -0700 (PDT)
-Received: from [10.125.226.166] ([185.25.67.249])
- by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-59b24a770c3sm3166007a12.20.2024.07.15.03.07.43
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 15 Jul 2024 03:07:44 -0700 (PDT)
+ <SRS0=wOo3=OP=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
+ id 1sTIjn-0006E9-K5
+ for xen-devel@lists.xenproject.org; Mon, 15 Jul 2024 10:15:19 +0000
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on20621.outbound.protection.outlook.com
+ [2a01:111:f403:200a::621])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 212bb5a4-4293-11ef-8776-851b0ebba9a2;
+ Mon, 15 Jul 2024 12:15:17 +0200 (CEST)
+Received: from BL1P222CA0018.NAMP222.PROD.OUTLOOK.COM (2603:10b6:208:2c7::23)
+ by DM6PR12MB4332.namprd12.prod.outlook.com (2603:10b6:5:21e::23) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7762.28; Mon, 15 Jul
+ 2024 10:15:13 +0000
+Received: from BN3PEPF0000B069.namprd21.prod.outlook.com
+ (2603:10b6:208:2c7:cafe::db) by BL1P222CA0018.outlook.office365.com
+ (2603:10b6:208:2c7::23) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7762.28 via Frontend
+ Transport; Mon, 15 Jul 2024 10:15:12 +0000
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ BN3PEPF0000B069.mail.protection.outlook.com (10.167.243.68) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7784.5 via Frontend Transport; Mon, 15 Jul 2024 10:15:12 +0000
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 15 Jul
+ 2024 05:15:12 -0500
+Received: from [10.252.147.188] (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
+ Transport; Mon, 15 Jul 2024 05:15:10 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,148 +59,195 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 149ef05e-4292-11ef-bbfb-fd08da9f4363
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1721038064; x=1721642864; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=pVIXYrBZNPykrKTTCOhgq/O6z5wgGsql0rTfogkg8A8=;
-        b=Ys0kNfVitqvqvB6ZIGyyAnC3FsJuNr3BilyQJDgZXbOxk1J85X/uugWoWuYPxMH3LL
-         W+P+q5nPveU/7I1OjljuhrH37u3SkypvmwQEgL9mGDBLfv2EKyp5NvxzOAQJ2862mm0w
-         ohaTNJPlc9X9NRGXcCmxf9Lx3rkElIScub6lg=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1721038064; x=1721642864;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=pVIXYrBZNPykrKTTCOhgq/O6z5wgGsql0rTfogkg8A8=;
-        b=iYRyzgpVxgBAyxXiaYlxLDXXD5EQ+y71QzCXM+nWvUV8WhVUUwBgHBfTCHzSujIGZn
-         n6twVGl0EKoKgAmv1bElviYuIJes4HTGqe0pRE8tzp2ZlacMtwwa8necH/BIopq+tCgd
-         o6q7IK0ZpSwtSQXKhgrLrK1LIYbZwVwH7RFKqW55zwbRESUR8tdtI3bAt1ydnyf6YObz
-         CimPUrwQ7f3bVq2bzBUdVIBRdKw/ehsNJrM8LSg9b3SsPNDkHjPHlfRj01h+5oRUT+Px
-         VhhoJeEPN5H7xy/3EoO0oo44EcPlAXmbfcw0xMmOcfHOapqPTT5dAw2gtuI1t9LVIVVZ
-         C/KA==
-X-Forwarded-Encrypted: i=1; AJvYcCXhdctYew82i9Hx8W9sJp6/QnBJfRQ0/Dfr1gx5unLPyopbmxMxAEenFZKauGxt6gaK0VXj3MmsJspDP7Re+cynGoKDRDKbnQ2RB/30Q9w=
-X-Gm-Message-State: AOJu0YwS10sabQzUtuBfzNmiJ1jjrJ9hLnJ+V6WuO7Ei3Ei/0EEXWC4v
-	TyeVK7orxXbrDRuEpzcjcUN4AUhgyDZxSeWXkTUZa5IDbe1MIsxC39ifO/4Si6RZF3JlrX9yExe
-	I
-X-Google-Smtp-Source: AGHT+IHXbrjH5xLOZsdcIcyF29uaIhil1r3utWfjHcA3y/E4zfn7GMMv01w8VoRsfZfaupXk0bzCtQ==
-X-Received: by 2002:a17:907:7e8b:b0:a6f:a2aa:a4c7 with SMTP id a640c23a62f3a-a799cc26313mr861354566b.3.1721038064558;
-        Mon, 15 Jul 2024 03:07:44 -0700 (PDT)
-Message-ID: <4cf46d24-2e21-4909-b1f4-fd6757801101@citrix.com>
-Date: Mon, 15 Jul 2024 11:07:42 +0100
+X-Inumbo-ID: 212bb5a4-4293-11ef-8776-851b0ebba9a2
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=BfhICrSY34LDbxvFvCF4U/6zt7nmz9yBM4klTgd9fU60j4bpvG+GzHllpLTTjz3Rcb9dJtZ6T6JHMO0nJSBuS2GGT4pPXNO8OMtzDhkgwU7bvFXmmEG0axfMu2Lh8cz7AoLb48uFrENYhnS2p6/Yv+yb0j7uAgHcKmKpgtrQ4DEaP8lfVeAOrSkVrDggoaZoN9AUbObEdvHbpkzEeV9aNcsOLJtXsWdULv30VUB0Kl+CU17WgtzVnIEbamcBgAYfGpNryRsCQzBR0cP01+NHH7QcoeeOODzJEzrwkESyaWlGrKc9JIGqIzqGuuQDseWT8kOa7EwSsxeajeMAdwVSeg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=yg3+d9VsWm1DnUTslS/oveDOZBCjtkbsH3/s9DogokQ=;
+ b=neko306aGUcTolGQoFMkphDDeVSHfLXCrv5dYNg4WnENTEoeZC9IyECn1cV9Yu3U7ciDzV7iGSXh+V3KkjWU9F4lMM2vpJgbe2a1MlWxCx6uEUZF4hzJioXx43OmizKrSxh1aXrX23aCkWOJzm0cKDLOuyh2KrzgESMBOMn7FBffHuh+JPQZQxDpRdMTbuCdqq2WV4BXm6ZHGl4pHNmY5W6C7hXnWH3fLbTNlEr+CwySPufLnLIY+GMMiQW+tjbt4CvQkkVBCrHNipV4pIl8LC8Iwbus255nKYCKfxE+EblJs5PzEBRVWLTP2kCylcHlwFuN0SwdaBLRHhyfbwfzSA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=gmail.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=yg3+d9VsWm1DnUTslS/oveDOZBCjtkbsH3/s9DogokQ=;
+ b=tFXQN9+3BmMJMONZzIbsAtxvlAOfVcZnCHICUD7YCk98ljPzo7CrEs20Yecp6df2z3KGlRwIRx9mhlIjBsOnwd37LtIk/SkavrOwYcmJ1aDDiSWyDL7eCKI5jLj9Vs1jZ3sPIObA3xHSIJWvAxlK7wTKb8Ff1wpmM3z8JEGaHgk=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Message-ID: <98144517-5abe-4a82-81b4-6a459826fb2f@amd.com>
+Date: Mon, 15 Jul 2024 12:15:10 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: systemd units are not installed in 4.19.0-rc2 anymore
-To: Jan Beulich <jbeulich@suse.com>
-Cc: =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>, xen-devel
- <xen-devel@lists.xenproject.org>, Anthony PERARD
- <anthony.perard@vates.tech>, Oleksii Kurochko <oleksii.kurochko@gmail.com>
-References: <ZpHqR4e3VaFAXC3m@mail-itl>
- <94d0ef92-9fb8-4097-a633-59f1190434c4@citrix.com>
- <1057f937-da16-415f-a760-ac4f00bc29f3@suse.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <1057f937-da16-415f-a760-ac4f00bc29f3@suse.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH v6 1/8] xen/device-tree: Move Arm's setup.c bootinfo
+ functions to common
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+	<xen-devel@lists.xenproject.org>
+CC: Shawn Anastasio <sanastasio@raptorengineering.com>, Andrew Cooper
+	<andrew.cooper3@citrix.com>, Jan Beulich <jbeulich@suse.com>, Julien Grall
+	<julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, Bertrand
+ Marquis <bertrand.marquis@arm.com>, Volodymyr Babchuk
+	<Volodymyr_Babchuk@epam.com>, "Daniel P. Smith"
+	<dpsmith@apertussolutions.com>
+References: <cover.1720799925.git.oleksii.kurochko@gmail.com>
+ <cb2348393294b8910d794d9d11fff28ff0e6996b.1720799926.git.oleksii.kurochko@gmail.com>
+Content-Language: en-US
+From: Michal Orzel <michal.orzel@amd.com>
+In-Reply-To: <cb2348393294b8910d794d9d11fff28ff0e6996b.1720799926.git.oleksii.kurochko@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+Received-SPF: None (SATLEXMB03.amd.com: michal.orzel@amd.com does not
+ designate permitted sender hosts)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN3PEPF0000B069:EE_|DM6PR12MB4332:EE_
+X-MS-Office365-Filtering-Correlation-Id: d0c5838c-245f-413c-4568-08dca4b703bc
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|376014|82310400026|1800799024|36860700013;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?SWVMMmovcWZvSzlRRS96clFkUFZnZ0pJdWRHZ2luaHFwK2NBNmxnNUttR2tH?=
+ =?utf-8?B?NGZwLzcvdVZTU1NySUhUWVFIZ2RrNUxpc1RDemZWMFBlN2ZKWktsd1RBSUR1?=
+ =?utf-8?B?QUZVQVdFMjh0WFM2dVZycWloejRRd3FCTGp2dHF4REVBYTk1cUZMbnFJRUt0?=
+ =?utf-8?B?VW9jZksxS1AxTFBRTjMyUFl5Zk16R2gzMFp3V2pQcVJUaVZDbUlCcm9BL1VT?=
+ =?utf-8?B?SEFhb2ZodzdVTnMvRzVKWTBXeWVJMWJhR0lGWVUxN3RyMTNPcit6Wjh4WFRD?=
+ =?utf-8?B?aEsyUkttNDJrYURLZEJnNzQ0WEwzdWZEaC94OUhucW5qbGJ1bWVUL0V5R2t3?=
+ =?utf-8?B?SDRnalBwSHZBWnlCN0k3bnJnaFE5bktRbHMvQU9HNVNBbkxnRW0vMG9Zb3Ex?=
+ =?utf-8?B?R1JmZERPUVNUd1M5bjk5YWw2cmI4Wk90TkhaNldKMEZ5OXJMaGNpRHJ6Qkw5?=
+ =?utf-8?B?UGYzTlRMVDVOMnpXR0ZQc3h2UGhXVjFnTHFHWHlHTXNVaTkzVmRjS09vMzlo?=
+ =?utf-8?B?a25udVhpemhoa1NEQVhiY3NmMjVrdXhOM1JxbnNSU3drOTc5REhvRjNxT1VV?=
+ =?utf-8?B?MVRmaFY2RTJVUEU5MngyRFZwcU1zZDdUV3pXSnlpRzhNaS9yMStmR0VNZXNs?=
+ =?utf-8?B?V0FlVnhEc2hBeitvS1YyYi9ZNUd2YnJwVHg4S3JDeGM4WUJxeDFKQkNITklr?=
+ =?utf-8?B?SVJLZXM2STNXVkZNYklzMkEwNndFVE1RalltMmJYeUpsZ1lHSHpaK0oyNlVD?=
+ =?utf-8?B?SjNjeHlaTFpBRDRsTzcxRnJDdHV1eElkWVFyS2EyaXJlb3JEZW5mSGIyVDJh?=
+ =?utf-8?B?c0lIajlRSmc3cWNydkdwSEx5VnlhRXczeXNrQUE1ZWlXckVzTENxVmJLQnEr?=
+ =?utf-8?B?S0NWVDVhcnhqcUZaT04ramFuT3pXbEdjY3JXNi9tY0pTUlU3NFJOdWxtWWlV?=
+ =?utf-8?B?alRPaUpya25pcHhYOElHSEpvQnF2MlZBTHZtOE1hS0lWMGcvdDNXVytTT3VH?=
+ =?utf-8?B?TS8xdG85Ly9aWHRybkRVTkpSLzZMcHdDaFNQZk1wTWRwUWJvRHA1NlBobU5Z?=
+ =?utf-8?B?ZjVua2t2aDh2NE5LNk5CSUw2QzZQUW12K2tqanFJbWNlamR6SXg2ZnAzRVl2?=
+ =?utf-8?B?SkhhbVdWQ2hYREdaaU5wTll5VUdHSzBTam45UDJ5bEI5KzZoN080VGM3SUNW?=
+ =?utf-8?B?MlMzcjN2dGtEVS90M2dPa1cvNkRWa2RVSmJZUllLT2xUb2JWVHZNMzlYYkpR?=
+ =?utf-8?B?NVlNY1pVcXRpU0xWVUN1Z2dLY0l0Z2VhUkR4Z3ZwNWFSbUNDMVNoRW90R21i?=
+ =?utf-8?B?ajc2V0dRSDY2ZXFtZXl3cUg2UUFzYnBQemdxUDYwYmcrNjVBNDYvcVY0VmY3?=
+ =?utf-8?B?bklBS3pJYWpmSUQvMGtvL1RpNlZtZi9NcnRmdUFFaEkyTEJrdWdxbzUxdzB5?=
+ =?utf-8?B?T21rSEVBLzJhdTVQVGYxTjBSVEdyV1BsMTRrdnl1SUFsbUJQR0N5cEVlWjlZ?=
+ =?utf-8?B?NzJxeG5QSTdPcnFibGtyeU91aEZEcGFwVTdUZ0Fndk5QaGJTTXRXU0hUQ1JL?=
+ =?utf-8?B?aUdEcjUvYjJEME1hdVUrcFdwVUVma2xsaFE3NjdCZEx3aW01UEM5c0I1MkNv?=
+ =?utf-8?B?Wmw4QVJkbC9SdnBzYm9hSjFkMExrSE1PZTJrbEdoVlNuY1JzMFZMS2tzTEZh?=
+ =?utf-8?B?ZnVBV1kxNzF0YVlVdGQyVHlXdmJ5N2VVdDhLRUJUaGxobmxSVU1OQmVnTkZE?=
+ =?utf-8?B?UW9mM0tuaWRlU29ESkdVVysyYnRtOEp2RE94Zkl3dDFIL3ZNbFdwRFlkcmJ1?=
+ =?utf-8?B?UTZEeU9ETXJHNEdlZHJGN2RaL2NBQ0c0Tys1aGMvWkk5QWdHbUx0dUwySXBv?=
+ =?utf-8?B?ay95WG5hT2JCMSswdlF4N05ZSFpTTG5kMGtJa2kxbnYwV2ZTdXZMS0RHamxl?=
+ =?utf-8?Q?4J0yN7oIGc09GIsMWpPYRNAE4cUp8NlV?=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(7416014)(376014)(82310400026)(1800799024)(36860700013);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jul 2024 10:15:12.7627
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: d0c5838c-245f-413c-4568-08dca4b703bc
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN3PEPF0000B069.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4332
 
-On 15/07/2024 9:11 am, Jan Beulich wrote:
-> On 13.07.2024 15:02, Andrew Cooper wrote:
->> On 13/07/2024 3:45 am, Marek Marczykowski-Górecki wrote:
->>> Hi,
->>>
->>> Something has changed between -rc1 and -rc2 that systemd units are not
->>> installed anymore by default.
->>>
->>> Reproducer: 
->>>
->>>     ./configure --prefix=/usr
->>>     make dist-tools
->>>     ls dist/install/usr/lib/systemd/system
->>>
->>> It does work, if I pass --enable-systemd to ./configure.
->>>
->>> My guess is the actual change is earlier, specifically 6ef4fa1e7fe7
->>> "tools: (Actually) drop libsystemd as a dependency", but configure was
->>> regenerated only later. But TBH, I don't fully understand interaction
->>> between those m4 macros...
->> Between -rc1 and -rc2 was 7cc95f41669d
->>
->> That regenerated the existing configure scripts with Autoconf 2.71, vs
->> 2.69 previously.
->>
->> Glancing through again, I can't spot anything that looks relevant.
->>
->>
->> 6ef4fa1e7fe7 for systemd itself was regenerated, and I had to go out of
->> my way to get autoconf 2.69 to do it.
-> Yet was it correct for that commit to wholesale drop
-> AX_CHECK_SYSTEMD_ENABLE_AVAILABLE? That's, afaics, the only place where
-> $systemd would have been set to y in the absence of --enable-systemd.
+Hi Oleksii,
 
-Hmm.
+In general, the patch looks ok (apart from Jan comments). Just a couple of remarks.
 
-Yes it was right to drop that, because the whole purpose of the change
-was to break the dependency with systemd.
+On 12/07/2024 18:22, Oleksii Kurochko wrote:
+> 
+> 
+> From: Shawn Anastasio <sanastasio@raptorengineering.com>
+> 
+> Arm's setup.c contains a collection of functions for parsing memory map
+> and other boot information from a device tree. Since these routines are
+> generally useful on any architecture that supports device tree booting,
+> move them into xen/common/device-tree.
+> 
+> Suggested-by: Julien Grall <julien@xen.org>
+> Signed-off-by: Shawn Anastasio <sanastasio@raptorengineering.com>
+> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+> ---
+> Changes in V6:
+>  - update the version of the patch to v6, to show that it is based
+>    on the work done by Shawn in the patch v4.
+> ---
+> Changes in V5:
+>  - add xen/include/xen/bootfdt.h to MAINTAINERS file.
+>  - drop message "Early device tree parsing and".
+>  - After rebase on top of the current staging the following changes were done:
+>    - init bootinfo variable in <common/device-tree/bootinfo.c> with BOOTINFO_INIT;
+>    - update the code of dt_unreserved_regions():
+>        CONFIG_STATIC_SHM related changes and getting of reserved_mem
+>        bootinfo_get_shmem() ??
+>    - update the code of meminfo_overlap_check():
+>        add check ( INVALID_PADDR == bank_start ) to if case.
+>    - update the code of check_reserved_regions_overlap():
+>        CONFIG_STATIC_SHM related changes.
+>    - struct bootinfo was updated ( CONFIG_STATIC_SHM changes )
+>    - add shared_meminfo ( because of CONFIG_STATIC_SHM )
+>    - struct struct membanks was update with __struct group so <xen/kernel> is
+>      neeeded to be included in bootfdt.h
+>    - move BOOTINFO_ACPI_INIT, BOOTINFO_SHMEM_INIT, BOOTINFO_INIT to generic bootfdt.h
+>    - bootinfo_get_reserved_mem(), bootinfo_get_mem(), bootinfo_get_acpi(),
+>      bootinfo_get_shmem() and bootinfo_get_shmem_extra() were moved to xen/bootfdt.h
+>  - s/arm32/CONFIG_SEPARATE_XENHEAP/
+>  - add inclusion of <xen/macros.h> because there are function in <xen/bootfdt.h> which
+>    are using container_of().
+>  ---
+> Changes in v4:
+>   - create new xen/include/bootinfo.h rather than relying on arch's
+>     asm/setup.h to provide required definitions for bootinfo.c
+>   - build bootinfo.c as .init.o
+>   - clean up and sort bootinfo.c's #includes
+>   - use CONFIG_SEPARATE_XENHEAP rather than CONFIG_ARM_32 to guard
+>     xenheap-specific behavior of populate_boot_allocator
+>   - (MAINTAINERS) include all of common/device-tree rather than just
+>     bootinfo.c
+> ---
+>  MAINTAINERS                       |   2 +
+>  xen/arch/arm/include/asm/setup.h  | 187 +-----------
+>  xen/arch/arm/setup.c              | 432 ----------------------------
+>  xen/common/Makefile               |   1 +
+>  xen/common/device-tree/Makefile   |   1 +
+>  xen/common/device-tree/bootinfo.c | 459 ++++++++++++++++++++++++++++++
+>  xen/include/xen/bootfdt.h         | 196 +++++++++++++
+>  7 files changed, 660 insertions(+), 618 deletions(-)
+>  create mode 100644 xen/common/device-tree/Makefile
+>  create mode 100644 xen/common/device-tree/bootinfo.c
+>  create mode 100644 xen/include/xen/bootfdt.h
+> 
 
-Thereafter, looking for systemd in the build environment is a bogus
-heuristic, and certainly one which would go wrong in XenServer's build
-system where the Mock chroot strictly has only the declared dependencies.
+[...]
 
-I see two options.
+> diff --git a/xen/include/xen/bootfdt.h b/xen/include/xen/bootfdt.h
+> new file mode 100644
+> index 0000000000..7cd45b3d4b
+> --- /dev/null
+> +++ b/xen/include/xen/bootfdt.h
+> @@ -0,0 +1,196 @@
+> +#ifndef __XEN_BOOTFDT_H__
+AFAIR, to avoid violating MISRA rule 21.1, we should avoid introducing new macros with double underscore.
 
-1) Activate Systemd by default on Linux now (as it's basically free), or
-2) Update CHANGELOG to note this behaviour
+> +#define __XEN_BOOTFDT_H__
+> +
+> +#include <xen/types.h>
+> +#include <xen/kernel.h>
+> +#include <xen/macros.h>
+> +
+> +#define MIN_FDT_ALIGN 8
+> +#define MAX_FDT_SIZE SZ_2M
+2M blob limit is Arm64 specific. What will be the limit on RISCV? Shouldn't it be moved to some arch specific file?
 
-Personally I think 2 is the better option, because we don't special case
-the other init systems.
-
-~Andrew
+~Michal
 
