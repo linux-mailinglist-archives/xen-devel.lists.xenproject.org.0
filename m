@@ -2,38 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A2D0F931018
-	for <lists+xen-devel@lfdr.de>; Mon, 15 Jul 2024 10:40:43 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.758741.1168197 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A208893107E
+	for <lists+xen-devel@lfdr.de>; Mon, 15 Jul 2024 10:49:37 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.758747.1168207 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sTHFu-0001SW-FI; Mon, 15 Jul 2024 08:40:22 +0000
+	id 1sTHOB-0002g3-9H; Mon, 15 Jul 2024 08:48:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 758741.1168197; Mon, 15 Jul 2024 08:40:22 +0000
+Received: by outflank-mailman (output) from mailman id 758747.1168207; Mon, 15 Jul 2024 08:48:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sTHFu-0001Pl-CT; Mon, 15 Jul 2024 08:40:22 +0000
-Received: by outflank-mailman (input) for mailman id 758741;
- Mon, 15 Jul 2024 08:40:20 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=FSyp=OP=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sTHFs-0001Pf-CV
- for xen-devel@lists.xenproject.org; Mon, 15 Jul 2024 08:40:20 +0000
-Received: from mail-lj1-x231.google.com (mail-lj1-x231.google.com
- [2a00:1450:4864:20::231])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id de147de5-4285-11ef-bbfb-fd08da9f4363;
- Mon, 15 Jul 2024 10:40:19 +0200 (CEST)
-Received: by mail-lj1-x231.google.com with SMTP id
- 38308e7fff4ca-2eec7e431d9so50751631fa.2
- for <xen-devel@lists.xenproject.org>; Mon, 15 Jul 2024 01:40:19 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-1fc0bc274f8sm35580575ad.171.2024.07.15.01.40.12
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 15 Jul 2024 01:40:17 -0700 (PDT)
+	id 1sTHOB-0002eZ-6D; Mon, 15 Jul 2024 08:48:55 +0000
+Received: by outflank-mailman (input) for mailman id 758747;
+ Mon, 15 Jul 2024 08:48:54 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=0XWl=OP=inria.fr=fonyuy-asheri.caleb@srs-se1.protection.inumbo.net>)
+ id 1sTHOA-0002eT-LJ
+ for xen-devel@lists.xenproject.org; Mon, 15 Jul 2024 08:48:54 +0000
+Received: from mail2-relais-roc.national.inria.fr
+ (mail2-relais-roc.national.inria.fr [192.134.164.83])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 0facb892-4287-11ef-8776-851b0ebba9a2;
+ Mon, 15 Jul 2024 10:48:52 +0200 (CEST)
+Received: from zcs2-store8.inria.fr ([128.93.142.6])
+ by mail2-relais-roc.national.inria.fr with ESMTP; 15 Jul 2024 10:48:52 +0200
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,100 +39,91 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: de147de5-4285-11ef-bbfb-fd08da9f4363
+X-Inumbo-ID: 0facb892-4287-11ef-8776-851b0ebba9a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1721032819; x=1721637619; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=kFEtVMNZ/oVx6FNuevfVHmDDH6vhf1JvsPGPChekxGM=;
-        b=Ag7Hx0DBl/MYszOzcMpD7sQmENdgckVnZRKNrub/HT+7XZYb2Yi8uzDVYdDBPCNmuU
-         XJetxCd3smkI7vLt2eYW0XTzioMk9B1V4UfwcGveMAWUqhCFd+Q/Ym80fFCwra6lTO15
-         uEH7Yf5GuuXnUUhC4mmQJbv4zl99g7T8V08kHV2c/dLlLl7+haJobJaiajaaPHLXIT8B
-         vzftAVP3XP+SdzqToBKfMg3NxmmC4zEb9133YxUuCAosCbfoYjjmbDljv0VDUppBmQiO
-         qWM+cufXZ9hWcY8jTHm+LFUZ3jQMYsusPH9kEnYY2GxumK3az4XtBiiqJGZMPI3qF/Po
-         rjNQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1721032819; x=1721637619;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=kFEtVMNZ/oVx6FNuevfVHmDDH6vhf1JvsPGPChekxGM=;
-        b=cDGxbExbAAmRAteOhzgPWOJqiRuRPRCCnMOBoF3PGA+PtFvczKGTZviZ/3WDX7N6Yz
-         mVkE8RldrmAydax1xAg7OZAsUHi26sHjoWwXjdcHTqbIQ9z7g+vkruJ4s724V0W6y6nt
-         TaU+PlzY7iBG7dpGRLumnOCLjJreqddX1CL9LA1E0BhA3Gcp7nEavbXJezDcMdMnl3Y6
-         DGvwWo/5uBCPX/o0uLWDJO+Qht4ZiMIXxPCSx0TWHmjWuu/W3Tp8zkk9rWkYTLHDZUyO
-         vq6tonheGaoSMoHn3PM97/b1BZAD1QplhTFeQyBaO+j9Dh4YFOn+X6S6Dq2xx68bdjp8
-         FIYA==
-X-Forwarded-Encrypted: i=1; AJvYcCVeuIxciSVzaP74syubH1mf7gNKcaJwmi5bH75xD84973D+kw1Xvg7B9ZEvFNzd5invL7u96Lb9acPWq9/BrShSNr312S/GqdFe7hsJqO8=
-X-Gm-Message-State: AOJu0YylwHYMHkrUPXJtmo8Yl+of++zF4rcsDpp5z5OUhNkiQW4zNeb/
-	BNiPKSQQgrPxxqeSseLbO9Cb23WDxsT0A9f+khxw6sBQXxvxuoWX0cQ1hk923w==
-X-Google-Smtp-Source: AGHT+IEmu2e/dTmOi0vYyC3rQ+FmcV5aCEgBhXENF9viRTBXtczU7BiwRNJM6Twb5jRjW8Eu1c/BjA==
-X-Received: by 2002:a2e:b178:0:b0:2ee:44f7:cc74 with SMTP id 38308e7fff4ca-2eeb30b9a36mr120980421fa.6.1721032818214;
-        Mon, 15 Jul 2024 01:40:18 -0700 (PDT)
-Message-ID: <17bdf7bf-6e13-4f58-93c6-5412276e2798@suse.com>
-Date: Mon, 15 Jul 2024 10:40:09 +0200
+  d=inria.fr; s=dc;
+  h=date:from:to:cc:message-id:in-reply-to:references:
+   subject:mime-version:content-transfer-encoding;
+  bh=V7Nboj25WsEAZ3Ehvn50v0hIqfwHiIcfSxQSy5AexV4=;
+  b=I/wHtFBQrLxIENTxAxz8qNDVo1ShkoQl/9nbeB3HIFiFDTZ6s0xUxLkG
+   o8PgL9fS6AVAIRNJPxXIpYnuWHkE3if6x+pcpWsvG0SnXbhLn63lKwbuZ
+   kVFXu3Ne3upL/QOpFBiTQeyCqAijqD2fqah0bp6rbvJ1F3ai2Jt3xcu0A
+   Q=;
+Authentication-Results: mail2-relais-roc.national.inria.fr; dkim=none (message not signed) header.i=none; spf=Pass smtp.mailfrom=fonyuy-asheri.caleb@inria.fr; spf=None smtp.helo=postmaster@zcs2-store8.inria.fr
+Received-SPF: Pass (mail2-relais-roc.national.inria.fr: domain of
+  fonyuy-asheri.caleb@inria.fr designates 128.93.142.6 as
+  permitted sender) identity=mailfrom; client-ip=128.93.142.6;
+  receiver=mail2-relais-roc.national.inria.fr;
+  envelope-from="fonyuy-asheri.caleb@inria.fr";
+  x-sender="fonyuy-asheri.caleb@inria.fr";
+  x-conformance=spf_only; x-record-type="v=spf1";
+  x-record-text="v=spf1 include:mailout.safebrands.com
+  a:basic-mail.safebrands.com a:basic-mail01.safebrands.com
+  a:basic-mail02.safebrands.com ip4:128.93.142.0/24
+  ip4:192.134.164.0/24 ip4:128.93.162.160 ip4:89.107.174.7 mx
+  ~all"
+Received-SPF: None (mail2-relais-roc.national.inria.fr: no sender
+  authenticity information available from domain of
+  postmaster@zcs2-store8.inria.fr) identity=helo;
+  client-ip=128.93.142.6;
+  receiver=mail2-relais-roc.national.inria.fr;
+  envelope-from="fonyuy-asheri.caleb@inria.fr";
+  x-sender="postmaster@zcs2-store8.inria.fr";
+  x-conformance=spf_only
+X-IronPort-AV: E=Sophos;i="6.09,209,1716242400"; 
+   d="scan'208";a="175461800"
+X-MGA-submission: =?us-ascii?q?MDHPseRu2SOgJbBhNY7XItilXSA3UNUCyQPnga?=
+ =?us-ascii?q?qDXaV8ryRDsSrnNaQaevhJNRHQfMJuizadUVp5Dxv82n59tuUbi2ECzz?=
+ =?us-ascii?q?wBT6n791718tRiPUmdgQAJQ/PHxN/swelahnQFEOPOycr+brb8PWLBLq?=
+ =?us-ascii?q?ctp3u7QH/mdgpgYGLgexzH8w=3D=3D?=
+Date: Mon, 15 Jul 2024 10:48:51 +0200 (CEST)
+From: Fonyuy-Asheri Caleb <fonyuy-asheri.caleb@inria.fr>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: xen-devel <xen-devel@lists.xenproject.org>, 
+	Andrew Cooper <andrew.cooper3@citrix.com>
+Message-ID: <1365363643.4190382.1721033331904.JavaMail.zimbra@inria.fr>
+In-Reply-To: <61d717fd-62e3-434c-a326-687b649148c2@suse.com>
+References: <60751777.2038091.1720694327760.JavaMail.zimbra@inria.fr> <94e94a94-14f2-4fa6-bc3b-6c64c1b84b59@citrix.com> <1546743760.2065506.1720696161057.JavaMail.zimbra@inria.fr> <8f8dac21-92fe-4760-8578-2fbfde2f2c14@citrix.com> <1557490999.4048664.1721029086794.JavaMail.zimbra@inria.fr> <77f1ff6e-a7dd-45c8-b706-429674b559f2@suse.com> <1423184950.4133169.1721031727075.JavaMail.zimbra@inria.fr> <61d717fd-62e3-434c-a326-687b649148c2@suse.com>
+Subject: Re: Help with Understanding vcpu xstate restore error during vm
+ migration
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/8] xen/riscv: enable CONFIG_HAS_DEVICE_TREE
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- xen-devel@lists.xenproject.org
-References: <cover.1720799925.git.oleksii.kurochko@gmail.com>
- <5229417cbee0aace3b9dccdac8c0157b4facf948.1720799926.git.oleksii.kurochko@gmail.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <5229417cbee0aace3b9dccdac8c0157b4facf948.1720799926.git.oleksii.kurochko@gmail.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=ISO-8859-1
 Content-Transfer-Encoding: 7bit
+X-Originating-IP: [131.254.23.3]
+X-Mailer: Zimbra 10.0.8_GA_4611 (ZimbraWebClient - GC126 (Linux)/10.0.8_GA_4611)
+Thread-Topic: Help with Understanding vcpu xstate restore error during vm migration
+Thread-Index: dFCsc8CTgOMEcFT+E8bpP5eFX/nhqQ==
 
-On 12.07.2024 18:22, Oleksii Kurochko wrote:
-> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+>>> On 15.07.2024 09:38, Fonyuy-Asheri Caleb wrote:
+>>>>> Perhaps the more important question, are you booting the skylake with
+>>>>> cpuid=no-avx on the command line by any chance?
+>>>>
+>>>> No. I didn't boot any of the machines with any cpuid modification whatsoever.
+>>>
+>>> Yet is there perhaps "Mitigating GDS by disabling AVX" in the boot log of
+>>> the hypervisor (which sadly so far you didn't supply anywhere afaics)?
+>> 
+>> I didn't notice that. Unfortunately I no longer have access to the logs to check
+>> since I was
+>> working on resources I reserved for a limited period.
+>> 
+>> However, do you mind telling me what this would mean for my environment?
+> 
+> Hard to tell, depending on what exactly you use that environment for. If
+> I'm not mistaken (Andrew will surely correct me if I'm wrong), the best
+> you can do is have such systems run with up-to-date microcode. Which of
+> course requires you have control over the physical system (to update
+> firmware) or at least the hypervisor (to hand it a microcode blob to load
+> while booting). If you had control over only the command line, you could
+> also choose to ignore the vulnerability and request AVX not to be turned
+> off ("spec-ctrl=no-gds-mit"). Yet of course you wouldn't want to do this
+> if you were running any not fully trusted guests.
 
-Acked-by: Jan Beulich <jbeulich@suse.com>
+Quick verification: cpuid=no-avx and spec-ctrl=no-gds-mit are options
+passed to the grub right? 
 
-Albeit a little reluctantly, seeing the once again entirely missing
-description. Please can you get used to not leaving that out, unless
-the title really says _all_ that's wanted / needed?
+> 
+> Jan
 
-Jan
-
-> --- a/xen/arch/riscv/Kconfig
-> +++ b/xen/arch/riscv/Kconfig
-> @@ -2,6 +2,7 @@ config RISCV
->  	def_bool y
->  	select FUNCTION_ALIGNMENT_16B
->  	select GENERIC_BUG_FRAME
-> +	select HAS_DEVICE_TREE
->  
->  config RISCV_64
->  	def_bool y
-
+Caleb
 
