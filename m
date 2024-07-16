@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5705A9320CF
-	for <lists+xen-devel@lfdr.de>; Tue, 16 Jul 2024 08:57:58 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.759325.1168991 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EB3529320D3
+	for <lists+xen-devel@lfdr.de>; Tue, 16 Jul 2024 09:00:29 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.759329.1169001 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sTc88-0004SC-Mk; Tue, 16 Jul 2024 06:57:44 +0000
+	id 1sTcAV-0005sT-1f; Tue, 16 Jul 2024 07:00:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 759325.1168991; Tue, 16 Jul 2024 06:57:44 +0000
+Received: by outflank-mailman (output) from mailman id 759329.1169001; Tue, 16 Jul 2024 07:00:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sTc88-0004Pm-JQ; Tue, 16 Jul 2024 06:57:44 +0000
-Received: by outflank-mailman (input) for mailman id 759325;
- Tue, 16 Jul 2024 06:57:42 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1sTcAU-0005qE-VD; Tue, 16 Jul 2024 07:00:10 +0000
+Received: by outflank-mailman (input) for mailman id 759329;
+ Tue, 16 Jul 2024 07:00:09 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=I1NN=OQ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sTc86-0004Pg-Ub
- for xen-devel@lists.xenproject.org; Tue, 16 Jul 2024 06:57:42 +0000
-Received: from mail-lj1-x236.google.com (mail-lj1-x236.google.com
- [2a00:1450:4864:20::236])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b21ff24b-4340-11ef-bbfb-fd08da9f4363;
- Tue, 16 Jul 2024 08:57:41 +0200 (CEST)
-Received: by mail-lj1-x236.google.com with SMTP id
- 38308e7fff4ca-2eedea0fd88so32108851fa.2
- for <xen-devel@lists.xenproject.org>; Mon, 15 Jul 2024 23:57:41 -0700 (PDT)
+ id 1sTcAT-0005pp-Lw
+ for xen-devel@lists.xenproject.org; Tue, 16 Jul 2024 07:00:09 +0000
+Received: from mail-lj1-x230.google.com (mail-lj1-x230.google.com
+ [2a00:1450:4864:20::230])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 09055bc4-4341-11ef-8776-851b0ebba9a2;
+ Tue, 16 Jul 2024 09:00:07 +0200 (CEST)
+Received: by mail-lj1-x230.google.com with SMTP id
+ 38308e7fff4ca-2eede876fcbso30728931fa.2
+ for <xen-devel@lists.xenproject.org>; Tue, 16 Jul 2024 00:00:07 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-70b7ecabae5sm5502257b3a.180.2024.07.15.23.57.37
+ 98e67ed59e1d1-2cacd6dabe5sm7512301a91.44.2024.07.16.00.00.02
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 15 Jul 2024 23:57:40 -0700 (PDT)
+ Tue, 16 Jul 2024 00:00:06 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,52 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b21ff24b-4340-11ef-bbfb-fd08da9f4363
+X-Inumbo-ID: 09055bc4-4341-11ef-8776-851b0ebba9a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1721113061; x=1721717861; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1721113207; x=1721718007; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=VI8xrafdUJpOrYduOP39Vh9LDhKCH8Y+YZpMK3X4/r8=;
-        b=TODBtECZXFtjOwQBgfkp8p3MADbl7BV8cpkLJ4jkxBa0KS/NaLCkNlQqBKJ9LJY67L
-         XTli0EexEclbjk7Py//DmfurYD/JueSdisaob5HZkMeT6gM0q7UZNYihfJeSCldixLDr
-         8se7sINLrPmBRgCKo1QiYgsJ7CBgmlp9z9NTw4WaFq0wRd4yAp0SzG46HUIgpdq+XkRQ
-         DYDkjemdL4xC6SrgD28mq2miQ8Uq9DfDY03KRecQgvadqmcTcTHS9d8hLI05E0TdnEos
-         7kzTvDW8TEcfXAy9XUIF5T6og75IUxJ7RZkq4iz3De/toMqBfXcTD61gk2h0/5094gFZ
-         gPKw==
+        bh=n2twh2KkMEpGiZboJMD9rY8s/U262qrt8nFUXCMOtXo=;
+        b=CiBLvypoHdExfxTWbQaOiuPQ7+c67eQQ2HxZ+FK3A5A5OcUCBzGSBnOxx4/t7AJz1l
+         oveCwhrHAJYTQZu9viyQ3PfviXKcZoAxtW4hbNLc0M6co3UYkl3Dmq5S64AXb5qm8qks
+         1MX/QwY+N+YvKkI5Jkwyf1L7JmMvTgpX0lP3+b3ymPS1YjMN1ttJfRynzZnPkKbrlg0r
+         pQd1nSVecF+l5sCgR+D+xSw6ZTp/ZxtdZ9flYnPWgWfsBWTDw+U1ZhC/Flzq8crcJMo0
+         HMmWGD8ZjwakrgLC6nAH/hvHL7mh+ARyH0wBPm/olhklKIrftgwAT99Ho5d7CBJDTFav
+         PWQg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1721113061; x=1721717861;
+        d=1e100.net; s=20230601; t=1721113207; x=1721718007;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=VI8xrafdUJpOrYduOP39Vh9LDhKCH8Y+YZpMK3X4/r8=;
-        b=fLqfkZg5vDnw0u54JjgfFdNqjFMj38J3Fq+WGmF5a582KbI7/ITjN7GLYiuaQm3YUb
-         aBRoe0lHDsqa0ibtGcUaDLGBZp7H2Dorsq8szUaeBJbztd3KecVn8MryuEKwmxsMSMx0
-         eigD5GORK0H1130kpYIDfjLpep9oFDU52p3bQfaMQDl48PEwIQ7Cc+IjCoIAWNubMJ8k
-         Q0urvOhKvvluOOXltkDA2nQKf4JdBIdcdWJUqtk390kbUapqRZsEi1ri4UI8pCG+YawT
-         6n8yQ81Pivzi7Z66HBN2UutaBfv1E3GoAU1JWW2X7LMZ+eeT2x1avtEJgUGl1w2uABNy
-         bIgQ==
-X-Forwarded-Encrypted: i=1; AJvYcCWQz5mDtxRe+9qod9ywFiB5DadlSb9/UZcH3EZh4OHk7JXn6bnVwQbwuh1ZVOlqwOueas/VC8yeVPtN8Wn2jBZoRneur6cGqvXhbeDUqk0=
-X-Gm-Message-State: AOJu0Yylvdk0Fn+9dgcECbfHMZWldL7aBXpOUr5tdmbT0FoGBWpBIKCx
-	lKl+gfsCY45+LA2wbgUMCAdxfFq7x5FuIl+Sk33qOUDFXQ2L8/vbUtp9Q31OdA==
-X-Google-Smtp-Source: AGHT+IH+AfNUomn/3C/CyyHUghh2Csz+1VOfUoUWNkoGD82at838A6MD8vjG67XOn/BH8+RY9f9QjA==
-X-Received: by 2002:a2e:7a12:0:b0:2ea:7d8f:8d12 with SMTP id 38308e7fff4ca-2eef41ea8d7mr7555421fa.48.1721113061314;
-        Mon, 15 Jul 2024 23:57:41 -0700 (PDT)
-Message-ID: <81c65915-cecc-4edf-8636-3be56a411c50@suse.com>
-Date: Tue, 16 Jul 2024 08:57:33 +0200
+        bh=n2twh2KkMEpGiZboJMD9rY8s/U262qrt8nFUXCMOtXo=;
+        b=TvS0EWA0fkx40VnzBQ2bZ63ACV/klmpdUeOj9mpvIaG6blpF428S+YgBnZltKeSgiu
+         +cQTeKLfh5uQqKUW8lnn4iqu3JYFWU0alrENnmg0PIJfza73fgTVamP1t/HSa7oxwq/S
+         b+7RGSwXDwLbI+BCfrK1UNyZI3n5aM7Z453Pxe6I7Xl9GL3Ngne3Jg6RpzJidE297FKG
+         Rt/hAhcUX15veTpwEufzQtNXvTECizsIcbAtzKA8aeq2qBbGWodeU78XbN3vF1KtdcR1
+         quwA/zqwwjF1jIHCRv1vRjkMCmtzDn7PYRUdurIWb1VKZLfz9m/WNpcLhOpfT6uV+G7l
+         ncyA==
+X-Forwarded-Encrypted: i=1; AJvYcCVqaJTd7cJGtaVn7gAeV/Sph52yhuxdLvl9qSqofLC7R6W1qmIOGnAoG0Loc82mW8Q3knbZCTb5+I5uSBDOWk77VqNb/FXNWQmfkoSYpEI=
+X-Gm-Message-State: AOJu0YwGEgywl9DI+tOJ/CNPpkQyF4wxu/eh8OvtNhG6QSjiOsdepcnK
+	iXwL6fjMsimx/DonZ/XSu3Ohp7gaV9mMte6YqFliYBzsgu6sSi+CNMyuY4kWZg==
+X-Google-Smtp-Source: AGHT+IGrxGzx/XAas/dC46XuRLiRKlbLlqqk7bRqz95T+DI1mbdDbhz6vfNdKrHmKcIe6oNJAHEYjA==
+X-Received: by 2002:a05:651c:1023:b0:2ee:8eb6:ff62 with SMTP id 38308e7fff4ca-2eef415b53cmr9008221fa.8.1721113206944;
+        Tue, 16 Jul 2024 00:00:06 -0700 (PDT)
+Message-ID: <704db9f3-e143-4a52-a0da-30443a128519@suse.com>
+Date: Tue, 16 Jul 2024 08:59:58 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC for-4.19] docs/checklist: Start tagging new dev
- windows
-To: Julien Grall <julien@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- Oleksii Kurochko <oleksii.kurochko@gmail.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20240715164639.3378294-1-andrew.cooper3@citrix.com>
- <7db0879f-93a3-4690-8ba5-1f0897027e47@xen.org>
+Subject: Re: [Resend XEN PATCH v4 0/9] x86: address some violations of MISRA C
+ Rule 16.3
+To: Federico Serafini <federico.serafini@bugseng.com>
+Cc: consulting@bugseng.com, Simone Ballarin <simone.ballarin@bugseng.com>,
+ Doug Goldstein <cardoe@cardoe.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ xen-devel@lists.xenproject.org
+References: <cover.1721050709.git.federico.serafini@bugseng.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -114,43 +116,28 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <7db0879f-93a3-4690-8ba5-1f0897027e47@xen.org>
+In-Reply-To: <cover.1721050709.git.federico.serafini@bugseng.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 15.07.2024 18:58, Julien Grall wrote:
-> On 15/07/2024 17:46, Andrew Cooper wrote:
->> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+On 15.07.2024 18:48, Federico Serafini wrote:
+> This patch series fixes a missing escape in a deviation and addresses some
+> violations.
 > 
-> With one remark below:
-> 
-> Reviewed-by: Julien Grall <jgrall@amazon.com>
-> 
->> ---
->> CC: Jan Beulich <JBeulich@suse.com>
->> CC: Stefano Stabellini <sstabellini@kernel.org>
->> CC: Julien Grall <julien@xen.org>
->> CC: Oleksii Kurochko <oleksii.kurochko@gmail.com>
->>
->> This is about figuring out when a change was first introduced.  Take
->> 10b719dc88 for example (completely random pick).
->>
->> The right answer is `git tag --contains $sha` and look for the oldest
->> RELEASE-$X.  In this case it's Xen 4.6, but the tags are not numerically
->> sorted so the answer is towards the end of the list of 166 tags.
->>
->> The better answer would be to `git describe $sha` because git has an algorithm
->> to do this nicely.  In this case, it's 4.5.0-rc4-934-g10b719dc8830 because we
->> branch first and tag RELEASE-4.6.0 on the branch, rather than releasing off
->> master.
->>
->> With 0082626f35af (opening of the 4.6 tree) containing an annotated tag of
->> 4.6-dev, git describe now gives 4.6-dev-902-g10b719dc8830 which far more
->> helpful when doing code archeology.
-> 
-> I think some of this explanation should be in the commit message.
+> Federico Serafini (9):
+>   automation/eclair: fix deviation of MISRA C Rule 16.3
+>   x86/cpuid: use fallthrough pseudo keyword
+>   x86/domctl: address a violation of MISRA C Rule 16.3
+>   x86/vpmu: address violations of MISRA C Rule 16.3
+>   x86/traps: address violations of MISRA C Rule 16.3
+>   x86/mce: address violations of MISRA C Rule 16.3
+>   x86/hvm: address violations of MISRA C Rule 16.3
+>   x86/mm: add defensive return
+>   x86/mpparse: address a violation of MISRA C Rule 16.3
 
-Imo it could even be moved up verbatim.
+And what exactly was this resend about? Even sent as reply to the original
+submission, rather than as a plain new thread, thus resulting in everything
+being mixed up into a single thread?
 
 Jan
 
