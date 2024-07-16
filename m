@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 996729320C5
-	for <lists+xen-devel@lfdr.de>; Tue, 16 Jul 2024 08:53:54 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.759316.1168981 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5705A9320CF
+	for <lists+xen-devel@lfdr.de>; Tue, 16 Jul 2024 08:57:58 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.759325.1168991 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sTc4C-0003V1-46; Tue, 16 Jul 2024 06:53:40 +0000
+	id 1sTc88-0004SC-Mk; Tue, 16 Jul 2024 06:57:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 759316.1168981; Tue, 16 Jul 2024 06:53:40 +0000
+Received: by outflank-mailman (output) from mailman id 759325.1168991; Tue, 16 Jul 2024 06:57:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sTc4C-0003S7-1D; Tue, 16 Jul 2024 06:53:40 +0000
-Received: by outflank-mailman (input) for mailman id 759316;
- Tue, 16 Jul 2024 06:53:39 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1sTc88-0004Pm-JQ; Tue, 16 Jul 2024 06:57:44 +0000
+Received: by outflank-mailman (input) for mailman id 759325;
+ Tue, 16 Jul 2024 06:57:42 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=I1NN=OQ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sTc4B-0003S1-2T
- for xen-devel@lists.xenproject.org; Tue, 16 Jul 2024 06:53:39 +0000
-Received: from mail-lj1-x232.google.com (mail-lj1-x232.google.com
- [2a00:1450:4864:20::232])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 205abaa6-4340-11ef-8776-851b0ebba9a2;
- Tue, 16 Jul 2024 08:53:37 +0200 (CEST)
-Received: by mail-lj1-x232.google.com with SMTP id
- 38308e7fff4ca-2eebc76119aso57808551fa.2
- for <xen-devel@lists.xenproject.org>; Mon, 15 Jul 2024 23:53:37 -0700 (PDT)
+ id 1sTc86-0004Pg-Ub
+ for xen-devel@lists.xenproject.org; Tue, 16 Jul 2024 06:57:42 +0000
+Received: from mail-lj1-x236.google.com (mail-lj1-x236.google.com
+ [2a00:1450:4864:20::236])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id b21ff24b-4340-11ef-bbfb-fd08da9f4363;
+ Tue, 16 Jul 2024 08:57:41 +0200 (CEST)
+Received: by mail-lj1-x236.google.com with SMTP id
+ 38308e7fff4ca-2eedea0fd88so32108851fa.2
+ for <xen-devel@lists.xenproject.org>; Mon, 15 Jul 2024 23:57:41 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 41be03b00d2f7-78e33cb107asm4340517a12.25.2024.07.15.23.53.33
+ d2e1a72fcca58-70b7ecabae5sm5502257b3a.180.2024.07.15.23.57.37
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 15 Jul 2024 23:53:36 -0700 (PDT)
+ Mon, 15 Jul 2024 23:57:40 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,49 +45,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 205abaa6-4340-11ef-8776-851b0ebba9a2
+X-Inumbo-ID: b21ff24b-4340-11ef-bbfb-fd08da9f4363
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1721112817; x=1721717617; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1721113061; x=1721717861; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=8A57T49YiGoXX1wtZvLm9tt7hJH+JQyz8cA38uGTDDo=;
-        b=Ilob97l8vj8TaqqBhWOYasezWVJUvY8OI0Eqm4JrhgbA+I29xOpWKy2RYdfUVwwumt
-         TgN3gRgmJepSe/VT4ai/qELIa+onEuhISAK6bITCMR4yw/ykHoKAe9MmaOEGoO8ddI0t
-         2h+5XaG9PF+2GEXmFfFoxNF+T8N/llPwMGOnmXpCpeMB8zaJUasHJSxNKnDEqN5m3qnQ
-         BbUsQMkmxv2LeTI3GQbulO2jvkrpyvvMIHgf6dou8arkhTm58E2cos42IVSWF/b1TEwF
-         pII0La7gWadZPEKm9oTTD6yjyqMBt6kb3dRJdolw9nHy2PZSajEWUrCOYeNxlD4cWTxs
-         QESg==
+        bh=VI8xrafdUJpOrYduOP39Vh9LDhKCH8Y+YZpMK3X4/r8=;
+        b=TODBtECZXFtjOwQBgfkp8p3MADbl7BV8cpkLJ4jkxBa0KS/NaLCkNlQqBKJ9LJY67L
+         XTli0EexEclbjk7Py//DmfurYD/JueSdisaob5HZkMeT6gM0q7UZNYihfJeSCldixLDr
+         8se7sINLrPmBRgCKo1QiYgsJ7CBgmlp9z9NTw4WaFq0wRd4yAp0SzG46HUIgpdq+XkRQ
+         DYDkjemdL4xC6SrgD28mq2miQ8Uq9DfDY03KRecQgvadqmcTcTHS9d8hLI05E0TdnEos
+         7kzTvDW8TEcfXAy9XUIF5T6og75IUxJ7RZkq4iz3De/toMqBfXcTD61gk2h0/5094gFZ
+         gPKw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1721112817; x=1721717617;
+        d=1e100.net; s=20230601; t=1721113061; x=1721717861;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=8A57T49YiGoXX1wtZvLm9tt7hJH+JQyz8cA38uGTDDo=;
-        b=etZg3k3tbm7bAb1mRbuUcT8A7taENL21KzpAmW1l6wVqIOWBdG/fmSGzKlW59sBJdP
-         qXvq0xFLfY3Y5GFJRBrz+qbQdW9i/FgicK7npJMZTOudL12jeiOAtmF+/NM17QXfcplv
-         wE25AoVsrQNrjopIJR2wI6fNJ/McpLGiMVfIT5QYHwtdLx1T4CN8hf74+ADKOfRR+my3
-         VYm56Yp3OI1APyNBoJ6lmoDcE7SthwZMHBNadIRrR+6e3KKLGCFeYS/NnqZBiGRxI/hj
-         IX/2O+KN1tpIVTiJ4UOYgtvwkIULDJ/VKGDkfzUUOalGLdmINLJF7qiYUq1l9hcGq0sX
-         9B/g==
-X-Forwarded-Encrypted: i=1; AJvYcCVCuhIgYqerYPmdh//hjA2marQrawUTGZK6mGLEoNlX0ar9+GygSWyu1L1w5nRlVYGoYA4fJYm7qbEmLZaz2msxH4xHK/Arf+shKcaQPfs=
-X-Gm-Message-State: AOJu0Yw5+RsNoss+a9pq23gVoglmVlgjlXaAd+NCa7V6iyAIy8ySCGA7
-	y51erwGWLrZtQaqnEyAK68pWtvM+bULfvQ9TN4rEaBnrL/3xTQWSldZ3QjeTvw==
-X-Google-Smtp-Source: AGHT+IG4KBk+x3HT2Cc6C7g3fkQnuvS1D10GgZz9TeZXeL6qABUmlleMGJ9ZR6bxQV3buTJwDUXeGA==
-X-Received: by 2002:a05:651c:10cc:b0:2ee:86c1:f74a with SMTP id 38308e7fff4ca-2eef41d73c9mr7496091fa.35.1721112816568;
-        Mon, 15 Jul 2024 23:53:36 -0700 (PDT)
-Message-ID: <5c40c501-b95a-4177-b3fa-9ab83c7b50f7@suse.com>
-Date: Tue, 16 Jul 2024 08:53:29 +0200
+        bh=VI8xrafdUJpOrYduOP39Vh9LDhKCH8Y+YZpMK3X4/r8=;
+        b=fLqfkZg5vDnw0u54JjgfFdNqjFMj38J3Fq+WGmF5a582KbI7/ITjN7GLYiuaQm3YUb
+         aBRoe0lHDsqa0ibtGcUaDLGBZp7H2Dorsq8szUaeBJbztd3KecVn8MryuEKwmxsMSMx0
+         eigD5GORK0H1130kpYIDfjLpep9oFDU52p3bQfaMQDl48PEwIQ7Cc+IjCoIAWNubMJ8k
+         Q0urvOhKvvluOOXltkDA2nQKf4JdBIdcdWJUqtk390kbUapqRZsEi1ri4UI8pCG+YawT
+         6n8yQ81Pivzi7Z66HBN2UutaBfv1E3GoAU1JWW2X7LMZ+eeT2x1avtEJgUGl1w2uABNy
+         bIgQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWQz5mDtxRe+9qod9ywFiB5DadlSb9/UZcH3EZh4OHk7JXn6bnVwQbwuh1ZVOlqwOueas/VC8yeVPtN8Wn2jBZoRneur6cGqvXhbeDUqk0=
+X-Gm-Message-State: AOJu0Yylvdk0Fn+9dgcECbfHMZWldL7aBXpOUr5tdmbT0FoGBWpBIKCx
+	lKl+gfsCY45+LA2wbgUMCAdxfFq7x5FuIl+Sk33qOUDFXQ2L8/vbUtp9Q31OdA==
+X-Google-Smtp-Source: AGHT+IH+AfNUomn/3C/CyyHUghh2Csz+1VOfUoUWNkoGD82at838A6MD8vjG67XOn/BH8+RY9f9QjA==
+X-Received: by 2002:a2e:7a12:0:b0:2ea:7d8f:8d12 with SMTP id 38308e7fff4ca-2eef41ea8d7mr7555421fa.48.1721113061314;
+        Mon, 15 Jul 2024 23:57:41 -0700 (PDT)
+Message-ID: <81c65915-cecc-4edf-8636-3be56a411c50@suse.com>
+Date: Tue, 16 Jul 2024 08:57:33 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH for-4.19] hotplug: Restore block-tap phy compatibility
- (again)
-To: Jason Andryuk <jandryuk@gmail.com>
-Cc: Jason Andryuk <jason.andryuk@amd.com>,
- Anthony PERARD <anthony@xenproject.org>, xen-devel@lists.xenproject.org,
- Oleksii Kurochko <oleksii.kurochko@gmail.com>
-References: <20240715234631.4468-1-jandryuk@gmail.com>
+Subject: Re: [PATCH RFC for-4.19] docs/checklist: Start tagging new dev
+ windows
+To: Julien Grall <julien@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20240715164639.3378294-1-andrew.cooper3@citrix.com>
+ <7db0879f-93a3-4690-8ba5-1f0897027e47@xen.org>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -113,68 +114,43 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240715234631.4468-1-jandryuk@gmail.com>
+In-Reply-To: <7db0879f-93a3-4690-8ba5-1f0897027e47@xen.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 16.07.2024 01:46, Jason Andryuk wrote:
-> From: Jason Andryuk <jason.andryuk@amd.com>
+On 15.07.2024 18:58, Julien Grall wrote:
+> On 15/07/2024 17:46, Andrew Cooper wrote:
+>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 > 
-> "$dev" needs to be set correctly for backendtype=phy as well as
-> backendtype=tap.  Move the setting into the conditional, so it can be
-> handled properly for each.
+> With one remark below:
 > 
-> (dev could be captured during tap-ctl allocate for blktap module, but it
-> would not be set properly for the find_device case.  The backendtype=tap
-> case would need to be handled regardless.)
+> Reviewed-by: Julien Grall <jgrall@amazon.com>
 > 
-> Fixes: 6fcdc84927 ("hotplug: Restore block-tap phy compatibility")
-> Fixes: 76a484193d ("hotplug: Update block-tap")
+>> ---
+>> CC: Jan Beulich <JBeulich@suse.com>
+>> CC: Stefano Stabellini <sstabellini@kernel.org>
+>> CC: Julien Grall <julien@xen.org>
+>> CC: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+>>
+>> This is about figuring out when a change was first introduced.  Take
+>> 10b719dc88 for example (completely random pick).
+>>
+>> The right answer is `git tag --contains $sha` and look for the oldest
+>> RELEASE-$X.  In this case it's Xen 4.6, but the tags are not numerically
+>> sorted so the answer is towards the end of the list of 166 tags.
+>>
+>> The better answer would be to `git describe $sha` because git has an algorithm
+>> to do this nicely.  In this case, it's 4.5.0-rc4-934-g10b719dc8830 because we
+>> branch first and tag RELEASE-4.6.0 on the branch, rather than releasing off
+>> master.
+>>
+>> With 0082626f35af (opening of the 4.6 tree) containing an annotated tag of
+>> 4.6-dev, git describe now gives 4.6-dev-902-g10b719dc8830 which far more
+>> helpful when doing code archeology.
 > 
-> Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
+> I think some of this explanation should be in the commit message.
 
-Please don't forget to Cc Oleksii for anything you still want to go into
-4.19 at this point.
+Imo it could even be moved up verbatim.
 
 Jan
-
-> ---
-> Tested with backendtype=tap & tapback and backendtype=phy & blktap
-> module.
-> ---
->  tools/hotplug/Linux/block-tap | 9 ++++++---
->  1 file changed, 6 insertions(+), 3 deletions(-)
-> 
-> diff --git a/tools/hotplug/Linux/block-tap b/tools/hotplug/Linux/block-tap
-> index 5165f459c8..a0b3924370 100755
-> --- a/tools/hotplug/Linux/block-tap
-> +++ b/tools/hotplug/Linux/block-tap
-> @@ -204,13 +204,13 @@ add()
->          tap_create
->      fi
->  
-> -    # Create nbd unix path.  find_device/tap_create set pid & minor
-> -    dev=$( printf "/run/blktap-control/nbd%ld.%d" "$pid" "$minor" )
-> -
->      xenstore_write "$XENBUS_PATH/pid" "$pid"
->      xenstore_write "$XENBUS_PATH/minor" "$minor"
->  
->      if [ "$XENBUS_TYPE" = "vbd3" ] ; then
-> +        # Create nbd unix path.  find_device/tap_create set pid & minor
-> +        dev=$( printf "/run/blktap-control/nbd%ld.%d" "$pid" "$minor" )
-> +
->          # $dev, as a unix socket, has major:minor 0:0.  If write_dev writes
->          # physical-device, tapback would use that incorrect minor 0.  So don't
->          # write physical-device.
-> @@ -218,6 +218,9 @@ add()
->  
->          success
->      else
-> +        # Construct dev path from minor
-> +        dev="/dev/xen/blktap-2/tapdev$minor"
-> +        [ -b "$dev" ] || fatal "blktap \"$dev\" is not a block dev"
->          write_dev "$dev"
->      fi
->  
-
 
