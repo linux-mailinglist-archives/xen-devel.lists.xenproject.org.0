@@ -2,37 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3F75C932EDB
-	for <lists+xen-devel@lfdr.de>; Tue, 16 Jul 2024 19:07:24 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.759750.1169422 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 09AB8932FF7
+	for <lists+xen-devel@lfdr.de>; Tue, 16 Jul 2024 20:30:21 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.759759.1169432 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sTldB-0008UQ-VS; Tue, 16 Jul 2024 17:06:25 +0000
+	id 1sTmv2-0001md-I9; Tue, 16 Jul 2024 18:28:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 759750.1169422; Tue, 16 Jul 2024 17:06:25 +0000
+Received: by outflank-mailman (output) from mailman id 759759.1169432; Tue, 16 Jul 2024 18:28:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sTldB-0008St-SU; Tue, 16 Jul 2024 17:06:25 +0000
-Received: by outflank-mailman (input) for mailman id 759750;
- Tue, 16 Jul 2024 17:06:24 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=QAbl=OQ=cloud.com=alejandro.vallejo@srs-se1.protection.inumbo.net>)
- id 1sTldA-0008Sl-L0
- for xen-devel@lists.xenproject.org; Tue, 16 Jul 2024 17:06:24 +0000
-Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
- [2a00:1450:4864:20::62a])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b9e39078-4395-11ef-8776-851b0ebba9a2;
- Tue, 16 Jul 2024 19:06:22 +0200 (CEST)
-Received: by mail-ej1-x62a.google.com with SMTP id
- a640c23a62f3a-a77ec5d3b0dso706712866b.0
- for <xen-devel@lists.xenproject.org>; Tue, 16 Jul 2024 10:06:22 -0700 (PDT)
-Received: from localhost ([185.25.67.249]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a79bc820d21sm332258366b.198.2024.07.16.10.06.20
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 16 Jul 2024 10:06:21 -0700 (PDT)
+	id 1sTmv2-0001kl-Es; Tue, 16 Jul 2024 18:28:56 +0000
+Received: by outflank-mailman (input) for mailman id 759759;
+ Tue, 16 Jul 2024 18:28:55 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1sTmv1-0001kb-Il; Tue, 16 Jul 2024 18:28:55 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1sTmv1-0004kt-FP; Tue, 16 Jul 2024 18:28:55 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1sTmv0-0000CW-U7; Tue, 16 Jul 2024 18:28:55 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1sTmv0-00008b-TZ; Tue, 16 Jul 2024 18:28:54 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,86 +42,106 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b9e39078-4395-11ef-8776-851b0ebba9a2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1721149581; x=1721754381; darn=lists.xenproject.org;
-        h=in-reply-to:references:subject:cc:to:from:message-id:date
-         :content-transfer-encoding:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=XEJQDdo1M2AqTHAWo1JbbM8esmJyNYJoLt/m8CbDuHQ=;
-        b=f16cpN0nWFiwxhMStpP9HHaMzMO3tnoLHaEYy3IhyK3dZSyrtA4ojY76e49Qx5Ylf4
-         +lwWiWbxR1FsSo8saQhlr00DYg1gjWF9yi24poTitNONn/KyALgW423a1TUh/oon+mqo
-         xwOWj6Yhi6mJazXVrknxQSiC4sgUxsgVPflRw=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1721149581; x=1721754381;
-        h=in-reply-to:references:subject:cc:to:from:message-id:date
-         :content-transfer-encoding:mime-version:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=XEJQDdo1M2AqTHAWo1JbbM8esmJyNYJoLt/m8CbDuHQ=;
-        b=R3gCitV3i6ihHhtSQ1scstJ/D3/+IT1IleSA5UpELywcQZawDK9dmfHZrYu6TaYsry
-         6XppTou+XjNtvgxVQ5hFuQHgRbhQGGcfImT3KKsSXt9Uzv7JysUx5281vvTQc/Q3iwd6
-         uQk79O1WAGM/0pKHOJ4CNu0OwN+G2eTtYIImzISto1oMUdO8zDFXEpYb47vSc8FdJRG/
-         tmWvziXJkyAvIWMr8+xbWkCFEN/ps+e1BWPnyP5BmgLV7MUzYxxODNKNDTUHuMhXdatW
-         krrg9scYu6wvZtlaqx3hzhc1P5LoFcO7abFbTeyuSDN9fNgwgT8yVnEv5M2eagNFMpR1
-         T4Sg==
-X-Forwarded-Encrypted: i=1; AJvYcCU+4PcpeTG7g3lA+B5d97PMc1+t/VBlcf8bm88/981DN00RSDe/Cde6PwaSCouw1C7snmWjJphqipRrdFdrbONN+73s6E/9R/bk9YtglhQ=
-X-Gm-Message-State: AOJu0Yy4FO2GUDkOlwU1InknUCyYaBptg7dnpISIeJcyy8MxL0hFj8SA
-	HXatpat/LHOuM8UJqkGyn0necbUZ2D0XWHM2B2NiERsmWIUVC6UQo5GnQOzEPqI=
-X-Google-Smtp-Source: AGHT+IFADlBGBu+1L40iTqzAH4RopYDOtsJvm7fxMvlA3moMZlLBUCQZwx5FhdFk/DbLI74zu2iQkg==
-X-Received: by 2002:a17:906:ecac:b0:a77:a415:f815 with SMTP id a640c23a62f3a-a79ea43accbmr202978066b.20.1721149581441;
-        Tue, 16 Jul 2024 10:06:21 -0700 (PDT)
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 16 Jul 2024 18:06:18 +0100
-Message-Id: <D2R4LSZFGQYM.YRUCHYZPEB67@cloud.com>
-From: "Alejandro Vallejo" <alejandro.vallejo@cloud.com>
-To: "Elias El Yandouzi" <eliasely@amazon.com>,
- <xen-devel@lists.xenproject.org>
-Cc: <julien@xen.org>, <pdurrant@amazon.com>, <dwmw@amazon.com>, "Wei Liu"
- <wei.liu2@citrix.com>, "Jan Beulich" <jbeulich@suse.com>, "Andrew Cooper"
- <andrew.cooper3@citrix.com>, =?utf-8?q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, "Wei Wang" <wawei@amazon.de>, "Hongyan Xia"
- <hongyxia@amazon.com>, "Julien Grall" <jgrall@amazon.com>
-Subject: Re: [PATCH V3 (resend) 04/19] x86: Lift mapcache variable to the
- arch level
-X-Mailer: aerc 0.17.0
-References: <20240513134046.82605-1-eliasely@amazon.com>
- <20240513134046.82605-5-eliasely@amazon.com>
-In-Reply-To: <20240513134046.82605-5-eliasely@amazon.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=5qhbO4jN6NwtLF+9N4Eh8YqdKGiIoXimqtwkIYLRCvw=; b=NKwlMKbRHPWTHNMaioZRW81QPu
+	rNcM04HoSPDlwiyoPmrlJBd+Beh6O4BgcKv0fqXo7waaLhWFSj9yQS3G0CLXg4SSJGu+EEA9DdcRY
+	9Xriqh0c4loBWlDFwdei5PrYSn7grNFmWhjN26P9UFp49cBKmw9brZTuqAhTYTaQhhiw=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-186821-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [xen-unstable-smoke test] 186821: regressions - FAIL
+X-Osstest-Failures:
+    xen-unstable-smoke:test-armhf-armhf-xl:host-ping-check-xen:fail:regression
+    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=57338346f29cea7b183403561bdc5f407163b846
+X-Osstest-Versions-That:
+    xen=1ddc8c1bad93aa6cbfe616dd72333460c47f96c9
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Tue, 16 Jul 2024 18:28:54 +0000
 
-On Mon May 13, 2024 at 2:40 PM BST, Elias El Yandouzi wrote:
-> From: Wei Liu <wei.liu2@citrix.com>
->
-> It is going to be needed by HVM and idle domain as well, because without
-> the direct map, both need a mapcache to map pages.
->
-> This commit lifts the mapcache variable up and initialise it a bit earlie=
-r
-> for PV and HVM domains.
->
-> Signed-off-by: Wei Liu <wei.liu2@citrix.com>
-> Signed-off-by: Wei Wang <wawei@amazon.de>
-> Signed-off-by: Hongyan Xia <hongyxia@amazon.com>
-> Signed-off-by: Julien Grall <jgrall@amazon.com>
->
-> diff --git a/xen/arch/x86/domain.c b/xen/arch/x86/domain.c
-> index 20e83cf38b..507d704f16 100644
-> --- a/xen/arch/x86/domain.c
-> +++ b/xen/arch/x86/domain.c
-> @@ -851,6 +851,8 @@ int arch_domain_create(struct domain *d,
-> =20
->      psr_domain_init(d);
-> =20
-> +    mapcache_domain_init(d);
-> +
+flight 186821 xen-unstable-smoke real [real]
+flight 186823 xen-unstable-smoke real-retest [real]
+http://logs.test-lab.xenproject.org/osstest/logs/186821/
+http://logs.test-lab.xenproject.org/osstest/logs/186823/
 
-I think this is missing free_perdomain_mappings() in the error case. (error
-handling is already committed).
+Regressions :-(
 
-Can't the callee jump to a "fail" label and do free_perdomain_mappings()
-internally?
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ test-armhf-armhf-xl          10 host-ping-check-xen      fail REGR. vs. 186786
 
-Cheers,
-Alejandro
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+
+version targeted for testing:
+ xen                  57338346f29cea7b183403561bdc5f407163b846
+baseline version:
+ xen                  1ddc8c1bad93aa6cbfe616dd72333460c47f96c9
+
+Last test of basis   186786  2024-07-12 22:02:08 Z    3 days
+Testing same since   186821  2024-07-16 13:02:08 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Jan Beulich <jbeulich@suse.com>
+
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          fail    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+------------------------------------------------------------
+commit 57338346f29cea7b183403561bdc5f407163b846
+Author: Jan Beulich <jbeulich@suse.com>
+Date:   Tue Jul 16 14:09:14 2024 +0200
+
+    x86/IRQ: avoid double unlock in map_domain_pirq()
+    
+    Forever since its introduction the main loop in the function dealing
+    with multi-vector MSI had error exit points ("break") with different
+    properties: In one case no IRQ descriptor lock is being held.
+    Nevertheless the subsequent error cleanup path assumed such a lock would
+    uniformly need releasing. Identify the case by setting "desc" to NULL,
+    thus allowing the unlock to be skipped as necessary.
+    
+    This is CVE-2024-31143 / XSA-458.
+    
+    Coverity ID: 1605298
+    Fixes: d1b6d0a02489 ("x86: enable multi-vector MSI")
+    Signed-off-by: Jan Beulich <jbeulich@suse.com>
+    Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
+(qemu changes not included)
 
