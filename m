@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6D4D4932175
-	for <lists+xen-devel@lfdr.de>; Tue, 16 Jul 2024 09:47:34 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.759383.1169090 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1B1099321BB
+	for <lists+xen-devel@lfdr.de>; Tue, 16 Jul 2024 10:19:10 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.759392.1169101 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sTctu-0000dA-3R; Tue, 16 Jul 2024 07:47:06 +0000
+	id 1sTdNr-00072o-Hs; Tue, 16 Jul 2024 08:18:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 759383.1169090; Tue, 16 Jul 2024 07:47:06 +0000
+Received: by outflank-mailman (output) from mailman id 759392.1169101; Tue, 16 Jul 2024 08:18:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sTctu-0000a5-0o; Tue, 16 Jul 2024 07:47:06 +0000
-Received: by outflank-mailman (input) for mailman id 759383;
- Tue, 16 Jul 2024 07:47:04 +0000
+	id 1sTdNr-000703-F0; Tue, 16 Jul 2024 08:18:03 +0000
+Received: by outflank-mailman (input) for mailman id 759392;
+ Tue, 16 Jul 2024 08:18:01 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=I1NN=OQ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sTcts-0000Zz-Li
- for xen-devel@lists.xenproject.org; Tue, 16 Jul 2024 07:47:04 +0000
-Received: from mail-lj1-x22d.google.com (mail-lj1-x22d.google.com
- [2a00:1450:4864:20::22d])
+ id 1sTdNp-0006zx-Tw
+ for xen-devel@lists.xenproject.org; Tue, 16 Jul 2024 08:18:01 +0000
+Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
+ [2a00:1450:4864:20::42c])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 96ce4046-4347-11ef-8776-851b0ebba9a2;
- Tue, 16 Jul 2024 09:47:02 +0200 (CEST)
-Received: by mail-lj1-x22d.google.com with SMTP id
- 38308e7fff4ca-2eec7e431d9so66802141fa.2
- for <xen-devel@lists.xenproject.org>; Tue, 16 Jul 2024 00:47:02 -0700 (PDT)
+ id e9b984e8-434b-11ef-8776-851b0ebba9a2;
+ Tue, 16 Jul 2024 10:17:59 +0200 (CEST)
+Received: by mail-wr1-x42c.google.com with SMTP id
+ ffacd0b85a97d-36799a67d9cso4158958f8f.0
+ for <xen-devel@lists.xenproject.org>; Tue, 16 Jul 2024 01:17:59 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-2caedbfadfasm5654356a91.17.2024.07.16.00.46.58
+ d9443c01a7336-1fc0bba7080sm52770435ad.89.2024.07.16.01.17.55
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 16 Jul 2024 00:47:01 -0700 (PDT)
+ Tue, 16 Jul 2024 01:17:58 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,55 +45,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 96ce4046-4347-11ef-8776-851b0ebba9a2
+X-Inumbo-ID: e9b984e8-434b-11ef-8776-851b0ebba9a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1721116022; x=1721720822; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1721117879; x=1721722679; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=CQ66EHYIUc0s29P7LBjRyAoAqYHSXfcfUGFk3Q0Mss0=;
-        b=BJNLukprNkZ2UATjvf/Shv0vRg4dfQ/G/WxFBlCVydQ9x0qgfLWUQ9YTzRgNWjnXbH
-         tbG+FfMUvRt0CITXdDr43XWUTWLfXeMFQEkDwMK95gh8d8IvmSKZSCGbyKNaDfzS5h7A
-         mQDQWuZIC9F9ADsrLRYVDuvEHZ4x8MCpbvlzVRZzAL9LEmR+KPkvQD53VU96qROpKAgz
-         KW/0wBImLonIn2NsQTwn+omLrZFWn5M6GDhKm2KX//U2XHfs6+u+r1j/XYJeKSTqx+2f
-         xZ4h9+bSPNaqMzfL9sry9gM0aDyQWXNtqFi1IKf6oeays51cLD2F84b1IT9ffqWpLIo1
-         jihg==
+        bh=l3j+p7vOgZirBtt4mN1MSRKUA+wQUL6ne8ctoUq0k8U=;
+        b=S/UBv2w6w2NgmKwpplMxbVoBIdCKhSemiOFacGyxixQmQvuDZhHp/HwP8MEZMrtpm0
+         YIo5ga8wo4yRUT1mI976A+x+GFk36/hV3leTagfFoxj3JhHgykFQAObd742nZIOdJiY1
+         l58ZpqfhbcFLctb4GFWSAX3p7iCKyh9T3eIZekcWYqVRlzz7f2OroA8klT+FqYLGdZIr
+         2qfY4c75ff1LB//sZ729nVG9w1IOlkGz9PZGuBVS+CpFUztDh15Pr4DXbZn78lBjJm6z
+         l+Pti8YNZRCpizSsCkUIL5dAoJ4TOFQ6qaHuBTQxu8om6I4W4Kxq413hyFzSgzc7haml
+         guDw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1721116022; x=1721720822;
+        d=1e100.net; s=20230601; t=1721117879; x=1721722679;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=CQ66EHYIUc0s29P7LBjRyAoAqYHSXfcfUGFk3Q0Mss0=;
-        b=F61Mgh2jwgfSnEYULyFykSEL9VDfWs7tvzhgga/6nXbrjANijDcTe4xBm1e/ML52yq
-         Ss3VtUHuxqQLslqTBG3GMYmAaVuMk4XFNtEnw3AaJDKZUBlZ44HM+RarRiFYAOsa4jEV
-         J3w3YPY+NnQ2uv/dOjg+IShzL0XYH8QKZfki+d7JPwRHbnh1tLYpZCfTuTchmmHCHlxx
-         Zg4tovs0AcZYNto0STldJ241SvQp7otQgBFf83KGwapqcy/VhVafMZdCfNBQgWs5klTl
-         B5CX+6xMDPTjj9NPKfjSjSgDPdrpshInwhU1hEWJsanZoXV5DVqzqGEKwfGQIz3r/Jzu
-         iM9w==
-X-Forwarded-Encrypted: i=1; AJvYcCV90fY9SSV+TeA+AvS8R6nuyDfFWpwMslIKLjg7vqGlnXULrPOHSpNC4Qn9fQzqbp/6wcipheWwgQvoFwKisQ41lS0DsZt91KBv+Gq7iZI=
-X-Gm-Message-State: AOJu0YwItvuHirDTckGi/NHXw2X01347hNUEWM2O6mvIck9D+XaRSk/4
-	wSsZfg/UO17tOGFMKUJtqrhmxnBz9ifMFJCRO5fkIky0K3+mPmO/QbhLOPCInQ==
-X-Google-Smtp-Source: AGHT+IFR/oh+SXvuLTvOsnOhUCasWFpT94JV7kUaHgkdieIvuzq3nra1kTG8cTIJd0XrztVjs6Bakw==
-X-Received: by 2002:a2e:8195:0:b0:2ee:bdc8:2ce8 with SMTP id 38308e7fff4ca-2eef4c0d29emr7664691fa.0.1721116021877;
-        Tue, 16 Jul 2024 00:47:01 -0700 (PDT)
-Message-ID: <94722620-dc9f-4ace-9e3e-070c362d10df@suse.com>
-Date: Tue, 16 Jul 2024 09:46:55 +0200
+        bh=l3j+p7vOgZirBtt4mN1MSRKUA+wQUL6ne8ctoUq0k8U=;
+        b=dIz30y/3VC+nJZ0YssoEXpnXHbs7ed2kayDH9cKbMfiNlrzrn35hGQUUYdWoYsBkbU
+         hl44/812LR07DftODKPH7DWu4xmkCB9POyv3V8C3gaIXKKZudMa1B6UQhCDwsfb4X0tB
+         O4gkQEp+/8qwC19zSTPxFWspiwrQlkns4oSI1hKwFuw5XhUaQZYd0Tk1vDYrgu5IR2N9
+         bFNKnfK0P0ZK/0vAh5FvBdKdP+HrcRsk/1/n425EmQHxwevF1tP3s9mwHp/nl6ThrvvG
+         Hyq0lifl6uUWw6JUS5iitYxzEsde/I3c9DxHRaaANnYotEi6I02LXD4CF/0pCjM8ba0E
+         8b7A==
+X-Forwarded-Encrypted: i=1; AJvYcCVkZX85U3pPa4eUZZN3QCqRn9jSvldntXkrQYl6k7O5knJARj7H1rQ8fjmEi/6CxBsgLhuPP3HDHg2I5YxQiuvP6BHiEeaq5wYFvvt1GxU=
+X-Gm-Message-State: AOJu0YzXPN5N8oEXBGeNuRKCunHvW3OoUfO5dg9jVl/S+OSSmZvl0Xzu
+	7Hya68Q9MjQxu4zjoeaUN7c9cdrXvBT8lDIPRigsIZanI2TkF/p62Gzk9k4/aw==
+X-Google-Smtp-Source: AGHT+IFO7UwuE0M6A/KshzZV/i/fUJcDOJfae8WhoiTLy0P3OorRv4OsIKXIcf/Nb07+s9zrYwU9VA==
+X-Received: by 2002:a5d:64a6:0:b0:366:f34d:d0b7 with SMTP id ffacd0b85a97d-368260d3fb7mr1209133f8f.29.1721117878979;
+        Tue, 16 Jul 2024 01:17:58 -0700 (PDT)
+Message-ID: <4ef8a4a6-6c23-4e23-8483-3ef9141f4f3b@suse.com>
+Date: Tue, 16 Jul 2024 10:17:51 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH for-4.19] docs/checklist: Fix XEN_EXTRAVERSION
- inconsistency for release candidates
-To: Julien Grall <julien@xen.org>
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- Oleksii Kurochko <oleksii.kurochko@gmail.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20240715155051.3375999-1-andrew.cooper3@citrix.com>
- <3b188f84-50f7-4e13-bcde-1d6076e5cc2d@xen.org>
- <423412a9-e969-4126-8e39-7e77e67d2fd8@suse.com>
- <884ea922-946c-4344-ab29-6f2eb4be69f7@xen.org>
- <94edb2c8-1d40-49c1-b29f-151418eb5c11@suse.com>
- <7920f364-d07d-4004-b2b8-fa43b754e9b9@xen.org>
+Subject: Re: [XEN PATCH v4 7/9] x86/hvm: address violations of MISRA C Rule
+ 16.3
+To: Federico Serafini <federico.serafini@bugseng.com>
+Cc: consulting@bugseng.com, Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ xen-devel@lists.xenproject.org
+References: <cover.1721050709.git.federico.serafini@bugseng.com>
+ <f60c9580dcb2a078723fe9881124d7516e4e7593.1721050709.git.federico.serafini@bugseng.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -119,70 +114,80 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <7920f364-d07d-4004-b2b8-fa43b754e9b9@xen.org>
+In-Reply-To: <f60c9580dcb2a078723fe9881124d7516e4e7593.1721050709.git.federico.serafini@bugseng.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 16.07.2024 09:33, Julien Grall wrote:
-> Hi,
+On 15.07.2024 18:48, Federico Serafini wrote:
+> MISRA C Rule 16.3 states that "An unconditional `break' statement shall
+> terminate every switch-clause".
 > 
-> On 16/07/2024 08:24, Jan Beulich wrote:
->> On 16.07.2024 09:22, Julien Grall wrote:
->>> On 16/07/2024 07:47, Jan Beulich wrote:
->>>> On 15.07.2024 18:56, Julien Grall wrote:
->>>>> On 15/07/2024 16:50, Andrew Cooper wrote:
->>>>>> An earlier part of the checklist states:
->>>>>>
->>>>>>      * change xen-unstable README. The banner (generated using figlet) should say:
->>>>>>          - "Xen 4.5" in releases and on stable branches
->>>>>>          - "Xen 4.5-unstable" on unstable
->>>>>>          - "Xen 4.5-rc" for release candidate
->>>>>>
->>>>>> Update the notes about XEN_EXTRAVERSION to match.
->>
->> When this is the purpose of the patch, ...
->>
->>>>> We have been tagging the tree with 4.5.0-rcX. So I think it would be
->>>>> better to update the wording so we use a consistent naming.
->>>>
->>>> I find:
->>>>
->>>> 4.18-rc
->>>> 4.17-rc
->>>> 4.16-rc
->>>> 4.15-rc
->>>
->>> Hmmm... I don't think we are looking at the same thing. I was
->>> specifically looking at the tag and *not* XEN_EXTRAVERSION.
->>
->> ... why would we be looking at tags?
+> Add pseudo keyword fallthrough or missing break statement
+> to address violations of the rule.
 > 
-> As I wrote, consistency across the naming scheme we use.
-> 
->> The tags (necessarily) have RC numbers,
-> 
-> Right but they also *have* the .0.
-> 
->> so are going to be different from XEN_EXTRAVERSION in any event.
-> 
-> Sure they are not going to be 100% the same. However, they could have 
-> some similarity.
-> 
-> As I pointed out multiple times now, to me it is odd we are tagging the 
-> tree with 4.19.0-rcX, but we use 4.19-rc.
-> 
-> Furthermore, if you look at the history of the document. It is quite 
-> clear that the goal was consistency (the commit mentioned by Andrew 
-> happened after). Yes it wasn't respected but I can't tell exactly why.
-> 
-> So as we try to correct the documentation, I think we should also look 
-> at consistency. If you *really* want to drop the .0, then I think it 
-> should happen for the tag as well (again for consistency).
+> As a defensive measure, return an error message or a null pointer in
+> case an unreachable return statement is reached.
 
-I don't see why (but I also wouldn't mind the dropping from the tag).
-They are going to be different. Whether they're different in one or two
-aspects is secondary to me. I rather view the consistency goal to be
-with what we've been doing in the last so many releases.
+The two kinds of changes are pretty different in nature. I think that ...
+
+> Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
+> ---
+> Changes in v4:
+> - do not separate different parts of HVM:
+>     a) squash patches 8, 11 and 12 of v3 into this patch;
+>     b) address also violations of SVM and VMX;
+> - re-arrange fallthrough positioning to comply with Coverity.
+> Changes in v3:
+> - squashed here modifications of pmtimer.c;
+
+... while the prior splitting by file was indeed unnecessary (when the
+main patch's title started with "x86/hvm:"), splitting by measure taken
+would be quite helpful. Anything purely mechanical can perhaps stay
+together, but everything more involved may want splitting off.
+
+> @@ -2674,6 +2673,7 @@ static int _hvm_emulate_one(struct hvm_emulate_ctxt *hvmemul_ctxt,
+>  
+>      default:
+>          ASSERT_UNREACHABLE();
+> +        break;
+>      }
+
+For example, I'm unconvinced that merely adding "break" is going to be
+enough here. Imo at least rc also needs updating, to signal an error to
+the caller (which may be what in the description "error message" is
+intended to mean). Perhaps the right thing to do here is even to add
+"return X86EMUL_*;" instead. Question then is which particular return
+value to use. I would have suggested X86EMUL_UNHANDLEABLE, yet its
+comment says "No state modified." Then again that may be stale anyway,
+so perhaps that's the best we can do here.
+
+> --- a/xen/arch/x86/hvm/vmx/vmcs.c
+> +++ b/xen/arch/x86/hvm/vmx/vmcs.c
+> @@ -1446,6 +1446,7 @@ struct vmx_msr_entry *vmx_find_msr(const struct vcpu *v, uint32_t msr,
+>  
+>      default:
+>          ASSERT_UNREACHABLE();
+> +        return NULL;
+>      }
+>  
+>      if ( !start )
+
+Right below here there is
+
+        return NULL;
+
+Therefore adding "break" instead may be slightly better.
+
+> @@ -1598,6 +1599,7 @@ int vmx_del_msr(struct vcpu *v, uint32_t msr, enum vmx_msr_list_type type)
+>  
+>      default:
+>          ASSERT_UNREACHABLE();
+> +        return -EINVAL;
+>      }
+>  
+>      if ( !start )
+
+Whereas here I agree that we don't want to pass back -ESRCH in such a case.
 
 Jan
 
