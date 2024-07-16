@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2B2D89320B9
-	for <lists+xen-devel@lfdr.de>; Tue, 16 Jul 2024 08:49:07 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.759307.1168962 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F3FBB9320C0
+	for <lists+xen-devel@lfdr.de>; Tue, 16 Jul 2024 08:51:51 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.759312.1168971 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sTbyd-0001WU-AR; Tue, 16 Jul 2024 06:47:55 +0000
+	id 1sTc2D-0002vI-OK; Tue, 16 Jul 2024 06:51:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 759307.1168962; Tue, 16 Jul 2024 06:47:55 +0000
+Received: by outflank-mailman (output) from mailman id 759312.1168971; Tue, 16 Jul 2024 06:51:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sTbyd-0001TK-7f; Tue, 16 Jul 2024 06:47:55 +0000
-Received: by outflank-mailman (input) for mailman id 759307;
- Tue, 16 Jul 2024 06:47:53 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1sTc2D-0002tn-Lb; Tue, 16 Jul 2024 06:51:37 +0000
+Received: by outflank-mailman (input) for mailman id 759312;
+ Tue, 16 Jul 2024 06:51:36 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=I1NN=OQ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sTbyb-0001TD-KQ
- for xen-devel@lists.xenproject.org; Tue, 16 Jul 2024 06:47:53 +0000
-Received: from mail-lj1-x232.google.com (mail-lj1-x232.google.com
- [2a00:1450:4864:20::232])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 4f8bb7e4-433f-11ef-8776-851b0ebba9a2;
- Tue, 16 Jul 2024 08:47:46 +0200 (CEST)
-Received: by mail-lj1-x232.google.com with SMTP id
- 38308e7fff4ca-2eea8ea8bb0so94603041fa.1
- for <xen-devel@lists.xenproject.org>; Mon, 15 Jul 2024 23:47:46 -0700 (PDT)
+ id 1sTc2C-0002th-GJ
+ for xen-devel@lists.xenproject.org; Tue, 16 Jul 2024 06:51:36 +0000
+Received: from mail-lj1-x22c.google.com (mail-lj1-x22c.google.com
+ [2a00:1450:4864:20::22c])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id d7a2b66c-433f-11ef-bbfb-fd08da9f4363;
+ Tue, 16 Jul 2024 08:51:35 +0200 (CEST)
+Received: by mail-lj1-x22c.google.com with SMTP id
+ 38308e7fff4ca-2eea7e2b0e6so68834321fa.3
+ for <xen-devel@lists.xenproject.org>; Mon, 15 Jul 2024 23:51:35 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-1fc0bc39fd4sm50986505ad.187.2024.07.15.23.47.42
+ d9443c01a7336-1fc0bb9c426sm51254585ad.76.2024.07.15.23.51.31
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 15 Jul 2024 23:47:45 -0700 (PDT)
+ Mon, 15 Jul 2024 23:51:34 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,51 +45,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4f8bb7e4-433f-11ef-8776-851b0ebba9a2
+X-Inumbo-ID: d7a2b66c-433f-11ef-bbfb-fd08da9f4363
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1721112466; x=1721717266; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1721112695; x=1721717495; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=1gHlN5V/RwP8yuJyupkHq/ObfEomCy5rg0ItZ37AkUY=;
-        b=gt/5Lm5dRG9emkVGOteFXjUWkw9cjsAlgxEWQgzyQb9aDUIG58noW4SXlSLkql6Les
-         gAy6kyy2AaPRi2/P7UeHcFaJ7M/OY28zfUQuzfjM/aC0LUdhPeid39zcyIweoWsOXQzE
-         fiM9A8OwhiQZ44xq4ywNZUA+ef03FfyzuYFBosAz5nxjFZpW8eMipXo/Lgi+bGz7aC6Z
-         6Rtv/RRX/fPXDcZReKC2G4AZO8MMvIMkag8p+OuFzd+1N6vz58UaHQPmpW/Yfy1JdDVw
-         ZR+Rgg80w6zZ0GwvbRxiD9gUqCDy3TQ0Sga67a2vcrFUnu9W9uqrjoMJx6XKcMxJ5q48
-         s/Lw==
+        bh=SmOMPqTUe+kLcJWOeDEFMaVgtMKs7125m+BLUwxtunI=;
+        b=D2SXkkDxP3ptYaPw8wTPp0x4M7tNN1DhcM24AkjfgXvXIJAVnzK5RuLpgyRASqhb3i
+         r1FGHnTPTyB96ZERUn+Er+JEF8ylCEBHAdLBobkOBAjVMAFfCP/jSeOViEwXBrQEZ2rZ
+         O7+dGT0AaIwQL3Nj9pju2jf6EYXadTBFLNOrLFLrsx9bQ6tlW/ywpUqNQ4f+0rROCmyS
+         GGTYe5MBxIQoQJLyRASrBEwv9Z+BeTEI3+0dGuPQks2vk+kO60GeHfavufK6Dq1MK4tN
+         z/29JjT3DJhRZZA3OaAH9YRT+EB9YVmqOHkrymSIVFvLPuLevjAt9zeEIZkcQU+B+nxe
+         G4pQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1721112466; x=1721717266;
+        d=1e100.net; s=20230601; t=1721112695; x=1721717495;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=1gHlN5V/RwP8yuJyupkHq/ObfEomCy5rg0ItZ37AkUY=;
-        b=e52pLSPOc4rJ9/VTjc146digCndL4zLjVq4kvY4YyfA/m2aTQCWYNNcezrvuJw3MM2
-         KKNnOBj1LZaDEVwSwwcxejatMCyle7Cqtl1FgGmoIXCr5Pv5CHLIwETnDKhJeIl/rrLY
-         gBl7jfmW+tVgAHvUEVt9zNnyIm5U18XlOAIo5hakdNY1D7G5M2eBZCb6XIoK1XNOqRbV
-         pEyln18BzbDkp6rVDIhckqTxDNObS06UEDXCy9pIPzXLjcNDZwNw9g/Ilv9LwYhz5N4Z
-         5BN1t9umom1xUInan3/DJOyZnWsSVb6dCDRIZufHNWd3+LJ7uf/x+0+Q91Bxf6N8Nv9s
-         NmIg==
-X-Forwarded-Encrypted: i=1; AJvYcCUlRBXluyKEaWQuaWv+w07XptuR2D6dQvZ2n/mJDVYkhUdlgzpWnl+WPzqLGh0A5wlFrxk0BRhQ0Te0QpDyk6UtK4Gcix5JeZKNafw4QPI=
-X-Gm-Message-State: AOJu0YxFFlZNow96rwdF46OAZtpHiB9GcDD6pocPN9YDpaNPL3/W3JvV
-	LoAw0d6hLPXeGTSymFl7icwpvSyKnB3Aw+fJBGJMRGMfcCvQu+/dYuXxsoxwtw==
-X-Google-Smtp-Source: AGHT+IEXvsjdc4BgsJOHWtkAJtX81075x+46dCn0b9iohIPE+Sy3uB9Zr7KFqLRVVCpJY2QdJ/7Tkg==
-X-Received: by 2002:a05:651c:1247:b0:2ee:80b2:1ea9 with SMTP id 38308e7fff4ca-2eef41eaa08mr8874131fa.49.1721112466323;
-        Mon, 15 Jul 2024 23:47:46 -0700 (PDT)
-Message-ID: <423412a9-e969-4126-8e39-7e77e67d2fd8@suse.com>
-Date: Tue, 16 Jul 2024 08:47:38 +0200
+        bh=SmOMPqTUe+kLcJWOeDEFMaVgtMKs7125m+BLUwxtunI=;
+        b=CBetkeKnVqkdbZ3FaI1b5FWQrGdz0eDSaddHF/mf/X9iwEHD3LJLQsuVxOA0ynyFz/
+         gYCypK5d9xyfG0BsAa3OtU/k6h1hLUvyVYBmsxPIhhZBE/8Czjj+30NYT2elWxR4ghQE
+         0b6w0lfF4PmpV0HB3iWppAPqmgpql+l8F3Il0VeyY6DSAPiLpxB1/7ZQ/ER4Iaj00GS4
+         JyUg2tBA0sM9wOovKLJ50cQI2fYpS2XzICeVYRD6e5JC+Iwos+u/Jj0KHdT0SYUxXbPs
+         WIIknPNK5mlpsrwoqZcv6bp2WAmDPE2rPtmi9E7LeNQkbVFSjFPVJcpFMSA7sAwcPmco
+         i37g==
+X-Forwarded-Encrypted: i=1; AJvYcCVssYtno8PV4bg8XOQAnx+2p+uJWUF6NUzpeoLxH6RxC48iDhaHbwz+WsAVk3Ptip7dxGrBEtixMXFwWx5+4sBKQ4Ln6+TMXqAVdJenO40=
+X-Gm-Message-State: AOJu0YwqdkvDx4TR27xYC8+P56cZUq8bOHfpujvJe6ZuXLg2fH5IUWkg
+	y5U0dEfkgD2Wm6n52VvFIoWi4oppKrFzs7+u8Ey5H6eFxBiolYpaJU6KAWP7mQ==
+X-Google-Smtp-Source: AGHT+IFPyu0i7KG64fznDelsHFORBIOZ0H/h0c+phIWZT3GYWRg8+FynJdU4pUGiof3IEbsgz2qGMA==
+X-Received: by 2002:a2e:7d0e:0:b0:2ec:5518:9550 with SMTP id 38308e7fff4ca-2eef415ffc0mr7966751fa.10.1721112694719;
+        Mon, 15 Jul 2024 23:51:34 -0700 (PDT)
+Message-ID: <62fffa18-b3b4-40e3-8273-83c4276ae549@suse.com>
+Date: Tue, 16 Jul 2024 08:51:27 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH for-4.19] docs/checklist: Fix XEN_EXTRAVERSION
  inconsistency for release candidates
-To: Julien Grall <julien@xen.org>
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- Oleksii Kurochko <oleksii.kurochko@gmail.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+ <julien@xen.org>, Oleksii Kurochko <oleksii.kurochko@gmail.com>,
  Xen-devel <xen-devel@lists.xenproject.org>
 References: <20240715155051.3375999-1-andrew.cooper3@citrix.com>
- <3b188f84-50f7-4e13-bcde-1d6076e5cc2d@xen.org>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -115,39 +113,24 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <3b188f84-50f7-4e13-bcde-1d6076e5cc2d@xen.org>
+In-Reply-To: <20240715155051.3375999-1-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 15.07.2024 18:56, Julien Grall wrote:
-> On 15/07/2024 16:50, Andrew Cooper wrote:
->> An earlier part of the checklist states:
->>
->>    * change xen-unstable README. The banner (generated using figlet) should say:
->>        - "Xen 4.5" in releases and on stable branches
->>        - "Xen 4.5-unstable" on unstable
->>        - "Xen 4.5-rc" for release candidate
->>
->> Update the notes about XEN_EXTRAVERSION to match.
+On 15.07.2024 17:50, Andrew Cooper wrote:
+> An earlier part of the checklist states:
 > 
-> We have been tagging the tree with 4.5.0-rcX. So I think it would be 
-> better to update the wording so we use a consistent naming.
+>   * change xen-unstable README. The banner (generated using figlet) should say:
+>       - "Xen 4.5" in releases and on stable branches
+>       - "Xen 4.5-unstable" on unstable
+>       - "Xen 4.5-rc" for release candidate
+> 
+> Update the notes about XEN_EXTRAVERSION to match.
+> 
+> Fixes: 15241c92677a ("process/release-technician-checklist: Explain how the banner in README is generated")
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-I find:
+Acked-by: Jan Beulich <jbeulich@suse.com>
 
-4.18-rc
-4.17-rc
-4.16-rc
-4.15-rc
 
-Do I need to go any further? Your 4.5 example also doesn't fully fit because
-at that time we were, in addition, still appending RC numbers (up to and
-including 4.9 as it looks). In 4.10 it then (intermediately) indeed was
-4.10.0-rc. In 4.11 it became 4.11-rc.
-
-That said I wouldn't strictly mind the .0 infix. It's just that imo shorter
-is better, and the .0 doesn't really convey any useful information anymore
-now that we don't do / tag stable release RCs any longer.
-
-Jan
 
