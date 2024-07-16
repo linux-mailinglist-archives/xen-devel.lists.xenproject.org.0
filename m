@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id ADCDA932ABE
-	for <lists+xen-devel@lfdr.de>; Tue, 16 Jul 2024 17:37:35 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.759684.1169376 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9E80D932B8E
+	for <lists+xen-devel@lfdr.de>; Tue, 16 Jul 2024 17:46:31 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.759695.1169387 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sTkEz-0007Lv-4f; Tue, 16 Jul 2024 15:37:21 +0000
+	id 1sTkNY-0000w2-24; Tue, 16 Jul 2024 15:46:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 759684.1169376; Tue, 16 Jul 2024 15:37:21 +0000
+Received: by outflank-mailman (output) from mailman id 759695.1169387; Tue, 16 Jul 2024 15:46:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sTkEz-0007KK-05; Tue, 16 Jul 2024 15:37:21 +0000
-Received: by outflank-mailman (input) for mailman id 759684;
- Tue, 16 Jul 2024 15:37:19 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1sTkNX-0000ss-VU; Tue, 16 Jul 2024 15:46:11 +0000
+Received: by outflank-mailman (input) for mailman id 759695;
+ Tue, 16 Jul 2024 15:46:10 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=I1NN=OQ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sTkEx-0007Iv-2x
- for xen-devel@lists.xenproject.org; Tue, 16 Jul 2024 15:37:19 +0000
-Received: from mail-lf1-x12a.google.com (mail-lf1-x12a.google.com
- [2a00:1450:4864:20::12a])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 48637470-4389-11ef-bbfb-fd08da9f4363;
- Tue, 16 Jul 2024 17:37:17 +0200 (CEST)
-Received: by mail-lf1-x12a.google.com with SMTP id
- 2adb3069b0e04-52ea5dc3c79so7982882e87.1
- for <xen-devel@lists.xenproject.org>; Tue, 16 Jul 2024 08:37:17 -0700 (PDT)
+ id 1sTkNW-0000si-RS
+ for xen-devel@lists.xenproject.org; Tue, 16 Jul 2024 15:46:10 +0000
+Received: from mail-lj1-x22d.google.com (mail-lj1-x22d.google.com
+ [2a00:1450:4864:20::22d])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 84f4783b-438a-11ef-8776-851b0ebba9a2;
+ Tue, 16 Jul 2024 17:46:08 +0200 (CEST)
+Received: by mail-lj1-x22d.google.com with SMTP id
+ 38308e7fff4ca-2eeef45d865so24791211fa.0
+ for <xen-devel@lists.xenproject.org>; Tue, 16 Jul 2024 08:46:08 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-70b7eb9e357sm6415227b3a.22.2024.07.16.08.37.13
+ d9443c01a7336-1fc0bc496efsm59790065ad.262.2024.07.16.08.46.04
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 16 Jul 2024 08:37:16 -0700 (PDT)
+ Tue, 16 Jul 2024 08:46:06 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,52 +45,55 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 48637470-4389-11ef-bbfb-fd08da9f4363
+X-Inumbo-ID: 84f4783b-438a-11ef-8776-851b0ebba9a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1721144237; x=1721749037; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1721144768; x=1721749568; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=kLVGuAQtORRx5gC43xs1LAgzGnfdXQCsOwV41vcaFoQ=;
-        b=VlKHlfIG8+8hg+nKHU9jrZ5r6HSBmWKv0Jw6GD9sNk8o62ny9pllCf8rvQe71FbgNS
-         KnSMxZQdotZaUVB+UP4ntLDCQt2PGtmPSBpu/Bj2P3w+xPoRXlbfKTVnrcSBMAdxqECy
-         oLsnJtuisnbJA/TNLyDNxtozma0gk4YAP9PG1ysQb+pV8WhcJf6ok8LO710O8MrqK9L8
-         +Kk7JrHaUkXT7LUpPuep/26AP/OV2iBcbK1OVdpoR+2gE16/yp+x5eIlTq3HaNgs7gI4
-         ibOy8v7D4bob943VxAS57nvGqMBhyKzBmXTJXDb52oYZoa6KWS2r+1aya3QoX/jC+YI7
-         QjkQ==
+        bh=n7sbKVnoZ+z4a/v0PzkyzzgY3sSsdLM1gofd9ZzTtSs=;
+        b=VvN1RKHORGRavIVjUYxf1K5ilQ2/dY2kP63RVMbMs0+ul9fGswEBYJ7hAckqSMDpCR
+         3n3pMiUXiP+LXamxcq3MRlak3wD0KDp6Tt+dxTzVr7Hu1T+kQHrb95wL0hXZBkxOLuvc
+         MAED6sgEjsfJIzRV/vYExc6BmeESzZpCw+g9gZv1R+FjDa+Wx21kSN54xERWIJt70nPW
+         UrqPYqks2ZDbpzN35/CSNOT+Ny5BYXnfdgumJYppgeDKb4QuxWDO9E8zP/bbiXKrZRN9
+         QVQl0F8SVFKCaawlnTpR7whJoRkHmwew5//OyOSu407Umhc4v+ibTP9h4HHLe2jOoN3D
+         RAQQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1721144237; x=1721749037;
+        d=1e100.net; s=20230601; t=1721144768; x=1721749568;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=kLVGuAQtORRx5gC43xs1LAgzGnfdXQCsOwV41vcaFoQ=;
-        b=r13tBbQm4TrlVNnU/Fxl3V2K7oUNTmmY4d+mPDts8AQoL4DO55yNx+pTotjN/LIsH6
-         nhqAwlseVdiM6xcJ32AfaXCNHLBhFous7/Iv1fOGK3DW2wIJ52/MoxlDxQNDrH9Au5qB
-         vdmFmUDXFqqWswwhqjqxS0KvdAqtH8XKz0D7t2SieskLIJ03kUIJCO/j3U+D5mtEQroa
-         TRpew3PM+Jd3ZIRvGCfvWsDGQOZb1AqF+igErlITR8EOXyrvP3Q0HPBM66NCQu78Kncq
-         SsCkvyebmMerWT9oVRdoEwJ1iPP5KpVEOBs6NX4ajrvEiEERrriung2Zo7pB+NNe1PV2
-         05HQ==
-X-Forwarded-Encrypted: i=1; AJvYcCUkSEtD8PQGlPP9KPB5qgegi6Z9W9vOmc07gyEKn/oEP10zRrlgwkKt0TzsZqIUlMKW+gybC9tsjIPeQJjYuM76E5jlifKJaeaDQYd7NK4=
-X-Gm-Message-State: AOJu0YwcofFScqtfqWcfMKakumXQqZmd2zmslxI+a9mkO2tt3yHlaBsH
-	OZ3TepW0cXTIlq39LnThYB660nZvYT8CoyR7ZTpnXNc7o9AVQsDWEjv8Het4EA==
-X-Google-Smtp-Source: AGHT+IHpSFRGU7krjNdzGJs32+N5sChYFgjlpD3DHxzrAeTpNDtef7DTL2tFAYo1OWcD+pm7KnzxWg==
-X-Received: by 2002:a05:651c:4ca:b0:2ee:8ce9:3037 with SMTP id 38308e7fff4ca-2eef41d8b29mr21897411fa.37.1721144237097;
-        Tue, 16 Jul 2024 08:37:17 -0700 (PDT)
-Message-ID: <def172dd-17f4-445c-9a2d-5b2ea8ecb064@suse.com>
-Date: Tue, 16 Jul 2024 17:37:10 +0200
+        bh=n7sbKVnoZ+z4a/v0PzkyzzgY3sSsdLM1gofd9ZzTtSs=;
+        b=P5uiqlaKoBgXTMVXN5/Xsp43iE7O/1qJoEhe9ouugipxRhipNrUIDF0xA4WNTJLpA7
+         Seyh+aGMAs/Ela2zWR17zzsVFmyTjgX9lweaI2o+xvs+lY6/OoLvnV9qPT9vK/AlK6BR
+         X+o2Qh1sVxbKNU3iSjut3rWjoLaXdXrQqOtfhxYADh8GqCQCv3b6zyS+kx2vnyXHZd1a
+         /ao9KomAQ3t2NCv6UGVnUvr7CgMBAZDRI/MIFdnFP9XmCVZuYQGpMXBUbMiWv6QXpGVx
+         L3xhioJ4KItP1OVJL/cONx2xlD4p3vR0sgcdtiA8FBYRz5iDv7cQS9BPYLSUjYx7qbzh
+         Yezw==
+X-Gm-Message-State: AOJu0YzC1gXuWsZngcBAyjdGxeU26rYOJeZPiex0nLcbGfUEFAYm3aHi
+	qxXKEwKVGf4E27cHTtEuZYemPzTsJNPHnNGvXzIcpayFBwYMAJRi6Hr9uIK1Ng==
+X-Google-Smtp-Source: AGHT+IF9MSefF8lz8cMhMtLCQSEK4nQHiw+SEqcxY4x1AerQ3NrgcMw5LHU0PNTRJgMIMNHdhY7LZQ==
+X-Received: by 2002:a2e:9bc9:0:b0:2ec:4b00:a746 with SMTP id 38308e7fff4ca-2eef4156da3mr21555951fa.9.1721144768189;
+        Tue, 16 Jul 2024 08:46:08 -0700 (PDT)
+Message-ID: <6f5ab0c6-5c94-439f-b1b8-9839a6d8c267@suse.com>
+Date: Tue, 16 Jul 2024 17:46:01 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC XEN PATCH] x86/cpuid: Expose max_vcpus field in HVM
- hypervisor leaf
-To: Matthew Barnes <matthew.barnes@cloud.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+Subject: Re: Problems in PV dom0 on recent x86 hardware
+To: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Alejandro Vallejo <alejandro.vallejo@cloud.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <c0a9f52107e22957daaa5b1b0e05e4160db5f064.1720452354.git.matthew.barnes@cloud.com>
- <103d60b6-001b-43f0-bbff-a0806cebda73@suse.com>
- <66968bd1.050a0220.dfc8c.b00f@mx.google.com>
+ Jason Andryuk <jason.andryuk@amd.com>
+References: <baade0a7-e204-4743-bda1-282df74e5f89@suse.com>
+ <d379a900-fd1c-42ca-bc31-071f7fd80d0b@suse.com>
+ <ZousjqOAFJgO6681@macbook.local>
+ <6101999a-6f88-46cb-b850-af43b364f299@suse.com>
+ <7a0a8b1c-69e0-435d-b4f4-7a9d784eab29@amd.com>
+ <1f96a355-b0d2-4cc9-a2ae-6d3ab750136d@suse.com>
+ <89d7b5a6-e971-4cd0-85df-0dd599d0ba1b@suse.com>
+ <7d207d6c-d025-4fbb-8649-9c42224097f5@suse.com>
+ <88db3cb6-2b7e-48b2-9bf4-d871067325a0@suse.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -116,47 +119,76 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <66968bd1.050a0220.dfc8c.b00f@mx.google.com>
+In-Reply-To: <88db3cb6-2b7e-48b2-9bf4-d871067325a0@suse.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 16.07.2024 17:03, Matthew Barnes wrote:
-> On Tue, Jul 09, 2024 at 08:40:18AM +0200, Jan Beulich wrote:
->> On 08.07.2024 17:42, Matthew Barnes wrote:
->>> Currently, OVMF is hard-coded to set up a maximum of 64 vCPUs on
->>> startup.
+On 09.07.2024 12:56, Jürgen Groß wrote:
+> On 09.07.24 09:01, Jan Beulich wrote:
+>> On 09.07.2024 08:36, Jürgen Groß wrote:
+>>> On 09.07.24 08:24, Jan Beulich wrote:
+>>>> On 08.07.2024 23:30, Jason Andryuk wrote:
+>>>>>    From the backtrace, it looks like the immediate case is just trying to
+>>>>> read a 4-byte version:
+>>>>>
+>>>>>    >>>> [   44.575541]  ucsi_acpi_dsm+0x53/0x80
+>>>>>    >>>> [   44.575546]  ucsi_acpi_read+0x2e/0x60
+>>>>>    >>>> [   44.575550]  ucsi_register+0x24/0xa0
+>>>>>    >>>> [   44.575555]  ucsi_acpi_probe+0x162/0x1e3
+>>>>>
+>>>>> int ucsi_register(struct ucsi *ucsi)
+>>>>> {
+>>>>>            int ret;
+>>>>>
+>>>>>            ret = ucsi->ops->read(ucsi, UCSI_VERSION, &ucsi->version,
+>>>>>                                  sizeof(ucsi->version));
+>>>>>
+>>>>> ->read being ucsi_acpi_read()
+>>>>>
+>>>>> However, the driver also appears write to adjacent addresses.
+>>>>
+>>>> There are also corresponding write functions in the driver, yes, but
+>>>> ucsi_acpi_async_write() (used directly or indirectly) similarly calls
+>>>> ucsi_acpi_dsm(), which wires through to acpi_evaluate_dsm(). That's
+>>>> ACPI object evaluation, which isn't obvious without seeing the
+>>>> involved AML whether it might write said memory region.
 >>>
->>> There are efforts to support a maximum of 128 vCPUs, which would involve
->>> bumping the OVMF constant from 64 to 128.
->>>
->>> However, it would be more future-proof for OVMF to access the maximum
->>> number of vCPUs for a domain and set itself up appropriately at
->>> run-time.
->>>
->>> For OVMF to access the maximum vCPU count, Xen will have to expose this
->>> property via cpuid.
+>>> I guess an ACPI dump would help here?
 >>
->> Why "have to"? The information is available from xenstore, isn't it?
+>> Perhaps, yes.
 > 
-> I shall reword the commit message in patch v2 to avoid the wording "have
-> to".
+> It is available in the bug report:
 > 
->>> This patch exposes the max_vcpus field via cpuid on the HVM hypervisor
->>> leaf in edx.
->>
->> If exposing via CPUID, why only for HVM?
-> 
-> Other related cpuid fields are also exposed in the HVM hypervisor leaf,
-> such as the vcpu id and the domain id.
-> 
-> Having said that, I wouldn't mind moving this field (or other fields, in
-> a separate patch) to a location meant for HVM *and* PV guests. Do you
-> have any suggestions?
+> https://bugzilla.opensuse.org/show_bug.cgi?id=1227301
 
-I don't think we can literally move anything. We could duplicate things
-into shared fields, but would that gain us anything? Therefore I think
-going forward we should limit type-specific fields to cases where type
-really matters, and otherwise expose in a type-independent way.
+With
+
+        OperationRegion (SUSC, SystemMemory, 0xFEEC2100, 0x30)
+        Field (SUSC, ByteAcc, Lock, Preserve)
+        {
+            SCMD,   8, 
+            ...
+
+and
+
+            Method (SECM, 1, Serialized)
+            {
+                Local0 = 0x64
+                While (((\_SB.SCMD != 0x00) && (Local0 != 0x00)))
+                {
+                    Sleep (0x01)
+                    Local0--
+                }
+
+                \_SB.SCMD = Arg0
+                ...
+
+it is clear that granting read access isn't going to be enough.
+
+From /proc/iomem I also can't see that Linux would have marked as reserved
+that region in any way. I'm really uncertain as to whether what Lenovo are
+doing here is actually legitimate. If it was, I currently have no good
+idea what to do about it.
 
 Jan
 
