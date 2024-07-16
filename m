@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 549D59329BD
-	for <lists+xen-devel@lfdr.de>; Tue, 16 Jul 2024 16:52:04 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.759654.1169330 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B45759329CD
+	for <lists+xen-devel@lfdr.de>; Tue, 16 Jul 2024 17:00:13 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.759663.1169342 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sTjWw-0006ih-4v; Tue, 16 Jul 2024 14:51:50 +0000
+	id 1sTjeb-00081M-TC; Tue, 16 Jul 2024 14:59:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 759654.1169330; Tue, 16 Jul 2024 14:51:50 +0000
+Received: by outflank-mailman (output) from mailman id 759663.1169342; Tue, 16 Jul 2024 14:59:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sTjWw-0006gs-11; Tue, 16 Jul 2024 14:51:50 +0000
-Received: by outflank-mailman (input) for mailman id 759654;
- Tue, 16 Jul 2024 14:51:48 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1sTjeb-0007yv-Qe; Tue, 16 Jul 2024 14:59:45 +0000
+Received: by outflank-mailman (input) for mailman id 759663;
+ Tue, 16 Jul 2024 14:59:44 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=I1NN=OQ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sTjWu-0006gk-Iv
- for xen-devel@lists.xenproject.org; Tue, 16 Jul 2024 14:51:48 +0000
-Received: from mail-lj1-x234.google.com (mail-lj1-x234.google.com
- [2a00:1450:4864:20::234])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ec3bcf8a-4382-11ef-8776-851b0ebba9a2;
- Tue, 16 Jul 2024 16:51:46 +0200 (CEST)
-Received: by mail-lj1-x234.google.com with SMTP id
- 38308e7fff4ca-2eabd22d3f4so64943841fa.1
- for <xen-devel@lists.xenproject.org>; Tue, 16 Jul 2024 07:51:46 -0700 (PDT)
+ id 1sTjea-0007yp-Oh
+ for xen-devel@lists.xenproject.org; Tue, 16 Jul 2024 14:59:44 +0000
+Received: from mail-ed1-x534.google.com (mail-ed1-x534.google.com
+ [2a00:1450:4864:20::534])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 08b30351-4384-11ef-bbfb-fd08da9f4363;
+ Tue, 16 Jul 2024 16:59:43 +0200 (CEST)
+Received: by mail-ed1-x534.google.com with SMTP id
+ 4fb4d7f45d1cf-58e76294858so11304382a12.0
+ for <xen-devel@lists.xenproject.org>; Tue, 16 Jul 2024 07:59:43 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-1fc0bc49fc1sm59322945ad.263.2024.07.16.07.51.43
+ d9443c01a7336-1fc0bc468b1sm59535355ad.260.2024.07.16.07.59.39
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 16 Jul 2024 07:51:45 -0700 (PDT)
+ Tue, 16 Jul 2024 07:59:42 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,47 +45,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ec3bcf8a-4382-11ef-8776-851b0ebba9a2
+X-Inumbo-ID: 08b30351-4384-11ef-bbfb-fd08da9f4363
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1721141505; x=1721746305; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1721141983; x=1721746783; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=uXA2np06jo1acnHXddvTwDk7dO9wqFsmdD6PEMM+7Y8=;
-        b=UJls1FjcemB8s0sdMG/lVR7fM0GMxqKkBpYRZJ9E463JDO0r2ytzhIoXC3KfpSV7pA
-         AH8EBNO/dyUdaPHQbrB1MOQztsaB5Y8Qwxir0wzRpVKQBAnXPzgNVlP9jk6e7dYPIOtS
-         2urHqM1NXudVWSz8wf1MWe9++0Fr2TB40fZLyYSCfgQuSG/WQryIxsE4h/HXTyslh/yc
-         RWSHij+XAlO+h3Q/dqtNT9nQSNiU8D40bgSXVA4gN+3UNe3VGQHRWoN83eQlfNGgjzTO
-         uwBagaA+ydZhHOvz+J/0GJlm/3475JMgiWZcSCmoft0npx0bIGf8IgtAWopKfpWxwyKc
-         eCxQ==
+        bh=mvgbEvMtU3g6RzBMadlS7owNr7sGYEFMNDPh9YBsZ5U=;
+        b=A7jbdb7E4M4bCioZWaCYQ7bEvFL5mpRgX3ZrZTvh9sN/9Ql0LWIINqFhK3DTpttH6U
+         74J7ozr4YGFzBXTL/KAkbzzlY3cl1AANycV0JFsnI1R5Yc8kEce812NYzsVthLAM5gfa
+         wsPRu+bVd0Q1GdgcYXaJJkI6+MyRa+P7rRcpIeqC5Vn4am9oh3rH/htPEV316Yp1+qq+
+         fU8ba79o6M7AFpP2Iqv8p7k0y/EZsQCdB5npdPZQ6mp3yoqSPaDtUaztmT4A0B47MmaI
+         Te4gtLMLzZvtRN3OMhdtiC63cms6T3Lz3KfmXA5nCvMRkA4kSyzjqLL+++FsYswpNaXL
+         6C+g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1721141505; x=1721746305;
+        d=1e100.net; s=20230601; t=1721141983; x=1721746783;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=uXA2np06jo1acnHXddvTwDk7dO9wqFsmdD6PEMM+7Y8=;
-        b=QuER/98jC7T6B/z7mrocaTWM5bFBPom7YoofuuAriJGdOyEhrVMAl3H6LcYRdeFjRh
-         e2N0clpGR3k0KrCS6KJolcCg6VHsLq6Py+g7X5QfmxBqrw8Rqca9IOillhpNCAnww5gC
-         FFWbve5Ru041FwC/hT414MUkwDh1KsT13YH8a9N0xV7FuaffHA9wJVVluoejyKHdnABk
-         069fmDIvMDOb7mZtvMt6upr7lgyWrHq0PKQVt8GXCNQSmYuDTzRiNC+O4Hb7CjQ8Sb31
-         i2VlnDc3LQq18IoiAJTmiHng6MSwZPLmhQfv+WWr27QSmEipo6JwYkV7nQyrZU3YjbBH
-         ztdw==
-X-Forwarded-Encrypted: i=1; AJvYcCXTB/iVVwPm7N7BfSUkIt7AJChWbMacHPR382qP/U7vOTdNE5GB1i5vhrFgyJ84EyX6lIK7SZp3tcVqzQTsA3hBycvCSM7VQmk72PHw1X8=
-X-Gm-Message-State: AOJu0YwcCOW+jtCxt7/B5VB6QPfQ8zyzuB8BW3HCUk5y1ybf158Z8hGl
-	nzGz71nh+svq+bXCJlGxyBXMJvRz6de7/pe8gIZSOpvvgJQ+A8VEp4BT6ttAQw==
-X-Google-Smtp-Source: AGHT+IFpYVnLCb4RMdhssLtspPWu6HpMfQZHOretCPKLjjs6Byhn+GJkiin+k9xAGbg4WesP/rL4AQ==
-X-Received: by 2002:a2e:9218:0:b0:2ee:5301:945d with SMTP id 38308e7fff4ca-2eef416aa70mr17778751fa.11.1721141505465;
-        Tue, 16 Jul 2024 07:51:45 -0700 (PDT)
-Message-ID: <35f9319b-801c-45e9-91c1-46ca61d49e5a@suse.com>
-Date: Tue, 16 Jul 2024 16:51:39 +0200
+        bh=mvgbEvMtU3g6RzBMadlS7owNr7sGYEFMNDPh9YBsZ5U=;
+        b=cgXG55kFN+Gw3UTR1Bt1diFckQKkSAjcSK94qmy0iDI/rcwa1fiCOuYshDM2ZJgerM
+         TU+jMJ6Bi5nzODD4EuN4rCq4/8+Ksd0UaKjnPHF61SCEPBLvvL4J1B2iQdAPhQ5YvFCD
+         jirjfCiy/xKNEtB1IlL822B4IlWNgJGMD4Kjzr77EQTwUg0nlRzSNtzI1zmIRxcb9xGB
+         FJEgsz8U/eJF9RtqTBdilrkZNpTGPpTbpPNcVRZ7AloL8X3l0LkwerU/+5WjQDKefbI+
+         x9JhlH2rKmO8FP6U5g++80DPoIoiQ2XQzb4XIbV9BlcgaqsMslKefT+Xz9pbbMADhGSz
+         lx9w==
+X-Forwarded-Encrypted: i=1; AJvYcCUpfCEUfoWwRAwVxMWYoahkfuEOCNFpOczT8PQO0XaJ7m0Sls/MZff95sUQgaigAO+nqwh5h3Lm3vw6PSZTA9iYU6v+tWueZe1xwWRt1fY=
+X-Gm-Message-State: AOJu0Yzq7plQtFEWJN51HGgA1hkqTsBNWv7QEZTo647p8JBU0KvMgxmS
+	yN0TcIkIuAU8U9Vzgxa8IBYe8Qmd+gKMPEWNyWj5KtVm9+bEcusWTGsS3z2Oeg==
+X-Google-Smtp-Source: AGHT+IEvbsjXgZ6OgidgQyfwFy9h9BBI+4lYVUblqCnFuc/puqosdz1xl73mB4d5+jxx7qQd3Q3+yg==
+X-Received: by 2002:a17:906:3d6:b0:a77:cd4f:e4f1 with SMTP id a640c23a62f3a-a79edcf5c09mr174671866b.27.1721141982739;
+        Tue, 16 Jul 2024 07:59:42 -0700 (PDT)
+Message-ID: <313d214c-3a96-45ad-9f53-8e4f54510e50@suse.com>
+Date: Tue, 16 Jul 2024 16:59:35 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 2/4] x86/ucode: refactor xen-ucode to utilize getopt
+Subject: Re: [PATCH v5 4/4] x86/ucode: Utilize ucode_force and remove
+ opt_ucode_allow_same
 To: Fouad Hilly <fouad.hilly@cloud.com>
-Cc: Anthony PERARD <anthony.perard@vates.tech>, xen-devel@lists.xenproject.org
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ xen-devel@lists.xenproject.org
 References: <20240712130749.1272741-1-fouad.hilly@cloud.com>
- <20240712130749.1272741-3-fouad.hilly@cloud.com>
+ <20240712130749.1272741-5-fouad.hilly@cloud.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -111,53 +115,49 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240712130749.1272741-3-fouad.hilly@cloud.com>
+In-Reply-To: <20240712130749.1272741-5-fouad.hilly@cloud.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 12.07.2024 15:07, Fouad Hilly wrote:
-> --- a/tools/misc/xen-ucode.c
-> +++ b/tools/misc/xen-ucode.c
-> @@ -11,6 +11,7 @@
->  #include <sys/stat.h>
->  #include <fcntl.h>
->  #include <xenctrl.h>
-> +#include <getopt.h>
+> --- a/xen/arch/x86/cpu/microcode/core.c
+> +++ b/xen/arch/x86/cpu/microcode/core.c
+> @@ -90,6 +90,16 @@ struct ucode_mod_blob {
+>      size_t size;
+>  };
 >  
->  static xc_interface *xch;
->  
-> @@ -71,12 +72,29 @@ static void show_curr_cpu(FILE *f)
->      }
+> +struct microcode_patch_with_flags {
+> +    unsigned int flags;
+> +    struct microcode_patch *patch;
+> +};
+> +
+> +struct microcode_nmi_patch_with_flags {
+> +    unsigned int flags;
+> +    const struct microcode_patch *patch;
+> +};
+
+Why two different structures? I have to admit that I can't spot where the
+difference (const or not) would matter?
+
+Also for an internal struct I don't think you need the microcode_ prefixes.
+
+> @@ -284,21 +286,22 @@ static enum microcode_match_result cf_check compare_patch(
+>      return compare_revisions(old->rev, new->rev);
 >  }
 >  
-> +static void usage(FILE *stream, const char *name)
-> +{
-> +    fprintf(stream,
-> +            "%s: Xen microcode updating tool\n"
-> +            "options:\n"
-> +            "  -h, --help            display this help\n"
-> +            "  -s, --show-cpu-info   show CPU information\n"
-> +            "Usage: %s [microcode file] [options]\n", name, name);
+> -static int cf_check apply_microcode(const struct microcode_patch *patch)
+> +static int cf_check apply_microcode(const struct microcode_patch *patch,
+> +                                    unsigned int flags)
+>  {
+>      uint64_t msr_content;
+>      unsigned int cpu = smp_processor_id();
+>      struct cpu_signature *sig = &this_cpu(cpu_sig);
+>      uint32_t rev, old_rev = sig->rev;
+>      enum microcode_match_result result;
+> +    bool ucode_force = flags == XENPF_UCODE_FORCE;
 
-Isn't it more like [microcode file | options] at this point? Even when
---force support is added, neither of the two options here go together
-with a microcode file.
-
-> @@ -86,22 +104,34 @@ int main(int argc, char *argv[])
->          exit(1);
->      }
->  
-> -    if ( argc < 2 )
-> +    while ( (opt = getopt_long(argc, argv, "hs", options, NULL)) != -1 )
->      {
-> -        fprintf(stderr,
-> -                "xen-ucode: Xen microcode updating tool\n"
-> -                "Usage: %s [<microcode file> | show-cpu-info]\n", argv[0]);
-> -        show_curr_cpu(stderr);
-> -        exit(2);
-> +        switch (opt)
-
-Nit (style): Missing blanks inside the parentheses.
+Why == ? The term "flags" usually stands for there being multiple boolean
+indicators in a single value. That would demand use of & here.
 
 Jan
 
