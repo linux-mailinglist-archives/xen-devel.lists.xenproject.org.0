@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1C8C1933B1C
-	for <lists+xen-devel@lfdr.de>; Wed, 17 Jul 2024 12:25:45 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.759910.1169601 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A8F37933B64
+	for <lists+xen-devel@lfdr.de>; Wed, 17 Jul 2024 12:47:17 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.759918.1169613 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sU1qK-00074Y-Rf; Wed, 17 Jul 2024 10:25:04 +0000
+	id 1sU2Al-0001MH-LP; Wed, 17 Jul 2024 10:46:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 759910.1169601; Wed, 17 Jul 2024 10:25:04 +0000
+Received: by outflank-mailman (output) from mailman id 759918.1169613; Wed, 17 Jul 2024 10:46:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sU1qK-00072c-Om; Wed, 17 Jul 2024 10:25:04 +0000
-Received: by outflank-mailman (input) for mailman id 759910;
- Wed, 17 Jul 2024 10:25:03 +0000
+	id 1sU2Al-0001J7-IQ; Wed, 17 Jul 2024 10:46:11 +0000
+Received: by outflank-mailman (input) for mailman id 759918;
+ Wed, 17 Jul 2024 10:46:10 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=xtCR=OR=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sU1qJ-00072W-Qu
- for xen-devel@lists.xenproject.org; Wed, 17 Jul 2024 10:25:03 +0000
-Received: from mail-lj1-x234.google.com (mail-lj1-x234.google.com
- [2a00:1450:4864:20::234])
+ id 1sU2Ak-0001Iw-3m
+ for xen-devel@lists.xenproject.org; Wed, 17 Jul 2024 10:46:10 +0000
+Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
+ [2a00:1450:4864:20::62a])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d3b6dae4-4426-11ef-bbfd-fd08da9f4363;
- Wed, 17 Jul 2024 12:25:02 +0200 (CEST)
-Received: by mail-lj1-x234.google.com with SMTP id
- 38308e7fff4ca-2eefeab807dso4844101fa.3
- for <xen-devel@lists.xenproject.org>; Wed, 17 Jul 2024 03:25:02 -0700 (PDT)
+ id c581b8de-4429-11ef-bbfd-fd08da9f4363;
+ Wed, 17 Jul 2024 12:46:07 +0200 (CEST)
+Received: by mail-ej1-x62a.google.com with SMTP id
+ a640c23a62f3a-a79f9a72a99so125151966b.0
+ for <xen-devel@lists.xenproject.org>; Wed, 17 Jul 2024 03:46:07 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-1fc0bc49fc1sm72182685ad.263.2024.07.17.03.24.57
+ 41be03b00d2f7-78e32b6bb6bsm6144831a12.8.2024.07.17.03.46.01
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 17 Jul 2024 03:25:01 -0700 (PDT)
+ Wed, 17 Jul 2024 03:46:06 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,56 +45,54 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d3b6dae4-4426-11ef-bbfd-fd08da9f4363
+X-Inumbo-ID: c581b8de-4429-11ef-bbfd-fd08da9f4363
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1721211902; x=1721816702; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1721213166; x=1721817966; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=0Y6nBG+guUNPk/PSBaIngiNPaND157ntsthiySQreP0=;
-        b=ViTynY/cJbb6qUeNpXu9YqtjUqkHGATxuMvdij0H33Ns221tK4HkK8/+qOHQAB3Arm
-         Qm+BlUuhLQN4JV1xe+pK+pEnj4h9itgFUcerjowWQvhhtFqEyPWmwmTlzCUQt2KDWx1H
-         YyC+DZ0uK6ZKDDuIZm2d5JbqjkMHXbgoy3tYWD7jo6MHk45aqLICuJQmXZC/FhJJQBHr
-         rXdzlKXr1+OejpClKGrnpqjF9TN1XyIkjKgJtExKkVJTWJTcYwu/hcgeva8uyWJ+/loo
-         tySrMgBkQ8OHx1tXAJTnUVKk7OxIZaMVnt31wM21vWhfEt6Uq9Ui+CC1ttMk0PI49tPT
-         3DTw==
+        bh=Acttukhx9ScdudlRBkFYARuUBotTuMGgD1PLsipGU4Q=;
+        b=Nz7cZCFlzlZvgkRx3JlfgxMY0X/N3LL5d0ORq3iT5dhbqz7uUp+6UHpLhO3W4YcjTA
+         ssIIjgZA9SVqvuu6BXMRM/3jezk+wG3ddyLyMmEy4W1euno9n2n55csolE7gKQtkmtr7
+         miiIGgz8/yu0A1mzanfS8VjuCJJ6JFYLF4Z/B2KWADaDfm4akoxxPqkNEncOkMPnZ4Po
+         WojwqcJQlIMSeCD+ZWD+/9SqJZm51haZnWiy0b6I3a0SlWinRiKelSUMxJPztuSTO/TX
+         SSVQeKV3h34GlMIlgPMj1k0b/fP0r7qpHZ0+03Nrr1eLf5Mjoyxxg7TUAU/0eukRG307
+         mitg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1721211902; x=1721816702;
+        d=1e100.net; s=20230601; t=1721213166; x=1721817966;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=0Y6nBG+guUNPk/PSBaIngiNPaND157ntsthiySQreP0=;
-        b=xKfeD0gKVhaxDpxFo9X5xrItQG5xYM65Wm40q8rsLc531rHMdSyd8cdPQRm6O20MxU
-         g8MXGbQLEwcm6Ofm/PHf/lzuoesyCGfKUR+TNH969wDgxkdOXFUp8P8q/ObeMCeUtA/K
-         6ZWOo/8uVTcI6fQ8Su5pOeitWfrFfFMoFdR5uIxjynPFZyRacFz3l7hoDizlsg6e6IFd
-         7HtW6MJbr5ujPYZylk/Xa5a8YfXkI3RCKEnsPBxEe4SMWcdtaZGhLKcFlikvqSr1NDIt
-         IEDtR6DXMcd/z0IPzbCgULQsY0h1wLgaTXkv4TpUrTZ7NkuNAxLZ/ggyife232+QzwHU
-         htWQ==
-X-Forwarded-Encrypted: i=1; AJvYcCUZIrhluBcPY8ZXTfy0GGvUtwcLW9npvnf1kAP2rvEFWgD/jtGUPs90babl7bn9UjLfMwLmQ8Dtfyix7IZpdwQEchRSWVM2f1Nibw5V4k4=
-X-Gm-Message-State: AOJu0YwGjvscsPXXo1SOhngLK6R/9dbB6smnmnrXgU20To4xB5iMiWzU
-	9ep7OGrFNoFAT0LdzanxFzW7hPOmLQu6Xh4+bBOUw5nwmrIMBMgQybA3mXIMMw==
-X-Google-Smtp-Source: AGHT+IGDWftZnVr1xutcSJnMlqCxHK9Ml9nW0ih/WDiqWKf/Bap63D0duEAiAZgqJMlzK8fY9a2MwQ==
-X-Received: by 2002:a2e:9482:0:b0:2ec:1cf1:b74c with SMTP id 38308e7fff4ca-2eefd143aecmr8140321fa.32.1721211901793;
-        Wed, 17 Jul 2024 03:25:01 -0700 (PDT)
-Message-ID: <013c6cc2-eddf-4beb-b115-01aaaa71faa6@suse.com>
-Date: Wed, 17 Jul 2024 12:24:53 +0200
+        bh=Acttukhx9ScdudlRBkFYARuUBotTuMGgD1PLsipGU4Q=;
+        b=AS5tTbBxo8VBwuBVjWY99N6lNtZCHIGAN3/k/p8hUKZwAkxPtN34TypZhXk4SmXzF6
+         c23fX5S3GOHd+RrxwNGCfPMKtabAdYWr3DWMn2wddoM6p1U5XHQfmUR5hIh30U7NPSop
+         DtpHSQHU2fc3cwSgmADyFtq2zWeB79JvTGpG7xtVW0UxClv/iR3xVCduIdMGY2HFEcaF
+         rzuDoxBfgJDW//eEymJ/1Jqj++q0Zoyl/DZr3LWypwyL7oAKqwiFx5xQMkBLnvi7H0+r
+         f9p8VCg/51zujWlnHG9qAheXwRJJZlEkGVXSIQuU2if7YcyA3xNbNa+1nn/bLYyUDvZo
+         Z9gQ==
+X-Forwarded-Encrypted: i=1; AJvYcCUIz7lsPbUNAzy0tG4fVzaFe0q1VlKWLLQnapA0wmm447Xw2De6bbWIeVA6Eou4txtAc9vbOqcjO8JuFVCsxbAIW34nQi5BQo6W/PW/Qco=
+X-Gm-Message-State: AOJu0Ywc2Ygb4pJkeUjtDtgZc8jozNMEgbBjQirlPiAzGqofFjEpJIDp
+	wuAitmiDYIDKv8p+ISuoDWpW3hX/LinFmlq4GUuBKO5xTr+YMIWS4r6qkoctpg==
+X-Google-Smtp-Source: AGHT+IGy9JH8MN2GH79Peavs3zzN/8WagHM+LT+Q8PzhH7xHsk5Wd+PpT3ks6lCNX7pP/rVDJrBPrQ==
+X-Received: by 2002:a17:906:5658:b0:a77:db04:8ceb with SMTP id a640c23a62f3a-a79edbfd602mr455710366b.19.1721213166442;
+        Wed, 17 Jul 2024 03:46:06 -0700 (PDT)
+Message-ID: <1f7f7577-fbc9-4f80-a012-15f4889ffc4b@suse.com>
+Date: Wed, 17 Jul 2024 12:45:56 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH 17/17] CODING_STYLE: Add a section on header guards
- naming conventions
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: Alessandro Zucchelli <alessandro.zucchelli@bugseng.com>,
- consulting@bugseng.com, Andrew Cooper <andrew.cooper3@citrix.com>,
- Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
-References: <cover.1719829101.git.alessandro.zucchelli@bugseng.com>
- <fdb3811e00b9d6708c18d349a5a5043bb1b49cec.1719829101.git.alessandro.zucchelli@bugseng.com>
- <375074a0-0db7-40ba-9c9f-590b0cbe2409@suse.com>
- <alpine.DEB.2.22.394.2407121528380.3635@ubuntu-linux-20-04-desktop>
- <f1369d5e-5c2e-4866-a593-9656b569c086@suse.com>
- <alpine.DEB.2.22.394.2407151736530.3635@ubuntu-linux-20-04-desktop>
- <4893a89d-9ef5-4d86-94b0-042e88588439@suse.com>
- <alpine.DEB.2.22.394.2407161713010.3635@ubuntu-linux-20-04-desktop>
+Subject: Re: [PATCH V3 (resend) 03/19] x86/pv: Rewrite how building PV dom0
+ handles domheap mappings
+To: Elias El Yandouzi <eliasely@amazon.com>
+Cc: julien@xen.org, pdurrant@amazon.com, dwmw@amazon.com,
+ Hongyan Xia <hongyxia@amazon.com>, Andrew Cooper
+ <andrew.cooper3@citrix.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, Julien Grall <jgrall@amazon.com>,
+ xen-devel@lists.xenproject.org
+References: <20240513134046.82605-1-eliasely@amazon.com>
+ <20240513134046.82605-4-eliasely@amazon.com>
+ <ffe6fbc8-fbbb-44a4-b981-b43f3fb48433@suse.com>
+ <1fa5e786-c0fa-4dff-8085-608d7f983698@amazon.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -120,76 +118,50 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <alpine.DEB.2.22.394.2407161713010.3635@ubuntu-linux-20-04-desktop>
+In-Reply-To: <1fa5e786-c0fa-4dff-8085-608d7f983698@amazon.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 17.07.2024 02:20, Stefano Stabellini wrote:
-> On Tue, 16 Jul 2024, Jan Beulich wrote:
->> On 16.07.2024 02:43, Stefano Stabellini wrote:
->>> On Mon, 15 Jul 2024, Jan Beulich wrote:
->>>> On 13.07.2024 00:38, Stefano Stabellini wrote:
->>>>> On Wed, 3 Jul 2024, Jan Beulich wrote:
->>>>>> I further have to note that, as indicated during the earlier discussion,
->>>>>> I still cannot see how occasional ambiguity is going to be dealt with.
->>>>>> IOW from the rules above two different headers could still end up with
->>>>>> the same guard identifier.
->>>>>
->>>>> Maybe something like this?
->>>>>
->>>>> "In the event of naming collisions, exceptions to the coding style may
->>>>> be made at the discretion of the contributor and maintainers."
->>>>
->>>> Hmm, maybe I wasn't clear enough then. My take is that the scheme should
->>>> simply not allow for possible collisions. Neither the contributor nor the
->>>> reviewer may spot such a collision, and it may therefore take until the
->>>> first full scan that one is actually noticed. Which I consider too late
->>>> in the process, even if we already were at the point where commits were
->>>> checked pre-push.
->>>
->>> Looking at the proposal, copy/pasted here for convenience:
->>>
->>> - private headers -> <dir>_<filename>_H
->>> - asm-generic headers -> ASM_GENERIC_<filename>_H
->>>     - #ifndef ASM_GENERIC_X86_PERCPU_H
->>>       #define ASM_GENERIC_X86_PERCPU_H
->>>       //...
->>>       #endif /* ASM_GENERIC_X86_PERCPU_H */
->>> - arch/<architecture>/include/asm/<subdir>/<filename>.h -> ASM_<architecture>_<subdir>_<filename>_H
->>>     - #ifndef ASM_X86_DOMAIN_H
->>>       #define ASM_X86_DOMAIN_H
->>>       //...
->>>       #endif /* ASM_X86_DOMAIN_H */
->>> - xen/include/xen/<filename>.h -> XEN_<filename>_H
->>> - xen/include/xen/<subdir>/<filename>.h -> XEN_<subdir>_<filename>_H
->>>
->>>
->>> The only possibility for collision that I can see is from the first
->>> point:
->>>
->>> - private headers -> <dir>_<filename>_H
+On 16.07.2024 18:12, Elias El Yandouzi wrote:
+> Hi Jan,
+> 
+> On 14/05/2024 16:03, Jan Beulich wrote:
+>> On 13.05.2024 15:40, Elias El Yandouzi wrote:
+>>> --- a/xen/arch/x86/pv/dom0_build.c
+>>> +++ b/xen/arch/x86/pv/dom0_build.c
+>>> @@ -382,6 +382,10 @@ int __init dom0_construct_pv(struct domain *d,
+>>>       l3_pgentry_t *l3tab = NULL, *l3start = NULL;
+>>>       l2_pgentry_t *l2tab = NULL, *l2start = NULL;
+>>>       l1_pgentry_t *l1tab = NULL, *l1start = NULL;
+>>> +    mfn_t l4start_mfn = INVALID_MFN;
+>>> +    mfn_t l3start_mfn = INVALID_MFN;
+>>> +    mfn_t l2start_mfn = INVALID_MFN;
+>>> +    mfn_t l1start_mfn = INVALID_MFN;
 >>
->> I don't think this is the only possibility of collisions. The <subdir>_<filename>
->> parts can similarly cause problems if either of the two involved names contains
->> e.g. a dash (which would need converting to an underscore) or an underscore. To
->> avoid this, the name separators (slashes in the actual file names) there may need
->> representing by double underscores.
+>> Just to mention it here again: By limiting the scope of these I'm pretty
+>> sure no initializer would be needed even "just in case" (really I don't
+>> think they're needed even when the all have function scope, as producer
+>> and consumer are always close together afaics; quite different from
+>> l<N>start and l<N>tab).
 > 
-> I am OK with you two underscores as name separator (slashes in the
-> actual file names). Would you do it for all levels like this?
+> I had a closer look at your suggestion and I don't think it is possible, 
+> especially for l3start_mfn.
 > 
-> - arch/arm/arm64/lib/something.h -> ARM__ARM64__LIB__SOMETHING_H
-> - arch/arm/arm32/lib/something.h -> ARM__ARM32__LIB__SOMETHING_H
-> - arch/x86/lib/something.h -> X86__LIB__SOMETHING_H
+> The variable, l3start_mfn, can get initialized in the else leg of the 
+> first if statement along with l3start variable.
 > 
+> If you look a few lines below in the for loop, we call 
+> l4e_from_mfn(l3start_mfn, L4_PROT) which assumes l3start_mfn is valid. 
+> It could not be the case if we took the first leg of the aforementioned 
+> if statement.
 > 
-> I think it is better than the below:
-> 
-> - arch/arm/arm64/lib/something.h -> ARM_ARM64__LIB__SOMETHING_H
-> - arch/arm/arm32/lib/something.h -> ARM_ARM32__LIB__SOMETHING_H
-> - arch/x86/lib/something.h -> X86_LIB__SOMETHING_H
+> I don't think I can this easily limit their scope. It could work for the 
+> others, but not l3start_mfn. So I can either leave things as they are or 
+> limit the scope of every variables but l3start_mfn.
 
-Hmm, maybe it's indeed better to do it entirely uniformly then.
+Please do. Limiting the scope of variables, especially in larger functions,
+is often quite helpful. The one exception is certainly necessary here, I
+agree.
 
 Jan
 
