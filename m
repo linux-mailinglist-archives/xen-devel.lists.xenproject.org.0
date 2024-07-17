@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 43735933D14
-	for <lists+xen-devel@lfdr.de>; Wed, 17 Jul 2024 14:39:09 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.759957.1169662 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9EFF9933D17
+	for <lists+xen-devel@lfdr.de>; Wed, 17 Jul 2024 14:41:36 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.759963.1169672 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sU3ur-0008Gu-C8; Wed, 17 Jul 2024 12:37:53 +0000
+	id 1sU3xs-0001Gi-Qb; Wed, 17 Jul 2024 12:41:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 759957.1169662; Wed, 17 Jul 2024 12:37:53 +0000
+Received: by outflank-mailman (output) from mailman id 759963.1169672; Wed, 17 Jul 2024 12:41:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sU3ur-0008En-9L; Wed, 17 Jul 2024 12:37:53 +0000
-Received: by outflank-mailman (input) for mailman id 759957;
- Wed, 17 Jul 2024 12:37:51 +0000
+	id 1sU3xs-0001F5-N3; Wed, 17 Jul 2024 12:41:00 +0000
+Received: by outflank-mailman (input) for mailman id 759963;
+ Wed, 17 Jul 2024 12:40:59 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=xtCR=OR=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sU3up-0008Eg-Ar
- for xen-devel@lists.xenproject.org; Wed, 17 Jul 2024 12:37:51 +0000
-Received: from mail-lj1-x232.google.com (mail-lj1-x232.google.com
- [2a00:1450:4864:20::232])
+ id 1sU3xr-0001Ew-2n
+ for xen-devel@lists.xenproject.org; Wed, 17 Jul 2024 12:40:59 +0000
+Received: from mail-lj1-x22a.google.com (mail-lj1-x22a.google.com
+ [2a00:1450:4864:20::22a])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 60132663-4439-11ef-8776-851b0ebba9a2;
- Wed, 17 Jul 2024 14:37:48 +0200 (CEST)
-Received: by mail-lj1-x232.google.com with SMTP id
- 38308e7fff4ca-2eea7e2b0e6so92053331fa.3
- for <xen-devel@lists.xenproject.org>; Wed, 17 Jul 2024 05:37:48 -0700 (PDT)
+ id d055f3e2-4439-11ef-8776-851b0ebba9a2;
+ Wed, 17 Jul 2024 14:40:57 +0200 (CEST)
+Received: by mail-lj1-x22a.google.com with SMTP id
+ 38308e7fff4ca-2eefc3d707dso8013711fa.0
+ for <xen-devel@lists.xenproject.org>; Wed, 17 Jul 2024 05:40:57 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-1fc0bba6fc7sm74316905ad.68.2024.07.17.05.37.45
+ d9443c01a7336-1fc0bc38a81sm74556835ad.220.2024.07.17.05.40.53
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 17 Jul 2024 05:37:47 -0700 (PDT)
+ Wed, 17 Jul 2024 05:40:56 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,49 +45,47 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 60132663-4439-11ef-8776-851b0ebba9a2
+X-Inumbo-ID: d055f3e2-4439-11ef-8776-851b0ebba9a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1721219868; x=1721824668; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=cXQPh5t+LUQgHz/69oM3W6nL62Op3MMx8nd7bMDQVU8=;
-        b=d1Nc6js2c0g5ihBVMm+NUn2M7VahCYKuyuy+fFZ+gWZjy9LC0ybT5Wfcc+vmiSqZmz
-         uMe2vAC+E3Og0fAtZR9zQNZQF/0K7tyiYbDtOBSSfeVJMo2pt6ZXFh0LsKGm+gpq81aP
-         8T3hrs0vfOlrJCW8FXmnamCcUOKn4+tZX+FK/0kWmm5JiFXn9msjyhM9XC/EBR18VDfh
-         e1y9DhsXlxjNkpxVAhUWya8098B38lwvgLhDvl9I8chWM6ECFwjyr0u3F8Xxr4jpdNPg
-         Z+Er0eJIhBBs8GuFBuy4gw7fN0VubTNjiCseMAW0CVX0qUl6fVTom6ww95R2KQR9rqWV
-         IR2A==
+        d=suse.com; s=google; t=1721220057; x=1721824857; darn=lists.xenproject.org;
+        h=content-transfer-encoding:autocrypt:subject:from:cc:to
+         :content-language:user-agent:mime-version:date:message-id:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=N+J5galAPvN30KZAhGbbh4LLw0KDTaLZXX/dCHmJWxQ=;
+        b=I0B8NxQ4MoTwq+EFush7gAZ7UOBxxz7nTqTq9yOuku4j5kx92uWCyL2IOak8YfP4IQ
+         zy4Mm2APnqw3vVHEIRaif5WWvSlgHF/on8xDkQzfaUf8sQbM2xZXyqzhSvUAgCiyOztH
+         yRbJ+CM43L12etZsy9nwsxJ/YZfDwvxqy9n10+U06YHnHHd22f+Qz0AD4ffjAEmN8fbp
+         5apG/BBfbE4O5af3ec+3BuVAEoAHxkuJa7yb0pgNJVaMCT+rzLoPBG78GjyhBW+xYDzm
+         0b4eo5JErENGSk1L5ogDo2EFg0FE1/HsZ06C3wtPfb1rq90pIrYxpZFcF2Kj4Me+MVeC
+         4JBQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1721219868; x=1721824668;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=cXQPh5t+LUQgHz/69oM3W6nL62Op3MMx8nd7bMDQVU8=;
-        b=uv8N5VbYZfjILiuVhm/U9cFKtiEALiV+b+SihuhqO7PmTBgh6nHiKpPcm+l5EvFJE9
-         g/TuQpu0s8skG/FNNR5LvYqrVOFcdUZu9v/Rv1pqoaI6Hu2ZEJofNh8CqPIDhhkjUTpp
-         j5UXm/K1xI/wqjdqlUx3Ee+fZRb0b3pC4Kk7L0iiJIFUU1XJRUktWbk04RolEGJ4NTL6
-         NWTldvqKhfNFQYbggXOkmj3Af5sGFTcdW9WY1PPfcbLNrkpf5bY8LKbhQxK5LL9N50Kx
-         hTyeZQ6CUXyG0iCqd8WVEPQDpLKGcfHQIzTvL8thpP89UH0jXIzsHa1Lz5zy46goLO50
-         KE+w==
-X-Forwarded-Encrypted: i=1; AJvYcCWO6bHj/R0eUwFIFB42rpy5KIb4FXzFHr25qSG+4jN79mtnwhQP7La9kSB10d/kg2ZigOhIpaoWJGgSLajncvSk4zTZd86A25HM6rmUqJk=
-X-Gm-Message-State: AOJu0YzdyqdkKfJNrFTpGcsPKTWLpBJ6gTgMc1Wr6Q4/qKdhbiJLjCfQ
-	hwd4BrzHDj0XT7WnPoWkPZH1DVSJb+uGd6Ma4kQGrJI1F9IXvVEYXs1rCZXQNw==
-X-Google-Smtp-Source: AGHT+IGSNgpbTgPUpEmsQ/kyS2pzK25SuJl1ZnQ0lFs2pSgcfOcrJDSFIKvj0825duutktj1X5cbgQ==
-X-Received: by 2002:a2e:8558:0:b0:2ec:541b:4b53 with SMTP id 38308e7fff4ca-2eefd16725dmr11029971fa.43.1721219867967;
-        Wed, 17 Jul 2024 05:37:47 -0700 (PDT)
-Message-ID: <ec6f3d2b-d5be-4ff5-9bf1-79eb5a3a85e1@suse.com>
-Date: Wed, 17 Jul 2024 14:37:40 +0200
+        d=1e100.net; s=20230601; t=1721220057; x=1721824857;
+        h=content-transfer-encoding:autocrypt:subject:from:cc:to
+         :content-language:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=N+J5galAPvN30KZAhGbbh4LLw0KDTaLZXX/dCHmJWxQ=;
+        b=T2IGMeUQE/QRkW8aNt2O4AKedPX7moouDIeACe8muhB5Rfm09zTpKOjC4WYAEeOZmp
+         c05kNEzK5CWPKaw1LsrlrVpnK06krlmeLr72G1mn8lT04eHhxih05ee1k18MRAuv3H9c
+         z7Gog7LtnbR1oo0eVVmMXrSxaMF423A/1kVq3DTgEIgEgxrcfgyrKDWYzDx0fIRPaKJc
+         ocrbAlny3sjEA8ZQwqUFZEYr4kKED/RJAzpevu7W5uymR/cb5MuAkM+sK09s2PJSqcRN
+         LL/W/93MkTusFmcwfbgqBHyCtrqc0G+/tZ+SIhfpQzv0TI67xv6C05gR0sBzkYS+cysK
+         EstA==
+X-Gm-Message-State: AOJu0YxKpT8PiXZdaKfM2ahvX2uRe/Nxa5CI/bwOrgse44SVMMx+5zeK
+	0BFymxwqDpaGosCW0UFkJVwDPFGZ0FRWjOZ7EjqM2iN3KHr0DIps5Z/w+yvjOB6fcmWSrPc60qA
+	=
+X-Google-Smtp-Source: AGHT+IF4B8EKrmpErbu/EmQHHbnV//awrvsTvS4QHLdCljIWoEQrEpYrDI7D7uSUEYHgKgOuc0kzQA==
+X-Received: by 2002:a05:651c:485:b0:2ee:6cda:637b with SMTP id 38308e7fff4ca-2eefd13e581mr10627711fa.35.1721220056596;
+        Wed, 17 Jul 2024 05:40:56 -0700 (PDT)
+Message-ID: <16b45b39-aadd-4a53-bcb9-214ded193db9@suse.com>
+Date: Wed, 17 Jul 2024 14:40:49 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH for-4.20] hvmloader: Rework hypercall infrastructure
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20240717111231.3517605-1-andrew.cooper3@citrix.com>
 Content-Language: en-US
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
+Subject: [PATCH] x86: drop REX64_PREFIX
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -111,307 +109,74 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240717111231.3517605-1-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 17.07.2024 13:12, Andrew Cooper wrote:
-> Right now, the hypercall page is at a hardcoded physical address, and making
-> hypercalls involves indirect calls to compile-time constant addresses.
-> e.g. HYPERCALL_memory_op is:
-> 
->   mov    $0x80180,%eax
->   call   *%eax
-> 
-> Instead, import the hypercall infrastructure from XTF to have hypercall_page[]
-> fully within the hvmloader image, and prepared at compile time rather than
-> runtime.  This uses direct calls, so HYPERCALL_memory_op now disassembles as:
-> 
->   call   132180 <HYPERCALL_memory_op>
-> 
-> which is faster and clearer.
+While we didn't copy the full Linux commentary, Linux commit
+7180d4fb8308 ("x86_64: Fix 64bit FXSAVE encoding") is quite explicit
+about gas 2.16 supporting FXSAVEQ / FXRSTORQ. As that's presently our
+minimal required version, we can drop the workaround that was needed for
+yet for older gas.
 
-Just to mention it - even with a fixed address using indirect calls shouldn't
-have been necessary (minus assembler bugs, that is).
+Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
-> Remove the loop over multiple hypercall pages.  It was long ago realised to be
-> an unworkable design, and eax fixed in the ABI to 1.
-> 
-> Pass -z noexecstack to LD to stop newer bintuils complaining about the absence
-> of .note.GNU-stack.  hvmloader is not a regular binary, and in fact its stack
-> is always executable owing to operating in unpaged mode.
-> 
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> ---
-> CC: Jan Beulich <JBeulich@suse.com>
-> CC: Roger Pau Monné <roger.pau@citrix.com>
-> 
-> There doesn't appear to be any sensible AFLAGS infrastructure to set
-> -D__ASSEMBLY__.  Opecoding it once seemed like the least bad option.
-
-I agree.
-
-> ---
->  tools/firmware/hvmloader/Makefile         |   3 +
->  tools/firmware/hvmloader/config.h         |   1 -
->  tools/firmware/hvmloader/hvmloader.c      |   7 +-
->  tools/firmware/hvmloader/hvmloader.lds    |   4 +-
->  tools/firmware/hvmloader/hypercall.h      | 121 ++++++----------------
->  tools/firmware/hvmloader/hypercall_page.S |  67 ++++++++++++
->  6 files changed, 105 insertions(+), 98 deletions(-)
->  create mode 100644 tools/firmware/hvmloader/hypercall_page.S
-
-May I ask that the new file use a hyphen in place of the underscore?
-
-> @@ -142,8 +141,7 @@ static void init_hypercalls(void)
->  
->      /* Fill in hypercall transfer pages. */
->      cpuid(base + 2, &eax, &ebx, &ecx, &edx);
-> -    for ( i = 0; i < eax; i++ )
-> -        wrmsr(ebx, HYPERCALL_PHYSICAL_ADDRESS + (i << 12) + i);
-> +    wrmsr(ebx, (unsigned long)hypercall_page);
-
-Convert the comment to singular then, too?
-
-> --- a/tools/firmware/hvmloader/hvmloader.lds
-> +++ b/tools/firmware/hvmloader/hvmloader.lds
-> @@ -7,9 +7,9 @@ SECTIONS
->     * NB: there's no need to use the AT keyword in order to set the LMA, by
->     * default the linker will use VMA = LMA unless specified otherwise.
->     */
-> -  .text : { *(.text) *(.text.*) }
-> +  .text : { *(.text) *(.text.*)}
-
-Likely merely a leftover from some experimentation?
-
-> --- a/tools/firmware/hvmloader/hypercall.h
-> +++ b/tools/firmware/hvmloader/hypercall.h
-> @@ -35,148 +35,91 @@
->  #include <xen/xen.h>
->  #include "config.h"
->  
-> -#define hcall_addr(name)                                                \
-> -    ((unsigned long)HYPERCALL_PHYSICAL_ADDRESS + __HYPERVISOR_##name * 32)
-> -
-> -#define _hypercall0(type, name)                 \
-> -({                                              \
-> -    long __res;                                 \
-> -    asm volatile (                              \
-> -        "call *%%eax"                           \
-> -        : "=a" (__res)                          \
-> -        : "0" (hcall_addr(name))                \
-> -        : "memory" );                           \
-> -    (type)__res;                                \
-> -})
-> -
-> -#define _hypercall1(type, name, a1)             \
-> -({                                              \
-> -    long __res, __ign1;                         \
-> -    asm volatile (                              \
-> -        "call *%%eax"                           \
-> -        : "=a" (__res), "=b" (__ign1)           \
-> -        : "0" (hcall_addr(name)),               \
-> -          "1" ((long)(a1))                      \
-> -        : "memory" );                           \
-> -    (type)__res;                                \
-> -})
-> -
-> -#define _hypercall2(type, name, a1, a2)                 \
-> -({                                                      \
-> -    long __res, __ign1, __ign2;                         \
-> -    asm volatile (                                      \
-> -        "call *%%eax"                                   \
-> -        : "=a" (__res), "=b" (__ign1), "=c" (__ign2)    \
-> -        : "0" (hcall_addr(name)),                       \
-> -          "1" ((long)(a1)), "2" ((long)(a2))            \
-> -        : "memory" );                                   \
-> -    (type)__res;                                        \
-> -})
-> -
-> -#define _hypercall3(type, name, a1, a2, a3)             \
-> -({                                                      \
-> -    long __res, __ign1, __ign2, __ign3;                 \
-> -    asm volatile (                                      \
-> -        "call *%%eax"                                   \
-> -        : "=a" (__res), "=b" (__ign1), "=c" (__ign2),   \
-> -          "=d" (__ign3)                                 \
-> -        : "0" (hcall_addr(name)),                       \
-> -          "1" ((long)(a1)), "2" ((long)(a2)),           \
-> -          "3" ((long)(a3))                              \
-> -        : "memory" );                                   \
-> -    (type)__res;                                        \
-> -})
-> -
-> -#define _hypercall4(type, name, a1, a2, a3, a4)         \
-> -({                                                      \
-> -    long __res, __ign1, __ign2, __ign3, __ign4;         \
-> -    asm volatile (                                      \
-> -        "call *%%eax"                                   \
-> -        : "=a" (__res), "=b" (__ign1), "=c" (__ign2),   \
-> -          "=d" (__ign3), "=S" (__ign4)                  \
-> -        : "0" (hcall_addr(name)),                       \
-> -          "1" ((long)(a1)), "2" ((long)(a2)),           \
-> -          "3" ((long)(a3)), "4" ((long)(a4))            \
-> -        : "memory" );                                   \
-> -    (type)__res;                                        \
-> -})
-> -
-> -#define _hypercall5(type, name, a1, a2, a3, a4, a5)     \
-> -({                                                      \
-> -    long __res, __ign1, __ign2, __ign3, __ign4, __ign5; \
-> -    asm volatile (                                      \
-> -        "call *%%eax"                                   \
-> -        : "=a" (__res), "=b" (__ign1), "=c" (__ign2),   \
-> -          "=d" (__ign3), "=S" (__ign4), "=D" (__ign5)   \
-> -        : "0" (hcall_addr(name)),                       \
-> -          "1" ((long)(a1)), "2" ((long)(a2)),           \
-> -          "3" ((long)(a3)), "4" ((long)(a4)),           \
-> -          "5" ((long)(a5))                              \
-> -        : "memory" );                                   \
-> -    (type)__res;                                        \
-> -})
-> +extern const char hypercall_page[];
-> +
-> +#define _hypercall2(type, hcall, a1, a2)                                \
-> +    ({                                                                  \
-> +        long res, _a1 = (long)(a1), _a2 = (long)(a2);                   \
-> +        asm volatile (                                                  \
-> +            "call hypercall_page + %c[offset]"                          \
-> +            : "=a" (res), "+b" (_a1), "+c" (_a2)                        \
-> +            : [offset] "i" (hcall * 32)                                 \
-> +            : "memory" );                                               \
-> +        (type)res;                                                      \
-> +    })
-> +
-> +#define _hypercall3(type, hcall, a1, a2, a3)                            \
-> +    ({                                                                  \
-> +        long res, _a1 = (long)(a1), _a2 = (long)(a2), _a3 = (long)(a3); \
-> +        asm volatile (                                                  \
-> +            "call hypercall_page + %c[offset]"                          \
-> +            : "=a" (res), "+b" (_a1), "+c" (_a2), "+d" (_a3)            \
-> +            : [offset] "i" (hcall * 32)                                 \
-> +            : "memory" );                                               \
-> +        (type)res;                                                      \
-> +    })
-
-Not having _hypercall0() and _hypercall1() anymore is certainly a little
-odd. If one needed to use such a hypercall, even if only for debugging,
-the extra work needed (every time) would be larger than necessary. I'm
-definitely less worried about _hypercall4() and _hypercall5().
-
-In any event the removal of any wrappers could do with mentioning in the
-description, to indicate it's deliberate (and why).
-
->  static inline int
->  hypercall_sched_op(
->      int cmd, void *arg)
->  {
-> -    return _hypercall2(int, sched_op, cmd, arg);
-> +    return _hypercall2(int, __HYPERVISOR_sched_op, cmd, arg);
->  }
-
-I know you don't really like token concatenation in cases like these ones,
-but these adjustments all don't look as if they were necessary right here.
-The new macros use the macro parameter only in ways where token pasting
-would continue to work, afaics. And in the new assembly file you use very
-similar token pasting anyway.
-
-> --- /dev/null
-> +++ b/tools/firmware/hvmloader/hypercall_page.S
-> @@ -0,0 +1,67 @@
-> +#include <xen/xen.h>
-> +
-> +        .section ".hcall", "aw"
-
-Why "aw"? I'd have expected "awx" if you really think the writable part
-needs expressing here, or else "ax". Otherwise I think a brief comment as
-wanted as to the absence of x for something that is executable.
-
-Also may I ask that you add @progbits?
-
-> +        .align 4096
-
-PAGE_SIZE? And then again ...
-
-> +        .globl hypercall_page
-> +hypercall_page:
-> +         /* Poisoned with `ret` for safety before hypercalls are set up. */
-> +        .fill 4096, 1, 0xc3
-> +        .type hypercall_page, STT_OBJECT
-> +        .size hypercall_page, 4096
-
-... here?
-
-As to the "poisoning" - how does RET provide any safety? If a call happened
-early, the uncertainty of what %eax is set to would make it unpredictable
-how such a caller would further behave. Imo better to crash / hang in such
-a case, perhaps by using INT3 instead.
-
-I notice that matches earlier behavior, but there the comment at least
-validly said "rendering them no-ops" (yet still without considering
-possible problems resulting from doing so).
-
-> +#define DECLARE_HYPERCALL(name)                                                 \
-> +        .globl HYPERCALL_ ## name;                                              \
-> +        .type  HYPERCALL_ ## name, STT_FUNC;                                    \
-> +        .size  HYPERCALL_ ## name, 32;                                          \
-> +        .set   HYPERCALL_ ## name, hypercall_page + __HYPERVISOR_ ## name * 32
-> +
-> +DECLARE_HYPERCALL(set_trap_table)
-> +DECLARE_HYPERCALL(mmu_update)
-> +DECLARE_HYPERCALL(set_gdt)
-> +DECLARE_HYPERCALL(stack_switch)
-> +DECLARE_HYPERCALL(set_callbacks)
-> +DECLARE_HYPERCALL(fpu_taskswitch)
-> +DECLARE_HYPERCALL(sched_op_compat)
-> +DECLARE_HYPERCALL(platform_op)
-> +DECLARE_HYPERCALL(set_debugreg)
-> +DECLARE_HYPERCALL(get_debugreg)
-> +DECLARE_HYPERCALL(update_descriptor)
-> +DECLARE_HYPERCALL(memory_op)
-> +DECLARE_HYPERCALL(multicall)
-> +DECLARE_HYPERCALL(update_va_mapping)
-> +DECLARE_HYPERCALL(set_timer_op)
-> +DECLARE_HYPERCALL(event_channel_op_compat)
-> +DECLARE_HYPERCALL(xen_version)
-> +DECLARE_HYPERCALL(console_io)
-> +DECLARE_HYPERCALL(physdev_op_compat)
-> +DECLARE_HYPERCALL(grant_table_op)
-> +DECLARE_HYPERCALL(vm_assist)
-> +DECLARE_HYPERCALL(update_va_mapping_otherdomain)
-> +DECLARE_HYPERCALL(iret)
-> +DECLARE_HYPERCALL(vcpu_op)
-> +DECLARE_HYPERCALL(set_segment_base)
-> +DECLARE_HYPERCALL(mmuext_op)
-> +DECLARE_HYPERCALL(xsm_op)
-> +DECLARE_HYPERCALL(nmi_op)
-> +DECLARE_HYPERCALL(sched_op)
-> +DECLARE_HYPERCALL(callback_op)
-> +DECLARE_HYPERCALL(xenoprof_op)
-> +DECLARE_HYPERCALL(event_channel_op)
-> +DECLARE_HYPERCALL(physdev_op)
-> +DECLARE_HYPERCALL(hvm_op)
-> +DECLARE_HYPERCALL(sysctl)
-> +DECLARE_HYPERCALL(domctl)
-> +DECLARE_HYPERCALL(kexec_op)
-> +DECLARE_HYPERCALL(tmem_op)
-
-We're not going to ever need this in hvmloader, are we? There are quite a
-few more that I'd suggest to leave out, but this one stands out for no
-longer existing even in the hypervisor.
-
-Jan
-
-> +DECLARE_HYPERCALL(argo_op)
-> +DECLARE_HYPERCALL(xenpmu_op)
-> +
-> +DECLARE_HYPERCALL(arch_0)
-> +DECLARE_HYPERCALL(arch_1)
-> +DECLARE_HYPERCALL(arch_2)
-> +DECLARE_HYPERCALL(arch_3)
-> +DECLARE_HYPERCALL(arch_4)
-> +DECLARE_HYPERCALL(arch_5)
-> +DECLARE_HYPERCALL(arch_6)
-> +DECLARE_HYPERCALL(arch_7)
-
+--- a/xen/arch/x86/i387.c
++++ b/xen/arch/x86/i387.c
+@@ -64,13 +64,12 @@ static inline void fpu_fxrstor(struct vc
+     {
+     default:
+         asm volatile (
+-            /* See below for why the operands/constraints are this way. */
+-            "1: " REX64_PREFIX "fxrstor (%2)\n"
++            "1: fxrstorq %0\n"
+             ".section .fixup,\"ax\"   \n"
+             "2: push %%"__OP"ax       \n"
+             "   push %%"__OP"cx       \n"
+             "   push %%"__OP"di       \n"
+-            "   mov  %2,%%"__OP"di    \n"
++            "   lea  %0,%%"__OP"di    \n"
+             "   mov  %1,%%ecx         \n"
+             "   xor  %%eax,%%eax      \n"
+             "   rep ; stosl           \n"
+@@ -81,7 +80,7 @@ static inline void fpu_fxrstor(struct vc
+             ".previous                \n"
+             _ASM_EXTABLE(1b, 2b)
+             :
+-            : "m" (*fpu_ctxt), "i" (sizeof(*fpu_ctxt) / 4), "R" (fpu_ctxt) );
++            : "m" (*fpu_ctxt), "i" (sizeof(*fpu_ctxt) / 4) );
+         break;
+     case 4: case 2:
+         asm volatile (
+@@ -157,13 +156,7 @@ static inline void fpu_fxsave(struct vcp
+ 
+     if ( fip_width != 4 )
+     {
+-        /*
+-         * The only way to force fxsaveq on a wide range of gas versions.
+-         * On older versions the rex64 prefix works only if we force an
+-         * addressing mode that doesn't require extended registers.
+-         */
+-        asm volatile ( REX64_PREFIX "fxsave (%1)"
+-                       : "=m" (*fpu_ctxt) : "R" (fpu_ctxt) );
++        asm volatile ( "fxsaveq %0" : "=m" (*fpu_ctxt) );
+ 
+         /*
+          * Some CPUs don't save/restore FDP/FIP/FOP unless an exception is
+--- a/xen/arch/x86/include/asm/asm_defns.h
++++ b/xen/arch/x86/include/asm/asm_defns.h
+@@ -331,14 +331,6 @@ static always_inline void stac(void)
+ #define safe_swapgs                             \
+         "mfence; swapgs;"
+ 
+-#ifdef __sun__
+-#define REX64_PREFIX "rex64\\"
+-#elif defined(__clang__)
+-#define REX64_PREFIX ".byte 0x48; "
+-#else
+-#define REX64_PREFIX "rex64/"
+-#endif
+-
+ #define ELFNOTE(name, type, desc)           \
+     .pushsection .note.name, "a", @note   ; \
+     .p2align 2                            ; \
 
