@@ -2,37 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5BBF59350F1
-	for <lists+xen-devel@lfdr.de>; Thu, 18 Jul 2024 18:54:56 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.760633.1170543 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 64628935111
+	for <lists+xen-devel@lfdr.de>; Thu, 18 Jul 2024 19:08:00 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.760662.1170552 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sUUOv-0003hk-0H; Thu, 18 Jul 2024 16:54:41 +0000
+	id 1sUUar-0006Xp-6H; Thu, 18 Jul 2024 17:07:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 760633.1170543; Thu, 18 Jul 2024 16:54:40 +0000
+Received: by outflank-mailman (output) from mailman id 760662.1170552; Thu, 18 Jul 2024 17:07:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sUUOu-0003gF-Te; Thu, 18 Jul 2024 16:54:40 +0000
-Received: by outflank-mailman (input) for mailman id 760633;
- Thu, 18 Jul 2024 16:54:39 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1sUUar-0006Vr-3h; Thu, 18 Jul 2024 17:07:01 +0000
+Received: by outflank-mailman (input) for mailman id 760662;
+ Thu, 18 Jul 2024 17:07:00 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=MiOu=OS=cloud.com=alejandro.vallejo@srs-se1.protection.inumbo.net>)
- id 1sUUOt-0003g9-JV
- for xen-devel@lists.xenproject.org; Thu, 18 Jul 2024 16:54:39 +0000
-Received: from mail-ed1-x533.google.com (mail-ed1-x533.google.com
- [2a00:1450:4864:20::533])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 6acbab8c-4526-11ef-8776-851b0ebba9a2;
- Thu, 18 Jul 2024 18:54:37 +0200 (CEST)
-Received: by mail-ed1-x533.google.com with SMTP id
- 4fb4d7f45d1cf-58e76294858so99849a12.0
- for <xen-devel@lists.xenproject.org>; Thu, 18 Jul 2024 09:54:37 -0700 (PDT)
-Received: from localhost ([185.25.67.249]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5a2b676c74dsm55561a12.10.2024.07.18.09.54.36
+ <SRS0=AEHZ=OS=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1sUUaq-0006Vl-Bs
+ for xen-devel@lists.xenproject.org; Thu, 18 Jul 2024 17:07:00 +0000
+Received: from mail-qk1-x736.google.com (mail-qk1-x736.google.com
+ [2607:f8b0:4864:20::736])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 24908ea5-4528-11ef-bbfd-fd08da9f4363;
+ Thu, 18 Jul 2024 19:06:59 +0200 (CEST)
+Received: by mail-qk1-x736.google.com with SMTP id
+ af79cd13be357-79f083f5cb6so28924885a.3
+ for <xen-devel@lists.xenproject.org>; Thu, 18 Jul 2024 10:06:59 -0700 (PDT)
+Received: from [10.125.226.166] ([185.25.67.249])
+ by smtp.gmail.com with ESMTPSA id
+ af79cd13be357-7a1938f0674sm44494285a.61.2024.07.18.10.06.56
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 18 Jul 2024 09:54:36 -0700 (PDT)
+ Thu, 18 Jul 2024 10:06:57 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,189 +45,127 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6acbab8c-4526-11ef-8776-851b0ebba9a2
+X-Inumbo-ID: 24908ea5-4528-11ef-bbfd-fd08da9f4363
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1721321677; x=1721926477; darn=lists.xenproject.org;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-transfer-encoding:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=xcPb7I9RXMTFl4+UfiV1/KnoKBsPI0JuJtndM3eMftw=;
-        b=ESB32CxOwJ/y87SgLvpaEZBhIdSdjvR+qsqrmpPfGnDVmSuVtAid/+NZYTvdcRR921
-         zqOp+udanZE/pCjKTvbmaW3h2RPQsXmZn6VY53oolfqlmv7wdaP4+LbRGVz/SmM3e0El
-         j5r+K06hivkzubheSRcaEcw3Or4QWuCvJxyj8=
+        d=citrix.com; s=google; t=1721322418; x=1721927218; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=ufxJ+wk+qkOogv3RiaZnix+u85SOqFXVXqwzHhdSUoQ=;
+        b=bw0l3K+iDPu3nDgVSBXf6RpT9Y+7NVKrkXDBOdjhbxYuLqyAFQbu/errI9iGQ4QfUP
+         EdpAknx1fEd3MS4cLrEFv78GFg1i9WutfLIyzW96P9HdyUdsM+acYxVNJ0XWz9cCpeaF
+         DX5VwLEvnAfjh/S3DEMAFCfGnLCat4bfy1kmg=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1721321677; x=1721926477;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-transfer-encoding:mime-version:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=xcPb7I9RXMTFl4+UfiV1/KnoKBsPI0JuJtndM3eMftw=;
-        b=LG4FcnsvPXHJlITnIW8b8qSkl/J51ziHzKALWLD5eXQ3+zf2AZ5iHKsmsz9HCgWrIb
-         uwm9dZ2NJllVB/DXv9jRn7eBe6tR6Akr2Gjw///PTCvirjMvJKkWPsxmh48sC0qP67s7
-         wVcLlmgSXSZefDXwj7/z8qU5Z9Sb8xz1nJ5EKXITHGU1tvtUL6ryI3slDUiWE679D+kF
-         by3JNJ/ycwZtfm31vU5erhFxX4KHgHTZ/a+fpWXuiwx1ZlGYW09yJdxDDat95cRlpr4D
-         uLdwadjrc3D/avyKUr93Lc29z8lFuPVJNgEE5vOeqvnKBRhnmnF5g9c0tMSXFBrt6doh
-         PDyg==
-X-Forwarded-Encrypted: i=1; AJvYcCUBiKQpCh7veW5jmaZjaf9GnmQ8Rcn4So/ZXbWcfPaVBE2hPRUX/hhtgkTN5KgS3AS+XU7TxTU/JGRTcGl3ewDsHkOU/7v3+fLiORj23Ng=
-X-Gm-Message-State: AOJu0YxtJU/3jDtarUW9L9w2ZCuMo7mLin6Pib0KaJo4/+h8rncT0MUQ
-	m1Z+8FBVyumOT0767FCENzcze0bJ5QdjzOOGHxadA9fJX4GVaDYa5ZHJZGktxe4=
-X-Google-Smtp-Source: AGHT+IH15tW5MDA2fodCvG7TcmMVlGnM3xpT289mDzXlogdQapBRbTUKD1rG4pLYbcXExgc2nVJRuw==
-X-Received: by 2002:a05:6402:2110:b0:57d:3e48:165d with SMTP id 4fb4d7f45d1cf-5a1557cd01fmr4345153a12.4.1721321676986;
-        Thu, 18 Jul 2024 09:54:36 -0700 (PDT)
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
+        d=1e100.net; s=20230601; t=1721322418; x=1721927218;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=ufxJ+wk+qkOogv3RiaZnix+u85SOqFXVXqwzHhdSUoQ=;
+        b=SeV9ZWxZ+NTlEy/nZAb4rlthXVgu+Qp8+zMOderdli5PRzCKUUQn0yjroPlQDzqQ8C
+         I3+u9J0RPGZNXb4x2bhpVWkM649yZ0QrMbgkquT3p2wqGJpTO2dqedXAhDs5duxqnmc+
+         Ay1z6F+3qBg52PB0tGqq0g7zQoiE9nOQxep15f0QH5yyNxk2kLa+HVBZkx0vo0Sh4VWD
+         GrGddIED56oTTzQtd5EuEf6ZkDs9LqxYPyuT9YaELoQMEzHeFMPr37VAMqvF61laCemk
+         ugZLnH4SO41V0hSgjBhyTzY/CQFg0nhXrHprK7/PmJK5DUrQFefrNwHc9abiiWWq3uqg
+         fSXg==
+X-Forwarded-Encrypted: i=1; AJvYcCXX+eGBypzw6jxkueQUMjH3E54e/N/20SNZrD/6xkjh65bjYNcjJyuzaaivKCJwfvxlQhzzmAmK1uV+D6PPLEZFNpnQ0SmdJ4rqt+2WJ/Q=
+X-Gm-Message-State: AOJu0Yy1J0z5eILflL15MNDRsBK4Scepw6/aEJ/VB82oxlphbvMOOK+O
+	KMz7MJWKcmn1tknyxHKd7U9O1jenB1V9kK/oX5FyPJT9s1X/BHOhc1UKyiOcd7E=
+X-Google-Smtp-Source: AGHT+IF3mv8dVarejYjyPlSw/zAWJWsQbtOrmZNpcFI+nTjGWLb9TCg2dOn4hV1mQbPvXY/nje3WCA==
+X-Received: by 2002:a05:620a:4554:b0:79d:5a77:aea8 with SMTP id af79cd13be357-7a1938ea4cdmr170522785a.1.1721322418017;
+        Thu, 18 Jul 2024 10:06:58 -0700 (PDT)
+Message-ID: <99403a3c-1e4f-4971-a08b-5480e6d1e829@citrix.com>
+Date: Thu, 18 Jul 2024 18:06:54 +0100
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] x86/HVM: get_pat_flags() is needed only by shadow code
+To: Jan Beulich <jbeulich@suse.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+References: <76aafbed-bea9-445a-8abb-6e1e44996594@suse.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <76aafbed-bea9-445a-8abb-6e1e44996594@suse.com>
 Content-Type: text/plain; charset=UTF-8
-Date: Thu, 18 Jul 2024 17:54:34 +0100
-Message-Id: <D2STLWUF9965.3QXLJ2TWIXS1Z@cloud.com>
-Cc: "Andrew Cooper" <andrew.cooper3@citrix.com>,
- =?utf-8?q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, "Xen-devel"
- <xen-devel@lists.xenproject.org>
-Subject: Re: [PATCH for-4.20 3/4] x86/fpu: Combine fpu_ctxt and xsave_area
- in arch_vcpu
-From: "Alejandro Vallejo" <alejandro.vallejo@cloud.com>
-To: "Jan Beulich" <jbeulich@suse.com>
-X-Mailer: aerc 0.17.0
-References: <cover.1720538832.git.alejandro.vallejo@cloud.com>
- <170c78f39dfef620d9060be3f1b31313673f09b9.1720538832.git.alejandro.vallejo@cloud.com> <78ae0b2f-e0a6-4ab9-b7a6-43e1357ff9b9@suse.com>
-In-Reply-To: <78ae0b2f-e0a6-4ab9-b7a6-43e1357ff9b9@suse.com>
+Content-Transfer-Encoding: 7bit
 
-On Thu Jul 18, 2024 at 12:49 PM BST, Jan Beulich wrote:
-> On 09.07.2024 17:52, Alejandro Vallejo wrote:
-> > --- a/xen/arch/x86/domctl.c
-> > +++ b/xen/arch/x86/domctl.c
-> > @@ -1343,7 +1343,8 @@ void arch_get_info_guest(struct vcpu *v, vcpu_gue=
-st_context_u c)
-> >  #define c(fld) (c.nat->fld)
-> >  #endif
-> > =20
-> > -    memcpy(&c.nat->fpu_ctxt, v->arch.fpu_ctxt, sizeof(c.nat->fpu_ctxt)=
-);
-> > +    memcpy(&c.nat->fpu_ctxt, &v->arch.xsave_area->fpu_sse,
-> > +           sizeof(c.nat->fpu_ctxt));
+On 18/07/2024 11:10 am, Jan Beulich wrote:
+> Therefore with SHADOW_PAGING=n this is better compiled out, to avoid
+> leaving around unreachable/dead code.
 >
-> Now that the middle argument has proper type, maybe take the opportunity
-> and add BUILD_BUG_ON(sizeof(...) =3D=3D sizeof(...))? (Also in e.g.
-> hvm_save_cpu_ctxt() then.)
-
-Sure.
-
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
 >
-> > --- a/xen/arch/x86/include/asm/domain.h
-> > +++ b/xen/arch/x86/include/asm/domain.h
-> > @@ -591,12 +591,7 @@ struct pv_vcpu
-> > =20
-> >  struct arch_vcpu
-> >  {
-> > -    /*
-> > -     * guest context (mirroring struct vcpu_guest_context) common
-> > -     * between pv and hvm guests
-> > -     */
-> > -
-> > -    void              *fpu_ctxt;
-> > +    /* Fixed point registers */
-> >      struct cpu_user_regs user_regs;
->
-> Not exactly, no. Selector registers are there as well for example, which
-> I wouldn't consider "fixed point" ones. I wonder why the existing comment
-> cannot simply be kept, perhaps extended to mention that fpu_ctxt now live=
-s
-> elsewhere.
+> --- a/xen/arch/x86/hvm/mtrr.c
+> +++ b/xen/arch/x86/hvm/mtrr.c
+> @@ -271,6 +271,8 @@ int mtrr_get_type(const struct mtrr_stat
+>     return overlap_mtrr_pos;
+>  }
+>  
+> +#ifdef CONFIG_SHADOW_PAGING
+> +
+>  /*
+>   * return the memory type from PAT.
+>   * NOTE: valid only when paging is enabled.
+> @@ -359,6 +361,8 @@ uint32_t get_pat_flags(struct vcpu *v,
+>      return pat_type_2_pte_flags(pat_entry_value);
+>  }
+>  
+> +#endif /* CONFIG_SHADOW_PAGING */
+> +
+>  static inline bool valid_mtrr_type(uint8_t type)
+>  {
+>      switch ( type )
 
-Would you prefer "general purpose registers"? It's not quite that either, b=
-ut
-it's arguably closer. I can part with the comment altogether but I'd rather
-leave a token amount of information to say "non-FPU register state" (but no=
-t
-that, because that would be a terrible description).=20
+While I can see this is true, the fact it is indicates that we have
+bugs/problems elsewhere.
 
-I'd rather update it to something that better reflects reality, as I found =
-it
-quite misleading when reading through. I initially thought it may have been
-related to struct layout (as in C-style single-level inheritance), but as i=
-t
-turns out it's merely establishing a vague relationship between arch_vcpu a=
-nd
-vcpu_guest_context. I can believe once upon a time the relationship was clo=
-ser
-than it it now, but with the guest context missing AVX state, MSR state and
-other bits and pieces I thought it better to avoid such confusions for futu=
-re
-navigators down the line so limit its description to the line below.
+It is not only the shadow code that has to combine attributes like this,
+so we've either got opencoding elsewhere, or a bad abstraction.
 
->
-> > --- a/xen/arch/x86/x86_emulate/blk.c
-> > +++ b/xen/arch/x86/x86_emulate/blk.c
-> > @@ -11,7 +11,8 @@
-> >      !defined(X86EMUL_NO_SIMD)
-> >  # ifdef __XEN__
-> >  #  include <asm/xstate.h>
-> > -#  define FXSAVE_AREA current->arch.fpu_ctxt
-> > +#  define FXSAVE_AREA ((struct x86_fxsr *) \
-> > +                           (void*)&current->arch.xsave_area->fpu_sse)
->
-> Nit: Blank missing after before *.
+(This is an observation, rather than a specific objection.)
 
-Heh, took me a while looking at x86_fxsr to realise you mean the void point=
-er.
-
-Ack.
-
->
-> > --- a/xen/arch/x86/xstate.c
-> > +++ b/xen/arch/x86/xstate.c
-> > @@ -507,9 +507,16 @@ int xstate_alloc_save_area(struct vcpu *v)
-> >      unsigned int size;
-> > =20
-> >      if ( !cpu_has_xsave )
-> > -        return 0;
-> > -
-> > -    if ( !is_idle_vcpu(v) || !cpu_has_xsavec )
-> > +    {
-> > +        /*
-> > +         * This is bigger than FXSAVE_SIZE by 64 bytes, but it helps t=
-reating
-> > +         * the FPU state uniformly as an XSAVE buffer even if XSAVE is=
- not
-> > +         * available in the host. Note the alignment restriction of th=
-e XSAVE
-> > +         * area are stricter than those of the FXSAVE area.
-> > +         */
-> > +        size =3D XSTATE_AREA_MIN_SIZE;
->
-> What exactly would break if just (a little over) 512 bytes worth were all=
-ocated
-> when there's no XSAVE? If it was exactly 512, something like xstate_all()=
- would
-> need to apply a little more care, I guess. Yet for that having just alway=
-s-zero
-> xstate_bv and xcomp_bv there would already suffice (e.g. using
-> offsetof(..., xsave_hdr.reserved) here, to cover further fields gaining m=
-eaning
-> down the road). Remember that due to xmalloc() overhead and the 64-byte-a=
-ligned
-> requirement, you can only have 6 of them in a page the way you do it, whe=
-n the
-> alternative way 7 would fit (if I got my math right).
->
-> Jan
-
-I'm slightly confused.
-
-XSTATE_AREA_MIN_SIZE is already 512 + 64 to account for the XSAVE header,
-including its reserved fields. Did you mean something else?
-
-    #define XSAVE_HDR_SIZE            64
-    #define XSAVE_SSE_OFFSET          160
-    #define XSTATE_YMM_SIZE           256
-    #define FXSAVE_SIZE               512
-    #define XSAVE_HDR_OFFSET          FXSAVE_SIZE
-    #define XSTATE_AREA_MIN_SIZE      (FXSAVE_SIZE + XSAVE_HDR_SIZE)
-
-Part of the rationale is to simplify other bits of code that are currently
-conditionalized on v->xsave_header being NULL. And for that the full xsave
-header must be present (even if unused because !cpu_xsave)
-
-Do you mean something else?
-
-Cheers,
-Alejandro
+~Andrew
 
