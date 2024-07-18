@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 42665934B5E
-	for <lists+xen-devel@lfdr.de>; Thu, 18 Jul 2024 11:59:07 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.760332.1170144 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B4612934B7D
+	for <lists+xen-devel@lfdr.de>; Thu, 18 Jul 2024 12:10:19 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.760339.1170154 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sUNuG-0005R6-Pf; Thu, 18 Jul 2024 09:58:36 +0000
+	id 1sUO4m-0007J4-PT; Thu, 18 Jul 2024 10:09:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 760332.1170144; Thu, 18 Jul 2024 09:58:36 +0000
+Received: by outflank-mailman (output) from mailman id 760339.1170154; Thu, 18 Jul 2024 10:09:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sUNuG-0005PM-N3; Thu, 18 Jul 2024 09:58:36 +0000
-Received: by outflank-mailman (input) for mailman id 760332;
- Thu, 18 Jul 2024 09:58:35 +0000
+	id 1sUO4m-0007HO-Kg; Thu, 18 Jul 2024 10:09:28 +0000
+Received: by outflank-mailman (input) for mailman id 760339;
+ Thu, 18 Jul 2024 10:09:26 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=3WUc=OS=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sUNuF-0005PE-0S
- for xen-devel@lists.xenproject.org; Thu, 18 Jul 2024 09:58:35 +0000
-Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
- [2a00:1450:4864:20::432])
+ id 1sUO4k-0007HE-HW
+ for xen-devel@lists.xenproject.org; Thu, 18 Jul 2024 10:09:26 +0000
+Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
+ [2a00:1450:4864:20::42f])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 4b17bd46-44ec-11ef-bbfd-fd08da9f4363;
- Thu, 18 Jul 2024 11:58:33 +0200 (CEST)
-Received: by mail-wr1-x432.google.com with SMTP id
- ffacd0b85a97d-36865a516f1so139737f8f.0
- for <xen-devel@lists.xenproject.org>; Thu, 18 Jul 2024 02:58:33 -0700 (PDT)
+ id cf71500d-44ed-11ef-bbfd-fd08da9f4363;
+ Thu, 18 Jul 2024 12:09:25 +0200 (CEST)
+Received: by mail-wr1-x42f.google.com with SMTP id
+ ffacd0b85a97d-36865a516f1so149069f8f.0
+ for <xen-devel@lists.xenproject.org>; Thu, 18 Jul 2024 03:09:25 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-1fc584764c7sm15399485ad.179.2024.07.18.02.58.30
+ d9443c01a7336-1fc6c35e3fesm3616075ad.226.2024.07.18.03.09.22
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 18 Jul 2024 02:58:32 -0700 (PDT)
+ Thu, 18 Jul 2024 03:09:24 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,47 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4b17bd46-44ec-11ef-bbfd-fd08da9f4363
+X-Inumbo-ID: cf71500d-44ed-11ef-bbfd-fd08da9f4363
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1721296713; x=1721901513; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=dixNdZNY+Ch57hCG0rGhbZD1MMP19b3uBD1jEgHuwvM=;
-        b=OJTPE5RrfpGwEX19Vx5XwaZH+cXBoBOHwmlfmbF82O64ekAVeKJmufCSwQ+flhmCw0
-         +dFaGlxg5FJzZByfKXKsR2CG5V5jw54Ou8VUmE2Vw1asWRM1PPLS7ugzrQ+CpwAMhOD5
-         LeqYP4UY6WD1o0e39WRpmciZzrE19MjmeeD7WqaOJbTRt46rMyankl4xfU6bAdVLrabT
-         CHhdGSK9I8X+ifqRajT9yo0srvvwg0otEv8IyWT3lZDWCcrTm2N9Bkp7+aUaD7FowLwp
-         3lR4kU1CPmx0RE06PDWZ+MxLPfqLU5BPp50aG4CM7mKvUZoNAAeB5cZAM3KObZhiigUQ
-         wqFA==
+        d=suse.com; s=google; t=1721297364; x=1721902164; darn=lists.xenproject.org;
+        h=content-transfer-encoding:autocrypt:subject:from:cc:to
+         :content-language:user-agent:mime-version:date:message-id:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=hjY9ludigvyXvUHU4qLDGwaBXfQGaH7kqtj+jdk2E30=;
+        b=MaAr5WqEVckFhuGswGPqKJdNYyot8ZmPEM13A6GkXyLqePd9xj+VPUZFUmpV1ydROc
+         Lnh4LPrTItLXJPP2xHCHMTCC518CCNGgYU8l0dI0l77kDjoQrPOcqIobvmf3QrAX5wEr
+         CwcFhnjzlCJdRzBzQsSxYbAgXwpPRv9ul6UnWvF4ti7uKjZ7pOJoQuJTX+JrxHrkVWKM
+         8uiWcs5AuybbeSwuVvOYiNt7XvD5PNA9Cz3k96qqWkGpEbvXAsW6zOVChpSE3iAVfDeB
+         resaeNaOPHwvEa7IyRnyIenLiwoeSFvz2ooZ0zBs2tA/r1UjGlEeN2ULSfXt/zydCsvf
+         Iyhw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1721296713; x=1721901513;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=dixNdZNY+Ch57hCG0rGhbZD1MMP19b3uBD1jEgHuwvM=;
-        b=Cgb46SATwv1eYlXM+AB43B4Xj3qB1bqiCUHqo8krAEYihHTV8hppY+qBYiPiLLPKYc
-         1iSNnj5Kj3e4lUUeiZ8bp5ZTMXjP371ZKiWHFdsCerwGpO/h2cr5YKfOuM/t8UdQoIYM
-         fxeDWHhXmsA6I2Sl9+whBHQtSSjyphY7ghJyRgJTpfQlGO/kqGN4nBfVFr2A/47ISsxP
-         YFOMvDhUWFcneEcEabN5BiQNmuPyex5nukAxkQtfzsX+Zz6v3xJmT9tVkZUtX5LCSH9b
-         EzCokcp9aCCGynXCdFJkPmTxGoYn6WP7xhhoLFHC0p+SJos5K3XeHMIyCCeFPIDHTcuD
-         W8pQ==
-X-Forwarded-Encrypted: i=1; AJvYcCW1HZGveikZVtTvRSEZiROIsip3EwSsSVbv8zLb6FeoWYuJH31Is9LUhMKrevi9U1DkYzgZo4kgpoELejsK8C7UJDRzC3bSWT1jGQXb9uw=
-X-Gm-Message-State: AOJu0YzaaS7d1eHEk4ukH9UFfK9WnpjSsUs/6VmdhJT9Dpf1buiL1NAu
-	yRUALkuvPDihEmz5uyhsYEi1B8BRD9Yzn3uQvWVpyXecxb97CORxhyDNyYUBHg==
-X-Google-Smtp-Source: AGHT+IFy0Dps+dTEmgAnq4FWBekbPBQpnPLGdwSYV0G5QURWFXksvPOtWkGymLAGCpGHQ/LVaipVtA==
-X-Received: by 2002:a05:6000:184d:b0:368:6337:4221 with SMTP id ffacd0b85a97d-36863374885mr693045f8f.54.1721296712997;
-        Thu, 18 Jul 2024 02:58:32 -0700 (PDT)
-Message-ID: <87a924ed-e258-41e4-8a2a-19527c08a4e3@suse.com>
-Date: Thu, 18 Jul 2024 11:58:26 +0200
+        d=1e100.net; s=20230601; t=1721297364; x=1721902164;
+        h=content-transfer-encoding:autocrypt:subject:from:cc:to
+         :content-language:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=hjY9ludigvyXvUHU4qLDGwaBXfQGaH7kqtj+jdk2E30=;
+        b=X6ynF7pTlyz8Smq6joC9AH8ZnFACKSdNCOnn2Ed4nBAw0V46djKoy+Gy2QNBE16B2t
+         EEBy4a/VeB97WalLRnA6BB+h0GotmD0ak2pLaZ/LbhwLJR9ehE+AGG6B4zoxcqNGP/ve
+         kecb1gKINuDVWPhQLuVRL6ElK07MwuEyX1JgZ53PDqUZCFxgE42RNgYkkbyjpDMSx7CC
+         VuyTajeUwZkEI1P78y03LIfS7dxPnpgrAXvV7K/Mr0IhWRC1EdM3vFlNIHsac2+8almB
+         eIeZxZm5iXpiqhZI2tExBYonI8AY5TFoT1SPGe6ASMvL28taXtzM3zKFrVxItTyQHCQT
+         GKGw==
+X-Gm-Message-State: AOJu0YzPnXcPSqLTtHQP9kFgbg7IxTu/FcfKIT1TeymQtPL5PWfuBptb
+	fYZfvwuGSHKGTbVhLuY4IDHzOj9PhkjbV4rzWeK7SPUnUQH5GW05PSVVba7CT88lPe4k+u8wvlE
+	=
+X-Google-Smtp-Source: AGHT+IFZZ5irNbFlke7Az39P2qNW18/Xnq3uUXrmOqWdHCMGvzKYknriSRs+Te/Q91MSf3ZPxDanOw==
+X-Received: by 2002:a5d:62c5:0:b0:360:75b1:77fb with SMTP id ffacd0b85a97d-368315f1eddmr3216708f8f.8.1721297364591;
+        Thu, 18 Jul 2024 03:09:24 -0700 (PDT)
+Message-ID: <9f56adbc-5e16-4b48-a7f0-e72c6b8f1999@suse.com>
+Date: Thu, 18 Jul 2024 12:09:18 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC 3/3] x86/mm: Simplify/correct l1_disallow_mask()
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20240717161415.3586195-1-andrew.cooper3@citrix.com>
- <20240717161415.3586195-4-andrew.cooper3@citrix.com>
 Content-Language: en-US
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
+Subject: [PATCH] x86/mm: drop gfn_to_paddr()
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -112,62 +109,47 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240717161415.3586195-4-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 17.07.2024 18:14, Andrew Cooper wrote:
-> l1_disallow_mask() yields L1_DISALLOW_MASK with PAGE_CACHE_ATTRS conditionally
-> permitted.  First, rewrite it as a plain function.
-> 
-> Next, correct some dubious behaviours.
-> 
-> The use of is_pv_domain() is tautological; l1_disallow_mask() is only used in
-> the PV pagetable code, and it return true for system domains as well.
+This really is gfn_to_gaddr() in disguise; no need to have two variants
+of the same logic.
 
-Well, only quite. What you say is entirely true for mod_l1_entry(), but sadly
-not for get_page_from_l1e(): That's also used by shadow_get_page_from_l1e(),
-i.e. theoretically from a PVH Dom0 running in shadow mode. I don't think I
-can spot anywhere we'd reject that combination.
+Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
-> The use of has_arch_pdevs() is wonky; by making the use of cache attributes
-> dependent on the instantanious property of whether any devices is assigned,
-> means that a guest could have created a legal PTE which will fail validation
-> at a later point when the device has been removed.
-> 
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> ---
-> CC: Jan Beulich <JBeulich@suse.com>
-> CC: Roger Pau Monné <roger.pau@citrix.com>
-> 
-> RFC.  I've not tested this, and I doubt it will work to start with owing to
-> the removal of the dom_io special case which IIRC dom0 uses to map arbitrary
-> MMIO.
-
-I think that check has been dead for a long time. DomIO can't be the page
-table owner; it can only be the owner of a page to be mapped. The check
-likely was needed only before the proper splitting of which domain involved
-plays which role. Dropping this may then want to be done as a separate
-change, but it could of course remain here as long as properly explained in
-the description. Maybe for the time being we want to retain an assertion to
-this effect.
-
-> Furthermore, the rangeset_is_empty() calls have the same problem that
-> has_arch_pdevs() has; they're not invariants on the domain.  Also, VMs
-> wanting/needing encrypted memory need fully working cacheability irrespective
-> of device assignment.
-> 
-> I expect the way we actually want to fix this is to have a CDF flag for
-> allowing reduced cahcebility, and for this expression to simplify to just:
-> 
->     if ( d->options & XEN_DOMCTL_CDF_any_cacheability )
->         disallow &= ~PAGE_CACHE_ATTRS;
-> 
-> which is simpler still.
-
-Perhaps. Or refuse altering the two rangesets post-creation for domains
-without IOMMUs ("post-creation" here including the establishing of any
-mapping on behalf of the domain).
-
-Jan
+--- a/xen/arch/x86/include/asm/guest_pt.h
++++ b/xen/arch/x86/include/asm/guest_pt.h
+@@ -20,12 +20,6 @@
+ #error GUEST_PAGING_LEVELS not defined
+ #endif
+ 
+-static inline paddr_t
+-gfn_to_paddr(gfn_t gfn)
+-{
+-    return ((paddr_t)gfn_x(gfn)) << PAGE_SHIFT;
+-}
+-
+ /* Override get_gfn to work with gfn_t */
+ #undef get_gfn
+ #define get_gfn(d, g, t) get_gfn_type((d), gfn_x(g), (t), P2M_ALLOC)
+--- a/xen/arch/x86/mm/shadow/multi.c
++++ b/xen/arch/x86/mm/shadow/multi.c
+@@ -562,7 +562,7 @@ _sh_propagate(struct vcpu *v,
+                 if ( p2mt == p2m_mmio_direct )
+                     sflags |= get_pat_flags(v,
+                             gflags,
+-                            gfn_to_paddr(target_gfn),
++                            gfn_to_gaddr(target_gfn),
+                             mfn_to_maddr(target_mfn),
+                             X86_MT_UC);
+                 else if ( is_iommu_enabled(d) && iommu_snoop )
+@@ -570,7 +570,7 @@ _sh_propagate(struct vcpu *v,
+                 else
+                     sflags |= get_pat_flags(v,
+                             gflags,
+-                            gfn_to_paddr(target_gfn),
++                            gfn_to_gaddr(target_gfn),
+                             mfn_to_maddr(target_mfn),
+                             NO_HARDCODE_MEM_TYPE);
+             }
 
