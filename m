@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5C61C934A9E
-	for <lists+xen-devel@lfdr.de>; Thu, 18 Jul 2024 11:00:55 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.760311.1170114 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 98FC1934AD9
+	for <lists+xen-devel@lfdr.de>; Thu, 18 Jul 2024 11:25:54 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.760318.1170124 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sUMzD-0005TY-57; Thu, 18 Jul 2024 08:59:39 +0000
+	id 1sUNO7-0000kO-3n; Thu, 18 Jul 2024 09:25:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 760311.1170114; Thu, 18 Jul 2024 08:59:39 +0000
+Received: by outflank-mailman (output) from mailman id 760318.1170124; Thu, 18 Jul 2024 09:25:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sUMzD-0005RI-1h; Thu, 18 Jul 2024 08:59:39 +0000
-Received: by outflank-mailman (input) for mailman id 760311;
- Thu, 18 Jul 2024 08:59:38 +0000
+	id 1sUNO7-0000hs-0S; Thu, 18 Jul 2024 09:25:23 +0000
+Received: by outflank-mailman (input) for mailman id 760318;
+ Thu, 18 Jul 2024 09:25:22 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=3WUc=OS=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sUMzC-0005RB-4E
- for xen-devel@lists.xenproject.org; Thu, 18 Jul 2024 08:59:38 +0000
-Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
- [2a00:1450:4864:20::42f])
+ id 1sUNO6-0000hm-6k
+ for xen-devel@lists.xenproject.org; Thu, 18 Jul 2024 09:25:22 +0000
+Received: from mail-lj1-x22c.google.com (mail-lj1-x22c.google.com
+ [2a00:1450:4864:20::22c])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 0e4996d5-44e4-11ef-bbfd-fd08da9f4363;
- Thu, 18 Jul 2024 10:59:36 +0200 (CEST)
-Received: by mail-wr1-x42f.google.com with SMTP id
- ffacd0b85a97d-36865a516f1so87397f8f.0
- for <xen-devel@lists.xenproject.org>; Thu, 18 Jul 2024 01:59:36 -0700 (PDT)
+ id a707ecf2-44e7-11ef-bbfd-fd08da9f4363;
+ Thu, 18 Jul 2024 11:25:20 +0200 (CEST)
+Received: by mail-lj1-x22c.google.com with SMTP id
+ 38308e7fff4ca-2eedec7fbc4so7515861fa.0
+ for <xen-devel@lists.xenproject.org>; Thu, 18 Jul 2024 02:25:20 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-70b7eb9c90asm9818106b3a.12.2024.07.18.01.59.31
+ d2e1a72fcca58-70b7eb9e1f9sm9521797b3a.44.2024.07.18.02.25.17
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 18 Jul 2024 01:59:34 -0700 (PDT)
+ Thu, 18 Jul 2024 02:25:19 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,58 +45,48 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0e4996d5-44e4-11ef-bbfd-fd08da9f4363
+X-Inumbo-ID: a707ecf2-44e7-11ef-bbfd-fd08da9f4363
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1721293175; x=1721897975; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1721294720; x=1721899520; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=EapaIDTL5bYt9TOWZMn6K5IkSDCSuhe3rauWEvN/tp8=;
-        b=T6tfH01XoQMxlYl1pLteqpJzgAz5ulth2yWy438PPTgsUM6qo8ByUWc81XKRErU2PL
-         8zONUdKHYI0SbLSZ1O38SRa4qHOVgAK3DFrNxzRYwM1q+g8iixggvSw6gN2dXGRT/24R
-         KJQy+oMejOw3L824BVveI1OrnViLP0lqhMKnokjYqLJcwwLNvrD7Sg/Fmbufi2Utdk3d
-         h0YNPPOTR3Imsw0viSf36c5L2j7Q1ce3N6DTWVTpflgZuqiUQZPHQvgBumBmiwuzWDDQ
-         gytYsBR6oFa4D2BWNTRG3FHRl4zJTmw6nQconJ65S15GeyvDdci7te9GzsCa2NElbe5G
-         eG9w==
+        bh=EurgUxlYhaAI8y9cnRLb2B+YuA+juv/H3Qd9TpCrQwk=;
+        b=cYg07m+G1r+GEnF0BXRzJm6xdIKerSTRNaYIzYaLLZErOmKzZ8emd8bWKiCf049c+H
+         20i3F5LttFs2RR3V4RqKz39Rpr5oP16BOCNHHhYBk1w/4UNrODJNFCgtkwJb2MLAs7X/
+         UlBUV+7r/V3OXm8SLgTQT93Jee4NgwhN6puLMSN/dqMqwajuH1G3DfoFXOZ0ntnkTy7f
+         eND5970chkHPFz3Sndrsgvb9f7kVnp1Eh2Je4OEAYkiSpJzefOFn8bmIsb91QD83JpGy
+         Ul9vbCo6tV3AE4tdqY5wWJl1c9iCaOxaZCbCtDnSOOkAl5QNP5VsA9FnmRQx4NZSJ4HI
+         BNyw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1721293175; x=1721897975;
+        d=1e100.net; s=20230601; t=1721294720; x=1721899520;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=EapaIDTL5bYt9TOWZMn6K5IkSDCSuhe3rauWEvN/tp8=;
-        b=xKnWKuH6r0rmeHFcJJoO+XJcTa6VxLu4OYhFqsjnoXGZTZTWgYXx+xTW3KMsEQpRyN
-         t52YZx9Qp3XCEniyrrisY8wQjxGDtBr+txLPl8dRILe9uoRMH8IhnsLj0YxP9PhcQMvE
-         CBkEGj1umZhkt8KDHAK1UuxkEkBwNBn8PqCjsqA3vUcBPSmWb1jQzy2olfKO7b1lO6Vq
-         3PSuAMTgxFGsBf9BK7mV5V3idI7O8rq6nb2XnGVp7nyLOZlKTDpM4+PtMqJWjw2JicBn
-         IOjEh55xiuDgMHFsiiNrJAPZ5PwZ6dlcQuh3KjgjVo8QSUfKXa1MUkqxx8NGXWs5sp++
-         Qvbg==
-X-Forwarded-Encrypted: i=1; AJvYcCU6Waayvg0NcI3doEDGZdoe2XER7MowzPiPtiVJ2gzu5YTfrTwShMOPXdcbYHc0jHuR9PRSNt0XsKJZ+DL3dcF0or22KisWW4ax5xRwLKM=
-X-Gm-Message-State: AOJu0Ywknv59DBSvG/5sr+6NVP3GFPORJb520nFDqWQfCXNcEZ8bP5xu
-	Gg+Xx8vRVjY9v6rrz+KujKO96cZU2JWHKm3q8SXILCTxWqrjShgcfxuxclsl7w==
-X-Google-Smtp-Source: AGHT+IGDtVk2DavyJhwaXI8fASY9/6A8AxY6i+9ryMkxhG0MZwP9lWD8XfokX56Ig0SisNmRvVnUAw==
-X-Received: by 2002:a5d:6445:0:b0:368:4910:8f43 with SMTP id ffacd0b85a97d-36849109037mr1577452f8f.3.1721293174927;
-        Thu, 18 Jul 2024 01:59:34 -0700 (PDT)
-Message-ID: <8fd8d6e4-ef29-4ea9-9437-a743c25fe7b9@suse.com>
-Date: Thu, 18 Jul 2024 10:59:26 +0200
+        bh=EurgUxlYhaAI8y9cnRLb2B+YuA+juv/H3Qd9TpCrQwk=;
+        b=F9EU3z2HeT9PBzaXRwIQ5PFpYTUuVvMRDSS6+VrzBy8wC/fiCNhgCfTx5SIMmWZYq4
+         WB6Um3e126wqOu3MmtgvDtVB+ys0IWmNhgzuvN8sIasxQzic9z6N4LmMnLYm87Mtzw3Y
+         0PGERp2b5dOyNlECvSv6FiMCC9sWL/beyxn0kxGdhdCEvXxZ1kKwCnveVej0V2K85g/z
+         pR3R6pMlIKeuxGwhp1lO19bxIes1nkcE3/wHOrqhgWGqAyNpLp9gCKeS9TovrSMQsfxx
+         SckLm2M+QntHGnLo2EacNX6n6qCWk7LYdMEZ0v6NJIp0xw0a5xqgbmDhKxo+C/CzHVAB
+         OdvQ==
+X-Forwarded-Encrypted: i=1; AJvYcCVzI69k/hFHnydFSIwqVAHdqV9S50zjRt+LK33hwic591qYkhCHCgKGNJAzCgkQZ9k5B4yF/DPM6edlTTcpH3u4b8mCtL+gXuAfiuZQDPM=
+X-Gm-Message-State: AOJu0Yzm/JG8U9XW5rcJQ3CSMi95sforneWSyU/CU6+CFFerPMz0VhdG
+	TZhkePQsDUajspUnea8YafGP6uz4Ig3vAX3Zkr+SpB3uKTZRnP5JxreejEGnJA==
+X-Google-Smtp-Source: AGHT+IGZev0VZvslKR6HhFbiNe1IUefBtAvmqvrcML2UowJ5xbOZbnDE8RGVpcxeeKScr+ELt53sIg==
+X-Received: by 2002:a05:651c:1052:b0:2ee:4f93:ae25 with SMTP id 38308e7fff4ca-2ef05ca1e53mr12741581fa.29.1721294719637;
+        Thu, 18 Jul 2024 02:25:19 -0700 (PDT)
+Message-ID: <b90ae2d3-35f4-4bf4-a498-43c0fa920fae@suse.com>
+Date: Thu, 18 Jul 2024 11:25:13 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH 17/17] CODING_STYLE: Add a section on header guards
- naming conventions
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: Alessandro Zucchelli <alessandro.zucchelli@bugseng.com>,
- consulting@bugseng.com, Andrew Cooper <andrew.cooper3@citrix.com>,
- Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
-References: <cover.1719829101.git.alessandro.zucchelli@bugseng.com>
- <fdb3811e00b9d6708c18d349a5a5043bb1b49cec.1719829101.git.alessandro.zucchelli@bugseng.com>
- <375074a0-0db7-40ba-9c9f-590b0cbe2409@suse.com>
- <alpine.DEB.2.22.394.2407121528380.3635@ubuntu-linux-20-04-desktop>
- <f1369d5e-5c2e-4866-a593-9656b569c086@suse.com>
- <alpine.DEB.2.22.394.2407151736530.3635@ubuntu-linux-20-04-desktop>
- <4893a89d-9ef5-4d86-94b0-042e88588439@suse.com>
- <alpine.DEB.2.22.394.2407161713010.3635@ubuntu-linux-20-04-desktop>
- <013c6cc2-eddf-4beb-b115-01aaaa71faa6@suse.com>
- <alpine.DEB.2.22.394.2407171601540.3635@ubuntu-linux-20-04-desktop>
+Subject: Re: [PATCH 1/3] x86/mm: Drop duplicate l1_disallow_mask() calls
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20240717161415.3586195-1-andrew.cooper3@citrix.com>
+ <20240717161415.3586195-2-andrew.cooper3@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -122,105 +112,29 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <alpine.DEB.2.22.394.2407171601540.3635@ubuntu-linux-20-04-desktop>
+In-Reply-To: <20240717161415.3586195-2-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 18.07.2024 01:02, Stefano Stabellini wrote:
-> On Wed, 17 Jul 2024, Jan Beulich wrote:
->> On 17.07.2024 02:20, Stefano Stabellini wrote:
->>> On Tue, 16 Jul 2024, Jan Beulich wrote:
->>>> On 16.07.2024 02:43, Stefano Stabellini wrote:
->>>>> On Mon, 15 Jul 2024, Jan Beulich wrote:
->>>>>> On 13.07.2024 00:38, Stefano Stabellini wrote:
->>>>>>> On Wed, 3 Jul 2024, Jan Beulich wrote:
->>>>>>>> I further have to note that, as indicated during the earlier discussion,
->>>>>>>> I still cannot see how occasional ambiguity is going to be dealt with.
->>>>>>>> IOW from the rules above two different headers could still end up with
->>>>>>>> the same guard identifier.
->>>>>>>
->>>>>>> Maybe something like this?
->>>>>>>
->>>>>>> "In the event of naming collisions, exceptions to the coding style may
->>>>>>> be made at the discretion of the contributor and maintainers."
->>>>>>
->>>>>> Hmm, maybe I wasn't clear enough then. My take is that the scheme should
->>>>>> simply not allow for possible collisions. Neither the contributor nor the
->>>>>> reviewer may spot such a collision, and it may therefore take until the
->>>>>> first full scan that one is actually noticed. Which I consider too late
->>>>>> in the process, even if we already were at the point where commits were
->>>>>> checked pre-push.
->>>>>
->>>>> Looking at the proposal, copy/pasted here for convenience:
->>>>>
->>>>> - private headers -> <dir>_<filename>_H
->>>>> - asm-generic headers -> ASM_GENERIC_<filename>_H
->>>>>     - #ifndef ASM_GENERIC_X86_PERCPU_H
->>>>>       #define ASM_GENERIC_X86_PERCPU_H
->>>>>       //...
->>>>>       #endif /* ASM_GENERIC_X86_PERCPU_H */
->>>>> - arch/<architecture>/include/asm/<subdir>/<filename>.h -> ASM_<architecture>_<subdir>_<filename>_H
->>>>>     - #ifndef ASM_X86_DOMAIN_H
->>>>>       #define ASM_X86_DOMAIN_H
->>>>>       //...
->>>>>       #endif /* ASM_X86_DOMAIN_H */
->>>>> - xen/include/xen/<filename>.h -> XEN_<filename>_H
->>>>> - xen/include/xen/<subdir>/<filename>.h -> XEN_<subdir>_<filename>_H
->>>>>
->>>>>
->>>>> The only possibility for collision that I can see is from the first
->>>>> point:
->>>>>
->>>>> - private headers -> <dir>_<filename>_H
->>>>
->>>> I don't think this is the only possibility of collisions. The <subdir>_<filename>
->>>> parts can similarly cause problems if either of the two involved names contains
->>>> e.g. a dash (which would need converting to an underscore) or an underscore. To
->>>> avoid this, the name separators (slashes in the actual file names) there may need
->>>> representing by double underscores.
->>>
->>> I am OK with you two underscores as name separator (slashes in the
->>> actual file names). Would you do it for all levels like this?
->>>
->>> - arch/arm/arm64/lib/something.h -> ARM__ARM64__LIB__SOMETHING_H
->>> - arch/arm/arm32/lib/something.h -> ARM__ARM32__LIB__SOMETHING_H
->>> - arch/x86/lib/something.h -> X86__LIB__SOMETHING_H
->>>
->>>
->>> I think it is better than the below:
->>>
->>> - arch/arm/arm64/lib/something.h -> ARM_ARM64__LIB__SOMETHING_H
->>> - arch/arm/arm32/lib/something.h -> ARM_ARM32__LIB__SOMETHING_H
->>> - arch/x86/lib/something.h -> X86_LIB__SOMETHING_H
->>
->> Hmm, maybe it's indeed better to do it entirely uniformly then.
+On 17.07.2024 18:14, Andrew Cooper wrote:
+> Even in release builds, gdprintk() evalues its parameters for side effects,
+> and l1_disallow_mask() is full of them.
 > 
+> Calculate the disallow mask once and reuse the variable.  This improves code
+> generation in release builds:
 > 
-> Do we have agreement on the naming convention then? 
+>   add/remove: 0/0 grow/shrink: 0/2 up/down: 0/-207 (-207)
+>   Function                                     old     new   delta
+>   mod_l1_entry                                1947    1860     -87
+>   get_page_from_l1e                           1391    1271    -120
 > 
+> Also, render the bad flags message with a 0x prefix.
 > 
-> - private headers -> <dir>__<filename>__H
->     - arch/arm/arm64/lib/something.h -> ARM__ARM64__LIB__SOMETHING_H
->     - arch/arm/arm32/lib/something.h -> ARM__ARM32__LIB__SOMETHING_H
->     - arch/x86/lib/something.h -> X86__LIB__SOMETHING_H
+> No practical change.
 > 
-> - asm-generic headers -> ASM_GENERIC_<filename>_H
->     - include/asm-generic/percpu.h -> ASM_GENERIC_X86_PERCPU_H
-> 
-> - arch/<architecture>/include/asm/<subdir>/<filename>.h -> ASM_<architecture>_<subdir>_<filename>_H
->     - arch/x86/include/asm/domain.h -> ASM_X86_DOMAIN_H
-> 
-> - include/xen -> XEN_<filename>_H
->     - include/xen/percpu.h -> XEN_PERCPU_H
-> 
-> 
-> Or do you prefer the double underscore __  in all cases?
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-It's not so much prefer, but a requirement if we want to be future proof.
-Even for ASM_GENERIC_* that'll be needed, as your outline above simply
-doesn't mention the (future) case of there being subdir-s there (see how
-Linux already has some). Imo the question doesn't even arise for XEN_*,
-as xen/ has subdir-s already.
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
-Jan
+
 
