@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7DC3F9350E5
-	for <lists+xen-devel@lfdr.de>; Thu, 18 Jul 2024 18:49:28 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.760597.1170523 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5BBF59350F1
+	for <lists+xen-devel@lfdr.de>; Thu, 18 Jul 2024 18:54:56 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.760633.1170543 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sUUJL-0000Bs-65; Thu, 18 Jul 2024 16:48:55 +0000
+	id 1sUUOv-0003hk-0H; Thu, 18 Jul 2024 16:54:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 760597.1170523; Thu, 18 Jul 2024 16:48:55 +0000
+Received: by outflank-mailman (output) from mailman id 760633.1170543; Thu, 18 Jul 2024 16:54:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sUUJL-00009h-0n; Thu, 18 Jul 2024 16:48:55 +0000
-Received: by outflank-mailman (input) for mailman id 760597;
- Thu, 18 Jul 2024 16:48:54 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1sUUOu-0003gF-Te; Thu, 18 Jul 2024 16:54:40 +0000
+Received: by outflank-mailman (input) for mailman id 760633;
+ Thu, 18 Jul 2024 16:54:39 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=AEHZ=OS=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1sUUJK-0007PV-77
- for xen-devel@lists.xenproject.org; Thu, 18 Jul 2024 16:48:54 +0000
-Received: from mail-lf1-x134.google.com (mail-lf1-x134.google.com
- [2a00:1450:4864:20::134])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 9dcf5687-4525-11ef-bbfd-fd08da9f4363;
- Thu, 18 Jul 2024 18:48:53 +0200 (CEST)
-Received: by mail-lf1-x134.google.com with SMTP id
- 2adb3069b0e04-52ee4e26790so767008e87.0
- for <xen-devel@lists.xenproject.org>; Thu, 18 Jul 2024 09:48:53 -0700 (PDT)
-Received: from andrewcoop.eng.citrite.net ([185.25.67.249])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a79bc820f2bsm576882466b.206.2024.07.18.09.48.51
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 18 Jul 2024 09:48:52 -0700 (PDT)
+ <SRS0=MiOu=OS=cloud.com=alejandro.vallejo@srs-se1.protection.inumbo.net>)
+ id 1sUUOt-0003g9-JV
+ for xen-devel@lists.xenproject.org; Thu, 18 Jul 2024 16:54:39 +0000
+Received: from mail-ed1-x533.google.com (mail-ed1-x533.google.com
+ [2a00:1450:4864:20::533])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 6acbab8c-4526-11ef-8776-851b0ebba9a2;
+ Thu, 18 Jul 2024 18:54:37 +0200 (CEST)
+Received: by mail-ed1-x533.google.com with SMTP id
+ 4fb4d7f45d1cf-58e76294858so99849a12.0
+ for <xen-devel@lists.xenproject.org>; Thu, 18 Jul 2024 09:54:37 -0700 (PDT)
+Received: from localhost ([185.25.67.249]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-5a2b676c74dsm55561a12.10.2024.07.18.09.54.36
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 18 Jul 2024 09:54:36 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,120 +44,189 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9dcf5687-4525-11ef-bbfd-fd08da9f4363
+X-Inumbo-ID: 6acbab8c-4526-11ef-8776-851b0ebba9a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1721321332; x=1721926132; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+        d=cloud.com; s=cloud; t=1721321677; x=1721926477; darn=lists.xenproject.org;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-transfer-encoding:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=NhFAb8PBQU/57PNqveksaa0wxKn4j+nTJ+P+HwWc7e4=;
-        b=jQ0bWDdjaR9m+QbYmV2C1XVWkpO8CBWMTmAnftexBYwdblB/ZjNxGmjVtoBEwyw9kg
-         5JhUaXRHF5PAo10LRe7b//GIDDnSgVPXHehkcrYof1CNu66S/BclbP46CRJT+u/54qZU
-         f5IR4d1LRBItOz9doundZ2VakqtDeULWZrvWw=
+        bh=xcPb7I9RXMTFl4+UfiV1/KnoKBsPI0JuJtndM3eMftw=;
+        b=ESB32CxOwJ/y87SgLvpaEZBhIdSdjvR+qsqrmpPfGnDVmSuVtAid/+NZYTvdcRR921
+         zqOp+udanZE/pCjKTvbmaW3h2RPQsXmZn6VY53oolfqlmv7wdaP4+LbRGVz/SmM3e0El
+         j5r+K06hivkzubheSRcaEcw3Or4QWuCvJxyj8=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1721321332; x=1721926132;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=NhFAb8PBQU/57PNqveksaa0wxKn4j+nTJ+P+HwWc7e4=;
-        b=E97GePdMyUjXhmix57GrMWnS2hwxGDY4vph/cvaeWrzcFgCQPRLLN/PDl5u9LVyAOm
-         sLPyMdMDR0pwMk0RoDIlgcOfqN7Q1ukNMXSw2zIpKWVaSMCeV/KJWkiwcbtt2ECtjvDn
-         CiBXUHEUBAXoz0TaD96KQ/WRiN/vkuPn71pNs6BO6dKNZGcG72HcLhMNheKx2r5mvLv2
-         qfEJlycnxsEJVcx55q+I3QS0llK0SznRPng7jW5+bGy2Jj/i+W2HabKADgiSH0Npllpw
-         TgF8LDlbZo4oKenwmYiSWWRYTq5uhHREkUp4zWTfgWymv5gKeztIoK5eRNx9eQC7SWLg
-         vC2w==
-X-Gm-Message-State: AOJu0Yz650rppTEa4oQxWM9cY/UI6n2+A6N1Y9hQAsNYsyG4kqv6CPMO
-	X7/BlR1ItU4+zO+ixQ66Wyqx0dD1XFpGL6RnCJpuq5DKEoB2v/Y2VS61AAzlb7AmiBJVBloIpCs
-	F
-X-Google-Smtp-Source: AGHT+IG4Fe3mXPxhBviT+OHpGVmgrBeFMtY0KoXy8ywzzLjRF6J/wTS1Q3D3OlChZOth7bazYM/HZA==
-X-Received: by 2002:a05:6512:1082:b0:52b:bee3:dcc6 with SMTP id 2adb3069b0e04-52ee542de4emr3859041e87.51.1721321332536;
-        Thu, 18 Jul 2024 09:48:52 -0700 (PDT)
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Juergen Gross <jgross@suse.com>
-Subject: [PATCH 6/6] tools/libxs: Stop playing with SIGPIPE
-Date: Thu, 18 Jul 2024 17:48:42 +0100
-Message-Id: <20240718164842.3650702-7-andrew.cooper3@citrix.com>
-X-Mailer: git-send-email 2.39.2
-In-Reply-To: <20240718164842.3650702-1-andrew.cooper3@citrix.com>
-References: <20240718164842.3650702-1-andrew.cooper3@citrix.com>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+        d=1e100.net; s=20230601; t=1721321677; x=1721926477;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-transfer-encoding:mime-version:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=xcPb7I9RXMTFl4+UfiV1/KnoKBsPI0JuJtndM3eMftw=;
+        b=LG4FcnsvPXHJlITnIW8b8qSkl/J51ziHzKALWLD5eXQ3+zf2AZ5iHKsmsz9HCgWrIb
+         uwm9dZ2NJllVB/DXv9jRn7eBe6tR6Akr2Gjw///PTCvirjMvJKkWPsxmh48sC0qP67s7
+         wVcLlmgSXSZefDXwj7/z8qU5Z9Sb8xz1nJ5EKXITHGU1tvtUL6ryI3slDUiWE679D+kF
+         by3JNJ/ycwZtfm31vU5erhFxX4KHgHTZ/a+fpWXuiwx1ZlGYW09yJdxDDat95cRlpr4D
+         uLdwadjrc3D/avyKUr93Lc29z8lFuPVJNgEE5vOeqvnKBRhnmnF5g9c0tMSXFBrt6doh
+         PDyg==
+X-Forwarded-Encrypted: i=1; AJvYcCUBiKQpCh7veW5jmaZjaf9GnmQ8Rcn4So/ZXbWcfPaVBE2hPRUX/hhtgkTN5KgS3AS+XU7TxTU/JGRTcGl3ewDsHkOU/7v3+fLiORj23Ng=
+X-Gm-Message-State: AOJu0YxtJU/3jDtarUW9L9w2ZCuMo7mLin6Pib0KaJo4/+h8rncT0MUQ
+	m1Z+8FBVyumOT0767FCENzcze0bJ5QdjzOOGHxadA9fJX4GVaDYa5ZHJZGktxe4=
+X-Google-Smtp-Source: AGHT+IH15tW5MDA2fodCvG7TcmMVlGnM3xpT289mDzXlogdQapBRbTUKD1rG4pLYbcXExgc2nVJRuw==
+X-Received: by 2002:a05:6402:2110:b0:57d:3e48:165d with SMTP id 4fb4d7f45d1cf-5a1557cd01fmr4345153a12.4.1721321676986;
+        Thu, 18 Jul 2024 09:54:36 -0700 (PDT)
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Thu, 18 Jul 2024 17:54:34 +0100
+Message-Id: <D2STLWUF9965.3QXLJ2TWIXS1Z@cloud.com>
+Cc: "Andrew Cooper" <andrew.cooper3@citrix.com>,
+ =?utf-8?q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, "Xen-devel"
+ <xen-devel@lists.xenproject.org>
+Subject: Re: [PATCH for-4.20 3/4] x86/fpu: Combine fpu_ctxt and xsave_area
+ in arch_vcpu
+From: "Alejandro Vallejo" <alejandro.vallejo@cloud.com>
+To: "Jan Beulich" <jbeulich@suse.com>
+X-Mailer: aerc 0.17.0
+References: <cover.1720538832.git.alejandro.vallejo@cloud.com>
+ <170c78f39dfef620d9060be3f1b31313673f09b9.1720538832.git.alejandro.vallejo@cloud.com> <78ae0b2f-e0a6-4ab9-b7a6-43e1357ff9b9@suse.com>
+In-Reply-To: <78ae0b2f-e0a6-4ab9-b7a6-43e1357ff9b9@suse.com>
 
-It's very rude for a library to play with signals behind the back of the
-application, no matter ones views on the default behaviour of SIGPIPE under
-POSIX.  Even if the application doesn't care about the xenstored socket, it my
-care about others.
+On Thu Jul 18, 2024 at 12:49 PM BST, Jan Beulich wrote:
+> On 09.07.2024 17:52, Alejandro Vallejo wrote:
+> > --- a/xen/arch/x86/domctl.c
+> > +++ b/xen/arch/x86/domctl.c
+> > @@ -1343,7 +1343,8 @@ void arch_get_info_guest(struct vcpu *v, vcpu_gue=
+st_context_u c)
+> >  #define c(fld) (c.nat->fld)
+> >  #endif
+> > =20
+> > -    memcpy(&c.nat->fpu_ctxt, v->arch.fpu_ctxt, sizeof(c.nat->fpu_ctxt)=
+);
+> > +    memcpy(&c.nat->fpu_ctxt, &v->arch.xsave_area->fpu_sse,
+> > +           sizeof(c.nat->fpu_ctxt));
+>
+> Now that the middle argument has proper type, maybe take the opportunity
+> and add BUILD_BUG_ON(sizeof(...) =3D=3D sizeof(...))? (Also in e.g.
+> hvm_save_cpu_ctxt() then.)
 
-This logic has existed since xenstore/xenstored was originally added in commit
-29c9e570b1ed ("Add xenstore daemon and library") in 2005.
+Sure.
 
-It's also unnecessary.  Pass MSG_NOSIGNAL when talking to xenstored over a
-pipe (to avoid sucumbing to SIGPIPE if xenstored has crashed), and forgo any
-playing with the signal disposition.
+>
+> > --- a/xen/arch/x86/include/asm/domain.h
+> > +++ b/xen/arch/x86/include/asm/domain.h
+> > @@ -591,12 +591,7 @@ struct pv_vcpu
+> > =20
+> >  struct arch_vcpu
+> >  {
+> > -    /*
+> > -     * guest context (mirroring struct vcpu_guest_context) common
+> > -     * between pv and hvm guests
+> > -     */
+> > -
+> > -    void              *fpu_ctxt;
+> > +    /* Fixed point registers */
+> >      struct cpu_user_regs user_regs;
+>
+> Not exactly, no. Selector registers are there as well for example, which
+> I wouldn't consider "fixed point" ones. I wonder why the existing comment
+> cannot simply be kept, perhaps extended to mention that fpu_ctxt now live=
+s
+> elsewhere.
 
-This has a side benefit of saving 2 syscalls per xenstore request.
+Would you prefer "general purpose registers"? It's not quite that either, b=
+ut
+it's arguably closer. I can part with the comment altogether but I'd rather
+leave a token amount of information to say "non-FPU register state" (but no=
+t
+that, because that would be a terrible description).=20
 
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
----
-CC: Anthony PERARD <anthony.perard@vates.tech>
-CC: Juergen Gross <jgross@suse.com>
----
- tools/libs/store/xs.c | 10 +---------
- 1 file changed, 1 insertion(+), 9 deletions(-)
+I'd rather update it to something that better reflects reality, as I found =
+it
+quite misleading when reading through. I initially thought it may have been
+related to struct layout (as in C-style single-level inheritance), but as i=
+t
+turns out it's merely establishing a vague relationship between arch_vcpu a=
+nd
+vcpu_guest_context. I can believe once upon a time the relationship was clo=
+ser
+than it it now, but with the guest context missing AVX state, MSR state and
+other bits and pieces I thought it better to avoid such confusions for futu=
+re
+navigators down the line so limit its description to the line below.
 
-diff --git a/tools/libs/store/xs.c b/tools/libs/store/xs.c
-index 9db5c02661f5..63d754e17014 100644
---- a/tools/libs/store/xs.c
-+++ b/tools/libs/store/xs.c
-@@ -579,7 +579,7 @@ static bool sendmsg_exact(int fd, struct iovec *iov, unsigned int nr)
- 	assert(iov->iov_len == sizeof(struct xsd_sockmsg));
- 
- 	while (hdr.msg_iovlen) {
--		ssize_t res = sendmsg(fd, &hdr, 0);
-+		ssize_t res = sendmsg(fd, &hdr, MSG_NOSIGNAL);
- 
- 		if (res < 0 && errno == EINTR)
- 			continue;
-@@ -680,7 +680,6 @@ static void *xs_talkv(struct xs_handle *h,
- 	void *ret = NULL;
- 	int saved_errno;
- 	unsigned int i, msg_len;
--	struct sigaction ignorepipe, oldact;
- 
- 	/* Element 0 must be xsd_sockmsg */
- 	assert(num_vecs >= 1);
-@@ -697,11 +696,6 @@ static void *xs_talkv(struct xs_handle *h,
- 
- 	msg->len = msg_len;
- 
--	ignorepipe.sa_handler = SIG_IGN;
--	sigemptyset(&ignorepipe.sa_mask);
--	ignorepipe.sa_flags = 0;
--	sigaction(SIGPIPE, &ignorepipe, &oldact);
--
- 	mutex_lock(&h->request_mutex);
- 
- 	if (!write_request(h, iovec, num_vecs))
-@@ -713,7 +707,6 @@ static void *xs_talkv(struct xs_handle *h,
- 
- 	mutex_unlock(&h->request_mutex);
- 
--	sigaction(SIGPIPE, &oldact, NULL);
- 	if (reply_type == XS_ERROR) {
- 		saved_errno = get_error(ret);
- 		free(ret);
-@@ -732,7 +725,6 @@ static void *xs_talkv(struct xs_handle *h,
- 	/* We're in a bad state, so close fd. */
- 	saved_errno = errno;
- 	mutex_unlock(&h->request_mutex);
--	sigaction(SIGPIPE, &oldact, NULL);
- close_fd:
- 	close(h->fd);
- 	h->fd = -1;
--- 
-2.39.2
+>
+> > --- a/xen/arch/x86/x86_emulate/blk.c
+> > +++ b/xen/arch/x86/x86_emulate/blk.c
+> > @@ -11,7 +11,8 @@
+> >      !defined(X86EMUL_NO_SIMD)
+> >  # ifdef __XEN__
+> >  #  include <asm/xstate.h>
+> > -#  define FXSAVE_AREA current->arch.fpu_ctxt
+> > +#  define FXSAVE_AREA ((struct x86_fxsr *) \
+> > +                           (void*)&current->arch.xsave_area->fpu_sse)
+>
+> Nit: Blank missing after before *.
 
+Heh, took me a while looking at x86_fxsr to realise you mean the void point=
+er.
+
+Ack.
+
+>
+> > --- a/xen/arch/x86/xstate.c
+> > +++ b/xen/arch/x86/xstate.c
+> > @@ -507,9 +507,16 @@ int xstate_alloc_save_area(struct vcpu *v)
+> >      unsigned int size;
+> > =20
+> >      if ( !cpu_has_xsave )
+> > -        return 0;
+> > -
+> > -    if ( !is_idle_vcpu(v) || !cpu_has_xsavec )
+> > +    {
+> > +        /*
+> > +         * This is bigger than FXSAVE_SIZE by 64 bytes, but it helps t=
+reating
+> > +         * the FPU state uniformly as an XSAVE buffer even if XSAVE is=
+ not
+> > +         * available in the host. Note the alignment restriction of th=
+e XSAVE
+> > +         * area are stricter than those of the FXSAVE area.
+> > +         */
+> > +        size =3D XSTATE_AREA_MIN_SIZE;
+>
+> What exactly would break if just (a little over) 512 bytes worth were all=
+ocated
+> when there's no XSAVE? If it was exactly 512, something like xstate_all()=
+ would
+> need to apply a little more care, I guess. Yet for that having just alway=
+s-zero
+> xstate_bv and xcomp_bv there would already suffice (e.g. using
+> offsetof(..., xsave_hdr.reserved) here, to cover further fields gaining m=
+eaning
+> down the road). Remember that due to xmalloc() overhead and the 64-byte-a=
+ligned
+> requirement, you can only have 6 of them in a page the way you do it, whe=
+n the
+> alternative way 7 would fit (if I got my math right).
+>
+> Jan
+
+I'm slightly confused.
+
+XSTATE_AREA_MIN_SIZE is already 512 + 64 to account for the XSAVE header,
+including its reserved fields. Did you mean something else?
+
+    #define XSAVE_HDR_SIZE            64
+    #define XSAVE_SSE_OFFSET          160
+    #define XSTATE_YMM_SIZE           256
+    #define FXSAVE_SIZE               512
+    #define XSAVE_HDR_OFFSET          FXSAVE_SIZE
+    #define XSTATE_AREA_MIN_SIZE      (FXSAVE_SIZE + XSAVE_HDR_SIZE)
+
+Part of the rationale is to simplify other bits of code that are currently
+conditionalized on v->xsave_header being NULL. And for that the full xsave
+header must be present (even if unused because !cpu_xsave)
+
+Do you mean something else?
+
+Cheers,
+Alejandro
 
